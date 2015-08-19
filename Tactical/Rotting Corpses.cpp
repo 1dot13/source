@@ -63,9 +63,10 @@ class SOLDIERTYPE;
 
 #define		CORPSE_INDEX_OFFSET		10000
 
+// Flugente: these are ini values now
 //#define		DELAY_UNTIL_ROTTING		( 1 * NUM_SEC_IN_DAY )
-#define		DELAY_UNTIL_ROTTING		 ( 1 * NUM_SEC_IN_DAY / 60 )
-#define	DELAY_UNTIL_DONE_ROTTING	( 3 * NUM_SEC_IN_DAY / 60 )
+//#define		DELAY_UNTIL_ROTTING			( 1 * NUM_SEC_IN_DAY / 60 )
+//#define		DELAY_UNTIL_DONE_ROTTING	( 3 * NUM_SEC_IN_DAY / 60 )
 
 #define		MAX_NUM_CROWS					6
 
@@ -372,13 +373,9 @@ BOOLEAN				CreateCorpseShadedPalette( ROTTING_CORPSE *pCorpse, UINT32 uiBase, SG
 void ReduceAmmoDroppedByNonPlayerSoldiers( SOLDIERTYPE *pSoldier, INT32 iInvSlot );
 void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj);
 
-
-
 INT32 GetFreeRottingCorpse(void)
 {
-	INT32 iCount;
-
-	for(iCount=0; iCount < giNumRottingCorpse; iCount++)
+	for ( INT32 iCount = 0; iCount < giNumRottingCorpse; ++iCount )
 	{
 		if(( gRottingCorpse[iCount].fActivated == FALSE ) )
 			return((INT32)iCount);
@@ -393,11 +390,9 @@ INT32 GetFreeRottingCorpse(void)
 
 void RecountRottingCorpses(void)
 {
-INT32 uiCount;
-
 	if ( giNumRottingCorpse > 0 )
 	{
-		for(uiCount=giNumRottingCorpse-1; (uiCount >=0) ; uiCount--)
+		for ( INT32 uiCount = giNumRottingCorpse - 1; (uiCount >= 0); --uiCount )
 		{
 			if( ( gRottingCorpse[uiCount].fActivated == FALSE ) )
 			{
@@ -425,40 +420,40 @@ UINT16 GetCorpseStructIndex( ROTTING_CORPSE_DEFINITION *pCorpseDef, BOOLEAN fFor
 	case ICECREAM_DEAD:
 	case HUMMER_DEAD:
 
-			// OK , these have 2 directions....
-			bDirection = gb2DirectionsFrom8[ pCorpseDef->ubDirection ];
+		// OK , these have 2 directions....
+		bDirection = gb2DirectionsFrom8[ pCorpseDef->ubDirection ];
 		if ( fForImage )
 		{
 			bDirection = gOneCDirection[ bDirection ];
 		}
-			break;
+		break;
 
-		case SMERC_FALL:
-		case SMERC_FALLF:
-		case MMERC_FALL:
-		case MMERC_FALLF:
-		case FMERC_FALL:
-		case FMERC_FALLF:
+	case SMERC_FALL:
+	case SMERC_FALLF:
+	case MMERC_FALL:
+	case MMERC_FALLF:
+	case FMERC_FALL:
+	case FMERC_FALLF:
 
-			// OK , these have 4 directions....
-			bDirection = gb4DirectionsFrom8[ pCorpseDef->ubDirection ];
+		// OK , these have 4 directions....
+		bDirection = gb4DirectionsFrom8[ pCorpseDef->ubDirection ];
 
 //		if ( fForImage )
 //		{
 //			bDirection = gOneCDirection[ bDirection ];
 //		}
-			break;
+		break;
 
-		default:
+	default:
 
-			// Uses 8
-			bDirection =	pCorpseDef->ubDirection;
+		// Uses 8
+		bDirection =	pCorpseDef->ubDirection;
 
 		if ( fForImage )
 		{
 			bDirection = gOneCDirection[ bDirection ];
 		}
-			break;
+		break;
 	}
 
 	return( bDirection );
@@ -526,21 +521,20 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
 		// OK, AS WE ADD, CHECK FOR TOD AND DECAY APPROPRIATELY
-		if ( ( ( GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath ) > DELAY_UNTIL_ROTTING ) && ( pCorpse->def.ubType < ROTTING_STAGE2 ) )
+		if ( ((GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) > gGameExternalOptions.usCorpseDelayUntilRotting) && (pCorpse->def.ubType < ROTTING_STAGE2) )
 		{
-		if ( pCorpse->def.ubType <= FMERC_FALLF )
-		{
-			// Rott!
-			pCorpse->def.ubType = ROTTING_STAGE2;
-		}
+			if ( pCorpse->def.ubType <= FMERC_FALLF )
+			{
+				// Rott!
+				pCorpse->def.ubType = ROTTING_STAGE2;
+			}
 		}
 
-	// If time of death is a few days, now, don't add at all!
-		if ( ( ( GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath ) > DELAY_UNTIL_DONE_ROTTING ) )
-	{
-
-		return( -1 );
-	}
+		// If time of death is a few days, now, don't add at all!
+		if ( ((GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) > gGameExternalOptions.usCorpseDelayUntilDoneRotting) )
+		{
+			return( -1 );
+		}
 	}
 
 	// Check if on roof or not...
@@ -554,7 +548,6 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 		ubLevelID = ANI_ONROOF_LEVEL;
 	}
 
-
 	memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
 	AniParams.sGridNo							= pCorpse->def.sGridNo;
 	AniParams.ubLevelID						= ubLevelID;
@@ -565,8 +558,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	AniParams.sY									= CenterY( pCorpse->def.sGridNo );
 	AniParams.sZ									= (INT16)pCorpse->def.sHeightAdjustment;
 	AniParams.uiUserData3					= pCorpse->def.ubDirection;
-
-
+	
 	if ( !gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
 	{
 		strcpy( AniParams.zCachedFile, zNoBloodCorpseFilenames[ pCorpse->def.ubType ] );
@@ -678,13 +670,11 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 
 void FreeCorpsePalettes( ROTTING_CORPSE *pCorpse )
 {
-	INT32 cnt;
-
 	// Free palettes
 	MemFree( pCorpse->p8BPPPalette );
 	MemFree( pCorpse->p16BPPPalette );
 
-	for ( cnt = 0; cnt < NUM_CORPSE_SHADES; cnt++ )
+	for ( INT32 cnt = 0; cnt < NUM_CORPSE_SHADES; ++cnt )
 	{
 		if ( pCorpse->pShades[ cnt ] != NULL )
 		{
@@ -697,9 +687,7 @@ void FreeCorpsePalettes( ROTTING_CORPSE *pCorpse )
 
 void RemoveCorpses( )
 {
-	INT32 iCount;
-
-	for(iCount=0; iCount < giNumRottingCorpse; iCount++)
+	for ( INT32 iCount = 0; iCount < giNumRottingCorpse; ++iCount )
 	{
 		if( ( gRottingCorpse[iCount].fActivated ) )
 		{
@@ -718,11 +706,7 @@ void RemoveCorpse( INT32 iCorpseID )
 	DeleteAniTile( gRottingCorpse[ iCorpseID ].pAniTile );
 
 	FreeCorpsePalettes( &( gRottingCorpse[ iCorpseID ] ) );
-
 }
-
-
-
 
 BOOLEAN CreateCorpsePalette( ROTTING_CORPSE *pCorpse )
 {
@@ -822,11 +806,12 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	INT8												bVisible = -1;
 	OBJECTTYPE									*pObj;
 	UINT8						ubNumGoo;
-  INT32 sNewGridNo;
- // ATE: Change to fix crash when item in hand
+	INT32 sNewGridNo;
+
+	// ATE: Change to fix crash when item in hand
 	if ( gpItemPointer != NULL && gpItemPointerSoldier == pSoldier )
 	{
-	CancelItemPointer( );
+		CancelItemPointer( );
 	}
 
 	// Setup some values!
@@ -837,9 +822,10 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	Corpse.dYPos									= pSoldier->dYPos;
 	Corpse.bLevel									= pSoldier->pathing.bLevel;
 	Corpse.ubProfile							= pSoldier->ubProfile;
+
 ///ddd{ for the enemy to be able to detect corpses
 	if ( pSoldier->bTeam != gbPlayerNum )
-	Corpse.ubAIWarningValue = 1;
+		Corpse.ubAIWarningValue = 1;
 		//def.ubAIWarningValue = 1; //not used value!
 ///ddd}
 	
@@ -959,8 +945,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	{
 		usItemFlags &= (~WORLD_ITEM_DONTRENDER );
 	}
-
-
+	
 	// ATE: If the queen is killed, she should
 	// make items visible because it ruins end sequence....
 	if ( pSoldier->ubProfile == QUEEN || pSoldier->bTeam == gbPlayerNum )
@@ -978,24 +963,25 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 		gTacticalStatus.fLockItemLocators = FALSE;
 
 		UINT8 DiffLevel;
-			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-				DiffLevel = 1;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-				DiffLevel = 2;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-				DiffLevel = 3;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-				DiffLevel = 4;	
-			else
-				DiffLevel = 1;
+		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+			DiffLevel = 1;
+		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+			DiffLevel = 2;
+		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+			DiffLevel = 3;
+		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+			DiffLevel = 4;	
+		else
+			DiffLevel = 1;
+
 		ubNumGoo = 6 - ( DiffLevel - DIF_LEVEL_EASY );
 		//ubNumGoo = 6 - ( gGameOptions.ubDifficultyLevel - DIF_LEVEL_EASY );
 		
 		sNewGridNo = pSoldier->sGridNo + ( WORLD_COLS * 2 );
 
-		for ( cnt = 0; cnt < ubNumGoo; cnt++ )
+		for ( cnt = 0; cnt < ubNumGoo; ++cnt )
 		{
-				CreateItem( JAR_QUEEN_CREATURE_BLOOD, 100, &gTempObject );
+			CreateItem( JAR_QUEEN_CREATURE_BLOOD, 100, &gTempObject );
 
 			AddItemToPool( sNewGridNo, &gTempObject, bVisible , pSoldier->pathing.bLevel, usItemFlags, -1 );
 		}
@@ -1011,8 +997,8 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 			if ( pObj->exists() == true )
 			{
 				// Check if it's supposed to be dropped
-			// silversurfer: new option to drop items from CIV_TEAM regardless of "OBJECT_UNDROPPABLE" flag
-			if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum 
+				// silversurfer: new option to drop items from CIV_TEAM regardless of "OBJECT_UNDROPPABLE" flag
+				if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum 
 					|| ( gGameExternalOptions.fCiviliansDropAll && pSoldier->bTeam == CIV_TEAM && !IsVehicle(pSoldier) ))
 				{
 					// and make sure that it really is a droppable item type
@@ -1099,7 +1085,6 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 		// Set type
 		Corpse.ubType	= ubType;
 
-
 		// Add corpse!
 		iCorpseID = AddRottingCorpse( &Corpse );
 	}
@@ -1119,6 +1104,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 
 	// If this is our guy......make visible...
 	//if ( pSoldier->bTeam == gbPlayerNum )
+	if ( iCorpseID != -1 )
 	{
 		MakeCorpseVisible( pSoldier, &( gRottingCorpse[ iCorpseID ] ) );
 	}
@@ -1131,34 +1117,31 @@ INT16 FindNearestRottingCorpse( SOLDIERTYPE *pSoldier )
 {
 	INT32		uiRange, uiLowestRange = 999999;
 	INT32 sLowestGridNo = NOWHERE;
-	INT32		cnt;
 	ROTTING_CORPSE		*pCorpse;
 
 	// OK, loop through our current listing of bodies
-	for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
 	{
 		pCorpse = &(gRottingCorpse[ cnt ] );
 
 		if ( pCorpse->fActivated )
 		{
-				// Check rotting state
-				if ( pCorpse->def.ubType == ROTTING_STAGE2 )
+			// Check rotting state
+			if ( pCorpse->def.ubType == ROTTING_STAGE2 )
+			{
+				uiRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, pCorpse->def.sGridNo );
+
+				if ( uiRange < uiLowestRange )
 				{
-					uiRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, pCorpse->def.sGridNo );
-
-					if ( uiRange < uiLowestRange )
-					{
-						sLowestGridNo = pCorpse->def.sGridNo;
-						uiLowestRange = uiRange;
-					}
+					sLowestGridNo = pCorpse->def.sGridNo;
+					uiLowestRange = uiRange;
 				}
+			}
 		}
-
 	}
 
 	return( sLowestGridNo );
 }
-
 
 void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 {
@@ -1202,34 +1185,30 @@ void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 			pSoldier->sInsertionGridNo		= sGridNo;
 			pSoldier->sDesiredHeight			= 0;
 
-		// Add to sector
-		AddSoldierToSector( iNewIndex );
+			// Add to sector
+			AddSoldierToSector( iNewIndex );
 
-		// Change to fly animation
-		//sGridNo =	FindRandomGridNoFromSweetSpot( pSoldier, pCorpse->def.sGridNo, 5, &ubDirection );
-		//pSoldier->usUIMovementMode = CROW_FLY;
-		//pSoldier->EVENT_GetNewSoldierPath( sGridNo, pSoldier->usUIMovementMode );
+			// Change to fly animation
+			//sGridNo =	FindRandomGridNoFromSweetSpot( pSoldier, pCorpse->def.sGridNo, 5, &ubDirection );
+			//pSoldier->usUIMovementMode = CROW_FLY;
+			//pSoldier->EVENT_GetNewSoldierPath( sGridNo, pSoldier->usUIMovementMode );
 
-		// Setup action data to point back to corpse....
-		pSoldier->aiData.uiPendingActionData1	=	pCorpse->iID;
-		pSoldier->aiData.sPendingActionData2		=	pCorpse->def.sGridNo;
+			// Setup action data to point back to corpse....
+			pSoldier->aiData.uiPendingActionData1	=	pCorpse->iID;
+			pSoldier->aiData.sPendingActionData2		=	pCorpse->def.sGridNo;
 
-		pCorpse->def.bNumServicingCrows++;
+			pCorpse->def.bNumServicingCrows++;
+		}
 	}
-
-	}
-
 }
 
 void HandleCrowLeave( SOLDIERTYPE *pSoldier )
 {
-	ROTTING_CORPSE		*pCorpse;
-
 	// Check if this crow is still referencing the same corpse...
-	pCorpse = &(gRottingCorpse[ pSoldier->aiData.uiPendingActionData1 ] );
+	ROTTING_CORPSE* pCorpse = &(gRottingCorpse[pSoldier->aiData.uiPendingActionData1]);
 
 	// Double check grindo...
-	if ( pSoldier->aiData.sPendingActionData2 == pCorpse->def.sGridNo )
+	if ( pCorpse && pSoldier->aiData.sPendingActionData2 == pCorpse->def.sGridNo )
 	{
 		// We have a match
 		// Adjust crow servicing count...
@@ -1264,9 +1243,13 @@ void HandleRottingCorpses( )
 	INT8							bNumCrows = 0;
 	UINT32			uiChosenCorpseID;
 
-
 	// Don't allow crows here if flags not set
 	if ( !gTacticalStatus.fGoodToAllowCrows )
+	{
+		return;
+	}
+
+	if ( gbWorldSectorZ > 0 )
 	{
 		return;
 	}
@@ -1277,24 +1260,19 @@ void HandleRottingCorpses( )
 		return;
 	}
 
-	if ( gbWorldSectorZ > 0 )
-	{
-	return;
-	}
-
 	// ATE: Check for multiple crows.....
 	// Couint how many we have now...
 	{
-		UINT8 bLoop;
+		UINT16 bLoop;
 		SOLDIERTYPE * pSoldier;
 
-		for (bLoop=gTacticalStatus.Team[ CIV_TEAM ].bFirstID, pSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; bLoop++, pSoldier++)
+		for ( bLoop=gTacticalStatus.Team[ CIV_TEAM ].bFirstID, pSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; bLoop++, pSoldier++)
 		{
 			if (pSoldier->bActive && pSoldier->bInSector && (pSoldier->stats.bLife >= OKLIFE) && !( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) )
 			{
 				if ( pSoldier->ubBodyType == CROW )
 				{
-					bNumCrows++;
+					++bNumCrows;
 				}
 			}
 		}
@@ -1303,17 +1281,17 @@ void HandleRottingCorpses( )
 	// Once population gets down to 0, we can add more again....
 	if ( bNumCrows == 0 )
 	{
-	gTacticalStatus.fDontAddNewCrows = FALSE;
+		gTacticalStatus.fDontAddNewCrows = FALSE;
 	}
 
 	if ( gTacticalStatus.fDontAddNewCrows )
 	{
-	return;
+		return;
 	}
 
 	if ( bNumCrows >= gTacticalStatus.ubNumCrowsPossible )
 	{
-	gTacticalStatus.fDontAddNewCrows = TRUE;
+		gTacticalStatus.fDontAddNewCrows = TRUE;
 		return;
 	}
 
@@ -1325,26 +1303,26 @@ void HandleRottingCorpses( )
 
 	// Pick one to attact a crow...
 	{
-	uiChosenCorpseID = Random( giNumRottingCorpse );
+		uiChosenCorpseID = Random( giNumRottingCorpse );
 
 		pCorpse = &(gRottingCorpse[ uiChosenCorpseID ] );
 
-	if ( pCorpse->fActivated )
-	{
-		if ( !( pCorpse->def.usFlags & ROTTING_CORPSE_VEHICLE ) )
+		if ( pCorpse->fActivated )
 		{
-			if ( pCorpse->def.ubType == ROTTING_STAGE2 )
+			if ( !( pCorpse->def.usFlags & ROTTING_CORPSE_VEHICLE ) )
 			{
-		 if ( GridNoOnScreen( pCorpse->def.sGridNo ) )
-		 {
-			 return;
-		 }
+				if ( pCorpse->def.ubType == ROTTING_STAGE2 )
+				{
+					 if ( GridNoOnScreen( pCorpse->def.sGridNo ) )
+					 {
+						 return;
+					 }
 
 					AddCrowToCorpse( pCorpse );
 					AddCrowToCorpse( pCorpse );
+				}
+			}
 		}
-		}
-	}
 	}
 }
 
@@ -1394,7 +1372,6 @@ void AllMercsOnTeamLookForCorpse( ROTTING_CORPSE *pCorpse, INT8 bTeam )
 	}
 }
 
-
 void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 {
 	// Should we say disgust quote?
@@ -1421,24 +1398,24 @@ void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 	// Every so often... do a corpse quote...
 	if ( Random( 400 ) <= 2 )
 	{
-		INT32					cnt;
-		INT32										sGridNo;
-		ROTTING_CORPSE					*pCorpse;
+		INT32				sGridNo;
+		ROTTING_CORPSE*		pCorpse;
 
 		// Loop through all corpses....
-		for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+		for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
 		{
 			pCorpse = &(gRottingCorpse[ cnt ] );
 
 			if ( !pCorpse->fActivated )
 			{
-			  continue;
+				continue;
 			}
 
 			// Has this corpse rotted enough?
 			if ( pCorpse->def.ubType == ROTTING_STAGE2 )
 			{
 				sGridNo = pCorpse->def.sGridNo;
+
 				// and we can trace a line of sight to his x,y coordinates?
 				// (taking into account we are definitely aware of this guy now)
 				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
@@ -1459,14 +1436,15 @@ void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 	}
 }
 
-
 void RebuildAllCorpseShadeTables( )
 {
-	INT32					cnt;
-	ROTTING_CORPSE					*pCorpse;
+	// Flugente 2015-08-19: atm this function is pointless, as nothing is ever done here... so I'm putting a stop to it 
+	return;
+
+	ROTTING_CORPSE*		pCorpse;
 
 	// Loop through all corpses....
-	for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; cnt++ )
 	{
 		pCorpse = &(gRottingCorpse[ cnt ] );
 
@@ -1489,16 +1467,16 @@ void RebuildAllCorpseShadeTables( )
 UINT16 CreateCorpsePaletteTables( ROTTING_CORPSE *pCorpse )
 {
 	SGPPaletteEntry LightPal[256];
-	UINT32 uiCount;
 
 	// create the basic shade table
-	for(uiCount=0; uiCount < 256; uiCount++)
+	for ( UINT32 uiCount = 0; uiCount < 256; ++uiCount )
 	{
 		// combine the rgb of the light color with the object's palette
 		LightPal[uiCount].peRed=(UINT8)(__min((UINT16)pCorpse->p8BPPPalette[uiCount].peRed+(UINT16)gpLightColors[0].peRed, 255));
 		LightPal[uiCount].peGreen=(UINT8)(__min((UINT16)pCorpse->p8BPPPalette[uiCount].peGreen+(UINT16)gpLightColors[0].peGreen, 255));
 		LightPal[uiCount].peBlue=(UINT8)(__min((UINT16)pCorpse->p8BPPPalette[uiCount].peBlue+(UINT16)gpLightColors[0].peBlue, 255));
 	}
+
 	// build the shade tables
 	CreateCorpseShadedPalette( pCorpse, 0, LightPal );
 
@@ -1506,28 +1484,19 @@ UINT16 CreateCorpsePaletteTables( ROTTING_CORPSE *pCorpse )
 	// Set current shade table to neutral color
 
 	return(TRUE);
-
 }
-
 
 BOOLEAN CreateCorpseShadedPalette( ROTTING_CORPSE *pCorpse, UINT32 uiBase, SGPPaletteEntry *pShadePal )
 {
-	UINT32 uiCount;
+	pCorpse->pShades[uiBase] = Create16BPPPaletteShaded( pShadePal, gusShadeLevels[0][0], gusShadeLevels[0][1], gusShadeLevels[0][2], TRUE);
 
-	pCorpse->pShades[uiBase] = Create16BPPPaletteShaded( pShadePal, gusShadeLevels[0][0],
-																															gusShadeLevels[0][1],
-																															gusShadeLevels[0][2], TRUE);
-
-	for(uiCount=1; uiCount < 16; uiCount++)
+	for ( UINT32 uiCount = 1; uiCount < 16; ++uiCount )
 	{
-		pCorpse->pShades[uiBase+uiCount]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[uiCount][0],
-																																				gusShadeLevels[uiCount][1],
-																																				gusShadeLevels[uiCount][2], FALSE);
+		pCorpse->pShades[uiBase+uiCount]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[uiCount][0], gusShadeLevels[uiCount][1], gusShadeLevels[uiCount][2], FALSE);
 	}
 
 	return(TRUE);
 }
-
 
 ROTTING_CORPSE  *FindCorpseBasedOnStructure( INT32 sGridNo, STRUCTURE *pStructure )
 {
@@ -1604,7 +1573,6 @@ void CorpseHit( INT32 sGridNo, UINT16 usStructureID )
 #endif
 }
 
-
 void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID )
 {
 	STRUCTURE				*pStructure, *pBaseStructure;
@@ -1625,9 +1593,9 @@ void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID )
 
 	if ( pCorpse == NULL )
 	{
-	#ifdef JA2TESTVERSION
+#ifdef JA2TESTVERSION
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Vaporize corpse but corpse cannot be found at: %d", sBaseGridNo );
-	#endif
+#endif
 		return;
 	}
 
@@ -1665,7 +1633,6 @@ void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID )
 
 	// PLay a sound....
 	PlayJA2Sample( (UINT32)( BODY_EXPLODE_1 ), RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
-
 }
 
 INT32 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8 ubRadius )
@@ -2023,7 +1990,6 @@ BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse )
 
 	return( CorpseOkToDress(pCorpse) );
 }
-
 
 // Flugente: take the clothes off a corpse
 BOOLEAN StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
@@ -2423,7 +2389,6 @@ void GetBloodFromCorpse( SOLDIERTYPE *pSoldier )
 	{
 		case ADULTMONSTER_DEAD:
 		case INFANTMONSTER_DEAD:
-
 			// Can get creature blood....
 			CreateItem( JAR_CREATURE_BLOOD, 100, &gTempObject );
 			break;
@@ -2433,10 +2398,8 @@ void GetBloodFromCorpse( SOLDIERTYPE *pSoldier )
 			break;
 
 		default:
-
 			CreateItem( JAR_HUMAN_BLOOD, 100, &gTempObject );
 			break;
-
 	}
 
 	if ( bObjSlot != NO_SLOT )
@@ -2444,8 +2407,6 @@ void GetBloodFromCorpse( SOLDIERTYPE *pSoldier )
 		SwapObjs( pSoldier, bObjSlot, &gTempObject, TRUE );
 	}
 }
-
-
 
 void ReduceAmmoDroppedByNonPlayerSoldiers( SOLDIERTYPE *pSoldier, INT32 iInvSlot )
 {
@@ -2500,6 +2461,7 @@ void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE *
 		}
 	}
 }
+
 void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubLevel )
 {
 	ROTTING_CORPSE *pCorpse;
@@ -2507,28 +2469,27 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 	INT32			cnt;
 	SOLDIERTYPE		*pTeamSoldier;
 
-
 	if ( QuoteExp[ pSoldier->ubProfile ].QuoteExpHeadShotOnly == 1 )
 	{
-	return;
+		return;
 	}
 
 	pCorpse = GetCorpseAtGridNo( sGridNo, ubLevel );
 
 	if ( pCorpse == NULL )
 	{
-	return;
+		return;
 	}
 
 	if ( pCorpse->def.ubType != ROTTING_STAGE2 )
 	{
-	return;
+		return;
 	}
 
 	// If servicing qrows, tolerance is now 1
 	if ( pCorpse->def.bNumServicingCrows > 0 )
 	{
-	bToleranceThreshold++;
+		++bToleranceThreshold;
 	}
 
 	// Check tolerance
@@ -2561,24 +2522,22 @@ void LookForAndMayCommentOnSeeingCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, U
 	}
 }
 
-
 INT32 GetGridNoOfCorpseGivenProfileID( UINT8 ubProfileID )
 {
-	INT32					cnt;
-	ROTTING_CORPSE					*pCorpse;
+	ROTTING_CORPSE*	pCorpse;
 
 	// Loop through all corpses....
-	for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
 	{
 		pCorpse = &(gRottingCorpse[ cnt ] );
 
 		if ( pCorpse->fActivated )
 		{
-		if ( pCorpse->def.ubProfile == ubProfileID )
-		{
-		return( pCorpse->def.sGridNo );
+			if ( pCorpse->def.ubProfile == ubProfileID )
+			{
+				return( pCorpse->def.sGridNo );
+			}
 		}
-	}
 	}
 
 	return( NOWHERE );
@@ -2586,10 +2545,9 @@ INT32 GetGridNoOfCorpseGivenProfileID( UINT8 ubProfileID )
 
 void DecayRottingCorpseAIWarnings( void )
 {
-	INT32				cnt;
-	ROTTING_CORPSE *	pCorpse;
+	ROTTING_CORPSE*	pCorpse;
 
-	for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
 	{
 		pCorpse = &(gRottingCorpse[ cnt ] );
 
@@ -2598,16 +2556,14 @@ void DecayRottingCorpseAIWarnings( void )
 			pCorpse->def.ubAIWarningValue--;
 		}
 	}
-
 }
 
 UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 {
-	INT32				cnt;
-	ROTTING_CORPSE *	pCorpse;
-	UINT8				ubHighestWarning = 0;
+	ROTTING_CORPSE* pCorpse;
+	UINT8			ubHighestWarning = 0;
 
-	for ( cnt = 0; cnt < giNumRottingCorpse; cnt++ )
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
 	{
 		pCorpse = &(gRottingCorpse[ cnt ] );
 
@@ -2627,436 +2583,431 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 }
 
 #ifdef ENABLE_ZOMBIES
-	// Flugente Zombies: resurrect zombies
-	void RaiseZombies( void )
+// Flugente Zombies: resurrect zombies
+void RaiseZombies( void )
+{
+	if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
 	{
-		if ( gGameSettings.fOptions[TOPTION_ZOMBIES] )
+		// if gGameExternalOptions.fZombieSpawnWaves is true, zombies will spawn from all corpses (while there is still room for more), creating a wave of zombies. with lots of bodies	lying around, this can be a lot.
+		// if GameExternalOptions.fZombieSpawnWaves is false, each zombie can spawn randomly, you will get zombies on msot turns, but they won't spawn a whole horde at once
+		if ( !gGameExternalOptions.fZombieSpawnWaves || ( gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
 		{
-			// if gGameExternalOptions.fZombieSpawnWaves is true, zombies will spawn from all corpses (while there is still room for more), creating a wave of zombies. with lots of bodies	lying around, this can be a lot.
-			// if GameExternalOptions.fZombieSpawnWaves is false, each zombie can spawn randomly, you will get zombies on msot turns, but they won't spawn a whole horde at once
-			if ( !gGameExternalOptions.fZombieSpawnWaves || ( gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
+			ROTTING_CORPSE *	pCorpse;
+			BOOLEAN				zombieshaverisen = FALSE;
+
+			SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+
+			for ( INT32 cnt = giNumRottingCorpse - 1; cnt >= 0; --cnt )
 			{
-				ROTTING_CORPSE *	pCorpse;
-				BOOLEAN				zombieshaverisen = FALSE;
-
-				SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-
-				for ( INT32 cnt = giNumRottingCorpse - 1; cnt >= 0; --cnt )
+				if ( pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )					// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
 				{
-					if ( pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )					// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
+					pCorpse = &(gRottingCorpse[ cnt ] );
+
+					// if zombies should spawn individually, roll for every corpse individually
+					if ( gGameExternalOptions.fZombieSpawnWaves || ( !gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
 					{
-						pCorpse = &(gRottingCorpse[ cnt ] );
-
-						// if zombies should spawn individually, roll for every corpse individually
-						if ( gGameExternalOptions.fZombieSpawnWaves || ( !gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
+						if ( pCorpse->fActivated && !(pCorpse->def.usFlags & (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_NEVER_RISE_AGAIN) ) )	// ... if corpse is active, and still has a head and can rise again...
 						{
-							if ( pCorpse->fActivated && !(pCorpse->def.usFlags & (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_NEVER_RISE_AGAIN) ) )	// ... if corpse is active, and still has a head and can rise again...
-							{
-								if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
-								{					
-									if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
-									{
-										UINT16 recanimstate = STANDING;
+							if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
+							{					
+								if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
+								{
+									UINT16 recanimstate = STANDING;
 
-										if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
-										{								
-											zombieshaverisen = TRUE;
-											CreateZombiefromCorpse( pCorpse, recanimstate );
+									if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
+									{								
+										zombieshaverisen = TRUE;
+										CreateZombiefromCorpse( pCorpse, recanimstate );
 
-											//++pSector->ubNumZombies;
-											//++pSector->ubZombiesInBattle;
+										//++pSector->ubNumZombies;
+										//++pSector->ubZombiesInBattle;
 
-											RemoveCorpse( cnt );
-										}
+										RemoveCorpse( cnt );
 									}
 								}
 							}
 						}
 					}
-					else
-					{
-						// if there is no more room, we can skip this
-						break;
-					}
 				}
-
-				if ( zombieshaverisen )
+				else
 				{
-					SetRenderFlags( RENDER_FLAG_FULL );
-
-	#ifdef JA2TESTVERSION
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"A wave of zombies is created");
-	#endif
-					// Play sound
-					PlayJA2SampleFromFile( "Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
-
-					UseCreatureMusic(TRUE); // Madd: music when zombies rise
-					#ifdef NEWMUSIC
-					GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
-					if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
-						SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
-					else
-					#endif
-					SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
-					
-					
+					// if there is no more room, we can skip this
+					break;
 				}
+			}
+
+			if ( zombieshaverisen )
+			{
+				SetRenderFlags( RENDER_FLAG_FULL );
+
+#ifdef JA2TESTVERSION
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"A wave of zombies is created");
+#endif
+				// Play sound
+				PlayJA2SampleFromFile( "Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+
+				UseCreatureMusic(TRUE); // Madd: music when zombies rise
+				#ifdef NEWMUSIC
+				GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
+				if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
+					SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
+				else
+				#endif
+				SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
+					
+					
 			}
 		}
 	}
+}
 
-	// Flugente Zombies 1.0: create a zombie from a corpse
-	void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
-	{
-		SOLDIERCREATE_STRUCT		MercCreateStruct;
+// Flugente Zombies 1.0: create a zombie from a corpse
+void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
+{
+	SOLDIERCREATE_STRUCT		MercCreateStruct;
 
-		MercCreateStruct.ubProfile			= NO_PROFILE;
-		MercCreateStruct.bTeam				= CREATURE_TEAM;	// should be ZOMBIE_TEAM, once that is properly implemented
-		MercCreateStruct.sInsertionGridNo	= pCorpse->def.sGridNo;
-		MercCreateStruct.sSectorX			= gWorldSectorX;
-		MercCreateStruct.sSectorY			= gWorldSectorY;
-		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
-		MercCreateStruct.ubBodyType			= pCorpse->def.ubBodyType;
-		MercCreateStruct.ubDirection		= pCorpse->def.ubDirection;
-		MercCreateStruct.fOnRoof			= pCorpse->def.bLevel > 0 ? TRUE : FALSE;
+	MercCreateStruct.ubProfile			= NO_PROFILE;
+	MercCreateStruct.bTeam				= CREATURE_TEAM;	// should be ZOMBIE_TEAM, once that is properly implemented
+	MercCreateStruct.sInsertionGridNo	= pCorpse->def.sGridNo;
+	MercCreateStruct.sSectorX			= gWorldSectorX;
+	MercCreateStruct.sSectorY			= gWorldSectorY;
+	MercCreateStruct.bSectorZ			= gbWorldSectorZ;
+	MercCreateStruct.ubBodyType			= pCorpse->def.ubBodyType;
+	MercCreateStruct.ubDirection		= pCorpse->def.ubDirection;
+	MercCreateStruct.fOnRoof			= pCorpse->def.bLevel > 0 ? TRUE : FALSE;
 			
-		// add important stats according to difficulty level
+	// add important stats according to difficulty level
+	switch( gGameExternalOptions.sZombieDifficultyLevel )
+	{
+		case 4:
+			MercCreateStruct.bLifeMax		= (INT8)( 70 + Random( 30 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
+			MercCreateStruct.bAgility		= (INT8)( 50 + Random( 10 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 60 + Random( 15 ) );
+			MercCreateStruct.bStrength		= (INT8)( 80 + Random( 20 ) );
+			break;
+				
+		case 3:
+			MercCreateStruct.bLifeMax		= (INT8)( 60 + Random( 20 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
+			MercCreateStruct.bAgility		= (INT8)( 40 + Random( 10 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 45 + Random( 10 ) );
+			MercCreateStruct.bStrength		= (INT8)( 60 + Random( 20 ) );
+			break;
+
+		case 2:
+			MercCreateStruct.bLifeMax		= (INT8)( 45 + Random( 15 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
+			MercCreateStruct.bAgility		= (INT8)( 30 + Random(  5 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 30 + Random( 10 ) );
+			MercCreateStruct.bStrength		= (INT8)( 45 + Random( 20 ) );
+			break;
+
+		case 1:
+		default:
+			MercCreateStruct.bLifeMax		= (INT8)( 35 + Random( 10 ) );
+			MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
+			MercCreateStruct.bAgility		= (INT8)( 15 + Random(  5 ) );
+			MercCreateStruct.bDexterity		= (INT8)( 15 + Random(  5 ) );
+			MercCreateStruct.bStrength		= (INT8)( 30 + Random( 20 ) );
+			break;
+	}
+
+	// FIX: something's wrong with the FATCIV-bodytype when dying... this is to ensure they die absolutely fast
+	//if ( MercCreateStruct.ubBodyType == FATCIV )
+		//MercCreateStruct.bLifeMax		= OKLIFE;
+			
+	MercCreateStruct.bExpLevel		= 1;
+	MercCreateStruct.bMarksmanship	= 1;
+	MercCreateStruct.bMedical		= 1;
+	MercCreateStruct.bMechanical	= 1;
+	MercCreateStruct.bExplosive		= 1;
+	MercCreateStruct.bLeadership	= 1;
+	MercCreateStruct.bWisdom		= 1;
+	MercCreateStruct.bMorale		= 90;
+	MercCreateStruct.bAIMorale		= MORALE_FEARLESS;
+			
+	SET_PALETTEREP_ID ( MercCreateStruct.HeadPal,		pCorpse->def.HeadPal );
+	SET_PALETTEREP_ID ( MercCreateStruct.PantsPal,		pCorpse->def.PantsPal );
+	SET_PALETTEREP_ID ( MercCreateStruct.VestPal,		pCorpse->def.VestPal );
+	SET_PALETTEREP_ID ( MercCreateStruct.SkinPal,		pCorpse->def.SkinPal );
+																								
+	MercCreateStruct.fVisible			= TRUE;
+
+	INT8							iNewIndex;
+	if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
+	{
+		/*	certain values have to be set afterwards - the alternative would be to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
+		*	make an exception for zombies every time...
+		*/
+		SOLDIERTYPE* pNewSoldier = MercPtrs[ (UINT8)iNewIndex ];
+			
+		pNewSoldier->bActionPoints			= 60;
+		pNewSoldier->bInitialActionPoints	= 60;
+		pNewSoldier->sBreathRed				= 0;
+
+		pNewSoldier->ubInsertionDirection	= pCorpse->def.ubDirection;
+
+		//pNewSoldier->sHeightAdjustment		= pCorpse->def.sHeightAdjustment;
+		pNewSoldier->sDesiredHeight			= 3;
+
+		pNewSoldier->ubDesiredHeight		= 3;		// this forces pNewSoldier to rise up to crouching position
+
+		pNewSoldier->ubSoldierClass			= SOLDIER_CLASS_ZOMBIE;
+		pNewSoldier->aiData.bOrders			= SEEKENEMY;
+		pNewSoldier->aiData.bAttitude		= AGGRESSIVE;
+
+		pNewSoldier->bBleeding				= 0;
+
+		if (   !memcmp( pCorpse->name, TacticalStr[ CIV_TEAM_MINER_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ MILITIA_TEAM_MERC_NAME ], sizeof(pCorpse->name) )
+			|| !memcmp( pCorpse->name, TacticalStr[ CREATURE_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ CIV_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
+			|| !memcmp( pCorpse->name, TacticalStr[ ENEMY_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) )
+		{
+			swprintf( pNewSoldier->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
+		}
+		else
+		{
+			memcpy( &(pNewSoldier->name), &(pCorpse->name), sizeof(CHAR16) * 10 );
+			pNewSoldier->name[9] = '\0';
+		}
+			
+		// add skills according to difficulty level
 		switch( gGameExternalOptions.sZombieDifficultyLevel )
 		{
 			case 4:
-				MercCreateStruct.bLifeMax		= (INT8)( 70 + Random( 30 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
-				MercCreateStruct.bAgility		= (INT8)( 50 + Random( 10 ) );
-				MercCreateStruct.bDexterity		= (INT8)( 60 + Random( 15 ) );
-				MercCreateStruct.bStrength		= (INT8)( 80 + Random( 20 ) );
+				if ( gGameOptions.fNewTraitSystem )
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = ATHLETICS_NT;
+				}
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = HANDTOHAND_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = MARTIALARTS_OT;
+				}
 				break;
 				
 			case 3:
-				MercCreateStruct.bLifeMax		= (INT8)( 60 + Random( 20 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
-				MercCreateStruct.bAgility		= (INT8)( 40 + Random( 10 ) );
-				MercCreateStruct.bDexterity		= (INT8)( 45 + Random( 10 ) );
-				MercCreateStruct.bStrength		= (INT8)( 60 + Random( 20 ) );
+				if ( gGameOptions.fNewTraitSystem )
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = ATHLETICS_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
+				}
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = HANDTOHAND_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
+				}
 				break;
 
 			case 2:
-				MercCreateStruct.bLifeMax		= (INT8)( 45 + Random( 15 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
-				MercCreateStruct.bAgility		= (INT8)( 30 + Random(  5 ) );
-				MercCreateStruct.bDexterity		= (INT8)( 30 + Random( 10 ) );
-				MercCreateStruct.bStrength		= (INT8)( 45 + Random( 20 ) );
+				if ( gGameOptions.fNewTraitSystem )
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
+				}
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
+				}
 				break;
 
 			case 1:
 			default:
-				MercCreateStruct.bLifeMax		= (INT8)( 35 + Random( 10 ) );
-				MercCreateStruct.bLife			= MercCreateStruct.bLifeMax;
-				MercCreateStruct.bAgility		= (INT8)( 15 + Random(  5 ) );
-				MercCreateStruct.bDexterity		= (INT8)( 15 + Random(  5 ) );
-				MercCreateStruct.bStrength		= (INT8)( 30 + Random( 20 ) );
-				break;
-		}
-
-		// FIX: something's wrong with the FATCIV-bodytype when dying... this is to ensure they die absolutely fast
-		//if ( MercCreateStruct.ubBodyType == FATCIV )
-			//MercCreateStruct.bLifeMax		= OKLIFE;
-			
-		MercCreateStruct.bExpLevel		= 1;
-		MercCreateStruct.bMarksmanship	= 1;
-		MercCreateStruct.bMedical		= 1;
-		MercCreateStruct.bMechanical	= 1;
-		MercCreateStruct.bExplosive		= 1;
-		MercCreateStruct.bLeadership	= 1;
-		MercCreateStruct.bWisdom		= 1;
-		MercCreateStruct.bMorale		= 90;
-		MercCreateStruct.bAIMorale		= MORALE_FEARLESS;
-			
-		SET_PALETTEREP_ID ( MercCreateStruct.HeadPal,		pCorpse->def.HeadPal );
-		SET_PALETTEREP_ID ( MercCreateStruct.PantsPal,		pCorpse->def.PantsPal );
-		SET_PALETTEREP_ID ( MercCreateStruct.VestPal,		pCorpse->def.VestPal );
-		SET_PALETTEREP_ID ( MercCreateStruct.SkinPal,		pCorpse->def.SkinPal );
-																								
-		MercCreateStruct.fVisible			= TRUE;
-
-		INT8							iNewIndex;
-		if ( TacticalCreateSoldier( &MercCreateStruct, (UINT8 *)&iNewIndex ) )
-		{
-			/*	certain values have to be set afterwards - the alternative would be to edit each and every function that gets called from TacticalCreateSoldier() subsequently and
-			*	make an exception for zombies every time...
-			*/
-			SOLDIERTYPE* pNewSoldier = MercPtrs[ (UINT8)iNewIndex ];
-			
-			pNewSoldier->bActionPoints			= 60;
-			pNewSoldier->bInitialActionPoints	= 60;
-			pNewSoldier->sBreathRed				= 0;
-
-			pNewSoldier->ubInsertionDirection	= pCorpse->def.ubDirection;
-
-			//pNewSoldier->sHeightAdjustment		= pCorpse->def.sHeightAdjustment;
-			pNewSoldier->sDesiredHeight			= 3;
-
-			pNewSoldier->ubDesiredHeight		= 3;		// this forces pNewSoldier to rise up to crouching position
-
-			pNewSoldier->ubSoldierClass			= SOLDIER_CLASS_ZOMBIE;
-			pNewSoldier->aiData.bOrders			= SEEKENEMY;
-			pNewSoldier->aiData.bAttitude		= AGGRESSIVE;
-
-			pNewSoldier->bBleeding				= 0;
-
-#ifdef ENABLE_ZOMBIES
-			if (   !memcmp( pCorpse->name, TacticalStr[ CIV_TEAM_MINER_NAME ], sizeof(pCorpse->name) ) 
-				|| !memcmp( pCorpse->name, TacticalStr[ MILITIA_TEAM_MERC_NAME ], sizeof(pCorpse->name) )
-				|| !memcmp( pCorpse->name, TacticalStr[ CREATURE_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
-				|| !memcmp( pCorpse->name, TacticalStr[ CIV_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
-				|| !memcmp( pCorpse->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) 
-				|| !memcmp( pCorpse->name, TacticalStr[ ENEMY_TEAM_MERC_NAME ], sizeof(pCorpse->name) ) )
-			{
-				swprintf( pNewSoldier->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
-			}
-			else
-			{
-				memcpy( &(pNewSoldier->name), &(pCorpse->name), sizeof(CHAR16) * 10 );
-				pNewSoldier->name[9] = '\0';
-			}
-#else
-			memcpy( &(pNewSoldier->name), &(pCorpse->name), sizeof(CHAR16) * 10 );
-			pNewSoldier->name[9] = '\0';
-#endif
-			
-			// add skills according to difficulty level
-			switch( gGameExternalOptions.sZombieDifficultyLevel )
-			{
-				case 4:
-					if ( gGameOptions.fNewTraitSystem )
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
-					pNewSoldier->stats.ubSkillTraits[1] = MARTIAL_ARTS_NT;
-					pNewSoldier->stats.ubSkillTraits[2] = ATHLETICS_NT;
-					}
-					else
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = HANDTOHAND_OT;
-					pNewSoldier->stats.ubSkillTraits[1] = MARTIALARTS_OT;
-					}
-					break;
-				
-				case 3:
-					if ( gGameOptions.fNewTraitSystem )
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
-					pNewSoldier->stats.ubSkillTraits[1] = ATHLETICS_NT;
-					pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
-					}
-					else
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = HANDTOHAND_OT;
-					pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
-					}
-					break;
-
-				case 2:
-					if ( gGameOptions.fNewTraitSystem )
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = MARTIAL_ARTS_NT;
-					pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_NT;
-					pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
-					}
-					else
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_OT;
-					pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
-					}
-					break;
-
-				case 1:
-				default:
-					if ( gGameOptions.fNewTraitSystem )
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_NT;
-					pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_NT;
-					pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
-					}
-					else
-					{
-					pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_OT;
-					pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
-					}
-					break;
-			}
-					
-			AddSoldierToSectorNoCalculateDirectionUseAnimation( iNewIndex, usAnimState, 0 );
-
-			// If this corpse has camo, use palette from hvobject
-			if ( pCorpse->def.ubType == ROTTING_STAGE2 )
-			{
-				memcpy( pNewSoldier->p8BPPPalette, gpTileCache[ pCorpse->iCachedTileID ].pImagery->vo->pPaletteEntry, sizeof( pCorpse->p8BPPPalette ) * 256 );
-			}
-			else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_CAMO_PALETTE )
-			{
-				pNewSoldier->bCamo = gGameExternalOptions.bCamoKitArea;
-				pNewSoldier->wornCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
-			}
-			else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE )
-			{
-				pNewSoldier->urbanCamo = gGameExternalOptions.bCamoKitArea;
-				pNewSoldier->wornUrbanCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
-			}
-			else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE )
-			{
-				pNewSoldier->desertCamo = gGameExternalOptions.bCamoKitArea;
-				pNewSoldier->wornDesertCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
-			}
-			else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE )
-			{
-				pNewSoldier->snowCamo = gGameExternalOptions.bCamoKitArea;
-				pNewSoldier->wornSnowCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
-			}
-
-			// Reload palettes....
-			if ( pNewSoldier->bInSector )
-			{
-				pNewSoldier->CreateSoldierPalettes( );
-			}
-
-			// Set a pending animation to change stance first...
-			//SendChangeSoldierStanceEvent( pNewSoldier, ANIM_CROUCH );
-
-#ifdef ENABLE_ZOMBIES
-			// search for armour and equip if found
-			if ( gGameExternalOptions.fZombieRiseWithArmour )
-			{
-				BOOLEAN fHelmetFound = FALSE;
-				BOOLEAN fVestFound = FALSE;
-				BOOLEAN fPantsFound = FALSE;
-
-				ITEM_POOL * pItemPool, * pItemPoolNext;
-
-				GetItemPool( pCorpse->def.sGridNo, &pItemPool, pCorpse->def.bLevel );
-
-				while( pItemPool && ( !fHelmetFound || !fVestFound ||!fPantsFound ) )
+				if ( gGameOptions.fNewTraitSystem )
 				{
-					pItemPoolNext = pItemPool->pNext;
-
-					OBJECTTYPE* pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
-
-					if ( Item[ pObj->usItem ].usItemClass  == IC_ARMOUR )
-					{
-							switch (Armour[Item[pObj->usItem].ubClassIndex].ubArmourClass)
-							{
-								case ARMOURCLASS_HELMET:
-									{
-										if( !fHelmetFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
-										{
-											// remove item from the ground
-											RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
-											fHelmetFound = TRUE;
-										}
-										break;
-									}
-								case ARMOURCLASS_VEST:
-									{
-										if( !fVestFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
-										{
-											// remove item from the ground
-											RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
-											fVestFound = TRUE;
-										}
-										break;
-									}
-								case ARMOURCLASS_LEGGINGS:
-									{
-										if( !fPantsFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
-										{
-											// remove item from the ground
-											RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
-											fPantsFound = TRUE;
-										}
-										break;
-									}
-								default:
-									break;
-							}
-					}
-
-					pItemPool = pItemPoolNext;
+				pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_NT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_NT;
+				pNewSoldier->stats.ubSkillTraits[2] = NO_SKILLTRAIT_NT;
 				}
-			}
-#endif
-
-			// Change to standing,unless we can getup with an animation
-			pNewSoldier->EVENT_InitNewSoldierAnim( STANDING, 0, TRUE );
-			pNewSoldier->BeginSoldierGetup( );
-			
-			// So we can see them!
-			AllTeamsLookForAll(ALLOW_INTERRUPTS);
+				else
+				{
+				pNewSoldier->stats.ubSkillTraits[0] = NO_SKILLTRAIT_OT;
+				pNewSoldier->stats.ubSkillTraits[1] = NO_SKILLTRAIT_OT;
+				}
+				break;
 		}
-	}
+					
+		AddSoldierToSectorNoCalculateDirectionUseAnimation( iNewIndex, usAnimState, 0 );
 
-	// Flugente Zombies: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
-	BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState )
-	{
-		BOOLEAN canbezombie = FALSE;
-		*pAnimState = FALLBACKHIT_STOP;
-
-		switch ( pCorpse->def.ubType )
+		// If this corpse has camo, use palette from hvobject
+		if ( pCorpse->def.ubType == ROTTING_STAGE2 )
 		{
-			case SMERC_BCK:	
-			case SMERC_DHD:
-			case SMERC_FALL:
-			case MMERC_BCK:	
-			case MMERC_DHD:
-			case MMERC_FALL:
-			case FMERC_BCK:
-			case FMERC_DHD:
-			case FMERC_FALL:
-			case ROTTING_STAGE2:
-				canbezombie = TRUE;
-				*pAnimState = FALLBACKHIT_STOP;
-				break;
-
-			case SMERC_FWD:
-			case SMERC_PRN:
-			case SMERC_FALLF:
-			case MMERC_FWD:
-			case MMERC_PRN:
-			case MMERC_FALLF:
-			case FMERC_FWD:
-			case FMERC_PRN:
-			case FMERC_FALLF:
-				canbezombie = TRUE;
-				*pAnimState = FALLFORWARD_HITDEATH_STOP;
-				break;
-
-			case M_DEAD1:				
-				canbezombie = TRUE;
-				*pAnimState = GENERIC_HIT_DEATH;
-				break;
-
-			case M_DEAD2:		
-				canbezombie = TRUE;
-				*pAnimState = CIV_DIE2;
-
-			case H_DEAD1:
-			case K_DEAD1:
-			case FT_DEAD1:
-			case S_DEAD1:
-			case W_DEAD1:
-			case C_DEAD1:
-			case H_DEAD2:
-			case K_DEAD2:
-			case FT_DEAD2:
-			case S_DEAD2:
-			case W_DEAD2:
-			case C_DEAD2:
-				canbezombie = TRUE;
-				*pAnimState = STANDING;
-
-			default:
-				;
+			memcpy( pNewSoldier->p8BPPPalette, gpTileCache[ pCorpse->iCachedTileID ].pImagery->vo->pPaletteEntry, sizeof( pCorpse->p8BPPPalette ) * 256 );
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_CAMO_PALETTE )
+		{
+			pNewSoldier->bCamo = gGameExternalOptions.bCamoKitArea;
+			pNewSoldier->wornCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE )
+		{
+			pNewSoldier->urbanCamo = gGameExternalOptions.bCamoKitArea;
+			pNewSoldier->wornUrbanCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE )
+		{
+			pNewSoldier->desertCamo = gGameExternalOptions.bCamoKitArea;
+			pNewSoldier->wornDesertCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
+		}
+		else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE )
+		{
+			pNewSoldier->snowCamo = gGameExternalOptions.bCamoKitArea;
+			pNewSoldier->wornSnowCamo = __max(0, ( 65 - gGameExternalOptions.bCamoKitArea ) );
 		}
 
-		return( canbezombie );
+		// Reload palettes....
+		if ( pNewSoldier->bInSector )
+		{
+			pNewSoldier->CreateSoldierPalettes( );
+		}
+
+		// Set a pending animation to change stance first...
+		//SendChangeSoldierStanceEvent( pNewSoldier, ANIM_CROUCH );
+
+		// search for armour and equip if found
+		if ( gGameExternalOptions.fZombieRiseWithArmour )
+		{
+			BOOLEAN fHelmetFound = FALSE;
+			BOOLEAN fVestFound = FALSE;
+			BOOLEAN fPantsFound = FALSE;
+
+			ITEM_POOL * pItemPool, * pItemPoolNext;
+
+			GetItemPool( pCorpse->def.sGridNo, &pItemPool, pCorpse->def.bLevel );
+
+			while( pItemPool && ( !fHelmetFound || !fVestFound ||!fPantsFound ) )
+			{
+				pItemPoolNext = pItemPool->pNext;
+
+				OBJECTTYPE* pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
+
+				if ( Item[ pObj->usItem ].usItemClass  == IC_ARMOUR )
+				{
+						switch (Armour[Item[pObj->usItem].ubClassIndex].ubArmourClass)
+						{
+							case ARMOURCLASS_HELMET:
+								{
+									if( !fHelmetFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
+									{
+										// remove item from the ground
+										RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
+										fHelmetFound = TRUE;
+									}
+									break;
+								}
+							case ARMOURCLASS_VEST:
+								{
+									if( !fVestFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
+									{
+										// remove item from the ground
+										RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
+										fVestFound = TRUE;
+									}
+									break;
+								}
+							case ARMOURCLASS_LEGGINGS:
+								{
+									if( !fPantsFound && AutoPlaceObject(pNewSoldier, pObj, FALSE))
+									{
+										// remove item from the ground
+										RemoveItemFromPool( pCorpse->def.sGridNo, pItemPool->iItemIndex, pCorpse->def.bLevel );
+										fPantsFound = TRUE;
+									}
+									break;
+								}
+							default:
+								break;
+						}
+				}
+
+				pItemPool = pItemPoolNext;
+			}
+		}
+
+		// Change to standing,unless we can getup with an animation
+		pNewSoldier->EVENT_InitNewSoldierAnim( STANDING, 0, TRUE );
+		pNewSoldier->BeginSoldierGetup( );
+			
+		// So we can see them!
+		AllTeamsLookForAll(ALLOW_INTERRUPTS);
 	}
+}
+
+// Flugente Zombies: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
+BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState )
+{
+	BOOLEAN canbezombie = FALSE;
+	*pAnimState = FALLBACKHIT_STOP;
+
+	switch ( pCorpse->def.ubType )
+	{
+		case SMERC_BCK:	
+		case SMERC_DHD:
+		case SMERC_FALL:
+		case MMERC_BCK:	
+		case MMERC_DHD:
+		case MMERC_FALL:
+		case FMERC_BCK:
+		case FMERC_DHD:
+		case FMERC_FALL:
+		case ROTTING_STAGE2:
+			canbezombie = TRUE;
+			*pAnimState = FALLBACKHIT_STOP;
+			break;
+
+		case SMERC_FWD:
+		case SMERC_PRN:
+		case SMERC_FALLF:
+		case MMERC_FWD:
+		case MMERC_PRN:
+		case MMERC_FALLF:
+		case FMERC_FWD:
+		case FMERC_PRN:
+		case FMERC_FALLF:
+			canbezombie = TRUE;
+			*pAnimState = FALLFORWARD_HITDEATH_STOP;
+			break;
+
+		case M_DEAD1:				
+			canbezombie = TRUE;
+			*pAnimState = GENERIC_HIT_DEATH;
+			break;
+
+		case M_DEAD2:		
+			canbezombie = TRUE;
+			*pAnimState = CIV_DIE2;
+			break;
+
+		case H_DEAD1:
+		case K_DEAD1:
+		case FT_DEAD1:
+		case S_DEAD1:
+		case W_DEAD1:
+		case C_DEAD1:
+		case H_DEAD2:
+		case K_DEAD2:
+		case FT_DEAD2:
+		case S_DEAD2:
+		case W_DEAD2:
+		case C_DEAD2:
+			canbezombie = TRUE;
+			*pAnimState = STANDING;
+			break;
+
+		default:
+			break;
+	}
+
+	return( canbezombie );
+}
 #endif
 
 // Flugente: can we take the clothes of this corpse?
@@ -3123,5 +3074,5 @@ FLOAT GetCorpseRotFactor( ROTTING_CORPSE* pCorpse )
 	if ( pCorpse->def.ubType == ROTTING_STAGE2 )
 		return 1.0f;
 
-	return (GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) / DELAY_UNTIL_ROTTING;
+	return (GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) / gGameExternalOptions.usCorpseDelayUntilRotting;
 }

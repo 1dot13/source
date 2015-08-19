@@ -379,7 +379,6 @@ typedef struct
 	//Video settings	
 	BOOLEAN gfVSync;
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: zombie settings
 	INT8	sZombieRiseBehaviour;
 	BOOLEAN fZombieSpawnWaves;
@@ -393,7 +392,10 @@ typedef struct
 	INT8	sZombieDifficultyLevel;
 	BOOLEAN fZombieRiseWithArmour;
 	BOOLEAN fZombieOnlyHeadShotsPermanentlyKill;
-#endif
+
+	// Flugente: corpse settings
+	UINT32	usCorpseDelayUntilRotting;
+	UINT32	usCorpseDelayUntilDoneRotting;
 		
 	// Flugente: fortification settings
 	BOOLEAN fFortificationAllowInHostileSector;

@@ -1644,8 +1644,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fDisplayOverheatJamPercentage					= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_JAMPERCENTAGE",TRUE);
 	gGameExternalOptions.ubOverheatThermometerRedOffset					= iniReader.ReadInteger("Tactical Weapon Overheating Settings","OVERHEATING_DISPLAY_THERMOMETER_RED_OFFSET", 100, 0, 255);
 	gGameExternalOptions.iCooldownModificatorLonelyBarrel			    = iniReader.ReadFloat  ("Tactical Weapon Overheating Settings","OVERHEATING_COOLDOWN_MODIFICATOR_LONELYBARREL", 1.15f, 1.0f, 10.0f);
-		
-#ifdef ENABLE_ZOMBIES
+
 	//################# Tactical Zombie Settings ##################
 	gGameExternalOptions.sZombieRiseBehaviour							= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_RISE_BEHAVIOUR", 0, 0, 3);
 	gGameExternalOptions.fZombieSpawnWaves								= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_SPAWN_WAVES", FALSE);
@@ -1659,8 +1658,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sZombieDifficultyLevel 						= iniReader.ReadInteger("Tactical Zombie Settings", "ZOMBIE_DIFFICULTY_LEVEL", 2, 1, 4);
 	gGameExternalOptions.fZombieRiseWithArmour							= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_RISE_WITH_ARMOUR", TRUE);
 	gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill			= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_ONLY_HEADSHOTS_PERMANENTLY_KILL", TRUE);
-#endif
-	
+
+	//################# Corpse Settings ##################
+	gGameExternalOptions.usCorpseDelayUntilRotting						= iniReader.ReadInteger( "Corpse Settings", "CORPSE_DELAY_UNTIL_ROTTING", NUM_SEC_IN_DAY / 60, 720, 7 * NUM_SEC_IN_DAY / 60 );
+	gGameExternalOptions.usCorpseDelayUntilDoneRotting					= iniReader.ReadInteger( "Corpse Settings", "CORPSE_DELAY_UNTIL_DONE_ROTTING", 3 * NUM_SEC_IN_DAY / 60, NUM_SEC_IN_DAY / 60, 14 * NUM_SEC_IN_DAY / 60 );
+		
 	//################# Tactical Fortification Settings ##################
 	gGameExternalOptions.fFortificationAllowInHostileSector				= iniReader.ReadBoolean("Tactical Fortification Settings", "FORTIFICATION_ALLOW_IN_HOSTILE_SECTOR", FALSE);
 	gGameExternalOptions.fRoofCollapse									= iniReader.ReadBoolean( "Tactical Fortification Settings", "ROOF_COLLAPSE", TRUE );
