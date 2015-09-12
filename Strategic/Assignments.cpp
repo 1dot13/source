@@ -722,7 +722,7 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 	// HEADROCK HAM 3.6: Clean out new Facility Operation variable.
 	pSoldier->sFacilityTypeOperated = -1;
 
-	if ( ( bAssignment == DOCTOR ) || ( bAssignment == PATIENT ) || ( bAssignment == ASSIGNMENT_HOSPITAL ) )
+	if ( IS_PATIENT(bAssignment) || ( bAssignment == ASSIGNMENT_HOSPITAL ) )
 	{
 		AddStrategicEvent( EVENT_BANDAGE_BLEEDING_MERCS, GetWorldTotalMin() + 1, 0 );
 	}
@@ -2674,7 +2674,7 @@ SOLDIERTYPE *AnyDoctorWhoCanHealThisPatient( SOLDIERTYPE *pPatient, BOOLEAN fThi
 	for ( cnt = 0, pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pTeamSoldier++)
 	{
 		// doctor?
-		if( ( pTeamSoldier->bActive ) && ( pTeamSoldier->bAssignment == DOCTOR ) )
+		if( pTeamSoldier->bActive && IS_DOCTOR(pTeamSoldier->bAssignment) )
 		{
 			if( CanSoldierBeHealedByDoctor( pPatient, pTeamSoldier, FALSE, fThisHour, FALSE, FALSE, FALSE ) == TRUE )
 			{
@@ -3462,7 +3462,7 @@ void HandleDoctorsInSector( INT16 sX, INT16 sY, INT8 bZ )
 		{
 			if( ( pTeamSoldier->sSectorX == sX ) && ( pTeamSoldier->sSectorY == sY ) && ( pTeamSoldier->bSectorZ == bZ ) )
 			{
-				if ( ( pTeamSoldier->bAssignment == DOCTOR ) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
+				if ( IS_DOCTOR(pTeamSoldier->bAssignment) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
 				{
 					MakeSureMedKitIsInHand( pTeamSoldier );
 					// character is in sector, check if can doctor, if so...heal people
@@ -3472,13 +3472,13 @@ void HandleDoctorsInSector( INT16 sX, INT16 sY, INT8 bZ )
 					}
 				}
 				/*
-				if( ( pTeamSoldier->bAssignment == DOCTOR ) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
+				if( IS_DOCTOR(pTeamSoldier->bAssignment) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
 				{
 					MakeSureMedKitIsInHand( pTeamSoldier );
 				}
 
 				// character is in sector, check if can doctor, if so...heal people
-				if( CanCharacterDoctor( pTeamSoldier ) && ( pTeamSoldier->bAssignment == DOCTOR ) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) && EnoughTimeOnAssignment( pTeamSoldier ) )
+				if( CanCharacterDoctor( pTeamSoldier ) && IS_DOCTOR(pTeamSoldier->bAssignment) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) && EnoughTimeOnAssignment( pTeamSoldier ) )
 				{
 					HealCharacters( pTeamSoldier, sX, sY, bZ );
 				}
@@ -3506,7 +3506,7 @@ void UpdatePatientsWhoAreDoneHealing( void )
 		if( pTeamSoldier->bActive )
 		{
 			// patient who doesn't need healing or curing
-			if ( (pTeamSoldier->bAssignment == PATIENT) && (pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax) && pTeamSoldier->HasDisease(TRUE, TRUE) )
+			if ( IS_PATIENT(pTeamSoldier->bAssignment) && !IS_DOCTOR(pTeamSoldier->bAssignment) && (pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax) && pTeamSoldier->HasDisease(TRUE, TRUE) )
 			{
 				// Flugente: stats can also be damaged
 				if ( !gGameOptions.fFoodSystem || (gGameOptions.fFoodSystem && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
@@ -3683,7 +3683,7 @@ BOOLEAN IsSoldierCloseEnoughToADoctor( SOLDIERTYPE *pPatient )
 			{
 
 				// is a doctor
-				if( pSoldier->bAssignment == DOCTOR )
+				if( IS_DOCTOR(pSoldier->bAssignment) )
 				{
 
 					// the doctor is in the house
@@ -3725,7 +3725,7 @@ BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor,
 	}
 
 	// must be a patient or a doctor
-	if( ( pSoldier->bAssignment != PATIENT ) && ( pSoldier->bAssignment != DOCTOR ) && ( fIgnoreAssignment == FALSE ) )
+	if ( !IS_PATIENT(pSoldier->bAssignment) && ( fIgnoreAssignment == FALSE ) )
 	{
 		return(FALSE);
 	}
@@ -4123,16 +4123,16 @@ void HandleRepairmenInSector( INT16 sX, INT16 sY, INT8 bZ )
 	// set psoldier as first in merc ptrs
 	pSoldier = MercPtrs[0];
 
-	// will handle doctor/patient relationship in sector
+	// will handle repairman/client relationship in sector
 
-	// go through list of characters, find all doctors in sector
+	// go through list of characters, find all repairmen in sector
 	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++cnt, pTeamSoldier++)
 	{
 		if( pTeamSoldier->bActive )
 		{
 			if( ( pTeamSoldier->sSectorX == sX ) && ( pTeamSoldier->sSectorY == sY ) && ( pTeamSoldier->bSectorZ == bZ) )
 			{
-				if ( ( pTeamSoldier->bAssignment == REPAIR ) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
+				if ( IS_REPAIR(pTeamSoldier->bAssignment) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
 				{
 					if ( MakeSureToolKitIsInHand( pTeamSoldier ) )
 					{
@@ -5102,8 +5102,8 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 		{	
 			switch ( pSoldier->bAssignment )
 			{
-				case DOCTOR:
-				case REPAIR:
+				CASE_DOCTOR:
+				CASE_REPAIR:
 				case TRAIN_TEAMMATE:
 				case TRAIN_TOWN:
 					break;
@@ -5131,8 +5131,8 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 		{
 			switch ( pSoldier->bAssignment )
 			{
-				case DOCTOR:
-				case REPAIR:
+				CASE_DOCTOR:
+				CASE_REPAIR:
 				case TRAIN_TEAMMATE:
 					if ( Chance( 60 ) )
 						HandleMoraleEvent( pSoldier, MORALE_PACIFIST_GAIN_NONCOMBAT, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
@@ -7481,15 +7481,15 @@ void MakeSoldiersTacticalAnimationReflectAssignment( SOLDIERTYPE *pSoldier )
 	if( ( pSoldier->bInSector ) && gfWorldLoaded && ( pSoldier->stats.bLife >= OKLIFE ) )
 	{
 		// Set animation based on his assignment
-		if ( pSoldier->bAssignment == DOCTOR )
+		if ( IS_DOCTOR(pSoldier->bAssignment) )
 		{
 			SoldierInSectorDoctor( pSoldier, pSoldier->usStrategicInsertionData );
 		}
-		else if ( pSoldier->bAssignment == PATIENT )
+		else if ( IS_PATIENT(pSoldier->bAssignment) )
 		{
 			SoldierInSectorPatient( pSoldier, pSoldier->usStrategicInsertionData );
 		}
-		else if ( pSoldier->bAssignment == REPAIR )
+		else if ( IS_REPAIR(pSoldier->bAssignment) )
 		{
 			SoldierInSectorRepair( pSoldier, pSoldier->usStrategicInsertionData );
 		}
@@ -7525,7 +7525,7 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 {
 	if ( ( pSoldier->bInSector ) && ( gfWorldLoaded ) )
 	{
-		if ( pSoldier->bAssignment == DOCTOR )
+		if ( IS_DOCTOR(pSoldier->bAssignment) )
 		{
 			if ( guiCurrentScreen == GAME_SCREEN )
 			{
@@ -7537,7 +7537,7 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 			}
 
 		}
-		else if ( pSoldier->bAssignment == REPAIR )
+		else if ( IS_REPAIR(pSoldier->bAssignment) )
 		{
 			if ( guiCurrentScreen == GAME_SCREEN )
 			{
@@ -7548,7 +7548,7 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 				pSoldier->ChangeSoldierState( STANDING, 1, TRUE );
 			}
 		}
-		else if ( pSoldier->bAssignment == PATIENT )
+		else if ( IS_PATIENT(pSoldier->bAssignment) )
 		{
 			if ( guiCurrentScreen == GAME_SCREEN )
 			{
@@ -7588,8 +7588,8 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 
 		if ( fSayQuote )
 		{
-			if ( pSoldier->bAssignment == DOCTOR || pSoldier->bAssignment == REPAIR ||
-					pSoldier->bAssignment == PATIENT || pSoldier->bAssignment == ASSIGNMENT_HOSPITAL )
+			if (IS_DOCTOR( pSoldier->bAssignment ) || IS_REPAIR( pSoldier->bAssignment ) ||
+				 IS_PATIENT( pSoldier->bAssignment ) || (pSoldier->bAssignment == ASSIGNMENT_HOSPITAL))
 			{
 				TacticalCharacterDialogue( pSoldier, QUOTE_ASSIGNMENT_COMPLETE );
 			}
@@ -7667,7 +7667,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	// any bleeding pts - can' recover if still bleeding!
+	// any bleeding pts - can't recover if still bleeding!
 	if( pSoldier->bBleeding != 0 )
 	{
 		return;
@@ -7675,14 +7675,14 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 
 	// not bleeding and injured...
 
-	if( pSoldier->bAssignment == ASSIGNMENT_POW )
+	if ((pSoldier->flags.fMercAsleep == TRUE) || (IS_PATIENT(pSoldier->bAssignment) && !IS_DOCTOR(pSoldier->bAssignment)) || (pSoldier->bAssignment == ASSIGNMENT_HOSPITAL))
+	{
+		bActivityLevelDivisor = gGameExternalOptions.ubLowActivityLevel;
+	}
+	else if( pSoldier->bAssignment == ASSIGNMENT_POW )
 	{
 		// use high activity level to simulate stress, torture, poor conditions for healing
 		bActivityLevelDivisor = gGameExternalOptions.ubHighActivityLevel;
-	}
-	if( ( pSoldier->flags.fMercAsleep == TRUE ) || ( pSoldier->bAssignment == PATIENT ) || ( pSoldier->bAssignment == ASSIGNMENT_HOSPITAL ) )
-	{
-		bActivityLevelDivisor = gGameExternalOptions.ubLowActivityLevel;
 	}
 	else if ( pSoldier->bAssignment < ON_DUTY )
 	{
@@ -7782,6 +7782,10 @@ void UpDateSoldierLife( SOLDIERTYPE *pSoldier )
 
 		pSoldier->bBleeding = pSoldier->stats.bLifeMax - pSoldier->stats.bLife;
 	}
+
+	// Autobandage assigned patients - they might still show bleeding for the first minute, but I haven't seen them lose life from it yet.
+	if (pSoldier->bBleeding > 0)
+		AddStrategicEvent( EVENT_BANDAGE_BLEEDING_MERCS, GetWorldTotalMin() + 1, 0 );
 
 	// SANDRO - when being healed normally, reduce insta-healable HPs value 
 	if ( gGameOptions.fNewTraitSystem && pSoldier->iHealableInjury > 0 ) 
@@ -12062,7 +12066,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
 									continue; // is nowhere around!
 
-								if (( pSoldier->ubID == pMedic->ubID ) || ( pMedic->bAssignment != DOCTOR ))
+								if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR(pMedic->bAssignment) )
 									continue; // cannot make surgery on self or not on the right assignment!	
 
 								bSlot = FindMedKit( pMedic );
@@ -12114,7 +12118,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				case( EPC_MENU_REMOVE ):
 
 					fShowAssignmentMenu = FALSE;
-			UnEscortEPC( pSoldier );
+					UnEscortEPC( pSoldier );
 				break;
 
 				case( EPC_MENU_CANCEL ):
@@ -12306,7 +12310,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
 									continue; // is nowhere around!
 
-								if (( pSoldier->ubID == pMedic->ubID ) || ( pMedic->bAssignment != DOCTOR ))
+								if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR(pMedic->bAssignment) )
 									continue; // cannot make surgery on self or not on the right assignment!
 
 								bSlot = FindMedKit( pMedic );
@@ -14765,7 +14769,7 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				AssignMercToAMovementGroup( pSoldier );
 			}
 			break;
-		case( PATIENT ):
+		CASE_PATIENT:
 			if( CanCharacterPatient( pSoldier ) )
 			{
 				// set as doctor
@@ -14793,18 +14797,18 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 					TakeSoldierOutOfVehicle( pSoldier );
 				}
 
-				if( ( pSoldier->bAssignment != PATIENT ) )
+				if ((pSoldier->bAssignment != bAssignment))
 				{
 					SetTimeOfAssignmentChangeForMerc( pSoldier );
 				}
 
-				ChangeSoldiersAssignment( pSoldier, PATIENT );
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
 
 				AssignMercToAMovementGroup( pSoldier );
 			}
 
 		break;
-		case( DOCTOR ):
+		CASE_DOCTOR:
 			if( CanCharacterDoctor( pSoldier ) )
 			{
 				pSoldier->bOldAssignment = pSoldier->bAssignment;
@@ -14823,12 +14827,12 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 					TakeSoldierOutOfVehicle( pSoldier );
 				}
 
-				if( ( pSoldier->bAssignment != DOCTOR ) )
+				if ((pSoldier->bAssignment != bAssignment))
 				{
 					SetTimeOfAssignmentChangeForMerc( pSoldier );
 				}
 
-				ChangeSoldiersAssignment( pSoldier, DOCTOR );
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
 
 				MakeSureMedKitIsInHand( pSoldier );
 				AssignMercToAMovementGroup( pSoldier );
@@ -15050,7 +15054,7 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 			}
 			break;
 
-		case( REPAIR ):
+		CASE_REPAIR:
 			if( CanCharacterRepair( pSoldier ) )
 			{
 				pSoldier->bOldAssignment = pSoldier->bAssignment;
@@ -15064,12 +15068,12 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 					TakeSoldierOutOfVehicle( pSoldier );
 				}
 
-				if( ( pSoldier->bAssignment != REPAIR ) ||( pSoldier->flags.fFixingSAMSite != ( UINT8 )iParam1 ) || ( pSoldier->flags.fFixingRobot != ( UINT8 )iParam2 ) || ( pSoldier->bVehicleUnderRepairID != ( UINT8 )iParam3 ) )
+				if ((pSoldier->bAssignment != bAssignment) || (pSoldier->flags.fFixingSAMSite != (UINT8)iParam1) || (pSoldier->flags.fFixingRobot != (UINT8)iParam2) || (pSoldier->bVehicleUnderRepairID != (UINT8)iParam3))
 				{
 					SetTimeOfAssignmentChangeForMerc( pSoldier );
 				}
 
-				ChangeSoldiersAssignment( pSoldier, REPAIR );
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
 				MakeSureToolKitIsInHand( pSoldier );
 				AssignMercToAMovementGroup( pSoldier );
 				pSoldier->flags.fFixingSAMSite = ( UINT8 )iParam1;
@@ -16399,54 +16403,55 @@ void BandageBleedingDyingPatientsBeingTreated( )
 		// and he is bleeding or dying
 		if( ( pSoldier->bBleeding ) || ( pSoldier->stats.bLife < OKLIFE ) )
 		{
-			// if soldier is receiving care
-			if( ( pSoldier->bAssignment == PATIENT ) || ( pSoldier->bAssignment == ASSIGNMENT_HOSPITAL ) || ( pSoldier->bAssignment == DOCTOR ) )
+			// if in the hospital
+			if ((pSoldier->bAssignment == FACILITY_PATIENT) || (pSoldier->bAssignment == ASSIGNMENT_HOSPITAL))
 			{
-				// if in the hospital
-				if ( pSoldier->bAssignment == ASSIGNMENT_HOSPITAL )
+				// this is instantaneous, and doesn't use up any bandages!
+
+				// stop bleeding automatically
+				pSoldier->bBleeding = 0;
+
+				if ( pSoldier->stats.bLife < OKLIFE )
 				{
-					// this is instantaneous, and doesn't use up any bandages!
-
-					// stop bleeding automatically
-					pSoldier->bBleeding = 0;
-
-					if ( pSoldier->stats.bLife < OKLIFE )
+					// SANDRO - added to alter the value of insta-healable injuries for doctors
+					if (pSoldier->iHealableInjury > 0)
 					{
-						// SANDRO - added to alter the value of insta-healable injuries for doctors
-						if (pSoldier->iHealableInjury > 0)
-						{
-							pSoldier->iHealableInjury -= ((OKLIFE - pSoldier->stats.bLife) * 100);
-						}
-
-						pSoldier->stats.bLife = OKLIFE;
+						pSoldier->iHealableInjury -= ((OKLIFE - pSoldier->stats.bLife) * 100);
 					}
+
+					pSoldier->stats.bLife = OKLIFE;
 				}
-				else	// assigned to DOCTOR/PATIENT
+			}
+			// if treated by fellow merc
+			else if ((pSoldier->bAssignment == DOCTOR) || (pSoldier->bAssignment == PATIENT))
+			{
+				// see if there's a doctor around who can help him
+				pDoctor = AnyDoctorWhoCanHealThisPatient( pSoldier, HEALABLE_EVER );
+				if ( pDoctor != NULL )
 				{
-					// see if there's a doctor around who can help him
-					pDoctor = AnyDoctorWhoCanHealThisPatient( pSoldier, HEALABLE_EVER );
-					if ( pDoctor != NULL )
+					iKitSlot = FindObjClass( pDoctor, IC_MEDKIT );
+					if( iKitSlot != NO_SLOT )
 					{
-						iKitSlot = FindObjClass( pDoctor, IC_MEDKIT );
-						if( iKitSlot != NO_SLOT )
+						pKit = &( pDoctor->inv[ iKitSlot ] );
+
+						usKitPts = TotalPoints( pKit );
+						if( usKitPts )
 						{
-							pKit = &( pDoctor->inv[ iKitSlot ] );
+							uiKitPtsUsed = VirtualSoldierDressWound( pDoctor, pSoldier, pKit, usKitPts, usKitPts, FALSE ); // SANDRO - added variable
+							UseKitPoints( pKit, (UINT16)uiKitPtsUsed, pDoctor );
 
-							usKitPts = TotalPoints( pKit );
-							if( usKitPts )
+							// if he is STILL bleeding or dying
+							if( ( pSoldier->bBleeding ) || ( pSoldier->stats.bLife < OKLIFE ) )
 							{
-								uiKitPtsUsed = VirtualSoldierDressWound( pDoctor, pSoldier, pKit, usKitPts, usKitPts, FALSE ); // SANDRO - added variable
-								UseKitPoints( pKit, (UINT16)uiKitPtsUsed, pDoctor );
-
-								// if he is STILL bleeding or dying
-								if( ( pSoldier->bBleeding ) || ( pSoldier->stats.bLife < OKLIFE ) )
-								{
-									fSomeoneStillBleedingDying = TRUE;
-								}
+								fSomeoneStillBleedingDying = TRUE;
 							}
 						}
 					}
 				}
+			}
+			else
+			{
+				// soldier is not receiving care
 			}
 		}
 	}
@@ -16478,11 +16483,11 @@ void ReEvaluateEveryonesNothingToDo()
 		{
 			switch( pSoldier->bAssignment )
 			{
-				case DOCTOR:
+				CASE_DOCTOR:
 					fNothingToDo = !CanCharacterDoctor( pSoldier ) || ( GetNumberThatCanBeDoctored( pSoldier, HEALABLE_EVER, FALSE, FALSE, FALSE ) == 0 ); // SANDRO - added variable
 					break;
 
-				case PATIENT:
+				CASE_PATIENT:
 					// HEADROCK HAM 3.6: Characters can be facility patients, in which case they are resting with a
 					// bonus or penalty to their healing rate. No doctor is actually required, even though the
 					// character is still eligible for a doctor's treatment.
@@ -16495,7 +16500,7 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = !CanCharacterPatient( pSoldier );
 					break;
 
-				case REPAIR:
+				CASE_REPAIR:
 					fNothingToDo = !CanCharacterRepair( pSoldier ) || HasCharacterFinishedRepairing( pSoldier );
 					break;
 
@@ -16646,23 +16651,23 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 			switch( bAssignment )
 			{
-				case( DOCTOR ):
+				CASE_DOCTOR:
 					// can character doctor?
-					if( CanCharacterDoctor( pSoldier ) )
+					if (CanCharacterDoctor( pSoldier ) && (pSoldier->sFacilityTypeOperated <= 0 || CanCharacterFacility( pSoldier, bParam, FAC_DOCTOR)))
 					{
 						// set as doctor
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, DOCTOR, 0,0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, 0, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
-				case( PATIENT ):
+				CASE_PATIENT:
 					// can character patient?
-					if( CanCharacterPatient( pSoldier ) )
+					if (CanCharacterPatient( pSoldier ) && (pSoldier->sFacilityTypeOperated <= 0 || CanCharacterFacility( pSoldier, bParam, FAC_PATIENT )))
 					{
 						// set as patient
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, PATIENT, 0,0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, 0, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -16678,8 +16683,8 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 						}
 					}
 					break;
-				case( REPAIR ):
-					if( CanCharacterRepair( pSoldier ) )
+				CASE_REPAIR:
+					if (CanCharacterRepair( pSoldier ))
 					{
 						BOOLEAN fCanFixSpecificTarget = TRUE;
 
@@ -16692,20 +16697,24 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 						}
 						else
 						*/
-						if ( pSelectedSoldier->bVehicleUnderRepairID != -1 )
+						if (pSelectedSoldier->bVehicleUnderRepairID != -1)
 						{
-							fCanFixSpecificTarget = CanCharacterRepairVehicle( pSoldier, pSelectedSoldier->bVehicleUnderRepairID );
+							fCanFixSpecificTarget = CanCharacterRepairVehicle( pSoldier, pSelectedSoldier->bVehicleUnderRepairID ) && (pSoldier->sFacilityTypeOperated <= 0 || CanCharacterFacility( pSoldier, bParam, FAC_REPAIR_VEHICLE ));
 						}
-						else if( pSoldier->flags.fFixingRobot )
+						else if (pSoldier->flags.fFixingRobot)
 						{
-							fCanFixSpecificTarget = CanCharacterRepairRobot( pSoldier );
+							fCanFixSpecificTarget = CanCharacterRepairRobot( pSoldier ) && (pSoldier->sFacilityTypeOperated <= 0 || CanCharacterFacility( pSoldier, bParam, FAC_REPAIR_ROBOT ));
+						}
+						else
+						{
+							fCanFixSpecificTarget = (pSoldier->sFacilityTypeOperated <= 0 || CanCharacterFacility( pSoldier, bParam, FAC_REPAIR_ITEMS ));
 						}
 
 						if ( fCanFixSpecificTarget )
 						{
 							// set as repair
 							pSoldier->bOldAssignment = pSoldier->bAssignment;
-							SetSoldierAssignment( pSoldier, REPAIR, pSelectedSoldier->flags.fFixingSAMSite, pSelectedSoldier->flags.fFixingRobot, pSelectedSoldier->bVehicleUnderRepairID );
+							SetSoldierAssignment( pSoldier, bAssignment, pSelectedSoldier->flags.fFixingSAMSite, pSelectedSoldier->flags.fFixingRobot, pSelectedSoldier->bVehicleUnderRepairID );
 							fItWorked = TRUE;
 						}
 					}
@@ -17181,7 +17190,7 @@ BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier )
 		}
 
 		// and healing up?
-		if ( ( pSoldier->bAssignment == PATIENT ) || ( pSoldier->bAssignment == ASSIGNMENT_HOSPITAL ) )
+		if ( (IS_PATIENT(pSoldier->bAssignment) && !IS_DOCTOR(pSoldier->bAssignment)) || (pSoldier->bAssignment == ASSIGNMENT_HOSPITAL) )
 		{
 			return( TRUE );
 		}
@@ -20280,28 +20289,28 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 					break;
 				case FAC_REPAIR_ITEMS:
 					MakeSureToolKitIsInHand( pSoldier );
-					ChangeSoldiersAssignment( pSoldier, REPAIR );
+					ChangeSoldiersAssignment( pSoldier, FACILITY_REPAIR );
 					pSoldier->flags.fFixingRobot = FALSE;
 					pSoldier->bVehicleUnderRepairID = -1;
 					break;
 				case FAC_REPAIR_VEHICLE:
 					MakeSureToolKitIsInHand( pSoldier );
-					ChangeSoldiersAssignment( pSoldier, REPAIR );
+					ChangeSoldiersAssignment( pSoldier, FACILITY_REPAIR );
 					pSoldier->flags.fFixingRobot = FALSE;
 					pSoldier->bVehicleUnderRepairID = (INT8)ubVehicleID;
 					break;
 				case FAC_REPAIR_ROBOT:
 					MakeSureToolKitIsInHand( pSoldier );
-					ChangeSoldiersAssignment( pSoldier, REPAIR );
+					ChangeSoldiersAssignment( pSoldier, FACILITY_REPAIR );
 					pSoldier->flags.fFixingRobot = TRUE;
 					pSoldier->bVehicleUnderRepairID = -1;
 					break;
 				case FAC_DOCTOR:
 					MakeSureMedKitIsInHand( pSoldier );
-					ChangeSoldiersAssignment( pSoldier, DOCTOR );
+					ChangeSoldiersAssignment( pSoldier, FACILITY_DOCTOR );
 					break;
 				case FAC_PATIENT:
-					ChangeSoldiersAssignment( pSoldier, PATIENT );
+					ChangeSoldiersAssignment( pSoldier, FACILITY_PATIENT );
 					break;
 				case FAC_PRACTICE_STRENGTH:
 					pSoldier->bTrainStat = STRENGTH;
@@ -20436,7 +20445,7 @@ void FacilityAssignmentMenuBtnCallback ( MOUSE_REGION * pRegion, INT32 iReason )
 			}
 			
 			// Flugente: I guess this piece of code is here to get a group Id for the soldier, which must not be there for movement specifically. Just my understanding, in case anybody else coming here wonders
-			// why we get movement related stuff when we were jsut ordered to stay in a facility
+			// why we get movement related stuff when we were just ordered to stay in a facility
 			AssignMercToAMovementGroup( pSoldier );			
 			MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
 

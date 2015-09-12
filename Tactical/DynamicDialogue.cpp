@@ -1966,7 +1966,7 @@ UINT8 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ )
 
 UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<UINT8> aTaboo, BOOLEAN fImpOnly )
 {
-	std::vector<UINT8>	resultvector;
+	std::vector<UINT16>	resultvector;
 	SOLDIERTYPE*		pTeamSoldier = NULL;
 	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
@@ -2267,7 +2267,7 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 
 			case OPINIONEVENT_DISEASE_DISGUSTING:
 				// not if the other guy is a doctor, is currently used as a doctor, or has disease themself
-				if ( pTeamSoldier->bAssignment == DOCTOR || pTeamSoldier->bAssignment == DISEASE_DOCTOR_SECTOR || HAS_SKILL_TRAIT( pTeamSoldier, DOCTOR_NT ) || pTeamSoldier->HasDisease(TRUE, FALSE, FALSE) )
+				if ( IS_DOCTOR(pTeamSoldier->bAssignment) || pTeamSoldier->bAssignment == DISEASE_DOCTOR_SECTOR || HAS_SKILL_TRAIT( pTeamSoldier, DOCTOR_NT ) || pTeamSoldier->HasDisease(TRUE, FALSE, FALSE) )
 					continue;
 				break;
 

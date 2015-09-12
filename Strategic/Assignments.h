@@ -81,8 +81,23 @@ enum
 	FACILITY_STRATEGIC_MILITIA_MOVEMENT,	// Flugente: merc staffs a military HQ, we can now control militia movement on the map
 	DISEASE_DIAGNOSE,				// Flugente: check for diseases among mercs and local population
 	DISEASE_DOCTOR_SECTOR,			// Flugente: treatpopulation (all non-mercs in the sector) against disease
+	FACILITY_DOCTOR,
+	FACILITY_PATIENT,
+	FACILITY_REPAIR,
 	NUM_ASSIGNMENTS,
 };
+
+#define IS_DOCTOR(assignment) ((assignment == DOCTOR) || (assignment == FACILITY_DOCTOR))
+// left the last : off so syntax is visually consistent with non-macro case statements
+#define CASE_DOCTOR case DOCTOR: case FACILITY_DOCTOR
+
+// Does not include HOSPITAL since mercs are not responsible for their care
+#define IS_PATIENT(assignment) ((assignment == DOCTOR) || (assignment == PATIENT) || (assignment == FACILITY_DOCTOR) || (assignment == FACILITY_PATIENT))
+// Does not include DOCTOR types because switch cases must be unique
+#define CASE_PATIENT case PATIENT: case FACILITY_PATIENT
+
+#define IS_REPAIR(assignment) ((assignment == REPAIR) || (assignment == FACILITY_REPAIR))
+#define CASE_REPAIR case REPAIR: case FACILITY_REPAIR
 
 // strings for snitch exposition
 enum
@@ -115,7 +130,8 @@ enum
 #define NO_ASSIGNMENT		127 //used when no pSoldier->ubDesiredSquad
 
 // Train stats defines (must match ATTRIB_MENU_ defines, and pAttributeMenuStrings )
-enum{
+enum
+{
 	HEALTH = 0,
 	AGILITY,
 	DEXTERITY,
@@ -482,9 +498,3 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier );
 UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier );
 
 #endif
-
-
-
- 
-
-

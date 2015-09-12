@@ -105,12 +105,18 @@ void HandleDisease()
 					// infection chance gets modified depending on assignments
 					FLOAT modifier = 1.0f;
 
-					// if both are in the same squad, chance is increased
-					if ( pTeamSoldier->bAssignment == pSoldier->bAssignment && pSoldier->bAssignment < ON_DUTY )
+					// if both are in the same squad or vehicle, chance is increased
+					if (pTeamSoldier->bAssignment == pSoldier->bAssignment &&
+						 (pSoldier->bAssignment < ON_DUTY ||
+						 (pSoldier->bAssignment == VEHICLE && pSoldier->iVehicleId == pTeamSoldier->iVehicleId)))
+					{
 						modifier = 1.5;
+					}
 					// doctor-patient relations increase chance even more
-					else if ( (pTeamSoldier->bAssignment == DOCTOR || pTeamSoldier->bAssignment == PATIENT) && (pSoldier->bAssignment == DOCTOR || pSoldier->bAssignment == PATIENT) )
+					else if (IS_PATIENT(pTeamSoldier->bAssignment) && IS_PATIENT(pSoldier->bAssignment))
+					{
 						modifier = 4;
+					}
 
 					// we might get a disease from this...
 					HandlePossibleInfection( pSoldier, pTeamSoldier, INFECTION_TYPE_CONTACT_HUMAN, modifier );

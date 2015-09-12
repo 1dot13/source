@@ -2166,7 +2166,17 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->wornDesertCamo, sizeof(wornDesertCamo), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->snowCamo, sizeof(snowCamo), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->wornSnowCamo, sizeof(wornSnowCamo), sizeof(INT8), numBytesRead);
+		// Preserve old savegames by detecting if the assignment is not saved as FACILITY_ but really should be
 		numBytesRead = ReadFieldByField(hFile, &this->sFacilityTypeOperated, sizeof(sFacilityTypeOperated), sizeof(INT16), numBytesRead);
+		if (this->sFacilityTypeOperated > 0)
+		{
+			if (this->bAssignment == DOCTOR)
+				this->bAssignment = FACILITY_DOCTOR;
+			else if (this->bAssignment == PATIENT)
+				this->bAssignment = FACILITY_PATIENT;
+			else if (this->bAssignment == REPAIR)
+				this->bAssignment = FACILITY_REPAIR;
+		}
 		numBytesRead = ReadFieldByField(hFile, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_1, sizeof(bUnusedINT8_1), sizeof(INT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_2, sizeof(bUnusedINT8_2), sizeof(INT8), numBytesRead );

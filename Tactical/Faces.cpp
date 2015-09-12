@@ -2246,7 +2246,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			
 			switch( pSoldier->bAssignment )
 			{
-				case DOCTOR:
+				CASE_DOCTOR:
 					sIconIndex_Assignment = 1;
 					fDoIcon_Assignment		= TRUE;
 					sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
@@ -2258,7 +2258,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					usMaximumPts	= ( usMaximumPts + 5 ) / 10;
 					break;
 
-				case PATIENT:
+				CASE_PATIENT:
 					sIconIndex_Assignment = 2;
 					fDoIcon_Assignment		= TRUE;
 					// show current health / maximum health
@@ -2300,7 +2300,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					}
 					break;
 
-				case REPAIR:
+				CASE_REPAIR:
 
 					sIconIndex_Assignment = 0;
 					fDoIcon_Assignment		= TRUE;

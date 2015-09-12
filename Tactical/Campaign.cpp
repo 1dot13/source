@@ -713,8 +713,8 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 				if ( ((pSoldier->bAssignment == TRAIN_BY_OTHER || pSoldier->bAssignment == TRAIN_TEAMMATE || pSoldier->bAssignment == TRAIN_SELF || 
 							pSoldier->bAssignment == FACILITY_STAFF || pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE ) 
 							&& !gGameSettings.fOptions[TOPTION_QUIET_TRAINING]) ||
-					 (pSoldier->bAssignment == REPAIR && !gGameSettings.fOptions[TOPTION_QUIET_REPAIRING]) ||
-					 (pSoldier->bAssignment == DOCTOR && !gGameSettings.fOptions[TOPTION_QUIET_DOCTORING]))
+					 (IS_REPAIR(pSoldier->bAssignment) && !gGameSettings.fOptions[TOPTION_QUIET_REPAIRING]) ||
+					 (IS_DOCTOR(pSoldier->bAssignment) && !gGameSettings.fOptions[TOPTION_QUIET_DOCTORING]))
 
 					 TacticalCharacterDialogue( pSoldier, QUOTE_EXPERIENCE_GAIN );
 			}

@@ -490,7 +490,7 @@ BOOLEAN DoctorIsPresent( SOLDIERTYPE * pPatient, BOOLEAN fOnDoctorAssignmentChec
 			// cannot make surgery on self!
 			continue; // NEXT!!!		
 		}
-		if ( fOnDoctorAssignmentCheck && pMedic->bAssignment != DOCTOR )
+		if ( fOnDoctorAssignmentCheck && !IS_DOCTOR(pMedic->bAssignment) )
 		{
 			// not on the right assignment!
 			continue; // NEXT!!!

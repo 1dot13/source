@@ -771,33 +771,22 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 	INT8 bAssignment = pSoldier->bAssignment;
 	INT8 bAssignmentIndex = -1; // Return variable. -1 = Non-facility assignment.
 
-	if (bAssignment <= ON_DUTY ||
-		bAssignment == PATIENT ||
-		bAssignment == VEHICLE ||
-		bAssignment == IN_TRANSIT ||
-		bAssignment == TRAIN_TOWN ||
-		bAssignment == TRAIN_MOBILE ||
-		( bAssignment > FACILITY_REST && bAssignment != FACILITY_STRATEGIC_MILITIA_MOVEMENT && ( bAssignment < FACILITY_PRISON_SNITCH || bAssignment > FACILITY_GATHER_RUMOURS ) ))
-	{
-		// Soldier is performing a distinctly NON-FACILITY assignment.
-		return (-1);
-	}
-
 	if (pSoldier->sFacilityTypeOperated == -1)
 	{
 		// Soldier is not set to work at a facility...
 		return (-1);
 	}
 
+	// switch of ALL possible facility assignments
 	switch (bAssignment)
 	{
-		case DOCTOR:
+		case FACILITY_DOCTOR:
 			bAssignmentIndex = FAC_DOCTOR;
 			break;
-		case PATIENT:
+		case FACILITY_PATIENT:
 			bAssignmentIndex = FAC_PATIENT;
 			break;
-		case REPAIR:
+		case FACILITY_REPAIR:
 			// Determine which kind of repair is he performing
 			if ( pSoldier->bVehicleUnderRepairID != -1 )
 			{
@@ -945,6 +934,7 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 			bAssignmentIndex = FAC_STRATEGIC_MILITIA_MOVEMENT;
 			break;
 		default:
+			// Soldier is performing a distinctly NON-FACILITY assignment.
 			bAssignmentIndex = -1;
 			break;
 	}

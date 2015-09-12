@@ -6476,10 +6476,6 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 	INT16			usX, usY;
 	INT16			ubAttackAPs;
 	UINT8			ubNumLine;
-	INT16			sTop;
-	INT16			sHeight;
-	INT16			sLeft;
-	INT16			sWidth;
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
 
@@ -7931,7 +7927,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				 * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpComparedItemDescObject, WM_BURST )
 				 + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, gpItemDescSoldier ) + 0.5f );
 			// Get base Burst Cost
-			INT16 iBurstAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
+			INT16 iBurstAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject )
 				+ CalcAPsToBurstNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject );
 			// Get Burst Cost Modifier
 			INT16 iBurstAPCostModifier = iFinalBurstAPCost - iBurstAPCost;
@@ -8001,7 +7997,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				 * GetAttackAPTraitMultiplier( gpItemDescSoldier, gpComparedItemDescObject, WM_AUTOFIRE )
 				 + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3, gpItemDescSoldier ) + 0.5f );
 			// Get base Autofire Cost
-			INT16 iAutoAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject );
+			INT16 iAutoAPCost = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject )
 				+ CalcAPsToAutofireNoModifier( APBPConstants[DEFAULT_APS], gpComparedItemDescObject, 3 );
 			// Get Autofire Cost Modifier
 			INT16 iAutoAPCostModifier = iFinalAutoAPCost - iAutoAPCost;
@@ -8767,7 +8763,7 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 	INT16				usY;
 	INT16				usX;
 	UINT8				ubNumLine;
-	INT16				sLeft, sTop, sWidth, sHeight;
+	INT16				sTop, sHeight;
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
 
@@ -9027,7 +9023,7 @@ void DrawExplosiveValues( OBJECTTYPE * gpItemDescObject )
 	INT16				usY;
 	INT16				usX;
 	UINT8				ubNumLine;
-	INT16				sLeft, sTop, sWidth, sHeight;
+	INT16				sTop, sHeight;
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
 
@@ -9672,7 +9668,6 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 	INT16				usY;
 	INT16				usX;
 	UINT8				ubNumLine;
-	INT16				sLeft, sTop, sWidth, sHeight;
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
 

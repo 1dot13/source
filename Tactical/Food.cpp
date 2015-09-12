@@ -382,7 +382,7 @@ void HourlyFoodSituationUpdate( SOLDIERTYPE *pSoldier )
 		else
 			activitymodifier = gGameExternalOptions.sFoodDigestionTravel;
 	}
-	else if ( pSoldier->bAssignment > DOCTOR )
+	else if ( pSoldier->bAssignment > DOCTOR ) // unclear why this does not include DOCTOR assignment???
 		activitymodifier = gGameExternalOptions.sFoodDigestionAssignment;
 	else if ( (gTacticalStatus.uiFlags & INCOMBAT) )
 		activitymodifier = gGameExternalOptions.sFoodDigestionCombat;

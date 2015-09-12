@@ -1878,6 +1878,9 @@ STR16 pAssignmentStrings[] =
 	L"Command",	// militia movement orders
 	L"Diagnose", // disease diagnosis	//TODO.Translate
 	L"Treat D.", // treat disease among the population
+	L"Doktor", // administering medical aid	
+	L"Patient", // getting medical aid
+	L"Repar.", // repairing
 };
 
 STR16 pMilitiaString[] =
@@ -1972,6 +1975,9 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 	L"Diagnose", // disease diagnosis
 	L"Treat Population disease", // treat disease among the population
+	L"Doktor",
+	L"Patient",
+	L"Reparieren",
 };
 
 // refer to above for comments
@@ -2027,6 +2033,9 @@ STR16 pLongAssignmentStrings[] =
 	L"Commanding Militia",	// militia movement orders	// TODO.Translate
 	L"Diagnose", // disease diagnosis
 	L"Treat Population disease", // treat disease among the population
+	L"Doktor",
+	L"Patient",
+	L"Reparieren",
 };
 
 // the contract options
