@@ -8,7 +8,7 @@ http://www.ja-galaxy-forum.com/board/ubbthreads.php/topics/300623/JA2_graphics_a
 http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/201044/Searchpage/1/Main/14041/Words/catalyst/Search/true/Re_mouse_artifacts.html#Post201044
 http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/275601/Searchpage/1/Main/18045/Words/catalyst/Search/true/Re_Jagged_Alliance_2_1_13_in_W.html#Post275601
 
-* Windows 8 *
+* Windows 8 / Windows 10 *
 http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/321861/Searchpage/1/Main/20560/Words/glitch+windows+7/Search/true/Re_Jagged_Alliance_2_on_Window.html#Post321861
 Just extract the "Windows 8 Fix.zip" to a temporary folder and read the included "ReadMe.txt" file!
 
