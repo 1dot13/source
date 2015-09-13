@@ -8603,6 +8603,34 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Hide all",
 };
 
+STR16 gzMercCompare[] =
+{
+	L"???",
+	L"Base opinion:",
+
+	L"Dislikes %s %s",
+	L"Likes %s %s",
+
+	L"Strongly hates %s",
+	L"Hates %s",			// 5
+
+	L"Deep racism against %s",
+	L"Racism against %s",
+
+	L"Cares deeply about looks",
+	L"Cares about looks",
+
+	L"Very sexist",			// 10
+	L"Sexist",
+
+	L"Dislikes other background",
+	L"Dislikes other backgrounds",
+
+	L"Past grievances",
+	L"____",				// 15
+	L"/",
+};
+
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =			// TODO.Translate
 {

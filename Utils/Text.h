@@ -368,6 +368,9 @@ extern STR16 gzNCTHlabels[];
 extern STR16 gzMapInventorySortingMessage[];
 extern STR16 gzMapInventoryFilterOptions[];
 
+// MeLoDy (Merc Compare)
+extern STR16 gzMercCompare[];
+
 enum
 {
 	ANTIHACKERSTR_EXITGAME,

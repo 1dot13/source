@@ -91,7 +91,7 @@ void SelectLinkRegionCallBack_MercCompare( MOUSE_REGION * pRegion, INT32 iReason
 void GetMercCompareText( UINT8 ubNumber, STR16 pString )
 {
 	if ( ubNumber >= TEXT_MERCCOMPARE_MAX )
-		wcscpy( pString, L"???" );
+		wcscpy( pString, gzMercCompare[0] );
 
 	wcscpy( pString, szMercCompareWebSite[ubNumber] );
 }
@@ -549,7 +549,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	SetFontShadow( MERCOMP_FONT_SHADOW );
 
 	// base opinions
-	swprintf( sText, L"Base opinion:" );
+	swprintf( sText, gzMercCompare[1] );
 	DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 
@@ -592,7 +592,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	
 	if ( fRefinementfoundA )
 	{
-		swprintf( sText, (val < 0) ? L"Dislikes %s %s" : L"Likes %s %s", szRefinementTextTypes[pProfileB->bRefinement], szCareLevelText[pProfileA->bRefinementCareLevel] );
+		swprintf( sText, (val < 0) ? gzMercCompare[2] : gzMercCompare[3], szRefinementTextTypes[pProfileB->bRefinement], szCareLevelText[pProfileA->bRefinementCareLevel] );
 		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -628,7 +628,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	if ( fRefinementfoundB )
 	{
-		swprintf( sText, (val < 0) ? L"Dislikes %s %s" : L"Likes %s %s", szRefinementTextTypes[pProfileA->bRefinement], szCareLevelText[pProfileB->bRefinementCareLevel] );
+		swprintf( sText, (val < 0) ? gzMercCompare[2] : gzMercCompare[3], szRefinementTextTypes[pProfileA->bRefinement], szCareLevelText[pProfileB->bRefinementCareLevel] );
 		DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -649,7 +649,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 			else
 				val = 0;
 
-			swprintf( sText, pProfileA->bRacist == RACIST_VERY ? L"Strongly hates %s" : L"Hates %s", szNationalityTextAdjective[pProfileA->bHatedNationality] );
+			swprintf( sText, pProfileA->bRacist == RACIST_VERY ? gzMercCompare[4] : gzMercCompare[5], szNationalityTextAdjective[pProfileA->bHatedNationality] );
 			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 			swprintf( sText, L"%d", val );
 			DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -664,7 +664,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 			else
 				val = 0;
 
-			swprintf( sText, pProfileB->bRacist == RACIST_VERY ? L"Strongly hates %s" : L"Hates %s", szNationalityTextAdjective[pProfileB->bHatedNationality] );
+			swprintf( sText, pProfileB->bRacist == RACIST_VERY ? gzMercCompare[4] : gzMercCompare[5], szNationalityTextAdjective[pProfileB->bHatedNationality] );
 			DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 			swprintf( sText, L"%d", val );
 			DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -685,7 +685,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 			else
 				val = 0;
 				
-			swprintf( sText, pProfileA->bRacist == RACIST_VERY ? L"Deep racism against %s" : L"Racism against %s", szRaceText[pProfileB->bRace] );
+			swprintf( sText, pProfileA->bRacist == RACIST_VERY ? gzMercCompare[6] : gzMercCompare[7], szRaceText[pProfileB->bRace] );
 			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 			swprintf( sText, L"%d", val );
 			DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -700,7 +700,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 			else
 				val = 0;
 
-			swprintf( sText, pProfileB->bRacist == RACIST_VERY ? L"Deep racism against %s" : L"Racism against %s", szRaceText[pProfileA->bRace] );
+			swprintf( sText, pProfileB->bRacist == RACIST_VERY ? gzMercCompare[6] : gzMercCompare[7], szRaceText[pProfileA->bRace] );
 			DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 			swprintf( sText, L"%d", val );
 			DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -725,7 +725,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	if ( val != 0 )
 	{
-		swprintf( sText, (pProfileA->bAppearanceCareLevel == CARELEVEL_EXTREME) ? L"Cares deeply about looks" : L"Cares about looks" );
+		swprintf( sText, (pProfileA->bAppearanceCareLevel == CARELEVEL_EXTREME) ? gzMercCompare[8] : gzMercCompare[9] );
 		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -746,7 +746,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	if ( val != 0 )
 	{
-		swprintf( sText, (pProfileB->bAppearanceCareLevel == CARELEVEL_EXTREME) ? L"Cares deeply about looks" : L"Cares about looks" );
+		swprintf( sText, (pProfileB->bAppearanceCareLevel == CARELEVEL_EXTREME) ? gzMercCompare[8] : gzMercCompare[9] );
 		DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -775,7 +775,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 			if ( val != 0 )
 			{
-				swprintf( sText, (pProfileA->bSexist == VERY_SEXIST) ? L"Very sexist" : L"Sexist" );
+				swprintf( sText, (pProfileA->bSexist == VERY_SEXIST) ? gzMercCompare[10] : gzMercCompare[11] );
 				DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 				swprintf( sText, L"%d", val );
 				DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -798,7 +798,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 			if ( val != 0 )
 			{
-				swprintf( sText, (pProfileB->bSexist == VERY_SEXIST) ? L"Very sexist" : L"Sexist" );
+				swprintf( sText, (pProfileB->bSexist == VERY_SEXIST) ? gzMercCompare[10] : gzMercCompare[11] );
 				DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 				swprintf( sText, L"%d", val );
 				DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -815,12 +815,12 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	{
 		val = -2;
 
-		swprintf( sText, L"Dislikes other background" );
+		swprintf( sText, gzMercCompare[12] );
 		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		
-		swprintf( sText, L"Dislikes other background" );
+		swprintf( sText, gzMercCompare[12] );
 		DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		usPosY += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -855,7 +855,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 		if ( HasBackgroundFlag( usProfileA, BACKGROUND_XENOPHOBIC ) )
 		{
 			val = -gGameExternalOptions.sMoraleModXenophobicBackGround;
-			swprintf( sText, L"Dislikes other backgrounds" );
+			swprintf( sText, gzMercCompare[13] );
 			DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 			swprintf( sText, L"%d", val );
 			usPosY += DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -864,7 +864,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 		if ( HasBackgroundFlag( usProfileB, BACKGROUND_XENOPHOBIC ) )
 		{
 			val = -gGameExternalOptions.sMoraleModXenophobicBackGround;
-			swprintf( sText, L"Dislikes other backgrounds" );
+			swprintf( sText, gzMercCompare[13] );
 			DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 			swprintf( sText, L"%d", val );
 			usPosY2 += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -903,7 +903,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	if ( val )
 	{
-		swprintf( sText, L"Past grievances" );
+		swprintf( sText, gzMercCompare[14] );
 		DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		usPosY += DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -913,7 +913,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	if ( val )
 	{
-		swprintf( sText, L"Past grievances" );
+		swprintf( sText, gzMercCompare[14] );
 		DisplayWrappedString( usPosX + MCA_SIDEOFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 		swprintf( sText, L"%d", val );
 		usPosY2 += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
@@ -922,7 +922,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	// draw the final verdict
 	val = SoldierRelation( pSoldierA, pSoldierB );
 
-	swprintf( sText, L"____" );
+	swprintf( sText, gzMercCompare[15] );
 	DisplayWrappedString( usPosX + MCA_NUMBEROFFSET - 10, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	usPosY += 12;
 	swprintf( sText, L"%d", val );
@@ -930,7 +930,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	
 	val = SoldierRelation( pSoldierB, pSoldierA );
 
-	swprintf( sText, L"____" );
+	swprintf( sText, gzMercCompare[15] );
 	DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET - 10, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	usPosY2 += 12;
 	swprintf( sText, L"%d", val );
@@ -1073,7 +1073,7 @@ void RenderMercCompareMatrix( )
 		}
 
 		UINT16 spacepermerc = (LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X) / (squadvector.size() + 1);
-		spacepermerc = min( spacepermerc , 60);
+		spacepermerc = min( spacepermerc , 70);
 
 		// now loop over the squadmembers and fill out the table
 		std::vector<UINT8>::iterator itend = squadvector.end( );
@@ -1156,7 +1156,7 @@ void RenderMercCompareMatrix( )
 				DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 				usPosX += 15;
 
-				swprintf( sText, L"/" );
+				swprintf( sText, gzMercCompare[16] );
 				DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 				usPosX += 5;
 
