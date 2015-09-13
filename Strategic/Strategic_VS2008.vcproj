@@ -663,10 +663,6 @@
 				>
 			</File>
 			<File
-				RelativePath="QuestText.cpp"
-				>
-			</File>
-			<File
 				RelativePath="Reinforcement.cpp"
 				>
 			</File>

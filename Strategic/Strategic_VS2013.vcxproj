@@ -105,7 +105,6 @@
     <ClCompile Include="Queen Command.cpp" />
     <ClCompile Include="Quest Debug System.cpp" />
     <ClCompile Include="Quests.cpp" />
-    <ClCompile Include="QuestText.cpp" />
     <ClCompile Include="Reinforcement.cpp" />
     <ClCompile Include="Scheduling.cpp" />
     <ClCompile Include="Strategic AI.cpp" />

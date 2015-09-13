@@ -245,9 +245,6 @@
     <ClCompile Include="Quests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QuestText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Reinforcement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

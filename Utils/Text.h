@@ -69,6 +69,8 @@ extern STR16	pEncyclopediaShortInventoryText[];
 extern STR16	BoxFilter[];
 extern STR16	pOtherButtonsText[];
 extern STR16	pOtherButtonsHelpText[];
+extern STR16	QuestDescText[];
+extern STR16	FactDescText[];
 
 //Editor
 //Editor Taskbar Creation.cpp
