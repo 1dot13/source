@@ -89,7 +89,7 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"教学",// L"Teaching",
 	L"侦察",// L"Scouting",
 	L"无线电操作员", //L"Radio Operator",
-	L"Survival",	//TODO.Translate
+	L"生还者", //L"Survival",
 
 	L"无",// L"None",
 	L"I.M.P 副技能",// L"I.M.P. Minor Traits",
@@ -147,13 +147,13 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"步枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Rifles\n",
 	L"霰弹枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Shotguns\n",
 	L"泵动式霰弹上膛所需行动点 -%d%s \n",// L"-%d%s APs needed to pump Shotguns\n",
-	L"使用散弹枪时-%d%s APs\n",	//L"-%d%s APs to fire Shotguns\n",
-	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim click for Shotguns\n",
-	L"使用散弹枪增加%d次瞄准次数\n",	//L"Adds %d more aim clicks for Shotguns\n",
-	L"+%d%s effective range with Shotguns\n",  // TODO.Translate
-	L"-%d%s APs to reload single Shotgun shells\n",  // TODO.Translate
-	L"Adds %d more aim click for Rifles\n",  // TODO.Translate
-	L"Adds %d more aim clicks for Rifles\n",  // TODO.Translate
+	L"使用散弹枪时-%d%s APs\n", //L"-%d%s APs to fire Shotguns\n",
+	L"使用散弹枪增加%d次瞄准次数\n", //L"Adds %d more aim click for Shotguns\n",
+	L"使用散弹枪增加%d次瞄准次数\n", //L"Adds %d more aim clicks for Shotguns\n",
+	L"+%d%s 散弹枪的有效范围\n",  //L"+%d%s effective range with Shotguns\n",
+	L"-%d%s 散弹枪上膛的APs消耗\n",  //L"-%d%s APs to reload single Shotgun shells\n",
+	L"使用步枪增加 %d 精瞄次数\n",  //L"Adds %d more aim click for Rifles\n",
+	L"使用步枪增加 %d 精瞄次数\n",  //L"Adds %d more aim clicks for Rifles\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
@@ -229,7 +229,7 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"机器人命中率 +%d%s, (由%s控制时)(翻译注：程序参数问题只能用这个语序)\n",// L"+%d%s CtH of robot controlled by the %s\n",
 	L"只有 %s 可以修理机器人\n",// L"%s trait grants you the ability to repair the robot\n",
 	L"修理机器人的速度惩罚 -%d%s\n",// L"Reduced penalty to repair speed of the robot by %d%s\n",
-	L"Able to restore item threshold to 100%% during repair\n",	// TODO.Translate
+	L"可以用物品修复到 100%% 的状态\n", //L"Able to restore item threshold to 100%% during repair\n",
 };
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
@@ -385,19 +385,19 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"+%d有效听觉范围\n",
 };
 
-STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
+STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 {
 	L"队伍在区域间步行移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling by foot\n",
 	L"队伍在区域间乘车移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"区域间移动时体力消耗 -%d%s\n",// L"-%d%s less energy spent for travelling between sectors\n",
 	L"天气效果惩罚 -%d%s\n",// L"-%d%s weather penalties\n",
-	//L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
+ //L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
 	L"迷彩涂装退色的速度 -%d%s\n",// L"-%d%s worn out speed of camouflage by water or time\n",
-	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
+	L"Can spot tracks up to %d tiles away\n",	//L"Can spot tracks up to %d tiles away\n",
 
-	L" %s%d%% disease resistance\n",
-	L" %s%d%% food consumption\n",
-	L" %s%d%% water consumption\n",
+	L" %s%d%% 疾病抗性\n",//L" %s%d%% disease resistance\n",
+	L" %s%d%% 食物消耗\n",//L" %s%d%% food consumption\n",
+	L" %s%d%% 水消耗\n",//L" %s%d%% water consumption\n",
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
@@ -494,8 +494,8 @@ STR16 zGioNewTraitsImpossibleText[]=
 STR16	gzIronManModeWarningText[]=
 {
 	L"你选择了铁人模式。这将会游戏变得相当有挑战性，因为你无法在敌人占据的分区存档。 这个设置会影响游戏的整个进程。你确认你要在铁人模式下进行游戏吗?",
-	L"You have chosen SOFT IRON MAN mode. This setting makes the game slightly more challenging as you will not be able to save your game during turn-based combat. This setting will affect the entire course of the game.  Are you sure want to play in SOFT IRON MAN mode?",// TODO.Translate
-	L"You have chosen EXTREME IRON MAN mode. This setting makes the game way more challenging as you will be able to save your progress only once per day - at %02d:00. This setting will affect the entire course of the game.  Do you seriously want to play in EXTREME IRON MAN mode?",// TODO.Translate
+	L"你选择了“假铁人”模式，这个设定会稍微加大对游戏的挑战性。因为你不可以在回合制的模式下存档，而且这个设定会在整个游戏过程生效，你确定要在“假铁人”模式下进行游戏？", //L"You have chosen SOFT IRON MAN mode. This setting makes the game slightly more challenging as you will not be able to save your game during turn-based combat. This setting will affect the entire course of the game.  Are you sure want to play in SOFT IRON MAN mode?",
+	L"你选择了“真铁人”模式，这个设定会加大游戏的挑战性。因为你只能在每天的%02d:00存档，而且这个设定会在整个游戏的过程生效，你确定要在“真铁人”模式下进行游戏？", //L"You have chosen EXTREME IRON MAN mode. This setting makes the game way more challenging as you will be able to save your progress only once per day - at %02d:00. This setting will affect the entire course of the game.  Do you seriously want to play in EXTREME IRON MAN mode?",
 };
 
 STR16 gzDisplayCoverText[]=
@@ -516,11 +516,11 @@ STR16 gzDisplayCoverText[]=
 	L"沙漠和城市",
 	L"沙漠和雪地",
 	L"城市和雪地",
-	L"-", // yes empty for now				// TODO.Translate
-	L"Cover: %d/100, Brightness: %d/100",
-	L"Footstep volume",
-	L"Stealth difficulty",
-	L"Trap level",
+	L"-", // yes empty for now
+	L"覆盖: %d/100, 亮度: %d/100", //L"Cover: %d/100, Brightness: %d/100",
+	L"步距", //L"Footstep volume",
+	L"隐蔽难度", //L"Stealth difficulty",
+	L"陷阱等级", //L"Trap level",
 };
 
 #endif

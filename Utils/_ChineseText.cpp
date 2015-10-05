@@ -143,7 +143,7 @@ STR16 pMenuStrings[] =
 	L"菜单15", // 15 //L"Menu 15",
 	
 	//Briefing Room
-	L"进入",		//L"Enter",
+	L"进入",	 //L"Enter",
 };
 
 STR16	pOtherButtonsText[] =
@@ -1268,7 +1268,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"退出编辑模式", //L"Leave Editor mode",
 	L"退出游戏(|A|l|t+|X)", //L"Exit game (|A|l|t+|X)",
 	L"编辑雷达图", //L"Create radar map",
-	L"是否按照原版JA2的地图格式保存 Items with ID > 350 will be lost. \n该选项只对原版大小的地图有效，地图格数不应超过25600个", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",	// TODO.Translate
+	L"是否按照原版JA2的地图格式保存 Items with ID > 350 will be lost. \n该选项只对原版大小的地图有效，地图格数不应超过25600个", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
 	L"是否自动根据选择的行列数多少来放大地图", //L"When checked and you load a map, the map will be enlarged automatically depending on the selected Rows and Cols.",
 };
 
@@ -1301,8 +1301,8 @@ STR16 iEditorTaskbarInternalText[]=
 	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Terrain fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
 	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Buildings fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
 	L"|S|p|a|c|e: 选择后一个物品\n|C|t|r|l+|S|p|a|c|e: 选择前一个物品\n \n|/:光标下放置同样物品\n|C|t|r|l+|/:光标处放置新物品", //Items fasthelp text //L"|S|p|a|c|e: Select next item\n|C|t|r|l+|S|p|a|c|e: Select previous item\n \n|/: Place same item under mouse cursor\n|C|t|r|l+|/: Place new item under mouse cursor",
-	L"|1-|9:设置路标 \n|C|t|r|l+|C/|C|t|r|l+|V:复制/粘贴佣兵\n|P|g |U|p/|P|g |D|n: Toggle merc placement level", //Mercs fasthelp text L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc\n|P|g |U|p/|P|g |D|n: Toggle merc placement level",	// TODO.Translate
-	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换width:xx选项大小", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",	// TODO.Translate
+	L"|1-|9:设置路标 \n|C|t|r|l+|C/|C|t|r|l+|V:复制/粘贴佣兵\n|P|g |U|p/|P|g |D|n: Toggle merc placement level", //Mercs fasthelp text L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc\n|P|g |U|p/|P|g |D|n: Toggle merc placement level",
+	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换width:xx选项大小", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",
 	L"|C|t|r|l+|N:创造新地图\n \n|F|5:显示总信息/大地图\n|F|1|0:移除所有光源\n|F|1|1:取消修改\n|F|1|2:清空所有\n \n|S|h|i|f|t+|R:随机放置选定数量的物品\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version", //Options fasthelp text //L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version",
 };
 
@@ -2441,7 +2441,7 @@ STR16 pAssignmentStrings[] =
 	L"游击队", //L"M.Militia", //training moving militia units //ham3.6
 	L"教练", // training a teammate
 	L"学员", // being trained by someone else
-	L"Get Item",	// get items	// TODO.Translate
+	L"搬运物品",	// get items
 	L"兼职", // L"Staff", // operating a strategic facility //ham3.6
 	L"用餐",		// eating at a facility (cantina etc.)
 	L"休息", //L"Rest",// Resting at a facility //ham3.6
@@ -2458,7 +2458,7 @@ STR16 pAssignmentStrings[] =
 	L"造谣",	// spread propaganda
 	L"谣言",	// gather information
 	L"Command",	// militia movement orders
-	L"Diagnose", // disease diagnosis	//TODO.Translate
+	L"诊断", // disease diagnosis
 	L"Treat D.", // treat disease among the population
 	L"医生",// administering medical aid
 	L"病人", // getting medical aid
@@ -2542,7 +2542,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"训练游击队",
 	L"教练",
 	L"学员",
-	L"Get Item",	// get items	// TODO.Translate
+	L"搬运物品",	// get items
 	L"兼职",
 	L"用餐",		// eating at a facility (cantina etc.)
 	L"休养",
@@ -2558,9 +2558,9 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"搜集谣言",			// facility: gather rumours	
 	L"派发传单",	// spread propaganda
 	L"搜集谣言",			// gather information
-	L"Commanding Militia",	// militia movement orders	// TODO.Translate
-	L"Diagnose", // disease diagnosis
-	L"Treat Population disease", // treat disease among the population
+	L"命令民兵", //L"Commanding Militia"  militia movement orders
+	L"诊断", // disease diagnosis
+	L"治疗人员的疾病", // treat disease among the population
 	L"医生",
 	L"病人",
 	L"修理",
@@ -2603,7 +2603,7 @@ STR16 pLongAssignmentStrings[] =
 	L"训练游击队", //L"Train Mobiles",
 	L"训练队友",
 	L"学员",
-	L"Get Item",	// get items	// TODO.Translate
+	L"搬运物品",	// get items
 	L"兼职",  //L"Staff Facility",
 	L"休养",  //L"Rest at Facility",
 	L"审讯俘虏", // L"Interrogate prisoners",
@@ -2618,9 +2618,9 @@ STR16 pLongAssignmentStrings[] =
 	L"搜集谣言",			// facility: gather rumours	
 	L"派发传单",	// spread propaganda
 	L"搜集谣言",			// gather information
-	L"Commanding Militia",	// militia movement orders	// TODO.Translate
-	L"Diagnose", // disease diagnosis
-	L"Treat Population disease", // treat disease among the population
+	L"命令民兵",	// militia movement orders
+	L"诊断", // disease diagnosis
+	L"治疗人员的疾病", // treat disease among the population
 	L"医生",
 	L"病人",
 	L"修理",
@@ -2736,15 +2736,15 @@ STR16 pAssignMenuStrings[] =
 {
 	L"编队",
 	L"医生",
-	L"Disease", // merc is a doctor doing diagnosis TODO.Translate
+	L"疾病", // merc is a doctor doing diagnosis 
 	L"病人",
 	L"交通工具",	
 	L"修理",
 	L"无线电扫描", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"告发", // anv: snitch actions
 	L"训练",
-	L"Get Item",	// get items	// TODO.Translate
-	L"设施", // L"Facility", // the merc is using/staffing a facility //ham3.6
+	L"搬运物品",	// get items
+	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
 
@@ -2813,14 +2813,14 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产", //L" - posession by a demon"
 };
 
-STR16 pSkillMenuStrings[] =	// TODO.Translate
+STR16 pSkillMenuStrings[] =
 {
-	L"Militia",
-	L"Other Squads",
-	L"Cancel",
-	L"%d Militia",
+	L"民兵",
+	L"其他队伍",
+	L"取消",
+	L"%d 民兵",
 
-	L"All Militia",
+	L"所有民兵",
 };
 
 STR16 pSnitchMenuStrings[] =
@@ -2873,26 +2873,26 @@ STR16 pSnitchSectorMenuDescStrings[] =
 	L"",
 };
 
-STR16 pPrisonerMenuStrings[] =	// TODO.Translate
+STR16 pPrisonerMenuStrings[] =
 {
-	L"Interrogate admins",
-	L"Interrogate troops",
-	L"Interrogate elites",
-	L"Interrogate officers",
-	L"Interrogate generals",
-	L"Interrogate civilians",
-	L"Cancel",
+	L"询问管理员", //L"Interrogate admins",
+	L"询问队伍", //L"Interrogate troops",
+	L"询问军队", //L"Interrogate elites",
+	L"询问军官", //L"Interrogate officers",
+	L"询问上将", //L"Interrogate generals",
+	L"询问平民", //L"Interrogate civilians",
+	L"取消", //L"Cancel",
 };
 
 STR16 pPrisonerMenuDescStrings[] =
 {
-	L"Administrators are easy to process, but give only poor results",
-	L"Regular troops are common and don't give you high rewards.",
-	L"If elite troops defect to you, they can become veteran militia.",
-	L"Interrogating enemy officers can lead you to find enemy generals.",
-	L"Generals cannot join your militia, but lead to high ransoms.",
-	L"Civilians don't offer much resistance, but are second-rate troops at best.",
-	L"Cancel",
+	L"管理员很容易审核，不过通常只会给你个糟糕的结果", //L"Administrators are easy to process, but give only poor results",
+	L"常规军队评价一般也不会给你高的评价。", //L"Regular troops are common and don't give you high rewards.",
+	L"如果精英部队打败了你，他们就会升级为老兵。", //L"If elite troops defect to you, they can become veteran militia.",
+	L"审问敌方的军官，他们会指引你找到敌方的上将。", //L"Interrogating enemy officers can lead you to find enemy generals.",
+	L"上将是不会加入你的民兵队伍的，但会出高额的赎金。", //L"Generals cannot join your militia, but lead to high ransoms.",
+	L"平民是不会太过抵抗你的，但是最好的二流军队。", //	L"Civilians don't offer much resistance, but are second-rate troops at best.",
+	L"取消", //L"Cancel",
 };
 
 STR16 pSnitchPrisonExposedStrings[] =
@@ -3129,7 +3129,7 @@ STR16 gzMercSkillTextNew[] =
 	// new minor traits
 	L"无线电操作员",	// 21
 	L"告发",	// 22
-	L"Survival",
+	L"生还者", //L"Survival"
 
 	// second names for major skills
 	L"机枪手",		// 24
@@ -3155,7 +3155,7 @@ STR16 gzMercSkillTextNew[] =
 	L"间谍",				// 43
 	L"Placeholder",		// for radio operator (minor trait)
 	L"Placeholder",		// for snitch (minor trait)
-	L"Placeholder",		// for survival (minor trait)
+	L"生还者",			// for survival (minor trait)
 	L"更多...",			// 47
 	L"多种技能",			// for VARIOUSSKILLS
 };
@@ -3449,13 +3449,13 @@ STR16 gpStrategicString[] =
 	//%s is the sector location -- ex:  A9: Omerta
 	L"异形向你在分区%s的佣兵发起了攻击。你的佣兵中没人能进行战斗。",
 
-	// Flugente: militia movement forbidden due to limited roaming	// TODO.Translate
-	L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
-	L"War room isn't staffed - militia move aborted!",
+	// Flugente: militia movement forbidden due to limited roaming
+	L"民兵无法移动到这 (RESTRICT_ROAMING = TRUE)。", //L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
+	L"超出战争（地图）范围，民兵移动失败！", //L"War room isn't staffed - militia move aborted!",
 
-	L"Tank",								//STR_AR_TANK_NAME,
+	L"坦克",							//STR_AR_TANK_NAME,
 
-	L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
+	L"\n每一个小时刷新一次呼吸: %d", //L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
 };
 
 STR16 gpGameClockString[] = 
@@ -3486,7 +3486,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 	L"AP: ",			// abbreviation for Action Points
 	L"=",
 	L"=",
-					//Lal: additional strings for tooltips
+	//Lal: additional strings for tooltips
 	L"准确性: ", //9
 	L"射程: ", //10
 	L"杀伤力: ", //11
@@ -3501,7 +3501,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 	L"默认:",	//17 //WarmSteel - So we can also display default attachments
 	L"污垢:",	// 18	//added by Flugente
 	L"空位:", // 19 //space left on Molle items L"Space:",
-	L"Spread Pattern:",	// 20	// TODO.Translate
+	L"传播模式:", //L"Spread Pattern:",// 20
 
 };
 
@@ -3579,7 +3579,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"洞穴视距修正",
 	L"隧道视野百分比（越低越好）",
 	L"精瞄加成所需最小距离",
-	L"Hold |C|t|r|l to compare items", // item compare help text // TODO.Translate
+	L"按 |C|t|r|l 来对照物品", //L"Hold |C|t|r|l to compare items", // item compare help text
 };
 
 // HEADROCK: End new tooltip text
@@ -3714,8 +3714,8 @@ STR16	zVehicleName[] =
 
 STR16 pVehicleSeatsStrings[] =
 {
-	 L"You cannot shoot from this seat.",	// TODO.Translate
-	 L"You cannot swap those two seats in combat without exiting vehicle first.",	// TODO.Translate
+	 L"你不能在这个位置射击。", //L"You cannot shoot from this seat.",
+	 L"在战斗中你不能在没有退出交通工具之前就交换这两个位置。", //L"You cannot swap those two seats in combat without exiting vehicle first.",
 };
 
 //These are messages Used in the Tactical Screen
@@ -3992,10 +3992,10 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"未发现物品",
     L"无法把物品转移到主手上",
 
-	L"Attempting to bandage travelling mercs...",	//TODO.Translate
+	L"尝试对行进中的佣兵进行包扎...", //L"Attempting to bandage travelling mercs...",
 
-	L"Improve gear",
-	L"%s changed %s for superior version",
+	L"改进装备", //L"Improve gear",
+	L"%s 改变 %s 对高级版本", //L"%s changed %s for superior version",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -4104,7 +4104,7 @@ STR16 pHelicopterEtaStrings[] =
 STR16 pHelicopterRepairRefuelStrings[]=
 {
 	// anv: Waldo The Mechanic - prompt and notifications
-	L"你希望让%s来修理吗？这将话费$%d，而且直升机在%d小时左右将无法起飞。",
+	L"你希望让%s来修理吗？这将花费$%d，而且直升机在%d小时左右将无法起飞。",
 	L"直升机已经拆卸。请等到修理完成。",
 	L"修理完成。直升机已可使用。",
 	L"直升机已加满油。",
@@ -4175,17 +4175,17 @@ STR16 pwTownInfoStrings[] =
 	L"民兵",			// the state of the trained civilians in the town
 	L"巡逻民兵",	// L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 
-	// Flugente: prisoner texts	// TODO.Translate
+	// Flugente: prisoner texts
 	L"囚犯", //L"Prisoners",
-	L"%d (capacity %d)",
-	L"%d Admins",
-	L"%d Regulars",
-	L"%d Elites",
-	L"%d Officers",
-	L"%d Generals",
-	L"%d Civilians",
-	L"%d Special1",
-	L"%d Special2",
+	L"%d (容量 %d)", //L"%d (capacity %d)",
+	L"%d 管理员", //L"%d Admins",
+	L"%d 常规兵", //L"%d Regulars",
+	L"%d 精锐部队", //L"%d Elites",
+	L"%d 军官", //L"%d Officers",
+	L"%d 上将", //L"%d Generals",
+	L"%d 平民", //L"%d Civilians",
+	L"%d 特殊1", //L"%d Special1",
+	L"%d 特殊2", //L"%d Special2",
 };
 
 // Mine strings
@@ -4289,7 +4289,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"显示物品 (|I)",
 	L"显示民兵和敌人 (|Z)",
 	L"显示民兵移动 (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
-	L"Show Disease Data", // TODO.Translate
+	L"显示疾病消息", //L"Show Disease Data",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -4521,8 +4521,8 @@ STR16 pTransactionText[] =
 	L"工厂使用", // L"Facility Use", // HEADROCK HAM 3.6
 	L"民兵保养", // L"Militia upkeep", // HEADROCK HAM 3.6
 	L"释放俘虏所需的赎金", //L"Ransom for released prisoners",
-	L"WHO data subscription",	// Flugente: disease TODO.Translate
-	L"Payment to Kerberus",	// Flugente: PMC
+	L"记录捐款费", //L"WHO data subscription",  // Flugente: disease
+	L"Kerberus安保公司的费用", //L"Payment to Kerberus",　　// Flugente: PMC
 };
 
 STR16 pTransactionAlternateText[] =
@@ -4965,9 +4965,9 @@ STR16 pBookMarkStrings[] =
 	L"百科全书",
 	L"简报室",
 	L"战役历史",
-	L"MeLoDY",
-	L"WHO",
-	L"Kerberus",
+	L"佣兵之家", //L"MeLoDY",
+	L"世界卫生组织", //L"WHO",　
+	L"Kerberus安保公司", //L"Kerberus",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5080,16 +5080,16 @@ STR16 pWebPagesTitles[] =
 	L"%s新闻发布会 - 战役报告",
 	L"%s新闻发布会 - 最新消息",
 	L"%s新闻发布会 - 关于我们",
-	L"Mercs Love or Dislike You - Home",				// TODO.Translate
-	L"Mercs Love or Dislike You - Analyze a team",
-	L"Mercs Love or Dislike You - Pairwise comparison",
-	L"Mercs Love or Dislike You - About us",
-	L"WHO - About WHO",
-	L"WHO - Disease in Arulco",
-	L"WHO - Helpful Tips",
-	L"Kerberus - About Us",
-	L"Kerberus - Hire a Team",
-	L"Kerberus - Individual Contracts",
+	L"佣兵喜欢或不喜欢你 - 家",			 //L"Mercs Love or Dislike You - Home",
+	L"佣兵喜欢或不喜欢你 - 队伍分析", //L"Mercs Love or Dislike You - Analyze a team",
+	L"佣兵喜欢或不喜欢你 - 成对对比", //L"Mercs Love or Dislike You - Pairwise comparison",
+	L"佣兵喜欢或不喜欢你 - 关于我们", //L"Mercs Love or Dislike You - About us",
+	L"世界卫生组织 - 关于世界卫生组织", //L"WHO - About WHO",
+	L"世界卫生组织 - 阿鲁克的疾病", //L"WHO - Disease in Arulco",
+	L"世界卫生组织 - 有用的贴士", //L"WHO - Helpful Tips",
+	L"Kerberus安保公司 - 关于我们", //L"Kerberus - About Us",
+	L"Kerberus安保公司 - 雇佣队伍", //L"Kerberus - Hire a Team",
+	L"Kerberus安保公司 - 独立协议", //L"Kerberus - Individual Contracts",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -5277,7 +5277,7 @@ STR16			MercAccountText[] =
 	L"索价",
 	L"合计: ",
 	L"你确定要支付%s吗？",
-	L"%s (+gear)",	// TODO.Translate
+	L"%s (+装备)", //L"%s (+gear)",
 };
 
 // Merc Account Page buttons
@@ -5318,7 +5318,7 @@ STR16			MercInfo[] =
 	L"合计: ",	//"Total:",
 	L"阵亡",	//"Deceased",
 
-	L"你的队伍已经满员了。",	//L"You have a full team of mercs already.",
+	L"你的队伍已经满员了。", //L"You have a full team of mercs already.",
 	L"购买装备？",	//"Buy Equipment?",	
 	L"不可雇佣",	//"Unavailable",
 	L"未结账单", //L"Unsettled Bills",
@@ -5431,7 +5431,7 @@ STR16			sOrderFormText[] =
 	L"水果蛋糕(如果有的话)($10)",	//"Fruit Cake (if available)($10)",	//15
 	L"私人密语: ",			//"Personal Sentiments:",
 	L"你写的话不能多于75字。",
-	L"...或者选择我们提供的",	//L"...or select from one of our",
+	L"...或者选择我们提供的", //L"...or select from one of our",
 
 	L"标准贺卡",			//"STANDARDIZED CARDS",
 	L"传单信息",			//"Billing Information",	//20
@@ -5593,10 +5593,10 @@ STR16			BobbyRText[] =
 	L"射程: ",	//"Rng:",			// The range of the gun
 	L"杀伤力: ",	//"Dam:",			// Damage of the weapon
 	L"射速: ",	//"ROF:",			// Weapon's Rate Of Fire, acronym ROF
-	L"AP: ",	//L"AP:",				// Weapon's Action Points, acronym AP
-	L"晕眩: ",	//L"Stun:",			// Weapon's Stun Damage
-	L"防护: ",	//L"Protect:",		// Armour's Protection
-	L"伪装: ",	//L"Camo:",			// Armour's Camouflage
+	L"AP: ", //L"AP:",				// Weapon's Action Points, acronym AP
+	L"晕眩: ", //L"Stun:",			// Weapon's Stun Damage
+	L"防护: ", //L"Protect:",		// Armour's Protection
+	L"伪装: ", //L"Camo:",			// Armour's Camouflage
 	L"单价: ",	//"Cost:",			// Cost of the item
 	L"库存: ",	//"In stock:",			// The number of items still in the store's inventory
 	L"购买量: ",	//"Qty on Order:",		// The number of items on order
@@ -5819,7 +5819,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"你的队伍已经满员了。",	//L"You have a full team of mercs already.",
+	L"你的队伍已经满员了。", //L"You have a full team of mercs already.",
 
 	L"预录消息",	//"Pre-recorded message",
 	L"留言已记录",	//"Message recorded",
@@ -6032,8 +6032,8 @@ STR16	zOptionsText[] =
 	L"保存游戏",	//"Save Game",
 	L"载入游戏",	//"Load Game",
 	L"退出",	//"Quit",
-	L"下一页",	//L"Next",
-	L"上一页",	//L"Prev",
+	L"下一页", //L"Next",
+	L"上一页", //L"Prev",
 	L"完成",	//"Done",
 
 	//Text above the slider bars
@@ -6111,7 +6111,7 @@ STR16			zSaveLoadText[] =
 	L"新携行系统不兼容640x480的屏幕分辨率，请重新设置分辨率。",
 	L"新携行系统无法使用默认的 Data 文件夹，请仔细读说明。",
 
-	L"当前分辨率不支持存档文件的小队人数，请增加分辨率再试。",	//L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
+	L"当前分辨率不支持存档文件的小队人数，请增加分辨率再试。", //L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
 	L"Bobby Ray 供货量",
 };
 
@@ -6153,8 +6153,8 @@ STR16		zMarksMapScreenText[] =
 	L"你目前没有民兵。当你招募了一些后再返回这个显示模式。",
 	L"这个视图显示你的移动民兵能去和不能去哪里。 灰色 = 移动民兵拒绝来这里. 红色 = 移动民兵能来这里, 但是你告诉他们不要这样. 黄色 = 移动民兵能进入这个区域, 但是不能离开. 绿色 = 移动民兵可以自由的进入这里. 右击一个绿色/黄色区域循环它的行为.",
 
-	// Flugente: disease texts describing what a map view does TODO.Translate
-	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
+	// Flugente: disease texts describing what a map view does  //文本描述疾病查看地图并做翻译。
+	L"这个视图会展示出哪个地区爆发了瘟疫，这个数字表明，平均每个人的感染程度，颜色表示它的范围。 灰色=无病。 绿色到红色=不断升级的感染程度。",  //L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 };
 
 
@@ -6243,7 +6243,7 @@ STR16		zOptionsToggleText[] =
 	L"沉默的Skyrider",	//"Silent Skyrider",
 	L"增强属性框(EDB)", //L"Enhanced Description Box",
 	L"强制回合制模式",						// add forced turn mode
-	L"属性进度条",	//L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
+	L"属性进度条", //L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
 	L"显示佣兵军衔",	// shows mercs ranks
@@ -6260,7 +6260,7 @@ STR16		zOptionsToggleText[] =
 	L"区域物品栏弹窗匹配拾取",			// the_bob : enable popups for picking items from sector inv
 	L"标记剩余敌人",
 	L"显示LBE(携行具)物品",
-	L"反转鼠标滚轮", 					//L"Invert mouse wheel",
+	L"反转鼠标滚轮", 				 //L"Invert mouse wheel",
 	L"保持佣兵间距",				// when multiple mercs are selected, they will try to keep their relative distances
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
@@ -6485,8 +6485,8 @@ STR16	gzGIOScreenText[] =
 	L"Bobby Ray 供货量",
 
 	// anv: extra iron man modes
-	L"Soft Iron Man",	// TODO.Translate
-	L"Extreme Iron Man",	// TODO.Translate
+	L"假铁人", //L"Soft Iron Man",
+	L"真铁人", //L"Extreme Iron Man",
 };
 
 STR16	gzMPJScreenText[] =
@@ -6512,7 +6512,7 @@ STR16	gzMPJScreenText[] =
 STR16 gzMPJHelpText[] =
 {
 	L"访问 http://webchat.quakenet.org/?channels=ja2-multiplayer 寻找其他玩家.",  //Visit http://webchat.quakenet.org/?channels=ja2-multiplayer to find other players
-	L"您可以按“Y”，打開遊戲中的聊天窗口，之後你一直連接到服務器.",	// TODO.Translate
+	L"您可以按“Y”，打開遊戲中的聊天窗口，之後你一直連接到服務器.",
 
 	L"HOST",
 	L"输入IP地址，端口号必须大于60000",  //Enter '127.0.0.1' for the IP and the Port number should be greater than 60000.
@@ -6609,8 +6609,8 @@ STR16 pDeliveryLocationStrings[] =
 	L"Drassen",			//The main place in JA2 that you can receive items.  The other towns are dummy names...
 	L"香港",	//"Hong Kong",		//Hong Kong, Hong Kong
 	L"贝鲁特",	//"Beirut",			//Beirut, Lebanon	(Middle East)
-	L"伦敦",	//"London",			//London, England
-	L"洛杉矶",	//"Los Angeles",	//Los Angeles, California, USA (SW corner of USA)
+	L"伦敦",	//"London",		 //London, England
+	L"洛杉矶",	//"Los Angeles", //Los Angeles, California, USA (SW corner of USA)
 	L"Meduna",			//Meduna -- the other airport in JA2 that you can receive items.
 	L"Metavira",		//The island of Metavira was the fictional location used by JA1
 	L"迈阿密",	//"Miami",				//Miami, Florida, USA (SE corner of USA)
@@ -6702,7 +6702,7 @@ STR16 pMessageStrings[] =
 	L"磅",	//"lb",					//Abbreviation for pounds (Imperial weight measurement unit)
 	L"主页",	//"Home",				//Home as in homepage on the internet.
 	L"USD", //L"USD",					//Abbreviation to US dollars
-	L"n/a",					//Lowercase acronym for not applicable.
+	L"n/a",				 //Lowercase acronym for not applicable.
 	L"与此同时",	//"Meanwhile",	//Meanwhile
 	L"%s已到达%s%s分区",	//"%s has arrived in sector %s%s", //Name/Squad has arrived in sector A9.  Order must not change without notifying																		//SirTech
 
@@ -6780,7 +6780,7 @@ STR16 pMessageStrings[] =
 	L"开启敌兵装备提示", // Changed from Drop All On - SANDRO
 	L"关闭敌兵装备提示", 	// 80	// Changed from Drop All Off - SANDRO
 	L"榴弹发射器以正常仰角发射榴弹",	//"Grenade Launchers fire at standard angles",
-	L"榴弹发射器以较高仰角发射榴弹",	//L"Grenade Launchers fire at higher angles",
+	L"榴弹发射器以较高仰角发射榴弹", //L"Grenade Launchers fire at higher angles",
 	// forced turn mode strings
     L"强制回合制模式",
 	L"正常回合制模式",
@@ -6792,8 +6792,8 @@ STR16 pMessageStrings[] =
 	L"旧携行系统不能与新附件系统同时使用.",
 	
 	L"自动存盘 #", //91		// Text des Auto Saves im Load Screen mit ID
-	L"自动存盘专用，可在 ja2_options.ini 里设置 AUTO_SAVE_EVERY_N_HOURS 来开启/关闭",	//L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
-	L"... 自动存盘位置 #",	//L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
+	L"自动存盘专用，可在 ja2_options.ini 里设置 AUTO_SAVE_EVERY_N_HOURS 来开启/关闭", //L"This Slot is reserved for Auto Saves, which can be enabled/disabled (AUTO_SAVE_EVERY_N_HOURS) in the ja2_options.ini.", //92	// The text, when the user clicks on the save screen on an auto save
+	L"... 自动存盘位置 #", //L"Empty Auto Save Slot #", //93	// The text, when the auto save slot (1 - 5) is empty (not saved yet)
 	L"AutoSaveGame",		// 94	// The filename of the auto save, such as AutoSaveGame01 - AutoSaveGame05
 	L"End-Turn 存盘 #",	// 95	// The text for the tactical end turn auto save
 	L"自动存盘中 #",	// 96	// The message box, when doing auto save
@@ -6812,10 +6812,10 @@ STR16 pMessageStrings[] =
 	L"保持佣兵间距关闭",
 	L"虚拟佣兵光照开启",
 	L"虚拟佣兵光照关闭",
-	L"Squad %s active.",	//TODO.Translate
-	L"%s smoked %s.",
-	L"Activate cheats?",
-	L"Deactivate cheats?",
+	L"军队 %s 活动。", //L"Squad %s active.",
+	L"%s 作弊者 %s。", //L"%s smoked %s.",
+	L"激活作弊?", //L"Activate cheats?",
+	L"关闭作弊?", //L"Deactivate cheats?",
 };
 
 
@@ -6886,9 +6886,9 @@ STR16 gzLaptopHelpText[] =
 	L"百科全书",
 	L"简报室",
 	L"战役历史",
-	L"Mercenaries Love or Dislike You",	// TODO.Translate
-	L"World Health Organization",
-	L"Kerberus - Excellence In Security",
+	L"佣兵喜欢或不喜欢你", //L"Mercenaries Love or Dislike You",
+	L"世界卫生组织", //L"World Health Organization",
+	L"Kerberus安保公司 - 最佳的安保工作", //L"Kerberus - Excellence In Security",
 };
 
 
@@ -7185,11 +7185,11 @@ STR16 gzLateLocalizedString[] =
 	L"停止时间压缩 (|E|s|c)",
 
 	//53-54 "Magic has unjammed the Glock 18" or "Magic has unjammed Raven's H&K G11"
-	L"%s修理好了卡壳的%s",	//L"%s has unjammed the %s",
-	L"%s修理好了卡壳的%s的%s",	//L"%s has unjammed %s's %s",
+	L"%s修理好了卡壳的%s", //L"%s has unjammed the %s",
+	L"%s修理好了卡壳的%s的%s", //L"%s has unjammed %s's %s",
 
 	//55
-	L"查看分区存货时候无法压缩时间",	//L"Can't compress time while viewing sector inventory.",
+	L"查看分区存货时候无法压缩时间", //L"Can't compress time while viewing sector inventory.",
 
 	L"没有找到铁血联盟2光盘，程序即将退出。", //The Jagged Alliance 2 v1.13 PLAY DISK was not found. Program will now exit.
 
@@ -7210,7 +7210,7 @@ STR16 gzLateLocalizedString[] =
 
 	L"你得先关闭物品信息界面！",
 
-	L"无法快进 - 该分区有敌对的市民和/或血猫。", // 65	//L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.",
+	L"无法快进 - 该分区有敌对的市民和/或血猫。", // 65 //L"Cannot compress time - hostile civilians and/or bloodcats are in this sector.",
 };
 
 // HEADROCK HAM 3.5: Added sector name
@@ -7330,7 +7330,7 @@ STR16 New113Message[] =
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"注意: 敌人尸体被发现!!!",
 	L"%s [%d rnds]\n%s %1.1f %s",		
-	L"AP不够！需要%d，你只有%d。",	//L"Insufficient AP Points! Cost %d, you have %d.",
+	L"AP不够！需要%d，你只有%d。", //L"Insufficient AP Points! Cost %d, you have %d.",
 	L"提示: %s",
 	L"玩家力量: %d - 敌人力量: %6.0f",		//Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 
@@ -7493,9 +7493,9 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Covert ops
 	L"特工: 你让詹姆斯邦德甘拜下风！ ± ",		// L"Covert Operations: You make 007 look like an amateur! ± ",
 	// Radio Operator
-	L"无线电操作员：你通过使用通讯设备让队伍的战略和战术水平得到了提升。 ± ",	//L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",
+	L"无线电操作员：你通过使用通讯设备让队伍的战略和战术水平得到了提升。 ± ", //L"Radio Operator: Your usage of communication devices broaden your team's tactical and strategic skills. ± ",
 	// Survival
-	L"Survival: Nature is a second home to you. ± ",	// TODO.Translate
+	L"生还者: 大自然是你第二个家。 ± ", //L"Survival: Nature is a second home to you. ± ",
 };
 
 STR16 NewInvMessage[] = 
@@ -7618,7 +7618,7 @@ STR16 MPClientMessage[] =
 	L"点击 '准备' 进入战术画面。",//	L"Press 'Ready' to enter tactical screen.",
 	L"不能连接到服务器，因为你的版本 %S 和服务器端的版本 %S 不同。",
 	L"你击毙了一个敌人。",
-	L"无法启动游戏，因为所有小队都一样。",	//L"Cannot start the game, because all teams are the same.",
+	L"无法启动游戏，因为所有小队都一样。", //L"Cannot start the game, because all teams are the same.",
 	L"服务器使用了新装备系统（NIV），但是你的屏幕分辨率不支持NIV。", //
 	// 70
 	L"无法保存接收文件'%S'",
@@ -7681,7 +7681,7 @@ STR16 gzMPSScreenText[] =
 	L"准确度",//	L"Accuracy",
 	L"损害量",//	L"Damage Dealt",
 	L"受损量",//	L"Damage Taken",
-	L"请等待服务器指令按‘继续’。"	//L"Please wait for the server to press 'Continue'."
+	L"请等待服务器指令按‘继续’。" //L"Please wait for the server to press 'Continue'."
 };
 
 STR16 gzMPCScreenText[] =
@@ -7934,8 +7934,8 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"Jagged Alliance 2 v1.13 窗口模式需要一个16bpp的颜色深度。",
-	L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",	// TODO.Translate
-	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。",	//L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
+	L"Jagged Alliance 2 v1.13 全屏模式 (%d x %d) 不支持你当前的屏幕模式。\n请改变游戏的设置或者把屏幕调到16bpp色以下。", //L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",
+	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。", //L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
 	// WANNE: Savegame slots validation against INI file
 	L"佣兵 (MAX_NUMBER_PLAYER_MERCS) / 交通工具 (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"敌人 (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
@@ -8264,15 +8264,15 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|修|理|难|度",
-	L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",	// TODO.Translate
-	L"|V|o|l|u|m|e",	// TODO.Translate
+	L"|可|用|数|量", //L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",
+	L"|数|量", //L"|V|o|l|u|m|e",
 };
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \n决定了修理难度以及谁可以完全修复其损坏值\n \n绿色 = 任何人都可以修理\n \n红色 = 这个物品不能被修理\n \n 越高越好", //L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
-	L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",	// TODO.Translate
-	L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",	// TODO.Translate
+	L"\n \n决定了这个携行具的可用空间。\n \n越高越好。", //L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",
+	L"\n \n决定了这个携行具已被占用的空间。\n \n越低越好。", //L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
@@ -8314,9 +8314,9 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|水|中|下|沉", //L"|S|i|n|k|s",
 	L"|双|手|操|作", //|T|w|o|-|H|a|n|d|e|d",
 	L"|挡|住|准|心", //L"|B|l|o|c|k|s |I|r|o|n |S|i|g|h|t|s",
-	L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",	// TODO.Translate
-	L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
-	L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	// 39
+	L"|反|器|材|弹|药", //L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",
+	L"|面|部|防|护", //L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
+	L"|感|染|防|护", //L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	 // 39
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8358,9 +8358,9 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这个物品掉在水中会下沉消失", //L"\n \nThis item sinks when put in water.",
 	L"\n \n这个物品需要两只手一起操作使用", //L"\n \nThis item requires both hands to be used.",
 	L"\n \n这个物品会挡住准心\n 你无法再使用准心瞄准", //L"\n \nThis item will block your iron sights\nso you cannot use them.",
-	L"\n \nThis ammo can destroy light walls\nand various other objects.",	// TODO.Translate
-	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
-	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
+	L"\n \n这种弹药可以破坏发光的墙\n或者其他不同种类的物品。", //L"\n \nThis ammo can destroy light walls\nand various other objects.",
+	L"\n \n如果你脸上带了这个，这就将降低\n传播给其他人的几率。", //L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
+	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8652,24 +8652,24 @@ STR16 gFoodDesc[] =
 
 CHAR16* ranks[] = 
 {	L"",			//ExpLevel 0
-	L"列兵 ",	//L"Pvt. ",		//ExpLevel 1
-	L"下士 ",	//L"Pfc. ",		//ExpLevel 2
-	L"中士 ",	//L"Cpl. "		//ExpLevel 3
-	L"上士 ",	//L"Sgt. ",		//ExpLevel 4
-	L"少尉 ",	//L"Lt. ",		//ExpLevel 5
-	L"中尉 ",	//L"Cpt. ",		//ExpLevel 6
-	L"上尉 ",	//L"Maj. ",		//ExpLevel 7
-	L"少校 ",	//L"Lt.Col. ",	//ExpLevel 8
-	L"上校 ",	//L"Col. ",		//ExpLevel 9
-	L"将军 "	//L"Gen. "		//ExpLevel 10
+	L"列兵 ", //L"Pvt. ",		//ExpLevel 1
+	L"下士 ", //L"Pfc. ",		//ExpLevel 2
+	L"中士 ", //L"Cpl. "		//ExpLevel 3
+	L"上士 ", //L"Sgt. ",		//ExpLevel 4
+	L"少尉 ", //L"Lt. ",		//ExpLevel 5
+	L"中尉 ", //L"Cpt. ",		//ExpLevel 6
+	L"上尉 ", //L"Maj. ",		//ExpLevel 7
+	L"少校 ", //L"Lt.Col. ",	//ExpLevel 8
+	L"上校 ", //L"Col. ",		//ExpLevel 9
+	L"将军 " //L"Gen. "		//ExpLevel 10
 };
 
 
 STR16	gzNewLaptopMessages[]=
 {
-	L"敬请垂询我们的最新特惠信息！",	//L"Ask about our special offer!",
-	L"暂时没货",	//L"Temporarily Unavailable",
-	L"这份预览版资料片仅提供最初6个区域的地图。最终版将提供完整支持，请阅读帮助文档获取更多信息。",	//L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
+	L"敬请垂询我们的最新特惠信息！", //L"Ask about our special offer!",
+	L"暂时没货", //L"Temporarily Unavailable",
+	L"这份预览版资料片仅提供最初6个区域的地图。最终版将提供完整支持，请阅读帮助文档获取更多信息。", //L"This special press preview of Jagged Alliance 2: Unfinished Business contains the only first 6 sector maps. The final version of the game will feature many more - please see the included readme file for details.",
 };
 
 STR16	zNewTacticalMessages[]=
@@ -8698,8 +8698,8 @@ STR16	zNewTacticalMessages[]=
 	L"你选择了%S战役。 该战役是原版UB战役的玩家自定义游戏版本。你确认你要在 %S 战役下进行游戏吗?",			
 	L"如果你要使用编辑器的话，请选择一个战役，不要用默认战役。",			
 	// anv: extra iron man modes
-	L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",	// TODO.Translate	
-	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
+	L"这是假铁人模式在这模式下你不能在回合制模式下存档。", //L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",
+	L"这是真铁人模式在这模式下你只能在每天的 %02d:00 下存档。", //L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",
 };
 
 // The_bob : pocket popup text defs
@@ -8750,8 +8750,8 @@ STR16	szCovertTextStr[]=
 	L"%s的伪装要被识破了。", // L"%s's disguise will not hold.",
 	L"%s在偷窃的时候被抓了！", // L"%s was caught stealing!",
 	L"%s在试图调整%s的物品栏。", // L"%s tried to manipulate %s's inventory."
-	L"An elite soldier did not recognize %s!",	// TODO.Translate
-	L"A officer knew %s was unfamiliar!",
+	L"即使一个精英士兵也不能识别出 %s！", //L"An elite soldier did not recognize %s!",
+	L"军官所知的 %s 是没经验的！", //L"A officer knew %s was unfamiliar!",
 };
 
 STR16	szCorpseTextStr[]=
@@ -8787,7 +8787,7 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",	// TODO.Translate
+	L"%d 军官, %d 精英, %d 常规, %d 管理, %d 普通和 %d 平民都被审问。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
 	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
 	L"%d军官，%d精英士兵，%d普通士兵和%d巡逻官加入了我方。",
@@ -8796,12 +8796,12 @@ STR16	szPrisonerTextStr[]=
 	L"俘虏已被释放！", //L"Prisoners have been released!",
 	L"军队已占领 %s 监狱，俘虏已被释放！", //L"The army now occupies the prison in %s, the prisoners were freed!",
 	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
-	L"敌人不肯拿你当囚犯 - 他们宁愿你死！",	//L"The enemy refuses to take you as prisoners - they prefer you dead!",
-	L"这些可以在 INI 设置关闭。",	// 	L"This behaviour is set OFF in your ini settings.",
+	L"敌人不肯拿你当囚犯 - 他们宁愿你死！", //L"The enemy refuses to take you as prisoners - they prefer you dead!",
+	L"这些可以在 INI 设置关闭。", // 	L"This behaviour is set OFF in your ini settings.",
 	L"%s释放了%s！", //L"%s has freed %s!",
-	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
-	L"The enemy leader refuses to even consider surrender!",
-	L"%d prisoners volunteered to join our forces.",
+	L"囚犯会暴露高级军官的位置 %s！", //L"A prisoner revealed the location of a high-ranking army officer in %s!",
+	L"敌方首领会拒绝即使被认为投降！", //L"The enemy leader refuses to even consider surrender!",
+	L"%d 囚犯自愿加入我军。", //L"%d prisoners volunteered to join our forces.",
 };
 
 STR16	szMTATextStr[]=
@@ -8832,10 +8832,10 @@ STR16		szBackgroundText_Flags[]=
 
 	L" 埋设炸弹的陷阱等级+1\n", //L" +1 traplevel to planted bombs\n",
 	L" 会导致附近的佣兵腐败\n", //L" spreads corruption to nearby mercs\n",
-	L" female only",							// won't show up, text exists for compatibility reasons
-	L" male only",								// won't show up, text exists for compatibility reasons
+	L" female only", // won't show up, text exists for compatibility reasons
+	L" male only", // won't show up, text exists for compatibility reasons
 
-	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
+	L"如果我们死了所有城镇都会受到巨大的忠诚惩罚\n", //L" huge loyality penalty in all towns if we die\n",
 };
 
 STR16	szBackgroundText_Value[]=
@@ -8876,7 +8876,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％压制忍耐\n", //L" %s%d%% suppression resistance\n",
 	L" %s%d%％近战抗性\n", //L" %s%d%% physical resistance\n",
 	L" %s%d%％酒精耐性\n", //L" %s%d%% alcohol resistance\n",
-	L" %s%d%% disease resistance\n",	// TODO.Translate
+	L" %s%d%% 疾病抗性\n", //L" %s%d%% disease resistance\n",
 
 	L" %s%d%％审问效率\n", //L" %s%d%% interrogation effectiveness\n",
 	L" %s%d%％监狱守卫强度\n", //L" %s%d%% prison guard strength\n",
@@ -8908,15 +8908,15 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％射击生物准确率(CTH)\n", //L" %s%d%% cth with firearms against creatures\n",
 	L" %s%d%％医疗保证金\n", //L" %s%d%% insurance cost\n",
 	L" %s%d%％发现狙击手的成功率\n",
-	L" %s%d%% effectiveness at diagnosing diseases\n",	// TODO.Translate
-	L" %s%d%% effectiveness at treating population against diseases\n",
-	L"Can spot tracks up to %d tiles away\n",
-	L" %s%d%% initial distance to enemy in ambush\n",
+	L" %s%d%% 疾病诊断的效率\n", //L" %s%d%% effectiveness at diagnosing diseases\n",
+	L" %s%d%% 对人员治疗疾病的效率\n", //L" %s%d%% effectiveness at treating population against diseases\n",
+	L"可以发现被跟踪的 %d 距离格数\n", //L"Can spot tracks up to %d tiles away\n",
+	L" %s%d%% 被伏击时的初始距离\n", //L" %s%d%% initial distance to enemy in ambush\n",
 
-	L" dislikes some other backgrounds\n",	// TODO.Translate
-	L"Smoker",
-	L"Nonsmoker",
-	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" 对某些其他背景的厌恶\n", //L" dislikes some other backgrounds\n",
+	L"吸烟者", //L"Smoker",
+	L"非吸烟者", //L"Nonsmoker",
+	L" %s%d%% 如果敌人 CTH 蹲在厚覆盖他们的方向\n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 };
 
 STR16		szBackgroundTitleText[] =
@@ -8985,11 +8985,11 @@ STR16		szRefinementText[]=
 	L"讲究", //L"manners of a snob",
 };
 
-STR16		szRefinementTextTypes[] =	// TODO.Translate
+STR16		szRefinementTextTypes[] =
 {
-	L"normal people",
-	L"slobs",
-	L"snobs",
+	L"普通的人", //L"normal people",
+	L"懒虫", //L"slobs",
+	L"努力的人", //L"snobs",
 };
 
 STR16		szNationalityText[]=
@@ -9040,62 +9040,62 @@ STR16		szNationalityText[]=
 	L"叙利亚人",
 	L"比利时人",
 	L"葡萄牙人",
-	L"Belarusian",		// TODO.Translate
-	L"Serbian",			// 45
-	L"Pakistani",
+	L"白俄罗斯人",
+	L"塞尔维亚人",			// 45
+	L"巴基斯坦人",
 };
 
-STR16		szNationalityTextAdjective[] = // TODO.Translate
+STR16		szNationalityTextAdjective[] =
 {
-	L"americans",		// 0
-	L"arabs",
-	L"australians",
-	L"britains",
-	L"canadians",
-	L"cubans",			// 5
-	L"danes",
-	L"frenchmen",
-	L"russians",
-	L"nigerians",
-	L"swiss",			// 10
-	L"jamaicans",
-	L"poles",
-	L"chinese",
-	L"irishmen",
-	L"south africans",	// 15
-	L"hungarians",
-	L"scotsmen",
-	L"arulcans",
-	L"germans",
-	L"africans",			// 20
-	L"italians",
-	L"dutchmen",
-	L"romanians",
-	L"metavirans",
+	L"美国人",		// 0
+	L"阿拉伯人",
+	L"澳大利亚人",
+	L"英国人",
+	L"加拿大人",
+	L"古巴人",			// 5
+	L"丹麦人",
+	L"法国人",
+	L"俄国人",
+	L"尼日利亚人",
+	L"瑞士人",			// 10
+	L"牙买加人",
+	L"波兰人",
+	L"中国人",
+	L"爱尔兰人",
+	L"南非人",	// 15
+	L"匈牙利人",
+	L"苏格兰人",
+	L"Arulco人",
+	L"德国人",
+	L"非洲人",			// 20
+	L"意大利人",
+	L"荷兰人",
+	L"罗马利亚人",
+	L"Metavira人",
 
 	// newly added from here on
-	L"greek",			// 25
-	L"estonians",
-	L"venezuelans",
-	L"japanese",
-	L"turks",
-	L"indians",			// 30
-	L"mexicans",
-	L"norwegians",
-	L"spaniards",
-	L"brasilians",
-	L"finns",			// 35
-	L"iranians",
-	L"israelis",
-	L"bulgarians",
-	L"swedes",
-	L"iraqis",			// 40
-	L"syrians",
-	L"belgians",
-	L"portoguese",
-	L"belarusian",
-	L"serbians",		// 45
-	L"pakistanis",
+	L"希腊人",			// 25
+	L"爱沙尼亚人",
+	L"委内瑞拉人",
+	L"日本人",
+	L"土耳其人",
+	L"印度人",			// 30
+	L"墨西哥人",
+	L"挪威人",
+	L"西班牙人",
+	L"巴西人",
+	L"芬兰人",			// 35
+	L"伊朗人",
+	L"以色列人",
+	L"保加利亚人",
+	L"瑞典人",
+	L"伊拉克人",			// 40
+	L"叙利亚人",
+	L"比利时人",
+	L"葡萄牙人",
+	L"白俄罗斯人",
+	L"塞尔维亚人",		// 45
+	L"巴基斯坦人",
 };
 
 
@@ -9309,446 +9309,445 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"天",
 };
 
-STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
+STR16	szCampaignStatsOperationPrefix[] =
 {
-	L"Glorious %s",
-	L"Mighty %s",
-	L"Awesome %s",
-	L"Intimidating %s",
+	L"光荣的 %s",  //"Glorious %s"
+	L"强大的 %s",  //"Mighty %s"
+	L"威风的 %s",  //"Awesome %s"
+	L"敬畏的 %s",  //"Intimidating %s"
 
-	L"Powerful %s",
-	L"Earth-Shattering %s",
-	L"Insidious %s",
-	L"Swift %s",
+	L"威武的 %s",  //"Powerful %s"
+	L"惊天动地的 %s",  //"Earth-Shattering %s"
+	L"诡计多端的 %s",  //"Insidious %s"
+	L"迅猛的 %s",  //"Swift %s"
 
-	L"Violent %s",
-	L"Brutal %s",
-	L"Relentless %s",
-	L"Merciless %s",
+	L"狂暴的 %s",  //"Violent %s"
+	L"残忍的 %s",  //"Brutal %s"
+	L"无情的 %",  //"Relentless %s"
+	L"冷酷的 %s",  //"Merciless %s"
 
-	L"Cannibalistic %s",
-	L"Gorgeous %s",
-	L"Rogue %s",
-	L"Dubious %s",
+	L"食人的 %s",  //"Cannibalistic %s"
+	L"华丽的 %s",  //"Gorgeous %s",
+	L"十恶不赦的 %s",  //"Rogue %s",
+	L"可疑的 %s",  //"Dubious %s",
 
-	L"Sexually Ambigious %s",
-	L"Burning %s",
-	L"Enraged %s",
-	L"Visonary %s",
+	L"中性的 %s",  //"Sexually Ambigious %s"
+	L"燃烧的 %s",  //"Burning %s"
+	L"暴怒的 %s",  //"Enraged %s"
+	L"有远见的 %s",  //"Visonary %s"
 
 	// 20
-	L"Gruseome %s",
-	L"International-law-ignoring %s",
-	L"Provoked %s",
-	L"Ceaseless %s",
+	L"骇人的 %s",	 //L"Gruseome %s",
+	L"不人道的 %s",  //L"International-law-ignoring %s",
+	L"受到挑衅的 %s",  //L"Provoked %s",
+	L"不知疲倦的 %s",  //L"Ceaseless %s",
 
-	L"Inflexible %s",
-	L"Unyielding %s",
-	L"Regretless %s",
-	L"Remorseless %s",
+	L"坚定的 %s",  //L"Inflexible %s",
+	L"不屈的 %s",  //L"Unyielding %s",
+	L"一往无前的 %s",  //L"Regretless %s",
+	L"残酷的 %s",  //L"Remorseless %s",
 
-	L"Choleric %s",
-	L"Unexpected %s",
-	L"Democratic %s",
-	L"Bursting %s",
+	L"易怒的 %s",  //L"Choleric %s",
+	L"出人意料的 %s",  //L"Unexpected %s",
+	L"民主的 %s",  //L"Democratic %s",
+	L"爆破的 %s",  //L"Bursting %s",
 
-	L"Bipartisan %s",
-	L"Bloodstained %s",
-	L"Rouge-wearing %s",
-	L"Innocent %s",
+	L"两党的 %s",  //L"Bipartisan %s",
+	L"浴血的 %s",  //L"Bloodstained %s",
+	L"红装的 %s",  //L"Rouge-wearing %s",
+	L"无辜的 %s",  //L"Innocent %s",
 
-	L"Hateful %s",
-	L"Underwear-staining %s",
-	L"Civilian-devouring %s",
-	L"Unflinching %s",
+	L"可恶的 %s",  //L"Hateful %s",
+	L"阴险的 %s",  //L"Underwear-staining %s",
+	L"屠戮市民的 %s",  //L"Civilian-devouring %s",
+	L"坚定无畏的 %s",  //L"Unflinching %s",
 
 	// 40
-	L"Expect No Mercy From Our %s",
-	L"Very Mad %s",
-	L"Ultimate %s",
-	L"Furious %s",
+	L"毫不留情的 %s",  //L"Expect No Mercy From Our %s",
+	L"疯狂的 %s",  //L"Very Mad %s",
+	L"终极的 %s",  //L"Ultimate %s",
+	L"狂怒的 %s",  //L"Furious %s",
 
-	L"Its best to Avoid Our %s",
-	L"Fear the %s",
-	L"All Hail the %s!",
-	L"Protect the %s",
+	L"避之不及的 %s",  //L"Its best to Avoid Our %s",
+	L"恐怖的 %s",  //L"Fear the %s",
+	L"万岁 %s!",  //L"All Hail the %s!",
+	L"保护 %s",  //L"Protect the %s",
 
-	L"Beware the %s",
-	L"Crush the %s",
-	L"Backstabbing %s",
-	L"Vicious %s",
+	L"当心 %s",  //"Beware the %s"
+	L"碾碎 %s",  //"Crush the %s"
+	L"两面三刀的 %s",  //"Backstabbing %s"
+	L"狠毒的 %s",  //"Vicious %s"
 
-	L"Sadistic %s",
-	L"Burning %s",
-	L"Wrathful %s",
-	L"Invincible %s",
+	L"虐待狂的 %s",  //L"Sadistic %s",
+	L"燃烧的 %s",  //L"Burning %s",
+	L"愤怒的 %s",  //L"Wrathful %s",
+	L"无敌的 %s",  //L"Invincible %s",
 
-	L"Guilt-ridden %s",
-	L"Rotting %s",
-	L"Sanitized %s",
-	L"Self-doubting %s",
+	L"负罪的 %s",  //L"Guilt-ridden %s",
+	L"腐烂的 %s",  //L"Rotting %s",
+	L"无垢的 %s",  //L"Sanitized %s",
+	L"自我怀疑的 %s",  //L"Self-doubting %s",
 
 	// 60
-	L"Ancient %s",
-	L"Very Hungry %s",
-	L"Sleepy %s",
-	L"Demotivated %s",
+	L"古代的 %s",  //L"Ancient %s",
+	L"饿极了的 %s",  //L"Very Hungry %s",
+	L"困乏的 %s",  //L"Sleepy %s",
+	L"消极的 %s",  //L"Demotivated %s",
 
-	L"Cruel %s",
-	L"Annoying %s",
-	L"Huffy %s",
-	L"Bisexual %s",
+	L"严酷的 %s",  //"Cruel %s"
+	L"恼人的 %s",  //"Annoying %s"
+	L"发怒的 %s",  //"Huffy %s"
+	L"双性恋的 %s",  //"Bisexual %s"
 
-	L"Screaming %s",
-	L"Hideous %s",
-	L"Praying %s",
-	L"Stalking %s",
+	L"尖叫的 %s",  //L"Screaming %s",
+	L"丑恶的 %s",  //L"Hideous %s",
+	L"信仰的 %s",  //L"Praying %s",
+	L"阴魂不散的 %s",  //L"Stalking %s",
 
-	L"Cold-blooded %s",
-	L"Fearsome %s",
-	L"Trippin' %s",
-	L"Damned %s",
+	L"冷血的 %s",  //	L"Cold-blooded %s",
+	L"可怕的 %s",  //	L"Fearsome %s",  
+	L"大惊小怪的 %s",  //	L"Trippin' %s", 
+	L"该死的 %s",  //	L"Damned %s",  
 
-	L"Vegetarian %s",
-	L"Grotesque %s",
-	L"Backward %s",
-	L"Superior %s",
+	L"食素的 %s",  //	L"Vegetarian %s", 
+	L"古怪的 %s",  //	L"Grotesque %s",
+	L"落后的 %s",  //	L"Backward %s",
+	L"优越的 %s",  //	L"Superior %s",
 
 	// 80
-	L"Inferior %s",
-	L"Okay-ish %s",
-	L"Porn-consuming %s",
-	L"Poisoned %s",
+	L"低劣的 %s",  //L"Inferior %s",
+	L"不好不坏的 %s",  //L"Okay-ish %s",
+	L"色欲旺盛的 %s",  //L"Porn-consuming %s",
+	L"中毒的 %s",  //L"Poisoned %s",
 
-	L"Spontaneous %s",
-	L"Lethargic %s",
-	L"Tickled %s",
-	L"The %s is a dupe!",
+	L"自觉的 %s",  //L"Spontaneous %s",
+	L"懒惰的 %s",  //L"Lethargic %s",
+	L"靠不住的 %s",  //L"Tickled %s",
+	L"这 %s 是个傻瓜!",  //L"The %s is a dupe!",
 
-	L"%s on Steroids",
-	L"%s vs. Predator",
-	L"A %s with a twist",
-	L"Self-Pleasuring %s",
+	L"%s 瘾君子",  //L"%s on Steroids",
+	L"%s 大战铁血战士",  //L"%s vs. Predator",
+	L"耍花招的　%s",  //L"A %s with a twist",
+	L"自娱自乐的 %s",  //L"Self-Pleasuring %s",
 
-	L"Man-%s hybrid",
-	L"Inane %s",
-	L"Overpriced %s",
-	L"Midnight %s",
+	L"人与 %s 的杂种",  //L"Man-%s hybrid",
+	L"没主见的 %s",  //L"Inane %s",  //
+	L"被高估的 %s",  //L"Overpriced %s",
+	L"午夜 %s",  //L"Midnight %s",  
 
-	L"Capitalist %s",
-	L"Communist %s",
-	L"Intense %s",
-	L"Steadfast %s",
+	L"资本家的 %s",  //L"Capitalist %s",
+	L"共产党的 %s",  //L"Communist %s",
+	L"热烈的 %s",  //L"Intense %s",
+	L"坚定的 %s",  //L"Steadfast %s",
 
 	// 100
 };
 
 STR16	szCampaignStatsOperationSuffix[] =
 {
-	L"Dragon",
-	L"Mountain Lion",
-	L"Copperhead Snake",
-	L"Jack Russell Terrier",
+	L"龙",  //L"Dragon",
+	L"美洲狮",  //L"Mountain Lion",
+	L"铜斑蛇",  //L"Copperhead Snake",
+	L"J.R.土狗", //L"Jack Russell Terrier",
 
-	L"Arch-Nemesis",
-	L"Basilisk",
-	L"Blade",
-	L"Shield",
+	L"劲敌", //L"Arch-Nemesis",
+	L"蜥蜴",  //L"Basilisk",
+	L"刀锋",  //L"Blade",
+	L"盾牌",  //L"Shield",
 
-	L"Hammer",
-	L"Spectre",
-	L"Congress",
-	L"Oilfield",
+	L"铁锤",  //L"Hammer",
+	L"幽灵",  //L"Spectre",
+	L"国会",  //L"Congress",
+	L"油田",  //L"Oilfield",
 
-	L"Boyfriend",
-	L"Girlfriend",
-	L"Husband",
-	L"Stepmother",
+	L"男友",  //L"Boyfriend",
+	L"女友",  //L"Girlfriend",
+	L"丈夫",  //L"Husband",
+	L"后妈",  //L"Stepmother",
 
-	L"Sand Lizard",
-	L"Bankers",
-	L"Anaconda",
-	L"Kitten",
+	L"沙地蜥蜴",  //"Sand Lizard"
+	L"银行家",  //"Bankers"
+	L"水蟒",  //"Anaconda"
+	L"猫咪",  //"Kitten"
 
 	// 20
-	L"Congress",
-	L"Senate",
-	L"Cleric",
-	L"Badass",
+	L"国会", //"Congress"
+	L"参议院", //"Senate"
+	L"牧师", //"Cleric"
+	L"蠢驴", //"Badass"
 
-	L"Bayonet",
-	L"Wolverine",
-	L"Soldier",
-	L"Tree Frog",
+	L"枪刺",  //L"Bayonet",
+	L"狼獾",  //L"Wolverine",
+	L"士兵",  //L"Soldier",
+	L"树蛙",  //L"Tree Frog",
 
-	L"Weasel",
-	L"Shrubbery",
-	L"Tar pit",
-	L"Sunset",
+	L"黄鼠狼",  //L"Weasel",
+	L"灌木丛",  //L"Shrubbery",
+	L"焦油坑",  //L"Tar pit",
+	L"日落",  //L"Sunset",
 
-	L"Hurricane",
-	L"Ocelot",
-	L"Tiger",
-	L"Defense Industry",
+	L"台风",  //L"Hurricane",
+	L"虎猫",  //L"Ocelot",
+	L"老虎",  //L"Tiger",
+	L"军工",  //L"Defense Industry",
 
-	L"Snow Leopard",
-	L"Megademon",
-	L"Dragonfly",
-	L"Rottweiler",
+	L"雪豹",  //L"Snow Leopard",
+	L"巨魔",  //L"Megademon",
+	L"蜻蜓",  //L"Dragonfly",
+	L"罗威那犬",  //L"Rottweiler",
 
 	// 40
-	L"Cousin",
-	L"Grandma",
-	L"Newborn",
-	L"Cultist",
+	L"表兄",  //L"Cousin",
+	L"奶奶",  //L"Grandma",
+	L"婴儿",  //L"Newborn",
+	L"异教徒",  //L"Cultist",
 
-	L"Disinfectant",
-	L"Democracy",
-	L"Warlord",
-	L"Doomsday Device",
+	L"消毒剂",  //L"Disinfectant",
+	L"民主",  //L"Democracy",
+	L"军阀",  //L"Warlord",
+	L"末日大杀器",  //L"Doomsday Device",
 
-	L"Minister",
-	L"Beaver",
-	L"Assassin",
-	L"Rain of Burning Death",
+	L"部长",  //L"Minister",
+	L"劳工",  //L"Beaver",
+	L"刺客",  //L"Assassin",
+	L"死亡之雨",  //L"Rain of Burning Death",
 
-	L"Prophet",
-	L"Interloper",
-	L"Crusader",
-	L"Administration",
+	L"先知",  //L"Prophet",
+	L"不速之客",  //L"Interloper",
+	L"十字军",  //L"Crusader",
+	L"管理局",  //L"Administration",
 
-	L"Supernova",
-	L"Liberty",
-	L"Explosion",
-	L"Bird of Prey",
+	L"超新星",  //L"Supernova",
+	L"解放",  //L"Liberty",
+	L"爆炸",  //L"Explosion",
+	L"鹰隼",  //L"Bird of Prey",
 
 	// 60
-	L"Manticore",
-	L"Frost Giant",
-	L"Celebrity",
-	L"Middle Class",
+	L"狮身怪兽",  //L"Manticore",
+	L"寒霜巨人",  //L"Frost Giant",
+	L"名流",  //L"Celebrity",
+	L"中产阶级",  //L"Middle Class",
 
-	L"Loudmouth",
-	L"Scape Goat",
-	L"Warhound",
-	L"Vengeance",
+	L"大嗓门",  //L"Loudmouth",
+	L"替罪羊",  //L"Scape Goat",
+	L"军犬",  //L"Warhound",
+	L"复仇",  //L"Vengeance",
 
-	L"Fortress",
-	L"Mime",
-	L"Conductor",
-	L"Job-Creator",
+	L"要塞",  //L"Fortress",
+	L"滑稽演员",  //L"Mime",
+	L"指挥家",  //L"Conductor",
+	L"有钱人",  //L"Job-Creator",
 
-	L"Frenchman",
-	L"Superglue",
-	L"Newt",
-	L"Incompetency",
+	L"糊涂蛋",  //L"Frenchman",
+	L"强力胶",  //L"Superglue",
+	L"蝾螈",  //L"Newt",
+	L"无能",  //L"Incompetency",
 
-	L"Steppenwolf",
-	L"Iron Anvil",
-	L"Grand Lord",
-	L"Supreme Ruler",
+	L"荒原狼",  //L"Steppenwolf",
+	L"铁砧",  //L"Iron Anvil",
+	L"大领主",  //L"Grand Lord",
+	L"最高统治者",  //L"Supreme Ruler",
 
 	// 80
-	L"Dictator",
-	L"Old Man Death",
-	L"Shredder",
-	L"Vacuum Cleaner",
+	L"独裁者",  //L"Dictator",
+	L"老人之死",  //L"Old Man Death",
+	L"碎纸机",  //L"Shredder",
+	L"吸尘器",  //L"Vacuum Cleaner",
 
-	L"Hamster",
-	L"Hypno-Toad",
-	L"Discjockey",
-	L"Undertaker",
+	L"仓鼠",  //L"Hamster",
+	L"癞蛤蟆",  //L"Hypno-Toad",
+	L"DJ",  //L"Discjockey",
+	L"送葬者",  //L"Undertaker",
 
-	L"Gorgon",
-	L"Child",
-	L"Mob",
-	L"Raptor",
+	L"蛇发女妖",  //L"Gorgon",
+	L"孩子",  //L"Child",
+	L"暴徒",  //L"Mob",
+	L"猛禽",  //L"Raptor",
 
-	L"Goddess",
-	L"Gender Inequality",
-	L"Mole",
-	L"Baby Jesus",
+	L"女神",  //L"Goddess",
+	L"性别歧视",  //L"Gender Inequality",
+	L"反贼",  //L"Mole",
+	L"口交",  //L"Baby Jesus",
 
-	L"Gunship",
-	L"Citizen",
-	L"Lover",
-	L"Mutual Fund",
+	L"武装直升机",  //L"Gunship",
+	L"公民",  //L"Citizen",
+	L"情人",  //L"Lover",
+	L"基金",  //L"Mutual Fund",
 
 	// 100
 };
 
-STR16	szMercCompareWebSite[] =	// TODO.Translate
+STR16	szMercCompareWebSite[] =
 {
 	// main page
-	L"Mercs Love or Dislike You",
-	L"Your #1 teambuilding experts on the web",
+	L"佣兵喜欢你或不喜欢你", //L"Mercs Love or Dislike You",
+	L"#1 互联网上最好的团队建设专家", //L"Your #1 teambuilding experts on the web",
 
-	L"About us",
-	L"Analyse a team",
-	L"Pairwise comparison",
-	L"Customer voices",
+	L"关于我们", //L"About us",
+	L"分析一个团队", //L"Analyse a team",
+	L"成对比较", //L"Pairwise comparison",
+	L"客户意见", //L"Customer voices",
 
-	L"If your business provides innovative solutions for critical applications with realtime demands, perhaps some of these observations sound familiar to you:",
-	L"Your team struggles with itself.",
-	L"Your employees waste time working against each other.",
-	L"Your workforce experiences a high fluctuation rate.",
-	L"You constantly receive low marks on workplace satisfaction ratings.",	
-	L"If you can say 'yes' to one or more of these statements, then you might have a problem in your business. Your employees likely won't work at peak perfection. Thanks to our patented, easy-to-understand MeLoDY system, you can bring productivity back up in no time, and a happy smile on the faces all your staff!",
+	L"如果您的业务是为有实时性要求的项目提供创新的解决方案，也许您会经常观察到如下现象：", //L"If your business provides innovative solutions for critical applications with realtime demands, perhaps some of these observations sound familiar to you:",
+	L"您的团队效率低下。", //L"Your team struggles with itself.",
+	L"您的员工经常内斗。", //L"Your employees waste time working against each other.",
+	L"您的员工离职率很高", //L"Your workforce experiences a high fluctuation rate.",
+	L"您的多数员工都不喜欢这份工作", //L"You constantly receive low marks on workplace satisfaction ratings.",	
+	L"如果您经常观察到以上一项或多项情况，那么您的员工的工作效率并不高，您的生意也就可能会出现问题。幸好我们有易学易操作的专利系统MeLoDY，立马就能让您的单位工作效率翻番，让您的员工喜上眉梢！", //L"If you can say 'yes' to one or more of these statements, then you might have a problem in your business. Your employees likely won't work at peak perfection. Thanks to our patented, easy-to-understand MeLoDY system, you can bring productivity back up in no time, and a happy smile on the faces all your staff!",
 
 	// customer quotes
-	L"A few citations from our satisfied customers:",
-	L"My last relationship was terrible. I blamed myself... but now I know better. All men deserve a violent death! Thanks, MeLoDY, for enlightening me!",
-	L"-Louisa G., Novelist-",
-	L"I never got along with my brothers to start with, and recently its gotten worse. You've shown me that our trust problem with father is to blame. Thank you for that! I have to make a bold statement to open his eyes to the facts.",
-	L"-Konrad C., Corrective law enforcement-",
-	L"I've always been a loner, so joining a team was hard for me. Your insight showed me how to become part of a team. You've been a big help!",
-	L"-Grant W., Snake charmer-",
-	L"In my line of work, you need to trust every member of your team 100%. That's why we went to the experts - we went to MeLoDY.",
-	L"-Halle L., SPK-",
-	L"I'll be the first to admit our crew was a rather illustrious assortion of characters, and we ran into some scuffles. But we learned to respect each other, and now complement each other perfectly.",
-	L"-Michael C., NASA-",
-	L"I fully recommend this site!",
-	L"-Kasper H., H&C logistic Inc-",
-	L"Our training process has to be very quick, so we need to know whom we're dealing with. MeLoDY were the logical choice for this.",
-	L"-Stan Duke, Kerberus Inc-",
+	L"客户感谢信：", //L"A few citations from our satisfied customers:",
+	L"我最近一次恋爱是一场灾难。我很自责...但是现在我开窍了。所有男人全都该死！MeLoDY，谢谢你启发了我！", //L"My last relationship was terrible. I blamed myself... but now I know better. All men deserve a violent death! Thanks, MeLoDY, for enlightening me!",
+	L"-Louisa G., 小说家-", //L"-Louisa G., Novelist-",
+	L"我和我兄弟们关系一直不好，最近变得更糟糕了。MeLoDY告诉我一切都是我们不信任父亲的错。谢谢你！我要找机会和父亲好好谈谈这个事情。", //L"I never got along with my brothers to start with, and recently its gotten worse. You've shown me that our trust problem with father is to blame. Thank you for that! I have to make a bold statement to open his eyes to the facts.",
+	L"-Konrad C., 典狱官-", //L"-Konrad C., Corrective law enforcement-",
+	L"我一直都独来独往，所以很难和别人组队。您让我见识到了如何组队。MeLoDY真是帮大忙了啊！", //L"I've always been a loner, so joining a team was hard for me. Your insight showed me how to become part of a team. You've been a big help!",
+	L"-Grant W., 耍蛇人-", //L"-Grant W., Snake charmer-",
+	L"干我们这一行的，必须得百分百信任你的所有组员，所以我们来求助砖家 - 求助MeLoDY系统", //L"In my line of work, you need to trust every member of your team 100%. That's why we went to the experts - we went to MeLoDY.",
+	L"-Halle L., 社会主义精神病患集团-", //L"-Halle L., SPK-",
+	L"我是局里唯一一个发声的。由于我们的组员大都自命不凡，所以工作中遇到了很多问题。不过现在我们已经学会了互相尊重，能完美的协作了。", //L"I'll be the first to admit our crew was a rather illustrious assortion of characters, and we ran into some scuffles. But we learned to respect each other, and now complement each other perfectly.",
+	L"-Michael C., 美国国家航空航天局-", //L"-Michael C., NASA-",
+	L"我强力推荐这个网站！", //L"I fully recommend this site!",
+	L"-Kasper H., H&C物流公司-", //L"-Kasper H., H&C logistic Inc-",
+	L"我们的培训流程时间很短，所以我们得知道每个员工的个性。使用MeLoDY系统是明智的选择", //L"Our training process has to be very quick, so we need to know whom we're dealing with. MeLoDY were the logical choice for this.",
+	L"-Stan Duke, Kerberus安保公司-", //L"-Stan Duke, Kerberus Inc-",
 
 	// analyze
-	L"Choose your employee",
-	L"Choose your squad",
+	L"选择您的员工", //L"Choose your employee",
+	L"选择您的小队", //L"Choose your squad",
 
 	// error messages
-	L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
+	L"您现在没有员工在岗。士气欠佳往往导致工作人员较高的脱岗率", //L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
 };
 
-// TODO.Translate
 STR16	szMercCompareEventText[]=
 {
-	L"%s shot at me!",
-	L"%s is scheming behind my back",
-	L"%s interfered in my business",
-	L"%s is friends with my enemy",
+	L"%s 朝我开枪!", //L"%s shot at me!",
+	L"%s 背着我耍阴招", //L"%s is scheming behind my back",
+	L"%s 拦着我干活", //L"%s interfered in my business",
+	L"%s 和我的敌人是一伙的", //L"%s is friends with my enemy",
 
-	L"%s got a contract before I did",
-	L"%s ordered a shameful retreat",
-	L"%s massacred the innocent",
-	L"%s slows us down",
+	L"%s 抢我的单子", //L"%s got a contract before I did",
+	L"%s 命令我们夹着尾巴逃跑", //L"%s ordered a shameful retreat",
+	L"%s 滥杀无辜", //L"%s massacred the innocent",
+	L"%s 拖我们后腿", //L"%s slows us down",
 
-	L"%s doesn't share food",
-	L"%s jeopardizes the mission",
-	L"%s is a drug addict",
-	L"%s is thieving scum",
+	L"%s 从不分享食物", //L"%s doesn't share food",
+	L"%s 会让任务失败", //L"%s jeopardizes the mission",
+	L"%s 是个瘾君子", //L"%s is a drug addict",
+	L"%s 是个偷东西的贼", //L"%s is thieving scum",
 
-	L"%s is an incompetent commander",
-	L"%s is overpaid",
-	L"%s gets all the good stuff",
-	L"%s mounted a gun on me",
+	L"%s 是个不称职的指挥官", //L"%s is an incompetent commander",
+	L"%s 不值那么些薪水", //L"%s is overpaid",
+	L"%s 抢走了所有好东西", //L"%s gets all the good stuff",
+	L"%s 拿枪指着我", //L"%s mounted a gun on me",
 
-	L"%s treated my wounds",
-	L"Had a good drink with %s",
-	L"%s is fun to get wasted with",
-	L"%s is annoying when drunk",
+	L"%s 为我疗伤", //L"%s treated my wounds",
+	L"我和 %s 喝酒喝得挺高兴", //L"Had a good drink with %s",
+	L"%s 挺有趣", //L"L"%s is fun to get wasted with",
+	L"%s 喝多了会撒酒疯", //L"%s is annoying when drunk",
 
-	L"%s is an idiot when drunk",
-	L"%s opposed our view in an argument",
-	L"%s supported our position",
-	L"%s agrees to our reasoning",
+	L"%s 喝多了会变白痴", //L"%s is an idiot when drunk",
+	L"%s 的观点与我们相左", //L"%s opposed our view in an argument",
+	L"%s 的观点在我们这边", //L"%s supported our position",
+	L"%s 同意我们的论断", //L"%s agrees to our reasoning",
 
-	L"%s's beliefs are contrary to ours",
-	L"%s knows how to calm down people",
-	L"%s is insensitive",
-	L"%s puts people in their places",
+	L"%s 是个异教徒", //L"%s's beliefs are contrary to ours",
+	L"%s 知道如何安抚别人", //L"%s knows how to calm down people",
+	L"%s 太迟钝", //L"%s is insensitive",
+	L"%s 能做到人尽其才", //L"%s puts people in their places",
 
-	L"%s is way too impulsive",
-	L"%s is disease-ridden",
-	L"%s treated my diseases",
-	L"%s does not hold back in combat",
+	L"%s 过于冲动", //L"%s is way too impulsive",
+	L"%s 是个病秧子", //L"%s is disease-ridden",
+	L"%s 给我治好了病", //L"%s treated my diseases",
+	L"%s 在战斗中从不退缩", //L"%s does not hold back in combat",
 
-	L"%s enjoys combat a bit too much",
-	L"%s is a good teacher",
-	L"%s led us to victory",
-	L"%s saved my life",
+	L"%s 就是个武术疯子", //L"%s enjoys combat a bit too much",
+	L"%s 是个好老师", //L"%s is a good teacher",
+	L"%s 带领我们走向胜利", //L"%s led us to victory",
+	L"%s 救过我的命", //L"%s saved my life",
 
-	L"%s stole my kill",
-	L"%s and me fought well together",
-	L"%s made the enemy surrender",
+	L"%s 跟我抢人头", //L"%s stole my kill",
+	L"%s 跟我一起扛过枪", //L"%s and me fought well together",
+	L"%s 劝降了敌军", //L"%s made the enemy surrender",
 };
 
 STR16	szWHOWebSite[] =
 {
 	// main page
-	L"World Health Organization",
-	L"Bringing health to life",
+	L"世界卫生组织", //L"World Health Organization",
+	L"为生活带来健康", //L"Bringing health to life",
 
 	// links to other pages
-	L"About WHO",
-	L"Disease in Arulco",
-	L"About diseases",
+	L"关于世界卫生组织", //L"About WHO",
+	L"关于Arulco的传染病", //L"Disease in Arulco",
+	L"关于传染病", //L"About diseases",
 
 	// text on the main page
-	L"WHO is the directing and coordinating authority for health within the United Nations system.",
-	L"It is responsible for providing leadership on global health matters, shaping the health research agenda, setting norms and standards, articulating evidence-based policy options, providing technical support to countries and monitoring and assessing health trends.",
-	L"In the 21st century, health is a shared responsibility, involving equitable access to essential care and collective defence against transnational threats.",
+	L"世界卫生组织是联合国系统内卫生问题的指导和协调机构。", //L"WHO is the directing and coordinating authority for health within the United Nations system.",
+	L"它负责对全球卫生事务提供领导，拟定卫生研究议程，制订规范和标准，制定实事求是的政策方案，向各国提供技术支持，以及监测和评估卫生趋势。", //L"It is responsible for providing leadership on global health matters, shaping the health research agenda, setting norms and standards, articulating evidence-based policy options, providing technical support to countries and monitoring and assessing health trends.",
+	L"在二十一世纪，各国要通力协作，重视卫生问题，特别是全民医保和协作防御跨国传染病。", //L"In the 21st century, health is a shared responsibility, involving equitable access to essential care and collective defence against transnational threats.",
 
 	// contract page
-	L"The small country of Arulco is currently experiencing an outbreak of the deadly arulcan plague.",
-	L"Due to the catastrophic state of the state's health system, only the armies' medical corps is there to combat the deadly disease.",
-	L"With the country being of limits to UN affiliates, all we can currently do is provide detailed maps on the current status of infection in Arulco. Due to the difficulty in dealing with Arulco, we regret to have to ask for a daily fee of %d$ for anyone wishing to obtain these maps.",
-	L"Do you wish to acquire detailed data on the current status of diease in Arulco? You can access this data on the strategic map once aquired.",
-	L"You currently do not have access to WHO data on the arulcan plague.",
-	L"You have acquired detailed maps on the status of the disease.",
-	L"Subscribe to map updates",
-	L"Unsubscribe map updates",
+	L"现在致命的Arulcan瘟疫正在小国Arulco肆虐", //L"The small country of Arulco is currently experiencing an outbreak of the deadly arulcan plague.",
+	L"由于国家卫生系统的混乱状态，只有军队的医护兵团在与致命瘟疫奋战", //L"Due to the catastrophic state of the state's health system, only the armies' medical corps is there to combat the deadly disease.",
+	L"由于Arulco限制联合国机构在当地展开行动，目前我们唯一能做的就是在地图上标出现阶段Arulco各地的疫情。但是由于与Arulco政府打交道十分困难，我们十分遗憾的通告该地图的使用者，必须缴纳每天$%d的地图使用费用。", //L"With the country being of limits to UN affiliates, all we can currently do is provide detailed maps on the current status of infection in Arulco. Due to the difficulty in dealing with Arulco, we regret to have to ask for a daily fee of %d$ for anyone wishing to obtain these maps.",
+	L"您希望获得Arulco现阶段疫情的详细资料吗？一旦获得，这些数据会在战略地图上标出", //L"Do you wish to acquire detailed data on the current status of diease in Arulco? You can access this data on the strategic map once aquired.",
+	L"您目前没有访问权限，不能获得世卫组织关于Arulcan瘟疫的数据", //L"You currently do not have access to WHO data on the arulcan plague.",
+	L"疫情的详细资料已在您的地图上标出", //L"You have acquired detailed maps on the status of the disease.",
+	L"订阅地图更新", //L"Subscribe to map updates",
+	L"注销地图更新", //L"Unsubscribe map updates",
 
 	// helpful tips page
-	L"The arulcan plague is a deadly strain of the plague unique to the small country of Arulco. In a typical outbreak, the first victims get infected by a mosquito in a swamp or tropical sector. These first victims then inadvertently infect the population of nearby cities.",
-	L"You won't immediately notice when you are infected - it might take days for the symptoms to show.",
-	L"You can see the current effects of known diseases your mercs suffer from by hovering over their portrait in the strategic map.",
-	L"Most diseases get worse over time, be sure to assign a doctor as soon as possible.",
-	L"Some diseases can be treated with special medicine. You might find some in a well-equipped drugstore.",
-	L"Doctors can be ordered to check on all local teammates for diseases. You can find out about a disease before it breaks out!",
-	L"Doctors have a much higher chance to be infected when treating infected patients. Protective gear is very useful.",
-	L"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
+	L"Arulcan瘟疫这种致命的瘟疫一般不会在Arulco这种小国爆发。其典型的爆发过程是，首批感染者在沼泽地区或者热带地区被蚊子叮到后感染，然后首批感染者会在不知不觉中传染其他邻近城市的人。", //L"The arulcan plague is a deadly strain of the plague unique to the small country of Arulco. In a typical outbreak, the first victims get infected by a mosquito in a swamp or tropical sector. These first victims then inadvertently infect the population of nearby cities.",
+	L"如果被感染，症状不会立刻出现，可能要在几天以后才能发现早期症状。", //"You won't immediately notice when you are infected - it might take days for the symptoms to show.",
+	L"在战术地图上，使用鼠标移动到你的佣兵肖像上来查看你的佣兵感染已知疾病的状况", //"You can see the current effects of known diseases your mercs suffer from by hovering over their portrait in the strategic map.",
+	L"多数疾病会随着时间流逝越发严重，必须尽早分配一个医生到你的队伍。", //"Most diseases get worse over time, be sure to assign a doctor as soon as possible.",
+	L"某些疾病可以用特定药物治愈，你可以从大药品店中找到这些药。", //"Some diseases can be treated with special medicine. You might find some in a well-equipped drugstore.",
+	L"医生可以被指派去检查所有的同行的同伴是否染病，你可以及时在症状爆发之前发现它！", //"Doctors can be ordered to check on all local teammates for diseases. You can find out about a disease before it breaks out!",
+	L"当医生治疗被感染的病患的时候他会有较高的几率感染疾病，所以此时防护服就显得很有用！", //"Doctors have a much higher chance to be infected when treating infected patients. Protective gear is very useful.",
+	L"一把刀砍伤了一个被感染的人以后这把刀就被感染了，可以将该传染源带到其他地方以扩散瘟疫", //"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
 };
 
 STR16	szPMCWebSite[] =
 {
 	// main page
-	L"Kerberus",
-	L"Experience In Security",
+	L"Kerberus安保公司",
+	L"经验丰富的安保公司", //"Experience In Security",
 
 	// links to other pages
-	L"What is Kerberus?",
-	L"Team Contracts",
-	L"Individual Contracts",
+	L"Kerberus安保公司是什么？", //"What is Kerberus?",
+	L"团队契约", //"Team Contracts",
+	L"个人契约", //"Individual Contracts",
 
 	// text on the main page
-	L"Kerberus is a well known international private military contractor. Founded in 1983, we provide security and armed forces training around the world.",
-	L"Our extensively trained personnel provides security for over 30 governments areound the world. This includes several conflict zones.",
-	L"We have several training centres around the globe, including in Indonesia, Colombia, Katar, South Africa and Romania. As a result, we can usually fulfil your contract requirements within 24 hours.",
-	L"Under 'Individual Contracts', we offer individual contracts with experienced veterans in the field of security.",
-	L"You can also hire an entire security team. In the 'Team Contracts' page, you can select how many of our personnel you want to hire, and where you require their services. Due to regrettable incidents in the past, we have to insist that the landing zone be under your control prior to debarkation.",
-	L"Our team can deploy by air, in which case, of course, an airport is required. Depending on the country our services are required in, insetion via harbours or border posts is also possible.",
-	L"An advance payment is required. After that, the daily fee for our personnel will be deducted from your account.",
+	L"Kerberus安保公司是一个著名的国际私人军事承包商。成立于1983，我们在全球范围提供安保服务和武装力量培训。",  //"Kerberus is a well known international private military contractor. Founded in 1983, we provide security and armed forces training around the world.",
+	L"我公司培训出的出色的员工为全世界超过30个政府提供安保工作，包括若干冲突区的政府。",  //"Our extensively trained personnel provides security for over 30 governments areound the world. This includes several conflict zones.",
+	L"我们在全球有多个训练中心，包括印度尼西亚，哥伦比亚，卡塔尔，南非，罗马尼亚，因此我们基本可以在24小时内提供满足我们合同要求的人员。", //"We have several training centres around the globe, including in Indonesia, Colombia, Katar, South Africa and Romania. As a result, we can usually fulfil your contract requirements within 24 hours.",
+	L"在'个人契约'的页面下, 我们将提供有丰富安保经验的资深老兵去履行合同。",  //"Under 'Individual Contracts', we offer individual contracts with experienced veterans in the field of security.",
+	L"同时您可以选择雇佣一个安保团队。在'团队契约'的页面下，你可以选择你想要雇佣的人员数量和行动目的地点。由于之前发生过令人遗憾的意外，所以我们要求登陆地点必须在您的实际占领区。", //"You can also hire an entire security team. In the 'Team Contracts' page, you can select how many of our personnel you want to hire, and where you require their services. Due to regrettable incidents in the past, we have to insist that the landing zone be under your control prior to debarkation.",
+	L"我们的团队可以通过空中部署，当然，在这种情况下机场是必需的。根据目的地国家的具体情况，我们的团队也可以通过港口或边境哨所渗透进入。",  //Our team can deploy by air, in which case, of course, an airport is required. Depending on the country our services are required in, insetion via harbours or border posts is also possible.",
+	L"我们要求客户先支付一定的保证金，然后我们佣兵的每日收费会在你的账户中扣取。",  //"An advance payment is required. After that, the daily fee for our personnel will be deducted from your account.",
 
 	// militia contract page
-	L"You can select the type and number of personnel you want to hire here:",
-	L"Initial deployment",
-	L"Regular personnel",
-	L"Veteran personnel",
+	L"你可以在这选择你想要雇佣的人员类型和数目。",  //"You can select the type and number of personnel you want to hire here:",
+	L"初始部署",  //"Initial deployment",
+	L"常规佣兵",  //"Regular personnel",
+	L"资深佣兵",  //"Veteran personnel",
 
-	L"%d available, %d$ each",
-	L"Hire: %d",
-	L"Cost: %d$",
+	L"%d 个人可用，每人费用 %d$",  //"%d available, %d$ each",
+	L"雇佣: %d",  //"Hire: %d",
+	L"费用: %d$",  //"Cost: %d$",
 
-	L"Select the initial operational area:",
-	L"Total Cost: %d$",
+	L"选择初始登陆区域。",  //"Select the initial operational area:",
+	L"总费用: %d$",  //"Total Cost: %d$",
 	L"ETA: %02d:%02d",
-	L"Close Contract",
+	L"签署合同",  //"Close Contract",
 
-	L"Thank you! Our personnel will be on site on %02d:%02d tomorrow.",
-	L"Kerberus reinforcements have arrived in %s.",
-	L"Next deployment: %d regulars and %d veterans at %s on %02d:%02d, day %d.",
-	L"You do not control any location through which we could insert troops!",
+	L"谢谢！我们的人员会在明天%02d:%02d登陆。",  //"Thank you! Our personnel will be on site on %02d:%02d tomorrow.",
+	L"Kerberus安保公司的部队已经到达 %s.",  //"Kerberus reinforcements have arrived in %s.",
+	L"下一轮部署:%d个常规佣兵和%d个资深佣兵在第%s天的%02d:%02d到达，%d.",  //"Next deployment: %d regulars and %d veterans at %s on %02d:%02d, day %d.",
+	L"你并没有实际控制至少一个我们可以部署佣兵的地区！",  //"You do not control any location through which we could insert troops!",
 
 	// individual contract page
 };
@@ -9787,9 +9786,9 @@ STR16   szTacticalCoverDialogString[]=
         L"佣兵",
         L"",
 
-        L"Roles",	// TODO.Translate
+        L"角色", //L"Roles",
         L"",
-		L"Tracker",
+		L"跟踪者",//	L"Tracker",
         L"",
 
         L"陷阱",
@@ -9827,765 +9826,764 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"显示绊线网络D",
 };
 
-// TODO.Translate
-STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
+STR16	szDynamicDialogueText[40][17] =
 {
 	// OPINIONEVENT_FRIENDLYFIRE
-	L"What the hell! $CAUSE$ attacked me!",
+	L"见鬼！$CAUSE$ 攻击我！",  //"What the hell! $CAUSE$ attacked me!"
 	L"",
 	L"",
-	L"What? Me? No way, I'm engaging at the enemy!",
-	L"Oops.",
+	L"什么？我？那不可能，我正跟敌人打的起劲呢！", //"What? Me? No way, I'm engaging at the enemy!"
+	L"唉哟.",  //"Oops."
 	L"",
 	L"",
-	L"$CAUSE$ has attacked $VICTIM$. What do you do?",
-	L"Nah, that must have been enemy fire!",
-	L"Yeah, I saw it too!",
-	L"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?",
-	L"I saw it, it was clearly enemy fire!",
-	L"In the heat of battle, this can happen. Just be more careful next time, $CAUSE$.",
-	L"This is war! People get shot all the time! Speaking of... shoot more people, people!",
+	L"$CAUSE$ 攻击了 $VICTIM$。你怎么看？",  //"$CAUSE$ has attacked $VICTIM$. What do you do?"
+	L"不，那绝对是敌人开的枪！",  //"Nah, that must have been enemy fire!"
+	L"对，我也看见了！",  //"Yeah, I saw it too!"
+	L"少在这儿装傻！ $CAUSE$。你的视野很清晰！你到底是哪边的？",  //"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?"
+	L"我看见了，很明显是敌人开的枪！",  //"I saw it, it was clearly enemy fire!"
+	L"在激战中，这是很有可能发生的。下回一定小心点， $CAUSE$.",  //"In the heat of battle, this can happen. Just be more careful next time, $CAUSE$."
+	L"现在是在打仗！人们随时都会被击中的！还是说说... 怎么开枪打的准一些吧，打敌人！",  //"This is war! People get shot all the time! Speaking of... shoot more people, people!"
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SNITCHSOLDMEOUT
-	L"Hey! Keep your mouth shut, $CAUSE$! Freakin' snitch!",
+	L"嘿！闭嘴， $CAUSE$! 该死的内奸！", //L"Hey! Keep your mouth shut, $CAUSE$! Freakin' snitch!",
 	L"",
 	L"",
-	L"I would if you weren't such a wussy!",
-	L"You heard that? Dammit.",
+	L"如果你不是傻瓜，我就是。" //L"I would if you weren't such a wussy!",
+	L"你听到了吗？该死的。", //L"You heard that? Dammit.",
 	L"",
 	L"",
-	L"$VICTIM$ is angry with $CAUSE$ because $CAUSE_GENDER$ spoke to you. What do you do?",
-	L"Nono, $CAUSE$, speak up... What did $VICTIM$ do?",
-	L"Yeah, mind your own business, $CAUSE$!",
-	L"This isn't girls college, keep your snickering to yourself, $CAUSE$.",
-	L"Yeah. Man up!",
-	L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
-	L"This again? Keep your bickering to yourself, we have no time for this!",
+	L"$VICTIM$ 冲 $CAUSE$ 生气，就是因为 $CAUSE_GENDER$ 和你打小报告。你怎么看？",  //L"$VICTIM$ is angry with $CAUSE$ because $CAUSE_GENDER$ spoke to you. What do you do?",
+	L"不不， $CAUSE$， 说吧... $VICTIM$ 做了啥？",  //L"Nono, $CAUSE$, speak up... What did $VICTIM$ do?",
+	L"嘿，少管闲事， $CAUSE$！",  //L"Yeah, mind your own business, $CAUSE$!",
+	L"这儿又不是女子学校，偷着乐吧， $CAUSE$。",  //L"This isn't girls college, keep your snickering to yourself, $CAUSE$.",
+	L"对，像个爷们儿！",  //L"Yeah. Man up!",
+	L"我不确定那是正确的方法，但是 $CAUSE_GENDER$ 做这种事情应该有原因的...",  //L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
+	L"又来？把小报告藏在心里吧，我们可没这时间！",  //L"This again? Keep your bickering to yourself, we have no time for this!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SNITCHINTERFERENCE
-	L"$CAUSE$ is bullying me again!",
+	L"$CAUSE$ 又在欺负我！",  //L"$CAUSE$ is bullying me again!",
 	L"",
 	L"",
-	L"You're jeopardising the entire mission, and I won't let that stand any longer!",
-	L"Hey, it's for your own good. You'll thank me later.",
+	L"你搞砸了整个任务，我受够了！",  //L"You're jeopardising the entire mission, and I won't let that stand any longer!",
+	L"嘿，这对你个人有好处。过后你会感谢我。",  //L"Hey, it's for your own good. You'll thank me later.",
 	L"",
 	L"",
-	L"$CAUSE$ has stopped $VICTIM$ from misbehaving, and $VICTIM_GENDER$ is out for revenge. What do you do?",
-	L"Then stop giving reasons for that!",
-	L"Drop it, $CAUSE$, who are you to tell us what to do?!",
-	L"You won't let that stand? Cute. Who ever made you the boss?",
-	L"Agreed. We can't let our guard down for a single moment!",
-	L"Can't you two sort this out?",
-	L"Meh meh meh. Have any of you losers lost their bib? You're pathetic. ",
+	L"$CAUSE$ 阻止了 $VICTIM$ 的不端行为， $VICTIM_GENDER$ 就报复。你怎么看？",  //L"$CAUSE$ has stopped $VICTIM$ from misbehaving, and $VICTIM_GENDER$ is out for revenge. What do you do?",
+	L"别再为那事儿找借口了！",  //L"Then stop giving reasons for that!",
+	L"算了吧， $CAUSE$, 以为你是谁啊，能对我们指手画脚？！",  //L"Drop it, $CAUSE$, who are you to tell us what to do?!",
+	L"你不想那样？伙计，谁让你发号施令的？",  //L"You won't let that stand? Cute. Who ever made you the boss?",
+	L"同意。我们片刻不能放松警惕！",  //L"Agreed. We can't let our guard down for a single moment!",
+	L"你俩就不能把这事摆平吗？",  //L"Can't you two sort this out?",
+	L"呶呶呶。你们这些失败了的家伙有谁丢了围嘴儿吗？可怜虫！",  //L"Meh meh meh. Have any of you losers lost their bib? You're pathetic. ",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_FRIENDSWITHHATED
-	L"Hmpf. Typical $CAUSE$, figured $CAUSE_GENDER$ would hang out with the wrong crowd!",
+	L"哼。典型的 $CAUSE$，估计 $CAUSE_GENDER$ 想找同伴出去喝酒找错了人！",  //L"Hmpf. Typical $CAUSE$, figured $CAUSE_GENDER$ would hang out with the wrong crowd!",
 	L"",
 	L"",
-	L"My friends are none of your business!",
-	L"Can't you two all get along, $VICTIM$?",
+	L"我找谁做朋友和你没关系！",  //L"My friends are none of your business!",
+	L"你俩相处的不好吗？ $VICTIM$。", //L"Can't you two all get along, $VICTIM$?",
 	L"",
 	L"",
-	L"$VICTIM$ doesn't like $CAUSE$'s friend. What do you do?",
-	L"Everybody can hang out with whom $CAUSE_GENDER$ wants!",
-	L"Yeah, you guys are ugly!",
-	L"Then you should change your business. 'Cause its bad.",
-	L"What's that to you, $VICTIM$?",
-	L"Yeah yeah, terrible business, that. Are you sure that is the MOST PRESSING issue right now?",
-	L"Nobody wants to hear all this crap...",
+	L"$VICTIM$ 不喜欢 $CAUSE$ 的朋友。你怎么看？",  //L"$VICTIM$ doesn't like $CAUSE$'s friend. What do you do?",
+	L"$CAUSE_GENDER$ 当然可以和他自己想找的人一起喝酒。",  //L"Everybody can hang out with whom $CAUSE_GENDER$ wants!",
+	L"嘿，你们这群丑鬼！",  //L"Yeah, you guys are ugly!",
+	L"你该换工作了，因为它很糟。",  //L"Then you should change your business. 'Cause its bad.",
+	L"$VICTIM$， 感觉如何？",  //L"What's that to you, $VICTIM$?",
+	L"是啊，是啊，那个烂事儿。你确定它是现在最要紧的事儿？",  //L"Yeah yeah, terrible business, that. Are you sure that is the MOST PRESSING issue right now?",
+	L"没人愿意听这些废话...",  //L"Nobody wants to hear all this crap...",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_CONTRACTEXTENSION
-	L"Yeah, sure. My contract's about to end, but no, gotta take care of $CAUSE$ first.",
+	L"是的，当然。我的合同即将到期，不过，先谈谈 $CAUSE$ 吧。", //L"Yeah, sure. My contract's about to end, but no, gotta take care of $CAUSE$ first.",
 	L"",
 	L"",
-	L"Oh yeah? I'm actually useful. Perhaps that's why you didn't get an extension.",
-	L"I'm sure you'll get your extension soon. You know how odd online banking can be.",
+	L"哦，是吗？我真的很有用，或许这就是为什么你没给我延期的原因。",  //L"Oh yeah? I'm actually useful. Perhaps that's why you didn't get an extension.",
+	L"我保证你会很快获得延期。你知道网上银行有多奇葩。",  //L"I'm sure you'll get your extension soon. You know how odd online banking can be.",
 	L"",
 	L"",
-	L"$VICTIM$ is jealous as we extended $CAUSE$'s contract early. What do you do?",
-	L"You are still getting paid, no? What does it matter as long as you get the money?",
-	L"And your contract ends so soon, $CAUSE$... I hope you get an extension.",
-	L"Yeah. All that worth hasn't shown yet though.",
-	L"Aww, that burns, doesn't it, $VICTIM$?",
-	L"We have limited funds. Someone needs to get paid first, right?",
-	L"You'll all get paid in time. Unless you continue like this. I'm sure there are less annoying mercs out there.",
+	L"$VICTIM$ 嫉妒我们提前延期 $CAUSE$ 的合同。你说咋整？",  //L"$VICTIM$ is jealous as we extended $CAUSE$'s contract early. What do you do?",
+	L"你不是还领着报酬吗？既然你拿到了钱，管别的干嘛？",  //L"You are still getting paid, no? What does it matter as long as you get the money?",
+	L"你的合同就快到期了， $CAUSE$ ... 真希望你能延期。", //L"And your contract ends so soon, $CAUSE$... I hope you get an extension.",
+	L"是的。全部的价值都还没发挥出来。", //L"Yeah. All that worth hasn't shown yet though.",
+	L"哦，戳到痛处了，是吧？ $VICTIM$。", //L"Aww, that burns, doesn't it, $VICTIM$?",
+	L"我们的资金有限。有些人的付出值得先拿到钱，对吧？", //L"We have limited funds. Someone needs to get paid first, right?",
+	L"每人都会及时得到报酬，除非你们继续吵下去。我也能找到其他不讨人烦的雇佣兵。",  //L"You'll all get paid in time. Unless you continue like this. I'm sure there are less annoying mercs out there.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_ORDEREDRETREAT
-	L"Nice command, $CAUSE$! Why would you order retreat?",
+	L"好命令， $CAUSE$！ 你为什么命令撤退？",  //L"Nice command, $CAUSE$! Why would you order retreat?",
 	L"",
 	L"",
-	L"I just got us out of that hellhole, you should thank me for saving your life.",
-	L"They were flanking us, there was no other way!",
+	L"我只是把大家带出了地狱，你该感谢我救你一命。",  //L"I just got us out of that hellhole, you should thank me for saving your life.",
+	L"他们包围了侧翼，我们没退路了！",  //L"They were flanking us, there was no other way!",
 	L"",
 	L"",
-	L"$VICTIM$ dislikes the retreat command $CAUSE$ gave. What do you do?",
-	L"You know you can go back if you want... nobody's stopping you.",
-	L"We were rockin' it until that point.",
-	L"Oh, now YOU got us out? By being the first to leave? How noble of you.",
-	L"I sure did, $CAUSE$. Man, I don't want to go back THERE again.",
-	L"We're still alive, this is what counts.",
-	L"The more pressing issue is when will we go back, and finish the job?",
+	L"$VICTIM$ 讨厌 $CAUSE$ 的撤退命令，你呢？",  //L"$VICTIM$ dislikes the retreat command $CAUSE$ gave. What do you do?",
+	L"只要愿意，你可以自己回去...没人阻止你。",  //L"You know you can go back if you want... nobody's stopping you.",
+	L"优势一直在我们这边，直到刚才。",  //L"We were rockin' it until that point.",
+	L"哦？你一边第一个撤退，一边救了我们一命？你真高尚！",  //L"Oh, now YOU got us out? By being the first to leave? How noble of you.",
+	L"我确实救了你们， $CAUSE$。 哥们儿，我再也不想回到那儿了。",  //L"I sure did, $CAUSE$. Man, I don't want to go back THERE again.",
+	L"最重要的，我们都还活着。",  //L"We're still alive, this is what counts.",
+	L"更要紧的是，我们啥时候打回去，搞定这任务？",  //L"The more pressing issue is when will we go back, and finish the job?",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_CIVKILLER
-	L"What the hell is wrong with you, $CAUSE$? You just killed an innocent!",
+	L"$CAUSE$， 你脑子进水了吗？你刚刚杀了一个无辜的人！",  //L"What the hell is wrong with you, $CAUSE$? You just killed an innocent!",
 	L"",
 	L"",
-	L"He had a gun, I saw it!",
-	L"Oh god. No! What have I done?",
+	L"他有枪，我看到了！",  //L"He had a gun, I saw it!",
+	L"哦不！上帝啊！我做了什么？",  //L"Oh god. No! What have I done?",
 	L"",
 	L"",
-	L"$VICTIM$ is furious: $CAUSE$ killed a civilian. What do you do?",
-	L"Better safe than sorry I say...",
-	L"Yeah. The poor sod never had a chance. Damn.",
-	L"Don't talk crap. That was an unarmed civilian. We are here to protect these people!",
-	L"And you took him down nice and clean, good job!",
-	L"This is war. People die all the time... though I'd prefer it if it were less obvious that we are so, ehm, proactive.",
-	L"Who cares? Can't make a cake without breaking a few eggs.",
+	L"$VICTIM$ 暴怒： $CAUSE$ 杀了个平民。你都干了些什么？", //"$VICTIM$ is furious: $CAUSE$ killed a civilian. What do you do?",
+	L"我们能安全些比我说对不起更有价值...",  //"Better safe than sorry I say...",
+	L"喔。这可怜的家伙没希望了。该死。", //"Yeah. The poor sod never had a chance. Damn.",
+	L"别废话。那是个手无寸铁的平民。我们来这儿是为了保护这些人们的！",  //"Don't talk crap. That was an unarmed civilian. We are here to protect these people!",
+	L"你干净利索的干掉了他，干得好！", //"And you took him down nice and clean, good job!",
+	L"现在是在打仗，随时都有人会死....虽然我更喜欢咱们低调点",//"This is war. People die all the time... though I'd prefer it if it were less obvious that we are so, ehm, proactive.",
+	L"谁在乎？舍不得孩子套不住狼。",  //"Who cares? Can't make a cake without breaking a few eggs.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SLOWSUSDOWN
-	L"Can we get rid of $CAUSE$, please? That slowpoke is holding us back.",
+	L"拜托，能让 $CAUSE$ 滚蛋吗？这个慢吞吞的家伙拖了我们的后腿。",  //"Can we get rid of $CAUSE$, please? That slowpoke is holding us back.",
 	L"",
 	L"",
-	L"I wouldn't if you would carry your fair share of the gear, $VICTIM$!",
-	L"It's all this stuff, it's so heavy!",
+	L"要不是我替你背了本应你背的东西，我怎么会这么慢， $VICTIM$!",  //"I wouldn't if you would carry your fair share of the gear, $VICTIM$!",
+	L"因为我背的东西太多了，太重了！",  //"It's all this stuff, it's so heavy!",
 	L"",
 	L"",
-	L"$VICTIM$ feels $CAUSE$ slows down the team. What do you do?",
-	L"We leave nobody behind, not even $CAUSE$!",
-	L"We have to move fast, the enemy isn't far behind!",
-	L"Everybody carries his gear. How do you expect to fight if you can't even carry your gun?",
-	L"Aye, stop complaining. We go through this together or we don't do it at all.",
-	L"If you are so annoyed that $CAUSE$ is slow, $VICTIM$, maybe you could lend a hand.",
-	L"If you still have enough breath left to complain, $VICTIM$, you should lend $CAUSE_GENDER$ a hand.",
+	L"$VICTIM$ 觉得是 $CAUSE$ 拖累了队伍。你觉得呢？",  //"$VICTIM$ feels $CAUSE$ slows down the team. What do you do?",
+	L"我们绝不抛弃任何人，特别是 $CAUSE$！",  //"We leave nobody behind, not even $CAUSE$!",
+	L"我们得赶快行军，敌人追上来了！",  //"We have to move fast, the enemy isn't far behind!",
+	L"所有人都背着自己的装备啊。要是不拿着枪你可怎么打仗啊？", //"Everybody carries his gear. How do you expect to fight if you can't even carry your gun?",
+	L"是，停止抱怨。要么咱们一起撑过去要么一起死了拉倒。", //"Aye, stop complaining. We go through this together or we don't do it at all.",
+	L"你要是那么恼火 $CAUSE$ 拖拖拉拉， $VICTIM$，不如你去帮他一把。", //"If you are so annoyed that $CAUSE$ is slow, $VICTIM$, maybe you could lend a hand.",
+	L"$VICTIM$， 要是你还有闲功夫在这里抱怨个没完，你该去帮 $CAUSE_GENDER$ 一把。", //"If you still have enough breath left to complain, $VICTIM$, you should lend $CAUSE_GENDER$ a hand.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_NOSHARINGFOOD
-	L"Damn $CAUSE$, $CAUSE_GENDER$ is keeping all that tasty food to $CAUSE_PRONOUN$self...",
+	L"该死的 $CAUSE$， $CAUSE_GENDER$ 把好吃的自个全吃了......", //"Damn $CAUSE$, $CAUSE_GENDER$ is keeping all that tasty food to $CAUSE_PRONOUN$self...",
 	L"",
 	L"",
-	L"Not my problem if you already ate all your rations.",
-	L"Oh $VICTIM$, why didn't you say something then?",
+	L"怪我咯，你怎么不说你自己先吃完了自己的那份儿。", //"Not my problem if you already ate all your rations.",
+	L"哎 $VICTIM$，我刚才吃的时候你怎么不说话啊？", //"Oh $VICTIM$, why didn't you say something then?",
 	L"",
 	L"",
-	L"$VICTIM$ wants $CAUSE$'s food. What do you do?",
-	L"We all get the same. If you used up yours already that's your problem.",
-	L"If $CAUSE$ shares, I want some too!",
-	L"Why do you have so much food anyway? Do I smell extra rations there?.",
-	L"Right, everyone got enough back at the base...",
-	L"There's enough food left at the base, so no need to fight, ok?",
-	L"I wouldn't call that stuff 'tasty', but if you ladies wanna fight about it, fine by me.",
+	L"$VICTIM$ 想要 $CAUSE$'的食物。你怎么看？", //"$VICTIM$ wants $CAUSE$'s food. What do you do?",
+	L"大伙都一样多。你用光了自己那份，那是你自个儿的事。", //"We all get the same. If you used up yours already that's your problem.",
+	L"要是 $CAUSE$ 能分到的话，我也要！", //"If $CAUSE$ shares, I want some too!",
+	L"凭啥你有那么多东西吃？我怎么闻着你有额外的口粮呢？", //"Why do you have so much food anyway? Do I smell extra rations there?.",
+	L"那好，回到基地人人都管够....", //"Right, everyone got enough back at the base...",
+	L"基地里有足够的食物，别找事，明白么？", //"There's enough food left at the base, so no need to fight, ok?",
+	L"我觉得那东西根本不能叫美味，不过要是你们这些鸡婆想争食儿，我没意见。", //"I wouldn't call that stuff 'tasty', but if you ladies wanna fight about it, fine by me.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_ANNOYINGDISABILITY
-	L"Oh, come on, $CAUSE$. It's not a good moment!",
+	L"哦，活见鬼， $CAUSE$. 这可不是个好时候!",  //"Oh, come on, $CAUSE$. It's not a good moment!",
 	L"",
 	L"",
-	L"Just what I need. Good advice. Thanks, $VICTIM$, you are a big help.",
-	L"It's my only weakness, I can't help it!",
+	L"说得好，我选择死亡。好建议。谢谢， $VICTIM$,你帮了我大忙，还要我说别的吗？",  //"Just what I need. Good advice. Thanks, $VICTIM$, you are a big help.",
+	L"这是我唯一的弱点，我无能为力啊！",  //"It's my only weakness, I can't help it!",
 	L"",
 	L"",
-	L"$CAUSE$' tick is getting on $VICTIM$'s nerves. What do you do?",
-	L"What does it even matter to you? Don't you have something to do?",
-	L"Really $CAUSE$. This is a military organization and not a ward.",
-	L"Well, we are pros, an you're not, $CAUSE$.",
-	L"Don't be such a snob, $VICTIM$.",
-	L"Uhm. Is $CAUSE_GENDER$ okay?",
-	L"Bla bla blah. Another notable moment of the crazies squad.",
+	L"$CAUSE$' 的举动让 $VICTIM$ 心烦意乱。你怎么看？",  //"$CAUSE$' tick is getting on $VICTIM$'s nerves. What do you do?",
+	L"这关你什么事？你没事可干了？",  //"What does it even matter to you? Don't you have something to do?",
+	L"确实啊， $CAUSE$。这里是军事组织不是病房。",  //"Really $CAUSE$. This is a military organization and not a ward.",
+	L"呃，我们是专业人士，你可不是， $CAUSE$.",  //"Well, we are pros, an you're not, $CAUSE$.",
+	L"别这么势利眼， $VICTIM$.",  //"Don't be such a snob, $VICTIM$.",
+	L"嗯。 $CAUSE_GENDER$ 还好吧？",  //"Uhm. Is $CAUSE_GENDER$ okay?",
+	L"瞎逼逼，一群疯子的典型时刻。",  //"Bla bla blah. Another notable moment of the crazies squad.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_ADDICT
-	L"$CAUSE$ is high like a zeppelin! How am I supposed to work with that junkie?",
+	L"$CAUSE$ 嗨得飞起了！我怎么能跟一个瘾君子共事？",  //"$CAUSE$ is high like a zeppelin! How am I supposed to work with that junkie?",
 	L"",
 	L"",
-	L"Taking the stick out of your butt would be a starter, jeez...",
-	L"I've seen things man. And some... stuff!",
+	L"把你的肠子从屁眼里拉出来我才能飞，我的天啊....",  //"Taking the stick out of your butt would be a starter, jeez...",
+	L"我看到了未来，伙计。还有...其他的东西！",  //"I've seen things man. And some... stuff!",
 	L"",
 	L"",
-	L"$CAUSE$ took drugs and $VICTIM$ saw it. What do you do?",
-	L"Hey, $CAUSE$ needs to ease the stress, ok?",
-	L"How unprofessional.",
-	L"This is war and not a stoner party. Cut it out, $CAUSE$!",
-	L"Hehe. So true.",
-	L"I am sure there is a good explanation for this. Am I right, $CAUSE$?",
-	L"You can inject yourself with whatever you like, but only after the battle is over.",
+	L"$CAUSE$ 吸毒的时候被 $VICTIM$ 看见了。你怎么看？",  //"$CAUSE$ took drugs and $VICTIM$ saw it. What do you do?",
+	L"喂， $CAUSE$ 得减减压，好吧？",  //"Hey, $CAUSE$ needs to ease the stress, ok?",
+	L"太没职业道德了。",  //"How unprofessional.",
+	L"这是打仗不是贵族舞会。赶紧住手， $CAUSE$!",  //"This is war and not a stoner party. Cut it out, $CAUSE$!",
+	L"呵呵，太对了。",  //"Hehe. So true.",
+	L"我相信你吸毒有一个很好的理由，是吧， $CAUSE$?",  //"I am sure there is a good explanation for this. Am I right, $CAUSE$?",
+	L"战斗结束之后，你想注射什么随你的便。",  //"You can inject yourself with whatever you like, but only after the battle is over.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_THIEF
-	L"What the... Hey! $CAUSE$! Give it back, you damn thief!",
+	L"见鬼...喂！ $CAUSE$! 你给我拿回来，你这个该死的小偷！",  //"What the... Hey! $CAUSE$! Give it back, you damn thief!",
 	L"",
 	L"",
-	L"Have you been drinking? What the hell is your problem?",
-	L"You noticed? Dammit... 50/50?",
+	L"你喝多了吧？有病啊你！",  //"Have you been drinking? What the hell is your problem?",
+	L"你都看见了？倒霉....要不一人一半？",  //"You noticed? Dammit... 50/50?",
 	L"",
 	L"",
-	L"$VICTIM$ saw $CAUSE$ steal an item. What do you do?",
-	L"If you don't have any proof, don't throw around accusations, $VICTIM$.",
-	L"So that's the kind of people were stuck with, $VICIM$? I better watch my wallet then.",
-	L"HEY! You put that back right now!",
-	L"No idea. All of a sudden $VICTIM$ is all drama.",
-	L"Perhaps we could get a raise to resolve this... issue?",
-	L"Shut up! There is more than enough loot for all of us!",
+	L"$VICTIM$ 看见 $CAUSE$ 偷了件东西。你怎么看？",  //"$VICTIM$ saw $CAUSE$ steal an item. What do you do?",
+	L"捉贼捉赃，如果没证据你就别瞎指责， $VICTIM$.",   //"If you don't have any proof, don't throw around accusations, $VICTIM$.",
+	L"我们一起共事的就是这样的人了， $VICIM$? 大家都看好自己的钱包为妙。",  //"So that's the kind of people were stuck with, $VICIM$? I better watch my wallet then.",
+	L"喂你！你把那个立刻还回去！",  //"HEY! You put that back right now!",
+	L"我什么都没看见啊。怎么突然间 $VICTIM$ 就抽风了？",  //"No idea. All of a sudden $VICTIM$ is all drama.",
+	L"也许我们可以多分点战利品来解决这个...小问题？",  //"Perhaps we could get a raise to resolve this... issue?",
+	L"闭嘴！这些战利品对我们所有人来说足够多了！",  //"Shut up! There is more than enough loot for all of us!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_WORSTCOMMANDEREVER
-	L"What a disaster. That was worst command ever, $CAUSE$!",
+	L"这简直是个灾难啊。从没有这么差劲的指挥, $CAUSE$!",  //"What a disaster. That was worst command ever, $CAUSE$!",
 	L"",
 	L"",
-	L"I don't have to take that from a grunt like you!",
-	L"Dream on, $VICTIM$. I'm worth every penny, and you know it!",
+	L"我不会接受你这样的大头兵来指挥我！",  //"I don't have to take that from a grunt like you!",
+	L"做你的白日梦， $VICTIM$. 我对得起这价钱，你心里清楚！",  //"Dream on, $VICTIM$. I'm worth every penny, and you know it!",
 	L"",
 	L"",
-	L"$CAUSE$ does not trust $VICTIM$'s orders. What do you do?",
-	L"Someone had take the lead and $CAUSE$ did it. Did you have a better plan?",
-	L"Well, we sure aren't going to win the war at this rate...",
-	L"Then take it from me... that wasn't 'commanding' as much as 'handwaving'.",
-	L"We have a clear chain of command, and you sure as hell aren't on top, $VICTIM$!",
-	L"We will not forget their sacrifice. They died so we could fight on.",
-	L"What? This is the business. Screw up and you're dead. They knew the risks. Move on.",
+	L"$CAUSE$ 不相信 $VICTIM$ 的命令。你怎么看？",  //"$CAUSE$ does not trust $VICTIM$'s orders. What do you do?",
+	L"总得有人当头儿啊，除了 $CAUSE$ 你有更好的人选？",  //"Someone had take the lead and $CAUSE$ did it. Did you have a better plan?",
+	L"好啊，这样的话我们肯定是赢不了这场战争了....",  //"Well, we sure aren't going to win the war at this rate...",
+	L"我向你保证...那并不是像打手势一样的指挥",  //"Then take it from me... that wasn't 'commanding' as much as 'handwaving'.",
+	L"我们有清晰的指挥层级，而你并不是发号施令的那个， $VICTIM$!",  //"We have a clear chain of command, and you sure as hell aren't on top, $VICTIM$!",
+	L"我们不会忘记他们的牺牲。正是他们的牺牲使得我们能够继续战斗下去",  //"We will not forget their sacrifice. They died so we could fight on.",
+	L"什么？生意就是这样。搞砸了你就玩儿完了。他们知道这里头的风险。继续干活。",  //"What? This is the business. Screw up and you're dead. They knew the risks. Move on.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_RICHGUY
-	L"How can $CAUSE$ earn this much? It's not fair!",
+	L"$CAUSE$ 怎么能挣这么多钱？这不公平！",  //"How can $CAUSE$ earn this much? It's not fair!",
 	L"",
 	L"",
-	L"Dream on, $VICTIM$. I'm worth every penny, and you know it!",
-	L"You don't expect me to complain, do you?",
+	L"做你的白日梦， $VICTIM$. 我对得起这价钱，你心里清楚！",  //"Dream on, $VICTIM$. I'm worth every penny, and you know it!",
+	L"你觉得我不会往心里去的，是吧？",  //"You don't expect me to complain, do you?",
 	L"",
 	L"",
-	L"$CAUSE$ is jealous of $VICTIM$'s paycheck. What do you do?",
-	L"Quit whining about the money, you get more than enough yourself!",
-	L"In all honesty, $VICTIM$, I think you should adjust your rate!",
-	L"Worth it? All you do is pose!",
-	L"Relax. At least some of us appreciate your service, $CAUSE$.",
-	L"Perhaps $CAUSE_GENDER$ is just good at salary negotiations?",
-	L"Everybody gets what the deserve. If you complain, you deserve less.",
+	L"$CAUSE$ 正在嫉妒 $VICTIM$ 的时薪。你怎么看？",   //"$CAUSE$ is jealous of $VICTIM$'s paycheck. What do you do?",
+	L"别在钱上斤斤计较，你自己挣得够多的了！",   //"Quit whining about the money, you get more than enough yourself!",
+	L"说实在的， $VICTIM$, 我觉得你应该调整下报价！",   //"In all honesty, $VICTIM$, I think you should adjust your rate!",
+	L"你值那个价？你的所作所为根本就是在装腔作势！",   //"Worth it? All you do is pose!",
+	L"放松点，至少我们其他人明白你付出了多少， $CAUSE$。",   //"Relax. At least some of us appreciate your service, $CAUSE$.",
+	L"也许 $CAUSE_GENDER$ 刚好擅长薪资谈判？",   //"Perhaps $CAUSE_GENDER$ is just good at salary negotiations?",
+	L"每个人都会得到自己应得的那一份儿。你越是抱怨，得到的越少。",   //"Everybody gets what the deserve. If you complain, you deserve less.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BETTERGEAR
-	L"$CAUSE$ is stocking the good gear for $CAUSE_PRONOUN$self. Not fair!",
+	L"$CAUSE$ 把好装备自个儿都囤起来了。不公平！",   //"$CAUSE$ is stocking the good gear for $CAUSE_PRONOUN$self. Not fair!",
 	L"",
 	L"",
-	L"Contrary to you, I actually know how to use them.",
-	L"Well, someone has to use it, right? Better luck next time!",
+	L"跟你不一样，实际上我才懂得怎么用这些玩意儿。",  //"Contrary to you, I actually know how to use them.",
+	L"是啊，东西在那里总得用人用它，对吧？祝你下回好运！",  //"Well, someone has to use it, right? Better luck next time!",
 	L"",
 	L"",
-	L"$CAUSE$ is jealous of $VICTIM$'s equipment. What do you do?",
-	L"You're just making up an excuse for your poor marksmanship.",
-	L"Yeah, this smells of cronyism to me.",
-	L"If by 'use' you mean 'waste a lot bullets', then yeah, you are a pro.",
-	L"I'll second that!",
-	L"Is that so? Well, I expect superior marksmanship from $CAUSE_GENDER$ from now on.",
-	L"Did it ever occur to you that our supplies are limited? We can't ALL get the one good gun.",
+	L"$CAUSE$ 眼红 $VICTIM$ 的装备。你怎么看？",  //"$CAUSE$ is jealous of $VICTIM$'s equipment. What do you do?",
+	L"你不过是在给你糟糕的枪法编个借口而已",   //"You're just making up an excuse for your poor marksmanship.",
+	L"是的，对我来说这分明是任人唯亲",   //"Yeah, this smells of cronyism to me.",
+	L"如果你的词典里'使用'是'浪费弹药'的意思，那好吧，你真特么专业啊。",   //"If by 'use' you mean 'waste a lot bullets', then yeah, you are a pro.",
+	L"我举双手赞成！",   //"I'll second that!",
+	L"真是那样？那好，从现在起我对 $CAUSE_GENDER$ 高超的枪法拭目以待。",   //"Is that so? Well, I expect superior marksmanship from $CAUSE_GENDER$ from now on.",
+	L"你就没想到过我们的补给是有限的么？我们根本连一把好枪也搞不到",   //"Did it ever occur to you that our supplies are limited? We can't ALL get the one good gun.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS
-	L"Do I look like a bipod? Get that thing off me, $CAUSE$!",
+	L"你拿我当双脚架吗？别拿我架枪， $CAUSE$!",//L"Do I look like a bipod? Get that thing off me, $CAUSE$!",
 	L"",
 	L"",
-	L"Don't be such a wuss. This is war!",
-	L"Oh. Didn't see you for a minute there.",
+	L"别怂！咱这是在打仗！",//L"Don't be such a wuss. This is war!",
+	L"哎呀，你怎么倒在那里，我压根没看见。",//L"Oh. Didn't see you for a minute there.",
 	L"",
 	L"",
-	L"$CAUSE$ used $VICTIM$'s chest as a gun rack. How odd. What do you do?",
-	L"Don't be such a wuss. This is war!",
-	L"Wow. Are you trying to be a jerk, $CAUSE$, or is this normal for you?",
-	L"You are and always will be an insensitive jerk, $CAUSE$.",
-	L"Sometimes you just have to use your surroundings!",
-	L"Ehm... what are you two DOING?",
-	L"This is hardly the time to fondle each other, dammit.",
+	L"$CAUSE$ 用 $VICTIM$ 的胸膛架枪。好怪异。你怎么看？",//L"$CAUSE$ used $VICTIM$'s chest as a gun rack. How odd. What do you do?",
+	L"别怂！咱这是在打仗！",//L"Don't be such a wuss. This is war!",
+	L"哟， $CAUSE$， 你是想变成一个混球呢，还是你本来就是个混球？",//L"Wow. Are you trying to be a jerk, $CAUSE$, or is this normal for you?",
+	L"$CAUSE$ 你就一迟钝的混球，迟钝到死。",//L"You are and always will be an insensitive jerk, $CAUSE$.",
+	L"有时你确实得利用一下你周围的环境！",//L"Sometimes you just have to use your surroundings!",
+	L"诶...你俩在搅基吗？",//L"Ehm... what are you two DOING?",
+	L"卧槽，这会儿不是做那事儿的时候",//L"This is hardly the time to fondle each other, dammit.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BANDAGED
-	L"Thanks, $CAUSE$. I thought I was gonna bleed out.",
+	L"谢谢你， $CAUSE$。 我还以为我会流血致死",//L"Thanks, $CAUSE$. I thought I was gonna bleed out.",
 	L"",
 	L"",
-	L"I'm doing my job. Get back to yours!",
-	L"Hey, we have to look after each other. You'd do the same, $VICTIM$.",
+	L"我干完了我的活，现在你得回去干你的活了！",//L"I'm doing my job. Get back to yours!",
+	L"我们得互相照顾对方，换成你你也一定会帮我包扎， $VICTIM$。",//L"Hey, we have to look after each other. You'd do the same, $VICTIM$.",
 	L"",
 	L"",
-	L"$CAUSE$ has bandaged $VICTIM$. What do you do?",
-	L"Patched together again? Good, now move!",
-	L"You're welcome.",
-	L"Jeez. Woken up on the wrong foot today?",
-	L"Talk about a no-nonsense approach...",
-	L"How did you even get wounded? Where did the attack come from?",
-	L"You need to be more careful. Now, where did the attack come from?",
+	L"$CAUSE$ 给 $VICTIM$ 做了包扎。你怎么看？",//L"$CAUSE$ has bandaged $VICTIM$. What do you do?",
+	L"邦迪贴好了？好，开始干活！",//L"Patched together again? Good, now move!",
+	L"不客气。",//L"You're welcome.",
+	L"老天，今天咋这么点背？",//L"Jeez. Woken up on the wrong foot today?",
+	L"找个靠谱点的法子...",//L"Talk about a no-nonsense approach...",
+	L"你咋受伤的呢？子弹从哪边飞来的啊？",//L"How did you even get wounded? Where did the attack come from?",
+	L"你得小心点。现在，攻击来自哪边？",//L"You need to be more careful. Now, where did the attack come from?",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_DRINKBUDDIES_GOOD
-	L"Yeah, $CAUSE$! You get it! How 'bout next round?",
+	L"哦耶， $CAUSE$！ 你成功了！开始下一轮吧？",//L"Yeah, $CAUSE$! You get it! How 'bout next round?",
 	L"",
 	L"",
-	L"Pah. I think you've had enough.",
-	L"Sure. Bring it on!",
+	L"呸。我看你已经喝大了。",//L"Pah. I think you've had enough.",
+	L"好的。放马过来吧！",//L"Sure. Bring it on!",
 	L"",
 	L"",
-	L"Drunk $VICTIM$ likes $CAUSE$. What do you do?",
-	L"Yeah, enough booze for you today.",
-	L"Hoho, party!",
-	L"Party pooper!",
-	L"You sure like to keep a cool head, $CAUSE$.",
-	L"Alright, ladies, party's over, move on!",
-	L"Who told you to slack off? You have a job to do!",
+	L"喝醉了的 $VICTIM$ 和 $CAUSE$ 玩嗨了。你怎么看？ ",//L"Drunk $VICTIM$ likes $CAUSE$. What do you do?",
+	L"没错，你俩今天酒喝的够多了。",//L"Yeah, enough booze for you today.",
+	L"哈哈，开干！",//L"Hoho, party!",
+	L"真是扫兴！",//L"Party pooper!",
+	L"$CAUSE$, 你一定要保持冷静的头脑",//L"You sure like to keep a cool head, $CAUSE$.",
+	L"好了，女士们，派对结束了，继续前进！",//L"Alright, ladies, party's over, move on!",
+	L"谁让你们放松了？干活去！",//L"Who told you to slack off? You have a job to do!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_DRINKBUDDIES_SUPER
-	L"$CAUSE$... you're... you are... hic... you're the best!",
+	L"$CAUSE$... 你是... 你是... 呃... 你是最棒的！",//L"$CAUSE$... you're... you are... hic... you're the best!",
 	L"",
 	L"",
-	L"Tehehe. $VICTIM$, you are soooo wasted. You.. hic. You need to restrain yourself. Discipline, you know? Like me!",
-	L"Hic... yeah. You too, $VICTIM$. You. hic.. too!",
+	L"额呵呵呵。 $VICTIM$, 你失态了。你..嗝，你得控制住你自己。自律，知道不？像我一样！",//L"Tehehe. $VICTIM$, you are soooo wasted. You.. hic. You need to restrain yourself. Discipline, you know? Like me!",
+	L"嗝...是啊，你也是， $VICTIM$。 你也.嗝...是！",//L"Hic... yeah. You too, $VICTIM$. You. hic.. too!",
 	L"",
 	L"",
-	L"Drunk $VICTIM$ dislikes $CAUSE$. What do you do?",
-	L"Whatever. We still have a job to do, so this party is over for you, $VICTIM$.",
-	L"Heeeey... this is actually kinda nice for a change.",
-	L"'I know discipline', said the clueless drunk...",
-	L"Yeargh. Dis... gulp! Disciplined like... ehm... us!",
-	L"Drink one for me too! But not now, because war.",
-	L"You celebrate already ? This in't over yet. Not by a longshot!",
+	L"叮咛大醉的 $VICTIM$ 和 $CAUSE$ 英雄相惜了。你怎么看？",//L"Drunk $VICTIM$ dislikes $CAUSE$. What do you do?",
+	L"无所谓。我们得继续干活，所以 $VICTIM$，对你来说游戏已经结束了。",//L"Whatever. We still have a job to do, so this party is over for you, $VICTIM$.",
+	L"嘿~~~ 这事在往好的方向发展。 ",//L"Heeeey... this is actually kinda nice for a change.",
+	L"和煞笔酒鬼谈自律？你在逗我...",//L"'I know discipline', said the clueless drunk...",
+	L"是啊。自... 咕噜！能自律的人，就像... 呃... 咱们！",//L"Yeargh. Dis... gulp! Disciplined like... ehm... us!",
+	L"也为我干一杯！不过现在不行，咱们正打仗呢。",//L"Drink one for me too! But not now, because war.",
+	L"你已经在庆祝啦？这仗还没结束呢，不可能这么快结束。",//L"You celebrate already ? This in't over yet. Not by a longshot!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_DRINKBUDDIES_BAD
-	L"Damn, $CAUSE$! You... you got enough... Learn to keep your liquor...",
+	L"可恶， $CAUSE$! 你...你耍诈...你这酒根本没下去。",//L"Damn, $CAUSE$! You... you got enough... Learn to keep your liquor...",
 	L"",
 	L"",
-	L"Cut it out, $VICTIM$! You clearly don't know when to stop!",
-	L"Tehehe. You are RIGHT. Hehe. Always right. Hic!",
+	L"打住， $VICTIM$! 你一喝就喝个没够！ ",//L"Cut it out, $VICTIM$! You clearly don't know when to stop!",
+	L"额呵呵呵。你说的真特么的对啊。呵呵，你一直都对是吧，嗝！",//L"Tehehe. You are RIGHT. Hehe. Always right. Hic!",
 	L"",
 	L"",
-	L"$VICTIM$ is wasted and wants to be $VICTIM$'s buddy. What do you do?",
-	L"Relax, it's just a bit of booze.",
-	L"Hey keep it down over there, okay?",
-	L"You're just as drunk. Beat it, $CAUSE$!",
-	L"Leave alcohol to the big ones, okay?",
-	L"Later, ok?",
-	L"We might've won this battle, but not this godamn war. So move it, soldier!",
+	L"$VICTIM$ 喝大发了，想把 $VICTIM$ 爆菊了。你怎么看？",//L"$VICTIM$ is wasted and wants to be $VICTIM$'s buddy. What do you do?",
+	L"放松，这只是一点小酒。",//L"Relax, it's just a bit of booze.",
+	L"你们小声点，行不？",//L"Hey keep it down over there, okay?",
+	L"$CAUSE$，你也喝醉了，振作点！",//L"You're just as drunk. Beat it, $CAUSE$!",
+	L"喝不下就把酒留给能喝的，好呗？",//L"Leave alcohol to the big ones, okay?",
+	L"等会儿，行不？",//L"Later, ok?",
+	L"也许我们赢了这一仗，但是还没特么的打赢战争。所以动起来，大兵！",//L"We might've won this battle, but not this godamn war. So move it, soldier!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_DRINKBUDDIES_WORSE
-	L"What the hell, $CAUSE$! Ugh... I'm never drinking with you again, you sicko.",
+	L"卧槽， $CAUSE$! 嗝... 我再也不跟你喝酒了，你个神经病。",//L"What the hell, $CAUSE$! Ugh... I'm never drinking with you again, you sicko.",
 	L"",
 	L"",
-	L"Oh SHUT UP $VICTIM$! You don't know how to beh.. beha... beha? Ehm... You make no sense. At all. Yeah. You're no fun.",
-	L"Well you're no fu... fu... fu? Fun! You are not. Hic!. No.",
+	L"$VICTIM$， 闭嘴！你根本不懂怎么...啥来着？呃...你这人一点都不讲道理。哎，你这人真是没意思。",//L"Oh SHUT UP $VICTIM$! You don't know how to beh.. beha... beha? Ehm... You make no sense. At all. Yeah. You're no fun.",
+	L"你这人真是没意...意...意？意思！你没意思。嗝！..没意思。",//L"Well you're no fu... fu... fu? Fun! You are not. Hic!. No.",
 	L"",
 	L"",
-	L"$VICTIM$ is wasted and wants to tear $VICTIM$ a new one. What do you do?",
-	L"Jeez $VICTIM$, why so uptight all of a sudden? Anything happened?",
-	L"This party was cool until $CAUSE$ ruined it!",
-	L"$CAUSE$! Shut it! You are a disgrace for this unit. Get out and sober up!",
-	L"Word!",
-	L"Why don't you two sober up? You're pretty wasted...",
-	L"Both of you, shut up! You are a disgrace to this unit!",
+	L"$VICTIM$ 喝大发了，想在 $VICTIM$ 身上开窟窿。你怎么看？",//L"$VICTIM$ is wasted and wants to tear $VICTIM$ a new one. What do you do?",
+	L"哎呀 $VICTIM$, 咋突然这紧张了呢？咋回事？",//L"Jeez $VICTIM$, why so uptight all of a sudden? Anything happened?",
+	L"咱这派对超好玩，直到 $CAUSE$ 来扫兴。",//L"This party was cool until $CAUSE$ ruined it!",
+	L"$CAUSE$！闭嘴！你是我们小队的耻辱。滚出去醒醒酒！",//L"$CAUSE$! Shut it! You are a disgrace for this unit. Get out and sober up!",
+	L"都讲人话！",//L"Word!",
+	L"你们俩醒醒酒，你们俩废物...",//L"Why don't you two sober up? You're pretty wasted...",
+	L"你们俩都给我闭嘴！你们就是我们小队的耻辱！",//L"Both of you, shut up! You are a disgrace to this unit!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_AGAINST_US
-	L"I knew I couldn't depend on you, $CAUSE$!",
+	L"我就知道我不能指望你的， $CAUSE$!",//L"I knew I couldn't depend on you, $CAUSE$!",
 	L"",
 	L"",
-	L"Depend? It was all your fault!",
-	L"Touched a nerve there, didn't I?",
+	L"指望我？这明明是你的错！",//L"Depend? It was all your fault!",
+	L"我戳到你的痛处了，是不是啊?",//L"Touched a nerve there, didn't I?",
 	L"",
 	L"",
-	L"$VICTIM$ does not like was $CAUSE$ has to say. What do you do?",
-	L"So you depend on others to do your job? Then what good are you?!",
-	L"Indeed. Way to let $VICTIM$ hang!",
-	L"This isn't some schoolyard sympathy crap. It WAS your fault!",
-	L"Yeah, what's with the attitude?",
-	L"Zip it, both of you!",
-	L"Silence, now!",
+	L"$VICTIM$ 不太喜欢 $CAUSE$ 所说的。你怎么看？",//L"$VICTIM$ does not like was $CAUSE$ has to say. What do you do?",
+	L"你就指望别人来帮你工作？那你这废物有啥用？",//L"So you depend on others to do your job? Then what good are you?!",
+	L"说真的，$VICTIM$ 应该滚蛋了！",//L"Indeed. Way to let $VICTIM$ hang!",
+	L"这不是校园里对小孩同情的废话，这是你的错！",//L"This isn't some schoolyard sympathy crap. It WAS your fault!",
+	L"哼，干嘛用这种态度？",//L"Yeah, what's with the attitude?",
+	L"都算了吧，你们两个！",//L"Zip it, both of you!",
+	L"安静，马上！",//L"Silence, now!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_FOR_US
-	L"Ha! See? Even $CAUSE$ agrees with me.",
+	L"哈！看到吧？甚至连 $CAUSE$ 也赞同我。",//L"Ha! See? Even $CAUSE$ agrees with me.",
 	L"",
 	L"",
-	L"'Even'? What does that mean?",
-	L"Yeah. I'm 100%% with $VICTIM$ on this.",
+	L"'甚至'？你为啥用这个词？",//L"'Even'? What does that mean?",
+	L"是的。在这件事上我100%% 赞同 $VICTIM$。",//L"Yeah. I'm 100%% with $VICTIM$ on this.",
 	L"",
 	L"",
-	L"$VICTIM$ likes what $CAUSE$ has to say about $VICTIM_GENDER$. What do you do?",
-	L"Don't let it go to your head.",
-	L"Hey, don't forget about me!",
-	L"Apparently, sometimes even $CAUSE$ is deemed important...",
-	L"Do I smell trouble here??",
-	L"This is pointless! Discuss that in private, but not now.",
-	L"$VICTIM$! $CAUSE$! Less talk, more action, please!",
+	L"$VICTIM$ 同意 $CAUSE$ 对 $VICTIM_GENDER$ 所说的。你怎么看？",//L"$VICTIM$ likes what $CAUSE$ has to say about $VICTIM_GENDER$. What do you do?",
+	L"你俩说说就行了啊，不用太往心里去。",//L"Don't let it go to your head.",
+	L"嘿，我也赞同啊！",//L"Hey, don't forget about me!",
+	L"看起来，有时即便是 $CAUSE$ 说的话也掷地有声啊...",//L"Apparently, sometimes even $CAUSE$ is deemed important...",
+	L"我好像闻到了这里有麻烦了？？",//L"Do I smell trouble here??",
+	L"这些是无关紧要的！私下再讨论，不过不是现在。",//L"This is pointless! Discuss that in private, but not now.",
+	L"$VICTIM$! $CAUSE$! 少说话，多干活，拜托了！",//L"$VICTIM$! $CAUSE$! Less talk, more action, please!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_AGAINST_ENEMY
-	L"Yeah, $CAUSE$ saw you do it!",
+	L"就是。 $CAUSE$ 看到你干了！",//L"Yeah, $CAUSE$ saw you do it!",
 	L"",
 	L"",
-	L"No I did not!",
-	L"And we won't be quiet about it, no sir!",
+	L"不,我没做!",//L"No I did not!",
+	L"我们是不会对这保持沉默的，绝不会的，长官！",//L"And we won't be quiet about it, no sir!",
 	L"",
 	L"",
-	L"$VICTIM$ likes what $CAUSE$ said about the others. What do you do?",
-	L"I don't think so...",
-	L"Yeah, totally!",
-	L"Hu? You said you did.",
-	L"Yeah, don't twist what happened!",
-	L"Who cares? We have a job to do.",
-	L"If you ladies keep this on, we're going to have a real problem soon.",
+	L"$VICTIM$ 赞同 $CAUSE$ 对其他人的意见。你怎么看？",//L"$VICTIM$ likes what $CAUSE$ said about the others. What do you do?",
+	L"我不这么认为...",//L"I don't think so...",
+	L"是的，我也赞同！",//L"Yeah, totally!",
+	L"啥？你说你干了？",//L"Hu? You said you did.",
+	L"是呀，不要歪曲事实！",//L"Yeah, don't twist what happened!",
+	L"谁介意？我们都有自己的工作要做。",//L"Who cares? We have a job to do.",
+	L"如果你们这些鸡婆坚持要继续吵下去，我们很快就会有真正的大麻烦。",//L"If you ladies keep this on, we're going to have a real problem soon.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_FOR_ENEMY
-	L"I can't believe you wouldn't agree with me on this, $CAUSE$.",
+	L"我不能相信你居然在这事上不同意我， $CAUSE$。",//L"I can't believe you wouldn't agree with me on this, $CAUSE$.",
 	L"",
 	L"",
-	L"It's because you're wrong, that's why.",
-	L"I'm surprised too, but that's how it is.",
+	L"这就是因为你是错的，这就是为什么。",//L"It's because you're wrong, that's why.",
+	L"我也很意外，但事实就是如此。",//L"I'm surprised too, but that's how it is.",
 	L"",
 	L"",
-	L"$VICTIM$ does not like $CAUSE$ siding with the others. What do you do?",
-	L"Ugh. What now...",
-	L"Hum. Never saw that coming.",
-	L"Oh come down from your high horse, $CAUSE$.",
-	L"Yeah, you are wrong, $VICTIM$!",
-	L"Can I shut down squad radio, so I don't have to listen to you?",
-	L"Yes, very melodramatic. How is any of this relevant?",
+	L"$VICTIM$ 不喜欢 $CAUSE$ 和其他人站在一边。 你该怎么办？",//L"$VICTIM$ does not like $CAUSE$ siding with the others. What do you do?",
+	L"呃，又怎么了...",//L"Ugh. What now...",
+	L"什么，我也不敢相信。",//L"Hum. Never saw that coming.",
+	L"嘿，别站在道德制高点上居高临下了， $CAUSE$。",//L"Oh come down from your high horse, $CAUSE$.",
+	L"是啊，你是错的， $VICTIM$！",//L"Yeah, you are wrong, $VICTIM$!",
+	L"我能不能把对讲机关了，这样我就不用听你俩瞎逼逼了？",//L"Can I shut down squad radio, so I don't have to listen to you?",
+	L"嗯是的，非常戏剧性的一幕，但这关我屁事？",//L"Yes, very melodramatic. How is any of this relevant?",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SOLVECONFLICT_REASON_GOOD
-	L"Yeah... you're right, $CAUSE$. Peace?",
+	L"好。。。你是对的， $CAUSE$。 开心了吧？",//L"Yeah... you're right, $CAUSE$. Peace?",
 	L"",
 	L"",
-	L"No. I won't let this go.",
-	L"Hmm... ok!",
+	L"不，我不会让你这么敷衍过去。",//L"No. I won't let this go.",
+	L"嗯。。。好吧！",//L"Hmm... ok!",
 	L"",
 	L"",
-	L"$VICTIM$ appreciates $CAUSE$'s conflict resolution. What do you do?",
-	L"You're not getting away this easy.",
-	L"Glad you guys are not angry anymore.",
-	L"Oh come on. $VICTIM$ is letting it go, what's your issue now?",
-	L"You tell 'em, $CAUSE$!",
-	L"*Sigh* Shake hands or whatever you people do, and then back to business.",
-	L"Yes, please. Discuss your petty grievings in full detail, we are all DYING to hear it.",
+	L"$VICTIM$ 看起来很欣赏 $CAUSE$ 对这次冲突的解决办法。你怎么看？",//L"$VICTIM$ appreciates $CAUSE$'s conflict resolution. What do you do?",
+	L"虽然花了点时间，但是至少这事情过去了。",//L"You're not getting away this easy.",
+	L"很高兴你们不再生气了。",//L"Glad you guys are not angry anymore.",
+	L"噢我日。 $VICTIM$ 都已经不再追究了，你还有啥意见？",//L"Oh come on. $VICTIM$ is letting it go, what's your issue now?",
+	L"不满意就要大声说出来 $CAUSE$！",//L"You tell 'em, $CAUSE$!",
+	L"*唉* 来握个手什么的，然后给我回去干正事儿。",//L"*Sigh* Shake hands or whatever you people do, and then back to business.",
+	L"好，请吧，和我们详细说说你那小伤心事儿，我们都特么的认真听呢。",//L"Yes, please. Discuss your petty grievings in full detail, we are all DYING to hear it.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SOLVECONFLICT_REASON_BAD
-	L"No. This is a matter of principle.",
+	L"不，这是原则的问题。",//L"No. This is a matter of principle.",
 	L"",
 	L"",
-	L"As if you had any to start with.",
-	L"Suit yourself then..",
+	L"搞到好像你自己有什么原则似的。",//L"As if you had any to start with.",
+	L"收起你的架子...",//L"Suit yourself then..",
 	L"",
 	L"",
-	L"$VICTIM$ does not like $CAUSE$'s appeal. What do you do?",
-	L"You're just asking for trouble, right?",
-	L"Guess you're not getting away that easy, $CAUSE$.",
-	L"Don't be so flippant.",
-	L"Who needs principles anyway?",
-	L"Now that this is out of the way, perhaps we could continue?",
-	L"Shut up, both of you!",
+	L"$VICTIM$ 不太喜欢 $CAUSE$'的反驳。你怎么看？",//L"$VICTIM$ does not like $CAUSE$'s appeal. What do you do?",
+	L"你特么的就是来搞事的，是吗？",//L"You're just asking for trouble, right?",
+	L"就猜到你不会被那么容易的糊弄过去， $CAUSE$。",//L"Guess you're not getting away that easy, $CAUSE$.",
+	L"不要那么冒失。",//L"Don't be so flippant.",
+	L"这年头谁还需要原则？",//L"Who needs principles anyway?",
+	L"既然你俩没法互相理解，那你俩是不是该干嘛干嘛去？",//L"Now that this is out of the way, perhaps we could continue?",
+	L"闭嘴，你们两个！",//L"Shut up, both of you!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_GOOD
-	L"Alright alright. Jeez. I'm over it, okay?",
+	L"好啦好啦，上帝。我不追究了，行不？",//L"Alright alright. Jeez. I'm over it, okay?",
 	L"",
 	L"",
-	L"Cut it, drama queen.",
-	L"As long as it does not happen again.",
+	L"到此为止，别演了。",//L"Cut it, drama queen.",
+	L"再一再二不再三。",//L"As long as it does not happen again.",
 	L"",
 	L"",
-	L"$VICTIM$ was reined in by $CAUSE$. What do you do?",
-	L"No reason to be so stiff about it.",
-	L"Yeah, keep it down, will ya?",
-	L"Pah. You're the one making all the fuss about it...",
-	L"Yeah, drop that attitude, $VICTIM$.",
-	L"*Sigh* More of this?",
-	L"Why am I even listening to you people...",
+	L"$VICTIM$ 和 $CAUSE$ 停止了争论。你怎么看？",//L"$VICTIM$ was reined in by $CAUSE$. What do you do?",
+	L"不需要那么纠结它。",//L"No reason to be so stiff about it.",
+	L"是，你俩自己解决，好吧？",//L"Yeah, keep it down, will ya?",
+	L"嘿，你TM别总是什么都大惊小怪的...",//L"Pah. You're the one making all the fuss about it...",
+	L"是的，摆正你的态度， $VICTIM$。",//L"Yeah, drop that attitude, $VICTIM$.",
+	L"*唉*　这事就这样了吧？",//L"*Sigh* More of this?",
+	L"我为啥还要听你们这些人瞎逼逼...",//L"Why am I even listening to you people...",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SOLVECONFLICT_AGGRESSIVE_BAD
-	L"Who do you think you are, $CAUSE$? No, I won't be quiet about this!",
+	L"你以为你是谁， $CAUSE$？ 操，我真的没法忍了这次！",//L"Who do you think you are, $CAUSE$? No, I won't be quiet about this!",
 	L"",
 	L"",
-	L"I'm the one who tells you to shut up! I'm your superior, $VICTIM$!",
-	L"The two of us are going to have real problem soon, $VICTIM$.",
+	L"我就是要来叫你闭嘴的！我是你的头儿， $VICTIM$！",//L"I'm the one who tells you to shut up! I'm your superior, $VICTIM$!",
+	L"我们中的一个要有大麻烦了， $VICTIM$。",//L"The two of us are going to have real problem soon, $VICTIM$.",
 	L"",
 	L"",
-	L"$VICTIM$ did not take $CAUSE$'s words of action well. What do you do?",
-	L"Pfft. Don't make a fuss out of it.",
-	L"Yeah, you won't boss us around anymore!",
-	L"You are certainly nobodies superior!",
-	L"Not sure about that, but yep!",
-	L"Hey. Hey! Both of you, cut it out! What are you doing?",
-	L"If anybody is superior here, then that's me... and I'm ordering you to stand down!",
+	L"$VICTIM$ 不太乐意听 $CAUSE$'的话。 你怎么办？",//L"$VICTIM$ did not take $CAUSE$'s words of action well. What do you do?",
+	L"啧，不要大惊小怪。",//L"Pfft. Don't make a fuss out of it.",
+	L"滚，你不再是我们的头儿了！",//L"Yeah, you won't boss us around anymore!",
+	L"你们就是菜鸡中的菜鸡！",//L"You are certainly nobodies superior!",
+	L"不太确定这啊，但就那样吧！",//L"Not sure about that, but yep!",
+	L"嘿。嘿！ 你们两个，停手！ 你们两个这是干什么？",//L"Hey. Hey! Both of you, cut it out! What are you doing?",
+	L"如果这边有一个人是头儿，那就是我...我命令你们闭嘴！",//L"If anybody is superior here, then that's me... and I'm ordering you to stand down!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_DISEASE_DISGUSTING
-	L"Ewww! $CAUSE$ is sick! Get away from me, that looks disgusting!",
+	L"额呀！ $CAUSE$ 病了！离我远点，你的脸色看起来很恶心~！",//L"Ewww! $CAUSE$ is sick! Get away from me, that looks disgusting!",
 	L"",
 	L"",
-	L"Oh yeah? Back off, before I cough on you!",
-	L"It really is. I... *cough* don't feel so well...",
+	L"噢，真的？ 退后，我要感觉要咳嗽！",//L"Oh yeah? Back off, before I cough on you!",
+	L"确实是啊。我...*咳咳* 感觉不太好...",//L"It really is. I... *cough* don't feel so well...",
 	L"",
 	L"",
-	L"$VICTIM$ is offended by $CAUSE$ diseases. What do you do?",
-	L"Stop behaving like a first grader. We need to get $CAUSE$ to a doctor!",
-	L"This does look unhealthy. That better not be contagious!",
-	L"Stop it!  We don't need more of whatever it is you have!",
-	L"Yeah, there's nothing you can do against this stuff, right?",
-	L"The important thing is to get $CAUSE$ to a doctor, and to make sure $CAUSE_GENDER$ doesn't infect anybody else.",
-	L"Stop whining! $CAUSE$, get that treated, and the rest of you, back to business!",
+	L"$VICTIM$ 害怕被 $CAUSE$ 的病传染了。你怎么看？",//L"$VICTIM$ is offended by $CAUSE$ diseases. What do you do?",
+	L"不要像个小学生一样，我们需要给 $CAUSE$ 找个医生！",//L"Stop behaving like a first grader. We need to get $CAUSE$ to a doctor!",
+	L"脸色看起来是不好，希望不是传染病！",//L"This does look unhealthy. That better not be contagious!",
+	L"别吵了！别在病以外给我添其他烦心的事情了！",//L"Stop it!  We don't need more of whatever it is you have!",
+	L"是啊，你除了瞎逼逼外也没别的办法对抗病魔了吗，是吧？",//L"Yeah, there's nothing you can do against this stuff, right?",
+	L"重要的是把 $CAUSE$ 送到医生那里，再确保 $CAUSE_GENDER$ 不再传染其他人。",//L"The important thing is to get $CAUSE$ to a doctor, and to make sure $CAUSE_GENDER$ doesn't infect anybody else.",
+	L"不要吵了！ $CAUSE$, 把病治好要紧，其他人都该干嘛干嘛去！",//L"Stop whining! $CAUSE$, get that treated, and the rest of you, back to business!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_DISEASE_TREATMENT
-	L"Thanks, $CAUSE$. I'm already feeling better.",
+	L"谢谢, $CAUSE$。 我已经感觉好多了。",//L"Thanks, $CAUSE$. I'm already feeling better.",
 	L"",
 	L"",
-	L"How did you get that in the first place? Did you forget to wash your hands again?",
-	L"No problem, we can't have you running around coughing blood, right? Riiight?",
+	L"你是怎么被传染上的？你是不是又忘了洗手啊？",//L"How did you get that in the first place? Did you forget to wash your hands again?",
+	L"没问题，我们可不能让你一边咳血一边打仗，对吧？",//L"No problem, we can't have you running around coughing blood, right? Riiight?",
 	L"",
 	L"",
-	L"$VICTIM$ has treated $CAUSE$'s diseases. What do you do?",
-	L"Where did you get that stuff from in the first place?",
-	L"Great. Are you sure it's fully treated now?",
-	L"The important thing is that it's gone now... It is, right?",
-	L"I told you people before... this country a dirty place, so beware of what you touch.",
-	L"We have to be careful. The army isn't the only thing that wants us dead.",
-	L"Great. Everything done? Then let's get back to shooting stuff!",
+	L"$VICTIM$ 治好了 $CAUSE$ 的病。你怎么看？",  //"$VICTIM$ has treated $CAUSE$'s diseases. What do you do?",
+	L"你怎么染上这个病的啊？",  //"Where did you get that stuff from in the first place?",
+	L"太好了。我的病完全好了...是吧？", //"Great. Are you sure it's fully treated now?", 
+	L"重要的是你的病现在好了...对吧？",  //"The important thing is that it's gone now... It is, right?",
+	L"我早就警告过你们了...这个国家哪里都是病源，所以别乱摸乱碰！", //"I told you people before... this country a dirty place, so beware of what you touch.", 
+	L"我们得小心点，我们不仅仅要对抗那些想让我们死的人。", //"We have to be careful. The army isn't the only thing that wants us dead.",
+	L"很好。该治的病都治好了，我们得找些敌人来治治了。",  //"Great. Everything done? Then let's get back to shooting stuff!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BRUTAL_GOOD
-	L"Nice one, $CAUSE$!",
+	L"干得漂亮， $CAUSE$！",  //	L"Nice one, $CAUSE$!",
 	L"",
 	L"",
-	L"Whoa. Are you really getting off on that?",
-	L"Now THIS is action!",
+	L"哇塞，你看到这个很兴奋吧？",  //L"Whoa. Are you really getting off on that?",
+	L"这才叫军事行动！",  //	L"Now THIS is action!",
 	L"",
 	L"",
-	L"$VICTIM$ applauds $CAUSE$'s excessive violence. Does that seem good to you?",
-	L"This isn't a video game, kid...",
-	L"That was so wicked!",
-	L"What are you apologizing for? That was awesome!",
-	L"You are sick, $VICTIM$.",
-	L"Killing them is enough. No need to make a show out of it.",
-	L"Cross us, and this is what you get. Waste the rest of these guys.",
+	L"$VICTIM$ 给 $CAUSE$ 的暴力美学点赞了。你怎么看？",  //	L"$VICTIM$ applauds $CAUSE$'s excessive violence. Does that seem good to you?",
+	L"小朋友，这可不是打游戏机。",  //	L"This isn't a video game, kid...",
+	L"那可真够恶心的，但是我喜欢！",  //	L"That was so wicked!",
+	L"没啥好道歉的，那简直太棒了！",  //	L"What are you apologizing for? That was awesome!",
+	L"$VICTIM$， 你可真够狠的",  //L"You are sick, $VICTIM$.",
+	L"杀了他们就行了，你还非得玩些花样。",  //	L"Killing them is enough. No need to make a show out of it.",
+	L"这就是和我们对抗的下场，来，把剩下的全一锅端了。",  //L"Cross us, and this is what you get. Waste the rest of these guys.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BRUTAL_BAD
-	L"Dammit, $CAUSE$, your supposed to kill them, not evaporate them!",
+	L"我去， $CAUSE$， 你只要杀了他们就行了，不需要人间蒸发了他们",  //L"Dammit, $CAUSE$, your supposed to kill them, not evaporate them!",
 	L"",
 	L"",
-	L"Is there a difference?",
-	L"Oops. This thing is powerful!",
+	L"感觉到有什么不同吗？",  //L"Is there a difference?",
+	L"哎呦，这玩意威力很大啊！",  //L"Oops. This thing is powerful!",
 	L"",
 	L"",
-	L"$VICTIM$ is appalled by $CAUSE$'s excessive violence. What do you think?",
-	L"Don't tell me you've never seen blood before...",
-	L"That was a bit excessive...",
-	L"Does that mean you aren't even remotely familiar with your gun?",
-	L"On the plus side, I doubt this guy is going to complain.",
-	L"Don't waste ammunition, $CAUSE$.",
-	L"They put up a fight, we put them in a bag. End of story.",
+	L"$VICTIM$ 被 $CAUSE$ 的暴行吓到了。你怎么看？",  //L"$VICTIM$ is appalled by $CAUSE$'s excessive violence. What do you think?",
+	L"别告诉我你晕血。",  //L"Don't tell me you've never seen blood before...",
+	L"那有点过激了。",  //L"That was a bit excessive...",
+	L"这是不是说明你都没怎么用过这把枪？",  //L"Does that mean you aren't even remotely familiar with your gun?",
+	L"往好里说，这货至少不会抱怨了",  //L"On the plus side, I doubt this guy is going to complain.",
+	L"别浪费子弹， $CAUSE$。",  //L"Don't waste ammunition, $CAUSE$.",
+	L"既然他们挑事，那我们就把他们扔到裹尸袋里。就这么简单。",  //L"They put up a fight, we put them in a bag. End of story.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_TEACHER
-	L"Thanks for giving me a few pointers, $CAUSE$. I've learned a lot from you.",
+	L"多谢指点， $CAUSE$。 我从你那里学到不少知识。",  //L"Thanks for giving me a few pointers, $CAUSE$. I've learned a lot from you.",
 	L"",
 	L"",
-	L"About that... you still have a lot to learn, $VICTIM$.",
-	L"You're welcome!",
+	L"你还有很多东西要学呢， $VICTIM$。",  //L"About that... you still have a lot to learn, $VICTIM$.",
+	L"你是个好学生！",  //L"You're welcome!",
 	L"",
 	L"",
-	L"$CAUSE$ is unimpressed by $VICTIM$'s progress. What do you think?",
-	L"At some point you'll have to do on your own though.",
-	L"Yeah, you better stick to $CAUSE$.",
-	L"Nah, $VICTIM_GENDER$ is doing fine.",
-	L"Yes, $VICTIM_GENDER$ still needs training.",
-	L"This training is a good preparation, keep up the good work.",
-	L"We need everybody at full capacity if we're going to win this campaign, so keep it up.",
+	L"$CAUSE$ 不满 $VICTIM$ 的学习进度缓慢。你怎么看？",  //L"$CAUSE$ is unimpressed by $VICTIM$'s progress. What do you think?",
+	L"师父领进门，修行在个人。",  //L"At some point you'll have to do on your own though.",
+	L"是的，你最好继续向 $CAUSE$ 学习。",  //L"Yeah, you better stick to $CAUSE$.",
+	L"不， $VICTIM_GENDER$ 保持这样就挺好。",  //L"Nah, $VICTIM_GENDER$ is doing fine.",
+	L"是的， $VICTIM_GENDER$ 还需要更多提高。",  //L"Yes, $VICTIM_GENDER$ still needs training.",
+	L"这次训练很有成效，就这个气势，继续保持下去。",  //L"This training is a good preparation, keep up the good work.",
+	L"想赢得最终胜利的话所有人都要继续努力，一鼓作气吧！",  //L"We need everybody at full capacity if we're going to win this campaign, so keep it up.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BESTCOMMANDEREVER
-	L"Yeah! Take that, losers! That was a mighty fine strategy, $CAUSE$!",
+	L"干得好！卢瑟们都下地狱吧！ $CAUSE$ 是战术大师！",  //L"Yeah! Take that, losers! That was a mighty fine strategy, $CAUSE$!",
 	L"",
 	L"",
-	L"I couldn't have done it without you people.",
-	L"Well, I do have my moments.",
+	L"大家也都劳苦功高。",  //L"I couldn't have done it without you people.",
+	L"嘿嘿，今天是我的幸运日。",  //	L"Well, I do have my moments.",
 	L"",
 	L"",
-	L"$CAUSE$ praises $VICTIM$'s leadership. What's your opinion?",
-	L"Well... it's not like $CAUSE_GENDER$ pulled that all by $CAUSE_PRONOUN$self...",
-	L"Agreed. $CAUSE$ is a fine squadleader.",
-	L"It's alright. You deserve this.",
-	L"You did everything right, $CAUSE$. Good work!",
-	L"Yeah. We're turning into quite the outfit, aren't we?",
-	L"We might have won this battle, but the war is far from over. We'll have to repeat victories like this.",
+	L"$CAUSE$ 肯定了 $VICTIM$ 的领导能力。你怎么看？",  //L"$CAUSE$ praises $VICTIM$'s leadership. What's your opinion?",
+	L"嗯...当然这也不完全是 $CAUSE_GENDER$ 一个人的功劳...",  //L"Well... it's not like $CAUSE_GENDER$ pulled that all by $CAUSE_PRONOUN$self...",
+	L"同意。 $CAUSE$ 是优秀的团队领导者。",  //L"Agreed. $CAUSE$ is a fine squadleader.",
+	L"一点也不夸张，你应该得到称赞。",  //L"It's alright. You deserve this.",
+	L"你做的很好， $CAUSE$。干得漂亮，",  //L"You did everything right, $CAUSE$. Good work!",
+	L"很好，我们靠战术扭转了装备的劣势，对吧？",  //L"Yeah. We're turning into quite the outfit, aren't we?",
+	L"这场仗胜利了，但是要取得最终的胜利，我们还要继续打更多的胜仗",  //L"We might have won this battle, but the war is far from over. We'll have to repeat victories like this.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BATTLE_SAVIOUR
-	L"Wow, that was close. Thanks, $CAUSE$, I owe you!",
+	L"好险。谢谢你， $CAUSE$， 我欠你条命！",  //L"Wow, that was close. Thanks, $CAUSE$, I owe you!",
 	L"",
 	L"",
-	L"Don't mention it.",
-	L"You'd do the same for me.",
+	L"小事一桩。",  //L"Don't mention it.",
+	L"换成你你也会这样做的。",  //L"You'd do the same for me.",
 	L"",
 	L"",
-	L"$CAUSE$ saved $VICTIM$'s life. What's your opinion?",
-	L"Pff, that guy was dead anyway.",
-	L"How bad is it, $VICTIM$? Can you still fight?",
-	L"Then I will. Good job!",
-	L"Yeah, I was worried there for a moment.",
-	L"Good job, but let's focus on ending this first, okay?",
-	L"When you're done hugging, could we go back to the issue at hand? You know, the guys shooting at us?",
+	L"$CAUSE$ 救了 $VICTIM$ 一命。你怎么看？",  //L"$CAUSE$ saved $VICTIM$'s life. What's your opinion?",
+	L"唉，他还是死了。",  //L"Pff, that guy was dead anyway.",
+	L"很严重吗， $VICTIM$？　还能坚持战斗吗？",  //L"How bad is it, $VICTIM$? Can you still fight?",
+	L"没问题，你干得漂亮。",  //L"Then I will. Good job!",
+	L"还是可以的，我刚才以为是真不行了。",  //L"Yeah, I was worried there for a moment.",
+	L"干得好，但是我们先得把这场战斗打完，是吧？",  //L"Good job, but let's focus on ending this first, okay?",
+	L"你们拥抱完了没，我们得先解决手头上的活儿，我的意思是解决这些向我们开枪的人。",  //L"When you're done hugging, could we go back to the issue at hand? You know, the guys shooting at us?",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_FRAGTHIEF
-	L"Hey, I had him in my sights! That guy was MINE!",
+	L"卧槽，我先看到他的，这个人头应该是我的！",  //L"Hey, I had him in my sights! That guy was MINE!",
 	L"",
 	L"",
-	L"What? Are you nuts? We're in the middle of a firefight, and you set up a killcount?",
-	L"What. Then where's my target?",
+	L"哈？你疯了吗？ 我们都在热火朝天的战斗，你却在数人头数？",  //L"What? Are you nuts? We're in the middle of a firefight, and you set up a killcount?",
+	L"啥？那我的靶子呢？",  //L"What. Then where's my target?",
 	L"",
 	L"",
-	L"$VICTIM$ is angry with $CAUSE$ for stealing their kill. What's your take on this?",
-	L"This isn't some videogame, you moron. Nobody gives a shit about your godamn killcount.",
-	L"Yeah, I hate it when people don't stick to their firing lane.",
-	L"Stick to shooting whom you're supposed to, $CAUSE$.",
-	L"Jeez. This feels like nineties videogaming. What's next, $VICTIM_GENDER$'ll accuse the enemy of camping?",
-	L"You can sort this out later, but right now, everybody make sure we're not missing any angle.",
-	L"Just stick to your firing sector, kill 'em all, and there'll be plenty of kills for everybody.",
+	L"$VICTIM$ 对于 $CAUSE$ 抢了他的人头非常生气，后果很严重。你怎么想？",  //L"$VICTIM$ is angry with $CAUSE$ for stealing their kill. What's your take on this?",
+	L"这可不是网游，弱智，没人会去注意你那该死的人头数！",  //L"This isn't some videogame, you moron. Nobody gives a shit about your godamn killcount.",
+	L"真是的，我最讨厌别人杀我弹道上的敌人了。",  //L"Yeah, I hate it when people don't stick to their firing lane.",
+	L"$CAUSE$， 你只能杀你应该杀的人。",  //L"Stick to shooting whom you're supposed to, $CAUSE$.",
+	L"操，怎么跟打网游似的， $VICTIM_GENDER$ 是不是要指责敌人打蹲点战术了？",  //L"Jeez. This feels like nineties videogaming. What's next, $VICTIM_GENDER$'ll accuse the enemy of camping?",
+	L"这种问题以后私下解决，但是现在，所有人先确保没有视线的死角",  //L"You can sort this out later, but right now, everybody make sure we're not missing any angle.",
+	L"只要所有人把自己火力范围内的敌人都杀光，所有人都会有足够的人头数了",  //L"Just stick to your firing sector, kill 'em all, and there'll be plenty of kills for everybody.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BATTLE_ASSIST
-	L"Boom! We sure took care of that guy.",
+	L"隆隆! 那个人解决掉了。",  //L"Boom! We sure took care of that guy.",
 	L"",
 	L"",
-	L"Well, it was mostly me, but you did help too.",
-	L"Yup. Ready for the next one.",
+	L"好吧，虽然大部分是我的功劳，你也确实帮了点忙。",  //L"Well, it was mostly me, but you did help too.",
+	L"没问题。接下来搞谁？",  //L"Yup. Ready for the next one.",
 	L"",
 	L"",
-	L"$CAUSE$ and $VICTIM$ brought down an enemy. Any comment?",
-	L"If you weren't such a bad shot, $CAUSE$ wouldn't have to finish your job.",
-	L"It takes several people to take them down? Jeez, what kind of body armour do they have?",
-	L"Blah blah, everybody look at me. $VICTIM$ is such a showoff.",
-	L"Hehe, they've got no chance.",
-	L"Hmm. We might need more firepower if it takes several of us to take those guys down, but good work anyway.",
-	L"I guess you get to share what he had. $CAUSE$, you may draw first.",
+	L"$CAUSE$ 和 $VICTIM$ 一起搞定了敌人。怎么样？",  //L"$CAUSE$ and $VICTIM$ brought down an enemy. Any comment?",
+	L"如果你能射得再准点， $CAUSE$ 就不用给他最后一击了。",  //L"If you weren't such a bad shot, $CAUSE$ wouldn't have to finish your job.",
+	L"几个人联手才干掉他？上帝啊，他穿的什么牌子的防弹衣？",  //L"It takes several people to take them down? Jeez, what kind of body armour do they have?",
+	L"瞧一瞧看一看了啊， $VICTIM$ 太得意忘形了啊",  //L"Blah blah, everybody look at me. $VICTIM$ is such a showoff.",
+	L"嘿嘿，他们一点办法都没有。",  //L"Hehe, they've got no chance.",
+	L"嗯...我们或许需要更强大的火力才能单挑他们，不过刚才大家都干得不错。",  //L"Hmm. We might need more firepower if it takes several of us to take those guys down, but good work anyway.",
+	L"我觉得我们应该平分战利品，不过 $CAUSE$ 可以先选他喜欢的。",  //L"I guess you get to share what he had. $CAUSE$, you may draw first.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_BATTLE_TOOK_PRISONER
-	L"Good thinking. We've already won, no need for more senseless slaughter.",
+	L"思路对了。我们已经赢了，没必要屠杀他们。",  //L"Good thinking. We've already won, no need for more senseless slaughter.",
 	L"",
 	L"",
-	L"We'll see about that... I won't hesitate to use force against them if they resist.",
-	L"Yeah. Perhaps these guys have some intel we can use.",
+	L"我们走一步看一步吧，如果他们不放弃抵抗，也没有好果子吃。",  //L"We'll see about that... I won't hesitate to use force against them if they resist.",
+	L"对。或许从这些人嘴里能撬出什么敌情。",  //L"Yeah. Perhaps these guys have some intel we can use.",
 	L"",
 	L"",
-	L"The rest of the enemy team surrendered to $CAUSE$. Now what?",
-	L"No offense, but if you cannot handle death, $CAUSE$, perhaps this might not be the best job for you?",
-	L"Good job, $CAUSE$. Makes our job hell of a lot easier.",
-	L"Hey! Cut the crap. They already surrendered.",
-	L"Yeah, you can't trust these guys, they're totally reckless.",
-	L"We should move these guys to a prison ASAP. I'm sure they know what the army is up to.",
-	L"Pah. I'd have preferred from wasting these losers. They'll just slow us down.",
+	L"剩下的敌军对 $CAUSE$ 投降了。请指示。",  //L"The rest of the enemy team surrendered to $CAUSE$. Now what?",
+	L"没有冒犯的意思，但是如果 $CAUSE$ 你惧怕死亡，你可能并不能胜任这个工作。",  //L"No offense, but if you cannot handle death, $CAUSE$, perhaps this might not be the best job for you?",
+	L"很好， $CAUSE$。 我们的工作一下轻松了很多。",  //L"Good job, $CAUSE$. Makes our job hell of a lot easier.",
+	L"嘿！把枪收起来吧，他们都投降了。",  //L"Hey! Cut the crap. They already surrendered.",
+	L"对，你不应该相信他们，他们都是些六亲不认的人。",  //L"Yeah, you can't trust these guys, they're totally reckless.",
+	L"我们应该赶紧把这些人扔进监狱里面去严加审讯，他们肯定知道女王军的下一步动向。",  //L"We should move these guys to a prison ASAP. I'm sure they know what the army is up to.",
+	L"啧。我觉得应该把这些卢瑟们全枪毙了，这些人只会拖我们的后腿。",  //L"Pah. I'd have preferred from wasting these losers. They'll just slow us down.",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_CIV_ATTACKER
-	L"Watch it, $CAUSE$! They are on our side!",
+	L"$CAUSE$， 注意点，他们是站在我们这边的。",  //L"Watch it, $CAUSE$! They are on our side!",
 	L"",
 	L"",
-	L"That's just a scratch, they'll live.",
-	L"Oops.",
+	L"只是擦伤而已，没什么大不了的。",  //L"That's just a scratch, they'll live.",
+	L"我不是故意的。",  //L"Oops.",
 	L"",
 	L"",
-	L"$VICTIM$ is angry: $CAUSE$ injured a civilian. What do you do?",
-	L"Well, this can happen. As long as they live it's okay.",
-	L"This won't look good in the after-action report.",
-	L"What are you doing? Watch it, $CAUSE$!",
-	L"Don't worry. Happens to me too all the time.",
-	L"Maintain fire discipline! After this is over, $VICTIM$ and $CAUSE$ will take care of the wounded.",
-	L"If $CAUSE$ had intended it, they would be dead, so no worries here.",
+	L"$VICTIM$ 对 $CAUSE$ 误伤了平民非常生气。你怎么看？",  //L"$VICTIM$ is angry: $CAUSE$ injured a civilian. What do you do?",
+	L"唉，误伤是没法避免的，他们不会死的。",  //L"Well, this can happen. As long as they live it's okay.",
+	L"在事后报告中添上这一笔可不太好看",  //L"This won't look good in the after-action report.",
+	L"你在干嘛啊？睁大眼睛看清楚， $CAUSE$！",  //L"What are you doing? Watch it, $CAUSE$!",
+	L"别大惊小怪。我也经常被误伤。",  //L"Don't worry. Happens to me too all the time.",
+	L"不要乱开枪！战斗结束以后 $VICTIM$ 和 $CAUSE$ 负责医护被误伤的人员",  //L"Maintain fire discipline! After this is over, $VICTIM$ and $CAUSE$ will take care of the wounded.",
+	L"如果 $CAUSE$ 真的是故意的，他们早就死了，不用过于担心。",  //L"If $CAUSE$ had intended it, they would be dead, so no worries here.",
 	L"",
 	L"",
 	L"",
@@ -10594,258 +10592,258 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 {
-	L"What?!",
-	L"No!",
-	L"That is false!",
-	L"That is not true!",
+	L"你说啥！？",  //L"What?!",
+	L"胡说！",  //L"No!",
+	L"你说的是假话！",  //L"That is false!",
+	L"那不是真的！",  //L"That is not true!",
 
-	L"Lies, lies, lies. Nothing but lies!",
-	L"Liar!",
-	L"Traitor!",
-	L"You watch your mouth!",
+	L"说谎！说谎！说谎！一派胡言！",  //L"Lies, lies, lies. Nothing but lies!",
+	L"骗子！",  //L"Liar!",
+	L"叛徒！",  //L"Traitor!",
+	L"你说话注意点！",  //L"You watch your mouth!",
 
-	L"This is none of your business.",
-	L"Who ever invited you?",
-	L"Nobody asked for your opinion, $INTERJECTOR$.",
-	L"You stay away from me.",
+	L"不关你的事。",  //L"This is none of your business.",
+	L"别插嘴！",  //L"Who ever invited you?",
+	L"没人问你的意见， $INTERJECTOR$。",  //L"Nobody asked for your opinion, $INTERJECTOR$.",
+	L"哪凉快哪呆着去。",  //L"You stay away from me.",
 
-	L"Why are you all against me?",
-	L"Why are you against me, $INTERJECTOR$?",
-	L"I knew it! $VICTIM$ and $INTERJECTOR$ are in cahoots!",
-	L"Not listening...!",
+	L"为什么你们都要和我对着干？",  //L"Why are you all against me?",
+	L"为什么你要和我对着干， $INTERJECTOR$？",  //L"Why are you against me, $INTERJECTOR$?",
+	L"我就知道 $VICTIM$ 和 $INTERJECTOR$ 是一根绳上的蚂蚱。",  //L"I knew it! $VICTIM$ and $INTERJECTOR$ are in cahoots!",
+	L"听而不闻！",  //L"Not listening...!",
 
-	L"I hate this psycho circus.",
-	L"I hate this freak show.",
-	L"Back off!",
-	L"Lies, lies, lies...",
+	L"我受够这种变态马戏表演了",  //L"I hate this psycho circus.",
+	L"我受够这种恶心的秀了",  //L"I hate this freak show.",
+	L"一边玩儿去！",  //L"Back off!",
+	L"说谎！说谎！说谎...",  //	L"Lies, lies, lies...",
 
-	L"No way!",
-	L"So not true.",
-	L"That is so not true.",
-	L"I know what I saw.",
+	L"不可能的！",  //	L"No way!",
+	L"那不是真的！",  //	L"So not true.",
+	L"那不可能是真的。",  //L"That is so not true.",
+	L"眼见为实，耳听为虚。",  //L"I know what I saw.",
 
-	L"I don't know what $INTERJECTOR_GENDER$ is talking off.",
-	L"Don't listen to $INTERJECTOR_PRONOUN$!",
-	L"Nope.",
-	L"You are mistaken.",
+	L"我压根儿不知道 $INTERJECTOR_GENDER$ 在讲什么。",  //L"I don't know what $INTERJECTOR_GENDER$ is talking off.",
+	L"别听 $INTERJECTOR_PRONOUN$ 瞎掰！",  //L"Don't listen to $INTERJECTOR_PRONOUN$!",
+	L"不是那么回事儿。",  //	L"Nope.",
+	L"你弄错了。",  //	L"You are mistaken.",
 };
 
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 {
-	L"I knew you'd back me, $INTERJECTOR$",
-	L"I knew $INTERJECTOR$ would back me.",
-	L"What $INTERJECTOR$ said.",
-	L"What $INTERJECTOR_GENDER$ said.",
+	L"我知道你会支持我的， $INTERJECTOR$。",  //L"I knew you'd back me, $INTERJECTOR$",
+	L"我知道 $INTERJECTOR$ 会支持我的。",  //L"I knew $INTERJECTOR$ would back me.",
+	L"$INTERJECTOR$ 说得对。",  //	L"What $INTERJECTOR$ said.",
+	L"$INTERJECTOR_GENDER$ 说得对。",  //	L"What $INTERJECTOR_GENDER$ said.",
 
-	L"Thanks, $INTERJECTOR$!",
-	L"Once again I'm right!",
-	L"See, $CAUSE$? I am right!",
-	L"Once again $SPEAKER$ is right!",
+	L"太感谢了， $INTERJECTOR$！",  //L"Thanks, $INTERJECTOR$!",
+	L"相信我，没错的！",  //L"Once again I'm right!",
+	L"看见了吧， $CAUSE$？ 我是对的！",  //L"See, $CAUSE$? I am right!",
+	L"$SPEAKER$ 又说对了！",  //L"Once again $SPEAKER$ is right!",
 
-	L"Aye.",
-	L"Yup.",
-	L"Yep",
-	L"Yes.",
+	L"好。",  //L"Aye.",
+	L"是。",  //L"Yup.",
+	L"是的。",  //	L"Yep",
+	L"对的。",  //L"Yes.",
 
-	L"Indeed.",
-	L"True.",
-	L"Ha!",
-	L"See?",
+	L"确实。",  //	L"Indeed.",
+	L"没错。",  //	L"True.",
+	L"哈！",  //	L"Ha!",
+	L"看吧？",  //	L"See?",
 
-	L"Exactly!",
+	L"一点没错！",  //L"Exactly!",
 };
 
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 {
-	L"That's right!",
-	L"Indeed!",
-	L"Exactly that.",
-	L"$CAUSE$ does that all the time.",
+	L"说得对！",  //L"That's right!",
+	L"确实！",  //L"Indeed!",
+	L"非常准确。",  //L"Exactly that.",
+	L"$CAUSE$ 每次都是对的。",  //L"$CAUSE$ does that all the time.",
 
-	L"$VICTIM$ is right!",
-	L"I was gonna' point that out, too!",
-	L"What $VICTIM$ said.",
-	L"That's our $CAUSE$!",
+	L"$VICTIM$ 是对的！",  //L"$VICTIM$ is right!",
+	L"我也想指出这个呢。",  //L"I was gonna' point that out, too!",
+	L"$VICTIM$ 说得对。",  //L"What $VICTIM$ said.",
+	L"我支持 $CAUSE$！",  //L"That's our $CAUSE$!",
 
-	L"Yeah!",
-	L"Now THIS is going to be interesting...",
-	L"You tell'em, $VICTIM$!",
-	L"Agreeing with $VICTIM$ here...",
+	L"对！",  //L"Yeah!",
+	L"事情越来越有趣了...",  //L"Now THIS is going to be interesting...",
+	L"你和他们说说， $VICTIM$！",  //L"You tell'em, $VICTIM$!",
+	L"我同意 $VICTIM$ 在这里...",  //L"Agreeing with $VICTIM$ here...",
 
-	L"Classic $CAUSE$.",
-	L"I couldn't have said it better myself.",
-	L"That is exactly what happened.",
-	L"Agreed!",
+	L"精彩啊， $CAUSE$！",  //L"Classic $CAUSE$.",
+	L"我就没这么伶牙俐齿。",  //L"I couldn't have said it better myself.",
+	L"事情就是这样的！",  //L"That is exactly what happened.",
+	L"我同意！",  //L"Agreed!",
 
-	L"Yup.",
-	L"True.",
-	L"Bingo.",
+	L"是。",  //L"Yup.",
+	L"对的。",  //L"True.",
+	L"完全正确。",  //L"Bingo.",
 };
 
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 {
-	L"Now wait a minute...",
-	L"Wait a sec, that's not what right...",
-	L"What? No.",
-	L"That is not what happened.",
+	L"我得打断一下...",  //L"Now wait a minute...",
+	L"等等，那不是事实...",  //L"Wait a sec, that's not what right...",
+	L"你说啥？当然不是。",  //L"What? No.",
+	L"事实不是那样的。",  //L"That is not what happened.",
 
-	L"Hey, stop blaming $CAUSE$!",
-	L"Oh shut up, $VICTIM$!",
-	L"Nonono, you got that wrong.",
-	L"Whoa. Why so stiff all of a sudden, $VICTIM$?",
+	L"哎，别这么说 $CAUSE$！",  //L"Hey, stop blaming $CAUSE$!",
+	L"闭嘴， $VICTIM$！",  //L"Oh shut up, $VICTIM$!",
+	L"不不不，你弄错了。",  //L"Nonono, you got that wrong.",
+	L"靠，能不能不要这么死板啊， $VICTIM$？",  //L"Whoa. Why so stiff all of a sudden, $VICTIM$?",
 
-	L"And I suppose you never did, $VICTIM$?",
-	L"Hmmmm... no.",
-	L"Great. Let's have an argument. It's not like we have other things to do...",
-	L"You are mistaken!",
+	L"你就从来没这么干过， $VICTIM$？",  //L"And I suppose you never did, $VICTIM$?",
+	L"嗯...不。",  //L"Hmmmm... no.",
+	L"很好。让我们吵一架吧，反正也没其他事情可做...",  //L"Great. Let's have an argument. It's not like we have other things to do...",
+	L"你错了！",  //L"You are mistaken!",
 
-	L"You are wrong!",
-	L"Me and $CAUSE$ would never do such a thing.",
-	L"Nah, can't be.",
-	L"I don't think so.",
+	L"你错了！",  //L"You are wrong!",
+	L"我和 $CAUSE$ 绝不会这么做。",  //L"Me and $CAUSE$ would never do such a thing.",
+	L"不，不可能的。",  //L"Nah, can't be.",
+	L"我可不这么认为。",  //L"I don't think so.",
 
-	L"Why bring that up now?",
-	L"Really, $VICTIM$? Is this necessary?",
+	L"怎么想起现在说这个事情？",  //L"Why bring that up now?",
+	L"干嘛啊， $VICTIM$？ 有必要这样吗？",  //L"Really, $VICTIM$? Is this necessary?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
-	L"Keep silent",
-	L"Support $VICTIM$",
-	L"Support $CAUSE$",
-	L"Appeal to reason",
-	L"Shut them up",
+	L"什么也不说",  //L"Keep silent",
+	L"支持$VICTIM$",  //L"Support $VICTIM$",
+	L"支持$CAUSE$",  //L"Support $CAUSE$",
+	L"呼吁理智解决问题",  //L"Appeal to reason",
+	L"让两边都闭嘴",  //L"Shut them up",
 };
 
 STR16	szDynamicDialogueText_GenderText[] =
 {
-	L"he",
-	L"she",
-	L"him",
-	L"her",
+	L"他",  //L"he",
+	L"她",  //L"she",
+	L"他",  //L"him",
+	L"她",  //L"her",
 };
 
 STR16	szDiseaseText[] =
 {
-	L" %s%d%% agility stat\n",
-	L" %s%d%% dexterity stat\n",
-	L" %s%d%% strength stat\n",
-	L" %s%d%% wisdom stat\n",
-	L" %s%d%% effective level\n",
+	L" %s%d%% 敏捷\n",  //　L" %s%d%% agility stat\n", 
+	L" %s%d%% 灵巧\n",  //	L" %s%d%% dexterity stat\n", 
+	L" %s%d%% 力量\n",  //	L" %s%d%% strength stat\n",
+	L" %s%d%% 智慧\n",  //	L" %s%d%% wisdom stat\n", 
+	L" %s%d%% 有效等级\n",  //L" %s%d%% effective level\n", 
 
-	L" %s%d%% APs\n",
-	L" %s%d maximum breath\n",
-	L" %s%d%% strength to carry items\n",
-	L" %s%2.2f life regeneration/hour\n",
-	L" %s%d need for sleep\n",
-	L" %s%d%% water consumption\n",
-	L" %s%d%% food consumption\n",
+	L" %s%d%% APs\n",  //L" %s%d%% APs\n",
+	L" %s%d 最大的呼吸次数\n",  //L" %s%d maximum breath\n", 
+	L" %s%d%% 负重能力\n",  //L" %s%d%% strength to carry items\n",
+	L" %s%2.2f 生命值回复/小时\n",  //L" %s%2.2f life regeneration/hour\n",
+	L" %s%d 睡眠所需时间\n",  //L" %s%d need for sleep\n",
+	L" %s%d%% 水量耗费\n",  //L" %s%d%% water consumption\n",
+	L" %s%d%% 食物耗费\n",  //L" %s%d%% food consumption\n",
 
-	L"%s was diagnosed with %s!",
-	L"%s is cured of %s!",
+	L"%s被诊断出%s了!",  //L"%s was diagnosed with %s!",
+	L"%s的%s被治愈了!",  //L"%s is cured of %s!",
 
-	L"Diagnosis",
-	L"Treatment",
-	L"Cancel",
+	L"诊断", //	L"Diagnosis",
+	L"治疗", //L"Treatment",
+	L"取消", //L"Cancel",　
 };
 
 STR16	szFoodText[] =
 {
-	L"\n\n|W|a|t|e|r: %d%%\n",
-	L"\n\n|F|o|o|d: %d%%\n",
+	L"\n\n|水: %d%%\n",  //L"\n\n|W|a|t|e|r: %d%%\n",
+	L"\n\n|食|物: %d%%\n",  //L"\n\n|F|o|o|d: %d%%\n",
 
-	L"max morale altered by %s%d\n",
-	L" %s%d need for sleep\n",
-	L" %s%d%% breath regeneration\n",
-	L" %s%d%% assignment efficiency\n",
-	L" %s%d%% chance to lose stats\n",
+	L"最大士气被改变 %s%d\n",  //L"max morale altered by %s%d\n",
+	L" %s%d 需要睡眠\n",  //L" %s%d need for sleep\n", 
+	L" %s%d%% 精力回复\n",  //	L" %s%d%% breath regeneration\n",
+	L" %s%d%% 任务效率\n",  //L" %s%d%% assignment efficiency\n",
+	L" %s%d%% 失去能力点的几率\n",  //L" %s%d%% chance to lose stats\n",
 };
 
-STR16 szIMPGearWebSiteText[] =	// TODO.Translate
+STR16 szIMPGearWebSiteText[] =
 {
 	// IMP Gear Entrance
-	L"How should gear be selected?",
-	L"Old method: Random gear according to your choices",
-	L"New method: Free selection of gear",
-	L"Old method",
-	L"New method",
+	L"如何选择装备？",  //L"How should gear be selected?", 
+	L"旧系统：根据技能和能力随机选择装备",  //L"Old method: Random gear according to your choices",
+	L"新系统：自由选购装备",  //L"New method: Free selection of gear",
+	L"旧系统",  //L"Old method", 
+	L"新系统",  //L"New method",
 
 	// IMP Gear Entrance
-	L"I.M.P. Equipment",
-	L"Equipment cost: %d$",
+	L"I.M.P 装备",  //	L"I.M.P. Equipment", 
+	L"装备价格: %d$",  //L"Equipment cost: %d$", 
 };
 
 STR16 szIMPGearDropDownText[] =
 {
-	L"Select LBE vest",
-	L"Select LBE combat pack",
-	L"Select LBE backpack",
-	L"Select LBE holster",
-	L"Select LBE holster",
+	L"选择LBE背心",  //L"Select LBE vest",  
+	L"选择LBE战斗包",  //L"Select LBE combat pack", 
+	L"选择LBE背包",  //L"Select LBE backpack",
+	L"选择LBE皮套",  //L"Select LBE holster", 
+	L"选择LBE皮套",  //L"Select LBE holster",
 
-	L"Select main gun",
-	L"Select ammo",
-	L"Select sidearm",
-	L"Select additional ammo",
-	L"Select melee weapon",
+	L"选择主枪",  //	L"Select main gun", 
+	L"选择弹药",  //L"Select ammo",
+	L"选择手枪",  //L"Select sidearm", 
+	L"选择额外弹药",  //L"Select additional ammo",
+	L"选择武器",  //L"Select melee weapon", 
 
-	L"Select helmet",
-	L"Select vest",
-	L"Select pants",
-	L"Select face gear",
-	L"Select face gear",
+	L"选择头盔",  //L"Select helmet", 
+	L"选择背心",  //	L"Select vest", 
+	L"选择裤子",  //L"Select pants",
+	L"选择头部装备",  //L"Select face gear",
+	L"选择头部装备",  //	L"Select face gear",
 
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
+	L"选择附加物品",  //L"Select additional items",
+	L"选择附加物品",  //L"Select additional items", 
+	L"选择附加物品",  //L"Select additional items",
+	L"选择附加物品",  //L"Select additional items",
+	L"选择附加物品",  //L"Select additional items", 
+	L"选择附加物品",  //L"Select additional items", 
+	L"选择附加物品",  //L"Select additional items", 
 };
 
 STR16 szIMPGearDropDownNoneText[] =
 {
-	L"No LBE vest",
-	L"No LBE combat pack",
-	L"No LBE backpack",
-	L"No LBE holster",
-	L"No LBE holster",
+	L"没有LBE背心",  //L"No LBE vest", 
+	L"没有LBE战斗包",  //	L"No LBE combat pack",
+	L"没有LBE背包",  //L"No LBE backpack",
+	L"没有LBE皮套",  //L"No LBE holster",
+	L"没有LBE皮套",  //L"No LBE holster",
 
-	L"No gun",
-	L"No ammo",
-	L"No gun",
-	L"No ammo",
-	L"No weapon",
+	L"没有枪",  //L"No gun",
+	L"没有弹药",  //L"No ammo", 
+	L"没有枪",  //	L"No gun", 
+	L"没有弹药",  //L"No ammo",  
+	L"没有武器",  //L"No weapon",
 
-	L"No helmet",
-	L"No vest",
-	L"No pants",
-	L"No face gear",
-	L"No face gear",
+	L"没有头盔",  //L"No helmet",
+	L"没有背心",  //L"No vest",
+	L"没有裤子",  //L"No pants", 
+	L"没有头部装备",  //L"No face gear",
+	L"没有头部装备",  //	L"No face gear",
 
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
+	L"选择附加物品",  //L"No additional items",
+	L"选择附加物品",  //L"No additional items",
+	L"选择附加物品",  //L"No additional items",
+	L"选择附加物品",  //L"No additional items",
+	L"选择附加物品",  //L"No additional items",
+	L"选择附加物品",  //L"No additional items",
+	L"选择附加物品",  //L"No additional items",
 };
 
 STR16 szMilitiaStrategicMovementText[] =
 {
-	L"We cannot relay orders to this sector, militia command not possible.",
-	L"Unassigned",
-	L"Group No.",
-	L"Next",
+	L"无法对该地区下达命令，民兵的命令不可用。",  //	L"We cannot relay orders to this sector, militia command not possible.",
+	L"未被分配",  //L"Unassigned",
+	L"小组号码",  //L"Group No.", 
+	L"下一个",  //L"Next", 
 
-	L"ETA",
-	L"Group %d (new)",
-	L"Group %d",
-	L"Final",
+	L"ETA",  //L"ETA", 
+	L"第%d小队（新）",  //L"Group %d (new)",
+	L"第%d小队",  //L"Group %d",
+	L"最终",  //L"Final",
 
-	L"Militia Volunteers: %d (+%5.3f)",
+	L"民兵的志愿者: %d (+%5.3f)",  //L"Militia Volunteers: %d (+%5.3f)",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
