@@ -8627,10 +8627,10 @@
 	<ITEM>
 		<uiIndex>1078</uiIndex>
 		<szItemName>Cx4 Storm</szItemName>
-		<szLongItemName>Beretta Cx4 Storm</szLongItemName>
-		<szItemDesc>The action of Beretta's Storm pistol inside a rifle stock.</szItemDesc>
+		<szLongItemName>巴雷特 Cx4 风暴</szLongItemName>
+		<szItemDesc>出现在步枪行列中的巴雷特暴风手枪。</szItemDesc>
 		<szBRName>Beretta Cx4 Storm</szBRName>
-		<szBRDesc>A futuristic looking rifle firing an unsurpassed pistol round, the .45ACP.</szBRDesc>
+		<szBRDesc>对未来寻找有着步枪火力的一支无与伦比的手枪。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>
@@ -13685,200 +13685,200 @@
 	<ITEM>
     <uiIndex>1710</uiIndex>
     <szItemName>Surgical mask</szItemName>
-    <szLongItemName>Surgical mask</szLongItemName>
-    <szItemDesc>This simple mask protects you somewhat from infection by airborne diseases.</szItemDesc>
+    <szLongItemName>手术用口罩</szLongItemName>
+    <szItemDesc>这个简单的口罩可以保护你免受在空气中传播的细菌。</szItemDesc>
     <szBRName>Surgical mask</szBRName>
-    <szBRDesc>If you are doctor or live in an asian megacity, you will need these.</szBRDesc>
+    <szBRDesc>如果你是一个医生或者是生活在亚洲的大城市，那么你就需要它了。</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1711</uiIndex>
     <szItemName>Surgical gloves</szItemName>
-    <szLongItemName>Surgical gloves</szLongItemName>
-    <szItemDesc>These simple gloves protect you from infection by contact with infected persons.</szItemDesc>
+    <szLongItemName>手术用手套</szLongItemName>
+    <szItemDesc>当你接触患者时这种手套可以保护你不受感染。</szItemDesc>
     <szBRName>Surgical gloves</szBRName>
-    <szBRDesc>Useful for doctors. Not useful in snow.</szBRDesc>
+    <szBRDesc>当你接触患者时这种手套可以保护你不受感染，仅医药用，不适用于滑雪。</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1712</uiIndex>
     <szItemName>Plague medicine</szItemName>
-    <szLongItemName>Plague medicine</szLongItemName>
-    <szItemDesc>It may look unimportant, but this little pill can cure the plague. Who would've thought that possible?</szItemDesc>
+    <szLongItemName>瘟疫用药物</szLongItemName>
+    <szItemDesc>这看起来可能不算什么，但是这以小片药物可以治疗瘟疫，谁又会想到它能有这么大作用？</szItemDesc>
     <szBRName>Plague medicine</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szBRDesc>这物品不在网店出售。这看起来可能不算什么，但是这以小片药物可以治疗瘟疫，谁又会想到它能有这么大作用？</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1713</uiIndex>
     <szItemName>Tetanus medicine</szItemName>
-    <szLongItemName>Tetanus medicine</szLongItemName>
-    <szItemDesc>This injection cures tetanus. Might sting a bit.</szItemDesc>
+    <szLongItemName>破伤风药物</szLongItemName>
+    <szItemDesc>这种注射剂用于破伤风，不过用起来可能会有些刺痛。</szItemDesc>
     <szBRName>Tetanus medicine</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szBRDesc>这物品不在网店出售。这种注射剂用于破伤风，不过用起来可能会有些刺痛</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1714</uiIndex>
     <szItemName>Cholera medicine</szItemName>
-    <szLongItemName>Cholera medicine</szLongItemName>
-    <szItemDesc>A cure for cholera.</szItemDesc>
+    <szLongItemName>霍乱药物</szLongItemName>
+    <szItemDesc>用于治疗霍乱用的。</szItemDesc>
     <szBRName>Cholera medicine</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szBRDesc>这物品不在网店出售。用于治疗霍乱用的</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1715</uiIndex>
     <szItemName>Bladder</szItemName>
-    <szLongItemName>Hydration Bladder</szLongItemName>
-    <szItemDesc>An individual hydration system for use with the ILBE US rucksack or ArmorBAk hydration carriers.</szItemDesc>
+    <szLongItemName>防水袋</szLongItemName>
+    <szItemDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋。</szItemDesc>
     <szBRName>Bladder</szBRName>
-    <szBRDesc>An individual hydration system for use with the ILBE US rucksack or ArmorBAk hydration carriers.The ideal solution for long expeditions.</szBRDesc>
+    <szBRDesc>与 ILBE US 帆布背包或其他用防水系统的武器背包配合使用的有这独立防水系统的防水袋用于解决长途征程。</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1716</uiIndex>
     <szItemName>ArmorBak</szItemName>
-    <szLongItemName>ArmorBak Carrier</szLongItemName>
-    <szItemDesc>Lightweight and simple to use hydration system.</szItemDesc>
+    <szLongItemName>武器包携行具</szLongItemName>
+    <szItemDesc>轻量化和简约化并有防水系统。</szItemDesc>
     <szBRName>ArmorBak Hydration Carrier</szBRName>
-    <szBRDesc>Lightweight and simple to use hydration system.</szBRDesc>
+    <szBRDesc>轻量化和简约化并有防水系统。</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1717</uiIndex>
     <szItemName>Sp. Loader</szItemName>
-    <szLongItemName>Speed Loader</szLongItemName>
-    <szItemDesc>Heavy duty pockets for the safe storage of Speed Loaders.</szItemDesc>
+    <szLongItemName>快速装载设备</szLongItemName>
+    <szItemDesc>用于安全存放快速装载设备的重型口袋。</szItemDesc>
     <szBRName>Speed Loader Pouch</szBRName>
-    <szBRDesc>Heavy duty pockets for the safe storage of Speed Loaders.</szBRDesc>
+    <szBRDesc>用于安全存放快速装载设备的重型口袋。</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1718</uiIndex>
     <szItemName>Single Rifle Pouch</szItemName>
-    <szLongItemName>Single Rifle Pouch</szLongItemName>
-    <szItemDesc>Our Ammo Pouches attach to any MOLLE compatible system or standard belt to hold vital ammunition.</szItemDesc>
+    <szLongItemName>单枪袋</szLongItemName>
+    <szItemDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szItemDesc>
     <szBRName>Single Rifle Pouch</szBRName>
-    <szBRDesc>Our Ammo Pouches attaches to any MOLLE compatible system or standard belt to hold vital ammunition.</szBRDesc>
+    <szBRDesc>我们这个单枪袋可以兼容任何MOLLE的携行具和标准的腰带来携带一些重要的弹药。</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1719</uiIndex>
     <szItemName>Drum Pouch</szItemName>
-    <szLongItemName>Drum Ammo Pouch</szLongItemName>
-    <szItemDesc>Perfect for carrying Drum shaped ammo.</szItemDesc>
+    <szLongItemName>弹鼓袋</szLongItemName>
+    <szItemDesc>最适合携带弹鼓装的弹药。</szItemDesc>
     <szBRName>Drum Ammo Pouch</szBRName>
-    <szBRDesc>Perfect for carrying Drum shaped ammo.</szBRDesc>
+    <szBRDesc>最适合携带弹鼓装的弹药。</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1720</uiIndex>
     <szItemName>Tactical Sling</szItemName>
-    <szLongItemName>Tactical Sling</szLongItemName>
-    <szItemDesc>This single point sling allows weapons to be carried in a secure but flexible fashion.</szItemDesc>
+    <szLongItemName>战术系带</szLongItemName>
+    <szItemDesc>这种单扣系带可以让你更安全地携带武器而且更灵活方便。</szItemDesc>
     <szBRName>Rifle Sling</szBRName>
-    <szBRDesc>This single point sling allows weapons to be carried in a secure but flexible fashion. Adjustable length to accommodate all sizes.</szBRDesc>
+    <szBRDesc>这种单扣系带可以让你更安全地携带武器而且更灵活方便。</szBRDesc>
   </ITEM>
   <ITEM>
 		<uiIndex>1721</uiIndex>
 		<szItemName>Wooden Planks, small</szItemName>
-		<szLongItemName>Wooden Planks, small</szLongItemName>
-		<szItemDesc>Wooden Planks. 1x1</szItemDesc>
+		<szLongItemName>木板，小号</szLongItemName>
+		<szItemDesc>木板，1x1</szItemDesc>
 		<szBRName>Wooden Planks, small</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szBRDesc>不在网店出售。木板，1x1</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1722</uiIndex>
 		<szItemName>Wooden Planks, medium</szItemName>
-		<szLongItemName>Wooden Planks, medium</szLongItemName>
-		<szItemDesc>Wooden Planks. 2x1</szItemDesc>
+		<szLongItemName>木板，中号</szLongItemName>
+		<szItemDesc>木板，2x1。</szItemDesc>
 		<szBRName>Wooden Planks, medium</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szBRDesc>不在网店出售。木板，2x1。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1723</uiIndex>
 		<szItemName>Wooden Planks, large</szItemName>
-		<szLongItemName>Wooden Planks, large</szLongItemName>
-		<szItemDesc>Wooden Planks. 2x2</szItemDesc>
+		<szLongItemName>木板，大号</szLongItemName>
+		<szItemDesc>木板，2x2。</szItemDesc>
 		<szBRName>Wooden Planks, large</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szBRDesc>不在网店出售。木板，2x2。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1724</uiIndex>
 		<szItemName>Wooden Wall, small</szItemName>
-		<szLongItemName>Wooden Wall, small</szLongItemName>
-		<szItemDesc>A small wooden wall, used for construction.</szItemDesc>
+		<szLongItemName>木制墙壁，小型的</szLongItemName>
+		<szItemDesc>小型的木制墙壁，建筑用的。</szItemDesc>
 		<szBRName>Wooden Wall, small</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szBRDesc>不在网店出售。小型的木制墙壁，建筑用的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1725</uiIndex>
 		<szItemName>Wooden Wall, large</szItemName>
-		<szLongItemName>Wooden Wall, large</szLongItemName>
-		<szItemDesc>A large wooden wall, used for construction.</szItemDesc>
+		<szLongItemName>木制墙壁，大型的</szLongItemName>
+		<szItemDesc>大型的木制墙壁，用于建筑。</szItemDesc>
 		<szBRName>Wooden Wall, large</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szBRDesc>不在网店出售。大型的木制墙壁，用于建筑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1726</uiIndex>
 		<szItemName>Nails</szItemName>
-		<szLongItemName>Pack of Nails</szLongItemName>
-		<szItemDesc>A pack of eight inch nails. Useful for building stuff made of wood.</szItemDesc>
+		<szLongItemName>一包钉子</szLongItemName>
+		<szItemDesc>一包8英寸的钉子，适合于木制房屋。</szItemDesc>
 		<szBRName>Pack of Nails</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szBRDesc>不在网店出售。一包8英寸的钉子，适合于木制房屋。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1727</uiIndex>
 		<szItemName>Roof Collapse</szItemName>
-		<szLongItemName>Roof Collapse</szLongItemName>
-		<szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+		<szLongItemName>房屋崩塌</szLongItemName>
+		<szItemDesc>内部物品，请勿使用!!!</szItemDesc>
 		<szBRName>Roof Collapse</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1728</uiIndex>
 		<szItemName>12g Shells 2 RS</szItemName>
-		<szLongItemName>12 Gauge Shells, 2 Rubber Slug</szLongItemName>
-		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szLongItemName>12号散弹 ，2发橡皮弹</szLongItemName>
+		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
 		<szBRName>12g Shells 2 Rubber</szBRName>
-		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1729</uiIndex>
 		<szItemName>12g Shells 4 RS</szItemName>
-		<szLongItemName>12 Gauge Shells, 4 Rubber Slug</szLongItemName>
-		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szLongItemName>12号散弹 ，4发橡皮弹</szLongItemName>
+		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
 		<szBRName>12g Shells 4 Rubber</szBRName>
-		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1730</uiIndex>
 		<szItemName>12g Shells 7 RS</szItemName>
-		<szLongItemName>12 Gauge Shells, 7 Rubber Slug</szLongItemName>
-		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szLongItemName>12号散弹 ，7发橡皮弹</szLongItemName>
+		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
 		<szBRName>12g Shells 7 Rubber</szBRName>
-		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1731</uiIndex>
 		<szItemName>12g Shells 12 RS</szItemName>
-		<szLongItemName>12 Gauge Shells, 12 Rubber Slug</szLongItemName>
-		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szLongItemName>12号散弹 ，12发橡皮弹</szLongItemName>
+		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
 		<szBRName>12g Shells 12 Rubber</szBRName>
-		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1732</uiIndex>
 		<szItemName>12g Drum 20 RS</szItemName>
-		<szLongItemName>12 Gauge Drum, 20 Rubber Slug</szLongItemName>
-		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szLongItemName>12号散弹 ，20发橡皮弹</szLongItemName>
+		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
 		<szBRName>12g Shells 20 Rubber</szBRName>
-		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1733</uiIndex>
 		<szItemName>12g Crate RS</szItemName>
-		<szLongItemName>12 Gauge Ammo Crate, Rubber Slug</szLongItemName>
-		<szItemDesc>A really big box of ammunition. I don't think this will fit in your backpack...</szItemDesc>
+		<szLongItemName>12号散弹箱，橡皮弹</szLongItemName>
+		<szItemDesc>一个很大的装子弹用的箱子，我觉得你的背包是装不下它的...</szItemDesc>
 		<szBRName>12g Crate Rubber</szBRName>
-		<szBRDesc>We are now providing several types of ammunition in bulk.  Please note the prices and weights of ammunition crates before purchasing.</szBRDesc>
+		<szBRDesc>我们现在提供大量的不同种类的弹药，在购买前请标明价格和重量</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1734</uiIndex>
 		<szItemName>12g Box RS</szItemName>
-		<szLongItemName>12 Gauge Box, Rubber Slug</szLongItemName>
-		<szItemDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szItemDesc>
+		<szLongItemName>12号散弹盒，橡皮弹</szLongItemName>
+		<szItemDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szItemDesc>
 		<szBRName>12g Box Rubber</szBRName>
-		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
+		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
 </ITEMLIST>

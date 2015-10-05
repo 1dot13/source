@@ -12,22 +12,23 @@
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>1</uiIndex>
-		<Name>Novice</Name>
-		<ConfirmText>You have chosen NOVICE mode. This setting is appropriate for those new to Jagged Alliance, those new to strategy games in general, or those wishing shorter battles in the game. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Novice mode?</ConfirmText>
+		<Name>新手</Name>
+		<ConfirmText>您选择了“新手“难度。该难度适合初次接触铁血联盟游戏的玩家、初次接触战略游戏的玩家、以及希望减少战斗次数的玩家。您的选择在游戏中全程生效，请慎重选择。您确定要在"新手"难度下进行游戏吗？
+</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>2</uiIndex>
-		<Name>Experienced</Name>
-		<ConfirmText>You have chosen EXPERIENCED mode. This setting is suitable for those already familiar with Jagged Alliance or similar games. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Experienced mode?</ConfirmText>
+		<Name>老兵</Name>
+		<ConfirmText>您选择了"老兵"难度。该难度适合熟悉铁血联盟游戏或同类游戏的玩家。您的选择在游戏中全程生效，请慎重选择。您确定要在"老兵"难度下进行游戏吗？</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>3</uiIndex>
-		<Name>Expert</Name>
-		<ConfirmText>You have chosen EXPERT mode. We warned you. Don't blame us if you get shipped back in a body bag. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Expert mode?</ConfirmText>
+		<Name>专家</Name>
+		<ConfirmText>您选择了"专家"难度。我们严正警告您，这很危险，当您被装进尸袋运回来时，不要来向我们抱怨。您的选择在游戏中全程生效，请慎重选择。您确定要在"专家"难度下进行游戏吗？</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>4</uiIndex>
-		<Name>Insane</Name>
-		<ConfirmText>You have chosen INSANE mode. WARNING: Don't blame us if you get shipped back in little pieces... Deidranna WILL kick your ass.  Hard.  Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in INSANE mode?</ConfirmText>	
+		<Name>疯狂</Name>
+		<ConfirmText>您选择了“疯狂”难度。警告：当您被散装运回时，不要来向我们抱怨......女王陛下会非常“乐意”狠狠地捅爆您的菊花。您的选择在游戏中全程生效，请慎重选择。您确定要在“疯狂”难度下进行游戏吗？</ConfirmText>	
 	</DIFFICULTY>
 </DIFFICULTY_SETTINGS>
