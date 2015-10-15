@@ -2329,7 +2329,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 		OBJECTTYPE * tmpObj = FindAttachmentByClass(pObj,IC_GUN,subObject);
 		usSimilarItem = tmpObj->usItem;
 	}
-	if ( !fSameItem )
+	if ( !fSameItem )	//Nav: why is this check here? fSameItem can only be false here, doesn't hurt I guess...
 	{
 		for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
 		{
@@ -2340,9 +2340,9 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 				break;
 			}
 
-			if ( IncompatibleAttachments[i][0] == NONE )
-				break;
-			if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 )
+			if ( IncompatibleAttachments[i][0] == NONE )	
+				break;	//0 terminated, end search, when we are done with all entries and nothing meaningful is left
+			if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 ) //TODO fill in comment 1
 			{
 				fSimilarItems = TRUE;
 				usSimilarItem = IncompatibleAttachments[i][1];
@@ -4682,7 +4682,7 @@ BOOLEAN OBJECTTYPE::AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachme
 	}
 }
 
-
+//WarmSteel - if uiItemPos is -1, we're not checking for a specific slot, but scrolling through them all. TODO comment the rest
 BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound, UINT8 subObject, INT32 iItemPos, BOOLEAN fRemoveProhibited, std::vector<UINT16> usAttachmentSlotIndexVector )
 {
 
@@ -4950,7 +4950,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					pAttachment->MoveThisObjectTo(attachmentObject,1,pSoldier,NUM_INV_SLOTS,1);
 				}
 				else
-					pAttachment->MoveThisObjectTo(attachmentObject,1,pSoldier,NUM_INV_SLOTS,1);
+					pAttachment->MoveThisObjectTo(attachmentObject,1,pSoldier,NUM_INV_SLOTS,1);	
 			}
 
 				//WarmSteel - Because we want every attachment to stay in place in NAS, we must first delete the "null" attachment, then insert the new one.

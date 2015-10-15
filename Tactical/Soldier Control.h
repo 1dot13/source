@@ -1327,7 +1327,7 @@ public:
 	UINT32											uiLastAssignmentChangeMin;		// timestamp of last assignment change in minutes
 	INT32												iTotalLengthOfInsuranceContract;
 
-	UINT8												ubSoldierClass;									//admin, elite, troop (creature types?)
+	UINT8												ubSoldierClass;									//admin, elite, troop (creature types?) Nav: 2 seems to mean elite, 3 troop so admin is 1
 	UINT8												ubAPsLostToSuppression;
 	UINT8												ubSuppressorID;
 

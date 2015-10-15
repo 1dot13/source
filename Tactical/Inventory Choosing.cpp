@@ -86,6 +86,7 @@ ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTIONS][ARMY
 //	{ /* 10- rocket rifle		*/	5,	ROCKET_RIFLE,	AUTO_ROCKET_RIFLE ,	 RPK74,				HK21E,		MINIMI , -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 //};
 
+
 // Flugente: created separate gun choices for different soldier classes
 ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 
@@ -102,7 +103,6 @@ UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass);
 UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 maxCoolness);
 UINT16 PickARandomItem(UINT8 typeIndex, INT8 bSoldierClass, UINT8 maxCoolness, BOOLEAN getMatchingCoolness);
 UINT16 PickARandomAttachment(UINT8 typeIndex, INT8 bSoldierClass, UINT16 usBaseItem, UINT8 maxCoolness, BOOLEAN getMatchingCoolness);
-
 
 void InitArmyGunTypes(void)
 {
@@ -3701,7 +3701,7 @@ enum {
 	SI_LEGS,
 	SI_SIGHT,				// for sunglasses and NVGs
 	SI_FACE2,
-	SI_FACE_SPARESIGHT,		// for sunglasses at night an NVGs during the day - militia take those at well, otherwise mobiles are ill equipped when the night begins/ends
+	SI_FACE_SPARESIGHT,		// for sunglasses at night an NVGs during the day - militia take those as well, otherwise mobiles are ill equipped when the night begins/ends
 	SI_GASMASK,
 	SI_MELEE,
 	SI_GRENADE,
@@ -3721,6 +3721,8 @@ struct ItemSearchStruct {
 	UINT16 soldierslot;		// slot on which this item should be equipped
 	UINT32 val;				// the fitness value of this object
 };
+
+void addAttachementsToMilitiaWeapon(std::vector<WORLDITEM>& pWorldItem, UINT16 usTabooFlag, SOLDIERCREATE_STRUCT *pp);
 
 // evaluate an object an remember it if it is the best so far
 void EvaluateObjForItem( std::vector<WORLDITEM>& pWorldItem, OBJECTTYPE* pObj, UINT32 uiCount, ItemSearchStruct* pSi )//dnl ch75 271013
@@ -3764,39 +3766,72 @@ void EvaluateObjForItem_WithAmmo( std::vector<WORLDITEM>& pWorldItem, OBJECTTYPE
 	}
 }
 
+/**
+Makes sure that stack of items on stacksIndexInWorldItem is removed, if it does not contain any items now.
+
+Use after removing stuff from pWorldItem like by attaching it to something or by putting it into inventory.
+*/
+void RemoveStackIfEmpty(std::vector<WORLDITEM>& pWorldItem, UINT32 stacksIndexInWorldItem) {
+	if (pWorldItem[stacksIndexInWorldItem].object.ubNumberOfObjects < 1)
+	{
+		// account for items with invalid gridnos...
+		if (pWorldItem[stacksIndexInWorldItem].sGridNo != NOWHERE) 
+		{
+			RemoveItemFromPool(pWorldItem[stacksIndexInWorldItem].sGridNo, stacksIndexInWorldItem, pWorldItem[stacksIndexInWorldItem].ubLevel);
+		}
+
+		// setting this to false can lead to cases where we 'forget' items without a valid gridno - though I am unsure why.
+		//pWorldItem[ pSi->pos ].fExists = FALSE;		
+	}
+}
+
 // forward declaration for default parameter
 // if pSi has an entry, move gun from pWorldItem into pp
 void SearchItemRetrieval( std::vector<WORLDITEM>& pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake = 1 );//dnl ch75 271013
+
+
+/** Used after taking item from world and putting it into militias inventory.
+Makes sure TAKEN_BY_MILITIA flags are set in manner reflecting the flags on items stack of origin. 
+*/
+void SetTakenByMilitiaFlagsWhenForRetrievedItem(std::vector<WORLDITEM>& pWorldItem, UINT32 itemsPositionInWorld, SOLDIERCREATE_STRUCT *pp, UINT32 slotInInventory, UINT8 numberOfItemsToMark) {
+	for (UINT8 i = 0; i < numberOfItemsToMark; ++i)
+	{
+		(pp->Inv[slotInInventory])[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
+	}
+
+	if (pWorldItem[itemsPositionInWorld].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN)
+		(pp->Inv[slotInInventory])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_GREEN;	//remember the taboo we set on item while it was on ground
+	if (pWorldItem[itemsPositionInWorld].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE)
+		(pp->Inv[slotInInventory])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_BLUE;
+}
 
 // if pSi has an entry, move gun from pWorldItem into pp
 void SearchItemRetrieval( std::vector<WORLDITEM>& pWorldItem, ItemSearchStruct* pSi, SOLDIERCREATE_STRUCT *pp, UINT8 usTake )//dnl ch75 271013
 {
 	if ( pSi->found && !pSi->done )
 	{
-		UINT8 usRealTake = min(usTake, pWorldItem[ pSi->pos ].object.ubNumberOfObjects);
-		pWorldItem[ pSi->pos ].object.MoveThisObjectTo(pp->Inv[ pSi->soldierslot ], usRealTake );
+		//never take more than there actually is on the given stack (atm. we try to take 2 grenades, but there might be only 1)
+		UINT8 usRealTake = min(usTake, pWorldItem[ pSi->pos ].object.ubNumberOfObjects);	
+		//move objects (like weapon) to soldiers slot, position of object in the world and target slot are determined by values in pSi 
+		pWorldItem[ pSi->pos ].object.MoveThisObjectTo(pp->Inv[ pSi->soldierslot ], usRealTake );	
 
-		for ( UINT8 i = 0; i < usRealTake; ++i )
+		SetTakenByMilitiaFlagsWhenForRetrievedItem(pWorldItem, pSi->pos, pp, pSi->soldierslot, usRealTake);
+/*		for ( UINT8 i = 0; i < usRealTake; ++i )
 			(pp->Inv[ pSi->soldierslot ])[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
 
-		if ( pWorldItem[ pSi->pos ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN )
-			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_GREEN;
+		if ( pWorldItem[ pSi->pos ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN )	
+			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_GREEN; 
 		if ( pWorldItem[ pSi->pos ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
-			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_BLUE;
-		
-		if ( pWorldItem[ pSi->pos ].object.ubNumberOfObjects < 1 )
-		{
-			// account for items with invalid gridnos...
-			if ( pWorldItem[ pSi->pos ].sGridNo != NOWHERE )
-				RemoveItemFromPool(pWorldItem[ pSi->pos ].sGridNo, (pSi->pos), pWorldItem[ pSi->pos ].ubLevel);
+			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_BLUE;*/
 
-			// setting this to false can lead to cases where we 'forget' items without a valid gridno - though I am unsure why.
-			//pWorldItem[ pSi->pos ].fExists = FALSE;
-		}
+		// account for items with invalid gridnos - when we take last item from the stack, the whole stack object should be gone
+		RemoveStackIfEmpty(pWorldItem, pSi->pos);
+		
 	}
 
 	pSi->done = TRUE;
 }
+
 
 typedef std::map<UINT8, UINT32>	AmmoType_BulletCountMap;					// used to count how many bullets of an ammotype we have
 typedef std::map<UINT8, AmmoType_BulletCountMap> Calibre_BulletCountMap;	// this map stores a map containing all the different ammotypes and how many bulltes we have for them
@@ -4510,6 +4545,8 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 
 					// take this gun
 					SearchItemRetrieval( pWorldItem, &si[SI_GUN], pp );
+					//soldier has his gun now, look for attachments for it
+					addAttachementsToMilitiaWeapon(pWorldItem, usTabooFlag, pp);
 
 					// empty the gun, create a mag
 					if ( !fSearchForAmmo )
@@ -4535,6 +4572,8 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 
 					// take this gun
 					SearchItemRetrieval( pWorldItem, &si[SI_GUN], pp );
+					//soldier has his gun now, look for attachments for it
+					addAttachementsToMilitiaWeapon(pWorldItem, usTabooFlag, pp);					
 
 					// empty the gun, create a mag
 					if ( !fSearchForAmmo )
@@ -4806,6 +4845,51 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 	}
 
 	///////////////////////////////// Exit /////////////////////////////////////////////////////////
+}
+
+
+
+/** Goes through items in pWorldItem and looks for scopes, foregrips, lasers, etc. and tries to attach them to thing in soldiers (pp) hand. Hopefuly,
+it is a weapon. If thing is successfuly attached, it is removed from world. Attachement has to be reachable and not a taboo for militia.
+
+Does not attempt to improve current attachments, first item to fit in a position will remain there.
+*/
+void addAttachementsToMilitiaWeapon(std::vector<WORLDITEM>& pWorldItem, UINT16 usTabooFlag, SOLDIERCREATE_STRUCT *pp) {
+	for (UINT32 uiCount = 0; uiCount < pWorldItem.size(); ++uiCount)				// ... for all items in the world ...
+	{
+		if ((pWorldItem)[uiCount].fExists)										// ... if item exists ...
+		{
+			OBJECTTYPE* pObj = &((pWorldItem)[uiCount].object);			// ... get pointer for this item ...
+
+			if (pObj != NULL && pObj->exists())												// ... if pointer is not obviously useless ...
+			{
+				// this would be the place where we check wether the militia is allowed to pick up an item depending on its soldierclass
+				// test wether item is reachable and its not taboo 
+				if (((pWorldItem)[uiCount].usFlags & WORLD_ITEM_REACHABLE) && !((pWorldItem)[uiCount].usFlags & usTabooFlag))
+				{
+					
+					UINT32 usItemClass = Item[(pWorldItem)[uiCount].object.usItem].usItemClass;
+					UINT64 nasAttachmentClass = Item[(pWorldItem)[uiCount].object.usItem].nasAttachmentClass; //eg. 16 for scope
+					UINT32 attachmentClass = Item[(pWorldItem)[uiCount].object.usItem].attachmentclass; 
+
+					//check if this item is something we might want to attach, bipods are excluded atm because militia mainly runs around and doesn't camp enough 
+					//also under barrel launchers are not dealt with (at least for now)
+					if (usItemClass & IC_MISC && attachmentClass & (AC_SCOPE | AC_FOREGRIP | AC_STOCK | AC_SIGHT | AC_LASER | AC_MUZZLE | AC_SLING)) {
+						//we got something, lets get the weapon and try to attach it.
+						OBJECTTYPE* gun = &pp->Inv[HANDPOS];	//we are looking to attach to thing in hand, should be gun 
+						OBJECTTYPE* attachment = &(pWorldItem)[uiCount].object;
+						BOOLEAN isAttachedNow = gun->AttachObject(NULL, attachment, FALSE); //do the actual attaching
+						
+						if (isAttachedNow) { //might be false, if attachement was not valid for the gun (like small scope to M-960A)
+								RemoveStackIfEmpty(pWorldItem, uiCount);	//chceck uiCount stack, might be empty now and should be removed
+								//SetTakenByMilitiaFlagsWhenForRetrievedItem(pWorldItem,... //Nav:I realized, this is not required for attachement, hopefuly correctly (because weapon got proper flags already)
+						} 
+					}
+				}
+			}
+		}
+	}
+
 }
 
 ////////////////// Flugente: militia equipment feature ///////////////////////////////////

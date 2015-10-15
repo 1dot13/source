@@ -655,7 +655,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	
 	if (mapMaximumNumberOfEnemies > gGameExternalOptions.ubGameMaximumNumberOfEnemies)
 		mapMaximumNumberOfEnemies = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
-
+	//is there more enemies in the sector then we can actually place on map? 
 	//are there more enemies in the sector then we can actually place on map? 
 	gfPendingNonPlayerTeam[ENEMY_TEAM] = (NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) > mapMaximumNumberOfEnemies);
 

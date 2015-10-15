@@ -36,7 +36,7 @@ UINT32 guiMilitiaReinforceTurn = 0, guiMilitiaArrived = 0;//dnl ch68 090913
 void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks )
 {
 	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
-	UINT16 pusMoveDir[4][3];
+	UINT16 pusMoveDir[4][3];	//first column in this matrix is number of sector, except for 4th row
 	UINT8 ubDirNumber, ubIndex;
 	
 	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites, pubNumTanks );
@@ -57,10 +57,10 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	GenerateDirectionInfos( sSectorX, sSectorY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
 
 	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
-	{
+	{	//take number of the involved sector, find its X and Y coordintes and then ask for number of troops there
 		GetNumberOfStationaryEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ),  &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
 
-		while( ubNumElites + ubNumTroops + ubNumAdmins + ubNumTanks > gubReinforcementMinEnemyStaticGroupSize)
+		while( ubNumElites + ubNumTroops + ubNumAdmins + ubNumTanks > gubReinforcementMinEnemyStaticGroupSize)  //count how many of static group will reinforce the battle, but leave minimal group size to guard
 		{
 			if( ubNumElites )
 			{

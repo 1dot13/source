@@ -764,7 +764,7 @@ void AssociateEnemiesWithStrategicGroups()
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;	//how many soldiers of the type do we still have to assign to a group? 
 	UINT8 ubISNumAdmins, ubISNumTroops, ubISNumElites, ubISNumTanks;
 	UINT8 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup, ubNumTanksInGroup;
 	INT32 i;
@@ -784,10 +784,10 @@ void AssociateEnemiesWithStrategicGroups()
 	ubNumTanks = pSector->ubNumTanks;
 
 	//Now go through our enemies in the autoresolve array, and assign the ubGroupID to the soldier
-	//Stationary groups have a group ID of 0
+	//Stationary groups have a group ID of 0 - first assign enemies from those stationary groups
 	for( i = 0; i < gpAR->ubEnemies; ++i )
 	{
-		if ( gpEnemies[i].uiFlags & CELL_TANK && ubNumTanks )
+		if ( gpEnemies[i].uiFlags & CELL_TANK && ubNumTanks )	//is this soldier a tank? and we still have some tanks to add? (since there might not be a static tank in sector) 
 		{
 			gpEnemies[i].pSoldier->ubGroupID = 0;
 			gpEnemies[i].uiFlags |= CELL_ASSIGNED;
@@ -835,36 +835,36 @@ void AssociateEnemiesWithStrategicGroups()
 			ubNumTanksInGroup = pGroup->pEnemyGroup->ubNumTanks;
 			for( i = 0; i < gpAR->ubEnemies; i++ )
 			{
-				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
+				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )	//has this soldier already been assigned to a cell and therefore a group (while processing the static enemies above) ?
 				{
-					if( ubNumTanks && ubNumTanksInGroup )
+					if (ubNumTanks && ubNumTanksInGroup && gpEnemies[i].uiFlags & CELL_TANK ) //is there still a tank to assign and is this a cell for tank?
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumTanks--;
 						ubNumTanksInGroup--;
 					}
-					else if( ubNumElites && ubNumElitesInGroup )
+					else if (ubNumElites && ubNumElitesInGroup && gpEnemies[i].uiFlags & CELL_ELITE)
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumElites--;
 						ubNumElitesInGroup--;
 					}
-					else if( ubNumTroops && ubNumTroopsInGroup )
+					else if (ubNumTroops && ubNumTroopsInGroup && gpEnemies[i].uiFlags & CELL_TROOP)
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumTroops--;
 						ubNumTroopsInGroup--;
 					}
-					else if( ubNumAdmins && ubNumAdminsInGroup )
+					else if (ubNumAdmins && ubNumAdminsInGroup && gpEnemies[i].uiFlags & CELL_ADMIN)
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumAdmins--;
 						ubNumAdminsInGroup--;
-					}			
+					} 
 				}
 			}
 		}
@@ -876,7 +876,7 @@ void AssociateEnemiesWithStrategicGroups()
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
-		// Don't process road block. It'll be processed as static
+		// Don't process road block. It'll be processed as static	(because their ubGroupID is 0 so the first term eval to false)
 		if ( pGroup->ubGroupID && pGroup->usGroupTeam == ENEMY_TEAM && IsGroupInARightSectorToReinforce( pGroup, gpAR->ubSectorX, gpAR->ubSectorY ) )
 		{
 			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
@@ -887,28 +887,28 @@ void AssociateEnemiesWithStrategicGroups()
 			{
 				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
 				{
-					if ( ubNumTanks && ubNumTanksInGroup )
+					if (ubNumTanks && ubNumTanksInGroup &&  gpEnemies[i].uiFlags & CELL_TANK)
 					{
 						gpEnemies[i].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[i].uiFlags |= CELL_ASSIGNED;
 						ubNumTanks--;
 						ubNumTanksInGroup--;
 					}
-					else if ( ubNumElites && ubNumElitesInGroup )
+					else if (ubNumElites && ubNumElitesInGroup &&  gpEnemies[i].uiFlags & CELL_ELITE)
 					{
-						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;	
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumElites--;
 						ubNumElitesInGroup--;
 					}
-					else if( ubNumTroops && ubNumTroopsInGroup )
+					else if (ubNumTroops && ubNumTroopsInGroup &&  gpEnemies[i].uiFlags & CELL_TROOP)
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumTroops--;
 						ubNumTroopsInGroup--;
 					}
-					else if( ubNumAdmins && ubNumAdminsInGroup )
+					else if (ubNumAdmins && ubNumAdminsInGroup &&  gpEnemies[i].uiFlags & CELL_ADMIN)
 					{
 						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
@@ -921,7 +921,7 @@ void AssociateEnemiesWithStrategicGroups()
 		pGroup = pGroup->next;
 	}
 	
-	// Set GroupID = 0 for the rest
+	// Set GroupID = 0 for the rest	(that includes reinforcements)
 	ubDirAmount = GetAdjacentSectors( pSectors, gpAR->ubSectorX, gpAR->ubSectorY );
 
 	for( ubCurrSI = 0; ubCurrSI < ubDirAmount; ++ubCurrSI )
@@ -935,7 +935,7 @@ void AssociateEnemiesWithStrategicGroups()
 
 		for( i = 0; i < gpAR->ubEnemies; ++i )
 		{
-			if( ubISNumAdmins + ubISNumTroops + ubISNumElites + ubISNumTanks <= gubReinforcementMinEnemyStaticGroupSize ) break;
+			if( ubISNumAdmins + ubISNumTroops + ubISNumElites + ubISNumTanks <= gubReinforcementMinEnemyStaticGroupSize ) break;	//if group would be left understaffed, it wont reinforce - go chceck another sector (what if are there more groups here?)
 
 			if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
 			{
@@ -978,6 +978,10 @@ void AssociateEnemiesWithStrategicGroups()
 			}
 		}
 	}
+	/*at this point, all enemies should have been assigned to their cell and group. If not, there is a bug around
+	Because number and type of cells should be computed for the same composition of enemies as the one we see in this function, it should not happen though*/
+	AssertMsg(!(ubISNumAdmins & ubISNumTroops & ubISNumElites & ubISNumTanks), "Mapping between actual enemies and autoresolve cells is wrong."); 
+
 }
 
 
@@ -2531,9 +2535,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	{
 		if( gpEnemies[ i ].pSoldier )
 		{
-			if( fDeleteForGood && gpEnemies[ i ].pSoldier->stats.bLife < OKLIFE )
+			if( fDeleteForGood && gpEnemies[ i ].pSoldier->stats.bLife < OKLIFE ) //if we are finished with battle and soldier is either dead or dying
 			{
-				TrackEnemiesKilled( ENEMY_KILLED_IN_AUTO_RESOLVE, gpEnemies[ i ].pSoldier->ubSoldierClass );
+				TrackEnemiesKilled( ENEMY_KILLED_IN_AUTO_RESOLVE, gpEnemies[ i ].pSoldier->ubSoldierClass );	//add casualty to some statistic
 				if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 				ProcessQueenCmdImplicationsOfDeath( gpEnemies[ i ].pSoldier );
 				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpEnemies[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
