@@ -986,6 +986,10 @@ BOOLEAN EnterShopKeeperInterface()
 		gfExitSKIDueToMessageBox = FALSE;
 	}
 
+	// silversurfer: added this to prevent random crashes when the temp vector wasn't initialized properly.
+	// This is called in InitializeShopKeeper() a few lines below anyway so it shouldn't hurt here.
+	gpTempDealersInventory.clear();
+
 	//Check to make sure the inventory is null ( should always be null if we are just coming in to the SKI )
 	Assert( gpTempDealersInventory.empty() == true );
 
