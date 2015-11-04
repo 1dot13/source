@@ -525,7 +525,9 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_PMC_REINFORCEMENT_ARRIVAL:
 			HandlePMCArrival( (UINT8)pEvent->uiParam );
 			break;
-
+#ifdef JA2UB
+		// No Kingpin Events in UB
+#else
 		case EVENT_KINGPIN_BOUNTY_INITIAL:
 			// if Kingpin, Angel and Maria are still alive, we can start the quest
 			if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) && 
@@ -571,6 +573,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			EndQuest( QUEST_KINGPIN_ANGEL_MARIA, gWorldSectorX, gWorldSectorY );
 
 			break;
+	#endif
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;

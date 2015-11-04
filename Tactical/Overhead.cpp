@@ -3841,6 +3841,8 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 			}
 		}
 
+#ifdef JA2UB
+#else
 		// if Angel an Maria are dead and the bounty hunter quest is still ongoing, then finish it
 		if ( gubQuest[QUEST_KINGPIN_ANGEL_MARIA] == QUESTINPROGRESS )
 		{
@@ -3854,6 +3856,8 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 				DeleteStrategicEvent( EVENT_KINGPIN_BOUNTY_END_TIME_PASSED, 0 );
 			}
 		}
+#endif
+
     }
     else if ( pSoldierOld->bTeam == MILITIA_TEAM )
     {
