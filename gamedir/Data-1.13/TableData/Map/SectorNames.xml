@@ -1716,7 +1716,7 @@
     <szDetailedUnexploredName>Swamp</szDetailedUnexploredName>
     <szExploredName>Swamp</szExploredName>
     <szDetailedExploredName>Swamp</szDetailedExploredName>
-    <sWaterType>4</sWaterType>
+    <sWaterType>3</sWaterType>
     <usNaturalDirt>500</usNaturalDirt>
    </SECTOR>
    <SECTOR>
