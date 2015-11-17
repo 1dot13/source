@@ -24,6 +24,7 @@
 	#include "Soldier Create.h"
 	#include "SkillCheck.h" // added by SANDRO
 	#include "Vehicles.h" // added by silversurfer
+	#include "Game Clock.h"		// added by sevenfm
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -76,8 +77,8 @@ UINT16 MovementMode[LAST_MOVEMENT_ACTION + 1][NUM_URGENCY_STATES] =
 	{WALKING,	 WALKING,  WALKING},	// AI_ACTION_SCHEDULE_MOVE
 	{WALKING,	 WALKING,  WALKING},	// AI_ACTION_WALK
 	{WALKING,	 RUNNING,  RUNNING},	// withdraw
-	{WALKING,	 SWATTING,  SWATTING},	// flank left
-	{WALKING,	 SWATTING,  SWATTING},	// flank right
+	{RUNNING,	 RUNNING,  SWATTING},	// flank left
+	{RUNNING,	 RUNNING,  SWATTING},	// flank right
 	{RUNNING,	 RUNNING,  RUNNING},	// AI_ACTION_MOVE_TO_CLIMB
 };
 
@@ -3230,4 +3231,46 @@ UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTe
 	}
 		
 	return id;
+}
+
+// sevenfm: define normal vision limits for day/night
+INT16 MaxNormalVisionDistance( void )
+{
+	if( NightTime() )
+	{
+		return gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO;
+	}
+	return gGameExternalOptions.ubStraightSightRange * 2 * STRAIGHT_RATIO;
+}
+
+// sevenfm: check friendly soldiers between me and noise gridno
+// count only friends that are active and not stationary/onguard/sniper
+UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubFriendDir, ubMyDir;
+	UINT8 ubFriends = 0;
+
+	ubMyDir = atan8(CenterX(sTargetGridNo),CenterY(sTargetGridNo),CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo));
+
+	// Run through each friendly.
+	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	{
+		pFriend = MercPtrs[ iCounter ];
+		ubFriendDir = atan8(CenterX(sTargetGridNo),CenterY(sTargetGridNo),CenterX(pFriend->sGridNo),CenterY(pFriend->sGridNo));
+
+		if (pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			pFriend->stats.bLife >= pFriend->stats.bLifeMax/2 &&
+			pFriend->aiData.bOrders > ONGUARD &&
+			pFriend->aiData.bOrders != SNIPER &&
+			(ubFriendDir == ubMyDir || ubFriendDir == gOneCDirection[ubMyDir] || ubFriendDir == gOneCCDirection[ubMyDir]) &&
+			PythSpacesAway( sTargetGridNo, pFriend->sGridNo) < PythSpacesAway(sTargetGridNo, pSoldier->sGridNo) )
+		{
+			ubFriends++;
+		}
+	}
+
+	return ubFriends;
 }

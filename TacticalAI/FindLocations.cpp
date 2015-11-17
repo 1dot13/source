@@ -2417,19 +2417,13 @@ INT32 FindNearestOpenableNonDoor( INT32 sStartGridNo )
 
 }
 
-
-
-
-
-
-
-
 INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 {
 	INT32 sGridNo;
 	INT32 sBestSpot = NOWHERE;
-	INT32 iSearchRange = 4;
+	INT32 iSearchRange = 8;	// sevenfm: increase search range
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
+	INT16 sDistanceVisible = MaxNormalVisionDistance();
 
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: orig loc = %d, loc to flank = %d", pSoldier->sGridNo , sPos));
 
@@ -2437,49 +2431,9 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 	if ( FindNearestEdgePoint ( pSoldier->sGridNo ) == pSoldier->sGridNo	)
 		return NOWHERE;
 
-
-	if ( gfTurnBasedAI )
-	{
-		//if (pSoldier->aiData.bAlertStatus == STATUS_BLACK)			// if already in battle
-		//{
-
-		//	iSearchRange = pSoldier->bActionPoints - ( MinAPsToAttack( pSoldier, sPos, ADDTURNCOST));
-
-		//	// to speed this up, tell PathAI to cancel any paths beyond our AP reach!
-		//	gubNPCAPBudget = iSearchRange; //pSoldier->bActionPoints;
-		//}
-		//else
-		//{
-		//	// even if not under pressure, limit to 1 turn's travelling distance
-		//	iSearchRange = pSoldier->bActionPoints - ( MinAPsToAttack( pSoldier, sPos, ADDTURNCOST));
-
-		//	gubNPCAPBudget = iSearchRange; //__min( pSoldier->bActionPoints / 2, pSoldier->CalcActionPoints( ) );
-
-			//iSearchRange = gubNPCAPBudget;
-		//}
-	}
-	//if (!gfTurnBasedAI)
-	//{
-	//	// search only half as far in realtime
-	//	// but always allow a certain minimum!
-
-	//	if ( iSearchRange > 20 )
-	//	{
-	//		iSearchRange /= 2;
-	//		gubNPCAPBudget /= 2;
-	//	}
-	//}
-
-	gubNPCAPBudget=(UINT8) (iSearchRange*3);
-
-	// assume we have to stand up and turn
-	// use the min macro here to make sure we don't wrap the UINT8 to 255...
-
-	//gubNPCAPBudget = 	gubNPCAPBudget = __min( gubNPCAPBudget, gubNPCAPBudget - GetAPsToChangeStance( pSoldier, ANIM_STAND ) -1 ); //-1 for turning cost while standing
-	//NumMessage("Search Range = ",iSearchRange);
-	//NumMessage("gubNPCAPBudget = ",gubNPCAPBudget);
-
-	// stay away from the edges
+	// sevenfm: use max AP at the start of new turn
+	//gubNPCAPBudget=(UINT8) (iSearchRange*3);
+	gubNPCAPBudget= pSoldier->CalcActionPoints();
 
 	// determine maximum horizontal limits
 	sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
@@ -2520,39 +2474,33 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 	// so we don't consider it
 	gpWorldLevelData[pSoldier->sGridNo].uiFlags &= ~(MAPELEMENT_REACHABLE);
 
-
 	// get direction of position to flank from soldier's position
 	INT16 sDir = GetDirectionFromGridNo ( sPos, pSoldier) ;
 	INT16 sDesiredDir;
 	INT16 sTempDir;
 	INT16 sTempDist, sBestDist=0;
 
+	// sevenfm: better direction calculation (use arrays)
 	switch ( bAction )
 	{
-		case AI_ACTION_FLANK_LEFT:
-			sDesiredDir = sDir - 2;
-			break;
-		case AI_ACTION_FLANK_RIGHT:
-			sDesiredDir = sDir + 2;
-			break;
-		case AI_ACTION_WITHDRAW:
-			sDesiredDir = sDir + 4;
-			break;
-		default:
-			sDesiredDir = sDir;
+	case AI_ACTION_FLANK_LEFT:
+		sDesiredDir = gTwoCCDirection[ sDir ];
+		break;
+	case AI_ACTION_FLANK_RIGHT:
+		sDesiredDir = gTwoCDirection[ sDir ];
+		break;
+	case AI_ACTION_WITHDRAW:
+		sDesiredDir = gOppositeDirection[ sDir ];
+		break;
+	default:
+		sDesiredDir = sDir;
 	}
-
-	if ( sDesiredDir < 0 )
-		sDesiredDir += NUM_WORLD_DIRECTIONS;
-
-	if ( sDesiredDir > NUM_WORLD_DIRECTIONS )
-		sDesiredDir -= NUM_WORLD_DIRECTIONS;
 
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: direction to loc = %d, dir to flank = %d", sDir , sDesiredDir ));
 
-	for (sYOffset = -sMaxUp + 1; sYOffset <= sMaxDown - 1; ++sYOffset)
+	for (sYOffset = -sMaxUp + 1; sYOffset <= sMaxDown - 1; sYOffset++)
 	{
-		for (sXOffset = -sMaxLeft + 1; sXOffset <= sMaxRight - 1; ++sXOffset)
+		for (sXOffset = -sMaxLeft + 1; sXOffset <= sMaxRight - 1; sXOffset++)
 		{
 			// calculate the next potential gridno
 			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
@@ -2585,20 +2533,66 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			if ( InLightAtNight( sGridNo, pSoldier->pathing.bLevel ) )
 				continue;
 
-			// allow an extra direction for flanking
+			// sevenfm: skip tiles too close to edge
+			if ( PythSpacesAway( FindNearestEdgePoint ( sGridNo ), sGridNo ) <= 2 )
+			{
+				continue;
+			}
+
+			// sevenfm: don't go into deep water for flanking
+			if( DeepWater( sGridNo ) )
+			{
+				continue;
+			}
+
+			// sevenfm: skip water tiles
+			if( Water( sGridNo ) )
+			{
+				continue;
+				//sTempDist = sTempDist/2;
+			}
+
+			// sevenfm: skip buildings if not in building already, because soldiers often run into buildings and stop flanking
+			if( InARoom( sGridNo, NULL ) && !InARoom(pSoldier->sGridNo, NULL) )
+			{
+				continue;
+			}
+
+			// sevenfm: penalize locations with no sight cover from noise gridno (supposed that we are sneaking)
+			if( PythSpacesAway( sGridNo, sPos) < sDistanceVisible &&
+				LocationToLocationLineOfSightTest( sGridNo, pSoldier->pathing.bLevel, sPos, pSoldier->pathing.bLevel, TRUE) )
+			{
+				//continue;
+				sTempDist = sTempDist / 2;
+			}
+
+			// sevenfm: penalize locations too far from noise gridno
+			if( PythSpacesAway( sGridNo, sPos) > MAX_FLANK_DIST_RED )
+			{
+				sTempDist = sTempDist / 2;
+			}
+
 			if ( bAction == AI_ACTION_FLANK_LEFT )
 			{
-				if ( sTempDir != sDesiredDir && sTempDir != ( sDesiredDir + 1 ) )
+				// sevenfm: allow two extra directions
+				if ( sTempDir != sDesiredDir && sTempDir != gOneCDirection[sDesiredDir] && sTempDir != gOneCCDirection[sDesiredDir])
 					continue;
+				// prefer desired dir x1.5
+				if( sTempDir == sDesiredDir )
+					sTempDist = 3*sTempDist/2;
 			}
 			else if ( bAction == AI_ACTION_FLANK_RIGHT )
 			{
-				if ( sTempDir != sDesiredDir && sTempDir != ( sDesiredDir - 1 ) )
+				// sevenfm: allow two extra directions
+				if ( sTempDir != sDesiredDir && sTempDir != gOneCDirection[sDesiredDir] && sTempDir != gOneCCDirection[sDesiredDir])
 					continue;
+				// prefer desired dir x1.5
+				if( sTempDir == sDesiredDir )
+					sTempDist = 3*sTempDist/2;
 			}
 			else
 			{
-				if ( sTempDir != sDesiredDir ) //&& sTempDir != ( sDesiredDir + 1 ) && sTempDir != ( sDesiredDir - 1 ))
+				if ( sTempDir != sDesiredDir )
 					continue;
 			}
 
@@ -2620,8 +2614,6 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 
 	return( sBestSpot );
 }
-
-
 
 INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 {

@@ -57,14 +57,15 @@ UINT32 guiRedSeekCounter = 0, guiRedHelpCounter = 0; guiRedHideCounter = 0;
 
 #define CENTER_OF_RING 11237//dnl!!!
 
-#define MAX_FLANKS_RED 15
+// sevenfm: moved to ai.h
+/*#define MAX_FLANKS_RED 15
 #define MAX_FLANKS_YELLOW 25
 
 #define MIN_FLANK_DIST_YELLOW 10 * STRAIGHT_RATIO
 #define MAX_FLANK_DIST_YELLOW 50 * STRAIGHT_RATIO
 
 #define MIN_FLANK_DIST_RED 10 * STRAIGHT_RATIO
-#define MAX_FLANK_DIST_RED 40 * STRAIGHT_RATIO
+#define MAX_FLANK_DIST_RED 40 * STRAIGHT_RATIO*/
 
 #ifdef ENABLE_ZOMBIES
 	INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier);
@@ -1928,7 +1929,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			if ( origDir > currDir )
 				origDir -= NUM_WORLD_DIRECTIONS;
 
-			if ( (currDir - origDir) >= 4 )
+			// sevenfm: stop flanking if no friends between me and noise gridno
+			if ( (currDir - origDir) >= 4 ||
+				CountFriendsInDirection( pSoldier, tempGridNo ) == 0 )
 			{
 				pSoldier->numFlanks = MAX_FLANKS_YELLOW;
 			}
@@ -1946,7 +1949,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			if ( origDir < currDir )
 				origDir += NUM_WORLD_DIRECTIONS;
 
-			if ( (origDir - currDir) >= 4 )
+			// sevenfm: stop flanking if no friends between me and noise gridno
+			if ( (origDir - currDir) >= 4 ||
+				CountFriendsInDirection( pSoldier, tempGridNo ) == 0 )
 			{
 				pSoldier->numFlanks = MAX_FLANKS_YELLOW;
 			}
@@ -2090,7 +2095,14 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						}
 					}
 
-					if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO || pSoldier->aiData.bAttitude == BRAVESOLO ) )
+					// possibly start YELLOW flanking
+					// sevenfm: only CUNNINGAID and CUNNINGSOLO should flank
+					// check that there are some friends between me and noise gridno
+					// STATIONARY/ONGUARD/CLOSEPATROL/SNIPER should not flank
+					if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ) &&
+						CountFriendsInDirection( pSoldier, sNoiseGridNo ) > 0 &&
+						pSoldier->aiData.bOrders > CLOSEPATROL &&
+						pSoldier->aiData.bOrders != SNIPER )
 					{
 						INT8 action = AI_ACTION_SEEK_NOISE;
 						INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sNoiseGridNo );
@@ -3345,7 +3357,12 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		else
 			tempGridNo = sClosestDisturbance;
 
-		if ( pSoldier->numFlanks > 0 && pSoldier->numFlanks < MAX_FLANKS_RED  && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
+		// continue flanking
+		// sevenfm: dont' flank when under fire
+		if ( pSoldier->numFlanks > 0 && 
+			pSoldier->numFlanks < MAX_FLANKS_RED  && 
+			gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE &&
+			!pSoldier->aiData.bUnderFire )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: continue flanking");
 			INT16 currDir = GetDirectionFromGridNo ( tempGridNo, pSoldier );
@@ -3356,7 +3373,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				if ( origDir > currDir )
 					origDir -= NUM_WORLD_DIRECTIONS;
 
-				if ( (currDir - origDir) >= 4 )
+				// sevenfm: stop flanking if no friend between me and noise gridno
+				if ( (currDir - origDir) >= 4 ||
+					CountFriendsInDirection( pSoldier, tempGridNo ) == 0 )
 				{
 					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
@@ -3375,7 +3394,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				if ( origDir < currDir )
 					origDir += NUM_WORLD_DIRECTIONS;
 
-				if ( (origDir - currDir) >= 4 )
+				// sevenfm: stop flanking if no friend between me and noise gridno
+				if ( (origDir - currDir) >= 4 ||
+					CountFriendsInDirection( pSoldier, tempGridNo ) == 0 )
 				{
 					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
@@ -3592,8 +3613,15 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 							//	return( AI_ACTION_CLIMB_ROOF );
 							//}
 
-
-							if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO  || pSoldier->aiData.bAttitude == BRAVESOLO )  && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
+							// possibly start RED flanking
+							// sevenfm: only CUNNINGAID and CUNNINGSOLO should flank
+							// check that there are friends between me and noise gridno
+							// STATIONARY\ONGUARD\CLOSEPATROL\SNIPER should not flank
+							if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ) &&
+								gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE &&
+								CountFriendsInDirection( pSoldier, sClosestDisturbance ) > 0 &&
+								pSoldier->aiData.bOrders > CLOSEPATROL &&
+								pSoldier->aiData.bOrders != SNIPER )
 							{
 								INT8 action = AI_ACTION_SEEK_OPPONENT;
 								INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sClosestDisturbance );
@@ -4363,10 +4391,10 @@ INT16 ubMinAPCost;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
 
-	// once we hit status black, reset flanking status
-	//pSoldier->numFlanks = 0;
-
-
+	// sevenfm: stop flanking when we see enemy
+	if( pSoldier->numFlanks < MAX_FLANKS_RED )
+		pSoldier->numFlanks = 0;
+	
 	// if we have absolutely no action points, we can't do a thing under BLACK!
 	if (!pSoldier->bActionPoints)
 	{

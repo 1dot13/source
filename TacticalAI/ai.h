@@ -271,4 +271,27 @@ UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 // get the id of the closest medic (closer than x tiles) of a specific team
 UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
+// sevenfm:
+
+INT16 MaxNormalVisionDistance( void );
+UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
+BOOLEAN GuySawEnemyThisTurnOrBefore( SOLDIERTYPE * pSoldier );
+
+// moved from DecideAction.cpp
+// sevenfm: set MAX_FLANKS_RED and MAX_FLANKS_YELLOW to equal values to avoid problems when soldier's alert state changes
+#define MAX_FLANKS_RED 25
+#define MAX_FLANKS_YELLOW 25
+
+// limit min/max flank distance depending on sight range and time of day
+//#define MIN_FLANK_DIST_YELLOW 10 * STRAIGHT_RATIO
+//#define MAX_FLANK_DIST_YELLOW 50 * STRAIGHT_RATIO
+#define MIN_FLANK_DIST_YELLOW (2*MaxNormalVisionDistance()/3)
+#define MAX_FLANK_DIST_YELLOW (MaxNormalVisionDistance() + 20)
+
+// limit min/max flank distance depending on sight range and time of day
+//#define MIN_FLANK_DIST_RED 10 * STRAIGHT_RATIO
+//#define MAX_FLANK_DIST_RED 40 * STRAIGHT_RATIO
+#define MIN_FLANK_DIST_RED (2*MaxNormalVisionDistance()/3)
+#define MAX_FLANK_DIST_RED (MaxNormalVisionDistance() + 20)
+
 #endif
