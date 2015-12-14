@@ -3,14 +3,13 @@
 
 #include "Soldier Control.h"
 
-class DRUG_EFFECT
+typedef struct
 {
-public:
 	UINT8		effect;
 	UINT16		duration;
 	INT16		size;
 	UINT8		chance;
-};
+} DRUG_EFFECT;
 
 typedef struct
 {

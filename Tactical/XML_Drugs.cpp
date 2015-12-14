@@ -14,7 +14,7 @@ struct
 	PARSE_STAGE	curElement;
 
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
-	DRUG		curDrugs;
+	UINT8		uiIndex;
 	DRUG *		curArray;
 	UINT32		maxArraySize;
 
@@ -47,7 +47,7 @@ drugsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 		{
 			pData->curElement = ELEMENT;
 
-			memset( &pData->curDrugs, 0, sizeof(DRUG) );
+			memset( &pData->uiIndex, 0, sizeof(UINT8) );
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -182,25 +182,29 @@ drugsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			pData->curArray[pData->curDrugs.uiIndex] = pData->curDrugs; //write the drugs into the table
+			// silversurfer: this led to crashes of the debug build at game start with "Vector Iterators Incompatible" error message as well as non-functional drugs in the release build.
+			// The data will now be assigned directly below instead of using the placeholder "curDrugs". I removed the placeholder from drugsParseData and instead added uiIndex to store the index only.
+			// Assigning vectors with "=" breaks them!
+			//pData->curArray[pData->curDrugs.uiIndex] = pData->curDrugs; //write the drugs into the table
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.uiIndex = (UINT8)atol( pData->szCharData );
+			pData->uiIndex = (UINT8)atol( pData->szCharData );
+			pData->curArray[pData->uiIndex].uiIndex = pData->uiIndex;
 		}
 		else if(strcmp(name, "szName") == 0)
 		{
 			pData->curElement = ELEMENT;
 			// not needed, but its there for informational purposes
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curDrugs.szName, sizeof(pData->curDrugs.szName) / sizeof(pData->curDrugs.szName[0]) );
-			pData->curDrugs.szName[sizeof(pData->curDrugs.szName) / sizeof(pData->curDrugs.szName[0]) - 1] = '\0';
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curArray[pData->uiIndex].szName, sizeof(pData->curArray[pData->uiIndex].szName) / sizeof(pData->curArray[pData->uiIndex].szName[0]) );
+			pData->curArray[pData->uiIndex].szName[sizeof(pData->curArray[pData->uiIndex].szName) / sizeof(pData->curArray[pData->uiIndex].szName[0]) - 1] = '\0';
 		}
 		else if(strcmp(name, "opinionevent") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDrugs.opinionevent = (BOOLEAN)atol( pData->szCharData );
+			pData->curArray[pData->uiIndex].opinionevent = (BOOLEAN)atol( pData->szCharData );
 		}
 
 		// Close opened Tags.
@@ -208,25 +212,25 @@ drugsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 
-			pData->curDrugs.drug_effects.push_back( pData->drug_effects );
+			pData->curArray[pData->uiIndex].drug_effects.push_back( pData->drug_effects );
 		}
 		else if ( strcmp( name, "DISEASE_EFFECT" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
-			pData->curDrugs.disease_effects.push_back( pData->disease_effects );
+			pData->curArray[pData->uiIndex].disease_effects.push_back( pData->disease_effects );
 		}
 		else if ( strcmp( name, "DISABILITY_EFFECT" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
-			pData->curDrugs.disability_effects.push_back( pData->disability_effects );
+			pData->curArray[pData->uiIndex].disability_effects.push_back( pData->disability_effects );
 		}
 		else if ( strcmp( name, "PERSONALITY_EFFECT" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
-			pData->curDrugs.personality_effects.push_back( pData->personality_effects );
+			pData->curArray[pData->uiIndex].personality_effects.push_back( pData->personality_effects );
 		}
 
 		else if ( pData->curElement == ELEMENT_DRUG_EFFECT_PROPERTY )
