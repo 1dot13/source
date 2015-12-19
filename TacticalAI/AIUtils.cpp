@@ -1050,6 +1050,9 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		}
 	}
 
+	// sevenfm: only if not found enemy
+	if ( sClosestDisturbance == NOWHERE )
+	{
 	// if any "misc. noise" was also heard recently	
 	if (!TileIsOutOfBounds(pSoldier->aiData.sNoiseGridno) && pSoldier->aiData.sNoiseGridno != sClosestDisturbance)
 	{
@@ -1077,7 +1080,11 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 			// get the AP cost to get to the location of the noise
 			iPathCost = EstimatePathCostToLocation( pSoldier, sGridNo, bLevel, FALSE, &fClimbingNecessary, &sClimbGridNo );
 			// if we can get there
-			if (iPathCost != 0)
+			// sevenfm: check that noise is closer than known disturbance
+			//if (iPathCost != 0)
+			if (iPathCost != 0 &&
+				PythSpacesAway( pSoldier->sGridNo, sGridNo ) < sDistToClosestEnemy &&
+				iPathCost < iShortestPath)
 			{
 				if (fClimbingNecessary)
 				{
@@ -1109,7 +1116,11 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 			// get the AP cost to get to the location of the noise
 			iPathCost = EstimatePathCostToLocation( pSoldier, sGridNo, bLevel, FALSE, &fClimbingNecessary, &sClimbGridNo );
 			// if we can get there
-			if (iPathCost != 0)
+			// sevenfm: check that noise is closer than known disturbance
+			//if (iPathCost != 0)
+			if (iPathCost != 0 &&
+				PythSpacesAway( pSoldier->sGridNo, sGridNo ) < sDistToClosestEnemy &&
+				iPathCost < iShortestPath)
 			{
 				if (fClimbingNecessary)
 				{
@@ -1132,6 +1143,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 				(*pubNoiseVolume)--;
 		}
 	}
+	}	// sevenfm: end check enemy closestdisturbance
 
 #ifdef DEBUGDECISIONS	
 	if (!TileIsOutOfBounds(sClosestDisturbance))
@@ -2066,6 +2078,12 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
  UINT8 *pSeenOpp; //,*friendOlPtr;
  INT8	*pbPersOL, *pbPublOL;
  SOLDIERTYPE *pOpponent,*pFriend;
+
+	// sevenfm: use new calculation:
+	if( gGameExternalOptions.fAINewMorale )
+	{
+		return CalcMoraleNew( pSoldier );
+	}
 
  // if army guy has NO weapons left then panic!
  if ( pSoldier->bTeam == ENEMY_TEAM )
@@ -3273,4 +3291,494 @@ UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	}
 
 	return ubFriends;
+}
+
+// sevenfm: check if suppression is possible (count friends in the fire direction)
+BOOLEAN CheckSuppressionDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubShootingDir, ubFriendDir;
+
+	// safety check
+	if( !pSoldier )
+		return TRUE;
+
+	ubShootingDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sTargetGridNo),CenterY(sTargetGridNo));
+
+	// Run through each friendly.
+	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	{
+		pFriend = MercPtrs[ iCounter ];
+		ubFriendDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(pFriend->sGridNo),CenterY(pFriend->sGridNo));
+
+		if (pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			pSoldier->pathing.bLevel == pFriend->pathing.bLevel &&
+			ubShootingDir == ubFriendDir &&
+			PythSpacesAway( pSoldier->sGridNo, pFriend->sGridNo) < PythSpacesAway(pSoldier->sGridNo, sTargetGridNo) &&
+			CalcAverageCTGTForPosition( pSoldier, pFriend->ubID, pFriend->sGridNo, pFriend->pathing.bLevel, pSoldier->bActionPoints ) > 0 &&
+			( gAnimControl[ pFriend->usAnimState ].ubHeight != ANIM_PRONE ||
+			PythSpacesAway( pSoldier->sGridNo, pFriend->sGridNo ) <= 15 ) )
+		{
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+// sevenfm: count nearby friend soldiers
+UINT8 CountNearbyFriendlies( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubFriendCount = 0;
+
+	// safety check
+	if( !pSoldier )
+		return 0;
+
+	// Run through each friendly.
+	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	{
+		pFriend = MercPtrs[ iCounter ];
+		// Make sure that character is alive, not too shocked, and conscious, and of higher experience level
+		// than the character being suppressed.
+		if (pFriend != pSoldier && pFriend->bActive && pFriend->stats.bLife >= OKLIFE &&
+			PythSpacesAway( sGridNo, pFriend->sGridNo ) <= ubDistance )
+		{
+			ubFriendCount++;
+		}
+	}
+
+	return ubFriendCount;
+}
+
+// sevenfm: new AI morale calculation
+INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
+{
+	UINT32 uiLoop, uiLoop2;
+	INT32 iOurTotalThreat = 0, iTheirTotalThreat = 0;
+	INT16 sOppThreatValue, sFrndThreatValue, sMorale;
+	INT32 iPercent;
+	INT8	bMostRecentOpplistValue;
+	INT8 bMoraleCategory;
+	UINT8 *pSeenOpp; //,*friendOlPtr;
+	INT8	*pbPersOL, *pbPublOL;
+	SOLDIERTYPE *pOpponent,*pFriend;
+
+	// if army guy has NO weapons left then panic!
+	if ( pSoldier->bTeam == ENEMY_TEAM )
+	{
+		if ( FindAIUsableObjClass( pSoldier, IC_WEAPON ) == NO_SLOT )
+		{
+			// sevenfm: disable as we can pick up weapon or attack with fists
+			//return( MORALE_HOPELESS );
+		}
+	}
+
+	// hang pointers to my personal opplist, my team's public opplist, and my
+	// list of previously seen opponents
+	pSeenOpp	= (UINT8 *) &(gbSeenOpponents[pSoldier->ubID][0]);
+
+	// loop through every one of my possible opponents
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pOpponent = MercSlots[ uiLoop ];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pOpponent || (pOpponent->stats.bLife < OKLIFE))
+			continue;			// next merc
+
+		// if this merc is neutral/on same side, he's not an opponent, skip him!
+		if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide))
+			continue;			// next merc
+
+		// Special stuff for Carmen the bounty hunter
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
+		{
+			continue;	// next opponent
+		}
+
+		pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
+		pbPublOL = gbPublicOpplist[pSoldier->bTeam] + pOpponent->ubID;
+		pSeenOpp = (UINT8 *)gbSeenOpponents[pSoldier->ubID] + pOpponent->ubID;
+
+		// if this opponent is unknown to me personally AND unknown to my team, too
+		if ((*pbPersOL == NOT_HEARD_OR_SEEN) && (*pbPublOL == NOT_HEARD_OR_SEEN))
+		{
+			// if I have never seen him before anywhere in this sector, either
+			if (!(*pSeenOpp))
+				continue;		// next merc
+
+			// have seen him in the past, so he remains something of a threat
+			bMostRecentOpplistValue = 0;		// uses the free slot for 0 opplist
+		}
+		else		 // decide which opplist is more current
+		{
+			// if personal knowledge is more up to date or at least equal
+			if ((gubKnowledgeValue[*pbPublOL - OLDEST_HEARD_VALUE][*pbPersOL - OLDEST_HEARD_VALUE] > 0) || (*pbPersOL == *pbPublOL))
+				bMostRecentOpplistValue = *pbPersOL;		// use personal
+			else
+				bMostRecentOpplistValue = *pbPublOL;		// use public
+		}
+
+		iPercent = ThreatPercent[bMostRecentOpplistValue - OLDEST_HEARD_VALUE];
+
+		sOppThreatValue = (iPercent * CalcManThreatValue(pOpponent,pSoldier->sGridNo,FALSE,pSoldier)) / 100;
+
+		//sprintf(tempstr,"Known opponent %s, opplist status %d, percent %d, threat = %d",
+		//			ExtMen[pOpponent->ubID].name,ubMostRecentOpplistValue,ubPercent,sOppThreatValue);
+		//PopMessage(tempstr);
+
+		// ADD this to their running total threatValue (decreases my MORALE)
+		iTheirTotalThreat += sOppThreatValue;
+		//NumMessage("Their TOTAL threat now = ",sTheirTotalThreat);
+
+		// NOW THE FUN PART: SINCE THIS OPPONENT IS KNOWN TO ME IN SOME WAY,
+		// ANY FRIENDS OF MINE THAT KNOW ABOUT HIM BOOST MY MORALE.	SO, LET'S GO
+		// THROUGH THEIR PERSONAL OPPLISTS AND CHECK WHICH OF MY FRIENDS KNOW
+		// SOMETHING ABOUT HIM AND WHAT THEIR THREAT VALUE TO HIM IS.
+
+		for (uiLoop2 = 0; uiLoop2 < guiNumMercSlots; uiLoop2++)
+		{
+			pFriend = MercSlots[ uiLoop2 ];
+
+			// if this merc is inactive, at base, on assignment, dead, unconscious
+			if (!pFriend || (pFriend->stats.bLife < OKLIFE))
+				continue;		// next merc
+
+			// if this merc is not on my side, then he's NOT one of my friends
+
+			// WE CAN'T AFFORD TO CONSIDER THE ENEMY OF MY ENEMY MY FRIEND, HERE!
+			// ONLY IF WE ARE ACTUALLY OFFICIALLY CO-OPERATING TOGETHER (SAME SIDE)
+			if ( pFriend->aiData.bNeutral && !( pSoldier->ubCivilianGroup != NON_CIV_GROUP && pSoldier->ubCivilianGroup == pFriend->ubCivilianGroup ) )
+			{
+				continue;		// next merc
+			}
+
+			if ( pSoldier->bSide != pFriend->bSide )
+				continue;		// next merc
+
+			// THIS TEST IS INVALID IF A COMPUTER-TEAM IS PLAYING CO-OPERATIVELY
+			// WITH A NON-COMPUTER TEAM SINCE THE OPPLISTS INVOLVED ARE NOT
+			// UP-TO-DATE.	THIS SITUATION IS CURRENTLY NOT POSSIBLE IN HTH/DG.
+
+			// ALSO NOTE THAT WE COUNT US AS OUR (BEST) FRIEND FOR THESE CALCULATIONS
+
+			// subtract HEARD_2_TURNS_AGO (which is negative) to make values start at 0 and
+			// be positive otherwise
+			iPercent = ThreatPercent[pFriend->aiData.bOppList[pOpponent->ubID] - OLDEST_HEARD_VALUE];
+
+			// reduce the percentage value based on how far away they are from the enemy, if they only hear him
+			if ( pFriend->aiData.bOppList[ pOpponent->ubID ] <= HEARD_LAST_TURN )
+			{
+				iPercent -= PythSpacesAway( pSoldier->sGridNo, pFriend->sGridNo ) * 2;
+				if ( iPercent <= 0 )
+				{
+					//ignore!
+					continue;
+				}
+			}
+
+			sFrndThreatValue = (iPercent * CalcManThreatValue(pFriend,pOpponent->sGridNo,FALSE,pSoldier)) / 100;
+
+			// ADD this to our running total threatValue (increases my MORALE)
+			// We multiply by sOppThreatValue to PRO-RATE this based on opponent's
+			// threat value to ME personally.	Divide later by sum of them all.
+			iOurTotalThreat += sOppThreatValue * sFrndThreatValue;
+		}
+	}
+
+	// if they are no threat whatsoever
+	if (!iTheirTotalThreat)
+		sMorale = 500;		// our morale is just incredible
+	else
+	{
+		// now divide sOutTotalThreat by sTheirTotalThreat to get the REAL value
+		iOurTotalThreat /= iTheirTotalThreat;
+
+		// calculate the morale (100 is even, < 100 is us losing, > 100 is good)
+		sMorale = (INT16) ((100 * iOurTotalThreat) / iTheirTotalThreat);
+	}
+
+	if (sMorale <= 25)				// odds 1:4 or worse
+		bMoraleCategory = MORALE_HOPELESS;
+	else if (sMorale <= 50)		 // odds between 1:4 and 1:2
+		bMoraleCategory = MORALE_WORRIED;
+	else if (sMorale <= 150)		// odds between 1:2 and 3:2
+		bMoraleCategory = MORALE_NORMAL;
+	else if (sMorale <= 300)		// odds between 3:2 and 3:1
+		bMoraleCategory = MORALE_CONFIDENT;
+	else							// odds better than 3:1
+		bMoraleCategory = MORALE_FEARLESS;
+
+	switch (pSoldier->aiData.bAttitude)
+	{
+	case DEFENSIVE:	bMoraleCategory--; break;
+	case BRAVESOLO:	bMoraleCategory += 2; break;
+	case BRAVEAID:	bMoraleCategory += 2; break;
+	case CUNNINGSOLO:	break;
+	case CUNNINGAID:	 break;
+	case AGGRESSIVE:	bMoraleCategory++; break;
+	}
+
+	// sevenfm: new calculation
+
+	// make idiot administrators more aggressive
+	if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
+	{
+		bMoraleCategory += 2;
+	}
+
+	// if have good health
+	if( pSoldier->stats.bLife > 3*pSoldier->stats.bLifeMax/4 )
+	{
+		bMoraleCategory++;
+	}
+	// bad health/breath
+	if( pSoldier->stats.bLife < pSoldier->stats.bLifeMax/2 )
+	{
+		bMoraleCategory--;
+	}
+	if( pSoldier->bBreath < pSoldier->bBreathMax/2 )
+	{
+		bMoraleCategory--;
+	}
+
+	// if not under fire - attack
+	if( !pSoldier->aiData.bUnderFire )
+		bMoraleCategory++;
+
+	// if last attack of this soldier hit enemy - increase morale
+	if( pSoldier->aiData.bLastAttackHit )
+	{
+		bMoraleCategory++;
+	}
+
+	// sevenfm: wait for flanking soldiers, if had contact with enemy recently and not overcrowded here
+	if( GuySawEnemyThisTurnOrBefore(pSoldier) )
+		//CountNearbyFriendlies(pSoldier, pSoldier->sGridNo, 5) < 3 )
+	{
+		// count friends that flank around the same spot
+		bMoraleCategory -= CountFriendsFlankSeek( pSoldier );
+
+		// check (mobile) friends nearby that had no contact with enemy recently
+		if( AICheckFriendsNoContact(pSoldier) )
+		{
+			bMoraleCategory--;
+		}
+	}
+
+	// if some friend hit enemy - increase morale
+	if( CountNearbyFriendliesLastAttackHit(pSoldier, pSoldier->sGridNo, MaxNormalVisionDistance() / 2) > 0 )
+	{
+		bMoraleCategory++;
+	}
+
+	// limit morale for wounded/low breath soldiers
+	if (pSoldier->bBreath < pSoldier->bBreathMax/2 || 
+		pSoldier->stats.bLife < pSoldier->stats.bLifeMax/2)
+	{
+		bMoraleCategory = __min( bMoraleCategory, MORALE_CONFIDENT );	
+	}	
+
+	INT8 bMaxMoraleCategory;
+	// sevenfm: limit morale depending on orders - snipers, stationary and guards should not charge enemy
+	switch (pSoldier->aiData.bOrders)
+	{
+	case STATIONARY:
+	case ONGUARD:
+	case SNIPER:
+		bMaxMoraleCategory = MORALE_CONFIDENT;	
+		break;
+	default:
+		bMaxMoraleCategory = MORALE_FEARLESS;
+	}
+
+	// limit AI morale depending on morale and suppression shock
+	if( pSoldier->aiData.bShock )
+	{
+		bMaxMoraleCategory = __min(bMaxMoraleCategory, (20 + pSoldier->aiData.bMorale - 20*__min(3, pSoldier->aiData.bShock/5)) / 20);
+	}
+
+	// apply max limit
+	bMoraleCategory = __min( bMoraleCategory, bMaxMoraleCategory );
+
+	// sevenfm: no less than MORALE_WORRIED category if we can fight
+	if( pSoldier->stats.bLife > pSoldier->stats.bLifeMax/2 &&
+		pSoldier->bBreath > pSoldier->bBreathMax/4 )
+	{
+		bMoraleCategory = __max( bMoraleCategory, MORALE_WORRIED );
+	}	
+
+	// if adjustments made it outside the allowed limits
+	if (bMoraleCategory < MORALE_HOPELESS)
+		bMoraleCategory = MORALE_HOPELESS;
+	else if (bMoraleCategory > MORALE_FEARLESS)
+		bMoraleCategory = MORALE_FEARLESS;
+
+	return(bMoraleCategory);
+}
+
+UINT8 CountNearbyFriendliesLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubFriendCount = 0;
+
+	// safety check
+	if( !pSoldier )
+		return 0;
+
+	// Run through each friendly.
+	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	{
+		pFriend = MercPtrs[ iCounter ];
+
+		if (pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			pFriend->aiData.bOrders > ONGUARD &&
+			pFriend->aiData.bOrders != SNIPER &&
+			PythSpacesAway( sGridNo, pFriend->sGridNo ) <= ubDistance &&
+			pFriend->aiData.bLastAttackHit )
+		{
+			ubFriendCount++;
+		}
+	}
+
+	return ubFriendCount;
+}
+
+UINT8 CountFriendsFlankSeek( SOLDIERTYPE *pSoldier )
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubFriendCount = 0;
+
+	UINT8 ubFlankLeft = 0;
+	UINT8 ubFlankRight = 0;
+
+	// safety check
+	if( !pSoldier ) return 0;
+
+	UINT8 ubMaxDist = MaxNormalVisionDistance() / 2;
+	UINT8 ubNearbyFriendsContact = CountNearbyFriendliesContact(pSoldier, pSoldier->sGridNo, ubMaxDist);
+	INT32 sClosestOpponent = ClosestKnownOpponent( pSoldier, NULL, NULL );
+
+	if(TileIsOutOfBounds(sClosestOpponent))
+	{
+		return 0;
+	}
+
+	// Run through each friendly.
+	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	{
+		pFriend = MercPtrs[ iCounter ];
+
+		if (pFriend != pSoldier && 
+			pFriend->bActive && 
+			pFriend->stats.bLife >= OKLIFE &&
+			pFriend->aiData.bAlertStatus == STATUS_RED &&
+			pFriend->aiData.bOrders > ONGUARD &&
+			pFriend->aiData.bOrders != SNIPER )
+		{
+			// check if this friend flanks around the same spot
+			if( pFriend->numFlanks > 0 && pFriend->numFlanks < MAX_FLANKS_RED &&
+				PythSpacesAway(pFriend->lastFlankSpot, sClosestOpponent) < ubMaxDist )
+			{
+				if( pFriend->flags.lastFlankLeft )
+				{
+					ubFlankLeft++;
+				}
+				else
+				{
+					ubFlankRight++;
+				}
+			}
+		}
+	}
+
+	if(ubFlankLeft > 0 && ubFlankLeft >= ubNearbyFriendsContact/2)
+	{
+		ubFriendCount++;
+	}
+	if(ubFlankRight > 0 && ubFlankRight >= ubNearbyFriendsContact/2)
+	{
+		ubFriendCount++;
+	}
+
+	return ubFriendCount;
+}
+
+// sevenfm: count nearby friend soldiers - only soldiers who had contact with enemy recently
+UINT8 CountNearbyFriendliesContact( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubFriendCount = 0;
+
+	// safety check
+	if( !pSoldier )	return 0;
+
+	// Run through each friendly.
+	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	{
+		pFriend = MercPtrs[ iCounter ];
+		// Make sure that character is alive, not too shocked, and conscious, and of higher experience level
+		// than the character being suppressed.
+		if (pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			pFriend->aiData.bOrders > ONGUARD &&
+			pFriend->aiData.bOrders != SNIPER &&
+			PythSpacesAway( sGridNo, pFriend->sGridNo ) <= ubDistance &&
+			GuySawEnemyThisTurnOrBefore(pFriend) )
+		{
+			ubFriendCount++;
+		}
+	}
+
+	return ubFriendCount;
+}
+
+// sevenfm: count nearby friend soldiers - only soldiers who had no contact with enemy recently
+UINT8 CountNearbyFriendliesNoContact( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubFriendCount = 0;
+
+	// safety check
+	if( !pSoldier )	return 0;
+
+	// Run through each friendly.
+	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	{
+		pFriend = MercPtrs[ iCounter ];
+		// Make sure that character is alive, not too shocked, and conscious, and of higher experience level
+		// than the character being suppressed.
+		if (pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			pFriend->aiData.bOrders > ONGUARD &&
+			pFriend->aiData.bOrders != SNIPER &&
+			PythSpacesAway( sGridNo, pFriend->sGridNo ) <= ubDistance &&
+			!GuySawEnemyThisTurnOrBefore(pFriend) )
+		{
+			ubFriendCount++;
+		}
+	}
+
+	return ubFriendCount;
+}
+
+BOOLEAN AICheckFriendsNoContact( SOLDIERTYPE *pSoldier )
+{
+	UINT8 ubMaxDist = MaxNormalVisionDistance() / 2;
+	UINT8 ubNearbyFriendsContact = CountNearbyFriendliesContact(pSoldier, pSoldier->sGridNo, ubMaxDist);
+	UINT8 ubNearbyFriendsNoContact = CountNearbyFriendliesNoContact(pSoldier, pSoldier->sGridNo, ubMaxDist);		
+
+	if( ubNearbyFriendsNoContact > ubNearbyFriendsContact )
+	{
+		return TRUE;
+	}
+	return FALSE;
 }

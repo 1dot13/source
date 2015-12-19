@@ -29,6 +29,7 @@
 	#include "Buildings.h"
 	#include "GameSettings.h"
 	#include "Soldier Profile.h"
+	#include "rotting corpses.h"	// sevenfm
 #endif
 
 
@@ -567,6 +568,11 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	UINT8	ubLightPercentDifference;
 	BOOLEAN		fNight;
 
+	// sevenfm
+	UINT8 ubNearbyFriends;
+	BOOLEAN fProneCover;
+	UINT8 ubDiff = SoldierDifficultyLevel( pSoldier );
+
 	// There's no cover when boxing!
 	if (gTacticalStatus.bBoxingState == BOXING)
 	{
@@ -627,7 +633,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		case CUNNINGAID:	iSearchRange += 4; break;
 		case AGGRESSIVE:	iSearchRange -= 2; break;
 	}*/
-
 
 	// maximum search range is 1 tile / 8 pts of wisdom
 	if (iSearchRange > (pSoldier->stats.bWisdom / 8))
@@ -787,6 +792,9 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	iCurrentCoverValue = 0;
 	iCurrentScale = 0;
 
+	// sevenfm: sight cover
+	fProneCover = TRUE;
+
 	// for every opponent that threatens, consider this spot's cover vs. him
 	for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
 	{
@@ -796,6 +804,14 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			// add this opponent's cover value to our current total cover value
 			iCurrentCoverValue += CalcCoverValue(pSoldier,pSoldier->sGridNo,iMyThreatValue,pSoldier->bActionPoints,uiLoop,Threat[uiLoop].iOrigRange,morale,&iCurrentScale);
 		}
+		// sevenfm: sight test
+		if( gGameExternalOptions.fAIBetterCover )
+		{
+			if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, pSoldier->sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
+			{
+				fProneCover = FALSE;
+			}
+		}		
 		//sprintf(tempstr,"iCurrentCoverValue after opponent %d is now %d",iLoop,iCurrentCoverValue);
 		//PopMessage(tempstr);
 	}
@@ -811,6 +827,28 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		// when negative, must add a negative to decrease the total
 		iCurrentCoverValue += (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
 	}
+
+	if( gGameExternalOptions.fAIBetterCover )
+	{
+		// sevenfm: when defending (range change <= 3), prefer locations with sight cover
+		if( RangeChangeDesire(pSoldier) < 4 )
+		{
+			if( fProneCover )
+			{
+				iCurrentCoverValue += abs(iCurrentCoverValue) / __max(2, 2*RangeChangeDesire(pSoldier));
+			}
+		}
+
+		// sevenfm: check for nearby friends, add bonus/penalty
+		ubNearbyFriends = __min(5, CountNearbyFriendlies( pSoldier, pSoldier->sGridNo, 5 ));
+		iCurrentCoverValue -= ubNearbyFriends * abs(iCurrentCoverValue) / (10-ubDiff);
+
+		// sevenfm: penalize locations with fresh corpses
+		if(GetNearestRottingCorpseAIWarning( pSoldier->sGridNo ) > 0)
+		{
+			iCurrentCoverValue -= abs(iCurrentCoverValue) / (8-ubDiff);
+		}
+	}	
 
 #ifdef DEBUGCOVER
 //	AINumMessage("Search Range = ",iSearchRange);
@@ -976,6 +1014,9 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			iCoverValue = 0;
 			iCoverScale = 0;
 
+			// sevenfm: check sight cover
+			fProneCover = TRUE;
+
 			// for every opponent that threatens, consider this spot's cover vs. him
 			for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
 			{
@@ -987,6 +1028,15 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 					iCoverValue += CalcCoverValue(pSoldier,sGridNo,iMyThreatValue,
 						(pSoldier->bActionPoints - iPathCost),
 						uiLoop,iThreatRange,morale,&iCoverScale);
+				}
+
+				// sevenfm: sight test
+				if( gGameExternalOptions.fAIBetterCover )
+				{
+					if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
+					{
+						fProneCover = FALSE;
+					}
 				}
 
 				//sprintf(tempstr,"iCoverValue after opponent %d is now %d",iLoop,iCoverValue);
@@ -1004,6 +1054,26 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				// when negative, must add a negative to decrease the total
 				iCoverValue += (iCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, sGridNo );
 			}
+
+			if( gGameExternalOptions.fAIBetterCover )
+			{
+				// sevenfm: when defending (range change <= 3), prefer locations with sight cover
+				if( RangeChangeDesire(pSoldier) < 4 )
+				{
+					if( fProneCover )
+						iCoverValue += abs(iCoverValue) / __max(2, 2*RangeChangeDesire(pSoldier));
+				}
+
+				// sevenfm: check for nearby friends in 10 radius, add bonus/penalty 10%
+				ubNearbyFriends = __min(5, CountNearbyFriendlies( pSoldier, sGridNo, 5 ));
+				iCoverValue -= ubNearbyFriends * abs(iCoverValue) / (10-ubDiff);
+
+				// sevenfm: penalize locations with fresh corpses
+				if(GetNearestRottingCorpseAIWarning( sGridNo ) > 0)
+				{
+					iCoverValue -= abs(iCoverValue) / (8-ubDiff);
+				}
+			}			
 
 			if ( fNight && !( InARoom( sGridNo, NULL ) ) ) // ignore in buildings in case placed there
 			{
@@ -2545,11 +2615,16 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 				continue;
 			}
 
-			// sevenfm: skip water tiles
-			if( Water( sGridNo ) )
+			// sevenfm: allow water flanking only for CUNNINGSOLO soldiers
+			if( Water( sGridNo ) && pSoldier->aiData.bAttitude != CUNNINGSOLO )
 			{
 				continue;
-				//sTempDist = sTempDist/2;
+			}
+
+			// sevenfm: penalize locations near fresh corpses
+			if( GetNearestRottingCorpseAIWarning( sGridNo ) > 0 )
+			{
+				sTempDist = sTempDist / 2;
 			}
 
 			// sevenfm: skip buildings if not in building already, because soldiers often run into buildings and stop flanking
@@ -2568,6 +2643,11 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 
 			// sevenfm: penalize locations too far from noise gridno
 			if( PythSpacesAway( sGridNo, sPos) > MAX_FLANK_DIST_RED )
+			{
+				sTempDist = sTempDist / 2;
+			}
+			// sevenfm: try to flank closer to vision distance limit for faster flanking
+			if( PythSpacesAway( sGridNo, sPos) > sDistanceVisible + 10 )
 			{
 				sTempDist = sTempDist / 2;
 			}

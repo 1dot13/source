@@ -36,6 +36,7 @@
 #include "connect.h"
 #include "Text.h"
 #include "Exit Grids.h"		// added by Flugente
+#include "Game Clock.h"		// sevenfm
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
@@ -56,16 +57,6 @@ UINT32 guiRedSeekCounter = 0, guiRedHelpCounter = 0; guiRedHideCounter = 0;
 #endif
 
 #define CENTER_OF_RING 11237//dnl!!!
-
-// sevenfm: moved to ai.h
-/*#define MAX_FLANKS_RED 15
-#define MAX_FLANKS_YELLOW 25
-
-#define MIN_FLANK_DIST_YELLOW 10 * STRAIGHT_RATIO
-#define MAX_FLANK_DIST_YELLOW 50 * STRAIGHT_RATIO
-
-#define MIN_FLANK_DIST_RED 10 * STRAIGHT_RATIO
-#define MAX_FLANK_DIST_RED 40 * STRAIGHT_RATIO*/
 
 #ifdef ENABLE_ZOMBIES
 	INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier);
@@ -2101,8 +2092,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					// STATIONARY/ONGUARD/CLOSEPATROL/SNIPER should not flank
 					if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ) &&
 						CountFriendsInDirection( pSoldier, sNoiseGridNo ) > 0 &&
-						pSoldier->aiData.bOrders > CLOSEPATROL &&
-						pSoldier->aiData.bOrders != SNIPER )
+						( pSoldier->aiData.bOrders == SEEKENEMY ||
+						pSoldier->aiData.bOrders == FARPATROL ||
+						pSoldier->aiData.bOrders == CLOSEPATROL && NightTime() ) )
 					{
 						INT8 action = AI_ACTION_SEEK_NOISE;
 						INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sNoiseGridNo );
@@ -2842,11 +2834,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				pSoldier->usAISkillUse = SKILLS_RADIO_JAM;
 				pSoldier->aiData.usActionData = skilltargetgridno;
 				return(AI_ACTION_USE_SKILL);
-			}		
+			}
 		}
     }	
-		//RELOADING
 
+		//RELOADING
 		// WarmSteel - Because of suppression fire, we need enough ammo to even consider suppressing
 		// This means we need to reload. Also reload if we're just plainly low on bullets.
 		if(BestShot.bWeaponIn != NO_SLOT
@@ -2868,8 +2860,18 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 
 		//SUPPRESSION FIRE
-
 		CheckIfShotPossible(pSoldier,&BestShot,TRUE); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
+
+		// sevenfm: check that we have a clip to reload
+		BOOLEAN fExtraClip = FALSE;
+		if(BestShot.bWeaponIn != NO_SLOT)
+		{
+			INT8 bAmmoSlot = FindAmmoToReload( pSoldier, BestShot.bWeaponIn, NO_SLOT );
+			if (bAmmoSlot != NO_SLOT)
+			{
+				fExtraClip = TRUE;
+			}
+		}
 
 		//must have a small chance to hit and the opponent must be on the ground (can't suppress guys on the roof)
 		// HEADROCK HAM BETA2.4: Adjusted this for a random chance to suppress regardless of chance. This augments
@@ -2883,7 +2885,16 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				&& pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo 
 				&& BestShot.ubChanceToReallyHit < (INT16)(PreRandom(100) - 50)  
 				&& Menptr[BestShot.ubOpponent].pathing.bLevel == 0 
-				&& pSoldier->aiData.bOrders != SNIPER )
+				&& pSoldier->aiData.bOrders != SNIPER &&
+				// sevenfm: check that we'll not shoot at our friends
+				CheckSuppressionDirection( pSoldier, Menptr[BestShot.ubOpponent].sGridNo ) &&
+				// sevenfm: don't suppress if target already cowering
+				!CoweringShockLevel(MercPtrs[BestShot.ubOpponent]) &&
+				// sevenfm: don't suppress when flanking
+				(pSoldier->numFlanks == 0 || pSoldier->numFlanks > MAX_FLANKS_RED) &&
+				// sevenfm: don't suppress if we don't have extra clip to reload
+				fExtraClip				
+				)
 		{
 			// then do it!
 
@@ -3375,7 +3386,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 				// sevenfm: stop flanking if no friend between me and noise gridno
 				if ( (currDir - origDir) >= 4 ||
-					CountFriendsInDirection( pSoldier, tempGridNo ) == 0 )
+					CountFriendsInDirection( pSoldier, tempGridNo ) == 0 ||
+					(pSoldier->aiData.bOrders != CUNNINGSOLO &&
+					(currDir - origDir) >= 2 &&
+					CountFriendsInDirection( pSoldier, tempGridNo ) < 2) )
 				{
 					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
@@ -3396,7 +3410,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 				// sevenfm: stop flanking if no friend between me and noise gridno
 				if ( (origDir - currDir) >= 4 ||
-					CountFriendsInDirection( pSoldier, tempGridNo ) == 0 )
+					CountFriendsInDirection( pSoldier, tempGridNo ) == 0 ||
+					(pSoldier->aiData.bOrders != CUNNINGSOLO && 
+					(origDir - currDir) >= 2 &&
+					CountFriendsInDirection( pSoldier, tempGridNo ) < 2) )
 				{
 					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
@@ -3411,7 +3428,70 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				}
 			}
 		}
+		// sevenfm: when we finished flanking, try to reach lastFlankSpot position
+		// seek until we are close (DistanceVisible/2) and have line of sight to lastFlankSpot position
+		// don't seek if we have seen enemy recently or under fire or have shock
+		// don't seek if we have low AP (tired, wounded)
 		if ( pSoldier->numFlanks == MAX_FLANKS_RED )
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: stop flanking");
+
+			if( !TileIsOutOfBounds(tempGridNo) &&
+				!GuySawEnemyThisTurnOrBefore(pSoldier) &&
+				!pSoldier->aiData.bUnderFire &&
+				!Water(pSoldier->sGridNo) &&
+				pSoldier->bInitialActionPoints >= APBPConstants[AP_MINIMUM] &&
+				( PythSpacesAway( pSoldier->sGridNo, tempGridNo ) > MIN_FLANK_DIST_RED ||
+				!LocationToLocationLineOfSightTest( pSoldier->sGridNo, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) ) )
+			{
+				// wait for next turn if not enough AP
+				if( gfTurnBasedAI && pSoldier->bActionPoints < pSoldier->bInitialActionPoints/2 )
+				{
+					return(AI_ACTION_END_TURN);
+				}
+
+				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,tempGridNo,GetAPsCrouch( pSoldier, TRUE),AI_ACTION_SEEK_OPPONENT,0);
+
+				// sevenfm: avoid going into water, gas or light
+				if( !TileIsOutOfBounds(pSoldier->aiData.usActionData) &&
+					!Water(pSoldier->aiData.usActionData) &&
+					!InGas( pSoldier, pSoldier->aiData.usActionData ) &&
+					!InLightAtNight( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel ) )
+				{
+					// if soldier can be seen at new position and he cannot be seen at his current position
+					if ( LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) &&
+						!LocationToLocationLineOfSightTest( pSoldier->sGridNo, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) )
+					{
+						// reserve APs for a possible crouch plus a shot
+						INT32 sCautiousGridNo = InternalGoAsFarAsPossibleTowards(pSoldier, tempGridNo, (INT8) (MinAPsToAttack( pSoldier, tempGridNo, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE) + GetAPsToLook(pSoldier)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+						
+						if (!TileIsOutOfBounds(sCautiousGridNo))
+						{
+							pSoldier->aiData.usActionData = sCautiousGridNo;
+							pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
+							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+							return(AI_ACTION_SEEK_OPPONENT);
+						}
+						return(AI_ACTION_SEEK_OPPONENT);
+					}
+					else
+					{
+						return(AI_ACTION_SEEK_OPPONENT);
+					}
+				}
+				else
+				{
+					// if we cannot advance to spot, stop trying
+					pSoldier->numFlanks++;
+				}
+			}
+			else
+			{	
+				// stop
+				pSoldier->numFlanks++;
+			}
+		}
+		/*if ( pSoldier->numFlanks == MAX_FLANKS_RED )
 		{
 			pSoldier->numFlanks += 1;
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: stop flanking");
@@ -3441,8 +3521,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				pSoldier->aiData.usActionData = FindBestNearbyCover(pSoldier,pSoldier->aiData.bAIMorale,&iDummy);
 				return AI_ACTION_TAKE_COVER ;
 			}
-		}
-
+		}*/
 
 		// if we can move at least 1 square's worth
 		// and have more APs than we want to reserve
@@ -3537,7 +3616,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					guiRedSeekCounter++;
 #endif
 					// if there is an opponent reachable					
-					if (!TileIsOutOfBounds(sClosestDisturbance) && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
+					// sevenfm: allow seeking in prone stance if we haven't seen enemy for several turns
+					if (!TileIsOutOfBounds(sClosestDisturbance) &&
+						( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE || !GuySawEnemyThisTurnOrBefore(pSoldier) ) )
 					{
 						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: seek opponent");
 						//////////////////////////////////////////////////////////////////////
@@ -3613,15 +3694,26 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 							//	return( AI_ACTION_CLIMB_ROOF );
 							//}
 
+							// allow flanking for extra soldiers at night or when overcrowded or no flanking friends yet
+							BOOLEAN fAllowExtraFlanking = FALSE;
+							if( NightTime() ||
+								CountNearbyFriendlies(pSoldier, pSoldier->sGridNo, 5) > 2 ||
+								CountFriendsFlankSeek(pSoldier) < CountFriendsInDirection( pSoldier, sClosestDisturbance ) )
+							{
+								fAllowExtraFlanking = TRUE;
+							}
+							
 							// possibly start RED flanking
-							// sevenfm: only CUNNINGAID and CUNNINGSOLO should flank
-							// check that there are friends between me and noise gridno
-							// STATIONARY\ONGUARD\CLOSEPATROL\SNIPER should not flank
-							if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ) &&
+							if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ||
+								( pSoldier->aiData.bAttitude == BRAVESOLO || pSoldier->aiData.bAttitude == BRAVEAID ) && fAllowExtraFlanking && gGameExternalOptions.fAIExtraFlanking ) &&
 								gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE &&
-								CountFriendsInDirection( pSoldier, sClosestDisturbance ) > 0 &&
-								pSoldier->aiData.bOrders > CLOSEPATROL &&
-								pSoldier->aiData.bOrders != SNIPER )
+								CountFriendsInDirection( pSoldier, sClosestDisturbance ) > 1 &&
+								!pSoldier->aiData.bUnderFire &&
+								!GuySawEnemyThisTurnOrBefore( pSoldier ) &&
+								pSoldier->bActionPoints >= APBPConstants[AP_MINIMUM] &&
+								( pSoldier->aiData.bOrders == SEEKENEMY ||
+								pSoldier->aiData.bOrders == FARPATROL ||
+								pSoldier->aiData.bOrders == CLOSEPATROL && fAllowExtraFlanking ) )
 							{
 								INT8 action = AI_ACTION_SEEK_OPPONENT;
 								INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sClosestDisturbance );
@@ -4786,7 +4878,7 @@ INT16 ubMinAPCost;
 			pSoldier->usAISkillUse = SKILLS_RADIO_JAM;
 			pSoldier->aiData.usActionData = skilltargetgridno;
 			return(AI_ACTION_USE_SKILL);
-		}		
+		}
 	}
 
 	// VIPs run away (but not the GENERAL)
@@ -5162,7 +5254,7 @@ INT16 ubMinAPCost;
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"about to rearrange pocket after punch check");
 					RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
-				}		
+				}
 			}
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -7749,7 +7841,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 
 						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't help");
 						bHelpPts = -99;
-					}				
+					}
 				}
 			}
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: nothing to do!");
@@ -7806,7 +7898,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 	#endif					
 						return(AI_ACTION_CHANGE_FACING);
 					}
-				}			
+				}
 			}
 		}
 
@@ -8180,7 +8272,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 					{
 						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"about to rearrange pocket after punch check");
 						RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
-					}		
+					}
 				}
 			}
 			/////////////////////////////////////////////////////////////////////////////////////////////////////

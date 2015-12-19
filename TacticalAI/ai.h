@@ -276,6 +276,15 @@ UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTe
 INT16 MaxNormalVisionDistance( void );
 UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 BOOLEAN GuySawEnemyThisTurnOrBefore( SOLDIERTYPE * pSoldier );
+BOOLEAN CheckSuppressionDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
+UINT8 CountNearbyFriendlies( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
+UINT8 CountNearbyFriendliesLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
+UINT8 CountFriendsFlankSeek( SOLDIERTYPE *pSoldier );
+UINT8 CountNearbyFriendliesContact( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
+UINT8 CountNearbyFriendliesNoContact( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
+BOOLEAN AICheckFriendsNoContact( SOLDIERTYPE *pSoldier );
+
+INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier);
 
 // moved from DecideAction.cpp
 // sevenfm: set MAX_FLANKS_RED and MAX_FLANKS_YELLOW to equal values to avoid problems when soldier's alert state changes
@@ -283,15 +292,11 @@ BOOLEAN GuySawEnemyThisTurnOrBefore( SOLDIERTYPE * pSoldier );
 #define MAX_FLANKS_YELLOW 25
 
 // limit min/max flank distance depending on sight range and time of day
-//#define MIN_FLANK_DIST_YELLOW 10 * STRAIGHT_RATIO
-//#define MAX_FLANK_DIST_YELLOW 50 * STRAIGHT_RATIO
-#define MIN_FLANK_DIST_YELLOW (2*MaxNormalVisionDistance()/3)
+#define MIN_FLANK_DIST_YELLOW (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO)
 #define MAX_FLANK_DIST_YELLOW (MaxNormalVisionDistance() + 20)
 
 // limit min/max flank distance depending on sight range and time of day
-//#define MIN_FLANK_DIST_RED 10 * STRAIGHT_RATIO
-//#define MAX_FLANK_DIST_RED 40 * STRAIGHT_RATIO
-#define MIN_FLANK_DIST_RED (2*MaxNormalVisionDistance()/3)
+#define MIN_FLANK_DIST_RED (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO)
 #define MAX_FLANK_DIST_RED (MaxNormalVisionDistance() + 20)
 
 #endif

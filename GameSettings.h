@@ -764,6 +764,10 @@ typedef struct
 	BOOLEAN	bAllowSpecialExplosiveAttachments;
 	INT16 iChanceSayAnnoyingPhrase;
 	BOOLEAN	bNewTacticalAIBehavior;
+	BOOLEAN fAIExtraSuppression;
+	BOOLEAN fAINewMorale;
+	BOOLEAN fAIBetterCover;
+	BOOLEAN fAIExtraFlanking;
 	FLOAT uShotHeadPenalty;
 	FLOAT fShotHeadMultiplier;
 	INT16 iPenaltyShootUnSeen;

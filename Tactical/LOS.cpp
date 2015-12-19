@@ -1804,7 +1804,10 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 												gLOSTestResults.ubTreeSpotsHit++;
 												gLOSTestResults.iMaxDistance = iSightLimit;
 #endif
-												if (iDistance > iAdjSightLimit && !cthCalc)
+												// sevenfm: don't stop on trees if testing with no sight limit
+												if (iDistance > iAdjSightLimit && 
+													!cthCalc &&
+													iTileSightLimit < 255)
 												{
 													// out of visual range
 #ifdef LOS_DEBUG

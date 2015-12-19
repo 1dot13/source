@@ -7501,9 +7501,9 @@ INT8 FindUnusedWatchedLoc( UINT8 ubID )
 	for ( bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++ )
 	{
 		// WANNE: I think this was a bug, should be != NOWHERE!
-		//if ( gsWatchedLoc[ ubID ][ bLoop ] == NOWHERE )
-
-		if (!TileIsOutOfBounds(gsWatchedLoc[ ubID ][ bLoop ]))
+		// sevenfm: the original code is ok, as we search for unused WatchedLoc which is initialized with NOWHERE value
+		if ( gsWatchedLoc[ ubID ][ bLoop ] == NOWHERE )
+		//if (!TileIsOutOfBounds(gsWatchedLoc[ ubID ][ bLoop ]))
 		{
 			return( bLoop );
 		}
