@@ -4770,25 +4770,28 @@ void ResetMovementForNonPlayerGroup( GROUP *pGroup )
 			{
 				if ( pGroup->ubSectorX == pOtherGroup->ubSectorX && pGroup->ubSectorY == pOtherGroup->ubSectorY )
 				{
-					MoveSAIGroupToSector( &pGroup, (UINT8)SECTOR( pOtherGroup->ubNextX, pOtherGroup->ubNextY ), DIRECT, PURSUIT );
-
-					// the group has to be delayed - otherwise they could arrive at the same time as the player, resulting in odd behaviour during insertion
-					if ( pGroup->uiArrivalTime < min( pGroup->uiArrivalTime, pOtherGroup->uiArrivalTime ) + 5 )
+					if (pGroup != NULL)
 					{
-						DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->ubGroupID );
+						MoveSAIGroupToSector( &pGroup, (UINT8)SECTOR( pOtherGroup->ubNextX, pOtherGroup->ubNextY ), DIRECT, PURSUIT );
 
-						// NOTE: This can cause the arrival time to be > GetWorldTotalMin() + TraverseTime, so keep that in mind
-						// if you have any code that uses these 3 values to figure out how far along its route a group is!
-						SetGroupArrivalTime( pGroup, pOtherGroup->uiArrivalTime + 5 );
-
-						if ( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
+						// the group has to be delayed - otherwise they could arrive at the same time as the player, resulting in odd behaviour during insertion
+						if (pGroup != NULL && pGroup->uiArrivalTime < min( pGroup->uiArrivalTime, pOtherGroup->uiArrivalTime ) + 5 )
 						{
-							AssertMsg( 0, "Failed to add movement event." );
-							break;
-						}
-					}
+							DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->ubGroupID );
 
-					sucess = TRUE;
+							// NOTE: This can cause the arrival time to be > GetWorldTotalMin() + TraverseTime, so keep that in mind
+							// if you have any code that uses these 3 values to figure out how far along its route a group is!
+							SetGroupArrivalTime( pGroup, pOtherGroup->uiArrivalTime + 5 );
+
+							if ( !AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID ) )
+							{
+								AssertMsg( 0, "Failed to add movement event." );
+								break;
+							}
+						}
+
+						sucess = TRUE;
+					}
 
 					break;
 				}
