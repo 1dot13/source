@@ -274,8 +274,8 @@
 		<StrategicAiActionWakeQueen>0</StrategicAiActionWakeQueen>
 		<UpdateLastDayOfPlayerActivity>1</UpdateLastDayOfPlayerActivity>
 		<ChanceOfEnemyAmbushes>5</ChanceOfEnemyAmbushes>	
-		<AllowReinforcements>0</AllowReinforcements>
-		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
+		<AllowReinforcements>1</AllowReinforcements>
+		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
 		<PopulationLevel2>0</PopulationLevel2>
 		<PopulationLevel3>1</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
@@ -339,8 +339,8 @@
 		<StrategicAiActionWakeQueen>1</StrategicAiActionWakeQueen>
 		<UpdateLastDayOfPlayerActivity>2</UpdateLastDayOfPlayerActivity>
 		<ChanceOfEnemyAmbushes>12</ChanceOfEnemyAmbushes>
-		<AllowReinforcements>0</AllowReinforcements>	
-		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
+		<AllowReinforcements>1</AllowReinforcements>	
+		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
 		<PopulationLevel2>0</PopulationLevel2>
 		<PopulationLevel3>0</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
