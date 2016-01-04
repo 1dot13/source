@@ -13881,4 +13881,12 @@
 		<szBRName>12g Box Rubber</szBRName>
 		<szBRDesc>橡皮弹通常是防暴警察用的。他们被贴上了非致命性的标签，但这仍然是可能使人致死的。</szBRDesc>
 	</ITEM>
+  <ITEM>
+		<uiIndex>1735</uiIndex>
+		<szItemName>Anti-tank Mine</szItemName>
+		<szLongItemName>TM-62P2 anti-tank Mine</szLongItemName>
+		<szItemDesc>A soviet anti-tank mine. It can penetrate the hull of a battle tank. Might put a dent into an Icecream truck.</szItemDesc>
+		<szBRName>TM-62P2</szBRName>
+		<szBRDesc>Not even a tank is safe against these babies. The TM-62P2 uses a plastic casing, making it almost impossible to detect via metal detectors.</szBRDesc>		
+	</ITEM>
 </ITEMLIST>

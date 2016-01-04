@@ -245,4 +245,9 @@
 		<AmmoCaliber>Cannon Ball</AmmoCaliber>
 		<BRCaliber>Cannon Ball</BRCaliber>
 	</AMMO>
+  <AMMO>
+		<uiIndex>49</uiIndex>
+		<AmmoCaliber>Pepper Spray</AmmoCaliber>
+		<BRCaliber>Pepper Spray</BRCaliber>
+	</AMMO>
 </AMMOLIST>

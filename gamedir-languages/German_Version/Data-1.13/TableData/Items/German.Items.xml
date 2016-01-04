@@ -13903,4 +13903,12 @@
 		<szBRName>12g Box Rubber</szBRName>
 		<szBRDesc>Rubber slugs are often used by riot police. They are labelled non-lethal, but killing someone with this is still possible.</szBRDesc>
 	</ITEM>
+  <ITEM>
+		<uiIndex>1735</uiIndex>
+		<szItemName>Anti-tank Mine</szItemName>
+		<szLongItemName>TM-62P2 anti-tank Mine</szLongItemName>
+		<szItemDesc>A soviet anti-tank mine. It can penetrate the hull of a battle tank. Might put a dent into an Icecream truck.</szItemDesc>
+		<szBRName>TM-62P2</szBRName>
+		<szBRDesc>Not even a tank is safe against these babies. The TM-62P2 uses a plastic casing, making it almost impossible to detect via metal detectors.</szBRDesc>		
+	</ITEM>
 </ITEMLIST>
