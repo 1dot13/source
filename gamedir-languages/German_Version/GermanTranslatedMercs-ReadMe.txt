@@ -2,34 +2,14 @@
 *Deadly Games German Translated Mercs for 1.13 - alpha*
 *********************by firebat************************
 
+Thanks to RoWa21 my progress is now available over his SVN directory.
 
 
-Requirement:
-------------
-Proper installed Jagged Alliance 2 + 1.13 (Latest Stable or SVN+german_language SVN)
-
-
-
-Pre-installation:
------------------
-
-[DO NOT FORGET TO BACKUP YOUR FILES]
-
-These Alpha-releases requires some files to be deleted. Please remove all .gap files with the prefixes listed in the Status-section down below
-from your
-\Jagged Alliance 2\Data-1.13\BattleSNDS\
-\Jagged Alliance 2\Data-1.13\Speech\
-folders.
-
-INFO:
-Each time you download and install a new version of this package, redo the above-mentioned step.
-
-
-
-Installation:
--------------
-Extract the "\Data-1.13\" directory from zip-file to your "\Jagged Alliance 2\" folder.
-Click "Yes" to overwrite files!
+Changelog:
+----------
+2016-01-04:
+-added Spam
+-updates to Rusty
 
 
 
@@ -48,29 +28,30 @@ Status:
 225 - Beth - alpha
 226 - Samuel - alpha
 227 - Hurl - alpha
-231 - Snake - alpha+AIM Phone Equalizer Test
-233 - Spike - alpha+AIM Phone Equalizer Test
+231 - Snake - alpha
+232 - Spam -alpha
+233 - Spike - alpha
 234 - Jimmy - alpha
 235 - Leech - alpha
-236 - Bob - alpha+AIM Phone Equalizer Test
-237 - Kelly - alpha+AIM Phone Equalizer Test
+236 - Bob - alpha
+237 - Kelly - alpha
 238 - Vinny - alpha
-239 - Kaboom - alpha+AIM Phone Equalizer Test <-NEW
+239 - Kaboom - alpha
 240 - Bud - alpha
-241 - Rusty - alpha+AIM Phone Equalizer Test <-NEW
+241 - Rusty - alpha
 242 - Needle - alpha
-243 - Screw - alpha <-NEW
+243 - Screw - alpha
 244 - Elroy - alpha
 245 - Mouse - alpha
-248 - Stella - alpha+AIM Phone Equalizer Test
-250 - Moses - alpha+AIM Phone Equalizer Test
+248 - Stella - alpha
+250 - Moses - alpha
 253 - Turtle - alpha
 
 
 
 Status Description:
 -------------------
-alpha = heavy changes possible
+alpha = adding mercs / heavy changes possible
 beta = small changes / corrections
 full_1.0 = done!
 patch_nr = necessary fixes / corrections
