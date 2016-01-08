@@ -7,9 +7,15 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-01-08:
+- added Boss
+- updates to Bud
+- updates to Rusty
+
+
 2016-01-04:
--added Spam
--updates to Rusty
+- added Spam
+- updates to Rusty
 
 
 
@@ -28,6 +34,7 @@ Status:
 225 - Beth - alpha
 226 - Samuel - alpha
 227 - Hurl - alpha
+230 - Boss - alpha
 231 - Snake - alpha
 232 - Spam -alpha
 233 - Spike - alpha
