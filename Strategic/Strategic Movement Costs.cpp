@@ -30,7 +30,6 @@ extern void UpdateCustomMapMovementCosts(); // ja25 UB
 extern void MakeBadSectorListFromMapsOnHardDrive( BOOLEAN fDisplayMessages ); // ja25 UB
 extern void AddCustomMap( INT32 iRow, INT32 iCol, BOOLEAN fDisplayMessages, BOOLEAN fMessageIfNotExist ); //ja25 UB
 extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
-extern BOOLEAN SectorIsImpassableUB( INT16 sSector );
 #endif
 
 typedef enum

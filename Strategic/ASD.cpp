@@ -354,6 +354,10 @@ void ASDDecideHeliOperations()
 		if ( (*it).flagmask & ENEMYHELI_ORDERS )
 			continue;
 
+		// if we dont have enough soldiers left to staff a helicopter, don't send one out
+		if ( giReinforcementPool < gEnemyHeliMaxTroops )
+			continue;
+
 		ENEMY_HELI& heli = (*it);
 
 		UINT32 totalrating = 0;
@@ -569,10 +573,8 @@ UINT8 ENEMY_HELI::SetHeliFlightPath( UINT8 aDest )
 
 void ENEMY_HELI::Destroy( )
 {
-	troopcount = 0;
 	hp = 0;
-	fuel = 0;
-
+	
 	flagmask |= ENEMYHELI_DESTROYED;
 
 	// if the player knows about this heli, play a sound and leave a message
@@ -590,16 +592,41 @@ void ENEMY_HELI::Destroy( )
 		}
 	}
 
-	// if a helicopter was shot down, remember that for the sector - we might spawn a downed pilot for the player to search!
+	// if a helicopter was shot down, there might be survivors or wreckage
 	if ( flagmask & ENEMYHELI_SHOTDOWN )
 	{
-		SECTORINFO *pSectorInfo = &(SectorInfo[sector_current]);
+		// remember that a heli crashed here. When entering the sector the next time, we might spawn a downed pilot or wreckage
+		SectorInfo[sector_current].usSectorInfoFlag |= SECTORINFO_ENEMYHELI_SHOTDOWN;
 
-		if ( pSectorInfo )
+		// if the heli had soldiers aboard, they might have survived the crash. Add them to the sector in that case
+		// don't do this in sectors that are impassable
+		if ( troopcount && !SectorIsImpassable( sector_current ) )
 		{
-			pSectorInfo->usSectorInfoFlag |= SECTORINFO_ENEMYHELI_SHOTDOWN;
+			// it is possible that we shoot down a helicopter while in a fight. In this case, adding soldiers to a sector would either cause a second battle or a state where a fight should start but doesn't
+			// both is bad, so we simply don't add soldiers in that case. The player will hardly notice, as there is only a chance that soldiers survive anyway
+			if ( !gTacticalStatus.fEnemyInSector && !(gTacticalStatus.uiFlags & INCOMBAT) )
+			{
+				// chance that they survived at all
+				if ( Chance( 75 ) )
+				{
+					// not all might have made it
+					SectorInfo[sector_current].ubNumElites = min( 255, SectorInfo[sector_current].ubNumElites + 1 + Random(troopcount) );
+
+					// if no militia or mercs are here, enemy takes this sector
+					if ( PlayerMercsInSector( SECTORX( sector_current ), SECTORY( sector_current ), 0 ) + NumNonPlayerTeamMembersInSector( SECTORX( sector_current ), SECTORY( sector_current ), MILITIA_TEAM ) <= 0 )
+					{
+						SetThisSectorAsEnemyControlled( SECTORX( sector_current ), SECTORY( sector_current ), 0, TRUE );
+					}
+
+					CheckCombatInSectorDueToUnusualEnemyArrival( ENEMY_TEAM, SECTORX( sector_current ), SECTORY( sector_current ), 0 );
+				}
+			}
 		}
 	}
+
+	// reduce these at the end, as we might do sth based on them
+	fuel = 0;
+	troopcount = 0;
 }
 
 void EnemyHeliInit( )

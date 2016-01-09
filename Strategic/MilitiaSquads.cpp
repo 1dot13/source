@@ -167,8 +167,6 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	UINT16 usTotalMilitiaAtTarget = NumNonPlayerTeamMembersInSector( sTMapX, sTMapY, MILITIA_TEAM );
 	// Desired number of Greens, Regulars and Elites to create.
 	UINT8 ubTargetGreen, ubTargetRegular, ubTargetElite;
-	// Upgrade points for replacing militia with better ones.
-	UINT8 ubUpgradePoints;
 	// Calculate default number of militia to place in Target Sector.
 	UINT8 ubMilitiaToTrain = gGameExternalOptions.guiNumMobileMilitiaTrained;
 	// Percentage of troops that should be of any one type:

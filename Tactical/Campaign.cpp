@@ -1971,18 +1971,18 @@ UINT16 CountSurfaceSectorsVisited( void )
 
 	return( ubSectorsVisited );
 }
+
 // HEADROCK: Count number of VISITABLE sectors
 UINT16 TotalVisitableSurfaceSectors( void )
 {
 	UINT8 ubMapX, ubMapY;
 	UINT16	ubVisitableSectors = 0;
-
-
+	
 	for ( ubMapX = 1; ubMapX < MAP_WORLD_X - 1; ubMapX++ )
 	{
 		for ( ubMapY = 1; ubMapY < MAP_WORLD_Y - 1; ubMapY++ )
 		{
-			if( SectorInfo[ SECTOR(ubMapX,ubMapY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != GROUNDBARRIER && SectorInfo[ SECTOR(ubMapX,ubMapY) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != EDGEOFWORLD )
+			if ( !SectorIsImpassable( SECTOR( ubMapX, ubMapY ) ) )
 				++ubVisitableSectors;
 		}
 	}
