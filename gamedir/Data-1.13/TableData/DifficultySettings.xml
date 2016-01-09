@@ -69,8 +69,8 @@
 		ChanceOfEnemyAmbushes : 0- false 1 - true
 		AllowReinforcements : The enemy can send reinforcement to the sector. 0- false 1 - true
 		AllowReinforcementsOmerta : Can the enemy send reinforcement to Omerta. 0- false 1 - true
-		PopulationLevel2 : ?
-		PopulationLevel3 : ?
+		PopulationLevel2 : Additional troops 2 sectors away from Meduna? 0 - false, 1 - true
+		PopulationLevel3 : Additional troops 3 sectors away from Meduna? 0 - false, 1 - true
 		
 		{Weapon Cache Troops}
 		
@@ -86,14 +86,15 @@
 		
 		UpgradeAdminsToTroops : Upgrade all moving enemy groups for administrators ? : 0 - false, 1 - true
 		UpgradeGarrisonsAdminsToTroops :  Upgrade all garrisons for administrators ? : 0 - false, 1 - true
-		QueenAttackLosingControlOfSector : set to increase enemy attacks for lost sector. (unlimited)
+		QueenAttackLosingControlOfSector : Usually queen will stop attacking town sector that has been retaken by player x number of times.
+											x = 4 (Novice), 8 (Experienced), 12 (Expert) and 16 (Insane). Set this parameter to 1 to allow unlimited attacks of the queens troops.
 		BloodcatAmbushSectors : ? : 0 - false, 1 - true
 		AirRaidLookForDive : ? : 0 - false, 1 - true
 		
 		NumberOfTurnsPowerGenFanWillBeStoppedFor : Used only at UB.
 		
-		RadioSightings : Do the enemy all individuals call in the help through the radio ?
-		RadioSightings2 : The enemy individuals call in the help through the radio. The individual of the type the administrator do they not call in the help through the radio ?
+		RadioSightings : Alerted soldier calls in help through the radio.
+		RadioSightings2 : All enemy individuals call in help through the radio.
 		EnemyMoraleWorried : enemy morale cannot go below worried. 0 - false, 1 - true
 		
 		{CTHConstants Settings} 
@@ -210,9 +211,9 @@
 		<UpdateLastDayOfPlayerActivity>1</UpdateLastDayOfPlayerActivity>
 		<ChanceOfEnemyAmbushes>-15</ChanceOfEnemyAmbushes>	
 		<AllowReinforcements>1</AllowReinforcements>
-		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
-		<PopulationLevel2>1</PopulationLevel2>
-		<PopulationLevel3>1</PopulationLevel3>
+		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
+		<PopulationLevel2>0</PopulationLevel2>
+		<PopulationLevel3>0</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
 		<WeaponCacheTroops1>1</WeaponCacheTroops1>
 		<WeaponCacheTroops2>1</WeaponCacheTroops2>
@@ -276,8 +277,8 @@
 		<ChanceOfEnemyAmbushes>5</ChanceOfEnemyAmbushes>	
 		<AllowReinforcements>1</AllowReinforcements>
 		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
-		<PopulationLevel2>0</PopulationLevel2>
-		<PopulationLevel3>1</PopulationLevel3>
+		<PopulationLevel2>1</PopulationLevel2>
+		<PopulationLevel3>0</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
 		<WeaponCacheTroops1>2</WeaponCacheTroops1>
 		<WeaponCacheTroops2>2</WeaponCacheTroops2>
@@ -291,8 +292,8 @@
 		<BloodcatAmbushSectors>1</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
 		<NumberOfTurnsPowerGenFanWillBeStoppedFor>2</NumberOfTurnsPowerGenFanWillBeStoppedFor>
-		<RadioSightings>0</RadioSightings>
-		<RadioSightings2>0</RadioSightings2>
+		<RadioSightings>1</RadioSightings>
+		<RadioSightings2>1</RadioSightings2>
 		<EnemyMoraleWorried>0</EnemyMoraleWorried>
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>0.0</CthConstantsAimDifficulty>
@@ -340,9 +341,9 @@
 		<UpdateLastDayOfPlayerActivity>2</UpdateLastDayOfPlayerActivity>
 		<ChanceOfEnemyAmbushes>12</ChanceOfEnemyAmbushes>
 		<AllowReinforcements>1</AllowReinforcements>	
-		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
-		<PopulationLevel2>0</PopulationLevel2>
-		<PopulationLevel3>0</PopulationLevel3>
+		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
+		<PopulationLevel2>1</PopulationLevel2>
+		<PopulationLevel3>1</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
 		<WeaponCacheTroops1>3</WeaponCacheTroops1>
 		<WeaponCacheTroops2>3</WeaponCacheTroops2>
@@ -406,8 +407,8 @@
 		<ChanceOfEnemyAmbushes>25</ChanceOfEnemyAmbushes>
 		<AllowReinforcements>1</AllowReinforcements>	
 		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>	
-		<PopulationLevel2>0</PopulationLevel2>
-		<PopulationLevel3>0</PopulationLevel3>
+		<PopulationLevel2>1</PopulationLevel2>
+		<PopulationLevel3>1</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
 		<WeaponCacheTroops1>4</WeaponCacheTroops1>
 		<WeaponCacheTroops2>4</WeaponCacheTroops2>
