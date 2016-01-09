@@ -492,6 +492,7 @@ typedef struct
 	BOOLEAN fMilitiaUseSectorInventory_Melee;
 	BOOLEAN fMilitiaUseSectorInventory_Gun;
 	BOOLEAN fMilitiaUseSectorInventory_Ammo;
+	BOOLEAN fMilitiaUseSectorInventory_GunAttachments;
 	BOOLEAN fMilitiaUseSectorInventory_Grenade;
 	BOOLEAN fMilitiaUseSectorInventory_Launcher;
 	UINT16 usMilitiaAmmo_Min;

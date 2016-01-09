@@ -1971,7 +1971,7 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.gfInvestigateSector				= iniReader.ReadBoolean("Strategic Enemy AI Settings","ENEMY_INVESTIGATE_SECTOR",FALSE);
 	gGameExternalOptions.gfReassignPendingReinforcements	= iniReader.ReadBoolean("Strategic Enemy AI Settings","REASSIGN_PENDING_REINFORCEMENTS",TRUE);
-	
+
 	//################# Militia Training Settings ##################
 
 	gGameExternalOptions.iMaxMilitiaPerSector				= iniReader.ReadInteger("Militia Training Settings","MAX_MILITIA_PER_SECTOR",20, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);
@@ -2111,6 +2111,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fMilitiaUseSectorInventory_Melee		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_MELEE", TRUE);
 	gGameExternalOptions.fMilitiaUseSectorInventory_Gun			= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_GUN", TRUE);
 	gGameExternalOptions.fMilitiaUseSectorInventory_Ammo		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO", TRUE);
+	gGameExternalOptions.fMilitiaUseSectorInventory_GunAttachments = iniReader.ReadBoolean( "Militia Equipment Settings", "MILITIA_USE_SECTOR_EQUIPMENT_GUN_ATTACHMENTS", TRUE );
 	gGameExternalOptions.fMilitiaUseSectorInventory_Grenade		= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_GRENADE", TRUE);
 	gGameExternalOptions.fMilitiaUseSectorInventory_Launcher	= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_LAUNCHER", TRUE);
 	gGameExternalOptions.usMilitiaAmmo_Min						= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_MIN",  10,  1, 400);

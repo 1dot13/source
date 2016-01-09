@@ -3793,7 +3793,8 @@ void SearchItemRetrieval( std::vector<WORLDITEM>& pWorldItem, ItemSearchStruct* 
 /** Used after taking item from world and putting it into militias inventory.
 Makes sure TAKEN_BY_MILITIA flags are set in manner reflecting the flags on items stack of origin. 
 */
-void SetTakenByMilitiaFlagsWhenForRetrievedItem(std::vector<WORLDITEM>& pWorldItem, UINT32 itemsPositionInWorld, SOLDIERCREATE_STRUCT *pp, UINT32 slotInInventory, UINT8 numberOfItemsToMark) {
+void SetTakenByMilitiaFlagsWhenForRetrievedItem(std::vector<WORLDITEM>& pWorldItem, UINT32 itemsPositionInWorld, SOLDIERCREATE_STRUCT *pp, UINT32 slotInInventory, UINT8 numberOfItemsToMark)
+{
 	for (UINT8 i = 0; i < numberOfItemsToMark; ++i)
 	{
 		(pp->Inv[slotInInventory])[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
@@ -3816,17 +3817,9 @@ void SearchItemRetrieval( std::vector<WORLDITEM>& pWorldItem, ItemSearchStruct* 
 		pWorldItem[ pSi->pos ].object.MoveThisObjectTo(pp->Inv[ pSi->soldierslot ], usRealTake );	
 
 		SetTakenByMilitiaFlagsWhenForRetrievedItem(pWorldItem, pSi->pos, pp, pSi->soldierslot, usRealTake);
-/*		for ( UINT8 i = 0; i < usRealTake; ++i )
-			(pp->Inv[ pSi->soldierslot ])[i]->data.sObjectFlag |= TAKEN_BY_MILITIA;
-
-		if ( pWorldItem[ pSi->pos ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN )	
-			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_GREEN; 
-		if ( pWorldItem[ pSi->pos ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE )
-			(pp->Inv[ pSi->soldierslot ])[0]->data.sObjectFlag |= TAKEN_BY_MILITIA_TABOO_BLUE;*/
 
 		// account for items with invalid gridnos - when we take last item from the stack, the whole stack object should be gone
 		RemoveStackIfEmpty(pWorldItem, pSi->pos);
-		
 	}
 
 	pSi->done = TRUE;
@@ -4854,7 +4847,20 @@ it is a weapon. If thing is successfuly attached, it is removed from world. Atta
 
 Does not attempt to improve current attachments, first item to fit in a position will remain there.
 */
-void addAttachementsToMilitiaWeapon(std::vector<WORLDITEM>& pWorldItem, UINT16 usTabooFlag, SOLDIERCREATE_STRUCT *pp) {
+void addAttachementsToMilitiaWeapon(std::vector<WORLDITEM>& pWorldItem, UINT16 usTabooFlag, SOLDIERCREATE_STRUCT *pp)
+{
+	if ( !gGameExternalOptions.fMilitiaUseSectorInventory_Gun || !gGameExternalOptions.fMilitiaUseSectorInventory_GunAttachments )
+		return;
+
+	OBJECTTYPE* pGun = &pp->Inv[HANDPOS];	//we are looking to attach to thing in hand, should be gun 
+
+	if ( !pGun || !pGun->exists( ) )
+		return;
+
+	// search for the following types of attachments: (AC_BIPOD | AC_MUZZLE | AC_SCOPE | AC_FOREGRIP | AC_STOCK | AC_SIGHT | AC_LASER | AC_SLING)
+	// we loop over all items, evaluate what attachments we find, and later on stick them on the gun
+	ItemSearchStruct si[8];		// each attachment type we search for gets a separate entry
+
 	for (UINT32 uiCount = 0; uiCount < pWorldItem.size(); ++uiCount)				// ... for all items in the world ...
 	{
 		if ((pWorldItem)[uiCount].fExists)										// ... if item exists ...
@@ -4867,29 +4873,57 @@ void addAttachementsToMilitiaWeapon(std::vector<WORLDITEM>& pWorldItem, UINT16 u
 				// test wether item is reachable and its not taboo 
 				if (((pWorldItem)[uiCount].usFlags & WORLD_ITEM_REACHABLE) && !((pWorldItem)[uiCount].usFlags & usTabooFlag))
 				{
-					
 					UINT32 usItemClass = Item[(pWorldItem)[uiCount].object.usItem].usItemClass;
-					UINT64 nasAttachmentClass = Item[(pWorldItem)[uiCount].object.usItem].nasAttachmentClass; //eg. 16 for scope
 					UINT32 attachmentClass = Item[(pWorldItem)[uiCount].object.usItem].attachmentclass; 
 
-					//check if this item is something we might want to attach, bipods are excluded atm because militia mainly runs around and doesn't camp enough 
-					//also under barrel launchers are not dealt with (at least for now)
-					if (usItemClass & IC_MISC && attachmentClass & (AC_SCOPE | AC_FOREGRIP | AC_STOCK | AC_SIGHT | AC_LASER | AC_MUZZLE | AC_SLING)) {
-						//we got something, lets get the weapon and try to attach it.
-						OBJECTTYPE* gun = &pp->Inv[HANDPOS];	//we are looking to attach to thing in hand, should be gun 
-						OBJECTTYPE* attachment = &(pWorldItem)[uiCount].object;
-						BOOLEAN isAttachedNow = gun->AttachObject(NULL, attachment, FALSE); //do the actual attaching
-						
-						if (isAttachedNow) { //might be false, if attachement was not valid for the gun (like small scope to M-960A)
-								RemoveStackIfEmpty(pWorldItem, uiCount);	//chceck uiCount stack, might be empty now and should be removed
-								//SetTakenByMilitiaFlagsWhenForRetrievedItem(pWorldItem,... //Nav:I realized, this is not required for attachement, hopefuly correctly (because weapon got proper flags already)
-						} 
+					// check if this item is something we might want to attach
+					if ( usItemClass & IC_MISC && attachmentClass & (AC_BIPOD | AC_MUZZLE | AC_SCOPE | AC_FOREGRIP | AC_STOCK | AC_SIGHT | AC_LASER | AC_SLING) )
+					{
+						if ( ValidItemAttachmentSlot( pGun, pObj->usItem, TRUE, FALSE ) )
+						{
+							if ( attachmentClass & AC_SCOPE )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[0] );
+							else if ( attachmentClass & AC_FOREGRIP )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[1] );
+							else if ( attachmentClass & AC_BIPOD )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[2] );
+							else if ( attachmentClass & AC_LASER )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[3] );
+							else if ( attachmentClass & AC_SIGHT )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[4] );
+							else if ( attachmentClass & AC_MUZZLE )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[5] );
+							else if ( attachmentClass & AC_STOCK )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[6] );
+							else if ( attachmentClass & AC_SLING )
+								EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[7] );
+						}
 					}
 				}
 			}
 		}
 	}
+	
+	// we've evaluated all possible attachments - now we add what we've found
+	for ( int i = 0; i < 8; ++i )
+	{
+		if ( si[i].found && !si[i].done )
+		{
+			OBJECTTYPE* pObj = &((pWorldItem)[si[i].pos].object);			// ... get pointer for this item ...
 
+			if ( pObj != NULL && pObj->exists() )
+			{
+				BOOLEAN isAttachedNow = pGun->AttachObject( NULL, pObj, FALSE ); //do the actual attaching
+
+				if ( isAttachedNow )
+				{
+					//might be false, if attachement was not valid for the gun (like small scope to M-960A)
+					RemoveStackIfEmpty( pWorldItem, si[i].pos );	//chceck uiCount stack, might be empty now and should be removed
+					//SetTakenByMilitiaFlagsWhenForRetrievedItem(pWorldItem,... //Nav:I realized, this is not required for attachement, hopefuly correctly (because weapon got proper flags already)
+				}
+			}
+		}
+	}
 }
 
 ////////////////// Flugente: militia equipment feature ///////////////////////////////////
