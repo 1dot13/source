@@ -70,6 +70,7 @@
 		<hearing_night>0</hearing_night>	<!-- +- hearing range, -5 to 2 -->
 		<hearing_day>0</hearing_day>		<!-- +- hearing range, -5 to 2 -->
 		<disarm_trap>0</disarm_trap>                      <!-- +- trap disarm ability (10 equals 1 LVL/5 DEX/10 MEC/1.6 EXP), -50 to 50 -->
+		<SAM_cth>0</SAM_cth>				<!-- +- % CTH with SAMs, -50 to 100 -->
 
 		<!-- +- % approach effectiveness, -50 to 20 -->
 		<approach_friendly>0</approach_friendly>
@@ -2149,6 +2150,7 @@
 		<resistance_suppression>10</resistance_suppression>
 		<speed_run>3</speed_run>
 		<spotter>3</spotter>
+		<SAM_cth>25</SAM_cth>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4673,6 +4675,7 @@
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
 		<spotter>3</spotter>
+		<SAM_cth>75</SAM_cth>
 		<xenophobic>1</xenophobic>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -5204,6 +5207,7 @@
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
 		<spotter>3</spotter>
+		<SAM_cth>25</SAM_cth>
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>265</uiIndex>

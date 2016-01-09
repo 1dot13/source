@@ -13205,4 +13205,31 @@
 		<sSound>500</sSound>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
+	<WEAPON>
+		<uiIndex>1736</uiIndex>
+		<szWeaponName>Strela-2</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubShotsPer4Turns>3.00</ubShotsPer4Turns>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>70</ubDeadliness>
+		<bAccuracy>2</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>3700</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>432</sSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>20</bBurstAP>
+		<APsToReload>48</APsToReload>
+		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>1</Handling>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>10000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>1600</usOverheatingSingleShotTemperature>
+	</WEAPON>
 </WEAPONLIST>

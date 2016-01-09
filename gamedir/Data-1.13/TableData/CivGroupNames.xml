@@ -200,10 +200,11 @@
 	</NAME>
 	<NAME>
 		<uiIndex>26</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot26</szGroup>
+		<Enabled>1</Enabled>
+		<szGroup>Downed Pilot</szGroup>
 		<AddToBattle>0</AddToBattle>
 		<Loyalty>0</Loyalty>
+		<fCanBeCaptured>1</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>27</uiIndex>

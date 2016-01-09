@@ -51666,4 +51666,75 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1736</uiIndex>
+		<szItemName>Strela-2</szItemName>
+		<szLongItemName>Strela-2</szLongItemName>
+		<szItemDesc>This man-portable surface-to-air missile has seen widespread use in nearly every regional conflict since 1968.</szItemDesc>
+		<szBRName>9k32 Strela-2</szBRName>
+		<szBRDesc>Another famous russian export, this MANPADS is comparable to its western counterparts but a lot cheaper. Get yours now!</szBRDesc>
+		<usItemClass>16</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1736</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>68</ubGraphicNum>
+		<ubWeight>52</ubWeight>
+		<ItemSize>7</ItemSize>
+		<usPrice>8000</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<Unaerodynamic>1</Unaerodynamic>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>8</BR_ROF>
+		<RocketLauncher>1</RocketLauncher>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
+		<ItemFlag>2</ItemFlag>	<!-- surface-to-air missile launcher -->
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1737</uiIndex>
+		<szItemName>Strela-2 Missile</szItemName>
+		<szLongItemName>Strela-2 Missile</szLongItemName>
+		<szItemDesc>A surface-to-air missile. Considering the price-tag, use against ground targets would be a waste.</szItemDesc>
+		<szBRName>Strela-2 Missile</szBRName>
+		<szBRDesc>A missile for the russian Strela-2. Best used against aircraft. And the sun, apparently.</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<AttachmentClass>2048</AttachmentClass>
+		<nasAttachmentClass>2048</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>101</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>150</ubGraphicNum>
+		<ubWeight>98</ubWeight>
+		<ItemSize>32</ItemSize>
+		<ItemSizeBonus>1</ItemSizeBonus>
+		<usPrice>2500</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<bRepairEase>-6</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<Electronic>1</Electronic>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<Directional>1</Directional>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

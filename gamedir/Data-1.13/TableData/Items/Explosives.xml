@@ -2021,4 +2021,24 @@
 		<ubHorizontalDegree>359</ubHorizontalDegree>
 		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
+	<EXPLOSIVE><!-- Strela-2 missile-->
+		<uiIndex>101</uiIndex>
+		<ubType>0</ubType>
+		<ubDamage>25</ubDamage>
+		<ubStunDamage>10</ubStunDamage>
+		<ubRadius>4</ubRadius>
+		<ubVolume>25</ubVolume>
+		<ubVolatility>1</ubVolatility>
+		<ubAnimationID>1</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>20</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>10</ubFragDamage>
+		<ubFragRange>80</ubFragRange>
+		<ubHorizontalDegree>359</ubHorizontalDegree>
+		<ubVerticalDegree>5</ubVerticalDegree>
+	</EXPLOSIVE>
 </EXPLOSIVELIST>
