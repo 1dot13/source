@@ -1576,28 +1576,13 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 			break;
 
 		// HEADROCK HAM 3.6: Paid for Facility Use
-		case( FACILITY_OPERATIONS ):
-			swprintf(pString, L"%s", pTransactionText[ FACILITY_OPERATIONS ]);
-			break;
-
-		// HEADROCK HAM 3.6: Paid for militia upkeep
-		case( MILITIA_UPKEEP ):
-			swprintf(pString, L"%s", pTransactionText[ MILITIA_UPKEEP ]);
-			break;
-
-		// Flugente: ransom from released prisoners
+		case FACILITY_OPERATIONS:
+		case MILITIA_UPKEEP:
 		case PRISONER_RANSOM:
-			swprintf(pString, L"%s", pTransactionText[ PRISONER_RANSOM ]);
-			break;
-
-		// Flugente: disease: subscription to WHO data
 		case WHO_SUBSCRIPTION:
-			swprintf( pString, L"%s", pTransactionText[WHO_SUBSCRIPTION] );
-			break;
-
-		// Flugente: a contract with a PMC
 		case PMC_CONTRACT:
-			swprintf( pString, L"%s", pTransactionText[PMC_CONTRACT] );
+		case SAM_REPAIR:
+			swprintf( pString, L"%s", pTransactionText[pFinance->ubCode] );
 			break;
 	}
 }

@@ -4155,6 +4155,7 @@ STR16 pMapPopUpInventoryText[] =
 {
 	L"存货",
 	L"离开",
+	L"Repair",	// TODO.Translate
 };
 
 // town strings
@@ -4523,6 +4524,7 @@ STR16 pTransactionText[] =
 	L"释放俘虏所需的赎金", //L"Ransom for released prisoners",
 	L"记录捐款费", //L"WHO data subscription",  // Flugente: disease
 	L"Kerberus安保公司的费用", //L"Payment to Kerberus",　　// Flugente: PMC
+	L"SAM site repair", // Flugente: SAM repair // TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -8898,6 +8900,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d夜晚听力范围\n", //L" %s%d hearing range during the night\n",
 	L" %s%d白天听力范围\n", //L" %s%d hearing range during the day\n",
 	L" %s%d解除陷阱效率\n",
+	L" %s%d%% CTH with SAMs\n",	// TODO.Translate
  
 	L" %s%d%％友好对话效果\n", //L" %s%d%% effectiveness to friendly approach\n",
 	L" %s%d%％直接对话效果\n", //L" %s%d%% effectiveness to direct approach\n",
@@ -10844,6 +10847,21 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"最终",  //L"Final",
 
 	L"民兵的志愿者: %d (+%5.3f)",  //L"Militia Volunteers: %d (+%5.3f)",
+};
+
+STR16 szEnemyHeliText[] =	// TODO.Translate
+{
+	L"Enemy helicopter shot down in %s!",
+	L"We... uhm... currently don't control that site, commander...",
+	L"The SAM does not need maintenance at the moment.",
+	L"We've already ordered the repair, this will take time.",
+
+	L"We do not have enough resources to do that.",
+	L"Repair SAM site? This will cost %d$ and take %d hours.",
+	L"Enemy helicopter hit in %s.",
+	L"%s fires %s at enemy helicopter in %s.",
+
+	L"SAM in %s fires at enemy helicopter in %s.",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

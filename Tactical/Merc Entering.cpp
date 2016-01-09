@@ -40,6 +40,7 @@
 	#include "Tactical Save.h"
 	// HEADROCK HAM 3.5: Need this to see if enemies present at starting sector
 	#include "Overhead.h"
+	#include "Map Information.h"	// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -386,6 +387,7 @@ BOOLEAN		gfIngagedInDrop = FALSE;
 ANITILE		*gpHeli;
 BOOLEAN		gfFirstHeliRun;
 
+extern BOOLEAN		gfTacticalDoHeliRun;
 
 void HandleFirstHeliDropOfGame( );
 
@@ -479,13 +481,16 @@ void StartHelicopterRun()
 }
 
 
-void HandleHeliDrop( )
+void HandleHeliDrop( BOOLEAN fPlayer )
 {
 	UINT8 ubScriptCode;
 	UINT32	uiClock;
 	INT32 iVol;
 	INT32 cnt;
 	ANITILE_PARAMS	AniParams;
+
+	if ( !fPlayer )
+		return HandleEnemyAirdrop();
 	
 	if ( gfHandleHeli )
 	{
@@ -1020,4 +1025,427 @@ void HandleFirstHeliDropOfGame( )
 
 	// Send message to turn on ai again....
 	CharacterDialogueWithSpecialEvent( 0, 0, 0, DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
+}
+
+UINT16 SpawnAirDropElite( INT32 sGridNo )
+{
+	SOLDIERTYPE *pSoldier;
+
+	// not underground!
+	if ( gbWorldSectorZ )
+		return NOBODY;
+
+	// hmm...
+	if ( !IsLocationSittable( sGridNo, 0 ) )
+		return NOBODY;
+
+	// Flugente hack		
+	pSoldier = TacticalCreateEliteEnemy( );
+
+	//Add soldier strategic info, so it doesn't break the counters!
+	if ( pSoldier )
+	{
+		if ( !gbWorldSectorZ )
+		{
+			SECTORINFO *pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+			switch ( pSoldier->ubSoldierClass )
+			{
+			case SOLDIER_CLASS_ADMINISTRATOR:	pSector->ubNumAdmins++; pSector->ubAdminsInBattle++; break;
+			case SOLDIER_CLASS_ARMY:			pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
+			case SOLDIER_CLASS_ELITE:			pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
+			}
+		}
+
+		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CHOPPER;
+		pSoldier->usStrategicInsertionData = sGridNo; // required, otherwise soldiers will spawn in map before jumping out of the heli
+		UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		//AllTeamsLookForAll( NO_INTERRUPTS );
+	}
+
+	return pSoldier->ubID;
+}
+
+void InitiateEnemyAirDropSoldiers( INT32 sGridNo )
+{
+	gfTacticalDoHeliRun = TRUE;
+
+	ResetHeliSeats( );
+
+	//SetHelicopterDroppoint( gMapInformation.sCenterGridNo );
+	SetHelicopterDroppoint( sGridNo );
+
+	SetHelicopterDropDirection( WEST );
+
+	for ( int i = 0; i < 6; ++i )
+	{
+		UINT8 id = SpawnAirDropElite( gMapInformation.sSouthGridNo + i );
+
+		if ( id == NOBODY )
+			return;
+
+		AddMercToHeli( id );
+	}
+}
+
+
+void HandleEnemyAirdrop( )
+{
+	UINT8 ubScriptCode;
+	UINT32	uiClock;
+	INT32 iVol;
+	ANITILE_PARAMS	AniParams;
+
+	if ( gfHandleHeli )
+	{
+		if ( gCurrentUIMode != LOCKUI_MODE )
+		{
+			guiPendingOverrideEvent = LU_BEGINUILOCK;
+		}
+
+		gfIgnoreScrolling = TRUE;
+
+		uiClock = GetJA2Clock( );
+
+		if ( (uiClock - guiHeliLastUpdate) >	ME_SCRIPT_DELAY )
+		{
+			guiHeliLastUpdate = uiClock;
+
+			if ( fFadingHeliIn )
+			{
+				if ( uiSoundSample != NO_SAMPLE )
+				{
+					iVol = SoundGetVolume( uiSoundSample );
+					iVol = __min( HIGHVOLUME, iVol + 5 );
+					SoundSetVolume( uiSoundSample, iVol );
+					if ( iVol == HIGHVOLUME )
+						fFadingHeliIn = FALSE;
+				}
+				else
+				{
+					fFadingHeliIn = FALSE;
+				}
+			}
+			else if ( fFadingHeliOut )
+			{
+				if ( uiSoundSample != NO_SAMPLE )
+				{
+					iVol = SoundGetVolume( uiSoundSample );
+
+					iVol = __max( 0, iVol - 5 );
+
+					SoundSetVolume( uiSoundSample, iVol );
+					if ( iVol == 0 )
+					{
+						// Stop sound
+						SoundStop( uiSoundSample );
+						fFadingHeliOut = FALSE;
+						gfHandleHeli = FALSE;
+						gfIgnoreScrolling = FALSE;
+						gbNumHeliSeatsOccupied = 0;
+						guiPendingOverrideEvent = LU_ENDUILOCK;
+						UnLockPauseState( );
+						UnPauseGame( );
+
+						RebuildCurrentSquad( );
+
+						HandleFirstHeliDropOfGame( );
+					}
+				}
+				else
+				{
+					fFadingHeliOut = FALSE;
+					gfHandleHeli = FALSE;
+					gfIgnoreScrolling = FALSE;
+					gbNumHeliSeatsOccupied = 0;
+					guiPendingOverrideEvent = LU_ENDUILOCK;
+					UnLockPauseState( );
+					UnPauseGame( );
+
+					RebuildCurrentSquad( );
+
+					HandleFirstHeliDropOfGame( );
+				}
+			}
+
+			if ( gsHeliScript == MAX_HELI_SCRIPT )
+			{
+				return;
+			}
+
+			ubScriptCode = ubHeliScripts[gubHeliState][gsHeliScript];
+
+			// Switch on mode...
+			if ( gubHeliState == HELI_DROP )
+			{
+				if ( !gfIngagedInDrop )
+				{
+					INT8 bEndVal = (gbHeliRound * NUM_PER_HELI_RUN);
+
+					if ( bEndVal > gbNumHeliSeatsOccupied )
+					{
+						bEndVal = gbNumHeliSeatsOccupied;
+					}
+
+					// Flugente: watching mercs rope down one by one gets boring fast. So we allow up to 3 mercs to rope down  at the same time
+					for ( int i = 0; i < 3; ++i )
+					{
+						// OK, Check if we have anybody left to send!
+						if ( gbCurDrop < bEndVal )
+						{
+							// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
+							// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldiers to the STANDING aniamtion. 
+							//MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
+							MercPtrs[gusHeliSeats[gbCurDrop]]->EVENT_InitNewSoldierAnim( HELIDROP, 0, FALSE );
+
+							// Change insertion code
+							MercPtrs[gusHeliSeats[gbCurDrop]]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							MercPtrs[gusHeliSeats[gbCurDrop]]->usStrategicInsertionData = gsGridNoSweetSpot;
+
+							// HEADROCK HAM 3.5: Externalized!
+							UpdateMercInSector( MercPtrs[gusHeliSeats[gbCurDrop]], gWorldSectorX, gWorldSectorY, startingZ );
+
+							// IF the first guy down, set squad!
+							if ( gfFirstGuyDown )
+							{
+								gfFirstGuyDown = FALSE;
+								//SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );
+							}
+							ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[MERC_HAS_ARRIVED_STR], MercPtrs[gusHeliSeats[gbCurDrop]]->GetName( ) );
+
+							++gbCurDrop;
+
+							gfIngagedInDrop = TRUE;
+						}
+						else
+						{
+							if ( gbExitCount == 0 )
+							{
+								gbExitCount = 2;
+							}
+							else
+							{
+								--gbExitCount;
+
+								if ( gbExitCount == 1 )
+								{
+									// Goto leave
+									gsHeliScript = -1;
+									gubHeliState = HELI_ENDDROP;
+								}
+							}
+
+							break;
+						}
+					}
+				}
+			}
+
+			switch ( ubScriptCode )
+			{
+			case HELI_REST:
+
+				break;
+
+			case HELI_MOVE_DOWN:
+
+				gdHeliZPos -= 1;
+				gpHeli->pLevelNode->sRelativeZ = (INT16)gdHeliZPos;
+				break;
+
+			case HELI_MOVE_UP:
+
+				gdHeliZPos += 1;
+				gpHeli->pLevelNode->sRelativeZ = (INT16)gdHeliZPos;
+				break;
+
+			case HELI_MOVESMALL_DOWN:
+
+				gdHeliZPos -= 0.25;
+				gpHeli->pLevelNode->sRelativeZ = (INT16)gdHeliZPos;
+				break;
+
+			case HELI_MOVESMALL_UP:
+
+				gdHeliZPos += 0.25;
+				gpHeli->pLevelNode->sRelativeZ = (INT16)gdHeliZPos;
+				break;
+
+
+			case HELI_MOVEY:
+
+				if ( gHeliEnterDirection == SOUTH )
+				{
+					gpHeli->sRelativeY -= 4;
+				}
+				else if ( gHeliEnterDirection == EAST )
+				{
+					gpHeli->sRelativeX -= 4;
+					gpHeli->sRelativeY -= 1;
+				}
+				else if ( gHeliEnterDirection == WEST )
+				{
+					gpHeli->sRelativeX += 4;
+					gpHeli->sRelativeY += 1;
+				}
+				else
+				{
+					gpHeli->sRelativeY += 4;
+				}
+				break;
+
+			case HELI_MOVELARGERY:
+
+				if ( gHeliEnterDirection == SOUTH )
+				{
+					gpHeli->sRelativeY -= 6;
+				}
+				else if ( gHeliEnterDirection == EAST )
+				{
+					gpHeli->sRelativeX -= 6;
+					gpHeli->sRelativeY -= 1;
+				}
+				else if ( gHeliEnterDirection == WEST )
+				{
+					gpHeli->sRelativeX += 6;
+					gpHeli->sRelativeY += 1;
+				}
+				else
+				{
+					gpHeli->sRelativeY += 6;
+				}
+				break;
+
+			case HELI_GOTO_BEGINDROP:
+
+				gsHeliScript = -1;
+				gubHeliState = HELI_BEGINDROP;
+				break;
+
+			case HELI_SHOW_HELI:
+
+				// Start animation
+				memset( &AniParams, 0, sizeof(ANITILE_PARAMS) );
+				AniParams.sGridNo = gsGridNoSweetSpot;
+				AniParams.ubLevelID = ANI_SHADOW_LEVEL;
+				AniParams.sDelay = 90;
+				AniParams.sStartFrame = 0;
+				AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_LOOPING;
+				AniParams.sX = gsHeliXPos;
+				AniParams.sY = gsHeliYPos;
+				AniParams.sZ = (INT16)gdHeliZPos;
+
+				if ( gHeliEnterDirection == SOUTH )
+				{
+					strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH_SOUTH.STI" );
+				}
+				else if ( gHeliEnterDirection == EAST )
+				{
+					strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH_EAST.STI" );
+				}
+				else if ( gHeliEnterDirection == WEST )
+				{
+					strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH_WEST.STI" );
+				}
+				else
+				{
+					strcpy( AniParams.zCachedFile, "TILECACHE\\HELI_SH.STI" );
+				}
+
+				gpHeli = CreateAnimationTile( &AniParams );
+				break;
+
+			case HELI_GOTO_DROP:
+
+				// Goto drop animation
+				gdHeliZPos -= 0.25;
+				gpHeli->pLevelNode->sRelativeZ = (INT16)gdHeliZPos;
+				gsHeliScript = -1;
+				gubHeliState = HELI_DROP;
+				break;
+
+			case HELI_GOTO_MOVETO:
+
+				// Goto drop animation
+				gsHeliScript = -1;
+				gubHeliState = HELI_MOVETO;
+				break;
+
+			case HELI_GOTO_MOVEAWAY:
+
+				// Goto drop animation
+				gsHeliScript = -1;
+				gubHeliState = HELI_MOVEAWAY;
+				break;
+
+			case HELI_GOTO_EXIT:
+
+				if ( gbCurDrop < gbNumHeliSeatsOccupied )
+				{
+					// Start another run......
+					INT16 sX, sY;
+
+					ConvertGridNoToCenterCellXY( gsGridNoSweetSpot, &sX, &sY );
+
+					if ( gHeliEnterDirection == SOUTH )
+					{
+						gsHeliXPos = sX - (2 * CELL_X_SIZE);
+						gsHeliYPos = sY + (10 * CELL_Y_SIZE);
+					}
+					else if ( gHeliEnterDirection == EAST )
+					{
+						gsHeliXPos = sX + (10 * CELL_X_SIZE);
+						gsHeliYPos = sY + (2 * CELL_Y_SIZE);
+					}
+					else if ( gHeliEnterDirection == WEST )
+					{
+						gsHeliXPos = sX - (10 * CELL_X_SIZE);
+						gsHeliYPos = sY - (2 * CELL_Y_SIZE);
+					}
+					else
+					{
+						gsHeliXPos = sX - (2 * CELL_X_SIZE);
+						gsHeliYPos = sY - (10 * CELL_Y_SIZE);
+					}
+
+					gdHeliZPos = 0;
+					gsHeliScript = 0;
+					gbExitCount = 0;
+					gubHeliState = HELI_APPROACH;
+					++gbHeliRound;
+
+					// Ahh, but still delete the heli!
+					DeleteAniTile( gpHeli );
+					gpHeli = NULL;
+				}
+				else
+				{
+					// Goto drop animation
+					gsHeliScript = -1;
+					gubHeliState = HELI_EXIT;
+
+					// Delete helicopter image!
+					DeleteAniTile( gpHeli );
+					gpHeli = NULL;
+					gfIgnoreScrolling = FALSE;
+
+					// Select our first guy
+					SelectSoldier( gusHeliSeats[0], FALSE, TRUE );
+				}
+				break;
+
+			case HELI_DONE:
+
+				// End
+				fFadingHeliOut = TRUE;
+
+				// HEADROCK HAM 3.5: Update now, in case the LZ is still in a "RED" airspace sector. This is only
+				// required if the sector is free of enemies... but still required. Will run immediately after the
+				// helicopter is gone.
+				UpdateAirspaceControl( );
+				break;
+			}
+
+			++gsHeliScript;
+		}
+	}
 }

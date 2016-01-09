@@ -156,6 +156,9 @@
     <ClInclude Include="MapScreen Quotes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ASD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AI Viewer.cpp">
@@ -342,6 +345,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_Creatures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ASD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

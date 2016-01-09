@@ -35,6 +35,7 @@
 	#include "Scheduling.h"
 	#include "Map Information.h"
 	#include "interface dialogue.h"
+	#include "ASD.h"		// added by Flugente
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -1489,33 +1490,30 @@ void InitStrategicAI()
 		//Some of the patrol groups aren't there at the beginning of the game.	This is
 		//based on the difficulty settings in the above patrol table.
 		//if( gPatrolGroup[ i ].ubUNUSEDStartIfDifficulty <= gGameOptions.ubDifficultyLevel )
-		{ //Add this patrol group now.
+		{
+			//Add this patrol group now.
 			ubNumTroops = (UINT8)(gPatrolGroup[ i ].bSize + Random( 3 ) - 1);
 			ubNumTroops = (UINT8)max( gubMinEnemyGroupSize, min( iMaxEnemyGroupSize, ubNumTroops ) );
 			ubNumTanks = 0;
 
-			if( ubNumTroops && gGameExternalOptions.fArmyUsesTanksInPatrols && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
-			{
+			if ( ubNumTroops && gGameExternalOptions.fArmyUsesTanksInPatrols && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
+			{			
+				UINT32 val2;
+				if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+					val2 = 1;
+				else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+					val2 = 2;
+				else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+					val2 = 3;
+				else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+					val2 = 4;
+				else
+				{
+					val2 = Random( 4 );
+					if (val2 == 0) val2 = 1;
+				}
 			
-			UINT32 val2;
-			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-				val2 = 1;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-				val2 = 2;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-				val2 = 3;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-				val2 = 4;
-			else
-			{
-				val2 = Random( 4 );
-				if (val2 == 0) val2 = 1;
-			}
-			
-				if( Random( 10 ) < val2 && i != 3 && i != 4)
-				
-				//if( Random( 10 ) < gGameOptions.ubDifficultyLevel && i != 3 && i != 4)
-				
+				if ( Random( 10 ) < val2 && i != 3 && i != 4 )				
 				{
 					ubNumTroops--;
 					ubNumTanks++;
@@ -2229,14 +2227,17 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 					pSector->ubNumElites = (UINT8)(pSector->ubNumElites + pGroup->pEnemyGroup->ubNumElites);
 					pSector->ubNumTanks = (UINT8)(pSector->ubNumTanks + pGroup->pEnemyGroup->ubNumTanks);
 
-					#ifdef JA2BETAVERSION
-						LogStrategicEvent( "%d reinforcements have arrived to garrison sector %c%d",
-							pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumTroops +
-							pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumTanks, pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX );
-					#endif
+#ifdef JA2BETAVERSION
+					LogStrategicEvent( "%d reinforcements have arrived to garrison sector %c%d",
+						pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumTroops +
+						pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumTanks, pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX );
+#endif
+
 					if( IsThisSectorASAMSector( pGroup->ubSectorX, pGroup->ubSectorY, 0 ) )
 					{
 						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].bSAMCondition = 100;
+						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].usFlags &= ~SAMSITE_REPAIR_ORDERED;
+
 						UpdateSAMDoneRepair( pGroup->ubSectorX, pGroup->ubSectorY, 0 );
 					}
 				}
@@ -4551,8 +4552,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				grouptanks[ubCounter] = 0;
 				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 				{
-					if( Random(10) < val )
-					//if( Random(10) < gGameOptions.ubDifficultyLevel )
+					if ( Random( 10 ) < val && ASDSoldierUpgradeToTank( ) )
 					{
 						grouptroops[ubCounter]--;
 						grouptanks[ubCounter]++;
@@ -4636,7 +4636,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					grouptanks[ubCounter] = 0;
 					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 					{
-						if( Random(10) < value )						
+						if ( Random( 10 ) < value && ASDSoldierUpgradeToTank( ) )
 						{
 							grouptroops[ubCounter]--;
 							grouptanks[ubCounter]++;
@@ -4848,7 +4848,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value2 * 3);
 				//ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 				// anv: replace one of soldiers with tank
-				if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
+				if ( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage( ) >= gGameExternalOptions.usTankMinimumProgress && ASDSoldierUpgradeToTank( ) )
 				{
 					ubNumSoldiers--;
 					ubNumTanks++;
@@ -5114,8 +5114,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			// anv: replace one of soldiers with tank
 			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 			{
-				if( Random( 10 ) < value4 )
-				//if( Random( 10 ) < gGameOptions.ubDifficultyLevel )
+				if ( Random( 10 ) < value4 && ASDSoldierUpgradeToTank( ) )
 				{
 					ubNumSoldiers--;
 					ubNumTanks++;
@@ -5242,8 +5241,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 					{
 					
-						if( Random( 10 * 100 ) < value5 * direness )
-						//if( Random( 10 * 100 ) < gGameOptions.ubDifficultyLevel * direness )
+						if ( Random( 10 * 100 ) < value5 * direness && ASDSoldierUpgradeToTank( ) )
 						{
 							elitesThisSquad--;
 							tanksThisSquad++;
@@ -5398,8 +5396,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			// anv: replace one of soldiers with tank
 			if( ubNumSoldiers && gGameExternalOptions.fArmyUsesTanksInAttacks && HighestPlayerProgressPercentage() >= gGameExternalOptions.usTankMinimumProgress )
 			{
-				if( Random( 10 * 100 ) < value7 * HighestPlayerProgressPercentage() )
-				//if( Random( 10 * 100 ) < gGameOptions.ubDifficultyLevel * HighestPlayerProgressPercentage() )
+				if ( Random( 10 * 100 ) < value7 * HighestPlayerProgressPercentage( ) && ASDSoldierUpgradeToTank( ) )
 				{
 					ubNumSoldiers--;
 					ubNumTanks++;

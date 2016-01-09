@@ -2925,6 +2925,9 @@ extern STR16	szIMPGearDropDownNoneText[];
 // Flugente: militia movement
 extern STR16	szMilitiaStrategicMovementText[];
 
+// Flugente: enemy heli/SAM
+extern STR16	szEnemyHeliText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

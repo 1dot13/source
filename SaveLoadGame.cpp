@@ -116,6 +116,7 @@
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DynamicDialogue.h"	// added by Flugente
 	#include "PMC.h"				// added by Flugente
+	#include "ASD.h"				// added by Flugente
 #endif
 
 #include		"BobbyR.h"
@@ -4398,6 +4399,13 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		goto FAILED_TO_SAVE;
 	}
 
+	// Flugente: enemy helicopters
+	if ( !SaveASDData( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing Arulco special division data" );
+		goto FAILED_TO_SAVE;
+	}
+
 	//Close the saved game file
 	FileClose( hFile );
 
@@ -6095,6 +6103,26 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "PMC data failed" ) );
 		FileClose( hFile );
 		return(FALSE);
+	}
+
+	if ( guiCurrentSaveGameVersion >= ENEMY_HELICOPTERS )
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Arulco special division data..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if ( !LoadASDData( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Arulco special division data Load failed" ) );
+			FileClose( hFile );
+			return(FALSE);
+		}
+	}
+	else
+	{
+		// if loading an old savegame that did not have this feature, initialise
+		InitASD();
 	}
 
 	//

@@ -4152,6 +4152,7 @@ STR16 pMapPopUpInventoryText[] =
 {
 	L"Inventory",
 	L"Exit",
+	L"Repair",
 };
 
 // town strings
@@ -4520,6 +4521,7 @@ STR16 pTransactionText[] =
 	L"Ransom for released prisoners",	// Flugente: prisoner system
 	L"WHO data subscription",	// Flugente: disease
 	L"Payment to Kerberus",	// Flugente: PMC
+	L"SAM site repair", // Flugente: SAM repair
 };
 
 STR16 pTransactionAlternateText[] =
@@ -8896,6 +8898,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d hearing range during the night\n",
 	L" %s%d hearing range during the day\n",
 	L" %s%d effectivity at disarming traps\n",
+	L" %s%d%% CTH with SAMs\n",
 
 	L" %s%d%% effectiveness to friendly approach\n",
 	L" %s%d%% effectiveness to direct approach\n",
@@ -10896,6 +10899,21 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Final",
 
 	L"Militia Volunteers: %d (+%5.3f)",
+};
+
+STR16 szEnemyHeliText[] =
+{
+	L"Enemy helicopter shot down in %s!",
+	L"We... uhm... currently don't control that site, commander...",
+	L"The SAM does not need maintenance at the moment.",
+	L"We've already ordered the repair, this will take time.",
+
+	L"We do not have enough resources to do that.",
+	L"Repair SAM site? This will cost %d$ and take %d hours.",
+	L"Enemy helicopter hit in %s.",
+	L"%s fires %s at enemy helicopter in %s.",
+
+	L"SAM in %s fires at enemy helicopter in %s.",
 };
 
 #endif //ENGLISH

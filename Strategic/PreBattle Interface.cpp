@@ -181,6 +181,8 @@ UINT8 gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
 //would turn hostile, which would disable the ability to autoresolve the battle.
 BOOLEAN gubExplicitEnemyEncounterCode = NO_ENCOUNTER_CODE;
 
+BOOLEAN gubSpecialEncounterCodeForEnemyHeli = FALSE;
+
 //Location of the current battle (determines where the animated icon is blitted) and if the
 //icon is to be blitted.
 BOOLEAN gfBlitBattleSectorLocator = FALSE;
@@ -607,8 +609,15 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	{
 		if( !pBattleGroup )
 		{
-			//creature's attacking!
-			gubEnemyEncounterCode = CREATURE_ATTACK_CODE;
+			if ( gubSpecialEncounterCodeForEnemyHeli )
+			{
+				gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+			}
+			else
+			{
+				//creature's attacking!
+				gubEnemyEncounterCode = CREATURE_ATTACK_CODE;
+			}
 		}
 		else if ( gpBattleGroup->usGroupTeam == OUR_TEAM )
 		{
@@ -929,6 +938,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		DisableButton( iPBButton[0] );
 #endif
 	DoTransitionFromMapscreenToPreBattleInterface();
+
+	// clean up
+	gubSpecialEncounterCodeForEnemyHeli = FALSE;
 }
 
 void DoTransitionFromMapscreenToPreBattleInterface()

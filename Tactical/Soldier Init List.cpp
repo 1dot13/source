@@ -954,6 +954,8 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 		{
 			SectorAddPrisonersofWar(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
 
+			SectorAddDownedPilot( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
 			LuaHandleSectorTacticalEntry( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 		}
 
@@ -1008,6 +1010,8 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 	if ( bTeam == CIV_TEAM )
 	{
 		SectorAddPrisonersofWar(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+
+		SectorAddDownedPilot( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 		LuaHandleSectorTacticalEntry( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 	}
@@ -3047,5 +3051,30 @@ void SectorAddPrisonersofWar( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 		}
 		else
 			break;
+	}
+}
+
+// Flugente: decide wether to add a downed pilot if a helicopter was shot down here
+void SectorAddDownedPilot( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
+{
+	// not in underground sectors
+	if ( sMapZ > 0 )
+		return;
+
+	// get sector
+	SECTORINFO *pSector = &SectorInfo[SECTOR( sMapX, sMapY )];
+	if ( !pSector )
+		return;
+
+	if ( pSector->usSectorInfoFlag & SECTORINFO_ENEMYHELI_SHOTDOWN )
+	{
+		// it is likely that a pilot has survived, but not guaranteed
+		if ( Chance( 75 ) )
+		{
+			CreateDownedPilot();
+		}
+
+		// remove the flag. We can only find the pilot the first time we visit this sector after the heli was shut down
+		pSector->usSectorInfoFlag &= ~SECTORINFO_ENEMYHELI_SHOTDOWN;
 	}
 }

@@ -3609,6 +3609,81 @@ void CreatePrisonerOfWar()
 	}
 }
 
+// create a downed pilot in a random location in the current sector
+void CreateDownedPilot( )
+{
+	UINT8 tries = 0;
+	INT32 sGridNo = NOWHERE;
+	do
+	{
+		if ( ++tries > 20 )
+			return;
+
+		sGridNo = RandomGridNo( );
+	}
+	// a valid starting gridno must be valid, not in a structure, not in water, and not too near to our mercs
+	while ( TileIsOutOfBounds( sGridNo ) || FindStructure( sGridNo, STRUCTURE_BLOCKSMOVES ) || TERRAIN_IS_WATER( gpWorldLevelData[sGridNo].ubTerrainID ) || GridNoNearPlayerMercs( sGridNo, 25 ) );
+
+	SOLDIERCREATE_STRUCT		MercCreateStruct;
+	UINT8						ubID;
+	
+	MercCreateStruct.initialize( );
+	MercCreateStruct.bTeam = CIV_TEAM;
+	MercCreateStruct.ubProfile = NO_PROFILE;
+	MercCreateStruct.sSectorX = gWorldSectorX;
+	MercCreateStruct.sSectorY = gWorldSectorY;
+	MercCreateStruct.bSectorZ = gbWorldSectorZ;
+	MercCreateStruct.sInsertionGridNo = sGridNo;
+	MercCreateStruct.ubDirection = Random( NUM_WORLD_DIRECTIONS );
+	MercCreateStruct.ubBodyType = Random( ADULTFEMALEMONSTER );
+	
+	RandomizeNewSoldierStats( &MercCreateStruct );
+
+	SOLDIERTYPE* pSoldier = TacticalCreateSoldier( &MercCreateStruct, &ubID );
+
+	if ( pSoldier )
+	{
+		// a downed pilot might be wounded
+		pSoldier->stats.bLife = min( pSoldier->stats.bLifeMax, max( OKLIFE + 20, pSoldier->stats.bLife - 20 ) );
+		pSoldier->bBleeding = pSoldier->stats.bLifeMax - pSoldier->stats.bLife;
+
+		AddSoldierToSector( pSoldier->ubID );
+		
+		// set correct civ group
+		pSoldier->ubCivilianGroup = DOWNEDPILOT_CIV_GROUP;
+		
+		// make him wear administrator uniform
+		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
+
+		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+		{
+			SET_PALETTEREP_ID( pSoldier->VestPal, gUniformColors[UNIFORM_ENEMY_ADMIN].vest );
+			SET_PALETTEREP_ID( pSoldier->PantsPal, gUniformColors[UNIFORM_ENEMY_ADMIN].pants );
+
+			// Use palette from HVOBJECT, then use substitution for pants, etc
+			memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[usPaletteAnimSurface].hVideoObject->pPaletteEntry, sizeof(pSoldier->p8BPPPalette) * 256 );
+
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
+
+			pSoldier->CreateSoldierPalettes( );
+
+			// Dirty
+			fInterfacePanelDirty = DIRTYLEVEL2;
+		}
+
+		// So we can see them!
+		AllTeamsLookForAll( NO_INTERRUPTS );
+
+		// downed pilots are hostile, even though they stand no chance against us
+		gTacticalStatus.fCivGroupHostile[POW_PRISON_CIV_GROUP] = CIV_GROUP_HOSTILE;
+
+		pSoldier->aiData.bNeutral = FALSE;
+	}
+}
+
 void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass )
 {
 	UINT8 ubLocationModifier = 0;

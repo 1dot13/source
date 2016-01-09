@@ -2826,28 +2826,27 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 
 }
 
-
 void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 {
-	OBJECTTYPE *		pObj;
+	return DeductAmmo( pSoldier, &(pSoldier->inv[bInvPos]) );
+}
 
-	// tanks never run out of MG ammo!
-	// unlimited cannon ammo is handled in AI
-	if ( TANK( pSoldier ) && !Item[pSoldier->inv[bInvPos].usItem].cannon )
+void DeductAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE* pObj )
+{
+	if ( pSoldier && pObj->exists( ) )
 	{
-		return;
-	}
+		// tanks never run out of MG ammo!
+		// unlimited cannon ammo is handled in AI
+		if ( TANK( pSoldier ) && !Item[pObj->usItem].cannon )
+			return;
 
-	pObj = &(pSoldier->inv[ bInvPos ]);
-	if ( pObj->exists() == true )
-	{
 		if ( Item[pObj->usItem].cannon )
 		{
 		}
 		else if ( Item[ pObj->usItem ].usItemClass == IC_GUN && !Item[pObj->usItem].cannon && pSoldier->bWeaponMode != WM_ATTACHED_GL && pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bWeaponMode != WM_ATTACHED_GL_AUTO )
 		{
 			// Flugente: check for underbarrel weapons and use that object if necessary
-			OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[bInvPos]) );
+			OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( pObj );
 
 			// Flugente: external feeding allows us to take ammo from somewhere other than our magazine, like a belt in our inventory our even another mercs
 			if ( gGameExternalOptions.ubExternalFeeding > 0 )
@@ -2921,7 +2920,6 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 
 		// Dirty Bars
 		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL1 );
-
 	}
 }
 

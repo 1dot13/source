@@ -316,4 +316,6 @@ BOOLEAN GroupHasInTransitDeadOrPOWMercs( GROUP *pGroup );
 
 BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY ); // added by SANDRO
 
+void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 sY, INT8 sZ );
+
 #endif

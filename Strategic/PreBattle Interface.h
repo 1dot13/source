@@ -81,6 +81,8 @@ extern UINT8 gubPBSectorY;
 extern UINT8 gubPBSectorZ;
 
 extern BOOLEAN gfCantRetreatInPBI;
+
+extern BOOLEAN gubSpecialEncounterCodeForEnemyHeli;
 //SAVE END
 
 void WakeUpAllMercsInSectorUnderAttack( void );

@@ -22,6 +22,7 @@
 	#include "Campaign Types.h"
 	#include "history.h"
 	#include "Facilities.h"
+	#include "ASD.h"		// added by Flugente
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -549,17 +550,14 @@ INT32 GetAvailableWorkForceForMineForEnemy( INT8 bMineIndex )
 
 	// if mine is shut down
 	if ( gMineStatus[ bMineIndex ].fShutDown)
-	{
 		return ( 0 );
-	}
 
-	//bTownId = gMineLocation[ bMineIndex ].bAssociatedTown;
 	bTownId = gMineStatus[ bMineIndex ].bAssociatedTown;
 
-	if( GetTownSectorSize( bTownId )	== 0 )
-	{
+	UINT8 townsize = GetTownSectorSize( bTownId );
+
+	if ( !townsize )
 		return 0;
-	}
 
 	// get workforce size (is 0-100 based on REVERSE of local town's loyalty)
 	iWorkForceSize = 100 - gTownLoyalty[ bTownId ].ubRating;
@@ -571,10 +569,10 @@ INT32 GetAvailableWorkForceForMineForEnemy( INT8 bMineIndex )
 */
 
 	// now adjust for town size.. the number of sectors you control
-	iWorkForceSize *= ( GetTownSectorSize( bTownId ) - GetTownSectorsUnderControl( bTownId ) );
-	iWorkForceSize /= GetTownSectorSize( bTownId );
+	iWorkForceSize *= (townsize - GetTownSectorsUnderControl( bTownId ));
+	iWorkForceSize /= townsize;
 
-	return ( iWorkForceSize );
+	return iWorkForceSize;
 }
 
 INT32 GetCurrentWorkRateOfMineForPlayer( INT8 bMineIndex )
@@ -604,8 +602,7 @@ INT32 MineAMine( INT8 bMineIndex )
 	// will extract ore based on available workforce, and increment players income based on amount
 	INT8 bMineType = 0;
 	INT32 iAmtExtracted = 0;
-
-
+	
 	Assert( ( bMineIndex >= 0 ) && ( bMineIndex < MAX_NUMBER_OF_MINES ) );
 
 	// is mine is empty
@@ -619,7 +616,6 @@ INT32 MineAMine( INT8 bMineIndex )
 	{
 		return 0;
 	}
-
 
 	// who controls the PRODUCTION in the mine ?	(Queen receives production unless player has spoken to the head miner)
 	if( PlayerControlsMine(bMineIndex) )
@@ -651,13 +647,16 @@ INT32 MineAMine( INT8 bMineIndex )
 		// we didn't want mines to run out without player ever even going to them, so now the queen doesn't reduce the
 		// amount remaining until the mine has produced for the player first (so she'd have to capture it).
 
-		// WANNE: We do not want to give money to the player, when the queen has captured the mine!
+		/*// WANNE: We do not want to give money to the player, when the queen has captured the mine!
 		if ( gMineStatus[ bMineIndex ].fMineHasProducedForPlayer )
 		{
 			// don't actually give her money, just take production away
 			//iAmtExtracted = ExtractOreFromMine( bMineIndex , GetCurrentWorkRateOfMineForEnemy( bMineIndex ) );
 			iAmtExtracted = 0;
-		}
+		}*/
+
+		// Flugente: if the enemy controls a mine, simply don't lower the amount of ore in the mine, so it can still run out when the player controls it
+		iAmtExtracted = GetCurrentWorkRateOfMineForEnemy( bMineIndex );
 	}
 
 
@@ -679,26 +678,41 @@ void PostEventsForMineProduction(void)
 void HandleIncomeFromMines( void )
 {
 	INT32 iIncome = 0;
-	INT8 bCounter = 0;
+	INT32 iIncome_Enemy = 0;	// Flugente: new AI gets money from mines
+
 	// HEADROCK HAM 3.6: Modifier from Facilities
 	INT32 iFacilityModifier = 0;
 
 	// mine each mine, check if we own it and such
-	for( bCounter = 0; bCounter < MAX_NUMBER_OF_MINES; bCounter++ )
+	for ( INT8 bCounter = 0; bCounter < MAX_NUMBER_OF_MINES; ++bCounter )
 	{
-		if (bCounter)
+		if ( PlayerControlsMine( bCounter ) )
 		{
 			// HEADROCK HAM 3.6: Add facility modifier as a percentage
 			iFacilityModifier = 100 + MineIncomeModifierFromFacility( bCounter );
+
+			// mine this mine
+			iIncome += (MineAMine( bCounter ) * iFacilityModifier) / 100;
 		}
-		// mine this mine
-		iIncome += (MineAMine( bCounter ) * iFacilityModifier) / 100;
+		else
+		{
+			// mine this mine
+			iIncome_Enemy += MineAMine( bCounter );
+		}
 	}
+
 	// HEADROCK HAM B1: Affected by external INI Option.
 	iIncome = (iIncome * gGameExternalOptions.usMineIncomePercentage) / 100;
+	iIncome_Enemy = (iIncome_Enemy * gGameExternalOptions.usMineIncomePercentage) / 100;
+
 	if( iIncome )
 	{
 		AddTransactionToPlayersBook( DEPOSIT_FROM_SILVER_MINE, 0, GetWorldTotalMin( ), iIncome );
+	}
+
+	if ( iIncome_Enemy )
+	{
+		AddStrategicAIResources( ASD_MONEY, iIncome_Enemy );
 	}
 }
 

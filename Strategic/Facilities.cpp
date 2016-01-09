@@ -717,7 +717,7 @@ void HandleManualPaymentFacilityDebt( void )
 // HEADROCK HAM 3.6: Apply income bonuses from Facility Work to a specific mine.
 INT32 MineIncomeModifierFromFacility( UINT8 ubMine )
 {
-	Assert (ubMine > 0 && ubMine < MAX_NUMBER_OF_MINES);
+	Assert (ubMine >= 0 && ubMine < MAX_NUMBER_OF_MINES);
 
 	SOLDIERTYPE *pSoldier;
 	INT32 iModifier = 0;

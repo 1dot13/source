@@ -169,8 +169,9 @@ INT16 GetLastSectorOfMilitiaPath( void );
 // display info about helicopter path
 void DisplayDistancesForHelicopter( void );
 
-// display where hei is
+// display where heli is
 void DisplayPositionOfHelicopter( void );
+void DisplayPositionOfEnemyHelicopter();
 
 // check for click
 BOOLEAN CheckForClickOverHelicopterIcon( INT16 sX, INT16 sY );

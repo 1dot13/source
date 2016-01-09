@@ -50,6 +50,7 @@
 	#include "Interface.h"		// added by Flugente for zBackground
 	#include "Reinforcement.h"	// added by Flugente for AddPossiblePendingMilitiaToBattle()
 	#include "Militia Control.h"	// added by Flugente for ResetMilitia()
+	#include "Creature Spreading.h"	// added by Flugente
 #endif
 
 #include "MilitiaSquads.h"
@@ -5940,3 +5941,195 @@ GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8
 
 
 #endif
+
+void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 sY, INT8 sZ )
+{
+	GROUP *curr;
+	GROUP *pPlayerDialogGroup = NULL;
+	PLAYERGROUP *pPlayer;
+	SOLDIERTYPE *pSoldier;
+	BOOLEAN fBattlePending = FALSE;
+	BOOLEAN fAliveMerc = FALSE;
+	BOOLEAN fMilitiaPresent = FALSE;
+	BOOLEAN fCombatAbleMerc = FALSE;
+	BOOLEAN fBloodCatAmbush = FALSE;
+	
+	gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+
+	gubSectorIDOfCreatureAttack = SECTOR(sX, sY);
+
+	gubSpecialEncounterCodeForEnemyHeli = TRUE;
+
+	HandleOtherGroupsArrivingSimultaneously( sX, sY, sZ );
+
+	curr = gpGroupList;
+	while ( curr )
+	{
+		if ( curr->usGroupTeam == OUR_TEAM && curr->ubGroupSize )
+		{
+			if ( !curr->fBetweenSectors )
+			{
+				if ( curr->ubSectorX == sX && curr->ubSectorY == sY && !sZ )
+				{
+					if ( !GroupHasInTransitDeadOrPOWMercs( curr ) &&
+						 (!IsGroupTheHelicopterGroup( curr ) || !fHelicopterIsAirBorne) &&
+						 (!curr->fVehicle || NumberMercsInVehicleGroup( curr )) )
+					{
+						//Now, a player group is in this sector.	Determine if the group contains any mercs that can fight.
+						//Vehicles, EPCs and the robot doesn't count.	Mercs below OKLIFE do.
+						pPlayer = curr->pPlayerList;
+						while ( pPlayer )
+						{
+							pSoldier = pPlayer->pSoldier;
+							if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+							{
+								if ( !AM_A_ROBOT( pSoldier ) &&
+									 !AM_AN_EPC( pSoldier ) &&
+									 pSoldier->stats.bLife >= OKLIFE )
+								{
+									fCombatAbleMerc = TRUE;
+								}
+								if ( pSoldier->stats.bLife > 0 )
+								{
+									fAliveMerc = TRUE;
+								}
+							}
+							pPlayer = pPlayer->next;
+						}
+
+						if ( !pPlayerDialogGroup && fCombatAbleMerc )
+						{
+							pPlayerDialogGroup = curr;
+						}
+
+						if ( fCombatAbleMerc )
+						{
+							break;
+						}
+					}
+				}
+			}
+		}
+		curr = curr->next;
+	}
+
+	if ( aTeam == ENEMY_TEAM )
+	{
+		if ( NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) )
+		{
+			fMilitiaPresent = TRUE;
+			fBattlePending = TRUE;
+		}
+
+		if ( fAliveMerc )
+		{
+			fBattlePending = TRUE;
+		}
+
+		// huh?
+		if ( !NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM ) )
+		{
+			fBattlePending = FALSE;
+		}
+	}
+	else if ( aTeam == MILITIA_TEAM )
+	{
+		if ( NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM ) )
+		{
+			fMilitiaPresent = TRUE;
+			fBattlePending = TRUE;
+		}
+
+		/*if ( fBattlePending )
+		{
+			if ( PossibleToCoordinateSimultaneousGroupArrivals( pGroup ) )
+			{
+				return FALSE;
+			}
+		}*/
+	}
+
+	if ( !fAliveMerc && !fMilitiaPresent )
+	{
+		// empty vehicle, everyone dead, don't care. Enemies don't care.
+		return;
+	}
+
+	if ( fBattlePending )
+	{
+		//A battle is pending, but the players could be all unconcious or dead.
+		//Go through every group until we find at least one concious merc.	The looping will determine
+		//if there are any live mercs and/or concious ones.	If there are no concious mercs, but alive ones,
+		//then we will go straight to autoresolve, where the enemy will likely annihilate them or capture them.
+		//If there are no alive mercs, then there is nothing anybody can do.	The enemy will completely ignore
+		//this, and continue on.
+		
+		StopTimeCompression( );
+
+		if ( gubNumGroupsArrivedSimultaneously )
+		{
+			//Because this is a battle case, clear all the group flags
+			curr = gpGroupList;
+			while ( curr && gubNumGroupsArrivedSimultaneously )
+			{
+				if ( curr->uiFlags & GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY )
+				{
+					curr->uiFlags &= ~GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY;
+					gubNumGroupsArrivedSimultaneously--;
+				}
+				curr = curr->next;
+			}
+		}
+
+		//gpInitPrebattleGroup = pGroup;
+
+		if ( gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
+		{
+			NotifyPlayerOfBloodcatBattle( sX, sY );
+
+			return;
+		}
+
+		if ( !fCombatAbleMerc )
+		{
+			//Prepare for instant autoresolve.
+			gfDelayAutoResolveStart = TRUE;
+			gfUsePersistantPBI = TRUE;
+			if ( fMilitiaPresent )
+			{
+				NotifyPlayerOfInvasionByEnemyForces( sX, sY, 0, TriggerPrebattleInterface );
+
+				// trigger autoresolve if not in city, or this is a militia group
+				if ( aTeam == MILITIA_TEAM || GetTownIdForSector( sX, sY ) == BLANK_SECTOR )
+				{
+					//					CHAR16 str[ 256 ];
+					//					UINT16 uiSectorC = L'A' + pGroup->ubSectorY - 1;
+					//					swprintf( str, gpStrategicString[ STR_DIALOG_ENEMIES_ATTACK_MILITIA ], uiSectorC, pGroup->ubSectorX );
+					//					DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, TriggerPrebattleInterface );
+					TriggerPrebattleInterface( 1 );
+				}
+			}
+			else
+			{
+				CHAR16 str[256];
+				CHAR16 pSectorStr[128];
+				GetSectorIDString( sX, sY, sZ, pSectorStr, TRUE );
+				swprintf( str, gpStrategicString[STR_DIALOG_ENEMIES_ATTACK_UNCONCIOUSMERCS], pSectorStr );
+				DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, TriggerPrebattleInterface );
+			}
+		}
+
+#ifdef JA2BETAVERSION
+		if ( guiCurrentScreen == AIVIEWER_SCREEN )
+			gfExitViewer = TRUE;
+#endif
+
+		if ( pPlayerDialogGroup )
+		{
+			if ( !sZ )
+				MilitiaHelpFromAdjacentSectors( sX, sY );
+
+			PrepareForPreBattleInterface( pPlayerDialogGroup, NULL );
+		}
+	}
+}

@@ -48,6 +48,7 @@
 	#include "Soldier Functions.h"
 	#include "Animation Control.h"
 	#include "Soldier Ani.h"
+	#include "ASD.h"		// added by Flugente
 #endif
 
 #ifdef COUNT_PATHS
@@ -1930,11 +1931,15 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 	CHECKF( pBase );
 	if (pBase->ubHitPoints <= ubDamage)
 	{
+		UpdateAndDamageEnemyHeliIfFound( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, sGridNo, ubDamage, TRUE );
+
 		// boom! structure destroyed!
 		return( TRUE );
 	}
 	else
 	{
+		UpdateAndDamageEnemyHeliIfFound( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, sGridNo, ubDamage, FALSE );
+
 		pBase->ubHitPoints -= ubDamage;
 
 		//Since the structure is being damaged, set the map element that a structure is damaged

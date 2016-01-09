@@ -339,6 +339,10 @@
 			Name="Header Files"
 			>
 			<File
+				RelativePath="ASD.h"
+				>
+			</File>
+			<File
 				RelativePath="Assignments.h"
 				>
 			</File>
@@ -540,6 +544,10 @@
 			>
 			<File
 				RelativePath="AI Viewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="ASD.cpp"
 				>
 			</File>
 			<File

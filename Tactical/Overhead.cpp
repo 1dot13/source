@@ -6829,7 +6829,8 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 					// officers and generals are 'special' prisoners...
 					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
 						++sNumPrisoner[PRISONER_GENERAL];
-					else if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+					// downed pilots count as officers too, even though they are civilians. This makes capturing them more rewarding
+					else if ( (pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER) || pTeamSoldier->ubCivilianGroup == DOWNEDPILOT_CIV_GROUP )
 						++sNumPrisoner[PRISONER_OFFICER];
 					else if ( pTeamSoldier->bTeam == ENEMY_TEAM )
 					{

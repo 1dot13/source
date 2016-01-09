@@ -61,6 +61,7 @@
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "CampaignStats.h"						// added by Flugente
 	#include "PMC.h"								// added by Flugente
+	#include "ASD.h"								// added by Flugente
 #endif
 
 #include "Vehicles.h"
@@ -499,13 +500,16 @@ void InitStrategicLayer( void )
 	// re-set up leave list arrays for dismissed mercs
 	InitLeaveList( );
 
-	// Flugente: se up VIP locations
-	void InitVIPSectors( );
+	// Flugente: set up VIP locations
+	InitVIPSectors();
 
+	// Flugente: init special AI
+	InitASD();
 
-	#ifdef JA2UB
+#ifdef JA2UB
 	LuaInitStrategicLayer(0); //JA25 UB InitStrategicLayer.lua 
-	#endif
+#endif
+
 	// reset time compression mode to X0 (this will also pause it)
 	SetGameTimeCompressionLevel( TIME_COMPRESS_X0 );
 

@@ -3209,6 +3209,44 @@ UINT32 CalculateSnitchPrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts 
 	return( usValue );
 }
 
+// Flugente: Determine the best cth with SAMs in a sector, and which merc has that cth if present
+FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT16 *pubID )
+{
+	// if nobody is here, nobody can fire
+	FLOAT bestsamcth = 0.0f;
+	*pubID = NOBODY;
+
+	// militia can at least operate the thing, but don't count on them hitting anything...
+	if ( NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM ) )
+		bestsamcth = 40.0f;
+
+	// loop over all mercs present. Best cth wins
+	UINT16 uiCnt = 0;
+	SOLDIERTYPE* pSoldier = NULL;
+
+	for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && (pSoldier->sSectorX == sSectorX) && (pSoldier->sSectorY == sSectorY) && (pSoldier->bSectorZ == sSectorZ) )
+		{
+			INT16 personal_bestsamcth = 70.0f +
+				15 * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) +
+				10 * NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT ) +
+				2 * NUM_SKILL_TRAITS( pSoldier, DEMOLITIONS_NT ) +
+				5 * NUM_SKILL_TRAITS( pSoldier, RADIO_OPERATOR_NT );
+
+			personal_bestsamcth = (personal_bestsamcth * (100.0f + pSoldier->GetBackgroundValue( BG_PERC_SAM_CTH ))) / 100.0f;
+
+			if ( personal_bestsamcth > bestsamcth )
+			{
+				bestsamcth = personal_bestsamcth;
+				*pubID = uiCnt;
+			}
+		}
+	}
+
+	return bestsamcth;
+}
+
 // anv: handle prisoners exposing snitch as a snitch
 BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 {

@@ -99,6 +99,7 @@ extern BOOLEAN fHoveringHelicopter;
 
 // helicopter icon
 extern UINT32 guiHelicopterIcon;
+extern UINT32 guiEnemyHelicopterIcon;
 
 // helicopter destroyed
 extern BOOLEAN fHelicopterDestroyed;
@@ -292,6 +293,8 @@ BOOLEAN HandleSAMSiteAttackOfHelicopterInSector( INT16 sSectorX, INT16 sSectorY 
 BOOLEAN CanHelicopterTakeOff( void );
 
 void InitializeHelicopter( void );
+
+void AddEnemyHelicopterToMaps( BOOLEAN fAdd, BOOLEAN fDestroyed, INT32 aGridno, INT32 aTileIndex );
 
 BOOLEAN IsSkyriderIsFlyingInSector( INT16 sSectorX, INT16 sSectorY );
 

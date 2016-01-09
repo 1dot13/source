@@ -640,7 +640,7 @@ UINT32	MainGameScreenHandle(void)
 
 		// Start heli Run...
 		StartHelicopterRun();
-
+		
 		
 		// Update clock by one so that our DidGameJustStatrt() returns now false for things like LAPTOP, etc...
 		SetGameTimeCompressionLevel( TIME_COMPRESS_X1 );

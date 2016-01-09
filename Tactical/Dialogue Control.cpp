@@ -3322,9 +3322,9 @@ void SayQuoteFromAnyBodyInSector( UINT16 usQuoteNum )
 void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usQuoteNum )
 {
 // WDS - make number of mercenaries, etc. be configurable
-	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
-	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	std::vector<UINT16>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
+	UINT16	ubNumMercs = 0;
+	UINT16	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
 
@@ -3342,16 +3342,17 @@ void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSect
 			if( pTeamSoldier->sSectorX == sSectorX && pTeamSoldier->sSectorY == sSectorY && pTeamSoldier->bSectorZ == bSectorZ	&& !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep )
 			{
 				ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
-				ubNumMercs++;
+				++ubNumMercs;
 			}
 		}
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SayQuoteFromAnyBodyInThisSector: num mercs = %d",ubNumMercs));
+
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SayQuoteFromAnyBodyInThisSector: chosen merc = %d",ubChosenMerc));
 
 		//// If we are air raid, AND red exists somewhere...
@@ -3366,7 +3367,6 @@ void SayQuoteFromAnyBodyInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSect
 		//		}
 		//	}
 		//}
-
 
 		TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
 	}

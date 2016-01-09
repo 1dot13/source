@@ -138,6 +138,7 @@
 #include "sgp_logger.h"
 
 #include "Map Screen Interface Map Inventory.h"	// added by Flugente
+#include "ASD.h"	// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2153,6 +2154,8 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			// Check for helicopter being on the ground in this sector...
 			HandleHelicopterOnGroundGraphic( );
 
+			HandleEnemyHelicopterOnGroundGraphic();
+
 			// 0verhaul:  Okay, it is apparent that the enemies are not reset correctly.  So I will now try to add symmetry
 			// between enemy placement and militia placement.  The enemies do have one advantage here, though:  If a sector
 			// is in enemy hands, then their sector is not actually loaded.  At least not normally.  Perhaps it would be useful
@@ -2304,6 +2307,8 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 			// Check for helicopter being on the ground in this sector...
 			HandleHelicopterOnGroundGraphic( );
+
+			HandleEnemyHelicopterOnGroundGraphic();
 		}
 		else
 			return( FALSE );
@@ -4994,7 +4999,7 @@ void SetupNewStrategicGame( )
 	AddEveryDayStrategicEvent( EVENT_DAILY_UPDATE_BOBBY_RAY_INVENTORY, BOBBYRAY_UPDATE_TIME, 0 );
 	//Daily Update of the M.E.R.C. site.
 	AddEveryDayStrategicEvent( EVENT_DAILY_UPDATE_OF_MERC_SITE, 0, 0 );
-
+	
 #ifdef JA2UB
 //Ja25:  No insurance for mercs
 //JA25: There is no mines
@@ -5021,6 +5026,9 @@ void SetupNewStrategicGame( )
 	// Hourly update of all sorts of things
 	AddPeriodStrategicEvent( EVENT_HOURLY_UPDATE, 60, 0 );
 	AddPeriodStrategicEvent( EVENT_QUARTER_HOUR_UPDATE, 15, 0 );
+	
+	// Flugente: ASD
+	AddPeriodStrategicEvent( EVENT_ASD_UPDATE, 90, 0 );
 
 	//Clear any possible battle locator
 	gfBlitBattleSectorLocator = FALSE;
@@ -6179,6 +6187,7 @@ BOOLEAN IsSectorDesert( INT16 sSectorX, INT16 sSectorY )
 		return( FALSE );
 	}
 }
+
 // SANDRO - added function
 BOOLEAN IsSectorTropical( INT16 sSectorX, INT16 sSectorY )
 {
@@ -6188,12 +6197,38 @@ BOOLEAN IsSectorTropical( INT16 sSectorX, INT16 sSectorY )
 	{
 		return ( TRUE );
 	}
-	else
-	{
-		return ( FALSE ); 
-	}
+	
+	return ( FALSE ); 
 }
 
+BOOLEAN IsSectorFarm( INT16 sSectorX, INT16 sSectorY )
+{
+	if ( SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == FARMLAND ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == FARMLAND_ROAD )
+	{
+		return (TRUE);
+	}
+
+	return (FALSE);
+}
+
+BOOLEAN IsSectorRoad( INT16 sSectorX, INT16 sSectorY )
+{
+	if ( SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == PLAINS_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == SPARSE_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == FARMLAND_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == TROPICS_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == DENSE_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == HILLS_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == COASTAL_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == SAND_ROAD ||
+		 SectorInfo[SECTOR( sSectorX, sSectorY )].ubTraversability[THROUGH_STRATEGIC_MOVE] == SWAMP_ROAD )
+	{
+		return (TRUE);
+	}
+
+	return (FALSE);
+}
 
 BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 {

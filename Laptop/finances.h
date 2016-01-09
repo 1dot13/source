@@ -56,6 +56,7 @@ enum
 	PRISONER_RANSOM,		// Flugente: ransom for released prisoners
 	WHO_SUBSCRIPTION,		// Flugente: subscription do WHO data
 	PMC_CONTRACT,			// Flugente: hired militia from a PMC
+	SAM_REPAIR,				// Flugente: repair SAM site
 	TEXT_NUM_FINCANCES
 };
 

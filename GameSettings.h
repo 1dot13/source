@@ -212,6 +212,18 @@ enum
 	PRISONER_INTERROGATION_MAX
 };
 
+// Flugente: ASD resource types
+enum
+{
+	ASD_MONEY,
+	ASD_FUEL,
+	ASD_HELI,
+	ASD_JEEP,
+	ASD_TANK,
+
+	ASD_RESOURCE_MAX
+};
+
 typedef struct
 {
 	BOOLEAN fGunNut;
@@ -599,6 +611,33 @@ typedef struct
 
 	BOOLEAN gfInvestigateSector;
 	BOOLEAN gfReassignPendingReinforcements;
+
+	// Flugente: ASD
+	BOOLEAN fASDActive;
+	UINT8 usASDSupplyArrivalSector;
+	INT32 gASDResource_Cost[ASD_RESOURCE_MAX];
+	INT32 gASDResource_BuyTime[ASD_RESOURCE_MAX];
+
+	// Flugente: enemy heli
+	BOOLEAN fEnemyHeliActive;
+	
+	UINT16 gEnemyHeliMaxHP;
+	UINT16 gEnemyHeliTimePerHPRepair;
+	INT32  gEnemyHeliCostPerRepair1HP;
+	UINT16 gEnemyHeliMaxFuel;
+	UINT16 gEnemyHeliTimePerFuelRefuel;
+
+	UINT8 gEnemyHeliAllowedSAMContacts;
+	UINT16 gEnemyHeliSAMDamage_Base;
+	UINT16 gEnemyHeliSAMDamage_Var;
+	UINT16 gEnemyHeliMANPADSDamage_Base;
+	UINT16 gEnemyHeliMANPADSDamage_Var;
+
+	UINT8 usEnemyHeliBaseSector;
+	INT32 sEnemyHeliBaseParkGridno[2];
+	INT32 sEnemyHeliBaseParkTileIndex;
+
+
 
 	INT32 ubEnemiesItemDrop;
 

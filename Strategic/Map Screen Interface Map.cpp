@@ -44,6 +44,7 @@
 	#include "Map Information.h"
 	#include "Air Raid.h"
 	#include "Auto Resolve.h"
+	#include "ASD.h"	// added by Flugente
 #endif
 
 #include "Quests.h"
@@ -4245,6 +4246,77 @@ void DisplayPositionOfHelicopter( void )
 			sOldMapX = ( INT16 ) x;
 			sOldMapY = ( INT16 ) y;
 		}
+	}
+}
+
+void DisplayPositionOfEnemyHelicopter()
+{
+	static INT16 sOldMapX = 0, sOldMapY = 0;
+	//	INT16 sX =0, sY = 0;
+	FLOAT flRatio = 0.0;
+	UINT32 x, y;
+	UINT16 minX, minY, maxX, maxY;
+	HVOBJECT hHandle;
+	INT32 iNumberOfPeopleInHelicopter = 0;
+	CHAR16 sString[4];
+
+	INT32 MAP_MVT_ICON_FONT = TINYFONT1;
+
+	AssertMsg( (sOldMapX >= 0) && (sOldMapX < SCREEN_WIDTH), String( "DisplayPositionOfHelicopter: Invalid sOldMapX = %d", sOldMapX ) );
+	AssertMsg( (sOldMapY >= 0) && (sOldMapY < SCREEN_HEIGHT), String( "DisplayPositionOfHelicopter: Invalid sOldMapY = %d", sOldMapY ) );
+
+	// TODO: different icon
+
+	// HEADROCK HAM 5: Now has to be done here to get the size of the helicopter icon.
+	GetVideoObject( &hHandle, guiEnemyHelicopterIcon );
+
+	UINT16 usIconWidth = hHandle->pETRLEObject[0].usWidth;
+	UINT16 usIconHeight = hHandle->pETRLEObject[0].usHeight;
+	UINT16 usIconOffsetX = hHandle->pETRLEObject[0].sOffsetX;
+	UINT16 usIconOffsetY = hHandle->pETRLEObject[0].sOffsetY;
+
+	// restore background on map where it is
+	if ( sOldMapX != 0 )
+	{
+		RestoreExternBackgroundRect( sOldMapX + usIconOffsetX, sOldMapY + usIconOffsetY, usIconWidth, usIconHeight );
+		sOldMapX = 0;
+	}
+
+	std::set<UINT8> helisectorset = GetEnemyHeliSectors( TRUE );	// if set to FALSE, display helicopters regardless of player knowledge
+
+	for ( std::set<UINT8>::iterator it = helisectorset.begin( ); it != helisectorset.end( ); ++it)
+	{
+		UINT8 sector = (*it);
+		UINT8 sector_x = SECTORX( sector );
+		UINT8 sector_y = SECTORY( sector );
+		
+		// grab min and max locations to interpolate sub sector position
+		minX = MAP_VIEW_START_X + MAP_GRID_X * (sector_x);
+		maxX = MAP_VIEW_START_X + MAP_GRID_X * (sector_x);
+		minY = MAP_VIEW_START_Y + MAP_GRID_Y * (sector_y);
+		maxY = MAP_VIEW_START_Y + MAP_GRID_Y * (sector_y);
+
+		AssertMsg( (minX >= 0) && (minX < SCREEN_WIDTH), String( "DisplayPositionOfHelicopter: Invalid minX = %d", minX ) );
+		AssertMsg( (maxX >= 0) && (maxX < SCREEN_WIDTH), String( "DisplayPositionOfHelicopter: Invalid maxX = %d", maxX ) );
+		AssertMsg( (minY >= 0) && (minY < SCREEN_WIDTH), String( "DisplayPositionOfHelicopter: Invalid minY = %d", minY ) );
+		AssertMsg( (maxY >= 0) && (maxY < SCREEN_WIDTH), String( "DisplayPositionOfHelicopter: Invalid maxY = %d", maxY ) );
+
+		// IMPORTANT: Since min can easily be larger than max, we gotta cast to as signed value
+		x = (UINT32)(minX + flRatio * ((INT16)maxX - (INT16)minX));
+		y = (UINT32)(minY + flRatio * ((INT16)maxY - (INT16)minY));
+
+		// clip blits to mapscreen region
+		ClipBlitsToMapViewRegion( );
+
+		BltVideoObject( FRAME_BUFFER, hHandle, HELI_ICON, x, y, VO_BLT_SRCTRANSPARENCY, NULL );
+		
+		InvalidateRegion( x, y, x + usIconWidth, y + usIconHeight );
+
+		RestoreClipRegionToFullScreen( );
+
+		// now store the old stuff
+		sOldMapX = (INT16)x;
+		sOldMapY = (INT16)y;
 	}
 }
 

@@ -47,6 +47,8 @@
 	#include "MilitiaSquads.h"
 	#include "PMC.h"			// added by Flugente
 	#include "finances.h"		// added by Flugente
+	#include "ASD.h"			// added by Flugente
+	#include "Player Command.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -573,7 +575,47 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			EndQuest( QUEST_KINGPIN_ANGEL_MARIA, gWorldSectorX, gWorldSectorY );
 
 			break;
-	#endif
+#endif
+
+		case EVENT_ASD_UPDATE:
+			UpdateASD();
+			break;
+
+		case EVENT_ASD_PURCHASE_FUEL:	
+			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usASDSupplyArrivalSector ), SECTORY( gGameExternalOptions.usASDSupplyArrivalSector ), 0 ) )
+				ASDReceiveOrderedStrategicAIResources( ASD_FUEL, pEvent->uiParam );
+			break;
+
+		case EVENT_ASD_PURCHASE_JEEP:
+			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usASDSupplyArrivalSector ), SECTORY( gGameExternalOptions.usASDSupplyArrivalSector ), 0 ) )
+				ASDReceiveOrderedStrategicAIResources( ASD_JEEP, pEvent->uiParam );
+			break;
+
+		case EVENT_ASD_PURCHASE_TANK:
+			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usASDSupplyArrivalSector ), SECTORY( gGameExternalOptions.usASDSupplyArrivalSector ), 0 ) )
+				ASDReceiveOrderedStrategicAIResources( ASD_TANK, pEvent->uiParam );
+			break;
+
+		case EVENT_ASD_PURCHASE_HELI:
+			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usEnemyHeliBaseSector ), SECTORY( gGameExternalOptions.usEnemyHeliBaseSector ), 0 ) )
+				ASDReceiveOrderedStrategicAIResources( ASD_HELI, pEvent->uiParam );
+			break;
+
+		case EVENT_ENEMY_HELI_UPDATE:
+			UpdateEnemyHeli( pEvent->uiParam );
+			break;
+
+		case EVENT_ENEMY_HELI_REPAIR:
+			UpdateEnemyHeliRepair( pEvent->uiParam );
+			break;
+
+		case EVENT_ENEMY_HELI_REFUEL:
+			UpdateEnemyHeliRefuel( pEvent->uiParam );
+			break;
+
+		case EVENT_SAMSITE_REPAIRED:
+			RepairSamSite( pEvent->uiParam );
+			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;

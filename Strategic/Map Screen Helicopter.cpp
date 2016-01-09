@@ -43,6 +43,7 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "merc entering.h"	// added by Flugente
+	#include "ASD.h"			// added by Flugente
 #endif
 
 #include "Vehicles.h"
@@ -106,6 +107,7 @@ INT32 iHelicopterVehicleId = -1;
 
 // helicopter icon
 UINT32 guiHelicopterIcon;
+UINT32 guiEnemyHelicopterIcon;
 
 // total distance travelled
 INT32 iTotalHeliDistanceSinceRefuel = 0;
@@ -1292,6 +1294,9 @@ void LandHelicopter( void )
 		HandleKillChopperMeanwhileScene();
 #endif
 	}
+
+	// Flugente: once the AI 'learns' of the player using helis, it wants some for itself
+	SetASDFlag( ASDFACT_HELI_UNLOCKED );
 }
 
 
@@ -2670,18 +2675,18 @@ void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );
 
-	// ATE: If any mercs here, bump them off!
+		// ATE: If any mercs here, bump them off!
 		ConvertGridNoToXY( iGridNo, &sCentreGridX, &sCentreGridY );
 
-	for( sGridY = sCentreGridY - 5; sGridY < sCentreGridY + 5; sGridY++ )
-	{
-		for( sGridX = sCentreGridX - 5; sGridX < sCentreGridX + 5; sGridX++ )
+		for( sGridY = sCentreGridY - 5; sGridY < sCentreGridY + 5; sGridY++ )
 		{
-			iGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
+			for( sGridX = sCentreGridX - 5; sGridX < sCentreGridX + 5; sGridX++ )
+			{
+				iGridNo = MAPROWCOLTOPOS( sGridY, sGridX );
 
-		 	BumpAnyExistingMerc( iGridNo );
+		 		BumpAnyExistingMerc( iGridNo );
+			}
 		}
-	}
 	}
 	else
 	{
@@ -2695,9 +2700,62 @@ void AddHelicopterToMaps( BOOLEAN fAdd, UINT8 ubSite )
 
 		InvalidateWorldRedundency();
 		SetRenderFlags( RENDER_FLAG_FULL );
+	}
+}
 
+void AddEnemyHelicopterToMaps( BOOLEAN fAdd, BOOLEAN fDestroyed, INT32 aGridno, INT32 aTileIndex )
+{
+	// for safety, remove the old one first
+	{
+		// remove from the world
+		RemoveStruct( aGridno, (UINT16)aTileIndex );
+		RemoveStruct( aGridno, (UINT16)(aTileIndex + 1) );
+		RemoveStruct( (aGridno - WORLD_COLS * 5), (UINT16)(aTileIndex + 2) );
+		RemoveStruct( aGridno, (UINT16)(aTileIndex + 3) );
+		RemoveStruct( aGridno, (UINT16)(aTileIndex + 4) );
+		RemoveStruct( (aGridno - WORLD_COLS * 5), (UINT16)(aTileIndex + 5) );
+
+		// for safety reasons, both versions are to be removed
+		RemoveStruct( aGridno, (UINT16)aTileIndex + 6 );
+		RemoveStruct( aGridno, (UINT16)(aTileIndex + 6 + 1) );
+		RemoveStruct( (aGridno - WORLD_COLS * 5), (UINT16)(aTileIndex + 6 + 2) );
+		RemoveStruct( aGridno, (UINT16)(aTileIndex + 6 + 3) );
+		RemoveStruct( aGridno, (UINT16)(aTileIndex + 6 + 4) );
+		RemoveStruct( (aGridno - WORLD_COLS * 5), (UINT16)(aTileIndex + 6 + 5) );
+
+		InvalidateWorldRedundency( );
+		SetRenderFlags( RENDER_FLAG_FULL );
 	}
 
+	if ( fAdd )
+	{
+		INT16	sCentreGridX, sCentreGridY;
+
+		INT16 offset = fDestroyed ? 6 : 0;
+
+		AddHeliPiece( aGridno, (UINT16)aTileIndex + offset );
+		AddHeliPiece( aGridno, (UINT16)(aTileIndex + offset + 1) );
+		AddHeliPiece( (aGridno - WORLD_COLS * 5), (UINT16)(aTileIndex + offset + 2) );
+		AddHeliPiece( aGridno, (UINT16)(aTileIndex + offset + 3) );
+		AddHeliPiece( aGridno, (UINT16)(aTileIndex + offset + 4) );
+		AddHeliPiece( (aGridno - WORLD_COLS * 5), (UINT16)(aTileIndex + offset + 5) );
+
+		InvalidateWorldRedundency( );
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		// ATE: If any mercs here, bump them off!
+		ConvertGridNoToXY( aGridno, &sCentreGridX, &sCentreGridY );
+
+		for ( INT16 sGridY = sCentreGridY - 5; sGridY < sCentreGridY + 5; sGridY++ )
+		{
+			for ( INT16 sGridX = sCentreGridX - 5; sGridX < sCentreGridX + 5; sGridX++ )
+			{
+				aGridno = MAPROWCOLTOPOS( sGridY, sGridX );
+
+				BumpAnyExistingMerc( aGridno );
+			}
+		}
+	}
 }
 
 

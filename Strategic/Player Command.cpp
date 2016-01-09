@@ -542,6 +542,13 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 	return fWasPlayerControlled;
 }
 
+BOOLEAN IsSectorEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+{
+	if ( !bMapZ )
+		return StrategicMap[SECTOR( sMapX, sMapY )].fEnemyControlled;
+
+	return !SectorInfo[SECTOR( sMapX, sMapY )].fPlayer[bMapZ];
+}
 
 #ifdef JA2TESTVERSION
 void ClearMapControlledFlags( void )

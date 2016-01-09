@@ -4158,6 +4158,7 @@ STR16 pMapPopUpInventoryText[] =
 {
 	L"Inventaire",
 	L"Quitter",
+	L"Repair",	// TODO.Translate
 };
 
 // town strings
@@ -4528,6 +4529,7 @@ STR16 pTransactionText[] =
 	L"Argent des prisonniers libérés",	// Flugente: prisoner system
 	L"WHO data subscription",	// Flugente: disease TODO.Translate
 	L"Payment to Kerberus",	// Flugente: PMC
+	L"SAM site repair", // Flugente: SAM repair // TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -8897,6 +8899,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d en audition pendant la nuit\n",
 	L" %s%d en audition pendant la journée\n",
 	L" %s%d d'efficacité à désamorcer les pièges\n",
+	L" %s%d%% CTH with SAMs\n",	// TODO.Translate
 
 	L" %s%d%% d'efficacité dans une approche amicale\n",
 	L" %s%d%% d'efficacité dans une approche directe\n",
@@ -10843,6 +10846,21 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Final",
 
 	L"Militia Volunteers: %d (+%5.3f)",
+};
+
+STR16 szEnemyHeliText[] =	// TODO.Translate
+{
+	L"Enemy helicopter shot down in %s!",
+	L"We... uhm... currently don't control that site, commander...",
+	L"The SAM does not need maintenance at the moment.",
+	L"We've already ordered the repair, this will take time.",
+
+	L"We do not have enough resources to do that.",
+	L"Repair SAM site? This will cost %d$ and take %d hours.",
+	L"Enemy helicopter hit in %s.",
+	L"%s fires %s at enemy helicopter in %s.",
+
+	L"SAM in %s fires at enemy helicopter in %s.",
 };
 
 #endif //FRENCH

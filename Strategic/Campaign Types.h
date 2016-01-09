@@ -441,6 +441,7 @@ typedef enum
 // -------- added by Flugente: sector info flags --------
 // easier than adding 32 differently named variables. DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 #define SECTORINFO_VOLUNTEERS_RECENTLY_RECRUITED		0x01	//1				// we recruited volunteers here. Until this flag is removed, newly created civilians wont be potential volunteers anymore
+#define SECTORINFO_ENEMYHELI_SHOTDOWN					0x02	//2				// an enemy helicopter was shot down here. The first time after that we enter this sector, there is a chance to find a downed pilot here
 
 typedef struct SECTORINFO
 {

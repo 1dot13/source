@@ -176,6 +176,8 @@ BOOLEAN IsThereAFunctionalSAMSiteInSector( INT16 sSectorX, INT16 sSectorY, INT8 
 
 BOOLEAN IsSectorDesert( INT16 sSectorX, INT16 sSectorY );
 BOOLEAN IsSectorTropical( INT16 sSectorX, INT16 sSectorY ); // added by SANDRO
+BOOLEAN IsSectorFarm( INT16 sSectorX, INT16 sSectorY ); // added by Flugente
+BOOLEAN IsSectorRoad( INT16 sSectorX, INT16 sSectorY ); // added by Flugente
 
 // sam site under players control?
 INT32 SAMSitesUnderPlayerControl( INT16 sX, INT16 sY );

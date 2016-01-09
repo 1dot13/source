@@ -1,6 +1,7 @@
 #ifndef _MERC_ENTRING_H
 #define _MERC_ENTRING_H
 
+extern BOOLEAN		gfIngagedInDrop;
 
 void ResetHeliSeats( );
 void AddMercToHeli( UINT8 ubID );
@@ -11,9 +12,12 @@ void SetHelicopterDropDirection( UINT8 usDirection );
 
 void StartHelicopterRun();
 
-void HandleHeliDrop( );
+void HandleHeliDrop( BOOLEAN fPlayer = TRUE );
 
-extern BOOLEAN		gfIngagedInDrop;
+UINT16 SpawnAirDropElite( INT32 sGridNo );
+
+void InitiateEnemyAirDropSoldiers( INT32 sGridNo );
+void HandleEnemyAirdrop( );
 
 #endif
 

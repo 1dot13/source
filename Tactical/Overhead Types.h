@@ -365,7 +365,7 @@ enum
 	UNNAMED_CIV_GROUP_23,
 	VOLUNTEER_CIV_GROUP,	// Flugente: civilians that the player recruited
 	BOUNTYHUNTER_CIV_GROUP,	// Flugente: hostile bounty hunters
-	UNNAMED_CIV_GROUP_26,
+	DOWNEDPILOT_CIV_GROUP,	// Flugente: downed pilots
 	UNNAMED_CIV_GROUP_27,
 	UNNAMED_CIV_GROUP_28,
 	UNNAMED_CIV_GROUP_29,

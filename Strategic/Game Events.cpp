@@ -115,6 +115,15 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"KingpinBounty1",
 	L"KingpinBounty2",
 	L"KingpinBounty3",
+	L"ASDUpdate",
+	L"ASDPurchaseFuel",
+	L"ASDPurchaseJeep",
+	L"ASDPurchaseTank",
+	L"ASDPurchaseHeli",
+	L"EnemyHeliUpdate",
+	L"EnemyHeliRepair",
+	L"EnemyHeliRefuel",
+	L"SAMsiteRepaired",
 };
 
 #endif

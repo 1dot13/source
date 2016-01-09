@@ -731,7 +731,7 @@ extern OBJECTTYPE gTempObject;
 // flags used for various item properties (easier than adding 32 differently named variables). DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 // note that these should not be used to determine what kind of an attachment an item is, that is determined by attachmentclass and the AC_xxx flags above
 //#define EMPTY_SANDBAG			0x00000001	//1
-//#define FULL_SANDBAG			0x00000002	//2
+#define MANPAD					0x00000002	//2			// this item is a MAn-Portable Air-Defense System
 //#define SHOVEL					0x00000004	//4			// a shovel is used for filling sandbags and other building-related tasks
 //#define CONCERTINA				0x00000008	//8
 

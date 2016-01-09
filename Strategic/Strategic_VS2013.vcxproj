@@ -23,6 +23,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ASD.h" />
     <ClInclude Include="Assignments.h" />
     <ClInclude Include="Auto Resolve.h" />
     <ClInclude Include="Campaign Init.h" />
@@ -75,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AI Viewer.cpp" />
+    <ClCompile Include="ASD.cpp" />
     <ClCompile Include="Assignments.cpp" />
     <ClCompile Include="Auto Resolve.cpp" />
     <ClCompile Include="Campaign Init.cpp" />

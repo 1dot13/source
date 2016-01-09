@@ -260,6 +260,9 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 
 UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 
+// Flugente: Determine the best cth with SAMs in a sector, and which merc has that cth if present
+FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT16 *pubID );
+
 // Flugente: determine max items we can move, and the sector distance
 
 // get bonus tarining pts due to an instructor for this student

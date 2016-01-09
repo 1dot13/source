@@ -1325,6 +1325,7 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 			{
 				return( TRUE );
 			}
+
 			// SANDRO - STOMP traits - Scouting check
 			if (fScoutTraitCheck && gGameOptions.fNewTraitSystem && ScoutIsPresentInSquad( sCounterA, sCounterB ))
 			{
@@ -1339,13 +1340,13 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 				}
 				else
 				{
-					bScout = TRUE;
+					return TRUE;
 				}
 			}
 		}
 	}
 
-	return( bScout );
+	return FALSE;
 }
 
 BOOLEAN IsTownFullMilitia( INT8 bTownId, INT8 iMilitiaType )
@@ -2477,13 +2478,8 @@ FLOAT CalcHourlyVolunteerGain()
 
 			UINT8 sector = SECTOR( sX, sY );
 
-			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
-
-			if ( !pSectorInfo )
-				continue;
-
-			// TODO: modifier increase for every farm we control
-			if ( pSectorInfo->ubTraversability[THROUGH_STRATEGIC_MOVE] == FARMLAND || pSectorInfo->ubTraversability[THROUGH_STRATEGIC_MOVE] == FARMLAND_ROAD )
+			// modifier increase for every farm we control
+			if ( IsSectorFarm( sX, sY ) )
 				populationmodifier += gGameExternalOptions.dMilitiaVolunteerMultiplierFarm;
 
 			UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].bNameId;

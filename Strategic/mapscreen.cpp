@@ -5012,6 +5012,15 @@ UINT32 MapScreenHandle(void)
 
 		CHECKF(AddVideoObject(&VObjectDesc, &guiHelicopterIcon));
 
+		if ( iResolution >= _640x480 && iResolution < _800x600 )
+			FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_640.sti", VObjectDesc.ImageFile );
+		else if ( iResolution < _1024x768 )
+			FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_800.sti", VObjectDesc.ImageFile );
+		else
+			FilenameForBPP( "INTERFACE\\Helicopter_Map_Icon_Enemy_1024.sti", VObjectDesc.ImageFile );
+
+		CHECKF( AddVideoObject( &VObjectDesc, &guiEnemyHelicopterIcon ) );
+
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\eta_pop_up.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiMapBorderEtaPopUp));
@@ -5638,6 +5647,11 @@ UINT32 MapScreenHandle(void)
 		DisplayPositionOfHelicopter( );
 	}
 
+	// Flugente: enemy helicopter
+	if ( fShowAircraftFlag && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
+	{
+		DisplayPositionOfEnemyHelicopter();
+	}
 
 	// display town info
 	DisplayTownInfo( sSelMapX, sSelMapY, ( INT8 ) iCurrentMapSectorZ );
@@ -8686,6 +8700,7 @@ INT32 iCounter2 = 0;
 		DeleteVideoObjectFromIndex( guiMapBorderHeliSectors );
 		DeleteVideoObjectFromIndex( guiMapBorderHeliSectorsAlternate );
 		DeleteVideoObjectFromIndex( guiHelicopterIcon );
+		DeleteVideoObjectFromIndex( guiEnemyHelicopterIcon );
 		DeleteVideoObjectFromIndex( guiMINEICON );
 		DeleteVideoObjectFromIndex( guiSectorLocatorGraphicID );
 		
@@ -13552,6 +13567,7 @@ void HandleRemovalOfPreLoadedMapGraphics( void )
 		DeleteVideoObjectFromIndex( guiMapBorderHeliSectors );
 		DeleteVideoObjectFromIndex( guiMapBorderHeliSectorsAlternate );
 		DeleteVideoObjectFromIndex( guiHelicopterIcon );
+		DeleteVideoObjectFromIndex( guiEnemyHelicopterIcon );
 		DeleteVideoObjectFromIndex( guiMINEICON );
 		DeleteVideoObjectFromIndex( guiSectorLocatorGraphicID );
 

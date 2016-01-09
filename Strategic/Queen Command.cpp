@@ -44,6 +44,7 @@
 	#include "Soldier macros.h"
 	#include "Morale.h"
 	#include "CampaignStats.h"		// added by Flugente
+	#include "ASD.h"				// added by Flugente
 #endif
 
 #ifdef JA2BETAVERSION
@@ -1559,10 +1560,16 @@ void AddPossiblePendingEnemiesToBattle()
 			return;
 		}
 	}
-
+	
 	if ( (!PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) && !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, MILITIA_TEAM ))
 		|| !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) )
 		return;
+
+	// Flugente: if there is an enemy helicopter here, it can add reinforcements
+	if ( gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition )
+	{
+		EnemyHeliTroopDrop( SECTOR( gWorldSectorX, gWorldSectorY ) );
+	}
 
 	ubSlots = NumFreeSlots( ENEMY_TEAM );
 	if(gGameExternalOptions.sMinDelayEnemyReinforcements)//dnl ch68 080913

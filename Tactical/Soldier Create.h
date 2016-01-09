@@ -457,6 +457,9 @@ void CreateAssassin(UINT8 disguisetype);
 // create a prisoner (in a prison cell) in the current sector
 void CreatePrisonerOfWar();
 
+// create a downed pilot in a random location in the current sector
+void CreateDownedPilot();
+
 // randomly generates a relative level rating (attributes or equipment)
 void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass );
 

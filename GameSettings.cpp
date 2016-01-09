@@ -1972,6 +1972,50 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gfInvestigateSector				= iniReader.ReadBoolean("Strategic Enemy AI Settings","ENEMY_INVESTIGATE_SECTOR",FALSE);
 	gGameExternalOptions.gfReassignPendingReinforcements	= iniReader.ReadBoolean("Strategic Enemy AI Settings","REASSIGN_PENDING_REINFORCEMENTS",TRUE);
 
+	// Flugente: Arulco special division
+	//################# Strategic Additional Enemy AI Settings ##################
+
+	gGameExternalOptions.fASDActive							= iniReader.ReadBoolean( "Strategic Additional Enemy AI Settings", "ASD_ACTIVE", FALSE );
+
+	gGameExternalOptions.usASDSupplyArrivalSector			= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_SUPPLY_ARRIVAL_SECTOR", 210, 0, 255 );
+
+	gGameExternalOptions.gASDResource_Cost[ASD_MONEY]		= 1;
+	gGameExternalOptions.gASDResource_Cost[ASD_FUEL]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_FUEL", 10, 1, 100 );
+	gGameExternalOptions.gASDResource_Cost[ASD_HELI]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_HELI", 100000, 10000, 1000000 );
+	gGameExternalOptions.gASDResource_Cost[ASD_JEEP]		= 50000;
+	gGameExternalOptions.gASDResource_Cost[ASD_TANK]		= 200000;
+
+	gGameExternalOptions.gASDResource_BuyTime[ASD_MONEY]	= 0;
+	gGameExternalOptions.gASDResource_BuyTime[ASD_FUEL]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_FUEL", 60 * 8, 1, 60 * 48 );
+	gGameExternalOptions.gASDResource_BuyTime[ASD_HELI]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_HELI", 60 * 20, 1, 60 * 48 );
+	gGameExternalOptions.gASDResource_BuyTime[ASD_JEEP]		= 60 * 12;
+	gGameExternalOptions.gASDResource_BuyTime[ASD_TANK]		= 60 * 24;
+
+	// Flugente: enemy heli
+	//################# Enemy Helicopter Settings ##################
+
+	gGameExternalOptions.fEnemyHeliActive					= iniReader.ReadBoolean( "Enemy Helicopter Settings", "ENEMYHELI_ACTIVE", TRUE );
+
+	gGameExternalOptions.gEnemyHeliMaxHP					= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP", 100, 1, 500 );
+	gGameExternalOptions.gEnemyHeliTimePerHPRepair			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP_REPAIRTIME", 6, 1, 20 );
+	gGameExternalOptions.gEnemyHeliCostPerRepair1HP			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP_COST", 200, 10, 1000 );
+	gGameExternalOptions.gEnemyHeliMaxFuel					= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_FUEL", 50, 25, 200 );
+	gGameExternalOptions.gEnemyHeliTimePerFuelRefuel		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_FUEL_REFUELTIME", 3, 1, 10 );
+
+	gGameExternalOptions.gEnemyHeliAllowedSAMContacts		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_TOLERATED_HOSTILE_SAMSECTORS", 4, 0, 10 );
+
+	gGameExternalOptions.gEnemyHeliSAMDamage_Base			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_SAM_DAMAGE_BASE", 25, 10, 100 );
+	gGameExternalOptions.gEnemyHeliSAMDamage_Var			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_SAM_DAMAGE_VAR", 30, 10, 100 );
+	gGameExternalOptions.gEnemyHeliMANPADSDamage_Base		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_MANPADS_DAMAGE_BASE", 40, 10, 100 );
+	gGameExternalOptions.gEnemyHeliMANPADSDamage_Var		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_MANPADS_DAMAGE_VAR", 80, 10, 100 );
+
+	gGameExternalOptions.usEnemyHeliBaseSector				= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_BASE", 210, 0, 255 );
+
+	gGameExternalOptions.sEnemyHeliBaseParkGridno[0]		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_BASE_PARKPOSITION_1", 18475, -1, 2147483647 );
+	gGameExternalOptions.sEnemyHeliBaseParkGridno[1]		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_BASE_PARKPOSITION_2", 18469, -1, 2147483647 );
+	gGameExternalOptions.sEnemyHeliBaseParkTileIndex		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_BASE_PARK_TILEINDEX", 1689, -1, 50000 );
+
+	
 	//################# Militia Training Settings ##################
 
 	gGameExternalOptions.iMaxMilitiaPerSector				= iniReader.ReadInteger("Militia Training Settings","MAX_MILITIA_PER_SECTOR",20, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);

@@ -52,7 +52,8 @@ enum
 #define MILITIA_MOVE_SOUTH				0x00000008	//8
 
 #define ENEMY_VIP_PRESENT				0x00000010	//16		// an enemy VIP is present in this sector
-#define ENEMY_VIP_PRESENT_KNOWN			0x00000020	//16		// player thinks a VIP is here
+#define ENEMY_VIP_PRESENT_KNOWN			0x00000020	//32		// player thinks a VIP is here
+#define SAMSITE_REPAIR_ORDERED			0x00000040	//64		// a repair for this SAM site has already been ordered (so we do not need to do that again)
 
 #define MILITIA_MOVE_ALLDIRS			0x0000000F	// 15
 // -------------------------------------------------------
