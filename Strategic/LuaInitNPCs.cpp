@@ -13009,7 +13009,7 @@ static int l_SetStartingCashDifLevel (lua_State *L)
 	{
 		INT32 DifficultyLevel = lua_tointeger(L,1);
 		
-		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), zDeffSetting[DifficultyLevel].iStartingCash );
+		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), zDiffSetting[DifficultyLevel].iStartingCash );
 	}
 
 	return 0;

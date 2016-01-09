@@ -15719,7 +15719,7 @@ void DumpSectorDifficultyInfo( void )
 	// NOTE: This operates on the selected map sector!
 	CHAR16 wSectorName[ 128 ];
 
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Playing Difficulty: %s", zDeffSetting[gGameOptions.ubDifficultyLevel].szDeffName );		
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Playing Difficulty: %s", zDiffSetting[gGameOptions.ubDifficultyLevel].szDiffName );		
 	
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Highest Progress (0-100) = %d%%", HighestPlayerProgressPercentage() );
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Player Kills = %d", gStrategicStatus.usPlayerKills );

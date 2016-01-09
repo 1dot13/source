@@ -1293,7 +1293,7 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 		return;
 	}
 	
-	ubMaxDeaths = zDeffSetting[gGameOptions.ubDifficultyLevel].iMaxMercDeaths;
+	ubMaxDeaths = zDiffSetting[gGameOptions.ubDifficultyLevel].iMaxMercDeaths;
 
 	// if we've already hit the limit in this game, skip these checks
 	if (gStrategicStatus.ubUnhiredMercDeaths >= ubMaxDeaths)
@@ -1592,7 +1592,7 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	// kills per point depends on difficulty, and should match the ratios of starting enemy populations (730/1050/1500)
 	// HEADROCK HAM 3: Externalized all four Kills-per-point ratios.
-	ubKillsPerPoint = zDeffSetting[gGameOptions.ubDifficultyLevel].iNumKillsPerProgressPoint;
+	ubKillsPerPoint = zDiffSetting[gGameOptions.ubDifficultyLevel].iNumKillsPerProgressPoint;
 
 	usKillsProgress = gStrategicStatus.usPlayerKills / ubKillsPerPoint;
 	if (usKillsProgress > usMaxKillsProgress)

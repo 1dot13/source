@@ -22,7 +22,7 @@ enum
 typedef struct
 {
 	UINT16		uiIndex;
-	CHAR16	szDeffName[128];
+	CHAR16	szDiffName[128];
 	CHAR16 szConfirmText[255];
 	CHAR16	szPrefixXmlName[128];
 	
@@ -83,13 +83,13 @@ typedef struct
 	BOOLEAN bRadioSightings;
 	BOOLEAN bRadioSightings2;
 	
-	FLOAT NewDifficualtySetingsBASE_DIFFICULTY;
-	FLOAT NewDifficualtySetingsAIM_DIFFICULTY;
+	FLOAT NewDifficultySettingsBASE_DIFFICULTY;
+	FLOAT NewDifficultySettingsAIM_DIFFICULTY;
 	
 	BOOLEAN bEnemyMoraleWorried;
 	
 } DIFFICULTY_SETTINGS_VALUES;
 extern UINT8 MaxDifficultySettingsValues; 
-extern DIFFICULTY_SETTINGS_VALUES zDeffSetting[MAX_DIF_LEVEL];
+extern DIFFICULTY_SETTINGS_VALUES zDiffSetting[MAX_DIF_LEVEL];
 
 #endif

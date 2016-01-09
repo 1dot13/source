@@ -288,7 +288,7 @@
 #define		JA2SP_UB_RPC_TEX_AND_JOHN				"RPC_TEX_AND_JOHN"
 #define		JA2SP_UB_RANDOM_MANUEL_TEXT				"RANDOM_MANUEL_TEXT"
 
-DIFFICULTY_SETTINGS_VALUES zDeffSetting[15];
+DIFFICULTY_SETTINGS_VALUES zDiffSetting[15];
 UINT8 MaxDifficultySettingsValues; 
 
 enum
@@ -2672,7 +2672,7 @@ BOOLEAN		RenderGIOScreen()
 	RenderGIOSmallSelectionFrame( (GIO_DIF_SETTING_X + 36), (GIO_DIF_SETTING_Y - 3) );
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_DIF_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
-	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDeffSetting[ iCurrentDifficulty + 1].szDeffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDiffSetting[ iCurrentDifficulty + 1].szDiffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
 	//Display the IMP number Title Text
 	RenderGIOSmallSelectionFrame( (GIO_IMP_SETTING_X + 36), (GIO_IMP_SETTING_Y - 3) );
@@ -3151,7 +3151,7 @@ BOOLEAN DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen
 
 void DisplayMessageToUserAboutGameDifficulty()
 {
-	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[iCurrentDifficulty + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
+	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDiffSetting[iCurrentDifficulty + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 }
 
 
@@ -3390,7 +3390,7 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		JA2SP_BACKGROUNDS						"BACKGROUNDS"
 #define		JA2SP_FOODSYSTEM						"FOOD_SYSTEM"
 
-DIFFICULTY_SETTINGS_VALUES zDeffSetting[MAX_DIF_LEVEL];
+DIFFICULTY_SETTINGS_VALUES zDiffSetting[MAX_DIF_LEVEL];
 UINT8 MaxDifficultySettingsValues; 
 
 enum
@@ -5705,7 +5705,7 @@ BOOLEAN		RenderGIOScreen()
 	RenderGIOSmallSelectionFrame( (GIO_DIF_SETTING_X + 36), (GIO_DIF_SETTING_Y - 3) );
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_DIF_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
-	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDeffSetting[ iCurrentDifficulty + 1].szDeffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDiffSetting[ iCurrentDifficulty + 1].szDiffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
 	//Display the IMP number Title Text
 	RenderGIOSmallSelectionFrame( (GIO_IMP_SETTING_X + 36), (GIO_IMP_SETTING_Y - 3) );
@@ -6160,7 +6160,7 @@ BOOLEAN DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen
 
 void DisplayMessageToUserAboutGameDifficulty()
 {
-	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDeffSetting[iCurrentDifficulty + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
+	DoGioMessageBox( MSG_BOX_BASIC_STYLE, zDiffSetting[iCurrentDifficulty + 1].szConfirmText, GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 }
 
 

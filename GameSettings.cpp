@@ -1785,7 +1785,8 @@ void LoadGameExternalOptions()
 	//################# Strategic Gameplay Settings ##################
 
 	// Allow enemy and militia Strategic Groups to reinforce one another for battles?
-	gGameExternalOptions.gfAllowReinforcements				= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_REINFORCEMENTS",FALSE);
+	// silversurfer: Obsolete. This is now in DifficultySettings.xml and will be set during InitNewGame().
+	gGameExternalOptions.gfAllowReinforcements				= TRUE;
 	// Allow reinforcements only between City sectors?
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
 
@@ -3950,7 +3951,7 @@ void DisplayGameSettings( )
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%S)", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
 
 	//Display the difficulty level
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDeffSetting[gGameOptions.ubDifficultyLevel].szDeffName );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDiffSetting[gGameOptions.ubDifficultyLevel].szDiffName );
 	
 	//Test Settings
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", L"AllowReinforcements", gGameExternalOptions.gfAllowReinforcements ? L"YES" : L"NO" );

@@ -2063,7 +2063,7 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 	//if ( this->bTeam != CIV_TEAM && this->bTeam != gbPlayerNum)
 	if ( this->bTeam == ENEMY_TEAM )
 	{
-		ubPoints += zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
+		ubPoints += zDiffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
 	}
 	// Bonus to Militia APs
 	else if ( this->bTeam == MILITIA_TEAM )
@@ -2173,7 +2173,7 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 
 		if ( this->bTeam == ENEMY_TEAM )
 		{
-			usMaxActionPnts += zDeffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
+			usMaxActionPnts += zDiffSetting[gGameOptions.ubDifficultyLevel].iEnemyAPBonus;
 		}
 		// Bonus to Militia APs
 		else if ( this->bTeam == MILITIA_TEAM )

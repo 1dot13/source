@@ -694,7 +694,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 								iChance -= (2 * ((ubNumMobileEnemies + ubNumStationaryEnemies) - 6)); // -2% adjustment per enemy beyond 6
 
 							// adjust the chance for difficulty setting
-							iChance = iChance + (zDeffSetting[gGameOptions.ubDifficultyLevel].iChanceOfEnemyAmbushes);
+							iChance = iChance + (zDiffSetting[gGameOptions.ubDifficultyLevel].iChanceOfEnemyAmbushes);
 
 							// adjust the chance for what we know about the sector
 							if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING )

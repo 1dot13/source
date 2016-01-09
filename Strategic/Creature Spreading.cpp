@@ -348,7 +348,7 @@ void InitCreatureQuest()
 #endif
 	giHabitatedDistance = 0;
 	
-	giPopulationModifier = zDeffSetting[gGameOptions.ubDifficultyLevel].iCreaturePopulationModifier;
+	giPopulationModifier = zDiffSetting[gGameOptions.ubDifficultyLevel].iCreaturePopulationModifier;
 		
 	//Determine which of the maps are infectible by creatures.	Infectible mines
 	//are those that are player controlled and unlimited.	We don't want the creatures to
@@ -498,8 +498,8 @@ void InitCreatureQuest()
 
 	//Now determine how often we will spread the creatures.
 	
-	i = zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenInitBonusSpread;
-	AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureSpreadTime, 0 );
+	i = zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenInitBonusSpread;
+	AddPeriodStrategicEvent( EVENT_CREATURE_SPREAD, zDiffSetting[gGameOptions.ubDifficultyLevel].iCreatureSpreadTime, 0 );
 	
 	//Set things up so that the creatures can plan attacks on helpless miners and civilians while
 	//they are sleeping.	They do their planning at 10PM every day, and decide to attack sometime
@@ -656,7 +656,7 @@ void SpreadCreatures()
 	}
 
 	//queen just produced a litter of creature larvae.	Let's do some spreading now.
-	UINT16 usNewCreatures = (UINT16)(zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBase + Random( 1 + zDeffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBonus ));
+	UINT16 usNewCreatures = (UINT16)(zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBase + Random( 1 + zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenReproductionBonus ));
 	
 	while( usNewCreatures-- )
 	{
@@ -1673,7 +1673,7 @@ void CreatureNightPlanning()
 	UINT8 ubNumCreatures = CreaturesInUndergroundSector( ubSectorID, 1 );
 
 	//10% chance for each creature with difficulty modifier to decide it's time to attack.	
-	if ( ubNumCreatures > 1 && ubNumCreatures * 10 + zDeffSetting[gGameOptions.ubDifficultyLevel].iCreatureTownAggressiveness > (INT32)PreRandom( 100 ) )
+	if ( ubNumCreatures > 1 && ubNumCreatures * 10 + zDiffSetting[gGameOptions.ubDifficultyLevel].iCreatureTownAggressiveness > (INT32)PreRandom( 100 ) )
 	{
 		AddStrategicEvent( EVENT_CREATURE_ATTACK, GetWorldTotalMin() + 1 + PreRandom( 429 ), ubSectorID );
 	}

@@ -334,7 +334,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 				if ( !SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
 				{
 					// grant grace period
-					UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + zDeffSetting[gGameOptions.ubDifficultyLevel].iUpdateLastDayOfPlayerActivity ) );
+					UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + zDiffSetting[gGameOptions.ubDifficultyLevel].iUpdateLastDayOfPlayerActivity ) );
 				}
 			}
 

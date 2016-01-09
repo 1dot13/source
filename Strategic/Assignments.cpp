@@ -5423,7 +5423,7 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if ( range < 1 )
 		return;
 
-	UINT16 normalgroupsize = 2 * zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
+	UINT16 normalgroupsize = 2 * zDiffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
 
 	FLOAT detect_basechance = 1.0f - pow(0.5f, numberofradiooperators);
 	FLOAT detect_rangefactor = .0f;
@@ -5764,7 +5764,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 		}
 	}
 
-	UINT16 usNormalGroupSize = 2 * zDeffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
+	UINT16 usNormalGroupSize = 2 * zDiffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
 
 	FLOAT fBaseChance = ( EffectiveLeadership(pSoldier) + EffectiveWisdom(pSoldier) + EffectiveExpLevel(pSoldier) * 10 ) / 3000.0f;
 

@@ -2316,7 +2316,7 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 	// SANDRO - on Insane difficulty enemy morale cannot go below worried
 	 if ( bMoraleCategory == MORALE_HOPELESS )
 	 {
-		 if ( pSoldier->aiData.bAttitude == BRAVESOLO || pSoldier->aiData.bAttitude == BRAVEAID || zDeffSetting[gGameOptions.ubDifficultyLevel].bEnemyMoraleWorried )
+		 if ( pSoldier->aiData.bAttitude == BRAVESOLO || pSoldier->aiData.bAttitude == BRAVEAID || zDiffSetting[gGameOptions.ubDifficultyLevel].bEnemyMoraleWorried )
 			 bMoraleCategory = MORALE_WORRIED;
 	 }
 

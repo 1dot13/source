@@ -1822,7 +1822,7 @@ void HandleInitialEventsInHeliCrash()
 
 UINT32 GetNumberOfTurnsPowerGenFanWillBeStoppedFor()
 {	
-	return( zDeffSetting[gGameOptions.ubDifficultyLevel].iGetNumberOfTurnsPowerGenFanWillBeStoppedFor );
+	return( zDiffSetting[gGameOptions.ubDifficultyLevel].iGetNumberOfTurnsPowerGenFanWillBeStoppedFor );
 }
 
 

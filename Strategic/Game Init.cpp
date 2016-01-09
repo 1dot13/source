@@ -562,7 +562,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	AutoSaveToSlot[3] = FALSE;
 	AutoSaveToSlot[4] = FALSE;
 	
-	gGameExternalOptions.gfAllowReinforcements = zDeffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcements;
+	gGameExternalOptions.gfAllowReinforcements = zDiffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcements;
 	
 #ifdef JA2UB
 //Ja25 no meanwhiles
@@ -748,7 +748,7 @@ fFirstTimeInMapScreen = TRUE;
 		}
 
 		// ATE: Set starting cash....
-		iStartingCash = zDeffSetting[gGameOptions.ubDifficultyLevel].iStartingCash;
+		iStartingCash = zDiffSetting[gGameOptions.ubDifficultyLevel].iStartingCash;
 		
 		// Setup initial money
  		AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash );

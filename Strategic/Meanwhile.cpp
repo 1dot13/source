@@ -700,7 +700,7 @@ void ProcessImplicationsOfMeanwhile( void )
 	{
 		case END_OF_PLAYERS_FIRST_BATTLE:
 		
-			if( zDeffSetting[gGameOptions.ubDifficultyLevel].bStrategicAiActionWakeQueen )
+			if( zDiffSetting[gGameOptions.ubDifficultyLevel].bStrategicAiActionWakeQueen )
 			{
 				//Wake up the queen earlier to punish the good players!
 				ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
