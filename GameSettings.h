@@ -614,12 +614,13 @@ typedef struct
 
 	// Flugente: ASD
 	BOOLEAN fASDActive;
-	UINT8 usASDSupplyArrivalSector;
+
 	INT32 gASDResource_Cost[ASD_RESOURCE_MAX];
 	INT32 gASDResource_BuyTime[ASD_RESOURCE_MAX];
 
 	// Flugente: enemy heli
 	BOOLEAN fEnemyHeliActive;
+	UINT8 usEnemyHeliMinimumProgress;
 	
 	UINT16 gEnemyHeliMaxHP;
 	UINT16 gEnemyHeliTimePerHPRepair;
@@ -632,13 +633,7 @@ typedef struct
 	UINT16 gEnemyHeliSAMDamage_Var;
 	UINT16 gEnemyHeliMANPADSDamage_Base;
 	UINT16 gEnemyHeliMANPADSDamage_Var;
-
-	UINT8 usEnemyHeliBaseSector;
-	INT32 sEnemyHeliBaseParkGridno[2];
-	INT32 sEnemyHeliBaseParkTileIndex;
-
-
-
+	
 	INT32 ubEnemiesItemDrop;
 
 	BOOLEAN	gfUseExternalLoadscreens;
@@ -2211,6 +2206,16 @@ typedef struct
 	//enable meanwhile cutscene
 	BOOLEAN AllMeanwhileCutscene;
 	BOOLEAN CreatureMeanwhileCutscene;
+
+	// [ASD]
+	UINT8 usASDSupplyArrivalSectorX;
+	UINT8 usASDSupplyArrivalSectorY;
+
+	// [Enemy Heli]
+	UINT8 usEnemyHeliBaseSectorX;
+	UINT8 usEnemyHeliBaseSectorY;
+	INT32 sEnemyHeliBaseParkGridno[2];
+	INT32 sEnemyHeliBaseParkTileIndex;
 
 }MOD_SETTINGS;
 

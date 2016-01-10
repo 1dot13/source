@@ -582,23 +582,31 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 
 		case EVENT_ASD_PURCHASE_FUEL:	
-			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usASDSupplyArrivalSector ), SECTORY( gGameExternalOptions.usASDSupplyArrivalSector ), 0 ) )
-				ASDReceiveOrderedStrategicAIResources( ASD_FUEL, pEvent->uiParam );
+			ASDReduceOrderedStrategicResources( ASD_FUEL, pEvent->uiParam );
+
+			if ( IsSectorEnemyControlled( gModSettings.usASDSupplyArrivalSectorX, gModSettings.usASDSupplyArrivalSectorY, 0 ) )
+				AddStrategicAIResources( ASD_FUEL, pEvent->uiParam );
 			break;
 
 		case EVENT_ASD_PURCHASE_JEEP:
-			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usASDSupplyArrivalSector ), SECTORY( gGameExternalOptions.usASDSupplyArrivalSector ), 0 ) )
-				ASDReceiveOrderedStrategicAIResources( ASD_JEEP, pEvent->uiParam );
+			ASDReduceOrderedStrategicResources( ASD_JEEP, pEvent->uiParam );
+
+			if ( IsSectorEnemyControlled( gModSettings.usASDSupplyArrivalSectorX, gModSettings.usASDSupplyArrivalSectorY, 0 ) )
+				AddStrategicAIResources( ASD_JEEP, pEvent->uiParam );
 			break;
 
 		case EVENT_ASD_PURCHASE_TANK:
-			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usASDSupplyArrivalSector ), SECTORY( gGameExternalOptions.usASDSupplyArrivalSector ), 0 ) )
-				ASDReceiveOrderedStrategicAIResources( ASD_TANK, pEvent->uiParam );
+			ASDReduceOrderedStrategicResources( ASD_TANK, pEvent->uiParam );
+
+			if ( IsSectorEnemyControlled( gModSettings.usASDSupplyArrivalSectorX, gModSettings.usASDSupplyArrivalSectorY, 0 ) )
+				AddStrategicAIResources( ASD_TANK, pEvent->uiParam );
 			break;
 
 		case EVENT_ASD_PURCHASE_HELI:
-			if ( IsSectorEnemyControlled( SECTORX( gGameExternalOptions.usEnemyHeliBaseSector ), SECTORY( gGameExternalOptions.usEnemyHeliBaseSector ), 0 ) )
-				ASDReceiveOrderedStrategicAIResources( ASD_HELI, pEvent->uiParam );
+			ASDReduceOrderedStrategicResources( ASD_HELI, pEvent->uiParam );
+
+			if ( IsSectorEnemyControlled( gModSettings.usEnemyHeliBaseSectorX, gModSettings.usEnemyHeliBaseSectorY, 0 ) )
+				AddStrategicAIResources( ASD_HELI, pEvent->uiParam );
 			break;
 
 		case EVENT_ENEMY_HELI_UPDATE:

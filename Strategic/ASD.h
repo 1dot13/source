@@ -57,7 +57,9 @@ UINT32 ASDResourceCostMoney( UINT8 aType );
 
 // add resources to the AIs resource pool
 void AddStrategicAIResources( UINT8 aType, INT32 aAmount );
-void ASDReceiveOrderedStrategicAIResources( UINT8 aType, INT32 aAmount );
+
+// when we receive an ordered shipment, reduce our backlog
+void ASDReduceOrderedStrategicResources( UINT8 aType, INT32 aAmount );
 
 // enemy helis
 class ENEMY_HELI

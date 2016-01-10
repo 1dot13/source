@@ -190,6 +190,10 @@ void UpdateASD( )
 	if ( DidGameJustStart( ) )
 		return;
 
+	// enemy helis are unlocked either by a cutscene OR if a minimum progress threshold has been reached
+	if ( !(gASD_Flags & ASDFACT_HELI_UNLOCKED) && HighestPlayerProgressPercentage( ) >= gGameExternalOptions.usEnemyHeliMinimumProgress )
+		SetASDFlag( ASDFACT_HELI_UNLOCKED );
+
 	// determine whether we need to buy new toys
 	ASDDecideOnPurchases();
 
@@ -518,11 +522,9 @@ void AddStrategicAIResources( UINT8 aType, INT32 aAmount )
 		AddNewHeli( );
 }
 
-void ASDReceiveOrderedStrategicAIResources(UINT8 aType, INT32 aAmount)
+void ASDReduceOrderedStrategicResources( UINT8 aType, INT32 aAmount )
 {
 	gASDResource_Ordered[aType] = max( 0, gASDResource_Ordered[aType] - aAmount );
-
-	AddStrategicAIResources( aType, aAmount );
 }
 
 //////////////////////////////////////////// enemy helis /////////////////////////////////////////////////////////
@@ -654,7 +656,7 @@ void AddNewHeli( )
 			if ( (*it).flagmask & ENEMYHELI_DESTROYED )
 			{
 				(*it).flagmask = 0;
-				(*it).sector_home = gGameExternalOptions.usEnemyHeliBaseSector;
+				(*it).sector_home = SECTOR( gModSettings.usEnemyHeliBaseSectorX, gModSettings.usEnemyHeliBaseSectorY );
 				(*it).sector_destination = 0;
 				(*it).sector_waypoint = 0;
 				(*it).sector_current = (*it).sector_home;
@@ -676,7 +678,7 @@ void AddNewHeli( )
 			ENEMY_HELI data;
 
 			data.flagmask = 0;
-			data.sector_home = gGameExternalOptions.usEnemyHeliBaseSector;
+			data.sector_home = SECTOR( gModSettings.usEnemyHeliBaseSectorX, gModSettings.usEnemyHeliBaseSectorY );
 			data.sector_destination = 0;
 			data.sector_waypoint = 0;
 			data.sector_current = data.sector_home;
@@ -1316,7 +1318,7 @@ void HandleEnemyHelicopterOnGroundGraphic( )
 	UINT8 currentsector = SECTOR( gWorldSectorX, gWorldSectorY );
 
 	// only relevant if this is the enemies' heli hub
-	if ( currentsector != gGameExternalOptions.usEnemyHeliBaseSector )
+	if ( currentsector != SECTOR( gModSettings.usEnemyHeliBaseSectorX, gModSettings.usEnemyHeliBaseSectorY ) )
 		return;
 
 	INT16 id = -1;
@@ -1330,7 +1332,7 @@ void HandleEnemyHelicopterOnGroundGraphic( )
 		if ( id >= ENEMYHELI_MAX )
 			break;
 
-		AddEnemyHelicopterToMaps( ((*it).sector_current == currentsector), ((*it).flagmask & ENEMYHELI_DESTROYED), gGameExternalOptions.sEnemyHeliBaseParkGridno[id], gGameExternalOptions.sEnemyHeliBaseParkTileIndex );
+		AddEnemyHelicopterToMaps( ((*it).sector_current == currentsector), ((*it).flagmask & ENEMYHELI_DESTROYED), gModSettings.sEnemyHeliBaseParkGridno[id], gModSettings.sEnemyHeliBaseParkTileIndex );
 	}
 
 	// Invalidate rendering (if we have any helis at all)
@@ -1347,7 +1349,7 @@ void UpdateAndDamageEnemyHeliIfFound( INT16 sSectorX, INT16 sSectorY, INT16 sSec
 	UINT8 currentsector = SECTOR( gWorldSectorX, gWorldSectorY );
 
 	// only relevant if this is the enemies' heli hub
-	if ( currentsector != gGameExternalOptions.usEnemyHeliBaseSector )
+	if ( currentsector != SECTOR( gModSettings.usEnemyHeliBaseSectorX, gModSettings.usEnemyHeliBaseSectorY ) )
 		return;
 
 	// helicopter tiles are multi-tiled. Search for the base gridno
@@ -1390,7 +1392,7 @@ void UpdateAndDamageEnemyHeliIfFound( INT16 sSectorX, INT16 sSectorY, INT16 sSec
 
 		if ( (*it).sector_current == currentsector )
 		{
-			if ( gGameExternalOptions.sEnemyHeliBaseParkGridno[id] == sBaseGridNo )
+			if ( gModSettings.sEnemyHeliBaseParkGridno[id] == sBaseGridNo )
 			{
 				if ( aDestroyed )
 				{
