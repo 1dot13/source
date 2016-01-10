@@ -23616,10 +23616,10 @@
 	<ITEM>
 		<uiIndex>774</uiIndex>
 		<szItemName>VSSK</szItemName>
-		<szLongItemName>VSSK Vychlop</szLongItemName>
+		<szLongItemName>VSSK Vykhlop</szLongItemName>
 		<szItemDesc>A very special sniper rifle that comes with integral silencer, integral bipod, and fires subsonic AP ammunition.</szItemDesc>
-		<szBRName>VSSK Vychlop</szBRName>
-		<szBRDesc>Quite new on the market, the Russian Vychlop (which means 'Exhaust') coughs up something more substantial (and more deadly) than carbon monoxide. Comes with integral bipod plus Battle Scope.</szBRDesc>
+		<szBRName>VSSK Vykhlop</szBRName>
+		<szBRDesc>Quite new on the market, the Russian Vykhlop (which means 'Exhaust') coughs up something more substantial (and more deadly) than carbon monoxide. Comes with integral bipod plus Battle Scope.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>774</ubClassIndex>
