@@ -1961,8 +1961,8 @@ BOOLEAN HandleMilitiaNoticedByPatrolGroup( UINT8 ubSectorID, GROUP *pEnemyGroup 
 {
 	//For now, automatically attack.
 	UINT16 usOffensePoints, usDefencePoints;
-	UINT8 ubSectorX = (UINT8)(ubSectorID % 16) + 1;
-	UINT8 ubSectorY = (UINT8)(ubSectorID / 16) + 1;
+	UINT8 ubSectorX = SECTORX( ubSectorID );
+	UINT8 ubSectorY = SECTORY( ubSectorID );
 	usOffensePoints = pEnemyGroup->pEnemyGroup->ubNumAdmins * 2 +
 										pEnemyGroup->pEnemyGroup->ubNumTroops * 4 +
 										pEnemyGroup->pEnemyGroup->ubNumElites * 6 +
@@ -2056,8 +2056,8 @@ BOOLEAN AttemptToNoticeAdjacentGroupSucceeds()
 BOOLEAN HandleEmptySectorNoticedByPatrolGroup( GROUP *pGroup, UINT8 ubEmptySectorID )
 {
 	UINT8 ubGarrisonID;
-	UINT8 ubSectorX = (UINT8)(ubEmptySectorID % 16) + 1;
-	UINT8 ubSectorY = (UINT8)(ubEmptySectorID / 16) + 1;
+	UINT8 ubSectorX = SECTORX( ubEmptySectorID );
+	UINT8 ubSectorY = SECTORY( ubEmptySectorID );
 
  Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 
@@ -3162,8 +3162,8 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 			goto QUEEN_POOL;
 		}
 
-		ubSrcSectorX = (gGarrisonGroup[ iSrcGarrisonID ].ubSectorID % 16) + 1;
-		ubSrcSectorY = (gGarrisonGroup[ iSrcGarrisonID ].ubSectorID / 16) + 1;
+		ubSrcSectorX = SECTORX( gGarrisonGroup[iSrcGarrisonID].ubSectorID );
+		ubSrcSectorY = SECTORY( gGarrisonGroup[iSrcGarrisonID].ubSectorID );
 		if( ubSrcSectorX != gWorldSectorX || ubSrcSectorY != gWorldSectorY || gbWorldSectorZ > 0 )
 		{
 			//The reinforcements aren't coming from the currently loaded sector!
@@ -3266,8 +3266,8 @@ BOOLEAN SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 	if( iReinforcementsRequested <= 0)
 		return FALSE;
 
-	ubDstSectorX = (gPatrolGroup[ iPatrolID ].ubSectorID[1] % 16) + 1;
-	ubDstSectorY = (gPatrolGroup[ iPatrolID ].ubSectorID[1] / 16) + 1;
+	ubDstSectorX = SECTORX( gPatrolGroup[iPatrolID].ubSectorID[1] );
+	ubDstSectorY = SECTORY( gPatrolGroup[iPatrolID].ubSectorID[1] );
 
 	if( pOptionalGroup && *pOptionalGroup )
 	{

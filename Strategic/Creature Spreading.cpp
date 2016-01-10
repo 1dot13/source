@@ -162,8 +162,8 @@ CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCre
 	UINT8 ubSectorX, ubSectorY;
 	curr = (CREATURE_DIRECTIVE*)MemAlloc( sizeof( CREATURE_DIRECTIVE ) );
 	Assert( curr );
-	ubSectorX = (UINT8)((ubSectorID % 16) + 1);
-	ubSectorY = (UINT8)((ubSectorID / 16) + 1);
+	ubSectorX = SECTORX( ubSectorID);
+	ubSectorY = SECTORY( ubSectorID );
 	curr->pLevel = FindUnderGroundSector( ubSectorX, ubSectorY, ubSectorZ );
 	if( !curr->pLevel )
 	{
@@ -780,8 +780,8 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 	INT8 bTownId, bTownSize;
 	UINT8 ubAttackSectorID;
 
-	ubSectorX = (UINT8)((ubSectorID % 16) + 1);
-	ubSectorY = (UINT8)((ubSectorID / 16) + 1);
+	ubSectorX = SECTORX( ubSectorID );
+	ubSectorY = SECTORY( ubSectorID );
 
 	/* // externalize to xml data
 	if( !fOverrideTest )
@@ -943,8 +943,8 @@ void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 	else
 		ubAttackSectorID = ubSectorID;
 	
-	ubAttackSectorX = (UINT8)((ubAttackSectorID % 16) + 1);
-	ubAttackSectorY = (UINT8)((ubAttackSectorID / 16) + 1);
+	ubAttackSectorX = SECTORX( ubAttackSectorID );
+	ubAttackSectorY = SECTORY( ubAttackSectorID );
 
 	// determine the attack sector insertion code
 	if( ubAttackSectorID == ubSectorID )		
@@ -1063,8 +1063,8 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 
 	gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
 
-	ubSectorX = (UINT8)((ubSectorID % 16) + 1);
-	ubSectorY = (UINT8)((ubSectorID / 16) + 1);
+	ubSectorX = SECTORX( ubSectorID );
+	ubSectorY = SECTORY( ubSectorID );
 
 	if( !fOverrideTest )
 	{
@@ -1087,8 +1087,8 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 		//Choose one of the town sectors to attack.	Sectors closer to
 		//the mine entrance have a greater chance of being chosen.
 		ChooseTownSectorToAttack( ubSectorID, FALSE );
-		ubSectorX = (UINT8)((gubSectorIDOfCreatureAttack % 16) + 1);
-		ubSectorY = (UINT8)((gubSectorIDOfCreatureAttack / 16) + 1);
+		ubSectorX = (UINT8)SECTORX( gubSectorIDOfCreatureAttack );
+		ubSectorY = (UINT8)SECTORY( gubSectorIDOfCreatureAttack );
 	}
 	else
 	{

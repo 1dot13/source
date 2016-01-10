@@ -2005,7 +2005,7 @@ UINT32 PlayerStrength( void )
 		pSoldier = MercPtrs[ ubLoop ];
 		if ( pSoldier->bActive )
 		{
-			if ( pSoldier->bInSector || ( pSoldier->flags.fBetweenSectors && ((pSoldier->ubPrevSectorID % 16) + 1) == gWorldSectorX && ((pSoldier->ubPrevSectorID / 16) + 1) == gWorldSectorY && ( pSoldier->bSectorZ == gbWorldSectorZ ) ) )
+			if ( pSoldier->bInSector || (pSoldier->flags.fBetweenSectors && SECTORX( pSoldier->ubPrevSectorID ) == gWorldSectorX && SECTORY( pSoldier->ubPrevSectorID ) == gWorldSectorY && (pSoldier->bSectorZ == gbWorldSectorZ)) )
 			{
 				// count this person's strength (condition), calculated as life reduced up to half according to maxbreath
 				uiStrength = pSoldier->stats.bLife * ( pSoldier->bBreathMax + 100 ) / 200;

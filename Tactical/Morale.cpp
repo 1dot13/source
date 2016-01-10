@@ -780,7 +780,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 					// CJC: adding to SOLDIER_IN_SECTOR check special stuff because the old sector values might
 					// be appropriate (because in transit going out of that sector!)
 
-					if ( SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) || ( pTeamSoldier->flags.fBetweenSectors && ((pTeamSoldier->ubPrevSectorID % 16) + 1) == sMapX && ((pTeamSoldier->ubPrevSectorID / 16) + 1) == sMapY && ( pTeamSoldier->bSectorZ == bMapZ ) ) )
+					if ( SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) || (pTeamSoldier->flags.fBetweenSectors && SECTORX( pTeamSoldier->ubPrevSectorID ) == sMapX && SECTORY( pTeamSoldier->ubPrevSectorID ) == sMapY && (pTeamSoldier->bSectorZ == bMapZ)) )
 					{
 						if ( gGameOptions.fNewTraitSystem )
 						{

@@ -1263,8 +1263,7 @@ INT32 ShowVehicles(INT16 sMapX, INT16 sMapY, INT32 iCount)
 void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies, UINT16 usNumTanks, UINT8 ubIconPosition )
 {
 	HVOBJECT hIconHandle;
-	UINT8 i, ubEnemy, ub10xEnemy;
-	INT16 sEnemyLessTank;
+	INT16 sEnemy, s10xEnemy, sEnemyLessTank;
 
 	// get the video object
 	GetVideoObject(&hIconHandle, guiCHARICONS);
@@ -1274,19 +1273,19 @@ void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies
 	// no 10x icon for easy enemy quantity gauge in low resolution
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		ub10xEnemy = 0;
-		ubEnemy = sNumberOfEnemies;
+		s10xEnemy = 0;
+		sEnemy = sNumberOfEnemies;
 	}
 	else
 	{
-		ub10xEnemy = sNumberOfEnemies / 10;
-		ubEnemy = sNumberOfEnemies % 10;
+		s10xEnemy = sNumberOfEnemies / 10;
+		sEnemy = sNumberOfEnemies % 10;
 	}
 
 	// Flugente: if we display tanks, we need to know that for several rows
 	INT16 secondtankrowstart = -1;
 	
-	for( i = 0; i < sNumberOfEnemies; ++i )
+	for( INT16 i = 0; i < sNumberOfEnemies; ++i )
 	{
 		// Flugente: the tank icon has is 4 icons wide and 2 rows high, thus this odd code bit
 		// if we want to display a tank and have not yet done so, pick the first position that still has enough space to the right
@@ -1302,18 +1301,18 @@ void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies
 			// for now display only one tank icon
 			usNumTanks = 0;
 			ubIconPosition += 4;		
-			ubEnemy = max( 0, ubEnemy - 1);
+			sEnemy = max( 0, sEnemy - 1 );
 		}
-		else if ( ub10xEnemy > 0 )
+		else if ( s10xEnemy > 0 )
 		{
 			DrawMapBoxIcon( hIconHandle, SMALL_RED_10X_BOX, sSectorX, sSectorY, ubIconPosition );
-			--ub10xEnemy;
+			--s10xEnemy;
 			++ubIconPosition;
 		}
-		else if ( ubEnemy > 0 )
+		else if ( sEnemy > 0 )
 		{
 			DrawMapBoxIcon( hIconHandle, SMALL_RED_BOX, sSectorX, sSectorY, ubIconPosition );
-			--ubEnemy;
+			--sEnemy;
 			++ubIconPosition;
 		}
 	}
@@ -4258,7 +4257,6 @@ void DisplayPositionOfEnemyHelicopter()
 	UINT16 minX, minY, maxX, maxY;
 	HVOBJECT hHandle;
 	INT32 iNumberOfPeopleInHelicopter = 0;
-	CHAR16 sString[4];
 
 	INT32 MAP_MVT_ICON_FONT = TINYFONT1;
 
@@ -5452,26 +5450,26 @@ void MilitiaButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		if(btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-			DropAPersonInASector( ( UINT8 )( iValue ), ( INT16 )( ( sGlobalMapSector % 16 ) + 1 ), ( INT16 )( ( sGlobalMapSector / 16 ) + 1 )  );
+			DropAPersonInASector( (UINT8)(iValue), (INT16)(SECTORX( sGlobalMapSector )), (INT16)(SECTORY( sGlobalMapSector )) );
 		}
 	}
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
-	btn->uiFlags|=(BUTTON_CLICKED_ON);
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
 		if(btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-			PickUpATownPersonFromSector( ( UINT8 )( iValue ), ( INT16 )( ( sGlobalMapSector % 16 ) + 1 ), ( INT16 )( ( sGlobalMapSector / 16 ) + 1 )  );
+			PickUpATownPersonFromSector( (UINT8)(iValue), (INT16)(SECTORX( sGlobalMapSector )), (INT16)(SECTORY( sGlobalMapSector )) );
 		}
 	}
 }

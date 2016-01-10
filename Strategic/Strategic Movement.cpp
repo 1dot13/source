@@ -241,8 +241,8 @@ BOOLEAN AddPlayerToGroup( UINT8 ubGroupID, SOLDIERTYPE *pSoldier )
 	{
 		pGroup->pPlayerList = pPlayer;
 		pGroup->ubGroupSize = 1;
-		pGroup->ubPrevX = (UINT8)((pSoldier->ubPrevSectorID % 16) + 1);
-		pGroup->ubPrevY = (UINT8)((pSoldier->ubPrevSectorID / 16) + 1);
+		pGroup->ubPrevX = SECTORX( pSoldier->ubPrevSectorID );
+		pGroup->ubPrevY = SECTORY( pSoldier->ubPrevSectorID );
 		pGroup->ubSectorX = (UINT8)pSoldier->sSectorX;
 		pGroup->ubSectorY = (UINT8)pSoldier->sSectorY;
 		pGroup->ubSectorZ = (UINT8)pSoldier->bSectorZ;
@@ -2796,7 +2796,6 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	//Calc time to get to next waypoint...
 	if ( !pGroup->ubSectorZ )
 	{
-		BOOLEAN fCalcRegularTime = TRUE;
 		if ( pGroup->usGroupTeam == ENEMY_TEAM )
 		{
 			//Determine if the enemy group is "sleeping". If so, then simply delay their arrival time by the amount of time
@@ -2813,7 +2812,7 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 		}
 		else if ( pGroup->usGroupTeam == MILITIA_TEAM )
 		{
-			// As the player orders militia to move, a chance-based system is ill-advised - the player would simply cancel and reassign the order, leading to bypassing the mechanci in a tedious way
+			// As the player orders militia to move, a chance-based system is ill-advised - the player would simply cancel and reassign the order, leading to bypassing the mechanic in a tedious way
 			// so instead, we always add a penalty, but it will be lower
 			// however, do not give such a penalty for movement inside a town - the player might just want to redistribute his troops, and this would be tedious
 			if ( GetWorldHour( ) >= 21 || GetWorldHour( ) <= 4 )
