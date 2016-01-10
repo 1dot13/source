@@ -364,9 +364,9 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 };
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
-	L"武器上的瞄准镜有效视距 +%d\n",// L"+%d to effective sight range with scopes on weapons\n",
-	L"望远镜和拆卸下来的瞄准镜有效视距 +%d\n",// L"+%d to effective sight range with binoculars (and scopes separated from weapons)\n",
-	L"远镜和拆卸下来的瞄准镜的狭隘视野 -%d\n",// L"-%d tunnel vision with binoculars (and scopes separated from weapons)\n",
+	L"武器上的瞄准镜有效视距 +%d%%\n",// L"+%d to effective sight range with scopes on weapons\n",
+	L"望远镜和拆卸下来的瞄准镜有效视距 +%d%%\n",// L"+%d to effective sight range with binoculars (and scopes separated from weapons)\n",
+	L"远镜和拆卸下来的瞄准镜的狭隘视野 -%d%%\n",// L"-%d tunnel vision with binoculars (and scopes separated from weapons)\n",
 	L"显示邻近区域敌人的准确数量\n",// L"If in sector, adjacent sectors will show exact number of enemies\n",
 	L"显示邻近区域敌人的存在\n",// L"If in sector, adjacent sectors will show presence of enemies if any\n",
 	L"防止敌人偷袭你的队伍\n",// L"Prevents the enemy to ambush your squad\n",

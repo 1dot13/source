@@ -368,9 +368,9 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
-	L"+%d zur effektiven Sichtweite mit Zielfernrohren an Waffen\n",
-	L"+%d zur effektiven Sichtweite mit Doppelfernrohren und losen Zielfernrohren\n",
-	L"-%d Tunnelblick mit Doppelfernrohren und losen Zielfernrohren\n",
+	L"+%d%% zur effektiven Sichtweite mit Zielfernrohren an Waffen\n",
+	L"+%d%% zur effektiven Sichtweite mit Doppelfernrohren und losen Zielfernrohren\n",
+	L"-%d%% Tunnelblick mit Doppelfernrohren und losen Zielfernrohren\n",
 	L"Auf der Weltkarte wird in angrenzenden Sektoren die genaue Feindstärke (Anzahl) bestimmt\n",
 	L"Auf der Weltkarte wird in angrenzenden Sektoren die Präsenz von vorhandenem Feind enthüllt\n",
 	L"Verhindert, dass der Feind die Gruppe in den Hinterhalt lockt\n",

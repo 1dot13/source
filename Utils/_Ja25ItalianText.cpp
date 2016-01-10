@@ -366,9 +366,9 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
-	L"+%d to effective sight range with scopes on weapons\n",
-	L"+%d to effective sight range with binoculars (and scopes separated from weapons)\n",
-	L"-%d tunnel vision with binoculars (and scopes separated from weapons)\n",
+	L"+%d%% to effective sight range with scopes on weapons\n",
+	L"+%d%% to effective sight range with binoculars (and scopes separated from weapons)\n",
+	L"-%d%% tunnel vision with binoculars (and scopes separated from weapons)\n",
 	L"If in sector, adjacent sectors will show exact number of enemies\n",
 	L"If in sector, adjacent sectors will show presence of enemies, if any\n",
 	L"Prevents enemy ambushes on your squad\n",

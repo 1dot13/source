@@ -366,9 +366,9 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 };
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
-	L"+%d de distance effective avec une lunette de visée sur votre arme\n",
-	L"+%d de distance effective avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
-	L"-%d de vues étroites avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
+	L"+%d%% de distance effective avec une lunette de visée sur votre arme\n",
+	L"+%d%% de distance effective avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
+	L"-%d%% de vues étroites avec vos jumelles (et la lunette de visée séparée de votre arme)\n",
 	L"Si vous êtes dans le secteur, vous saurez le nombre exact d'ennemis présents dans les secteurs alentours\n",
 	L"Si vous êtes dans le secteur, vous saurez la présence au non d'ennemis dans les secteurs alentours\n",
 	L"Empêche l'ennemi de prendre en embuscade votre escouade\n",
