@@ -552,11 +552,11 @@ BUILDING * GenerateBuilding( INT32 sDesiredSpot )
 	// something that has gone pear shaped
 	if(uiLoop2 >= WORLD_MAX)
 	{
-		UINT8 x = 0;
-		UINT8 y = 0;
+		INT32 x = 0;
+		INT32 y = 0;
 		while((sDesiredSpot - ((y + 1) * WORLD_COLS)) >= 0)
 		{
-			y++;
+			++y;
 		}
 		x = sDesiredSpot - (y * WORLD_COLS);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_2,String( "113/UC Warning! Building Walk Algorithm has covered the entire map! Building %d located at [%d,%d] must be bogus.", ubBuildingID, x, y ));
