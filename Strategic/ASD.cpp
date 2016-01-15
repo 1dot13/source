@@ -6,8 +6,8 @@
 #ifdef PRECOMPILEDHEADERS
 #include "Laptop All.h"
 #else
+#include <math.h>
 #include "ASD.h"
-
 #include "strategic.h"
 #include "WCheck.h"
 #include "Utilities.h"
@@ -53,6 +53,8 @@
 #include "renderworld.h"
 #include "Isometric Utils.h"
 #endif
+
+
 
 extern INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
 
@@ -1016,7 +1018,7 @@ void EnemyHeliSAMCheck( INT16 id )
 				samcth = (samcth * pSAMStrategicMap->bSAMCondition) / 100.0f;
 
 				// determine distance from SAM to heli
-				FLOAT distance = sqrt( abs( heli_x - gpSamSectorX[ubControllingSAM - 1] ) * abs( heli_x - gpSamSectorX[ubControllingSAM - 1] ) + abs( heli_y - gpSamSectorY[ubControllingSAM - 1] ) * abs( heli_y - gpSamSectorY[ubControllingSAM - 1] ) );
+				FLOAT distance = sqrt(FLOAT(abs( heli_x - gpSamSectorX[ubControllingSAM - 1] ) * abs( heli_x - gpSamSectorX[ubControllingSAM - 1] ) + abs( heli_y - gpSamSectorY[ubControllingSAM - 1] ) * abs( heli_y - gpSamSectorY[ubControllingSAM - 1] ) ));
 
 				// distance penalty
 				samcth = (samcth * (100.0f - 8 * distance)) / 100.0f;
@@ -1135,8 +1137,8 @@ void EnemyHeliMANPADSCheck( INT16 id )
 					samcth = (samcth * (*pObj)[0]->data.objectStatus) / 100.0f;
 
 					// determine distance from SAM to heli
-					FLOAT distance = sqrt( abs( heli_x - pSoldier->sSectorX ) * abs( heli_x - pSoldier->sSectorX ) + abs( heli_y - pSoldier->sSectorY ) * abs( heli_y - pSoldier->sSectorY ) );
-
+					FLOAT distance = sqrt(FLOAT(abs( heli_x - pSoldier->sSectorX ) * abs( heli_x - pSoldier->sSectorX ) + abs( heli_y - pSoldier->sSectorY ) * abs( heli_y - pSoldier->sSectorY ) ));
+					
 					// distance penalty
 					samcth = (samcth * (100.0f - 20 * distance)) / 100.0f;
 
