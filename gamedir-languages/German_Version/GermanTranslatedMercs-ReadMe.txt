@@ -7,6 +7,17 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-01-14:
+- updates to Leech
+- updates to Mouse
+- updates to Jimmy
+- updates to Gary
+- updates to Needle
+- updates to Moses
+- updates to Vinny
+- updates to Rusty
+
+
 2016-01-08:
 - added Boss
 - updates to Bud
