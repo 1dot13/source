@@ -2,27 +2,27 @@
 <POCKETPOPUPS>
 	<POCKET>
 		<pIndex>1</pIndex>
-		<pName>Gun Sling</pName>
+		<pName>Ружейный ремень</pName>
 		<popup>
 			<generator>
 				<id>addWeaponGroups</id>
 			</generator>
-		</popup>	
+		</popup>
 	</POCKET>
 	
 	<POCKET>
 		<pIndex>2</pIndex>
-		<pName>Knife</pName>
+		<pName>Нож</pName>
 		<popup>
 			<generator>
 				<id>addWeapons</id>
 			</generator>
-		</popup>	
+		</popup>
 	</POCKET>
 
 	<POCKET>
 		<pIndex>6</pIndex>
-		<pName>Ammo Belt</pName>
+		<pName>Патронная лента</pName>
 		<popup>
 			<generator>
 				<id>addAmmo</id>
@@ -32,7 +32,7 @@
 	
 	<POCKET>
 		<pIndex>7</pIndex>
-		<pName>SMG Holster</pName>
+		<pName>Кобура ПП</pName>
 		<popup>
 			<generator>
 				<id>addWeapons</id>
@@ -52,10 +52,10 @@
 	
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>AR Mag</pName>
+		<pName>Штурм. маг</pName>
 		<popup>
 			<subMenu>
-				<name>grenades</name>
+				<name>гранаты</name>
 				<generator>
 					<id>addGrenades</id>
 				</generator>
@@ -68,7 +68,7 @@
 	
 	<POCKET>
 		<pIndex>11</pIndex>
-		<pName>Pistol Holster</pName>
+		<pName>Пист. кобура</pName>
 		<popup>
 			<generator>
 				<id>addWeapons</id>
@@ -78,7 +78,7 @@
 	
 	<POCKET>
 		<pIndex>12</pIndex>
-		<pName>SMG Mag</pName>
+		<pName>Маг. ПП</pName>
 		<popup>
 			<generator>
 				<id>addAmmo</id>
@@ -88,7 +88,7 @@
 	
 	<POCKET>
 		<pIndex>13</pIndex>
-		<pName>Rifle Grenade</pName>
+		<pName>Подств. гранаты</pName>
 		<generator>
 			<id>addRifleGrenades</id>
 		</generator>
@@ -96,7 +96,7 @@
 	
 	<POCKET>
 		<pIndex>14</pIndex>
-		<pName>Grenade</pName>
+		<pName>Гранаты</pName>
 		<generator>
 			<id>addGrenades</id>
 		</generator>
@@ -104,7 +104,7 @@
 	
 	<POCKET>
 		<pIndex>15</pIndex>
-		<pName>Pistol Mag</pName>
+		<pName>Пист. маг.</pName>
 		<popup>
 			<generator>
 				<id>addAmmo</id>
@@ -114,7 +114,7 @@
 		
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>Speedloader</pName>
+		<pName>Быстрая обойма</pName>
 		<popup>
 			<generator>
 				<id>addAmmo</id>
@@ -124,7 +124,7 @@
 		
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>Double Belt</pName>
+		<pName>Двойная лента</pName>
 		<popup>
 			<generator>
 				<id>addAmmo</id>
@@ -137,22 +137,22 @@
 		<pName>General Large</pName>
 		<popup>
 			<subMenu>
-				<name>weapons</name>
+				<name>оружие</name>
 				<generator>
 					<id>addWeaponGroups</id>
 				</generator>
 			</subMenu>
 
 			<subMenu>
-				<name>ammo</name>
+				<name>боеприпасы</name>
 				<subMenu>
-					<name>RPG rockets</name>
+					<name>Гранаты РПГ</name>
 					<generator>
 						<id>addRocketAmmo</id>
 					</generator>
 				</subMenu>
 				<subMenu>
-					<name>Rifle grenades</name>
+					<name>Ружейные гранаты</name>
 					<generator>
 						<id>addRifleGrenades</id>
 					</generator>
@@ -164,7 +164,7 @@
 			</subMenu>
 
 			<subMenu>
-				<name>grenades</name>
+				<name>гранаты</name>
 				<generator>
 					<id>addGrenades</id>
 				</generator>
@@ -177,22 +177,22 @@
 		<pName>Combat Pack</pName>
 		<popup>
 			<subMenu>
-				<name>weapons</name>
+				<name>оружие</name>
 				<generator>
 					<id>addWeaponGroups</id>
 				</generator>
 			</subMenu>
 
 			<subMenu>
-				<name>ammo</name>
+				<name>боеприпасы</name>
 				<subMenu>
-					<name>RPG rockets</name>
+					<name>Гранаты РПГ</name>
 					<generator>
 						<id>addRocketAmmo</id>
 					</generator>
 				</subMenu>
 				<subMenu>
-					<name>Rifle grenades</name>
+					<name>Ружейные гранаты</name>
 					<generator>
 						<id>addRifleGrenades</id>
 					</generator>
@@ -204,7 +204,7 @@
 			</subMenu>
 
 			<subMenu>
-				<name>grenades</name>
+				<name>гранаты</name>
 				<generator>
 					<id>addGrenades</id>
 				</generator>
@@ -217,28 +217,28 @@
 		<pName>Medium General</pName>
 		<popup>
 			<subMenu>
-				<name>ammo</name>
+				<name>боеприпасы</name>
 				<generator>
 					<id>addAmmo</id>
 				</generator>
 			</subMenu>
 
 			<subMenu>
-				<name>grenades</name>
+				<name>гранаты</name>
 				<generator>
 					<id>addGrenades</id>
 				</generator>
 			</subMenu>
 
 			<subMenu>
-				<name>kits</name>
+				<name>наборы</name>
 				<generator>
 					<id>addKits</id>
 				</generator>
 			</subMenu>
 			
 			<subMenu>
-				<name>face gear</name>
+				<name>головные приборы</name>
 				<generator>
 					<id>addFaceGear</id>
 				</generator>
@@ -251,19 +251,19 @@
 		<pName>Tiny General</pName>
 		<popup>
 			<subMenu>
-				<name>grenades</name>
+				<name>гранаты</name>
 				<generator>
 					<id>addGrenades</id>
 				</generator>
 			</subMenu>
 			<subMenu>
-				<name>misc</name>
+				<name>разное</name>
 				<generator>
 					<id>addMisc</id>
 				</generator>
 			</subMenu>
 			<subMenu>
-				<name>kits</name>
+				<name>наборы</name>
 				<generator>
 					<id>addKits</id>
 				</generator>
@@ -279,19 +279,19 @@
 		<pName>Small General</pName>
 		<popup>
 			<subMenu>
-				<name>grenades</name>
+				<name>гранаты</name>
 				<generator>
 					<id>addGrenades</id>
 				</generator>
 			</subMenu>
 			<subMenu>
-				<name>misc</name>
+				<name>разное</name>
 				<generator>
 					<id>addMisc</id>
 				</generator>
 			</subMenu>
 			<subMenu>
-				<name>kits</name>
+				<name>наборы</name>
 				<generator>
 					<id>addKits</id>
 				</generator>
