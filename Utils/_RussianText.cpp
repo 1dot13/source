@@ -155,7 +155,7 @@ STR16	pOtherButtonsText[] =
 STR16	pOtherButtonsHelpText[] =
 {
 	L"Инструктаж",
-	L"Принять миссии",
+	L"Принять задания",
 };
 
 
@@ -173,7 +173,7 @@ STR16	pSectorPageText[] =
 	L">>",
 	L"Тип: ",
 	L"Нет данных",
-	L"Missing of defined missions. Add missions to the file TableData\\BriefingRoom\\BriefingRoom.xml. First mission has to be visible. Put value Hidden = 0.",
+	L"Нет поставленных заданий. Добавьте задания в файл TableData\\BriefingRoom\\BriefingRoom.xml. Первое задание должно быть видимым. Чтобы скрыть задание, установите значение = 0.",
 	L"Брифинг-зал. Пожалуйста, нажмите кнопку 'Войти'.",
 };
 
@@ -220,7 +220,7 @@ STR16	pEncyclopediaShortCharacterText[] =
 
 STR16	pEncyclopediaHelpText[] = 
 {
-	L"Показать все",
+	L"Показать всё",
 	L"Показать города",
 	L"Показать базы ПВО",
 	L"Показать другие места",
@@ -235,7 +235,7 @@ STR16	pEncyclopediaHelpText[] =
 
 STR16	pEncyclopediaSkrotyText[] = 
 {
-	L"Все",
+	L"Всё",
 	L"Город",
 	L"ПВО",
 	L"Друг.",
@@ -251,7 +251,7 @@ STR16	pEncyclopediaSkrotyText[] =
 STR16	pEncyclopediaFilterLocationText[] =
 {//major location filter button text max 7 chars
 //..L"------v"
-	L"Все",//0
+	L"Всё",//0
 	L"Города",
 	L"ПВО",
 	L"Шахты",
@@ -262,7 +262,7 @@ STR16	pEncyclopediaFilterLocationText[] =
 	L"Другое",
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
-	L"Показать все",//facility index + 1
+	L"Показать всё",//facility index + 1
 	L"Показать города",
 	L"Показать базы ПВО",
 	L"Показать шахты",
@@ -302,8 +302,8 @@ STR16	pEncyclopediaFilterCharText[] =
 	L"Показать наёмников из A.I.M.",
 	L"Показать наёмников из M.E.R.C",
 	L"Показать повстанцев",
-	L"Показать ненанимаемых персонажей",
-	L"Показать созданных игроком персонажей",
+	L"Показать неигровых персонажей",
+	L"Показать персонажей игрока",
 	L"Показать другое\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
 };
 
@@ -324,7 +324,7 @@ STR16	pEncyclopediaSubFilterCharText[] =
 STR16	pEncyclopediaFilterItemText[] = 
 {//major item filter button text max 7 chars
 //..L"------v"
-	L"Все",//0
+	L"Всё",//0
 	L"Оружие",
 	L"Патроны",
 	L"Броня",
@@ -333,7 +333,7 @@ STR16	pEncyclopediaFilterItemText[] =
 	L"Разное",//add new filter buttons before misc
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
-	L"Показать все",//misc index + 1
+	L"Показать всё",//misc index + 1
 	L"Показать оружие\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
 	L"Показать боеприпасы\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
 	L"Показать броню\n[|Л|К|М] переключить фильтр\n[|П|К|М] сбросить фильтр",
@@ -385,8 +385,8 @@ STR16 pEncyclopediaSubFilterItemText[] =
 	L"Оптика",
 	L"Доп.",
 	L"Дуло",
-	L"Внешн.",
-	L"Внутр.",
+	L"Съёмн.",
+	L"Встроен.",
 	L"Другое",
 	L"",//reserved. insert new attachment filters above!
 //Misc......v"
@@ -413,7 +413,7 @@ STR16 pEncyclopediaFilterQuestText[] =
 //..L"---------------------------------------------------------------------v"
 	L"Показать все",//misc index + 1
 	L"Показать активные квесты",
-	L"Показать завершенные квесты",
+	L"Показать завершённые квесты",
 };
 
 STR16 pEncyclopediaSubFilterQuestText[] =
@@ -423,10 +423,9 @@ STR16 pEncyclopediaSubFilterQuestText[] =
 	L"",//reserved. insert new completed quest subfilters above!
 };
 
-
 STR16	pEncyclopediaShortInventoryText[] = 
 {
-	L"Все", //0
+	L"Всё", //0
 	L"Оружие",
 	L"Патроны",
 	L"Разгр.",
@@ -487,156 +486,154 @@ STR16			BoxFilter[] =
 	L"Разное", //34
 };
 
-// TODO.Translate
-STR16		QuestDescText[] = 
+STR16		QuestDescText[] =
 {
-	L"Deliver Letter",
-	L"Food Route",
-	L"Terrorists",
-	L"Kingpin Chalice",
-	L"Kingpin Money",
-	L"Runaway Joey",
-	L"Rescue Maria",
-	L"Chitzena Chalice",
-	L"Held in Alma",
-	L"Interogation",
+	L"Доставка письма",
+	L"Поставка еды",
+	L"Террористы",
+	L"Кубок Босса",
+	L"Деньги Босса",
+	L"Беглец Джои",
+	L"Спасение Марии",
+	L"Кубок Читзены",
+	L"Пленники в Альме",
+	L"Допрос",
 
-	L"Hillbilly Problem",								//10
-	L"Find Scientist",
-	L"Deliver Video Camera",
-	L"Blood Cats",
-	L"Find Hermit",
-	L"Creatures",
-	L"Find Chopper Pilot",
-	L"Escort SkyRider",
-	L"Free Dynamo",
-	L"Escort Tourists",
+	L"Проблемные фермеры",								//10
+	L"Найти учёного",
+	L"Принести видеокамеру",
+	L"Кошки-убийцы",
+	L"Найти отшельника",
+	L"Твари в шахте",
+	L"Найти пилота вертолёта",
+	L"Сопроводить Всадника",
+	L"Освободить Динамо",
+	L"Сопроводить туристов",
 
 
-	L"Doreen",									//20
-	L"Leather Shop Dream",
-	L"Escort Shank",
+	L"Проверить Дорин",									//20
+	L"Мечта о магазине",
+	L"Сопроводить Шенка",
 	L"No 23 Yet",
 	L"No 24 Yet",
-	L"Kill Deidranna",
+	L"Убить Дейдрану",
 	L"No 26 Yet",
 	L"No 27 Yet",
 	L"No 28 Yet",
 	L"No 29 Yet",
 };
 
-// TODO.Translate
-STR16		FactDescText[] = 
+STR16		FactDescText[] =
 {
-	L"Omerta Liberated",
-	L"Drassen Liberated",
-	L"Sanmona Liberated",
-	L"Cambria Liberated",
-	L"Alma Liberated",
-	L"Grumm Liberated",
-	L"Tixa Liberated",
-	L"Chitzena Liberated",
-	L"Estoni Liberated",
-	L"Balime Liberated",
+	L"Омерта освобождена",
+	L"Драссен освобождён",
+	L"Сан-Мона освобождена",
+	L"Камбрия освобождена",
+	L"Альма освобождена",
+	L"Грам освобождён",
+	L"Тикса освобождена",
+	L"Читзена освобождена",
+	L"Эстони освобождён",
+	L"Балайм освобождён",
 
-	L"Orta Liberated",					//10
-	L"Meduna Liberated",
-	L"Pacos approched",
-	L"Fatima Read note",
-	L"Fatima Walked away from player",
-	L"Dimitri (#60) is dead",
-	L"Fatima responded to Dimitri's supprise",
-	L"Carlo's exclaimed 'no one moves'",
-	L"Fatima described note",
-	L"Fatima arrives at final dest",
+	L"Орта освобождена",					//10
+	L"Медуна освобождена",
+	L"Поговорили с Пакосом",
+	L"Фатима прочла письмо",
+	L"Фатима сбежала от игрока",
+	L"Димитрий (#60) мёртв",
+	L"Фатима ответила на удивление Димитрия",
+	L"Карлос крикнул 'никому не двигаться'",
+	L"Фатима рассказала о письме",
+	L"Фатима пришла в место назначения",
 
-	L"Dimitri said Fatima has proof",		//20
-	L"Miguel overheard conversation",
-	L"Miguel asked for letter",
-	L"Miguel read note",
-	L"Ira comment on Miguel reading note",
-	L"Rebels are enemies",
-	L"Fatima spoken to before given note",
-	L"Start Drassen quest",
-	L"Miguel offered Ira",
-	L"Pacos hurt/Killed",
+	L"Димитрий сказал, что у Фатимы есть доказательства",		//20
+	L"Мигель выслушал доводы",
+	L"Мигель попросил письмо",
+	L"Мигель прочёл письмо",
+	L"Айра прокоментировала письмо Мигелю",
+	L"Повстанцы наши враги",
+	L"Разговор Фатимы до передачи письма",
+	L"Получено задание с Драссеном",
+	L"Мигель предложил Айру",
+	L"Пакос ранен или убит",
 
-	L"Pacos is in A10",		//30
-	L"Current Sector is safe",
-	L"Bobby R Shpmnt in transit",
-	L"Bobby R Shpmnt in Drassen",
-	L"33 is TRUE and it arrived within 2 hours",
-	L"33 is TRUE 34 is false more then 2 hours",
-	L"Player has realized part of shipment is missing",
-	L"36 is TRUE and Pablo was injured by player",
-	L"Pablo admitted theft",
-	L"Pablo returned goods, set 37 false",
+	L"Пакос в A10",		//30
+	L"В секотре безопасно",
+	L"Посылка от БР в пути",
+	L"Посылка от БР в Драссене",
+	L"33 - ВЕРНО и прибыло в течение 2 часов",
+	L"33 - ВЕРНО 34 - ЛОЖЬ, более чем 2 часа",
+	L"Игрок заметил что часть груза пропала",
+	L"36 - ВЕРНО и Пабло был избит игроком",
+	L"Пабло проворовался",
+	L"Пабло вернул украденное, set 37 false",
 
-	L"Miguel will join team",		//40
-	L"Gave some cash to Pablo",
-	L"Skyrider is currently under escort",
-	L"Skyrider is close to his chopper in Drassen",
-	L"Skyrider explained deal",
-	L"Player has clicked on Heli in Mapscreen at least once",
-	L"NPC is owed money",
-	L"Npc is wounded",
-	L"Npc was wounded by Player",
-	L"Father J.Walker was told of food shortage",
+	L"Мигель присоединится к команде",		//40
+	L"Дали Пабло немного денег",
+	L"Небесного всадника сопровождают в город",
+	L"Небесный Всадник уже близок к своему вертолёту в Драссене",
+	L"Небесный всадник оговорил условия контракта",
+	L"Игрок выбрал вертолёт на стратегическом экране как минимум один раз",
+	L"Неигровому персонажу должны денег",
+	L"Неигровой персонаж ранен",
+	L"Неигровой персонаж ранен игроком",
+	L"Отцу Джону Уолкеру сказали о нехватке продовольствия",
 
-	L"Ira is not in sector",		//50
-	L"Ira is doing the talking",
-	L"Food quest over",
-	L"Pablo stole something from last shpmnt",
-	L"Last shipment crashed",
-	L"Last shipment went to wrong airport",
-	L"24 hours elapsed since notified that shpment went to wrong airport",
-	L"Lost package arrived with damaged goods. 56 to False",
-	L"Lost package is lost permanently. Turn 56 False",
-	L"Next package can (random) be lost",
+	L"Айра не в секторе",		//50
+	L"Айра ведёт беседу",
+	L"Задание с продовольствием выполнено",
+	L"Пабло что-то украл с последней посылки",
+	L"Последнее отправление повреждено",
+	L"Последнее отправление отправлено не туда",
+	L"Прошло 24 часа с момента сообщения, что отправление отправлено не в тот аэропорт",
+	L"Потерянная посылка пришла с повреждённым грузом. 56 to False",
+	L"Потерянная посылка пропала бесследно. Turn 56 False",
+	L"Следующее отправление может быть (random) потеряно",
 
-	L"Next package can(random) be delayed",		//60
-	L"Package is medium sized",
-	L"Package is largesized",
-	L"Doreen has conscience",
-	L"Player Spoke to Gordon",
-	L"Ira is still npc and in A10-2(hasnt joined)",
-	L"Dynamo asked for first aid",
-	L"Dynamo can be recruited",
-	L"Npc is bleeding",
-	L"Shank wnts to join",
+	L"Следующее отправление может быть (random) задержано",		//60
+	L"Отправление среднего размера",
+	L"Отправление большого размера",
+	L"У Дорин проснулась совесть",
+	L"Игрок поговорил с Гордоном",
+	L"Айра до сих пор неигровой персонаж и находится в A10-2(не присоединилась)",
+	L"Динамо просит оказать ему первую помощь",
+	L"Динамо можно нанять",
+	L"Неигровой персонаж истекает кровью",
+	L"Шенк хочет присоединиться",
 
-	L"NPC is bleeding",		//70
-	L"Player Team has head & Carmen in San Mona",
-	L"Player Team has head & Carmen in Cambria",
-	L"Player Team has head & Carmen in Drassen",
-	L"Father is drunk",
-	L"Player has wounded mercs within 8 tiles of NPC",
-	L"1 & only 1 merc wounded within 8 tiles of NPC",
-	L"More then 1 wounded merc within 8 tiles of NPC",
-	L"Brenda is in the store ",
-	L"Brenda is Dead",
+	L"Неигровой персонаж истекает кровью",		//70
+	L"У игрока есть голова и Кармен в Сан-Мона",
+	L"У игрока есть голова и Кармен в Камбрии",
+	L"У игрока есть голова и Кармен в Драссене",
+	L"Отец пьян",
+	L"Раненые бойцы игрока находятся ближе 8 тайлов от неигрового персонажа",
+	L"1 и только 1 раненый боец ближе 8 тайлов от неигрового персонажа",
+	L"Больше одного раненного бойца ближе 8 тайлов от неигрового персонажа",
+	L"Бренда в магазине ",
+	L"Бренда мертва",
 
-	L"Brenda is at home",		//80
-	L"NPC is an enemy",
-	L"Speaker Strength >= 84 and < 3 males present",
-	L"Speaker Strength >= 84 and at least 3 males present",
-	L"Hans lets ou see Tony",
-	L"Hans is standing on 13523",
-	L"Tony isnt available Today",
-	L"Female is speaking to NPC",
-	L"Player has enjoyed the Brothel",
-	L"Carla is available",
+	L"Бренда у себя дома",		//80
+	L"Неигровой персонаж - враг",
+	L"Уровень разговора >= 84 и < 3 мужчин присутствует",
+	L"Уровень разговора >= 84 и хотя бы 3 мужчины присутствует",
+	L"Ганс позволил нам встретиться с Тони",
+	L"Ганс стоит на позиции 13523",
+	L"Сегодня Тони нет",
+	L"Женщина разговаривает с неигровым персонажем",
+	L"Игрок развлекался в борделе",
+	L"Карла доступна",
 
-	L"Cindy is available",		//90
-	L"Bambi is available",
-	L"No girls is available",
-	L"Player waited for girls",
-	L"Player paid right amount of money",
+	L"Синди доступна",		//90
+	L"Бэмби доступна",
+	L"Свободных девочек нет",
+	L"Игрок ожидал девочек",
+	L"Игрок заплатил правильную сумму денег",
 	L"Mercs walked by goon",
 	L"More thean 1 merc present within 3 tiles of NPC",
 	L"At least 1 merc present withing 3 tiles of NPC",
-	L"Kingping expectingh visit from player",
-	L"Darren expecting money from player",
+	L"Босс ожидает визита игрока",
+	L"Дэррен ожидает денег от игрока",
 
 	L"Player within 5 tiles and NPC is visible",			//	100
 	L"Carmen is in San Mona",
@@ -1080,6 +1077,7 @@ STR16		FactDescText[] =
 	L"",
 	L"",					//500
 };
+
 //-----------
 
 // Editor
@@ -2804,7 +2802,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 STR16 pTraitSkillsDenialStrings[] =
 {
 	L"Требуется:\n",
-	L" - %d AP\n",
+	L" - %d ОД\n",
 	L" - %s\n",
 	L" - %s или выше\n",
 	L" - %s или выше или\n",
@@ -2814,7 +2812,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - одержимость бесами",
 };
 
-STR16 pSkillMenuStrings[] =	// TODO.Translate
+STR16 pSkillMenuStrings[] =
 {
 	L"Ополчение",
 	L"Другие отряды",
@@ -3643,7 +3641,7 @@ STR16	gzMoneyAmounts[6] =
 	L"Взять",
 };
 
-// short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons."
+// short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons." 
 CHAR16		gzProsLabel[10] = 
 {
 	L"+",
@@ -5550,7 +5548,7 @@ STR16			BobbyRFilter[] =
 	L"Головные",
 	L"Разгр.с-мы",
 	L"Прицелы", // Madd: new BR filters
-	L"Рукоят./ЛЦУ",
+	L"Рукоят/ЛЦУ",
 	L"Дул.насад.",
 	L"Приклады",
 	L"Маг./спуск.",
@@ -6840,7 +6838,7 @@ STR16 pMilitiaButtonsHelpText[] =
 	L"Убрать (|R|i|g|h|t |C|l|i|c|k)\nДобавить (|L|e|f|t |C|l|i|c|k)\nНовобранцы", // button help text informing player they can pick up or drop militia with this button
 	L"Убрать (|R|i|g|h|t |C|l|i|c|k)\nДобавить (|L|e|f|t |C|l|i|c|k)\nРядовые",
 	L"Убрать (|R|i|g|h|t |C|l|i|c|k)\nДобавить (|L|e|f|t |C|l|i|c|k)\nВетераны",
-	L"Равномерно распределить ополчение по доступным секторам",
+	L"Равномерно распределить ополчение\nпо доступным секторам",
 };
 
 STR16 pMapScreenJustStartedHelpText[] =
@@ -8593,30 +8591,32 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Скрыть всё",
 };
 
+// MercCompare (MeLoDy)
+// TODO.Translate
 STR16 gzMercCompare[] =
 {
 	L"???",
-	L"Base opinion:",
+	L"Первое мнение:",
 
-	L"Dislikes %s %s",
-	L"Likes %s %s",
+	L"Не нравятся %s %s",
+	L"Симпатизирует %s %s",
 
-	L"Strongly hates %s",
-	L"Hates %s",			// 5
+	L"Люто ненавидит %s",
+	L"Ненавидит %s",			// 5
 
-	L"Deep racism against %s",
-	L"Racism against %s",
+	L"Лютый расист в отношении к %s",
+	L"Расист в отношении к %s",
 
-	L"Cares deeply about looks",
-	L"Cares about looks",
+	L"Излишне заботится о внешности",
+	L"Заботится о внешности",
 
-	L"Very sexist",			// 10
-	L"Sexist",
+	L"Лютый сексист",			// 10
+	L"Сексист",
 
 	L"Dislikes other background",
 	L"Dislikes other backgrounds",
 
-	L"Past grievances",
+	L"Затаил обиду",
 	L"____",				// 15
 	L"/",
 };
@@ -9111,14 +9111,14 @@ STR16		szCareLevelText[]=
 {
 	L"не",
 	L"немного",
-	L"очень",
+	L"сильно",
 };
 
 STR16		szRacistText[]=
 {
 	L"не",
 	L"немного",
-	L"очень",
+	L"сильно",
 };
 
 STR16		szSexistText[]=
@@ -9302,10 +9302,10 @@ STR16	szCampaignHistoryWebpageString[]=
 
 	L"Повышеный",
 	L"Общий",
-	L"Детальный",
-	L"Предыдущий",
+	L"Полный",
+	L"Назад",
 
-	L"Следующий",
+	L"Далее",
 	L"Эпизод",
 	L"День",
 };
@@ -9641,24 +9641,24 @@ STR16	szMercCompareWebSite[] =
 	L" Парные сравнения",
 	L" Отзывы клиентов",
 
-	L"   Если выш бизнес предполагает инновационные решения для критических приложений, работающих в режиме реального времени, возможно некоторые из этих наблюдений будут вам знакомы:",
+	L"   Если ваш бизнес предполагает инновационные решения для критических приложений, работающих в режиме реального времени, возможно, некоторые из этих наблюдений будут вам знакомы:",
 	L"Ваша команда борется сама с собой.",
 	L"Ваши сотрудники тратят время мешая друг другу.",
 	L"В вашем коллективе большая текучесть кадров.",
 	L"Вы постоянно получаете низкие оценки по удовлетворенности персонала работой.",	
-	L"   Если вы столкнулись хотя бы с одной из этих ситуаций, то, возможно, в вашем бизнесе есть проблемы. И скорее всего, ваши сотрудники не станут работать в полную силу. Но благодаря нашей запатентованной и простой для понимания системе \"БоЛТиК\", вы сможете  вернуть производительность и счастливые улыбки на лицах всех ваших сотрудников в мгновение ока!",
+	L"   Если вы столкнулись хотя бы с одной из этих ситуаций, то, возможно, в вашем деле есть проблемы. И скорее всего, ваши сотрудники не станут работать в полную силу. Но благодаря нашей запатентованной и простой для понимания системе \"БоЛТиК\", вы сможете  вернуть производительность и счастливые улыбки на лицах всех ваших сотрудников в мгновение ока!",
 
 	// customer quotes
-	L"Несколько цитат наших довольных клиентов:",
+	L"Несколько цитат наших благодарных клиентов:",
 	L"Мои прошлые отношения были просто ужасны. Я винила во всём себя... но теперь то я знаю. Все мужчины заслуживают смерти! Спасибо тебе, \"БоЛТиК\", за моё прозрение!",
 	L"-Луиза Г., романист-",
-	L"Я никогда не ладили со своими братьями, а в последнее время отношения совсем стали из рук вон плохими. Вы показали мне, что постыдное недоверие к отцу виной всему. Спасибо вам за это! Я должен открыто всё сказать отцу.",
+	L"Я никогда не ладил со своими братьями, а в последнее время отношения совсем стали из рук вон плохими. Вы показали мне, что постыдное недоверие к отцу виной всему. Спасибо вам за это! Я должен открыто всё сказать отцу.",
 	L"-Конрад C., Исправительное учреждение-",
-	L"Я одиночка по жизни и работа в команде для меня была просто пыткой. Ваши представления показали мне как стать частью команды. Ваш вклад просто неоценим!",
+	L"Я одиночка по жизни, и работа в команде была просто пыткой. Но методика \"БоЛТиК\" показала мне как стать частью команды. Этот вклад просто неоценим!",
 	L"-Грант В., Заклинатель змей-",
 	L"В моей работе необходимо доверять каждому члену команды на все 100 процентов. Вот почему мы обратились к экспертам, вот почему мы обратились к компании \"БоЛТиК\".",
 	L"-Халлэ Л., СПК-",
-	L"Прежде всего хочу признать, что наш коллектив был весьма разношерстым, из-за чего были частые конфликты. Но мы научились уважать друг друга, и в настоящее время дополнем друг друга.",
+	L"Прежде всего хочу признать, что наш коллектив был весьма разношерстым, из-за чего были частые конфликты. Но мы научились уважать друг друга, и в настоящее время дополняем друг друга.",
 	L"-Майкл C., НАСА-",
 	L"Рекоммендую отдать предпочтение этому сайту!",
 	L"-Каспар Х., Логистическая компания H&C-",
@@ -10888,17 +10888,17 @@ STR16 szIMPGearDropDownNoneText[] =
 
 STR16 szMilitiaStrategicMovementText[] =
 {
-	L"We cannot relay orders to this sector, militia command not possible.",
-	L"Unassigned",
-	L"Group No.",
-	L"Next",
+	L"Нельзя отдавать приказы в этом секторе, команды ополчению невозможны.",
+	L"Незадействованы",
+	L"Группа №",
+	L"Далее",
 
-	L"ETA",
-	L"Group %d (new)",
-	L"Group %d",
+	L"РВП",
+	L"Группа %d (новая)",
+	L"Группа %d",
 	L"Final",
 
-	L"Militia Volunteers: %d (+%5.3f)",
+	L"Ополченцы добровольцы: %d (+%5.3f)",
 };
 
 STR16 szEnemyHeliText[] =	// TODO.Translate

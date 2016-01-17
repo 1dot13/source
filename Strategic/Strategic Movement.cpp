@@ -100,7 +100,7 @@ BOOLEAN gfRandomizingPatrolGroup = FALSE;
 
 UINT8 gubNumGroupsArrivedSimultaneously = 0;
 
-//Doesn't require text localization.	This is for debug strings only.
+//Doesn't require text localization. This is for debug strings only.
 UINT8 gszTerrain[NUM_TRAVTERRAIN_TYPES][15] =
 {
 	"TOWN",	"ROAD",	"PLAINS", "SAND", "SPARSE", "DENSE", "SWAMP",
@@ -163,7 +163,7 @@ BOOLEAN gfWaitingForInput = FALSE;
 
 //Player grouping functions
 //.........................
-//Creates a new player group, returning the unique ID of that group.	This is the first
+//Creates a new player group, returning the unique ID of that group. This is the first
 //step before adding waypoints and members to the player group.
 UINT8 CreateNewPlayerGroupDepartingFromSector( UINT8 ubSectorX, UINT8 ubSectorY )
 {
@@ -397,7 +397,7 @@ BOOLEAN RemovePlayerFromGroup( UINT8 ubGroupID, SOLDIERTYPE *pSoldier )
 
 	//KM : August 6, 1999 Patch fix
 	//	 Because the release build has no assertions, it was still possible for the group to be null,
-	//	 causing a crash.	Instead of crashing, it'll simply return false.
+	//	 causing a crash. Instead of crashing, it'll simply return false.
 	if( !pGroup )
 	{
 		return FALSE;
@@ -436,14 +436,14 @@ BOOLEAN GroupReversingDirectionsBetweenSectors( GROUP *pGroup, UINT8 ubSectorX, 
 	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
 		// ARM: because we've changed the group's ubSectoryX and ubSectorY, we must now also go and change the sSectorX and
-		// sSectorY of all the soldiers in this group so that they stay in synch.	Otherwise pathing and movement problems
+		// sSectorY of all the soldiers in this group so that they stay in synch. Otherwise pathing and movement problems
 		// will result since the group is in one place while the merc is in another...
 		SetLocationOfAllPlayerSoldiersInGroup( pGroup, pGroup->ubSectorX, pGroup->ubSectorY, 0 );
 	}
 
 
-	// IMPORTANT: The traverse time doesn't change just because we reverse directions!	It takes the same time no matter
-	// which direction you're going in!	This becomes critical in case the player reverse directions again before moving!
+	// IMPORTANT: The traverse time doesn't change just because we reverse directions! It takes the same time no matter
+	// which direction you're going in! This becomes critical in case the player reverse directions again before moving!
 
 	// The time it takes to arrive there will be exactly the amount of time we have been moving away from it.
 	SetGroupArrivalTime( pGroup, pGroup->uiTraverseTime - pGroup->uiArrivalTime + GetWorldTotalMin() * 2 );
@@ -470,7 +470,7 @@ BOOLEAN GroupReversingDirectionsBetweenSectors( GROUP *pGroup, UINT8 ubSectorX, 
 		// To handle this situation, RebuildWayPointsForGroupPath() will issue it's own call after it's ready for it.
 		if ( !fBuildingWaypoints )
 		{
-			// never really left.	Must set check for battle TRUE in order for HandleNonCombatGroupArrival() to run!
+			// never really left. Must set check for battle TRUE in order for HandleNonCombatGroupArrival() to run!
 			GroupArrivedAtSector( pGroup->ubGroupID, TRUE, TRUE );
 		}
 	}
@@ -518,7 +518,7 @@ BOOLEAN GroupBetweenSectorsAndSectorXYIsInDifferentDirection( GROUP *pGroup, UIN
 		return FALSE;
 	}
 
-	// Compare the dx/dy's.	If they're exactly the same, group is travelling in the same direction as before, so we're not
+	// Compare the dx/dy's. If they're exactly the same, group is travelling in the same direction as before, so we're not
 	// changing directions.
 	// Note that 90-degree orthogonal changes are considered changing direction, as well as the full 180-degree reversal.
 	// That's because the party must return to the previous sector in each of those cases, too.
@@ -531,7 +531,7 @@ BOOLEAN GroupBetweenSectorsAndSectorXYIsInDifferentDirection( GROUP *pGroup, UIN
 }
 
 
-//Appends a waypoint to the end of the list.	Waypoint MUST be on the
+//Appends a waypoint to the end of the list. Waypoint MUST be on the
 //same horizontal or vertical level as the last waypoint added.
 BOOLEAN AddWaypointToPGroup( GROUP* pGroup, UINT8 ubSectorX, UINT8 ubSectorY ) //Same, but overloaded
 {
@@ -546,7 +546,7 @@ BOOLEAN AddWaypointToPGroup( GROUP* pGroup, UINT8 ubSectorX, UINT8 ubSectorY ) /
 	if( !pGroup )
 		return FALSE;
 
-	//At this point, we have the group, and a valid coordinate.	Now we must
+	//At this point, we have the group, and a valid coordinate. Now we must
 	//determine that this waypoint will be aligned exclusively to either the x or y axis of
 	//the last waypoint in the list.
 	pWay = pGroup->pWaypoints;
@@ -560,10 +560,10 @@ BOOLEAN AddWaypointToPGroup( GROUP* pGroup, UINT8 ubSectorX, UINT8 ubSectorY ) /
 				AddSectorToFrontOfMercPathForAllSoldiersInGroup( pGroup, pGroup->ubSectorX, pGroup->ubSectorY );
 			}
 
-			//Very special case that requiring specific coding.	Check out the comments
+			//Very special case that requiring specific coding. Check out the comments
 			//at the above function for more information.
 			fReversingDirection = TRUE;
-			// ARM:	Kris - new rulez.	Must still fall through and add a waypoint anyway!!!
+			// ARM:	Kris - new rulez. Must still fall through and add a waypoint anyway!!!
 		}
 		else
 		{ //No waypoints, so compare against the current location.
@@ -754,9 +754,9 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 		CHAR16 str[ 512 ];
 		if ( PlayerMercsInSector( pNew->ubSectorX, pNew->ubSectorY, 0 ) || NumNonPlayerTeamMembersInSector( pNew->ubSectorX, pNew->ubSectorY, MILITIA_TEAM ) )
 		{
-			swprintf( str, L"Attempting to send enemy troops from player occupied location.	"
+			swprintf( str, L"Attempting to send enemy troops from player occupied location. "
 										L"Please ALT+TAB out of the game before doing anything else and send 'Strategic Decisions.txt' "
-										L"and this message.	You'll likely need to revert to a previous save.	If you can reproduce this "
+										L"and this message. You'll likely need to revert to a previous save. If you can reproduce this "
 										L"with a save close to this event, that would really help me! -- KM:0" );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		}
@@ -764,8 +764,8 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 		 * Not valid
 		else if( pNew->ubGroupSize > 25 )
 		{
-			swprintf( str, L"Strategic AI warning:	Creating an enemy group containing %d soldiers "
-										L"(%d admins, %d troops, %d elites) in sector %c%d.	This message is a temporary test message "
+			swprintf( str, L"Strategic AI warning: Creating an enemy group containing %d soldiers "
+										L"(%d admins, %d troops, %d elites) in sector %c%d. This message is a temporary test message "
 										L"to evaluate a potential problems with very large enemy groups.",
 										pNew->ubGroupSize, ubNumAdmins, ubNumTroops, ubNumElites,
 										pNew->ubSectorY + 'A' - 1, pNew->ubSectorX );
@@ -831,9 +831,9 @@ GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdm
 		/*CHAR16 str[512];
 		if ( PlayerMercsInSector( pNew->ubSectorX, pNew->ubSectorY, 0 ) || NumNonPlayerTeamMembersInSector( pNew->ubSectorX, pNew->ubSectorY, MILITIA_TEAM ) )
 		{
-			swprintf( str, L"Attempting to send enemy troops from player occupied location.	"
+			swprintf( str, L"Attempting to send enemy troops from player occupied location. "
 					  L"Please ALT+TAB out of the game before doing anything else and send 'Strategic Decisions.txt' "
-					  L"and this message.	You'll likely need to revert to a previous save.	If you can reproduce this "
+					  L"and this message. You'll likely need to revert to a previous save. If you can reproduce this "
 					  L"with a save close to this event, that would really help me! -- KM:0" );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		}*/
@@ -841,8 +841,8 @@ GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdm
 		* Not valid
 		else if( pNew->ubGroupSize > 25 )
 		{
-		swprintf( str, L"Strategic AI warning:	Creating an enemy group containing %d soldiers "
-		L"(%d admins, %d troops, %d elites) in sector %c%d.	This message is a temporary test message "
+		swprintf( str, L"Strategic AI warning: Creating an enemy group containing %d soldiers "
+		L"(%d admins, %d troops, %d elites) in sector %c%d. This message is a temporary test message "
 		L"to evaluate a potential problems with very large enemy groups.",
 		pNew->ubGroupSize, ubNumAdmins, ubNumTroops, ubNumElites,
 		pNew->ubSectorY + 'A' - 1, pNew->ubSectorX );
@@ -1003,8 +1003,8 @@ void HandleImportantPBIQuote( SOLDIERTYPE *pSoldier, GROUP *pInitiatingBattleGro
 	}
 }
 
-//If this is called, we are setting the game up to bring up the prebattle interface.	Before doing so,
-//one of the involved mercs will pipe up.	When he is finished, we automatically go into the mapscreen,
+//If this is called, we are setting the game up to bring up the prebattle interface. Before doing so,
+//one of the involved mercs will pipe up. When he is finished, we automatically go into the mapscreen,
 //regardless of the mode we are in.
 void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiatingBattleGroup )
 {
@@ -1022,7 +1022,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 	{
 		// WDS Note: This can validly happen when multiple teams retreat and then immediately return to a sector.
 		// Just returning causes no problems.
-//		AssertMsg( 0, "fDisableMapInterfaceDueToBattle is set before attempting to bring up PBI.	Please send PRIOR save if possible and details on anything that just happened before this battle." );
+//		AssertMsg( 0, "fDisableMapInterfaceDueToBattle is set before attempting to bring up PBI. Please send PRIOR save if possible and details on anything that just happened before this battle." );
 		return;
 	}
 
@@ -1151,7 +1151,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 
 	if( gfWorldLoaded )
 	{
-		//look for people arriving in the currently loaded sector.	This handles reinforcements.
+		//look for people arriving in the currently loaded sector. This handles reinforcements.
 		curr = FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, OUR_TEAM );
 
 		if( !gbWorldSectorZ && PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, gbWorldSectorZ ) &&
@@ -1193,8 +1193,8 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 							(!IsGroupTheHelicopterGroup( curr ) || !fHelicopterIsAirBorne) &&
 							(!curr->fVehicle || NumberMercsInVehicleGroup( curr )) )
 					{
-						//Now, a player group is in this sector.	Determine if the group contains any mercs that can fight.
-						//Vehicles, EPCs and the robot doesn't count.	Mercs below OKLIFE do.
+						//Now, a player group is in this sector. Determine if the group contains any mercs that can fight.
+						//Vehicles, EPCs and the robot doesn't count. Mercs below OKLIFE do.
 						pPlayer = curr->pPlayerList;
 						while( pPlayer )
 						{
@@ -1296,17 +1296,17 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 
 	if( !fAliveMerc && !fMilitiaPresent )
 	{
-		//empty vehicle, everyone dead, don't care.	Enemies don't care.
+		//empty vehicle, everyone dead, don't care. Enemies don't care.
 		return FALSE;
 	}
 
 	if( fBattlePending )
 	{
 		//A battle is pending, but the players could be all unconcious or dead.
-		//Go through every group until we find at least one concious merc.	The looping will determine
-		//if there are any live mercs and/or concious ones.	If there are no concious mercs, but alive ones,
+		//Go through every group until we find at least one concious merc. The looping will determine
+		//if there are any live mercs and/or concious ones. If there are no concious mercs, but alive ones,
 		//then we will go straight to autoresolve, where the enemy will likely annihilate them or capture them.
-		//If there are no alive mercs, then there is nothing anybody can do.	The enemy will completely ignore
+		//If there are no alive mercs, then there is nothing anybody can do. The enemy will completely ignore
 		//this, and continue on.
 
 		// WANNE: ValidateGroups now returns a BOOLEAN Value (TRUE/FALSE) if the attacking is valid.
@@ -1460,7 +1460,7 @@ void CalculateNextMoveIntention( GROUP *pGroup )
 			case CIRCULAR:
 				wp = wp->next;
 				if( !wp )
-				{	//reached the end of the patrol route.	Set to the first waypoint in list, indefinately.
+				{	//reached the end of the patrol route. Set to the first waypoint in list, indefinately.
 					//NOTE:	If the last waypoint isn't exclusively aligned to the x or y axis of the first
 					//			waypoint, there will be an assertion failure inside the waypoint movement code.
 					pGroup->ubNextWaypointID = 0;
@@ -1848,7 +1848,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			if( pGroup->pPlayerList == NULL )
 			{
 				// nobody here, better just get out now
-				AssertMsg( 0, String( "Player group %d arrived in sector empty.	KM 0", ubGroupID ) );
+				AssertMsg( 0, String( "Player group %d arrived in sector empty. KM 0", ubGroupID ) );
 				return;
 			}
 		}
@@ -1887,7 +1887,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 #else
 		if( AreInMeanwhile() )
 		{
-			pGroup->uiArrivalTime ++; //tack on only 1 minute if we are in a meanwhile scene.	This effectively
+			pGroup->uiArrivalTime ++; //tack on only 1 minute if we are in a meanwhile scene. This effectively
 									//prevents any battle from occurring while inside a meanwhile scene.
 		}
 		else
@@ -1946,10 +1946,10 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			SOLDIERTYPE *pSoldier;
 			INT32 iVehicleID;
 			iVehicleID = GivenMvtGroupIdFindVehicleId( pGroup->ubGroupID );
-			AssertMsg( iVehicleID != -1, "GroupArrival for vehicle group.	Invalid iVehicleID. " );
+			AssertMsg( iVehicleID != -1, "GroupArrival for vehicle group. Invalid iVehicleID. " );
 
 			pSoldier = GetSoldierStructureForVehicle( iVehicleID );
-			AssertMsg( pSoldier, "GroupArrival for vehicle group.	Invalid soldier pointer." );
+			AssertMsg( pSoldier, "GroupArrival for vehicle group. Invalid soldier pointer." );
 
 			SpendVehicleFuel( pSoldier, (INT16)(pGroup->uiTraverseTime*6) );
 
@@ -2217,7 +2217,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	{
 		//Determine if a battle should start.
 		//if a battle does start, or get's delayed, then we will keep the group in memory including
-		//all waypoints, until after the battle is resolved.	At that point, we will continue the processing.
+		//all waypoints, until after the battle is resolved. At that point, we will continue the processing.
 		if( fCheckForBattle && !CheckConditionsForBattle( pGroup ) && !gfWaitingForInput )
 		{
 			GROUP *next;
@@ -2463,7 +2463,7 @@ void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, 
 	}
 }
 
-//The user has just approved to plan a simultaneous arrival.	So we will syncronize all of the involved
+//The user has just approved to plan a simultaneous arrival. So we will syncronize all of the involved
 //groups so that they arrive at the same time (which is the time the final group would arrive).
 void PrepareGroupsForSimultaneousArrival()
 {
@@ -2515,7 +2515,7 @@ void PrepareGroupsForSimultaneousArrival()
 		pGroup = pGroup->next;
 	}
 
-	//We still have the first group that has arrived.	Because they are set up to be in the destination
+	//We still have the first group that has arrived. Because they are set up to be in the destination
 	//sector, we will "warp" them back to the last sector, and also setup a new arrival time for them.
 	pGroup = gpPendingSimultaneousGroup;
 	pGroup->ubNextX = pGroup->ubSectorX;
@@ -2553,8 +2553,8 @@ void PrepareGroupsForSimultaneousArrival()
 	DelayEnemyGroupsIfPathsCross( pGroup );
 }
 
-//See if there are other groups OTW.	If so, and if we haven't asked the user yet to plan
-//a simultaneous attack, do so now, and readjust the groups accordingly.	If it is possible
+//See if there are other groups OTW. If so, and if we haven't asked the user yet to plan
+//a simultaneous attack, do so now, and readjust the groups accordingly. If it is possible
 //to do so, then we will set up the gui, and postpone the prebattle interface.
 BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pFirstGroup )
 {
@@ -2618,7 +2618,7 @@ BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pFirstGroup )
 
 		//header, sector, singular/plural str, confirmation string.
 		//Ex:	Enemies have been detected in sector J9 and another squad is
-		//	 about to arrive.	Do you wish to coordinate a simultaneous arrival?
+		//	 about to arrive. Do you wish to coordinate a simultaneous arrival?
 		swprintf( str, pStr,
 			pEnemyType, //Enemy type (Enemies or bloodcats)
 			'A' + gpPendingSimultaneousGroup->ubSectorY - 1, gpPendingSimultaneousGroup->ubSectorX ); //Sector location
@@ -2939,7 +2939,7 @@ void RemoveGroupWaypoints( UINT8 ubGroupID )
 void RemovePGroupWaypoints( GROUP *pGroup )
 {
 	WAYPOINT* wp;
-	//if there aren't any waypoints to delete, then return.	This also avoids setting
+	//if there aren't any waypoints to delete, then return. This also avoids setting
 	//the fWaypointsCancelled flag.
 	if( !pGroup->pWaypoints )
 		return;
@@ -2954,7 +2954,7 @@ void RemovePGroupWaypoints( GROUP *pGroup )
 	pGroup->pWaypoints = NULL;
 
 	//By setting this flag, it acknowledges the possibility that the group is currently between sectors,
-	//and will continue moving until it reaches the next sector.	If the user decides to change directions,
+	//and will continue moving until it reaches the next sector. If the user decides to change directions,
 	//during this process, the arrival event must be modified to send the group back.
 	//pGroup->fWaypointsCancelled = TRUE;
 }
@@ -3358,7 +3358,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 
 	// THIS FUNCTION WAS WRITTEN TO HANDLE MOVEMENT TYPES WHERE MORE THAN ONE TRANSPORTAION TYPE IS AVAILABLE.
 
-	//Determine the group's method(s) of tranportation.	If more than one,
+	//Determine the group's method(s) of tranportation. If more than one,
 	//we will always use the highest time.
 	// WANNE: If we have an old savegame (from the dev. trunk, where the skyrider can only move on roads), just change the "pGroup->ubTransportationMask" to 16 for the heli to fix it in the savegame
 	fFoot = (UINT8)(pGroup->ubTransportationMask & FOOT);
@@ -3372,9 +3372,9 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 	if( ubTraverseType == EDGEOFWORLD )
 		return 0xffffffff; //can't travel here!
 
-	// ARM: Made air-only travel take its normal time per sector even through towns.	Because Skyrider charges by the sector,
+	// ARM: Made air-only travel take its normal time per sector even through towns. Because Skyrider charges by the sector,
 	// not by flying time, it's annoying when his default route detours through a town to save time, but costs extra money.
-	// This isn't exactly unrealistic, since the chopper shouldn't be faster flying over a town anyway...	Not that other
+	// This isn't exactly unrealistic, since the chopper shouldn't be faster flying over a town anyway... Not that other
 	// kinds of travel should be either - but the towns represents a kind of warping of our space-time scale as it is...
 	if( ( ubTraverseType == TOWN ) && ( pGroup->ubTransportationMask != AIR ) )
 		return 5; //very fast, and vehicle types don't matter.
@@ -3411,7 +3411,7 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			{
 				pSoldier = curr->pSoldier;
 				if( pSoldier->bAssignment != VEHICLE )
-				{ //Soldier is on foot and travelling.	Factor encumbrance into movement rate.
+				{ //Soldier is on foot and travelling. Factor encumbrance into movement rate.
 					iEncumbrance = CalculateCarriedWeight( pSoldier );
 					if( iEncumbrance > iHighestEncumbrance )
 					{
@@ -3779,7 +3779,7 @@ BOOLEAN PlayersBetweenTheseSectors( INT16 sSource, INT16 sDest, INT32 *iCountEnt
 //		Assert( gfPreBattleInterfaceActive );
 	}
 
-	// get number of characters entering/existing between these two sectors.	Special conditions during
+	// get number of characters entering/existing between these two sectors. Special conditions during
 	// pre-battle interface to return where this function is used to show potential retreating directions instead!
 
 	//	check all groups
@@ -4582,7 +4582,7 @@ void RetreatGroupToPreviousSector( GROUP *pGroup )
 		}
 	}
 	else
-	{ //Group doesn't have a previous sector.	Create one, then recurse
+	{ //Group doesn't have a previous sector. Create one, then recurse
 		CalculateGroupRetreatSector( pGroup );
 		RetreatGroupToPreviousSector( pGroup );
 	}
@@ -4682,7 +4682,7 @@ BOOLEAN GroupAtFinalDestination( GROUP *pGroup )
 	wp = GetFinalWaypoint( pGroup );
 
 	if( !wp )
-	{ //no waypoints, so the group is at it's destination.	This happens when
+	{ //no waypoints, so the group is at it's destination. This happens when
 		//an enemy group is created in the destination sector (which is legal for
 		//staging groups which always stop adjacent to their real sector destination)
 		return TRUE;
@@ -4717,7 +4717,7 @@ WAYPOINT *GetFinalWaypoint( GROUP *pGroup )
 }
 
 
-//The sector supplied resets ALL enemy groups in the sector specified.	See comments in
+//The sector supplied resets ALL enemy groups in the sector specified. See comments in
 //ResetMovementForNonPlayerGroup() for more details on what the resetting does.
 void ResetMovementForNonPlayerGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY )
 {
@@ -4742,9 +4742,9 @@ void ResetMovementForNonPlayerGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY
 
 
 //This function is used to reset the location of the enemy group if they are
-//currently between sectors.	If they were 50% of the way from sector A10 to A11,
+//currently between sectors. If they were 50% of the way from sector A10 to A11,
 //then after this function is called, then that group would be 0% of the way from
-//sector A10 to A11.	In no way does this function effect the strategic path for
+//sector A10 to A11. In no way does this function effect the strategic path for
 //the group.
 void ResetMovementForNonPlayerGroup( GROUP *pGroup )
 {
@@ -4813,8 +4813,8 @@ void ResetMovementForNonPlayerGroup( GROUP *pGroup )
 
 	//Calculate the new arrival time (all data pertaining to movement should be valid)
 	if( pGroup->uiTraverseTime > 400 )
-	{ //The group was likely sleeping which makes for extremely long arrival times.	Shorten it
-		//arbitrarily.	Doesn't really matter if this isn't accurate.
+	{ //The group was likely sleeping which makes for extremely long arrival times. Shorten it
+		//arbitrarily. Doesn't really matter if this isn't accurate.
 		pGroup->uiTraverseTime = 90;
 	}
 	SetGroupArrivalTime( pGroup, GetWorldTotalMin() + pGroup->uiTraverseTime );
@@ -4898,7 +4898,7 @@ void UpdatePersistantGroupsFromOldSave( UINT32 uiSavedGameVersion )
 }
 
 //Determines if any particular group WILL be moving through a given sector given it's current
-//position in the route and the pGroup->ubMoveType must be ONE_WAY.	If the group is currently
+//position in the route and the pGroup->ubMoveType must be ONE_WAY. If the group is currently
 //IN the sector, or just left the sector, it will return FALSE.
 BOOLEAN GroupWillMoveThroughSector( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSectorY )
 {
@@ -4907,7 +4907,7 @@ BOOLEAN GroupWillMoveThroughSector( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSect
 	UINT8 ubOrigX, ubOrigY;
 
 	Assert( pGroup );
-	AssertMsg( pGroup->ubMoveType == ONE_WAY, String( "GroupWillMoveThroughSector() -- Attempting to test group with an invalid move type.	ubGroupID: %d, ubMoveType: %d, sector: %c%d -- KM:0",
+	AssertMsg( pGroup->ubMoveType == ONE_WAY, String( "GroupWillMoveThroughSector() -- Attempting to test group with an invalid move type. ubGroupID: %d, ubMoveType: %d, sector: %c%d -- KM:0",
 						pGroup->ubGroupID, pGroup->ubMoveType, pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX ) );
 
 	//Preserve the original sector values, as we will be temporarily modifying the group's ubSectorX/Y values
@@ -5038,7 +5038,7 @@ void AddFuelToVehicle( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVehicle )
 	{
 		#ifdef JA2BETAVERSION
 			CHAR16 str[ 100 ];
-			swprintf( str, L"%s is supposed to have gas can in hand.	ATE:0", pSoldier->name );
+			swprintf( str, L"%s is supposed to have gas can in hand. ATE:0", pSoldier->name );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		#endif
 		return;
@@ -5118,7 +5118,7 @@ void SetLocationOfAllPlayerSoldiersInGroup( GROUP *pGroup, INT16 sSectorX, INT16
 			pSoldier = GetSoldierStructureForVehicle( iVehicleId );
 			Assert ( pSoldier );
 
-			// these are apparently unnecessary, since vehicles are part of the pPlayerList in a vehicle group.	Oh well.
+			// these are apparently unnecessary, since vehicles are part of the pPlayerList in a vehicle group. Oh well.
 			pSoldier->sSectorX = sSectorX;
 			pSoldier->sSectorY = sSectorY;
 			pSoldier->bSectorZ = bSectorZ;
@@ -5183,7 +5183,7 @@ void RandomizePatrolGroupLocation( GROUP *pGroup )
 		wp = wp->next;
 	}
 
-	//logic error if this fails.	We should have a null value for ubChosen
+	//logic error if this fails. We should have a null value for ubChosen
 	Assert( !ubChosen );
 	Assert( wp );
 
@@ -5259,7 +5259,7 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 		// Bloodcats still exist here, but aren't at the optimal number?
 		if( pSector->bBloodCats > 0 && pSector->bBloodCats < pSector->bBloodCatPlacements )
 		{ 
-			//Slowly have them recuperate if we haven't been here for a long time.	The population will
+			//Slowly have them recuperate if we haven't been here for a long time. The population will
 			//come back up to the maximum if left long enough.
 			INT32 iBloodCatDiff;
 			iBloodCatDiff = pSector->bBloodCatPlacements - pSector->bBloodCats;
@@ -5446,7 +5446,7 @@ void PlaceGroupInSector( UINT8 ubGroupID, INT16 sPrevX, INT16 sPrevY, INT16 sNex
 
 
 
-// ARM: centralized it so we can do a comprehensive Assert on it.	Causing problems with helicopter group!
+// ARM: centralized it so we can do a comprehensive Assert on it. Causing problems with helicopter group!
 void SetGroupArrivalTime( GROUP *pGroup, UINT32 uiArrivalTime )
 {
 	// PLEASE CENTRALIZE ALL CHANGES TO THE ARRIVAL TIMES OF GROUPS THROUGH HERE, ESPECIALLY THE HELICOPTER GROUP!!!
@@ -5456,7 +5456,7 @@ void SetGroupArrivalTime( GROUP *pGroup, UINT32 uiArrivalTime )
 	// the chopper groups must NEVER be delayed for any reason - it gets excluded from simultaneous arrival logic
 
 	// Also note that non-chopper groups can currently be delayed such that this assetion would fail - enemy groups by
-	// DelayEnemyGroupsIfPathsCross(), and player groups via PrepareGroupsForSimultaneousArrival().	So we skip the assert.
+	// DelayEnemyGroupsIfPathsCross(), and player groups via PrepareGroupsForSimultaneousArrival(). So we skip the assert.
 	
 	if ( IsGroupTheHelicopterGroup( pGroup ) )
 	{
@@ -5540,8 +5540,8 @@ void PlayerGroupArrivedSafelyInSector( GROUP *pGroup, BOOLEAN fCheckForNPCs )
 
 				// NOTE: Of course, it would be better if they continued onwards once everyone was ready to go again, in which
 				// case we'd want to preserve the plotted path, but since the player can mess with the squads, etc.
-				// in the mean-time, that just seemed to risky to try to support.	They could get into a fight and be too
-				// injured to move, etc.	Basically, we'd have run a complete CanCharacterMoveInStrategic(0 check on all of them.
+				// in the mean-time, that just seemed to risky to try to support. They could get into a fight and be too
+				// injured to move, etc. Basically, we'd have run a complete CanCharacterMoveInStrategic(0 check on all of them.
 				// It's a wish list task for AM...
 
 				// stop time so player can react if group was already on the move and suddenly halts
@@ -5833,14 +5833,14 @@ BOOLEAN ValidateGroups( GROUP *pGroup )
 		CHAR16 str[ 512 ];
 		if( pGroup->ubSectorIDOfLastReassignment == 255 )
 		{
-			swprintf( str, L"Enemy group found with 0 troops in it.	This is illegal and group will be deleted."
+			swprintf( str, L"Enemy group found with 0 troops in it. This is illegal and group will be deleted."
 										L"  Group %d in sector %c%d originated from sector %c%d.",
 										pGroup->ubGroupID, pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX,
 										SECTORY( pGroup->ubCreatedSectorID ) + 'A' - 1, SECTORX( pGroup->ubCreatedSectorID ) );
 		}
 		else
 		{
-			swprintf( str, L"Enemy group found with 0 troops in it.	This is illegal and group will be deleted."
+			swprintf( str, L"Enemy group found with 0 troops in it. This is illegal and group will be deleted."
 										L"  Group %d in sector %c%d originated from sector %c%d and last reassignment location was %c%d.",
 										pGroup->ubGroupID, pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX,
 										SECTORY( pGroup->ubCreatedSectorID ) + 'A' - 1, SECTORX( pGroup->ubCreatedSectorID ),
@@ -5974,8 +5974,8 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 						 (!IsGroupTheHelicopterGroup( curr ) || !fHelicopterIsAirBorne) &&
 						 (!curr->fVehicle || NumberMercsInVehicleGroup( curr )) )
 					{
-						//Now, a player group is in this sector.	Determine if the group contains any mercs that can fight.
-						//Vehicles, EPCs and the robot doesn't count.	Mercs below OKLIFE do.
+						//Now, a player group is in this sector. Determine if the group contains any mercs that can fight.
+						//Vehicles, EPCs and the robot doesn't count. Mercs below OKLIFE do.
 						pPlayer = curr->pPlayerList;
 						while ( pPlayer )
 						{
@@ -6057,10 +6057,10 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 	if ( fBattlePending )
 	{
 		//A battle is pending, but the players could be all unconcious or dead.
-		//Go through every group until we find at least one concious merc.	The looping will determine
-		//if there are any live mercs and/or concious ones.	If there are no concious mercs, but alive ones,
+		//Go through every group until we find at least one concious merc. The looping will determine
+		//if there are any live mercs and/or concious ones. If there are no concious mercs, but alive ones,
 		//then we will go straight to autoresolve, where the enemy will likely annihilate them or capture them.
-		//If there are no alive mercs, then there is nothing anybody can do.	The enemy will completely ignore
+		//If there are no alive mercs, then there is nothing anybody can do. The enemy will completely ignore
 		//this, and continue on.
 		
 		StopTimeCompression( );

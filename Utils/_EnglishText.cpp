@@ -497,7 +497,7 @@ STR16		QuestDescText[] =
 	L"Rescue Maria",
 	L"Chitzena Chalice",
 	L"Held in Alma",
-	L"Interogation",
+	L"Interrogation",
 
 	L"Hillbilly Problem",								//10
 	L"Find Scientist",
@@ -538,11 +538,11 @@ STR16		FactDescText[] =
 
 	L"Orta Liberated",					//10
 	L"Meduna Liberated",
-	L"Pacos approched",
+	L"Pacos approached",
 	L"Fatima Read note",
 	L"Fatima Walked away from player",
 	L"Dimitri (#60) is dead",
-	L"Fatima responded to Dimitri's supprise",
+	L"Fatima responded to Dimitri's surprise",
 	L"Carlo's exclaimed 'no one moves'",
 	L"Fatima described note",
 	L"Fatima arrives at final dest",
@@ -600,7 +600,7 @@ STR16		FactDescText[] =
 	L"Dynamo asked for first aid",
 	L"Dynamo can be recruited",
 	L"Npc is bleeding",
-	L"Shank wnts to join",
+	L"Shank wants to join",
 
 	L"NPC is bleeding",		//70
 	L"Player Team has head & Carmen in San Mona",
