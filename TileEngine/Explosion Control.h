@@ -126,6 +126,9 @@ INT32 FindActiveTimedBomb( void );
 BOOLEAN ActiveTimedBombExists( void );
 void RemoveAllActiveTimedBombs( void );
 
+// Flugente: remove any marker that an explosion is active but has not yet occured (to be used when leaving a sector)
+void RemoveActiveExplosionMarkers();
+
 #define GASMASK_MIN_STATUS 70
 
 // OJW - 20091028 - Explosion damage sync

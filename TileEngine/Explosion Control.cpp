@@ -3961,118 +3961,122 @@ void HandleExplosionQueue( void )
 
 	uiCurrentTime = GetJA2Clock();
 	// WDS 07/25/2008 - Avoid error where gWorldItems and/or gWorldBombs is nil
-	if (gWorldBombs && !gWorldItems.empty()) {//dnl ch75 271013
-	for ( uiIndex = 0; uiIndex < gubElementsOnExplosionQueue; uiIndex++ )
+	//dnl ch75 271013
+	if (gWorldBombs && !gWorldItems.empty())
 	{
-		if ( gExplosionQueue[ uiIndex ].fExists && uiCurrentTime >= gExplosionQueue[ uiIndex ].uiTimeStamp )
+		for ( uiIndex = 0; uiIndex < gubElementsOnExplosionQueue; ++uiIndex )
 		{
-			// Set off this bomb now!
-
-			// Preliminary assignments:
-			uiWorldBombIndex = gExplosionQueue[ uiIndex ].uiWorldBombIndex;
-			pObj = &( gWorldItems[ gWorldBombs[ uiWorldBombIndex ].iItemIndex ].object );
-			sGridNo = gWorldItems[ gWorldBombs[ uiWorldBombIndex ].iItemIndex ].sGridNo;
-			ubLevel = gWorldItems[ gWorldBombs[ uiWorldBombIndex ].iItemIndex ].ubLevel;
-
-			if (pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP)
+			if ( gExplosionQueue[ uiIndex ].fExists && uiCurrentTime >= gExplosionQueue[ uiIndex ].uiTimeStamp )
 			{
-				PerformItemAction( sGridNo, pObj );
-			}
-			else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_KLAXON )
-			{
-				PlayJA2Sample( KLAXON_ALARM, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 5, SoundDir( sGridNo ) );
-				CallAvailableEnemiesTo( sGridNo );
-				//RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, 0 );
-			}
-			else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_FLARE )
-			{				
-				// sevenfm: changed pObj->usItem to Item[pObj->usItem].ubClassIndex as it should be correct explosives index
-				// NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
-				NewLightEffect( sGridNo, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubDuration, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubStartRadius );
+				// Set off this bomb now!
 
-				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
-			}
-			// Flugente: handle tripwire gun traps here...
-			// tripwire gets called and activated in ActivateSurroundingTripwire
-			else if ( Item[pObj->usItem].tripwire == 1 )
-			{
-				OBJECTTYPE newtripwireObject;
-				CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
-				
-				// search for attached guns
-				BOOLEAN fgunfound = FALSE;
-				OBJECTTYPE* pAttGun = NULL;
-				// check all attachments
-				attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
-				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
+				// Preliminary assignments:
+				uiWorldBombIndex = gExplosionQueue[ uiIndex ].uiWorldBombIndex;
+				pObj = &( gWorldItems[ gWorldBombs[ uiWorldBombIndex ].iItemIndex ].object );
+				sGridNo = gWorldItems[ gWorldBombs[ uiWorldBombIndex ].iItemIndex ].sGridNo;
+				ubLevel = gWorldItems[ gWorldBombs[ uiWorldBombIndex ].iItemIndex ].ubLevel;
+
+				if (pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue != ACTION_ITEM_BLOW_UP)
 				{
-					if ( iter->exists() && Item[iter->usItem].usItemClass == IC_GUN )
+					PerformItemAction( sGridNo, pObj );
+				}
+				else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_KLAXON )
+				{
+					PlayJA2Sample( KLAXON_ALARM, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 5, SoundDir( sGridNo ) );
+					CallAvailableEnemiesTo( sGridNo );
+					//RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, 0 );
+				}
+				else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_FLARE )
+				{				
+					// sevenfm: changed pObj->usItem to Item[pObj->usItem].ubClassIndex as it should be correct explosives index
+					// NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
+					NewLightEffect( sGridNo, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubDuration, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubStartRadius );
+
+					RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+				}
+				// Flugente: handle tripwire gun traps here...
+				// tripwire gets called and activated in ActivateSurroundingTripwire
+				else if ( Item[pObj->usItem].tripwire == 1 )
+				{
+					OBJECTTYPE newtripwireObject;
+					CreateItem( pObj->usItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+				
+					// search for attached guns
+					BOOLEAN fgunfound = FALSE;
+					OBJECTTYPE* pAttGun = NULL;
+					// check all attachments
+					attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
+					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 					{
-						fgunfound = TRUE;
-						pAttGun = &(*iter);
-						break;
+						if ( iter->exists() && Item[iter->usItem].usItemClass == IC_GUN )
+						{
+							fgunfound = TRUE;
+							pAttGun = &(*iter);
+							break;
+						}
 					}
-				}
 
-				if ( fgunfound && pAttGun && pAttGun->exists() )
-				{
-					// Flugente 2012-06-16: I ran into a weird bug. If activating multiple guntraps, an error would occur when placing a gun on the floor. 
-					// The problem is the function GetFreeWorldItemIndex( ) in AddItemToWorld() in World Items.cpp.
-					// It gets a free index for the item that should be placed. If there is no free index, it creates a bigger array, copies the current array into it, and then deletes the old index.
-					// For some reason still unknown to me, this corrupts the pObj-pointer. It also corrupts the pAttGun-pointer, this is the reason I create a new object.
-					// I had to move some functions here to take care of that. It would be good if someone with more knowledge could take a look at this.
-
-					// fire with this gun, if possible. Afterwards place it on the floor
-					OBJECTTYPE object(*pAttGun);
-					CheckAndFireTripwireGun( &object, sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
-				} else {
-					// sevenfm: blow attached items with tripwireactivation = TRUE
-					// no preplaced (owner=NOBODY) tripwire with explosive attachments allowed
-					if ( gGameExternalOptions.bAllowExplosiveAttachments && (*pObj)[0]->data.misc.ubBombOwner > 1 )
+					if ( fgunfound && pAttGun && pAttGun->exists() )
 					{
-						fAttFound=HandleAttachedExplosions( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, 
-										sGridNo, (*pObj)[0]->data.misc.usBombItem, FALSE, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
-				}
-				}
-				
-				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
-				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
-						
-				// if no other bomb exists here
-				CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel );
-				
-				// delete the flag, otherwise wire will only work once
-				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
+						// Flugente 2012-06-16: I ran into a weird bug. If activating multiple guntraps, an error would occur when placing a gun on the floor. 
+						// The problem is the function GetFreeWorldItemIndex( ) in AddItemToWorld() in World Items.cpp.
+						// It gets a free index for the item that should be placed. If there is no free index, it creates a bigger array, copies the current array into it, and then deletes the old index.
+						// For some reason still unknown to me, this corrupts the pObj-pointer. It also corrupts the pAttGun-pointer, this is the reason I create a new object.
+						// I had to move some functions here to take care of that. It would be good if someone with more knowledge could take a look at this.
 
-				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
-				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
-			}
-			// Flugente: handle tripwire gun traps here...
-			// tripwire gets called and activated in ActivateSurroundingTripwire
-			// now for action item tripwire
-			else if ( pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && Item[(*pObj)[0]->data.misc.usBombItem].tripwire == 1 )
-			{
-				OBJECTTYPE newtripwireObject;
-				CreateItem( (*pObj)[0]->data.misc.usBombItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
+						// fire with this gun, if possible. Afterwards place it on the floor
+						OBJECTTYPE object(*pAttGun);
+						CheckAndFireTripwireGun( &object, sGridNo, ubLevel, (*pObj)[0]->data.misc.ubBombOwner, (*pObj)[0]->data.ubDirection );
+					}
+					else
+					{
+						// sevenfm: blow attached items with tripwireactivation = TRUE
+						// no preplaced (owner=NOBODY) tripwire with explosive attachments allowed
+						if ( gGameExternalOptions.bAllowExplosiveAttachments && (*pObj)[0]->data.misc.ubBombOwner > 1 )
+						{
+							fAttFound=HandleAttachedExplosions( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, 
+											sGridNo, (*pObj)[0]->data.misc.usBombItem, FALSE, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
+						}
+					}
+				
+					// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+					RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+						
+					// if no other bomb exists here
+					CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel );
+				
+					// delete the flag, otherwise wire will only work once
+					(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
+
+					// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
+					AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
+				}
+				// Flugente: handle tripwire gun traps here...
+				// tripwire gets called and activated in ActivateSurroundingTripwire
+				// now for action item tripwire
+				else if ( pObj->usItem == ACTION_ITEM && (*pObj)[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP && Item[(*pObj)[0]->data.misc.usBombItem].tripwire == 1 )
+				{
+					OBJECTTYPE newtripwireObject;
+					CreateItem( (*pObj)[0]->data.misc.usBombItem, (*pObj)[0]->data.objectStatus, &newtripwireObject );
 																
-				// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
-				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+					// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+					RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 						
-				// if no other bomb exists here
-				CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel );
+					// if no other bomb exists here
+					CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel );
 				
-				// delete the flag, otherwise wire will only work once
-				(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
+					// delete the flag, otherwise wire will only work once
+					(newtripwireObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
 
-				// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
-				AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
-			}
-			else if ( (*pObj)[0]->data.ubWireNetworkFlag & ANY_ARTILLERY_FLAG )
-			{
-				UINT8 cnt = 0;
-				if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_1 )	cnt += 1;
-				if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_2 )	cnt += 2;
-				if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_4 )	cnt += 4;
+					// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
+					AddItemToPool( sGridNo, &newtripwireObject, 1, ubLevel, 0, -1 );
+				}
+				else if ( (*pObj)[0]->data.ubWireNetworkFlag & ANY_ARTILLERY_FLAG )
+				{
+					UINT8 cnt = 0;
+					if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_1 )	cnt += 1;
+					if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_2 )	cnt += 2;
+					if ( (*pObj)[0]->data.ubWireNetworkFlag & ARTILLERY_STRIKE_COUNT_4 )	cnt += 4;
 
 					// determine gridno to attack - smoke signal required. Otherwise, it is assumed the radio operator ordered the bombing of his OWN position
 					// if we cannot even find a radio operator, all bets are off - target a random gridno
@@ -4089,41 +4093,41 @@ void HandleExplosionQueue( void )
 					}
 
 					// not needed anymore
-				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
-			}
-			else
-			{
-				gfExplosionQueueMayHaveChangedSight = TRUE;
-
-				// We have to remove the item first to prevent the explosion from detonating it
-				// a second time :-)
-				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
-
-				// make sure no one thinks there is a bomb here any more!
-				CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel);
-				// BOOM!
-
-				// bomb objects only store the SIDE who placed the bomb! :-(
-				if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
-				{
-					IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
+					RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 				}
 				else
 				{
-					// pre-placed
-					IgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
-				}
-			}
-/*			if ( FindWorldItemForBuriedBombInGridNo(sGridNo, ubLevel) != -1 )
-			{
-				gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
-				gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_ENEMY_MINE_PRESENT;
-			}*/
+					gfExplosionQueueMayHaveChangedSight = TRUE;
 
-			// Bye bye bomb
-			gExplosionQueue[ uiIndex ].fExists = FALSE;
+					// We have to remove the item first to prevent the explosion from detonating it
+					// a second time :-)
+					RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+
+					// make sure no one thinks there is a bomb here any more!
+					CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel);
+					// BOOM!
+
+					// bomb objects only store the SIDE who placed the bomb! :-(
+					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
+					{
+						IgniteExplosion( (UINT8) ((*pObj)[0]->data.misc.ubBombOwner - 2), CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection, pObj);
+					}
+					else
+					{
+						// pre-placed
+						IgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, (*pObj)[0]->data.misc.usBombItem, ubLevel, (*pObj)[0]->data.ubDirection );
+					}
+				}
+/*				if ( FindWorldItemForBuriedBombInGridNo(sGridNo, ubLevel) != -1 )
+				{
+					gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+					gpWorldLevelData[sGridNo].uiFlags |= MAPELEMENT_ENEMY_MINE_PRESENT;
+				}*/
+
+				// Bye bye bomb
+				gExplosionQueue[ uiIndex ].fExists = FALSE;
+			}
 		}
-	}
 	}
 
 	// See if we can reduce the # of elements on the queue that we have recorded
@@ -5007,7 +5011,18 @@ void RemoveAllActiveTimedBombs( void )
 			RemoveItemFromWorld( iItemIndex );
 		}
 	} while( iItemIndex != -1 );
+}
 
+// Flugente: remove any marker that an explosion is active but has not yet occured (to be used when leaving a sector)
+void RemoveActiveExplosionMarkers( )
+{
+	// it is enough to set the fExists-bit to 0 and to then set gubElementsOnExplosionQueue to 0. We don't need to null the structure itself
+	for ( UINT8 uiIndex = 0; uiIndex < gubElementsOnExplosionQueue; ++uiIndex )
+	{
+		gExplosionQueue[uiIndex].fExists = 0;
+	}
+
+	gubElementsOnExplosionQueue = 0;
 }
 
 UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOLEAN fInBuilding)
