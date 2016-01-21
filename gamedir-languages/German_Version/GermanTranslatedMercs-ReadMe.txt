@@ -7,6 +7,14 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-01-20:
+- added Mike
+- added Smoke
+- updates to Bud
+- updates to Boss
+- updates to Samuel
+
+
 2016-01-14:
 - updates to Leech
 - updates to Mouse
@@ -29,9 +37,9 @@ Changelog:
 - updates to Rusty
 
 
-
 Status:
 -------
+149 - Mike - alpha
 181 - It - alpha
 186 - Mitch - alpha
 188 - Lance - alpha
@@ -47,7 +55,7 @@ Status:
 227 - Hurl - alpha
 230 - Boss - alpha
 231 - Snake - alpha
-232 - Spam -alpha
+232 - Spam - alpha
 233 - Spike - alpha
 234 - Jimmy - alpha
 235 - Leech - alpha
@@ -63,6 +71,7 @@ Status:
 245 - Mouse - alpha
 248 - Stella - alpha
 250 - Moses - alpha
+251 - Smoke - alpha
 253 - Turtle - alpha
 
 
@@ -73,6 +82,13 @@ alpha = adding mercs / heavy changes possible
 beta = small changes / corrections
 full_1.0 = done!
 patch_nr = necessary fixes / corrections
+
+
+
+Known Issues:
+-------------
+-multiple voiceactors for Mike [JA2+JA:DG]
+-multiple voiceactors for Speck [JA2+JA2:UB+JA:DG]
 
 
 
