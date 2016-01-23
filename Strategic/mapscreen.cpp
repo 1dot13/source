@@ -7292,7 +7292,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 				case F12:
 					#ifdef JA2BETAVERSION
-						//*puiNewEvent = MAP_EVENT_VIEWAI;
+						*puiNewEvent = MAP_EVENT_VIEWAI;
 					#endif
 					break;
 
