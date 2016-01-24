@@ -439,6 +439,7 @@ void DoneFadeOutForExitMPCScreen( void )
 	// ------------------------------------------
 	// Now Initialize the client again with all the files from the "_MULTIPLAYER" profile!!!	
 	LoadExternalGameplayData(TABLEDATA_DIRECTORY);
+	LoadAllExternalText();
 	InitDependingGameStyleOptions();
 	InitNewGame(false);
 	
