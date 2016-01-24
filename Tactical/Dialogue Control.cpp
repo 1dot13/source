@@ -1476,28 +1476,25 @@ BOOLEAN GetSnitchDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iData
 BOOLEAN DelayedTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 {
 	if ( pSoldier->ubProfile == NO_PROFILE )
-	{
 		return( FALSE );
-	}
 
 	if (pSoldier->stats.bLife < CONSCIOUSNESS )
-	return( FALSE );
+		return( FALSE );
+
+	if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		return FALSE;
 
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
 		return( FALSE );
 
 	if ( (AM_A_ROBOT( pSoldier )) )
-	{
 		return( FALSE );
-	}
 
 	if (pSoldier->stats.bLife < OKLIFE && usQuoteNum != QUOTE_SERIOUSLY_WOUNDED )
-	return( FALSE );
+		return( FALSE );
 
 	if( pSoldier->bAssignment == ASSIGNMENT_POW )
-	{
 		return( FALSE );
-	}
 
 	return( CharacterDialogue( pSoldier->ubProfile, usQuoteNum, pSoldier->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE, TRUE ) );
 }
@@ -1513,11 +1510,13 @@ BOOLEAN TacticalCharacterDialogueWithSpecialEvent( SOLDIERTYPE *pSoldier, UINT16
 	if ( uiFlag != DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND && uiData1 != BATTLE_SOUND_DIE1 )
 	{
 		if (pSoldier->stats.bLife < CONSCIOUSNESS )
-		return( FALSE );
+			return( FALSE );
+
+		if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+			return FALSE;
 
 		if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
 			return( FALSE );
-
 	}
 
 	return( CharacterDialogueWithSpecialEvent( pSoldier->ubProfile, usQuoteNum, pSoldier->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE, FALSE, uiFlag, uiData1, uiData2 ) );
@@ -1533,7 +1532,10 @@ BOOLEAN TacticalCharacterDialogueWithSpecialEventEx( SOLDIERTYPE *pSoldier, UINT
 	if ( uiFlag != DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND && uiData1 != BATTLE_SOUND_DIE1 )
 	{
 		if (pSoldier->stats.bLife < CONSCIOUSNESS )
-		return( FALSE );
+			return( FALSE );
+
+		if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+			return FALSE;
 
 		if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
 			return( FALSE );
@@ -1578,7 +1580,10 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 	}
 #endif
 	if (pSoldier->stats.bLife < CONSCIOUSNESS )
-	return( FALSE );
+		return( FALSE );
+
+	if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		return FALSE;
 
 	if (pSoldier->stats.bLife < OKLIFE && usQuoteNum != QUOTE_SERIOUSLY_WOUNDED )
 	return( FALSE );
@@ -1930,6 +1935,9 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 		{
 			return( FALSE );
 		}
+
+		if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+			return FALSE;
 
 		if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
 			return( FALSE );

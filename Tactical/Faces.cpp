@@ -1698,7 +1698,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	{
 		pSoldier = MercPtrs[ pFace->ubSoldierID ];
 
-		if ( ( MercPtrs[ pFace->ubSoldierID ]->stats.bLife < CONSCIOUSNESS || MercPtrs[ pFace->ubSoldierID ]->flags.fDeadPanel ) )
+		if ( (MercPtrs[pFace->ubSoldierID]->stats.bLife < CONSCIOUSNESS || MercPtrs[pFace->ubSoldierID]->flags.fDeadPanel ) )
 		{
 			// Blit Closed eyes here!
 			BltVideoObjectFromIndex( uiRenderBuffer, pFace->uiVideoObject, 1, usEyesX, usEyesY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -1711,6 +1711,16 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		{
 			// blit eyes closed
 			BltVideoObjectFromIndex( uiRenderBuffer, pFace->uiVideoObject, 1, usEyesX, usEyesY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+
+		// Flugente: frozen soldiers are, well, frozen
+		if ( MercPtrs[pFace->ubSoldierID]->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		{
+			// Blit Closed eyes here!
+			BltVideoObjectFromIndex( uiRenderBuffer, pFace->uiVideoObject, 2, usEyesX, usEyesY, VO_BLT_SRCTRANSPARENCY, NULL );
+
+			// Blit hatch!
+			BltVideoObjectFromIndex( uiRenderBuffer, guiHATCH, 0, sFaceX, sFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
@@ -2886,51 +2896,52 @@ void HandleAutoFaces( )
 						pFace->fOldShowMoveHilight = FALSE;
 				}
 
+				if ( pSoldier->flags.fGettingHit && pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_STOP )
+				{
+					pSoldier->flags.fFlashPortrait = TRUE;
+					pSoldier->bFlashPortraitFrame = FLASH_PORTRAIT_STARTSHADE;
+					RESETTIMECOUNTER( pSoldier->timeCounters.PortraitFlashCounter, FLASH_PORTRAIT_DELAY );
+					fRerender = TRUE;
+				}
 
-					if ( pSoldier->flags.fGettingHit && pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_STOP )
+				if ( pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_START )
+				{
+					// Loop through flash values
+					if ( TIMECOUNTERDONE( pSoldier->timeCounters.PortraitFlashCounter, FLASH_PORTRAIT_DELAY ) )
 					{
-						pSoldier->flags.fFlashPortrait = TRUE;
-						pSoldier->bFlashPortraitFrame = FLASH_PORTRAIT_STARTSHADE;
 						RESETTIMECOUNTER( pSoldier->timeCounters.PortraitFlashCounter, FLASH_PORTRAIT_DELAY );
-						fRerender = TRUE;
-					}
-					if ( pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_START )
-					{
-						// Loop through flash values
-						if ( TIMECOUNTERDONE( pSoldier->timeCounters.PortraitFlashCounter, FLASH_PORTRAIT_DELAY ) )
+						pSoldier->bFlashPortraitFrame++;
+
+						if ( pSoldier->bFlashPortraitFrame > FLASH_PORTRAIT_ENDSHADE )
 						{
-							RESETTIMECOUNTER( pSoldier->timeCounters.PortraitFlashCounter, FLASH_PORTRAIT_DELAY );
-							pSoldier->bFlashPortraitFrame++;
+							pSoldier->bFlashPortraitFrame = FLASH_PORTRAIT_ENDSHADE;
 
-							if ( pSoldier->bFlashPortraitFrame > FLASH_PORTRAIT_ENDSHADE )
+							if ( pSoldier->flags.fGettingHit )
 							{
-								pSoldier->bFlashPortraitFrame = FLASH_PORTRAIT_ENDSHADE;
-
-								if ( pSoldier->flags.fGettingHit )
-								{
-									pSoldier->flags.fFlashPortrait = FLASH_PORTRAIT_WAITING;
-								}
-								else
-								{
-									// Render face again!
-									pSoldier->flags.fFlashPortrait = FLASH_PORTRAIT_STOP;
-								}
-
-								fRerender = TRUE;
+								pSoldier->flags.fFlashPortrait = FLASH_PORTRAIT_WAITING;
 							}
+							else
+							{
+								// Render face again!
+								pSoldier->flags.fFlashPortrait = FLASH_PORTRAIT_STOP;
+							}
+
+							fRerender = TRUE;
 						}
 					}
-					// CHECK IF WE WERE WAITING FOR GETTING HIT TO FINISH!
-					if ( !pSoldier->flags.fGettingHit && pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_WAITING )
-					{
-						pSoldier->flags.fFlashPortrait = FALSE;
-						fRerender = TRUE;
-					}
+				}
+					
+				// CHECK IF WE WERE WAITING FOR GETTING HIT TO FINISH!
+				if ( !pSoldier->flags.fGettingHit && pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_WAITING )
+				{
+					pSoldier->flags.fFlashPortrait = FALSE;
+					fRerender = TRUE;
+				}
 
-					if ( pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_START )
-					{
-						fRerender = TRUE;
-					}
+				if ( pSoldier->flags.fFlashPortrait == FLASH_PORTRAIT_START )
+				{
+					fRerender = TRUE;
+				}
 
 				if( pFace->uiFlags & FACE_REDRAW_WHOLE_FACE_NEXT_FRAME )
 				{
@@ -2939,20 +2950,24 @@ void HandleAutoFaces( )
 					fRerender = TRUE;
 				}
 
-		 if (	fInterfacePanelDirty == DIRTYLEVEL2 && guiCurrentScreen == GAME_SCREEN )
-		 {
+				if (	fInterfacePanelDirty == DIRTYLEVEL2 && guiCurrentScreen == GAME_SCREEN )
+				{
 					fRerender = TRUE;
-		 }
+				}
 
 				if ( fRerender )
 				{
-						RenderAutoFace( uiCount );
+					RenderAutoFace( uiCount );
 				}
 
 				if ( bLife < CONSCIOUSNESS )
 				{
 					fHandleFace = FALSE;
 				}
+
+				// Flugente: frozen soldiers can't be selected
+				if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+					fHandleFace = FALSE;
 			}
 
 			if ( fHandleFace )
@@ -2961,11 +2976,8 @@ void HandleAutoFaces( )
 			}
 
 			MouthAutoFace( uiCount );
-
 		}
-
 	}
-
 }
 
 void HandleTalkingAutoFaces( )

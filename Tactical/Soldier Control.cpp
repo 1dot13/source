@@ -4128,6 +4128,14 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// Merc on fire!
 			this->aiData.uiPendingActionData1 = PlaySoldierJA2Sample( this->ubID, (FIRE_ON_MERC), RATE_11025, SoundVolume( HIGHVOLUME, this->sGridNo ), 5, SoundDir( this->sGridNo ), TRUE );
 			break;
+
+		case CRYO_DEATH:
+			PlayJA2StreamingSampleFromFile( "stsounds\\CryoBlast_1.ogg", RATE_11025, SoundVolume( HIGHVOLUME, this->sGridNo ), 1, MIDDLEPAN, NULL );
+			break;
+
+		case CRYO_DEATH_CROUCHED:
+			PlayJA2StreamingSampleFromFile( "stsounds\\CryoBlast_2.ogg", RATE_11025, SoundVolume( HIGHVOLUME, this->sGridNo ), 1, MIDDLEPAN, NULL );
+			break;
 		}
 	}
 
@@ -6306,6 +6314,16 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		return;
 	}
 
+	// Flugente: cryo death
+	if (this->stats.bLife <= 0 && this->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+	{
+		if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
+			this->EVENT_InitNewSoldierAnim( CRYO_DEATH, 0, TRUE );
+		else
+			this->EVENT_InitNewSoldierAnim( CRYO_DEATH_CROUCHED, 0, TRUE );
+
+		return;
+	}
 
 	// SWITCH IN TYPE OF WEAPON
 	if ( Item[usWeaponIndex].usItemClass & (IC_GUN | IC_THROWING_KNIFE) )
@@ -6536,7 +6554,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 		// ReleaseSoldiersAttacker( pSoldier );
 		return;
 	}
-
+	
 	if ( fFallenOver )
 	{
 		// HEADROCK HAM 3.2: Critical legshots cost an extra number of APs, based on shot damage.
@@ -7225,9 +7243,7 @@ void SOLDIERTYPE::SoldierGotoStationaryStance( void )
 
 
 void SOLDIERTYPE::ChangeSoldierStance( UINT8 ubDesiredStance )
-{
-	UINT16 usNewState;
-
+{	
 	// Check if they are the same!
 	if ( ubDesiredStance == gAnimControl[this->usAnimState].ubEndHeight )
 	{
@@ -7263,7 +7279,7 @@ void SOLDIERTYPE::ChangeSoldierStance( UINT8 ubDesiredStance )
 	}
 	else
 	{
-		usNewState = this->GetNewSoldierStateFromNewStance( ubDesiredStance );
+		UINT16 usNewState = this->GetNewSoldierStateFromNewStance( ubDesiredStance );
 
 		// Set desired stance
 		this->ubDesiredHeight = ubDesiredStance;
@@ -9796,7 +9812,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	default:
 		break;
 	}
-
+	
 	// Deduct life!, Show damage if we want!
 	bOldLife = this->stats.bLife;
 	
@@ -10798,6 +10814,9 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 
 BOOLEAN SOLDIERTYPE::DoMercBattleSound( UINT8 ubBattleSoundID )
 {
+	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		return FALSE;
+
 	// We WANT to play some RIGHT AWAY.....
 	if ( gBattleSndsData[ubBattleSoundID].fStopDialogue == 1 || (this->ubProfile == NO_PROFILE) || InOverheadMap( ) )
 	{
@@ -14515,8 +14534,12 @@ INT32 SOLDIERTYPE::GetDamageResistance( BOOLEAN fAutoResolve, BOOLEAN fCalcBreat
 
 	resistance += this->GetBackgroundValue( BG_RESI_PHYSICAL );
 
+	// frozen targets go down HARD
+	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		resistance -= 1000;
+
 	// resistance is between -100% and 95%
-	resistance = max( -100, resistance );
+	resistance = max( -1000, resistance );
 	resistance = min( 95, resistance );
 
 	return(resistance);
@@ -15421,7 +15444,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	// if we perform suspicious actions, we are easier to uncover for a short time (but not by ourselves if we test the disguise)
 	if ( ubObserverID != this->ubID && this->usSoldierFlagMask & SOLDIER_COVERT_TEMPORARY_OVERT )
 	{
-		// if enough time ha passed, or we have spend enough AP, lose the flag
+		// if enough time has passed, or we have spend enough AP, lose the flag
 		if ( this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] == 0 || GetWorldTotalSeconds( ) >= this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS] )
 		{
 			this->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS] = 0;
@@ -17118,7 +17141,7 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 {
 	// these effects last only one turn
 	this->usSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN | SOLDIER_ASSAULT_BONUS | SOLDIER_RAISED_REDALERT);
-
+	
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;
 	
@@ -17140,6 +17163,9 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 		else
 			usSkillCounter[counter] = max( 0, usSkillCounter[counter] - 1 );
 	}
+
+	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		this->usSkillCooldown[SOLDIER_COOLDOWN_CRYO]--;
 
 	// if soldier was seen this turn, increase his observed counter
 	if ( this->usSoldierFlagMask & SOLDIER_ENEMY_OBSERVEDTHISTURN )

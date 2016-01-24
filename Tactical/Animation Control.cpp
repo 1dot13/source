@@ -97,6 +97,9 @@ static UINT16 FOCUSED_HTH_KICK_AnimationScript[MAX_FRAMES_PER_ANIM] = { 757,1,1,
 //static UINT16 LONG_JUMP_AnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,703,4,5,6,6,7,8,9,10,11,704,12,13,14,501,999,0,0,0,0  };
 static UINT16 LONG_JUMP_AnimationScript[MAX_FRAMES_PER_ANIM] = { 2,703,3,4,5,6,6,7,7,8,704,9,501,999,0,0,0,0  };
 
+static UINT16 CRYO_DEATH_AnimationScript[MAX_FRAMES_PER_ANIM] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 465, 440, 497, 442, 0, 0, 0, 0};
+static UINT16 CRYO_DEATH_CROUCHED_AnimationScript[MAX_FRAMES_PER_ANIM] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 465, 440, 497, 442, 0, 0, 0, 0};
+
 ANI_SPEED_DEF gubAnimCrawlSpeeds[ TOTALBODYTYPES ];
 //Block for anim file
 UINT16	gusAnimInst[ MAX_ANIMATIONS ][ MAX_FRAMES_PER_ANIM ];
@@ -871,7 +874,7 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 
 	//SOLDIER BRUN
 	"FIRE FIRE"				, 0,			150,			(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_NONINTERRUPT | ANIM_NOCHANGE_WEAPON | ANIM_LIGHT_EFFORT | ANIM_IGNORE_AUTOSTANCE | ANIM_ATTACK,		ANIM_STAND,	ANIM_STAND, -1,
-
+	
 	//AI TRIGGER
 	"AI TRIGGER"							, 0,			70,			(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_LOWER_WEAPON | ANIM_LIGHT_EFFORT,		ANIM_STAND,	ANIM_STAND, -1,
 
@@ -1075,7 +1078,12 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 	{"FOCUSED HTH KICK"					, 0,			40,		(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_NONINTERRUPT | ANIM_MODERATE_EFFORT	| ANIM_NOCHANGE_WEAPON | ANIM_NORESTART | ANIM_ATTACK,		ANIM_STAND,		ANIM_STAND, -1},
 
 	// LONG JUMP 
-	"LONG JUMP"					, 0,			100, (FLOAT)3.4,	ANIM_SPECIALMOVE | ANIM_NORESTART | ANIM_LOWER_WEAPON | ANIM_MODERATE_EFFORT | ANIM_TURNING,			ANIM_STAND,	ANIM_STAND, -1,
+	{"LONG JUMP"					, 0,			100, (FLOAT)3.4,	ANIM_SPECIALMOVE | ANIM_NORESTART | ANIM_LOWER_WEAPON | ANIM_MODERATE_EFFORT | ANIM_TURNING,			ANIM_STAND,	ANIM_STAND, -1},
+	
+	// CRYO_DEATH
+	{"CRYO_DEATH", 0, 150, (FLOAT)0, ANIM_STATIONARY | ANIM_NOMOVE_MARKER | ANIM_NO_EFFORT | ANIM_NONINTERRUPT | ANIM_NOCHANGE_WEAPON | ANIM_IGNORE_AUTOSTANCE | ANIM_ATTACK, ANIM_STAND, ANIM_STAND, -1},
+	// CRYO_DEATH_CROUCHED
+	{"CRYO_DEATH_CROUCHED", 0, 150, (FLOAT)0, ANIM_STATIONARY | ANIM_NOMOVE_MARKER | ANIM_NO_EFFORT | ANIM_NONINTERRUPT | ANIM_NOCHANGE_WEAPON | ANIM_IGNORE_AUTOSTANCE | ANIM_ATTACK, ANIM_CROUCH, ANIM_CROUCH, -1},
 
 };
 
@@ -1519,7 +1527,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ FOCUSED_HTH_KICK ]				= RGMKICKDOOR;
 	
 	gubAnimSurfaceIndex[ REGMALE ][ LONG_JUMP ]						= RGMJUMPOVER;
-
+	gubAnimSurfaceIndex[ REGMALE ][ CRYO_DEATH ]					= CRYO_EXPLODE;
+	gubAnimSurfaceIndex[ REGMALE ][ CRYO_DEATH_CROUCHED ]			= CRYO_EXPLODE_CROUCHED;
+	
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ STANDING][0]									= RGMWATER_R_STD;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ WALKING ][0]									= RGMWATER_R_WALK;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ RUNNING ][0]									= RGMWATER_R_WALK;
@@ -1680,7 +1690,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceCorpseID[ REGMALE ][ PRONE_LAYFROMHIT_STOP ]				= SMERC_PRN;
 	gubAnimSurfaceCorpseID[ REGMALE ][ CHARIOTS_OF_FIRE ]							= BURNT_DEAD;
 	gubAnimSurfaceCorpseID[ REGMALE ][ BODYEXPLODING ]								= EXPLODE_DEAD;
-
+	gubAnimSurfaceCorpseID[ REGMALE ][ CRYO_DEATH ]						= CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[ REGMALE ][ CRYO_DEATH_CROUCHED ]			= CRYO_CORPSE;
+	
 
 	// BIG MALE GUY
 	gubAnimSurfaceIndex[ BIGMALE ][ WALKING ]								= BGMWALKING;
@@ -1958,8 +1970,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BIGMALE ][ HTH_KICK ]						= BGMKICKDOOR;
 	gubAnimSurfaceIndex[ BIGMALE ][ FOCUSED_HTH_KICK ]				= BGMKICKDOOR;
 	
-	gubAnimSurfaceIndex[ BIGMALE ][ LONG_JUMP ]			= BGMJUMPOVER;
-
+	gubAnimSurfaceIndex[ BIGMALE ][ LONG_JUMP ]						= BGMJUMPOVER;
+	gubAnimSurfaceIndex[ BIGMALE ][ CRYO_DEATH ]					= CRYO_EXPLODE;
+	gubAnimSurfaceIndex[ BIGMALE ][ CRYO_DEATH_CROUCHED ]			= CRYO_EXPLODE_CROUCHED;
+	
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ STANDING ]						= BGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ WALKING ]							= BGMNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ RUNNING ]							= BGMNOTHING_RUN;
@@ -2141,7 +2155,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceCorpseID[ BIGMALE ][ PRONE_LAYFROMHIT_STOP ]				= MMERC_PRN;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ CHARIOTS_OF_FIRE ]							= BURNT_DEAD;
 	gubAnimSurfaceCorpseID[ BIGMALE ][ BODYEXPLODING ]								= EXPLODE_DEAD;
-
+	gubAnimSurfaceCorpseID[ BIGMALE ][ CRYO_DEATH ]							= CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[ BIGMALE ][ CRYO_DEATH_CROUCHED ]				= CRYO_CORPSE;
+	
 
 	// STOCKY MALE GUY
 	gubAnimSurfaceIndex[ STOCKYMALE ][ WALKING ]								= RGMBASICWALKING;
@@ -2330,7 +2346,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ STOCKYMALE ][ AI_RADIO ]												= RGMRADIO;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ AI_CR_RADIO ]										= RGMCRRADIO;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ SLAP_HIT ]												= RGMHITSTAND;
-	gubAnimSurfaceIndex[ STOCKYMALE ][ TAKE_BLOOD_FROM_CORPSE ]					= RGMMEDIC;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ TAKE_BLOOD_FROM_CORPSE ]					= RGMMEDIC;	
 	gubAnimSurfaceIndex[ STOCKYMALE ][ CHARIOTS_OF_FIRE ]								= RGMBURN;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ AI_PULL_SWITCH ]									= RGMOPEN;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ MERC_HURT_IDLE_ANIM ]						= RGMHURTSTANDINGR;
@@ -2420,7 +2436,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ STOCKYMALE ][ FOCUSED_HTH_KICK ]				= RGMKICKDOOR;
 	
 	gubAnimSurfaceIndex[ STOCKYMALE ][ LONG_JUMP ]						= RGMJUMPOVER;
-
+	gubAnimSurfaceIndex[ STOCKYMALE ][ CRYO_DEATH ]						= CRYO_EXPLODE;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ CRYO_DEATH_CROUCHED ]			= CRYO_EXPLODE_CROUCHED;
+	
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ STANDING ]						= RGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ WALKING ]						= RGMNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ RUNNING]							= RGMNOTHING_RUN;
@@ -2536,9 +2554,11 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceCorpseID[ STOCKYMALE ][ STAND_FALLFORWARD_STOP ]			= SMERC_FWD;
 	gubAnimSurfaceCorpseID[ STOCKYMALE ][ FALLBACKHIT_STOP ]						= SMERC_BCK;
 	gubAnimSurfaceCorpseID[ STOCKYMALE ][ PRONE_LAYFROMHIT_STOP ]				= SMERC_PRN;
-	gubAnimSurfaceCorpseID[ STOCKYMALE ][ CHARIOTS_OF_FIRE ]						= BURNT_DEAD;
+	gubAnimSurfaceCorpseID[ STOCKYMALE ][ CHARIOTS_OF_FIRE ]						= BURNT_DEAD;	
 	gubAnimSurfaceCorpseID[ STOCKYMALE ][ BODYEXPLODING ]								= EXPLODE_DEAD;
-
+	gubAnimSurfaceCorpseID[ STOCKYMALE ][ CRYO_DEATH ]						= CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[ STOCKYMALE ][ CRYO_DEATH_CROUCHED ]				= CRYO_CORPSE;
+	
 
 	//Setup some random stuff
 	gRandomAnimDefs[ STOCKYMALE ][ 0 ].ubHandRestriction		= RANDOM_ANIM_RIFLEINHAND;
@@ -2854,7 +2874,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ FOCUSED_HTH_KICK ]				= RGFKICKDOOR;
 	
 	gubAnimSurfaceIndex[ REGFEMALE ][ LONG_JUMP ]					= RGFJUMPOVER;
-
+	gubAnimSurfaceIndex[ REGFEMALE ][ CRYO_DEATH ]					= CRYO_EXPLODE;
+	gubAnimSurfaceIndex[ REGFEMALE ][ CRYO_DEATH_CROUCHED ]			= CRYO_EXPLODE_CROUCHED;
+	
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ STANDING ]						= RGFPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ WALKING ]							= RGFNOTHING_WALK;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ RUNNING ]							= RGFNOTHING_RUN;
@@ -2970,7 +2992,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceCorpseID[ REGFEMALE ][ PRONE_LAYFROMHIT_STOP ]				= FMERC_PRN;
 	gubAnimSurfaceCorpseID[ REGFEMALE ][ CHARIOTS_OF_FIRE ]							= BURNT_DEAD;
 	gubAnimSurfaceCorpseID[ REGFEMALE ][ BODYEXPLODING ]								= EXPLODE_DEAD;
-
+	gubAnimSurfaceCorpseID[ REGFEMALE ][ CRYO_DEATH ]						= CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[ REGFEMALE ][ CRYO_DEATH_CROUCHED ]				= CRYO_CORPSE;
+	
 
 	//Setup some random stuff
 	gRandomAnimDefs[ REGFEMALE ][ 0 ].ubHandRestriction		= RANDOM_ANIM_RIFLEINHAND;
@@ -3036,8 +3060,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ ADULTFEMALEMONSTER ][ MONSTER_JUMP ]											= AFMJUMP;
 	gubAnimSurfaceIndex[ ADULTFEMALEMONSTER ][ MONSTER_MELT ]											= AFMMELT;
 	gubAnimSurfaceIndex[ ADULTFEMALEMONSTER ][ MONSTER_WALK_BACKWARDS ]						= AFMONSTERWALKING;
+	gubAnimSurfaceIndex[ADULTFEMALEMONSTER][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[ADULTFEMALEMONSTER][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ ADULTFEMALEMONSTER ][ MONSTER_MELT ]									= ADULTMONSTER_DEAD;
+	gubAnimSurfaceCorpseID[ADULTFEMALEMONSTER][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[ADULTFEMALEMONSTER][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	// Adult male
 	gubAnimSurfaceIndex[ AM_MONSTER ][ STANDING ]																	= AFMONSTERSTANDING;
@@ -3058,8 +3086,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ AM_MONSTER ][ MONSTER_JUMP ]															= AFMJUMP;
 	gubAnimSurfaceIndex[ AM_MONSTER ][ MONSTER_MELT ]															= AFMMELT;
 	gubAnimSurfaceIndex[ AM_MONSTER ][ MONSTER_WALK_BACKWARDS ]										= AFMONSTERWALKING;
+	gubAnimSurfaceIndex[AM_MONSTER][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[AM_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ AM_MONSTER ][ MONSTER_MELT ]													= ADULTMONSTER_DEAD;
+	gubAnimSurfaceCorpseID[AM_MONSTER][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[AM_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	// Young adult female
 	gubAnimSurfaceIndex[ YAF_MONSTER ][ STANDING ]																	= AFMONSTERSTANDING;
@@ -3080,8 +3112,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ YAF_MONSTER ][ MONSTER_JUMP ]														= AFMJUMP;
 	gubAnimSurfaceIndex[ YAF_MONSTER ][ MONSTER_MELT]												= AFMMELT;
 	gubAnimSurfaceIndex[ YAF_MONSTER ][ MONSTER_WALK_BACKWARDS ]									= AFMONSTERWALKING;
+	gubAnimSurfaceIndex[YAF_MONSTER][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[YAF_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ YAF_MONSTER ][ MONSTER_MELT ]										= ADULTMONSTER_DEAD;
+	gubAnimSurfaceCorpseID[YAF_MONSTER][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[YAF_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 
 	// Young adult male
@@ -3103,17 +3139,24 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ YAM_MONSTER ][ MONSTER_JUMP ]														= AFMJUMP;
 	gubAnimSurfaceIndex[ YAM_MONSTER ][ MONSTER_MELT ]											= AFMMELT;
 	gubAnimSurfaceIndex[ YAM_MONSTER ][ MONSTER_WALK_BACKWARDS ]									= AFMONSTERWALKING;
+	gubAnimSurfaceIndex[YAM_MONSTER][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[YAM_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ YAM_MONSTER ][ MONSTER_MELT ]										= ADULTMONSTER_DEAD;
-
+	gubAnimSurfaceCorpseID[YAM_MONSTER][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[YAM_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gubAnimSurfaceIndex[ LARVAE_MONSTER ][ LARVAE_BREATH ]												= LVBREATH;
 	gubAnimSurfaceIndex[ LARVAE_MONSTER ][ LARVAE_HIT ]														= LVDIE;
 	gubAnimSurfaceIndex[ LARVAE_MONSTER ][ LARVAE_DIE ]														= LVDIE;
 	gubAnimSurfaceIndex[ LARVAE_MONSTER ][ LARVAE_DIE_STOP ]											= LVDIE;
 	gubAnimSurfaceIndex[ LARVAE_MONSTER ][ LARVAE_WALK ]													= LVWALK;
+	gubAnimSurfaceIndex[LARVAE_MONSTER][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[LARVAE_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ LARVAE_MONSTER ][ LARVAE_DIE ]												= LARVAEMONSTER_DEAD;
+	gubAnimSurfaceCorpseID[LARVAE_MONSTER][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[LARVAE_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gubAnimSurfaceIndex[ INFANT_MONSTER ][ STANDING ]															= IBREATH;
 	gubAnimSurfaceIndex[ INFANT_MONSTER ][ RUNNING ]															= IWALK;
@@ -3126,9 +3169,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ INFANT_MONSTER ][ INFANT_EATTING_FLESH ]									= IEAT;
 	gubAnimSurfaceIndex[ INFANT_MONSTER ][ INFANT_END_EATTING_FLESH ]							= IEAT;
 	gubAnimSurfaceIndex[ INFANT_MONSTER ][ WALK_BACKWARDS ]									= IWALK;
-
+	gubAnimSurfaceIndex[INFANT_MONSTER][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[INFANT_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ INFANT_MONSTER ][ INFANT_DIE ]												= INFANTMONSTER_DEAD;
+	gubAnimSurfaceCorpseID[INFANT_MONSTER][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[INFANT_MONSTER][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 
 	gubAnimSurfaceIndex[ QUEENMONSTER ][ QUEEN_MONSTER_BREATHING ]								= QUEENMONSTERSTANDING;
@@ -3141,9 +3187,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ QUEENMONSTER ][ QUEEN_END_READY ]												= QUEENMONSTERREADY;
 	gubAnimSurfaceIndex[ QUEENMONSTER ][ QUEEN_SPIT ]															= QUEENMONSTERSPIT_SW;
 	gubAnimSurfaceIndex[ QUEENMONSTER ][ QUEEN_SWIPE ]														= QUEENMONSTERSWIPE;
+	gubAnimSurfaceIndex[QUEENMONSTER][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[QUEENMONSTER][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ QUEENMONSTER ][ QUEEN_DIE ]		 										= QUEEN_MONSTER_DEAD;
-
+	gubAnimSurfaceCorpseID[QUEENMONSTER][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[QUEENMONSTER][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	//////
 	// FAT GUY
@@ -3172,9 +3221,13 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ FATCIV ][ END_COWER ]																		= FATMANCOWER;
 	gubAnimSurfaceIndex[ FATCIV ][ CIV_DIE2 ]																			= FATMANDIE2;
 	gubAnimSurfaceIndex[ FATCIV ][ CIV_COWER_HIT ]																= FATMANCOWERHIT;
+	gubAnimSurfaceIndex[FATCIV][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[FATCIV][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ FATCIV ][ GENERIC_HIT_DEATH ]													= FT_DEAD1;
 	gubAnimSurfaceCorpseID[ FATCIV ][ CIV_DIE2 ]																	= FT_DEAD2;
+	gubAnimSurfaceCorpseID[FATCIV][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[FATCIV][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gRandomAnimDefs[ FATCIV ][ 0 ].ubHandRestriction		= RANDOM_ANIM_IRRELEVENTINHAND;
 	gRandomAnimDefs[ FATCIV ][ 0 ].sAnimID							= FATCIV_ASS_SCRATCH;
@@ -3215,11 +3268,13 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ MANCIV ][ END_OPENSTRUCT ]																= MANCIVACT;
 	gubAnimSurfaceIndex[ MANCIV ][ END_OPENSTRUCT_LOCKED ]												= MANCIVACT;
 	gubAnimSurfaceIndex[ MANCIV ][ CIV_COWER_HIT ]																= MANCIVCOWERHIT;
-
+	gubAnimSurfaceIndex[MANCIV][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[MANCIV ][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ MANCIV ][ GENERIC_HIT_DEATH ]													= M_DEAD1;
 	gubAnimSurfaceCorpseID[ MANCIV ][ CIV_DIE2 ]																	= M_DEAD2;
-
+	gubAnimSurfaceCorpseID[MANCIV][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[MANCIV][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	// mini skirt civ
 	gubAnimSurfaceIndex[ MINICIV ][ STANDING ]																		= MINICIVSTANDING;
@@ -3247,10 +3302,13 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ MINICIV ][ END_COWER ]																		= MINICOWER;
 	gubAnimSurfaceIndex[ MINICIV ][ CIV_DIE2 ]																		= MINIDIE2;
 	gubAnimSurfaceIndex[ MINICIV ][ CIV_COWER_HIT ]																= MINICOWERHIT;
+	gubAnimSurfaceIndex[MINICIV][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[MINICIV][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ MINICIV ][ GENERIC_HIT_DEATH ]												= S_DEAD1;
 	gubAnimSurfaceCorpseID[ MINICIV ][ CIV_DIE2 ]																	= S_DEAD2;
-
+	gubAnimSurfaceCorpseID[MINICIV][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[MINICIV][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gRandomAnimDefs[ MINICIV ][ 0 ].ubHandRestriction		= RANDOM_ANIM_IRRELEVENTINHAND;
 	gRandomAnimDefs[ MINICIV ][ 0 ].sAnimID							= MINIGIRL_STOCKING;
@@ -3285,9 +3343,13 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ DRESSCIV ][ END_COWER ]																	= DRESSCIVCOWER;
 	gubAnimSurfaceIndex[ DRESSCIV ][ CIV_DIE2 ]																		= DRESSCIVDIE2;
 	gubAnimSurfaceIndex[ DRESSCIV ][ CIV_COWER_HIT ]															= DRESSCIVCOWERHIT;
+	gubAnimSurfaceIndex[DRESSCIV][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[DRESSCIV][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ DRESSCIV ][ GENERIC_HIT_DEATH ]												= W_DEAD1;
 	gubAnimSurfaceCorpseID[ DRESSCIV ][ CIV_DIE2 ]																= W_DEAD2;
+	gubAnimSurfaceCorpseID[DRESSCIV][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[DRESSCIV][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	// HATKID civ
 	gubAnimSurfaceIndex[ HATKIDCIV ][ STANDING ]																	= HATKIDCIVSTANDING;
@@ -3319,10 +3381,13 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ HATKIDCIV ][ CIV_DIE2 ]																	= HATKIDCIVDIE2;
 	gubAnimSurfaceIndex[ HATKIDCIV ][ CIV_COWER_HIT ]															= HATKIDCIVCOWERHIT;
 	gubAnimSurfaceIndex[ HATKIDCIV ][ KID_SKIPPING ]															= HATKIDCIVSKIP;
-
+	gubAnimSurfaceIndex[HATKIDCIV][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[HATKIDCIV][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ HATKIDCIV ][ GENERIC_HIT_DEATH ]											= H_DEAD1;
 	gubAnimSurfaceCorpseID[ HATKIDCIV ][ CIV_DIE2 ]																= H_DEAD2;
+	gubAnimSurfaceCorpseID[HATKIDCIV][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[HATKIDCIV][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gRandomAnimDefs[ HATKIDCIV ][ 0 ].ubHandRestriction		= RANDOM_ANIM_IRRELEVENTINHAND;
 	gRandomAnimDefs[ HATKIDCIV ][ 0 ].sAnimID							= HATKID_YOYO;
@@ -3362,10 +3427,13 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ KIDCIV ][ CIV_DIE2 ]																			= KIDCIVDIE2;
 	gubAnimSurfaceIndex[ KIDCIV ][ CIV_COWER_HIT ]																= KIDCIVCOWERHIT;
 	gubAnimSurfaceIndex[ KIDCIV ][ KID_SKIPPING ]																	= KIDCIVSKIP;
+	gubAnimSurfaceIndex[KIDCIV][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[KIDCIV][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ KIDCIV ][ GENERIC_HIT_DEATH ]													= K_DEAD1;
 	gubAnimSurfaceCorpseID[ KIDCIV ][ CIV_DIE2 ]																	= K_DEAD2;
-
+	gubAnimSurfaceCorpseID[KIDCIV][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[KIDCIV][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gRandomAnimDefs[ KIDCIV ][ 0 ].ubHandRestriction		= RANDOM_ANIM_IRRELEVENTINHAND;
 	gRandomAnimDefs[ KIDCIV ][ 0 ].sAnimID							= KID_ARMPIT;
@@ -3389,8 +3457,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ CRIPPLECIV ][ CRIPPLE_CLOSE_DOOR ]											= CRIPCIVBEG;
 	gubAnimSurfaceIndex[ CRIPPLECIV ][ CRIPPLE_END_OPEN_DOOR ]									= CRIPCIVBEG;
 	gubAnimSurfaceIndex[ CRIPPLECIV ][ CRIPPLE_END_OPEN_LOCKED_DOOR ]						= CRIPCIVBEG;
+	gubAnimSurfaceIndex[CRIPPLECIV][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[CRIPPLECIV][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ CRIPPLECIV ][ CRIPPLE_DIE ]														= SMERC_BCK;
+	gubAnimSurfaceCorpseID[CRIPPLECIV][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[CRIPPLECIV][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gRandomAnimDefs[ CRIPPLECIV ][ 0 ].ubHandRestriction		= RANDOM_ANIM_IRRELEVENTINHAND;
 	gRandomAnimDefs[ CRIPPLECIV ][ 0 ].sAnimID							= CRIPPLE_BEG;
@@ -3407,9 +3479,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ COW ][ COW_HIT ]																					= COWDIE;
 	gubAnimSurfaceIndex[ COW ][ COW_DYING ]																				= COWDIE;
 	gubAnimSurfaceIndex[ COW ][ COW_DYING_STOP ]																	= COWDIE;
+	gubAnimSurfaceIndex[COW][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[COW][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ COW ][ COW_DYING ]																		= COW_DEAD;
-
+	gubAnimSurfaceCorpseID[COW][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[COW][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	gRandomAnimDefs[ COW ][ 0 ].ubHandRestriction		= RANDOM_ANIM_IRRELEVENTINHAND;
 	gRandomAnimDefs[ COW ][ 0 ].sAnimID							= COW_EATING;
@@ -3476,8 +3551,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BLOODCAT ][ BLOODCAT_SWIPE ]															= CATSWIPE;
 	gubAnimSurfaceIndex[ BLOODCAT ][ BLOODCAT_BITE_ANIM ]													= CATBITE;
 	gubAnimSurfaceIndex[ BLOODCAT ][ BLOODCAT_WALK_BACKWARDS ]										= CATWALK;
+	gubAnimSurfaceIndex[BLOODCAT][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[BLOODCAT][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
 	gubAnimSurfaceCorpseID[ BLOODCAT ][ BLOODCAT_DYING ]													= BLOODCAT_DEAD;
+	gubAnimSurfaceCorpseID[BLOODCAT][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[BLOODCAT][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 	// ROBOT
 	gubAnimSurfaceIndex[ ROBOTNOWEAPON ][ STANDING ]															= ROBOTNWBREATH;
@@ -3489,8 +3568,12 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ ROBOTNOWEAPON ][ ROBOT_SHOOT ]														= ROBOTNWSHOOT;
 	gubAnimSurfaceIndex[ ROBOTNOWEAPON ][ ROBOT_BURST_SHOOT ]											= ROBOTNWSHOOT;
 	gubAnimSurfaceIndex[ ROBOTNOWEAPON ][ ROBOT_CAMERA_NOT_MOVING ]								= ROBOTNWBREATH;
-	gubAnimSurfaceCorpseID[ ROBOTNOWEAPON ][ ROBOTNW_DIE ]										= ROBOT_DEAD;
+	gubAnimSurfaceIndex[ROBOTNOWEAPON][CRYO_DEATH] = CRYO_EXPLODE;
+	gubAnimSurfaceIndex[ROBOTNOWEAPON][CRYO_DEATH_CROUCHED] = CRYO_EXPLODE_CROUCHED;
 
+	gubAnimSurfaceCorpseID[ ROBOTNOWEAPON ][ ROBOTNW_DIE ]										= ROBOT_DEAD;
+	gubAnimSurfaceCorpseID[ROBOTNOWEAPON][CRYO_DEATH] = CRYO_CORPSE;
+	gubAnimSurfaceCorpseID[ROBOTNOWEAPON][CRYO_DEATH_CROUCHED] = CRYO_CORPSE;
 
 
 	// HUMVEE
@@ -3655,6 +3738,9 @@ BOOLEAN LoadAnimationStateInstructions( )
 	memcpy(gusAnimInst[FOCUSED_HTH_KICK],FOCUSED_HTH_KICK_AnimationScript,sizeof(FOCUSED_HTH_KICK_AnimationScript));
 
 	memcpy(gusAnimInst[LONG_JUMP],LONG_JUMP_AnimationScript,sizeof(LONG_JUMP_AnimationScript));
+
+	memcpy( gusAnimInst[CRYO_DEATH], CRYO_DEATH_AnimationScript, sizeof(CRYO_DEATH_AnimationScript) );
+	memcpy( gusAnimInst[CRYO_DEATH_CROUCHED], CRYO_DEATH_CROUCHED_AnimationScript, sizeof(CRYO_DEATH_CROUCHED_AnimationScript) );
 
 	// NOTE: Careful here... keep in mind you have to increase MAX_ANIMATIONS whenever you would go over 399(currently) animation numbers 
 
@@ -3835,7 +3921,7 @@ INT8	GetBodyTypePaletteSubstitutionCode( SOLDIERTYPE *pSoldier, UINT8 ubBodyType
 		if ( pSoldier != NULL )
 		{
 			// Are we on fire?
-			if ( pSoldier->usAnimState == CHARIOTS_OF_FIRE || pSoldier->usAnimState == BODYEXPLODING )
+			if ( pSoldier->usAnimState == CHARIOTS_OF_FIRE || pSoldier->usAnimState == BODYEXPLODING || pSoldier->usAnimState == CRYO_DEATH || pSoldier->usAnimState == CRYO_DEATH_CROUCHED )
 			{
 				return( 0 );
 			}

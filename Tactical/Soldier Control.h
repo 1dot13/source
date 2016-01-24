@@ -600,6 +600,7 @@ enum {
 enum {
 	SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS = 0,
 	SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS,
+	SOLDIER_COOLDOWN_CRYO,					// counts how many turns character will be frozen
 
 	SOLDIER_COOLDOWN_MAX = 20,				// enough space for fillers
 };

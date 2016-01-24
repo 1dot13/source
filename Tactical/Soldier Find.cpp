@@ -124,56 +124,59 @@ UINT32 GetSoldierFindFlags( UINT16 ubID )
 	UINT32 MercFlags = 0;
 	SOLDIERTYPE *pSoldier;
 
- // Get pSoldier!
- pSoldier = MercPtrs[ ubID ];
+	// Get pSoldier!
+	pSoldier = MercPtrs[ ubID ];
 
- // FInd out and set flags
- if ( ubID == gusSelectedSoldier )
- {
+	// FInd out and set flags
+	if ( ubID == gusSelectedSoldier )
+	{
 		MercFlags |= SELECTED_MERC;
- }
- if ( ubID >= gTacticalStatus.Team[ gbPlayerNum ].bFirstID && ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID )
- {
-	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !GetNumberInVehicle( pSoldier->bVehicleID ) )
-	{
-		// Don't do anything!
 	}
-	else
+	if ( ubID >= gTacticalStatus.Team[ gbPlayerNum ].bFirstID && ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID )
 	{
-			// It's our own merc
-		MercFlags	|= OWNED_MERC;
-
-		if ( pSoldier->bAssignment < ON_DUTY )
+		if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !GetNumberInVehicle( pSoldier->bVehicleID ) )
 		{
-				MercFlags |= ONDUTY_MERC;
+			// Don't do anything!
+		}
+		else
+		{
+				// It's our own merc
+			MercFlags	|= OWNED_MERC;
+
+			if ( pSoldier->bAssignment < ON_DUTY )
+			{
+					MercFlags |= ONDUTY_MERC;
+			}
 		}
 	}
- }
- else
- {
-	// Check the side, etc
-	if ( !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum ) )
-	{
-			// It's an enemy merc
-		MercFlags	|= ENEMY_MERC;
-	}
 	else
 	{
-			// It's not an enemy merc
-		MercFlags	|= NEUTRAL_MERC;
+		// Check the side, etc
+		if ( !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum ) )
+		{
+				// It's an enemy merc
+			MercFlags	|= ENEMY_MERC;
+		}
+		else
+		{
+				// It's not an enemy merc
+			MercFlags	|= NEUTRAL_MERC;
+		}
 	}
- }
 
 	// Check for a guy who does not have an iterrupt ( when applicable! )
 	if ( !OK_INTERRUPT_MERC( pSoldier ) )
 	{
-			MercFlags	|=	NOINTERRUPT_MERC;
+		MercFlags	|=	NOINTERRUPT_MERC;
 	}
 
 	if ( pSoldier->stats.bLife < OKLIFE )
 	{
 		MercFlags	|=	UNCONSCIOUS_MERC;
 	}
+
+	if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		MercFlags |= UNCONSCIOUS_MERC;
 
 	if ( pSoldier->stats.bLife == 0 )
 	{

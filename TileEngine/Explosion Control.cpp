@@ -1641,31 +1641,14 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 - (gSkillTraitValues.bTanksDamageResistanceModifier / 2)) / 100);
 		}
 		
-		// Bodybuilding damage resistance
-		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, BODYBUILDING_NT ) )
-			sNewWoundAmt = max( 1, (INT16)(sNewWoundAmt * (100 - gSkillTraitValues.ubBBDamageResistance) / 100)); 
-				
 		// Flugente: moved the damage calculation into a separate function
-#ifdef ENABLE_ZOMBIES
-		if ( pSoldier->GetDamageResistance(FALSE, FALSE) > 0 )
-			sNewWoundAmt -= ((sNewWoundAmt * pSoldier->GetDamageResistance(FALSE, FALSE)) /100);
-#else
-		// Damage resistance for Militia
-		if (pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA && gGameExternalOptions.bGreenMilitiaDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bGreenMilitiaDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA && gGameExternalOptions.bRegularMilitiaDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bRegularMilitiaDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.bVeteranMilitiaDamageResistance) /100);
-		// bonus for enemy too
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyAdminDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyRegularDamageResistance) /100);
-		else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0)
-			sNewWoundAmt -= ((sNewWoundAmt * gGameExternalOptions.sEnemyEliteDamageResistance) /100);
-#endif
+		INT32 sDamageResistance = pSoldier->GetDamageResistance( FALSE, FALSE );
+		
+		sNewWoundAmt = max( 0, (INT16)(sNewWoundAmt * (100 - sDamageResistance) / 100) );
 
+		// Flugente: this seems a bit weird, but is consistent with the previous code - we do not receive stat damage if we have positive damage resistance
+		if ( sDamageResistance > 0 )
+			;
 		// we can loose stats due to being hit by the blast
 		else if ( gGameOptions.fNewTraitSystem && Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && 
 			!AM_A_ROBOT( pSoldier ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && !TANK(pSoldier) &&
@@ -2158,6 +2141,19 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		}
 
 		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"ExpControl pSoldier->flags.fHitByGasFlags: %d", pSoldier->flags.fHitByGasFlags );
+
+		// Flugente: if we're frozen, we take no gas damage at all (because I say so)
+		if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		{
+			sWoundAmt = 0;
+			sBreathAmt = 0;
+
+			// fire makes us thaw faster
+			if ( pExplosive->ubType == EXPLOSV_BURNABLEGAS )
+			{
+				pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO]--;
+			}
+		}
 
 		// a gas effect, take damage directly...
 		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );

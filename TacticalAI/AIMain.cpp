@@ -1317,12 +1317,11 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 	// pSoldier->flags.fNoAPToFinishMove = FALSE;
 
 	// Flugente: pows don't do anything
-	if ( pSoldier->usSoldierFlagMask & SOLDIER_POW )
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_POW || pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
 	{
 		EndAIGuysTurn( pSoldier);
 		return;
 	}
-
 
 	if ((pSoldier->aiData.bAction != AI_ACTION_NONE) && pSoldier->aiData.bActionInProgress)
 	{

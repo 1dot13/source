@@ -18,14 +18,14 @@
 #define OK_ENEMY_MERC( p ) ( !p->aiData.bNeutral && (p->bSide != gbPlayerNum ) && p->stats.bLife >= OKLIFE && (p->bTeam < 5 ))
 
 // Checks if our guy can be controllable .... checks bInSector, team, on duty, etc...
-//#define OK_CONTROLLABLE_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum && p->bAssignment < ON_DUTY	)
-#define OK_CONTROLLABLE_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum && ( p->bAssignment < ON_DUTY || p->bAssignment == VEHICLE )	)
+
+// Checks if our guy is controllable but doesn't care about current assignment
+#define OK_CONTROL_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum && !(p->usSkillCooldown[SOLDIER_COOLDOWN_CRYO]) )
+
+#define OK_CONTROLLABLE_MERC( p ) ( OK_CONTROL_MERC(p) && ( p->bAssignment < ON_DUTY || p->bAssignment == VEHICLE )	)
 
 // Checks if our guy can be controllable .... checks bInSector, team, on duty, etc...
-#define OK_INSECTOR_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum && p->bAssignment < ON_DUTY )
-		
-// Checks if our guy is controllable but doesn't care about current assignment
-#define OK_CONTROL_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum )
+#define OK_INSECTOR_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum && p->bAssignment < ON_DUTY )	
 
 // Checkf if our guy can be selected and is not in a position where our team has an interupt and he does not have one...
 #define OK_INTERRUPT_MERC( p ) ( ( INTERRUPT_QUEUED != 0 ) ? ( ( p->aiData.bMoved ) ? FALSE : TRUE ) : TRUE )

@@ -1596,15 +1596,15 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 											if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE_Z )
 											{
 												fMultiTransShadowZBlitter				= TRUE;
-											// ATE: Use one direction for queen!
-											if ( pSoldier->ubBodyType == QUEENMONSTER )
-											{
-												sMultiTransShadowZBlitterIndex = 0;
-											}
-											else
-											{
-												sMultiTransShadowZBlitterIndex	= gOneCDirection[ pSoldier->ubDirection ];
-											}
+												// ATE: Use one direction for queen!
+												if ( pSoldier->ubBodyType == QUEENMONSTER )
+												{
+													sMultiTransShadowZBlitterIndex = 0;
+												}
+												else
+												{
+													sMultiTransShadowZBlitterIndex	= gOneCDirection[ pSoldier->ubDirection ];
+												}
 											}
 											else
 											{
@@ -1647,7 +1647,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 										ubShadeLevel = (pNode->ubShadeLevel&0x0f);
 										ubShadeLevel=__max(ubShadeLevel-2, DEFAULT_SHADE_LEVEL);
 										ubShadeLevel|=(pNode->ubShadeLevel&0x30);
-
+										
 										if ( pSoldier->flags.fBeginFade )
 										{
 											pShadeTable = pSoldier->pCurrentShade = pSoldier->pShades[ pSoldier->ubFadeLevel ];
@@ -1708,17 +1708,17 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 												{
 													if ( pSelSoldier->aiData.bOppList[ pSoldier->ubID ] != SEEN_CURRENTLY  )
 													{
-                            if ( pSoldier->usAnimState != CHARIOTS_OF_FIRE && pSoldier->usAnimState != BODYEXPLODING )
-                            {
-														  bGlowShadeOffset = 10;
-                            }
+														if ( pSoldier->usAnimState != CHARIOTS_OF_FIRE && pSoldier->usAnimState != BODYEXPLODING )
+														{
+															bGlowShadeOffset = 10;
+														}
 													}
 												}
 											}
 
 											if ( pSoldier->pathing.bLevel == 0 )
 											{
-												pShadeStart = (INT16 **) &( pSoldier->pGlowShades[ 0 ] );
+												pShadeStart = (INT16 **)&(pSoldier->pGlowShades[0]);
 											}
 											else
 											{
@@ -1804,6 +1804,12 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 										pShadeTable = pSoldier->pEffectShades[ 1 ];
 									}
 
+									// Flugente: frozen soldiers appear to be in ice, which we simulate by having the soldier be fully white
+									if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+									{
+										pShadeTable = White16BPPPalette;
+									}
+
 									hVObject=gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject;
 
 									if ( hVObject == NULL )
@@ -1822,13 +1828,17 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 										// ATE: Artificially increase z=level...
 										sZLevel += 2;
 									}
+									
+									usImageIndex = pSoldier->usAniFrame;
 
-
-									usImageIndex=pSoldier->usAniFrame;
+									// Flugente: frozen soldiers don't move
+									if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] && pSoldier->stats.bLife > 0 )
+									{
+										usImageIndex = 0;
+									}
 
 									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED| BGND_FLAG_MERC;
 									break;
-
 							}
 
 							// Adjust for interface level

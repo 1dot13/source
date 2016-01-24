@@ -66,6 +66,7 @@ enum RottingCorpseDefines
 	ROBOT_DEAD,
 	BURNT_DEAD,
 	EXPLODE_DEAD,
+	CRYO_CORPSE,
 
 	NUM_CORPSES,
 

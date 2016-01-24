@@ -203,7 +203,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				}
 			}
 		}
-
+		
 		// Check for special code
 		if ( sNewAniFrame < 399 )
 		{
@@ -2158,7 +2158,14 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						}
 					}
 
-					if ( gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
+					if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] && pSoldier->usAnimState != CRYO_DEATH && pSoldier->usAnimState != CRYO_DEATH_CROUCHED )
+					{
+						if ( gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND )
+							pSoldier->ChangeSoldierState( CRYO_DEATH, 0, TRUE );
+						else
+							pSoldier->ChangeSoldierState( CRYO_DEATH_CROUCHED, 0, TRUE );
+					}
+					else if ( gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
 					{
 						// If we are dead, play some death animations!!
 						switch( pSoldier->usAnimState )
@@ -2236,8 +2243,8 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						// ATE: Needs to be FALSE!
 						return( FALSE );
 					}
-					return( TRUE );
 
+					return( TRUE );
 				}
 				else
 				{

@@ -6225,6 +6225,13 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag	)
 		return;
 	}
 
+	// Flugente: frozen soldiers can't be selected
+	if ( MercPtrs[ubID]->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+	{
+		LocateSoldier( ubID, SETLOCATOR );
+		return;
+	}
+
 	if ( _KeyDown( ALT ) )
 	{
 		if ( gGameSettings.fOptions[ TOPTION_OLD_SELECTION_METHOD ] )

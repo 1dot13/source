@@ -9653,6 +9653,14 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		gfNextShotKills = FALSE;
 	}
 
+	// Flugente: if this is cryo ammo, freeze target.
+	if ( !TANK( pTarget ) && AmmoTypes[ubAmmoType].ammoflag & AMMO_CRYO )
+	{
+		pTarget->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] += 2;
+
+		ShutupaYoFace( pTarget->iFaceIndex );
+	}
+			
 	if ( iImpact > 0 && !TANK( pTarget ) )
 	{
 		// Flugente: any bullet can have drug effects it set so in the magazine item

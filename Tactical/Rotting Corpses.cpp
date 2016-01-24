@@ -140,6 +140,7 @@ CHAR8	zCorpseFilenames[ NUM_CORPSES ][70] =
 	"ANIMS\\CORPSES\\J_DEAD.STI",
 	"ANIMS\\CORPSES\\S_BURNT.STI",
 	"ANIMS\\CORPSES\\S_EXPLD.STI",
+	"ANIMS\\CORPSES\\CRYO_CORPSE.STI",
 };
 
 
@@ -205,6 +206,7 @@ CHAR8	zNoBloodCorpseFilenames[ NUM_CORPSES ][70] =
 	"ANIMS\\CORPSES\\J_DEAD.STI",
 	"ANIMS\\CORPSES\\S_BURNT.STI",
 	"ANIMS\\CORPSES\\S_EXPLD.STI",
+	"ANIMS\\CORPSES\\CRYO_CORPSE.STI",
 };
 
 UINT8		gb4DirectionsFrom8[8] =
@@ -413,6 +415,7 @@ UINT16 GetCorpseStructIndex( ROTTING_CORPSE_DEFINITION *pCorpseDef, BOOLEAN fFor
 	case QUEEN_MONSTER_DEAD:
 	case BURNT_DEAD:
 	case EXPLODE_DEAD:
+	case CRYO_CORPSE:
 
 		bDirection = 0;
 		break;
@@ -926,7 +929,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 		}
 	}
 
-	if ( ubType == QUEEN_MONSTER_DEAD || ubType == BURNT_DEAD || ubType == EXPLODE_DEAD )
+	if ( ubType == QUEEN_MONSTER_DEAD || ubType == BURNT_DEAD || ubType == EXPLODE_DEAD || ubType == CRYO_CORPSE )
 	{
 		Corpse.ubDirection = NORTHWEST;
 	}
