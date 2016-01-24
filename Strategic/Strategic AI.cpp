@@ -1870,23 +1870,25 @@ BOOLEAN HandlePlayerGroupNoticedByPatrolGroup( GROUP *pPlayerGroup, GROUP *pEnem
 	{
 		MoveSAIGroupToSector( &pEnemyGroup, (UINT8)SECTOR( pPlayerGroup->ubNextX, pPlayerGroup->ubNextY ), DIRECT, PURSUIT );
 
-		#ifdef JA2BETAVERSION
+#ifdef JA2BETAVERSION
+		if ( pEnemyGroup )
 			LogStrategicEvent( "Enemy group at %c%d detected player group at %c%d and is moving to intercept them at %c%d.",
 				pEnemyGroup->ubSectorY + 'A' - 1, pEnemyGroup->ubSectorX,
 				pPlayerGroup->ubSectorY + 'A' - 1, pPlayerGroup->ubSectorX,
 				pPlayerGroup->ubNextY + 'A' - 1, pPlayerGroup->ubNextX );
-		#endif
+#endif
 	}
 	else
 	{
 		MoveSAIGroupToSector( &pEnemyGroup, (UINT8)SECTOR( pPlayerGroup->ubSectorX, pPlayerGroup->ubSectorY ), DIRECT, PURSUIT );
 
-		#ifdef JA2BETAVERSION
+#ifdef JA2BETAVERSION
+		if ( pEnemyGroup )
 			LogStrategicEvent( "Enemy group at %c%d detected player group at %c%d and is moving to intercept them at %c%d.",
 				pEnemyGroup->ubSectorY + 'A' - 1, pEnemyGroup->ubSectorX,
 				pPlayerGroup->ubSectorY + 'A' - 1, pPlayerGroup->ubSectorX,
 				pPlayerGroup->ubSectorY + 'A' - 1, pPlayerGroup->ubSectorX );
-		#endif
+#endif
 	}
 	return TRUE;
 }
@@ -1936,7 +1938,8 @@ void HandlePlayerGroupNoticedByGarrison( GROUP *pPlayerGroup, UINT8 ubSectorID )
 
 			MoveSAIGroupToSector( &pGroup, (UINT8)SECTOR( pPlayerGroup->ubSectorX, pPlayerGroup->ubSectorY ), DIRECT, REINFORCEMENTS );
 
-			RemoveSoldiersFromGarrisonBasedOnComposition( pSector->ubGarrisonID, pGroup->ubGroupSize );
+			if ( pGroup )
+				RemoveSoldiersFromGarrisonBasedOnComposition( pSector->ubGarrisonID, pGroup->ubGroupSize );
 
 			if( pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumAdmins + pSector->ubNumTanks > iMaxEnemyGroupSize )
 			{
@@ -1975,11 +1978,11 @@ BOOLEAN HandleMilitiaNoticedByPatrolGroup( UINT8 ubSectorID, GROUP *pEnemyGroup 
 
 	MoveSAIGroupToSector( &pEnemyGroup, (UINT8)SECTOR( ubSectorX, ubSectorY ), DIRECT, REINFORCEMENTS );
 
-	#ifdef JA2BETAVERSION
-		LogStrategicEvent( "Enemy group at %c%d detected militia at %c%d and is moving to attack them.",
-			pEnemyGroup->ubSectorY + 'A' - 1, pEnemyGroup->ubSectorX,
-			ubSectorY + 'A' - 1, ubSectorX );
-	#endif
+#ifdef JA2BETAVERSION
+	if ( pEnemyGroup )
+		LogStrategicEvent( "Enemy group at %c%d detected militia at %c%d and is moving to attack them.", pEnemyGroup->ubSectorY + 'A' - 1, pEnemyGroup->ubSectorX, ubSectorY + 'A' - 1, ubSectorX );
+#endif
+
 	return FALSE;
 }
 
@@ -2080,11 +2083,10 @@ BOOLEAN HandleEmptySectorNoticedByPatrolGroup( GROUP *pGroup, UINT8 ubEmptySecto
 	gGarrisonGroup[ ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
 	MoveSAIGroupToSector( &pGroup, (UINT8)SECTOR( ubSectorX, ubSectorY ), DIRECT, REINFORCEMENTS );
 
-	#ifdef JA2BETAVERSION
-		LogStrategicEvent( "Enemy group at %c%d detected undefended sector at %c%d and is moving to retake it.",
-			pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX,
-			ubSectorY + 'A' - 1, ubSectorX );
-	#endif
+#ifdef JA2BETAVERSION
+	if ( pGroup )
+		LogStrategicEvent( "Enemy group at %c%d detected undefended sector at %c%d and is moving to retake it.", pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX, ubSectorY + 'A' - 1, ubSectorX );
+#endif
 
 	return TRUE;
 }
@@ -5416,9 +5418,13 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					Assert( pPendingGroup );
 					ClearPreviousAIGroupAssignment( pPendingGroup );
 				}
+
 				//Assign the elite squad to attack the SAM site
-				pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
-				gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
+				if ( pGroup )
+				{
+					pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
+					gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
+				}
 
 				if( pPendingGroup )
 				{ //Reassign the pending group
