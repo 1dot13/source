@@ -4152,7 +4152,7 @@ STR16 pMapPopUpInventoryText[] =
 {
 	L"Инвентарь",
 	L"Выйти",
-	L"Repair",	// TODO.Translate
+	L"Ремонт",
 };
 
 // town strings
@@ -4521,7 +4521,7 @@ STR16 pTransactionText[] =
 	L"Выкуп за освобожденных заключенных",	// Flugente: prisoner system
 	L"ВОЗ, подписка",	// Flugente: disease
 	L"Оплата услуг Цербер",	// Flugente: PMC
-	L"SAM site repair", // Flugente: SAM repair // TODO.Translate
+	L"Стоимость ремонта базы ПВО", // Flugente: SAM repair
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6091,7 +6091,7 @@ STR16			zSaveLoadText[] =
 	//the second is the recommended amount of free space.
 	L"У вас заканчивается свободное место на жестком диске. Сейчас свободно %d Мб, а требуется %d Мб свободного места для JA.",
 
-	L"Сохраняю",		//When saving a game, a message box with this string appears on the screen
+	L"Сохранение",		//When saving a game, a message box with this string appears on the screen
 
 	L"Нормальный",
 	L"Огромный",
@@ -8053,7 +8053,7 @@ STR16 gzItemDescTabButtonText[] =
 {
 	L"Информация",
 	L"Параметры",
-	L"Дополнительно",
+	L"Доп. инфо",
 };
 
 STR16 gzItemDescTabButtonShortText[] =
@@ -8082,7 +8082,7 @@ STR16 gzItemDescGenIndexes[] =
 STR16 gzUDBButtonTooltipText[]=
 {
 	L"|И|н|ф|о|р|м|а|ц|и|о|н|н|а|я |ч|а|с|т|ь:\n \nЗдесь вы сможете ознакомиться\nс общим описанием предмета.",
-	L"|П|а|р|а|м|е|т|р|ы:\n \nЗдесь вы сможете ознакомиться\nс индивидуальными свойствами и параметрами предмета.\n \nОружие: нажмите еще раз, чтобы открыть вторую страницу.",
+	L"|П|а|р|а|м|е|т|р|ы:\n \nЗдесь вы сможете ознакомиться\nс индивидуальными свойствами\nи параметрами предмета.\n \nДля оружия: нажмите еще раз,\nчтобы открыть вторую страницу.",
 	L"|Д|о|п|о|л|н|и|т|е|л|ь|н|а|я| |и|н|ф|о|р|м|а|ц|и|я:\n \nЗдесь вы сможете ознакомиться\nс бонусами, дающимися данным предметом.",
 };
 
@@ -8104,7 +8104,7 @@ STR16 gzUDBGenIndexTooltipText[]=
 
 STR16 gzUDBAdvIndexTooltipText[]=
 {
-	L"Символьное обозначение параметров \n(наведите курсор на символ, \nчтобы увидеть что, он значит).",
+	L"Символьное обозначение параметров\n(наведите курсор на символ,\nчтобы увидеть что он значит).",
 	L"Бонус/штраф в положении |с|т|о|я.",
 	L"Бонус/штраф в положении |с|и|д|я.",
 	L"Бонус/штраф в положении |л|ё|ж|а.",
@@ -10901,19 +10901,19 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Ополченцы добровольцы: %d (+%5.3f)",
 };
 
-STR16 szEnemyHeliText[] =	// TODO.Translate
+STR16 szEnemyHeliText[] =
 {
-	L"Enemy helicopter shot down in %s!",
-	L"We... uhm... currently don't control that site, commander...",
-	L"The SAM does not need maintenance at the moment.",
-	L"We've already ordered the repair, this will take time.",
+	L"Вражеский вертолёт сбит в %s!",
+	L"Мы... эм... в настоящее время не контролируем это ПВО, командир...",
+	L"ПВО не нуждается сейчас в обслуживании.",
+	L"Мы уже отдали приказ заняться ремонтом, исполнение займёт время.",
 
-	L"We do not have enough resources to do that.",
-	L"Repair SAM site? This will cost %d$ and take %d hours.",
-	L"Enemy helicopter hit in %s.",
+	L"Нам нехватает ресурсов, чтобы выполнить приказ.",
+	L"Отремонтировать оборудование ПВО? Это обойдётся в %d$ и займёт %d часов.",
+	L"Вражеский вертолёт подбит в %s.",
 	L"%s fires %s at enemy helicopter in %s.",
 
-	L"SAM in %s fires at enemy helicopter in %s.",
+	L"База ПВО в %s обстреляла вражеский вертолёт в %s.",
 };
 
 #endif //RUSSIAN
