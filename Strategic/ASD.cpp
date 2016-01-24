@@ -205,10 +205,10 @@ void UpdateASD( )
 
 void ASDDecideOnPurchases()
 {
-	UINT32 needed_fuel = 0;
-	UINT32 needed_heli = 0;
-	UINT32 needed_tank = 0;
-	UINT32 needed_jeep = 0;
+	INT32 needed_fuel = 0;
+	INT32 needed_heli = 0;
+	INT32 needed_tank = 0;
+	INT32 needed_jeep = 0;
 
 	UINT16 highestplayerprogress = HighestPlayerProgressPercentage( );
 
