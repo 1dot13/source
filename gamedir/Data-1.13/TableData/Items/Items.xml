@@ -51737,4 +51737,29 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1738</uiIndex>
+		<szItemName>Minirockets Cryo</szItemName>
+		<szLongItemName>Minirockets, Cryo</szLongItemName>
+		<szItemDesc>Using extremely sophisticated technology, these rockets flash-freeze any organic material upon detonation. For the duration the target becomes essentially solid.</szItemDesc>
+		<szBRName>Minirockets Cryo</szBRName>
+		<szBRDesc>Not for sale by BR!</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>611</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>114</ubGraphicNum>
+		<ubWeight>10</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>2250</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<SciFi>1</SciFi>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

@@ -4277,4 +4277,11 @@
 		<ubAmmoType>32</ubAmmoType>
 		<ubMagType>2</ubMagType>
 	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>611</uiIndex><!-- Minirockets Cryo -->
+		<ubCalibre>14</ubCalibre>
+		<ubMagSize>5</ubMagSize>
+		<ubAmmoType>33</ubAmmoType>
+		<ubMagType>1</ubMagType>
+	</MAGAZINE>
 </MAGAZINELIST>
