@@ -13889,4 +13889,28 @@
 		<szBRName>TM-62P2</szBRName>
 		<szBRDesc>Not even a tank is safe against these babies. The TM-62P2 uses a plastic casing, making it almost impossible to detect via metal detectors.</szBRDesc>		
 	</ITEM>
+  <ITEM>
+		<uiIndex>1736</uiIndex>
+		<szItemName>Strela-2</szItemName>
+		<szLongItemName>Strela-2</szLongItemName>
+		<szItemDesc>This man-portable surface-to-air missile has seen widespread use in nearly every regional conflict since 1968.</szItemDesc>
+		<szBRName>9k32 Strela-2</szBRName>
+		<szBRDesc>Another famous russian export, this MANPADS is comparable to its western counterparts but a lot cheaper. Get yours now!</szBRDesc>		
+	</ITEM>
+	<ITEM>
+		<uiIndex>1737</uiIndex>
+		<szItemName>Strela-2 Missile</szItemName>
+		<szLongItemName>Strela-2 Missile</szLongItemName>
+		<szItemDesc>A surface-to-air missile. Considering the price-tag, use against ground targets would be a waste.</szItemDesc>
+		<szBRName>Strela-2 Missile</szBRName>
+		<szBRDesc>A missile for the russian Strela-2. Best used against aircraft. And the sun, apparently.</szBRDesc>		
+	</ITEM>
+  	<ITEM>
+		<uiIndex>1738</uiIndex>
+		<szItemName>Minirockets Cryo</szItemName>
+		<szLongItemName>Minirockets, Cryo</szLongItemName>
+		<szItemDesc>Using extremely sophisticated technology, these rockets flash-freeze any organic material upon detonation. For the duration the target becomes essentially solid.</szItemDesc>
+		<szBRName>Minirockets Cryo</szBRName>
+		<szBRDesc>Not for sale by BR!</szBRDesc>		
+	</ITEM>
 </ITEMLIST>
