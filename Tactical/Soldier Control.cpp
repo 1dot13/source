@@ -96,7 +96,8 @@
 #include "Queen Command.h"		// added by Flugente
 #include "Town Militia.h"		// added by Flugente
 #include "Auto Bandage.h"		// added by Flugente
-#include "Facilities.h"		// added by Flugente
+#include "Facilities.h"			// added by Flugente
+#include "Cheats.h"				// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -18463,6 +18464,10 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE || this->ubProfile == NO_PROFILE )
 		return;
 
+	BOOLEAN fShowExactPoints = FALSE;
+	if ( DEBUG_CHEAT_LEVEL( ) )
+		fShowExactPoints = TRUE;
+
 	CHAR16	atStr[500];
 	swprintf( atStr, L"" );
 
@@ -18470,7 +18475,15 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 	{
 		if ( this->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED )
 		{
-			swprintf( atStr, L"\n\n%s\n", Disease[i].szFatName );
+			if ( fShowExactPoints )
+			{
+				swprintf( atStr, L"\n\n%s (undiagnosed) - %d / %d\n", Disease[i].szFatName, this->sDiseasePoints[i], Disease[i].sInfectionPtsFull );
+			}
+			else
+			{
+				swprintf( atStr, L"\n\n%s\n", Disease[i].szFatName );
+			}
+
 			wcscat( apStr, atStr );
 
 			// if we give a full description, also print out the effects at the moment
@@ -18562,6 +18575,11 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 					}
 				}
 			}
+		}
+		else if ( fShowExactPoints && this->sDiseasePoints[i] > 0 )
+		{
+			swprintf( atStr, L"\n\n%s (undiagnosed) - %d / %d\n", Disease[i].szFatName, this->sDiseasePoints[i], Disease[i].sInfectionPtsFull );
+			wcscat( apStr, atStr );
 		}
 	}
 }
