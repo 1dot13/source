@@ -13898,26 +13898,26 @@
 	</ITEM>
   <ITEM>
 		<uiIndex>1736</uiIndex>
-		<szItemName>Strela-2</szItemName>
-		<szLongItemName>Strela-2</szLongItemName>
-		<szItemDesc>This man-portable surface-to-air missile has seen widespread use in nearly every regional conflict since 1968.</szItemDesc>
-		<szBRName>9k32 Strela-2</szBRName>
-		<szBRDesc>Another famous russian export, this MANPADS is comparable to its western counterparts but a lot cheaper. Get yours now!</szBRDesc>		
+		<szItemName>Стрела-2</szItemName>
+		<szLongItemName>ПЗРК Стрела-2</szLongItemName>
+		<szItemDesc>Этот переносной зенитно-ракетный комплекс широко использовался с 1968 года почти в каждом конфликте на нашей планете.</szItemDesc>
+		<szBRName>9К32 Стрела-2</szBRName>
+		<szBRDesc>Очередной хит русского экспорта. Этот переносной зенитно-ракетный комплекс ничем не уступает своим западным аналогам, и при этом значительно дешевле.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1737</uiIndex>
-		<szItemName>Strela-2 Missile</szItemName>
-		<szLongItemName>Strela-2 Missile</szLongItemName>
-		<szItemDesc>A surface-to-air missile. Considering the price-tag, use against ground targets would be a waste.</szItemDesc>
-		<szBRName>Strela-2 Missile</szBRName>
-		<szBRDesc>A missile for the russian Strela-2. Best used against aircraft. And the sun, apparently.</szBRDesc>		
+		<szItemName>Стрела-2 ракета</szItemName>
+		<szLongItemName>9М32 ракета Стрела-2</szLongItemName>
+		<szItemDesc>Зенитная управляемая ракета земля-воздух c тепловой головкой самонаведения. Учитывая цену... использовать её для поражения наземных целей было бы сверхмаразмом.</szItemDesc>
+		<szBRName>Стрела-2 ракета</szBRName>
+		<szBRDesc>Эта ракета предназначена для советского переносного зенитно-ракетного комплекса Стрела-2. Предназначена для поражения воздушных целей на средних, малых высотах, а также низколетящих.</szBRDesc>
 	</ITEM>
   	<ITEM>
 		<uiIndex>1738</uiIndex>
-		<szItemName>Minirockets Cryo</szItemName>
-		<szLongItemName>Minirockets, Cryo</szLongItemName>
-		<szItemDesc>Using extremely sophisticated technology, these rockets flash-freeze any organic material upon detonation. For the duration the target becomes essentially solid.</szItemDesc>
-		<szBRName>Minirockets Cryo</szBRName>
-		<szBRDesc>Not for sale by BR!</szBRDesc>		
+		<szItemName>Мини-ракеты КРИО</szItemName>
+		<szLongItemName>Мини-ракеты КРИО</szLongItemName>
+		<szItemDesc>В это трудно поверить, но... якобы благодаря невероятным технологиям, поражающий состав этих ракет замораживает любую органиу. После поражения объект временно становится чрезвычайно твёрдым. Просто магия какая-то!</szItemDesc>
+		<szBRName>Мини-ракеты КРИО</szBRName>
+		<szBRDesc>Not for sale by BR!</szBRDesc>
 	</ITEM>
 </ITEMLIST>
