@@ -1,6 +1,7 @@
------------------------------------------------------------------------------------------------
-Any technical problems running JA2 1.13. Check out the following threads on the Bears Pit Forum
------------------------------------------------------------------------------------------------
+-------------------------------------------------------
+Any technical problems running JA2 1.13?
+Check out the following threads on the Bears Pit Forum!
+-------------------------------------------------------
 
 Mouse cursor leaves traces on the screen
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=323858
@@ -33,10 +34,10 @@ Mouse wheel not working
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=329868
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=343533
 
-* Mouse Bug with Nvidia Drivers *
+Mouse Bug with Nvidia Drivers
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&th=22498&goto=341180
 
-Windows 8 / Windows 10 Solutions (see folder "Windows Compatible Fixes")
+Windows 8 / Windows 10 Solutions (check folder "Windows Compatible Fixes")
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=342075
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=343428
 http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=342262
