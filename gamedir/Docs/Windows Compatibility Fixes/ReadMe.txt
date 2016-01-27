@@ -1,16 +1,45 @@
--------------------------------------------
-Windows Compatibility Problems & Solutions
--------------------------------------------
+-----------------------------------------------------------------------------------------------
+Any technical problems running JA2 1.13. Check out the following threads on the Bears Pit Forum
+-----------------------------------------------------------------------------------------------
 
-* Graphic Glitches *
-http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/318670/Searchpage/1/Main/20951/Words/ati+graphic/Search/true/Re_graphical_glitch_with_4870_.html#Post318670
-http://www.ja-galaxy-forum.com/board/ubbthreads.php/topics/300623/JA2_graphics_are_like_running_.html#Post300623
-http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/201044/Searchpage/1/Main/14041/Words/catalyst/Search/true/Re_mouse_artifacts.html#Post201044
-http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/275601/Searchpage/1/Main/18045/Words/catalyst/Search/true/Re_Jagged_Alliance_2_1_13_in_W.html#Post275601
+Mouse cursor leaves traces on the screen
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=323858
 
-* Windows 8 / Windows 10 *
-http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/321861/Searchpage/1/Main/20560/Words/glitch+windows+7/Search/true/Re_Jagged_Alliance_2_on_Window.html#Post321861
-Just extract the "Windows 8 Fix.zip" to a temporary folder and read the included "ReadMe.txt" file!
+Mouse cursor disappears and appears constantly (mostly in the main menu)
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=336569
 
-* Mousewheel not working *
-http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/321048/Searchpage/1/Main/21076/Words/glitch+windows+7/Search/true/Re_1_13_Mouse_wheel_issues.html#Post321048
+Graphics are blurry
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=301459
+
+Blurry screens
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=318672
+
+Screen refreshing problems. Mouse traces on the screen
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=323963
+
+Widescreen problems
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=317693
+
+Screen refreshing problems
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=275597
+
+Mouse cursor leaves traces on the screen (mouse artifacts)
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=201044
+
+Problems with screen resolution
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=136345
+
+Mouse wheel not working
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=329868
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=343533
+
+* Mouse Bug with Nvidia Drivers *
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&th=22498&goto=341180
+
+Windows 8 / Windows 10 Solutions (see folder "Windows Compatible Fixes")
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=342075
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=343428
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=342262
+
+
+
