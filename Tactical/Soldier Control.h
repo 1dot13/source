@@ -1627,6 +1627,8 @@ public:
 
 
 	// Soldier Management functions called by Overhead.c
+	// Flugente: frozen soldiers do not move. We simulate this by using fixed animation frames, which we determine here 
+	UINT16 CryoAniFrame();
 	BOOLEAN ConvertAniCodeToAniFrame( UINT16 usAniFrame );
 	void TurnSoldier( void );
 	void ChangeSoldierStance( UINT8 ubDesiredStance );

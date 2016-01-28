@@ -1834,7 +1834,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 									// Flugente: frozen soldiers don't move
 									if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] && pSoldier->stats.bLife > 0 )
 									{
-										usImageIndex = 0;
+										usImageIndex = pSoldier->CryoAniFrame( );
 									}
 
 									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED| BGND_FLAG_MERC;

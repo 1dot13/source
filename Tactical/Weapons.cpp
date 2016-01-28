@@ -9654,7 +9654,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	}
 
 	// Flugente: if this is cryo ammo, freeze target.
-	if ( !TANK( pTarget ) && AmmoTypes[ubAmmoType].ammoflag & AMMO_CRYO )
+	if ( !TANK( pTarget ) && !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE) && AmmoTypes[ubAmmoType].ammoflag & AMMO_CRYO )
 	{
 		pTarget->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] += 2;
 

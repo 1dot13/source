@@ -7903,6 +7903,67 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 // UTILITY FUNCTIONS CALLED BY OVERHEAD.H
 UINT8		gDirectionFrom8to2[] = {0, 0, 1, 1, 0, 1, 1, 0};
 
+// Flugente: frozen soldiers do not move. We simulate this by using fixed animation frames, which we determine here
+UINT16 SOLDIERTYPE::CryoAniFrame()
+{
+	// get anim surface and determine # of frames
+	UINT16 usAnimSurface = GetSoldierAnimationSurface( this, this->usAnimState );
+	
+	//If we are only one frame, ignore what the script is telling us!
+	if ( usAnimSurface == INVALID_ANIMATION_SURFACE || gAnimSurfaceDatabase[usAnimSurface].hVideoObject == NULL || gAnimSurfaceDatabase[usAnimSurface].ubFlags & ANIM_DATA_FLAG_NOFRAMES )
+	{
+		return 0;
+	}
+
+	// COnvert world direction into sprite direction
+	UINT8 ubTempDir = gOneCDirection[this->ubDirection];
+
+	if ( gAnimSurfaceDatabase[usAnimSurface].uiNumDirections == 32 )
+	{
+		ubTempDir = gExtOneCDirection[this->ubHiResDirection];
+	}
+	// Check # of directions /surface, adjust if ness.
+	else if ( gAnimSurfaceDatabase[usAnimSurface].uiNumDirections == 4 )
+	{
+		ubTempDir = ubTempDir / 2;
+	}
+	// Check # of directions /surface, adjust if ness.
+	else if ( gAnimSurfaceDatabase[usAnimSurface].uiNumDirections == 1 )
+	{
+		ubTempDir = 0;
+	}
+	// Check # of directions /surface, adjust if ness.
+	else if ( gAnimSurfaceDatabase[usAnimSurface].uiNumDirections == 3 )
+	{
+		if ( this->ubDirection == NORTHWEST )
+		{
+			ubTempDir = 1;
+		}
+		else if ( this->ubDirection == WEST )
+		{
+			ubTempDir = 0;
+		}
+		else if ( this->ubDirection == EAST )
+		{
+			ubTempDir = 2;
+		}
+	}
+	else if ( gAnimSurfaceDatabase[usAnimSurface].uiNumDirections == 2 )
+	{
+		ubTempDir = gDirectionFrom8to2[this->ubDirection];
+	}
+
+	UINT16 cryoframe = 0;
+
+	UINT16 newframe = cryoframe + (UINT16)((gAnimSurfaceDatabase[usAnimSurface].uiNumFramesPerDir * ubTempDir));
+	
+	if ( newframe >= gAnimSurfaceDatabase[usAnimSurface].hVideoObject->usNumberOfObjects )
+	{
+		return 0;
+	}
+
+	return newframe;
+}
 
 BOOLEAN SOLDIERTYPE::ConvertAniCodeToAniFrame( UINT16 usAniFrame )
 {
@@ -7945,11 +8006,11 @@ BOOLEAN SOLDIERTYPE::ConvertAniCodeToAniFrame( UINT16 usAniFrame )
 		{
 			ubTempDir = 1;
 		}
-		if ( this->ubDirection == WEST )
+		else if ( this->ubDirection == WEST )
 		{
 			ubTempDir = 0;
 		}
-		if ( this->ubDirection == EAST )
+		else if ( this->ubDirection == EAST )
 		{
 			ubTempDir = 2;
 		}
@@ -18477,7 +18538,7 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 		{
 			if ( fShowExactPoints )
 			{
-				swprintf( atStr, L"\n\n%s (undiagnosed) - %d / %d\n", Disease[i].szFatName, this->sDiseasePoints[i], Disease[i].sInfectionPtsFull );
+				swprintf( atStr, L"\n\n%s - %d / %d\n", Disease[i].szFatName, this->sDiseasePoints[i], Disease[i].sInfectionPtsFull );
 			}
 			else
 			{
@@ -18592,7 +18653,7 @@ void SOLDIERTYPE::PrintFoodDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 	// only for living mercs with a profile
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE || this->ubProfile == NO_PROFILE )
 		return;
-
+	
 	CHAR16	atStr[500];
 	swprintf( atStr, L"" );
 
