@@ -1836,6 +1836,7 @@ typedef struct
 	UINT8 usVOMortarPointsElite;
 	UINT8 usVOMortarRadius;
 	UINT8 usVOMortarSignalShellRadius;
+	UINT8 usVOReinforcementSetting;
 	INT8  sVOScanAssignmentBaseRange;
 	INT8  sVOListeningHearingBonus;
 	BOOLEAN fVOJammingBlocksRemoteBombs;

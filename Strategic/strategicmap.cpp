@@ -7576,16 +7576,38 @@ BOOLEAN MoveEnemyFromGridNoToRoofGridNo( UINT32 sSourceGridNo, UINT32 sDestGridN
 // Flugente: militia movement: can we order militia reinforcements from( sSrcMapX, sSrcMapY ) to( sMapX, sMapY ) ?
 BOOLEAN CanRequestMilitiaReinforcements( INT16 sMapX, INT16 sMapY, INT16 sSrcMapX, INT16 sSrcMapY )
 {
-	if ( !gGameExternalOptions.gfAllowReinforcements )
-		return FALSE;
-
-	// we can request reinforcements only inside towns
-	if ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR && GetTownIdForSector( sMapX, sMapY ) != GetTownIdForSector( sSrcMapX, sSrcMapY ) )
+	if ( !gGameExternalOptions.gfAllowReinforcements || !gSkillTraitValues.usVOReinforcementSetting )
 		return FALSE;
 
 	// not possible of nobody is there
 	if ( !NumNonPlayerTeamMembersInSector( sSrcMapX, sSrcMapY, MILITIA_TEAM ) )
 		return FALSE;
 
-	return TRUE;
+	UINT8 townid_A	= GetTownIdForSector( sMapX, sMapY );
+	UINT8 townid_B	= GetTownIdForSector( sSrcMapX, sSrcMapY );
+
+	switch ( gSkillTraitValues.usVOReinforcementSetting )
+	{
+		// reinforcements allowed inside town
+	case 1:
+		if ( townid_A != BLANK_SECTOR && townid_A == townid_B )
+			return TRUE;
+		break;
+
+		// reinforcements allowed to and from town
+	case 2:
+		if ( townid_A != BLANK_SECTOR || townid_B != BLANK_SECTOR )
+			return TRUE;
+		break;
+
+		// reinforcements allowed everywhere
+	case 3:
+		return TRUE;
+		break;
+
+	default:
+		break;
+	}
+
+	return FALSE;
 }

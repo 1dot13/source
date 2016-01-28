@@ -2547,6 +2547,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.usVOMortarPointsElite				= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_POINTS_ELITE",			25, 0, 100);
 	gSkillTraitValues.usVOMortarRadius					= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_RADIUS",				10, 5, 100);
 	gSkillTraitValues.usVOMortarSignalShellRadius		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_MORTAR_SIGNAL_SHELL_RADIUS",	 2, 2, 100);
+	gSkillTraitValues.usVOReinforcementSetting			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_REINFORCEMENT_SETTING",		 2, 0, 3 );
 	gSkillTraitValues.sVOScanAssignmentBaseRange		= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_ASSIGNMENT_SCAN_BASE_RANGE",	 5, 0, 20);
 	gSkillTraitValues.sVOListeningHearingBonus			= iniReader.ReadInteger("Radio Operator","RADIO_OPERATOR_LISTENING_HEARING_BONUS",		20, 0, 100);
 	gSkillTraitValues.fVOJammingBlocksRemoteBombs		= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_JAMMING_BLOCKSRADIOBOMBS",		FALSE);
