@@ -1284,8 +1284,6 @@ INT16 ActionInProgress(SOLDIERTYPE *pSoldier)
 
 void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 {
-#ifdef ENABLE_ZOMBIES
-
 	// added by Flugente: static pointers, used to break out of an endless circles (currently only used for zombie AI)
 	static SOLDIERTYPE* pLastDecisionSoldier = NULL;
 	static INT16	lastdecisioncount = 0;
@@ -1312,7 +1310,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		pLastDecisionSoldier = pSoldier;
 		lastdecisioncount = 0;
 	}
-#endif
+
 	// yikes, this shouldn't occur! we should be trying to finish our move!
 	// pSoldier->flags.fNoAPToFinishMove = FALSE;
 
@@ -1475,9 +1473,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 			{
 				// turn based... abort this guy's turn
 				EndAIGuysTurn( pSoldier );
-#ifdef ENABLE_ZOMBIES
 				lastdecisioncount = 0;
-#endif
 			}
 		}
 		else

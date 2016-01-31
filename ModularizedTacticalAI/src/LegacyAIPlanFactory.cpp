@@ -34,10 +34,10 @@ namespace AI
                 find_supper->add_subplan(peck);
                 return find_supper;
             }
-#ifdef ENABLE_ZOMBIES
+
             if(npc->IsZombie())
                 return new LegacyZombiePlan(npc);
-#endif
+
             return new LegacyAIPlan(npc);               // no special plan for other cases yet, return default legacy AI wrapper
         }
 

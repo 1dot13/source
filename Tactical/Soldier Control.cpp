@@ -150,10 +150,8 @@ extern BOOLEAN gfShiftBombPlant;
 #define		MIN_SUBSEQUENT_SNDS_DELAY									2000
 #include "connect.h"
 
-#ifdef ENABLE_ZOMBIES
 extern void TeleportSelectedSoldier( void );
 extern BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, UINT16 usAnimState, UINT16 usAnimCode );
-#endif
 
 // Flugente: external sector data
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
@@ -1369,11 +1367,7 @@ MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const OLD_MERCPROFILESTRUCT_101&
 		this->records.usKillsAdmins = (src.usKills / 4);
 		this->records.usKillsHostiles = 0;
 		this->records.usKillsCreatures = 0;
-
-#ifdef ENABLE_ZOMBIES
 		this->records.usKillsZombies = 0;
-#endif
-
 		this->records.usKillsTanks = 0;
 		this->records.usKillsOthers = 0;
 		this->records.usAssistsMercs = (src.usAssists * 3 / 4);
@@ -9363,7 +9357,6 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 				this->ubPendingDirection = bNewDirection;
 				//this->usPendingAnimation = CLIMBUPROOF;
 
-#ifdef ENABLE_ZOMBIES
 				// Flugente: In case an animation is missing (zombies with bodytype of civilians), we TELEPORT instead
 				if ( IsAnimationValidForBodyType( this, CLIMBUPROOF ) == FALSE )
 				{
@@ -9373,9 +9366,6 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 				}
 				else
 					this->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0, FALSE );
-#else
-				this->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0, FALSE );
-#endif
 
 				this->InternalReceivingSoldierCancelServices( FALSE );
 				this->InternalGivingSoldierCancelServices( FALSE );
@@ -10059,15 +10049,12 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 			}
 		}
 	}
-
-#ifdef ENABLE_ZOMBIES
 	else if ( this->IsZombie( ) && this->stats.bLife > 0 && this->stats.bLife < OKLIFE )
 	{
 		// a zombie doesn't automatically die, so he would normally stand up again after being hit. 
 		// We don't want that, because he is dying, so we manually skip that animation
 		this->usPendingAnimation = NO_PENDING_ANIMATION;
 	}
-#endif
 
 	if ( fShowDamage )
 	{
@@ -10776,7 +10763,6 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				}
 			}
 		}
-#ifdef ENABLE_ZOMBIES
 		else if ( pSoldier->IsZombie( ) ) // Madd: add zombie sounds
 		{
 			if ( ubSoundID == BATTLE_SOUND_DIE1 )
@@ -10796,7 +10782,6 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				}
 			}
 		}
-#endif
 		else
 		{
 			if ( ubSoundID == BATTLE_SOUND_DIE1 )
@@ -11054,7 +11039,6 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 
 				this->ubPendingDirection = bNewDirection;
 
-#ifdef ENABLE_ZOMBIES
 				// Flugente: In case an animation is missing (zombies with bodytype of civilians), we TELEPORT instead
 				if ( IsAnimationValidForBodyType( this, JUMPDOWNWALL ) == FALSE )
 				{
@@ -11064,9 +11048,6 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
 				}
 				else
 					this->EVENT_InitNewSoldierAnim( JUMPDOWNWALL, 0, FALSE );
-#else
-				this->EVENT_InitNewSoldierAnim( JUMPDOWNWALL, 0, FALSE );
-#endif
 
 				this->InternalReceivingSoldierCancelServices( FALSE );
 				this->InternalGivingSoldierCancelServices( FALSE );
@@ -12330,7 +12311,6 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	}
 	else
 	{
-#ifdef ENABLE_ZOMBIES
 		// Flugente: civilians can be zombies too, but they do not have a 'punch' animation. Simple fix: They 'attack' without animation...
 		// CHECK IF WE CAN DO THIS ANIMATION!
 		if ( this->IsZombie( ) && IsAnimationValidForBodyType( this, PUNCH ) == FALSE )
@@ -12397,13 +12377,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 		}
 		else
 		{
-#endif
 			// Flugente: zombies do not kick
 			BOOLEAN nokick = FALSE;
-#ifdef ENABLE_ZOMBIES
 			if ( this->IsZombie( ) )
 				nokick = TRUE;
-#endif
 
 			// Look at stance of target
 			switch ( gAnimControl[pTSoldier->usAnimState].ubEndHeight )
@@ -12547,9 +12524,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 				}
 				break;
 
-#ifdef ENABLE_ZOMBIES
 			}
-#endif
 		}
 	}
 
@@ -14543,8 +14518,6 @@ INT32 SOLDIERTYPE::GetDamageResistance( BOOLEAN fAutoResolve, BOOLEAN fCalcBreat
 			resistance += gGameExternalOptions.sEnemyRegularDamageResistance;
 		else if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE && gGameExternalOptions.sEnemyEliteDamageResistance != 0 )
 			resistance += gGameExternalOptions.sEnemyEliteDamageResistance;
-
-#ifdef ENABLE_ZOMBIES
 		else if ( IsZombie( ) )
 		{
 			if ( fCalcBreathLoss )
@@ -14552,7 +14525,6 @@ INT32 SOLDIERTYPE::GetDamageResistance( BOOLEAN fAutoResolve, BOOLEAN fCalcBreat
 			else
 				resistance += gGameExternalOptions.sEnemyZombieDamageResistance;
 		}
-#endif
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
 
@@ -14652,11 +14624,7 @@ INT16 SOLDIERTYPE::GetSoldierCriticalDamageBonus( void )
 
 BOOLEAN SOLDIERTYPE::IsZombie( void )
 {
-#ifdef ENABLE_ZOMBIES
 	return(ubSoldierClass == SOLDIER_CLASS_ZOMBIE);
-#else
-	return FALSE;
-#endif
 }
 
 // reset the extra stat variables

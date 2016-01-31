@@ -318,10 +318,7 @@ void DoPOWPathChecks( );
 BOOLEAN HostileCiviliansWithGunsPresent( );
 BOOLEAN HostileCiviliansPresent( );
 BOOLEAN HostileBloodcatsPresent( );
-
-#ifdef ENABLE_ZOMBIES
 BOOLEAN HostileZombiesPresent( );
-#endif
 
 UINT8 NumPCsInSector( );
 void SetSoldierNonNeutral( SOLDIERTYPE * pSoldier );
@@ -353,10 +350,8 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY );
 // HEADROCK HAM 3.5: Externalized for First Arrival enemy check
 extern UINT8 NumEnemyInSector();
 
-#ifdef ENABLE_ZOMBIES
 // Flugente
 extern UINT8 NumZombiesInSector();
-#endif
 
 // Flugente: offer the enemy the chance to surrender
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );

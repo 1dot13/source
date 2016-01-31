@@ -862,11 +862,9 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			}
 			break;
 
-#ifdef ENABLE_ZOMBIES
 		case SOLDIER_CLASS_ZOMBIE:
 			// zombies get no items at all...
 			break;
-#endif
 	}
 
 	UINT32 invsize = pp->Inv.size();
@@ -1086,11 +1084,8 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 			bStatus += (INT8)(HighestPlayerProgressPercentage() / 10);
 			bStatus = (INT8)min( 100, bStatus );
 			break;
-
-#ifdef ENABLE_ZOMBIES
 		case SOLDIER_CLASS_ZOMBIE:
-			bStatus = (INT8)(1);	// if a zombie gets anything, it'll be broken
-#endif
+			bStatus = 1;	// if a zombie gets anything, it'll be broken
 		default:
 			bStatus = (INT8)(50 + Random( 51 ) );
 			break;
@@ -2144,9 +2139,7 @@ void ChooseFaceGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp )
 			break;
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_GREEN_MILITIA:
-#ifdef ENABLE_ZOMBIES
 		case SOLDIER_CLASS_ZOMBIE:
-#endif
 			break;
 
 	}

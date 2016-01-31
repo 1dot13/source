@@ -1398,9 +1398,7 @@ void HandleOptionToggle( UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLE
 				case TOPTION_ALLOW_SOLDIER_TOOLTIPS:
 				case TOPTION_USE_AUTO_SAVE:
 				case TOPTION_TOGGLE_TURN_MODE:
-#ifdef ENABLE_ZOMBIES
 				case TOPTION_ZOMBIES:
-#endif
 					gGameSettings.fOptions[ Button_UserData_1 ] = FALSE;
 				break;
 			}
@@ -1465,9 +1463,7 @@ void HandleOptionToggle( UINT8 Button_UserData_0, UINT8 Button_UserData_1, BOOLE
 				case TOPTION_ALLOW_SOLDIER_TOOLTIPS:
 				case TOPTION_USE_AUTO_SAVE:
 				case TOPTION_TOGGLE_TURN_MODE:
-#ifdef ENABLE_ZOMBIES
 				case TOPTION_ZOMBIES:
-#endif
 					gGameSettings.fOptions[ Button_UserData_1 ] = FALSE;
 				break;
 			}

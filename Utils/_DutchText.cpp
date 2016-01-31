@@ -6257,9 +6257,7 @@ STR16		zOptionsToggleText[] =
 	L"Quiet Repairing",						// Madd: mercs don't say quotes while repairing // TODO.Translate
 	L"Quiet Doctoring",						// Madd: mercs don't say quotes while doctoring // TODO.Translate
 	L"Auto Fast Forward AI Turns",			// Automatic fast forward through AI turns		// TODO.Translate
-#ifdef ENABLE_ZOMBIES
 	L"Allow Zombies",				// TODO.Translate
-#endif
 	L"Enable inventory popups",				// the_bob : enable popups for picking items from sector inv	// TODO.Translate
 	L"Mark Remaining Hostiles",				// TODO.Translate
 	L"Show LBE Content",					// TODO.Translate
@@ -6374,9 +6372,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, mercs will not report progress during doctoring.",	// TODO.Translate
 	L"When ON, AI turns will be much faster.",		// TODO.Translate
 
-#ifdef ENABLE_ZOMBIES
 	L"When ON, zombies will spawn. Beware!",							// allow zombies	// TODO.Translate
-#endif
 	L"When ON, enables popup boxes that appear when you left click on empty merc inventory slots while viewing sector inventory in mapscreen.",	// TODO.Translate
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  // TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", // TODO.Translate

@@ -6242,16 +6242,14 @@ void ExitCombatMode( )
     // unused
     //gfForceMusicToTense = TRUE;
 
-#ifdef ENABLE_ZOMBIES
     UseCreatureMusic(HostileZombiesPresent());
-#endif
 
-	#ifdef NEWMUSIC
+#ifdef NEWMUSIC
 	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
 	if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
 		SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
 	else
-	#endif
+#endif
     SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
     BetweenTurnsVisibilityAdjustments();
@@ -6311,15 +6309,14 @@ void SetEnemyPresence( )
 #endif
             {
 
-#ifdef ENABLE_ZOMBIES
                 UseCreatureMusic(HostileZombiesPresent());
-#endif
-				#ifdef NEWMUSIC
+
+#ifdef NEWMUSIC
 				GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
 				if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
 					SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
 				else
-				#endif
+#endif
 					SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
                 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = false"));
@@ -6658,15 +6655,14 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
         // Begin tense music....
         // unused
         //gfForceMusicToTense = TRUE;
-#ifdef ENABLE_ZOMBIES
         UseCreatureMusic(HostileZombiesPresent());
-#endif
-		#ifdef NEWMUSIC
+
+#ifdef NEWMUSIC
 		GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
 		if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
 			SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
 		else
-		#endif
+#endif
         SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
         return( TRUE );
@@ -7082,10 +7078,8 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         return( FALSE );
     }
 
-#ifdef ENABLE_ZOMBIES
     if ( HostileZombiesPresent() ) //Madd: got tired of the victory music playing right after the zombies arose
         return FALSE;
-#endif
 
     // OK, this is to releave infinate looping...becasue we can kill guys in this function
     if ( gfKillingGuysForLosingBattle )
@@ -7802,7 +7796,6 @@ UINT8 NumEnemyInSector( )
 
 }
 
-#ifdef ENABLE_ZOMBIES
 UINT8 NumZombiesInSector( )
 {
     SOLDIERTYPE *pTeamSoldier;
@@ -7822,7 +7815,6 @@ UINT8 NumZombiesInSector( )
 
     return( ubNumZombies );
 }
-#endif
 
 UINT8 NumEnemyInSectorExceptCreatures()
 {
@@ -10056,7 +10048,6 @@ BOOLEAN HostileBloodcatsPresent( )
     return( FALSE );
 }
 
-#ifdef ENABLE_ZOMBIES
 BOOLEAN HostileZombiesPresent( )
 {
     INT32                       iLoop;
@@ -10079,7 +10070,6 @@ BOOLEAN HostileZombiesPresent( )
 
     return( FALSE );
 }
-#endif
 
 void HandleCreatureTenseQuote( )
 {

@@ -477,13 +477,11 @@ void EndTurnEvents( void )
 	// Flugente: Cool down/decay all items not in a soldier's inventory
 	CoolDownWorldItems( );	
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: raise zombies if in gamescreen and option set
 	if ( guiCurrentScreen == GAME_SCREEN )
 	{
 		RaiseZombies();
 	}
-#endif
 
 	// decay AI warning values from corpses
 	DecayRottingCorpseAIWarnings();

@@ -6265,9 +6265,7 @@ STR16		zOptionsToggleText[] =
 	L"Réparer en silence",						// Madd: mercs don't say quotes while repairing
 	L"Soigner en silence",						// Madd: mercs don't say quotes while doctoring
 	L"Accélérer les tours ennemis",			// Automatic fast forward through AI turns
-#ifdef ENABLE_ZOMBIES
-	L"Avec zombis",						// Flugente Zombies 1.0
-#endif
+	L"Avec zombis",						// Flugente Zombies
 	L"Propose objet/inventaire",				// the_bob : enable popups for picking items from sector inv
 	L"Situer ennemi restant",				
 	L"Afficher contenu LBE/DESC.",				
@@ -6381,9 +6379,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, les mercenaires ne feront pas de compte rendu des progrès sur les réparations.",
 	L"Si activé, les mercenaires ne feront pas de compte rendu des progrès sur les soins.",
 	L"Si activé, les tours de l'IA seront plus rapides.",
-#ifdef ENABLE_ZOMBIES
 	L"Si activé, les zombis seront présents. Soyez au courant !",							// allow zombies
-#endif
 	L"Si activé, ouvrir inventaire d'un mercenaire et celui du secteur.\nClic gauche sur un emplacement vide inv/obj/arme et une fenêtre \nproposera des choix.",
 	L"Si activé, la zone où se trouve le reste des ennemis dans le secteur, est mis en évidence.",
 	L"Si activé, montre le contenu d'un élément LBE quand la fenêtre de description est ouverte.",

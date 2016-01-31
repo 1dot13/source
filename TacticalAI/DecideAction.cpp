@@ -58,12 +58,10 @@ UINT32 guiRedSeekCounter = 0, guiRedHelpCounter = 0; guiRedHideCounter = 0;
 
 #define CENTER_OF_RING 11237//dnl!!!
 
-#ifdef ENABLE_ZOMBIES
-	INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier);
-	INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier);
-	INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK);
-	INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier);
-#endif
+INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier);
+INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier);
+INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK);
+INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier);
 
 void DoneScheduleAction( SOLDIERTYPE * pSoldier )
 {
@@ -6700,561 +6698,713 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 }
 
 
+// ------------------------------ ZOMBIE AI --------------------------
+INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
+{
+	DOUBLE iChance, iSneaky = 10;
+	INT8  bInWater;
+#ifdef DEBUGDECISIONS
+	STR16 tempstr;
+#endif
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen, orders = %d",pSoldier->aiData.bOrders));
 
-#ifdef ENABLE_ZOMBIES
-	// ------------------------------ ZOMBIE AI --------------------------
-	INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
+	gubNPCPathCount = 0;
+			
+	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
 	{
-		DOUBLE iChance, iSneaky = 10;
-		INT8  bInWater;
-	#ifdef DEBUGDECISIONS
-		STR16 tempstr;
-	#endif
+		return( AI_ACTION_NONE );
+	}
 
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen, orders = %d",pSoldier->aiData.bOrders));
+	bInWater = Water( pSoldier->sGridNo );
 
-		gubNPCPathCount = 0;
-			
-		if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
-		{
-			return( AI_ACTION_NONE );
-		}
-
-		bInWater = Water( pSoldier->sGridNo );
-
-		if ( bInWater && PreRandom( 2 ) )
-		{
-			// don't do nuttin!
-			return( AI_ACTION_NONE );
-		}
+	if ( bInWater && PreRandom( 2 ) )
+	{
+		// don't do nuttin!
+		return( AI_ACTION_NONE );
+	}
 		
-		// if real-time, and not in the way, do nothing 90% of the time (for GUARDS!)
-		// unless in water (could've started there), then we better swim to shore!
+	// if real-time, and not in the way, do nothing 90% of the time (for GUARDS!)
+	// unless in water (could've started there), then we better swim to shore!
 		
-		////////////////////////////////////////////////////////////////////////////
-		// POINT PATROL: move towards next point unless getting a bit winded
-		////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	// POINT PATROL: move towards next point unless getting a bit winded
+	////////////////////////////////////////////////////////////////////////////
 
-		// this takes priority over water/gas checks, so that point patrol WILL work
-		// from island to island, and through gas covered areas, too
-		if ((pSoldier->aiData.bOrders == POINTPATROL) && (pSoldier->bBreath >= 25))
+	// this takes priority over water/gas checks, so that point patrol WILL work
+	// from island to island, and through gas covered areas, too
+	if ((pSoldier->aiData.bOrders == POINTPATROL) && (pSoldier->bBreath >= 25))
+	{
+		if (PointPatrolAI(pSoldier))
 		{
-			if (PointPatrolAI(pSoldier))
+			if (!gfTurnBasedAI)
 			{
-				if (!gfTurnBasedAI)
-				{
-					// wait after this...
-					pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
-					pSoldier->aiData.usNextActionData = RealtimeDelay( pSoldier );
-				}
-				return(AI_ACTION_POINT_PATROL);
+				// wait after this...
+				pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+				pSoldier->aiData.usNextActionData = RealtimeDelay( pSoldier );
+			}
+			return(AI_ACTION_POINT_PATROL);
+		}
+		else
+		{
+			// Reset path count to avoid dedlok
+			gubNPCPathCount = 0;
+		}
+	}
+
+	if ((pSoldier->aiData.bOrders == RNDPTPATROL) && (pSoldier->bBreath >=25))
+	{
+		if (RandomPointPatrolAI(pSoldier))
+		{
+			if (!gfTurnBasedAI)
+			{
+				// wait after this...
+				pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+				pSoldier->aiData.usNextActionData = RealtimeDelay( pSoldier );
+			}
+			return(AI_ACTION_POINT_PATROL);
+		}
+		else
+		{
+			// Reset path count to avoid dedlok
+			gubNPCPathCount = 0;
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// WHEN LEFT IN WATER OR GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
+	////////////////////////////////////////////////////////////////////////////
+
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionGreen: get out of water and gas"));
+
+	if ( bInWater )
+	{
+		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
+			
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+		{
+#ifdef DEBUGDECISIONS
+			sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->aiData.usActionData);
+			AIPopMessage(tempstr);
+#endif
+
+			return(AI_ACTION_LEAVE_WATER_GAS);
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////
+	// REST IF RUNNING OUT OF BREATH
+	////////////////////////////////////////////////////////////////////////
+
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionGreen: rest if running out of breath"));
+	// if our breath is running a bit low, and we're not in the way or in water
+	if ((pSoldier->bBreath < 25) && !bInWater)
+	{
+		// take a breather for gods sake!
+		// for realtime, AI will use a standard wait set outside of here
+		pSoldier->aiData.usActionData = NOWHERE;
+		return(AI_ACTION_NONE);
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// CLIMB A BUILDING
+	////////////////////////////////////////////////////////////////////////////
+
+	if ( gGameExternalOptions.fZombieCanClimb && pSoldier->aiData.bLastAction != AI_ACTION_CLIMB_ROOF && !is_networked )
+	{
+		iChance = 10 + pSoldier->aiData.bBypassToGreen;
+
+		// set base chance and maximum seeking distance according to orders
+		switch (pSoldier->aiData.bOrders)
+		{
+			case STATIONARY:     iChance *= 0; break;
+			case ONGUARD:        iChance += 10; break;
+			case ONCALL:                         break;
+			case CLOSEPATROL:    iChance += -20; break;
+			case RNDPTPATROL:
+			case POINTPATROL:    iChance  = -30; break;
+			case FARPATROL:      iChance += -40; break;
+			case SEEKENEMY:      iChance += -30; break;
+			case SNIPER:		 iChance += 70; break;
+		}
+
+		// modify for attitude
+		switch (pSoldier->aiData.bAttitude)
+		{
+			case DEFENSIVE:      iChance *= 1.5;  break;
+			case BRAVESOLO:      iChance /= 2;    break;
+			case BRAVEAID:       iChance /= 2;   break;
+			case CUNNINGSOLO:    iChance *= 1;    break;
+			case CUNNINGAID:     iChance /= 1;   break;
+			case AGGRESSIVE:     iChance /= 3;    break;
+			case ATTACKSLAYONLY:									 break;
+		}
+							
+		// This is the chance that we want to be on the roof.  If already there, invert the chance to see if we want back
+		// down
+		if (pSoldier->pathing.bLevel > 0)
+		{
+			iChance = 100 - iChance;
+		}
+
+		if ((INT16) PreRandom(100) < iChance)
+		{
+			BOOLEAN fUp = FALSE;
+			if ( pSoldier->pathing.bLevel == 0 )
+			{
+				fUp = TRUE;
+			}
+			else if (pSoldier->pathing.bLevel > 0 )
+			{
+				fUp = FALSE;
+			}
+
+			if ( CanClimbFromHere ( pSoldier, fUp ) )
+			{
+				DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Zombie %d is climbing roof",pSoldier->ubID) );
+				return( AI_ACTION_CLIMB_ROOF );
 			}
 			else
 			{
-				// Reset path count to avoid dedlok
-				gubNPCPathCount = 0;
-			}
-		}
-
-		if ((pSoldier->aiData.bOrders == RNDPTPATROL) && (pSoldier->bBreath >=25))
-		{
-			if (RandomPointPatrolAI(pSoldier))
-			{
-				if (!gfTurnBasedAI)
+				pSoldier->aiData.usActionData = FindClosestClimbPoint(pSoldier, fUp );
+				// Added the check here because sniper militia who are locked inside of a building without keys
+				// will still have a >100% chance to want to climb, which means an infinite loop.  In fact, any
+				// time a move is desired, there probably also will be a need to check for a path.				
+				if ( !TileIsOutOfBounds(pSoldier->aiData.usActionData) &&
+					LegalNPCDestination(pSoldier,pSoldier->aiData.usActionData,ENSURE_PATH,WATEROK, 0 ))
 				{
-					// wait after this...
-					pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
-					pSoldier->aiData.usNextActionData = RealtimeDelay( pSoldier );
+					return( AI_ACTION_MOVE_TO_CLIMB  );
 				}
-				return(AI_ACTION_POINT_PATROL);
-			}
-			else
-			{
-				// Reset path count to avoid dedlok
-				gubNPCPathCount = 0;
 			}
 		}
+	}
 
-		////////////////////////////////////////////////////////////////////////////
-		// WHEN LEFT IN WATER OR GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
-		////////////////////////////////////////////////////////////////////////////
 
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionGreen: get out of water and gas"));
+	////////////////////////////////////////////////////////////////////////////
+	// RANDOM PATROL:  determine % chance to start a new patrol route
+	////////////////////////////////////////////////////////////////////////////
+	if (!gubNPCPathCount) // try to limit pathing in Green AI
+	{
+		iChance = 25 + pSoldier->aiData.bBypassToGreen;
 
-		if ( bInWater )
+		// set base chance according to orders
+		switch (pSoldier->aiData.bOrders)
 		{
-			pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
+		case STATIONARY:     iChance += -20;  break;
+		case ONGUARD:        iChance += -15;  break;
+		case ONCALL:                          break;
+		case CLOSEPATROL:    iChance += +15;  break;
+		case RNDPTPATROL:
+		case POINTPATROL:	 iChance = 0;	  break;			
+		case FARPATROL:      iChance += +25;  break;
+		case SEEKENEMY:      iChance += -10;  break;
+		case SNIPER:		 iChance += -10;  break;
+		}
+
+		// modify chance of patrol (and whether it's a sneaky one) by attitude
+		switch (pSoldier->aiData.bAttitude)
+		{
+		case DEFENSIVE:      iChance += -10;                 break;
+		case BRAVESOLO:      iChance +=   5;                 break;
+		case BRAVEAID:                                       break;
+		case CUNNINGSOLO:    iChance +=   5;  iSneaky += 10; break;
+		case CUNNINGAID:                      iSneaky +=  5; break;
+		case AGGRESSIVE:     iChance +=  10;  iSneaky += -5; break;
+		case ATTACKSLAYONLY: iChance +=  10;  iSneaky += -5; break;
+		}
 			
+
+		// if we're in water with land miles (> 25 tiles) away,
+		// OR if we roll under the chance calculated
+		if (bInWater || ((INT16) PreRandom(100) < iChance))
+		{
+			pSoldier->aiData.usActionData = RandDestWithinRange(pSoldier);
+				
 			if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 			{
-	#ifdef DEBUGDECISIONS
-				sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->aiData.usActionData);
+				pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, AI_ACTION_RANDOM_PATROL );
+			}
+				
+			if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+			{
+#ifdef DEBUGDECISIONS
+				sprintf(tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->aiData.usActionData);
 				AIPopMessage(tempstr);
-	#endif
+#endif
 
-				return(AI_ACTION_LEAVE_WATER_GAS);
+				if (!gfTurnBasedAI)
+				{
+					// wait after this...
+					pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+					pSoldier->aiData.usNextActionData = RealtimeDelay( pSoldier );
+				}
+				return(AI_ACTION_RANDOM_PATROL);
 			}
 		}
+	}
 
-		////////////////////////////////////////////////////////////////////////
-		// REST IF RUNNING OUT OF BREATH
-		////////////////////////////////////////////////////////////////////////
+	if (!gubNPCPathCount) // try to limit pathing in Green AI
+	{
+		////////////////////////////////////////////////////////////////////////////
+		// SEEK FRIEND: determine %chance for man to pay a friendly visit
+		////////////////////////////////////////////////////////////////////////////
 
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionGreen: rest if running out of breath"));
-		// if our breath is running a bit low, and we're not in the way or in water
-		if ((pSoldier->bBreath < 25) && !bInWater)
+		iChance = 25 + pSoldier->aiData.bBypassToGreen;
+
+		// set base chance and maximum seeking distance according to orders
+		switch (pSoldier->aiData.bOrders)
 		{
-			// take a breather for gods sake!
-			// for realtime, AI will use a standard wait set outside of here
-			pSoldier->aiData.usActionData = NOWHERE;
-			return(AI_ACTION_NONE);
+		case STATIONARY:     iChance += -20; break;
+		case ONGUARD:        iChance += -15; break;
+		case ONCALL:                         break;
+		case CLOSEPATROL:    iChance += +10; break;
+		case RNDPTPATROL:
+		case POINTPATROL:    iChance  = -10; break;
+		case FARPATROL:      iChance += +20; break;
+		case SEEKENEMY:      iChance += -10; break;
+		case SNIPER:		 iChance += -10; break;
 		}
 
-
-		////////////////////////////////////////////////////////////////////////////
-		// CLIMB A BUILDING
-		////////////////////////////////////////////////////////////////////////////
-
-		if ( gGameExternalOptions.fZombieCanClimb && pSoldier->aiData.bLastAction != AI_ACTION_CLIMB_ROOF && !is_networked )
+		// modify for attitude
+		switch (pSoldier->aiData.bAttitude)
 		{
-			iChance = 10 + pSoldier->aiData.bBypassToGreen;
-
-			// set base chance and maximum seeking distance according to orders
-			switch (pSoldier->aiData.bOrders)
+		case DEFENSIVE:                       break;
+		case BRAVESOLO:      iChance /= 2;    break;  // loners
+		case BRAVEAID:       iChance += 10;   break;  // friendly
+		case CUNNINGSOLO:    iChance /= 2;    break;  // loners
+		case CUNNINGAID:     iChance += 10;   break;  // friendly
+		case AGGRESSIVE:                      break;
+		case ATTACKSLAYONLY:				  break;
+		}
+					
+		if ((INT16) PreRandom(100) < iChance)
+		{
+			if (RandomFriendWithin(pSoldier))
 			{
-				case STATIONARY:     iChance *= 0; break;
-				case ONGUARD:        iChance += 10; break;
-				case ONCALL:                         break;
-				case CLOSEPATROL:    iChance += -20; break;
-				case RNDPTPATROL:
-				case POINTPATROL:    iChance  = -30; break;
-				case FARPATROL:      iChance += -40; break;
-				case SEEKENEMY:      iChance += -30; break;
-				case SNIPER:		 iChance += 70; break;
-			}
+				if ( pSoldier->aiData.usActionData == GoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, AI_ACTION_SEEK_FRIEND ) )
+				{
 
-			// modify for attitude
-			switch (pSoldier->aiData.bAttitude)
-			{
-				case DEFENSIVE:      iChance *= 1.5;  break;
-				case BRAVESOLO:      iChance /= 2;    break;
-				case BRAVEAID:       iChance /= 2;   break;
-				case CUNNINGSOLO:    iChance *= 1;    break;
-				case CUNNINGAID:     iChance /= 1;   break;
-				case AGGRESSIVE:     iChance /= 3;    break;
-				case ATTACKSLAYONLY:									 break;
-			}
-							
-			// This is the chance that we want to be on the roof.  If already there, invert the chance to see if we want back
-			// down
-			if (pSoldier->pathing.bLevel > 0)
-			{
-				iChance = 100 - iChance;
-			}
+#ifdef DEBUGDECISIONS
+					sprintf(tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->aiData.usActionData);
+					AIPopMessage(tempstr);
+#endif
 
-			if ((INT16) PreRandom(100) < iChance)
-			{
-				BOOLEAN fUp = FALSE;
-				if ( pSoldier->pathing.bLevel == 0 )
-				{
-					fUp = TRUE;
-				}
-				else if (pSoldier->pathing.bLevel > 0 )
-				{
-					fUp = FALSE;
-				}
-
-				if ( CanClimbFromHere ( pSoldier, fUp ) )
-				{
-					DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Zombie %d is climbing roof",pSoldier->ubID) );
-					return( AI_ACTION_CLIMB_ROOF );
-				}
-				else
-				{
-					pSoldier->aiData.usActionData = FindClosestClimbPoint(pSoldier, fUp );
-					// Added the check here because sniper militia who are locked inside of a building without keys
-					// will still have a >100% chance to want to climb, which means an infinite loop.  In fact, any
-					// time a move is desired, there probably also will be a need to check for a path.				
-					if ( !TileIsOutOfBounds(pSoldier->aiData.usActionData) &&
-						LegalNPCDestination(pSoldier,pSoldier->aiData.usActionData,ENSURE_PATH,WATEROK, 0 ))
+					if ( !gfTurnBasedAI)
 					{
-						return( AI_ACTION_MOVE_TO_CLIMB  );
+						// pause at the end of the walk!
+						pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+						pSoldier->aiData.usNextActionData = (UINT16) REALTIME_CIV_AI_DELAY;
 					}
+
+					return(AI_ACTION_SEEK_FRIEND);
 				}
 			}
 		}
+	}
 
+		
+	////////////////////////////////////////////////////////////////////////////
+	// LOOK AROUND: determine %chance for man to turn in place
+	////////////////////////////////////////////////////////////////////////////
 
-		////////////////////////////////////////////////////////////////////////////
-		// RANDOM PATROL:  determine % chance to start a new patrol route
-		////////////////////////////////////////////////////////////////////////////
-		if (!gubNPCPathCount) // try to limit pathing in Green AI
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionGreen: Soldier deciding to turn"));
+	if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
+	{
+		// avoid 2 consecutive random turns in a row
+		if (pSoldier->aiData.bLastAction != AI_ACTION_CHANGE_FACING)
 		{
 			iChance = 25 + pSoldier->aiData.bBypassToGreen;
 
 			// set base chance according to orders
-			switch (pSoldier->aiData.bOrders)
-			{
-			case STATIONARY:     iChance += -20;  break;
-			case ONGUARD:        iChance += -15;  break;
-			case ONCALL:                          break;
-			case CLOSEPATROL:    iChance += +15;  break;
-			case RNDPTPATROL:
-			case POINTPATROL:	 iChance = 0;	  break;			
-			case FARPATROL:      iChance += +25;  break;
-			case SEEKENEMY:      iChance += -10;  break;
-			case SNIPER:		 iChance += -10;  break;
-			}
+			if (pSoldier->aiData.bOrders == STATIONARY || pSoldier->aiData.bOrders == SNIPER)
+				iChance += 25;
 
-			// modify chance of patrol (and whether it's a sneaky one) by attitude
-			switch (pSoldier->aiData.bAttitude)
-			{
-			case DEFENSIVE:      iChance += -10;                 break;
-			case BRAVESOLO:      iChance +=   5;                 break;
-			case BRAVEAID:                                       break;
-			case CUNNINGSOLO:    iChance +=   5;  iSneaky += 10; break;
-			case CUNNINGAID:                      iSneaky +=  5; break;
-			case AGGRESSIVE:     iChance +=  10;  iSneaky += -5; break;
-			case ATTACKSLAYONLY: iChance +=  10;  iSneaky += -5; break;
-			}
-			
+			if (pSoldier->aiData.bOrders == ONGUARD)
+				iChance += 20;
 
-			// if we're in water with land miles (> 25 tiles) away,
-			// OR if we roll under the chance calculated
-			if (bInWater || ((INT16) PreRandom(100) < iChance))
+			if (pSoldier->aiData.bAttitude == DEFENSIVE)
+				iChance += 25;
+
+			if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->pathing.bLevel == 1)
+				iChance += 35;
+
+			if ((INT16)PreRandom(100) < iChance)
 			{
-				pSoldier->aiData.usActionData = RandDestWithinRange(pSoldier);
-				
-				if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+				// roll random directions (stored in actionData) until different from current
+				do
 				{
-					pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, AI_ACTION_RANDOM_PATROL );
-				}
-				
-				if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-				{
-	#ifdef DEBUGDECISIONS
-					sprintf(tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->aiData.usActionData);
-					AIPopMessage(tempstr);
-	#endif
+					// if man has a LEGAL dominant facing, and isn't facing it, he will turn
+					// back towards that facing 50% of the time here (normally just enemies)
+					if ((pSoldier->aiData.bDominantDir >= 0) && (pSoldier->aiData.bDominantDir <= 8) &&
+						(pSoldier->ubDirection != pSoldier->aiData.bDominantDir) && PreRandom(2) && pSoldier->aiData.bOrders != SNIPER )
+					{
+						pSoldier->aiData.usActionData = pSoldier->aiData.bDominantDir;
+					}
+					else
+					{
+						INT32 iNoiseValue;
+						BOOLEAN fClimb;
+						BOOLEAN fReachable;
+						INT32 sNoiseGridNo = MostImportantNoiseHeard(pSoldier,&iNoiseValue, &fClimb, &fReachable);
+						UINT8 ubNoiseDir;
+							
+						if (TileIsOutOfBounds(sNoiseGridNo) || 
+							(ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo))
+							) == pSoldier->ubDirection )
+							
+						{
+							pSoldier->aiData.usActionData = PreRandom(8);
+						}
+						else
+						{
+							pSoldier->aiData.usActionData = ubNoiseDir;
+						}
+					}
+				} while (pSoldier->aiData.usActionData == pSoldier->ubDirection);
 
-					if (!gfTurnBasedAI)
+
+#ifdef DEBUGDECISIONS
+				sprintf(tempstr,"%s - TURNS to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
+				AIPopMessage(tempstr);
+#endif
+
+				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Trying to turn - checking stance validity, sniper = %d",pSoldier->sniper));
+				if ( pSoldier->InternalIsValidStance( (INT8) pSoldier->aiData.usActionData, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+				{
+
+					if ( !gfTurnBasedAI )
 					{
 						// wait after this...
 						pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
 						pSoldier->aiData.usNextActionData = RealtimeDelay( pSoldier );
 					}
-					return(AI_ACTION_RANDOM_PATROL);
-				}
-			}
-		}
 
-		if (!gubNPCPathCount) // try to limit pathing in Green AI
-		{
-			////////////////////////////////////////////////////////////////////////////
-			// SEEK FRIEND: determine %chance for man to pay a friendly visit
-			////////////////////////////////////////////////////////////////////////////
-
-			iChance = 25 + pSoldier->aiData.bBypassToGreen;
-
-			// set base chance and maximum seeking distance according to orders
-			switch (pSoldier->aiData.bOrders)
-			{
-			case STATIONARY:     iChance += -20; break;
-			case ONGUARD:        iChance += -15; break;
-			case ONCALL:                         break;
-			case CLOSEPATROL:    iChance += +10; break;
-			case RNDPTPATROL:
-			case POINTPATROL:    iChance  = -10; break;
-			case FARPATROL:      iChance += +20; break;
-			case SEEKENEMY:      iChance += -10; break;
-			case SNIPER:		 iChance += -10; break;
-			}
-
-			// modify for attitude
-			switch (pSoldier->aiData.bAttitude)
-			{
-			case DEFENSIVE:                       break;
-			case BRAVESOLO:      iChance /= 2;    break;  // loners
-			case BRAVEAID:       iChance += 10;   break;  // friendly
-			case CUNNINGSOLO:    iChance /= 2;    break;  // loners
-			case CUNNINGAID:     iChance += 10;   break;  // friendly
-			case AGGRESSIVE:                      break;
-			case ATTACKSLAYONLY:				  break;
-			}
-					
-			if ((INT16) PreRandom(100) < iChance)
-			{
-				if (RandomFriendWithin(pSoldier))
-				{
-					if ( pSoldier->aiData.usActionData == GoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, AI_ACTION_SEEK_FRIEND ) )
-					{
-
-	#ifdef DEBUGDECISIONS
-						sprintf(tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->aiData.usActionData);
-						AIPopMessage(tempstr);
-	#endif
-
-						if ( !gfTurnBasedAI)
-						{
-							// pause at the end of the walk!
-							pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
-							pSoldier->aiData.usNextActionData = (UINT16) REALTIME_CIV_AI_DELAY;
-						}
-
-						return(AI_ACTION_SEEK_FRIEND);
-					}
-				}
-			}
-		}
-
-		
-		////////////////////////////////////////////////////////////////////////////
-		// LOOK AROUND: determine %chance for man to turn in place
-		////////////////////////////////////////////////////////////////////////////
-
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionGreen: Soldier deciding to turn"));
-		if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
-		{
-			// avoid 2 consecutive random turns in a row
-			if (pSoldier->aiData.bLastAction != AI_ACTION_CHANGE_FACING)
-			{
-				iChance = 25 + pSoldier->aiData.bBypassToGreen;
-
-				// set base chance according to orders
-				if (pSoldier->aiData.bOrders == STATIONARY || pSoldier->aiData.bOrders == SNIPER)
-					iChance += 25;
-
-				if (pSoldier->aiData.bOrders == ONGUARD)
-					iChance += 20;
-
-				if (pSoldier->aiData.bAttitude == DEFENSIVE)
-					iChance += 25;
-
-				if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->pathing.bLevel == 1)
-					iChance += 35;
-
-				if ((INT16)PreRandom(100) < iChance)
-				{
-					// roll random directions (stored in actionData) until different from current
-					do
-					{
-						// if man has a LEGAL dominant facing, and isn't facing it, he will turn
-						// back towards that facing 50% of the time here (normally just enemies)
-						if ((pSoldier->aiData.bDominantDir >= 0) && (pSoldier->aiData.bDominantDir <= 8) &&
-							(pSoldier->ubDirection != pSoldier->aiData.bDominantDir) && PreRandom(2) && pSoldier->aiData.bOrders != SNIPER )
-						{
-							pSoldier->aiData.usActionData = pSoldier->aiData.bDominantDir;
-						}
-						else
-						{
-							INT32 iNoiseValue;
-							BOOLEAN fClimb;
-							BOOLEAN fReachable;
-							INT32 sNoiseGridNo = MostImportantNoiseHeard(pSoldier,&iNoiseValue, &fClimb, &fReachable);
-							UINT8 ubNoiseDir;
-							
-							if (TileIsOutOfBounds(sNoiseGridNo) || 
-								(ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo))
-								) == pSoldier->ubDirection )
-							
-							{
-								pSoldier->aiData.usActionData = PreRandom(8);
-							}
-							else
-							{
-								pSoldier->aiData.usActionData = ubNoiseDir;
-							}
-						}
-					} while (pSoldier->aiData.usActionData == pSoldier->ubDirection);
-
-
-	#ifdef DEBUGDECISIONS
-					sprintf(tempstr,"%s - TURNS to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
-					AIPopMessage(tempstr);
-	#endif
-
-					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Trying to turn - checking stance validity, sniper = %d",pSoldier->sniper));
-					if ( pSoldier->InternalIsValidStance( (INT8) pSoldier->aiData.usActionData, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-					{
-
-						if ( !gfTurnBasedAI )
-						{
-							// wait after this...
-							pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
-							pSoldier->aiData.usNextActionData = RealtimeDelay( pSoldier );
-						}
-
-						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Soldier is turning"));
-						return(AI_ACTION_CHANGE_FACING);
-					}
-				}
-			}
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////
-		// NONE:
-		////////////////////////////////////////////////////////////////////////////
-
-		// by default, if everything else fails, just stands in place without turning
-		// for realtime, regular AI guys will use a standard wait set outside of here
-		pSoldier->aiData.usActionData = NOWHERE;
-		return(AI_ACTION_NONE);
-	}
-
-	INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
-	{
-		UINT8 ubNoiseDir;
-		INT32 sNoiseGridNo;
-		INT32 iNoiseValue;
-		INT32 iChance;
-		BOOLEAN fClimb;
-		BOOLEAN fReachable;
-	#ifdef DEBUGDECISIONS
-		STR16 tempstr;
-	#endif
-			
-		// determine the most important noise heard, and its relative value
-		sNoiseGridNo = MostImportantNoiseHeard(pSoldier,&iNoiseValue, &fClimb, &fReachable);
-		
-		if (TileIsOutOfBounds(sNoiseGridNo))
-		{
-			// then we have no business being under YELLOW status any more!
-	#ifdef RECORDNET
-			fprintf(NetDebugFile,"\nDecideActionYellow: ERROR - No important noise known by guynum %d\n\n",pSoldier->ubID);
-	#endif
-
-	#ifdef BETAVERSION
-			NumMessage("DecideActionYellow: ERROR - No important noise known by guynum ",pSoldier->ubID);
-	#endif
-
-			return(AI_ACTION_NONE);
-		}	
-
-		////////////////////////////////////////////////////////////////////////////
-		// LOOK AROUND TOWARD NOISE: determine %chance for man to turn towards noise
-		////////////////////////////////////////////////////////////////////////////
-
-		// determine direction from this soldier in which the noise lies
-		ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo));
-
-		// if soldier is not already facing in that direction,
-		// and the noise source is close enough that it could possibly be seen
-		if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
-		{
-			if ((pSoldier->ubDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= pSoldier->GetMaxDistanceVisible(sNoiseGridNo) )
-			{
-				// set base chance according to orders
-				if ((pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD) )
-					iChance = 50;
-				else           // all other orders
-					iChance = 25;
-
-				if (pSoldier->aiData.bAttitude == DEFENSIVE)
-					iChance += 15;
-
-
-				if ((INT16)PreRandom(100) < iChance && pSoldier->InternalIsValidStance( ubNoiseDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-				{
-					pSoldier->aiData.usActionData = ubNoiseDir;
-	#ifdef DEBUGDECISIONS
-					sprintf(tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
-					AIPopMessage(tempstr);
-	#endif				
+					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Soldier is turning"));
 					return(AI_ACTION_CHANGE_FACING);
 				}
 			}
 		}
+	}
 
-		////////////////////////////////////////////////////////////////////////////
-		// RADIO YELLOW ALERT: determine %chance to call others and report noise
-		////////////////////////////////////////////////////////////////////////////
 
-		// if we have the action points remaining to RADIO
-		// (we never want NPCs to choose to radio if they would have to wait a turn)
-		if ( (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
+	////////////////////////////////////////////////////////////////////////////
+	// NONE:
+	////////////////////////////////////////////////////////////////////////////
+
+	// by default, if everything else fails, just stands in place without turning
+	// for realtime, regular AI guys will use a standard wait set outside of here
+	pSoldier->aiData.usActionData = NOWHERE;
+	return(AI_ACTION_NONE);
+}
+
+INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
+{
+	UINT8 ubNoiseDir;
+	INT32 sNoiseGridNo;
+	INT32 iNoiseValue;
+	INT32 iChance;
+	BOOLEAN fClimb;
+	BOOLEAN fReachable;
+#ifdef DEBUGDECISIONS
+	STR16 tempstr;
+#endif
+			
+	// determine the most important noise heard, and its relative value
+	sNoiseGridNo = MostImportantNoiseHeard(pSoldier,&iNoiseValue, &fClimb, &fReachable);
+		
+	if (TileIsOutOfBounds(sNoiseGridNo))
+	{
+		// then we have no business being under YELLOW status any more!
+#ifdef RECORDNET
+		fprintf(NetDebugFile,"\nDecideActionYellow: ERROR - No important noise known by guynum %d\n\n",pSoldier->ubID);
+#endif
+
+#ifdef BETAVERSION
+		NumMessage("DecideActionYellow: ERROR - No important noise known by guynum ",pSoldier->ubID);
+#endif
+
+		return(AI_ACTION_NONE);
+	}	
+
+	////////////////////////////////////////////////////////////////////////////
+	// LOOK AROUND TOWARD NOISE: determine %chance for man to turn towards noise
+	////////////////////////////////////////////////////////////////////////////
+
+	// determine direction from this soldier in which the noise lies
+	ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo));
+
+	// if soldier is not already facing in that direction,
+	// and the noise source is close enough that it could possibly be seen
+	if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
+	{
+		if ((pSoldier->ubDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= pSoldier->GetMaxDistanceVisible(sNoiseGridNo) )
 		{
-			// base chance depends on how much new info we have to radio to the others
-			iChance = 5 * WhatIKnowThatPublicDont(pSoldier,FALSE);   // use 5 * for YELLOW alert
+			// set base chance according to orders
+			if ((pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD) )
+				iChance = 50;
+			else           // all other orders
+				iChance = 25;
 
-			// if I actually know something they don't and I ain't swimming (deep water)
-			if (iChance && !DeepWater( pSoldier->sGridNo ))
+			if (pSoldier->aiData.bAttitude == DEFENSIVE)
+				iChance += 15;
+
+
+			if ((INT16)PreRandom(100) < iChance && pSoldier->InternalIsValidStance( ubNoiseDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 			{
-				// CJC: this addition allows for varying difficulty levels for soldier types
-				iChance += gbDiff[ DIFF_RADIO_RED_ALERT ][ SoldierDifficultyLevel( pSoldier ) ] / 2;
-
-				// Alex: this addition replaces the sectorValue/2 in original JA
-				//iChance += gsDiff[DIFF_RADIO_RED_ALERT][GameOption[ENEMYDIFFICULTY]] / 2;
-
-				// modify base chance according to orders
-				switch (pSoldier->aiData.bOrders)
-				{
-				case STATIONARY: iChance +=  20;  break;
-				case ONGUARD:    iChance +=  15;  break;
-				case ONCALL:     iChance +=  10;  break;
-				case CLOSEPATROL:                 break;
-				case RNDPTPATROL:
-				case POINTPATROL:                 break;
-				case FARPATROL:  iChance += -10;  break;
-				case SEEKENEMY:  iChance += -20;  break;
-				case SNIPER:	 iChance += -10;  break; //Madd: sniper contacts are supposed to be automatically reported
-				}
-
-				// modify base chance according to attitude
-				switch (pSoldier->aiData.bAttitude)
-				{
-				case DEFENSIVE:  iChance +=  20;  break;
-				case BRAVESOLO:  iChance += -10;  break;
-				case BRAVEAID:                    break;
-				case CUNNINGSOLO:iChance +=  -5;  break;
-				case CUNNINGAID:                  break;
-				case AGGRESSIVE: iChance += -20;  break;
-				case ATTACKSLAYONLY: iChance = 0; break;
-				}
-
-	#ifdef DEBUGDECISIONS
-				AINumMessage("Chance to radio yellow alert = ",iChance);
-	#endif
-
-				if ((INT16)PreRandom(100) < iChance)
-				{
-	#ifdef DEBUGDECISIONS
-					AINameMessage(pSoldier,"decides to radio a YELLOW alert!",1000);
-	#endif
-
-					return(AI_ACTION_YELLOW_ALERT);
-				}
+				pSoldier->aiData.usActionData = ubNoiseDir;
+#ifdef DEBUGDECISIONS
+				sprintf(tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
+				AIPopMessage(tempstr);
+#endif				
+				return(AI_ACTION_CHANGE_FACING);
 			}
 		}
+	}
 
-		if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
+	////////////////////////////////////////////////////////////////////////////
+	// RADIO YELLOW ALERT: determine %chance to call others and report noise
+	////////////////////////////////////////////////////////////////////////////
+
+	// if we have the action points remaining to RADIO
+	// (we never want NPCs to choose to radio if they would have to wait a turn)
+	if ( (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
+	{
+		// base chance depends on how much new info we have to radio to the others
+		iChance = 5 * WhatIKnowThatPublicDont(pSoldier,FALSE);   // use 5 * for YELLOW alert
+
+		// if I actually know something they don't and I ain't swimming (deep water)
+		if (iChance && !DeepWater( pSoldier->sGridNo ))
 		{
-			return( AI_ACTION_NONE );
+			// CJC: this addition allows for varying difficulty levels for soldier types
+			iChance += gbDiff[ DIFF_RADIO_RED_ALERT ][ SoldierDifficultyLevel( pSoldier ) ] / 2;
+
+			// Alex: this addition replaces the sectorValue/2 in original JA
+			//iChance += gsDiff[DIFF_RADIO_RED_ALERT][GameOption[ENEMYDIFFICULTY]] / 2;
+
+			// modify base chance according to orders
+			switch (pSoldier->aiData.bOrders)
+			{
+			case STATIONARY: iChance +=  20;  break;
+			case ONGUARD:    iChance +=  15;  break;
+			case ONCALL:     iChance +=  10;  break;
+			case CLOSEPATROL:                 break;
+			case RNDPTPATROL:
+			case POINTPATROL:                 break;
+			case FARPATROL:  iChance += -10;  break;
+			case SEEKENEMY:  iChance += -20;  break;
+			case SNIPER:	 iChance += -10;  break; //Madd: sniper contacts are supposed to be automatically reported
+			}
+
+			// modify base chance according to attitude
+			switch (pSoldier->aiData.bAttitude)
+			{
+			case DEFENSIVE:  iChance +=  20;  break;
+			case BRAVESOLO:  iChance += -10;  break;
+			case BRAVEAID:                    break;
+			case CUNNINGSOLO:iChance +=  -5;  break;
+			case CUNNINGAID:                  break;
+			case AGGRESSIVE: iChance += -20;  break;
+			case ATTACKSLAYONLY: iChance = 0; break;
+			}
+
+#ifdef DEBUGDECISIONS
+			AINumMessage("Chance to radio yellow alert = ",iChance);
+#endif
+
+			if ((INT16)PreRandom(100) < iChance)
+			{
+#ifdef DEBUGDECISIONS
+				AINameMessage(pSoldier,"decides to radio a YELLOW alert!",1000);
+#endif
+
+				return(AI_ACTION_YELLOW_ALERT);
+			}
 		}
+	}
 
-		////////////////////////////////////////////////////////////////////////
-		// REST IF RUNNING OUT OF BREATH
-		////////////////////////////////////////////////////////////////////////
+	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
+	{
+		return( AI_ACTION_NONE );
+	}
 
-		// if our breath is running a bit low, and we're not in water
-		if ((pSoldier->bBreath < 25) && !pSoldier->MercInWater())
-		{
-			// take a breather for gods sake!
-			pSoldier->aiData.usActionData = NOWHERE;
-			return(AI_ACTION_NONE);
-		}
+	////////////////////////////////////////////////////////////////////////
+	// REST IF RUNNING OUT OF BREATH
+	////////////////////////////////////////////////////////////////////////
 
-		//continue flanking
-		INT32 tempGridNo;
+	// if our breath is running a bit low, and we're not in water
+	if ((pSoldier->bBreath < 25) && !pSoldier->MercInWater())
+	{
+		// take a breather for gods sake!
+		pSoldier->aiData.usActionData = NOWHERE;
+		return(AI_ACTION_NONE);
+	}
+
+	//continue flanking
+	INT32 tempGridNo;
 		
-		if (TileIsOutOfBounds(sNoiseGridNo))
+	if (TileIsOutOfBounds(sNoiseGridNo))
+		tempGridNo = pSoldier->lastFlankSpot;
+	else
+		tempGridNo = sNoiseGridNo;
+
+	if ( pSoldier->numFlanks > 0 && pSoldier->numFlanks < MAX_FLANKS_YELLOW )
+	{
+		INT16 currDir = GetDirectionFromGridNo ( tempGridNo, pSoldier );
+		INT16 origDir = pSoldier->origDir;
+		pSoldier->numFlanks += 1;
+		if ( pSoldier->flags.lastFlankLeft )
+		{
+			if ( origDir > currDir )
+				origDir -= NUM_WORLD_DIRECTIONS;
+
+			if ( (currDir - origDir) >= 4 )
+			{
+				pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+			}
+			else
+			{
+				pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_LEFT);				
+				if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) ) //&& (currDir - origDir) < 2 )
+					return AI_ACTION_FLANK_LEFT ;
+				else
+					pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+			}
+		}
+		else
+		{
+			if ( origDir < currDir )
+				origDir += NUM_WORLD_DIRECTIONS;
+
+			if ( (origDir - currDir) >= 4 )
+			{
+				pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+			}
+			else
+			{
+				pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_RIGHT);				
+				if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))//&& (origDir - currDir) < 2 )
+					return AI_ACTION_FLANK_RIGHT ;
+				else
+					pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+			}
+		}
+	}
+
+	if ( pSoldier->numFlanks == MAX_FLANKS_YELLOW )
+	{
+		pSoldier->numFlanks += 1;
+		pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards(pSoldier,tempGridNo,AI_ACTION_SEEK_NOISE);
+		return AI_ACTION_SEEK_NOISE ;
+	}
+		
+	////////////////////////////////////////////////////////////////////////////
+	// SWITCH TO GREEN: determine if soldier acts as if nothing at all was wrong
+	////////////////////////////////////////////////////////////////////////////
+	if ((INT16)PreRandom(100) < 50 )
+	{
+#ifdef RECORDNET
+		fprintf(NetDebugFile,"\tDecideActionYellow: guynum %d ignores noise, switching to GREEN AI...\n",pSoldier->ubID);
+#endif
+
+#ifdef DEBUGDECISIONS
+		AINameMessage(pSoldier,"ignores noise completely and BYPASSES to GREEN!",1000);
+#endif
+
+		// Skip YELLOW until new situation, 15% extra chance to do GREEN actions
+		pSoldier->aiData.bBypassToGreen = 15;
+		return(ZombieDecideActionGreen(pSoldier));
+	}
+		
+	////////////////////////////////////////////////////////////////////////////
+	// DO NOTHING: Not enough points left to move, so save them for next turn
+	////////////////////////////////////////////////////////////////////////////
+
+#ifdef DEBUGDECISIONS
+	AINameMessage(pSoldier,"- DOES NOTHING (YELLOW)",1000);
+#endif
+
+	// by default, if everything else fails, just stands in place without turning
+	pSoldier->aiData.usActionData = NOWHERE;
+	return(AI_ACTION_NONE);
+}
+
+
+INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
+{
+	INT32 iDummy;
+	INT32 iChance,sClosestOpponent,sClosestFriend;
+	INT32 sClosestDisturbance, sDistVisible;
+	UINT8 ubCanMove,ubOpponentDir;
+	INT8 bInWater, bInDeepWater;
+	INT8 bSeekPts = 0, bHelpPts = 0, bWatchPts = 0;
+	INT8	bHighestWatchLoc;
+#ifdef AI_TIMING_TEST
+	UINT32	uiStartTime, uiEndTime;
+#endif
+#ifdef DEBUGDECISIONS
+	STR16 tempstr;
+#endif
+	BOOLEAN fClimb;	
+
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionRed: soldier orders = %d",pSoldier->aiData.bOrders));
+
+	// if we have absolutely no action points, we can't do a thing under RED!
+	if (!pSoldier->bActionPoints)
+	{
+		pSoldier->aiData.usActionData = NOWHERE;
+		return(AI_ACTION_NONE);
+	}
+
+	// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
+	ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
+		
+
+	// determine if we happen to be in water (in which case we're in BIG trouble!)
+	bInWater = Water( pSoldier->sGridNo );
+	bInDeepWater = Water( pSoldier->sGridNo );
+			
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out of breath");
+	////////////////////////////////////////////////////////////////////////
+	// CROUCH & REST IF RUNNING OUT OF BREATH
+	////////////////////////////////////////////////////////////////////////
+
+	// if our breath is running a bit low, and we're not in water or under fire
+	if ((pSoldier->bBreath < 25) && !bInWater && !pSoldier->aiData.bUnderFire)
+	{		
+		pSoldier->aiData.usActionData = NOWHERE;
+		return(AI_ACTION_NONE);
+	}
+			
+
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
+	////////////////////////////////////////////////////////////////////////////
+	// RADIO RED ALERT: determine %chance to call others and report contact
+	////////////////////////////////////////////////////////////////////////////
+		
+	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK( pSoldier ) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
+
+		////////////////////////////////////////////////////////////////////////////
+		// MAIN RED AI: Decide soldier's preference between SEEKING,HELPING & HIDING
+		////////////////////////////////////////////////////////////////////////////
+
+		// get the location of the closest reachable opponent
+		sClosestDisturbance = ClosestReachableDisturbance(pSoldier,ubUnconsciousOK, &fClimb);
+
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: check to continue flanking");
+		// continue flanking
+		INT32 tempGridNo;
+			
+		if (TileIsOutOfBounds(sClosestDisturbance))
 			tempGridNo = pSoldier->lastFlankSpot;
 		else
-			tempGridNo = sNoiseGridNo;
+			tempGridNo = sClosestDisturbance;
 
-		if ( pSoldier->numFlanks > 0 && pSoldier->numFlanks < MAX_FLANKS_YELLOW )
+		if ( pSoldier->numFlanks > 0 && pSoldier->numFlanks < MAX_FLANKS_RED  && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
 		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: continue flanking");
 			INT16 currDir = GetDirectionFromGridNo ( tempGridNo, pSoldier );
 			INT16 origDir = pSoldier->origDir;
 			pSoldier->numFlanks += 1;
@@ -7265,15 +7415,16 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 
 				if ( (currDir - origDir) >= 4 )
 				{
-					pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
 				else
 				{
-					pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_LEFT);				
+					pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_LEFT);
+						
 					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) ) //&& (currDir - origDir) < 2 )
 						return AI_ACTION_FLANK_LEFT ;
 					else
-						pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+						pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
 			}
 			else
@@ -7283,425 +7434,231 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 
 				if ( (origDir - currDir) >= 4 )
 				{
-					pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+					pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
 				else
 				{
-					pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_RIGHT);				
-					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))//&& (origDir - currDir) < 2 )
+					pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_RIGHT);
+						
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) )//&& (origDir - currDir) < 2 )
 						return AI_ACTION_FLANK_RIGHT ;
 					else
-						pSoldier->numFlanks = MAX_FLANKS_YELLOW;
+						pSoldier->numFlanks = MAX_FLANKS_RED;
 				}
 			}
 		}
-
-		if ( pSoldier->numFlanks == MAX_FLANKS_YELLOW )
+		if ( pSoldier->numFlanks == MAX_FLANKS_RED )
 		{
 			pSoldier->numFlanks += 1;
-			pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards(pSoldier,tempGridNo,AI_ACTION_SEEK_NOISE);
-			return AI_ACTION_SEEK_NOISE ;
-		}
-		
-		////////////////////////////////////////////////////////////////////////////
-		// SWITCH TO GREEN: determine if soldier acts as if nothing at all was wrong
-		////////////////////////////////////////////////////////////////////////////
-		if ((INT16)PreRandom(100) < 50 )
-		{
-	#ifdef RECORDNET
-			fprintf(NetDebugFile,"\tDecideActionYellow: guynum %d ignores noise, switching to GREEN AI...\n",pSoldier->ubID);
-	#endif
-
-	#ifdef DEBUGDECISIONS
-			AINameMessage(pSoldier,"ignores noise completely and BYPASSES to GREEN!",1000);
-	#endif
-
-			// Skip YELLOW until new situation, 15% extra chance to do GREEN actions
-			pSoldier->aiData.bBypassToGreen = 15;
-			return(ZombieDecideActionGreen(pSoldier));
-		}
-		
-		////////////////////////////////////////////////////////////////////////////
-		// DO NOTHING: Not enough points left to move, so save them for next turn
-		////////////////////////////////////////////////////////////////////////////
-
-	#ifdef DEBUGDECISIONS
-		AINameMessage(pSoldier,"- DOES NOTHING (YELLOW)",1000);
-	#endif
-
-		// by default, if everything else fails, just stands in place without turning
-		pSoldier->aiData.usActionData = NOWHERE;
-		return(AI_ACTION_NONE);
-	}
-
-
-	INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
-	{
-		INT32 iDummy;
-		INT32 iChance,sClosestOpponent,sClosestFriend;
-		INT32 sClosestDisturbance, sDistVisible;
-		UINT8 ubCanMove,ubOpponentDir;
-		INT8 bInWater, bInDeepWater;
-		INT8 bSeekPts = 0, bHelpPts = 0, bWatchPts = 0;
-		INT8	bHighestWatchLoc;
-	#ifdef AI_TIMING_TEST
-		UINT32	uiStartTime, uiEndTime;
-	#endif
-	#ifdef DEBUGDECISIONS
-		STR16 tempstr;
-	#endif
-		BOOLEAN fClimb;	
-
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionRed: soldier orders = %d",pSoldier->aiData.bOrders));
-
-		// if we have absolutely no action points, we can't do a thing under RED!
-		if (!pSoldier->bActionPoints)
-		{
-			pSoldier->aiData.usActionData = NOWHERE;
-			return(AI_ACTION_NONE);
-		}
-
-		// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
-		ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
-		
-
-		// determine if we happen to be in water (in which case we're in BIG trouble!)
-		bInWater = Water( pSoldier->sGridNo );
-		bInDeepWater = Water( pSoldier->sGridNo );
-			
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out of breath");
-		////////////////////////////////////////////////////////////////////////
-		// CROUCH & REST IF RUNNING OUT OF BREATH
-		////////////////////////////////////////////////////////////////////////
-
-		// if our breath is running a bit low, and we're not in water or under fire
-		if ((pSoldier->bBreath < 25) && !bInWater && !pSoldier->aiData.bUnderFire)
-		{		
-			pSoldier->aiData.usActionData = NOWHERE;
-			return(AI_ACTION_NONE);
-		}
-			
-
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
-		////////////////////////////////////////////////////////////////////////////
-		// RADIO RED ALERT: determine %chance to call others and report contact
-		////////////////////////////////////////////////////////////////////////////
-		
-		if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK( pSoldier ) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
-
-			////////////////////////////////////////////////////////////////////////////
-			// MAIN RED AI: Decide soldier's preference between SEEKING,HELPING & HIDING
-			////////////////////////////////////////////////////////////////////////////
-
-			// get the location of the closest reachable opponent
-			sClosestDisturbance = ClosestReachableDisturbance(pSoldier,ubUnconsciousOK, &fClimb);
-
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: check to continue flanking");
-			// continue flanking
-			INT32 tempGridNo;
-			
-			if (TileIsOutOfBounds(sClosestDisturbance))
-				tempGridNo = pSoldier->lastFlankSpot;
-			else
-				tempGridNo = sClosestDisturbance;
-
-			if ( pSoldier->numFlanks > 0 && pSoldier->numFlanks < MAX_FLANKS_RED  && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: stop flanking");
+			if (PythSpacesAway ( pSoldier->sGridNo, tempGridNo ) > MIN_FLANK_DIST_RED * 2 )
 			{
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: continue flanking");
-				INT16 currDir = GetDirectionFromGridNo ( tempGridNo, pSoldier );
-				INT16 origDir = pSoldier->origDir;
-				pSoldier->numFlanks += 1;
-				if ( pSoldier->flags.lastFlankLeft )
-				{
-					if ( origDir > currDir )
-						origDir -= NUM_WORLD_DIRECTIONS;
+				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,tempGridNo,GetAPsProne( pSoldier, TRUE),AI_ACTION_SEEK_OPPONENT,0);
 
-					if ( (currDir - origDir) >= 4 )
-					{
-						pSoldier->numFlanks = MAX_FLANKS_RED;
-					}
-					else
-					{
-						pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_LEFT);
-						
-						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) ) //&& (currDir - origDir) < 2 )
-							return AI_ACTION_FLANK_LEFT ;
-						else
-							pSoldier->numFlanks = MAX_FLANKS_RED;
-					}
-				}
-				else
+				if ( LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) )
 				{
-					if ( origDir < currDir )
-						origDir += NUM_WORLD_DIRECTIONS;
-
-					if ( (origDir - currDir) >= 4 )
-					{
-						pSoldier->numFlanks = MAX_FLANKS_RED;
-					}
-					else
-					{
-						pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, tempGridNo , AI_ACTION_FLANK_RIGHT);
+					// reserve APs for a possible crouch plus a shot
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, tempGridNo, (INT8) (MinAPsToAttack( pSoldier, tempGridNo, ADDTURNCOST, 0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS);
 						
-						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) )//&& (origDir - currDir) < 2 )
-							return AI_ACTION_FLANK_RIGHT ;
-						else
-							pSoldier->numFlanks = MAX_FLANKS_RED;
-					}
-				}
-			}
-			if ( pSoldier->numFlanks == MAX_FLANKS_RED )
-			{
-				pSoldier->numFlanks += 1;
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: stop flanking");
-				if (PythSpacesAway ( pSoldier->sGridNo, tempGridNo ) > MIN_FLANK_DIST_RED * 2 )
-				{
-					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,tempGridNo,GetAPsProne( pSoldier, TRUE),AI_ACTION_SEEK_OPPONENT,0);
-
-					if ( LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) )
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 					{
-						// reserve APs for a possible crouch plus a shot
-						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, tempGridNo, (INT8) (MinAPsToAttack( pSoldier, tempGridNo, ADDTURNCOST, 0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS);
-						
-						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-						{
-							pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
-							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
-							return(AI_ACTION_SEEK_OPPONENT);
-						}
-					}
-					else
-					{
+						pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
+						pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 						return(AI_ACTION_SEEK_OPPONENT);
 					}
 				}
 				else
 				{
-					pSoldier->aiData.usActionData = FindBestNearbyCover(pSoldier,pSoldier->aiData.bAIMorale,&iDummy);
-					return AI_ACTION_TAKE_COVER ;
+					return(AI_ACTION_SEEK_OPPONENT);
 				}
 			}
+			else
+			{
+				pSoldier->aiData.usActionData = FindBestNearbyCover(pSoldier,pSoldier->aiData.bAIMorale,&iDummy);
+				return AI_ACTION_TAKE_COVER ;
+			}
+		}
 
 
-			// if we can move at least 1 square's worth
-			// and have more APs than we want to reserve
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: can we move? = %d, APs = %d",ubCanMove,pSoldier->bActionPoints));
+		// if we can move at least 1 square's worth
+		// and have more APs than we want to reserve
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: can we move? = %d, APs = %d",ubCanMove,pSoldier->bActionPoints));
 
-			if (ubCanMove && pSoldier->bActionPoints > APBPConstants[MAX_AP_CARRIED])
-			{				
-				// zombies don't hide, they seek prey...
-				bSeekPts = 99;
-				bHelpPts = 40;
-				bWatchPts -= 10;
+		if (ubCanMove && pSoldier->bActionPoints > APBPConstants[MAX_AP_CARRIED])
+		{				
+			// zombies don't hide, they seek prey...
+			bSeekPts = 99;
+			bHelpPts = 40;
+			bWatchPts -= 10;
 
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: checking seek/help/watch points... orders = %d, attitude = %d",pSoldier->aiData.bOrders,pSoldier->aiData.bAttitude));
-				// calculate initial points for watch based on highest watch loc
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: checking seek/help/watch points... orders = %d, attitude = %d",pSoldier->aiData.bOrders,pSoldier->aiData.bAttitude));
+			// calculate initial points for watch based on highest watch loc
 
-				bWatchPts = GetHighestWatchedLocPoints( pSoldier->ubID );
-				if ( bWatchPts <= 0 )
-				{
-					// no watching
-					bWatchPts = -99;
-				}
+			bWatchPts = GetHighestWatchedLocPoints( pSoldier->ubID );
+			if ( bWatchPts <= 0 )
+			{
+				// no watching
+				bWatchPts = -99;
+			}
 
-				// modify RED movement tendencies according to morale
-				switch (pSoldier->aiData.bAIMorale)
-				{
-					case MORALE_HOPELESS:  bSeekPts = -99; bHelpPts = -99; bWatchPts =	-99; break;
-					case MORALE_WORRIED:   bSeekPts += -2; bHelpPts +=  0; bWatchPts +=	1; break;
-					case MORALE_NORMAL:    bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=	0; break;
-					case MORALE_CONFIDENT: bSeekPts += +1; bHelpPts +=  0; bWatchPts +=	0; break;
-					case MORALE_FEARLESS:  bSeekPts += +1; bHelpPts +=  0; bWatchPts += 0; break;
-				}
+			// modify RED movement tendencies according to morale
+			switch (pSoldier->aiData.bAIMorale)
+			{
+				case MORALE_HOPELESS:  bSeekPts = -99; bHelpPts = -99; bWatchPts =	-99; break;
+				case MORALE_WORRIED:   bSeekPts += -2; bHelpPts +=  0; bWatchPts +=	1; break;
+				case MORALE_NORMAL:    bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=	0; break;
+				case MORALE_CONFIDENT: bSeekPts += +1; bHelpPts +=  0; bWatchPts +=	0; break;
+				case MORALE_FEARLESS:  bSeekPts += +1; bHelpPts +=  0; bWatchPts += 0; break;
+			}
 
-				// modify tendencies according to orders
-				switch (pSoldier->aiData.bOrders)
-				{
-					case STATIONARY:   bSeekPts += -1; bHelpPts += -1; bWatchPts += +1; break;
-					case ONGUARD:      bSeekPts += -1; bHelpPts +=  0; bWatchPts += +1; break;
-					case CLOSEPATROL:  bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
-					case RNDPTPATROL:  bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
-					case POINTPATROL:  bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
-					case FARPATROL:    bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
-					case ONCALL:       bSeekPts +=  0; bHelpPts += +1; bWatchPts +=  0; break;
-					case SEEKENEMY:    bSeekPts += +1; bHelpPts +=  0; bWatchPts += -1; break;
-					case SNIPER:	   bSeekPts += -1; bHelpPts +=  0; bWatchPts += +1; break;
-				}
+			// modify tendencies according to orders
+			switch (pSoldier->aiData.bOrders)
+			{
+				case STATIONARY:   bSeekPts += -1; bHelpPts += -1; bWatchPts += +1; break;
+				case ONGUARD:      bSeekPts += -1; bHelpPts +=  0; bWatchPts += +1; break;
+				case CLOSEPATROL:  bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
+				case RNDPTPATROL:  bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
+				case POINTPATROL:  bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
+				case FARPATROL:    bSeekPts +=  0; bHelpPts +=  0; bWatchPts +=  0; break;
+				case ONCALL:       bSeekPts +=  0; bHelpPts += +1; bWatchPts +=  0; break;
+				case SEEKENEMY:    bSeekPts += +1; bHelpPts +=  0; bWatchPts += -1; break;
+				case SNIPER:	   bSeekPts += -1; bHelpPts +=  0; bWatchPts += +1; break;
+			}
 
-				// modify tendencies according to attitude
-				switch (pSoldier->aiData.bAttitude)
-				{
-					case DEFENSIVE:     bSeekPts += -1; bHelpPts +=  0; bWatchPts += +1; break;
-					case BRAVESOLO:     bSeekPts += +1; bHelpPts += -1; bWatchPts += -1; break;
-					case BRAVEAID:      bSeekPts += +1; bHelpPts += +1; bWatchPts += -1; break;
-					case CUNNINGSOLO:   bSeekPts +=  1; bHelpPts += -1; bWatchPts +=  0; break;
-					case CUNNINGAID:    bSeekPts +=  1; bHelpPts += +1; bWatchPts +=  0; break;
-					case AGGRESSIVE:    bSeekPts += +1; bHelpPts +=  0; bWatchPts +=  0; break;
-					case ATTACKSLAYONLY:bSeekPts += +1; bHelpPts +=  0; bWatchPts +=  0; break;
-				}
+			// modify tendencies according to attitude
+			switch (pSoldier->aiData.bAttitude)
+			{
+				case DEFENSIVE:     bSeekPts += -1; bHelpPts +=  0; bWatchPts += +1; break;
+				case BRAVESOLO:     bSeekPts += +1; bHelpPts += -1; bWatchPts += -1; break;
+				case BRAVEAID:      bSeekPts += +1; bHelpPts += +1; bWatchPts += -1; break;
+				case CUNNINGSOLO:   bSeekPts +=  1; bHelpPts += -1; bWatchPts +=  0; break;
+				case CUNNINGAID:    bSeekPts +=  1; bHelpPts += +1; bWatchPts +=  0; break;
+				case AGGRESSIVE:    bSeekPts += +1; bHelpPts +=  0; bWatchPts +=  0; break;
+				case ATTACKSLAYONLY:bSeekPts += +1; bHelpPts +=  0; bWatchPts +=  0; break;
+			}
 							
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: hide = %d, seek = %d, watch = %d, help = %d",0,bSeekPts,bWatchPts,bHelpPts));
-				// while one of the three main RED REACTIONS remains viable
-				while ((bSeekPts > -90) || (bHelpPts > -90) )
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: hide = %d, seek = %d, watch = %d, help = %d",0,bSeekPts,bWatchPts,bHelpPts));
+			// while one of the three main RED REACTIONS remains viable
+			while ((bSeekPts > -90) || (bHelpPts > -90) )
+			{
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to seek");
+				// if SEEKING is possible and at least as desirable as helping or hiding
+				if ( ((bSeekPts > -90) && (bSeekPts >= bHelpPts) && (bSeekPts >= bWatchPts )) )
 				{
-					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to seek");
-					// if SEEKING is possible and at least as desirable as helping or hiding
-					if ( ((bSeekPts > -90) && (bSeekPts >= bHelpPts) && (bSeekPts >= bWatchPts )) )
+#ifdef AI_TIMING_TESTS
+					uiStartTime = GetJA2Clock();
+#endif
+
+#ifdef AI_TIMING_TESTS
+					uiEndTime = GetJA2Clock();
+					guiRedSeekTimeTotal += (uiEndTime - uiStartTime);
+					guiRedSeekCounter++;
+#endif
+					// if there is an opponent reachable					
+					if (!TileIsOutOfBounds(sClosestDisturbance) )
 					{
-	#ifdef AI_TIMING_TESTS
-						uiStartTime = GetJA2Clock();
-	#endif
+						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: seek opponent");
+						//////////////////////////////////////////////////////////////////////
+						// SEEK CLOSEST DISTURBANCE: GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
+						//////////////////////////////////////////////////////////////////////
 
-	#ifdef AI_TIMING_TESTS
-						uiEndTime = GetJA2Clock();
-						guiRedSeekTimeTotal += (uiEndTime - uiStartTime);
-						guiRedSeekCounter++;
-	#endif
-						// if there is an opponent reachable					
-						if (!TileIsOutOfBounds(sClosestDisturbance) )
-						{
-							DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: seek opponent");
-							//////////////////////////////////////////////////////////////////////
-							// SEEK CLOSEST DISTURBANCE: GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
-							//////////////////////////////////////////////////////////////////////
-
-							// try to move towards him
-							pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,GetAPsCrouch( pSoldier, TRUE),AI_ACTION_SEEK_OPPONENT,0);
+						// try to move towards him
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,GetAPsCrouch( pSoldier, TRUE),AI_ACTION_SEEK_OPPONENT,0);
 													
-							// if it's possible						
-							if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+						// if it's possible						
+						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+						{
+#ifdef DEBUGDECISIONS
+							// do it!
+							sprintf(tempstr,"%s - SEEKING OPPONENT at grid %d, MOVING to %d",
+								pSoldier->name,sClosestDisturbance,pSoldier->aiData.usActionData);
+							AIPopMessage(tempstr);
+#endif
+
+							if ( fClimb && gGameExternalOptions.fZombieCanClimb )//&& pSoldier->aiData.usActionData == sClosestDisturbance)
 							{
-	#ifdef DEBUGDECISIONS
-								// do it!
-								sprintf(tempstr,"%s - SEEKING OPPONENT at grid %d, MOVING to %d",
-									pSoldier->name,sClosestDisturbance,pSoldier->aiData.usActionData);
-								AIPopMessage(tempstr);
-	#endif
+								// need to climb AND have enough APs to get there this turn
+								BOOLEAN fUp = TRUE;
+								if (pSoldier->pathing.bLevel > 0 )
+									fUp = FALSE;
 
-								if ( fClimb && gGameExternalOptions.fZombieCanClimb )//&& pSoldier->aiData.usActionData == sClosestDisturbance)
+								if (!fUp)
+									DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
+
+								// As mentioned in the next part, the sClosestDisturbance IS the climb point desired.  So the
+								// check here should be "Am I aready there?"  If so, THEN possibly climb.  This previous check
+								// would have a soldier climbing any building, even if it was not the desired building.  So
+								// WRONG WRONG WRONG
+								//if ( CanClimbFromHere ( pSoldier, fUp ) )
+								if (pSoldier->sGridNo == sClosestDisturbance)
 								{
-									// need to climb AND have enough APs to get there this turn
-									BOOLEAN fUp = TRUE;
-									if (pSoldier->pathing.bLevel > 0 )
-										fUp = FALSE;
-
-									if (!fUp)
-										DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
-
-									// As mentioned in the next part, the sClosestDisturbance IS the climb point desired.  So the
-									// check here should be "Am I aready there?"  If so, THEN possibly climb.  This previous check
-									// would have a soldier climbing any building, even if it was not the desired building.  So
-									// WRONG WRONG WRONG
-									//if ( CanClimbFromHere ( pSoldier, fUp ) )
-									if (pSoldier->sGridNo == sClosestDisturbance)
+									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST, 0)))
 									{
-										if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST, 0)))
-										{
-											return( AI_ACTION_CLIMB_ROOF );
-										}
-									}
-									else
-									{
-										// Do not overwrite the usActionData here.  If there's no nearby climb point, the action data
-										// would become NOWHERE, and then the SEEK_ENEMY fallback would also fail.
-										// In fact, sClosestDisturbance has ALREADY calculated the closest climb point when climbing is
-										// necessary.  The returned grid # in sClosestDisturbance is that climb point.  So if climb is 
-										// set, then use sClosestDisturbance as is.
-										//INT16 usClimbPoint = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestDisturbance , fUp );
-										INT32 usClimbPoint = sClosestDisturbance;									
-										if (!TileIsOutOfBounds(usClimbPoint))
-										{
-											pSoldier->aiData.usActionData = usClimbPoint;
-											return( AI_ACTION_MOVE_TO_CLIMB  );
-										}
-									}
-								}
-								//if ( fClimb && pSoldier->aiData.usActionData == sClosestDisturbance)
-								//{
-								//	return( AI_ACTION_CLIMB_ROOF );
-								//}
-
-
-								if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO  || pSoldier->aiData.bAttitude == BRAVESOLO )  && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
-								{
-									INT8 action = AI_ACTION_SEEK_OPPONENT;
-									INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sClosestDisturbance );
-									if ( dist > MIN_FLANK_DIST_RED  && dist < MAX_FLANK_DIST_RED )
-									{
-										INT16 rdm = Random(6);
-
-										switch (rdm)
-										{
-										case 1:
-										case 2:
-										case 3:
-											if ( pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT )
-												action = AI_ACTION_FLANK_LEFT ;
-											break;
-										default:
-											if ( pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT )
-												action = AI_ACTION_FLANK_RIGHT ;
-											break;
-										}
-
-										if (action == AI_ACTION_SEEK_OPPONENT) {
-											return action;
-										}
-									}
-									else
-										return AI_ACTION_SEEK_OPPONENT ;
-
-									pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, sClosestDisturbance, action );
-									
-									if (TileIsOutOfBounds(pSoldier->aiData.usActionData) || pSoldier->numFlanks >= MAX_FLANKS_RED )
-									{
-										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,GetAPsCrouch( pSoldier, TRUE), AI_ACTION_SEEK_OPPONENT,0);
-										//pSoldier->numFlanks = 0;
-										if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
-										{
-											// reserve APs for a possible crouch plus a shot
-											pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST, 0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
-											
-											if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-											{
-												pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
-												pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
-												return(AI_ACTION_SEEK_OPPONENT);
-											}
-										}
-
-										else
-										{
-											return(AI_ACTION_SEEK_OPPONENT);
-										}
-									}
-									else
-									{
-										if ( action == AI_ACTION_FLANK_LEFT )
-											pSoldier->flags.lastFlankLeft = TRUE;
-										else
-											pSoldier->flags.lastFlankLeft = FALSE;
-
-										if ( pSoldier->lastFlankSpot != sClosestDisturbance)
-											pSoldier->numFlanks=0;
-
-
-										pSoldier->origDir = GetDirectionFromGridNo ( sClosestDisturbance, pSoldier);
-										pSoldier->lastFlankSpot = sClosestDisturbance;
-										pSoldier->numFlanks++;
-										return(action);
+										return( AI_ACTION_CLIMB_ROOF );
 									}
 								}
 								else
 								{
-									// let's be a bit cautious about going right up to a location without enough APs to shoot
+									// Do not overwrite the usActionData here.  If there's no nearby climb point, the action data
+									// would become NOWHERE, and then the SEEK_ENEMY fallback would also fail.
+									// In fact, sClosestDisturbance has ALREADY calculated the closest climb point when climbing is
+									// necessary.  The returned grid # in sClosestDisturbance is that climb point.  So if climb is 
+									// set, then use sClosestDisturbance as is.
+									//INT16 usClimbPoint = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestDisturbance , fUp );
+									INT32 usClimbPoint = sClosestDisturbance;									
+									if (!TileIsOutOfBounds(usClimbPoint))
+									{
+										pSoldier->aiData.usActionData = usClimbPoint;
+										return( AI_ACTION_MOVE_TO_CLIMB  );
+									}
+								}
+							}
+							//if ( fClimb && pSoldier->aiData.usActionData == sClosestDisturbance)
+							//{
+							//	return( AI_ACTION_CLIMB_ROOF );
+							//}
+
+
+							if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO  || pSoldier->aiData.bAttitude == BRAVESOLO )  && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
+							{
+								INT8 action = AI_ACTION_SEEK_OPPONENT;
+								INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sClosestDisturbance );
+								if ( dist > MIN_FLANK_DIST_RED  && dist < MAX_FLANK_DIST_RED )
+								{
+									INT16 rdm = Random(6);
+
+									switch (rdm)
+									{
+									case 1:
+									case 2:
+									case 3:
+										if ( pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT )
+											action = AI_ACTION_FLANK_LEFT ;
+										break;
+									default:
+										if ( pSoldier->aiData.bLastAction != AI_ACTION_FLANK_LEFT && pSoldier->aiData.bLastAction != AI_ACTION_FLANK_RIGHT )
+											action = AI_ACTION_FLANK_RIGHT ;
+										break;
+									}
+
+									if (action == AI_ACTION_SEEK_OPPONENT) {
+										return action;
+									}
+								}
+								else
+									return AI_ACTION_SEEK_OPPONENT ;
+
+								pSoldier->aiData.usActionData = FindFlankingSpot (pSoldier, sClosestDisturbance, action );
+									
+								if (TileIsOutOfBounds(pSoldier->aiData.usActionData) || pSoldier->numFlanks >= MAX_FLANKS_RED )
+								{
+									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,GetAPsCrouch( pSoldier, TRUE), AI_ACTION_SEEK_OPPONENT,0);
+									//pSoldier->numFlanks = 0;
 									if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
 									{
 										// reserve APs for a possible crouch plus a shot
 										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST, 0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
-										
+											
 										if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 										{
 											pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
@@ -7709,1195 +7666,1232 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 											return(AI_ACTION_SEEK_OPPONENT);
 										}
 									}
+
 									else
 									{
 										return(AI_ACTION_SEEK_OPPONENT);
 									}
-									break;
 								}
-							}
-						}
+								else
+								{
+									if ( action == AI_ACTION_FLANK_LEFT )
+										pSoldier->flags.lastFlankLeft = TRUE;
+									else
+										pSoldier->flags.lastFlankLeft = FALSE;
 
-						// mark SEEKING as impossible for next time through while loop
-	#ifdef DEBUGDECISIONS
-						AINameMessage(pSoldier,"couldn't SEEK...",1000);
-	#endif
-						bSeekPts = -99;
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't seek");
-					}
+									if ( pSoldier->lastFlankSpot != sClosestDisturbance)
+										pSoldier->numFlanks=0;
 
-					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to watch");
-					// if WATCHING is possible and at least as desirable as anything else
-					if ((bWatchPts > -90) && (bWatchPts >= bSeekPts) && (bWatchPts >= bHelpPts) )
-					{
-						// take a look at our highest watch point... if it's still visible, turn to face it and then wait
-						bHighestWatchLoc = GetHighestVisibleWatchedLoc( pSoldier->ubID );
-						//sDistVisible =  DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] );
-						if ( bHighestWatchLoc != -1 )
-						{
-							// see if we need turn to face that location
-							ubOpponentDir = atan8( CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX( gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] ),CenterY( gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] ) );
 
-							// if soldier is not already facing in that direction,
-							// and the opponent is close enough that he could possibly be seen
-							if ( pSoldier->ubDirection != ubOpponentDir && pSoldier->InternalIsValidStance( ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-							{
-								// turn
-								pSoldier->aiData.usActionData = ubOpponentDir;
-								pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
-								return(AI_ACTION_CHANGE_FACING);
+									pSoldier->origDir = GetDirectionFromGridNo ( sClosestDisturbance, pSoldier);
+									pSoldier->lastFlankSpot = sClosestDisturbance;
+									pSoldier->numFlanks++;
+									return(action);
+								}
 							}
 							else
 							{
-								// consider at least crouching
-								if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
-								{								
-									// end turn
-									return( AI_ACTION_END_TURN );
-								}
-							}
-
-						}
-
-						bWatchPts = -99;
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't watch");
-
-					}
-
-
-					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to help");
-					// if HELPING is possible and at least as desirable as seeking or hiding
-					if ((bHelpPts > -90) && (bHelpPts >= bSeekPts) && (bHelpPts >= bWatchPts ))
-					{
-	#ifdef AI_TIMING_TESTS
-						uiStartTime = GetJA2Clock();
-	#endif
-						sClosestFriend = ClosestReachableFriendInTrouble(pSoldier, &fClimb );
-	#ifdef AI_TIMING_TESTS
-						uiEndTime = GetJA2Clock();
-
-						guiRedHelpTimeTotal += (uiEndTime - uiStartTime);
-						guiRedHelpCounter++;
-	#endif
-						
-						if (!TileIsOutOfBounds(sClosestFriend))
-						{
-							//////////////////////////////////////////////////////////////////////
-							// GO DIRECTLY TOWARDS CLOSEST FRIEND UNDER FIRE OR WHO LAST RADIOED
-							//////////////////////////////////////////////////////////////////////
-							pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestFriend,GetAPsCrouch( pSoldier, TRUE), AI_ACTION_SEEK_OPPONENT,0);
-							
-							if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-							{
-	#ifdef DEBUGDECISIONS
-								sprintf(tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
-									pSoldier->name,sClosestFriend,pSoldier->aiData.usActionData);
-								AIPopMessage(tempstr);
-	#endif
-
-								if ( fClimb && gGameExternalOptions.fZombieCanClimb )//&& pSoldier->aiData.usActionData == sClosestFriend)
+								// let's be a bit cautious about going right up to a location without enough APs to shoot
+								if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
 								{
-									// need to climb AND have enough APs to get there this turn
-									BOOLEAN fUp = TRUE;
-									if (pSoldier->pathing.bLevel > 0 )
-										fUp = FALSE;
-
-									if (!fUp)
-										DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
-
-									// 0verhaul:  Yet another chance to climb the wrong building and otherwise waste CPU power.
-									// We already know the climb point we want, which may not be here even if climbing is possible.
-									//if ( CanClimbFromHere ( pSoldier, fUp ) )
-									if (pSoldier->sGridNo == sClosestFriend)
+									// reserve APs for a possible crouch plus a shot
+									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST, 0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+										
+									if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 									{
-										if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST, 0)))
-										{
-											return( AI_ACTION_CLIMB_ROOF );
-										}
-									}
-									else
-									{
-										pSoldier->aiData.usActionData = sClosestFriend;
-										//INT32 sClimbPoint = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );									
-										//if (!TileIsOutOfBounds(sClimbPoint))
-										{
-											//pSoldier->aiData.usActionData = sClimbPoint;
-											return( AI_ACTION_MOVE_TO_CLIMB  );
-										}
+										pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
+										pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+										return(AI_ACTION_SEEK_OPPONENT);
 									}
 								}
-								//if (fClimb && pSoldier->aiData.usActionData == sClosestFriend)
-								//{
-								// return( AI_ACTION_CLIMB_ROOF );
-								//}
-								return(AI_ACTION_SEEK_FRIEND);
+								else
+								{
+									return(AI_ACTION_SEEK_OPPONENT);
+								}
+								break;
+							}
+						}
+					}
+
+					// mark SEEKING as impossible for next time through while loop
+#ifdef DEBUGDECISIONS
+					AINameMessage(pSoldier,"couldn't SEEK...",1000);
+#endif
+					bSeekPts = -99;
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't seek");
+				}
+
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to watch");
+				// if WATCHING is possible and at least as desirable as anything else
+				if ((bWatchPts > -90) && (bWatchPts >= bSeekPts) && (bWatchPts >= bHelpPts) )
+				{
+					// take a look at our highest watch point... if it's still visible, turn to face it and then wait
+					bHighestWatchLoc = GetHighestVisibleWatchedLoc( pSoldier->ubID );
+					//sDistVisible =  DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] );
+					if ( bHighestWatchLoc != -1 )
+					{
+						// see if we need turn to face that location
+						ubOpponentDir = atan8( CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX( gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] ),CenterY( gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] ) );
+
+						// if soldier is not already facing in that direction,
+						// and the opponent is close enough that he could possibly be seen
+						if ( pSoldier->ubDirection != ubOpponentDir && pSoldier->InternalIsValidStance( ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+						{
+							// turn
+							pSoldier->aiData.usActionData = ubOpponentDir;
+							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+							return(AI_ACTION_CHANGE_FACING);
+						}
+						else
+						{
+							// consider at least crouching
+							if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
+							{								
+								// end turn
+								return( AI_ACTION_END_TURN );
 							}
 						}
 
-						// mark SEEKING as impossible for next time through while loop
-	#ifdef DEBUGDECISIONS
-						AINameMessage(pSoldier,"couldn't HELP...",1000);
-	#endif
-
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't help");
-						bHelpPts = -99;
 					}
+
+					bWatchPts = -99;
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't watch");
+
+				}
+
+
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to help");
+				// if HELPING is possible and at least as desirable as seeking or hiding
+				if ((bHelpPts > -90) && (bHelpPts >= bSeekPts) && (bHelpPts >= bWatchPts ))
+				{
+#ifdef AI_TIMING_TESTS
+					uiStartTime = GetJA2Clock();
+#endif
+					sClosestFriend = ClosestReachableFriendInTrouble(pSoldier, &fClimb );
+#ifdef AI_TIMING_TESTS
+					uiEndTime = GetJA2Clock();
+
+					guiRedHelpTimeTotal += (uiEndTime - uiStartTime);
+					guiRedHelpCounter++;
+#endif
+						
+					if (!TileIsOutOfBounds(sClosestFriend))
+					{
+						//////////////////////////////////////////////////////////////////////
+						// GO DIRECTLY TOWARDS CLOSEST FRIEND UNDER FIRE OR WHO LAST RADIOED
+						//////////////////////////////////////////////////////////////////////
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestFriend,GetAPsCrouch( pSoldier, TRUE), AI_ACTION_SEEK_OPPONENT,0);
+							
+						if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+						{
+#ifdef DEBUGDECISIONS
+							sprintf(tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
+								pSoldier->name,sClosestFriend,pSoldier->aiData.usActionData);
+							AIPopMessage(tempstr);
+#endif
+
+							if ( fClimb && gGameExternalOptions.fZombieCanClimb )//&& pSoldier->aiData.usActionData == sClosestFriend)
+							{
+								// need to climb AND have enough APs to get there this turn
+								BOOLEAN fUp = TRUE;
+								if (pSoldier->pathing.bLevel > 0 )
+									fUp = FALSE;
+
+								if (!fUp)
+									DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
+
+								// 0verhaul:  Yet another chance to climb the wrong building and otherwise waste CPU power.
+								// We already know the climb point we want, which may not be here even if climbing is possible.
+								//if ( CanClimbFromHere ( pSoldier, fUp ) )
+								if (pSoldier->sGridNo == sClosestFriend)
+								{
+									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST, 0)))
+									{
+										return( AI_ACTION_CLIMB_ROOF );
+									}
+								}
+								else
+								{
+									pSoldier->aiData.usActionData = sClosestFriend;
+									//INT32 sClimbPoint = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );									
+									//if (!TileIsOutOfBounds(sClimbPoint))
+									{
+										//pSoldier->aiData.usActionData = sClimbPoint;
+										return( AI_ACTION_MOVE_TO_CLIMB  );
+									}
+								}
+							}
+							//if (fClimb && pSoldier->aiData.usActionData == sClosestFriend)
+							//{
+							// return( AI_ACTION_CLIMB_ROOF );
+							//}
+							return(AI_ACTION_SEEK_FRIEND);
+						}
+					}
+
+					// mark SEEKING as impossible for next time through while loop
+#ifdef DEBUGDECISIONS
+					AINameMessage(pSoldier,"couldn't HELP...",1000);
+#endif
+
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't help");
+					bHelpPts = -99;
 				}
 			}
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: nothing to do!");
-			////////////////////////////////////////////////////////////////////////////
-			// NOTHING USEFUL POSSIBLE!  IF NPC IS CURRENTLY UNDER FIRE, TRY TO RUN AWAY
-			////////////////////////////////////////////////////////////////////////////				
 		}
-
-
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: look around towards opponent");
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: nothing to do!");
 		////////////////////////////////////////////////////////////////////////////
-		// LOOK AROUND TOWARD CLOSEST KNOWN OPPONENT, IF KNOWN
-		////////////////////////////////////////////////////////////////////////////
+		// NOTHING USEFUL POSSIBLE!  IF NPC IS CURRENTLY UNDER FIRE, TRY TO RUN AWAY
+		////////////////////////////////////////////////////////////////////////////				
+	}
 
+
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: look around towards opponent");
+	////////////////////////////////////////////////////////////////////////////
+	// LOOK AROUND TOWARD CLOSEST KNOWN OPPONENT, IF KNOWN
+	////////////////////////////////////////////////////////////////////////////
+
+	if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
+	{
+		// determine the location of the known closest opponent
+		// (don't care if he's conscious, don't care if he's reachable at all)
+		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
+			
+		if (!TileIsOutOfBounds(sClosestOpponent))
+		{
+			// determine direction from this soldier to the closest opponent
+			ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+
+			// if soldier is not already facing in that direction,
+			// and the opponent is close enough that he could possibly be seen
+			// note, have to change this to use the level returned from ClosestKnownOpponent
+			sDistVisible = pSoldier->GetMaxDistanceVisible(sClosestOpponent, 0, CALC_FROM_ALL_DIRS );
+
+			if ((pSoldier->ubDirection != ubOpponentDir) && (PythSpacesAway(pSoldier->sGridNo,sClosestOpponent) <= sDistVisible))
+			{
+				// set base chance according to orders
+				if ((pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD))
+					iChance = 50;
+				else           // all other orders
+					iChance = 25;
+
+				if (pSoldier->aiData.bAttitude == DEFENSIVE)
+					iChance += 25;
+
+				if ( TANK( pSoldier ) )
+				{
+					iChance += 50;
+				}
+
+				if ((INT16)PreRandom(100) < iChance && pSoldier->InternalIsValidStance( ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+				{
+					pSoldier->aiData.usActionData = ubOpponentDir;
+
+#ifdef DEBUGDECISIONS
+					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
+					AIPopMessage(tempstr);
+#endif					
+					return(AI_ACTION_CHANGE_FACING);
+				}
+			}
+		}
+	}
+
+	if ( TANK( pSoldier ) )
+	{
+		// try turning in a random direction as we still can't see anyone.
 		if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
 		{
-			// determine the location of the known closest opponent
-			// (don't care if he's conscious, don't care if he's reachable at all)
-			sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
-			
-			if (!TileIsOutOfBounds(sClosestOpponent))
-			{
-				// determine direction from this soldier to the closest opponent
-				ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
-
-				// if soldier is not already facing in that direction,
-				// and the opponent is close enough that he could possibly be seen
-				// note, have to change this to use the level returned from ClosestKnownOpponent
-				sDistVisible = pSoldier->GetMaxDistanceVisible(sClosestOpponent, 0, CALC_FROM_ALL_DIRS );
-
-				if ((pSoldier->ubDirection != ubOpponentDir) && (PythSpacesAway(pSoldier->sGridNo,sClosestOpponent) <= sDistVisible))
-				{
-					// set base chance according to orders
-					if ((pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD))
-						iChance = 50;
-					else           // all other orders
-						iChance = 25;
-
-					if (pSoldier->aiData.bAttitude == DEFENSIVE)
-						iChance += 25;
-
-					if ( TANK( pSoldier ) )
-					{
-						iChance += 50;
-					}
-
-					if ((INT16)PreRandom(100) < iChance && pSoldier->InternalIsValidStance( ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-					{
-						pSoldier->aiData.usActionData = ubOpponentDir;
-
-	#ifdef DEBUGDECISIONS
-						sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
-						AIPopMessage(tempstr);
-	#endif					
-						return(AI_ACTION_CHANGE_FACING);
-					}
-				}
-			}
-		}
-
-		if ( TANK( pSoldier ) )
-		{
-			// try turning in a random direction as we still can't see anyone.
-			if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
-			{
-				sClosestDisturbance = MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );
-				
-				if (!TileIsOutOfBounds(sClosestDisturbance))
-				{
-					ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
-					if ( pSoldier->ubDirection == ubOpponentDir )
-					{
-						ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
-					}
-				}
-				else
-				{
-					ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
-				}
-
-				if ( (pSoldier->ubDirection != ubOpponentDir) )
-				{
-					if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints || (INT16)PreRandom(100) < 60) && pSoldier->InternalIsValidStance( ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-					{
-						pSoldier->aiData.usActionData = ubOpponentDir;
-
-	#ifdef DEBUGDECISIONS
-						sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
-						AIPopMessage(tempstr);
-	#endif
-
-						// limit turning a bit... if the last thing we did was also a turn, add a 60% chance of this being our last turn
-						if ( pSoldier->aiData.bLastAction == AI_ACTION_CHANGE_FACING && PreRandom( 100 ) < 60 )
-						{
-							if ( gfTurnBasedAI )
-							{
-								pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
-							}
-							else
-							{
-								pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
-								pSoldier->aiData.usNextActionData = (UINT16) REALTIME_AI_DELAY;
-							}
-						}
-
-						return(AI_ACTION_CHANGE_FACING);
-					}
-				}
-			}
-
-			// that's it for tanks
-			return( AI_ACTION_NONE );
-		}
-
-		
-		////////////////////////////////////////////////////////////////////////////
-		// SWITCH TO GREEN: soldier does ordinary regular patrol, seeks friends
-		////////////////////////////////////////////////////////////////////////////
-
-		// if not in combat or under fire, and we COULD have moved, just chose not to	
-		if ( (pSoldier->aiData.bAlertStatus != STATUS_BLACK) && !pSoldier->aiData.bUnderFire && ubCanMove && (!gfTurnBasedAI || pSoldier->bActionPoints >= pSoldier->bInitialActionPoints) && ( TileIsOutOfBounds(ClosestReachableDisturbance(pSoldier, TRUE, &fClimb))) )
-		{
-			// addition:  if soldier is bleeding then reduce bleeding and do nothing
-			/*if ( pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD )
-			{
-				// no! zombies don't bandage themselves!
-				// reduce bleeding by 1 point per AP (in RT, APs will get recalculated so it's okay)
-				// pSoldier->bBleeding = __max( 0, pSoldier->bBleeding - (pSoldier->bActionPoints/2) );
-				return( AI_ACTION_NONE ); // will end-turn/wait depending on whether we're in TB or realtime
-			}*/
-	#ifdef RECORDNET
-			fprintf(NetDebugFile,"\tZombieDecideActionRed: guynum %d switching to GREEN AI...\n",pSoldier->ubID);
-	#endif
-
-	#ifdef DEBUGDECISIONS
-			AINameMessage(pSoldier,"- chose to SKIP all RED actions, BYPASSES to GREEN!",1000);
-	#endif
-
-			// Skip RED until new situation/next turn, 30% extra chance to do GREEN actions
-			pSoldier->aiData.bBypassToGreen = 30;
-			return(ZombieDecideActionGreen(pSoldier));
-		}
-
-			
-		////////////////////////////////////////////////////////////////////////////
-		// IF UNDER FIRE, FACE THE MOST IMPORTANT NOISE WE KNOW
-		////////////////////////////////////////////////////////////////////////////
-
-		if ( pSoldier->aiData.bUnderFire && pSoldier->bActionPoints >= (pSoldier->bInitialActionPoints - GetAPsToLook( pSoldier ) ) )
-		{
 			sClosestDisturbance = MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );
-			
+				
 			if (!TileIsOutOfBounds(sClosestDisturbance))
 			{
 				ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
-				if ( pSoldier->ubDirection != ubOpponentDir )
+				if ( pSoldier->ubDirection == ubOpponentDir )
 				{
-					if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
+					ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
+				}
+			}
+			else
+			{
+				ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
+			}
+
+			if ( (pSoldier->ubDirection != ubOpponentDir) )
+			{
+				if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints || (INT16)PreRandom(100) < 60) && pSoldier->InternalIsValidStance( ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+				{
+					pSoldier->aiData.usActionData = ubOpponentDir;
+
+#ifdef DEBUGDECISIONS
+					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
+					AIPopMessage(tempstr);
+#endif
+
+					// limit turning a bit... if the last thing we did was also a turn, add a 60% chance of this being our last turn
+					if ( pSoldier->aiData.bLastAction == AI_ACTION_CHANGE_FACING && PreRandom( 100 ) < 60 )
 					{
-						pSoldier->aiData.usActionData = ubOpponentDir;
-						return( AI_ACTION_CHANGE_FACING );
+						if ( gfTurnBasedAI )
+						{
+							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+						}
+						else
+						{
+							pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+							pSoldier->aiData.usNextActionData = (UINT16) REALTIME_AI_DELAY;
+						}
 					}
+
+					return(AI_ACTION_CHANGE_FACING);
 				}
 			}
 		}
-			
-		////////////////////////////////////////////////////////////////////////////
-		// DO NOTHING: Not enough points left to move, so save them for next turn
-		////////////////////////////////////////////////////////////////////////////
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: do nothing at all..."));
-	#ifdef DEBUGDECISIONS
-		AINameMessage(pSoldier,"- DOES NOTHING (RED)",1000);
-	#endif
 
+		// that's it for tanks
+		return( AI_ACTION_NONE );
+	}
+
+		
+	////////////////////////////////////////////////////////////////////////////
+	// SWITCH TO GREEN: soldier does ordinary regular patrol, seeks friends
+	////////////////////////////////////////////////////////////////////////////
+
+	// if not in combat or under fire, and we COULD have moved, just chose not to	
+	if ( (pSoldier->aiData.bAlertStatus != STATUS_BLACK) && !pSoldier->aiData.bUnderFire && ubCanMove && (!gfTurnBasedAI || pSoldier->bActionPoints >= pSoldier->bInitialActionPoints) && ( TileIsOutOfBounds(ClosestReachableDisturbance(pSoldier, TRUE, &fClimb))) )
+	{
+		// addition:  if soldier is bleeding then reduce bleeding and do nothing
+		/*if ( pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD )
+		{
+			// no! zombies don't bandage themselves!
+			// reduce bleeding by 1 point per AP (in RT, APs will get recalculated so it's okay)
+			// pSoldier->bBleeding = __max( 0, pSoldier->bBleeding - (pSoldier->bActionPoints/2) );
+			return( AI_ACTION_NONE ); // will end-turn/wait depending on whether we're in TB or realtime
+		}*/
+#ifdef RECORDNET
+		fprintf(NetDebugFile,"\tZombieDecideActionRed: guynum %d switching to GREEN AI...\n",pSoldier->ubID);
+#endif
+
+#ifdef DEBUGDECISIONS
+		AINameMessage(pSoldier,"- chose to SKIP all RED actions, BYPASSES to GREEN!",1000);
+#endif
+
+		// Skip RED until new situation/next turn, 30% extra chance to do GREEN actions
+		pSoldier->aiData.bBypassToGreen = 30;
+		return(ZombieDecideActionGreen(pSoldier));
+	}
+
+			
+	////////////////////////////////////////////////////////////////////////////
+	// IF UNDER FIRE, FACE THE MOST IMPORTANT NOISE WE KNOW
+	////////////////////////////////////////////////////////////////////////////
+
+	if ( pSoldier->aiData.bUnderFire && pSoldier->bActionPoints >= (pSoldier->bInitialActionPoints - GetAPsToLook( pSoldier ) ) )
+	{
+		sClosestDisturbance = MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );
+			
+		if (!TileIsOutOfBounds(sClosestDisturbance))
+		{
+			ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
+			if ( pSoldier->ubDirection != ubOpponentDir )
+			{
+				if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
+				{
+					pSoldier->aiData.usActionData = ubOpponentDir;
+					return( AI_ACTION_CHANGE_FACING );
+				}
+			}
+		}
+	}
+			
+	////////////////////////////////////////////////////////////////////////////
+	// DO NOTHING: Not enough points left to move, so save them for next turn
+	////////////////////////////////////////////////////////////////////////////
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: do nothing at all..."));
+#ifdef DEBUGDECISIONS
+	AINameMessage(pSoldier,"- DOES NOTHING (RED)",1000);
+#endif
+
+	pSoldier->aiData.usActionData = NOWHERE;
+	return(AI_ACTION_NONE);
+}
+
+INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
+{
+	INT32		iCoverPercentBetter = 0;
+	INT32       iOffense, iDefense, iChance;
+	INT32		sClosestOpponent,sBestCover = NOWHERE;
+	INT16		ubMinAPCost;
+	UINT8		ubCanMove;
+	INT8		bInWater,bInDeepWater;
+	INT8		bDirection;
+	UINT8		ubBestAttackAction = AI_ACTION_NONE;
+	INT8		bCanAttack;
+	INT8		bWeaponIn;
+	BOOLEAN	fTryPunching = FALSE;
+#ifdef DEBUGDECISIONS
+	STR16 tempstr;
+#endif
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: soldier = %d, orders = %d, attitude = %d",pSoldier->ubID,pSoldier->aiData.bOrders,pSoldier->aiData.bAttitude));
+
+	ATTACKTYPE BestStab, BestAttack;//dnl ch69 150913
+	UINT8	ubBestStance = 1;
+	BOOLEAN fChangeStanceFirst; // before firing
+	INT16	ubBurstAPs;
+
+	BOOLEAN fAllowCoverCheck = FALSE;
+
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
+		
+	// if we have absolutely no action points, we can't do a thing under BLACK!
+	if (!pSoldier->bActionPoints)
+	{
 		pSoldier->aiData.usActionData = NOWHERE;
 		return(AI_ACTION_NONE);
 	}
 
-	INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
+	// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
+	ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
+		
+	// determine if we happen to be in water (in which case we're in BIG trouble!)
+	bInWater = Water( pSoldier->sGridNo );
+	bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo );
+			
+	// calculate our morale
+	pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
+
+	////////////////////////////////////////////////////////////////////////////
+	// STUCK IN WATER OR GAS, NO COVER, GO TO NEAREST SPOT OF UNGASSED LAND
+	////////////////////////////////////////////////////////////////////////////
+
+	// if soldier in water/gas has enough APs left to move at least 1 square
+	if ( bInDeepWater && ubCanMove)
 	{
-		INT32		iCoverPercentBetter = 0;
-		INT32       iOffense, iDefense, iChance;
-		INT32		sClosestOpponent,sBestCover = NOWHERE;
-		INT16		ubMinAPCost;
-		UINT8		ubCanMove;
-		INT8		bInWater,bInDeepWater;
-		INT8		bDirection;
-		UINT8		ubBestAttackAction = AI_ACTION_NONE;
-		INT8		bCanAttack;
-		INT8		bWeaponIn;
-		BOOLEAN	fTryPunching = FALSE;
-	#ifdef DEBUGDECISIONS
-		STR16 tempstr;
-	#endif
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: soldier = %d, orders = %d, attitude = %d",pSoldier->ubID,pSoldier->aiData.bOrders,pSoldier->aiData.bAttitude));
-
-		ATTACKTYPE BestStab, BestAttack;//dnl ch69 150913
-		UINT8	ubBestStance = 1;
-		BOOLEAN fChangeStanceFirst; // before firing
-		INT16	ubBurstAPs;
-
-		BOOLEAN fAllowCoverCheck = FALSE;
-
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
-		
-		// if we have absolutely no action points, we can't do a thing under BLACK!
-		if (!pSoldier->bActionPoints)
+		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
+			
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 		{
-			pSoldier->aiData.usActionData = NOWHERE;
-			return(AI_ACTION_NONE);
+#ifdef DEBUGDECISIONS
+			sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->aiData.usActionData);
+			AIPopMessage(tempstr);
+#endif
+
+			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 
-		// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
-		ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
-		
-		// determine if we happen to be in water (in which case we're in BIG trouble!)
-		bInWater = Water( pSoldier->sGridNo );
-		bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo );
+		// couldn't find ANY land within 25 tiles(!), this should never happen...
+
+		// look for best place to RUN AWAY to (farthest from the closest threat)
+		pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
 			
-		// calculate our morale
-		pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
-
-		////////////////////////////////////////////////////////////////////////////
-		// STUCK IN WATER OR GAS, NO COVER, GO TO NEAREST SPOT OF UNGASSED LAND
-		////////////////////////////////////////////////////////////////////////////
-
-		// if soldier in water/gas has enough APs left to move at least 1 square
-		if ( bInDeepWater && ubCanMove)
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 		{
-			pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
-			
-			if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+#ifdef DEBUGDECISIONS
+			sprintf(tempstr,"%s - NO LAND NEAR, RUNNING AWAY to grid %d",pSoldier->name,pSoldier->aiData.usActionData);
+			AIPopMessage(tempstr);
+#endif
+
+			return(AI_ACTION_RUN_AWAY);
+		}
+
+		if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+			pSoldier->aiData.bAIMorale = MORALE_FEARLESS;  // go nuts...
+	}
+
+		
+	////////////////////////////////////////////////////////////////////////////
+	// SOLDIER CAN ATTACK IF NOT IN WATER/GAS AND NOT DOING SOMETHING TOO FUNKY
+	////////////////////////////////////////////////////////////////////////////
+
+
+	// NPCs in water/tear gas without masks are not permitted to shoot/stab/throw
+	if ((pSoldier->bActionPoints < 2) || bInDeepWater || pSoldier->aiData.bRTPCombat == RTP_COMBAT_REFRAIN)
+	{
+		bCanAttack = FALSE;
+	}
+	else if (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER)
+	{
+		bCanAttack = TRUE;
+		fTryPunching = TRUE;
+	}
+	else
+	{
+		do
+		{
+
+			bCanAttack = CanNPCAttack(pSoldier);
+			if (bCanAttack != TRUE)
 			{
-	#ifdef DEBUGDECISIONS
-				sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->aiData.usActionData);
-				AIPopMessage(tempstr);
-	#endif
+				if (bCanAttack == NOSHOOT_NOAMMO && ubCanMove && !pSoldier->aiData.bNeutral)
+				{
+					//CHRISL: We need to know which weapon has no ammo in case the soldier is holding a weapoin in SECONDHANDPOS
+					if(pSoldier->inv[SECONDHANDPOS].exists() == true )
+					{
+						// the current weapon appears is useless right now!
+						pSoldier->inv[HANDPOS].fFlags |= OBJECT_AI_UNUSABLE;
 
-				return(AI_ACTION_LEAVE_WATER_GAS);
+						// drop item
+						return AI_ACTION_DROP_ITEM;
+					}
+					else
+					{
+						return( pSoldier->aiData.bAction );
+					}
+				}
+				else
+				{
+					bCanAttack = FALSE;
+				}
 			}
+		} while( bCanAttack != TRUE && bCanAttack != FALSE );
 
-			// couldn't find ANY land within 25 tiles(!), this should never happen...
+#ifdef RETREAT_TESTING
+		bCanAttack = FALSE;
+#endif
 
-			// look for best place to RUN AWAY to (farthest from the closest threat)
-			pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
-			
-			if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
-			{
-	#ifdef DEBUGDECISIONS
-				sprintf(tempstr,"%s - NO LAND NEAR, RUNNING AWAY to grid %d",pSoldier->name,pSoldier->aiData.usActionData);
-				AIPopMessage(tempstr);
-	#endif
-
-				return(AI_ACTION_RUN_AWAY);
-			}
-
-			if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-				pSoldier->aiData.bAIMorale = MORALE_FEARLESS;  // go nuts...
-		}
-
-		
-		////////////////////////////////////////////////////////////////////////////
-		// SOLDIER CAN ATTACK IF NOT IN WATER/GAS AND NOT DOING SOMETHING TOO FUNKY
-		////////////////////////////////////////////////////////////////////////////
-
-
-		// NPCs in water/tear gas without masks are not permitted to shoot/stab/throw
-		if ((pSoldier->bActionPoints < 2) || bInDeepWater || pSoldier->aiData.bRTPCombat == RTP_COMBAT_REFRAIN)
-		{
-			bCanAttack = FALSE;
-		}
-		else if (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER)
+		if (!bCanAttack)
 		{
 			bCanAttack = TRUE;
 			fTryPunching = TRUE;
 		}
-		else
-		{
-			do
-			{
+	}
 
-				bCanAttack = CanNPCAttack(pSoldier);
-				if (bCanAttack != TRUE)
-				{
-					if (bCanAttack == NOSHOOT_NOAMMO && ubCanMove && !pSoldier->aiData.bNeutral)
-					{
-						//CHRISL: We need to know which weapon has no ammo in case the soldier is holding a weapoin in SECONDHANDPOS
-						if(pSoldier->inv[SECONDHANDPOS].exists() == true )
-						{
-							// the current weapon appears is useless right now!
-							pSoldier->inv[HANDPOS].fFlags |= OBJECT_AI_UNUSABLE;
+	BestStab.ubPossible  = FALSE;	// by default, assume Stabbing isn't possible
 
-							// drop item
-							return AI_ACTION_DROP_ITEM;
-						}
-						else
-						{
-							return( pSoldier->aiData.bAction );
-						}
-					}
-					else
-					{
-						bCanAttack = FALSE;
-					}
-				}
-			} while( bCanAttack != TRUE && bCanAttack != FALSE );
-
-	#ifdef RETREAT_TESTING
-			bCanAttack = FALSE;
-	#endif
-
-			if (!bCanAttack)
-			{
-				bCanAttack = TRUE;
-				fTryPunching = TRUE;
-			}
-		}
-
-		BestStab.ubPossible  = FALSE;	// by default, assume Stabbing isn't possible
-
-		BestAttack.ubChanceToReallyHit = 0;
+	BestAttack.ubChanceToReallyHit = 0;
 		
-		// if we are able attack
-		if (bCanAttack)
-		{
-			pSoldier->bAimShotLocation = AIM_SHOT_RANDOM;
+	// if we are able attack
+	if (bCanAttack)
+	{
+		pSoldier->bAimShotLocation = AIM_SHOT_RANDOM;
 					
-			//////////////////////////////////////////////////////////////////////////
-			// GO STAB AN OPPONENT WITH A KNIFE
-			//////////////////////////////////////////////////////////////////////////
-
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GO STAB AN OPPONENT WITH A KNIFE");
-			// if soldier has a knife in his hand
-			bWeaponIn = FindAIUsableObjClass( pSoldier, (IC_BLADE | IC_THROWING_KNIFE) );
-
-			/////////////////////////////////////////////////////////////////////////////////////////////////////
-			// SANDRO - even if we don't have any blade, calculate how much damage we could do unarmed
-			if ( !TANK( pSoldier) )
-			{
-				bWeaponIn = FindAIUsableObjClass( pSoldier, IC_PUNCH );
-				if (bWeaponIn == NO_SLOT) // if no punch-type weapon found, just calculate it with empty hands
-				{
-					bWeaponIn = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
-				}
-				if (bWeaponIn != NO_SLOT)
-				{
-					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"try to punch");
-					BestStab.bWeaponIn = bWeaponIn;
-					// if it's in his holster, swap it into his hand temporarily
-					if (bWeaponIn != HANDPOS)
-					{
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: about to rearrange pocket before punch check");
-						RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
-					}
-
-					// get the minimum cost to attack with punch
-					ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0);
-					// if we can afford the minimum AP cost to punch
-					if (pSoldier->bActionPoints >= ubMinAPCost)
-					{
-						// then look around for a worthy target (which sets BestStab.ubPossible)
-						CalcBestStab(pSoldier,&BestStab, FALSE);
-
-						if (BestStab.ubPossible)
-						{
-							// if we have not enough APs to deal at least two or three punches, 
-							// reduce the attack value as one punch ain't much
-							if( gGameOptions.fNewTraitSystem )
-							{
-								// if we are not specialized, reduce the attack attractiveness generaly
-								if ( !HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) )
-								{								
-									// if too far and not having APs for at least 3 hits no way to attack
-									if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + (2 * (ApsToPunch( pSoldier )))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1) ) 
-									{
-										BestStab.ubPossible = 0; 
-										BestStab.iAttackValue = 0; 
-									}
-								}
-								else
-								{
-									if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
-									{
-										BestStab.iAttackValue = (BestStab.iAttackValue * 2); 
-									}
-									// if too far and not having APs for at least 2 hits
-									else if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + ApsToPunch( pSoldier )) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1))
-									{
-										BestStab.iAttackValue /= 3; 
-									}
-								}
-							}
-							else 
-							{
-								if ( !HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) && !HAS_SKILL_TRAIT( pSoldier, HANDTOHAND_OT ) )
-								{
-									// if we are not specialized, reduce the attack attractiveness generaly
-									BestStab.iAttackValue /= 4; 
-									// if too far and not having APs for at least 3 hits
-									if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + (2 * (ApsToPunch( pSoldier )))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)) )
-									{
-										BestStab.ubPossible = 0; 
-										BestStab.iAttackValue = 0; 
-									}
-								}
-								else
-								{
-									BestStab.iAttackValue = ((BestStab.iAttackValue * 3)/2); 
-
-									if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
-									{
-										BestStab.iAttackValue = ((BestStab.iAttackValue * 3)/2); 
-									}
-									// if too far and not having APs for at least 2 hits
-									else if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + ApsToPunch( pSoldier )) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)) )
-									{
-										BestStab.iAttackValue /= 3;
-									}
-								}
-							}
-							// now we KNOW FOR SURE that we will do something (stab, at least)
-							NPCDoesAct(pSoldier);
-							DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPC decided to punch");
-						}
-					}	
-					// if it was in his holster, swap it back into his holster for now
-					if (bWeaponIn != HANDPOS)
-					{
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"about to rearrange pocket after punch check");
-						RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
-					}
-				}
-			}
-			/////////////////////////////////////////////////////////////////////////////////////////////////////
-
-			//////////////////////////////////////////////////////////////////////////
-			// CHOOSE THE BEST TYPE OF ATTACK OUT OF THOSE FOUND TO BE POSSIBLE
-			//////////////////////////////////////////////////////////////////////////
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CHOOSE THE BEST TYPE OF ATTACK OUT OF THOSE FOUND TO BE POSSIBLE");
-			
-			BestAttack.iAttackValue = 0;
-
-			if (BestStab.ubPossible && ((BestStab.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)))
-			{
-				// zombies are always punching...
-				BestAttack.iAttackValue = BestStab.iAttackValue;
-				ubBestAttackAction = AI_ACTION_KNIFE_MOVE;
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"best action = move to punch");
-				////////////////////////////////////////////////////////////////////////////////////
-			}
-			
-			if ( ( ubBestAttackAction == AI_ACTION_NONE ) && fTryPunching )
-			{
-				// nothing (else) to attack with so let's try hand-to-hand
-				bWeaponIn = FindObj( pSoldier, NOTHING, HANDPOS, NUM_INV_SLOTS );
-
-				if (bWeaponIn != NO_SLOT)
-				{
-					BestStab.bWeaponIn = bWeaponIn;
-					// if it's in his holster, swap it into his hand temporarily
-					if (bWeaponIn != HANDPOS)
-					{
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: swap knife into hand");
-						RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
-					}
-
-				// get the minimum cost to attack by HTH
-				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0,0);
-
-					// if we can afford the minimum AP cost to use HTH combat
-					if (pSoldier->bActionPoints >= ubMinAPCost)
-					{
-						// then look around for a worthy target (which sets BestStab.ubPossible)
-						CalcBestStab(pSoldier,&BestStab, FALSE);
-
-						if (BestStab.ubPossible && pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE)
-						{
-							// now we KNOW FOR SURE that we will do something (stab, at least)
-							NPCDoesAct(pSoldier);
-							ubBestAttackAction = AI_ACTION_KNIFE_MOVE;
-							DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPC decided to move to stab");
-						}
-					}
-
-					// if it was in his holster, swap it back into his holster for now
-					if (bWeaponIn != HANDPOS)
-					{
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: about to put knife away");
-						RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
-					}
-				}
-			}
-
-			
-			// copy the information on the best action selected into BestAttack struct
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"copy the information on the best action selected into BestAttack struct");
-			switch (ubBestAttackAction)
-			{
-			case AI_ACTION_KNIFE_MOVE:
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: best attack = stab with a knife");
-				memcpy(&BestAttack,&BestStab,sizeof(BestAttack));
-				break;
-
-			default:
-				// set to empty
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: best attack = no good attack");
-				memset( &BestAttack, 0, sizeof( BestAttack ) );
-				break;
-			}
-		}
-
-		// NB a desire of 4 or more is only achievable by brave/aggressive guys with high morale
-		//UINT16 usRange = GetModifiedGunRange(pSoldier->inv[ BestAttack.bWeaponIn ].usItem);//dnl ch69 150913 not in use
-			
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: DECIDE BETWEEN ATTACKING AND DEFENDING (TAKING COVER)");
 		//////////////////////////////////////////////////////////////////////////
-		// IF NECESSARY, DECIDE BETWEEN ATTACKING AND DEFENDING (TAKING COVER)
+		// GO STAB AN OPPONENT WITH A KNIFE
 		//////////////////////////////////////////////////////////////////////////
 
-		// if both are possible	
-		if ((ubBestAttackAction != AI_ACTION_NONE) && ( !TileIsOutOfBounds(sBestCover)))
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GO STAB AN OPPONENT WITH A KNIFE");
+		// if soldier has a knife in his hand
+		bWeaponIn = FindAIUsableObjClass( pSoldier, (IC_BLADE | IC_THROWING_KNIFE) );
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SANDRO - even if we don't have any blade, calculate how much damage we could do unarmed
+		if ( !TANK( pSoldier) )
 		{
-			// gotta compare their merits and select the more desirable option
-			iOffense = BestAttack.ubChanceToReallyHit;
-			iDefense = iCoverPercentBetter;
-
-			// based on how we feel about the situation, decide whether to attack first
-			switch (pSoldier->aiData.bAIMorale)
+			bWeaponIn = FindAIUsableObjClass( pSoldier, IC_PUNCH );
+			if (bWeaponIn == NO_SLOT) // if no punch-type weapon found, just calculate it with empty hands
 			{
-			case MORALE_FEARLESS:
-				iOffense += iOffense / 2;	// increase 50%
-				break;
-
-			case MORALE_CONFIDENT:
-				iOffense += iOffense / 4;	// increase 25%
-				break;
-
-			case MORALE_NORMAL:
-				break;
-
-			case MORALE_WORRIED:
-				iDefense += iDefense / 4;	// increase 25%
-				break;
-
-			case MORALE_HOPELESS:
-				iDefense += iDefense / 2;	// increase 50%
-				break;
+				bWeaponIn = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
 			}
-
-
-			// smart guys more likely to try to stay alive, dolts more likely to shoot!
-			if (pSoldier->stats.bWisdom >= 50) //Madd: reduced the wisdom required to want to live...
-				iDefense += 10;
-			else if (pSoldier->stats.bWisdom < 30)
-				iDefense -= 10;
-
-			// some orders are more offensive, others more defensive
-			if (pSoldier->aiData.bOrders == SEEKENEMY)
-				iOffense += 10;
-			else if ((pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD) || pSoldier->aiData.bOrders == SNIPER )
-				iDefense += 10;
-
-			switch (pSoldier->aiData.bAttitude)
+			if (bWeaponIn != NO_SLOT)
 			{
-			case DEFENSIVE:		iDefense += 30; break;
-			case BRAVESOLO:		iDefense -= 0; break;
-			case BRAVEAID:			iDefense -= 0; break;
-			case CUNNINGSOLO:	iDefense += 20; break;
-			case CUNNINGAID:		iDefense += 20; break;
-			case AGGRESSIVE:		iOffense += 10; break;
-			case ATTACKSLAYONLY:iOffense += 30; break;
-			}
-
-	#ifdef DEBUGDECISIONS
-			STR tempstr="";
-			sprintf( tempstr, "%s - CHOICE: iOffense = %d, iDefense = %d\n",
-				pSoldier->name,iOffense,iDefense);
-			DebugAI( tempstr );
-	#endif
-
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: if his defensive instincts win out, forget all about the attack");
-			// if his defensive instincts win out, forget all about the attack
-			if (iDefense > iOffense)
-				ubBestAttackAction = AI_ACTION_NONE;
-		}
-
-
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: is attack still desirable?  ubBestAttackAction = %d",ubBestAttackAction));
-
-		// if attack is still desirable (meaning it's also preferred to taking cover)
-		if (ubBestAttackAction != AI_ACTION_NONE)
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: attack is still desirable (meaning it's also preferred to taking cover)");
-			// if we wanted to be REALLY mean, we could look at chance to hit and decide whether
-			// to shoot at the head...
-
-			fChangeStanceFirst = FALSE;
-
-			// default settings
-			//POSSIBLE STRUCTURE CHANGE PROBLEM, NOT CURRENTLY CHANGED. GOTTHARD 7/14/08		
-			pSoldier->aiData.bAimTime = BestAttack.ubAimTime;
-			pSoldier->bDoBurst			= 0;
-
-			// HEADROCK HAM 3.6: bAimTime represents how MANY aiming levels are used, not how much APs they cost necessarily.
-			INT16 sActualAimTime = CalcAPCostForAiming( pSoldier, BestAttack.sTarget, (INT8)pSoldier->aiData.bAimTime );
-
-			if (ubBestAttackAction == AI_ACTION_KNIFE_MOVE && gGameOptions.fNewTraitSystem)
-			{
-				pSoldier->aiData.bAimTime = 0;
-
-				if (Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].usItemClass == IC_PUNCH)
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"try to punch");
+				BestStab.bWeaponIn = bWeaponIn;
+				// if it's in his holster, swap it into his hand temporarily
+				if (bWeaponIn != HANDPOS)
 				{
-					if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT))
-					{
-						if( PreRandom( (gGameExternalOptions.fEnhancedCloseCombatSystem ? 2 : 0) + 2 * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT) ) > 2 )
-						{
-							pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6);
-						}
-					}
-				}
-				else
-				{
-					if (HAS_SKILL_TRAIT( pSoldier, MELEE_NT))
-					{
-						if( PreRandom( gGameExternalOptions.fEnhancedCloseCombatSystem ? 3 : 1 ) > 0 )
-						{
-							pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6);
-						}
-					}
-				}
-			}
-
-			//////////////////////////////////////////////////////////////////////////
-			// OTHERWISE, JUST GO AHEAD & ATTACK!
-			//////////////////////////////////////////////////////////////////////////
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"OTHERWISE, JUST GO AHEAD & ATTACK!");
-			
-			// swap weapon to hand if necessary
-			if (BestAttack.bWeaponIn != HANDPOS)
-			{
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: swap weapon into hand");
-				RearrangePocket(pSoldier,HANDPOS,BestAttack.bWeaponIn,FOREVER);
-			}
-
-			if (fChangeStanceFirst)
-			{ // currently only for guns...
-				pSoldier->aiData.bNextAction = AI_ACTION_FIRE_GUN;
-				pSoldier->aiData.usNextActionData = BestAttack.sTarget;
-				pSoldier->aiData.bNextTargetLevel = BestAttack.bTargetLevel;
-				pSoldier->aiData.usActionData = ubBestStance;
-				return( AI_ACTION_CHANGE_STANCE );
-			}
-			else
-			{
-				pSoldier->aiData.usActionData = BestAttack.sTarget;
-				pSoldier->bTargetLevel = BestAttack.bTargetLevel;
-
-	#ifdef DEBUGDECISIONS
-				STR tempstr="";
-				sprintf( tempstr,
-					"%d(%s) %s %d(%s) at gridno %d (%d APs aim)\n",
-					pSoldier->ubID,pSoldier->name,
-					(ubBestAttackAction == AI_ACTION_FIRE_GUN)?"SHOOTS":((ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE)?"TOSSES AT":"STABS"),
-					BestAttack.ubOpponent,pSoldier->name ,
-					BestAttack.sTarget,BestAttack.ubAimTime );
-				DebugAI( tempstr);
-	#endif
-
-				//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("DecideActionBlack: Check for GL Bursts, is launcher capable? = %d, rtpcombat? = %d, bestattackaction = %d",IsGunBurstCapable( pSoldier, BestAttack.bWeaponIn, FALSE ),pSoldier->aiData.bRTPCombat,ubBestAttackAction ));
-				//should be a bug
-				DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("DecideActionBlack: Check for GL Bursts, is launcher capable? = %d, rtpcombat? = %d, bestattackaction = %d",IsGunBurstCapable( &pSoldier->inv[BestAttack.bWeaponIn], FALSE, pSoldier ),pSoldier->aiData.bRTPCombat,ubBestAttackAction ));
-				if (ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE && (Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].usItemClass == IC_LAUNCHER && IsGunBurstCapable( &pSoldier->inv[BestAttack.bWeaponIn], FALSE, pSoldier )) &&
-					(pSoldier->bTeam != gbPlayerNum || pSoldier->aiData.bRTPCombat == RTP_COMBAT_AGGRESSIVE) )
-				{
-
-					DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing burst calc");
-					ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier );
-
-					if ( (pSoldier->bActionPoints - BestAttack.ubAPCost) >= ubBurstAPs )
-					{
-						// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
-						if ( TANK( pSoldier ) )
-						{
-							iChance = 100;
-						}
-						else
-						{
-							iChance = 50;
-							switch (pSoldier->aiData.bAttitude)
-							{
-							case DEFENSIVE:		iChance += -5; break;
-							case BRAVESOLO:		iChance +=  5; break;
-							case BRAVEAID:		iChance +=  5; break;
-							case CUNNINGSOLO:	iChance +=  0; break;
-							case CUNNINGAID:	iChance +=  0; break;
-							case AGGRESSIVE:	iChance += 10; break;
-							case ATTACKSLAYONLY:iChance += 30; break;
-							}
-							// increase chance based on proximity and difficulty of enemy
-							DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("DecideActionBlack: check chance to gl burst"));
-							iChance += ( 15 - PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) ) * ( 1 + SoldierDifficultyLevel( pSoldier ) );
-						}
-
-						if ( (INT32) PreRandom( 100 ) < iChance)
-						{
-							DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing GL burst");
-							BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[HANDPOS]), pSoldier );
-							// check for spread burst possibilities
-							if (pSoldier->aiData.bAttitude != ATTACKSLAYONLY)
-							{
-								CalcSpreadBurst( pSoldier, BestAttack.sTarget, BestAttack.bTargetLevel );
-							}
-							//dnl ch58 140913 After HAM 4 BURSTING is not in use any more, for burst bDoAutofire must be set to 0
-							pSoldier->bDoBurst = 1;
-							pSoldier->bDoAutofire = 0;
-						}
-					}
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: about to rearrange pocket before punch check");
+					RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
 				}
 
-
-				return(ubBestAttackAction);
-			}
-
-		}
-
-		// end of tank AI
-		if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || TANK( pSoldier ) )
-		{
-			return( AI_ACTION_NONE );
-		}
-					
-		// get the location of the closest reachable opponent
-		/*	Flugente 22.02.2012 - A few clarifications: I changed ClosestSeenOpponent so that for zombies, this function also returns an opponent if he is on the
-		*	roof of a building, we are not, but our GridNo belongs to that same building. 
-		*	If that is the case, it is clear that we have to get on that roof. However, we cannot do that in BlackState. If, by pure chance, we can still see our
-		*	enemy, we cannot climb (there is  no climbing option in BlackState sofar).
-		*	So, I changed the code so that now we will climb the roof.
-		*/
-		INT32	targetGridNo = -1;
-		INT8	targetbLevel =  0;
-		sClosestOpponent = ClosestSeenOpponentWithRoof(pSoldier, &targetGridNo, &targetbLevel);
-		if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE )
-		{
-			if (!TileIsOutOfBounds(sClosestOpponent) && ! ( (targetbLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, targetGridNo ) ) )
-			{
-				//////////////////////////////////////////////////////////////////////
-				// GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
-				//////////////////////////////////////////////////////////////////////
-
-				// try to move towards him
-				pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards(pSoldier,sClosestOpponent,AI_ACTION_GET_CLOSER);
-
-				// if it's possible			
-				if (!TileIsOutOfBounds(sClosestOpponent))
+				// get the minimum cost to attack with punch
+				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0);
+				// if we can afford the minimum AP cost to punch
+				if (pSoldier->bActionPoints >= ubMinAPCost)
 				{
-					if (targetbLevel != pSoldier->pathing.bLevel && gGameExternalOptions.fZombieCanClimb )
-						return(AI_ACTION_MOVE_TO_CLIMB);
-					else
+					// then look around for a worthy target (which sets BestStab.ubPossible)
+					CalcBestStab(pSoldier,&BestStab, FALSE);
+
+					if (BestStab.ubPossible)
 					{
-						// Flugente: if on the same level and there is a jumpable window here, jump through it
-						if ( gGameExternalOptions.fZombieCanJumpWindows && targetbLevel == pSoldier->pathing.bLevel && targetbLevel == 0 )
+						// if we have not enough APs to deal at least two or three punches, 
+						// reduce the attack value as one punch ain't much
+						if( gGameOptions.fNewTraitSystem )
 						{
-							// determine if there is a jumpable window in the direction to our target
-							// if yes, and we are not facing it, face it now
-							// if yes, and we are facing it, jump
-							// if no, go on, nothing to see here
-							// determine direction of our target
-							INT8 targetdirection = (INT8)GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
-
-							// determine if there is a jumpable window here, in the direction of our target
-							// store old direction for this check
-							INT tmpdirection = pSoldier->ubDirection;
-							pSoldier->ubDirection = targetdirection;
-
-							INT8 windowdirection = DIRECTION_IRRELEVANT;
-							if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == windowdirection )
-							{
-								pSoldier->ubDirection = tmpdirection;
-
-								// are we already looking in that direction?
-								if ( pSoldier->ubDirection == targetdirection )
+							// if we are not specialized, reduce the attack attractiveness generaly
+							if ( !HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) )
+							{								
+								// if too far and not having APs for at least 3 hits no way to attack
+								if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + (2 * (ApsToPunch( pSoldier )))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1) ) 
 								{
-									// jump through the window
-									return(AI_ACTION_JUMP_WINDOW);
+									BestStab.ubPossible = 0; 
+									BestStab.iAttackValue = 0; 
 								}
-								else
-								{
-									// look into that direction
-									if ( pSoldier->InternalIsValidStance( targetdirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-									{
-										pSoldier->aiData.usActionData = targetdirection;
-										return(AI_ACTION_CHANGE_FACING);
-									}
-
-								}
-							}
-
-							pSoldier->ubDirection = tmpdirection;
-						}
-
-						return(AI_ACTION_SEEK_OPPONENT);
-				}
-			}
-			}
-			// The situation mentioned above happens...
-			else if ( (targetbLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, targetGridNo ) )
-			{
-				if ( gGameExternalOptions.fZombieCanClimb )
-				{
-					if (!TileIsOutOfBounds(targetGridNo) )
-					{
-						// need to climb AND have enough APs to get there this turn
-						BOOLEAN fUp = TRUE;
-						if (pSoldier->pathing.bLevel > 0 )
-							fUp = FALSE;
-
-						if ( pSoldier->bActionPoints > GetAPsToClimbRoof ( pSoldier, fUp ) )
-						{
-							pSoldier->aiData.usActionData = targetGridNo;//FindClosestClimbPoint(pSoldier, fUp );
-
-							// Necessary test: can we climb up at this position? It might happen that our target is directly above us, then we'll have to move
-							INT8 newdirection;
-							if ( ( fUp && FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) || ( !fUp && FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) )
-							{							
-								return( AI_ACTION_CLIMB_ROOF );
 							}
 							else
 							{
-								return(AI_ACTION_SEEK_OPPONENT);
+								if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
+								{
+									BestStab.iAttackValue = (BestStab.iAttackValue * 2); 
+								}
+								// if too far and not having APs for at least 2 hits
+								else if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + ApsToPunch( pSoldier )) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1))
+								{
+									BestStab.iAttackValue /= 3; 
+								}
 							}
 						}
-					}	
+						else 
+						{
+							if ( !HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) && !HAS_SKILL_TRAIT( pSoldier, HANDTOHAND_OT ) )
+							{
+								// if we are not specialized, reduce the attack attractiveness generaly
+								BestStab.iAttackValue /= 4; 
+								// if too far and not having APs for at least 3 hits
+								if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + (2 * (ApsToPunch( pSoldier )))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)) )
+								{
+									BestStab.ubPossible = 0; 
+									BestStab.iAttackValue = 0; 
+								}
+							}
+							else
+							{
+								BestStab.iAttackValue = ((BestStab.iAttackValue * 3)/2); 
+
+								if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
+								{
+									BestStab.iAttackValue = ((BestStab.iAttackValue * 3)/2); 
+								}
+								// if too far and not having APs for at least 2 hits
+								else if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + ApsToPunch( pSoldier )) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)) )
+								{
+									BestStab.iAttackValue /= 3;
+								}
+							}
+						}
+						// now we KNOW FOR SURE that we will do something (stab, at least)
+						NPCDoesAct(pSoldier);
+						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPC decided to punch");
+					}
+				}	
+				// if it was in his holster, swap it back into his holster for now
+				if (bWeaponIn != HANDPOS)
+				{
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"about to rearrange pocket after punch check");
+					RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
 				}
 			}
 		}
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//////////////////////////////////////////////////////////////////////////
+		// CHOOSE THE BEST TYPE OF ATTACK OUT OF THOSE FOUND TO BE POSSIBLE
+		//////////////////////////////////////////////////////////////////////////
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CHOOSE THE BEST TYPE OF ATTACK OUT OF THOSE FOUND TO BE POSSIBLE");
 			
-		////////////////////////////////////////////////////////////////////////////
-		// TURN TO FACE CLOSEST KNOWN OPPONENT (IF NOT FACING THERE ALREADY)
-		////////////////////////////////////////////////////////////////////////////
+		BestAttack.iAttackValue = 0;
 
-		if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
+		if (BestStab.ubPossible && ((BestStab.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)))
 		{
-			// hopeless guys shouldn't waste their time this way, UNLESS they CAN move
-			// but chose not to to get this far (which probably means they're cornered)
-			// ALSO, don't bother turning if we're already aiming a gun
-			if ( !gfHiddenInterrupt && ((pSoldier->aiData.bAIMorale > MORALE_HOPELESS) || ubCanMove) && !AimingGun(pSoldier))
+			// zombies are always punching...
+			BestAttack.iAttackValue = BestStab.iAttackValue;
+			ubBestAttackAction = AI_ACTION_KNIFE_MOVE;
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"best action = move to punch");
+			////////////////////////////////////////////////////////////////////////////////////
+		}
+			
+		if ( ( ubBestAttackAction == AI_ACTION_NONE ) && fTryPunching )
+		{
+			// nothing (else) to attack with so let's try hand-to-hand
+			bWeaponIn = FindObj( pSoldier, NOTHING, HANDPOS, NUM_INV_SLOTS );
+
+			if (bWeaponIn != NO_SLOT)
 			{
-				// determine the location of the known closest opponent
-				// (don't care if he's conscious, don't care if he's reachable at all)
-
-
-				sClosestOpponent = ClosestSeenOpponent(pSoldier, NULL, NULL);
-				// if we have a closest reachable opponent			
-				if (!TileIsOutOfBounds(sClosestOpponent))
+				BestStab.bWeaponIn = bWeaponIn;
+				// if it's in his holster, swap it into his hand temporarily
+				if (bWeaponIn != HANDPOS)
 				{
-					bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: swap knife into hand");
+					RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
+				}
 
-					// if we're not facing towards him
-					if ( pSoldier->ubDirection != bDirection && pSoldier->InternalIsValidStance( bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+			// get the minimum cost to attack by HTH
+			ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST,0,0);
+
+				// if we can afford the minimum AP cost to use HTH combat
+				if (pSoldier->bActionPoints >= ubMinAPCost)
+				{
+					// then look around for a worthy target (which sets BestStab.ubPossible)
+					CalcBestStab(pSoldier,&BestStab, FALSE);
+
+					if (BestStab.ubPossible && pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE)
 					{
-						pSoldier->aiData.usActionData = bDirection;
+						// now we KNOW FOR SURE that we will do something (stab, at least)
+						NPCDoesAct(pSoldier);
+						ubBestAttackAction = AI_ACTION_KNIFE_MOVE;
+						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPC decided to move to stab");
+					}
+				}
 
-	#ifdef DEBUGDECISIONS
-						sprintf(tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->aiData.usActionData);
-						AIPopMessage(tempstr);
-	#endif
+				// if it was in his holster, swap it back into his holster for now
+				if (bWeaponIn != HANDPOS)
+				{
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: about to put knife away");
+					RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
+				}
+			}
+		}
 
-						return(AI_ACTION_CHANGE_FACING);
+			
+		// copy the information on the best action selected into BestAttack struct
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"copy the information on the best action selected into BestAttack struct");
+		switch (ubBestAttackAction)
+		{
+		case AI_ACTION_KNIFE_MOVE:
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: best attack = stab with a knife");
+			memcpy(&BestAttack,&BestStab,sizeof(BestAttack));
+			break;
+
+		default:
+			// set to empty
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: best attack = no good attack");
+			memset( &BestAttack, 0, sizeof( BestAttack ) );
+			break;
+		}
+	}
+
+	// NB a desire of 4 or more is only achievable by brave/aggressive guys with high morale
+	//UINT16 usRange = GetModifiedGunRange(pSoldier->inv[ BestAttack.bWeaponIn ].usItem);//dnl ch69 150913 not in use
+			
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: DECIDE BETWEEN ATTACKING AND DEFENDING (TAKING COVER)");
+	//////////////////////////////////////////////////////////////////////////
+	// IF NECESSARY, DECIDE BETWEEN ATTACKING AND DEFENDING (TAKING COVER)
+	//////////////////////////////////////////////////////////////////////////
+
+	// if both are possible	
+	if ((ubBestAttackAction != AI_ACTION_NONE) && ( !TileIsOutOfBounds(sBestCover)))
+	{
+		// gotta compare their merits and select the more desirable option
+		iOffense = BestAttack.ubChanceToReallyHit;
+		iDefense = iCoverPercentBetter;
+
+		// based on how we feel about the situation, decide whether to attack first
+		switch (pSoldier->aiData.bAIMorale)
+		{
+		case MORALE_FEARLESS:
+			iOffense += iOffense / 2;	// increase 50%
+			break;
+
+		case MORALE_CONFIDENT:
+			iOffense += iOffense / 4;	// increase 25%
+			break;
+
+		case MORALE_NORMAL:
+			break;
+
+		case MORALE_WORRIED:
+			iDefense += iDefense / 4;	// increase 25%
+			break;
+
+		case MORALE_HOPELESS:
+			iDefense += iDefense / 2;	// increase 50%
+			break;
+		}
+
+
+		// smart guys more likely to try to stay alive, dolts more likely to shoot!
+		if (pSoldier->stats.bWisdom >= 50) //Madd: reduced the wisdom required to want to live...
+			iDefense += 10;
+		else if (pSoldier->stats.bWisdom < 30)
+			iDefense -= 10;
+
+		// some orders are more offensive, others more defensive
+		if (pSoldier->aiData.bOrders == SEEKENEMY)
+			iOffense += 10;
+		else if ((pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD) || pSoldier->aiData.bOrders == SNIPER )
+			iDefense += 10;
+
+		switch (pSoldier->aiData.bAttitude)
+		{
+		case DEFENSIVE:		iDefense += 30; break;
+		case BRAVESOLO:		iDefense -= 0; break;
+		case BRAVEAID:			iDefense -= 0; break;
+		case CUNNINGSOLO:	iDefense += 20; break;
+		case CUNNINGAID:		iDefense += 20; break;
+		case AGGRESSIVE:		iOffense += 10; break;
+		case ATTACKSLAYONLY:iOffense += 30; break;
+		}
+
+#ifdef DEBUGDECISIONS
+		STR tempstr="";
+		sprintf( tempstr, "%s - CHOICE: iOffense = %d, iDefense = %d\n",
+			pSoldier->name,iOffense,iDefense);
+		DebugAI( tempstr );
+#endif
+
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: if his defensive instincts win out, forget all about the attack");
+		// if his defensive instincts win out, forget all about the attack
+		if (iDefense > iOffense)
+			ubBestAttackAction = AI_ACTION_NONE;
+	}
+
+
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: is attack still desirable?  ubBestAttackAction = %d",ubBestAttackAction));
+
+	// if attack is still desirable (meaning it's also preferred to taking cover)
+	if (ubBestAttackAction != AI_ACTION_NONE)
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: attack is still desirable (meaning it's also preferred to taking cover)");
+		// if we wanted to be REALLY mean, we could look at chance to hit and decide whether
+		// to shoot at the head...
+
+		fChangeStanceFirst = FALSE;
+
+		// default settings
+		//POSSIBLE STRUCTURE CHANGE PROBLEM, NOT CURRENTLY CHANGED. GOTTHARD 7/14/08		
+		pSoldier->aiData.bAimTime = BestAttack.ubAimTime;
+		pSoldier->bDoBurst			= 0;
+
+		// HEADROCK HAM 3.6: bAimTime represents how MANY aiming levels are used, not how much APs they cost necessarily.
+		INT16 sActualAimTime = CalcAPCostForAiming( pSoldier, BestAttack.sTarget, (INT8)pSoldier->aiData.bAimTime );
+
+		if (ubBestAttackAction == AI_ACTION_KNIFE_MOVE && gGameOptions.fNewTraitSystem)
+		{
+			pSoldier->aiData.bAimTime = 0;
+
+			if (Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].usItemClass == IC_PUNCH)
+			{
+				if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT))
+				{
+					if( PreRandom( (gGameExternalOptions.fEnhancedCloseCombatSystem ? 2 : 0) + 2 * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT) ) > 2 )
+					{
+						pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6);
+					}
+				}
+			}
+			else
+			{
+				if (HAS_SKILL_TRAIT( pSoldier, MELEE_NT))
+				{
+					if( PreRandom( gGameExternalOptions.fEnhancedCloseCombatSystem ? 3 : 1 ) > 0 )
+					{
+						pSoldier->aiData.bAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6);
 					}
 				}
 			}
 		}
-				
-		////////////////////////////////////////////////////////////////////////////
-		// DO NOTHING: Not enough points left to move, so save them for next turn
-		////////////////////////////////////////////////////////////////////////////
 
-	#ifdef DEBUGDECISIONS
-		AINameMessage(pSoldier,"- DOES NOTHING (BLACK)",1000);
-	#endif
+		//////////////////////////////////////////////////////////////////////////
+		// OTHERWISE, JUST GO AHEAD & ATTACK!
+		//////////////////////////////////////////////////////////////////////////
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"OTHERWISE, JUST GO AHEAD & ATTACK!");
+			
+		// swap weapon to hand if necessary
+		if (BestAttack.bWeaponIn != HANDPOS)
+		{
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: swap weapon into hand");
+			RearrangePocket(pSoldier,HANDPOS,BestAttack.bWeaponIn,FOREVER);
+		}
 
-		// by default, if everything else fails, just stand in place and wait
-		pSoldier->aiData.usActionData = NOWHERE;
-		return(AI_ACTION_NONE);
+		if (fChangeStanceFirst)
+		{ // currently only for guns...
+			pSoldier->aiData.bNextAction = AI_ACTION_FIRE_GUN;
+			pSoldier->aiData.usNextActionData = BestAttack.sTarget;
+			pSoldier->aiData.bNextTargetLevel = BestAttack.bTargetLevel;
+			pSoldier->aiData.usActionData = ubBestStance;
+			return( AI_ACTION_CHANGE_STANCE );
+		}
+		else
+		{
+			pSoldier->aiData.usActionData = BestAttack.sTarget;
+			pSoldier->bTargetLevel = BestAttack.bTargetLevel;
+
+#ifdef DEBUGDECISIONS
+			STR tempstr="";
+			sprintf( tempstr,
+				"%d(%s) %s %d(%s) at gridno %d (%d APs aim)\n",
+				pSoldier->ubID,pSoldier->name,
+				(ubBestAttackAction == AI_ACTION_FIRE_GUN)?"SHOOTS":((ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE)?"TOSSES AT":"STABS"),
+				BestAttack.ubOpponent,pSoldier->name ,
+				BestAttack.sTarget,BestAttack.ubAimTime );
+			DebugAI( tempstr);
+#endif
+
+			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("DecideActionBlack: Check for GL Bursts, is launcher capable? = %d, rtpcombat? = %d, bestattackaction = %d",IsGunBurstCapable( pSoldier, BestAttack.bWeaponIn, FALSE ),pSoldier->aiData.bRTPCombat,ubBestAttackAction ));
+			//should be a bug
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("DecideActionBlack: Check for GL Bursts, is launcher capable? = %d, rtpcombat? = %d, bestattackaction = %d",IsGunBurstCapable( &pSoldier->inv[BestAttack.bWeaponIn], FALSE, pSoldier ),pSoldier->aiData.bRTPCombat,ubBestAttackAction ));
+			if (ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE && (Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].usItemClass == IC_LAUNCHER && IsGunBurstCapable( &pSoldier->inv[BestAttack.bWeaponIn], FALSE, pSoldier )) &&
+				(pSoldier->bTeam != gbPlayerNum || pSoldier->aiData.bRTPCombat == RTP_COMBAT_AGGRESSIVE) )
+			{
+
+				DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing burst calc");
+				ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier );
+
+				if ( (pSoldier->bActionPoints - BestAttack.ubAPCost) >= ubBurstAPs )
+				{
+					// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
+					if ( TANK( pSoldier ) )
+					{
+						iChance = 100;
+					}
+					else
+					{
+						iChance = 50;
+						switch (pSoldier->aiData.bAttitude)
+						{
+						case DEFENSIVE:		iChance += -5; break;
+						case BRAVESOLO:		iChance +=  5; break;
+						case BRAVEAID:		iChance +=  5; break;
+						case CUNNINGSOLO:	iChance +=  0; break;
+						case CUNNINGAID:	iChance +=  0; break;
+						case AGGRESSIVE:	iChance += 10; break;
+						case ATTACKSLAYONLY:iChance += 30; break;
+						}
+						// increase chance based on proximity and difficulty of enemy
+						DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("DecideActionBlack: check chance to gl burst"));
+						iChance += ( 15 - PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) ) * ( 1 + SoldierDifficultyLevel( pSoldier ) );
+					}
+
+					if ( (INT32) PreRandom( 100 ) < iChance)
+					{
+						DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: Doing GL burst");
+						BestAttack.ubAPCost = BestAttack.ubAPCost + CalcAPsToBurst( pSoldier->CalcActionPoints(), &(pSoldier->inv[HANDPOS]), pSoldier );
+						// check for spread burst possibilities
+						if (pSoldier->aiData.bAttitude != ATTACKSLAYONLY)
+						{
+							CalcSpreadBurst( pSoldier, BestAttack.sTarget, BestAttack.bTargetLevel );
+						}
+						//dnl ch58 140913 After HAM 4 BURSTING is not in use any more, for burst bDoAutofire must be set to 0
+						pSoldier->bDoBurst = 1;
+						pSoldier->bDoAutofire = 0;
+					}
+				}
+			}
+
+
+			return(ubBestAttackAction);
+		}
 
 	}
 
-	INT8 ZombieDecideAction( SOLDIERTYPE *pSoldier )
+	// end of tank AI
+	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || TANK( pSoldier ) )
 	{
-		INT8 bAction = AI_ACTION_NONE;
-			
-		switch (pSoldier->aiData.bAlertStatus)
+		return( AI_ACTION_NONE );
+	}
+					
+	// get the location of the closest reachable opponent
+	/*	Flugente 22.02.2012 - A few clarifications: I changed ClosestSeenOpponent so that for zombies, this function also returns an opponent if he is on the
+	*	roof of a building, we are not, but our GridNo belongs to that same building. 
+	*	If that is the case, it is clear that we have to get on that roof. However, we cannot do that in BlackState. If, by pure chance, we can still see our
+	*	enemy, we cannot climb (there is  no climbing option in BlackState sofar).
+	*	So, I changed the code so that now we will climb the roof.
+	*/
+	INT32	targetGridNo = -1;
+	INT8	targetbLevel =  0;
+	sClosestOpponent = ClosestSeenOpponentWithRoof(pSoldier, &targetGridNo, &targetbLevel);
+	if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE )
+	{
+		if (!TileIsOutOfBounds(sClosestOpponent) && ! ( (targetbLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, targetGridNo ) ) )
 		{
-			case STATUS_GREEN:
-				#ifdef DEBUGDECISIONS
-					AIPopMessage("AlertStatus = GREEN");
-				#endif
-				bAction = ZombieDecideActionGreen(pSoldier);
+			//////////////////////////////////////////////////////////////////////
+			// GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
+			//////////////////////////////////////////////////////////////////////
+
+			// try to move towards him
+			pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards(pSoldier,sClosestOpponent,AI_ACTION_GET_CLOSER);
+
+			// if it's possible			
+			if (!TileIsOutOfBounds(sClosestOpponent))
+			{
+				if (targetbLevel != pSoldier->pathing.bLevel && gGameExternalOptions.fZombieCanClimb )
+					return(AI_ACTION_MOVE_TO_CLIMB);
+				else
+				{
+					// Flugente: if on the same level and there is a jumpable window here, jump through it
+					if ( gGameExternalOptions.fZombieCanJumpWindows && targetbLevel == pSoldier->pathing.bLevel && targetbLevel == 0 )
+					{
+						// determine if there is a jumpable window in the direction to our target
+						// if yes, and we are not facing it, face it now
+						// if yes, and we are facing it, jump
+						// if no, go on, nothing to see here
+						// determine direction of our target
+						INT8 targetdirection = (INT8)GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sClosestOpponent);
+
+						// determine if there is a jumpable window here, in the direction of our target
+						// store old direction for this check
+						INT tmpdirection = pSoldier->ubDirection;
+						pSoldier->ubDirection = targetdirection;
+
+						INT8 windowdirection = DIRECTION_IRRELEVANT;
+						if ( FindWindowJumpDirection(pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &windowdirection) && targetdirection == windowdirection )
+						{
+							pSoldier->ubDirection = tmpdirection;
+
+							// are we already looking in that direction?
+							if ( pSoldier->ubDirection == targetdirection )
+							{
+								// jump through the window
+								return(AI_ACTION_JUMP_WINDOW);
+							}
+							else
+							{
+								// look into that direction
+								if ( pSoldier->InternalIsValidStance( targetdirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+								{
+									pSoldier->aiData.usActionData = targetdirection;
+									return(AI_ACTION_CHANGE_FACING);
+								}
+
+							}
+						}
+
+						pSoldier->ubDirection = tmpdirection;
+					}
+
+					return(AI_ACTION_SEEK_OPPONENT);
+			}
+		}
+		}
+		// The situation mentioned above happens...
+		else if ( (targetbLevel != pSoldier->pathing.bLevel) && SameBuilding( pSoldier->sGridNo, targetGridNo ) )
+		{
+			if ( gGameExternalOptions.fZombieCanClimb )
+			{
+				if (!TileIsOutOfBounds(targetGridNo) )
+				{
+					// need to climb AND have enough APs to get there this turn
+					BOOLEAN fUp = TRUE;
+					if (pSoldier->pathing.bLevel > 0 )
+						fUp = FALSE;
+
+					if ( pSoldier->bActionPoints > GetAPsToClimbRoof ( pSoldier, fUp ) )
+					{
+						pSoldier->aiData.usActionData = targetGridNo;//FindClosestClimbPoint(pSoldier, fUp );
+
+						// Necessary test: can we climb up at this position? It might happen that our target is directly above us, then we'll have to move
+						INT8 newdirection;
+						if ( ( fUp && FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) || ( !fUp && FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) )
+						{							
+							return( AI_ACTION_CLIMB_ROOF );
+						}
+						else
+						{
+							return(AI_ACTION_SEEK_OPPONENT);
+						}
+					}
+				}	
+			}
+		}
+	}
+			
+	////////////////////////////////////////////////////////////////////////////
+	// TURN TO FACE CLOSEST KNOWN OPPONENT (IF NOT FACING THERE ALREADY)
+	////////////////////////////////////////////////////////////////////////////
+
+	if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
+	{
+		// hopeless guys shouldn't waste their time this way, UNLESS they CAN move
+		// but chose not to to get this far (which probably means they're cornered)
+		// ALSO, don't bother turning if we're already aiming a gun
+		if ( !gfHiddenInterrupt && ((pSoldier->aiData.bAIMorale > MORALE_HOPELESS) || ubCanMove) && !AimingGun(pSoldier))
+		{
+			// determine the location of the known closest opponent
+			// (don't care if he's conscious, don't care if he's reachable at all)
+
+
+			sClosestOpponent = ClosestSeenOpponent(pSoldier, NULL, NULL);
+			// if we have a closest reachable opponent			
+			if (!TileIsOutOfBounds(sClosestOpponent))
+			{
+				bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
+
+				// if we're not facing towards him
+				if ( pSoldier->ubDirection != bDirection && pSoldier->InternalIsValidStance( bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+				{
+					pSoldier->aiData.usActionData = bDirection;
+
+#ifdef DEBUGDECISIONS
+					sprintf(tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->aiData.usActionData);
+					AIPopMessage(tempstr);
+#endif
+
+					return(AI_ACTION_CHANGE_FACING);
+				}
+			}
+		}
+	}
+				
+	////////////////////////////////////////////////////////////////////////////
+	// DO NOTHING: Not enough points left to move, so save them for next turn
+	////////////////////////////////////////////////////////////////////////////
+
+#ifdef DEBUGDECISIONS
+	AINameMessage(pSoldier,"- DOES NOTHING (BLACK)",1000);
+#endif
+
+	// by default, if everything else fails, just stand in place and wait
+	pSoldier->aiData.usActionData = NOWHERE;
+	return(AI_ACTION_NONE);
+
+}
+
+INT8 ZombieDecideAction( SOLDIERTYPE *pSoldier )
+{
+	INT8 bAction = AI_ACTION_NONE;
+			
+	switch (pSoldier->aiData.bAlertStatus)
+	{
+		case STATUS_GREEN:
+			#ifdef DEBUGDECISIONS
+				AIPopMessage("AlertStatus = GREEN");
+			#endif
+			bAction = ZombieDecideActionGreen(pSoldier);
+			break;
+
+		case STATUS_YELLOW:
+			#ifdef DEBUGDECISIONS
+				AIPopMessage("AlertStatus = YELLOW");
+			#endif
+			bAction = ZombieDecideActionYellow(pSoldier);
+		break;
+
+		case STATUS_RED:
+			#ifdef DEBUGDECISIONS
+				AIPopMessage("AlertStatus = RED");
+			#endif
+			bAction = ZombieDecideActionRed(pSoldier, TRUE);
+			break;
+
+		case STATUS_BLACK:
+			#ifdef DEBUGDECISIONS
+				AIPopMessage("AlertStatus = BLACK");
+			#endif
+			bAction = ZombieDecideActionBlack(pSoldier);
+			break;
+	}
+
+#ifdef DEBUGDECISIONS
+	STR tempstr;
+	sprintf( tempstr, "ZombieDecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->aiData.usActionData );
+	DebugAI(tempstr);
+#endif
+
+	return(bAction);
+}
+
+void ZombieDecideAlertStatus( SOLDIERTYPE *pSoldier )
+{
+	INT8	bOldStatus;
+	INT32	iDummy;
+	BOOLEAN	fClimbDummy, fReachableDummy;
+
+	// THE FOUR (4) POSSIBLE ALERT STATUSES ARE:
+	// GREEN - No one sensed, no suspicious noise heard, go about doing regular stuff
+	// YELLOW - Suspicious noise was heard personally
+	// RED - Either saw OPPONENTS in person, or definite contact had been called
+	// BLACK - Currently has one or more OPPONENTS in sight
+			
+	// save the man's previous status
+	bOldStatus = pSoldier->aiData.bAlertStatus;
+
+	// determine the current alert status for this category of man
+	if (pSoldier->aiData.bOppCnt > 0)		// opponent(s) in sight
+	{		
+		pSoldier->aiData.bAlertStatus = STATUS_BLACK;
+	}
+	else // no opponents are in sight
+	{
+		switch (bOldStatus)
+		{
+			case STATUS_BLACK:
+				// then drop back to RED status
+				pSoldier->aiData.bAlertStatus = STATUS_RED;
+				break;
+
+			case STATUS_RED:
+				// RED can never go back down below RED, only up to BLACK
+				// TODO: perhaps zombies might forget their target?	They are pretty dumb after all...
 				break;
 
 			case STATUS_YELLOW:
-				#ifdef DEBUGDECISIONS
-					AIPopMessage("AlertStatus = YELLOW");
-				#endif
-				bAction = ZombieDecideActionYellow(pSoldier);
-			break;
-
-			case STATUS_RED:
-				#ifdef DEBUGDECISIONS
-					AIPopMessage("AlertStatus = RED");
-				#endif
-				bAction = ZombieDecideActionRed(pSoldier, TRUE);
-				break;
-
-			case STATUS_BLACK:
-				#ifdef DEBUGDECISIONS
-					AIPopMessage("AlertStatus = BLACK");
-				#endif
-				bAction = ZombieDecideActionBlack(pSoldier);
-				break;
-		}
-
-	#ifdef DEBUGDECISIONS
-		STR tempstr;
-		sprintf( tempstr, "ZombieDecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->aiData.usActionData );
-		DebugAI(tempstr);
-	#endif
-
-		return(bAction);
-	}
-
-	void ZombieDecideAlertStatus( SOLDIERTYPE *pSoldier )
-	{
-		INT8	bOldStatus;
-		INT32	iDummy;
-		BOOLEAN	fClimbDummy, fReachableDummy;
-
-		// THE FOUR (4) POSSIBLE ALERT STATUSES ARE:
-		// GREEN - No one sensed, no suspicious noise heard, go about doing regular stuff
-		// YELLOW - Suspicious noise was heard personally
-		// RED - Either saw OPPONENTS in person, or definite contact had been called
-		// BLACK - Currently has one or more OPPONENTS in sight
-			
-		// save the man's previous status
-		bOldStatus = pSoldier->aiData.bAlertStatus;
-
-		// determine the current alert status for this category of man
-		if (pSoldier->aiData.bOppCnt > 0)		// opponent(s) in sight
-		{		
-			pSoldier->aiData.bAlertStatus = STATUS_BLACK;
-		}
-		else // no opponents are in sight
-		{
-			switch (bOldStatus)
-			{
-				case STATUS_BLACK:
-					// then drop back to RED status
-					pSoldier->aiData.bAlertStatus = STATUS_RED;
-					break;
-
-				case STATUS_RED:
-					// RED can never go back down below RED, only up to BLACK
-					// TODO: perhaps zombies might forget their target?	They are pretty dumb after all...
-					break;
-
-				case STATUS_YELLOW:
-					// if all enemies have been RED alerted, or we're under fire
-					if (gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || pSoldier->aiData.bUnderFire)
-					{
-						pSoldier->aiData.bAlertStatus = STATUS_RED;
-					}
-					else
-					{
-						// if we are NOT aware of any uninvestigated noises right now
-						// and we are not currently in the middle of an action
-						// (could still be on his way heading to investigate a noise!)					
-						if (( TileIsOutOfBounds(MostImportantNoiseHeard(pSoldier,&iDummy,&fClimbDummy,&fReachableDummy))) && !pSoldier->aiData.bActionInProgress)
-						{
-							// then drop back to GREEN status
-							pSoldier->aiData.bAlertStatus = STATUS_GREEN;
-						}
-					}
-					break;
-
-				case STATUS_GREEN:
-					// if all enemies have been RED alerted, or we're under fire
-					if (gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || pSoldier->aiData.bUnderFire)
-					{
-						pSoldier->aiData.bAlertStatus = STATUS_RED;
-					}
-					else
-					{
-						// if we ARE aware of any uninvestigated noises right now					
-						if ( !TileIsOutOfBounds(MostImportantNoiseHeard(pSoldier,&iDummy,&fClimbDummy,&fReachableDummy)))
-						{
-							// then move up to YELLOW status
-							pSoldier->aiData.bAlertStatus = STATUS_YELLOW;
-						}
-					}
-					break;
-			}
-		// otherwise, RED stays RED, YELLOW stays YELLOW, GREEN stays GREEN
-		}
-
-		// if the creatures alert status has changed in any way
-		if (pSoldier->aiData.bAlertStatus != bOldStatus)
-		{
-			// HERE ARE TRYING TO AVOID NPCs SHUFFLING BACK & FORTH BETWEEN RED & BLACK
-			// if either status is < RED (ie. anything but RED->BLACK && BLACK->RED)
-			if ((bOldStatus < STATUS_RED) || (pSoldier->aiData.bAlertStatus < STATUS_RED))
-			{
-				// force a NEW action decision on next pass through HandleManAI()
-				SetNewSituation( pSoldier );
-			}
-
-			// if this guy JUST discovered that there were opponents here for sure...
-			if ((bOldStatus < STATUS_RED) && (pSoldier->aiData.bAlertStatus >= STATUS_RED))
-			{
-				// might want to make custom to let them go anywhere
-				CheckForChangingOrders(pSoldier);
-			}
-
-	#ifdef DEBUGDECISIONS
-			// don't report status changes for human-controlled mercs
-	//		if (!pSoldier->human)
-	//		{
-				STR16 tempstr;
-				sprintf(tempstr,"%s's Alert Status changed from %d to %d",
-					pSoldier->name ,bOldStatus,pSoldier->aiData.bAlertStatus);
-				AIPopMessage(tempstr);
-	//		}
-	#endif
-
-		}
-		else	// status didn't change
-		{
-			// if a guy on status GREEN or YELLOW is running low on breath
-			if (((pSoldier->aiData.bAlertStatus == STATUS_GREEN)	&& (pSoldier->bBreath < 75)) ||
-				((pSoldier->aiData.bAlertStatus == STATUS_YELLOW) && (pSoldier->bBreath < 50)))
-			{
-				// as long as he's not in water (standing on a bridge is OK)
-				if (!pSoldier->MercInWater())
+				// if all enemies have been RED alerted, or we're under fire
+				if (gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || pSoldier->aiData.bUnderFire)
 				{
-					// force a NEW decision so that he can get some rest
-					SetNewSituation( pSoldier );
-
-					// current action will be canceled. if noise is no longer important				
-					if ((pSoldier->aiData.bAlertStatus == STATUS_YELLOW) &&
-						(TileIsOutOfBounds(MostImportantNoiseHeard(pSoldier,&iDummy,&fClimbDummy,&fReachableDummy))))
+					pSoldier->aiData.bAlertStatus = STATUS_RED;
+				}
+				else
+				{
+					// if we are NOT aware of any uninvestigated noises right now
+					// and we are not currently in the middle of an action
+					// (could still be on his way heading to investigate a noise!)					
+					if (( TileIsOutOfBounds(MostImportantNoiseHeard(pSoldier,&iDummy,&fClimbDummy,&fReachableDummy))) && !pSoldier->aiData.bActionInProgress)
 					{
 						// then drop back to GREEN status
 						pSoldier->aiData.bAlertStatus = STATUS_GREEN;
-						CheckForChangingOrders(pSoldier);
 					}
 				}
+				break;
+
+			case STATUS_GREEN:
+				// if all enemies have been RED alerted, or we're under fire
+				if (gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || pSoldier->aiData.bUnderFire)
+				{
+					pSoldier->aiData.bAlertStatus = STATUS_RED;
+				}
+				else
+				{
+					// if we ARE aware of any uninvestigated noises right now					
+					if ( !TileIsOutOfBounds(MostImportantNoiseHeard(pSoldier,&iDummy,&fClimbDummy,&fReachableDummy)))
+					{
+						// then move up to YELLOW status
+						pSoldier->aiData.bAlertStatus = STATUS_YELLOW;
+					}
+				}
+				break;
 		}
+	// otherwise, RED stays RED, YELLOW stays YELLOW, GREEN stays GREEN
+	}
+
+	// if the creatures alert status has changed in any way
+	if (pSoldier->aiData.bAlertStatus != bOldStatus)
+	{
+		// HERE ARE TRYING TO AVOID NPCs SHUFFLING BACK & FORTH BETWEEN RED & BLACK
+		// if either status is < RED (ie. anything but RED->BLACK && BLACK->RED)
+		if ((bOldStatus < STATUS_RED) || (pSoldier->aiData.bAlertStatus < STATUS_RED))
+		{
+			// force a NEW action decision on next pass through HandleManAI()
+			SetNewSituation( pSoldier );
+		}
+
+		// if this guy JUST discovered that there were opponents here for sure...
+		if ((bOldStatus < STATUS_RED) && (pSoldier->aiData.bAlertStatus >= STATUS_RED))
+		{
+			// might want to make custom to let them go anywhere
+			CheckForChangingOrders(pSoldier);
+		}
+
+#ifdef DEBUGDECISIONS
+		// don't report status changes for human-controlled mercs
+//		if (!pSoldier->human)
+//		{
+			STR16 tempstr;
+			sprintf(tempstr,"%s's Alert Status changed from %d to %d",
+				pSoldier->name ,bOldStatus,pSoldier->aiData.bAlertStatus);
+			AIPopMessage(tempstr);
+//		}
+#endif
+
+	}
+	else	// status didn't change
+	{
+		// if a guy on status GREEN or YELLOW is running low on breath
+		if (((pSoldier->aiData.bAlertStatus == STATUS_GREEN)	&& (pSoldier->bBreath < 75)) ||
+			((pSoldier->aiData.bAlertStatus == STATUS_YELLOW) && (pSoldier->bBreath < 50)))
+		{
+			// as long as he's not in water (standing on a bridge is OK)
+			if (!pSoldier->MercInWater())
+			{
+				// force a NEW decision so that he can get some rest
+				SetNewSituation( pSoldier );
+
+				// current action will be canceled. if noise is no longer important				
+				if ((pSoldier->aiData.bAlertStatus == STATUS_YELLOW) &&
+					(TileIsOutOfBounds(MostImportantNoiseHeard(pSoldier,&iDummy,&fClimbDummy,&fReachableDummy))))
+				{
+					// then drop back to GREEN status
+					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
+					CheckForChangingOrders(pSoldier);
+				}
+			}
 		}
 	}
-#endif
+}

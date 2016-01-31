@@ -6105,9 +6105,7 @@ STR16 zOptionsToggleText[] =
 	L"Stummes Reparieren",					// Madd: mercs don't say quotes while repairing
 	L"Stumme Behandlung",					// Madd: mercs don't say quotes while doctoring
 	L"Autom. schnelle Gegner-Züge",			// Automatic fast forward through AI turns
-#ifdef ENABLE_ZOMBIES
-	L"Zombies erlauben",						// Flugente Zombies 1.0
-#endif
+	L"Zombies erlauben",					// Flugente Zombies
 	L"Inventar Popup-Menüs",				// the_bob : enable popups for picking items from sector inv
 	L"Übrige Feinde markieren",				
 	L"Tascheninhalt anzeigen",			
@@ -6222,9 +6220,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden die Söldner über den ärztlichen Fortschritt nicht mehr berichten.",
 	L"Wenn diese Funktion aktiviert ist, werden gegnerische Züge schneller durchgeführt.",
 
-#ifdef ENABLE_ZOMBIES
 	L"Wenn diese Funktion aktiviert ist, können Tote als Zombies wieder auferstehen. Seien Sie auf der Hut!",
-#endif
 	L"Wenn diese Funktion aktiviert ist, und Sie mit der linken Maustaste auf einen freien Söldner-Inventarplatz klicken (während das Sektor-Inventar angezeigt wird), wird ein hilfreiches Popup-Menü eingeblendet.",
 	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
 	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Tashen statt den Anbauteilen deren Inhalt angezeigt.",

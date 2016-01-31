@@ -2716,11 +2716,9 @@ UINT8 SoldierDifficultyLevel( SOLDIERTYPE * pSoldier )
 			bDifficulty = 4;
 			break;
 
-#ifdef ENABLE_ZOMBIES
 		case SOLDIER_CLASS_ZOMBIE:
 			bDifficulty = bDifficultyBase;
 			break;
-#endif
 
 		default:
 			if (pSoldier->bTeam == CREATURE_TEAM)

@@ -32,14 +32,6 @@
 // *****************************
 // -----------------------------
 
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// -----------------------------
-// WANNE: Enable this define, to build an executable where you can enable/disable zombies in tactical (ingame option screen).
-#define ENABLE_ZOMBIES
-// -----------------------------
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 // Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)
 //#define JA2BETAVERSION
 //#define JA2EDITOR

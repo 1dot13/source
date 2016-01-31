@@ -6256,9 +6256,7 @@ STR16		zOptionsToggleText[] =
 	L"佣兵修理时保持沉默",	// Madd: mercs don't say quotes while repairing
 	L"佣兵医疗时保持沉默",	// Madd: mercs don't say quotes while doctoring
 	L"自动加速敌军回合",			// Automatic fast forward through AI turns
-#ifdef ENABLE_ZOMBIES
 	L"僵尸模式",
-#endif
 	L"区域物品栏弹窗匹配拾取",			// the_bob : enable popups for picking items from sector inv
 	L"标记剩余敌人",
 	L"显示LBE(携行具)物品",
@@ -6373,9 +6371,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，佣兵医疗时不会随时汇报进程。",
 	L"打开时，敌军回合将被大幅加速。",
 
-#ifdef ENABLE_ZOMBIES
 	L"打开时，被击毙的敌人将有可能变成僵尸！杀出个黎明！",
-#endif
 	L"打开时，在区域物品栏界面，点击佣兵身上空白的携行具位置会弹窗匹配拾取物品。",
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",

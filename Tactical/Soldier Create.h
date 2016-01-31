@@ -439,9 +439,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 SOLDIERTYPE* TacticalCreateAdministrator();
 SOLDIERTYPE* TacticalCreateEliteEnemy();
 SOLDIERTYPE* TacticalCreateArmyTroop();
-#ifdef ENABLE_ZOMBIES
-	SOLDIERTYPE* TacticalCreateZombie();		// Flugente Zombies
-#endif
+SOLDIERTYPE* TacticalCreateZombie();		// Flugente Zombies
 SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY );	// Flugente: added sector coordinates
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 SOLDIERTYPE* TacticalCreateEnemyTank();

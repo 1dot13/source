@@ -89,9 +89,7 @@ enum
 	
 	TOPTION_AUTO_FAST_FORWARD_MODE,				// automatically fast forward through AI turns
 
-#ifdef ENABLE_ZOMBIES
-	TOPTION_ZOMBIES,							// Flugente Zombies 1.0: allow zombies	
-#endif
+	TOPTION_ZOMBIES,							// Flugente Zombies: allow zombies	
 
 	TOPTION_ENABLE_INVENTORY_POPUPS,			// the_bob : enable popups for picking items from sector inv
 

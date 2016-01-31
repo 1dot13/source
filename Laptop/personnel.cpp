@@ -5075,11 +5075,8 @@ void DisplayDepartedCharStats(INT32 iId, INT32 iSlot, INT32 iState)
 		// kills
 			mprintf((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[20].y - 12),pPersonnelScreenStrings[PRSNL_TXT_KILLS]);
 
-#ifdef ENABLE_ZOMBIES
 			swprintf(sString, L"%d",(gMercProfiles[iId].records.usKillsElites + gMercProfiles[iId].records.usKillsRegulars + gMercProfiles[iId].records.usKillsAdmins + gMercProfiles[iId].records.usKillsHostiles + gMercProfiles[iId].records.usKillsCreatures + gMercProfiles[iId].records.usKillsZombies + gMercProfiles[iId].records.usKillsTanks + gMercProfiles[iId].records.usKillsOthers));
-#else
-			swprintf(sString, L"%d",(gMercProfiles[iId].records.usKillsElites + gMercProfiles[iId].records.usKillsRegulars + gMercProfiles[iId].records.usKillsAdmins + gMercProfiles[iId].records.usKillsHostiles + gMercProfiles[iId].records.usKillsCreatures + gMercProfiles[iId].records.usKillsTanks + gMercProfiles[iId].records.usKillsOthers));
-#endif
+
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,(pPersonnelScreenPoints[20].y - 12),sString);
 
@@ -7053,11 +7050,8 @@ DEF:3/19/99:
 		// kills
 			mprintf((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[20].y - 12),pPersonnelScreenStrings[PRSNL_TXT_KILLS]);
 
-#ifdef ENABLE_ZOMBIES
 			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usKillsElites + gMercProfiles[Menptr[iId].ubProfile].records.usKillsRegulars + gMercProfiles[Menptr[iId].ubProfile].records.usKillsAdmins + gMercProfiles[Menptr[iId].ubProfile].records.usKillsHostiles + gMercProfiles[Menptr[iId].ubProfile].records.usKillsCreatures + gMercProfiles[Menptr[iId].ubProfile].records.usKillsZombies + gMercProfiles[Menptr[iId].ubProfile].records.usKillsTanks + gMercProfiles[Menptr[iId].ubProfile].records.usKillsOthers));
-#else
-			swprintf(sString, L"%d",(gMercProfiles[Menptr[iId].ubProfile].records.usKillsElites + gMercProfiles[Menptr[iId].ubProfile].records.usKillsRegulars + gMercProfiles[Menptr[iId].ubProfile].records.usKillsAdmins + gMercProfiles[Menptr[iId].ubProfile].records.usKillsHostiles + gMercProfiles[Menptr[iId].ubProfile].records.usKillsCreatures + gMercProfiles[Menptr[iId].ubProfile].records.usKillsTanks + gMercProfiles[Menptr[iId].ubProfile].records.usKillsOthers));
-#endif
+
 			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[20].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
 			mprintf(sX,(pPersonnelScreenPoints[20].y - 12),sString);
 
@@ -8612,7 +8606,6 @@ void AssignPersonnelKillsHelpText( INT32 ubProfile )
 		wcscat( apStr, atStr );
 	}
 
-#ifdef ENABLE_ZOMBIES 
 	if (gGameSettings.fOptions[TOPTION_ZOMBIES] )
 	{
 		if (gMercProfiles[ubProfile].records.usKillsZombies > 0 || fShowRecordsIfZero)
@@ -8621,13 +8614,10 @@ void AssignPersonnelKillsHelpText( INT32 ubProfile )
 			wcscat( apStr, atStr );
 		}
 	}
-#endif
 
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[7]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[7], MSYS_NO_CALLBACK );
-	
-	return;
 }
 
 void AssignPersonnelAssistsHelpText( INT32 ubProfile )

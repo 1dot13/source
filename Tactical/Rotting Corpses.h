@@ -86,9 +86,7 @@ enum RottingCorpseDefines
 #define		ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE					0x00000200		//We use desert palette here....
 #define		ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE					0x00000400		//We use snow palette here....
 
-#ifdef ENABLE_ZOMBIES
-	#define		ROTTING_CORPSE_NEVER_RISE_AGAIN							0x00000800		//a zombie cannot be created from this corpse (if not set, it'll eventually rise again )
-#endif
+#define		ROTTING_CORPSE_NEVER_RISE_AGAIN							0x00000800		//a zombie cannot be created from this corpse (if not set, it'll eventually rise again )
 
 // Flugente: corpses can now be gutted after they have been decapitated. Atm there is no corpse that can be both gutted and decapitated (to be done later)
 #define		ROTTING_CORPSE_HEAD_TAKEN								0x00001000		// head has been taken off
@@ -125,10 +123,8 @@ typedef struct
 
 	UINT8												ubFiller[ 10 ];		// Flugente: 12 -> 10, because usFlags was cahnged from UINT16 to UINT32
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: added name so we can display individual name if corpse gets resurrected...
 	CHAR16												name[ 10 ];
-#endif
 
 } ROTTING_CORPSE_DEFINITION;
 
@@ -151,10 +147,8 @@ typedef struct
 	BOOLEAN											fAttractCrowsOnlyWhenOnScreen;
 	INT32												iID;
 
-#ifdef ENABLE_ZOMBIES
 	// Flugente: added name so we can display individual name if corpse gets resurrected...
 	CHAR16												name[ 10 ];
-#endif
 		
 } ROTTING_CORPSE;
 
@@ -226,16 +220,14 @@ INT32 GetGridNoOfCorpseGivenProfileID( UINT8 ubProfileID );
 void DecayRottingCorpseAIWarnings( void );
 UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo );
 
-#ifdef ENABLE_ZOMBIES
-	// Flugente: Raise zombies
-	void RaiseZombies( void );
+// Flugente: Raise zombies
+void RaiseZombies( void );
 
-	// Flugente: create a zombie from a corpse
-	void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState );
+// Flugente: create a zombie from a corpse
+void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState );
 
-	// Flugente: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
-	BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState  );
-#endif
+// Flugente: returns true if a zombie can be raised from this corpse, and returns the correct pAnimState for the new zombie
+BOOLEAN CorpseOkToSpawnZombie( ROTTING_CORPSE *	pCorpse, UINT16* pAnimState  );
 
 // Flugente: can we take the clothes of this corpse?
 BOOLEAN CorpseOkToDress( ROTTING_CORPSE* pCorpse );

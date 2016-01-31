@@ -1846,40 +1846,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 		sNewWoundAmt = max(1, sNewWoundAmt);
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
-
-#ifdef ENABLE_ZOMBIES
-	// Nothing to do here
-#else
-	////////////////////////////////////////////////////////////////////////////////////
-	// SANDRO - option to make special NPCs stronger - damage resistance
-	if (gGameExternalOptions.usSpecialNPCStronger > 0)
-	{
-		switch( pSoldier->ubProfile )
-		{
-			case CARMEN:
-			case QUEEN:
-			case JOE:
-			case ANNIE:
-			case CHRIS:
-			case KINGPIN:
-			case TIFFANY:
-			case T_REX:
-			case DRUGGIST:
-			case GENERAL:
-			case JIM:
-			case JACK:
-			case OLAF:
-			case RAY:
-			case OLGA:
-			case TYRONE:
-			case MIKE:
-				sNewWoundAmt -= (sNewWoundAmt * gGameExternalOptions.usSpecialNPCStronger / 200);
-				sNewWoundAmt = max( 1, sNewWoundAmt);
-				break;
-		}
-	}
-#endif
-		
+	
 	// SANDRO - new merc records - times wounded (blasted by explosion)
 	if ( ( sNewWoundAmt > 1 || sBreathAmt > 1000 ) && pSoldier->ubProfile != NO_PROFILE )
 		gMercProfiles[ pSoldier->ubProfile ].records.usTimesWoundedBlasted++;
@@ -2008,12 +1975,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		}
 		else if ( pExplosive->ubType == EXPLOSV_MUSTGAS )
 		{
-#ifdef ENABLE_ZOMBIES
 			// zombies and robots are unaffected by mustard gas
 			if ( AM_A_ROBOT( pSoldier ) || pSoldier->IsZombie() )
-#else
-			if ( AM_A_ROBOT( pSoldier ) )
-#endif
 			{
 				return( fRecompileMovementCosts );
 			}
