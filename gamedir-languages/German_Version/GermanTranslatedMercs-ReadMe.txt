@@ -7,9 +7,17 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-02-01:
+- added Pops
+- added Doc
+- updates to Leech
+- updates to Beth
+- updates to Wink
+
+
 2016-01-26:
-- added 179 - Skitz
-- added 222 - Leon
+- added Skitz
+- added Leon
 - updates to Kelly
 - updates to Sparky
 - updates to Stella
@@ -35,17 +43,11 @@ Changelog:
 - updates to Rusty
 
 
-2016-01-08:
-- added Boss
-- updates to Bud
-- updates to Rusty
-
-
 
 Status:
 -------
 - weekly content updates
-- 14 of 50 mercs remain to be added
+- 12 of 50 mercs remain to be added
 - polish/rework to already existing files
 
 
