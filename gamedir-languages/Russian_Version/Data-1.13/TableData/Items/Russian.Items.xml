@@ -13709,7 +13709,7 @@
 		<uiIndex>1712</uiIndex>
 		<szItemName>Стрептомицин</szItemName>
 		<szLongItemName>Антибиотик против чумы</szLongItemName>
-		<szItemDesc>Эффестивный антибиотик для лечения чумы. Применять исключительно по предписанию врача!</szItemDesc>
+		<szItemDesc>Эффективный антибиотик для лечения чумы. Применять исключительно по предписанию врача!</szItemDesc>
 		<szBRName>Стрептомицин</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
@@ -13725,7 +13725,7 @@
 		<uiIndex>1714</uiIndex>
 		<szItemName>Тетрациклин</szItemName>
 		<szLongItemName>Антибиотик против холеры</szLongItemName>
-		<szItemDesc>Эффестивный антибиотик для лечения холеры. Применять исключительно по предписанию врача!</szItemDesc>
+		<szItemDesc>Эффективный антибиотик для лечения холеры. Применять исключительно по предписанию врача!</szItemDesc>
 		<szBRName>Тетрациклин</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
