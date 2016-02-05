@@ -22,6 +22,7 @@
 	#include "DynamicDialogue.h"	// added by Flugente for HandleDynamicOpinions()
 	#include "Drugs And Alcohol.h"	// added by Flugente for HourlyDrugUpdate()
 	#include "Interface.h"			// added by Flugente
+	#include "SkillCheck.h"			// added by Flugente
 #endif
 
 #include "Luaglobal.h"

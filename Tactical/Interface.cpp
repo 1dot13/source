@@ -65,6 +65,7 @@
 	// sevenfm: needed for _KeyDown(SHIFT)
 	#include "english.h"
 	#include "DisplayCover.h"
+	#include "SkillCheck.h"				// added by Flugente
 #endif
 
 #include "InterfaceItemImages.h"

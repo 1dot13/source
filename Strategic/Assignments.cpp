@@ -2723,7 +2723,11 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 
 	// calculate normal doctoring rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
-	*pusMaxPts = ( pDoctor->stats.bMedical * (( pDoctor->stats.bDexterity + pDoctor->stats.bWisdom ) / 2 ) * (100 + ( 5 * pDoctor->stats.bExpLevel) ) ) / gGameExternalOptions.ubDoctoringRateDivisor;
+	INT16 dexterity = (pDoctor->stats.bDexterity * (100 + pDoctor->GetBackgroundValue( BG_DEXTERITY ))) / 100;
+	INT16 medical	= (pDoctor->stats.bMedical * (100 + pDoctor->GetBackgroundValue( BG_MEDICAL ))) / 100;
+	INT16 wisdom	= (pDoctor->stats.bWisdom * (100 + pDoctor->GetBackgroundValue( BG_WISDOM ))) / 100;
+
+	*pusMaxPts = (medical * ((dexterity + wisdom) / 2) * (100 + (5 * pDoctor->stats.bExpLevel))) / gGameExternalOptions.ubDoctoringRateDivisor;
 	*pusMaxPts = __max(0,*pusMaxPts);
 
 	// SANDRO - New Doctor Trait
@@ -2820,7 +2824,9 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 
 	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
-	*pusMaxPts = ( pSoldier->stats.bMechanical * pSoldier->stats.bDexterity * (100 + ( 5 * pSoldier->stats.bExpLevel) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay );
+	INT16 mechanical = (pSoldier->stats.bMechanical * (100 + pSoldier->GetBackgroundValue( BG_MECHANICAL ))) / 100;
+	INT16 dexterity  = (pSoldier->stats.bDexterity * (100 + pSoldier->GetBackgroundValue( BG_DEXTERITY ))) / 100;
+	*pusMaxPts = (mechanical * dexterity * (100 + (5 * pSoldier->stats.bExpLevel))) / (gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay);
 
 	// SANDRO - Technician trait gives a good bonus to repair items
 	if ( gGameOptions.fNewTraitSystem )
@@ -2956,14 +2962,11 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 }
 
 // Flugente: calculate prison guard value
-UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
+UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier )
 {
 	// this is not an assignment. Simply being in the sector will allow us to be counted as guards
 	UINT32 usValue = 0;	
-
-	// for max points we display the maximum amount of prisoners instead
-	*pusMaxPts = 0;
-
+	
 	if ( pSoldier->flags.fMercAsleep )
 		return 0;
 
@@ -2991,14 +2994,11 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 	return( usValue );
 }
 
-UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
+UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
 {
 	// this is an assignment
 	UINT32 usValue = 0;	
-
-	// for max points we display the maximum amount of prisoners instead
-	*pusMaxPts = 0;
-
+	
 	if ( pSoldier->flags.fMercAsleep )
 		return 0;
 
@@ -3043,8 +3043,7 @@ UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	{
 		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && !pSoldier->flags.fMercAsleep )
 		{
-			UINT16 tmp;
-			prisonguardvalue += CalculatePrisonGuardValue(pSoldier, &tmp );
+			prisonguardvalue += CalculatePrisonGuardValue(pSoldier );
 		}
 	}
 
@@ -3067,8 +3066,7 @@ UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ
 	{
 		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
 		{
-			UINT16 tmp;
-			prisonguardvalue += CalculateSnitchGuardValue(pSoldier, &tmp );
+			prisonguardvalue += CalculateSnitchGuardValue(pSoldier );
 		}
 	}
 
@@ -3172,41 +3170,6 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 
 	// return current repair pts
 	return( usInterrogationPoints );
-}
-
-// anv: totally not a copy of CalculatePrisonGuardValue
-UINT32 CalculateSnitchPrisonGuardValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
-{
-	UINT32 usValue = 0;	
-
-	// for max points we display the maximum amount of prisoners instead
-	*pusMaxPts = 0;
-
-	if ( pSoldier->flags.fMercAsleep )
-		return 0;
-
-	if ( !CanCharacterSnitchInPrison(pSoldier) )
-		return 0;
-
-	usValue = ( 15 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveLeadership( pSoldier ) + EffectiveWisdom( pSoldier ) );
-
-	// no bonuses for snitch trait, as merc has to have it to take this assignment anyway
-	if (gGameOptions.fNewTraitSystem)
-	{
-		usValue += 25 * NUM_SKILL_TRAITS( pSoldier, COVERT_NT ) + 10 * HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT );
-	}
-	else
-	{
-		usValue += 10 * HAS_SKILL_TRAIT( pSoldier, STEALTHY_OT );
-	}
-
-	usValue = (UINT32)(gSkillTraitValues.fSNTPrisonSnitchGuardStrengthMultiplier * usValue);
-
-	// adjust for fatigue
-	ReducePointsForFatigue( pSoldier, &usValue );
-
-	// return current repair pts
-	return( usValue );
 }
 
 // Flugente: Determine the best cth with SAMs in a sector, and which merc has that cth if present
@@ -7418,7 +7381,10 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 //	UINT8 ubTownId = 0;
 
 	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
-	*pusMaxPts = ( pTrainer->stats.bWisdom + pTrainer->stats.bLeadership + ( 10 * pTrainer->stats.bExpLevel ) ) * gGameExternalOptions.ubTownMilitiaTrainingRate;
+	INT16 wisdom	 = (pTrainer->stats.bWisdom * (100 + pTrainer->GetBackgroundValue( BG_WISDOM ))) / 100;
+	INT16 leadership = (pTrainer->stats.bLeadership * (100 + pTrainer->GetBackgroundValue( BG_LEADERSHIP ))) / 100;
+
+	*pusMaxPts = (wisdom + leadership + (10 * pTrainer->stats.bExpLevel)) * gGameExternalOptions.ubTownMilitiaTrainingRate;
 
 	// calculate effective training points (this is hundredths of pts / hour)
 	// typical: 300/hr, maximum: 600/hr

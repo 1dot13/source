@@ -54,6 +54,7 @@
 #include "Soldier Functions.h"	// added by Flugente for DoesSoldierWearGasMask(...)
 #include "CampaignStats.h"		// added by Flugente
 #include "AIInternals.h"//dnl ch61 180813
+#include "SkillCheck.h"			// added by Flugente
 
 #include "GameInitOptionsScreen.h"
 

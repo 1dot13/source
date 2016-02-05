@@ -1,27 +1,24 @@
 #ifndef __SKILL_CHECK_H
 #define __SKILL_CHECK_H
 
-
 #include "types.h"
 #include "Soldier Control.h"
 
-extern void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );
-extern INT32 GetSkillCheckPenaltyForFatigue( SOLDIERTYPE *pSoldier, INT32 iSkill );
-extern INT32 SkillCheck( SOLDIERTYPE *pSoldier, INT8 bReason, INT8 bDifficulty );
-extern INT16 CalcTrapDetectLevel( SOLDIERTYPE *pSoldier, BOOLEAN fExamining );
+void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );
+INT32 GetSkillCheckPenaltyForFatigue( SOLDIERTYPE *pSoldier, INT32 iSkill );
+INT32 SkillCheck( SOLDIERTYPE *pSoldier, INT8 bReason, INT8 bDifficulty );
+INT16 CalcTrapDetectLevel( SOLDIERTYPE *pSoldier, BOOLEAN fExamining );
 
-
-extern	INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer );
-extern	INT16 EffectiveWisdom( SOLDIERTYPE *pSoldier );
-extern	INT16 EffectiveAgility( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer );
-extern	INT8 EffectiveMechanical( SOLDIERTYPE *pSoldier );
-extern	INT8 EffectiveExplosive( SOLDIERTYPE *pSoldier );
-extern	INT8 EffectiveLeadership( SOLDIERTYPE *pSoldier );
-extern	INT8 EffectiveMarksmanship( SOLDIERTYPE *pSoldier );
-extern	INT16 EffectiveDexterity( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer );
-extern	INT8 EffectiveExpLevel( SOLDIERTYPE *pSoldier );
-extern	INT8 EffectiveMedical( SOLDIERTYPE *pSoldier );
-
+INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer );
+INT16 EffectiveWisdom( SOLDIERTYPE *pSoldier );
+INT16 EffectiveAgility( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer );
+INT8 EffectiveMechanical( SOLDIERTYPE *pSoldier );
+INT8 EffectiveExplosive( SOLDIERTYPE *pSoldier );
+INT8 EffectiveLeadership( SOLDIERTYPE *pSoldier );
+INT8 EffectiveMarksmanship( SOLDIERTYPE *pSoldier );
+INT16 EffectiveDexterity( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer );
+INT8 EffectiveExpLevel( SOLDIERTYPE *pSoldier );
+INT8 EffectiveMedical( SOLDIERTYPE *pSoldier );
 
 enum SkillChecks
 {

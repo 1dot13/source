@@ -245,13 +245,4 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 // HEADROCK HAM 5: New function, completely replaces the Counter Force Frequency check.
 FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccuracy, FLOAT dCounterForceMax, FLOAT dMuzzleOffset, FLOAT bRecoil, FLOAT dPrevCounterForce, UINT32 uiIntendedBullets );
 
-// HEADROCK HAM 4: Required for shooting mechanic
-extern INT8 EffectiveMarksmanship( SOLDIERTYPE * pSoldier ); 
-extern INT16 EffectiveWisdom( SOLDIERTYPE * pSoldier ); 
-extern INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier ); 
-extern INT16 EffectiveDexterity( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer ); 
-extern INT16 EffectiveStrength( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer );
-extern INT16 EffectiveAgility( SOLDIERTYPE * pSoldier, BOOLEAN fTrainer ); 
-extern INT8 EffectiveLeadership( SOLDIERTYPE * pSoldier ); // anv: and passed to Hourly Update.cpp apparently, so added this one too
-
 #endif
