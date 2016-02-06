@@ -1899,9 +1899,9 @@ void ExtractAndUpdateMercAttributes()
 	gpSelected->pDetailedPlacement->bMechanical		= (INT8)min( GetNumericStrictValueFromField( 11 ), 100 );
 	gpSelected->pDetailedPlacement->bMorale				= (INT8)min( GetNumericStrictValueFromField( 11 ), 100 );
 
-	//make sure that experience level ranges between 1 and 9
+	//make sure that experience level ranges between 1 and 10
 	if( gpSelected->pDetailedPlacement->bExpLevel != -1 )
-		gpSelected->pDetailedPlacement->bExpLevel = max( min( gpSelected->pDetailedPlacement->bExpLevel , 9 ), 1 );
+		gpSelected->pDetailedPlacement->bExpLevel = max( min( gpSelected->pDetailedPlacement->bExpLevel , 10 ), 1 );
 
 	//no such thing as a life max of 0
 	if( !gpSelected->pDetailedPlacement->bLifeMax )

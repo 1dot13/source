@@ -463,7 +463,7 @@ void RandomStats()
 		{
 			pProfile = &(gMercProfiles[cnt]);
 			// Buggler: +/- random range will be limited due to min/max allowed value
-			pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 9, Exp, Type );
+			pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 10, Exp, Type );
 			pProfile->bLifeMax		= RandomAbsoluteRange( pProfile->bLifeMax, 1, 100, Stats, Type );
 			pProfile->bLife			= pProfile->bLifeMax;
 			pProfile->bAgility		= RandomAbsoluteRange( pProfile->bAgility, 1, 100, Stats, Type );
@@ -488,7 +488,7 @@ void RandomStats()
 				pProfile = &(gMercProfiles[cnt]);
 				
 				if ( gRandomStatsValue[cnt].RandomExpLevel == TRUE )
-					pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 9, Exp, Type );
+					pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 10, Exp, Type );
 
 				if ( gRandomStatsValue[cnt].RandomLife == TRUE )
 					pProfile->bLifeMax		= RandomAbsoluteRange( pProfile->bLifeMax, 1, 100, Stats, Type );
@@ -534,7 +534,7 @@ void RandomStats()
 				pProfile = &(gMercProfiles[cnt]);
 
 				if ( gRandomStatsValue[cnt].RandomExpLevel == TRUE )
-					pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 9, Exp, Type );
+					pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 10, Exp, Type );
 
 				bBaseAttribute = gRandomStatsValue[cnt].BaseAttribute + ( 4 * pProfile->bExpLevel );
 

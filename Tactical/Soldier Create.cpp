@@ -2379,14 +2379,19 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: adjust stats and level"));
 	// Adjust level and statistics for Linda's prespecified relative attribute level
+
+	// silversurfer: new variable level range which modifies the narrow old ranges below
+	INT8 sRandomizedLevelModifier = Random( zDiffSetting[gGameOptions.ubDifficultyLevel].usLevelModifierLowLimit + zDiffSetting[gGameOptions.ubDifficultyLevel].usLevelModifierHighLimit + 1 );
+	sRandomizedLevelModifier = sRandomizedLevelModifier - zDiffSetting[gGameOptions.ubDifficultyLevel].usLevelModifierLowLimit;
+
 	switch ( bp->bRelativeAttributeLevel )
 	{
 		// NOTE: bStatsModifier already includes the bExpLevelModifier since it's based on the level itself!
-		case 0:	bExpLevelModifier += -1; bStatsModifier += -1; break;
-		case 1:	bExpLevelModifier += -1; bStatsModifier +=	0; break;
-		case 2:	bExpLevelModifier +=	0; bStatsModifier +=	0; break;
-		case 3:	bExpLevelModifier += +1; bStatsModifier +=	0; break;
-		case 4:	bExpLevelModifier += +1; bStatsModifier += +1; break;
+		case 0:	bExpLevelModifier += -1 + sRandomizedLevelModifier; bStatsModifier += -1; break;
+		case 1:	bExpLevelModifier += -1 + sRandomizedLevelModifier; bStatsModifier +=  0; break;
+		case 2:	bExpLevelModifier +=  0 + sRandomizedLevelModifier; bStatsModifier +=  0; break;
+		case 3:	bExpLevelModifier += +1 + sRandomizedLevelModifier; bStatsModifier +=  0; break;
+		case 4:	bExpLevelModifier += +1 + sRandomizedLevelModifier; bStatsModifier += +1; break;
 
 		default:
 			AssertMsg( FALSE, String( "Invalid bRelativeAttributeLevel = %d", bp->bRelativeAttributeLevel ) );
@@ -2513,11 +2518,11 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	ubStatsLevel = min( 10, ubStatsLevel );	//maximum stats level of 9 // 10 - Madd - this will probably apply to all dif levels though
 
 	//Set the minimum base attribute
-	bBaseAttribute = 49 + ( 4 * ubStatsLevel );
+	bBaseAttribute = 45 + ( 4 * ubStatsLevel );
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: roll stats and skills"));
 	//Roll soldier's statistics and skills
-	//Stat range is currently 49-99, bell-curved around a range of 16 values dependent on the stats level
+	//Stat range is currently 49-100, bell-curved around a range of 16 values dependent on the stats level
 	pp->bLifeMax			= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
 	pp->bLife				= pp->bLifeMax;
 	pp->bAgility			= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
@@ -2534,8 +2539,9 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 
 	// CJC: now calculate the REAL experience level if in the really upper end
 	// Madd
+	// silversurfer: changed that to be optional. Some players might want to have the full level range for the opposition without playing "Insane".
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: reduce stats and level"));
-	if ( gGameOptions.ubDifficultyLevel <= DIF_LEVEL_HARD )
+	if ( gGameOptions.ubDifficultyLevel <= DIF_LEVEL_HARD && !zDiffSetting[gGameOptions.ubDifficultyLevel].bAllowUnrestrictedXPLevels )
 		ReduceHighExpLevels( &( pp->bExpLevel ) );
 
 	pp->fVisible			= 0;
@@ -2784,10 +2790,10 @@ void UpdateSoldierWithStaticDetailedInformation( SOLDIERTYPE *s, SOLDIERCREATE_S
 		INT8 bBaseAttribute;
 		s->stats.bExpLevel = spp->bExpLevel;
 		//Set the minimum base attribute
-		bBaseAttribute = 49 + ( 4 * s->stats.bExpLevel );
+		bBaseAttribute = 45 + ( 4 * s->stats.bExpLevel );
 
 		//Roll enemy's combat statistics, taking bExpLevel into account.
-		//Stat range is currently 40-99, slightly bell-curved around the bExpLevel
+		//Stat range is currently 49-100, slightly bell-curved around the bExpLevel
 		s->stats.bLifeMax				= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
 		s->stats.bLife				= s->stats.bLifeMax;
 		s->stats.bAgility				= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
@@ -2877,17 +2883,17 @@ void ModifySoldierAttributesWithNewRelativeLevel( SOLDIERTYPE *s, INT8 bRelative
 	//Set the experience level based on the relative attribute level
 	// NOTE OF WARNING: THIS CURRENTLY IGNORES THE ENEMY CLASS (ADMIN/REG/ELITE) FOR CALCULATING LEVEL & ATTRIBUTES
 
-	// Rel level 0: Lvl 1, 1: Lvl 2-3, 2: Lvl 4-5, 3: Lvl 6-7, 4: Lvl 8-9
-	s->stats.bExpLevel = (INT8)(2 * bRelativeAttributeLevel + Random(2));
+	// Rel level 0: Lvl 1-2, 1: Lvl 2-4, 2: Lvl 4-6, 3: Lvl 6-8, 4: Lvl 8-10
+	s->stats.bExpLevel = (INT8)(2 * bRelativeAttributeLevel + Random(3));
 
 	s->stats.bExpLevel = max( 1, s->stats.bExpLevel ); //minimum level of 1
-	s->stats.bExpLevel = min( 9, s->stats.bExpLevel ); //maximum level of 9
+	s->stats.bExpLevel = min( 10, s->stats.bExpLevel ); //maximum level of 9 // 10
 
 	//Set the minimum base attribute
-	bBaseAttribute = 49 + ( 4 * s->stats.bExpLevel );
+	bBaseAttribute = 45 + ( 4 * s->stats.bExpLevel );
 
 	//Roll enemy's combat statistics, taking bExpLevel into account.
-	//Stat range is currently 40-99, slightly bell-curved around the bExpLevel
+	//Stat range is currently 49-100, slightly bell-curved around the bExpLevel
 	s->stats.bLifeMax				= (INT8)(bBaseAttribute + Random( 9 ) + Random( 8 ));
 	s->stats.bLife				= s->stats.bLifeMax;
 	// added by SANDRO - insta-healable injury zero on soldier creation

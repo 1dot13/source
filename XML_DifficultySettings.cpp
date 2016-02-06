@@ -96,6 +96,9 @@ DifficultySettingsParseDataStartElementHandle(void *userData, const XML_Char *na
 				strcmp(name, "UpgradeAdminsToTroops") == 0	||
 				strcmp(name, "UpgradeGarrisonsAdminsToTroops") == 0	||
 				strcmp(name, "AlwaysUpGradeAdminsToTroopsProgress" ) == 0 ||
+				strcmp(name, "LevelModifierLowLimit" ) == 0 ||
+				strcmp(name, "LevelModifierHighLimit" ) == 0 ||
+				strcmp(name, "AllowUnrestrictedXPLevels" ) == 0 ||
 				strcmp(name, "QueenAttackLosingControlOfSector") == 0	||
 				strcmp(name, "BloodcatAmbushSectors") == 0	||
 				strcmp(name, "AirRaidLookForDive") == 0	||
@@ -205,6 +208,9 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bUpgradeAdminsToTroops = pData->curDifficultySettings.bUpgradeAdminsToTroops;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bUpgradeGarrisonsAdminsToTroops = pData->curDifficultySettings.bUpgradeGarrisonsAdminsToTroops;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].usAlwaysUpGradeAdminsToTroopsProgress = pData->curDifficultySettings.usAlwaysUpGradeAdminsToTroopsProgress;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].usLevelModifierLowLimit = pData->curDifficultySettings.usLevelModifierLowLimit;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].usLevelModifierHighLimit = pData->curDifficultySettings.usLevelModifierHighLimit;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].bAllowUnrestrictedXPLevels = pData->curDifficultySettings.bAllowUnrestrictedXPLevels;
 
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bQueenLosingControlOfSector = pData->curDifficultySettings.bQueenLosingControlOfSector;
 
@@ -485,6 +491,23 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 			pData->curDifficultySettings.usAlwaysUpGradeAdminsToTroopsProgress = (UINT8)atol( pData->szCharData );
 			pData->curDifficultySettings.usAlwaysUpGradeAdminsToTroopsProgress = min( pData->curDifficultySettings.usAlwaysUpGradeAdminsToTroopsProgress, 100 );
 		}
+		else if ( strcmp( name, "LevelModifierLowLimit" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.usLevelModifierLowLimit = (UINT8)atol( pData->szCharData );
+			pData->curDifficultySettings.usLevelModifierLowLimit = min( pData->curDifficultySettings.usLevelModifierLowLimit, 5 );
+		}
+		else if ( strcmp( name, "LevelModifierHighLimit" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.usLevelModifierHighLimit = (UINT8)atol( pData->szCharData );
+			pData->curDifficultySettings.usLevelModifierHighLimit = min( pData->curDifficultySettings.usLevelModifierHighLimit, 5 );
+		}
+		else if(strcmp(name, "AllowUnrestrictedXPLevels") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.bAllowUnrestrictedXPLevels	= (BOOLEAN) atol(pData->szCharData);
+		}	
 		else if(strcmp(name, "QueenAttackLosingControlOfSector") == 0)
 		{
 			pData->curElement = ELEMENT;

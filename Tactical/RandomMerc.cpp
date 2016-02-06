@@ -796,7 +796,7 @@ void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc, BOOL random_gear_k
 	memset(merc->bSkillTraits, 0, sizeof(merc->bSkillTraits));
 
 	//determine character level and points (absolute maximum = 666 points)
-	merc->bExpLevel = Random(9) + 1;
+	merc->bExpLevel = Random(10) + 1;
 	INT16 points = 300 + (merc->bExpLevel * 10) + Random(20);
 
 	//determine roles and traits

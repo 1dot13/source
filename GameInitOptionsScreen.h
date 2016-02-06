@@ -77,6 +77,9 @@ typedef struct
 	BOOLEAN bUpgradeAdminsToTroops;
 	BOOLEAN bUpgradeGarrisonsAdminsToTroops;
 	UINT8 usAlwaysUpGradeAdminsToTroopsProgress;
+	UINT8 usLevelModifierLowLimit;
+	UINT8 usLevelModifierHighLimit;
+	BOOLEAN bAllowUnrestrictedXPLevels;
 	BOOLEAN bQueenLosingControlOfSector;
 	BOOLEAN bBloodcatAmbush;
 	BOOLEAN bAirRaidLookForDive;
