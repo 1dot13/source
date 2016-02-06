@@ -84,8 +84,10 @@
 		
 		{Strategic Other}
 		
-		UpgradeAdminsToTroops : Upgrade all moving enemy groups for administrators ? : 0 - false, 1 - true
-		UpgradeGarrisonsAdminsToTroops :  Upgrade all garrisons for administrators ? : 0 - false, 1 - true
+		UpgradeAdminsToTroops : Can the AI upgrade all administrators in moving enemy groups? : 0 - false, 1 - true
+		UpgradeGarrisonsAdminsToTroops :  Can the AI upgrade all administrators in garrisons? : 0 - false, 1 - true
+		AlwaysUpGradeAdminsToTroopsProgress : If highest player progress is higher than this, all admins can be upgraded regardless of UpgradeAdminsToTroops or UpgradeGarrisonsAdminsToTroops
+								Valid values from 0 to 100
 		QueenAttackLosingControlOfSector : Usually queen will stop attacking town sector that has been retaken by player x number of times.
 											x = 4 (Novice), 8 (Experienced), 12 (Expert) and 16 (Insane). Set this parameter to 1 to allow unlimited attacks of the queens troops.
 		BloodcatAmbushSectors : ? : 0 - false, 1 - true
@@ -158,6 +160,7 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>0</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>0</AlwaysUpGradeAdminsToTroopsProgress>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
@@ -223,6 +226,7 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>0</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>40</AlwaysUpGradeAdminsToTroopsProgress>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>1</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
@@ -288,6 +292,7 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>0</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>30</AlwaysUpGradeAdminsToTroopsProgress>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>1</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
@@ -353,6 +358,7 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>20</AlwaysUpGradeAdminsToTroopsProgress>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>1</AirRaidLookForDive>
@@ -417,7 +423,8 @@
 		<WeaponCacheTroops5>4</WeaponCacheTroops5>	
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>1</UpgradeAdminsToTroops>
-		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>	
+		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>10</AlwaysUpGradeAdminsToTroopsProgress>
 		<QueenAttackLosingControlOfSector>1</QueenAttackLosingControlOfSector>	
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>1</AirRaidLookForDive>	
