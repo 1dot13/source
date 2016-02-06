@@ -40,24 +40,30 @@ Enabled - show/hide rank
 	<uiIndex>6</uiIndex>
 	<Enabled>1</Enabled>
 	<ExpLevel>6</ExpLevel>
-    <szRank>Lieutenant</szRank>
+    <szRank>Staff Sergeant</szRank>
   </RANK>
   <RANK>
 	<uiIndex>7</uiIndex>
 	<Enabled>1</Enabled>
 	<ExpLevel>7</ExpLevel>
-    <szRank>Captain</szRank>
+    <szRank>Lieutenant</szRank>
   </RANK>
   <RANK>
 	<uiIndex>8</uiIndex>
 	<Enabled>1</Enabled>
 	<ExpLevel>8</ExpLevel>
-    <szRank>Major</szRank>
+    <szRank>Captain</szRank>
   </RANK>
   <RANK>
 	<uiIndex>9</uiIndex>
 	<Enabled>1</Enabled>
 	<ExpLevel>9</ExpLevel>
+    <szRank>Major</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>10</uiIndex>
+	<Enabled>1</Enabled>
+	<ExpLevel>10</ExpLevel>
     <szRank>Colonel</szRank>
   </RANK>
 </ENEMY_RANK>

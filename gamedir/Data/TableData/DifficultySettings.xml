@@ -84,8 +84,17 @@
 		
 		{Strategic Other}
 		
-		UpgradeAdminsToTroops : Upgrade all moving enemy groups for administrators ? : 0 - false, 1 - true
-		UpgradeGarrisonsAdminsToTroops :  Upgrade all garrisons for administrators ? : 0 - false, 1 - true
+		UpgradeAdminsToTroops : Can the AI upgrade all administrators in moving enemy groups? : 0 - false, 1 - true
+		UpgradeGarrisonsAdminsToTroops :  Can the AI upgrade all administrators in garrisons? : 0 - false, 1 - true
+		AlwaysUpGradeAdminsToTroopsProgress : If highest player progress is higher than this, all admins can be upgraded regardless of UpgradeAdminsToTroops or UpgradeGarrisonsAdminsToTroops
+								Valid values from 0 to 100
+		LevelModifierLowLimit : Allows to have more variance for combatant levels instead of the fixed map and progress defined levels. This modifier allows to have random LOWER levels. Values from 0 to 5
+		LevelModifierHighLimit : Allows to have more variance for combatant levels instead of the fixed map and progress defined levels. This modifier allows to have HIGHER random levels. Values from 0 to 5
+								Examples: When both limits are zero you get the original unmodified behaviour.
+										  When both limits are set to 3 a combatant that would usually be level 5 could randomly roll anything between level 2 and 8.
+										  When low limit is 0 and high limit is 4 that level 5 combatant could roll anything between level 5 and 9 making the game harder.
+		AllowUnrestrictedXPLevels : Usually the game limits the maximum XP level for combatants per difficulty level to 6 (Novice), 7 (Experienced) or 8 (Expert). "Insane" has no limit.
+									This setting allows to override this limiter and have combatants of up to level 10 in easier difficulty modes. 0 - false, 1 - true
 		QueenAttackLosingControlOfSector : Usually queen will stop attacking town sector that has been retaken by player x number of times.
 											x = 4 (Novice), 8 (Experienced), 12 (Expert) and 16 (Insane). Set this parameter to 1 to allow unlimited attacks of the queens troops.
 		BloodcatAmbushSectors : ? : 0 - false, 1 - true
@@ -158,6 +167,10 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>0</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>0</AlwaysUpGradeAdminsToTroopsProgress>
+		<LevelModifierLowLimit>0</LevelModifierLowLimit>
+		<LevelModifierHighLimit>0</LevelModifierHighLimit>
+		<AllowUnrestrictedXPLevels>0</AllowUnrestrictedXPLevels>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
@@ -223,6 +236,10 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>0</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>40</AlwaysUpGradeAdminsToTroopsProgress>
+		<LevelModifierLowLimit>0</LevelModifierLowLimit>
+		<LevelModifierHighLimit>0</LevelModifierHighLimit>
+		<AllowUnrestrictedXPLevels>0</AllowUnrestrictedXPLevels>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>1</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
@@ -288,6 +305,10 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>0</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>30</AlwaysUpGradeAdminsToTroopsProgress>
+		<LevelModifierLowLimit>0</LevelModifierLowLimit>
+		<LevelModifierHighLimit>0</LevelModifierHighLimit>
+		<AllowUnrestrictedXPLevels>0</AllowUnrestrictedXPLevels>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>1</BloodcatAmbushSectors>
 		<AirRaidLookForDive>0</AirRaidLookForDive>
@@ -353,6 +374,10 @@
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>20</AlwaysUpGradeAdminsToTroopsProgress>
+		<LevelModifierLowLimit>0</LevelModifierLowLimit>
+		<LevelModifierHighLimit>0</LevelModifierHighLimit>
+		<AllowUnrestrictedXPLevels>0</AllowUnrestrictedXPLevels>
 		<QueenAttackLosingControlOfSector>0</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>1</AirRaidLookForDive>
@@ -417,7 +442,11 @@
 		<WeaponCacheTroops5>4</WeaponCacheTroops5>	
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>1</UpgradeAdminsToTroops>
-		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>	
+		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>
+		<AlwaysUpGradeAdminsToTroopsProgress>10</AlwaysUpGradeAdminsToTroopsProgress>
+		<LevelModifierLowLimit>0</LevelModifierLowLimit>
+		<LevelModifierHighLimit>0</LevelModifierHighLimit>
+		<AllowUnrestrictedXPLevels>1</AllowUnrestrictedXPLevels>
 		<QueenAttackLosingControlOfSector>1</QueenAttackLosingControlOfSector>	
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
 		<AirRaidLookForDive>1</AirRaidLookForDive>	
