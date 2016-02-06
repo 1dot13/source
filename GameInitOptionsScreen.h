@@ -75,7 +75,8 @@ typedef struct
 	UINT8 iWeaponCacheTroops4;
 	UINT8 iWeaponCacheTroops5;
 	BOOLEAN bUpgradeAdminsToTroops;
-	BOOLEAN bUpgradeAdminsToTroops2;
+	BOOLEAN bUpgradeGarrisonsAdminsToTroops;
+	UINT8 usAlwaysUpGradeAdminsToTroopsProgress;
 	BOOLEAN bQueenLosingControlOfSector;
 	BOOLEAN bBloodcatAmbush;
 	BOOLEAN bAirRaidLookForDive;

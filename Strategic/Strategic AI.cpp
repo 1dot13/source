@@ -6316,99 +6316,107 @@ void UpgradeAdminsToTroops()
 	// on normal, AI evaluates approximately every 10 hrs.	There are about 130 administrators seeded on the map.
 	// Some of these will be killed by the player.
 
+	UINT8 highestplayerprogress = HighestPlayerProgressPercentage( );
+
 	// check all garrisons for administrators
-	for( i = 0; i < giGarrisonArraySize; ++i )
+	if ( zDiffSetting[gGameOptions.ubDifficultyLevel].bUpgradeGarrisonsAdminsToTroops || highestplayerprogress >= zDiffSetting[gGameOptions.ubDifficultyLevel].usAlwaysUpGradeAdminsToTroopsProgress )
 	{
-		// skip sector if it's currently loaded, we'll never upgrade guys in those
-		if ( (gWorldSectorX != 0) && (gWorldSectorY != 0) &&
-			 (SECTOR( gWorldSectorX, gWorldSectorY ) == gGarrisonGroup[ i ].ubSectorID) )
+		for( i = 0; i < giGarrisonArraySize; ++i )
 		{
-			continue;
-		}
-
-		pSector = &SectorInfo[ gGarrisonGroup[ i ].ubSectorID ];
-
-		// if there are any admins currently in this garrison
-		if ( pSector->ubNumAdmins > 0 )
-		{
-			bPriority = gArmyComp[ gGarrisonGroup[ i ].ubComposition ].bPriority;
-
-			// highest priority sectors are upgraded first. Each 1% of progress lower the
-			// priority threshold required to start triggering upgrades by 10%.
-			if ( ( 100 - ( 10 * HighestPlayerProgressPercentage() ) ) < bPriority )
+			// skip sector if it's currently loaded, we'll never upgrade guys in those
+			if ( (gWorldSectorX != 0) && (gWorldSectorY != 0) &&
+				 (SECTOR( gWorldSectorX, gWorldSectorY ) == gGarrisonGroup[ i ].ubSectorID) )
 			{
-				ubAdminsToCheck = pSector->ubNumAdmins;
+				continue;
+			}
 
-				while ( ubAdminsToCheck > 0)
+			pSector = &SectorInfo[ gGarrisonGroup[ i ].ubSectorID ];
+
+			// if there are any admins currently in this garrison
+			if ( pSector->ubNumAdmins > 0 )
+			{
+				bPriority = gArmyComp[ gGarrisonGroup[ i ].ubComposition ].bPriority;
+
+				// highest priority sectors are upgraded first. Each 1% of progress lower the
+				// priority threshold required to start triggering upgrades by 10%.
+				if ( (100 - (10 * highestplayerprogress)) < bPriority )
 				{
-					// chance to upgrade at each check is random, and also dependant on the garrison's priority
-					if ( Chance ( bPriority ) || zDiffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops ) 
-					{
-						pSector->ubNumAdmins--;
-						pSector->ubNumTroops++;
-					}
+					ubAdminsToCheck = pSector->ubNumAdmins;
 
-					--ubAdminsToCheck;
+					while ( ubAdminsToCheck > 0)
+					{
+						// chance to upgrade at each check is random, and also dependant on the garrison's priority
+						if ( Chance ( bPriority ) ) 
+						{
+							pSector->ubNumAdmins--;
+							pSector->ubNumTroops++;
+						}
+
+						--ubAdminsToCheck;
+					}
 				}
 			}
 		}
 	}
 	
 	// check all moving enemy groups for administrators
-	pGroup = gpGroupList;
-	while( pGroup )
+	if ( zDiffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops || highestplayerprogress >= zDiffSetting[gGameOptions.ubDifficultyLevel].usAlwaysUpGradeAdminsToTroopsProgress )
 	{
-		if ( pGroup->ubGroupSize && pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle )
+		pGroup = gpGroupList;
+		while( pGroup )
 		{
-			Assert ( pGroup->pEnemyGroup );
-
-			// skip sector if it's currently loaded, we'll never upgrade guys in those
-			if ( ( pGroup->ubSectorX == gWorldSectorX ) && ( pGroup->ubSectorY == gWorldSectorY ) )
+			if ( pGroup->ubGroupSize && pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle )
 			{
-				pGroup = pGroup->next;
-				continue;
-			}
+				Assert ( pGroup->pEnemyGroup );
 
-			// if there are any admins currently in this group
-			if ( pGroup->pEnemyGroup->ubNumAdmins > 0 )
-			{
-				// if it's a patrol group
-				if ( pGroup->pEnemyGroup->ubIntention == PATROL )
+				// skip sector if it's currently loaded, we'll never upgrade guys in those
+				if ( ( pGroup->ubSectorX == gWorldSectorX ) && ( pGroup->ubSectorY == gWorldSectorY ) )
 				{
-					sPatrolIndex = FindPatrolGroupIndexForGroupID( pGroup->ubGroupID );
-					Assert( sPatrolIndex != -1 );
-
-					// use that patrol's priority
-					bPriority = gPatrolGroup[ sPatrolIndex ].bPriority;
-				}
-				else	// not a patrol group
-				{
-					// use a default priority
-					bPriority = 50;
+					pGroup = pGroup->next;
+					continue;
 				}
 
-				// highest priority groups are upgraded first. Each 1% of progress lower the
-				// priority threshold required to start triggering upgrades by 10%.
-				if ( ( 100 - ( 10 * HighestPlayerProgressPercentage() ) ) < bPriority )
+				// if there are any admins currently in this group
+				if ( pGroup->pEnemyGroup->ubNumAdmins > 0 )
 				{
-					ubAdminsToCheck = pGroup->pEnemyGroup->ubNumAdmins;
-
-					while ( ubAdminsToCheck > 0)
+					// if it's a patrol group
+					if ( pGroup->pEnemyGroup->ubIntention == PATROL )
 					{
-						// chance to upgrade at each check is random, and also dependant on the group's priority
-						if ( Chance ( bPriority ) || zDiffSetting[gGameOptions.ubDifficultyLevel].bUpgradeAdminsToTroops2 ) 
-						{
-							pGroup->pEnemyGroup->ubNumAdmins--;
-							pGroup->pEnemyGroup->ubNumTroops++;
-						}
+						sPatrolIndex = FindPatrolGroupIndexForGroupID( pGroup->ubGroupID );
+						Assert( sPatrolIndex != -1 );
 
-						ubAdminsToCheck--;
+						// use that patrol's priority
+						bPriority = gPatrolGroup[ sPatrolIndex ].bPriority;
+					}
+					else	// not a patrol group
+					{
+						// use a default priority
+						bPriority = 50;
+					}
+
+					// highest priority groups are upgraded first. Each 1% of progress lower the
+					// priority threshold required to start triggering upgrades by 10%.
+					if ( (100 - (10 * highestplayerprogress)) < bPriority )
+					{
+						ubAdminsToCheck = pGroup->pEnemyGroup->ubNumAdmins;
+
+						while ( ubAdminsToCheck > 0)
+						{
+							// chance to upgrade at each check is random, and also dependant on the group's priority
+							if ( Chance ( bPriority ) ) 
+							{
+								pGroup->pEnemyGroup->ubNumAdmins--;
+								pGroup->pEnemyGroup->ubNumTroops++;
+							}
+
+							ubAdminsToCheck--;
+						}
 					}
 				}
 			}
-		}
 
-		pGroup = pGroup->next;
+			pGroup = pGroup->next;
+		}
 	}
 }
 
