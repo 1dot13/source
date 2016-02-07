@@ -6878,6 +6878,32 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 	SetCustomizableTimerCallbackAndDelay( 1000, CheckForPickedOwnership, TRUE );
 }
 
+INT16 GetTileSetTindexToTileSetName( INT32 asTileSetId, std::string aTileSetName )
+{
+	// search wether structure exists in the current tilesets. If not, well, too bad
+	for ( INT16 iType = 0; iType < giNumberOfTileTypes; ++iType )
+	{
+		// if tileset is from the current tileset, check that
+		if ( gTilesets[asTileSetId].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !strcmp( aTileSetName.c_str( ), gTilesets[asTileSetId].TileSurfaceFilenames[iType] ) )
+			{
+				return iType;
+			}
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !strcmp( aTileSetName.c_str( ), gTilesets[0].TileSurfaceFilenames[iType] ) )
+			{
+				return iType;
+			}
+		}
+	}
+
+	return -1;
+}
+
 // can we construct a structure with this item?
 BOOLEAN IsStructureConstructItem(UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier)
 {

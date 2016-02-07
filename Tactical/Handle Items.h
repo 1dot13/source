@@ -207,7 +207,8 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 
 BOOLEAN MarblesExistAtLocation( INT32 sGridNo, UINT8 ubLevel, INT32 * piItemIndex );
 
-// Flugente: build an deconstruct structures
+// Flugente: build and deconstruct structures
+INT16 GetTileSetTindexToTileSetName( INT32 asTileSetId, std::string aTileSetName );
 BOOLEAN IsStructureConstructItem( UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier );	// can we construct a structure with this item?
 BOOLEAN IsStructureDeconstructItem( UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier );	// can we remove a structure with this item?
 BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );		// build a structure, return true if sucessful
