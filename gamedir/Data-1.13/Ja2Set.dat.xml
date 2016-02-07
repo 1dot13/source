@@ -454,6 +454,10 @@
 			<Files>
 				<file index="20">f_tree.sti</file>
 				<file index="32">f_trees.sti</file>
+				<file index="41">spot_1.sti</file>
+				<file index="42">sandbag.sti</file>	
+				<file index="45">spot_1s.sti</file>	
+				<file index="46">sandbags.sti</file>
 				<file index="49">bones2.sti</file>
 				<file index="89">bltruck.sti</file>
 				<file index="91">bltruck_s.sti</file>
