@@ -7,6 +7,11 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-02-07:
+- added Weasel
+- added Hector
+
+
 2016-02-01:
 - added Pops
 - added Doc
@@ -32,22 +37,11 @@ Changelog:
 - updates to Samuel
 
 
-2016-01-14:
-- updates to Leech
-- updates to Mouse
-- updates to Jimmy
-- updates to Gary
-- updates to Needle
-- updates to Moses
-- updates to Vinny
-- updates to Rusty
-
-
 
 Status:
 -------
 - weekly content updates
-- 12 of 50 mercs remain to be added
+- 10 of 50 mercs remain to be added
 - polish/rework to already existing files
 
 
