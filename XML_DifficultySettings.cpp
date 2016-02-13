@@ -67,6 +67,7 @@ DifficultySettingsParseDataStartElementHandle(void *userData, const XML_Char *na
 				strcmp(name, "GracePeriodInDaysAfterPatrolDestroyed") == 0 ||
 				strcmp(name, "AggressiveQueenAi") == 0 ||
 				strcmp(name, "MaxMercDeaths") == 0 ||
+				strcmp(name, "LootStatusModifier") == 0 ||
 				strcmp(name, "CreatureSpreadTime") == 0 ||
 				strcmp(name, "QueenReproductionBase") == 0 ||
 				strcmp(name, "QueenReproductionBonus") == 0 ||
@@ -171,6 +172,7 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iGracePeriodInDaysAfterPatrolDestroyed = pData->curDifficultySettings.iGracePeriodInDaysAfterPatrolDestroyed;					
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bAggressiveQueenAi = pData->curDifficultySettings.bAggressiveQueenAi;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iMaxMercDeaths = pData->curDifficultySettings.iMaxMercDeaths;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].usLootStatusModifier = pData->curDifficultySettings.usLootStatusModifier;
 
 					//Creatures Settings
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iCreatureSpreadTime = pData->curDifficultySettings.iCreatureSpreadTime;
@@ -346,6 +348,11 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curDifficultySettings.iMaxMercDeaths	= (INT32) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "LootStatusModifier") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.usLootStatusModifier	= (UINT8) atol(pData->szCharData);
 		}
 		//Creatures Settings
 		else if(strcmp(name, "CreatureSpreadTime") == 0)

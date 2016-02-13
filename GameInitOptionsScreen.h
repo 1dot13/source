@@ -43,6 +43,7 @@ typedef struct
 	UINT32 iGracePeriodInDaysAfterPatrolDestroyed;
 	BOOLEAN bAggressiveQueenAi;
 	INT32 iMaxMercDeaths;
+	UINT8 usLootStatusModifier;
 	
 	//Creatures Settings
 	UINT16 iCreatureSpreadTime;
