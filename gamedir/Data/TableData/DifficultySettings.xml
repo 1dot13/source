@@ -34,6 +34,7 @@
 							JA2 default is FALSE. To ensure she doesn't run out of troops, make sure you either increase the reinforcement pool or enable unlimited reinforcements. 
 							
 		MaxMercDeaths : How many mercs can die at each difficulty level? min = 0 max = 10
+		LootStatusModifier : When opponents drop their equipment on death it gets damaged by this random amount. Usually the higher the difficulty level the higher the possible damage. : 0 - 100
 		
 	    {Creatures Settings}
 		
@@ -135,6 +136,7 @@
 		<GracePeriodInDaysAfterPatrolDestroyed>0</GracePeriodInDaysAfterPatrolDestroyed>
 		<AggressiveQueenAi>0</AggressiveQueenAi>
 		<MaxMercDeaths>0</MaxMercDeaths>
+		<LootStatusModifier>0</LootStatusModifier>
 		<!-- Creatures Settings -->
 		<CreatureSpreadTime>0</CreatureSpreadTime>
 		<QueenReproductionBase>0</QueenReproductionBase>
@@ -204,6 +206,7 @@
 		<GracePeriodInDaysAfterPatrolDestroyed>16</GracePeriodInDaysAfterPatrolDestroyed>
 		<AggressiveQueenAi>0</AggressiveQueenAi>
 		<MaxMercDeaths>2</MaxMercDeaths>
+		<LootStatusModifier>0</LootStatusModifier>
 		<!-- Creatures Settings -->
 		<CreatureSpreadTime>510</CreatureSpreadTime>
 		<QueenReproductionBase>6</QueenReproductionBase>
@@ -273,6 +276,7 @@
 		<GracePeriodInDaysAfterPatrolDestroyed>12</GracePeriodInDaysAfterPatrolDestroyed>
 		<AggressiveQueenAi>0</AggressiveQueenAi>
 		<MaxMercDeaths>4</MaxMercDeaths>
+		<LootStatusModifier>20</LootStatusModifier>
 		<!-- Creatures Settings -->
 		<CreatureSpreadTime>450</CreatureSpreadTime>
 		<QueenReproductionBase>7</QueenReproductionBase>
@@ -342,6 +346,7 @@
 		<GracePeriodInDaysAfterPatrolDestroyed>8</GracePeriodInDaysAfterPatrolDestroyed>
 		<AggressiveQueenAi>0</AggressiveQueenAi>
 		<MaxMercDeaths>6</MaxMercDeaths>
+		<LootStatusModifier>40</LootStatusModifier>
 		<!-- Creatures Settings -->
 		<CreatureSpreadTime>390</CreatureSpreadTime>
 		<QueenReproductionBase>9</QueenReproductionBase>
@@ -411,6 +416,7 @@
 		<GracePeriodInDaysAfterPatrolDestroyed>2</GracePeriodInDaysAfterPatrolDestroyed>
 		<AggressiveQueenAi>1</AggressiveQueenAi>
 		<MaxMercDeaths>8</MaxMercDeaths>
+		<LootStatusModifier>60</LootStatusModifier>
 		<!-- Creatures Settings -->
 		<CreatureSpreadTime>150</CreatureSpreadTime>
 		<QueenReproductionBase>15</QueenReproductionBase>
