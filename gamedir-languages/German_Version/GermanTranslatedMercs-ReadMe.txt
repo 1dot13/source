@@ -7,6 +7,10 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-02-14:
+- added Dyno
+
+
 2016-02-07:
 - added Weasel
 - added Hector
@@ -27,14 +31,6 @@ Changelog:
 - updates to Sparky
 - updates to Stella
 - updates to Screw
-
-
-2016-01-20:
-- added Mike
-- added Smoke
-- updates to Bud
-- updates to Boss
-- updates to Samuel
 
 
 
