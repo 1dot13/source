@@ -7,6 +7,14 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-02-21:
+- added Postie
+- added Rev
+- updates to Leech
+- updates to Bud
+- updates to Dyno
+
+
 2016-02-14:
 - added Dyno
 
@@ -24,20 +32,11 @@ Changelog:
 - updates to Wink
 
 
-2016-01-26:
-- added Skitz
-- added Leon
-- updates to Kelly
-- updates to Sparky
-- updates to Stella
-- updates to Screw
-
-
 
 Status:
 -------
 - weekly content updates
-- 10 of 50 mercs remain to be added
+- 7 of 50 mercs remain to be added
 - polish/rework to already existing files
 
 
@@ -45,7 +44,7 @@ Status:
 Known Issues:
 -------------
 -multiple voiceactors for Mike [JA2+JA:DG]
--multiple voiceactors for Speck [JA2+JA2:UB+JA:DG]
+-multiple voiceactors for Speck [JA2+JA2:UB+JA:DG] | When released i cannot recommend him as a hireable mercenary
 
 
 
