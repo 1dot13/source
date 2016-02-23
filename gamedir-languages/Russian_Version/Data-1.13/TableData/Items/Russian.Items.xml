@@ -9619,8 +9619,8 @@
 	<ITEM>
 		<uiIndex>1202</uiIndex>
 		<szItemName>Газовый ключ</szItemName>
-		<szLongItemName>Тяжелый трубный ключ</szLongItemName>
-		<szItemDesc>Надежный и проверенный инструмент для ремонта труб. А вообще его применение зависит во многом от фантазии владельца. Многие пытаются им "лечить" людей.</szItemDesc>
+		<szLongItemName>Тяжёлый трубный ключ</szLongItemName>
+		<szItemDesc>Надёжный и проверенный инструмент для ремонта труб. А вообще, его применение зависит во многом от фантазии владельца. Некоторые пытаются им "лечить" людей.</szItemDesc>
 		<szBRName>Газовый ключ</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
@@ -13779,42 +13779,42 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1721</uiIndex>
-		<szItemName>Wooden Planks, small</szItemName>
-		<szLongItemName>Wooden Planks, small</szLongItemName>
-		<szItemDesc>Wooden Planks. 1x1</szItemDesc>
-		<szBRName>Wooden Planks, small</szBRName>
+		<szItemName>Доски, малые</szItemName>
+		<szLongItemName>Доски деревянные, малые</szLongItemName>
+		<szItemDesc>Доски деревянные. 1x1</szItemDesc>
+		<szBRName>Доски деревянные, малые</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1722</uiIndex>
-		<szItemName>Wooden Planks, medium</szItemName>
-		<szLongItemName>Wooden Planks, medium</szLongItemName>
-		<szItemDesc>Wooden Planks. 2x1</szItemDesc>
-		<szBRName>Wooden Planks, medium</szBRName>
+		<szItemName>Доски, средние</szItemName>
+		<szLongItemName>Доски деревянные, средние</szLongItemName>
+		<szItemDesc>Доски деревянные. 2x1</szItemDesc>
+		<szBRName>Доски деревянные, средние</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1723</uiIndex>
-		<szItemName>Wooden Planks, large</szItemName>
-		<szLongItemName>Wooden Planks, large</szLongItemName>
-		<szItemDesc>Wooden Planks. 2x2</szItemDesc>
-		<szBRName>Wooden Planks, large</szBRName>
+		<szItemName>Доски, большие</szItemName>
+		<szLongItemName>Доски деревянные, большие</szLongItemName>
+		<szItemDesc>Доски деревянные. 2x2</szItemDesc>
+		<szBRName>Доски деревянные, большие</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1724</uiIndex>
-		<szItemName>Wooden Wall, small</szItemName>
-		<szLongItemName>Wooden Wall, small</szLongItemName>
-		<szItemDesc>A small wooden wall, used for construction.</szItemDesc>
-		<szBRName>Wooden Wall, small</szBRName>
+		<szItemName>Стена, малая</szItemName>
+		<szLongItemName>Стена деревянная, малая</szLongItemName>
+		<szItemDesc>Небольшая деревянная стенка, используется при строительстве.</szItemDesc>
+		<szBRName>Стена деревянная, малая</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1725</uiIndex>
-		<szItemName>Wooden Wall, large</szItemName>
-		<szLongItemName>Wooden Wall, large</szLongItemName>
-		<szItemDesc>A large wooden wall, used for construction.</szItemDesc>
-		<szBRName>Wooden Wall, large</szBRName>
+		<szItemName>Стена, большая</szItemName>
+		<szLongItemName>Стена деревянная, большая</szLongItemName>
+		<szItemDesc>Большая деревянная стенка, используется при строительстве.</szItemDesc>
+		<szBRName>Стена деревянная, большая</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
