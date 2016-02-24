@@ -9741,8 +9741,8 @@ STR16	szWHOWebSite[] =
 	// contract page
 	L"The small country of Arulco is currently experiencing an outbreak of the deadly arulcan plague.",
 	L"Due to the catastrophic state of the state's health system, only the armies' medical corps is there to combat the deadly disease.",
-	L"With the country being of limits to UN affiliates, all we can currently do is provide detailed maps on the current status of infection in Arulco. Due to the difficulty in dealing with Arulco, we regret to have to ask for a daily fee of %d$ for anyone wishing to obtain these maps.",
-	L"Do you wish to acquire detailed data on the current status of diease in Arulco? You can access this data on the strategic map once aquired.",
+	L"With the country being off limits to UN affiliates, all we can currently do is provide detailed maps on the current status of infection in Arulco. Due to the difficulty in dealing with Arulco, we regret to have to ask for a daily fee of %d$ for anyone wishing to obtain these maps.",
+	L"Do you wish to acquire detailed data on the current status of disease in Arulco? You can access this data on the strategic map once acquired.",
 	L"You currently do not have access to WHO data on the arulcan plague.",
 	L"You have acquired detailed maps on the status of the disease.",
 	L"Subscribe to map updates",
