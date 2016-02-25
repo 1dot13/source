@@ -1,112 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Для переноса в игре на следующую строку использовать это  &#10; -->
 <DISEASESLIST>
 	<DISEASE>
 		<uiIndex>0</uiIndex>
-		<szName>Arulcan plague</szName>
-		<szFatName>|A|r|u|l|c|a|n |P|l|a|g|u|e</szFatName>
-		<szDescription>This rare subtype of the plague is unique to Arulco. It can be spread by insects, direct contact,&#10;or by contaminated food. There have been several deadly outbreaks in the last decade.</szDescription>
+		<szName>Арулькийская чума</szName>
+		<szFatName>|А|р|у|л|ь|к|и|й|с|к|а|я |ч|у|м|а</szFatName>
+		<szDescription>Этот редкий подтип чумы является уникальным для Арулько. Вирус может распространяться насекомыми, заражёнными людьми или через зараженные пищевые продукты. За последнее десятилетие было несколько смертельных вспышек этой чумы.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>1</uiIndex>
-		<szName>Typhoid</szName>
-		<szFatName>|T|y|p|h|o|i|d</szFatName>
-		<szDescription>Typhoid fever is a common worldwide bacterial disease transmitted by the ingestion of food or water&#10;contaminated with the feces of an infected person. Symptoms include internal bleeding, dehydration and delirium.</szDescription>
+		<szName>Тиф</szName>
+		<szFatName>|Т|и|ф</szFatName>
+		<szDescription>Брюшной тиф - антропонозное острое инфекционное заболевание с фекально-оральным механизмом передачи (реализуется водным, пищевым и бытовым путями). Симптомы - высокая температура, головная боль, головокружение, бессонница иногда внутреннее кровотечение.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>2</uiIndex>
-		<szName>Hepatitis A</szName>
-		<szFatName>|H|e|p|a|t|i|t|i|s |A</szFatName>
-		<szDescription>Hepatitis A is usually spread by eating or drinking contaminated food or water or through close contact with an&#10;infectious person. Symptoms may include nausea, vomiting, diarrhea, yellow skin, fever, and abdominal pain.</szDescription>
+		<szName>Гепатит А</szName>
+		<szFatName>|Г|е|п|а|т|и|т |А</szFatName>
+		<szDescription>Гепатит А хорошо передаётся через зараженную пищу, воду, грязные руки или при тесном контакте с инфицированным человеком. Ранние симптомы инфицирования - ощущение слабости и недомогания, потери аппетита, тошноты и рвоты, боли в мышцах.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>3</uiIndex>
-		<szName>Tetanus</szName>
-		<szFatName>|T|e|t|a|n|u|s</szFatName>
-		<szDescription>Infection with tetanus generally occurs through wound contamination and often involves a cut or deep puncture&#10;wound. As the infection progresses, muscle spasms develop in the jaw and elsewhere in the body.</szDescription>
+		<szName>Столбняк</szName>
+		<szFatName>|С|т|о|л|б|н|я|к</szFatName>
+  		<szDescription>Заболевание может развиться от укусов ядовитых животных и пауков, при глубоких ранениях и повреждениях кожи. Особенно опасны колотые или имеющие глубокие карманы раны. Болезнь сопровождается поражением нервной системы в виде тонического напряжения скелетной мускулатуры и генерализованными судорогами.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>4</uiIndex>
-		<szName>Tubercolosis</szName>
-		<szFatName>|T|u|b|e|r|c|o|l|o|s|i|s</szFatName>
-		<szDescription>Tuberculosisis a common, and in many cases fatal, infectious disease. It is spread through the air. About one in ten latent&#10;infections eventually progresses to active disease which, if left untreated, kills more than 50% of those so infected.</szDescription>
+		<szName>Туберкулёз</szName>
+		<szFatName>|Т|у|б|е|р|к|у|л|ё|з</szFatName>
+		<szDescription>Туберкулез - распространённое инфекционное заболевание, иногда приводит к смертельному исходу. Вирус передаётся воздушно-капельным путём и присутствует ворганизме каждого человека, но не каждый заболевает. Если не лечить больного, смерть наступает в 50 %% случаев.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>5</uiIndex>
-		<szName>Cholera</szName>
-		<szFatName>|C|h|o|l|e|r|a</szFatName>
-		<szDescription>Main symptoms of Cholera are watery diarrhea and vomiting. This may result in dehydration and in severe cases grayish-bluish skin.&#10;Transmission occurs primarily by contaminated water or food. Severe cholera can lead to death.</szDescription>
+		<szName>Холера</szName>
+		<szFatName>|Х|о|л|е|р|а</szFatName>
+		<szDescription>Основные симптомы холеры - водянистый понос и рвота. Болезнь приводит к обезвоживанию, а иногда к изменению цвета кожи на серовато-голубой. В основном, инфекция передаётся через грязную воду или пищу. В тяжёлых формах приводит к смерти.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>6</uiIndex>
-		<szName>Ebola</szName>
-		<szFatName>|E|b|o|l|a</szFatName>
-		<szDescription>A deadly virus with no known treatment, Ebola has a an unusually high lethality rate of over 50%%. Symptoms include nausea, vomiting,&#10;diarrhea and internal bleeding.</szDescription>
+		<szName>Эбола</szName>
+		<szFatName>|Э|б|о|л|а</szFatName>
+		<szDescription>Смертельный вирус с невероятно высоким уровнем летальности в 50 %%. На данный момент не имеет известного способа лечения. Симптомы - тошнота, рвота, диарея и внутреннее кровотечение.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>7</uiIndex>
-		<szName>Malaria</szName>
-		<szFatName>|M|a|l|a|r|i|a</szFatName>
-		<szDescription>Malaria is a mosquito-borne infectious disease commonly transmitted by a bite from an infected mosquito. Malaria &#10;causes symptoms that typically include fever and headache, which in severe cases can progress to coma or death.</szDescription>
+		<szName>Малярия</szName>
+		<szFatName>|М|а|л|я|р|и|я</szFatName>
+		<szDescription>Малярия - инфекционное заболевание, передаваемое человеку укусом заражённой самками комаров рода Anopheles. Симптомы - лихорадка, ознобы, артралгия, рвота, анемия, вызванная гемолизом, гемоглобинурия, конвульсии, нестерпимая головная боль. Малярийная инфекция смертельно опасна.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>8</uiIndex>
-		<szName>Staphylococcus</szName>
-		<szFatName>|S|t|a|p|h|y|l|o|c|o|c|c|u|s</szFatName>
-		<szDescription>A staphylococcus infection is a common result of food poisoning. Symptoms include spontaneous vomiting and diarrhea.</szDescription>
+		<szName>Стафилококк</szName>
+		<szFatName>|С|т|а|ф|и|л|о|к|о|к|к</szFatName>
+		<szDescription>Стафилококковая инфекция может быть причиной пищевого отравления. Симптомы отравления – тошнота, рвота, диарея, боли в животе - наступают в течение нескольких часов после употребления заражённой еды.</szDescription>
 	</DISEASE>	
 	<DISEASE>
 		<uiIndex>9</uiIndex>
-		<szName>Chlamydia</szName>
-		<szFatName>|C|h|l|a|m|y|d|i|a</szFatName>
-		<szDescription>Chlamydia is one of the most common sexually transmitted infections. If left untreated, chlamydial infections &#10; can cause serious reproductive and other health problems with both short-term and long-term consequences.</szDescription>
+		<szName>Хламидиоз</szName>
+		<szFatName>|Х|л|а|м|и|д|и|о|з</szFatName>
+		<szDescription>Хламидиоз - одна из наиболее распространенных инфекций, передаваемых половым путём. Если не лечить, может вызвать серьезные проблемы как с краткосрочными, так и с долгосрочными последствиями для репродуктивной системы и здоровья в целом.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>10</uiIndex>
-		<szName>Ballistic trauma</szName>
-		<szFatName>|B|a|l|l|i|s|t|i|c |t|r|a|u|m|a</szFatName>
-		<szDescription>Ballistic trauma or gunshot wound is a form of physical trauma sustained from the discharge of arms or munitions. &#10; Non-fatal gunshot wounds frequently have severe and long-lasting effects, even after the victim has made a successful recovery.</szDescription>
+		<szName>Баллистическая травма</szName>
+		<szFatName>|Б|а|л|л|и|с|т|и|ч|е|с|к|а|я |т|р|а|в|м|а</szFatName>
+		<szDescription>Баллистическая травма или огнестрельное ранение - форма физической травмы, полученной от выброса оружия или боеприпасов. Нефатальные огнестрельные ранения часто имеют серьезные и длительные последствия, даже после того как пострадавший успешно восстановился.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>11</uiIndex>
-		<szName>PTSD</szName>
-		<szFatName>|P|T|S|D</szFatName>
-		<szDescription>|Post|traumatic |stress |disorder may develop after a person is exposed to one or more traumatic events, such as sexual assault,&#10;warfare, serious injury, or threats of imminent death that result in feelings of intense fear, horror, and powerlessness.</szDescription>
+		<szName>ПТСР</szName>
+		<szFatName>|П|T|С|Р</szFatName>
+		<szDescription>|Посттравматическое |стрессовое |расстройство может развиться если человек подвергался воздействию одного или нескольких травматических событий. Причиной могут стать сексуальное насилие, война, серьезные травмы или угрозы неминуемой смерти, которые приводят к чувству сильного страха, ужаса и бессилия.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>12</uiIndex>
-		<szName>Wounded leg</szName>
-		<szFatName>|W|o|u|n|d|e|d |l|e|g</szFatName>
-		<szDescription>The human musculoskeletal system is complicated. Your leg received a critical wound, and while it heals, your mobility is affected.</szDescription>
+		<szName>Ранение ноги</szName>
+		<szFatName>|Р|а|н|е|н|и|е |н|о|г|и</szFatName>
+		<szDescription>Опорно-двигательный аппарат человека очень сложный и любое его повреждение приводит к ограничению в мобильности. Ваше критическое ранение в ногу значительно замедляет передвижение.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>13</uiIndex>
-		<szName>Damaged arm</szName>
-		<szFatName>|D|a|m|a|g|e|d |a|r|m</szFatName>
-		<szDescription>You were shot in the arm. Apart from being very painful, this severely limits your motor abilities.</szDescription>
+		<szName>Ранение руки</szName>
+		<szFatName>|Р|а|н|е|н|и|е |р|у|к|и</szFatName>
+		<szDescription>Вас ранили в руку. Помимо дикой боли, ранение ещё и значительно ограничивает вас в движениях.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>14</uiIndex>
-		<szName>Wounded biceps</szName>
-		<szFatName>|W|o|u|n|d|e|d |b|i|c|e|p|s</szFatName>
-		<szDescription>A painful shot to your torso has you gasping for air. You'll have to cut back in the next days. </szDescription>
+		<szName>Ранение торса</szName>
+		<szFatName>|Р|а|н|е|н|и|е |т|о|р|с|а</szFatName>
+		<szDescription>Болезненное ранение в торс подарило вам отдышку. Придётся поубавить нагрузку на ближайшие дни.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>15</uiIndex>
-		<szName>Drug Addiction</szName>
-		<szFatName>|D|r|u|g |A|d|d|i|c|t|i|o|n</szFatName>
-		<szDescription>You've become addicted to various substances. Until your body has removed all traces of drugs, you will suffer from withdrawal.</szDescription>
+		<szName>Наркотическая зависимость</szName>
+		<szFatName>|Н|а|р|к|о|т|и|ч|е|с|к|а|я |з|а|в|и|с|и|м|о|с|т|ь</szFatName>
+		<szDescription>Вы стали зависимы от различных веществ. Ломка не пройдёт пока ваше тело не очистится от остатков наркотиков.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>16</uiIndex>
-		<szName>Hungover</szName>
-		<szFatName>|H|u|n|g|o|v|e|r</szFatName>
-		<szDescription>That last beer was definitely spoiled.</szDescription>
+		<szName>Похмелье</szName>
+		<szFatName>|П|о|х|м|е|л|ь|е</szFatName>
+		<szDescription>Последняя бутылка пива была определенно лишней.</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<!-- As cancer grows over a long time, it does not grow on itself ingame, only by consuming cigarettes -->
 		<uiIndex>17</uiIndex>
-		<szName>Lung Cancer</szName>
-		<szFatName>|L|u|n|g |C|a|n|c|e|r</szFatName>
-		<szDescription>Lung cancer is a malignant lung tumor characterized by uncontrolled cell growth in tissues of the lung. If left untreated, this growth can spread beyond the lung.</szDescription>
+		<szName>Рак легких</szName>
+		<szFatName>|Р|а|к |л|ё|г|к|и|х</szFatName>
+		<szDescription>Рак лёгких является злокачественной опухоль, характеризуется неконтролируемым ростом клеток в тканях лёгких. Если не лечить, этот рост может распространиться на другие органы.</szDescription>
 	</DISEASE>
 </DISEASESLIST>

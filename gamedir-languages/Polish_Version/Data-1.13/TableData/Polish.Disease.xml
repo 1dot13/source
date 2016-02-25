@@ -26,8 +26,8 @@
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>4</uiIndex>
-		<szName>Tubercolosis</szName>
-		<szFatName>|T|u|b|e|r|c|o|l|o|s|i|s</szFatName>
+		<szName>Tuberculosis</szName>
+		<szFatName>|T|u|b|e|r|c|u|l|o|s|i|s</szFatName>
 		<szDescription>Tuberculosisis a common, and in many cases fatal, infectious disease. It is spread through the air. About one in ten latent&#10;infections eventually progresses to active disease which, if left untreated, kills more than 50% of those so infected.</szDescription>
 	</DISEASE>
 	<DISEASE>
