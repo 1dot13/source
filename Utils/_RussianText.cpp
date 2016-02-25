@@ -2457,8 +2457,8 @@ STR16 pAssignmentStrings[] =
 	L"Пропаганда",	// spread propaganda
 	L"Слухи",	// gather information
 	L"Command",	// militia movement orders							//TODO.Translate
-	L"Diagnose", // disease diagnosis	
-	L"Treat D.", // treat disease among the population
+	L"Осмотр", // disease diagnosis	
+	L"Леч.насел.", // treat disease among the population
 	L"Медик",	// administering medical aid
 	L"Пациент",	// getting medical aid
 	L"Ремонт",	// repairing
@@ -2557,9 +2557,9 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Собирает слухи", 	 // facility: gather rumours	
 	L"Ведет пропаганду", // spread propaganda
 	L"Собирает слухи",   // gather information
-	L"Commanding Militia",	// militia movement orders			// TODO.Translate
-	L"Diagnose", // disease diagnosis
-	L"Treat Population disease", // treat disease among the population
+	L"Руководит ополчением",	// militia movement orders
+	L"Обследование", // disease diagnosis
+	L"Лечит население", // treat disease among the population
 	L"Медик",
 	L"Пациент",
 	L"Ремонт",
@@ -2617,9 +2617,9 @@ STR16 pLongAssignmentStrings[] =
 	L"Собирает слухи",			// facility: gather rumours	
 	L"Ведет пропаганду",		// spread propaganda
 	L"Собирает слухи",			// gather information
-	L"Commanding Militia",	// militia movement orders			// TODO.Translate
-	L"Diagnose", // disease diagnosis
-	L"Treat Population disease", // treat disease among the population
+	L"Руководит ополчением",	// militia movement orders
+	L"Обследование", // disease diagnosis
+	L"Лечит население", // treat disease among the population
 	L"Медик",
 	L"Пациент",
 	L"Ремонтирует",
@@ -2735,7 +2735,7 @@ STR16 pAssignMenuStrings[] =
 {
 	L"На службе", // merc is on active duty
 	L"Медик", // the merc is acting as a doctor
-	L"Disease", // merc is a doctor doing diagnosis				// TODO.Translate
+	L"Заболевания", // merc is a doctor doing diagnosis
 	L"Пациент", // the merc is receiving medical attention
 	L"Машина", // the merc is in a vehicle
 	L"Ремонт", // the merc is repairing items 
@@ -3300,7 +3300,7 @@ STR16 pLandTypeStrings[] =
 	L"Аэропорт Драссена",
 	L"Аэропорт Медуны",
 	L"База ПВО",
-	L"Место заправки",
+	L"АЗС  ",
 	L"Убежище повстанцев",	//The rebel base underground in sector A10
 	L"Подвалы Тиксы",	//The basement of the Tixa Prison (J9)
 	L"Логово тварей",	//Any mine sector with creatures in it
@@ -4287,7 +4287,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Вещи (|I)",
 	L"Ополчение и враги (|Z)",
 	L"Мобильные группы ополченцев (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
-	L"Информация по заболеваемости",
+	L"Очаги заболеваний",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -6152,8 +6152,8 @@ STR16		zMarksMapScreenText[] =
 	L"Сейчас у вас нет мобильных групп ополчения. Включите этот режим в следующий раз, когда наберёте их.",
 	L"Здесь показано, куда ваши мобильные отряды могут пройти, и куда нет. СЕРЫЙ = не пойдут туда. КРАСНЫЙ = могут пойти туда, но вы запретили им. ЖЁЛТЫЙ = могут вступить в сектор, но не могут его покинуть. ЗЕЛЁНЫЙ = могут свободно передвигаться. Правым щелчком кнопки мыши можно менять цветовой статус сектора.",
 
-	// Flugente: disease texts describing what a map view does	// TODO.Translate
-	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
+	// Flugente: disease texts describing what a map view does
+	L"Здесь показаны вспышки заболеваний по секторам. Число указывает средний показатель инфекции на человека, цвет - насколько широко распространена инфекция. СЕРЫЙ= нет информации о заболеваемости. ЗЕЛЁНЫЙ - КРАСНЫЙ = уровень роста заболеваемости.",
 };
 
 
@@ -7875,7 +7875,7 @@ STR16 gzFacilityRiskResultStrings[]=
 
 STR16 gzFacilityAssignmentStrings[]=
 {
-	L"AMBIENT",
+	L"Окружающая среда",	//AMBIENT
 	L"Штат",	//Staff
 	L"Питание",
 	L"Отдых",
@@ -7923,13 +7923,13 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Вести пропаганду",
 	L"Вести пропаганду",	// spread propaganda (globally)
 	L"Собирать слухи",
-	L"Command Militia",	// militia movement orders
+	L"Командовать ополчением",	// militia movement orders
 };
 STR16 Additional113Text[]=
 {
 	L"Для запуска Jagged Alliance 2 v1.13 в оконном режиме требуется установить 16-битное качество цветопередачи экрана",
-	L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",	// TODO.Translate
-	L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	// TODO.Translate
+	L"Jagged Alliance 2 v1.13 в полноэкранном режиме с разрешением %d x %d не поддерживается установками вашего экрана.\nИзмените разрешение игры или используйте 16-битный оконный режим.",
+	L"Внутренняя ошибка при чтении места %s сохранённой игры: Число мест в сохранённой игре (%d) отличается от определенных параметрами настроек (%d) в ja2_options.ini",
 	// WANNE: Savegame slots validation against INI file 
 	L"Наёмники (MAX_NUMBER_PLAYER_MERCS) / Машины (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"Противник (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
@@ -8170,7 +8170,7 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 {
-	L"\n \nЭто основное качество брони определяет,\n какой урон при попадании будет заблокирован\nброней.\n \nПомните, что бронебойные атаки и различные\nслучайные факторы могут повлиять на\nокончательное снижение урона.\n \nБольше - лучше.",
+	L"\n \nЭто основное качество брони, оно определяет\nкакой урон будет заблокирован защитой.\n \nПомните, что бронебойные атаки и различные\nслучайные факторы могут повлиять на\nокончательное снижение урона.\n \nБольше - лучше.",
 	L"\n \nОпределяет, какая часть защищаемой\nчасти тела покрыта броней. Если покрытие\nменьше 100%, то у любой атаки есть определенный\nшанс на попадание в незащищенную часть тела\nи нанесение ей максимального урона.\n \nБольше - лучше.",
 	L"\n \nОпределяет, как быстро состояние этой\nброни ухудшается при попадании в\nнее в зависимости от урона от атаки.\n \nМеньше - лучше.",
 	L"\n \nОпределяет сложность починки этой брони,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только техники и некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
@@ -8258,15 +8258,15 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
-	L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",	// TODO.Translate
-	L"|V|o|l|u|m|e",	// TODO.Translate
+	L"|Д|о|с|т|у|п|н|ы|й |о|б|ъ|ё|м",
+	L"|О|б|ъ|ё|м",
 };
 
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \nОпределяет сложность починки этого предмета,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
-	L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",	// TODO.Translate
-	L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",	// TODO.Translate
+	L"\n \nОпределяет сколько доступно места в этом держателе типа MOLLE.\n \nБольше - лучше.",
+	L"\n \nОпределяет как много места займёт этот MOLLE карман.\n \nМеньше - лучше.",
 };
 
 STR16 szUDBGenSecondaryStatsTooltipText[]=
@@ -8310,7 +8310,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|Б|л|о|к|и|р|у|е|т |о|т|к|р|ы|т|ы|й |п|р|и|ц|е|л",
 	L"|С|н|а|р|я|д |п|р|о|т|и|в |б|р|о|н|и",
 	L"|З|а|щ|и|т|а |д|л|я |л|и|ц|а",
-	L"|И|н|Ф|е|к|ц|и|о|н|н|а|я |з|а|щ|и|т|а",	// 39
+	L"|И|н|ф|е|к|ц|и|о|н|н|а|я |з|а|щ|и|т|а",	// 39
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8321,8 +8321,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nПри попадании этих боеприпасов в броню\nпоследняя очень быстро будет разрушаться.\n \nПотенциально с их помощью можно полностью\nлишить цель брони.",
 	L"\n \nЭти боеприпасы отлично работают\nпри разрушении замков.\n \nСтрельба ими по запертым дверям или контейнерам\nнанесет огромный урон замку.",
 	L"\n \nЭта броня в три раза более устойчива\nко взрывам.\n \nКогда взрыв попадет в броню, степень защиты\nпоследней будет считаться утроенной\nпо сравнению со стандартным значением.",
-	L"\n \nЭта вещь водонепронимаема. Она не\nполучает повреждений при погружении под воду.\n \nСостояние вещей БЕЗ этого свойства постепенно\n ухудшается, если их владелец плывет.",
-	L"\n \nЭта вещь содержит сложную\nэлектронику.\n \nТакие вещи сложнее чинить, по крайней\nмере без навыков электронщика.",
+	L"\n \nЭта вещь водонепронимаема. Она не\nполучает повреждений при погружении под воду.\n \nСостояние вещей БЕЗ этого свойства постепенно\nухудшается, если их владелец плывет.",
+	L"\n \nСложнотехническая вещь с электроникой.\n \nТакие вещи сложнее чинить, по крайней\nмере без навыков электронщика.",
 	L"\n \nКогда эта вещь находится на лице\nперсонажа, она защищает его ото всех\nвидов ядовитых газов.\n \nУчтите, что некоторые газы имеют коррозийный\nэффект, так что будут разъедать и маску.",
 	L"\n \nЭтому предмету требуются батарейки.\nБез них вы не сможете включить данный предмет.\n \nВставляются батарейки так же, как прицел\nприкрепляется к оружию.",
 	L"\n \nЭтот предмет можно использовать\nдля вскрытия запертых дверей и контейнеров.\n \nВзлом не производит шума, но требует\nзначительных навыков механика, без которых\nвозможно вскрыть лишь самые простые\nзамки. Эта вещь улучшает шанс\nвзлома на ", //JMich_SkillsModifiers: needs to be followed by a number
@@ -8354,7 +8354,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nЭтот предмет блокирует открытые\nприцельные приспособления оружия, так что вы не\nсможете воспользоваться ими.",
 	L"\n \nЭтот боеприпас может уничтожать тонкие стены\nи некоторые другие объекты.",
 	L"\n \nЕсли одето на лицо, понижает шанс\nзаражения от других людей.",
-	L"\n \nЕсли хранить это в своём кармане,\nпонижается\nшанс быть инфицированными другими людьми.",
+	L"\n \nЕсли хранить в своём кармане,\nпонижается шанс заражения\n от других людей.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8612,7 +8612,7 @@ STR16 gzMercCompare[] =
 	L"Dislikes other background",
 	L"Dislikes other backgrounds",
 
-	L"Затаил обиду",
+	L"Затаил обиду",	//Past grievances
 	L"____",				// 15
 	L"/",
 };
@@ -8650,7 +8650,7 @@ CHAR16* ranks[] =
 {	L"",			//ExpLevel 0
 	L"Рядовой ",		//ExpLevel 1
 	L"Ефрейтор ",		//ExpLevel 2
-	L"Мл. сержант ",		//ExpLevel 3
+	L"Мл. сержант ",	//ExpLevel 3
 	L"Сержант ",		//ExpLevel 4
 	L"Лейтенант ",		//ExpLevel 5
 	L"Капитан ",		//ExpLevel 6
@@ -8829,7 +8829,7 @@ STR16		szBackgroundText_Flags[]=
 	L" +1 уровень ловушек при установке мин\n",
 	L" разлагает других наёмников\n",
 	L" только женский",							// won't show up, text exists for compatibility reasons
-	L" только мужской",								// won't show up, text exists for compatibility reasons
+	L" только мужской",							// won't show up, text exists for compatibility reasons
 
 	L" значительный штраф к лояльности во всех городах, если мы умрём\n",
 };
@@ -8890,19 +8890,19 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% точность атаки ножами\n",
 	L" %s%d%% эффективность камуфляжа\n",
 	L" %s%d%% скрытность\n",
-	L" %s%d%% макс. CTH\n",
+	L" %s%d%% макс. шанс попадания\n",
 	L" %s%d дальность слуха ночью\n",
 	L" %s%d дальность слуха днем\n",
 	L" %s%d эффективность при разминировании ловушек\n",
-	L" %s%d%% CTH with SAMs\n",	// TODO.Translate
+	L" %s%d%% шанс попадания ПВО\n",
 
 	L" %s%d%% эффективность дружеского обращения\n",
 	L" %s%d%% эффективность прямого обращении\n",
 	L" %s%d%% эффективность угроз\n",
 	L" %s%d%% эффективность найма\n",
 
-	L" %s%d%% CTH с вышибными зарядами\n",
-	L" %s%d%% CTH с оружием против животных\n",
+	L" %s%d%% шанс попадания с вышибными зарядами\n",
+	L" %s%d%% шанс попадания с оружием против животных\n",
 	L" %s%d%% стоимость страховки\n",
 	L" %s%d%% эффективность наблюдателя в снайперской паре\n",
 	L" %s%d%% эффективность в диагностике заболевания\n",
@@ -9648,13 +9648,13 @@ STR16	szMercCompareWebSite[] =
 	L"Несколько цитат наших благодарных клиентов:",
 	L"Мои прошлые отношения были просто ужасны. Я винила во всём себя... но теперь то я знаю. Все мужчины заслуживают смерти! Спасибо тебе, \"БоЛТиК\", за моё прозрение!",
 	L"-Луиза Г., романист-",
-	L"Я никогда не ладил со своими братьями, а в последнее время отношения совсем стали из рук вон плохими. Вы показали мне, что постыдное недоверие к отцу виной всему. Спасибо вам за это! Я должен открыто всё сказать отцу.",
+	L"Я никогда не ладил со своими братьями, а в последнее время отношения стали совсем из рук вон плохими. Вы показали мне, что всему виной было постыдное недоверие к отцу. Спасибо вам за это! Я должен открыто всё сказать отцу.",
 	L"-Конрад C., Исправительное учреждение-",
 	L"Я одиночка по жизни, и работа в команде была просто пыткой. Но методика \"БоЛТиК\" показала мне как стать частью команды. Этот вклад просто неоценим!",
 	L"-Грант В., Заклинатель змей-",
-	L"В моей работе необходимо доверять каждому члену команды на все 100 процентов. Вот почему мы обратились к экспертам, вот почему мы обратились к компании \"БоЛТиК\".",
+	L"В моей работе необходимо доверять каждому члену команды на все сто процентов. Вот почему мы обратились к экспертам - к компании \"БоЛТиК\".",
 	L"-Халлэ Л., СПК-",
-	L"Прежде всего хочу признать, что наш коллектив был весьма разношерстым, из-за чего были частые конфликты. Но мы научились уважать друг друга, и в настоящее время дополняем друг друга.",
+	L"Прежде всего, хочу признать, что наш коллектив был весьма разношерстным, из-за чего часто случались конфликты. Но со временем мы достигли взаимоуважения, и теперь дополняем друг друга.",
 	L"-Майкл C., НАСА-",
 	L"Рекоммендую отдать предпочтение этому сайту!",
 	L"-Каспар Х., Логистическая компания H&C-",
@@ -9669,57 +9669,57 @@ STR16	szMercCompareWebSite[] =
 	L"В настоящее время у вас нет наёмников на службе. Боевой дух бойцов ниже нормы - основная причина частых увольнений среди персонала.",
 };
 
-STR16	szMercCompareEventText[]=		// TODO.Translate
+STR16	szMercCompareEventText[]=
 {
-	L"%s shot at me!",
-	L"%s is scheming behind my back",
-	L"%s interfered in my business",
-	L"%s is friends with my enemy",
+	L"%s подстрелил меня!",
+	L"%s плетёт интриги за моей спиной",
+	L"%s вмешивается в мои дела",
+	L"%s дружит с моим врагом",
 
-	L"%s got a contract before I did",
-	L"%s ordered a shameful retreat",
-	L"%s massacred the innocent",
-	L"%s slows us down",
+	L"%s получил контракт до меня",
+	L"%s приказал позорно отступить",
+	L"%s убивает невинных",
+	L"%s тормозит нас",
 
-	L"%s doesn't share food",
-	L"%s jeopardizes the mission",
-	L"%s is a drug addict",
-	L"%s is thieving scum",
+	L"%s не делится едой",
+	L"%s ставит под угрозу миссию",
+	L"%s наркоман",
+	L"%s ворвская гадина",
 
-	L"%s is an incompetent commander",
-	L"%s is overpaid",
-	L"%s gets all the good stuff",
-	L"%s mounted a gun on me",
+	L"%s никакущий командир",
+	L"%s переплачивают",
+	L"%s получает всё самое лучшее",
+	L"%s держит меня на мушке",
 
-	L"%s treated my wounds",
-	L"Had a good drink with %s",
-	L"%s is fun to get wasted with",
-	L"%s is annoying when drunk",
+	L"%s обрабатывал мои раны",
+	L"Хорошо посидели за бутылочкой с %s",
+	L"C %s классно напиваться",
+	L"%s доставучий когда пьян",
 
-	L"%s is an idiot when drunk",
-	L"%s opposed our view in an argument",
-	L"%s supported our position",
-	L"%s agrees to our reasoning",
+	L"%s идиот когда пьян",
+	L"%s не поддерживает нашу точку зрения",
+	L"%s поддерживает нашу позицию",
+	L"%s соглашается с нашими доводами",
 
-	L"%s's beliefs are contrary to ours",
-	L"%s knows how to calm down people",
-	L"%s is insensitive",
-	L"%s puts people in their places",
+	L"Убеждения %s противоречат нашим",
+	L"%s знает, как успокоить людей",
+	L"%s бесчувственный",
+	L"%s ставит людей на своё место",
 
-	L"%s is way too impulsive",
-	L"%s is disease-ridden",
-	L"%s treated my diseases",
-	L"%s does not hold back in combat",
+	L"%s очень импульсивен",
+	L"%s разносчик заразы",
+	L"%s лечит мои заболевания",
+	L"%s не сдерживается в бою",
 
-	L"%s enjoys combat a bit too much",
-	L"%s is a good teacher",
-	L"%s led us to victory",
-	L"%s saved my life",
+	L"%s наслаждается битвой через чур",
+	L"%s хороший учитель",
+	L"%s привёл нас к победе",
+	L"%s спас мою жизнь",
 
-	L"%s stole my kill",
-	L"%s and me fought well together",
-	L"%s made the enemy surrender",
-	L"%s injured civilians",
+	L"%s украл моё убийство",
+	L"%s и я отлично сражаемся вместе",
+	L"%s заставил противника сдаться",
+	L"%s ранил гражданских",
 };
 
 STR16	szWHOWebSite[] =
@@ -9730,33 +9730,33 @@ STR16	szWHOWebSite[] =
 
 	// links to other pages
 	L" О ВОЗ",
-	L" Заболевания в Арулько",
+	L" Болезни Арулько",
 	L" О заболеваниях",
 
 	// text on the main page
-	L"WHO is the directing and coordinating authority for health within the United Nations system.",
-	L"It is responsible for providing leadership on global health matters, shaping the health research agenda, setting norms and standards, articulating evidence-based policy options, providing technical support to countries and monitoring and assessing health trends.",
-	L"In the 21st century, health is a shared responsibility, involving equitable access to essential care and collective defence against transnational threats.",
+	L"   ВОЗ является органом, направляющим и координирующим международную работу в области здравоохранения в рамках системы ООН.",
+	L"   ВОЗ выполняет следующие функции:                                                     -обеспечение глобального лидерства в области общественного здравоохранения;   -составление повестки дня исследований в области здравоохранения;                        -установление норм и стандартов;                                                                -формулирование этических и основанных на фактических данных вариантов политики;   -оказание технической поддержки странам;                                                   -мониторинг ситуации и оценка тенденций в области здравоохранения.",
+	L"   Здравоохранение в 21-м веке является общей ответственностью, включая равноправный доступ к основной помощи и коллективной защите от международных угроз.",
 
 	// contract page
-	L"The small country of Arulco is currently experiencing an outbreak of the deadly arulcan plague.",
-	L"Due to the catastrophic state of the state's health system, only the armies' medical corps is there to combat the deadly disease.",
-	L"With the country being of limits to UN affiliates, all we can currently do is provide detailed maps on the current status of infection in Arulco. Due to the difficulty in dealing with Arulco, we regret to have to ask for a daily fee of %d$ for anyone wishing to obtain these maps.",
-	L"Do you wish to acquire detailed data on the current status of diease in Arulco? You can access this data on the strategic map once aquired.",
-	L"You currently do not have access to WHO data on the arulcan plague.",
-	L"You have acquired detailed maps on the status of the disease.",
-	L"Subscribe to map updates",
-	L"Unsubscribe map updates",
+	L"   Маленькую страну Арулько в настоящее время потрясают хаотичные вспышки смертельного вируса арулькийской чумы.",
+	L"   Из-за катастрофического состояния системы здравоохранения страны, только армейский лечебный корпус способен бороться со смертельным заболеванием.",
+	L"   Страна Арулько закрыта для партнёров ООН, по-этому, всё что мы можем предоставить - это подробные карты о текущем состоянии инфекционных заболеваний. Из-за трудностей в работе с Арулько, мы вынуждены брать ежедневную плату со всех желающих получать актуальную информацию по заболеваемости в размере %d$.",
+	L"   Желаете ли приобрести подробные данные о текущем состоянии заболеваемости в Арулько? Доступ к этим данным вы можете получить на стратегической карте, оплатив стоимость нашей услуги.",
+	L"   В настоящее время вы не имеете доступа к данным ВОЗ по арулькийской чуме.",
+	L"   Вы приобрели подробные карты о состоянии заболеваемости.",
+	L"Заказать обновление карт",
+	L"    Отказаться от карт",
 
 	// helpful tips page
-	L"The arulcan plague is a deadly strain of the plague unique to the small country of Arulco. In a typical outbreak, the first victims get infected by a mosquito in a swamp or tropical sector. These first victims then inadvertently infect the population of nearby cities.",
-	L"You won't immediately notice when you are infected - it might take days for the symptoms to show.",
-	L"You can see the current effects of known diseases your mercs suffer from by hovering over their portrait in the strategic map.",
-	L"Most diseases get worse over time, be sure to assign a doctor as soon as possible.",
-	L"Some diseases can be treated with special medicine. You might find some in a well-equipped drugstore.",
-	L"Doctors can be ordered to check on all local teammates for diseases. You can find out about a disease before it breaks out!",
-	L"Doctors have a much higher chance to be infected when treating infected patients. Protective gear is very useful.",
-	L"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
+	L"  Арулькийская чума - это смертельный штамм чумы, который распространён лишь на небольшой части территории Арулько. Первые жертвы штамма были заражены через укусы комаров в болотистой либо тропической местности и непреднамеренно стали причиной заражения населения близ лежащих городов.",
+	L"  Симптомы болезни проявляются не сразу, и до первых проявлений заражения может пройти несколько дней.",
+	L"  Чтобы посмотреть от каких известных болезней страдают ваши наёмники, надо подвести курсор к портрету бойца на стратегической карте.",
+ 	L"  Большинство заболеваний прогрессирует с течением времени, по-этому, следует начинать лечение как можно скорее.",
+	L"  Определённые болезни можно вылечить с помощью медикаментов. Некоторые их них вы можете найти в специализированных аптеках.",
+	L"  Врачам можно дать указание обследовать на предмет заболеваний всех товарищей по команде, находящихся в секторе. Это позволит узнать о болезни, прежде чем произойдёт массовое заражение!",
+	L"  Врачи находятся в большей степени риска заразиться при лечении инфицированных пациентов. Средства индивидуальной защиты снизят риск заражения.",
+	L"  Если клинковое оружие ранит инфицированного человека, лезвие оружия становится заражённым, и может стать причиной распространения инфекции.",
 };
 
 STR16	szPMCWebSite[] =
@@ -10643,17 +10643,17 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 {
-	L"What?!",
-	L"No!",
-	L"That is false!",
-	L"That is not true!",
+	L"Что?!",
+	L"Нет!",
+	L"Это ложь!",
+	L"Это не правда!",
 
-	L"Lies, lies, lies. Nothing but lies!",
-	L"Liar!",
-	L"Traitor!",
-	L"You watch your mouth!",
+	L"Ложь, ложь, ложь. Ничего, кроме лжи!",
+	L"Обманщик!",
+	L"Предатель!",
+	L"Следи за языком!",
 
-	L"This is none of your business.",
+	L"Не твоего ума дело.",
 	L"Who ever invited you?",
 	L"Nobody asked for your opinion, $INTERJECTOR$.",
 	L"You stay away from me.",
@@ -10774,27 +10774,27 @@ STR16	szDynamicDialogueText_GenderText[] =
 	L"её",
 };
 
-STR16	szDiseaseText[] =  // TODO.Translate
+STR16	szDiseaseText[] =
 {
-	L" %s%d%% agility stat\n",
-	L" %s%d%% dexterity stat\n",
-	L" %s%d%% strength stat\n",
-	L" %s%d%% wisdom stat\n",
-	L" %s%d%% effective level\n",
+	L" %s%d%% к проворности\n",
+	L" %s%d%% к ловкости\n",
+	L" %s%d%% к силе\n",
+	L" %s%d%% к интеллекту\n",
+	L" %s%d%% к уровню\n",
 
-	L" %s%d%% APs\n",
-	L" %s%d maximum breath\n",
-	L" %s%d%% strength to carry items\n",
-	L" %s%2.2f life regeneration/hour\n",
-	L" %s%d need for sleep\n",
-	L" %s%d%% water consumption\n",
-	L" %s%d%% food consumption\n",
+	L" %s%d%% к очкам действия\n",
+	L" %s%d к максимальному дыханию\n",
+	L" %s%d%% к силе для носки вещей\n",
+	L" %s%2.2f восстановление здоровья в час\n",
+	L" %s%d к нужде во сне\n",
+	L" %s%d%% потребность воды\n",
+	L" %s%d%% потребность пищи\n",
 
-	L"%s was diagnosed with %s!",
-	L"%s is cured of %s!",
+	L"%s: поставлен диагноз - %s!",
+	L"%s излечен(а) от %s!",
 
-	L"Diagnosis",
-	L"Treatment",
+	L"Обследование",
+	L"Лечение населения",
 	L"Отмена",
 };
 
@@ -10803,11 +10803,11 @@ STR16	szFoodText[] =
 	L"\n\n|В|о|д|а: %d%%\n",
 	L"\n\n|П|и|щ|а: %d%%\n",
 
-	L"max morale altered by %s%d\n",
-	L" %s%d need for sleep\n",
-	L" %s%d%% breath regeneration\n",
-	L" %s%d%% assignment efficiency\n",
-	L" %s%d%% chance to lose stats\n",
+	L"изменение к макс. боевому духу %s%d\n",
+	L" %s%d к нужде во сне\n",
+	L" %s%d%% к восстановлению дыхания\n",
+	L" %s%d%% к эффективности в задании\n",
+	L" %s%d%% шанс потерять в папаметрах\n",
 };
 
 STR16 szIMPGearWebSiteText[] =
