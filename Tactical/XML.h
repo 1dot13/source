@@ -49,6 +49,7 @@ enum
 typedef PARSE_STAGE;
 
 #define MAX_CHAR_DATA_LENGTH			500
+#define MAX_CHAR_1000_DATA_LENGTH		1000
 
 #define TABLEDATA_DIRECTORY						"TableData\\"
 

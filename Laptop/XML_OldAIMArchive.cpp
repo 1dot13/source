@@ -13,7 +13,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_1000_DATA_LENGTH+1];
 	OLD_MERC_ARCHIVES_VALUES	curAimOldArchives;
 	OLD_MERC_ARCHIVES_VALUES *	curArray;
 
@@ -70,9 +70,9 @@ aimOldArchivesCharacterDataHandle(void *userData, const XML_Char *str, int len)
 	aimOldArchivesParseData * pData = (aimOldArchivesParseData *)userData;
 
 	if( (pData->currentDepth <= pData->maxReadDepth) &&
-		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
+		(strlen(pData->szCharData) < MAX_CHAR_1000_DATA_LENGTH)
 	){
-		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
+		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_1000_DATA_LENGTH-strlen(pData->szCharData)));
 	}
 }
 
