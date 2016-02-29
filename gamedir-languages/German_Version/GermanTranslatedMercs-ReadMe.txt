@@ -7,6 +7,14 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-02-28:
+- added Bernie
+- added Wally
+- updates to Leech
+- updates to Needle
+- updates to Leon
+
+
 2016-02-21:
 - added Postie
 - added Rev
@@ -24,19 +32,11 @@ Changelog:
 - added Hector
 
 
-2016-02-01:
-- added Pops
-- added Doc
-- updates to Leech
-- updates to Beth
-- updates to Wink
-
-
 
 Status:
 -------
 - weekly content updates
-- 7 of 50 mercs remain to be added
+- 6 of 50 mercs remain to be added
 - polish/rework to already existing files
 
 
