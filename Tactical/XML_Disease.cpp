@@ -23,6 +23,8 @@ struct
 }
 typedef parseData;
 
+BOOLEAN localizedTextOnly_Disease;
+
 static void XMLCALL
 diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char **atts )
 {
@@ -33,8 +35,9 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 		if ( strcmp( name, "DISEASESLIST" ) == 0 && pData->curElement == ELEMENT_NONE )
 		{
 			pData->curElement = ELEMENT_LIST;
-
-			memset( pData->curArray, 0, sizeof(DISEASE)*pData->maxArraySize );
+			
+			if ( !localizedTextOnly_Disease )
+				memset( pData->curArray, 0, sizeof(DISEASE)*pData->maxArraySize );
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -42,7 +45,8 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 		{
 			pData->curElement = ELEMENT;
 
-			memset( &pData->curItem, 0, sizeof(DISEASE) );
+			if ( !localizedTextOnly_Disease )
+				memset( &pData->curItem, 0, sizeof(DISEASE) );
 
 			// default value
 			pData->curItem.moralemodifier = 1.0f;
@@ -135,7 +139,16 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 			// we do NOT want to read the first entry -> move stuff by 1
 			if ( pData->curItem.uiIndex < pData->maxArraySize )
 			{
-				pData->curArray[pData->curItem.uiIndex] = pData->curItem; //write the food into the table
+				if (localizedTextOnly_Disease)
+				{
+					wcscpy(Disease[pData->curItem.uiIndex].szName, pData->curItem.szName);
+					wcscpy(Disease[pData->curItem.uiIndex].szFatName, pData->curItem.szFatName);
+					wcscpy(Disease[pData->curItem.uiIndex].szDescription, pData->curItem.szDescription);
+				}
+				else
+				{
+					pData->curArray[pData->curItem.uiIndex] = pData->curItem;
+				}
 			}
 		}
 		else if ( strcmp( name, "uiIndex" ) == 0 )
@@ -362,7 +375,7 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 }
 
 
-BOOLEAN ReadInDiseaseStats( STR fileName )
+BOOLEAN ReadInDiseaseStats( STR fileName, BOOLEAN localizedVersion )
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -373,6 +386,8 @@ BOOLEAN ReadInDiseaseStats( STR fileName )
 	parseData pData;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Loading Disease.xml" );
+
+	localizedTextOnly_Disease = localizedVersion;
 
 	// Open foods file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );

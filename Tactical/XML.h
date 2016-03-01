@@ -331,7 +331,7 @@ extern BOOLEAN ReadInFoodOpinionStats(STR fileName);
 extern BOOLEAN WriteFoodOpinionStats();
 
 // Flugente: disease
-extern BOOLEAN ReadInDiseaseStats( STR fileName );
+BOOLEAN ReadInDiseaseStats( STR fileName, BOOLEAN localizedVersion );
 extern BOOLEAN WriteDiseaseStats( );
 
 // Flugente: structure (de-)construct

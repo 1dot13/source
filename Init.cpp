@@ -371,7 +371,16 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 	strcpy( fileName, directoryName );
 	strcat( fileName, DISEASEFILENAME );
-	SGP_THROW_IFFALSE( ReadInDiseaseStats( fileName ), DISEASEFILENAME );
+	SGP_THROW_IFFALSE( ReadInDiseaseStats( fileName,FALSE ), DISEASEFILENAME );
+
+#ifndef ENGLISH
+	AddLanguagePrefix(fileName);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInDiseaseStats(fileName,TRUE), DISEASEFILENAME);
+	}
+#endif
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, STRUCTUREDECONSTRUCTFILENAME);
