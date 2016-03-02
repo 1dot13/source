@@ -10796,6 +10796,8 @@ STR16	szDiseaseText[] =
 	L"Diagnosis",
 	L"Treatment",
 	L"Cancel",
+
+	L"\n\n%s (undiagnosed) - %d / %d\n",
 };
 
 STR16	szFoodText[] =

@@ -10744,6 +10744,8 @@ STR16	szDiseaseText[] =
 	L"诊断", //	L"Diagnosis",
 	L"治疗", //L"Treatment",
 	L"取消", //L"Cancel",　
+
+	L"\n\n%s (undiagnosed) - %d / %d\n",	// TODO.Translate
 };
 
 STR16	szFoodText[] =

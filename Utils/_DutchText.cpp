@@ -10758,6 +10758,8 @@ STR16	szDiseaseText[] =
 	L"Diagnosis",
 	L"Treatment",
 	L"Cancel",
+
+	L"\n\n%s (undiagnosed) - %d / %d\n",	// TODO.Translate
 };
 
 STR16	szFoodText[] =

@@ -18607,7 +18607,7 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 		}
 		else if ( fShowExactPoints && this->sDiseasePoints[i] > 0 )
 		{
-			swprintf( atStr, L"\n\n%s (undiagnosed) - %d / %d\n", Disease[i].szFatName, this->sDiseasePoints[i], Disease[i].sInfectionPtsFull );
+			swprintf( atStr, szDiseaseText[TEXT_DISEASE_UNDIAGNOSED], Disease[i].szFatName, this->sDiseasePoints[i], Disease[i].sInfectionPtsFull );
 			wcscat( apStr, atStr );
 		}
 	}
