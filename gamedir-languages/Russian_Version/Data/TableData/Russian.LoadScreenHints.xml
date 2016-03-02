@@ -26,7 +26,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
-    <szName>Еда, пролежавшая в секторе несколько дней, портится. Ее употребление может вызвать болезнь.</szName>
+    <szName>Еда, пролежавшая в секторе несколько дней, необратимо портится. Её употребление может вызвать болезнь.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
@@ -138,7 +138,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>33</uiIndex>
-    <szName>Некоторых NPC можно подкупить.</szName>
+    <szName>Некоторых неигровых персонажей можно подкупить.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>34</uiIndex>
@@ -202,7 +202,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>49</uiIndex>
-    <szName>Долговременные контракты с наемниками выходят дешевле. В дальней перспективе.</szName>
+    <szName>Долговременные контракты с наемниками выходят дешевле. В дальнейшей перспективе.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>50</uiIndex>
@@ -391,7 +391,7 @@ szName            text to appear, 190 chars max
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>96</uiIndex>
-    <szName>Сделав где-нибудь в отдалении несколько выстрелов "в никуда", вы сможете отвлечь внимание от наемника, попавшего в переплет.</szName>
+    <szName>Сделав где-нибудь в отдалении несколько выстрелов "в никуда", вы сможете отвлечь внимание от наемника, попавшего в переплёт.</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>97</uiIndex>

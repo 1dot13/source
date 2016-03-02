@@ -19,7 +19,7 @@
     </ASSIGNMENT>
     <ASSIGNMENT>
       <ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
-      <szTooltipText>Пропустите стаканчик в баре... Ага, разбежались! Просто покупайте другим выпивку и немедленно сообщайте все, что они разболтают.</szTooltipText>
+      <szTooltipText>Пропустите стаканчик в баре. Ага, разбежались! Просто покупайте другим выпивку и немедленно сообщайте все, что они разболтают.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -50,7 +50,7 @@
     <szFacilityShortName>Завод</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
-      <szTooltipText>На станках этого завода можно изготовить любые запчасти. Такая возможность значительно увеличит вашу эффективность при ремонте вещей, если, конечно, вы умеете обращаться с инструментами.</szTooltipText>
+      <szTooltipText>На станках этого завода можно изготовить любые запчасти. Такая возможность значительно увеличит вашу эффективность при ремонте вещей, если конечно, вы умеете обращаться с инструментами.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -59,7 +59,7 @@
     <szFacilityShortName>Казармы</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>REST</ubAssignmentType>
-      <szTooltipText>Обычная казарма, ничего лишнего: кровати, кровати и ещё раз кровати. Однако, всё равно это лучше ночёвки на улице!</szTooltipText>
+      <szTooltipText>Обычная казарма, ничего лишнего: кровати, кровати и ещё раз кровати. Однако это всё равно это лучше ночёвки на улице!</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>
@@ -162,7 +162,7 @@
     <szFacilityShortName>Пляж</szFacilityShortName>
     <ASSIGNMENT>
       <ubAssignmentType>REST</ubAssignmentType>
-      <szTooltipText>Солнце, песок, прибой... Отдохнуть никогда не помешает. Да и отдых здесь гораздо приятнее сна в лесу под дождём.</szTooltipText>
+      <szTooltipText>Солнце, песок и прибой. Отдохнуть никогда не помешает. Да и отдых здесь гораздо приятнее сна в лесу под дождём.</szTooltipText>
     </ASSIGNMENT>
   </FACILITYTYPE>
   <FACILITYTYPE>

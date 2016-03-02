@@ -21,7 +21,7 @@
 		<szName>Охотник на крупную дичь</szName>
 		<szShortName>Охотник на кр. дичь</szShortName>
 		<szDescription>Путешествовать по диким землям, искать удивительные виды животных
-и УБИВАТЬ ИХ ВСЕХ.</szDescription>
+и убивать их всех.</szDescription>
 	</BACKGROUND>
 	<!-- Grizzly -->
 	<BACKGROUND>
@@ -113,7 +113,7 @@
 		<uiIndex>14</uiIndex>
 		<szName>Медсестра</szName>
 		<szShortName>Медсестра</szShortName>
-		<szDescription>Хотя медсестры и не полноценные врачи, в них всегда большая нужда на
+		<szDescription>Хотя медсёстры и не полноценные врачи, в них всегда большая нужда на
 поле боя.</szDescription>
 	</BACKGROUND>
 	<!-- Sidney -->
@@ -159,7 +159,7 @@
 		<uiIndex>20</uiIndex>
 		<szName>Терапевт</szName>
 		<szShortName>Терапевт</szShortName>
-		<szDescription>Клифф - очень квалифицированный доктор, хотя у него и были... темные...
+		<szDescription>Клифф - очень квалифицированный доктор, хотя у него и были тёмные
 времена в его жизни.</szDescription>
 	</BACKGROUND>
 	<!-- Bull -->
@@ -1850,7 +1850,7 @@
 		<uiIndex>245</uiIndex>
 		<szName>Мим</szName>
 		<szShortName>Мим</szShortName>
-		<szDescription>...</szDescription>
+		<szDescription>Cверхъестественная способность быть на виду и оставаться незамеченной</szDescription>
 	</BACKGROUND>
 	<!-- Hector -->
 	<BACKGROUND>
@@ -2324,7 +2324,7 @@
 		<szName>Охотник на крупную дичь</szName>
 		<szShortName>Охотник на кр. дичь</szShortName>
 		<szDescription>Путешествовать по диким землям, искать удивительные виды животных
-и УБИВАТЬ ИХ ВСЕХ.</szDescription>
+и убивать их всех!.</szDescription>
 	</BACKGROUND> 
 	<BACKGROUND>
 		<uiIndex>314</uiIndex>
