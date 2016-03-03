@@ -161,7 +161,7 @@ void DisplayDefaults_WHO( )
 	// closing line that separates header from individual page
 	DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_LR_X, usPosY - 2, FROMRGB( 0, 30, 180 ) );
 
-	usPosX = LAPTOP_SCREEN_LR_X - 110;
+	usPosX = LAPTOP_SCREEN_LR_X - 60;
 	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
 	BltVideoObject( FRAME_BUFFER, hPixHandle, 2, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY, NULL );
 
