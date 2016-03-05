@@ -18371,6 +18371,10 @@ void	SOLDIERTYPE::Infect( UINT8 aDisease )
 	if ( !gGameExternalOptions.fDisease )
 		return;
 
+	// diseases should not affect machines
+	if ( (this->flags.uiStatusFlags & SOLDIER_VEHICLE) || AM_A_ROBOT( this ) )
+		return;
+
 	// we are getting infected. Raise our disease points, but not over the level of an infection
 	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] < Disease[aDisease].sInfectionPtsInitial )
 	{
@@ -18402,6 +18406,10 @@ void	SOLDIERTYPE::Infect( UINT8 aDisease )
 void	SOLDIERTYPE::AddDiseasePoints( UINT8 aDisease, INT32 aVal )
 {
 	if ( !gGameExternalOptions.fDisease )
+		return;
+
+	// diseases should not affect machines
+	if ( (this->flags.uiStatusFlags & SOLDIER_VEHICLE) || AM_A_ROBOT( this ) )
 		return;
 
 	if ( aDisease < NUM_DISEASES )

@@ -1299,7 +1299,11 @@ INT8 GetDynamicOpinion( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent )
 {
 	INT32 opinion = 0;
 
-	if ( usProfileA == NO_PROFILE || usProfileA == NO_PROFILE )
+	if ( usProfileA == NO_PROFILE || usProfileB == NO_PROFILE )
+		return opinion;
+
+	// machines aren't people
+	if ( gMercProfiles[usProfileA].ubBodyType == ROBOTNOWEAPON || gMercProfiles[usProfileB].ubBodyType == ROBOTNOWEAPON )
 		return opinion;
 
 	if ( usEvent >= OPINIONEVENT_MAX )

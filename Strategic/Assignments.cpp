@@ -12220,38 +12220,26 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					break;
 
 				case ASSIGN_MENU_DOCTOR_DIAGNOSIS:
-					if ( 1 )
+					if ( CanCharacterDiagnoseDisease( pSoldier ) )
 					{
 						fShowSquadMenu = FALSE;
 						fShowTrainingMenu = FALSE;
 						fShowVehicleMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
 						fShowRepairMenu = FALSE;
 						fShownContractMenu = FALSE;
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-
-						if ( pSoldier->bSectorZ == 0 )
+												
+						if ( DisplayDiseaseMenu( pSoldier ) )
 						{
-							fShowDiseaseMenu = FALSE;
-
-							if ( DisplayDiseaseMenu( pSoldier ) )
-							{
-								fShowDiseaseMenu = TRUE;
-								DetermineBoxPositions( );
-							}
+							fShowDiseaseMenu = TRUE;
+							DetermineBoxPositions( );
 						}
-					}
-					else if ( 0 )
-					{
-						fTeamPanelDirty = TRUE;
-						fMapScreenBottomDirty = TRUE;
-						swprintf( sString, zMarksMapScreenText[18], pSoldier->GetName( ) );
-
-						DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 					}
 					break;
 				case( ASSIGN_MENU_PATIENT ):
