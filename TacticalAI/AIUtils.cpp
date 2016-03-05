@@ -384,7 +384,7 @@ void NewDest(SOLDIERTYPE *pSoldier, INT32 usGridNo)
 	//pSoldier->pathing.sDestination = usGridNo;
 	BOOLEAN fSet = FALSE;
 
-	if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->aiData.bAction == AI_ACTION_TAKE_COVER && (pSoldier->aiData.bOrders == DEFENSIVE || pSoldier->aiData.bOrders == CUNNINGSOLO || pSoldier->aiData.bOrders == CUNNINGAID ) && (SoldierDifficultyLevel( pSoldier ) >= 2) )
+	if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->aiData.bAction == AI_ACTION_TAKE_COVER && (pSoldier->aiData.bAttitude == DEFENSIVE || pSoldier->aiData.bAttitude == CUNNINGSOLO || pSoldier->aiData.bAttitude == CUNNINGAID ) && (SoldierDifficultyLevel( pSoldier ) >= 2) )
 	{
 		UINT16 usMovementMode;
 
