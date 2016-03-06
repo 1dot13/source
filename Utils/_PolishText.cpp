@@ -2468,6 +2468,7 @@ STR16 pAssignmentStrings[] =
 	L"Lekarz", // administering medical aid
 	L"Pacjent", // getting medical aid
 	L"Naprawa", // repairing
+	L"Fortify",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2569,6 +2570,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Lekarz",
 	L"Pacjent",
 	L"Naprawa",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2629,6 +2631,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Lekarz",
 	L"Pacjent",
 	L"Naprawa",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2749,6 +2752,7 @@ STR16 pAssignMenuStrings[] =
 	L"Kapuś", // anv: snitch actions
 	L"Szkolenie", // the merc is training
 	L"Get Item",	// get items	// TODO.Translate
+	L"Fortify",		// fortify sector	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
 	L"Anuluj", // cancel this menu
 };
@@ -8937,6 +8941,7 @@ STR16	szBackgroundText_Value[]=
 	L"Smoker",
 	L"Nonsmoker",
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%% building speed\n",
 };
 
 STR16		szBackgroundTitleText[] =	// TODO.Translate
@@ -9806,7 +9811,7 @@ STR16   szTacticalCoverDialogString[]=
         L"",
 
         L"Roles",	// TODO.Translate
-        L"",
+		L"Fortification",	// TODO.Translate
 		L"Tracker",
         L"",
 
@@ -9829,9 +9834,9 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Showing merc view",
         L"",
 
-        L"",
-        L"",
-        L"",
+		L"Display enemy role symbols",	// TODO.Translate
+		L"Display planned fortifications",
+		L"Display enemy tracks",
         L"",
 
         L"Display trap network",
@@ -10881,6 +10886,17 @@ STR16 szEnemyHeliText[] =	// TODO.Translate
 	L"%s fires %s at enemy helicopter in %s.",
 
 	L"SAM in %s fires at enemy helicopter in %s.",
+};
+
+STR16 szFortificationText[] =
+{
+	L"No valid structure selected, nothing added to build plan.",
+	L"No gridno found to create items in %s - created items are lost.",
+	L"Structures could not be built in %s - people are in the way.",
+	L"Structures could not be built in %s - the following items are required:",
+
+	L"No fitting fortifications found for tileset %d: %s",
+	L"Tileset %d: %s",
 };
 
 #endif //POLISH

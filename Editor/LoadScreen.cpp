@@ -1117,7 +1117,7 @@ UINT32 ProcessFileIO()
 
 			//ATE: Any current mercs are transfered here...
 			//UpdateMercsInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
+			
 			AddSoldierInitListTeamToWorld( ENEMY_TEAM,		TOTAL_SOLDIERS + 1 );
 			AddSoldierInitListTeamToWorld( CREATURE_TEAM,	TOTAL_SOLDIERS + 1 );
 			AddSoldierInitListTeamToWorld( MILITIA_TEAM,	TOTAL_SOLDIERS + 1 );

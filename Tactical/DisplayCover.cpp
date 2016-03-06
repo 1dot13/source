@@ -69,13 +69,9 @@ CoverCell gCoverViewArea[ COVER_X_CELLS ][ COVER_Y_CELLS ][ COVER_Z_CELLS ];
 
 DWORD guiCoverNextUpdateTime = 0;
 
-COVER_DRAW_MODE gubDrawMode = COVER_DRAW_OFF;
+COVER_DRAW_MODE gubDrawMode = DRAW_MODE_OFF;
 
-MINES_DRAW_MODE gubDrawModeMine = MINES_DRAW_OFF;	// Flugente: mines display
-
-TRAIT_DRAW_MODE gubDrawModeTrait = TRAIT_DRAW_OFF;	// Flugente: mines display
-
-TRACKER_DRAW_MODE gubDrawModeTracker = TRACKER_DRAW_OFF;	// Flugente: tracker display
+BOOLEAN gNoRedraw = FALSE;
 
 //*******	Local Function Prototypes ***********************************
 
@@ -84,8 +80,8 @@ CHAR16* GetTerrainName( const UINT8& ubTerrainType );
 // anv: additional tile properties
 CHAR16* GetDetailedTerrainName( ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties );
 
-void	AddCoverObjectToWorld( const INT32& sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof, BOOLEAN fNightTime );
-void	RemoveCoverObjectFromWorld( const INT32 sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof );
+void	AddCoverObjectToWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof, BOOLEAN fNightTime );
+void	RemoveCoverObjectFromWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof );
 
 void	AddCoverObjectsToViewArea();
 void	RemoveCoverObjectsFromViewArea();
@@ -94,6 +90,7 @@ void	CalculateCover();
 void	CalculateMines();
 void	CalculateTraitRange();
 void	CalculateTrackerRange();
+void	CalculateFortify();
 
 void	GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo );
 
@@ -102,16 +99,7 @@ BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius=2 )
 BOOLEAN IsTheRoofVisible( const INT32& sGridNo );
 BOOLEAN HasAdjTile( const INT32& ubX, const INT32& ubY );
 
-// resets the overlay modes so that everything will be reset at the NEXT display cycle
-void ResetOverlayModes()
-{
-	gubDrawMode = COVER_DRAW_OFF;
-	gubDrawModeMine = MINES_DRAW_OFF;
-	gubDrawModeTrait = TRAIT_DRAW_OFF;
-	gubDrawModeTracker = TRACKER_DRAW_OFF;
-}
-
-TileDefines GetOverlayIndex( const INT8& bOverlayType )
+TileDefines GetOverlayIndex( INT8 bOverlayType )
 {
 	switch ( bOverlayType )
 	{
@@ -125,6 +113,8 @@ TileDefines GetOverlayIndex( const INT8& bOverlayType )
 	case MINES_LVL_4:
 
 	case TRACKS_BLOOD:
+
+	case FORTIFICATIONNODE_REMOVE:
 		return SPECIALTILE_COVER_1; // red
 
 	case MIN_COVER:
@@ -138,6 +128,8 @@ TileDefines GetOverlayIndex( const INT8& bOverlayType )
 	case TRAIT_2:
 
 	case TRACKS_VERYOLD:
+
+	case FORTIFICATIONNODE_ADJACENTADJUSTMENT:
 		return SPECIALTILE_COVER_2; // orange
 
 	case MED_COVER:
@@ -151,6 +143,8 @@ TileDefines GetOverlayIndex( const INT8& bOverlayType )
 	case TRAIT_ALL:
 
 	case TRACKS_OLD:
+
+	case FORTIFICATIONNODE_NORMAL:
 		return SPECIALTILE_COVER_3; // yellow
 
 	case MAX_COVER:
@@ -197,10 +191,10 @@ void SwitchToEnemyView()
 
 void SwitchViewOff()
 {
-	if (gubDrawMode == COVER_DRAW_OFF)
+	if ( gubDrawMode == DRAW_MODE_OFF )
 		return;
 
-	gubDrawMode = COVER_DRAW_OFF;
+	gubDrawMode = DRAW_MODE_OFF;
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzDisplayCoverText[DC_MSG__COVER_DRAW_OFF]);
 	DisplayCover(TRUE);
 }
@@ -314,7 +308,7 @@ CHAR16* GetDetailedTerrainName( ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProp
 	}
 }
 
-void AddCoverObjectToWorld( const INT32& sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof, BOOLEAN fNightTime )
+void AddCoverObjectToWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof, BOOLEAN fNightTime )
 {
 	LEVELNODE *pNode;
 
@@ -338,7 +332,7 @@ void AddCoverObjectToWorld( const INT32& sGridNo, const UINT16& usGraphic, const
 	}
 }
 
-void RemoveCoverObjectFromWorld( const INT32 sGridNo, const UINT16& usGraphic, const BOOLEAN& fRoof )
+void RemoveCoverObjectFromWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof )
 {
 	if( fRoof )
 	{
@@ -380,7 +374,7 @@ BOOLEAN HasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 
 void AddCoverObjectsToViewArea()
 {
-	if (gsMaxCellY == -1)
+	if ( gsMaxCellY < 0 )
 		return;
 
 	register INT32 ubX, ubY, ubZ;
@@ -394,14 +388,9 @@ void AddCoverObjectsToViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-				
-				if ( bOverlayType != INVALID_COVER && ((bOverlayType != MAX_COVER && bOverlayType != NO_SEE) || HasAdjTile( ubX, ubY, ubZ )) )
+				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER && ((gCoverViewArea[ubX][ubY][ubZ].bOverlayType != MAX_COVER && gCoverViewArea[ubX][ubY][ubZ].bOverlayType != NO_SEE) || HasAdjTile( ubX, ubY, ubZ )) )
 				{
-					INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
-					
-					TileDefines tile = GetOverlayIndex( bOverlayType );
-					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN)ubZ, fNightTime );
+					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
 					fChanged = TRUE;
 				}
 			}
@@ -417,10 +406,15 @@ void AddCoverObjectsToViewArea()
 
 void RemoveCoverObjectsFromViewArea()
 {
-	if (gsMaxCellY == -1)
-	{
+	if ( gubDrawMode == DRAW_MODE_OFF && gNoRedraw )
 		return;
-	}
+
+	INT16 usTmp;
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
+
+	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
+	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
 
 	register INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
@@ -431,12 +425,14 @@ void RemoveCoverObjectsFromViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
+				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
+
+				GetGridNoForViewPort( ubX, ubY, sGridNo );
+
 				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
 
 				if ( bOverlayType != INVALID_COVER )
 				{
-					INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-					
 					TileDefines tile = GetOverlayIndex( bOverlayType );
 					RemoveCoverObjectFromWorld( sGridNo, tile, (BOOLEAN) ubZ );
 					bOverlayType = INVALID_COVER;
@@ -445,12 +441,14 @@ void RemoveCoverObjectsFromViewArea()
 			}
 		}
 	}
-	
+		
 	// Re-render the scene!
 	if ( fChanged )
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );
 	}
+	
+	gNoRedraw = (gubDrawMode == DRAW_MODE_OFF);
 }
 
 // ubRadius in times of y or x cell sizes
@@ -485,14 +483,38 @@ void DisplayCover( BOOLEAN forceUpdate )
 
 	if ( forceUpdate || ( !gfScrollPending && !gfScrollInertia && GetTickCount() > guiCoverNextUpdateTime ) )
 	{
-		if ( gubDrawMode != COVER_DRAW_OFF )
+		// remove old cover objects
+		RemoveCoverObjectsFromViewArea();
+
+		switch ( gubDrawMode )
+		{
+		case COVER_DRAW_MERC_VIEW:
+		case COVER_DRAW_ENEMY_VIEW:
 			CalculateCover();
-		else if ( gubDrawModeMine != MINES_DRAW_OFF )
-			CalculateMines( );
-		else if ( gubDrawModeTrait != TRAIT_DRAW_OFF )
-			CalculateTraitRange( );
-		else //if ( gubDrawModeTracker != TRAIT_DRAW_OFF )
-			CalculateTrackerRange( );
+			break;
+
+		case MINES_DRAW_DETECT_ENEMY:
+		case MINES_DRAW_PLAYERTEAM_NETWORKS:
+		case MINES_DRAW_NETWORKCOLOURING:
+		case MINES_DRAW_NET_A:
+		case MINES_DRAW_NET_B:
+		case MINES_DRAW_NET_C:
+		case MINES_DRAW_NET_D:
+			CalculateMines();
+			break;
+
+		case DRAW_MODE_TRAIT_RANGE:
+			CalculateTraitRange();
+			break;
+
+		case DRAW_MODE_TRACKER_SMELL:
+			CalculateTrackerRange();
+			break;
+
+		case DRAW_MODE_FORTIFY:
+			CalculateFortify( );
+			break;
+		}
 
 		guiCoverNextUpdateTime = GetTickCount() + gGameExternalOptions.ubCoverDisplayUpdateWait;
 	}
@@ -504,26 +526,11 @@ void CalculateCover()
 	register INT8 ubZ;
 	SOLDIERTYPE* pSoldier;
 
-	RemoveCoverObjectsFromViewArea();
-
-	if( gubDrawMode == COVER_DRAW_OFF )
-	{
-		return;
-	}
-
 	if( gusSelectedSoldier == NOBODY )
-	{
 		return;
-	}
 	
 	GetSoldier( &pSoldier, gusSelectedSoldier );
 	
-	INT16 usTmp;
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
-
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
 		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
@@ -531,8 +538,6 @@ void CalculateCover()
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
 				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-				
-				GetGridNoForViewPort( ubX, ubY, sGridNo );
 
 				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
 					continue;
@@ -879,37 +884,37 @@ void	DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 ///BEGIN key binding functions
 void SwitchToTrapNetworkView()
 {
-	if (gubDrawModeMine == MINES_DRAW_PLAYERTEAM_NETWORKS)
+	if ( gubDrawMode == MINES_DRAW_PLAYERTEAM_NETWORKS )
 		return;
 
-	gubDrawModeMine = MINES_DRAW_PLAYERTEAM_NETWORKS;
+	gubDrawMode = MINES_DRAW_PLAYERTEAM_NETWORKS;
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network");
 	DisplayCover( TRUE );
 }
 
 void SwitchToHostileTrapsView()
 {
-	if (gubDrawModeMine == MINES_DRAW_DETECT_ENEMY)
+	if ( gubDrawMode == MINES_DRAW_DETECT_ENEMY )
 		return;
 
-	gubDrawModeMine = MINES_DRAW_DETECT_ENEMY;
+	gubDrawMode = MINES_DRAW_DETECT_ENEMY;
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display nearby traps");
 	DisplayCover( TRUE );
 }
 
 void SwitchMineViewOff()
 {
-	if (gubDrawModeMine == MINES_DRAW_OFF)
+	if ( gubDrawMode < MINES_DRAW_DETECT_ENEMY || gubDrawMode > MINES_DRAW_NET_D )
 		return;
 
-	gubDrawModeMine = MINES_DRAW_OFF;
+	gubDrawMode = DRAW_MODE_OFF;
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Turning off trap display");
 	DisplayCover( TRUE );
 }
 
 void ToggleHostileTrapsView()
 {
-	if (gubDrawModeMine == MINES_DRAW_DETECT_ENEMY) {
+	if ( gubDrawMode == MINES_DRAW_DETECT_ENEMY ) {
 		SwitchMineViewOff();
 	} else {
 		SwitchToHostileTrapsView();
@@ -918,44 +923,41 @@ void ToggleHostileTrapsView()
 
 void ToggleTrapNetworkView()
 {
-	SwitchMinesDrawModeForNetworks();
-}
-
-void SwitchMinesDrawModeForNetworks()
-{
-	switch ( gubDrawModeMine )
+	switch ( gubDrawMode )
 	{
-		case MINES_DRAW_OFF:
-		case MINES_DRAW_DETECT_ENEMY:
-			gubDrawModeMine = MINES_DRAW_PLAYERTEAM_NETWORKS;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network");
-			break;
-		case MINES_DRAW_PLAYERTEAM_NETWORKS:
-			gubDrawModeMine = MINES_DRAW_NETWORKCOLOURING;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network colouring");
-			break;
-		case MINES_DRAW_NETWORKCOLOURING:
-			gubDrawModeMine = MINES_DRAW_NET_A;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network A");
-			break;
-		case MINES_DRAW_NET_A:
-			gubDrawModeMine = MINES_DRAW_NET_B;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network B");
-			break;
-		case MINES_DRAW_NET_B:
-			gubDrawModeMine = MINES_DRAW_NET_C;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network C");
-			break;
-		case MINES_DRAW_NET_C:
-			gubDrawModeMine = MINES_DRAW_NET_D;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network D");
-			break;
-		case MINES_DRAW_NET_D:
-		case MINES_DRAW_MAX:
-		default:
-			gubDrawModeMine = MINES_DRAW_OFF;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Turning off trap display");
-			break;
+	case MINES_DRAW_DETECT_ENEMY:
+		gubDrawMode = MINES_DRAW_PLAYERTEAM_NETWORKS;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network" );
+		break;
+	case MINES_DRAW_PLAYERTEAM_NETWORKS:
+		gubDrawMode = MINES_DRAW_NETWORKCOLOURING;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network colouring" );
+		break;
+	case MINES_DRAW_NETWORKCOLOURING:
+		gubDrawMode = MINES_DRAW_NET_A;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network A" );
+		break;
+	case MINES_DRAW_NET_A:
+		gubDrawMode = MINES_DRAW_NET_B;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network B" );
+		break;
+	case MINES_DRAW_NET_B:
+		gubDrawMode = MINES_DRAW_NET_C;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network C" );
+		break;
+	case MINES_DRAW_NET_C:
+		gubDrawMode = MINES_DRAW_NET_D;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trap network D" );
+		break;
+	case MINES_DRAW_NET_D:
+		gubDrawMode = DRAW_MODE_OFF;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Turning off trap display" );
+		break;
+
+	default:
+		gubDrawMode = MINES_DRAW_DETECT_ENEMY;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display enemy traps" );
+		break;
 	}
 
 	DisplayCover( TRUE );
@@ -964,7 +966,7 @@ void SwitchMinesDrawModeForNetworks()
 
 void AddMinesObjectsToViewArea()
 {
-	if (gsMaxCellY == -1)
+	if ( gsMaxCellY < 0 )
 		return;
 	
 	register INT32 ubX, ubY, ubZ;
@@ -974,7 +976,7 @@ void AddMinesObjectsToViewArea()
 
 	BOOLEAN fSearchAdjTile = TRUE;
 	// no search for adjacent tiles when looking at a specific network (we have only 4 colours, need them all :-)
-	if ( gubDrawModeMine == MINES_DRAW_NETWORKCOLOURING || gubDrawModeMine == MINES_DRAW_NET_A || gubDrawModeMine == MINES_DRAW_NET_B || gubDrawModeMine == MINES_DRAW_NET_C || gubDrawModeMine == MINES_DRAW_NET_D )
+	if ( gubDrawMode == MINES_DRAW_NETWORKCOLOURING || gubDrawMode == MINES_DRAW_NET_A || gubDrawMode == MINES_DRAW_NET_B || gubDrawMode == MINES_DRAW_NET_C || gubDrawMode == MINES_DRAW_NET_D )
 		fSearchAdjTile = FALSE;
 
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
@@ -983,16 +985,11 @@ void AddMinesObjectsToViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-				if ( bOverlayType != INVALID_COVER && (bOverlayType != MAX_MINES || (fSearchAdjTile && HasAdjTile( ubX, ubY, ubZ ))) )
+				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER && (gCoverViewArea[ubX][ubY][ubZ].bOverlayType != MAX_MINES || (fSearchAdjTile && HasAdjTile( ubX, ubY, ubZ ))) )
 				{
-					INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-
-					if ( !TileIsOutOfBounds( sGridNo ) )
+					if ( !TileIsOutOfBounds( gCoverViewArea[ubX][ubY][ubZ].sGridNo ) )
 					{
-						TileDefines tile = GetOverlayIndex( bOverlayType );
-						AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN)ubZ, fNightTime );
+						AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
 						fChanged = TRUE;
 					}
 				}
@@ -1012,41 +1009,23 @@ void CalculateMines()
 	INT32 ubX, ubY;
 	INT8  ubZ;
 	SOLDIERTYPE* pSoldier;
-			
-	RemoveCoverObjectsFromViewArea( );
-
-	if( gubDrawModeMine == MINES_DRAW_OFF )
-	{
-		return;
-	}
-
+	
 	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) || !pSoldier->bInSector )
 		return;
 
 	// if we want to detect hostile mines and we have an metal detector in our hands, allow seeking
 	BOOLEAN fWithMineDetector = FALSE;
-	if ( pSoldier && gubDrawModeMine == MINES_DRAW_DETECT_ENEMY )
+	if ( pSoldier && gubDrawMode == MINES_DRAW_DETECT_ENEMY )
 	{
 		if ( FindMetalDetectorInHand(pSoldier) != NO_SLOT )
 			fWithMineDetector = TRUE;
-
-		// TODO: perhaps even consume batteries one day...
-	}
-
-	// if we are looking for mines via mine detector, but don't have one equipped, return, we won't detect anything
-	if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && !fWithMineDetector )
-	{
-		return;
+		// if we are looking for mines via mine detector, but don't have one equipped, return, we won't detect anything
+		else
+			return;
 	}
 	
 	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
-	
-	INT16 usTmp;
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
-
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
+		
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
 		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
@@ -1054,8 +1033,6 @@ void CalculateMines()
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
 				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-				
-				GetGridNoForViewPort( ubX, ubY, sGridNo );
 
 				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
 					continue;
@@ -1074,7 +1051,7 @@ void CalculateMines()
 				}
 																
 				// if we are looking for hostile mines, but the tile is out of our' detectors range, skip looking for mines
-				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
+				if ( gubDrawMode == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
 				{
 					if ( PythSpacesAway(sSelectedSoldierGridNo, sGridNo) > 4 )
 						continue;
@@ -1108,7 +1085,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 			{
 				// we are looking for hostile mines and have got an detector equipped
 				// some bombs cannot be found via metal detector
-				if ( gubDrawModeMine == MINES_DRAW_DETECT_ENEMY && fWithMineDetector && !( HasItemFlag(pObj->usItem, NO_METAL_DETECTION) || HasItemFlag((*pObj)[0]->data.misc.usBombItem, NO_METAL_DETECTION) ) )
+				if ( gubDrawMode == MINES_DRAW_DETECT_ENEMY && fWithMineDetector && !(HasItemFlag( pObj->usItem, NO_METAL_DETECTION ) || HasItemFlag( (*pObj)[0]->data.misc.usBombItem, NO_METAL_DETECTION )) )
 				{
 					// display all mines
 					bOverlayType = MINE_BOMB;
@@ -1118,7 +1095,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 					// look for mines from our own team
 					if ( (*pObj)[0]->data.misc.ubBombOwner > 1 )
 					{
-						switch ( gubDrawModeMine )
+						switch ( gubDrawMode )
 						{
 							case MINES_DRAW_PLAYERTEAM_NETWORKS:
 								{
@@ -1193,7 +1170,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 									if ( Item[pObj->usItem].tripwire == 1 )
 									{
 										UINT32 specificnet = 0;
-										switch ( gubDrawModeMine )
+										switch ( gubDrawMode )
 										{
 										case MINES_DRAW_NET_A: specificnet = TRIPWIRE_NETWORK_NET_1; break;
 										case MINES_DRAW_NET_B: specificnet = TRIPWIRE_NETWORK_NET_2; break;
@@ -1222,7 +1199,6 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 								break;
 
 							case MINES_DRAW_DETECT_ENEMY:
-							case MINES_DRAW_MAX:
 							default:
 								break;
 						}
@@ -1247,20 +1223,16 @@ INT32	sTraitgridNo = NOWHERE;
 void ToggleTraitRangeView(BOOLEAN fOn)
 {
 	if ( fOn )
-	{
-		gubDrawModeTrait = TRAIT_DRAW_RANGE;
-		gubDrawMode		 = COVER_DRAW_OFF;
-		gubDrawModeMine  = MINES_DRAW_OFF;
-		gubDrawModeTracker = TRACKER_DRAW_OFF;
+	{		
+		gubDrawMode = DRAW_MODE_TRAIT_RANGE;
 	}
 	else
 	{
-		gubDrawModeTrait = TRAIT_DRAW_OFF;
+		gubDrawMode = DRAW_MODE_OFF;
 		SetTraitToDisplay( NO_SKILLTRAIT_NT );
 		SetGridNoForTraitDisplay( NOWHERE );
 	}
 
-	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Display trait ranges");
 	DisplayCover( TRUE );
 }
 
@@ -1280,12 +1252,7 @@ void CalculateTraitRange()
 	INT32 ubX, ubY;
 	INT8  ubZ;
 	SOLDIERTYPE* pSoldier;
-
-	RemoveCoverObjectsFromViewArea( );
-
-	if ( gubDrawModeTrait == TRAIT_DRAW_OFF )
-		return;
-	
+		
 	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) || !pSoldier->bInSector )
 		return;
 
@@ -1313,12 +1280,6 @@ void CalculateTraitRange()
 				
 	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
 	
-	INT16 usTmp;
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
-
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
 		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
@@ -1326,8 +1287,6 @@ void CalculateTraitRange()
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
 				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-
-				GetGridNoForViewPort( ubX, ubY, sGridNo );
 
 				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
 					continue;
@@ -1366,7 +1325,7 @@ void CalculateTraitRange()
 
 void AddTraitObjectsToViewArea()
 {
-	if (gsMaxCellY == -1)
+	if ( gsMaxCellY < 0 )
 		return;
 	
 	register INT32 ubX, ubY, ubZ;
@@ -1380,13 +1339,9 @@ void AddTraitObjectsToViewArea()
 		{
 			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-				if ( bOverlayType == TRAIT_1 || bOverlayType == TRAIT_2 )
+				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRAIT_1 || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRAIT_2 )
 				{
-					INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
-					TileDefines tile = GetOverlayIndex( bOverlayType );
-					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN)ubZ, fNightTime );
+					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
 					fChanged = TRUE;
 				}
 			}
@@ -1450,12 +1405,7 @@ void CalculateTrackerRange( )
 	INT32 ubX, ubY;
 	INT8 ubZ;
 	SOLDIERTYPE* pSoldier;
-
-	RemoveCoverObjectsFromViewArea( );
-
-	if ( gubDrawModeTracker == TRACKER_DRAW_OFF )
-		return;
-
+	
 	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) ||  !pSoldier->bInSector )
 		return;
 
@@ -1467,13 +1417,7 @@ void CalculateTrackerRange( )
 	UINT16 range = gSkillTraitValues.usSVTrackerMaxRange * trackerskill;
 
 	const INT32& sSelectedSoldierGridNo = MercPtrs[gusSelectedSoldier]->sGridNo;
-
-	INT16 usTmp;
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
-
-	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
-	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
+	
 	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
 	{
 		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
@@ -1481,8 +1425,6 @@ void CalculateTrackerRange( )
 			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
 				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
-
-				GetGridNoForViewPort( ubX, ubY, sGridNo );
 
 				if ( !GridNoOnScreenAndAround( sGridNo, 2 ) )
 					continue;
@@ -1537,7 +1479,7 @@ void CalculateTrackerRange( )
 
 void AddTrackerObjectsToViewArea( )
 {
-	if ( gsMaxCellY == -1 )
+	if ( gsMaxCellY < 0 )
 		return;
 
 	register INT32 ubX, ubY, ubZ;
@@ -1551,13 +1493,9 @@ void AddTrackerObjectsToViewArea( )
 		{
 			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
 			{
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-				if ( bOverlayType == TRACKS_VERYOLD || bOverlayType == TRACKS_OLD || bOverlayType == TRACKS_RECENT || bOverlayType == TRACKS_BLOOD )
+				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_VERYOLD || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_OLD || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_RECENT || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_BLOOD )
 				{
-					INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
-					TileDefines tile = GetOverlayIndex( bOverlayType );
-					AddCoverObjectToWorld( sGridNo, tile, (BOOLEAN)ubZ, fNightTime );
+					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
 					fChanged = TRUE;
 				}
 			}
@@ -1599,4 +1537,48 @@ BOOLEAN TrackerTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& 
 	}
 
 	return FALSE;
+}
+
+void CalculateFortify( )
+{
+	// simply get all fortified gridnos and colour them
+	std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > vec = GetAllForticationGridNo( );
+
+	std::vector< std::pair<INT16, std::pair<UINT8, INT8> > >::iterator itend = vec.end( );
+	for ( std::vector< std::pair<INT16, std::pair<UINT8, INT8> > >::iterator it = vec.begin( ); it != itend; ++it )
+	{
+		INT16 sX, sY;
+		ConvertGridNoToXY( (*it).first, &sX, &sY );
+
+		gCoverViewArea[sX][sY][(*it).second.second].bOverlayType = (*it).second.first;
+	}
+	
+	if ( gsMaxCellY < 0 )
+		return;
+
+	register INT32 ubX, ubY, ubZ;
+	BOOLEAN fChanged = FALSE;
+
+	BOOLEAN fNightTime = NightTime( );
+
+	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
+	{
+		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		{
+			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER )
+				{
+					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
+					fChanged = TRUE;
+				}
+			}
+		}
+	}
+
+	// Re-render the scene!
+	if ( fChanged )
+	{
+		SetRenderFlags( RENDER_FLAG_FULL );
+	}
 }

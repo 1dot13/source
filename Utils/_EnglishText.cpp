@@ -2462,6 +2462,7 @@ STR16 pAssignmentStrings[] =
 	L"Doctor", // administering medical aid
 	L"Patient", // getting medical aid
 	L"Repair", // repairing
+	L"Fortify",		// build structures according to external layout
 };
 
 
@@ -2563,6 +2564,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Doctor",
 	L"Patient",
 	L"Repair",
+	L"Fortify sector",		// build structures according to external layout
 };
 
 
@@ -2623,6 +2625,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Doctor",
 	L"Patient",
 	L"Repair",
+	L"Fortify sector",		// build structures according to external layout
 };
 
 
@@ -2743,6 +2746,7 @@ STR16 pAssignMenuStrings[] =
 	L"Snitch", // anv: snitch actions
 	L"Train", // the merc is training
 	L"Get Item",	// move items
+	L"Fortify",		// fortify sector
 	L"Facility", // the merc is using/staffing a facility
 	L"Cancel", // cancel this menu
 };
@@ -8914,6 +8918,7 @@ STR16	szBackgroundText_Value[]=
 	L"Smoker",
 	L"Nonsmoker",
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%% building speed\n",
 };
 
 STR16		szBackgroundTitleText[] = 
@@ -9837,7 +9842,7 @@ STR16   szTacticalCoverDialogString[]=
         L"",
 
         L"Roles",
-        L"",
+        L"Fortification",
         L"Tracker",
         L"",
 
@@ -9860,9 +9865,9 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Showing merc view",
         L"",
 
-        L"",
-        L"",
-        L"",
+        L"Display enemy role symbols",
+        L"Display planned fortifications",
+        L"Display enemy tracks",
         L"",
 
         L"Display trap network",
@@ -10912,6 +10917,17 @@ STR16 szEnemyHeliText[] =
 	L"%s fires %s at enemy helicopter in %s.",
 
 	L"SAM in %s fires at enemy helicopter in %s.",
+};
+
+STR16 szFortificationText[] =
+{
+	L"No valid structure selected, nothing added to build plan.",
+	L"No gridno found to create items in %s - created items are lost.",
+	L"Structures could not be built in %s - people are in the way.",
+	L"Structures could not be built in %s - the following items are required:",
+
+	L"No fitting fortifications found for tileset %d: %s",
+	L"Tileset %d: %s",
 };
 
 #endif //ENGLISH

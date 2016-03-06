@@ -2463,6 +2463,7 @@ STR16 pAssignmentStrings[] =
 	L"医生",// administering medical aid
 	L"病人", // getting medical aid
 	L"修理", // repairing
+	L"Fortify",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2564,6 +2565,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"医生",
 	L"病人",
 	L"修理",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2624,6 +2626,7 @@ STR16 pLongAssignmentStrings[] =
 	L"医生",
 	L"病人",
 	L"修理",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2744,6 +2747,7 @@ STR16 pAssignMenuStrings[] =
 	L"告发", // anv: snitch actions
 	L"训练",
 	L"搬运物品",	// get items
+	L"Fortify",		// fortify sector	// TODO.Translate
 	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -8916,6 +8920,7 @@ STR16	szBackgroundText_Value[]=
 	L"吸烟者", //L"Smoker",
 	L"非吸烟者", //L"Nonsmoker",
 	L" %s%d%% 如果敌人 CTH 蹲在厚覆盖他们的方向\n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%% building speed\n",
 };
 
 STR16		szBackgroundTitleText[] =
@@ -9786,7 +9791,7 @@ STR16   szTacticalCoverDialogString[]=
         L"",
 
         L"角色", //L"Roles",
-        L"",
+		L"Fortification",	// TODO.Translate
 		L"跟踪者",//	L"Tracker",
         L"",
 
@@ -9809,9 +9814,9 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"显示佣兵视野",
         L"",
 
-        L"",
-        L"",
-        L"",
+		L"Display enemy role symbols",	// TODO.Translate
+		L"Display planned fortifications",
+		L"Display enemy tracks",
         L"",
 
         L"显示绊线网络",
@@ -10860,6 +10865,17 @@ STR16 szEnemyHeliText[] =	// TODO.Translate
 	L"%s fires %s at enemy helicopter in %s.",
 
 	L"SAM in %s fires at enemy helicopter in %s.",
+};
+
+STR16 szFortificationText[] =
+{
+	L"No valid structure selected, nothing added to build plan.",
+	L"No gridno found to create items in %s - created items are lost.",
+	L"Structures could not be built in %s - people are in the way.",
+	L"Structures could not be built in %s - the following items are required:",
+
+	L"No fitting fortifications found for tileset %d: %s",
+	L"Tileset %d: %s",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

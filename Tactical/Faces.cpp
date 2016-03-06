@@ -41,6 +41,7 @@
 	#include "Campaign Types.h"
 	#include "Strategic Event Handler.h"
 	#include "Food.h"	// added by Flugente
+	#include "Queen Command.h"		// added by Flugente for FindUnderGroundSector(...)
 #endif
 
 #ifdef JA2UB
@@ -2402,6 +2403,34 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
 					sPtsAvailable = (sPtsAvailable + 5) / 10;
 					usMaximumPts = (usMaximumPts + 5) / 10;
+					break;
+
+				case FORTIFICATION:
+					sIconIndex_Assignment = 14;
+					fDoIcon_Assignment = TRUE;
+					sPtsAvailable = (INT16)(MercPtrs[pFace->ubSoldierID]->GetConstructionPoints( ));
+					fShowNumber = TRUE;
+					fShowMaximum = TRUE;
+
+					{
+						if ( MercPtrs[pFace->ubSoldierID]->bSectorZ )
+						{
+							UNDERGROUND_SECTORINFO *pSectorInfo;
+							pSectorInfo = FindUnderGroundSector( MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY, MercPtrs[pFace->ubSoldierID]->bSectorZ );
+
+							if ( pSectorInfo )
+								usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
+						}
+						else
+						{
+							SECTORINFO *pSectorInfo;
+							pSectorInfo = &SectorInfo[SECTOR( MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY )];
+
+							if ( pSectorInfo )
+								usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
+						}
+					}
+
 					break;
 			}
 

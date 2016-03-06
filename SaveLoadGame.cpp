@@ -5051,10 +5051,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		FileClose( hFile );
 		return( FALSE );
 	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "UnderGround Information" );
-	#endif
+#ifdef JA2BETAVERSION
+	LoadGameFilePosition( FileGetPos( hFile ), "UnderGround Information" );
+#endif
 
+	// Flugente: at this point we need to reevaluate the fortification costs, as the fortification plan may have changed
+	UpdateFortificationPossibleAmount();
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Squad Info..." );

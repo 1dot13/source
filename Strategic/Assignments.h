@@ -84,6 +84,7 @@ enum
 	FACILITY_DOCTOR,
 	FACILITY_PATIENT,
 	FACILITY_REPAIR,
+	FORTIFICATION,					// Flugente: sectors can be fortified according to external layout plans
 	NUM_ASSIGNMENTS,
 };
 
@@ -165,6 +166,8 @@ BOOLEAN CanCharacterDiagnoseDisease( SOLDIERTYPE *pSoldier );
 
 // can this character treat diseases of the population (NOT mercs)?
 BOOLEAN CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier );
+
+BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier );
 
 // can this character be assigned as a repairman?
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );

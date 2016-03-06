@@ -51,7 +51,10 @@ structureconstructStartElementHandle(void *userData, const XML_Char *name, const
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "usCreationItem") == 0 ||
 				strcmp(name, "usItemStatusLoss") == 0 ||
-				strcmp(name, "szTileSetName") == 0 ||
+				strcmp(name, "szTileSetDisplayName") == 0 ||
+				strcmp(name, "szTileSetName" ) == 0 ||
+				strcmp(name, "dCreationCost" ) == 0 ||
+				strcmp(name, "fFortifyAdjacentAdjustment" ) == 0 ||
 				strcmp(name, "northfacingtile") == 0 ||
 				strcmp(name, "southfacingtile" ) == 0 ||
 				strcmp(name, "eastfacingtile" ) == 0 ||
@@ -107,7 +110,10 @@ structureconstructEndElementHandle(void *userData, const XML_Char *name)
 				// for now, copy over the content by hand
 				pData->curArray[structureconstructcnt].usCreationItem = pData->curFood.usCreationItem;
 				pData->curArray[structureconstructcnt].usItemStatusLoss= pData->curFood.usItemStatusLoss;
-				strncpy(pData->curArray[structureconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20);
+				strncpy( pData->curArray[structureconstructcnt].szTileSetDisplayName, pData->curFood.szTileSetDisplayName, 20 );
+				strncpy( pData->curArray[structureconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20 );
+				pData->curArray[structureconstructcnt].dCreationCost = pData->curFood.dCreationCost;
+				pData->curArray[structureconstructcnt].fFortifyAdjacentAdjustment = pData->curFood.fFortifyAdjacentAdjustment;
 				pData->curArray[structureconstructcnt].northtilevector = staticnorthtilevector;
 				pData->curArray[structureconstructcnt].southtilevector = staticsouthtilevector;
 				pData->curArray[structureconstructcnt].easttilevector = staticeasttilevector;
@@ -136,11 +142,27 @@ structureconstructEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curFood.usItemStatusLoss	= (UINT8) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "szTileSetName") == 0)
+		else if(strcmp(name, "szTileSetDisplayName") == 0)
 		{
 			pData->curElement = ELEMENT;
 
-			strncpy(pData->curFood.szTileSetName, pData->szCharData, 20);
+			strncpy( pData->curFood.szTileSetDisplayName, pData->szCharData, 20 );
+		}
+		else if ( strcmp( name, "szTileSetName" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			strncpy( pData->curFood.szTileSetName, pData->szCharData, 20 );
+		}
+		else if ( strcmp( name, "dCreationCost" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curFood.dCreationCost = (FLOAT)atof( pData->szCharData );
+		}
+		else if ( strcmp( name, "fFortifyAdjacentAdjustment" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curFood.fFortifyAdjacentAdjustment = (BOOLEAN)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "northfacingtile") == 0)
 		{
@@ -251,8 +273,11 @@ BOOLEAN WriteStructureConstructStats()
 
 			FilePrintf(hFile,"\t\t<usCreationItem>%d</usCreationItem>\r\n",		gStructureConstruct[cnt].usCreationItem );
 			FilePrintf(hFile,"\t\t<usItemStatusLoss>%d</usItemStatusLoss>\r\n",	gStructureConstruct[cnt].usItemStatusLoss );
-			FilePrintf(hFile,"\t\t<szTileSetName>%s</szTileSetName>\r\n",		gStructureConstruct[cnt].szTileSetName	);
-
+			FilePrintf(hFile,"\t\t<szTileSetDisplayName>%s</szTileSetDisplayName>\r\n", gStructureConstruct[cnt].szTileSetDisplayName );
+			FilePrintf(hFile,"\t\t<szTileSetName>%s</szTileSetName>\r\n", gStructureConstruct[cnt].szTileSetName );
+			FilePrintf(hFile,"\t\t<dCreationCost>%d</dCreationCost>\r\n",		gStructureConstruct[cnt].dCreationCost );
+			FilePrintf(hFile,"\t\t<fFortifyAdjacentAdjustment>%d</fFortifyAdjacentAdjustment>\r\n", gStructureConstruct[cnt].fFortifyAdjacentAdjustment );
+			
 			FilePrintf(hFile,"\t</STRUCTURE>\r\n");
 		}
 		FilePrintf(hFile,"</STRUCTURESLIST>\r\n");

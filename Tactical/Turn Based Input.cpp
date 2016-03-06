@@ -121,6 +121,7 @@
 #include "DisplayCover.h"				// added by Sevenfm
 #include "InterfaceItemImages.h"		// added by Sevenfm
 #include "DynamicDialogueWidget.h"		// added by Flugente for DelayBoxDestructionBy(...)
+#include "Utilities.h"					// added by Flugente
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -161,7 +162,6 @@ UINT32 guiUITargetSoldierId = NOBODY;
 
 // sevenfm: for cover dialog
 extern COVER_DRAW_MODE gubDrawMode;
-extern MINES_DRAW_MODE gubDrawModeMine;
 
 extern  MOUSE_REGION    gMPanelRegion;
 
@@ -193,6 +193,12 @@ extern INT32		giSMStealthButton;
 SOLDIERTYPE *gpExchangeSoldier1;
 SOLDIERTYPE *gpExchangeSoldier2;
 
+// Flugente: fortification
+INT16	gCurrentFortificationStructure = -1;
+UINT8	gCurrentFortificationTileLibraryIndex = 0;
+
+extern UINT32 guiMessageBoxImage;
+extern UINT16 guiMessageBoxImageIndex;
 
 BOOLEAN ConfirmActionCancel( INT32 usMapPos, INT32 usOldMapPos );
 
@@ -338,6 +344,7 @@ INT32 InvItemType( UINT16 usItem );
 void HandleTacticalInventoryMenu( void );
 void HandleTacticalMoveItems( void );
 void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue );
+void FortificationSettingCallBack( UINT8 ubExitValue );
 void HandleTacticalCoverMenu( void );
 void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue );
 void ActivateCheatsMessageBoxCallBack( UINT8 ubExitValue );
@@ -3000,9 +3007,93 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case 'a':
 
-				if ( fCtrl )
+				if ( fCtrl && fAlt )
 				{
-					// free to use
+					// Flugente: fortification
+					// set details on how to place fortification nodes
+					// loop over all structure constructs, and select those entries that are possible in this map
+					std::vector<std::pair<INT16, STR16> > dropdownvector_1 = GetCurrentSectorAllowedFortificationTileSetVector( giCurrentTilesetID );
+
+					DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).SetEntries( dropdownvector_1 );
+
+					if ( !dropdownvector_1.empty() )
+					{
+						BOOLEAN found = FALSE;
+						for ( std::vector<std::pair<INT16, STR16> >::iterator it = dropdownvector_1.begin( ); it != dropdownvector_1.end(); ++it )
+						{
+							if ( (*it).first == gCurrentFortificationStructure )
+							{
+								found = TRUE;
+								break;
+							}
+						}
+
+						if ( !found )
+							gCurrentFortificationStructure = dropdownvector_1[0].first;
+					}
+
+					DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).SetSelectedEntryKey( gCurrentFortificationStructure );
+
+					std::vector<std::pair<INT16, STR16> > dropdownvector_2 = GetTileSetIndexVector( gCurrentFortificationStructure );
+
+					DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetEntries( dropdownvector_2 );
+
+					if ( !dropdownvector_2.empty( ) )
+					{
+						BOOLEAN found = FALSE;
+						for ( std::vector<std::pair<INT16, STR16> >::iterator it = dropdownvector_2.begin( ); it != dropdownvector_2.end( ); ++it )
+						{
+							if ( (*it).first == guiMessageBoxImageIndex )
+							{
+								found = TRUE;
+								break;
+							}
+						}
+
+						if ( !found )
+							guiMessageBoxImageIndex = dropdownvector_2[0].first;
+					}
+
+					DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetSelectedEntryKey( guiMessageBoxImageIndex );
+
+					if ( dropdownvector_1.empty( ) || dropdownvector_2.empty() )
+					{
+						CHAR16 text[100];
+						swprintf( text, szFortificationText[4], giCurrentTilesetID, gTilesets[giCurrentTilesetID].zName );
+
+						DoMessageBox( MSG_BOX_BASIC_STYLE, text, GAME_SCREEN, MSG_BOX_FLAG_OK, NULL, NULL );
+					}
+					else
+					{
+						CHAR16 text[100];
+						swprintf( text, szFortificationText[5], giCurrentTilesetID, gTilesets[giCurrentTilesetID].zName );
+
+						VOBJECT_DESC VObjectDesc;
+						VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+
+						sprintf( VObjectDesc.ImageFile, "TILESETS\\%d\\%s", giCurrentTilesetID, gStructureConstruct[gCurrentFortificationStructure].szTileSetName );
+						
+						// even if AddVideoObject fails, we still set MSG_BOX_FLAG_IMAGE, as we might 'repair' it while the box is open
+						if ( !AddVideoObject( &VObjectDesc, &guiMessageBoxImage ) )
+						{
+							sprintf( VObjectDesc.ImageFile, "TILESETS\\0\\%s", gStructureConstruct[gCurrentFortificationStructure].szTileSetName );
+
+							AddVideoObject( &VObjectDesc, &guiMessageBoxImage );
+						}
+
+						DoMessageBox( MSG_BOX_BASIC_STYLE, text, GAME_SCREEN, (MSG_BOX_FLAG_OK | MSG_BOX_FLAG_DROPDOWN | MSG_BOX_FLAG_IMAGE), FortificationSettingCallBack, NULL );
+					}
+				}
+				else if ( fCtrl )
+				{
+					// Flugente: fortification
+					INT32 sGridNo;
+
+					//Get the gridno the cursor is at
+					GetMouseMapPos( &sGridNo );
+
+					// a node to add a structure
+					AddFortificationPlanNode( sGridNo, gsInterfaceLevel, gCurrentFortificationStructure, gCurrentFortificationTileLibraryIndex, TRUE );
 				}
 				else if ( fAlt )
 				{
@@ -3047,7 +3138,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if( fCtrl )
 				{
-					// free to use
+					// Flugente: fortification
+					INT32 sGridNo;
+
+					//Get the gridno the cursor is at
+					GetMouseMapPos( &sGridNo );
+
+					// a node to delete a structure
+					AddFortificationPlanNode( sGridNo, gsInterfaceLevel, gCurrentFortificationStructure, gCurrentFortificationTileLibraryIndex, FALSE );
 				}
 				else
 				{
@@ -3066,7 +3164,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 			case 'c':
 
-				if( fAlt )
+				if ( fAlt && fCtrl )
+				{
+					if ( CHEATER_CHEAT_LEVEL( ) )
+					{
+						ToggleCliffDebug( );
+					}
+				}
+				else if ( fAlt )
 				{
 					if ( CHEATER_CHEAT_LEVEL( ) )
 					{
@@ -3075,14 +3180,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else if( fCtrl )
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						ToggleCliffDebug();
-					}
-					else
-					{
-						HandleTacticalCoverMenu();
-					}
+					HandleTacticalCoverMenu();
 				}
 				else
 				{
@@ -8093,6 +8191,12 @@ void TacticalInventoryMessageBoxCallBack( UINT8 ubExitValue )
 	}
 }
 
+void FortificationSettingCallBack( UINT8 ubExitValue )
+{
+	gCurrentFortificationStructure			= (UINT8)(DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).GetSelectedEntryKey( ));
+	gCurrentFortificationTileLibraryIndex	= (UINT8)(DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).GetSelectedEntryKey( ));
+}
+
 void HandleTacticalCoverMenu( void )
 {
 	for( INT32 cnt = 0; cnt < TACTICAL_COVER_DIALOG_NUM; ++cnt)
@@ -8101,17 +8205,21 @@ void HandleTacticalCoverMenu( void )
 		gzUserDefinedButtonColor[cnt] = 0;
 	}
 	gzUserDefinedButtonColor[0] = 0;
-	gzUserDefinedButtonColor[1] = FONT_MCOLOR_LTYELLOW;
-	gzUserDefinedButtonColor[2] = FONT_MCOLOR_LTYELLOW;
+	gzUserDefinedButtonColor[1] = (gubDrawMode != COVER_DRAW_ENEMY_VIEW) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[2] = (gubDrawMode != COVER_DRAW_MERC_VIEW) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[3] = 0;
 	gzUserDefinedButtonColor[4] = gDisplayEnemyRoles ? FONT_MCOLOR_LTGREEN : FONT_LTRED;
-	gzUserDefinedButtonColor[6] = (gubDrawModeTracker == TRACKER_DRAW_OFF) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
-	gzUserDefinedButtonColor[8] = FONT_ORANGE;
-	gzUserDefinedButtonColor[9] = FONT_ORANGE;
-	gzUserDefinedButtonColor[10] = FONT_ORANGE;
-	gzUserDefinedButtonColor[12] = FONT_MCOLOR_LTGREEN;
-	gzUserDefinedButtonColor[13] = FONT_MCOLOR_LTGREEN;
-	gzUserDefinedButtonColor[14] = FONT_MCOLOR_LTGREEN;
-	gzUserDefinedButtonColor[15] = FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[5] = (gubDrawMode != DRAW_MODE_FORTIFY) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[6] = (gubDrawMode != DRAW_MODE_TRACKER_SMELL) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[7] = 0;
+	gzUserDefinedButtonColor[8] = (gubDrawMode != MINES_DRAW_PLAYERTEAM_NETWORKS) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
+	gzUserDefinedButtonColor[9] = (gubDrawMode != MINES_DRAW_NETWORKCOLOURING) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
+	gzUserDefinedButtonColor[10] = (gubDrawMode != MINES_DRAW_DETECT_ENEMY) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
+	gzUserDefinedButtonColor[11] = 0;
+	gzUserDefinedButtonColor[12] = (gubDrawMode != MINES_DRAW_NET_A) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[13] = (gubDrawMode != MINES_DRAW_NET_B) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
+	gzUserDefinedButtonColor[14] = (gubDrawMode != MINES_DRAW_NET_C) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
+	gzUserDefinedButtonColor[15] = (gubDrawMode != MINES_DRAW_NET_D) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
 
 	DoMessageBox( MSG_BOX_BASIC_STYLE,  szTacticalCoverDialogString[0], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, TacticalCoverMessageBoxCallBack, NULL );
 }
@@ -8121,14 +8229,12 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 	switch( ubExitValue )
 	{
 	case 1:
-		ResetOverlayModes( );
+		gubDrawMode = DRAW_MODE_OFF;
 		break;
 	case 2:
-		ResetOverlayModes( );
 		gubDrawMode = COVER_DRAW_ENEMY_VIEW;
 		break;
 	case 3:
-		ResetOverlayModes( );
 		gubDrawMode = COVER_DRAW_MERC_VIEW;
 		break;
 	case 4:
@@ -8137,49 +8243,41 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 		gDisplayEnemyRoles = !gDisplayEnemyRoles;
 		break;
 	case 6:		
+		if ( gubDrawMode == DRAW_MODE_FORTIFY )
+			gubDrawMode = DRAW_MODE_OFF;
+		else
+			gubDrawMode = DRAW_MODE_FORTIFY;
 		break;
 	case 7:
-		if ( gubDrawModeTracker == TRACKER_DRAW_SMELL )
-		{
-			ResetOverlayModes( );
-		}
+		if ( gubDrawMode == DRAW_MODE_TRACKER_SMELL )
+			gubDrawMode = DRAW_MODE_OFF;
 		else
-		{
-			ResetOverlayModes( );
-			gubDrawModeTracker = TRACKER_DRAW_SMELL;
-		}
+			gubDrawMode = DRAW_MODE_TRACKER_SMELL;
 		break;
 	case 8:
 		break;
 	case 9:
-		ResetOverlayModes( );
-		gubDrawModeMine = MINES_DRAW_PLAYERTEAM_NETWORKS;
+		gubDrawMode = MINES_DRAW_PLAYERTEAM_NETWORKS;
 		break;
 	case 10:
-		ResetOverlayModes( );
-		gubDrawModeMine = MINES_DRAW_NETWORKCOLOURING;
+		gubDrawMode = MINES_DRAW_NETWORKCOLOURING;
 		break;
 	case 11:
-		ResetOverlayModes( );
-		gubDrawModeMine = MINES_DRAW_DETECT_ENEMY;
+		gubDrawMode = MINES_DRAW_DETECT_ENEMY;
 		break;
 	case 12:
 		break;
 	case 13:
-		ResetOverlayModes( );
-		gubDrawModeMine = MINES_DRAW_NET_A;
+		gubDrawMode = MINES_DRAW_NET_A;
 		break;
 	case 14:
-		ResetOverlayModes( );
-		gubDrawModeMine = MINES_DRAW_NET_B;
+		gubDrawMode = MINES_DRAW_NET_B;
 		break;
 	case 15:
-		ResetOverlayModes( );
-		gubDrawModeMine = MINES_DRAW_NET_C;
+		gubDrawMode = MINES_DRAW_NET_C;
 		break;
 	case 16:
-		ResetOverlayModes( );
-		gubDrawModeMine = MINES_DRAW_NET_D;
+		gubDrawMode = MINES_DRAW_NET_D;
 		break;
 	}
 

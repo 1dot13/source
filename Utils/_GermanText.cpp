@@ -2475,6 +2475,7 @@ STR16 pAssignmentStrings[] =
 	L"Doktor", // administering medical aid	
 	L"Patient", // getting medical aid
 	L"Repar.", // repairing
+	L"Fortify",		// build structures according to external layout	// TODO.Translate
 };
 
 STR16 pMilitiaString[] =
@@ -2572,6 +2573,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Doktor",
 	L"Patient",
 	L"Reparieren",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 // refer to above for comments
@@ -2630,6 +2632,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Doktor",
 	L"Patient",
 	L"Reparieren",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 // the contract options
@@ -2746,6 +2749,7 @@ STR16 pAssignMenuStrings[] =
 	L"Snitch", // TODO.Translate // anv: snitch actions
 	L"Training", // the merc is training
 	L"Umzug",	// move items
+	L"Fortify",		// fortify sector	// TODO.Translate
 	L"Betrieb", // the merc is using/staffing a facility
 	L"Abbrechen", // cancel this menu
 };
@@ -8746,6 +8750,7 @@ STR16	szBackgroundText_Value[]=
 	L"Smoker",
 	L"Nonsmoker",
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%% building speed\n",
 };
 
 STR16		szBackgroundTitleText[] =	// TODO.Translate
@@ -9615,7 +9620,7 @@ STR16   szTacticalCoverDialogString[]=
         L"",
 
         L"Roles",	// TODO.Translate
-        L"",
+		L"Fortification",	// TODO.Translate
 		L"Tracker",
         L"",
 
@@ -9638,9 +9643,9 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Showing merc view",
         L"",
 
-        L"",
-        L"",
-        L"",
+		L"Display enemy role symbols",	// TODO.Translate
+		L"Display planned fortifications",
+		L"Display enemy tracks",
         L"",
 
         L"Display trap network",
@@ -10690,6 +10695,17 @@ STR16 szEnemyHeliText[] =	// TODO.Translate
 	L"%s fires %s at enemy helicopter in %s.",
 
 	L"SAM in %s fires at enemy helicopter in %s.",
+};
+
+STR16 szFortificationText[] =
+{
+	L"No valid structure selected, nothing added to build plan.",
+	L"No gridno found to create items in %s - created items are lost.",
+	L"Structures could not be built in %s - people are in the way.",
+	L"Structures could not be built in %s - the following items are required:",
+
+	L"No fitting fortifications found for tileset %d: %s",
+	L"Tileset %d: %s",
 };
 
 #endif //GERMAN

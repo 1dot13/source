@@ -5851,7 +5851,7 @@ gridnoarmourvector GetArmourSharedRoofNetwork( gridnoarmourvector& arNetwork )
 
 
 // handle destroying if a single roof tile
-void RoofDestruction( INT32 sGridNo )
+void RoofDestruction( INT32 sGridNo, BOOLEAN fWithExplosion )
 {
 	SOLDIERTYPE* pSoldier = NULL;
 
@@ -5953,11 +5953,14 @@ void RoofDestruction( INT32 sGridNo )
 	ApplyMapChangesToMapTempFile( TRUE );
 
 	// play an animation of falling roof tiles
-	// if we merely collected the tiles that collapse and then call them all together, it would be possible to have animations for multi-tile collapses
-	static UINT16 usRoofCollapseExplosionIndex = 1727;
-	if ( HasItemFlag( usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) || GetFirstItemWithFlag( &usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) )
+	if ( fWithExplosion )
 	{
-		InternalIgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, usRoofCollapseExplosionIndex, FALSE, 0 );
+		// if we merely collected the tiles that collapse and then call them all together, it would be possible to have animations for multi-tile collapses
+		static UINT16 usRoofCollapseExplosionIndex = 1727;
+		if ( HasItemFlag( usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) || GetFirstItemWithFlag( &usRoofCollapseExplosionIndex, ROOF_COLLAPSE_ITEM ) )
+		{
+			InternalIgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, usRoofCollapseExplosionIndex, FALSE, 0 );
+		}
 	}
 
 	RemoveAllRoofsOfTypeRangeAdjustSaveFile( sGridNo, FIRSTTEXTURE, WIREFRAMES );

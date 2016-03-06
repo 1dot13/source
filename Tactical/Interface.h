@@ -196,6 +196,7 @@ enum {
 	BG_DISLIKEBG,			// dislike any other background that has the negative of this value set
 	BG_SMOKERTYPE,			// 0: doesnt care about smoking 1: will consume cigarettes, dislikes non-smokers 2: will refuse to smoke, dislikes smokers
 	BG_CROUCHEDDEFENSE,		// lowers enemy cth if they fire at us while we are crouched against cover in the direction the shots come from
+	BG_FORTIFY_ASSIGNMENT,	// modifies effectivity of 'FORTIFICATION' assignemnt
 
 	BG_MAX,
 };

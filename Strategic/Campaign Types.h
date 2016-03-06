@@ -522,10 +522,13 @@ typedef struct SECTORINFO
 	UINT16	usInfected;					// how many people (civilians + enemy + militia) are infected in this sector? Does NOT count our mercs
 	FLOAT	fInfectionSeverity;			// mean infection rate of those infected (percentage)
 	UINT8	usDiseaseDoctoringDelay;	// AI doctoring in this sector is delayed due to player interference
-	UINT8	usInfectionFlag;	
+	UINT8	usInfectionFlag;
 
+	// Flugente: fortification
+	FLOAT	dFortification_MaxPossible;	// the amount of fortification that can still be done in this sector, given the current layout plans. Is updated every time we unload a sector
+	FLOAT	dFortification_UnappliedProgress;	// progress done via assignment work. As we cannot update unloaded sectors, update happens once sector is loaded
 
-	INT8	bPadding[ 12 ];
+	INT8	bPadding[ 4 ];
 
 }SECTORINFO;
 
@@ -567,7 +570,11 @@ typedef struct UNDERGROUND_SECTORINFO
 	UINT8	ubNumTanks;
 	UINT8	ubTanksInBattle;
 
-	INT8	bPadding[26];
+	// Flugente: fortification
+	FLOAT	dFortification_MaxPossible;	// the amount of fortification that can still be done in this sector, given the current layout plans. Is updated every time we unload a sector
+	FLOAT	dFortification_UnappliedProgress;	// progress done via assignment work. As we cannot update unloaded sectors, update happens once sector is loaded
+
+	INT8	bPadding[16];
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 

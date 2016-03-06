@@ -18965,6 +18965,25 @@ BOOLEAN	SOLDIERTYPE::IsCrouchedAgainstCoverFromDir( UINT8 aDirection )
 }
 
 
+// Flugente: fortification
+FLOAT	SOLDIERTYPE::GetConstructionPoints( )
+{
+	if ( this->stats.bLife < OKLIFE || this->flags.fMercAsleep || this->bCollapsed || (this->usSoldierFlagMask & SOLDIER_POW) )
+		return 0;
+
+	UINT32 val = EffectiveStrength( this, FALSE );
+
+	ReducePointsForFatigue( this, &val );
+
+	FLOAT dval = val;
+
+	dval = dval * (100 + this->GetBackgroundValue( BG_FORTIFY_ASSIGNMENT )) / 100.0f;
+
+	dval = (dval * this->stats.bLife / this->stats.bLifeMax);
+
+	return dval;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -22773,13 +22792,13 @@ void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget )
 		}
 
 		// several factors determine whether we can successfully recruit this guy
-		FLOAT leadershipfactor = EffectiveLeadership( pRecruiter ) / 100.0;
+		FLOAT leadershipfactor = EffectiveLeadership( pRecruiter ) / 100.0f;
 
 		// bonus for assertive characters
 		if ( DoesMercHavePersonality( pRecruiter, CHAR_TRAIT_ASSERTIVE ) )
 			leadershipfactor *= 1.05;
 
-		FLOAT recruitmodifier = (100 + pRecruiter->GetBackgroundValue( BG_PERC_APPROACH_RECRUIT )) / 100.0;
+		FLOAT recruitmodifier = (100 + pRecruiter->GetBackgroundValue( BG_PERC_APPROACH_RECRUIT )) / 100.0f;
 
 		FLOAT rating = leadershipfactor * recruitmodifier * gMercProfiles[pRecruiter->ubProfile].usApproachFactor[3];
 		

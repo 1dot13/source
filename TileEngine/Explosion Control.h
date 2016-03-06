@@ -177,6 +177,7 @@ BOOLEAN FindBinderAttachment (OBJECTTYPE * pObj);
 BOOLEAN CheckExplosiveTypeAsDetonator(UINT16 ubType);
 
 // Flugente: destroy rooftops
+void RoofDestruction( INT32 sGridNo, BOOLEAN fWithExplosion = TRUE );
 void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage );
 
 #endif

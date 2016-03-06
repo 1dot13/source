@@ -52,8 +52,10 @@ structuredeconstructStartElementHandle(void *userData, const XML_Char *name, con
 				(strcmp(name, "usDeconstructItem") == 0 ||
 				strcmp( name, "usItemToCreate" ) == 0 ||
 				strcmp( name, "usCreatedItemStatus" ) == 0 ||
-				strcmp(name, "szTileSetName") == 0 ||
-				strcmp(name, "allowedtile") == 0 )) 
+				strcmp( name, "szTileSetDisplayName" ) == 0 ||
+				strcmp( name, "szTileSetName") == 0 ||
+				strcmp( name, "dCreationCost" ) == 0 ||
+				strcmp( name, "allowedtile") == 0 )) 
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -105,9 +107,11 @@ structuredeconstructEndElementHandle(void *userData, const XML_Char *name)
 				pData->curArray[structuredeconstructcnt].usDeconstructItem = pData->curFood.usDeconstructItem;
 				pData->curArray[structuredeconstructcnt].usItemToCreate= pData->curFood.usItemToCreate;
 				pData->curArray[structuredeconstructcnt].usCreatedItemStatus = pData->curFood.usCreatedItemStatus;
-				strncpy(pData->curArray[structuredeconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20);
+				strncpy( pData->curArray[structuredeconstructcnt].szTileSetDisplayName, pData->curFood.szTileSetDisplayName, 20 );
+				strncpy( pData->curArray[structuredeconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20 );
+				pData->curArray[structuredeconstructcnt].dCreationCost = pData->curFood.dCreationCost;
 				pData->curArray[structuredeconstructcnt].tilevector = statictilevector;
-
+				
 				statictilevector.clear();
 			}
 
@@ -128,11 +132,22 @@ structuredeconstructEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curFood.usCreatedItemStatus = (UINT8)atol( pData->szCharData );
 		}
-		else if(strcmp(name, "szTileSetName") == 0)
+		else if(strcmp(name, "szTileSetDisplayName") == 0)
 		{
 			pData->curElement = ELEMENT;
 
-			strncpy(pData->curFood.szTileSetName, pData->szCharData, 20);
+			strncpy( pData->curFood.szTileSetDisplayName, pData->szCharData, 20 );
+		}
+		else if ( strcmp( name, "szTileSetName" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			strncpy( pData->curFood.szTileSetName, pData->szCharData, 20 );
+		}
+		else if ( strcmp( name, "dCreationCost" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curFood.dCreationCost = (FLOAT)atof( pData->szCharData );
 		}
 		else if(strcmp(name, "allowedtile") == 0)
 		{
@@ -234,6 +249,7 @@ BOOLEAN WriteStructureDeconstructStats()
 			FilePrintf(hFile,"\t\t<usDeconstructItem>%d</usDeconstructItem>\r\n",	gStructureDeconstruct[cnt].usDeconstructItem );
 			FilePrintf(hFile,"\t\t<usItemToCreate>%d</usItemToCreate>\r\n",			gStructureDeconstruct[cnt].usItemToCreate );
 			FilePrintf(hFile,"\t\t<usCreatedItemStatus>%d</usCreatedItemStatus>\r\n", gStructureDeconstruct[cnt].usCreatedItemStatus );
+			FilePrintf(hFile,"\t\t<szTileSetDisplayName>%s</szTileSetDisplayName>\r\n", gStructureDeconstruct[cnt].szTileSetDisplayName );
 			FilePrintf(hFile,"\t\t<szTileSetName>%s</szTileSetName>\r\n",			gStructureDeconstruct[cnt].szTileSetName	);
 
 			FilePrintf(hFile,"\t</STRUCTURE>\r\n");

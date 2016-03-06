@@ -21,7 +21,8 @@
 	#include "text.h"
 	#include "Text Input.h"
 	#include "overhead map.h"
-	#include "DropDown.h"
+	#include "DropDown.h"		// added by Flugente
+	#include "Utilities.h"		// added by Flugente for FilenameForBPP(...)
 #endif
 
 #define		MSGBOX_DEFAULT_WIDTH							300
@@ -46,6 +47,9 @@ BOOLEAN	gfInMsgBox = FALSE;
 //extern BOOLEAN fMapExitDueToMessageBox;
 extern BOOLEAN fInMapMode;
 extern BOOLEAN gfOverheadMapDirty;
+
+UINT32 guiMessageBoxImage = 0;
+UINT16 guiMessageBoxImageIndex = 0;
 
 //OJW - 20090208
 CHAR16 gszMsgBoxInputString[255];
@@ -243,9 +247,12 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	if ( usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS )
 		heightincrease = 90;
 
-	if ( usFlags & MSG_BOX_FLAG_DROPDOWN )
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_IMAGE )
 		heightincrease = 130;
 
+	if ( usFlags & MSG_BOX_FLAG_DROPDOWN )
+		heightincrease = 130;
+		
 	UINT16 usMBWidth=MSGBOX_DEFAULT_WIDTH;
 	BOOLEAN bFixedWidth = FALSE;
 	// sevenfm: custom width for 16-medium-button  messagebox
@@ -914,7 +921,8 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 
 	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
 	{
-		DropDownTemplate<DROPDOWNNR_MSGBOX>::getInstance( ).Create( (INT16)(gMsgBox.sX + 15), (INT16)(gMsgBox.sY + 30) );
+		DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).Create( (INT16)(gMsgBox.sX + 15), (INT16)(gMsgBox.sY + 35) );
+		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).Create( (INT16)(gMsgBox.sX + 15), (INT16)(gMsgBox.sY + 66) );
 	}
 
 #if 0
@@ -940,12 +948,58 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	return( iId );
 }
 
+// once the dropdowns in messagebox are used in more than one occasion, this obviously has to be changed...
 // this has to be defined. As the MessageBoxScreenHandle() runs all time, there is nothing to do here though
-template<>	void	DropDownTemplate<DROPDOWNNR_MSGBOX>::SetRefresh( )
+template<>	void	DropDownTemplate<DROPDOWNNR_MSGBOX_1>::SetRefresh()
 {
-	// for now, nothing needed, update happens automatically
+	INT16 box1key = DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).GetSelectedEntryKey( );
+
+	std::vector<std::pair<INT16, STR16> > dropdownvector_2 = GetTileSetIndexVector( box1key );
+
+	DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetEntries( dropdownvector_2 );
+
+	if ( !dropdownvector_2.empty( ) )
+	{
+		BOOLEAN found = FALSE;
+		for ( std::vector<std::pair<INT16, STR16> >::iterator it = dropdownvector_2.begin( ); it != dropdownvector_2.end( ); ++it )
+		{
+			if ( (*it).first == guiMessageBoxImageIndex )
+			{
+				found = TRUE;
+				break;
+			}
+		}
+
+		if ( !found )
+			guiMessageBoxImageIndex = dropdownvector_2[0].first;
+	}
+
+	DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetSelectedEntryKey( guiMessageBoxImageIndex );
+	
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_IMAGE )
+	{
+		DeleteVideoObjectFromIndex( guiMessageBoxImage );
+		guiMessageBoxImage = 0;
+
+		VOBJECT_DESC VObjectDesc;
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+
+		sprintf( VObjectDesc.ImageFile, "TILESETS\\%d\\%s", giCurrentTilesetID, gStructureConstruct[box1key].szTileSetName );
+
+		// even if AddVideoObject fails, continue, as we might 'repair' it while the box is open
+		if ( !AddVideoObject( &VObjectDesc, &guiMessageBoxImage ) )
+		{
+			sprintf( VObjectDesc.ImageFile, "TILESETS\\0\\%s", gStructureConstruct[box1key].szTileSetName );
+			
+			AddVideoObject( &VObjectDesc, &guiMessageBoxImage );
+		}
+	}
 }
 
+template<>	void	DropDownTemplate<DROPDOWNNR_MSGBOX_2>::SetRefresh()
+{
+	guiMessageBoxImageIndex = DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).GetSelectedEntryKey( );
+}
 
 void MsgBoxClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
@@ -1190,11 +1244,17 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 		}
 	}
 
-	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_IMAGE )
 	{
-		DropDownTemplate<DROPDOWNNR_MSGBOX>::getInstance( ).Destroy( );
+		DeleteVideoObjectFromIndex( guiMessageBoxImage );
 	}
 
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	{
+		DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).Destroy( );
+		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).Destroy( );
+	}
+		
 	// Delete button images
 	UnloadButtonImage( gMsgBox.iButtonImages );
 
@@ -1596,11 +1656,22 @@ UINT32	MessageBoxScreenHandle( )
 		}
 	}
 
-	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_IMAGE )
 	{
-		DropDownTemplate<DROPDOWNNR_MSGBOX>::getInstance( ).Display( );
+		HVOBJECT hIconHandle;
+
+		GetVideoObject( &hIconHandle, guiMessageBoxImage );
+
+		if ( hIconHandle )
+			BltVideoObject( FRAME_BUFFER, hIconHandle, guiMessageBoxImageIndex, gMsgBox.sX + 70, gMsgBox.sY + 90, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	{
+		DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).Display( );
+		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).Display( );
+	}
+		
 	if ( gMsgBox.bHandled )
 	{
 		SetRenderFlags( RENDER_FLAG_FULL );

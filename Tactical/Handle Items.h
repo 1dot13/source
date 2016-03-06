@@ -84,7 +84,9 @@ typedef struct {
 	UINT16 usDeconstructItem;					// the item that has to be used to deconstruct the structure
 	UINT16 usItemToCreate;						// the item that will be created when we deconstruct a structure
 	UINT8  usCreatedItemStatus;					// status of the item to create
+	char szTileSetDisplayName[20];				// name of this structure to the player (tileset names are obscure)
 	char szTileSetName[20];						// name of the tileset
+	FLOAT	dCreationCost;						// assignment cost per structure built
 	std::vector<UINT8> tilevector;				// structures in the tileset that we can deconstruct
 } STRUCTURE_DECONSTRUCT;
 
@@ -95,7 +97,10 @@ extern STRUCTURE_DECONSTRUCT gStructureDeconstruct[STRUCTURE_DECONSTRUCT_MAX];
 typedef struct {
 	UINT16	usCreationItem;						// the item that will be consumed when creating the structure
 	UINT8	usItemStatusLoss;					// item will lose this number of status points
+	char	szTileSetDisplayName[20];			// name of this structure to the player (tileset names are obscure)
 	char	szTileSetName[20];					// name of the tileset
+	FLOAT	dCreationCost;						// assignment cost per structure built
+	BOOLEAN fFortifyAdjacentAdjustment;			// if true, try to fit adjacent fortifications
 	std::vector<UINT8> northtilevector;			// structures in the tileset we can create while facing north
 	std::vector<UINT8> southtilevector;			// structures in the tileset we can create while facing south
 	std::vector<UINT8> easttilevector;			// structures in the tileset we can create while facing east
@@ -213,6 +218,38 @@ BOOLEAN IsStructureConstructItem( UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSo
 BOOLEAN IsStructureDeconstructItem( UINT16 usItem, INT32 sGridNo, SOLDIERTYPE* pSoldier );	// can we remove a structure with this item?
 BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );		// build a structure, return true if sucessful
 BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );		// remove a structure, return true if sucessful
+
+// Flugente: functions for fortification
+UINT8	CheckBuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 usStructureconstructindex );
+BOOLEAN	BuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 usStructureconstructindex );
+
+BOOLEAN	CanRemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex );
+BOOLEAN	RemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex );
+
+void UpdateFortificationPossibleAmount();
+void HandleFortificationUpdate();
+
+// get a vector of all tilesets the current sector has
+std::vector<std::pair<INT16, STR16> > GetCurrentSectorTileSetVector();
+
+// get a vector of all tilesets that are allowed to be built in this sector (the above filtered by structure construct/deconstruct basically)
+std::vector<std::pair<INT16, STR16> > GetCurrentSectorAllowedFortificationTileSetVector( INT32 asTileSetId );
+
+// get all allowed indizes for a specific tileset. 'Allowed' as in: used in our structure construct entries
+std::vector<std::pair<INT16, STR16> > GetTileSetIndexVector( INT16 aKey );
+
+std::string GetNameToTileSet( UINT8 aIndex );
+INT16 GetStructureConstructIndexToTileset( INT16 aTileset );
+INT16 GetStructureDeConstructIndexToTileset( INT16 aTileset );
+std::set<UINT8> GetStructureConstructDirectionIndizes( INT16 aEntry, BOOLEAN afNorth, BOOLEAN afEast, BOOLEAN afSouth, BOOLEAN afWest );
+void AddFortificationPlanNode( INT32 sGridNo, INT8 sLevel, INT16 sFortificationStructure, UINT8 usFortificationTileLibraryIndex, BOOLEAN fAdd );
+
+void LoadSectorFortificationPlan( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ );
+void SaveSectorFortificationPlan( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ );
+
+std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > GetAllForticationGridNo( );
+
+INT32 GetFirstObjectInSectorPosition( UINT16 ausItem );
 
 extern ITEM_POOL *gpItemPool;//dnl ch26 210909
 

@@ -1,9 +1,6 @@
 #ifndef _DISPLAY_COVER__H_
 #define _DISPLAY_COVER__H_
 
-// resets the overlay modes so that everything will be reset at the NEXT display cycle
-void ResetOverlayModes();
-
 void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 void DisplayCover( BOOLEAN forceUpdate = FALSE);
 
@@ -56,12 +53,32 @@ enum OVERLAY_VALUES
 	TRACKS_RECENT,
 	TRACKS_BLOOD,
 	MAX_TRACKS,
+
+	FORTIFICATIONNODE_REMOVE,
+	FORTIFICATIONNODE_ADJACENTADJUSTMENT,
+	FORTIFICATIONNODE_NORMAL,
+	MAX_FORTIFICATION,
 };
 
 enum COVER_DRAW_MODE {
-	COVER_DRAW_OFF,
+	DRAW_MODE_OFF,
+
 	COVER_DRAW_MERC_VIEW,
-	COVER_DRAW_ENEMY_VIEW
+	COVER_DRAW_ENEMY_VIEW,
+
+	MINES_DRAW_DETECT_ENEMY,
+	MINES_DRAW_PLAYERTEAM_NETWORKS,
+	MINES_DRAW_NETWORKCOLOURING,
+	MINES_DRAW_NET_A,
+	MINES_DRAW_NET_B,
+	MINES_DRAW_NET_C,
+	MINES_DRAW_NET_D,
+
+	DRAW_MODE_TRAIT_RANGE,
+
+	DRAW_MODE_TRACKER_SMELL,
+
+	DRAW_MODE_FORTIFY,
 };
 
 void ChangeSizeOfDisplayCover( INT32 iNewSize );
@@ -74,19 +91,6 @@ INT8	CalcCoverForGridNoBasedOnTeamKnownEnemies( SOLDIERTYPE *pSoldier, INT16 sTa
 
 // ----------------------------- Mines display after this ----------------------------------------
 // added by Flugente: display of mine, bombs and tripwire
-// Flugente: mines display - stuff needs to be here
-// Sevenfm: moved here from DisplayCover.cpp
-enum MINES_DRAW_MODE {
-	MINES_DRAW_OFF,
-	MINES_DRAW_DETECT_ENEMY,
-	MINES_DRAW_PLAYERTEAM_NETWORKS,
-	MINES_DRAW_NETWORKCOLOURING,
-	MINES_DRAW_NET_A,
-	MINES_DRAW_NET_B,
-	MINES_DRAW_NET_C,
-	MINES_DRAW_NET_D,
-	MINES_DRAW_MAX
-};
 
 void SwitchToTrapNetworkView();
 void SwitchToHostileTrapsView();
@@ -95,31 +99,11 @@ void SwitchMineViewOff();
 void ToggleTrapNetworkView();
 void ToggleHostileTrapsView();
 
-void SwitchMinesDrawModeForNetworks();
-
 // ----------------------------- trait range display after this ----------------------------------------
 // added by Flugente: display of ranges and areas of effects for traits
-// Flugente: trait draw mode
-enum TRAIT_DRAW_MODE {
-	TRAIT_DRAW_OFF,
-	TRAIT_DRAW_RANGE,
-	TRAIT_DRAW_MAX
-};
 
 void ToggleTraitRangeView(BOOLEAN fOn = TRUE);
 void SetTraitToDisplay( UINT32 aTrait );
 void SetGridNoForTraitDisplay( INT32 sGridNo );
-
-// ----------------------------- tracker display after this ----------------------------------------
-// added by Flugente: display of ranges and areas of effects for traits
-
-// Flugente: trait draw mode
-enum TRACKER_DRAW_MODE {
-	TRACKER_DRAW_OFF,
-	TRACKER_DRAW_SMELL,
-	TRACKER_DRAW_MAX
-};
-
-extern TRACKER_DRAW_MODE gubDrawModeTracker;
 
 #endif

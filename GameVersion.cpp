@@ -15,9 +15,9 @@
 #ifdef JA2EDITOR
 	
 	#ifdef JA2UB
-		CHAR16 zVersionLabel[256]		= { L"Unfinished Business - Map Editor v1.13.8084 (Development Build)" }; 
+		CHAR16 zVersionLabel[256]		= { L"Unfinished Business - Map Editor v1.13.8094 (Development Build)" }; 
 	#else
-		CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.8084 (Development Build)" }; 
+		CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.8094 (Development Build)" }; 
 	#endif
 
 // ------------------------------
@@ -27,11 +27,11 @@
 
 	//DEBUG BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16 zVersionLabel[256]		= { L"Debug: Unfinished Business - v1.13.8084 (Development Build)" }; 
+		CHAR16 zVersionLabel[256]		= { L"Debug: Unfinished Business - v1.13.8094 (Development Build)" }; 
 	#elif defined (JA113DEMO)
-		CHAR16 zVersionLabel[256]		= { L"Debug: JA2 Demo - v1.13.8084 (Development Build)" }; 
+		CHAR16 zVersionLabel[256]		= { L"Debug: JA2 Demo - v1.13.8094 (Development Build)" }; 
 	#else
-		CHAR16 zVersionLabel[256]		= { L"Debug: v1.13.8084 (Development Build)" }; 
+		CHAR16 zVersionLabel[256]		= { L"Debug: v1.13.8094 (Development Build)" }; 
 	#endif
 
 #elif defined CRIPPLED_VERSION
@@ -46,11 +46,11 @@
 
 	//RELEASE BUILD VERSION	
 	#ifdef JA2UB
-		CHAR16		zVersionLabel[256]		= { L"Release Unfinished Business - v1.13.8084 (Development Build)" };
+		CHAR16		zVersionLabel[256]		= { L"Release Unfinished Business - v1.13.8094 (Development Build)" };
 	#elif defined (JA113DEMO)
-		CHAR16		zVersionLabel[256]		= { L"Release JA2 Demo - v1.13.8084 (Development Build)" };
+		CHAR16		zVersionLabel[256]		= { L"Release JA2 Demo - v1.13.8094 (Development Build)" };
 	#else
-		CHAR16		zVersionLabel[256]		= { L"Release v1.13.8084 (Development Build)" };
+		CHAR16		zVersionLabel[256]		= { L"Release v1.13.8094 (Development Build)" };
 	#endif
 
 #endif

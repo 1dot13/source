@@ -846,6 +846,9 @@ static int l_AddVolunteers( lua_State *L );
 
 static int l_CreateArmedCivilain( lua_State *L );
 
+static int l_BuildFortification( lua_State *L );
+static int l_RemoveFortification( lua_State *L );
+
 static int l_GetFact( lua_State *L );
 static int l_SetFact( lua_State *L );
 
@@ -1703,6 +1706,9 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register( L, "AddVolunteers", l_AddVolunteers );
 
 	lua_register(L, "CreateArmedCivilain", l_CreateArmedCivilain );
+
+	lua_register( L, "BuildFortification", l_BuildFortification );
+	lua_register( L, "RemoveFortification", l_RemoveFortification );
 	
 	lua_register(L, "GetFact", l_GetFact );
 	lua_register(L, "SetFact", l_SetFact );
@@ -2595,6 +2601,8 @@ BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 bSector
 	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
 	lua_register(_LS.L(), "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData );
 	lua_register(_LS.L(), "CreateArmedCivilain", l_CreateArmedCivilain );
+	lua_register(_LS.L(), "BuildFortification", l_BuildFortification );
+	lua_register(_LS.L(), "RemoveFortification", l_RemoveFortification );
 	IniFunction( _LS.L(), TRUE );
 	IniGlobalGameSetting( _LS.L() );
 
@@ -13061,6 +13069,35 @@ static int l_CreateArmedCivilain( lua_State *L )
 					gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] = CIV_GROUP_WILL_BECOME_HOSTILE;
 			}
 		}
+	}
+
+	return 0;
+}
+
+static int l_BuildFortification( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		INT32 sGridNo = lua_tointeger( L, 1 );
+		INT8 sLevel = lua_tointeger( L, 2 );
+		UINT8 usIndex = lua_tointeger( L, 3 );
+		UINT8 usStructureIndex = lua_tointeger( L, 4 );
+
+		BuildFortification( sGridNo, sLevel, usIndex, usStructureIndex );
+	}
+
+	return 0;
+}
+
+static int l_RemoveFortification( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		INT32 sGridNo = lua_tointeger( L, 1 );
+		INT8 sLevel = lua_tointeger( L, 2 );
+		UINT8 usStructureIndex = lua_tointeger( L, 3 );
+
+		RemoveFortification( sGridNo, sLevel, usStructureIndex );
 	}
 
 	return 0;

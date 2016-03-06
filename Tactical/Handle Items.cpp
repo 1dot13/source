@@ -67,6 +67,12 @@
 	#include "Food.h"
 	// added by sevenfm - this is needed for _keydown(SHIFT) to work
 	#include "english.h"
+
+	#include <iostream>	// added by Flugente
+	#include <fstream>	// added by Flugente
+	#include "DisplayCover.h"		// added by Flugente
+	#include "Queen Command.h"		// added by Flugente for FindUnderGroundSector(...)
+	#include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
 #endif
 
 #ifdef JA2UB
@@ -78,6 +84,8 @@
 #define					NUM_ITEM_FLASH_SLOTS	50
 #define					MIN_LOB_RANGE					6
 
+// directory for fortification plans (locaed in Profiles sub-folder)
+#define FORTIFICATIONPLAN_DIRECTORY						"FortificationPlan\\"
 
 ITEM_POOL_LOCATOR				FlashItemSlots[ NUM_ITEM_FLASH_SLOTS ];
 UINT32									guiNumFlashItemSlots = 0;
@@ -6938,7 +6946,7 @@ BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pO
 {	
 	UINT32				fHeadType;
 	UINT16				usUseIndex;
-	UINT16				usUseObjIndex = 0;
+	INT16				sUseObjIndex = -1;
 	INT32				iRandSelIndex = 1;
 	BOOLEAN				fOkayToAdd;
 	UINT8				ubDirection;
@@ -6955,12 +6963,8 @@ BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pO
 	if ( TileIsOutOfBounds( sGridNo ) )
 		return FALSE;
 	
-	//if( InARoom( sGridNo, NULL ) )
-		//return FALSE;
-
 	// don't build in water
-	INT8 bOverTerrainType = GetTerrainType( sGridNo );
-	if( bOverTerrainType == MED_WATER || bOverTerrainType == DEEP_WATER || bOverTerrainType == LOW_WATER )
+	if ( TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
 		return FALSE;
 
 	ubDirection = pSoldier->ubDirection;
@@ -7051,32 +7055,29 @@ BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pO
 	}
 
 	// search wether structure exists in the current tilesets. If not, well, too bad
-	for (UINT32 uiType = 0; uiType < giNumberOfTileTypes; ++uiType)
+	for ( INT32 iType = 0; iType < giNumberOfTileTypes; ++iType )
 	{
 		// if tileset is from the current tileset, check that
-		if ( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ][0] )
+		if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType][0] )
 		{
-			if ( structureconstructindex >= 0 )
+			if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType], gStructureConstruct[structureconstructindex].szTileSetName, 10 ) )
 			{
-				if ( !_strnicmp(gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiType ], gStructureConstruct[structureconstructindex].szTileSetName, 10) )
-				{
-					usUseObjIndex = uiType;
-					break;
-				}
+				sUseObjIndex = iType;
+				break;
 			}
 		}
 		// otherwise, check first tileset (GENERIC 1)
-		else if ( gTilesets[0].TileSurfaceFilenames[uiType][0] )
+		else if ( gTilesets[0].TileSurfaceFilenames[iType][0] )
 		{
-			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiType], gStructureConstruct[structureconstructindex].szTileSetName, 10 ) )
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[iType], gStructureConstruct[structureconstructindex].szTileSetName, 10 ) )
 			{
-				usUseObjIndex = uiType;
+				sUseObjIndex = iType;
 				break;
 			}
 		}
 	}
 
-	if ( !usUseObjIndex )
+	if ( sUseObjIndex < 0 )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[ STR_MTA_CANNOT_BUILD ] );
 		return FALSE;
@@ -7107,16 +7108,16 @@ BOOLEAN BuildFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *pO
 	// TODO: if we create an earth pile, create a decal (signifiying the 'hole' we created at our position)
 
 	// Check with Structure Database (aka ODB) if we can put the object here!
-	fOkayToAdd = OkayToAddStructureToWorld( sGridNo, 0, gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef, INVALID_STRUCTURE_ID );
-	if ( fOkayToAdd || (gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef == NULL) )
+	fOkayToAdd = OkayToAddStructureToWorld( sGridNo, 0, gTileDatabase[(gTileTypeStartIndex[sUseObjIndex] + usUseIndex)].pDBStructureRef, INVALID_STRUCTURE_ID );
+	if ( fOkayToAdd || (gTileDatabase[(gTileTypeStartIndex[sUseObjIndex] + usUseIndex)].pDBStructureRef == NULL) )
 	{
 		// Remove old graphic
 		ApplyMapChangesToMapTempFile( TRUE );
 
 		//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
-		RemoveStruct( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );//dnl
+		RemoveStruct( sGridNo, (UINT16)(gTileTypeStartIndex[sUseObjIndex] + usUseIndex) );//dnl
 		// Actual structure info is added by the functions below
-		AddStructToHead( sGridNo, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );
+		AddStructToHead( sGridNo, (UINT16)(gTileTypeStartIndex[sUseObjIndex] + usUseIndex) );
 		// For now, adjust to shadows by a hard-coded amount,
 
 		// Add mask if in long grass
@@ -7237,6 +7238,1257 @@ BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *p
 	}
 
 	return FALSE;
+}
+
+UINT8	CheckBuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 usStructureconstructindex )
+{
+	UINT16				usUseIndex;
+	INT16				sUseObjIndex = -1;
+	INT32				iRandSelIndex = 1;
+	BOOLEAN				fOkayToAdd;
+	
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return 1;
+
+	// if we want to build on a roof, a roof is required
+	if ( sLevel && !FlatRoofAboveGridNo( sGridNo ) )
+		return 1;
+
+	// don't build in water
+	if ( TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
+		return 1;
+			
+	// we'll check wether this item is in our index of known creation items
+	BOOLEAN indexfound = FALSE;
+	INT16 structureconstructindex = 0;
+	usUseIndex = usIndex;
+
+	// search wether structure exists in the current tilesets. If not, well, too bad
+	for ( INT32 iType = 0; iType < giNumberOfTileTypes; ++iType )
+	{
+		// if tileset is from the current tileset, check that
+		if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType], gStructureConstruct[usStructureconstructindex].szTileSetName, 10 ) )
+			{
+				sUseObjIndex = iType;
+				break;
+			}
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[iType], gStructureConstruct[usStructureconstructindex].szTileSetName, 10 ) )
+			{
+				sUseObjIndex = iType;
+				break;
+			}
+		}
+	}
+
+	if ( sUseObjIndex < 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANNOT_BUILD] );
+		return 1;
+	}
+
+	// do not build into people
+	if ( NOBODY != WhoIsThere2( sGridNo, sLevel ) )
+		return 2;
+	
+	// Check with Structure Database (aka ODB) if we can put the object here!
+	fOkayToAdd = OkayToAddStructureToWorld( sGridNo, sLevel, gTileDatabase[(gTileTypeStartIndex[sUseObjIndex] + usUseIndex)].pDBStructureRef, INVALID_STRUCTURE_ID );
+	if ( fOkayToAdd || (gTileDatabase[(gTileTypeStartIndex[sUseObjIndex] + usUseIndex)].pDBStructureRef == NULL) )
+	{
+		return 0;
+	}
+
+	return 1;
+}
+
+BOOLEAN	BuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 usStructureconstructindex )
+{
+	INT16				sUseObjIndex = -1;
+	BOOLEAN				fOkayToAdd;
+
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	// if we want to build on a roof, a roof is required
+	if ( sLevel && !FlatRoofAboveGridNo( sGridNo ) )
+		return FALSE;
+
+	// don't build in water
+	if ( TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
+		return FALSE;
+
+	// do not build into people
+	if ( NOBODY != WhoIsThere2( sGridNo, sLevel ) )
+		return FALSE;
+	
+	// search wether structure exists in the current tilesets. If not, well, too bad
+	for ( INT32 iType = 0; iType < giNumberOfTileTypes; ++iType )
+	{
+		// if tileset is from the current tileset, check that
+		if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType], gStructureConstruct[usStructureconstructindex].szTileSetName, 10 ) )
+			{
+				sUseObjIndex = iType;
+				break;
+			}
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[iType], gStructureConstruct[usStructureconstructindex].szTileSetName, 10 ) )
+			{
+				sUseObjIndex = iType;
+				break;
+			}
+		}
+	}
+
+	if ( sUseObjIndex < 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANNOT_BUILD] );
+		return FALSE;
+	}
+
+	// Check with Structure Database (aka ODB) if we can put the object here!
+	fOkayToAdd = OkayToAddStructureToWorld( sGridNo, sLevel, gTileDatabase[(gTileTypeStartIndex[sUseObjIndex] + usIndex)].pDBStructureRef, INVALID_STRUCTURE_ID );
+	if ( fOkayToAdd || (gTileDatabase[(gTileTypeStartIndex[sUseObjIndex] + usIndex)].pDBStructureRef == NULL) )
+	{
+		// Remove old graphic
+		ApplyMapChangesToMapTempFile( TRUE );
+
+		//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
+		// Actual structure info is added by the functions below
+		if ( sLevel )
+		{
+			RemoveOnRoofStruct( sGridNo, (UINT16)(gTileTypeStartIndex[sUseObjIndex] + usIndex) );
+
+			AddOnRoofToTail( sGridNo, (UINT16)(gTileTypeStartIndex[sUseObjIndex] + usIndex) );
+		}
+		else
+		{
+			RemoveStruct( sGridNo, (UINT16)(gTileTypeStartIndex[sUseObjIndex] + usIndex) );
+
+			AddStructToHead( sGridNo, (UINT16)(gTileTypeStartIndex[sUseObjIndex] + usIndex) );
+		}			
+
+		RecompileLocalMovementCosts( sGridNo );
+
+		// Turn off permanent changes....
+		ApplyMapChangesToMapTempFile( FALSE );
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN	CanRemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex )
+{
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+	
+	STRUCTURE* pStruct = GetTallestStructureOnGridno( sGridNo, sLevel );
+
+	if ( pStruct != NULL )
+	{
+		// Get LEVELNODE for struct and remove!
+		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+		if ( pNode )
+		{
+			UINT16 usIndex = pNode->usIndex;
+			UINT32 uiTileType = 0;
+			if ( GetTileType( usIndex, &uiTileType ) )
+			{
+				// if tileset is from the current tileset, check that
+				BOOLEAN found = FALSE;
+				if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType][0] )
+				{
+					if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType], gStructureDeconstruct[usStructureconstructindex].szTileSetName, 11 ) )
+						found = TRUE;
+				}
+				// otherwise, check first tileset (GENERIC 1)
+				else if ( gTilesets[0].TileSurfaceFilenames[uiTileType][0] )
+				{
+					if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiTileType], gStructureDeconstruct[usStructureconstructindex].szTileSetName, 11 ) )
+						found = TRUE;
+				}
+
+				if ( found )
+				{
+					// we have to check wether this specific structure can be removed. Just checking the tileset name won't be enough.
+					// For example, we could have a set consisting of crates and piles of earth, which we want to remove via applying a shovel on it.
+					// We only want to do this on the earth piles, of course - flattening crates via a shovel would be odd :-)
+					UINT8 numbertofind = (UINT8)(pStruct->pDBStructureRef->pDBStructure->usStructureNumber);
+
+					UINT8 size = gStructureDeconstruct[usStructureconstructindex].tilevector.size( );
+					for ( UINT8 j = 0; j < size; ++j )
+					{
+						if ( gStructureDeconstruct[usStructureconstructindex].tilevector[j] == numbertofind )
+						{
+							return TRUE;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN	RemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex )
+{
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	STRUCTURE* pStruct = GetTallestStructureOnGridno( sGridNo, sLevel );
+	
+	if ( pStruct != NULL )
+	{
+		// Get LEVELNODE for struct and remove!
+		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+		if ( pNode )
+		{
+			UINT16 usIndex = pNode->usIndex;
+			UINT32 uiTileType = 0;
+			if ( GetTileType( usIndex, &uiTileType ) )
+			{	
+				// if tileset is from the current tileset, check that
+				BOOLEAN found = FALSE;
+				if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType][0] )
+				{
+					if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType], gStructureDeconstruct[usStructureconstructindex].szTileSetName, 11 ) )
+						found = TRUE;
+				}
+				// otherwise, check first tileset (GENERIC 1)
+				else if ( gTilesets[0].TileSurfaceFilenames[uiTileType][0] )
+				{
+					if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiTileType], gStructureDeconstruct[usStructureconstructindex].szTileSetName, 11 ) )
+						found = TRUE;
+				}
+
+				if ( found )
+				{
+					// we have to check wether this specific structure can be removed. Just checking the tileset name won't be enough.
+					// For example, we could have a set consisting of crates and piles of earth, which we want to remove via applying a shovel on it.
+					// We only want to do this on the earth piles, of course - flattening crates via a shovel would be odd :-)
+					UINT8 numbertofind = (UINT8)(pStruct->pDBStructureRef->pDBStructure->usStructureNumber);
+
+					UINT8 size = gStructureDeconstruct[usStructureconstructindex].tilevector.size( );
+					for ( UINT8 j = 0; j < size; ++j )
+					{
+						if ( gStructureDeconstruct[usStructureconstructindex].tilevector[j] == numbertofind )
+						{
+							// Remove old graphic
+							ApplyMapChangesToMapTempFile( TRUE );
+
+							if ( sLevel )
+							{
+								RemoveOnRoofStruct( sGridNo, pNode->usIndex );
+							}
+
+							// if this is a wall, check wether the roof will collapse.
+							// Yes, the player can damage himself by collapsing the roof of the house he is currently in. Such stupidity has to be punished.
+							if ( pStruct->fFlags & STRUCTURE_WALL )
+							{
+								// this isn't an explosion, so the structural damage is moderate
+								HandleRoofDestruction( sGridNo, 50 );
+							}
+
+							RemoveStruct( sGridNo, pNode->usIndex );
+
+							if ( !GridNoIndoors( sGridNo ) && gTileDatabase[usIndex].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[usIndex].sBuddyNum != -1 )
+							{
+								RemoveShadow( sGridNo, gTileDatabase[usIndex].sBuddyNum );
+							}
+
+							RecompileLocalMovementCosts( sGridNo );
+
+							// Turn off permanent changes....
+							ApplyMapChangesToMapTempFile( FALSE );
+							SetRenderFlags( RENDER_FLAG_FULL );
+							
+							return TRUE;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+class FORTIFICATION_NODE
+{
+public:
+	FORTIFICATION_NODE( INT32 a, INT8 b, BOOLEAN c, UINT32 d, UINT8 e ) :
+		sGridNo( a ), sLevel( b ), fBuild( c ), structurexmlindex( d ), usIndex( e ) {}
+
+	FORTIFICATION_NODE() :
+		sGridNo( NOWHERE ), sLevel( 0 ), fBuild( TRUE ), structurexmlindex(0), usIndex( 0 ) {}
+
+	void swap( FORTIFICATION_NODE& other )
+	{
+		std::swap( sGridNo, other.sGridNo );
+		std::swap( sLevel, other.sLevel );
+		std::swap( fBuild, other.fBuild );
+		std::swap( structurexmlindex, other.structurexmlindex );
+		std::swap( usIndex, other.usIndex );
+	}
+
+	INT32 sGridNo;
+	INT8 sLevel;
+	BOOLEAN fBuild;
+	UINT32 structurexmlindex;
+	UINT8 usIndex;
+};
+
+std::ostream& operator<<(std::ostream& stream, FORTIFICATION_NODE const& data)
+{
+	stream << data.sGridNo << " "
+		<< (INT32)(data.sLevel) << " "
+		<< (INT32)(data.fBuild) << " "
+		<< (INT32)(data.structurexmlindex) << " "
+		<< (INT32)(data.usIndex) << std::endl;
+
+	return stream;
+}
+
+std::istream& operator>>(std::istream& stream, FORTIFICATION_NODE& data)
+{
+	FORTIFICATION_NODE     tmp;
+	if ( stream >> tmp.sGridNo )
+	{
+		INT32 a, b, c, d;
+		if ( stream >> a >> b >> c >> d )
+		{
+			tmp.sLevel = a;
+			tmp.fBuild = (BOOLEAN)b;
+			tmp.structurexmlindex = (UINT32)c;
+			tmp.usIndex = (UINT8)d;
+
+			data.swap( tmp );
+		}
+	}
+
+	return stream;
+}
+
+
+typedef std::vector<FORTIFICATION_NODE> SectorFortificationVector;
+
+std::map<UINT8, SectorFortificationVector> gSectorFortificationMap;
+
+CHAR16 gCurrentSectorTileNamesChar16[STRUCTURE_CONSTRUCT_MAX][20];
+CHAR16 gCurrentSectorTileIndexNamesChar16[STRUCTURE_CONSTRUCT_MAX][20];
+
+std::vector<std::pair<INT16, STR16> > GetCurrentSectorTileSetVector()
+{
+	std::vector<std::pair<INT16, STR16> > vec;
+	
+	// search wether structure exists in the current tilesets. If not, well, too bad
+	for ( INT32 iType = 0; iType < giNumberOfTileTypes; ++iType )
+	{
+		swprintf( gCurrentSectorTileNamesChar16[iType], L"" );
+
+		// if tileset is from the current tileset, check that
+		if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType][0] )
+		{
+			int nChars = MultiByteToWideChar( CP_ACP, 0, gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType], -1, NULL, 0 );
+			MultiByteToWideChar( CP_UTF8, 0, gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType], -1, gCurrentSectorTileNamesChar16[iType], nChars );
+
+			vec.push_back( std::make_pair( iType, gCurrentSectorTileNamesChar16[iType] ) );
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[iType][0] )
+		{
+			int nChars = MultiByteToWideChar( CP_ACP, 0, gTilesets[0].TileSurfaceFilenames[iType], -1, NULL, 0 );
+			MultiByteToWideChar( CP_UTF8, 0, gTilesets[0].TileSurfaceFilenames[iType], -1, gCurrentSectorTileNamesChar16[iType], nChars );
+
+			vec.push_back( std::make_pair( iType, gCurrentSectorTileNamesChar16[iType] ) );
+		}
+	}
+
+	return vec;
+}
+
+// get a vector of all tilesets that are allowed to be built in this sector (the above filtered by structure construct/deconstruct basically)
+std::vector<std::pair<INT16, STR16> > GetCurrentSectorAllowedFortificationTileSetVector( INT32 asTileSetId )
+{
+	std::vector<std::pair<INT16, STR16> > vec;
+	std::set< std::pair<INT16, STR16> > pairset;
+
+	// search wether structure exists in the current tilesets. If not, well, too bad
+	for ( UINT16 i = 0; i < STRUCTURE_CONSTRUCT_MAX; ++i )
+	{
+		swprintf( gCurrentSectorTileNamesChar16[i], L"" );
+
+		for ( INT32 iType = 0; iType < giNumberOfTileTypes; ++iType )
+		{
+			// if tileset is from the current tileset, check that
+			if ( gTilesets[asTileSetId].TileSurfaceFilenames[iType][0] )
+			{
+				if ( !_strnicmp( gTilesets[asTileSetId].TileSurfaceFilenames[iType], gStructureConstruct[i].szTileSetName, 11 ) )
+				{
+					int nChars = MultiByteToWideChar( CP_ACP, 0, gStructureConstruct[i].szTileSetDisplayName, -1, NULL, 0 );
+					MultiByteToWideChar( CP_UTF8, 0, gStructureConstruct[i].szTileSetDisplayName, -1, gCurrentSectorTileNamesChar16[i], nChars );
+
+					pairset.insert( std::make_pair( i, gCurrentSectorTileNamesChar16[i] ) );
+
+					break;
+				}
+			}
+			else
+			{
+				if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[iType], gStructureConstruct[i].szTileSetName, 11 ) )
+				{
+					int nChars = MultiByteToWideChar( CP_ACP, 0, gStructureConstruct[i].szTileSetDisplayName, -1, NULL, 0 );
+					MultiByteToWideChar( CP_UTF8, 0, gStructureConstruct[i].szTileSetDisplayName, -1, gCurrentSectorTileNamesChar16[i], nChars );
+
+					pairset.insert( std::make_pair( i, gCurrentSectorTileNamesChar16[i] ) );
+
+					break;
+				}
+			}
+		}
+	}
+	
+	for ( std::set< std::pair<INT16, STR16> >::iterator it = pairset.begin( ); it != pairset.end( ); ++it )
+	{
+		vec.push_back( (*it) );
+	}
+		
+	return vec;
+}
+
+// get all allowed indizes for a specific tileset. 'Allowed' as in: used in our structure construct entries
+std::vector<std::pair<INT16, STR16> > GetTileSetIndexVector( INT16 aKey )
+{
+	std::vector<std::pair<INT16, STR16> > vec;
+
+	if ( 0 <= aKey && aKey <= STRUCTURE_CONSTRUCT_MAX )
+	{
+		std::set<UINT8> indexset;
+
+		for ( INT16 j = 0; j < gStructureConstruct[aKey].northtilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aKey].northtilevector[j] );
+		for ( INT16 j = 0; j < gStructureConstruct[aKey].southtilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aKey].southtilevector[j] );
+		for ( INT16 j = 0; j < gStructureConstruct[aKey].easttilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aKey].easttilevector[j] );
+		for ( INT16 j = 0; j < gStructureConstruct[aKey].westtilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aKey].westtilevector[j] );
+
+		for ( std::set<UINT8>::iterator it = indexset.begin( ); it != indexset.end( ); ++it )
+		{
+			swprintf( gCurrentSectorTileIndexNamesChar16[(*it)], L"%d", (*it) );
+
+			vec.push_back( std::make_pair( (*it), gCurrentSectorTileIndexNamesChar16[(*it)] ) );
+		}
+	}
+
+	return vec;
+}
+
+std::string GetNameToTileSet( UINT8 aIndex )
+{
+	// if tileset is from the current tileset, check that
+	if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aIndex][0] )
+	{
+		std::string str( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aIndex], std::find( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aIndex], gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aIndex] + 32, '\0' ) );
+
+		return str;
+	}
+	// otherwise, check first tileset (GENERIC 1)
+	else if ( gTilesets[0].TileSurfaceFilenames[aIndex][0] )
+	{
+		std::string str( gTilesets[0].TileSurfaceFilenames[aIndex], std::find( gTilesets[0].TileSurfaceFilenames[aIndex], gTilesets[0].TileSurfaceFilenames[aIndex] + 32, '\0' ) );
+
+		return str;
+	}
+
+	return "";
+}
+
+INT16 GetStructureConstructIndexToTileset( INT16 aTileset )
+{
+	// find the structure construct entry that fits to this
+	if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aTileset][0] )
+	{
+		for ( INT16 i = 0; i < STRUCTURE_CONSTRUCT_MAX; ++i )
+		{
+			if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aTileset], gStructureConstruct[i].szTileSetName, 11 ) )
+			{
+				return i;
+			}
+		}
+	}
+	// otherwise, check first tileset (GENERIC 1)
+	else if ( gTilesets[0].TileSurfaceFilenames[aTileset][0] )
+	{
+		for ( INT16 i = 0; i < STRUCTURE_CONSTRUCT_MAX; ++i )
+		{
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[aTileset], gStructureConstruct[i].szTileSetName, 11 ) )
+			{
+				return i;
+			}
+		}
+	}
+
+	return -1;
+}
+
+INT16 GetStructureDeConstructIndexToTileset( INT16 aTileset )
+{
+	// find the structure construct entry that fits to this
+	if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aTileset][0] )
+	{
+		for ( INT16 i = 0; i < STRUCTURE_CONSTRUCT_MAX; ++i )
+		{
+			if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[aTileset], gStructureDeconstruct[i].szTileSetName, 11 ) )
+			{
+				return i;
+			}
+		}
+	}
+	// otherwise, check first tileset (GENERIC 1)
+	else if ( gTilesets[0].TileSurfaceFilenames[aTileset][0] )
+	{
+		for ( INT16 i = 0; i < STRUCTURE_CONSTRUCT_MAX; ++i )
+		{
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[aTileset], gStructureDeconstruct[i].szTileSetName, 11 ) )
+			{
+				return i;
+			}
+		}
+	}
+
+	return -1;
+}
+
+std::set<UINT8> GetStructureConstructDirectionIndizes( INT16 aEntry, BOOLEAN afNorth, BOOLEAN afEast, BOOLEAN afSouth, BOOLEAN afWest )
+{
+	std::set<UINT8> indexset;
+
+	if ( aEntry >= 0 )
+	{
+		if ( afNorth )	for ( int j = 0; j < gStructureConstruct[aEntry].northtilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aEntry].northtilevector[j] );
+		if ( afSouth )	for ( int j = 0; j < gStructureConstruct[aEntry].southtilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aEntry].southtilevector[j] );
+		if ( afEast )	for ( int j = 0; j < gStructureConstruct[aEntry].easttilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aEntry].easttilevector[j] );
+		if ( afWest )	for ( int j = 0; j < gStructureConstruct[aEntry].westtilevector.size( ); ++j )		indexset.insert( gStructureConstruct[aEntry].westtilevector[j] );
+	}
+
+	return indexset;
+}
+
+void AddFortificationPlanNode( INT32 sGridNo, INT8 sLevel, INT16 sFortificationStructure, UINT8 usFortificationTileLibraryIndex, BOOLEAN fAdd )
+{
+	if ( !gWorldSectorX || !gWorldSectorY )
+		return;
+
+	// no nonsense
+	if ( sLevel < 0 || sLevel > 1 )
+		return;
+
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return;
+
+	// if we want to build on a roof, a roof is required
+	if ( sLevel && !FlatRoofAboveGridNo( sGridNo ) )
+		return;
+
+	// don't build in water
+	if ( TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
+		return;
+	
+	// we have to check whether what we are ordered to build can bere built here (this is necessary, as the selection menu can be avoided)
+	BOOLEAN found = FALSE;
+
+	if ( fAdd )
+	{
+		if ( sFortificationStructure >= 0 && sFortificationStructure < STRUCTURE_CONSTRUCT_MAX )
+		{
+			for ( INT32 iType = 0; iType < giNumberOfTileTypes; ++iType )
+			{
+				// if tileset is from the current tileset, check that
+				if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType][0] )
+				{
+					if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType], gStructureConstruct[sFortificationStructure].szTileSetName, 11 ) )
+					{
+						found = TRUE;
+
+						break;
+					}
+				}
+				else
+				{
+					if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[iType], gStructureConstruct[sFortificationStructure].szTileSetName, 11 ) )
+					{
+						found = TRUE;
+
+						break;
+					}
+				}
+			}
+		}
+
+		// check index as well
+		if ( found )
+		{
+			std::vector<std::pair<INT16, STR16> > dropdownvector_2 = GetTileSetIndexVector( sFortificationStructure );
+
+			for ( std::vector<std::pair<INT16, STR16> >::iterator it = dropdownvector_2.begin( ); it != dropdownvector_2.end(); ++it )
+			{
+				if ( (*it).first == usFortificationTileLibraryIndex )
+				{
+					found = TRUE;
+
+					break;
+				}
+			}
+		}
+	}
+	// if we try to add a 'remove structure' node, we determine the correct Deconstruct index (it would be annoying if the player has to always set that by themself)
+	else
+	{
+		STRUCTURE* pStruct = GetTallestStructureOnGridno( sGridNo, sLevel );
+
+		if ( pStruct != NULL )
+		{
+			// Get LEVELNODE for struct and remove!
+			LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+			if ( pNode )
+			{
+				UINT16 usIndex = pNode->usIndex;
+				UINT32 uiTileType = 0;
+				if ( GetTileType( usIndex, &uiTileType ) )
+				{
+					// as sFortificationStructure and usFortificationTileLibraryIndex are no references, we can reset them without any repercussions outside of this function
+					sFortificationStructure = GetStructureDeConstructIndexToTileset( (INT16)uiTileType );
+
+					if ( sFortificationStructure > -1 )
+					{
+						usFortificationTileLibraryIndex = (UINT8)(pStruct->pDBStructureRef->pDBStructure->usStructureNumber);
+
+						UINT8 size = gStructureDeconstruct[sFortificationStructure].tilevector.size( );
+						for ( UINT8 j = 0; j < size; ++j )
+						{
+							if ( gStructureDeconstruct[sFortificationStructure].tilevector[j] == usFortificationTileLibraryIndex )
+							{
+								found = TRUE;
+
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if ( !found )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFortificationText[0] );
+
+		return;
+	}
+			
+	FORTIFICATION_NODE node( sGridNo, sLevel, fAdd, sFortificationStructure, usFortificationTileLibraryIndex );
+
+	UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
+
+	if ( gSectorFortificationMap.find( sector ) != gSectorFortificationMap.end( ) )
+	{
+		// if a node already exists at this gridno, erase the old one. This allows to easily remove nodes
+		SectorFortificationVector& vec = gSectorFortificationMap[sector];
+
+		BOOLEAN alreadyexists = FALSE;
+		SectorFortificationVector::iterator nodeitend = vec.end( );
+		for ( SectorFortificationVector::iterator nodeit = vec.begin( ); nodeit != nodeitend; ++nodeit )
+		{
+			if ( node.sGridNo == (*nodeit).sGridNo && node.sLevel == (*nodeit).sLevel )
+			{
+				vec.erase( nodeit );
+
+				alreadyexists = TRUE;
+				break;
+			}
+		}
+
+		if ( !alreadyexists )
+		{
+			// if specified, try to get adjacent nodes to match each other
+			if ( fAdd && gStructureConstruct[node.structurexmlindex].fFortifyAdjacentAdjustment )
+			{
+				// check the adjacent nodes and alter the index fittingly (northern-southern vs eastern-western kind)		
+				INT32 nextGridNoinSight = node.sGridNo;
+
+				for ( int i = NORTH; i < NUM_WORLD_DIRECTIONS; i += 2 )
+				{
+					nextGridNoinSight = NewGridNo( node.sGridNo, DirectionInc( i ) );
+
+					for ( SectorFortificationVector::iterator nodeit = vec.begin( ); nodeit != nodeitend; ++nodeit )
+					{
+						if ( nextGridNoinSight == (*nodeit).sGridNo && node.sLevel == (*nodeit).sLevel && node.structurexmlindex == (*nodeit).structurexmlindex )
+						{
+							// 2 adjacent nodes of the same type -> make them 'compatible'
+							std::set<UINT8> indexset = GetStructureConstructDirectionIndizes( node.structurexmlindex,
+																								(i == EAST || i == WEST), (i == NORTH || i == SOUTH), (i == EAST || i == WEST), (i == NORTH || i == SOUTH) );
+
+							if ( !indexset.empty() )
+							{
+								std::set<UINT8>::iterator it = indexset.begin();
+
+								int k = Random( indexset.size( ) );
+								for (; k > 0; --k)
+									++it;
+
+								(*nodeit).usIndex = (*it);
+
+								it = indexset.begin( );
+
+								k = Random( indexset.size( ) );
+								for ( ; k > 0; --k )
+									++it;
+
+								node.usIndex = (*it);
+
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			vec.push_back( node );
+		}
+	}
+	// otherwise, create a new node vector
+	else
+	{
+		SectorFortificationVector vec;
+		vec.push_back( node );
+		gSectorFortificationMap[ sector ] = vec;
+	}
+
+	// save the new plan
+	SaveSectorFortificationPlan( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+	UpdateFortificationPossibleAmount();
+}
+
+std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > GetAllForticationGridNo( )
+{
+	std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > gridnovector;
+
+	if ( !gWorldSectorX || !gWorldSectorY )
+		return gridnovector;
+
+	UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
+
+	SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+	if ( pSectorInfo && gSectorFortificationMap.find( sector ) != gSectorFortificationMap.end( ) )
+	{
+		SectorFortificationVector vec = gSectorFortificationMap[sector];
+
+		SectorFortificationVector::iterator nodeitend = vec.end( );
+		for ( SectorFortificationVector::iterator nodeit = vec.begin( ); nodeit != nodeitend; ++nodeit )
+		{
+			UINT16 type = FORTIFICATIONNODE_REMOVE;
+			
+			if ( (*nodeit).fBuild )
+			{
+				if ( gStructureConstruct[(*nodeit).structurexmlindex].fFortifyAdjacentAdjustment )
+					type = FORTIFICATIONNODE_ADJACENTADJUSTMENT;
+				else
+					type = FORTIFICATIONNODE_NORMAL;
+			}
+
+			gridnovector.push_back( std::make_pair( (*nodeit).sGridNo, std::make_pair( type, (*nodeit).sLevel ) ) );
+		}
+	}
+
+	return gridnovector;
+}
+
+void LoadSectorFortificationPlan( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ )
+{
+	if ( !sSectorX || !sSectorY )
+		return;
+
+	CHAR8	filename[MAX_PATH];
+
+	UINT8 sector = SECTOR( sSectorX, sSectorY );
+	
+	// get sector name for filename
+	CHAR16 wSectorName[64];
+	GetShortSectorString( sSectorX, sSectorY, wSectorName );
+	
+	if ( sSectorZ )
+		sprintf( filename, "%s%S_%d.txt", FORTIFICATIONPLAN_DIRECTORY, wSectorName, sSectorZ );
+	else
+		sprintf( filename, "%s%S.txt", FORTIFICATIONPLAN_DIRECTORY, wSectorName );
+	
+	// get full path to save file
+	vfs::Path vfsPath;
+	vfs::COpenWriteFile rfile( filename, true );
+	rfile->_getRealPath( vfsPath );
+	std::string str = vfsPath.to_string( );
+	
+	const char* filenamewithpath = str.c_str( );
+
+	// Read data
+	std::ifstream file;
+	file.open( filenamewithpath, std::ios::in );
+	std::vector<FORTIFICATION_NODE> vec;
+
+	std::copy( std::istream_iterator<FORTIFICATION_NODE>( file ),
+			   std::istream_iterator<FORTIFICATION_NODE>( ),
+			   std::back_inserter( vec )
+			   );
+	file.close( );
+
+	gSectorFortificationMap[sector] = vec;
+}
+
+void SaveSectorFortificationPlan( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ )
+{
+	if ( !sSectorX || !sSectorY )
+		return;
+
+	UINT8 sector = SECTOR( sSectorX, sSectorY );
+
+	if ( gSectorFortificationMap.find( sector ) != gSectorFortificationMap.end( ) )
+	{
+		SectorFortificationVector vec = gSectorFortificationMap[sector];
+		
+		if ( !vec.empty() )
+		{
+			CHAR8	filename[MAX_PATH];
+
+			// get sector name for filename
+			CHAR16 wSectorName[64];
+			GetShortSectorString( sSectorX, sSectorY, wSectorName );
+
+			if ( sSectorZ )
+				sprintf( filename, "%s%S_%d.txt", FORTIFICATIONPLAN_DIRECTORY, wSectorName, sSectorZ );
+			else
+				sprintf( filename, "%s%S.txt", FORTIFICATIONPLAN_DIRECTORY, wSectorName );
+			
+			// get full path to save file
+			// what we are doing here might seem rather odd. If the file does not exist, we are creating a new file via vfs... and then create a fresh binary file afterwards.
+			// I found this to be the easiest solution for using both vfs pathing and being able to use a std::fstream
+			// If you don't like it, fix it yourself, or make vfs not such a pain to use
+			vfs::Path vfsPath;
+			vfs::COpenWriteFile rfile( filename, true );
+			rfile->_getRealPath( vfsPath );
+			std::string str = vfsPath.to_string( );
+
+			const char* filenamewithpath = str.c_str( );
+			
+			// write
+			std::fstream binary_file( filenamewithpath, std::ios::out );
+
+			SectorFortificationVector::iterator nodeitend = vec.end( );
+			for ( SectorFortificationVector::iterator nodeit = vec.begin( ); nodeit != nodeitend; ++nodeit )
+			{
+				FORTIFICATION_NODE node = (*nodeit);
+
+				binary_file << node;
+			}
+
+			binary_file.close( );
+		}
+	}
+}
+
+void UpdateFortificationPossibleAmount()
+{
+	if ( !gWorldSectorX || !gWorldSectorY )
+		return;
+
+	// update the sector value of how much can still be built by looping through the plan. Only works in the currently loaded sector
+	UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
+		
+	if ( gSectorFortificationMap.find( sector ) != gSectorFortificationMap.end( ) )
+	{
+		SectorFortificationVector vec = gSectorFortificationMap[sector];
+
+		FLOAT maxpossible = 0.0f;
+
+		SectorFortificationVector::iterator nodeitend = vec.end( );
+		for ( SectorFortificationVector::iterator nodeit = vec.begin(); nodeit != nodeitend; ++nodeit )
+		{
+			FORTIFICATION_NODE node = (*nodeit);
+			
+			if ( node.fBuild )
+			{
+				UINT8 buildpossiblestate = CheckBuildFortification( node.sGridNo, node.sLevel, node.usIndex, node.structurexmlindex );
+
+				if ( buildpossiblestate == 0 )
+				{
+					maxpossible += gStructureConstruct[node.structurexmlindex].dCreationCost;
+				}
+				else if ( buildpossiblestate == 2 )
+				{
+					// for now, also add this as a possible thing to build if the obstacle is merely a person
+					maxpossible += gStructureConstruct[node.structurexmlindex].dCreationCost;
+				}
+			}
+			else if ( CanRemoveFortification( node.sGridNo, node.sLevel, node.structurexmlindex ) )
+			{
+				maxpossible += gStructureDeconstruct[node.structurexmlindex].dCreationCost;
+			}
+		}
+		
+		if ( gbWorldSectorZ )
+		{
+			UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+			if ( pSector )
+			{
+				pSector->dFortification_MaxPossible = maxpossible;
+
+				// make sure the current progress isn't too high
+				pSector->dFortification_UnappliedProgress = min( pSector->dFortification_UnappliedProgress, pSector->dFortification_MaxPossible );
+			}
+		}
+		else
+		{
+			SECTORINFO *pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+
+			if ( pSector )
+			{
+				pSector->dFortification_MaxPossible = maxpossible;
+
+				// make sure the current progress isn't too high
+				pSector->dFortification_UnappliedProgress = min( pSector->dFortification_UnappliedProgress, pSector->dFortification_MaxPossible );
+			}
+		}
+	}
+}
+
+void HandleFortificationUpdate()
+{
+	if ( !gWorldSectorX || !gWorldSectorY )
+		return;
+
+	UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
+	
+	if ( gSectorFortificationMap.find( sector ) != gSectorFortificationMap.end() )
+	{
+		SectorFortificationVector vec = gSectorFortificationMap[sector];
+
+		SectorFortificationVector::iterator nodeit = vec.begin();
+
+		BOOLEAN peopleblockingnodes		= FALSE;
+		BOOLEAN insufficientresources	= FALSE;
+
+		FLOAT dFortification_UnappliedProgress = 0.0;
+		FLOAT dFortification_MaxPossible = 0.0;
+
+		if ( gbWorldSectorZ )
+		{
+			UNDERGROUND_SECTORINFO *pSector;
+			pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+			if ( pSector )
+			{
+				dFortification_UnappliedProgress	= pSector->dFortification_UnappliedProgress;
+				dFortification_MaxPossible			= pSector->dFortification_MaxPossible;
+			}
+		}
+		else
+		{
+			SECTORINFO *pSector;
+			pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+
+			if ( pSector )
+			{
+				dFortification_UnappliedProgress = pSector->dFortification_UnappliedProgress;
+				dFortification_MaxPossible = pSector->dFortification_MaxPossible;
+			}
+		}
+		
+		// as we consume resources, we use a map to keep track of them (and lower the amount of looping over the inventory required)
+		std::map< UINT16, INT32 > builditemobjectmap;
+
+		// removing structures can gain us items. We use a map to store what we need and create items afterwards, which might save unnecessary creations (1 item at 80% is better than 80 with 1%)
+		std::map< UINT16, UINT32 > itemcreatemap;
+		INT32 itemdropoffgridno = NOWHERE;
+
+		// in order to help the player know what items are missing, make a list of all required build items not present
+		std::set< UINT16 > missingitemsmap;
+
+		OBJECTTYPE* pBuildItemObject = NULL;
+		INT32 slot = -1;
+
+		while ( dFortification_UnappliedProgress > 0.0 )
+		{
+			if ( nodeit == vec.end( ) )
+				break;
+
+			FORTIFICATION_NODE node = (*nodeit);
+
+			FLOAT cost = node.fBuild ? gStructureConstruct[node.structurexmlindex].dCreationCost : gStructureDeconstruct[node.structurexmlindex].dCreationCost;
+
+			if ( cost <= dFortification_UnappliedProgress )
+			{
+				if ( node.fBuild )
+				{
+					UINT8 buildpossiblestate = CheckBuildFortification( node.sGridNo, node.sLevel, node.usIndex, node.structurexmlindex );
+
+					if ( buildpossiblestate == 0 )
+					{
+						// check for build items and possibly consume them
+						BOOLEAN itemconsumptionpassed = TRUE;
+
+						if ( gStructureConstruct[node.structurexmlindex].usCreationItem )
+						{
+							itemconsumptionpassed = FALSE;
+
+							UINT8 itemreduction = gStructureConstruct[node.structurexmlindex].usItemStatusLoss;
+
+							std::map< UINT16, INT32 >::iterator objectit = builditemobjectmap.find( gStructureConstruct[node.structurexmlindex].usCreationItem );
+
+							if ( objectit != builditemobjectmap.end( ) && objectit->second > -1 )
+							{
+								slot = objectit->second;
+							}
+							else
+							{
+								slot = GetFirstObjectInSectorPosition( gStructureConstruct[node.structurexmlindex].usCreationItem );
+
+								if ( slot > -1 )
+								{
+									builditemobjectmap[gStructureConstruct[node.structurexmlindex].usCreationItem] = slot;
+								}
+							}
+
+							if ( slot > -1 )
+							{
+								for ( INT16 i = 0; i < gWorldItems[slot].object.ubNumberOfObjects; ++i )
+								{
+									UINT8 reduce = min( (gWorldItems[slot].object)[i]->data.objectStatus, itemreduction );
+
+									(gWorldItems[slot].object)[i]->data.objectStatus -= reduce;
+									itemreduction -= reduce;
+
+									if ( !(gWorldItems[slot].object)[i]->data.objectStatus )
+									{
+										gWorldItems[slot].object.RemoveObjectAtIndex( i );
+									}
+								}
+
+								if ( gWorldItems[slot].object.ubNumberOfObjects < 1 )
+								{
+									if ( gWorldItems[slot].sGridNo != NOWHERE )
+										RemoveItemFromPool( gWorldItems[slot].sGridNo, slot, gWorldItems[slot].ubLevel );
+
+									gWorldItems[slot].fExists = FALSE;
+								}
+							}
+
+							if ( !itemreduction )
+							{
+								itemconsumptionpassed = TRUE;
+							}
+						}
+
+						// only if we successfully used resources a strucuture can be built
+						if ( itemconsumptionpassed )
+						{
+							BuildFortification( node.sGridNo, node.sLevel, node.usIndex, node.structurexmlindex );
+
+							dFortification_UnappliedProgress -= cost;
+							dFortification_MaxPossible -= cost;
+						}
+						else
+						{
+							insufficientresources = TRUE;
+
+							if ( gStructureConstruct[node.structurexmlindex].usCreationItem )
+								missingitemsmap.insert( gStructureConstruct[node.structurexmlindex].usCreationItem );
+						}
+					}
+					else if ( buildpossiblestate == 2 )
+					{
+						// note if some structures could not be built due to people being in the way
+						peopleblockingnodes = TRUE;
+					}
+				}
+				else if ( CanRemoveFortification( node.sGridNo, node.sLevel, node.structurexmlindex ) )
+				{
+					// check for build items and possibly consume them
+					BOOLEAN itemconsumptionpassed = TRUE;
+
+					if ( gStructureDeconstruct[node.structurexmlindex].usDeconstructItem )
+					{
+						itemconsumptionpassed = FALSE;
+
+						std::map< UINT16, INT32 >::iterator objectit = builditemobjectmap.find( gStructureDeconstruct[node.structurexmlindex].usDeconstructItem );
+
+						if ( objectit != builditemobjectmap.end( ) && objectit->second > -1 )
+						{
+							slot = objectit->second;
+						}
+						else
+						{
+							slot = GetFirstObjectInSectorPosition( gStructureDeconstruct[node.structurexmlindex].usDeconstructItem );
+
+							if ( slot > -1 )
+							{
+								builditemobjectmap[gStructureDeconstruct[node.structurexmlindex].usDeconstructItem] = slot;
+							}
+						}
+
+						if ( slot > -1 )
+						{
+							itemconsumptionpassed = TRUE;
+						}
+					}
+
+					// only if we successfully used resources a strucuture can be built
+					if ( itemconsumptionpassed )
+					{
+						if ( RemoveFortification( node.sGridNo, node.sLevel, node.structurexmlindex ) )
+						{
+							// eventually create item
+							if ( gStructureDeconstruct[node.structurexmlindex].usItemToCreate && gStructureDeconstruct[node.structurexmlindex].usCreatedItemStatus )
+							{
+								std::map< UINT16, UINT32 >::iterator objectit = itemcreatemap.find( gStructureDeconstruct[node.structurexmlindex].usItemToCreate );
+
+								if ( objectit != itemcreatemap.end( ) )
+								{
+									objectit->second += gStructureDeconstruct[node.structurexmlindex].usCreatedItemStatus;
+								}
+								else
+								{
+									itemcreatemap[gStructureDeconstruct[node.structurexmlindex].usItemToCreate] = gStructureDeconstruct[node.structurexmlindex].usCreatedItemStatus;
+								}
+							}
+
+							// if the node's gridno is valid, we might use it
+							if ( TileIsOutOfBounds( itemdropoffgridno ) && !TileIsOutOfBounds( node.sGridNo ) )
+							{
+								itemdropoffgridno = node.sGridNo;
+							}
+
+							dFortification_UnappliedProgress -= cost;
+							dFortification_MaxPossible -= cost;
+						}
+					}
+					else
+					{
+						insufficientresources = TRUE;
+
+						if ( gStructureDeconstruct[node.structurexmlindex].usDeconstructItem )
+							missingitemsmap.insert( gStructureDeconstruct[node.structurexmlindex].usDeconstructItem );
+					}
+				}
+			}
+
+			++nodeit;
+		}
+
+		// update progress
+		if ( gbWorldSectorZ )
+		{
+			UNDERGROUND_SECTORINFO *pSector;
+			pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+			if ( pSector )
+			{
+				pSector->dFortification_UnappliedProgress	= dFortification_UnappliedProgress;
+				pSector->dFortification_MaxPossible			= dFortification_MaxPossible;
+			}
+		}
+		else
+		{
+			SECTORINFO *pSector;
+			pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+
+			if ( pSector )
+			{
+				pSector->dFortification_UnappliedProgress = dFortification_UnappliedProgress;
+				pSector->dFortification_MaxPossible = dFortification_MaxPossible;
+			}
+		}
+
+		CHAR16 wSectorName[64];
+		GetShortSectorString( gWorldSectorX, gWorldSectorY, wSectorName );
+
+		// create items, or warn us if that isn't possible
+		if ( !itemcreatemap.empty() )
+		{
+			if ( !TileIsOutOfBounds( itemdropoffgridno ) )
+			{
+				for ( std::map< UINT16, UINT32 >::iterator it = itemcreatemap.begin( ); it != itemcreatemap.end(); ++it )
+				{
+					while ( it->second > 0 )
+					{
+						UINT8 tmpstat = min( 100, it->second );
+						it->second -= tmpstat;
+
+						OBJECTTYPE tmpobject;
+
+						CreateItem( it->first, tmpstat, &tmpobject );
+
+						AddItemToPool( itemdropoffgridno, &tmpobject, 1, 0, 0, -1 );
+					}
+				}
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, szFortificationText[1], wSectorName );
+			}
+		}
+
+		// warn us if we lack resources or if nodes are blocked
+		if ( peopleblockingnodes || insufficientresources )
+		{
+			if ( peopleblockingnodes )
+				ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, szFortificationText[2], wSectorName );
+
+			if ( insufficientresources )
+			{
+				ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, szFortificationText[3], wSectorName );
+
+				for ( std::set<UINT16>::iterator it = missingitemsmap.begin( ); it != missingitemsmap.end(); ++it )
+				{
+					ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L" - %s", Item[(*it)].szLongItemName );
+				}
+			}
+		}
+
+		UpdateFortificationPossibleAmount();
+	}
+}
+
+INT32 GetFirstObjectInSectorPosition( UINT16 ausItem )
+{
+	for ( UINT32 uiCount = 0; uiCount < guiNumWorldItems; ++uiCount )
+	{
+		if ( gWorldItems[uiCount].fExists && gWorldItems[uiCount].object.usItem == ausItem )
+		{
+			return uiCount;
+		}
+	}
+
+	return -1;
 }
 
 INT32 CheckBombDisarmChance(void)

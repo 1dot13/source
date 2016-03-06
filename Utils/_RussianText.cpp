@@ -2462,6 +2462,7 @@ STR16 pAssignmentStrings[] =
 	L"Медик",	// administering medical aid
 	L"Пациент",	// getting medical aid
 	L"Ремонт",	// repairing
+	L"Fortify",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2563,6 +2564,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Медик",
 	L"Пациент",
 	L"Ремонт",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2623,6 +2625,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Медик",
 	L"Пациент",
 	L"Ремонтирует",
+	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
 };
 
 
@@ -2743,6 +2746,7 @@ STR16 pAssignMenuStrings[] =
 	L"Осведомитель", // anv: snitch actions
 	L"Обучение", // the merc is training
 	L"Носильщик",	// move items
+	L"Fortify",		// fortify sector	// TODO.Translate
 	L"Занятия", // the merc is using/staffing a facility
 	L"Отмена", // cancel this menu
 };
@@ -8914,6 +8918,7 @@ STR16	szBackgroundText_Value[]=
 	L"Курит",
 	L"Не курит",
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%% building speed\n",
 };
 
 STR16		szBackgroundTitleText[] = 
@@ -9837,7 +9842,7 @@ STR16   szTacticalCoverDialogString[]=
         L"",
 
         L"Задачи",
-        L"",
+		L"Fortification",	// TODO.Translate
         L"Слежение",
         L"",
 
@@ -9860,9 +9865,9 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Показывать что видит боец",
         L"",
 
-        L"",
-        L"",
-        L"",
+		L"Display enemy role symbols",	// TODO.Translate
+		L"Display planned fortifications",
+		L"Display enemy tracks",
         L"",
 
         L"Показать сеть ловушек",
@@ -10912,6 +10917,17 @@ STR16 szEnemyHeliText[] =
 	L"%s fires %s at enemy helicopter in %s.",
 
 	L"База ПВО в %s обстреляла вражеский вертолёт в %s.",
+};
+
+STR16 szFortificationText[] =
+{
+	L"No valid structure selected, nothing added to build plan.",
+	L"No gridno found to create items in %s - created items are lost.",
+	L"Structures could not be built in %s - people are in the way.",
+	L"Structures could not be built in %s - the following items are required:",
+
+	L"No fitting fortifications found for tileset %d: %s",
+	L"Tileset %d: %s",
 };
 
 #endif //RUSSIAN

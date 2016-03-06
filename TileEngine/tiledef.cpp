@@ -842,18 +842,15 @@ void DeallocateTileDatabase( )
 
 BOOLEAN GetLandHeadType( INT32 iMapIndex, UINT32 *puiType )
 {
- UINT16					usIndex;
+	Assert( puiType != NULL );
 
- Assert( puiType != NULL );
+	CHECKF( gpWorldLevelData[ iMapIndex ].pLandHead != NULL );
 
- CHECKF( gpWorldLevelData[ iMapIndex ].pLandHead != NULL );
+	UINT16 usIndex = gpWorldLevelData[iMapIndex].pLandHead->usIndex;
 
- usIndex = gpWorldLevelData[ iMapIndex ].pLandHead->usIndex;
+	GetTileType( usIndex, puiType );
 
- GetTileType( usIndex, puiType );
-
- return( TRUE );
-
+	return( TRUE );
 }
 
 BOOLEAN SetLandIndex( INT32 iMapIndex, UINT16 usIndex, UINT32 uiNewType, BOOLEAN fDelete )
@@ -869,21 +866,19 @@ BOOLEAN SetLandIndex( INT32 iMapIndex, UINT16 usIndex, UINT32 uiNewType, BOOLEAN
 
 	if ( AnyHeigherLand( iMapIndex, uiNewType, &ubLastHighLevel ) )
 	{
-			// Check if type exists and get it's index if so
-			if ( TypeExistsInLandLayer( iMapIndex, uiNewType, &usTempIndex ) )
-			{
-				// Replace with new index
-				return( ReplaceLandIndex( iMapIndex, usTempIndex, usIndex ) );
-			}
-			else
-			{
-				return( InsertLandIndexAtLevel( iMapIndex, usIndex, (UINT8)(ubLastHighLevel+1) ) );
-			}
-
+		// Check if type exists and get it's index if so
+		if ( TypeExistsInLandLayer( iMapIndex, uiNewType, &usTempIndex ) )
+		{
+			// Replace with new index
+			return( ReplaceLandIndex( iMapIndex, usTempIndex, usIndex ) );
+		}
+		else
+		{
+			return( InsertLandIndexAtLevel( iMapIndex, usIndex, (UINT8)(ubLastHighLevel+1) ) );
+		}
 	}
 	else
 	{
-
 		// Check if type exists and get it's index if so
 		if ( TypeExistsInLandLayer( iMapIndex, uiNewType, &usTempIndex ) )
 		{
@@ -896,7 +891,6 @@ BOOLEAN SetLandIndex( INT32 iMapIndex, UINT16 usIndex, UINT32 uiNewType, BOOLEAN
 			return( AddLandToHead( iMapIndex, usIndex ) );
 		}
 	}
-
 }
 
 

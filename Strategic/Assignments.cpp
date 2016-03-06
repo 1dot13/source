@@ -472,6 +472,9 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 void HandleDiseaseDiagnosis();
 void HandleDiseaseSectorTreatment( );
 
+// Flugente: fortification
+void HandleFortification();
+
 // reset scan flags in all sectors
 void ClearSectorScanResults();
 
@@ -932,6 +935,28 @@ BOOLEAN  CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier )
 		return TRUE;
 
 	// all criteria fit, can doctor
+	return FALSE;
+}
+
+BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier )
+{
+	if ( pSoldier->bSectorZ )
+	{
+		UNDERGROUND_SECTORINFO *pSectorInfo;
+		pSectorInfo = FindUnderGroundSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+
+		if ( pSectorInfo && pSectorInfo->dFortification_MaxPossible > pSectorInfo->dFortification_UnappliedProgress )
+			return TRUE;
+	}
+	else
+	{
+		SECTORINFO *pSectorInfo;
+		pSectorInfo = &SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )];
+
+		if ( pSectorInfo && pSectorInfo->dFortification_MaxPossible > pSectorInfo->dFortification_UnappliedProgress )
+			return TRUE;
+	}
+
 	return FALSE;
 }
 
@@ -2535,6 +2560,9 @@ void UpdateAssignments()
 
 	// Flugente: PMC recruits new personnel
 	HourlyUpdatePMC();
+
+	// handle fortification
+	HandleFortification();
 
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );
@@ -7374,6 +7402,51 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 }
 
+// Flugente: fortification
+void HandleFortification()
+{
+	SOLDIERTYPE* pSoldier = NULL;
+	UINT16 uiCnt = 0;
+
+	for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier->bActive && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+		{
+			if ( (pSoldier->bAssignment == FORTIFICATION) && CanCharacterFortify( pSoldier ) )
+			{
+				if ( pSoldier->bSectorZ )
+				{
+					UNDERGROUND_SECTORINFO *pSectorInfo;
+					pSectorInfo = FindUnderGroundSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+
+					if ( pSectorInfo )
+					{
+						pSectorInfo->dFortification_UnappliedProgress = min( pSectorInfo->dFortification_UnappliedProgress + pSoldier->GetConstructionPoints( ), pSectorInfo->dFortification_MaxPossible );
+					}
+				}
+				else
+				{
+					SECTORINFO *pSectorInfo;
+					pSectorInfo = &SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )];
+
+					if ( pSectorInfo )
+					{
+						pSectorInfo->dFortification_UnappliedProgress = min( pSectorInfo->dFortification_UnappliedProgress + pSoldier->GetConstructionPoints( ), pSectorInfo->dFortification_MaxPossible );
+					}
+				}
+
+				StatChange( pSoldier, STRAMT, 6, TRUE );
+
+				// if we cannot fortify any longer, this means we're finished - tell us so
+				if ( !CanCharacterFortify( pSoldier ) )
+					AssignmentDone( pSoldier, TRUE, TRUE );
+			}
+		}
+	}
+
+	HandleFortificationUpdate( );
+}
+
 INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 {
 	INT16 sTotalTrainingPts = 0;
@@ -7593,7 +7666,7 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 		if ( fSayQuote )
 		{
 			if (IS_DOCTOR( pSoldier->bAssignment ) || IS_REPAIR( pSoldier->bAssignment ) ||
-				 IS_PATIENT( pSoldier->bAssignment ) || (pSoldier->bAssignment == ASSIGNMENT_HOSPITAL))
+				 IS_PATIENT( pSoldier->bAssignment ) || pSoldier->bAssignment == ASSIGNMENT_HOSPITAL || pSoldier->bAssignment == FORTIFICATION )
 			{
 				TacticalCharacterDialogue( pSoldier, QUOTE_ASSIGNMENT_COMPLETE );
 			}
@@ -9056,6 +9129,18 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 			{
 				// shade line
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_SNITCH );
+			}
+
+			// fortify
+			if ( CanCharacterFortify( pSoldier ) )
+			{
+				// unshade patient line
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_FORTIFY );
+			}
+			else
+			{
+				// shade patient line
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_FORTIFY );
 			}
 		}
 	}
@@ -12502,6 +12587,42 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 
+				case ASSIGN_MENU_FORTIFY:
+					if ( CanCharacterFortify(pSoldier) )
+					{
+						// stop showing menu
+						fShowAssignmentMenu = FALSE;
+						giAssignHighLine = -1;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if ( (pSoldier->bAssignment != FORTIFICATION) )
+						{
+							SetTimeOfAssignmentChangeForMerc( pSoldier );
+						}
+
+						// remove from squad
+						if ( pSoldier->bOldAssignment == VEHICLE )
+						{
+							TakeSoldierOutOfVehicle( pSoldier );
+						}
+						RemoveCharacterFromSquads( pSoldier );
+
+						ChangeSoldiersAssignment( pSoldier, FORTIFICATION );
+
+						AssignMercToAMovementGroup( pSoldier );
+
+						MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						// set assignment for group
+						SetAssignmentForList( (INT8)FORTIFICATION, 0 );
+					}
+					break;
+
 				// HEADROCK HAM 3.6: New assignments for Facility operation.
 				case( ASSIGN_MENU_FACILITY ):
 					if ( BasicCanCharacterFacility( pSoldier ) )
@@ -15268,6 +15389,30 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 			}
 			break;
 
+		case FORTIFICATION:
+			if ( CanCharacterFortify( pSoldier ) )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if ( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != bAssignment )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
+				AssignMercToAMovementGroup( pSoldier );
+			}
+			break;
+
 		case( VEHICLE ):
 			if( CanCharacterVehicle( pSoldier ) && IsThisVehicleAccessibleToSoldier( pSoldier, iParam1 ) )
 			{
@@ -16558,6 +16703,10 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = !CanCharacterTreatSectorDisease( pSoldier );
 					break;
 
+				case FORTIFICATION:
+					fNothingToDo = !CanCharacterFortify( pSoldier );
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -16864,6 +17013,14 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, DISEASE_DOCTOR_SECTOR, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+				case FORTIFICATION:
+					if ( CanCharacterFortify( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, FORTIFICATION, bParam, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
