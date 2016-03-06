@@ -51272,56 +51272,73 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1721</uiIndex>
-		<szItemName>Wooden Planks, small</szItemName>
-		<szLongItemName>Wooden Planks, small</szLongItemName>
-		<szItemDesc>Wooden Planks. 1x1</szItemDesc>
-		<szBRName>Wooden Planks, small</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szItemName>Placeholder</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1721</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
-		<ItemFlag>8</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>235</ubGraphicNum>
-		<ubWeight>60</ubWeight>
-		<ItemSize>949</ItemSize>
+		<ubGraphicNum>238</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<ubPerPocket>6</ubPerPocket>
+		<ItemSize>10</ItemSize>
 		<usPrice>1</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<TwoHanded>1</TwoHanded>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>1722</uiIndex>
-		<szItemName>Wooden Planks, medium</szItemName>
-		<szLongItemName>Wooden Planks, medium</szLongItemName>
-		<szItemDesc>Wooden Planks. 2x1</szItemDesc>
-		<szBRName>Wooden Planks, medium</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
+		<szItemName>Placeholder</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1722</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
-		<ItemFlag>8</ItemFlag>
 		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>236</ubGraphicNum>
-		<ubWeight>90</ubWeight>
-		<ItemSize>949</ItemSize>
+		<ubGraphicNum>238</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<ubPerPocket>6</ubPerPocket>
+		<ItemSize>10</ItemSize>
 		<usPrice>1</usPrice>
 		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<TwoHanded>1</TwoHanded>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>	
+	<ITEM>
+		<uiIndex>1723</uiIndex>
+		<szItemName>Placeholder</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1723</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>238</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<ubPerPocket>6</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>1</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
-		<uiIndex>1723</uiIndex>
-		<szItemName>Wooden Planks, large</szItemName>
-		<szLongItemName>Wooden Planks, large</szLongItemName>
-		<szItemDesc>Wooden Planks. 2x2</szItemDesc>
-		<szBRName>Wooden Planks, large</szBRName>
+		<uiIndex>1724</uiIndex>
+		<szItemName>Wooden Planks</szItemName>
+		<szLongItemName>Wooden Planks</szLongItemName>
+		<szItemDesc>Wooden Planks</szItemDesc>
+		<szBRName>Wooden Planks</szBRName>
 		<szBRDesc>Not for sale.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasAttachmentClass>1</nasAttachmentClass>
@@ -51333,29 +51350,6 @@
 		<usPrice>1</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<TwoHanded>1</TwoHanded>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
-	</ITEM>
-	<ITEM>
-		<uiIndex>1724</uiIndex>
-		<szItemName>Wooden Wall, small</szItemName>
-		<szLongItemName>Wooden Wall, small</szLongItemName>
-		<szItemDesc>A small wooden wall, used for construction.</szItemDesc>
-		<szBRName>Wooden Wall, small</szBRName>
-		<szBRDesc>Not for sale.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
-		<ItemFlag>8</ItemFlag>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>238</ubGraphicNum>
-		<ubWeight>80</ubWeight>
-		<ItemSize>949</ItemSize>
-		<usPrice>40</usPrice>
-		<ubCoolness>1</ubCoolness>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
 		<TwoHanded>1</TwoHanded>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
