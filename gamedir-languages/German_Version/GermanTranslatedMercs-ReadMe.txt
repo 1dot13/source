@@ -7,6 +7,14 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-03-06:
+- added Reuban
+- updates to Gary
+- updates to Bob
+- updates to Snake
+- updates to Bud
+
+
 2016-02-28:
 - added Bernie
 - added Wally
@@ -27,30 +35,27 @@ Changelog:
 - added Dyno
 
 
-2016-02-07:
-- added Weasel
-- added Hector
-
-
 
 Status:
 -------
-- weekly content updates
-- 6 of 50 mercs remain to be added
-- polish/rework to already existing files
+- nearly weekly content updates
+- Ears, Tex, Speck, Eli and Carp remaining
+- small bunch of various files remaining (Snitch, Friend- Enemyships)
+- polish/rework of already existing files
 
 
 
 Known Issues:
 -------------
--multiple voiceactors for Mike [JA2+JA:DG]
--multiple voiceactors for Speck [JA2+JA2:UB+JA:DG] | When released i cannot recommend him as a hireable mercenary
+-multiple voiceactors for Mike [JA2+JA:DG]		| Nothing i can do about
+-multiple voiceactors for Speck [JA2+JA2:UB+JA:DG] 	| Additional mod: UB+DG voiceset only + Phone-equalizer to speckcam audiofiles
+-multiple voiceactors for Tex [JA2:UB+JA:DG] 		| Maybe...
 
 
 
 Used Tools:
 -----------
-JA1 DG Speech File Extractor v1.0
+JA1 DG Speech File Extractor
 EDT Mega Editor by Bugmonster
-Gap file generator by Trailblazer
+Gap-file generator by Trailblazer
 Audacity
