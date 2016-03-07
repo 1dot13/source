@@ -303,6 +303,22 @@ UINT32  POWERGENFANSOUND_GRIDNO1 = 10979;
 UINT32  POWERGENFANSOUND_GRIDNO2 = 19749;
 UINT32  STARTFANBACKUPAGAIN_GRIDNO = 10980;
 UINT32  STOPPOWERGENFAN_GRIDNO = 10980;
+//L15-3
+UINT32  SECTOR_LAUNCH_MISSLES_X = 15; 
+UINT32  SECTOR_LAUNCH_MISSLES_Y = 12;
+UINT32  SECTOR_LAUNCH_MISSLES_Z = 3;
+//J13-0
+UINT32  SECTOR_FAN_X = 13;
+UINT32  SECTOR_FAN_Z = 10;
+UINT32  SECTOR_FAN_Y = 0;
+//K14-1
+UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_X = 14;
+UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_Y = 11;
+UINT32  SECTOR_OPEN_GATE_IN_TUNNEL_Z = 1;
+//J14-1
+UINT32  EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_X = 14;
+UINT32  EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Y = 10;
+UINT32  EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Z = 1;
 
 void InitGridNoUB()
 {
@@ -320,6 +336,23 @@ void InitGridNoUB()
 	POWERGENFANSOUND_GRIDNO2 = gGameUBOptions.PowergenFanSoundGridNo2; //= 19749;
 	STARTFANBACKUPAGAIN_GRIDNO = gGameUBOptions.StartFanbackupAgainGridNo; //= 10980;
 	STOPPOWERGENFAN_GRIDNO = gGameUBOptions.StopPowergenFanGridNo; //= 10980;
+		
+	//L15-3
+	SECTOR_LAUNCH_MISSLES_X = gGameUBOptions.SectorLaunchMisslesX; // 15; 
+	SECTOR_LAUNCH_MISSLES_Y = gGameUBOptions.SectorLaunchMisslesY; // 12;
+	SECTOR_LAUNCH_MISSLES_Z = gGameUBOptions.SectorLaunchMisslesZ; //3;
+	//J13-0
+	SECTOR_FAN_X = gGameUBOptions.SectorFanX; //13;
+	SECTOR_FAN_Z = gGameUBOptions.SectorFanY; //10;
+	SECTOR_FAN_Y = gGameUBOptions.SectorFanZ; //0;
+	//K14-1
+	SECTOR_OPEN_GATE_IN_TUNNEL_X = gGameUBOptions.SectorOpenGateInTunnelX; //14;
+	SECTOR_OPEN_GATE_IN_TUNNEL_Y = gGameUBOptions.SectorOpenGateInTunnelY; //11;
+	SECTOR_OPEN_GATE_IN_TUNNEL_Z = gGameUBOptions.SectorOpenGateInTunnelZ; //1;
+	//J14-1
+	EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_X = gGameUBOptions.ExitForFanToPowerGenSectorX; //14;
+	EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Y = gGameUBOptions.ExitForFanToPowerGenSectorY; //10;
+	EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Z = gGameUBOptions.ExitForFanToPowerGenSectorZ; //1;
 	
 	MANUEL_UB = gGameUBOptions.ubMANUEL_UB;
 	BIGGENS_UB = gGameUBOptions.ubBIGGENS_UB;
@@ -819,8 +852,8 @@ void HandlePowerGenAlarm()
 	static UINT32 uiAlarmCounter=0;
 	UINT32 uiCurTime=0;
 
-	//if its not the right sector
-	if( !( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_J && gbWorldSectorZ == 0 ) )
+	//if its not the right sector J13-0
+	if( !( gWorldSectorX == SECTOR_FAN_X && gWorldSectorY == SECTOR_FAN_Y && gbWorldSectorZ == SECTOR_FAN_Z ) )
 	{
 		//leave
 		return;
@@ -925,9 +958,9 @@ void AddExitGridForFanToPowerGenSector()
 
 	memset( &ExitGrid, 0, sizeof( EXITGRID ) );
 
-	ExitGrid.ubGotoSectorX = 14;
-	ExitGrid.ubGotoSectorY = MAP_ROW_J;
-	ExitGrid.ubGotoSectorZ = 1;
+	ExitGrid.ubGotoSectorX = EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_X; //14;
+	ExitGrid.ubGotoSectorY = EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Y; //MAP_ROW_J;
+	ExitGrid.ubGotoSectorZ = EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Z; //1;
 	ExitGrid.usGridNo = POWERGENSECTOREXITGRID_GRIDNO1;
 
 	//Add the exit grid when the fan is either stopped or blown up
@@ -942,8 +975,8 @@ BOOLEAN HandlePlayerSayingQuoteWhenFailingToOpenGateInTunnel( SOLDIERTYPE *pSold
 	SOLDIERTYPE		*pSoldier;
 
 
-	//is this the right sector
-	if( !( gWorldSectorX == 14 && gWorldSectorY == MAP_ROW_K && gbWorldSectorZ == 1 ) )
+	//is this the right sector K14-1
+	if( !( gWorldSectorX == SECTOR_OPEN_GATE_IN_TUNNEL_X && gWorldSectorY == SECTOR_OPEN_GATE_IN_TUNNEL_Y && gbWorldSectorZ == SECTOR_OPEN_GATE_IN_TUNNEL_Z ) )
 	{
 		//wrong door
 		return( FALSE );
@@ -1357,8 +1390,8 @@ void HandlePickingUpMorrisInstructionNote( SOLDIERTYPE *pSoldier, INT32 iIndex )
 
 void HandleDeathInPowerGenSector( SOLDIERTYPE *pSoldier )
 {
-	//if this is NOT the power gen sector
-	if( gWorldSectorX != 13 || gWorldSectorY != 10 || gbWorldSectorZ != 0 )
+	//if this is NOT the power gen sector J13
+	if( gWorldSectorX != SECTOR_FAN_X || gWorldSectorY != SECTOR_FAN_Y || gbWorldSectorZ != SECTOR_FAN_Z )
 	{
 		return;
 	}
@@ -1777,7 +1810,7 @@ INT8 RandomSoldierIdForAnyMercInSector()
 void HandleFanStartingAtEndOfCombat()
 {
 	//if its not the right sector
-	if( !( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_J && gbWorldSectorZ == 0 ) )
+	if( !( gWorldSectorX == SECTOR_FAN_X && gWorldSectorY == SECTOR_FAN_Y && gbWorldSectorZ == SECTOR_FAN_Z ) )
 	{
 		//leave
 		return;
@@ -1945,7 +1978,7 @@ void HandlePlayerHittingSwitchToLaunchMissles()
 	{       
 		// if the soldier was in the complex
 		if( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector &&
-				pSoldier->sSectorX == 15 && pSoldier->sSectorY == 12 && pSoldier->bSectorZ == 3 )
+				pSoldier->sSectorX == SECTOR_LAUNCH_MISSLES_X && pSoldier->sSectorY == SECTOR_LAUNCH_MISSLES_Y && pSoldier->bSectorZ == SECTOR_LAUNCH_MISSLES_Z )
 		{
 			if( PythSpacesAway( pSoldier->sGridNo, SWITCHTOLAUNCHMISSLES_GRIDNO1 ) < PythSpacesAway( pSoldier->sGridNo, SWITCHTOLAUNCHMISSLES_GRIDNO2 ) )
 				pSoldier->EVENT_InternalGetNewSoldierPath( SWITCHTOLAUNCHMISSLES_GRIDNO1, RUNNING, TRUE, TRUE );

@@ -124,6 +124,43 @@ typedef struct
 	UINT32 ubMICRO_UZI_UB;
 	UINT32 ubCALICO_950_UB;
 	UINT32 ubCALICO_900_UB;
+	
+	//L15-3
+	UINT32 SectorLaunchMisslesX;
+	UINT32 SectorLaunchMisslesY; 
+	UINT32 SectorLaunchMisslesZ;
+	
+	//J13-0
+	UINT32 SectorFanX;
+	UINT32 SectorFanY; 
+	UINT32 SectorFanZ; 
+	
+	//K14-1
+	UINT32 SectorOpenGateInTunnelX;
+	UINT32 SectorOpenGateInTunnelY; 
+	UINT32 SectorOpenGateInTunnelZ; 
+	
+	//J14-1
+	UINT32 ExitForFanToPowerGenSectorX;
+	UINT32 ExitForFanToPowerGenSectorY; 
+	UINT32 ExitForFanToPowerGenSectorZ; 
+	
+	UINT32 MineSectorX;
+	UINT32 MineSectorY; 
+	UINT32 MineSectorZ; 
+	
+	UINT32 MineEntranceGridno; 
+	UINT32 MineGridnoAddStructToHead; 
+	
+	UINT32 MineRemoveExitGridFromWorld1; 
+	UINT32 MineRemoveExitGridFromWorld2; 
+
+	UINT32 MineSectorUndergroundX;
+	UINT32 MineSectorUndergroundY; 
+	UINT32 MineSectorUndergroundZ; 
+	
+	UINT32 MineSectorUndergroundGridno1;
+	UINT32 MineSectorUndergroundGridno2;	
 
 	UINT8 MaxNumberOfMercs;
        

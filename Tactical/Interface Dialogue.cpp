@@ -92,6 +92,7 @@
 #include "LOS.h"
 #include "Soldier Control.h"
 #include "Ja25Update.h"
+#include "ub_config.h"
 #endif
 
 #ifdef JA2UB
@@ -5513,11 +5514,11 @@ void CheckForValidQuotesWhenLeavingDealer( UINT8 ubProfile )
 // This function checks if we should replace the mine entrance graphic
 BOOLEAN IsMineEntranceInSectorI13AtThisGridNo( UINT32 sGridNo )
 {
-	// First check current sector......
-	if( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_I && gbWorldSectorZ == 0 )
+	// First check current sector...... I13
+	if( gWorldSectorX == gGameUBOptions.MineSectorX && gWorldSectorY == gGameUBOptions.MineSectorY && gbWorldSectorZ == gGameUBOptions.MineSectorZ )
 	{
 		//if this is the right gridno
-		if( sGridNo == 12421 )
+		if( sGridNo == gGameUBOptions.MineEntranceGridno )
 		{
 			return( TRUE );
 		}
@@ -5543,7 +5544,7 @@ void HaveBiggensDetonatingExplosivesByTheMine()
 void ReplaceMineEntranceGraphicWithCollapsedEntrance()
 {
 	UINT16									usTileIndex;
-	UINT32 usGridNo=12745;
+	UINT32 usGridNo = gGameUBOptions.MineGridnoAddStructToHead; //12745;
 
 	//Make sure wed ont blow things up twice
 	//off
@@ -5563,10 +5564,10 @@ void ReplaceMineEntranceGraphicWithCollapsedEntrance()
 	AddStructToHead( usGridNo, usTileIndex );
 
 	//remove the exit grid from the world
-	RemoveExitGridFromWorld( 12422 );
-	RemoveExitGridFromWorld( 12423 );
-	AddRemoveExitGridToUnloadedMapTempFile( 12422, 13, MAP_ROW_I, 0 );
-	AddRemoveExitGridToUnloadedMapTempFile( 12423, 13, MAP_ROW_I, 0 );
+	RemoveExitGridFromWorld( gGameUBOptions.MineRemoveExitGridFromWorld1 );
+	RemoveExitGridFromWorld( gGameUBOptions.MineRemoveExitGridFromWorld2 );
+	AddRemoveExitGridToUnloadedMapTempFile( gGameUBOptions.MineRemoveExitGridFromWorld1 , gGameUBOptions.MineSectorX, gGameUBOptions.MineSectorY, gGameUBOptions.MineSectorZ ); //I13
+	AddRemoveExitGridToUnloadedMapTempFile( gGameUBOptions.MineRemoveExitGridFromWorld2 , gGameUBOptions.MineSectorX, gGameUBOptions.MineSectorY, gGameUBOptions.MineSectorZ ); //I13
 
 	gpWorldLevelData[ usGridNo ].uiFlags |= MAPELEMENT_REVEALED;
 
@@ -5591,37 +5592,37 @@ void ReplaceMineEntranceGraphicWithCollapsedEntrance()
 	//Remove the old tunnel pieces first
 
 	//First half of entrance
-	usGridNo = 13057;
+	usGridNo = gGameUBOptions.MineSectorUndergroundGridno1; //13057;
 
 	// Get index for it...
 	GetTileIndexFromTypeSubIndex( FIRSTDECORATIONS, (INT8)( 1 ), &usTileIndex );
 
-	RemoveStructFromUnLoadedMapTempFile( usGridNo, usTileIndex, 13, MAP_ROW_I, 1 );
+	RemoveStructFromUnLoadedMapTempFile( usGridNo, usTileIndex,gGameUBOptions.MineSectorUndergroundX, gGameUBOptions.MineSectorUndergroundY, gGameUBOptions.MineSectorUndergroundZ );
 
 	// Get index for it...
 	GetTileIndexFromTypeSubIndex( FIRSTDECORATIONS, (INT8)( 5 ), &usTileIndex );
 
 	//Apply changes
-	AddStructToUnLoadedMapTempFile( usGridNo, usTileIndex, 13, MAP_ROW_I, 1 );
+	AddStructToUnLoadedMapTempFile( usGridNo, usTileIndex, gGameUBOptions.MineSectorUndergroundX, gGameUBOptions.MineSectorUndergroundY, gGameUBOptions.MineSectorUndergroundZ );
 
 
 
 	// 2nd half of entrance
-	usGridNo = 12897;
+	usGridNo = gGameUBOptions.MineSectorUndergroundGridno2;  //12897;
 
 	// Get index for it...
 	GetTileIndexFromTypeSubIndex( FIRSTDECORATIONS, (INT8)( 2 ), &usTileIndex );
 
-	RemoveStructFromUnLoadedMapTempFile( usGridNo, usTileIndex, 13, MAP_ROW_I, 1 );
+	RemoveStructFromUnLoadedMapTempFile(usGridNo, usTileIndex, gGameUBOptions.MineSectorUndergroundX, gGameUBOptions.MineSectorUndergroundY, gGameUBOptions.MineSectorUndergroundZ);
 
 	// Get index for it...
 	GetTileIndexFromTypeSubIndex( FIRSTDECORATIONS, (INT8)( 6 ), &usTileIndex );
 
 	//Apply changes
-	AddStructToUnLoadedMapTempFile( usGridNo, usTileIndex, 13, MAP_ROW_I, 1 );
+	AddStructToUnLoadedMapTempFile(usGridNo, usTileIndex, gGameUBOptions.MineSectorUndergroundX, gGameUBOptions.MineSectorUndergroundY, gGameUBOptions.MineSectorUndergroundZ);
 
 	//Remove the exit grid
-	AddRemoveExitGridToUnloadedMapTempFile( usGridNo, 13, MAP_ROW_I, 1 );
+	AddRemoveExitGridToUnloadedMapTempFile(usGridNo, gGameUBOptions.MineSectorUndergroundX, gGameUBOptions.MineSectorUndergroundY, gGameUBOptions.MineSectorUndergroundZ);
 
 	// Turn off permenant changes....
 	ApplyMapChangesToMapTempFile( FALSE );

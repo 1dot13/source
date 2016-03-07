@@ -273,6 +273,45 @@ void LoadGameUBOptions()
 	gGameUBOptions.FanGridNo[7] = iniReader.ReadInteger("Unfinished Business Settings","FAN_GRIDNO_8", 10659);
 	gGameUBOptions.FanGridNo[8] = iniReader.ReadInteger("Unfinished Business Settings","FAN_GRIDNO_9", 10660);
 	
+	//L15-3
+	gGameUBOptions.SectorLaunchMisslesX = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_LAUNCH_MISSLES_X", 15);
+	gGameUBOptions.SectorLaunchMisslesY = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_LAUNCH_MISSLES_Y", 12); 
+	gGameUBOptions.SectorLaunchMisslesZ = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_LAUNCH_MISSLES_Z", 3); 
+	
+	//J13-0
+	gGameUBOptions.SectorFanX = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_X", 13);
+	gGameUBOptions.SectorFanY = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_Y", 10); 
+	gGameUBOptions.SectorFanZ = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_Z", 0); 
+	
+	//K14-1
+	gGameUBOptions.SectorOpenGateInTunnelX = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_OPEN_GATE_IN_TUNNEL_X", 14);
+	gGameUBOptions.SectorOpenGateInTunnelY = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_OPEN_GATE_IN_TUNNEL_Y", 11); 
+	gGameUBOptions.SectorOpenGateInTunnelZ = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_OPEN_GATE_IN_TUNNEL_Z", 1); 
+	
+	//J14-1
+	gGameUBOptions.ExitForFanToPowerGenSectorX = iniReader.ReadInteger("Unfinished Business Settings","EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_X", 14);
+	gGameUBOptions.ExitForFanToPowerGenSectorY = iniReader.ReadInteger("Unfinished Business Settings","EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Y", 10); 
+	gGameUBOptions.ExitForFanToPowerGenSectorZ = iniReader.ReadInteger("Unfinished Business Settings","EXIT_FOR_FAN_TO_POWER_GEN_SECTOR_Z", 1); 
+	
+	
+	//I13
+	gGameUBOptions.MineSectorX = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_X", 13);
+	gGameUBOptions.MineSectorY = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_Y", 9); 
+	gGameUBOptions.MineSectorZ = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_Z",0); 
+	
+	gGameUBOptions.MineEntranceGridno = iniReader.ReadInteger("Unfinished Business Settings","MINE_ENTRANCE_GRIDNO",12421); 
+	gGameUBOptions.MineGridnoAddStructToHead = iniReader.ReadInteger("Unfinished Business Settings","MINE_GRIDNO_ADD_STRUCT_TO_HEAD",12745); 
+	
+	gGameUBOptions.MineRemoveExitGridFromWorld1 = iniReader.ReadInteger("Unfinished Business Settings","MINE_REMOVE_EXIT_GRID_FROM_WORLD_1",12422); 
+	gGameUBOptions.MineRemoveExitGridFromWorld2 = iniReader.ReadInteger("Unfinished Business Settings","MINE_REMOVE_EXIT_GRID_FROM_WORLD_2",12423); 
+
+	gGameUBOptions.MineSectorUndergroundX = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_UNDERGROUND_X", 13);
+	gGameUBOptions.MineSectorUndergroundY = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_UNDERGROUND_Y", 9); 
+	gGameUBOptions.MineSectorUndergroundZ = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_UNDERGROUND_Z", 1); 
+
+	gGameUBOptions.MineSectorUndergroundGridno1 = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_UNDERGROUND_GRIDNO_1", 13057);
+	gGameUBOptions.MineSectorUndergroundGridno2 = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_UNDERGROUND_GRIDNO_2", 12897); 
+		
 	if ( gGameUBOptions.InGameHeli == TRUE ) 
 		gGameUBOptions.InGameHeliCrash = FALSE;
 	

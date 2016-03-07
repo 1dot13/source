@@ -7159,7 +7159,7 @@ void HandleSectorSpecificModificatioToMap( INT16 sMapX, INT16 sMapY, INT8 bMapZ,
 			//		MakeAllTeamMembersCrouchedThenStand();
 
 			//If the player made noise in the tunnel, enemies should be placed near them
-			HandleMovingTheEnemiesToBeNearPlayerWhenEnteringComplexMap( );
+			//HandleMovingTheEnemiesToBeNearPlayerWhenEnteringComplexMap(); //is Disabled. The problem of moving from K14_1 to K15_1.
 
 			//if the big door should be opened
 			HandleFortifiedDoor( );
