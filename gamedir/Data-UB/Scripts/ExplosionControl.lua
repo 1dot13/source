@@ -366,11 +366,11 @@ end
 if ActionID == 29 then
 
 	-- if the player is in the power plant
-		if( gWorldSectorX == 13 and gWorldSectorY == 10 and gbWorldSectorZ == 0 ) then
+		if( gWorldSectorX == UB_iniPOWERGEN_SECTOR_X and gWorldSectorY == UB_iniPOWERGEN_SECTOR_Y and gbWorldSectorZ == UB_iniPOWERGEN_SECTOR_Z ) then
 		
 				UB_HandleSeeingPowerGenFan( sGridNo )	
 				
-		elseif( gWorldSectorX == 15 and gWorldSectorY == 12 and gbWorldSectorZ == 3 ) then
+		elseif( gWorldSectorX == UB_iniSECTOR_LAUNCH_MISSLES_X and gWorldSectorY == UB_iniSECTOR_LAUNCH_MISSLES_Y and gbWorldSectorZ == UB_iniSECTOR_LAUNCH_MISSLES_Z ) then
 				
 				-- The player is hitting the switch to launch the missles
 				UB_HandlePlayerHittingSwitchToLaunchMissles()

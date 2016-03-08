@@ -1476,7 +1476,7 @@ Possible values for Here tag:
 			<East>GROUNDBARRIER</East>
 			<South>GROUNDBARRIER</South>
 			<West>GROUNDBARRIER</West>
-			<Here>FARMLAND_ROAD</Here>
+			<Here>GROUNDBARRIER</Here>
 		</Sector>
 		<Sector y="J" x="15">
 			<TravelRating>0</TravelRating>
@@ -1619,7 +1619,7 @@ Possible values for Here tag:
 			<East>GROUNDBARRIER</East>
 			<South>GROUNDBARRIER</South>
 			<West>GROUNDBARRIER</West>
-			<Here>SPARSE_ROAD</Here>
+			<Here>GROUNDBARRIER</Here>
 		</Sector>
 		<Sector y="K" x="15">
 			<TravelRating>7</TravelRating>
@@ -1769,7 +1769,7 @@ Possible values for Here tag:
 			<East>GROUNDBARRIER</East>
 			<South>GROUNDBARRIER</South>
 			<West>GROUNDBARRIER</West>
-			<Here>DENSE</Here>
+			<Here>GROUNDBARRIER</Here>
 		</Sector>
 		<Sector y="L" x="16">
 			<TravelRating>0</TravelRating>
