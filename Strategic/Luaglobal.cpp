@@ -195,6 +195,41 @@ void IniGlobalGameSetting(lua_State *L)
 	
 	lua_pushboolean(L, gGameUBOptions.InGameHeli);
 	lua_setglobal(L, "UB_iniINGAMEHELI");
+	
+	
+	
+	lua_pushinteger(L, gGameUBOptions.SectorLaunchMisslesX);
+	lua_setglobal(L, "UB_iniSECTOR_LAUNCH_MISSLES_X");
+	
+	lua_pushinteger(L, gGameUBOptions.SectorLaunchMisslesY);
+	lua_setglobal(L, "UB_iniSECTOR_LAUNCH_MISSLES_Y");
+	
+	lua_pushinteger(L, gGameUBOptions.SectorLaunchMisslesZ);
+	lua_setglobal(L, "UB_iniSECTOR_LAUNCH_MISSLES_Z");
+	
+	
+	lua_pushinteger(L, gGameUBOptions.SectorFanX);
+	lua_setglobal(L, "UB_iniPOWERGEN_SECTOR_X");
+	
+	lua_pushinteger(L, gGameUBOptions.SectorFanY);
+	lua_setglobal(L, "UB_iniPOWERGEN_SECTOR_Y");
+	
+	lua_pushinteger(L, gGameUBOptions.SectorFanZ);
+	lua_setglobal(L, "UB_iniPOWERGEN_SECTOR_Z");
+	
+
+	lua_pushinteger(L, gGameUBOptions.SectorDoorInTunnelX);
+	lua_setglobal(L, "UB_iniSECTOR_DOOR_IN_TUNNEL_X");
+	
+	lua_pushinteger(L, gGameUBOptions.SectorDoorInTunnelY);
+	lua_setglobal(L, "UB_iniSECTOR_DOOR_IN_TUNNEL_Y");
+	
+	lua_pushinteger(L, gGameUBOptions.SectorDoorInTunnelZ);
+	lua_setglobal(L, "UB_SECTOR_DOOR_IN_TUNNEL_Z");
+
+	
+	
+	
 #endif
 	
 	//Mod Setting.ini

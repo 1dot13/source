@@ -3651,12 +3651,12 @@ void PerformItemAction( INT32 sGridNo, OBJECTTYPE * pObj )
 
 		case ACTION_ITEM_SEE_POWER_GEN_FAN:
 			
-			//if the player is in the power plant
-			if( gWorldSectorX == 13 && gWorldSectorY == 10 && gbWorldSectorZ == 0 )
+			//if the player is in the power plant J13
+			if( gWorldSectorX == gGameUBOptions.SectorFanX && gWorldSectorY == gGameUBOptions.SectorFanY && gbWorldSectorZ == gGameUBOptions.SectorFanZ )
 			{
 				HandleSeeingPowerGenFan( sGridNo );
 			}
-			else if( gWorldSectorX == 15 && gWorldSectorY == 12 && gbWorldSectorZ == 3 )
+			else if( gWorldSectorX == gGameUBOptions.SectorLaunchMisslesX && gWorldSectorY == gGameUBOptions.SectorLaunchMisslesY && gbWorldSectorZ == gGameUBOptions.SectorLaunchMisslesZ ) //L15-3
 			{
 				//The player is hitting the switch to launch the missles
 				HandlePlayerHittingSwitchToLaunchMissles();
@@ -5232,8 +5232,8 @@ BOOLEAN ShouldThePlayerStopWhenWalkingOnBiggensActionItem( UINT8 ubRecordNum )
 // This function checks if we should replace the fan graphic
 BOOLEAN IsFanGraphicInSectorAtThisGridNo( UINT32 sGridNo )
 {
-	// First check current sector......
-	if( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_J && gbWorldSectorZ == 0 )
+	// First check current sector...... J13-0
+	if( gWorldSectorX == gGameUBOptions.SectorFanX && gWorldSectorY == gGameUBOptions.SectorFanY && gbWorldSectorZ == gGameUBOptions.SectorFanZ )
 	{
 		//if this is the right gridno
 		/*if( sGridNo == 10978 || 
@@ -5321,8 +5321,8 @@ void HandleDestructionOfPowerGenFan()
 
 void HandleExplosionsInTunnelSector( UINT32 sGridNo )
 {
-	//if this isnt the tunnel sectors
-	if( !( gWorldSectorX == 14 && ( gWorldSectorY == MAP_ROW_J || gWorldSectorY == MAP_ROW_K ) && gbWorldSectorZ == 1 ) )
+	//if this isnt the tunnel sectors J14-1 and K14-1
+	if( !( gWorldSectorX == gGameUBOptions.ExitForFanToPowerGenSectorX && ( gWorldSectorY == gGameUBOptions.ExitForFanToPowerGenSectorY || gWorldSectorY == gGameUBOptions.SectorOpenGateInTunnelY ) && gbWorldSectorZ == 1 ) )
 	{
 		//get the fuck out...
 		return;
@@ -5337,8 +5337,8 @@ void HandleSeeingFortifiedDoor( UINT32 sGridNo )
 {
 	INT32 sID=0;
 
-	//if this isnt the First level of the complex
-	if( !( gWorldSectorX == 15 && gWorldSectorY == MAP_ROW_K && gbWorldSectorZ == 1 ) )
+	//if this isnt the First level of the complex K15-1
+	if( !( gWorldSectorX == gGameUBOptions.SectorDoorInTunnelX && gWorldSectorY == gGameUBOptions.SectorDoorInTunnelY && gbWorldSectorZ == gGameUBOptions.SectorDoorInTunnelZ ) )
 	{
 		//get the fuck out...
 		return;

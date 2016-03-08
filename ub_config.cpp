@@ -311,7 +311,69 @@ void LoadGameUBOptions()
 
 	gGameUBOptions.MineSectorUndergroundGridno1 = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_UNDERGROUND_GRIDNO_1", 13057);
 	gGameUBOptions.MineSectorUndergroundGridno2 = iniReader.ReadInteger("Unfinished Business Settings","MINE_SECTOR_UNDERGROUND_GRIDNO_2", 12897); 
-		
+	
+	//K15-1
+	gGameUBOptions.SectorDoorInTunnelX = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_DOOR_IN_TUNNEL_X", 15); 	
+	gGameUBOptions.SectorDoorInTunnelY = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_DOOR_IN_TUNNEL_Y", 11); 
+	gGameUBOptions.SectorDoorInTunnelZ = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_DOOR_IN_TUNNEL_Z", 1); 
+	
+	gGameUBOptions.SectorDoorInTunnelGridNo = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_DOOR_IN_TUNNEL_GRIDNO", 11419); 
+	
+	//H9
+	gGameUBOptions.SectorGuardPostX = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_GUARDPOST_X", 9); 	
+	gGameUBOptions.SectorGuardPostY = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_GUARDPOST_Y", 8); 
+	gGameUBOptions.SectorGuardPostZ = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_GUARDPOST_Z", 0); 
+	
+	gGameUBOptions.H9MoneyGridNo = iniReader.ReadInteger("Unfinished Business Settings","H9_MONEY_GRIDNO", 9026); 	
+	gGameUBOptions.H9MoneyEasy = iniReader.ReadInteger("Unfinished Business Settings","H9_MONEY_EASY", 15000); 
+	gGameUBOptions.H9MoneyMedium = iniReader.ReadInteger("Unfinished Business Settings","H9_MONEY_MEDIUM", 10000); 
+	gGameUBOptions.H9MoneyHard = iniReader.ReadInteger("Unfinished Business Settings","H9_MONEY_HARD", 7000); 
+	
+	//I10
+	gGameUBOptions.FristSectorTownX = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN1_X", 10); 	
+	gGameUBOptions.FristSectorTownY = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN1_Y", 9); 
+	gGameUBOptions.FristSectorTownZ = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN1_Z", 0); 
+	
+	gGameUBOptions.I10MoneyGridNo1 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_GRIDNO_1", 11894); 	
+	gGameUBOptions.I10MoneyEasy1 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_EASY_1", 8000); 
+	gGameUBOptions.I10MoneyMedium1 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_MEDIUM_1", 4000); 
+	gGameUBOptions.I10MoneyHard1 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_HARD_1", 3000); 
+	
+	gGameUBOptions.I10MoneyGridNo2 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_GRIDNO_2", 7906); 	
+	gGameUBOptions.I10MoneyEasy2 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_EASY_2", 12000); 
+	gGameUBOptions.I10MoneyMedium2 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_MEDIUM_2", 6000); 
+	gGameUBOptions.I10MoneyHard2 = iniReader.ReadInteger("Unfinished Business Settings","I10_MONEY_HARD_2", 5000); 
+	
+	//J11
+	gGameUBOptions.SectorTown2X = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN2_X", 10); 	
+	gGameUBOptions.SectorTown2Y = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN2_Y", 9); 
+	gGameUBOptions.SectorTown2Z = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN2_Z", 0); 
+	
+	//H11
+	gGameUBOptions.SectorTown3X = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN3_X", 11); 	
+	gGameUBOptions.SectorTown3Y = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN3_Y", 8); 
+	gGameUBOptions.SectorTown3Z = iniReader.ReadInteger("Unfinished Business Settings","SECTOR_TOWN3_Z", 0); 
+	
+	gGameUBOptions.SectorTownGridNo1a = iniReader.ReadInteger("Unfinished Business Settings","TOWN2_FROM_GRIDNO_1", 15446); 
+	gGameUBOptions.SectorTownGridNo1b = iniReader.ReadInteger("Unfinished Business Settings","TOWN2_TO_ROOF_GRIDNO_1", 13993); 
+
+	gGameUBOptions.SectorTownGridNo2a = iniReader.ReadInteger("Unfinished Business Settings","TOWN2_FROM_GRIDNO_2", 15436); 
+	gGameUBOptions.SectorTownGridNo2b = iniReader.ReadInteger("Unfinished Business Settings","TOWN2_TO_ROOF_GRIDNO_2", 14006); 
+	
+	gGameUBOptions.SectorTownGridNo3a = iniReader.ReadInteger("Unfinished Business Settings","TOWN3_FROM_GRIDNO_1", 8711); 
+	gGameUBOptions.SectorTownGridNo3b = iniReader.ReadInteger("Unfinished Business Settings","TOWN3_TO_ROOF_GRIDNO_1", 5521); 
+	
+	//I9
+	gGameUBOptions.I9SectorPlayerQuoteX = iniReader.ReadInteger("Unfinished Business Settings","I9_SECTOR_PLAYER_QUOTE_X", 9); 	
+	gGameUBOptions.I9SectorPlayerQuoteY = iniReader.ReadInteger("Unfinished Business Settings","I9_SECTOR_PLAYER_QUOTE_Y", 9); 
+	gGameUBOptions.I9SectorPlayerQuoteZ = iniReader.ReadInteger("Unfinished Business Settings","I9_SECTOR_PLAYER_QUOTE_Z", 0); 
+	
+	//H10
+	gGameUBOptions.H10SectorPlayerQuoteX = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_X", 10); 	
+	gGameUBOptions.H10SectorPlayerQuoteY = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_Y", 8); 
+	gGameUBOptions.H10SectorPlayerQuoteZ = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_Z", 0); 
+
+
 	if ( gGameUBOptions.InGameHeli == TRUE ) 
 		gGameUBOptions.InGameHeliCrash = FALSE;
 	

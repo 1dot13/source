@@ -160,8 +160,64 @@ typedef struct
 	UINT32 MineSectorUndergroundZ; 
 	
 	UINT32 MineSectorUndergroundGridno1;
-	UINT32 MineSectorUndergroundGridno2;	
+	UINT32 MineSectorUndergroundGridno2;
 
+	UINT32 SectorDoorInTunnelX;
+	UINT32 SectorDoorInTunnelY; 
+	UINT32 SectorDoorInTunnelZ; 
+	
+	UINT32 SectorGuardPostX;
+	UINT32 SectorGuardPostZ; 
+	UINT32 SectorGuardPostY; 
+	
+	UINT32 H9MoneyGridNo; 	
+	UINT32 H9MoneyEasy; 
+	UINT32 H9MoneyMedium; 
+	UINT32 H9MoneyHard; 
+	
+	UINT32 FristSectorTownX; 	
+	UINT32 FristSectorTownY; 
+	UINT32 FristSectorTownZ; 
+	
+	UINT32 I10MoneyGridNo1; 	
+	UINT32 I10MoneyEasy1; 
+	UINT32 I10MoneyMedium1; 
+	UINT32 I10MoneyHard1; 
+	
+	UINT32 I10MoneyGridNo2; 	
+	UINT32 I10MoneyEasy2; 
+	UINT32 I10MoneyMedium2; 
+	UINT32 I10MoneyHard2; 
+
+	UINT32 SectorTown2X; 	
+	UINT32 SectorTown2Y; 
+	UINT32 SectorTown2Z; 
+
+	UINT32 SectorTown3X; 	
+	UINT32 SectorTown3Y; 
+	UINT32 SectorTown3Z;
+	
+	UINT32 SectorTownGridNo1a; 
+	UINT32 SectorTownGridNo1b; 
+
+	UINT32 SectorTownGridNo2a; 
+	UINT32 SectorTownGridNo2b; 
+	
+	UINT32 SectorTownGridNo3a; 
+	UINT32 SectorTownGridNo3b; 
+	
+	//I9
+	UINT32 I9SectorPlayerQuoteX; 	
+	UINT32 I9SectorPlayerQuoteY; 
+	UINT32 I9SectorPlayerQuoteZ; 
+	
+	//H10
+	UINT32 H10SectorPlayerQuoteX; 	
+	UINT32 H10SectorPlayerQuoteY; 
+	UINT32 H10SectorPlayerQuoteZ; 
+	
+	UINT32 SectorDoorInTunnelGridNo;
+	
 	UINT8 MaxNumberOfMercs;
        
 } GAME_UB_OPTIONS;
