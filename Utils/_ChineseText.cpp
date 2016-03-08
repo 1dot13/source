@@ -9793,7 +9793,7 @@ STR16   szTacticalCoverDialogString[]=
         L"角色", //L"Roles",
 		L"Fortification",	// TODO.Translate
 		L"跟踪者",//	L"Tracker",
-        L"",
+		L"CTH mode",
 
         L"陷阱",
         L"绊线网",

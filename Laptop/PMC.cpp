@@ -326,8 +326,6 @@ BOOLEAN EnterPMCContract( )
 			if ( SectorOursAndPeaceful( sX, sY, 0 ) )
 			{
 				// if militia can land in this sector, add it to our list
-				// Is there a prison in this sector?
-				UINT16 prisonerbaselimit = 0;
 				for ( UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt )
 				{
 					// Is this facility here?

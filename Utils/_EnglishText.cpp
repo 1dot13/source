@@ -9844,7 +9844,7 @@ STR16   szTacticalCoverDialogString[]=
         L"Roles",
         L"Fortification",
         L"Tracker",
-        L"",
+        L"CTH mode",
 
         L"Traps",
         L"Network",

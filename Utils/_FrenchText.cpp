@@ -9791,7 +9791,7 @@ STR16   szTacticalCoverDialogString[]=
         L"Roles",	// TODO.Translate
 		L"Fortification",	// TODO.Translate
 		L"Tracker",
-        L"",
+		L"CTH mode",
 
         L"Pièges",
         L"Réseau",

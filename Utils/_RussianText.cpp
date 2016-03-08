@@ -9844,7 +9844,7 @@ STR16   szTacticalCoverDialogString[]=
         L"Задачи",
 		L"Fortification",	// TODO.Translate
         L"Слежение",
-        L"",
+		L"CTH mode",
 
         L"Ловушки",
         L"Сеть",

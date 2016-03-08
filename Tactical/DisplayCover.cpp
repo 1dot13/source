@@ -33,6 +33,7 @@
 // HEADROCK HAM B2.7: Allow calling a CTH approximation function for the CTH display ("F" key)
 #include "UI Cursors.h"
 #include "soldier profile type.h"
+#include "Interface Cursors.h"	// added by Flugente for UICursorDefines
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -91,6 +92,7 @@ void	CalculateMines();
 void	CalculateTraitRange();
 void	CalculateTrackerRange();
 void	CalculateFortify();
+void	CalculateWeapondata();
 
 void	GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo );
 
@@ -513,6 +515,10 @@ void DisplayCover( BOOLEAN forceUpdate )
 
 		case DRAW_MODE_FORTIFY:
 			CalculateFortify( );
+			break;
+
+		case DRAW_MODE_WEAPONDATA:
+			CalculateWeapondata();
 			break;
 		}
 
@@ -1557,6 +1563,184 @@ void CalculateFortify( )
 		return;
 
 	register INT32 ubX, ubY, ubZ;
+	BOOLEAN fChanged = FALSE;
+
+	BOOLEAN fNightTime = NightTime( );
+
+	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
+	{
+		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		{
+			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER )
+				{
+					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
+					fChanged = TRUE;
+				}
+			}
+		}
+	}
+
+	// Re-render the scene!
+	if ( fChanged )
+	{
+		SetRenderFlags( RENDER_FLAG_FULL );
+	}
+}
+
+extern INT32 gsPhysicsImpactPointGridNo;
+extern UINT32 guiNewUICursor;
+
+void CalculateWeapondata()
+{
+	if ( gsMaxCellY < 0 )
+		return;
+
+	INT32 ubX, ubY;
+	INT8  ubZ;
+	SOLDIERTYPE* pSoldier;
+
+	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) || !pSoldier->bInSector )
+		return;
+
+	BOOLEAN guninhand = WeaponInHand( pSoldier );
+
+	INT32 sSelectedSoldierGridNo = MercPtrs[gusSelectedSoldier]->sGridNo;
+
+	if ( TileIsOutOfBounds( sSelectedSoldierGridNo ) )
+		return;
+
+	//Get the gridno the cursor is at
+	INT32 sMouseGridNo = NOWHERE;		
+	GetMouseMapPos( &sMouseGridNo );
+
+	// depending on whether we have a grenade fire or a bomb to plant, different gridnos are relevant for explosives
+	INT32 explosivetargetgridno = NOWHERE;
+
+	// grenade cursor is stored in gsPhysicsImpactPointGridNo, we have to check whether that's valid, and whether we use that cursor right now
+	BOOLEAN tosscursorisvalid = FALSE;
+	if ( !TileIsOutOfBounds( gsPhysicsImpactPointGridNo ) && (guiNewUICursor == GOOD_THROW_UICURSOR || guiNewUICursor == BAD_THROW_UICURSOR) )
+	{
+		tosscursorisvalid = TRUE;
+
+		explosivetargetgridno = gsPhysicsImpactPointGridNo;
+	}
+	else if ( !TileIsOutOfBounds( sMouseGridNo ) && (guiNewUICursor == PLACE_BOMB_GREY_UICURSOR || guiNewUICursor == PLACE_BOMB_RED_UICURSOR) )
+	{
+		 tosscursorisvalid = TRUE;
+
+		 explosivetargetgridno = sMouseGridNo;
+	}
+
+	UINT16 gunrange = 0;
+	INT16 laserrange = 0;
+	UINT16 explosionradius = 0;
+	UINT16 fragrange = 0;
+
+	OBJECTTYPE* pObjPlatform = NULL;
+	OBJECTTYPE* pObjUsed = NULL;
+
+	if ( &pSoldier->inv[HANDPOS] && Item[(pSoldier->inv[HANDPOS]).usItem].usItemClass & IC_WEAPON )
+	{
+		pObjPlatform = pSoldier->GetUsedWeapon( &pSoldier->inv[HANDPOS] );
+
+		if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
+		{
+			pObjUsed = FindAttachment_GrenadeLauncher( &pSoldier->inv[HANDPOS] );
+		}
+		else
+		{
+			pObjUsed = pObjPlatform;
+		}
+
+		gunrange = GunRange( pObjUsed, pSoldier ) / 10;
+		laserrange = GetBestLaserRange( pObjPlatform ) / 10;
+
+		if ( Item[pObjUsed->usItem].usItemClass & IC_LAUNCHER )
+		{
+			OBJECTTYPE *pAttachment = FindLaunchableAttachment( pObjPlatform, pObjUsed->usItem );
+			
+			if ( pAttachment )
+			{
+				explosionradius = Explosive[Item[pAttachment->usItem].ubClassIndex].ubRadius;
+
+				fragrange = Explosive[Item[pAttachment->usItem].ubClassIndex].ubFragRange / 10;
+			}
+		}
+	}
+	else if ( &pSoldier->inv[HANDPOS] && Item[(pSoldier->inv[HANDPOS]).usItem].usItemClass & IC_EXPLOSV )
+	{
+		pObjPlatform = &pSoldier->inv[HANDPOS];
+
+		pObjUsed = pObjPlatform;
+
+		explosionradius = Explosive[Item[pObjUsed->usItem].ubClassIndex].ubRadius;
+
+		fragrange = Explosive[Item[pObjUsed->usItem].ubClassIndex].ubFragRange / 10;
+	}
+	
+	// we have to store and later reset the soldier's target level
+	INT8 bTempTargetLevel = pSoldier->bTargetLevel;
+
+	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
+	{
+		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		{
+			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
+			{
+				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
+
+				if ( !GridNoOnScreenAndAround( sGridNo, 2 ) )
+					continue;
+
+				if ( IsTheRoofVisible( sGridNo ) )
+				{
+					// do not show stuff on ground if roof is shown
+					if ( ubZ == I_GROUND_LEVEL )
+						continue;
+				}
+				else
+				{
+					// do not show stuff on roofs if ground is shown
+					if ( ubZ == I_ROOF_LEVEL )
+						continue;
+				}
+
+				if ( !NewOKDestination( pSoldier, sGridNo, false, ubZ ) )
+					continue;
+				
+				if ( tosscursorisvalid && explosionradius > 0 && PythSpacesAway( explosivetargetgridno, sGridNo ) <= explosionradius )
+					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = NO_COVER;
+				else if ( tosscursorisvalid && fragrange > 0 && PythSpacesAway( explosivetargetgridno, sGridNo ) <= fragrange )
+					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MIN_COVER;
+				else
+				{
+					if ( GetDirectionToGridNoFromGridNo( sSelectedSoldierGridNo, sGridNo ) != pSoldier->ubDirection )
+						continue;
+
+					if ( guninhand && gunrange > 0 && PythSpacesAway( sSelectedSoldierGridNo, sGridNo ) <= gunrange )
+					{
+						pSoldier->bTargetLevel = ubZ;
+						UINT32 uiHitChance = CalcChanceToHitGun( pSoldier, sGridNo, (INT8)(pSoldier->aiData.bShownAimTime), pSoldier->bAimShotLocation );
+
+						if ( uiHitChance > 75 )
+							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MAX_COVER;
+						else if ( uiHitChance > 50 )
+							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MED_COVER;
+						else if ( uiHitChance > 25 )
+							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MIN_COVER;
+						else if ( uiHitChance > 0 )
+							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = NO_COVER;
+					}
+				}
+			}
+		}
+	}
+
+	// important: reset target level to what it really was
+	pSoldier->bTargetLevel = bTempTargetLevel;
+	
 	BOOLEAN fChanged = FALSE;
 
 	BOOLEAN fNightTime = NightTime( );

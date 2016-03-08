@@ -5609,8 +5609,8 @@ void GetLaunchItemParamsFromUI( )
 
 
 static BOOLEAN gfDisplayPhysicsUI = FALSE;
-static INT32	 gsPhysicsImpactPointGridNo;
-static INT8		gbPhysicsImpactPointLevel;
+INT32	 gsPhysicsImpactPointGridNo = NOWHERE;
+static INT8		gbPhysicsImpactPointLevel = 0;
 static BOOLEAN gfBadPhysicsCTGT = FALSE;
 
 void BeginPhysicsTrajectoryUI( INT32 sGridNo, INT8 bLevel, BOOLEAN fBadCTGT )

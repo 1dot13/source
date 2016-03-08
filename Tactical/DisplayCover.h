@@ -79,6 +79,8 @@ enum COVER_DRAW_MODE {
 	DRAW_MODE_TRACKER_SMELL,
 
 	DRAW_MODE_FORTIFY,
+
+	DRAW_MODE_WEAPONDATA,
 };
 
 void ChangeSizeOfDisplayCover( INT32 iNewSize );

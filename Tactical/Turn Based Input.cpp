@@ -8211,15 +8211,15 @@ void HandleTacticalCoverMenu( void )
 	gzUserDefinedButtonColor[4] = gDisplayEnemyRoles ? FONT_MCOLOR_LTGREEN : FONT_LTRED;
 	gzUserDefinedButtonColor[5] = (gubDrawMode != DRAW_MODE_FORTIFY) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
 	gzUserDefinedButtonColor[6] = (gubDrawMode != DRAW_MODE_TRACKER_SMELL) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
-	gzUserDefinedButtonColor[7] = 0;
-	gzUserDefinedButtonColor[8] = (gubDrawMode != MINES_DRAW_PLAYERTEAM_NETWORKS) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
-	gzUserDefinedButtonColor[9] = (gubDrawMode != MINES_DRAW_NETWORKCOLOURING) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
-	gzUserDefinedButtonColor[10] = (gubDrawMode != MINES_DRAW_DETECT_ENEMY) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
+	gzUserDefinedButtonColor[7] = (gubDrawMode != DRAW_MODE_WEAPONDATA) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[8] = (gubDrawMode != MINES_DRAW_PLAYERTEAM_NETWORKS) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[9] = (gubDrawMode != MINES_DRAW_NETWORKCOLOURING) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[10] = (gubDrawMode != MINES_DRAW_DETECT_ENEMY) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
 	gzUserDefinedButtonColor[11] = 0;
 	gzUserDefinedButtonColor[12] = (gubDrawMode != MINES_DRAW_NET_A) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
-	gzUserDefinedButtonColor[13] = (gubDrawMode != MINES_DRAW_NET_B) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
-	gzUserDefinedButtonColor[14] = (gubDrawMode != MINES_DRAW_NET_C) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
-	gzUserDefinedButtonColor[15] = (gubDrawMode != MINES_DRAW_NET_D) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;;
+	gzUserDefinedButtonColor[13] = (gubDrawMode != MINES_DRAW_NET_B) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[14] = (gubDrawMode != MINES_DRAW_NET_C) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
+	gzUserDefinedButtonColor[15] = (gubDrawMode != MINES_DRAW_NET_D) ? FONT_LTRED : FONT_MCOLOR_LTGREEN;
 
 	DoMessageBox( MSG_BOX_BASIC_STYLE,  szTacticalCoverDialogString[0], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS, TacticalCoverMessageBoxCallBack, NULL );
 }
@@ -8255,6 +8255,10 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue )
 			gubDrawMode = DRAW_MODE_TRACKER_SMELL;
 		break;
 	case 8:
+		if ( gubDrawMode == DRAW_MODE_WEAPONDATA )
+			gubDrawMode = DRAW_MODE_OFF;
+		else
+			gubDrawMode = DRAW_MODE_WEAPONDATA;
 		break;
 	case 9:
 		gubDrawMode = MINES_DRAW_PLAYERTEAM_NETWORKS;
