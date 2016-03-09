@@ -82,10 +82,11 @@ BOOLEAN fShowTownFlag = FALSE;
 BOOLEAN fShowMineFlag = FALSE;
 BOOLEAN fShowTeamFlag = FALSE;
 BOOLEAN fShowMilitia = FALSE;
-BOOLEAN fShowAircraftFlag = FALSE;
 BOOLEAN fShowItemsFlag = FALSE;
-BOOLEAN fShowMobileRestrictionsFlag = FALSE;	// HEADROCK HAM 4
-UINT8 fShowStrategicDiseaseFlag = 0;			// Flugente: disease
+
+// Flugente: unified several display modes
+UINT8 gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
+
 
 //BOOLEAN fShowVehicleFlag = FALSE;
 
@@ -597,13 +598,7 @@ void ToggleShowTownsMode( void )
 			fShowMineFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MINE_BTN );
 		}
-
-		if( fShowAircraftFlag == TRUE )
-		{
-			fShowAircraftFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		}
-
+		
 		if( fShowItemsFlag == TRUE )
 		{
 			fShowItemsFlag = FALSE;
@@ -635,29 +630,11 @@ void ToggleShowMinesMode( void )
 			fShowTownFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_TOWN_BTN );
 		}
-
-		if( fShowAircraftFlag == TRUE )
-		{
-			fShowAircraftFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		}
-
+		
 		if( fShowItemsFlag == TRUE )
 		{
 			fShowItemsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
-		}
-		// HEADROCK HAM 4: Mobile Militia Restrictions
-		if( fShowMobileRestrictionsFlag == TRUE )
-		{
-			fShowMobileRestrictionsFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
-		}
-
-		if ( fShowStrategicDiseaseFlag )
-		{
-			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
-			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		}
 	}
 
@@ -687,22 +664,12 @@ void ToggleShowMilitiaMode( void )
 			fShowTeamFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_TEAMS_BTN );
 		}
-
-/*
-		// if Airspace is ON, turn it OFF
-		if( fShowAircraftFlag == TRUE )
-		{
-			fShowAircraftFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		}
-*/
-
+		
 		if ( fShowItemsFlag == TRUE )
 		{
 			fShowItemsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
 		}
-
 
 		// check if player has any militia
 		if ( DoesPlayerHaveAnyMilitia( ) == FALSE )
@@ -759,10 +726,11 @@ void ToggleShowTeamsMode( void )
 
 void ToggleAirspaceMode( void )
 {
-	if( fShowAircraftFlag == TRUE )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 	{
 		// turn airspace OFF
-		fShowAircraftFlag = FALSE;
+		gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
+
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 
 		if( fPlotForHelicopter )
@@ -811,10 +779,10 @@ void ToggleItemsFilter( void )
 // Flugente: disease
 void ToggleDiseaseFilter( void )
 {
-	if ( fShowStrategicDiseaseFlag == MAPMODE_MAX - 1 )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_DISEASE )
 	{
-		// turn items OFF
-		fShowStrategicDiseaseFlag = MAPMODE_OFF;
+		gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
+
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 
 		// dirty regions
@@ -832,10 +800,10 @@ void ToggleDiseaseFilter( void )
 // HEADROCK HAM 4: Toggle Mobile Restrictions Button
 void ToggleMobileFilter( void )
 {
-	if( fShowMobileRestrictionsFlag == TRUE )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_MOBILEMILITIARESTRICTIONS )
 	{
-		// turn items OFF
-		fShowMobileRestrictionsFlag = FALSE;
+		gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
+
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 
 		// dirty regions
@@ -947,19 +915,7 @@ void TurnOnShowTeamsMode( void )
 			fShowMilitia = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
-		// HEADROCK HAM 4: Turn off Show Militia Restrictions
-		if (fShowMobileRestrictionsFlag == TRUE)
-		{
-			fShowMobileRestrictionsFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
-		}
-
-		if ( fShowStrategicDiseaseFlag )
-		{
-			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
-			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
-		}
-
+		
 		if( fShowItemsFlag == TRUE )
 		{
 			fShowItemsFlag = FALSE;
@@ -980,11 +936,13 @@ void TurnOnAirSpaceMode( void )
 {
 	// if mode already on, leave, else set and redraw
 
-	if( fShowAircraftFlag == FALSE )
+	if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
 	{
-		fShowAircraftFlag = TRUE;
-		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
+		gusMapDisplayColourMode = MAP_DISPLAY_AIRSPACE;
 
+		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
+		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 
 		// Turn off towns & mines (mostly because town/mine names overlap SAM site names)
 		if( fShowTownFlag == TRUE )
@@ -1013,18 +971,6 @@ void TurnOnAirSpaceMode( void )
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
 */
-		// HEADROCK HAM 4: Turn off Militia Restrictions
-		if (fShowMobileRestrictionsFlag == TRUE)
-		{
-			fShowMobileRestrictionsFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
-		}
-
-		if ( fShowStrategicDiseaseFlag )
-		{
-			fShowStrategicDiseaseFlag = MAPMODE_OFF;
-			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
-		}
 
 		// Turn off items
 		if( fShowItemsFlag == TRUE )
@@ -1037,7 +983,6 @@ void TurnOnAirSpaceMode( void )
 		{
 			AbortMovementPlottingMode( );
 		}
-
 
 		// if showing underground
 		if ( iCurrentMapSectorZ != 0 )
@@ -1096,25 +1041,7 @@ void TurnOnItemFilterMode( void )
 			fShowMilitia = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
-		// HEADROCK HAM 4: Turn off Militia Restrictions
-		if (fShowMobileRestrictionsFlag == TRUE)
-		{
-			fShowMobileRestrictionsFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
-		}
-
-		if ( fShowStrategicDiseaseFlag )
-		{
-			fShowStrategicDiseaseFlag = MAPMODE_DISEASE;
-			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
-		}
-
-		if( fShowAircraftFlag == TRUE )
-		{
-			fShowAircraftFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		}
-
+		
 		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
@@ -1135,9 +1062,12 @@ void TurnOnItemFilterMode( void )
 void TurnOnDiseaseFilterMode( void )
 {
 	// if mode already on, leave, else set and redraw
-	if ( fShowStrategicDiseaseFlag < MAPMODE_MAX - 1 )
+	if ( gusMapDisplayColourMode != MAP_DISPLAY_DISEASE )
 	{
-		++fShowStrategicDiseaseFlag;
+		gusMapDisplayColourMode = MAP_DISPLAY_DISEASE;
+
+		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
 
 		if( fShowItemsFlag == TRUE )
@@ -1145,7 +1075,7 @@ void TurnOnDiseaseFilterMode( void )
 			fShowItemsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
 		}
-
+		
 		// Turn off towns, mines, teams, militia & airspace if any are on
 		if( fShowTownFlag == TRUE )
 		{
@@ -1170,19 +1100,7 @@ void TurnOnDiseaseFilterMode( void )
 			fShowMilitia = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
-		// HEADROCK HAM 4: Turn off Militia Restrictions
-		if (fShowMobileRestrictionsFlag == TRUE)
-		{
-			fShowMobileRestrictionsFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
-		}
-				
-		if( fShowAircraftFlag == TRUE )
-		{
-			fShowAircraftFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		}
-
+		
 		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
@@ -1192,7 +1110,7 @@ void TurnOnDiseaseFilterMode( void )
 			CancelChangeArrivalSectorMode( );
 		}
 
-		if ( fShowStrategicDiseaseFlag == MAPMODE_DISEASE && !gubFact[FACT_DISEASE_VIEWED] )
+		if ( !gubFact[FACT_DISEASE_VIEWED] )
 		{
 			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, zMarksMapScreenText[27] );
 
@@ -1211,14 +1129,17 @@ void TurnOnMobileFilterMode( void )
 {
 	// if mode already on, leave, else set and redraw
 
-	if( fShowMobileRestrictionsFlag == FALSE )
+	if ( gusMapDisplayColourMode != MAP_DISPLAY_MOBILEMILITIARESTRICTIONS )
 	{
-		fShowMobileRestrictionsFlag = TRUE;
+		gusMapDisplayColourMode = MAP_DISPLAY_MOBILEMILITIARESTRICTIONS;
+
+		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
+		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+
 		// Also turn on Militia mode
 		fShowMilitia = FALSE; // Fool the function so that it always turns militia ON.
 		ToggleShowMilitiaMode();
-
 
 		if( fShowMineFlag == TRUE )
 		{
@@ -1231,26 +1152,14 @@ void TurnOnMobileFilterMode( void )
 			fShowTeamFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_TEAMS_BTN );
 		}
-
-		if( fShowAircraftFlag == TRUE )
-		{
-			fShowAircraftFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		}
-
+		
 		// Turn off items
 		if( fShowItemsFlag == TRUE )
 		{
 			fShowItemsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
 		}
-
-		if ( fShowStrategicDiseaseFlag )
-		{
-			fShowStrategicDiseaseFlag = MAPMODE_OFF;
-			MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
-		}
-
+		
 		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
@@ -1327,16 +1236,7 @@ void InitializeMapBorderButtonStates( void )
 	{
 		MapBorderButtonOff( MAP_BORDER_TEAMS_BTN );
 	}
-
-	if( fShowAircraftFlag )
-	{
-		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
-	}
-	else
-	{
-		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-	}
-
+	
 	if( fShowMilitia )
 	{
 		MapBorderButtonOn( MAP_BORDER_MILITIA_BTN );
@@ -1346,22 +1246,25 @@ void InitializeMapBorderButtonStates( void )
 		MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 	}
 
-	if( fShowMobileRestrictionsFlag )
+	switch ( gusMapDisplayColourMode )
 	{
-		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
-	}
-	else
-	{
+	case MAP_DISPLAY_AIRSPACE:
+		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
-	}
-
-	if ( fShowStrategicDiseaseFlag )
-	{
-		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
-	}
-	else
-	{
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		break;
+
+	case MAP_DISPLAY_MOBILEMILITIARESTRICTIONS:
+		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
+		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		break;
+
+	case MAP_DISPLAY_DISEASE:
+		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
+		break;
 	}
 }
 
@@ -1443,14 +1346,9 @@ void InitMapScreenFlags( void )
 	fShowTeamFlag = TRUE;
 	fShowMilitia = FALSE;
 
-	fShowAircraftFlag = FALSE;
 	fShowItemsFlag = FALSE;
 
-	// HEADROCK HAM 4: Militia Restrictions
-	fShowMobileRestrictionsFlag = FALSE;
-
-	// Flugente
-	fShowStrategicDiseaseFlag = MAPMODE_OFF;
+	gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
 }
 
 

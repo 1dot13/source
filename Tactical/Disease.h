@@ -138,7 +138,7 @@ INT16 GetAdjacentSector( UINT8 sector, UINT8 spdir );
 UINT16 GetSectorPopulation( INT16 sX, INT16 sY, BOOLEAN fWithMilitary = TRUE );
 
 // colour for a sector on the map
-INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 mode );
+INT32 GetMapColour( INT16 sX, INT16 sY, BOOLEAN aDiseaseOn );
 
 // handle infection redistribution if people move from A to B (set sXB  and sYB to negative values to simply remove infected people in A)
 void PopulationMove( INT16 sXA, INT16 sYA, INT16 sXB, INT16 sYB, UINT16 usAmount );

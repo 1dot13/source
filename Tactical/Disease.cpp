@@ -503,47 +503,43 @@ UINT16 GetSectorPopulation( INT16 sX, INT16 sY, BOOLEAN fWithMilitary )
 }
 
 // colour for a sector on the map
-INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 mode )
+INT32 GetMapColour( INT16 sX, INT16 sY, BOOLEAN aDiseaseOn )
 {
-	UINT8 sector = SECTOR( sX, sY );
-
-	switch ( mode )
+	if ( aDiseaseOn )
 	{
-		case MAPMODE_DISEASE:
+		UINT16 population = GetSectorPopulation( sX, sY );
+
+		if ( population )
 		{
-			UINT16 population = GetSectorPopulation( sX, sY );
+			UINT8 sector = SECTOR( sX, sY );
 
-			if ( population )
+			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+			// display sector information only if we know about infection there
+			if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) )
 			{
-				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+				FLOAT infectedpercentage = (FLOAT)pSectorInfo->usInfected / (FLOAT)(population);
 
-				// display sector information only if we know about infection there
-				if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) )
-				{
-					FLOAT infectedpercentage = (FLOAT)pSectorInfo->usInfected / (FLOAT)(population);
-
-					if ( infectedpercentage < 0.2f )
-						return MAP_SHADE_DK_GREEN;
-					else if ( infectedpercentage < 0.3f )
-						return MAP_SHADE_MD_GREEN;
-					else if ( infectedpercentage < 0.4f )
-						return MAP_SHADE_LT_GREEN;
-					else if ( infectedpercentage < 0.5f )
-						return MAP_SHADE_DK_YELLOW;
-					else if ( infectedpercentage < 0.6f )
-						return MAP_SHADE_MD_YELLOW;
-					else if ( infectedpercentage < 0.7f )
-						return MAP_SHADE_LT_YELLOW;
-					else if ( infectedpercentage < 0.8f )
-						return MAP_SHADE_DK_RED;
-					else if ( infectedpercentage < 0.9f )
-						return MAP_SHADE_MD_RED;
-					else
-						return MAP_SHADE_LT_RED;
-				}
+				if ( infectedpercentage < 0.2f )
+					return MAP_SHADE_DK_GREEN;
+				else if ( infectedpercentage < 0.3f )
+					return MAP_SHADE_MD_GREEN;
+				else if ( infectedpercentage < 0.4f )
+					return MAP_SHADE_LT_GREEN;
+				else if ( infectedpercentage < 0.5f )
+					return MAP_SHADE_DK_YELLOW;
+				else if ( infectedpercentage < 0.6f )
+					return MAP_SHADE_MD_YELLOW;
+				else if ( infectedpercentage < 0.7f )
+					return MAP_SHADE_LT_YELLOW;
+				else if ( infectedpercentage < 0.8f )
+					return MAP_SHADE_DK_RED;
+				else if ( infectedpercentage < 0.9f )
+					return MAP_SHADE_MD_RED;
+				else
+					return MAP_SHADE_LT_RED;
 			}
 		}
-		break;
 	}
 
 	return MAP_SHADE_DK_GREY;

@@ -5131,7 +5131,7 @@ UINT32 MapScreenHandle(void)
 		fLapTop=FALSE;
 
 		// reset show aircraft flag
-		//fShowAircraftFlag = FALSE;
+		//gusMapDisplayColourMode == MAP_DISPLAY_NORMAL;
 
 		// reset fact we are showing white bounding box around face
 		fShowFaceHightLight = FALSE;
@@ -5641,14 +5641,14 @@ UINT32 MapScreenHandle(void)
 
 
 	// if heli is around, show it
-	if( fHelicopterAvailable && ( fShowAircraftFlag || fShowTeamFlag ) && ( iCurrentMapSectorZ == 0 ) && !fShowMapInventoryPool )
+	if ( fHelicopterAvailable && (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || fShowTeamFlag) && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
 	{
 		// this is done on EVERY frame, I guess it beats setting entire map dirty all the time while he's moving...
 		DisplayPositionOfHelicopter( );
 	}
 
 	// Flugente: enemy helicopter
-	if ( fShowAircraftFlag && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
 	{
 		DisplayPositionOfEnemyHelicopter();
 	}
@@ -6730,7 +6730,7 @@ UINT32 HandleMapUI( )
 
 
 				// if we're in airspace mode
-				if( fShowAircraftFlag )
+				if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 				{
 					// if not moving soldiers, and not yet plotting the helicopter
 					if ( (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
@@ -9113,7 +9113,7 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 						//		- ALLOW_MILITIA_MOVEMENT_THROUGH_MINOR_CITIES = TRUE && it is a Minor Cities && we have liberated that citysector
 						//		- DynamicRestrictions if set in ini (does not matter if visited or not)
 						//if ( fShowMobileRestrictionsFlag == TRUE && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE)
-						if ( fShowMobileRestrictionsFlag && gGameExternalOptions.gflimitedRoaming &&
+						if ( gusMapDisplayColourMode == MAP_DISPLAY_MOBILEMILITIARESTRICTIONS && gGameExternalOptions.gflimitedRoaming &&
 							( ( gGameExternalOptions.fUnrestrictVisited == TRUE && SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
 							|| ( gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities && GetTownIdForSector( sMapX, sMapY ) > BLANK_SECTOR && !gfMilitiaAllowedInTown[GetTownIdForSector( sMapX, sMapY )] && SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
 							|| ( gGameExternalOptions.fDynamicRestrictRoaming && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE )
@@ -11698,7 +11698,7 @@ void PlotTemporaryPaths( void )
 	{
 		if ( fPlotForHelicopter )
 		{
-			Assert( fShowAircraftFlag );
+			Assert( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE );
 
 			// plot temp path
 			PlotATemporaryPathForHelicopter( sMapX, sMapY);
@@ -11977,7 +11977,7 @@ void CheckIfPlottingForCharacterWhileAirCraft( void )
 	// if the plotting modes are inconsistent, stop plotting
 	BOOLEAN fAbort = FALSE;
 
-	if ( fShowAircraftFlag )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 	{
 		if ( (bSelectedDestChar != -1 || fPlotForMilitia) && !fPlotForHelicopter )
 			fAbort = TRUE;
@@ -12753,7 +12753,6 @@ void RebuildWayPointsForAllSelectedCharsGroups( void )
 
 void UpdateCursorIfInLastSector( void )
 {
-
 	INT16 sMapX = 0, sMapY = 0;
 
 	// check to see if we are plotting a path, if so, see if we are highlighting the last sector int he path, if so, change the cursor
@@ -12761,7 +12760,7 @@ void UpdateCursorIfInLastSector( void )
 	{
 		GetMouseMapXY(&sMapX, &sMapY);
 
-		if ( fShowAircraftFlag )
+		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 		{
 			// check for helicopter
 			if ( fPlotForHelicopter )
@@ -14613,7 +14612,7 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	iCurrentMapSectorZ = bMapZ;
 
 	// if going underground while in airspace mode
-	if ( ( bMapZ > 0 ) && ( fShowAircraftFlag == TRUE ) )
+	if ( (bMapZ > 0) && (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE) )
 	{
 		// turn off airspace mode
 		ToggleAirspaceMode( );
@@ -14779,12 +14778,11 @@ void CancelOrShortenPlottedPath( void )
 {
 	INT16 sMapX, sMapY;
 	UINT32 uiReturnValue;
-
-
+	
 	GetMouseMapXY(&sMapX, &sMapY);
 
 	// check if we are in aircraft mode
-	if( fShowAircraftFlag )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 	{
 		// check for helicopter path being plotted
 		if( !fPlotForHelicopter )
@@ -15321,7 +15319,7 @@ void MakeMapModesSuitableForDestPlotting( INT8 bCharNumber )
 
 		if ( ( pSoldier->bAssignment == VEHICLE ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
-			if ( fShowAircraftFlag == FALSE )
+			if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
 			{
 				// turn on airspace mode automatically
 				ToggleAirspaceMode();
@@ -15329,7 +15327,7 @@ void MakeMapModesSuitableForDestPlotting( INT8 bCharNumber )
 		}
 		else
 		{
-			if ( fShowAircraftFlag == TRUE )
+			if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 			{
 				// turn off airspace mode automatically
 				ToggleAirspaceMode();
@@ -15779,7 +15777,7 @@ void StartChangeSectorArrivalMode( void )
 BOOLEAN CanMoveBullseyeAndClickedOnIt( INT16 sMapX, INT16 sMapY )
 {
 	// if in airspace mode, and not plotting paths
-	if( ( fShowAircraftFlag == TRUE ) && ( bSelectedDestChar == -1 ) && ( fPlotForHelicopter == FALSE ) )
+	if ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE) && (bSelectedDestChar == -1) && (fPlotForHelicopter == FALSE) )
 	{
 		if (is_networked)
 		{

@@ -48,10 +48,18 @@ extern BOOLEAN fShowTownFlag;
 extern BOOLEAN fShowMineFlag;
 extern BOOLEAN fShowTeamFlag;
 extern BOOLEAN fShowMilitia;
-extern BOOLEAN fShowAircraftFlag;
 extern BOOLEAN fShowItemsFlag;
-extern BOOLEAN fShowMobileRestrictionsFlag; // HEADROCK HAM 4: Manual Mobile Militia mode
-extern UINT8 fShowStrategicDiseaseFlag;		// Flugente: disease
+
+// different types of map displays that colour sectors
+enum
+{
+	MAP_DISPLAY_NORMAL,
+	MAP_DISPLAY_AIRSPACE,
+	MAP_DISPLAY_MOBILEMILITIARESTRICTIONS,
+	MAP_DISPLAY_DISEASE,
+};
+
+extern UINT8 gusMapDisplayColourMode;
 //extern BOOLEAN fShowVehicleFlag;
 
 // scroll animation

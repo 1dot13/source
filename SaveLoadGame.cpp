@@ -250,8 +250,8 @@ typedef struct
 	BOOLEAN	fShowTownFlag;
 	BOOLEAN	fShowTeamFlag;
 	BOOLEAN	fShowMineFlag;
-	BOOLEAN	fShowAircraftFlag;
-	BOOLEAN fShowMobileRestrictionsFlag; // HEADROCK HAM 4: Showing Manual Mobile Restrictions
+	UINT8 usMapDisplayColourMode;
+	BOOLEAN filler1; // Flugente: unused
 
 	// is the helicopter available to player?
 	BOOLEAN fHelicopterAvailable;
@@ -496,8 +496,7 @@ typedef struct
 	// Buggler: New global variable that tracks money earned for facility use.
 	INT32 iTotalEarnedForFacilityOperationsToday;
 
-	// Flugente
-	UINT8		fShowStrategicDiseaseFlag;
+	UINT8		filler2;	// Flugente: unused
 
 	UINT8		ubFiller[265];		//This structure should be 1588 bytes
 
@@ -8219,9 +8218,8 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	sGeneralInfo.fShowItemsFlag			= fShowItemsFlag;
 	sGeneralInfo.fShowTownFlag			= fShowTownFlag;
 	sGeneralInfo.fShowMineFlag			= fShowMineFlag;
-	sGeneralInfo.fShowAircraftFlag	= fShowAircraftFlag;
+	sGeneralInfo.usMapDisplayColourMode = gusMapDisplayColourMode;
 	sGeneralInfo.fShowTeamFlag			= fShowTeamFlag;
-	sGeneralInfo.fShowMobileRestrictionsFlag = fShowMobileRestrictionsFlag; // HEADROCK HAM 4
 
 	sGeneralInfo.fHelicopterAvailable = fHelicopterAvailable;
 
@@ -8442,14 +8440,12 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	// testing for loop
 	memcpy(sGeneralInfo.ubManualRestrictMilitia, gubManualRestrictMilitia, sizeof( UINT8 )*256);
 
-	for (int i=0;i<500;i++)
+	for (int i=0;i<500;++i)
 	{
 		sGeneralInfo.HiddenNames[i] = !zHiddenNames[i].Hidden; //legion2
 	}
 	
 	sGeneralInfo.sMercArrivalGridNo	= gGameExternalOptions.iInitialMercArrivalLocation;
-	
-	sGeneralInfo.fShowStrategicDiseaseFlag = fShowStrategicDiseaseFlag;
 	
 #ifdef JA2UB		
 	sGeneralInfo.sINITIALHELIGRIDNO[ 0 ] = gGameUBOptions.InitialHeliGridNo[ 0 ];//14947;
@@ -8545,9 +8541,9 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowTownFlag, sizeof(sGeneralInfo.fShowTownFlag), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowTeamFlag, sizeof(sGeneralInfo.fShowTeamFlag), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowMineFlag, sizeof(sGeneralInfo.fShowMineFlag), sizeof(BOOLEAN), numBytesRead);
-	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowAircraftFlag, sizeof(sGeneralInfo.fShowAircraftFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByField( hFile, &sGeneralInfo.usMapDisplayColourMode, sizeof(sGeneralInfo.usMapDisplayColourMode), sizeof(UINT8), numBytesRead );
 	if ( guiCurrentSaveGameVersion >= NEW_GENERAL_SAVE_INFO_DATA )
-		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fShowMobileRestrictionsFlag, sizeof(sGeneralInfo.fShowMobileRestrictionsFlag), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.filler1, sizeof(sGeneralInfo.filler1), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.fHelicopterAvailable, sizeof(sGeneralInfo.fHelicopterAvailable), sizeof(BOOLEAN), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.iHelicopterVehicleId, sizeof(sGeneralInfo.iHelicopterVehicleId), sizeof(INT32), numBytesRead);
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.iTotalHeliDistanceSinceRefuel, sizeof(sGeneralInfo.iTotalHeliDistanceSinceRefuel), sizeof(INT32), numBytesRead);
@@ -8762,10 +8758,8 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	fShowItemsFlag		= sGeneralInfo.fShowItemsFlag;
 	fShowTownFlag			= sGeneralInfo.fShowTownFlag;
 	fShowMineFlag			= sGeneralInfo.fShowMineFlag;
-	fShowAircraftFlag	= sGeneralInfo.fShowAircraftFlag;
+	gusMapDisplayColourMode = sGeneralInfo.usMapDisplayColourMode;
 	fShowTeamFlag			= sGeneralInfo.fShowTeamFlag;
-	fShowMobileRestrictionsFlag = sGeneralInfo.fShowMobileRestrictionsFlag;
-	fShowStrategicDiseaseFlag = sGeneralInfo.fShowStrategicDiseaseFlag;
 
 	fHelicopterAvailable = sGeneralInfo.fHelicopterAvailable;
 

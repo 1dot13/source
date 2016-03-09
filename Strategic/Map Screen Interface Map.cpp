@@ -739,81 +739,53 @@ UINT32 DrawMap( void )
 					// LATE DESIGN CHANGE: darken sectors not yet visited, instead of those under known enemy control
 					if(!is_networked) //hayden - dont darken anything
 					{
-						// HEADROCK HAM 4: Mobile View shows all tiles as explored.
-						if (!fShowMobileRestrictionsFlag )
+						switch ( gusMapDisplayColourMode )
 						{
-							if( GetSectorFlagStatus( cnt, cnt2, ( UINT8 ) iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
-							// if ( IsTheSectorPerceivedToBeUnderEnemyControl( cnt, cnt2, ( INT8 )( iCurrentMapSectorZ ) ) )
+						case MAP_DISPLAY_AIRSPACE:
+							if ( GetSectorFlagStatus( cnt, cnt2, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
 							{
-								if( fShowAircraftFlag )
+								if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
 								{
-									if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
-									{
-										// sector not visited but air controlled
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
-									}
-									else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
-									{
-										// sector not visited and not air controlled
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
-									}
-									else
-									{
-										// sector not visited, currently nobody controls the airspace
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_MD_BLUE );
-									}
+									// sector not visited but air controlled
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
 								}
-								else if ( fShowStrategicDiseaseFlag )
+								else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
 								{
-									ShadeMapElem( cnt, cnt2, GetMapColour(cnt, cnt2, fShowStrategicDiseaseFlag) );
+									// sector not visited and not air controlled
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
 								}
 								else
 								{
-									// not visited
-									if (gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR])
-									{
-										// HEADROCK HAM 4: An alternate display for the map in normal mode. Unexplored sectors
-										// are in grey, similar to a recon map. Others are left in normal vivid color.
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREY );
-									}
-									else
-									{
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_BLACK );
-									}
+									// sector not visited, currently nobody controls the airspace
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MD_BLUE );
 								}
 							}
 							else
 							{
-								if( fShowAircraftFlag )
+								if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
 								{
-									if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
-									{
-										// sector visited and air controlled
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN);
-									}
-									else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
-									{
-										// sector visited but not air controlled
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
-									}
-									else
-									{
-										// sector visited, currently nobody controls the airspace
-										ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_BLUE );
-									}
+									// sector visited and air controlled
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN );
 								}
-								else if ( fShowStrategicDiseaseFlag )
+								else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
 								{
-									ShadeMapElem( cnt, cnt2, GetMapColour(cnt, cnt2, fShowStrategicDiseaseFlag) );
+									// sector visited but not air controlled
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
+								}
+								else
+								{
+									// sector visited, currently nobody controls the airspace
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_BLUE );
 								}
 							}
-						}
-						else if (fShowMobileRestrictionsFlag )
-						{
-							// HEADROCK HAM 4: Show Manual Mobile Militia Restrictions
-							UINT8 ubManualMobileMovementAllowed = ManualMobileMovementAllowed( SECTOR(cnt, cnt2) );
-							switch ( ubManualMobileMovementAllowed )
+							break;
+
+						case MAP_DISPLAY_MOBILEMILITIARESTRICTIONS:
 							{
+								// HEADROCK HAM 4: Show Manual Mobile Militia Restrictions
+								UINT8 ubManualMobileMovementAllowed = ManualMobileMovementAllowed( SECTOR( cnt, cnt2 ) );
+								switch ( ubManualMobileMovementAllowed )
+								{
 								case 0:
 									// Mobiles not allowed here at all.
 									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREY );
@@ -830,7 +802,31 @@ UINT32 DrawMap( void )
 									// Mobiles can enter
 									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN );
 									break;
+								}
 							}
+							break;
+
+						case MAP_DISPLAY_DISEASE:
+							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, TRUE ) );
+							break;
+
+						case MAP_DISPLAY_NORMAL:
+						default:
+							if ( GetSectorFlagStatus( cnt, cnt2, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
+							{
+								// not visited
+								if ( gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR] )
+								{
+									// HEADROCK HAM 4: An alternate display for the map in normal mode. Unexplored sectors
+									// are in grey, similar to a recon map. Others are left in normal vivid color.
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREY );
+								}
+								else
+								{
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_BLACK );
+								}
+							}
+							break;
 						}
 					}
 				}
@@ -903,7 +899,7 @@ UINT32 DrawMap( void )
 			DrawTownMilitiaForcesOnMap( );
 		}
 		
-		if ( fShowAircraftFlag && !gfInChangeArrivalSectorMode )
+		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE && !gfInChangeArrivalSectorMode )
 		{
 			DrawBullseye();
 		}
@@ -926,7 +922,7 @@ UINT32 DrawMap( void )
 
 	// do not show mercs/vehicles when airspace is ON
 // commented out on a trial basis!
-//	if( !fShowAircraftFlag )
+//	if( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
 	{
 		if( fShowTeamFlag )
 			ShowTeamAndVehicles( SHOW_TEAMMATES | SHOW_VEHICLES );
@@ -952,7 +948,7 @@ UINT32 DrawMap( void )
 		ShowItemsOnMap();
 	}
 
-	if ( fShowStrategicDiseaseFlag )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_DISEASE )
 	{
 		ShowDiseaseOnMap( );
 	}
@@ -1170,7 +1166,7 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 				( !PlayerIDGroupInMotion( pSoldier->ubGroupID ) ) )
 		{
 			// skip mercs inside the helicopter if we're showing airspace level - they show up inside chopper icon instead
-			if ( !fShowAircraftFlag || ( pSoldier->bAssignment != VEHICLE ) || ( pSoldier->iVehicleId != iHelicopterVehicleId ) )
+			if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE || (pSoldier->bAssignment != VEHICLE) || (pSoldier->iVehicleId != iHelicopterVehicleId) )
 			{
 				++sNumberOfAssigned;
 			}
@@ -2005,7 +2001,7 @@ void PlotPathForHelicopter( INT16 sX, INT16 sY )
 	// will plot the path for the helicopter
 
 	// no heli...go back
-	if( !fShowAircraftFlag || !fHelicopterAvailable )
+	if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE || !fHelicopterAvailable )
 	{
 		return;
 	}
@@ -2941,9 +2937,9 @@ void DisplayThePotentialPathForHelicopter(INT16 sMapX, INT16 sMapY )
 	static INT16  sOldMapX, sOldMapY;
 	INT32 iDifference = 0;
 
-	if( fOldShowAirCraft != fShowAircraftFlag )
+	if ( fOldShowAirCraft != (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE) )
 	{
-		fOldShowAirCraft = fShowAircraftFlag;
+		fOldShowAirCraft = (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE);
 		giPotHeliPathBaseTime = GetJA2Clock( );
 
 		sOldMapX = sMapX;
@@ -4394,7 +4390,7 @@ BOOLEAN CheckForClickOverHelicopterIcon( INT16 sClickedSectorX, INT16 sClickedSe
 		fIgnoreClick = TRUE;
 	}
 
-	if( !fHelicopterAvailable || !fShowAircraftFlag )
+	if ( !fHelicopterAvailable || gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
 	{
 		return( FALSE );
 	}
@@ -6741,15 +6737,14 @@ void ShowSAMSitesOnStrategicMap( void )
 	HVOBJECT hHandle;
 	INT8 ubVidObjIndex = 0;
 	CHAR16 wString[ 40 ];
-
-
-	if( fShowAircraftFlag )
+	
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 	{
 		BlitSAMGridMarkers( );
 	}
 
 	// sam site text
-	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
+	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; ++iCounter )
 	{
 		// has the sam site here been found?
 		if( !fSamSiteFound[ iCounter ] )
@@ -6773,7 +6768,7 @@ void ShowSAMSitesOnStrategicMap( void )
 		GetVideoObject( &hHandle, guiSAMICON);
 		BltVideoObject( guiSAVEBUFFER, hHandle, ubVidObjIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-		if( fShowAircraftFlag )
+		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 		{
 			// write "SAM Site" centered underneath
 
@@ -6825,7 +6820,7 @@ void ShowSAMSitesOnStrategicMap( void )
 	}
 
 	// refuel site text
-	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; iCounter++ )
+	for( iCounter = 0; iCounter < NUMBER_OF_REFUEL_SITES; ++iCounter )
 	{
 		// has the refuel site here been known or found?
 		if( !fRefuelingSiteKnown[ iCounter ] && !GetSectorFlagStatus( sRefuelSectorX[ iCounter ], sRefuelSectorY[ iCounter ], 0, SF_ALREADY_VISITED ) )
@@ -6841,7 +6836,7 @@ void ShowSAMSitesOnStrategicMap( void )
 		sX += 5;
 		sY += 3;
 
-		if( fShowAircraftFlag )
+		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
 		{
 			// write "Refuel Site" centered underneath
 
@@ -6880,8 +6875,7 @@ void ShowSAMSitesOnStrategicMap( void )
 			{
 				continue;
 			}
-
-
+			
 			SetFontDestBuffer( guiSAVEBUFFER, MapScreenRect.iLeft + 2, MapScreenRect.iTop, MapScreenRect.iRight, MapScreenRect.iBottom, FALSE );
 
 			// clip blits to mapscreen region
@@ -6903,8 +6897,6 @@ void ShowSAMSitesOnStrategicMap( void )
 			RestoreClipRegionToFullScreen( );
 		}
 	}
-
-	return;
 }
 
 
@@ -7071,7 +7063,6 @@ void ShowDiseaseOnMap()
 
 			if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) )
 			{
-				if ( fShowStrategicDiseaseFlag == MAPMODE_DISEASE )
 				// hide this information, as it might allow the player to deduct enemy positions and numbers
 				/*{
 					UINT16 population = GetSectorPopulation( sMapX, sMapY );
@@ -7091,8 +7082,8 @@ void ShowDiseaseOnMap()
 
 						mprintf( usXPos, usYPos, sString );
 					}
-				}
-				else if ( fShowStrategicDiseaseFlag == MAPMODE_SEVERITY )*/
+				}*/
+
 				{
 					if ( pSectorInfo->fInfectionSeverity > 0 )
 					{
