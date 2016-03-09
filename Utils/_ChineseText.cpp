@@ -4670,6 +4670,9 @@ STR16 pMapErrorString[] =
 	L"车辆被损坏得太严重了！",
 	L"每个分区只能由两名佣兵来训练民兵。",
 	L"没有遥控员，机器人无法移动。请把他们分配在同一个小队。",
+	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+// 51-55
+	L"%d items moved from %s to %s",
 };
 
 

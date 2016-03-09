@@ -4672,6 +4672,9 @@ STR16 pMapErrorString[] =
 	L"Voertuig is te beschadigd!",
 	L"Let op dat maar twee huurlingen milities in een sector mogen trainen.",
 	L"De robot kan zich zonder bediening niet verplaatsen. Plaats ze in hetzelfde team.",
+	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+// 51-55
+	L"%d items moved from %s to %s",
 };
 
 

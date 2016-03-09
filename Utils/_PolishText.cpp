@@ -4676,6 +4676,9 @@ STR16 pMapErrorString[] =
 	L"Pojazd jest uszkodzony!",
 	L"Pamiętaj, że w jednym sektorze tylko dwóch najemników może trenować żołnierzy samoobrony.",
 	L"Robot nie może się poruszać bez operatora. Umieść ich razem w jednym oddziale.",
+	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+// 51-55
+	L"%d items moved from %s to %s",
 };
 
 

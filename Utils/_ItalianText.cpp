@@ -4665,6 +4665,9 @@ STR16 pMapErrorString[] =
 	L"Il veicolo è troppo danneggiato!",
 	L"Osservate che solo due mercenari potrebbero addestrare i militari in questo settore.",
 	L"Il robot non può muoversi senza il suo controller. Metteteli nella stessa squadra.",
+	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+// 51-55
+	L"%d items moved from %s to %s",
 };
 
 

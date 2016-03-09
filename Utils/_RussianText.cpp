@@ -4667,6 +4667,9 @@ STR16 pMapErrorString[] =
 	L"Машина сильно повреждена!",
 	L"Внимание! Тренировать ополченцев в одном секторе могут не более двух наёмников.",
 	L"Роботом обязательно нужно управлять. Назначьте наёмника с пультом и робота в один отряд.",
+	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+// 51-55
+	L"%d items moved from %s to %s",
 };
 
 

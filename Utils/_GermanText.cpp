@@ -4639,7 +4639,9 @@ STR16 pMapErrorString[] =
 	L"Fahrzeug zu stark beschädigt!",
 	L"Nur zwei Söldner pro Sektor können Milizen trainieren.",
 	L"Roboter muss von jemandem bedient werden. Beide im selben Trupp platzieren.",
-
+	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+// 51-55
+	L"%d Gegenstände von %s nach %s bewegt",
 };
 
 // help text used during strategic route plotting

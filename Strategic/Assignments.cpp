@@ -7139,9 +7139,9 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	std::map<UINT8, std::pair<UINT8, UINT8> > sectormercmap;		// this map uses the sectors we take stuff from as keys and the number of mercs as elements
 
 	// we need a gridno to which we drop stuff
-	INT32 sDropOffGridNo = gMapInformation.sCenterGridNo;
-	if ( !GridNoOnVisibleWorldTile( sDropOffGridNo ) )
-		sDropOffGridNo = RandomGridNo();
+	INT32 sDropOffGridNo = NOWHERE;
+	if ( (gWorldSectorX == sMapX) && (gWorldSectorY == sMapY) && (gbWorldSectorZ == bZ) )
+		sDropOffGridNo = gMapInformation.sCenterGridNo;
 
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT32 uiCnt = 0;
@@ -7176,7 +7176,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					sectormercmap[targetsector] = pair;
 				}
 
-				if ( pSoldier->sGridNo != NOWHERE )
+				if ( TileIsOutOfBounds(sDropOffGridNo) && !TileIsOutOfBounds( pSoldier->sGridNo ) )
 					sDropOffGridNo = pSoldier->sGridNo;
 			}
 		}
@@ -7185,9 +7185,16 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	// no mercs that move stuff here, exit
 	if ( sectormercmap.empty() )
 		return;
-
+	
 	CHAR16 wSectorName[ 64 ];
 	GetShortSectorString( sMapX, sMapY, wSectorName );
+
+	// if we don't have a valid spot to drop gear at, don't do so - better than having tons of items unreachable
+	if ( TileIsOutOfBounds( sDropOffGridNo ) )
+	{
+		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, pMapErrorString[50], wSectorName );
+		return;
+	}
 
 	std::vector<WORLDITEM> pWorldItem_Target;//dnl ch75 271013
 
@@ -7336,7 +7343,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		CHAR16 wSectorName_Target[ 64 ];
 		GetShortSectorString( targetX, targetY, wSectorName_Target );
 		
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%d items moved from %s to %s", moveditems, wSectorName_Target, wSectorName );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMapErrorString[51], moveditems, wSectorName_Target, wSectorName );
 
 		// if we didn't move any item, no need to save a changed inventory etc.
 		if ( !moveditems )

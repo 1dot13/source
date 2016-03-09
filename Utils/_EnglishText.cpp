@@ -4667,6 +4667,9 @@ STR16 pMapErrorString[] =
 	L"Vehicle is too damaged!",
 	L"Note that only two mercs may train militia in each sector.",
 	L"The robot can't move without its controller. Place them together in the same squad.",
+	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",
+// 51-55
+	L"%d items moved from %s to %s",
 };
 
 
