@@ -172,9 +172,10 @@ BOOLEAN EnterBriefingRoomEnter()
 	CHECKF(AddVideoObject(&VObjectDesc, &guiContentButtonBriefingRoomEnter));
 	
 	// this procedure will load the activation indent into memory
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("LAPTOP\\ActivationIndent.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiBRIEFINGROOM_MISSIONACTIVATIONINDENT));
+	//off
+	//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	//FilenameForBPP("LAPTOP\\ActivationIndent.sti", VObjectDesc.ImageFile);
+	//CHECKF(AddVideoObject(&VObjectDesc, &guiBRIEFINGROOM_MISSIONACTIVATIONINDENT));
 
 	//** Mouse Regions **
 	
@@ -217,7 +218,8 @@ void ExitBriefingRoomEnter()
 		MSYS_RemoveRegion( &gSelectedBriefingRoomEnterTocMenuRegion[i]);
 		
 	// remove activation indent symbol
-	DeleteVideoObjectFromIndex( guiBRIEFINGROOM_MISSIONACTIVATIONINDENT );
+	//off
+	//DeleteVideoObjectFromIndex( guiBRIEFINGROOM_MISSIONACTIVATIONINDENT );
 
 }
 
@@ -226,6 +228,7 @@ void HandleBriefingRoomEnter()
 	// handle keyboard input for this screen
 	GetPlayerKeyBoardInputForBriefingRoomEnterHomePage( );
 
+	/* off
 	// has a new char been added to activation string
 	if( fNewCharInActivationBriefingRoomEnterString )
 	{
@@ -234,7 +237,8 @@ void HandleBriefingRoomEnter()
 	}
 
 	// render the cursor
-	DisplayActivationBriefingRoomEnterStringCursor( );
+	DisplayActivationBriefingRoomEnterStringCursor( ); 
+	*/
 }
 
 void RenderBriefingRoomEnter()
@@ -273,9 +277,11 @@ void RenderBriefingRoomEnter()
 	}
 	
 	// get the video object
-	GetVideoObject(&hHandle, guiBRIEFINGROOM_MISSIONACTIVATIONINDENT);
+	//off
+	//GetVideoObject(&hHandle, guiBRIEFINGROOM_MISSIONACTIVATIONINDENT);
 	// blt to sX, sY relative to upper left corner
-	BltVideoObject(FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + 100, LAPTOP_SCREEN_WEB_UL_Y + 240 , VO_BLT_SRCTRANSPARENCY,NULL);
+	//off
+	//BltVideoObject(FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + 100, LAPTOP_SCREEN_WEB_UL_Y + 240 , VO_BLT_SRCTRANSPARENCY,NULL);
 	
 	DisplayBriefingRoomEnterSlogan();
 
@@ -286,7 +292,7 @@ void RenderBriefingRoomEnter()
 	
 	// render the	activation string
 	//-------------
-	DisplayPlayerActivationBriefingRoomEnterString( );
+	//DisplayPlayerActivationBriefingRoomEnterString( ); //off
 	//-------------
 
   InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
@@ -393,10 +399,11 @@ HVOBJECT hHandle;
 	// restore background
 	//RenderActivationIndent( 257, 328 );
 	// get the video object
-	GetVideoObject(&hHandle, guiBRIEFINGROOM_MISSIONACTIVATIONINDENT);
-
+	//off
+	//GetVideoObject(&hHandle, guiBRIEFINGROOM_MISSIONACTIVATIONINDENT);
+	//off
 	// blt to sX, sY relative to upper left corner
-	BltVideoObject(FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + 100, LAPTOP_SCREEN_WEB_UL_Y + 240 , VO_BLT_SRCTRANSPARENCY,NULL);
+	//BltVideoObject(FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + 100, LAPTOP_SCREEN_WEB_UL_Y + 240 , VO_BLT_SRCTRANSPARENCY,NULL);
 
 	// setup the font stuff
 	SetFont( FONT14ARIAL );
@@ -405,8 +412,9 @@ HVOBJECT hHandle;
 
 
 	// reset shadow
-	SetFontShadow(DEFAULT_SHADOW);
-	mprintf(IMP_PLAYER_ACTIVATION_STRING_X, IMP_PLAYER_ACTIVATION_STRING_Y, pPlayerBriefingRoomEnterActivationString);
+	//off
+	//SetFontShadow(DEFAULT_SHADOW);
+	//mprintf(IMP_PLAYER_ACTIVATION_STRING_X, IMP_PLAYER_ACTIVATION_STRING_Y, pPlayerBriefingRoomEnterActivationString);
 
 
 	fNewCharInActivationBriefingRoomEnterString = FALSE;
@@ -511,6 +519,7 @@ void GetPlayerKeyBoardInputForBriefingRoomEnterHomePage( void )
 		switch( InputEvent.usParam )
 			{
 			case (( ENTER ) ):
+					/* off
 					if(( InputEvent.usEvent == KEY_UP ) )
 					{
 						// return hit, check to see if current player activation string is a valid one
@@ -518,6 +527,7 @@ void GetPlayerKeyBoardInputForBriefingRoomEnterHomePage( void )
 
 					fNewCharInActivationBriefingRoomEnterString = TRUE;
 					}
+					*/
 				break;
 				case (( ESC )):
 			HandleLapTopESCKey();		// WANNE: Fix for proper closing of the IMP laptop page
