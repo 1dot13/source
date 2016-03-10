@@ -4,58 +4,23 @@
 Name - name of mission
 Hidden : 1 - hidden mission. Accessible mission after complete of the previous mission; 0 - displayed mission. First mission has to be visible; 
 
-MaxPages - the quantity of pages max. 20
-PageDescX - Max. page 20 (PageDesc1.. PageDesc20) 
-MaxImages - the quantity of pictures. Max. 4
-szFile1 - first picture
-szFile2 - second picture
-szFile3 - third picture
-szFile4 - fourth picture
-ImageDesc1 - the description of first picture
-ImageDesc2 - the description of second picture
-ImageDesc3 - the description of third picture
-ImageDesc4 - the description of fourth picture
-ImagePosition1X - position X of first picture
-ImagePosition1Y - position Y of first picture
-ImagePosition2X - position X of second picture
-ImagePosition2Y - position Y of second picture
-ImagePosition3X - position X of third picture
-ImagePosition3Y - position Y of third picture
-ImagePosition4X - position X of fourth picture
-ImagePosition4Y - position Y of fourth picture
-szSounds - The speech of the briefing.
+MaxPages - the quantity of pages. The amount of used records from the file "missionX.edt".
+MaxImages - the quantity of pictures. 
+ImagePositionX - position X of all pictures
+ImagePositionY - position Y of all pictures
 NextMission - After the mission complete, activate the next mission. Write number ID of the next mission.
 -->
 
-<ENCYCLOPEDIA>
+<BRIEFINGROOM>
 		<!-- Mission 1 -->
 	<DATA>
 		<uiIndex>0</uiIndex>
-		<Name>Mission 1 :</Name>
-		<Hidden>0</Hidden>
-		<MaxPages>1</MaxPages>
-		<PageDesc1>Empty mission</PageDesc1>
-		<PageDesc2></PageDesc2>
-		<PageDesc3></PageDesc3>
-		<PageDesc4></PageDesc4>
+		<Name>Empty Mission</Name>
+		<Hidden>1</Hidden>
+		<MaxPages>0</MaxPages>
 		<MaxImages>0</MaxImages>
-		<szFile1></szFile1>
-		<szFile2></szFile2>
-		<szFile3></szFile3>
-		<szFile4></szFile4>
-		<ImageDesc1>no description</ImageDesc1>
-		<ImageDesc2></ImageDesc2>
-		<ImageDesc3></ImageDesc3>
-		<ImageDesc4></ImageDesc4>
-		<ImagePosition1X>120</ImagePosition1X>
-		<ImagePosition1Y>55</ImagePosition1Y>
-		<ImagePosition2X>120</ImagePosition2X>
-		<ImagePosition2Y>55</ImagePosition2Y>
-		<ImagePosition3X>120</ImagePosition3X>
-		<ImagePosition3Y>55</ImagePosition3Y>
-		<ImagePosition4X></ImagePosition4X>
-		<ImagePosition4Y></ImagePosition4Y>
-		<szSounds></szSounds>
-		<NextMission>1</NextMission>
+		<ImagePositionX>0</ImagePositionX>
+		<ImagePositionY>0</ImagePositionY>
+		<NextMission>-1</NextMission>
 	</DATA>
-</ENCYCLOPEDIA>
+</BRIEFINGROOM>
