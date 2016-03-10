@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-		uiIndex : 0 - 15
+		DO NOT CREATE NEW ENTRIES! INSTEAD MODIFY THE DIFFICULTY LEVEL YOU WANT TO PLAY ON!
+		There is still hardcoded stuff that will make use of the old 4 difficulty levels.
+		
+		uiIndex : 0 - 4
 		Name : The short name of the difficulty.
-		ConfirmText :  The description of the difficulty.	
+		ConfirmText :  The description of the difficulty.
 		StartingCash : These are the Starting cash values for the various difficulties. 
 		               The only restriction with these, is the INT32 they are stored in. (range is about 2 billion).
-					   You can also set negative values here.				   
+					   You can also set negative values here.
 		EnemyAPBonus :   Bonus APs for Enemy Soldiers:
 						 Number of extra APs for enemy troops at the various difficulty levels.
                          Please note, this number is NOT automatically adjusted based on your selected AP system (25 / 100).
@@ -13,7 +16,7 @@
 								   The total number of progress points you can get is limited by GAME_PROGRESS_KILLS (see JA2Options.ini)
 		InitialGarrisonPercentages : Percentage of troops that are actually placed on the map at the start of the game.
 									100 = All "default" troops are placed.
-									200 = Twice as many troops are placed.									
+									200 = Twice as many troops are placed.
 		MinEnemyGroupSize : Minimum enemy group size. Enemy groups will never be smaller than this!
 		PercentElitesBonus : Percent of troops converted to extra elites in enemy groups
 		UnlimitedPoolOfTroops : 0 - false, 1 - true. Determines whether or not the queen has unlimited troops. If she does, most of the settings below are completely ignored.
@@ -38,7 +41,7 @@
 		
 	    {Creatures Settings}
 		
-		CreatureSpreadTime : This is how often the creatures spread, once the quest begins. The smaller the gap, the faster the creatures will advance.	
+		CreatureSpreadTime : This is how often the creatures spread, once the quest begins. The smaller the gap, the faster the creatures will advance.
 							 This is also directly related to the reproduction rates which are applied each time the creatures spread. (in mins, 5 - 14400)
 		QueenReproductionBase : This is how many creatures the queen produces for each cycle of spreading. The higher the numbers the faster the creatures will advance. (1 - 30)
 		QueenReproductionBonus : Random bonus for each cycle of spreading. (0 - 10)
@@ -151,11 +154,11 @@
 		<SectorK4B1NumElites>0</SectorK4B1NumElites>
 		<SectorO3B1NumTroops>0</SectorO3B1NumTroops>
 		<SectorO3B1NumElites>0</SectorO3B1NumElites>
-		<SectorP3B1NumElites>0</SectorP3B1NumElites>	
+		<SectorP3B1NumElites>0</SectorP3B1NumElites>
 		<!-- Strategic Other -->
 		<StrategicAiActionWakeQueen>0</StrategicAiActionWakeQueen>
 		<UpdateLastDayOfPlayerActivity>0</UpdateLastDayOfPlayerActivity>
-		<ChanceOfEnemyAmbushes>0</ChanceOfEnemyAmbushes>	
+		<ChanceOfEnemyAmbushes>0</ChanceOfEnemyAmbushes>
 		<AllowReinforcements>0</AllowReinforcements>
 		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
 		<PopulationLevel2>0</PopulationLevel2>
@@ -221,11 +224,11 @@
 		<SectorK4B1NumElites>1</SectorK4B1NumElites>
 		<SectorO3B1NumTroops>1</SectorO3B1NumTroops>
 		<SectorO3B1NumElites>1</SectorO3B1NumElites>
-		<SectorP3B1NumElites>8</SectorP3B1NumElites>	
+		<SectorP3B1NumElites>8</SectorP3B1NumElites>
 		<!-- Strategic Other -->
 		<StrategicAiActionWakeQueen>0</StrategicAiActionWakeQueen>
 		<UpdateLastDayOfPlayerActivity>1</UpdateLastDayOfPlayerActivity>
-		<ChanceOfEnemyAmbushes>-15</ChanceOfEnemyAmbushes>	
+		<ChanceOfEnemyAmbushes>-15</ChanceOfEnemyAmbushes>
 		<AllowReinforcements>1</AllowReinforcements>
 		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
 		<PopulationLevel2>0</PopulationLevel2>
@@ -291,11 +294,11 @@
 		<SectorK4B1NumElites>2</SectorK4B1NumElites>
 		<SectorO3B1NumTroops>2</SectorO3B1NumTroops>
 		<SectorO3B1NumElites>2</SectorO3B1NumElites>
-		<SectorP3B1NumElites>10</SectorP3B1NumElites>	
+		<SectorP3B1NumElites>10</SectorP3B1NumElites>
 		<!-- Strategic Other -->
 		<StrategicAiActionWakeQueen>0</StrategicAiActionWakeQueen>
 		<UpdateLastDayOfPlayerActivity>1</UpdateLastDayOfPlayerActivity>
-		<ChanceOfEnemyAmbushes>5</ChanceOfEnemyAmbushes>	
+		<ChanceOfEnemyAmbushes>5</ChanceOfEnemyAmbushes>
 		<AllowReinforcements>1</AllowReinforcements>
 		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
 		<PopulationLevel2>1</PopulationLevel2>
@@ -361,12 +364,12 @@
 		<SectorK4B1NumElites>3</SectorK4B1NumElites>
 		<SectorO3B1NumTroops>3</SectorO3B1NumTroops>
 		<SectorO3B1NumElites>3</SectorO3B1NumElites>
-		<SectorP3B1NumElites>14</SectorP3B1NumElites>	
+		<SectorP3B1NumElites>14</SectorP3B1NumElites>
 		<!-- Strategic Other -->
 		<StrategicAiActionWakeQueen>1</StrategicAiActionWakeQueen>
 		<UpdateLastDayOfPlayerActivity>2</UpdateLastDayOfPlayerActivity>
 		<ChanceOfEnemyAmbushes>12</ChanceOfEnemyAmbushes>
-		<AllowReinforcements>1</AllowReinforcements>	
+		<AllowReinforcements>1</AllowReinforcements>
 		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
 		<PopulationLevel2>1</PopulationLevel2>
 		<PopulationLevel3>1</PopulationLevel3>
@@ -375,7 +378,7 @@
 		<WeaponCacheTroops2>3</WeaponCacheTroops2>
 		<WeaponCacheTroops3>3</WeaponCacheTroops3>
 		<WeaponCacheTroops4>3</WeaponCacheTroops4>
-		<WeaponCacheTroops5>3</WeaponCacheTroops5>		
+		<WeaponCacheTroops5>3</WeaponCacheTroops5>
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>0</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>
@@ -403,7 +406,7 @@
 		<NumKillsPerProgressPoint>60</NumKillsPerProgressPoint>
 		<InitialGarrisonPercentages>200</InitialGarrisonPercentages>
 		<MinEnemyGroupSize>12</MinEnemyGroupSize>
-		<PercentElitesBonus>50</PercentElitesBonus>	
+		<PercentElitesBonus>50</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>1</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>8000</QueensInitialPoolOfTroops>
 		<QueenPoolIncrementPerDifficultyLevel>60</QueenPoolIncrementPerDifficultyLevel>
@@ -431,13 +434,13 @@
 		<SectorK4B1NumElites>4</SectorK4B1NumElites>
 		<SectorO3B1NumTroops>4</SectorO3B1NumTroops>
 		<SectorO3B1NumElites>4</SectorO3B1NumElites>
-		<SectorP3B1NumElites>20</SectorP3B1NumElites>	
+		<SectorP3B1NumElites>20</SectorP3B1NumElites>
 		<!-- Strategic Other -->
 		<StrategicAiActionWakeQueen>1</StrategicAiActionWakeQueen>
 		<UpdateLastDayOfPlayerActivity>2</UpdateLastDayOfPlayerActivity>
 		<ChanceOfEnemyAmbushes>25</ChanceOfEnemyAmbushes>
-		<AllowReinforcements>1</AllowReinforcements>	
-		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>	
+		<AllowReinforcements>1</AllowReinforcements>
+		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
 		<PopulationLevel2>1</PopulationLevel2>
 		<PopulationLevel3>1</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
@@ -445,7 +448,7 @@
 		<WeaponCacheTroops2>4</WeaponCacheTroops2>
 		<WeaponCacheTroops3>4</WeaponCacheTroops3>
 		<WeaponCacheTroops4>4</WeaponCacheTroops4>
-		<WeaponCacheTroops5>4</WeaponCacheTroops5>	
+		<WeaponCacheTroops5>4</WeaponCacheTroops5>
 		<!-- Strategic Other -->
 		<UpgradeAdminsToTroops>1</UpgradeAdminsToTroops>
 		<UpgradeGarrisonsAdminsToTroops>1</UpgradeGarrisonsAdminsToTroops>
@@ -453,15 +456,15 @@
 		<LevelModifierLowLimit>0</LevelModifierLowLimit>
 		<LevelModifierHighLimit>0</LevelModifierHighLimit>
 		<AllowUnrestrictedXPLevels>1</AllowUnrestrictedXPLevels>
-		<QueenAttackLosingControlOfSector>1</QueenAttackLosingControlOfSector>	
+		<QueenAttackLosingControlOfSector>1</QueenAttackLosingControlOfSector>
 		<BloodcatAmbushSectors>0</BloodcatAmbushSectors>
-		<AirRaidLookForDive>1</AirRaidLookForDive>	
-		<NumberOfTurnsPowerGenFanWillBeStoppedFor>1</NumberOfTurnsPowerGenFanWillBeStoppedFor>	
+		<AirRaidLookForDive>1</AirRaidLookForDive>
+		<NumberOfTurnsPowerGenFanWillBeStoppedFor>1</NumberOfTurnsPowerGenFanWillBeStoppedFor>
 		<RadioSightings>1</RadioSightings>
 		<RadioSightings2>1</RadioSightings2>
 		<EnemyMoraleWorried>1</EnemyMoraleWorried>
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>50.0</CthConstantsAimDifficulty>
-		<CthConstantsBaseDifficulty>50.0</CthConstantsBaseDifficulty>		
+		<CthConstantsBaseDifficulty>50.0</CthConstantsBaseDifficulty>
 	</DIFFICULTY>
 </DIFFICULTY_SETTINGS>
