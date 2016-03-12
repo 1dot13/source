@@ -2038,6 +2038,7 @@ typedef struct
 	INT32 iLostShipmentGridNo;
 
 	//[Omerta]
+	INT32 iInitialMercArrivalLocation;
 
 	//[Drassen]
 	//meet Carmen in sector for reward collection

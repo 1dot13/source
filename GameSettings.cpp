@@ -2643,6 +2643,10 @@ void LoadModSettings(){
 	gModSettings.iLostShipmentGridNo = iniReader.ReadInteger("Bobby Ray", "LOST_SHIPMENT_GRIDNO", 2);
 
 	//[Omerta]
+	gModSettings.iInitialMercArrivalLocation = iniReader.ReadInteger("Omerta", "INITIAL_MERC_ARRIVAL_LOCATION", 0);
+	// silversurfer: If the mod has a dropoff tile defined use the mod value instead of the default from Ja2_Options.ini
+	if( gModSettings.iInitialMercArrivalLocation != 0 )
+		gGameExternalOptions.iInitialMercArrivalLocation = gModSettings.iInitialMercArrivalLocation;
 
 	//[Drassen]
 	gModSettings.ubCarmenGiveRewardSectorX = iniReader.ReadInteger("Drassen", "CARMEN_GIVE_REWARD_SECTOR_X", 13);
