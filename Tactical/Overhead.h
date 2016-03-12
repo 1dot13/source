@@ -209,7 +209,7 @@ BOOLEAN GetSoldier( SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex );
 
 UINT32 CountNonVehiclesOnPlayerTeam( );
 
-INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel );
+BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel );
 
 //Simple check to see if a (one-tiled) soldier can occupy a given location on the ground or roof.
 extern BOOLEAN IsLocationSittable( INT32 iMapIndex, BOOLEAN fOnRoof );

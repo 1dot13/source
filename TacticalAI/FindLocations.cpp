@@ -202,7 +202,8 @@ INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 
 
 	// using only ints for maximum execution speed here
 	// CJC: Well, so much for THAT idea!
-	INT32 sCentralGridNo, sAdjSpot, sNorthGridNo, sSouthGridNo, sCheckSpot, sOKTest;
+	INT32 sCentralGridNo, sAdjSpot, sNorthGridNo, sSouthGridNo, sCheckSpot;
+	BOOLEAN sOKTest;
 
 	INT8 bThisCTGT, bBestCTGT = 0;
 
@@ -218,7 +219,7 @@ INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 
 
 	// look into all 8 adjacent tiles & determine where the cover is the worst
 	// Lalien: shouldn't this start at 0 than?
-	for (UINT8 sDir = 0; sDir < NUM_WORLD_DIRECTIONS; sDir++)
+	for (UINT8 sDir = 0; sDir < NUM_WORLD_DIRECTIONS; ++sDir)
 	{
 		// get the gridno of the adjacent spot lying in that direction
 		sAdjSpot = NewGridNo( sCentralGridNo, DirectionInc( sDir ) );
@@ -227,7 +228,7 @@ INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT32 sOppGridNo, INT8 
 		if (sAdjSpot != sCentralGridNo)
 		{
 			// if the adjacent spot can we walked on and isn't in water or gas
-			if ((NewOKDestination( pSoldier, sAdjSpot, IGNOREPEOPLE, bLevel ) > 0) && !InWaterOrGas( pSoldier, sAdjSpot ))
+			if ( NewOKDestination( pSoldier, sAdjSpot, IGNOREPEOPLE, bLevel ) && !InWaterOrGas( pSoldier, sAdjSpot ))
 			{
 				switch (sDir)
 				{

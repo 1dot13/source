@@ -289,7 +289,7 @@ INT8 PointPatrolAI(SOLDIERTYPE *pSoldier)
 	{
 	 sPatrolPoint = NextPatrolPoint(pSoldier);
 	}	
-	while (( !TileIsOutOfBounds(sPatrolPoint)) && (NewOKDestination(pSoldier,sPatrolPoint,IGNOREPEOPLE, pSoldier->pathing.bLevel) < 1));
+	while (( !TileIsOutOfBounds(sPatrolPoint)) && !NewOKDestination(pSoldier,sPatrolPoint,IGNOREPEOPLE, pSoldier->pathing.bLevel) );
 
 	// if we're back where we started, then ALL other patrol points are junk!
 	if (pSoldier->sGridNo == sPatrolPoint)
@@ -373,7 +373,7 @@ INT8 RandomPointPatrolAI(SOLDIERTYPE *pSoldier)
 			sPatrolPoint = pSoldier->aiData.sPatrolGrid[ bPatrolIndex];
 			bCnt++;
 		}		
-		while ( (sPatrolPoint == pSoldier->sGridNo) || ( (!TileIsOutOfBounds(sPatrolPoint)) && (bCnt < pSoldier->aiData.bPatrolCnt) && (NewOKDestination(pSoldier,sPatrolPoint,IGNOREPEOPLE, pSoldier->pathing.bLevel ) < 1)) );
+		while ( (sPatrolPoint == pSoldier->sGridNo) || ( (!TileIsOutOfBounds(sPatrolPoint)) && (bCnt < pSoldier->aiData.bPatrolCnt) && !NewOKDestination(pSoldier,sPatrolPoint,IGNOREPEOPLE, pSoldier->pathing.bLevel )) );
 
 		if (bCnt == pSoldier->aiData.bPatrolCnt)
 		{
@@ -383,7 +383,7 @@ INT8 RandomPointPatrolAI(SOLDIERTYPE *pSoldier)
 			{
 				sPatrolPoint = NextPatrolPoint(pSoldier);
 			}			
-			while ((!TileIsOutOfBounds(sPatrolPoint)) && (NewOKDestination(pSoldier,sPatrolPoint,IGNOREPEOPLE, pSoldier->pathing.bLevel) < 1));
+			while ((!TileIsOutOfBounds(sPatrolPoint)) && !NewOKDestination(pSoldier,sPatrolPoint,IGNOREPEOPLE, pSoldier->pathing.bLevel) );
 		}
 
 		// do nothing this time around

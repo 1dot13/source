@@ -4820,7 +4820,7 @@ CHAR8 *GetSceneFilename(    )
 extern BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID );
 
 // NB if making changes don't forget to update NewOKDestinationAndDirection
-INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel )
+BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeopleToo, INT8 bLevel )
 {
     UINT8                   bPerson;
     STRUCTURE *     pStructure;
@@ -4829,7 +4829,7 @@ INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeop
 
     if ( !GridNoOnVisibleWorldTile( sGridNo ) )
     {
-        return( TRUE );
+        return( FALSE );
     }
 
     if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NOBODY )
@@ -4870,7 +4870,7 @@ INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeop
         if ( pStructureFileRef )
         {
             // if ANY direction is valid, consider moving here valid
-            for (bLoop = 0; bLoop < NUM_WORLD_DIRECTIONS; bLoop++)
+            for (bLoop = 0; bLoop < NUM_WORLD_DIRECTIONS; ++bLoop)
             {
                 // ATE: Only if we have a levelnode...
                 if ( pCurrSoldier->pLevelNode != NULL && pCurrSoldier->pLevelNode->pStructureData != NULL )
@@ -4891,12 +4891,14 @@ INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeop
 				{
 					fOk = InternalOkayToAddStructureToWorld( sGridNo, bLevel, &(pStructureFileRef->pDBStructureRef[bLoop]), usStructureID, FALSE, pCurrSoldier->ubID );
 				}
+
                 if (fOk)
                 {
                     return( TRUE );
                 }
             }
         }
+
         return( FALSE );
     }
     else
@@ -4953,6 +4955,7 @@ INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPeop
             }
         }
     }
+
     return( TRUE );
 }
 
@@ -5192,7 +5195,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
     static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
     //INT32 cnt;
     //INT32 sClosest=NOWHERE, sSpot, sOkTest;
-    INT32 sClosest = MAX_MAP_POS, sSpot, sOkTest; //Lalien: changed to ensure compability with new definition of NOWHERE
+    INT32 sClosest = MAX_MAP_POS, sSpot; //Lalien: changed to ensure compability with new definition of NOWHERE
     //INT32 sCloseGridNo=NOWHERE;
     INT32 sCloseGridNo = MAX_MAP_POS; //Lalien: changed to ensure compability with new definition of NOWHERE
     UINT32                                       uiMercFlags;
@@ -5286,7 +5289,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         }
     }
 
-    if ( ( sOkTest = NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) ) > 0)   // no problem going there! nobody on it!
+    if ( NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) )   // no problem going there! nobody on it!
     {
         // OK, if we are looking to goto a switch, ignore this....
         if ( pDoor )
@@ -5468,7 +5471,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     INT32 sFourGrids[4], sDistance=0;
     static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
     //INT32 cnt;
-    INT32 sClosest=WORLD_MAX, sSpot, sSpot2, sOkTest;
+    INT32 sClosest=WORLD_MAX, sSpot, sSpot2;
     INT32 sCloseGridNo=NOWHERE;
     UINT32                                       uiMercFlags;
     UINT16                                       usSoldierIndex;
@@ -5514,7 +5517,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         }
     }
 
-    if ( ( sOkTest = NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) ) > 0)   // no problem going there! nobody on it!
+    if ( NewOKDestination( pSoldier, sGridNo, TRUE, pSoldier->pathing.bLevel ) )   // no problem going there! nobody on it!
     {
         // OK, if we are looking to goto a switch, ignore this....
         if ( pDoor )

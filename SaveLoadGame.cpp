@@ -9017,13 +9017,11 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	// HEADROCK HAM 4: Load Manual Mobile Militia Restrictions
 	memcpy(gubManualRestrictMilitia, sGeneralInfo.ubManualRestrictMilitia, sizeof(UINT8) * 256);
 
-	for (int i=0;i<500;i++)
+	for (int i=0;i<500;++i)
 	{
 		zHiddenNames[i].Hidden = !sGeneralInfo.HiddenNames[i];
 	}
-	
-	gGameExternalOptions.iInitialMercArrivalLocation = sGeneralInfo.sMercArrivalGridNo;
-	
+		
 #ifdef JA2UB
 	gGameUBOptions.InitialHeliGridNo[ 0 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 0 ];//14947;
 	gGameUBOptions.InitialHeliGridNo[ 1 ] = sGeneralInfo.sINITIALHELIGRIDNO[ 1 ];//15584;//16067;
@@ -9055,9 +9053,8 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	gGameUBOptions.LaptopLinkBobby 			= sGeneralInfo.sLaptopLinkBobby;
 #endif
 	
-	if ( gGameExternalOptions.fShowCamouflageFaces == TRUE ) 
+	if ( gGameExternalOptions.fShowCamouflageFaces ) 
 	{
-
 		//Camo Face by Jazz
 		for (int i=0;i<NUM_PROFILES;++i)
 		{
@@ -9068,72 +9065,73 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 		}
 		
 		SOLDIERTYPE * pSoldier;
-		INT8 bMercID, bLastTeamID;
-		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-			for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+		UINT16 bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		UINT16 bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+		{
+			if ( pSoldier->bCamo > 0 )
 			{
-				if ( pSoldier->bCamo > 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gCamoface = TRUE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
-					}
-					else
-					{
-						gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
-					}
-				if ( pSoldier->urbanCamo > 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gUrbanCamoface = TRUE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
-					}
-					else
-					{
-						gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
-					}	
-					
-				if ( pSoldier->desertCamo > 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gDesertCamoface = TRUE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );	
-					}
-					else
-					{
-						gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
-					}	
-				if ( pSoldier->snowCamo > 0 )
-					{
-						gCamoFace[pSoldier->ubProfile].gSnowCamoface = TRUE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
-					}
-					else
-					{
-						gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
-					}	
+				gCamoFace[pSoldier->ubProfile].gCamoface = TRUE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
+			}
+			else
+			{
+				gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
+			}
 
-				if ( pSoldier->snowCamo == 0 && pSoldier->bCamo == 0 && pSoldier->urbanCamo == 0 && pSoldier->desertCamo == 0)
-					{
-						gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
-						gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
-						gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
-						gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
-						DeleteSoldierFace( pSoldier );
-						pSoldier->iFaceIndex = InitSoldierFace( pSoldier );	
-					}
+			if ( pSoldier->urbanCamo > 0 )
+			{
+				gCamoFace[pSoldier->ubProfile].gUrbanCamoface = TRUE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+			}
+			else
+			{
+				gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
+			}
+					
+			if ( pSoldier->desertCamo > 0 )
+			{
+				gCamoFace[pSoldier->ubProfile].gDesertCamoface = TRUE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );	
+			}
+			else
+			{
+				gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
+			}
+
+			if ( pSoldier->snowCamo > 0 )
+			{
+				gCamoFace[pSoldier->ubProfile].gSnowCamoface = TRUE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
+			}
+			else
+			{
+				gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );		
+			}
+
+			if ( pSoldier->snowCamo == 0 && pSoldier->bCamo == 0 && pSoldier->urbanCamo == 0 && pSoldier->desertCamo == 0)
+			{
+				gCamoFace[pSoldier->ubProfile].gCamoface = FALSE;
+				gCamoFace[pSoldier->ubProfile].gUrbanCamoface = FALSE;
+				gCamoFace[pSoldier->ubProfile].gDesertCamoface = FALSE;
+				gCamoFace[pSoldier->ubProfile].gSnowCamoface = FALSE;
+				DeleteSoldierFace( pSoldier );
+				pSoldier->iFaceIndex = InitSoldierFace( pSoldier );	
 			}
 		}
+	}
 
 	return( TRUE );
 }
