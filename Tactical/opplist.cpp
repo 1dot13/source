@@ -5408,11 +5408,11 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 	}
 
 	// if sneaker is moving through water
-	if (Water( pSoldier->sGridNo ) )
+	if (Water( pSoldier->sGridNo, pSoldier->pathing.bLevel ) )
 	{
 		iStealthSkill -= 10; // 10% penalty
 	}
-	else if (DeepWater( pSoldier->sGridNo ) )
+	else if (DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel ) )
 	{
 		iStealthSkill -= 20; // 20% penalty
 	}

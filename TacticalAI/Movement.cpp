@@ -82,7 +82,7 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubPathMode, 
 					*/
 	{
 		// if water's a problem, and gridno is in a water tile (bridges are OK)
-		if (!ubWaterOK && Water(sGridNo))
+		if (!ubWaterOK && Water(sGridNo, pSoldier->pathing.bLevel))
 			return(FALSE);
 
 		//Madd: added to prevent people from running into gas and fire
@@ -510,7 +510,7 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 
 	// don't try to approach go after noises or enemies actually in water
 	// would be too easy to throw rocks in water, etc. & distract the AI
-	if (Water(sDesGrid))
+	if (Water(sDesGrid, pSoldier->pathing.bLevel))
 	{
 		return(NOWHERE);
 	}

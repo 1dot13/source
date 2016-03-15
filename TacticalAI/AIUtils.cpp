@@ -88,7 +88,7 @@ INT8 OKToAttack(SOLDIERTYPE * pSoldier, int target)
 	if (target == pSoldier->sGridNo)
 		return(NOSHOOT_MYSELF);
 
-	if (WaterTooDeepForAttacks(pSoldier->sGridNo))
+	if (WaterTooDeepForAttacks(pSoldier->sGridNo, pSoldier->pathing.bLevel))
 		return(NOSHOOT_WATER);
 
 	// make sure a weapon is in hand (FEB.8 ADDITION: tossable items are also OK)
@@ -1688,7 +1688,8 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT
 			else
 			{
 				sPathCost = PlotPath( pSoldier, sClimbGridNo, FALSE, FALSE, FALSE, WALKING, FALSE, FALSE, 0 );
-				if (sPathCost != 0)
+				// sevenfm: check if we are already standing at climb gridno
+				if (sPathCost != 0 || pSoldier->sGridNo == sClimbGridNo)
 				{
 					// add in cost of climbing down
 					if (fAddCostAfterClimbingUp)
@@ -1731,7 +1732,8 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT
 		else
 		{
 			sPathCost = PlotPath( pSoldier, sClimbGridNo, FALSE, FALSE, FALSE, WALKING, FALSE, FALSE, 0);
-			if (sPathCost != 0)
+			// sevenfm: check if we are already standing at climb gridno
+			if (sPathCost != 0 || pSoldier->sGridNo == sClimbGridNo)
 			{
 				// add in the cost of climbing up or down
 				if (pSoldier->pathing.bLevel == 0)
@@ -1942,7 +1944,7 @@ INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier )
 
 BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
-	if (WaterTooDeepForAttacks( sGridNo ))
+	if (WaterTooDeepForAttacks( sGridNo, pSoldier->pathing.bLevel ))
 	{
 		return(TRUE);
 	}
@@ -1968,7 +1970,7 @@ BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
-	if (WaterTooDeepForAttacks( sGridNo ))
+	if (WaterTooDeepForAttacks( sGridNo, pSoldier->pathing.bLevel ))
 	{
 		return(TRUE);
 	}

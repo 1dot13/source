@@ -788,7 +788,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	}
 
 
-	bInWater = Water( pSoldier->sGridNo );
+	bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
 	// check if standing in tear gas without a gas mask on, or in smoke
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
@@ -1825,7 +1825,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		iChance = 5 * WhatIKnowThatPublicDont(pSoldier,FALSE);   // use 5 * for YELLOW alert
 
 		// if I actually know something they don't and I ain't swimming (deep water)
-		if (iChance && !DeepWater( pSoldier->sGridNo ))
+		if (iChance && !DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel ))
 		{
 
 			// CJC: this addition allows for varying difficulty levels for soldier types
@@ -2474,8 +2474,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 
 	// determine if we happen to be in water (in which case we're in BIG trouble!)
-	bInWater = Water( pSoldier->sGridNo );
-	bInDeepWater = Water( pSoldier->sGridNo );
+	bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
+	bInDeepWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
 	// check if standing in tear gas without a gas mask on
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
@@ -3437,7 +3437,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			if( !TileIsOutOfBounds(tempGridNo) &&
 				!GuySawEnemyThisTurnOrBefore(pSoldier) &&
 				!pSoldier->aiData.bUnderFire &&
-				!Water(pSoldier->sGridNo) &&
+				!Water(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
 				pSoldier->bInitialActionPoints >= APBPConstants[AP_MINIMUM] &&
 				( PythSpacesAway( pSoldier->sGridNo, tempGridNo ) > MIN_FLANK_DIST_RED ||
 				!LocationToLocationLineOfSightTest( pSoldier->sGridNo, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) ) )
@@ -3452,7 +3452,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 				// sevenfm: avoid going into water, gas or light
 				if( !TileIsOutOfBounds(pSoldier->aiData.usActionData) &&
-					!Water(pSoldier->aiData.usActionData) &&
+					!Water(pSoldier->aiData.usActionData, pSoldier->pathing.bLevel) &&
 					!InGas( pSoldier, pSoldier->aiData.usActionData ) &&
 					!InLightAtNight( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel ) )
 				{
@@ -4563,8 +4563,8 @@ INT16 ubMinAPCost;
 	else
 	{
 		// determine if we happen to be in water (in which case we're in BIG trouble!)
-		bInWater = Water( pSoldier->sGridNo );
-		bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo );
+		bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
+		bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
 		// check if standing in tear gas without a gas mask on
 		bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
@@ -6716,7 +6716,7 @@ INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
 		return( AI_ACTION_NONE );
 	}
 
-	bInWater = Water( pSoldier->sGridNo );
+	bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
 	if ( bInWater && PreRandom( 2 ) )
 	{
@@ -7174,7 +7174,7 @@ INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
 		iChance = 5 * WhatIKnowThatPublicDont(pSoldier,FALSE);   // use 5 * for YELLOW alert
 
 		// if I actually know something they don't and I ain't swimming (deep water)
-		if (iChance && !DeepWater( pSoldier->sGridNo ))
+		if (iChance && !DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel ))
 		{
 			// CJC: this addition allows for varying difficulty levels for soldier types
 			iChance += gbDiff[ DIFF_RADIO_RED_ALERT ][ SoldierDifficultyLevel( pSoldier ) ] / 2;
@@ -7361,8 +7361,8 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		
 
 	// determine if we happen to be in water (in which case we're in BIG trouble!)
-	bInWater = Water( pSoldier->sGridNo );
-	bInDeepWater = Water( pSoldier->sGridNo );
+	bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
+	bInDeepWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 			
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out of breath");
 	////////////////////////////////////////////////////////////////////////
@@ -8053,8 +8053,8 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 	ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
 		
 	// determine if we happen to be in water (in which case we're in BIG trouble!)
-	bInWater = Water( pSoldier->sGridNo );
-	bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo );
+	bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
+	bInDeepWater = WaterTooDeepForAttacks( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 			
 	// calculate our morale
 	pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);

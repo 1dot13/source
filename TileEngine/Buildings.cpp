@@ -663,72 +663,8 @@ INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sD
 	{
 		return( NOWHERE );
 	}
-
-	// WANNE: This code is from Overhauls A* climbing building, but also works here.
-	/*
-	INT32			sTestGridNo;
-	UINT8			ubTestDir;
-	INT32			sGridNo;
-
-	for (sGridNo = 0; sGridNo < WORLD_MAX; sGridNo++)
-	{
-		if (gubBuildingInfo[ sGridNo ] == gubBuildingInfo[ sDesiredGridNo ]) //&&
-			//gpWorldLevelData[ sGridNo ].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
-		{
-			// Found a climb point for this building
-			if (fClimbUp)
-			{
-				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
-				{
-					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
-					//if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
-					{
-						// Found a matching climb point
-						if ( (WhoIsThere2( sTestGridNo, 0 ) == NOBODY || sTestGridNo == pSoldier->sGridNo)
-							&& (WhoIsThere2( sGridNo, 1 ) == NOBODY) &&
-							(!pSoldier || !InGas( pSoldier, sTestGridNo ) ) )
-						{
-							// And it's open
-							sDistance = PythSpacesAway( sStartGridNo, sTestGridNo );
-							if (sDistance < sClosestDistance )
-							{
-								sClosestDistance = sDistance;
-								sClosestSpot = sTestGridNo;
-							}
-						}
-					}
-				}
-			}
-			else
-			{
-				for (ubTestDir = 0; ubTestDir < 8; ubTestDir += 2)
-				{
-					sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
-					//if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
-					{
-						// Found a matching climb point
-						if ( (WhoIsThere2( sTestGridNo, 0 ) == NOBODY) &&
-							(WhoIsThere2( sGridNo, 1 ) == NOBODY || sGridNo == pSoldier->sGridNo) &&
-							(!pSoldier || !InGas( pSoldier, sTestGridNo ) ) )
-						{
-							// And it's open
-							sDistance = PythSpacesAway( sStartGridNo, sGridNo );
-							if (sDistance < sClosestDistance )
-							{
-								sClosestDistance = sDistance;
-								sClosestSpot = sGridNo;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	return( sClosestSpot );
-	*/
-
-	// WANNE: This code is from "vanilla" climbing
+	
+	// WANNE: Reworked climbing code from sevenfm
 	UINT8			ubNumClimbSpots;
 	INT32 *			psClimbSpots;
 	UINT8			ubLoop;
@@ -746,9 +682,12 @@ INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sD
 
 	for ( ubLoop = 0; ubLoop < ubNumClimbSpots; ubLoop++ )
 	{
-		if ( (WhoIsThere2( pBuilding->sUpClimbSpots[ ubLoop ], 0 ) == NOBODY)
-			&& (WhoIsThere2( pBuilding->sDownClimbSpots[ ubLoop ], 1 ) == NOBODY) &&
-			(!pSoldier || !InGas( pSoldier, psClimbSpots[ ubLoop] ) ) )
+		if( (WhoIsThere2( pBuilding->sUpClimbSpots[ ubLoop ], 0 ) == NOBODY ||
+			WhoIsThere2( pBuilding->sUpClimbSpots[ ubLoop ], 0 ) == pSoldier->ubID ) &&
+			(WhoIsThere2( pBuilding->sDownClimbSpots[ ubLoop ], 1 ) == NOBODY ||
+			WhoIsThere2( pBuilding->sDownClimbSpots[ ubLoop ], 1 ) == pSoldier->ubID) &&
+			!InGas( pSoldier, psClimbSpots[ ubLoop] ) &&
+			!Water( psClimbSpots[ ubLoop], pSoldier->pathing.bLevel) )
 		{
 			sDistance = PythSpacesAway( sStartGridNo, psClimbSpots[ ubLoop ] );
 			if (sDistance < sClosestDistance )

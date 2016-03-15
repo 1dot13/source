@@ -2611,13 +2611,13 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			}
 
 			// sevenfm: don't go into deep water for flanking
-			if( DeepWater( sGridNo ) )
+			if( DeepWater( sGridNo, pSoldier->pathing.bLevel ) )
 			{
 				continue;
 			}
 
 			// sevenfm: allow water flanking only for CUNNINGSOLO soldiers
-			if( Water( sGridNo ) && pSoldier->aiData.bAttitude != CUNNINGSOLO )
+			if( Water( sGridNo, pSoldier->pathing.bLevel ) && pSoldier->aiData.bAttitude != CUNNINGSOLO )
 			{
 				continue;
 			}
@@ -2696,17 +2696,18 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 	return( sBestSpot );
 }
 
+//sevenfm: new calculation using FindHeigherLevel
 INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 {
 	INT32 sBestSpot = NOWHERE;
 
+	// sevenfm: safety check
+	if(!pSoldier)
+	{
+		return NOWHERE;
+	}
+
 	//DebugMsg( TOPIC_JA2AI , DBG_LEVEL_3 , "FindClosestClimbPoint");
-
-		//gubNPCAPBudget = 	gubNPCAPBudget = __min( gubNPCAPBudget, gubNPCAPBudget - GetAPsToChangeStance( pSoldier, ANIM_STAND ) -1 ); //-1 for turning cost while standing
-	//NumMessage("Search Range = ",iSearchRange);
-	//NumMessage("gubNPCAPBudget = ",gubNPCAPBudget);
-
-	// 0verhaul:  This function is optimized to take advantage of the new climb point info.
 
 	if (fClimbUp)
 	{
@@ -2714,7 +2715,10 @@ INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 		INT32 sGridNo;
 		static const INT32 iSearchRange = 20;
 		INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-		UINT8 ubTestDir;
+		//UINT8 ubTestDir;
+
+		INT8 ubClimbDir;
+		INT32 sClimbSpot;
 
 		// determine maximum horizontal limits
 		sMaxLeft  = min( iSearchRange, (pSoldier->sGridNo % MAXCOL));
@@ -2744,7 +2748,6 @@ INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 					continue;
 				}
 
-
 				if ( sGridNo == pSoldier->pathing.sBlackList )
 				{
 					continue;
@@ -2756,24 +2759,32 @@ INT32 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 					continue;
 				}
 
-				if (gpWorldLevelData[ sGridNo].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
+				// exclude water tiles
+				if ( Water( sGridNo, pSoldier->pathing.bLevel ) )
 				{
-					// Search for the destination climb point on the roof
-					for ( ubTestDir = 0; ubTestDir < NUM_WORLD_DIRECTIONS; ubTestDir += 2 )
+					continue;
+				}
+
+				// check that there's noone at sGridNo at level 0 (this soldier is allowed)
+				if( WhoIsThere2( sGridNo, 0 ) != NOBODY &&
+					WhoIsThere2( sGridNo, 0 ) != pSoldier->ubID )
+				{
+					continue;
+				}
+
+				if( FindHeigherLevel( pSoldier, sGridNo, pSoldier->ubDirection, &ubClimbDir ) )
+				{
+					// ubClimbDir is new direction
+					// check that there's noone there
+					sClimbSpot = NewGridNo( sGridNo, DirectionInc( ubClimbDir));
+					if( WhoIsThere2( sClimbSpot, 1 ) == NOBODY )
 					{
-						INT32 sTestGridNo = NewGridNo( sGridNo, DirectionInc( ubTestDir));
-						// And see if it or the ground location is occupied
-						if (gpWorldLevelData[ sTestGridNo ].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT &&
-							(WhoIsThere2( sTestGridNo, 1 ) == NOBODY) &&
-							(WhoIsThere2( sGridNo, 0 ) == NOBODY) )
+						// Good climb point.  Is it closer than the previous point?
+						if( TileIsOutOfBounds(sBestSpot) ||
+							GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo , sGridNo ) < GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo , sBestSpot ))
 						{
-							// Good climb point.  Is it closer than the previous point?
-							if ( GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo , sGridNo ) < 
-								GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo , sBestSpot ))
-							{
-								// If not, we have a new winnar!
-								sBestSpot = sGridNo;
-							}
+							// If not, we have a new winnar!
+							sBestSpot = sGridNo;
 						}
 					}
 				}
@@ -2936,47 +2947,47 @@ INT32 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubS
 
 }
 
+// sevenfm: new calculation using FindHeigherLevel/FindLowerLevel
 INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 {
-	UINT8 ubClimbDir;
+	INT8 ubClimbDir;
 	INT32 sClimbSpot;
 
-	if (bLevel == 0)
+	if(!pSoldier)
 	{
-		if (gpWorldLevelData[ sGridNo].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT)
+		return DIRECTION_IRRELEVANT;
+	}
+
+	if (pSoldier->pathing.bLevel == 0)
+	{
+		// check climb up
+		if( FindHeigherLevel( pSoldier, sGridNo, pSoldier->ubDirection, &ubClimbDir ) )
 		{
-			for ( ubClimbDir = 0; ubClimbDir < NUM_WORLD_DIRECTIONS; ubClimbDir += 2 )
+			// ubClimbDir is new direction
+			// check that there's noone there
+			sClimbSpot = NewGridNo( sGridNo, DirectionInc( ubClimbDir));
+			if( WhoIsThere2( sClimbSpot, 1 ) == NOBODY &&
+				!Water(sClimbSpot, 1) )
 			{
-				sClimbSpot = NewGridNo( sGridNo, DirectionInc( ubClimbDir));
-				if (gpWorldLevelData[ sClimbSpot].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT &&
-					WhoIsThere2( sClimbSpot, 1 ) == NOBODY )
-				{
-					return ubClimbDir;
-				}
+				return ubClimbDir;
 			}
 		}
 	}
-	else if (bLevel == 1)
+	else
 	{
-		//CHRISL: If NewInv and wearing a backpack, don't allow climbing
-		if (UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true
-			//JMich.BackpackClimb
-			&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-			&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
-			return DIRECTION_IRRELEVANT;
-		if (gpWorldLevelData[ sGridNo].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
+		// check climb down
+		if( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &ubClimbDir ) )
 		{
-			for ( ubClimbDir = 0; ubClimbDir< NUM_WORLD_DIRECTIONS; ubClimbDir += 2 )
+			// ubClimbDir is new direction
+			sClimbSpot = NewGridNo( sGridNo, DirectionInc( ubClimbDir));
+			if( WhoIsThere2( sClimbSpot, 0 ) == NOBODY &&
+				!Water(sClimbSpot, 0) )
 			{
-				sClimbSpot = NewGridNo( sGridNo, DirectionInc( ubClimbDir));
-				if (gpWorldLevelData[ sClimbSpot].ubExtFlags[0] & MAPELEMENT_EXT_CLIMBPOINT &&
-					WhoIsThere2( sClimbSpot, 0 ) == NOBODY )
-				{
-					return ubClimbDir;
-				}
+				return ubClimbDir;
 			}
 		}
 	}
+
 	return DIRECTION_IRRELEVANT;
 }
 

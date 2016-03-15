@@ -1117,7 +1117,7 @@ INT32 FindRandomGridNoBetweenCircles( INT32 sCenterGridNo, UINT8 uInnerRadius, U
 		
 		sGridNo = sCenterGridNo + (WORLD_COLS * sY) + sX;
 
-		if ( TileIsOutOfBounds( sGridNo ) || Water( sGridNo ) || !IsLocationSittable( sGridNo, 0 ) || PythSpacesAway( sGridNo, sCenterGridNo ) <= uInnerRadius || PythSpacesAway( sGridNo, sCenterGridNo ) > uOuterRadius )
+		if ( TileIsOutOfBounds( sGridNo ) || Water( sGridNo, 0 ) || !IsLocationSittable( sGridNo, 0 ) || PythSpacesAway( sGridNo, sCenterGridNo ) <= uInnerRadius || PythSpacesAway( sGridNo, sCenterGridNo ) > uOuterRadius )
 			sGridNo = NOWHERE;
 		else
 			fFound = TRUE;

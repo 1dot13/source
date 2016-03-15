@@ -63,9 +63,9 @@ void SetAllLandShadeLevels( INT32 iMapIndex, UINT8 ubShadeLevel );
 void AdjustAllLandShadeLevels( INT32 iMapIndex, INT8 bShadeDiff );
 void AdjustAllLandDirtyCount( INT32 iMapIndex, INT8 bDirtyDiff );
 UINT8	GetTerrainType( INT32 sGridNo );
-BOOLEAN Water( INT32 sGridNo );
-BOOLEAN DeepWater( INT32 sGridNo );
-BOOLEAN WaterTooDeepForAttacks( INT32 sGridNo );
+BOOLEAN Water( INT32 sGridNo, BOOLEAN bLevel );
+BOOLEAN DeepWater( INT32 sGridNo, BOOLEAN bLevel );
+BOOLEAN WaterTooDeepForAttacks( INT32 sGridNo, BOOLEAN bLevel );
 
 // Structure manipulation routines
 BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex );

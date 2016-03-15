@@ -2624,7 +2624,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	fNonSwimmer = !( IS_MERC_BODY_TYPE( s ) );
 	if ( fNonSwimmer )
 	{
-		if ( Water( sDestination ) )
+		if ( Water( sDestination, ubLevel ) )
 		{
 			return( 0 );
 		}

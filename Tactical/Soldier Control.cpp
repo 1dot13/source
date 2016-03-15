@@ -16318,7 +16318,7 @@ void	SOLDIERTYPE::DropSectorEquipment( )
 	if ( sPutGridNo == NOWHERE )
 		sPutGridNo = RandomGridNo( );
 
-	if ( Water( sPutGridNo ) )
+	if ( Water( sPutGridNo, this->pathing.bLevel ) )
 		sPutGridNo = gMapInformation.sCenterGridNo;
 
 	if ( (this->sSectorX == gWorldSectorX) && (this->sSectorY == gWorldSectorY) && (this->bSectorZ == gbWorldSectorZ) )
