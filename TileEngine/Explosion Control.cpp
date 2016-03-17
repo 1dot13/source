@@ -1843,7 +1843,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 			}
 		}
 
-		sNewWoundAmt = max(1, sNewWoundAmt);
+		sNewWoundAmt = max(0, sNewWoundAmt);
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
 	

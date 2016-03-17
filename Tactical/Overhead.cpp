@@ -10485,7 +10485,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             {
                 enemysidestrength += pSoldier->GetSurrenderStrength();
 
-				if ( pSoldier->ubProfile != NO_PROFILE || pSoldier->ubSoldierClass == SOLDIER_CLASS_TANK )
+				if ( pSoldier->ubProfile != NO_PROFILE || TANK(pSoldier) )
 					fNoSurrender = TRUE;
             }
         }
@@ -10497,7 +10497,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
         {
             if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
             {
-				// if a civilian is not neutral and on the enemy side, add his strength to the team
+				// hostile civs with a profile cannot be captured, as stated above, the entire team cannot surrender
 				if ( !pSoldier->aiData.bNeutral && pSoldier->bSide == 1 && zCivGroupName[pSoldier->ubCivilianGroup].fCanBeCaptured && pSoldier->ubProfile != NO_PROFILE )
 					fNoSurrender = TRUE;
 
@@ -10505,6 +10505,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 				if ( !pSoldier->CanBeCaptured() )
 					continue;
 
+				// if a civilian is not neutral and on the enemy side, add his strength to the team
 				enemysidestrength += pSoldier->GetSurrenderStrength( );
             }
         }

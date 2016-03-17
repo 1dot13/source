@@ -2050,7 +2050,10 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 		else if ( TANK( pSoldier ) )
 		{
 			// high up!
-			ubPosType = HEAD_TARGET_POS;
+			//ubPosType = HEAD_TARGET_POS;
+
+			// Flugente: why would we try to hit the top of a vehicle? the middle is just fine (we would also miss on vehicles with a lower silhouette)
+			ubPosType = TORSO_TARGET_POS;
 		}
 
 		ubHeight = gAnimControl[ pSoldier->usAnimState ].ubEndHeight;

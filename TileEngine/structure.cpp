@@ -1906,8 +1906,10 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 		// max armour will be set by Player in .ini and checked before DamageStructure is called
 		if ( ubReason == STRUCTURE_DAMAGE_VEHICLE_TRAUMA )
 		{
+			INT16 damage = 255;
+
 			BOOLEAN recompile = FALSE;
-			ExplosiveDamageGridNo( sGridNo, 255, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
+			ExplosiveDamageGridNo( sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
 			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
@@ -1916,6 +1918,20 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			if ( ubOwner != NOBODY && MercPtrs[ubOwner] && !TANK( MercPtrs[ubOwner] ) )
 			{
 				MercPtrs[ ubOwner ]->SoldierTakeDamage( 0, Random(max(0,(ubBaseArmour-10)/5))+max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE );
+			}
+
+			// Flugente: if we destroyed a wall, the roof might get damaged too
+			// recompile = TRUE means that we destroyed something
+			if ( fWallHere && recompile )
+			{
+				// lets not make it that extreme
+				damage = 100;
+
+				HandleRoofDestruction( sGridNo, damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( NORTH ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( EAST ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( WEST ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( SOUTH ) ), damage * 0.75f );
 			}
 		}
 

@@ -20939,7 +20939,9 @@ void InternalPlaySoldierFootstepSound( SOLDIERTYPE * pSoldier )
 		{
 			bVolume = HIGHVOLUME;
 		}
-		PlaySoldierJA2Sample( pSoldier->ubID, pVehicleList[pSoldier->bVehicleID].iMoveSound, RATE_11025, SoundVolume( bVolume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
+
+		if ( pVehicleList )
+			PlaySoldierJA2Sample( pSoldier->ubID, pVehicleList[pSoldier->bVehicleID].iMoveSound, RATE_11025, SoundVolume( bVolume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 	}
 }
 
