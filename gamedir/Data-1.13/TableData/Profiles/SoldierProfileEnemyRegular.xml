@@ -59,116 +59,1844 @@ uiTrait1, uiTrait2, uiTrait3: according to the trait numbers:
     <uiTrait2>0</uiTrait2>
     <uiTrait3>0</uiTrait3>
   </PROFILE>
-  <PROFILE>
+ <PROFILE>
    <uiIndex>1</uiIndex>
    <szName>DeToX</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>3</uiHair>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
    <uiSkin>1</uiSkin>
- </PROFILE> 
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
  <PROFILE>
    <uiIndex>2</uiIndex>
    <szName>Niklas Wilson</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>3</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>3</uiIndex>
    <szName>Achim Franke</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>4</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>4</uiIndex>
    <szName>Pitzer Mike</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>4</uiHair>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
    <uiSkin>2</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>5</uiIndex>
    <szName>Big Boss</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>3</uiHair>
-   <uiSkin>1</uiSkin>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>6</uiIndex>
    <szName>Axido</szName>
    <uiBodyType>1</uiBodyType>
-   <uiHair>2</uiHair>
+   <uiHair>4</uiHair>
    <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>7</uiIndex>
    <szName>Nakano</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>4</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>4</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>8</uiIndex>
    <szName>Pablo Alberto</szName>
    <uiBodyType>1</uiBodyType>
-   <uiHair>3</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiHair>1</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>9</uiIndex>
    <szName>Henry Hertzila</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>2</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>10</uiIndex>
    <szName>Kyuzo</szName>
    <uiBodyType>1</uiBodyType>
-   <uiHair>2</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>11</uiIndex>
    <szName>Grim</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>3</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>12</uiIndex>
    <szName>Bastien 'tty' Durel</szName>
    <uiBodyType>1</uiBodyType>
-   <uiHair>2</uiHair>
-   <uiSkin>1</uiSkin>
+   <uiHair>5</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>13</uiIndex>
    <szName>Ralph Johansen</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>2</uiHair>
-   <uiSkin>1</uiSkin>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>14</uiIndex>
    <szName>Xhemesis</szName>
-   <uiBodyType>1</uiBodyType>
-   <uiHair>2</uiHair>
-   <uiSkin>2</uiSkin>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>15</uiIndex>
    <szName>Fernando Hoffez</szName>
    <uiBodyType>1</uiBodyType>
-   <uiHair>5</uiHair>
+   <uiHair>3</uiHair>
    <uiSkin>1</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
  <PROFILE>
    <uiIndex>16</uiIndex>
    <szName>Remi Spaans</szName>
    <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>17</uiIndex>
+   <szName>Abner 'Woody' Richards</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>18</uiIndex>
+   <szName>Alex Lindburg</szName>
+   <uiBodyType>1</uiBodyType>
    <uiHair>4</uiHair>
    <uiSkin>1</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>19</uiIndex>
+   <szName>Alistair Young</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>20</uiIndex>
+   <szName>Anders Milevski</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>19</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>21</uiIndex>
+   <szName>Andreas Sepp</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>22</uiIndex>
+   <szName>Angus McSporran</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>23</uiIndex>
+   <szName>Archibald Jackson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>24</uiIndex>
+   <szName>Augustus Marques</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>25</uiIndex>
+   <szName>Austin 'Powers' Davinci</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>4</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>26</uiIndex>
+   <szName>Barnaby Bollingwood</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>27</uiIndex>
+   <szName>Benedict Jankowski</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>28</uiIndex>
+   <szName>Boris Petrovic</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>21</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>29</uiIndex>
+   <szName>Broderick Velovic</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>30</uiIndex>
+   <szName>Charlie Jackson</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>31</uiIndex>
+   <szName>Chuck 'Hercules' King</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>12</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>32</uiIndex>
+   <szName>Claude Dujardin</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>33</uiIndex>
+   <szName>Clive Lewis</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>16</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>34</uiIndex>
+   <szName>Craig Duffy</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>35</uiIndex>
+   <szName>Damien Hansen</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>36</uiIndex>
+   <szName>Darryl 'Hick' Hickson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>37</uiIndex>
+   <szName>Demarcus Pollard</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>38</uiIndex>
+   <szName>Eddie 'Spud' Benson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>39</uiIndex>
+   <szName>Eldridge Jefford</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>12</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>40</uiIndex>
+   <szName>Elvis Manson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>41</uiIndex>
+   <szName>Enoch Iverson</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>42</uiIndex>
+   <szName>Ethan Underwood</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>43</uiIndex>
+   <szName>Ezekiel 'Buck' Adams</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>44</uiIndex>
+   <szName>Floyd Finnegan</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>21</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>45</uiIndex>
+   <szName>Frank Winspear</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>46</uiIndex>
+   <szName>Gavin Parkinson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>47</uiIndex>
+   <szName>Geno Bianchi</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>48</uiIndex>
+   <szName>George Robinson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>49</uiIndex>
+   <szName>Glenn Braithwaite</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>50</uiIndex>
+   <szName>Godric Hardy</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>51</uiIndex>
+   <szName>Herb Chaves</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>52</uiIndex>
+   <szName>Hugh Millington</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>53</uiIndex>
+   <szName>Jakob Johannes</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>54</uiIndex>
+   <szName>Jasper 'Ouch' Collins</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>55</uiIndex>
+   <szName>Joey Carter</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>56</uiIndex>
+   <szName>Johann 'Dutch' Smit</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>16</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>57</uiIndex>
+   <szName>Jonah Jensen</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>21</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>58</uiIndex>
+   <szName>Joseph Koppel</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>59</uiIndex>
+   <szName>Kelvin 'Heat' Garr</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>19</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>60</uiIndex>
+   <szName>Kermit 'Frog'</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>61</uiIndex>
+   <szName>Kingsley Pointer</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>62</uiIndex>
+   <szName>Klass Wouters</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>63</uiIndex>
+   <szName>Lazarus</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>64</uiIndex>
+   <szName>Leonard Pinto</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>21</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>65</uiIndex>
+   <szName>Leighton Manz</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>13</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>66</uiIndex>
+   <szName>Linus 'Locust' Laski</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>21</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>67</uiIndex>
+   <szName>Lou Mendes</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>68</uiIndex>
+   <szName>Luigi del Vecchio</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>69</uiIndex>
+   <szName>Malcolm Sears</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>70</uiIndex>
+   <szName>Marvin Selby</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>71</uiIndex>
+   <szName>Max Gruber</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>72</uiIndex>
+   <szName>Modesto Peeters</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>73</uiIndex>
+   <szName>Mordechai Jensen</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>4</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>74</uiIndex>
+   <szName>Oliver Murphy</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>75</uiIndex>
+   <szName>Octavius De Jong</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>16</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>76</uiIndex>
+   <szName>Otis 'Firestorm' Sparke</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>77</uiIndex>
+   <szName>Otto Borg</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>78</uiIndex>
+   <szName>Phineas Crane</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>79</uiIndex>
+   <szName>Pierre Lacoste</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>80</uiIndex>
+   <szName>Quinten Marek</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>81</uiIndex>
+   <szName>Ralph Kowinski</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>82</uiIndex>
+   <szName>Rhett 'Tex' Gillespie</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>83</uiIndex>
+   <szName>Roscoe 'Cowboy' Smart</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>13</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>84</uiIndex>
+   <szName>Ross Rossburg</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>85</uiIndex>
+   <szName>Rupert Lincoln</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>86</uiIndex>
+   <szName>Russ Mayerling</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>87</uiIndex>
+   <szName>Ryan Foster</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>88</uiIndex>
+   <szName>Sebastian 'Rambo' Davies</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>89</uiIndex>
+   <szName>Sergei Novak</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>90</uiIndex>
+   <szName>Stellan Olsen</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>91</uiIndex>
+   <szName>Stephan Moretti</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>92</uiIndex>
+   <szName>Steve Durham</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>93</uiIndex>
+   <szName>Thaddeus 'Thud' Baranski</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>4</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>94</uiIndex>
+   <szName>Theo Hendricks</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>21</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>95</uiIndex>
+   <szName>Valentine Nixon</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>16</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>96</uiIndex>
+   <szName>Vaughn Dotson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>97</uiIndex>
+   <szName>Victor 'Conan' Barbarus</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>98</uiIndex>
+   <szName>Vladimir Roshenko</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>99</uiIndex>
+   <szName>Waldo Wilson</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>100</uiIndex>
+   <szName>Willie 'SOS' Morse</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>21</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>101</uiIndex>
+   <szName>Wolfgang Muller</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>102</uiIndex>
+   <szName>Yevgeny Ivanov</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>19</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>103</uiIndex>
+   <szName>Zachary Edwards</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>104</uiIndex>
+   <szName>Zeb Sheppard</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>105</uiIndex>
+   <szName>Zeke Lowe</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>106</uiIndex>
+   <szName>Aaron Wild</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>107</uiIndex>
+   <szName>Alec Woolley</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>16</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>108</uiIndex>
+   <szName>Amos Chilton</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>13</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>109</uiIndex>
+   <szName>Anthony Golding</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>110</uiIndex>
+   <szName>Art MacMullin</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>111</uiIndex>
+   <szName>Barney Edmunds</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>112</uiIndex>
+   <szName>Benny Loftus</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>13</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>113</uiIndex>
+   <szName>Bob Windsor</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>114</uiIndex>
+   <szName>Boyd Keegan</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>12</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>115</uiIndex>
+   <szName>Bruce Rosenberg</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>116</uiIndex>
+   <szName>Bryan Spellman</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>117</uiIndex>
+   <szName>Calvin Carty</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>118</uiIndex>
+   <szName>Carl Leatherman</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>21</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>119</uiIndex>
+   <szName>Carlton Stansbury</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>120</uiIndex>
+   <szName>Casey Boland</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>121</uiIndex>
+   <szName>Clay Finnegan</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>16</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>122</uiIndex>
+   <szName>Cletus Rawlins</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>123</uiIndex>
+   <szName>Cliff Sessions</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>124</uiIndex>
+   <szName>Clint 'Shorty' Sayers</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>13</uiTrait1>
+   <uiTrait2>16</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>125</uiIndex>
+   <szName>Dale 'Dusty' Woods</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>126</uiIndex>
+   <szName>Dana Fellowes</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>127</uiIndex>
+   <szName>Dennis Atherton</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>128</uiIndex>
+   <szName>Dick Hendon</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>129</uiIndex>
+   <szName>Donnie Samples</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>130</uiIndex>
+   <szName>Dustin Staggs</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>131</uiIndex>
+   <szName>Dylan Fahey</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>132</uiIndex>
+   <szName>Earl Styles</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>133</uiIndex>
+   <szName>Eduardo Pedroza</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>19</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>134</uiIndex>
+   <szName>Eli 'Bugsy' Cosgrove</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>21</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>135</uiIndex>
+   <szName>Eugene Lemmon</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>136</uiIndex>
+   <szName>Fabian Labonte</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>137</uiIndex>
+   <szName>Felix Giroux</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>138</uiIndex>
+   <szName>Frank Wheaton</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>139</uiIndex>
+   <szName>Gabriel Stott</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>140</uiIndex>
+   <szName>Gilbert 'G Man' Conaway</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>21</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>141</uiIndex>
+   <szName>Garth McDougall</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>142</uiIndex>
+   <szName>Gregg 'Butcher' Latimer</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>17</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>143</uiIndex>
+   <szName>Gregory Hales</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>19</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>144</uiIndex>
+   <szName>Herbert 'Deadly' Legg</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>145</uiIndex>
+   <szName>Herman Ingle</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>146</uiIndex>
+   <szName>Joel Masterson</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>147</uiIndex>
+   <szName>Jon Skipper</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>4</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>148</uiIndex>
+   <szName>Jose 'El Diablo' Ramon</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>16</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>149</uiIndex>
+   <szName>Julian Fenner</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>150</uiIndex>
+   <szName>Julius Upshaw</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>151</uiIndex>
+   <szName>Justin 'Ferret' Sandlin</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>152</uiIndex>
+   <szName>Kurt 'Thunder' Blaine</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>153</uiIndex>
+   <szName>Lester Doolittle</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>13</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>154</uiIndex>
+   <szName>Lewis Skipper</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>155</uiIndex>
+   <szName>Lionel Gower</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>12</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>156</uiIndex>
+   <szName>Lloyd Brinkman</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>12</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>157</uiIndex>
+   <szName>Mack Sellars</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>158</uiIndex>
+   <szName>Marvin 'Dog' Sorrell</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>159</uiIndex>
+   <szName>Marcus Broadway</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>8</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>160</uiIndex>
+   <szName>Maurice 'Tiny' Wick</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>15</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>161</uiIndex>
+   <szName>Myron McMasters</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>4</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>162</uiIndex>
+   <szName>Norbert Rountree</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>19</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>163</uiIndex>
+   <szName>Ormond Laflamme</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>4</uiTrait1>
+   <uiTrait2>13</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>164</uiIndex>
+   <szName>Orville Kirkwood</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>165</uiIndex>
+   <szName>Pat Stackhouse</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>19</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>166</uiIndex>
+   <szName>Patrick Button</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>167</uiIndex>
+   <szName>Raymond Marchand</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>168</uiIndex>
+   <szName>Reggie Messenger</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>12</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>169</uiIndex>
+   <szName>Rene 'Frenchie' Lefevre</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>170</uiIndex>
+   <szName>Roland Corbitt</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>11</uiTrait1>
+   <uiTrait2>16</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>171</uiIndex>
+   <szName>Scott Huntington</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>12</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>172</uiIndex>
+   <szName>Solomon Rigby</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>7</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>173</uiIndex>
+   <szName>Sylvester 'Pop' Appleton</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>13</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>174</uiIndex>
+   <szName>Teddy Sandberg</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>175</uiIndex>
+   <szName>Theodore Pinkney</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>9</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>176</uiIndex>
+   <szName>Timothy Peyton</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>5</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>6</uiTrait1>
+   <uiTrait2>11</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>177</uiIndex>
+   <szName>Todd Spalding</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>3</uiSkin>
+   <uiTrait1>3</uiTrait1>
+   <uiTrait2>17</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>178</uiIndex>
+   <szName>Tristan Packer</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>179</uiIndex>
+   <szName>Troy Saxon</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>2</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>15</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>180</uiIndex>
+   <szName>Tyrone Brent</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>4</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>10</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>181</uiIndex>
+   <szName>Ulysses Krug</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>1</uiTrait1>
+   <uiTrait2>14</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>182</uiIndex>
+   <szName>Wayne Speed</szName>
+   <uiBodyType>1</uiBodyType>
+   <uiHair>1</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>2</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>183</uiIndex>
+   <szName>Wesley Linville</szName>
+   <uiBodyType>3</uiBodyType>
+   <uiHair>3</uiHair>
+   <uiSkin>4</uiSkin>
+   <uiTrait1>5</uiTrait1>
+   <uiTrait2>10</uiTrait2>
+   <uiTrait3>0</uiTrait3>
+ </PROFILE>
+ <PROFILE>
+   <uiIndex>184</uiIndex>
+   <szName>Xavier 'Reynard' Laroche</szName>
+   <uiBodyType>2</uiBodyType>
+   <uiHair>2</uiHair>
+   <uiSkin>1</uiSkin>
+   <uiTrait1>14</uiTrait1>
+   <uiTrait2>0</uiTrait2>
+   <uiTrait3>0</uiTrait3>
  </PROFILE>
 </PROFILES>
