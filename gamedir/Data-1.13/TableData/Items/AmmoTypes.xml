@@ -23,7 +23,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -37,6 +36,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
@@ -61,7 +64,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -75,6 +77,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
@@ -99,7 +105,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -113,6 +118,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.4</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
@@ -137,7 +146,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -151,6 +159,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.6</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
@@ -175,7 +187,6 @@
 		<multipleBulletDamageDivisor>4</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -189,6 +200,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -213,7 +228,6 @@
 		<multipleBulletDamageDivisor>10</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -227,6 +241,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -251,7 +269,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>1</highExplosive>
 		<explosionSize>2</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -265,6 +282,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.5</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
@@ -289,7 +310,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>1</monsterSpit>
@@ -303,6 +323,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
@@ -327,7 +351,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>1</knife>
 		<monsterSpit>0</monsterSpit>
@@ -341,6 +364,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
@@ -365,7 +392,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>1</highExplosive>
 		<explosionSize>1</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -379,6 +405,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
@@ -403,7 +433,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>1</highExplosive>
 		<explosionSize>1</explosionSize>
-		<antiTank>1</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -417,6 +446,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>1.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.75</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
@@ -441,7 +474,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>1</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -455,6 +487,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
@@ -479,7 +515,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -493,6 +528,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
@@ -517,7 +556,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -531,6 +569,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.5</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
@@ -555,7 +597,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -569,6 +610,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.3</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
@@ -593,7 +638,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -607,6 +651,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
@@ -631,7 +679,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -645,6 +692,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.4</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
@@ -669,7 +720,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -683,6 +733,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
@@ -707,7 +761,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -721,6 +774,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.4</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
@@ -745,7 +802,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -759,6 +815,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
@@ -783,7 +843,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -797,6 +856,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
@@ -821,7 +884,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -835,6 +897,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.2</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
@@ -859,7 +925,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -873,6 +938,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.3</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
@@ -897,7 +966,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -911,6 +979,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
@@ -935,7 +1007,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -949,6 +1020,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
@@ -973,7 +1048,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -987,6 +1061,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.3</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
@@ -1011,7 +1089,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1025,6 +1102,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.8</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>27</uiIndex>
@@ -1049,7 +1130,6 @@
 		<multipleBulletDamageDivisor>3</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1063,6 +1143,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>28</uiIndex>
@@ -1087,7 +1171,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1101,6 +1184,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>29</uiIndex>
@@ -1125,7 +1212,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>1</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1138,6 +1224,10 @@
 		<dirtModificator>0</dirtModificator>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>30</uiIndex>
@@ -1162,7 +1252,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1176,6 +1265,10 @@
 		<ammoflag>2</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>0.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>31</uiIndex>
@@ -1200,7 +1293,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1214,6 +1306,10 @@
 		<ammoflag>4</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.3</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.75</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>1.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>32</uiIndex>
@@ -1238,7 +1334,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1252,6 +1347,10 @@
 		<ammoflag>0</ammoflag>
 		<dDamageModifierLife>0.3</dDamageModifierLife>
 		<dDamageModifierBreath>1.3</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>33</uiIndex>
@@ -1276,7 +1375,6 @@
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
-		<antiTank>0</antiTank>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -1288,7 +1386,11 @@
 		<temperatureModificator>1.0</temperatureModificator>
 		<dirtModificator>1.0</dirtModificator>
 		<ammoflag>1</ammoflag>
-		<dDamageModifierLife>0.00</dDamageModifierLife>
-		<dDamageModifierBreath>0.00</dDamageModifierBreath>
+		<dDamageModifierLife>0.0</dDamageModifierLife>
+		<dDamageModifierBreath>0.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>0.0</dDamageModifierZombie>
 	</AMMOTYPE>
 </AMMOTYPELIST>
