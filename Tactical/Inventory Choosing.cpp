@@ -91,7 +91,7 @@ ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTIONS][ARMY
 ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 
 void RandomlyChooseWhichItemsAreDroppable( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass );
-void EquipTank( SOLDIERCREATE_STRUCT *pp );
+void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp, BOOLEAN fTank = TRUE );
 
 void ChooseKitsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bKitClass );
 void ChooseMiscGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bMiscClass );
@@ -251,13 +251,13 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		return;
 	}
 	
-	if ( TANK( pp ) )
+	if ( ARMED_VEHICLE( pp ) )
 	{
-		EquipTank( pp );
+		EquipArmouredVehicle( pp, TANK( pp ) );
 		return;
 	}
 
-	Assert( ( bSoldierClass >= SOLDIER_CLASS_NONE ) && ( bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA ) || bSoldierClass == SOLDIER_CLASS_TANK );
+	Assert( (bSoldierClass >= SOLDIER_CLASS_NONE) && (bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA) || bSoldierClass == SOLDIER_CLASS_TANK || bSoldierClass == SOLDIER_CLASS_JEEP );
 	Assert( ( bEquipmentRating >= 0 ) && ( bEquipmentRating <= 4 ) );
 
 	// equipment level is modified by 1/10 of the difficulty percentage, -5, so it's between -5 to +5
@@ -3406,24 +3406,33 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel, INT8 bSoldierClass )
 
 
 
-void EquipTank( SOLDIERCREATE_STRUCT *pp )
+void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp, BOOLEAN fTank )
 {
 	// tanks get special equipment, and they drop nothing (MGs are hard-mounted & non-removable)
 
-	// main cannon
-	CreateItem( TANK_CANNON, ( INT8 )( 80 + Random( 21 ) ), &( pp->Inv[ HANDPOS ]) );
-	pp->Inv[ HANDPOS ].fFlags |= OBJECT_UNDROPPABLE;
+	// tanks get a main cannon and a MG, other vehicles just get the MG
+	if ( fTank )
+	{
+		CreateItem( TANK_CANNON, ( INT8 )( 80 + Random( 21 ) ), &( pp->Inv[ HANDPOS ]) );
+		pp->Inv[ HANDPOS ].fFlags |= OBJECT_UNDROPPABLE;
 
-	// machine gun
-	CreateItems( MINIMI, ( INT8 )( 80 + Random( 21 ) ), 1, &gTempObject );
-	gTempObject.fFlags |= OBJECT_UNDROPPABLE;
-	PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+		// tanks don't deplete shells or ammo...
+		CreateItems( TANK_SHELL, 100, 1, &gTempObject );
+		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
+		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
 
-	// tanks don't deplete shells or ammo...
-	CreateItems( TANK_SHELL, 100, 1, &gTempObject );
-	gTempObject.fFlags |= OBJECT_UNDROPPABLE;
-	PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
-
+		// machine gun
+		CreateItems( MINIMI, (INT8)(80 + Random( 21 )), 1, &gTempObject );
+		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
+		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+	}
+	else
+	{
+		// machine gun
+		CreateItems( MINIMI, (INT8)(80 + Random( 21 )), 1, &(pp->Inv[HANDPOS]) );
+		pp->Inv[HANDPOS].fFlags |= OBJECT_UNDROPPABLE;
+	}
+	
 	// armour equal to spectra all over (for vs explosives)
 	CreateItem( SPECTRA_VEST, 100, &(pp->Inv[ VESTPOS ]) );
 	pp->Inv[ VESTPOS ].fFlags |= OBJECT_UNDROPPABLE;
@@ -3431,7 +3440,6 @@ void EquipTank( SOLDIERCREATE_STRUCT *pp )
 	pp->Inv[ HELMETPOS ].fFlags |= OBJECT_UNDROPPABLE;
 	CreateItem( SPECTRA_LEGGINGS, 100, &(pp->Inv[ LEGPOS ]) );
 	pp->Inv[ LEGPOS ].fFlags |= OBJECT_UNDROPPABLE;
-
 }
 
 

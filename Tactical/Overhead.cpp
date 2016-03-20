@@ -3585,7 +3585,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
         //
         gMercProfiles[ pSoldierOld->ubProfile ].bLife               = 0;
 
-        if ( !(pSoldierOld->flags.uiStatusFlags & SOLDIER_VEHICLE) && !TANK( pSoldierOld) )
+		if ( !(pSoldierOld->flags.uiStatusFlags & SOLDIER_VEHICLE) && !ARMED_VEHICLE( pSoldierOld ) )
         {
             if ( pSoldierOld->ubAttackerID != NOBODY )
             {
@@ -7021,16 +7021,16 @@ void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	{
 		SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sMapX, sMapY )]);
 
-		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = 0;
-		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = 0;
+		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = pSectorInfo->ubNumJeeps = 0;
+		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = pSectorInfo->ubJeepsInBattle = 0;
 	}
 	else
 	{
 		UNDERGROUND_SECTORINFO *pSectorInfo;
 
 		pSectorInfo = FindUnderGroundSector( sMapX, sMapY, bMapZ );
-		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = 0;
-		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = 0;
+		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = pSectorInfo->ubNumJeeps = 0;
+		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = pSectorInfo->ubJeepsInBattle = 0;
 	}
 }
 
@@ -10485,7 +10485,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             {
                 enemysidestrength += pSoldier->GetSurrenderStrength();
 
-				if ( pSoldier->ubProfile != NO_PROFILE || TANK(pSoldier) )
+				if ( pSoldier->ubProfile != NO_PROFILE || ARMED_VEHICLE(pSoldier) )
 					fNoSurrender = TRUE;
             }
         }

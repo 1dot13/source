@@ -1156,13 +1156,21 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 			return( GAME_SCREEN );
 		}
 
-		usRandom = (UINT16)Random( 12 );
-		if( usRandom < 3 )
+		// Flugente hack
+		/*if ( Water(usMapPos) )
+			pSoldier = TacticalCreateEnemyBoat( );
+		else
+			pSoldier = TacticalCreateEnemyJeep( );*/
+
+		usRandom = (UINT16)Random( 20 );
+		if( usRandom < 5 )
 			pSoldier = TacticalCreateAdministrator();
-		else if( usRandom < 6 )
+		else if( usRandom < 10 )
 			pSoldier = TacticalCreateArmyTroop();
-		else  if ( usRandom < 9 )
+		else  if ( usRandom < 12 )
 			pSoldier = TacticalCreateEnemyTank( );
+		else  if ( usRandom < 15 )
+			pSoldier = TacticalCreateEnemyJeep( );
 		else
 			pSoldier = TacticalCreateEliteEnemy( );
 
@@ -1178,6 +1186,7 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 					case SOLDIER_CLASS_ARMY:					pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
 					case SOLDIER_CLASS_ELITE:					pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
 					case SOLDIER_CLASS_TANK:					pSector->ubNumTanks++;	pSector->ubTanksInBattle++;  break;
+					case SOLDIER_CLASS_JEEP:					pSector->ubNumJeeps++;	pSector->ubJeepsInBattle++; break;
 				}
 			}
 			else
@@ -1191,6 +1200,7 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 						case SOLDIER_CLASS_ARMY:					pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
 						case SOLDIER_CLASS_ELITE:					pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
 						case SOLDIER_CLASS_TANK:					pSector->ubNumTanks++;	pSector->ubTanksInBattle++; break;
+						case SOLDIER_CLASS_JEEP:					pSector->ubNumJeeps++;	pSector->ubJeepsInBattle++; break;
 					}
 				}
 			}
@@ -1204,6 +1214,71 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 
 	return( GAME_SCREEN );
 }
+
+/*void TankBattlefun()
+{
+	int teamsize = 1;
+
+	for ( int i = 0; i < teamsize; ++i)
+	{
+		{
+			SOLDIERTYPE *pSoldier = TacticalCreateTankFuntime(ENEMY_TEAM);
+
+			if( pSoldier )
+			{
+				if( !gbWorldSectorZ )
+				{
+					SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+					switch( pSoldier->ubSoldierClass )
+					{
+					case SOLDIER_CLASS_ADMINISTRATOR:	pSector->ubNumAdmins++; pSector->ubAdminsInBattle++; break;
+					case SOLDIER_CLASS_ARMY:					pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
+					case SOLDIER_CLASS_ELITE:					pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
+					}
+				}
+				else
+				{
+					UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+					if( pSector )
+					{
+						switch( pSoldier->ubSoldierClass )
+						{
+							case SOLDIER_CLASS_ADMINISTRATOR:			pSector->ubNumAdmins++; pSector->ubAdminsInBattle++; break;
+							case SOLDIER_CLASS_ARMY:					pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
+							case SOLDIER_CLASS_ELITE:					pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
+						}
+					}
+				}
+
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				//pSoldier->usStrategicInsertionData = gMapInformation.sSouthGridNo;
+				UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+				AllTeamsLookForAll( NO_INTERRUPTS );
+			}
+		}
+
+		{
+			SOLDIERTYPE *pSoldier = TacticalCreateTankFuntime(MILITIA_TEAM);
+
+			if( pSoldier )
+			{
+				pSoldier->ubSoldierClass = SOLDIER_CLASS_ELITE_MILITIA;
+				
+				if( !gbWorldSectorZ )
+				{
+					SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+					pSector->ubNumberOfCivsAtLevel[ELITE_MILITIA]++;
+				}
+				
+
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_SOUTH;
+				//pSoldier->usStrategicInsertionData = gMapInformation.sSouthGridNo;
+				UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+				AllTeamsLookForAll( NO_INTERRUPTS );
+			}
+		}
+	}
+}*/
 
 
 UINT32 UIHandleEnterEditMode( UI_EVENT *pUIEvent )

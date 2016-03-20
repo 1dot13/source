@@ -33,20 +33,21 @@
 UINT8 gubReinforcementMinEnemyStaticGroupSize = 12;
 UINT32 guiMilitiaReinforceTurn = 0, guiMilitiaArrived = 0;//dnl ch68 090913
 
-void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks )
+void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps;
 	UINT16 pusMoveDir[4][3];	//first column in this matrix is number of sector, except for 4th row
 	UINT8 ubDirNumber, ubIndex;
 	
-	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites, pubNumTanks );
+	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites, pubNumTanks, pubNumJeeps );
 
-	GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( sSectorX, sSectorY, ENEMY_TEAM, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
+	GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( sSectorX, sSectorY, ENEMY_TEAM, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps );
 
 	*pubNumAdmins += ubNumAdmins;
 	*pubNumTroops += ubNumTroops;
 	*pubNumElites += ubNumElites;
 	*pubNumTanks += ubNumTanks;
+	*pubNumJeeps += ubNumJeeps;
 
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return;
@@ -56,21 +57,23 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	
 	GenerateDirectionInfos( sSectorX, sSectorY, &ubDirNumber, pusMoveDir, FALSE, TRUE );
 
-	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
+	for( ubIndex = 0; ubIndex < ubDirNumber; ++ubIndex )
 	{	//take number of the involved sector, find its X and Y coordintes and then ask for number of troops there
-		GetNumberOfStationaryEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ),  &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
+		GetNumberOfStationaryEnemiesInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps );
 
-		while( ubNumElites + ubNumTroops + ubNumAdmins + ubNumTanks > gubReinforcementMinEnemyStaticGroupSize)  //count how many of static group will reinforce the battle, but leave minimal group size to guard
+		while ( ubNumElites + ubNumTroops + ubNumAdmins + ubNumTanks + ubNumJeeps > gubReinforcementMinEnemyStaticGroupSize )  //count how many of static group will reinforce the battle, but leave minimal group size to guard
 		{
 			if( ubNumElites )
 			{
 				*pubNumElites += 1;
 				ubNumElites--;
-			}else if( ubNumTroops )
+			}
+			else if( ubNumTroops )
 			{
 				*pubNumTroops += 1;
 				ubNumTroops--;
-			}else if( ubNumAdmins )
+			}
+			else if( ubNumAdmins )
 			{
 				*pubNumAdmins += 1;
 				ubNumAdmins--;
@@ -80,24 +83,30 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 				*pubNumTanks += 1;
 				ubNumTanks--;
 			}
+			else if ( ubNumJeeps )
+			{
+				*pubNumJeeps += 1;
+				ubNumJeeps--;
+			}
 		}
 
-		GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ), ENEMY_TEAM, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
+		GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), ENEMY_TEAM, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps );
 
 		*pubNumAdmins += ubNumAdmins;
 		*pubNumTroops += ubNumTroops;
 		*pubNumElites += ubNumElites;
 		*pubNumTanks += ubNumTanks;
+		*pubNumJeeps += ubNumJeeps;
 	}
 }
 
 UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps;
 
-	GetNumberOfEnemiesInFiveSectors( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
+	GetNumberOfEnemiesInFiveSectors( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps );
 	
-	return ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks;
+	return ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks + ubNumJeeps;
 }
 
 BOOLEAN IsGroupInARightSectorToReinforce( GROUP *pGroup, INT16 sSectorX, INT16 sSectorY )
@@ -255,28 +264,35 @@ UINT8 DoReinforcementAsPendingNonPlayer( INT16 sMapX, INT16 sMapY, UINT8 usTeam 
 				(pThisSector->ubNumElites)++;
 				(pSector->ubNumElites)--;
 				(pThisSector->ubElitesInBattle)++;
-				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 1, 0, FALSE );
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 1, 0, 0, FALSE );
 			}
 			else if( pSector->ubNumTroops )
 			{
 				(pThisSector->ubNumTroops)++;
 				(pSector->ubNumTroops)--;
 				(pThisSector->ubTroopsInBattle)++;
-				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 1, 0, 0, FALSE );
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 1, 0, 0, 0, FALSE );
 			}
 			else if( pSector->ubNumAdmins )
 			{
 				(pThisSector->ubNumAdmins)++;
 				(pSector->ubNumAdmins)--;
 				(pThisSector->ubAdminsInBattle)++;
-				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 1, 0, 0, 0, FALSE );
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 1, 0, 0, 0, 0, FALSE );
 			}
 			else if( pSector->ubNumTanks )
 			{
 				(pThisSector->ubNumTanks)++;
 				(pSector->ubNumTanks)--;
 				(pThisSector->ubTanksInBattle)++;
-				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 0, 1, FALSE );
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 0, 0, 0, 1, 0, FALSE );
+			}
+			else if ( pSector->ubNumJeeps )
+			{
+				(pThisSector->ubNumJeeps)++;
+				(pSector->ubNumJeeps)--;
+				(pThisSector->ubJeepsInBattle)++;
+				AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ubIndex][2], 0, 0, 0, 0, 1, FALSE );
 			}
 
 			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];

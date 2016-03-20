@@ -252,7 +252,6 @@ typedef struct
 	INT32 multipleBulletDamageDivisor;
 	UINT16 highExplosive;
 	UINT8 explosionSize; //0=none, 1=small, 2=medium, 3=large
-	BOOLEAN antiTank;
 	BOOLEAN dart;
 	BOOLEAN knife;
 	UINT16  monsterSpit;
@@ -272,7 +271,11 @@ typedef struct
 	// Flugente: modifiers for life and breath damage, 1.0 being the unmodified value
 	FLOAT dDamageModifierLife;
 	FLOAT dDamageModifierBreath;
-	
+	FLOAT dDamageModifierTank;
+	FLOAT dDamageModifierArmouredVehicle;
+	FLOAT dDamageModifierCivilianVehicle;
+	FLOAT dDamageModifierZombie;
+
 } AMMOTYPE;
 
 enum

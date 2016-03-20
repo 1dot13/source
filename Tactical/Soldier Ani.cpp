@@ -3949,7 +3949,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 							default :
 								if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
-								else if ( TANK( pSoldier ) )
+								else if ( ARMED_VEHICLE( pSoldier ) )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsTanks++;
 								else if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && pSoldier->bSide != gbPlayerNum )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsHostiles++;
@@ -4209,6 +4209,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 		case QUEENMONSTER:
 		case TANK_NW:
 		case TANK_NE:
+		case COMBAT_JEEP:
 
 			pSoldier->stats.bLife = 0;
 			break;

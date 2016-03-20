@@ -3320,7 +3320,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			{
 				iHitChance = 100;
 			}
-			else if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA(pTargetSoldier->ubSoldierClass) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
+			else if ( AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA( pTargetSoldier->ubSoldierClass ) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
 			{
 				iHitChance = 0;
 			}
@@ -3653,7 +3653,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			}
 
 			// Give some experience
-			if ( iHitChance > 0 && pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum && !(pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pTargetSoldier ) && !TANK( pTargetSoldier ) )
+			if ( iHitChance > 0 && pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum && !(pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pTargetSoldier ) && !ARMED_VEHICLE( pTargetSoldier ) )
 			{
 				if (fFailure == FALSE)
 				{
@@ -3778,7 +3778,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						}
 					}
 
-					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) )
+					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) )
 					{
 						ubExpGain = 0;
 					}
@@ -3828,7 +3828,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						}
 					}
 
-					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) )
+					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) )
 					{
 						ubExpGain = 0;
 					}
@@ -6996,7 +6996,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	iPenalty = ((iMaxRange - (iRange-iAccRangeMod) * 3) * 10) / (17 * CELL_X_SIZE);
 	if ( iPenalty < 0 )
 		iChance += iPenalty;
-	if ( TANK( pSoldier ) && ( iRange / CELL_X_SIZE < MaxNormalDistanceVisible() ) )
+	if ( ARMED_VEHICLE( pSoldier ) && (iRange / CELL_X_SIZE < MaxNormalDistanceVisible( )) )
 		iChance -= 2 * ( MaxNormalDistanceVisible() - (iRange / CELL_X_SIZE) );
 	// Like the above modifier, only this applies to long range weapons trying to be used in close quater.  Penalty will result when within 10% of max range
 	iPenalty = (((iRange - iMinRange - iAccRangeMod) * 12) * 10) / (17 * CELL_X_SIZE);
@@ -7005,7 +7005,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	
 	// Effects of visual range
 	// From for JA2.5:  3% bonus/penalty for each tile different from range NORMAL_RANGE.
-	if (!TANK(pSoldier))	// WANNE: No penalty on the tank
+	if ( !ARMED_VEHICLE( pSoldier ) )	// WANNE: No penalty on the tank
 		iPenalty = 3 * ( NORMAL_RANGE - iSightRange ) / CELL_X_SIZE;
 	if ( fCantSeeTarget ){
 		// CHRISL: There are conditions where iSightRange can still return 0.  If that happens, the result is that "impossible" shots are actually easier then
@@ -7043,7 +7043,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		switch( gAnimControl[ pTarget->usAnimState ].ubHeight )
 		{
 			case ANIM_CROUCH:
-				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+				if ( ARMED_VEHICLE( pSoldier ) && iRange < MIN_TANK_RANGE )
 				{
 					// 13% penalty per tile closer than min range
 					iChance -= (INT32)(13 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE ));
@@ -7063,7 +7063,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 				}
 				break;
 			case ANIM_PRONE:
-				if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+				if ( ARMED_VEHICLE( pSoldier ) && iRange < MIN_TANK_RANGE )
 				{
 					// 25% penalty per tile closer than min range
 					iChance -= (INT32)(25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE ) * iPenalty);
@@ -7204,7 +7204,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 		// if target sees us, he may have a chance to dodge before the gun goes off
 		// but ability to dodge is reduced if crouched or prone!
-		if (pTarget->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY && !TANK( pTarget ) && !(pSoldier->ubBodyType != QUEENMONSTER) )
+		if ( pTarget->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY && !ARMED_VEHICLE( pTarget ) && !(pSoldier->ubBodyType != QUEENMONSTER) )
 		{
 			iPenalty = ( EffectiveAgility( pTarget, FALSE ) / 5 + EffectiveExpLevel( pTarget ) * 2);
 			switch( gAnimControl[ pTarget->usAnimState ].ubHeight )
@@ -7219,7 +7219,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 			// reduce dodge ability by the attacker's stats
 			iBonus = ( EffectiveDexterity( pSoldier, FALSE ) / 5 + EffectiveExpLevel( pSoldier ) * 2);
-			if ( TANK( pTarget ) || (pSoldier->ubBodyType != QUEENMONSTER) )
+			if ( ARMED_VEHICLE( pTarget ) || (pSoldier->ubBodyType != QUEENMONSTER) )
 			{
 				// reduce ability to track shots
 				iBonus = iBonus / 2;
@@ -7235,7 +7235,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			iChance -= iPenalty;
 		}
 	}
-	else if ( TANK( pSoldier ) && iRange < MIN_TANK_RANGE )
+	else if ( ARMED_VEHICLE( pSoldier ) && iRange < MIN_TANK_RANGE )
 	{
 		// 25% penalty per tile closer than min range
 		iChance -= 25 * ( ( MIN_TANK_RANGE - iRange ) / CELL_X_SIZE );
@@ -7802,7 +7802,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	// be an effective CTH of only 1/5000 (50 chances to get a 1 out of 100 CTH, hehehe)
 	if (iChance <= gGameExternalOptions.ubMinimumCTH)
 	{
-		if ( TANK( pSoldier ) )
+		if ( ARMED_VEHICLE( pSoldier ) )
 		{
 			// allow absolute minimums
 			iChance = 0;
@@ -8626,12 +8626,12 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	if ( iPenalty < 0 )
 	{
 		// No penalty on tanks
-		//if (!TANK(pSoldier))
+		//if (!ARMED_VEHICLE(pSoldier))
 			iChance += iPenalty;
 	}
 	//iChance -= 20 * iRange / iMaxRange;
 
-	if ( TANK( pSoldier ) && ( iRange / CELL_X_SIZE < MaxNormalDistanceVisible() ) )
+	if ( ARMED_VEHICLE( pSoldier ) && ( iRange / CELL_X_SIZE < MaxNormalDistanceVisible() ) )
 	{
 		// tank; penalize at close range!
 		// 2 percent per tile closer than max visible distance
@@ -8655,7 +8655,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		// range less penalized, and longer range more penalized
 
 		// WANNE: No penalty on the tank
-		if (!TANK(pSoldier))
+		if (!ARMED_VEHICLE(pSoldier))
 			iChance += 3 * ( NORMAL_RANGE - iSightRange ) / CELL_X_SIZE;
 		// if aiming at the head, reduce chance to hit
 		if (ubAimPos == AIM_SHOT_HEAD)
@@ -9567,15 +9567,31 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		ubAmmoType = Explosive[Item[usAttackingWeapon].ubClassIndex].ubFragType;
 	}
 
-	if ( TANK( pTarget ) )
+	// Flugente: ammotype can alter the damage dealt
+	FLOAT damagefactor = AmmoTypes[ubAmmoType].dDamageModifierLife;
+
+	if ( pTarget->IsZombie( ) )
 	{
-		if ( !AmmoTypes[ubAmmoType].antiTank )
+		damagefactor *= AmmoTypes[ubAmmoType].dDamageModifierZombie;
+	}
+	else if ( pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	{
+		if ( COMBAT_JEEP( pTarget ) || AM_A_ROBOT( pTarget ) )
 		{
-			// ping!
-			return( 0 );
+			damagefactor *= AmmoTypes[ubAmmoType].dDamageModifierArmouredVehicle;
+		}
+		else if ( TANK( pTarget ) )
+		{
+			damagefactor *= AmmoTypes[ubAmmoType].dDamageModifierTank;
+		}
+		else
+		{
+			damagefactor *= AmmoTypes[ubAmmoType].dDamageModifierCivilianVehicle;
 		}
 	}
 
+	iOrigImpact = iOrigImpact * damagefactor;
+		
 	// plus/minus up to 25% due to "random" factors (major organs hit or missed,
 	// lucky lighter in breast pocket, divine intervention on behalf of "Rev"...)
 	iFluke = PreRandom(51) - 25;		// gives (0 to 50 -25)->-25% to +25%
@@ -9622,9 +9638,6 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		pTarget->iLastArmourProtection += iTotalArmourProtection;
 	}
 
-	// Flugente: ammotype can alter the damage dealt
-	iImpact *= AmmoTypes[ubAmmoType].dDamageModifierLife;
-
 	// calc minimum damage
 	if ( AmmoTypes[ubAmmoType].zeroMinimumDamage )
 	{
@@ -9654,14 +9667,14 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	}
 
 	// Flugente: if this is cryo ammo, freeze target.
-	if ( !TANK( pTarget ) && !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE) && AmmoTypes[ubAmmoType].ammoflag & AMMO_CRYO )
+	if ( !ARMED_VEHICLE( pTarget ) && !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE) && AmmoTypes[ubAmmoType].ammoflag & AMMO_CRYO )
 	{
 		pTarget->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] += 2;
 
 		ShutupaYoFace( pTarget->iFaceIndex );
 	}
 			
-	if ( iImpact > 0 && !TANK( pTarget ) )
+	if ( iImpact > 0 && !ARMED_VEHICLE( pTarget ) )
 	{
 		// Flugente: any bullet can have drug effects it set so in the magazine item
 		if ( ammoitem != NOTHING )

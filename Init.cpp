@@ -84,9 +84,10 @@
 #include "AimArchives.h"
 #include "connect.h"
 #include "DynamicDialogueWidget.h"		// added by Flugente for InitMyBoxes()
+#include "Animation Data.h"				// added by Flugente
 
 extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
-extern INT16 gubMaxActionPoints[28];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
+extern INT16 gubMaxActionPoints[TOTALBODYTYPES];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
 // The InitializeGame function is responsible for setting up all data and Gaming Engine
@@ -1870,4 +1871,5 @@ void SetupMaxActionPointsAnimation()
 	gubMaxActionPoints[ELDORADO]			= APBPConstants[AP_VEHICLE_MAXIMUM];
 	gubMaxActionPoints[ICECREAMTRUCK]		= APBPConstants[AP_VEHICLE_MAXIMUM];
 	gubMaxActionPoints[JEEP]				= APBPConstants[AP_VEHICLE_MAXIMUM];
+	gubMaxActionPoints[COMBAT_JEEP]			= APBPConstants[AP_VEHICLE_MAXIMUM];
 }

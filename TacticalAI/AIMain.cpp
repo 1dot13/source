@@ -346,7 +346,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 		return;
 	}
 
-	if ( ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ( (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !TANK( pSoldier ) ) ) || AM_A_ROBOT( pSoldier ) )
+	if ( (!gGameExternalOptions.fEnemyTanksCanMoveInTactical && ((pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !ARMED_VEHICLE( pSoldier ))) || AM_A_ROBOT( pSoldier ) )
 	{
 		// bail out!
 #ifdef TESTAICONTROL
@@ -1235,7 +1235,7 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 #endif
 
 	// re-enable cover checking, something is new or something strange happened
-	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK(pSoldier))//dnl ch64 290813
+	if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier ) )//dnl ch64 290813
 		SkipCoverCheck = FALSE;
 
 	// turn off new situation flag to stop this from repeating all the time!
@@ -1501,7 +1501,7 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 
 	if (pSoldier->aiData.bAlertStatus == STATUS_YELLOW)
 		SkipCoverCheck = FALSE;
-	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK(pSoldier) )//dnl ch64 290813 tanks don't have move animations
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )//dnl ch64 290813 tanks don't have move animations
 		SkipCoverCheck = TRUE;
 
 	// if he's in battle or knows opponents are here
@@ -1589,7 +1589,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 	// in most cases, merc will change location, or may cause damage to opponents,
 	// so a new cover check will be necessary.  Exceptions handled individually.
-	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK(pSoldier) )//dnl ch64 290813
+	if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier ) )//dnl ch64 290813
 		SkipCoverCheck = FALSE;
 
 	// reset this field, too
@@ -2607,6 +2607,10 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 				++pSectorInfo->ubNumTanks;
 			break;
 
+		case SOLDIER_CLASS_JEEP:
+			if ( COMBAT_JEEP( pSoldier ) )
+				++pSectorInfo->ubNumJeeps;
+			break;
 		}
 
 		ProcessQueenCmdImplicationsOfDeath( pSoldier );

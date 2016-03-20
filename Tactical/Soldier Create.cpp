@@ -606,7 +606,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			pCreateStruct->fPlayerPlan = 0;
 		}
 
-		if ( is_networked && TANK( pCreateStruct ) )
+		if ( is_networked && ARMED_VEHICLE( pCreateStruct ) )
 		{
 			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank");
 			return NULL;
@@ -802,7 +802,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		Soldier.bOldLife						= Soldier.stats.bLifeMax;
 
 		// Flugente: disease can affect a soldier's health
-		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && Soldier.ubSoldierClass != SOLDIER_CLASS_TANK )
+		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && !ARMED_VEHICLE((&Soldier)) )
 		{
 			UINT8 sector = SECTOR( Soldier.sSectorX, Soldier.sSectorY );
 			UINT16 population = GetSectorPopulation( Soldier.sSectorX, Soldier.sSectorY );
@@ -1073,6 +1073,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			case JEEP:
 			case TANK_NW:
 			case TANK_NE:
+			case COMBAT_JEEP:
 
 				Soldier.flags.uiStatusFlags |= SOLDIER_VEHICLE;
 
@@ -1115,6 +1116,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 					*/	
 					case TANK_NW:
 					case TANK_NE:
+					case COMBAT_JEEP:
 
 						ubVehicleID = TANK_CAR;
 						break;
@@ -1704,7 +1706,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 
 	// Flugente: soldier profiles
 	// silversurfer: Don't replace tanks!
-	if ( !TANK( pCreateStruct ) )
+	if ( !ARMED_VEHICLE( pCreateStruct ) )
 	{
 		// We have a function for this
 		INT8 type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
@@ -2476,6 +2478,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			break;
 
 		case SOLDIER_CLASS_TANK:
+		case SOLDIER_CLASS_JEEP:
 			pp->bExpLevel = bp->bRelativeAttributeLevel;
 			break;
 
@@ -3125,6 +3128,46 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 	}
 
 	return( pSoldier );
+}
+
+SOLDIERTYPE* TacticalCreateEnemyJeep( )
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+
+	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	{
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_JEEP );
+
+		if ( pSoldier )
+			return pSoldier;
+	}
+
+	memset( &bp, 0, sizeof(BASIC_SOLDIERCREATE_STRUCT) );
+	RandomizeRelativeLevel( &(bp.bRelativeAttributeLevel), SOLDIER_CLASS_ELITE );
+	RandomizeRelativeLevel( &(bp.bRelativeEquipmentLevel), SOLDIER_CLASS_ELITE );
+	bp.bTeam = ENEMY_TEAM;
+	bp.bOrders = SEEKENEMY;
+	bp.bAttitude = (INT8)Random( MAXATTITUDES );
+	bp.ubBodyType = COMBAT_JEEP;
+	bp.ubSoldierClass = SOLDIER_CLASS_JEEP;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+	if ( pSoldier )
+	{
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) * WORLD_COLS);
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+
+		// Flugente: why would a vehicle's armour depend on game progress? Always give them 100 HP
+		pSoldier->stats.bLifeMax = 100;
+		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
+	}
+
+	return(pSoldier);
 }
 
 //USED BY STRATEGIC AI and AUTORESOLVE

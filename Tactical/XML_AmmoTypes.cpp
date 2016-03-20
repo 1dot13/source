@@ -71,7 +71,6 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "spreadPattern") == 0 ||
 				strcmp(name, "highExplosive") == 0 ||
 				strcmp(name, "explosionSize") == 0 ||
-				strcmp(name, "antiTank") == 0 ||
 				strcmp(name, "dart") == 0 ||
 				strcmp(name, "knife") == 0 ||
 				strcmp(name, "ignoreArmour") == 0 ||
@@ -83,7 +82,11 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "dirtModificator") == 0 ||
 				strcmp(name, "ammoflag" ) == 0 ||
 				strcmp(name, "dDamageModifierLife" ) == 0 ||
-				strcmp(name, "dDamageModifierBreath") == 0 ))
+				strcmp(name, "dDamageModifierBreath" ) == 0 ||
+				strcmp(name, "dDamageModifierTank" ) == 0 ||
+				strcmp(name, "dDamageModifierArmouredVehicle" ) == 0 ||
+				strcmp(name, "dDamageModifierCivilianVehicle" ) == 0 ||
+				strcmp(name, "dDamageModifierZombie") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -246,11 +249,6 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.explosionSize	= (UINT8) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "antiTank") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curAmmoType.antiTank	= (BOOLEAN) atol(pData->szCharData);
-		}
 		else if(strcmp(name, "dart") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -312,7 +310,39 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			// reasonable values only
 			pData->curAmmoType.dDamageModifierBreath = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierBreath ) );
 		}
+		else if ( strcmp( name, "dDamageModifierTank" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.dDamageModifierTank = (FLOAT)atof( pData->szCharData );
 
+			// reasonable values only
+			pData->curAmmoType.dDamageModifierTank = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierTank ) );
+		}
+		else if ( strcmp( name, "dDamageModifierArmouredVehicle" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.dDamageModifierArmouredVehicle = (FLOAT)atof( pData->szCharData );
+
+			// reasonable values only
+			pData->curAmmoType.dDamageModifierArmouredVehicle = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierArmouredVehicle ) );
+		}
+		else if ( strcmp( name, "dDamageModifierCivilianVehicle" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.dDamageModifierCivilianVehicle = (FLOAT)atof( pData->szCharData );
+
+			// reasonable values only
+			pData->curAmmoType.dDamageModifierCivilianVehicle = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierCivilianVehicle ) );
+		}
+		else if ( strcmp( name, "dDamageModifierZombie" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.dDamageModifierZombie = (FLOAT)atof( pData->szCharData );
+
+			// reasonable values only
+			pData->curAmmoType.dDamageModifierZombie = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierZombie ) );
+		}
+		
 		pData->maxReadDepth--;
 	}
 
@@ -425,7 +455,6 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<multipleBulletDamageDivisor>%d</multipleBulletDamageDivisor>\r\n",					AmmoTypes[cnt].multipleBulletDamageDivisor	);
 			FilePrintf(hFile,"\t\t<highExplosive>%d</highExplosive>\r\n",												AmmoTypes[cnt].highExplosive	);
 			FilePrintf(hFile,"\t\t<explosionSize>%d</explosionSize>\r\n",												AmmoTypes[cnt].explosionSize	);
-			FilePrintf(hFile,"\t\t<antiTank>%d</antiTank>\r\n",															AmmoTypes[cnt].antiTank	);
 			FilePrintf(hFile,"\t\t<dart>%d</dart>\r\n",																	AmmoTypes[cnt].dart	);
 			FilePrintf(hFile,"\t\t<knife>%d</knife>\r\n",																AmmoTypes[cnt].knife	);
 			FilePrintf(hFile,"\t\t<monsterSpit>%d</monsterSpit>\r\n",													AmmoTypes[cnt].monsterSpit	);
@@ -438,7 +467,11 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<ammoflag>%d</ammoflag>\r\n",															AmmoTypes[cnt].ammoflag	);
 			FilePrintf(hFile,"\t\t<dDamageModifierLife>%4.2f</dDamageModifierLife>\r\n",								AmmoTypes[cnt].dDamageModifierLife );
 			FilePrintf(hFile,"\t\t<dDamageModifierBreath>%4.2f</dDamageModifierBreath>\r\n",							AmmoTypes[cnt].dDamageModifierBreath );
-
+			FilePrintf(hFile,"\t\t<dDamageModifierTank>%4.2f</dDamageModifierTank>\r\n",								AmmoTypes[cnt].dDamageModifierTank );
+			FilePrintf(hFile,"\t\t<dDamageModifierArmouredVehicle>%4.2f</dDamageModifierArmouredVehicle>\r\n",			AmmoTypes[cnt].dDamageModifierArmouredVehicle );
+			FilePrintf(hFile,"\t\t<dDamageModifierCivilianVehicle>%4.2f</dDamageModifierCivilianVehicle>\r\n",			AmmoTypes[cnt].dDamageModifierCivilianVehicle );
+			FilePrintf(hFile,"\t\t<dDamageModifierZombie>%4.2f</dDamageModifierZombie>\r\n",							AmmoTypes[cnt].dDamageModifierZombie );
+									
 			FilePrintf(hFile,"\t</AMMOTYPE>\r\n");
 		}
 		FilePrintf(hFile,"</AMMOTYPELIST>\r\n");

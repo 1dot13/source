@@ -156,7 +156,7 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 
 	case ENEMY_TEAM:
 		{
-			if ( TANK(pSoldier) )
+			if ( ARMED_VEHICLE( pSoldier ) )
 				group = CAMPAIGNHISTORY_SD_ENEMY_TANK;
 			else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
 				group = CAMPAIGNHISTORY_SD_ENEMY_ADMIN;
@@ -226,7 +226,7 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 		break;
 	}
 
-	if ( TANK(pSoldier) )
+	if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		if ( pSoldier->bSide == 0 )
 			usIncidentFlags |= INCIDENT_TANKS_PLAYERSIDE;

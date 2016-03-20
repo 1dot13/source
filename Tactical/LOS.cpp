@@ -2047,7 +2047,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 				ubPosType = TORSO_TARGET_POS;
 			}
 		}
-		else if ( TANK( pSoldier ) )
+		else if ( ARMED_VEHICLE( pSoldier ) )
 		{
 			// high up!
 			//ubPosType = HEAD_TARGET_POS;
@@ -2184,7 +2184,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 		// robot is 1/3 the height of regular people
 		*pdZPos = *pdZPos / 3;
 	}
-	else if ( TANK ( pSoldier ) )
+	else if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		*pdZPos = (*pdZPos * 4) / 3;
 	}
@@ -2311,7 +2311,7 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		fSmell = HasThermalOptics( pStartSoldier);
 	}
 
-	if ( TANK( pStartSoldier ) )
+	if ( ARMED_VEHICLE( pStartSoldier ) )
 	{
 		INT16		sDistance;
 
@@ -2352,7 +2352,7 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 
 	// anv: special check for vehicles - since they're no longer transparent, we need to check for visibility 
 	// of all substructures, also vehicle will be noticed even if just part of it is sticking around the corner
-	if( pEndSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && ( !TANK( pEndSoldier ) || gGameExternalOptions.fEnemyTanksAnyPartVisible ) )
+	if ( pEndSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && (!ARMED_VEHICLE( pEndSoldier ) || gGameExternalOptions.fEnemyTanksAnyPartVisible) )
 	{
 		STRUCTURE	*pBase = pEndSoldier->pLevelNode->pStructureData;
 		if( pBase == NULL )
@@ -2917,7 +2917,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 				{
 					usExpGain /= 2;
 				}
-				else if ( pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTarget ) || TANK( pTarget ) )
+				else if ( pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTarget ) || ARMED_VEHICLE( pTarget ) )
 				{
 					// no exp from shooting a vehicle that you can't damage and can't move!
 					usExpGain = 0;
@@ -3305,7 +3305,7 @@ INT32 HandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStructure
 	//else if ( pBullet->usFlags & BULLET_FLAG_SMALL_MISSILE )
 	//{
 	// stops if using HE ammo
-	else if ( AmmoTypes[ubAmmoType].highExplosive && !AmmoTypes[ubAmmoType].antiTank )
+	else if ( AmmoTypes[ubAmmoType].highExplosive && AmmoTypes[ubAmmoType].dDamageModifierTank < 0.1f )
 	{
 		*pfHit = TRUE;
 		return( 0 );
@@ -3457,7 +3457,7 @@ INT32 CTGTHandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStruc
 	//else if ( pBullet->usFlags & BULLET_FLAG_SMALL_MISSILE )
 	//{
 	// stops if using HE ammo
-	else if ( AmmoTypes[pBullet->pFirer->inv[ pBullet->pFirer->ubAttackingHand ][0]->data.gun.ubGunAmmoType].highExplosive && !AmmoTypes[pBullet->pFirer->inv[ pBullet->pFirer->ubAttackingHand ][0]->data.gun.ubGunAmmoType].antiTank )
+	else if ( AmmoTypes[pBullet->pFirer->inv[pBullet->pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType].highExplosive && AmmoTypes[pBullet->pFirer->inv[pBullet->pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType].dDamageModifierTank < 0.1f )
 	{
 		return( pBullet->iImpact );
 	}

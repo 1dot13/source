@@ -782,7 +782,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -792,6 +792,12 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	// check if standing in tear gas without a gas mask on, or in smoke
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
+
+	// Flugente: tanks do not care about gas
+	if ( ARMED_VEHICLE( pSoldier ) )
+	{
+		bInGas = FALSE;
+	}
 
 	// if real-time, and not in the way, do nothing 90% of the time (for GUARDS!)
 	// unless in water (could've started there), then we better swim to shore!
@@ -1875,7 +1881,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -2479,6 +2485,12 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 	// check if standing in tear gas without a gas mask on
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
+
+	// Flugente: tanks do not care about gas
+	if ( ARMED_VEHICLE( pSoldier ) )
+	{
+		bInGas = FALSE;
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN LEFT IN GAS, WEAR GAS MASK IF AVAILABLE AND NOT WORN
@@ -3346,7 +3358,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	}
 
 	//if ( !TANK( pSoldier ) )
-	if( ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK( pSoldier ) ) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+	if ( (gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier )) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
 
@@ -4112,7 +4124,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				if (pSoldier->aiData.bAttitude == DEFENSIVE)
 					iChance += 25;
 
-				if ( TANK( pSoldier ) )
+				if ( ARMED_VEHICLE( pSoldier ) )
 				{
 					iChance += 50;
 				}
@@ -4184,7 +4196,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-	if ( TANK( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		// try turning in a random direction as we still can't see anyone.
 		if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
@@ -4569,6 +4581,12 @@ INT16 ubMinAPCost;
 		// check if standing in tear gas without a gas mask on
 		bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
 
+		// Flugente: tanks do not care about gas
+		if ( ARMED_VEHICLE( pSoldier ) )
+		{
+			bInGas = FALSE;
+		}
+
 		// calculate our morale
 		pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
 
@@ -4675,7 +4693,7 @@ INT16 ubMinAPCost;
 	// offer surrender?
 #ifdef JA2UB
 #else
-	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2  && !TANK(pSoldier) )
+	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) )
 	{
 		if ( gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 && gTacticalStatus.Team[ CREATURE_TEAM ].bMenInSector == 0 && NumPCsInSector() < 4 && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector >= NumPCsInSector() * 3 )
 		{
@@ -5089,7 +5107,7 @@ INT16 ubMinAPCost;
 
 		// if the soldier does have a usable knife somewhere
 		// 0verhaul:  And is not a tank!
-		if (bWeaponIn != NO_SLOT && !TANK( pSoldier) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+		if ( bWeaponIn != NO_SLOT && !ARMED_VEHICLE( pSoldier ) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"try to stab");
 			BestStab.bWeaponIn = bWeaponIn;
@@ -5157,7 +5175,7 @@ INT16 ubMinAPCost;
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - even if we don't have any blade, calculate how much damage we could do unarmed
-		else if ( !TANK( pSoldier) && !( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+		else if ( !ARMED_VEHICLE( pSoldier ) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 		{
 			bWeaponIn = FindAIUsableObjClass( pSoldier, IC_PUNCH );
 			if (bWeaponIn == NO_SLOT) // if no punch-type weapon found, just calculate it with empty hands
@@ -5301,7 +5319,7 @@ INT16 ubMinAPCost;
 			}
 			////////////////////////////////////////////////////////////////////////////////////
 		}
-		if (BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)) && !(TANK(pSoldier) && ubBestAttackAction == AI_ACTION_FIRE_GUN && BestShot.ubChanceToReallyHit > 20 && Random(2)))//dnl ch64 290813 tank always had better chance to fire from cannon so this will increase probabilty to use machinegun too
+		if ( BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)) && !(ARMED_VEHICLE( pSoldier ) && ubBestAttackAction == AI_ACTION_FIRE_GUN && BestShot.ubChanceToReallyHit > 20 && Random( 2 )) )//dnl ch64 290813 tank always had better chance to fire from cannon so this will increase probabilty to use machinegun too
 		{
 			ubBestAttackAction = AI_ACTION_TOSS_PROJECTILE;
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"best action = throw something");
@@ -5538,7 +5556,7 @@ INT16 ubMinAPCost;
 		{
 #ifndef dnlCALCBESTSHOT//dnl ch69 140913
 			// Do we need to change stance?  NB We'll have to ready our gun again
-			if ( !TANK( pSoldier ) && ( pSoldier->bActionPoints >= BestAttack.ubAPCost + GetAPsCrouch( pSoldier, TRUE) + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST,0, 1 ) ) )
+			if ( !ARMED_VEHICLE( pSoldier ) && ( pSoldier->bActionPoints >= BestAttack.ubAPCost + GetAPsCrouch( pSoldier, TRUE) + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST,0, 1 ) ) )
 			{
 				// since the AI considers shooting chance from standing primarily, if we are not
 				// standing we should always consider a stance change
@@ -5613,7 +5631,7 @@ INT16 ubMinAPCost;
 				}
 			}
 #else
-			if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK(pSoldier) )
+			if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier ) )
 			{
 				// first get the direction, as we will need to pass that in to ShootingStanceChange
 				bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(BestAttack.sTarget),CenterY(BestAttack.sTarget));
@@ -5668,7 +5686,7 @@ INT16 ubMinAPCost;
 				if (pSoldier->bActionPoints >= BestAttack.ubAPCost + sActualAimTime + ubBurstAPs )
 				{
 					// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
-					if ( TANK( pSoldier ) )
+					if ( ARMED_VEHICLE( pSoldier ) )
 					{
 						iChance = 100;
 					}
@@ -5770,7 +5788,7 @@ L_NEWAIM:
 					if (pSoldier->bActionPoints >= BestAttack.ubAPCost + sActualAimTime + ubBurstAPs )
 					{
 						// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
-						if ( TANK( pSoldier ) )
+						if ( ARMED_VEHICLE( pSoldier ) )
 						{
 							iChance = 100;
 						}
@@ -6038,7 +6056,7 @@ L_NEWAIM:
 				if ( (pSoldier->bActionPoints - BestAttack.ubAPCost) >= ubBurstAPs )
 				{
 					// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
-					if ( TANK( pSoldier ) )
+					if ( ARMED_VEHICLE( pSoldier ) )
 					{
 						iChance = 100;
 					}
@@ -6083,7 +6101,7 @@ L_NEWAIM:
 	}
 
 	// end of tank AI
-	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -6711,7 +6729,7 @@ INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	gubNPCPathCount = 0;
 			
-	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -7223,7 +7241,7 @@ INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	if( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && TANK( pSoldier ) )
+	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -7382,7 +7400,7 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	// RADIO RED ALERT: determine %chance to call others and report contact
 	////////////////////////////////////////////////////////////////////////////
 		
-	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !TANK( pSoldier ) )
+	if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier ) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
 
@@ -7878,7 +7896,7 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				if (pSoldier->aiData.bAttitude == DEFENSIVE)
 					iChance += 25;
 
-				if ( TANK( pSoldier ) )
+				if ( ARMED_VEHICLE( pSoldier ) )
 				{
 					iChance += 50;
 				}
@@ -7897,7 +7915,7 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-	if ( TANK( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		// try turning in a random direction as we still can't see anyone.
 		if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
@@ -8174,7 +8192,7 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - even if we don't have any blade, calculate how much damage we could do unarmed
-		if ( !TANK( pSoldier) )
+		if ( !ARMED_VEHICLE( pSoldier ) )
 		{
 			bWeaponIn = FindAIUsableObjClass( pSoldier, IC_PUNCH );
 			if (bWeaponIn == NO_SLOT) // if no punch-type weapon found, just calculate it with empty hands
@@ -8518,7 +8536,7 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 				if ( (pSoldier->bActionPoints - BestAttack.ubAPCost) >= ubBurstAPs )
 				{
 					// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
-					if ( TANK( pSoldier ) )
+					if ( ARMED_VEHICLE( pSoldier ) )
 					{
 						iChance = 100;
 					}
@@ -8563,7 +8581,7 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 	}
 
 	// end of tank AI
-	if( gGameExternalOptions.fEnemyTanksCanMoveInTactical || TANK( pSoldier ) )
+	if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || ARMED_VEHICLE( pSoldier ) )
 	{
 		return( AI_ACTION_NONE );
 	}

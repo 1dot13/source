@@ -1233,7 +1233,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		}
 	}
 
-	if ( bFacingDir == DIRECTION_IRRELEVANT && TANK( pSoldier ) )
+	if ( bFacingDir == DIRECTION_IRRELEVANT && ARMED_VEHICLE( pSoldier ) )
 	{
 		// always calculate direction for tanks so we have something to work with
 		bFacingDir = pSoldier->pathing.bDesiredDirection;
@@ -1241,7 +1241,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		//bSubjectDir = atan8(pSoldier->sX,pSoldier->sY,pOpponent->sX,pOpponent->sY);
 	}
 
-	if ( !TANK( pSoldier ) && ( bFacingDir == DIRECTION_IRRELEVANT || (pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT) || (pSubject && pSubject->flags.fMuzzleFlash) ) )
+	if ( !ARMED_VEHICLE( pSoldier ) && (bFacingDir == DIRECTION_IRRELEVANT || (pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT) || (pSubject && pSubject->flags.fMuzzleFlash)) )
 	{
 		sDistVisible = MaxNormalDistanceVisible();
 	}
@@ -1385,10 +1385,10 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	}
 
 	// let tanks see and be seen further (at night)
-	if ( (TANK( pSoldier ) && sDistVisible > 0) || (pSubject && TANK( pSubject ) ) )
+	if ( (ARMED_VEHICLE( pSoldier ) && sDistVisible > 0) || (pSubject && ARMED_VEHICLE( pSubject )) )
 	{
 #if 0
-		if ( TANK(pSoldier) && sDistVisible > 0 && pSubject)
+		if ( ARMED_VEHICLE(pSoldier) && sDistVisible > 0 && pSubject)
 		{
 			sDistVisible = __max( sDistVisible + 5, pSubject->GetMaxDistanceVisible(pSoldier->sGridNo, pSoldier->pathing.bLevel) );
 		}
@@ -1561,7 +1561,7 @@ INT8 DecideHearing( SOLDIERTYPE * pSoldier )
 	// calculate the hearing value for the merc...
 	INT8		bHearing;
 
-	if ( TANK( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		return( -5 );
 	}
@@ -6443,7 +6443,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 		// (taking into account we are definitely aware of this guy now)
 
 		// skip LOS check if we had to turn and we're a tank.	sorry Mr Tank, no looking out of the sides for you!
-		if ( !( bHadToTurn && TANK( pSoldier ) ) )
+		if ( !(bHadToTurn && ARMED_VEHICLE( pSoldier )) )
 		{
 			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, bLevel, 0, TRUE, sDistVisible ) )
 			{

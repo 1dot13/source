@@ -196,6 +196,13 @@ void UpdateASD( )
 	if ( !(gASD_Flags & ASDFACT_HELI_UNLOCKED) && HighestPlayerProgressPercentage( ) >= gGameExternalOptions.usEnemyHeliMinimumProgress )
 		SetASDFlag( ASDFACT_HELI_UNLOCKED );
 
+	if ( !(gASD_Flags & ASDFACT_JEEP_UNLOCKED) && HighestPlayerProgressPercentage( ) >= gGameExternalOptions.usJeepMinimumProgress )
+		SetASDFlag( ASDFACT_JEEP_UNLOCKED );
+
+	if ( !(gASD_Flags & ASDFACT_TANK_UNLOCKED) && HighestPlayerProgressPercentage( ) >= gGameExternalOptions.usTankMinimumProgress )
+		SetASDFlag( ASDFACT_TANK_UNLOCKED );
+
+	
 	// determine whether we need to buy new toys
 	ASDDecideOnPurchases();
 
@@ -250,10 +257,10 @@ void ASDDecideOnPurchases()
 		// how many would we like to have? Note that this refers to the ones in our pool, the vehicles awarded to enemy groups are no longer accounted for
 		needed_jeep = min( 10, 2 + highestplayerprogress / 10 );
 
-		// if we already unlocked tanks, we want less jeeps
+		// if we already unlocked tanks, we no longer want jeeps - they are replaced by tanks
 		if ( gASD_Flags & ASDFACT_TANK_UNLOCKED )
 		{
-			needed_jeep = max( 4, 12 - highestplayerprogress / 10 );
+			needed_jeep = 0;
 		}
 
 		// how many are needed?
@@ -1411,20 +1418,16 @@ void UpdateAndDamageEnemyHeliIfFound( INT16 sSectorX, INT16 sSectorY, INT16 sSec
 }
 
 //////////////////////////////////////////// enemy tanks /////////////////////////////////////////////////////////
-// TODO: ini this
-INT32 gASDResource_Cost_Fuel_Tank = 100;	// how many units of fuel a tank needs (used upon creation)
-INT32 gASDResource_Cost_Fuel_Jeep = 20;
-
 UINT32 ASDResourceCostFuel( UINT8 aType )
 {
 	switch ( aType )
 	{
 	case ASD_TANK:
-		return gASDResource_Cost_Fuel_Tank;
+		return gGameExternalOptions.gASDResource_Fuel_Tank;
 		break;
 
 	case ASD_JEEP:
-		return gASDResource_Cost_Fuel_Jeep;
+		return gGameExternalOptions.gASDResource_Fuel_Jeep;
 		break;
 	}
 
@@ -1434,8 +1437,7 @@ UINT32 ASDResourceCostFuel( UINT8 aType )
 // if ASD has tanks, it can allow the queen to upgrade soldiers to tanks
 BOOLEAN ASDSoldierUpgradeToTank( )
 {
-	// TODO: ini val for feature
-	if ( gGameExternalOptions.fASDActive && 0 )
+	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsTanks )
 	{
 		if ( gASD_Flags & ASDFACT_TANK_UNLOCKED )
 		{
@@ -1449,6 +1451,28 @@ BOOLEAN ASDSoldierUpgradeToTank( )
 	else
 	{
 		gASDResource[ASD_TANK] = max( 0, gASDResource[ASD_TANK] - 1 );
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN ASDSoldierUpgradeToJeep( )
+{
+	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsJeeps )
+	{
+		if ( gASD_Flags & ASDFACT_JEEP_UNLOCKED )
+		{
+			if ( gASDResource[ASD_JEEP] )
+			{
+				gASDResource[ASD_JEEP] = max( 0, gASDResource[ASD_JEEP] - 1 );
+				return TRUE;
+			}
+		}
+	}
+	else
+	{
+		gASDResource[ASD_JEEP] = max( 0, gASDResource[ASD_JEEP] - 1 );
 		return TRUE;
 	}
 

@@ -616,6 +616,12 @@ typedef struct
 	INT32 gASDResource_Cost[ASD_RESOURCE_MAX];
 	INT32 gASDResource_BuyTime[ASD_RESOURCE_MAX];
 
+	BOOLEAN fASDAssignsTanks;
+	BOOLEAN fASDAssignsJeeps;
+
+	INT32 gASDResource_Fuel_Tank;
+	INT32 gASDResource_Fuel_Jeep;
+
 	// Flugente: enemy heli
 	BOOLEAN fEnemyHeliActive;
 	UINT8 usEnemyHeliMinimumProgress;
@@ -830,6 +836,10 @@ typedef struct
 	BOOLEAN fArmyUsesTanksInAttacks;
 	BOOLEAN fArmyUsesTanksInPatrols;
 	UINT8 usTankMinimumProgress;
+
+	BOOLEAN fArmyUsesJeepsInAttacks;
+	BOOLEAN fArmyUsesJeepsInPatrols;
+	UINT8 usJeepMinimumProgress;
 
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fUseDifficultyBasedProfDat;
@@ -1460,6 +1470,7 @@ typedef struct
 	BOOLEAN fAllowTanksDrivingOverPeople;
 
 	UINT8 ubCarsRammingMaxStructureArmour;
+	UINT8 ubEnemyJeepsRammingMaxStructureArmour;
 	UINT8 ubTanksRammingMaxStructureArmour;
 
 	UINT8 ubAPSharedAmongPassengersAndVehicleMode;

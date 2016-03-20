@@ -5122,7 +5122,7 @@ UINT16 SelectFireAnimation( SOLDIERTYPE *pSoldier, UINT8 ubHeight )
 		return(TANK_SHOOT);
 	}
 
-	if ( TANK(pSoldier) )
+	if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		return(TANK_BURST);
 	}
@@ -5474,7 +5474,7 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 		return(INVALID_ANIMATION);
 	}
 
-	if ( TANK(pSoldier) )
+	if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		return(INVALID_ANIMATION);
 	}
@@ -8095,7 +8095,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 			if ( ((gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY) &&
 				this->flags.bTurningFromPronePosition == TURNING_FROM_PRONE_OFF) ||
 				this->ubBodyType == ROBOTNOWEAPON ||
-				TANK(this) )
+				ARMED_VEHICLE( this ) )
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "TurnSoldier: EVENT_InitNewSoldierAnim" ) );
 				this->EVENT_InitNewSoldierAnim( SelectFireAnimation( this, gAnimControl[this->usAnimState].ubEndHeight ), 0, FALSE );
@@ -8175,7 +8175,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 	// Don't do anything if we are at dest direction!
 	if ( this->ubDirection == this->pathing.bDesiredDirection )
 	{
-		if ( TANK(this) )
+		if ( ARMED_VEHICLE( this ) )
 		{
 			if ( this->iTuringSoundID != NO_SAMPLE )
 			{
@@ -8324,7 +8324,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 			}
 		}
 
-		if ( TANK(this) )
+		if ( ARMED_VEHICLE( this ) )
 		{
 			if ( this->iTuringSoundID == NO_SAMPLE )
 			{
@@ -9871,22 +9871,23 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	// OK, If we are a vehicle.... damage vehicle...( people inside... )
 	if ( this->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		if ( TANK( this ) )
+		if ( ubReason == TAKE_DAMAGE_GUNFIRE )
 		{
-			//sLifeDeduct = (sLifeDeduct * 2) / 3;
+			;
 		}
+		else if ( ubReason == TAKE_DAMAGE_EXPLOSION )
+		{
+			if ( ARMED_VEHICLE( this ) )
+				;
 			else
 			{
-			if ( ubReason == TAKE_DAMAGE_GUNFIRE )
+				if ( sLifeDeduct > 50 )
 				{
-				sLifeDeduct /= 3;
-			}
-			else if ( ubReason == TAKE_DAMAGE_EXPLOSION && sLifeDeduct > 50 )
-			{
 					// boom!
 					sLifeDeduct *= 2;
 				}
 			}
+		}
 		
 		VehicleTakeDamage( this->bVehicleID, ubReason, sLifeDeduct, this->sGridNo, ubAttacker );
 		HandleTakeDamageDeath( this, bOldLife, ubReason );
@@ -15992,7 +15993,7 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength( )
 		value *= 0.75f;
 
 	// tanks won't surrender that easy
-	if ( TANK( this ) )
+	if ( ARMED_VEHICLE( this ) )
 		value *= 10;
 
 	return value;
@@ -16036,8 +16037,8 @@ BOOLEAN		SOLDIERTYPE::CanBeCaptured( )
 	// if this guy is not already handcuffed, and is not an NPC
 	if ( !(this->usSoldierFlagMask & SOLDIER_POW) && this->ubProfile == NO_PROFILE )
 	{
-		// tanks cannot be captured
-		if ( this->ubSoldierClass == SOLDIER_CLASS_TANK )
+		// armed vehicles cannot be captured
+		if ( ARMED_VEHICLE(this) )
 			return FALSE;
 
 		// enemies can be captured
@@ -18241,7 +18242,7 @@ BOOLEAN		SOLDIERTYPE::CanMedicAI( )
 		return FALSE;
 
 	// this is not for tanks
-	if ( TANK( this ) )
+	if ( ARMED_VEHICLE( this ) )
 		return FALSE;
 
 	if ( HAS_SKILL_TRAIT( this, DOCTOR_NT ) )
@@ -18273,7 +18274,7 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend( )
 			return FALSE;
 
 		// this is not for tanks
-		if ( TANK( pSoldier ) )
+		if ( ARMED_VEHICLE( pSoldier ) )
 			return FALSE;
 
 		// if this guy is wounded, heal him (should always be the case, otherwise this function was called needlessly)
@@ -20504,7 +20505,7 @@ BOOLEAN SOLDIERTYPE::IsValidShotFromHip( INT16 bAimTime, INT32 iTrgGridNo )
 		return(FALSE);
 	}
 	// robots and tanks cannot do this
-	if ( AM_A_ROBOT( this ) || TANK( this ) )//dnl ch64 300813
+	if ( AM_A_ROBOT( this ) || ARMED_VEHICLE( this ) )//dnl ch64 300813
 	{
 		return(FALSE);
 	}
@@ -20556,7 +20557,7 @@ BOOLEAN SOLDIERTYPE::IsValidPistolFastShot( INT16 bAimTime, INT32 iTrgGridNo )
 		return(FALSE);
 	}
 	// robots and tanks cannot do this
-	if ( AM_A_ROBOT( this ) || TANK( this ) )//dnl ch64 300813
+	if ( AM_A_ROBOT( this ) || ARMED_VEHICLE( this ) )//dnl ch64 300813
 	{
 		return(FALSE);
 	}

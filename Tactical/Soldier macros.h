@@ -32,9 +32,11 @@
 
 #define CREATURE_OR_BLOODCAT( p ) ( (p->flags.uiStatusFlags & SOLDIER_MONSTER) || p->ubBodyType == BLOODCAT )
 
+#define COMBAT_JEEP( p ) ( p->ubBodyType == COMBAT_JEEP )
 #define TANK( p ) (p->ubBodyType == TANK_NE || p->ubBodyType == TANK_NW )
+#define ARMED_VEHICLE( p )	( TANK( p ) || COMBAT_JEEP(p) )
 
 //#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !TANK( p ) && p->stats.bLife >= OKLIFE	)
-#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && (!TANK( p ) || !(p->flags.uiStatusFlags & SOLDIER_ENEMY) ) && p->stats.bLife >= OKLIFE	)
+#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && (!ARMED_VEHICLE( p ) || !(p->flags.uiStatusFlags & SOLDIER_ENEMY) ) && p->stats.bLife >= OKLIFE	)
 
 #endif

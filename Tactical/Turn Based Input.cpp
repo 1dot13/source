@@ -4962,6 +4962,7 @@ void ChangeSoldiersBodyType( UINT8 ubBodyType, BOOLEAN fCreateNewPalette )
 
 				case TANK_NW:
 				case TANK_NE:
+				case COMBAT_JEEP:
 
 					pSoldier->flags.uiStatusFlags |= SOLDIER_VEHICLE;
 					//pSoldier->inv[ HANDPOS ].usItem = TANK_CANNON;

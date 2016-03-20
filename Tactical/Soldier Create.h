@@ -443,6 +443,7 @@ SOLDIERTYPE* TacticalCreateZombie();		// Flugente Zombies
 SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY );	// Flugente: added sector coordinates
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 SOLDIERTYPE* TacticalCreateEnemyTank();
+SOLDIERTYPE* TacticalCreateEnemyJeep( );
 SOLDIERTYPE* TacticalCreateJeep();
 
 // Flugente: create an armed civilian

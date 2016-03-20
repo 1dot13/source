@@ -591,7 +591,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	// First check if this guy has a profile and if so check his location such that it matches!
 	// Get profile from placement info
 
-	if ( TANK( curr->pBasicPlacement ) )
+	if ( ARMED_VEHICLE( curr->pBasicPlacement ) )
 	{
 		while (1)
 		{
@@ -804,7 +804,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: create soldier"));
 	
-	if ( is_networked && ( TANK( (&tempDetailedPlacement) ) || tempDetailedPlacement.fOnRoof ) )
+	if ( is_networked && (ARMED_VEHICLE( (&tempDetailedPlacement) ) || tempDetailedPlacement.fOnRoof) )
 		return TRUE;
 		
 	pSoldier = TacticalCreateSoldier( &tempDetailedPlacement, &ubID );
@@ -1019,7 +1019,7 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 	return ubNumAdded;
 }
 
-void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalTanks )
+void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalTanks, UINT8 ubTotalJeeps )
 {
 	SOLDIERINITNODE *mark;
 	SOLDIERINITNODE *curr;
@@ -1029,6 +1029,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	UINT8 ubTroopPDSlots = 0, ubTroopDSlots = 0, ubTroopPSlots = 0, ubTroopBSlots = 0;
 	UINT8 ubAdminPDSlots = 0, ubAdminDSlots = 0, ubAdminPSlots = 0, ubAdminBSlots = 0;
 	UINT8 ubTankPDSlots = 0, ubTankDSlots = 0, ubTankPSlots = 0, ubTankBSlots = 0;
+	UINT8 ubJeepPDSlots = 0, ubJeepDSlots = 0, ubJeepPSlots = 0, ubJeepBSlots = 0;
 	UINT8 ubFreeSlots;
 	UINT8 *pCurrSlots=NULL;
 	UINT8 *pCurrTotal=NULL;
@@ -1046,7 +1047,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//of each type of enemy may not be the same.	Elites will choose the best placements, then army, then
 	//administrators.
 
-	ubMaxNum = ubTotalAdmin + ubTotalTroops + ubTotalElite + ubTotalTanks;
+	ubMaxNum = ubTotalAdmin + ubTotalTroops + ubTotalElite + ubTotalTanks + ubTotalJeeps;
 
 	AssertLE (ubMaxNum, gGameExternalOptions.ubGameMaximumNumberOfEnemies);
 
@@ -1096,6 +1097,18 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 				else
 					ubTroopBSlots++;
 				break;
+			case SOLDIER_CLASS_JEEP:
+				if ( COMBAT_JEEP( curr->pDetailedPlacement ) )
+				{
+					if ( curr->pBasicPlacement->fPriorityExistance && curr->pDetailedPlacement )
+						ubJeepPDSlots++;
+					else if ( curr->pBasicPlacement->fPriorityExistance )
+						ubJeepPSlots++;
+					else if ( curr->pDetailedPlacement )
+						ubJeepDSlots++;
+					else
+						ubJeepBSlots++;
+				}
 			case SOLDIER_CLASS_TANK:
 				if ( TANK( curr->pDetailedPlacement ) )
 				{
@@ -1117,7 +1130,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//ADD PLACEMENTS WITH PRIORITY EXISTANCE WITH DETAILED PLACEMENT INFORMATION FIRST
 	//we now have the numbers of available slots for each soldier class, so loop through three times
 	//and randomly choose some (or all) of the matching slots to fill.	This is done randomly.
-	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY + 1; ubCurrClass++ )
+	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY + 2; ++ubCurrClass )
 	{
 		//First, prepare the counters.
 		switch( ubCurrClass )
@@ -1138,6 +1151,11 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 			ubCurrClass = SOLDIER_CLASS_TANK;
 			pCurrSlots = &ubTankPDSlots;
 			pCurrTotal = &ubTotalTanks;
+			break;
+		case SOLDIER_CLASS_ARMY + 2:// SOLDIER_CLASS_JEEP
+			ubCurrClass = SOLDIER_CLASS_JEEP;
+			pCurrSlots = &ubJeepPDSlots;
+			pCurrTotal = &ubTotalJeeps;
 			break;
 		}
 		//Now, loop through the priority existance and detailed placement section of the list.
@@ -1317,9 +1335,15 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 			}
 			else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks )
 			{
-				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;				
 				curr->pBasicPlacement->ubBodyType = TANK_NW;
 				ubTotalTanks--;
+			}
+			else if ( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps )
+			{
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_JEEP;
+				curr->pBasicPlacement->ubBodyType = COMBAT_JEEP;
+				ubTotalJeeps--;
 			}
 			else
 				Assert(0);
@@ -1406,18 +1430,34 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	curr = gSoldierInitHead;
 	while( curr && ubFreeSlots && ubMaxNum )
 	{
-		if( !curr->pSoldier && curr->pBasicPlacement->bTeam == ENEMY_TEAM && ubTotalTanks && !GridNoIndoors( curr->pBasicPlacement->usStartingGridNo ))
+		if ( !curr->pSoldier && curr->pBasicPlacement->bTeam == ENEMY_TEAM && !GridNoIndoors( curr->pBasicPlacement->usStartingGridNo ) && (ubTotalTanks || ubTotalJeeps) )
 		{
-			curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
-			curr->pBasicPlacement->ubBodyType = TANK_NW;
-			ubTotalTanks--;
-			if( AddPlacementToWorld( curr ) )
+			if ( ubTotalJeeps )
 			{
-				ubMaxNum--;
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_JEEP;
+				curr->pBasicPlacement->ubBodyType = COMBAT_JEEP;
+				ubTotalJeeps--;
+				if( AddPlacementToWorld( curr ) )
+				{
+					ubMaxNum--;
+				}
+				else
+					return;
+				ubFreeSlots--;
 			}
-			else
-				return;
-			ubFreeSlots--;
+			else if ( ubTotalTanks )
+			{
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
+				curr->pBasicPlacement->ubBodyType = TANK_NW;
+				ubTotalTanks--;
+				if ( AddPlacementToWorld( curr ) )
+				{
+					ubMaxNum--;
+				}
+				else
+					return;
+				ubFreeSlots--;
+			}
 		}
 		curr = curr->next;
 	}
@@ -1455,6 +1495,12 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
 					curr->pBasicPlacement->ubBodyType = TANK_NW;
 					ubTotalTanks--;
+				}
+				else if ( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps )
+				{
+					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_JEEP;
+					curr->pBasicPlacement->ubBodyType = COMBAT_JEEP;
+					ubTotalJeeps--;
 				}
 				else
 					Assert(0);
@@ -1546,7 +1592,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				// silversurfer: Replace body type. Militia tanks are not allowed.
 				if( curr->pBasicPlacement->fDetailedPlacement )
 				{
-					if ( TANK( curr->pDetailedPlacement ) )
+					if ( ARMED_VEHICLE( curr->pDetailedPlacement ) )
 					{
 						curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 						// check for better spot next to the tank so the militia doesn't get stuck in the tank
@@ -1555,7 +1601,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 							curr->pBasicPlacement->usStartingGridNo = iNewSpot;
 					}
 				}
-				else if ( TANK( curr->pBasicPlacement ) )
+				else if ( ARMED_VEHICLE( curr->pBasicPlacement ) )
 				{
 					curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 					// check for better spot next to the tank so the militia doesn't get stuck in the tank
@@ -1563,14 +1609,17 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 					if(  iNewSpot != NOWHERE)
 						curr->pBasicPlacement->usStartingGridNo = iNewSpot;
 				}
+
 				if( curr->pDetailedPlacement )
-				{ //delete the detailed placement information.
+				{
+					//delete the detailed placement information.
 					delete( curr->pDetailedPlacement );
 					curr->pDetailedPlacement = NULL;
 					curr->pBasicPlacement->fDetailedPlacement = FALSE;
 					RandomizeRelativeLevel( &( curr->pBasicPlacement->bRelativeAttributeLevel ), curr->pBasicPlacement->ubSoldierClass );
 					RandomizeRelativeLevel( &( curr->pBasicPlacement->bRelativeEquipmentLevel ), curr->pBasicPlacement->ubSoldierClass );
 				}
+
 				if( AddPlacementToWorld( curr ) )
 				{
 					ubMaxNum--;
@@ -1726,7 +1775,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 				curr->pBasicPlacement->bAttitude = (INT8) Random( MAXATTITUDES );
 
 				// silversurfer: Replace body type. Militia tanks are not allowed.
-				if ( TANK(curr->pBasicPlacement) )
+				if ( ARMED_VEHICLE( curr->pBasicPlacement ) )
 				{
 					curr->pBasicPlacement->ubBodyType = PreRandom( REGFEMALE + 1 );
 					// check for better spot next to the tank so the militia doesn't get stuck in the tank
@@ -1734,14 +1783,17 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 					if(  iNewSpot != NOWHERE)
 						curr->pBasicPlacement->usStartingGridNo = iNewSpot;
 				}
+
 				if( curr->pDetailedPlacement )
-				{ //delete the detailed placement information.
+				{
+					//delete the detailed placement information.
 					delete( curr->pDetailedPlacement );
 					curr->pDetailedPlacement = NULL;
 					curr->pBasicPlacement->fDetailedPlacement = FALSE;
 					RandomizeRelativeLevel( &( curr->pBasicPlacement->bRelativeAttributeLevel), curr->pBasicPlacement->ubSoldierClass );
 					RandomizeRelativeLevel( &( curr->pBasicPlacement->bRelativeEquipmentLevel), curr->pBasicPlacement->ubSoldierClass );
 				}
+
 				if( AddPlacementToWorld( curr ) )
 				{
 					ubMaxNum--;

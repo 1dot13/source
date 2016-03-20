@@ -562,7 +562,7 @@ void ShowSAMSitesOnStrategicMap( void );
 void MilitiaBoxMaskBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 
 // display potential path, yes or no?
-void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies, UINT16 usNumTanks, UINT8 ubIconPosition );
+void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies, UINT16 usNumEnemyArmedVehicles, UINT8 ubIconPosition );
 void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
 void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubIconPosition );
 
@@ -1256,7 +1256,7 @@ INT32 ShowVehicles(INT16 sMapX, INT16 sMapY, INT32 iCount)
 }
 
 
-void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies, UINT16 usNumTanks, UINT8 ubIconPosition )
+void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies, UINT16 usNumEnemyArmedVehicles, UINT8 ubIconPosition )
 {
 	HVOBJECT hIconHandle;
 	INT16 sEnemy, s10xEnemy, sEnemyLessTank;
@@ -1264,7 +1264,7 @@ void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies
 	// get the video object
 	GetVideoObject(&hIconHandle, guiCHARICONS);
 	
-	sEnemyLessTank = sNumberOfEnemies - usNumTanks;
+	sEnemyLessTank = sNumberOfEnemies - usNumEnemyArmedVehicles;
 	
 	// no 10x icon for easy enemy quantity gauge in low resolution
 	if (iResolution >= _640x480 && iResolution < _800x600)
@@ -1285,17 +1285,17 @@ void ShowEnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sNumberOfEnemies
 	{
 		// Flugente: the tank icon has is 4 icons wide and 2 rows high, thus this odd code bit
 		// if we want to display a tank and have not yet done so, pick the first position that still has enough space to the right
-		if ( usNumTanks && secondtankrowstart < 0 && ( ubIconPosition % MERC_ICONS_PER_LINE ) < 3 )
+		if ( usNumEnemyArmedVehicles && secondtankrowstart < 0 && (ubIconPosition % MERC_ICONS_PER_LINE) < 3 )
 		{
 			DrawMapBoxIcon( hIconHandle, ENEMY_TANK_BIG, sSectorX, sSectorY, ubIconPosition );
 			secondtankrowstart = ubIconPosition + 6;
 			ubIconPosition += 4;
 		}
 		// if this is the second row of a tank, don't draw anything
-		else if ( usNumTanks && secondtankrowstart > -1 && ubIconPosition == secondtankrowstart )
+		else if ( usNumEnemyArmedVehicles && secondtankrowstart > -1 && ubIconPosition == secondtankrowstart )
 		{
 			// for now display only one tank icon
-			usNumTanks = 0;
+			usNumEnemyArmedVehicles = 0;
 			ubIconPosition += 4;		
 			sEnemy = max( 0, sEnemy - 1 );
 		}
@@ -6598,6 +6598,7 @@ BOOLEAN CanMercsScoutThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubIconPosition )
 {
 	INT16 sNumberOfEnemies = 0;
+	UINT16 usNumEnemyArmedVehicles = 0;
 
 	// ATE: If game has just started, don't do it!
 	if ( DidGameJustStart() )
@@ -6677,10 +6678,10 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 			case KNOWS_HOW_MANY:
 				{
 					// Flugente: tanks get a special icon, so we need to count them separately
-					UINT16 usNumTanks = NumTanksInSector( sSectorX, sSectorY, ENEMY_TEAM );
+					usNumEnemyArmedVehicles = NumEnemyArmedVehiclesInSector( sSectorX, sSectorY, ENEMY_TEAM );
 
 					// display individual icons for each enemy, starting at the received icon position index
-					ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
+					ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumEnemyArmedVehicles, ubIconPosition );
 				}
 				break;
 
@@ -6688,10 +6689,10 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 			case KNOWS_HOW_MANY_AND_WHERE_GOING:
 				{
 					// Flugente: tanks get a special icon, so we need to count them separately
-					UINT16 usNumTanks = NumTanksInSector( sSectorX, sSectorY, ENEMY_TEAM );
+					usNumEnemyArmedVehicles = NumEnemyArmedVehiclesInSector( sSectorX, sSectorY, ENEMY_TEAM );
 
 					// display individual icons for each enemy, starting at the received icon position index
-					ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumTanks, ubIconPosition );
+					ShowEnemiesInSector( sSectorX, sSectorY, sNumberOfEnemies, usNumEnemyArmedVehicles, ubIconPosition );
 
 					// display their direction of movement, if valid.
 					ShowNonPlayerGroupsInMotion( sSectorX, sSectorY, ENEMY_TEAM );

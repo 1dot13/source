@@ -651,7 +651,11 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
-	else if( gGameExternalOptions.ubTanksRammingMaxStructureArmour && sSoldierID != NOBODY && TANK( MercPtrs[ sSoldierID ] ) )
+	else if ( gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour && sSoldierID != NOBODY && COMBAT_JEEP( MercPtrs[sSoldierID] ) )
+	{
+		fVehicleIgnoreObstacles = TRUE;
+	}
+	else if ( gGameExternalOptions.ubTanksRammingMaxStructureArmour && sSoldierID != NOBODY && TANK( MercPtrs[sSoldierID] ) )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
@@ -737,15 +741,15 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 						// but not monsters and such (they can't fall down due to lack of animations)
 						// also make sure AI won't flatten their allies
 						if( !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT | SOLDIER_MONSTER ) ) && 
-							( ( !TANK(MercPtrs[ sSoldierID ]) && gGameExternalOptions.fAllowCarsDrivingOverPeople ) ||
-							( TANK(MercPtrs[ sSoldierID ]) && gGameExternalOptions.fAllowTanksDrivingOverPeople ) ) &&
+							((!ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gGameExternalOptions.fAllowCarsDrivingOverPeople) ||
+							(ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gGameExternalOptions.fAllowTanksDrivingOverPeople)) &&
 							( MercPtrs[ sSoldierID ]->bTeam == gbPlayerNum || MercPtrs[ sSoldierID ]->bTeam != pSoldier->bTeam ) )
 						{
 							pExistingStructure = pExistingStructure->pNext;
 							// damage people when driving on them
 							if( fAddingForReal )
 							{	
-								if( TANK( MercPtrs[ sSoldierID ] ) )
+								if ( TANK( MercPtrs[sSoldierID] ) )
 								{
 									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
@@ -771,8 +775,9 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 					else
 					{
 						// only if structure is weak enough
-						if( ( !TANK(MercPtrs[ sSoldierID ]) && gubMaterialArmour[ pExistingStructure->pDBStructureRef->pDBStructure->ubArmour ] < gGameExternalOptions.ubCarsRammingMaxStructureArmour ) ||
-							( TANK(MercPtrs[ sSoldierID ]) && gubMaterialArmour[ pExistingStructure->pDBStructureRef->pDBStructure->ubArmour ] < gGameExternalOptions.ubTanksRammingMaxStructureArmour ) )
+						if ( (!ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubCarsRammingMaxStructureArmour) ||
+							 (COMBAT_JEEP( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour) ||
+							(TANK( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubTanksRammingMaxStructureArmour) )
 						{
 							// when not just plotting path, really destroy structure
 							if( fAddingForReal )
@@ -1915,7 +1920,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
 			// handle structure revenge - damage to vehicle
-			if ( ubOwner != NOBODY && MercPtrs[ubOwner] && !TANK( MercPtrs[ubOwner] ) )
+			if ( ubOwner != NOBODY && MercPtrs[ubOwner] && !ARMED_VEHICLE( MercPtrs[ubOwner] ) )
 			{
 				MercPtrs[ ubOwner ]->SoldierTakeDamage( 0, Random(max(0,(ubBaseArmour-10)/5))+max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE );
 			}

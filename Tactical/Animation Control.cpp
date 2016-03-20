@@ -1118,6 +1118,7 @@ ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
 	-10, (FLOAT)4.0,			//ELDORADO
 	-10, (FLOAT)4.0,			//ICECREAMTRUCK
 	-10, (FLOAT)4.0,			//JEEP
+	-10, (FLOAT)4.0,			//COMBAT_JEEP
 };
 
 extern INT16 gubMaxActionPoints[TOTALBODYTYPES] = {0};
@@ -3592,7 +3593,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ TANK_NW ][ TANK_SHOOT ]																= TANKNW_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NW ][ TANK_BURST ]																= TANKNW_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NW ][ VEHICLE_DIE ]																= TANKNW_DIE;
-	gubAnimSurfaceCorpseID[ TANK_NW ][ STANDING ]																= TANK1_DEAD;
+	gubAnimSurfaceCorpseID[TANK_NW][STANDING]																	= TANK1_DEAD;
+	gubAnimSurfaceCorpseID[TANK_NW][WALKING]																	= TANK1_DEAD;
+	gubAnimSurfaceCorpseID[TANK_NW][RUNNING]																	= TANK1_DEAD;
+	gubAnimSurfaceCorpseID[TANK_NW][WALK_BACKWARDS]																= TANK1_DEAD;
 
 	// TANK
 	gubAnimSurfaceIndex[ TANK_NE ][ STANDING ]																	= TANKNE_READY;
@@ -3603,6 +3607,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ TANK_NE ][ TANK_BURST ]																= TANKNE_SHOOT;
 	gubAnimSurfaceIndex[ TANK_NE ][ VEHICLE_DIE ]																= TANKNE_DIE;
 	gubAnimSurfaceCorpseID[ TANK_NE ][ STANDING ]																= TANK2_DEAD;
+	gubAnimSurfaceCorpseID[ TANK_NE ][WALKING]																	= TANK2_DEAD;
+	gubAnimSurfaceCorpseID[ TANK_NE ][RUNNING]																	= TANK2_DEAD;
+	gubAnimSurfaceCorpseID[ TANK_NE ][WALK_BACKWARDS]															= TANK2_DEAD;
 
 	// ELDORADO
 	gubAnimSurfaceIndex[ ELDORADO ][ STANDING ]																	= ELDORADO_BASIC;
@@ -3610,21 +3617,45 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ ELDORADO ][ RUNNING ]																	= ELDORADO_BASIC;
 	gubAnimSurfaceIndex[ ELDORADO ][ WALK_BACKWARDS ]															= ELDORADO_BASIC;
 	gubAnimSurfaceIndex[ ELDORADO ][ VEHICLE_DIE ]															= ELDORADO_DIE;
+	gubAnimSurfaceCorpseID[ELDORADO][STANDING] = ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[ELDORADO][WALKING] = ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[ELDORADO][RUNNING] = ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[ELDORADO][WALK_BACKWARDS] = ICECREAM_DEAD;
 
 	// ICECREAMTRUCK
 	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ STANDING ]														= ICECREAMTRUCK_BASIC;
 	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ WALKING ]															= ICECREAMTRUCK_BASIC;
 	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ RUNNING ]															= ICECREAMTRUCK_BASIC;
 	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ WALK_BACKWARDS ]													= ICECREAMTRUCK_BASIC;
-	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ VEHICLE_DIE ]													= HUMVEE_DIE;
-	gubAnimSurfaceCorpseID[ ICECREAMTRUCK ][ STANDING ]												= ICECREAM_DEAD;
+	gubAnimSurfaceIndex[ ICECREAMTRUCK ][ VEHICLE_DIE ]														= HUMVEE_DIE;
+	gubAnimSurfaceCorpseID[ICECREAMTRUCK][STANDING]															= ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[ICECREAMTRUCK][WALKING]															= ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[ICECREAMTRUCK][RUNNING]															= ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[ICECREAMTRUCK][WALK_BACKWARDS]													= ICECREAM_DEAD;
 
 	// JEEP
 	gubAnimSurfaceIndex[ JEEP ][ STANDING ]																			= JEEP_BASIC;
 	gubAnimSurfaceIndex[ JEEP ][ WALKING ]																			= JEEP_BASIC;
 	gubAnimSurfaceIndex[ JEEP ][ RUNNING ]																			= JEEP_BASIC;
 	gubAnimSurfaceIndex[ JEEP ][ WALK_BACKWARDS ]																	= JEEP_BASIC;
-	gubAnimSurfaceIndex[ JEEP ][ VEHICLE_DIE ]																	= JEEP_DIE;
+	gubAnimSurfaceIndex[ JEEP ][ VEHICLE_DIE ]																		= JEEP_DIE;
+	gubAnimSurfaceCorpseID[JEEP][STANDING] = ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[JEEP][WALKING] = ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[JEEP][RUNNING] = ICECREAM_DEAD;
+	gubAnimSurfaceCorpseID[JEEP][WALK_BACKWARDS] = ICECREAM_DEAD;
+	
+	// COMBAT_JEEP
+	gubAnimSurfaceIndex[COMBAT_JEEP][STANDING]																= ARMED_CAR_READY;
+	gubAnimSurfaceIndex[COMBAT_JEEP][WALKING]																= ARMED_CAR_READY;
+	gubAnimSurfaceIndex[COMBAT_JEEP][RUNNING]																= ARMED_CAR_READY;
+	gubAnimSurfaceIndex[COMBAT_JEEP][WALK_BACKWARDS]														= ARMED_CAR_READY;
+	gubAnimSurfaceIndex[COMBAT_JEEP][TANK_SHOOT]															= ARMED_CAR_SHOOT;
+	gubAnimSurfaceIndex[COMBAT_JEEP][TANK_BURST]															= ARMED_CAR_SHOOT;
+	gubAnimSurfaceIndex[COMBAT_JEEP][VEHICLE_DIE]															= ARMED_CAR_DIE;
+	gubAnimSurfaceCorpseID[COMBAT_JEEP][STANDING] = HUMMER_DEAD;
+	gubAnimSurfaceCorpseID[COMBAT_JEEP][WALKING] = HUMMER_DEAD;
+	gubAnimSurfaceCorpseID[COMBAT_JEEP][RUNNING] = HUMMER_DEAD;
+	gubAnimSurfaceCorpseID[COMBAT_JEEP][WALK_BACKWARDS] = HUMMER_DEAD;	
 }
 
 BOOLEAN LoadAnimationStateInstructions( )
@@ -3991,6 +4022,7 @@ INT8	GetBodyTypePaletteSubstitutionCode( SOLDIERTYPE *pSoldier, UINT8 ubBodyType
 	case ROBOTNOWEAPON:
 	case TANK_NW:
 	case TANK_NE:
+	case COMBAT_JEEP:
 
 		return( 0 );
 	}

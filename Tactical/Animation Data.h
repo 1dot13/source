@@ -66,6 +66,7 @@ enum SoldierBodyTypes
 	ELDORADO,
 	ICECREAMTRUCK,
 	JEEP,
+	COMBAT_JEEP,			// Flugente, smeagol & DepressivesBrot: lightly armored tactical vehicle
 
 	TOTALBODYTYPES
 
@@ -502,6 +503,10 @@ typedef enum
 
 	JEEP_BASIC,
 	JEEP_DIE,
+
+	ARMED_CAR_READY,
+	ARMED_CAR_SHOOT,
+	ARMED_CAR_DIE,
 
 	BODYEXPLODE,
 

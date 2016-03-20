@@ -1377,6 +1377,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAllowTanksDrivingOverPeople		= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_TANKS_DRIVING_OVER_PEOPLE", TRUE);
 
 	gGameExternalOptions.ubCarsRammingMaxStructureArmour		= iniReader.ReadInteger("Tactical Gameplay Settings","CARS_RAMMING_MAX_STRUCTURE_ARMOUR", 30, 0, 255);
+	gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour	= iniReader.ReadInteger( "Tactical Gameplay Settings", "ENEMY_JEEP_RAMMING_MAX_STRUCTURE_ARMOUR", 38, 0, 255 );
 	gGameExternalOptions.ubTanksRammingMaxStructureArmour		= iniReader.ReadInteger("Tactical Gameplay Settings","TANKS_RAMMING_MAX_STRUCTURE_ARMOUR", 70, 0, 255);
 
 	gGameExternalOptions.ubAPSharedAmongPassengersAndVehicleMode	= iniReader.ReadInteger("Tactical Gameplay Settings","AP_SHARED_AMONG_PASSENGERS_AND_VEHICLE_MODE", 3, 0, 3);
@@ -1973,15 +1974,21 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.gASDResource_Cost[ASD_MONEY]		= 1;
 	gGameExternalOptions.gASDResource_Cost[ASD_FUEL]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_FUEL", 10, 1, 100 );
-	gGameExternalOptions.gASDResource_Cost[ASD_HELI]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_HELI", 100000, 10000, 1000000 );
-	gGameExternalOptions.gASDResource_Cost[ASD_JEEP]		= 50000;
-	gGameExternalOptions.gASDResource_Cost[ASD_TANK]		= 200000;
+	gGameExternalOptions.gASDResource_Cost[ASD_HELI]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_HELI", 30000, 1, 1000000 );
+	gGameExternalOptions.gASDResource_Cost[ASD_JEEP]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_JEEP", 20000, 1, 1000000 );
+	gGameExternalOptions.gASDResource_Cost[ASD_TANK]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_TANK", 50000, 1, 1000000 );
 
 	gGameExternalOptions.gASDResource_BuyTime[ASD_MONEY]	= 0;
 	gGameExternalOptions.gASDResource_BuyTime[ASD_FUEL]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_FUEL", 60 * 8, 1, 60 * 48 );
 	gGameExternalOptions.gASDResource_BuyTime[ASD_HELI]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_HELI", 60 * 20, 1, 60 * 48 );
-	gGameExternalOptions.gASDResource_BuyTime[ASD_JEEP]		= 60 * 12;
-	gGameExternalOptions.gASDResource_BuyTime[ASD_TANK]		= 60 * 24;
+	gGameExternalOptions.gASDResource_BuyTime[ASD_JEEP]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_JEEP", 60 * 12, 1, 60 * 48 );
+	gGameExternalOptions.gASDResource_BuyTime[ASD_TANK]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_TANK", 60 * 24, 1, 60 * 48 );
+
+	gGameExternalOptions.fASDAssignsTanks					= iniReader.ReadBoolean( "Strategic Additional Enemy AI Settings", "ASD_ASSIGNS_TANKS", TRUE );
+	gGameExternalOptions.fASDAssignsJeeps					= iniReader.ReadBoolean( "Strategic Additional Enemy AI Settings", "ASD_ASSIGNS_JEEPS", TRUE );
+
+	gGameExternalOptions.gASDResource_Fuel_Tank				= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_FUEL_REQUIRED_TANK", 100, 0, 10000 );
+	gGameExternalOptions.gASDResource_Fuel_Jeep				= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_FUEL_REQUIRED_JEEP", 20, 0, 10000 );
 
 	// Flugente: enemy heli
 	//################# Enemy Helicopter Settings ##################
@@ -2236,8 +2243,11 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fArmyUsesTanksInAttacks			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_ATTACKS", FALSE);
 	gGameExternalOptions.fArmyUsesTanksInPatrols			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_PATROLS", FALSE);
-	gGameExternalOptions.usTankMinimumProgress				= iniReader.ReadInteger("Strategic Gameplay Settings","TANK_MINIMUM_PROGRESS", 0, 0, 100);
+	gGameExternalOptions.usTankMinimumProgress				= iniReader.ReadInteger("Strategic Gameplay Settings","TANK_MINIMUM_PROGRESS", 60, 0, 100);
 
+	gGameExternalOptions.fArmyUsesJeepsInAttacks			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_ATTACKS", FALSE );
+	gGameExternalOptions.fArmyUsesJeepsInPatrols			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_PATROLS", FALSE );
+	gGameExternalOptions.usJeepMinimumProgress				= iniReader.ReadInteger( "Strategic Gameplay Settings", "JEEP_MINIMUM_PROGRESS", 30, 0, 100 );
 
 	// WANNE: This is just a debug setting. Only in debug version we set that property to TRUE.
 	// In Release version this should always be set to FALSE

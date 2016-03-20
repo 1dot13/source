@@ -2365,7 +2365,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 
 			/////////////////// ANTI-TANK AMMO
-			if ( AmmoTypes[Magazine[Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].antiTank )
+			if ( AmmoTypes[Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType].dDamageModifierTank >= 0.1f )
 			{
 				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[ 1 ], szUDBGenSecondaryStatsExplanationsTooltipText[ 1 ]);
 				SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + cnt ]), pStr );
@@ -5946,8 +5946,8 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		}
 
 		/////////////////// ANTI-TANK AMMO
-		if ( ( AmmoTypes[Magazine[Item[ gpItemDescObject->usItem ].ubClassIndex].ubAmmoType].antiTank && !fComparisonMode ) ||
-			( fComparisonMode && AmmoTypes[Magazine[Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].antiTank ) )
+		if ( (AmmoTypes[Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType].dDamageModifierTank >= 0.1f && !fComparisonMode) ||
+			 (fComparisonMode && AmmoTypes[Magazine[Item[gpComparedItemDescObject->usItem].ubClassIndex].ubAmmoType].dDamageModifierTank >= 0.1f ) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 1, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			cnt++;

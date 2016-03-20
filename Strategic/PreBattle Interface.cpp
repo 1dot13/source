@@ -227,13 +227,14 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 			{
 				if( pGroup->ubSectorX == pLocGroup->ubSectorX && pGroup->ubSectorY == pLocGroup->ubSectorY )
 				{
-					if( pGroup->pEnemyGroup->ubAdminsInBattle || pGroup->pEnemyGroup->ubTroopsInBattle || pGroup->pEnemyGroup->ubElitesInBattle || pGroup->pEnemyGroup->ubTanksInBattle )
+					if ( pGroup->pEnemyGroup->ubAdminsInBattle || pGroup->pEnemyGroup->ubTroopsInBattle || pGroup->pEnemyGroup->ubElitesInBattle || pGroup->pEnemyGroup->ubTanksInBattle || pGroup->pEnemyGroup->ubJeepsInBattle )
 					{
 						++ubInvalidGroups;
 						pGroup->pEnemyGroup->ubAdminsInBattle = 0;
 						pGroup->pEnemyGroup->ubTroopsInBattle = 0;
 						pGroup->pEnemyGroup->ubElitesInBattle = 0;
 						pGroup->pEnemyGroup->ubTanksInBattle = 0;
+						pGroup->pEnemyGroup->ubJeepsInBattle = 0;
 					}
 				}
 			}
@@ -251,19 +252,21 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 									L"If you can provide information on how a previous battle was resolved here or nearby patrol "
 									L"(auto resolve, tactical battle, cheat keys, or retreat),"
 									L"please forward that info (no data files necessary) as well as the following code (very important):	"
-									L"G(%02d:%c%d_b%d) A(%02d:%02d) T(%02d:%02d) E(%02d:%02d) C(%02d:%02d) Ta(%02d:%02d)",
+									L"G(%02d:%c%d_b%d) A(%02d:%02d) T(%02d:%02d) E(%02d:%02d) C(%02d:%02d) Ta(%02d:%02d) J(%02d:%02d)",
 									ubInvalidGroups, pLocGroup->ubSectorY + 'A' - 1, pLocGroup->ubSectorX, pLocGroup->ubSectorZ,
 									pSector->ubNumAdmins, pSector->ubAdminsInBattle,
 									pSector->ubNumTroops, pSector->ubTroopsInBattle,
 									pSector->ubNumElites, pSector->ubElitesInBattle,
 									pSector->ubNumCreatures, pSector->ubCreaturesInBattle,
-									pSector->ubNumTanks, pSector->ubTanksInBattle );
+									pSector->ubNumTanks, pSector->ubTanksInBattle,
+									pSector->ubNumJeeps, pSector->ubJeepsInBattle );
 		DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		pSector->ubAdminsInBattle = 0;
 		pSector->ubTroopsInBattle = 0;
 		pSector->ubElitesInBattle = 0;
 		pSector->ubCreaturesInBattle = 0;
 		pSector->ubTanksInBattle = 0;
+		pSector->ubJeepsInBattle = 0;
 	}
 }
 #endif

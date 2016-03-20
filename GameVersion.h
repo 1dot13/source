@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			ENEMY_JEEPS										165 // Flugente: enemy jeeps
 #define			ENEMY_HELICOPTERS								164 // Flugente: enemy helicopters
 #define			DRUG_SYSTEM_REDONE								163 // Flugente: reworked the drug system
 #define			MILITIA_PATH_PLOTTING							162 // Flugente: the player can plot militia paths in strategic, similar to player or helicopter travel
@@ -83,7 +84,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								ENEMY_HELICOPTERS
+#define			SAVE_GAME_VERSION								ENEMY_JEEPS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

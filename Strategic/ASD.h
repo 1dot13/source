@@ -118,5 +118,6 @@ UINT32 ASDResourceCostFuel( UINT8 aType );
 
 // if ASD is used, any tanks the queen uses in mobile attacks come from its pool, and we have to account for that
 BOOLEAN ASDSoldierUpgradeToTank( );
+BOOLEAN ASDSoldierUpgradeToJeep( );
 
 #endif //__ASD_H

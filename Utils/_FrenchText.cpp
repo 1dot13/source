@@ -1550,6 +1550,7 @@ STR16 pDisplayBodyTypeInfoText[] =
 	L"Monstre Adt M", //25
 	L"Monstre Reine",
 	L"Chat Sauvg",
+	L"Humvee",		// TODO.Translate
 };
 
 STR16 pUpdateMercsInfoText[] = 
@@ -3464,6 +3465,7 @@ STR16 gpStrategicString[] =
 	L"La salle d'opérations n'est pas ouverte... Le mouvement de la milice a avorté !",
 
 	L"Tank",								//STR_AR_TANK_NAME,	// TODO.Translate
+	L"Jeep",								//STR_AR_JEEP_NAME	// TODO.Translate
 
 	L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
 };

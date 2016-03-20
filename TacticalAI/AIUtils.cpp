@@ -2509,15 +2509,17 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT32 * pusFromGridNo)
 	{
 		// JA2 GOLD: give non-NPCs a 5 tile roam range for cover in combat when being shot at
 		// anv: and tanks who are technically NPCs
-		case STATIONARY:			if ( ( pSoldier->ubProfile != NO_PROFILE && !TANK(pSoldier) ) || (pSoldier->aiData.bAlertStatus < STATUS_BLACK && !(pSoldier->aiData.bUnderFire)))
-									{
-										return( 0 );
-									}
-									else
-									{
-										return( 5 );
-									}		
-		case ONGUARD:				return( 5 );
+		case STATIONARY:
+			if ( (pSoldier->ubProfile != NO_PROFILE && !ARMED_VEHICLE( pSoldier )) || (pSoldier->aiData.bAlertStatus < STATUS_BLACK && !(pSoldier->aiData.bUnderFire)) )
+			{
+				return( 0 );
+			}
+			else
+			{
+				return( 5 );
+			}		
+		case ONGUARD:
+			return( 5 );
 		case CLOSEPATROL:			if (pSoldier->aiData.bAlertStatus < STATUS_RED)
 													{
 														return( 5 );
@@ -3122,7 +3124,7 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 			continue;
 
 		// this is not for tanks
-		if ( TANK(pFriend) )
+		if ( ARMED_VEHICLE( pFriend ) )
 			return FALSE;
 		
 		// skip if this guy is dead
@@ -3175,7 +3177,7 @@ UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 			continue;
 
 		// this is not for tanks
-		if ( TANK(pFriend) )
+		if ( ARMED_VEHICLE( pFriend ) )
 			return FALSE;
 		
 		// skip if this guy is dead, or not wounded (enough)
@@ -3224,7 +3226,7 @@ UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTe
 			continue;
 
 		// this is not for tanks
-		if ( TANK(pFriend) )
+		if ( ARMED_VEHICLE( pFriend ) )
 			return FALSE;
 
 		// skip this guy if he is dead or unconscious

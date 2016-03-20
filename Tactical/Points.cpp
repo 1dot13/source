@@ -57,17 +57,17 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState );
 INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8 bLevel )
 {
 	// SANDRO - Note: this procedure was changed a bit
-		INT16	sAPCost = 0;
+	INT16	sAPCost = 0;
 	INT16	sSwitchValue;
-		BOOLEAN		fHiddenStructVisible;				// Used for hidden struct visiblity
+	BOOLEAN		fHiddenStructVisible;				// Used for hidden struct visiblity
 
 	// SANDRO - removed AP cost of moving stealthy or reversed outside this procedure
 
  //if (GridCost[gridno] == NPCMINECOST)
  //	switchValue = BackupGridCost[gridno];
  //else
-
-  sSwitchValue = gubWorldMovementCosts[sGridNo][bDir][ bLevel ];
+	
+	sSwitchValue = gubWorldMovementCosts[sGridNo][bDir][ bLevel ];
 
 	// Check reality vs what the player knows....
 	if ( pSoldier->bTeam == gbPlayerNum )
@@ -83,15 +83,16 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 			}
 		}
 	}
+
 	//ddd window
 	if ( sSwitchValue == TRAVELCOST_JUMPABLEWINDOW
 		|| sSwitchValue == TRAVELCOST_JUMPABLEWINDOW_N
 		|| sSwitchValue == TRAVELCOST_JUMPABLEWINDOW_W)
 	{
 		if (bDir & 1)
-				return -1;
-
+			return -1;
 	}	
+
 	//ddd if we don't check this condition, then when we approach to the tile with a window, when the distance to that tile will be 1
 	//we'll get nice message, that the way is blocked
 	if ( sSwitchValue == TRAVELCOST_NOT_STANDING)// || sSwitchValue == TRAVELCOST_JUMPABLEWINDOW)
@@ -106,6 +107,7 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 		{
 			return -1;
 		}
+
 		sSwitchValue = DoorTravelCost( pSoldier, sGridNo, (UINT8) sSwitchValue, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), NULL );
 	}
 	else if (gfPlotPathToExitGrid && sSwitchValue == TRAVELCOST_EXITGRID)
@@ -138,20 +140,20 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, INT8
 	case TRAVELCOST_DEBRIS		: sAPCost += APBPConstants[AP_MOVEMENT_RUBBLE];
 		break;
 	case TRAVELCOST_SHORE		: sAPCost += APBPConstants[AP_MOVEMENT_SHORE]; // wading shallow water
-		if (!IS_MERC_BODY_TYPE( pSoldier ))
+		if ( !IS_MERC_BODY_TYPE( pSoldier ) )
 		{
 			return -1;
 		}
 		break;
 	case TRAVELCOST_KNEEDEEP	:	sAPCost += APBPConstants[AP_MOVEMENT_LAKE]; // wading waist/chest deep - very slow
-		if (!IS_MERC_BODY_TYPE( pSoldier ))
+		if ( !IS_MERC_BODY_TYPE( pSoldier ) )
 		{
 			return -1;
 		}
 		break;
 
 	case TRAVELCOST_DEEPWATER: sAPCost += APBPConstants[AP_MOVEMENT_OCEAN]; // can swim, so it's faster than wading
-		if (!IS_MERC_BODY_TYPE( pSoldier ))
+		if ( !IS_MERC_BODY_TYPE( pSoldier ) )
 		{
 			return -1;
 		}
@@ -1474,7 +1476,7 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 		sBreathPerAP = APBPConstants[BP_PER_AP_MIN_EFFORT];
 
 		// OK, check if we are in water and are waling/standing
-		if ( pSoldier->MercInWater( ) )
+		if ( 0 && pSoldier->MercInWater( ) )
 		{
 			switch( usAnimState )
 			{
@@ -2481,7 +2483,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		}
 	}
 
-	if ( AM_A_ROBOT( pSoldier ) || TANK( pSoldier ) || ubForceRaiseGunCost == 2 )//dnl ch64 300813 robots and tanks cannot do this //dnl ch69 150913 need option to override raise gun cost
+	if ( AM_A_ROBOT( pSoldier ) || ARMED_VEHICLE( pSoldier ) || ubForceRaiseGunCost == 2 )//dnl ch64 300813 robots and tanks cannot do this //dnl ch69 150913 need option to override raise gun cost
 	{
 		fAddingRaiseGunCost = FALSE;
 	}
@@ -2632,7 +2634,7 @@ INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 	INT16	sCost;
 	INT32	sGridNo;
 
-	if ( TANK( pSoldier ) && !gGameExternalOptions.fEnemyTanksCanMoveInTactical )
+	if ( ARMED_VEHICLE( pSoldier ) && !gGameExternalOptions.fEnemyTanksCanMoveInTactical )
 	{
 		return(sLowest);//dnl ch64 290813 100AP made INT8 return obsolete
 	}
@@ -2837,7 +2839,7 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE* pObj )
 	{
 		// tanks never run out of MG ammo!
 		// unlimited cannon ammo is handled in AI
-		if ( TANK( pSoldier ) && !Item[pObj->usItem].cannon )
+		if ( ARMED_VEHICLE( pSoldier ) && !Item[pObj->usItem].cannon )
 			return;
 
 		if ( Item[pObj->usItem].cannon )
@@ -4031,7 +4033,7 @@ INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAim
 	Assert(pSoldier != NULL);
 	Assert(&pSoldier->inv[HANDPOS] != NULL);
 #ifndef dnlCALCBESTSHOT//dnl ch69 150913 if this is turn on we get incorrect APs as MinAPsToShootOrStab always include raise gun cost
-	if (!TANK(pSoldier) && !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))//dnl ch64 310813
+	if (!ARMED_VEHICLE(pSoldier) && !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))//dnl ch64 310813
 	{
 		// Weapon not ready, check aiming from hip, else add raise gun cost
 		//if (!pSoldier->IsValidShotFromHip(bAimTime,sTargetGridNo))
@@ -4238,7 +4240,7 @@ INT32 GetBPCostPer10APsForGunHolding( SOLDIERTYPE * pSoldier, BOOLEAN fEstimate 
 		return 0;
 	if ( !(gAnimControl[ pSoldier->usAnimState ].uiFlags & (ANIM_FIRE | ANIM_FIREREADY) ) && !fEstimate ) // don't if weapon not raised, but do if we are gonna estimate the cost
 		return 0;
-	if ( TANK( pSoldier ) || AM_A_ROBOT( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || AM_A_ROBOT( pSoldier ) )
 		return 0;
 	//////////////////////////////////////////////////////////////////////////////
 	// THE BASIC COST FOR HOLDING THE GUN RAISED (per AP)
@@ -4379,7 +4381,7 @@ INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
 		return 0;
 	if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usItemClass != IC_GUN && Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usItemClass != IC_LAUNCHER )
 		return 0;
-	if ( TANK( pSoldier ) || AM_A_ROBOT( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || AM_A_ROBOT( pSoldier ) )
 		return 0;
 	//////////////////////////////////////////////////////////////////////////////
 	// THE GUN RECOIL KICK ENERGY COST

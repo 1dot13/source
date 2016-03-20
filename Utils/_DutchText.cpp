@@ -1548,6 +1548,7 @@ STR16 pDisplayBodyTypeInfoText[] =
 	L"Adt M Monster", //25
 	L"Queen Monster",
 	L"Bloodcat",
+	L"Humvee",		// TODO.Translate
 };
 
 STR16 pUpdateMercsInfoText[] = 
@@ -3456,6 +3457,7 @@ STR16 gpStrategicString[] =
 	L"War room isn't staffed - militia move aborted!",
 
 	L"Tank",								//STR_AR_TANK_NAME,
+	L"Jeep",								//STR_AR_JEEP_NAME	// TODO.Translate
 
 	L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
 };

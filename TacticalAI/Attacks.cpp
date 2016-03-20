@@ -110,7 +110,7 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadWeaponIfNeeded: remove payload from its pocket, and add it as the hand weapon's first attachment"));
 	// remove payload from its pocket, and add it as the hand weapon's first attachment
 
-	if ( TANK( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) )
 	{
 		// don't remove ammo
 		gTempObject = pSoldier->inv[bPayloadPocket];
@@ -375,7 +375,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 
 		// calculate the maximum possible aiming time
 #if 0//dnl ch64 270813 maybe I'm wrong but don't see purpose of this
-		if ( TANK( pSoldier ) )
+		if ( ARMED_VEHICLE( pSoldier ) )
 		{
 			ubMaxPossibleAimTime = pSoldier->bActionPoints - ubMinAPcost;
 
@@ -407,7 +407,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				//NumMessage("ubAimTime = ",ubAimTime);
 				//dnl ch59 180813 Find true best chance to hit depending of stance so AI would be more eager to attack
 				ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
-				if(!TANK(pSoldier))//dnl ch64 270813
+				if(!ARMED_VEHICLE(pSoldier))//dnl ch64 270813
 				{
 					if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
 						ubChanceToHit = ubChanceToHit2;
@@ -437,7 +437,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK];
 			//dnl ch59 180813 Find true best chance to hit depending of stance for autofire
 			ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
-			if(!TANK(pSoldier))//dnl ch64 270813
+			if(!ARMED_VEHICLE(pSoldier))//dnl ch64 270813
 			{
 				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
 					ubChanceToHit = ubChanceToHit2;
@@ -514,7 +514,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 					pSoldier->usAnimState = usTrueState;
 					pSoldier->sLastTarget = iTrueLastTarget;
 				}
-				if(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || TANK(pSoldier) || (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE))
+				if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || ARMED_VEHICLE( pSoldier ) || (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) )
 					continue;
 				ubStance = ANIM_CROUCH;
 				if(IsValidStance(pSoldier, ubStance))
@@ -1102,7 +1102,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			// they won't use them until they have 2+ opponents as long as half life left
 			// anv: tanks don't care
 			if ( ( ubOpponentCnt < 2 ) && ( pSoldier->stats.bLife > pSoldier->stats.bLifeMax / 2  ) && 
-				( !gGameExternalOptions.fEnemyTanksDontSpareShells || !TANK(pSoldier) ) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
+				 (!gGameExternalOptions.fEnemyTanksDontSpareShells || !ARMED_VEHICLE( pSoldier )) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
 			{
 				return;
 			}
@@ -1110,7 +1110,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		case 2:
 			// they won't use them until they have 2+ opponents as long as 3/4 life left
 			if ( (ubOpponentCnt < 2) && ( pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 4) * 3 ) &&
-				( !gGameExternalOptions.fEnemyTanksDontSpareShells || !TANK(pSoldier) ) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
+				 (!gGameExternalOptions.fEnemyTanksDontSpareShells || !ARMED_VEHICLE( pSoldier )) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
 			{
 				return;
 			}
@@ -1350,7 +1350,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					ubChanceToGetThrough = AISoldierToLocationChanceToGetThrough( pSoldier, sGridNo, bOpponentLevel[ubLoop], 0 );
 					// anv: tanks shouldn't care about chance to get through - can't hit? At least we'll destroy their cover.
 					// also AISoldierToLocationChanceToGetThrough used to return 0 for tanks, but that's a different story
-					if( ( gGameExternalOptions.fEnemyTanksBlowObstaclesUp && TANK(pSoldier) ) || gGameExternalOptions.fEnemiesBlowObstaclesUp )
+					if ( (gGameExternalOptions.fEnemyTanksBlowObstaclesUp && ARMED_VEHICLE( pSoldier )) || gGameExternalOptions.fEnemiesBlowObstaclesUp )
 					{
 						ubChanceToGetThrough = 100;
 					}
@@ -1395,7 +1395,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				// this is try to minimize enemies wasting their (few) mortar shells or LAWs
 				// they won't use them on less than 2 targets as long as half life left
 				if ((Item[usInHand].mortar || Item[usInHand].rocketlauncher ) && (ubOppsInRange < 2) &&
-					(pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 2)) && ( !gGameExternalOptions.fEnemyTanksDontSpareShells || !TANK(pSoldier) ) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
+					 (pSoldier->stats.bLife >( pSoldier->stats.bLifeMax / 2 )) && (!gGameExternalOptions.fEnemyTanksDontSpareShells || !ARMED_VEHICLE( pSoldier )) && !gGameExternalOptions.fEnemiesDontSpareLaunchables )
 				{
 					continue;				// next gridno
 				}
@@ -2982,7 +2982,7 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 	pBestShot->ubPossible = FALSE;
 	pBestShot->bWeaponIn = NO_SLOT;
 
-	if ( !TANK( pSoldier ) )
+	if ( !ARMED_VEHICLE( pSoldier ) )
 	{
 		// AIs never have more than one gun anyway
 		pBestShot->bWeaponIn = FindAIUsableObjClass( pSoldier, IC_GUN );

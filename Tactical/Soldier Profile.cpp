@@ -1024,6 +1024,7 @@ BOOLEAN LoadMercProfiles(void)
 						case ELDORADO:
 						case ICECREAMTRUCK:
 						case JEEP:
+						case COMBAT_JEEP:
 							gProfilesVehicle[uiLoop].ProfilId = uiLoop;
 							break;
 						// Make it an RPC
@@ -1051,6 +1052,7 @@ BOOLEAN LoadMercProfiles(void)
 							case ELDORADO:
 							case ICECREAMTRUCK:
 							case JEEP:
+							case COMBAT_JEEP:
 								gProfilesVehicle[uiLoop].ProfilId = uiLoop;
 								break;
 							// RPC or NPC

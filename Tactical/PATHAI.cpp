@@ -2621,7 +2621,10 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 	fPathingForPlayer = ( (s->bTeam == gbPlayerNum) && (!gTacticalStatus.fAutoBandageMode) && !(s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) );
 	fNonFenceJumper = !( IS_MERC_BODY_TYPE( s ) ) || (UsingNewInventorySystem() == true && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND);//Moa: added backpack check
-	fNonSwimmer = !( IS_MERC_BODY_TYPE( s ) );
+
+	// Flugente: nonswimmers are those who are not mercs and not boats
+	fNonSwimmer = !(IS_MERC_BODY_TYPE( s ) );
+
 	if ( fNonSwimmer )
 	{
 		if ( Water( sDestination, ubLevel ) )
@@ -2638,13 +2641,13 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		fVehicleIgnoreObstacles = TRUE;
 	}
 	// AI can't press shift, let's assume only tanks ram through (we wouldn't want AI cars to get destroyed kamikazing through walls, no matter how funny that would be)
-	else if( !fPathingForPlayer && TANK(s) )
+	else if ( !fPathingForPlayer && ARMED_VEHICLE( s ) )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
 	if( fVehicleIgnoreObstacles && 
-		( ( gGameExternalOptions.fAllowCarsDrivingOverPeople && !TANK(s) ) ||
-		( gGameExternalOptions.fAllowTanksDrivingOverPeople && TANK(s) ) ) )
+		((gGameExternalOptions.fAllowCarsDrivingOverPeople && !ARMED_VEHICLE( s )) ||
+		(gGameExternalOptions.fAllowTanksDrivingOverPeople && ARMED_VEHICLE( s ))) )
 	{
 		fPathAroundPeople = FALSE;
 	}
@@ -2846,9 +2849,9 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	else
 	{
 		if (ISWATER(gubWorldMovementCosts[iOrigination][0][ubLevel]) && ISWATER(gubWorldMovementCosts[iDestination][0][ubLevel]))
-				iWaterToWater = 1;
+			iWaterToWater = 1;
 		else
-				iWaterToWater = 0;
+			iWaterToWater = 0;
 	}
 
 	//setup Q and first path record
@@ -4617,7 +4620,7 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_RUN];
 						break;
 					case WALKING:
-						if (!(pSold->MercInWater()) && ( (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIRE ) ))
+						if ( 0 && !(pSold->MercInWater()) && ( (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIREREADY ) || (gAnimControl[ pSold->usAnimState ].uiFlags & ANIM_FIRE ) ))
 						{
 							sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];	
 						}

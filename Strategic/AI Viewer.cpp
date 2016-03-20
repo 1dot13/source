@@ -162,7 +162,7 @@ void ViewCreaturesCallback( GUI_BUTTON *btn, INT32 reason );
 void ExtractAndUpdatePopulations();
 void PrintEnemyPopTable();
 void PrintEnemiesKilledTable();
-UINT8 ChooseEnemyIconColor( UINT8 ubAdmins, UINT8 ubTroops, UINT8 ubElites, UINT8 ubTanks );
+UINT8 ChooseEnemyIconColor( UINT8 ubAdmins, UINT8 ubTroops, UINT8 ubElites, UINT8 ubTanks, UINT8 ubJeeps );
 void BlitGroupIcon( UINT8 ubIconType, UINT8 ubIconColor, UINT32 uiX, UINT32 uiY, HVOBJECT hVObject );
 void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubSectorX, UINT8 ubSectorY );
 
@@ -495,7 +495,7 @@ void RenderStationaryGroups()
 			else if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks )
 			{
 				// show enemies
-				ubIconColor = ChooseEnemyIconColor( pSector->ubNumAdmins, pSector->ubNumTroops, pSector->ubNumElites, pSector->ubNumTanks );
+				ubIconColor = ChooseEnemyIconColor( pSector->ubNumAdmins, pSector->ubNumTroops, pSector->ubNumElites, pSector->ubNumTanks, pSector->ubNumJeeps );
 				ubGroupSize = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks;
 
 				if( pSector->ubGarrisonID != NO_GARRISON )
@@ -541,13 +541,12 @@ void RenderMovingGroupsAndMercs()
 	GROUP *pGroup;
 	HVOBJECT hVObject;
 	INT32 x, y;
-	UINT8 ubNumTroops, ubNumAdmins, ubNumElites, ubNumTanks;
+	UINT8 ubNumTroops, ubNumAdmins, ubNumElites, ubNumTanks, ubNumJeeps;
 	float ratio;
 	INT32 minX, maxX, minY, maxY;
 	UINT8 ubIconType;
 	UINT8 ubIconColor;
 	UINT8 ubFontColor;
-
 
 	SetFont( FONT10ARIAL );
 	SetFontShadow( FONT_NEARBLACK );
@@ -597,12 +596,13 @@ void RenderMovingGroupsAndMercs()
 				ubNumTroops = pGroup->pEnemyGroup->ubNumTroops;//+ pGroup->pEnemyGroup->ubTroopsInBattle;
 				ubNumElites = pGroup->pEnemyGroup->ubNumElites;// + pGroup->pEnemyGroup->ubElitesInBattle;
 				ubNumTanks = pGroup->pEnemyGroup->ubNumTanks;
+				ubNumJeeps = pGroup->pEnemyGroup->ubNumJeeps;
 
 				// must have one of the three, already checked groupsize!
-				Assert( ubNumAdmins || ubNumTroops || ubNumElites || ubNumTanks );
+				Assert( ubNumAdmins || ubNumTroops || ubNumElites || ubNumTanks || ubNumJeeps );
 
 				//determine icon color
-				ubIconColor = ChooseEnemyIconColor( ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks );
+				ubIconColor = ChooseEnemyIconColor( ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
 
 				// must have a valid intention
 				Assert( pGroup->pEnemyGroup->ubIntention < NUM_ENEMY_INTENTIONS );
@@ -727,7 +727,7 @@ void RenderInfoInSector()
 	{
 		SECTORINFO *pSector;
 		GROUP *pGroup;
-		UINT8 ubNumAdmins=0, ubNumTroops=0, ubNumElites=0, ubNumTanks=0, ubAdminsInBattle=0, ubTroopsInBattle=0, ubElitesInBattle=0, ubTanksInBattle=0, ubNumGroups=0;
+		UINT8 ubNumAdmins = 0, ubNumTroops = 0, ubNumElites = 0, ubNumTanks = 0, ubNumJeeps = 0, ubAdminsInBattle = 0, ubTroopsInBattle = 0, ubElitesInBattle = 0, ubTanksInBattle = 0, ubJeepsInBattle = 0,ubNumGroups = 0;
 
 		pSector = &SectorInfo[ SECTOR( ubSectorX, ubSectorY ) ];
 
@@ -741,10 +741,12 @@ void RenderInfoInSector()
 				ubNumElites += pGroup->pEnemyGroup->ubNumElites;
 				ubNumAdmins += pGroup->pEnemyGroup->ubNumAdmins;
 				ubNumTanks += pGroup->pEnemyGroup->ubNumTanks;
+				ubNumJeeps += pGroup->pEnemyGroup->ubNumJeeps;
 				ubTroopsInBattle += pGroup->pEnemyGroup->ubTroopsInBattle;
 				ubElitesInBattle += pGroup->pEnemyGroup->ubElitesInBattle;
 				ubAdminsInBattle += pGroup->pEnemyGroup->ubAdminsInBattle;
 				ubTanksInBattle += pGroup->pEnemyGroup->ubTanksInBattle;
+				ubJeepsInBattle += pGroup->pEnemyGroup->ubJeepsInBattle;
 				ubNumGroups++;
 			}
 			pGroup = pGroup->next;
@@ -761,17 +763,19 @@ void RenderInfoInSector()
 				 MilitiaInSectorOfRank( ubSectorX, ubSectorY, GREEN_MILITIA ), MilitiaInSectorOfRank( ubSectorX, ubSectorY, REGULAR_MILITIA ), MilitiaInSectorOfRank( ubSectorX, ubSectorY, ELITE_MILITIA ) );
 		yp += 10;
 		SetFontForeground( FONT_ORANGE );
-		mprintf( 280, yp, L"Garrison:	(%d:%d Admins, %d:%d Troops, %d:%d Elites, %d:%d Tanks)",
+		mprintf( 280, yp, L"Garrison:	(%d:%d Admins, %d:%d Troops, %d:%d Elites, %d:%d Tanks, %d:%d Jeeps)",
 			pSector->ubAdminsInBattle, pSector->ubNumAdmins,
 			pSector->ubTroopsInBattle, pSector->ubNumTroops,
 			pSector->ubElitesInBattle, pSector->ubNumElites,
-			pSector->ubTanksInBattle, pSector->ubNumTanks );
+			pSector->ubTanksInBattle, pSector->ubNumTanks,
+			pSector->ubJeepsInBattle, pSector->ubNumJeeps );
 		yp += 10;
-		mprintf( 280, yp, L"%d Groups:	(%d:%d Admins, %d:%d Troops, %d:%d Elites, %d:%d Tanks)", ubNumGroups,
+		mprintf( 280, yp, L"%d Groups:	(%d:%d Admins, %d:%d Troops, %d:%d Elites, %d:%d Tanks, %d:%d Jeeps)", ubNumGroups,
 			ubAdminsInBattle, ubNumAdmins,
 			ubTroopsInBattle, ubNumTroops,
 			ubElitesInBattle, ubNumElites,
-			ubTanksInBattle, ubNumTanks );
+			ubTanksInBattle, ubNumTanks,
+			ubJeepsInBattle, ubNumJeeps );
 		yp += 10;
 		SetFontForeground( FONT_WHITE );
 
@@ -1274,7 +1278,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		gfRenderViewer = TRUE;
 		if( gsSelSectorY > 1 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-16, 0, 11, 5, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-16, 0, 11, 5, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 10;
@@ -1286,7 +1290,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		if( gsSelSectorY < 16 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+16, 0, 8, 8, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+16, 0, 8, 8, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 12;
@@ -1298,7 +1302,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		if( gsSelSectorX > 1 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-1, 0, 11, 5, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-1, 0, 11, 5, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 11;
@@ -1310,7 +1314,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		if( gsSelSectorX < 16 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+1, 0, 14, 0, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+1, 0, 14, 0, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 13;
@@ -1833,7 +1837,7 @@ void PrintEnemiesKilledTable()
 
 
 
-UINT8 ChooseEnemyIconColor( UINT8 ubAdmins, UINT8 ubTroops, UINT8 ubElites, UINT8 ubTanks )
+UINT8 ChooseEnemyIconColor( UINT8 ubAdmins, UINT8 ubTroops, UINT8 ubElites, UINT8 ubTanks, UINT8 ubJeeps )
 {
 	UINT8 ubIconColor;
 
@@ -1844,7 +1848,7 @@ UINT8 ChooseEnemyIconColor( UINT8 ubAdmins, UINT8 ubTroops, UINT8 ubElites, UINT
 	//	Orange		Mixed, no elites (Admins + Troops)
 	//	Burgundy	Mixed, with elites (Elites + (Admins OR Troops))
 
-	Assert( ubAdmins || ubTroops || ubElites ||ubTanks  );
+	Assert( ubAdmins || ubTroops || ubElites || ubTanks || ubJeeps );
 
 	if ( ubElites )
 	{

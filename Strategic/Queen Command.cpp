@@ -282,11 +282,11 @@ UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubT
 	return ubNumTroops;
 }
 
-UINT16 NumTanksInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam )
+UINT16 NumEnemyArmedVehiclesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam )
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT8 ubNum;
+	UINT16 ubNum;
 
 	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
 	// probably isn't. But I need this bit to work.
@@ -306,18 +306,14 @@ UINT16 NumTanksInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam )
 	pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
 
 	if ( usTeam == ENEMY_TEAM )
-		ubNum = (UINT16)(pSector->ubNumTanks);
-
-	// TODO
-	//if ( is_networked )
-		//ubNumTroops += numenemyLAN( (UINT8)sSectorX, (UINT8)sSectorY ); //hayden
-
+		ubNum = (UINT16)(pSector->ubNumTanks + pSector->ubNumJeeps);
+	
 	pGroup = gpGroupList;
 	while ( pGroup )
 	{
 		if ( pGroup->usGroupTeam == usTeam && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
 		{
-			ubNum += pGroup->pEnemyGroup->ubNumTanks;
+			ubNum += pGroup->pEnemyGroup->ubNumTanks + pGroup->pEnemyGroup->ubNumJeeps;
 		}
 		pGroup = pGroup->next;
 	}
@@ -383,7 +379,7 @@ UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	return ubNumTroops;
 }
 
-void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks )
+void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
 {
 	GROUP *pGroup;
 	SECTORINFO *pSector;
@@ -393,7 +389,7 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 
 	//Now count the number of mobile groups in the sector.
-	*pubNumTroops = *pubNumElites = *pubNumAdmins = *pubNumTanks = 0;
+	*pubNumTroops = *pubNumElites = *pubNumAdmins = *pubNumTanks = *pubNumJeeps =0;
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
@@ -403,6 +399,7 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 			*pubNumElites += pGroup->pEnemyGroup->ubNumElites;
 			*pubNumAdmins += pGroup->pEnemyGroup->ubNumAdmins;
 			*pubNumTanks += pGroup->pEnemyGroup->ubNumTanks;
+			*pubNumJeeps += pGroup->pEnemyGroup->ubNumJeeps;
 		}
 		pGroup = pGroup->next;
 	}
@@ -415,10 +412,11 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 		*pubNumTroops += pSector->ubNumTroops;
 		*pubNumElites += pSector->ubNumElites;
 		*pubNumTanks += pSector->ubNumTanks;
+		*pubNumJeeps += pSector->ubNumJeeps;
 	}
 }
 
-void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks )
+void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
 {
 	GROUP *pGroup;
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
@@ -427,7 +425,7 @@ void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSe
 	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
 
 	//Now count the number of mobile groups in the sector.
-	*pubNumTroops = *pubNumElites = *pubNumAdmins = *pubNumTanks = 0;
+	*pubNumTroops = *pubNumElites = *pubNumAdmins = *pubNumTanks = *pubNumJeeps = 0;
 	pGroup = gpGroupList;
 	while( pGroup )
 	{
@@ -437,13 +435,14 @@ void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSe
 			*pubNumElites += pGroup->pEnemyGroup->ubNumElites;
 			*pubNumAdmins += pGroup->pEnemyGroup->ubNumAdmins;
 			*pubNumTanks += pGroup->pEnemyGroup->ubNumTanks;
+			*pubNumJeeps += pGroup->pEnemyGroup->ubNumJeeps;
 		}
 		pGroup = pGroup->next;
 	}
 }
 
 
-void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks )
+void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
 {
 	SECTORINFO *pSector;
 	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE);
@@ -457,20 +456,22 @@ void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8
 	*pubNumTroops = pSector->ubNumTroops;
 	*pubNumElites = pSector->ubNumElites;
 	*pubNumTanks = pSector->ubNumTanks;
+	*pubNumJeeps = pSector->ubNumJeeps;
 }
 
-void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks )
+void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
 {
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps;
 
-	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites, pubNumTanks );
+	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites, pubNumTanks, pubNumJeeps );
 
-	GetNumberOfMobileEnemiesInSector( sSectorX, sSectorY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks );
+	GetNumberOfMobileEnemiesInSector( sSectorX, sSectorY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumTanks, &ubNumJeeps );
 
 	*pubNumAdmins += ubNumAdmins;
 	*pubNumTroops += ubNumTroops;
 	*pubNumElites += ubNumElites;
 	*pubNumTanks += ubNumTanks;
+	*pubNumJeeps += ubNumJeeps;
 }
 
 void EndTacticalBattleForEnemy()
@@ -487,6 +488,7 @@ void EndTacticalBattleForEnemy()
 		pSector->ubTroopsInBattle = 0;
 		pSector->ubElitesInBattle = 0;
 		pSector->ubTanksInBattle = 0;
+		pSector->ubJeepsInBattle = 0;
 	}
 	else if( !gbWorldSectorZ )
 	{
@@ -497,6 +499,7 @@ void EndTacticalBattleForEnemy()
 		pSector->ubTroopsInBattle = 0;
 		pSector->ubElitesInBattle = 0;
 		pSector->ubTanksInBattle = 0;
+		pSector->ubJeepsInBattle = 0;
 		pSector->ubNumCreatures = 0;
 		pSector->ubCreaturesInBattle = 0;
 	}
@@ -516,6 +519,7 @@ void EndTacticalBattleForEnemy()
 			pGroup->pEnemyGroup->ubElitesInBattle = 0;
 			pGroup->pEnemyGroup->ubAdminsInBattle = 0;
 			pGroup->pEnemyGroup->ubTanksInBattle = 0;
+			pGroup->pEnemyGroup->ubJeepsInBattle = 0;
 		}
 		pGroup = pGroup->next;
 	}
@@ -570,8 +574,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	SECTORINFO *pSector;
 	GROUP *pGroup;
 	SOLDIERTYPE *pSoldier;
-	unsigned ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks;
-	unsigned ubTotalAdmins, ubTotalElites, ubTotalTroops, ubTotalTanks = 0;
+	unsigned ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps;
+	unsigned ubTotalAdmins, ubTotalElites, ubTotalTroops, ubTotalTanks, ubTotalJeeps = 0;
 	unsigned totalCountOfStationaryEnemies = 0;
 	unsigned totalCountOfMobileEnemies = 0;
 	int sNumSlots;
@@ -627,7 +631,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						!pGroup->pEnemyGroup->ubAdminsInBattle &&
 						!pGroup->pEnemyGroup->ubTroopsInBattle &&
 						!pGroup->pEnemyGroup->ubElitesInBattle &&
-						!pGroup->pEnemyGroup->ubTanksInBattle)
+						!pGroup->pEnemyGroup->ubTanksInBattle &&
+						!pGroup->pEnemyGroup->ubJeepsInBattle )
 				{
 					HandleArrivalOfReinforcements( pGroup );
 				}
@@ -665,12 +670,13 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	// OJW - 20090403 - override max ai in co-op
 	if (is_networked && is_server && gMaxEnemiesEnabled == 1)
 	{
-		float totalEnemies = (float)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks);
+		float totalEnemies = (float)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks + pSector->ubNumJeeps);
 		ubTotalAdmins = (unsigned int)(((float)pSector->ubNumAdmins / totalEnemies) * mapMaximumNumberOfEnemies);
 		ubTotalTroops = (unsigned int)(((float)pSector->ubNumTroops / totalEnemies) * mapMaximumNumberOfEnemies);
 		ubTotalElites = (unsigned int)(((float)pSector->ubNumElites / totalEnemies) * mapMaximumNumberOfEnemies);
 		ubTotalTanks = (unsigned int)(((float)pSector->ubNumTanks / totalEnemies) * mapMaximumNumberOfEnemies);
-		totalEnemies = (float)(ubTotalAdmins + ubTotalTroops + ubTotalElites + ubTotalTanks);
+		ubTotalJeeps = (unsigned int)(((float)pSector->ubNumJeeps / totalEnemies) * mapMaximumNumberOfEnemies);
+		totalEnemies = (float)(ubTotalAdmins + ubTotalTroops + ubTotalElites + ubTotalTanks + ubTotalJeeps);
 
 		// take care of any rounding losses
 		while (totalEnemies < mapMaximumNumberOfEnemies)
@@ -684,10 +690,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		pSector->ubNumTroops = ubTotalTroops;
 		pSector->ubNumElites = ubTotalElites;
 		pSector->ubNumTanks = ubTotalTanks;
+		pSector->ubNumJeeps = ubTotalJeeps;
 		pSector->ubAdminsInBattle = 0;
 		pSector->ubTroopsInBattle = 0;
 		pSector->ubElitesInBattle = 0;
 		pSector->ubTanksInBattle = 0;
+		pSector->ubJeepsInBattle = 0;
 	}
 	else
 	{
@@ -706,6 +714,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
 						case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
 						case SOLDIER_CLASS_TANK:				ubTotalTanks++;		break;
+						case SOLDIER_CLASS_JEEP:				ubTotalJeeps++;		break;
 					}
 				}
 				curr = curr->next;
@@ -714,10 +723,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			pSector->ubNumTroops = ubTotalTroops;
 			pSector->ubNumElites = ubTotalElites;
 			pSector->ubNumTanks = ubTotalTanks;
+			pSector->ubNumJeeps = ubTotalJeeps;
 			pSector->ubAdminsInBattle = 0;
 			pSector->ubTroopsInBattle = 0;
 			pSector->ubElitesInBattle = 0;
 			pSector->ubTanksInBattle = 0;
+			pSector->ubJeepsInBattle = 0;
 		}
 		else
 		{
@@ -725,10 +736,11 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
 			ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
 			ubTotalTanks  = pSector->ubNumTanks  - pSector->ubTanksInBattle;
+			ubTotalJeeps = pSector->ubNumJeeps - pSector->ubJeepsInBattle;
 		}
 	}
 
-	totalCountOfStationaryEnemies = ubTotalAdmins + ubTotalTroops + ubTotalElites + ubTotalTanks;
+	totalCountOfStationaryEnemies = ubTotalAdmins + ubTotalTroops + ubTotalElites + ubTotalTanks + ubTotalJeeps;
 
 	if( totalCountOfStationaryEnemies > mapMaximumNumberOfEnemies )
 	{
@@ -743,20 +755,22 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		ubTotalTroops = min( mapMaximumNumberOfEnemies-ubTotalAdmins, ubTotalTroops );
 		ubTotalElites = min( mapMaximumNumberOfEnemies-ubTotalAdmins-ubTotalTroops, ubTotalElites );
 		ubTotalTanks = min( mapMaximumNumberOfEnemies-ubTotalAdmins-ubTotalTroops-ubTotalElites, ubTotalTanks );
+		ubTotalJeeps = min( mapMaximumNumberOfEnemies - ubTotalAdmins - ubTotalTroops - ubTotalElites - ubTotalTanks, ubTotalJeeps );
 	}
 
 	pSector->ubAdminsInBattle += ubTotalAdmins;
 	pSector->ubTroopsInBattle += ubTotalTroops;
 	pSector->ubElitesInBattle += ubTotalElites;
 	pSector->ubTanksInBattle += ubTotalTanks;
+	pSector->ubJeepsInBattle += ubTotalJeeps;
 
 #ifdef JA2TESTVERSION
 	if( gfOverrideSector )
 	{
 		//if there are no troops in the current groups, then we're done.
-		if( !ubTotalAdmins && !ubTotalTroops && !ubTotalElites && !ubTotalTanks )
+		if ( !ubTotalAdmins && !ubTotalTroops && !ubTotalElites && !ubTotalTanks && !ubTotalJeeps )
 			return FALSE;
-		AddSoldierInitListEnemyDefenceSoldiers( ubTotalAdmins, ubTotalTroops, ubTotalElites, ubTotalTanks );
+		AddSoldierInitListEnemyDefenceSoldiers( ubTotalAdmins, ubTotalTroops, ubTotalElites, ubTotalTanks, ubTotalJeeps );
 		ValidateEnemiesHaveWeapons();
 		return TRUE;
 	}
@@ -783,7 +797,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	//Subtract the total number of stationary enemies from the available slots, as stationary forces take
 	//precendence in combat.  The mobile forces that could also be in the same sector are considered later if
 	//all the slots fill up.
-	sNumSlots -= ubTotalAdmins + ubTotalTroops + ubTotalElites + ubTotalTanks;
+	sNumSlots -= ubTotalAdmins + ubTotalTroops + ubTotalElites + ubTotalTanks + ubTotalJeeps;
 
 	//Now, process all of the groups and search for both enemy and player groups in the sector.
 	//For enemy groups, we fill up the slots until we have none left or all of the groups have been
@@ -850,6 +864,21 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				pGroup->pEnemyGroup->ubTanksInBattle += ubNumTanks;
 				ubTotalTanks += ubNumTanks;
 			}
+			if ( sNumSlots > 0 )
+			{
+				//Add jeeps
+				AssertGE( pGroup->pEnemyGroup->ubNumJeeps, pGroup->pEnemyGroup->ubJeepsInBattle );
+				ubNumJeeps = pGroup->pEnemyGroup->ubNumJeeps - pGroup->pEnemyGroup->ubJeepsInBattle;
+				sNumSlots -= ubNumJeeps;
+				if ( sNumSlots < 0 )
+				{ //adjust the value to zero
+					ubNumJeeps += sNumSlots;
+					sNumSlots = 0;
+					gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
+				}
+				pGroup->pEnemyGroup->ubJeepsInBattle += ubNumJeeps;
+				ubTotalJeeps += ubNumJeeps;
+			}
 			//NOTE:
 			//no provisions for profile troop leader or retreat groups yet.
 		}
@@ -871,12 +900,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	}
 
 	//if there are no troops in the current groups, then we're done.
-	if( !ubTotalAdmins && !ubTotalTroops && !ubTotalElites && !ubTotalTanks )
+	if ( !ubTotalAdmins && !ubTotalTroops && !ubTotalElites && !ubTotalTanks && !ubTotalJeeps )
 	{
 		return FALSE;
 	}
 
-	AddSoldierInitListEnemyDefenceSoldiers( ubTotalAdmins, ubTotalTroops, ubTotalElites, ubTotalTanks );
+	AddSoldierInitListEnemyDefenceSoldiers( ubTotalAdmins, ubTotalTroops, ubTotalElites, ubTotalTanks, ubTotalJeeps );
 
 	//Now, we have to go through all of the enemies in the new map, and assign their respective groups if
 	//in a mobile group, but only for the ones that were assigned from the
@@ -895,7 +924,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			ubNumTroops = pGroup->pEnemyGroup->ubTroopsInBattle;
 			ubNumElites = pGroup->pEnemyGroup->ubElitesInBattle;
 			ubNumTanks  = pGroup->pEnemyGroup->ubTanksInBattle;
-			unsigned num = ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks;
+			ubNumJeeps = pGroup->pEnemyGroup->ubJeepsInBattle;
+			unsigned num = ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks + ubNumJeeps;
 
 			unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 			unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
@@ -974,6 +1004,15 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							pSoldier->ubGroupID = pGroup->ubGroupID;
 						}
 						break;
+					case SOLDIER_CLASS_JEEP:
+						if ( ubNumTanks )
+						{
+							num--;
+							sNumSlots--;
+							ubNumJeeps--;
+							pSoldier->ubGroupID = pGroup->ubGroupID;
+						}
+						break;
 				}
 			}
 
@@ -983,6 +1022,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			AssertEQ( ubNumTroops , 0);
 			AssertEQ( ubNumAdmins , 0);
 			AssertEQ( ubNumTanks , 0);
+			AssertEQ( ubNumJeeps , 0);
 			AssertEQ( num , 0);*/
 		}
 		pGroup = pGroup->next;
@@ -996,7 +1036,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 BOOLEAN PrepareEnemyForUndergroundBattle()
 {
 	UNDERGROUND_SECTORINFO *pUnderground;
-	unsigned ubTotalAdmins, ubTotalTroops, ubTotalElites, ubTotalTanks;
+	unsigned ubTotalAdmins, ubTotalTroops, ubTotalElites, ubTotalTanks, ubTotalJeeps;
 
 	pUnderground = gpUndergroundSectorInfoHead;
 	while( pUnderground )
@@ -1011,14 +1051,16 @@ BOOLEAN PrepareEnemyForUndergroundBattle()
 				ubTotalTroops = (UINT8)(pUnderground->ubNumTroops - pUnderground->ubTroopsInBattle);
 				ubTotalElites = (UINT8)(pUnderground->ubNumElites - pUnderground->ubElitesInBattle);
 				ubTotalTanks = (UINT8)(pUnderground->ubNumTanks - pUnderground->ubTanksInBattle);
+				ubTotalJeeps = (UINT8)(pUnderground->ubNumJeeps - pUnderground->ubJeepsInBattle);
 				pUnderground->ubAdminsInBattle += ubTotalAdmins;
 				pUnderground->ubTroopsInBattle += ubTotalTroops;
 				pUnderground->ubElitesInBattle += ubTotalElites;
 				pUnderground->ubTanksInBattle += ubTotalTanks;
-				AddSoldierInitListEnemyDefenceSoldiers( pUnderground->ubNumAdmins, pUnderground->ubNumTroops, pUnderground->ubNumElites, pUnderground->ubNumTanks );
+				pUnderground->ubJeepsInBattle += ubTotalJeeps;
+				AddSoldierInitListEnemyDefenceSoldiers( pUnderground->ubNumAdmins, pUnderground->ubNumTroops, pUnderground->ubNumElites, pUnderground->ubNumTanks, pUnderground->ubNumJeeps );
 				ValidateEnemiesHaveWeapons();
 			}
-			return ( ( BOOLEAN) ( pUnderground->ubNumAdmins + pUnderground->ubNumTroops + pUnderground->ubNumElites + pUnderground->ubNumTanks > 0 ) );
+			return ((BOOLEAN)(pUnderground->ubNumAdmins + pUnderground->ubNumTroops + pUnderground->ubNumElites + pUnderground->ubNumTanks + pUnderground->ubNumJeeps > 0));
 		}
 		pUnderground = pUnderground->next;
 	}
@@ -1544,7 +1586,7 @@ void AddPossiblePendingEnemiesToBattle()
 #endif
 
 	UINT8 ubSlots, ubNumAvailable;
-	UINT8 ubNumElites, ubNumTroops, ubNumAdmins, ubNumTanks;
+	UINT8 ubNumElites, ubNumTroops, ubNumAdmins, ubNumTanks, ubNumJeeps;
 	UINT8 ubNumGroupsInSector;
 	UINT8 ubGroupIndex;
 	GROUP *pGroup;
@@ -1639,11 +1681,12 @@ void AddPossiblePendingEnemiesToBattle()
 		//return;
 	}
 
-	if( pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks )
+	if ( pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks + pSector->ubNumJeeps )
 	{
-		ubNumElites = ubNumTroops = ubNumAdmins = ubNumTanks = 0;
+		ubNumElites = ubNumTroops = ubNumAdmins = ubNumTanks = ubNumJeeps = 0;
 
-		ubNumAvailable = pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks - pSector->ubElitesInBattle - pSector->ubTroopsInBattle - pSector->ubAdminsInBattle - pSector->ubTanksInBattle;
+		ubNumAvailable = pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks + pSector->ubNumJeeps
+			- pSector->ubElitesInBattle - pSector->ubTroopsInBattle - pSector->ubAdminsInBattle - pSector->ubTanksInBattle - pSector->ubJeepsInBattle;
 		while( ubNumAvailable && ubSlots )
 		{
 			// So they just magically appear out of nowhere from the edge?
@@ -1677,6 +1720,14 @@ void AddPossiblePendingEnemiesToBattle()
 				ubSlots--;
 				ubNumTanks++;
 			}
+			else if ( pSector->ubJeepsInBattle < pSector->ubNumJeeps )
+			{
+				//Add a jeep
+				pSector->ubJeepsInBattle++;
+				ubNumAvailable--;
+				ubSlots--;
+				ubNumJeeps++;
+			}
 			else
 			{
 				AssertMsg( 0, "AddPossiblePendingEnemiesToBattle():  Logic Error -- by Kris" );
@@ -1684,7 +1735,7 @@ void AddPossiblePendingEnemiesToBattle()
 		}
 
 
-		if( ubNumAdmins || ubNumTroops || ubNumElites || ubNumTanks )
+		if ( ubNumAdmins || ubNumTroops || ubNumElites || ubNumTanks || ubNumJeeps )
 		{	//This group has contributed forces, then add them now, because different
 			//groups appear on different sides of the map.
 			UINT8 ubStrategicInsertionCode = ubPredefinedInsertionCode;
@@ -1725,7 +1776,7 @@ void AddPossiblePendingEnemiesToBattle()
 			if( ubStrategicInsertionCode < INSERTION_CODE_NORTH ||ubStrategicInsertionCode > INSERTION_CODE_WEST )
 				ubStrategicInsertionCode = INSERTION_CODE_NORTH + Random( 4 );
 
-			AddEnemiesToBattle( 0, ubStrategicInsertionCode, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, FALSE );
+			AddEnemiesToBattle( 0, ubStrategicInsertionCode, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, FALSE );
 			gfPendingNonPlayerTeam[ENEMY_TEAM] = TRUE;
 		}
 	}
@@ -1755,7 +1806,8 @@ void AddPossiblePendingEnemiesToBattle()
 		pGroup = pGroupInSectorList[ ubGroupIndex];
 
 		// Flugente fix: check for underflow...
-		UINT8 currentgroupsize = pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle + pGroup->pEnemyGroup->ubTanksInBattle;
+		UINT8 currentgroupsize = pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle 
+			+ pGroup->pEnemyGroup->ubTanksInBattle + pGroup->pEnemyGroup->ubJeepsInBattle;
 		if ( currentgroupsize > pGroup->ubGroupSize )
 			ubNumAvailable = 0;
 		else
@@ -1816,25 +1868,32 @@ void AddPossiblePendingEnemiesToBattle()
 		{ //Add an elite troop
 			pGroup->pEnemyGroup->ubElitesInBattle++;
 			ubSlots--;
-			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 0, 1, 0, FALSE );
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 0, 1, 0, 0, FALSE );
 		}
 		else if( pGroup->pEnemyGroup->ubTroopsInBattle < pGroup->pEnemyGroup->ubNumTroops )
 		{ //Add a regular troop.
 			pGroup->pEnemyGroup->ubTroopsInBattle++;
 			ubSlots--;
-			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 1, 0, 0, FALSE );
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 1, 0, 0, 0, FALSE );
 		}
 		else if( pGroup->pEnemyGroup->ubAdminsInBattle < pGroup->pEnemyGroup->ubNumAdmins )
 		{ //Add an admin troop
 			pGroup->pEnemyGroup->ubAdminsInBattle++;
 			ubSlots--;
-			AddEnemiesToBattle( pGroup, ubInsertionCode, 1, 0, 0, 0, FALSE );
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 1, 0, 0, 0, 0, FALSE );
 		}
 		else if( pGroup->pEnemyGroup->ubTanksInBattle < pGroup->pEnemyGroup->ubNumTanks )
 		{ //Add a tank
 			pGroup->pEnemyGroup->ubTanksInBattle++;
 			ubSlots--;
-			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 0, 0, 1, FALSE );
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 0, 0, 1, 0, FALSE );
+		}
+		else if ( pGroup->pEnemyGroup->ubJeepsInBattle < pGroup->pEnemyGroup->ubNumJeeps )
+		{
+			//Add a jeep
+			pGroup->pEnemyGroup->ubJeepsInBattle++;
+			ubSlots--;
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 0, 0, 0, 1, FALSE );
 		}
 		else
 		{
@@ -1843,7 +1902,7 @@ void AddPossiblePendingEnemiesToBattle()
 
 			pGroup->pEnemyGroup->ubTroopsInBattle++;
 			ubSlots--;
-			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 1, 0, 0, FALSE );
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 1, 0, 0, 0, FALSE );
 		}
 	}
 
@@ -1913,7 +1972,7 @@ void NotifyPlayersOfNewEnemies()
 	}
 }
 
-void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, BOOLEAN fMagicallyAppeared )
+void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubNumJeeps, BOOLEAN fMagicallyAppeared )
 {
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo;
@@ -1946,6 +2005,8 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			pSector->ubElitesInBattle	+= ubNumElites;
 			pSector->ubNumTanks				+= ubNumTanks;
 			pSector->ubTanksInBattle	+= ubNumTanks;
+			pSector->ubNumJeeps			+= ubNumJeeps;
+			pSector->ubJeepsInBattle	+= ubNumJeeps;
 		}
 		else
 		{
@@ -1960,13 +2021,15 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 				pSector->ubElitesInBattle	+= ubNumElites;
 				pSector->ubNumTanks				+= ubNumTanks;
 				pSector->ubTanksInBattle	+= ubNumTanks;
+				pSector->ubNumJeeps			+= ubNumJeeps;
+				pSector->ubJeepsInBattle	+= ubNumJeeps;
 			}
 		}
 		//Because the enemies magically appeared, have one of our soldiers say something...
 		NotifyPlayersOfNewEnemies();
 	}
 
-	ubTotalSoldiers = ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks;
+	ubTotalSoldiers = ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks + ubNumJeeps;
 	
 #ifdef JA2UB
 	if( gsGridNoForMapEdgePointInfo != -1 )
@@ -2093,6 +2156,30 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 			}
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 		}
+		else if ( ubNumJeeps && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumTroops + ubNumAdmins + ubNumTanks + ubNumJeeps) && ubNumberOfVehicles < 9 )
+		{
+			ubNumJeeps--;
+			ubTotalSoldiers--;
+			Assert( pSoldier = TacticalCreateEnemyJeep( ) );
+			if ( pGroup )
+			{
+				pSoldier->ubGroupID = pGroup->ubGroupID;
+			}
+
+			pSoldier->ubInsertionDirection = bDesiredDirection;
+			//Setup the position
+			if ( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{ //using an edgepoint
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ubCurrSlot++];
+			}
+			else
+			{ //no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
+			}
+			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+
 		// HEADROCK HAM 3.2: enemy reinforcements arrive with 0 APs.
 		if (gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 1 || gGameExternalOptions.ubReinforcementsFirstTurnFreeze == 2)
 		{			
@@ -2808,7 +2895,8 @@ BOOLEAN CheckPendingNonPlayerTeam( UINT8 usTeam )
 
 	if ( usTeam == ENEMY_TEAM )
 	{
-		if( (pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks) > ( pSector->ubElitesInBattle + pSector->ubTroopsInBattle + pSector->ubAdminsInBattle + pSector->ubTanksInBattle) )
+		if ( (pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumTanks + pSector->ubNumJeeps) > 
+			 (pSector->ubElitesInBattle + pSector->ubTroopsInBattle + pSector->ubAdminsInBattle + pSector->ubTanksInBattle + pSector->ubJeepsInBattle) )
 			return TRUE;
 	}
 
@@ -2821,7 +2909,8 @@ BOOLEAN CheckPendingNonPlayerTeam( UINT8 usTeam )
 		{
 			if ( usTeam == ENEMY_TEAM )
 			{
-				if ( pGroup->ubGroupSize > pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle + pGroup->pEnemyGroup->ubTanksInBattle )
+				if ( pGroup->ubGroupSize > pGroup->pEnemyGroup->ubElitesInBattle + pGroup->pEnemyGroup->ubTroopsInBattle + pGroup->pEnemyGroup->ubAdminsInBattle 
+					 + pGroup->pEnemyGroup->ubTanksInBattle + pGroup->pEnemyGroup->ubJeepsInBattle )
 					return TRUE;
 			}
 			else if ( usTeam == MILITIA_TEAM )

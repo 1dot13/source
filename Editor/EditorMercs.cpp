@@ -304,7 +304,7 @@ STR16 EditMercAttitudes[6] = { L"Defensive",L"Brave Loner",L"Brave Buddy",
 #define MAX_REBELTYPES				6
 #define MAX_CIVTYPES				6
 #else
-#define MAX_ENEMYTYPES				7
+#define MAX_ENEMYTYPES				11
 //#define MAX_ENEMYRANDOMTYPES	5
 #define MAX_CREATURETYPES			8
 #define MAX_REBELTYPES				7
@@ -318,7 +318,7 @@ INT8 bCreatureArray[MAX_CREATURETYPES]={ ADULTFEMALEMONSTER };
 INT8 bRebelArray[MAX_REBELTYPES]={ RANDOM, MANCIV, REGMALE, BIGMALE, STOCKYMALE, REGFEMALE };
 INT8 bCivArray[MAX_CIVTYPES]={ RANDOM, MANCIV, REGMALE, BIGMALE, STOCKYMALE, REGFEMALE };														
 #else													
-INT8 bEnemyArray[MAX_ENEMYTYPES]={ RANDOM, REGMALE, BIGMALE, STOCKYMALE, REGFEMALE, TANK_NW, TANK_NE };
+INT8 bEnemyArray[MAX_ENEMYTYPES] = {RANDOM, REGMALE, BIGMALE, STOCKYMALE, REGFEMALE, TANK_NW, TANK_NE, COMBAT_JEEP};
 INT8 bCreatureArray[MAX_CREATURETYPES]={ BLOODCAT, LARVAE_MONSTER, INFANT_MONSTER, YAF_MONSTER, YAM_MONSTER, ADULTFEMALEMONSTER, AM_MONSTER, QUEENMONSTER };
 INT8 bRebelArray[MAX_REBELTYPES]={ RANDOM, FATCIV, MANCIV, REGMALE, BIGMALE, STOCKYMALE, REGFEMALE };
 INT8 bCivArray[MAX_CIVTYPES]={ RANDOM, FATCIV, MANCIV, MINICIV, DRESSCIV, HATKIDCIV, KIDCIV, REGMALE, BIGMALE, STOCKYMALE, REGFEMALE,
@@ -2161,6 +2161,7 @@ void ChangeBodyType( INT8 bOffset )	//+1 or -1 only
 			case JEEP:
 			case TANK_NW:
 			case TANK_NE:
+			case COMBAT_JEEP:
 				gpSelected->pSoldier->flags.uiStatusFlags |= SOLDIER_VEHICLE;
 				break;
 		}
@@ -2503,6 +2504,7 @@ void DisplayBodyTypeInfo()
 		case AM_MONSTER:					swprintf( str, pDisplayBodyTypeInfoText[25] );	break;
 		case QUEENMONSTER:					swprintf( str, pDisplayBodyTypeInfoText[26] );	break;
 		case BLOODCAT:						swprintf( str, pDisplayBodyTypeInfoText[27] );	break;
+		case COMBAT_JEEP:					swprintf( str, pDisplayBodyTypeInfoText[28] );	break;
 	}
 	DrawEditorInfoBox( str, FONT10ARIAL, iScreenWidthOffset + 490, 2 * iScreenHeightOffset + 364, 70, 20 );
 }

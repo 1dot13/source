@@ -2024,7 +2024,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				swprintf( NameStr, zGrod[0] );
 			}
 			//Legion	
-			else if ( TANK( pSoldier ) )
+			else if ( ARMED_VEHICLE( pSoldier ) )
 			{
 				swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
 			}

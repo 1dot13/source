@@ -224,11 +224,11 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT32 sGridNo, INT8 b
 	}
 
 	// anv: vehicles can ram people
-	if ( !TANK(pSoldier) && gGameExternalOptions.fAllowCarsDrivingOverPeople && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSoldier->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
+	if ( !ARMED_VEHICLE( pSoldier ) && gGameExternalOptions.fAllowCarsDrivingOverPeople && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE && pSoldier->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
 	{
 		return( MOVE_TILE_CLEAR );
 	}
-	else if( TANK(pSoldier) && gGameExternalOptions.fAllowTanksDrivingOverPeople && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE  )
+	else if ( ARMED_VEHICLE( pSoldier ) && gGameExternalOptions.fAllowTanksDrivingOverPeople && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return( MOVE_TILE_CLEAR );
 	}

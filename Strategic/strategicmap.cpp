@@ -5349,56 +5349,47 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 	UINT32		uiNumBytesRead = 0;
 
 	UINT32		uiSize = sizeof(StrategicMapElement);
-
-	if ( guiCurrentSaveGameVersion >= MILITIA_MOVEMENT )
-	{
-		for ( UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i )
-		{
-			// Load the strategic map information
-			FileRead( hFile, &StrategicMap[i], uiSize, &uiNumBytesRead );
-			if ( uiNumBytesRead != uiSize )
-			{
-				return(FALSE);
-			}
-		}
-	}
-	else
-	{
+	if ( guiCurrentSaveGameVersion < MILITIA_MOVEMENT )
 		uiSize = 41;
 
-		for ( UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i )
-		{
-			// Load the strategic map information
-			FileRead( hFile, &StrategicMap[i], uiSize, &uiNumBytesRead );
-			if ( uiNumBytesRead != uiSize )
-			{
-				return(FALSE);
-			}
-
-			StrategicMap[i].usFlags = 0;
-		}
-	}
-
-	// Load the Sector Info
-	for ( int sectorID = 0; sectorID <= 255; ++sectorID )
+	for ( UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i )
 	{
-		FileRead( hFile, &SectorInfo[sectorID], sizeof(SECTORINFO), &uiNumBytesRead );
-		if ( uiNumBytesRead != sizeof(SECTORINFO) )
+		// Load the strategic map information
+		FileRead( hFile, &StrategicMap[i], uiSize, &uiNumBytesRead );
+		if ( uiNumBytesRead != uiSize )
 		{
 			return(FALSE);
 		}
 
-			// Flugente: changes in SECTORINFO require a weird-looking remapping
-			if ( guiCurrentSaveGameVersion < PRISONER_EXPANSION )
-			{
-				SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_GENERAL] = 0;
-				SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_CIVILIAN] = 0;
-				SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET1] = 0;
-				SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET2] = 0;
-				SectorInfo[sectorID].ubNumTanks = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_GENERAL];
-				SectorInfo[sectorID].ubTanksInBattle = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_CIVILIAN];
-			}
+		if ( guiCurrentSaveGameVersion < MILITIA_MOVEMENT )
+			StrategicMap[i].usFlags = 0;
+	}
+	
+	// Load the Sector Info
+	uiSize = sizeof(SECTORINFO);
+	if ( guiCurrentSaveGameVersion < ENEMY_JEEPS )
+		uiSize = 116;
+
+	for ( int sectorID = 0; sectorID <= 255; ++sectorID )
+	{
+		FileRead( hFile, &SectorInfo[sectorID], uiSize, &uiNumBytesRead );
+		if ( uiNumBytesRead != uiSize )
+		{
+			return(FALSE);
 		}
+
+		// Flugente: changes in SECTORINFO require a weird-looking remapping
+		if ( guiCurrentSaveGameVersion < PRISONER_EXPANSION )
+		{
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_GENERAL] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_CIVILIAN] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET1] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET2] = 0;
+			SectorInfo[sectorID].ubNumTanks = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_GENERAL];
+			SectorInfo[sectorID].ubTanksInBattle = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_CIVILIAN];
+		}
+	}
+
 	//	uiSize = sizeof( SECTORINFO ) * 256;
 	//	FileRead( hFile, SectorInfo, uiSize, &uiNumBytesRead );
 	//	if( uiNumBytesRead != uiSize)

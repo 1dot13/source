@@ -1546,6 +1546,7 @@ STR16 pDisplayBodyTypeInfoText[] =
 	L"成年公异形", //25 //L"Adt M Monster",
 	L"异形女王", //L"Queen Monster",
 	L"血猫", //L"Bloodcat",
+	L"Humvee",		// TODO.Translate
 };
 
 STR16 pUpdateMercsInfoText[] = 
@@ -3458,6 +3459,7 @@ STR16 gpStrategicString[] =
 	L"超出战争（地图）范围，民兵移动失败！", //L"War room isn't staffed - militia move aborted!",
 
 	L"坦克",							//STR_AR_TANK_NAME,
+	L"Jeep",						//STR_AR_JEEP_NAME	// TODO.Translate
 
 	L"\n每一个小时刷新一次呼吸: %d", //L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
 };

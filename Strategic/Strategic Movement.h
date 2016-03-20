@@ -73,7 +73,9 @@ typedef struct ENEMYGROUP
 	// WDS - New AI
 	UINT8 ubNumTanks;
 	UINT8 ubTanksInBattle;
-	INT8	bPadding[18];
+	UINT8 ubNumJeeps;
+	UINT8 ubJeepsInBattle;
+	INT8	bPadding[16];
 }ENEMYGROUP;
 
 //NOTE:	ALL FLAGS ARE CLEARED WHENEVER A GROUP ARRIVES IN A SECTOR, OR ITS WAYPOINTS ARE
@@ -181,7 +183,7 @@ BOOLEAN SetGroupPatrolParameters( UINT8 ubGroupID, UINT8 ubRestAtFL, UINT8 ubRes
 
 //Enemy grouping functions -- private use by the strategic AI.
 //............................................................
-GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks );
+GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanksm, UINT8 ubNumJeeps );
 
 GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites );
 

@@ -60,7 +60,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		return;
 
 	// WANNE: No tooltips on bloodcats, bugs, tanks, roboter
-	if ( CREATURE_OR_BLOODCAT( pSoldier ) || TANK ( pSoldier ) ||
+	if ( CREATURE_OR_BLOODCAT( pSoldier ) || ARMED_VEHICLE( pSoldier ) ||
 		 AM_A_ROBOT( pSoldier))
 	{
 		return;
