@@ -483,7 +483,7 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 	UINT16	usItem;
 	UINT8	ubTerrainType;
 	INT8	bLevel;
-	UINT32	uiSoundID;
+	INT32	sSoundID;
 
 	ANITILE_PARAMS AniParams;
 
@@ -568,36 +568,30 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 	{
 		pExplosion->iLightID = LightSpriteCreate("FLSHBANG.LHT", 0 );
 	}
-	else
-		// generic light
-		// DO ONLY IF WE'RE AT A GOOD LEVEL
-		if ( ubAmbientLightLevel >= MIN_AMB_LEVEL_FOR_MERC_LIGHTS )
-		{
-			pExplosion->iLightID = LightSpriteCreate("L-R04.LHT", 0 );
-		}
+	// generic light
+	// DO ONLY IF WE'RE AT A GOOD LEVEL
+	else if ( ubAmbientLightLevel >= MIN_AMB_LEVEL_FOR_MERC_LIGHTS )
+	{
+		pExplosion->iLightID = LightSpriteCreate("L-R04.LHT", 0 );
+	}
 
-		if( pExplosion->iLightID != -1 )
-		{
-			LightSpritePower	 ( pExplosion->iLightID, TRUE );
-			LightSpriteRoofStatus( pExplosion->iLightID, pExplosion->Params.bLevel );
-			LightSpritePosition	( pExplosion->iLightID, (INT16)(sX/CELL_X_SIZE), (INT16)(sY/CELL_Y_SIZE) );
-		}
+	if( pExplosion->iLightID != -1 )
+	{
+		LightSpritePower	 ( pExplosion->iLightID, TRUE );
+		LightSpriteRoofStatus( pExplosion->iLightID, pExplosion->Params.bLevel );
+		LightSpritePosition	( pExplosion->iLightID, (INT16)(sX/CELL_X_SIZE), (INT16)(sY/CELL_Y_SIZE) );
+	}
 
-		// Lesh: sound randomization
-		uiSoundID = gExpAniData[ ubTypeID ].uiExplosionSoundID;
+	// Lesh: sound randomization
+	sSoundID = gExpAniData[ubTypeID].sExplosionSoundID;
 
-		if ( gExpAniData[ ubTypeID ].uiAltExplosionSoundID != NO_ALT_SOUND )
-		{
-			// Randomize
-			if ( Random( 2 ) == 0 )
-			{
-				uiSoundID = gExpAniData[ ubTypeID ].uiAltExplosionSoundID;
-			}
-		}
-		// Lesh: sound randomization ends
+	// Randomize
+	if ( gExpAniData[ubTypeID].sAltExplosionSoundID > NO_ALT_SOUND && (Random( 2 ) || sSoundID < 0) )
+		sSoundID = gExpAniData[ubTypeID].sAltExplosionSoundID;
+	// Lesh: sound randomization ends
 
-		PlayJA2Sample( uiSoundID, RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
-
+	if ( sSoundID > NO_ALT_SOUND )
+		PlayJA2Sample( sSoundID, RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 }
 
 
@@ -1632,8 +1626,9 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 				sNewWoundAmt = (INT16)(((sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageBonusPercentForHW * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ))) / 100) + 0.5); // +15%
 			}
 		}
+
 		// adjust damage resistance of TANKS
-		if ( ARMED_VEHICLE( pSoldier ) && gGameOptions.fNewTraitSystem )
+		if ( TANK( pSoldier ) && gGameOptions.fNewTraitSystem )
 		{
 			sNewWoundAmt = (INT16)(sNewWoundAmt * (100 - gSkillTraitValues.bTanksDamageResistanceModifier) / 100);
 			// another half of this for ordinary grenades

@@ -100,11 +100,11 @@ std::vector<ENEMY_HELI>	gEnemyHeliVector;
 
 void InitASD( )
 {
-	gASDResource[ASD_MONEY] = 100000;
+	gASDResource[ASD_MONEY] = 200000;
 	gASDResource[ASD_FUEL] = 0;
 	gASDResource[ASD_HELI] = 0;
 	gASDResource[ASD_JEEP] = 2;
-	gASDResource[ASD_TANK] = 0;
+	gASDResource[ASD_TANK] = 2;
 
 	gASDResource_Ordered[ASD_MONEY] = 0;
 	gASDResource_Ordered[ASD_FUEL] = 0;

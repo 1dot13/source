@@ -444,7 +444,6 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY );	
 SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType );
 SOLDIERTYPE* TacticalCreateEnemyTank();
 SOLDIERTYPE* TacticalCreateEnemyJeep( );
-SOLDIERTYPE* TacticalCreateJeep();
 
 // Flugente: create an armed civilian
 SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass = SOLDIER_CLASS_ARMY );

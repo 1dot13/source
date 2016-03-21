@@ -1155,13 +1155,7 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 		{
 			return( GAME_SCREEN );
 		}
-
-		// Flugente hack
-		/*if ( Water(usMapPos) )
-			pSoldier = TacticalCreateEnemyBoat( );
-		else
-			pSoldier = TacticalCreateEnemyJeep( );*/
-
+		
 		usRandom = (UINT16)Random( 20 );
 		if( usRandom < 5 )
 			pSoldier = TacticalCreateAdministrator();

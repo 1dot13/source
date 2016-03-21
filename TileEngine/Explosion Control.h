@@ -70,8 +70,8 @@ typedef struct
 {
 	UINT8	ubTransKeyFrame;
 	UINT8	ubDamageKeyFrame;
-	UINT32	uiExplosionSoundID;
-	UINT32	uiAltExplosionSoundID;
+	INT32	sExplosionSoundID;
+	INT32	sAltExplosionSoundID;
 	CHAR8	zBlastFilename[MAX_BLAST_FILENAME_LEN];
 	CHAR8	sBlastSpeed;
 } EXPLOSION_DATA;

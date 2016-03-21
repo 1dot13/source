@@ -3171,44 +3171,6 @@ SOLDIERTYPE* TacticalCreateEnemyJeep( )
 }
 
 //USED BY STRATEGIC AI and AUTORESOLVE
-// should to be succeeded by TacticalCreateArmyTroop/EliteEnemy and AddSoldierToVehicle
-SOLDIERTYPE* TacticalCreateJeep()
-{
-	BASIC_SOLDIERCREATE_STRUCT bp;
-	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
-	SOLDIERTYPE * pSoldier;
-	SOLDIERTYPE * pDriver;
-
-	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
-	{
-		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ELITE );
-		if( pSoldier ) return pSoldier;
-	}
-
-	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ELITE );
-	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ELITE );
-	bp.bTeam = CIV_TEAM;
-	bp.bOrders	= STATIONARY;
-	bp.bAttitude = (INT8) Random( MAXATTITUDES );
-	bp.ubBodyType = JEEP;
-	bp.ubSoldierClass = SOLDIER_CLASS_NONE;
-	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
-	pp.ubProfile = 199;
-
-	pSoldier = TacticalCreateSoldier( &pp, &ubID );
-	if ( pSoldier )
-	{
-		// send soldier to centre of map, roughly
-		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
-		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
-	}
-
-	return( pSoldier );
-}
-
-//USED BY STRATEGIC AI and AUTORESOLVE
 SOLDIERTYPE* TacticalCreateZombie()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;

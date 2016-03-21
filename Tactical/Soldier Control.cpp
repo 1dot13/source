@@ -14307,6 +14307,10 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 	if ( TileIsOutOfBounds( this->sGridNo ) )
 		return(FALSE);
 
+	// if we are a combat vehicle, our guns are always mounted
+	if ( ARMED_VEHICLE( this ) )
+		return TRUE;
+
 	// anv: passengers who can shoot can rest their guns
 	if ( this->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER) )
 	{

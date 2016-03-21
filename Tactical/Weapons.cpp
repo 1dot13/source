@@ -9681,19 +9681,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		{
 			ApplyDrugs_New( pTarget, ammoitem, 100 );
 		}
-
-		/*// Flugente: ammo can now add the lifedamage drug effect. This will kill the target in a few turns.
-		// this is intended to work on darts, but it is possible on any ammo
-		if ( AmmoTypes[ubAmmoType].ammoflag & AMMO_NEUROTOXIN )
-		{			
-			pTarget->usSoldierFlagMask |= SOLDIER_DRUGGED;
-
-			ApplyDrugs_New( pTarget, ammoitem, 100 );
-
-			// Add lifedamage effects
-			pTarget->AddDrugValues( DRUG_TYPE_LIFEDAMAGE, Drug[DRUG_TYPE_LIFEDAMAGE].ubDrugEffect, Drug[DRUG_TYPE_LIFEDAMAGE].ubDrugTravelRate, Drug[DRUG_TYPE_LIFEDAMAGE].ubDrugSideEffect );
-		}
-		else */
+				
 		if ( AmmoTypes[ubAmmoType].dart && sHitBy > 20 )
 		{
 			if (pubSpecial)

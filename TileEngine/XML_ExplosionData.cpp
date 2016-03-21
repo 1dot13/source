@@ -119,12 +119,12 @@ explosionDataEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ExplosionSoundID") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->expData.uiExplosionSoundID = (UINT32) strtoul(pData->szCharData, NULL, 0);
+			pData->expData.sExplosionSoundID = (INT32) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "AltExplosionSoundID") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->expData.uiAltExplosionSoundID = (UINT32) strtoul(pData->szCharData, NULL, 0);
+			pData->expData.sAltExplosionSoundID = (INT32)strtoul( pData->szCharData, NULL, 0 );
 		}
 		else if(strcmp(name, "BlastFilename") == 0)
 		{
@@ -230,8 +230,8 @@ BOOLEAN WriteExplosionDataStats()
 
 			FilePrintf(hFile,"\t\t<TransKeyFrame>%d</TransKeyFrame>\r\n",					gExpAniData[cnt].ubTransKeyFrame);
 			FilePrintf(hFile,"\t\t<DamageKeyFrame>%d</DamageKeyFrame>\r\n",					gExpAniData[cnt].ubDamageKeyFrame);
-			FilePrintf(hFile,"\t\t<ExplosionSoundID>%d</ExplosionSoundID>\r\n",				gExpAniData[cnt].uiExplosionSoundID);
-			FilePrintf(hFile,"\t\t<AltExplosionSoundID>%d</AltExplosionSoundID>\r\n",		gExpAniData[cnt].uiAltExplosionSoundID);
+			FilePrintf(hFile,"\t\t<ExplosionSoundID>%d</ExplosionSoundID>\r\n",				gExpAniData[cnt].sExplosionSoundID );
+			FilePrintf(hFile,"\t\t<AltExplosionSoundID>%d</AltExplosionSoundID>\r\n",		gExpAniData[cnt].sAltExplosionSoundID );
 			FilePrintf(hFile,"\t\t<BlastFilename>%s</BlastFilename>\r\n",					gExpAniData[cnt].zBlastFilename);
 			FilePrintf(hFile,"\t\t<BlastSpeed>%d</BlastSpeed>\r\n",							gExpAniData[cnt].sBlastSpeed);
 
