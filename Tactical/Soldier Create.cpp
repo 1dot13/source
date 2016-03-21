@@ -1115,10 +1115,12 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		
 					*/	
 					case TANK_NW:
-					case TANK_NE:
-					case COMBAT_JEEP:
-
+					case TANK_NE:					
 						ubVehicleID = TANK_CAR;
+						break;
+
+					case COMBAT_JEEP:
+						ubVehicleID = COMBAT_JEEP_CAR;
 						break;
 
 				}

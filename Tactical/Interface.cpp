@@ -2026,7 +2026,10 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			//Legion	
 			else if ( ARMED_VEHICLE( pSoldier ) )
 			{
-				swprintf( NameStr, gNewVehicle[164].NewVehicleStrings );
+				if ( pSoldier->bVehicleID >= 0 && pVehicleList )
+					swprintf( NameStr, gNewVehicle[pVehicleList[pSoldier->bVehicleID].ubVehicleType].NewVehicleStrings );
+				else
+					swprintf( NameStr, gNewVehicle[TANK_CAR].NewVehicleStrings );
 			}
 			else if ( zHiddenNames[pSoldier->ubProfile].Hidden == TRUE )
 			{
