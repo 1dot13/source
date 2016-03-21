@@ -1106,19 +1106,20 @@ Compartment			Seats in different compartments cannot be swapped in combat.
 		<VehicleEnabled>0</VehicleEnabled>
 		<Pilot>-1</Pilot>
 	</VEHICLE>
+	<!-- this record is used by all combat jeeps -->
 	<VEHICLE>
 		<uiIndex>71</uiIndex>
-		<Name>None</Name>
-		<LongName></LongName>
-		<ShortName></ShortName>
-		<MvtTypes>0</MvtTypes>
+		<Name>Combat Jeep</Name>	
+		<LongName>Combat Jeep</LongName>
+		<ShortName>Jeep</ShortName>	
+		<MvtTypes>2</MvtTypes>
 		<StiFaceIcon></StiFaceIcon>
-		<SeatingCapacities>6</SeatingCapacities>
+		<SeatingCapacities>0</SeatingCapacities>
 		<EnterVehicleSndID>85</EnterVehicleSndID>
 		<MoveVehicleSndID>82</MoveVehicleSndID>
 		<VehicleArmourType>164</VehicleArmourType>
-		<Neutral>1</Neutral>
 		<VehicleEnabled>0</VehicleEnabled>
+		<Neutral>0</Neutral>
 		<Pilot>-1</Pilot>
 	</VEHICLE>
 	<VEHICLE>

@@ -1652,7 +1652,7 @@
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
-	<!-- RPC 71 -->
+	<!-- Combat jeep -->
 	<BACKGROUND>
 		<uiIndex>71</uiIndex>
 		<szName>Placeholder</szName>

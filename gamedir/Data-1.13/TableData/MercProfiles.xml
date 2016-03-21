@@ -6941,9 +6941,9 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>71</uiIndex>
-		<Type>3</Type>
-		<zName></zName>
-		<zNickname>RPC71</zNickname>
+		<Type>5</Type>
+		<zName>Combat Jeep</zName>
+		<zNickname>C. Jeep</zNickname>
 		<ubFaceIndex>71</ubFaceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
