@@ -5315,7 +5315,6 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 	}
 }
 
-#include "Strategic AI.h"
 // Flugente: callback after deciding what tactical function to use
 void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 {
@@ -5357,8 +5356,6 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
 
 		case 8:
-			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_DRASSEN, 0, 0 );
-			break;
 		default:
 			break;
 		}
