@@ -107,6 +107,7 @@ DifficultySettingsParseDataStartElementHandle(void *userData, const XML_Char *na
 				strcmp(name, "RadioSightings") == 0	||
 				strcmp(name, "RadioSightings2") == 0 ||
 				strcmp(name, "EnemyMoraleWorried") == 0 ||
+				strcmp(name, "MaxMortarsPerTeam" ) == 0 ||
 				strcmp(name, "CthConstantsAimDifficulty") == 0	||
 				strcmp(name, "CthConstantsBaseDifficulty") == 0	
 				))
@@ -230,7 +231,8 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 					zDiffSetting[pData->curDifficultySettings.uiIndex].NewDifficultySettingsBASE_DIFFICULTY = pData->curDifficultySettings.NewDifficultySettingsBASE_DIFFICULTY;
 					
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bEnemyMoraleWorried = pData->curDifficultySettings.bEnemyMoraleWorried;
-								
+					
+					zDiffSetting[pData->curDifficultySettings.uiIndex].usMaxMortarsPerTeam = pData->curDifficultySettings.usMaxMortarsPerTeam;
 				}
 				else
 				{			
@@ -549,7 +551,12 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curDifficultySettings.bEnemyMoraleWorried	= (BOOLEAN) atol(pData->szCharData);
-		}			
+		}
+		else if ( strcmp( name, "MaxMortarsPerTeam" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.usMaxMortarsPerTeam = (UINT8)atol( pData->szCharData );
+		}
 		else if(strcmp(name, "CthConstantsAimDifficulty") == 0)
 		{
 			pData->curElement = ELEMENT;

@@ -47,9 +47,6 @@ UINT16 itemGrenadeLauncher;
 UINT16 itemLAW;
 UINT16 itemRPG;
 
-#define MAX_MORTARS_PER_TEAM			1			// one team can't randomly roll more than this many mortars per sector
-
-
 UINT32 guiMortarsRolledByTeam = 0;
 
 //
@@ -544,7 +541,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 
 					case 6:
 						// one per team maximum!
-						if ( ( pp->bExpLevel >= 5 ) && ( guiMortarsRolledByTeam < MAX_MORTARS_PER_TEAM ) )
+						if ( (pp->bExpLevel >= 5) && (guiMortarsRolledByTeam < zDiffSetting[gGameOptions.ubDifficultyLevel].usMaxMortarsPerTeam) )
 						{
 							//mortar
 							fMortar = TRUE;
@@ -747,11 +744,11 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 						break;
 					case 6:
 						// one per team maximum!
-						if ( guiMortarsRolledByTeam < MAX_MORTARS_PER_TEAM )
+						if ( guiMortarsRolledByTeam < zDiffSetting[gGameOptions.ubDifficultyLevel].usMaxMortarsPerTeam )
 						{
 							//mortar
 							fMortar = TRUE;
-							guiMortarsRolledByTeam++;
+							++guiMortarsRolledByTeam;
 
 							// the grenades will actually represent mortar shells in this case
 							bGrenades = 3 + (INT8)(Random( 5 )); //3-7
@@ -840,7 +837,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 						break;
 					case 4:
 						// one per team maximum!
-						if ( guiMortarsRolledByTeam < MAX_MORTARS_PER_TEAM )
+						if ( guiMortarsRolledByTeam < zDiffSetting[gGameOptions.ubDifficultyLevel].usMaxMortarsPerTeam )
 						{
 							//mortar
 							fMortar = TRUE;

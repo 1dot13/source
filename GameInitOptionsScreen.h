@@ -92,6 +92,8 @@ typedef struct
 	FLOAT NewDifficultySettingsAIM_DIFFICULTY;
 	
 	BOOLEAN bEnemyMoraleWorried;
+
+	UINT8 usMaxMortarsPerTeam;
 	
 } DIFFICULTY_SETTINGS_VALUES;
 extern UINT8 MaxDifficultySettingsValues; 
