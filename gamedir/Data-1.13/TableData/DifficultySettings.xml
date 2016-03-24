@@ -109,6 +109,7 @@
 		RadioSightings : Alerted soldier calls in help through the radio.
 		RadioSightings2 : All enemy individuals call in help through the radio.
 		EnemyMoraleWorried : enemy morale cannot go below worried. 0 - false, 1 - true
+		MaxMortarsPerTeam : maximum amount of AI soldiers per team (both enemy and militia) spawning with a mortar
 		
 		{CTHConstants Settings} 
 		
@@ -183,6 +184,7 @@
 		<RadioSightings>0</RadioSightings>
 		<RadioSightings2>0</RadioSightings2>
 		<EnemyMoraleWorried>0</EnemyMoraleWorried>
+		<MaxMortarsPerTeam>0</MaxMortarsPerTeam>
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>-100.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>-100.0</CthConstantsBaseDifficulty>
@@ -253,6 +255,7 @@
 		<RadioSightings>0</RadioSightings>
 		<RadioSightings2>0</RadioSightings2>
 		<EnemyMoraleWorried>0</EnemyMoraleWorried>
+		<MaxMortarsPerTeam>1</MaxMortarsPerTeam>
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>-30.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>-30.0</CthConstantsBaseDifficulty>
@@ -323,6 +326,7 @@
 		<RadioSightings>1</RadioSightings>
 		<RadioSightings2>1</RadioSightings2>
 		<EnemyMoraleWorried>0</EnemyMoraleWorried>
+		<MaxMortarsPerTeam>1</MaxMortarsPerTeam>
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>0.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>0.0</CthConstantsBaseDifficulty>
@@ -393,6 +397,7 @@
 		<RadioSightings>1</RadioSightings>
 		<RadioSightings2>1</RadioSightings2>
 		<EnemyMoraleWorried>0</EnemyMoraleWorried>
+		<MaxMortarsPerTeam>1</MaxMortarsPerTeam>
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>20.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>20.0</CthConstantsBaseDifficulty>
@@ -463,6 +468,7 @@
 		<RadioSightings>1</RadioSightings>
 		<RadioSightings2>1</RadioSightings2>
 		<EnemyMoraleWorried>1</EnemyMoraleWorried>
+		<MaxMortarsPerTeam>2</MaxMortarsPerTeam>
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>50.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>50.0</CthConstantsBaseDifficulty>
