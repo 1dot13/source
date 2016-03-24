@@ -7,6 +7,12 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-03-24:
+- added Tex
+- added Ears
+- updates to Jimmy
+
+
 2016-03-13:
 - added Hitman (Relationship-files)
 - added Len (Relationship-files)
@@ -37,19 +43,11 @@ Changelog:
 - updates to Leon
 
 
-2016-02-21:
-- added Postie
-- added Rev
-- updates to Leech
-- updates to Bud
-- updates to Dyno
-
-
 
 Status:
 -------
 - nearly weekly content updates
-- Ears, Tex, Speck, Eli and Carp remaining
+- Speck, Eli and Carp remaining
 - small bunch of various files remaining (Snitch)
 - polish/rework of already existing files
 
@@ -58,10 +56,10 @@ Status:
 Known Issues:
 -------------
 -multiple voiceactors for Mike [JA2+JA:DG]		| Nothing i can do about
--multiple voiceactors for Speck [JA2+JA2:UB+JA:DG] 	| Additional mod: UB+DG voiceset only + Phone-equalizer to speckcam audiofiles
--multiple voiceactors for Tex [JA2:UB+JA:DG] 		| Maybe...
+-multiple voiceactors for Speck [JA2+JA2:UB+JA:DG] 	| Additional mod: UB+DG voiceset only + Phone-equalizer to speck-com audiofiles
+-multiple voiceactors for Tex [JA2:UB+JA:DG] 		| Only Mike-friendship files affected - hardly noticable.
 
--multiple voiceactors (only new relationship-lines) for:| Additional mod: Disable the relationship to DG mercs for listet mercenarys again
+-multiple voiceactors (only new relationship-lines) for:| Additional mod: Disabling the relationship of JA2 to DG mercenarys
  |_Hitman, Len, Magic, Scully, Larry, Vicki, Fidel, Fox, Cliff, Wolf, Biff
 
 
