@@ -135,7 +135,7 @@
 		<name>Debris Smoke</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
-		<ExplosionSoundID>-1</ExplosionSoundID>
+		<ExplosionSoundID>502</ExplosionSoundID>
 		<AltExplosionSoundID>-1</AltExplosionSoundID>
 		<BlastFilename>TILECACHE\TEAR_EXP.STI</BlastFilename>
 		<BlastSpeed>80</BlastSpeed>
