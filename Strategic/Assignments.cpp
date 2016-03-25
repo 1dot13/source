@@ -2973,6 +2973,15 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 			if (gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit > 0)
 			{
 				performancemodifier = gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPerformance;
+
+				// an overcrowded prison can lower our performance. This is to offer an incentive to use huge prisons
+				if ( *pusMaxPts > gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit )
+				{
+					FLOAT penalty = (FLOAT)((*pusMaxPts - gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit)) / (FLOAT)(gFacilityTypes[cnt].AssignmentData[FAC_INTERROGATE_PRISONERS].usPrisonBaseLimit);
+
+					performancemodifier *= max( 0.67f, 1.0f - penalty );
+				}
+
 				break;
 			}
 		}
