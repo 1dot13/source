@@ -1986,7 +1986,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			}
 
 		}
-		else if(pExplosive->ubType == EXPLOSV_SMOKE)//dnl ch40 200909
+		else if ( pExplosive->ubType == EXPLOSV_SMOKE || pExplosive->ubType == EXPLOSV_SMOKE_DEBRIS )//dnl ch40 200909
 		{
 			// robots are unaffected by smoke
 			if( AM_A_ROBOT(pSoldier) )
@@ -2092,6 +2092,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_BURNABLEGAS;
 			break;
 		case EXPLOSV_SMOKE://dnl ch40 200909
+		case EXPLOSV_SMOKE_DEBRIS:
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_SMOKEGAS;
 			break;
 		default:
@@ -2223,6 +2224,12 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 			fSmokeEffect	= TRUE;
 			bSmokeEffectType = SIGNAL_SMOKE_EFFECT;
 			fBlastEffect	= FALSE;
+			break;
+
+		case EXPLOSV_SMOKE_DEBRIS:
+			fSmokeEffect = TRUE;
+			bSmokeEffectType = DEBRIS_SMOKE_EFFECT;
+			fBlastEffect = FALSE;
 			break;
 		}
 	}
@@ -2904,6 +2911,7 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 	case EXPLOSV_SMOKE:
 	case EXPLOSV_CREATUREGAS:
 	case EXPLOSV_SIGNAL_SMOKE:
+	case EXPLOSV_SMOKE_DEBRIS:
 
 		fSmokeEffect = TRUE;
 		break;
@@ -5956,6 +5964,16 @@ void RoofDestruction( INT32 sGridNo, BOOLEAN fWithExplosion )
 		{
 			InternalIgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, usRoofCollapseExplosionIndex, FALSE, 0 );
 		}
+
+		if ( Chance( 15 ) )
+		{
+			static UINT16 debrissmokeitem = GetFirstExplosiveOfType( EXPLOSV_SMOKE_DEBRIS );
+
+			if ( debrissmokeitem )
+			{
+				InternalIgniteExplosion( NOBODY, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, debrissmokeitem, FALSE, 0 );
+			}
+		}
 	}
 
 	RemoveAllRoofsOfTypeRangeAdjustSaveFile( sGridNo, FIRSTTEXTURE, WIREFRAMES );
@@ -6043,26 +6061,29 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 		// sadly the calculating time is somewhat high if there are many nodes connected to the roof, like Alma prison.
 		// therefore this part is commented out. Can be commented in once the speed issues have been resolved
 		// properly done, this would simulat the 'structural integrity' of the building
-		/*// for each remaining node, determine the distance to the closest node with a wall-connection inside the remaining network. If the distance is high enough, the roof will come down
+		// for each remaining node, determine the distance to the closest node with a wall-connection inside the remaining network. If the distance is high enough, the roof will come down
 		gridnoarmourvector roofarmoursharednetwork = GetArmourSharedRoofNetwork( (*roofnetworkit).second );
 
-		for ( gridnoarmourvector::iterator it = roofarmoursharednetwork.begin( ); it != roofarmoursharednetwork.end( ); ++it )
+		if ( roofarmoursharednetwork.size() < 200 )
 		{
-		gridnoarmourpair pair = (*it);
+			for ( gridnoarmourvector::iterator it = roofarmoursharednetwork.begin( ); it != roofarmoursharednetwork.end( ); ++it )
+			{
+				gridnoarmourpair pair = (*it);
 
-		// if it does not have a roof, ignore
-		if ( !IsRoofPresentAtGridNo( pair.first ) )
-		{
-		pair.second = 0;
-		continue;
-		}
+				// if it does not have a roof, ignore
+				if ( !IsRoofPresentAtGridNo( pair.first ) )
+				{
+					pair.second = 0;
+					continue;
+				}
 
-		if ( pair.second < 1 )
-		{
-		if ( DamageRoof(  pair.first, 255 ) )
-		pair.second = 0;
+				if ( pair.second < 1 )
+				{
+					if ( DamageRoof(  pair.first, 255 ) )
+						pair.second = 0;
+				}
+			}
 		}
-		}*/
 
 		// for now, determine the best armour for each remaining network, and collapse it if there is no armou - and thus no wall connection - left
 		gridnoarmourvector roofnetwork = (*roofnetworkit).second;

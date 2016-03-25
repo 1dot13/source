@@ -2387,6 +2387,14 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                         }
                     }
 
+					if ( gpWorldLevelData[pSoldier->sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_DEBRIS_SMOKE )
+					{
+						//if ( !(pSoldier->flags.fHitByGasFlags & HIT_BY_BURNABLEGAS) )	// gas mask doesn't help vs fire damage
+						{
+							pExplosive = &(Explosive[Item[GetFirstExplosiveOfType( EXPLOSV_SMOKE_DEBRIS )].ubClassIndex]);
+						}
+					}
+
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pSoldier->flags.fHitByGasFlags: %d", pSoldier->flags.fHitByGasFlags );
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
 

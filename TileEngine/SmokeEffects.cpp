@@ -130,10 +130,12 @@ INT8 FromWorldFlagsToSmokeType( UINT16 ubWorldFlags )
 	{
 		return( SIGNAL_SMOKE_EFFECT );
 	}
-	else
+	else if ( ubWorldFlags & MAPELEMENT_EXT_DEBRIS_SMOKE )
 	{
-		return( NO_SMOKE_EFFECT );
+		return(DEBRIS_SMOKE_EFFECT);
 	}
+	
+	return(NO_SMOKE_EFFECT);
 }
 
 
@@ -169,6 +171,10 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 		case SIGNAL_SMOKE_EFFECT:
 
 			return( MAPELEMENT_EXT_SIGNAL_SMOKE );
+			break;
+
+		case DEBRIS_SMOKE_EFFECT:
+			return(MAPELEMENT_EXT_DEBRIS_SMOKE);
 			break;
 
 		default:
@@ -274,6 +280,10 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 		case EXPLOSV_SIGNAL_SMOKE:
 
 			bSmokeEffectType = SIGNAL_SMOKE_EFFECT;
+			break;
+
+		case EXPLOSV_SMOKE_DEBRIS:
+			bSmokeEffectType = DEBRIS_SMOKE_EFFECT;
 			break;
 	}
 
@@ -493,6 +503,24 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8
 				else
 				{
 					 strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
+				}
+			}
+			break;
+
+		case DEBRIS_SMOKE_EFFECT:
+			if ( !(gGameSettings.fOptions[TOPTION_ANIMATE_SMOKE]) )
+			{
+				strcpy( AniParams.zCachedFile, "TILECACHE\\debris_smoke.STI" );
+			}
+			else
+			{
+				if ( fDissipating )
+				{
+					strcpy( AniParams.zCachedFile, "TILECACHE\\debris_smoke.STI" );
+				}
+				else
+				{
+					strcpy( AniParams.zCachedFile, "TILECACHE\\debris_smoke.STI" );
 				}
 			}
 			break;

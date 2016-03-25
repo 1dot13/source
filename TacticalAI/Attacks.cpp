@@ -1179,7 +1179,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					//					if ( gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_SMOKE ||
 					//						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) ||
 					//						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_MUSTARDGAS)
-					if ( gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_SMOKE ||
+					if ( gpWorldLevelData[sGridNo].ubExtFlags[bOpponentLevel[ubLoop]] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE) ||
 						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS | MAPELEMENT_EXT_BURNABLEGAS) ||
 						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_MUSTARDGAS || gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_BURNABLEGAS)
 					{
@@ -2107,7 +2107,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 		else
 			return(0);
 	}
-	else if ( Explosive[Item[pSoldier->inv[ ubItemPos ].usItem].ubClassIndex].ubType == EXPLOSV_SMOKE )
+	else if ( Explosive[Item[pSoldier->inv[ubItemPos].usItem].ubClassIndex].ubType == EXPLOSV_SMOKE || Explosive[Item[pSoldier->inv[ubItemPos].usItem].ubClassIndex].ubType == EXPLOSV_SMOKE_DEBRIS )
 		return 5;
 	else
 		ubExplosiveIndex = Item[ pSoldier->inv[ubItemPos].usItem ].ubClassIndex;

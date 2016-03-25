@@ -570,10 +570,8 @@ void UpdateAniTiles( )
 
 							ubExpType = Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubType;
 
-							//				if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS ||
-							//					ubExpType == EXPLOSV_SMOKE )
 							if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS ||
-								ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS || ubExpType == EXPLOSV_SIGNAL_SMOKE )
+								 ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS || ubExpType == EXPLOSV_SIGNAL_SMOKE || ubExpType == EXPLOSV_SMOKE_DEBRIS )
 							{
 								// Do sound....
 								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );

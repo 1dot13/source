@@ -12,6 +12,7 @@ enum
 	CREATURE_SMOKE_EFFECT,
 	BURNABLEGAS_SMOKE_EFFECT,
 	SIGNAL_SMOKE_EFFECT,		// added by Flugente for artillery
+	DEBRIS_SMOKE_EFFECT,		// added by Flugente for collapsing roofs
 };
 
 #define SMOKE_EFFECT_INDOORS			0x01

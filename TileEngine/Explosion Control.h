@@ -59,6 +59,7 @@ enum EXPLOSION_TYPES
 	THERMOBARIC_EXP,
 	FLASHBANG_EXP,		// Lesh: enum added
 	ROOF_COLLAPSE,		// Flugente: play an animation of roof tiles crashing down
+	ROOF_COLLAPSE_SMOKE,	// Flugente: when structure collapses, smoke might rise
 	NUM_EXP_TYPES=50
 
 } ;
