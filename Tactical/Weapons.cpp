@@ -9391,7 +9391,7 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbSt
 }
 
 
-INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, UINT8 ubAmmoType )
+INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, UINT8 ubAmmoType, BOOLEAN fConsiderFlak )
 {
 	INT32					iTotalProtection = 0, iSlot;
 	OBJECTTYPE *	pArmour;
@@ -9405,7 +9405,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 		//bDummyStatus = pVehicleList[ pTarget->bVehicleID ].sExternalArmorLocationsStatus[ ubHitLocation ];
 
 		iTotalProtection += ArmourProtection( pTarget, (UINT8) pVehicleList[ pTarget->bVehicleID ].sArmourType, &bDummyStatus, iImpact, ubAmmoType, &dummyCoverage );
-
+		
 		//pVehicleList[ pTarget->bVehicleID ].sExternalArmorLocationsStatus[ ubHitLocation ] = bDummyStatus;
 	}
 	else
@@ -9435,7 +9435,16 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 			for (attachmentList::iterator iter = (*pVestPack)[0]->attachments.begin(); iter != (*pVestPack)[0]->attachments.end(); ++iter) {
 				if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 				{
-					iTotalProtection += ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+					INT32 protection = ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+
+					if ( fConsiderFlak && Item[iter->usItem].flakjacket )
+					{
+						// increase value for flak jackets!
+						protection *= 3;
+					}
+
+					iTotalProtection += protection;
+
 					if ( (*iter)[0]->data.objectStatus < USABLE )
 					{
 						pVestPack->RemoveAttachment(&(*iter));
@@ -9459,19 +9468,27 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 					if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
 					{
 						// bullet got through jacket; apply ceramic plate armour
-						iTotalProtection += ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+						INT32 protection = ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+
+						if ( fConsiderFlak && Item[iter->usItem].flakjacket )
+						{
+							// increase value for flak jackets!
+							protection *= 3;
+						}
+
+						iTotalProtection += protection;
+
 						if ( (*iter)[0]->data.objectStatus < USABLE )
 						{
 							// destroy plates!
 							pArmour->RemoveAttachment(&(*iter));
 							DirtyMercPanelInterface( pTarget, DIRTYLEVEL2 );
-	//#ifdef ENGLISH
+
 							if ( pTarget->bTeam == gbPlayerNum )
 							{
 								// report plates destroyed!
 								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[61], pTarget->name );
 							}
-	//#endif
 						}
 						break;//original code only used the first ceramic plate
 					}
@@ -9480,7 +9497,16 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 				// if the plate didn't stop the bullet...
 				if ( iImpact > iTotalProtection )
 				{
-					iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usItem].ubClassIndex, &((*pArmour)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+					INT32 protection = ArmourProtection( pTarget, Item[pArmour->usItem].ubClassIndex, &((*pArmour)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
+
+					if ( fConsiderFlak && Item[pArmour->usItem].flakjacket )
+					{
+						// increase value for flak jackets!
+						protection *= 3;
+					}
+
+					iTotalProtection += protection;
+
 					if ( (*pArmour)[0]->data.objectStatus < USABLE )
 					{
 						//Madd: put any attachments that someone might have added to the armour in the merc's inventory
@@ -9631,7 +9657,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	}
 	else
 	{
-		iTotalArmourProtection = TotalArmourProtection( pTarget, ubHitLocation, iOrigImpact, ubAmmoType ); 
+		iTotalArmourProtection = TotalArmourProtection( pTarget, ubHitLocation, iOrigImpact, ubAmmoType, pBullet->fFragment );
 		iImpact = iOrigImpact - iTotalArmourProtection;
 		
 		// sevenfm: store armour protection
