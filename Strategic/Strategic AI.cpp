@@ -5254,6 +5254,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 					giReinforcementPool = max( giReinforcementPool, 0 );
 				}
+
+				if ( usActionCode == NPC_ACTION_GLOBAL_OFFENSIVE_1 )
+					SetFactTrue( FACT_GLOBAL_OFFENSIVE_1_ORDERED );
+				else if ( usActionCode == NPC_ACTION_GLOBAL_OFFENSIVE_2 )
+					SetFactTrue( FACT_GLOBAL_OFFENSIVE_2_ORDERED );
 			}
 			break;
 

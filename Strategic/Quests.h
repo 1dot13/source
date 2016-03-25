@@ -79,7 +79,7 @@ enum Quests
 	QUEST_24 = 24,
 	QUEST_KILL_DEIDRANNA = 25,
 
-	QUEST_KINGPIN_ANGEL_MARIA,		// Flugente: new quest: if the palyer rescued Maria without implicating himself, Kingpin hires bounty hunters to kill them
+	QUEST_KINGPIN_ANGEL_MARIA,		// Flugente: new quest: if the player rescued Maria without implicating himself, Kingpin hires bounty hunters to kill them
 #endif
 } ;
 /*
@@ -566,7 +566,7 @@ enum Facts
 	FACT_BOUNTYHUNTER_SECTOR_2,
 	FACT_BOUNTYHUNTER_KILLED_1,
 	FACT_BOUNTYHUNTER_KILLED_2,
-
+	
 #ifdef JA2UB	
 	//Ja25 UB
 	FACT_IMPORTED_SAVE_AND_MARY_WAS_DEAD	=										400,
@@ -595,6 +595,10 @@ enum Facts
 	FACT_BIGGENS_ON_TEAM_AND_FAN_STOPPED,//										423
 	FACT_PLAYER_KNOWS_ABOUT_FAN_STOPPING,//										424
 #endif
+
+	// Flugente: for safety reasons, remember if we've already had an offensive
+	FACT_GLOBAL_OFFENSIVE_1_ORDERED,
+	FACT_GLOBAL_OFFENSIVE_2_ORDERED,
 } ;
 //**	END FACTS *************************
 

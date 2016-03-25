@@ -1708,12 +1708,14 @@ void HourlyProgressUpdate(void)
 		// Flugente: on certain progress levels, the queen decides to initiate major attacks
 		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage1 && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressOffensiveStage1 )
 		{
-			ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_1, 0, 0 );
+			if ( !CheckFact( FACT_GLOBAL_OFFENSIVE_1_ORDERED , 0) )
+				ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_1, 0, 0 );
 		}
 
 		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressOffensiveStage2 && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressOffensiveStage2 )
 		{
-			ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_2, 0, 0 );
+			if ( !CheckFact( FACT_GLOBAL_OFFENSIVE_2_ORDERED, 0 ) )
+				ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_2, 0, 0 );
 		}
 
 		gStrategicStatus.ubHighestProgress = ubCurrentProgress;
