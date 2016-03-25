@@ -130,4 +130,14 @@
 		<BlastFilename>TILECACHE\roofdestbrown1x1.STI</BlastFilename>
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
+	<EXPDATA>
+		<uiIndex>13</uiIndex>
+		<name>Debris Smoke</name>
+		<TransKeyFrame>1</TransKeyFrame>
+		<DamageKeyFrame>18</DamageKeyFrame>
+		<ExplosionSoundID>-1</ExplosionSoundID>
+		<AltExplosionSoundID>-1</AltExplosionSoundID>
+		<BlastFilename>TILECACHE\TEAR_EXP.STI</BlastFilename>
+		<BlastSpeed>80</BlastSpeed>
+	</EXPDATA>
 </EXPDATALIST>

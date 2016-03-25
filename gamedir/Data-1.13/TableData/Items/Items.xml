@@ -51756,4 +51756,23 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1739</uiIndex>
+		<szItemName>Roof Collapse Smoke</szItemName>
+		<szLongItemName>Roof Collapse Smoke</szLongItemName>
+		<szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+		<szBRName>Roof Collapse Smoke</szBRName>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>102</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>49</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>14</ItemSize>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

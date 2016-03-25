@@ -2041,4 +2041,24 @@
 		<ubHorizontalDegree>359</ubHorizontalDegree>
 		<ubVerticalDegree>5</ubVerticalDegree>
 	</EXPLOSIVE>
+	<EXPLOSIVE><!-- roof collapse smoke-->
+		<uiIndex>102</uiIndex>
+		<ubType>11</ubType>
+		<ubDamage>0</ubDamage>
+		<ubStunDamage>0</ubStunDamage>
+		<ubRadius>2</ubRadius>
+		<ubVolume>0</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>13</ubAnimationID>
+		<ubDuration>1</ubDuration>
+		<ubStartRadius>2</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
 </EXPLOSIVELIST>
