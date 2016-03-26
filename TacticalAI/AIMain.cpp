@@ -2307,6 +2307,13 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			}
 			break;
 
+		case AI_ACTION_SELFDETONATE:
+			{
+				pSoldier->SelfDetonate( );
+				ActionDone( pSoldier );
+			}
+			break;
+
         default:
 #ifdef BETAVERSION
             NumMessage("ExecuteAction - Illegal action type = ",pSoldier->aiData.bAction);

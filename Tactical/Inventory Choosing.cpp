@@ -3422,6 +3422,11 @@ void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp, BOOLEAN fTank )
 		CreateItems( MINIMI, (INT8)(80 + Random( 21 )), 1, &gTempObject );
 		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
 		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+
+		// smoke grenade
+		CreateItems( SMOKE_GRENADE, (INT8)(80 + Random( 21 )), 1, &gTempObject );
+		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
+		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
 	}
 	else
 	{

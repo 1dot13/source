@@ -7604,6 +7604,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		// UnderFire now starts at 2 for "under fire this turn",
 		// down to 1 for "under fire last turn", to 0.
 		this->aiData.bUnderFire--;
+
+		if ( !this->aiData.bUnderFire )
+			this->usSoldierFlagMask2 &= ~SOLDIER_TAKEN_LARGE_HIT;
 	}
 
 	// Flugente: reset extra stats. Currently they only depend on drug effects, and those are reset every turn
@@ -9888,6 +9891,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 				}
 			}
 		}
+
+		if ( sLifeDeduct > 30 )
+			this->usSoldierFlagMask2 |= SOLDIER_TAKEN_LARGE_HIT;
 		
 		VehicleTakeDamage( this->bVehicleID, ubReason, sLifeDeduct, this->sGridNo, ubAttacker );
 		HandleTakeDamageDeath( this, bOldLife, ubReason );
@@ -18987,6 +18993,41 @@ FLOAT	SOLDIERTYPE::GetConstructionPoints( )
 	dval = (dval * this->stats.bLife / this->stats.bLifeMax);
 
 	return dval;
+}
+
+BOOLEAN SOLDIERTYPE::HasItem(UINT16 usItem)
+{
+	INT8 invsize = (INT8)inv.size( );
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists( ) == true && inv[bLoop].usItem == usItem )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+// AI-only: heal self. Do NOT, repeat, NOT use this with mercs!
+BOOLEAN		SOLDIERTYPE::SelfDetonate( )
+{
+	if ( !(this->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
+		return FALSE;
+
+	INT8 invsize = (INT8)inv.size( );
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists( ) == true && inv[bLoop].usItem == this->aiData.usActionData )
+		{
+			IgniteExplosion( this->ubID, this->sX, this->sY, (INT16)(gpWorldLevelData[this->sGridNo].sHeight), this->sGridNo, inv[bLoop].usItem, this->pathing.bLevel, this->ubDirection );
+		
+			// Remove item!
+			DeleteObj( &(this->inv[bLoop]) );
+
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

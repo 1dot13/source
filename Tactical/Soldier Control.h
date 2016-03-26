@@ -411,6 +411,7 @@ enum
 #define SOLDIER_INTERROGATE_CIVILIAN		0x00000100	//256			// interrogate civilian
 #define SOLDIER_POTENTIAL_VOLUNTEER			0x00000200	//512			// this civilian _might_ join us as a volunteer if conditions are right
 #define SOLDIER_HUNGOVER					0x00000400	//1024			// we drank alcohol recently, and are now hungover
+#define SOLDIER_TAKEN_LARGE_HIT				0x00000800					// we recently received a lot of damage in a single hit
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -1918,6 +1919,10 @@ public:
 
 	// Flugente: fortification
 	FLOAT	GetConstructionPoints( );
+
+	// Flugente: do we have a specific item in our inventory?
+	BOOLEAN HasItem( UINT16 usItem );
+	BOOLEAN SelfDetonate();						// AI-only: blow up explosive in own inventory. Do NOT, repeat, NOT use this with mercs!
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

@@ -9847,7 +9847,6 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK )
 
 				if ( OKFallDirection( pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, ubOpponentDir, pSoldier->usAnimState ) )
 				{
-
 					// then do it!  The functions have already made sure that we have a
 					// pair of worthy opponents, etc., so we're not just wasting our time
 
@@ -10711,6 +10710,14 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK )
 		// if we're currently under fire (presumably, attacker is hidden)
 		if ( pSoldier->aiData.bUnderFire )
 		{
+			// Flugente: see if we are equipped with a smoke screen. If so, use it do hide us
+			if ( (pSoldier->usSoldierFlagMask2 & SOLDIER_TAKEN_LARGE_HIT) && pSoldier->HasItem( SMOKE_GRENADE ) && IsActionAffordable( pSoldier, AI_ACTION_SELFDETONATE ) )
+			{
+				pSoldier->aiData.usActionData = SMOKE_GRENADE;
+
+				return AI_ACTION_SELFDETONATE;
+			}
+
 			// only try to run if we've actually been hit recently & noticably so
 			// otherwise, presumably our current cover is pretty good & sufficient
 			// HEADROCK HAM B2.6: New value here helps us change the ratio of running away due to shock. This

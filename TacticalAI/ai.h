@@ -107,6 +107,7 @@ typedef enum
 	AI_ACTION_USE_SKILL,			// added by Flugente: perform a skill, which one is stored in usAISkillUse
 	AI_ACTION_DOCTOR,				// added by Flugente: AI-ONLY! bandage/surgery on fellow AI. DO NOT USE THIS FOR MERCS!!!
 	AI_ACTION_DOCTOR_SELF,			// added by Flugente: AI-ONLY! bandage/surgery on self. DO NOT USE THIS FOR MERCS!!!
+	AI_ACTION_SELFDETONATE,			// added by Flugente: blow up an explosive in own inventory
 } ActionType;
 
 

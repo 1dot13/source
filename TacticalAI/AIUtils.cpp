@@ -615,6 +615,10 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier, INT8 bAction)
 			bMinPointsNeeded = 20;	// TODO
 			break;
 
+		case AI_ACTION_SELFDETONATE:
+			bMinPointsNeeded = 20;	// TODO
+			break;
+
 		default:
 #ifdef BETAVERSION
 			//NumMessage("AffordableAction - Illegal action type = ",pSoldier->aiData.bAction);
