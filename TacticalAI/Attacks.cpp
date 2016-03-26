@@ -219,8 +219,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		}
 
 		// silversurfer: ignore empty vehicles
-		if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
-			continue;
+		// sevenfm: allow shooting at empty vehicles, but they have low priority
+		//if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
+			//continue;
 
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
@@ -643,6 +644,12 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			iAttackValue /= 2;
 		}
 
+		// sevenfm: empty vehicles have very low priority
+		if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
+		{
+			iAttackValue /= 4;
+		}
+
 #ifdef DEBUGATTACKS
 		DebugAI( String( "CalcBestShot: best AttackValue vs %d = %d\n",uiLoop,iAttackValue ) );
 #endif
@@ -677,8 +684,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				}
 			}
 			//dnl ch62 180813 ignore firing into dying targets
-			if((pOpponent->bCollapsed || pOpponent->bBreathCollapsed) && pOpponent->stats.bLife < OKLIFE/* && !(pSoldier->aiData.bAttitude == AGGRESSIVE && Random(100) < 20)*/)
-				continue;
+			// sevenfm: disabled because of problems with AI
+			//if((pOpponent->bCollapsed || pOpponent->bBreathCollapsed) && pOpponent->stats.bLife < OKLIFE/* && !(pSoldier->aiData.bAttitude == AGGRESSIVE && Random(100) < 20)*/)
+				//continue;
 
 			// OOOF!	That was a lot of work!	But we've got a new best target!
 			pBestShot->ubPossible			= TRUE;
@@ -3003,17 +3011,23 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 			RearrangePocket(pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY);
 		}
 
-		//if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > pSoldier->MaxDistanceVisible(pBestShot->sTarget, pBestShot->bTargetLevel) ) || pSoldier->bOrders == SNIPER ) ) ||
-		// HEADROCK HAM B2.4: Changed this again - weapons are no longer checked for larger magazine to allow suppressive fire, due to
-		// suppressive fire revamp.
-//		if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) ||
-//			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn] ) && GetMagSize(pObj) > 30 && (*pObj)[0]->data.gun.ubGunShotsLeft > 20 ))
 		BOOLEAN fEnableAISuppression = FALSE;
 
 		// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
-		if ( ((!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj, pSoldier) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) ) || // SANDRO - added argument to GunRange()
-			(suppressionFire  && IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn]) && GetMagSize(pObj) >= gGameExternalOptions.ubAISuppressionMinimumMagSize && (*pObj)[0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo)) )
+		if( suppressionFire &&
+			IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn]) &&
+			GetMagSize(pObj) >= gGameExternalOptions.ubAISuppressionMinimumMagSize &&
+			(*pObj)[0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo )
+		{
 			fEnableAISuppression = TRUE;
+		}
+
+		// sevenfm: allow any soldier with long range weapon to shoot in RED state (if he can hit)
+		if( !suppressionFire &&
+			GunRange(pObj, pSoldier) > DAY_VISION_RANGE )
+		{
+			fEnableAISuppression = TRUE;
+		}
 
 		if (fEnableAISuppression)
 		{

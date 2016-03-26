@@ -2501,20 +2501,22 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32
 	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, bAware, HasThermalOptics( pStartSoldier), NULL, false ) );
 }
 
-INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit )
+INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit, FLOAT dStartPos, FLOAT dEndPos )
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sStartXPos, sStartYPos, sEndXPos, sEndYPos;
 	UINT8						ubStartID;
 
-	ubStartID = WhoIsThere2( sStartGridNo, bStartLevel );
+	// sevenfm: always use standing heights
+	/*ubStartID = WhoIsThere2( sStartGridNo, bStartLevel );
 	if ( ubStartID != NOBODY )
 	{
 		return( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubStartID ], sEndGridNo, bEndLevel, 0, bAware, iTileSightLimit ) );
-	}
+	}*/
 
 	// else... assume standing heights
-	dStartZPos = STANDING_LOS_POS + bStartLevel * HEIGHT_UNITS;
+	// sevenfm: use height argument
+	dStartZPos = dStartPos + bStartLevel * HEIGHT_UNITS;
 	// add in ground height
 	dStartZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ sStartGridNo ].sHeight );
 
@@ -2522,7 +2524,8 @@ INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, I
 	sStartXPos = sStartXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
 	sStartYPos = sStartYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
 
-	dEndZPos = STANDING_LOS_POS + bEndLevel * HEIGHT_UNITS;
+	// sevenfm: use height argument
+	dEndZPos = dEndPos + bEndLevel * HEIGHT_UNITS;
 	// add in ground height
 	dEndZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ sEndGridNo ].sHeight );
 
@@ -2530,10 +2533,12 @@ INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, I
 	sEndXPos = sEndXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
 	sEndYPos = sEndYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
 
-	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR) {
+	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR)
+	{
 		iTileSightLimit = MaxNormalDistanceVisible();
 	}
-	else if (iTileSightLimit == NO_DISTANCE_LIMIT) {
+	else if (iTileSightLimit == NO_DISTANCE_LIMIT) 
+	{
 		iTileSightLimit = 255 + MaxNormalDistanceVisible();
 	}
 	return( LineOfSightTest( (FLOAT)sStartXPos, (FLOAT)sStartYPos, dStartZPos, (FLOAT) sEndXPos, (FLOAT) sEndYPos, dEndZPos, iTileSightLimit, bAware, FALSE, NULL ) );

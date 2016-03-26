@@ -1477,7 +1477,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAIExtraSuppression				= iniReader.ReadBoolean("Tactical Interface Settings","AI_EXTRA_SUPPRESSION",FALSE);
 	gGameExternalOptions.fAINewMorale						= iniReader.ReadBoolean("Tactical Interface Settings","AI_NEW_MORALE",FALSE);
 	gGameExternalOptions.fAIBetterCover						= iniReader.ReadBoolean("Tactical Interface Settings","AI_BETTER_COVER",FALSE);
-	gGameExternalOptions.fAIExtraFlanking					= iniReader.ReadBoolean("Tactical Interface Settings","AI_EXTRA_FLANKING",FALSE);
 	
 	// Heahshot penalty
 	gGameExternalOptions.uShotHeadPenalty					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_PENALTY",3,0,100);	

@@ -841,7 +841,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		}
 
 		// sevenfm: check for nearby friends, add bonus/penalty
-		ubNearbyFriends = __min(5, CountNearbyFriendlies( pSoldier, pSoldier->sGridNo, 5 ));
+		ubNearbyFriends = __min(5, CountNearbyFriends( pSoldier, pSoldier->sGridNo, 5 ));
 		iCurrentCoverValue -= ubNearbyFriends * abs(iCurrentCoverValue) / (10-ubDiff);
 
 		// sevenfm: penalize locations with fresh corpses
@@ -1066,7 +1066,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				}
 
 				// sevenfm: check for nearby friends in 10 radius, add bonus/penalty 10%
-				ubNearbyFriends = __min(5, CountNearbyFriendlies( pSoldier, sGridNo, 5 ));
+				ubNearbyFriends = __min(5, CountNearbyFriends( pSoldier, sGridNo, 5 ));
 				iCoverValue -= ubNearbyFriends * abs(iCoverValue) / (10-ubDiff);
 
 				// sevenfm: penalize locations with fresh corpses
@@ -2494,7 +2494,7 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 	INT32 sBestSpot = NOWHERE;
 	INT32 iSearchRange = 8;	// sevenfm: increase search range
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	INT16 sDistanceVisible = MaxNormalVisionDistance();
+	INT16 sDistanceVisible = VISION_RANGE;
 
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: orig loc = %d, loc to flank = %d", pSoldier->sGridNo , sPos));
 
@@ -2617,7 +2617,9 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			}
 
 			// sevenfm: allow water flanking only for CUNNINGSOLO soldiers
-			if( Water( sGridNo, pSoldier->pathing.bLevel ) && pSoldier->aiData.bAttitude != CUNNINGSOLO )
+			if( Water( sGridNo, pSoldier->pathing.bLevel ) &&
+				pSoldier->aiData.bAttitude != CUNNINGSOLO && 
+				pSoldier->aiData.bAttitude != CUNNINGAID )
 			{
 				continue;
 			}
@@ -2635,8 +2637,8 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			}
 
 			// sevenfm: penalize locations with no sight cover from noise gridno (supposed that we are sneaking)
-			if( PythSpacesAway( sGridNo, sPos) < sDistanceVisible &&
-				LocationToLocationLineOfSightTest( sGridNo, pSoldier->pathing.bLevel, sPos, pSoldier->pathing.bLevel, TRUE) )
+			if( //PythSpacesAway( sGridNo, sPos) <= sDistanceVisible &&
+				LocationToLocationLineOfSightTest( sGridNo, pSoldier->pathing.bLevel, sPos, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS) )
 			{
 				//continue;
 				sTempDist = sTempDist / 2;
@@ -2647,12 +2649,14 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			{
 				sTempDist = sTempDist / 2;
 			}
+
 			// sevenfm: try to flank closer to vision distance limit for faster flanking
 			if( PythSpacesAway( sGridNo, sPos) > sDistanceVisible + 10 )
 			{
 				sTempDist = sTempDist / 2;
 			}
 
+			// allow extra directions for flanking
 			if ( bAction == AI_ACTION_FLANK_LEFT )
 			{
 				// sevenfm: allow two extra directions

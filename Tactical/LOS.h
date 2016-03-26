@@ -77,19 +77,6 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 #define CALC_FROM_WANTED_DIR -2
 #define NO_DISTANCE_LIMIT -3
 
-INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS, UINT8 ubAimLocation = LOS_POS, bool adjustForSight = true, bool cthCalc = false );
-INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int ubSightLimit = CALC_FROM_ALL_DIRS, bool adjustForSight = true );
-INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
-UINT8 SoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier );
-UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, UINT8 ubAimLocation );
-UINT8 AISoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier );
-UINT8 AISoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel );
-UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTargetID );
-INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo );
-INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
-
-BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * pdZPos );
-
 #define HEIGHT_UNITS 256
 #define HEIGHT_UNITS_PER_INDEX (HEIGHT_UNITS / PROFILE_Z_SIZE)
 #define MAX_STRUCTURE_HEIGHT 50
@@ -153,6 +140,22 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 
 #define CLOSE_TO_FIRER 25
 #define VERY_CLOSE_TO_FIRER 21
+
+INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS, UINT8 ubAimLocation = LOS_POS, bool adjustForSight = true, bool cthCalc = false );
+INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int ubSightLimit = CALC_FROM_ALL_DIRS, bool adjustForSight = true );
+INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
+UINT8 SoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier );
+UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, UINT8 ubAimLocation );
+UINT8 AISoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier );
+UINT8 AISoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel );
+UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTargetID );
+INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo );
+
+// sevenfm: added start/end LOS heights
+INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit, FLOAT dStartPos = STANDING_LOS_POS, FLOAT dEndPos = STANDING_LOS_POS);
+//INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
+
+BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * pdZPos );
 
 #ifdef LOS_DEBUG
 typedef struct LOSResults
