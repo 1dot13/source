@@ -34,6 +34,9 @@
     <ClCompile Include="src\PlanList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\LegacyArmedVehiclePlan.cpp">
+	  <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AbstractPlanFactory.h">
@@ -67,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\PlanList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LegacyArmedVehiclePlan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,12 +6,14 @@
 #include "../include/LegacyAIPlan.h"
 #include "../include/LegacyCreaturePlan.h"
 #include "../include/LegacyZombiePlan.h"
+#include "../include/LegacyArmedVehiclePlan.h"
 #include "../include/CrowPlan.h"
 #include "../include/PlanList.h"
 
 #include "../../TacticalAI/AIInternals.h"      // DEBUGAIMSG
 #include "../../Tactical/Soldier Control.h" // For SOLDIERTYPE definition
 #include "../../Tactical/Animation Data.h"  // For the definition of, wait for it... BLOODCAT!
+#include "soldier macros.h"
 
 #include <stdio.h>
 
@@ -34,6 +36,9 @@ namespace AI
                 find_supper->add_subplan(peck);
                 return find_supper;
             }
+
+			if ( ARMED_VEHICLE( npc ) )
+				return new LegacyArmedVehiclePlan( npc );
 
             if(npc->IsZombie())
                 return new LegacyZombiePlan(npc);

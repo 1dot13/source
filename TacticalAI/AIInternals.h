@@ -213,9 +213,9 @@ void CreatureCall( SOLDIERTYPE * pCaller );
 INT8 CreatureDecideAction( SOLDIERTYPE * pCreature );
 void CreatureDecideAlertStatus( SOLDIERTYPE *pCreature );
 
-// Flugente: Zombie AI
-INT8 ZombieDecideAction( SOLDIERTYPE * pZombie );	
-void ZombieDecideAlertStatus( SOLDIERTYPE *pZombie );
+// Flugente: AI
+INT8 ZombieDecideAction( SOLDIERTYPE* pSoldier );
+INT8 ArmedVehicleDecideAction( SOLDIERTYPE* pSoldier );
 
 // a variant of ClosestSeenOpponent(...), that allows to find enemies on a roof 
 INT32 ClosestSeenOpponentWithRoof(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
