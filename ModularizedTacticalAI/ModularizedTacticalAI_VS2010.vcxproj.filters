@@ -28,6 +28,9 @@
     <ClCompile Include="src\LegacyZombiePlan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	<ClCompile Include="src\LegacyArmedVehiclePlan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Plan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -64,6 +67,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\LegacyZombiePlan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="include\LegacyArmedVehiclePlan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\PlanList.h">

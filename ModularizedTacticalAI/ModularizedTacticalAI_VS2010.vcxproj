@@ -155,7 +155,8 @@
   <ItemGroup>
     <ClCompile Include="src\AbstractPlanFactory.cpp" />
     <ClCompile Include="src\CrowPlan.cpp" />
-    <ClCompile Include="src\LegacyAIPlan.cpp" />
+    <ClCompile Include="src\LegacyArmedVehiclePlan.cpp" />
+	<ClCompile Include="src\LegacyAIPlan.cpp" />
     <ClCompile Include="src\LegacyAIPlanFactory.cpp" />
     <ClCompile Include="src\LegacyCreaturePlan.cpp" />
     <ClCompile Include="src\LegacyZombiePlan.cpp" />
@@ -168,7 +169,8 @@
   <ItemGroup>
     <ClInclude Include="include\AbstractPlanFactory.h" />
     <ClInclude Include="include\CrowPlan.h" />
-    <ClInclude Include="include\LegacyAIPlanFactory.h" />
+    <ClInclude Include="include\LegacyArmedVehiclePlan.h" />
+	<ClInclude Include="include\LegacyAIPlanFactory.h" />
     <ClInclude Include="include\LegacyAIPlan.h" />
     <ClInclude Include="include\LegacyCreaturePlan.h" />
     <ClInclude Include="include\LegacyZombiePlan.h" />

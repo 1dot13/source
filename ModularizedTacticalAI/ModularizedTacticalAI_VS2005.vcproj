@@ -347,6 +347,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\LegacyArmedVehiclePlan.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LegacyAIPlan.cpp"
 				>
 			</File>
@@ -394,6 +398,10 @@
 			</File>
 			<File
 				RelativePath=".\include\CrowPlan.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\LegacyArmedVehiclePlan.h"
 				>
 			</File>
 			<File
