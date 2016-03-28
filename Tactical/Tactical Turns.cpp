@@ -178,7 +178,12 @@ void HandleTacticalEndTurn( )
 
 	if(gGameExternalOptions.gfAllowReinforcements)//dnl ch68 100913
 	{
-		((gTacticalStatus.Team[ENEMY_TEAM].bTeamActive || gTacticalStatus.Team[MILITIA_TEAM].bTeamActive) ? (guiTurnCnt++) : (guiTurnCnt = 0));
+		if ( gTacticalStatus.Team[ENEMY_TEAM].bTeamActive || gfPendingNonPlayerTeam[ENEMY_TEAM] || 
+			 gTacticalStatus.Team[MILITIA_TEAM].bTeamActive || gfPendingNonPlayerTeam[MILITIA_TEAM] )
+			 ++guiTurnCnt;
+		else
+			guiTurnCnt = 0;
+
 		//Check for enemy pooling (add enemies if there happens to be more than the max in the
 		//current battle.	If one or more slots have freed up, we can add them now.
 		AddPossiblePendingEnemiesToBattle();
