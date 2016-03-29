@@ -1614,7 +1614,8 @@ void AddPossiblePendingEnemiesToBattle()
 	}
 
 	ubSlots = NumFreeSlots( ENEMY_TEAM );
-	if(gGameExternalOptions.sMinDelayEnemyReinforcements)//dnl ch68 080913
+	// silversurfer: Only if there are enemy troops in the sector already we can talk about "reinforcements". If no troops are there we will spawn the incoming troops without delay.
+	if( gGameExternalOptions.sMinDelayEnemyReinforcements && gTacticalStatus.Team[ENEMY_TEAM].bTeamActive )//dnl ch68 080913
 	{
 		if(gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition == TRUE)
 		{

@@ -8778,6 +8778,7 @@ INT32 iCounter2 = 0;
 	{
 		// set compressed mode to Normal (X1)
 		SetGameTimeCompressionLevel( TIME_COMPRESS_X1 );
+		UnPauseGame();
 	}
 	else	// going to another screen (options, laptop, save/load)
 	{
