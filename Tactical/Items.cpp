@@ -11526,16 +11526,19 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 {
 	UINT8 bonus = 0;
+	UINT8 bonus_body = 0;
+	UINT8 bonus_gun = 0;
 	UINT16 usItem;
 	INVTYPE *pItem;
 
 	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
 	bool usingGunScope = WeaponReady(pSoldier);
 	// CHRISL:
-	for (int i = BODYPOSSTART; i < BODYPOSFINAL; i++)
+	for (int i = BODYPOSSTART; i < BODYPOSFINAL; ++i)
 	{
 		// Okay, it's time for some optimization here
-		if (pSoldier->inv[i].exists() == true) {
+		if (pSoldier->inv[i].exists() == true)
+		{
 			usItem = pSoldier->inv[i].usItem;
 			pItem = &(Item[usItem]);
 
@@ -11552,7 +11555,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 
 			if ( !IsWeapon(usItem) )
 			{
-				bonus = __max( bonus, pItem->percenttunnelvision );
+				bonus_body = __max( bonus_body, pItem->percenttunnelvision );
 			}
 		}
 	}
@@ -11567,7 +11570,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 			pItem = &(Item[usItem]);
 
 			if ( IsWeapon(usItem) ) //if not a weapon, then it was added already above
-				bonus += Item[usItem].percenttunnelvision;
+				bonus_gun += Item[usItem].percenttunnelvision;
 
 			if ( gGameExternalOptions.fScopeModes && pSoldier )
 			{
@@ -11576,7 +11579,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 					// add boni only from non-scope items
 					if(iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
 					{
-						bonus += Item[iter->usItem].percenttunnelvision;
+						bonus_gun += Item[iter->usItem].percenttunnelvision;
 					}
 				}
 
@@ -11589,7 +11592,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 					// only use scope mode if gun is in hand, otherwise an error might occur!
 					if ( (&pSoldier->inv[HANDPOS]) == pObj  && ObjList[pSoldier->bScopeMode] != NULL && pSoldier->bScopeMode != USE_ALT_WEAPON_HOLD )
 						// now apply the bonus from the scope we use
-						bonus += Item[ObjList[pSoldier->bScopeMode]->usItem].percenttunnelvision;
+						bonus_gun += Item[ObjList[pSoldier->bScopeMode]->usItem].percenttunnelvision;
 				}
 			}
 			else
@@ -11598,12 +11601,15 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 				{
 					if(iter->exists() )
 					{
-						bonus += Item[iter->usItem].percenttunnelvision;
+						bonus_gun += Item[iter->usItem].percenttunnelvision;
 					}
 				}
 			}
 		}
 	}
+
+	// Flugente: it would be unreasonable to apply helmet penalties if we already look through a scope, so have those separated
+	bonus = max( bonus_body, bonus_gun );
 
 	// SANDRO - STOMP traits - Scouting tunnel vision reduction with binoculars and similar
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->pathing.bLevel == 0 )
@@ -11619,13 +11625,12 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 			}
 		}
 	}
+
 	// HEADROCK HAM 3.2: Further increase tunnel-vision for cowering characters.
 	// SANDRO - this calls many sub-functions over and over, we should at least skip this for civilians and such  
 	if ((gGameExternalOptions.ubCoweringReducesSightRange == 1 || gGameExternalOptions.ubCoweringReducesSightRange == 3) &&
 		IS_MERC_BODY_TYPE(pSoldier) && (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) )
 	{
-		
-
 		// Make sure character is cowering.
 		if ( CoweringShockLevel(pSoldier) && gGameExternalOptions.ubMaxSuppressionShock > 0 && 
 			bonus < 100 )
@@ -11641,13 +11646,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	/*// Flugente: drugs can alter our vision
-	if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_TUNNELVISION ] )
-	{
-		bonus = __min(100, bonus + 25);
-	} */
-
-	if ( !PTR_OURTEAM ) // Madd: adjust tunnel vision by difficulty level
+	if ( !PTR_OURTEAM && gGameOptions.ubDifficultyLevel ) // Madd: adjust tunnel vision by difficulty level
 		bonus /= gGameOptions.ubDifficultyLevel;
 	
 	return __min(100, bonus);

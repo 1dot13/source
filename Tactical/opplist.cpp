@@ -1204,6 +1204,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	INT8	bLightLevel;
 	BOOLEAN sideViewLimit = FALSE;
 	SOLDIERTYPE* pSubject = SimpleFindSoldier( sSubjectGridNo, bLevel );
+	INT16 tunnelVisionInPercent = 0;
 
 	if (pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER)
 	{
@@ -1271,25 +1272,17 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 			sDistVisible = gbLookDistance[bFacingDir][bSubjectDir];
 
 			// Lesh: and this
-			if ( (sDistVisible == 0) && fLimitedVision )
-				return(0);
-
-			if ( sDistVisible != STRAIGHT )
-			{
-				INT16 tunnelVisionInPercent = GetPercentTunnelVision(pSoldier);
-
-				if ( tunnelVisionInPercent > 0)
-				{
-					sideViewLimit = TRUE;
-					sDistVisible = sDistVisible * (100 - tunnelVisionInPercent ) / 100 ;
-				}
-			}
-
-//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"sDistVisible: %d", GetPercentTunnelVision(pSoldier) );
+			if ( sDistVisible == 0 && fLimitedVision )
+				return 0;
 
 			if ( sDistVisible == ANGLE && (pSoldier->bTeam == OUR_TEAM || pSoldier->aiData.bAlertStatus >= STATUS_RED ) )
 			{
 				sDistVisible = STRAIGHT;
+			}
+
+			if ( sDistVisible != STRAIGHT || ( fLimitedVision && (bFacingDir != bSubjectDir) ) )
+			{
+				tunnelVisionInPercent = GetPercentTunnelVision( pSoldier );				
 			}
 
 			sDistVisible *= 2;
@@ -1301,6 +1294,13 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 					// reduce sight when we're not looking in that direction...
 					sDistVisible = (INT16) (sDistVisible * ANGLE_RATIO);
 				}
+			}
+
+			// Flugente: we only apply tunnelvision now, after we've possibly extended the sight range, which results in finer differentiation of effects
+			if ( tunnelVisionInPercent > 0 )
+			{
+				sideViewLimit = TRUE;
+				sDistVisible = sDistVisible * (100 - tunnelVisionInPercent) / 100;
 			}
 		}
 	}
@@ -1352,8 +1352,6 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 			IS_MERC_BODY_TYPE(pSoldier) && (pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == gbPlayerNum) && 
 			gGameExternalOptions.ubMaxSuppressionShock > 0 && sDistVisible > 0 )
 		{
-			
-
 			// Make sure character is cowering.
 			if ( CoweringShockLevel(pSoldier) )
 			{
