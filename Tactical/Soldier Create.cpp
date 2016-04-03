@@ -1343,7 +1343,7 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	{
 		pSoldier->usSoldierFlagMask |= (SOLDIER_COVERT_SOLDIER|SOLDIER_COVERT_NPC_SPECIAL|SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS);
 
-		SetClothes( pSoldier, Random( 11 ), Random( 6 ) );
+		SetClothes( pSoldier, Random( NUMSHIRTS ), Random( NUMPANTS ) );
 	}
 
 	return( TRUE );
@@ -1445,41 +1445,67 @@ INT32 ChooseHairColor( UINT8 usBodyType, INT32 skin )
 }
 
 // Flugente: set palettes for vest/shirt
-void SetClothes( SOLDIERTYPE* pSoldier, INT8 aVest, INT8 aPants )
+void SetClothes( SOLDIERTYPE* pSoldier, INT8 aVest, INT8 aPants, INT8 aHair, INT8 aSkin )
 {
 	if ( !pSoldier )
 		return;
-
+	
 	// Vest
-	if ( aVest >= 0 && aVest < 11 )
+	if ( aVest >= 0 && aVest < NUMSHIRTS )
 	{
 		switch ( aVest )
 		{
-		case 0:		SET_PALETTEREP_ID( pSoldier->VestPal, "BROWNVEST" );	break;
-		case 1:		SET_PALETTEREP_ID( pSoldier->VestPal, "greyVEST" );		break;
-		case 2:		SET_PALETTEREP_ID( pSoldier->VestPal, "GREENVEST" );	break;
-		case 3:		SET_PALETTEREP_ID( pSoldier->VestPal, "JEANVEST" );		break;
-		case 4:		SET_PALETTEREP_ID( pSoldier->VestPal, "REDVEST" );		break;
-		case 5:		SET_PALETTEREP_ID( pSoldier->VestPal, "BLUEVEST" );		break;
-		case 6:		SET_PALETTEREP_ID( pSoldier->VestPal, "YELLOWVEST" );	break;
-		case 7:		SET_PALETTEREP_ID( pSoldier->VestPal, "WHITEVEST" );	break;
-		case 8:		SET_PALETTEREP_ID( pSoldier->VestPal, "BLACKSHIRT" );	break;
-		case 9:		SET_PALETTEREP_ID( pSoldier->VestPal, "GYELLOWSHIRT" );	break;
-		default:	SET_PALETTEREP_ID( pSoldier->VestPal, "PURPLESHIRT" );	break;
+		case WHITEVEST:		SET_PALETTEREP_ID( pSoldier->VestPal, "WHITEVEST" );	break;
+		case GYELLOWSHIRT:	SET_PALETTEREP_ID( pSoldier->VestPal, "GYELLOWSHIRT" );	break;
+		case YELLOWVEST:	SET_PALETTEREP_ID( pSoldier->VestPal, "YELLOWVEST" );	break;
+		case GREYVEST:		SET_PALETTEREP_ID( pSoldier->VestPal, "greyVEST" );		break;
+		case BROWNVEST:		SET_PALETTEREP_ID( pSoldier->VestPal, "BROWNVEST" );	break;
+		case PURPLESHIRT:	SET_PALETTEREP_ID( pSoldier->VestPal, "PURPLESHIRT" );	break;
+		case BLUEVEST:		SET_PALETTEREP_ID( pSoldier->VestPal, "BLUEVEST" );		break;
+		case JEANVEST:		SET_PALETTEREP_ID( pSoldier->VestPal, "JEANVEST" );		break;
+		case GREENVEST:		SET_PALETTEREP_ID( pSoldier->VestPal, "GREENVEST" );	break;		
+		case REDVEST:		SET_PALETTEREP_ID( pSoldier->VestPal, "REDVEST" );		break;		
+		case BLACKSHIRT:	SET_PALETTEREP_ID( pSoldier->VestPal, "BLACKSHIRT" );	break;
+		
 		}
 	}
 
 	// Pants
-	if ( aPants >= 0 && aPants < 6 )
+	if ( aPants >= 0 && aPants < NUMPANTS )
 	{
 		switch ( aPants )
 		{
-		case 0:		SET_PALETTEREP_ID( pSoldier->PantsPal, "GREENPANTS" );	break;
-		case 1:		SET_PALETTEREP_ID( pSoldier->PantsPal, "JEANPANTS" );	break;
-		case 2:		SET_PALETTEREP_ID( pSoldier->PantsPal, "TANPANTS" );	break;
-		case 3:		SET_PALETTEREP_ID( pSoldier->PantsPal, "BLACKPANTS" );	break;
-		case 4:		SET_PALETTEREP_ID( pSoldier->PantsPal, "BLUEPANTS" );	break;
-		default:	SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS" );	break;
+		case BLUEPANTS:		SET_PALETTEREP_ID( pSoldier->PantsPal, "BLUEPANTS" );	break;
+		case BLACKPANTS:	SET_PALETTEREP_ID( pSoldier->PantsPal, "BLACKPANTS" );	break;
+		case JEANPANTS:		SET_PALETTEREP_ID( pSoldier->PantsPal, "JEANPANTS" );	break;
+		case TANPANTS:		SET_PALETTEREP_ID( pSoldier->PantsPal, "TANPANTS" );	break;
+		case BEIGEPANTS:	SET_PALETTEREP_ID( pSoldier->PantsPal, "BEIGEPANTS" );	break;
+		case GREENPANTS:	SET_PALETTEREP_ID( pSoldier->PantsPal, "GREENPANTS" );	break;
+		}
+	}
+
+	// Hair
+	if ( aHair >= 0 && aHair < NUMHEADS )
+	{
+		switch ( aHair )
+		{
+		case BROWNHEAD: SET_PALETTEREP_ID( pSoldier->HeadPal, "BROWNHEAD" );	break;
+		case BLACKHEAD: SET_PALETTEREP_ID( pSoldier->HeadPal, "BLACKHEAD" );	break;
+		case WHITEHEAD: SET_PALETTEREP_ID( pSoldier->HeadPal, "WHITEHEAD" );	break;
+		case BLONDEHEAD:SET_PALETTEREP_ID( pSoldier->HeadPal, "BLONDHEAD" );	break;
+		case REDHEAD:	SET_PALETTEREP_ID( pSoldier->HeadPal, "REDHEAD" );		break;
+		}
+	}
+
+	// Skin
+	if ( aSkin >= 0 && aSkin < NUMSKINS )
+	{
+		switch ( aSkin )
+		{
+		case PINKSKIN:	SET_PALETTEREP_ID( pSoldier->SkinPal, "PINKSKIN" );		break;
+		case TANSKIN:	SET_PALETTEREP_ID( pSoldier->SkinPal, "TANSKIN" );		break;
+		case DARKSKIN:	SET_PALETTEREP_ID( pSoldier->SkinPal, "DARKSKIN" );		break;
+		case BLACKSKIN:	SET_PALETTEREP_ID( pSoldier->SkinPal, "BLACKSKIN" );	break;
 		}
 	}
 }
@@ -3335,9 +3361,95 @@ SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 
 		// random clothes
-		SetClothes( pSoldier, Random( 11 ), Random( 6 ) );
+		SetClothes( pSoldier, Random( NUMSHIRTS ), Random( NUMPANTS ) );
 
 		pSoldier->CreateSoldierPalettes( );
+	}
+
+	return(pSoldier);
+}
+
+SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 sBodyType, INT8 aVest, INT8 aPants, INT8 aHair, INT8 aSkin, INT16 sItem1, INT16 sItem2, INT16 sItem3, INT16 sItem4 )
+{
+	// not in autoresolve!
+	if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
+		return NULL;
+
+	UINT8					ubID = NOBODY;
+	SOLDIERTYPE*			pSoldier = NULL;
+	SOLDIERCREATE_STRUCT	MercCreateStruct;
+
+	MercCreateStruct.initialize( );
+	MercCreateStruct.bTeam = CIV_TEAM;
+	MercCreateStruct.ubProfile = NO_PROFILE;
+	MercCreateStruct.sSectorX = gWorldSectorX;
+	MercCreateStruct.sSectorY = gWorldSectorY;
+	MercCreateStruct.bSectorZ = gbWorldSectorZ;
+	MercCreateStruct.sInsertionGridNo = sGridNo;
+	MercCreateStruct.ubDirection = Random( NUM_WORLD_DIRECTIONS );
+
+	while ( sBodyType < 0 || sBodyType >= CRIPPLECIV || (sBodyType >= ADULTFEMALEMONSTER && sBodyType <= QUEENMONSTER) )
+	{
+		sBodyType = Random( CRIPPLECIV + 1 );
+	}
+
+	MercCreateStruct.ubBodyType = sBodyType;
+
+	RandomizeNewSoldierStats( &MercCreateStruct );
+
+	if ( sItem1 >= NOTHING )
+	{
+		CreateItems( (UINT16)(sItem1), (INT8)(80 + Random( 21 )), 1, &gTempObject );
+		PlaceObjectInSoldierCreateStruct( &MercCreateStruct, &gTempObject );
+	}
+
+	if ( sItem2 >= NOTHING )
+	{
+		CreateItems( (UINT16)(sItem2), (INT8)(80 + Random( 21 )), 1, &gTempObject );
+		PlaceObjectInSoldierCreateStruct( &MercCreateStruct, &gTempObject );
+	}
+
+	if ( sItem3 >= NOTHING )
+	{
+		CreateItems( (UINT16)(sItem3), (INT8)(80 + Random( 21 )), 1, &gTempObject );
+		PlaceObjectInSoldierCreateStruct( &MercCreateStruct, &gTempObject );
+	}
+
+	if ( sItem4 >= NOTHING )
+	{
+		CreateItems( (UINT16)(sItem4), (INT8)(80 + Random( 21 )), 1, &gTempObject );
+		PlaceObjectInSoldierCreateStruct( &MercCreateStruct, &gTempObject );
+	}
+
+	pSoldier = TacticalCreateSoldier( &MercCreateStruct, &ubID );	
+
+	if ( pSoldier )
+	{
+		AddSoldierToSector( pSoldier->ubID );
+
+		// set correct civ group
+		pSoldier->ubCivilianGroup = usCivilianGroup;
+
+		// make him wear administrator uniform
+		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
+
+		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+		{
+			SetClothes( pSoldier, aVest, aPants, aHair, aSkin );
+
+			// Use palette from HVOBJECT, then use substitution for pants, etc
+			memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[usPaletteAnimSurface].hVideoObject->pPaletteEntry, sizeof(pSoldier->p8BPPPalette) * 256 );
+
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
+			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
+
+			pSoldier->CreateSoldierPalettes( );
+
+			// Dirty
+			fInterfacePanelDirty = DIRTYLEVEL2;
+		}
 	}
 
 	return(pSoldier);

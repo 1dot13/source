@@ -845,6 +845,7 @@ static int l_ResetBoxers( lua_State *L );
 static int l_AddVolunteers( lua_State *L );
 
 static int l_CreateArmedCivilain( lua_State *L );
+static int l_CreateCivilian( lua_State *L );
 
 static int l_BuildFortification( lua_State *L );
 static int l_RemoveFortification( lua_State *L );
@@ -1706,6 +1707,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register( L, "AddVolunteers", l_AddVolunteers );
 
 	lua_register(L, "CreateArmedCivilain", l_CreateArmedCivilain );
+	lua_register( L, "CreateCivilian", l_CreateCivilian );
 
 	lua_register( L, "BuildFortification", l_BuildFortification );
 	lua_register( L, "RemoveFortification", l_RemoveFortification );
@@ -2653,7 +2655,7 @@ void LuaRecruitRPCAdditionalHandling( UINT8 usProfile )
 	LuaFunction( _LS.L, "RecruitRPCAdditionalHandling" ).Param<int>( usProfile ).Call( 1 );
 }
 
-void LuaHandleSectorTacticalEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
+void LuaHandleSectorTacticalEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fHasEverBeenPlayerControlled )
 {
 	const char* filename = "scripts\\strategicmap.lua";
 
@@ -2665,12 +2667,13 @@ void LuaHandleSectorTacticalEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ
 	lua_register( _LS.L( ), "SECTOR", l_SECTOR );
 	lua_register( _LS.L( ), "GetFact", l_GetFact );
 	lua_register( _LS.L( ), "SetFact", l_SetFact );
+	lua_register( _LS.L( ), "CreateCivilian", l_CreateCivilian );
 	IniFunction( _LS.L( ), TRUE );
 	IniGlobalGameSetting( _LS.L( ) );
 
 	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
 
-	LuaFunction( _LS.L, "HandleSectorTacticalEntry" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Call( 3 );
+	LuaFunction( _LS.L, "HandleSectorTacticalEntry" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<bool>( fHasEverBeenPlayerControlled ).Call( 4 );
 }
 
 BOOLEAN LetLuaGameInit(UINT8 Init)
@@ -13038,7 +13041,7 @@ static int l_AddVolunteers( lua_State *L )
 
 static int l_CreateArmedCivilain( lua_State *L )
 {
-	if ( lua_gettop( L ) )
+	if ( lua_gettop( L ) >= 4 )
 	{
 		UINT8 usCivilianGroup	= lua_tointeger( L, 1 );
 		UINT8 usSoldierClass	= lua_tointeger( L, 2 );
@@ -13067,6 +13070,37 @@ static int l_CreateArmedCivilain( lua_State *L )
 
 				if ( fHostile )
 					gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] = CIV_GROUP_WILL_BECOME_HOSTILE;
+			}
+		}
+	}
+
+	return 0;
+}
+
+static int l_CreateCivilian( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 11 )
+	{
+		INT32 sGridNo = lua_tointeger( L, 1 );
+		UINT8 usCivilianGroup = lua_tointeger( L, 2 );
+		INT8 sBodyType = lua_tointeger( L, 3 );
+		INT8 aVest = lua_tointeger( L, 4 );
+		INT8 aPants = lua_tointeger( L, 5 );
+		INT8 aHair = lua_tointeger( L, 6 );
+		INT8 aSkin = lua_tointeger( L, 7 );
+		INT16 item1 = lua_tointeger( L, 8 );
+		INT16 item2 = lua_tointeger( L, 9 );
+		INT16 item3 = lua_tointeger( L, 10 );
+		INT16 item4 = lua_tointeger( L, 11 );
+
+		if ( gGameExternalOptions.bExtraCivilians )
+		{
+			SOLDIERTYPE* pSoldier = TacticalCreateCivilian( sGridNo, usCivilianGroup, sBodyType, aVest, aPants, aHair, aSkin, item1, item2, item3, item4 );
+
+			if ( pSoldier )
+			{
+				// So we can see them!
+				AllTeamsLookForAll( NO_INTERRUPTS );
 			}
 		}
 	}

@@ -49,6 +49,33 @@ enum
 	NUMHEADS
 };
 
+enum
+{
+	WHITEVEST,
+	GYELLOWSHIRT,
+	YELLOWVEST,
+	GREYVEST,
+	BROWNVEST,
+	PURPLESHIRT,
+	BLUEVEST,
+	JEANVEST,
+	GREENVEST,
+	REDVEST,
+	BLACKSHIRT,
+	NUMSHIRTS
+};
+
+enum
+{
+	BLUEPANTS,
+	BLACKPANTS,
+	JEANPANTS,
+	TANPANTS,
+	BEIGEPANTS,
+	GREENPANTS,
+	NUMPANTS
+};
+
 //Kris:	SERIALIZING INFORMATION
 //All maps must have:
 //	-MAPCREATE_STRUCT
@@ -448,6 +475,8 @@ SOLDIERTYPE* TacticalCreateEnemyJeep( );
 // Flugente: create an armed civilian
 SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass = SOLDIER_CLASS_ARMY );
 
+SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 sBodyType, INT8 aVest, INT8 aPants, INT8 aHair, INT8 aSkin, INT16 sItem1, INT16 sItem2, INT16 sItem3, INT16 sItem4 );
+
 // Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwise they just blend in
 SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype);
 void CreateAssassin(UINT8 disguisetype);
@@ -563,6 +592,6 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 INT32 ChooseHairColor( UINT8 usBodyType, INT32 skin );
 
 // Flugente: set palettes for vest/shirt
-void SetClothes(SOLDIERTYPE* pSoldier, INT8 aVest, INT8 aPants);
+void SetClothes( SOLDIERTYPE* pSoldier, INT8 aVest, INT8 aPants, INT8 aHair = -1, INT8 aSkin = -1 );
 
 #endif

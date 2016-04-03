@@ -21,54 +21,10 @@
 	#include "WCheck.h"
 	#include "Animation Data.h"
 	#include "GameSettings.h"
+	#include "Soldier Create.h" // added by Flugente for enums
 #endif
 
 #include "IMP Confirm.h"
-
-enum
-{ 
-	PINKSKIN, 
-	TANSKIN, 
-	DARKSKIN, 
-	BLACKSKIN, 
-	NUMSKINS 
-};
-enum
-{ 
-	BROWNHEAD, 
-	BLACKHEAD,
-	WHITEHEAD,
-	BLONDHEAD, 
-	REDHEAD,
-	NUMHEADS
-};
-
-enum
-{
-	WHITEVEST,
-	GYELLOWSHIRT,
-	YELLOWVEST,
-	GREYVEST,
-	BROWNVEST,
-	PURPLESHIRT,
-	BLUEVEST,
-	JEANVEST,
-	GREENVEST,
-	REDVEST,
-	BLACKSHIRT,
-	NUMSHIRTS
-};
-
-enum
-{
-	BLUEPANTS,
-	BLACKPANTS,
-	JEANPANTS,
-	TANPANTS,
-	BEIGEPANTS,
-	GREENPANTS,
-	NUMPANTS
-};
 
 // Skin colors
 /*STR16 sSkinTexts[]={

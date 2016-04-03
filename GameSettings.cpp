@@ -1458,6 +1458,9 @@ void LoadGameExternalOptions()
 	// Neutral civilians can detect and avoid player's mines
 	gGameExternalOptions.bNeutralCiviliansAvoidPlayerMines			= iniReader.ReadBoolean("Tactical Interface Settings","CIVILIANS_AVOID_PLAYER_MINES",FALSE);
 
+	// can extra civilians be created via LUA?
+	gGameExternalOptions.bExtraCivilians					= iniReader.ReadBoolean( "Tactical Interface Settings", "ALLOW_EXTRA_CIVILIANS", FALSE );
+	
 	// Add smoke after regular explosions
 	gGameExternalOptions.bAddSmokeAfterExplosion				= iniReader.ReadBoolean("Tactical Interface Settings","ADD_SMOKE_AFTER_EXPLOSION",FALSE);
 
