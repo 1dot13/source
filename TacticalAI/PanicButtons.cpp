@@ -187,7 +187,7 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 	//INT8		bOldKeys;
 	INT8		bPanicTrigger;
 	INT32		sPanicTriggerGridNo;
-	UINT32	uiPercentEnemiesKilled;
+	UINT32	uiPercentEnemiesKilled = 0;
 
 	if ( ! (gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE) )
 	{
@@ -200,7 +200,6 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 		return;
 	}
 
-
 	bPanicTrigger = ClosestPanicTrigger( pSoldier );
 	if (bPanicTrigger == -1)
 	{
@@ -209,7 +208,9 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 
 	sPanicTriggerGridNo = gTacticalStatus.sPanicTriggerGridNo[ bPanicTrigger ];
 
-	uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );
+	if ( gTacticalStatus.Team[ENEMY_TEAM].bMenInSector + gTacticalStatus.ubArmyGuysKilled > 0 )
+		uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );
+
 	if ( gTacticalStatus.ubPanicTolerance[ bPanicTrigger ] > uiPercentEnemiesKilled )
 	{
 		// not yet... not yet
@@ -426,15 +427,15 @@ INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier )
 	INT16		sDistance;
 	INT16		sClosestDistance = 1000;
 	INT8		bClosestTrigger = -1;
-	UINT32	uiPercentEnemiesKilled;
+	UINT32	uiPercentEnemiesKilled = 0;
 
-	uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );
+	if ( gTacticalStatus.Team[ENEMY_TEAM].bMenInSector + gTacticalStatus.ubArmyGuysKilled > 0 )
+		 uiPercentEnemiesKilled = (UINT32)(100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)(gTacticalStatus.Team[ENEMY_TEAM].bMenInSector + gTacticalStatus.ubArmyGuysKilled));
 
-	for ( bLoop = 0; bLoop < NUM_PANIC_TRIGGERS; bLoop++ )
+	for ( bLoop = 0; bLoop < NUM_PANIC_TRIGGERS; ++bLoop )
 	{		
 		if (!TileIsOutOfBounds(gTacticalStatus.sPanicTriggerGridNo[ bLoop ]))
 		{
-
 			if ( gTacticalStatus.ubPanicTolerance[ bLoop ] > uiPercentEnemiesKilled )
 			{
 				// not yet... not yet...
