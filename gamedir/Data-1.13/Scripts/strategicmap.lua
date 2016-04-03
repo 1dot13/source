@@ -188,7 +188,72 @@ SoldierClass =
 
 CivGroup =
 {
+	WARDEN_CIV_GROUP = 11,
 	BOUNTYHUNTER_CIV_GROUP = 25,
+	SCIENTIST_GROUP = 27,
+	RADAR_TECHNICIAN_GROUP = 28,
+	AIRPORT_STAFF_GROUP = 29,
+	BARRACK_STAFF_GROUP = 30,
+	FACTORY_GROUP = 31,
+	ADMINISTRATIVE_STAFF_GROUP = 32,
+	LOYAL_CIV_GROUP = 33,
+}
+
+Bodytype = 
+{
+	REGMALE = 0,
+	BIGMALE = 1,
+	STOCKYMALE = 2,
+	REGFEMALE = 3,
+	FATCIV = 11,
+	MANCIV = 12,
+	MINICIV = 13,
+	DRESSCIV = 14,
+	HATKIDCIV = 15,
+	KIDCIV = 16,
+	CRIPPLECIV = 17,
+}
+
+Skin = 
+{
+	PINKSKIN = 0,
+	TANSKIN = 1,
+	DARKSKIN = 2,
+	BLACKSKIN = 3,
+}
+
+Hair = 
+{
+	WHITEHEAD = 0,
+	BLACKHEAD = 1,
+	BROWNHEAD = 2,
+	BLONDEHEAD = 3,
+	REDHEAD = 4,
+}
+
+Vest = 
+{
+	WHITEVEST = 0,
+	GYELLOWSHIRT = 1,
+	YELLOWVEST = 2,
+	GREYVEST = 3,
+	BROWNVEST = 4,
+	PURPLESHIRT = 5,
+	BLUEVEST = 6,
+	JEANVEST = 7,
+	GREENVEST = 8,
+	REDVEST = 9,
+	BLACKSHIRT = 10,
+}
+
+Pants = 
+{
+	BLUEPANTS = 0,
+	BLACKPANTS = 1,
+	JEANPANTS = 2,
+	TANPANTS = 3,
+	BEIGEPANTS = 4,
+	GREENPANTS = 5,
 }
 
 local gsRobotGridNo
@@ -299,7 +364,7 @@ function RecruitRPCAdditionalHandling( usProfile )
 end
 
 -- this function is called whenever we enter a sector in tactical
-function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ )
+function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPlayerControlled )
 	
 	if ( gubQuest( Quests.QUEST_KINGPIN_ANGEL_MARIA ) == qStatus.QUESTINPROGRESS ) then
 	
@@ -352,4 +417,150 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ )
 		end
 		
 	end
+	
+	-- Flugente: if this sector has not yet been liberated by the player, there might be some civilian enemy personnel here
+	-- the idea is that these people are government employed, and won't stay around once you take the sector
+	-- paramters of CreateCivilian:
+	-- - tile where person should be created on the map
+	-- - civilian group they should belong to (see also CivGRoupNames.xml)
+	-- - bodytype
+	-- - vest colour (-1 for random)
+	-- - pants colour (-1 for random)
+	-- - hair colour (-1 for random)
+	-- - skin colour (-1 for random)
+	-- - optional item 1 (-1 for nothing)
+	-- - optional item 2 (-1 for nothing)
+	-- - optional item 3 (-1 for nothing)
+	-- - optional item 4 (-1 for nothing)
+	
+	if ( fHasEverBeenPlayerControlled == false ) then
+		-- surface sectors
+		if ( bSectorZ == 0 ) then
+			-- central SAM
+			if ( sSectorX == 8 and sSectorY == SectorY.MAP_ROW_I ) then
+				CreateCivilian(16081, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.MANCIV, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 635, -1, -1)
+				CreateCivilian(15443, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.REGFEMALE, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 635, -1, -1)
+				CreateCivilian(10944, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.REGMALE, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 8, -1, -1)
+			-- Drassen SAM
+			elseif ( sSectorX == 15 and sSectorY == SectorY.MAP_ROW_D ) then
+				CreateCivilian(11297, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.MANCIV, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 8, -1, -1)
+			-- chitzena SAM
+			elseif ( sSectorX == 2 and sSectorY == SectorY.MAP_ROW_D ) then
+				CreateCivilian(10675, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.REGFEMALE, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 635, -1, -1)
+				CreateCivilian(9718, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.REGMALE, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 8, -1, -1)
+			-- Meduna SAM
+			elseif ( sSectorX == 4 and sSectorY == SectorY.MAP_ROW_N ) then
+				CreateCivilian(12071, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.REGFEMALE, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 635, -1, -1)
+				CreateCivilian(12554, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.REGMALE, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 635, -1, -1)
+				CreateCivilian(15085, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.MANCIV, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 8, -1, -1)
+			-- Orta surface
+			elseif ( sSectorX == 4 and sSectorY == SectorY.MAP_ROW_K ) then
+				CreateCivilian(16065, CivGroup.SCIENTIST_GROUP, Bodytype.DRESSCIV, Vest.WHITEVEST, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(13991, CivGroup.SCIENTIST_GROUP, Bodytype.MANCIV, Vest.WHITEVEST, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
+			-- Meduna airport
+			elseif ( sSectorX == 3 and sSectorY == SectorY.MAP_ROW_N ) then
+				CreateCivilian(12224, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.JEANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(11439, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.REGMALE, Vest.BROWNVEST, Pants.JEANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(11451, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.REGFEMALE, Vest.BROWNVEST, Pants.JEANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(13529, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.REGMALE, Vest.BROWNVEST, Pants.JEANPANTS, -1, -1, -1, -1, -1, -1)
+			-- Drassen airport
+			elseif ( sSectorX == 13 and sSectorY == SectorY.MAP_ROW_B ) then
+				CreateCivilian(11719, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.JEANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(8054, CivGroup.RADAR_TECHNICIAN_GROUP, Bodytype.MANCIV, Vest.GREYVEST, Pants.GREENPANTS, -1, -1, 210, 8, -1, -1)
+				CreateCivilian(5990, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.REGFEMALE, Vest.BROWNVEST, Pants.JEANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(4562, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.REGMALE, Vest.BROWNVEST, Pants.JEANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(8112, CivGroup.AIRPORT_STAFF_GROUP, Bodytype.FATCIV, Vest.BROWNVEST, Pants.JEANPANTS, Hair.WHITEHEAD, -1, -1, -1, -1, -1)
+			-- Grumm factory
+			elseif ( sSectorX == 2 and sSectorY == SectorY.MAP_ROW_H ) then
+				CreateCivilian(12051, CivGroup.FACTORY_GROUP, Bodytype.KIDCIV, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9337, CivGroup.FACTORY_GROUP, Bodytype.HATKIDCIV, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9988, CivGroup.FACTORY_GROUP, Bodytype.KIDCIV, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10165, CivGroup.FACTORY_GROUP, Bodytype.HATKIDCIV, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10287, CivGroup.FACTORY_GROUP, Bodytype.DRESSCIV, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+			-- Grumm factory
+			elseif ( sSectorX == 2 and sSectorY == SectorY.MAP_ROW_G ) then
+				CreateCivilian(11777, CivGroup.SCIENTIST_GROUP, Bodytype.REGMALE, Vest.WHITEVEST, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10019, CivGroup.FACTORY_GROUP, Bodytype.REGFEMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(18944, CivGroup.FACTORY_GROUP, Bodytype.REGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(12543, CivGroup.FACTORY_GROUP, Bodytype.MANCIV, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+			-- Tixa
+			elseif ( sSectorX == 9 and sSectorY == SectorY.MAP_ROW_J ) then
+				CreateCivilian(9058, CivGroup.ADMINISTRATIVE_STAFF_GROUP, Bodytype.MINICIV, Vest.PURPLESHIRT, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9992, CivGroup.WARDEN_CIV_GROUP, Bodytype.REGFEMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(15895, CivGroup.WARDEN_CIV_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(12056, CivGroup.WARDEN_CIV_GROUP, Bodytype.REGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(17043, CivGroup.WARDEN_CIV_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+			-- Alma prison
+			elseif ( sSectorX == 13 and sSectorY == SectorY.MAP_ROW_I ) then
+				CreateCivilian(10618, CivGroup.ADMINISTRATIVE_STAFF_GROUP, Bodytype.DRESSCIV, Vest.PURPLESHIRT, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(12893, CivGroup.WARDEN_CIV_GROUP, Bodytype.REGFEMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(11594, CivGroup.WARDEN_CIV_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(13514, CivGroup.WARDEN_CIV_GROUP, Bodytype.REGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(10309, CivGroup.WARDEN_CIV_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(8223, CivGroup.WARDEN_CIV_GROUP, Bodytype.REGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+			-- Alma warehouse
+			elseif ( sSectorX == 14 and sSectorY == SectorY.MAP_ROW_H ) then
+				CreateCivilian(20235, CivGroup.FACTORY_GROUP, Bodytype.REGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10612, CivGroup.FACTORY_GROUP, Bodytype.REGFEMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9656, CivGroup.FACTORY_GROUP, Bodytype.REGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(12421, CivGroup.FACTORY_GROUP, Bodytype.BIGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10334, CivGroup.FACTORY_GROUP, Bodytype.REGFEMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(16374, CivGroup.FACTORY_GROUP, Bodytype.BIGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+			-- Alma barracks
+			elseif ( sSectorX == 13 and sSectorY == SectorY.MAP_ROW_H ) then
+				CreateCivilian(11132, CivGroup.ADMINISTRATIVE_STAFF_GROUP, Bodytype.MINICIV, Vest.PURPLESHIRT, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(11913, CivGroup.ADMINISTRATIVE_STAFF_GROUP, Bodytype.DRESSCIV, Vest.PURPLESHIRT, Pants.BLUEPANTS, Hair.WHITEHEAD, -1, -1, -1, -1, -1)
+				CreateCivilian(6793, CivGroup.BARRACK_STAFF_GROUP, Bodytype.REGMALE, Vest.GREENVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9993, CivGroup.BARRACK_STAFF_GROUP, Bodytype.REGFEMALE, Vest.GREENVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(12874, CivGroup.BARRACK_STAFF_GROUP, Bodytype.BIGMALE, Vest.GREENVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9680, CivGroup.BARRACK_STAFF_GROUP, Bodytype.REGMALE, Vest.GREENVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9688, CivGroup.BARRACK_STAFF_GROUP, Bodytype.MANCIV, Vest.GREENVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(12086, CivGroup.BARRACK_STAFF_GROUP, Bodytype.REGMALE, Vest.GREENVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(7942, CivGroup.BARRACK_STAFF_GROUP, Bodytype.REGFEMALE, Vest.GREENVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+			-- Balime
+			elseif ( sSectorX == 11 and sSectorY == SectorY.MAP_ROW_L ) then
+				CreateCivilian(15951, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, 195, -1, -1, -1)
+				CreateCivilian(17692, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(12546, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, 195, -1, -1, -1)
+				CreateCivilian(13826, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(13350, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(13491, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(16708, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, 195, -1, -1, -1)
+				CreateCivilian(12264, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(13227, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+			-- Balime
+			elseif ( sSectorX == 12 and sSectorY == SectorY.MAP_ROW_L ) then
+				CreateCivilian(12599, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(11134, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10508, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10503, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, 195, -1, -1, -1)
+				CreateCivilian(12102, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(14830, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(15297, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, 195, -1, -1, -1)
+				CreateCivilian(16414, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9976, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(14792, CivGroup.LOYAL_CIV_GROUP, -1, -1, -1, -1, -1, 195, -1, -1, -1)
+			end
+		-- sublevel 1
+		elseif ( bSectorZ == 1 ) then
+			-- Orta
+			if ( sSectorX == 4 and sSectorY == SectorY.MAP_ROW_K ) then
+				CreateCivilian(14494, CivGroup.ADMINISTRATIVE_STAFF_GROUP, Bodytype.MINICIV, Vest.PURPLESHIRT, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(13062, CivGroup.SCIENTIST_GROUP, Bodytype.MANCIV, Vest.WHITEVEST, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(13167, CivGroup.SCIENTIST_GROUP, Bodytype.FATCIV, Vest.WHITEVEST, Pants.BEIGEPANTS, Hair.WHITEHEAD, -1, -1, -1, -1, -1)
+				CreateCivilian(12048, CivGroup.SCIENTIST_GROUP, Bodytype.REGMALE, Vest.WHITEVEST, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(9827, CivGroup.FACTORY_GROUP, Bodytype.BIGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(10007, CivGroup.FACTORY_GROUP, Bodytype.REGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(17211, CivGroup.FACTORY_GROUP, Bodytype.BIGMALE, Vest.YELLOWVEST, Pants.TANPANTS, -1, -1, -1, -1, -1, -1)
+			-- Tixa
+			elseif ( sSectorX == 9 and sSectorY == SectorY.MAP_ROW_J ) then
+				CreateCivilian(12875, CivGroup.WARDEN_CIV_GROUP, Bodytype.REGFEMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(12096, CivGroup.WARDEN_CIV_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(7287, CivGroup.WARDEN_CIV_GROUP, Bodytype.REGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(5843, CivGroup.WARDEN_CIV_GROUP, Bodytype.BIGMALE, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+				CreateCivilian(5378, CivGroup.WARDEN_CIV_GROUP, Bodytype.MANCIV, Vest.BROWNVEST, Pants.BLACKPANTS, -1, -1, 213, 298, 1625, -1)
+			end
+		end
+	end
+	
 end
