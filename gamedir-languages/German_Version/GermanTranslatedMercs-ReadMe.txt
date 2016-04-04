@@ -7,6 +7,13 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-04-02:
+- added Eli
+- updates to Kelly
+- updates to Bob
+- updates to Screw
+
+
 2016-03-24:
 - added Tex
 - added Ears
@@ -35,19 +42,11 @@ Changelog:
 - updates to Bud
 
 
-2016-02-28:
-- added Bernie
-- added Wally
-- updates to Leech
-- updates to Needle
-- updates to Leon
-
-
 
 Status:
 -------
 - nearly weekly content updates
-- Speck, Eli and Carp remaining
+- Speck and Carp remaining
 - small bunch of various files remaining (Snitch)
 - polish/rework of already existing files
 
