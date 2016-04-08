@@ -87,7 +87,6 @@
 		<Duckbill>0</Duckbill>
 		<GLGrenade>0</GLGrenade>
 		<Mine>0</Mine>
-		<antitankmine>0</antitankmine>
 		<Mortar>0</Mortar>
 		<RocketLauncher>0</RocketLauncher>
 		<SingleShotRocketLauncher>0</SingleShotRocketLauncher>
@@ -170,6 +169,7 @@
 		<overheatCooldownModificator>0.0</overheatCooldownModificator>
 		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
 		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
+		<PoisonPercentage>0</PoisonPercentage>
 		<FoodType>0</FoodType>
 		<LockPickModifier>0</LockPickModifier>
 		<CrowbarModifier>0</CrowbarModifier>
@@ -186,6 +186,7 @@
 		<SleepModifier>0</SleepModifier>
 		<sBackpackWeightModifier>0</sBackpackWeightModifier>
 		<fAllowClimbing>0</fAllowClimbing>
+		<antitankmine>0</antitankmine>
 		<cigarette>0</cigarette>
 		<usPortionSize>0</usPortionSize>
 		<diseaseprotectionface>0</diseaseprotectionface>
@@ -2117,12 +2118,12 @@
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<RocketRifle>1</RocketRifle>
-		<FingerPrintID>1</FingerPrintID>
 		<CamoBonus>-5</CamoBonus>
 		<UrbanCamoBonus>-5</UrbanCamoBonus>
 		<DesertCamoBonus>-5</DesertCamoBonus>
 		<SnowCamoBonus>-5</SnowCamoBonus>
 		<StealthBonus>-5</StealthBonus>
+		<FingerPrintID>1</FingerPrintID>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -2425,12 +2426,12 @@
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<RocketRifle>1</RocketRifle>
-		<FingerPrintID>1</FingerPrintID>
 		<CamoBonus>-5</CamoBonus>
 		<UrbanCamoBonus>-5</UrbanCamoBonus>
 		<DesertCamoBonus>-5</DesertCamoBonus>
 		<SnowCamoBonus>-5</SnowCamoBonus>
 		<StealthBonus>-5</StealthBonus>
+		<FingerPrintID>1</FingerPrintID>
 		<ProjectionFactor>1.3</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -4916,7 +4917,7 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>66</ubGraphicNum>
-		<ubWeight>20</ubWeight>
+		<ubWeight>25</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>600</usPrice>
 		<ubCoolness>2</ubCoolness>
@@ -4927,7 +4928,9 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-10</StealthBonus>
 		<FlakJacket>1</FlakJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
@@ -4958,7 +4961,7 @@
 		<ubClassIndex>1</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>18</ubGraphicNum>
-		<ubWeight>22</ubWeight>
+		<ubWeight>25</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>700</usPrice>
 		<bRepairEase>1</bRepairEase>
@@ -4967,23 +4970,25 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-13</StealthBonus>
 		<FlakJacket>1</FlakJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-5</PercentBase>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
+			<PercentBase>-6</PercentBase>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-10</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
+			<PercentBase>-12</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-7</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-7</PercentCounterForceAccuracy>
+			<PercentBase>-9</PercentBase>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-9</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -4998,7 +5003,7 @@
 		<ubClassIndex>2</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>11</ubGraphicNum>
-		<ubWeight>18</ubWeight>
+		<ubWeight>25</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>800</usPrice>
 		<bRepairEase>3</bRepairEase>
@@ -5007,11 +5012,26 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-7</StealthBonus>
 		<FlakJacket>1</FlakJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentBase>-3</PercentBase>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentBase>-5</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentBase>-4</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>164</uiIndex>
@@ -5025,7 +5045,7 @@
 		<ubClassIndex>3</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>64</ubGraphicNum>
-		<ubWeight>32</ubWeight>
+		<ubWeight>31</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>1000</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -5036,86 +5056,8 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-2</AimBonus>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
-		</CROUCH_MODIFIERS>
-		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
-	</ITEM>
-	<ITEM>
-		<uiIndex>165</uiIndex>
-		<szItemName>Kevlar-18 Vest</szItemName>
-		<szLongItemName>Treated Kevlar Vest</szLongItemName>
-		<szItemDesc>This vest's ballistic panels, made from 28 piles of Kevlar, offer even more anti-ballistic protection as they have been treated with Compound 18.</szItemDesc>
-		<szBRName>Treated Kevlar Vest</szBRName>
-		<szBRDesc>If you thought Kevlar was good, it's even better when it has been treated with Compound 18. This vest's ballistic panels, made from 28 piles of Kevlar, offer even more protection as they have been treated with the liquid anti-ballistic solution.</szBRDesc>
-		<usItemClass>2048</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>4</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>16</ubGraphicNum>
-		<ubWeight>35</ubWeight>
-		<ItemSize>25</ItemSize>
-		<usPrice>1200</usPrice>
-		<bRepairEase>-1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
-		<NotBuyable>1</NotBuyable>
-		<AimBonus>-2</AimBonus>
-		<APBonus>-2</APBonus>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
-		</CROUCH_MODIFIERS>
-		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
-	</ITEM>
-	<ITEM>
-		<uiIndex>166</uiIndex>
-		<szItemName>C.Kevlar Vest</szItemName>
-		<szLongItemName>Coated Kevlar Vest</szLongItemName>
-		<szItemDesc>This vest's ballistic panels, made from 28 piles of Kevlar, offer even better protection since they have been treated with Crepitus royal jelly.</szItemDesc>
-		<szBRName>Coated Kevlar Vest</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>2048</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>5</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubGraphicNum>9</ubGraphicNum>
-		<ubWeight>29</ubWeight>
-		<ItemSize>25</ItemSize>
-		<usPrice>1400</usPrice>
-		<bRepairEase>1</bRepairEase>
-		<Damageable>1</Damageable>
-		<Repairable>1</Repairable>
-		<Sinks>1</Sinks>
-		<ShowStatus>1</ShowStatus>
-		<NotBuyable>1</NotBuyable>
-		<AimBonus>-1</AimBonus>
 		<APBonus>-1</APBonus>
+		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
@@ -5134,6 +5076,88 @@
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
+		<uiIndex>165</uiIndex>
+		<szItemName>Kevlar-18 Vest</szItemName>
+		<szLongItemName>Treated Kevlar Vest</szLongItemName>
+		<szItemDesc>This vest's ballistic panels, made from 28 piles of Kevlar, offer even more anti-ballistic protection as they have been treated with Compound 18.</szItemDesc>
+		<szBRName>Treated Kevlar Vest</szBRName>
+		<szBRDesc>If you thought Kevlar was good, it's even better when it has been treated with Compound 18. This vest's ballistic panels, made from 28 piles of Kevlar, offer even more protection as they have been treated with the liquid anti-ballistic solution.</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>4</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>16</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<ItemSize>25</ItemSize>
+		<usPrice>1200</usPrice>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-13</StealthBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS>
+			<PercentBase>-6</PercentBase>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentBase>-12</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentBase>-9</PercentBase>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-9</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
+	</ITEM>
+	<ITEM>
+		<uiIndex>166</uiIndex>
+		<szItemName>C.Kevlar Vest</szItemName>
+		<szLongItemName>Coated Kevlar Vest</szLongItemName>
+		<szItemDesc>This vest's ballistic panels, made from 28 piles of Kevlar, offer even better protection since they have been treated with Crepitus royal jelly.</szItemDesc>
+		<szBRName>Coated Kevlar Vest</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>5</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>9</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<ItemSize>25</ItemSize>
+		<usPrice>1400</usPrice>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-7</StealthBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS>
+			<PercentBase>-3</PercentBase>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentBase>-5</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentBase>-4</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
+	</ITEM>
+	<ITEM>
 		<uiIndex>167</uiIndex>
 		<szItemName>Spectra Vest</szItemName>
 		<szLongItemName>Spectra Vest</szLongItemName>
@@ -5145,7 +5169,7 @@
 		<ubClassIndex>6</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>65</ubGraphicNum>
-		<ubWeight>32</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>2000</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -5156,23 +5180,24 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-4</AimBonus>
-		<APBonus>-3</APBonus>
+		<AimBonus>-6</AimBonus>
+		<APBonus>-5</APBonus>
+		<StealthBonus>-20</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentBase>-12</PercentBase>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-40</PercentBase>
-			<PercentCap>-16</PercentCap>
-			<PercentCounterForceAccuracy>-40</PercentCounterForceAccuracy>
+			<PercentBase>-24</PercentBase>
+			<PercentCap>-10</PercentCap>
+			<PercentCounterForceAccuracy>-24</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-26</PercentBase>
-			<PercentCap>-10</PercentCap>
-			<PercentCounterForceAccuracy>-26</PercentCounterForceAccuracy>
+			<PercentBase>-18</PercentBase>
+			<PercentCap>-8</PercentCap>
+			<PercentCounterForceAccuracy>-18</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -5187,7 +5212,7 @@
 		<ubClassIndex>7</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>17</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>2200</usPrice>
 		<bRepairEase>-3</bRepairEase>
@@ -5196,23 +5221,24 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<AimBonus>-4</AimBonus>
-		<APBonus>-5</APBonus>
+		<AimBonus>-7</AimBonus>
+		<APBonus>-6</APBonus>
+		<StealthBonus>-23</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentBase>-15</PercentBase>
+			<PercentCap>-7</PercentCap>
+			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-40</PercentBase>
-			<PercentCap>-16</PercentCap>
-			<PercentCounterForceAccuracy>-40</PercentCounterForceAccuracy>
+			<PercentBase>-29</PercentBase>
+			<PercentCap>-12</PercentCap>
+			<PercentCounterForceAccuracy>-29</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-26</PercentBase>
+			<PercentBase>-22</PercentBase>
 			<PercentCap>-10</PercentCap>
-			<PercentCounterForceAccuracy>-26</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-22</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -5227,7 +5253,7 @@
 		<ubClassIndex>8</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>10</ubGraphicNum>
-		<ubWeight>29</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>2400</usPrice>
 		<bRepairEase>-1</bRepairEase>
@@ -5236,23 +5262,24 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<AimBonus>-3</AimBonus>
-		<APBonus>-4</APBonus>
+		<AimBonus>-5</AimBonus>
+		<APBonus>-5</APBonus>
+		<StealthBonus>-17</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-15</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
+			<PercentBase>-10</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-30</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
+			<PercentBase>-20</PercentBase>
+			<PercentCap>-9</PercentCap>
+			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentBase>-16</PercentBase>
+			<PercentCap>-7</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -5267,7 +5294,7 @@
 		<ubClassIndex>9</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>67</ubGraphicNum>
-		<ubWeight>39</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>800</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -5277,11 +5304,14 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-3</APBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>171</uiIndex>
@@ -5295,7 +5325,7 @@
 		<ubClassIndex>10</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>19</ubGraphicNum>
-		<ubWeight>43</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>1000</usPrice>
 		<bRepairEase>-1</bRepairEase>
@@ -5304,11 +5334,19 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-5</APBonus>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-13</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-4</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>172</uiIndex>
@@ -5331,7 +5369,8 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-4</APBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-7</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -5351,7 +5390,7 @@
 		<ubGraphicNum>68</ubGraphicNum>
 		<ubWeight>39</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1800</usPrice>
+		<usPrice>1600</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<bRepairEase>-2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -5360,11 +5399,19 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<AimBonus>-2</AimBonus>
 		<APBonus>-6</APBonus>
+		<StealthBonus>-20</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-8</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>174</uiIndex>
@@ -5378,20 +5425,28 @@
 		<ubClassIndex>13</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>20</ubGraphicNum>
-		<ubWeight>43</ubWeight>
+		<ubWeight>39</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>2200</usPrice>
+		<usPrice>1800</usPrice>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-8</APBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-7</APBonus>
+		<StealthBonus>-23</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-12</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>175</uiIndex>
@@ -5405,20 +5460,28 @@
 		<ubClassIndex>14</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>13</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>39</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>2600</usPrice>
+		<usPrice>2000</usPrice>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-7</APBonus>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-6</APBonus>
+		<StealthBonus>-17</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-4</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>176</uiIndex>
@@ -5432,7 +5495,7 @@
 		<ubClassIndex>15</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>61</ubGraphicNum>
-		<ubWeight>14</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>2</ubCoolness>
@@ -5444,14 +5507,18 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>177</uiIndex>
@@ -5465,7 +5532,7 @@
 		<ubClassIndex>16</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>63</ubGraphicNum>
-		<ubWeight>14</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>400</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -5476,13 +5543,21 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-7</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>178</uiIndex>
@@ -5496,7 +5571,7 @@
 		<ubClassIndex>17</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>15</ubGraphicNum>
-		<ubWeight>15</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>500</usPrice>
 		<bRepairEase>-1</bRepairEase>
@@ -5505,14 +5580,22 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>179</uiIndex>
@@ -5526,7 +5609,7 @@
 		<ubClassIndex>18</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>8</ubGraphicNum>
-		<ubWeight>13</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>600</usPrice>
 		<bRepairEase>1</bRepairEase>
@@ -5535,10 +5618,18 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-4</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>180</uiIndex>
@@ -5554,7 +5645,7 @@
 		<ubGraphicNum>62</ubGraphicNum>
 		<ubWeight>14</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>900</usPrice>
+		<usPrice>800</usPrice>
 		<ubCoolness>7</ubCoolness>
 		<bRepairEase>-2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -5563,14 +5654,23 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-14</StealthBonus>
+		<PercentTunnelVision>2</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>181</uiIndex>
@@ -5584,23 +5684,32 @@
 		<ubClassIndex>20</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>14</ubGraphicNum>
-		<ubWeight>15</ubWeight>
+		<ubWeight>14</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>1100</usPrice>
+		<usPrice>1000</usPrice>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-4</APBonus>
+		<StealthBonus>-17</StealthBonus>
+		<PercentTunnelVision>2</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-8</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>182</uiIndex>
@@ -5614,19 +5723,32 @@
 		<ubClassIndex>21</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>7</ubGraphicNum>
-		<ubWeight>13</ubWeight>
+		<ubWeight>14</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>1300</usPrice>
+		<usPrice>1200</usPrice>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-11</StealthBonus>
+		<PercentTunnelVision>2</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>183</uiIndex>
@@ -5652,22 +5774,24 @@
 		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>3</BR_NewInventory>
-		<AimBonus>-2</AimBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-3</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+			<PercentBase>-15</PercentBase>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+			<PercentBase>-30</PercentBase>
+			<PercentCap>-12</PercentCap>
+			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentBase>-21</PercentBase>
+			<PercentCap>-9</PercentCap>
+			<PercentCounterForceAccuracy>-21</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -5809,7 +5933,7 @@
 		<ubGraphicNum>116</ubGraphicNum>
 		<ubWeight>20</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>950</usPrice>
+		<usPrice>800</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -5818,22 +5942,23 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-1</AimBonus>
+		<StealthBonus>-5</StealthBonus>
 		<LeatherJacket>1</LeatherJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
+			<PercentBase>-3</PercentBase>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
 			<PercentBase>-5</PercentBase>
 			<PercentCap>-2</PercentCap>
 			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS>
-			<PercentBase>-10</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-7</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-7</PercentCounterForceAccuracy>
+			<PercentBase>-4</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -5850,15 +5975,16 @@
 		<ubGraphicNum>117</ubGraphicNum>
 		<ubWeight>20</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1200</usPrice>
+		<usPrice>900</usPrice>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-2</AimBonus>
 		<APBonus>-1</APBonus>
+		<StealthBonus>-8</StealthBonus>
 		<LeatherJacket>1</LeatherJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
@@ -5891,18 +6017,28 @@
 		<ubGraphicNum>118</ubGraphicNum>
 		<ubWeight>20</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1500</usPrice>
+		<usPrice>1000</usPrice>
 		<bRepairEase>3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
+		<StealthBonus>-2</StealthBonus>
 		<LeatherJacket>1</LeatherJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentBase>-1</PercentBase>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentBase>-2</PercentBase>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentBase>-1</PercentBase>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>192</uiIndex>
@@ -6014,9 +6150,9 @@
 		<ubClassIndex>35</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>137</ubGraphicNum>
-		<ubWeight>32</ubWeight>
+		<ubWeight>34</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1400</usPrice>
+		<usPrice>1200</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -6025,23 +6161,24 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-3</AimBonus>
-		<APBonus>-3</APBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-4</APBonus>
+		<StealthBonus>-15</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-15</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
+			<PercentBase>-5</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-30</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
+			<PercentBase>-10</PercentBase>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentBase>-7</PercentBase>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-7</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -6056,9 +6193,9 @@
 		<ubClassIndex>36</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>40</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>34</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1600</usPrice>
+		<usPrice>1400</usPrice>
 		<bRepairEase>-2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -6067,21 +6204,22 @@
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-3</AimBonus>
 		<APBonus>-5</APBonus>
+		<StealthBonus>-18</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-15</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
+			<PercentBase>-6</PercentBase>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-30</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
+			<PercentBase>-12</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentBase>-9</PercentBase>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-9</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -6096,31 +6234,32 @@
 		<ubClassIndex>37</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>41</ubGraphicNum>
-		<ubWeight>29</ubWeight>
+		<ubWeight>34</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1800</usPrice>
+		<usPrice>1600</usPrice>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<AimBonus>-2</AimBonus>
+		<AimBonus>-1</AimBonus>
 		<APBonus>-4</APBonus>
+		<StealthBonus>-12</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+			<PercentBase>-3</PercentBase>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+			<PercentBase>-5</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentBase>-4</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -6277,8 +6416,8 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<Hardware>1</Hardware>
 		<Toolkit>1</Toolkit>
-		<DisarmModifier>15</DisarmModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DisarmModifier>15</DisarmModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7320,8 +7459,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Hardware>1</Hardware>
 		<WireCutters>1</WireCutters>
-		<DisarmModifier>10</DisarmModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DisarmModifier>10</DisarmModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7378,8 +7517,8 @@
 		<Damageable>1</Damageable>
 		<Alcohol>192</Alcohol>		<!-- full bottle weighs 1000g - bottle weighs 400g - 40% alc, volume mass 0.8 -> 600 * 0.4 * 0.8 = 192g of alcohol -->
 		<DrugType>2</DrugType>
-		<FoodType>2</FoodType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>2</FoodType>
 		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -7595,8 +7734,8 @@
 		<Damageable>1</Damageable>
 		<Alcohol>61.6</Alcohol>	<!-- full bottle weighs 1200g - bottle weighs 500g - 11% alc, volume mass 0.8 -> 700 * 0.11 * 0.8 = 192g of alcohol -->
 		<DrugType>4</DrugType>
-		<FoodType>4</FoodType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>4</FoodType>
 		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -7621,8 +7760,8 @@
 		<Damageable>1</Damageable>
 		<Alcohol>16.56</Alcohol>	<!-- full bottle weighs 600g - bottle weighs 300g - 6.9% alc, volume mass 0.8 -> 300 * 0.069 * 0.8 = 192g of alcohol -->
 		<DrugType>3</DrugType>
-		<FoodType>3</FoodType>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>3</FoodType>
 		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -7917,8 +8056,8 @@
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DrugType>7</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<cigarette>1</cigarette>
 		<usPortionSize>5</usPortionSize>
 		<STAND_MODIFIERS />
@@ -8201,7 +8340,7 @@
 		<ubClassIndex>39</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>206</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>31</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>1000</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -8214,12 +8353,16 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-3</APBonus>
-		<CamoBonus>20</CamoBonus>
+		<APBonus>-2</APBonus>
+		<CamoBonus>12</CamoBonus>
+		<DesertCamoBonus>12</DesertCamoBonus>
+		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>283</uiIndex>
@@ -8246,42 +8389,44 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-2</AimBonus>
+		<AimBonus>-1</AimBonus>
 		<APBonus>-1</APBonus>
-		<CamoBonus>20</CamoBonus>
+		<CamoBonus>15</CamoBonus>
+		<DesertCamoBonus>10</DesertCamoBonus>
+		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+			<PercentBase>-3</PercentBase>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+			<PercentBase>-5</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentBase>-4</PercentBase>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
 		<szItemName>Uniform</szItemName>
 		<szLongItemName>Field Uniform</szLongItemName>
-		<szItemDesc>Officer's fatigues. This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
+		<szItemDesc>More fatigues than real armour, this BDU is better than nothing, but wont stop a lot of damage.</szItemDesc>
 		<szBRName>Field Uniform</szBRName>
-		<szBRDesc>Officer's fatigues.  Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szBRDesc>These lightweight fatigues provide limited protection while retaining full mobility. Can be outfitted with plates for increased protection.</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>41</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>211</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>8</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1400</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<usPrice>250</usPrice>
+		<ubCoolness>2</ubCoolness>
 		<bReliability>-1</bReliability>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
@@ -8291,23 +8436,21 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-2</AimBonus>
-		<CamoBonus>20</CamoBonus>
+		<CamoBonus>15</CamoBonus>
+		<DesertCamoBonus>10</DesertCamoBonus>
+		<StealthBonus>-5</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+			<PercentBase>-1</PercentBase>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+			<PercentBase>-2</PercentBase>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentBase>-1</PercentBase>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -8554,7 +8697,7 @@
 		<ubGraphicNum>193</ubGraphicNum>
 		<ubWeight>14</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>500</usPrice>
+		<usPrice>700</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -8563,14 +8706,23 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-3</StealthBonus>
+		<PercentTunnelVision>4</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>294</uiIndex>
@@ -8586,7 +8738,7 @@
 		<ubGraphicNum>195</ubGraphicNum>
 		<ubWeight>39</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>900</usPrice>
+		<usPrice>1400</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -8595,11 +8747,19 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-3</APBonus>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-4</APBonus>
+		<StealthBonus>-5</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-4</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>295</uiIndex>
@@ -8613,9 +8773,9 @@
 		<ubClassIndex>52</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>194</ubGraphicNum>
-		<ubWeight>33</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1100</usPrice>
+		<usPrice>1800</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -8624,23 +8784,24 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-2</AimBonus>
-		<APBonus>-1</APBonus>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-5</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
+			<PercentCap>-4</PercentCap>
 			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
 			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
+			<PercentCap>-7</PercentCap>
 			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentBase>-15</PercentBase>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -8769,8 +8930,8 @@
 		<BR_ROF>30</BR_ROF>
 		<Hardware>1</Hardware>
 		<LocksmithKit>1</LocksmithKit>
-		<DisarmModifier>5</DisarmModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DisarmModifier>5</DisarmModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8857,9 +9018,9 @@
 		<ubClassIndex>54</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>236</ubGraphicNum>
-		<ubWeight>14</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>200</usPrice>
+		<usPrice>120</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
@@ -8871,15 +9032,19 @@
 		<NotInEditor>1</NotInEditor>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>5</CamoBonus>
+		<StealthBonus>-10</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCounterForceAccuracy>-1</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>303</uiIndex>
@@ -16653,8 +16818,8 @@
 		<BR_ROF>28</BR_ROF>
 		<ToHitBonus>-3</ToHitBonus>
 		<WireCutters>1</WireCutters>
-		<DisarmModifier>3</DisarmModifier>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DisarmModifier>3</DisarmModifier>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>-10</PercentMaxCounterForce>
@@ -22649,14 +22814,14 @@
 		<MinRangeForAimBonus>45</MinRangeForAimBonus>
 		<PercentAPReduction>20</PercentAPReduction>
 		<DefaultAttachment>912</DefaultAttachment>
-		<VisionRangeBonus>50</VisionRangeBonus>
-		<PercentTunnelVision>70</PercentTunnelVision>
-		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<CamoBonus>-6</CamoBonus>
 		<UrbanCamoBonus>-6</UrbanCamoBonus>
 		<DesertCamoBonus>-6</DesertCamoBonus>
 		<SnowCamoBonus>-6</SnowCamoBonus>
 		<StealthBonus>-6</StealthBonus>
+		<VisionRangeBonus>50</VisionRangeBonus>
+		<PercentTunnelVision>70</PercentTunnelVision>
+		<ScopeMagFactor>4.0</ScopeMagFactor>
 		<ProjectionFactor>1.4</ProjectionFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -24653,9 +24818,9 @@
 		<ubClassIndex>55</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>178</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>11</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>900</usPrice>
+		<usPrice>800</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<bReliability>3</bReliability>
 		<bRepairEase>-2</bRepairEase>
@@ -24666,14 +24831,23 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-14</StealthBonus>
+		<PercentTunnelVision>2</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>802</uiIndex>
@@ -24687,9 +24861,9 @@
 		<ubClassIndex>56</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>188</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1800</usPrice>
+		<usPrice>1600</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<bReliability>3</bReliability>
 		<bRepairEase>-2</bRepairEase>
@@ -24700,11 +24874,19 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-3</APBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-20</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-8</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>803</uiIndex>
@@ -24718,7 +24900,7 @@
 		<ubClassIndex>57</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>177</ubGraphicNum>
-		<ubWeight>20</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>2000</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -24731,22 +24913,24 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-3</AimBonus>
+		<AimBonus>-6</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-20</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-15</PercentBase>
+			<PercentBase>-12</PercentBase>
 			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-30</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
+			<PercentBase>-24</PercentBase>
+			<PercentCap>-10</PercentCap>
+			<PercentCounterForceAccuracy>-24</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-20</PercentBase>
+			<PercentBase>-18</PercentBase>
 			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-18</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -24775,15 +24959,24 @@
 		<Unaerodynamic>1</Unaerodynamic>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-4</AimBonus>
+		<AimBonus>-5</AimBonus>
+		<APBonus>-5</APBonus>
+		<StealthBonus>-20</StealthBonus>
 		<FlakJacket>1</FlakJacket>
+		<PercentTunnelVision>7</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-10</PercentCap>
+			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>805</uiIndex>
@@ -24811,12 +25004,20 @@
 		<Unaerodynamic>1</Unaerodynamic>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-12</APBonus>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-10</APBonus>
+		<StealthBonus>-30</StealthBonus>
 		<FlakJacket>1</FlakJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-4</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-4</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-16</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>806</uiIndex>
@@ -24846,6 +25047,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-10</AimBonus>
 		<APBonus>-8</APBonus>
+		<StealthBonus>-25</StealthBonus>
 		<FlakJacket>1</FlakJacket>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
@@ -24986,7 +25188,7 @@
 		<ubClassIndex>64</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>176</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>600</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -24999,14 +25201,23 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-7</StealthBonus>
+		<PercentTunnelVision>1</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>811</uiIndex>
@@ -25020,9 +25231,9 @@
 		<ubClassIndex>65</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>189</ubGraphicNum>
-		<ubWeight>30</ubWeight>
+		<ubWeight>33</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1000</usPrice>
+		<usPrice>1200</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<bReliability>1</bReliability>
 		<bRepairEase>-1</bRepairEase>
@@ -25033,11 +25244,19 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-3</APBonus>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-4</APBonus>
+		<StealthBonus>-15</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-4</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>812</uiIndex>
@@ -25051,9 +25270,9 @@
 		<ubClassIndex>66</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>190</ubGraphicNum>
-		<ubWeight>25</ubWeight>
+		<ubWeight>30</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1200</usPrice>
+		<usPrice>1500</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<bReliability>1</bReliability>
 		<bRepairEase>-1</bRepairEase>
@@ -25064,23 +25283,24 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>-3</AimBonus>
+		<AimBonus>-4</AimBonus>
 		<APBonus>-3</APBonus>
+		<StealthBonus>-15</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
+			<PercentBase>-8</PercentBase>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentBase>-16</PercentBase>
+			<PercentCap>-7</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
 			<PercentBase>-15</PercentBase>
 			<PercentCap>-6</PercentCap>
 			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS>
-			<PercentBase>-30</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
-		</CROUCH_MODIFIERS>
-		<PRONE_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25097,7 +25317,7 @@
 		<ubGraphicNum>43</ubGraphicNum>
 		<ubWeight>11</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>1100</usPrice>
+		<usPrice>1000</usPrice>
 		<bReliability>2</bReliability>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
@@ -25106,14 +25326,23 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-17</StealthBonus>
+		<PercentTunnelVision>2</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-8</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>814</uiIndex>
@@ -25127,9 +25356,9 @@
 		<ubClassIndex>68</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>44</ubGraphicNum>
-		<ubWeight>34</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>2000</usPrice>
+		<usPrice>1800</usPrice>
 		<bReliability>2</bReliability>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
@@ -25138,11 +25367,19 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-4</APBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-23</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-12</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>815</uiIndex>
@@ -25156,7 +25393,7 @@
 		<ubClassIndex>69</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>45</ubGraphicNum>
-		<ubWeight>23</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>2200</usPrice>
 		<bReliability>2</bReliability>
@@ -25167,23 +25404,24 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<AimBonus>-7</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-23</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentBase>-15</PercentBase>
-			<PercentCap>-6</PercentCap>
+			<PercentCap>-7</PercentCap>
 			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-30</PercentBase>
+			<PercentBase>-29</PercentBase>
 			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-29</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentBase>-22</PercentBase>
+			<PercentCap>-10</PercentCap>
+			<PercentCounterForceAccuracy>-22</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25196,8 +25434,9 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>70</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>23</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>218</ubGraphicNum>
+		<ubWeight>35</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>1800</usPrice>
 		<bRepairEase>-5</bRepairEase>
@@ -25208,14 +25447,23 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
-		<AimBonus>-4</AimBonus>
+		<AimBonus>-6</AimBonus>
+		<APBonus>-6</APBonus>
+		<StealthBonus>-23</StealthBonus>
+		<PercentTunnelVision>7</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentCap>-6</PercentCap>
 			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-12</PercentCap>
+			<PercentCounterForceAccuracy>-24</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>817</uiIndex>
@@ -25227,8 +25475,9 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>71</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>52</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>219</ubGraphicNum>
+		<ubWeight>48</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>2600</usPrice>
 		<bRepairEase>-5</bRepairEase>
@@ -25239,11 +25488,19 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
-		<APBonus>-12</APBonus>
+		<AimBonus>-5</AimBonus>
+		<APBonus>-11</APBonus>
+		<StealthBonus>-33</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-5</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-5</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-20</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>818</uiIndex>
@@ -25255,8 +25512,9 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>72</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>57</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>220</ubGraphicNum>
+		<ubWeight>65</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>4200</usPrice>
 		<bRepairEase>-5</bRepairEase>
@@ -25267,23 +25525,24 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
-		<AimBonus>-10</AimBonus>
-		<APBonus>-8</APBonus>
+		<AimBonus>-11</AimBonus>
+		<APBonus>-9</APBonus>
+		<StealthBonus>-28</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-40</PercentBase>
-			<PercentCap>-15</PercentCap>
-			<PercentCounterForceAccuracy>-40</PercentCounterForceAccuracy>
+			<PercentBase>-46</PercentBase>
+			<PercentCap>-17</PercentCap>
+			<PercentCounterForceAccuracy>-46</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-80</PercentBase>
-			<PercentCap>-30</PercentCap>
-			<PercentCounterForceAccuracy>-80</PercentCounterForceAccuracy>
+			<PercentBase>-88</PercentBase>
+			<PercentCap>-33</PercentCap>
+			<PercentCounterForceAccuracy>-88</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-50</PercentBase>
-			<PercentCap>-15</PercentCap>
-			<PercentCounterForceAccuracy>-50</PercentCounterForceAccuracy>
+			<PercentBase>-56</PercentBase>
+			<PercentCap>-17</PercentCap>
+			<PercentCounterForceAccuracy>-56</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25296,10 +25555,11 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>73</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>15</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>193</ubGraphicNum>
+		<ubWeight>14</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>700</usPrice>
+		<usPrice>800</usPrice>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25307,14 +25567,23 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-6</StealthBonus>
+		<PercentTunnelVision>4</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>820</uiIndex>
@@ -25326,10 +25595,11 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>74</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>43</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>195</ubGraphicNum>
+		<ubWeight>39</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1100</usPrice>
+		<usPrice>1500</usPrice>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25337,11 +25607,19 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-4</APBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-5</APBonus>
+		<StealthBonus>-8</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-8</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>821</uiIndex>
@@ -25353,10 +25631,11 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>75</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>194</ubGraphicNum>
 		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1300</usPrice>
+		<usPrice>1900</usPrice>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25364,23 +25643,24 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-2</AimBonus>
-		<APBonus>-2</APBonus>
+		<AimBonus>-5</AimBonus>
+		<APBonus>-4</APBonus>
+		<StealthBonus>-8</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+			<PercentBase>-10</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+			<PercentBase>-20</PercentBase>
+			<PercentCap>-9</PercentCap>
+			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentBase>-16</PercentBase>
+			<PercentCap>-7</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25395,9 +25675,9 @@
 		<ubClassIndex>76</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>49</ubGraphicNum>
-		<ubWeight>11</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>800</usPrice>
+		<usPrice>700</usPrice>
 		<bRepairEase>-2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25405,14 +25685,23 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-1</AimBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-10</StealthBonus>
+		<PercentTunnelVision>1</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-3</PercentCounterForceAccuracy>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-6</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>823</uiIndex>
@@ -25426,9 +25715,9 @@
 		<ubClassIndex>77</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>50</ubGraphicNum>
-		<ubWeight>34</ubWeight>
+		<ubWeight>33</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1200</usPrice>
+		<usPrice>1400</usPrice>
 		<bRepairEase>-2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25436,11 +25725,19 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-4</APBonus>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-5</APBonus>
+		<StealthBonus>-18</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-8</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>824</uiIndex>
@@ -25454,9 +25751,9 @@
 		<ubClassIndex>78</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>51</ubGraphicNum>
-		<ubWeight>28</ubWeight>
+		<ubWeight>30</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1400</usPrice>
+		<usPrice>1600</usPrice>
 		<bRepairEase>-2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25464,23 +25761,24 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-3</AimBonus>
+		<AimBonus>-5</AimBonus>
 		<APBonus>-4</APBonus>
+		<StealthBonus>-18</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-15</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-15</PercentCounterForceAccuracy>
+			<PercentBase>-10</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-30</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-30</PercentCounterForceAccuracy>
+			<PercentBase>-20</PercentBase>
+			<PercentCap>-9</PercentCap>
+			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-20</PercentBase>
-			<PercentCap>-8</PercentCap>
-			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
+			<PercentBase>-16</PercentBase>
+			<PercentCap>-7</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25495,9 +25793,9 @@
 		<ubClassIndex>79</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>46</ubGraphicNum>
-		<ubWeight>9</ubWeight>
+		<ubWeight>11</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>1300</usPrice>
+		<usPrice>1200</usPrice>
 		<bReliability>3</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -25506,10 +25804,23 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-11</StealthBonus>
+		<PercentTunnelVision>2</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>826</uiIndex>
@@ -25523,9 +25834,9 @@
 		<ubClassIndex>80</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>47</ubGraphicNum>
-		<ubWeight>26</ubWeight>
+		<ubWeight>35</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>2200</usPrice>
+		<usPrice>2000</usPrice>
 		<bReliability>3</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -25534,11 +25845,19 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-3</APBonus>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-17</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-1</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-4</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>827</uiIndex>
@@ -25552,7 +25871,7 @@
 		<ubClassIndex>81</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>48</ubGraphicNum>
-		<ubWeight>17</ubWeight>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
 		<usPrice>2400</usPrice>
 		<bReliability>3</bReliability>
@@ -25563,22 +25882,24 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-2</AimBonus>
+		<AimBonus>-5</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-17</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+			<PercentBase>-10</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+			<PercentBase>-20</PercentBase>
+			<PercentCap>-9</PercentCap>
+			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentBase>-16</PercentBase>
+			<PercentCap>-7</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25591,8 +25912,9 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>82</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>21</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>218</ubGraphicNum>
+		<ubWeight>35</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>2000</usPrice>
 		<bReliability>1</bReliability>
@@ -25604,14 +25926,23 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
-		<AimBonus>-3</AimBonus>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-5</APBonus>
+		<StealthBonus>-17</StealthBonus>
+		<PercentTunnelVision>7</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<CROUCH_MODIFIERS>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-8</PercentCap>
+			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>829</uiIndex>
@@ -25623,8 +25954,9 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>83</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>44</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>219</ubGraphicNum>
+		<ubWeight>48</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>2800</usPrice>
 		<bReliability>1</bReliability>
@@ -25636,11 +25968,19 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
+		<AimBonus>-3</AimBonus>
 		<APBonus>-10</APBonus>
+		<StealthBonus>-27</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentHandling>-12</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>830</uiIndex>
@@ -25652,7 +25992,8 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>84</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>220</ubGraphicNum>
 		<ubWeight>51</ubWeight>
 		<ItemSize>26</ItemSize>
 		<usPrice>4400</usPrice>
@@ -25665,23 +26006,24 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
-		<AimBonus>-8</AimBonus>
-		<APBonus>-6</APBonus>
+		<AimBonus>-9</AimBonus>
+		<APBonus>-8</APBonus>
+		<StealthBonus>-22</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-35</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-35</PercentCounterForceAccuracy>
+			<PercentBase>-36</PercentBase>
+			<PercentCap>-14</PercentCap>
+			<PercentCounterForceAccuracy>-36</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-70</PercentBase>
-			<PercentCap>-24</PercentCap>
-			<PercentCounterForceAccuracy>-70</PercentCounterForceAccuracy>
+			<PercentBase>-75</PercentBase>
+			<PercentCap>-28</PercentCap>
+			<PercentCounterForceAccuracy>-75</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-45</PercentBase>
-			<PercentCap>-12</PercentCap>
-			<PercentCounterForceAccuracy>-45</PercentCounterForceAccuracy>
+			<PercentBase>-46</PercentBase>
+			<PercentCap>-14</PercentCap>
+			<PercentCounterForceAccuracy>-46</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25694,8 +26036,9 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>85</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>13</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>193</ubGraphicNum>
+		<ubWeight>14</ubWeight>
 		<ItemSize>22</ItemSize>
 		<usPrice>900</usPrice>
 		<bRepairEase>1</bRepairEase>
@@ -25705,10 +26048,22 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-2</APBonus>
+		<PercentTunnelVision>4</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>832</uiIndex>
@@ -25720,10 +26075,11 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>86</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>35</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>195</ubGraphicNum>
+		<ubWeight>39</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1300</usPrice>
+		<usPrice>1700</usPrice>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25731,11 +26087,14 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-3</APBonus>
+		<APBonus>-4</APBonus>
+		<StealthBonus>-2</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>833</uiIndex>
@@ -25747,10 +26106,11 @@
 		<usItemClass>2048</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>87</ubClassIndex>
-		<ubGraphicType>2</ubGraphicType>
-		<ubWeight>30</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>194</ubGraphicNum>
+		<ubWeight>36</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1500</usPrice>
+		<usPrice>2000</usPrice>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25758,23 +26118,24 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-1</AimBonus>
-		<APBonus>-1</APBonus>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-3</APBonus>
+		<StealthBonus>-2</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-5</PercentBase>
-			<PercentCap>-2</PercentCap>
-			<PercentCounterForceAccuracy>-5</PercentCounterForceAccuracy>
+			<PercentBase>-6</PercentBase>
+			<PercentCap>-3</PercentCap>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-10</PercentBase>
-			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
+			<PercentBase>-12</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-7</PercentBase>
-			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-7</PercentCounterForceAccuracy>
+			<PercentBase>-9</PercentBase>
+			<PercentCap>-4</PercentCap>
+			<PercentCounterForceAccuracy>-9</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25789,9 +26150,9 @@
 		<ubClassIndex>88</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>52</ubGraphicNum>
-		<ubWeight>9</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ItemSize>22</ItemSize>
-		<usPrice>1000</usPrice>
+		<usPrice>800</usPrice>
 		<bReliability>1</bReliability>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25799,10 +26160,23 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<AimBonus>-1</AimBonus>
+		<APBonus>-2</APBonus>
+		<StealthBonus>-4</StealthBonus>
+		<PercentTunnelVision>1</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS>
+			<PercentCap>-1</PercentCap>
+			<PercentCounterForceAccuracy>-2</PercentCounterForceAccuracy>
+		</CROUCH_MODIFIERS>
+		<PRONE_MODIFIERS>
+			<PercentCap>-2</PercentCap>
+			<PercentCounterForceAccuracy>-4</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>835</uiIndex>
@@ -25816,9 +26190,9 @@
 		<ubClassIndex>89</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>53</ubGraphicNum>
-		<ubWeight>26</ubWeight>
+		<ubWeight>33</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1400</usPrice>
+		<usPrice>1600</usPrice>
 		<bReliability>1</bReliability>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25826,11 +26200,14 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-3</APBonus>
+		<APBonus>-4</APBonus>
+		<StealthBonus>-12</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>836</uiIndex>
@@ -25844,9 +26221,9 @@
 		<ubClassIndex>90</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>54</ubGraphicNum>
-		<ubWeight>22</ubWeight>
+		<ubWeight>30</ubWeight>
 		<ItemSize>25</ItemSize>
-		<usPrice>1600</usPrice>
+		<usPrice>1800</usPrice>
 		<bReliability>1</bReliability>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -25854,23 +26231,24 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<AimBonus>-2</AimBonus>
+		<AimBonus>-3</AimBonus>
 		<APBonus>-3</APBonus>
+		<StealthBonus>-12</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
-			<PercentBase>-8</PercentBase>
+			<PercentBase>-6</PercentBase>
 			<PercentCap>-3</PercentCap>
-			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-6</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
-			<PercentBase>-16</PercentBase>
-			<PercentCap>-6</PercentCap>
-			<PercentCounterForceAccuracy>-16</PercentCounterForceAccuracy>
+			<PercentBase>-12</PercentBase>
+			<PercentCap>-5</PercentCap>
+			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
-			<PercentBase>-11</PercentBase>
+			<PercentBase>-9</PercentBase>
 			<PercentCap>-4</PercentCap>
-			<PercentCounterForceAccuracy>-11</PercentCounterForceAccuracy>
+			<PercentCounterForceAccuracy>-9</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -25901,6 +26279,8 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
+		<StealthBonus>-3</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentBase>-5</PercentBase>
@@ -25944,10 +26324,13 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<APBonus>-1</APBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-2</PercentHandling>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>839</uiIndex>
