@@ -5549,9 +5549,7 @@ void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 			}
 			else if ( UIOkForItemPickup( pSoldier, sActionGridNo ) )
 			{
-				INT8 bZLevel;
-
-				bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, pSoldier->pathing.bLevel, pStructure );
+				INT8 bZLevel = GetLargestZLevelOfItemPool( pItemPool );
 
 				SoldierPickupItem( pSoldier, pItemPool->iItemIndex, sActionGridNo, bZLevel );
 

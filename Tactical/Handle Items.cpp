@@ -3230,7 +3230,8 @@ BOOLEAN LookForHiddenItems( INT32 sGridNo, INT8 ubLevel, BOOLEAN fSetLocator, IN
 	return( fFound );
 }
 
-
+// Flugente 2016-04-09: this function seems dubious. The only difference from GetLargestZLevelOfItemPool is that this guarantees 0 if there is a structure.
+// That doesn't make any sense, so I'm replacing all calls of this
 INT8 GetZLevelOfItemPoolGivenStructure( INT32 sGridNo, UINT8 ubLevel, STRUCTURE *pStructure )
 {
 	ITEM_POOL *pItemPool;

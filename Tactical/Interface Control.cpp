@@ -790,7 +790,7 @@ void RenderTopmostTacticalInterface( )
 						sActionGridNo = sIntTileGridNo;
 					}
 
-					bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, pSoldier->pathing.bLevel, pStructure );
+					bZLevel = GetLargestZLevelOfItemPool( pItemPool );
 
 					if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
 					{
@@ -798,49 +798,47 @@ void RenderTopmostTacticalInterface( )
 
 						// ATE: If over items, remove locator....
 						RemoveFlashItemSlot( pItemPool );
-
 					}
 				}
-		else
-		{
-			INT8 bCheckLevel;
-
-			// ATE: Allow to see list if a different level....
-			if ( pSoldier->pathing.bLevel == 0 )
-			{
-			bCheckLevel = 1;
-			}
-			else
-			{
-			bCheckLevel = 0;
-			}
-
-				// Check if we are over an item pool
-				if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, bCheckLevel ) )
+				else
 				{
-					STRUCTURE					*pStructure = NULL;
-					  INT32 sIntTileGridNo;
-					INT8							bZLevel = 0;
-					  INT32 sActionGridNo = usMapPos;
+					INT8 bCheckLevel;
 
-					// Get interactive tile...
-					if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )
+					// ATE: Allow to see list if a different level....
+					if ( pSoldier->pathing.bLevel == 0 )
 					{
-						sActionGridNo = sIntTileGridNo;
+						bCheckLevel = 1;
+					}
+					else
+					{
+						bCheckLevel = 0;
 					}
 
-					bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, bCheckLevel, pStructure );
-
-					if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
+					// Check if we are over an item pool
+					if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, bCheckLevel ) )
 					{
-						DrawItemPoolList( pItemPool, gfUIOverItemPoolGridNo	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, gusMouseYPos );
+						STRUCTURE					*pStructure = NULL;
+						INT32 sIntTileGridNo;
+						INT8							bZLevel = 0;
+						INT32 sActionGridNo = usMapPos;
 
-						// ATE: If over items, remove locator....
-						RemoveFlashItemSlot( pItemPool );
+						// Get interactive tile...
+						if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )
+						{
+							sActionGridNo = sIntTileGridNo;
+						}
+					
+						bZLevel = GetLargestZLevelOfItemPool( pItemPool );
 
+						if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
+						{
+							DrawItemPoolList( pItemPool, gfUIOverItemPoolGridNo	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, gusMouseYPos );
+
+							// ATE: If over items, remove locator....
+							RemoveFlashItemSlot( pItemPool );
+						}
 					}
 				}
-		}
 			}
 		}
 	}
@@ -854,9 +852,9 @@ void RenderTopmostTacticalInterface( )
 	}
 
 	// Check if we should render item selection window
-		if ( gCurrentUIMode == OPENDOOR_MENU_MODE )
+	if ( gCurrentUIMode == OPENDOOR_MENU_MODE )
 	{
-			RenderOpenDoorMenu( );
+		RenderOpenDoorMenu( );
 	}
 
 	if ( gfInTalkPanel )
@@ -887,8 +885,7 @@ void RenderTopmostTacticalInterface( )
 	{
 		RemoveMouseRegionForPauseOfClock( );
 	}
-
-
+	
 	if ( !(guiTacticalInterfaceFlags & INTERFACE_NORENDERBUTTONS ) )
 	{
 		// If we want to rederaw whole screen, dirty all buttons!
@@ -896,13 +893,12 @@ void RenderTopmostTacticalInterface( )
 		{
 			MarkButtonsDirty( );
 		}
-
-
+		
 		RenderButtons( );
 		RenderPausedGameBox( );
 	}
 
-		// mark all pop ups as dirty
+	// mark all pop ups as dirty
 	MarkAllBoxesAsAltered( );
 
 	HandleShowingOfTacticalInterfaceFastHelpText( );

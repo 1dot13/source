@@ -7197,14 +7197,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	
 	CHAR16 wSectorName[ 64 ];
 	GetShortSectorString( sMapX, sMapY, wSectorName );
-
-	// if we don't have a valid spot to drop gear at, don't do so - better than having tons of items unreachable
-	if ( TileIsOutOfBounds( sDropOffGridNo ) )
-	{
-		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, pMapErrorString[50], wSectorName );
-		return;
-	}
-
+		
 	std::vector<WORLDITEM> pWorldItem_Target;//dnl ch75 271013
 
 	// now loop over all sectors from which we take stuff, and move the equipment
@@ -7333,14 +7326,22 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// move
 		if( ( gWorldSectorX == sMapX )&&( gWorldSectorY == sMapY ) && (gbWorldSectorZ == bZ ) )
 		{
+			UINT16 flags = (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE);
+			if ( TileIsOutOfBounds( sDropOffGridNo ) )
+				flags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+
 			for (UINT16 i = 0; i < moveobjectcounter; ++i )
 			{
-				AddItemToPool( sDropOffGridNo, &(pObjectToMove[i]), 1 , 0, (WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO|WORLD_ITEM_REACHABLE), -1 );
+				AddItemToPool( sDropOffGridNo, &(pObjectToMove[i]), 1, 0, flags, -1 );
 			}
 		}
 		else
 		{
-			AddItemsToUnLoadedSector( sMapX, sMapY, bZ, sDropOffGridNo, moveobjectcounter, pObjectToMove, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+			UINT16 flags = WORLD_ITEM_REACHABLE;
+			if ( TileIsOutOfBounds( sDropOffGridNo ) )
+				flags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+
+			AddItemsToUnLoadedSector( sMapX, sMapY, bZ, sDropOffGridNo, moveobjectcounter, pObjectToMove, 0, flags, 0, 1, FALSE );
 		}
 
 		if ( pObjectToMove )

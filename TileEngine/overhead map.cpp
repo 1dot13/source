@@ -528,8 +528,8 @@ void HandleOverheadMap( )
 				{
 					sActionGridNo = sIntTileGridNo;
 				}
-
-				bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, 0, pStructure );
+				
+				bZLevel = GetLargestZLevelOfItemPool( pItemPool );
 
 				if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
 				{

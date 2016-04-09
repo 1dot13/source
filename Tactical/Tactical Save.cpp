@@ -1563,6 +1563,9 @@ BOOLEAN LoadAndAddWorldItemsFromTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			if( pWorldItems[cnt].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT )
 			{
 				pWorldItems[cnt].sGridNo = gMapInformation.sCenterGridNo;
+
+				// if we move the item, recalculate the height
+				pWorldItems[cnt].bRenderZHeightAboveLevel = -1;
 			}
 
 			//add the item to the world
