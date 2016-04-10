@@ -3086,7 +3086,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			// adjust for bullet going through person
 			iImpact -= CalcBodyImpactReduction( ubAmmoType, ubHitLocation );
 			// adjust for other side of armour!
-			iImpact -= TotalArmourProtection( pTarget, ubHitLocation, iImpact, ubAmmoType, pBullet->fFragment );
+			iImpact -= TotalArmourProtection( pTarget, ubHitLocation, iImpact, ubAmmoType, (pBullet && pBullet->fFragment) );
 			if (iImpact > 0)
 			{
 				pBullet->iImpact = (INT8) iImpact;

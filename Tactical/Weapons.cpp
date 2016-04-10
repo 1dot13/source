@@ -9657,7 +9657,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	}
 	else
 	{
-		iTotalArmourProtection = TotalArmourProtection( pTarget, ubHitLocation, iOrigImpact, ubAmmoType, pBullet->fFragment );
+		iTotalArmourProtection = TotalArmourProtection( pTarget, ubHitLocation, iOrigImpact, ubAmmoType, (pBullet && pBullet->fFragment) );
 		iImpact = iOrigImpact - iTotalArmourProtection;
 		
 		// sevenfm: store armour protection
