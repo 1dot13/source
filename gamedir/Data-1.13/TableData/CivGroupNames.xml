@@ -208,52 +208,59 @@
 	</NAME>
 	<NAME>
 		<uiIndex>27</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot27</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Scientist</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>28</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot28</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Radar technician</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>1</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>29</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot29</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Airport staff</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>30</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot30</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Barrack staff</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>31</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot31</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Factory worker</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>32</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot32</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Secretary</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>33</uiIndex>
-		<Enabled>0</Enabled>
-		<szGroup>Empty Slot33</szGroup>
-		<AddToBattle>0</AddToBattle>
-		<Loyalty>0</Loyalty>
+		<Enabled>1</Enabled>
+		<szGroup>Loyalist</szGroup>
+		<AddToBattle>1</AddToBattle>
+		<Loyalty>1</Loyalty>
+		<fCanBeCaptured>0</fCanBeCaptured>
 	</NAME>
 	<NAME>
 		<uiIndex>34</uiIndex>
