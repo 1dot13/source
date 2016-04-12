@@ -592,7 +592,7 @@ void DistributeInitialGear(MERCPROFILESTRUCT *pProfile)
 				iSlot = AnyFreeBigEnoughPocket (pProfile, &tInv[iOrder[i]]);
 				if(iSlot != -1)
 				{
-					MakeProfileInvItemThisSlot(pProfile, iSlot, tInv[iOrder[i]].inv, tInv[iOrder[i]].iStatus, tInv[iOrder[i]].iNumber);
+					MakeProfileInvItemThisSlot( pProfile, iSlot, tInv[iOrder[i]].inv, tInv[iOrder[i]].iStatus, pProfile->bInvNumber[iSlot] + 1 );
 					iSet = TRUE;
 				}
 			}
