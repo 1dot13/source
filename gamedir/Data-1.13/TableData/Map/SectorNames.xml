@@ -1,4 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	<SectorGrid>:
+	Map sector, from A1 to P16
+	
+	<szUnexploredName>:
+	Sector name shown in info window when right-clicking on a sector in the strategic map, before the sector has been explored
+	
+	<szDetailedUnexploredName>:
+	Sector name shown at overhead map in lower right corner of strategic map screen, before the sector has been explored
+	
+	<szExploredName> & <szDetailedExploredName>:
+	as before, but after sector has been explored. <szExploredName> is also used for description of save game files
+	
+	<sWaterType>:
+	Describes the water resources available in a sector.
+	0 - no water here at all
+	1 - drinkable water (rivers, water supply from houses)
+	2 - salt water, can't drink that
+	3 - there is water here, but it is poisoned (swamps and polluted sectors) and may pose a health risk
+	
+	<usCurfewValue>
+	Describes if civilians are allowed in a sector at certain times
+	0 - no curfew for civilians, a merc disguised as a civilian will not be automatically uncovered in this sector
+	1 - curfew for civilians in place at night, a merc disguised as a civilian will be automatically uncovered in this sector at night
+	2 - no civilians allowed here, ever, a merc disguised as a civilian will always be automatically uncovered in this sector.
+	
+	<usNaturalDirt>
+	Percentage value, how much dirt does a gun accumulate in this sector. This is a UINT16 value. 
+	Base value at 100% is for a clean city. Environments where a gun gathers dirt faster get higher values. For example, deserts have a value of 1000,
+	which means that in a desert a gun will gather 10 times as much dirt as in a clean city.
+	
+	<sRadioScanModifier>
+	increases the radio scanning range from a sector
+	base range is defined in SkillSettings.ini. Default for base range is 5.
+	
+	<usCivilianPopulation>:
+	represents the amount of civilians dwelling in a sector, even if not physically present in a tactical map
+	
+-->
 <SECTOR_NAMES>
   <SECTOR>
     <SectorGrid>A1</SectorGrid>
