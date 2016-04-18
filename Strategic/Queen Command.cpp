@@ -642,6 +642,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		}
 
 		ValidateEnemiesHaveWeapons();
+		UnPauseGame();
 		return ( ( BOOLEAN) ( gpBattleGroup->ubGroupSize > 0 ) );
 	}
 
@@ -772,6 +773,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			return FALSE;
 		AddSoldierInitListEnemyDefenceSoldiers( ubTotalAdmins, ubTotalTroops, ubTotalElites, ubTotalTanks, ubTotalJeeps );
 		ValidateEnemiesHaveWeapons();
+		UnPauseGame();
 		return TRUE;
 	}
 #endif
@@ -1029,6 +1031,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	}
 
 	ValidateEnemiesHaveWeapons();
+	UnPauseGame();
 
 	return TRUE;
 }
@@ -1059,6 +1062,7 @@ BOOLEAN PrepareEnemyForUndergroundBattle()
 				pUnderground->ubJeepsInBattle += ubTotalJeeps;
 				AddSoldierInitListEnemyDefenceSoldiers( pUnderground->ubNumAdmins, pUnderground->ubNumTroops, pUnderground->ubNumElites, pUnderground->ubNumTanks, pUnderground->ubNumJeeps );
 				ValidateEnemiesHaveWeapons();
+				UnPauseGame();
 			}
 			return ((BOOLEAN)(pUnderground->ubNumAdmins + pUnderground->ubNumTroops + pUnderground->ubNumElites + pUnderground->ubNumTanks + pUnderground->ubNumJeeps > 0));
 		}
