@@ -2615,7 +2615,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	{
 		if( gpEnemies[ i ].pSoldier )
 		{
-			TacticalRemoveSoldierPointer( gpEnemies[ i ].pSoldier, FALSE );
+			TacticalRemoveSoldierPointer( gpEnemies[ i ].pSoldier, TRUE );
 			memset( &gpEnemies[ i ], 0, sizeof( SOLDIERCELL ) );
 		}
 	}
