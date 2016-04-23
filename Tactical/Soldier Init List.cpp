@@ -789,6 +789,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 				while ( counter < 100 && (bettergridno == NOWHERE || PythSpacesAway( bettergridno, gMapInformation.sCenterGridNo ) <= gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius1) )
 				{
 					bettergridno = FindRandomGridNoBetweenCircles( gMapInformation.sCenterGridNo, gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius1, gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius2, ubDirection );
+					++counter;
 				}
 
 				if ( bettergridno != NOWHERE )
