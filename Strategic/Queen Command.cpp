@@ -1007,7 +1007,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						}
 						break;
 					case SOLDIER_CLASS_JEEP:
-						if ( ubNumTanks )
+						if ( ubNumJeeps )
 						{
 							num--;
 							sNumSlots--;
@@ -1180,6 +1180,35 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 				}
 			}
 			break;
+
+		case COMBAT_JEEP_CAR:
+			if ( !pSoldier->bSectorZ )
+			{
+				pSector = &SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )];
+				if ( pSector->ubNumJeeps )
+				{
+					pSector->ubNumJeeps--;
+				}
+				if ( pSector->ubJeepsInBattle )
+				{
+					pSector->ubJeepsInBattle--;
+				}
+			}
+			else
+			{
+				UNDERGROUND_SECTORINFO *pUnderground;
+				pUnderground = FindUnderGroundSector( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY, (UINT8)pSoldier->bSectorZ );
+				Assert( pUnderground );
+				if ( pUnderground->ubNumJeeps )
+				{
+					pUnderground->ubNumJeeps--;
+				}
+				if ( pUnderground->ubJeepsInBattle )
+				{
+					pUnderground->ubJeepsInBattle--;
+				}
+			}
+			break;
 	}
 
 	if( pSoldier->aiData.bNeutral || pSoldier->bTeam != ENEMY_TEAM && pSoldier->bTeam != CREATURE_TEAM )
@@ -1333,7 +1362,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 //			}
 
 			#ifdef JA2BETAVERSION
-				ubTotalEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks;
+				ubTotalEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks + pSector->ubNumJeeps;
 			#endif
 
 			switch( pSoldier->ubSoldierClass )
@@ -1446,7 +1475,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 		{ //basement level (UNDERGROUND_SECTORINFO)
 			UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 			#ifdef JA2BETAVERSION
-			UINT32 ubTotalEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks;
+			UINT32 ubTotalEnemies = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks + pSector->ubNumJeeps;
 			#endif
 			if( pSector )
 			{
