@@ -8,6 +8,16 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 Changelog:
 ----------
+2016-04-23:
+- added Buzz (Snitch-files)
+- Updates to Spike
+- Updates to Moses
+- Updates to Turtle
+- Updates to Kaboom
+- Updates to Beth
+- Updates to Boss
+
+
 2016-04-16:
 - added Speck
 - updates to Hurl
@@ -26,25 +36,11 @@ Changelog:
 - updates to Jimmy
 
 
-2016-03-13:
-- added Hitman (Relationship-files)
-- added Len (Relationship-files)
-- added Magic (Relationship-files)
-- added Scully (Relationship-files)
-- added Larry (Relationship-files)
-- added Vicki (Relationship-files)
-- added Fidel (Relationship-files)
-- added Fox (Relationship-files)
-- added Cliff (Relationship-files)
-- added Wolf (Relationship-files)
-- added Biff (Relationship-files)
-
-
 
 Status:
 -------
 - nearly weekly content updates
-- Carp and a small bunch of various files remaining (Snitch)
+- Carp and a small bunch of various Snitch-audiofiles remaining
 - polish/rework of already existing files
 
 
