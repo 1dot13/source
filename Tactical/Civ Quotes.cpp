@@ -498,7 +498,6 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 	BOOLEAN	bCivHighLoyalty = FALSE;
 
 	BOOLEAN bMiners = FALSE;
-	UINT16 iCounter2;
 	UINT16 FileEDTQUoteID;
 	
 	(*pubCivHintToUse) = 0;

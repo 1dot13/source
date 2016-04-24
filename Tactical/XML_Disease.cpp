@@ -154,7 +154,7 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 		else if ( strcmp( name, "uiIndex" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.uiIndex = (UINT16)atol( pData->szCharData );
+			pData->curItem.uiIndex = (UINT8)atol( pData->szCharData );
 		}
 		else if ( strcmp( name, "szName" ) == 0 )
 		{

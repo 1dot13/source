@@ -4161,12 +4161,6 @@ UINT8 GetLocationModifier( UINT8 ubSoldierClass )
 {
 	UINT8 ubLocationModifier = 0;	
 	INT16 sSectorX, sSectorY, sSectorZ;
-	#ifdef JA2UB
-	#else
-	//INT8 bTownId;
-	//UINT8 ubPalaceDistance;
-	#endif
-	BOOLEAN fSuccess;
 
 	// Flugente: why do we always crash the game if something does not work?
 	// where is all this taking place?

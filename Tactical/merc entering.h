@@ -14,7 +14,7 @@ void StartHelicopterRun();
 
 void HandleHeliDrop( BOOLEAN fPlayer = TRUE );
 
-UINT16 SpawnAirDropElite( INT32 sGridNo );
+UINT8 SpawnAirDropElite( INT32 sGridNo );
 
 void InitiateEnemyAirDropSoldiers( INT32 sGridNo );
 void HandleEnemyAirdrop( );

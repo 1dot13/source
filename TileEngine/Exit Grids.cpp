@@ -511,7 +511,7 @@ INT32 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT32 sSwee
 	}
 }
 
-INT32 FindClosestExitGrid( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo, INT8 ubRadius )
+INT32 FindClosestExitGrid( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo, INT16 ubRadius )
 {
 	INT16	sTop, sBottom;
 	INT16	sLeft, sRight;
@@ -522,9 +522,8 @@ INT32 FindClosestExitGrid( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo, INT8 ubRadiu
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	EXITGRID	ExitGrid;
-
-
-	sTop		= ubRadius;
+	
+	sTop	= ubRadius;
 	sBottom = -ubRadius;
 	sLeft	= - ubRadius;
 	sRight	= ubRadius;
@@ -532,11 +531,11 @@ INT32 FindClosestExitGrid( SOLDIERTYPE *pSoldier, INT32 sSrcGridNo, INT8 ubRadiu
 	//clear the mapelements of potential residue MAPELEMENT_REACHABLE flags
 	uiLowestRange = 999999;
 
-	for( cnt1 = sBottom; cnt1 <= sTop; cnt1++ )
+	for( cnt1 = sBottom; cnt1 <= sTop; ++cnt1 )
 	{
 		leftmost = ( ( sSrcGridNo + ( WORLD_COLS * cnt1 ) )/ WORLD_COLS ) * WORLD_COLS;
 
-		for( cnt2 = sLeft; cnt2 <= sRight; cnt2++ )
+		for( cnt2 = sLeft; cnt2 <= sRight; ++cnt2 )
 		{
 			sGridNo = sSrcGridNo + ( WORLD_COLS * cnt1 ) + cnt2;
 			if( sGridNo >=0 && sGridNo < WORLD_MAX && sGridNo >= leftmost && sGridNo < ( leftmost + WORLD_COLS ) )

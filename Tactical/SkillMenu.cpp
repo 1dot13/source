@@ -150,7 +150,7 @@ TraitSelection::Setup( UINT32 aVal )
 	INT16 sX, sY;
 	// sevenfm: changed TraitsMenu position from soldier to mouse
 	//GetSoldierScreenPos( pSoldier, &sX, &sY );
-	GetGridNoScreenPos( sTraitsMenuTargetGridNo, gsInterfaceLevel, &sX, &sY );
+	GetGridNoScreenPos( sTraitsMenuTargetGridNo, (UINT8)gsInterfaceLevel, &sX, &sY );
 		
 	if( sX < 0 ) sX = 0;
 	if( sY < 0 ) sY = 0;

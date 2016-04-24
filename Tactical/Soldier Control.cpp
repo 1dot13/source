@@ -22844,7 +22844,7 @@ void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget )
 
 		// bonus for assertive characters
 		if ( DoesMercHavePersonality( pRecruiter, CHAR_TRAIT_ASSERTIVE ) )
-			leadershipfactor *= 1.05;
+			leadershipfactor *= 1.05f;
 
 		FLOAT recruitmodifier = (100 + pRecruiter->GetBackgroundValue( BG_PERC_APPROACH_RECRUIT )) / 100.0f;
 

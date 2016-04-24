@@ -188,12 +188,12 @@ BOOLEAN ShouldEnemiesBeAddedToInitialSector();
 
 void InitJa25StrategicAi();
 
-extern void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
+void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
 
 void InitJa25SaveStruct();
 
 void InitJa25StrategicAiBloodcats( );
-extern void			SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
+void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubNumJeeps );
 
 BOOLEAN SaveJa25SaveInfoToSaveGame( HWFILE hFile );
 BOOLEAN LoadJa25SaveInfoFromSavedGame( HWFILE hFile );
@@ -305,7 +305,6 @@ enum
 extern	BOOLEAN	gfEnemyShouldImmediatelySeekThePlayer;
 //extern  INT32	giNumJA25Sectors;
 
-extern void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
 void		SetJa25SectorOwnedStatus( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fPlayerOwned );
 INT8		GetTheFurthestSectorPlayerOwns();
 void		Ja25_UpdateTimeOfEndOfLastBattle( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
@@ -317,7 +316,6 @@ void		JA25_HandleUpdateOfStrategicAi();
 void		SetEnemiesToFindThePlayerMercs();
 
 void HandleSayingDontStayToLongWarningInSectorH8();
-extern void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
 
 #ifdef JA2BETAVERSION
 	BOOLEAN InitJa25StrategicAiDecisions( BOOLEAN fLoadedGame );

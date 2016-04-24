@@ -124,15 +124,14 @@ JA25_SECTOR_AI_MANAGER gJa25StrategicAi;
 
 BOOLEAN		AddEnemiesToInitialSectorH7();
 UINT32		GetNumberOfJA25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 *pNumAdmins, UINT8 *pNumTroops, UINT8 *pNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
-void		SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
+void		SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubNumJeeps );
 
-void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
 void InitJa25InitialEnemiesInSector();
 void InitJa25UnderGroundSectors();
 void InitNumberOfEnemiesInAboveGroundSectors( );
 void InitNumberOfEnemiesInUnderGroundSectors( );
 void SetNumberOfJa25BloodCatsInSector( INT32 iSectorID, INT8 bNumBloodCats, INT8 bBloodCatPlacements  );
-void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps );
+void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubNumJeeps );
 
 void ResetJa25SectorProbabilities();
 BOOLEAN	InitJa25StrategicSectorAI( BOOLEAN fReset );
@@ -427,16 +426,14 @@ void SetNumberJa25EnemiesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ
 	
 }
 
-void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubJeeps )
+void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubNumJeeps )
 {
-	SECTORINFO *pSector;
-
-	pSector = &SectorInfo[ iSectorID ];
+	SECTORINFO* pSector = &SectorInfo[iSectorID];
 	pSector->ubNumAdmins = ubNumAdmins;
 	pSector->ubNumTroops = ubNumTroops;
 	pSector->ubNumElites = ubNumElites;
 	pSector->ubNumTanks = ubNumTanks;
-	pSector->ubNumJeeps = ubJeeps;
+	pSector->ubNumJeeps = ubNumJeeps;
 }
 
 void SetNumberOfJa25BloodCatsInSector( INT32 iSectorID, INT8 bNumBloodCats, INT8 bBloodCatPlacements )
@@ -449,7 +446,7 @@ void SetNumberOfJa25BloodCatsInSector( INT32 iSectorID, INT8 bNumBloodCats, INT8
 	pSector->bBloodCatPlacements = bBloodCatPlacements;
 }
 
-void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks )
+void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubNumJeeps )
 {
 	UNDERGROUND_SECTORINFO *pSector=NULL;
 
@@ -461,6 +458,7 @@ void SetNumberJa25EnemiesInUnderGroundSector( INT16 sSectorX, INT16 sSectorY, IN
 	pSector->ubNumTroops = ubNumTroops;
 	pSector->ubNumElites = ubNumElites;
 	pSector->ubNumTanks = ubNumTanks;
+	pSector->ubNumJeeps = ubNumJeeps;
 }
 
 void InitNumberOfEnemiesInAboveGroundSectors( )

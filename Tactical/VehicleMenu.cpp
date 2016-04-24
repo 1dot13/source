@@ -132,7 +132,7 @@ VehicleSelection::Setup( UINT32 aVal )
 		
 	// grab soldier's x,y screen position
 	INT16 sX, sY;
-	GetGridNoScreenPos( sVehicleMenuTargetGridNo, gsInterfaceLevel, &sX, &sY );
+	GetGridNoScreenPos( sVehicleMenuTargetGridNo, (UINT8)gsInterfaceLevel, &sX, &sY );
 		
 	if( sX < 0 ) sX = 0;
 	if( sY < 0 ) sY = 0;

@@ -3093,7 +3093,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					GetMouseMapPos( &sGridNo );
 
 					// a node to add a structure
-					AddFortificationPlanNode( sGridNo, gsInterfaceLevel, gCurrentFortificationStructure, gCurrentFortificationTileLibraryIndex, TRUE );
+					AddFortificationPlanNode( sGridNo, (INT8)gsInterfaceLevel, gCurrentFortificationStructure, gCurrentFortificationTileLibraryIndex, TRUE );
 				}
 				else if ( fAlt )
 				{
@@ -3145,7 +3145,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					GetMouseMapPos( &sGridNo );
 
 					// a node to delete a structure
-					AddFortificationPlanNode( sGridNo, gsInterfaceLevel, gCurrentFortificationStructure, gCurrentFortificationTileLibraryIndex, FALSE );
+					AddFortificationPlanNode( sGridNo, (INT8)gsInterfaceLevel, gCurrentFortificationStructure, gCurrentFortificationTileLibraryIndex, FALSE );
 				}
 				else
 				{

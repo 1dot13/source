@@ -248,7 +248,7 @@ void RenderBriefingRoomEnter()
 	HVOBJECT	hContentButtonHandle;  
 	UINT16		usWidth=0;
 	
-	HVOBJECT hHandle;
+	//HVOBJECT hHandle;
 	
 	DrawBriefingRoomEnterDefaults();
 	
@@ -385,8 +385,7 @@ BOOLEAN DisplayBriefingRoomEnterCopyright()
 
 void DisplayPlayerActivationBriefingRoomEnterString( void )
 {
-
-HVOBJECT hHandle;
+	//HVOBJECT hHandle;
 
 	// this function will grab the string that the player will enter for activation
 

@@ -4361,7 +4361,6 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 void INVRenderSteeringWheel( UINT32 uiBuffer, UINT32 uiSteeringWheelIndex, SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel )
 {
 	SOLDIERTYPE *pVehicle = NULL;
-	UINT32		usHeight, usWidth;
 	INT16		sNewY, sNewX;
 
 	static CHAR16					pStr[ 100 ], pStr2[ 100 ];
@@ -7585,16 +7584,16 @@ void RenderItemDescriptionBox( )
 						{
 							if ( !Weapon[gpComparedItemDescObject->usItem].NoSemiAuto )
 							{
-								UINT8 ubComparedAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
-								if( ubComparedAttackAPs > ubAttackAPs )
+								INT16 sComparedAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpComparedItemDescObject, NULL );
+								if ( sComparedAttackAPs > ubAttackAPs )
 								{
 									SetFontForeground( ITEMDESC_FONTNEGATIVE );
-									swprintf( pStr, L"+%2d", ubComparedAttackAPs - ubAttackAPs );
+									swprintf( pStr, L"+%2d", sComparedAttackAPs - ubAttackAPs );
 								}
-								else if( ubComparedAttackAPs < ubAttackAPs )
+								else if ( sComparedAttackAPs < ubAttackAPs )
 								{
 									SetFontForeground( ITEMDESC_FONTPOSITIVE );
-									swprintf( pStr, L"%2d", ubComparedAttackAPs - ubAttackAPs );
+									swprintf( pStr, L"%2d", sComparedAttackAPs - ubAttackAPs );
 								}
 								else
 									swprintf( pStr, L"=");

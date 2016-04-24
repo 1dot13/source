@@ -1144,7 +1144,7 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 {
 	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
 	UINT8	*pDestBuf, *pSrcBuf;
-	SGPPoint pPosition;
+	//SGPPoint pPosition;
 
 	// Delete popup!
 	RemoveMercPopupBoxFromIndex( gMsgBox.iBoxId );
