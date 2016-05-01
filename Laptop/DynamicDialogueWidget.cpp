@@ -425,8 +425,9 @@ IMPDialogueChooseBox::Init( UINT16 sX, UINT16 sY )
 	mSelectedEntry = 0;
 
 	musWidth = 0;
-	UINT8 size = mEntryVector.size( );
-	for ( UINT8 i = 0; i < size; ++i )
+
+	UINT16 size = mEntryVector.size( );
+	for ( UINT16 i = 0; i < size; ++i )
 	{
 		musWidth = max( musWidth, StringPixLength( mEntryVector[i].second, MYBOX_FONT_DEF ) );
 	}
@@ -449,8 +450,8 @@ IMPDialogueChooseBox::Create( UINT16 sX, UINT16 sY )
 	
 	sY += IMPDIALOGUECHOOSEBOX_BAR_Y_OFFSET;
 
-	UINT8 size = mEntryVector.size( );
-	for ( UINT8 i = 0; i < size; ++i )
+	UINT16 size = mEntryVector.size( );
+	for ( UINT16 i = 0; i < size; ++i )
 	{
 		if ( !mChoiceRegionDefined[i] )
 		{
@@ -559,7 +560,7 @@ IMPDialogueChooseBox::DrawTopEntry( )
 
 	UINT16 sY = GetY( ) + IMPDIALOGUECHOOSEBOX_BAR_Y_OFFSET;
 
-	UINT8 cnt = 0;
+	UINT16 cnt = 0;
 	std::vector<std::pair<INT16, STR16> >::iterator itend = mEntryVector.end( );
 	for ( std::vector<std::pair<INT16, STR16> >::iterator it = mEntryVector.begin( ); it != itend; ++it )
 	{
@@ -586,7 +587,7 @@ IMPDialogueChooseBox::SelectDropDownRegionCallBack( MOUSE_REGION * pRegion, INT3
 	}
 	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		mSelectedEntry = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+		mSelectedEntry = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 	}
 }
 

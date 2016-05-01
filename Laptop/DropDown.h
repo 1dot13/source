@@ -232,7 +232,7 @@ public:
 	/*
 	* set the nth entry as the selected one
 	*/
-	void	SetNthEntry( UINT8 aNr );
+	void	SetNthEntry( UINT16 aNr );
 
 	/*
 	 * Get width of entire DropDownBase
@@ -334,9 +334,9 @@ private:
 
 	CHAR16	mHelpText[200];
 
-	UINT8	mSelectedEntry;				// keeps track of the currently selected city
-	UINT8	mFirstShownEntry;			// top entry of the dropped region
-	UINT8	mNumDisplayedEntries;		// number of entries displayed. Calculated internally, no need to change by user
+	UINT16	mSelectedEntry;				// keeps track of the currently selected city
+	UINT16	mFirstShownEntry;			// top entry of the dropped region
+	UINT16	mNumDisplayedEntries;		// number of entries displayed. Calculated internally, no need to change by user
 
 	BOOLEAN mfDropScrollBar;			// do we need a scrollbar and a down arrow?
 };

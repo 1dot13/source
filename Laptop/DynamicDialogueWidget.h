@@ -263,7 +263,7 @@ private:
 
 	CHAR16	mHelpText[200];
 
-	UINT8	mSelectedEntry;				// keeps track of the currently selected city
+	UINT16	mSelectedEntry;				// keeps track of the currently selected city
 
 	CHAR16	mText[500];
 

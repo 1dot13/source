@@ -95,8 +95,8 @@ DropDownBase::Init(UINT16 sX, UINT16 sY)
 	mFirstShownEntry		= max(0, min(mFirstShownEntry, mEntryVector.size() - 1 - mNumDisplayedEntries));
 
 	musWidth = 0;
-	UINT8 size = mEntryVector.size();
-	for( UINT8 i = 0; i < size; ++i)
+	UINT16 size = mEntryVector.size();
+	for ( UINT16 i = 0; i < size; ++i )
 	{
 		musWidth = max(musWidth, StringPixLength ( mEntryVector[i].second, DEF_DROPDOWN_FONT ));
 	}
@@ -174,7 +174,7 @@ DropDownBase::Create_Drop()
 	UINT16 usPosY = musStartY_Drop;
 	UINT16 usHeight = 0;
 
-	for ( i = 0; i< mNumDisplayedEntries; ++i )
+	for ( i = 0; i < mNumDisplayedEntries; ++i )
 	{
 		MSYS_DefineRegion( &mDropDownRegion[i], usPosX, (UINT16)(usPosY + 4), (UINT16)(usPosX + musWidth - 6), (UINT16)(usPosY + musFontHeight + 7), MSYS_PRIORITY_HIGHEST,
 								CURSOR_WWW, CallBackWrapper((void*) this, DROPDOWN_MOVEMENT, &DropDownBase::Dummyfunc), CallBackWrapper((void*) this, DROPDOWN_REGION, &DropDownBase::Dummyfunc));
@@ -253,7 +253,7 @@ DropDownBase::Destroy_Drop()
 	if( !mfMouseRegionsCreated_Drop )
 		return;
 
-	UINT8 i;
+	UINT16 i;
 	for ( i = 0; i< mNumDisplayedEntries; ++i )
 		MSYS_RemoveRegion( &mDropDownRegion[i]);
 	
@@ -307,6 +307,7 @@ DropDownBase::Display()
 
 	//get and display the up and down arrows
 	GetVideoObject( &hArrowHandle, guGoldArrowImages );
+
 	//top arrow
 	BltVideoObject(FRAME_BUFFER, hArrowHandle, 0, musUpArrowX, musUpArrowY, VO_BLT_SRCTRANSPARENCY,NULL);
 		
@@ -392,10 +393,10 @@ DropDownBase::DrawSelectedCity()
 	UINT16 usMaxY = 0;
 
 	// make sure we dont go out of our array
-	if( mFirstShownEntry+mNumDisplayedEntries > (UINT8)(mEntryVector.size() ) )
+	if ( mFirstShownEntry + mNumDisplayedEntries > (UINT16)(mEntryVector.size( )) )
 		mFirstShownEntry = mEntryVector.size() - mNumDisplayedEntries;
 	
-	for( UINT8 i = mFirstShownEntry; i < mFirstShownEntry+mNumDisplayedEntries; ++i)
+	for ( UINT16 i = mFirstShownEntry; i < mFirstShownEntry + mNumDisplayedEntries; ++i )
 	{
 		usMaxY = min(usPosY+musFontHeight+2, musStartY_Drop + musAreaHeight - 4);
 
@@ -490,7 +491,7 @@ DropDownBase::SelectDropDownMovementCallBack(MOUSE_REGION * pRegion, INT32 reaso
 	{
 		pRegion->uiFlags |= BUTTON_CLICKED_ON ;
 
-		mSelectedEntry = (UINT8)MSYS_GetRegionUserData( pRegion, 0 ) + mFirstShownEntry;
+		mSelectedEntry = (UINT16)MSYS_GetRegionUserData( pRegion, 0 ) + mFirstShownEntry;
 						
 		InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
 		
@@ -508,8 +509,8 @@ DropDownBase::SelectDropDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		UINT8 ubSelected = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
-		mSelectedEntry = min(ubSelected + mFirstShownEntry, (UINT8)(max(0, mEntryVector.size() -1)) );
+		UINT16 ubSelected = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
+		mSelectedEntry = min( ubSelected + mFirstShownEntry, (UINT16)(max( 0, mEntryVector.size( ) - 1 )) );
 
 		Destroy_Drop();
 	}
@@ -523,7 +524,7 @@ DropDownBase::SelectUpDownArrowOnScrollAreaRegionCallBack(MOUSE_REGION * pRegion
 	}
 	else if( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP || iReason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
-		UINT8	ubDownArrow = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+		UINT16	ubDownArrow = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
 		if( ubDownArrow )
 		{
@@ -566,7 +567,7 @@ DropDownBase::SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, I
 	{
 		if( gfLeftButtonState )
 		{
-			UINT8	ubCityNum = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+			UINT16	ubCityNum = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
 			pRegion->uiFlags |= BUTTON_CLICKED_ON;
 			
@@ -579,10 +580,10 @@ DropDownBase::SelectScrollAreaDropDownMovementCallBack(MOUSE_REGION * pRegion, I
 			}
 			else if( mFirstShownEntry + ubCityNum > mSelectedEntry )
 			{
-				mSelectedEntry = min( mFirstShownEntry + ubCityNum, (UINT8)(max( 0, mEntryVector.size( ) - 1 )) );
+				mSelectedEntry = min( mFirstShownEntry + ubCityNum, (UINT16)(max( 0, mEntryVector.size( ) - 1 )) );
 
 				if ( ubCityNum == mNumDisplayedEntries - 1 )
-					mFirstShownEntry = min( mFirstShownEntry + 1, (UINT8)(max( 0, mEntryVector.size( ) - 1 )) );
+					mFirstShownEntry = min( mFirstShownEntry + 1, (UINT16)(max( 0, mEntryVector.size( ) - 1 )) );
 			}
 			
 			InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
@@ -602,7 +603,7 @@ DropDownBase::SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		UINT8	ubCityNum = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+		UINT16	ubCityNum = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
 		if( ubCityNum < mSelectedEntry )
 		{
@@ -623,7 +624,7 @@ DropDownBase::SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT)
 	{
-		UINT8	ubCityNum = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
+		UINT16	ubCityNum = (UINT16)MSYS_GetRegionUserData( pRegion, 0 );
 
 		pRegion->uiFlags |= BUTTON_CLICKED_ON ;
 
@@ -654,7 +655,7 @@ DropDownBase::SelectScrollAreaDropDownRegionCallBack(MOUSE_REGION * pRegion, INT
 void
 DropDownBase::SetSelectedEntryKey( INT16 aKey )
 {
-	UINT8 cnt = 0;
+	UINT16 cnt = 0;
 	std::vector<std::pair<INT16, STR16> >::iterator itend = mEntryVector.end();
 	for ( std::vector<std::pair<INT16, STR16> >::iterator it = mEntryVector.begin(); it != itend; ++it )
 	{
@@ -672,7 +673,7 @@ DropDownBase::SetSelectedEntryKey( INT16 aKey )
 * set the nth entry as the selected one
 */
 void
-DropDownBase::SetNthEntry( UINT8 aNr )
+DropDownBase::SetNthEntry( UINT16 aNr )
 {
 	mSelectedEntry = min( aNr, max(0, mEntryVector.size() - 1) );
 }
