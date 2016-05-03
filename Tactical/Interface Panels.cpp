@@ -2407,6 +2407,7 @@ void	RemoveSMPanelButtons( )
 	
 	UnloadButtonImage( iBurstButtonImages[ WM_NORMAL ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_BURST ] );
+	UnloadButtonImage( iBurstButtonImages[ WM_AUTOFIRE ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL_BURST ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL_AUTO ] );
