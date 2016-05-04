@@ -6550,6 +6550,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		}
 	}
 
+	// Reinforcement parameter is not stored in the savegame so we have to reset it here.
+	gGameExternalOptions.gfAllowReinforcements = zDiffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcements;
+
 	return( TRUE );
 }
 
