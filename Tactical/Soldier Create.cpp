@@ -631,8 +631,9 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 
 	guiCurrentUniqueSoldierId++;
 
-	// Flugente: if this miltia, set individual ID
-	if ( tbTeam == MILITIA_TEAM )
+	// Flugente: if this is a miltia, set individual ID
+	// do not do so during loading of a savegame
+	if ( tbTeam == MILITIA_TEAM && !pCreateStruct->fUseExistingSoldier )
 	{
 		Soldier.usIndividualMilitiaID = GetIdOfUnusedindividualMilitia( pCreateStruct->ubSoldierClass, SECTOR( pCreateStruct->sSectorX, pCreateStruct->sSectorY ) );
 	}
