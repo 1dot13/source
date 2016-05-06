@@ -6,8 +6,28 @@ Thanks to RoWa21 my progress is now available over his SVN directory.
 
 
 
+Status:
+-------
+Alpha:
+- Next week Update: adding Weasels and Buds german snitch-files
+- Leaving Alpha
+
+Beta (next week):
+- adding extra custom snitch-names
+- polish/rework of already existing files
+
+
+
 Changelog:
 ----------
+2016-05-05:
+- added Carp
+- updates to Lance
+- updates to Gary
+- updates to Beth
+- updates to Leon
+
+
 2016-04-23:
 - added Buzz (Snitch-files)
 - Updates to Spike
@@ -30,29 +50,17 @@ Changelog:
 - updates to Screw
 
 
-2016-03-24:
-- added Tex
-- added Ears
-- updates to Jimmy
-
-
-
-Status:
--------
-- nearly weekly content updates
-- Carp and a small bunch of various Snitch-audiofiles remaining
-- polish/rework of already existing files
-
-
 
 Known Issues:
 -------------
 -multiple voiceactors for Mike	 [JA2+DG]		| Solution: Do not hire Mike
--multiple voiceactors for Speck	 [(JA2)+UB+DG] 		| Solution: None
--multiple voiceactors for Tex 	 [UB+DG] 		| Only Mike-friendship files affected - hardly noticable.
+-multiple voiceactors for Speck	 [UB+DG] 		| Solution: None
+-multiple voiceactors for Tex 	 [UB+DG] 		| Only Mike-friendship files affected; but hardly noticable.
 
 -multiple VA (only new relationship-lines):		| Solution: Additional mod - Disabling the relationship of JA2 to DG mercenarys
  |_Hitman, Len, Magic, Scully, Larry, Vicki, Fidel, Fox, Cliff, Wolf, Biff
+
+-multiple VA (only snitch-lines) for Buzz		| Solution: Additional mod - Disabling buzzs snitch behaviour
 
 
 
