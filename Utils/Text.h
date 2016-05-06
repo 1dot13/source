@@ -2766,8 +2766,8 @@ enum
 extern STR16		szCampaignHistoryWebpageString[];
 
 // Flugente: wacky operation names for campaign stats
-#define		CAMPAIGNSTATS_OPERATION_NUM_PREFIX		100
-#define		CAMPAIGNSTATS_OPERATION_NUM_SUFFIX		100
+#define		CAMPAIGNSTATS_OPERATION_NUM_PREFIX		140
+#define		CAMPAIGNSTATS_OPERATION_NUM_SUFFIX		140
 
 extern STR16		szCampaignStatsOperationPrefix[];
 extern STR16		szCampaignStatsOperationSuffix[];

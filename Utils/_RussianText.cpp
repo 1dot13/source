@@ -9452,7 +9452,7 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 	L"Steadfast %s",
 
 	// 100
-	L"Narcoleptic %s",
+	L"Narcoleptic %s",		// TODO.Translate
 	L"Bleached %s",
 	L"Nail-biting %s",
 	L"Smite the %s",
@@ -9478,6 +9478,32 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 	L"Midnight %s",
 
 	// 120
+	L"Confused %s",
+	L"Irritated %s",
+	L"Loathsome %s",
+	L"Manic %s",
+
+	L"Ancient %s",
+	L"Sneaking %s",
+	L"%s of Doom",
+	L"%s's revenge",
+
+	L"A %s on the run",
+	L"A %s out of time",
+	L"One with %s",
+	L"%s from hell",
+
+	L"Super-%s",
+	L"Ultra-%s",
+	L"Mega-%s",
+	L"Giga-%s",
+
+	L"A quantum of %s",
+	L"Her Majesties' %s",
+	L"Shivering %s",
+	L"Fearful %s",
+
+	// 140
 };
 
 STR16	szCampaignStatsOperationSuffix[] =
@@ -9612,7 +9638,7 @@ STR16	szCampaignStatsOperationSuffix[] =
 	L"Mutual Fund",
 
 	// 100
-	L"Uniform",
+	L"Uniform",			// TODO.Translate
 	L"Saber",
 	L"Snow Leopard",
 	L"Panther",
@@ -9625,19 +9651,45 @@ STR16	szCampaignStatsOperationSuffix[] =
 	L"Tarantula",
 	L"Vulture",
 	L"Heretic",
-	L"Зомби",
+	L"Zombie",
 
 	L"Role-Model",
 	L"Hellhound",
 	L"Mongoose",
-	L"Медсестра",
+	L"Nurse",
 
 	L"Nun",
-	L"",
-	L"",
-	L"",
+	L"Space Ghost",
+	L"Viper",
+	L"Mamba",
 
 	// 120
+	L"Sinner",
+	L"Saint",
+	L"Comet",
+	L"Meteor",
+
+	L"Can of worms",
+	L"Fish oil pills",
+	L"Breastmilk",
+	L"Tentacle",
+
+	L"Insanity",
+	L"Madness",
+	L"Cough reflex",
+	L"Colon",
+
+	L"King",
+	L"Queen",
+	L"Bishop",
+	L"Peasant",
+
+	L"Tower",
+	L"Mansion",
+	L"Warhorse",
+	L"Referee",
+
+	// 140
 };
 
 STR16	szMercCompareWebSite[] =
