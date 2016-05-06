@@ -4026,7 +4026,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
     if (pSoldierOld->ubAttackerID != NOBODY && MercPtrs[ pSoldierOld->ubAttackerID ]->bTeam == MILITIA_TEAM )
     {
-        MercPtrs[ pSoldierOld->ubAttackerID ]->ubMilitiaKills++;
+		MercPtrs[pSoldierOld->ubAttackerID]->ubMilitiaAssists++;
     }
 
     //if the NPC is a dealer, add the dealers items to the ground

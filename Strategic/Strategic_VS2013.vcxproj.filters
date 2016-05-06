@@ -159,6 +159,9 @@
     <ClInclude Include="ASD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MilitiaIndividual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AI Viewer.cpp">
@@ -348,6 +351,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ASD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MilitiaIndividual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

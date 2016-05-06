@@ -63,6 +63,7 @@
 #include "Food.h"
 #include "CampaignStats.h"				// added by Flugente
 #include "DynamicDialogue.h"			// added by Flugente
+#include "MilitiaIndividual.h"			// added by Flugente
 #endif
 
 // anv: for enemy taunts
@@ -3995,7 +3996,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 					else if ( MercPtrs[ ubAttacker ]->bTeam == MILITIA_TEAM )
 					{
 						// get a kill! 2 points!
-						MercPtrs[ ubAttacker ]->ubMilitiaKills += 2;
+						MercPtrs[ ubAttacker ]->ubMilitiaKills += 1;
 					}
 
 				}
@@ -4025,7 +4026,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 					else if ( MercPtrs[ ubAssister ]->bTeam == MILITIA_TEAM )
 					{
 						// get an assist - 1 points
-						MercPtrs[ ubAssister ]->ubMilitiaKills += 1;
+						MercPtrs[ubAssister]->ubMilitiaAssists += 1;
 					}
 				}
 				/*
@@ -4040,7 +4041,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 				else if ( MercPtrs[ pSoldier->ubPreviousAttackerID ]->bTeam == MILITIA_TEAM )
 				{
 				// get an assist - 1 points
-				MercPtrs[ pSoldier->ubPreviousAttackerID ]->ubMilitiaKills += 1;
+				MercPtrs[ pSoldier->ubPreviousAttackerID ]->ubMilitiaAssists += 1;
 				}
 				}
 				*/
@@ -4049,6 +4050,26 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 
 		// Flugente: campaign stats
 		gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
+
+		// Flugente: individual militia
+		MILITIA militia;
+		if ( GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) && !(militia.flagmask & MILITIAFLAG_DEAD) )
+		{
+			militia.healthratio = 0.0f;
+			militia.flagmask |= MILITIAFLAG_DEAD;
+
+			// note the current incident (when closing the incident, we only do this for those still alive)
+			MILITIA_BATTLEREPORT report;
+			report.id = GetIdOfCurrentlyOngoingIncident( );
+			report.flagmask = MILITIA_BATTLEREPORT_FLAG_DIED;
+
+			if ( pSoldier->ubMilitiaKills )
+				report.flagmask |= MILITIA_BATTLEREPORT_FLAG_KILLEDENEMY;
+
+			militia.history.push_back( report );
+
+			UpdateMilitia(militia);
+		}
 
 		// Flugente: disease
 		HandleDeathDiseaseImplications( pSoldier );

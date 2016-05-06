@@ -2935,6 +2935,30 @@ extern STR16	szEnemyHeliText[];
 // Flugente: fortification
 extern STR16	szFortificationText[];
 
+// Flugente: militia website
+enum
+{
+	// main page
+	TEXT_MILITIAWEBSITE_WEBSITENAME,
+	TEXT_MILITIAWEBSITE_SLOGAN,
+
+	// links to other pages
+	TEXT_MILITIAWEBSITE_SUBSITE1,
+
+	TEXT_MILITIAWEBSITE_MAIN1 = TEXT_PMC_SUBSITE1 + 3,
+
+	TEXT_MILITIAWEBSITE_MAX,
+};
+
+extern STR16	szMilitiaWebSite[];
+extern STR16	szIndividualMilitiaBattleReportText[];
+extern STR16	szIndividualMilitiaTraitRequirements[];
+extern STR16	szIdividualMilitiaWebsiteText[];
+extern STR16	szIdividualMilitiaWebsiteFilterText_Dead[];
+extern STR16	szIdividualMilitiaWebsiteFilterText_Rank[] ;
+extern STR16	szIdividualMilitiaWebsiteFilterText_Origin[];
+extern STR16	szIdividualMilitiaWebsiteFilterText_Sector[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

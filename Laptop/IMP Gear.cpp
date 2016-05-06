@@ -136,7 +136,6 @@ extern BOOLEAN fNewIMPGearMethodUsed;
 
 
 void		IMPGearDisplay( );
-void		DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBackGround );
 void		BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason );
 
 // determine all items that are selectable according to xml and choices
@@ -482,22 +481,11 @@ void IMPGearDisplay( )
 
 			INT16 sItem = (UINT16)pIMPGEARDropDown[i]->GetSelectedEntryKey( );
 
-			DisplayGear( (UINT16)sItem, pIMPGEARDropDown[i]->GetX( ) - IMP_GEAR_ITEMDISPLAY_WIDTH, pIMPGEARDropDown[i]->GetY( ), TRUE );
+			DisplayGear( (UINT16)sItem, pIMPGEARDropDown[i]->GetX( ) - IMP_GEAR_ITEMDISPLAY_WIDTH, pIMPGEARDropDown[i]->GetY( ), TRUE, gIMPGearCount[i], TRUE );
 
 			if ( sItem > 0 )
 			{
-				if ( sItem )
-					gIMPGearCost += gIMPGearCount[i] * Item[sItem].usPrice;
-
-				// if more than 1?
-				if ( gIMPGearCount[i] > 1 )
-				{
-					CHAR16 sString[128];
-					swprintf( sString, L"%d", gIMPGearCount[i] );
-					INT16 sX, sY;
-					FindFontRightCoordinates( (INT16)(pIMPGEARDropDown[i]->GetX( ) - IMP_GEAR_ITEMDISPLAY_WIDTH), (INT16)(pIMPGEARDropDown[i]->GetY( ) + 6), (INT16)(10), (INT16)(GetFontHeight( FONT10ARIAL )), sString, FONT10ARIAL, &sX, &sY );
-					mprintf( sX, sY, sString );
-				}
+				gIMPGearCost += gIMPGearCount[i] * Item[sItem].usPrice;
 			}
 		}
 		else
@@ -511,7 +499,7 @@ void IMPGearDisplay( )
 	DrawTextToScreen( wTemp, LAPTOP_SCREEN_UL_X + 180, LAPTOP_SCREEN_WEB_UL_Y + 360, LAPTOP_TEXT_WIDTH, FONT14ARIAL, IMP_GEAR__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 }
 
-void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBackGround )
+void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBackGround, UINT8 aNumber, BOOLEAN fDisplayNumber )
 {
 	if ( usItem )
 	{
@@ -549,12 +537,17 @@ void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBack
 
 		//blt the item
 		BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), usGraphicNum, PosX, PosY, 0, FALSE );
+
+		// display number if more than 1
+		if ( fDisplayNumber && aNumber > 1 )
+		{
+			CHAR16 sString[128];
+			swprintf( sString, L"%d", aNumber );
+			INT16 sX, sY;
+			FindFontRightCoordinates( (INT16)(usPosX), (INT16)(usPosY + 6), 10, (INT16)(GetFontHeight( FONT10ARIAL )), sString, FONT10ARIAL, &sX, &sY );
+			mprintf( sX, sY, sString );
+		}
 	}
-	/*else
-	{
-		// if there is not item to display, use a different colour for the box
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY, usPosX + IMP_GEAR_ITEMDISPLAY_WIDTH, usPosY + IMP_GEAR_ITEMDISPLAY_HEIGHT, Get16BPPColor( FROMRGB( 230, 84, 43 ) ) );
-	}*/
 }
 
 void BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason )

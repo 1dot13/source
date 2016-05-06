@@ -1077,6 +1077,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	}
 #endif
 
+	// Flugente: individual militia
+	strcpy( fileName, directoryName );
+	strcat( fileName, INDIVIDUALMILITIAFILENAME );
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "LoadExternalGameplayData, fileName = %s", fileName ) );
+	SGP_THROW_IFFALSE( ReadInMilitiaIndividual( fileName, FALSE ), INDIVIDUALMILITIAFILENAME );
+	
 	// Flugente: campaign stats
 	strcpy(fileName, directoryName);
 	strcat(fileName, CAMPAIGNSTATSEVENTSFILENAME);

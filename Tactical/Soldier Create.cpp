@@ -46,6 +46,7 @@
 	#include "Game Clock.h" // added this one - SANDRO
 	#include "Interface.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
+	#include "MilitiaIndividual.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -629,6 +630,12 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	Soldier.uiUniqueSoldierIdValue = guiCurrentUniqueSoldierId;
 
 	guiCurrentUniqueSoldierId++;
+
+	// Flugente: if this miltia, set individual ID
+	if ( tbTeam == MILITIA_TEAM )
+	{
+		Soldier.usIndividualMilitiaID = GetIdOfUnusedindividualMilitia( pCreateStruct->ubSoldierClass, SECTOR( pCreateStruct->sSectorX, pCreateStruct->sSectorY ) );
+	}
 
 	// OK, CHECK IF WE HAVE A VALID PROFILE ID!
 	if ( pCreateStruct->ubProfile != NO_PROFILE )
@@ -1526,7 +1533,13 @@ void GeneratePaletteForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubSoldierClass, UIN
 	//Choose hair color which uses the skin color to limit choices
 	hair = ChooseHairColor( pSoldier->ubBodyType, skin );
 
-	if ( pSoldier->usSoldierProfile )
+	MILITIA militia;
+	if ( GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )
+	{
+		skin = militia.skin;
+		hair = militia.hair;
+	}
+	else if ( pSoldier->usSoldierProfile )
 	{
 		INT8 type = pSoldier->GetSoldierProfileType(ubTeam);
 
@@ -1736,27 +1749,41 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	// silversurfer: Don't replace tanks!
 	if ( !ARMED_VEHICLE( pCreateStruct ) )
 	{
-		// We have a function for this
-		INT8 type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
-
-		if ( type > -1 )
+		MILITIA militia;
+		if ( GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )
 		{
-			INT16 availablenames[NUM_SOLDIER_PROFILES];
-			UINT16 cnt = 0;
+			pSoldier->ubBodyType = militia.bodytype;
 
-			for (UINT16 i = 1; i < num_found_soldier_profiles[type]; ++i)
+			if ( gGameExternalOptions.fIndividualMilitia_ManageHealth )
 			{
-				// make sure the name isn't already currently in use!
-				if ( !IsProfileInUse(pCreateStruct->bTeam, type, i) )
-					availablenames[cnt++] = i;
+				// make sure militia has at least OKLIFE
+				pSoldier->stats.bLife = max( OKLIFE, (militia.healthratio / 100.0f) * pSoldier->stats.bLifeMax );
 			}
+		}
+		else
+		{
+			// We have a function for this
+			INT8 type = pSoldier->GetSoldierProfileType( pCreateStruct->bTeam );
 
-			if ( cnt > 0 )
+			if ( type > -1 )
 			{
-				pSoldier->usSoldierProfile = availablenames[Random(cnt)];
+				INT16 availablenames[NUM_SOLDIER_PROFILES];
+				UINT16 cnt = 0;
+
+				for (UINT16 i = 1; i < num_found_soldier_profiles[type]; ++i)
+				{
+					// make sure the name isn't already currently in use!
+					if ( !IsProfileInUse(pCreateStruct->bTeam, type, i) )
+						availablenames[cnt++] = i;
+				}
+
+				if ( cnt > 0 )
+				{
+					pSoldier->usSoldierProfile = availablenames[Random(cnt)];
 								
-				if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType > 0 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType < 5 )
-					pSoldier->ubBodyType = zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType - 1;
+					if ( zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType > 0 && zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType < 5 )
+						pSoldier->ubBodyType = zSoldierProfile[type][pSoldier->usSoldierProfile].uiBodyType - 1;
+				}
 			}
 		}
 	}

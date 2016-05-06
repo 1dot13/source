@@ -1477,7 +1477,7 @@ public:
 
 	///////////////////////////////////////////////////////
 	// Flugente: this was the location of required variables required for the now removed poison feature. They can be used again
-	INT8	bUnusedINT8_1;
+	UINT8	ubMilitiaAssists;		// Flugente: stores militia assists
 	INT8	bUnusedINT8_2;
 	INT8	bUnusedINT8_3;
 
@@ -1527,6 +1527,8 @@ public:
 	UINT8	ubFiller[20];
 
 	UINT32	usSoldierFlagMask2;		// anv: another usSoldierFlagMask
+
+	UINT32	usIndividualMilitiaID;	// Flugente: if this is a militia, this is the ID of the militia data
 
 	
 #ifdef JA2UB

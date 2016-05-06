@@ -55,6 +55,7 @@
 
 	#include "Map Screen Helicopter.h"
 	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHavePersonality( ... )
+	#include "SaveLoadGame.h"
 	
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -3222,8 +3223,6 @@ BOOLEAN SaveNPCInfoToSaveGameFile( HWFILE hFile )
 
 	return( TRUE );
 }
-
-extern INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount);
 
 BOOLEAN LoadNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 {

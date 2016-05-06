@@ -45,6 +45,7 @@
 	#include "Air Raid.h"
 	#include "Auto Resolve.h"
 	#include "ASD.h"	// added by Flugente
+	#include "MilitiaIndividual.h"	// added by Flugente
 #endif
 
 #include "Quests.h"
@@ -4804,6 +4805,9 @@ BOOLEAN PickUpATownPersonFromSector( UINT8 ubType, INT16 sX, INT16 sY )
 	// reduce number in this sector
 	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ] -= countMovedCivs;
 
+	// Flugente: indivdual militia
+	PickIndividualMilitia( SECTOR( sX, sY ), ubType, countMovedCivs );
+
 	fMapPanelDirty = TRUE;
 
 	return( TRUE );
@@ -4923,6 +4927,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen2");
 
 	// up the number in this sector of this type of militia
 	SectorInfo[ SECTOR( sX, sY )].ubNumberOfCivsAtLevel[ ubType ] += countMovedCivs;
+
+	// Flugente: indivdual militia
+	DropIndividualMilitia( SECTOR( sX, sY ), ubType, countMovedCivs );
 
 	fMapPanelDirty = TRUE;
 
@@ -5658,6 +5665,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen3");
 						StrategicAddMilitiaToSector( sX, sY, GREEN_MILITIA, 1 );
 						++iCount;
 						--sGreensOnCursor;
+
+						// Flugente: indivdual militia
+						DropIndividualMilitia( SECTOR( sX, sY ), GREEN_MILITIA, 1 );
 					}
 
 					// regular
@@ -5666,6 +5676,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen3");
 						StrategicAddMilitiaToSector( sX, sY, REGULAR_MILITIA, 1 );
 						++iCount;
 						--sRegularsOnCursor;
+
+						// Flugente: indivdual militia
+						DropIndividualMilitia( SECTOR( sX, sY ), REGULAR_MILITIA, 1 );
 					}
 
 					// elite
@@ -5674,6 +5687,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen3");
 						StrategicAddMilitiaToSector( sX, sY, ELITE_MILITIA, 1 );
 						++iCount;
 						--sElitesOnCursor;
+
+						// Flugente: indivdual militia
+						DropIndividualMilitia( SECTOR( sX, sY ), ELITE_MILITIA, 1 );
 					}
 				}
 			}
@@ -5697,6 +5713,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen3");
 				StrategicAddMilitiaToSector( sX, sY, GREEN_MILITIA, (UINT8)(sGreensOnCursor % iNumberUnderControl) );
 				StrategicAddMilitiaToSector( sX, sY, REGULAR_MILITIA, (UINT8)(sRegularsOnCursor % iNumberUnderControl) );
 				StrategicAddMilitiaToSector( sX, sY, ELITE_MILITIA, (UINT8)(sElitesOnCursor % iNumberUnderControl) );
+
+				// Flugente: indivdual militia
+				DropIndividualMilitia( SECTOR( sX, sY ), GREEN_MILITIA, (UINT8)(sGreensOnCursor % iNumberUnderControl) );
+				DropIndividualMilitia( SECTOR( sX, sY ), REGULAR_MILITIA, (UINT8)(sRegularsOnCursor % iNumberUnderControl) );
+				DropIndividualMilitia( SECTOR( sX, sY ), ELITE_MILITIA, (UINT8)(sElitesOnCursor % iNumberUnderControl) );
 			}
 		}
 
@@ -5746,16 +5767,25 @@ void HandleRemovalOfAllTroopsAmongstSectors( void )
 
 		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyControlled )
 		{
-			// Flugente: we no use these handy functions, as this will make altering militia distribution behaviour much easier
+			// Flugente: we now use these handy functions, as this will make altering militia distribution behaviour much easier
 			// get number of each
-			iNumberOfGreens += MilitiaInSectorOfRankStationary( sSectorX, sSectorY, GREEN_MILITIA );
-			iNumberOfRegulars += MilitiaInSectorOfRankStationary( sSectorX, sSectorY, REGULAR_MILITIA );
-			iNumberOfElites += MilitiaInSectorOfRankStationary( sSectorX, sSectorY, ELITE_MILITIA );
+			UINT8 green = MilitiaInSectorOfRankStationary( sSectorX, sSectorY, GREEN_MILITIA );
+			UINT8 regular = MilitiaInSectorOfRankStationary( sSectorX, sSectorY, REGULAR_MILITIA );
+			UINT8 elite = MilitiaInSectorOfRankStationary( sSectorX, sSectorY, ELITE_MILITIA );
+
+			iNumberOfGreens += green;
+			iNumberOfRegulars += regular;
+			iNumberOfElites += elite;
 
 			//zero out all numbers in sectors
 			StrategicRemoveAllStaticMilitiaFromSector( sSectorX, sSectorY, GREEN_MILITIA );
 			StrategicRemoveAllStaticMilitiaFromSector( sSectorX, sSectorY, REGULAR_MILITIA );
 			StrategicRemoveAllStaticMilitiaFromSector( sSectorX, sSectorY, ELITE_MILITIA );
+
+			// Flugente: indivdual militia
+			PickIndividualMilitia( SECTOR( sSectorX, sSectorY ), GREEN_MILITIA, green );
+			PickIndividualMilitia( SECTOR( sSectorX, sSectorY ), REGULAR_MILITIA, regular );
+			PickIndividualMilitia( SECTOR( sSectorX, sSectorY ), ELITE_MILITIA, elite );
 		}
 	}
 
@@ -5816,9 +5846,18 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyControlled )
 		{
 			// get number of each
-			iNumberOfGreens += MilitiaInSectorOfRankStationary( sSectorX, sSectorY, GREEN_MILITIA );
-			iNumberOfRegulars += MilitiaInSectorOfRankStationary( sSectorX, sSectorY, REGULAR_MILITIA );
-			iNumberOfElites += MilitiaInSectorOfRankStationary( sSectorX, sSectorY, ELITE_MILITIA );
+			UINT8 green = MilitiaInSectorOfRankStationary( sSectorX, sSectorY, GREEN_MILITIA );
+			UINT8 regular = MilitiaInSectorOfRankStationary( sSectorX, sSectorY, REGULAR_MILITIA );
+			UINT8 elite = MilitiaInSectorOfRankStationary( sSectorX, sSectorY, ELITE_MILITIA );
+
+			iNumberOfGreens += green;
+			iNumberOfRegulars += regular;
+			iNumberOfElites += elite;
+
+			// Flugente: indivdual militia
+			PickIndividualMilitia( SECTOR( sSectorX, sSectorY ), GREEN_MILITIA, green );
+			PickIndividualMilitia( SECTOR( sSectorX, sSectorY ), REGULAR_MILITIA, regular );
+			PickIndividualMilitia( SECTOR( sSectorX, sSectorY ), ELITE_MILITIA, elite );
 		}
 	}
 
@@ -5858,6 +5897,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 				SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT8 )( iNumberOfRegulars / iNumberUnderControl );
 				SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT8 )( iNumberOfElites / iNumberUnderControl );
 
+				// Flugente: indivdual militia
+				DropIndividualMilitia( sSector, GREEN_MILITIA, (UINT8)(iNumberOfGreens / iNumberUnderControl) );
+				DropIndividualMilitia( sSector, REGULAR_MILITIA, (UINT8)(iNumberOfRegulars / iNumberUnderControl) );
+				DropIndividualMilitia( sSector, ELITE_MILITIA, (UINT8)(iNumberOfElites / iNumberUnderControl) );
+
 				// Flugente: as we do not move the group militia, we have to make sure we don't accidentally overfill a sector
 				sTotalSoFar = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM );
 
@@ -5867,6 +5911,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 					SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ]++;
 					++sTotalSoFar;
 					--iNumberLeftOverGreen;
+
+					// Flugente: indivdual militia
+					DropIndividualMilitia( sSector, GREEN_MILITIA, 1 );
 				}
 
 				if( ( iNumberLeftOverRegular )&&( sTotalSoFar < iMaxMilitiaPerSector ) )
@@ -5874,6 +5921,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 					SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]++;
 					++sTotalSoFar;
 					--iNumberLeftOverRegular;
+
+					// Flugente: indivdual militia
+					DropIndividualMilitia( sSector, REGULAR_MILITIA, 1 );
 				}
 
 				if( ( iNumberLeftOverElite )&&( sTotalSoFar < iMaxMilitiaPerSector ) )
@@ -5881,6 +5931,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 					SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ]++;
 					++sTotalSoFar;
 					--iNumberLeftOverElite;
+
+					// Flugente: indivdual militia
+					DropIndividualMilitia( sSector, ELITE_MILITIA, 1 );
 				}
 
 				// if this sector is currently loaded
@@ -7385,6 +7438,11 @@ void MilitiaDisbandYesNoBoxCallback( UINT8 bExitValue )
 			// loyalty in this town increases a bit because we obviously care about them...
 			DecrementTownLoyalty( (UINT8)sSelectedMilitiaTown, uiTownLoyaltyBonus );
 		}
+
+		// Flugente: individual militia		
+		INT16 sGlobalMapSector = GetBaseSectorForCurrentTown() + ((sSectorMilitiaMapSector % MILITIA_BOX_ROWS) + (sSectorMilitiaMapSector / MILITIA_BOX_ROWS) * (16));
+
+		DisbandIndividualMilitia( sGlobalMapSector, sGreensOnCursor, sRegularsOnCursor, sElitesOnCursor );
 
 		// zero out numbers on the cursor
 		sGreensOnCursor = 0;

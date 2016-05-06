@@ -1191,6 +1191,10 @@
 				>
 			</File>
 			<File
+				RelativePath="XML_MilitiaIndividual.cpp"
+				>
+			</File>
+			<File
 				RelativePath="XML_Merge.cpp"
 				>
 			</File>

@@ -30,8 +30,6 @@
 #include "Campaign.h"
 #include "Points.h"
 
-extern INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
-
 // event id counter
 // has to be saved/loaded/reset
 UINT32 gDynamicDialogueEventCounter = 0;

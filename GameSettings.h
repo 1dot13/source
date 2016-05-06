@@ -5,6 +5,7 @@
 #include "Strategic Status.h"
 #include "Morale.h"
 #include "GameInitOptionsScreen.h"
+#include "Campaign Types.h"
 
 #define				GAME_INI_FILE					"Ja2.ini"
 
@@ -1172,12 +1173,8 @@ typedef struct
 	UINT8 ubMaxMessagesTactical;
 
 	// HEADROCK HAM 3.6: Daily upkeep costs for militia
-	UINT16 usDailyCostTownGreen;
-	UINT16 usDailyCostTownRegular;
-	UINT16 usDailyCostTownElite;
-	UINT16 usDailyCostMobileGreen;
-	UINT16 usDailyCostMobileRegular;
-	UINT16 usDailyCostMobileElite;
+	UINT16 usDailyCostTown[MAX_MILITIA_LEVELS];
+	UINT16 usDailyCostMobile[MAX_MILITIA_LEVELS];
 
 	// HEADROCK HAM 3.6: Non-Combat Bodytypes can't become hostile
 	BOOLEAN fCanTrueCiviliansBecomeHostile;
@@ -1401,6 +1398,12 @@ typedef struct
 	FLOAT	fEnemyGeneralStrategicDecisionSpeedBonus;
 	FLOAT	fEnemyGeneralStrategicMovementSpeedBonus;
 
+	// Flugente: individual militia
+	BOOLEAN fIndividualMilitia;
+	UINT16 usIndividualMilitia_PromotionPoints_To_Regular;
+	UINT16 usIndividualMilitia_PromotionPoints_To_Elite;
+	BOOLEAN fIndividualMilitia_ManageHealth;
+	FLOAT dIndividualMilitiaHourlyHealthPercentageGain;
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

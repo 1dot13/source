@@ -117,6 +117,7 @@
 	#include "DynamicDialogue.h"	// added by Flugente
 	#include "PMC.h"				// added by Flugente
 	#include "ASD.h"				// added by Flugente
+	#include "MilitiaIndividual.h"	// added by Flugente
 #endif
 
 #include		"BobbyR.h"
@@ -523,8 +524,6 @@ UINT32		guiScreenToGotoAfterLoadingSavedGame = 0;
 extern		EmailPtr	pEmailList;
 extern		UINT32		guiCurrentUniqueSoldierId;
 extern		BOOLEAN		gfHavePurchasedItemsFromTony;
-
-INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount);
 
 /////////////////////////////////////////////////////
 //
@@ -1772,6 +1771,7 @@ BOOLEAN SOLDIERTYPE::Save(HWFILE hFile)
 	}
 	return TRUE;
 }
+
 /*CHRISL: This function is designed to allow reading the save game file one field at a time.  We currently save structures by saving a block of memory, 
 but variables are stored in memory so that they fit neatly into a WORD resulting in the program automatically adding some padding.  This padding is saved
 during the save game process and this function is designed to calculate where that padding is so that we can account for it during the load process.  The
@@ -2178,7 +2178,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				this->bAssignment = FACILITY_REPAIR;
 		}
 		numBytesRead = ReadFieldByField(hFile, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_1, sizeof(bUnusedINT8_1), sizeof(INT8), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->ubMilitiaAssists, sizeof(ubMilitiaAssists), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_2, sizeof(bUnusedINT8_2), sizeof(INT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_3, sizeof(bUnusedINT8_3), sizeof(INT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_4, sizeof(bUnusedINT16_4), sizeof(INT16), numBytesRead );
@@ -2355,6 +2355,18 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		if ( guiCurrentSaveGameVersion >=  SNITCH_TRAIT_EXTENDED )
 		{
 			numBytesRead = ReadFieldByField(hFile, &this->usSoldierFlagMask2, sizeof(usSoldierFlagMask2), sizeof(UINT32), numBytesRead);
+
+			if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
+			{
+				numBytesRead = ReadFieldByField( hFile, &this->usIndividualMilitiaID, sizeof(usIndividualMilitiaID), sizeof(UINT32), numBytesRead );
+			}
+			else
+			{
+				this->usIndividualMilitiaID = 0;
+
+				for ( int i = 0; i < sizeof(usIndividualMilitiaID); ++i )
+					buffer++;
+			}
 		}
 		else
 		{
@@ -4405,6 +4417,13 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		goto FAILED_TO_SAVE;
 	}
 
+	// Flugente: individual militia
+	if ( !SaveIndividualMilitiaData( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing individual militia data" );
+		goto FAILED_TO_SAVE;
+	}
+
 	//Close the saved game file
 	FileClose( hFile );
 
@@ -6124,6 +6143,25 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		// if loading an old savegame that did not have this feature, initialise
 		InitASD();
+	}
+
+	if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
+	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load individual militia data..." );
+		RenderProgressBar( 0, 100 );
+		uiRelStartPerc = uiRelEndPerc;
+
+		if ( !LoadIndividualMilitiaData( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Individual militia data Load failed" ) );
+			FileClose( hFile );
+			return(FALSE);
+		}
+	}
+	else
+	{
+		InitIndividualMilitiaData();
 	}
 
 	//

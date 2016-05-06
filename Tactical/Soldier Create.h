@@ -41,9 +41,9 @@ enum
 
 enum
 {
-	WHITEHEAD,
-	BLACKHEAD, //black skin (only this line )
 	BROWNHEAD,						//dark skin (this line plus all above)
+	BLACKHEAD, //black skin (only this line )
+	WHITEHEAD,
 	BLONDEHEAD,
 	REDHEAD,	//pink/tan skin (this line plus all above )
 	NUMHEADS

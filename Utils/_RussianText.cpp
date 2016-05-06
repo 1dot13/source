@@ -4976,6 +4976,7 @@ STR16 pBookMarkStrings[] =
 	L"БоЛТиК",
 	L"ВОЗ",
 	L"Цербер",
+	L"Militia Overview",	// TODO.Translate
 };
 
 STR16 pBookmarkTitle[] =
@@ -5098,6 +5099,8 @@ STR16 pWebPagesTitles[] =
 	L"Цербер",
 	L"Цербер - Найм команды",
 	L"Цербер - Индивидуальные контракты",
+	L"Militia Roster",			// TODO.Translate
+	L"Militia Statistics",
 	L"Бобби Рэй - последние поступления",
 	L"Энциклопедия",
 	L"Энциклопедия - данные",
@@ -6892,7 +6895,8 @@ STR16 gzLaptopHelpText[] =
 	L"События и факты. Арулькийские новости",
 	L"Бойцы Любят Тебя или Клянут",
 	L"Всемирная организация здравоохранения",
-	L"Подготовка сотрудников службы безопасности",
+	L"Kerberus - Experience In Security",
+	L"Militia Overview",	// TODO.Translate
 };
 
 
@@ -10924,7 +10928,7 @@ STR16 szEnemyHeliText[] =
 	L"База ПВО в %s обстреляла вражеский вертолёт в %s.",
 };
 
-STR16 szFortificationText[] =
+STR16 szFortificationText[] =	// TODO.Translate
 {
 	L"No valid structure selected, nothing added to build plan.",
 	L"No gridno found to create items in %s - created items are lost.",
@@ -10934,5 +10938,117 @@ STR16 szFortificationText[] =
 	L"No fitting fortifications found for tileset %d: %s",
 	L"Tileset %d: %s",
 };
+
+STR16	szMilitiaWebSite[] =
+{
+	// main page
+	L"Militia",
+	L"Militia Forces Overview",
+
+	// links to other pages
+	L"Militia Roster",
+	L"Statistics",
+	L"About",
+
+};
+
+STR16 szIndividualMilitiaBattleReportText[] =
+{
+	L"Took part in Operation %s",
+	L"Recruited on Day %d, %d:%2d in %s",
+	L"Promoted on Day %d, %d:%2d",
+	L"KIA, Operation %s",
+
+	L"Lightly wounded during Operation %s",
+	L"Heavily wounded during Operation %s",
+	L"Critically wounded during Operation %s",
+	L"Valiantly fought in Operation %s",
+
+	L"Hired from Kerberus on Day %d, %d:%2d in %s",
+	L"Defected to us on  Day %d, %d:%2d in %s",
+	L"Contract terminated on Day %d, %d:%2d",
+};
+
+STR16 szIndividualMilitiaTraitRequirements[] =
+{
+	L"HP",
+	L"AGI",
+	L"DEX",
+	L"STR",
+
+	L"LDR",
+	L"MRK",
+	L"MEC",
+	L"EXP",
+
+	L"MED",
+	L"WIS",
+	L"\nMust have regular or elite rank",
+	L"\nMust have elite rank",
+
+	L"\n\n|F|u|l|f|i|l|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
+	L"\n\n|F|a|i|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
+	L"\n%d %s",
+	L"\nBasic version of trait",
+
+	L" (Expert)"
+};
+
+STR16	szIdividualMilitiaWebsiteText[] =
+{
+	L"Operations",
+	L"Are you sure you want to release %s from your service?",
+	L"HP ratio: %3.0f %% Daily Wage: %3d$ Age: %d years",
+	L"Daily Wage: %3d$ Age: %d years",
+
+	L"Kills: %d Assists: %d",
+	L"Status: Deceased",
+	L"Status: Fired",
+	L"Status: Active",
+
+	L"Terminate Contract",
+	L"Personal Data",
+	L"Service Record",
+	L"Inventory",
+
+	L"Militia name",
+	L"Sector name",
+	L"Weapon",
+	L"HP ratio: %3.1f%%%%%%%",
+
+	L"%s is not active in the currently loaded sector.",
+	L"%s has been promoted to regular militia",
+	L"%s has been promoted to elite militia",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
+{
+	L"All statuses",
+	L"Deceased",
+	L"Active",
+	L"Fired",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
+{
+	L"All ranks",
+	L"Green",
+	L"Regular",
+	L"Elite",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
+{
+	L"All origins",
+	L"Rebel",
+	L"PMC",
+	L"Defector",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
+{
+	L"All sectors",
+};
+
 
 #endif //RUSSIAN

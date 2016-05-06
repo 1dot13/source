@@ -4979,6 +4979,7 @@ STR16 pBookMarkStrings[] =
 	L"佣兵之家", //L"MeLoDY",
 	L"世界卫生组织", //L"WHO",　
 	L"Kerberus安保公司", //L"Kerberus",
+	L"Militia Overview",	// TODO.Translate
 };
 
 STR16 pBookmarkTitle[] =
@@ -5101,6 +5102,8 @@ STR16 pWebPagesTitles[] =
 	L"Kerberus安保公司 - 关于我们", //L"Kerberus - About Us",
 	L"Kerberus安保公司 - 雇佣队伍", //L"Kerberus - Hire a Team",
 	L"Kerberus安保公司 - 独立协议", //L"Kerberus - Individual Contracts",
+	L"Militia Roster",			// TODO.Translate
+	L"Militia Statistics",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -6895,7 +6898,8 @@ STR16 gzLaptopHelpText[] =
 	L"战役历史",
 	L"佣兵喜欢或不喜欢你", //L"Mercenaries Love or Dislike You",
 	L"世界卫生组织", //L"World Health Organization",
-	L"Kerberus安保公司 - 最佳的安保工作", //L"Kerberus - Excellence In Security",
+	L"Kerberus - Experience In Security",
+	L"Militia Overview",	// TODO.Translate
 };
 
 
@@ -10882,6 +10886,118 @@ STR16 szFortificationText[] =
 	L"No fitting fortifications found for tileset %d: %s",
 	L"Tileset %d: %s",
 };
+
+STR16	szMilitiaWebSite[] =
+{
+	// main page
+	L"Militia",
+	L"Militia Forces Overview",
+
+	// links to other pages
+	L"Militia Roster",
+	L"Statistics",
+	L"About",
+
+};
+
+STR16 szIndividualMilitiaBattleReportText[] =
+{
+	L"Took part in Operation %s",
+	L"Recruited on Day %d, %d:%2d in %s",
+	L"Promoted on Day %d, %d:%2d",
+	L"KIA, Operation %s",
+
+	L"Lightly wounded during Operation %s",
+	L"Heavily wounded during Operation %s",
+	L"Critically wounded during Operation %s",
+	L"Valiantly fought in Operation %s",
+
+	L"Hired from Kerberus on Day %d, %d:%2d in %s",
+	L"Defected to us on  Day %d, %d:%2d in %s",
+	L"Contract terminated on Day %d, %d:%2d",
+};
+
+STR16 szIndividualMilitiaTraitRequirements[] =
+{
+	L"HP",
+	L"AGI",
+	L"DEX",
+	L"STR",
+
+	L"LDR",
+	L"MRK",
+	L"MEC",
+	L"EXP",
+
+	L"MED",
+	L"WIS",
+	L"\nMust have regular or elite rank",
+	L"\nMust have elite rank",
+
+	L"\n\n|F|u|l|f|i|l|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
+	L"\n\n|F|a|i|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
+	L"\n%d %s",
+	L"\nBasic version of trait",
+
+	L" (Expert)"
+};
+
+STR16	szIdividualMilitiaWebsiteText[] =
+{
+	L"Operations",
+	L"Are you sure you want to release %s from your service?",
+	L"HP ratio: %3.0f %% Daily Wage: %3d$ Age: %d years",
+	L"Daily Wage: %3d$ Age: %d years",
+
+	L"Kills: %d Assists: %d",
+	L"Status: Deceased",
+	L"Status: Fired",
+	L"Status: Active",
+
+	L"Terminate Contract",
+	L"Personal Data",
+	L"Service Record",
+	L"Inventory",
+
+	L"Militia name",
+	L"Sector name",
+	L"Weapon",
+	L"HP ratio: %3.1f%%%%%%%",
+
+	L"%s is not active in the currently loaded sector.",
+	L"%s has been promoted to regular militia",
+	L"%s has been promoted to elite militia",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
+{
+	L"All statuses",
+	L"Deceased",
+	L"Active",
+	L"Fired",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
+{
+	L"All ranks",
+	L"Green",
+	L"Regular",
+	L"Elite",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
+{
+	L"All origins",
+	L"Rebel",
+	L"PMC",
+	L"Defector",
+};
+
+STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
+{
+	L"All sectors",
+};
+
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode

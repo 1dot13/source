@@ -71,6 +71,7 @@
 	#include "Queen Command.h"		// added by Flugente
 	#include "PMC.h"				// added by Flugente
 	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
+	#include "MilitiaIndividual.h"	// added by Flugente
 #endif
 #include <vector>
 #include <queue>
@@ -2549,6 +2550,9 @@ void UpdateAssignments()
 			}
 		}
 	}
+
+	// Flugente: individual militia
+	HandleHourlyMilitiaHealing();
 
 	// Flugente: handle militia command
 	HandleMilitiaCommand();
@@ -6946,6 +6950,18 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		StrategicAddMilitiaToSector( sMapX, sMapY, ELITE_MILITIA,   turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] );
 
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_MILITIA], turnedmilitia[PRISONER_OFFICER], turnedmilitia[PRISONER_ELITE], turnedmilitia[PRISONER_REGULAR], turnedmilitia[PRISONER_ADMIN] );
+
+		// Flugente: create individual militia
+		for ( int i = 0; i < turnedmilitia[PRISONER_ADMIN]; ++i )
+			CreateNewIndividualMilitia( GREEN_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
+
+		for ( int i = 0; i < turnedmilitia[PRISONER_REGULAR]; ++i )
+			CreateNewIndividualMilitia( REGULAR_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
+
+		for ( int i = 0; i < turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]; ++i )
+			CreateNewIndividualMilitia( ELITE_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
+
+		AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
 	}
 
 	if ( volunteers )

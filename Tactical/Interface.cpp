@@ -2207,7 +2207,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 						}
 					}
 					// Flugente: soldier profiles
-					else if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile )
+					else if ( pSoldier->bTeam == MILITIA_TEAM && ((gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile) || pSoldier->usIndividualMilitiaID) )
 					{
 						// get a proper chaos name							
 						swprintf(NameStr, pSoldier->GetName());
@@ -2362,7 +2362,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				ShowRankIcon( sXPos, sYPos, pSoldier );
 			}
 			// Flugente: soldier profiles
-			else if ( pSoldier->bTeam == MILITIA_TEAM && gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile )
+			else if ( pSoldier->bTeam == MILITIA_TEAM && ((gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile) || pSoldier->usIndividualMilitiaID) )
 			{
 				// get a proper name							
 				swprintf(NameStr, pSoldier->GetName());

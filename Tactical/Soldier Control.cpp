@@ -98,6 +98,7 @@
 #include "Auto Bandage.h"		// added by Flugente
 #include "Facilities.h"			// added by Flugente
 #include "Cheats.h"				// added by Flugente
+#include "MilitiaIndividual.h"	// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -1022,6 +1023,8 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->wornSnowCamo = __min( (100 - gGameExternalOptions.bCamoKitArea), src.wornSnowCamo );
 
 		this->bScopeMode = USE_BEST_SCOPE;
+
+		this->ubMilitiaAssists = 0;
 		
 		this->bFoodLevel = 0;
 		this->bDrinkLevel = 0;
@@ -1029,6 +1032,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->usStarveDamageStrength = 0;
 		this->bAIIndex = 0;
 		this->usSoldierProfile = 0;
+		this->usIndividualMilitiaID = 0;
 
 		this->usAISkillUse = 0;
 		for ( UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i )		this->usSkillCounter[i] = 0;
@@ -16632,6 +16636,12 @@ STR16 SOLDIERTYPE::GetName( )
 
 	tmpname[tmpuser][0] = '\0';
 	wcscat( tmpname[tmpuser], this->name );
+
+	MILITIA militia;
+	if ( GetMilitia( this->usIndividualMilitiaID, &militia ) )
+	{
+		return militia.GetName( );
+	}
 
 	if ( this->usSoldierProfile )
 	{

@@ -101,4 +101,10 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 extern UINT32	guiLastSaveGameNum;			// The end turn auto save number (0 = Auto00.sav, 1 = Auto01.sav)
 INT8		GetNumberForAutoSave( BOOLEAN fLatestAutoSave );
 
+/*CHRISL: This function is designed to allow reading the save game file one field at a time.  We currently save structures by saving a block of memory,
+but variables are stored in memory so that they fit neatly into a WORD resulting in the program automatically adding some padding.  This padding is saved
+during the save game process and this function is designed to calculate where that padding is so that we can account for it during the load process.  The
+use of this function should allow changes to be made to various structures within the designated "POD", while still allowing for save game continuity.*/
+INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
+
 #endif

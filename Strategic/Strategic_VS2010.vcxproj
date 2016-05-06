@@ -49,6 +49,7 @@
     <ClInclude Include="Meanwhile.h" />
     <ClInclude Include="Merc Contract.h" />
     <ClInclude Include="MilitiaSquads.h" />
+	<ClInclude Include="MilitiaIndividual.h" />
     <ClInclude Include="Player Command.h" />
     <ClInclude Include="PreBattle Interface.h" />
     <ClInclude Include="Queen Command.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="Meanwhile.cpp" />
     <ClCompile Include="Merc Contract.cpp" />
     <ClCompile Include="MilitiaSquads.cpp" />
+	<ClCompile Include="MilitiaIndividual.cpp" />
     <ClCompile Include="Player Command.cpp" />
     <ClCompile Include="PreBattle Interface.cpp" />
     <ClCompile Include="Queen Command.cpp" />

@@ -124,6 +124,7 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"EnemyHeliRepair",
 	L"EnemyHeliRefuel",
 	L"SAMsiteRepaired",
+	L"MilitiaWebsiteEmail",
 };
 
 #endif

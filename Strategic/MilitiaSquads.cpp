@@ -33,6 +33,7 @@
 #include "MilitiaSquads.h"
 #include "Reinforcement.h"
 #include "Inventory Choosing.h"		// added by Flugente for MoveOneMilitiaEquipmentSet() and MoveMilitiaEquipment()
+#include "MilitiaIndividual.h"		// added by Flugente
 
 // Debug defines
 
@@ -311,7 +312,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		// No elites/regulars - reduce target green!
 		--ubTargetGreen;
 	}
-	
+
 	while ( trained + promotionstodo < ubMilitiaToTrain )
 	{
 		////////////////////////////////
@@ -325,7 +326,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		// Do we have room in the target sector?
 		if ( usTotalMilitiaAtTarget + trained < gGameExternalOptions.iMaxMilitiaPerSector )
 		{
-			if ( ubTargetElite > 0 )
+			if (ubTargetElite > 0)
 			{
 				// Add elite.
 				++numcreated[ELITE_MILITIA];
@@ -334,7 +335,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				++trained;
 				fFoundOne = TRUE;
 			}
-			else if ( ubTargetRegular > 0 )
+			else if (ubTargetRegular > 0)
 			{
 				// Add regular.
 				++numcreated[REGULAR_MILITIA];
@@ -343,7 +344,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 				++trained;
 				fFoundOne = TRUE;
 			}
-			else if ( ubTargetGreen > 0 )
+			else if (ubTargetGreen > 0)
 			{
 				// Add green.
 				++numcreated[GREEN_MILITIA];
@@ -356,7 +357,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 
 		// Full militia group? See if you can upgrade some.
 		if( !fFoundOne )
-		{			
+		{
 			// we need to promote militia then
 			++promotionstodo;
 
@@ -382,6 +383,16 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 
 		// Flugente: substract volunteers
 		AddVolunteers( -trained );
+
+		// Flugente: create individual militia
+		for ( int i = 0; i < numcreated[GREEN_MILITIA]; ++i )
+			CreateNewIndividualMilitia( GREEN_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
+
+		for ( int i = 0; i < numcreated[REGULAR_MILITIA]; ++i )
+			CreateNewIndividualMilitia( REGULAR_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
+
+		for ( int i = 0; i < numcreated[ELITE_MILITIA]; ++i )
+			CreateNewIndividualMilitia( ELITE_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
 	}
 
 	// This reduces the group back to "maximum" size. It starts by eliminating extra greens, then regulars, then elites.
@@ -401,7 +412,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 			--pTargetSector->ubNumberOfCivsAtLevel[ELITE_MILITIA];
 		}
 	}
-	
+
 	// Update the militia if the current sector is affected
 	if (gfStrategicMilitiaChangesMade)
 	{
@@ -511,7 +522,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			{
 				ubChanceToSpreadOut = 0;
 			}
-			
+
 			if (!gGameExternalOptions.gfAllowMilitiaSpread )
 			{
 				// Spreading is not allowed by user. Let them fill up the target sector.
@@ -559,7 +570,11 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
 			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
 			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
+
+			// Flugente: update individual militia data
+			UpdateAllMilitiaHealthInTactical( );
 			
 			// Flugente: disease
 			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
@@ -571,6 +586,9 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			StrategicRemoveMilitiaFromSector( sTMapX, sTMapY, GREEN_MILITIA, pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sTMapX, sTMapY, REGULAR_MILITIA, pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sTMapX, sTMapY, ELITE_MILITIA, pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] );
+
+			// Flugente: move along individual militia data
+			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), greens, regulars, elites );
 
 			// Add new militia.
 			StrategicAddMilitiaToSector( sMapX, sMapY, GREEN_MILITIA, bGreensSourceTeam );
@@ -597,20 +615,27 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
 			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
 			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
+
+			// Flugente: update individual militia data
+			UpdateAllMilitiaHealthInTactical( );
 
 			// Flugente: disease
 			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
+
+			// Remove half team from source sector
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, bGreensDestTeam );
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, bRegularsDestTeam );
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, bElitesDestTeam );
+
+			// Flugente: move along individual militia data
+			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] );
 
 			// Add half team to target sector
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, bGreensDestTeam );
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, bRegularsDestTeam );
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, bElitesDestTeam );
-			
-			// Remove half team from source sector
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, bGreensDestTeam );
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, bRegularsDestTeam );
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, bElitesDestTeam );
 			
 			// Units that move into an empty square do not get to move again.
 			AddToBlockMoveList( sTMapX, sTMapY );
@@ -683,7 +708,11 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			UINT8 elites   = max(0, bElitesDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ]);
 			UINT8 regulars = max(0, bRegularsDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]);
 			UINT8 greens   = max(0, bGreensDestTeam - pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
+			
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
+
+			// Flugente: update individual militia data
+			UpdateAllMilitiaHealthInTactical( );
 
 			// Flugente: disease
 			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
@@ -695,6 +724,9 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			StrategicRemoveMilitiaFromSector( sTMapX, sTMapY, GREEN_MILITIA, pTSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sTMapX, sTMapY, REGULAR_MILITIA, pTSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sTMapX, sTMapY, ELITE_MILITIA, pTSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] );
+
+			// Flugente: move along individual militia data
+			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), greens, regulars, elites );
 
 			// Add new militia.
 			StrategicAddMilitiaToSector( sMapX, sMapY, GREEN_MILITIA, bGreensSourceTeam );
@@ -709,15 +741,21 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			// Flugente: mobiles take along their gear
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
 
+			// Flugente: update individual militia data
+			UpdateAllMilitiaHealthInTactical( );
+
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] );
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] );
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] );
+
+			// Flugente: move along individual militia data
+			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] );
+
 			// Entire group moves from Source to Target, leaving no one behind.			
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] );
-		
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] );
-				
+			
 			// Block target group from moving. It has just assimilated another group.
 			AddToBlockMoveList( sTMapX, sTMapY );
 		}
@@ -754,6 +792,9 @@ BOOLEAN MoveOneBestMilitiaMan(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMa
 	{
 		StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, 1 );
 		StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, 1 );
+
+		MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), 0, 0, 1 );
+
 		return TRUE;
 	}
 
@@ -761,6 +802,9 @@ BOOLEAN MoveOneBestMilitiaMan(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMa
 	{
 		StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, 1 );
 		StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, 1 );
+
+		MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), 0, 1, 0 );
+
 		return TRUE;
 	}
 
@@ -768,6 +812,9 @@ BOOLEAN MoveOneBestMilitiaMan(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMa
 	{
 		StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, 1 );
 		StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, 1 );
+
+		MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), 1, 0, 0 );
+
 		return TRUE;
 	}
 
@@ -1894,7 +1941,7 @@ BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 s
 	gpAttackDirs[guiDirNumber][0] = uiNumGreen = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, GREEN_MILITIA );
 	gpAttackDirs[guiDirNumber][1] = uiNumReg = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, REGULAR_MILITIA );
 	gpAttackDirs[guiDirNumber][2] = uiNumElite = MilitiaInSectorOfRank( sTargetMapX, sTargetMapY, ELITE_MILITIA );
-	gpAttackDirs[guiDirNumber][3] = INSERTION_CODE_CENTER;
+	gpAttackDirs[ guiDirNumber ][3] = INSERTION_CODE_CENTER;
 
 	guiDirNumber = insertioncode + 1;
 
@@ -1913,7 +1960,7 @@ BOOLEAN CallMilitiaReinforcements( INT16 sTargetMapX, INT16 sTargetMapY, INT16 s
 		gpAttackDirs[guiDirNumber][0] += militia_green - uiNumGreen;
 		gpAttackDirs[guiDirNumber][1] += militia_troop - uiNumReg;
 		gpAttackDirs[guiDirNumber][2] += militia_elite - uiNumElite;
-		gpAttackDirs[guiDirNumber][3] = insertioncode;
+		gpAttackDirs[ guiDirNumber ][3] = insertioncode;
 
 		uiNumGreen = militia_green;
 		uiNumReg = militia_troop;
@@ -2202,9 +2249,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_NORTH;
 	
-#ifdef DEBUG_SHOW_RATINGS
-				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-#endif
+				#ifdef DEBUG_SHOW_RATINGS
+						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+				#endif
 	
 				++(*uiDirNumber);
 			}
@@ -2230,9 +2277,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_WEST;
 
-#ifdef DEBUG_SHOW_RATINGS
-				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-#endif
+				#ifdef DEBUG_SHOW_RATINGS
+						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+				#endif
 
 				++(*uiDirNumber);
 			}
@@ -2258,9 +2305,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_SOUTH;
 
-#ifdef DEBUG_SHOW_RATINGS
-				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-#endif
+				#ifdef DEBUG_SHOW_RATINGS
+						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+				#endif
 
 				++(*uiDirNumber);
 			}
@@ -2286,9 +2333,9 @@ void GenerateDirectionInfosForTraining( INT16 sMapX, INT16 sMapY, UINT8* uiDirNu
 				pMoveDir[ *uiDirNumber ][1] = usMilitiaCapacity + usUpgradeCapacity;
 				pMoveDir[ *uiDirNumber ][2] = INSERTION_CODE_EAST;
 
-#ifdef DEBUG_SHOW_RATINGS
-				if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
-#endif
+				#ifdef DEBUG_SHOW_RATINGS
+						if( DEBUG_RATINGS_CONDITION )ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Priority of north direction - %ld", pMoveDir[ *uiDirNumber ][1]);
+				#endif
 
 				++(*uiDirNumber);
 			}
@@ -2516,7 +2563,7 @@ UINT8 GetMobileMilitiaQuota( BOOLEAN printMessage )
 
 				if ( MilitiaTrainingAllowedInTown( iCurrT_ID ) == FALSE )	// considered as mobile only if in that town training is taboo (Tixa, Omerta..)
 					iActiveMobiles += NumNonPlayerTeamMembersInSector( SECTORX( iSectorInfoID ), SECTORY( iSectorInfoID ), MILITIA_TEAM );
-			}			
+			}
 			//else if ( StrategicMap[ iStrategicMapID ].bSAMCondition > 0 ) //faster then below, but not safe
 			else if ( MilitiaTrainingAllowedInSector( SECTORX(iSectorInfoID), SECTORY(iSectorInfoID), 0 ) == FALSE ) 
 			{

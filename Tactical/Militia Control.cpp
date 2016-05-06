@@ -30,9 +30,10 @@
 	#include "Campaign.h"
 	#include "ai.h"
 	#include "Isometric Utils.h"
+	#include "MilitiaSquads.h"
+	#include "MilitiaIndividual.h"	// added by Flugente
+	#include "CampaignStats.h"		// added by Flugente
 #endif
-
-#include "MilitiaSquads.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -281,9 +282,7 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 void HandleMilitiaPromotions( void )
 {
 	UINT8				cnt;
-	UINT8				ubMilitiaRank;
 	SOLDIERTYPE*		pTeamSoldier;
-	UINT8				ubPromotions;
 
 	gbGreenToElitePromotions = 0;
 	gbGreenToRegPromotions = 0;
@@ -296,31 +295,8 @@ void HandleMilitiaPromotions( void )
 	{
 		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
 		{
-			if ( pTeamSoldier->ubMilitiaKills > 0 )
-			{	
-				ubMilitiaRank = SoldierClassToMilitiaRank( pTeamSoldier->ubSoldierClass );
-				ubPromotions = CheckOneMilitiaForPromotion( gWorldSectorX, gWorldSectorY, ubMilitiaRank, pTeamSoldier->ubMilitiaKills );
-				if( ubPromotions )
-				{
-					if( ubPromotions == 2 )
-					{
-						++gbGreenToElitePromotions;
-						++gbMilitiaPromotions;
-					}
-					else if( pTeamSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
-					{
-						++gbGreenToRegPromotions;
-						++gbMilitiaPromotions;
-					}
-					else if( pTeamSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
-					{
-						++gbRegToElitePromotions;
-						++gbMilitiaPromotions;
-					}
-				}
-
-				pTeamSoldier->ubMilitiaKills = 0;
-			}
+			// Flugente: take care of promotions and individual militia update
+			HandlePossibleMilitiaPromotion( pTeamSoldier );	
 		}
 	}
 

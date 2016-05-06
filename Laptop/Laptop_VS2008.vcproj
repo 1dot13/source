@@ -371,6 +371,10 @@
 				>
 			</File>
 			<File
+				RelativePath="BaseTable.h"
+				>
+			</File>
+			<File
 				RelativePath="BobbyR.h"
 				>
 			</File>
@@ -655,6 +659,14 @@
 				>
 			</File>
 			<File
+				RelativePath="MilitiaInterface.h"
+				>
+			</File>
+			<File
+				RelativePath="MilitiaWebsite.h"
+				>
+			</File>
+			<File
 				RelativePath="personnel.h"
 				>
 			</File>
@@ -716,6 +728,10 @@
 			</File>
 			<File
 				RelativePath="AimSort.cpp"
+				>
+			</File>
+			<File
+				RelativePath="BaseTable.cpp"
 				>
 			</File>
 			<File
@@ -984,6 +1000,14 @@
 			</File>
 			<File
 				RelativePath="mercs.cpp"
+				>
+			</File>
+			<File
+				RelativePath="MilitiaInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath="MilitiaWebsite.cpp"
 				>
 			</File>
 			<File

@@ -21,8 +21,6 @@ Incident_Stats	gCurrentIncident;		// we might save during an incident, thus we h
 
 CAMPAIGNSTATSEVENT zCampaignStatsEvent[NUM_CAMPAIGNSTATSEVENTS];
 
-extern INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount);
-
 void
 Incident_Stats::clear()
 {
@@ -747,4 +745,49 @@ void StartIncident(INT16 sX, INT16 sY, INT8 sZ)
 	gCurrentIncident.usTime = GetWorldTotalSeconds();
 	gCurrentIncident.usSector = SECTOR(sX, sY);
 	gCurrentIncident.usLevel = sZ;
+}
+
+INT32 GetPositionOfIncident( UINT32 aIncidentId )
+{
+	INT32 cnt = 0;
+
+	std::vector<Incident_Stats>::iterator itend = gCampaignStats.mIncidentVector.end( );
+	for ( std::vector<Incident_Stats>::iterator it = gCampaignStats.mIncidentVector.begin( ); it != itend; ++it )
+	{
+		if ( (*it).usID == aIncidentId )
+			return cnt;
+
+		++cnt;
+	}
+
+	return -1;
+}
+
+static CHAR16	gIncidentNameText[100];
+STR16	GetIncidentName( UINT32 aIncidentId )
+{
+	swprintf( gIncidentNameText, L"NAME NOT FOUND" );
+
+	std::vector<Incident_Stats>::iterator itend = gCampaignStats.mIncidentVector.end( );
+	for ( std::vector<Incident_Stats>::iterator it = gCampaignStats.mIncidentVector.begin( ); it != itend; ++it )
+	{
+		if ( (*it).usID == aIncidentId )
+		{
+			Incident_Stats incident = (*it);
+
+			UINT32 prefix = (incident.usTime + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usID) % CAMPAIGNSTATS_OPERATION_NUM_PREFIX;
+			UINT32 suffix = (incident.usTime + incident.usShots[CAMPAIGNHISTORY_SD_MERC] + 7 * incident.usID) % CAMPAIGNSTATS_OPERATION_NUM_SUFFIX;
+
+			swprintf( gIncidentNameText, szCampaignStatsOperationPrefix[prefix], szCampaignStatsOperationSuffix[suffix] );
+
+			break;
+		}
+	}
+
+	return gIncidentNameText;
+}
+
+UINT32 GetIdOfCurrentlyOngoingIncident()
+{
+	return gCampaignStats.usHighestID + 1;
 }

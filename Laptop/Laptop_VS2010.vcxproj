@@ -31,6 +31,7 @@
     <ClInclude Include="AimMembers.h" />
     <ClInclude Include="AimPolicies.h" />
     <ClInclude Include="AimSort.h" />
+	<ClInclude Include="BaseTable.h" />
     <ClInclude Include="BobbyR.h" />
     <ClInclude Include="BobbyRAmmo.h" />
     <ClInclude Include="BobbyRArmour.h" />
@@ -102,6 +103,8 @@
     <ClInclude Include="mercs Files.h" />
     <ClInclude Include="mercs No Account.h" />
     <ClInclude Include="mercs.h" />
+	<ClInclude Include="MilitiaInterface.h" />
+	<ClInclude Include="MilitiaWebsite.h" />
     <ClInclude Include="personnel.h" />
     <ClInclude Include="PMC.h" />
     <ClInclude Include="PostalService.h" />
@@ -119,6 +122,7 @@
     <ClCompile Include="AimMembers.cpp" />
     <ClCompile Include="AimPolicies.cpp" />
     <ClCompile Include="AimSort.cpp" />
+	<ClCompile Include="BaseTable.cpp" />
     <ClCompile Include="BobbyR.cpp" />
     <ClCompile Include="BobbyRAmmo.cpp" />
     <ClCompile Include="BobbyRArmour.cpp" />
@@ -186,6 +190,8 @@
     <ClCompile Include="mercs Files.cpp" />
     <ClCompile Include="mercs No Account.cpp" />
     <ClCompile Include="mercs.cpp" />
+	<ClCompile Include="MilitiaInterface.cpp" />
+	<ClCompile Include="MilitiaWebsite.cpp" />
     <ClCompile Include="personnel.cpp" />
     <ClCompile Include="PMC.cpp" />
     <ClCompile Include="PostalService.cpp" />

@@ -602,10 +602,10 @@
     <ClCompile Include="XML_SpreadPatterns.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="XML_StructureConstruct.cpp">
+    <ClCompile Include="XML_StructureConstruct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-	<ClCompile Include="XML_StructureDeconstruct.cpp">
+    <ClCompile Include="XML_StructureDeconstruct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_TonyInventory.cpp">
@@ -696,6 +696,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_Disease.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XML_MilitiaIndividual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

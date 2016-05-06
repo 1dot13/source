@@ -901,12 +901,12 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iMilitiaCostModifier			= iniReader.ReadInteger("Financial Settings","MILITIA_COST_MULTIPLIER_MOBILE",3, 1, 10);
 
 	// HEADROCK HAM 3.6: Daily upkeep costs for militia
-	gGameExternalOptions.usDailyCostTownGreen			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_TOWN_GREEN", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostTownRegular			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_TOWN_REGULAR", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostTownElite			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_TOWN_ELITE", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostMobileGreen			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_MOBILE_GREEN", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostMobileRegular		= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_MOBILE_REGULAR", 0, 0, 10000);
-	gGameExternalOptions.usDailyCostMobileElite			= iniReader.ReadInteger("Financial Settings","DAILY_MILITIA_UPKEEP_MOBILE_ELITE", 0, 0, 10000);
+	gGameExternalOptions.usDailyCostTown[GREEN_MILITIA]		= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_TOWN_GREEN", 0, 0, 10000 );
+	gGameExternalOptions.usDailyCostTown[REGULAR_MILITIA]	= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_TOWN_REGULAR", 0, 0, 10000 );
+	gGameExternalOptions.usDailyCostTown[ELITE_MILITIA]		= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_TOWN_ELITE", 0, 0, 10000 );
+	gGameExternalOptions.usDailyCostMobile[GREEN_MILITIA]	= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_MOBILE_GREEN", 0, 0, 10000 );
+	gGameExternalOptions.usDailyCostMobile[REGULAR_MILITIA] = iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_MOBILE_REGULAR", 0, 0, 10000 );
+	gGameExternalOptions.usDailyCostMobile[ELITE_MILITIA]	= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_MOBILE_ELITE", 0, 0, 10000 );
 
 	// HEADROCK HAM 3.5: Helicopter - Base cost per sector. GREEN = Free airspace, RED = Enemy-controlled airspace.
 	gGameExternalOptions.usHelicopterBaseCostPerGreenTile				= iniReader.ReadInteger("Financial Settings","HELICOPTER_BASE_COST_PER_GREEN_TILE", 100, 0, 60000);
@@ -1370,7 +1370,7 @@ void LoadGameExternalOptions()
 		gGameExternalOptions.fSoldierProfiles_Militia		= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIER_PROFILES_MILITIA", TRUE);
 	else
 		gGameExternalOptions.fSoldierProfiles_Militia		= FALSE;
-
+	
 	gGameExternalOptions.fAllowDrivingVehiclesInTactical			= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_DRIVING_VEHICLES_IN_TACTICAL", TRUE);
 
 	gGameExternalOptions.fAllowCarsDrivingOverPeople		= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_CARS_DRIVING_OVER_PEOPLE", TRUE);
@@ -1533,7 +1533,16 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnemyGeneralStrategicDecisionSpeedBonus = iniReader.ReadFloat( "Tactical Enemy Role Settings", "ENEMY_GENERALS_STRATEGIC_DECISION_SPEEDBONUS", 0.05f, 0.00f, 0.1f );
 	gGameExternalOptions.fEnemyGeneralStrategicMovementSpeedBonus = iniReader.ReadFloat( "Tactical Enemy Role Settings", "ENEMY_GENERALS_STRATEGIC_MOVEMENT_SPEEDBONUS", 0.03f, 0.00f, 0.1f );
 
-	
+	//################# Individual Militia Settings ##################
+	// Flugente: individual militia
+	gGameExternalOptions.fIndividualMilitia = iniReader.ReadBoolean( "Individual Militia Settings", "INDIVIDUAL_MILITIA", FALSE );
+
+	gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular = iniReader.ReadInteger( "Individual Militia Settings", "INDIVIDUAL_MILITIA_PROMOTIONPOINTS_TO_REGULAR", 4, 1, 100 );
+	gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Elite = iniReader.ReadInteger( "Individual Militia Settings", "INDIVIDUAL_MILITIA_PROMOTIONPOINTS_TO_ELITE", 10, 1, 100 );
+
+	gGameExternalOptions.fIndividualMilitia_ManageHealth = iniReader.ReadBoolean( "Individual Militia Settings", "INDIVIDUAL_MILITIA_MANAGE_HEALTH", TRUE );
+	gGameExternalOptions.dIndividualMilitiaHourlyHealthPercentageGain = iniReader.ReadFloat( "Individual Militia Settings", "INDIVIDUAL_MILITIA_HOURLYHEALTHPERCENTAGEGAIN", 2.0f, 0.0f, 100.0f );
+
 	//################# Tactical Cover System Settings ##################
 
 	// CPT: Cover System Settings

@@ -38,9 +38,8 @@
 #include "militia control.h"
 #include "Town Militia.h"
 #include "Strategic Town Loyalty.h"
+#include "MilitiaIndividual.h"
 #endif
-
-extern INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
 
 std::vector<PMCReinforcesHireEvent> gPMCHiringEvents;
 PMCGlobalData gPMCData;
@@ -274,16 +273,24 @@ PMCPersonnelData pmcdata[2];
 // how much does it cost to hire a militia from the PMC?
 UINT16 GetMilitiaCostPMC( UINT8 aSoldierClass )
 {
-	switch ( aSoldierClass )
+	// Flugente: if individual militia is on, the upfront payment is much smaller (a single day's wage). In exchange, we have to pay higher wages for these guys
+	if ( gGameExternalOptions.fIndividualMilitia )
 	{
-	case REGULAR_MILITIA:
-		return (4 * gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier) / gGameExternalOptions.iTrainingSquadSize + 7 * gGameExternalOptions.usDailyCostTownRegular;
-		break;
+		return gMilitiaOriginData[MO_PMC].dailycost[aSoldierClass];
+	}
+	else
+	{
+		switch ( aSoldierClass )
+		{
+		case REGULAR_MILITIA:
+			return (4 * gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier) / gGameExternalOptions.iTrainingSquadSize + 7 * gGameExternalOptions.usDailyCostTown[REGULAR_MILITIA];
+			break;
 
-	case ELITE_MILITIA:
-		// elites are upgradded regulars, so we pay for the basic + specail training
-		return ((4 * gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier) + (2 * gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iVeteranCostModifier)) / gGameExternalOptions.iTrainingSquadSize + 7 * gGameExternalOptions.usDailyCostTownElite;
-		break;
+		case ELITE_MILITIA:
+			// elites are upgraded regulars, so we pay for the basic + special training
+			return ((4 * gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier) + (2 * gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iVeteranCostModifier)) / gGameExternalOptions.iTrainingSquadSize + 7 * gGameExternalOptions.usDailyCostTown[ELITE_MILITIA];
+			break;
+		}
 	}
 
 	return 0;
@@ -751,6 +758,13 @@ void HandlePMCArrival( UINT8 usId )
 			// the militia we ordered have arrived!
 			StrategicAddMilitiaToSector( SECTORX( (*it).usSectorToArrive ), SECTORY( (*it).usSectorToArrive ), REGULAR_MILITIA, (*it).usRegulars );
 			StrategicAddMilitiaToSector( SECTORX( (*it).usSectorToArrive ), SECTORY( (*it).usSectorToArrive ), ELITE_MILITIA, (*it).usVeterans );
+
+			// Flugente: create individual militia			
+			for ( int i = 0; i < (*it).usRegulars; ++i )
+				CreateNewIndividualMilitia( REGULAR_MILITIA, MO_PMC, (*it).usSectorToArrive );
+
+			for ( int i = 0; i < (*it).usVeterans; ++i )
+				CreateNewIndividualMilitia( ELITE_MILITIA, MO_PMC, (*it).usSectorToArrive );
 
 			// if this is in the current sector, militia will be updated
 			ResetMilitia( );

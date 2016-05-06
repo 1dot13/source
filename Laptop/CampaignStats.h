@@ -327,4 +327,9 @@ void FinishIncident(INT16 sX, INT16 sY, INT8 sZ);
 // start a new incident
 void StartIncident(INT16 sX, INT16 sY, INT8 sZ);
 
+INT32 GetPositionOfIncident( UINT32 aIncidentId );
+STR16	GetIncidentName( UINT32 aIncidentId );
+
+UINT32 GetIdOfCurrentlyOngoingIncident();
+
 #endif	// __CAMPAIGNSTATS_H

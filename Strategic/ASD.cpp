@@ -55,9 +55,6 @@
 #endif
 
 
-
-extern INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
-
 extern INT32 giReinforcementPool;
 
 extern BOOLEAN gfTacticalDoHeliRun;

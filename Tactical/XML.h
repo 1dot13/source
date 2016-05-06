@@ -250,6 +250,7 @@ typedef PARSE_STAGE;
 #define VEHICLESFILENAME						"Vehicles.xml"
 #define SQUADNAMEFILENAME						"SquadNames.xml"
 #define BACKGROUNDSFILENAME						"Backgrounds.xml"
+#define INDIVIDUALMILITIAFILENAME				"MilitiaIndividual.xml"
 #define CAMPAIGNSTATSEVENTSFILENAME				"CampaignStatsEvents.xml"
 #define DISEASEFILENAME							"Disease.xml"
 
@@ -517,6 +518,10 @@ extern void LoadIMPPortraitsTEMP();
 // Flugente: backgrounds
 extern BOOLEAN ReadInBackgrounds(STR fileName, BOOLEAN localizedVersion );
 extern BOOLEAN WriteBackgrounds( STR fileName);
+
+// Flugente: individual militia
+extern BOOLEAN ReadInMilitiaIndividual( STR fileName, BOOLEAN localizedVersion );
+extern BOOLEAN WriteMilitiaIndividual( STR fileName );
 
 // Flugente: campaign stats events
 extern BOOLEAN ReadInCampaignStatsEvents(STR fileName, BOOLEAN localizedVersion );

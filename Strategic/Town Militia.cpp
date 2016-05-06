@@ -31,6 +31,7 @@
 	#include "Map Screen Interface Map.h"
 	#include "laptop.h"							// added by Flugente
 	#include "Game Event Hook.h"				// added by Flugente
+	#include "MilitiaIndividual.h"				// added by Flugente
 #endif
 
 // HEADROCK HAM 3: include these files so that a militia trainer's Effective Leadership can be determined. Used
@@ -128,6 +129,8 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 		// great! Promote a GREEN militia guy in the training sector to a REGULAR
 		StrategicPromoteMilitiaInSector( sMapX, sMapY, GREEN_MILITIA, 1 );
 
+		PromoteIndividualMilitia( SECTOR( sMapX, sMapY ), SOLDIER_CLASS_GREEN_MILITIA );
+
 		if ( sMapX == gWorldSectorX && sMapY == gWorldSectorY )
 			gfStrategicMilitiaChangesMade = TRUE;
 
@@ -149,6 +152,8 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 					// great! Promote a GREEN militia guy in the neighbouring sector to a REGULAR
 					StrategicPromoteMilitiaInSector( sNeighbourX, sNeighbourY, GREEN_MILITIA, 1 );
 
+					PromoteIndividualMilitia( SECTOR( sNeighbourX, sNeighbourY ), SOLDIER_CLASS_GREEN_MILITIA );
+
 					if ( sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY )
 						gfStrategicMilitiaChangesMade = TRUE;
 
@@ -167,6 +172,8 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 			{
 				// great! Promote a REGULAR militia guy in the training sector to a VETERAN
 				StrategicPromoteMilitiaInSector( sMapX, sMapY, REGULAR_MILITIA, 1 );
+
+				PromoteIndividualMilitia( SECTOR( sMapX, sMapY ), SOLDIER_CLASS_REG_MILITIA );
 
 				if ( sMapX == gWorldSectorX && sMapY == gWorldSectorY )
 					gfStrategicMilitiaChangesMade = TRUE;
@@ -188,6 +195,8 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 						{
 							// great! Promote a Regular militia guy in the neighbouring sector to a Veteran
 							StrategicPromoteMilitiaInSector( sNeighbourX, sNeighbourY, REGULAR_MILITIA, 1 );
+
+							PromoteIndividualMilitia( SECTOR( sNeighbourX, sNeighbourY ), SOLDIER_CLASS_REG_MILITIA );
 
 							if ( sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY )
 								gfStrategicMilitiaChangesMade = TRUE;
@@ -277,6 +286,8 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 
 				// next, please!
 				++ubMilitiaTrained;
+
+				CreateNewIndividualMilitia( GREEN_MILITIA, MO_ARULCO, SECTOR( sMapX, sMapY ) );
 			}
 			else
 			{
@@ -300,6 +311,8 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 
 							// next, please!
 							++ubMilitiaTrained;
+
+							CreateNewIndividualMilitia( GREEN_MILITIA, MO_ARULCO, SECTOR( sNeighbourX, sNeighbourY ) );
 
 							fFoundOne = TRUE;
 							break;
@@ -359,6 +372,8 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	// Flugente: if we trained militia, the PMC notices us and offers their services
 	if ( gGameExternalOptions.fPMC )
 		AddStrategicEvent( EVENT_PMC_EMAIL, GetWorldTotalMin() + 60 * (1 + Random(6)), 0 );
+
+	AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
 }
 
 
@@ -2232,6 +2247,9 @@ void HandleMilitiaUpkeepPayment( void )
 
 				// Find and remove militia across the map. This is done randomly, starting with elites.
 				UINT32 uiNumMilitiaDisbanded = 0;
+				UINT32 usGreenDisbanded = 0;
+				UINT32 usRegularsDisbanded = 0;
+				UINT32 usElitesDisbanded = 0;
 
 				MILITIA_LIST_TYPE MilitiaList[256];
 
@@ -2293,56 +2311,66 @@ void HandleMilitiaUpkeepPayment( void )
 						// Adjust list entry
 						MilitiaList[0].ubNumMobileElites--;
 						// Reduce debt appropriately
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobileElite;
+						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[ELITE_MILITIA];
 						// Increase tally of militia removed
 						++uiNumMilitiaDisbanded;
+						++usElitesDisbanded;
 					}
 					else if (MilitiaList[0].ubNumMobileRegulars > 0)
 					{
 						StrategicRemoveMilitiaFromSector( sX, sY, REGULAR_MILITIA, 1 );
 						MilitiaList[0].ubNumMobileRegulars--;
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobileRegular;
+						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[REGULAR_MILITIA];
 						++uiNumMilitiaDisbanded;
+						++usRegularsDisbanded;
 					}
 					else if (MilitiaList[0].ubNumMobileGreens > 0)
 					{
 						StrategicRemoveMilitiaFromSector( sX, sY, GREEN_MILITIA, 1 );
 						MilitiaList[0].ubNumMobileGreens--;
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobileGreen;
+						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[GREEN_MILITIA];
 						++uiNumMilitiaDisbanded;
+						++usGreenDisbanded;
 					}							
 					else if (MilitiaList[0].ubNumTownElites > 0)
 					{
 						StrategicRemoveMilitiaFromSector( sX, sY, ELITE_MILITIA, 1 );
 						MilitiaList[0].ubNumTownElites--;
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTownElite;
+						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTown[ELITE_MILITIA];
 						++uiNumMilitiaDisbanded;
+						++usElitesDisbanded;
 					}
 					else if (MilitiaList[0].ubNumTownRegulars > 0)
 					{
 						StrategicRemoveMilitiaFromSector( sX, sY, REGULAR_MILITIA, 1 );
 						MilitiaList[0].ubNumTownRegulars--;
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTownRegular;
+						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTown[REGULAR_MILITIA];
 						++uiNumMilitiaDisbanded;
+						++usRegularsDisbanded;
 					}
 					else if (MilitiaList[0].ubNumTownGreens > 0)
 					{
 						StrategicRemoveMilitiaFromSector( sX, sY, GREEN_MILITIA, 1 );
 						MilitiaList[0].ubNumTownGreens--;
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTownGreen;
+						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTown[GREEN_MILITIA];
 						++uiNumMilitiaDisbanded;
+						++usGreenDisbanded;
 					}
 					else
 					{
 						// Somehow there are none to remove?!
 						Assert(1);
 					}
+
 					// Resort the list!
 					qsort( MilitiaList, 256, sizeof(MILITIA_LIST_TYPE), MilitiaListQsortCompare);
 				}
 
 				// Pay all we can
 				uiPayment = LaptopSaveInfo.iCurrentBalance;
+				
+				// Flugente: individual militia
+				DisbandIndividualMilitia( MilitiaList[0].ubSectorId, usGreenDisbanded, usRegularsDisbanded, usElitesDisbanded );
 
 				// Notify player that X militia have been automatically disbanded due to debt.
 				CHAR16 sString[256];
@@ -2421,6 +2449,10 @@ UINT32 CalcMilitiaUpkeep( void )
 {
 	UINT32 uiTotalPayment = 0;
 
+	UINT32 militia_static[MAX_MILITIA_LEVELS] = {0, 0, 0};
+	UINT32 militia_mobile[MAX_MILITIA_LEVELS] = {0, 0, 0};
+	UINT32 militia_individual[MAX_MILITIA_LEVELS] = {0, 0, 0};
+
 	for (UINT16 cnt = 0; cnt < 256; ++cnt)
 	{
 		SECTORINFO *pSectorInfo = &( SectorInfo[ cnt ] );
@@ -2431,19 +2463,36 @@ UINT32 CalcMilitiaUpkeep( void )
 		if ((ubTownId != BLANK_SECTOR && MilitiaTrainingAllowedInTown(ubTownId)) || // Major Town
 			IsThisSectorASAMSector( sMapX, sMapY, 0 ) ) // SAM Site
 		{
-			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) * gGameExternalOptions.usDailyCostTownGreen;
-			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) * gGameExternalOptions.usDailyCostTownRegular;
-			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) * gGameExternalOptions.usDailyCostTownElite;
+			for ( int i = GREEN_MILITIA; i < MAX_MILITIA_LEVELS; ++i )
+				militia_static[i] += MilitiaInSectorOfRank( sMapX, sMapY, i );
 		}
 		else
 		{
-			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) * gGameExternalOptions.usDailyCostMobileGreen;
-			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) * gGameExternalOptions.usDailyCostMobileRegular;
-			uiTotalPayment += MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA ) * gGameExternalOptions.usDailyCostMobileElite;
+			for ( int i = GREEN_MILITIA; i < MAX_MILITIA_LEVELS; ++i )
+				militia_mobile[i] += MilitiaInSectorOfRank( sMapX, sMapY, i );
 		}
 	}
 
-	return (uiTotalPayment);
+	// Flugente: if indivídual militia is on, calculate costs there and use the above as a fallback option
+	if ( gGameExternalOptions.fIndividualMilitia )
+	{
+		uiTotalPayment = GetDailyUpkeep_IndividualMilitia( militia_individual[GREEN_MILITIA], militia_individual[REGULAR_MILITIA], militia_individual[ELITE_MILITIA] );
+	}
+
+	for ( int i = GREEN_MILITIA; i < MAX_MILITIA_LEVELS; ++i )
+	{
+		if ( militia_static[i] + militia_mobile[i] > militia_individual[i] )
+		{
+			UINT32 exceed = militia_static[i] + militia_mobile[i] - militia_individual[i];
+			UINT32 exceed_mobile = min( exceed, militia_mobile[i] );
+			UINT32 exced_static = exceed - exceed_mobile;
+
+			uiTotalPayment += exced_static * gGameExternalOptions.usDailyCostTown[i];
+			uiTotalPayment += exceed_mobile * gGameExternalOptions.usDailyCostMobile[i];
+		}
+	}
+
+	return uiTotalPayment;
 }
 
 // Flugente: our militia volunteer pool is limited

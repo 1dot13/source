@@ -437,430 +437,403 @@ void RenderCampaignHistory_MostImportant()
 	usPosX = LAPTOP_SCREEN_UL_X;
 	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 70;
 
-	// return if there are no incidents yet
-	if ( !gCampaignStats.usNumIncidents )
-		return;
+	// fix if bad number
+	if ( gusMostImportantPage >= gCampaignStats.usNumIncidents )
+		gusMostImportantPage = 0;
 
-	Incident_Stats incident = gCampaignStats.mIncidentVector[ gusMostImportantPage ];
-
-	CHAR16 wSectorName_Target[ 100 ];
-	GetSectorIDString( SECTORX(incident.usSector), SECTORY(incident.usSector), incident.usLevel, wSectorName_Target, TRUE );
-
-	INT8 bTownId = GetTownIdForSector( SECTORX(incident.usSector), SECTORY(incident.usSector) );
-
-	//Calculate the day, hour, and minutes.
-	UINT32 day		= ( incident.usTime / NUM_SEC_IN_DAY );
-	UINT32 hour		= ( incident.usTime - ( day * NUM_SEC_IN_DAY ) ) / NUM_SEC_IN_HOUR;
-	UINT32 minute	= ( incident.usTime - ( ( day * NUM_SEC_IN_DAY ) + ( hour * NUM_SEC_IN_HOUR ) ) ) / NUM_SEC_IN_MIN;
-
-	// a funny operation name might be more entertaining than a simple number
-	/*UINT8 importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_MOMENTOUS;
-	if ( incident.usInterestRating < 500  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_IRRELEVANT;
-	else if ( incident.usInterestRating < 1000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_INSIGNIFICANT;
-	else if ( incident.usInterestRating < 2000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_NOTABLE;
-	else if ( incident.usInterestRating < 3000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_NOTEWORTHY;
-	else if ( incident.usInterestRating < 4000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_SIGNIFICANT;
-	else if ( incident.usInterestRating < 5000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_INTERESTING;
-	else if ( incident.usInterestRating < 6000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_IMPORTANT;
-	else if ( incident.usInterestRating < 7000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_VERYIMPORTANT;
-	else if ( incident.usInterestRating < 8000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_GRAVE;
-	else if ( incident.usInterestRating < 10000  )
-		importancenr = TEXT_CAMPAIGNHISTORY_IMPORTANCE_MAJOR;
-
-	swprintf(sText, L"%s %s #%d - %s, %s %d, %02d:%02d", szCampaignHistoryImportanceString[importancenr], szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_INCIDENT], incident.usID, wSectorName_Target, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_DAY], day, hour, minute);
-	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, CAMPHIS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );*/
-	
-	UINT32 prefix = (incident.usTime + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usID) % CAMPAIGNSTATS_OPERATION_NUM_PREFIX;
-	UINT32 suffix = (incident.usTime + incident.usShots[CAMPAIGNHISTORY_SD_MERC] + 7 * incident.usID) % CAMPAIGNSTATS_OPERATION_NUM_SUFFIX;
-
-	CHAR16 operationame[200];
-	swprintf( operationame, szCampaignStatsOperationPrefix[prefix], szCampaignStatsOperationSuffix[suffix] );
-
-	swprintf( sText, L"Operation %s - %s, %s %d, %02d:%02d", operationame, wSectorName_Target, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_DAY], day, hour, minute );
-	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, CAMPHIS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-	
-	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 90;
-
-	if ( gusMostImportantMode == 0 )
+	if ( gusMostImportantPage < gCampaignStats.usNumIncidents )
 	{
-		usPosX += 2 * CAMPAIGN_HISTORY_TABLE_STEP_X;
+		Incident_Stats incident = gCampaignStats.mIncidentVector[ gusMostImportantPage ];
 
-		swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_KILLED]);
-		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+		CHAR16 wSectorName_Target[ 100 ];
+		GetSectorIDString( SECTORX(incident.usSector), SECTORY(incident.usSector), incident.usLevel, wSectorName_Target, TRUE );
 
-		usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
+		INT8 bTownId = GetTownIdForSector( SECTORX(incident.usSector), SECTORY(incident.usSector) );
 
-		swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_WOUNDED]);
-		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+		//Calculate the day, hour, and minutes.
+		UINT32 day		= ( incident.usTime / NUM_SEC_IN_DAY );
+		UINT32 hour		= ( incident.usTime - ( day * NUM_SEC_IN_DAY ) ) / NUM_SEC_IN_HOUR;
+		UINT32 minute	= ( incident.usTime - ( ( day * NUM_SEC_IN_DAY ) + ( hour * NUM_SEC_IN_HOUR ) ) ) / NUM_SEC_IN_MIN;
+	
+		STR16 operationstr = GetIncidentName( incident.usID );
 
-		usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
+		swprintf( sText, L"Operation %s - %s, %s %d, %02d:%02d", operationstr, wSectorName_Target, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_DAY], day, hour, minute );
+		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, CAMPHIS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	
+		usPosY = LAPTOP_SCREEN_WEB_UL_Y + 90;
 
-		swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_PRISONERS]);
-		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-		usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
-
-		swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_SHOTSFIRED]);
-		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-		usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
-
-		swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_PARTICIPANTS]);
-		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-		usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
-
-		swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_PROMOTIONS]);
-		DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-				
-		usPosX = LAPTOP_SCREEN_UL_X;
-		
-		usPosY += 20;
-
-		for(int i = CAMPAIGNHISTORY_SD_MERC; i < CAMPAIGNHISTORY_SD_MAX; ++i)
+		if ( gusMostImportantMode == 0 )
 		{
-			// if faction was not involved at all, ignore
-			if ( !incident.usKills[i] && !incident.usWounds[i] && !incident.usPrisoners[i] && !incident.usShots[i] && !incident.usParticipants[i] && !incident.usPromotions[i] )
-				continue;
-
-			usPosX = LAPTOP_SCREEN_UL_X;
-			swprintf(sText, L"%s", szSoldierClassName[i]);
-			DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-		
 			usPosX += 2 * CAMPAIGN_HISTORY_TABLE_STEP_X;
 
-			swprintf(sText, L"%d", incident.usKills[i]);
-			if ( incident.usKills[i] )
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-			else
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
-		
-			usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
-
-			swprintf(sText, L"%d", incident.usWounds[i]);
-			if ( incident.usWounds[i] )
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-			else
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
-		
-			usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
-
-			swprintf(sText, L"%d", incident.usPrisoners[i]);
-			if ( incident.usPrisoners[i] )
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-			else
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+			swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_KILLED]);
+			DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
 
 			usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
 
-			swprintf(sText, L"%d", incident.usShots[i]);
-			if ( incident.usShots[i] )
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-			else
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
-		
+			swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_WOUNDED]);
+			DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+
 			usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
 
-			swprintf(sText, L"%d", incident.usParticipants[i]);
-			if ( incident.usParticipants[i] )
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-			else
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
-		
+			swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_PRISONERS]);
+			DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+
 			usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
 
-			swprintf(sText, L"%d", incident.usPromotions[i]);
-			if ( incident.usPromotions[i] )
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-			else
-				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+			swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_SHOTSFIRED]);
+			DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+			usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
+
+			swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_PARTICIPANTS]);
+			DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+			usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
+
+			swprintf(sText, szCampaignHistoryWebpageString[WEBPAGE_CAMPAIGNHISTORY_PROMOTIONS]);
+			DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+				
+			usPosX = LAPTOP_SCREEN_UL_X;
 		
 			usPosY += 20;
-		}
-	}
-	else
-	{
-		UINT8 terrain, type;
-		incident.GetTerrainandType(terrain, type);
 
-		// draw text
-		// if this is a one-time event, display a special text
-		if ( incident.usOneTimeEventFlags & 0xFFFFFFFF )
-		{
-			UINT8 eventnr = 0;
-			if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_OMERTA )
-				eventnr = 0;
-			else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_DEATH_KINGPIN )
-				eventnr = 1;
-			else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_MASSACRE_HICKS )
-				eventnr = 2;
-			else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_MASSACRE_BLOODCATS )
-				eventnr = 3;
-			else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_CITY_RETAKEN )
-				eventnr = 4;
-			else
+			for(int i = CAMPAIGNHISTORY_SD_MERC; i < CAMPAIGNHISTORY_SD_MAX; ++i)
 			{
-				for(int i = 0; i < NUM_CAMPAIGNSTATSEVENTS; ++i)
-				{
-					if ( bTownId == zCampaignStatsEvent[i].usCityTaken )
-					{
-						eventnr = i;
-						break;
-					}
-				}
-			}
+				// if faction was not involved at all, ignore
+				if ( !incident.usKills[i] && !incident.usWounds[i] && !incident.usPrisoners[i] && !incident.usShots[i] && !incident.usParticipants[i] && !incident.usPromotions[i] )
+					continue;
 
-			// special picture - use eventnr
-			GetVideoObject(&hPixHandle, guiCampaignEventImage );
+				usPosX = LAPTOP_SCREEN_UL_X;
+				swprintf(sText, L"%s", szSoldierClassName[i]);
+				DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+		
+				usPosX += 2 * CAMPAIGN_HISTORY_TABLE_STEP_X;
 
-			BltVideoObject(FRAME_BUFFER, hPixHandle, eventnr, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY, NULL);
+				swprintf(sText, L"%d", incident.usKills[i]);
+				if ( incident.usKills[i] )
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+				else
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+		
+				usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
 
-			UINT16 picend = usPosY + hPixHandle->pETRLEObject[ eventnr ].usHeight + 3;
-			usPosX += hPixHandle->pETRLEObject[ eventnr ].usWidth + 3;
+				swprintf(sText, L"%d", incident.usWounds[i]);
+				if ( incident.usWounds[i] )
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+				else
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+		
+				usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
 
-			for (int i = 0; i < MAX_CAMPAIGNSTATSEVENTS_TEXTS; ++i)
-			{
-				swprintf(sText, zCampaignStatsEvent[eventnr].szText[i] );
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				swprintf(sText, L"%d", incident.usPrisoners[i]);
+				if ( incident.usPrisoners[i] )
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+				else
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+				usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
+
+				swprintf(sText, L"%d", incident.usShots[i]);
+				if ( incident.usShots[i] )
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+				else
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+		
+				usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
+
+				swprintf(sText, L"%d", incident.usParticipants[i]);
+				if ( incident.usParticipants[i] )
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+				else
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+		
+				usPosX += CAMPAIGN_HISTORY_TABLE_STEP_X;
+
+				swprintf(sText, L"%d", incident.usPromotions[i]);
+				if ( incident.usPromotions[i] )
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+				else
+					DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_PASSIVE, FONT_MCOLOR_BLACK, FALSE, 0 );
+		
+				usPosY += 20;
 			}
 		}
 		else
 		{
-			GetVideoObject(&hPixHandle, guiCampaignHistoryPicture[terrain][type] );
+			UINT8 terrain, type;
+			incident.GetTerrainandType(terrain, type);
 
-			UINT16 picnum = incident.usID % hPixHandle->usNumberOfObjects;
-
-			BltVideoObject(FRAME_BUFFER, hPixHandle, picnum, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
-
-			UINT16 picend = usPosY + hPixHandle->pETRLEObject[ picnum ].usHeight + 3;
-			usPosX += hPixHandle->pETRLEObject[ picnum ].usWidth + 3;
-
-			// time string
-			CHAR16	timestring[ 50 ];
-			if ( hour < 3 || hour > 23 )
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_DEEPNIGHT]);
-			else if ( hour < 6 )
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_DAWN]);
-			else if ( hour < 8 )
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_EARLYMORNING]);
-			else if ( hour < 11 )
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_MORNING]);
-			else if ( hour < 14 )
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_NOON]);
-			else if ( hour < 18 )
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_AFTERNOON]);
-			else if ( hour < 21 )
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_EVENING]);
-			else
-				swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_NIGHT]);
-
-			CHAR16	aggressor[ 50 ];
-			CHAR16	defender[ 50 ];
-			if ( incident.usIncidentFlags & INCIDENT_ATTACK_ENEMY )
+			// draw text
+			// if this is a one-time event, display a special text
+			if ( incident.usOneTimeEventFlags & 0xFFFFFFFF )
 			{
-				swprintf(aggressor, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ARMY]);
-				swprintf(defender, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REBELFORCES]);
+				UINT8 eventnr = 0;
+				if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_OMERTA )
+					eventnr = 0;
+				else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_DEATH_KINGPIN )
+					eventnr = 1;
+				else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_MASSACRE_HICKS )
+					eventnr = 2;
+				else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_MASSACRE_BLOODCATS )
+					eventnr = 3;
+				else if ( incident.usOneTimeEventFlags & INCIDENT_ONETIMEEVENT_CITY_RETAKEN )
+					eventnr = 4;
+				else
+				{
+					for(int i = 0; i < NUM_CAMPAIGNSTATSEVENTS; ++i)
+					{
+						if ( bTownId == zCampaignStatsEvent[i].usCityTaken )
+						{
+							eventnr = i;
+							break;
+						}
+					}
+				}
+
+				// special picture - use eventnr
+				GetVideoObject(&hPixHandle, guiCampaignEventImage );
+
+				BltVideoObject(FRAME_BUFFER, hPixHandle, eventnr, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY, NULL);
+
+				UINT16 picend = usPosY + hPixHandle->pETRLEObject[ eventnr ].usHeight + 3;
+				usPosX += hPixHandle->pETRLEObject[ eventnr ].usWidth + 3;
+
+				for (int i = 0; i < MAX_CAMPAIGNSTATSEVENTS_TEXTS; ++i)
+				{
+					swprintf(sText, zCampaignStatsEvent[eventnr].szText[i] );
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
 			}
 			else
 			{
-				swprintf(aggressor, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REBELFORCES]);
-				swprintf(defender, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ARMY]);
-			}
+				GetVideoObject(&hPixHandle, guiCampaignHistoryPicture[terrain][type] );
 
-			CHAR16	rebel[ 50 ];
-			CHAR16	enemy[ 50 ];
-			swprintf(enemy, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ARMY]);
-			swprintf(rebel, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REBELFORCES]);
+				UINT16 picnum = incident.usID % hPixHandle->usNumberOfObjects;
 
-			CHAR16	attacktype[ 50 ];
-			if ( incident.usIncidentFlags & INCIDENT_AIRDROP )
-				swprintf(attacktype, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_AIRDROPPED]);
-			else if ( incident.usIncidentFlags & INCIDENT_AMBUSH )
-				swprintf(attacktype, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_AMBUSHED]);
-			else
-				swprintf(attacktype, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ATTACKED]);
+				BltVideoObject(FRAME_BUFFER, hPixHandle, picnum, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY,NULL);
 
-			swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SETTING], timestring, aggressor, attacktype, defender, wSectorName_Target);
+				UINT16 picend = usPosY + hPixHandle->pETRLEObject[ picnum ].usHeight + 3;
+				usPosX += hPixHandle->pETRLEObject[ picnum ].usWidth + 3;
+
+				// time string
+				CHAR16	timestring[ 50 ];
+				if ( hour < 3 || hour > 23 )
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_DEEPNIGHT]);
+				else if ( hour < 6 )
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_DAWN]);
+				else if ( hour < 8 )
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_EARLYMORNING]);
+				else if ( hour < 11 )
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_MORNING]);
+				else if ( hour < 14 )
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_NOON]);
+				else if ( hour < 18 )
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_AFTERNOON]);
+				else if ( hour < 21 )
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_EVENING]);
+				else
+					swprintf(timestring, szCampaignHistoryTimeString[TEXT_CAMPAIGNHISTORY_TIME_NIGHT]);
+
+				CHAR16	aggressor[ 50 ];
+				CHAR16	defender[ 50 ];
+				if ( incident.usIncidentFlags & INCIDENT_ATTACK_ENEMY )
+				{
+					swprintf(aggressor, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ARMY]);
+					swprintf(defender, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REBELFORCES]);
+				}
+				else
+				{
+					swprintf(aggressor, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REBELFORCES]);
+					swprintf(defender, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ARMY]);
+				}
+
+				CHAR16	rebel[ 50 ];
+				CHAR16	enemy[ 50 ];
+				swprintf(enemy, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ARMY]);
+				swprintf(rebel, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REBELFORCES]);
+
+				CHAR16	attacktype[ 50 ];
+				if ( incident.usIncidentFlags & INCIDENT_AIRDROP )
+					swprintf(attacktype, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_AIRDROPPED]);
+				else if ( incident.usIncidentFlags & INCIDENT_AMBUSH )
+					swprintf(attacktype, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_AMBUSHED]);
+				else
+					swprintf(attacktype, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ATTACKED]);
+
+				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SETTING], timestring, aggressor, attacktype, defender, wSectorName_Target);
 		
-			usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-			if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-
-			if ( incident.usIncidentFlags & (INCIDENT_PLAYER_ALLDIRS|INCIDENT_ENEMY_ALLDIRS) )
-			{
-				if ( incident.usIncidentFlags & INCIDENT_PLAYER_ALLDIRS && incident.usIncidentFlags & INCIDENT_ENEMY_ALLDIRS )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ATTACKERANDDEFENDERDIR], incident.GetAttackerDirString(TRUE), defender, incident.GetAttackerDirString(FALSE) );
-				else if ( ( incident.usIncidentFlags & INCIDENT_PLAYER_ALLDIRS && incident.usIncidentFlags & INCIDENT_ATTACK_PLAYERSIDE ) || ( incident.usIncidentFlags & INCIDENT_ENEMY_ALLDIRS && incident.usIncidentFlags & INCIDENT_ATTACK_ENEMY ) )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ATTACKERDIR], incident.GetAttackerDirString(TRUE) );
-				else
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_DEFENDERDIR], defender, incident.GetAttackerDirString(FALSE) );
-			
 				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
 				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
 
-			if ( incident.usIncidentFlags & INCIDENT_SAMSITE_SABOTAGED )
-			{
-				swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SAMSITESABOTAGED], pCountryNames[COUNTRY_NOUN], pCountryNames[COUNTRY_NAME] );
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
-			else if ( incident.usIncidentFlags & INCIDENT_BUILDINGS_DAMAGED )
-			{
-				if ( incident.usKills[CAMPAIGNHISTORY_SD_CIV] + incident.usWounds[CAMPAIGNHISTORY_SD_CIV] > 0 )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_BUILDINGANDCIVDAMAGE], incident.usKills[CAMPAIGNHISTORY_SD_CIV], incident.usWounds[CAMPAIGNHISTORY_SD_CIV] );
-				else
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_BUILDINGDAMAGE] );
-
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
-
-			if ( incident.usIncidentFlags & (INCIDENT_REINFORCEMENTS_ENEMY|INCIDENT_REINFORCEMENTS_PLAYERSIDE) )
-			{
-				if ( incident.usIncidentFlags & INCIDENT_REINFORCEMENTS_ENEMY && incident.usIncidentFlags & INCIDENT_REINFORCEMENTS_PLAYERSIDE )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REINFORCE_BOTH], aggressor, defender );
-				else if ( incident.usIncidentFlags & INCIDENT_REINFORCEMENTS_ENEMY )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REINFORCE], enemy );
-				else
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REINFORCE], rebel );
-
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
-
-			if ( incident.usIncidentFlags & (INCIDENT_MUSTARDGAS_ENEMY|INCIDENT_MUSTARDGAS_PLAYERSIDE) )
-			{
-				if ( incident.usIncidentFlags & INCIDENT_MUSTARDGAS_ENEMY && incident.usIncidentFlags & INCIDENT_MUSTARDGAS_PLAYERSIDE )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_CHEMICAL_BOTH] );
-				else if ( incident.usIncidentFlags & INCIDENT_MUSTARDGAS_ENEMY )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_CHEMICAL], enemy );
-				else
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_CHEMICAL], rebel );
-
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
-
-			if ( incident.usIncidentFlags & (INCIDENT_TANKS_ENEMY|INCIDENT_TANKS_PLAYERSIDE) )
-			{
-				if ( incident.usIncidentFlags & INCIDENT_TANKS_ENEMY && incident.usIncidentFlags & INCIDENT_TANKS_PLAYERSIDE )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_TANKS_BOTH] );
-				else if ( incident.usIncidentFlags & INCIDENT_TANKS_ENEMY )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_TANKS], incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_TANK], enemy, incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_TANK] );
-				else
-					// TODO
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_TANKS], incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_TANK], rebel, incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_TANK] );
-
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
-
-			if ( incident.usIncidentFlags & (INCIDENT_SNIPERS_ENEMY|INCIDENT_SNIPERS_PLAYERSIDE) )
-			{
-				if ( incident.usIncidentFlags & INCIDENT_SNIPERS_ENEMY && incident.usIncidentFlags & INCIDENT_SNIPERS_PLAYERSIDE )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SNIPERS_BOTH] );
-				else if ( incident.usIncidentFlags & INCIDENT_SNIPERS_ENEMY )
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SNIPERS], enemy );
-				else
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SNIPERS], rebel );
-
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
-			}
-
-			// only report on spies if they were uncovered
-			if ( incident.usIncidentFlags & INCIDENT_SPYACTION_UNCOVERED )
-			{
-				if ( incident.usIncidentFlags & INCIDENT_SPYACTION_ENEMY )
+				if ( incident.usIncidentFlags & (INCIDENT_PLAYER_ALLDIRS|INCIDENT_ENEMY_ALLDIRS) )
 				{
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_ENEMY] );
+					if ( incident.usIncidentFlags & INCIDENT_PLAYER_ALLDIRS && incident.usIncidentFlags & INCIDENT_ENEMY_ALLDIRS )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ATTACKERANDDEFENDERDIR], incident.GetAttackerDirString(TRUE), defender, incident.GetAttackerDirString(FALSE) );
+					else if ( ( incident.usIncidentFlags & INCIDENT_PLAYER_ALLDIRS && incident.usIncidentFlags & INCIDENT_ATTACK_PLAYERSIDE ) || ( incident.usIncidentFlags & INCIDENT_ENEMY_ALLDIRS && incident.usIncidentFlags & INCIDENT_ATTACK_ENEMY ) )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_ATTACKERDIR], incident.GetAttackerDirString(TRUE) );
+					else
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_DEFENDERDIR], defender, incident.GetAttackerDirString(FALSE) );
+			
 					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
 					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
 				}
 
-				if ( incident.usIncidentFlags & INCIDENT_SPYACTION_PLAYERSIDE )
+				if ( incident.usIncidentFlags & INCIDENT_SAMSITE_SABOTAGED )
 				{
-					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_PLAYER] );
+					swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SAMSITESABOTAGED], pCountryNames[COUNTRY_NOUN], pCountryNames[COUNTRY_NAME] );
 					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
 					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
 				}
-			}
+				else if ( incident.usIncidentFlags & INCIDENT_BUILDINGS_DAMAGED )
+				{
+					if ( incident.usKills[CAMPAIGNHISTORY_SD_CIV] + incident.usWounds[CAMPAIGNHISTORY_SD_CIV] > 0 )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_BUILDINGANDCIVDAMAGE], incident.usKills[CAMPAIGNHISTORY_SD_CIV], incident.usWounds[CAMPAIGNHISTORY_SD_CIV] );
+					else
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_BUILDINGDAMAGE] );
 
-			{
-				// team losses
-				UINT16 rebellosses = incident.usKills[CAMPAIGNHISTORY_SD_MERC] + incident.usKills[CAMPAIGNHISTORY_SD_MILITIA_GREEN] + incident.usKills[CAMPAIGNHISTORY_SD_MILITIA_REGULAR] + incident.usKills[CAMPAIGNHISTORY_SD_MILITIA_ELITE];
-				UINT16 armylosses  = incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ADMIN] + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ELITE] + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_TANK];
-				UINT16 armypows    = incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_ADMIN] + incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_ELITE] + incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_TANK];
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
 
-				// team sizes
-				UINT16 rebelsize   = max(1, incident.usParticipants[CAMPAIGNHISTORY_SD_MERC] + incident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_GREEN] + incident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_REGULAR] + incident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_ELITE]);
-				UINT16 armysize    = max(1, incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ADMIN] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ELITE] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_TANK]);
+				if ( incident.usIncidentFlags & (INCIDENT_REINFORCEMENTS_ENEMY|INCIDENT_REINFORCEMENTS_PLAYERSIDE) )
+				{
+					if ( incident.usIncidentFlags & INCIDENT_REINFORCEMENTS_ENEMY && incident.usIncidentFlags & INCIDENT_REINFORCEMENTS_PLAYERSIDE )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REINFORCE_BOTH], aggressor, defender );
+					else if ( incident.usIncidentFlags & INCIDENT_REINFORCEMENTS_ENEMY )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REINFORCE], enemy );
+					else
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_REINFORCE], rebel );
+
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
+
+				if ( incident.usIncidentFlags & (INCIDENT_MUSTARDGAS_ENEMY|INCIDENT_MUSTARDGAS_PLAYERSIDE) )
+				{
+					if ( incident.usIncidentFlags & INCIDENT_MUSTARDGAS_ENEMY && incident.usIncidentFlags & INCIDENT_MUSTARDGAS_PLAYERSIDE )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_CHEMICAL_BOTH] );
+					else if ( incident.usIncidentFlags & INCIDENT_MUSTARDGAS_ENEMY )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_CHEMICAL], enemy );
+					else
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_CHEMICAL], rebel );
+
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
+
+				if ( incident.usIncidentFlags & (INCIDENT_TANKS_ENEMY|INCIDENT_TANKS_PLAYERSIDE) )
+				{
+					if ( incident.usIncidentFlags & INCIDENT_TANKS_ENEMY && incident.usIncidentFlags & INCIDENT_TANKS_PLAYERSIDE )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_TANKS_BOTH] );
+					else if ( incident.usIncidentFlags & INCIDENT_TANKS_ENEMY )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_TANKS], incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_TANK], enemy, incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_TANK] );
+					else
+						// TODO
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_TANKS], incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_TANK], rebel, incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_TANK] );
+
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
+
+				if ( incident.usIncidentFlags & (INCIDENT_SNIPERS_ENEMY|INCIDENT_SNIPERS_PLAYERSIDE) )
+				{
+					if ( incident.usIncidentFlags & INCIDENT_SNIPERS_ENEMY && incident.usIncidentFlags & INCIDENT_SNIPERS_PLAYERSIDE )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SNIPERS_BOTH] );
+					else if ( incident.usIncidentFlags & INCIDENT_SNIPERS_ENEMY )
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SNIPERS], enemy );
+					else
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SNIPERS], rebel );
+
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
+
+				// only report on spies if they were uncovered
+				if ( incident.usIncidentFlags & INCIDENT_SPYACTION_UNCOVERED )
+				{
+					if ( incident.usIncidentFlags & INCIDENT_SPYACTION_ENEMY )
+					{
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_ENEMY] );
+						usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+						if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+					}
+
+					if ( incident.usIncidentFlags & INCIDENT_SPYACTION_PLAYERSIDE )
+					{
+						swprintf(sText, szCampaignHistoryDetail[TEXT_CAMPAIGNHISTORY_DETAIL_SPY_PLAYER] );
+						usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+						if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+					}
+				}
+
+				{
+					// team losses
+					UINT16 rebellosses = incident.usKills[CAMPAIGNHISTORY_SD_MERC] + incident.usKills[CAMPAIGNHISTORY_SD_MILITIA_GREEN] + incident.usKills[CAMPAIGNHISTORY_SD_MILITIA_REGULAR] + incident.usKills[CAMPAIGNHISTORY_SD_MILITIA_ELITE];
+					UINT16 armylosses  = incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ADMIN] + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_ELITE] + incident.usKills[CAMPAIGNHISTORY_SD_ENEMY_TANK];
+					UINT16 armypows    = incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_ADMIN] + incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_ELITE] + incident.usPrisoners[CAMPAIGNHISTORY_SD_ENEMY_TANK];
+
+					// team sizes
+					UINT16 rebelsize   = max(1, incident.usParticipants[CAMPAIGNHISTORY_SD_MERC] + incident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_GREEN] + incident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_REGULAR] + incident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_ELITE]);
+					UINT16 armysize    = max(1, incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ADMIN] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ARMY] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_ELITE] + incident.usParticipants[CAMPAIGNHISTORY_SD_ENEMY_TANK]);
 			
-				// if rebels won...
-				if ( incident.usIncidentFlags & INCIDENT_WIN && rebelsize )
-				{
-					FLOAT ratio = (FLOAT)(rebellosses) / (FLOAT)(rebelsize);
-					if ( ratio < 0.1 )
-						swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_ONESIDED_REBEL] );
-					else if ( ratio < 0.3 )
+					// if rebels won...
+					if ( incident.usIncidentFlags & INCIDENT_WIN && rebelsize )
 					{
-						if ( armypows )
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_REBEL_PRISONER] );
+						FLOAT ratio = (FLOAT)(rebellosses) / (FLOAT)(rebelsize);
+						if ( ratio < 0.1 )
+							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_ONESIDED_REBEL] );
+						else if ( ratio < 0.3 )
+						{
+							if ( armypows )
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_REBEL_PRISONER] );
+							else
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_REBEL] );
+						}
+						else if ( ratio < 0.6 )
+						{
+							if ( armypows )
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_REBEL] );
+							else
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_REBEL_PRISONER] );
+						}
 						else
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_REBEL] );
+							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_HARD_REBEL] );
 					}
-					else if ( ratio < 0.6 )
+					else if ( armysize )	// army won...
 					{
-						if ( armypows )
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_REBEL] );
-						else
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_REBEL_PRISONER] );
-					}
-					else
-						swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_HARD_REBEL] );
-				}
-				else if ( armysize )	// army won...
-				{
-					FLOAT ratio = (FLOAT)(armylosses) / (FLOAT)(armysize);
-					BOOLEAN armyhadmore = (armysize > rebelsize);
+						FLOAT ratio = (FLOAT)(armylosses) / (FLOAT)(armysize);
+						BOOLEAN armyhadmore = (armysize > rebelsize);
 
-					if ( ratio < 0.1 )
-					{
-						if ( armyhadmore )
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_ONESIDED_ARMY_NUMBERS] );
+						if ( ratio < 0.1 )
+						{
+							if ( armyhadmore )
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_ONESIDED_ARMY_NUMBERS] );
+							else
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_ONESIDED_ARMY_TRAINING] );
+						}
+						else if ( ratio < 0.3 )
+						{
+							if ( armyhadmore )
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_ARMY_NUMBERS] );
+							else
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_ARMY_TRAINING] );
+						}
+						else if ( ratio < 0.6 )
+						{
+							if ( armyhadmore )
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_ARMY_NUMBERS] );
+							else
+								swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_ARMY_TRAINING] );
+						}
 						else
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_ONESIDED_ARMY_TRAINING] );
+							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_HARD_ARMY] );
 					}
-					else if ( ratio < 0.3 )
-					{
-						if ( armyhadmore )
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_ARMY_NUMBERS] );
-						else
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_EASY_ARMY_TRAINING] );
-					}
-					else if ( ratio < 0.6 )
-					{
-						if ( armyhadmore )
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_ARMY_NUMBERS] );
-						else
-							swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_MEDIUM_ARMY_TRAINING] );
-					}
-					else
-						swprintf(sText, szCampaignHistoryResultString[TEXT_CAMPAIGNHISTORY_RESULT_HARD_ARMY] );
-				}
 
-				usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
-				if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+					usPosY += DisplayWrappedString( usPosX, usPosY, LAPTOP_SCREEN_LR_X - usPosX, 2, CAMPHIS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR,sText, FONT_MCOLOR_BLACK, FALSE, 0);
+					if ( picend < usPosY )	usPosX = LAPTOP_SCREEN_UL_X;
+				}
 			}
 		}
 	}
@@ -936,9 +909,11 @@ void SelectCampaignHistoryMostImportantRegionCallBack(MOUSE_REGION * pRegion, IN
 ////////////////////////// MOST IMPORTANT PAGE //////////////////////////////////
 
 ////////////////////////// NEWS PAGE //////////////////////////////////
+BOOLEAN gfCampaignHistoryNewsRedraw = FALSE;
+
 //link to the various pages
 MOUSE_REGION	gCampaignHistoryNewsLinkRegion[4];
-void SelectCampaignHistoryNewsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+void SelectCampaignHistoryNewsRegionCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 
 UINT32	gusNewsPage = 0;
 
@@ -976,11 +951,17 @@ void ExitCampaignHistory_News()
 	// previous/next buttons
 	for(int i=0; i<4; ++i)
 		MSYS_RemoveRegion( &gCampaignHistoryNewsLinkRegion[i]);
+
+	gfCampaignHistoryNewsRedraw = FALSE;
 }
 
 void HandleCampaignHistory_News()
 {
-
+	if ( gfCampaignHistoryNewsRedraw )
+	{
+		RenderCampaignHistory_News( );
+		gfCampaignHistoryNewsRedraw = FALSE;
+	}
 }
 
 void RenderCampaignHistory_News()
@@ -996,46 +977,7 @@ void RenderCampaignHistory_News()
 	
 	usPosX = LAPTOP_SCREEN_UL_X;
 	usPosY = LAPTOP_SCREEN_WEB_UL_Y + 80;
-
-	// return if there are no incidents yet
-	/*if ( !gCampaignStats.usNumIncidents )
-		return;
-
-	Incident_Stats incident = gCampaignStats.mIncidentVector[ gusNewsPage ];
-
-	CHAR16 wSectorName_Target[ 100 ];
-	GetSectorIDString( SECTORX(incident.usSector), SECTORY(incident.usSector), incident.usLevel, wSectorName_Target, TRUE );
-
-	//Calculate the day, hour, and minutes.
-	UINT32 day		= ( incident.usTime / NUM_SEC_IN_DAY );
-	UINT32 hour		= ( incident.usTime - ( day * NUM_SEC_IN_DAY ) ) / NUM_SEC_IN_HOUR;
-	UINT32 minute	= ( incident.usTime - ( ( day * NUM_SEC_IN_DAY ) + ( hour * NUM_SEC_IN_HOUR ) ) ) / NUM_SEC_IN_MIN;*/
-
-	//swprintf(sText, L"Incident #%d - %s, Day %d, %02d:%02d", incident.usID, wSectorName_Target, day, hour, minute);
-	swprintf(sText, L"--- currently under construction ---");
-	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-	
-	
-
-	// previous/next buttons
-	/*usPosX = CAMPAIGN_HISTORY_PAGEBTN_X;
-	usPosY = CAMPAIGN_HISTORY_PAGEBTN_Y;
-	swprintf(sText, L"Summary");
-	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-	usPosX += CAMPAIGN_HISTORY_PAGEBTN_STEP_X;
-	swprintf(sText, L"Detail");
-	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-	usPosX += CAMPAIGN_HISTORY_PAGEBTN_STEP_X;
-	swprintf(sText, L"Previous");
-	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-	usPosX += CAMPAIGN_HISTORY_PAGEBTN_STEP_X;
-	swprintf(sText, L"Next");
-	DrawTextToScreen( sText, usPosX, usPosY, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X, INS_FONT_SMALL, CAMPAIGN_HISTORY_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );*/
-
-
+		
 	SetFontShadow( DEFAULT_SHADOW );
 	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );

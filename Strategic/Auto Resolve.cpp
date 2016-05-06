@@ -71,6 +71,7 @@
 	#include "Bullets.h" // HEADROCK HAM 5, for use with Bullet Impact.
 	#include "CampaignStats.h"				// added by Flugente
 	#include "DynamicDialogue.h"			// added by Flugente
+	#include "MilitiaIndividual.h"			// added by Flugente
 #endif
 
 #include "Reinforcement.h"
@@ -268,33 +269,6 @@ enum
 	OTHER_PANEL,
 };
 
-//generic face images
-enum
-{
-	ADMIN_FACE,
-	TROOP_FACE,
-	ELITE_FACE,
-	TANK_FACE,
-	MILITIA1_FACE,
-	MILITIA2_FACE,
-	MILITIA3_FACE,
-	YM_CREATURE_FACE,
-	AM_CREATURE_FACE,
-	YF_CREATURE_FACE,
-	AF_CREATURE_FACE,
-	HUMAN_SKULL,
-	TANK_WRECK,
-	CREATURE_SKULL,
-	ADMINF_FACE,
-	TROOPF_FACE,
-	ELITEF_FACE,
-	MILITIA1F_FACE,
-	MILITIA2F_FACE,
-	MILITIA3F_FACE,
-	JEEP_FACE,
-	JEEP_WRECK,
-};
-
 extern void CreateDestroyMapInvButton();
 
 //Autoresolve sets this variable which defaults to -1 when not needed.
@@ -446,7 +420,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 
 	pGroup = gpGroupList;
 	pSector = &SectorInfo[ SECTOR( ubSectorX, ubSectorY ) ];
-		
+
 	// if we're doing this from the Pre-Battle interface, gpAR is NULL, and RemoveAutoResolveInterface(0 won't happen, so
 	// we must process the enemies killed right here & give out loyalty bonuses as if the battle had been fought & won
 	if( !gpAR )
@@ -616,7 +590,7 @@ void EnterAutoResolveMode( UINT8 ubSectorX, UINT8 ubSectorY )
 	CreateDestroyMapInvButton();
 	RenderButtons();
 
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
+DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
     // WDS - make number of mercenaries, etc. be configurable
 	//Allocate memory for all the globals while we are in this mode.
 	gpAR = (AUTORESOLVE_STRUCT*)MemAlloc( sizeof( AUTORESOLVE_STRUCT ) );
@@ -794,8 +768,8 @@ void AssociateEnemiesWithStrategicGroups()
 	{
 		if ( gpEnemies[i].uiFlags & CELL_TANK && ubNumTanks )	//is this soldier a tank? and we still have some tanks to add? (since there might not be a static tank in sector) 
 		{
-			gpEnemies[i].pSoldier->ubGroupID = 0;
-			gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+			gpEnemies[ i ].pSoldier->ubGroupID = 0;
+			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 			ubNumTanks--;
 		}
 		else if ( gpEnemies[i].uiFlags & CELL_JEEP && ubNumJeeps )
@@ -822,7 +796,7 @@ void AssociateEnemiesWithStrategicGroups()
 			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 			ubNumAdmins--;
 		}
-	}
+		}
 
 	ubNumAdmins = gpAR->ubAdmins - pSector->ubNumAdmins;
 	ubNumTroops = gpAR->ubTroops - pSector->ubNumTroops;
@@ -885,9 +859,9 @@ void AssociateEnemiesWithStrategicGroups()
 						ubNumAdmins--;
 						ubNumAdminsInGroup--;
 					} 
+					}
 				}
 			}
-		}
 		pGroup = pGroup->next;
 	}
 
@@ -910,8 +884,8 @@ void AssociateEnemiesWithStrategicGroups()
 				{
 					if (ubNumTanks && ubNumTanksInGroup &&  gpEnemies[i].uiFlags & CELL_TANK)
 					{
-						gpEnemies[i].pSoldier->ubGroupID = pGroup->ubGroupID;
-						gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumTanks--;
 						ubNumTanksInGroup--;
 					}
@@ -924,7 +898,7 @@ void AssociateEnemiesWithStrategicGroups()
 					}
 					else if (ubNumElites && ubNumElitesInGroup &&  gpEnemies[i].uiFlags & CELL_ELITE)
 					{
-						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;	
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
 						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 						ubNumElites--;
 						ubNumElitesInGroup--;
@@ -943,12 +917,12 @@ void AssociateEnemiesWithStrategicGroups()
 						ubNumAdmins--;
 						ubNumAdminsInGroup--;
 					}
+					}
 				}
 			}
-		}
 		pGroup = pGroup->next;
 	}
-	
+
 	// Set GroupID = 0 for the rest	(that includes reinforcements)
 	ubDirAmount = GetAdjacentSectors( pSectors, gpAR->ubSectorX, gpAR->ubSectorY );
 
@@ -970,10 +944,10 @@ void AssociateEnemiesWithStrategicGroups()
 			{
 				if ( gpEnemies[i].uiFlags & CELL_TANK && ubISNumTanks && ubNumTanks )
 				{
-					gpEnemies[i].pSoldier->ubGroupID = 0;
-					gpEnemies[i].uiFlags |= CELL_ASSIGNED;
-					gpEnemies[i].pSoldier->sSectorX = SECTORX( pSectors[ubCurrSI] );
-					gpEnemies[i].pSoldier->sSectorY = SECTORY( pSectors[ubCurrSI] );
+					gpEnemies[ i ].pSoldier->ubGroupID = 0;
+					gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+					gpEnemies[ i ].pSoldier->sSectorX = SECTORX( pSectors[ ubCurrSI ] );
+					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
 					ubISNumTanks--;
 					ubNumTanks--;
 				}
@@ -1013,14 +987,14 @@ void AssociateEnemiesWithStrategicGroups()
 					ubISNumAdmins--;
 					ubNumAdmins--;
 				}
+				}
 			}
 		}
-	}
 	/*at this point, all enemies should have been assigned to their cell and group. If not, there is a bug around
 	Because number and type of cells should be computed for the same composition of enemies as the one we see in this function, it should not happen though*/
 	AssertMsg( !(ubISNumAdmins & ubISNumTroops & ubISNumElites & ubISNumTanks & ubISNumJeeps), "Mapping between actual enemies and autoresolve cells is wrong." );
 
-}
+	}
 
 
 void CalculateSoldierCells( BOOLEAN fReset )
@@ -1129,9 +1103,9 @@ void CalculateSoldierCells( BOOLEAN fReset )
 			if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
 			{
 				if ( index < gpAR->ubElites )
-					gpEnemies[index].uiFlags = CELL_ELITE;
+					gpEnemies[ index ].uiFlags = CELL_ELITE;
 				else if ( index < gpAR->ubElites + gpAR->ubTroops )
-					gpEnemies[index].uiFlags = CELL_TROOP;
+					gpEnemies[ index ].uiFlags = CELL_TROOP;
 				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins )
 					gpEnemies[index].uiFlags = CELL_ADMIN;
 				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins + gpAR->ubTanks )
@@ -2202,7 +2176,7 @@ void CreateAutoResolveInterface()
 			}
 			else
 			{
-				gpEnemies[index].usIndex = TROOP_FACE;
+			gpEnemies[index].usIndex = TROOP_FACE;
 			}
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
@@ -2218,7 +2192,7 @@ void CreateAutoResolveInterface()
 			}
 			else
 			{
-				gpEnemies[index].usIndex = ADMIN_FACE;
+			gpEnemies[index].usIndex = ADMIN_FACE;
 			}
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
@@ -2522,6 +2496,27 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 
 			if( fDeleteForGood && gpCivs[ i ].pSoldier->stats.bLife < OKLIFE/2 )
 			{
+				// Flugente: individual militia
+				// we not only handle promotions here, but basically update this guy (if not already counted as dead)
+				MILITIA militia;
+				if ( GetMilitia( gpCivs[i].pSoldier->usIndividualMilitiaID, &militia ) && !(militia.flagmask & MILITIAFLAG_DEAD) )
+				{
+					MILITIA_BATTLEREPORT report;
+					report.id = GetIdOfCurrentlyOngoingIncident( );
+
+					report.flagmask |= MILITIA_BATTLEREPORT_FLAG_DIED;
+
+					if ( gpCivs[i].pSoldier->ubMilitiaKills )
+						report.flagmask |= MILITIA_BATTLEREPORT_FLAG_KILLEDENEMY;
+
+					militia.history.push_back( report );
+
+					militia.healthratio = 0.0f;
+					militia.flagmask |= MILITIAFLAG_DEAD;
+
+					UpdateMilitia( militia );
+				}
+
 				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpCivs[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
 				StrategicRemoveMilitiaFromSector( gpCivs[ i ].pSoldier->sSectorX, gpCivs[ i ].pSoldier->sSectorY, ubCurrentRank, 1 );
 
@@ -2530,36 +2525,10 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			}
 			else
 			{
-				// this will check for promotions and handle them for you
-				if( fDeleteForGood && ( gpCivs[ i ].pSoldier->ubMilitiaKills > 0) && ( ubCurrentRank < ELITE_MILITIA ) )
-				{
-					UINT8 ubPromotions = CheckOneMilitiaForPromotion( gpCivs[i].pSoldier->sSectorX, gpCivs[i].pSoldier->sSectorY, ubCurrentRank, gpCivs[i].pSoldier->ubMilitiaKills );
-					if( ubPromotions )
-					{
-						if( ubPromotions == 2 )
-						{
-							++gbGreenToElitePromotions;
-							++gbMilitiaPromotions;
-
-							ubCurrentRank = ELITE_MILITIA;
-						}
-						else if( gpCivs[ i ].pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
-						{
-							++gbGreenToRegPromotions;
-							++gbMilitiaPromotions;
-
-							ubCurrentRank = REGULAR_MILITIA;
-						}
-						else if( gpCivs[ i ].pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
-						{
-							++gbRegToElitePromotions;
-							++gbMilitiaPromotions;
-
-							ubCurrentRank = ELITE_MILITIA;
-						}
-					}
-				}
+				// Flugente: take care of promotions and individual militia update
+				HandlePossibleMilitiaPromotion( gpCivs[i].pSoldier );
 			}
+
 			TacticalRemoveSoldierPointer( gpCivs[ i ].pSoldier, FALSE );
 			memset( &gpCivs[ i ], 0, sizeof( SOLDIERCELL ) );
 		}
@@ -3045,7 +3014,7 @@ void ResetAutoResolveInterface()
 	{
 		switch( PreRandom( 5 ) )
 		{
-			case 0:	if ( gpAR->ubElites ) { gpAR->ubElites--; break; }
+			case 0:					if( gpAR->ubElites ) { gpAR->ubElites--; break; }
 			case 1: if ( gpAR->ubAdmins ) { gpAR->ubAdmins--; break; }
 			case 2: if ( gpAR->ubTroops ) { gpAR->ubTroops--; break; }
 			case 3: if ( gpAR->ubTanks ) { gpAR->ubTanks--; break; }
@@ -3056,7 +3025,7 @@ void ResetAutoResolveInterface()
 	{
 		switch( PreRandom( 5 ) )
 		{
-			case 0:			gpAR->ubElites++; break;
+			case 0:				gpAR->ubElites++; break;
 			case 1: case 2: gpAR->ubAdmins++; break;
 			case 3: case 4: gpAR->ubTroops++; break;
 		}
@@ -4066,7 +4035,7 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 	SOLDIERTYPE *pSoldier;
 
 	pSoldier = pAttacker->pSoldier;
-	
+
 	if( pAttacker->uiFlags & CELL_MALECREATURE )
 	{
 		PlayAutoResolveSample( ACR_SPIT, RATE_11025, 50, 1, MIDDLEPAN );
@@ -4095,7 +4064,7 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 					PlayAutoResolveSample( Weapon[ pItem->usItem ].sLocknLoadSound, RATE_11025, 50, 1, MIDDLEPAN );
 				}
 			}
-			if ( (*pItem)[0]->data.gun.ubGunShotsLeft )
+			if( (*pItem)[0]->data.gun.ubGunShotsLeft )
 			{
 				PlayAutoResolveSample( Weapon[ pItem->usItem ].sSound, RATE_11025, 50, 1, MIDDLEPAN );
 				if( pAttacker->uiFlags & CELL_MERC )
@@ -4399,7 +4368,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			if ( fAntiTank )
 				pTarget->usNextHit[ bAttackIndex ] = (UINT16)( 200 + PreRandom( 400 ) );
 			else
-				pTarget->usNextHit[bAttackIndex] = (UINT16)(50 + PreRandom( 400 ));
+			pTarget->usNextHit[ bAttackIndex ] = (UINT16)( 50 + PreRandom( 400 ) );
 
 			pTarget->pAttacker[ bAttackIndex ] = pAttacker;
 		}
@@ -4672,6 +4641,26 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			// Flugente: campaign stats
 			gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
 
+			// Flugente: individual militia
+			MILITIA militia;
+			if ( GetMilitia( pTarget->pSoldier->usIndividualMilitiaID, &militia ) && !(militia.flagmask & MILITIAFLAG_DEAD) )
+			{
+				militia.healthratio = 0.0f;
+				militia.flagmask |= MILITIAFLAG_DEAD;
+
+				// note the current incident (when closing the incident, we only do this for those still alive)
+				MILITIA_BATTLEREPORT report;
+				report.id = GetIdOfCurrentlyOngoingIncident( );
+				report.flagmask = MILITIA_BATTLEREPORT_FLAG_DIED;
+
+				if ( pTarget->pSoldier->ubMilitiaKills )
+					report.flagmask |= MILITIA_BATTLEREPORT_FLAG_KILLEDENEMY;
+
+				militia.history.push_back( report );
+
+				UpdateMilitia( militia );
+			}
+
 			// Flugente: disease
 			HandleDeathDiseaseImplications( pTarget->pSoldier );
 
@@ -4722,7 +4711,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			}
 			else if( pAttacker->uiFlags & CELL_MILITIA )
 			{
-				pAttacker->pSoldier->ubMilitiaKills += 2;
+				pAttacker->pSoldier->ubMilitiaKills += 1;
 			}
 			if( pTarget->uiFlags & CELL_MERC && gpAR->fSound )
 			{
@@ -4802,7 +4791,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 		return;
 	}
 	pAttacker = pTarget->pAttacker[ index ];
-	
+
 	//creatures get damage reduction bonuses
 	switch( pTarget->pSoldier->ubBodyType )
 	{
@@ -4850,7 +4839,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 	if ( ARMED_VEHICLE( pTarget->pSoldier ) )
 		PlayAutoResolveSample( (UINT8)(S_METAL_IMPACT1 + PreRandom( 3 )), RATE_11025, 50, 1, MIDDLEPAN );
 	else	
-		PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
+	PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
 
 	if( pTarget->pSoldier->stats.bLife >= CONSCIOUSNESS )
 	{
@@ -4869,6 +4858,26 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 	{
 		// Flugente: campaign stats
 		gCurrentIncident.AddStat( pTarget->pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
+
+		// Flugente: individual militia
+		MILITIA militia;
+		if ( GetMilitia( pTarget->pSoldier->usIndividualMilitiaID, &militia ) && !(militia.flagmask & MILITIAFLAG_DEAD) )
+		{
+			militia.healthratio = 0.0f;
+			militia.flagmask |= MILITIAFLAG_DEAD;
+
+			// note the current incident (when closing the incident, we only do this for those still alive)
+			MILITIA_BATTLEREPORT report;
+			report.id = GetIdOfCurrentlyOngoingIncident( );
+			report.flagmask = MILITIA_BATTLEREPORT_FLAG_DIED;
+
+			if ( pTarget->pSoldier->ubMilitiaKills )
+				report.flagmask |= MILITIA_BATTLEREPORT_FLAG_KILLEDENEMY;
+
+			militia.history.push_back( report );
+
+			UpdateMilitia( militia );
+		}
 
 		// Flugente: disease
 		HandleDeathDiseaseImplications( pTarget->pSoldier );
@@ -4928,7 +4937,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 					HandleMoraleEvent( pKiller->pSoldier, MORALE_KILLED_ENEMY, gpAR->ubSectorX, gpAR->ubSectorY, 0	);
 				}
 				else if( pKiller->uiFlags & CELL_MILITIA )
-					pKiller->pSoldier->ubMilitiaKills += 2;
+					pKiller->pSoldier->ubMilitiaKills += 1;
 			}
 			if( pAssister1 )
 			{
@@ -4954,7 +4963,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 					StatChange( pAssister1->pSoldier, EXPERAMT, ( UINT16 )( 5 * pTarget->pSoldier->pathing.bLevel ), FALSE );
 				}
 				else if( pAssister1->uiFlags & CELL_MILITIA )
-					pAssister1->pSoldier->ubMilitiaKills++;
+					pAssister1->pSoldier->ubMilitiaAssists++;
 			}
 			else if( pAssister2 )
 			{
@@ -4980,7 +4989,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 					StatChange( pAssister2->pSoldier, EXPERAMT, ( UINT16 )( 5 * pTarget->pSoldier->pathing.bLevel ), FALSE );
 				}
 				else if( pAssister2->uiFlags & CELL_MILITIA )
-					pAssister2->pSoldier->ubMilitiaKills++;
+					pAssister2->pSoldier->ubMilitiaAssists++;
 			}
 		}
 		if( pTarget->uiFlags & CELL_MERC && gpAR->fSound )
@@ -5005,7 +5014,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 				if ( ARMED_VEHICLE( pTarget->pSoldier ) )
 					PlayAutoResolveSample( (UINT8)(S_RAID_TB_BOMB), RATE_11025, 50, 1, MIDDLEPAN );
 				else
-					pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
+				pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
 			}
 		}
 		#ifdef INVULNERABILITY
@@ -5163,7 +5172,7 @@ BOOLEAN IsBattleOver()
 		//DEFEAT
 
 		if( fOnlyEPCsLeft )
-		{
+			{
 			//Kill the EPCs.
 			for( i = 0; i < gpAR->ubMercs; ++i )
 			{
@@ -5764,45 +5773,36 @@ void AutoResolveMilitiaDropAndPromote()
 
 			// Flugente: drop sector equipment
 			gpCivs[i].pSoldier->DropSectorEquipment( );
-
+						
 			if ( gpCivs[i].pSoldier->stats.bLife < OKLIFE / 2 )
 			{
+				// Flugente: individual militia
+				// we not only handle promotions here, but basically update this guy
+				MILITIA militia;
+				if ( GetMilitia( gpCivs[i].pSoldier->usIndividualMilitiaID, &militia ) && !(militia.flagmask & MILITIAFLAG_DEAD) )
+				{
+					MILITIA_BATTLEREPORT report;
+					report.id = GetIdOfCurrentlyOngoingIncident( );
+					
+					report.flagmask |= MILITIA_BATTLEREPORT_FLAG_DIED;
+					
+					if ( gpCivs[i].pSoldier->ubMilitiaKills )
+						report.flagmask |= MILITIA_BATTLEREPORT_FLAG_KILLEDENEMY;
+					
+					militia.history.push_back( report );
+
+					militia.healthratio = 0.0f;
+					militia.flagmask |= MILITIAFLAG_DEAD;
+
+					UpdateMilitia( militia );
+				}
+
 				StrategicRemoveMilitiaFromSector( gpCivs[i].pSoldier->sSectorX, gpCivs[i].pSoldier->sSectorY, ubCurrentRank, 1 );
 			}
 			else if ( gpCivs[i].pSoldier->stats.bLife >= OKLIFE / 2 )
 			{
-				// this will check for promotions and handle them for you
-				if ( gpCivs[i].pSoldier->ubMilitiaKills && ubCurrentRank < ELITE_MILITIA )
-				{
-					UINT8 ubPromotions = CheckOneMilitiaForPromotion( gpCivs[i].pSoldier->sSectorX, gpCivs[i].pSoldier->sSectorY, ubCurrentRank, gpCivs[i].pSoldier->ubMilitiaKills );
-					if ( ubPromotions )
-					{
-						if ( ubPromotions == 2 )
-						{
-							++gbGreenToElitePromotions;
-							++gbMilitiaPromotions;
-
-							ubCurrentRank = ELITE_MILITIA;
-						}
-						else if ( gpCivs[i].pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
-						{
-							++gbGreenToRegPromotions;
-							++gbMilitiaPromotions;
-
-							ubCurrentRank = REGULAR_MILITIA;
-						}
-						else if ( gpCivs[i].pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
-						{
-							++gbRegToElitePromotions;
-							++gbMilitiaPromotions;
-
-							ubCurrentRank = ELITE_MILITIA;
-						}
-					}
-				}
-
-				// in any case, we had our chance to be promoted, clear the counter
-				gpCivs[i].pSoldier->ubMilitiaKills = 0;
+				// Flugente: take care of promotions and individual militia update
+				HandlePossibleMilitiaPromotion( gpCivs[i].pSoldier );
 			}
 
 			// DO NOT DELETE HERE!!!!

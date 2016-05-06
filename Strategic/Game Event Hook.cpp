@@ -523,7 +523,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 				AddEmail( PMC_INTRO, PMC_INTRO_LENGTH, PMC, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
 #endif
-
+		
 		case EVENT_PMC_REINFORCEMENT_ARRIVAL:
 			HandlePMCArrival( (UINT8)pEvent->uiParam );
 			break;
@@ -623,6 +623,12 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 		case EVENT_SAMSITE_REPAIRED:
 			RepairSamSite( pEvent->uiParam );
+			break;
+
+		case EVENT_MILITIAROSTER_EMAIL:
+			// only send the email if we haven't already visited the site, otherwise continue to spam ;-)
+			if ( !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
+				AddEmail( MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;

@@ -51,6 +51,7 @@
 	#include "Reinforcement.h"	// added by Flugente for AddPossiblePendingMilitiaToBattle()
 	#include "Militia Control.h"	// added by Flugente for ResetMilitia()
 	#include "Creature Spreading.h"	// added by Flugente
+	#include "MilitiaIndividual.h"	// added by Flugente
 #endif
 
 #include "MilitiaSquads.h"
@@ -2281,6 +2282,9 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			if ( gGameExternalOptions.fMilitiaUseSectorInventory )
 				TeamDropAll( MILITIA_TEAM );
 
+			// Flugente: update individual militia data
+			UpdateAllMilitiaHealthInTactical( );
+
 			// we now force a resetting of militia - they will be removed and recreated
 			// as the group's coordinates have alreay 'moved' to the next sector, the group militia will now be gone
 			gfStrategicMilitiaChangesMade = TRUE;
@@ -2293,6 +2297,9 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 
 			// move the gear along to the next sector
 			MoveMilitiaEquipment( pGroup->ubPrevX, pGroup->ubPrevY, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->pEnemyGroup->ubNumElites, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumAdmins );
+
+			// Flugente: move along individual militia data
+			MoveIndividualMilitiaProfiles( SECTOR( pGroup->ubPrevX, pGroup->ubPrevY ), SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ), pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumElites );
 
 			// if this is the last sector along the path, destroy the group after this and make the militia static
 			if ( !fBattlePending &&GroupAtFinalDestination( pGroup ) )
@@ -2309,13 +2316,16 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			// move the gear along to the next sector
 			MoveMilitiaEquipment( pGroup->ubPrevX, pGroup->ubPrevY, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->pEnemyGroup->ubNumElites, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumAdmins );
 
+			// Flugente: move along individual militia data
+			MoveIndividualMilitiaProfiles( SECTOR( pGroup->ubPrevX, pGroup->ubPrevY ), SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ), pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumElites );
+
 			// if this is the last sector along the path, destroy the group after this and make the militia static
 			if ( !fBattlePending && GroupAtFinalDestination( pGroup ) )
 			{
 				// once militia have arrived, move them from the group to the sector
 				DissolveMilitiaGroup( pGroup->ubGroupID );
 			}
-
+			
 			// for safety, reset if necessary
 			ResetMilitia( );
 		}

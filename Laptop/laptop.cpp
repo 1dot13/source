@@ -90,6 +90,7 @@
 	#include "MercCompare.h"				// added by Flugente
 	#include "WHO.h"						// added by Flugente
 	#include "PMC.h"						// added by Flugente
+	#include "MilitiaWebsite.h"				// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1498,6 +1499,11 @@ void RenderLaptop()
 		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
 			RenderPMCContract( );
 			break;
+
+		case LAPTOP_MODE_MILITIAROSTER_MAIN:
+		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
+			RenderMilitiaWebsiteMain( );
+			break;
 	}
 
 	if( guiCurrentLaptopMode >= LAPTOP_MODE_WWW )
@@ -1954,6 +1960,11 @@ void EnterNewLaptopMode()
 		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
 			EnterPMCContract( );
 			break;
+
+		case LAPTOP_MODE_MILITIAROSTER_MAIN:
+		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
+			EnterMilitiaWebsiteMain( );
+			break;
 	}
 
 	// first time using webbrowser in this laptop session
@@ -2226,6 +2237,11 @@ void HandleLapTopHandles()
 
 		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
 			HandlePMCContract( );
+			break;
+
+		case LAPTOP_MODE_MILITIAROSTER_MAIN:
+		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
+			HandleMilitiaWebsiteMain( );
 			break;
 	}
 
@@ -2808,6 +2824,11 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_PMC_CONTRACT_INDIVIDUAL:
 			ExitPMCContract( );
+			break;
+
+		case LAPTOP_MODE_MILITIAROSTER_MAIN:
+		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
+			ExitMilitiaWebsiteMain();
 			break;
 	}
 
@@ -4444,6 +4465,27 @@ if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQ
 				}
 			}
 			break;
+
+		case MILITIAROSTER_BOOKMARK:
+		{
+			guiCurrentWWWMode = LAPTOP_MODE_MILITIAROSTER_MAIN;
+			guiCurrentLaptopMode = LAPTOP_MODE_MILITIAROSTER_MAIN;
+
+			// do we have to have a World Wide Wait
+			if ( LaptopSaveInfo.fVisitedBookmarkAlready[MILITIAROSTER_BOOKMARK] == FALSE )
+			{
+				// reset flag and set load pending flag
+				LaptopSaveInfo.fVisitedBookmarkAlready[MILITIAROSTER_BOOKMARK] = TRUE;
+				fLoadPendingFlag = TRUE;
+			}
+			else
+			{
+				// fast reload
+				fLoadPendingFlag = TRUE;
+				fFastLoadFlag = TRUE;
+			}
+		}
+		break;
 	}
 
 #ifdef JA2UB	

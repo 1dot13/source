@@ -3735,6 +3735,11 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 			fReDrawScreenFlag = TRUE;
 			break;
 
+		case(MILITIAROSTER_INTRO) :
+			SetBookMark( MILITIAROSTER_BOOKMARK );
+			fReDrawScreenFlag = TRUE;
+			break;
+
 #endif
 	}
 

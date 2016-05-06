@@ -33,6 +33,9 @@
     <ClInclude Include="AimSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="BaseTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="BobbyR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -204,6 +207,12 @@
     <ClInclude Include="mercs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="MilitiaInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="MilitiaWebsite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="personnel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -291,6 +300,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AimSort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	 <ClCompile Include="BaseTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BobbyR.cpp">
@@ -453,6 +465,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mercs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="MilitiaInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="MilitiaWebsite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="personnel.cpp">

@@ -81,6 +81,9 @@
     <ClInclude Include="MilitiaSquads.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="MilitiaIndividual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Player Command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -234,6 +237,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MilitiaSquads.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="MilitiaIndividual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player Command.cpp">
