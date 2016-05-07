@@ -6949,7 +6949,7 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 	}*/
 	
 	// Loop through positions...
-	for (INT8 cnt = 0; cnt < 4; cnt++)
+	for (INT8 cnt = 0; cnt < 4; ++cnt)
 	{
 		// MOVE OUT TWO DIRECTIONS
 		sInBetween = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
@@ -7012,6 +7012,31 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 						return( FALSE );
 					}
 
+					// Now check for walls between the tiles
+					// Between our tile and the middle tile...
+					ubDirection = GetDirectionToGridNoFromGridNo( sInBetween, pSoldier->sGridNo );
+					ubMovementCost = gubWorldMovementCosts[pSoldier->sGridNo][ubDirection][pSoldier->pathing.bLevel];
+					if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+					{
+						ubMovementCost = DoorTravelCost( pSoldier, pSoldier->sGridNo, ubMovementCost, (BOOLEAN)(pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
+					}
+					if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+					{
+						return(FALSE);
+					}
+
+					// Between destination tile and the middle tile...
+					ubDirection = GetDirectionToGridNoFromGridNo( sInBetween, sGridNo );
+					ubMovementCost = gubWorldMovementCosts[sGridNo][ubDirection][pSoldier->pathing.bLevel];
+					if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
+					{
+						ubMovementCost = DoorTravelCost( pSoldier, sGridNo, ubMovementCost, (BOOLEAN)(pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
+					}
+					if ( ubMovementCost >= TRAVELCOST_BLOCKED )
+					{
+						return(FALSE);
+					}
+
 					// If there's a guy here, and he's not prone, we can't jump over him (maybe the way we hop over fence when he's crouched? lol)
 					ubGuyThere = WhoIsThere2( sInBetween, pSoldier->pathing.bLevel );
 					if ( ubGuyThere != NOBODY && ubGuyThere != pSoldier->ubID )
@@ -7040,31 +7065,7 @@ BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fChec
 					{	
 						return( FALSE );
 					}
-
-					// Now check for walls between the tiles
-					// Between our tile and the middle tile...
-					ubDirection = GetDirectionToGridNoFromGridNo( sInBetween, pSoldier->sGridNo );
-					ubMovementCost = gubWorldMovementCosts[ pSoldier->sGridNo ][ ubDirection ][ pSoldier->pathing.bLevel ];
-					if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
-					{
-						ubMovementCost = DoorTravelCost( pSoldier, pSoldier->sGridNo, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
-					}
-					if ( ubMovementCost >= TRAVELCOST_BLOCKED )
-					{
-						return( FALSE );
-					}
-					// Between destination tile and the middle tile...
-					ubDirection = GetDirectionToGridNoFromGridNo( sInBetween, sGridNo );
-					ubMovementCost = gubWorldMovementCosts[ sGridNo ][ ubDirection ][ pSoldier->pathing.bLevel ];
-					if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
-					{
-						ubMovementCost = DoorTravelCost( pSoldier, sGridNo, ubMovementCost, (BOOLEAN) (pSoldier->bTeam == gbPlayerNum), &iDoorGridNo );
-					}
-					if ( ubMovementCost >= TRAVELCOST_BLOCKED )
-					{
-						return( FALSE );
-					}
-						
+					
 					if( !(_KeyDown( SHIFT ) && _KeyDown( ALT )) )
 					{
 						return( FALSE );
