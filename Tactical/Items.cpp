@@ -15520,6 +15520,10 @@ FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8
 		{
 			fMultiplier = (100 - gSkillTraitValues.ubMEBladesAPsReduction * NUM_SKILL_TRAITS( pSoldier, MELEE_NT ) ) / 100.0f;
 		}
+		else if( Item[ pObj->usItem ].usItemClass == IC_PUNCH && Item[pObj->usItem].brassknuckles )
+		{
+			fMultiplier = (100 - gSkillTraitValues.ubMAPunchAPsReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) ) / 100.0f;
+		}
 		else if( Item[ pObj->usItem ].usItemClass == IC_THROWING_KNIFE )
 		{
 			fMultiplier = (100 - gSkillTraitValues.ubTHBladesAPsReduction * NUM_SKILL_TRAITS( pSoldier, THROWING_NT ) ) / 100.0f;

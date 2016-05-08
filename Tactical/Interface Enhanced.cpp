@@ -6474,7 +6474,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 {
 	static CHAR16	pStr[ 100 ];
 	INT16			usX, usY;
-	INT16			ubAttackAPs;
+	INT16			ubAttackAPs, ubBasicAttackAPs;
 	UINT8			ubNumLine;
 
 	OBJECTTYPE *gpComparedItemDescObject = NULL;
@@ -6483,8 +6483,17 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 		return;
 
 	// ShotsPer4Turns -> ubAttackAPs, used later for all shot AP values
-	ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, gpItemDescSoldier );
-	INT16 ubBasicAttackAPs = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
+	// silversurfer: Knuckle Dusters count as bare hand attacks and use the AP_PUNCH constant.
+	if ( Item[gpItemDescObject->usItem].brassknuckles )
+	{
+		ubAttackAPs = APBPConstants[AP_PUNCH];
+		ubBasicAttackAPs = APBPConstants[AP_PUNCH];
+	}
+	else
+	{
+		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject, gpItemDescSoldier );
+		ubBasicAttackAPs = BaseAPsToShootOrStabNoModifier( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
+	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////
 	// The following attributes are only drawn when the UDB is set to show the General Page.

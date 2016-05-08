@@ -2560,7 +2560,7 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 		UINT16 usItem = pObjUsed->usItem;
 		INT16 bFullAPs = pSoldier->CalcActionPoints();
 		INT16 bAimSkill = CalcAimSkill(pSoldier, pSoldier->inv[HANDPOS].usItem);
-		if(usItem == NONE/* || Item[usItem].brassknuckles*/)
+		if(usItem == NONE || Item[usItem].brassknuckles)
 			bAPCost += ApsToPunch(pSoldier);// SANDRO - changed this to direct us to specific calc function
 		else
 		{
