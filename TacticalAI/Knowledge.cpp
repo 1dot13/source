@@ -12,6 +12,8 @@
 	#include "Soldier macros.h"
 #endif
 
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
+
 void CallAvailableEnemiesTo( INT32 sGridNo )
 {
 	INT32	iLoop;
@@ -176,8 +178,15 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 	pbPersOL = pSoldier->aiData.bOppList;
 	pbPublOL = gbPublicOpplist[pSoldier->bTeam];
 
+	// sevenfm: sector information
+	UINT8 sectordata = 0;
+	if ( gbWorldSectorZ > 0 )	// underground we are always suspicious		
+		sectordata = 2;
+	else
+		sectordata = SectorExternalData[SECTOR( gWorldSectorX, gWorldSectorY )][gbWorldSectorZ].usCurfewValue;
+
 	// look through this man's personal & public opplists for opponents heard
-	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
 	{
 		pTemp = MercSlots[ uiLoop ];
 
@@ -195,7 +204,11 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 			// green  AI state: always ignore
 			// yellow AI state: 50% chance to ignore
 			if ( pSoldier->aiData.bAlertStatus == STATUS_GREEN || (pSoldier->aiData.bAlertStatus == STATUS_YELLOW && Random(2) ) )
-				continue;			// next merc
+				continue;
+
+			// sevenfm: ignore noise if some friends already see opponent
+			if ( CountTeamSeeSoldier( pSoldier->bTeam, pTemp ) > sectordata )
+				continue;
 		}
 
 		pbPersOL = pSoldier->aiData.bOppList + pTemp->ubID;
@@ -232,7 +245,6 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 				bBestLevel = gbPublicLastKnownOppLevel[pSoldier->bTeam][pTemp->ubID];
 			}
 		}
-
 	}
 
 	// if any "misc. noise" was also heard recently	
@@ -258,8 +270,7 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 			pSoldier->aiData.ubNoiseVolume = 0;
 		}
 	}
-
-
+	
 	// if any recent PUBLIC "misc. noise" is also known
 	if ( (pSoldier->bTeam != CIV_TEAM) || ( pSoldier->ubCivilianGroup == KINGPIN_CIV_GROUP ) )
 	{		
@@ -280,7 +291,6 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 				}
 			}
 		}
-
 	}
 	
 	if (!TileIsOutOfBounds(sBestGridNo) && pfReachable )

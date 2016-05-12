@@ -1836,6 +1836,7 @@ typedef struct
 	INT16	sCOCloseDetectionRangeSoldierCorpse;
 	UINT16	usCOEliteUncoverRadius;
 	BOOLEAN fCODetectIfBleeding;					// will we be discovered if we are bleeding?
+	BOOLEAN fCOStripIfUncovered;
 
 	// RADIO OPERATOR
 	BOOLEAN fROAllowArtillery;						// artillery can be forbidden for all teams with this setting

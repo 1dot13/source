@@ -1084,7 +1084,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 			// sevenfm: only if we don't know enemy location or noise source is close and we have not seen enemy recently
 			if (iPathCost != 0 &&
 				!AICheckIsFlanking(pSoldier) &&
-				(TileIsOutOfBounds(sClosestDisturbance) || iPathCost < iShortestPath && !GuySawEnemyThisTurnOrBefore(pSoldier)))
+				(TileIsOutOfBounds( sClosestDisturbance ) || iPathCost < iShortestPath && !GuySawEnemy( pSoldier )) )
 			{
 				if (fClimbingNecessary)
 				{
@@ -1119,7 +1119,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 			// sevenfm: only if we don't know enemy location or noise source is close and we have not seen enemy recently
 			if (iPathCost != 0 &&
 				!AICheckIsFlanking(pSoldier) &&
-				(TileIsOutOfBounds(sClosestDisturbance) || iPathCost < iShortestPath && !GuySawEnemyThisTurnOrBefore(pSoldier)))
+				(TileIsOutOfBounds(sClosestDisturbance) || iPathCost < iShortestPath && !GuySawEnemy(pSoldier)))
 			{
 				if (fClimbingNecessary)
 				{
@@ -1767,22 +1767,45 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT
 	return( sPathCost );
 }
 
-BOOLEAN GuySawEnemyThisTurnOrBefore( SOLDIERTYPE * pSoldier )
+BOOLEAN GuySawEnemy( SOLDIERTYPE * pSoldier, UINT8 ubMax )
 {
 	UINT8		ubTeamLoop;
 	UINT8		ubIDLoop;
+	SOLDIERTYPE *pOpponent;
 
-	for ( ubTeamLoop = 0; ubTeamLoop < MAXTEAMS; ubTeamLoop++ )
+	for ( ubTeamLoop = 0; ubTeamLoop < MAXTEAMS; ++ubTeamLoop )
 	{
 		if(!gTacticalStatus.Team[ubTeamLoop].bTeamActive)//dnl ch58 070913 skip any inactive teams
 			continue;
+
 		if ( gTacticalStatus.Team[ ubTeamLoop ].bSide != pSoldier->bSide )
 		{
 			// consider guys in this team, which isn't on our side
-			for ( ubIDLoop = gTacticalStatus.Team[ ubTeamLoop ].bFirstID; ubIDLoop <= gTacticalStatus.Team[ ubTeamLoop ].bLastID; ubIDLoop++ )
+			for ( ubIDLoop = gTacticalStatus.Team[ ubTeamLoop ].bFirstID; ubIDLoop <= gTacticalStatus.Team[ ubTeamLoop ].bLastID; ++ubIDLoop )
 			{
+				pOpponent = MercPtrs[ubIDLoop];
+
+				// if this merc is inactive, at base, on assignment, or dead
+				if (!pOpponent)
+				{
+					continue;
+				}
+
+				// if this merc is neutral/on same side, he's not an opponent
+				if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide) )
+				{
+					continue;
+				}
+
+				// sevenfm: ignore empty vehicles
+				if( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
+				{
+					continue;
+				}
+
 				// if this guy SAW an enemy recently...
-				if ( pSoldier->aiData.bOppList[ ubIDLoop ] >= SEEN_CURRENTLY )
+				if( pSoldier->aiData.bOppList[ ubIDLoop ] >= SEEN_CURRENTLY && 
+					pSoldier->aiData.bOppList[ ubIDLoop ] <= ubMax )
 				{
 					return( TRUE );
 				}
@@ -1832,7 +1855,7 @@ INT32 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbin
 		// CJC: restrict "last one to radio" to only if that guy saw us this turn or last turn
 
 		// if this friend is not under fire, and isn't the last one to radio
-		if ( ! ( pFriend->aiData.bUnderFire || (pFriend->ubID == gTacticalStatus.Team[pFriend->bTeam].ubLastMercToRadio && GuySawEnemyThisTurnOrBefore( pFriend ) ) ) )
+		if ( !(pFriend->aiData.bUnderFire || (pFriend->ubID == gTacticalStatus.Team[pFriend->bTeam].ubLastMercToRadio && GuySawEnemy( pFriend ))) )
 		{
 			continue;			// next merc
 		}
@@ -3866,4 +3889,80 @@ BOOLEAN SightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot )
 	}
 
 	return TRUE;
+}
+
+BOOLEAN EnemySeenSoldierRecently( SOLDIERTYPE *pSoldier, UINT8 ubMax )
+{
+	UINT32		uiLoop;
+	SOLDIERTYPE *pOpponent;
+
+	//loop through all the enemies and determine the cover
+	for ( uiLoop = 0; uiLoop<guiNumMercSlots; ++uiLoop )
+	{
+		pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if ( !pOpponent || pOpponent->stats.bLife < OKLIFE )
+		{
+			continue;			// next merc
+		}
+
+		// if this man is neutral / on the same side, he's not an opponent
+		if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide) )
+		{
+			continue;			// next merc
+		}
+
+		// sevenfm: ignore empty vehicles
+		if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
+		{
+			continue;
+		}
+
+		// if opponent is collapsed/breath collapsed
+		if ( pOpponent->bCollapsed || pOpponent->bBreathCollapsed )
+		{
+			continue;
+		}
+
+		// check that this opponent sees us
+		if ( pOpponent->aiData.bOppList[pSoldier->ubID] >= SEEN_CURRENTLY &&
+			 pOpponent->aiData.bOppList[pSoldier->ubID] <= ubMax )
+		{
+			return(TRUE);
+		}
+	}
+
+	return FALSE;
+}
+
+UINT8 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier )
+{
+	SOLDIERTYPE *pFriend;
+	UINT8 ubFriends = 0;
+
+	CHECKF( pSoldier );
+
+	if ( bTeam >= MAXTEAMS )
+		return 0;
+
+	for ( UINT16 cnt = gTacticalStatus.Team[bTeam].bFirstID; cnt <= gTacticalStatus.Team[bTeam].bLastID; ++cnt )
+	{
+		pFriend = MercPtrs[cnt];
+
+		if ( pFriend->bActive &&
+			 pFriend->bInSector &&
+			 pFriend->stats.bLife >= OKLIFE &&
+			 !pFriend->bCollapsed &&
+			 !pFriend->bBreathCollapsed )
+		{
+			if ( pFriend->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY ||
+				 pFriend->aiData.bOppList[pSoldier->ubID] == SEEN_THIS_TURN )
+			{
+				++ubFriends;
+			}
+		}
+	}
+
+	return ubFriends;
 }

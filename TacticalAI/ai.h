@@ -278,11 +278,14 @@ UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTe
 INT16 MaxNormalVisionDistance( void );
 UINT8 MinFlankDirections( SOLDIERTYPE *pSoldier );
 UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
-BOOLEAN GuySawEnemyThisTurnOrBefore( SOLDIERTYPE * pSoldier );
+BOOLEAN GuySawEnemy( SOLDIERTYPE * pSoldier, UINT8 ubMax = SEEN_3_TURNS_AGO );
 UINT8 CountNearbyFriends( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 UINT8 CountNearbyFriendsLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 UINT8 CountFriendsFlankSameSpot( SOLDIERTYPE *pSoldier );
 UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent = NOWHERE );
+
+BOOLEAN EnemySeenSoldierRecently( SOLDIERTYPE *pSoldier, UINT8 ubMax = SEEN_3_TURNS_AGO );
+UINT8 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier );
 
 BOOLEAN AICheckFriendsNoContact( SOLDIERTYPE *pSoldier );
 BOOLEAN AICheckIsFlanking( SOLDIERTYPE *pSoldier );

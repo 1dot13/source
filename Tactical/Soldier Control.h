@@ -1788,6 +1788,11 @@ public:
 	// loose covert property
 	void		LooseDisguise( void );	
 
+	// sevenfm: auto disguise if have correct clothes
+	void		Disguise();
+
+	void		ApplyCovert(BOOLEAN aWithMessage);
+
 	// lose disguise or take off any clothes item and switch back to original clothes
 	void		Strip();
 

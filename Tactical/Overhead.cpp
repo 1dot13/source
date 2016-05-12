@@ -10591,7 +10591,8 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             {
                 MercPtrs[ gusSelectedSoldier ]->LooseDisguise();
 
-                MercPtrs[ gusSelectedSoldier ]->Strip();
+				if ( gSkillTraitValues.fCOStripIfUncovered )
+					MercPtrs[ gusSelectedSoldier ]->Strip();
 
                 ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SURRENDER_FAILED]  );
                 ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVER_SINGLE], MercPtrs[ gusSelectedSoldier ]->GetName()  );

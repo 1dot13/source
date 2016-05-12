@@ -3404,7 +3404,9 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				if ( fUncovered )
 				{
 					pSoldier->LooseDisguise();
-					pSoldier->Strip();
+					
+					if ( gSkillTraitValues.fCOStripIfUncovered )
+						pSoldier->Strip( );
 
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_STEAL_FAIL], pSoldier->GetName()  );
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pTargetSoldier->GetName(), pSoldier->GetName()  );

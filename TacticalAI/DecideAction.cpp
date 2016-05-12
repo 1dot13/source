@@ -3462,7 +3462,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			}
 
 			if( !TileIsOutOfBounds(sFlankGridNo) &&
-				!GuySawEnemyThisTurnOrBefore(pSoldier) &&
+				!GuySawEnemy(pSoldier) &&
 				!pSoldier->aiData.bUnderFire &&
 				!Water(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
 				pSoldier->bInitialActionPoints >= APBPConstants[AP_MINIMUM] &&
@@ -3626,7 +3626,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				}				
 
 				// sevenfm: don't help if seen enemy recently or under fire
-				if( GuySawEnemyThisTurnOrBefore(pSoldier) || pSoldier->aiData.bUnderFire )
+				if( GuySawEnemy(pSoldier) || pSoldier->aiData.bUnderFire )
 				{
 					bHelpPts -= 10;
 				}
@@ -3658,7 +3658,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					// if there is an opponent reachable					
 					// sevenfm: allow seeking in prone stance if we haven't seen enemy for several turns
 					if (!TileIsOutOfBounds(sClosestDisturbance) &&
-						( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE || !GuySawEnemyThisTurnOrBefore(pSoldier) ) )
+						 (gAnimControl[pSoldier->usAnimState].ubHeight != ANIM_PRONE || !GuySawEnemy( pSoldier )) )
 					{
 						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: seek opponent");
 						//////////////////////////////////////////////////////////////////////
@@ -3750,7 +3750,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								( pSoldier->aiData.bOrders == SEEKENEMY ||
 								pSoldier->aiData.bOrders == FARPATROL ||
 								pSoldier->aiData.bOrders == CLOSEPATROL && NightTime() ) &&
-								(!GuySawEnemyThisTurnOrBefore( pSoldier ) || fOvercrowded ) &&
+								(!GuySawEnemy( pSoldier ) || fOvercrowded ) &&
 								!Water(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
 								pSoldier->bActionPoints >= APBPConstants[AP_MINIMUM] &&
 								( CountFriendsInDirection( pSoldier, sClosestDisturbance ) > 1 || NightTime() || fOvercrowded) )
@@ -10261,7 +10261,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK )
 			}
 
 			if ( !TileIsOutOfBounds( sFlankGridNo ) &&
-				 !GuySawEnemyThisTurnOrBefore( pSoldier ) &&
+				 !GuySawEnemy( pSoldier ) &&
 				 !pSoldier->aiData.bUnderFire &&
 				 !Water( pSoldier->sGridNo, pSoldier->pathing.bLevel ) &&
 				 pSoldier->bInitialActionPoints >= APBPConstants[AP_MINIMUM] &&
@@ -10379,7 +10379,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK )
 				}
 
 				// sevenfm: don't help if seen enemy recently or under fire
-				if ( GuySawEnemyThisTurnOrBefore( pSoldier ) || pSoldier->aiData.bUnderFire )
+				if ( GuySawEnemy( pSoldier ) || pSoldier->aiData.bUnderFire )
 				{
 					bHelpPts -= 10;
 				}
@@ -10411,7 +10411,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK )
 					// if there is an opponent reachable					
 					// sevenfm: allow seeking in prone stance if we haven't seen enemy for several turns
 					if ( !TileIsOutOfBounds( sClosestDisturbance ) &&
-						 (gAnimControl[pSoldier->usAnimState].ubHeight != ANIM_PRONE || !GuySawEnemyThisTurnOrBefore( pSoldier )) )
+						 (gAnimControl[pSoldier->usAnimState].ubHeight != ANIM_PRONE || !GuySawEnemy( pSoldier )) )
 					{
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "ArmedVehicleDecideActionRed: seek opponent" );
 						//////////////////////////////////////////////////////////////////////
@@ -10460,7 +10460,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK )
 								(pSoldier->aiData.bOrders == SEEKENEMY ||
 								pSoldier->aiData.bOrders == FARPATROL ||
 								pSoldier->aiData.bOrders == CLOSEPATROL && NightTime( )) &&
-								(!GuySawEnemyThisTurnOrBefore( pSoldier ) || fOvercrowded) &&
+								(!GuySawEnemy( pSoldier ) || fOvercrowded) &&
 								!Water( pSoldier->sGridNo, pSoldier->pathing.bLevel ) &&
 								pSoldier->bActionPoints >= APBPConstants[AP_MINIMUM] &&
 								(CountFriendsInDirection( pSoldier, sClosestDisturbance ) > 1 || NightTime( ) || fOvercrowded) )

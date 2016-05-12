@@ -15740,6 +15740,16 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		}
 	}
 
+	// uncover if merc is using flashlight and alert is raised
+	if ( pSoldier->bTeam == ENEMY_TEAM &&
+		 pSoldier->aiData.bAlertStatus >= STATUS_RED &&
+		 (NightTime( ) || gbWorldSectorZ > 0) &&
+		 this->GetBestEquippedFlashLightRange( ) > 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s has flashlight!", this->GetName( ) );
+		return FALSE;
+	}
+
 	return TRUE;
 }
 
@@ -15810,11 +15820,12 @@ BOOLEAN		SOLDIERTYPE::RecognizeAsCombatant( UINT8 ubTargetID )
 		// aha, he/she's a spy! Blow cover
 		if ( pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
 		{
-			pSoldier->LooseDisguise( );
+			pSoldier->LooseDisguise();
 
-			pSoldier->Strip( );
+			if ( gSkillTraitValues.fCOStripIfUncovered )
+				pSoldier->Strip();
 
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], this->GetName( ), pSoldier->GetName( ) );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], this->GetName(), pSoldier->GetName()  );
 
 			// we have uncovered a spy! Get alerted, if we aren't already
 			if ( this->aiData.bAlertStatus < STATUS_BLACK )
@@ -15853,9 +15864,67 @@ void	SOLDIERTYPE::LooseDisguise( void )
 	}
 }
 
+void SOLDIERTYPE::Disguise()
+{
+	// this will only work with the new trait system
+	if (!gGameOptions.fNewTraitSystem)
+		return;
+
+	// check if we already disguised
+	if( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER | SOLDIER_COVERT_NPC_SPECIAL) )
+		return;
+
+	// check that soldier is active and in sector
+	if ( !this->bActive || !this->bInSector )
+		return;
+
+	ApplyCovert( FALSE );
+}
+
+void	SOLDIERTYPE::ApplyCovert( BOOLEAN aWithMessage )
+{
+	// check that we have correct clothes
+	if ( this->usSoldierFlagMask & SOLDIER_NEW_VEST && this->usSoldierFlagMask & SOLDIER_NEW_PANTS )
+	{
+		// first, remove the covert flags, and then reapply the correct ones, in case we switch between civilian and military clothes
+		this->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER);
+
+		// we can only disguise successfully if we are not seen
+		if ( !EnemySeenSoldierRecently( this ) )
+		{
+			// we now have to determine wether we are currently wearing civilian or military clothes
+			for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
+			{
+				// both parts have to fit. We cant mix different uniforms and get soldier disguise
+				if ( COMPARE_PALETTEREP_ID( this->VestPal, gUniformColors[i].vest ) && COMPARE_PALETTEREP_ID( this->PantsPal, gUniformColors[i].pants ) )
+				{
+					this->usSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
+
+					if ( aWithMessage && this->bTeam == OUR_TEAM )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], this->GetName( ) );
+
+					break;
+				}
+			}
+
+			// if not dressed as a soldier, we must be dressed as a civilian
+			if ( !(this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
+			{
+				this->usSoldierFlagMask |= SOLDIER_COVERT_CIV;
+
+				if ( aWithMessage && this->bTeam == OUR_TEAM )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], this->GetName( ) );
+			}
+		}
+
+		// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
+		OtherTeamsLookForMan( this );
+	}
+}
+
 // undisguise or take off any clothes item and switch back to original clothes
 // no - this function does not do what you think it does. Leave Fox alone, you perv.
-void	SOLDIERTYPE::Strip( )
+void	SOLDIERTYPE::Strip()
 {
 	// if covert, loose that ability
 	if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
@@ -15863,9 +15932,9 @@ void	SOLDIERTYPE::Strip( )
 		LooseDisguise( );
 	}
 	// if already not covert, take off clothes
-	else if ( this->usSoldierFlagMask & (SOLDIER_NEW_VEST | SOLDIER_NEW_PANTS) )
+	else if ( this->usSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )
 	{
-		// if we have undamaged clothes, spawn them, the graphci will be removed anyway
+		// if we have undamaged clothes, spawn them, the graphic will be removed anyway
 		if ( (this->usSoldierFlagMask & SOLDIER_NEW_VEST) && !(this->usSoldierFlagMask & SOLDIER_DAMAGED_VEST) )
 		{
 			UINT16 vestitem = 0;
@@ -17241,6 +17310,10 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 	{
 		this->usSoldierFlagMask &= ~SOLDIER_BATTLE_PARTICIPATION;
 	}
+
+	// sevenfm: disguise automatically
+	if ( !gSkillTraitValues.fCOStripIfUncovered )
+		this->Disguise();
 }
 
 // check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
@@ -19974,13 +20047,15 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 
 			// if we are disguised, there is a chance that he'll uncover us
-			if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
+			if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 			{
-				this->LooseDisguise( );
-				this->Strip( );
+				this->LooseDisguise();
 
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->GetName( ) );
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->GetName( ), this->GetName( ) );
+				if ( gSkillTraitValues.fCOStripIfUncovered )
+					this->Strip();
+														
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ACTIVITIES], this->GetName() );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->GetName(), this->GetName()  );
 
 				// alert the soldier
 				pSoldier->aiData.bAlertStatus = min( pSoldier->aiData.bAlertStatus, STATUS_RED );
@@ -20033,13 +20108,15 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 						success = FALSE;
 
 						// if we are disguised, there is a chance that he'll uncover us
-						if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
+						if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
 						{
-							this->LooseDisguise( );
-							this->Strip( );
-
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_APPLYITEM_STEAL_FAIL], this->GetName( ), pSoldier->GetName( ) );
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->GetName( ), this->GetName( ) );
+							this->LooseDisguise();
+							
+							if ( gSkillTraitValues.fCOStripIfUncovered )
+								this->Strip();
+														
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_APPLYITEM_STEAL_FAIL], this->GetName(), pSoldier->GetName() );
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->GetName(), this->GetName()  );
 						}
 
 						// alert the soldier

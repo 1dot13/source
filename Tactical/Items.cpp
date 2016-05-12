@@ -60,6 +60,7 @@
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DisplayCover.h"		// added by Flugente
 	#include "Map Information.h"
+	#include "ai.h"					// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -9782,44 +9783,8 @@ BOOLEAN ApplyClothes( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16 usPointsToUs
 			pSoldier->CreateSoldierPalettes();
 		}
 
-		if ( pSoldier->usSoldierFlagMask & SOLDIER_NEW_VEST && pSoldier->usSoldierFlagMask & SOLDIER_NEW_PANTS )
-		{
-			// first, remove the covert flags, and then reapply the correct ones, in case we switch between civilian and military clothes
-			pSoldier->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER);
-
-			// we can onyl dsiguise sucessfully if we are not seen
-			INT8 bCover = MAX_COVER;
-			CalculateCoverForSoldier( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, bCover );
-			if ( bCover == MAX_COVER )
-			{
-				// we now have to determine wether we are currently wearing civilian or military clothes
-				for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
-				{
-					// both parts have to fit. We cant mix different uniforms and get soldier disguise
-					if ( COMPARE_PALETTEREP_ID(pSoldier->VestPal, gUniformColors[ i ].vest) && COMPARE_PALETTEREP_ID(pSoldier->PantsPal, gUniformColors[ i ].pants) )
-					{
-						pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_SOLDIER;
-
-						if ( pSoldier->bTeam == OUR_TEAM )
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_SOLDIER], pSoldier->GetName() );
-
-						break;
-					}
-				}
-
-				// if not dressed as a soldier, we must be dressed as a civilian
-				if ( !(pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
-				{
-					pSoldier->usSoldierFlagMask |= SOLDIER_COVERT_CIV;
-
-					if ( pSoldier->bTeam == OUR_TEAM )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], pSoldier->GetName() );
-				}
-			}
-
-			// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
-			OtherTeamsLookForMan(pSoldier);
-		}
+		// apply covert properties depending on our disguise
+		pSoldier->ApplyCovert( TRUE );
 	}
 		
 	return( TRUE );

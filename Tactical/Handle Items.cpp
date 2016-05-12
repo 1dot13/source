@@ -155,7 +155,6 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
 void CleanWeapons( BOOLEAN fEntireTeam );
 void UpdateGear();
-void Strip( SOLDIERTYPE * pSoldier );
 void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
 
 BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel ) 
@@ -5177,12 +5176,6 @@ void UpdateGear()
 	}
 }
 
-// undisguise or take off custom clothes
-void Strip( SOLDIERTYPE * pSoldier )
-{
-	pSoldier->Strip();
-}
-
 void BombMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if (gpTempSoldier)
@@ -5331,7 +5324,7 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
 		case 2:
        		// undisguise or take off custom clothes 
-       		Strip(gpTempSoldier);
+			gpTempSoldier->Strip();
 			break;
        case 3:
 			// clean weapons - in realtime of the entire team, in turnbased only for the selected merc
