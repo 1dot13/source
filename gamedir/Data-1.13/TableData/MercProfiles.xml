@@ -359,7 +359,7 @@
 		<bRefinementCareLevel>0</bRefinementCareLevel>
 		<bHatedNationality>0</bHatedNationality>
 		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
-		<bRacist>0</bRacist><bSexist>0</bSexist><bRacist>0</bRacist>
+		<bRacist>0</bRacist>
 		<bSexist>0</bSexist>
 		<sSalary>850</sSalary>
 		<uiWeeklySalary>5500</uiWeeklySalary>
@@ -18808,7 +18808,8 @@
 		<sSectorZ>0</sSectorZ>
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
-		<bTownAttachment>195</bTownAttachment>
+		<bTownAttachment>0</bTownAttachment>
+		<usBackground>195</usBackground>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>196</uiIndex>
@@ -20389,8 +20390,8 @@
 		<bRefinementCareLevel>0</bRefinementCareLevel>
 		<bHatedNationality>-1</bHatedNationality>
 		<bHatedNationalityCareLevel>0</bHatedNationalityCareLevel>
-		<bRacist>0</bRacist
-		><bSexist>0</bSexist>
+		<bRacist>0</bRacist>
+		<bSexist>0</bSexist>
 		<sSalary>0</sSalary>
 		<uiWeeklySalary>0</uiWeeklySalary>
 		<uiBiWeeklySalary>0</uiBiWeeklySalary>
