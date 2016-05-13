@@ -413,6 +413,8 @@ enum
 #define SOLDIER_HUNGOVER					0x00000400	//1024			// we drank alcohol recently, and are now hungover
 #define SOLDIER_TAKEN_LARGE_HIT				0x00000800					// we recently received a lot of damage in a single hit
 
+#define SOLDIER_COVERT_NOREDISGUISE			0x00001000					// this soldier does not want to be redisguised
+
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
 

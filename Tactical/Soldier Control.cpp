@@ -15878,6 +15878,10 @@ void SOLDIERTYPE::Disguise()
 	if ( !this->bActive || !this->bInSector )
 		return;
 
+	// if this flag is set, do not apply the disgusie properties
+	if ( this->usSoldierFlagMask2 & SOLDIER_COVERT_NOREDISGUISE )
+		return;
+
 	ApplyCovert( FALSE );
 }
 
@@ -15888,6 +15892,11 @@ void	SOLDIERTYPE::ApplyCovert( BOOLEAN aWithMessage )
 	{
 		// first, remove the covert flags, and then reapply the correct ones, in case we switch between civilian and military clothes
 		this->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER);
+
+		// if we apply the disguise property, remove the marker that we don't want this to happen
+		// the idea is that if we explicitly remove a disguise, but not our new colours, we don't want to regain the disguise
+		// we can then lose this marker again if we explicitly put on a disguise
+		this->usSoldierFlagMask2 &= ~SOLDIER_COVERT_NOREDISGUISE;
 
 		// we can only disguise successfully if we are not seen
 		if ( !EnemySeenSoldierRecently( this ) )
@@ -15930,6 +15939,9 @@ void	SOLDIERTYPE::Strip()
 	if ( this->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
 	{
 		LooseDisguise( );
+
+		// if we explicitly lose the disguise property, add a flag so that we aren't redisguised again immediately
+		this->usSoldierFlagMask2 |= SOLDIER_COVERT_NOREDISGUISE;
 	}
 	// if already not covert, take off clothes
 	else if ( this->usSoldierFlagMask & (SOLDIER_NEW_VEST|SOLDIER_NEW_PANTS) )
