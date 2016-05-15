@@ -4030,7 +4030,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
     }
 
     //if the NPC is a dealer, add the dealers items to the ground
-    AddDeadArmsDealerItemsToWorld( pSoldierOld->ubProfile );
+	AddDeadArmsDealerItemsToWorld( pSoldierOld->ubProfile, pSoldierOld->ubID );
 
 #ifdef JA2UB
     HandleDeathInPowerGenSector( pSoldierOld ); //ja25 ub

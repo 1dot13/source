@@ -332,6 +332,9 @@ INT32			giSKIMessageBox=-1;
 
 INT8			gbSelectedArmsDealerID = -1;		//Contains the enum value for the currently selected arms dealer
 
+// Flugente: while we're trading, store the ID of non-NPC dealers
+UINT8			gusIDOfCivTrader = NOBODY;
+
 //the quote that is in progress, in certain circumstances, we don't want queuing of related but different quotes
 INT32			giShopKeepDialogueEventinProgress = - 1;
 
@@ -609,7 +612,7 @@ void			PerformTransaction( UINT32 uiMoneyFromPlayersAccount );
 void			MovePlayerOfferedItemsOfValueToArmsDealersInventory( );
 INT16			AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT16 ubSpotLocation, UINT8 ubWhere );
 BOOLEAN		RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT16 ubSlot );
-BOOLEAN		InitShopKeepersFace( UINT8 ubMercID );
+BOOLEAN			InitShopKeepersFace( UINT8 usProfileID );
 void			DisplayTalkingArmsDealer();
 BOOLEAN		StartShopKeeperTalking( UINT16 usQuoteNum );
 void			HandleShopKeeperDialog( UINT8 ubInit );
@@ -792,8 +795,7 @@ UINT32	ShopKeeperScreenHandle()
 	RestoreBackgroundRects();
 
 	GetShopKeeperInterfaceUserInput();
-
-
+	
 	// Check for any newly added items...
 	if ( gpSMCurrentMerc->flags.fCheckForNewlyAddedItems )
 	{
@@ -802,10 +804,8 @@ UINT32	ShopKeeperScreenHandle()
 		gpSMCurrentMerc->flags.fCheckForNewlyAddedItems = FALSE;
 	}
 
-
 	HandleShopKeeperInterface();
-
-
+	
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
 		RenderShopKeeperInterface();
@@ -860,12 +860,9 @@ UINT32	ShopKeeperScreenHandle()
 
 		gfDisplayNoRoomMsg = FALSE;
 	}
-
-
+	
 	return( SHOPKEEPER_SCREEN );
 }
-
-
 
 UINT32	ShopKeeperScreenShutdown()
 {
@@ -874,17 +871,9 @@ UINT32	ShopKeeperScreenShutdown()
 	return( TRUE );
 }
 
-
-
-
-
 //
 //
 //
-
-
-
-
 
 BOOLEAN EnterShopKeeperInterface()
 {
@@ -893,12 +882,17 @@ BOOLEAN EnterShopKeeperInterface()
 	CHAR8						zTemp[32];
 	VSURFACE_DESC		vs_desc;
 
-
 	//ADB if we are here, we must be able to talk with an extended ear (CheckIfRadioIsEquipped())
 	//but if we are physically too far away, we don't have extended arms!
 
 	SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
-	SOLDIERTYPE* pShopkeeper = FindSoldierByProfileID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
+	SOLDIERTYPE* pShopkeeper = NULL;
+	
+	if ( gusIDOfCivTrader != NOBODY )
+		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+	else
+		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
+
 	if ( GetRangeFromGridNoDiff( pSoldier->sGridNo, pShopkeeper->sGridNo ) > NPC_TALK_RADIUS )
 	{
 		//so now we know we are too far away to trade, so instead of just quitting,
@@ -949,7 +943,6 @@ BOOLEAN EnterShopKeeperInterface()
 			return( FALSE );
 		}
 	}
-
 
 	// make sure current merc is close enough and eligible to talk to the shopkeeper.
 	AssertMsg( CanMercInteractWithSelectedShopkeeper( MercPtrs[ gusSelectedSoldier ] ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
@@ -1010,7 +1003,6 @@ BOOLEAN EnterShopKeeperInterface()
 		return( FALSE );
 	}
 
-
 	// load the Main trade screen background image
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("InterFace\\itemcrossout.sti", VObjectDesc.ImageFile);
@@ -1021,8 +1013,6 @@ BOOLEAN EnterShopKeeperInterface()
 #endif
 		return( FALSE );
 	}
-
-
 
 /*
 ATM:
@@ -1047,16 +1037,15 @@ ATM:
 
 			//Create the string for the face file name
 			//sprintf( zTemp, "FACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
-			
-			
-		if ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile )
-		{
-			sprintf( zTemp, "IMPFACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );	
-		} 
-		else
-		{			
-			sprintf( zTemp, "FACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
-		}
+						
+			if ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile )
+			{
+				sprintf( zTemp, "IMPFACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );	
+			} 
+			else
+			{			
+				sprintf( zTemp, "FACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
+			}
 			
 			//While we are at it, add their small face
 			VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -1089,9 +1078,7 @@ ATM:
 										BUTTON_NEWTOGGLE, MSYS_PRIORITY_HIGHEST,
 										DEFAULT_MOVE_CALLBACK, BtnSKI_InvPageDownButtonCallback );
 	SpecifyDisabledButtonStyle( guiSKI_InvPageDownButton, DISABLED_STYLE_HATCHED );
-
-
-
+	
 //Evaluate:
 	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, ACTIVATE_BUTTON);
 	//	guiSKI_EvaluateButtonImage = LoadButtonImage("INTERFACE\\TradeButtons.sti", -1,0,-1,1,-1 );
@@ -1142,10 +1129,7 @@ ATM:
 	MSYS_DefineRegion( &gSKI_EntireScreenMouseRegions, 0, 0, (SCREEN_WIDTH - 1), (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT), MSYS_PRIORITY_HIGH-2,
 						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK);
 	MSYS_AddRegion( &gSKI_EntireScreenMouseRegions );
-
-
-
-
+	
 /*
 //ATM:
 	//Blanket the tactical buttons where the ATM will go
@@ -1156,9 +1140,7 @@ ATM:
 
 	//Create the mouse regions for the inventory slot
 	CreateSkiInventorySlotMouseRegions( );
-
-
-
+	
 	//Create the mouse region to limit the movement of the item cursos
 	MSYS_DefineRegion( &gSkiInventoryMovementAreaMouseRegions, SKI_ITEM_MOVEMENT_AREA_X, SKI_ITEM_MOVEMENT_AREA_Y, (UINT16)(SKI_ITEM_MOVEMENT_AREA_X+SKI_ITEM_MOVEMENT_AREA_WIDTH), (UINT16)(SKI_ITEM_MOVEMENT_AREA_Y+SKI_ITEM_MOVEMENT_AREA_HEIGHT), MSYS_PRIORITY_HIGH-1,
 				CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); //SelectSkiInventoryMovementAreaRegionCallBack
@@ -1166,14 +1148,12 @@ ATM:
 
 	//Disable the region that limits the movement of the cursor with the item
 	MSYS_DisableRegion( &gSkiInventoryMovementAreaMouseRegions );
-
-
+	
 	//Create the mouse region for the shopkeeper's face
 	MSYS_DefineRegion( &gArmsDealersFaceMouseRegions, SKI_FACE_X, SKI_FACE_Y, (UINT16)(SKI_FACE_X+SKI_FACE_WIDTH), (UINT16)(SKI_FACE_Y+SKI_FACE_HEIGHT), MSYS_PRIORITY_HIGH-1,
 				CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectArmsDealersFaceRegionCallBack );
 	MSYS_AddRegion( &gArmsDealersFaceMouseRegions );
-
-
+	
 	//Create the atm button
 //ATM:
 	//	CreateSkiAtmButtons();
@@ -1189,13 +1169,9 @@ ATM:
 		HandlePossibleRepairDelays();
 	}
 
-
 	//Setup the currently selected arms dealer
 	InitializeShopKeeper( TRUE );
-
-
-
-
+	
 	//Set the flag indicating that we are in the shop keeper interface
 	guiTacticalInterfaceFlags |= INTERFACE_SHOPKEEP_INTERFACE;
 
@@ -1260,7 +1236,6 @@ ATM:
 	// Dirty the bottom panel
 	fInterfacePanelDirty = DIRTYLEVEL2;
 
-
 	gfDealerHasSaidTheEvaluateQuoteOnceThisSession = FALSE;
 	guiRandomQuoteDelayTime = SKI_DEALERS_RANDOM_QUOTE_DELAY;
 
@@ -1290,32 +1265,31 @@ ATM:
 }
 
 
-BOOLEAN InitShopKeepersFace( UINT8 ubMercID )
+BOOLEAN InitShopKeepersFace( UINT8 usProfileID )
 {
-	SOLDIERTYPE *pSoldier = FindSoldierByProfileID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
+	SOLDIERTYPE *pSoldier = NULL;
+
+	// if this is a non-NPC, don't set this up
+	if ( gusIDOfCivTrader == NOBODY )
+		pSoldier = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
 	if( pSoldier == NULL )
 	{
-		#ifdef JA2TESTVERSION
-			//Create the facial index
-			giShopKeeperFaceIndex = InitFace( ubMercID, NOBODY, FACE_BIGFACE );
-		#else
-			return( FALSE );
-		#endif
+		//Create the facial index
+		giShopKeeperFaceIndex = InitFace( usProfileID, NOBODY, FACE_BIGFACE );
 	}
 	else
 	{
 		//Create the facial index
-		giShopKeeperFaceIndex = InitFace( ubMercID, pSoldier->ubID, FACE_BIGFACE );
+		giShopKeeperFaceIndex = InitFace( usProfileID, pSoldier->ubID, FACE_BIGFACE );
 	}
-
 
 	SetAutoFaceActive( FRAME_BUFFER, FACE_AUTO_RESTORE_BUFFER, giShopKeeperFaceIndex, SKI_FACE_X, SKI_FACE_Y );
 
 	//Set it so the face cannot be set InActive
-	gFacesData[ giShopKeeperFaceIndex ].uiFlags |= FACE_INACTIVE_HANDLED_ELSEWHERE;
-
-
+	if ( giShopKeeperFaceIndex > -1 )
+		gFacesData[ giShopKeeperFaceIndex ].uiFlags |= FACE_INACTIVE_HANDLED_ELSEWHERE;
+	
 	RenderAutoFace( giShopKeeperFaceIndex );
 
 	return(TRUE);
@@ -1443,7 +1417,6 @@ void HandleShopKeeperInterface()
 
 	INT32 iCounter = 0;
 
-
 	//if we are in the item desc panel, disable the buttons
 	if( InItemDescriptionBox( ) && pShopKeeperItemDescObject != NULL )
 	{
@@ -1467,8 +1440,7 @@ void HandleShopKeeperInterface()
 
 		return;
 	}
-
-
+	
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
 		fInterfacePanelDirty = DIRTYLEVEL2;
@@ -1504,7 +1476,6 @@ void HandleShopKeeperInterface()
 //	RenderSkiAtmPanel();
 
 	DisplayTalkingArmsDealer();
-
 
 	DisplayArmsDealerCurrentInventoryPage( );
 
@@ -1583,14 +1554,12 @@ BOOLEAN RenderShopKeeperInterface()
 	CHAR16	zMoney[128];
 	HVSURFACE hDestVSurface, hSrcVSurface;
 	SGPRect		SrcRect;
-
-
+	
 	if( InItemDescriptionBox( ) && pShopKeeperItemDescObject != NULL )
 	{
 		return( TRUE );
 	}
-
-
+	
 //	RenderSMPanel( &fDirty );
 
 //	RenderTacticalInterface( );
@@ -1618,8 +1587,7 @@ BOOLEAN RenderShopKeeperInterface()
 
 	//Display the total value text
 	DisplayWrappedString( SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_Y, SKI_TOTAL_VALUE_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_TOTAL_VALUE ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-
-
+	
 	//Display the players current balance text
 	DisplayWrappedString( SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_Y, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SkiMessageBoxText[ SKI_PLAYERS_CURRENT_BALANCE ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
@@ -2569,19 +2537,37 @@ void SelectSkiInventoryMovementAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 
 	}
 }
 
-
-
-
 void EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer )
 {
+	gusIDOfCivTrader = NOBODY;
+
 	//Get Dealer ID from from merc Id
 	gbSelectedArmsDealerID = GetArmsDealerIDFromMercID( ubArmsDealer );
 
-	if( gbSelectedArmsDealerID == -1 )
+	if( gbSelectedArmsDealerID <= -1 )
 	{
-		#ifdef JA2BETAVERSION
+#ifdef JA2BETAVERSION
 			ScreenMsg( FONT_MCOLOR_WHITE, MSG_BETAVERSION, L"Failed to find Arms Dealer ID From Merc ID #%d", ubArmsDealer );
-		#endif
+#endif
+		gfSKIScreenExit = TRUE;
+	}
+
+	LeaveTacticalScreen( SHOPKEEPER_SCREEN );
+}
+
+// Flugente: set up shopkeeper with a non-NPC
+void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
+{
+	gusIDOfCivTrader = aMercID;
+
+	//Get Dealer ID from from merc Id
+	gbSelectedArmsDealerID = ubArmsDealerID;
+
+	if ( gbSelectedArmsDealerID <= -1 )
+	{
+#ifdef JA2BETAVERSION
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_BETAVERSION, L"Failed to find Arms Dealer ID From Merc ID #%d", ubArmsDealerID );
+#endif
 		gfSKIScreenExit = TRUE;
 	}
 
@@ -4015,12 +4001,10 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 	UINT32	uiMoneyInPlayersOfferArea = CalculateHowMuchMoneyIsInPlayersOfferArea( );
 	INT32		iChangeToGiveToPlayer = 0;
 	UINT32	uiAvailablePlayerOfferSlots;
-
-
+	
 	//if the player has already requested to leave, get out
 	if( gfUserHasRequestedToLeave )
 		return;
-
 
 	// handle bribing... if the player is giving the dealer money, without buying anything
 	if( IsMoneyTheOnlyItemInThePlayersOfferArea( ) && CountNumberOfItemsInTheArmsDealersOfferArea( ) == 0 )
@@ -4934,7 +4918,8 @@ void DisplayTalkingArmsDealer()
 
 
 	//Make sure the Dealers doesn't get disabled
-	gFacesData[ giShopKeeperFaceIndex ].fDisabled = FALSE;
+	if ( giShopKeeperFaceIndex > -1 )
+		gFacesData[ giShopKeeperFaceIndex ].fDisabled = FALSE;
 
 	HandleDialogue();
 
@@ -4944,8 +4929,9 @@ void DisplayTalkingArmsDealer()
 	HandleTalkingAutoFaces( );
 	HandleShopKeeperDialog( 0 );
 
-
- 	gfIsTheShopKeeperTalking = gFacesData[ giShopKeeperFaceIndex ].fTalking;
+	gfIsTheShopKeeperTalking = FALSE;
+	if ( giShopKeeperFaceIndex > -1 )
+ 		gfIsTheShopKeeperTalking = gFacesData[ giShopKeeperFaceIndex ].fTalking;
 
 	//if the merc just started talking
 //	if( gfIsTheShopKeeperTalking && !fWasTheMercTalking )
@@ -7070,16 +7056,13 @@ void StartSKIDescriptionBox( void )
 
 void DeleteShopKeeperItemDescBox()
 {
-	INT32 iCnt;
-
-
 	pShopKeeperItemDescObject = NULL;
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 
 	//Redraw the face
-	gFacesData[ giShopKeeperFaceIndex ].uiFlags |= FACE_REDRAW_WHOLE_FACE_NEXT_FRAME;
-
-
+	if ( giShopKeeperFaceIndex > -1 )
+		gFacesData[ giShopKeeperFaceIndex ].uiFlags |= FACE_REDRAW_WHOLE_FACE_NEXT_FRAME;
+	
 	// enable almost everything!
 
 	CheckForDisabledForGiveItem( );
@@ -7104,7 +7087,7 @@ void DeleteShopKeeperItemDescBox()
 	EnableAllDealersInventorySlots();
 	EnableAllDealersOfferSlots();
 
-	for (iCnt = 0; iCnt < SKI_NUM_TRADING_INV_SLOTS; iCnt++)
+	for ( INT32 iCnt = 0; iCnt < SKI_NUM_TRADING_INV_SLOTS; ++iCnt )
 	{
 		MSYS_EnableRegion( &gPlayersOfferSlotsMouseRegions[ iCnt ] );
 		MSYS_EnableRegion( &gPlayersOfferSlotsSmallFaceMouseRegions[ iCnt ] );
@@ -7119,9 +7102,7 @@ void DeleteShopKeeperItemDescBox()
 
 //	if( giItemDescAmmoButton >= 0 && ButtonList[ giItemDescAmmoButton ].
 //	EnableButton( giItemDescAmmoButton );
-
 }
-
 
 
 BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId, INT16 bOwnerSlotId )
@@ -7135,7 +7116,6 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 	UINT8		ubSubObject;
 	BOOLEAN	fFirstOne = TRUE;
 	BOOLEAN fSuccess = FALSE;
-
 
 	if ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 	{
@@ -7367,8 +7347,7 @@ BOOLEAN ShopkeeperAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObject,
 	// the entire pObj will get memset to 0 by RemoveObjs() if all the items are successfully placed,
 	// so we have to keep a copy to retrieve with every iteration of the loop
 	OBJECTTYPE movingObject;
-
-
+	
 	while ( pObject->exists() == true )
 	{
 		// figure out how many to place during this loop iteration.  Can't do more than MAX_OBJECTS_PER_SLOT at a time
@@ -7389,7 +7368,6 @@ BOOLEAN ShopkeeperAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObject,
 }
 
 
-
 // The Shopkeeper interface *MUST* use this intermediary function instead of calling AddItemToPool() directly!
 // This is because the OBJECTTYPEs used within Shopkeeper may contain an illegal ubNumberOfObjects
 void ShopkeeperAddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel )
@@ -7407,8 +7385,6 @@ void ShopkeeperAddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible,
 		AddItemToPool( sGridNo, &movingObject, bVisible, ubLevel, usFlags, bRenderZHeightAboveLevel );
 	}
 }
-
-
 
 void IfMercOwnedCopyItemToMercInv( INVENTORY_IN_SLOT *pInv )
 {
@@ -7494,7 +7470,6 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 		// owner's inventory is full, so we'll try to give it to the current merc instead
 	}
 
-
 	//if the current merc is not disabled
 	if( !gfSMDisableForItems )
 	{
@@ -7514,8 +7489,7 @@ BOOLEAN SKITryToAddInvToMercsInventory( INVENTORY_IN_SLOT *pInv, SOLDIERTYPE *pS
 {
 	INT8	bMoneyInvPos;
 	BOOLEAN fNewItem = FALSE;
-
-
+	
 	//if the item is money
 	if( Item[ pInv->sItemIndex ].usItemClass == IC_MONEY )
 	{
@@ -7538,7 +7512,6 @@ BOOLEAN SKITryToAddInvToMercsInventory( INVENTORY_IN_SLOT *pInv, SOLDIERTYPE *pS
 		}
 	}
 
-
   // If it's just been purchased or repaired, mark it as a "new item"
 	fNewItem = ( BOOLEAN ) ( pInv->uiFlags & ( ARMS_INV_JUST_PURCHASED | ARMS_INV_ITEM_REPAIRED ) );
 
@@ -7552,20 +7525,21 @@ BOOLEAN SKITryToAddInvToMercsInventory( INVENTORY_IN_SLOT *pInv, SOLDIERTYPE *pS
 	return(TRUE);
 }
 
-
-
 BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 {
 	SOLDIERTYPE *pShopkeeper;
 	INT32 sDestGridNo;
 	INT8			bDestLevel;
 	UINT32		uiRange;
-
-
+	
 	Assert( pSoldier!= NULL );
 	Assert( gbSelectedArmsDealerID != -1 );
 
-	pShopkeeper = FindSoldierByProfileID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
+	if ( gusIDOfCivTrader != NOBODY )
+		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+	else
+		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
+
 	Assert( pShopkeeper != NULL );
 	Assert( pShopkeeper->bActive );
 	Assert( pShopkeeper->bInSector );
@@ -7596,8 +7570,6 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 
 	return( FALSE );
 }
-
-
 
 #ifdef JA2TESTVERSION
 
@@ -7632,8 +7604,7 @@ void AddShopkeeperToGridNo( UINT8 ubProfile, INT32 sGridNo )
 void ExitSKIRequested()
 {
 	BOOLEAN	fPlayerOwnedStuffOnTable = FALSE;
-
-
+	
 	ShutUpShopKeeper();
 
 	if( !gfRemindedPlayerToPickUpHisStuff )
@@ -7669,8 +7640,7 @@ void ExitSKIRequested()
 			}
 		}
 	}
-
-
+	
 	// if the player hasn't already requested to leave
 	if( !gfUserHasRequestedToLeave )
 	{
@@ -7688,8 +7658,6 @@ void ExitSKIRequested()
 	}
 }
 
-
-
 void ResetAllQuoteSaidFlags()
 {
 	UINT8 uiCnt;
@@ -7703,14 +7671,11 @@ void ResetAllQuoteSaidFlags()
 	guiLastTimeDealerSaidNormalEvaluationQuote = 0;
 }
 
-
-
 void DealWithItemsStillOnTheTable()
 {
 	UINT8	ubCnt;
 	SOLDIERTYPE *pDropSoldier;
-
-
+	
 	// in case we have have to drop stuff off at someone's feet, figure out where it's all gonna go
 
 	// use the current merc, unless he's ineligible, then use the selected merc instead.
@@ -7755,8 +7720,6 @@ void DealWithItemsStillOnTheTable()
 	}
 }
 
-
-
 void ReturnItemToPlayerSomehow( INVENTORY_IN_SLOT *pInvSlot, SOLDIERTYPE *pDropSoldier )
 {
 	//if the item doesn't have a duplicate copy in its owner merc's inventory slot
@@ -7770,6 +7733,7 @@ void ReturnItemToPlayerSomehow( INVENTORY_IN_SLOT *pInvSlot, SOLDIERTYPE *pDropS
 			ShopkeeperAddItemToPool( pDropSoldier->sGridNo, &pInvSlot->ItemObject, VISIBLE, pDropSoldier->pathing.bLevel, 0, 0 );
 		}
 	}
+
 	//CHRISL: We need to handle LBENODE items a little differently so we don't lose anything stored in them.  Instead of
 	// trying to return the item, simply drop the item to the ground.
 	if(UsingNewInventorySystem() == true && pInvSlot->ItemObject.IsActiveLBE(0) == true)
@@ -7778,8 +7742,6 @@ void ReturnItemToPlayerSomehow( INVENTORY_IN_SLOT *pInvSlot, SOLDIERTYPE *pDropS
 		ShopkeeperAddItemToPool( pDropSoldier->sGridNo, &pInvSlot->ItemObject, VISIBLE, pDropSoldier->pathing.bLevel, 0, 0 );
 	}
 }
-
-
 
 void GivePlayerSomeChange( UINT32 uiAmount )
 {
@@ -7804,8 +7766,6 @@ void GivePlayerSomeChange( UINT32 uiAmount )
 	// subtract change from dealer's cash
 	gArmsDealerStatus[ gbSelectedArmsDealerID ].uiArmsDealersCash -= uiAmount;
 }
-
-
 
 void DealerGetsBribed( UINT8 ubProfileId, UINT32 uiMoneyAmount )
 {
@@ -7836,13 +7796,10 @@ void DealerGetsBribed( UINT8 ubProfileId, UINT32 uiMoneyAmount )
 	}
 }
 
-
-
 void HandlePossibleRepairDelays()
 {
 	UINT32 uiHoursSinceAnyItemsShouldHaveBeenRepaired = 0;
-
-
+	
 	// assume there won't be a delay
 	gfStartWithRepairsDelayedQuote = FALSE;
 
@@ -7883,8 +7840,6 @@ void HandlePossibleRepairDelays()
 		}
 	}
 }
-
-
 
 BOOLEAN RepairmanFixingAnyItemsThatShouldBeDoneNow( UINT32 *puiHoursSinceOldestItemRepaired )
 {
@@ -7929,11 +7884,9 @@ BOOLEAN RepairmanFixingAnyItemsThatShouldBeDoneNow( UINT32 *puiHoursSinceOldestI
 		}
 	}
 
-
 	// if FALSE returned here, he's either not repairing anything, or none of it's done yet
 	return( fFoundOne );
 }
-
 
 void DelayRepairsInProgressBy( UINT32 uiMinutesDelayed )
 {
@@ -7958,8 +7911,6 @@ void DelayRepairsInProgressBy( UINT32 uiMinutesDelayed )
 		}
 	}
 }
-
-
 
 //Mouse Call back for the Arms delaers face
 void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )

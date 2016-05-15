@@ -17,6 +17,7 @@
 	#include "Quests.h"
 	#include "Scheduling.h"
 	#include "GameSettings.h"
+	#include "Overhead.h"	// added by Flugente for MercPtrs[]
 #endif
 
 #ifdef JA2UB
@@ -1161,14 +1162,10 @@ BOOLEAN IsMercADealer( UINT8 ubMercID )
 	return( FALSE );
 }
 
-
-
 INT8 GetArmsDealerIDFromMercID( UINT8 ubMercID )
 {
-	INT8	cnt;
-
 	//loop through the list of arms dealers
-	for( cnt=0; cnt<NUM_ARMS_DEALERS; cnt++ )
+	for ( INT8 cnt = 0; cnt<NUM_ARMS_DEALERS; ++cnt )
 	{
 		if( armsDealerInfo[ cnt ].ubShopKeeperID == ubMercID )
 			return( cnt );
@@ -1176,8 +1173,6 @@ INT8 GetArmsDealerIDFromMercID( UINT8 ubMercID )
 
 	return( -1 );
 }
-
-
 
 UINT8 GetTypeOfArmsDealer( UINT8	ubDealerID )
 {
@@ -1769,28 +1764,34 @@ void RemoveRandomItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemI
 }
 
 
-BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 ubMercID )
+BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT8 aMercID )
 {
-	INT8	bArmsDealer;
-#ifdef JA2UB	
-	BOOLEAN	fBoobyTrapItemsWhenDropping=FALSE;
-#endif	
 	//Get Dealer ID from from merc Id
-	bArmsDealer = GetArmsDealerIDFromMercID( ubMercID );
-	if( bArmsDealer == -1 )
+	INT8 bArmsDealer = GetArmsDealerIDFromMercID( usProfileID );
+
+	//Get a pointer to the dealer
+	SOLDIERTYPE* pSoldier = FindSoldierByProfileID( usProfileID, FALSE );
+
+	// not if this isn't a proper profile
+	if ( usProfileID == NO_PROFILE )
+	{
+		pSoldier = MercPtrs[aMercID];
+
+		if ( pSoldier && pSoldier->sNonNPCTraderID > 0 )
+			bArmsDealer = pSoldier->sNonNPCTraderID;
+		else
+			bArmsDealer = -1;
+	}
+
+	if( bArmsDealer <= -1 )
 	{
 		// not a dealer, that's ok, we get called for every dude that croaks.
 		return( FALSE );
 	}
-
-	SOLDIERTYPE	*pSoldier;
-
+	
 	// mark the dealer as being out of business!
 	gArmsDealerStatus[ bArmsDealer ].fOutOfBusiness = TRUE;
 
-
-	//Get a pointer to the dealer
-	pSoldier = FindSoldierByProfileID( ubMercID, FALSE );
 	if( pSoldier == NULL )
 	{
 		// This should never happen, a dealer getting knocked off without the sector being loaded, should it?
@@ -1815,8 +1816,7 @@ BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 ubMercID )
 	}
 
 	gArmsDealersInventory[bArmsDealer].clear();
-
-
+	
 	//if the dealer has money
 	if( gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash > 0 )
 	{
@@ -1831,6 +1831,7 @@ BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 ubMercID )
 
 		gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash = 0;
 	}
+
 	return( TRUE );
 }
 

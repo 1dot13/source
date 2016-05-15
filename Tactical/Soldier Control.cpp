@@ -99,6 +99,7 @@
 #include "Facilities.h"			// added by Flugente
 #include "Cheats.h"				// added by Flugente
 #include "MilitiaIndividual.h"	// added by Flugente
+#include "Arms Dealer Init.h"	// added by Flugente for armsDealerInfo[]
 #endif
 
 #include "ub_config.h"
@@ -20511,6 +20512,40 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			{
 				HandleSurrenderOffer( pTSoldier );
 				return(FALSE);
+			}
+			else if ( pTSoldier->sNonNPCTraderID > 0 )
+			{
+				UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( pTSoldier->sSectorX, pTSoldier->sSectorY )].bNameId;
+
+				// not possible if this guy is hostile towards us
+				// however, if we are covert as a soldier, this check does not apply - merchants know better than do defy the army
+				if ( !pTSoldier->aiData.bNeutral && !(this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, szNonProfileMerchantText[0] );
+				}
+				// not possible if this guy is incapitated
+				else if ( pTSoldier->bCollapsed || pTSoldier->bBreathCollapsed || pTSoldier->stats.bLife < OKLIFE )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, szNonProfileMerchantText[1] );
+				}
+				// not possible in combat
+				else if ( gTacticalStatus.uiFlags & INCOMBAT )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, szNonProfileMerchantText[2] );
+				}		
+				// not possible of loyalty too low
+				// however, if we are covert as a soldier, this check does not apply - merchants know better than do defy the army
+				else if ( ubTownID != BLANK_SECTOR && gTownLoyalty[ubTownID].ubRating < armsDealerInfo[pTSoldier->sNonNPCTraderID].nonprofile_loyaltyrequired && !(this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER) )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, szNonProfileMerchantText[3] );
+				}
+				// if we passed the above check, we can trade
+				else
+				{
+					EnterShopKeeperInterfaceScreen_NonNPC( pTSoldier->sNonNPCTraderID, pTSoldier->ubID );
+				}
+
+				return FALSE;
 			}
 			else
 			{

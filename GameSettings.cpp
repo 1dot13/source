@@ -1460,6 +1460,7 @@ void LoadGameExternalOptions()
 
 	// can extra civilians be created via LUA?
 	gGameExternalOptions.bExtraCivilians					= iniReader.ReadBoolean( "Tactical Interface Settings", "ALLOW_EXTRA_CIVILIANS", FALSE );
+	gGameExternalOptions.bExtraMerchants					= iniReader.ReadBoolean( "Tactical Interface Settings", "ALLOW_EXTRA_MERCHANTS", FALSE );
 	
 	// Add smoke after regular explosions
 	gGameExternalOptions.bAddSmokeAfterExplosion				= iniReader.ReadBoolean("Tactical Interface Settings","ADD_SMOKE_AFTER_EXPLOSION",FALSE);

@@ -13080,23 +13080,24 @@ static int l_CreateArmedCivilain( lua_State *L )
 
 static int l_CreateCivilian( lua_State *L )
 {
-	if ( lua_gettop( L ) >= 11 )
+	if ( lua_gettop( L ) >= 12 )
 	{
 		INT32 sGridNo = lua_tointeger( L, 1 );
 		UINT8 usCivilianGroup = lua_tointeger( L, 2 );
-		INT8 sBodyType = lua_tointeger( L, 3 );
-		INT8 aVest = lua_tointeger( L, 4 );
-		INT8 aPants = lua_tointeger( L, 5 );
-		INT8 aHair = lua_tointeger( L, 6 );
-		INT8 aSkin = lua_tointeger( L, 7 );
-		INT16 item1 = lua_tointeger( L, 8 );
-		INT16 item2 = lua_tointeger( L, 9 );
-		INT16 item3 = lua_tointeger( L, 10 );
-		INT16 item4 = lua_tointeger( L, 11 );
+		INT8 usTraderID = lua_tointeger( L, 3 );
+		INT8 sBodyType = lua_tointeger( L, 4 );
+		INT8 aVest = lua_tointeger( L, 5 );
+		INT8 aPants = lua_tointeger( L, 6 );
+		INT8 aHair = lua_tointeger( L, 7 );
+		INT8 aSkin = lua_tointeger( L, 8 );
+		INT16 item1 = lua_tointeger( L, 9 );
+		INT16 item2 = lua_tointeger( L, 10 );
+		INT16 item3 = lua_tointeger( L, 11 );
+		INT16 item4 = lua_tointeger( L, 12 );
 
 		if ( gGameExternalOptions.bExtraCivilians )
 		{
-			SOLDIERTYPE* pSoldier = TacticalCreateCivilian( sGridNo, usCivilianGroup, sBodyType, aVest, aPants, aHair, aSkin, item1, item2, item3, item4 );
+			SOLDIERTYPE* pSoldier = TacticalCreateCivilian( sGridNo, usCivilianGroup, usTraderID, sBodyType, aVest, aPants, aHair, aSkin, item1, item2, item3, item4 );
 
 			if ( pSoldier )
 			{

@@ -800,6 +800,7 @@ typedef struct
 	BOOLEAN	bLazyCivilians;
 	BOOLEAN	bNeutralCiviliansAvoidPlayerMines;		//sevenfm:  Neutral civilians can detect mines with MAPELEMENT_PLAYER_MINE_PRESENT flag set
 	BOOLEAN bExtraCivilians;						// Flugente: add civilians via LUA
+	BOOLEAN bExtraMerchants;						// Flugente: add non-profile-based merchants via LUA
 	BOOLEAN	bAddSmokeAfterExplosion;
 	BOOLEAN	bAllowExplosiveAttachments;
 	BOOLEAN	bAllowSpecialExplosiveAttachments;

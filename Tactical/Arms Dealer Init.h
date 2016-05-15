@@ -3,7 +3,7 @@
 
 #include "Store Inventory.h"
 
-#define ADDITIONAL_ARMS_DEALERS		20	// Flugente: this does NOT include Tina, this is for the as-of-yet undetermined slots
+#define ADDITIONAL_ARMS_DEALERS		60	// Flugente: this does NOT include Tina, this is for the as-of-yet undetermined slots
 
 //enums for the various arms dealers
 enum
@@ -184,6 +184,7 @@ typedef struct
 	UINT32		daysDelayMax;			// 1-10
 	bool		useBRSetting;
 	bool		allInventoryAlwaysAvailable;
+	UINT8		nonprofile_loyaltyrequired;		// Flugente: if dealer is a non-profile NPC in a city, this is the loyalty required for us to deal with him
 } ARMS_DEALER_INFO;
 
 
@@ -372,7 +373,7 @@ UINT32	GetTimeToFixItemBeingRepaired( UINT8 ubArmsDealer, UINT16 usItemIndex, UI
 BOOLEAN CanDealerTransactItem( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN fPurchaseFromPlayer );
 BOOLEAN CanDealerRepairItem( UINT8 ubArmsDealer, UINT16 usItemIndex );
 
-BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 ubMercID );
+BOOLEAN AddDeadArmsDealerItemsToWorld( UINT8 usProfileID, UINT8 aMercID );
 
 void		MakeObjectOutOfDealerItems( DEALER_SPECIAL_ITEM *pSpclItemInfo, OBJECTTYPE *pObject );
 void		CreateObjectForDealer( int usItem, int status, int numObjects, OBJECTTYPE *pObject );

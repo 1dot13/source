@@ -1480,7 +1480,7 @@ public:
 	///////////////////////////////////////////////////////
 	// Flugente: this was the location of required variables required for the now removed poison feature. They can be used again
 	UINT8	ubMilitiaAssists;		// Flugente: stores militia assists
-	INT8	bUnusedINT8_2;
+	INT8	sNonNPCTraderID;		// Flugente: we can set up non-NPC soldiers to be merchants, we store their dealer id here (value > 0 means arms dealer entry x)
 	INT8	bUnusedINT8_3;
 
 	INT16	bUnusedINT16_4;

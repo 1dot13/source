@@ -2959,6 +2959,9 @@ extern STR16	szIdividualMilitiaWebsiteFilterText_Rank[] ;
 extern STR16	szIdividualMilitiaWebsiteFilterText_Origin[];
 extern STR16	szIdividualMilitiaWebsiteFilterText_Sector[];
 
+// Flugente: non-profile merchants
+extern STR16	szNonProfileMerchantText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

@@ -11110,5 +11110,12 @@ STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
 	L"All sectors",
 };
 
+STR16	szNonProfileMerchantText[] =
+{
+	L"Merchant is hostile and does not want to trade.",
+	L"Merchant is in no state to do business.",
+	L"Merchant won't trade during combat.",
+	L"Merchant refuses to interact with you.",
+};
 
 #endif //ITALIAN

@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			NONPROFILE_MERCHANTS							167 // Flugente: merchants can be created from non-profile NPCs
 #define			INDIVIDUAL_MILITIA								166 // Flugente: individual militia
 #define			ENEMY_JEEPS										165 // Flugente: enemy jeeps
 #define			ENEMY_HELICOPTERS								164 // Flugente: enemy helicopters
@@ -85,7 +86,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								INDIVIDUAL_MILITIA
+#define			SAVE_GAME_VERSION								NONPROFILE_MERCHANTS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

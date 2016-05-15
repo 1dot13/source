@@ -65,7 +65,8 @@ merchantStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "daysDelayMin") == 0 ||
 				strcmp(name, "daysDelayMax") == 0 ||
 				strcmp(name, "useBRSetting") == 0 ||
-				strcmp(name, "allInventoryAlwaysAvailable") == 0 )) 
+				strcmp(name, "allInventoryAlwaysAvailable" ) == 0 ||
+				strcmp(name, "nonprofile_loyaltyrequired") == 0 )) 
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -223,6 +224,11 @@ merchantEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curMerchant.allInventoryAlwaysAvailable	= (BOOLEAN) atol(pData->szCharData);
 		}
+		else if ( strcmp( name, "nonprofile_loyaltyrequired" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curMerchant.nonprofile_loyaltyrequired = (UINT8)strtoul( pData->szCharData, NULL, 0 );
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -333,6 +339,7 @@ BOOLEAN WriteMerchantStats()
 			FilePrintf(hFile,"\t\t<daysDelayMax>%d</daysDelayMax>\r\n",									armsDealerInfo[cnt].daysDelayMax	);
 			FilePrintf(hFile,"\t\t<useBRSetting>%d</useBRSetting>\r\n",									armsDealerInfo[cnt].useBRSetting	);
 			FilePrintf(hFile,"\t\t<allInventoryAlwaysAvailable>%d</allInventoryAlwaysAvailable>\r\n",	armsDealerInfo[cnt].allInventoryAlwaysAvailable	);
+			FilePrintf(hFile,"\t\t<nonprofile_loyaltyrequired>%d</nonprofile_loyaltyrequired>\r\n",		armsDealerInfo[cnt].nonprofile_loyaltyrequired );
 
 			FilePrintf(hFile,"\t</MERCHANT>\r\n");						
 		}

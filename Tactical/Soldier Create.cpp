@@ -3397,7 +3397,9 @@ SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
 	return(pSoldier);
 }
 
-SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 sBodyType, INT8 aVest, INT8 aPants, INT8 aHair, INT8 aSkin, INT16 sItem1, INT16 sItem2, INT16 sItem3, INT16 sItem4 )
+SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 usTraderID,
+									 INT8 sBodyType, INT8 aVest, INT8 aPants, INT8 aHair, INT8 aSkin, 
+									 INT16 sItem1, INT16 sItem2, INT16 sItem3, INT16 sItem4 )
 {
 	// not in autoresolve!
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
@@ -3416,7 +3418,7 @@ SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 
 	MercCreateStruct.sInsertionGridNo = sGridNo;
 	MercCreateStruct.ubDirection = Random( NUM_WORLD_DIRECTIONS );
 
-	while ( sBodyType < 0 || sBodyType >= CRIPPLECIV || (sBodyType >= ADULTFEMALEMONSTER && sBodyType <= QUEENMONSTER) )
+	while ( sBodyType < 0 || sBodyType > CRIPPLECIV || (sBodyType >= ADULTFEMALEMONSTER && sBodyType <= QUEENMONSTER) )
 	{
 		sBodyType = Random( CRIPPLECIV + 1 );
 	}
@@ -3457,6 +3459,17 @@ SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 
 
 		// set correct civ group
 		pSoldier->ubCivilianGroup = usCivilianGroup;
+
+		pSoldier->sNonNPCTraderID = -1;
+
+		if ( gGameExternalOptions.bExtraMerchants )
+		{
+			pSoldier->sNonNPCTraderID = usTraderID;
+
+			// if we're a dealer, don't walk around that much
+			if ( pSoldier->sNonNPCTraderID > 0 )
+				pSoldier->aiData.bOrders = ONGUARD;
+		}
 
 		// make him wear administrator uniform
 		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );

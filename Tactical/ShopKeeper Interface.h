@@ -116,9 +116,12 @@ UINT32	ShopKeeperScreenShutdown( void );
 bool ArmsDealerItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT& pInvSlot2);
 bool RepairmanItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT& pInvSlot2);
 
-
 void			EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer );
-void EnableDisableShopkeeperButtons(UINT32 uiCurrentItemDescriptionScreen, int bpAction);
+
+// Flugente: set up shopkeeper with a non-NPC
+void			EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID );
+
+void	EnableDisableShopkeeperButtons(UINT32 uiCurrentItemDescriptionScreen, int bpAction);
 
 void			DrawHatchOnInventory( UINT32 uiSurface, UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT16 usHeight, UINT16 usColor = 0 );
 void			DrawHatchOnInventory_MilitiaAccess( UINT32 uiSurface, UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT16 usHeight, UINT16 usColor = 0 );

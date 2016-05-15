@@ -747,11 +747,23 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 		{
 			return( FALSE );
 		}
+
 		gArmsDealersInventory.resize(dealers);
 
-		if (!FileRead( hFile, gArmsDealerStatus, sizeof( gArmsDealerStatus ), &uiNumBytesRead ))
+		if ( guiCurrentSaveGameVersion >= NONPROFILE_MERCHANTS )
 		{
-			return( FALSE );
+			if ( !FileRead( hFile, gArmsDealerStatus, sizeof(gArmsDealerStatus), &uiNumBytesRead ) )
+			{
+				return(FALSE);
+			}
+		}
+		else
+		{
+			// Flugente: as we increased the number of dealers, we can only read part of the array
+			if ( !FileRead( hFile, gArmsDealerStatus, sizeof(ARMS_DEALER_STATUS) * 40, &uiNumBytesRead ) )
+			{
+				return(FALSE);
+			}
 		}
 
 		//loop through all the dealers inventories
@@ -2179,7 +2191,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		}
 		numBytesRead = ReadFieldByField(hFile, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubMilitiaAssists, sizeof(ubMilitiaAssists), sizeof(UINT8), numBytesRead );
-		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_2, sizeof(bUnusedINT8_2), sizeof(INT8), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->sNonNPCTraderID, sizeof(sNonNPCTraderID), sizeof(INT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_3, sizeof(bUnusedINT8_3), sizeof(INT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_4, sizeof(bUnusedINT16_4), sizeof(INT16), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_5, sizeof(bUnusedINT16_5), sizeof(INT16), numBytesRead );
