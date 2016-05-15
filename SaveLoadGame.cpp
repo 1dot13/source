@@ -748,7 +748,8 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 			return( FALSE );
 		}
 
-		gArmsDealersInventory.resize(dealers);
+		// Flugente: regardless of the number of dealers in the old save, we need this to have the proper size from now on
+		gArmsDealersInventory.resize( NUM_ARMS_DEALERS );
 
 		if ( guiCurrentSaveGameVersion >= NONPROFILE_MERCHANTS )
 		{
