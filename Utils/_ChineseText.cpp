@@ -4114,6 +4114,8 @@ STR16 pHelicopterRepairRefuelStrings[]=
 	L"直升机已经拆卸。请等到修理完成。",
 	L"修理完成。直升机已可使用。",
 	L"直升机已加满油。",
+
+	L"Helicopter has exceeded maximum range!",	// TODO.Translate
 };
 
 STR16 sMapLevelString[] =

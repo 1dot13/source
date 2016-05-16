@@ -15495,6 +15495,16 @@ void ExplainWhySkyriderCantFly( void )
 		return;
 	}
 
+	// travelled too far?
+	if ( gGameExternalOptions.fAlternativeHelicopterFuelSystem )
+	{
+		if ( iTotalHeliDistanceSinceRefuel > gHelicopterSettings.ubHelicopterDistanceWithoutRefuel )
+		{
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, pHelicopterRepairRefuelStrings[STR_HELI_TOOFAR_ERROR], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+			return;
+		}
+	}
+
 	// no explainable reason
 }
 

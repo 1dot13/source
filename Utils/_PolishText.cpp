@@ -4118,6 +4118,8 @@ STR16 pHelicopterRepairRefuelStrings[]=
 	L"Helikopter jest obecnie rozmontowany. Zaczekaj aż naprawa zostanie ukończona.",
 	L"Helikopter jest znów dostępny do lotu.",
 	L"Helicopter jest zatankowany do pełna.",
+
+	L"Helicopter has exceeded maximum range!",	// TODO.Translate
 };
 
 STR16 sMapLevelString[] =

@@ -4111,6 +4111,8 @@ STR16 pHelicopterRepairRefuelStrings[]=
 	L"Вертолет разобран. Подождите, пока не закончится его ремонт.",
 	L"Ремонт закончен. Вертолет снова доступен.",
 	L"Вертолет полностью заправлен.",
+
+	L"Helicopter has exceeded maximum range!",	// TODO.Translate
 };
 
 STR16 sMapLevelString[] =
