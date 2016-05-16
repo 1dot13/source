@@ -7811,6 +7811,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Psychotic",
 	L"Deaf",
 	L"Shortsighted",
+	L"Hemophiliac",		// TODO.Translate
 	L"I.M.P. Disabilities",
 };
 
@@ -7824,6 +7825,12 @@ STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 {
 	L"You'll be screwed if you ever lose your glasses.",
 	L"That happens when you spend your days in front of glowing rectangles. You should have eaten more carrots. Ever seen a rabbit with glasses? Figures.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =	// TODO.Translate
+{
+	L"Are you SURE this is the right job for you?",
+	L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
 };
 
 // TODO.Translate

@@ -477,6 +477,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Dreht manchmal durch und schießt dabei hin und wieder wild um sich.\nVerliert Moral, wenn das mit der ausgerüsteten Waffe nicht möglich ist.",
 	L"Deutlich geringere Hörweite.",
 	L"Geringere Sichtweite.",
+	L"Drastically increased bleeding.",	// TODO.Translate
 };
 
 STR16 gzIMPProfileCostText[]=

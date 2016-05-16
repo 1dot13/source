@@ -475,6 +475,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"可能会偶尔发疯并把手里武器设在自动后乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
 	L"大大减少听力范围",		// L"Drastically reduced hearing.",
 	L"减少视力范围",				// L"Reduced sight range.",
+	L"Drastically increased bleeding.",	// TODO.Translate
 };
 
 

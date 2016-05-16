@@ -7642,6 +7642,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Psychopath",
 	L"Schwerhörigkeit",
 	L"Kurzsichtigkeit",
+	L"Bluter",
 	L"Ihre größte Schwäche",
 };
 
@@ -7655,6 +7656,12 @@ STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 {
 	L"Ohne ihre Brille sind sie aufgeschmissen.",
 	L"Das passiert wenn man dauernd nur vor der Glotze rumhängt. Sie hätten mehr Karotten essen sollen. Schon mal einen Hasen mit Brille gesehen? Aha.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =	// TODO.Translate
+{
+	L"Are you SURE this is the right job for you?",
+	L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility

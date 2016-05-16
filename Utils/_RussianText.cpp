@@ -7809,6 +7809,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Психопат",		//Psychotic
 	L"Глухой",
 	L"Близорукий",
+	L"Hemophiliac",		// TODO.Translate
 	L"I.M.P.: Недостатки",	//I.M.P. Disabilities
 };
 
@@ -7822,6 +7823,12 @@ STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 {
 	L"Вы будете бесполезны, если потеряете свои очки.",
 	L"Это случается, если проводить много времени перед светящимися прямоугольниками. Нужно было есть больше морковок. Вы когда-нибудь видели кролика в очках?",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =	// TODO.Translate
+{
+	L"Are you SURE this is the right job for you?",
+	L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility

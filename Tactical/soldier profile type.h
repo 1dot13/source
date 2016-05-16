@@ -329,6 +329,7 @@ typedef enum
 	// Flugente: more disabilities
 	DEAF,
 	SHORTSIGHTED,
+	HEMOPHILIAC,
 	NUM_DISABILITIES
 } PersonalityTrait;
 

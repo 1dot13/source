@@ -473,6 +473,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Will go psycho and shoot like mad once in a while\nand will lose morale if unable to do so with equipped weapon.",
 	L"Drastically reduced hearing.",
 	L"Reduced sight range.",
+	L"Drastically increased bleeding.",	// TODO.Translate
 };
 
 

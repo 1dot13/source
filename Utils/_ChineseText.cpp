@@ -7813,6 +7813,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"神经错乱",
 	L"聋子", //L"Deaf",
 	L"近视眼", //L"Shortsighted",
+	L"Hemophiliac",		// TODO.Translate
 	L"I.M.P. 性格缺陷",
 };
 
@@ -7826,6 +7827,12 @@ STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 {
 	L"如果丢了眼镜你就死定了。", // L"You'll be screwed if you ever lose your glasses.",
 	L"因为你在发光的长方体前面花了太久时间。你应该多吃点胡萝卜，你见过戴眼镜的兔子么？没有吧。", // L"That happens when you spend your days in front of glowing rectangles. You should have eaten more carrots. Ever seen a rabbit with glasses? Figures.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =	// TODO.Translate
+{
+	L"Are you SURE this is the right job for you?",
+	L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility

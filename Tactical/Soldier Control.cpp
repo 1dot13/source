@@ -19130,11 +19130,15 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
 	INT32	iBlood = NOBLOOD;
+	BOOLEAN bleeder = FALSE;
 
 	if ( pSoldier->stats.bLife != 0 )
 	{
+		bleeder = DoesMercHaveDisability( pSoldier, HEMOPHILIAC );
+
 		// if merc is hurt beyond the minimum required to bleed, or he's dying
-		if ( ((pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD) || pSoldier->stats.bLife < OKLIFE) )
+		// Flugente: or if they are a hemophiliac
+		if ( (pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD) || pSoldier->stats.bLife < OKLIFE || bleeder )
 		{
 			// if he's NOT in the process of being bandaged or DOCTORed
 			if ( (pSoldier->ubServiceCount == 0) && (AnyDoctorWhoCanHealThisPatient( pSoldier, HEALABLE_EVER ) == NULL) )
@@ -19142,7 +19146,7 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 				// may drop blood whether or not any bleeding takes place this turn
 				if ( pSoldier->bTilesMoved < 1 )
 				{
-					iBlood = ((pSoldier->bBleeding - MIN_BLEEDING_THRESHOLD) / BLOODDIVISOR); // + pSoldier->dying;
+					iBlood = max(0, ((pSoldier->bBleeding - MIN_BLEEDING_THRESHOLD) / BLOODDIVISOR) ); // + pSoldier->dying;
 					if ( iBlood > MAXBLOODQUANTITY )
 					{
 						iBlood = MAXBLOODQUANTITY;
@@ -19152,6 +19156,10 @@ INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 				{
 					iBlood = NOBLOOD;
 				}
+
+				// Flugente: bleeders, well, bleed
+				if ( bleeder )
+					iBlood = min( 1, iBlood );
 
 				// Are we in a different mode?
 				if ( !(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT) )
@@ -19408,16 +19416,22 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 
 FLOAT CalcSoldierNextBleed( SOLDIERTYPE *pSoldier )
 {
-	INT8		bBandaged;
-
 	// calculate how many turns before he bleeds again
 	// bleeding faster the lower life gets, and if merc is running around
 	//pSoldier->nextbleed = 2 + (pSoldier->life / (10 + pSoldier->tilesMoved));  // min = 2
 
 	// if bandaged, give 1/2 of the bandaged life points back into equation
-	bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
+	INT8 bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
 
-	return((FLOAT)1 + (FLOAT)((pSoldier->stats.bLife + bBandaged / 2) / (10 + pSoldier->bTilesMoved)));  // min = 1
+	FLOAT val = 1.0f;
+
+	// Flugente: hemophiliacs bleed a lot faster
+	if ( DoesMercHaveDisability( pSoldier, HEMOPHILIAC ) )
+		val += ((FLOAT)(pSoldier->stats.bLife) / (FLOAT)(30 + 2 * pSoldier->bTilesMoved));
+	else
+		val += ((FLOAT)(pSoldier->stats.bLife + bBandaged / 2) / (FLOAT)(10 + pSoldier->bTilesMoved));
+
+	return val;
 }
 
 FLOAT CalcSoldierNextUnmovingBleed( SOLDIERTYPE *pSoldier )

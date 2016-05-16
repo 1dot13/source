@@ -4118,6 +4118,16 @@ void HandleIMPCharProfileResultsMessage( void)
 
 			AddEmailRecordToList( pString );
 		}
+		else if ( gMercProfiles[iCurrentIMPSlot].bDisability == HEMOPHILIAC )
+		{
+			swprintf( pString, gzIMPDisabilityTraitEmailTextHemophiliac[0] );
+
+			AddEmailRecordToList( pString );
+
+			swprintf( pString, gzIMPDisabilityTraitEmailTextHemophiliac[1] );
+
+			AddEmailRecordToList( pString );
+		}
 		else
 		{
 			// personality tick

@@ -475,6 +475,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Il peut devenir psychopathe et tirer comme un fou de temps en temps\net peut perdre du moral, s'il n'est pas capable d'utiliser son arme.",
 	L"Audition considérablement réduite.",
 	L"Distance de vision réduit.",
+	L"Drastically increased bleeding.",	// TODO.Translate
 };
 
 
