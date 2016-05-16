@@ -98,6 +98,7 @@
 <!-- (7) Psycho 									-->
 <!-- (8) Deaf 										-->
 <!-- (9) Shortsighted 								-->
+<!-- (10) Hemophiliac 								-->
 
 <!-- Appearance -->
 
@@ -16462,7 +16463,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>2</bAttitude>
 		<bCharacterTrait>2</bCharacterTrait>
-		<bDisability>0</bDisability>
+		<bDisability>10</bDisability>
 		<ubNeedForSleep>7</ubNeedForSleep>
 		<bReputationTolerance>50</bReputationTolerance>
 		<bDeathRate>80</bDeathRate>
@@ -16652,7 +16653,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
 		<bCharacterTrait>0</bCharacterTrait>
-		<bDisability>3</bDisability>
+		<bDisability>10</bDisability>
 		<ubNeedForSleep>9</ubNeedForSleep>
 		<bReputationTolerance>88</bReputationTolerance>
 		<bDeathRate>11</bDeathRate>
