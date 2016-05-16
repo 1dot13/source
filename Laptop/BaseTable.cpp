@@ -408,6 +408,9 @@ TabBox::Display( )
 void
 TabBox::DestroyMouseRegions( )
 {
+	if ( !IsInit( ) )
+		return;
+
 	for ( std::vector<TestPanelButtonStruct>::iterator it = mRegisteredTables.begin( ); it != mRegisteredTables.end( ); ++it )
 	{
 		if ( (*it).mMouseRegion_Defined )
@@ -671,6 +674,9 @@ TestTable::Display( )
 void
 TestTable::DestroyMouseRegions()
 {
+	if ( !IsInit( ) )
+		return;
+
 	std::vector<ColumnDataProvider>::iterator itend = mColumnDataProviderVector.end( );
 	for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ); it != itend; ++it )
 	{

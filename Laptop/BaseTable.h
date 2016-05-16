@@ -174,10 +174,14 @@ void cdp_statusbar_func_dummy( UINT32 aId, UINT16& arCol1, UINT16& arVal1, UINT1
 class ColumnDataProvider
 {
 public:
-	ColumnDataProvider( STR16 aName ) : mName( aName ), mNumberOfEntries( 0 ), mRequiredHeigth(20), 
+	ColumnDataProvider( STR16 aName ) : mName( aName ), mNumberOfEntries( 0 ), mRequiredLength(20), mRequiredHeigth( 20 ),
 		mType( CDP_STRING ), mCallbackType( CDP_DEFAULT ),
 		mFuncString( cdp_string_func_dummy ), mFuncImage( cdp_image_func_dummy )
 	{
+		for ( int i = 0; i < COLUMNDATAPROVIDER_MOUSEREGIONS; ++i )
+		{
+			mMouseRegion_Defined[i] = FALSE;
+		}
 	}
 	
 	// general provider functions
