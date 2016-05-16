@@ -625,11 +625,15 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			RepairSamSite( pEvent->uiParam );
 			break;
 
+#ifdef JA2UB
+			// No Kingpin Events in UB
+#else
 		case EVENT_MILITIAROSTER_EMAIL:
 			// only send the email if we haven't already visited the site, otherwise continue to spam ;-)
 			if ( !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
 				AddEmail( MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
+#endif
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;
