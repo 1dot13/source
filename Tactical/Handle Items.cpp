@@ -5100,6 +5100,36 @@ void UpdateGear()
 
 					if ( pObj != NULL )													// ... if pointer is not obviously useless ...
 					{
+						// before replacing it, merge ammo in stacks, the not-full mag being the visible one
+						// by doing this we won't have so many used magazines lying around
+						if ( (Item[pObj->usItem].usItemClass & IC_AMMO) && pObj->ubNumberOfObjects > 1 )
+						{
+							UINT32 ammocount = 0;
+							for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+								ammocount += (*pObj)[i]->data.ubShotsLeft;
+
+							UINT16 usMagIndex = Item[pObj->usItem].ubClassIndex;
+							UINT16 magsize = Magazine[usMagIndex].ubMagSize;
+
+							if ( magsize )
+							{
+								UINT8 fullmags = ammocount / magsize;
+
+								UINT16 leftover = ammocount - fullmags * magsize;
+
+								UINT8 totalmags = fullmags + (leftover > 0 ? 1 : 0);
+
+								if ( totalmags < pObj->ubNumberOfObjects )
+									pObj->RemoveObjectsFromStack( pObj->ubNumberOfObjects - totalmags );
+								
+								for ( INT16 i = 0; i < totalmags; ++i )
+									(*pObj)[i]->data.ubShotsLeft = magsize;
+
+								if ( leftover > 0 )
+									(*pObj)[0]->data.ubShotsLeft = leftover;
+							}
+						}
+						
 						for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
 						{
 							// we could improve our gear by changing this object with another one
@@ -5166,6 +5196,54 @@ void UpdateGear()
 									(*pObj_Better)[index]->data.sObjectFlag = sObjectFlag;
 
 									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[IMPROVEGEARDESCRIBE_STR], pSoldier->GetName( ), Item[pObj->usItem].szItemName );
+								}
+							}
+						}
+
+						// if this is an ammo stack that could use more mags, try to fill it up
+						if ( (Item[pObj->usItem].usItemClass & IC_AMMO) )
+						{
+							UINT8 ubSlotLimit = ItemSlotLimit( pObj, bLoop, pSoldier, FALSE );
+							UINT16 usMagIndex = Item[pObj->usItem].ubClassIndex;
+							UINT16 magsize = Magazine[usMagIndex].ubMagSize; 
+							
+							if ( magsize )
+							{
+								while ( pObj->ubNumberOfObjects < ubSlotLimit )
+								{
+									int add = ubSlotLimit - pObj->ubNumberOfObjects;
+
+									UINT8 index = 0;
+									OBJECTTYPE* pObj_Better = GetBetterSectorObject( pObj->usItem, 0, index );
+
+									if ( pObj_Better )
+									{
+										pObj->AddObjectsToStack( *pObj_Better, add );
+									
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[IMPROVEGEARPICKUPMAG_STR], pSoldier->GetName( ), Item[pObj->usItem].szItemName );
+
+										// re-merge the magazines again, in case we picked up not full magazines
+										UINT32 ammocount = 0;
+										for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+											ammocount += (*pObj)[i]->data.ubShotsLeft;
+
+										UINT8 fullmags = ammocount / magsize;
+
+										UINT16 leftover = ammocount - fullmags * magsize;
+
+										UINT8 totalmags = fullmags + (leftover > 0 ? 1 : 0);
+
+										if ( totalmags < pObj->ubNumberOfObjects )
+											pObj->RemoveObjectsFromStack( pObj->ubNumberOfObjects - totalmags );
+
+										for ( INT16 i = 0; i < totalmags; ++i )
+											(*pObj)[i]->data.ubShotsLeft = magsize;
+
+										if ( leftover > 0 )
+											(*pObj)[0]->data.ubShotsLeft = leftover;
+									}
+									else
+										break;
 								}
 							}
 						}

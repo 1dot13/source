@@ -4002,6 +4002,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	L"改进装备", //L"Improve gear",
 	L"%s 改变 %s 对高级版本", //L"%s changed %s for superior version",
+	L"%s picked up %s",	// TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
