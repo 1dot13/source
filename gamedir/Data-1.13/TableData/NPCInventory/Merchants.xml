@@ -1613,8 +1613,8 @@ uiFlags must be of
 	<MERCHANT>
 		<uiIndex>67</uiIndex>
 		<szName>armour store San Mona (C6)</szName>
-		<dBuyModifier>0.75</dBuyModifier>
-		<dSellModifier>1.0</dSellModifier>
+		<dBuyModifier>0.66</dBuyModifier>
+		<dSellModifier>1.1</dSellModifier>
 		<ubShopKeeperID>200</ubShopKeeperID>
 		<ubTypeOfArmsDealer>0</ubTypeOfArmsDealer>
 		<iInitialCash>2000</iInitialCash>
