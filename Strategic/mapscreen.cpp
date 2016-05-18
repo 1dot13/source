@@ -10464,7 +10464,7 @@ void BlitBackgroundToSaveBuffer( void )
 	// Headrock: Moved the following line here from the marker below, so that the Inventory Bottom panel
 	// renders underneath the character info panel (and so doesn't truncate the large open inventory). We may
 	// need to put TRUE here if there's any problem, but I doubt it.
-	RenderMapScreenInterfaceBottom( FALSE );
+	RenderMapScreenInterfaceBottom( TRUE );
  
 	if( fDisableDueToBattleRoster == FALSE )
 	{
