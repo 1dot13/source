@@ -15679,7 +15679,7 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		}
 
 		// are we targeting a buddy of our observer?
-		if ( this->ubTargetID && MercPtrs[this->ubTargetID] && MercPtrs[this->ubTargetID]->bTeam == pSoldier->bTeam )
+		if ( this->ubTargetID != NOBODY && MercPtrs[this->ubTargetID] && MercPtrs[this->ubTargetID]->bTeam == pSoldier->bTeam )
 		{
 			// if we are aiming at a soldier, others will notice our intent... not covert!
 			if ( WeaponReady( this ) )
