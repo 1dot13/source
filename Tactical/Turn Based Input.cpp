@@ -7637,11 +7637,14 @@ void HandleTBReloadAll( void )
 							UINT32 invsize = pTeamSoldier->inv.size();
 							for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
 							{
-								if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_GUN) || (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass == IC_LAUNCHER) )
+								if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) )
 								{
 									pGun	= &(pTeamSoldier->inv[bLoop2]);
+
+									UINT16 gunmagsize = GetMagSize( pGun );
+
 									//if magazine is not full
-									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)
+									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
 									{
 										// Search for ammo in sector
 										for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
@@ -7664,13 +7667,17 @@ void HandleTBReloadAll( void )
 														{
 															RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
 														}
+
+														// if gun is full, we can stop this
+														if ( (*pGun)[0]->data.gun.ubGunShotsLeft >= gunmagsize )
+															break;
 													}
 												}
 											}
 										}
 									}
 									//CHRISL: if not enough ammo in sector, reload using ammo carried in inventory
-									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)
+									if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
 									{
 										AutoReload( pTeamSoldier );
 									}
@@ -7766,10 +7773,14 @@ void HandleTBReloadAll( void )
 											}
 										}
 									}
+
 									if (IsWeaponAttached(pGun, IC_GUN))
 									{
 										OBJECTTYPE *pGun2 = FindAttachedWeapon(pGun, IC_GUN);
-										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun2 )	)
+
+										UINT16 gunmagsize2 = GetMagSize( pGun2 );
+
+										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < gunmagsize2 )
 										{
 											// Search for ammo in sector
 											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; ++uiLoop )
@@ -7792,13 +7803,18 @@ void HandleTBReloadAll( void )
 															{
 																RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
 															}
+
+															// if gun is full, we can stop this
+															if ( (*pGun2)[0]->data.gun.ubGunShotsLeft >= gunmagsize2 )
+																break;
 														}
 													}
 												}
 											}
 										}
+
 										//CHRISL: if not enough ammo in sector, reload using ammo carried in inventory
-										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun2 )	)
+										if ( (*pGun2)[0]->data.gun.ubGunShotsLeft < gunmagsize2 )
 										{
 											AutoReload( pTeamSoldier );
 										}
@@ -7818,7 +7834,7 @@ void HandleTBReloadAll( void )
 					{
 						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
 						{
-							if ( (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN) || (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass == IC_LAUNCHER) )
+							if ( (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass & (IC_GUN | IC_LAUNCHER) ) )
 							{
 								if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 								{
@@ -7837,11 +7853,14 @@ void HandleTBReloadAll( void )
 									UINT32 invsize = pTeamSoldier->inv.size();
 									for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
 									{
-										if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_GUN) || (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass == IC_LAUNCHER) )
+										if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN<IC_LAUNCHER)) )
 										{
 											pGun	= &(pTeamSoldier->inv[bLoop2]);
+
+											UINT16 gunmagsize = GetMagSize( pGun );
+
 											//if magazine is not full
-											if ( (*pGun)[0]->data.gun.ubGunShotsLeft < GetMagSize( pGun )	)
+											if ( (*pGun)[0]->data.gun.ubGunShotsLeft < gunmagsize )
 											{
 												// Search for ammo in soldier inventory
 												for ( UINT32 uiLoop = 0; uiLoop < invsize; ++uiLoop )
@@ -7859,6 +7878,10 @@ void HandleTBReloadAll( void )
 
 																fCharacterInfoPanelDirty = TRUE;
 																fInterfacePanelDirty = DIRTYLEVEL2;
+
+																// if gun is full, we can stop this
+																if ( (*pGun)[0]->data.gun.ubGunShotsLeft >= gunmagsize )
+																	break;
 															}
 														}
 													}
@@ -7872,6 +7895,7 @@ void HandleTBReloadAll( void )
 					}
 				}
 }
+
 void HandleTBShowCover( void )
 {
 	ToggleEnemyView();
