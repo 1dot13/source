@@ -1047,9 +1047,6 @@ void LoadGameExternalOptions()
 	// sevenfm: show health over enemy
 	gGameExternalOptions.ubShowEnemyHealth					= iniReader.ReadInteger("Tactical Interface Settings","SHOW_ENEMY_HEALTH", 1, 0, 6);
 
-	// sevenfm: show cover indicator
-	gGameExternalOptions.ubShowCoverIndicator				= iniReader.ReadInteger("Tactical Interface Settings","SHOW_COVER_INDICATOR", 0, 0, 2);
-		
 	// WANNE: Hide the hit count when enemy gets hit
 	gGameExternalOptions.ubEnemyHitCount					= iniReader.ReadInteger("Tactical Interface Settings","ENEMY_HIT_COUNT", 0, 0, 4);
 	// sevenfm: added similar option for player hit count
@@ -1340,7 +1337,6 @@ void LoadGameExternalOptions()
 	// sevenfm
 	gGameExternalOptions.fShowEnemyWeapon					= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_WEAPON", FALSE);
 	gGameExternalOptions.fShowEnemyExtendedInfo				= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_EXTENDED_INFO", FALSE);
-	gGameExternalOptions.fShowEnemyAwareness				= iniReader.ReadBoolean("Tactical Gameplay Settings","SHOW_ENEMY_AWARENESS", FALSE);
 
 	//legion by Jazz
 	gGameExternalOptions.fIndividualHiddenPersonNames		= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_HIDDEN_PERSON_NAMES", FALSE);
@@ -1358,7 +1354,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnemyRank							= iniReader.ReadBoolean("Tactical Gameplay Settings","INDIVIDUAL_ENEMY_RANK",FALSE);
 	
 	// sevenfm: show enemy rank as icon
-	gGameExternalOptions.ubShowEnemyRankIcon				= iniReader.ReadInteger("Tactical Gameplay Settings","SHOW_ENEMY_RANK_ICON", 0, 0, 2);
+	gGameExternalOptions.fImprovedTacticalUI				= iniReader.ReadBoolean("Tactical Gameplay Settings","IMPROVED_TACTICAL_UI",FALSE);
 
 	// Flugente: soldier profiles
 	if (!is_networked)
@@ -1478,6 +1474,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.bNewTacticalAIBehavior				= iniReader.ReadBoolean("Tactical Interface Settings","NEW_AI_TACTICAL",FALSE);	
 
 	// sevenfm: AI tweaks and improvements
+	gGameExternalOptions.fAIYellowFlanking					= iniReader.ReadBoolean("Tactical Interface Settings","AI_YELLOW_FLANKING",FALSE);
 	gGameExternalOptions.fAIExtraSuppression				= iniReader.ReadBoolean("Tactical Interface Settings","AI_EXTRA_SUPPRESSION",FALSE);
 	gGameExternalOptions.fAINewMorale						= iniReader.ReadBoolean("Tactical Interface Settings","AI_NEW_MORALE",FALSE);
 	gGameExternalOptions.fAIBetterCover						= iniReader.ReadBoolean("Tactical Interface Settings","AI_BETTER_COVER",FALSE);

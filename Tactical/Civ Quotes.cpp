@@ -1082,7 +1082,7 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 ui
 		return;
 	}
 	// only enemies that are able to speak at the moment can taunt
-	if ( pCiv->stats.bLife < OKLIFE || pCiv->bBreathCollapsed )
+	if ( pCiv->stats.bLife < OKLIFE || pCiv->bCollapsed || pCiv->bBreathCollapsed )
 	{
 		return;
 	}

@@ -539,10 +539,6 @@ void RenderTopmostMultiPurposeLocator( );
 void DrawBar( INT32 x, INT32 y, INT32 width, INT32 height, UINT16 color8, UINT16 color16, UINT8 *pDestBuf );
 // draw health bar over enemy
 void DrawEnemyHealthBar( SOLDIERTYPE* pSoldier, INT32 sX, INT32 sY, UINT8 ubLines, INT32 iBarWidth, INT32 iBarHeight );
-// get cover display code from cover value
-BOOLEAN CoverColorCode( INT8 cover, INT16 &color8, INT16 &color16 );
-void DrawRankIcon( INT8 rank, INT32 baseX, INT32 baseY );
-void DrawLine( INT32 x1, INT32 y1, INT32 x2, INT32 y2, UINT16 color8, UINT16 color16, UINT8 *pDestBuf );
 
 // Flugente: show enemy role
 BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier);
@@ -556,8 +552,6 @@ void DrawNCTHCursorItemPics( INT16 sStartScreenX, INT16 sStartScreenY  );
 void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSoldier, BOOLEAN showExactInfo, CHAR16 *NameStr );
 
 void ShowEnemyWeapon( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier );
-void ShowAdditionalInfo( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier );
-void ShowRankIcon( INT16 sXPos, INT16 sYPos, SOLDIERTYPE* pSoldier );
 void ShowEnemyHealthBar( INT16 sX, INT16 sY, SOLDIERTYPE* pSoldier );
 
 void NCTHImprovedAPColor( SOLDIERTYPE* pSoldier, OBJECTTYPE* pWeapon );

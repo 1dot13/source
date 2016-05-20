@@ -948,6 +948,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 	INT8		*pbPersOL,*pbPublOL;
 	INT32		sClimbGridNo;
 	SOLDIERTYPE * pOpp;
+	INT32		sDistToEnemy, sDistToClosestEnemy = 10000;
 
 	// sevenfm: safety check
 	if ( pfChangeLevel )
@@ -1034,23 +1035,28 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 			continue;
 		}
 
-		iPathCost = EstimatePathCostToLocation( pSoldier, sGridNo, bLevel, FALSE, &fClimbingNecessary, &sClimbGridNo );
-
-		// if we can get there and it's first reachable enemy or closer than other known enemies
-		if( iPathCost != 0 &&
-			(TileIsOutOfBounds(sClosestDisturbance) || iPathCost < iShortestPath) ) 
+		// sevenfm: if we found reachable enemy, check other enemies only if they are closer
+		sDistToEnemy = PythSpacesAway( pSoldier->sGridNo, sGridNo );
+		if (sDistToEnemy < sDistToClosestEnemy || TileIsOutOfBounds(sClosestDisturbance) )
 		{
-			if (fClimbingNecessary)
-			{
-				sClosestDisturbance = sClimbGridNo;
-			}
-			else
-			{
-				sClosestDisturbance = sGridNo;
-			}
+			iPathCost = EstimatePathCostToLocation( pSoldier, sGridNo, bLevel, FALSE, &fClimbingNecessary, &sClimbGridNo );
 
-			iShortestPath = iPathCost;
-			fClosestClimbingNecessary = fClimbingNecessary;
+			// if we can get there and it's first reachable enemy or closer than other known enemies
+			if (iPathCost != 0 && (TileIsOutOfBounds(sClosestDisturbance) || iPathCost < iShortestPath)) 
+			{
+				if (fClimbingNecessary)
+				{
+					sClosestDisturbance = sClimbGridNo;
+				}
+				else
+				{
+					sClosestDisturbance = sGridNo;
+				}
+
+				sDistToClosestEnemy = sDistToEnemy;
+				iShortestPath = iPathCost;
+				fClosestClimbingNecessary = fClimbingNecessary;
+			}
 		}
 	}
 	

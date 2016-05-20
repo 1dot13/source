@@ -806,6 +806,7 @@ typedef struct
 	BOOLEAN	bAllowSpecialExplosiveAttachments;
 	INT16 iChanceSayAnnoyingPhrase;
 	BOOLEAN	bNewTacticalAIBehavior;
+	BOOLEAN fAIYellowFlanking;
 	BOOLEAN fAIExtraSuppression;
 	BOOLEAN fAINewMorale;
 	BOOLEAN fAIBetterCover;
@@ -1212,8 +1213,6 @@ typedef struct
 	// sevenfm: show enemy weapon above soldier in tactical
 	BOOLEAN fShowEnemyWeapon;
 	BOOLEAN fShowEnemyExtendedInfo;
-	// show awareness sight and level
-	BOOLEAN fShowEnemyAwareness;
 
 	//legion by Jazz
 	BOOLEAN fIndividualHiddenPersonNames;
@@ -1242,7 +1241,7 @@ typedef struct
 	BOOLEAN fEnemyRank;
 
 	// sevenfm: show enemy rank as icon
-	UINT8 ubShowEnemyRankIcon;
+	BOOLEAN fImprovedTacticalUI;
 
 	// Flugente: soldier profiles
 	BOOLEAN	fSoldierProfiles_Enemy;
@@ -1252,7 +1251,6 @@ typedef struct
 
 	//BOOLEAN fHideEnemyHealthText;
 	UINT8 ubShowHealthBarsOnHead;
-	UINT8 ubShowCoverIndicator;
 	UINT8 ubShowEnemyHealth;
 
 	UINT8 ubEnemyHitCount;

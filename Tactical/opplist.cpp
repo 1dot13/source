@@ -1222,6 +1222,12 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		return( 0 );
 	}
 
+	// sevenfm: if soldier is unconscious, he can't see anything
+	if ( pSoldier->bCollapsed && pSoldier->bBreath == 0 )
+	{
+		return( 0 );
+	}
+
 	// anv: some places in vehicle don't give passenger any view outside
 	INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
 	if( bSeatIndex != (-1) )
@@ -2189,6 +2195,11 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		// Flugente: note that this enemy has been seen by mercs this turn
 		if ( pOpponent->bTeam == ENEMY_TEAM && pSoldier->bTeam == OUR_TEAM )
 			pOpponent->usSoldierFlagMask |= SOLDIER_ENEMY_OBSERVEDTHISTURN;
+	}
+	// sevenfm: if soldier is unconscious, he can't see anybody
+	if ( pSoldier->bCollapsed && pSoldier->bBreath == 0 )
+	{
+		return;
 	}
 
 	// if we're seeing a guy we didn't see on our last chance to look for him

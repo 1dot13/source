@@ -2097,12 +2097,13 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					}
 
 					// possibly start YELLOW flanking
-					if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || 	pSoldier->aiData.bAttitude == CUNNINGSOLO ) &&
+					if( gGameExternalOptions.fAIYellowFlanking && 
+						( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ) &&
 						pSoldier->bTeam == ENEMY_TEAM &&
 						( CountFriendsInDirection( pSoldier, sNoiseGridNo ) > 0 || NightTime() ) &&
 						( pSoldier->aiData.bOrders == SEEKENEMY ||
 						pSoldier->aiData.bOrders == FARPATROL ||
-						pSoldier->aiData.bOrders == CLOSEPATROL && NightTime() ) )
+						pSoldier->aiData.bOrders == CLOSEPATROL && NightTime() ))
 					{
 						INT8 action = AI_ACTION_SEEK_NOISE;
 						INT16 dist = PythSpacesAway ( pSoldier->sGridNo, sNoiseGridNo );
@@ -9555,12 +9556,13 @@ INT8 ArmedVehicleDecideActionYellow( SOLDIERTYPE *pSoldier )
 #endif			
 
 				// possibly start YELLOW flanking
-				if ( (pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO) &&
-						pSoldier->bTeam == ENEMY_TEAM &&
-						(CountFriendsInDirection( pSoldier, sNoiseGridNo ) > 0 || NightTime( )) &&
-						(pSoldier->aiData.bOrders == SEEKENEMY ||
-						pSoldier->aiData.bOrders == FARPATROL ||
-						pSoldier->aiData.bOrders == CLOSEPATROL && NightTime( )) )
+				if( gGameExternalOptions.fAIYellowFlanking &&  
+					(pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO) &&
+					pSoldier->bTeam == ENEMY_TEAM &&
+					(CountFriendsInDirection( pSoldier, sNoiseGridNo ) > 0 || NightTime( )) &&
+					(pSoldier->aiData.bOrders == SEEKENEMY ||
+					pSoldier->aiData.bOrders == FARPATROL ||
+					pSoldier->aiData.bOrders == CLOSEPATROL && NightTime( )) )
 				{
 					INT8 action = AI_ACTION_SEEK_NOISE;
 					INT16 dist = PythSpacesAway( pSoldier->sGridNo, sNoiseGridNo );

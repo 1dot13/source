@@ -517,27 +517,8 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 
 	fPathFlags = 0;
 	if ( CREATURE_OR_BLOODCAT( pSoldier ) )
-	{	/*
-		if ( PythSpacesAway( pSoldier->sGridNo, sDesGrid ) <= PATH_CLOSE_RADIUS )
-		{
-			// then do a limited range path search and see if we can get there
-			gubNPCDistLimit = 10;
-			if ( !LegalNPCDestination( pSoldier, sDesGrid, ENSURE_PATH, NOWATER, fPathFlags) )
-			{
-				gubNPCDistLimit = 0;
-				return( NOWHERE );
-			}
-			else
-			{
-				// allow attempt to path without 'good enough' flag on
-				gubNPCDistLimit = 0;
-			}
-		}
-		else
-		{
-		*/
+	{
 			fPathFlags = PATH_CLOSE_GOOD_ENOUGH;
-		//}
 	}
 
 	// first step: try to find an OK destination at or near the desired gridno
@@ -634,13 +615,15 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
  // we'll only go as far along the plotted route as is within our
  // permitted roaming range, and we'll stop as soon as we're down to <= 5 APs
 
+	sTempDest = pSoldier->sGridNo;
+
  for (sLoop = 0; sLoop < (pSoldier->pathing.usPathDataSize - pSoldier->pathing.usPathIndex); sLoop++)
 	{
 	// what is the next gridno in the path?
 
 	 //sTempDest = NewGridNo( sGoToGrid,DirectionInc( (INT16) (pSoldier->pathing.usPathingData[sLoop] + 1) ) );
-	 sTempDest = NewGridNo( sGoToGrid,DirectionInc( (UINT8) (pSoldier->pathing.usPathingData[sLoop]) ) );
-	//NumMessage("sTempDest = ",sTempDest);
+	 //sTempDest = NewGridNo( sGoToGrid,DirectionInc( (UINT8) (pSoldier->pathing.usPathingData[sLoop]) ) );
+	sTempDest = NewGridNo( sTempDest,DirectionInc( (UINT8) (pSoldier->pathing.usPathingData[sLoop]) ) );		
 
 	// this should NEVER be out of bounds
 	if (sTempDest == sGoToGrid)
@@ -679,13 +662,6 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 	 break;			// quit here, sGoToGrid is where we are going
 	}
 
-	// if this gridno is NOT a legal NPC destination
-	// DONT'T test path again - that would replace the traced path! - Ian
-	// NOTE: It's OK to go *THROUGH* water to try and get to the destination!
-	if (!LegalNPCDestination(pSoldier,sTempDest,IGNORE_PATH,WATEROK,0))
-	 break;			// quit here, sGoToGrid is where we are going
-
-
 	// CAN'T CALL PathCost() HERE! IT CALLS findBestPath() and overwrites
 	//		pathRouteToGo !!!	Gotta calculate the cost ourselves - Ian
 	//
@@ -696,31 +672,6 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 		// if we're just starting the "costing" process (first gridno)
 		if (sLoop == 0)
 			{
-			/*
-			// first, add any additional costs - such as intermediate animations, etc.
-			switch(pSoldier->anitype[pSoldier->anim])
-				{
-				// in theory, no NPC should ever be in one of these animations as
-				// things stand (they don't medic anyone), but leave it for robustness
-				case START_AID	:
-				case GIVING_AID	: sAnimCost = APBPConstants[AP_STOP_FIRST_AID];
-					break;
-
-				case TWISTOMACH	:
-				case COLLAPSED	: sAnimCost = APBPConstants[AP_GET_UP];
-					break;
-
-				case TWISTBACK	:
-				case UNCONSCIOUS : sAnimCost = (APBPConstants[AP_ROLL_OVER] + APBPConstants[AP_GET_UP]);
-					break;
-
-				default			: sAnimCost = 0;
-				}
-
-			// this is our first cost
-			sAPCost += sAnimCost;
-			*/
-
 			if (pSoldier->usUIMovementMode == RUNNING)
 			{
 				sAPCost += GetAPsStartRun( pSoldier ); // changed by SANDRO
@@ -731,6 +682,16 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 		sAPCost += EstimateActionPointCost( pSoldier, sTempDest, (INT8) pSoldier->pathing.usPathingData[sLoop], pSoldier->usUIMovementMode, (INT8) sLoop, (INT8) pSoldier->pathing.usPathDataSize );
 
 		bAPsLeft = pSoldier->bActionPoints - sAPCost;
+	}
+
+	// if this gridno is NOT a legal NPC destination
+	// DONT'T test path again - that would replace the traced path! - Ian
+	// NOTE: It's OK to go *THROUGH* water to try and get to the destination!
+	// sevenfm: jump over fence code - if current gridno is not legal destination, check next gridno
+	if (!LegalNPCDestination(pSoldier,sTempDest,IGNORE_PATH,WATEROK,0))
+	{
+		// break;
+		continue;
 	}
 
 	// if after this, we have <= 5 APs remaining, that's far enough, break out

@@ -62,10 +62,9 @@
 	#include "weapons.h"
 	#include "Map Screen Interface.h"	// added by Flugente for SquadNames
 	#include "environment.h"
-	// sevenfm: needed for _KeyDown(SHIFT)
-	#include "english.h"
-	#include "DisplayCover.h"
 	#include "SkillCheck.h"				// added by Flugente
+	#include "Drugs And Alcohol.h"		// sevenfm
+	#include "english.h"				// sevenfm
 #endif
 
 #include "InterfaceItemImages.h"
@@ -1908,39 +1907,36 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	// Display name
 	SetFont( TINYFONT1 );
 	SetFontBackground( FONT_MCOLOR_BLACK );
+	SetFontForeground( FONT_MCOLOR_WHITE );
 	
-	BOOLEAN bInCombat = gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT;
-	BOOLEAN bStealth = pSoldier->bStealthMode || pSoldier->usSoldierFlagMask & ( SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER );
-		// sevenfm: for mercs use name color as cover indicator
-	// only use color when there is enemy in sector
-	if( pSoldier->bTeam == OUR_TEAM &&
-		(NumEnemyInSector() != 0) &&
-		! ( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT) ) &&
-		( ( gGameExternalOptions.ubShowCoverIndicator == 1 && ( bInCombat || bStealth ) ) ||
-		( gGameExternalOptions.ubShowCoverIndicator == 2 && bStealth ) ) )
+	// sevenfm: improved UI
+	if( gGameExternalOptions.fImprovedTacticalUI )
 	{
-		INT8 cover = 3;		// MAX_COVER
-		BOOLEAN showCover;
-		INT32 usMapPos;
-		INT16 color8, color16;
-
-		if( GetMouseMapPos(&usMapPos) && _KeyDown(SHIFT) )
+		if( pSoldier->flags.uiStatusFlags & SOLDIER_PC &&
+			pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER) )
 		{
-			// target tile cover
-			CalculateCoverForSoldier( pSoldier, usMapPos, gsInterfaceLevel, cover );
+			SetRGBFontForeground( 220, 220, 0 );
 		}
-		else
+		else if ( GetDrunkLevel(pSoldier) != SOBER )
 		{
-			// merc's cover
-			CalculateCoverForSoldier( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, cover );			
+			switch ( GetDrunkLevel(pSoldier) )
+			{
+			case FEELING_GOOD:
+				SetRGBFontForeground( 180, 180, 240 );
+				break;
+			case BORDERLINE:
+				SetRGBFontForeground( 120, 120, 240 );
+				break;
+			case DRUNK:
+				SetRGBFontForeground( 20, 20, 240 );
+				break;
+			case HUNGOVER:
+				SetRGBFontForeground( 120, 20, 240 );
+				break;
+			default:
+				SetFontForeground( FONT_MCOLOR_WHITE );
+			}
 		}
-
-		showCover = CoverColorCode( cover, color8, color16 );
-		SetFontForeground( (UINT8)color8 );
-	}
-	else
-	{
-		SetFontForeground( FONT_MCOLOR_WHITE );
 	}
 
 	if ( pSoldier->ubProfile != NO_PROFILE || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
@@ -2358,8 +2354,6 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				// sevenfm: show weapon name and additional info
 				ShowEnemyWeapon( sX, sY, pSoldier );
 				ShowEnemyHealthBar( sX, sY, pSoldier );				
-				ShowAdditionalInfo( sX, sY, pSoldier );
-				ShowRankIcon( sXPos, sYPos, pSoldier );
 			}
 			// Flugente: soldier profiles
 			else if ( pSoldier->bTeam == MILITIA_TEAM && ((gGameExternalOptions.fSoldierProfiles_Militia && pSoldier->usSoldierProfile) || pSoldier->usIndividualMilitiaID) )
@@ -3592,43 +3586,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		DrawBar( sXPos+3, sYPos+1+2*interval, (INT32)dWidth, sHeight, COLOR_ORANGE, Get16BPPColor( FROMRGB( 220, 140, 0 ) ), pDestBuf );
 	}
 
-	/*
-	BOOLEAN bDisguised = pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER);
-	BOOLEAN bStealth = pSoldier->bStealthMode;
-	// draw cover indicators
-	if( ( gGameExternalOptions.ubShowHealthBarsOnHead > 1 ) && 
-		( (gTacticalStatus.uiFlags & TURNBASED ) && (gTacticalStatus.uiFlags & INCOMBAT) || bStealth || bDisguised ) )
-	{		
-		INT8 cover = 3;		// MAX_COVER
-		BOOLEAN showCover;
-		INT32 usMapPos;
-
-		if( gGameExternalOptions.ubShowCoverIndicator ==1 ||
-			( gGameExternalOptions.ubShowCoverIndicator ==3 && (bStealth || bDisguised) ) )
-		{
-			if( GetMouseMapPos(&usMapPos) && _KeyDown(SHIFT) )
-			{
-				// draw target tile cover indicator
-				CalculateCoverForSoldier( pSoldier, usMapPos, gsInterfaceLevel, cover );
-				showCover = CoverColorCode( cover, color8, color16 );
-			}
-			else
-			{
-				// draw cover indicator
-				CalculateCoverForSoldier( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, cover );
-				showCover = CoverColorCode( cover, color8, color16 );
-				if ( color8 == COLOR_GREEN)
-					showCover = FALSE;
-			}
-
-			if(showCover)
-				DrawBar( sXPos+33, sYPos+1, 1+sHeight , (interval==3 ? 2 : 3 )*interval-1, color8, color16, pDestBuf );
-		}
-	}
-	*/
-
 	UnLockVideoSurface( FRAME_BUFFER );
-
 }
 
 void EndDeadlockMsg( )
@@ -5823,141 +5781,6 @@ void DrawBar( INT32 x, INT32 y, INT32 width, INT32 height, UINT16 color8, UINT16
 	}
 }
 
-BOOLEAN CoverColorCode( INT8 cover, INT16 &color8, INT16 &color16 ){
-	BOOLEAN showCover = TRUE;
-	switch(cover)
-	{
-	case 0:
-		//color8 = COLOR_RED;
-		color8 = FONT_MCOLOR_RED;
-		color16 = Get16BPPColor( FROMRGB( 220, 0, 0 ) );
-		break;
-	case 1:
-		color8 = COLOR_ORANGE;
-		color16 = Get16BPPColor( FROMRGB( 220, 140, 0 ) );
-		break;
-	case 2:
-		color8 = COLOR_YELLOW;
-		color16 = Get16BPPColor( FROMRGB( 220, 220, 0 ) );
-		break;
-	case 3:
-		color8 = COLOR_GREEN;
-		color16 = Get16BPPColor( FROMRGB( 0, 200, 0 ) );
-		break;
-	default: 
-		showCover = FALSE;
-	}
-	return showCover;
-}
-
-void DrawRankIcon( INT8 rank, INT32 baseX, INT32 baseY )
-{
-	UINT32		uiDestPitchBYTES;
-	UINT8		*pDestBuf;
-	INT16		color8;
-	INT16		color16;
-
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, ( gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y ) );
-
-	if(rank<6)
-	{
-		color8 = FONT_DKGREEN;
-		color16 = Get16BPPColor( FROMRGB( 20, 60, 20 ) );
-		//color8 = FONT_ORANGE;
-		//color16 = Get16BPPColor( FROMRGB( 160, 80, 0 ) );
-	}
-	else
-	{
-		color8 = FONT_DKRED;
-		color16 = Get16BPPColor( FROMRGB( 60, 20, 20 ) );
-	}
-
-	DrawBar( baseX+2, baseY+2, 7, 8, color8, color16, pDestBuf );
-	DrawLine( baseX+3, baseY+10, baseX+7, baseY+10, color8, color16, pDestBuf );
-	DrawLine( baseX+4, baseY+11, baseX+6, baseY+11, color8, color16, pDestBuf );
-
-	if(rank<6)
-	{
-		color8 = COLOR_GREEN;
-		color16 = Get16BPPColor( FROMRGB( 20, 80, 20 ) );
-		//color8 = FONT_YELLOW;
-		//color16 = Get16BPPColor( FROMRGB( 200, 120, 00 ) );
-	}
-	else
-	{
-		color8 = COLOR_RED;
-		color16 = Get16BPPColor( FROMRGB( 120, 20, 20 ) );
-	}
-
-	DrawLine( baseX+2, baseY+1, baseX+8, baseY+1, color8, color16, pDestBuf );
-	DrawLine( baseX+1, baseY+2, baseX+1, baseY+9, color8, color16, pDestBuf );
-	DrawLine( baseX+9, baseY+2, baseX+9, baseY+9, color8, color16, pDestBuf );
-	
-	DrawLine( baseX+1, baseY+9, baseX+4, baseY+12, color8, color16, pDestBuf );
-	DrawLine( baseX+4, baseY+12, baseX+6, baseY+12, color8, color16, pDestBuf );
-	DrawLine( baseX+6, baseY+12, baseX+9, baseY+9, color8, color16, pDestBuf );
-
-	if(rank<6)
-	{
-		//color8 = FONT_DKGREEN;
-		//color16 = Get16BPPColor( FROMRGB( 0, 40, 0 ) );
-		//color8 = COLOR_LTGREY;
-		//color16 = Get16BPPColor( FROMRGB( 120, 120, 120 ) );
-		color8 = COLOR_YELLOW;
-		color16 = Get16BPPColor( FROMRGB( 200, 200, 200 ) );
-	}
-	else
-	{
-		color8 = FONT_ORANGE;
-		color16 = Get16BPPColor( FROMRGB( 220, 140, 20 ) );
-	}
-
-	switch( rank )
-	{
-	case 1:
-		DrawLine( baseX+3, baseY+6, baseX+7, baseY+6, color8, color16, pDestBuf );
-		break;
-	case 2:
-		DrawLine( baseX+3, baseY+5, baseX+7, baseY+5, color8, color16, pDestBuf );
-		DrawLine( baseX+3, baseY+7, baseX+7, baseY+7, color8, color16, pDestBuf );
-		break;
-	case 3:
-		DrawLine( baseX+3, baseY+4, baseX+7, baseY+4, color8, color16, pDestBuf );
-		DrawLine( baseX+3, baseY+6, baseX+7, baseY+6, color8, color16, pDestBuf );
-		DrawLine( baseX+3, baseY+8, baseX+7, baseY+8, color8, color16, pDestBuf );
-		break;
-	case 4:
-		DrawLine( baseX+3, baseY+5, baseX+5, baseY+8, color8, color16, pDestBuf );
-		DrawLine( baseX+5, baseY+8, baseX+7, baseY+5, color8, color16, pDestBuf );
-		break;
-	case 5:
-		DrawLine( baseX+3, baseY+4, baseX+7, baseY+4, color8, color16, pDestBuf );
-		DrawLine( baseX+3, baseY+6, baseX+5, baseY+9, color8, color16, pDestBuf );
-		DrawLine( baseX+5, baseY+9, baseX+7, baseY+6, color8, color16, pDestBuf );
-		break;
-	case 6:
-		DrawLine( baseX+5, baseY+4, baseX+5, baseY+8, color8, color16, pDestBuf );
-		break;
-	case 7:
-		DrawLine( baseX+4, baseY+4, baseX+4, baseY+8, color8, color16, pDestBuf );
-		DrawLine( baseX+6, baseY+4, baseX+6, baseY+8, color8, color16, pDestBuf );
-		break;
-	case 8:
-		DrawLine( baseX+5, baseY+4, baseX+5, baseY+8, color8, color16, pDestBuf );
-		DrawLine( baseX+3, baseY+4, baseX+3, baseY+8, color8, color16, pDestBuf );
-		DrawLine( baseX+7, baseY+4, baseX+7, baseY+8, color8, color16, pDestBuf );
-		break;
-	case 9:
-		DrawLine( baseX+2, baseY+6, baseX+8, baseY+6, color8, color16, pDestBuf );
-		DrawLine( baseX+5, baseY+3, baseX+5, baseY+9, color8, color16, pDestBuf );
-		DrawLine( baseX+3, baseY+4, baseX+7, baseY+8, color8, color16, pDestBuf );
-		DrawLine( baseX+7, baseY+4, baseX+3, baseY+8, color8, color16, pDestBuf );
-	}
-	
-	UnLockVideoSurface( FRAME_BUFFER );
-}
-
 void DrawItemPic(INVTYPE *pItem, INT16 sX, INT16 sY )
 {
 	UINT16			usGraphicNum;
@@ -6311,69 +6134,6 @@ void ShowEnemyWeapon( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier )
 	}
 }
 
-void ShowAdditionalInfo( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier )
-{
-	BOOLEAN		showExactInfo;
-	CHAR16		NameStr[ MAX_ENEMY_NAMES_CHARS ];
-	SOLDIERTYPE *pSelectedSoldier;
-
-	if ( gusSelectedSoldier != NOBODY )
-		pSelectedSoldier = MercPtrs[ gusSelectedSoldier ];
-	else
-		return;
-
-	if( gGameExternalOptions.fEnemyRank || gGameExternalOptions.fEnemyNames )
-		return;	
-
-	// calc max range for exact info
-	if ( gusSelectedSoldier != NOBODY )
-		showExactInfo = ShowExactInfo( pSelectedSoldier, pTargetSoldier );
-
-	sX -= StringPixLength ( L"*", TINYFONT1 );
-	if( gGameExternalOptions.fShowEnemyAwareness && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
-	{
-		SetFont( TINYFONT1 );
-		SetFontBackground( FONT_MCOLOR_BLACK );
-		// show awareness sign only when in stealth mode or disguised
-		if( ( gusSelectedSoldier != NOBODY ) &&
-			( pTargetSoldier->bTeam == ENEMY_TEAM || pTargetSoldier->bTeam == CIV_TEAM && !pTargetSoldier->aiData.bNeutral ) &&
-			( MercPtrs[ gusSelectedSoldier ]->bStealthMode || MercPtrs[ gusSelectedSoldier ]->usSoldierFlagMask & ( SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER ) ) )
-		{
-			if( pTargetSoldier->aiData.bOppList[ MercPtrs[ gusSelectedSoldier ]->ubID ] == SEEN_CURRENTLY )
-				swprintf( NameStr, L"%s", L"*" );
-			else
-				swprintf( NameStr, L"%s", L"-" );
-
-			SetFontForeground( FONT_GRAY1 );
-			switch ( pTargetSoldier->aiData.bAlertStatus )
-			{
-			case STATUS_GREEN:							// everything's OK, no suspicion
-				SetFontForeground( FONT_GREEN );
-				break;
-			case STATUS_YELLOW:							// he or his friend heard something
-				SetFontForeground( FONT_YELLOW );
-				break;
-			case STATUS_RED:                            // has definite evidence of opponent
-				SetFontForeground( FONT_ORANGE );
-				break;
-			case STATUS_BLACK:							// currently sees an active opponent
-				SetFontForeground( FONT_DKRED );
-				break;
-			}
-
-			if ( showExactInfo )
-			{
-				// this feature is a part of 'show enemy health bar'
-				if( gGameExternalOptions.ubShowEnemyHealth > 1 )
-				{
-					gprintfdirty( sX - 15, sY, NameStr );
-					mprintf( sX - 15, sY, NameStr );	
-				}
-			}
-		}
-	}
-}
-
 void ShowEnemyHealthBar( INT16 sX, INT16 sY, SOLDIERTYPE* pSoldier )
 {
 	INT32	iBack;
@@ -6404,46 +6164,6 @@ void ShowEnemyHealthBar( INT16 sX, INT16 sY, SOLDIERTYPE* pSoldier )
 
 		DrawEnemyHealthBar( pSoldier, sX, sY, ubLines, iBarWidth - 2, iBarHeight );
 	}
-}
-
-void ShowRankIcon( INT16 sXPos, INT16 sYPos, SOLDIERTYPE* pSoldier )
-{
-	INT32	iBack;
-	INT16 sX, sY;
-	SOLDIERTYPE *pSelectedSoldier;
-
-	if ( gusSelectedSoldier != NOBODY )
-		pSelectedSoldier = MercPtrs[ gusSelectedSoldier ];
-	else
-		return;
-	
-	if ( pSelectedSoldier->aiData.bOppList[pSoldier->ubID] != SEEN_CURRENTLY )
-		return;
-
-	if( gGameExternalOptions.ubShowEnemyRankIcon && gTacticalStatus.ubCurrentTeam == OUR_TEAM )
-		//&& (!gGameExternalOptions.fEnemyNames) && (!gGameExternalOptions.fEnemyRank))
-	{
-		sX = sXPos + 50;
-		sY = sYPos + 17;
-		if(gGameExternalOptions.fEnemyNames)
-			sY+=10;
-		if(gGameExternalOptions.fEnemyRank)
-			sY+=10;
-
-		iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 11 ), (INT16)(sY + 14 ) );
-		if ( iBack != -1 )
-			SetBackgroundRectFilled( iBack );
-
-		DrawRankIcon( pSoldier->stats.bExpLevel, sX, sY );
-	}
-}
-
-void DrawLine( INT32 x1, INT32 y1, INT32 x2, INT32 y2, UINT16 color8, UINT16 color16, UINT8 *pDestBuf )
-{
-	if(gbPixelDepth==16)
-		LineDraw( TRUE, x1, y1, x2, y2, color16, pDestBuf);
-	else
-		LineDraw8( TRUE, x1, y1, x2, y2, color8, pDestBuf);
 }
 
 void DrawEnemyHealthBar( SOLDIERTYPE* pSoldier, INT32 sX, INT32 sY, UINT8 ubLines, INT32 iBarWidth, INT32 iBarHeight )
