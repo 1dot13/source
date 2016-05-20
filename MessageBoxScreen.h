@@ -23,8 +23,9 @@
 #define		MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS		0x00004000		// Displays eight numbered buttons with definable labels
 #define		MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS	0x00008000		// Displays sixteen numbered buttons with definable labels
 
-#define		MSG_BOX_FLAG_DROPDOWN					0x00010000		// Displays an aditional dropdown box
-#define		MSG_BOX_FLAG_IMAGE						0x00020000		// Displays an image
+#define		MSG_BOX_FLAG_DROPDOWN_1					0x00010000		// Displays an additional dropdown box
+#define		MSG_BOX_FLAG_DROPDOWN_2					0x00020000		// Displays another additional dropdown box
+#define		MSG_BOX_FLAG_IMAGE						0x00040000		// Displays an image
 
 // message box return codes
 #define		MSG_BOX_RETURN_OK						1				// ENTER or on OK button

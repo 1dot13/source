@@ -3081,7 +3081,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							AddVideoObject( &VObjectDesc, &guiMessageBoxImage );
 						}
 
-						DoMessageBox( MSG_BOX_BASIC_STYLE, text, GAME_SCREEN, (MSG_BOX_FLAG_OK | MSG_BOX_FLAG_DROPDOWN | MSG_BOX_FLAG_IMAGE), FortificationSettingCallBack, NULL );
+						DoMessageBox( MSG_BOX_BASIC_STYLE, text, GAME_SCREEN, (MSG_BOX_FLAG_OK | MSG_BOX_FLAG_DROPDOWN_1 | MSG_BOX_FLAG_DROPDOWN_2 | MSG_BOX_FLAG_IMAGE), FortificationSettingCallBack, NULL );
 					}
 				}
 				else if ( fCtrl )

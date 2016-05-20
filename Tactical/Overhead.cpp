@@ -112,6 +112,7 @@
 #include "Inventory Choosing.h"			// added by Flugente for TakeMilitiaEquipmentfromSector()
 #include "CampaignStats.h"				// added by Flugente
 #include "DynamicDialogue.h"			// added by Flugente for HandleDynamicOpinions()
+#include "DropDown.h"					// added by Flugente
 #endif
 #include "connect.h"
 
@@ -6707,7 +6708,7 @@ void DeathNoMessageTimerCallback( )
 }
 
 // get a vector of all player-controlled sectors with prison facilities. It is assumed that a sector has max. one of these
-BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT32>& arSectorIDVector )
+BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT8>& arSectorIDVector )
 {
     arSectorIDVector.clear();
 
@@ -6755,26 +6756,8 @@ INT16 gsNumPrisoner[PRISONER_MAX] = {0};
 
 void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 {
-	UINT32 usSectorID = 0;
-
-	// Get a list of all available prisons, and create a fitting messagebox
-	std::vector<UINT32> prisonsectorvector;
-	if ( GetPlayerControlledPrisonList( prisonsectorvector ) )
-	{
-		UINT8 cnt = 1;
-		std::vector<UINT32>::iterator itend = prisonsectorvector.end( );
-		for ( std::vector<UINT32>::iterator it = prisonsectorvector.begin( ); it != itend; ++it )
-		{
-			if ( ubExitValue == cnt )
-			{
-				usSectorID = (*it);
-				break;
-			}
-
-			++cnt;
-		}
-	}
-
+	UINT8 usSectorID = (UINT8)(DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).GetSelectedEntryKey( ));
+		
 	// if sector is still not set, then we did not select one - release prisoners
 	if ( usSectorID == 0 )
 	{
@@ -6796,8 +6779,8 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 
 			ChangeNumberOfPrisoners( pPrisonSectorInfo, gsNumPrisoner );
 
-			CHAR16 wString[64];
-			GetShortSectorString( SECTORX( usSectorID ), SECTORY( usSectorID ), wString );
+			CHAR16 wString[128];
+			GetSectorIDString( SECTORX( usSectorID ), SECTORY( usSectorID ), 0, wString, TRUE );
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], prisonerstobemoved, wString );
 		}
 	}
@@ -6812,6 +6795,9 @@ void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 		giReinforcementPool += (prisonerstobemoved * gGameExternalOptions.ubPrisonerReturntoQueenChance) / 100;
 	}
 }
+
+
+CHAR16 gPrisonSectorNamesStr[256][128];
 
 void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
@@ -6941,35 +6927,31 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 		AllSoldiersLookforItems( TRUE );
 
 		// Get a list of all available prisons, and create a fitting messagebox
-		std::vector<UINT32> prisonsectorvector;
+		std::vector<UINT8> prisonsectorvector;
 		if ( GetPlayerControlledPrisonList( prisonsectorvector ) )
 		{
-			UINT8 cnt = 0;
-			std::vector<UINT32>::iterator itend = prisonsectorvector.end( );
-			for ( std::vector<UINT32>::iterator it = prisonsectorvector.begin( ); it != itend; ++it )
-			{
-				UINT32 usSectorID = (*it);
-				CHAR16              zShortTownIDString[50];
-
-				GetShortSectorString( SECTORX( usSectorID ), SECTORY( usSectorID ), zShortTownIDString );
-
-				// Set string for generic button
-				swprintf( gzUserDefinedButton[cnt++], L"%s", zShortTownIDString );
-
-				if ( cnt >= 7 )
-					break;
-			}
-
-			for ( ; cnt < 8; ++cnt )
-			{
-				wcscpy( gzUserDefinedButton[cnt], TacticalStr[PRISONER_LETGO_STR] );
-			}
-
 			// remember all prisoners...
 			for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
 				gsNumPrisoner[i] = sNumPrisoner[i];
 
-            DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_DECIDE_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, PrisonerMessageBoxCallBack, NULL );
+			std::vector<std::pair<INT16, STR16> > dropdownvector_1;
+
+			std::vector<UINT8>::iterator itend = prisonsectorvector.end( );
+			for ( std::vector<UINT8>::iterator it = prisonsectorvector.begin( ); it != itend; ++it )
+			{
+				UINT8 usSectorID = (*it);
+
+				GetSectorIDString( SECTORX( usSectorID ), SECTORY( usSectorID ), 0, gPrisonSectorNamesStr[usSectorID], FALSE );
+
+				dropdownvector_1.push_back( std::make_pair( (INT16)(usSectorID), gPrisonSectorNamesStr[usSectorID] ) );
+			}
+			
+			DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).SetEntries( dropdownvector_1 );
+			
+			CHAR16 sString[256];
+			swprintf( sString, TacticalStr[PRISONER_DECIDE_STR], ubNumPrisoners );
+
+			DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, sString, GAME_SCREEN, (MSG_BOX_FLAG_OK | MSG_BOX_FLAG_DROPDOWN_1), PrisonerMessageBoxCallBack, NULL );
 		}
 		// if we control no prison, we have to let them go...
 		else

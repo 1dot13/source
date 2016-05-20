@@ -3968,7 +3968,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"Sie haben kein Gefängnis für die Gefangenen und müssen diese nun laufen lassen",
-	L"Wohin mit den Gefangenen?",
+	L"Wohin mit den %d Gefangenen?",
 	L"Freilassen",
 	L"Was möchten Sie tun?",
 	L"Kapitulation fordern",
@@ -8468,6 +8468,7 @@ STR16 gzMercCompare[] =
 	L"Past grievances",
 	L"____",				// 15
 	L"/",
+	L"* Opinion is always in [%d; %d]",		// TODO.Translate
 };
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.

@@ -250,7 +250,7 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	if ( gMsgBox.usFlags & MSG_BOX_FLAG_IMAGE )
 		heightincrease = 130;
 
-	if ( usFlags & MSG_BOX_FLAG_DROPDOWN )
+	if ( usFlags & ( MSG_BOX_FLAG_DROPDOWN_1 | MSG_BOX_FLAG_DROPDOWN_2 ) )
 		heightincrease = 130;
 		
 	UINT16 usMBWidth=MSGBOX_DEFAULT_WIDTH;
@@ -919,9 +919,13 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 		}
 	}
 
-	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN_1 )
 	{
 		DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).Create( (INT16)(gMsgBox.sX + 15), (INT16)(gMsgBox.sY + 35) );
+	}
+
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN_2 )
+	{
 		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).Create( (INT16)(gMsgBox.sX + 15), (INT16)(gMsgBox.sY + 66) );
 	}
 
@@ -954,27 +958,30 @@ template<>	void	DropDownTemplate<DROPDOWNNR_MSGBOX_1>::SetRefresh()
 {
 	INT16 box1key = DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).GetSelectedEntryKey( );
 
-	std::vector<std::pair<INT16, STR16> > dropdownvector_2 = GetTileSetIndexVector( box1key );
-
-	DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetEntries( dropdownvector_2 );
-
-	if ( !dropdownvector_2.empty( ) )
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN_2 )
 	{
-		BOOLEAN found = FALSE;
-		for ( std::vector<std::pair<INT16, STR16> >::iterator it = dropdownvector_2.begin( ); it != dropdownvector_2.end( ); ++it )
+		std::vector<std::pair<INT16, STR16> > dropdownvector_2 = GetTileSetIndexVector( box1key );
+
+		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetEntries( dropdownvector_2 );
+
+		if ( !dropdownvector_2.empty( ) )
 		{
-			if ( (*it).first == guiMessageBoxImageIndex )
+			BOOLEAN found = FALSE;
+			for ( std::vector<std::pair<INT16, STR16> >::iterator it = dropdownvector_2.begin( ); it != dropdownvector_2.end( ); ++it )
 			{
-				found = TRUE;
-				break;
+				if ( (*it).first == guiMessageBoxImageIndex )
+				{
+					found = TRUE;
+					break;
+				}
 			}
+
+			if ( !found )
+				guiMessageBoxImageIndex = dropdownvector_2[0].first;
 		}
 
-		if ( !found )
-			guiMessageBoxImageIndex = dropdownvector_2[0].first;
+		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetSelectedEntryKey( guiMessageBoxImageIndex );
 	}
-
-	DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).SetSelectedEntryKey( guiMessageBoxImageIndex );
 	
 	if ( gMsgBox.usFlags & MSG_BOX_FLAG_IMAGE )
 	{
@@ -1249,9 +1256,13 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 		DeleteVideoObjectFromIndex( guiMessageBoxImage );
 	}
 
-	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN_1 )
 	{
 		DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).Destroy( );
+	}
+
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN_2 )
+	{
 		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).Destroy( );
 	}
 		
@@ -1666,9 +1677,13 @@ UINT32	MessageBoxScreenHandle( )
 			BltVideoObject( FRAME_BUFFER, hIconHandle, guiMessageBoxImageIndex, gMsgBox.sX + 70, gMsgBox.sY + 90, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
-	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN )
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN_1 )
 	{
 		DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).Display( );
+	}
+
+	if ( gMsgBox.usFlags & MSG_BOX_FLAG_DROPDOWN_2 )
+	{
 		DropDownTemplate<DROPDOWNNR_MSGBOX_2>::getInstance( ).Display( );
 	}
 		

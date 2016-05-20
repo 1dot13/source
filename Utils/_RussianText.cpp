@@ -3960,7 +3960,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"У вас нет тюрьмы для содержания заключённых, придётся отпустить их",
-	L"В какую тюрьму отправить пленных?",
+	L"Where do you want to send the %d prisoners?",			// TODO.Translate
 	L"Отпустить",
 	L"Что вы хотите сделать?",
 	L"Требовать сдаться",
@@ -8638,6 +8638,7 @@ STR16 gzMercCompare[] =
 	L"Затаил обиду",	//Past grievances
 	L"____",				// 15
 	L"/",
+	L"* Opinion is always in [%d; %d]",		// TODO.Translate
 };
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.

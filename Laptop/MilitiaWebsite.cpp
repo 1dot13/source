@@ -238,7 +238,7 @@ enum InidivualMilitiaOriginState
 	IMOS_DEFECTOR
 };
 
-CHAR16 gInidividualMilitiaWebsiteSectorNamesstr[256][10];
+CHAR16 gInidividualMilitiaWebsiteSectorNamesstr[256][128];
 
 std::vector<std::pair<INT16, STR16> > GetMilitiaSectorDropVector( )
 {
@@ -256,7 +256,7 @@ std::vector<std::pair<INT16, STR16> > GetMilitiaSectorDropVector( )
 
 	for ( std::set<UINT8>::iterator it = sectorset.begin( ); it != sectorset.end(); ++it )
 	{
-		GetShortSectorString( SECTORX( (*it) ), SECTORY( (*it) ), gInidividualMilitiaWebsiteSectorNamesstr[(*it)] );
+		GetSectorIDString( SECTORX( (*it) ), SECTORY( (*it) ), 0, gInidividualMilitiaWebsiteSectorNamesstr[(*it)], FALSE );
 
 		sectorvector.push_back( std::make_pair( (INT16)(*it), gInidividualMilitiaWebsiteSectorNamesstr[(*it)] ) );
 	}

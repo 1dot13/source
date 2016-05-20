@@ -659,10 +659,17 @@ TestTable::Display( )
 
 			ColorFillVideoSurfaceArea( FRAME_BUFFER,
 									   GetX( ) + GetWidth( ) - SCROLLARROW_WIDTH - 2,
+									   GetY( ) + SCROLLARROW_HEIGTH,
+									   GetX( ) + GetWidth( ) - 2,
+									   GetY( ) + SCROLLARROW_HEIGTH + GetHeight( ) - SCROLLARROW_HEIGTH,
+									   GetColorLineShadow( ) );
+
+			ColorFillVideoSurfaceArea( FRAME_BUFFER,
+									   GetX( ) + GetWidth( ) - SCROLLARROW_WIDTH - 2,
 									   GetY( ) + SCROLLARROW_HEIGTH + areabegin,
 									   GetX( ) + GetWidth( ) - 2,
 									   GetY( ) + SCROLLARROW_HEIGTH + areabegin + scrollareaheigth,
-									   Get16BPPColor( FROMRGB( 20, 250, 50 ) ) );
+									   GetColorLine() );
 
 			CreateScrollAreaButtons( );
 		}

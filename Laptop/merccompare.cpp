@@ -921,21 +921,36 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	// draw the final verdict
 	val = SoldierRelation( pSoldierA, pSoldierB );
+	BOOLEAN addhint1 = ( val >= BUDDY_OPINION  || val <= HATED_OPINION );
 
 	swprintf( sText, gzMercCompare[15] );
 	DisplayWrappedString( usPosX + MCA_NUMBEROFFSET - 10, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	usPosY += 12;
-	swprintf( sText, L"%d", val );
+	if ( addhint1 )
+		swprintf( sText, L"%d * ", val );
+	else
+		swprintf( sText, L"%d", val );
 	usPosY += DisplayWrappedString( usPosX + MCA_NUMBEROFFSET, usPosY, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	
 	val = SoldierRelation( pSoldierB, pSoldierA );
+	BOOLEAN addhint2 = (val >= BUDDY_OPINION || val <= HATED_OPINION);
 
 	swprintf( sText, gzMercCompare[15] );
 	DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET - 10, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	usPosY2 += 12;
-	swprintf( sText, L"%d", val );
+	if ( addhint2 )
+		swprintf( sText, L"%d * ", val );
+	else
+		swprintf( sText, L"%d", val );
 	usPosY2 += DisplayWrappedString( usPosX + MCA_SIDEOFFSET + MCA_NUMBEROFFSET, usPosY2, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, CAMPHIS_FONT_MED, (val > 0) ? FONT_MCOLOR_LTGREEN : (val < 0) ? FONT_MCOLOR_LTRED : MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 	
+	// add a note that opinion is always between HATED_OPINION and BUDDY_OPINION otherwise players will shout 'bug!'
+	if ( addhint1 || addhint2 )
+	{
+		swprintf( sText, gzMercCompare[17], HATED_OPINION, BUDDY_OPINION );
+		DisplayWrappedString( usPosX, LAPTOP_SCREEN_LR_Y, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, 2, FONT10ARIAL, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+	}
+
 	return TRUE;
 }
 
