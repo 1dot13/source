@@ -630,7 +630,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, bElitesDestTeam );
 
 			// Flugente: move along individual militia data
-			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] );
+			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), bGreensDestTeam, bRegularsDestTeam, bElitesDestTeam );
 
 			// Add half team to target sector
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, bGreensDestTeam );
@@ -744,17 +744,21 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			// Flugente: update individual militia data
 			UpdateAllMilitiaHealthInTactical( );
 
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] );
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] );
-			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] );
+			UINT8 greens = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
+			UINT8 regulars = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+			UINT8 elites = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, greens );
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, regulars );
+			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, elites );
 
 			// Flugente: move along individual militia data
-			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA], pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] );
+			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), greens, regulars, elites );
 
 			// Entire group moves from Source to Target, leaving no one behind.			
-			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
-			StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
-			StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] );
+			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, greens );
+			StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, regulars );
+			StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, elites );
 			
 			// Block target group from moving. It has just assimilated another group.
 			AddToBlockMoveList( sTMapX, sTMapY );
