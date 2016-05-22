@@ -166,7 +166,7 @@ UINT32 CreateNewIndividualMilitia( UINT8 aSoldierClass, UINT8 aOrigin, UINT8 aSe
 UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector );
 
 // handle possible militia promotion and individual militia update
-void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier );
+void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve );
 
 void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UINT8 usGreens, UINT8 usRegulars, UINT8 usElites );
 

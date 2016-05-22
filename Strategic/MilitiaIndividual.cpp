@@ -15,6 +15,7 @@
 #include "CampaignStats.h"
 #include "Town Militia.h"
 #include "message.h"
+#include "Auto Resolve.h"		// added for IndividualMilitiaInUse_AutoResolve(...)
 
 MilitiaOriginData gMilitiaOriginData[MO_MAX];
 
@@ -538,6 +539,11 @@ UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 				}
 			}
 
+			if ( IndividualMilitiaInUse_AutoResolve( (*it).id ) )
+			{
+				found = TRUE;
+			}
+
 			if ( !found )
 			{
 				return (*it).id;
@@ -554,7 +560,7 @@ UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 }
 
 // handle possible militia promotion and individual militia update
-void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier )
+void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve )
 {
 	// we not only handle promotions here, but basically update this guy
 	MILITIA militia;
@@ -608,12 +614,16 @@ void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier )
 		}
 
 		// add a battle report if there was a battle (if there was a battle there will have been participants
-		if ( gCurrentIncident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_GREEN] + 
+		if ( aAutoResolve || (gCurrentIncident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_GREEN] +
 			 gCurrentIncident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_REGULAR] +
-			 gCurrentIncident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_ELITE] )
+			 gCurrentIncident.usParticipants[CAMPAIGNHISTORY_SD_MILITIA_ELITE]) )
 		{
 			MILITIA_BATTLEREPORT report;
 			report.id = GetIdOfCurrentlyOngoingIncident( );
+
+			// if we are in autoresolve, then the report has already been created at this point
+			if ( aAutoResolve )
+				report.id = max( 0, report.id - 1 );
 
 			if ( pSoldier->stats.bLife < OKLIFE )
 				report.flagmask |= MILITIA_BATTLEREPORT_FLAG_WOUNDED_COMA;

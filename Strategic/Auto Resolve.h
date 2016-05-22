@@ -53,4 +53,6 @@ void CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors();
 // Flugente: have all militia in autoresolve drop their gear and be promoted in necessary
 void AutoResolveMilitiaDropAndPromote();
 
+BOOLEAN IndividualMilitiaInUse_AutoResolve( UINT32 aMilitiaId );
+
 #endif

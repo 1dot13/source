@@ -296,7 +296,7 @@ void HandleMilitiaPromotions( void )
 		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
 		{
 			// Flugente: take care of promotions and individual militia update
-			HandlePossibleMilitiaPromotion( pTeamSoldier );	
+			HandlePossibleMilitiaPromotion( pTeamSoldier, FALSE );	
 		}
 	}
 

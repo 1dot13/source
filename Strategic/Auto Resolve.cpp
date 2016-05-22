@@ -2526,7 +2526,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			else
 			{
 				// Flugente: take care of promotions and individual militia update
-				HandlePossibleMilitiaPromotion( gpCivs[i].pSoldier );
+				HandlePossibleMilitiaPromotion( gpCivs[i].pSoldier, TRUE );
 			}
 
 			TacticalRemoveSoldierPointer( gpCivs[ i ].pSoldier, FALSE );
@@ -5802,7 +5802,7 @@ void AutoResolveMilitiaDropAndPromote()
 			else if ( gpCivs[i].pSoldier->stats.bLife >= OKLIFE / 2 )
 			{
 				// Flugente: take care of promotions and individual militia update
-				HandlePossibleMilitiaPromotion( gpCivs[i].pSoldier );
+				HandlePossibleMilitiaPromotion( gpCivs[i].pSoldier, TRUE );
 			}
 
 			// DO NOT DELETE HERE!!!!
@@ -5810,4 +5810,20 @@ void AutoResolveMilitiaDropAndPromote()
 			//memset( &gpCivs[i], 0, sizeof(SOLDIERCELL) );
 		}
 	}
+}
+
+BOOLEAN IndividualMilitiaInUse_AutoResolve( UINT32 aMilitiaId )
+{
+	if ( gpAR )
+	{
+		for ( INT32 i = 0; i < gpAR->ubCivs; ++i )
+		{
+			if ( gpCivs[i].pSoldier && aMilitiaId == gpCivs[i].pSoldier->usIndividualMilitiaID && IsLegalMilitiaId( gpCivs[i].pSoldier->usIndividualMilitiaID ) )
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
 }
