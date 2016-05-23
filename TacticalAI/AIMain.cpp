@@ -311,7 +311,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 	if ( pSoldier->aiData.fAIFlags & AI_ASLEEP )
 	{
-		if ( gfTurnBasedAI && pSoldier->bVisible )
+		if ( gfTurnBasedAI && pSoldier->bVisible == TRUE )
 		{
 			// turn off sleep flag, guy's got to be able to do stuff in turnbased
 			// if he's visible

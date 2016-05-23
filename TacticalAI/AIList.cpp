@@ -238,7 +238,7 @@ BOOLEAN SatisfiesAIListConditions( SOLDIERTYPE * pSoldier, UINT8 * pubDoneCount,
 				// heard gunshots
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
 				{
-					if ( pSoldier->bVisible )
+					if ( pSoldier->bVisible == TRUE )
 					{
 						// if have profile, don't handle, don't want them running around
 						if ( pSoldier->ubProfile != NO_PROFILE )
