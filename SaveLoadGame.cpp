@@ -6158,6 +6158,15 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		InitASD();
 	}
 
+	// Flugente: in campaigns started before ENEMY_HELICOPTERS, the periodic ASD update routine was not properly initialised. To be sure, we definetly set it up here
+	if ( guiCurrentSaveGameVersion < ASD_INIT_FIX )
+	{
+		// Flugente: if this a savegame from an older version where ASD didn't exist, we have to manually add the periodic event
+		DeleteAllStrategicEventsOfType( EVENT_ASD_UPDATE );
+
+		AddPeriodStrategicEvent( EVENT_ASD_UPDATE, 90, 0 );
+	}
+
 	if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
 	{
 		uiRelEndPerc += 1;
