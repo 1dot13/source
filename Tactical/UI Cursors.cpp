@@ -1942,6 +1942,15 @@ UINT8 HandleNonActivatedTossCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEA
 
 		if ( !EnoughAmmo( pSoldier, FALSE, HANDPOS ) )
 		{
+			// Flugente: if we are using an underbarrel GL, we aren't even supposed to be able to reload via leftclick here
+			// recalculate the correct firing mode and be done
+			if ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO) && IsGrenadeLauncherAttached( &(pSoldier->inv[HANDPOS]) ) )
+			{
+				ChangeWeaponMode( pSoldier );
+
+				return(BAD_RELOAD_UICURSOR);
+			}
+
 			// Check if ANY ammo exists.....
 			if ( FindAmmoToReload( pSoldier, HANDPOS, NO_SLOT ) == NO_SLOT )
 			{
