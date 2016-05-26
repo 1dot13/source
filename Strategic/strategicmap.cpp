@@ -1894,10 +1894,12 @@ void InitializeSAMSites( void )
 	{
 		StrategicMap[gpSamSectorX[cnt] + (MAP_WORLD_X * gpSamSectorY[cnt])].bSAMCondition = 100;
 	};
-	//StrategicMap[(SAM_1_X)+(MAP_WORLD_X*(SAM_1_Y))].bSAMCondition = 100;
-	//StrategicMap[(SAM_2_X)+(MAP_WORLD_X*(SAM_2_Y))].bSAMCondition = 100;
-	//StrategicMap[(SAM_3_X)+(MAP_WORLD_X*(SAM_3_Y))].bSAMCondition = 100;
-	//StrategicMap[(SAM_4_X)+(MAP_WORLD_X*(SAM_4_Y))].bSAMCondition = 100;
+
+	// Flugente, bizarrely enough, this structure is not NULLED when starting a new campaign. For now, we NULL the flagmask to clear at least that
+	for ( INT32 cnt = 0; cnt < MAP_WORLD_X*MAP_WORLD_Y; ++cnt )
+	{
+		StrategicMap[cnt].usFlags = 0;
+	}
 
 	UpdateAirspaceControl( );
 }
