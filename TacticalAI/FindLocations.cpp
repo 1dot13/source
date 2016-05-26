@@ -1981,48 +1981,56 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							}
 							else if	(pItem->usItemClass == IC_ARMOUR && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
+								INT32 effectivearmour_obj = EffectiveArmour( pObj );
+								INT32 effectivearmour_currentpos = 0;
+
+								iTempValue = 0;
+
 								switch( Armour[pItem->ubClassIndex].ubArmourClass )
 								{
 									case ARMOURCLASS_HELMET:
 										if (pSoldier->inv[HELMETPOS].exists() == false)
 										{
-											iTempValue = 200 + EffectiveArmour( pObj );
-										}
-										else if ( EffectiveArmour( &(pSoldier->inv[HELMETPOS]) ) > EffectiveArmour( pObj ) )
-										{
-											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
+											iTempValue = 200 + effectivearmour_obj;
 										}
 										else
 										{
-											iTempValue = 0;
+											effectivearmour_currentpos = EffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
+
+											if ( effectivearmour_currentpos > 0 && effectivearmour_currentpos > effectivearmour_obj )
+											{
+												iTempValue = 100 * effectivearmour_obj / effectivearmour_currentpos;
+											}
 										}
 										break;
 									case ARMOURCLASS_VEST:
 										if (pSoldier->inv[VESTPOS].exists() == false)
 										{
-											iTempValue = 200 + EffectiveArmour( pObj );
-										}
-										else if ( EffectiveArmour( &(pSoldier->inv[HELMETPOS]) ) > EffectiveArmour( pObj ) )
-										{
-											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[VESTPOS]) );
+											iTempValue = 200 + effectivearmour_obj;
 										}
 										else
 										{
-											iTempValue = 0;
+											effectivearmour_currentpos = EffectiveArmour( &(pSoldier->inv[VESTPOS]) );
+
+											if ( effectivearmour_currentpos > 0 && effectivearmour_currentpos > effectivearmour_obj )
+											{
+												iTempValue = 100 * effectivearmour_obj / effectivearmour_currentpos;
+											}
 										}
 										break;
 									case ARMOURCLASS_LEGGINGS:
 										if (pSoldier->inv[LEGPOS].exists() == false)
 										{
-											iTempValue = 200 + EffectiveArmour( pObj );
-										}
-										else if ( EffectiveArmour( &(pSoldier->inv[HELMETPOS]) ) > EffectiveArmour( pObj ) )
-										{
-											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[LEGPOS]) );
+											iTempValue = 200 + effectivearmour_obj;
 										}
 										else
 										{
-											iTempValue = 0;
+											effectivearmour_currentpos = EffectiveArmour( &(pSoldier->inv[LEGPOS]) );
+
+											if ( effectivearmour_currentpos > 0 && effectivearmour_currentpos > effectivearmour_obj )
+											{
+												iTempValue = 100 * effectivearmour_obj / effectivearmour_currentpos;
+											}
 										}
 										break;
 									default:
