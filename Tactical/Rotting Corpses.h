@@ -176,8 +176,8 @@ INT32 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef
 void HandleRottingCorpses( );
 void AddCrowToCorpse( ROTTING_CORPSE *pCorpse );
 
-void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID );
-void CorpseHit( INT32 sGridNo, UINT16 usStructureID );
+void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID );
+void CorpseHit( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID );
 
 void HandleCrowLeave( SOLDIERTYPE *pSoldier );
 

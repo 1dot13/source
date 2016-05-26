@@ -740,7 +740,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 		if ( uiDist <= 1 )
 		{
 			// Remove corpse...
-			VaporizeCorpse( sGridNo, pCurrent->usStructureID );
+			VaporizeCorpse( sGridNo, bLevel, pCurrent->usStructureID );
 		}
 	}
 	else if ( !( pCurrent->fFlags & STRUCTURE_PERSON ) )

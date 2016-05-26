@@ -1077,31 +1077,18 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 		{
 			pSoldier->RemoveSoldierFromGridNo( );
 		}
-
-		if ( ubType == NO_CORPSE )
-		{
-			return( TRUE );
-		}
-
-		// Set type
-		Corpse.ubType	= ubType;
-
-		// Add corpse!
-		iCorpseID = AddRottingCorpse( &Corpse );
 	}
-	else
+
+	if ( ubType == NO_CORPSE )
 	{
-		if ( ubType == NO_CORPSE )
-		{
-			return( TRUE );
-		}
-
-		// Set type
-		Corpse.ubType	= ubType;
-
-		// Add corpse!
-		iCorpseID = AddRottingCorpse( &Corpse );
+		return( TRUE );
 	}
+
+	// Set type
+	Corpse.ubType	= ubType;
+
+	// Add corpse!
+	iCorpseID = AddRottingCorpse( &Corpse );
 
 	// If this is our guy......make visible...
 	//if ( pSoldier->bTeam == gbPlayerNum )
@@ -1499,12 +1486,17 @@ BOOLEAN CreateCorpseShadedPalette( ROTTING_CORPSE *pCorpse, UINT32 uiBase, SGPPa
 	return(TRUE);
 }
 
-ROTTING_CORPSE  *FindCorpseBasedOnStructure( INT32 sGridNo, STRUCTURE *pStructure )
+ROTTING_CORPSE  *FindCorpseBasedOnStructure( INT32 sGridNo, INT8 asLevel, STRUCTURE *pStructure )
 {
 	LEVELNODE					*pLevelNode;
 	ROTTING_CORPSE		*pCorpse = NULL;
+	
+	// Flugente: if the corpse is on a roof, search there
+	if ( asLevel )
+		pLevelNode = gpWorldLevelData[sGridNo].pOnRoofHead;
+	else
+		pLevelNode = gpWorldLevelData[ sGridNo ].pStructHead;
 
-	pLevelNode = gpWorldLevelData[ sGridNo ].pStructHead;
 	while( pLevelNode != NULL )
 	{
 		if (pLevelNode->pStructureData == pStructure )
@@ -1524,7 +1516,7 @@ ROTTING_CORPSE  *FindCorpseBasedOnStructure( INT32 sGridNo, STRUCTURE *pStructur
 }
 
 
-void CorpseHit( INT32 sGridNo, UINT16 usStructureID )
+void CorpseHit( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 {
 #if 0
 	STRUCTURE				*pStructure, *pBaseStructure;
@@ -1540,7 +1532,7 @@ void CorpseHit( INT32 sGridNo, UINT16 usStructureID )
 	sBaseGridNo = pBaseStructure->sGridNo;
 
 	// Get corpse ID.....
-	pCorpse = FindCorpseBasedOnStructure( sBaseGridNo, pBaseStructure );
+	pCorpse = FindCorpseBasedOnStructure( sBaseGridNo, asLevel, pBaseStructure );
 
 	if ( pCorpse == NULL )
 	{
@@ -1574,7 +1566,7 @@ void CorpseHit( INT32 sGridNo, UINT16 usStructureID )
 #endif
 }
 
-void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID )
+void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 {
 	STRUCTURE				*pStructure, *pBaseStructure;
 	ROTTING_CORPSE	*pCorpse = NULL;
@@ -1590,7 +1582,7 @@ void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID )
 	sBaseGridNo = pBaseStructure->sGridNo;
 
 	// Get corpse ID.....
-	pCorpse = FindCorpseBasedOnStructure( sBaseGridNo, pBaseStructure );
+	pCorpse = FindCorpseBasedOnStructure( sBaseGridNo, asLevel, pBaseStructure );
 
 	if ( pCorpse == NULL )
 	{
@@ -1610,7 +1602,13 @@ void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID )
 		// Add explosion
 		memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
 		AniParams.sGridNo							= sBaseGridNo;
-		AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
+
+		// Check if on roof or not...
+		if ( pCorpse->def.bLevel == 0 )
+			AniParams.ubLevelID = ANI_STRUCT_LEVEL;
+		else
+			AniParams.ubLevelID = ANI_ONROOF_LEVEL;
+
 		AniParams.sDelay							= (INT16)( 80 );
 		AniParams.sStartFrame					= 0;
 		AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_FORWARD;
@@ -1628,7 +1626,7 @@ void VaporizeCorpse( INT32 sGridNo, UINT16 usStructureID )
 		if ( pCorpse->def.bLevel == 0 )
 		{
 			// Set some blood......
-			SpreadEffect( sBaseGridNo, (UINT8)( ( 2 ) ), 0, NOBODY, BLOOD_SPREAD_EFFECT, 0, -1 );
+			SpreadEffect( sBaseGridNo, (UINT8)((2)), 0, NOBODY, BLOOD_SPREAD_EFFECT, asLevel, -1 );
 		}
 	}
 
@@ -1801,7 +1799,7 @@ ROTTING_CORPSE *GetCorpseAtGridNo( INT32 sGridNo, INT8 bLevel )
 
 		if ( pBaseStructure != NULL )
 		{
-			return( FindCorpseBasedOnStructure( sBaseGridNo, pBaseStructure ) );
+			return(FindCorpseBasedOnStructure( sBaseGridNo, bLevel, pBaseStructure ));
 		}
 	}
 
@@ -1886,7 +1884,7 @@ BOOLEAN DecapitateCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel )
 		if ( usHeadIndex > 0 )
 		{
 			CreateItem( usHeadIndex, 100, &gTempObject );
-			AddItemToPool( sGridNo, &gTempObject, INVISIBLE, 0, 0, 0 );
+			AddItemToPool( sGridNo, &gTempObject, INVISIBLE, bLevel, 0, 0 );
 
 			// All teams lok for this...
 			NotifySoldiersToLookforItems( );
@@ -1946,7 +1944,7 @@ BOOLEAN GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 	// can this thing be gutted?
 	if ( IsValidGutCorpse( pCorpse ) )
 	{
-		// numbers for the meat acquired by gutting. These values respond to the standard GameDir values, if they have other values in the ini, no problem, we'll search for them
+		// numbers for the meat acquired by gutting. These values respond to the standard GameDir values, if they have other values in the xml, no problem, we'll search for them
 		static UINT16 usBloodCatMeatIndex = 1566;
 		static UINT16 usCowMeatIndex = 1565;
 		UINT16 meatindex = 0;
@@ -1967,7 +1965,7 @@ BOOLEAN GutCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 		if ( meatindex > 0 )
 		{
 			CreateItem( meatindex, 100, &gTempObject );
-			AddItemToPool( sGridNo, &gTempObject, INVISIBLE, 0, 0, 0 );
+			AddItemToPool( sGridNo, &gTempObject, INVISIBLE, bLevel, 0, 0 );
 
 			// All teams lok for this...
 			NotifySoldiersToLookforItems( );
@@ -2011,7 +2009,7 @@ BOOLEAN StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 			{
 				CreateItem( vestitem, 100, &gTempObject );
 				if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-					AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, bLevel, 0, -1 );
 			}
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
@@ -2024,7 +2022,7 @@ BOOLEAN StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 			{
 				CreateItem( pantsitem, 100, &gTempObject );
 				if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-					AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, bLevel, 0, -1 );
 			}
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
@@ -2648,14 +2646,12 @@ void RaiseZombies( void )
 				else
 				#endif
 				SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
-					
-					
 			}
 		}
 	}
 }
 
-// Flugente Zombies 1.0: create a zombie from a corpse
+// Flugente: create a zombie from a corpse
 void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;

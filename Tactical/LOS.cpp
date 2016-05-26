@@ -6993,7 +6993,9 @@ void MoveBullet( INT32 iBullet )
 												// ATE: In enemy territory here... ;)
 												// Now that we have hit a corpse, make the bugger twich!
 
-												CorpseHit( pBullet->sGridNo, pStructure->usStructureID );
+												INT8 level = sDesiredLevel == STRUCTURE_ON_GROUND ? 0 : 1;
+
+												CorpseHit( pBullet->sGridNo, level, pStructure->usStructureID );
 												DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count..., CORPSE HIT") );
 
 												// Moved here to keep ABC >0 as long as possible
