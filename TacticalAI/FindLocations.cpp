@@ -1992,7 +1992,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										}
 										else if ( EffectiveArmour( &(pSoldier->inv[HELMETPOS]) ) < EffectiveArmour( pObj ) )
 										{
-											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
+											iTempValue = 100 * EffectiveArmour( pObj ) / (EffectiveArmour( &(pSoldier->inv[HELMETPOS]) ) + 1);
 										}
 										break;
 									case ARMOURCLASS_VEST:
@@ -2002,7 +2002,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										}
 										else if ( EffectiveArmour( &(pSoldier->inv[VESTPOS]) ) < EffectiveArmour( pObj ) )
 										{
-											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[VESTPOS]) );
+											iTempValue = 100 * EffectiveArmour( pObj ) / (EffectiveArmour( &(pSoldier->inv[VESTPOS]) ) + 1);
 										}
 										break;
 									case ARMOURCLASS_LEGGINGS:
@@ -2012,7 +2012,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										}
 										else if ( EffectiveArmour( &(pSoldier->inv[LEGPOS]) ) < EffectiveArmour( pObj ) )
 										{
-											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[LEGPOS]) );
+											iTempValue = 100 * EffectiveArmour( pObj ) / (EffectiveArmour( &(pSoldier->inv[LEGPOS]) ) + 1);
 										}
 										break;
 									default:

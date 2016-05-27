@@ -1011,7 +1011,7 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 			iValue += iValue2;
 		}
 	}
-	return( max(iValue,1) );
+	return( max(iValue,0) );
 }
 
 //zwwooooo - IoV: Lbe can be bulletproof after adding bulletproof plate into it.(Like CRIAS, MBSS, HSGI WASATCH...)
