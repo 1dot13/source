@@ -294,7 +294,7 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 		return(0);
 	}
 
-	if ( ubMovementCost == WALKING_WEAPON_RDY || ubMovementCost == WALKING_DUAL_RDY )
+	if ( usMovementMode == WALKING_WEAPON_RDY || usMovementMode == WALKING_DUAL_RDY )
 	{
 		iPoints += APBPConstants[BP_MOVEMENT_READY];
 	}
