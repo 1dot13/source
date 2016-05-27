@@ -16,43 +16,34 @@ Beta:
 
 
 
-Changelog:
-----------
-2016-05-11:
-- added various Gap-files
-- updates to Beth
-- updates to Ears
-- updates to Bud
-- updates to Weasel
-
-
-2016-05-05:
-- added Carp
+Beta Changelog:
+---------------
+2016-05-27:
+- updates to It
 - updates to Lance
+- updates to Rusty
+- updates to Samuel
+- updates to Spike
+- updates to Kelly
+- updates to Stella
+- updates to Mouse
+- updates to Bud
+- updates to Elio
+- updates to Leech
+- updates to Jimmy
+- updates to Snake
+- updates to Smoke
+- updates to Needle
+- updates to Bob
 - updates to Gary
-- updates to Beth
-- updates to Leon
-
-
-2016-04-23:
-- added Buzz (Snitch-files)
-- Updates to Spike
-- Updates to Moses
-- Updates to Turtle
-- Updates to Kaboom
-- Updates to Beth
-- Updates to Boss
-
-
-2016-04-16:
-- added Speck
-- updates to Hurl
+- updates to Spam
+- updates to Boss
 
 
 
 Known Issues:
 -------------
-Issue: Mikes voicechange between NPC to PC [JA2+DG]		
+Issue: Mikes voicechange only transition from NPC to PC [JA2+DG]		
 Solution: Do not hire Mike
 
 Issue: Multiple voiceactors for Speck NPC and PC [UB+DG] 	
@@ -61,15 +52,15 @@ Solution: None. It's already reduced to a minimum.
 Issue: Multiple voiceactors for Tex [UB+DG]
 Solution: None. Only two Mike-friendship lines are affected; and hardly noticable.
 
-Issue: Multiple VA (only snitch-lines) for Buzz
+Issue: Multiple voiceactors (only snitch-lines) for Buzz
 Solution: Additional mod - Disabling Buzzs snitch behaviour - WIP
 
-Issue: Multiple VA (only new relationship-lines) for Hitman, Len, Magic, Scully, Larry, Vicki, Fidel, Fox, Cliff, Wolf, Biff		
+Issue: Multiple voiceactors (only new relationship-lines) for Hitman, Len, Magic, Scully, Larry, Vicki, Fidel, Fox, Cliff, Wolf, Biff		
 Solution: Additional mod - Disabling the relationship of JA2 to DG mercenarys via mercprofiles.xml - WIP
 
 
 None of your issues?
-Please contact me via bear's pit
+Please contact me, via bear's pit.
 
 
 
