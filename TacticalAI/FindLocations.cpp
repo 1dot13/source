@@ -1981,9 +1981,6 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							}
 							else if	(pItem->usItemClass == IC_ARMOUR && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
-								INT32 effectivearmour_obj = EffectiveArmour( pObj );
-								INT32 effectivearmour_currentpos = 0;
-
 								iTempValue = 0;
 
 								switch( Armour[pItem->ubClassIndex].ubArmourClass )
@@ -1991,56 +1988,35 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 									case ARMOURCLASS_HELMET:
 										if (pSoldier->inv[HELMETPOS].exists() == false)
 										{
-											iTempValue = 200 + effectivearmour_obj;
+											iTempValue = 200 + EffectiveArmour( pObj );
 										}
-										else
+										else if ( EffectiveArmour( &(pSoldier->inv[HELMETPOS]) ) < EffectiveArmour( pObj ) )
 										{
-											effectivearmour_currentpos = EffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
-
-											if ( effectivearmour_currentpos > 0 && effectivearmour_currentpos > effectivearmour_obj )
-											{
-												iTempValue = 100 * effectivearmour_obj / effectivearmour_currentpos;
-											}
+											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
 										}
 										break;
 									case ARMOURCLASS_VEST:
 										if (pSoldier->inv[VESTPOS].exists() == false)
 										{
-											iTempValue = 200 + effectivearmour_obj;
+											iTempValue = 200 + EffectiveArmour( pObj );
 										}
-										else
+										else if ( EffectiveArmour( &(pSoldier->inv[VESTPOS]) ) < EffectiveArmour( pObj ) )
 										{
-											effectivearmour_currentpos = EffectiveArmour( &(pSoldier->inv[VESTPOS]) );
-
-											if ( effectivearmour_currentpos > 0 && effectivearmour_currentpos > effectivearmour_obj )
-											{
-												iTempValue = 100 * effectivearmour_obj / effectivearmour_currentpos;
-											}
+											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[VESTPOS]) );
 										}
 										break;
 									case ARMOURCLASS_LEGGINGS:
 										if (pSoldier->inv[LEGPOS].exists() == false)
 										{
-											iTempValue = 200 + effectivearmour_obj;
+											iTempValue = 200 + EffectiveArmour( pObj );
 										}
-										else
+										else if ( EffectiveArmour( &(pSoldier->inv[LEGPOS]) ) < EffectiveArmour( pObj ) )
 										{
-											effectivearmour_currentpos = EffectiveArmour( &(pSoldier->inv[LEGPOS]) );
-
-											if ( effectivearmour_currentpos > 0 && effectivearmour_currentpos > effectivearmour_obj )
-											{
-												iTempValue = 100 * effectivearmour_obj / effectivearmour_currentpos;
-											}
+											iTempValue = 100 * EffectiveArmour( pObj ) / EffectiveArmour( &(pSoldier->inv[LEGPOS]) );
 										}
 										break;
 									default:
-										// WANNE: Fix a vanilla bug: When an enemy soldier is looking for items and finds a non-helmet/vest/leggings piece of armour it was incorrectly considered for pickup.
-										// Fixed by Tron (Stracciatella): Revision: 5719
-										// break;
-										// continue; <- silversurfer: bad idea, this causes the game to hang
-										// to make sure that the item isn't considered set iTempValue to zero and get out
 										{
-											iTempValue = 0;
 											break;
 										}
 								}
