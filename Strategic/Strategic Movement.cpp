@@ -786,7 +786,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	return NULL;
 }
 
-GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites )
+GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8& arusNumAdmins, UINT8& arusNumTroops, UINT8& arusNumElites )
 {
 	GROUP *pNew;
 	AssertMsg( uiSector >= 0 && uiSector <= 255, String( "CreateNewMilitiaGroupDepartingFromSector with out of range value of %d", uiSector ) );
@@ -798,19 +798,19 @@ GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdm
 	memset( pNew->pEnemyGroup, 0, sizeof(ENEMYGROUP) );
 
 	// Make sure group is not bigger than allowed!
-	while ( ubNumAdmins + ubNumTroops + ubNumElites > gGameExternalOptions.iMaxEnemyGroupSize )
+	while ( arusNumAdmins + arusNumTroops + arusNumElites > gGameExternalOptions.iMaxEnemyGroupSize )
 	{
-		if ( ubNumTroops )
+		if ( arusNumTroops )
 		{
-			ubNumTroops--;
+			arusNumTroops--;
 		}
-		else if ( ubNumAdmins )
+		else if ( arusNumAdmins )
 		{
-			ubNumAdmins--;
+			arusNumAdmins--;
 		}
-		else if ( ubNumElites )
+		else if ( arusNumElites )
 		{
-			ubNumElites--;
+			arusNumElites--;
 		}
 	}
 
@@ -823,10 +823,10 @@ GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdm
 	pNew->ubNextWaypointID = 0;
 	pNew->ubFatigueLevel = 100;
 	pNew->ubRestAtFatigueLevel = 0;
-	pNew->pEnemyGroup->ubNumAdmins = ubNumAdmins;
-	pNew->pEnemyGroup->ubNumTroops = ubNumTroops;
-	pNew->pEnemyGroup->ubNumElites = ubNumElites;
-	pNew->ubGroupSize = (UINT8)(ubNumAdmins + ubNumTroops + ubNumElites);
+	pNew->pEnemyGroup->ubNumAdmins = arusNumAdmins;
+	pNew->pEnemyGroup->ubNumTroops = arusNumTroops;
+	pNew->pEnemyGroup->ubNumElites = arusNumElites;
+	pNew->ubGroupSize = (UINT8)(arusNumAdmins + arusNumTroops + arusNumElites);
 	pNew->ubTransportationMask = FOOT;
 	pNew->fVehicle = FALSE;
 	pNew->ubCreatedSectorID = pNew->ubOriginalSector;

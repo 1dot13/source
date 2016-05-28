@@ -2146,11 +2146,16 @@ void RetreatAllInvolvedMilitiaGroups()
 	if ( !pSector )
 		return;
 
-	pGroup = CreateNewMilitiaGroupDepartingFromSector( SECTOR( sBattleSectorX, sBattleSectorY ), pSector->ubNumberOfCivsAtLevel[0], pSector->ubNumberOfCivsAtLevel[1], pSector->ubNumberOfCivsAtLevel[2] );
+	// as group size will be cut to MAX_STRATEGIC_ENEMY_GROUP_SIZE, see how many troops are allowed and reduce sector count accordingly
+	UINT8 greens	= pSector->ubNumberOfCivsAtLevel[0];
+	UINT8 regulars  = pSector->ubNumberOfCivsAtLevel[1];
+	UINT8 elites	= pSector->ubNumberOfCivsAtLevel[2];
 
-	pSector->ubNumberOfCivsAtLevel[0] = 0;
-	pSector->ubNumberOfCivsAtLevel[1] = 0;
-	pSector->ubNumberOfCivsAtLevel[2] = 0;
+	pGroup = CreateNewMilitiaGroupDepartingFromSector( SECTOR( sBattleSectorX, sBattleSectorY ), greens, regulars, elites );
+
+	pSector->ubNumberOfCivsAtLevel[0] -= greens;
+	pSector->ubNumberOfCivsAtLevel[1] -= regulars;
+	pSector->ubNumberOfCivsAtLevel[2] -= elites;
 
 	// if we haven't found a good direction yet, we have to pick the best adjacent sector we can find
 	if ( !found )

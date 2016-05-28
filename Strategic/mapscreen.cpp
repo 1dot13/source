@@ -16794,12 +16794,17 @@ BOOLEAN MilitiaPlotStart( )
 	if ( !pSector )
 		return FALSE;
 
-	// when we start plotting, the group is still empty - we add militia later
-	GROUP* pGroup = CreateNewMilitiaGroupDepartingFromSector( SECTOR( sSelMapX, sSelMapY ), pSector->ubNumberOfCivsAtLevel[0], pSector->ubNumberOfCivsAtLevel[1], pSector->ubNumberOfCivsAtLevel[2] );
+	// as group size will be cut to MAX_STRATEGIC_ENEMY_GROUP_SIZE, see how many troops are allowed and reduce sector count accordingly
+	UINT8 greens	= pSector->ubNumberOfCivsAtLevel[0];
+	UINT8 regulars  = pSector->ubNumberOfCivsAtLevel[1];
+	UINT8 elites	= pSector->ubNumberOfCivsAtLevel[2];
 
-	pSector->ubNumberOfCivsAtLevel[0] = 0;
-	pSector->ubNumberOfCivsAtLevel[1] = 0;
-	pSector->ubNumberOfCivsAtLevel[2] = 0;
+	// when we start plotting, the group is still empty - we add militia later
+	GROUP* pGroup = CreateNewMilitiaGroupDepartingFromSector( SECTOR( sSelMapX, sSelMapY ), greens, regulars, elites );
+
+	pSector->ubNumberOfCivsAtLevel[0] -= greens;
+	pSector->ubNumberOfCivsAtLevel[1] -= regulars;
+	pSector->ubNumberOfCivsAtLevel[2] -= elites;
 	
 	gMilitiaPath[gMilitiaGroupId].sGroupid = pGroup->ubGroupID;
 	gNewMilitiaGroupId = pGroup->ubGroupID;
