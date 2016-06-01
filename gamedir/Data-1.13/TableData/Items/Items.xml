@@ -51632,7 +51632,7 @@
 		<szItemName>Tactical Sling</szItemName>
 		<szLongItemName>Tactical Sling</szLongItemName>
 		<szItemDesc>This single point sling allows weapons to be carried in a secure but flexible fashion.</szItemDesc>
-		<szBRName>Rifle Sling</szBRName>
+		<szBRName>Tactical Sling</szBRName>
 		<szBRDesc>This single point sling allows weapons to be carried in a secure but flexible fashion. Adjustable length to accommodate all sizes.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
