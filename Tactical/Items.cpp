@@ -10343,7 +10343,9 @@ INT32 GetItemModifier(OBJECTTYPE* pObj, UINT8 ubRef, UINT8 usType)
 		iModifier += BonusReduceMore( Item[pObj->usItem].targettrackingmodifier[ubRef], (*pObj)[0]->data.objectStatus );
 		break;
 	case ITEMMODIFIER_AIMLEVELS:
-		iModifier += Item[pObj->usItem].aimlevelsmodifier[ubRef];
+		// silversurfer: NCTH system only
+		if ( UsingNewCTHSystem() )
+			iModifier += Item[pObj->usItem].aimlevelsmodifier[ubRef];
 		break;
 
 	case ITEMMODIFIER_SPOTTER:

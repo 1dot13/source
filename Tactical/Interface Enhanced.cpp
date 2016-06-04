@@ -5056,7 +5056,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 
-	///////////////////// AIMING LEVELS MODIFIER
+	///////////////////// AIM LEVELS MODIFIER
 	if ( ( GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS ) != 0
 		|| GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, ITEMMODIFIER_AIMLEVELS ) != 0 
 		|| GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, ITEMMODIFIER_AIMLEVELS ) != 0 ) ||
@@ -5064,11 +5064,14 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		|| GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_CROUCH, ITEMMODIFIER_AIMLEVELS ) != 0 
 		|| GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_PRONE, ITEMMODIFIER_AIMLEVELS ) != 0 ) ) )
 	{
-		if (cnt >= sFirstLine && cnt < sLastLine)
+		if( UsingNewCTHSystem() )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 5, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 5, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			}
+			cnt++;
 		}
-		cnt++;
 	}
 
 	///////////////////// AIM BONUS MODIFIER
@@ -10291,63 +10294,64 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		cnt++;
 	}
 
-	///////////////////// AIMING LEVELS MODIFIER
-	iModifier[0] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS );
-	iModifier[1] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, ITEMMODIFIER_AIMLEVELS );
-	iModifier[2] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, ITEMMODIFIER_AIMLEVELS );
-	if( fComparisonMode )
-	{
-		iComparedModifier[0] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS );
-		iComparedModifier[1] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_CROUCH, ITEMMODIFIER_AIMLEVELS );
-		iComparedModifier[2] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_PRONE, ITEMMODIFIER_AIMLEVELS );
-	}
-	if ( ( (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) ) ||
-		( fComparisonMode && (iComparedModifier[0] != 0 || iComparedModifier[1] != 0 || iComparedModifier[2] != 0) ) )
-	{
-		if (cnt >= sFirstLine && cnt < sLastLine)
+	///////////////////// AIM LEVELS MODIFIER
+	if(UsingNewCTHSystem() )
 		{
-			// Set Y coordinates
-			sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
-			sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
-
-			// Print Values
-			for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
-			{
-				if (UsingNewCTHSystem() == false && cnt2 > 0)
-					break;
-				SetFontForeground( 5 );
-				sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
-				sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
-				if( fComparisonMode )
-				{
-					iModifier[cnt2] = iComparedModifier[cnt2] - iModifier[cnt2];
-				}
-				if (iModifier[cnt2] > 0)
-				{
-					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"+%d", iModifier[cnt2] );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				else if (iModifier[cnt2] < 0)
-				{
-					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"%d", iModifier[cnt2] );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				else if( fComparisonMode )
-				{
-					swprintf( pStr, L"=" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				else
-				{
-					swprintf( pStr, L"--" );
-					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
-				}
-				mprintf( usX, usY, pStr );
-			}
+		iModifier[0] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS );
+		iModifier[1] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_CROUCH, ITEMMODIFIER_AIMLEVELS );
+		iModifier[2] = GetObjectModifier( gpItemDescSoldier, gpItemDescObject, ANIM_PRONE, ITEMMODIFIER_AIMLEVELS );
+		if( fComparisonMode )
+		{
+			iComparedModifier[0] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_STAND, ITEMMODIFIER_AIMLEVELS );
+			iComparedModifier[1] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_CROUCH, ITEMMODIFIER_AIMLEVELS );
+			iComparedModifier[2] = GetObjectModifier( gpItemDescSoldier, gpComparedItemDescObject, ANIM_PRONE, ITEMMODIFIER_AIMLEVELS );
 		}
-		cnt++;
+		if ( ( (iModifier[0] != 0 || iModifier[1] != 0 || iModifier[2] != 0) ) ||
+			( fComparisonMode && (iComparedModifier[0] != 0 || iComparedModifier[1] != 0 || iComparedModifier[2] != 0) ) )
+		{
+			if (cnt >= sFirstLine && cnt < sLastLine)
+			{
+				// Set Y coordinates
+				sTop = gItemDescAdvRegions[cnt-sFirstLine][1].sTop;
+				sHeight = gItemDescAdvRegions[cnt-sFirstLine][1].sBottom - sTop;		
+
+				// Print Values
+				for (UINT8 cnt2 = 0; cnt2 < 3; cnt2++)
+				{
+					if (UsingNewCTHSystem() == false && cnt2 > 0)
+						break;
+					SetFontForeground( 5 );
+					sLeft = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sLeft;
+					sWidth = gItemDescAdvRegions[cnt-sFirstLine][cnt2+1].sRight - sLeft;
+					if( fComparisonMode )
+					{
+						iModifier[cnt2] = iComparedModifier[cnt2] - iModifier[cnt2];
+					}
+
+					if (iModifier[cnt2] > 0)
+					{
+						SetFontForeground( ITEMDESC_FONTNEGATIVE );
+						swprintf( pStr, L"+%d", iModifier[cnt2] );
+					}
+					else if (iModifier[cnt2] < 0)
+					{
+						SetFontForeground( ITEMDESC_FONTPOSITIVE );
+						swprintf( pStr, L"%d", iModifier[cnt2] );
+					}
+					else if( fComparisonMode )
+					{
+						swprintf( pStr, L"=" );
+					}
+					else
+					{
+						swprintf( pStr, L"--" );
+					}
+					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
+					mprintf( usX, usY, pStr );
+				}
+			}
+			cnt++;
+		}
 	}
 
 	///////////////////// AIM BONUS MODIFIER
@@ -10788,8 +10792,10 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		iModifier[0] = (GetDamageBonus( gpItemDescObject ) * gGameExternalOptions.iExplosivesDamageModifier) / 100;
 	else
 		iModifier[0] = GetDamageBonus( gpItemDescObject );
+
 	iModifier[1] = iModifier[0];
 	iModifier[2] = iModifier[0];
+
 	if( fComparisonMode )
 	{
 		if (Item[gpComparedItemDescObject->usItem].usItemClass & (IC_GUN|IC_THROWING_KNIFE))
@@ -10799,9 +10805,12 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		else if (Item[gpComparedItemDescObject->usItem].usItemClass & (IC_EXPLOSV|IC_LAUNCHER))
 			iComparedModifier[0] = (GetDamageBonus( gpComparedItemDescObject ) * gGameExternalOptions.iExplosivesDamageModifier) / 100;
 		else
+			iComparedModifier[0] = GetDamageBonus( gpComparedItemDescObject );
+
 		iComparedModifier[1] = iComparedModifier[0];
 		iComparedModifier[2] = iComparedModifier[0];
 	}
+
 	if (iModifier[0] != 0 || ( fComparisonMode && iComparedModifier[0] != 0 ) )
 	{
 		if (cnt >= sFirstLine && cnt < sLastLine)
