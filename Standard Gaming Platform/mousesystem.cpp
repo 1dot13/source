@@ -1163,6 +1163,8 @@ void MSYS_RemoveRegion(MOUSE_REGION *region)
 //
 void MSYS_EnableRegion(MOUSE_REGION *region)
 {
+	Assert( region );
+
 	region->uiFlags |= MSYS_REGION_ENABLED;
 }
 

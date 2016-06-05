@@ -2323,7 +2323,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 		iFirstDataRegion = iRegionsCreated;
 		CHAR16 pStr[1000];
 
-		for (cnt = 0; cnt < 36; cnt++)
+		for (cnt = 0; cnt < GEN_SEC_REGION_ENTRIES; cnt++)
 		{
 			MSYS_DefineRegion( &gUDBFasthelpRegions[ iRegionsCreated ],
 				(INT16)(gItemDescGenSecondaryRegions[cnt].sLeft),
@@ -5882,12 +5882,6 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	if (gubDescBoxPage != 1)
 	{
 		// Secondary stats are drawn only on page 1.
-		return;
-	}
-
-	if (Item[ gpItemDescObject->usItem ].usItemClass & (IC_WEAPON || IC_PUNCH))
-	{
-		// Weapons have no space on their UDB General page to show Secondary Stats anyway.
 		return;
 	}
 

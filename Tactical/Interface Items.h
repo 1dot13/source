@@ -21,6 +21,7 @@
 
 #define		NUM_UDB_GEN_LINES	12
 #define		NUM_UDB_ADV_LINES	13			// Flugente FTW 1.1: 12->13
+#define		GEN_SEC_REGION_ENTRIES 24		// 6 lines x 4 icons
  
 // HEADROCK HAM 4: These rectangle definitions are used in UDB to determine locations for icons, data, and tooltip
 // regions. They replace the plethora of region data provided in EDB.
@@ -36,7 +37,7 @@ extern INV_DESC_REGIONS gItemDescLBEBackground[4]; // Coordinates for displaying
 extern INV_DESC_REGIONS gItemDescGenHeaderRegions[3]; // Header text regions for various parts of the General Tab
 extern INV_DESC_REGIONS gItemDescGenIndexRegions[3][4]; // Index text regions for various parts of the General Tab
 extern INV_DESC_REGIONS gItemDescGenRegions[NUM_UDB_GEN_LINES * 2][4]; // Data regions, 4 sub-columns each
-extern INV_DESC_REGIONS gItemDescGenSecondaryRegions[26]; // Secondary data regions, 3x5 for now (possible 3x6?)
+extern INV_DESC_REGIONS gItemDescGenSecondaryRegions[GEN_SEC_REGION_ENTRIES]; // Secondary data regions, 6 lines x 4 icons
 extern INV_DESC_REGIONS gItemDescTextRegions[9]; // Main description regions
 extern INV_DESC_REGIONS gItemDescAdvIndexRegions[1][4];
 extern INV_DESC_REGIONS gItemDescAdvRegions[NUM_UDB_ADV_LINES][4]; // Advanced data regions, 4 sub-columns each

@@ -575,7 +575,7 @@ INV_DESC_REGIONS gItemDescLBEBackground[4]; // Coordinates for displaying LBE ba
 INV_DESC_REGIONS gItemDescGenHeaderRegions[3]; // Header text regions for various parts of the General Tab
 INV_DESC_REGIONS gItemDescGenIndexRegions[3][4]; // Index text regions for various parts of the General Tab
 INV_DESC_REGIONS gItemDescGenRegions[NUM_UDB_GEN_LINES * 2][4]; // Data regions, 4 sub-columns each
-INV_DESC_REGIONS gItemDescGenSecondaryRegions[26]; // Secondary data regions, 3x5
+INV_DESC_REGIONS gItemDescGenSecondaryRegions[GEN_SEC_REGION_ENTRIES]; // Secondary data regions, 6 lines x 4 icons
 INV_DESC_REGIONS gItemDescTextRegions[9]; // Main description regions
 INV_DESC_REGIONS gItemDescAdvIndexRegions[1][4];
 INV_DESC_REGIONS gItemDescAdvRegions[NUM_UDB_ADV_LINES][4]; // Advanced data regions, 4 sub-columns each
