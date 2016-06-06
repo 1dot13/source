@@ -7768,9 +7768,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 					if (pSoldier->pathing.bLevel == pTarget->pathing.bLevel && pSoldier->pathing.bLevel > 0)
 						sCoweringPenalty = 0; // No cowering penalties when both are on the roof!
-					else if (pSoldier->pathing.bLevel < pSoldier->pathing.bLevel && gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
+					else if (pSoldier->pathing.bLevel < pTarget->pathing.bLevel && gAnimControl[ pTarget->usAnimState ].ubHeight == ANIM_PRONE)
 						sCoweringPenalty *= 2; // Much harder to shoot at anyone cowering above you.
-					else if (pSoldier->pathing.bLevel > pSoldier->pathing.bLevel)
+					else if (pSoldier->pathing.bLevel > pTarget->pathing.bLevel)
 						sCoweringPenalty /= 2; // Much easier to shoot at cowerers below you.
 					iChance -= sCoweringPenalty;
 				}
