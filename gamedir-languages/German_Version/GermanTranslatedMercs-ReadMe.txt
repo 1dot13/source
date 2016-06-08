@@ -2,7 +2,7 @@
 * Deadly Games German Translated Mercs for 1.13 - beta *
 *********************by firebat*************************
 
-Thanks to RoWa21 my progress is now available over his SVN directory.
+Thanks to RoWa21 my progress is now available via his SVN directory.
 
 
 
@@ -18,6 +18,26 @@ Beta:
 
 Beta Changelog:
 ---------------
+2016-06-08:
+- updates to Mike
+- updates to Reuban
+- updates to Elroy
+- updates to Turtle
+- updates to Moses
+- updates to Bernie
+- updates to Screw
+- updates to Leon
+- updates to Sparky
+- updates to Hector
+- updates to Mitch
+- updates to Raffi
+- updates to Kaboom
+- updates to Rev
+- updates to Wink
+- updates to Beth
+- updates to Lance
+
+
 2016-05-27:
 - updates to It
 - updates to Lance
@@ -43,7 +63,7 @@ Beta Changelog:
 
 Known Issues:
 -------------
-Issue: Mikes voicechange only transition from NPC to PC [JA2+DG]		
+Issue: Mikes voicechange. Only transition from NPC to PC [JA2+DG]		
 Solution: Do not hire Mike
 
 Issue: Multiple voiceactors for Speck NPC and PC [UB+DG] 	
