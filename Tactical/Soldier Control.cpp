@@ -15229,7 +15229,7 @@ BOOLEAN		SOLDIERTYPE::LooksLikeASoldier( void )
 INT8		SOLDIERTYPE::GetUniformType( )
 {
 	// we determine wether we are currently wearing civilian or military clothes
-	for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= NUM_UNIFORMS; ++i )
+	for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i < NUM_UNIFORMS; ++i )
 	{
 		// both parts have to fit. We cant mix different uniforms and get soldier disguise
 		if ( COMPARE_PALETTEREP_ID( this->VestPal, gUniformColors[i].vest ) && COMPARE_PALETTEREP_ID( this->PantsPal, gUniformColors[i].pants ) )
