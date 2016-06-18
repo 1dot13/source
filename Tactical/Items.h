@@ -505,6 +505,9 @@ typedef struct
 
 	UINT16		usCivilianPopulation;	// total amount of civilians that are supposed to be in this sector. This does not have to be the number of civilians in tactical
 
+	UINT8		rainchance;				// chance that it rains in this sector 
+	UINT8		sandstormchance;		// chance that a sandstorm happens in this sector 
+	UINT8		snowchance;				// chance that it snows in this sector
 } SECTOR_EXT_DATA;
 
 // get dirt increase for object with attachments, fConsiderAmmo: with ammo

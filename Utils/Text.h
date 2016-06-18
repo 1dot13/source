@@ -2966,6 +2966,9 @@ extern STR16	szIdividualMilitiaWebsiteFilterText_Sector[];
 // Flugente: non-profile merchants
 extern STR16	szNonProfileMerchantText[];
 
+// Flugente: externalised weather
+extern STR16	szWeatherTypeText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

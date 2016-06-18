@@ -4297,6 +4297,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Ополчение и враги (|Z)",
 	L"Патруль ополчения (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Очаги заболеваний",
+	L"Show Weather",	// TODO.Translate
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -6169,6 +6170,9 @@ STR16		zMarksMapScreenText[] =
 
 	// Flugente: disease texts describing what a map view does
 	L"Здесь показаны вспышки заболеваний по секторам. Число указывает средний показатель инфекции на человека, цвет - насколько широко распространена инфекция. СЕРЫЙ= нет информации о заболеваемости. ЗЕЛЁНЫЙ - КРАСНЫЙ = уровень роста заболеваемости.",
+
+	// Flugente: weather texts describing what a map view does
+	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",	// TODO.Translate
 };
 
 
@@ -11119,6 +11123,16 @@ STR16	szNonProfileMerchantText[] =
 	L"Merchant is in no state to do business.",
 	L"Merchant won't trade during combat.",
 	L"Merchant refuses to interact with you.",
+};
+
+STR16	szWeatherTypeText[] =	// TODO.Translate
+{
+	L"normal",
+	L"rain",
+	L"thunderstorm",
+	L"sandstorm",
+
+	L"snow",
 };
 
 #endif //RUSSIAN

@@ -20,6 +20,7 @@
 #include "DynamicDialogue.h"
 #include <math.h>
 #include "Drugs And Alcohol.h"	// for DoesMercHaveDisability( ... )
+#include "environment.h"
 
 //GLOBALS
 DISEASE Disease[NUM_DISEASES];
@@ -503,9 +504,11 @@ UINT16 GetSectorPopulation( INT16 sX, INT16 sY, BOOLEAN fWithMilitary )
 }
 
 // colour for a sector on the map
-INT32 GetMapColour( INT16 sX, INT16 sY, BOOLEAN aDiseaseOn )
+// aType = 0: disease
+// aType = 1: weather
+INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 aType )
 {
-	if ( aDiseaseOn )
+	if ( aType == 0 )
 	{
 		UINT16 population = GetSectorPopulation( sX, sY );
 
@@ -538,6 +541,36 @@ INT32 GetMapColour( INT16 sX, INT16 sY, BOOLEAN aDiseaseOn )
 					return MAP_SHADE_MD_RED;
 				else
 					return MAP_SHADE_LT_RED;
+			}
+		}
+	}
+	else if ( aType == 1 )
+	{
+		UINT8 sector = SECTOR( sX, sY );
+
+		SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+		// display sector information only if we know about infection there
+		if ( pSectorInfo )
+		{
+			switch ( pSectorInfo->usWeather )
+			{
+			case WEATHER_FORECAST_RAIN:
+				return MAP_SHADE_LT_CYAN;
+				break;
+			case WEATHER_FORECAST_THUNDERSHOWERS:
+				return MAP_SHADE_LT_BLUE;
+				break;
+			case WEATHER_FORECAST_SANDSTORM:
+				return MAP_SHADE_ORANGE;
+				break;
+			case WEATHER_FORECAST_SNOW:
+				return MAP_SHADE_LT_GREY;
+				break;
+			case WEATHER_FORECAST_NORMAL:
+			default:
+				return MAP_SHADE_BLACK;
+				break;
 			}
 		}
 	}

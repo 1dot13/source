@@ -808,7 +808,11 @@ UINT32 DrawMap( void )
 							break;
 
 						case MAP_DISPLAY_DISEASE:
-							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, TRUE ) );
+							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 0 ) );
+							break;
+
+						case MAP_DISPLAY_WEATHER:
+							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 1 ) );
 							break;
 
 						case MAP_DISPLAY_NORMAL:

@@ -1626,18 +1626,15 @@ void LoadGameExternalOptions()
 
 
 	//################# Tactical Weather Settings ##################
-
-	gGameExternalOptions.ubVisDistDecreasePerRainIntensity				= iniReader.ReadInteger("Tactical Weather Settings","VISUAL_DISTANCE_DECREASE_PER_RAIN_INTENSITY",30, 0, 100);
-
+	
 	// Rain settings
-	gGameExternalOptions.gfAllowRain									= iniReader.ReadBoolean("Tactical Weather Settings","ALLOW_RAIN",0);
+	gGameExternalOptions.gfAllowRain									= iniReader.ReadBoolean("Tactical Weather Settings","ALLOW_RAIN", FALSE);
+	gGameExternalOptions.gusWeatherPerDayRain							= iniReader.ReadInteger("Tactical Weather Settings","RAIN_EVENTS_PER_DAY", 3, 1, 24 );
 	gGameExternalOptions.gusRainChancePerDay							= iniReader.ReadInteger("Tactical Weather Settings","RAIN_CHANCE_PER_DAY",100, 0, 100);
 	gGameExternalOptions.gusRainMinLength								= iniReader.ReadInteger("Tactical Weather Settings","RAIN_MIN_LENGTH_IN_MINUTES",60, 1, 1438 /* 24 hrs - 2 minutes */);
 	gGameExternalOptions.gusRainMaxLength								= iniReader.ReadInteger("Tactical Weather Settings","RAIN_MAX_LENGTH_IN_MINUTES",300, gGameExternalOptions.gusRainMinLength+1, 1439);
 	gGameExternalOptions.guiMaxRainDrops								= iniReader.ReadInteger("Tactical Weather Settings","MAX_RAIN_DROPS",80, 1, 800);
-	gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity	= iniReader.ReadInteger("Tactical Weather Settings","WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY",0, 0, 10);
-	gGameExternalOptions.ubBreathGainReductionPerRainIntensity			= iniReader.ReadDouble("Tactical Weather Settings","BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY",25, 1, 100);
-
+			
 	// Thunder settings
 	gGameExternalOptions.gfAllowLightning								= iniReader.ReadBoolean("Tactical Weather Settings","ALLOW_LIGHTNING",TRUE);
 	gGameExternalOptions.guiMinLightningInterval						= iniReader.ReadInteger("Tactical Weather Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5, 1, 100);
@@ -1646,7 +1643,48 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.guiMaxDLInterval								= iniReader.ReadInteger("Tactical Weather Settings","MAX_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",5, 2, 600);
 	gGameExternalOptions.guiProlongLightningIfSeenSomeone				= iniReader.ReadInteger("Tactical Weather Settings","DELAY_IN_SECONDS_IF_SEEN_SOMEONE_DURING_LIGHTNING_IN_TURNBASED",5, 1, 60);
 	gGameExternalOptions.guiChanceToDoLightningBetweenTurns				= iniReader.ReadInteger("Tactical Weather Settings","CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS",35, 0, 100);
+	
+	// Flugente: sandstorm settings
+	gGameExternalOptions.gfAllowSandStorms								= iniReader.ReadBoolean( "Tactical Weather Settings", "ALLOW_SANDSTORM", TRUE );
+	gGameExternalOptions.gusWeatherPerDaySandstorm						= iniReader.ReadInteger( "Tactical Weather Settings", "SANDSTORM_EVENTS_PER_DAY", 1, 1, 24 );
+	gGameExternalOptions.gusSandStormsChancePerDay						= iniReader.ReadInteger( "Tactical Weather Settings", "SANDSTORM_CHANCE_PER_DAY", 100, 0, 100 );
+	gGameExternalOptions.gusSandStormsMinLength							= iniReader.ReadInteger( "Tactical Weather Settings", "SANDSTORM_MIN_LENGTH_IN_MINUTES", 60, 1, 1438 /* 24 hrs - 2 minutes */ );
+	gGameExternalOptions.gusSandStormsMaxLength							= iniReader.ReadInteger( "Tactical Weather Settings", "SANDSTORM_MAX_LENGTH_IN_MINUTES", 300, gGameExternalOptions.gusSandStormsMinLength + 1, 1439 );
 
+	// Snow settings
+	gGameExternalOptions.gfAllowSnow									= iniReader.ReadBoolean( "Tactical Weather Settings", "ALLOW_SNOW", TRUE );
+	gGameExternalOptions.gusWeatherPerDaySnow							= iniReader.ReadInteger( "Tactical Weather Settings", "SNOW_EVENTS_PER_DAY", 1, 1, 24 );
+	gGameExternalOptions.gusSnowChancePerDay							= iniReader.ReadInteger( "Tactical Weather Settings", "SNOW_CHANCE_PER_DAY", 100, 0, 100 );
+	gGameExternalOptions.gusSnowMinLength								= iniReader.ReadInteger( "Tactical Weather Settings", "SNOW_MIN_LENGTH_IN_MINUTES", 60, 1, 1438 /* 24 hrs - 2 minutes */ );
+	gGameExternalOptions.gusSnowMaxLength								= iniReader.ReadInteger( "Tactical Weather Settings", "SNOW_MAX_LENGTH_IN_MINUTES", 300, gGameExternalOptions.gusSnowMinLength + 1, 1439 );
+
+	// weather penalties
+	gGameExternalOptions.ubWeaponReliabilityReduction[WEATHER_FORECAST_NORMAL]			= 0;
+	gGameExternalOptions.ubWeaponReliabilityReduction[WEATHER_FORECAST_RAIN]			= iniReader.ReadInteger( "Tactical Weather Settings", "WEAPON_RELIABILITY_REDUCTION_RAIN", 0, 0, 10 );
+	gGameExternalOptions.ubWeaponReliabilityReduction[WEATHER_FORECAST_THUNDERSHOWERS]	= iniReader.ReadInteger( "Tactical Weather Settings", "WEAPON_RELIABILITY_REDUCTION_THUNDERSTORM", 1, 0, 10 );
+	gGameExternalOptions.ubWeaponReliabilityReduction[WEATHER_FORECAST_SANDSTORM]		= iniReader.ReadInteger( "Tactical Weather Settings", "WEAPON_RELIABILITY_REDUCTION_SANDSTORM", 4, 0, 10 );
+	gGameExternalOptions.ubWeaponReliabilityReduction[WEATHER_FORECAST_SNOW]			= iniReader.ReadInteger( "Tactical Weather Settings", "WEAPON_RELIABILITY_REDUCTION_SNOW", 2, 0, 10 );
+
+	gGameExternalOptions.dBreathGainReduction[WEATHER_FORECAST_NORMAL]					= 0.0f;
+	gGameExternalOptions.dBreathGainReduction[WEATHER_FORECAST_RAIN]					= iniReader.ReadDouble( "Tactical Weather Settings", "BREATH_GAIN_REDUCTION_RAIN", 0.1f, 0.0f, 1.0f );
+	gGameExternalOptions.dBreathGainReduction[WEATHER_FORECAST_THUNDERSHOWERS]			= iniReader.ReadDouble( "Tactical Weather Settings", "BREATH_GAIN_REDUCTION_THUNDERSTORM", 0.4f, 0.0f, 1.0f );
+	gGameExternalOptions.dBreathGainReduction[WEATHER_FORECAST_SANDSTORM]				= iniReader.ReadDouble( "Tactical Weather Settings", "BREATH_GAIN_REDUCTION_SANDSTORM", 0.7f, 0.0f, 1.0f );
+	gGameExternalOptions.dBreathGainReduction[WEATHER_FORECAST_SNOW]					= iniReader.ReadDouble( "Tactical Weather Settings", "BREATH_GAIN_REDUCTION_SNOW", 0.2f, 0.0f, 1.0f );
+
+	gGameExternalOptions.dVisDistDecrease[WEATHER_FORECAST_NORMAL]						= 0.0f;
+	gGameExternalOptions.dVisDistDecrease[WEATHER_FORECAST_RAIN]						= iniReader.ReadDouble( "Tactical Weather Settings", "VISUAL_DISTANCE_DECREASE_RAIN", 0.05f, 0.0f, 1.0f );
+	gGameExternalOptions.dVisDistDecrease[WEATHER_FORECAST_THUNDERSHOWERS]				= iniReader.ReadDouble( "Tactical Weather Settings", "VISUAL_DISTANCE_DECREASE_THUNDERSTORM", 0.15f, 0.0f, 1.0f );
+	gGameExternalOptions.dVisDistDecrease[WEATHER_FORECAST_SANDSTORM]					= iniReader.ReadDouble( "Tactical Weather Settings", "VISUAL_DISTANCE_DECREASE_SANDSTORM", 0.4f, 0.0f, 1.0f );
+	gGameExternalOptions.dVisDistDecrease[WEATHER_FORECAST_SNOW]						= iniReader.ReadDouble( "Tactical Weather Settings", "VISUAL_DISTANCE_DECREASE_SNOW", 0.3f, 0.0f, 1.0f );
+
+	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_NORMAL]						= 0.0f;
+	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_RAIN]						= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_RAIN", 0.3f, 0.0f, 1.0f );
+	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_THUNDERSHOWERS]				= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_THUNDERSTORM", 0.8f, 0.0f, 1.0f );
+	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_SANDSTORM]					= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_SANDSTORM", 0.6f, 0.0f, 1.0f );
+	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_SNOW]						= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_SNOW", 0.1f, 0.0f, 1.0f );
+
+	FLOAT dHearingReduction[WEATHER_FORECAST_MAX];
+				
 	//################# Tactical Weapon Overheating Settings ##################
 	// Flugente: These settings control the behavior of Weapon Overheating, its severity, and its display.
 	gGameExternalOptions.fWeaponOverheating								= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING",FALSE);
@@ -2588,7 +2626,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle	= iniReader.ReadInteger( "Survival", "GROUP_TIME_SPENT_FOR_TRAVELLING_IN_VEHICLE_REDUCTION", 15, 0, 100 );
 	gSkillTraitValues.ubSVMaxBonusesToTravelSpeed				= iniReader.ReadInteger( "Survival", "MAX_STACKABLE_LESS_TRAVEL_TIME_BONUSES", 2, 0, 20 );
 	gSkillTraitValues.ubSVBreathForTravellingReduction			= iniReader.ReadInteger( "Survival", "ENERGY_SPENT_TRAVEL_REDUCTION", 50, 0, 100 );
-	gSkillTraitValues.ubSVWeatherPenaltiesReduction				= iniReader.ReadInteger( "Survival", "WEATHER_PENALTIES_REDUCTION", 35, 0, 100 );
+	gSkillTraitValues.dSVWeatherPenaltiesReduction				= iniReader.ReadFloat( "Survival", "WEATHER_PENALTIES_REDUCTION", 0.35f, 0.0f, 1.0f );
 	gSkillTraitValues.ubSVCamoWornountSpeedReduction			= iniReader.ReadInteger( "Survival", "CAMO_WORNOUT_SPEED_REDUCTION", 75, 0, 100 );
 	gSkillTraitValues.usSVTrackerMaxRange						= iniReader.ReadInteger( "Survival", "TRACKER_MAX_RANGE", 30, 0, 50 );
 	gSkillTraitValues.usSVTrackerAbility						= iniReader.ReadInteger( "Survival", "TRACKER_ABILITY", 30, 0, 50 );

@@ -8295,9 +8295,9 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[2], gSkillTraitValues.ubSVBreathForTravellingReduction, sSpecialCharacters[0] );
 					wcscat( apStr, atStr );
 				}
-				if ( gSkillTraitValues.ubSVWeatherPenaltiesReduction != 0 )
+				if ( gSkillTraitValues.dSVWeatherPenaltiesReduction != 0 )
 				{
-					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[3], gSkillTraitValues.ubSVWeatherPenaltiesReduction, sSpecialCharacters[0] );
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSurvival[3], (UINT8)(100 * gSkillTraitValues.dSVWeatherPenaltiesReduction), sSpecialCharacters[0] );
 					wcscat( apStr, atStr );
 				}
 

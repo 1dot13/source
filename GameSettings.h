@@ -6,6 +6,7 @@
 #include "Morale.h"
 #include "GameInitOptionsScreen.h"
 #include "Campaign Types.h"
+#include "environment.h"
 
 #define				GAME_INI_FILE					"Ja2.ini"
 
@@ -546,7 +547,6 @@ typedef struct
 
 	INT8 ubBrightnessVisionMod[16];
 
-	UINT32 ubVisDistDecreasePerRainIntensity;
 	BOOLEAN gfAllowLimitedVision;
 
 	BOOLEAN gfShiftFUnloadWeapons;
@@ -554,13 +554,12 @@ typedef struct
 
 	// Rain settings
 	BOOLEAN gfAllowRain;
+	UINT16 gusWeatherPerDayRain;
 	UINT32 gusRainChancePerDay;
 	UINT32 gusRainMinLength;
 	UINT32 gusRainMaxLength;
 	UINT32 guiMaxRainDrops;
-	UINT32 ubWeaponReliabilityReductionPerRainIntensity;
-	double ubBreathGainReductionPerRainIntensity;
-
+		
 	// Thunder settings
 	BOOLEAN gfAllowLightning;
 	UINT32 guiMinLightningInterval;
@@ -569,6 +568,26 @@ typedef struct
 	UINT32 guiMaxDLInterval;
 	UINT32 guiProlongLightningIfSeenSomeone;
 	UINT32 guiChanceToDoLightningBetweenTurns;
+
+	// Sandstorm settings
+	BOOLEAN gfAllowSandStorms;
+	UINT16 gusWeatherPerDaySandstorm;
+	UINT32 gusSandStormsChancePerDay;
+	UINT32 gusSandStormsMinLength;
+	UINT32 gusSandStormsMaxLength;
+
+	// Snow settings
+	BOOLEAN gfAllowSnow;
+	UINT16 gusWeatherPerDaySnow;
+	UINT32 gusSnowChancePerDay;
+	UINT32 gusSnowMinLength;
+	UINT32 gusSnowMaxLength;
+
+	// weather penalties
+	UINT32 ubWeaponReliabilityReduction[WEATHER_FORECAST_MAX];
+	FLOAT dBreathGainReduction[WEATHER_FORECAST_MAX];
+	FLOAT dVisDistDecrease[WEATHER_FORECAST_MAX];
+	FLOAT dHearingReduction[WEATHER_FORECAST_MAX];
 
 	// WDS - Progress settings
 	UINT32 ubGameProgressPortionKills;
@@ -1873,7 +1892,7 @@ typedef struct
 	UINT8 ubSVGroupTimeSpentForTravellingVehicle;
 	UINT8 ubSVMaxBonusesToTravelSpeed;
 	UINT8 ubSVBreathForTravellingReduction;
-	UINT8 ubSVWeatherPenaltiesReduction;
+	FLOAT dSVWeatherPenaltiesReduction;
 	UINT8 ubSVCamoWornountSpeedReduction;
 	UINT16 usSVTrackerMaxRange;
 	UINT8 usSVTrackerAbility;

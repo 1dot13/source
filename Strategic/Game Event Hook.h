@@ -133,6 +133,12 @@ enum
 	EVENT_SAMSITE_REPAIRED,						// Flugente: have a SAM site be fully repaired
 
 	EVENT_MILITIAROSTER_EMAIL,					// Flugente: we get an email giving us the bookmark to the militia roster webpage
+	
+	EVENT_WEATHER_NORMAL,						// Flugente: localized weather
+	EVENT_WEATHER_SHOWERS,
+	EVENT_WEATHER_THUNDERSHOWERS,
+	EVENT_WEATHER_SANDSTORM,
+	EVENT_WEATHER_SNOW,
 
 	NUMBER_OF_EVENT_TYPES_PLUS_ONE,
 	NUMBER_OF_EVENT_TYPES						= NUMBER_OF_EVENT_TYPES_PLUS_ONE - 1

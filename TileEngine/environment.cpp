@@ -56,7 +56,7 @@ BOOLEAN			gfCaves = FALSE;
 #define		DUSK_TO_NIGHT												(NIGHT_START-DUSK_START)
 #define		NIGHT_TO_DAWN												(24*60-NIGHT_START+DAWN_START)
 
-UINT32										guiEnvWeather	= 0;
+//UINT32										guiEnvWeather	= 0;		// Flugente: this was used as a flagmask, but will now be used as an enum - we can't have several types of weather at the same time anyway
 UINT32										guiRainLoop	= NO_SAMPLE;
 
 
@@ -160,27 +160,18 @@ BOOLEAN		gfDoLighting		= FALSE;
 UINT8		gubDesertTemperature = 0;
 UINT8		gubGlobalTemperature = 0;
 
-//rain
-//extern BOOLEAN gfAllowRain;
-//end rain
-
 // local prototypes
 void EnvDoLightning(void);
-
 
 // polled by the game to handle time/atmosphere changes from gamescreen
 void EnvironmentController( BOOLEAN fCheckForLights )
 {
 	UINT32			uiOldWorldHour;
-	UINT8				ubLightAdjustFromWeather = 0;
-
-
+	UINT8			ubLightAdjustFromWeather = 0;
+	
 	// do none of this stuff in the basement or caves
 	if( gfBasement || gfCaves )
 	{
-	guiEnvWeather	&= (~WEATHER_FORECAST_THUNDERSHOWERS );
-	guiEnvWeather	&= (~WEATHER_FORECAST_SHOWERS );
-
 		if (gGameSettings.fOptions[ TOPTION_RAIN_SOUND ] == TRUE)
 		{
 			if ( guiRainLoop != NO_SAMPLE )
@@ -189,6 +180,7 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 				guiRainLoop = NO_SAMPLE;
 			}
 		}
+
 		return;
 	}
 
@@ -200,7 +192,6 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 		if ( uiOldWorldHour != guiEnvTime )
 		{
 			// Hour change....
-
 			guiEnvTime=uiOldWorldHour;
 		}
 
@@ -210,17 +201,21 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 		// ONly do indooors
 		if( !gfBasement && !gfCaves )
 		{
-//#if 0 //rain
-			if ( guiEnvWeather & ( WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS ) )
+			if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_RAIN 
+				 || SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_THUNDERSHOWERS 
+				 || SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_SANDSTORM )
 			{
-
 				if (gGameSettings.fOptions[ TOPTION_RAIN_SOUND ] == TRUE)
 				{
 					if ( guiRainLoop == NO_SAMPLE )
 					{
-						if (guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS )
+						if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_THUNDERSHOWERS )
 						{
 							guiRainLoop	= PlayJA2Ambient( RAIN_1, 140, 0 );
+						}
+						else if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_SANDSTORM )
+						{
+							guiRainLoop = PlayJA2Ambient( WIND, 105, 0 );
 						}
 						else
 						{
@@ -230,11 +225,10 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 				}
 
 				// Do lightning if we want...
-				if ( guiEnvWeather & ( WEATHER_FORECAST_THUNDERSHOWERS ) )
+				if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_THUNDERSHOWERS )
 				{
 					EnvDoLightning( );
 				}
-
 			}
 			else
 			{
@@ -247,7 +241,6 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 					}
 				}
 			}
-//#endif //rain
 		}
 
 		if ( gfDoLighting && fCheckForLights )
@@ -259,22 +252,24 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 			if( !gfBasement && !gfCaves )
 			{
 				// Rain storms....
-//#if 0 //rain
-				if ( guiEnvWeather & ( WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS ) )
+				// Thunder showers.. make darker
+				if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_THUNDERSHOWERS )
 				{
-					// Thunder showers.. make darker
-					if ( guiEnvWeather & ( WEATHER_FORECAST_THUNDERSHOWERS ) )
-					{
-						ubLightAdjustFromWeather = (UINT8)(__min( gubEnvLightValue+2, NORMAL_LIGHTLEVEL_NIGHT ));
-					}
-					else
-					{
-						ubLightAdjustFromWeather = (UINT8)(__min( gubEnvLightValue+1, NORMAL_LIGHTLEVEL_NIGHT ));
-					}
+					ubLightAdjustFromWeather = (UINT8)(__min( gubEnvLightValue+2, NORMAL_LIGHTLEVEL_NIGHT ));
 				}
-//#endif //rain
+				else if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_RAIN )
+				{
+					ubLightAdjustFromWeather = (UINT8)(__min( gubEnvLightValue+1, NORMAL_LIGHTLEVEL_NIGHT ));
+				}
+				else if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_SANDSTORM )
+				{
+					ubLightAdjustFromWeather = (UINT8)(__min( gubEnvLightValue + 5, NORMAL_LIGHTLEVEL_NIGHT ));
+				}
+				else if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_SNOW )
+				{
+					ubLightAdjustFromWeather = (UINT8)(__min( gubEnvLightValue + 1, NORMAL_LIGHTLEVEL_NIGHT ));
+				}
 			}
-
 
 			LightSetBaseLevel( ubLightAdjustFromWeather );
 
@@ -288,9 +283,7 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 			SetRenderFlags(RENDER_FLAG_FULL);
 			gfDoLighting = FALSE;
 		}
-
 	}
-
 }
 
 void BuildDayLightLevels()
@@ -309,7 +302,7 @@ void BuildDayLightLevels()
 	*/
 
 	//Transition from night to day
-	for( uiLoop = 0; uiLoop < 9; uiLoop++ )
+	for( uiLoop = 0; uiLoop < 9; ++uiLoop )
 	{
 		AddEveryDayStrategicEvent( EVENT_CHANGELIGHTVAL, DAWN_START + 2 * uiLoop,	NORMAL_LIGHTLEVEL_NIGHT - 1 - uiLoop );
 	}
@@ -337,7 +330,7 @@ void BuildDayLightLevels()
 */
 
 	//Transition from day to night
-	for( uiLoop = 0; uiLoop < 9; uiLoop++ )
+	for( uiLoop = 0; uiLoop < 9; ++uiLoop )
 	{
 		AddEveryDayStrategicEvent( EVENT_CHANGELIGHTVAL, DUSK_START + 2 * uiLoop,	NORMAL_LIGHTLEVEL_DAY + 1 + uiLoop );
 	}
@@ -355,10 +348,8 @@ void BuildDayLightLevels()
 
 void BuildDayAmbientSounds( )
 {
-	INT32									cnt;
-
 	// Add events!
-	for ( cnt = 0; cnt < gsNumAmbData; cnt++ )
+	for ( INT32 cnt = 0; cnt < gsNumAmbData; ++cnt )
 	{
 		switch( gAmbData[ cnt ].ubTimeCatagory )
 		{
@@ -375,7 +366,6 @@ void BuildDayAmbientSounds( )
 				AddSameDayRangedStrategicEvent( EVENT_AMBIENT, NIGHT_START, NIGHT_TO_DAWN, cnt );
 				break;
 		}
-
 	}
 
 	//guiRainLoop = NO_SAMPLE;
@@ -392,15 +382,150 @@ void BuildDayAmbientSounds( )
 	//end rain
 }
 
-//extern UINT16 gusRainChancePerDay, gusRainMinLength, gusRainMaxLength; //rain
+// Flugente: weather can now be localized, meaning that different sectors can have different types of weather at the same time
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
+// we use this structure to set up weather. For a given weather type, we put the chance of the weather happening in here, and later note whether a sector has been checked, and if weather does occur
+struct WeatherHelperStruct
+{
+	WeatherHelperStruct( ) : weatherhappens( FALSE ), handled( FALSE ), chance( 0 ) {}
+
+	BOOLEAN weatherhappens;
+	BOOLEAN handled;
+	UINT8 chance;
+};
+
+void DetermineLocalizedWeatherGivenHelperArray( WeatherHelperStruct helperstruct[256] )
+{
+	UINT32 totalweatherpoints = 0;
+	for ( UINT8 sector = 0; sector < 255; ++sector )
+	{
+		totalweatherpoints += helperstruct[sector].chance;
+	}
+
+	if ( totalweatherpoints )
+	{
+		INT32 chosenweatherpoint = Random( totalweatherpoints );
+		UINT8 chosensector = 0;
+
+		for ( UINT8 sector = 0; sector < 255; ++sector )
+		{
+			chosenweatherpoint -= helperstruct[sector].chance;
+
+			if ( chosenweatherpoint < 0 )
+			{
+				chosensector = sector;
+
+				break;
+			}
+		}
+
+		// we now have a starting sector. We now loop over all sectors several times. If a sector is adjacent to a sector with new weather, determine whether the weather will also happen there
+		helperstruct[chosensector].weatherhappens = TRUE;
+		helperstruct[chosensector].handled = TRUE;
+
+		BOOLEAN weatherchangehappened = TRUE;
+
+		while ( weatherchangehappened )
+		{
+			weatherchangehappened = FALSE;
+
+			for ( UINT8 sector = 0; sector < 255; ++sector )
+			{
+				if ( !helperstruct[sector].handled )
+				{
+					// if it can't rain in a sector anyway, screw this
+					if ( !helperstruct[sector].chance )
+					{
+						helperstruct[sector].handled = TRUE;
+						continue;
+					}
+
+					INT8 x = SECTORX( sector );
+					INT8 y = SECTORY( sector );
+
+					// check adjacent sectors;
+					INT16 adjacentsectors[4] = {-1, -1, -1, -1};
+
+					if ( x > 0 )	adjacentsectors[0] = SECTOR( x - 1, y );
+					if ( x < 15 )	adjacentsectors[1] = SECTOR( x + 1, y );
+					if ( y > 0 )	adjacentsectors[2] = SECTOR( x, y - 1 );
+					if ( y < 15 )	adjacentsectors[3] = SECTOR( x, y + 1 );
+
+					for ( int i = 0; i < 4; ++i )
+					{
+						if ( adjacentsectors[i] > 0 )
+						{
+							UINT8 adjacentsector = (UINT8)(adjacentsectors[i]);
+
+							// if weather happens in the adjacent sector, determine whether it also happens here
+							if ( helperstruct[adjacentsector].handled && helperstruct[adjacentsector].weatherhappens )
+							{
+								helperstruct[sector].weatherhappens = Chance( helperstruct[sector].chance );
+								helperstruct[sector].handled = TRUE;
+
+								// if weather spreads, we will continue with this function
+								if ( helperstruct[sector].weatherhappens )
+								{
+									weatherchangehappened = TRUE;
+									continue;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// loop over all sectors again. If a sector doesn't have the new weather, but most or all adjacent sectors do, consider adding it here too
+		for ( UINT8 sector = 0; sector < 255; ++sector )
+		{
+			if ( !helperstruct[sector].weatherhappens && helperstruct[sector].chance )
+			{
+				INT8 x = SECTORX( sector );
+				INT8 y = SECTORY( sector );
+
+				// check adjacent sectors;
+				INT16 adjacentsectors[4] = {-1, -1, -1, -1};
+
+				if ( x > 0 )	adjacentsectors[0] = SECTOR( x - 1, y );
+				if ( x < 15 )	adjacentsectors[1] = SECTOR( x + 1, y );
+				if ( y > 0 )	adjacentsectors[2] = SECTOR( x, y - 1 );
+				if ( y < 15 )	adjacentsectors[3] = SECTOR( x, y + 1 );
+
+				UINT8 adjacentweathercount = 0;
+				for ( int i = 0; i < 4; ++i )
+				{
+					if ( adjacentsectors[i] > 0 )
+					{
+						UINT8 adjacentsector = (UINT8)(adjacentsectors[i]);
+
+						if ( helperstruct[adjacentsector].weatherhappens )
+						{
+							++adjacentweathercount;
+						}
+					}
+				}
+
+				// no weather 'holes'
+				if ( adjacentweathercount >= 4 )
+				{
+					helperstruct[sector].weatherhappens = TRUE;
+				}
+				// if weather is on 3 sides, at least consider awarding it
+				else if ( adjacentweathercount == 3 && Chance( 66 ) )
+				{
+					helperstruct[sector].weatherhappens = TRUE;
+				}
+			}
+		}
+	}
+}
 
 void ForecastDayEvents( )
 {
 	UINT32 uiOldDay;
 	UINT32 uiStartTime, uiEndTime;
-	UINT8	ubStormIntensity;
-//	UINT32 cnt;
 
 	// Get current day and see if different
 	if ( ( uiOldDay = GetWorldDay() ) != guiEnvDay )
@@ -414,70 +539,115 @@ void ForecastDayEvents( )
 		// Build ambient sound queues
 		BuildDayAmbientSounds( );
 
-		// Build weather....
-
 		// ATE: Don't forecast if start of game...
 		if ( guiEnvDay > 1 )
 		{
 			//rain
-			if ( Random( 100 ) < gGameExternalOptions.gusRainChancePerDay )
+			if ( gGameExternalOptions.gfAllowRain )
 			{
-				// Add rain!
-				// Between 6:00 and 10:00
-				uiStartTime = (UINT32)( Random( 1440 - 1 - gGameExternalOptions.gusRainMaxLength	) );
-				// Between 5 - 15 miniutes
-				uiEndTime		= uiStartTime + ( gGameExternalOptions.gusRainMinLength + Random( gGameExternalOptions.gusRainMaxLength - gGameExternalOptions.gusRainMinLength ) );
-
-				ubStormIntensity = 0;
-
-
-				//Kaiden: making thunderstorms optional
-				if (gGameExternalOptions.gfAllowLightning)
+				for ( int i = 0; i < gGameExternalOptions.gusWeatherPerDayRain; ++i )
 				{
-					// Randomze for a storm!
-					if ( Random( 10 ) < 5 )
+					if ( Chance( gGameExternalOptions.gusRainChancePerDay ) )
 					{
-						ubStormIntensity = 1;
+						uiStartTime = GetWorldTotalMin( ) + 9 * 60 ;//(UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusRainMaxLength ));
+
+						UINT32 length = max( gGameExternalOptions.gusRainMinLength, Random( gGameExternalOptions.gusRainMaxLength ) );
+
+						// Between 5 - 15 miniutes
+						uiEndTime = uiStartTime + length;
+
+						// We determine the 'start point' of the weather via xml chances. Weather can then spread to adjacent sectors according to chances
+						WeatherHelperStruct helperstruct[256];
+
+						for ( UINT8 sector = 0; sector < 255; ++sector )
+							helperstruct[sector].chance = SectorExternalData[sector][0].rainchance;
+
+						DetermineLocalizedWeatherGivenHelperArray( helperstruct );
+
+						// now that we know in which sectors the new weather will happen, set up timed events
+						BOOLEAN dothunderstorm = (gGameExternalOptions.gfAllowLightning && Chance( 50 ));
+
+						for ( UINT8 sector = 0; sector < 255; ++sector )
+						{
+							if ( helperstruct[sector].weatherhappens )
+							{
+								AddStrategicEvent( dothunderstorm ? EVENT_WEATHER_THUNDERSHOWERS : EVENT_WEATHER_SHOWERS, uiStartTime, sector );
+								AddStrategicEvent( EVENT_WEATHER_NORMAL, uiEndTime, sector );
+							}
+						}
 					}
 				}
-
-
-				if( gGameExternalOptions.gfAllowRain ) AddSameDayRangedStrategicEvent( EVENT_RAINSTORM, uiStartTime, uiEndTime - uiStartTime, ubStormIntensity );
-
-				//AddSameDayStrategicEvent( EVENT_BEGINRAINSTORM, uiStartTime, ubStormIntensity );
-				//AddSameDayStrategicEvent( EVENT_ENDRAINSTORM,		uiEndTime, 0 );
 			}
-			//end rain
 
-
-			/*
-			// Should it rain...?
-			if ( Random( 100 ) < 20 )
+			// sandstorm
+			if ( gGameExternalOptions.gfAllowSandStorms )
 			{
-				// Add rain!
-				// Between 6:00 and 10:00
-				uiStartTime = (UINT32)( 360 + Random( 1080 ) );
-				// Between 5 - 15 miniutes
-				uiEndTime		= uiStartTime + ( 5 + Random( 10 ) );
-
-				ubStormIntensity = 0;
-
-				// Randomze for a storm!
-				if ( Random( 10 ) < 5 )
+				for ( int i = 0; i < gGameExternalOptions.gusWeatherPerDaySandstorm; ++i )
 				{
-					ubStormIntensity = 1;
+					if ( Chance( gGameExternalOptions.gusSandStormsChancePerDay ) )
+					{
+						uiStartTime = GetWorldTotalMin( ) + 9 * 60; //(UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusSandStormsMaxLength ));
+
+						UINT32 length = max( gGameExternalOptions.gusSandStormsMinLength, Random( gGameExternalOptions.gusSandStormsMaxLength ) );
+
+						// Between 5 - 15 miniutes
+						uiEndTime = uiStartTime + length;
+
+						// We determine the 'start point' of the weather via xml chances. Weather can then spread to adjacent sectors according to chances
+						WeatherHelperStruct helperstruct[256];
+
+						for ( UINT8 sector = 0; sector < 255; ++sector )
+							helperstruct[sector].chance = SectorExternalData[sector][0].sandstormchance;
+
+						DetermineLocalizedWeatherGivenHelperArray( helperstruct );
+				
+						for ( UINT8 sector = 0; sector < 255; ++sector )
+						{
+							if ( helperstruct[sector].weatherhappens )
+							{
+								AddStrategicEvent( EVENT_WEATHER_SANDSTORM, uiStartTime, sector );
+								AddStrategicEvent( EVENT_WEATHER_NORMAL, uiEndTime, sector );
+							}
+						}
+					}
 				}
-
-	// ATE: Disable RAIN!
-	//			AddSameDayRangedStrategicEvent( EVENT_RAINSTORM, uiStartTime, uiEndTime - uiStartTime, ubStormIntensity );
-
-				//AddSameDayStrategicEvent( EVENT_BEGINRAINSTORM, uiStartTime, ubStormIntensity );
-				//AddSameDayStrategicEvent( EVENT_ENDRAINSTORM,		uiEndTime, 0 );
 			}
-			*/
+
+			// snow
+			if ( gGameExternalOptions.gfAllowSnow && Chance( gGameExternalOptions.gusSnowChancePerDay ) )
+			{
+				for ( int i = 0; i < gGameExternalOptions.gusWeatherPerDaySnow; ++i )
+				{
+					if ( Chance( gGameExternalOptions.gusSnowChancePerDay ) )
+					{
+						uiStartTime = GetWorldTotalMin( ) + 9 * 60; //(UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusSnowMaxLength ));
+
+						UINT32 length = max( gGameExternalOptions.gusSnowMinLength, Random( gGameExternalOptions.gusSnowMaxLength ) );
+
+						// Between 5 - 15 miniutes
+						uiEndTime = uiStartTime + length;
+
+						// We determine the 'start point' of the weather via xml chances. Weather can then spread to adjacent sectors according to chances
+						WeatherHelperStruct helperstruct[256];
+
+						for ( UINT8 sector = 0; sector < 255; ++sector )
+							helperstruct[sector].chance = SectorExternalData[sector][0].snowchance;
+
+						DetermineLocalizedWeatherGivenHelperArray( helperstruct );
+
+						for ( UINT8 sector = 0; sector < 255; ++sector )
+						{
+							if ( helperstruct[sector].weatherhappens )
+							{
+								AddStrategicEvent( EVENT_WEATHER_SNOW, uiStartTime, sector );
+								AddStrategicEvent( EVENT_WEATHER_NORMAL, uiEndTime, sector );
+							}
+						}
+					}
+				}
+			}
 		}
 	}
-
 }
 
 void EnvEnableTOD(void)
@@ -533,8 +703,6 @@ UINT8 gubLastTeamLightning;
 void BeginTeamTurn( UINT8 ubTeam );
 
 
-
-
 void EnvDoLightning(void)
 {
 	static UINT32 uiCount=10, uiIndex=0, uiStrike=0, uiFrameNext=0;
@@ -546,55 +714,58 @@ void EnvDoLightning(void)
 
 	if( GetJA2Clock() < uiLastUpdate )
 	{
-	uiLastUpdate = 0;
-	memset( pDelayedSounds, NO_DL_SOUND, sizeof( UINT32 ) * MAX_DELAYED_SOUNDS );
+		uiLastUpdate = 0;
+		memset( pDelayedSounds, NO_DL_SOUND, sizeof( UINT32 ) * MAX_DELAYED_SOUNDS );
 	}
 
-	if( GetJA2Clock() < uiLastUpdate + 1000 / 60 )return;
+	if( GetJA2Clock() < uiLastUpdate + 1000 / 60 )
+		return;
 	else
 		uiLastUpdate = GetJA2Clock();
 
 	if( GetJA2Clock() > uiTurnOffExtraVisDist )
 	{
-	AllTeamsLookForAll( FALSE );
-	uiTurnOffExtraVisDist = 0xFFFFFFFF;
+		AllTeamsLookForAll( FALSE );
+		uiTurnOffExtraVisDist = 0xFFFFFFFF;
 
-	if( gfTurnBasedLightningEnd )
-	{
-		BeginTeamTurn( gubLastTeamLightning );
-		gfTurnBasedLightningEnd = FALSE;
+		if( gfTurnBasedLightningEnd )
+		{
+			BeginTeamTurn( gubLastTeamLightning );
+			gfTurnBasedLightningEnd = FALSE;
+		}
 	}
 
-	}
-
-	for( uiDSIndex = 0; uiDSIndex < MAX_DELAYED_SOUNDS; ++uiDSIndex )
-	if( GetJA2Clock() > pDelayedSounds[ uiDSIndex ] )
+	for ( uiDSIndex = 0; uiDSIndex < MAX_DELAYED_SOUNDS; ++uiDSIndex )
 	{
-		PlayJA2Ambient(LIGHTNING_1+Random(2), HIGHVOLUME, 1);
-		pDelayedSounds[ uiDSIndex ] = NO_DL_SOUND;
+		if( GetJA2Clock() > pDelayedSounds[ uiDSIndex ] )
+		{
+			PlayJA2Ambient(LIGHTNING_1+Random(2), HIGHVOLUME, 1);
+			pDelayedSounds[ uiDSIndex ] = NO_DL_SOUND;
+		}
 	}
 
 	if ( gfPauseDueToPlayerGamePause )
 	{
-	return;
+		return;
 	}
 
 	if( IS_TURNBASED && !gfLightningInProgress )
 	{
-	if( !gfTurnBasedDoLightning )
-	{
-		return;
-	}
-	else
-	{
-		gfTurnBasedDoLightning = FALSE;
-		uiFrameNext = 1;
-		uiCount = 0;
-		gfTurnBasedLightningEnd = TRUE;
-	}
+		if( !gfTurnBasedDoLightning )
+		{
+			return;
+		}
+		else
+		{
+			gfTurnBasedDoLightning = FALSE;
+			uiFrameNext = 1;
+			uiCount = 0;
+			gfTurnBasedLightningEnd = TRUE;
+		}
 	}
 
-	uiCount++;
+	++uiCount;
+
 	if(uiCount >= (uiFrameNext+10))
 	{
 		if( gfHaveSeenSomeone && gfWasTurnBasedWhenLightningBegin	)
@@ -635,43 +806,46 @@ void EnvDoLightning(void)
 		}
 
 		while(uiCount > ((UINT32)ubLightningTable[uiStrike][uiIndex][0] + uiFrameNext))
-			uiIndex++;
+			++uiIndex;
 
 		ubLastLevel=ubLevel;
 		ubLevel=min( ubRealAmbientLightLevel - 1, ubLightningTable[uiStrike][uiIndex][1] );
 
-/*	// ATE: Don't modify if scrolling!
-	if ( gfScrollPending || gfScrollInertia )
-	{
-	}
-	else*/
-	{
- 		if(ubLastLevel!=ubLevel)
+/*		// ATE: Don't modify if scrolling!
+		if ( gfScrollPending || gfScrollInertia )
 		{
-			if(ubLevel > ubLastLevel)
-			{
-				LightAddBaseLevel(0, (UINT8)(ubLevel-ubLastLevel));
-				if(ubLevel > 0)
-					RenderSetShadows(TRUE);
-			}
-			else
-			{
-//				LightSubtractBaseLevel(0, (UINT8)(ubLastLevel-ubLevel));
-				LightSetBaseLevel( ubRealAmbientLightLevel - ubLevel );
-				if(ubLevel > 0)
-					RenderSetShadows(TRUE);
-			}
-			SetRenderFlags(RENDER_FLAG_FULL);
 		}
-	}
+		else*/
+		{
+ 			if(ubLastLevel!=ubLevel)
+			{
+				if(ubLevel > ubLastLevel)
+				{
+					LightAddBaseLevel(0, (UINT8)(ubLevel-ubLastLevel));
+					if(ubLevel > 0)
+						RenderSetShadows(TRUE);
+				}
+				else
+				{
+	//				LightSubtractBaseLevel(0, (UINT8)(ubLastLevel-ubLevel));
+					LightSetBaseLevel( ubRealAmbientLightLevel - ubLevel );
+					if(ubLevel > 0)
+						RenderSetShadows(TRUE);
+				}
 
+				SetRenderFlags(RENDER_FLAG_FULL);
+			}
+		}
 	}
 }
 
 BOOLEAN LightningEndOfTurn( UINT8 ubTeam )
 {
-	if( !(guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS) )return TRUE;
-	if( Random(100) >= CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS ) return TRUE;
+	if ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather != WEATHER_FORECAST_THUNDERSHOWERS )
+		return TRUE;
+
+	if ( Random(100) >= CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS )
+		return TRUE;
 
 	if( !gfTurnBasedLightningEnd )
 	{
@@ -680,10 +854,8 @@ BOOLEAN LightningEndOfTurn( UINT8 ubTeam )
 		EnvDoLightning();
 		return FALSE;
 	}
-	else
-	{
-		return TRUE;
-	}
+	
+	return TRUE;
 }
 
 UINT8 GetTimeOfDayAmbientLightLevel()
@@ -705,64 +877,38 @@ UINT8 GetTimeOfDayAmbientLightLevel()
 	}
 }
 
-
-void EnvBeginRainStorm( UINT8 ubIntensity )
+void	ChangeWeather( UINT8 aSector, UINT8 aType )
 {
-	if( !gfBasement && !gfCaves )
+	if ( aType >= WEATHER_FORECAST_MAX )
 	{
-		gfDoLighting = TRUE;
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Error in ChangeWeather(): Invalid weather" );
+		return;
+	}
 
-		#ifdef JA2TESTVERSION
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Starting Rain...."	);
-		#endif
+	if ( SectorInfo[aSector].usWeather != aType )
+	{
+		if ( SECTOR( gWorldSectorX, gWorldSectorY ) == aSector && !gbWorldSectorZ )
+		{
+			if ( !gfBasement && !gfCaves )
+				gfDoLighting = TRUE;
+
+			CHAR16 pStrSectorName[128];
+			GetSectorIDString( SECTORX( aSector ), SECTORY( aSector ), 0, pStrSectorName, TRUE );
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: Changed weather from %s to %s", pStrSectorName, szWeatherTypeText[SectorInfo[aSector].usWeather], szWeatherTypeText[aType] );
+		}
 
 		// First turn off whatever rain it is, then turn on the requested rain
-		guiEnvWeather &= ~(WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS);
-
-		if ( ubIntensity == 1 )
-		{
-			// Turn on rain storms
-			guiEnvWeather	|= WEATHER_FORECAST_THUNDERSHOWERS;
-
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_STORM_STARTED] );
-		}
-		else
-		{
-			guiEnvWeather	|= WEATHER_FORECAST_SHOWERS;
-
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RAIN_STARTED] );
-		}
+		SectorInfo[aSector].usWeather = aType;
 	}
-
 }
 
-void EnvEndRainStorm( )
+UINT8	GetWeatherInCurrentSector()
 {
-	gfDoLighting = TRUE;
-
-#ifdef JA2TESTVERSION
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Ending Rain...."	);
-#endif
-
-	if ( guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS )
-	{
-		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_STORM_ENDED] );
-	}
-	else
-	{
-  		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RAIN_ENDED] );
-	}
-
-
-	guiEnvWeather	&= (~WEATHER_FORECAST_THUNDERSHOWERS );
-	guiEnvWeather	&= (~WEATHER_FORECAST_SHOWERS );
+	return SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather;
 }
 
 //end rain
-
-
-
-
 
 
 
@@ -842,49 +988,12 @@ UINT8 GetTimeOfDayAmbientLightLevel()
 		return( gubEnvLightValue );
 	}
 }
-
-
-void EnvBeginRainStorm( UINT8 ubIntensity )
-{
-	if( !gfBasement && !gfCaves )
-	{
-		gfDoLighting = TRUE;
-
-	#ifdef JA2TESTVERSION
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Starting Rain...."	);
-	#endif
-
-	if ( ubIntensity == 1 )
-	{
-		// Turn on rain storms
-		guiEnvWeather	|= WEATHER_FORECAST_THUNDERSHOWERS;
-	}
-	else
-	{
-		guiEnvWeather	|= WEATHER_FORECAST_SHOWERS;
-	}
-	}
-
-}
-
-void EnvEndRainStorm( )
-{
-	gfDoLighting = TRUE;
-
-#ifdef JA2TESTVERSION
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Ending Rain...."	);
-#endif
-
-	guiEnvWeather	&= (~WEATHER_FORECAST_THUNDERSHOWERS );
-	guiEnvWeather	&= (~WEATHER_FORECAST_SHOWERS );
-}
 */
 
 
 void TurnOnNightLights()
 {
-	INT32 i;
-	for( i = 0; i < MAX_LIGHT_SPRITES; i++ )
+	for ( INT32 i = 0; i < MAX_LIGHT_SPRITES; ++i )
 	{
 		if( LightSprites[ i ].uiFlags & LIGHT_SPR_ACTIVE &&
 			LightSprites[ i ].uiFlags & LIGHT_NIGHTTIME &&
@@ -897,8 +1006,7 @@ void TurnOnNightLights()
 
 void TurnOffNightLights()
 {
-	INT32 i;
-	for( i = 0; i < MAX_LIGHT_SPRITES; i++ )
+	for ( INT32 i = 0; i < MAX_LIGHT_SPRITES; ++i )
 	{
 		if( LightSprites[ i ].uiFlags & LIGHT_SPR_ACTIVE &&
 			LightSprites[ i ].uiFlags & LIGHT_NIGHTTIME &&
@@ -912,8 +1020,7 @@ void TurnOffNightLights()
 
 void TurnOnPrimeLights()
 {
-	INT32 i;
-	for( i = 0; i < MAX_LIGHT_SPRITES; i++ )
+	for ( INT32 i = 0; i < MAX_LIGHT_SPRITES; ++i )
 	{
 		if( LightSprites[ i ].uiFlags & LIGHT_SPR_ACTIVE &&
 			LightSprites[ i ].uiFlags & LIGHT_PRIMETIME &&
@@ -926,8 +1033,7 @@ void TurnOnPrimeLights()
 
 void TurnOffPrimeLights()
 {
-	INT32 i;
-	for( i = 0; i < MAX_LIGHT_SPRITES; i++ )
+	for ( INT32 i = 0; i < MAX_LIGHT_SPRITES; ++i )
 	{
 		if( LightSprites[ i ].uiFlags & LIGHT_SPR_ACTIVE &&
 			LightSprites[ i ].uiFlags & LIGHT_PRIMETIME &&
@@ -973,7 +1079,7 @@ INT8 SectorTemperature( UINT32 uiTime, INT16 sSectorX, INT16 sSectorY, INT8 bSec
 		// cool underground
 		return( 0 );
 	}
-	else if ( IsSectorDesert( sSectorX, sSectorY ) && !( guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS ) ) ) // is desert
+	else if ( IsSectorDesert( sSectorX, sSectorY ) && !(SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_RAIN || SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_THUNDERSHOWERS) ) // is desert
 	{
 		return( gubDesertTemperature );
 	}

@@ -4297,6 +4297,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Show Militia & Enemies (|Z)",
 	L"Show Mobile Militia |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Show Disease Data",
+	L"Show Weather",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -6169,6 +6170,9 @@ STR16		zMarksMapScreenText[] =
 
 	// Flugente: disease texts describing what a map view does
 	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
+
+	// Flugente: weather texts describing what a map view does
+	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",
 };
 
 
@@ -11119,6 +11123,16 @@ STR16	szNonProfileMerchantText[] =
 	L"Merchant is in no state to do business.",
 	L"Merchant won't trade during combat.",
 	L"Merchant refuses to interact with you.",
+};
+
+STR16	szWeatherTypeText[] =
+{
+	L"normal",
+	L"rain",
+	L"thunderstorm",
+	L"sandstorm",
+
+	L"snow",
 };
 
 #endif //ENGLISH

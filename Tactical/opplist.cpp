@@ -328,7 +328,6 @@ void DECAY_OPPLIST_VALUE( INT8& value )
 
 
 //rain
-extern INT8 gbCurrentRainIntensity;
 extern BOOLEAN gfLightningInProgress;
 extern BOOLEAN gfHaveSeenSomeone;
 extern UINT8 ubRealAmbientLightLevel;
@@ -337,34 +336,25 @@ extern UINT8 ubRealAmbientLightLevel;
 
 INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel, INT16 sDistVisible )
 {
-	INT16 sNewDist = 0;
+	INT16 sNewDist = sDistVisible * gGameExternalOptions.ubBrightnessVisionMod[bLightLevel] / 100;
 
-	//sNewDist = sDistVisible * gbLightSighting[ 0 ][ bLightLevel ] / 100;
-	sNewDist = sDistVisible * gGameExternalOptions.ubBrightnessVisionMod[ bLightLevel ] / 100;
 	// Adjust it based on weather...
-	if ( guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS ) )
+	if ( !pSoldier->bSectorZ )
 	{
-		//sNewDist = sNewDist * 70 / 100;
+		FLOAT weatherpenalty = gGameExternalOptions.dVisDistDecrease[SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather];
+
+		FLOAT appliedpenalty = 1.0f;
+		if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) && (gGameOptions.fNewTraitSystem) )
+			appliedpenalty = min( 1.0f, max( 0.0f, appliedpenalty - gSkillTraitValues.dSVWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) ) );
+
+		sNewDist -= (INT16)(sNewDist * weatherpenalty * appliedpenalty);
+
 		//rain
-		//Added a feature reducing weather penalty for ranger trait - SANDRO
-		INT16 sWeatherPenalty = 0; // percent vision reduction 0-100%
-		sWeatherPenalty = min( (max( 0, (gGameExternalOptions.ubVisDistDecreasePerRainIntensity * gbCurrentRainIntensity))), 100) ;
-		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) )
-		{
-			sWeatherPenalty = (sWeatherPenalty * (100 - (gSkillTraitValues.ubSVWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT )))) / 100;
-			sWeatherPenalty = min( (max( 0, sWeatherPenalty)), 100 ); // keep it in 0-100 range
-		}
-
-		sNewDist = (sNewDist * ( 100 - sWeatherPenalty )) / 100;
-
+		if ( gfLightningInProgress )
+			sNewDist += sNewDist * (ubRealAmbientLightLevel) / 10;	// 10% per dark level
 		//end rain
 	}
-
-	//rain
-	if( gfLightningInProgress )
-		sNewDist += sNewDist * ( ubRealAmbientLightLevel ) / 10;	// 10% per dark level
-	//end rain
-
+	
 	return( sNewDist );
 }
 
@@ -1628,6 +1618,19 @@ INT8 DecideHearing( SOLDIERTYPE * pSoldier )
 			break;
 		default:
 			break;
+	}
+
+	// adjust for weather
+	if ( !pSoldier->bSectorZ )
+	{
+		FLOAT weatherpenalty = gGameExternalOptions.dHearingReduction[SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather];
+
+		// Added a feature to reduce rain effect on regaining breath with Ranger trait - SANDRO
+		FLOAT appliedpenalty = 1.0f;
+		if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) && gGameOptions.fNewTraitSystem )
+			appliedpenalty = min( 1.0f, max( 0.0f, appliedpenalty - gSkillTraitValues.dSVWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) ) );
+
+		bHearing -= (INT16)(bHearing * weatherpenalty * appliedpenalty);
 	}
 
 	return( bHearing );

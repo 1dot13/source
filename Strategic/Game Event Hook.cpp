@@ -341,24 +341,8 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			ProcessTacticalSchedule( (UINT8)pEvent->uiParam );
 			break;
 		case EVENT_BEGINRAINSTORM:
-			//EnvBeginRainStorm( (UINT8)pEvent->uiParam );
-			break;
 		case EVENT_ENDRAINSTORM:
-			//EnvEndRainStorm( );
-			break;
 		case EVENT_RAINSTORM:
-
-		// ATE: Disabled
-		//rain
-			if( pEvent->ubEventType == ENDRANGED_EVENT )
-			{
-				EnvEndRainStorm( );
-			}
-			else
-			{
-				EnvBeginRainStorm( (UINT8)pEvent->uiParam );
-			}
-		//end rain
 			break;
 
 		case EVENT_MAKE_CIV_GROUP_HOSTILE_ON_NEXT_SECTOR_ENTRANCE:
@@ -634,6 +618,27 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 				AddEmail( MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
 #endif
+
+		// Flugente: localized weather
+		case EVENT_WEATHER_NORMAL:
+			ChangeWeather( (UINT8)pEvent->uiParam, WEATHER_FORECAST_NORMAL );
+			break;
+
+		case EVENT_WEATHER_SHOWERS:
+			ChangeWeather( (UINT8)pEvent->uiParam, WEATHER_FORECAST_RAIN );
+			break;
+
+		case EVENT_WEATHER_THUNDERSHOWERS:
+			ChangeWeather( (UINT8)pEvent->uiParam, WEATHER_FORECAST_THUNDERSHOWERS );
+			break;
+
+		case EVENT_WEATHER_SANDSTORM:
+			ChangeWeather( (UINT8)pEvent->uiParam, WEATHER_FORECAST_SANDSTORM );
+			break;
+
+		case EVENT_WEATHER_SNOW:
+			ChangeWeather( (UINT8)pEvent->uiParam, WEATHER_FORECAST_SNOW );
+			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;

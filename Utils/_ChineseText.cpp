@@ -4300,6 +4300,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"显示民兵和敌人 (|Z)",
 	L"显示民兵移动 (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"显示疾病消息", //L"Show Disease Data",
+	L"Show Weather",	// TODO.Translate
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -6172,6 +6173,9 @@ STR16		zMarksMapScreenText[] =
 
 	// Flugente: disease texts describing what a map view does  //文本描述疾病查看地图并做翻译。
 	L"这个视图会展示出哪个地区爆发了瘟疫，这个数字表明，平均每个人的感染程度，颜色表示它的范围。 灰色=无病。 绿色到红色=不断升级的感染程度。",  //L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
+
+	// Flugente: weather texts describing what a map view does
+	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",	// TODO.Translate
 };
 
 
@@ -11119,6 +11123,16 @@ STR16	szNonProfileMerchantText[] =
 	L"Merchant is in no state to do business.",
 	L"Merchant won't trade during combat.",
 	L"Merchant refuses to interact with you.",
+};
+
+STR16	szWeatherTypeText[] =	// TODO.Translate
+{
+	L"normal",
+	L"rain",
+	L"thunderstorm",
+	L"sandstorm",
+
+	L"snow",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

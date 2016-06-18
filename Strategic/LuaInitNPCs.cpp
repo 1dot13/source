@@ -835,9 +835,6 @@ static int l_CreateItemInv (lua_State *L);
 static int l_MercSalary(lua_State *L);
 static int l_PlayerTeamFull (lua_State *L);
 
-static int l_EnvBeginRainStorm (lua_State *L);
-static int l_EnvEndRainStorm (lua_State *L);
-
 static int l_ProfilesStrategicInsertionData (lua_State *L);
 
 static int l_ResetBoxers( lua_State *L );
@@ -1701,9 +1698,6 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	
 	lua_register(L,"StartDialogueMessageBox", l_StartDialogueMessageBox);
 	
-	lua_register(L,"EnvBeginRainStorm", l_EnvBeginRainStorm);
-	lua_register(L,"EnvEndRainStorm", l_EnvEndRainStorm);
-
 	lua_register( L, "AddVolunteers", l_AddVolunteers );
 
 	lua_register(L, "CreateArmedCivilain", l_CreateArmedCivilain );
@@ -4199,29 +4193,6 @@ static int l_ProfilesStrategicInsertionData (lua_State *L)
 	}
 	
 	return 0;
-}
-
-static int l_EnvBeginRainStorm (lua_State *L)
-{
-UINT8  n = lua_gettop(L);
-int i;
-	UINT8 ubIntensity = 1;
-	
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) ubIntensity = lua_tointeger(L,i);
-	}
-	
-	EnvBeginRainStorm( ubIntensity );
-	
- return 0;
-}
-
-static int l_EnvEndRainStorm (lua_State *L)
-{
-
-	EnvEndRainStorm();
- return 0;
 }
 
 static int l_SetGroupNextSectorValue(lua_State *L)

@@ -2304,7 +2304,7 @@ BOOLEAN MercIsHot( SOLDIERTYPE * pSoldier )
 	// Flugente: drugs can temporarily cause a merc to be heat intolerant
 	if ( !pSoldier->MercInWater( ) && DoesMercHaveDisability( pSoldier, HEAT_INTOLERANT ) )
 	{
-		if ((pSoldier->bSectorZ > 0) || (guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS )))
+		if ( (pSoldier->bSectorZ > 0) || (SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather == WEATHER_FORECAST_RAIN || SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather == WEATHER_FORECAST_THUNDERSHOWERS) )
 		{
 			// cool underground or raining
 			return( FALSE );

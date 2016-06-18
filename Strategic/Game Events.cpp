@@ -125,6 +125,11 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"EnemyHeliRefuel",
 	L"SAMsiteRepaired",
 	L"MilitiaWebsiteEmail",
+	L"Weather Normal",
+	L"Weather Rain",
+	L"Weather Thunderstorm",
+	L"Weather Sandstorm",
+	L"Weather Snow",
 };
 
 #endif

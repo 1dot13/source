@@ -295,7 +295,7 @@ typedef struct
 	BOOLEAN fShowOtherSAMHighLight;
 	BOOLEAN fShowDrassenSAMHighLight;
 
-	UINT32	uiEnvWeather;
+	UINT32	uiEnvWeather;				// Flugente: unused
 
 	UINT8		ubDefaultButton;
 
@@ -8320,7 +8320,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	sGeneralInfo.fShowCambriaHospitalHighLight = fShowCambriaHospitalHighLight;
 
 	//The current state of the weather
-	sGeneralInfo.uiEnvWeather = guiEnvWeather;
+	sGeneralInfo.uiEnvWeather = 0;
 
 	sGeneralInfo.ubDefaultButton = gubDefaultButton;
 
@@ -8858,10 +8858,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	fShowOtherSAMHighLight = sGeneralInfo.fShowOtherSAMHighLight;
 	fShowDrassenSAMHighLight = sGeneralInfo.fShowDrassenSAMHighLight;
 	fShowCambriaHospitalHighLight = sGeneralInfo.fShowCambriaHospitalHighLight;
-
-	//The current state of the weather
-	guiEnvWeather = sGeneralInfo.uiEnvWeather;
-
+	
 	//rain
 	if ( guiRainLoop != NO_SAMPLE )
 	{

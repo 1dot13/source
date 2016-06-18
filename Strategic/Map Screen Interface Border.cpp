@@ -58,6 +58,8 @@ UINT16 MAP_BORDER_MOBILE_BTN_X;
 UINT16 MAP_BORDER_MOBILE_BTN_Y;
 UINT16 MAP_BORDER_DISEASE_BTN_X;	// Flugente: disease
 UINT16 MAP_BORDER_DISEASE_BTN_Y;
+UINT16 MAP_BORDER_WEATHER_BTN_X;	// Flugente: weather
+UINT16 MAP_BORDER_WEATHER_BTN_Y;
 
 UINT16 MAP_LEVEL_MARKER_X;
 UINT16 MAP_LEVEL_MARKER_Y;
@@ -131,6 +133,9 @@ void BtnMobileCallback(GUI_BUTTON *btn,INT32 reason);
 
 // Flugente: disease
 void BtnDiseaseCallback(GUI_BUTTON *btn,INT32 reason);
+
+// Flugente: weather
+void BtnWeatherCallback( GUI_BUTTON *btn, INT32 reason );
 
 void LevelMarkerBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 
@@ -344,6 +349,28 @@ BOOLEAN CreateButtonsForMapBorder( void )
 		SetButtonCursor( giMapBorderButtons[MAP_BORDER_DISEASE_BTN], MSYS_NO_CURSOR );
 	}
 
+	// Flugente: weather
+	if ( gGameExternalOptions.gfAllowRain || gGameExternalOptions.gfAllowSandStorms || gGameExternalOptions.gfAllowSnow )
+	{
+		giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 37, -1, 38, -1 );
+
+		// if the button image cannot be created, this is likely to a custom sti replacement that isn't up to date to this feature - just use some other images then
+		if ( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] < 0 )
+			giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 2, -1, 11, -1 );
+
+		INT16 x = MAP_BORDER_WEATHER_BTN_X;
+		if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] < 0 )
+			x = MAP_BORDER_DISEASE_BTN_X;
+
+		giMapBorderButtons[MAP_BORDER_WEATHER_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN], x, MAP_BORDER_WEATHER_BTN_Y,
+																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
+																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnWeatherCallback );
+
+		SetButtonFastHelpText( giMapBorderButtons[MAP_BORDER_WEATHER_BTN], pMapScreenBorderButtonHelpText[MAP_BORDER_WEATHER_BTN] );
+
+		SetButtonCursor( giMapBorderButtons[MAP_BORDER_WEATHER_BTN], MSYS_NO_CURSOR );
+	}
+
 #ifdef JA2UB
     //EnableButton
       
@@ -411,6 +438,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]); 
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]);
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_DISEASE_BTN ]); 
+	   DisableButton( giMapBorderButtons[ MAP_BORDER_WEATHER_BTN ]); 
 	   	   	   
 	   fShowTownFlag = FALSE;
 #endif
@@ -439,6 +467,9 @@ void DeleteMapBorderButtons( void )
 	if ( giMapBorderButtons[MAP_BORDER_DISEASE_BTN] != -1 )
 		RemoveButton( giMapBorderButtons[MAP_BORDER_DISEASE_BTN] );
 
+	if ( giMapBorderButtons[MAP_BORDER_WEATHER_BTN] != -1 )
+		RemoveButton( giMapBorderButtons[MAP_BORDER_WEATHER_BTN] );
+
 	// images
 
 	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ] );
@@ -454,6 +485,9 @@ void DeleteMapBorderButtons( void )
 
 	if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] != -1 )
 		UnloadButtonImage( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] );
+
+	if ( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] != -1 )
+		UnloadButtonImage( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] );
 		
 	// HEADROCK HAM 4: Increased number of buttons by one.
 	for ( ubCnt = 0; ubCnt < NUM_MAP_BORDER_BTNS; ++ubCnt )
@@ -562,6 +596,21 @@ void BtnDiseaseCallback( GUI_BUTTON *btn, INT32 reason )
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
 		CommonBtnCallbackBtnDownChecks();
+	}
+}
+
+// Flugente: weather
+void BtnWeatherCallback( GUI_BUTTON *btn, INT32 reason )
+{
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		CommonBtnCallbackBtnDownChecks( );
+
+		ToggleWeatherFilter( );
+	}
+	else if ( reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
+	{
+		CommonBtnCallbackBtnDownChecks( );
 	}
 }
 
@@ -797,6 +846,27 @@ void ToggleDiseaseFilter( void )
 	}
 }
 
+// Flugente: weather
+void ToggleWeatherFilter( void )
+{
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_WEATHER )
+	{
+		gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
+
+		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
+
+		// dirty regions
+		fMapPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fCharacterInfoPanelDirty = TRUE;
+	}
+	else
+	{
+		// turn ON
+		TurnOnWeatherFilterMode( );
+	}
+}
+
 // HEADROCK HAM 4: Toggle Mobile Restrictions Button
 void ToggleMobileFilter( void )
 {
@@ -943,6 +1013,7 @@ void TurnOnAirSpaceMode( void )
 		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 
 		// Turn off towns & mines (mostly because town/mine names overlap SAM site names)
 		if( fShowTownFlag == TRUE )
@@ -1069,6 +1140,7 @@ void TurnOnDiseaseFilterMode( void )
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 
 		if( fShowItemsFlag == TRUE )
 		{
@@ -1124,6 +1196,74 @@ void TurnOnDiseaseFilterMode( void )
 	}
 }
 
+void TurnOnWeatherFilterMode()
+{
+	// if mode already on, leave, else set and redraw
+	if ( gusMapDisplayColourMode != MAP_DISPLAY_WEATHER )
+	{
+		gusMapDisplayColourMode = MAP_DISPLAY_WEATHER;
+
+		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOn( MAP_BORDER_WEATHER_BTN );
+
+		if ( fShowItemsFlag == TRUE )
+		{
+			fShowItemsFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
+		}
+
+		// Turn off towns, mines, teams, militia & airspace if any are on
+		if ( fShowTownFlag == TRUE )
+		{
+			fShowTownFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_TOWN_BTN );
+		}
+
+		if ( fShowMineFlag == TRUE )
+		{
+			fShowMineFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MINE_BTN );
+		}
+
+		if ( fShowTeamFlag == TRUE )
+		{
+			fShowTeamFlag = FALSE;
+			MapBorderButtonOff( MAP_BORDER_TEAMS_BTN );
+		}
+
+		if ( fShowMilitia == TRUE )
+		{
+			fShowMilitia = FALSE;
+			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
+		}
+
+		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+		{
+			AbortMovementPlottingMode( );
+		}
+		else if ( gfInChangeArrivalSectorMode )
+		{
+			CancelChangeArrivalSectorMode( );
+		}
+
+		// Flugente: basically only show this message the first time every session
+		static BOOLEAN sWeatherviewed = FALSE;
+		if ( !sWeatherviewed )
+		{
+			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, zMarksMapScreenText[28] );
+
+			sWeatherviewed = TRUE;
+		}
+
+		// dirty regions
+		fMapPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fCharacterInfoPanelDirty = TRUE;
+	}
+}
+
 // HEADROCK HAM 4: Activate "View Mobile Restrictions" mode.
 void TurnOnMobileFilterMode( void )
 {
@@ -1136,6 +1276,7 @@ void TurnOnMobileFilterMode( void )
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 
 		// Also turn on Militia mode
 		fShowMilitia = FALSE; // Fool the function so that it always turns militia ON.
@@ -1252,18 +1393,28 @@ void InitializeMapBorderButtonStates( void )
 		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 		break;
 
 	case MAP_DISPLAY_MOBILEMILITIARESTRICTIONS:
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 		break;
 
 	case MAP_DISPLAY_DISEASE:
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
+		break;
+
+	case MAP_DISPLAY_WEATHER:
+		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
+		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
+		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
+		MapBorderButtonOn( MAP_BORDER_WEATHER_BTN );
 		break;
 	}
 }
@@ -1415,6 +1566,8 @@ void InitMapBorderButtonCoordinates()
 	MAP_BORDER_MOBILE_BTN_Y 	= 0;
 	MAP_BORDER_DISEASE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 190;
 	MAP_BORDER_DISEASE_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
+	MAP_BORDER_WEATHER_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 233;
+	MAP_BORDER_WEATHER_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 
 	MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 114;
 	MAP_LEVEL_MARKER_Y 			= (SCREEN_HEIGHT - yResOffset - buttonOffset);

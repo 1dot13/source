@@ -657,11 +657,6 @@ void CreateFileAndNewEmailIconFastHelpText( UINT32 uiHelpTextID, BOOLEAN fClearH
 void CreateLaptopButtonHelpText( INT32 iButtonIndex, UINT32 uiButtonHelpTextID );
 //ppp
 
-//Used to determine delay if its raining
-BOOLEAN IsItRaining();
-INT32 WWaitDelayIncreasedIfRaining( INT32 iLoadTime );
-void		InternetRainDelayMessageBoxCallBack( UINT8 bExitValue );
-
 extern void ClearHistoryList( void );
 
 
@@ -4172,23 +4167,9 @@ void BookmarkCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 
 void GoToWebPage(INT32 iPageId )
 {
-
-	// WANNE: disabled rain sound when laptop is displayed
-	////if it is raining, popup a warning first saying connection time may be slow
-	//if( IsItRaining() )
-	//{
-	//	if( giRainDelayInternetSite == -1 )
-	//	{
-	//		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, pErrorStrings[4], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, InternetRainDelayMessageBoxCallBack );
-	//		giRainDelayInternetSite = iPageId;
-	//		return;
-	//	}
-	//}
-	//else
-	//	giRainDelayInternetSite = -1;
 #ifdef JA2UB
 	//if the laptop is broken
-if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQuestEnabled != TRUE) )
+	if( (gubQuest[ QUEST_FIX_LAPTOP ] != QUESTINPROGRESS) || (gGameUBOptions.LaptopQuestEnabled != TRUE) )
 {
 #endif
 	switch(iPageId)
@@ -4585,9 +4566,7 @@ BOOLEAN DisplayLoadPending( void )
 		{
 			iUnitTime=UNIT_TIME;
 		}
-
-		iUnitTime += WWaitDelayIncreasedIfRaining( iUnitTime );
-
+		
 		iLoadTime = iUnitTime * 30;
 #ifdef JA2UB		
 		//if the site we are going to is the web poage not found page
@@ -7143,31 +7122,14 @@ void LaptopSaveVariablesInit()
 {
 }
 
-
-INT32 WWaitDelayIncreasedIfRaining( INT32 iUnitTime )
+/*BOOLEAN IsItRaining()
 {
-	INT32	iRetVal = 0;
-
-	if( guiEnvWeather	& WEATHER_FORECAST_THUNDERSHOWERS )
-	{
-		iRetVal = (INT32)( iUnitTime * (FLOAT) 0.80 );
-	}
-	else if( guiEnvWeather & WEATHER_FORECAST_SHOWERS )
-	{
-		iRetVal = (INT32)( iUnitTime * (FLOAT) 0.6 );
-	}
-
-	return( iRetVal );
-}
-
-
-BOOLEAN IsItRaining()
-{
-	if( guiEnvWeather & WEATHER_FORECAST_SHOWERS || guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS )
+	if ( (SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_RAIN || SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_THUNDERSHOWERS 
+		|| SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_SANDSTORM || SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather == WEATHER_FORECAST_SNOW) )
 		return( TRUE );
 	
 	return( FALSE );
-}
+}*/
 
 
 void		InternetRainDelayMessageBoxCallBack( UINT8 bExitValue )

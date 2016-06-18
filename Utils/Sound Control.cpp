@@ -386,7 +386,8 @@ char szAmbientEffects[NUM_AMBIENTS][255] =
 	"SOUNDS\\owl2.wav",
 	"SOUNDS\\owl3.wav",
 	"SOUNDS\\night_bird1.wav",
-	"SOUNDS\\night_bird3.wav"
+	"SOUNDS\\night_bird3.wav",
+	"SOUNDS\\wind.wav",
 };
 
 UINT8 AmbientVols[NUM_AMBIENTS]={

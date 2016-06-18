@@ -4304,6 +4304,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Pokaż samoobronę i wrogów (|Z)",
 	L"Show Mobile Militia |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button // TODO.Translate
 	L"Show Disease Data", // TODO.Translate
+	L"Show Weather",	// TODO.Translate
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -6177,6 +6178,9 @@ STR16		zMarksMapScreenText[] =
 
 	// Flugente: disease texts describing what a map view does TODO.Translate
 	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
+
+	// Flugente: weather texts describing what a map view does
+	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",	// TODO.Translate
 };
 
 
@@ -11140,6 +11144,16 @@ STR16	szNonProfileMerchantText[] =
 	L"Merchant is in no state to do business.",
 	L"Merchant won't trade during combat.",
 	L"Merchant refuses to interact with you.",
+};
+
+STR16	szWeatherTypeText[] =	// TODO.Translate
+{
+	L"normal",
+	L"rain",
+	L"thunderstorm",
+	L"sandstorm",
+
+	L"snow",
 };
 
 #endif //POLISH

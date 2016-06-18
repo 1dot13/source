@@ -398,7 +398,8 @@ enum AmbientDefines
 	OWL_3,
 	NIGHT_BIRD_1,
 	NIGHT_BIRD_2,
-	
+	WIND,
+
 	NUM_AMBIENTS
 };
 

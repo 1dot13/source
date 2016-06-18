@@ -93,7 +93,10 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "usCurfewValue") == 0 ||
 				strcmp(name, "sRadioScanModifier") == 0 ||
 				strcmp(name, "usPrisonRoomNumber" ) == 0 ||
-				strcmp(name, "usCivilianPopulation") == 0 ))
+				strcmp(name, "usCivilianPopulation" ) == 0 ||
+				strcmp(name, "rainchance" ) == 0 ||
+				strcmp(name, "sandstormchance") == 0 ||
+				strcmp(name, "snowchance" ) == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -194,7 +197,22 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					SectorExternalData[ubSectorId][1].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
 					SectorExternalData[ubSectorId][2].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
 					SectorExternalData[ubSectorId][3].usCivilianPopulation = pData->sectordata.usCivilianPopulation;
-										
+
+					SectorExternalData[ubSectorId][0].rainchance = pData->sectordata.rainchance;
+					SectorExternalData[ubSectorId][1].rainchance = 0;
+					SectorExternalData[ubSectorId][2].rainchance = 0;
+					SectorExternalData[ubSectorId][3].rainchance = 0;
+
+					SectorExternalData[ubSectorId][0].sandstormchance = pData->sectordata.sandstormchance;
+					SectorExternalData[ubSectorId][1].sandstormchance = 0;
+					SectorExternalData[ubSectorId][2].sandstormchance = 0;
+					SectorExternalData[ubSectorId][3].sandstormchance = 0;
+
+					SectorExternalData[ubSectorId][0].snowchance = pData->sectordata.snowchance;
+					SectorExternalData[ubSectorId][1].snowchance = 0;
+					SectorExternalData[ubSectorId][2].snowchance = 0;
+					SectorExternalData[ubSectorId][3].snowchance = 0;
+															
 					if ( !prisonroomvector.empty( ) )
 					{
 						std::vector<UINT16>::iterator itend = prisonroomvector.end( );
@@ -213,6 +231,9 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					pData->sectordata.usCurfewValue = 0;
 					pData->sectordata.sRadioScanModifier = 0;
 					pData->sectordata.usCivilianPopulation = 0;
+					pData->sectordata.rainchance = 0;
+					pData->sectordata.sandstormchance = 0;
+					pData->sectordata.snowchance = 0;
 				}
 				else
 				{
@@ -306,6 +327,21 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->sectordata.usCivilianPopulation = (UINT16)atoi( pData->szCharData );
+		}
+		else if ( strcmp( name, "rainchance" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->sectordata.rainchance = min( 100, (UINT8)atoi( pData->szCharData ) );
+		}
+		else if ( strcmp( name, "sandstormchance" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->sectordata.sandstormchance = min( 100, (UINT8)atoi( pData->szCharData ) );
+		}
+		else if ( strcmp( name, "snowchance" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->sectordata.snowchance = min( 100, (UINT8)atoi( pData->szCharData ) );
 		}
 
 		pData->maxReadDepth--;

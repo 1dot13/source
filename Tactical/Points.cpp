@@ -1461,10 +1461,6 @@ void UnusedAPsToBreath( SOLDIERTYPE * pSoldier )
 }
 
 
-//rain
-extern INT8 gbCurrentRainIntensity;
-//end rain
-
 INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 {
 	INT16 sBreathPerAP = 0;
@@ -1540,21 +1536,18 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	//rain
 	// Reduce breath gain on 25%/rain intensity
 	// Lalien: only for soldiers that are in loaded sector,
-	if ( gfWorldLoaded &&  pSoldier->bInSector)
+	if ( gfWorldLoaded &&  pSoldier->bInSector && !pSoldier->bSectorZ )
 	{
 		if( sBreathPerAP < 0 && ( pSoldier->pathing.bLevel  || !FindStructure( pSoldier->sGridNo, STRUCTURE_ROOF )  )  && pSoldier->bBreath > 1)
 		{
+			FLOAT weatherpenalty = gGameExternalOptions.dBreathGainReduction[SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather];
+			
 			// Added a feature to reduce rain effect on regaining breath with Ranger trait - SANDRO
-			if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) && (gGameOptions.fNewTraitSystem) )
-			{
-				INT16 sBreathGainPenalty = 0;
-				sBreathGainPenalty = (INT16)((gGameExternalOptions.ubBreathGainReductionPerRainIntensity * (100 - gSkillTraitValues.ubSVWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ))) / 100);
-				sBreathGainPenalty = min( max( 0, sBreathGainPenalty ), 100); // keep it 0-100%
-				sBreathPerAP -= (INT16)( sBreathPerAP * gbCurrentRainIntensity * sBreathGainPenalty /100 );
-			}
-			else
-				sBreathPerAP -= (INT16)( sBreathPerAP * gbCurrentRainIntensity * gGameExternalOptions.ubBreathGainReductionPerRainIntensity  / 100 );
+			FLOAT appliedpenalty = 1.0f;
+			if ( HAS_SKILL_TRAIT( pSoldier, SURVIVAL_NT ) && gGameOptions.fNewTraitSystem )
+				appliedpenalty = min( 1.0f, max( 0.0f, appliedpenalty - gSkillTraitValues.dSVWeatherPenaltiesReduction * NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) ) );
 
+			sBreathPerAP -= (INT16)(sBreathPerAP * weatherpenalty * appliedpenalty);
 		}
 	}
 	//end rain

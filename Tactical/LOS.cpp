@@ -6154,7 +6154,12 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	int maxJamChance = 50; // Externalize this? 
 	int reliability =  GetReliability( pObj ); 
 	int condition = (*pObj)[0]->data.gun.bGunStatus; 
-	int invertedBaseJamChance = condition + (reliability * 2) - gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * 1; 
+
+	int weatherpenalty = 0;
+	if ( pThrower && !pThrower->bSectorZ )
+		weatherpenalty = gGameExternalOptions.ubWeaponReliabilityReduction[SectorInfo[SECTOR( pThrower->sSectorX, pThrower->sSectorY )].usWeather];
+
+	int invertedBaseJamChance = condition + (reliability * 2) - weatherpenalty;
 
 	// Flugente: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
 	if ( gGameExternalOptions.fWeaponOverheating )

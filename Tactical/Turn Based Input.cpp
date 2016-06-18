@@ -2761,25 +2761,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 				if( fAlt )
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						EnvBeginRainStorm( 1 );
-					}
-					else
-					{
-						HandleTacticalStoreInvItem();
-					}
-				}
-				else if( fCtrl )
-				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						EnvEndRainStorm( );
-					}
-					else
-					{
-						//HandleTacticalTakeItem();
-					}
+					HandleTacticalStoreInvItem( );
 				}
 				else
 				// Switch panels...

@@ -5,22 +5,19 @@
 
 static int LuaGetRainVal( lua_State *L )
 {
-	lua_pushinteger( L, guiEnvWeather);
+	lua_pushinteger( L, GetWeatherInCurrentSector() );
 	return 1;
 }
 
 static int LuaSetRainVal( lua_State *L )
 {
-	int newrain = luaL_checkinteger( L, 3);
-	luaL_argcheck( L, newrain >= 0 && newrain <= 2, 2, "The rain must be between 0 and 2" );
-	if (newrain == 0)
-	{
-		EnvEndRainStorm();
-	}
-	else
-	{
-		EnvBeginRainStorm( (UINT8)(newrain-1));
-	}
+	int newweather = luaL_checkinteger( L, 3);
+	int sector = luaL_checkinteger( L, 4 );
+	luaL_argcheck( L, newweather >= 0 && newweather < WEATHER_FORECAST_MAX, 2, "The rain must be between 0 and 5" );
+	luaL_argcheck( L, sector >= 0 && sector <= 255, 2, "The secor must be between 0 and 255" );
+
+	ChangeWeather( sector, newweather );
+
 	return 0;
 }
 

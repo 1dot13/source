@@ -32,6 +32,7 @@ enum{
 	MAP_BORDER_MILITIA_BTN,
 	MAP_BORDER_MOBILE_BTN,		// HEADROCK HAM 4: Mobile Militia Restrictions button
 	MAP_BORDER_DISEASE_BTN,		// Flugente: toggle disease views
+	MAP_BORDER_WEATHER_BTN,		// Flugente: toggle weather display
 	NUM_MAP_BORDER_BTNS,		// end enumeration marker
 };
 
@@ -57,6 +58,7 @@ enum
 	MAP_DISPLAY_AIRSPACE,
 	MAP_DISPLAY_MOBILEMILITIARESTRICTIONS,
 	MAP_DISPLAY_DISEASE,
+	MAP_DISPLAY_WEATHER,
 };
 
 extern UINT8 gusMapDisplayColourMode;
@@ -83,6 +85,9 @@ void ToggleMobileFilter( void );
 // Flugente: disease
 void ToggleDiseaseFilter( );
 
+// Flugente: weather
+void ToggleWeatherFilter( );
+
 void TurnOnShowTeamsMode( void );
 void TurnOnAirSpaceMode( void );
 void TurnOnItemFilterMode( void );
@@ -91,6 +96,9 @@ void TurnOnMobileFilterMode( void );
 
 // Flugente: disease
 void TurnOnDiseaseFilterMode();
+
+// Flugente: weather
+void TurnOnWeatherFilterMode( );
 
 // create/destroy buttons for map border region
 void DeleteMapBorderButtons( void );

@@ -107,7 +107,7 @@ TRainDrop *pRainDrops = 0;
 UINT32 guiCurrMaxAmountOfRainDrops = 0;
 UINT32 guiCurrAmountOfDeadRainDrops = 0;
 
-INT8 gbCurrentRainIntensity = 0;
+UINT8 gbCurrentWeather = 0;
 
 FLOAT fpCurrDropAngleOfFalling = 0;
 FLOAT fpCurrDropLength = 0;
@@ -123,7 +123,6 @@ FLOAT fpMinDropSpeed = 0;
 
 
 extern UINT32 guiCurrentScreen;
-//extern BOOLEAN gfAllowRain;
 
 extern INT16 gsVIEWPORT_WINDOW_END_Y;
 extern INT16 gsVIEWPORT_WINDOW_START_Y;
@@ -134,26 +133,17 @@ extern UINT32 guiNumVideoOverlays;
 
 extern MercPopUpBox *gPopUpTextBox;
 
-INT8 GetRainIntensityFromEnvWeather()
-{
-	INT8 bRes = 0;
-
-	// Debug!!!
-//	guiEnvWeather |= WEATHER_FORECAST_THUNDERSHOWERS;
-
-	if( guiEnvWeather & WEATHER_FORECAST_SHOWERS ) bRes += 1;
-	if( guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS ) bRes += 2;
-
-	return bRes;
-}
-
 BOOLEAN IsItAllowedToRenderRain()
 {
-	if( !gGameExternalOptions.gfAllowRain )return FALSE;
+	if ( !(gGameExternalOptions.gfAllowRain || gGameExternalOptions.gfAllowSandStorms || gGameExternalOptions.gfAllowSnow) )
+		return FALSE;
 
-	if( !( guiEnvWeather & (WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS) ) )return FALSE;
+	if ( !(GetWeatherInCurrentSector( ) == WEATHER_FORECAST_RAIN || GetWeatherInCurrentSector( ) == WEATHER_FORECAST_THUNDERSHOWERS 
+		|| GetWeatherInCurrentSector( ) == WEATHER_FORECAST_SANDSTORM || GetWeatherInCurrentSector( ) == WEATHER_FORECAST_SNOW ) )
+		return FALSE;
 
-	if( guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != SHOPKEEPER_SCREEN ) return FALSE;
+	if( guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != SHOPKEEPER_SCREEN )
+		return FALSE;
 
 	return TRUE;
 }
@@ -194,7 +184,7 @@ void ResetRain()
 	}
 
 	// Rain
-	BASE_DROP_SPEED = 7.0f;
+	BASE_DROP_SPEED = 3.5f;
 	DROP_SPEED_RANGE = 3.5f;
 	DROP_SPEED_CHANGE_RATE = 0.1f;
 	DROP_SPEED_RAND = 5.0f;
@@ -204,8 +194,29 @@ void ResetRain()
 
 void GenerateRainDropsList()
 {
-	// HEADROCK HAM 5 XMAS: More snow than rain.
-	guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS) * gbCurrentRainIntensity;
+	switch ( gbCurrentWeather )
+	{
+	case WEATHER_FORECAST_NORMAL:
+		guiCurrMaxAmountOfRainDrops = 0;
+		break;
+		
+	case WEATHER_FORECAST_THUNDERSHOWERS:
+		guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS)* 2;
+		break;
+
+	case WEATHER_FORECAST_SANDSTORM:
+		guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS)* 8;
+		break;
+
+	case WEATHER_FORECAST_SNOW:
+		guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS)* 4;
+		break;
+
+	case WEATHER_FORECAST_RAIN:
+	default:
+		guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS);
+		break;
+	}
 
 	pRainDrops = (TRainDrop *)MemAlloc( sizeof( TRainDrop ) * guiCurrMaxAmountOfRainDrops );
 	memset( pRainDrops, 0, sizeof( TRainDrop ) * guiCurrMaxAmountOfRainDrops );
@@ -213,9 +224,7 @@ void GenerateRainDropsList()
 
 void KillOutOfRegionRainDrops()
 {
-	UINT32 uiIndex;
-
-	for( uiIndex = 0; uiIndex < guiCurrMaxAmountOfRainDrops; ++uiIndex )
+	for ( UINT32 uiIndex = 0; uiIndex < guiCurrMaxAmountOfRainDrops; ++uiIndex )
 	{
 		TRainDrop *pCurr = &pRainDrops[ uiIndex ];
 
@@ -225,9 +234,8 @@ void KillOutOfRegionRainDrops()
 			pCurr->fpY + pCurr->fpEndRelY < gRainRegion.top || pCurr->fpY + pCurr->fpEndRelY >= gRainRegion.bottom ) )
 		{
 				pCurr->fAlive = FALSE;
-				guiCurrAmountOfDeadRainDrops++;
+				++guiCurrAmountOfDeadRainDrops;
 		}
-
 	}
 }
 
@@ -342,29 +350,29 @@ void CreateRainDrops()
 			}
 		}
 
-		uiCreatedDrops++;
+		++uiCreatedDrops;
 
 		// drop creation is done!!!
-
 	}
 }
 
 void UpdateRainDrops()
 {
-	UINT32 uiIndex;
-
-	for( uiIndex = 0; uiIndex < guiCurrMaxAmountOfRainDrops; ++uiIndex )
+	for ( UINT32 uiIndex = 0; uiIndex < guiCurrMaxAmountOfRainDrops; ++uiIndex )
 	{
 		TRainDrop *pCurr = &pRainDrops[ uiIndex ];
 
-		if( !pCurr->fAlive )continue;
+		if( !pCurr->fAlive )
+			continue;
 
 		if( pCurr->uiAmountOfTicksToLive )
 		{
 			pCurr->fpX += pCurr->fpIncrX;
 			pCurr->fpY += pCurr->fpIncrY;
 			pCurr->uiAmountOfTicksToLive--;
-		}else{
+		}
+		else
+		{
 			pCurr->fpEndRelX += pCurr->fpIncrX;
 			pCurr->fpEndRelY += pCurr->fpIncrY;
 
@@ -374,11 +382,10 @@ void UpdateRainDrops()
 				( pCurr->fpEndRelY < 0 && pCurr->fpIncrY < 0 ) )
 			{
 				pCurr->fAlive = FALSE;
-				guiCurrAmountOfDeadRainDrops++;
+				++guiCurrAmountOfDeadRainDrops;
 			}
 		}
 	}
-
 }
 
 void BlankRainRenderSurface()
@@ -393,7 +400,25 @@ UINT16 GetDropColor()
 	uiRGBPart = max( 0, uiRGBPart );
 	uiRGBPart = min( 255, uiRGBPart );
 
-	return Get16BPPColor( FROMRGB( uiRGBPart, uiRGBPart, uiRGBPart ) );
+	UINT32 red	 = uiRGBPart;
+	UINT32 green = uiRGBPart;
+	UINT32 blue	 = uiRGBPart;
+
+	// in a sandstorm, the 'raindrops' are tiny sand particles
+	if ( GetWeatherInCurrentSector( ) == WEATHER_FORECAST_SANDSTORM )
+	{
+		red		= 252;
+		green	= 141;
+		blue	= 41;
+	}
+	else if ( GetWeatherInCurrentSector() == WEATHER_FORECAST_SNOW )
+	{
+		red		= 255;
+		green	= 255;
+		blue	= 255;
+	}
+
+	return Get16BPPColor( FROMRGB( red, green, blue ) );
 }
 
 void RenderRainOnSurface()
@@ -419,12 +444,25 @@ void RenderRainOnSurface()
 	UnLockVideoSurface( guiRainRenderSurface );
 }
 
+extern UINT32 guiRainLoop;
+
+
 void GenerateRainMaximums()
 {
-	if( gbCurrentRainIntensity == 1 )
+	if ( GetWeatherInCurrentSector( ) == WEATHER_FORECAST_THUNDERSHOWERS )
 	{
 		fpMinDropAngleOfFalling = 45;
 		fpMaxDropAngleOfFalling = 135;
+	}
+	else if ( GetWeatherInCurrentSector( ) == WEATHER_FORECAST_SANDSTORM )
+	{
+		fpMinDropAngleOfFalling = 5;
+		fpMaxDropAngleOfFalling = 15;
+	}
+	else if ( GetWeatherInCurrentSector() == WEATHER_FORECAST_SNOW )
+	{
+		fpMinDropAngleOfFalling = 80;
+		fpMaxDropAngleOfFalling = 100;
 	}
 	else
 	{
@@ -442,46 +480,97 @@ void GenerateRainMaximums()
 
 	fpCurrDropAngleOfFalling = fpMinDropAngleOfFalling + Random( (UINT32)(fpMaxDropAngleOfFalling - fpMinDropAngleOfFalling) );
 
-	fpMinDropLength = MIN_DROP_LENGTH + ADD_DROP_LENGTH_IF_STORM * ( gbCurrentRainIntensity - 1 );
-	fpMaxDropLength = fpMinDropLength + DROP_LENGTH_RANGE;
+	fpMinDropLength = MIN_DROP_LENGTH;
+	if ( GetWeatherInCurrentSector( ) == WEATHER_FORECAST_THUNDERSHOWERS )
+		fpMinDropLength += ADD_DROP_LENGTH_IF_STORM;
+	else if ( GetWeatherInCurrentSector( ) == WEATHER_FORECAST_SANDSTORM || GetWeatherInCurrentSector( ) == WEATHER_FORECAST_SNOW )
+		fpMinDropLength = 1.0f;
 
+	fpMaxDropLength = fpMinDropLength + DROP_LENGTH_RANGE;
+		
 	fpCurrDropLength = fpMinDropLength + Random( (UINT32)(fpMaxDropLength - fpMinDropLength) );
 
-	fpMinDropSpeed = BASE_DROP_SPEED * gbCurrentRainIntensity;
+	switch ( gbCurrentWeather )
+	{
+	case WEATHER_FORECAST_NORMAL:
+		fpMinDropSpeed = 0;
+		break;
+
+	case WEATHER_FORECAST_THUNDERSHOWERS:
+		fpMinDropSpeed = BASE_DROP_SPEED * 4;
+		break;
+
+	case WEATHER_FORECAST_SANDSTORM:
+		fpMinDropSpeed = BASE_DROP_SPEED * 8;
+		break;
+
+	case WEATHER_FORECAST_SNOW:
+		fpMinDropSpeed = 1.0f;//BASE_DROP_SPEED;
+		break;
+
+	case WEATHER_FORECAST_RAIN:
+	default:
+		fpMinDropSpeed = BASE_DROP_SPEED * 2;
+		break;
+	}
+
+	// haxx
+	if ( guiRainLoop != NO_SAMPLE )
+	{
+		SoundStop( guiRainLoop );
+		guiRainLoop = NO_SAMPLE;
+	}
+		
 	fpMaxDropSpeed = fpMinDropSpeed + DROP_SPEED_RANGE;
 
 	fpCurrDropSpeed = fpMinDropSpeed + Random( (UINT32)(fpMaxDropSpeed - fpMinDropSpeed) );
-
 }
 
 void UpdateRainDropsProperities()
 {
-	fpCurrDropAngleOfFalling += Random( (UINT32)(1000 * DROP_ANGLE_CHANGE_RATE * gbCurrentRainIntensity * 2 )) / 1000.0f - DROP_ANGLE_CHANGE_RATE * gbCurrentRainIntensity;
+	switch ( gbCurrentWeather )
+	{
+	case WEATHER_FORECAST_NORMAL:
+		fpCurrDropAngleOfFalling = 0;
+		break;
 
+	case WEATHER_FORECAST_THUNDERSHOWERS:
+		fpCurrDropAngleOfFalling += Random( (UINT32)(1000 * DROP_ANGLE_CHANGE_RATE * 4) ) / 1000.0f - DROP_ANGLE_CHANGE_RATE * 2;
+		break;
+
+	case WEATHER_FORECAST_SANDSTORM:
+		fpCurrDropAngleOfFalling += Random( (UINT32)(1000 * DROP_ANGLE_CHANGE_RATE * 6) ) / 1000.0f - DROP_ANGLE_CHANGE_RATE * 3;
+		break;
+
+	case WEATHER_FORECAST_SNOW:
+		fpCurrDropAngleOfFalling += Random( (UINT32)(1000 * DROP_ANGLE_CHANGE_RATE * 1) ) / 1000.0f - DROP_ANGLE_CHANGE_RATE * 1;
+		break;
+
+	case WEATHER_FORECAST_RAIN:
+	default:
+		fpCurrDropAngleOfFalling += Random( (UINT32)(1000 * DROP_ANGLE_CHANGE_RATE * 2) ) / 1000.0f - DROP_ANGLE_CHANGE_RATE;
+		break;
+	}
+	
 	fpCurrDropAngleOfFalling = max( fpMinDropAngleOfFalling, fpCurrDropAngleOfFalling );
 	fpCurrDropAngleOfFalling = min( fpMaxDropAngleOfFalling, fpCurrDropAngleOfFalling );
-
-
+	
 	fpCurrDropLength += Random( (UINT32)(1000 * DROP_LENGTH_CHANGE_RATE * 2 )) / 1000.0f - DROP_LENGTH_CHANGE_RATE;
 
 	fpCurrDropLength = max( fpMinDropLength, fpCurrDropLength );
 	fpCurrDropLength = min( fpMaxDropLength, fpCurrDropLength );
-
-
+	
 	fpCurrDropSpeed += Random( (UINT32)(1000 * DROP_SPEED_CHANGE_RATE * 2 )) / 1000.0f - DROP_SPEED_CHANGE_RATE;
 
 	fpCurrDropSpeed = max( fpMinDropSpeed, fpCurrDropSpeed );
 	fpCurrDropSpeed = min( fpMaxDropSpeed, fpCurrDropSpeed );
-
-
 }
 
 void RandomizeRainDropsPosition()
 {
-	UINT32 uiIndex;
 	UINT32 ubMoveTo;
 
-	for( uiIndex = 0; uiIndex < guiCurrMaxAmountOfRainDrops; ++uiIndex )
+	for ( UINT32 uiIndex = 0; uiIndex < guiCurrMaxAmountOfRainDrops; ++uiIndex )
 	{
 		TRainDrop *pCurr = &pRainDrops[ uiIndex ];
 
@@ -499,15 +588,13 @@ void RandomizeRainDropsPosition()
 			}
 		}
 	}
-
 }
 
 void RainClipVideoOverlay()
 {
-	UINT32 uiIndex;
 	BACKGROUND_SAVE *pCurr;
 
-	for( uiIndex = 0; uiIndex < guiNumVideoOverlays ; ++uiIndex )
+	for ( UINT32 uiIndex = 0; uiIndex < guiNumVideoOverlays; ++uiIndex )
 	{
 		pCurr = gVideoOverlays[ uiIndex ].pBackground;
 
@@ -521,13 +608,14 @@ void RainClipVideoOverlay()
 
 void RenderRain()
 {
-	if( !GetRainIntensityFromEnvWeather() && gbCurrentRainIntensity )
+	if ( !GetWeatherInCurrentSector( ) && gbCurrentWeather )
 	{
-		gbCurrentRainIntensity = GetRainIntensityFromEnvWeather();
+		gbCurrentWeather = GetWeatherInCurrentSector( );
 		ResetRain();
 	}
 
-	if( !IsItAllowedToRenderRain() )return;
+	if( !IsItAllowedToRenderRain() )
+		return;
 
 	if( guiCurrentScreen == SHOPKEEPER_SCREEN )
 	{
@@ -555,14 +643,13 @@ void RenderRain()
 	else
 		guiLastRainUpdate = GetJA2Clock();
 
-	if( gbCurrentRainIntensity != GetRainIntensityFromEnvWeather() )
+	if ( gbCurrentWeather != GetWeatherInCurrentSector( ) )
 	{
-		gbCurrentRainIntensity = GetRainIntensityFromEnvWeather();
+		gbCurrentWeather = GetWeatherInCurrentSector( );
 		ResetRain();
 		GenerateRainDropsList();
 		GenerateRainMaximums();
-
-
+		
 		guiCurrAmountOfDeadRainDrops = guiCurrMaxAmountOfRainDrops;
 
 		CreateRainDrops();
@@ -590,5 +677,4 @@ void RenderRain()
 				ColorFillVideoSurfaceArea( guiRainRenderSurface, gTalkPanel.sPopupX, gTalkPanel.sPopupY, (INT16)( gTalkPanel.sPopupX + gPopUpTextBox->sWidth ), (INT16)( gTalkPanel.sPopupY + gPopUpTextBox->sHeight ), Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 		}
 	}
-
 }

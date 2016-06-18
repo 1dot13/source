@@ -63,11 +63,6 @@ class SOLDIERTYPE;
 
 #include "GameInitOptionsScreen.h"
 
-//rain
-//#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 0
-extern INT8 gbCurrentRainIntensity;
-//end rain
-
 // sevenfm: this global variable is needed to correctly set default number of bullets for autofire
 extern BOOLEAN gfAutofireInitBulletNum;
 
@@ -1274,9 +1269,6 @@ void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNe
 
 // #define	TESTGUNJAM
 
-//rain
-extern INT8 gbCurrentRainIntensity;
-//end rain
 BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier ) 
 { 
 	OBJECTTYPE * pObj; 
@@ -1295,8 +1287,12 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				int maxJamChance = 50; // Externalize this? 
 				int reliability =  GetReliability( pObj ); 
 				int condition = (*pObj)[0]->data.gun.bGunStatus; 
-				int invertedBaseJamChance = condition + (reliability * 2) - 
-					gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
+
+				int weatherpenalty = 0;
+				if ( !pSoldier->bSectorZ )
+					weatherpenalty = gGameExternalOptions.ubWeaponReliabilityReduction[SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather];
+
+				int invertedBaseJamChance = condition + (reliability * 2) - weatherpenalty;
 
 				// Flugente: If overheating is allowed, a gun will be prone to more overheating if its temperature is high
 				if ( gGameExternalOptions.fWeaponOverheating )

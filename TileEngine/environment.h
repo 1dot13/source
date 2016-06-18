@@ -35,12 +35,16 @@
 #define		PRIME_TIME_LIGHT_START_HOUR		21
 #define		PRIME_TIME_LIGHT_END_HOUR			24
 
-#define		WEATHER_FORECAST_SUNNY							0x00000001
-#define		WEATHER_FORECAST_OVERCAST						0x00000002
-#define		WEATHER_FORECAST_PARTLYSUNNY				0x00000004
-#define		WEATHER_FORECAST_DRIZZLE						0x00000008
-#define		WEATHER_FORECAST_SHOWERS						0x00000010
-#define		WEATHER_FORECAST_THUNDERSHOWERS			0x00000020
+enum
+{
+	WEATHER_FORECAST_NORMAL,
+	WEATHER_FORECAST_RAIN,
+	WEATHER_FORECAST_THUNDERSHOWERS,
+	WEATHER_FORECAST_SANDSTORM,
+	WEATHER_FORECAST_SNOW,
+
+	WEATHER_FORECAST_MAX
+};
 
 // higher is darker, remember
 #define NORMAL_LIGHTLEVEL_NIGHT 12
@@ -56,13 +60,12 @@ void BuildDayAmbientSounds( );
 void BuildDayLightLevels();
 UINT8 GetTimeOfDayAmbientLightLevel();
 
-void	EnvBeginRainStorm( UINT8 ubIntensity );
-void	EnvEndRainStorm( );
+void	ChangeWeather( UINT8 aSector, UINT8 aType );
 
+UINT8	GetWeatherInCurrentSector();
 
-extern UINT8			gubEnvLightValue;
+extern UINT8		gubEnvLightValue;
 extern BOOLEAN		gfDoLighting;
-extern UINT32			guiEnvWeather;
 
 void TurnOnNightLights();
 void TurnOffNightLights();
@@ -76,9 +79,9 @@ void TurnOffPrimeLights();
 extern BOOLEAN gfCaves;
 extern BOOLEAN gfBasement;
 
-extern INT8 SectorTemperature( UINT32 uiTime, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
+INT8 SectorTemperature( UINT32 uiTime, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
-extern void UpdateTemperature( UINT8 ubTemperatureCode );
+void UpdateTemperature( UINT8 ubTemperatureCode );
 
 
 #endif
