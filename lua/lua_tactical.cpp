@@ -179,8 +179,8 @@ void LuaTacticalSetup(lua_State *L)
 	lua_setglobal( L, SOLDIER_CLASS); // We also want this class to be known to the script
 
 	// Create a soldier list type and create its object
-	lua_createtable (L, 256, 0);
-	for (int sold=0; sold < 256; sold++)
+	lua_createtable( L, TOTAL_SOLDIERS, 0 );
+	for ( int sold = 0; sold < TOTAL_SOLDIERS; ++sold )
 	{
 		lua_pushinteger( L, sold);
 		if (MercPtrs[ sold ] )
