@@ -18,6 +18,24 @@ Beta:
 
 Beta Changelog:
 ---------------
+2016-06-22:
+- updates to Wally
+- updates to Eli
+- updates to Postie
+- updates to Bernie
+- updates to Dyno
+- updates to Screw
+- updates to Sparky
+- updates to Pops
+- updates to Skitz
+- updates to Vinny
+- updates to Ears
+- updates to Doc
+- updates to Juan
+- updates to Speck
+- updates to Mike
+
+
 2016-06-08:
 - updates to Mike
 - updates to Reuban
