@@ -19384,8 +19384,9 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_ENEMY )
 	{
-
-		if ( !(gTacticalStatus.bPanicTriggerIsAlarm) && (gTacticalStatus.ubTheChosenOne == pSoldier->ubID) )
+		// sevenfm: bPanicTriggerIsAlarm is always not NULL pointer
+		//if ( !(gTacticalStatus.bPanicTriggerIsAlarm) && (gTacticalStatus.ubTheChosenOne == pSoldier->ubID) )
+		if ( gTacticalStatus.ubTheChosenOne == pSoldier->ubID )
 		{
 			// replace this guy as the chosen one!
 			gTacticalStatus.ubTheChosenOne = NOBODY;
@@ -21909,7 +21910,7 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 		UINT16 uCnt = 0, uiReactionTime;
 		INT16 iInjuryPenalty;
 
-		for ( uCnt = 0; uCnt <= MAX_NUM_SOLDIERS; uCnt++ )
+		for ( uCnt = 0; uCnt < MAX_NUM_SOLDIERS; uCnt++ )
 		{
 			// first find all guys who can see us
 			pInterrupter = MercPtrs[uCnt];

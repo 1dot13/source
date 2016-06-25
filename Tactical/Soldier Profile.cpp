@@ -491,8 +491,10 @@ void RandomStats()
 					pProfile->bExpLevel		= RandomAbsoluteRange( pProfile->bExpLevel, 1, 10, Exp, Type );
 
 				if ( gRandomStatsValue[cnt].RandomLife == TRUE )
+				{
 					pProfile->bLifeMax		= RandomAbsoluteRange( pProfile->bLifeMax, 1, 100, Stats, Type );
 					pProfile->bLife			= pProfile->bLifeMax;
+				}
 
 				if ( gRandomStatsValue[cnt].RandomAgility == TRUE )
 					pProfile->bAgility		= RandomAbsoluteRange( pProfile->bAgility, 1, 100, Stats, Type );
@@ -1647,17 +1649,20 @@ SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnl
 	UINT8 ubLoop, ubLoopLimit;
 	SOLDIERTYPE * pSoldier;
 
+	// sevenfm: fix for last soldier in player team
 	if (fPlayerMercsOnly)
 	{
-		ubLoopLimit = gTacticalStatus.Team[0].bLastID;
+		ubLoopLimit = gTacticalStatus.Team[0].bLastID + 1;
 	}
 	else
 	{
 		ubLoopLimit = MAX_NUM_SOLDIERS;
 	}
 
-	for (ubLoop = 0, pSoldier = MercPtrs[0]; ubLoop < ubLoopLimit; ubLoop++, pSoldier++)
+	for (ubLoop = 0; ubLoop < ubLoopLimit; ubLoop++)
 	{
+		pSoldier = MercPtrs[ubLoop];
+
 		if (pSoldier->bActive && pSoldier->ubProfile == ubProfileID)
 		{
 			return( pSoldier );
@@ -2395,7 +2400,7 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	pNewProfile->records.usExpDetonated = gMercProfiles[ ubSrcProfile ].records.usExpDetonated;
 	pNewProfile->records.usItemsRepaired = gMercProfiles[ ubSrcProfile ].records.usItemsRepaired;
 	pNewProfile->records.usItemsCombined = gMercProfiles[ ubSrcProfile ].records.usItemsCombined;
-	pNewProfile->records.usItemsCombined = gMercProfiles[ ubSrcProfile ].records.usItemsStolen;
+	pNewProfile->records.usItemsStolen = gMercProfiles[ ubSrcProfile ].records.usItemsStolen;
 	pNewProfile->records.usMercsBandaged = gMercProfiles[ ubSrcProfile ].records.usMercsBandaged;
 	pNewProfile->records.usSurgeriesMade = gMercProfiles[ ubSrcProfile ].records.usSurgeriesMade;
 	pNewProfile->records.usNPCsDiscovered = gMercProfiles[ ubSrcProfile ].records.usNPCsDiscovered;

@@ -1024,7 +1024,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 		SOLDIERTYPE *pOpponent;
 		BOOLEAN fFoundInterrupter = FALSE;
 
-		for ( uCnt = 0; uCnt <= MAX_NUM_SOLDIERS; uCnt++ )
+		for ( uCnt = 0; uCnt < MAX_NUM_SOLDIERS; uCnt++ )
 		{
 			// first find all guys who watch us
 			pOpponent = MercPtrs[ uCnt ];
@@ -4020,11 +4020,12 @@ INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
 // APBP Constants and extra game features.
 INT32 CalcAPCostForAiming( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bAimTime )
 {
+	Assert(pSoldier != NULL);
+	Assert(&pSoldier->inv[HANDPOS] != NULL);
+
 	INT16 sAPCost = 0;
 	UINT16 usItemNum = pSoldier->inv[HANDPOS].usItem;
 
-	Assert(pSoldier != NULL);
-	Assert(&pSoldier->inv[HANDPOS] != NULL);
 #ifndef dnlCALCBESTSHOT//dnl ch69 150913 if this is turn on we get incorrect APs as MinAPsToShootOrStab always include raise gun cost
 	if (!ARMED_VEHICLE(pSoldier) && !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_FIREREADY | ANIM_FIRE )))//dnl ch64 310813
 	{
