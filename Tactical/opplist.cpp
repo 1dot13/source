@@ -2624,12 +2624,12 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 
 			// if the looker hasn't seen this opponent at all earlier this turn, OR
 			// if the opponent is not where the looker last thought him to be
-			if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_THIS_TURN) ||
-         (gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID] != sOppGridNo))
+			if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_THIS_TURN) || (gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID] != sOppGridNo))
 			{
 				SetNewSituation( pSoldier );  // force the looker to re-evaluate
 				// anv: simulate informing buddies about detected enemy's position
-				if(gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY)
+				// sevenfm: check that he is really new
+				if( gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_THIS_TURN )
 					PossiblyStartEnemyTaunt( pSoldier, TAUNT_INFORM_ABOUT, pOpponent->ubID );
 
 			}
