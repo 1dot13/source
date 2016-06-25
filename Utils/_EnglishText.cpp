@@ -7524,6 +7524,8 @@ STR16 NewInvMessage[] =
 	L"Cannot climb while wearing a backpack",
 	L"All backpacks dropped",
 	L"All owned backpacks picked up",
+	L"%s drops backpack",
+	L"%s picks up backpack",
 };
 
 // WANNE - MP: Multiplayer messages

@@ -7530,6 +7530,8 @@ STR16 NewInvMessage[] =
 	L"Ne peut pas escalader avec un sac à dos",
 	L"Tous les sacs à dos sont posés à terre",
 	L"Tous les sacs à dos sont ramassés",
+	L"%s drops backpack",
+	L"%s picks up backpack",
 };
 
 // WANNE - MP: Multiplayer messages

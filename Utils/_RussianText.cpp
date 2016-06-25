@@ -7524,6 +7524,8 @@ STR16 NewInvMessage[] =
 	L"Тяжеловато будет взбираться с полным рюкзаком на крышу. Может, снимем?",
 	L"Все рюкзаки сброшены",
 	L"Все рюкзаки подняты",
+	L"%s drops backpack",
+	L"%s picks up backpack",
 };
 
 // WANNE - MP: Multiplayer messages

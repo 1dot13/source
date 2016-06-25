@@ -7536,6 +7536,8 @@ STR16 NewInvMessage[] =
 	L"Nie można wspinać się z plecakiem",
 	L"All backpacks dropped",	// TODO.Translate
 	L"All owned backpacks picked up",
+	L"%s drops backpack",
+	L"%s picks up backpack",
 };
 
 // WANNE - MP: Multiplayer messages

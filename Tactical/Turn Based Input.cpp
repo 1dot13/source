@@ -7932,39 +7932,80 @@ void HandleTBLocatePrevMerc( void )
 
 void HandleTBDropBackpacks( void )
 {
-	if( UsingNewInventorySystem() == true )
+	//if( UsingNewInventorySystem() && gusSelectedSoldier != NOBODY )
+	if( UsingNewInventorySystem() )
 	{
+		//SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
 		SOLDIERTYPE	*pTeamSoldier;
-		INT8		bLoop;
-		for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+		UINT8		ubLoop;
+
+		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
+		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
+
+		for( ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++ )
 		{
-			//if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) && pTeamSoldier->inv[BPACKPOCKPOS].exists() == true )
-			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && OK_INTERRUPT_MERC( pTeamSoldier ) && !AM_A_ROBOT( pTeamSoldier ) && pTeamSoldier->inv[BPACKPOCKPOS].exists() == true )
-			{
-				ChangeDropPackStatus(pTeamSoldier, TRUE);
+			pTeamSoldier=MercPtrs[ ubLoop ];
+
+			if( OK_CONTROLLABLE_MERC( pTeamSoldier ) &&
+				OK_INTERRUPT_MERC( pTeamSoldier ) &&
+				!AM_A_ROBOT( pTeamSoldier ) &&
+				EnoughPoints(pTeamSoldier, sAPCost, iBPCost, FALSE) &&
+				//pTeamSoldier->bAssignment == pSoldier->bAssignment &&
+				pTeamSoldier->bAssignment < ON_DUTY &&
+				pTeamSoldier->inv[BPACKPOCKPOS].exists() &&
+				!pTeamSoldier->flags.DropPackFlag )
+			{				
+				if( ChangeDropPackStatus(pTeamSoldier, TRUE) )
+				{
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_SOLDIER_DROP], pTeamSoldier->GetName());
+				}
 			}
 		}
+
 		fCharacterInfoPanelDirty = TRUE;
 		fInterfacePanelDirty = DIRTYLEVEL2;
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_ALL_DROP] );
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_ALL_DROP] );
 	}
 }
+
 void HandleTBPickUpBackpacks( void )
 {
-	if( UsingNewInventorySystem() == true )
+	//if( UsingNewInventorySystem() && gusSelectedSoldier != NOBODY )
+	if( UsingNewInventorySystem() )
 	{
+		//SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];
 		SOLDIERTYPE	*pTeamSoldier;
-		INT8		bLoop;
-		for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+		UINT8		ubLoop;
+
+		INT16	sAPCost = APBPConstants[AP_BACK_PACK];
+		INT32	iBPCost = APBPConstants[BP_BACK_PACK];
+
+		for( ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++ )
 		{
-			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && !AM_A_ROBOT( pTeamSoldier ) && pTeamSoldier->inv[BPACKPOCKPOS].exists() == false )
-			{
-				ChangeDropPackStatus(pTeamSoldier, FALSE);
+			pTeamSoldier=MercPtrs[ubLoop];
+
+			if( OK_CONTROLLABLE_MERC( pTeamSoldier ) &&
+				OK_INTERRUPT_MERC( pTeamSoldier ) &&
+				!AM_A_ROBOT( pTeamSoldier ) &&
+				EnoughPoints(pTeamSoldier, sAPCost, iBPCost, FALSE) &&
+				//pTeamSoldier->bAssignment == pSoldier->bAssignment &&
+				pTeamSoldier->bAssignment < ON_DUTY &&
+				!pTeamSoldier->inv[BPACKPOCKPOS].exists() &&
+				pTeamSoldier->flags.DropPackFlag )
+			{				
+				if( ChangeDropPackStatus(pTeamSoldier, FALSE) )
+				{
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_SOLDIER_PICKUP], pTeamSoldier->GetName());
+				}
 			}
 		}
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_ALL_PICKUP] );
+
+		fCharacterInfoPanelDirty = TRUE;
+		fInterfacePanelDirty = DIRTYLEVEL2;
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_ALL_PICKUP] );
 	}
 }
+
 void HandleTBSoldierRun( void )
 {
 	SOLDIERTYPE *pSoldier = MercPtrs[ gusSelectedSoldier ];

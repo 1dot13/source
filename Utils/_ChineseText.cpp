@@ -7528,6 +7528,8 @@ STR16 NewInvMessage[] =
 	L"装备大背包后无法爬上房顶",
 	L"所有人的背包已放下",
 	L"所有人已背起所属的背包",
+	L"%s drops backpack",
+	L"%s picks up backpack",
 };
 
 // WANNE - MP: Multiplayer messages
