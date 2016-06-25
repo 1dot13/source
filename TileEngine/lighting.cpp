@@ -2098,18 +2098,18 @@ INT16 iCountY, iCountX;
 ***************************************************************************************/
 INT32 LightCreateOmni(UINT8 ubIntensity, INT16 iRadius)
 {
-INT32 iLight;
-CHAR8 usName[14];
+	INT32 iLight;
+	CHAR8 usName[14];
 
 	iLight=LightGetFree();
 	if(iLight!=(-1))
 	{
 		LightGenerateElliptical(iLight, ubIntensity, (INT16)(iRadius*DISTANCE_SCALE), (INT16)(iRadius*DISTANCE_SCALE));
-	}
 
-	sprintf(usName, "LTO%d.LHT", iRadius);
-	pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
-	strcpy(pLightNames[iLight], usName);
+		sprintf(usName, "LTO%d.LHT", iRadius);
+		pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
+		strcpy(pLightNames[iLight], usName);
+	}
 
 	return(iLight);
 }
@@ -2122,18 +2122,18 @@ CHAR8 usName[14];
 ***************************************************************************************/
 INT32 LightCreateSquare(UINT8 ubIntensity, INT16 iRadius1, INT16 iRadius2)
 {
-INT32 iLight;
-CHAR8 usName[14];
+	INT32 iLight;
+	CHAR8 usName[14];
 
 	iLight=LightGetFree();
 	if(iLight!=(-1))
 	{
 		LightGenerateSquare(iLight, ubIntensity, (INT16)(iRadius1*DISTANCE_SCALE), (INT16)(iRadius2*DISTANCE_SCALE));
-	}
 
-	sprintf(usName, "LTS%d-%d.LHT", iRadius1, iRadius2);
-	pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
-	strcpy(pLightNames[iLight], usName);
+		sprintf(usName, "LTS%d-%d.LHT", iRadius1, iRadius2);
+		pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
+		strcpy(pLightNames[iLight], usName);
+	}
 
 	return(iLight);
 }
@@ -2146,16 +2146,18 @@ CHAR8 usName[14];
 ***************************************************************************************/
 INT32 LightCreateElliptical(UINT8 ubIntensity, INT16 iRadius1, INT16 iRadius2)
 {
-INT32 iLight;
-CHAR8 usName[14];
+	INT32 iLight;
+	CHAR8 usName[14];
 
 	iLight=LightGetFree();
 	if(iLight!=(-1))
+	{
 		LightGenerateElliptical(iLight, ubIntensity, (INT16)(iRadius1*DISTANCE_SCALE), (INT16)(iRadius2*DISTANCE_SCALE));
 
-	sprintf(usName, "LTE%d-%d.LHT", iRadius1, iRadius2);
-	pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
-	strcpy(pLightNames[iLight], usName);
+		sprintf(usName, "LTE%d-%d.LHT", iRadius1, iRadius2);
+		pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
+		strcpy(pLightNames[iLight], usName);
+	}
 
 	return(iLight);
 }
@@ -3059,38 +3061,41 @@ INT32 LightLoad(STR pFilename)
 	HWFILE hFile;
 	INT32 iLight;
 
-	if((iLight=LightGetFree())==(-1))
-		return(-1);
+	iLight=LightGetFree();
+
+	if( iLight == -1 )
+		return (-1);
+
+	if((hFile=FileOpen(pFilename, FILE_ACCESS_READ, FALSE))!=0)
+	{
+		FileRead(hFile, &usTemplateSize[iLight], sizeof(UINT16), NULL);
+		if((pLightList[iLight]= (LIGHT_NODE *) MemAlloc(usTemplateSize[iLight]*sizeof(LIGHT_NODE)))==NULL)
+		{
+			usTemplateSize[iLight]=0;
+			return(-1);
+		}
+		FileRead(hFile, pLightList[iLight], sizeof(LIGHT_NODE)*usTemplateSize[iLight], NULL);
+
+		FileRead(hFile, &usRaySize[iLight], sizeof(UINT16), NULL);
+		if((pLightRayList[iLight]= (UINT16 *) MemAlloc(usRaySize[iLight]*sizeof(UINT16)))==NULL)
+		{
+			usTemplateSize[iLight]=0;
+			usRaySize[iLight]=0;
+			MemFree(pLightList[iLight]);
+			return(-1);
+		}
+		FileRead(hFile, pLightRayList[iLight], sizeof(UINT16)*usRaySize[iLight], NULL);
+
+		FileClose(hFile);
+
+		pLightNames[iLight]= (STR) MemAlloc(strlen(pFilename)+1);
+		strcpy(pLightNames[iLight], pFilename);
+	}
 	else
 	{
-		if((hFile=FileOpen(pFilename, FILE_ACCESS_READ, FALSE))!=0)
-		{
-			FileRead(hFile, &usTemplateSize[iLight], sizeof(UINT16), NULL);
-			if((pLightList[iLight]= (LIGHT_NODE *) MemAlloc(usTemplateSize[iLight]*sizeof(LIGHT_NODE)))==NULL)
-			{
-				usTemplateSize[iLight]=0;
-				return(-1);
-			}
-			FileRead(hFile, pLightList[iLight], sizeof(LIGHT_NODE)*usTemplateSize[iLight], NULL);
-
-			FileRead(hFile, &usRaySize[iLight], sizeof(UINT16), NULL);
-			if((pLightRayList[iLight]= (UINT16 *) MemAlloc(usRaySize[iLight]*sizeof(UINT16)))==NULL)
-			{
-				usTemplateSize[iLight]=0;
-				usRaySize[iLight]=0;
-				MemFree(pLightList[iLight]);
-				return(-1);
-			}
-			FileRead(hFile, pLightRayList[iLight], sizeof(UINT16)*usRaySize[iLight], NULL);
-
-			FileClose(hFile);
-
-			pLightNames[iLight]= (STR) MemAlloc(strlen(pFilename)+1);
-			strcpy(pLightNames[iLight], pFilename);
-		}
-		else
-			return(-1);
+		return(-1);
 	}
+
 	LightCalcRect(iLight);
 	return(iLight);
 }
@@ -3225,9 +3230,11 @@ INT32 iCount;
 ********************************************************************************/
 INT32 LightSpriteCreate(STR pName, UINT32 uiLightType)
 {
-INT32 iSprite;
+	INT32 iSprite;
 
-	if((iSprite=LightSpriteGetFree())!=(-1))
+	iSprite = LightSpriteGetFree();
+
+	if( iSprite != -1 )
 	{
 		memset(&LightSprites[iSprite], 0, sizeof(LIGHT_SPRITE));
 

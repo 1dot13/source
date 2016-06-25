@@ -2332,7 +2332,8 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	}
 	if ( !fSameItem )	//Nav: why is this check here? fSameItem can only be false here, doesn't hurt I guess...
 	{
-		for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
+		//for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
+		for(int i = 0; i < MAXATTACHMENTS; i++)
 		{
 			if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, (AC_GRENADE|AC_ROCKET|AC_MODPOUCH) ) )
 			{//Search for identical attachments unless we're dealing with rifle grenades
@@ -2516,7 +2517,8 @@ BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAt
 
 	if ( !fSameItem )
 	{
-		for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
+		//for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
+		for(int i = 0; i < MAXATTACHMENTS; i++)
 		{
 			if ( FindAttachment(pObj, usAttachment, subObject) != 0 )
 			{
@@ -14946,7 +14948,7 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 		// remember the caliber, magsize (TODO: really?) and type of ammo. They all have to fit
 		UINT8 ubCalibre = Weapon[usItem].ubCalibre;
 		UINT16 ubMagSize = Weapon[usItem].ubMagSize;
-		UINT8 ubAmmoType = ubAmmoType = (*pObject)[0]->data.gun.ubGunAmmoType;
+		UINT8 ubAmmoType = (*pObject)[0]->data.gun.ubGunAmmoType;
 
 		// now we now that this gun CAN be belt fed in the current situation. We now have to check if it IS
 		// we will first check for other mercs who might feed us. Afterwards we look into our own inventory
