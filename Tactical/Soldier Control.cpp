@@ -12161,7 +12161,8 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 					}
 					else
 					{
-						if ( Random( 50 ) > 25 )
+						// sevenfm: always use STAB attack for bayonet
+						if ( Random( 50 ) > 25 || this->bWeaponMode == WM_ATTACHED_BAYONET)
 						{
 							this->EVENT_InitNewSoldierAnim( STAB, 0, FALSE );
 						}
@@ -12393,6 +12394,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 			BOOLEAN nokick = FALSE;
 			if ( this->IsZombie( ) )
 				nokick = TRUE;
+
+			// sevenfm: don't use kick when attacking with any weapon in hand
+			if( this->inv[ HANDPOS ].exists() )
+			{
+				nokick = TRUE;
+			}
 
 			// Look at stance of target
 			switch ( gAnimControl[pTSoldier->usAnimState].ubEndHeight )

@@ -178,7 +178,12 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 
 		case KNIFECURS:
 			//Madd: quick hack to make wirecutter cursor appear when using a knife that can cut through wire
-			if ( Item[ubItemIndex].wirecutters && IsCuttableWireFenceAtGridNo( sTargetGridNo ) && pSoldier->pathing.bLevel == 0 )
+			// sevenfm: check that not using bayonet attached to the gun
+			//if ( Item[ubItemIndex].wirecutters && IsCuttableWireFenceAtGridNo( sTargetGridNo ) && pSoldier->pathing.bLevel == 0 )
+			if ( Item[ubItemIndex].wirecutters &&
+				IsCuttableWireFenceAtGridNo( sTargetGridNo ) &&
+				pSoldier->pathing.bLevel == 0 &&
+				pSoldier->bWeaponMode != WM_ATTACHED_BAYONET)
 			{
 				ubCursorID = GOOD_WIRECUTTER_UICURSOR;
 			}

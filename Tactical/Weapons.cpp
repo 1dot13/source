@@ -3703,7 +3703,8 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			}
 
 			// SANDRO - Enhanced Close Combat System - Notice merc after stealing
-			if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+			// sevenfm: don't turn when lying prone
+			if (gGameExternalOptions.fEnhancedCloseCombatSystem && gAnimControl[ pTargetSoldier->usAnimState ].ubEndHeight != ANIM_PRONE)
 				pTargetSoldier->EVENT_SetSoldierDesiredDirection( GetDirectionFromGridNo( pSoldier->sGridNo, pTargetSoldier ) );
 
 			// 0verhaul:  Also handled in the animation transition
@@ -10400,13 +10401,18 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 	// DAMAGE BONUS TO KNIFE ATTACK WITH MELEE SKILL
 	else 
 	{
-		if ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) && ( gGameOptions.fNewTraitSystem ))
+		// sevenfm: always give MELEE bonus when using bayonet
+		if( pSoldier->bWeaponMode == WM_ATTACHED_BAYONET )
+		{
+			iBonus += gSkillTraitValues.ubMEDamageBonusBlades; // +30% damage
+		}
+		else if ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) && ( gGameOptions.fNewTraitSystem ))
 		{
 			iBonus += gSkillTraitValues.ubMEDamageBonusBlades; // +30% damage
 
 			if (pSoldier->usAnimState == FOCUSED_STAB)
 			{
-				iBonus += gSkillTraitValues.usMEAimedMeleeAttackDamageBonus;  // 50% incresed damage if focused melee attack
+				iBonus += gSkillTraitValues.usMEAimedMeleeAttackDamageBonus;  // 50% increased damage if focused melee attack
 			}
 		}
 		// Enhanced Close Combat System
