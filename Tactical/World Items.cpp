@@ -756,6 +756,8 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 				dummyItem.object.AttachObject(NULL,&defaultAttachment, FALSE);
 			}
 #endif
+			// sevenfm: don't allow max repair threshold less than current object status
+			dummyItem.object[0]->data.sRepairThreshold = __max(dummyItem.object[0]->data.sRepairThreshold, dummyItem.object[0]->data.objectStatus);
 			AddItemToPoolAndGetIndex( dummyItem.sGridNo, &dummyItem.object, dummyItem.bVisible, dummyItem.ubLevel, dummyItem.usFlags, dummyItem.bRenderZHeightAboveLevel, dummyItem.soldierID, &iItemIndex );
 			gWorldItems[ iItemIndex ].ubNonExistChance = dummyItem.ubNonExistChance;
 		}

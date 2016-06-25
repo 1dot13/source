@@ -6110,7 +6110,7 @@ void ShowEnemyWeapon( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier )
 	if( iRange > iVisibleDistance )
 		return;
 
-	if( !pTargetSoldier->bVisible )
+	if( pTargetSoldier->bVisible == -1 )
 		return;
 
 	// calc max range for exact info
