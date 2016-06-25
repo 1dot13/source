@@ -553,7 +553,7 @@ void HourlySmokerUpdate( )
 // anv: decrease exposed snitch cooldown (for simplified exposition handling)
 void HourlySnitchUpdate()
 {
-	for( INT32 cnt = 0; cnt <= NUM_PROFILES; ++cnt )
+	for( INT32 cnt = 0; cnt < NUM_PROFILES; ++cnt )
 	{
 		if( gMercProfiles[cnt].ubSnitchExposedCooldown > 0 )
 			gMercProfiles[cnt].ubSnitchExposedCooldown--;

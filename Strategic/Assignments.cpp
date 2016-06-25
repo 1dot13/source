@@ -3329,7 +3329,7 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 					//pSoldier->SoldierTakeDamage( 0, 0, usDamageTaken, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );
 					pSoldier->bBreath = max( 0, pSoldier->bBreath - usDamageTaken );
 					// he drowned?
-					if( pSoldier->bBreath = 0 )
+					if( pSoldier->bBreath == 0 )
 					{
 						// dead
 						pSoldier->SoldierTakeDamage( 0, 100, 100, TAKE_DAMAGE_HANDTOHAND, NOBODY, NOWHERE, 0, TRUE );

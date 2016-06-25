@@ -14323,10 +14323,12 @@ void RemoveMPButtonsForMapScreen( void )
 		UnloadButtonImage( giMapMPButtonImage[ iCounter ] );
 
 		if(iCounter < MAX_MP_BUTTONS)
+		{
 			RemoveButton( giMapMPButton[ iCounter ] );
+			giMapMPButton[ iCounter ] = -1;	
+		}
 
 		giMapMPButtonImage[ iCounter ] = -1;
-		giMapMPButton[ iCounter ] = -1;
 	}
 	return;
 }

@@ -250,7 +250,7 @@ BOOLEAN	WrapString( STR16 pStr, STR16 pStr2, UINT16 usWidth, INT32 uiFont )
 			{
 				//We completed the check for a space, but failed, so use the hyphen method.
 				swprintf( pStr2, L"-%s", &(pStr[uiHyphenLet]) );
-				pStr[uiHyphenLet] = (INT16)'/0';
+				pStr[uiHyphenLet] = (INT16)'\0';
 				fLineSplit = TRUE;	//hyphen method
 				// HEADROCK HAM 3.6: This is erroneous. At this point, the function should RETURN, otherwise it
 				// cuts another bit off pStr for no reason.

@@ -5984,7 +5984,7 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 	
 	if( ubTownId != BLANK_SECTOR && GetTownSectorSize( ubTownId ) != 1 )
 	{
-		for( INT32 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y + 1; i++ )
+		for( INT32 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; i++ )
 		{
 			if( StrategicMap[ i ].bNameId == ubTownId )
 				SectorInfo[ STRATEGIC_INDEX_TO_SECTOR_INFO( i ) ].ubInvestigativeState++;
@@ -6292,7 +6292,7 @@ void StrategicHandleMineThatRanOut( UINT8 ubSectorID )
 
 	if( ubTownId != BLANK_SECTOR )
 	{
-		for( INT32 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y + 1; i++ )
+		for( INT32 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; i++ )
 		{
 			if( StrategicMap[ i ].bNameId == ubTownId )
 				gArmyComp[ gGarrisonGroup[ SectorInfo[ STRATEGIC_INDEX_TO_SECTOR_INFO( i ) ].ubGarrisonID ].ubComposition ].bPriority /= 4;
