@@ -934,6 +934,10 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 			ubCivQuoteID2  = Random(RandomVal-2);
 			pCiv->bCurrentCivQuoteDelta = 0;
 		}
+		else
+		{
+			ubCivQuoteID2 = pCiv->bCurrentCivQuote;
+		}
 
 		//ubEntryID	= pCiv->bCurrentCivQuote + pCiv->bCurrentCivQuoteDelta;
 		ubEntryID	= ubCivQuoteID2 + pCiv->bCurrentCivQuoteDelta;

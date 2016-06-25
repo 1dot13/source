@@ -467,7 +467,8 @@ void UpdateStrategicDetectionLevel( )
 	for (UINT16 X = 0; X < 256; X++)
 	{
 		// Reset detection level first
-		SectorInfo[X].ubDetectionLevel = 0;
+		// sevenfm: this will disable enemy detection using facility, and detection levels are already zeroed in this function
+		//SectorInfo[X].ubDetectionLevel = 0;
 
 		if (ubStrategicDetectionLevel & (1<<DETECT_ENEMIES_DYNAMIC))
 		{
