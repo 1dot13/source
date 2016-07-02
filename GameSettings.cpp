@@ -720,6 +720,9 @@ void LoadGameExternalOptions()
 	// see Tactical\Weapons.cpp funtion CalcNewChanceToHitGun()
 	gGameExternalOptions.fUseNewCTHCalculation			= iniReader.ReadBoolean("System Limit Settings", "USE_NEW_CTH_CALCULATION", TRUE);
 
+	// Flugente: this change allows to target head/torso/legs of prone targets. This option will be removed once accepted
+	gGameExternalOptions.fAllowTargetHeadAndLegIfProne				= iniReader.ReadBoolean( "System Limit Settings", "ALLOW_TARGET_HEADANDLEG_IFPRONE", TRUE );
+
 	//################# Data File Settings #################
 
 	// WANNE: Always use prof.dat??
@@ -1682,9 +1685,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_THUNDERSHOWERS]				= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_THUNDERSTORM", 0.8f, 0.0f, 1.0f );
 	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_SANDSTORM]					= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_SANDSTORM", 0.6f, 0.0f, 1.0f );
 	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_SNOW]						= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_SNOW", 0.1f, 0.0f, 1.0f );
-
-	FLOAT dHearingReduction[WEATHER_FORECAST_MAX];
-				
+					
 	//################# Tactical Weapon Overheating Settings ##################
 	// Flugente: These settings control the behavior of Weapon Overheating, its severity, and its display.
 	gGameExternalOptions.fWeaponOverheating								= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING",FALSE);

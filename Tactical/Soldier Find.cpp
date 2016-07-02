@@ -903,7 +903,6 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 	INT16					sRelX, sRelY;
 	FLOAT					dRelPer;
 
-
 	// Get Rect contained in the soldier
 	GetSoldierScreenRect( pSoldier, &aRect );
 
@@ -952,6 +951,56 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 				}
 				break;
 
+			case ANIM_PRONE:
+				{
+					// Flugente: if we are prone, determining what part of the body we are aiming for is trickier. 
+					// Instead of focusing on relative height, we simply determine whether we are looking at the gridno the body itself is at, or an adjacent gridno.
+					// Then, depending on whether this is the gridno we are looking at, this will be head or legs
+					if ( gGameExternalOptions.fAllowTargetHeadAndLegIfProne )
+					{
+						INT16 sWorldX, sWorldY;
+						GetMouseWorldCoords( &sWorldX, &sWorldY );
+
+						// Flugente: we measure the distance of the bullet's location to the location of the soldier, and to the 2 gridnos his head and leg occupy
+						// From this we can decide what body part was hit
+						FLOAT bodycenterX = (FLOAT)CenterX( pSoldier->sGridNo );
+						FLOAT bodycenterY = (FLOAT)CenterY( pSoldier->sGridNo );
+
+						FLOAT difftobodycenter = std::sqrt( (bodycenterX - sWorldX) * (bodycenterX - sWorldX) + (bodycenterY - sWorldY) * (bodycenterY - sWorldY) );
+						
+						INT32 viewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( pSoldier->ubDirection ) );
+						FLOAT nextgridnocenterX = (FLOAT)CenterX( viewdirectiongridno );
+						FLOAT nextgridnocenterY = (FLOAT)CenterY( viewdirectiongridno );
+
+						FLOAT difftonextgridno = std::sqrt( (nextgridnocenterX - sWorldX) * (nextgridnocenterX - sWorldX) + (nextgridnocenterY - sWorldY) * (nextgridnocenterY - sWorldY) );
+						
+						INT32 oppositeviewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[pSoldier->ubDirection] ) );
+						FLOAT oppositenextgridnocenterX = (FLOAT)CenterX( oppositeviewdirectiongridno );
+						FLOAT oppositenextgridnocenterY = (FLOAT)CenterY( oppositeviewdirectiongridno );
+
+						FLOAT difftooppositenextgridno = std::sqrt( (oppositenextgridnocenterX - sWorldX) * (oppositenextgridnocenterX - sWorldX) + (oppositenextgridnocenterY - sWorldY) * (oppositenextgridnocenterY - sWorldY) );
+
+						if ( difftobodycenter < difftonextgridno )
+						{
+							if ( difftobodycenter < difftooppositenextgridno )
+							{
+								(*usFlags) = TILE_FLAG_MID;
+								return(TRUE);
+							}
+							else
+							{
+								(*usFlags) = TILE_FLAG_FEET;
+								return(TRUE);
+							}
+						}
+						else
+						{
+							(*usFlags) = TILE_FLAG_HEAD;
+							return(TRUE);
+						}
+					}
+				}
+				break;
 		}
 	}
 

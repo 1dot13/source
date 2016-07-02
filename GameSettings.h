@@ -542,6 +542,9 @@ typedef struct
 	// see Tactical\Weapons.cpp funtion CalcNewChanceToHitGun()
 	BOOLEAN fUseNewCTHCalculation;
 
+	// Flugente: this change allows to target head/torso/legs of prone targets. This option will be removed once accepted
+	BOOLEAN fAllowTargetHeadAndLegIfProne;
+
 	//Sight range
 	UINT32	ubStraightSightRange;
 

@@ -1687,13 +1687,33 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 		switch( pSoldier->bAimShotLocation )
 		{
 			case AIM_SHOT_HEAD:
-				CalculateSoldierZPos( pTargetSoldier, HEAD_TARGET_POS, &dTargetZ );
+				{
+					CalculateSoldierZPos( pTargetSoldier, HEAD_TARGET_POS, &dTargetZ );
+
+					if ( gGameExternalOptions.fAllowTargetHeadAndLegIfProne && gAnimControl[pTargetSoldier->usAnimState].ubHeight == ANIM_PRONE )
+					{
+						INT32 viewdirectiongridno = NewGridNo( pTargetSoldier->sGridNo, DirectionInc( pTargetSoldier->ubDirection ) );
+
+						dTargetX = (0.3f * dTargetX + 0.7f * (FLOAT)CenterX( viewdirectiongridno )) / 1.0f;
+						dTargetY = (0.3f * dTargetY + 0.7f * (FLOAT)CenterY( viewdirectiongridno )) / 1.0f;
+					}
+				}
 				break;
 			case AIM_SHOT_TORSO:
 				CalculateSoldierZPos( pTargetSoldier, TORSO_TARGET_POS, &dTargetZ );
 				break;
 			case AIM_SHOT_LEGS:
-				CalculateSoldierZPos( pTargetSoldier, LEGS_TARGET_POS, &dTargetZ );
+				{
+					CalculateSoldierZPos( pTargetSoldier, LEGS_TARGET_POS, &dTargetZ );
+
+					if ( gGameExternalOptions.fAllowTargetHeadAndLegIfProne && gAnimControl[pTargetSoldier->usAnimState].ubHeight == ANIM_PRONE )
+					{
+						INT32 viewdirectiongridno = NewGridNo( pTargetSoldier->sGridNo, DirectionInc( gOppositeDirection[pTargetSoldier->ubDirection] ) );
+
+						dTargetX = (0.3f * dTargetX + 0.7f * (FLOAT)CenterX( viewdirectiongridno )) / 1.0f;
+						dTargetY = (0.3f * dTargetY + 0.7f * (FLOAT)CenterY( viewdirectiongridno )) / 1.0f;
+					}
+				}
 				break;
 			default:
 				// %)@#&(%?
@@ -12565,10 +12585,6 @@ void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier )
 		  FLOAT newguntemperature = min(guntemperature + singleshottemperature, OVERHEATING_MAX_TEMPERATURE );					// ... calculate new temperature ...
 
 		  (*pObj)[0]->data.bTemperature = newguntemperature;									// ... apply new temperature
-
-#ifdef JA2TESTVERSION
-		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Gun temperature increased from %4.2f to %4.2f", guntemperature, newguntemperature );
-#endif
 		}
 	}
 

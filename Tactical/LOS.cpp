@@ -2714,7 +2714,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			{
 				// Flugente: kids are smaller. We have to keep hat in mind... otherwise we will never make a sucessful headshot
 				BOOLEAN iskid = ( pTarget->ubBodyType == HATKIDCIV || pTarget->ubBodyType == KIDCIV );
-				
+
 				switch (gAnimControl[ pTarget->usAnimState ].ubEndHeight)
 				{
 				case ANIM_STAND:
@@ -2800,7 +2800,58 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 					}
 					break;
 				case ANIM_PRONE:
-					ubHitLocation = AIM_SHOT_TORSO;
+					{
+						if ( gGameExternalOptions.fAllowTargetHeadAndLegIfProne )
+						{
+							FLOAT x = (FLOAT)FIXEDPT_TO_INT32( pBullet->qCurrX + FloatToFixed( 0.5f ) ); // + 0.5);
+							FLOAT y = (FLOAT)FIXEDPT_TO_INT32( pBullet->qCurrY + FloatToFixed( 0.5f ) ); // (dCurrY + 0.5);
+						
+							// Flugente: we measure the distance of the bullet's location to the location of the soldier, and to the 2 gridnos his head and leg occupy
+							// From this we can decide what body part was hit
+							FLOAT bodycenterX = (FLOAT)CenterX( pTarget->sGridNo );
+							FLOAT bodycenterY = (FLOAT)CenterY( pTarget->sGridNo );
+
+							FLOAT difftobodycenter = std::sqrt( (bodycenterX - x) * (bodycenterX - x) + (bodycenterY - y) * (bodycenterY - y) );
+
+							INT32 viewdirectiongridno = NewGridNo( pTarget->sGridNo, DirectionInc( pTarget->ubDirection ) );
+							FLOAT nextgridnocenterX = (FLOAT)CenterX( viewdirectiongridno );
+							FLOAT nextgridnocenterY = (FLOAT)CenterY( viewdirectiongridno );
+
+							FLOAT difftonextgridno = std::sqrt( (nextgridnocenterX - x) * (nextgridnocenterX - x) + (nextgridnocenterY - y) * (nextgridnocenterY - y) );
+
+							INT32 oppositeviewdirectiongridno = NewGridNo( pTarget->sGridNo, DirectionInc( gOppositeDirection[pTarget->ubDirection] ) );
+							FLOAT oppositenextgridnocenterX = (FLOAT)CenterX( oppositeviewdirectiongridno );
+							FLOAT oppositenextgridnocenterY = (FLOAT)CenterY( oppositeviewdirectiongridno );
+
+							FLOAT difftooppositenextgridno = std::sqrt( (oppositenextgridnocenterX - x) * (oppositenextgridnocenterX - x) + (oppositenextgridnocenterY - y) * (oppositenextgridnocenterY - y) );
+
+							if ( difftobodycenter < difftonextgridno )
+							{
+								if ( difftobodycenter < difftooppositenextgridno )
+								{
+									ubHitLocation = AIM_SHOT_TORSO;
+
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Torso hit" );
+								}
+								else
+								{
+									ubHitLocation = AIM_SHOT_LEGS;
+
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Leg hit" );
+								}
+							}
+							else
+							{
+								ubHitLocation = AIM_SHOT_HEAD;
+
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Headshot" );
+							}
+						}
+						else
+						{
+							ubHitLocation = AIM_SHOT_TORSO;
+						}
+					}
 					break;
 
 				}
@@ -3664,7 +3715,7 @@ UINT8 CalcChanceToGetThrough( BULLET * pBullet )
 						// in actually moving the bullet, we consider only count friends as targets if the bullet is unaimed
 						// (buckshot), if they are the intended target, or beyond the range of automatic friendly fire hits
 						// OR a 1 in 30 chance occurs
-						if (gAnimControl[ MercPtrs[pStructure->usStructureID]->usAnimState ].ubEndHeight == ANIM_STAND &&
+						if ( (gGameExternalOptions.fAllowTargetHeadAndLegIfProne || gAnimControl[MercPtrs[pStructure->usStructureID]->usAnimState].ubEndHeight == ANIM_STAND) &&
 							( (pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS) ||
 							(!pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED)
 							)
@@ -6495,7 +6546,7 @@ void MoveBullet( INT32 iBullet )
 						}
 					}
 					else if ( MercPtrs[ pStructure->usStructureID ]->bVisible == TRUE &&
-						gAnimControl[ MercPtrs[pStructure->usStructureID]->usAnimState ].ubEndHeight == ANIM_STAND &&
+							  (gGameExternalOptions.fAllowTargetHeadAndLegIfProne || gAnimControl[ MercPtrs[pStructure->usStructureID]->usAnimState ].ubEndHeight == ANIM_STAND ) &&
 						( (pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS) ||
 						(!pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED) ||
 						PreRandom( 100 ) < MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE
@@ -6974,7 +7025,7 @@ void MoveBullet( INT32 iBullet )
 
 									}
 								}
-								else if ( pBullet->iLoop > CLOSE_TO_FIRER || (pStructure->fFlags & ALWAYS_CONSIDER_HIT) || (pBullet->iLoop > CLOSE_TO_FIRER) || (fIntended) )
+								else if ( pBullet->iLoop > CLOSE_TO_FIRER || (pStructure->fFlags & ALWAYS_CONSIDER_HIT) || fIntended )
 								{
 									if (pStructure->fFlags & STRUCTURE_WALLSTUFF)
 									{
@@ -7123,7 +7174,8 @@ void MoveBullet( INT32 iBullet )
 		uiTileInc++;
 
 		// HEADROCK HAM 5: Ignore if moving a fragment.
-		if(UsingNewCTHSystem() && pBullet->fFragment == false ){
+		if(UsingNewCTHSystem() && pBullet->fFragment == false )
+		{
 			// HEADROCK HAM 4: This is kind of a hack. I'm measuring the distance the tile has moved in 2D space,
 			// for purposes of determining whether gravity should take effect.
 			FLOAT dDistanceMoved = PythSpacesAway( pBullet->pFirer->sGridNo, pBullet->sGridNo ) * 10.0f;
@@ -7142,7 +7194,9 @@ void MoveBullet( INT32 iBullet )
 				//pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * 2);
 				pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * (gGameCTHConstants.GRAVITY_COEFFICIENT / 2) );
 			}
-		} else {
+		}
+		else
+		{
 			if ( (pBullet->iLoop > pBullet->iRange * 2) )
 			{
 				// beyond max effective range, bullet starts to drop!
