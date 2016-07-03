@@ -45,6 +45,9 @@
 	
 	<snowchance>
 	chance that, if it snows, it will also happen in this sector
+	
+	<snakechance>
+	Value between 0 and 100. If > 0, snakes can attack people in water. The higher the value, the more frequent this happens.
 -->
 <SECTOR_NAMES>
   <SECTOR>
@@ -58,6 +61,8 @@
     <usCivilianPopulation>2</usCivilianPopulation>
 	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snowchance>0</snowchance>
+	<snakechance>0</snakechance>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A2</SectorGrid>
@@ -407,6 +412,7 @@
     <usNaturalDirt>500</usNaturalDirt>
 	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B16</SectorGrid>
@@ -586,6 +592,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>	
    <SECTOR>
     <SectorGrid>C16</SectorGrid>
@@ -597,6 +604,7 @@
     <usNaturalDirt>100</usNaturalDirt>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>D1</SectorGrid>
@@ -736,6 +744,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>D13</SectorGrid>
@@ -896,6 +905,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>E11</SectorGrid>
@@ -940,6 +950,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR> 
    <SECTOR>
     <SectorGrid>E15</SectorGrid>
@@ -1333,6 +1344,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H1</SectorGrid>
@@ -1513,6 +1525,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H16</SectorGrid>
@@ -1764,6 +1777,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>75</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>J5</SectorGrid>
@@ -1775,6 +1789,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>75</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>J6</SectorGrid>
@@ -1949,6 +1964,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>K4</SectorGrid>
@@ -1961,6 +1977,7 @@
     <usCurfewValue>2</usCurfewValue>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>K5</SectorGrid>
@@ -1972,6 +1989,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>K6</SectorGrid>
@@ -2126,6 +2144,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>L4</SectorGrid>
@@ -2137,6 +2156,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>L5</SectorGrid>
@@ -2250,6 +2270,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>L15</SectorGrid>
@@ -2307,6 +2328,7 @@
     <usCurfewValue>2</usCurfewValue>
  	<rainchance>90</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>M4</SectorGrid>
@@ -2432,6 +2454,7 @@
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<snakechance>50</snakechance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>M15</SectorGrid>
