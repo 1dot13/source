@@ -2553,9 +2553,9 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: direction to loc = %d, dir to flank = %d", sDir , sDesiredDir ));
 
-	for (sYOffset = -sMaxUp + 1; sYOffset <= sMaxDown - 1; sYOffset++)
+	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
 	{
-		for (sXOffset = -sMaxLeft + 1; sXOffset <= sMaxRight - 1; sXOffset++)
+		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 		{
 			// calculate the next potential gridno
 			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);

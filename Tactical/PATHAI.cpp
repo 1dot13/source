@@ -4433,7 +4433,9 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 	// distance limit to reduce the cost of plotting a path to a location we can't reach
 
 	// For now, use known hight adjustment
-	if ( gfRecalculatingExistingPathCost || FindBestPath( pSold, sDestGridNo, pSold->pathing.bLevel, usMovementMode, bCopyRoute, 0 ) )
+	// sevenfm: ignore person at destination if we are estimating path cost
+	if ( gfRecalculatingExistingPathCost || FindBestPath( pSold, sDestGridNo, pSold->pathing.bLevel, usMovementMode, bCopyRoute, gfEstimatePath ? PATH_IGNORE_PERSON_AT_DEST : 0 ) )
+	//if ( gfRecalculatingExistingPathCost || FindBestPath( pSold, sDestGridNo, pSold->pathing.bLevel, usMovementMode, bCopyRoute, 0 ) )
 	{
 		// if soldier would be STARTING to run then he pays a penalty since it takes time to
 		// run full speed

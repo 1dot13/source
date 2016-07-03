@@ -6332,11 +6332,12 @@ UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT8 ubN
 		iEffVolume -= 5;
 	}
 
- if (pSoldier->bAssignment == SLEEPING )
- {
-	// decrease effective volume since we're asleep!
-	iEffVolume -= 5;
- }
+	//if (pSoldier->bAssignment == SLEEPING )
+	if( pSoldier->flags.fMercAsleep )
+	{
+		// decrease effective volume since we're asleep!
+		iEffVolume -= 5;
+	}
 
 	// check for floor/roof difference
 	if (bLevel > pSoldier->pathing.bLevel)

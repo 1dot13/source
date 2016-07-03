@@ -421,7 +421,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].GetName(),ubAimTime,ubChanceToHit);
 				//PopMessage(tempstr);
 
-				iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
+				// sevenfm: 100 AP system
+				iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+				//iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 				//NumMessage("hitRate = ",iHitRate);
 
 				// if aiming for this amount of time produces a better hit rate
@@ -446,7 +448,9 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 					ubChanceToHit = ubChanceToHit2;
 			}
 			Assert( ubRawAPCost > 0);
-			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
+			// sevenfm: 100AP system
+			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+			//iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 			iBestHitRate = iHitRate;
 			ubBestAimTime = ubAimTime;
 			ubBestChanceToHit = ubChanceToHit;
@@ -1665,7 +1669,9 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 			if (ubRawAPCost < 1)
 				ubRawAPCost = ubMinAPCost;
 
-			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
+			// sevenfm: 100AP system
+			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+			//iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 			//NumMessage("hitRate = ",iHitRate);
 
 			// if aiming for this amount of time produces a better hit rate
@@ -1845,7 +1851,9 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 			if (ubRawAPCost < 1)
 				ubRawAPCost = ubMinAPCost;
 
-			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
+			// sevenfm: 100AP system
+			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+			//iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 			//NumMessage("hitRate = ",iHitRate);
 
 			// if aiming for this amount of time produces a better hit rate
