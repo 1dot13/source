@@ -486,6 +486,8 @@ void EndTurnEvents( void )
 	// decay AI warning values from corpses
 	DecayRottingCorpseAIWarnings();
 
+	HandleEnvironmentHazard( );
+
 #ifdef JA2UB	
 	//Ja25 UB
 	

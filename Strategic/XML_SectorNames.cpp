@@ -96,7 +96,8 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "usCivilianPopulation" ) == 0 ||
 				strcmp(name, "rainchance" ) == 0 ||
 				strcmp(name, "sandstormchance") == 0 ||
-				strcmp(name, "snowchance" ) == 0 ))
+				strcmp(name, "snowchance" ) == 0 ||
+				strcmp(name, "snakechance" ) == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -212,7 +213,12 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					SectorExternalData[ubSectorId][1].snowchance = 0;
 					SectorExternalData[ubSectorId][2].snowchance = 0;
 					SectorExternalData[ubSectorId][3].snowchance = 0;
-															
+
+					SectorExternalData[ubSectorId][0].snakechance = pData->sectordata.snakechance;
+					SectorExternalData[ubSectorId][1].snakechance = 0;
+					SectorExternalData[ubSectorId][2].snakechance = 0;
+					SectorExternalData[ubSectorId][3].snakechance = 0;
+																				
 					if ( !prisonroomvector.empty( ) )
 					{
 						std::vector<UINT16>::iterator itend = prisonroomvector.end( );
@@ -234,6 +240,7 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					pData->sectordata.rainchance = 0;
 					pData->sectordata.sandstormchance = 0;
 					pData->sectordata.snowchance = 0;
+					pData->sectordata.snakechance = 0;
 				}
 				else
 				{
@@ -342,6 +349,11 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->sectordata.snowchance = min( 100, (UINT8)atoi( pData->szCharData ) );
+		}
+		else if ( strcmp( name, "snakechance" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->sectordata.snakechance = min( 100, (UINT8)atoi( pData->szCharData ) );
 		}
 
 		pData->maxReadDepth--;

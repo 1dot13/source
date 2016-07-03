@@ -508,6 +508,9 @@ typedef struct
 	UINT8		rainchance;				// chance that it rains in this sector 
 	UINT8		sandstormchance;		// chance that a sandstorm happens in this sector 
 	UINT8		snowchance;				// chance that it snows in this sector
+
+	UINT8		snakechance;				// if positive, snakes can attack in water, the higher the number, the more often it happens
+
 } SECTOR_EXT_DATA;
 
 // get dirt increase for object with attachments, fConsiderAmmo: with ammo

@@ -83,5 +83,7 @@ INT8 SectorTemperature( UINT32 uiTime, INT16 sSectorX, INT16 sSectorY, INT8 bSec
 
 void UpdateTemperature( UINT8 ubTemperatureCode );
 
+// Flugente: the environment can interact with soldiers
+void HandleEnvironmentHazard( );
 
 #endif

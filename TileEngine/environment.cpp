@@ -22,10 +22,18 @@
 	#include "Random.h"
 	#include "strategicmap.h"
 	#include "GameSettings.h"
+	#include "Points.h"					// added by Flugente
+	#include "Campaign.h"				// added by Flugente
+	#include "Isometric Utils.h"		// added by Flugente
+	#include "Strategic Movement.h"		// added by Flugente
+	#include "tiledef.h"				// added by Flugente
+	#include "worldman.h"				// added by Flugente
 #endif
 
 #include "Text.h"
 #include "connect.h"
+
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 //effects whether or not time of day effects the lighting.	Underground
 //maps have an ambient light level that is saved in the map, and doesn't change.
@@ -1086,5 +1094,123 @@ INT8 SectorTemperature( UINT32 uiTime, INT16 sSectorX, INT16 sSectorY, INT8 bSec
 	else
 	{
 		return( gubGlobalTemperature );
+	}
+}
+
+
+// Flugente: fun with snakes
+void AddSnakeAmim( INT32 sGridno, UINT8 usDirection )
+{
+	if ( !TileIsOutOfBounds( sGridno ) )
+	{
+		ANITILE_PARAMS	AniParams;
+
+		memset( &AniParams, 0, sizeof(ANITILE_PARAMS) );
+
+		AniParams.sGridNo = sGridno;
+		AniParams.ubLevelID = ANI_OBJECT_LEVEL;
+		AniParams.sDelay = 100;
+		AniParams.sStartFrame = 0;
+		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_USE_DIRECTION_FOR_START_FRAME;//| ANITILE_LOOPING;
+		AniParams.sX = CenterX( sGridno );
+		AniParams.sY = CenterY( sGridno );
+		AniParams.sZ = 0;
+		strcpy( AniParams.zCachedFile, "TILECACHE\\WATERSNAKE_MOVE.sti" );
+
+		AniParams.uiUserData3 = gOneCCDirection[usDirection];
+
+		CreateAnimationTile( &AniParams );
+	}
+}
+
+// Flugente: the environment can interact with soldiers
+void HandleEnvironmentHazard( )
+{
+	UINT8 sector = (UINT8)SECTOR( gWorldSectorX, gWorldSectorY );
+	UINT8 ubTraverseType = SectorInfo[sector].ubTraversability[THROUGH_STRATEGIC_MOVE];
+
+	if ( gGameExternalOptions.gfAllowSnakes && !gbWorldSectorZ && Chance( SectorExternalData[sector][0].snakechance ) )
+	{
+		// there can be up to 3 attacks at the same time
+		int actionstodo = 3;
+		BOOLEAN soundplayed = FALSE;
+
+		SOLDIERTYPE *pSoldier = NULL;
+		UINT32 uiCnt = 0;
+		for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt < TOTAL_SOLDIERS; ++uiCnt, ++pSoldier )
+		{
+			if ( pSoldier->bActive && !pSoldier->bSectorZ && pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->stats.bLife > 0 )
+			{
+				if ( TERRAIN_IS_WATER( pSoldier->bOverTerrainType ) && pSoldier->pathing.bLevel <= 0 )
+				{
+					// there is a chance to be attacked, it is increased if we have open wounds
+					UINT16 chancetobeattacked = 20 + pSoldier->bBleeding + 20 * TERRAIN_IS_DEEP_WATER( pSoldier->bOverTerrainType );
+
+					if ( Chance( chancetobeattacked ) )
+					{
+						// there is a chance we defeat the snake and do not take damage, but get a bit of exp
+						if ( Chance( pSoldier->GetWaterSnakeDefenseChance( ) ) )
+						{
+							StatChange( pSoldier, EXPERAMT, 10, FROM_SUCCESS );
+
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szSnakeText[0], pSoldier->GetName( ) );
+						}
+						// otherwise, the snake damages us
+						else
+						{
+							INT16 damage = 10 + Random( 11 );
+
+							pSoldier->SoldierTakeDamage( 0, damage, damage * 100, TAKE_DAMAGE_TENTACLES, NOBODY, pSoldier->sGridNo, 0, TRUE );
+
+							// if this is a swamp, handle possible extra infection
+							if ( ubTraverseType == SWAMP || ubTraverseType == SWAMP_ROAD )
+							{
+								HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_SWAMP );
+							}
+
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szSnakeText[1], pSoldier->GetName( ) );
+						}
+
+						// in any case, play animation and lose APs
+						DeductPoints( pSoldier, 20, 200, DISABLED_INTERRUPT );
+
+						AddSnakeAmim( pSoldier->sGridNo, Random( NUM_WORLD_DIRECTIONS ) );
+
+						if ( !soundplayed )
+						{
+							PlayJA2SampleFromFile( Chance( 50 ) ? "Sounds\\WATERSNAKE_ATTACK_01.WAV" : "Sounds\\WATERSNAKE_ATTACK_02.WAV", RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+
+							soundplayed = TRUE;
+						}
+
+						--actionstodo;
+					}
+
+					if ( actionstodo <= 0 )
+						break;
+				}
+			}
+		}
+
+		// if there are actions left, just have the snakes travel ominously in random locations
+		int cnt = 0;
+		while ( actionstodo > 0 && cnt < 1000 )
+		{
+			INT32 sGridNo = RandomGridNo( );
+
+			if ( TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
+			{
+				AddSnakeAmim( sGridNo, Random( NUM_WORLD_DIRECTIONS ) );
+
+				--actionstodo;
+			}
+
+			++cnt;
+		}
+
+		if ( !actionstodo && !soundplayed )
+		{
+			PlayJA2SampleFromFile( Chance( 50 ) ? "Sounds\\WATERSNAKE_MOVE_01.WAV" : "Sounds\\WATERSNAKE_MOVE_02.WAV", RATE_11025, LOWVOLUME, 1, MIDDLEPAN );
+		}
 	}
 }

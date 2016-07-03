@@ -1685,7 +1685,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_THUNDERSHOWERS]				= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_THUNDERSTORM", 0.8f, 0.0f, 1.0f );
 	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_SANDSTORM]					= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_SANDSTORM", 0.6f, 0.0f, 1.0f );
 	gGameExternalOptions.dHearingReduction[WEATHER_FORECAST_SNOW]						= iniReader.ReadDouble( "Tactical Weather Settings", "HEARING_REDUCTION_SNOW", 0.1f, 0.0f, 1.0f );
-					
+	
+	//################# Environment Hazard Settings ##################
+	// Flugente: this controls what dangers we face in different sectors
+	gGameExternalOptions.gfAllowSnakes													= iniReader.ReadBoolean( "Environment Hazard Settings", "ALLOW_SNAKES", TRUE );
+
 	//################# Tactical Weapon Overheating Settings ##################
 	// Flugente: These settings control the behavior of Weapon Overheating, its severity, and its display.
 	gGameExternalOptions.fWeaponOverheating								= iniReader.ReadBoolean("Tactical Weapon Overheating Settings","OVERHEATING",FALSE);
@@ -2634,6 +2638,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.usSVDiseaseResistance						= iniReader.ReadInteger( "Survival", "DISEASE_RESISTANCE", 10, 0, 100 );
 	gSkillTraitValues.sSVFoodConsumption						= iniReader.ReadInteger( "Survival", "FOOD_CONSUMPTION", -20, -100, 100 );
 	gSkillTraitValues.sSVDrinkConsumption						= iniReader.ReadInteger( "Survival", "DRINK_CONSUMPTION", -10, -100, 100 );
+	gSkillTraitValues.usSVSnakeDefense							= iniReader.ReadInteger( "Survival", "SNAKE_EVADE_BONUS", 10, 0, 50 );
 }
 
 //DBrot: Grids

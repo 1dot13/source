@@ -11158,4 +11158,10 @@ STR16	szWeatherTypeText[] =	// TODO.Translate
 	L"snow",
 };
 
+STR16	szSnakeText[] =
+{
+	L"%s evaded a snake attack!",
+	L"%s was attacked by a snake!",
+};
+
 #endif //POLISH

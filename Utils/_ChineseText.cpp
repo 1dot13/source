@@ -11137,6 +11137,12 @@ STR16	szWeatherTypeText[] =	// TODO.Translate
 	L"snow",
 };
 
+STR16	szSnakeText[] =
+{
+	L"%s evaded a snake attack!",
+	L"%s was attacked by a snake!",
+};
+
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
 STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode

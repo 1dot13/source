@@ -1932,6 +1932,9 @@ public:
 	// Flugente: do we have a specific item in our inventory?
 	BOOLEAN HasItem( UINT16 usItem );
 	BOOLEAN SelfDetonate();						// AI-only: blow up explosive in own inventory. Do NOT, repeat, NOT use this with mercs!
+
+	// Flugente: chance to defeat a water snake instead of being hit by it
+	UINT8	GetWaterSnakeDefenseChance( );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

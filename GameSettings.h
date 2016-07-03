@@ -592,6 +592,10 @@ typedef struct
 	FLOAT dVisDistDecrease[WEATHER_FORECAST_MAX];
 	FLOAT dHearingReduction[WEATHER_FORECAST_MAX];
 
+	// Flugente: this controls what dangers we face in different sectors
+	// Snakes can attack mercs in water
+	BOOLEAN gfAllowSnakes;
+
 	// WDS - Progress settings
 	UINT32 ubGameProgressPortionKills;
 	UINT32 ubGameProgressPortionControl;
@@ -1902,6 +1906,7 @@ typedef struct
 	UINT8 usSVDiseaseResistance;
 	INT8 sSVFoodConsumption;					// alters food consumption rate
 	INT8 sSVDrinkConsumption;
+	UINT8 usSVSnakeDefense;						// increases chance to evade a snake attack
 } SKILL_TRAIT_VALUES;
 
 // HEADROCK HAM 4: Constants used as coefficients by the various parts of the new CTH system.

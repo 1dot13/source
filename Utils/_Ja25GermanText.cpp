@@ -398,9 +398,10 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"-%d%s Abnutzung von Tarnfarbe durch Wasser oder Zeit\n",
 	L"Kann Spuren bis zu %d Felder weit erkennen\n",
 
-	L" %s%d%% disease resistance\n",	//TODO.Translate
-	L" %s%d%% food consumption\n",
-	L" %s%d%% water consumption\n",
+	L"%s%d%% disease resistance\n",	//TODO.Translate
+	L"%s%d%% food consumption\n",
+	L"%s%d%% water consumption\n",
+	L"+%d%% snake evasion\n",	// TODO.Translate
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

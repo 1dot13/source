@@ -10089,6 +10089,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && CREATURE_OR_BLOODCAT( MercPtrs[ubAttacker] ) )
 			HandlePossibleInfection( this, MercPtrs[ubAttacker], INFECTION_TYPE_WOUND_ANIMAL );
 
+		if ( ubReason == TAKE_DAMAGE_TENTACLES )
+			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_ANIMAL );
+
 		if ( ubReason == TAKE_DAMAGE_GUNFIRE && sLifeDeduct > 20 )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_GUNSHOT );
 		else if ( ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND
@@ -19131,6 +19134,42 @@ BOOLEAN		SOLDIERTYPE::SelfDetonate( )
 	}
 
 	return FALSE;
+}
+
+// Flugente: chance to defeat a water snake instead of being hit by it
+UINT8	SOLDIERTYPE::GetWaterSnakeDefenseChance()
+{
+	// base evasion chance is 5%
+	INT16 val = 5;
+
+	if ( gGameOptions.fNewTraitSystem )
+		val += gSkillTraitValues.usSVSnakeDefense * NUM_SKILL_TRAITS( this, SURVIVAL_NT );
+
+	// bonus if we have a knife, extra if it is in our hands
+	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists( ) )
+		{
+			OBJECTTYPE* pObj = &(inv[bLoop]);
+
+			if ( pObj && (*pObj)[0]->data.objectStatus >= USABLE && Item[pObj->usItem].usItemClass == IC_BLADE )
+			{
+				if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS )
+					val += 25;
+				else
+					val += 15;
+
+				break;
+			}
+		}
+	}
+
+	// chance is lowered if we are in deep water
+	if ( TERRAIN_IS_DEEP_WATER( this->bOverTerrainType ) )
+		val = max(0, val - 10);
+
+	return (UINT8)(val);
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

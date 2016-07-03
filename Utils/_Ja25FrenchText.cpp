@@ -395,9 +395,10 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 	L"-%d%s de l'usure du camouflage due au temps ou à l'eau\n",
 	L"Can spot tracks up to %d tiles away\n",	// TODO.Translate
 
-	L" %s%d%% disease resistance\n",
-	L" %s%d%% food consumption\n",
-	L" %s%d%% water consumption\n",
+	L"%s%d%% disease resistance\n",
+	L"%s%d%% food consumption\n",
+	L"%s%d%% water consumption\n",
+	L"+%d%% snake evasion\n",	// TODO.Translate
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=

@@ -176,6 +176,8 @@ void HandleTacticalEndTurn( )
 	// decay AI warning values from corpses
 	DecayRottingCorpseAIWarnings();
 
+	HandleEnvironmentHazard( );
+
 	if(gGameExternalOptions.gfAllowReinforcements)//dnl ch68 100913
 	{
 		if ( gTacticalStatus.Team[ENEMY_TEAM].bTeamActive || gfPendingNonPlayerTeam[ENEMY_TEAM] || 
