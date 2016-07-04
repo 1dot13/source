@@ -531,8 +531,9 @@ typedef struct SECTORINFO
 	// Flugente: enemy jeeps
 	UINT8	ubNumJeeps;
 	UINT8	ubJeepsInBattle;
-
-	INT8	bPadding1[2];
+	
+	UINT8	usWorkers;
+	UINT8	ubWorkerTrainingHundredths;
 
 	// Flugente: localized weather
 	UINT32	usWeather;

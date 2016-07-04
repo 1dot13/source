@@ -4568,6 +4568,22 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 		AdjustXForLeftMapEdge(wString, &sScreenX, MapMineLabelsFont);
 		mprintf( ( sScreenX - StringPixLengthArg( MapMineLabelsFont, wcslen(wString), wString ) / 2 ) , sScreenY + ubLineCnt * GetFontHeight( MapMineLabelsFont ), wString );
 		++ubLineCnt;
+
+		// Flugente: workforce
+		if ( gGameExternalOptions.fMineRequiresWorkers )
+		{
+			INT8 bTownId = gMineStatus[ ubMineIndex ].bAssociatedTown;
+			UINT16 maxworkforce = 0;
+			UINT16 workforce = GetTownWorkers( bTownId, maxworkforce);
+
+			if ( maxworkforce > 0 )
+			{
+				swprintf( wString, L"%d/%d workers", workforce, maxworkforce );
+				AdjustXForLeftMapEdge(wString, &sScreenX, MapMineLabelsFont);
+				mprintf( ( sScreenX - StringPixLength( wString, MapMineLabelsFont ) / 2 ) , sScreenY + ubLineCnt * GetFontHeight( MapMineLabelsFont ) , wString );
+				++ubLineCnt;
+			}
+		}
 	}
 
 	SetFontDestBuffer( FRAME_BUFFER, MAP_VIEW_START_X, MAP_VIEW_START_Y, MAP_VIEW_START_X+MAP_VIEW_WIDTH+MAP_GRID_X, MAP_VIEW_START_Y+MAP_VIEW_HEIGHT+7, FALSE );

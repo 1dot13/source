@@ -85,6 +85,7 @@ enum
 	FACILITY_PATIENT,
 	FACILITY_REPAIR,
 	FORTIFICATION,					// Flugente: sectors can be fortified according to external layout plans
+	TRAIN_WORKERS,
 	NUM_ASSIGNMENTS,
 };
 
@@ -179,6 +180,8 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pCharacter );
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pCharacter );
 BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier );
 
+BOOLEAN CanCharacterTrainWorkers( SOLDIERTYPE *pSoldier );
+
 // can character train stat?..as train self or as trainer?
 BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrainSelf, BOOLEAN fTrainTeammate );
 
@@ -265,6 +268,9 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 
 // Flugente: Determine the best cth with SAMs in a sector, and which merc has that cth if present
 FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT16 *pubID );
+
+INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier);
+
 
 // Flugente: determine max items we can move, and the sector distance
 

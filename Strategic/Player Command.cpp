@@ -178,6 +178,8 @@ void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCi
 	return;
 }
 
+// Flugente: external sector data
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 // ALL changes of control to player must be funneled through here!
 BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BOOLEAN fContested )
@@ -401,6 +403,9 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 			
 			AddVolunteers( loyalpopulation * gGameExternalOptions.dMilitiaVolunteerGainFactorLiberation );
 		}
+
+		// Flugente: workforce
+		SectorInfo[SECTOR( sMapX, sMapY )].usWorkers = SectorExternalData[SECTOR( sMapX, sMapY )][0].maxworkers * gGameExternalOptions.dInitialWorkerRate;
 	}
 
 	// Flugente: if we take the surface sector for the first time, script-defined actions might happen

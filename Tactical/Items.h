@@ -509,7 +509,9 @@ typedef struct
 	UINT8		sandstormchance;		// chance that a sandstorm happens in this sector 
 	UINT8		snowchance;				// chance that it snows in this sector
 
-	UINT8		snakechance;				// if positive, snakes can attack in water, the higher the number, the more often it happens
+	UINT8		snakechance;			// if positive, snakes can attack in water, the higher the number, the more often it happens
+
+	UINT8		maxworkers;				// maximum number of workers in this sector;
 
 } SECTOR_EXT_DATA;
 

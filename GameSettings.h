@@ -1296,6 +1296,12 @@ typedef struct
 
 	FLOAT gMercLevelUpSalaryIncreasePercentage;
 
+	// Flugente: mine income can depend on the number or workers we have
+	BOOLEAN fMineRequiresWorkers;
+	FLOAT dInitialWorkerRate;
+	UINT32 usWorkerTrainingCost;
+	UINT8 usWorkerTrainingPoints;
+
 	UINT8 ubChanceTonyAvailable; // silversurfer/SANDRO
 
 	BOOLEAN fShowSkillsInHirePage;

@@ -535,6 +535,19 @@ INT32 GetAvailableWorkForceForMineForPlayer( INT8 bMineIndex )
 	iWorkForceSize *= GetTownSectorsUnderControl( bTownId );
 	iWorkForceSize /= GetTownSectorSize( bTownId );
 
+	// Flugente: workforce
+	if ( gGameExternalOptions.fMineRequiresWorkers )
+	{
+		UINT16 maxworkforce = 0;
+		UINT16 workforce = GetTownWorkers( bTownId, maxworkforce);
+
+		if ( maxworkforce > 0 )
+		{
+			iWorkForceSize *= workforce;
+			iWorkForceSize /= maxworkforce;
+		}
+	}
+
 	return ( iWorkForceSize );
 }
 

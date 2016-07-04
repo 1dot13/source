@@ -2285,6 +2285,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				case TRAIN_MOBILE:
 				case TRAIN_TEAMMATE:
 				case TRAIN_BY_OTHER:
+				case TRAIN_WORKERS:
 					sIconIndex_Assignment = 3;
 					fDoIcon_Assignment		= TRUE;
 					fShowNumber = TRUE;
@@ -2307,6 +2308,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 							break;
 						case( TRAIN_TEAMMATE ):
 							sPtsAvailable = GetBonusTrainingPtsDueToInstructor( MercPtrs[ pFace->ubSoldierID ], NULL , MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
+							break;
+						case TRAIN_WORKERS:
+							fShowMaximum = FALSE;
+							sPtsAvailable = GetTrainWorkerPts(MercPtrs[ pFace->ubSoldierID ]);
 							break;
 					}
 					break;
@@ -2345,7 +2350,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 						fShowMaximum	= TRUE;
 					}
 					break;
-
+									
 				case FACILITY_INTERROGATE_PRISONERS:
 					sIconIndex_Assignment		= 13;
 					fDoIcon_Assignment			= TRUE;

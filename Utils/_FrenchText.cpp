@@ -2472,6 +2472,7 @@ STR16 pAssignmentStrings[] =
 	L"Patient(e)", // getting medical aid
 	L"Réparat.", // repairing
 	L"Fortify",		// build structures according to external layout	// TODO.Translate
+	L"Train W.",
 };
 
 
@@ -2574,6 +2575,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Patient",
 	L"Réparation",
 	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
+	L"Train workers",
 };
 
 
@@ -2635,6 +2637,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Patient",
 	L"Réparation",
 	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
+	L"Train workers",
 };
 
 
@@ -2956,6 +2959,7 @@ STR16 pTrainingMenuStrings[] =
 	L"Formation", // train yourself 
 	L"Milice", // train the town 
 	L"Milice mobile",
+	L"Train workers",	// TODO.Translate
 	L"Entraîneur", // train your teammates 
 	L"Élève",  // be trained by an instructor 
 	L"Annuler", // cancel this menu
@@ -4540,6 +4544,7 @@ STR16 pTransactionText[] =
 	L"WHO data subscription",	// Flugente: disease TODO.Translate
 	L"Payment to Kerberus",	// Flugente: PMC
 	L"SAM site repair", // Flugente: SAM repair // TODO.Translate
+	L"Trained workers", // Flugente: train workers
 };
 
 STR16 pTransactionAlternateText[] =

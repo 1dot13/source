@@ -466,6 +466,8 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ );
 // Flugente: assigned mercs can move equipemnt in city sectors
 void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
+void HandleTrainWorkers( );
+
 // Flugente: handle radio scanning assignments
 void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
@@ -2547,9 +2549,9 @@ void UpdateAssignments()
 				// Flugente: prisons can riot if there aren't enough guards around
 				if ( !bZ )
 					HandlePrison( sX, sY, bZ );
+				}
 			}
 		}
-	}
 
 	// Flugente: individual militia
 	HandleHourlyMilitiaHealing();
@@ -2567,6 +2569,8 @@ void UpdateAssignments()
 
 	// handle fortification
 	HandleFortification();
+
+	HandleTrainWorkers();
 
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );
@@ -3249,6 +3253,50 @@ FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 	}
 
 	return bestsamcth;
+}
+
+INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier)
+{
+	// this is not an assignment. Simply being in the sector will allow us to be counted as guards
+	INT16 val = 0;	
+	
+	if ( pSoldier->flags.fMercAsleep )
+		return 0;
+
+	val = 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier );
+
+	if (gGameOptions.fNewTraitSystem)
+	{
+		val += 25 * NUM_SKILL_TRAITS( pSoldier, TEACHING_NT );
+	}
+	else
+	{
+		val += 25 * NUM_SKILL_TRAITS( pSoldier, TEACHING_OT );
+	}
+
+	// -5% for Aggressive people
+	if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
+	{
+		val -= 5;
+	}
+	// +5% for Phlegmatic people
+	else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) )
+	{
+		val += 5;
+	}
+		
+	// adjust for fatigue
+	if ( val > 0  )
+	{
+		UINT32 tmp = val;
+		ReducePointsForFatigue( pSoldier, &tmp );
+
+		val = tmp;
+
+		return val;
+	}
+
+	return 0;
 }
 
 // anv: handle prisoners exposing snitch as a snitch
@@ -7433,6 +7481,60 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 			}
 		}
 	}
+}
+
+void HandleTrainWorkers()
+{
+	UINT32 totalworkersadded = 0;
+
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	{
+		if( pSoldier->bActive && !pSoldier->bSectorZ && !pSoldier->flags.fMercAsleep )
+		{
+			if( ( pSoldier->bAssignment == TRAIN_WORKERS ) && ( EnoughTimeOnAssignment( pSoldier ) ) )
+			{
+				if ( !SectorOursAndPeaceful( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+					continue;
+
+				UINT8 ubTownId = StrategicMap[ pSoldier->sSectorX + pSoldier->sSectorY * MAP_WORLD_X ].bNameId;
+
+				// Flugente: adjust for workforce
+				UINT16 maxworkforce = 0;
+				UINT16 workforce = GetTownWorkers( ubTownId, maxworkforce);
+
+				if ( workforce < maxworkforce && gGameExternalOptions.usWorkerTrainingPoints > 0 )
+				{
+					UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+					SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+					if ( !pSectorInfo )
+						continue;
+
+					INT16 trainpts = pSectorInfo->ubWorkerTrainingHundredths;
+
+					trainpts += GetTrainWorkerPts(pSoldier);
+
+					UINT8 workersadded = trainpts / gGameExternalOptions.usWorkerTrainingPoints;
+
+					totalworkersadded += workersadded;
+
+					AddTownWorkers( ubTownId, workersadded );
+					
+					pSectorInfo->ubWorkerTrainingHundredths = trainpts - gGameExternalOptions.usWorkerTrainingPoints * workersadded;
+													
+					StatChange( pSoldier, LDRAMT,	2 * workersadded, TRUE );
+					StatChange( pSoldier, EXPERAMT,		workersadded, TRUE );
+				}
+			}
+		}
+	}
+
+	if ( totalworkersadded * gGameExternalOptions.usWorkerTrainingCost > 0 )
+		AddTransactionToPlayersBook( WORKERS_TRAINED, 0, GetWorldTotalMin( ), -(totalworkersadded * gGameExternalOptions.usWorkerTrainingCost) );
 }
 
 // Flugente: fortification
@@ -11686,6 +11788,47 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 				gfRenderPBInterface = TRUE;
 				break;
+
+			case TRAIN_MENU_WORKERS:
+								
+				// Check for specific errors why this merc should not be able to train, 
+				// and display a specific error message if one is encountered.
+				if( !CanCharacterTrainWorkers(pSoldier) )
+				{
+					// Error found. Breaking. Note that the above function DOES display feedback if an error is
+					// encountered at all.
+					break;
+				}
+				
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				if( ( pSoldier->bAssignment != TRAIN_WORKERS ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+				// stop showing menu
+				fShowAssignmentMenu = FALSE;
+				giAssignHighLine = -1;
+
+				// remove from squad
+
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+				RemoveCharacterFromSquads(	pSoldier );
+
+				ChangeSoldiersAssignment( pSoldier, TRAIN_WORKERS );
+
+				// assign to a movement group
+				AssignMercToAMovementGroup( pSoldier );
+				SetAssignmentForList( TRAIN_WORKERS, 0 );
+				gfRenderPBInterface = TRUE;
+				break;
+
 			case( TRAIN_MENU_TEAMMATES):
 
 				if( CanCharacterTrainTeammates( pSoldier ) == TRUE )
@@ -15069,6 +15212,49 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				gfRenderPBInterface = TRUE;
 			}
 		break;
+
+		case TRAIN_WORKERS:
+			{
+				// train mobile militia
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+
+				// remove from squad
+				RemoveCharacterFromSquads(	pSoldier );
+
+				// remove from any vehicle
+				if( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if( ( pSoldier->bAssignment != TRAIN_WORKERS ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, TRAIN_WORKERS );
+
+				if( pMilitiaTrainerSoldier == NULL )
+				{
+					if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE )
+					{
+						// show a message to confirm player wants to charge cost
+						HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
+					}
+				}
+
+				AssignMercToAMovementGroup( pSoldier );
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+				gfRenderPBInterface = TRUE;
+			}
+			break;
+
 		case( TRAIN_SELF ):
 			if( CanCharacterTrainStat( pSoldier, ( INT8 )iParam1, TRUE, FALSE ) )
 			{
@@ -15840,6 +16026,17 @@ void HandleShadingOfLinesForTrainingMenu( void )
 		ShadeStringInBox( ghTrainingBox, TRAIN_MENU_MOBILE );
 	}
 
+	if( CanCharacterTrainWorkers( pSoldier ) )
+	{
+		// unshade train militia line
+		UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_WORKERS );
+		UnSecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_WORKERS );
+	}
+	else
+	{
+		UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_WORKERS );
+		SecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_WORKERS );
+	}
 
 	// can character train teammates?
 	if( CanCharacterTrainTeammates( pSoldier ) == FALSE )
@@ -16706,6 +16903,10 @@ void ReEvaluateEveryonesNothingToDo()
 					fNothingToDo = !CanCharacterTrainMobileMilitia( pSoldier );
 					break;
 
+				case TRAIN_WORKERS:
+					fNothingToDo = !CanCharacterTrainWorkers( pSoldier );
+					break;
+
 				case TRAIN_SELF:
 					fNothingToDo = !CanCharacterTrainStat( pSoldier, pSoldier->bTrainStat, TRUE, FALSE );
 					break;
@@ -16922,6 +17123,14 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, TRAIN_MOBILE, 0, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+				case TRAIN_WORKERS:
+					if( CanCharacterTrainWorkers( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, TRAIN_WORKERS, 0, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -18429,6 +18638,43 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 	// If we've reached this, then all is well.
 	return( TRUE );
 
+}
+
+BOOLEAN CanCharacterTrainWorkers( SOLDIERTYPE *pSoldier )
+{
+	AssertNotNIL(pSoldier);
+
+	if ( !gGameExternalOptions.fMineRequiresWorkers )
+		return FALSE;
+
+	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	{
+		return( FALSE );
+	}
+
+	// Has leadership skill?
+	if( pSoldier->stats.bLeadership <= 0 )
+	{
+		// no skill whatsoever
+		return ( FALSE );
+	}
+
+	// Sector Loyalty above minimum?
+	if( !DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) )
+	{
+		// Not enough Loyalty...
+		return ( FALSE );
+	}	
+
+	INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+
+	UINT16 maxworkforce = 0;
+	UINT16 workforce = GetTownWorkers( bTownId, maxworkforce);
+
+	if ( maxworkforce > 0 && workforce < maxworkforce )
+		return TRUE;
+
+	return FALSE;
 }
 
 BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )

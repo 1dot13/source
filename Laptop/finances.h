@@ -57,6 +57,7 @@ enum
 	WHO_SUBSCRIPTION,		// Flugente: subscription do WHO data
 	PMC_CONTRACT,			// Flugente: hired militia from a PMC
 	SAM_REPAIR,				// Flugente: repair SAM site
+	WORKERS_TRAINED,		// Flugente: train workers
 	TEXT_NUM_FINCANCES
 };
 

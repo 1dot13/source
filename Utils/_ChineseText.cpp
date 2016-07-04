@@ -2465,6 +2465,7 @@ STR16 pAssignmentStrings[] =
 	L"病人", // getting medical aid
 	L"修理", // repairing
 	L"Fortify",		// build structures according to external layout	// TODO.Translate
+	L"Train W.",
 };
 
 
@@ -2567,6 +2568,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"病人",
 	L"修理",
 	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
+	L"Train workers",
 };
 
 
@@ -2628,6 +2630,7 @@ STR16 pLongAssignmentStrings[] =
 	L"病人",
 	L"修理",
 	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
+	L"Train workers",
 };
 
 
@@ -2950,6 +2953,7 @@ STR16 pTrainingMenuStrings[] =
 	L"锻炼", // train yourself
 	L"民兵", // train the town
 	L"游击队", // L"Mobile Militia", //ham3.6
+	L"Train workers",	// TODO.Translate
 	L"教练", // train your teammates
 	L"学员", // be trained by an instructor
 	L"取消", // cancel this menu
@@ -4535,6 +4539,7 @@ STR16 pTransactionText[] =
 	L"记录捐款费", //L"WHO data subscription",  // Flugente: disease
 	L"Kerberus安保公司的费用", //L"Payment to Kerberus",　　// Flugente: PMC
 	L"SAM site repair", // Flugente: SAM repair // TODO.Translate
+	L"Trained workers", // Flugente: train workers
 };
 
 STR16 pTransactionAlternateText[] =

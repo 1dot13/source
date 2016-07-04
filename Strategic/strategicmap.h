@@ -132,6 +132,9 @@ UINT8 GetTownSectorSize( INT8 bTownId );
 // get town sector size, that is under play control
 UINT8 GetTownSectorsUnderControl( INT8 bTownId );
 
+UINT16 GetTownWorkers(INT8 bTownId, UINT16& arusMax);
+void AddTownWorkers( INT8 bTownId, INT16 asAdd );
+
 // is this sector part of this town
 BOOLEAN SectorIsPartOfTown( INT8 bTownId, INT16 sSectorX, INT16 sSectorY ); 
 

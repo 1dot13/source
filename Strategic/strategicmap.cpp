@@ -1882,6 +1882,86 @@ UINT8 GetTownSectorsUnderControl( INT8 bTownId )
 	return(ubSectorsControlled);
 }
 
+// Flugente: external sector data
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
+
+
+UINT16 GetTownWorkers(INT8 bTownId, UINT16& arusMax)
+{
+	arusMax = 0;
+
+	UINT16 workerspresent = 0;
+
+	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			UINT16 strategicsector = CALCULATE_STRATEGIC_INDEX( sX, sY );
+
+			if ( StrategicMap[strategicsector].bNameId == bTownId )
+			{
+				// if we check for the player team, we look for sectors free of the enemy
+				if ( StrategicMap[strategicsector].fEnemyControlled )
+					continue;
+
+				UINT8 sector = SECTOR( sX, sY );
+				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+				if ( !pSectorInfo )
+					continue;
+
+				workerspresent += pSectorInfo->usWorkers;
+
+				arusMax += SectorExternalData[sector][0].maxworkers;
+			}
+		}
+	}
+
+	return workerspresent;
+}
+
+void AddTownWorkers( INT8 bTownId, INT16 asAdd )
+{
+	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			UINT16 strategicsector = CALCULATE_STRATEGIC_INDEX( sX, sY );
+
+			if ( StrategicMap[strategicsector].bNameId == bTownId )
+			{
+				// if we check for the player team, we look for sectors free of the enemy
+				if ( StrategicMap[strategicsector].fEnemyControlled )
+					continue;
+
+				UINT8 sector = SECTOR( sX, sY );
+				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+				if ( !pSectorInfo )
+					continue;
+
+				if ( asAdd > 0 )
+				{
+					UINT16 add = min( asAdd, SectorExternalData[sector][0].maxworkers - pSectorInfo->usWorkers );
+
+					asAdd -= add;
+					pSectorInfo->usWorkers += add;
+				}
+				else if ( asAdd < 0 )
+				{
+					UINT16 remove = min( -asAdd, pSectorInfo->usWorkers );
+
+					asAdd += remove;
+					pSectorInfo->usWorkers -= remove;
+				}
+
+				if ( !asAdd )
+					return;
+			}
+		}
+	}
+}
+
 void InitializeSAMSites( void )
 {
 	// move the landing zone over to Omerta
@@ -5389,6 +5469,12 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET2] = 0;
 			SectorInfo[sectorID].ubNumTanks = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_GENERAL];
 			SectorInfo[sectorID].ubTanksInBattle = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_CIVILIAN];
+		}
+
+		if ( guiCurrentSaveGameVersion < WORKERS )
+		{
+			SectorInfo[sectorID].usWorkers = 0;
+			SectorInfo[sectorID].ubWorkerTrainingHundredths = 0;
 		}
 	}
 

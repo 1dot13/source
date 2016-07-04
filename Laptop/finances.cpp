@@ -1582,6 +1582,7 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 		case WHO_SUBSCRIPTION:
 		case PMC_CONTRACT:
 		case SAM_REPAIR:
+		case WORKERS_TRAINED:
 			swprintf( pString, L"%s", pTransactionText[pFinance->ubCode] );
 			break;
 	}
