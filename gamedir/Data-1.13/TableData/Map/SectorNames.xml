@@ -48,6 +48,9 @@
 	
 	<snakechance>
 	Value between 0 and 100. If > 0, snakes can attack people in water. The higher the value, the more frequent this happens.
+	
+	<maxworkers>
+	Maximum number of workers that can be employed in this sector.
 -->
 <SECTOR_NAMES>
   <SECTOR>
@@ -262,6 +265,7 @@
     <usCivilianPopulation>150</usCivilianPopulation>
 	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<maxworkers>50</maxworkers>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B3</SectorGrid>
@@ -757,6 +761,7 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<maxworkers>100</maxworkers>
   </SECTOR>
    <SECTOR>
     <SectorGrid>D14</SectorGrid>
@@ -1383,6 +1388,7 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<maxworkers>200</maxworkers>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H4</SectorGrid>
@@ -1443,6 +1449,7 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>35</rainchance>
 	<sandstormchance>2</sandstormchance>
+	<maxworkers>160</maxworkers>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H9</SectorGrid>
@@ -1711,6 +1718,7 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>45</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<maxworkers>150</maxworkers>
   </SECTOR>
    <SECTOR>
     <SectorGrid>I15</SectorGrid>
