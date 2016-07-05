@@ -506,6 +506,9 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 				UpdateRefuelSiteAvailability( );
 			}
 
+			// Flugente: reduce workforce
+			SectorInfo[SECTOR( sMapX, sMapY )].usWorkers = SectorExternalData[SECTOR( sMapX, sMapY )][0].maxworkers * gGameExternalOptions.dInitialWorkerRate;
+
 			// ARM: this must be AFTER all resulting loyalty effects are resolved, or reduced mine income shown won't be accurate
 			NotifyPlayerWhenEnemyTakesControlOfImportantSector( sMapX, sMapY, 0, fContested );
 		}

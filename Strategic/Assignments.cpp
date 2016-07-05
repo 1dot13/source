@@ -3257,33 +3257,29 @@ FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 
 INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier)
 {
-	// this is not an assignment. Simply being in the sector will allow us to be counted as guards
-	INT16 val = 0;	
-	
 	if ( pSoldier->flags.fMercAsleep )
 		return 0;
 
-	val = 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier );
+	INT16 val = 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier );
 
 	if (gGameOptions.fNewTraitSystem)
 	{
 		val += 25 * NUM_SKILL_TRAITS( pSoldier, TEACHING_NT );
+
+		val += 10 * NUM_SKILL_TRAITS( pSoldier, DEMOLITIONS_NT );
 	}
 	else
 	{
 		val += 25 * NUM_SKILL_TRAITS( pSoldier, TEACHING_OT );
 	}
 
-	// -5% for Aggressive people
 	if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
-	{
 		val -= 5;
-	}
-	// +5% for Phlegmatic people
 	else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) )
-	{
 		val += 5;
-	}
+
+	if ( DoesMercHaveDisability( pSoldier, CLAUSTROPHOBIC ) )
+		val -= 5;
 		
 	// adjust for fatigue
 	if ( val > 0  )
