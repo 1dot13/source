@@ -2058,7 +2058,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gEnemyHeliTimePerHPRepair			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP_REPAIRTIME", 6, 1, 20 );
 	gGameExternalOptions.gEnemyHeliCostPerRepair1HP			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP_COST", 200, 10, 1000 );
 	gGameExternalOptions.gEnemyHeliMaxFuel					= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_FUEL", 50, 25, 200 );
-	gGameExternalOptions.gEnemyHeliTimePerFuelRefuel		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_FUEL_REFUELTIME", 3, 1, 10 );
+	gGameExternalOptions.gEnemyHeliTimePerFuelRefuel		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_FUEL_REFUELTIME", 3, 1, 9999 );
 
 	gGameExternalOptions.gEnemyHeliAllowedSAMContacts		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_TOLERATED_HOSTILE_SAMSECTORS", 4, 0, 10 );
 
