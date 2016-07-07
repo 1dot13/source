@@ -522,7 +522,7 @@
 		<szDescription>The human musculoskeletal system is complicated. Your leg received a critical wound, and while it heals, your mobility is affected.</szDescription>
 		<sInfectionPtsInitial>200</sInfectionPtsInitial>
 		<sInfectionPtsOutbreak>100</sInfectionPtsOutbreak>
-		<sInfectionPtsFull>200</sInfectionPtsFull>
+		<sInfectionPtsFull>500</sInfectionPtsFull>
 		<sInfectionPtsGainPerHour>-2</sInfectionPtsGainPerHour>		
 		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
 		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
@@ -544,15 +544,15 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
-		<sEffStatAGI>-20</sEffStatAGI>
+		<sEffStatAGI>-50</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
 		<sEffStatWIS>0</sEffStatWIS>
 		<sEffStatEXP>0</sEffStatEXP>
 		<sEffAP>0</sEffAP>
 		<usMaxBreath>0</usMaxBreath>
-		<sEffCarryStrength>-5</sEffCarryStrength>
-		<sLifeRegenHundreds>-10</sLifeRegenHundreds>
+		<sEffCarryStrength>-10</sEffCarryStrength>
+		<sLifeRegenHundreds>-30</sLifeRegenHundreds>
 		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>

@@ -1351,9 +1351,9 @@
 		<!-- PMC mercenaries. These guys could come from anywhere, for now, we use russian names -->
 		<male_forename>Abataly</male_forename>
 		<male_forename>Abelyar</male_forename>
-		<male_forename>Abid</male_forename>
-		<male_forename>Abily</male_forename>
-		<male_forename>Aburom</male_forename>
+		<male_forename>Alexander</male_forename>
+		<male_forename>Albert</male_forename>
+		<male_forename>Arkadiy</male_forename>
 		<male_forename>Agat</male_forename>
 		<male_forename>Alexey</male_forename>
 		<male_forename>Amrovsy</male_forename>
@@ -1362,15 +1362,15 @@
 		<male_forename>Anton</male_forename>
 		<male_forename>Artemy</male_forename>
 		<male_forename>Artyom</male_forename>
-		<male_forename>Avda</male_forename>
+		<male_forename>Adam</male_forename>
 		<male_forename>Averky</male_forename>
 		<male_forename>Avessalom</male_forename>
 		<male_forename>Avgury</male_forename>
-		<male_forename>Avim</male_forename>
-		<male_forename>Avit</male_forename>
-		<male_forename>Avksily</male_forename>
+		<male_forename>Aristarkh</male_forename>
+		<male_forename>Avgust</male_forename>
+		<male_forename>Afanasy</male_forename>
 		<male_forename>Avram</male_forename>
-		<male_forename>Avtonom</male_forename>
+		<male_forename>Artur</male_forename>
 		<male_forename>Bogdan</male_forename>
 		<male_forename>Boris</male_forename>
 		<male_forename>Borislav</male_forename>
@@ -1379,7 +1379,7 @@
 		<male_forename>Danilo</male_forename>
 		<male_forename>Damir</male_forename>
 		<male_forename>Daniil</male_forename>
-		<male_forename>Darko</male_forename>
+		<male_forename>Danko</male_forename>
 		<male_forename>Dmitry</male_forename>
 		<male_forename>Gennady</male_forename>
 		<male_forename>Georgi</male_forename>
@@ -1387,7 +1387,7 @@
 		<male_forename>Grischa</male_forename>
 		<male_forename>Igor</male_forename>
 		<male_forename>Ilya</male_forename>
-		<male_forename>Inal</male_forename>
+		<male_forename>Innokentiy</male_forename>
 		<male_forename>Ivan</male_forename>
 		<male_forename>Jaroslav</male_forename>
 		<male_forename>Joseph</male_forename>
@@ -1472,9 +1472,9 @@
 		<male_surname>Afonin</male_surname>
 		<male_surname>Babanin</male_surname>
 		<male_surname>Babikov</male_surname>
-		<male_surname>Rodriguez</male_surname>
-		<male_surname>Rodriguez</male_surname>
-		<male_surname>Rodriguez</male_surname>
+		<male_surname>Rebrov</male_surname>
+		<male_surname>Repin</male_surname>
+		<male_surname>Rybak</male_surname>
 		<male_surname>Babkin</male_surname>
 		<male_surname>Barinov</male_surname>
 		<male_surname>Bazarov</male_surname>
@@ -1790,7 +1790,7 @@
 		<male_surname>Yarmolnik</male_surname>
 		<male_surname>Yasenev</male_surname>
 		<male_surname>Yashkin</male_surname>		
-		<female_forename>Abijah</female_forename>
+		<female_forename>Antonina</female_forename>
 		<female_forename>Agafa</female_forename>
 		<female_forename>Agapa</female_forename>
 		<female_forename>Agatha</female_forename>
@@ -1817,7 +1817,7 @@
 		<female_forename>Irina</female_forename>
 		<female_forename>Katya</female_forename>
 		<female_forename>Kira</female_forename>
-		<female_forename>Leda</female_forename>
+		<female_forename>Lida</female_forename>
 		<female_forename>Lena</female_forename>
 		<female_forename>Ljuba</female_forename>
 		<female_forename>Ludmila</female_forename>
@@ -1837,7 +1837,7 @@
 		<female_forename>Oksana</female_forename>
 		<female_forename>Olga</female_forename>
 		<female_forename>Polina</female_forename>
-		<female_forename>Rachel</female_forename>
+		<female_forename>Raisa</female_forename>
 		<female_forename>Radmila</female_forename>
 		<female_forename>Roxana</female_forename>
 		<female_forename>Snezana</female_forename>
@@ -1857,8 +1857,8 @@
 		<female_forename>Yekaterina</female_forename>
 		<female_forename>Yelena</female_forename>
 		<female_forename>Yulia</female_forename>
-		<female_forename>Zenalda</female_forename>
-		<female_forename>Zora</female_forename>				
+		<female_forename>Zarina</female_forename>
+		<female_forename>Zinaida</female_forename>				
 		<female_surname>Abakumova</female_surname>
 		<female_surname>Abdulova</female_surname>
 		<female_surname>Abramova</female_surname>
@@ -2091,7 +2091,7 @@
 		<female_surname>Obolenskaya</female_surname>
 		<female_surname>Ovechkina</female_surname>
 		<female_surname>Oleneva</female_surname>
-		<female_surname>Osborn</female_surname>
+		<female_surname>Oleynikova</female_surname>
 		<female_surname>Osokina</female_surname>
 		<female_surname>Ostrovskaya</female_surname>
 		<female_surname>Pavlova</female_surname>
