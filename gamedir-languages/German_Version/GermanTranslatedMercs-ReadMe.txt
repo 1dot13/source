@@ -18,6 +18,24 @@ Beta:
 
 Beta Changelog:
 ---------------
+2016-07-07:
+- all: added Water-fx (drowning mercs)
+- updates to Boss
+- updates to Samuel
+- updates to Gary
+- updates to Moses
+- updates to Needle
+- updates to Juan
+- updates to Wahan
+- updates to Weasel
+- updates to Speck
+- updates to Skitz
+- updates to Wally
+- updates to Carp
+- updates to Dyno
+- updates to Leon
+
+
 2016-06-22:
 - updates to Wally
 - updates to Eli
@@ -34,48 +52,6 @@ Beta Changelog:
 - updates to Juan
 - updates to Speck
 - updates to Mike
-
-
-2016-06-08:
-- updates to Mike
-- updates to Reuban
-- updates to Elroy
-- updates to Turtle
-- updates to Moses
-- updates to Bernie
-- updates to Screw
-- updates to Leon
-- updates to Sparky
-- updates to Hector
-- updates to Mitch
-- updates to Raffi
-- updates to Kaboom
-- updates to Rev
-- updates to Wink
-- updates to Beth
-- updates to Lance
-
-
-2016-05-27:
-- updates to It
-- updates to Lance
-- updates to Rusty
-- updates to Samuel
-- updates to Spike
-- updates to Kelly
-- updates to Stella
-- updates to Mouse
-- updates to Bud
-- updates to Elio
-- updates to Leech
-- updates to Jimmy
-- updates to Snake
-- updates to Smoke
-- updates to Needle
-- updates to Bob
-- updates to Gary
-- updates to Spam
-- updates to Boss
 
 
 
