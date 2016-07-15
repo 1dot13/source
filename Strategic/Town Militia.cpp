@@ -32,6 +32,7 @@
 	#include "laptop.h"							// added by Flugente
 	#include "Game Event Hook.h"				// added by Flugente
 	#include "MilitiaIndividual.h"				// added by Flugente
+	#include "Campaign.h"						// added by Flugente
 #endif
 
 // HEADROCK HAM 3: include these files so that a militia trainer's Effective Leadership can be determined. Used
@@ -116,15 +117,36 @@ void VerifyTownTrainingIsPaidFor( void );
 #endif
 
 // handle promoting a militia during militia training. return TRUE if militia could be promoted
-BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
+BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY, UINT8& arusPromotedTo )
 {
 	INT16 sNeighbourX, sNeighbourY;
 	UINT8 ubTownId = StrategicMap[sMapX + sMapY * MAP_WORLD_X].bNameId;
 
 	// alrighty, then.	We'll have to *promote* guys instead.
 
+	// Flugente: check whether we have the resources to promote militia
+	BOOLEAN fCanPromoteToRegular = TRUE;
+	BOOLEAN fCanPromoteToElite = TRUE;
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		FLOAT val_gun, val_armour, val_misc;
+		GetResources( val_gun, val_armour, val_misc );
+
+		// regular militia require an additional gun and armour
+		if ( val_gun <= 1.0f || val_armour <= 1.0f )
+		{
+			fCanPromoteToRegular = FALSE;
+			fCanPromoteToElite = FALSE;
+		}
+		// elite also require misc resources
+		else if ( val_misc <= 1.0f )
+		{
+			fCanPromoteToElite = FALSE;
+		}
+	}
+
 	// are there any GREEN militia men in the training sector itself?
-	if ( MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) > 0 )
+	if ( fCanPromoteToRegular && MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA ) > 0 )
 	{
 		// great! Promote a GREEN militia guy in the training sector to a REGULAR
 		StrategicPromoteMilitiaInSector( sMapX, sMapY, GREEN_MILITIA, 1 );
@@ -134,11 +156,13 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 		if ( sMapX == gWorldSectorX && sMapY == gWorldSectorY )
 			gfStrategicMilitiaChangesMade = TRUE;
 
+		arusPromotedTo = SOLDIER_CLASS_REG_MILITIA;
+
 		return TRUE;
 	}
 	else
 	{
-		if ( ubTownId != BLANK_SECTOR )
+		if ( fCanPromoteToRegular && ubTownId != BLANK_SECTOR )
 		{
 			// dammit! Last chance - try to find other eligible sectors in the same town with a Green guy to be promoted
 			InitFriendlyTownSectorServer( ubTownId, sMapX, sMapY );
@@ -157,6 +181,8 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 					if ( sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY )
 						gfStrategicMilitiaChangesMade = TRUE;
 
+					arusPromotedTo = SOLDIER_CLASS_REG_MILITIA;
+
 					return TRUE;
 				}
 			}
@@ -165,7 +191,7 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 		// Kaiden: Veteran militia training
 		// This is essentially copy/pasted from above
 		// But the names have been changed to protect the innocent
-		if ( gGameExternalOptions.gfTrainVeteranMilitia && (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay) )
+		if ( fCanPromoteToElite && gGameExternalOptions.gfTrainVeteranMilitia && (GetWorldDay( ) >= gGameExternalOptions.guiTrainVeteranMilitiaDelay) )
 		{
 			// are there any REGULAR militia men in the training sector itself?
 			if ( MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA ) > 0 )
@@ -177,6 +203,8 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 
 				if ( sMapX == gWorldSectorX && sMapY == gWorldSectorY )
 					gfStrategicMilitiaChangesMade = TRUE;
+
+				arusPromotedTo = SOLDIER_CLASS_ELITE_MILITIA;
 
 				return TRUE;
 			}
@@ -200,6 +228,8 @@ BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY )
 
 							if ( sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY )
 								gfStrategicMilitiaChangesMade = TRUE;
+
+							arusPromotedTo = SOLDIER_CLASS_ELITE_MILITIA;
 
 							return TRUE;
 						}
@@ -233,6 +263,17 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	// if we can't train as many militia as we should due to lack of volunteers, the excess training goes into promoting militia
 	UINT8 promotionsfromvolunteers = iTrainingSquadSize;
 	iTrainingSquadSize = min( iTrainingSquadSize, GetVolunteerPool( ) );
+	
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		FLOAT val_gun, val_armour, val_misc;
+		GetResources( val_gun, val_armour, val_misc );
+
+		iTrainingSquadSize = min( iTrainingSquadSize, (INT32)val_gun );
+		iTrainingSquadSize = min( iTrainingSquadSize, (INT32)val_armour );
+		iTrainingSquadSize = min( iTrainingSquadSize, (INT32)val_misc );
+	}
+
 	promotionsfromvolunteers -= iTrainingSquadSize;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia1");
@@ -331,10 +372,27 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 			}
 		}
 
+		// we have to remove the resources for trained militia before we do promotions, in order to remove these resource
+		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			// use up resources for new militia
+			AddResources( -ubMilitiaTrained, 0, 0 );
+		}
+
 		// handle promotions
 		UINT8 promotions = 0;
-		while ( promotions < promotionstodo + promotionsfromvolunteers && TownMilitiaTrainingPromotion( sMapX, sMapY ) )
+		UINT8 promotedto = 0;
+		UINT8 promotedto_regular = 0;
+		UINT8 promotedto_elite = 0;
+		while ( promotions < promotionstodo + promotionsfromvolunteers && TownMilitiaTrainingPromotion( sMapX, sMapY, promotedto ) )
+		{
 			++promotions;
+
+			if ( promotedto == SOLDIER_CLASS_REG_MILITIA )
+				++promotedto_regular;
+			else
+				++promotedto_elite;
+		}
 
 		if (gfStrategicMilitiaChangesMade)
 		{
@@ -360,6 +418,12 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 
 			// SANDRO - merc records (num militia trained)
 			RecordNumMilitiaTrainedForMercs( sMapX, sMapY, pTrainer->bSectorZ, ubMilitiaTrained, FALSE );
+		}
+
+		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			// promotion resources
+			AddResources( - promotedto_regular - promotedto_elite, - promotedto_regular - promotedto_elite, -promotedto_elite );
 		}
 
 		// the trainer announces to player that he's finished his assignment.	Make his sector flash!
@@ -2550,4 +2614,190 @@ FLOAT CalcHourlyVolunteerGain()
 void UpdateVolunteers()
 {	
 	AddVolunteers( CalcHourlyVolunteerGain() );
+}
+
+// Flugente: militia resources
+BOOLEAN ConvertItemToResources( OBJECTTYPE& object, BOOLEAN fAll, FLOAT& arValue_Gun, FLOAT& arValue_Armour, FLOAT& arValue_Misc )
+{
+	UINT16 usItemType = object.usItem;
+	UINT8 ubNumberOfObjects = fAll ? object.ubNumberOfObjects : 1;
+	UINT8 coolness = Item[usItemType].ubCoolness;			
+	UINT8 progress = HighestPlayerProgressPercentage( );
+	FLOAT mod_progress = ResourceProgressModifier( progress );
+
+	if ( Item[usItemType].usItemClass & IC_AMMO )
+	{
+		// different ammo items of the same caliber and ammotype have different coolness. To fix that, we simply always use that of the corresponing crate item. Should it not exist, we use 1.
+		UINT8 ammocoolness = 1;
+
+		for ( int iCrateLoop = 0; iCrateLoop < gMAXITEMS_READ; ++iCrateLoop )
+		{
+			// Is it the right ammo crate?
+			if ( Item[iCrateLoop].usItemClass == IC_AMMO &&
+				 Magazine[Item[iCrateLoop].ubClassIndex].ubMagType == AMMO_CRATE && // An ammo crate or box
+				 Magazine[Item[iCrateLoop].ubClassIndex].ubCalibre == Magazine[Item[usItemType].ubClassIndex].ubCalibre && //Same caliber
+				 Magazine[Item[iCrateLoop].ubClassIndex].ubAmmoType == Magazine[Item[usItemType].ubClassIndex].ubAmmoType ) // Same ammotype
+			{
+				// Found a crate for this ammo.
+				ammocoolness = Item[iCrateLoop].ubCoolness;
+				break;
+			}
+		}
+
+		UINT32 bullets = 0;
+		for ( UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ++ubLoop )
+		{
+			bullets += object[ubLoop]->data.ubShotsLeft;
+		}
+
+		arValue_Gun += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Ammo_Bullet * ammocoolness * mod_progress * bullets);
+	}
+	else
+	{
+		for ( UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ++ubLoop )
+		{
+			if ( Item[usItemType].usItemClass & IC_GUN )
+			{
+				arValue_Gun += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Gun * gGameExternalOptions.fMilitiaResources_WeaponMod[Weapon[usItemType].ubWeaponType] * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+
+				// take into account any loaded mag
+				if ( object[ubLoop]->data.gun.ubGunShotsLeft > 0 )
+				{
+					// different ammo items of the same caliber and ammotype have different coolness. To fix that, we simply always use that of the corresponing crate item. Should it not exist, we use 1.
+					UINT8 ammocoolness = 1;
+
+					for ( int iCrateLoop = 0; iCrateLoop < gMAXITEMS_READ; ++iCrateLoop )
+					{
+						// Is it the right ammo crate?
+						if ( Item[iCrateLoop].usItemClass == IC_AMMO &&
+							 Magazine[Item[iCrateLoop].ubClassIndex].ubMagType == AMMO_CRATE && // An ammo crate or box
+							 Magazine[Item[iCrateLoop].ubClassIndex].ubCalibre == Magazine[Item[object[ubLoop]->data.gun.usGunAmmoItem].ubClassIndex].ubCalibre && //Same caliber
+							 Magazine[Item[iCrateLoop].ubClassIndex].ubAmmoType == Magazine[Item[object[ubLoop]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType ) // Same ammotype
+						{
+							// Found a crate for this ammo.
+							ammocoolness = Item[iCrateLoop].ubCoolness;
+							break;
+						}
+					}
+
+					UINT32 bullets = object[ubLoop]->data.gun.ubGunShotsLeft;
+
+					arValue_Gun += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Ammo_Bullet * ammocoolness * mod_progress * bullets);
+				}
+			}
+			else if ( Item[usItemType].usItemClass & (IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH | IC_THROWN) )
+			{
+				arValue_Misc += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Melee * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+			}
+			else if ( Item[usItemType].usItemClass & IC_LAUNCHER )
+			{
+				arValue_Misc += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Gun * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+			}
+			else if ( Item[usItemType].usItemClass & (IC_GRENADE) )
+			{
+				arValue_Misc += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Grenade * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+			}
+			else if ( Item[usItemType].usItemClass & (IC_BOMB) )
+			{
+				arValue_Misc += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Bomb * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+			}
+			else if ( Item[usItemType].usItemClass & IC_ARMOUR )
+			{
+				arValue_Armour += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Armour * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+			}
+			else if ( Item[usItemType].usItemClass & IC_FACE )
+			{
+				arValue_Armour += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Face * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+			}
+			else if ( Item[usItemType].usItemClass & IC_LBEGEAR )
+			{
+				arValue_Armour += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_LBE * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+			}
+			else if ( Item[usItemType].usItemClass & IC_MISC )
+			{
+				UINT32 attachmentClass = Item[usItemType].attachmentclass;
+
+				if ( attachmentClass & ( AC_MUZZLE | AC_SIGHT | AC_MAGWELL | AC_INTERNAL | AC_EXTERNAL | AC_EXTENDER | AC_IRONSIGHT | AC_FEEDER ) )
+				{
+					arValue_Gun += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Low * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+				if ( attachmentClass & ( AC_FOREGRIP | AC_STOCK | AC_LASER) )
+				{
+					arValue_Gun += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Medium * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+				if ( attachmentClass & (AC_BIPOD | AC_SCOPE | AC_UNDERBARREL ) )
+				{
+					arValue_Gun += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_High * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+				else if ( attachmentClass & (AC_SLING | AC_MODPOUCH ) )
+				{
+					arValue_Armour += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Low * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+				else if ( attachmentClass & (AC_HELMET | AC_VEST | AC_PANTS ) )
+				{
+					arValue_Armour += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Medium * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+				else if ( attachmentClass & ( AC_DETONATOR | AC_BATTERY | AC_REMOTEDET | AC_DEFUSE) )
+				{
+					arValue_Misc += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Low * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+				else if ( attachmentClass & (AC_GRENADE | AC_RIFLEGRENADE | AC_BAYONET) )
+				{
+					arValue_Misc += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Medium * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+				else if ( attachmentClass & ( AC_ROCKET ) )
+				{
+					arValue_Misc += (FLOAT)(gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_High * coolness * mod_progress * object[ubLoop]->data.objectStatus / 100.0f);
+				}
+			}
+			else
+				continue;
+
+			for ( attachmentList::iterator iter = object[ubLoop]->attachments.begin( ); iter != object[ubLoop]->attachments.end( ); ++iter )
+			{
+				if ( iter->exists( ) )
+				{
+					ConvertItemToResources( *iter, TRUE, arValue_Gun, arValue_Armour, arValue_Misc );
+				}
+			}
+		}
+	}
+
+	return (arValue_Gun + arValue_Armour + arValue_Misc > 0.0001f);
+}
+
+void AddResources( FLOAT aValue_Gun, FLOAT aValue_Armour, FLOAT aValue_Misc )
+{
+	LaptopSaveInfo.dMilitiaGunPool		= max( 0, LaptopSaveInfo.dMilitiaGunPool + aValue_Gun );
+	LaptopSaveInfo.dMilitiaArmourPool	= max( 0, LaptopSaveInfo.dMilitiaArmourPool + aValue_Armour );
+	LaptopSaveInfo.dMilitiaMiscPool		= max( 0, LaptopSaveInfo.dMilitiaMiscPool + aValue_Misc );
+}
+
+void GetResources( FLOAT& arValue_Gun, FLOAT& arValue_Armour, FLOAT& arValue_Misc )
+{
+	arValue_Gun = LaptopSaveInfo.dMilitiaGunPool;
+	arValue_Armour = LaptopSaveInfo.dMilitiaArmourPool;
+	arValue_Misc = LaptopSaveInfo.dMilitiaMiscPool;
+}
+
+FLOAT ResourceProgressModifier( UINT8 aProgress )
+{
+	// value need to be between 1 and 100
+	aProgress = max( 1, min( 100, aProgress ) );
+
+	return (FLOAT)(gGameExternalOptions.fMilitiaResources_ProgressFactor / aProgress);
+}
+
+void DevalueResources( UINT8 aOldProgress, UINT8 aNewProgress )
+{
+	// both progress values need to be between 1 and 100
+	aOldProgress = max( 1, min( 100, aOldProgress ) );
+	aNewProgress = max( 1, min( 100, aNewProgress ) );
+
+	// modifier is new progress value / old value
+	FLOAT modifier = ResourceProgressModifier( aNewProgress ) / ResourceProgressModifier( aOldProgress );
+
+	LaptopSaveInfo.dMilitiaGunPool		*= modifier;
+	LaptopSaveInfo.dMilitiaArmourPool	*= modifier;
+	LaptopSaveInfo.dMilitiaMiscPool		*= modifier;
 }

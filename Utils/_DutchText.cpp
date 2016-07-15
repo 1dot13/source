@@ -11001,7 +11001,7 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Group %d",
 	L"Final",
 
-	L"Militia Volunteers: %d (+%5.3f)",
+	L"Volunteers: %d (+%5.3f)",
 };
 
 STR16 szEnemyHeliText[] =	// TODO.Translate
@@ -11163,6 +11163,17 @@ STR16	szSnakeText[] =
 {
 	L"%s evaded a snake attack!",
 	L"%s was attacked by a snake!",
+};
+
+STR16	szSMilitiaResourceText[] =
+{
+	L"Converted %s into resources",
+	L"Guns: ",
+	L"Armour: ",
+	L"Misc: ",
+
+	L"There are no volunteers left for militia!",
+	L"Not enough resources to train militia!",
 };
 
 #endif //DUTCH

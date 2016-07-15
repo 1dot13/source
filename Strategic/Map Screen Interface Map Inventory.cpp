@@ -33,6 +33,7 @@
 	#include "Soldier macros.h"
 	#include "rt time defines.h"
 	#include "Encyclopedia_new.h" //Moa: item visibility
+	#include "Town Militia.h"	// added by Flugente
 #endif
 
 #include "ShopKeeper Interface.h"
@@ -520,15 +521,11 @@ void BlitInventoryPoolSlotGraphics( void )
 
 void RenderItemsForCurrentPageOfInventoryPool( void )
 {
-	INT32 iCounter = 0;
-
 	// go through list of items on this page and place graphics to screen
-	for( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT ; iCounter++ )
+	for ( INT32 iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; ++iCounter )
 	{
 		RenderItemInPoolSlot( iCounter, ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) );
 	}
-
-	return;
 }
 
 BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
@@ -564,7 +561,6 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 	// CENTER IN SLOT!
 	sCenX = sX + ( abs( MAP_INVEN_SPACE_BTWN_SLOTS - usWidth ) / 2 ) - pTrav->sOffsetX;
 	sCenY = sY + ( abs( MAP_INVEN_SLOT_HEIGHT - 5 - usHeight ) / 2 ) - pTrav->sOffsetY;
-
 
 	if( fMapInventoryItemCompatable[ iCurrentSlot ] || gfMapInventoryItemToZoom[ iCurrentSlot ] )
 	{
@@ -617,7 +613,6 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 
 	SetFontDestBuffer( FRAME_BUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
-
 	if( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == false )
 	{
 		return ( FALSE );
@@ -629,7 +624,6 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 		(INT16)( ITEMDESC_ITEM_STATUS_INV_POOL_OFFSET_X + MAP_INVENTORY_POOL_SLOT_START_X + ( ( MAP_INVEN_SPACE_BTWN_SLOTS ) * ( iCurrentSlot / MAP_INV_SLOT_COLS ) ) ),
 		( INT16 )( ITEMDESC_ITEM_STATUS_INV_POOL_OFFSET_Y + MAP_INVENTORY_POOL_SLOT_START_Y + ( ( MAP_INVEN_SLOT_HEIGHT ) * ( iCurrentSlot % ( MAP_INV_SLOT_COLS ) ) ) )
 		, ITEMDESC_ITEM_STATUS_WIDTH_INV_POOL, ITEMDESC_ITEM_STATUS_HEIGHT_INV_POOL, 	Get16BPPColor( DESC_STATUS_BAR ), Get16BPPColor( DESC_STATUS_BAR_SHADOW ), TRUE, guiSAVEBUFFER );
-
 
 	//
 	// if the item is not reachable, or if the selected merc is not in the current sector
@@ -682,7 +676,6 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 	}
 
 	// the name
-
 	wcscpy( sString, ShortItemNames[ pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem ] );
 
 	if( StringPixLength( sString, MAP_INVEN_NAME_FONT ) >= ( MAP_INVEN_SLOT_WIDTH ) )
@@ -709,35 +702,71 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 	// HEADROCK HAM 5: If ALT is pressed, draw sale price.
 	if( _KeyDown( ALT ) )
 	{
-		INT32 iPrice;
-		if ( _KeyDown( SHIFT ) )
-		{
-			iPrice = SellItem( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object, TRUE );
-		}
-		else
-		{
-			iPrice = SellItem( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object, FALSE );
-		}
-		
-		swprintf( sString, L"$%d", iPrice );
-
 		UINT32 uiSalePriceFont = (fMapInventoryZoom ? FONT12ARIAL : FONT10ARIAL);
+		SetFont( uiSalePriceFont );
+
 		UINT16 usFontHeight = GetFontHeight( uiSalePriceFont );
 
-		SetFontDestBuffer( guiSAVEBUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-
-		SetFont( uiSalePriceFont );
-		SetFontForeground( FONT_LTRED );
-		SetFontBackground( FONT_BLACK );
+		SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 		INT16 sOffsetX = (fMapInventoryZoom ? 12 : 10);
 		INT16 sOffsetY = (fMapInventoryZoom ? 5 : 3);
 
-		sX = (INT16)( sOffsetX + MAP_INVENTORY_POOL_SLOT_START_X + ( ( MAP_INVEN_SPACE_BTWN_SLOTS ) * ( iCurrentSlot / MAP_INV_SLOT_COLS ) ) );
-		sY = (INT16)( sOffsetY + MAP_INVENTORY_POOL_SLOT_START_Y + ( ( MAP_INVEN_SLOT_HEIGHT ) * ( iCurrentSlot % MAP_INV_SLOT_COLS ) ) );
+		sX = (INT16)(sOffsetX + MAP_INVENTORY_POOL_SLOT_START_X + ((MAP_INVEN_SPACE_BTWN_SLOTS)* (iCurrentSlot / MAP_INV_SLOT_COLS)));
+		sY = (INT16)(sOffsetY + MAP_INVENTORY_POOL_SLOT_START_Y + ((MAP_INVEN_SLOT_HEIGHT)* (iCurrentSlot % MAP_INV_SLOT_COLS)));
 
-		mprintf( sX, sY, sString );
+		if ( gGameExternalOptions.fSellAll )
+		{
+			SetFontForeground( FONT_LTRED );
+			SetFontBackground( FONT_BLACK );
 
+			INT32 iPrice = SellItem( pInventoryPoolList[iCurrentSlot + iFirstSlotOnPage].object, _KeyDown( SHIFT ) );
+
+			swprintf( sString, L"$%d", iPrice );
+
+			mprintf( sX, sY, sString );
+			sY += usFontHeight;
+		}
+
+		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			FLOAT dvalue_Gun = 0;
+			FLOAT dvalue_Armour = 0;
+			FLOAT dvalue_Misc = 0;
+
+			if ( ConvertItemToResources( pInventoryPoolList[iCurrentSlot + iFirstSlotOnPage].object, _KeyDown( SHIFT ), dvalue_Gun, dvalue_Armour, dvalue_Misc ) )
+			{
+				if ( dvalue_Gun > 0.0001f )
+				{
+					SetFontForeground( FONT_BEIGE );
+					SetFontBackground( FONT_BLACK );
+
+					swprintf( sString, L"%5.2f", dvalue_Gun );
+					mprintf( sX, sY, sString );
+					sY += usFontHeight;
+				}
+
+				if ( dvalue_Armour > 0.0001f )
+				{
+					SetFontForeground( FONT_LTKHAKI );
+					SetFontBackground( FONT_BLACK );
+
+					swprintf( sString, L"%5.2f", dvalue_Armour );
+					mprintf( sX, sY, sString );
+					sY += usFontHeight;
+				}
+
+				if ( dvalue_Misc > 0.0001f )
+				{
+					SetFontForeground( FONT_LTBLUE );
+					SetFontBackground( FONT_BLACK );
+
+					swprintf( sString, L"%5.2f", dvalue_Misc );
+					mprintf( sX, sY, sString );
+					sY += usFontHeight;
+				}
+			}
+		}
 	}
 
 	SetFontDestBuffer( FRAME_BUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
@@ -2284,7 +2313,6 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 {
 	BOOLEAN fOk = FALSE;
 	BOOLEAN fShift = FALSE;
-	BOOLEAN fSELLALL = gGameExternalOptions.fSellAll;
 
 	// If not null return
 	if ( gpItemPointer != NULL )
@@ -2425,24 +2453,67 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			if ( fShowMapInventoryPool )
 				HandleButtonStatesWhileMapInventoryActive();
 		}
-		else if ( _KeyDown ( ALT ) && fSELLALL)//Sell Item
+		// Flugente: convert gear to resources
+		else if ( _KeyDown( ALT ) && _KeyDown( SHIFT ) && gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			FLOAT dvalue_Gun = 0;
+			FLOAT dvalue_Armour = 0;
+			FLOAT dvalue_Misc = 0;
+
+			UINT16 usItem = gItemPointer.usItem;
+
+			if ( ConvertItemToResources( gItemPointer, TRUE, dvalue_Gun, dvalue_Armour, dvalue_Misc ) )
+			{
+				AddResources( dvalue_Gun, dvalue_Armour, dvalue_Misc );
+
+				dvalue_Gun = dvalue_Armour = dvalue_Misc = 0;
+
+				PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );
+				gpItemPointer = NULL;
+				fMapInventoryItem = FALSE;
+
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szSMilitiaResourceText[0], Item[usItem].szItemName );
+			}
+			
+			if ( _KeyDown( 89 ) )
+			{
+				for ( UINT32 iNumber = 0; iNumber < pInventoryPoolList.size( ); ++iNumber )
+				{
+					if ( pInventoryPoolList[iNumber].object.usItem == usItem && pInventoryPoolList[iNumber].usFlags & WORLD_ITEM_REACHABLE )
+					{
+						if ( ConvertItemToResources( pInventoryPoolList[iNumber].object, TRUE, dvalue_Gun, dvalue_Armour, dvalue_Misc ) )
+						{
+							AddResources( dvalue_Gun, dvalue_Armour, dvalue_Misc );
+
+							dvalue_Gun = dvalue_Armour = dvalue_Misc = 0;
+
+							DeleteObj( &pInventoryPoolList[iNumber].object );
+						}
+					}
+				}
+			}
+			
+			if ( fShowMapInventoryPool )
+				HandleButtonStatesWhileMapInventoryActive( );
+		}
+		else if ( _KeyDown( ALT ) && gGameExternalOptions.fSellAll )//Sell Item
 		{
 			// HEADROCK HAM 5: Added argument
 			INT32 iPrice = SellItem( gItemPointer, TRUE );
-		    PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );
+			PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );
 			gpItemPointer = NULL;
 			fMapInventoryItem = FALSE;
-			if ( _KeyDown ( 89 )) //Lalien: sell all items of this type on Alt+Y
+			if ( _KeyDown( 89 ) ) //Lalien: sell all items of this type on Alt+Y
 			{
-				for( UINT32 iNumber = 0 ; iNumber <  pInventoryPoolList.size() ; ++iNumber)
+				for ( UINT32 iNumber = 0; iNumber < pInventoryPoolList.size( ); ++iNumber )
 				{
 					// WANNE: Fix by Headrock
 					//if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem )
-					if ( pInventoryPoolList[ iNumber ].object.usItem == gItemPointer.usItem && pInventoryPoolList[ iNumber ].usFlags & WORLD_ITEM_REACHABLE)
+					if ( pInventoryPoolList[iNumber].object.usItem == gItemPointer.usItem && pInventoryPoolList[iNumber].usFlags & WORLD_ITEM_REACHABLE )
 					{
 						// HEADROCK HAM 5: Added argument
-						iPrice += SellItem( pInventoryPoolList[ iNumber ].object, TRUE );
-						DeleteObj( &pInventoryPoolList [ iNumber ].object );
+						iPrice += SellItem( pInventoryPoolList[iNumber].object, TRUE );
+						DeleteObj( &pInventoryPoolList[iNumber].object );
 					}
 				}
 			}
@@ -2453,7 +2524,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			//	iPrice = 1;
 			//}
 
-			if ( _KeyDown ( 89 )) //Lalien: sell all items of this type on Alt+Y
+			if ( _KeyDown( 89 ) ) //Lalien: sell all items of this type on Alt+Y
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SOLD_ALL] );
 			}
@@ -2462,13 +2533,13 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			}
 
 			// HEADROCK HAM 5: No transaction if no money.
-			if (iPrice > 0)
+			if ( iPrice > 0 )
 			{
-				AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );
+				AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin( ), iPrice );
 			}
 
 			if ( fShowMapInventoryPool )
-				HandleButtonStatesWhileMapInventoryActive();
+				HandleButtonStatesWhileMapInventoryActive( );
 		}
 		else
 		{

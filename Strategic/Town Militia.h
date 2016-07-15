@@ -21,7 +21,7 @@
 
 
 // handle promoting a militia during militia training. return TRUE if militia could be promoted
-BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY );
+BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY, UINT8& arusPromotedTo );
 
 // this handles what happens when a new militia unit is finishes getting trained
 void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY );
@@ -125,5 +125,12 @@ FLOAT CalcHourlyVolunteerGain();
 
 // every hour, controlled sectors add to our volunteer pool
 void UpdateVolunteers();
+
+// Flugente: militia resources
+BOOLEAN ConvertItemToResources( OBJECTTYPE& object, BOOLEAN fAll, FLOAT& arValue_Gun, FLOAT& arValue_Armour, FLOAT& arValue_Misc );
+void AddResources( FLOAT aValue_Gun, FLOAT aValue_Armour, FLOAT aValue_Misc );
+void GetResources( FLOAT& arValue_Gun, FLOAT& arValue_Armour, FLOAT& arValue_Misc );
+FLOAT ResourceProgressModifier( UINT8 aProgress );
+void DevalueResources(UINT8 aOldProgress, UINT8 aNewProgress);
 
 #endif

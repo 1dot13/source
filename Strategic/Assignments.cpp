@@ -1440,6 +1440,15 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 	if ( !GetVolunteerPool() )
 		return FALSE;
 
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		FLOAT val_gun, val_armour, val_misc;
+		GetResources( val_gun, val_armour, val_misc );
+
+		if ( val_gun <= 1.0f )
+			return FALSE;
+	}
+
 	// Make sure the basic sector/merc variables are still applicable. This is simply a fail-safe.
 	if( !BasicCanCharacterTrainMilitia( pSoldier ) )
 	{
@@ -6988,6 +6997,14 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		
 	if ( turnedmilitia[PRISONER_ADMIN] + turnedmilitia[PRISONER_REGULAR] + turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] )
 	{
+		// we need to remove resources for these guys
+		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			AddResources( -turnedmilitia[PRISONER_ADMIN] - turnedmilitia[PRISONER_REGULAR] - (turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]), 
+						  -turnedmilitia[PRISONER_REGULAR] - (turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]), 
+						  -(turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]) );
+		}
+
 		// add these guys to the local garrison as green militias
 		StrategicAddMilitiaToSector( sMapX, sMapY, GREEN_MILITIA,   turnedmilitia[PRISONER_ADMIN] );
 		StrategicAddMilitiaToSector( sMapX, sMapY, REGULAR_MILITIA, turnedmilitia[PRISONER_REGULAR] );
@@ -18689,9 +18706,22 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 
 	if ( !GetVolunteerPool() )
 	{
-		swprintf( sString, L"There are no volunteers for militia left!" );
+		swprintf( sString, szSMilitiaResourceText[4] );
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return (FALSE);
+	}
+
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		FLOAT val_gun, val_armour, val_misc;
+		GetResources( val_gun, val_armour, val_misc );
+
+		if ( val_gun <= 1.0f )
+		{
+			swprintf( sString, szSMilitiaResourceText[5] );
+			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+			return (FALSE);
+		}
 	}
 
 	if ( 100 <= GetMobileMilitiaQuota( TRUE ) )

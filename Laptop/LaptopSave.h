@@ -169,7 +169,12 @@ typedef struct
 	// Flugente: militia volunteer pool. No relation to the laptop whatsoever, but I'm not creating a new struct for one variable
 	FLOAT							dMilitiaVolunteerPool;
 
-	UINT8 bPadding[ 72 ];
+	// Flugente: additional militia resources
+	FLOAT							dMilitiaGunPool;
+	FLOAT							dMilitiaArmourPool;
+	FLOAT							dMilitiaMiscPool;
+
+	UINT8 bPadding[ 60 ];
 
 } LaptopSaveInfoStruct;
 

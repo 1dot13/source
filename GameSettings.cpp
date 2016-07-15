@@ -2213,7 +2213,34 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usMilitiaAmmo_Max						= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_MAX", 200, 30, 400);
 	gGameExternalOptions.usMilitiaAmmo_OptimalMagCount			= iniReader.ReadInteger("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_AMMO_OPTIMAL_MAG_COUNT", 2, 1, 10);
 	gGameExternalOptions.fMilitiaUseSectorClassSpecificTaboos	= iniReader.ReadBoolean("Militia Equipment Settings","MILITIA_USE_SECTOR_EQUIPMENT_CLASS_SPECIFIC_TABOOS", TRUE);
-			
+
+	//################# Militia Resource Settings ##################
+
+	gGameExternalOptions.fMilitiaResources									= iniReader.ReadBoolean( "Militia Resource Settings", "MILITIA_REQUIRE_RESOURCES", FALSE );
+	gGameExternalOptions.fMilitiaResources_ProgressFactor					= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_PROGRESSFACTOR", 10.0f, 1.0f, 100.0f );
+
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Ammo_Bullet			= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_AMMO_BULLET", 0.01f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Gun					= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_GUN", 1.0f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Armour				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_ARMOUR", 1.0f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Melee				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_MELEE", 0.25f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Bomb				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_BOMB", 0.25f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Grenade				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_GRENADE", 0.17f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Face				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_FACE", 0.2f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_LBE					= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_LBE", 0.17f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Low		= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_LOW", 0.05f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_Medium	= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_MEDIUM", 0.1f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_ItemClassMod_Attachment_High		= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_ITEMCLASSMOD_ATTACHMENT_HIGH", 0.2f, 0.0f, 1.0f );
+	
+	gGameExternalOptions.fMilitiaResources_WeaponMod[NOT_GUN]				= 1.0f;
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_PISTOL]			= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_PISTOL",	0.6f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_M_PISTOL]			= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_M_PISTOL", 0.7f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_SMG]				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_SMG",		0.8f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_RIFLE]				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_RIFLE",	0.9f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_SN_RIFLE]			= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_SN_RIFLE", 1.0f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_AS_RIFLE]			= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_AS_RIFLE", 1.0f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_LMG]				= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_LMG",		1.0f, 0.0f, 1.0f );
+	gGameExternalOptions.fMilitiaResources_WeaponMod[GUN_SHOTGUN]			= iniReader.ReadFloat( "Militia Resource Settings", "MILITIA_RESOURCES_WEAPONMOD_SHOTGUN",	1.0f, 0.0f, 1.0f );
+		
 	//################# Shopkeeper Inventory Settings ##################
 
 	// WDS - Improve Tony's and Devin's inventory like BR's

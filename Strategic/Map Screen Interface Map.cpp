@@ -46,6 +46,7 @@
 	#include "Auto Resolve.h"
 	#include "ASD.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
+	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
 #endif
 
 #include "Quests.h"
@@ -7818,22 +7819,90 @@ void DisplayMilitiaGroupBox()
 	// if we play with a limited militia pool, show us how many we have
 	if ( fShowMilitia && gGameExternalOptions.fMilitiaVolunteerPool )
 	{
-		CHAR16 sVolunteerString[200];
-
 		SetFont( FONT12ARIAL );
 
-		INT32 volunteers = GetVolunteerPool();
+		INT32 x = MapScreenRect.iLeft + 20;
+		INT32 y = MapScreenRect.iBottom - 10;
 
-		if ( volunteers >= 2 * gGameExternalOptions.iTrainingSquadSize )
-			SetFontForeground( FONT_FCOLOR_GREEN );
-		else if ( volunteers >= gGameExternalOptions.iTrainingSquadSize )
-			SetFontForeground( FONT_FCOLOR_YELLOW );
-		else
-			SetFontForeground( FONT_FCOLOR_RED );
+		if ( gGameExternalOptions.fMilitiaVolunteerPool )
+		{
+			CHAR16 sString[200];
 
-		// header
-		swprintf( sVolunteerString, szMilitiaStrategicMovementText[8], volunteers, CalcHourlyVolunteerGain( ) );
-		mprintf( MapScreenRect.iLeft + 20, MapScreenRect.iBottom - 10, sVolunteerString );
+			INT32 volunteers = GetVolunteerPool();
+
+			if ( volunteers >= 2 * gGameExternalOptions.iTrainingSquadSize )
+				SetFontForeground( FONT_FCOLOR_GREEN );
+			else if ( volunteers >= gGameExternalOptions.iTrainingSquadSize )
+				SetFontForeground( FONT_FCOLOR_YELLOW );
+			else
+				SetFontForeground( FONT_FCOLOR_RED );
+
+			swprintf( sString, szMilitiaStrategicMovementText[8], volunteers, CalcHourlyVolunteerGain( ) );
+			mprintf( x, y, sString );
+
+			x += StringPixLength( sString, FONT12ARIAL );
+			y -= 10;
+		}
+
+		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			x = MapScreenRect.iLeft + 20;
+
+			CHAR16 sString[200];
+
+			FLOAT val_gun, val_armour, val_misc;
+			GetResources( val_gun, val_armour, val_misc );
+
+			SetFontForeground( FONT_BEIGE );
+			swprintf( sString, szSMilitiaResourceText[1] );
+			mprintf( x, y, sString );
+			x += 5 + StringPixLength( sString, FONT12ARIAL );
+
+			if ( val_gun > 20.0 )
+				SetFontForeground( FONT_FCOLOR_GREEN );
+			else if ( val_gun > 10.0 )
+				SetFontForeground( FONT_FCOLOR_YELLOW );
+			else
+				SetFontForeground( FONT_FCOLOR_RED );
+						
+			swprintf( sString, L"%5.2f", val_gun );
+			mprintf( x, y, sString );
+			x += 5 + StringPixLength( sString, FONT12ARIAL );
+
+			SetFontForeground( FONT_LTKHAKI );
+			swprintf( sString, szSMilitiaResourceText[2] );
+			mprintf( x, y, sString );
+			x += 5 + StringPixLength( sString, FONT12ARIAL );
+
+			if ( val_armour > 20.0 )
+				SetFontForeground( FONT_FCOLOR_GREEN );
+			else if ( val_armour > 10.0 )
+				SetFontForeground( FONT_FCOLOR_YELLOW );
+			else
+				SetFontForeground( FONT_FCOLOR_RED );
+
+			swprintf( sString, L"%5.2f", val_armour );
+			mprintf( x, y, sString );
+			x += 5 + StringPixLength( sString, FONT12ARIAL );
+
+			SetFontForeground( FONT_LTBLUE );
+			swprintf( sString, szSMilitiaResourceText[3] );
+			mprintf( x, y, sString );
+			x += 5 + StringPixLength( sString, FONT12ARIAL );
+
+			if ( val_misc > 20.0 )
+				SetFontForeground( FONT_FCOLOR_GREEN );
+			else if ( val_misc > 10.0 )
+				SetFontForeground( FONT_FCOLOR_YELLOW );
+			else
+				SetFontForeground( FONT_FCOLOR_RED );
+
+			swprintf( sString, L"%5.2f", val_misc );
+			mprintf( x, y, sString );
+			x += 5 + StringPixLength( sString, FONT12ARIAL );
+
+			y -= 10;
+		}
 	}
 
 	if ( !gMilitiaGroupBoxCreated )

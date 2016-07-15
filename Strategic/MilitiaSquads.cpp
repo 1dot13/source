@@ -198,6 +198,17 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	// if we can't train as many militia as we should due to lack of volunteers, the excess training goes into promoting militia
 	UINT8 promotionsfromvolunteers = ubMilitiaToTrain;
 	ubMilitiaToTrain = min( ubMilitiaToTrain, GetVolunteerPool( ) );
+
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		FLOAT val_gun, val_armour, val_misc;
+		GetResources( val_gun, val_armour, val_misc );
+
+		ubMilitiaToTrain = min( ubMilitiaToTrain, (INT32)val_gun );
+		ubMilitiaToTrain = min( ubMilitiaToTrain, (INT32)val_armour );
+		ubMilitiaToTrain = min( ubMilitiaToTrain, (INT32)val_misc );
+	}
+
 	promotionsfromvolunteers -= ubMilitiaToTrain;
 
 	// HEADROCK HAM 3.4: Composition of new Mobile Militia groups is now dictated by two INI settings controlling
@@ -371,10 +382,27 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 
 	MoveMilitiaEquipment( sMapX, sMapY, sTMapX, sTMapY, numcreated[ELITE_MILITIA], numcreated[REGULAR_MILITIA], numcreated[GREEN_MILITIA] );
 	
+	// we have to remove the resources for trained militia before we do promotions, in order to remove these resource
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		// use up resources for new militia
+		AddResources( -numcreated[GREEN_MILITIA] - numcreated[REGULAR_MILITIA] - numcreated[ELITE_MILITIA], -numcreated[REGULAR_MILITIA] - numcreated[ELITE_MILITIA], -numcreated[ELITE_MILITIA] );
+	}
+
 	// handle promotions
 	UINT8 promotions = 0;
-	while ( promotions < promotionstodo + promotionsfromvolunteers && TownMilitiaTrainingPromotion( sTMapX, sTMapY ) )
+	UINT8 promotedto = 0;
+	UINT8 promotedto_regular = 0;
+	UINT8 promotedto_elite = 0;
+	while ( promotions < promotionstodo + promotionsfromvolunteers && TownMilitiaTrainingPromotion( sTMapX, sTMapY, promotedto ) )
+	{
 		++promotions;
+
+		if ( promotedto == SOLDIER_CLASS_REG_MILITIA )
+			++promotedto_regular;
+		else
+			++promotedto_elite;
+	}
 
 	// SANDRO - merc records (num militia trained)
 	if ( trained > 0 )
@@ -383,7 +411,7 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 
 		// Flugente: substract volunteers
 		AddVolunteers( -trained );
-
+		
 		// Flugente: create individual militia
 		for ( int i = 0; i < numcreated[GREEN_MILITIA]; ++i )
 			CreateNewIndividualMilitia( GREEN_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
@@ -393,6 +421,12 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 
 		for ( int i = 0; i < numcreated[ELITE_MILITIA]; ++i )
 			CreateNewIndividualMilitia( ELITE_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
+	}
+
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		// promotion resources
+		AddResources( - promotedto_regular - promotedto_elite, - promotedto_regular - promotedto_elite, - promotedto_elite );
 	}
 
 	// This reduces the group back to "maximum" size. It starts by eliminating extra greens, then regulars, then elites.

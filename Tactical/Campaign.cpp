@@ -1719,6 +1719,9 @@ void HourlyProgressUpdate(void)
 				ExecuteStrategicAIAction( NPC_ACTION_GLOBAL_OFFENSIVE_2, 0, 0 );
 		}
 
+		// Flugente: our resources slowly lose their value
+		DevalueResources( gStrategicStatus.ubHighestProgress, ubCurrentProgress );
+
 		gStrategicStatus.ubHighestProgress = ubCurrentProgress;
 
 		// debug message

@@ -224,6 +224,22 @@ enum
 	ASD_RESOURCE_MAX
 };
 
+// exact gun types
+enum
+{
+	NOT_GUN = 0,
+	GUN_PISTOL,
+	GUN_M_PISTOL,
+	GUN_SMG,
+	GUN_RIFLE,
+	GUN_SN_RIFLE,
+	GUN_AS_RIFLE,
+	GUN_LMG,
+	GUN_SHOTGUN,
+
+	GUN_TYPES_MAX
+};
+
 typedef struct
 {
 	BOOLEAN fGunNut;
@@ -511,6 +527,24 @@ typedef struct
 	UINT16 usMilitiaAmmo_Max;
 	UINT16 usMilitiaAmmo_OptimalMagCount;
 	BOOLEAN	fMilitiaUseSectorClassSpecificTaboos;
+
+	// Flugente: militia resources
+	BOOLEAN fMilitiaResources;
+	FLOAT fMilitiaResources_ProgressFactor;
+
+	FLOAT fMilitiaResources_ItemClassMod_Ammo_Bullet;
+	FLOAT fMilitiaResources_ItemClassMod_Gun;
+	FLOAT fMilitiaResources_ItemClassMod_Armour;
+	FLOAT fMilitiaResources_ItemClassMod_Melee;
+	FLOAT fMilitiaResources_ItemClassMod_Bomb;
+	FLOAT fMilitiaResources_ItemClassMod_Grenade;
+	FLOAT fMilitiaResources_ItemClassMod_Face;
+	FLOAT fMilitiaResources_ItemClassMod_LBE;
+	FLOAT fMilitiaResources_ItemClassMod_Attachment_Low;
+	FLOAT fMilitiaResources_ItemClassMod_Attachment_Medium;
+	FLOAT fMilitiaResources_ItemClassMod_Attachment_High;
+	
+	FLOAT fMilitiaResources_WeaponMod[GUN_TYPES_MAX];
 
 	// Flugente - allow accessing other mercs inventory via 'stealing'
 	BOOLEAN fAccessOtherMercInventories;
@@ -2290,7 +2324,7 @@ typedef struct
 	FLOAT fRangeModifierGrenade;
 
 	// damage modifiers
-	FLOAT fDamageModifierGun[9];
+	FLOAT fDamageModifierGun[GUN_TYPES_MAX];
 	FLOAT fDamageModifierBlade;
 	FLOAT fDamageModifierPunch;
 	FLOAT fDamageModifierTentacle;
@@ -2302,23 +2336,23 @@ typedef struct
 	FLOAT fShotsPer4TurnsModifierTentacle;
 	FLOAT fShotsPer4TurnsModifierThrowKnife;
 	// Burst AP modifiers
-	FLOAT fBurstAPModifierGun[9];
+	FLOAT fBurstAPModifierGun[GUN_TYPES_MAX];
 	// AP modifiers for Auto Fire Shots per 5 AP (bAutofireShotsPerFiveAP)
-	FLOAT fAFShotsPer5APModifierGun[9];
+	FLOAT fAFShotsPer5APModifierGun[GUN_TYPES_MAX];
 	// AP to Reload modifiers
-	FLOAT fAPtoReloadModifierGun[9];
+	FLOAT fAPtoReloadModifierGun[GUN_TYPES_MAX];
 	FLOAT fAPtoReloadModifierLauncher;
 	// AP to Reload manually modifiers
-	FLOAT fAPtoReloadManuallyModifierGun[9];
+	FLOAT fAPtoReloadManuallyModifierGun[GUN_TYPES_MAX];
 	FLOAT fAPtoReloadManuallyModifierLauncher;
 	// Max Distance for messy shot modifiers
-	FLOAT fDistMessyModifierGun[9];
+	FLOAT fDistMessyModifierGun[GUN_TYPES_MAX];
 	// Handling modifiers
-	FLOAT fHandlingModifierGun[9];
+	FLOAT fHandlingModifierGun[GUN_TYPES_MAX];
 	FLOAT fHandlingModifierLauncher;
 	// Recoil modifiers
-	FLOAT fRecoilXModifierGun[9];
-	FLOAT fRecoilYModifierGun[9];
+	FLOAT fRecoilXModifierGun[GUN_TYPES_MAX];
+	FLOAT fRecoilYModifierGun[GUN_TYPES_MAX];
 
 	// -------------- ARMOR MODIFIERS ----------------
 	FLOAT fCamoLBEoverVestModifier;

@@ -2974,6 +2974,9 @@ extern STR16	szWeatherTypeText[];
 // Flugente: snakes
 extern STR16	szSnakeText[];
 
+// Flugente: militia resources
+extern STR16	szSMilitiaResourceText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 
