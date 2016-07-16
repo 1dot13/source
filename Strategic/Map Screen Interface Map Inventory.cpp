@@ -731,7 +731,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 			swprintf( sString, L"$%d", iPrice );
 
 			mprintf( sX, sY, sString );
-			sY += usFontHeight;
+			sY += usFontHeight + 2;
 		}
 
 		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
@@ -744,12 +744,12 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 			{
 				if ( dvalue_Gun > 0.0001f )
 				{
-					SetFontForeground( FONT_BEIGE );
+					SetFontForeground( FONT_ORANGE );
 					SetFontBackground( FONT_BLACK );
 
-					swprintf( sString, L"%5.2f", dvalue_Gun );
+					swprintf( sString, L"%-5.2f", dvalue_Gun );
 					mprintf( sX, sY, sString );
-					sY += usFontHeight;
+					sY += usFontHeight + 2;
 				}
 
 				if ( dvalue_Armour > 0.0001f )
@@ -757,9 +757,9 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 					SetFontForeground( FONT_LTKHAKI );
 					SetFontBackground( FONT_BLACK );
 
-					swprintf( sString, L"%5.2f", dvalue_Armour );
+					swprintf( sString, L"%-5.2f", dvalue_Armour );
 					mprintf( sX, sY, sString );
-					sY += usFontHeight;
+					sY += usFontHeight + 2;
 				}
 
 				if ( dvalue_Misc > 0.0001f )
@@ -767,9 +767,9 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 					SetFontForeground( FONT_LTBLUE );
 					SetFontBackground( FONT_BLACK );
 
-					swprintf( sString, L"%5.2f", dvalue_Misc );
+					swprintf( sString, L"%-5.2f", dvalue_Misc );
 					mprintf( sX, sY, sString );
-					sY += usFontHeight;
+					sY += usFontHeight + 2;
 				}
 			}
 		}

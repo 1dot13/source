@@ -7853,7 +7853,7 @@ void DisplayMilitiaGroupBox()
 			FLOAT val_gun, val_armour, val_misc;
 			GetResources( val_gun, val_armour, val_misc );
 
-			SetFontForeground( FONT_BEIGE );
+			SetFontForeground( FONT_ORANGE );
 			swprintf( sString, szSMilitiaResourceText[1] );
 			mprintf( x, y, sString );
 			x += 5 + StringPixLength( sString, FONT12ARIAL );
