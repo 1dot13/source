@@ -635,15 +635,21 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 			) )
 	{
 		//Shade the item, but only if it is an active item!
-		if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == true) {
+		if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == true)
+		{
 			DrawHatchOnInventory( guiSAVEBUFFER, sX, sY, MAP_INVEN_SLOT_WIDTH, MAP_INVEN_SLOT_IMAGE_HEIGHT );
+
+#ifdef ENCYCLOPEDIA_WORKS
 			//Moa: set encyclopedia item visibility (not reachable)
 			EncyclopediaSetItemAsVisible( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem, ENC_ITEM_DISCOVERED_NOT_REACHABLE );
+#endif
 		}
 	}
+#ifdef ENCYCLOPEDIA_WORKS
 	//Moa: set encyclopedia item visibility (reachable)
 	else if ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == true )
 		EncyclopediaSetItemAsVisible( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem, ENC_ITEM_DISCOVERED_NOT_INSPECTABLE );
+#endif
 
 	// Flugente: militia equipment
 	if( gGameExternalOptions.fMilitiaUseSectorInventory && ( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ALL ) )

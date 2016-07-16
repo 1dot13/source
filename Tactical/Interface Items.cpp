@@ -3748,8 +3748,10 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			RestoreExternBackgroundRect( sX, sY, sWidth, sHeight );
 		}
 
+#ifdef ENCYCLOPEDIA_WORKS
 		//Moa: set encyclopedia item visibility
 		EncyclopediaSetItemAsVisible( pItem->uiIndex, ENC_ITEM_DISCOVERED );
+#endif
 	}
 
 	SetFont( ITEM_FONT );

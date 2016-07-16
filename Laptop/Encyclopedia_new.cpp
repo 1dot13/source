@@ -53,9 +53,10 @@
 	//#include "Campaign Types.h"
 	//#include "Quests.h"
 	//#include "Tactical Save.h"
-	//#include "Encyclopedia_Data_new.h"
+	#include "Encyclopedia_Data_new.h"
 #endif	
 
+#ifdef ENCYCLOPEDIA_WORKS
 /** @defgroup ENCYCLOPEDIA Encyclopedia
 * Encyclopedia shows discovered places, characters, known items and quests.
 */
@@ -352,6 +353,8 @@ void EncyclopediaInitItemsVisibility()
 	memset( gbEncyclopediaData_ItemVisible, ENC_ITEM_NOT_DISCOVERED, MAXITEMS*sizeof(UINT8) );
 }
 
+#endif
+
 /**
 * @brief Saves Item visibility array to file.
 *
@@ -381,6 +384,7 @@ BOOLEAN LoadEncyclopediaItemVisibility( HWFILE hFile )
 }
 ///@}
 
+#ifdef ENCYCLOPEDIA_WORKS
 /**
 * @brief Prepares a change to a different subpage.
 * Subpages currently available: Loactions, Characters, Items, Quests.
@@ -459,4 +463,6 @@ void BtnEncyclopedia_newSelectDataPageRegionCallBack( MOUSE_REGION * pRegion, IN
 	{
 	}
 }
+#endif
+
 #endif

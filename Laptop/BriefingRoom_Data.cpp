@@ -18,11 +18,6 @@
 #endif	
 
 
-
-
-
-
-
 #define MAX_FILTR_LOCATION_BUTTONS 11
 #define FILTR_INVENTORY_BUTTONS 5
 #define FILTR_BUTTONS_CHARACTER 8
@@ -31,11 +26,15 @@
 
 
 UINT32 	gFiltrBox = -1;
+
+#ifdef ENCYCLOPEDIA_WORKS
 INT32 	guiEncyclopediaLocationPageButton[3] = { -1,-1,-1 };
 INT32  	guiEncyclopediaLocationPageButtonImage = -1;
 INT32 	guiEncyclopediaPageButton[3] = { -1,-1,-1 };
 INT32  	guiEncyclopediaiPageButtonImage =  -1;
 UINT32 	guiEncyclopediaPopUp;
+#endif
+
 INT32 	ID = 0;
 INT32 	IDimage = 0;
 INT32 	MaxImages = 1;
@@ -74,8 +73,12 @@ void InitData ( BOOLEAN bInit );
 #define ENCYCLOPEDIA_IMAGE_X LAPTOP_SCREEN_UL_X
 #define ENCYCLOPEDIA_IMAGE_Y iScreenHeightOffset + LAPTOP_SCREEN_WEB_DELTA_Y
 #define ENCYCLOPEDIA_FILTR_BUTTON_GAP	16
+
+#ifdef ENCYCLOPEDIA_WORKS
 void SelectEncyclopediaLocationPageRegionCallBack(GUI_BUTTON * btn, INT32 reason );
 void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason );
+#endif
+
 void SelectFiltrButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason );
 
 //void BtnEncyclopediaTogglesCallback( GUI_BUTTON *btn, INT32 reason );
@@ -91,8 +94,9 @@ void UnLoadMenuButtons ();
 
 #define MAX_NUMBER_OF_OPTION_TOGGLES 5
 
-//UINT32	guiEncyclopediaToggles[ MAX_NUMBER_OF_OPTION_TOGGLES ];
+#ifdef ENCYCLOPEDIA_WORKS
 MOUSE_REGION	gSelectedEncyclopediaTextRegion[ MAX_FILTR_LOCATION_BUTTONS ];
+#endif
 
 BOOLEAN bBriefingRoom  = FALSE;
 BOOLEAN bBriefingRoomSpecialMission  = FALSE;
@@ -197,56 +201,13 @@ BOOLEAN DisplayEncyclopediaLocationText()
 	return(TRUE);
 }
 
-void GameInitEncyclopediaLocation()
-{/*
-	UINT32 typeSize = 0,total = 0;
-	CHAR buffer[150];
-
-	typeSize = sizeof (BRIEFINGROOM_M_DATA);
-	//backup data
-	total += sizeof(gEncyclopediaLocationDataBackup);
-	total += sizeof(gEncyclopediaProfilesDataBackup);
-	total += sizeof(gEncyclopediaInventoryDataBackup);
-	total += sizeof(gEncyclopediaOldProfilesDataBackup);
-	total += sizeof(gEncyclopediaQuestsDataBackup);
-	//actual data
-	total += sizeof(gEncyclopediaLocationData);
-	total += sizeof(gEncyclopediaProfilesData);
-	total += sizeof(gEncyclopediaInventoryData);
-	total += sizeof(gEncyclopediaOldProfilesData);
-	total += sizeof(gEncyclopediaQuestsData);
-	//save data
-	total += sizeof(saveEncyclopediaLocationData);
-	total += sizeof(saveEncyclopediaProfilesData);
-	total += sizeof(saveEncyclopediaInventoryData);
-	total += sizeof(saveEncyclopediaOldProfilesData);
-	total += sizeof(saveEncyclopediaQuestsData);
-	//working data
-	total += sizeof(gbriefingRoomDataTemp);
-	total /= 1024*1024;
-	sprintf(buffer,"Memory usage by Encyclopedia: %d MegaBytes\n",total);
-	OutputDebugString( buffer );
-	int tmpFlag = _CrtSetDbgFlag( _CRTDBG_REPORT_FLAG );
-  
-	// Turn on leak-checking bit.
-	tmpFlag |= _CRTDBG_LEAK_CHECK_DF;
-  
-	// Turn off CRT block checking bit.
-	tmpFlag &= ~_CRTDBG_CHECK_CRT_DF;
-  
-	// Set flag to the new value.
-	_CrtSetDbgFlag( tmpFlag );
-
-	DumpMemoryInfoIntoFile( "ExtremeMemoryDump.txt", FALSE );*/
-}
-
 void ResetTemp()
 {
 #ifdef ENABLE_BRIEFINGROOM 
 
-UINT32 i,NUM_TEMP;
+	UINT32 i,NUM_TEMP;
   
-		NUM_TEMP = NUM_MISSION;
+	NUM_TEMP = NUM_MISSION;
 		
   	for(i=0; i<NUM_TEMP; i++)
 	{
@@ -271,22 +232,22 @@ void BackupBRandEncyclopedia ( BRIEFINGROOM_M_DATA *EncyBackup, BRIEFINGROOM_M_D
 {
 #ifdef ENABLE_BRIEFINGROOM 
 
-UINT32 i,NUM_TEMP;
+	UINT32 i,NUM_TEMP;
 
-		NUM_TEMP = NUM_MISSION;
+	NUM_TEMP = NUM_MISSION;
 		
   	for(i=0; i<NUM_TEMP; i++)
 	{
-			Ency[i].uiIndex = EncyBackup[i].uiIndex;
+		Ency[i].uiIndex = EncyBackup[i].uiIndex;
 		
-			Ency[i].Hidden = EncyBackup[i].Hidden;
+		Ency[i].Hidden = EncyBackup[i].Hidden;
 
-			Ency[i].bvisible = EncyBackup[i].bvisible;	
+		Ency[i].bvisible = EncyBackup[i].bvisible;	
 
-			Ency[i].MissionID = EncyBackup[i].MissionID;
-			Ency[i].NextMission = EncyBackup[i].NextMission;
+		Ency[i].MissionID = EncyBackup[i].MissionID;
+		Ency[i].NextMission = EncyBackup[i].NextMission;
 			
-			Ency[i].CheckMission = EncyBackup[i].CheckMission;		
+		Ency[i].CheckMission = EncyBackup[i].CheckMission;		
 	}
 	
 #endif // ENABLE_BRIEFINGROOM
@@ -307,9 +268,7 @@ void CopyToTemp ( BRIEFINGROOM_M_DATA *Ency, BOOLEAN bFiltr, INT32 sort, INT32 T
     bBoxShow = TRUE;
 	ResetVal = FALSE;
 	
-		NUM_TEMP = NUM_MISSION;
-		
-
+	NUM_TEMP = NUM_MISSION;
 		
   	for(i=0; i<NUM_TEMP; i++)
 	{
@@ -440,12 +399,12 @@ void InitData ( BOOLEAN bInit)
 BOOLEAN EnterEncyclopediaLocation()
 {
 #ifdef ENABLE_BRIEFINGROOM
-  UINT16	usPosX, usPosY, i;
-  CHAR8 str[MAX_ENCYCLOPEDIA_CHARS];
-
-  
+	CHAR8 str[MAX_ENCYCLOPEDIA_CHARS];
+    
 	InitData (ResetVal);
-	
+
+#ifdef ENCYCLOPEDIA_WORKS
+	UINT16	usPosX, usPosY, i;
 	InitEncyclopediaDefaults();
 	
 	guiEncyclopediaLocationPageButtonImage =	LoadButtonImage("ENCYCLOPEDIA\\BottomButtons2.sti", -1,0,-1,1,-1 );
@@ -486,6 +445,7 @@ BOOLEAN EnterEncyclopediaLocation()
 
 		usPosX += ENCYCLOPEDIA_LOCATION_PAGE_GAP+60;
 	}
+#endif
 	
 	fFirstTimeInEncyclopediaLocation = FALSE;
 
@@ -493,16 +453,20 @@ BOOLEAN EnterEncyclopediaLocation()
 	
 	RenderButtonDisabled();
 	
+#ifdef ENCYCLOPEDIA_WORKS
 	DisableButton( guiEncyclopediaPageButton[0] );	
 	DisableButton( guiEncyclopediaLocationPageButton[0] );	
-	
+#endif
+
 	if ( gbriefingRoomDataTemp[LocationID].CheckMission == MISSIONSTART || gbriefingRoomDataTemp[LocationID].CheckMission == MISSIONEND )				
 		DisableButton ( guiSoundButtons[1] );
 	else if ( gbriefingRoomDataTemp[LocationID].CheckMission == MISSIONNOSTARTED )	
 		EnableButton ( guiSoundButtons[1] );
 	
+#ifdef ENCYCLOPEDIA_WORKS
 	if ( MaxLocation == -1 || MaxLocation == 0 || MaxLocation == 1 ) 
 		DisableButton( guiEncyclopediaLocationPageButton[2] );
+#endif
 
 		sprintf(str, "BriefingRoom\\mission%d.wav", gbriefingRoomDataTemp[LocationID].MissionID,IDimage);
 		if( FileExists(str)  )
@@ -524,21 +488,24 @@ void UnLoadMenuButtons ()
 
 void ExitEncyclopediaLocation()
 {
-UINT16	i;
+	UINT16	i;
+
+#ifdef ENCYCLOPEDIA_WORKS
 	RemoveEncyclopediaDefaults();
 	
 	if (guiEncyclopediaiPageButtonImage != -1 )
-	UnloadButtonImage( guiEncyclopediaiPageButtonImage );
+		UnloadButtonImage( guiEncyclopediaiPageButtonImage );
 	
 	if (guiEncyclopediaLocationPageButtonImage != -1 )
-	UnloadButtonImage( guiEncyclopediaLocationPageButtonImage );
+		UnloadButtonImage( guiEncyclopediaLocationPageButtonImage );
 
 	for(i=0; i<3; i++)
  		RemoveButton( guiEncyclopediaPageButton[i] );
 		
 	for(i=0; i<3; i++)
  		RemoveButton( guiEncyclopediaLocationPageButton[i] );
-		
+#endif
+
 	if ( bSoundButtons == TRUE )
 	{
 		if ( guiSoundButtonsImage != -1 )
@@ -569,6 +536,7 @@ void HandleEncyclopediaLocation()
 void RenderButtonDisabled()
 {
 #ifdef ENABLE_BRIEFINGROOM
+#ifdef ENCYCLOPEDIA_WORKS
 	if ( bPage2 == FALSE && bPage3 == FALSE ) 
 	{
 		DisableButton( guiEncyclopediaPageButton[0] );
@@ -578,34 +546,41 @@ void RenderButtonDisabled()
 	{
 		EnableButton( guiEncyclopediaPageButton[2] );
 	}
+#endif
 #endif // ENABLE_BRIEFINGROOM
 }
 
 void RenderButtonDisabled2()
 {
 #ifdef ENABLE_BRIEFINGROOM
+#ifdef ENCYCLOPEDIA_WORKS
 	DisableButton( guiEncyclopediaPageButton[0] );
 	EnableButton( guiEncyclopediaPageButton[2] );
+#endif
 #endif // ENABLE_BRIEFINGROOM
 }
 
 void RenderButtonDisabled3()
 {
-#ifdef ENABLE_BRIEFINGROOM 
+#ifdef ENABLE_BRIEFINGROOM
+#ifdef ENCYCLOPEDIA_WORKS
 	DisableButton( guiEncyclopediaLocationPageButton[0] );
 	
 	if ( MaxLocation == -1 || MaxLocation == 0 || MaxLocation == 1 ) 
 		DisableButton( guiEncyclopediaLocationPageButton[2] );
 	else
 		EnableButton( guiEncyclopediaLocationPageButton[2] );
+#endif
 #endif // ENABLE_BRIEFINGROOM
 }
 
 void RenderButtonDisabled4()
 {
 #ifdef ENABLE_BRIEFINGROOM
+#ifdef ENCYCLOPEDIA_WORKS
 	DisableButton( guiEncyclopediaPageButton[0] );
 	DisableButton( guiEncyclopediaPageButton[2] );
+#endif
 #endif // ENABLE_BRIEFINGROOM
 }
 
@@ -616,6 +591,7 @@ void RenderBoxDisabledButton()
 	MaxLocation = 0;
 	IDimage = 0;
 	
+#ifdef ENCYCLOPEDIA_WORKS
 	DisableButton( guiEncyclopediaLocationPageButton[0] );
 	//DisableButton( guiEncyclopediaLocationPageButton[1] );
 	DisableButton( guiEncyclopediaLocationPageButton[2] );
@@ -623,6 +599,7 @@ void RenderBoxDisabledButton()
 	DisableButton( guiEncyclopediaPageButton[0] );	
 	DisableButton( guiEncyclopediaPageButton[1] );
 	DisableButton( guiEncyclopediaPageButton[2] );
+#endif
 #endif // ENABLE_BRIEFINGROOM
 }
 
@@ -796,14 +773,14 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 	//Reset
 	if ( ResetVal == TRUE )
 	   DisplayWrappedString(ENCYCLOPEDIA_LOCATION_BOX_DESC_X, ENCYCLOPEDIA_LOCATION_BOX_DESC_Y + 13, ENCYCLOPEDIA_LOCATION_BOX_TEXT_WIDTH, 6, ENCYCLOPEDIA_LOCATION_BOX_FONT, ENCYCLOPEDIA_LOCATION_BOX_COLOR, L"", FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-	
-	
+		
 	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
 	
 	if ( ENCYCLOPEDIA_PAGE == -1 || ENCYCLOPEDIA_PAGE == 0 )
 		RenderButtonDisabled4();
 		
+#ifdef ENCYCLOPEDIA_WORKS
 	if ( bHidden == TRUE && ( MaxImages == 0 || MaxImages == -1 || MaxImages == 1 ) ) //|| gbriefingRoomDataTemp[0].MaxImages == 1 ) )
 		DisableButton( guiEncyclopediaPageButton[1] );
 	else if ( bHidden == FALSE && MaxImages > 1 )
@@ -811,8 +788,9 @@ void RenderEncyclopediaLocation( BOOLEAN bHidden )
 		
 	//Reset
 	if ( ResetVal == TRUE )	
-	DisableButton( guiEncyclopediaPageButton[1] );
-		
+		DisableButton( guiEncyclopediaPageButton[1] );
+#endif
+
 	if ( gbriefingRoomDataTemp[LocationID].CheckMission == MISSIONSTART || gbriefingRoomDataTemp[LocationID].CheckMission == MISSIONEND )				
 		DisableButton ( guiSoundButtons[1] );
 	else if ( gbriefingRoomDataTemp[LocationID].CheckMission == MISSIONNOSTARTED )	
@@ -844,9 +822,11 @@ void SelectEncyclopediaLocationPageRegionCallBack(GUI_BUTTON * btn, INT32 reason
 			{
 				ID++;
 				
+#ifdef ENCYCLOPEDIA_WORKS
 				if ( ID == ENCYCLOPEDIA_PAGE || ID > ENCYCLOPEDIA_PAGE ) DisableButton( guiEncyclopediaPageButton[2] );
 				if ( ID > 0 ) EnableButton( guiEncyclopediaPageButton[0] );
-				
+#endif
+
 				RenderEncyclopediaLocation(FALSE);
 				RenderMap();
 			}
@@ -854,8 +834,11 @@ void SelectEncyclopediaLocationPageRegionCallBack(GUI_BUTTON * btn, INT32 reason
 			{
 				ID--;
 				//if ( ID < 0 ) ID = 0;
+
+#ifdef ENCYCLOPEDIA_WORKS
 				if ( ID == 0 ) DisableButton( guiEncyclopediaPageButton[0] );
 				if ( ID < ENCYCLOPEDIA_PAGE ) EnableButton( guiEncyclopediaPageButton[2] );
+#endif
 				RenderEncyclopediaLocation(FALSE);
 				RenderMap();
 			}
@@ -898,9 +881,11 @@ void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 				
 				LocationID = IDNewLocation;
 				
+#ifdef ENCYCLOPEDIA_WORKS
 				if ( IDNewLocation == MaxLocation - 1 || IDNewLocation == -1 ) DisableButton( guiEncyclopediaLocationPageButton[2] );
 				if ( IDNewLocation > 0 ) EnableButton( guiEncyclopediaLocationPageButton[0] );
-				
+#endif
+
 				IDimage = 0;
 				
 				RenderEncyclopediaLocation(FALSE);
@@ -909,11 +894,13 @@ void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 					if ( ENCYCLOPEDIA_PAGE == -1 || ENCYCLOPEDIA_PAGE == 0 )
 						RenderButtonDisabled4();
 						
+#ifdef ENCYCLOPEDIA_WORKS
 					if ( MaxImages == -1 || MaxImages == 0 || MaxImages == 1 )
 						DisableButton( guiEncyclopediaPageButton[1] );
 					else
 						EnableButton( guiEncyclopediaPageButton[1] );
-						
+#endif
+
 					if( uiSoundSampleBR!=NO_SAMPLE )
 					{
 						SoundStop( uiSoundSampleBR );
@@ -930,26 +917,30 @@ void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 				
 				LocationID = IDNewLocation;
 				
+#ifdef ENCYCLOPEDIA_WORKS
 				if ( IDNewLocation == 0 || IDNewLocation == -1 ) DisableButton( guiEncyclopediaLocationPageButton[0] );
 				if ( IDNewLocation < MaxLocation-1) EnableButton( guiEncyclopediaLocationPageButton[2] );
-				
+#endif
+
 				IDimage = 0;
 				
 				RenderEncyclopediaLocation(FALSE);
 				RenderButtonDisabled2();
 				
-					if ( ENCYCLOPEDIA_PAGE == -1 || ENCYCLOPEDIA_PAGE == 0 )
-						RenderButtonDisabled4();
-						
-					if ( MaxImages == -1 || MaxImages == 0 || MaxImages == 1 )
-						DisableButton( guiEncyclopediaPageButton[1] );
-					else
-						EnableButton( guiEncyclopediaPageButton[1] );
-						
-					if( uiSoundSampleBR!=NO_SAMPLE )
-					{
-						SoundStop( uiSoundSampleBR );
-					}	
+				if ( ENCYCLOPEDIA_PAGE == -1 || ENCYCLOPEDIA_PAGE == 0 )
+					RenderButtonDisabled4();
+				
+#ifdef ENCYCLOPEDIA_WORKS
+				if ( MaxImages == -1 || MaxImages == 0 || MaxImages == 1 )
+					DisableButton( guiEncyclopediaPageButton[1] );
+				else
+					EnableButton( guiEncyclopediaPageButton[1] );
+#endif
+
+				if( uiSoundSampleBR!=NO_SAMPLE )
+				{
+					SoundStop( uiSoundSampleBR );
+				}	
 						
 				RenderMap();
 
@@ -958,27 +949,28 @@ void SelectEncyclopediaLocationRegionCallBack(GUI_BUTTON * btn, INT32 reason )
 			{
 				//ExitEncyclopediaLocation();
 				
-					if( uiSoundSampleBR!=NO_SAMPLE )
-					{
-						SoundStop( uiSoundSampleBR );
-					}	
+				if( uiSoundSampleBR!=NO_SAMPLE )
+				{
+					SoundStop( uiSoundSampleBR );
+				}	
 				
 				if ( bBriefingRoom == TRUE || bBriefingRoomSpecialMission == TRUE )
 				{
 					if(!fFirstTimeInEncyclopediaLocation) guiCurrentLaptopMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;
 				}
+#ifdef ENCYCLOPEDIA_WORKS
 				else
 				{
 					if(!fFirstTimeInEncyclopediaLocation) guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
 				}
+#endif
 			}
-
 		}
 	}
+
 	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-
 	}
 #endif // ENABLE_BRIEFINGROOM
 }

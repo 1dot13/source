@@ -6085,8 +6085,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		LoadGameFilePosition( FileGetPos( hFile), "Encyclopedia item visibility" );
 	#endif
 	}
+#ifdef ENCYCLOPEDIA_WORKS
 	else
 		EncyclopediaInitItemsVisibility();
+#endif
 
 	if( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
 	{

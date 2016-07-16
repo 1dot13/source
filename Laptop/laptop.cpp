@@ -788,11 +788,14 @@ UINT32 LaptopScreenInit()
 	GameInitFiles();
 	GameInitPersonnel();
 	
+#ifdef ENCYCLOPEDIA_WORKS
 	//legion
 /*	GameInitEncyclopedia();
 	GameInitEncyclopediaLocation();*/
 	GameInitEncyclopedia_NEW();
 	GameInitEncyclopediaData_NEW();
+#endif
+
 	GameInitBriefingRoom();
 	GameInitBriefingRoomEnter();
 
@@ -1046,8 +1049,10 @@ INT32 EnterLaptop()
 	{
 		SetBookMark( AIM_BOOKMARK );
 
+#ifdef ENCYCLOPEDIA_WORKS
 		if ( gGameExternalOptions.gEncyclopedia )
 			SetBookMark( ENCYCLOPEDIA_BOOKMARK );
+#endif
 
 		if ( gGameExternalOptions.gBriefingRoom )
 			SetBookMark( BRIEFING_ROOM_BOOKMARK );
@@ -1258,9 +1263,10 @@ void RenderLaptop()
 	switch( guiCurrentLaptopMode )
 	{
 		case( LAPTOP_MODE_NONE ):
-		DrawDeskTopBackground( );
-		break;
+			DrawDeskTopBackground( );
+			break;
 		
+#ifdef ENCYCLOPEDIA_WORKS
 		case LAPTOP_MODE_ENCYCLOPEDIA: //LEGION
 //			RenderEncyclopedia();
 			RenderEncyclopedia_NEW();
@@ -1270,6 +1276,7 @@ void RenderLaptop()
 //			RenderEncyclopediaLocation(FALSE);
 			RenderEncyclopediaData_NEW();
 			break;
+#endif
 			
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
 			RenderBriefingRoom();
@@ -1638,14 +1645,16 @@ void EnterNewLaptopMode()
 		if( gLaptopProgramStates[ LAPTOP_PROGRAM_WEB_BROWSER ] == LAPTOP_PROGRAM_MINIMIZED )
 		{
 		
-			if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_DATA || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
-			{
-				guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
-			}
-			else if ( guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_PAGE || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_ENTER )
+			if ( guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_PAGE || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_ENTER )
 			{
 				guiCurrentLaptopMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;
 			}
+#ifdef ENCYCLOPEDIA_WORKS
+			else if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_DATA || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
+			{
+				guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
+			}
+#endif
 			
 			// minized, maximized
 			if(	fMaximizingProgram == FALSE )
@@ -1733,6 +1742,7 @@ void EnterNewLaptopMode()
 	//Initialize the new mode.
 	switch( guiCurrentLaptopMode )
 	{
+#ifdef ENCYCLOPEDIA_WORKS
 		//legion
 		case LAPTOP_MODE_ENCYCLOPEDIA:
 //			EnterEncyclopedia();
@@ -1743,6 +1753,7 @@ void EnterNewLaptopMode()
 //			EnterEncyclopediaLocation();
 			EnterEncyclopediaData_NEW();
 			break;
+#endif
 			
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
 			EnterBriefingRoom();
@@ -1999,6 +2010,7 @@ void HandleLapTopHandles()
 
  	switch( guiCurrentLaptopMode )
 	{
+#ifdef ENCYCLOPEDIA_WORKS
 		//legion
 		case LAPTOP_MODE_ENCYCLOPEDIA:
 //			HandleEncyclopedia();
@@ -2009,6 +2021,7 @@ void HandleLapTopHandles()
 //			HandleEncyclopediaLocation();
 			HandleEncyclopediaData_NEW();
 			break; 				
+#endif
 
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
 			HandleBriefingRoom();
@@ -2587,7 +2600,7 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 	switch( uiMode )
 	{
-	
+#ifdef ENCYCLOPEDIA_WORKS
 		case LAPTOP_MODE_ENCYCLOPEDIA:
 			ExitEncyclopedia_NEW();
 //			ExitEncyclopedia();
@@ -2598,7 +2611,8 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 //			ExitEncyclopediaLocation();
 			ExitEncyclopediaData_NEW();
 			break;
-		
+#endif
+
 		case LAPTOP_MODE_BRIEFING_ROOM_PAGE:
 			ExitBriefingRoom();
 			break;
@@ -4195,6 +4209,7 @@ void GoToWebPage(INT32 iPageId )
 		
 		//LEGION
 		case ENCYCLOPEDIA_BOOKMARK:
+#ifdef ENCYCLOPEDIA_WORKS
 		  guiCurrentWWWMode=LAPTOP_MODE_ENCYCLOPEDIA;
 		  guiCurrentLaptopMode=LAPTOP_MODE_ENCYCLOPEDIA;
 
@@ -4211,6 +4226,7 @@ void GoToWebPage(INT32 iPageId )
 				fLoadPendingFlag = TRUE;
 				fFastLoadFlag =  TRUE;
 			}
+#endif
 		break;
 		
 		case BRIEFING_ROOM_BOOKMARK:
@@ -5920,16 +5936,16 @@ void SetCurrentToLastProgramOpened( void )
 		break;
 		case( LAPTOP_PROGRAM_WEB_BROWSER ):
 		// last www mode
-			if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_DATA || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
-			{
-				guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
-			}
-			else if ( guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_PAGE || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_ENTER )
+			if ( guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_PAGE || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM || guiCurrentLaptopMode == LAPTOP_MODE_BRIEFING_ROOM_ENTER )
 			{
 				guiCurrentLaptopMode = LAPTOP_MODE_BRIEFING_ROOM_ENTER;
 			}
-			//else if( guiCurrentWWWMode != 0 && ( guiCurrentWWWMode == LAPTOP_MODE_ENCYCLOPEDIA_LOCATION || guiCurrentWWWMode == LAPTOP_MODE_ENCYCLOPEDIA || guiCurrentWWWMode == LAPTOP_MODE_BRIEFING_ROOM_PAGE || guiCurrentWWWMode == LAPTOP_MODE_BRIEFING_ROOM || guiCurrentWWWMode == LAPTOP_MODE_BRIEFING_ROOM_ENTER ) )
-
+#ifdef ENCYCLOPEDIA_WORKS
+			else if ( guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA_DATA || guiCurrentLaptopMode == LAPTOP_MODE_ENCYCLOPEDIA )
+			{
+				guiCurrentLaptopMode = LAPTOP_MODE_ENCYCLOPEDIA;
+			}
+#endif
 			else if( guiCurrentWWWMode >= LAPTOP_MODE_FINANCES && guiCurrentWWWMode  <= LAPTOP_MODE_BOBBYR_SHIPMENTS  )
 			{
 				guiCurrentLaptopMode = guiCurrentWWWMode;

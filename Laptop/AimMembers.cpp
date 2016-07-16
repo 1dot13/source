@@ -1655,8 +1655,11 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 				{
 					PosX += WEAPONBOX_SIZE_X_NSGI;
 				}
+
+#ifdef ENCYCLOPEDIA_WORKS
 				//Moa: update encyclopedia item visibility when item gets displayed
 				EncyclopediaSetItemAsVisible( usItem, ENC_ITEM_DISCOVERED_NOT_INSPECTABLE );
+#endif
 			}
 		}
 	}
@@ -1725,8 +1728,10 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 
 				PosX += WEAPONBOX_SIZE_X;
 
+#ifdef ENCYCLOPEDIA_WORKS
 				//Moa: update encyclopedia item visibility when item gets displayed
 				EncyclopediaSetItemAsVisible( usItem, ENC_ITEM_DISCOVERED_NOT_INSPECTABLE );
+#endif
 			}
 		}
 	}

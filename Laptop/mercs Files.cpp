@@ -1691,10 +1691,14 @@ BOOLEAN DisplayMERCMercsInventory(UINT8 ubMercID)
 				{
 					PosX += MERC_WEAPONBOX_SIZE_X_NSGI;
 				}
+
+#ifdef ENCYCLOPEDIA_WORKS
 				//Moa: update encyclopedia item visibility when item gets displayed
 				EncyclopediaSetItemAsVisible( usItem, ENC_ITEM_DISCOVERED_NOT_INSPECTABLE );
+#endif
 			}
 		}
+
 	return(TRUE);
 }
 //JMich_MMG: Creating the mouseregion for tooltips

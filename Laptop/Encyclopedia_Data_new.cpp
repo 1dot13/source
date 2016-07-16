@@ -32,6 +32,7 @@
     #include "Quests.h"
 #endif
 
+#ifdef ENCYCLOPEDIA_WORKS
 /** @ingroup ENCYCLOPEDIA
 * @file
 * Encyclopedia data page in laptop.
@@ -65,8 +66,11 @@ struct ENC_DATA_ENTRY_T {
 	UINT8 uiTextPage;		///< Current text page. Number of pages is currently 2 as there is no use for more at the moment. To define different pages modify \ref CreateData() and \ref BtnEncyclopedia_Data_NextPreviousTextBtnCallBack() accordingly.
 } gstEncyclopediaDataEntry; ///< Current data.
 
+#endif
+
 UINT8 gbEncyclopediaData_ItemVisible[MAXITEMS];///< Visibility of items. If an item should be visible the value is not 0. Gets loaded from savegame, updated by \ref EncyclopediaSetItemAsVisible() and reset by \ref EncyclopediaInitItemsVisibility().
 
+#ifdef ENCYCLOPEDIA_WORKS
 /// Various filters for locations. Only filtered locations are shown. Subfilters, if any, are handled by callback function.
 enum ENC_DATA_FILTER_LOCATION {
 	ENC_DATA_FILTER_L_ALL = 0,		///< All locations visible
@@ -1728,3 +1732,5 @@ void RenderEncyclopediaData_NEW(  )
 }
 
 /** @} */
+
+#endif

@@ -3,7 +3,6 @@
 
 #include "Quests.h"
 
-void GameInitEncyclopediaLocation();
 BOOLEAN EnterEncyclopediaLocation();
 void ExitEncyclopediaLocation();
 void HandleEncyclopediaLocation();

@@ -3,6 +3,7 @@
 
 #include "Item Types.h"
 
+#ifdef ENCYCLOPEDIA_WORKS
 
 #define ENC_NUM_DATAPAGES MAXITEMS
 
@@ -11,5 +12,7 @@ extern void HandleEncyclopediaData_NEW(  );
 extern void RenderEncyclopediaData_NEW(  );
 extern BOOLEAN EnterEncyclopediaData_NEW(  );
 extern BOOLEAN ExitEncyclopediaData_NEW(  );
+
+#endif
 
 #endif
