@@ -1350,8 +1350,63 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						if(ValidAmmoType(twItem->object.usItem, gpItemPointer->usItem) == TRUE)
 							fValidPointer = true;
 					}
+
+					// Flugente: convert gear to resources
+					if ( _KeyDown( ALT ) && gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+					{
+						FLOAT dvalue_Gun = 0;
+						FLOAT dvalue_Armour = 0;
+						FLOAT dvalue_Misc = 0;
+
+						if (_KeyDown( SHIFT ))
+						{
+							// convert all items in slot
+							twItem->object.MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT);
+						}
+						else
+						{
+							twItem->object.MoveThisObjectTo(gItemPointer, 1);
+						}
+
+						fMapPanelDirty = TRUE;
+						UINT16 usItem = gItemPointer.usItem;
+
+						if ( ConvertItemToResources( gItemPointer, _KeyDown( SHIFT ), dvalue_Gun, dvalue_Armour, dvalue_Misc ) )
+						{
+							AddResources( dvalue_Gun, dvalue_Armour, dvalue_Misc );
+
+							dvalue_Gun = dvalue_Armour = dvalue_Misc = 0;
+
+							PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );
+							gpItemPointer = NULL;
+							fMapInventoryItem = FALSE;
+
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szSMilitiaResourceText[0], Item[usItem].szItemName );
+						}
+			
+						if ( _KeyDown( 89 ) )
+						{
+							for ( UINT32 iNumber = 0; iNumber < pInventoryPoolList.size( ); ++iNumber )
+							{
+								if ( pInventoryPoolList[iNumber].object.usItem == usItem && pInventoryPoolList[iNumber].usFlags & WORLD_ITEM_REACHABLE )
+								{
+									if ( ConvertItemToResources( pInventoryPoolList[iNumber].object, TRUE, dvalue_Gun, dvalue_Armour, dvalue_Misc ) )
+									{
+										AddResources( dvalue_Gun, dvalue_Armour, dvalue_Misc );
+
+										dvalue_Gun = dvalue_Armour = dvalue_Misc = 0;
+
+										DeleteObj( &pInventoryPoolList[iNumber].object );
+									}
+								}
+							}
+						}
+			
+						if ( fShowMapInventoryPool )
+							HandleButtonStatesWhileMapInventoryActive( );
+					}
 					// access description box directly if CTRL is pressed for stack items
-					if((twItem->object.ubNumberOfObjects == 1 || _KeyDown( CTRL )) && fValidPointer)
+					else if((twItem->object.ubNumberOfObjects == 1 || _KeyDown( CTRL )) && fValidPointer)
 					{
 						fShowInventoryFlag = TRUE;
 
@@ -2458,49 +2513,6 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			}
 			if ( fShowMapInventoryPool )
 				HandleButtonStatesWhileMapInventoryActive();
-		}
-		// Flugente: convert gear to resources
-		else if ( _KeyDown( ALT ) && _KeyDown( SHIFT ) && gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
-		{
-			FLOAT dvalue_Gun = 0;
-			FLOAT dvalue_Armour = 0;
-			FLOAT dvalue_Misc = 0;
-
-			UINT16 usItem = gItemPointer.usItem;
-
-			if ( ConvertItemToResources( gItemPointer, TRUE, dvalue_Gun, dvalue_Armour, dvalue_Misc ) )
-			{
-				AddResources( dvalue_Gun, dvalue_Armour, dvalue_Misc );
-
-				dvalue_Gun = dvalue_Armour = dvalue_Misc = 0;
-
-				PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );
-				gpItemPointer = NULL;
-				fMapInventoryItem = FALSE;
-
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szSMilitiaResourceText[0], Item[usItem].szItemName );
-			}
-			
-			if ( _KeyDown( 89 ) )
-			{
-				for ( UINT32 iNumber = 0; iNumber < pInventoryPoolList.size( ); ++iNumber )
-				{
-					if ( pInventoryPoolList[iNumber].object.usItem == usItem && pInventoryPoolList[iNumber].usFlags & WORLD_ITEM_REACHABLE )
-					{
-						if ( ConvertItemToResources( pInventoryPoolList[iNumber].object, TRUE, dvalue_Gun, dvalue_Armour, dvalue_Misc ) )
-						{
-							AddResources( dvalue_Gun, dvalue_Armour, dvalue_Misc );
-
-							dvalue_Gun = dvalue_Armour = dvalue_Misc = 0;
-
-							DeleteObj( &pInventoryPoolList[iNumber].object );
-						}
-					}
-				}
-			}
-			
-			if ( fShowMapInventoryPool )
-				HandleButtonStatesWhileMapInventoryActive( );
 		}
 		else if ( _KeyDown( ALT ) && gGameExternalOptions.fSellAll )//Sell Item
 		{
@@ -4241,7 +4253,7 @@ INT32 SellItem( OBJECTTYPE& object, BOOLEAN fAll, BOOLEAN useModifier )
 	{
 		//we are selling ammo
 		UINT16 magSize = Magazine[ Item[ usItemType ].ubClassIndex ].ubMagSize;
-		for (UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ubLoop++)
+		for (UINT8 ubLoop = 0; ubLoop < ubNumberOfObjects; ubLoop++)
 		{
 			iPrice += (INT32)( itemPrice * (float) object[ubLoop]->data.ubShotsLeft / magSize );
 		}
@@ -4249,7 +4261,7 @@ INT32 SellItem( OBJECTTYPE& object, BOOLEAN fAll, BOOLEAN useModifier )
 	//CHRISL: If we're dealing with money, we want to use the money's amount and just return that value with no modification
 	else if(Item[usItemType].usItemClass == IC_MONEY)
 	{
-		for (UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ubLoop++)
+		for (UINT8 ubLoop = 0; ubLoop < ubNumberOfObjects; ubLoop++)
 		{
 			iPrice += (INT32)(object[ubLoop]->data.money.uiMoneyAmount);
 		}
@@ -4259,7 +4271,7 @@ INT32 SellItem( OBJECTTYPE& object, BOOLEAN fAll, BOOLEAN useModifier )
 	{
 		//CHRISL: If we're selling an LBE Item, we need to verify if it's an LBENODE, first.  If it is, we need to sell
 		//	everything stored in the LBENODE before we sell teh LBE Item itself.
-		for(UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ++ubLoop)
+		for(UINT8 ubLoop = 0; ubLoop < ubNumberOfObjects; ++ubLoop)
 		{
 			if(object.IsActiveLBE(ubLoop) == true)
 			{
@@ -4290,7 +4302,7 @@ INT32 SellItem( OBJECTTYPE& object, BOOLEAN fAll, BOOLEAN useModifier )
 	else
 	{
 		//we are selling a gun or something - it could be stacked or single, and if single it could have attachments
-		for (UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ubLoop++)
+		for (UINT8 ubLoop = 0; ubLoop < ubNumberOfObjects; ubLoop++)
 		{
 			iPrice += ( itemPrice * object[ubLoop]->data.objectStatus / 100 );
 			for (attachmentList::iterator iter = object[ubLoop]->attachments.begin(); iter != object[ubLoop]->attachments.end(); ++iter) {

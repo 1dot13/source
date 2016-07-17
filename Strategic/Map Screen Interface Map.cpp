@@ -709,10 +709,10 @@ UINT32 DrawMap( void )
 	//MAP_VIEW_START_X = (SCREEN_WIDTH - 370);
 	//MAP_VIEW_START_Y = 10;
 
-	MapScreenRect.iLeft = MAP_VIEW_START_X+MAP_GRID_X - 2;
-	MapScreenRect.iTop = MAP_VIEW_START_Y+MAP_GRID_Y - 1;
+	MapScreenRect.iLeft = MAP_VIEW_START_X + MAP_GRID_X - 2;
+	MapScreenRect.iTop = MAP_VIEW_START_Y + MAP_GRID_Y - 1;
 	MapScreenRect.iRight = MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X;
-	MapScreenRect.iBottom = MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y;
+	MapScreenRect.iBottom = MAP_VIEW_START_Y + MAP_VIEW_HEIGHT - 10 + MAP_GRID_Y;
 
 	//MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),	( MAP_VIEW_START_Y+MAP_GRID_Y - 1), MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
 
@@ -7816,14 +7816,14 @@ void MilitiaGroupBoxButtonCallback( GUI_BUTTON *btn, INT32 reason )
 
 void DisplayMilitiaGroupBox()
 {
-	// if we play with a limited militia pool, show us how many we have
-	if ( fShowMilitia && gGameExternalOptions.fMilitiaVolunteerPool )
+	if ( (fShowMilitia || (_KeyDown( ALT ) && fShowMapInventoryPool)) && (gGameExternalOptions.fMilitiaVolunteerPool || (gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory)) )
 	{
 		SetFont( FONT12ARIAL );
 
 		INT32 x = MapScreenRect.iLeft + 20;
-		INT32 y = MapScreenRect.iBottom - 10;
+		INT32 y = MapScreenRect.iBottom + 10;
 
+		// if we play with a limited militia pool, show us how many we have
 		if ( gGameExternalOptions.fMilitiaVolunteerPool )
 		{
 			CHAR16 sString[200];
@@ -7839,10 +7839,9 @@ void DisplayMilitiaGroupBox()
 
 			swprintf( sString, szMilitiaStrategicMovementText[8], volunteers, CalcHourlyVolunteerGain( ) );
 			mprintf( x, y, sString );
-
-			x += StringPixLength( sString, FONT12ARIAL );
-			y -= 10;
 		}
+
+		y -= GetFontHeight( FONT12ARIAL ) + 2;
 
 		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
 		{
@@ -7852,6 +7851,24 @@ void DisplayMilitiaGroupBox()
 
 			FLOAT val_gun, val_armour, val_misc;
 			GetResources( val_gun, val_armour, val_misc );
+
+			SetFontForeground( FONT_LTBLUE );
+			swprintf( sString, szSMilitiaResourceText[3] );
+			mprintf( x, y, sString );
+			x += 5 + StringPixLength( sString, FONT12ARIAL );
+
+			if ( val_misc > 20.0 )
+				SetFontForeground( FONT_FCOLOR_GREEN );
+			else if ( val_misc > 10.0 )
+				SetFontForeground( FONT_FCOLOR_YELLOW );
+			else
+				SetFontForeground( FONT_FCOLOR_RED );
+
+			swprintf( sString, L"%5.2f", val_misc );
+			mprintf( x, y, sString );
+
+			x = MapScreenRect.iLeft + 20;
+			y -= GetFontHeight( FONT12ARIAL ) + 2;
 
 			SetFontForeground( FONT_ORANGE );
 			swprintf( sString, szSMilitiaResourceText[1] );
@@ -7883,25 +7900,6 @@ void DisplayMilitiaGroupBox()
 
 			swprintf( sString, L"%5.2f", val_armour );
 			mprintf( x, y, sString );
-			x += 5 + StringPixLength( sString, FONT12ARIAL );
-
-			SetFontForeground( FONT_LTBLUE );
-			swprintf( sString, szSMilitiaResourceText[3] );
-			mprintf( x, y, sString );
-			x += 5 + StringPixLength( sString, FONT12ARIAL );
-
-			if ( val_misc > 20.0 )
-				SetFontForeground( FONT_FCOLOR_GREEN );
-			else if ( val_misc > 10.0 )
-				SetFontForeground( FONT_FCOLOR_YELLOW );
-			else
-				SetFontForeground( FONT_FCOLOR_RED );
-
-			swprintf( sString, L"%5.2f", val_misc );
-			mprintf( x, y, sString );
-			x += 5 + StringPixLength( sString, FONT12ARIAL );
-
-			y -= 10;
 		}
 	}
 

@@ -2645,7 +2645,7 @@ BOOLEAN ConvertItemToResources( OBJECTTYPE& object, BOOLEAN fAll, FLOAT& arValue
 		}
 
 		UINT32 bullets = 0;
-		for ( UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ++ubLoop )
+		for ( UINT8 ubLoop = 0; ubLoop < ubNumberOfObjects; ++ubLoop )
 		{
 			bullets += object[ubLoop]->data.ubShotsLeft;
 		}
@@ -2654,7 +2654,7 @@ BOOLEAN ConvertItemToResources( OBJECTTYPE& object, BOOLEAN fAll, FLOAT& arValue
 	}
 	else
 	{
-		for ( UINT8 ubLoop = 0; ubLoop < object.ubNumberOfObjects; ++ubLoop )
+		for ( UINT8 ubLoop = 0; ubLoop < ubNumberOfObjects; ++ubLoop )
 		{
 			if ( Item[usItemType].usItemClass & IC_GUN )
 			{
