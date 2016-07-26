@@ -192,6 +192,7 @@ enum {
 	BG_PERC_DISEASE_TREAT,
 	BG_TRACKER_ABILITY,
 	BG_AMBUSH_RADIUS,
+	BG_SNAKEDEFENSE,
 	
 	BG_DISLIKEBG,			// dislike any other background that has the negative of this value set
 	BG_SMOKERTYPE,			// 0: doesnt care about smoking 1: will consume cigarettes, dislikes non-smokers 2: will refuse to smoke, dislikes smokers

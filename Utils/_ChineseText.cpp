@@ -8946,6 +8946,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% 对人员治疗疾病的效率\n", //L" %s%d%% effectiveness at treating population against diseases\n",
 	L"可以发现被跟踪的 %d 距离格数\n", //L"Can spot tracks up to %d tiles away\n",
 	L" %s%d%% 被伏击时的初始距离\n", //L" %s%d%% initial distance to enemy in ambush\n",
+	L" %s%d%% chance to evade snake attacks\n",	// TODO.Translate
 
 	L" 对某些其他背景的厌恶\n", //L" dislikes some other backgrounds\n",
 	L"吸烟者", //L"Smoker",

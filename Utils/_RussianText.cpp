@@ -8944,6 +8944,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% эффективность в лечении населения от болезней\n",
 	L"Замечает следы на расстоянии до %d метров\n",
 	L" %s%d%% начальное расстояние до противника в засаде\n",
+	L" %s%d%% chance to evade snake attacks\n",	// TODO.Translate
 
 	L" dislikes some other backgrounds\n",	// TODO.Translate
 	L"Курит",

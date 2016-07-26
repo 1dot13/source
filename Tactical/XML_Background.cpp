@@ -130,6 +130,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "disease_treatment" ) == 0 ||
 				strcmp(name, "tracker_ability" ) == 0 ||
 				strcmp(name, "ambush_radius" ) == 0 ||
+				strcmp(name, "snake_defense" ) == 0 ||
 				strcmp(name, "dislikebackground" ) == 0 ||
 				strcmp(name, "smoker" ) == 0 ||
 				strcmp(name, "croucheddefense" ) == 0 ||
@@ -552,6 +553,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_AMBUSH_RADIUS] = min( 50, max( 0, (INT16)atol( pData->szCharData ) ) );
+		}
+		else if ( strcmp( name, "snake_defense" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_SNAKEDEFENSE] = min( 100, max( -100, (INT16)atol( pData->szCharData ) ) );
 		}
 		else if ( strcmp( name, "dislikebackground" ) == 0 )
 		{

@@ -1106,7 +1106,7 @@ void AddSnakeAmim( INT32 sGridno, UINT8 usDirection )
 		ANITILE_PARAMS	AniParams;
 
 		memset( &AniParams, 0, sizeof(ANITILE_PARAMS) );
-
+		
 		AniParams.sGridNo = sGridno;
 		AniParams.ubLevelID = ANI_OBJECT_LEVEL;
 		AniParams.sDelay = 100;
@@ -1131,8 +1131,9 @@ void HandleEnvironmentHazard( )
 
 	if ( gGameExternalOptions.gfAllowSnakes && !gbWorldSectorZ && Chance( SectorExternalData[sector][0].snakechance ) )
 	{
-		// there can be up to 3 attacks at the same time
-		int actionstodo = 3;
+		// the number of snake attacks is randomized
+		int actionstodo = max(1, Random( SectorExternalData[sector][0].numsnakes ) );
+
 		BOOLEAN soundplayed = FALSE;
 
 		SOLDIERTYPE *pSoldier = NULL;

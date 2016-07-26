@@ -98,6 +98,7 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "sandstormchance") == 0 ||
 				strcmp(name, "snowchance" ) == 0 ||
 				strcmp(name, "snakechance" ) == 0 ||
+				strcmp(name, "numsnakes" ) == 0 ||
 				strcmp(name, "maxworkers" ) == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -220,6 +221,11 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					SectorExternalData[ubSectorId][2].snakechance = 0;
 					SectorExternalData[ubSectorId][3].snakechance = 0;
 
+					SectorExternalData[ubSectorId][0].numsnakes = pData->sectordata.numsnakes;
+					SectorExternalData[ubSectorId][1].numsnakes = 0;
+					SectorExternalData[ubSectorId][2].numsnakes = 0;
+					SectorExternalData[ubSectorId][3].numsnakes = 0;
+					
 					SectorExternalData[ubSectorId][0].maxworkers = pData->sectordata.maxworkers;
 					SectorExternalData[ubSectorId][1].maxworkers = 0;
 					SectorExternalData[ubSectorId][2].maxworkers = 0;
@@ -247,6 +253,7 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					pData->sectordata.sandstormchance = 0;
 					pData->sectordata.snowchance = 0;
 					pData->sectordata.snakechance = 0;
+					pData->sectordata.numsnakes = 0;
 					pData->sectordata.maxworkers = 0;
 				}
 				else
@@ -360,6 +367,11 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->sectordata.snakechance = min( 100, (UINT8)atoi( pData->szCharData ) );
+		}
+		else if ( strcmp( name, "numsnakes" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->sectordata.numsnakes = min( 20, (UINT8)atoi( pData->szCharData ) );
 		}
 		else if ( strcmp( name, "maxworkers" ) == 0 )
 		{

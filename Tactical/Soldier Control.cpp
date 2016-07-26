@@ -19145,6 +19145,8 @@ UINT8	SOLDIERTYPE::GetWaterSnakeDefenseChance()
 	if ( gGameOptions.fNewTraitSystem )
 		val += gSkillTraitValues.usSVSnakeDefense * NUM_SKILL_TRAITS( this, SURVIVAL_NT );
 
+	val += this->GetBackgroundValue( BG_SNAKEDEFENSE );
+
 	// bonus if we have a knife, extra if it is in our hands
 	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
