@@ -77,6 +77,7 @@ Facts = {
 	FACT_MUSEUM_ALARM_WENT_OFF = 278,
 	FACT_KINGPIN_KNOWS_MONEY_GONE = 103,
 	FACT_KINGPIN_DEAD = 308,
+	FACT_KINGPIN_IS_ENEMY = 359,
 	FACT_ALL_TERRORISTS_KILLED   =      156,
 	FACT_BOUNTYHUNTER_SECTOR_1 = 380,
 	FACT_BOUNTYHUNTER_SECTOR_2 = 381,
@@ -172,6 +173,7 @@ Profil =
 	ELLIOT = 135,
 	CONRAD = 70,
 	CARMEN = 78,
+	KINGPIN = 86,
 	MADLAB = 146,
 	ROBOT = 62,
 	MIGUEL = 57,
@@ -329,6 +331,38 @@ function HandleQuestCodeOnSectorExit( sOldSectorX, sOldSectorY, bOldSectorZ )
 	
 end
 
+-- text colours
+FontColour =
+{
+	FONT_MCOLOR_DKWHITE = 134,
+	FONT_MCOLOR_LTYELLOW = 144,
+	FONT_MCOLOR_RED = 163,
+	FONT_MCOLOR_DKRED = 164,
+	FONT_MCOLOR_LTGREEN = 184,
+}
+
+-- these numbers aren't used in the code - we only use them in LUA
+Languages =
+{
+	LANGUAGE_ENGLISH = 0,
+	LANGUAGE_GERMAN = 1,
+	LANGUAGE_RUSSIAN = 2,
+	LANGUAGE_DUTCH = 3,
+	LANGUAGE_POLISH = 4,
+	LANGUAGE_FRENCH = 5,
+	LANGUAGE_ITALIAN = 6,
+	LANGUAGE_CHINESE = 7,
+}
+
+-- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
+-- We simply set up some enums here to make it easier for us to remember what is what
+ModSpecificFacts =
+{
+	TIXA_PRISON_VOLUNTEERSGAINED = 123,
+	TIXA_PRISON_SUBLEVEL_VOLUNTEERSGAINED = 124,
+	ALMA_PRISON_VOLUNTEERSGAINED = 125,
+}
+
 -- this function is called whenever we liberate a sector. If fFirstTime is true, this is the first time we liberate this sector
 function HandleSectorLiberation( sNewSectorX, sNewSectorY, bNewSectorZ, fFirstTime )
 
@@ -340,9 +374,41 @@ function HandleSectorLiberation( sNewSectorX, sNewSectorY, bNewSectorZ, fFirstTi
 			-- Tixa
 			if ( sNewSectorX == 9 and sNewSectorY == SectorY.MAP_ROW_J ) then
 				AddVolunteers( 30 )
+				
+				AddTransactionToPlayersBook(1, 0, 1800, 100)
+				
+				if ( GetUsedLanguage( nil ) == Languages.LANGUAGE_ENGLISH ) then
+					SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "The prisoners are very grateful for freeing them.")
+				elseif ( GetUsedLanguage( nil ) == Languages.LANGUAGE_GERMAN ) then
+					SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Die Gefangenen sind für die Befreiugng sehr dankbar.")
+				else
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKRED, "Translation missing!")
+				end
+				
+				-- inform us that there is a sublevel
+				if ( (GetModderLUAFact(ModSpecificFacts.TIXA_PRISON_SUBLEVEL_VOLUNTEERSGAINED) == 0) ) then
+					SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "This prison seems to have a sublevel, where more important inamtes are held.")
+				end
+				
+				-- if we haven't yet freed the Alma prisoners, give us a tip about that
+				if ( (GetModderLUAFact(ModSpecificFacts.ALMA_PRISON_VOLUNTEERSGAINED) == 0) ) then
+					SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "A few inmates inform us that there is another prison like this in Alma!")
+				end
+				
+				SetModderLUAFact(ModSpecificFacts.TIXA_PRISON_VOLUNTEERSGAINED, 1)
+				
 			-- Alma
 			elseif ( sNewSectorX == 13 and sNewSectorY == SectorY.MAP_ROW_I ) then
 				AddVolunteers( 10 )
+				
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "The prisoners are very grateful for freeing them.")
+												
+				-- if we haven't yet freed the Tixa prisoners, give us a tip about that
+				if ( (GetModderLUAFact(ModSpecificFacts.TIXA_PRISON_VOLUNTEERSGAINED) == 0) ) then
+					SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "A few inmates inform us that there is another prison like this in a place called Tixa. They aren't sure where it is though.")
+				end
+				
+				SetModderLUAFact(ModSpecificFacts.ALMA_PRISON_VOLUNTEERSGAINED, 1)
 			end
 		end
 	end
@@ -351,7 +417,11 @@ function HandleSectorLiberation( sNewSectorX, sNewSectorY, bNewSectorZ, fFirstTi
 	if ( bNewSectorZ == 1 ) then
 		-- Tixa
 		if ( sNewSectorX == 9 and sNewSectorY == SectorY.MAP_ROW_J ) then
-			AddVolunteers( 5 )	
+			AddVolunteers( 5 )
+			
+			SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "The prisoners are very grateful for freeing them.")
+			
+			SetModderLUAFact(ModSpecificFacts.TIXA_PRISON_SUBLEVEL_VOLUNTEERSGAINED, 1)
 		end
 	end
 end
@@ -569,8 +639,10 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 	if ( bSectorZ == 0 ) then
 		-- Drassen
 		if ( sSectorX == 13 and sSectorY == SectorY.MAP_ROW_D) then
-			-- wine store
-			CreateCivilian(17198, 0, 55, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+			if ( GetTownLoyaltyRating(2) > 50 ) then
+				-- wine store
+				CreateCivilian(17198, 0, 55, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+			end
 			-- general store
 			CreateCivilian(10943, 0, 41, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
 		-- Alma
@@ -615,21 +687,31 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 			CreateCivilian(11932, 0, 51, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
 		-- San Mona
 		elseif ( sSectorX == 6 and sSectorY == SectorY.MAP_ROW_C) then
-			-- restaurant
-			CreateCivilian(16351, CivGroup.KINGPIN_CIV_GROUP, 66, Bodytype.DRESSCIV, -1, -1, -1, -1, -1, -1, -1, -1)
-			-- armour store (Skin Tight Fashions)
-			CreateCivilian(13010, CivGroup.KINGPIN_CIV_GROUP, 67, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
-			-- cigar store
-			CreateCivilian(11098, CivGroup.KINGPIN_CIV_GROUP, 62, Bodytype.REGMALE, Vest.BROWNVEST, Pants.GREENPANTS, -1, -1, 1194, 565, 37, 284)
+			-- only add merchants if Kingpin is alive and not hostile towards us
+			if ( (CheckFact( Facts.FACT_KINGPIN_DEAD, 0 ) == false) and
+			(CheckFact( Facts.FACT_KINGPIN_IS_ENEMY, 0 ) == false) and 
+			(CheckMercIsDead ( Profil.KINGPIN ) == false) ) then
+				-- restaurant
+				CreateCivilian(16351, CivGroup.KINGPIN_CIV_GROUP, 66, Bodytype.DRESSCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+				-- armour store (Skin Tight Fashions)
+				CreateCivilian(13010, CivGroup.KINGPIN_CIV_GROUP, 67, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
+				-- hunting store
+				CreateCivilian(11098, CivGroup.KINGPIN_CIV_GROUP, 62, Bodytype.REGMALE, Vest.BROWNVEST, Pants.GREENPANTS, -1, -1, 763, 135, 288, 284)
+			end
 		elseif ( sSectorX == 5 and sSectorY == SectorY.MAP_ROW_C) then
-			-- general store
-			CreateCivilian(6641, CivGroup.KINGPIN_CIV_GROUP, 45, Bodytype.REGMALE, -1, -1, -1, -1, 694, 107, 37, -1)
-			-- construction materials store
-			CreateCivilian(20549, CivGroup.KINGPIN_CIV_GROUP, 63, Bodytype.STOCKYMALE, -1, -1, -1, -1, 13, 161, 302, 135)
-			-- restaurant
-			CreateCivilian(16755, CivGroup.KINGPIN_CIV_GROUP, 52, Bodytype.MANCIV, -1, -1, -1, -1, 759, -1, -1, -1)
-			-- wine store
-			CreateCivilian(10804, CivGroup.KINGPIN_CIV_GROUP, 59, Bodytype.REGFEMALE, -1, -1, -1, -1, 340, 107, 302, 284)
+			-- only add merchants if Kingpin is alive and not hostile towards us
+			if ( (CheckFact( Facts.FACT_KINGPIN_DEAD, 0 ) == false) and
+			(CheckFact( Facts.FACT_KINGPIN_IS_ENEMY, 0 ) == false) and 
+			(CheckMercIsDead ( Profil.KINGPIN ) == false) ) then
+				-- general store
+				CreateCivilian(6641, CivGroup.KINGPIN_CIV_GROUP, 45, Bodytype.REGMALE, -1, -1, -1, -1, 694, 107, 37, -1)
+				-- construction materials store
+				CreateCivilian(20549, CivGroup.KINGPIN_CIV_GROUP, 63, Bodytype.STOCKYMALE, -1, -1, -1, -1, 13, 161, 302, 135)
+				-- restaurant
+				CreateCivilian(16755, CivGroup.KINGPIN_CIV_GROUP, 52, Bodytype.MANCIV, -1, -1, -1, -1, 759, -1, -1, -1)
+				-- wine store
+				CreateCivilian(10804, CivGroup.KINGPIN_CIV_GROUP, 59, Bodytype.REGFEMALE, -1, -1, -1, -1, 340, 107, 302, 284)
+			end
 		-- Chitzena
 		-- Meduna
 		elseif ( sSectorX == 4 and sSectorY == SectorY.MAP_ROW_O) then
