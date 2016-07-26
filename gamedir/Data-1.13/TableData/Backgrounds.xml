@@ -91,6 +91,7 @@
 															   2: anti-smoker: refuses to smoke, dislikes smokers-->
 		<croucheddefense>0</croucheddefense>			  <!-- +- enemy cth if we are crouched against thick cover in their direction, -30 to 30-->
 		<fortify_assignment>0</fortify_assignment>		  <!-- +- % building speed, -50 to 200 -->
+		<snake_defense>0</snake_defense>				  <!-- +- % chance to evade snake attacks, -100 to 100 -->
 
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -3987,25 +3988,16 @@
 		<szName>Metaviran Native</szName>
 		<szShortName>Metavira</szShortName>
 		<szDescription>The indigenous people of Metavira have adjusted to the hostile &#10;jungle there. After the liberation, some joined the foreigners, and sought their luck elsewhere.</szDescription>
-		<ap_polar>-5</ap_polar>
-		<ap_desert>-3</ap_desert>
 		<ap_urban>-3</ap_urban>
-		<ap_river>3</ap_river>
-		<ap_coastal>3</ap_coastal>
 		<ap_swamp>3</ap_swamp>
 		<ap_tropical>3</ap_tropical>
 		<ap_swimming>-10</ap_swimming>
-		<travel_boat>5</travel_boat>
-		<speed_run>10</speed_run>
-		<meleedamage>7</meleedamage>
 		<cth_blades>7</cth_blades>
 		<stealth>5</stealth>
 		<resistance_disease>20</resistance_disease>
-		<resistance_physical>3</resistance_physical>
-		<resistance_fear>3</resistance_fear>
-		<drink_energyregen>25</drink_energyregen>
 		<camo>5</camo>
 		<ambush_radius>20</ambush_radius>
+		<snake_defense>60</snake_defense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
