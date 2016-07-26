@@ -3929,49 +3929,43 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	#ifdef JA2BETAVERSION
 		SaveGameFilePosition( FileGetPos( hFile ), "All the Map Temp files" );
 	#endif
-
-
-
-
-
+	
 	if( !SaveQuestInfoToSavedGameFile( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing quest info");
 		goto FAILED_TO_SAVE;
 	}
-	#ifdef JA2BETAVERSION
-		SaveGameFilePosition( FileGetPos( hFile ), "Quest Info" );
-	#endif
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "Quest Info" );
+#endif
 
-
-
+	if ( !SaveLUAModderDataToSavedGameFile( hFile ) )
+	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing lUA modder data" );
+		goto FAILED_TO_SAVE;
+	}
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "LUA Modder Data" );
+#endif
 
 	if( !SaveOppListInfoToSavedGame( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing opplist");
 		goto FAILED_TO_SAVE;
 	}
-	#ifdef JA2BETAVERSION
-		SaveGameFilePosition( FileGetPos( hFile ), "OppList info" );
-	#endif
-
-
-
-
-
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "OppList info" );
+#endif
+		
 	if( !SaveMapScreenMessagesToSaveGameFile( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing map screen messages");
 		goto FAILED_TO_SAVE;
 	}
-	#ifdef JA2BETAVERSION
-		SaveGameFilePosition( FileGetPos( hFile ), "MapScreen Messages" );
-	#endif
-
-
-
-
-
+#ifdef JA2BETAVERSION
+	SaveGameFilePosition( FileGetPos( hFile ), "MapScreen Messages" );
+#endif
+	
 	if( !SaveNPCInfoToSaveGameFile( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing NPC info");
@@ -5173,6 +5167,29 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
 		#endif
+	}
+
+	uiRelEndPerc += 1;
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"LUA Modder Data..." );
+	RenderProgressBar( 0, 100 );
+	uiRelStartPerc = uiRelEndPerc;
+
+	if ( guiCurrentSaveGameVersion >= LUA_MODDERDATA )
+	{
+		if ( !LoadLUAModderDataFromSavedGameFile( hFile ) )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "LoadLUAModderDataFromSavedGameFile failed" ) );
+			FileClose( hFile );
+			return(FALSE);
+		}
+#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "LUA Modder Data" );
+#endif
+	}
+	else
+	{
+		//Init LUA Modder Data
+		InitLUAModderData();
 	}
 
 	uiRelEndPerc += 1;

@@ -649,6 +649,13 @@ void InitQuestEngine();
 BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest );
 BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile );
 
+// Flugente: a huge array that can be used exclusively by modders
+#define MODDER_LUA_DATA_MAX	1000
+
+BOOLEAN LoadLUAModderDataFromSavedGameFile( HWFILE hFile );
+BOOLEAN SaveLUAModderDataToSavedGameFile( HWFILE hFile );
+void InitLUAModderData();
+
 // added by SANDRO
 void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpReward, UINT8 bException );
 

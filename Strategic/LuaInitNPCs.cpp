@@ -840,6 +840,7 @@ static int l_ProfilesStrategicInsertionData (lua_State *L);
 static int l_ResetBoxers( lua_State *L );
 
 static int l_AddVolunteers( lua_State *L );
+static int l_AddInfo( lua_State *L );
 
 static int l_CreateArmedCivilain( lua_State *L );
 static int l_CreateCivilian( lua_State *L );
@@ -849,6 +850,12 @@ static int l_RemoveFortification( lua_State *L );
 
 static int l_GetFact( lua_State *L );
 static int l_SetFact( lua_State *L );
+
+static int l_GetModderLUAFact( lua_State *L );
+static int l_SetModderLUAFact( lua_State *L );
+
+static int l_SetScreenMsg( lua_State *L );
+static int l_GetUsedLanguage( lua_State *L );
 
 using namespace std;
 
@@ -1699,6 +1706,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L,"StartDialogueMessageBox", l_StartDialogueMessageBox);
 	
 	lua_register( L, "AddVolunteers", l_AddVolunteers );
+	lua_register( L, "AddInfo", l_AddInfo );
 
 	lua_register(L, "CreateArmedCivilain", l_CreateArmedCivilain );
 	lua_register( L, "CreateCivilian", l_CreateCivilian );
@@ -1708,6 +1716,12 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	
 	lua_register(L, "GetFact", l_GetFact );
 	lua_register(L, "SetFact", l_SetFact );
+
+	lua_register( L, "GetModderLUAFact", l_GetModderLUAFact );
+	lua_register( L, "SetModderLUAFact", l_SetModderLUAFact );
+
+	lua_register( L, "SetScreenMsg", l_SetScreenMsg );
+	lua_register( L, "GetUsedLanguage", l_GetUsedLanguage );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -13011,6 +13025,19 @@ static int l_AddVolunteers( lua_State *L )
 	return 0;
 }
 
+// add info
+static int l_AddInfo( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		UINT8 infotype = lua_tointeger( L, 1 );
+
+		GiveInfoToPlayer( infotype );
+	}
+
+	return 0;
+}
+
 static int l_CreateArmedCivilain( lua_State *L )
 {
 	if ( lua_gettop( L ) >= 4 )
@@ -13098,7 +13125,7 @@ static int l_BuildFortification( lua_State *L )
 
 static int l_RemoveFortification( lua_State *L )
 {
-	if ( lua_gettop( L ) )
+	if ( lua_gettop( L ) >= 3 )
 	{
 		INT32 sGridNo = lua_tointeger( L, 1 );
 		INT8 sLevel = lua_tointeger( L, 2 );
@@ -13112,23 +13139,20 @@ static int l_RemoveFortification( lua_State *L )
 
 static int l_GetFact( lua_State *L )
 {
-	UINT8 val = 0;
-
 	if ( lua_gettop( L ) )
 	{
 		UINT16 fact = lua_tointeger( L, 1 );
+		UINT8 val = GetFact( fact );
 
-		val =  GetFact( fact );				
+		lua_pushinteger( L, val );
 	}
-
-	lua_pushinteger( L, val );
 
 	return 1;
 }
 
 static int l_SetFact( lua_State *L )
 {
-	if ( lua_gettop( L ) )
+	if ( lua_gettop( L ) >= 2 )
 	{
 		UINT16 fact = lua_tointeger( L, 1 );
 		UINT8  val  = lua_tointeger( L, 2 );
@@ -13137,4 +13161,83 @@ static int l_SetFact( lua_State *L )
 	}
 
 	return 0;
+}
+
+extern INT32 gubModderLuaData[MODDER_LUA_DATA_MAX];
+
+static int l_GetModderLUAFact( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		UINT16 num = lua_tointeger( L, 1 );
+
+		if ( num < MODDER_LUA_DATA_MAX )
+			lua_pushinteger( L, gubModderLuaData[num] );
+	}
+
+	return 1;
+}
+
+static int l_SetModderLUAFact( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		UINT16 num = lua_tointeger( L, 1 );
+		INT32  val = lua_tointeger( L, 2 );
+
+		if ( num < MODDER_LUA_DATA_MAX )
+			gubModderLuaData[num] = val;
+	}
+
+	return 0;
+}
+
+static int l_SetScreenMsg( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		UINT16 usColor = lua_tointeger( L, 1 );
+
+		size_t len = 0;
+		const char* str = lua_tolstring( L, 2, &len );
+
+		CHAR16 w_str[1000];
+
+		MultiByteToWideChar( CP_UTF8, 0, str, -1, w_str, sizeof(w_str) / sizeof(w_str[0]) );
+		w_str[sizeof(w_str) / sizeof(w_str[0]) - 1] = '\0';
+
+		ScreenMsg( usColor, MSG_INTERFACE, w_str );
+	}
+
+	return 0;
+}
+
+static int l_GetUsedLanguage( lua_State *L )
+{
+	if ( lua_gettop( L ) )
+	{
+		INT32 val = 0;
+
+#ifdef ENGLISH
+		val = 0;
+#elif GERMAN
+		val = 1;
+#elif RUSSIAN
+		val = 2;
+#elif DUTCH
+		val = 3;
+#elif POLISH
+		val = 4;
+#elif FRENCH
+		val = 5;
+#elif ITALIAN
+		val = 6;
+#elif CHINESE
+		val = 7;
+#endif
+
+		lua_pushinteger( L, val );
+	}
+
+	return 1;
 }

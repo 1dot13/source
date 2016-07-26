@@ -271,8 +271,19 @@ FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 
 INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier);
 
+// Flugente: via various means, the player can get info on the enemy - this can be enemy positions, movement, or the position of important targets
+enum
+{
+	INFO_TYPE_NORMAL,
+	INFO_TYPE_VIP,
 
-// Flugente: determine max items we can move, and the sector distance
+	INFO_TYPE_MAX,
+};
+
+// this function gives a random bit of information to the player. The type of info depends on aInfoType. 
+// If higher-order info cannot be given (for example if all info is already known to the player), lower-order info wil be given instead
+// returns TRUE if info was given, FALSE if not
+BOOLEAN GiveInfoToPlayer( UINT8 aInfoType );
 
 // get bonus tarining pts due to an instructor for this student
 // HEADROCK HAM 3.5: Three functions below have lost an argument which is no longer required ("uiAtGunRange", which was "uiAtFacility" in HAM 3.4)

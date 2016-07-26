@@ -60,6 +60,9 @@ extern SOLDIERTYPE * gpDestSoldier;
 UINT8 gubQuest[MAX_QUESTS];
 UINT8 gubFact[ NUM_FACTS ]; // this has to be updated when we figure out how many facts we have
 
+// Flugente: we save and load this array. It is to be used exclusively by modders, who can set this in lua scripts
+INT32 gubModderLuaData[MODDER_LUA_DATA_MAX]; // this has to be updated when we figure out how many facts we have
+
 INT16	gsFoodQuestSectorX;
 INT16	gsFoodQuestSectorY;
 
@@ -1578,6 +1581,8 @@ void InitQuestEngine()
 	gubBoxingMatchesWon = 0;
 	gubBoxersRests = 0;
 	gfBoxersResting = FALSE;
+
+	InitLUAModderData( );
 }
 
 
@@ -1643,7 +1648,6 @@ BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile )
 		return(FALSE);
 	}
 
-
 	return( TRUE );
 }
 
@@ -1670,6 +1674,41 @@ BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest )
 
 	return( TRUE );
 }
+
+// Flugente: a huge array that can be used exclusively by modders
+BOOLEAN SaveLUAModderDataToSavedGameFile( HWFILE hFile )
+{
+	UINT32	uiNumBytesWritten;
+	
+	//Save all the states for the facts
+	FileWrite( hFile, gubModderLuaData, sizeof(INT32)* MODDER_LUA_DATA_MAX, &uiNumBytesWritten );
+	if ( uiNumBytesWritten != sizeof(INT32)* MODDER_LUA_DATA_MAX )
+	{
+		return(FALSE);
+	}
+
+	return(TRUE);
+}
+
+BOOLEAN LoadLUAModderDataFromSavedGameFile( HWFILE hFile )
+{
+	UINT32	uiNumBytesRead;
+
+	//Save all the states for the facts
+	FileRead( hFile, gubModderLuaData, sizeof(INT32)* MODDER_LUA_DATA_MAX, &uiNumBytesRead );
+	if ( uiNumBytesRead != sizeof(INT32)* MODDER_LUA_DATA_MAX )
+	{
+		return(FALSE);
+	}
+
+	return(TRUE);
+}
+
+void InitLUAModderData( )
+{
+	memset( gubModderLuaData, 0, sizeof(gubModderLuaData) );
+}
+
 
 // SANDRO - a function to add quest-done point to merc records, and award some exp possibly
 void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpReward, UINT8 bException )

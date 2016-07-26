@@ -6874,92 +6874,14 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// chance that prisoner will give us random info about enemy positions
 		else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INFO] )
 		{
+			UINT8 infotype = INFO_TYPE_NORMAL;
+
 			// there is a chance this guy might tell us about high-value targets!
 			if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[prisonertype] ) )
-			{
-				UINT16 unknownvipector = 0;
-				if ( GetRandomUnknownVIPSector( unknownvipector ) )
-				{
-					// make this guy known to the player
-					StrategicMap[unknownvipector].usFlags |= ENEMY_VIP_PRESENT_KNOWN;
+				infotype = INFO_TYPE_VIP;
 
-					CHAR16 str[128];
-					GetSectorIDString( SECTORX( unknownvipector ), SECTORY( unknownvipector ), 0, str, TRUE );
-
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_DETECTION_VIP], str );
-
-					// enough info from this guy
-					continue;
-				}
-			}
-
-			// mobile tanks are a serious threat. Learning of their location would be genuninely useful
-			// loop over all mobile enemy groups that have tanks that we don't yet know of, and pick one of them at random
-			std::vector<UINT8> sectorswithunknowntanksvector;
-			for ( GROUP *pGroup = gpGroupList; pGroup; pGroup = pGroup->next )
-			{
-				if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubNumTanks )
-				{
-					UINT8 tanksector = SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
-
-					// if we don't yet know that there are tanks here, this would be useful information
-					if ( !(SectorInfo[tanksector].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER) )
-					{
-						sectorswithunknowntanksvector.push_back( tanksector );
-					}
-				}
-			}
-
-			if ( !sectorswithunknowntanksvector.empty( ) )
-			{
-				UINT8 tanksector = sectorswithunknowntanksvector[ Random( sectorswithunknowntanksvector.size( ) ) ];
-
-				SectorInfo[tanksector].uiFlags |= (SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER);
-
-				if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoDirectionChance ) )
-				{
-					// we also learned the direction of the patrol
-					SectorInfo[tanksector].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
-				}
-
+			if ( GiveInfoToPlayer( infotype ) )
 				++revealedpositions;
-
-				continue;
-			}
-
-			UINT8 maxtries = 20;
-			for(UINT8 infotry = 0; infotry < maxtries; ++infotry)
-			{
-				UINT8 usX = 1 + Random( MAP_WORLD_X - 2 );
-				UINT8 usY = 1 + Random( MAP_WORLD_Y - 2 );
-
-				// there need to be mobile enemies here - that the queen has troops in towns we do not own is hardly worthy information, and empty sectors aren't interesting
-				if ( NumMobileEnemiesInSector( usX, usY ) == 0 )
-					continue;
-
-				// not if we already know about this sector
-				if ( SectorInfo[ SECTOR( usX, usY ) ].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
-					continue;
-
-				// enemy patrol detected
-				SectorInfo[ SECTOR( usX, usY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_HERE;
-
-				if ( Chance(gGameExternalOptions.ubPrisonerProcessInfoNumberChance) )
-				{
-					// we also learned the number of enemies
-					SectorInfo[ SECTOR( usX, usY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
-				}
-
-				if ( Chance(gGameExternalOptions.ubPrisonerProcessInfoDirectionChance) )
-				{
-					// we also learned the direction of the patrol
-					SectorInfo[ SECTOR( usX, usY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
-				}
-
-				++revealedpositions;
-
-				break;
-			}
 		}
 		// chance prisoner will grant us ransom money
 		else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INFO] + chances[PRISONER_INTERROGATION_RANSOM] )
@@ -7089,6 +7011,96 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		interrogatedprisoners[i] = -interrogatedprisoners[i];
 
 	ChangeNumberOfPrisoners( pSectorInfo, interrogatedprisoners );
+}
+
+// this function gives a random bit of information to the player. The type of info depends on aInfoType. 
+// If higher-order info cannot be given (for example if all info is already known to the player), lower-order info wil be given instead
+// returns TRUE if info was given, FALSE if not
+BOOLEAN GiveInfoToPlayer(UINT8 aInfoType)
+{
+	// there is a chance this guy might tell us about high-value targets!
+	if ( aInfoType == INFO_TYPE_VIP )
+	{
+		UINT16 unknownvipector = 0;
+		if ( GetRandomUnknownVIPSector( unknownvipector ) )
+		{
+			// make this guy known to the player
+			StrategicMap[unknownvipector].usFlags |= ENEMY_VIP_PRESENT_KNOWN;
+
+			CHAR16 str[128];
+			GetSectorIDString( SECTORX( unknownvipector ), SECTORY( unknownvipector ), 0, str, TRUE );
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_DETECTION_VIP], str );
+
+			return TRUE;
+		}
+	}
+
+	// mobile tanks are a serious threat. Learning of their location would be genuinely useful
+	// loop over all mobile enemy groups that have tanks that we don't yet know of, and pick one of them at random
+	std::vector<UINT8> sectorswithunknowntanksvector;
+	for ( GROUP *pGroup = gpGroupList; pGroup; pGroup = pGroup->next )
+	{
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubNumTanks )
+		{
+			UINT8 tanksector = SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
+
+			// if we don't yet know that there are tanks here, this would be useful information
+			if ( !(SectorInfo[tanksector].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER) )
+			{
+				sectorswithunknowntanksvector.push_back( tanksector );
+			}
+		}
+	}
+
+	if ( !sectorswithunknowntanksvector.empty( ) )
+	{
+		UINT8 tanksector = sectorswithunknowntanksvector[Random( sectorswithunknowntanksvector.size( ) )];
+
+		SectorInfo[tanksector].uiFlags |= (SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER);
+
+		if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoDirectionChance ) )
+		{
+			// we also learned the direction of the patrol
+			SectorInfo[tanksector].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
+		}
+
+		return TRUE;
+	}
+
+	UINT8 maxtries = 20;
+	for ( UINT8 infotry = 0; infotry < maxtries; ++infotry )
+	{
+		UINT8 usX = 1 + Random( MAP_WORLD_X - 2 );
+		UINT8 usY = 1 + Random( MAP_WORLD_Y - 2 );
+
+		// not if we already know about this sector
+		if ( SectorInfo[SECTOR( usX, usY )].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
+			continue;
+
+		// there need to be mobile enemies here - that the queen has troops in towns we do not own is hardly worthy information, and empty sectors aren't interesting
+		if ( NumMobileEnemiesInSector( usX, usY ) == 0 )
+			continue;
+				
+		// enemy patrol detected
+		SectorInfo[SECTOR( usX, usY )].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_HERE;
+
+		if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoNumberChance ) )
+		{
+			// we also learned the number of enemies
+			SectorInfo[SECTOR( usX, usY )].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
+		}
+
+		if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoDirectionChance ) )
+		{
+			// we also learned the direction of the patrol
+			SectorInfo[SECTOR( usX, usY )].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
+		}
+
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 // Flugente: prisons can riot if there aren't enough guards around
