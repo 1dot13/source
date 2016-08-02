@@ -57,6 +57,7 @@ UINT8 HandleTinCanCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorF
 UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );	//added by Flugente
 UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );		//added by Flugente
 UINT8 HandleApplyItemCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );		//added by Flugente
+UINT8 HandleHackCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );		//added by Flugente
 
 extern BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT32 sTargetGridNo , INT8 bLevel );
 
@@ -323,11 +324,13 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 			ubCursorID = HandleApplyItemCursor( pSoldier, sTargetGridNo, uiCursorFlags );
 			break;
 
-		case INVALIDCURS:
-
-			ubCursorID =	INVALID_ACTION_UICURSOR;
+		case INTERACTIVEACTIONCURS:
+			ubCursorID = HandleHackCursor( pSoldier, sTargetGridNo, uiCursorFlags );
 			break;
 
+		case INVALIDCURS:
+			ubCursorID =	INVALID_ACTION_UICURSOR;
+			break;
 	}
 
 	if ( !( gTacticalStatus.uiFlags & INCOMBAT ) )
@@ -341,11 +344,9 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 			PauseRT( FALSE );
 		}
 	}
-
-
+	
 	return( ubCursorID );
 }
-
 
 // WANNE: Shows the target cursor over the enemy soldier
 UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos, BOOLEAN fShowAPs, BOOLEAN fRecalc, UINT32 uiCursorFlags )
@@ -2276,6 +2277,27 @@ UINT8 HandleApplyItemCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurs
 	return( APPLYITEM_RED_UICURSOR );
 }
 
+UINT8 HandleHackCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
+{
+	// DRAW PATH TO GUY
+	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_INTERACTIVEACTION );
+
+	UINT16 structindex;
+	UINT16 possibleaction = InteractiveActionPossibleAtGridNo( sGridNo, pSoldier->pathing.bLevel, structindex );
+	UINT16 skill = pSoldier->GetInteractiveActionSkill( sGridNo, pSoldier->pathing.bLevel, possibleaction );
+
+	if ( possibleaction == INTERACTIVE_STRUCTURE_HACKABLE )
+		return skill ? HACK_GREY_UICURSOR : HACK_RED_UICURSOR;
+	else if ( possibleaction == INTERACTIVE_STRUCTURE_READFILE )
+		return skill ? READFILE_GREY_UICURSOR : READFILE_RED_UICURSOR;
+	else if ( possibleaction == INTERACTIVE_STRUCTURE_WATERTAP )
+		return skill ? WATERTAP_GREY_UICURSOR : WATERTAP_RED_UICURSOR;
+	else if ( possibleaction == INTERACTIVE_STRUCTURE_SODAMACHINE )
+		return skill ? SODAMACHINE_GREY_UICURSOR : SODAMACHINE_RED_UICURSOR;
+	
+	return NO_UICURSOR;
+}
+
 void HandleEndConfirmCursor( SOLDIERTYPE *pSoldier )
 {
 	UINT16				usInHand;
@@ -2784,7 +2806,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 		else
 			return ( TRAJECTORYCURS );	
 	}
-	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO || ( pSoldier->bWeaponMode == WM_AUTOFIRE && Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher ) )
+	else if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO || ( pSoldier->bWeaponMode == WM_AUTOFIRE && Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher ) )
 	{
 		if ( gGameSettings.fOptions [ TOPTION_GL_BURST_CURSOR ] )
 			return( TARGETCURS );
@@ -2822,6 +2844,20 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	// Flugente: cursor for handcuffs
 	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usInHand, HANDCUFFS) )
 		ubCursor = HANDCUFFCURS;
+
+	// Flugente: interactive actions
+	// we only check whether an action is possible in principle, not whether this particular guy can do it. That way we know an action is possible here even if we can't perform it at the moment.
+	// only do this if the item doesn't already allow us to do something else
+	if ( ubCursor == INVALIDCURS || usInHand == NONE )
+	{
+		INT32 usMapPos = NOWHERE;
+		GetMouseMapPos( &usMapPos );
+
+		UINT16 structindex;
+		UINT16 possibleaction = InteractiveActionPossibleAtGridNo( usMapPos, pSoldier->pathing.bLevel, structindex );
+		if ( possibleaction > INTERACTIVE_STRUCTURE_NO_ACTION )
+			ubCursor = INTERACTIVEACTIONCURS;
+	}
 
 	// Flugente: apply misc items to other soldiers
 	if ( ItemCanBeAppliedToOthers( usInHand ) )

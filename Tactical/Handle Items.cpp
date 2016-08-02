@@ -72,6 +72,10 @@
 	#include <fstream>	// added by Flugente
 	#include "DisplayCover.h"		// added by Flugente
 	#include "Queen Command.h"		// added by Flugente for FindUnderGroundSector(...)
+	#include "LuaInitNPCs.h"		// added by Flugente
+	#include "finances.h"			// added by Flugente
+	#include "LaptopSave.h"			// added by Flugente
+	#include "Game Clock.h"			// added by Flugente
 	#include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
 #endif
 
@@ -246,11 +250,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	// "attached weapon"
 	pSoldier->usAttackingWeapon = usHandItem;
 
-		// sevenfm: set shift flag for auto-taking of next item from inventory
-		if( fFromUI && _KeyDown(SHIFT) )
-			gfShiftBombPlant = TRUE;
-		else
-			gfShiftBombPlant = FALSE;
+	// sevenfm: set shift flag for auto-taking of next item from inventory
+	if( fFromUI && _KeyDown(SHIFT) )
+		gfShiftBombPlant = TRUE;
+	else
+		gfShiftBombPlant = FALSE;
 
 	// Find soldier flags depend on if it's our own merc firing or a NPC
 	//if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO )  )
@@ -325,7 +329,90 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				return( ITEM_HANDLE_REFUSAL );
 			}
 		}
+	}
 
+	INT32 usMapPos;
+	GetMouseMapPos( &usMapPos );
+
+	// Flugente: interactive actions
+	if ( Item[usHandItem].ubCursor == INVALIDCURS || usHandItem == NONE )
+	{
+		UINT16 structindex;
+		UINT16 possibleaction = InteractiveActionPossibleAtGridNo( usMapPos, pSoldier->pathing.bLevel, structindex );
+		if ( possibleaction )//&& pSoldier->GetInteractiveActionSkill( usMapPos, pSoldier->pathing.bLevel, possibleaction ) )
+		{
+			// ATE: AI CANNOT GO THROUGH HERE!
+			BOOLEAN	fHadToUseCursorPos = FALSE;
+
+			// See if we can get there to stab
+			sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+			if ( sActionGridNo == NOWHERE )
+			{
+				// Try another location...
+				sActionGridNo = FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+
+				if ( sActionGridNo == NOWHERE )
+				{
+					return(ITEM_HANDLE_CANNOT_GETTO_LOCATION);
+				}
+			}
+
+			// Calculate AP costs...
+			sAPCost = 0;//GetAPsToHandcuff( pSoldier, sActionGridNo );
+			sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+
+			if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+			{
+				// OK, set UI
+				SetUIBusy( pSoldier->ubID );
+
+				// CHECK IF WE ARE AT THIS GRIDNO NOW
+				if ( pSoldier->sGridNo != sActionGridNo )
+				{
+					// SEND PENDING ACTION
+					pSoldier->aiData.ubPendingAction = MERC_INTERACTIVEACTION;
+
+					if ( fHadToUseCursorPos )
+					{
+						pSoldier->aiData.sPendingActionData2 = usMapPos;
+					}
+					else
+					{
+						if ( pTargetSoldier != NULL )
+						{
+							pSoldier->aiData.sPendingActionData2 = pTargetSoldier->sGridNo;
+						}
+						else
+						{
+							pSoldier->aiData.sPendingActionData2 = sGridNo;
+						}
+					}
+
+					pSoldier->aiData.bPendingActionData3 = (INT8)(possibleaction);
+					pSoldier->aiData.ubPendingActionAnimCount = 0;
+
+					// WALK UP TO DEST FIRST
+					pSoldier->EVENT_InternalGetNewSoldierPath( sActionGridNo, pSoldier->usUIMovementMode, FALSE, TRUE );
+				}
+				else
+				{
+					pSoldier->EVENT_SoldierInteractiveAction( sAdjustedGridNo, possibleaction );
+
+					UnSetUIBusy( pSoldier->ubID );
+				}
+
+				if ( fFromUI )
+				{
+					guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
+				}
+
+				return(ITEM_HANDLE_OK);
+			}
+			else
+			{
+				return(ITEM_HANDLE_NOAPS);
+			}
+		}
 	}
 
 	// Check HAND ITEM
@@ -1236,10 +1323,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag( usHandItem, HANDCUFFS ) && pTargetSoldier && pTargetSoldier->CanBeCaptured( ) )
 	{
 		// ATE: AI CANNOT GO THROUGH HERE!
-		INT32 usMapPos;
 		BOOLEAN	fHadToUseCursorPos = FALSE;
-
-		GetMouseMapPos( &usMapPos );
 
 		// See if we can get there to stab
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
@@ -1319,10 +1403,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( ItemCanBeAppliedToOthers( usHandItem ) )
 	{
 		// ATE: AI CANNOT GO THROUGH HERE!
-		INT32 usMapPos;
 		BOOLEAN	fHadToUseCursorPos = FALSE;
-
-		GetMouseMapPos( &usMapPos );
 
 		// See if we can get there to stab
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
@@ -8694,5 +8775,159 @@ void HandleTakeNewBombFromInventory(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj)
 			!pSoldier->inv[HANDPOS].exists() && gfShiftBombPlant )
 	{	
        pSoldier->TakeNewBombFromInventory(pObj->usItem);
+	}
+}
+
+// Flugente: interactive actions
+void DoInteractiveAction( INT32 sGridNo, SOLDIERTYPE *pSoldier )
+{
+	// we need a valid soldier and a valid object
+	if ( !pSoldier )
+		return;
+	
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return;
+	
+	UINT16 structindex;
+	UINT16 possibleaction = InteractiveActionPossibleAtGridNo( sGridNo, pSoldier->pathing.bLevel, structindex );
+
+	UINT16 skill = pSoldier->GetInteractiveActionSkill( sGridNo, pSoldier->pathing.bLevel, possibleaction );
+
+	INT32 difficulty = gInteractiveStructure[structindex].difficulty;
+	INT32 luaactionid = gInteractiveStructure[structindex].luaactionid;
+
+	// play sounds
+	switch ( possibleaction )
+	{
+	case INTERACTIVE_STRUCTURE_HACKABLE:
+		PlayJA2SampleFromFile( "Sounds\\keyboard_typing.wav", RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+		break;
+
+	case INTERACTIVE_STRUCTURE_READFILE:
+		PlayJA2SampleFromFile( "Sounds\\book_pageturn1.wav", RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+		break;
+
+	default:
+		break;
+	}
+
+	if ( possibleaction == INTERACTIVE_STRUCTURE_HACKABLE )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[0], pSoldier->GetName( ) );
+
+		// hacking is a multiturn-action - we only start the action here, the result is handled elsewhere
+		pSoldier->StartMultiTurnAction( MTA_HACK, sGridNo );
+	}
+	// call lua with the action id - perhaps we might do something special here
+	else if ( luaactionid >= 0 )
+	{
+		LuaHandleInteractiveActionResult( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, sGridNo, pSoldier->pathing.bLevel, pSoldier->ubID, possibleaction, luaactionid, difficulty, skill );
+	}
+	else
+	{
+		DoInteractiveActionDefaultResult( sGridNo, pSoldier->ubID, (skill >= difficulty) );
+	}
+}
+
+// handle the default result of an interactive action
+// This is called either if no lua action id is set, or by lua if this should happen as a supplement to whatever lua does
+void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSuccess )
+{
+	SOLDIERTYPE* pSoldier = NULL;
+	if ( ubID != NOBODY )
+		pSoldier = MercPtrs[ubID];
+
+	// we need a valid soldier and a valid object
+	if ( !pSoldier )
+		return;
+
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return;
+
+	UINT16 structindex;
+	UINT16 possibleaction = InteractiveActionPossibleAtGridNo( sGridNo, pSoldier->pathing.bLevel, structindex );
+
+	switch ( possibleaction )
+	{
+		case INTERACTIVE_STRUCTURE_HACKABLE:
+		{
+			if ( aSuccess )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[1], pSoldier->GetName( ) );
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[2], pSoldier->GetName( ) );
+			}
+		}
+		break;
+
+		case INTERACTIVE_STRUCTURE_READFILE:
+		{
+			if ( aSuccess )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[3], pSoldier->GetName( ) );
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[4], pSoldier->GetName( ) );
+			}
+		}
+		break;
+
+		case INTERACTIVE_STRUCTURE_WATERTAP:
+		{
+			if ( aSuccess )
+			{
+				DrinkFromWaterTap( pSoldier );
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[5], pSoldier->GetName( ) );
+			}
+		}
+		break;
+
+		case INTERACTIVE_STRUCTURE_SODAMACHINE:
+		{
+			static UINT16 usSodaIndex = 1741;
+
+			// we still have to determine whether a soda item exists, and whether we can pay for it
+			if ( aSuccess )
+			{
+				aSuccess = FALSE;
+
+				// determine soda item, only if this exists can we proceed to sell one
+				if ( HasItemFlag( usSodaIndex, SODA ) || GetFirstItemWithFlag( &usSodaIndex, SODA ) )
+				{
+					if ( LaptopSaveInfo.iCurrentBalance >= Item[usSodaIndex].usPrice )
+					{
+						aSuccess = TRUE;
+					}
+				}
+			}				
+
+			if ( aSuccess )
+			{
+				if ( CreateItem( usSodaIndex, 100, &gTempObject ) && AutoPlaceObjectAnywhere( pSoldier, &gTempObject, TRUE ) )
+				{
+					AddTransactionToPlayersBook( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin( ), Item[usSodaIndex].usPrice );
+
+					PlayJA2SampleFromFile( "Sounds\\soda_machine.wav", RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[6], pSoldier->GetName( ), Item[usSodaIndex].szItemName );
+				}
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[7], pSoldier->GetName( ) );
+			}
+		}
+		break;
+
+	default:
+		break;
 	}
 }

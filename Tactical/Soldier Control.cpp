@@ -100,6 +100,7 @@
 #include "Cheats.h"				// added by Flugente
 #include "MilitiaIndividual.h"	// added by Flugente
 #include "Arms Dealer Init.h"	// added by Flugente for armsDealerInfo[]
+#include "LuaInitNPCs.h"		// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -16262,12 +16263,13 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 	{
 	case MTA_FORTIFY:
 	case MTA_REMOVE_FORTIFY:
-		// building on a roof is forbidden! stop this!
+	
+		/*// building on a roof is forbidden! stop this!
 		if ( this->pathing.bLevel != 0 )
 		{
 			CancelMultiTurnAction( FALSE );
 			return FALSE;
-		}
+		}*/
 
 		// we have to be crouched, get out of here, set us to be crouched first
 		if ( gAnimControl[this->usAnimState].ubEndHeight != ANIM_CROUCH )
@@ -16275,11 +16277,15 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 			return TRUE;
 		}
 		break;
-	default:	// default: exit
-	{
-					CancelMultiTurnAction( FALSE );
-					return FALSE;
-	}
+
+	case MTA_HACK:
+		break;
+
+		default:	// default: exit
+		{
+			CancelMultiTurnAction( FALSE );
+			return FALSE;
+		}
 		break;
 	}
 
@@ -16289,12 +16295,17 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 	// determine the gridno before us and the item we have in our main hand, this is enough for the current actions
 	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
 
-	// error if the gridno we started working on is not the gridno we are currently looking at
+	// error if object is missing
 	if ( usMultiTurnAction == MTA_FORTIFY || usMultiTurnAction == MTA_REMOVE_FORTIFY )
 	{
 		if ( !pObj || !(pObj->exists( )) )
 			fActionStillValid = FALSE;
-		else if ( this->sMTActionGridNo != NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) ) )
+	}
+
+	// error if the gridno we started working on is not the gridno we are currently looking at
+	if ( usMultiTurnAction == MTA_FORTIFY || usMultiTurnAction == MTA_REMOVE_FORTIFY )//|| usMultiTurnAction == MTA_HACK )
+	{
+		if ( this->sMTActionGridNo != NewGridNo( this->sGridNo, DirectionInc( this->ubDirection ) ) )
 			fActionStillValid = FALSE;
 	}
 
@@ -16320,12 +16331,24 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 		}
 		break;
 
-	case MTA_REMOVE_FORTIFY:
+		case MTA_REMOVE_FORTIFY:
 		{
 			entireapcost = GetAPsForMultiTurnAction( this, MTA_REMOVE_FORTIFY );
 			entirebpcost = APBPConstants[BP_REMOVE_FORTIFICATION];
 
 			if ( !IsStructureDeconstructItem( this->inv[HANDPOS].usItem, this->sMTActionGridNo, this ) )
+				fActionStillValid = FALSE;
+		}
+		break;
+
+		case MTA_HACK:
+		{
+			entireapcost = GetAPsForMultiTurnAction( this, MTA_HACK );
+			entirebpcost = 0;		// hacking isn't exactly hard to do physically :-)
+
+			UINT16 structindex;
+			if ( !this->GetInteractiveActionSkill( this->sMTActionGridNo, this->pathing.bLevel, INTERACTIVE_STRUCTURE_HACKABLE ) ||
+				 !InteractiveActionPossibleAtGridNo( this->sMTActionGridNo, this->pathing.bLevel, structindex ) == INTERACTIVE_STRUCTURE_HACKABLE )
 				fActionStillValid = FALSE;
 		}
 		break;
@@ -16359,6 +16382,14 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 			}
 		}
 		break;
+
+		case MTA_HACK:
+		{
+			// if we are not in turnbased and no enemies are around, we reduce the number of necessary action points to 0. No need to keep waiting if there's nobody around anyway
+			if ( !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) )
+				bOverTurnAPS = 0;
+		}
+		break;
 	}
 
 	// if we can afford it, do it now
@@ -16385,6 +16416,31 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 					// we gain a bit of experience...
 					StatChange( this, STRAMT, 3, TRUE );
 					StatChange( this, HEALTHAMT, 2, TRUE );
+				}
+			}
+			break;
+
+			case MTA_HACK:
+			{
+				UINT16 structindex;
+				UINT16 possibleaction = InteractiveActionPossibleAtGridNo( this->sMTActionGridNo, this->pathing.bLevel, structindex );
+				UINT16 skill = this->GetInteractiveActionSkill( sGridNo, this->pathing.bLevel, possibleaction );
+
+				INT32 difficulty = gInteractiveStructure[structindex].difficulty;
+				INT32 luaactionid = gInteractiveStructure[structindex].luaactionid;
+
+				BOOLEAN success = (skill >= difficulty);
+				if ( possibleaction != INTERACTIVE_STRUCTURE_HACKABLE )
+					success = FALSE;
+
+				// call lua with the action id - perhaps we might do something special here
+				if ( luaactionid >= 0 )
+				{
+					LuaHandleInteractiveActionResult( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, sGridNo, this->pathing.bLevel, this->ubID, possibleaction, luaactionid, difficulty, skill );
+				}
+				else
+				{
+					DoInteractiveActionDefaultResult( sGridNo, this->ubID, (skill > difficulty) );
 				}
 			}
 			break;
@@ -19174,6 +19230,92 @@ UINT8	SOLDIERTYPE::GetWaterSnakeDefenseChance()
 	return (UINT8)(val);
 }
 
+// Flugente: interactive actions
+UINT16	SOLDIERTYPE::GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UINT16 usType )
+{
+	switch ( usType )
+	{
+		case INTERACTIVE_STRUCTURE_HACKABLE:
+		{
+			if ( this->ubProfile == ROBOT || IsVehicle( this ) )
+				return 0;
+
+			UINT16 skill = this->GetBackgroundValue( BG_HACKERSKILL );
+
+			// without the background property, we cannot hack at all
+			if ( !skill )
+				return 0;
+
+			FLOAT bestmodifier = 1.0f;
+
+			UINT8 bestequipmentbonus = 0;
+
+			OBJECTTYPE* pObj = NULL;
+
+			INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
+
+			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )						// ... for all items in our inventory ...
+			{
+				// ... if Item exists and is canteen (that can have drink points) ...
+				if ( inv[bLoop].exists( ) == true && Item[inv[bLoop].usItem].usHackingModifier )
+				{
+					OBJECTTYPE * pObj = &(this->inv[bLoop]);							// ... get pointer for this item ...
+
+					if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+					{
+						for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+						{
+							FLOAT modifier = 1.0f + (Item[inv[bLoop].usItem].usHackingModifier * (*pObj)[i]->data.objectStatus) / 10000.0f;
+
+							if ( modifier > bestmodifier )
+								bestmodifier = modifier;
+						}
+					}
+				}
+			}
+
+			
+			return (UINT16)(skill * bestmodifier);
+		}
+		break;
+
+		case INTERACTIVE_STRUCTURE_READFILE:
+		{
+			if ( this->ubProfile == ROBOT || IsVehicle( this ) )
+				return 0;
+
+			// reading is governed by wisdom
+			return this->stats.bWisdom;
+		}
+		break;
+
+		case INTERACTIVE_STRUCTURE_WATERTAP:
+		{
+			if ( this->ubProfile == ROBOT || IsVehicle( this ) )
+				return 0;
+
+			// we are pros at drinking water
+			return 100;
+		}
+		break;
+
+		case INTERACTIVE_STRUCTURE_SODAMACHINE:
+		{
+			if ( this->ubProfile == ROBOT || IsVehicle( this ) )
+				return 0;
+
+			// we are pros at buying from a vending machine
+			return 100;
+		}
+		break;
+
+		default:
+			break;
+	}
+
+	return 0;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -20273,6 +20415,11 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 			}
 		}
 	}
+}
+
+void SOLDIERTYPE::EVENT_SoldierInteractiveAction( INT32 sGridNo, UINT16 usActionType )
+{
+	DoInteractiveAction( sGridNo, this );
 }
 
 void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT32 sGridNo, UINT8 ubDirection, UINT8 ubMercSlot )

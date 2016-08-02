@@ -1382,6 +1382,10 @@ BOOLEAN ExecuteOverhead( )
                                             }
                                         }
                                     }
+
+									// Flugente: we are doing something here - stop multi-turn-action
+									pSoldier->CancelMultiTurnAction( FALSE );
+
                                     if ( pSoldier->aiData.ubPendingAction == MERC_PICKUPITEM    )
                                     {
                                         sGridNo = pSoldier->aiData.sPendingActionData2;
@@ -1538,6 +1542,11 @@ BOOLEAN ExecuteOverhead( )
                                         pSoldier->EVENT_SoldierBeginGiveItem( );
                                         pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
                                     }
+									else if ( pSoldier->aiData.ubPendingAction == MERC_INTERACTIVEACTION )
+									{
+										pSoldier->EVENT_SoldierInteractiveAction( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
+										pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
+									}
 
                                     if ( fNoAPsForPendingAction )
                                     {
@@ -1547,8 +1556,7 @@ BOOLEAN ExecuteOverhead( )
                                         pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
                                         pSoldier->ubPendingDirection = NO_PENDING_DIRECTION;
                                     }
-
-                                }
+								}
                                 else
                                 {
                                     // OK, ADJUST TO STANDING, WE ARE DONE

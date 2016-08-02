@@ -563,6 +563,9 @@
     <ClCompile Include="XML_IncompatibleAttachments.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+     <ClCompile Include="XML_InteractiveTiles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="XML_Launchable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

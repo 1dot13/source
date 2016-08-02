@@ -857,6 +857,9 @@ static int l_SetModderLUAFact( lua_State *L );
 static int l_SetScreenMsg( lua_State *L );
 static int l_GetUsedLanguage( lua_State *L );
 
+static int l_DoInteractiveActionDefaultResult( lua_State *L );
+static int l_GiveExp( lua_State *L );
+
 using namespace std;
 
 UINT16 idProfil;
@@ -1722,6 +1725,9 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 
 	lua_register( L, "SetScreenMsg", l_SetScreenMsg );
 	lua_register( L, "GetUsedLanguage", l_GetUsedLanguage );
+
+	lua_register( L, "DoInteractiveActionDefaultResult", l_DoInteractiveActionDefaultResult );
+	lua_register( L, "GiveExp", l_GiveExp );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -2646,6 +2652,24 @@ void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, B
 	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
 
 	LuaFunction( _LS.L, "HandleSectorLiberation" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<bool>( fFirstTime ).Call( 4 );
+}
+
+void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, 
+									   INT32 sGridNo, UINT8 bLevel, UINT8 ubId,
+									   UINT8 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	lua_register( _LS.L( ), "CheckFact", l_CheckFact );
+	lua_register( _LS.L( ), "AddVolunteers", l_AddVolunteers );
+	IniFunction( _LS.L( ), TRUE );
+	IniGlobalGameSetting( _LS.L( ) );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "HandleInteractiveActionResult" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( sGridNo ).Param<int>( bLevel ).Param<int>( ubId ).Param<int>( usActionType ).Param<int>( sLuaactionid ).Param<int>( difficulty ).Param<int>( skill ).Call( 10 );
 }
 
 void LuaRecruitRPCAdditionalHandling( UINT8 usProfile )
@@ -13240,4 +13264,35 @@ static int l_GetUsedLanguage( lua_State *L )
 	}
 
 	return 1;
+}
+
+static int l_DoInteractiveActionDefaultResult( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		INT32 sGridNo = lua_tointeger( L, 1 );
+		UINT8 ubID = lua_tointeger( L, 2 );
+		BOOLEAN success = lua_tointeger( L, 3 );
+
+		DoInteractiveActionDefaultResult( sGridNo, ubID, success );
+	}
+
+	return 0;
+}
+
+static int l_GiveExp( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		UINT8 ubID = lua_tointeger( L, 1 );
+		UINT8 ubStat = lua_tointeger( L, 2 );
+		UINT16 usNumChances = lua_tointeger( L, 3 );
+
+		if ( ubID != NOBODY && ubStat >= FIRST_CHANGEABLE_STAT && ubStat <= LAST_CHANGEABLE_STAT )
+		{
+			StatChange( MercPtrs[ubID], ubStat, usNumChances, FROM_SUCCESS );
+		}
+	}
+
+	return 0;
 }

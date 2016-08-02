@@ -12,6 +12,7 @@
 	#include "renderworld.h"
 	#include "strategicmap.h"
 	#include "rotting corpses.h"
+	#include "WorldDat.h"	// added by Flugente
 #endif
 
 extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT32 sGridNo );
@@ -588,6 +589,135 @@ BOOLEAN IsFortificationPossibleAtGridNo( INT32 sGridNo )
 	pStructure = FindStructure( sGridNo, (STRUCTURE_OBSTACLE|STRUCTURE_PERSON) );
 
 	return( pStructure == NULL );
+}
+
+UINT16 InteractiveActionPossibleAtGridNo( INT32 sGridNo, UINT8 usLevel, UINT16& arusStructIndex )
+{
+	arusStructIndex = 0;
+
+	STRUCTURE * pStruct = FindStructure( sGridNo, (STRUCTURE_GENERIC) );
+	if ( pStruct )
+	{
+		// if this is a multi-tile structure, be sure to use the base gridno
+		if ( !(pStruct->fFlags & STRUCTURE_BASE_TILE) )
+		{
+			pStruct = FindBaseStructure( pStruct );
+
+			if ( !pStruct )
+				return INTERACTIVE_STRUCTURE_NO_ACTION;
+		}
+
+		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+		
+		if ( pNode )
+		{
+			UINT16 usIndex = pNode->usIndex;
+			UINT32 uiTileType = 0;
+			if ( GetTileType( usIndex, &uiTileType ) )
+			{
+				// we loop over each action and determine whether it fits
+				// multiple actions can fit, we chose whatever fits best
+				// So, for example, we can set computers everywhere to be hackable with a generci result, and then define more precise results on specific computers
+				// Other example: With just oen entry, with neither sector nor location set, we can make all water taps drinkable
+				BOOLEAN foundmatch_precise	= FALSE;
+				BOOLEAN foundmatch_sector	= FALSE;
+				BOOLEAN foundmatch_any		= FALSE;
+
+				UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
+
+				int foundindex = 0;
+				if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType][0] )
+				{
+					for ( int i = 0; i < gMaxInteractiveStructureRead; ++i )
+					{
+						if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType], gInteractiveStructure[i].szTileSetName, 11 ) )
+						{
+							std::vector<UINT16> tmpvec = gInteractiveStructure[i].tileindexvector;
+
+							std::vector<UINT16>::iterator it = std::find( tmpvec.begin( ), tmpvec.end( ), pStruct->pDBStructureRef->pDBStructure->usStructureNumber );
+
+							if ( it != tmpvec.end( ) )
+							{
+								if ( gInteractiveStructure[i].sector == sector && gInteractiveStructure[i].sectorlevel == gbWorldSectorZ )
+								{
+									foundmatch_sector = TRUE;
+									foundindex = i;
+
+									if ( gInteractiveStructure[i].sLevel == usLevel || gInteractiveStructure[i].sLevel == -1 )
+									{
+										std::vector<INT32> tmpgridnovec = gInteractiveStructure[i].gridnovector;
+
+										std::vector<INT32>::iterator it_gridno = std::find( tmpgridnovec.begin( ), tmpgridnovec.end( ), pStruct->sGridNo );
+
+										if ( it_gridno != tmpgridnovec.end( ) )
+										{
+											foundmatch_precise = TRUE;
+											break;
+										}
+									}
+								}
+								// some actions cen be defined everywhere
+								else if ( !foundmatch_sector && gInteractiveStructure[i].sector == -1 && gInteractiveStructure[i].sectorlevel == -1 )
+								{
+									foundmatch_any = TRUE;
+									foundindex = i;
+								}
+							}
+						}
+					}
+				}
+				// otherwise, check first tileset (GENERIC 1)
+				else if ( gTilesets[0].TileSurfaceFilenames[uiTileType][0] )
+				{
+					for ( int i = 0; i < gMaxInteractiveStructureRead; ++i )
+					{
+						if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiTileType], gInteractiveStructure[i].szTileSetName, 11 ) )
+						{
+							std::vector<UINT16> tmpvec = gInteractiveStructure[i].tileindexvector;
+
+							std::vector<UINT16>::iterator it = std::find( tmpvec.begin( ), tmpvec.end( ), pStruct->pDBStructureRef->pDBStructure->usStructureNumber );
+
+							if ( it != tmpvec.end() )
+							{
+								if ( gInteractiveStructure[i].sector == sector && gInteractiveStructure[i].sectorlevel == gbWorldSectorZ )
+								{
+									foundmatch_sector = TRUE;
+									foundindex = i;
+
+									if ( gInteractiveStructure[i].sLevel == usLevel || gInteractiveStructure[i].sLevel == -1 )
+									{
+										std::vector<INT32> tmpgridnovec = gInteractiveStructure[i].gridnovector;
+
+										std::vector<INT32>::iterator it_gridno = std::find( tmpgridnovec.begin( ), tmpgridnovec.end( ), pStruct->sGridNo );
+
+										if ( it_gridno != tmpgridnovec.end() )
+										{
+											foundmatch_precise = TRUE;
+											break;
+										}
+									}
+								}
+								else if ( !foundmatch_sector && gInteractiveStructure[i].sector == -1 && gInteractiveStructure[i].sectorlevel == -1 )
+								{
+									foundmatch_any = TRUE;
+									foundindex = i;
+								}
+							}
+						}
+					}
+				}
+
+				if ( foundmatch_any || foundmatch_sector || foundmatch_precise )
+				{
+					arusStructIndex = foundindex;
+
+					return gInteractiveStructure[foundindex].sActionType;
+				}
+			}
+		}
+	}
+
+	return INTERACTIVE_STRUCTURE_NO_ACTION;
 }
 
 

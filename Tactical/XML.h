@@ -172,6 +172,7 @@ typedef PARSE_STAGE;
 #define SECTORLEVEL1NAMESFILENAME				"Map\\SectorNamesLevel_1.xml"
 #define SECTORLEVEL2NAMESFILENAME				"Map\\SectorNamesLevel_2.xml"
 #define SECTORLEVEL3NAMESFILENAME				"Map\\SectorNamesLevel_3.xml"
+#define INTERACTIVEACTIONSFILENAME				"Map\\InteractiveActions.xml"
 
 #define GARRISONFILENAME						"Army\\GarrisonGroups.xml"
 #define PATROLFILENAME							"Army\\PatrolGroups.xml"
@@ -325,6 +326,10 @@ extern BOOLEAN WriteStructureDeconstructStats();
 
 extern BOOLEAN ReadInStructureConstructStats(STR fileName);
 extern BOOLEAN WriteStructureConstructStats();
+
+// Flugente: interactive actions
+extern BOOLEAN ReadInInteractiveActionsStats( STR fileName );
+extern BOOLEAN WriteInteractiveActionsStats( );
 
 // Flugente: merchants
 extern BOOLEAN ReadInMerchantStats(STR fileName);

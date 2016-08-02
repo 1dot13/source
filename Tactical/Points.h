@@ -356,6 +356,8 @@ INT16 GetAPsToHandcuff( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flu
 INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
 INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType );	// added by Flugente
 
+INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT8 usActionType );	// added by Flugente
+
 INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier );
 
 void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, BOOLEAN *pfChargeTurning, BOOLEAN *pfChargeRaise, INT16 bAimTime );

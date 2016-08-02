@@ -1119,3 +1119,38 @@ BOOLEAN HasFoodInInventory( SOLDIERTYPE *pSoldier, BOOLEAN fCheckFood, BOOLEAN f
 
 	return FALSE;
 }
+
+void DrinkFromWaterTap( SOLDIERTYPE* pSoldier )
+{
+	if ( !pSoldier )
+		return;
+
+	// dont feed our machines
+	if ( pSoldier->ubProfile == ROBOT || IsVehicle( pSoldier ) )
+		return;
+
+	if ( gGameOptions.fFoodSystem )
+	{
+		INT32 watertoadd = max( 0, FoodMoraleMods[FOOD_NORMAL].bThreshold - pSoldier->bDrinkLevel );
+		
+		if ( watertoadd > 0 )
+		{
+			AddFoodpoints( pSoldier->bDrinkLevel, watertoadd );
+		}
+	}
+	
+	if ( GetWaterQuality( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) == WATER_POISONOUS )
+		HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_BADWATER );
+	
+	INT32 bpadded = 100 * min( 20, 100 - pSoldier->bBreath );
+
+	DeductPoints( pSoldier, 20, -bpadded );
+
+	// play water sound
+	if ( pSoldier->bTeam == gbPlayerNum && gGameExternalOptions.fFoodEatingSounds )
+	{
+		PlayJA2SampleFromFile( "Sounds\\watertap.wav", RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+	}
+
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[8], pSoldier->GetName( ) );
+}

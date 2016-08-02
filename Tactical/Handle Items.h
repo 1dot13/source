@@ -111,6 +111,52 @@ typedef struct {
 
 extern STRUCTURE_CONSTRUCT gStructureConstruct[STRUCTURE_CONSTRUCT_MAX];
 
+// Flugente: we can define what structures we can interact with (example: we can hack computers or retrieve information from a file cabinet)
+typedef enum
+{
+	INTERACTIVE_STRUCTURE_NO_ACTION,
+
+	INTERACTIVE_STRUCTURE_HACKABLE,
+	INTERACTIVE_STRUCTURE_READFILE,
+	INTERACTIVE_STRUCTURE_WATERTAP,
+	INTERACTIVE_STRUCTURE_SODAMACHINE,
+
+	INTERACTIVE_STRUCTURE_TYPE_MAX,
+} INTERACTIVE_STRUCTURE_TYPE;
+
+typedef struct INTERACTIVE_STRUCTURE {
+	void reset()
+	{
+		sector = -1;
+		sectorlevel = -1;
+		tileindexvector.clear( );
+		gridnovector.clear( );
+		sLevel = -1;
+		sActionType = INTERACTIVE_STRUCTURE_NO_ACTION;
+		difficulty = 0;
+		luaactionid = -1;
+	}
+	
+	INT16	sector;
+	INT8	sectorlevel;						// whether this is on the surface (0) or below (1-3)
+	char	szTileSetName[20];					// name of the tileset
+	std::vector<UINT16>	tileindexvector;		// possible indizes in tileset
+
+	// We can either specify a specific location, or simply leave this empty
+	// in that case, this action will apply to all locations fitting the above criteria, but a specific location definition always takes preference
+	std::vector<INT32> gridnovector;			// possible gridnos
+	INT8	sLevel;
+
+	UINT16	sActionType;						// one of INTERACTIVE_STRUCTURE_TYPE
+	INT32	difficulty;
+	INT32	luaactionid;						// call lua with this ID after performing the usual action - perhaps something special has to happen
+} INTERACTIVE_STRUCTURE;
+
+#define INTERACTIVE_STRUCTURE_MAX		200
+
+extern INTERACTIVE_STRUCTURE gInteractiveStructure[INTERACTIVE_STRUCTURE_MAX];
+extern UINT32 gMaxInteractiveStructureRead;
+
 class SOLDIERTYPE;
 INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHandItem, BOOLEAN fFromUI );
 void SoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT32 sGridNo, INT8 bZLevel );
@@ -252,5 +298,9 @@ std::vector< std::pair<INT16, std::pair<UINT8, INT8> > > GetAllForticationGridNo
 INT32 GetFirstObjectInSectorPosition( UINT16 ausItem );
 
 extern ITEM_POOL *gpItemPool;//dnl ch26 210909
+
+// Flugente: interactive actions
+void DoInteractiveAction( INT32 sGridNo, SOLDIERTYPE *pSoldier );
+void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSuccess );
 
 #endif

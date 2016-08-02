@@ -128,6 +128,18 @@ CursorFileData CursorFileDatabase[] =
 	{ "CURSORS\\apply_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: apply items - still needs animation
 	{ "CURSORS\\apply.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// yes, the red one is the 'valid' one - just like for taking items
 
+	{ "CURSORS\\hack.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL},	// Flugente: hack
+	{ "CURSORS\\hack_r.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL},
+
+	{ "CURSORS\\readfile.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},	// Flugente: read file
+	{ "CURSORS\\readfile_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},
+
+	{"CURSORS\\watertap.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},	// Flugente: watertap
+	{"CURSORS\\watertap_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},
+
+	{"CURSORS\\sodamachine.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},	// Flugente: soda machine
+	{"CURSORS\\sodamachine_r.sti"									, FALSE, 0, ANIMATED_CURSOR, 3, NULL},
+
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\cur_tagr_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
@@ -1232,6 +1244,66 @@ CursorData CursorDatabase[] =
 		0,							0, 0, 0, 0,
 		0,							0, 0, 0, 0,
 		2,	CENTER_CURSOR, CENTER_CURSOR, 0, 0	, 0, 0 },
+
+	// Flugente: hack
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_HACK, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_HACK_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	// Flugente: read file
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_READFILE, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_READFILE_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	// Flugente: watertap
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_WATERTAP, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_WATERTAP_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	// Flugente: soad machine
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_SODAMACHINE, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_SODAMACHINE_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
 		
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FUEL				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,

@@ -231,6 +231,7 @@ enum
 	MERC_BUILD_FORTIFICATION,
 	MERC_HANDCUFF_PERSON,
 	MERC_APPLYITEM,
+	MERC_INTERACTIVEACTION,
 };
 
 // ENUMERATIONS FOR THROW ACTIONS
@@ -565,6 +566,7 @@ enum
 	MTA_NONE = 0,
 	MTA_FORTIFY,
 	MTA_REMOVE_FORTIFY,
+	MTA_HACK,
 	NUM_MTA,
 };
 
@@ -1626,6 +1628,7 @@ public:
 	void EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 	void EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 	void EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirection );	// added by Flugente
+	void EVENT_SoldierInteractiveAction( INT32 sGridNo, UINT16 usActionType );					// added by Flugente
 
 	BOOLEAN EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestart );
 	void EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState );
@@ -1935,6 +1938,9 @@ public:
 
 	// Flugente: chance to defeat a water snake instead of being hit by it
 	UINT8	GetWaterSnakeDefenseChance( );
+
+	// Flugente: interactive actions
+	UINT16	GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UINT16 usType );
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

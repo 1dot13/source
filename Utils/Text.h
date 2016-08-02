@@ -885,6 +885,7 @@ enum
 	STR_MTA_NONE,
 	STR_MTA_FORTIFY,
 	STR_MTA_REMOVE_FORTIFY,
+	STR_MTA_HACK,
 	STR_MTA_CANCEL,
 	STR_MTA_CANNOT_BUILD,
 
@@ -2976,6 +2977,9 @@ extern STR16	szSnakeText[];
 
 // Flugente: militia resources
 extern STR16	szSMilitiaResourceText[];
+
+// Flugente: interactive actions
+extern STR16	szInteractiveActionText[];
 
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16

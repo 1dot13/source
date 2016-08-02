@@ -467,7 +467,7 @@ void EndTurnEvents( void )
 	UINT32 cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pSoldier)
 	{
-		if ( pSoldier->bActive && pSoldier->stats.bLife > 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !( AM_A_ROBOT( pSoldier ) ) )
+		if ( pSoldier->bActive && pSoldier->stats.bLife > 0 )//&& !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !( AM_A_ROBOT( pSoldier ) ) )
 		{
 			// Flugente: update multi-turn actions
 			pSoldier->UpdateMultiTurnAction();

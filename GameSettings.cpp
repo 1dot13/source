@@ -3311,7 +3311,11 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_APPLYITEM]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_APPLYITEM",50),50);	
 	APBPConstants[AP_INVENTORY_ARM]					= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_INVENTORY_ARM",50),50);
 	APBPConstants[AP_SPOTTER]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SPOTTER",20),20);
-
+	APBPConstants[AP_HACK]							= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_HACK", 300 ), 300 );
+	APBPConstants[AP_READFILE]						= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_READFILE", 50 ), 50 );
+	APBPConstants[AP_WATERTAP]						= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_WATERTAP", 20 ), 20 );
+	APBPConstants[AP_SODAMACHINE]					= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_SODAMACHINE", 30 ), 30 );
+	
 	APBPConstants[AP_ENTER_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_ENTER_VEHICLE",30),30);
 	APBPConstants[AP_EXIT_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EXIT_VEHICLE",30),30);
 	APBPConstants[AP_CHANGE_SEAT_VEHICLE]				= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CHANGE_SEAT_VEHICLE",20),20);

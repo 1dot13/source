@@ -4258,6 +4258,26 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
 	}
+	else if ( uiFlags == MOVEUI_TARGET_INTERACTIVEACTION )
+	{
+		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		if ( sActionGridNo == -1 )
+		{
+			sActionGridNo = usMapPos;
+		}
+
+		UINT16 structindex;
+		UINT16 possibleaction = InteractiveActionPossibleAtGridNo( usMapPos, pSoldier->pathing.bLevel, structindex );
+		
+		sAPCost = GetAPsForInteractiveAction( pSoldier, possibleaction );
+		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+
+		if ( sActionGridNo != pSoldier->sGridNo )
+		{
+			gfUIHandleShowMoveGrid = TRUE;
+			gsUIHandleShowMoveGridLocation = sActionGridNo;
+		}
+	}
 	else if ( uiFlags == MOVEUI_TARGET_MERCS )
 	{
 		   INT32		sGotLocation = NOWHERE;
@@ -4598,6 +4618,23 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		}
 
 		return( FALSE );
+	}
+
+	if ( ubItemCursor == INTERACTIVEACTIONCURS )
+	{
+		if ( gfUIFullTargetFound )
+		{
+			usMapPos = MercPtrs[gusUIFullTargetID]->sGridNo;
+		}
+
+		UINT16 structindex;
+		UINT16 possibleaction = InteractiveActionPossibleAtGridNo( usMapPos, pSoldier->pathing.bLevel, structindex );
+		if ( possibleaction )//&& pSoldier->GetInteractiveActionSkill( usMapPos, pSoldier->pathing.bLevel, possibleaction ) )
+		{
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
 	if ( ubItemCursor == HANDCUFFCURS )
@@ -6435,8 +6472,7 @@ INT8 UIHandleInteractiveTilesAndItemsOnTerrain( SOLDIERTYPE *pSoldier, INT32 usM
 	STRUCTURE					*pStructure = NULL;
 	BOOLEAN						fPoolContainsHiddenItems = FALSE;
 	SOLDIERTYPE		*pTSoldier;
-
-
+	
 	if ( gfResetUIItemCursorOptimization )
 	{
 		gfResetUIItemCursorOptimization = FALSE;
@@ -6677,9 +6713,8 @@ INT8 UIHandleInteractiveTilesAndItemsOnTerrain( SOLDIERTYPE *pSoldier, INT32 usM
 				}
 			}
 		}
-
 	}
-
+	
 	if ( pIntTile == NULL )
 	{
 		return( 0 );

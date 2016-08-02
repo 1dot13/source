@@ -8832,7 +8832,7 @@ STR16	szPrisonerTextStr[]=
 	L"敌人不肯拿你当囚犯 - 他们宁愿你死！", //L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"这些可以在 INI 设置关闭。", // 	L"This behaviour is set OFF in your ini settings.",
 	L"%s释放了%s！", //L"%s has freed %s!",
-	L"囚犯会暴露高级军官的位置 %s！", //L"A prisoner revealed the location of a high-ranking army officer in %s!",
+	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
 	L"敌方首领会拒绝即使被认为投降！", //L"The enemy leader refuses to even consider surrender!",
 	L"%d 囚犯自愿加入我军。", //L"%d prisoners volunteered to join our forces.",
 };
@@ -8842,6 +8842,7 @@ STR16	szMTATextStr[]=
 	L"空无一物",
 	L"建造掩体", //L"building a fortification",
 	L"拆除掩体", //L"removing a fortification",
+	L"hacking",	// TODO.Translate
 	L"%s必须停止%s", //L"%s had to stop %s.",
     L"所选的路障无法再该分区建造",
 };
@@ -8953,6 +8954,7 @@ STR16	szBackgroundText_Value[]=
 	L"非吸烟者", //L"Nonsmoker",
 	L" %s%d%% 如果敌人 CTH 蹲在厚覆盖他们的方向\n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%% building speed\n",
+	L" hacking skill: %s%d ",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =
@@ -11158,6 +11160,21 @@ STR16	szSMilitiaResourceText[] =
 
 	L"There are no volunteers left for militia!",
 	L"Not enough resources to train militia!",
+};
+
+STR16	szInteractiveActionText[] =
+{
+	L"%s starts hacking.",
+	L"%s accesses the computer, but finds nothing of interest.",
+	L"%s is not skilled enough to hack the computer.",
+	L"%s reads the file, but learns nothing new.",
+
+	L"%s can't make sense out of this.",
+	L"%s couldn't use the watertap.",
+	L"%s has bought a %s.",
+	L"%s doesn't have enough money. That's just embarassing.",
+
+	L"%s drank from water tap",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

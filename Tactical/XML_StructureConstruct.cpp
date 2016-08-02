@@ -15,7 +15,7 @@ struct
 
 	CHAR8			szCharData[MAX_CHAR_DATA_LENGTH+1];
 	STRUCTURE_CONSTRUCT		curFood;
-	STRUCTURE_CONSTRUCT *		curArray;
+	STRUCTURE_CONSTRUCT*	curArray;
 	UINT32			maxArraySize;
 
 	UINT32			currentDepth;

@@ -176,6 +176,7 @@ typedef enum ATTACHMENT_SLOT{
 #define FORTICURS 24
 #define HANDCUFFCURS 25
 #define APPLYITEMCURS 26
+#define INTERACTIVEACTIONCURS 27
 
 #define CAMERARANGE 10
 
@@ -763,7 +764,7 @@ extern OBJECTTYPE gTempObject;
 #define TRIPWIREROLL			0x01000000	//16777216	// this item is a tripwire roll
 #define RADIO_SET				0x02000000	//33554432	// item can be used to radio militia/squads in other sectors
 #define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
-//#define POWER_PACK				0x08000000	//134217728	// item continously powers an item it is attached to
+#define SODA					0x08000000	//134217728	// item is a can of soda, sold in vending machines
 
 #define ROOF_COLLAPSE_ITEM		0x10000000	//268435456	// this item is required in the collapsing of roof tiles. It is used internally and should never be seen by the player
 #define DISEASEPROTECTION_1		0x20000000	//536870912		// this item protects us from getting diseases by human contact if kept in inventory
@@ -1137,6 +1138,9 @@ typedef struct
 	UINT8	CrowbarModifier;
 	UINT8	DisarmModifier;
 	INT8	RepairModifier;
+
+	// Flugente: a modifier to hacking
+	UINT8	usHackingModifier;
 
 	// Flugente: advanced repair/dirt system
 	UINT8	usDamageChance;							// chance that damage to the status will also damage the repair threshold

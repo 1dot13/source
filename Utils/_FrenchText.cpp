@@ -8829,7 +8829,7 @@ STR16	szPrisonerTextStr[]=
 	L"L'ennemi refuse votre reddition... Ils veulent vos têtes !",
 	L"Ce comportement est désactivé dans vos fichiers ini.",
 	L"%s a libéré %s !",
-	L"A prisoner revealed the location of a high-ranking army officer in %s!",	// TODO.Translate
+	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
 	L"The enemy leader refuses to even consider surrender!",
 	L"%d prisoners volunteered to join our forces.",
 };
@@ -8839,6 +8839,7 @@ STR16	szMTATextStr[]=
 	L"rien, en fait.",
 	L"la construction d'une fortification",
 	L"le retrait d'une fortification",
+	L"hacking",	// TODO.Translate
 	L"%s a dû arrêter... %s",
 	L"Cette sorte de barricade ne peut pas être construite dans ce secteur",
 };
@@ -8952,6 +8953,7 @@ STR16	szBackgroundText_Value[]=
 	L"Nonsmoker",
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%% building speed\n",
+	L" hacking skill: %s%d ",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =
@@ -11157,6 +11159,21 @@ STR16	szSMilitiaResourceText[] =
 
 	L"There are no volunteers left for militia!",
 	L"Not enough resources to train militia!",
+};
+
+STR16	szInteractiveActionText[] =
+{
+	L"%s starts hacking.",
+	L"%s accesses the computer, but finds nothing of interest.",
+	L"%s is not skilled enough to hack the computer.",
+	L"%s reads the file, but learns nothing new.",
+
+	L"%s can't make sense out of this.",
+	L"%s couldn't use the watertap.",
+	L"%s has bought a %s.",
+	L"%s doesn't have enough money. That's just embarassing.",
+
+	L"%s drank from water tap",
 };
 
 #endif //FRENCH

@@ -4000,11 +4000,40 @@ INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
 	case MTA_REMOVE_FORTIFY:
 		sAPCost += APBPConstants[AP_REMOVE_FORTIFICATION];
 		break;
+	case MTA_HACK:
+		sAPCost += APBPConstants[AP_HACK];
+		break;
 	}
 
 	if ( usActionType == MTA_FORTIFY || usActionType == MTA_REMOVE_FORTIFY )
 	{
 		sAPCost = (sAPCost * (100 + pSoldier->GetBackgroundValue(BG_FORTIFY))) / 100;
+	}
+
+	return sAPCost;
+}
+
+INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
+{
+	INT16 sAPCost = 0;
+
+	switch ( usActionType )
+	{
+	case INTERACTIVE_STRUCTURE_HACKABLE:
+		sAPCost = GetAPsForMultiTurnAction( pSoldier, MTA_HACK );
+		break;
+	case INTERACTIVE_STRUCTURE_READFILE:
+		sAPCost += APBPConstants[AP_READFILE];
+		break;
+	case INTERACTIVE_STRUCTURE_WATERTAP:
+		sAPCost += APBPConstants[AP_WATERTAP];
+		break;
+	case INTERACTIVE_STRUCTURE_SODAMACHINE:
+		sAPCost += APBPConstants[AP_SODAMACHINE];
+		break;
+
+	default:
+		break;
 	}
 
 	return sAPCost;

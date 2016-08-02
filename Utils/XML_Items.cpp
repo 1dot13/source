@@ -275,6 +275,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "CrowbarModifier") == 0 ||
 				strcmp(name, "DisarmModifier") == 0 ||
 				strcmp(name, "RepairModifier") == 0 ||
+				strcmp(name, "usHackingModifier" ) == 0 ||
 				
 				strcmp(name, "usActionItemFlag") == 0 ||
 				strcmp(name, "clothestype") == 0 ||
@@ -1396,6 +1397,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.RepairModifier = (INT8) atol(pData->szCharData);
 		}
+		else if ( strcmp( name, "usHackingModifier" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usHackingModifier = min(100, (UINT8)atol( pData->szCharData ) );
+		}
 		else if(strcmp(name, "DamageChance") == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -2106,6 +2112,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile, "\t\t<CrowbarModifier>%d</CrowbarModifier>\r\n",							Item[cnt].CrowbarModifier );
 			FilePrintf(hFile, "\t\t<DisarmModifier>%d</DisarmModifier>\r\n",							Item[cnt].DisarmModifier );
 			FilePrintf(hFile, "\t\t<RepairModifier>%d</RepairModifier>\r\n",							Item[cnt].RepairModifier );
+			FilePrintf(hFile, "\t\t<usHackingModifier>%d</usHackingModifier>\r\n",						Item[cnt].usHackingModifier );
 			
 			FilePrintf(hFile,"\t\t<DamageChance>%d</DamageChance>\r\n",									Item[cnt].usDamageChance  );
 			FilePrintf(hFile,"\t\t<DirtIncreaseFactor>%4.2f</DirtIncreaseFactor>\r\n",					Item[cnt].dirtIncreaseFactor  );

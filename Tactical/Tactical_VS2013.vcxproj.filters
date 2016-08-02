@@ -701,5 +701,8 @@
     <ClCompile Include="XML_MilitiaIndividual.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="XML_InteractiveTiles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

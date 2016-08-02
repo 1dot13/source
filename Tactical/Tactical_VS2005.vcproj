@@ -1145,6 +1145,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_InteractiveTiles.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_ItemAdjustments.cpp"
 				>
 			</File>
