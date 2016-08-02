@@ -32241,6 +32241,7 @@
 		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<usHackingModifier>50</usHackingModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -52154,6 +52155,32 @@
 		<ubWeight>6</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>14</ItemSize>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1740</uiIndex>
+		<szItemName>Soda</szItemName>
+		<szLongItemName>Soda</szLongItemName>
+		<szItemDesc>For a mix of industrial sugar and chemicals you don't really want to know, this sure is refreshing.</szItemDesc>
+		<szBRName>Soda</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>27</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>3</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Metal>1</Metal>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>40</FoodType>
+		<usPortionSize>100</usPortionSize>
+		<ItemFlag>134217728</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

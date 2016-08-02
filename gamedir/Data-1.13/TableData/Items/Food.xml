@@ -280,4 +280,11 @@
 		<bMoraleMod>1</bMoraleMod>
 		<usDecayRate>0</usDecayRate>
 	</FOOD>
+	<FOOD>
+		<uiIndex>40</uiIndex>
+		<szName>Soda</szName>
+		<bFoodPoints>0</bFoodPoints>
+		<bDrinkPoints>600</bDrinkPoints>
+		<usDecayRate>0</usDecayRate>
+	</FOOD>
 </FOODSLIST>

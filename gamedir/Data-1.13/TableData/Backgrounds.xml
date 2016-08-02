@@ -92,6 +92,7 @@
 		<croucheddefense>0</croucheddefense>			  <!-- +- enemy cth if we are crouched against thick cover in their direction, -30 to 30-->
 		<fortify_assignment>0</fortify_assignment>		  <!-- +- % building speed, -50 to 200 -->
 		<snake_defense>0</snake_defense>				  <!-- +- % chance to evade snake attacks, -100 to 100 -->
+		<hackerskill>0</hackerskill>					  <!-- hacker skill, 0 to 100. Value > 0 means we can hack computers -->		
 
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -1173,24 +1174,16 @@
 	<!-- Gumpy -->
 	<BACKGROUND>
 		<uiIndex>45</uiIndex>
-		<szName>Academic/Bomber</szName>
-		<szShortName>Academic/Bomber</szShortName>
-		<szDescription>Most of your knowledge comes from the books and secondhand reports &#10;- and it didn't prepare you for a grim reality of a war zone as well as you thought.</szDescription>
-		<leadership>-3</leadership>
-		<explosives>6</explosives>
-		<wisdom>5</wisdom>
+		<szName>Harvard graduate</szName>
+		<szShortName>Harvard graduate</szShortName>
+		<szDescription>University taught you many things, but combat isn't one of them.</szDescription>
+		<leadership>-5</leadership>
 		<ap_fortify>10</ap_fortify>
-		<ap_artillery>10</ap_artillery>
-		<ap_airdrop>-5</ap_airdrop>
-		<ap_assault>-5</ap_assault>
-		<disarm_trap>10</disarm_trap>
-		<breachingcharge>30</breachingcharge>
+		<disarm_trap>20</disarm_trap>
 		<traplevel>1</traplevel>
-		<meleedamage>-3</meleedamage>
 		<resistance_suppression>-10</resistance_suppression>
-		<speed_run>-5</speed_run>
-		<spotter>-5</spotter>
 		<insurance>50</insurance>
+		<hackerskill>60</hackerskill>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2764,14 +2757,13 @@
 		<szName>Handyman</szName>
 		<szShortName>Handyman</szShortName>
 		<szDescription>Got something that needs fixing? Here's your man.</szDescription>
-		<mechanical>5</mechanical>
-		<dexterity>5</dexterity>
 		<ap_urban>3</ap_urban>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
 		<betterprices_guns>3</betterprices_guns>
 		<betterprices>10</betterprices>
+		<hackerskill>50</hackerskill>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3302,13 +3294,12 @@
 		<szName>Technical Wizard</szName>
 		<szShortName>Tech Whiz</szShortName>
 		<szDescription>No matter if it's a thirty years old junk or latest electronic &#10;gadget, tech whiz can rewire, reassemble and reconfigure it with eyes closed.</szDescription>
-		<dexterity>8</dexterity>
-		<mechanical>8</mechanical>
 		<ap_inventory>-10</ap_inventory>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
 		<disarm_trap>25</disarm_trap>
-		<traplevel>1</traplevel> 
+		<traplevel>1</traplevel>
+		<hackerskill>80</hackerskill>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3607,11 +3598,11 @@
 		<szName>Circus Artist</szName>
 		<szShortName>Circus Artist</szShortName>
 		<szDescription>Let's hope you are as good evading bullets as you &#10;are evading knifes while tied to a board.</szDescription>
-		<agility>10</agility>
-		<dexterity>8</dexterity>
-		<cth_blades>4</cth_blades>
-		<resistance_fear>3</resistance_fear>
-		<insurance>10</insurance>
+		<ap_height>8</ap_height>
+		<cth_blades>10</cth_blades>
+		<resistance_fear>10</resistance_fear>
+		<insurance>20</insurance>
+		<croucheddefense>10</croucheddefense>
 		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -3988,16 +3979,16 @@
 		<szName>Metaviran Native</szName>
 		<szShortName>Metavira</szShortName>
 		<szDescription>The indigenous people of Metavira have adjusted to the hostile &#10;jungle there. After the liberation, some joined the foreigners, and sought their luck elsewhere.</szDescription>
-		<ap_urban>-3</ap_urban>
-		<ap_swamp>3</ap_swamp>
-		<ap_tropical>3</ap_tropical>
+		<ap_desert>5</ap_desert>
+		<ap_urban>-5</ap_urban>
+		<ap_swamp>5</ap_swamp>
 		<ap_swimming>-10</ap_swimming>
 		<cth_blades>7</cth_blades>
 		<stealth>5</stealth>
 		<resistance_disease>20</resistance_disease>
 		<camo>5</camo>
 		<ambush_radius>20</ambush_radius>
-		<snake_defense>60</snake_defense>
+		<snake_defense>70</snake_defense>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -4389,6 +4380,7 @@
 		<approach_friendly>20</approach_friendly>
 		<approach_threaten>-20</approach_threaten>
 		<disarm_trap>10</disarm_trap>
+		<hackerskill>20</hackerskill>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -4951,17 +4943,11 @@
 		<szName>Surveillance Expert</szName>
 		<szShortName>Surveillance Expert</szShortName>
 		<szDescription>A expert in both legal and illegal observation methods.&#10;Curiously, his resume never states where he learned all this.</szDescription>
-		<agility>1</agility>
-		<dexterity>1</dexterity>
-		<mechanical>3</mechanical>
-		<ap_urban>1</ap_urban>
-		<speed_run>1</speed_run>
-		<stealth>10</stealth>
-		<resistance_fear>3</resistance_fear>
-		<hearing_night>2</hearing_night>		
+		<stealth>15</stealth>
+		<hearing_night>2</hearing_night>	
 		<hearing_day>2</hearing_day>
-		<camo>10</camo>
 		<spotter>20</spotter>
+		<hackerskill>30</hackerskill>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -5058,16 +5044,15 @@
 		<szName>Graduate/Bomber</szName>
 		<szShortName>Graduate/Bomber</szShortName>
 		<szDescription>Fresh outta school, with diploma still warm in a hand, it's time &#10;to finally make yourself a living.</szDescription>
-		<wisdom>3</wisdom>
-		<explosives>6</explosives>
 		<disarm_trap>10</disarm_trap>
 		<resistance_fear>5</resistance_fear>
 		<resistance_suppression>-5</resistance_suppression>
 		<breachingcharge>30</breachingcharge>
 		<traplevel>1</traplevel>
-		<spotter>-5</spotter>
+		<spotter>-10</spotter>
 		<insurance>50</insurance>
 		<smoker>1</smoker>
+		<hackerskill>10</hackerskill>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>

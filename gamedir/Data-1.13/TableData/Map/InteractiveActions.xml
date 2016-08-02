@@ -1,0 +1,1033 @@
+﻿<!--
+	We define various map interactions in this xml. If we hover our mouse (after right click) over a tile and it fits a set of data from here,
+	we can interact with it, setting of various actions that.
+	We can define interactions very broadly (example: we define all water taps found in any location in any map to behave a certain way) or 
+	very precise (example: set a specific computer in a specific to do something). Note that more precise actions override broad descriptions
+	(so we can set a very broad action for all water taps, and then define one specific one to behave differently).
+		
+	SectorGrid					sector that this action happens in
+	sectorlevel					0: surface 1-3: basement
+	
+	If we do not set SectorGrid and sectorlevel, this action will work in any sector in any location (sStructureGridno and sLevel are no longer used). 
+	
+	szTileSetName				tileset that the structure we 'interact' with is part of
+	usTileIndex					index of the structure in the tileset, multiple ones can be set
+	
+	These have to be set, and define what specific structures are valid for the action. We can set multiple indizes via usTileIndex (see examples).
+	
+	sStructureGridno			location of the structure (you can get that by pressing [f] in tactical), multiple ones can be set
+	sLevel						0: floor level 1: on a roof -1: don't care
+	
+	If a specific map was set above, we can set a specific location here.
+	
+	sActionType					what kind of action is possible here?
+								0: nothing
+								1: hack a computer
+								2: read a file from a file cabinet
+								3: take water from a water tap
+								4: buy soda from a soda machine
+	difficulty					how hard it is to perform action
+	luaactionid					if this is set, lua script HandleInteractiveActionResult() in Overhead.lua is called 
+								with this Id to perform special actions. If no ID is set, the standard action is called.
+								
+	In this file we always define in general with what we can interact, and then set specific interactions.
+-->
+<INTERACTIVEACTIONS>
+	<!-- |||||||||||||||||||| HACKING |||||||||||||||||||| -->
+	<!-- computer banks -->
+	<ACTION>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+	</ACTION>
+	
+	<!-- other computers -->
+	<ACTION>
+		<szTileSetName>m-furn3.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+	</ACTION>
+	
+	<!-- SAM control computers -->
+	<ACTION>
+		<szTileSetName>control.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+	</ACTION>
+	
+	<!-- |||||||||||||||||||| specific computers |||||||||||||||||||| -->
+	<!-- |||||||||||||||||||| ORTA sublevel |||||||||||||||||||| -->
+	<!-- server, Orta basement, lab 1 -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>14445</sStructureGridno>
+		<sStructureGridno>14285</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+		<luaactionid>0</luaactionid>
+	</ACTION>
+	
+	<!-- server, Orta basement, lab 2 -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>13325</sStructureGridno>
+		<sStructureGridno>13165</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>100</difficulty>
+		<luaactionid>1</luaactionid>
+	</ACTION>
+	
+	<!-- server, Orta basement, hallway -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>12696</sStructureGridno>
+		<sStructureGridno>12856</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>60</difficulty>
+		<luaactionid>2</luaactionid>
+	</ACTION>
+	
+	<!-- Ernest's PC, Orta basement, lab 1 -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>13967</sStructureGridno>
+		<sStructureGridno>13968</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+		<luaactionid>3</luaactionid>
+	</ACTION>
+	
+	<!-- PC, Orta basement, lab 2 -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>12847</sStructureGridno>
+		<sStructureGridno>12848</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>4</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Orta basement, control room, left -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>14304</sStructureGridno>
+		<sStructureGridno>14144</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>5</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Orta basement, control room, right -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>13984</sStructureGridno>
+		<sStructureGridno>13824</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>6</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Orta basement, entrance, left -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>14653</sStructureGridno>
+		<sStructureGridno>14493</sStructureGridno>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>7</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Orta basement, entrance, right -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>14333</sStructureGridno>
+		<sStructureGridno>14173</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>8</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| ORTA sublevel |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| ORTA |||||||||||||||||||| -->
+	<!-- server, Orta -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>14783</sStructureGridno>
+		<sStructureGridno>14623</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>9</luaactionid>
+	</ACTION>
+	
+	<!-- Pc, Orta -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>13510</sStructureGridno>
+		<sStructureGridno>13511</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>10</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| ORTA |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| BALIME |||||||||||||||||||| -->
+	<!-- control console, Balime museum, left -->
+	<ACTION>
+		<SectorGrid>L12</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>14424</sStructureGridno>
+		<sStructureGridno>14264</sStructureGridno>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>11</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Balime museum, right -->
+	<ACTION>
+		<SectorGrid>L12</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>14104</sStructureGridno>
+		<sStructureGridno>13944</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>12</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| BALIME |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| DRASSEN-SAM |||||||||||||||||||| -->
+	<!-- desktop PC, Drassen SAM -->
+	<ACTION>
+		<SectorGrid>D15</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>11937</sStructureGridno>
+		<sStructureGridno>11777</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>13</luaactionid>
+	</ACTION>
+	
+	<!-- command console, Drassen SAM -->
+	<ACTION>
+		<SectorGrid>D15</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>control.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sStructureGridno>11295</sStructureGridno>
+		<sStructureGridno>11135</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>14</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| DRASSEN-SAM |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| CHITZENA-SAM |||||||||||||||||||| -->
+	<!-- desktop PC, Chitzena SAM, left -->
+	<ACTION>
+		<SectorGrid>D2</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>10834</sStructureGridno>
+		<sStructureGridno>10674</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>15</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, Chitzena SAM, right -->
+	<ACTION>
+		<SectorGrid>D2</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>9880</sStructureGridno>
+		<sStructureGridno>9720</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>16</luaactionid>
+	</ACTION>
+	
+	<!-- command console, Chitzena SAM -->
+	<ACTION>
+		<SectorGrid>D2</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>control.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sStructureGridno>10195</sStructureGridno>
+		<sStructureGridno>10196</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>17</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| CHITZENA-SAM |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| CENTRAL SAM |||||||||||||||||||| -->
+	<!-- desktop PC, central SAM, left -->
+	<ACTION>
+		<SectorGrid>I8</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>16395</sStructureGridno>
+		<sStructureGridno>16235</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>18</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, central SAM, middle -->
+	<ACTION>
+		<SectorGrid>I8</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>14635</sStructureGridno>
+		<sStructureGridno>14475</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>19</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, central SAM, right -->
+	<ACTION>
+		<SectorGrid>I8</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>14167</sStructureGridno>
+		<sStructureGridno>14168</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>20</luaactionid>
+	</ACTION>
+	
+	<!-- command console, central SAM -->
+	<ACTION>
+		<SectorGrid>I8</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>control.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sStructureGridno>16080</sStructureGridno>
+		<sStructureGridno>15920</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>21</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| CENTRAL SAM |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| MEDUNA SAM |||||||||||||||||||| -->
+	<!-- desktop PC, Meduna SAM -->
+	<ACTION>
+		<SectorGrid>N4</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>12390</sStructureGridno>
+		<sStructureGridno>12230</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>22</luaactionid>
+	</ACTION>
+	
+	<!-- computer bank, Meduna SAM -->
+	<ACTION>
+		<SectorGrid>N4</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>12870</sStructureGridno>
+		<sStructureGridno>12710</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>23</luaactionid>
+	</ACTION>
+	
+	<!-- command console, Meduna SAM -->
+	<ACTION>
+		<SectorGrid>N4</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>control.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sStructureGridno>11913</sStructureGridno>
+		<sStructureGridno>11912</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>24</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| MEDUNA SAM |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| MEDUNA PALACE BUNKER |||||||||||||||||||| -->
+	<!-- desktop PC, Meduna palace bunker, entrance -->
+	<ACTION>
+		<SectorGrid>P3</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>10640</sStructureGridno>
+		<sStructureGridno>10641</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+		<luaactionid>25</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, Meduna palace bunker, control room -->
+	<ACTION>
+		<SectorGrid>P3</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>11251</sStructureGridno>
+		<sStructureGridno>11252</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>26</luaactionid>
+	</ACTION>
+	
+	<!-- server, Meduna palace bunker, control room -->
+	<ACTION>
+		<SectorGrid>P3</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>16</usTileIndex>
+		<sStructureGridno>11246</sStructureGridno>
+		<sStructureGridno>11406</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>27</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Meduna palace bunker, control room -->
+	<ACTION>
+		<SectorGrid>P3</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>g-furn1.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>11410</sStructureGridno>
+		<sStructureGridno>11570</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>60</difficulty>
+		<luaactionid>28</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| MEDUNA PALACE BUNKER |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| ALMA STORAGE |||||||||||||||||||| -->
+	<!-- desktop PC, Alma storage -->
+	<ACTION>
+		<SectorGrid>H14</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn3.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sStructureGridno>19915</sStructureGridno>
+		<sStructureGridno>19916</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>10</difficulty>
+		<luaactionid>29</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| ALMA STORAGE |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| ALMA PRISON |||||||||||||||||||| -->
+	<!-- desktop PC, Alma prison, bureau 1, left -->
+	<ACTION>
+		<SectorGrid>I13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>11098</sStructureGridno>
+		<sStructureGridno>10938</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>30</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, Alma prison, bureau 1, right -->
+	<ACTION>
+		<SectorGrid>I13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>10458</sStructureGridno>
+		<sStructureGridno>10298</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+		<luaactionid>31</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, Alma prison, bureau 2 -->
+	<ACTION>
+		<SectorGrid>I13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>10466</sStructureGridno>
+		<sStructureGridno>10306</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>32</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| ALMA PRISON |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| ALMA BASE |||||||||||||||||||| -->
+	<!-- desktop PC, Alma base, bureau Sgt. Krott -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn3.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sStructureGridno>10473</sStructureGridno>
+		<sStructureGridno>10474</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>33</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, Alma base, bureau -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn3.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sStructureGridno>11592</sStructureGridno>
+		<sStructureGridno>11752</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>40</difficulty>
+		<luaactionid>34</luaactionid>
+	</ACTION>
+	
+	<!-- desktop PC, Alma base, file room -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>10812</sStructureGridno>
+		<sStructureGridno>10813</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>35</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Alma base, 1 -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>10959</sStructureGridno>
+		<sStructureGridno>10799</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>36</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Alma base, 2 -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>10319</sStructureGridno>
+		<sStructureGridno>10159</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>20</difficulty>
+		<luaactionid>37</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Alma base, 3 -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>9999</sStructureGridno>
+		<sStructureGridno>9839</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>15</difficulty>
+		<luaactionid>38</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Alma base, 4 -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>9362</sStructureGridno>
+		<sStructureGridno>9363</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>15</difficulty>
+		<luaactionid>39</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Alma base, 5 -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>9364</sStructureGridno>
+		<sStructureGridno>9365</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>30</difficulty>
+		<luaactionid>40</luaactionid>
+	</ACTION>
+	
+	<!-- control console, Alma base, 6 -->
+	<ACTION>
+		<SectorGrid>H13</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>m-furn2.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sStructureGridno>9368</sStructureGridno>
+		<sStructureGridno>9369</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>1</sActionType>
+		<difficulty>15</difficulty>
+		<luaactionid>41</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| ALMA BASE |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| specific computers |||||||||||||||||||| -->
+	<!-- |||||||||||||||||||| HACKING |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| READING |||||||||||||||||||| -->
+	<!-- file cabinet -->
+	<ACTION>
+		<szTileSetName>m-furn3.sti</szTileSetName>		
+		<usTileIndex>7</usTileIndex>
+		<usTileIndex>9</usTileIndex>
+		<sActionType>2</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>7</usTileIndex>
+		<usTileIndex>9</usTileIndex>
+		<sActionType>2</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>jailstuf.sti</szTileSetName>		
+		<usTileIndex>21</usTileIndex>
+		<usTileIndex>22</usTileIndex>
+		<sActionType>2</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>jailstf3.sti</szTileSetName>		
+		<usTileIndex>21</usTileIndex>
+		<usTileIndex>22</usTileIndex>
+		<sActionType>2</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>o_furn.sti</szTileSetName>		
+		<usTileIndex>7</usTileIndex>
+		<usTileIndex>9</usTileIndex>
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sActionType>2</sActionType>
+	</ACTION>
+	<!-- books -->
+	<ACTION>
+		<szTileSetName>basefrn1.sti</szTileSetName>		
+		<usTileIndex>19</usTileIndex>
+		<usTileIndex>20</usTileIndex>
+		<sActionType>2</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>furn_7.sti</szTileSetName>		
+		<usTileIndex>11</usTileIndex>
+		<sActionType>2</sActionType>
+	</ACTION>
+	
+	<!-- |||||||||||||||||||| specific books |||||||||||||||||||| -->
+	<!-- |||||||||||||||||||| ORTA sublevel |||||||||||||||||||| -->
+	<!-- bookshelf, Orta basement, hallway, left -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>	
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>11416</sStructureGridno>
+		<sStructureGridno>11417</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>2</sActionType>
+		<difficulty>80</difficulty>
+		<luaactionid>45</luaactionid>
+	</ACTION>
+	
+	<!-- bookshelf, Orta basement, hallway, right -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>	
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>11418</sStructureGridno>
+		<sStructureGridno>11419</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>2</sActionType>
+		<difficulty>80</difficulty>
+		<luaactionid>46</luaactionid>
+	</ACTION>
+	
+	<!-- bookshelf, Orta basement, hallway, right -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>1</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>	
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>13048</sStructureGridno>
+		<sStructureGridno>12888</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>2</sActionType>
+		<difficulty>80</difficulty>
+		<luaactionid>47</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| ORTA sublevel |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| ORTA |||||||||||||||||||| -->
+	<!-- bookshelf, Orta -->
+	<ACTION>
+		<SectorGrid>K4</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>o_furn.sti</szTileSetName>	
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sStructureGridno>13512</sStructureGridno>
+		<sStructureGridno>13513</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>2</sActionType>
+		<difficulty>40</difficulty>
+		<luaactionid>48</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| ORTA |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| SAN MONA KINGPIN |||||||||||||||||||| -->
+	<!-- bookshelf, San Mona D15, kingpin house, wall of multiple bookshelves -->
+	<ACTION>
+		<SectorGrid>D5</SectorGrid>
+		<sectorlevel>0</sectorlevel>
+		<szTileSetName>furn_7.sti</szTileSetName>		
+		<usTileIndex>11</usTileIndex>
+		<sStructureGridno>12609</sStructureGridno>
+		<sStructureGridno>12449</sStructureGridno>
+		<sStructureGridno>12289</sStructureGridno>
+		<sStructureGridno>12129</sStructureGridno>
+		<sLevel>0</sLevel>
+		<sActionType>2</sActionType>
+		<difficulty>60</difficulty>
+		<luaactionid>49</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| SAN MONA KINGPIN |||||||||||||||||||| -->
+		
+	<!-- |||||||||||||||||||| specific books |||||||||||||||||||| -->
+	<!-- |||||||||||||||||||| READING |||||||||||||||||||| -->
+	
+	<!-- |||||||||||||||||||| WATER TAPS |||||||||||||||||||| -->
+	<ACTION>
+		<szTileSetName>m-furn1.sti</szTileSetName>		
+		<usTileIndex>22</usTileIndex>
+		<usTileIndex>23</usTileIndex>
+		<sActionType>3</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>furn_5.sti</szTileSetName>		
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>7</usTileIndex>
+		<sActionType>3</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>furn_6.sti</szTileSetName>		
+		<usTileIndex>6</usTileIndex>
+		<usTileIndex>7</usTileIndex>
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sActionType>3</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>furn_9.sti</szTileSetName>		
+		<usTileIndex>8</usTileIndex>
+		<usTileIndex>9</usTileIndex>
+		<usTileIndex>10</usTileIndex>
+		<usTileIndex>11</usTileIndex>
+		<sActionType>3</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>jailstuf.sti</szTileSetName>		
+		<usTileIndex>16</usTileIndex>
+		<usTileIndex>17</usTileIndex>
+		<sActionType>3</sActionType>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>jailstf3.sti</szTileSetName>		
+		<usTileIndex>16</usTileIndex>
+		<usTileIndex>17</usTileIndex>
+		<sActionType>3</sActionType>
+	</ACTION>
+	<!-- |||||||||||||||||||| WATER TAPS |||||||||||||||||||| -->
+	
+	<!-- soda machine -->
+	<ACTION>
+		<szTileSetName>lawless.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<sActionType>4</sActionType>
+	</ACTION>
+	
+	<!-- buffet -->
+	<ACTION>
+		<szTileSetName>m-furn1.sti</szTileSetName>		
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sActionType>6</sActionType>
+	</ACTION>
+	
+	<ACTION>
+		<szTileSetName>jailstf2.sti</szTileSetName>		
+		<usTileIndex>17</usTileIndex>
+		<sActionType>6</sActionType>
+	</ACTION>
+	
+	<ACTION>
+		<szTileSetName>m-cafe.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<sActionType>6</sActionType>
+	</ACTION>
+	
+	<!-- urinal -->
+	<ACTION>
+		<szTileSetName>furn_9.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sActionType>6</sActionType>
+	</ACTION>
+	
+	<!-- toilet -->
+	<ACTION>
+		<szTileSetName>furn_9.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<sActionType>6</sActionType>
+	</ACTION>
+	
+	
+</INTERACTIVEACTIONS>
