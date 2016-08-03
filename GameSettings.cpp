@@ -1724,7 +1724,8 @@ void LoadGameExternalOptions()
 		
 	//################# Tactical Fortification Settings ##################
 	gGameExternalOptions.fFortificationAllowInHostileSector				= iniReader.ReadBoolean("Tactical Fortification Settings", "FORTIFICATION_ALLOW_IN_HOSTILE_SECTOR", FALSE);
-	gGameExternalOptions.fRoofCollapse									= iniReader.ReadBoolean( "Tactical Fortification Settings", "ROOF_COLLAPSE", TRUE );
+	gGameExternalOptions.fRoofCollapse									= iniReader.ReadBoolean("Tactical Fortification Settings", "ROOF_COLLAPSE", TRUE );
+	gGameExternalOptions.fPrintStructureTileset							= iniReader.ReadBoolean("Tactical Fortification Settings", "PRINTOUTTILESET", FALSE );
 
 	//################# Tactical Food Settings ##################
 	gGameExternalOptions.usFoodDigestionHourlyBaseFood					= iniReader.ReadInteger("Tactical Food Settings", "FOOD_DIGESTION_HOURLY_BASE_FOOD",  20, 0, 250);

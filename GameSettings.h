@@ -431,6 +431,9 @@ typedef struct
 	// Flugente: can roofs collapse?
 	BOOLEAN fRoofCollapse;
 
+	// Flugente: option to print out tilesets of structure if we press 'f'
+	BOOLEAN fPrintStructureTileset;
+
 	// Flugente: food settings
 	UINT16	usFoodDigestionHourlyBaseFood;
 	UINT16	usFoodDigestionHourlyBaseDrink;

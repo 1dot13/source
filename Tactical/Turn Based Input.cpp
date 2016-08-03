@@ -3369,6 +3369,42 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						CHAR16	zOutputString[512];
 						swprintf( zOutputString, L"%s: %d", pUpdateMapInfoText[19], usGridNo);
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, zOutputString );
+
+						// Flugente: print out structure tileset
+						if ( gGameExternalOptions.fPrintStructureTileset )
+						{
+							STRUCTURE * pStruct = FindStructure( usGridNo, (STRUCTURE_GENERIC) );
+							if ( pStruct )
+							{
+								// if this is a multi-tile structure, be sure to use the base gridno
+								if ( !(pStruct->fFlags & STRUCTURE_BASE_TILE) )
+								{
+									pStruct = FindBaseStructure( pStruct );
+								}
+
+								if ( pStruct )
+								{
+									LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+									if ( pNode )
+									{
+										UINT32 uiTileType = 0;
+										if ( GetTileType( pNode->usIndex, &uiTileType ) )
+										{
+											std::string tilesestr = GetNameToTileSet( uiTileType );
+
+											CHAR16 whcarthing[100];
+
+											int nChars = MultiByteToWideChar( CP_ACP, 0, tilesestr.c_str(), -1, NULL, 0 );
+											MultiByteToWideChar( CP_UTF8, 0, tilesestr.c_str( ), -1, whcarthing, nChars );
+
+											swprintf( zOutputString, L"Tileset %d: Tilesetname: %s tileindex: %d", giCurrentTilesetID, whcarthing, pStruct->pDBStructureRef->pDBStructure->usStructureNumber );
+											ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, zOutputString );
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 				break;
