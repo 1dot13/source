@@ -1132,7 +1132,7 @@ void HandleEnvironmentHazard( )
 	if ( gGameExternalOptions.gfAllowSnakes && !gbWorldSectorZ && Chance( SectorExternalData[sector][0].snakechance ) )
 	{
 		// the number of snake attacks is randomized
-		int actionstodo = max(1, Random( SectorExternalData[sector][0].numsnakes ) );
+		int actionstodo = 1 + Random( SectorExternalData[sector][0].numsnakes );
 
 		BOOLEAN soundplayed = FALSE;
 
