@@ -985,49 +985,13 @@
 	</ACTION>
 	<!-- |||||||||||||||||||| WATER TAPS |||||||||||||||||||| -->
 	
+	<!-- |||||||||||||||||||| SODA MACHINE |||||||||||||||||||| -->
 	<!-- soda machine -->
 	<ACTION>
 		<szTileSetName>lawless.sti</szTileSetName>		
 		<usTileIndex>0</usTileIndex>
 		<sActionType>4</sActionType>
 	</ACTION>
-	
-	<!-- buffet -->
-	<ACTION>
-		<szTileSetName>m-furn1.sti</szTileSetName>		
-		<usTileIndex>1</usTileIndex>
-		<usTileIndex>2</usTileIndex>
-		<usTileIndex>3</usTileIndex>
-		<sActionType>6</sActionType>
-	</ACTION>
-	
-	<ACTION>
-		<szTileSetName>jailstf2.sti</szTileSetName>		
-		<usTileIndex>17</usTileIndex>
-		<sActionType>6</sActionType>
-	</ACTION>
-	
-	<ACTION>
-		<szTileSetName>m-cafe.sti</szTileSetName>		
-		<usTileIndex>4</usTileIndex>
-		<sActionType>6</sActionType>
-	</ACTION>
-	
-	<!-- urinal -->
-	<ACTION>
-		<szTileSetName>furn_9.sti</szTileSetName>		
-		<usTileIndex>12</usTileIndex>
-		<usTileIndex>13</usTileIndex>
-		<sActionType>6</sActionType>
-	</ACTION>
-	
-	<!-- toilet -->
-	<ACTION>
-		<szTileSetName>furn_9.sti</szTileSetName>		
-		<usTileIndex>0</usTileIndex>
-		<usTileIndex>1</usTileIndex>
-		<sActionType>6</sActionType>
-	</ACTION>
-	
+	<!-- |||||||||||||||||||| SODA MACHINE |||||||||||||||||||| -->	
 	
 </INTERACTIVEACTIONS>
