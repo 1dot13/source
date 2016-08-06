@@ -575,10 +575,6 @@ typedef struct
 	UINT16 guiMaxItemSize;
 	UINT16 guiOIVSizeNumber;
 
-	// silversurfer: this is only for the cleaned up NCTH calculation. Please remove if the new functions are accepted
-	// see Tactical\Weapons.cpp funtion CalcNewChanceToHitGun()
-	BOOLEAN fUseNewCTHCalculation;
-
 	// Flugente: this change allows to target head/torso/legs of prone targets. This option will be removed once accepted
 	BOOLEAN fAllowTargetHeadAndLegIfProne;
 

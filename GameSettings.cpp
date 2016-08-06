@@ -716,10 +716,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.guiMaxWeaponSize							= iniReader.ReadInteger("System Limit Settings","MAX_WEAPON_SIZE", 9, 0, 32000);
 	gGameExternalOptions.guiOIVSizeNumber							= iniReader.ReadInteger("System Limit Settings","OLD_INVENTORY_ITEM_NUMBER", 99, 0, 65535);
 
-	// silversurfer: this is only for the cleaned up NCTH calculation. Please remove if the new functions are accepted
-	// see Tactical\Weapons.cpp funtion CalcNewChanceToHitGun()
-	gGameExternalOptions.fUseNewCTHCalculation			= iniReader.ReadBoolean("System Limit Settings", "USE_NEW_CTH_CALCULATION", TRUE);
-
 	// Flugente: this change allows to target head/torso/legs of prone targets. This option will be removed once accepted
 	gGameExternalOptions.fAllowTargetHeadAndLegIfProne				= iniReader.ReadBoolean( "System Limit Settings", "ALLOW_TARGET_HEADANDLEG_IFPRONE", TRUE );
 

@@ -7342,7 +7342,7 @@ BOOLEAN AutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fNew
 			break;
 	}
 
-	if (PlaceInAnySlot(pSoldier, pObj, (fNewItem == TRUE), bExcludeSlot, fStackOrSingleSlot) == true)
+	if ( PlaceInAnySlot(pSoldier, pObj, (fNewItem == TRUE), bExcludeSlot, fStackOrSingleSlot) )
 		return TRUE;
 
 	return( FALSE );
@@ -12845,7 +12845,14 @@ FLOAT GetBestScopeMagnificationFactor( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj,
 	INT32 iCurrentTotalPenalty = 0;
 	INT32 iBestTotalPenalty = 0;
 	FLOAT rangeModifier = GetScopeRangeMultiplier(pSoldier, pObjUsed, uiRange);
-	FLOAT iProjectionFactor = CalcProjectionFactor(pSoldier, pObjUsed, uiRange, 1);
+	FLOAT iProjectionFactor = 0;
+
+	// With the reworked NCTH code we don't want to use iProjectionFactor anymore. 
+	// Instead we use the performance bonus if at least one bonus is != 0. Otherwise -> continue using Projection Factor.
+	if ( (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE) != 0 )
+		iProjectionFactor = 1.0;
+	else
+		iProjectionFactor = CalcProjectionFactor(pSoldier, pObjUsed, uiRange, 1);
 
 	// Flugente: if scope modes are allowed, use them
 	if ( gGameExternalOptions.fScopeModes && pSoldier && pObjUsed->exists() == true && Item[pObjUsed->usItem].usItemClass == IC_GUN )

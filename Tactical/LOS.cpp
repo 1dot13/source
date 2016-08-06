@@ -2505,7 +2505,7 @@ INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, I
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sStartXPos, sStartYPos, sEndXPos, sEndYPos;
-	UINT8						ubStartID;
+//	UINT8						ubStartID;
 
 	// sevenfm: always use standing heights
 	/*ubStartID = WhoIsThere2( sStartGridNo, bStartLevel );
@@ -7901,59 +7901,55 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	// First, let's calculate the basic Aperture. This is the size of an unmodified aperture at 1x Normal Distance.
 	iBasicAperture = CalcBasicAperture( );
 
-	// when using the reworked NCTH code we do additional calculations for iron sights and lasers
-	if (gGameExternalOptions.fUseNewCTHCalculation)
+	// silversurfer: New functionality for iron sights - There have been many complaints that iron sights lose their usefulness
+	// very fast the farther the target is away. Setting IRON_SIGHT_PERFORMANCE_BONUS too high makes them overly powerful at
+	// close range. This experimental formula implements a curve that lowers iBasicAperture the farther the target is away.
+	// At 1 tile distance iBasicAperture will be the same as before. That's the common start.
+	if ( gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT && gCTHDisplay.ScopeMagFactor <= 1.0 && !pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+
+		iBasicAperture = iBasicAperture * ( 1 / sqrt( d2DDistance / FLOAT(CELL_X_SIZE) ) / gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER
+						+ (gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER - 1) / gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER );
+
+	// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
+	if ( gCTHDisplay.ScopeMagFactor <= 1.0 && !pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+
+		iBasicAperture = iBasicAperture * (FLOAT)( (100 - gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS) / 100);
+
+	// laser pointers can provide a percentage bonus to base aperture
+	if ( gCTHDisplay.iBestLaserRange > 0 
+		&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
 	{
-		// silversurfer: New functionality for iron sights - There have been many complaints that iron sights lose their usefulness
-		// very fast the farther the target is away. Setting IRON_SIGHT_PERFORMANCE_BONUS too high makes them overly powerful at
-		// close range. This experimental formula implements a curve that lowers iBasicAperture the farther the target is away.
-		// At 1 tile distance iBasicAperture will be the same as before. That's the common start.
-		if ( gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT && gCTHDisplay.ScopeMagFactor <= 1.0 && !pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+		INT8 bLightLevel = LightTrueLevel(gCTHDisplay.iTargetGridNo, gsInterfaceLevel );
+		INT32 iMaxLaserRange = ( gCTHDisplay.iBestLaserRange*( 2*bLightLevel + 3*NORMAL_LIGHTLEVEL_NIGHT - 5*NORMAL_LIGHTLEVEL_DAY ) ) / ( 2 * ( NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY ) );
 
-			iBasicAperture = iBasicAperture * ( 1 / sqrt( d2DDistance / FLOAT(CELL_X_SIZE) ) / gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER
-							+ (gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER - 1) / gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER );
-
-		// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
-		if ( gCTHDisplay.ScopeMagFactor <= 1.0 && !pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
-
-			iBasicAperture = iBasicAperture * (FLOAT)( (100 - gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS) / 100);
-
-		// laser pointers can provide a percentage bonus to base aperture
-		if ( gCTHDisplay.iBestLaserRange > 0 
-			&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+		// laser only has effect when in range
+		if ( iMaxLaserRange > d2DDistance )
 		{
-			INT8 bLightLevel = LightTrueLevel(gCTHDisplay.iTargetGridNo, gsInterfaceLevel );
-			INT32 iMaxLaserRange = ( gCTHDisplay.iBestLaserRange*( 2*bLightLevel + 3*NORMAL_LIGHTLEVEL_NIGHT - 5*NORMAL_LIGHTLEVEL_DAY ) ) / ( 2 * ( NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY ) );
+			FLOAT fLaserBonus = 0;
+			// which bonus do we want to apply?
+			if ( pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+				// shooting from hip
+				fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP;
+			else if ( gCTHDisplay.ScopeMagFactor <= 1.0 )
+				// using iron sights or other 1x sights
+				fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON;
+			else
+				// must be using a scope
+				fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE;
 
-			// laser only has effect when in range
-			if ( iMaxLaserRange > d2DDistance )
+			// light level influences how easy it is to spot the laser dot on the target
+			FLOAT fBrightnessModifier = (FLOAT)(bLightLevel) / (FLOAT)(NORMAL_LIGHTLEVEL_NIGHT);
+
+			// laser fully efficient
+			if ( gCTHDisplay.iBestLaserRange > d2DDistance )
+				// apply full bonus
+				iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier)) / 100);
+			else
 			{
-				FLOAT fLaserBonus = 0;
-				// which bonus do we want to apply?
-				if ( pShooter->IsValidAlternativeFireMode( pShooter->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
-					// shooting from hip
-					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP;
-				else if ( gCTHDisplay.ScopeMagFactor <= 1.0 )
-					// using iron sights or other 1x sights
-					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON;
-				else
-					// must be using a scope
-					fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE;
-
-				// light level influences how easy it is to spot the laser dot on the target
-				FLOAT fBrightnessModifier = (FLOAT)(bLightLevel) / (FLOAT)(NORMAL_LIGHTLEVEL_NIGHT);
-
-				// laser fully efficient
-				if ( gCTHDisplay.iBestLaserRange > d2DDistance )
-					// apply full bonus
-					iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier)) / 100);
-				else
-				{
-					// beyond BestLaserRange laser bonus drops linearly to 0
-					FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - gCTHDisplay.iBestLaserRange);
-					// apply partial bonus
-					iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio)) / 100);
-				}
+				// beyond BestLaserRange laser bonus drops linearly to 0
+				FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - gCTHDisplay.iBestLaserRange);
+				// apply partial bonus
+				iBasicAperture = iBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio)) / 100);
 			}
 		}
 	}
@@ -8305,7 +8301,14 @@ FLOAT CalcMagFactor( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT d2DDistan
 			iScopeFactor = GetBestScopeMagnificationFactor( pShooter, pWeapon, d2DDistance );
 			iScopeFactor = __min(iScopeFactor, __max(1.0f, iTargetMagFactor/rangeModifier));
 		}
-		iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
+
+		// With the reworked NCTH code we don't want to use iProjectionFactor anymore. 
+		// Instead we use the performance bonus if at least one bonus is != 0. Otherwise -> continue using Projection Factor.
+		if ( (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE) != 0 )
+			iProjectionFactor = 1.0;
+		else
+			iProjectionFactor = CalcProjectionFactor(pShooter, pWeapon, d2DDistance, ubAimTime);
+
 		iFinalMagFactor = __max(iScopeFactor, iProjectionFactor);
 	}
 
