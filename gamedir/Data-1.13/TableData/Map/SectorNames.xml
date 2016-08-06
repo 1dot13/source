@@ -1740,7 +1740,7 @@
     <szDetailedExploredName>Woods</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>200</usNaturalDirt>
- 	<rainchance>0</rainchance>
+ 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
    <SECTOR>
@@ -1929,7 +1929,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>175</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
- 	<rainchance>0</rainchance>
+ 	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
    <SECTOR>
@@ -2047,7 +2047,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>900</usNaturalDirt>
  	<rainchance>0</rainchance>
-	<sandstormchance>09</sandstormchance>
+	<sandstormchance>90</sandstormchance>
   </SECTOR>
    <SECTOR>
     <SectorGrid>K9</SectorGrid>
