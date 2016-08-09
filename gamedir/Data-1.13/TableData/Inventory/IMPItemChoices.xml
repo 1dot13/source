@@ -1235,7 +1235,7 @@
 	<IMPITEMCHOICES>
 		<uiIndex>22</uiIndex>
 		<name>Melee</name>
-		<ubChoices>9</ubChoices>
+		<ubChoices>10</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>37</bItemNo1>
 		<bItemNo2>37</bItemNo2>
@@ -1246,7 +1246,7 @@
 		<bItemNo7>300</bItemNo7>
 		<bItemNo8>300</bItemNo8>
 		<bItemNo9>595</bItemNo9>
-		<bItemNo10>0</bItemNo10>
+		<bItemNo10>1055</bItemNo10>
 		<bItemNo11>0</bItemNo11>
 		<bItemNo12>0</bItemNo12>
 		<bItemNo13>0</bItemNo13>
