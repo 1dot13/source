@@ -129,8 +129,6 @@ typedef struct INTERACTIVE_STRUCTURE {
 	{
 		sector = -1;
 		sectorlevel = -1;
-		tileindexvector.clear( );
-		gridnovector.clear( );
 		sLevel = -1;
 		sActionType = INTERACTIVE_STRUCTURE_NO_ACTION;
 		difficulty = 0;
