@@ -23,7 +23,6 @@ struct
 	PARSE_STAGE	curElement;
 
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH + 1];
-	INTERACTIVE_STRUCTURE		curFood;
 	INTERACTIVE_STRUCTURE*		curArray;
 
 	UINT32			maxArraySize;
@@ -52,9 +51,7 @@ interactiveactionsStartElementHandle( void *userData, const XML_Char *name, cons
 		{
 			pData->curElement = ELEMENT;
 
-			memset( &pData->curFood, 0, sizeof(INTERACTIVE_STRUCTURE) );
-
-			pData->curFood.reset( );
+			pData->curArray[pData->curIndex].reset( );
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -119,15 +116,8 @@ interactiveactionsEndElementHandle( void *userData, const XML_Char *name )
 				// for whatever reasons the game crashes in VS2008 Release builds when copying over the tilevector
 				// this seems odd, as this works just fine in VS2010 and VS2013, and also works in VS205 debug builds
 				// for now, copy over the content by hand
-				pData->curArray[pData->curIndex].sector = pData->curFood.sector;
-				pData->curArray[pData->curIndex].sectorlevel = pData->curFood.sectorlevel;
-				strncpy( pData->curArray[pData->curIndex].szTileSetName, pData->curFood.szTileSetName, 20 );
 				pData->curArray[pData->curIndex].tileindexvector = tileindexvector;
 				pData->curArray[pData->curIndex].gridnovector = gridnovector;
-				pData->curArray[pData->curIndex].sLevel = pData->curFood.sLevel;
-				pData->curArray[pData->curIndex].sActionType = pData->curFood.sActionType;
-				pData->curArray[pData->curIndex].difficulty = pData->curFood.difficulty;
-				pData->curArray[pData->curIndex].luaactionid = pData->curFood.luaactionid;
 
 				tileindexvector.clear( );
 				tileindexvector.resize( 0 );
@@ -148,19 +138,19 @@ interactiveactionsEndElementHandle( void *userData, const XML_Char *name )
 			x = (UINT8)atol( &pData->szCharData[1] );
 			if ( x > 0 && x <= 16 && y > 0 && y <= 16 )
 			{
-				pData->curFood.sector = SECTOR(x, y);
+				pData->curArray[pData->curIndex].sector = SECTOR( x, y );
 			}
 		}
 		else if ( strcmp( name, "sectorlevel" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.sectorlevel = min( 3, max(-1, (INT8)atol( pData->szCharData ) ) );
+			pData->curArray[pData->curIndex].sectorlevel = min( 3, max( -1, (INT8)atol( pData->szCharData ) ) );
 		}
 		else if ( strcmp( name, "szTileSetName" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
-			strncpy( pData->curFood.szTileSetName, pData->szCharData, 20 );
+			strncpy( pData->curArray[pData->curIndex].szTileSetName, pData->szCharData, 20 );
 		}
 		else if ( strcmp( name, "usTileIndex" ) == 0 )
 		{
@@ -175,22 +165,22 @@ interactiveactionsEndElementHandle( void *userData, const XML_Char *name )
 		else if ( strcmp( name, "sLevel" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.sLevel = min( 1, max( 0, (INT8)atol( pData->szCharData ) ) );
+			pData->curArray[pData->curIndex].sLevel = min( 1, max( 0, (INT8)atol( pData->szCharData ) ) );
 		}
 		else if ( strcmp( name, "sActionType" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.sActionType = (UINT16)atol( pData->szCharData );
+			pData->curArray[pData->curIndex].sActionType = (UINT16)atol( pData->szCharData );
 		}
 		else if ( strcmp( name, "difficulty" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.difficulty = (INT32)atol( pData->szCharData );
+			pData->curArray[pData->curIndex].difficulty = (INT32)atol( pData->szCharData );
 		}
 		else if ( strcmp( name, "luaactionid" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.luaactionid = (INT32)atol( pData->szCharData );
+			pData->curArray[pData->curIndex].luaactionid = (INT32)atol( pData->szCharData );
 		}
 
 		pData->maxReadDepth--;
@@ -236,7 +226,6 @@ BOOLEAN ReadInInteractiveActionsStats( STR fileName )
 	memset( &pData, 0, sizeof(pData) );
 	pData.maxArraySize = INTERACTIVE_STRUCTURE_MAX;
 	pData.curIndex = 0;
-	pData.curFood.reset( );
 	pData.curArray = gInteractiveStructure;
 
 	XML_SetUserData( parser, &pData );
