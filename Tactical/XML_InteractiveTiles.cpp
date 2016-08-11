@@ -116,14 +116,18 @@ interactiveactionsEndElementHandle( void *userData, const XML_Char *name )
 				// for whatever reasons the game crashes in VS2008 Release builds when copying over the tilevector
 				// this seems odd, as this works just fine in VS2010 and VS2013, and also works in VS205 debug builds
 				// for now, copy over the content by hand
-				pData->curArray[pData->curIndex].tileindexvector = tileindexvector;
-				pData->curArray[pData->curIndex].gridnovector = gridnovector;
+				// check if the vector is empty because assigning an empty vector will crash VS2010 debug builds!
+				if ( !tileindexvector.empty() )
+				{
+					pData->curArray[pData->curIndex].tileindexvector = tileindexvector;
+					tileindexvector.clear( );
+				}
 
-				tileindexvector.clear( );
-				tileindexvector.resize( 0 );
-
-				gridnovector.clear();
-				gridnovector.resize( 0 );
+				if ( !gridnovector.empty() )
+				{
+					pData->curArray[pData->curIndex].gridnovector = gridnovector;
+					gridnovector.clear();
+				}
 			}
 
 			pData->curIndex++;
