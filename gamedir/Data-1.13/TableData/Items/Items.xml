@@ -52055,7 +52055,7 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>1736</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>68</ubGraphicNum>
+		<ubGraphicNum>372</ubGraphicNum>
 		<ubWeight>52</ubWeight>
 		<ItemSize>7</ItemSize>
 		<usPrice>8000</usPrice>
@@ -52093,8 +52093,8 @@
 		<nasAttachmentClass>2048</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>101</ubClassIndex>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>150</ubGraphicNum>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>242</ubGraphicNum>
 		<ubWeight>98</ubWeight>
 		<ItemSize>32</ItemSize>
 		<ItemSizeBonus>1</ItemSizeBonus>
