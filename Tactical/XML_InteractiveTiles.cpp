@@ -43,15 +43,11 @@ interactiveactionsStartElementHandle( void *userData, const XML_Char *name, cons
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset( pData->curArray, 0, sizeof(INTERACTIVE_STRUCTURE)*pData->maxArraySize );
-
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if ( strcmp( name, "ACTION" ) == 0 && pData->curElement == ELEMENT_LIST )
 		{
 			pData->curElement = ELEMENT;
-
-			pData->curArray[pData->curIndex].reset( );
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}

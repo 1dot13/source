@@ -125,16 +125,9 @@ typedef enum
 } INTERACTIVE_STRUCTURE_TYPE;
 
 typedef struct INTERACTIVE_STRUCTURE {
-	void reset()
-	{
-		sector = -1;
-		sectorlevel = -1;
-		sLevel = -1;
-		sActionType = INTERACTIVE_STRUCTURE_NO_ACTION;
-		difficulty = 0;
-		luaactionid = -1;
-	}
-	
+	INTERACTIVE_STRUCTURE()
+	: sector( -1 ), sectorlevel( -1 ), sLevel( -1 ), sActionType( INTERACTIVE_STRUCTURE_NO_ACTION ), difficulty( 0 ), luaactionid( -1 ) {}
+		
 	INT16	sector;
 	INT8	sectorlevel;						// whether this is on the surface (0) or below (1-3)
 	char	szTileSetName[20];					// name of the tileset
