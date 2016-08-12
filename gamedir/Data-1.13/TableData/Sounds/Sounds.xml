@@ -502,4 +502,6 @@
 	<SOUND>SOUNDS\WEAPONS\Misc\hedgetrimmer.ogg</SOUND>
 	<SOUND>SOUNDS\roof_collapse_1.wav</SOUND>
 	<SOUND>SOUNDS\nothing.wav</SOUND>
+	<SOUND>SOUNDS\beartrap_activated.wav</SOUND>
+	<SOUND>SOUNDS\beartrap_fleshhit.wav</SOUND>
 </SOUNDLIST>

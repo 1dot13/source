@@ -140,4 +140,14 @@
 		<BlastFilename>TILECACHE\TEAR_EXP.STI</BlastFilename>
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
+	<EXPDATA>
+		<uiIndex>14</uiIndex>
+		<name>Beartrap</name>
+		<TransKeyFrame>1</TransKeyFrame>
+		<DamageKeyFrame>5</DamageKeyFrame>
+		<ExplosionSoundID>503</ExplosionSoundID>
+		<AltExplosionSoundID>-1</AltExplosionSoundID>
+		<BlastFilename>TILECACHE\shckwave.STI</BlastFilename>
+		<BlastSpeed>15</BlastSpeed>
+	</EXPDATA>
 </EXPDATALIST>

@@ -2061,4 +2061,24 @@
 		<ubHorizontalDegree>0</ubHorizontalDegree>
 		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
+	<EXPLOSIVE><!-- beartrap -->
+		<uiIndex>103</uiIndex>
+		<ubType>4</ubType>
+		<ubDamage>10</ubDamage>
+		<ubStunDamage>20</ubStunDamage>
+		<ubRadius>1</ubRadius>
+		<ubVolume>0</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>14</ubAnimationID>
+		<ubDuration>1</ubDuration>
+		<ubStartRadius>1</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
 </EXPLOSIVELIST>

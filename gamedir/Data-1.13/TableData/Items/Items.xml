@@ -52185,4 +52185,35 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1741</uiIndex>
+		<szItemName>Beartrap</szItemName>
+		<szLongItemName>Beartrap</szLongItemName>
+		<szItemDesc>Anyone careless enough to step into this will have to stay put for a while.</szItemDesc>
+		<szBRName>Beartrap</szBRName>
+		<szBRDesc>Recommended by ACME.</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>103</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>241</ubGraphicNum>
+		<ubWeight>55</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>17</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>4</BR_UsedInventory>
+		<Mine>1</Mine>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>4</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>
