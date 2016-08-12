@@ -445,6 +445,14 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			iSkill = (iSkill + 100 * (iSkill / 25) ) / (iSkill / 25 + 1);
 			break;
 
+		case PLANTING_MECHANICAL_BOMB_CHECK:
+			iSkill = EffectiveMechanical( pSoldier ) * 3;
+			iSkill += EffectiveStrength(pSoldier, FALSE) * 5;
+			iSkill += EffectiveDexterity( pSoldier, FALSE ) * 1.5f;
+			iSkill += EffectiveExpLevel( pSoldier ) * 5;
+			iSkill = iSkill / 10; // bring the value down to a percentage
+			break;
+
 		case DISARM_TRAP_CHECK:
 
 			fForceDamnSound = TRUE;
@@ -562,6 +570,44 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 				{
 					iSkill = (iSkill * 3) / 4;
 				}
+			}
+			break;
+
+		case DISARM_MECHANICAL_TRAP_CHECK:
+			fForceDamnSound = TRUE;
+
+			// SANDRO - electronic traps are based more on mechanical skill
+			if ( gGameOptions.fNewTraitSystem)
+			{ 
+				// It is impossible without both skills
+				if ( (EffectiveMechanical( pSoldier ) <= 0) || (EffectiveStrength( pSoldier, FALSE ) <= 0) )
+				{
+					iSkill = 0;
+					break;
+				}
+				else
+				{
+					iSkill = EffectiveMechanical( pSoldier ) * 3;
+					iSkill += EffectiveStrength( pSoldier, FALSE ) * 5;
+				}
+			}
+			else
+			{
+				iSkill = __max( EffectiveMechanical( pSoldier ) , EffectiveStrength( pSoldier, FALSE ) ) * 7;
+				if ( iSkill == 0 )
+				{
+					break;
+				}
+			}
+			iSkill += EffectiveDexterity( pSoldier, FALSE ) * 1.5f;
+			iSkill += EffectiveExpLevel( pSoldier ) * 5;
+			iSkill = iSkill / 10; // bring the value down to a percentage
+
+			//JMich_SkillModifiers: Adding a Disarm Trap bonus
+			bSlot = FindDisarmKit( pSoldier);
+			if (bSlot != NO_SLOT)
+			{
+				iSkill += Item[pSoldier->inv[bSlot].usItem].DisarmModifier * pSoldier->inv[bSlot][0]->data.objectStatus / 100;
 			}
 			break;
 
@@ -708,8 +754,10 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			case ELECTRONIC_LOCKPICKING_CHECK:
 			case PLANTING_BOMB_CHECK:
 			case PLANTING_REMOTE_BOMB_CHECK:
+			case PLANTING_MECHANICAL_BOMB_CHECK:
 			case DISARM_TRAP_CHECK:
 			case DISARM_ELECTRONIC_TRAP_CHECK:
+			case DISARM_MECHANICAL_TRAP_CHECK:
 			case ATTACHING_SPECIAL_ITEM_CHECK:
 			case ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK:
 				iChance -= 10;
@@ -725,8 +773,10 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			case ELECTRONIC_LOCKPICKING_CHECK:
 			case PLANTING_BOMB_CHECK:
 			case PLANTING_REMOTE_BOMB_CHECK:
+			case PLANTING_MECHANICAL_BOMB_CHECK:
 			case DISARM_TRAP_CHECK:
 			case DISARM_ELECTRONIC_TRAP_CHECK:
+			case DISARM_MECHANICAL_TRAP_CHECK:
 			case ATTACHING_SPECIAL_ITEM_CHECK:
 			case ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK:
 				iChance += 5;
@@ -758,6 +808,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		case ELECTRONIC_LOCKPICKING_CHECK:
 		case DISARM_TRAP_CHECK:
 		case DISARM_ELECTRONIC_TRAP_CHECK:
+		case DISARM_MECHANICAL_TRAP_CHECK:
 		case OPEN_WITH_CROWBAR:
 		case SMASH_DOOR_CHECK:
 		case ATTACHING_SPECIAL_ITEM_CHECK:

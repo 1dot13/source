@@ -433,7 +433,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 					{
 						// first shot using "virgin" gun... set imprint ID
 						pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.ubImprintID = pSoldier->ubProfile;
-
+												
 						// this could be an NPC (Krott)
 						if (pSoldier->bTeam == gbPlayerNum)
 						{
@@ -1876,14 +1876,24 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 		// We have something... all we do is place...
 		if ( ArmBomb( &(pSoldier->inv[ HANDPOS ]), 0 ) )
 		{
-			// Snap: Do a skill check here as well
-			INT32 iResult = SkillCheck( pSoldier, PLANTING_BOMB_CHECK, 0 );
+			INT32 iResult = 0;
+
+			if ( HasItemFlag( (pSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
+			{
+				iResult = SkillCheck( pSoldier, PLANTING_MECHANICAL_BOMB_CHECK, 0 );
+			}
+			else
+			{
+				iResult = SkillCheck( pSoldier, PLANTING_BOMB_CHECK, 0 );
+			}
 
 			if ( iResult >= 0 )
 			{
 				// Less explosives gain for placing tripwire
 				if ( Item[ pSoldier->inv[ HANDPOS ].usItem ].tripwire )
 					StatChange( pSoldier, EXPLODEAMT, 1, FALSE );
+				else if ( HasItemFlag( (pSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
+					StatChange( pSoldier, MECHANAMT, 10, FALSE );
 				else
 					// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
 					StatChange( pSoldier, EXPLODEAMT, 25, FALSE );
@@ -1935,6 +1945,10 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			}
 			else
 			{
+				// beartraps don't explode...
+				if ( HasItemFlag( (pSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
+					return;
+
 				// EXPLOSIVES GAIN (10):	Failed to place a bomb, or bury and arm a mine
 				StatChange( pSoldier, EXPLODEAMT, 10, FROM_FAILURE );
 
@@ -5357,6 +5371,10 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				iResult = SkillCheck( gpTempSoldier, PLANTING_REMOTE_BOMB_CHECK, 0 );
 			}
+			else  if ( HasItemFlag( (gpTempSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
+			{
+				iResult = SkillCheck( gpTempSoldier, PLANTING_MECHANICAL_BOMB_CHECK, 0 );
+			}
 			else
 			{
 				iResult = SkillCheck( gpTempSoldier, PLANTING_BOMB_CHECK, 0 );
@@ -5367,12 +5385,18 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 				// Less explosives gain for placing tripwire
 				if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].tripwire == 1 )
 					StatChange( gpTempSoldier, EXPLODEAMT, 5, FALSE );
+				else if ( HasItemFlag( (gpTempSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
+					StatChange( gpTempSoldier, MECHANAMT, 10, FALSE );
 				else
 					// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
 					StatChange( gpTempSoldier, EXPLODEAMT, 25, FALSE );
 			}
 			else
 			{
+				// beartraps don't explode...
+				if ( HasItemFlag( (gpTempSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
+					return;
+
 				// EXPLOSIVES GAIN (10):	Failed to place a bomb, or bury and arm a mine
 				StatChange( gpTempSoldier, EXPLODEAMT, 10, FROM_FAILURE );
 
@@ -5809,7 +5833,6 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 
 		if ( CheckBombDisarmChance() >= 0)
 		{
-
 			if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
 			{
 				if ( gTempObject[0]->data.misc.ubBombOwner - 2 == gpBoobyTrapSoldier->ubID )
@@ -5979,9 +6002,12 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 		else
 		{
 			// oops! trap goes off
-			StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (INT8) (3 * gbTrapDifficulty ), FROM_FAILURE );
+			gpBoobyTrapSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 ); 
+			
+			if ( HasItemFlag( gTempObject.usItem, BEARTRAP ) )
+				return;
 
-			gpBoobyTrapSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+			StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (INT8)(3 * gbTrapDifficulty), FROM_FAILURE );			
 
 			if (gfDisarmingBuriedBomb)
 			{
@@ -6019,17 +6045,27 @@ void BoobyTrapInMapScreenMessageBoxCallBack( UINT8 ubExitValue )
 	if (ubExitValue == MSG_BOX_RETURN_YES)
 	{
 		INT32						iCheckResult;
-		iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 0 );
+
+		if ( HasItemFlag( gpItemPointer->usItem, BEARTRAP ) )
+		{
+			iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_MECHANICAL_TRAP_CHECK, 0 );
+		}
+		else
+		{
+			iCheckResult = SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 0 );
+		}
 
 		if (iCheckResult >= 0)
 		{
 			// disarmed a boobytrap!
-			StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (UINT16) (6 * gbTrapDifficulty), FALSE );
+			if ( HasItemFlag( gpItemPointer->usItem, BEARTRAP ) )
+				StatChange( gpBoobyTrapSoldier, MECHANAMT, (3 * gbTrapDifficulty), FALSE );
+			else
+				StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (UINT16) (6 * gbTrapDifficulty), FALSE );
 
 			// SANDRO - merc records - trap removal count
 			if ( gpBoobyTrapSoldier->ubProfile != NO_PROFILE )
 				gMercProfiles[ gpBoobyTrapSoldier->ubProfile ].records.usTrapsRemoved++;
-
 
 			// have merc say this is good
 			gpBoobyTrapSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
@@ -6074,9 +6110,13 @@ void BoobyTrapInMapScreenMessageBoxCallBack( UINT8 ubExitValue )
 		else
 		{
 			// oops! trap goes off
-			StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (INT8) (3 * gbTrapDifficulty ), FROM_FAILURE );
-
 			gpBoobyTrapSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+
+			// beartraps don't explode...
+			if ( HasItemFlag( gpItemPointer->usItem, BEARTRAP ) )
+				return;
+
+			StatChange( gpBoobyTrapSoldier, EXPLODEAMT, (INT8) (3 * gbTrapDifficulty ), FROM_FAILURE );
 
 			if (gfDisarmingBuriedBomb)
 			{
@@ -8646,24 +8686,27 @@ INT32 GetFirstObjectInSectorPosition( UINT16 ausItem )
 
 INT32 CheckBombDisarmChance(void)
 {
+	INT8 diff = 0;
+
     // NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
     // the map. So if we want to detect a bomb placed by the player, owner is > 1, and
     // owner - 2 gives the ID of the character who planted it
     if ( gTempObject[0]->data.misc.ubBombOwner > 1 && ( (INT32)gTempObject[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && gTempObject[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
     {
+		// my own boobytrap!
         if ( gTempObject[0]->data.misc.ubBombOwner - 2 == gpBoobyTrapSoldier->ubID )
-        {
-            // my own boobytrap!
-            return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 40 );
-        }
+			diff = 40;
+		// our team's boobytrap!
         else
-        {
-            // our team's boobytrap!
-            return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 20 );
-        }
+            diff = 20;
     }
 
-	return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, 0 );
+	if ( HasItemFlag( gTempObject.usItem, BEARTRAP ) )
+	{
+		return SkillCheck( gpBoobyTrapSoldier, DISARM_MECHANICAL_TRAP_CHECK, diff );
+	}
+
+	return SkillCheck( gpBoobyTrapSoldier, DISARM_TRAP_CHECK, diff );
 }
 
 void ExtendedDisarmMessageBox(void)

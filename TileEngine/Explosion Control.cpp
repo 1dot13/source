@@ -67,6 +67,7 @@
 #include "Text.h" // added by SANDRO
 #include "campaign.h" // yet another one added
 #include "CampaignStats.h"		// added by Flugente
+#include "Points.h"				// added by Flugente
 #endif
 
 #include "Soldier Macros.h"
@@ -3955,6 +3956,95 @@ void HandleExplosionQueue( void )
 					NewLightEffect( sGridNo, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubDuration, (UINT8)Explosive[ Item[pObj->usItem].ubClassIndex ].ubStartRadius );
 
 					RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
+				}
+				// beartraps don't cause explosions, but cause special leg damage
+				else if ( HasItemFlag( pObj->usItem, BEARTRAP ) )
+				{
+					// play sound
+					UINT16 ubTypeID = Explosive[Item[pObj->usItem].ubClassIndex].ubAnimationID;
+
+					INT32 sSoundID = gExpAniData[ubTypeID].sExplosionSoundID;
+
+					// Randomize
+					if ( gExpAniData[ubTypeID].sAltExplosionSoundID > NO_ALT_SOUND && sSoundID < 0 )
+						sSoundID = gExpAniData[ubTypeID].sAltExplosionSoundID;
+
+					if ( sSoundID > NO_ALT_SOUND )
+						PlayJA2Sample( sSoundID, RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
+					
+					UINT8 ubID = WhoIsThere2( sGridNo, ubLevel );
+
+					if ( ubID != NOBODY )
+					{
+						SOLDIERTYPE* pSoldier = MercPtrs[ubID];
+
+						INT16 damage = Explosive[Item[pObj->usItem].ubClassIndex].ubDamage * 0.67f + Random( Explosive[Item[pObj->usItem].ubClassIndex].ubDamage * 0.67f );
+						INT16 breathdamage = Explosive[Item[pObj->usItem].ubClassIndex].ubStunDamage * 0.67f + Random( Explosive[Item[pObj->usItem].ubClassIndex].ubStunDamage * 0.67f );
+
+						pSoldier->SoldierTakeDamage( 0, damage, breathdamage, TAKE_DAMAGE_EXPLOSION, NOBODY, sGridNo, 0, TRUE );
+
+						// play additional 'hit' sound
+						PlayJA2SampleFromFile( "Sounds\\beartrap_fleshhit.wav", RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
+
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s activated %s!", pSoldier->GetName( ), Item[pObj->usItem].szItemName );
+
+						DeductPoints( pSoldier, 200, 0 );
+
+						SoldierCollapse( pSoldier );
+
+						// Flugente: disease
+						HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_WOUND_AGI, 1.5f );
+						HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_WOUND_AGI, 1.5f );
+
+						INT8 bStatLoss = min( 3 + Random( 5 ) + Random( 8 ), pSoldier->stats.bAgility - 1 );
+
+						if ( bStatLoss > 0 )
+						{
+							pSoldier->stats.bAgility -= bStatLoss;
+
+							// SANDRO - added this for healing lost stats feature
+							pSoldier->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] += bStatLoss;
+
+							if ( pSoldier->ubProfile != NO_PROFILE )
+							{
+								gMercProfiles[pSoldier->ubProfile].bAgility = pSoldier->stats.bAgility;
+							}
+
+							if ( pSoldier->name[0] && pSoldier->bVisible == TRUE )
+							{
+								// make stat RED for a while...
+								pSoldier->timeChanges.uiChangeAgilityTime = GetJA2Clock( );
+								pSoldier->usValueGoneUp &= ~(AGIL_INCREASE);
+
+								if ( bStatLoss == 1 )
+								{
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_1_AGIL], pSoldier->GetName( ) );
+								}
+								else
+								{
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_LOSES_AGIL], pSoldier->GetName( ), bStatLoss );
+								}
+							}
+						}
+					}
+
+					// object can be used again
+					{
+						OBJECTTYPE newObject;
+						CreateItem( (*pObj)[0]->data.misc.usBombItem, (*pObj)[0]->data.objectStatus, &newObject );
+
+						// this is important: delete the tripwire, otherwise we get into an infinite loop if there are two piecs of tripwire....
+						RemoveItemFromPool( sGridNo, gWorldBombs[uiWorldBombIndex].iItemIndex, ubLevel );
+
+						// if no other bomb exists here
+						CheckForBuriedBombsAndRemoveFlags( sGridNo, ubLevel );
+
+						// delete the flag, otherwise wire will only work once
+						(newObject)[0]->data.sObjectFlag &= ~TRIPWIRE_ACTIVATED;
+
+						// now add a tripwire item to the floor, simulating that activating tripwire deactivates it
+						AddItemToPool( sGridNo, &newObject, 1, ubLevel, 0, -1 );
+					}
 				}
 				// Flugente: handle tripwire gun traps here...
 				// tripwire gets called and activated in ActivateSurroundingTripwire

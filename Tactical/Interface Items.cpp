@@ -13718,6 +13718,10 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 		{
 			iResult = SkillCheck( gpItemDescSoldier, PLANTING_REMOTE_BOMB_CHECK, 0 );
 		}
+		else if ( HasItemFlag( gpItemDescObject->usItem, BEARTRAP ) )
+		{
+			iResult = SkillCheck( gpItemDescSoldier, PLANTING_MECHANICAL_BOMB_CHECK, 0 );
+		}
 		else
 		{
 			iResult = SkillCheck( gpItemDescSoldier, PLANTING_BOMB_CHECK, 0 );
@@ -13725,11 +13729,18 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 
 		if ( iResult >= 0 )
 		{
-			// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
-			StatChange( gpItemDescSoldier, EXPLODEAMT, 25, FALSE );
+			if ( HasItemFlag( gpItemDescObject->usItem, BEARTRAP ) )
+				StatChange( gpItemDescSoldier, MECHANAMT, 10, FALSE );
+			else
+				// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
+				StatChange( gpItemDescSoldier, EXPLODEAMT, 25, FALSE );
 		}
 		else
 		{
+			// beartraps don't explode...
+			if ( HasItemFlag( gpItemDescObject->usItem, BEARTRAP ) )
+				return;
+
 			// EXPLOSIVES GAIN (10):	Failed to place a bomb, or bury and arm a mine
 			StatChange( gpItemDescSoldier, EXPLODEAMT, 10, FROM_FAILURE );
 
@@ -13834,54 +13845,57 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 				return;
 		}
 
+		INT8 diff = 0;
+
 		// NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
 		// the map. So if we want to detect a bomb placed by the player, owner is > 1, and
 		// owner - 2 gives the ID of the character who planted it
 		if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner > 1 && ( (INT32)(*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
 		{
 			// Flugente: get a tripwire-related bonus if we have a wire cutter in our hands
-			INT8 wirecutterbonus = 0;
 			if ( ( (&gpItemDescSoldier->inv[HANDPOS])->exists() && Item[ gpItemDescSoldier->inv[HANDPOS].usItem ].wirecutters == 1 ) || ( (&gpItemDescSoldier->inv[SECONDHANDPOS])->exists() && Item[ gpItemDescSoldier->inv[SECONDHANDPOS].usItem ].wirecutters == 1 ) )
 			{
 				// + 10 if item gets activated by tripwire
 				if ( Item[gpItemDescObject->usItem].tripwireactivation == 1 )
-					wirecutterbonus += 10;
+					diff += 10;
 				
 				// + 10 if item is tripwire
 				if ( Item[gpItemDescObject->usItem].tripwire == 1 )
-					wirecutterbonus += 10;
+					diff += 10;
 			}
 
+			// my own boobytrap!
 			if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 == gpItemDescSoldier->ubID )
-			{
-				// my own boobytrap!
-				iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_TRAP_CHECK, 40 + wirecutterbonus );
-			}
+				diff += 40;
+			// our team's boobytrap!
 			else
-			{
-				// our team's boobytrap!
-				iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_TRAP_CHECK, 20 + wirecutterbonus );
-			}
+				diff += 20;
+		}
+
+		if ( HasItemFlag( gpItemDescObject->usItem, BEARTRAP ) )
+		{
+			iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_MECHANICAL_TRAP_CHECK, diff );
 		}
 		else
 		{
-			iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_TRAP_CHECK, 0 );
+			iCheckResult = SkillCheck( gpItemDescSoldier, DISARM_TRAP_CHECK, diff );
 		}
 
 		if (iCheckResult >= 0)
 		{
+			UINT16 gain = 0;
 
 			if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner > 1 && ( (INT32)(*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 >= gTacticalStatus.Team[ OUR_TEAM ].bFirstID && (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID ) )
 			{
+				// disarmed our own boobytrap!
 				if ( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2 == gpItemDescSoldier->ubID )
 				{
-					// disarmed my own boobytrap!
-					StatChange( gpItemDescSoldier, EXPLODEAMT, (UINT16) (2 * trapdifficulty), FALSE );
+					gain = (UINT16)(2 * trapdifficulty);
 				}
 				else
 				{
 					// disarmed our team's boobytrap!
-					StatChange( gpItemDescSoldier, EXPLODEAMT, (UINT16) (4 * trapdifficulty), FALSE );
+					gain = (UINT16)(4 * trapdifficulty);
 					
 					// SANDRO - merc records - trap removal count (don't count our own traps)
 					gMercProfiles[ gpItemDescSoldier->ubProfile ].records.usTrapsRemoved++;
@@ -13890,11 +13904,16 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 			else
 			{
 				// disarmed a boobytrap!
-				StatChange( gpItemDescSoldier, EXPLODEAMT, (UINT16) (6 * trapdifficulty), FALSE );
+				gain = (UINT16)(6 * trapdifficulty);
 
 				// SANDRO - merc records - trap removal count
 				gMercProfiles[ gpItemDescSoldier->ubProfile ].records.usTrapsRemoved++;
 			}
+
+			if ( HasItemFlag( gpItemDescObject->usItem, BEARTRAP ) )
+				StatChange( gpItemDescSoldier, MECHANAMT, gain / 2, FALSE );
+			else
+				StatChange( gpItemDescSoldier, EXPLODEAMT, gain, FALSE );
 
 			// have merc say this is good
 			gpItemDescSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
@@ -13911,26 +13930,26 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 
 			if ( (*gpItemDescObject).fFlags & OBJECT_ARMED_BOMB )
 				gpItemDescObject->fFlags &= ~( OBJECT_ARMED_BOMB );
-
-			/*if ( (*gpItemDescObject).fFlags & OBJECT_KNOWN_TO_BE_TRAPPED )
-				gpItemDescObject->fFlags &= ~( OBJECT_KNOWN_TO_BE_TRAPPED );*/
 		}
 		else
 		{
 			// oops! trap goes off
-			StatChange( gpItemDescSoldier, EXPLODEAMT, (INT8) (3 * trapdifficulty ), FROM_FAILURE );
-
 			gpItemDescSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+
+			// beartraps don't explode...
+			if ( HasItemFlag( gpItemDescObject->usItem, BEARTRAP ) )
+				return;
+
+			StatChange( gpItemDescSoldier, EXPLODEAMT, (INT8) (3 * trapdifficulty ), FROM_FAILURE );
 
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Disarming of bomb failed. Resulting explosion damages %s's inventory and health", gpItemDescSoldier->name );
 
-			INT8 screen = guiCurrentScreen;
-			if ( screen == GAME_SCREEN )
+			if ( guiCurrentScreen == GAME_SCREEN )
 			{
 				// ignite explosions manually - this item is not in the WorldBombs-structure, so we can't add it to the queue
 				IgniteExplosion( (*gpItemDescObject)[0]->data.misc.ubBombOwner - 2, gpItemDescSoldier->sX, gpItemDescSoldier->sY, (INT16) (gpWorldLevelData[gpItemDescSoldier->sGridNo].sHeight), gpItemDescSoldier->sGridNo, gpItemDescObject->usItem, gpItemDescSoldier->pathing.bLevel, gpItemDescSoldier->ubDirection, gpItemDescObject );
 			}
-			else if ( (screen == MAP_SCREEN) || (screen == MSG_BOX_SCREEN) )
+			else if ( guiCurrentScreen == MAP_SCREEN || guiCurrentScreen == MSG_BOX_SCREEN )
 			{
 				// no explosions in map screen - instead we simply damage the inventory and harm our health
 				gpItemDescSoldier->InventoryExplosion();

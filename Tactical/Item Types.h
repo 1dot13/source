@@ -733,7 +733,7 @@ extern OBJECTTYPE gTempObject;
 // note that these should not be used to determine what kind of an attachment an item is, that is determined by attachmentclass and the AC_xxx flags above
 //#define EMPTY_SANDBAG			0x00000001	//1
 #define MANPAD					0x00000002	//2			// this item is a MAn-Portable Air-Defense System
-//#define SHOVEL					0x00000004	//4			// a shovel is used for filling sandbags and other building-related tasks
+#define BEARTRAP				0x00000004	//4			// a mechanical trap that does no explosion, but causes leg damage to whoever activates it
 //#define CONCERTINA				0x00000008	//8
 
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
