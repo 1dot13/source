@@ -7646,6 +7646,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						//CHRISL: Try to update InSector value so we don't have to "activate" a sector
 						if(pSoldier->sSectorX == sSelMapX && pSoldier->sSectorY == sSelMapY && pSoldier->bSectorZ == iCurrentMapSectorZ && !pSoldier->flags.fBetweenSectors)
 							pSoldier->bInSector = TRUE;
+
 						if(OK_CONTROL_MERC( pSoldier ) && pSoldier->bInSector == TRUE)
 						{
 							if(!fShowMapInventoryPool)
@@ -7653,10 +7654,12 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								fShowMapInventoryPool = TRUE;
 								CreateDestroyMapInventoryPoolButtons( TRUE );
 							}
+
 							if(!fShowInventoryFlag)
 							{
 								fShowInventoryFlag = TRUE;
 							}
+
 							if( fCtrl )
 							{
 								if ( UsingNewInventorySystem() && fShowInventoryFlag && fShowMapInventoryPool && !gTacticalStatus.fEnemyInSector)
@@ -7727,11 +7730,12 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 														}
 													}
 												}
-											}
-											fTeamPanelDirty = TRUE;
-											fMapPanelDirty = TRUE;
-											fInterfacePanelDirty = DIRTYLEVEL2;
+											}									
 										}
+
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
 								}
 							}
@@ -7747,10 +7751,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo, pSoldier->pathing.bLevel);
 											DeleteObj(&pSoldier->inv[i]);
 										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
+
 									for(int i = SMALLPOCK23POS; i<NUM_INV_SLOTS; i++)
 									{
 										if(pSoldier->inv[i].exists() == true)
@@ -7758,10 +7760,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo, pSoldier->pathing.bLevel);
 											DeleteObj(&pSoldier->inv[i]);
 										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
+
+									fTeamPanelDirty = TRUE;
+									fMapPanelDirty = TRUE;
+									fInterfacePanelDirty = DIRTYLEVEL2;
 								}
 							}
 							else
@@ -7769,17 +7772,18 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								//CHRISL: drop all items
 								if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
 								{
-									for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
+									for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; ++i)
 									{
 										if(pSoldier->inv[i].exists() == true)
 										{
 											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo, pSoldier->pathing.bLevel);
 											DeleteObj(&pSoldier->inv[i]);
 										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
+
+									fTeamPanelDirty = TRUE;
+									fMapPanelDirty = TRUE;
+									fInterfacePanelDirty = DIRTYLEVEL2;
 								}
 							}
 						}
@@ -8305,45 +8309,43 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						if(bSelectedInfoChar != -1)
 						{
 							SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+
 							//CHRISL: Try to update InSector value so we don't have to "activate" a sector
-							if(pSoldier->sSectorX == sSelMapX && pSoldier->sSectorY == sSelMapY && pSoldier->bSectorZ == iCurrentMapSectorZ && !pSoldier->flags.fBetweenSectors)
+							if (pSoldier->sSectorX == sSelMapX && pSoldier->sSectorY == sSelMapY && pSoldier->bSectorZ == iCurrentMapSectorZ && !pSoldier->flags.fBetweenSectors)
 								pSoldier->bInSector=TRUE;
-							if(OK_CONTROL_MERC( pSoldier ))
+
+							if (OK_CONTROL_MERC( pSoldier ))
+							{
+								if(!fShowMapInventoryPool)
 								{
-							if(!fShowMapInventoryPool)
-							{
-								fShowMapInventoryPool = TRUE;
-								CreateDestroyMapInventoryPoolButtons( TRUE );
-							}
-							if(!fShowInventoryFlag)
-							{
-								fShowInventoryFlag = TRUE;
-							}
+									fShowMapInventoryPool = TRUE;
+									CreateDestroyMapInventoryPoolButtons( TRUE );
+								}
+
+								if(!fShowInventoryFlag)
+								{
+									fShowInventoryFlag = TRUE;
+								}
+
 								//tais: borrowed the drop all items code from CHRISL to make it drop EVERYTHING!
 								if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
 								{
-									for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
+									for ( int i = HELMETPOS; i<NUM_INV_SLOTS; ++i )
 									{
-										if(pSoldier->inv[i].exists() == true)
+										if( pSoldier->inv[i].exists() == true)
 										{
+											// if we are Nails and are ordered to drop our vest, refuse and complain!
+											if ( HandleNailsVestFetish( pSoldier, i, NOTHING ) )
+												continue;
+
 											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo, pSoldier->pathing.bLevel);
 											DeleteObj(&pSoldier->inv[i]);
 										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
-									for(int i = HELMETPOS; i<BODYPOSFINAL; i++)
-									{
-										if(pSoldier->inv[i].exists() == true)
-										{
-											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo, pSoldier->pathing.bLevel);
-											DeleteObj(&pSoldier->inv[i]);
-										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
-									}
+
+									fTeamPanelDirty = TRUE;
+									fMapPanelDirty = TRUE;
+									fInterfacePanelDirty = DIRTYLEVEL2;
 								}
 							}
 						}
