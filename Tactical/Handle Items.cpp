@@ -1847,7 +1847,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	if ( Item[ usHandItem ].ubCursor == INVALIDCURS )
 	{
 		// Found detonator...
-		if ( HasAttachmentOfClass( &(pSoldier->inv[ usHandItem ] ), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || Item[ (&(pSoldier->inv[ usHandItem ] ))->usItem ].tripwire == 1 )
+		if ( HasAttachmentOfClass( &(pSoldier->inv[pSoldier->ubAttackingHand]), (AC_DETONATOR | AC_REMOTEDET | AC_DEFUSE) ) || Item[usHandItem].tripwire )
 		{
 			StartBombMessageBox( pSoldier, sGridNo );
 
