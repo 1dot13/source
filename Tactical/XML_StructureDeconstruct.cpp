@@ -14,16 +14,13 @@ struct
 	PARSE_STAGE	curElement;
 
 	CHAR8			szCharData[MAX_CHAR_DATA_LENGTH+1];
-	STRUCTURE_DECONSTRUCT		curFood;
 	STRUCTURE_DECONSTRUCT *		curArray;
 	UINT32			maxArraySize;
-
+	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef structuredeconstructParseData;
-
-UINT16 structuredeconstructcnt = 0;
 
 static void XMLCALL
 structuredeconstructStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
@@ -36,15 +33,11 @@ structuredeconstructStartElementHandle(void *userData, const XML_Char *name, con
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset(pData->curArray,0,sizeof(STRUCTURE_DECONSTRUCT)*pData->maxArraySize);
-
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "STRUCTURE") == 0 && pData->curElement == ELEMENT_LIST)
 		{
 			pData->curElement = ELEMENT;
-
-			memset(&pData->curFood,0,sizeof(STRUCTURE_DECONSTRUCT));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -99,55 +92,52 @@ structuredeconstructEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			if(structuredeconstructcnt < pData->maxArraySize)
+			if ( pData->curIndex < pData->maxArraySize )
 			{
 				// for whatever reasons the game crashes in VS2008 Release builds when copying over the tilevector
 				// this seems odd, as this works just fine in VS2010 and VS2013, and also works in VS205 debug builds
 				// for now, copy over the content by hand
-				pData->curArray[structuredeconstructcnt].usDeconstructItem = pData->curFood.usDeconstructItem;
-				pData->curArray[structuredeconstructcnt].usItemToCreate= pData->curFood.usItemToCreate;
-				pData->curArray[structuredeconstructcnt].usCreatedItemStatus = pData->curFood.usCreatedItemStatus;
-				strncpy( pData->curArray[structuredeconstructcnt].szTileSetDisplayName, pData->curFood.szTileSetDisplayName, 20 );
-				strncpy( pData->curArray[structuredeconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20 );
-				pData->curArray[structuredeconstructcnt].dCreationCost = pData->curFood.dCreationCost;
-				pData->curArray[structuredeconstructcnt].tilevector = statictilevector;
-				
-				statictilevector.clear();
+				// check if the vector is empty because assigning an empty vector will crash VS2010 debug builds!
+				if ( !statictilevector.empty( ) )
+				{
+					pData->curArray[pData->curIndex].tilevector = statictilevector;
+					statictilevector.clear( );
+				}
 			}
 
-			++structuredeconstructcnt;
+			pData->curIndex++;
 		}
 		else if ( strcmp( name, "usDeconstructItem" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.usDeconstructItem = (UINT16)atol( pData->szCharData );
+			pData->curArray[pData->curIndex].usDeconstructItem = (UINT16)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "usItemToCreate") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.usItemToCreate	= (UINT16) atol(pData->szCharData);
+			pData->curArray[pData->curIndex].usItemToCreate = (UINT16)atol( pData->szCharData );
 		}
 		else if ( strcmp( name, "usCreatedItemStatus" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.usCreatedItemStatus = (UINT8)atol( pData->szCharData );
+			pData->curArray[pData->curIndex].usCreatedItemStatus = (UINT8)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "szTileSetDisplayName") == 0)
 		{
 			pData->curElement = ELEMENT;
 
-			strncpy( pData->curFood.szTileSetDisplayName, pData->szCharData, 20 );
+			strncpy( pData->curArray[pData->curIndex].szTileSetDisplayName, pData->szCharData, 20 );
 		}
 		else if ( strcmp( name, "szTileSetName" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
-			strncpy( pData->curFood.szTileSetName, pData->szCharData, 20 );
+			strncpy( pData->curArray[pData->curIndex].szTileSetName, pData->szCharData, 20 );
 		}
 		else if ( strcmp( name, "dCreationCost" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.dCreationCost = (FLOAT)atof( pData->szCharData );
+			pData->curArray[pData->curIndex].dCreationCost = (FLOAT)atof( pData->szCharData );
 		}
 		else if(strcmp(name, "allowedtile") == 0)
 		{
@@ -160,8 +150,6 @@ structuredeconstructEndElementHandle(void *userData, const XML_Char *name)
 
 	pData->currentDepth--;
 }
-
-
 
 
 BOOLEAN ReadInStructureDeconstructStats(STR fileName)
@@ -194,19 +182,17 @@ BOOLEAN ReadInStructureDeconstructStats(STR fileName)
 	lpcBuffer[uiFSize] = 0; //add a null terminator
 
 	FileClose( hFile );
-
-
+	
 	XML_SetElementHandler(parser, structuredeconstructStartElementHandle, structuredeconstructEndElementHandle);
 	XML_SetCharacterDataHandler(parser, structuredeconstructCharacterDataHandle);
-
-
+	
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = gStructureDeconstruct;
+	pData.curIndex = 0;
 	pData.maxArraySize = STRUCTURE_DECONSTRUCT_MAX;
 
 	XML_SetUserData(parser, &pData);
-
-
+	
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
@@ -219,11 +205,9 @@ BOOLEAN ReadInStructureDeconstructStats(STR fileName)
 	}
 
 	MemFree(lpcBuffer);
-
-
+	
 	XML_ParserFree(parser);
-
-
+	
 	return( TRUE );
 }
 
@@ -239,10 +223,8 @@ BOOLEAN WriteStructureDeconstructStats()
 		return( FALSE );
 
 	{
-		UINT32 cnt;
-
 		FilePrintf(hFile,"<STRUCTURESLIST>\r\n");
-		for(cnt = 0; cnt < STRUCTURE_DECONSTRUCT_MAX; ++cnt)
+		for ( UINT32 cnt = 0; cnt < STRUCTURE_DECONSTRUCT_MAX; ++cnt )
 		{
 			FilePrintf(hFile,"\t<STRUCTURE>\r\n");
 

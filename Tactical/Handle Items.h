@@ -80,7 +80,10 @@ typedef struct
 } ITEM_POOL_LOCATOR;
 
 // Flugente: we can construct and deconstruct map structures via items.
-typedef struct {
+typedef struct STRUCTURE_DECONSTRUCT {
+	STRUCTURE_DECONSTRUCT()
+	: usDeconstructItem( 0 ), usItemToCreate( 0 ), usCreatedItemStatus( 0 ), szTileSetDisplayName( ), szTileSetName( ), dCreationCost( 0 ) {}
+
 	UINT16 usDeconstructItem;					// the item that has to be used to deconstruct the structure
 	UINT16 usItemToCreate;						// the item that will be created when we deconstruct a structure
 	UINT8  usCreatedItemStatus;					// status of the item to create
@@ -94,7 +97,10 @@ typedef struct {
 
 extern STRUCTURE_DECONSTRUCT gStructureDeconstruct[STRUCTURE_DECONSTRUCT_MAX];
 
-typedef struct {
+typedef struct STRUCTURE_CONSTRUCT {
+	STRUCTURE_CONSTRUCT()
+	: usCreationItem( 0 ), usItemStatusLoss( 0 ), szTileSetDisplayName(), szTileSetName(), dCreationCost( 1.0 ), fFortifyAdjacentAdjustment( TRUE ) {}
+
 	UINT16	usCreationItem;						// the item that will be consumed when creating the structure
 	UINT8	usItemStatusLoss;					// item will lose this number of status points
 	char	szTileSetDisplayName[20];			// name of this structure to the player (tileset names are obscure)

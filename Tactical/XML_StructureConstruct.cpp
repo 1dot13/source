@@ -14,16 +14,13 @@ struct
 	PARSE_STAGE	curElement;
 
 	CHAR8			szCharData[MAX_CHAR_DATA_LENGTH+1];
-	STRUCTURE_CONSTRUCT		curFood;
 	STRUCTURE_CONSTRUCT*	curArray;
 	UINT32			maxArraySize;
-
+	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef structureconstructParseData;
-
-UINT16 structureconstructcnt = 0;
 
 static void XMLCALL
 structureconstructStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
@@ -36,15 +33,11 @@ structureconstructStartElementHandle(void *userData, const XML_Char *name, const
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset(pData->curArray,0,sizeof(STRUCTURE_CONSTRUCT)*pData->maxArraySize);
-
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "STRUCTURE") == 0 && pData->curElement == ELEMENT_LIST)
 		{
 			pData->curElement = ELEMENT;
-
-			memset(&pData->curFood,0,sizeof(STRUCTURE_CONSTRUCT));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -103,66 +96,70 @@ structureconstructEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT_LIST;
 
 			// we do NOT want to read the first entry -> move stuff by 1
-			if(structureconstructcnt < pData->maxArraySize)
+			if ( pData->curIndex < pData->maxArraySize )
 			{
 				// for whatever reasons the game crashes in VS2008 Release builds when copying over the tilevector
 				// this seems odd, as this works just fine in VS2010 and VS2013, and also works in VS205 debug builds
 				// for now, copy over the content by hand
-				pData->curArray[structureconstructcnt].usCreationItem = pData->curFood.usCreationItem;
-				pData->curArray[structureconstructcnt].usItemStatusLoss= pData->curFood.usItemStatusLoss;
-				strncpy( pData->curArray[structureconstructcnt].szTileSetDisplayName, pData->curFood.szTileSetDisplayName, 20 );
-				strncpy( pData->curArray[structureconstructcnt].szTileSetName, pData->curFood.szTileSetName, 20 );
-				pData->curArray[structureconstructcnt].dCreationCost = pData->curFood.dCreationCost;
-				pData->curArray[structureconstructcnt].fFortifyAdjacentAdjustment = pData->curFood.fFortifyAdjacentAdjustment;
-				pData->curArray[structureconstructcnt].northtilevector = staticnorthtilevector;
-				pData->curArray[structureconstructcnt].southtilevector = staticsouthtilevector;
-				pData->curArray[structureconstructcnt].easttilevector = staticeasttilevector;
-				pData->curArray[structureconstructcnt].westtilevector = staticwesttilevector;
+				// check if the vector is empty because assigning an empty vector will crash VS2010 debug builds!
+				if ( !staticnorthtilevector.empty( ) )
+				{
+					pData->curArray[pData->curIndex].northtilevector = staticnorthtilevector;
+					staticnorthtilevector.clear( );
+				}
 
-				staticnorthtilevector.clear();
-				staticsouthtilevector.clear();
-				staticeasttilevector.clear();
-				staticwesttilevector.clear();
+				if ( !staticsouthtilevector.empty( ) )
+				{
+					pData->curArray[pData->curIndex].southtilevector = staticsouthtilevector;
+					staticsouthtilevector.clear( );
+				}
 
-				staticnorthtilevector.resize(1);
-				staticsouthtilevector.resize(1);
-				staticeasttilevector.resize(1);
-				staticwesttilevector.resize(1);
+				if ( !staticeasttilevector.empty( ) )
+				{
+					pData->curArray[pData->curIndex].easttilevector = staticeasttilevector;
+					staticeasttilevector.clear( );
+				}
+
+				if ( !staticwesttilevector.empty( ) )
+				{
+					pData->curArray[pData->curIndex].westtilevector = staticwesttilevector;
+					staticwesttilevector.clear( );
+				}
 			}
 
-			++structureconstructcnt;
+			pData->curIndex++;
 		}
 		else if(strcmp(name, "usCreationItem") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.usCreationItem	= (UINT16) atol(pData->szCharData);
+			pData->curArray[pData->curIndex].usCreationItem = (UINT16)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "usItemStatusLoss") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.usItemStatusLoss	= (UINT8) atol(pData->szCharData);
+			pData->curArray[pData->curIndex].usItemStatusLoss = (UINT8)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "szTileSetDisplayName") == 0)
 		{
 			pData->curElement = ELEMENT;
 
-			strncpy( pData->curFood.szTileSetDisplayName, pData->szCharData, 20 );
+			strncpy( pData->curArray[pData->curIndex].szTileSetDisplayName, pData->szCharData, 20 );
 		}
 		else if ( strcmp( name, "szTileSetName" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
 
-			strncpy( pData->curFood.szTileSetName, pData->szCharData, 20 );
+			strncpy( pData->curArray[pData->curIndex].szTileSetName, pData->szCharData, 20 );
 		}
 		else if ( strcmp( name, "dCreationCost" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.dCreationCost = (FLOAT)atof( pData->szCharData );
+			pData->curArray[pData->curIndex].dCreationCost = (FLOAT)atof( pData->szCharData );
 		}
 		else if ( strcmp( name, "fFortifyAdjacentAdjustment" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curFood.fFortifyAdjacentAdjustment = (BOOLEAN)atol( pData->szCharData );
+			pData->curArray[pData->curIndex].fFortifyAdjacentAdjustment = (BOOLEAN)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "northfacingtile") == 0)
 		{
@@ -190,8 +187,6 @@ structureconstructEndElementHandle(void *userData, const XML_Char *name)
 
 	pData->currentDepth--;
 }
-
-
 
 
 BOOLEAN ReadInStructureConstructStats(STR fileName)
@@ -229,6 +224,7 @@ BOOLEAN ReadInStructureConstructStats(STR fileName)
 	XML_SetCharacterDataHandler(parser, structureconstructCharacterDataHandle);
 
 	memset(&pData,0,sizeof(pData));
+	pData.curIndex = 0;
 	pData.curArray = gStructureConstruct;
 	pData.maxArraySize = STRUCTURE_CONSTRUCT_MAX;
 
