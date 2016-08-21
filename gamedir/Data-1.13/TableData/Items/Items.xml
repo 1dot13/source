@@ -7271,7 +7271,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>70</ubGraphicNum>
 		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>16</ItemSize>
+		<ItemSize>10</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
@@ -7292,7 +7292,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>70</ubGraphicNum>
 		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>16</ItemSize>
+		<ItemSize>10</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
@@ -7313,7 +7313,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>70</ubGraphicNum>
 		<ubPerPocket>8</ubPerPocket>
-		<ItemSize>16</ItemSize>
+		<ItemSize>10</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>

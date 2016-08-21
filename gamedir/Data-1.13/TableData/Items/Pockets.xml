@@ -388,7 +388,7 @@
 		<pType>1</pType>
 		<pRestriction>268435456</pRestriction>
 		<pVolume>2</pVolume>
-		<ItemCapacityPerSize16>6</ItemCapacityPerSize16>
+		<ItemCapacityPerSize10>6</ItemCapacityPerSize10>
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
