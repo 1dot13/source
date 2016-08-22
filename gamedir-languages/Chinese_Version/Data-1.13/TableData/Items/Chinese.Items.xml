@@ -13913,4 +13913,27 @@
 		<szBRName>Minirockets Cryo</szBRName>
 		<szBRDesc>Not for sale by BR!</szBRDesc>		
 	</ITEM>
+  <ITEM>
+    <uiIndex>1739</uiIndex>
+    <szItemName>Roof Collapse Smoke</szItemName>
+    <szLongItemName>Roof Collapse Smoke</szLongItemName>
+    <szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+    <szBRName>Roof Collapse Smoke</szBRName>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1740</uiIndex>
+    <szItemName>Soda</szItemName>
+    <szLongItemName>Soda</szLongItemName>
+    <szItemDesc>For a mix of industrial sugar and chemicals you don't really want to know, this sure is refreshing.</szItemDesc>
+    <szBRName>Soda</szBRName>
+    <szBRDesc>Not for sale through BR.</szBRDesc>
+  </ITEM>
+  <ITEM>
+    <uiIndex>1741</uiIndex>
+    <szItemName>Beartrap</szItemName>
+    <szLongItemName>Beartrap</szLongItemName>
+    <szItemDesc>Anyone careless enough to step into this will have to stay put for a while.</szItemDesc>
+    <szBRName>Beartrap</szBRName>
+    <szBRDesc>Recommended by ACME.</szBRDesc>
+  </ITEM>
 </ITEMLIST>
