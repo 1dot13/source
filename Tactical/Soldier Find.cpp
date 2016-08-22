@@ -966,19 +966,19 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 						FLOAT bodycenterX = (FLOAT)CenterX( pSoldier->sGridNo );
 						FLOAT bodycenterY = (FLOAT)CenterY( pSoldier->sGridNo );
 
-						FLOAT difftobodycenter = std::sqrt( (bodycenterX - sWorldX) * (bodycenterX - sWorldX) + (bodycenterY - sWorldY) * (bodycenterY - sWorldY) );
+						FLOAT difftobodycenter = sqrt( (bodycenterX - sWorldX) * (bodycenterX - sWorldX) + (bodycenterY - sWorldY) * (bodycenterY - sWorldY) );
 						
 						INT32 viewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( pSoldier->ubDirection ) );
 						FLOAT nextgridnocenterX = (FLOAT)CenterX( viewdirectiongridno );
 						FLOAT nextgridnocenterY = (FLOAT)CenterY( viewdirectiongridno );
 
-						FLOAT difftonextgridno = std::sqrt( (nextgridnocenterX - sWorldX) * (nextgridnocenterX - sWorldX) + (nextgridnocenterY - sWorldY) * (nextgridnocenterY - sWorldY) );
+						FLOAT difftonextgridno = sqrt( (nextgridnocenterX - sWorldX) * (nextgridnocenterX - sWorldX) + (nextgridnocenterY - sWorldY) * (nextgridnocenterY - sWorldY) );
 						
 						INT32 oppositeviewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[pSoldier->ubDirection] ) );
 						FLOAT oppositenextgridnocenterX = (FLOAT)CenterX( oppositeviewdirectiongridno );
 						FLOAT oppositenextgridnocenterY = (FLOAT)CenterY( oppositeviewdirectiongridno );
 
-						FLOAT difftooppositenextgridno = std::sqrt( (oppositenextgridnocenterX - sWorldX) * (oppositenextgridnocenterX - sWorldX) + (oppositenextgridnocenterY - sWorldY) * (oppositenextgridnocenterY - sWorldY) );
+						FLOAT difftooppositenextgridno = sqrt( (oppositenextgridnocenterX - sWorldX) * (oppositenextgridnocenterX - sWorldX) + (oppositenextgridnocenterY - sWorldY) * (oppositenextgridnocenterY - sWorldY) );
 
 						if ( difftobodycenter < difftonextgridno )
 						{

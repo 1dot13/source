@@ -2811,19 +2811,19 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 							FLOAT bodycenterX = (FLOAT)CenterX( pTarget->sGridNo );
 							FLOAT bodycenterY = (FLOAT)CenterY( pTarget->sGridNo );
 
-							FLOAT difftobodycenter = std::sqrt( (bodycenterX - x) * (bodycenterX - x) + (bodycenterY - y) * (bodycenterY - y) );
+							FLOAT difftobodycenter = sqrt( (bodycenterX - x) * (bodycenterX - x) + (bodycenterY - y) * (bodycenterY - y) );
 
 							INT32 viewdirectiongridno = NewGridNo( pTarget->sGridNo, DirectionInc( pTarget->ubDirection ) );
 							FLOAT nextgridnocenterX = (FLOAT)CenterX( viewdirectiongridno );
 							FLOAT nextgridnocenterY = (FLOAT)CenterY( viewdirectiongridno );
 
-							FLOAT difftonextgridno = std::sqrt( (nextgridnocenterX - x) * (nextgridnocenterX - x) + (nextgridnocenterY - y) * (nextgridnocenterY - y) );
+							FLOAT difftonextgridno = sqrt( (nextgridnocenterX - x) * (nextgridnocenterX - x) + (nextgridnocenterY - y) * (nextgridnocenterY - y) );
 
 							INT32 oppositeviewdirectiongridno = NewGridNo( pTarget->sGridNo, DirectionInc( gOppositeDirection[pTarget->ubDirection] ) );
 							FLOAT oppositenextgridnocenterX = (FLOAT)CenterX( oppositeviewdirectiongridno );
 							FLOAT oppositenextgridnocenterY = (FLOAT)CenterY( oppositeviewdirectiongridno );
 
-							FLOAT difftooppositenextgridno = std::sqrt( (oppositenextgridnocenterX - x) * (oppositenextgridnocenterX - x) + (oppositenextgridnocenterY - y) * (oppositenextgridnocenterY - y) );
+							FLOAT difftooppositenextgridno = sqrt( (oppositenextgridnocenterX - x) * (oppositenextgridnocenterX - x) + (oppositenextgridnocenterY - y) * (oppositenextgridnocenterY - y) );
 
 							if ( difftobodycenter < difftonextgridno )
 							{
