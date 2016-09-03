@@ -2423,6 +2423,7 @@ BOOLEAN DrawCTHIndicator()
 
 	// Find the shooter.
 	SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pTarget;
 	GetSoldier( &pSoldier, gusSelectedSoldier );
 
 	OBJECTTYPE* pWeapon = pSoldier->GetUsedWeapon( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
@@ -3300,8 +3301,44 @@ BOOLEAN DrawCTHIndicator()
 	NCTHCorrectMaxAperture( iAperture, iDistanceAperture, usCApertureBar );
 
 	Circ = (INT32)((iDistanceAperture * RADIANS_IN_CIRCLE) * dVerticalBias);
+
 	if(gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 	{
+
+		pTarget = SimpleFindSoldier(gCTHDisplay.iTargetGridNo, gsInterfaceLevel);
+
+		// Draw movement indicator
+		if ( pTarget )
+		{
+
+			UINT16 usCApertureMove = 0;
+			FLOAT dMuzzleOffsetX = 0;
+			DOUBLE dShootingAngle = atan2( dDeltaY, dDeltaX );
+
+			CalcTargetMovementOffset( pSoldier, pTarget, pWeapon, &dMuzzleOffsetX, dShootingAngle, (INT32)iAperture );
+
+			UINT8 ubRedValues[10] = { 80, 90, 100, 120, 140, 160, 180, 200, 220, 255 };
+			UINT8 ubOtherValues[10] = { 80, 80, 80, 80, 80, 60, 40, 20, 0, 0 };
+			dMuzzleOffsetX = abs(dMuzzleOffsetX) * 10;
+			UINT8 ubColorIndex = 0;
+
+			for (INT16 cntX = 0; cntX < 4; ++cntX)
+			{
+				INT16 curX = iDistanceAperture + 5 + cntX * 5;
+				INT16 curY = -5;
+				ubColorIndex = __min(9, __max(0, dMuzzleOffsetX - (1 + cntX * 2)) );
+				usCApertureMove = Get16BPPColor( FROMRGB( ubRedValues[ubColorIndex], ubOtherValues[ubColorIndex], ubOtherValues[ubColorIndex]) );
+
+				for (INT16 cntY = 0; cntY < 5; ++cntY, ++curX, ++curY)
+				{
+					DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY+curY+(INT16)zOffset, usCApertureMove );
+					DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-curX, sStartScreenY+curY+(INT16)zOffset, usCApertureMove );
+					DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX+curX, sStartScreenY-curY-(INT16)zOffset, usCApertureMove );
+					DrawCTHPixelToBuffer( ptrBuf, uiPitch, sLeft, sTop, sRight, sBottom, sStartScreenX-curX, sStartScreenY-curY-(INT16)zOffset, usCApertureMove );
+				}
+			}
+		}
+
 		// Draw outer circle
 		for (INT32 iCurPoint = 0; iCurPoint < Circ; iCurPoint++)
 		{

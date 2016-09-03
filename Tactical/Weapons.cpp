@@ -5317,7 +5317,7 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	if (iSightRange == 0) {	// didn't do a bodypart-based test or can't see specific body part aimed at
 		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
 	}
-	if (iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
+	if (ubTargetID != NOBODY && iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
 		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
 		fCantSeeTarget = true;
 	}
@@ -5518,6 +5518,16 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 		// get aimbonus from target
 		fAimModifier += CalcNewChanceToHitAimTargetBonus(pSoldier, pTarget, sGridNo, iRange, ubAimPos, fCantSeeTarget);
+
+		// apply a penalty if target cannot clearly be seen
+		// if target is clearly visible iSightRange == iRange otherwise it is higher
+		if (iRange > 0 && iSightRange > iRange && !fCantSeeTarget)
+		{
+			FLOAT fTempPenalty = (FLOAT)((FLOAT)iSightRange / (FLOAT)iRange);
+			fTempPenalty = (FLOAT)(100 / fTempPenalty);
+			fAimModifier += ((100-fTempPenalty) * gGameCTHConstants.AIM_VISIBILITY)/100;
+			fAimModifier = __max( gGameCTHConstants.AIM_TARGET_INVISIBLE, fAimModifier );
+		}
 
 		// factor in scopes under their range
 		if ( !pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ) )
