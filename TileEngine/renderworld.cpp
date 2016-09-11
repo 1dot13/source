@@ -3599,41 +3599,41 @@ void ScrollWorld( )
 			// Check for sliding			
 			if (!TileIsOutOfBounds(gTacticalStatus.sSlideTarget))
 			{
-				 // Ignore all input...
-				 // Check if we have reached out dest!
-         if ( fFirstTimeInSlideToMode )
-         {
-           ubOldScrollSpeed = gubCurScrollSpeedID;
-           fFirstTimeInSlideToMode = FALSE;
-         }
+				// Ignore all input...
+				// Check if we have reached out dest!
+				if ( fFirstTimeInSlideToMode )
+				{
+					ubOldScrollSpeed = gubCurScrollSpeedID;
+					fFirstTimeInSlideToMode = FALSE;
+				}
 
-         // Make faster!
-         //gubCurScrollSpeedID = 2;
+				// Make faster!
+				//gubCurScrollSpeedID = 2;
 
-				 ScrollFlags = 0;
-				 fDoScroll = FALSE;
-				 //
-				 if ( SoldierLocationRelativeToScreen( gTacticalStatus.sSlideTarget, gTacticalStatus.sSlideReason, &bDirection, &ScrollFlags ) && GridNoOnVisibleWorldTile( gTacticalStatus.sSlideTarget ) )
-				 {
-						ScrollFlags = gScrollDirectionFlags[ bDirection ];
-						fDoScroll			= TRUE;
-						fIgnoreInput	= TRUE;
-				 }
-				 else
-				 {
-						// We've stopped!
-						gTacticalStatus.sSlideTarget = NOWHERE;
-				 }
+				ScrollFlags = 0;
+				fDoScroll = FALSE;
+				//
+				if ( SoldierLocationRelativeToScreen( gTacticalStatus.sSlideTarget, gTacticalStatus.sSlideReason, &bDirection, &ScrollFlags ) && GridNoOnVisibleWorldTile( gTacticalStatus.sSlideTarget ) )
+				{
+					ScrollFlags = gScrollDirectionFlags[ bDirection ];
+					fDoScroll			= TRUE;
+					fIgnoreInput	= TRUE;
+				}
+				else
+				{
+					// We've stopped!
+					gTacticalStatus.sSlideTarget = NOWHERE;
+				}
 			}
-      else
-      {
-        // Restore old scroll speed
-        if ( !fFirstTimeInSlideToMode )
-        {
-          gubCurScrollSpeedID = ubOldScrollSpeed;
-        }
-        fFirstTimeInSlideToMode = TRUE;
-      }
+			else
+			{
+				// Restore old scroll speed
+				if ( !fFirstTimeInSlideToMode )
+				{
+					gubCurScrollSpeedID = ubOldScrollSpeed;
+				}
+				fFirstTimeInSlideToMode = TRUE;
+			}
 		}
 
 		if ( !fIgnoreInput )

@@ -461,6 +461,7 @@ typedef struct
 	FLOAT giCreatureTurnSpeedUpFactor;
 	FLOAT giMilitiaTurnSpeedUpFactor;
 	FLOAT giCivilianTurnSpeedUpFactor;
+	FLOAT fScrollSpeedFactor;
 
 	//Sound settings
 	UINT32 guiWeaponSoundEffectsVolume;

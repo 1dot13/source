@@ -257,6 +257,10 @@ smctableEndElementHandle(void *userData, const XML_Char *name)
 			{
 				trav_type = HILLS;
 			}
+			else if(strcmp(pData->szCharData, "GROUNDBARRIER") == 0)
+			{
+				trav_type = GROUNDBARRIER;
+			}
 			else if(strcmp(pData->szCharData, "NS_RIVER") == 0)
 			{
 				trav_type = NS_RIVER;
@@ -319,7 +323,9 @@ smctableEndElementHandle(void *userData, const XML_Char *name)
 			}
 			else
 			{
-				trav_type = GROUNDBARRIER;
+				// silversurfer: don't just assign type GROUNDBARRIER. Let modders know that the data is incorrect!
+				AssertMsg(0, String( "Incorrect traversal data '%s' for sector row=%d column=%d !", pData->szCharData, pData->uiRowNumber, pData->uiColNumber) );
+				//trav_type = GROUNDBARRIER;
 			}
 			// Now assign it to the correct directory using the close tag as a guide
 			if(strcmp(name, "North") == 0)

@@ -948,6 +948,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.giMilitiaTurnSpeedUpFactor		= iniReader.ReadFloat("Graphics Settings","MILITIA_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
 	gGameExternalOptions.giCivilianTurnSpeedUpFactor	= iniReader.ReadFloat("Graphics Settings","CIVILIAN_TURN_SPEED_UP_FACTOR",1.0, 0, 1.0);
 
+	gGameExternalOptions.fScrollSpeedFactor					= iniReader.ReadFloat("Graphics Settings","SCROLL_SPEED_FACTOR",1.0, 0.5, 2.0);
+	giTimerIntervals[ NEXTSCROLL ] = (INT16)(giTimerIntervals[ NEXTSCROLL ] / gGameExternalOptions.fScrollSpeedFactor);
+
 	gGameExternalOptions.gfUseExternalLoadscreens		= iniReader.ReadBoolean("Graphics Settings","USE_EXTERNALIZED_LOADSCREENS", FALSE);
 	
 	if (!is_networked)
