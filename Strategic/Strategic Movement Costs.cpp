@@ -41,6 +41,7 @@ typedef enum
 	SMCTABLE_ELEMENT_TRAVELRATING,
 	SMCTABLE_ELEMENT_TRAVELTYPE,
 	SMCTABLE_ELEMENT_SHORTNAME,
+	SMCTABLE_ELEMENT_BADSECTOR,
 } SMCTABLE_PARSE_STAGE;
 
 typedef struct
@@ -137,7 +138,7 @@ smctableStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 		}
 		else if(strcmp(name, "BadSector") == 0 && pData->curElement == SMCTABLE_ELEMENT_SECTOR)
 		{
-			pData->curElement = SMCTABLE_ELEMENT_TRAVELTYPE;
+			pData->curElement = SMCTABLE_ELEMENT_BADSECTOR;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		pData->szCharData[0] = '\0';
@@ -323,8 +324,8 @@ smctableEndElementHandle(void *userData, const XML_Char *name)
 			}
 			else
 			{
-				// silversurfer: don't just assign type GROUNDBARRIER. Let modders know that the data is incorrect!
-				AssertMsg(0, String( "Incorrect traversal data '%s' for sector row=%d column=%d !", pData->szCharData, pData->uiRowNumber, pData->uiColNumber) );
+				// silversurfer: don't just assign type GROUNDBARRIER. Let modders know that traversal data is incorrect!
+				AssertMsg(0, String( "Incorrect traversal data '%s' for sector row=%d column=%d in MovementCosts.xml!", pData->szCharData, pData->uiRowNumber, pData->uiColNumber) );
 				//trav_type = GROUNDBARRIER;
 			}
 			// Now assign it to the correct directory using the close tag as a guide
@@ -348,11 +349,6 @@ smctableEndElementHandle(void *userData, const XML_Char *name)
 			{
 				pData->travHere = trav_type;
 			}
-			else if(strcmp(name, "BadSector") == 0)
-			{
-				bool fBadSector = atoi(pData->szCharData) > 0;
-				sBadSectorsList[pData->uiColNumber][pData->uiRowNumber] = fBadSector;
-			}
 			else
 			{
 				// Bogus Traversal Reference
@@ -360,6 +356,13 @@ smctableEndElementHandle(void *userData, const XML_Char *name)
 			}
 			//fprintf (outfile, "Extracted %s traversal: %d\n", name, trav_type);
 			//fprintf (outfile, "Exiting Traversal Type\n");
+			pData->curElement = SMCTABLE_ELEMENT_SECTOR;
+		}
+		else if(pData->curElement == SMCTABLE_ELEMENT_BADSECTOR)
+		{
+			bool fBadSector = atoi(pData->szCharData) > 0;
+			sBadSectorsList[pData->uiColNumber][pData->uiRowNumber] = fBadSector;
+
 			pData->curElement = SMCTABLE_ELEMENT_SECTOR;
 		}
 		//else if(strcmp(name, "Shortname") == 0 && pData->curElement == SMCTABLE_ELEMENT_SHORTNAME)
