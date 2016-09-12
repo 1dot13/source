@@ -1880,6 +1880,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			}
 			*/
 		
+//#ifdef DISABLE_MP_INTERRUPTS_IN_COOP
+
+			// WANNE: Not needed to show the override turn dialog
+//#else
+
 			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'e') )
 			{
 				if( InputEvent.usKeyState & ALT_DOWN )
@@ -1890,6 +1895,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}			
 			}
+
+//#endif
 
 			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'k') )
 			{

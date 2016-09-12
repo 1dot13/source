@@ -1506,6 +1506,15 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 	INT8						bDir;
 	SOLDIERTYPE *		pOpponent;
 
+#ifdef DISABLE_MP_INTERRUPTS_IN_COOP
+	
+	if (is_networked == TRUE && cGameType == MP_TYPE_COOP)
+	{
+		return ( FALSE );
+	}
+
+#endif
+
 	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && !(gubSightFlags & SIGHT_INTERRUPT) )
 	{
 		return( FALSE );
