@@ -13242,21 +13242,21 @@ static int l_GetUsedLanguage( lua_State *L )
 	{
 		INT32 val = 0;
 
-#ifdef ENGLISH
+#if defined(ENGLISH)
 		val = 0;
-#elif GERMAN
+#elif defined(GERMAN)
 		val = 1;
-#elif RUSSIAN
+#elif defined(RUSSIAN)
 		val = 2;
-#elif DUTCH
+#elif defined(DUTCH)
 		val = 3;
-#elif POLISH
+#elif defined(POLISH)
 		val = 4;
-#elif FRENCH
+#elif defined(FRENCH)
 		val = 5;
-#elif ITALIAN
+#elif defined(ITALIAN)
 		val = 6;
-#elif CHINESE
+#elif defined(CHINESE)
 		val = 7;
 #endif
 
