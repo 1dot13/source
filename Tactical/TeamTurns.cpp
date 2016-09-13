@@ -1046,61 +1046,55 @@ void StartInterrupt( void )
 		BuildAIListForTeam( bTeam );
 
 		// set to the new first interrupter
-		cnt = RemoveFirstAIListEntry();
+		cnt = RemoveFirstAIListEntry();		
 
-		pTempSoldier = MercPtrs[ cnt ];
-//		pSoldier = MercPtrs[ubFirstInterrupter];
-
-		// sevenfm: check that soldier is not NULL
-		Assert(pTempSoldier);
-
-		//if ( gTacticalStatus.ubCurrentTeam == OUR_TEAM )//hayden
-		// if ( pSoldier->bTeam > OUR_TEAM && pSoldier->bTeam < 6) // cheap disable
-		// SANDRO - we don't use the "hidden interrupt" feature with IIS
-		// sevenfm: all interrupts in original interrupt system start as hidden and revealed later if soldier decides something
-		/*if (!is_networked && gTacticalStatus.ubCurrentTeam == OUR_TEAM && !gGameOptions.fImprovedInterruptSystem
-			&& MercPtrs[ LATEST_INTERRUPT_GUY ]->aiData.bOppList[pTempSoldier->ubID] != SEEN_CURRENTLY 
-			&& MercPtrs[ LATEST_INTERRUPT_GUY ]->aiData.bOppList[pTempSoldier->ubID] != SEEN_THIS_TURN )*/
-		if ( !is_networked && pSoldier->bTeam != OUR_TEAM && !gGameOptions.fImprovedInterruptSystem )
+		// sevenfm: RemoveFirstAIListEntry() can return NOBODY
+		if( cnt != NOBODY )
 		{
-			// we're being interrupted by the computer!
-			// we delay displaying any interrupt message until the computer
-			// does something...
-			gfHiddenInterrupt = TRUE;
-			gTacticalStatus.fUnLockUIAfterHiddenInterrupt = FALSE;
-		}
-		// otherwise it's the AI interrupting another AI team
+			pTempSoldier = MercPtrs[ cnt ];
 
-		if (pTempSoldier != NULL)
-			gTacticalStatus.ubCurrentTeam	= pTempSoldier->bTeam;
-		
-		if (is_networked)
-		{
-			#ifdef JA2BETAVERSION
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Interrupt ( could be hidden )" );
-			#endif
-		}
+			// sevenfm: don't do anything if pTempSoldier is NULL
+			if( pTempSoldier != NULL )
+			{
+				// SANDRO - we don't use the "hidden interrupt" feature with IIS
+				// sevenfm: all interrupts in original interrupt system start as hidden and revealed later if soldier decides something
+				if ( !is_networked && pTempSoldier->bTeam != OUR_TEAM && !gGameOptions.fImprovedInterruptSystem )
+				{
+					// we're being interrupted by the computer!
+					// we delay displaying any interrupt message until the computer does something...
+					gfHiddenInterrupt = TRUE;
+					gTacticalStatus.fUnLockUIAfterHiddenInterrupt = FALSE;
+				}
+				// otherwise it's the AI interrupting another AI team
 
-		// sevenfm: don't show hidden interrupt
-		if( !gfHiddenInterrupt )
-		{
-			// SANDRO - show correct top message
-			if (pTempSoldier->bTeam == MILITIA_TEAM )
-				AddTopMessage( MILITIA_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
-			else
-				AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
-		}
+				gTacticalStatus.ubCurrentTeam	= pTempSoldier->bTeam;
 
-		if (pTempSoldier != NULL)
-		{
-			// Flugente 12-11-13: I observed an instance where the pTempSoldier was a player merc, leading to a deadlock here. The reason was that during an iinterrupot by a civilian, he somehow did not win
-			// instead the game used the last merc entry... which overflowed, and thus started at merc 0, which is always a player merc
-			// I am not sure if this is the best solution... however it seems to work for me.
-			// If anybody knows a better solution, feel free to do so
-			if ( pTempSoldier->bTeam != OUR_TEAM )
-				StartNPCAI( pTempSoldier );
-			else
-				EndInterrupt(TRUE);
+#ifdef JA2BETAVERSION
+				if (is_networked)
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Interrupt ( could be hidden )" );
+				}
+#endif
+
+				// sevenfm: don't show hidden interrupt
+				if( !gfHiddenInterrupt )
+				{
+					// SANDRO - show correct top message
+					if (pTempSoldier->bTeam == MILITIA_TEAM )
+						AddTopMessage( MILITIA_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+					else
+						AddTopMessage( COMPUTER_INTERRUPT_MESSAGE, Message[STR_INTERRUPT] );
+				}
+
+				// Flugente 12-11-13: I observed an instance where the pTempSoldier was a player merc, leading to a deadlock here. The reason was that during an interrupt by a civilian, he somehow did not win
+				// instead the game used the last merc entry... which overflowed, and thus started at merc 0, which is always a player merc
+				// I am not sure if this is the best solution... however it seems to work for me.
+				// If anybody knows a better solution, feel free to do so
+				if ( pTempSoldier->bTeam != OUR_TEAM )
+					StartNPCAI( pTempSoldier );
+				else
+					EndInterrupt(TRUE);
+			}
 		}
 	}
 
@@ -1113,8 +1107,8 @@ void StartInterrupt( void )
 			MercPtrs[ LATEST_INTERRUPT_GUY ]->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
 		}
 	}
-		DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartInterrupt done");
 
+	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartInterrupt done");
 }
 
 void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
