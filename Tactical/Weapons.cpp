@@ -5313,12 +5313,19 @@ UINT32 CalcNewChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	iSightRange = 0;
 
 	if (ubTargetID != NOBODY && pSoldier->aiData.bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
+	{
 		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false );
-	if (iSightRange == 0) {	// didn't do a bodypart-based test or can't see specific body part aimed at
+	}
+	if (iSightRange == 0) 
+	{	
+		// didn't do a bodypart-based test or can't see specific body part aimed at
 		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
 	}
-	if (ubTargetID != NOBODY && iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
-		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
+	if (iSightRange == 0) 
+	{	
+		// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
+		if (ubTargetID != NOBODY)
+			iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
 		fCantSeeTarget = true;
 	}
 
@@ -5672,9 +5679,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		fCoverObscured = true;
 	}
 
-	if (ubTargetID != NOBODY && iSightRange == 0 )
-	{	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
-		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
+	if (iSightRange == 0 )
+	{	
+		// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
+		if (ubTargetID != NOBODY)
+			iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation, false, true );
 		fCantSeeTarget = true;
 		fCoverObscured = false;
 	}
