@@ -442,7 +442,6 @@
 		<ap_inventory>-10</ap_inventory>
 		<ap_airdrop>-3</ap_airdrop>
 		<ap_assault>-5</ap_assault>
-		<resistance_poison>5</resistance_poison>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
@@ -1077,7 +1076,6 @@
 		<ap_assault>1</ap_assault>
 		<meleedamage>3</meleedamage>
 		<cth_blades>5</cth_blades>
-		<resistance_poison>5</resistance_poison>
 		<resistance_alcohol>10</resistance_alcohol>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>5</resistance_fear>
@@ -1263,7 +1261,6 @@
 		<szDescription>Turning the urban environment into a jungle is a tough job, but &#10;somebody's gotta do it!</szDescription>
 		<leadership>-2</leadership>
 		<ap_urban>5</ap_urban>
-		<resistance_poison>15</resistance_poison>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>10</resistance_fear>
 		<resistance_alcohol>10</resistance_alcohol>
@@ -2800,7 +2797,6 @@
 		<ap_inventory>-10</ap_inventory>
 		<ap_airdrop>-3</ap_airdrop>
 		<ap_assault>-5</ap_assault>
-		<resistance_poison>5</resistance_poison>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
@@ -3810,7 +3806,6 @@
 		<ap_inventory>-5</ap_inventory>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-2</ap_assault>
-		<resistance_poison>5</resistance_poison>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>20</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
@@ -4398,7 +4393,6 @@
 		<ap_inventory>-10</ap_inventory>
 		<ap_airdrop>-3</ap_airdrop>
 		<ap_assault>-5</ap_assault>
-		<resistance_poison>5</resistance_poison>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
@@ -4614,7 +4608,6 @@
 		<agility>5</agility>
 		<dexterity>5</dexterity>
 		<approach_threaten>10</approach_threaten>
-		<resistance_poison>5</resistance_poison>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>8</resistance_fear>
 		<meleedamage>2</meleedamage>
@@ -4924,7 +4917,6 @@
 		<travel_foot>4</travel_foot>
 		<dexterity>5</dexterity>
 		<medical>10</medical>
-		<resistance_poison>5</resistance_poison>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>5</resistance_fear>
 		<resistance_suppression>5</resistance_suppression>
@@ -5118,7 +5110,6 @@
 		<szShortName>Convict</szShortName>
 		<szDescription>Anyone surviving in a merciless prison is bound to be more&#10; dangerous on release - if he survives that long.</szDescription>
 		<approach_threaten>10</approach_threaten>
-		<resistance_poison>5</resistance_poison>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>5</resistance_fear>
 		<meleedamage>2</meleedamage>
@@ -5223,7 +5214,6 @@
 		<ap_inventory>-10</ap_inventory>
 		<ap_airdrop>-3</ap_airdrop>
 		<ap_assault>-5</ap_assault>
-		<resistance_poison>5</resistance_poison>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
@@ -5949,7 +5939,6 @@
 		<ap_inventory>-5</ap_inventory>
 		<ap_airdrop>-3</ap_airdrop>
 		<ap_assault>-2</ap_assault>
-		<resistance_poison>5</resistance_poison>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>20</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
