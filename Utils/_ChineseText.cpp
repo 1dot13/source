@@ -423,7 +423,6 @@ STR16 pEncyclopediaSubFilterQuestText[] =
 	L"",//reserved. insert new completed quest subfilters above!
 };
 
-
 STR16	pEncyclopediaShortInventoryText[] = 
 {
 	L"全部", //0 //L"All",
@@ -487,383 +486,381 @@ STR16			BoxFilter[] =
 	L"其他", //34 //L"Misc",
 };
 
-// TODO.Translate
 STR16		QuestDescText[] = 
 {
-	L"Deliver Letter",
-	L"Food Route",
-	L"Terrorists",
-	L"Kingpin Chalice",
-	L"Kingpin Money",
-	L"Runaway Joey",
-	L"Rescue Maria",
-	L"Chitzena Chalice",
-	L"Held in Alma",
-	L"Interogation",
+	L"送信",//L"Deliver Letter",
+	L"食物补给线",//L"Food Route",
+	L"恐怖分子",//L"Terrorists",
+	L"Kingpin的圣杯 ",//L"Kingpin Chalice",
+	L"Kingpin的黑钱",//L"Kingpin Money",
+	L"逃走的Joey",//L"Runaway Joey",
+	L"拯救Maria",//L"Rescue Maria",
+	L"Chitzena圣杯",//L"Chitzena Chalice",
+	L"被困在Alma",//L"Held in Alma",
+	L"审讯",//L"Interogation",
 
-	L"Hillbilly Problem",								//10
-	L"Find Scientist",
-	L"Deliver Video Camera",
-	L"Blood Cats",
-	L"Find Hermit",
-	L"Creatures",
-	L"Find Chopper Pilot",
-	L"Escort SkyRider",
-	L"Free Dynamo",
-	L"Escort Tourists",
+	L"乡巴佬的问题",//L"Hillbilly Problem",								//10
+	L"找到科学家",//L"Find Scientist",
+	L"送摄像机",//L"Deliver Video Camera",
+	L"血猫",//L"Blood Cats",
+	L"找到Hermit",//L"Find Hermit",
+	L"异形",//L"Creatures",
+	L"找到直升机飞行员",//L"Find Chopper Pilot",
+	L"护送SkyRider",//L"Escort SkyRider",
+	L"解救Dyname",//L"Free Dynamo",
+	L"护送游客",//L"Escort Tourists",
 
 
-	L"Doreen",									//20
-	L"Leather Shop Dream",
-	L"Escort Shank",
-	L"No 23 Yet",
-	L"No 24 Yet",
-	L"Kill Deidranna",
-	L"No 26 Yet",
-	L"No 27 Yet",
-	L"No 28 Yet",
-	L"No 29 Yet",
+	L"Doreen",//L"Doreen",									//20
+	L"关于皮革商店的梦想",//L"Leather Shop Dream",
+	L"护送Shank",//L"Escort Shank",
+	L"没有23",//L"No 23 Yet",
+	L"没有24",//L"No 24 Yet",
+	L"杀死Deidranna",//L"Kill Deidranna",
+	L"没有26",//L"No 26 Yet",
+	L"没有27",//L"No 27 Yet",
+	L"没有28",//L"No 28 Yet",
+	L"没有29",//L"No 29 Yet",
 };
 
-// TODO.Translate
 STR16		FactDescText[] = 
 {
-	L"Omerta Liberated",
-	L"Drassen Liberated",
-	L"Sanmona Liberated",
-	L"Cambria Liberated",
-	L"Alma Liberated",
-	L"Grumm Liberated",
-	L"Tixa Liberated",
-	L"Chitzena Liberated",
-	L"Estoni Liberated",
-	L"Balime Liberated",
+	L"Omerta被解放了",//L"Omerta Liberated",
+	L"Drassen被解放了",//L"Drassen Liberated",
+	L"Sanmona被解放了",//L"Sanmona Liberated",
+	L"Cambria被解放了",//L"Cambria Liberated",
+	L"Alma被解放了",//L"Alma Liberated",
+	L"Grumm被解放了",//L"Grumm Liberated",
+	L"Tixa被解放了",//L"Tixa Liberated",
+	L"Chitzena被解放了",//L"Chitzena Liberated",
+	L"Estoni被解放了",//L"Estoni Liberated",
+	L"Balime被解放了",//L"Balime Liberated",
 
-	L"Orta Liberated",					//10
-	L"Meduna Liberated",
-	L"Pacos approched",
-	L"Fatima Read note",
-	L"Fatima Walked away from player",
-	L"Dimitri (#60) is dead",
-	L"Fatima responded to Dimitri's supprise",
-	L"Carlo's exclaimed 'no one moves'",
-	L"Fatima described note",
-	L"Fatima arrives at final dest",
+	L"Orta被解放了",//L"Orta Liberated",					//10
+	L"Meduna被解放了",//L"Meduna Liberated",
+	L"Pacos走近了",//L"Pacos approched",
+	L"Fatima阅读了信件",//L"Fatima Read note",
+	L"Fatima从佣兵身边离开",//L"Fatima Walked away from player",
+	L"Dimitri死了",//L"Dimitri (#60) is dead",
+	L"Fatima回应了Dimitri的惊讶",//L"Fatima responded to Dimitri's supprise",
+	L"Carlo喊道'都不许动'",//L"Carlo's exclaimed 'no one moves'",
+	L"Fatima描述了信件",//L"Fatima described note",
+	L"Fatima到达最终目的地",//L"Fatima arrives at final dest",
 
-	L"Dimitri said Fatima has proof",		//20
-	L"Miguel overheard conversation",
-	L"Miguel asked for letter",
-	L"Miguel read note",
-	L"Ira comment on Miguel reading note",
-	L"Rebels are enemies",
-	L"Fatima spoken to before given note",
-	L"Start Drassen quest",
-	L"Miguel offered Ira",
-	L"Pacos hurt/Killed",
+	L"Dimitri说Fatima有证据",//L"Dimitri said Fatima has proof",		//20
+	L"Miguel听到了对话",//L"Miguel overheard conversation",
+	L"Miguel要看信件",//L"Miguel asked for letter",
+	L"Miguel阅读了信件",//L"Miguel read note",
+	L"Ira在Miguel阅读信件时发表意见",//L"Ira comment on Miguel reading note",
+	L"反抗军是敌人",//L"Rebels are enemies",
+	L"把信交给Fatima之前与Fatima对话",//L"Fatima spoken to before given note",
+	L"开始Drassen任务",//L"Start Drassen quest",
+	L"Miguel安排了Ira",//L"Miguel offered Ira",
+	L"Pacos受伤了/被杀死了",//L"Pacos hurt/Killed",
 
-	L"Pacos is in A10",		//30
-	L"Current Sector is safe",
-	L"Bobby R Shpmnt in transit",
-	L"Bobby R Shpmnt in Drassen",
-	L"33 is TRUE and it arrived within 2 hours",
-	L"33 is TRUE 34 is false more then 2 hours",
-	L"Player has realized part of shipment is missing",
-	L"36 is TRUE and Pablo was injured by player",
-	L"Pablo admitted theft",
-	L"Pablo returned goods, set 37 false",
+	L"Pacos在A10区域",//L"Pacos is in A10",		//30
+	L"目前区域安全",//L"Current Sector is safe",
+	L"Bobby R的包裹在路上",//L"Bobby R Shpmnt in transit",
+	L"Bobby R的包裹到达Drassen",//L"Bobby R Shpmnt in Drassen",
+	L"33是TRUE，包裹在不到2小时之前到达",//L"33 is TRUE and it arrived within 2 hours",
+	L"33是TRUE，34是False，包裹到达时刻距现在已经超过2小时",//L"33 is TRUE 34 is false more then 2 hours",
+	L"佣兵发现部分包裹丢失了",//L"Player has realized part of shipment is missing",
+	L"36是TRUE，Pablo被佣兵伤害了",//L"36 is TRUE and Pablo was injured by player",
+	L"Pablo承认偷窃",//L"Pablo admitted theft",
+	L"Pablo返还货物，设置37为False",//L"Pablo returned goods, set 37 false",
 
-	L"Miguel will join team",		//40
-	L"Gave some cash to Pablo",
-	L"Skyrider is currently under escort",
-	L"Skyrider is close to his chopper in Drassen",
-	L"Skyrider explained deal",
-	L"Player has clicked on Heli in Mapscreen at least once",
-	L"NPC is owed money",
-	L"Npc is wounded",
-	L"Npc was wounded by Player",
-	L"Father J.Walker was told of food shortage",
+	L"Miguel将会加入团队",//L"Miguel will join team",		//40
+	L"给Pablo一些钱",//L"Gave some cash to Pablo",
+	L"Skyrider正在被护送中",//L"Skyrider is currently under escort",
+	L"Skyrider接近Drassen的直升机",//L"Skyrider is close to his chopper in Drassen",
+	L"Skyrider解释了交易",//L"Skyrider explained deal",
+	L"佣兵在地图屏幕上点击了直升机至少一次",//L"Player has clicked on Heli in Mapscreen at least once",
+	L"欠了NPC的钱",//L"NPC is owed money",
+	L"NPC受伤了",//L"Npc is wounded",
+	L"NPC被佣兵伤害了",//L"Npc was wounded by Player",
+	L"将食物短缺的情况告知了J.Walkder神父",//L"Father J.Walker was told of food shortage",
 
-	L"Ira is not in sector",		//50
-	L"Ira is doing the talking",
-	L"Food quest over",
-	L"Pablo stole something from last shpmnt",
-	L"Last shipment crashed",
-	L"Last shipment went to wrong airport",
-	L"24 hours elapsed since notified that shpment went to wrong airport",
-	L"Lost package arrived with damaged goods. 56 to False",
-	L"Lost package is lost permanently. Turn 56 False",
-	L"Next package can (random) be lost",
+	L"Ira不在这个区域",//L"Ira is not in sector",		//50
+	L"Ira在说话中",//L"Ira is doing the talking",
+	L"寻找食物任务完成",//L"Food quest over",
+	L"Pable从最近的货物中偷了些东西",//L"Pablo stole something from last shpmnt",
+	L"最近的货物损坏了",//L"Last shipment crashed",
+	L"最近的货物被发到了错误的机场",//L"Last shipment went to wrong airport",
+	L"自从得知货物被发到了错误的机场，24小时过去了",//L"24 hours elapsed since notified that shpment went to wrong airport",
+	L"丢失的包裹到达，但是（某些）货物损坏了， 把 56 设成 False",//L"Lost package arrived with damaged goods. 56 to False",
+	L"丢失的包裹永久丢失, 把 56 设成 False",//L"Lost package is lost permanently. Turn 56 False",
+	L"下一个包裹可能（随机）丢失",//L"Next package can (random) be lost",
 
-	L"Next package can(random) be delayed",		//60
-	L"Package is medium sized",
-	L"Package is largesized",
-	L"Doreen has conscience",
-	L"Player Spoke to Gordon",
-	L"Ira is still npc and in A10-2(hasnt joined)",
-	L"Dynamo asked for first aid",
-	L"Dynamo can be recruited",
-	L"Npc is bleeding",
-	L"Shank wnts to join",
+	L"下一个包裹可能（随机）被延误",//L"Next package can(random) be delayed",		//60
+	L"包裹是中等尺寸的",//L"Package is medium sized",
+	L"包裹是大尺寸的",//L"Package is largesized",
+	L"Doreen有良心",//L"Doreen has conscience",
+	L"佣兵对Gordon说话",//L"Player Spoke to Gordon",
+	L"Ira仍然是NPC，位于A10-2区域（尚未加入）",//L"Ira is still npc and in A10-2(hasnt joined)",
+	L"Dynamo要求急救",//L"Dynamo asked for first aid",
+	L"Dynamo可以被招聘",//L"Dynamo can be recruited",
+	L"NPC在流血",//L"Npc is bleeding",
+	L"Shank想加入",//L"Shank wnts to join",
 
-	L"NPC is bleeding",		//70
-	L"Player Team has head & Carmen in San Mona",
-	L"Player Team has head & Carmen in Cambria",
-	L"Player Team has head & Carmen in Drassen",
-	L"Father is drunk",
-	L"Player has wounded mercs within 8 tiles of NPC",
-	L"1 & only 1 merc wounded within 8 tiles of NPC",
-	L"More then 1 wounded merc within 8 tiles of NPC",
-	L"Brenda is in the store ",
-	L"Brenda is Dead",
+	L"NPC在流血",//L"NPC is bleeding",		//70
+	L"佣兵队伍有通缉犯的头 & Carmen在San Mona",//L"Player Team has head & Carmen in San Mona",
+	L"佣兵队伍有通缉犯的头 & Carmen在Cambria",//L"Player Team has head & Carmen in Cambria",
+	L"佣兵队伍有通缉犯的头 & Carmen在Drassen",//L"Player Team has head & Carmen in Drassen",
+	L"神父喝醉了",//L"Father is drunk",
+	L"佣兵伤害了在NPC身边8个格子内的佣兵",//L"Player has wounded mercs within 8 tiles of NPC",
+	L"NPC身边8个格子内只有1个佣兵受伤",//L"1 & only 1 merc wounded within 8 tiles of NPC",
+	L"NPC身边8个格子内有多于1个佣兵受伤",//L"More then 1 wounded merc within 8 tiles of NPC",
+	L"Brenda在商店中",//L"Brenda is in the store ",
+	L"Brenda死了",//L"Brenda is Dead",
 
-	L"Brenda is at home",		//80
-	L"NPC is an enemy",
-	L"Speaker Strength >= 84 and < 3 males present",
-	L"Speaker Strength >= 84 and at least 3 males present",
-	L"Hans lets ou see Tony",
-	L"Hans is standing on 13523",
-	L"Tony isnt available Today",
-	L"Female is speaking to NPC",
-	L"Player has enjoyed the Brothel",
-	L"Carla is available",
+	L"Brenda在家",//L"Brenda is at home",		//80
+	L"NPC是敌人",//L"NPC is an enemy",
+	L"扩音器音量>=84,<3个男性出现",//L"Speaker Strength >= 84 and < 3 males present",
+	L"扩音器音量>=84,和至少3名男性",//L"Speaker Strength >= 84 and at least 3 males present",
+	L"Hans引荐了Tony",//L"Hans lets ou see Tony",
+	L"Hans正站在 13523",//L"Hans is standing on 13523",
+	L"Tony今天不在",//L"Tony isnt available Today",
+	L"妓女在和NPC说话",//L"Female is speaking to NPC",
+	L"佣兵很享受妓院",//L"Player has enjoyed the Brothel",
+	L"Carla有空",//L"Carla is available",
 
-	L"Cindy is available",		//90
-	L"Bambi is available",
-	L"No girls is available",
-	L"Player waited for girls",
-	L"Player paid right amount of money",
-	L"Mercs walked by goon",
-	L"More thean 1 merc present within 3 tiles of NPC",
-	L"At least 1 merc present withing 3 tiles of NPC",
-	L"Kingping expectingh visit from player",
-	L"Darren expecting money from player",
+	L"Cindy有空",//L"Cindy is available",		//90
+	L"Bambi有空",//L"Bambi is available",
+	L"没有小姐有空",//L"No girls is available",
+	L"佣兵在等小姐",//L"Player waited for girls",
+	L"佣兵付了钱",//L"Player paid right amount of money",
+	L"佣兵从小混混身边走过",//L"Mercs walked by goon",
+	L"NPC身边3个格子内有多于1个佣兵",//L"More thean 1 merc present within 3 tiles of NPC",
+	L"NPC身边3个格子内至少有1个佣兵",//L"At least 1 merc present withing 3 tiles of NPC",
+	L"Kingping等待佣兵的拜访",//L"Kingping expectingh visit from player",
+	L"Darren等待佣兵付钱",//L"Darren expecting money from player",
 
-	L"Player within 5 tiles and NPC is visible",			//	100
-	L"Carmen is in San Mona",
-	L"Player Spoke to Carmen",
-	L"KingPin knows about stolen money",
-	L"Player gave money back to KingPin",
-	L"Frank was given the money ( not to buy booze )",
-	L"Player was told about KingPin watching fights",
-	L"Past club closing time and Darren warned Player. (reset every day)",
-	L"Joey is EPC",
-	L"Joey is in C5",
+	L"佣兵在5格内，NPC可见",//L"Player within 5 tiles and NPC is visible",			//	100
+	L"Carmen在San Mona",//L"Carmen is in San Mona",
+	L"佣兵对Carmen说话",//L"Player Spoke to Carmen",
+	L"Kingpin知道自己的钱被偷了",//L"KingPin knows about stolen money",
+	L"佣兵把钱还给了KingPin",//L"Player gave money back to KingPin",
+	L"给了Frank钱（不是去买酒）",//L"Frank was given the money ( not to buy booze )",
+	L"佣兵被告知KingPin看拳击比赛",//L"Player was told about KingPin watching fights",
+	L"过了俱乐部的关门时间，Darren警告佣兵（每天重置）",//L"Past club closing time and Darren warned Player. (reset every day)",
+	L"Joey是EPC",//L"Joey is EPC",
+	L"Joey在C5",//L"Joey is in C5",
 	
-	L"Joey is within 5 tiles of Martha(109) in sector G8",		//110
-	L"Joey is Dead!",
-	L"At least one player merc within 5 tiles of Martha",
-	L"Spike is occuping tile 9817",
-	L"Angel offered vest",
-	L"Angel sold vest",
-	L"Maria is EPC",
-	L"Maria is EPC and inside leather Shop",
-	L"Player wants to buy vest",
-	L"Maria rescue was noticed by KingPin goons and Kingpin now enemy",
+	L"Joey在Martha(109)的5格内，G8区域",//L"Joey is within 5 tiles of Martha(109) in sector G8",		//110
+	L"Joey死了",//L"Joey is Dead!",
+	L"至少有一个佣兵在Martha身边的5格内",//L"At least one player merc within 5 tiles of Martha",
+	L"Spike站在9817格",//L"Spike is occuping tile 9817",
+	L"Angel提供了背心",//L"Angel offered vest",
+	L"Angel卖了背心",//L"Angel sold vest",
+	L"Maria是EPC",//L"Maria is EPC",
+	L"Maria是EPC，在皮革店里",//L"Maria is EPC and inside leather Shop",
+	L"佣兵想买背心",//L"Player wants to buy vest",
+	L"营救Maria被KingPin的狗腿子发现了，Kingpin现在是敌人了",//L"Maria rescue was noticed by KingPin goons and Kingpin now enemy",
 	
-	L"Angel left deed on counter",		//120
-	L"Maria quest over",
-	L"Player bandaged NPC today",
-	L"Doreen revealed allegiance to Queen",
-	L"Pablo should not steal from player",
-	L"Player shipment arrived but loyalty to low, so it left",
-	L"Helicopter is in working condition",
-	L"Player is giving amount of money >= $1000",
-	L"Player is giving amount less than $1000",
-	L"Waldo agreed to fix helicopter( heli is damaged )",
+	L"Angel把契约留在了柜台上",//L"Angel left deed on counter",		//120
+	L"Maria任务结束",//L"Maria quest over",
+	L"佣兵今天对NPC进行了包扎",//L"Player bandaged NPC today",
+	L"Doreen展现了对女皇的忠诚",//L"Doreen revealed allegiance to Queen",
+	L"Pablo不应该偷佣兵的东西",//L"Pablo should not steal from player",
+	L"佣兵的货物到了，但因忠诚度过低而被迫运离",//L"Player shipment arrived but loyalty to low, so it left",
+	L"直升机待命中",//L"Helicopter is in working condition",
+	L"佣兵给予的金钱>=1000美金",//L"Player is giving amount of money >= $1000",
+	L"佣兵给予的金钱<1000美金",//L"Player is giving amount less than $1000",
+	L"Waldo同意修理直升机（直升机已损坏）",//L"Waldo agreed to fix helicopter( heli is damaged )",
 	
-	L"Helicopter was destroyed",		//130
-	L"Waldo told us about heli pilot",
-	L"Father told us about Deidranna killing sick people",
-	L"Father told us about Chivaldori family",
-	L"Father told us about creatures",
-	L"Loyalty is OK",
-	L"Loyalty is Low",
-	L"Loyalty is High",
-	L"Player doing poorly",
-	L"Player gave valid head to Carmen",
+	L"直升机已被摧毁",//L"Helicopter was destroyed",		//130
+	L"Waldo告诉我们关于直升机飞行员的事情",//L"Waldo told us about heli pilot",
+	L"神父告诉我们Deidranna在屠杀生病的人们",//L"Father told us about Deidranna killing sick people",
+	L"神父告诉我们Chivaldori一家的事情",//L"Father told us about Chivaldori family",
+	L"神父告诉我们关于异形的事情",//L"Father told us about creatures",
+	L"忠诚度一般",//L"Loyalty is OK",
+	L"忠诚度低",//L"Loyalty is Low",
+	L"忠诚度高",//L"Loyalty is High",
+	L"佣兵做的很糟糕",//L"Player doing poorly",
+	L"佣兵把通缉犯的头颅给了Carmen",//L"Player gave valid head to Carmen",
 	
-	L"Current sector is G9(Cambria)",		//140
-	L"Current sector is C5(SanMona)",
-	L"Current sector is C13(Drassen",
-	L"Carmen has at least $10,000 on him",
-	L"Player has Slay on team for over 48 hours",
-	L"Carmen is suspicous about slay",
-	L"Slay is in current sector",
-	L"Carmen gave us final warning",
-	L"Vince has explained that he has to charge",
-	L"Vince is expecting cash (reset everyday)",
+	L"目前的区域是G9(Cambria)",//L"Current sector is G9(Cambria)",		//140
+	L"目前的区域是C5(SanMona)",//L"Current sector is C5(SanMona)",
+	L"目前的区域是C13(Drassen)",//L"Current sector is C13(Drassen",
+	L"Carmen带了至少10000美金",//L"Carmen has at least $10,000 on him",
+	L"Slay加入佣兵团队超过48小时",//L"Player has Slay on team for over 48 hours",
+	L"Carmen在怀疑Slay",//L"Carmen is suspicous about slay",
+	L"Slay在目前的区域中",//L"Slay is in current sector",
+	L"Carmen给了我们最终的警告",//L"Carmen gave us final warning",
+	L"Vince解释了他为何要求日薪",//L"Vince has explained that he has to charge",
+	L"需要给Vince支付薪金（每日重设）",//L"Vince is expecting cash (reset everyday)",
 	
-	L"Player stole some medical supplies once",		//150
-	L"Player stole some medical supplies again",
-	L"Vince can be recruited",
-	L"Vince is currently doctoring",
-	L"Vince was recruited",
-	L"Slay offered deal",
-	L"All terrorists killed",
+	L"佣兵偷了些医疗用品",//L"Player stole some medical supplies once",		//150
+	L"佣兵又偷了些医疗用品",//L"Player stole some medical supplies again",
+	L"Vince可以被招募",//L"Vince can be recruited",
+	L"Vince正在坐诊",//L"Vince is currently doctoring",
+	L"Vince被招募了",//L"Vince was recruited",
+	L"Slay提供了交易",//L"Slay offered deal",
+	L"所有的恐怖分子已被歼灭",//L"All terrorists killed",
 	L"",
-	L"Maria left in wrong sector",
-	L"Skyrider left in wrong sector",
+	L"Maria被落在了错误的区域",//L"Maria left in wrong sector",
+	L"Skyrider被落在了错误的区域",//L"Skyrider left in wrong sector",
 	
-	L"Joey left in wrong sector",		//160
-	L"John left in wrong sector",
-	L"Mary left in wrong sector",
-	L"Walter was bribed",
-	L"Shank(67) is part of squad but not speaker",
-	L"Maddog spoken to",
-	L"Jake told us about shank",
-	L"Shank(67) is not in secotr",
-	L"Bloodcat quest on for more than 2 days",
-	L"Effective threat made to Armand",
+	L"Joey被落在了错误的区域",//L"Joey left in wrong sector",		//160
+	L"John被落在了错误的区域",//L"John left in wrong sector",
+	L"Mary被落在了错误的区域",//L"Mary left in wrong sector",
+	L"Walter被贿赂了",//L"Walter was bribed",
+	L"Shank(67)在队伍中，但不是参与对话的人",//L"Shank(67) is part of squad but not speaker",
+	L"和Maddog说话",//L"Maddog spoken to",
+	L"Jake和我们谈论了Shank",//L"Jake told us about shank",
+	L"Shank(67)不在区域中",//L"Shank(67) is not in secotr",
+	L"血猫任务开始超过2天了",//L"Bloodcat quest on for more than 2 days",
+	L"对Armand进行了有效的威胁",//L"Effective threat made to Armand",
 	
-	L"Queen is DEAD!",												//170
-	L"Speaker is with Aim or Aim person on squad within 10 tiles",
-	L"Current mine is empty",
-	L"Current mine is running out",
-	L"Loyalty low in affiliated town (low mine production)",
-	L"Creatures invaded current mine",
-	L"Player LOST current mine",
-	L"Current mine is at FULL production",
-	L"Dynamo(66) is Speaker or within 10 tiles of speaker",		
-	L"Fred told us about creatures",
+	L"女皇死了！",//L"Queen is DEAD!",												//170
+	L"参与对话的人是AIM佣兵，或者队伍内的AIM佣兵在10格内",//L"Speaker is with Aim or Aim person on squad within 10 tiles",
+	L"现有的矿已经空了",//L"Current mine is empty",
+	L"现有的矿快要被开采完了",//L"Current mine is running out",
+	L"矿区忠诚度低(低矿产产量）",//L"Loyalty low in affiliated town (low mine production)",
+	L"异形入侵了矿坑",//L"Creatures invaded current mine",
+	L"佣兵失去了矿坑",//L"Player LOST current mine",
+	L"矿坑在全速生产中",//L"Current mine is at FULL production",
+	L"参与对话的人是Dynamo，或者在参与对话的人的10格内",//L"Dynamo(66) is Speaker or within 10 tiles of speaker",		
+	L"Fred告诉了我们异形的事情",//L"Fred told us about creatures",
 
-	L"Matt told us about creatures",				//180
-	L"Oswald told us about creatures",
-	L"Calvin told us about creatures",
-	L"Carl told us about creatures",
-	L"Chalice stolen from museam",
-	L"John(118) is EPC",
-	L"Mary(119) and John (118) are EPC's",	
-	L"Mary(119) is alive",
-	L"Mary(119)is EPC",					
-	L"Mary(119) is bleeding",		
+	L"Matt告诉了我们异形的事情",//L"Matt told us about creatures",				//180
+	L"Oswald告诉了我们异形的事情",//L"Oswald told us about creatures",
+	L"Calvin告诉了我们异形的事情",//L"Calvin told us about creatures",
+	L"Carl告诉了我们异形的事情",//L"Carl told us about creatures",
+	L"博物馆里的圣杯被偷走了",//L"Chalice stolen from museam",
+	L"John是EPC",//L"John(118) is EPC",
+	L"Mary和John是EPC",//L"Mary(119) and John (118) are EPC's",	
+	L"Mary还活着",//L"Mary(119) is alive",
+	L"Mary是EPC",//L"Mary(119)is EPC",					
+	L"Mary在流血",//L"Mary(119) is bleeding",		
 
-	L"John(118) is alive",							//190
-	L"John(118) is bleeding",					
-	L"John or Mary close to airport in Drassen(B13)",
-	L"Mary is Dead",
-	L"Miners placed",
-	L"Krott planning to shoot player",
-	L"Madlab explained his situation",
-	L"Madlab expecting a firearm",
-	L"Madlab expecting a video camera.",			
-	L"Item condition is < 70 ",										
+	L"John还活着",//L"John(118) is alive",							//190
+	L"John在流血",//L"John(118) is bleeding",				
+	L"John或者Mary靠近了Drassen(B13)的机场",//L"John or Mary close to airport in Drassen(B13)",
+	L"Mary死了",//L"Mary is Dead",
+	L"矿工被部署了",//L"Miners placed",
+	L"Krott在计划对佣兵开枪",//L"Krott planning to shoot player",
+	L"Madlab解释了他的情况",//L"Madlab explained his situation",
+	L"Madlab期望有一把枪",//L"Madlab expecting a firearm",
+	L"Madlab期望有个摄像机",//L"Madlab expecting a video camera.",		
+	L"物品状况<70",//L"Item condition is < 70 ",										
 
-	L"Madlab complained about bad firearm.",					//200
-	L"Madlab complained about bad video camera.",
-	L"Robot is ready to go!",
-	L"First robot destroyed.",
-	L"Madlab given a good camera.",
-	L"Robot is ready to go a second time!",
-	L"Second robot destroyed.",
-	L"Mines explained to player.",
-	L"Dynamo (#66) is in sector J9.",			
-	L"Dynamo (#66) is alive.",
+	L"Madlab抱怨枪坏了",//L"Madlab complained about bad firearm.",					//200
+	L"Madlab抱怨摄像机坏了",//L"Madlab complained about bad video camera.",
+	L"机器人准备出发",//L"Robot is ready to go!",
+	L"第一个机器人被摧毁了",//L"First robot destroyed.",
+	L"给Madlab一个好的摄像机",//L"Madlab given a good camera.",
+	L"机器人准备第二次出发",//L"Robot is ready to go a second time!",
+	L"第二个机器人被摧毁了",//L"Second robot destroyed.",
+	L"给佣兵介绍了矿洞",//L"Mines explained to player.",
+	L"Dynamo在J9区域",//L"Dynamo (#66) is in sector J9.",			
+	L"Dynamo还活着",//L"Dynamo (#66) is alive.",
 
-	L"One PC hasn't fought, but is able, and less than 3 fights have occured",							//210
-	L"Player receiving mine income from Drassen, Cambria, Alma & Chitzena",
-	L"Player has been to K4_b1",
-	L"Brewster got to talk while Warden was alive",
-	L"Warden (#103) is dead.",
-	L"Ernest gave us the guns",
-	L"This is the first bartender",
-	L"This is the second bartender",
-	L"This is the third bartender",
-	L"This is the fourth bartender",
+	L"在总共进行过不到3场战斗的情况下，有一个有能力参加战斗的NPC没有参加过一次战斗，",//L"One PC hasn't fought, but is able, and less than 3 fights have occured",							//210
+	L"佣兵收到了来自Drassen,Cambria,Alma和Chitzena的采矿收入",//L"Player receiving mine income from Drassen, Cambria, Alma & Chitzena",
+	L"佣兵去过K4_b1",//L"Player has been to K4_b1",
+	L"当Warden活着时，和Brewster谈过",//L"Brewster got to talk while Warden was alive",
+	L"Warden死了",//L"Warden (#103) is dead.",
+	L"Ernest给我们些枪",//L"Ernest gave us the guns",
+	L"这是第一个酒保",//L"This is the first bartender",
+	L"这是第二个酒保",//L"This is the second bartender",
+	L"这是第三个酒保",//L"This is the third bartender",
+	L"这是第四个酒保",//L"This is the fourth bartender",
 
 
-	L"Manny is a bartender.",									//220
-	L"Nothing is repaired yet (some stuff being worked on, nothing to give player right now)",
-	L"Player made purchase from Howard (#125)",
-	L"Dave sold vehicle",
-	L"Dave's vehicle ready",
-	L"Dave expecting cash for car",
-	L"Dave has gas. (randomized daily)",
-	L"Vehicle is present",
-	L"First battle won by player",
-	L"Robot recruited and moved",			
+	L"Manny是个酒保",//L"Manny is a bartender.",									//220
+	L"没有东西被修好了(有些东西正在修理中，现在没有修好的东西可以给佣兵）",//L"Nothing is repaired yet (some stuff being worked on, nothing to give player right now)",
+	L"佣兵从Howard处买了东西",//L"Player made purchase from Howard (#125)",
+	L"买了Dave的汽车",//L"Dave sold vehicle",
+	L"Dave的车准备好了",//L"Dave's vehicle ready",
+	L"Dave期望拿到卖车的钱",//L"Dave expecting cash for car",
+	L"Dave有汽油（每日随机）",//L"Dave has gas. (randomized daily)",
+	L"汽车准备好了",//L"Vehicle is present",
+	L"第一场战斗被佣兵赢得了",//L"First battle won by player",
+	L"机器人被招募和移动",//L"Robot recruited and moved",			
 
-	L"No club fighting allowed",							//230
-	L"Player already fought 3 fights today",
-	L"Hans mentioned Joey",
-	L"Player is doing better than 50% (Alex's function)",
-	L"Player is doing very well (better than 80%)",
-	L"Father is drunk and sci-fi option is on",
-	L"Micky (#96) is drunk",
-	L"Player has attempted to force their way into brothel",
-	L"Rat effectively threatened 3 times",
-	L"Player paid for two people to enter brothel",		
+	L"俱乐部内不允许斗殴",//L"No club fighting allowed",							//230
+	L"佣兵今天已经打了三场拳击了",//L"Player already fought 3 fights today",
+	L"Hans提到了Joey",//L"Hans mentioned Joey",
+	L"佣兵的表现超过了50%",//L"Player is doing better than 50% (Alex's function)",
+	L"佣兵的表现非常好（超过80%)",//L"Player is doing very well (better than 80%)",
+	L"神父喝醉了并且开启了科幻模式",//L"Father is drunk and sci-fi option is on",
+	L"Micky喝醉了",//L"Micky (#96) is drunk",
+	L"佣兵尝试用暴力方式进入妓院",//L"Player has attempted to force their way into brothel",
+	L"有效地威胁了Rat三次",//L"Rat effectively threatened 3 times",
+	L"佣兵为两个人付了去妓院的钱",//L"Player paid for two people to enter brothel",		
 
 	L"",						//240
 	L"",
-	L"Player owns 2 towns including omerta",
-	L"Player owns 3 towns including omerta",//							243
-	L"Player owns 4 towns including omerta",//							244
+	L"佣兵控制了两个城镇，包括omerta",//L"Player owns 2 towns including omerta",
+	L"佣兵控制了三个城镇，包括omerta",//L"Player owns 3 towns including omerta",//							243
+	L"佣兵控制了四个城镇，包括omerta",//L"Player owns 4 towns including omerta",//							244
 	L"",
 	L"",
 	L"",
-	L"Fact male speaking female present",
-	L"Fact hicks married player merc",//													249
+	L"男性谈论女性的现状（也可能是男扮女装的意思）",//L"Fact male speaking female present",
+	L"Hicks娶了你的一个雇佣兵",//L"Fact hicks married player merc",//													249
 
-	L"Fact museum open",//																				250
-	L"Fact brothel open",//																			251
-	L"Fact club open",//																					252
-	L"Fact first battle fought",//																253
-	L"Fact first battle being fought",//													254
-	L"Fact kingpin introduced self",//														255
-	L"Fact kingpin not in office",//															256
-	L"Fact dont owe kingpin money",//														257
-	L"Fact pc marrying daryl is flo",//													258
+	L"博物馆开了",//L"Fact museum open",//																				250
+	L"妓院开放",//L"Fact brothel open",//																			251
+	L"俱乐部开放",//L"Fact club open",//																					252
+	L"第一局打响",//L"Fact first battle fought",//																253
+	L"第一局正在进行",//L"Fact first battle being fought",//													254
+	L"Kingpin介绍了他自己",//L"Fact kingpin introduced self",//														255
+	L"Kingpin不在办公室",//L"Fact kingpin not in office",//															256
+	L"不欠Kingpin钱",//L"Fact dont owe kingpin money",//														257
+	L"daryl和flo结婚了",//	L"Fact pc marrying daryl is flo",												258
 	L"",
 
 	L"",					//260
-	L"Fact npc cowering",																			//	261,
+	L"NPC畏缩了",//L"Fact npc cowering",																	//	261,
 	L"",
 	L"",
-	L"Fact top and bottom levels cleared",
-	L"Fact top level cleared",//																	265
-	L"Fact bottom level cleared",//															266
-	L"Fact need to speak nicely",//															267
-	L"Fact attached item before",//															268
-	L"Fact skyrider ever escorted",//														269
+	L"上层和底层已被清理",//L"Fact top and bottom levels cleared",
+	L"上层已被清理",//L"Fact top level cleared",//																	265
+	L"底层已被清理",//L"Fact bottom level cleared",//															266
+	L"需要友善地说话",//L"Fact need to speak nicely",//															267
+	L"物品已经被安装过了",//L"Fact attached item before",//															268
+	L"Skyrider被护送过",//L"Fact skyrider ever escorted",//														269
 
-	L"Fact npc not under fire",//																270
-	L"Fact willis heard about joey rescue",//										271
-	L"Fact willis gives discount",//															272
-	L"Fact hillbillies killed",//																273
-	L"Fact keith out of business",	//														274												
-	L"Fact mike available to army",//														275
-	L"Fact kingpin can send assassins",//												276
-	L"Fact estoni refuelling possible",//						277
-	L"Fact museum alarm went off",//															278
+	L"NPC不在交火中",//L"Fact npc not under fire",//																270
+	L"Willis听说了Joey的营救",//L"Fact willis heard about joey rescue",//										271
+	L"Willis给了折扣",//L"Fact willis gives discount",//															272
+	L"乡巴佬被杀了",//L"Fact hillbillies killed",//																273
+	L"Keith不营业了",//L"Fact keith out of business",	//														274												
+	L"Mike可以被招募",//L"Fact mike available to army",//														275
+	L"Kingpin会派刺客",//L"Fact kingpin can send assassins",//												276
+	L"Estoni可以加油",//L"Fact estoni refuelling possible",//						277
+	L"博物馆的警报被关了",//L"Fact museum alarm went off",//															278
 	L"",
 
-	L"Fact maddog is speaker", 																	//280,
+	L"maddog是参与对话的人",//L"Fact maddog is speaker", 																	//280,
 	L"",
-	L"Fact angel mentioned deed", 															// 282,
-	L"Fact iggy available to army",//														283
-	L"Fact pc has conrads recruit opinion",//										284
-	L"",
-	L"",
+	L"Angel提到了契约",//L"Fact angel mentioned deed", 															// 282,
+	L"Iggy可以被招募",//L"Fact iggy available to army",//														283
+	L"是否招募conrads",//L"Fact pc has conrads recruit opinion",//										284
 	L"",
 	L"",
-	L"Fact npc hostile or pissed off",													//289,
+	L"",
+	L"",
+	L"NPC充满敌意或者吓坏了",//L"Fact npc hostile or pissed off",													//289,
 
 	L"",					//290
-	L"Fact tony in building",																		//291,
-	L"Fact shank speaking",	//																		292,
-	L"Fact doreen alive",//																			293
-	L"Fact waldo alive",//																				294
-	L"Fact perko alive",//																				295
-	L"Fact tony alive",//																				296
+	L"Tony在房子里",//L"Fact tony in building",																		//291,
+	L"Shank在说话",//L"Fact shank speaking",	//																		292,
+	L"Doreen还活着",//L"Fact doreen alive",//																			293
+	L"Waldo还活着",//L"Fact waldo alive",//																				294
+	L"Perko还活着",//L"Fact perko alive",//																				295
+	L"Tony还活着",//L"Fact tony alive",//																				296
 	L"",
-	L"Fact vince alive",// 																				298,
-	L"Fact jenny alive",//																				299
+	L"Vince还活着",//L"Fact vince alive",// 																				298,
+	L"Jenny还活着",//L"Fact jenny alive",//																				299
 
 	L"",					//300
 	L"",
-	L"Fact arnold alive",//																				302,
+	L"Arnold还活着",//L"Fact arnold alive",//																				302,
 	L"",
-	L"Fact rocket rifle exists",// 																304,
+	L"存在火箭枪",//L"Fact rocket rifle exists",// 																304,
 	L"",
 	L"",
 	L"",
@@ -1080,6 +1077,7 @@ STR16		FactDescText[] =
 	L"",
 	L"",					//500
 };
+
 //-----------
 
 // Editor
@@ -1268,7 +1266,7 @@ STR16 iEditorOptionsToolbarText[]=
 	L"退出编辑模式", //L"Leave Editor mode",
 	L"退出游戏(|A|l|t+|X)", //L"Exit game (|A|l|t+|X)",
 	L"编辑雷达图", //L"Create radar map",
-	L"是否按照原版JA2的地图格式保存 Items with ID > 350 will be lost. \n该选项只对原版大小的地图有效，地图格数不应超过25600个", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
+	L"是否按照原版JA2的地图格式保存.\n该选项只对原版大小的地图有效，地图格数不应超过25600个", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
 	L"是否自动根据选择的行列数多少来放大地图", //L"When checked and you load a map, the map will be enlarged automatically depending on the selected Rows and Cols.",
 };
 
@@ -1301,9 +1299,9 @@ STR16 iEditorTaskbarInternalText[]=
 	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Terrain fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
 	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Buildings fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
 	L"|S|p|a|c|e: 选择后一个物品\n|C|t|r|l+|S|p|a|c|e: 选择前一个物品\n \n|/:光标下放置同样物品\n|C|t|r|l+|/:光标处放置新物品", //Items fasthelp text //L"|S|p|a|c|e: Select next item\n|C|t|r|l+|S|p|a|c|e: Select previous item\n \n|/: Place same item under mouse cursor\n|C|t|r|l+|/: Place new item under mouse cursor",
-	L"|1-|9:设置路标 \n|C|t|r|l+|C/|C|t|r|l+|V:复制/粘贴佣兵\n|P|g |U|p/|P|g |D|n: Toggle merc placement level", //Mercs fasthelp text L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc\n|P|g |U|p/|P|g |D|n: Toggle merc placement level",
-	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换width:xx选项大小", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",
-	L"|C|t|r|l+|N:创造新地图\n \n|F|5:显示总信息/大地图\n|F|1|0:移除所有光源\n|F|1|1:取消修改\n|F|1|2:清空所有\n \n|S|h|i|f|t+|R:随机放置选定数量的物品\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version", //Options fasthelp text //L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version",
+	L"|1-|9:设置路标 \n|C|t|r|l+|C/|C|t|r|l+|V:复制/粘贴佣兵\n|P|g |U|p/|P|g |D|n: 切换俑兵位置层", //Mercs fasthelp text L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc\n|P|g |U|p/|P|g |D|n: Toggle merc placement level",
+	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: 卷轴超出地图边界\n \n(|t|i|l|d|e): 切换光标层\n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换width:xx选项大小", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",
+	L"|C|t|r|l+|N:创造新地图\n \n|F|5:显示总信息/大地图\n|F|1|0:移除所有光源\n|F|1|1:取消修改\n|F|1|2:清空所有\n \n|S|h|i|f|t+|R:随机放置选定数量的物品\n \n命令行选项\n|-|D|O|M|A|P|S: 雷达地图批量生成\n|-|D|O|M|A|P|S|C|N|V: 雷达地图及秘密地图批量生成", //Options fasthelp text //L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version",	// 
 };
 
 //Editor Taskbar Utils.cpp
@@ -1546,7 +1544,7 @@ STR16 pDisplayBodyTypeInfoText[] =
 	L"成年公异形", //25 //L"Adt M Monster",
 	L"异形女王", //L"Queen Monster",
 	L"血猫", //L"Bloodcat",
-	L"Humvee",		// TODO.Translate
+	L"悍马",//L"Humvee",
 };
 
 STR16 pUpdateMercsInfoText[] = 
@@ -1857,11 +1855,11 @@ STR16 pSetupGameTypeFlagsText[] =
 
 STR16 pSetupGunGUIText[] =
 {
-	L"消声器", //0 //L"SILENCER",
+	L"消音器", //0 //L"SILENCER",
 	L"狙击镜", //L"SNIPERSCOPE",
 	L"激光镜", //L"LASERSCOPE",
 	L"两脚架", //L"BIPOD",
-	L"DUCKBILL", //L"DUCKBILL",
+	L"鸭嘴", //L"DUCKBILL",
 	L"榴弹发射器", //5 //L"G-LAUNCHER",
 };
 
@@ -2091,6 +2089,7 @@ STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 	L"文件：%S，副版本：%d(%d，%S)", //L"File: %S, subindex: %d (%d, %S)",
 	L"当前分区： %s", //L"Tileset:  %s",
 };
+
 STR16 pDisplaySelectionWindowButtonText[] =
 {
 	L"确认选择 (|E|n|t|e|r)",
@@ -2458,14 +2457,14 @@ STR16 pAssignmentStrings[] =
 	L"谣言",	// facility: gather information
 	L"造谣",	// spread propaganda
 	L"谣言",	// gather information
-	L"Command",	// militia movement orders
+	L"命令民兵",	//L"Command",	 militia movement orders
 	L"诊断", // disease diagnosis
-	L"Treat D.", // treat disease among the population
+	L"治疗疾病", //L"Treat D.",  treat disease among the population
 	L"医生",// administering medical aid
 	L"病人", // getting medical aid
 	L"修理", // repairing
-	L"Fortify",		// build structures according to external layout	// TODO.Translate
-	L"Train W.",
+	L"筑防",		//L"Fortify", build structures according to external layout
+	L"培训工人",//L"Train W.",
 };
 
 
@@ -2567,8 +2566,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"医生",
 	L"病人",
 	L"修理",
-	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
-	L"Train workers",
+	L"筑防区域",		//L"Fortify sector", build structures according to external layout
+	L"培训工人",//L"Train workers",
 };
 
 
@@ -2629,8 +2628,8 @@ STR16 pLongAssignmentStrings[] =
 	L"医生",
 	L"病人",
 	L"修理",
-	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
-	L"Train workers",
+	L"筑防区域",		//	L"Fortify sector", build structures according to external layout
+	L"培训工人",//L"Train workers",
 };
 
 
@@ -2751,7 +2750,7 @@ STR16 pAssignMenuStrings[] =
 	L"告发", // anv: snitch actions
 	L"训练",
 	L"搬运物品",	// get items
-	L"Fortify",		// fortify sector	// TODO.Translate
+	L"筑防",		//L"Fortify", fortify sector
 	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -2927,7 +2926,6 @@ STR16 pSnitchGatheringRumoursResultStrings[] =
 
 };
 
-
 STR16 pRemoveMercStrings[] =
 {
 	L"移除佣兵", // remove dead merc from current team
@@ -2953,7 +2951,7 @@ STR16 pTrainingMenuStrings[] =
 	L"锻炼", // train yourself
 	L"民兵", // train the town
 	L"游击队", // L"Mobile Militia", //ham3.6
-	L"Train workers",	// TODO.Translate
+	L"培训工人",	//L"Train workers",
 	L"教练", // train your teammates
 	L"学员", // be trained by an instructor
 	L"取消", // cancel this menu
@@ -3460,12 +3458,12 @@ STR16 gpStrategicString[] =
 
 	// Flugente: militia movement forbidden due to limited roaming
 	L"民兵无法移动到这 (RESTRICT_ROAMING = TRUE)。", //L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
-	L"超出战争（地图）范围，民兵移动失败！", //L"War room isn't staffed - militia move aborted!",
+	L"战术中心无人兼职，民兵移动失败！", //L"War room isn't staffed - militia move aborted!",
 
 	L"坦克",							//STR_AR_TANK_NAME,
-	L"Jeep",						//STR_AR_JEEP_NAME	// TODO.Translate
+	L"吉普",						//	L"Jeep",  STR_AR_JEEP_NAME
 
-	L"\n每一个小时刷新一次呼吸: %d", //L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
+	L"\n睡觉时每小时恢复精力: %d", //L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
 };
 
 STR16 gpGameClockString[] = 
@@ -3589,7 +3587,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"洞穴视距修正",
 	L"隧道视野百分比（越低越好）",
 	L"精瞄加成所需最小距离",
-	L"按 |C|t|r|l 来对照物品", //L"Hold |C|t|r|l to compare items", // item compare help text
+	L"按住 |C|t|r|l 点击装备物品", //L"Hold |C|t|r|l to compare items", item compare help text
 };
 
 // HEADROCK: End new tooltip text
@@ -3945,8 +3943,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// added by Flugente: selection of a function to call in tactical
 	L"你想要做的是什么？",
 	L"装满水壶",
-	L"清理枪支污垢（佣兵）",
-	L"清理所有枪支污垢（小队）",
+	L"清理枪污垢",
+	L"清理所有枪污垢",
 	L"脱掉衣服",
 	L"去掉伪装", //L"Lose disguise",
 	L"民兵检查", //L"Militia inspection",
@@ -3966,13 +3964,12 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
-	L"Where do you want to send the %d prisoners?",			// TODO.Translate
-	L"Let them go",
+	L"将俘虏送入监狱", //L"Let them go",
+	L"放俘虏离开这里",
 	L"你想要做什么？",
 	L"劝说敌人投降",
 	L"劝降", //L"Offer surrender",
 	L"交谈",
-
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
     L"拆除陷阱",
@@ -4004,9 +4001,9 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	L"尝试对行进中的佣兵进行包扎...", //L"Attempting to bandage travelling mercs...",
 
-	L"改进装备", //L"Improve gear",
-	L"%s 改变 %s 对高级版本", //L"%s changed %s for superior version",
-	L"%s picked up %s",	// TODO.Translate
+	L"补充装备", //L"Improve gear",
+	L"%s 将 %s 进行了临时补给", //L"%s changed %s for superior version",
+	L"%s 捡起 %s",	//L"%s picked up %s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -4120,7 +4117,7 @@ STR16 pHelicopterRepairRefuelStrings[]=
 	L"修理完成。直升机已可使用。",
 	L"直升机已加满油。",
 
-	L"Helicopter has exceeded maximum range!",	// TODO.Translate
+	L"直升机已经超过了最大的航程！",//L"Helicopter has exceeded maximum range!",
 };
 
 STR16 sMapLevelString[] =
@@ -4168,7 +4165,7 @@ STR16 pMapPopUpInventoryText[] =
 {
 	L"存货",
 	L"离开",
-	L"Repair",	// TODO.Translate
+	L"修理",	//L"Repair",
 };
 
 // town strings
@@ -4304,7 +4301,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"显示民兵和敌人 (|Z)",
 	L"显示民兵移动 (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"显示疾病消息", //L"Show Disease Data",
-	L"Show Weather",	// TODO.Translate
+	L"显示天气",	//	L"Show Weather",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -4314,21 +4311,21 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"离开 (|E|s|c)",	// exit sector inventory
 	L"放大", // HEAROCK HAM 5: Inventory Zoom Button
 	L"合并堆叠同类的物品", // HEADROCK HAM 5: Stack and Merge
-	L"|L|e|f|t |C|l|i|c|k: 将子弹分类装入弹箱\n|R|i|g|h|t |C|l|i|c|k: 将子弹分类装入纸盒", // HEADROCK HAM 5: Sort ammo
+	L"|鼠|标|左|击: 将子弹分类装入弹箱\n|鼠|标|右|击: 将子弹分类装入纸盒", //L"|L|e|f|t |C|l|i|c|k: 将子弹分类装入弹箱\n|R|i|g|h|t |C|l|i|c|k: 将子弹分类装入纸盒", HEADROCK HAM 5: Sort ammo
 	// 6 - 10
 	L"移除所有物品的附件", // HEADROCK HAM 5: Separate Attachments
 	L"退出所有武器的子弹", //HEADROCK HAM 5: Eject Ammo
-	L"|L|e|f|t |C|l|i|c|k: 显示全部物品\n|R|i|g|h|t |C|l|i|c|k: 隐藏全部物品", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示武器\n|R|i|g|h|t |C|l|i|c|k|: 只显示武器", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示弹药\n|R|i|g|h|t |C|l|i|c|k: 只显示弹药", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 显示全部物品\n|鼠|标|右|击: 隐藏全部物品", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示武器\n|鼠|标|右|击: 只显示武器", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示弹药\n|鼠|标|右|击: 只显示弹药", // HEADROCK HAM 5: Filter Button
 	// 11 - 15
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示爆炸物\n|R|i|g|h|t |C|l|i|c|k: 只显示爆炸物", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示近战武器\n|R|i|g|h|t |C|l|i|c|k: 只显示近战武器", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示护甲\n|R|i|g|h|t |C|l|i|c|k: 只显示护甲", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示携行具\n|R|i|g|h|t |C|l|i|c|k: 只显示携行具", // HEADROCK HAM 5: Filter Button
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示套装包\n|R|i|g|h|t |C|l|i|c|k: 只显示套装包", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示爆炸物\n|鼠|标|右|击: 只显示爆炸物", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示近战武器\n|鼠|标|右|击: 只显示近战武器", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示护甲\n|鼠|标|右|击: 只显示护甲", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示携行具\n|鼠|标|右|击: 只显示携行具", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示套装包\n|鼠|标|右|击: 只显示套装包", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
-	L"|L|e|f|t |C|l|i|c|k: 切换是否显示杂项物品\n|R|i|g|h|t |C|l|i|c|k: 只显示杂项物品", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换是否显示杂项物品\n|鼠|标|右|击: 只显示杂项物品", // HEADROCK HAM 5: Filter Button
 	L"切换搬运中的物品", // Flugente: move item display
 };
 
@@ -4538,8 +4535,8 @@ STR16 pTransactionText[] =
 	L"释放俘虏所需的赎金", //L"Ransom for released prisoners",
 	L"记录捐款费", //L"WHO data subscription",  // Flugente: disease
 	L"Kerberus安保公司的费用", //L"Payment to Kerberus",　　// Flugente: PMC
-	L"SAM site repair", // Flugente: SAM repair // TODO.Translate
-	L"Trained workers", // Flugente: train workers
+	L"修理SAM基地",//L"SAM site repair", // Flugente: SAM repair
+	L"培训工人",//L"Trained workers", // Flugente: train workers
 };
 
 STR16 pTransactionAlternateText[] =
@@ -4681,9 +4678,9 @@ STR16 pMapErrorString[] =
 	L"车辆被损坏得太严重了！",
 	L"每个分区只能由两名佣兵来训练民兵。",
 	L"没有遥控员，机器人无法移动。请把他们分配在同一个小队。",
-	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+	L"物品不能被移动到%s,由于没有有效的空投地点。请进入地图解决这个问题",//L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",
 // 51-55
-	L"%d items moved from %s to %s",
+	L"%d 物品移动 %s 到 %s",//L"%d items moved from %s to %s",
 };
 
 
@@ -4988,7 +4985,7 @@ STR16 pBookMarkStrings[] =
 	L"佣兵之家", //L"MeLoDY",
 	L"世界卫生组织", //L"WHO",　
 	L"Kerberus安保公司", //L"Kerberus",
-	L"Militia Overview",	// TODO.Translate
+	L"民兵总览",//L"Militia Overview",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5111,8 +5108,8 @@ STR16 pWebPagesTitles[] =
 	L"Kerberus安保公司 - 关于我们", //L"Kerberus - About Us",
 	L"Kerberus安保公司 - 雇佣队伍", //L"Kerberus - Hire a Team",
 	L"Kerberus安保公司 - 独立协议", //L"Kerberus - Individual Contracts",
-	L"Militia Roster",			// TODO.Translate
-	L"Militia Statistics",
+	L"民兵名单",//L"Militia Roster",
+	L"民兵统计",//L"Militia Statistics",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -6180,7 +6177,7 @@ STR16		zMarksMapScreenText[] =
 	L"这个视图会展示出哪个地区爆发了瘟疫，这个数字表明，平均每个人的感染程度，颜色表示它的范围。 灰色=无病。 绿色到红色=不断升级的感染程度。",  //L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 
 	// Flugente: weather texts describing what a map view does
-	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",	// TODO.Translate
+	L"这个视图显示了目前的天气。没有颜色=晴天。青色为雨天。蓝色为雷暴。橙色为沙尘暴。白色为下雪",//L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",
 };
 
 
@@ -6536,11 +6533,11 @@ STR16 gzMPJHelpText[] =
 	L"访问 http://webchat.quakenet.org/?channels=ja2-multiplayer 寻找其他玩家.",  //Visit http://webchat.quakenet.org/?channels=ja2-multiplayer to find other players
 	L"您可以按“Y”，打開遊戲中的聊天窗口，之後你一直連接到服務器.",
 
-	L"HOST",
+	L"主机",//L"HOST",
 	L"输入IP地址，端口号必须大于60000",  //Enter '127.0.0.1' for the IP and the Port number should be greater than 60000.
 	L"确保(UDP, TCP)端口由你的路由器转发，更多信息请看http://portforward.com",   //Be sure that the Port (UDP, TCP) is forwarded on your Router. For more information see: http://portforward.com
 	L"你必须将你的外网IP通过QQ或者什么，告诉其他玩家",   //You have to send (via IRC, ICQ, etc) your external IP (http://www.whatismyip.com) and the Port number to the other players.
-	L"点击“Host”创建一个新的局域网游戏",   //Click on 'Host' to host a new Multiplayer Game.
+	L"点击“主机”创建一个新的局域网游戏",   //Click on 'Host' to host a new Multiplayer Game.
 	
 	L"加入",  //JOIN
 	L"主机需要发送外网IP和端口",               //The host has to send (via IRC, ICQ, etc) you the external IP and the Port number
@@ -6910,8 +6907,8 @@ STR16 gzLaptopHelpText[] =
 	L"战役历史",
 	L"佣兵喜欢或不喜欢你", //L"Mercenaries Love or Dislike You",
 	L"世界卫生组织", //L"World Health Organization",
-	L"Kerberus - Experience In Security",
-	L"Militia Overview",	// TODO.Translate
+	L"Kerberus - 安保公司",//L"Kerberus - Experience In Security",
+	L"民兵总览",//L"Militia Overview",
 };
 
 
@@ -6969,7 +6966,6 @@ STR16 pNewNoiseStr[] =
 	L"",											 // anv: placeholder for silent alarm
 	L"%s听到%s某人的说话声来自%s.", // anv: report enemy taunt to player
 };
-
 
 STR16 pTauntUnknownVoice[] =
 {
@@ -7352,8 +7348,8 @@ STR16 New113Message[] =
 	L"%s命根子中弹，痛苦的倒下了！",// L"%s is hit to groin and falls down in pain!",	
 	//////////////////////////////////////////////////////////////////////////////////////
 	L"注意: 敌人尸体被发现!!!",
-	L"%s [%d rnds]\n%s %1.1f %s",		
-	L"AP不够！需要%d，你只有%d。", //L"Insufficient AP Points! Cost %d, you have %d.",
+	L"%s [%d 发]\n%s %1.1f %s",	//	L"%s [%d rnds]\n%s %1.1f %s",
+	L"AP不够！需要%d，你只有%d。",	//L"Insufficient AP Points! Cost %d, you have %d.",
 	L"提示: %s",
 	L"玩家力量: %d - 敌人力量: %6.0f",		//Surrender values to be printed, if DISPLAY_SURRENDER_VALUES = TRUE
 
@@ -7827,7 +7823,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"神经错乱",
 	L"聋子", //L"Deaf",
 	L"近视眼", //L"Shortsighted",
-	L"Hemophiliac",		// TODO.Translate
+	L"血友病",//L"Hemophiliac",
 	L"I.M.P. 性格缺陷",
 };
 
@@ -7843,10 +7839,10 @@ STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 	L"因为你在发光的长方体前面花了太久时间。你应该多吃点胡萝卜，你见过戴眼镜的兔子么？没有吧。", // L"That happens when you spend your days in front of glowing rectangles. You should have eaten more carrots. Ever seen a rabbit with glasses? Figures.",
 };
 
-STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =	// TODO.Translate
+STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =
 {
-	L"Are you SURE this is the right job for you?",
-	L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
+	L"你确信这个工作适合你么？",//L"Are you SURE this is the right job for you?",
+	L"只要你够NB永远不被枪打中，或者战斗只在设施完备的医院中进行，应该就会没事的",//L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
@@ -7965,9 +7961,9 @@ STR16 gzFacilityAssignmentStrings[]=
 };
 STR16 Additional113Text[]=
 {
-	L"Jagged Alliance 2 v1.13 窗口模式需要一个16bpp的颜色深度。",
-	L"Jagged Alliance 2 v1.13 全屏模式 (%d x %d) 不支持你当前的屏幕模式。\n请改变游戏的设置或者把屏幕调到16bpp色以下。", //L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",
-	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。", //L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
+	L"铁血联盟2 v1.13 窗口模式需要一个16bpp的颜色深度.",
+	L"铁血联盟2 v1.13 全屏模式(%d x %d)不支持你的显示屏分辨率.\n请改变游戏分辨率或使用16bpp窗口模式.",	//L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",
+	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。",	//L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
 	// WANNE: Savegame slots validation against INI file
 	L"佣兵 (MAX_NUMBER_PLAYER_MERCS) / 交通工具 (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"敌人 (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
@@ -8625,33 +8621,35 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"全部隐藏",
 };
 
+
+
 STR16 gzMercCompare[] =
 {
 	L"???",
-	L"Base opinion:",
+	L"基本态度",//L"Base opinion:",
 
-	L"Dislikes %s %s",
-	L"Likes %s %s",
+	L"不喜欢 %s %s",//L"Dislikes %s %s",
+	L"喜欢 %s %s",//L"Likes %s %s",
 
-	L"Strongly hates %s",
-	L"Hates %s",			// 5
+	L"强烈讨厌 %s",//L"Strongly hates %s",
+	L"讨厌 %s",//	L"Hates %s",			// 5
 
-	L"Deep racism against %s",
-	L"Racism against %s",
+	L"强烈的种族主义 %s",//	L"Deep racism against %s",
+	L"种族主义 %s",//L"Racism against %s",
 
-	L"Cares deeply about looks",
-	L"Cares about looks",
+	L"高度在乎外表",//L"Cares deeply about looks",
+	L"在乎外表",//L"Cares about looks",
 
-	L"Very sexist",			// 10
-	L"Sexist",
+	L"高度性别歧视",//L"Very sexist",			// 10
+	L"性别歧视",//L"Sexist",
 
-	L"Dislikes other background",
-	L"Dislikes other backgrounds",
+	L"不喜欢其他背景",//L"Dislikes other background",
+	L"不喜欢其他背景",//L"Dislikes other backgrounds",
 
-	L"Past grievances",
+	L"过去受过委屈",//	L"Past grievances",
 	L"____",				// 15
 	L"/",
-	L"* Opinion is always in [%d; %d]",		// TODO.Translate
+	L"* 态度总是在 [%d； %d]",//L"* Opinion is always in [%d; %d]",
 };
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
@@ -8749,42 +8747,42 @@ STR16	gszPocketPopupText[]=
 // Flugente: externalised texts for some features
 STR16	szCovertTextStr[]=
 {
-	L"%s 有迷彩油的痕迹！", //L"%s has camo!",
+	L"%s 有迷彩油（血）的痕迹！", //L"%s has camo!",
 	L"%s 有不合身份的背包！", //L"%s has a backpack!",
 	L"%s 被发现携带尸体！", //L"%s is seen carrying a corpse!",
-	L"%s's %s 可疑!", // L"%s's %s is suspicious!",
-	L"%s's %s 属于军用装备!", // 	L"%s's %s is considered military hardware!",
+	L"%s 的 %s 可疑!", // L"%s's %s is suspicious!",
+	L"%s 的 %s 属于军用装备!", // 	L"%s's %s is considered military hardware!",
 	L"%s 携带了太多的枪支！", //L"%s carries too many guns!",
-	L"%s's %s 对于%s士兵来说太先进了!", //	L"%s's %s is too advanced for an arulcan soldier!",
-	L"%s's %s 有太多附件!", //	L"%s's %s has too many attachments!",
+	L"%s 的 %s 对于 %s 士兵来说太先进了!", //	L"%s's %s is too advanced for an arulcan soldier!",
+	L"%s 的 %s 有太多附件!", //	L"%s's %s has too many attachments!",
 	L"%s 被发现有可疑举动！", //L"%s was seen performing suspicious activities!",
 	L"%s 被发现不像个平民！", //L"%s does not look like a civilian!",
-	L"%s 被发现流血不止了！", //L"%s bleeding was discovered!",
+	L"%s 被发现受伤流血不止！", //L"%s bleeding was discovered!",
 	L"%s 醉醺醺的完全不像个士兵！", //L"%s is drunk and doesn't look like a soldier!",
-	L"%s 的伪装在近距离观察下HOLD不住了！", //L"On closer inspection, %s's disguise does not hold!",
+	L"%s 的伪装在近距离观察下暴露了！", //L"On closer inspection, %s's disguise does not hold!",
 	L"%s 不应该出现在这里！", //L"%s isn't supposed to be here!",
 	L"%s 不应该在这个时候出现在这里！", //L"%s isn't supposed to be here at this time!",
 	L"%s 被发现在新鲜尸体旁边行踪诡秘！", //L"%s was seen near a fresh corpse!",
-	L"%s 被认为是针对 %s 的!",	// 	L"%s is seen targetting %s!",
-	L"%s 被发现瞄准了其他士兵！", //L"%s is seen targeting a soldier!",
-	L"%s 被识破了 %s 伪装！", //L"%s has seen through %s disguise!",
+	L"%s 装备暴露了伪装！",	// 	L"%s is seen targetting %s!",     English L"%s equipment raises a few eyebrows!",
+	L"%s 被目标发现 %s！", //L"%s is seen targeting a soldier!",   English L"%s is seen targetting %s!",
+	L"%s 识破了 %s 的伪装！", //L"%s has seen through %s disguise!",  English L"%s has seen through %s's disguise!",
 	L"无法找到对应的衣服信息在 Items.xml 中！", //L"No clothes item found in Items.xml!",
-	L"这在传统特性系统下无法工作！", //L"This does not work with the old trait system!",
+	L"这在传统特性（旧）系统下无法工作！", //L"This does not work with the old trait system!",
 	L"行动点数（AP）不足！", //L"Not enough Aps!",
 	L"色板无效！", //L"Bad palette found!",
 	L"你得有伪装技能才能做这个！", //L"You need the covert skill to do this!",
 	L"未发现制服！", //L"No uniform found!",
 	L"%s 已伪装成平民", //L"%s is now disguised as a civilian.",
 	L"%s 已伪装成士兵", //L"%s is now disguised as a soldier.",
-	L"%s穿着件破破烂烂的制服！", // L"%s wears a disorderly uniform!",
+	L"%s 穿着件破破烂烂的制服！（Ctrl+. 去除伪装）", // L"%s wears a disorderly uniform!",
 	L"事后看来，穿着伪装去投降不是什么好主意…", // L"In retrospect, asking for surrender in disguise wasn't the best idea...",
-	L"%s被发现了！", // L"%s was uncovered!",
-	L"%s的伪装看起来还可以…", // L"%s's disguise seems to be ok...",
-	L"%s的伪装要被识破了。", // L"%s's disguise will not hold.",
-	L"%s在偷窃的时候被抓了！", // L"%s was caught stealing!",
-	L"%s在试图调整%s的物品栏。", // L"%s tried to manipulate %s's inventory."
-	L"即使一个精英士兵也不能识别出 %s！", //L"An elite soldier did not recognize %s!",
-	L"军官所知的 %s 是没经验的！", //L"A officer knew %s was unfamiliar!",
+	L"%s 被发现了！", // L"%s was uncovered!",
+	L"%s 的伪装看起来还可以…", // L"%s's disguise seems to be ok...",
+	L"%s 的伪装要被识破了。", // L"%s's disguise will not hold.",
+	L"%s 在偷窃的时候被抓了！", // L"%s was caught stealing!",
+	L"%s 在试图调整 %s 的装备物品。", // L"%s tried to manipulate %s's inventory."
+	L"%s 太靠近精英士兵了！", //L"An elite soldier did not recognize %s!",
+	L"敌军所知的 %s 不是军队里的！", //L"A officer knew %s was unfamiliar!",
 };
 
 STR16	szCorpseTextStr[]=
@@ -8820,7 +8818,7 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d 军官, %d 精英, %d 常规, %d 管理, %d 普通和 %d 平民都被审问。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
+	L"审讯了%d军官, %d精英, %d常规, %d管理, %d普通和%d平民。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
 	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
 	L"%d军官，%d精英士兵，%d普通士兵和%d巡逻官加入了我方。",
@@ -8832,7 +8830,7 @@ STR16	szPrisonerTextStr[]=
 	L"敌人不肯拿你当囚犯 - 他们宁愿你死！", //L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"这些可以在 INI 设置关闭。", // 	L"This behaviour is set OFF in your ini settings.",
 	L"%s释放了%s！", //L"%s has freed %s!",
-	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
+	L"一个高阶军官 %s 被发现！",	//L"A high-ranking army officer in %s has been revealed!",
 	L"敌方首领会拒绝即使被认为投降！", //L"The enemy leader refuses to even consider surrender!",
 	L"%d 囚犯自愿加入我军。", //L"%d prisoners volunteered to join our forces.",
 };
@@ -8842,7 +8840,7 @@ STR16	szMTATextStr[]=
 	L"空无一物",
 	L"建造掩体", //L"building a fortification",
 	L"拆除掩体", //L"removing a fortification",
-	L"hacking",	// TODO.Translate
+	L"开垦",//L"hacking",
 	L"%s必须停止%s", //L"%s had to stop %s.",
     L"所选的路障无法再该分区建造",
 };
@@ -8866,8 +8864,8 @@ STR16		szBackgroundText_Flags[]=
 
 	L" 埋设炸弹的陷阱等级+1\n", //L" +1 traplevel to planted bombs\n",
 	L" 会导致附近的佣兵腐败\n", //L" spreads corruption to nearby mercs\n",
-	L" female only", // won't show up, text exists for compatibility reasons
-	L" male only", // won't show up, text exists for compatibility reasons
+	L" female only", //L" female only",  won't show up, text exists for compatibility reasons
+	L" male only", //L" male only",      won't show up, text exists for compatibility reasons
 
 	L"如果我们死了所有城镇都会受到巨大的忠诚惩罚\n", //L" huge loyality penalty in all towns if we die\n",
 };
@@ -8932,7 +8930,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d夜晚听力范围\n", //L" %s%d hearing range during the night\n",
 	L" %s%d白天听力范围\n", //L" %s%d hearing range during the day\n",
 	L" %s%d解除陷阱效率\n",
-	L" %s%d%% CTH with SAMs\n",	// TODO.Translate
+	L" %s%d%% 防空导弹的命中率\n",	//L" %s%d%% CTH with SAMs\n",
  
 	L" %s%d%％友好对话效果\n", //L" %s%d%% effectiveness to friendly approach\n",
 	L" %s%d%％直接对话效果\n", //L" %s%d%% effectiveness to direct approach\n",
@@ -8945,16 +8943,16 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％发现狙击手的成功率\n",
 	L" %s%d%% 疾病诊断的效率\n", //L" %s%d%% effectiveness at diagnosing diseases\n",
 	L" %s%d%% 对人员治疗疾病的效率\n", //L" %s%d%% effectiveness at treating population against diseases\n",
-	L"可以发现被跟踪的 %d 距离格数\n", //L"Can spot tracks up to %d tiles away\n",
+	L"能够发现%d格之内的脚印\n", //L"Can spot tracks up to %d tiles away\n",
 	L" %s%d%% 被伏击时的初始距离\n", //L" %s%d%% initial distance to enemy in ambush\n",
-	L" %s%d%% chance to evade snake attacks\n",	// TODO.Translate
+	L" %s%d%% 逃避蛇攻击的机会\n",	//L" %s%d%% chance to evade snake attacks\n",
 
 	L" 对某些其他背景的厌恶\n", //L" dislikes some other backgrounds\n",
 	L"吸烟者", //L"Smoker",
 	L"非吸烟者", //L"Nonsmoker",
-	L" %s%d%% 如果敌人 CTH 蹲在厚覆盖他们的方向\n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
-	L" %s%d%% building speed\n",
-	L" hacking skill: %s%d ",	// TODO.Translate
+	L" %s%d%% 如果在蹲下状态，视野方向发现敌人，即可瞄准\n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%% 建设速度\n",//L" %s%d%% building speed\n",
+	L"黑客技能: %s%d ",//L" hacking skill: %s%d ",
 };
 
 STR16		szBackgroundTitleText[] =
@@ -8997,6 +8995,7 @@ STR16		szPersonalityHelpText[]=
 	L"你是哪个种族？你讨厌所有非本族人。", //L"What is your race? You will be\nracist against all other races.",
 	L"你的性别歧视程度如何？", //L"How sexist are you against the other gender?",
 };
+
 
 STR16		szRaceText[]=
 {
@@ -9135,7 +9134,6 @@ STR16		szNationalityTextAdjective[] =
 	L"塞尔维亚人",		// 45
 	L"巴基斯坦人",
 };
-
 
 // special text used if we do not hate any nation (value of -1)
 STR16		szNationalityText_Special[]=
@@ -9479,56 +9477,56 @@ STR16	szCampaignStatsOperationPrefix[] =
 	L"坚定的 %s",  //L"Steadfast %s",
 
 	// 100
-	L"Narcoleptic %s",		// TODO.Translate
-	L"Bleached %s",
-	L"Nail-biting %s",
-	L"Smite the %s",
+	L"发作性睡病的 %s",//L"Narcoleptic %s",	
+	L"晒白的 %s",//	L"Bleached %s",
+	L"咬指甲的 %s",//L"Nail-biting %s",
+	L"猛击 %s",//L"Smite the %s",
 
-	L"Bloodthirsty %s",
-	L"Obese %s",
-	L"Scheming %s",
-	L"Tree-Humping %s",
+	L"嗜血的 %s",//L"Bloodthirsty %s",
+	L"肥胖的 %s",//	L"Obese %s",
+	L"诡计多端的 %s",//	L"Scheming %s",
+	L"驼背的 %s",//L"Tree-Humping %s",
 
-	L"Cheaply made %s",
-	L"Sanctified %s",
-	L"Falsely accused %s",
-	L"%s to the rescue",
+	L"便宜的 %s",//L"Cheaply made %s",
+	L"圣洁的 %s",//L"Sanctified %s",
+	L"被诬告的 %s",//L"Falsely accused %s",
+	L"%s 被救援",//L"%s to the rescue",
 
-	L"Crab-people vs. %s",
-	L"%s in Space!!!",
-	L"%s vs. Godzilla",
-	L"Untamed %s",
+	L"螃蟹人 VS %s",//L"Crab-people vs. %s",
+	L"%s 在太空中!!!",//L"%s in Space!!!",
+	L"%s Vs哥斯拉",//L"%s vs. Godzilla",
+	L"野性 %s",//	L"Untamed %s",
 
-	L"Durable %s",
-	L"Brazen %s",
-	L"Greedy %s",
-	L"Midnight %s",
+	L"耐用的 %s",//L"Durable %s",
+	L"厚颜无耻的 %s",//	L"Brazen %s",
+	L"贪婪的 %s",//L"Greedy %s",
+	L"午夜 %s",//	L"Midnight %s",
 
 	// 120
-	L"Confused %s",
-	L"Irritated %s",
-	L"Loathsome %s",
-	L"Manic %s",
+	L"困惑的 %s",//L"Confused %s",
+	L"生气的 %s",//L"Irritated %s",
+	L"可恶的 %s",//L"Loathsome %s",
+	L"躁狂的 %s",//L"Manic %s",
 
-	L"Ancient %s",
-	L"Sneaking %s",
-	L"%s of Doom",
-	L"%s's revenge",
+	L"古老的 %s",//L"Ancient %s",
+	L"鬼鬼祟祟的 %s",//L"Sneaking %s",
+	L"%s 厄运",//L"%s of Doom",
+	L"%s 的复仇",//L"%s's revenge",
 
-	L"A %s on the run",
-	L"A %s out of time",
-	L"One with %s",
-	L"%s from hell",
+	L" %s 在进行",//L"A %s on the run",
+	L" %s 没有时间",//L"A %s out of time",
+	L"带有 %s",//L"One with %s",
+	L"%s 来自地狱",//L"%s from hell",
 
-	L"Super-%s",
-	L"Ultra-%s",
-	L"Mega-%s",
-	L"Giga-%s",
+	L"超级-%s",//L"Super-%s",
+	L"特别-%s",//L"Ultra-%s",
+	L"巨型-%s",//L"Mega-%s",
+	L"超级巨型-%s",//	L"Giga-%s",
 
-	L"A quantum of %s",
-	L"Her Majesties' %s",
-	L"Shivering %s",
-	L"Fearful %s",
+	L"一些 %s",//L"A quantum of %s",
+	L"她的陛下' %s",//L"Her Majesties' %s",
+	L"颤抖 %s",//L"Shivering %s",
+	L"可怕的 %s",//	L"Fearful %s",
 
 	// 140
 };
@@ -9665,56 +9663,56 @@ STR16	szCampaignStatsOperationSuffix[] =
 	L"基金",  //L"Mutual Fund",
 
 	// 100
-	L"Uniform",			// TODO.Translate
-	L"Saber",
-	L"Snow Leopard",
-	L"Panther",
+	L"制服",//L"Uniform",
+	L"军刀",//L"Saber",
+	L"雪豹",//L"Snow Leopard",
+	L"搭档",//L"Panther",
 
-	L"Centaur",
-	L"Scorpion",
-	L"Serpent",
-	L"Black Widow",
+	L"半人马",//L"Centaur",
+	L"蝎子",//L"Scorpion",
+	L"蛇",//L"Serpent",
+	L"黑寡妇",//	L"Black Widow",
 
-	L"Tarantula",
-	L"Vulture",
-	L"Heretic",
-	L"Zombie",
+	L"狼蛛",//	L"Tarantula",
+	L"秃鹫",//L"Vulture",
+	L"异教徒",//L"Heretic",
+	L"僵尸",//L"Zombie",
 
-	L"Role-Model",
-	L"Hellhound",
-	L"Mongoose",
-	L"Nurse",
+	L"劳模",//L"Role-Model",
+	L"恶鬼",//L"Hellhound",
+	L"猫鼬",//L"Mongoose",
+	L"护士",//L"Nurse",
 
-	L"Nun",
-	L"Space Ghost",
-	L"Viper",
-	L"Mamba",
+	L"修女",//L"Nun",
+	L"太空鬼魂",//L"Space Ghost",
+	L"毒蛇",//L"Viper",
+	L"黑曼巴",//L"Mamba",
 
 	// 120
-	L"Sinner",
-	L"Saint",
-	L"Comet",
-	L"Meteor",
+	L"罪人",//L"Sinner",
+	L"圣人",//L"Saint",
+	L"彗星",//L"Comet",
+	L"流星",//L"Meteor",
 
-	L"Can of worms",
-	L"Fish oil pills",
-	L"Breastmilk",
-	L"Tentacle",
+	L"装满虫的罐头",//L"Can of worms",
+	L"鱼油",//L"Fish oil pills",
+	L"母乳",//L"Breastmilk",
+	L"触手",//L"Tentacle",
 
-	L"Insanity",
-	L"Madness",
-	L"Cough reflex",
-	L"Colon",
+	L"精神错乱",//L"Insanity",
+	L"发疯",//L"Madness",
+	L"咳嗽反射",//L"Cough reflex",
+	L"结肠",//L"Colon",
 
-	L"King",
-	L"Queen",
-	L"Bishop",
-	L"Peasant",
+	L"国王",//L"King",
+	L"女皇",//L"Queen",
+	L"主教",//L"Bishop",
+	L"农民",//L"Peasant",
 
-	L"Tower",
-	L"Mansion",
-	L"Warhorse",
-	L"Referee",
+	L"塔",//L"Tower",
+	L"大厦",//L"Mansion",
+	L"战马",//L"Warhorse",
+	L"裁判",//L"Referee",
 
 	// 140
 };
@@ -9812,6 +9810,7 @@ STR16	szMercCompareEventText[]=
 	L"%s 跟我抢人头", //L"%s stole my kill",
 	L"%s 跟我一起扛过枪", //L"%s and me fought well together",
 	L"%s 劝降了敌军", //L"%s made the enemy surrender",
+	L"%s 受伤的平民", //L"%s injured civilians",
 };
 
 STR16	szWHOWebSite[] =
@@ -9929,9 +9928,9 @@ STR16   szTacticalCoverDialogString[]=
         L"",
 
         L"角色", //L"Roles",
-		L"Fortification",	// TODO.Translate
+		L"筑防",	//L"Fortification",
 		L"跟踪者",//	L"Tracker",
-		L"CTH mode",
+		L"瞄准模式",//L"CTH mode",
 
         L"陷阱",
         L"绊线网",
@@ -9952,9 +9951,9 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"显示佣兵视野",
         L"",
 
-		L"Display enemy role symbols",	// TODO.Translate
-		L"Display planned fortifications",
-		L"Display enemy tracks",
+		L"显示敌人称号",//L"Display enemy role symbols",
+		L"显示计划的防御工事",//L"Display planned fortifications",
+		L"显示敌军路线",//L"Display enemy tracks",
         L"",
 
         L"显示绊线网络",
@@ -9967,6 +9966,7 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"显示绊线网络C",
         L"显示绊线网络D",
 };
+
 
 STR16	szDynamicDialogueText[40][17] =
 {
@@ -10888,7 +10888,7 @@ STR16	szDiseaseText[] =
 	L"治疗", //L"Treatment",
 	L"取消", //L"Cancel",　
 
-	L"\n\n%s (undiagnosed) - %d / %d\n",	// TODO.Translate
+	L"\n\n%s (未诊断的) - %d / %d\n",	//L"\n\n%s (undiagnosed) - %d / %d\n",
 };
 
 STR16	szFoodText[] =
@@ -10987,194 +10987,194 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"第%d小队",  //L"Group %d",
 	L"最终",  //L"Final",
 
-	L"Volunteers: %d (+%5.3f)",	// TODO.Translate
+	L"志愿者: %d (+%5.3f)",	//L"Volunteers: %d (+%5.3f)",
 };
 
-STR16 szEnemyHeliText[] =	// TODO.Translate
+STR16 szEnemyHeliText[] =
 {
-	L"Enemy helicopter shot down in %s!",
-	L"We... uhm... currently don't control that site, commander...",
-	L"The SAM does not need maintenance at the moment.",
-	L"We've already ordered the repair, this will take time.",
+	L"敌人的直升机在%s被打下了",//L"Enemy helicopter shot down in %s!",
+	L"我们。。。嗯。。目前没有控制那个基地，指挥官。。。",//L"We... uhm... currently don't control that site, commander...",
+	L"SAM导弹现在不需要保养",//L"The SAM does not need maintenance at the moment.",
+	L"我们已经订购了维修零件，这需要时间",//L"We've already ordered the repair, this will take time.",
 
-	L"We do not have enough resources to do that.",
-	L"Repair SAM site? This will cost %d$ and take %d hours.",
-	L"Enemy helicopter hit in %s.",
-	L"%s fires %s at enemy helicopter in %s.",
+	L"我们没有足够的资源来做这件事",//L"We do not have enough resources to do that.",
+	L"修理SAM基地？这将花费 %d 美金和 %d 小时",//L"Repair SAM site? This will cost %d$ and take %d hours.",
+	L"敌人的直升机在 %s 被击中了",//L"Enemy helicopter hit in %s.",
+	L"%s 用 %s 对敌军直升机开火了，地点在 %s 。",//L"%s fires %s at enemy helicopter in %s.",
 
-	L"SAM in %s fires at enemy helicopter in %s.",
+	L"%s 的SAM对位于 %s 的敌军直升机开火了。",//L"SAM in %s fires at enemy helicopter in %s.",
 };
 
 STR16 szFortificationText[] =
 {
-	L"No valid structure selected, nothing added to build plan.",
-	L"No gridno found to create items in %s - created items are lost.",
-	L"Structures could not be built in %s - people are in the way.",
-	L"Structures could not be built in %s - the following items are required:",
+	L"没有有效的建筑被选中，因而建造计划中没有增加任何内容",//L"No valid structure selected, nothing added to build plan.",
+	L"没有找到网格编号来创建物品 %s ---创建的物品丢失",//L"No grid no found to create items in %s - created items are lost.",
+	L"无法在 %s 建造建筑---人们还在路上",//L"Structures could not be built in %s - people are in the way.",
+	L"无法在 %s 建造建筑---需要下列物品：",//L"Structures could not be built in %s - the following items are required:",
 
-	L"No fitting fortifications found for tileset %d: %s",
-	L"Tileset %d: %s",
+	L"没有找到合适的防御公事来进行网格设置 %d: %s",//L"No fitting fortifications found for tileset %d: %s",
+	L"网格设置 %d:%s",//L"Tileset %d: %s",
 };
 
 STR16	szMilitiaWebSite[] =
 {
 	// main page
-	L"Militia",
-	L"Militia Forces Overview",
+	L"民兵",//L"Militia",
+	L"民兵力量总览",//L"Militia Forces Overview",
 
 	// links to other pages
-	L"Militia Roster",
-	L"Statistics",
-	L"About",
+	L"民兵名单",//L"Militia Roster",
+	L"统计",//L"Statistics",
+	L"关于",//L"About",
 
 };
 
 STR16 szIndividualMilitiaBattleReportText[] =
 {
-	L"Took part in Operation %s",
-	L"Recruited on Day %d, %d:%2d in %s",
-	L"Promoted on Day %d, %d:%2d",
-	L"KIA, Operation %s",
+	L"参与行动 %s",//L"Took part in Operation %s",
+	L"招募日期 %d, %d:%2d in %s",//L"Recruited on Day %d, %d:%2d in %s",
+	L"加薪日期 %d, %d:%2d",//L"Promoted on Day %d, %d:%2d",
+	L"KIA,行动 %s",//L"KIA, Operation %s",
 
-	L"Lightly wounded during Operation %s",
-	L"Heavily wounded during Operation %s",
-	L"Critically wounded during Operation %s",
-	L"Valiantly fought in Operation %s",
+	L"在行动中受了轻伤 %s",//L"Lightly wounded during Operation %s",
+	L"在行动中受了重伤 %s",//L"Heavily wounded during Operation %s",
+	L"在行动中受了致命伤 %s",//L"Critically wounded during Operation %s",
+	L"在行动中勇敢地战斗 %s",//L"Valiantly fought in Operation %s",
 
-	L"Hired from Kerberus on Day %d, %d:%2d in %s",
-	L"Defected to us on  Day %d, %d:%2d in %s",
-	L"Contract terminated on Day %d, %d:%2d",
+	L"从Kerberus安保公司雇佣的时间：%d, %d:%2d 在 %s",//L"Hired from Kerberus on Day %d, %d:%2d in %s",
+	L"反叛的时间：%d, %d:%2d 在 %s",//L"Defected to us on  Day %d, %d:%2d in %s",
+	L"合同终止的时间：%d, %d:%2d",//L"Contract terminated on Day %d, %d:%2d",
 };
 
 STR16 szIndividualMilitiaTraitRequirements[] =
 {
-	L"HP",
-	L"AGI",
-	L"DEX",
-	L"STR",
+	L"生命",//L"HP",
+	L"敏捷",//L"AGI",
+	L"灵巧",//L"DEX",
+	L"力量",//L"STR",
 
-	L"LDR",
-	L"MRK",
-	L"MEC",
-	L"EXP",
+	L"领导",//L"LDR",
+	L"枪法",//L"MRK",
+	L"机械",//L"MEC",
+	L"爆炸",//L"EXP",
 
-	L"MED",
-	L"WIS",
-	L"\nMust have regular or elite rank",
-	L"\nMust have elite rank",
+	L"医疗",//L"MED",
+	L"智慧",//L"WIS",
+	L"\n必须有老手或者精英等级",//L"\nMust have regular or elite rank",
+	L"\n必须有精英的等级",//L"\nMust have elite rank",
 
-	L"\n\n|F|u|l|f|i|l|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
-	L"\n\n|F|a|i|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
+	L"\n\n|满|足|要|求",//L"\n\n|F|u|l|f|i|l|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
+	L"\n\n|不|满|足|要|求",//L"\n\n|F|a|i|l|e|d |R|e|q|u|i|r|e|m|e|n|t|s",
 	L"\n%d %s",
-	L"\nBasic version of trait",
+	L"\n基本版本的特性",//L"\nBasic version of trait",
 
-	L" (Expert)"
+	L"(专家)",//L" (Expert)"
 };
 
 STR16	szIdividualMilitiaWebsiteText[] =
 {
-	L"Operations",
-	L"Are you sure you want to release %s from your service?",
-	L"HP ratio: %3.0f %% Daily Wage: %3d$ Age: %d years",
-	L"Daily Wage: %3d$ Age: %d years",
+	L"行动",//L"Operations",
+	L"你确定要从你的服务中发布 %s ?",//L"Are you sure you want to release %s from your service?",
+	L"生命率: %3.0f %% 每日薪水: %3d$ 年龄: %d 年",//L"HP ratio: %3.0f %% Daily Wage: %3d$ Age: %d years",
+	L"每日薪水: %3d$ 年龄: %d 年",//L"Daily Wage: %3d$ Age: %d years",
 
-	L"Kills: %d Assists: %d",
-	L"Status: Deceased",
-	L"Status: Fired",
-	L"Status: Active",
+	L"歼敌数： %d 助攻数： %d",//L"Kills: %d Assists: %d",
+	L"状态：减少",//L"Status: Deceased",
+	L"状态：开火",//L"Status: Fired",
+	L"状态：激活",//L"Status: Active",
 
-	L"Terminate Contract",
-	L"Personal Data",
-	L"Service Record",
-	L"Inventory",
+	L"中指合同",//L"Terminate Contract",
+	L"个人数据",//L"Personal Data",
+	L"服役记录",//L"Service Record",
+	L"库存",//L"Inventory",
 
-	L"Militia name",
-	L"Sector name",
-	L"Weapon",
-	L"HP ratio: %3.1f%%%%%%%",
+	L"民兵名字",//L"Militia name",
+	L"区域名字",//L"Sector name",
+	L"武器",//L"Weapon",
+	L"生命比率: %3.1f%%%%%%%",//L"HP ratio: %3.1f%%%%%%%",
 
-	L"%s is not active in the currently loaded sector.",
-	L"%s has been promoted to regular militia",
-	L"%s has been promoted to elite militia",
+	L"%s 在现在载入的区域尚未激活.",//L"%s is not active in the currently loaded sector.",
+	L"%s 已经被提升为熟练民兵",//L"%s has been promoted to regular militia",
+	L"%s 已经被提升为精英民兵",//L"%s has been promoted to elite militia",
 };
 
 STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
 {
-	L"All statuses",
-	L"Deceased",
-	L"Active",
-	L"Fired",
+	L"所有状态",//L"All statuses",
+	L"减少",//L"Deceased",
+	L"激活",//L"Active",
+	L"开火",//L"Fired",
 };
 
 STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
 {
-	L"All ranks",
-	L"Green",
-	L"Regular",
-	L"Elite",
+	L"所有等级",//L"All ranks",
+	L"新手",//L"Green",
+	L"熟练",//L"Regular",
+	L"精英",//L"Elite",
 };
 
 STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 {
-	L"All origins",
-	L"Rebel",
-	L"PMC",
-	L"Defector",
+	L"所有原住民",//L"All origins",
+	L"反抗军",//L"Rebel",
+	L"PMC",//L"PMC",
+	L"叛逃者",//L"Defector",
 };
 
 STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
 {
-	L"All sectors",
+	L"所有区域",//L"All sectors",
 };
 
 STR16	szNonProfileMerchantText[] =
 {
-	L"Merchant is hostile and does not want to trade.",
-	L"Merchant is in no state to do business.",
-	L"Merchant won't trade during combat.",
-	L"Merchant refuses to interact with you.",
+	L"商人处于敌意状态，不愿意进行交易.",//L"Merchant is hostile and does not want to trade.",
+	L"商人不适合做生意.",//L"Merchant is in no state to do business.",
+	L"商人不在交战中进行交易.",//L"Merchant won't trade during combat.",
+	L"商人拒绝和你互动.",//L"Merchant refuses to interact with you.",
 };
 
-STR16	szWeatherTypeText[] =	// TODO.Translate
+STR16	szWeatherTypeText[] =
 {
-	L"normal",
-	L"rain",
-	L"thunderstorm",
-	L"sandstorm",
+	L"晴天",//L"normal",
+	L"下雨",//L"rain",
+	L"雷暴",//L"thunderstorm",
+	L"沙尘暴",//L"sandstorm",
 
-	L"snow",
+	L"下雪",//L"snow",
 };
 
 STR16	szSnakeText[] =
 {
-	L"%s evaded a snake attack!",
-	L"%s was attacked by a snake!",
+	L"%s 遇到了蛇的袭击!",//L"%s evaded a snake attack!",
+	L"%s 被一只蛇攻击了!",//L"%s was attacked by a snake!",
 };
 
 STR16	szSMilitiaResourceText[] =
 {
-	L"Converted %s into resources",
-	L"Guns: ",
-	L"Armour: ",
-	L"Misc: ",
+	L"把 %s 转变成资源",//L"Converted %s into resources",
+	L"枪械：",//L"Guns: ",
+	L"护具：",//L"Armour: ",
+	L"杂项：",//L"Misc: ",
 
-	L"There are no volunteers left for militia!",
-	L"Not enough resources to train militia!",
+	L"没有自愿者离开参加民兵",//L"There are no volunteers left for militia!",
+	L"没有足够的资源来训练民兵",//L"Not enough resources to train militia!",
 };
 
 STR16	szInteractiveActionText[] =
 {
-	L"%s starts hacking.",
-	L"%s accesses the computer, but finds nothing of interest.",
-	L"%s is not skilled enough to hack the computer.",
-	L"%s reads the file, but learns nothing new.",
+	L"%s 开始黑客攻击",//L"%s starts hacking.",
+	L"%s 进入电脑，但没找到感兴趣的内容",//L"%s accesses the computer, but finds nothing of interest.",
+	L"%s 的技能不够，不足以攻入电脑",//L"%s is not skilled enough to hack the computer.",
+	L"%s 阅读了文件，但没找到新的内容",//L"%s reads the file, but learns nothing new.",
 
-	L"%s can't make sense out of this.",
-	L"%s couldn't use the watertap.",
-	L"%s has bought a %s.",
-	L"%s doesn't have enough money. That's just embarassing.",
+	L"%s 离开了这个，没有意义",//L"%s can't make sense out of this.",
+	L"%s 不能用水龙头",//L"%s couldn't use the watertap.",
+	L"%s 买了一个 %s",//L"%s has bought a %s.",
+	L"%s 没有足够的钱。那真让人难为情",//L"%s doesn't have enough money. That's just embarassing.",
 
-	L"%s drank from water tap",
+	L"%s 从水龙头喝水",//L"%s drank from water tap",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

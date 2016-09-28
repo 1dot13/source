@@ -105,8 +105,8 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"端起轻机枪所需行动点 -%d%s\n",//L"-%d%s APs needed to ready light machine guns\n",
 	L"自动或点射命中率惩罚 -%d%s\n",//L"Auto fire/burst chance to hit penalty is reduced by %d%s\n",
 	L"降低浪费子弹的几率\n",//L"Reduced chance for shooting unwanted bullets on autofire\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
 	L"发射榴弹所需行动点 -%d%s\n",// L"-%d%s APs needed to fire grenade launchers\n",
@@ -117,8 +117,8 @@ STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 	L"迫击炮命中率惩罚修正 -%d%s\n",// L"Reduce penalty for mortar CtH by %d%s\n",
 	L"爆破物, 手榴弹和重武器对坦克的额外伤害 +%d%s\n",// L"+%d%s damage to tanks with heavy weapons, grenades and explosives\n",
 	L"重武器对其他目标的伤害 +%d%s\n",// L"+%d%s damage to other targets with heavy weapons\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 {
 	L"步枪命中率 +%d%s\n",
@@ -140,8 +140,8 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"步枪精确瞄准次数增加 %d次\n",// L"Adds %d more aim clicks for rifle-type guns\n",
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）1次\n",//L"Makes aiming faster with rifle-type guns by one aim click\n",
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）%d次\n",//L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
 	L"步枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Rifles\n",
@@ -155,6 +155,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"使用步枪增加 %d 精瞄次数\n",  //L"Adds %d more aim click for Rifles\n",
 	L"使用步枪增加 %d 精瞄次数\n",  //L"Adds %d more aim clicks for Rifles\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
 	L"发射手枪、左轮所需行动点 -%d%s\n",// L"-%d%s APs needed to fire with pistols and revolvers\n",
@@ -167,8 +168,8 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"手枪、冲锋手枪和左轮装填弹药所需行动点 -%d%s\n",// L"-%d%s APs needed to reload pistols, machine pistols and revolvers\n",
 	L"手枪、左轮和冲锋手枪的精确瞄准次数增加 %d\n",// L"Adds %d more aim click for pistols, machine pistols and revolvers\n",
 	L"手枪、左轮和冲锋手枪的精确瞄准次数增加 %d\n",// L"Adds %d more aim clicks for pistols, machine pistols and revolvers\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
 	L"格斗攻击所需行动点 -%d%s(空手或戴铜指套)\n",// L"-%d%s AP cost of hand to hand attacks (bare hands or with brass knuckles)\n",
@@ -199,8 +200,8 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"踢门成功率 +%d%s\n",// L"+%d%s chance to kick doors\n",
 	L"你的格斗攻击将有特殊的动画效果\n",// L"You gain special animations for hand to hand combat\n",
 	L"移动时被中断的几率降低 -%d%s\n", // L"-%d%s chance to be interrupted when moving\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
 	L"所在区域其他雇佣兵的最大行动点 +%d%s\n",// L"+%d%s APs per round of other mercs in vicinity\n",
@@ -215,8 +216,8 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"+%d%s %s的恐惧抵抗力 (程序参数问题只能用这个语序)\n",// L"+%d%s fear resistence of %s\n",
 	L"缺陷: 会给其他人造成 %d 倍的士气下降, 如果 %s 的阵亡的话 (程序参数问题只能用这个语序)\n",// L"Drawback: %dx morale loss for %s's death for all other mercs\n",
 	L"触发小队集体中断的几率增加 +%d%s\n", // L"+%d%s chance to trigger collective interrupts\n",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
 	L"维修速度 +%d%s \n",// L"+%d%s to repairing speed\n",
@@ -231,6 +232,7 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"修理机器人的速度惩罚 -%d%s\n",// L"Reduced penalty to repair speed of the robot by %d%s\n",
 	L"可以用物品修复到 100%% 的状态\n", //L"Able to restore item threshold to 100%% during repair\n",
 };
+
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
 	L"用医疗包包扎时可以给伤者进行手术\n",// L"Has ability to make surgical intervention by using medical bag on wounded soldier\n",
@@ -243,8 +245,8 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"包扎速度 +%d%s\n",// L"+%d%s bandaging speed\n",
 	L"所在区域自然回复生命值速度 +%d%s",// L"+%d%s natural regeneration speed of all soldiers in the same sector",
 	L"(这种效果最多叠加 %d 次)",// L" (max %d these bonuses per sector)",
-
 };
+
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
 	L"可在敌后伪装成市民或敌军士兵\n",//L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
@@ -282,6 +284,7 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 	L"安置/拆除炸弹和地雷所需行动点 -%d%s\n",// L"-%d%s APs needed to plant/remove bombs and mines\n",
 	L"组装物品所需行动点 -%d%s\n",// L"-%d%s APs needed to attach items\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
 	L"刀具攻击所需行动点 -%d%s\n",// L"-%d%s APs needed to attack by blades\n",
@@ -294,8 +297,8 @@ STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 	L"持刀状态下额外刀具攻击的几率 +%d%s \n",// L"+%d%s on top chance to dodge melee blades if having a blade in hands\n",
 	L"躲避钝器攻击的几率 +%d%s\n",// L"+%d%s chance to dodge attack by blunt melee weapons\n",
 	L"持刀状态下额外躲避钝器攻击的几率 +%d%s\n",// L"+%d%s on top chance to dodge blunt melee weapons if having a blade in hands\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
 	L"投掷飞刀所需基础行动点 -%d%s\n",// L"-%d%s basic APs needed to throw blades\n",
@@ -308,8 +311,8 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"飞刀致命一击的额外伤害倍率 +%d\n",// L"+%d critical hit by throwing blade multiplier\n",
 	L"飞刀的最大精瞄次数 +%d\n",// L"Adds %d more aim click for throwing blades\n",
 	L"飞刀的最大精瞄次数 +%d\n",// L"Adds %d more aim clicks for throwing blades\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 {
 	L"黑暗中视距 +%d\n",// L"+%d to effective sight range in dark\n",
@@ -317,8 +320,8 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"黑暗中额外听力范围 +%d\n",// L"+%d to effective hearing range in dark on top\n",
 	L"黑暗中中断率 +%d\n",// L"+%d to interrupts modifier in dark\n",
 	L"睡眠需求 -%d\n",// L"-%d need to sleep\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"潜行所需行动点 -%d%s\n",// L"-%d%s APs needed to move quietly\n",
@@ -326,21 +329,22 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"隐蔽性 +%d%s (未发现时判定为“隐形”)\n",// L"+%d%s stealth (being 'invisible' if unnoticed)\n",
 	L"移动对隐蔽程度的惩罚 -%d%s\n",// L"Reduced cover penalty for movement by %d%s\n",
 	L"被敌人中断几率 -%d%s\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
 {
 	L"跑、走、蹲走、爬、游泳等动作所需的行动点 -%d%s\n",// L"-%d%s APs needed for moving (running, walking, swatting, crawling, swimming, etc.)\n",
 	L"跳跃、游泳、翻墙等动作所消耗的体能 -%d%s\n",// L"-%d%s energy spent for movement, roof-climbing, obstacle-jumping, swimming, etc.\n",
 };
+
 STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
 	L"伤害抵抗力 %d%s\n",// L"Has %d%s damage resistance\n",
 	L"负重上限的有效力量 +%d%s\n",// L"+%d%s effective strength for carrying weight capacity \n",
 	L"被徒手攻击造成的体力损失 -%d%s\n",// L"Reduced energy lost when hit by HtH attack by %d%s\n",
 	L"被击中腿部致使倒地所需的伤害阈值 +%d%s\n",// L"Increased damage needed to fall down if hit to legs by %d%s\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
 	L"投掷手榴弹所需行动点 -%d%s\n",// L"-%d%s APs needed to throw grenades\n",
@@ -351,8 +355,8 @@ STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 	L"安置/拆除炸弹成功率 +%d%s\n",// L"+%d%s to planting/removing bombs check\n",
 	L"降低敌人发现你的炸弹和地雷的几率(炸弹等级 +%d)\n",// L"Decreases chance enemy will detect your bombs and mines (+%d bomb level)\n",
 	L"提高定向爆破破门几率(伤害乘以 %d)\n",// L"Increased chance shaped charge will open the doors (damage multiplied by %d)\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
 	L"训练民兵速度 +%d%s\n",// L"+%d%s bonus to militia training speed\n",
@@ -360,8 +364,8 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"训练其他雇佣兵的效率 +%d%s\n",// L"+%d%s bonus to teaching other mercs\n",
 	L"训练其他人某项属性时, 教官自身的该项能力有效值 +%d\n",// L"Skill value counts to be +%d higher for being able to teach this skill to other mercs\n",
 	L"自我锻炼效率 +%d%s\n",// L"+%d%s bonus to train stats through self-practising assignment\n",
-
 };
+
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
 	L"武器上的瞄准镜有效视距 +%d%%\n",// L"+%d to effective sight range with scopes on weapons\n",
@@ -371,9 +375,7 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"显示邻近区域敌人的存在\n",// L"If in sector, adjacent sectors will show presence of enemies if any\n",
 	L"防止敌人偷袭你的队伍\n",// L"Prevents the enemy to ambush your squad\n",
 	L"防止血猫偷袭你的队伍\n",// L"Prevents the bloodcats to ambush your squad\n",
-
 };
-
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
 	L"偶尔会通知你在队伍中听到的意见。\n",
@@ -391,14 +393,14 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"队伍在区域间乘车移动的速度 +%d%s\n",// L"+%d%s group travelling speed between sectors if traveling in vehicle (except helicopter)\n",
 	L"区域间移动时体力消耗 -%d%s\n",// L"-%d%s less energy spent for travelling between sectors\n",
 	L"天气效果惩罚 -%d%s\n",// L"-%d%s weather penalties\n",
- //L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
+    //L"迷彩涂装效果 +%d%s\n",// L"+%d%s camouflage effectiveness\n",
 	L"迷彩涂装退色的速度 -%d%s\n",// L"-%d%s worn out speed of camouflage by water or time\n",
-	L"Can spot tracks up to %d tiles away\n",	//L"Can spot tracks up to %d tiles away\n",
+	L"能够发现%d格之内的脚印\n",	//L"Can spot tracks up to %d tiles away\n",
 
 	L"%s%d%% 疾病抗性\n",//L" %s%d%% disease resistance\n",
 	L"%s%d%% 食物消耗\n",//L" %s%d%% food consumption\n",
 	L"%s%d%% 水消耗\n",//L" %s%d%% water consumption\n",
-	L"+%d%% snake evasion\n",	// TODO.Translate
+	L"+%d%% 回避几率\n",	//L"+%d%% snake evasion\n", TODO.Translate 
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
@@ -461,7 +463,6 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"优点：进行非战斗任务时士气会提升（除了训练民兵）。\n缺点：杀人不增加士气。",// L"A: He gains morale when on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
 	L"优点：攻击有更高的几率能造成受害者属性值降低，和更严重的创伤，同时提高自己的士气。\n缺点：与其他人交流是个问题，脱离战斗后士气也会快速下沉。",// L"A: Has bigger chance for inflicting stat loss and can inflict special painful wounds when able to\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
 	L"优点：附近有异性雇佣兵时表现更佳。\n缺点：附近所有同性雇佣兵士气提升得慢。",// L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
-
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=
@@ -476,10 +477,8 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"可能会偶尔发疯并把手里武器设在自动后乱喷。\n如果武器不能自动射击将会打击自身士气。",// L"He can go psycho and shoot like mad once per a while\nand can lose morale if unable to do that with given weapon.",
 	L"大大减少听力范围",		// L"Drastically reduced hearing.",
 	L"减少视力范围",				// L"Reduced sight range.",
-	L"Drastically increased bleeding.",	// TODO.Translate
+	L"大大增加的流血速度.",	//L"Drastically increased bleeding.",	 TODO.Translate
 };
-
-
 
 STR16 gzIMPProfileCostText[]=
 {
