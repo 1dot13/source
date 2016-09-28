@@ -2,111 +2,111 @@
 <DISEASESLIST>
 	<DISEASE>
 		<uiIndex>0</uiIndex>
-		<szName>Arulcan plague</szName>
-		<szFatName>|A|r|u|l|c|a|n |P|l|a|g|u|e</szFatName>
-		<szDescription>This rare subtype of the plague is unique to Arulco. It can be spread by insects, direct contact,&#10;or by contaminated food. There have been several deadly outbreaks in the last decade.</szDescription>
+		<szName>阿卢科鼠疫</szName>
+		<szFatName>|阿|卢|科|鼠|疫</szFatName>
+		<szDescription>这种相当罕见的鼠疫亚种系阿卢科独有。可通过昆虫、直接接触、&#10;或被污染的食物传播。过去十年里多次爆发严重疫情。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>1</uiIndex>
-		<szName>Typhoid</szName>
-		<szFatName>|T|y|p|h|o|i|d</szFatName>
-		<szDescription>Typhoid fever is a common worldwide bacterial disease transmitted by the ingestion of food or water&#10;contaminated with the feces of an infected person. Symptoms include internal bleeding, dehydration and delirium.</szDescription>
+		<szName>伤寒</szName>
+		<szFatName>|伤|寒</szFatName>
+		<szDescription>伤寒症是全球常见的细菌性疾病，通过食物和水，或接触患者排泄物传播。&#10;临床症状包括内出血，脱水和意识模糊。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>2</uiIndex>
-		<szName>Hepatitis A</szName>
-		<szFatName>|H|e|p|a|t|i|t|i|s |A</szFatName>
-		<szDescription>Hepatitis A is usually spread by eating or drinking contaminated food or water or through close contact with an&#10;infectious person. Symptoms may include nausea, vomiting, diarrhea, yellow skin, fever, and abdominal pain.</szDescription>
+		<szName>甲型肝炎</szName>
+		<szFatName>|甲|型|肝|炎</szFatName>
+		<szDescription>甲型肝炎一般通过摄取受污染的食物和水，以及近距离接触&#10;传染性患者传播。临床症状包括恶心，呕吐，腹泻，皮肤发黄，发烧和腹痛。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>3</uiIndex>
-		<szName>Tetanus</szName>
-		<szFatName>|T|e|t|a|n|u|s</szFatName>
-		<szDescription>Infection with tetanus generally occurs through wound contamination and often involves a cut or deep puncture&#10;wound. As the infection progresses, muscle spasms develop in the jaw and elsewhere in the body.</szDescription>
+		<szName>破伤风</szName>
+		<szFatName>|破|伤|风</szFatName>
+		<szDescription>破伤风感染一般由砍伤或深度刺伤伤口污染引起。&#10;随着病征加重，患者会出现牙关紧闭以及身体其他地方的肌肉痉挛。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>4</uiIndex>
-		<szName>Tuberculosis</szName>
-		<szFatName>|T|u|b|e|r|c|u|l|o|s|i|s</szFatName>
-		<szDescription>Tuberculosisis a common, and in many cases fatal, infectious disease. It is spread through the air. About one in ten latent&#10;infections eventually progresses to active disease which, if left untreated, kills more than 50% of those so infected.</szDescription>
+		<szName>肺结核</szName>
+		<szFatName>|肺|结|核</szFatName>
+		<szDescription>肺结核是一种常见的、高致死率的传染病。肺结核通过空气传播，大约每十个感染者中&#10;就有一个最终病发，如果没有救治，致死率在百分之五十以上。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>5</uiIndex>
-		<szName>Cholera</szName>
-		<szFatName>|C|h|o|l|e|r|a</szFatName>
-		<szDescription>Main symptoms of Cholera are watery diarrhea and vomiting. This may result in dehydration and in severe cases grayish-bluish skin.&#10;Transmission occurs primarily by contaminated water or food. Severe cholera can lead to death.</szDescription>
+		<szName>霍乱</szName>
+		<szFatName>|霍|乱</szFatName>
+		<szDescription>霍乱的主要临床症状是水性腹泻和呕吐，引起脱水，重症患者皮肤呈青灰色。&#10;霍乱主要通过受污染的水或食物传播，病情严重时会致死。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>6</uiIndex>
-		<szName>Ebola</szName>
-		<szFatName>|E|b|o|l|a</szFatName>
-		<szDescription>A deadly virus with no known treatment, Ebola has a an unusually high lethality rate of over 50%%. Symptoms include nausea, vomiting,&#10;diarrhea and internal bleeding.</szDescription>
+		<szName>埃博拉</szName>
+		<szFatName>|埃|博|拉</szFatName>
+		<szDescription>埃博拉是一种致命病毒，尚无有效治疗方法。埃博拉的致死率在百分之五十以上。临床症状包括恶心，呕吐，&#10;腹泻和内出血。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>7</uiIndex>
-		<szName>Malaria</szName>
-		<szFatName>|M|a|l|a|r|i|a</szFatName>
-		<szDescription>Malaria is a mosquito-borne infectious disease commonly transmitted by a bite from an infected mosquito. Malaria &#10;causes symptoms that typically include fever and headache, which in severe cases can progress to coma or death.</szDescription>
+		<szName>疟疾</szName>
+		<szFatName>|疟|疾</szFatName>
+		<szDescription>疟疾是一种蚊媒传染病，通常通过携带疟原虫的蚊子叮咬传播。&#10;代表性临床症状包括发烧和头痛，严重时会导致昏迷和死亡。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>8</uiIndex>
-		<szName>Staphylococcus</szName>
-		<szFatName>|S|t|a|p|h|y|l|o|c|o|c|c|u|s</szFatName>
-		<szDescription>A staphylococcus infection is a common result of food poisoning. Symptoms include spontaneous vomiting and diarrhea.</szDescription>
+		<szName>葡萄球菌</szName>
+		<szFatName>|葡|萄|球|菌</szFatName>
+		<szDescription>葡萄球菌感染主要由食物中毒引起，临床症状有呕吐不止和腹泻不止。</szDescription>
 	</DISEASE>	
 	<DISEASE>
 		<uiIndex>9</uiIndex>
-		<szName>Chlamydia</szName>
-		<szFatName>|C|h|l|a|m|y|d|i|a</szFatName>
-		<szDescription>Chlamydia is one of the most common sexually transmitted infections. If left untreated, chlamydial infections &#10; can cause serious reproductive and other health problems with both short-term and long-term consequences.</szDescription>
+		<szName>衣原体</szName>
+		<szFatName>|衣|原|体</szFatName>
+		<szDescription>衣原体感染以性传播最常见。如果不经治疗，衣原体感染&#10;会引起严重的生殖问题和其他健康问题，急性、慢性均有。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>10</uiIndex>
-		<szName>Ballistic trauma</szName>
-		<szFatName>|B|a|l|l|i|s|t|i|c |t|r|a|u|m|a</szFatName>
-		<szDescription>Ballistic trauma or gunshot wound is a form of physical trauma sustained from the discharge of arms or munitions. &#10; Non-fatal gunshot wounds frequently have severe and long-lasting effects, even after the victim has made a successful recovery.</szDescription>
+		<szName>弹道创伤</szName>
+		<szFatName>|弹|道|创|伤</szFatName>
+		<szDescription>弹道创伤，或者说枪伤，是由枪械或火器发射导致的物理创伤。&#10;非致命枪伤经常造成严重而持久的伤害，哪怕受害人得到成功救治。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>11</uiIndex>
-		<szName>PTSD</szName>
-		<szFatName>|P|T|S|D</szFatName>
-		<szDescription>|Post|traumatic |stress |disorder may develop after a person is exposed to one or more traumatic events, such as sexual assault,&#10;warfare, serious injury, or threats of imminent death that result in feelings of intense fear, horror, and powerlessness.</szDescription>
+		<szName>创伤后应激障碍</szName>
+		<szFatName>|创|伤|后|应|激|障|碍</szFatName>
+		<szDescription>创伤后应激障碍是人经历一次或多次心理创伤后，譬如性侵害、&#10;战争、重伤、直面死亡威胁，心中极度恐惧、惊骇和无力感引起的。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>12</uiIndex>
-		<szName>Wounded leg</szName>
-		<szFatName>|W|o|u|n|d|e|d |l|e|g</szFatName>
-		<szDescription>The human musculoskeletal system is complicated. Your leg received a critical wound, and while it heals, your mobility is affected.</szDescription>
+		<szName>腿伤</szName>
+		<szFatName>|腿|伤</szFatName>
+		<szDescription>人类的肌肉骨骼系统非常复杂，你的腿受重伤后，即使治愈，你的移动能力也会受影响。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>13</uiIndex>
-		<szName>Damaged arm</szName>
-		<szFatName>|D|a|m|a|g|e|d |a|r|m</szFatName>
-		<szDescription>You were shot in the arm. Apart from being very painful, this severely limits your motor abilities.</szDescription>
+		<szName>手臂受伤</szName>
+		<szFatName>|手|臂|受|伤</szFatName>
+		<szDescription>你的手臂中枪了，除了剧痛外，运动能力很受也限制。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>14</uiIndex>
-		<szName>Wounded biceps</szName>
-		<szFatName>|W|o|u|n|d|e|d |b|i|c|e|p|s</szFatName>
-		<szDescription>A painful shot to your torso has you gasping for air. You'll have to cut back in the next days. </szDescription>
+		<szName>二头肌受伤</szName>
+		<szFatName>|二|头|肌|受|伤</szFatName>
+		<szDescription>打在你身上的一枪让你直抽冷气，你必须被紧急送回后方。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>15</uiIndex>
-		<szName>Drug Addiction</szName>
-		<szFatName>|D|r|u|g |A|d|d|i|c|t|i|o|n</szFatName>
-		<szDescription>You've become addicted to various substances. Until your body has removed all traces of drugs, you will suffer from withdrawal.</szDescription>
+		<szName>药物成瘾</szName>
+		<szFatName>|药|物|成|瘾</szFatName>
+		<szDescription>你沉迷于各种药物，然后被强制戒毒，然后体会断瘾症状。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<uiIndex>16</uiIndex>
-		<szName>Hungover</szName>
-		<szFatName>|H|u|n|g|o|v|e|r</szFatName>
-		<szDescription>That last beer was definitely spoiled.</szDescription>
+		<szName>宿醉</szName>
+		<szFatName>|宿|醉</szFatName>
+		<szDescription>最后一瓶啤酒铁定变质了。</szDescription>
 	</DISEASE>
 	<DISEASE>
 		<!-- As cancer grows over a long time, it does not grow on itself ingame, only by consuming cigarettes -->
 		<uiIndex>17</uiIndex>
-		<szName>Lung Cancer</szName>
-		<szFatName>|L|u|n|g |C|a|n|c|e|r</szFatName>
-		<szDescription>Lung cancer is a malignant lung tumor characterized by uncontrolled cell growth in tissues of the lung. If left untreated, this growth can spread beyond the lung.</szDescription>
+		<szName>肺癌</szName>
+		<szFatName>|肺|癌</szFatName>
+		<szDescription>肺癌就是恶性肺肿瘤，表现为肺组织细胞恶性增殖。如不及时治疗，会扩散到全身。</szDescription>
 	</DISEASE>
 </DISEASESLIST>

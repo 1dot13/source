@@ -7394,51 +7394,51 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>924</uiIndex>
-		<szItemName>.38 S-Load M</szItemName>
-		<szLongItemName>.38 Speed Loader Match</szLongItemName>
-		<szItemDesc>6 rounds of wadcutter ammo, designed to be used on a gunrange.</szItemDesc>
-		<szBRName>.38 S-Load Match</szBRName>
-		<szBRDesc>Precisely loaded .match ammo with wadcutter bullets. When precision is most important!</szBRDesc>
+		<szItemName>.38比赛弹快速装弹器</szItemName>
+		<szLongItemName>.38比赛弹快速装弹器</szLongItemName>
+		<szItemDesc>6发冲孔型弹头子弹，为增加射程而设计。</szItemDesc>
+		<szBRName>.38比赛弹快速装弹器</szBRName>
+		<szBRDesc>精准地填装冲孔型弹头比赛弹。精度才是最重要的！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>925</uiIndex>
-		<szItemName>.38 S-Load HPS</szItemName>
-		<szLongItemName>.38 Speed Loader, HPS</szLongItemName>
-		<szItemDesc>These bullets promise to penetrate better than standard HP.</szItemDesc>
-		<szBRName>.38 S-Load HPS</szBRName>
-		<szBRDesc>New solid copper bullets of hollow point shape, for better penetration!</szBRDesc>
+		<szItemName>.38铜头空尖弹快速装弹器</szItemName>
+		<szLongItemName>.38铜头空尖弹快速装弹器</szLongItemName>
+		<szItemDesc>这种子弹比标准空尖弹的穿透力好。</szItemDesc>
+		<szBRName>.38铜头空尖弹快速装弹器</szBRName>
+		<szBRDesc>新式铜头空尖弹，穿透力更强！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
-		<szItemName>9x18mm Mag 8 AP</szItemName>
-		<szLongItemName>9x18mm Pistol Mag, 8 AP</szLongItemName>
-		<szItemDesc>8 full metal jacket rounds of 9x18mm Makarov.</szItemDesc>
-		<szBRName>9x18mm Mag 8 AP</szBRName>
-		<szBRDesc>9x18mm in FMJ for added penetration.</szBRDesc>
+		<szItemName>9x18mm 8发全被甲手枪弹</szItemName>
+		<szLongItemName>9x18mm 8发全被甲手枪弹</szLongItemName>
+		<szItemDesc>8发马卡洛夫全被甲弹。</szItemDesc>
+		<szBRName>9x18mm 8发全被甲手枪弹</szBRName>
+		<szBRDesc>9x18mm高穿透力全被甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>927</uiIndex>
-		<szItemName>9x18mm Mag 12 AP</szItemName>
-		<szLongItemName>9x18mm Pistol Mag, 12 AP</szLongItemName>
-		<szItemDesc>12 rounds of full metal jacket ammo in cost effective 9x18mm.</szItemDesc>
-		<szBRName>9x18mm Mag 12 AP</szBRName>
-		<szBRDesc>This AP 9x18mm ammo penetrates much better than standard ball rounds.</szBRDesc>
+		<szItemName>9x18mm 12发全被甲手枪弹</szItemName>
+		<szLongItemName>9x18mm 12发全被甲手枪弹</szLongItemName>
+		<szItemDesc>12发改进型9x18mm马卡洛夫全被甲弹。</szItemDesc>
+		<szBRName>9x18mm 12发全被甲手枪弹</szBRName>
+		<szBRDesc>这种9x18mm马卡洛夫全被甲弹比通用弹穿透力更强。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
-		<szItemName>9x18mm Mag 20 AP</szItemName>
-		<szLongItemName>9x18mm SMG Mag, 20 AP</szLongItemName>
-		<szItemDesc>20 round SMG mag loaded with full metal jacket ammo.</szItemDesc>
-		<szBRName>9x18mm Mag 20 AP</szBRName>
-		<szBRDesc>AP rounds, as preferred by the military for defeating light body armor.</szBRDesc>
+		<szItemName>9x18mm 20发全被甲弹</szItemName>
+		<szLongItemName>9x18mm 20发全被甲弹</szLongItemName>
+		<szItemDesc>装满全被甲弹的20发微型冲锋枪弹匣。</szItemDesc>
+		<szBRName>9x18mm 20发全被甲弹</szBRName>
+		<szBRDesc>军队为了对付轻型防弹衣，更偏好穿甲弹。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>929</uiIndex>
-		<szItemName>9x18mm Mag 30 AP</szItemName>
-		<szLongItemName>9x18mm SMG Mag, 30 AP</szLongItemName>
-		<szItemDesc>30 round SMG mag loaded with full metal jacket ammunition.</szItemDesc>
-		<szBRName>9x18mm Mag 30 AP</szBRName>
-		<szBRDesc>30 full metal jacket bullets will make a sieve out of most things.</szBRDesc>
+		<szItemName>9x18mm 30发全被甲弹</szItemName>
+		<szLongItemName>9x18mm 30发全被甲弹</szLongItemName>
+		<szItemDesc>装满全被甲弹的30发微型冲锋枪弹匣。</szItemDesc>
+		<szBRName>9x18mm 30发全被甲弹</szBRName>
+		<szBRDesc>30发全被甲弹足够解决大部分目标了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
@@ -7490,27 +7490,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>936</uiIndex>
-		<szItemName>7.62x54R Bullets 5 M</szItemName>
-		<szLongItemName>7.62x54R Bullets, 5 Match</szLongItemName>
-		<szItemDesc>5 high precision rounds for a Dragunov or other 7.62x54mm rifle.</szItemDesc>
-		<szBRName>7.62x54R Bullets 5 Match</szBRName>
-		<szBRDesc>7.62x54R Sniper ammo, manufactured to ensure higher precision.</szBRDesc>
+		<szItemName>7.62x54R 5发比赛弹</szItemName>
+		<szLongItemName>7.62x54R 5发比赛弹</szLongItemName>
+		<szItemDesc>5发高精度子弹，供德拉古诺夫或其他7.62x54mm步枪使用。</szItemDesc>
+		<szBRName>7.62x54R 5发比赛弹</szBRName>
+		<szBRDesc>7.62x54R狙击弹，只为高精度。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>937</uiIndex>
-		<szItemName>7.62x54R Mag 10 M</szItemName>
-		<szLongItemName>7.62x54R Magazine, 10 Match</szLongItemName>
-		<szItemDesc>Ammo manufactured to higher standards, made especially for snipers.</szItemDesc>
-		<szBRName>7.62x54R Mag 10 Match</szBRName>
-		<szBRDesc>10 rounds of the so-called "Sniper" ammo in 7.62x54R.</szBRDesc>
+		<szItemName>7.62x54R 10发比赛弹</szItemName>
+		<szLongItemName>7.62x54R 10发比赛弹</szLongItemName>
+		<szItemDesc>高规格弹药，专为狙击手打造。</szItemDesc>
+		<szBRName>7.62x54R 10发比赛弹</szBRName>
+		<szBRDesc>10发所谓的7.62x54R“狙击弹”。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
-		<szItemName>7.62x54R Box M</szItemName>
-		<szLongItemName>7.62x54R Box Match</szLongItemName>
-		<szItemDesc>200 round box of 7.62x54 Sniper ammo.</szItemDesc>
-		<szBRName>7.62x54R Box Match</szBRName>
-		<szBRDesc>Not available at BR</szBRDesc>
+		<szItemName>7.62x54R比赛弹弹箱</szItemName>
+		<szLongItemName>7.62x54R比赛弹弹箱</szLongItemName>
+		<szItemDesc>200发一箱的7.62x54狙击弹。</szItemDesc>
+		<szBRName>7.62x54R比赛弹弹箱</szBRName>
+		<szBRDesc>Bobby Ray网店无货</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
@@ -13883,57 +13883,57 @@
 	</ITEM>
   <ITEM>
 		<uiIndex>1735</uiIndex>
-		<szItemName>Anti-tank Mine</szItemName>
-		<szLongItemName>TM-62P2 anti-tank Mine</szLongItemName>
-		<szItemDesc>A soviet anti-tank mine. It can penetrate the hull of a battle tank. Might put a dent into an Icecream truck.</szItemDesc>
+		<szItemName>反坦克地雷</szItemName>
+		<szLongItemName>TM-62P2反坦克地雷</szLongItemName>
+		<szItemDesc>一枚苏制反坦克地雷，可以炸穿主战坦克的车体，冰激凌卡车里常备哟。</szItemDesc>
 		<szBRName>TM-62P2</szBRName>
-		<szBRDesc>Not even a tank is safe against these babies. The TM-62P2 uses a plastic casing, making it almost impossible to detect via metal detectors.</szBRDesc>		
+		<szBRDesc>遇上这货就算是坦克也无法幸免，TM-62P2使用塑料外壳，金属探测器很难发现。</szBRDesc>		
 	</ITEM>
   <ITEM>
 		<uiIndex>1736</uiIndex>
-		<szItemName>Strela-2</szItemName>
-		<szLongItemName>Strela-2</szLongItemName>
-		<szItemDesc>This man-portable surface-to-air missile has seen widespread use in nearly every regional conflict since 1968.</szItemDesc>
-		<szBRName>9k32 Strela-2</szBRName>
-		<szBRDesc>Another famous russian export, this MANPADS is comparable to its western counterparts but a lot cheaper. Get yours now!</szBRDesc>		
+		<szItemName>箭-2</szItemName>
+		<szLongItemName>箭-2</szLongItemName>
+		<szItemDesc>自1968年以来，这种单兵地对空导弹差不多每场局部战争都有登场。</szItemDesc>
+		<szBRName>9k32 箭-2</szBRName>
+		<szBRDesc>老毛子的另一种出口名品，这种单兵地对空导弹足以匹敌它的西方对手，而且更便宜。亲，不来一发吗！</szBRDesc>		
 	</ITEM>
 	<ITEM>
 		<uiIndex>1737</uiIndex>
-		<szItemName>Strela-2 Missile</szItemName>
-		<szLongItemName>Strela-2 Missile</szLongItemName>
-		<szItemDesc>A surface-to-air missile. Considering the price-tag, use against ground targets would be a waste.</szItemDesc>
-		<szBRName>Strela-2 Missile</szBRName>
-		<szBRDesc>A missile for the russian Strela-2. Best used against aircraft. And the sun, apparently.</szBRDesc>		
+		<szItemName>箭-2导弹</szItemName>
+		<szLongItemName>箭-2导弹</szLongItemName>
+		<szItemDesc>一种地对空导弹，看看标签，用它打地面目标太浪费了。</szItemDesc>
+		<szBRName>箭-2导弹</szBRName>
+		<szBRDesc>老毛子的箭-2导弹，打飞机效果一流，打太阳也行。</szBRDesc>		
 	</ITEM>
   	<ITEM>
 		<uiIndex>1738</uiIndex>
-		<szItemName>Minirockets Cryo</szItemName>
-		<szLongItemName>Minirockets, Cryo</szLongItemName>
-		<szItemDesc>Using extremely sophisticated technology, these rockets flash-freeze any organic material upon detonation. For the duration the target becomes essentially solid.</szItemDesc>
-		<szBRName>Minirockets Cryo</szBRName>
-		<szBRDesc>Not for sale by BR!</szBRDesc>		
+		<szItemName>迷你火箭</szItemName>
+		<szLongItemName>迷你火箭</szLongItemName>
+		<szItemDesc>由尖端科技打造，这些火箭可以轻松消灭任何有机物，将它们炸成碎块。</szItemDesc>
+		<szBRName>迷你火箭</szBRName>
+		<szBRDesc>Bobby Ray网店无货!</szBRDesc>		
 	</ITEM>
   <ITEM>
     <uiIndex>1739</uiIndex>
     <szItemName>Roof Collapse Smoke</szItemName>
     <szLongItemName>Roof Collapse Smoke</szLongItemName>
-    <szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+    <szItemDesc>内部项目，不要使用!!!</szItemDesc>
     <szBRName>Roof Collapse Smoke</szBRName>
   </ITEM>
   <ITEM>
     <uiIndex>1740</uiIndex>
-    <szItemName>Soda</szItemName>
-    <szLongItemName>Soda</szLongItemName>
-    <szItemDesc>For a mix of industrial sugar and chemicals you don't really want to know, this sure is refreshing.</szItemDesc>
-    <szBRName>Soda</szBRName>
-    <szBRDesc>Not for sale through BR.</szBRDesc>
+    <szItemName>苏打</szItemName>
+    <szLongItemName>苏打</szLongItemName>
+    <szItemDesc>对于一个混合的工业糖和化学物质，你不真的想知道，这肯定是令人耳目一新。</szItemDesc>
+    <szBRName>苏打</szBRName>
+    <szBRDesc>网店无货.</szBRDesc>
   </ITEM>
   <ITEM>
     <uiIndex>1741</uiIndex>
-    <szItemName>Beartrap</szItemName>
-    <szLongItemName>Beartrap</szLongItemName>
-    <szItemDesc>Anyone careless enough to step into this will have to stay put for a while.</szItemDesc>
-    <szBRName>Beartrap</szBRName>
-    <szBRDesc>Recommended by ACME.</szBRDesc>
+    <szItemName>捕兽夹</szItemName>
+    <szLongItemName>捕兽夹</szLongItemName>
+    <szItemDesc>任何人不小心踩到，将不得不停留一段时间。</szItemDesc>
+    <szBRName>捕兽夹</szBRName>
+    <szBRDesc>强烈推介.</szBRDesc>
   </ITEM>
 </ITEMLIST>
