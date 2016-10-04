@@ -259,7 +259,7 @@ UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubT
 
 	if ( ubTeam == ENEMY_TEAM )
 	{
-		ubNumTroops = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks);
+		ubNumTroops = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumJeeps + pSector->ubNumTanks);
 	
 		if ( is_networked )
 			ubNumTroops += numenemyLAN((UINT8)sSectorX,(UINT8)sSectorY ); //hayden
