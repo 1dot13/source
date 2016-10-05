@@ -339,7 +339,7 @@
 		<sStructureGridno>11135</sStructureGridno>
 		<sLevel>0</sLevel>
 		<sActionType>1</sActionType>
-		<difficulty>10</difficulty>
+		<difficulty>15</difficulty>
 		<luaactionid>14</luaactionid>
 	</ACTION>
 	<!-- |||||||||||||||||||| DRASSEN-SAM |||||||||||||||||||| -->
@@ -386,7 +386,7 @@
 		<sStructureGridno>10196</sStructureGridno>
 		<sLevel>0</sLevel>
 		<sActionType>1</sActionType>
-		<difficulty>10</difficulty>
+		<difficulty>15</difficulty>
 		<luaactionid>17</luaactionid>
 	</ACTION>
 	<!-- |||||||||||||||||||| CHITZENA-SAM |||||||||||||||||||| -->
@@ -448,7 +448,7 @@
 		<sStructureGridno>15920</sStructureGridno>
 		<sLevel>0</sLevel>
 		<sActionType>1</sActionType>
-		<difficulty>10</difficulty>
+		<difficulty>15</difficulty>
 		<luaactionid>21</luaactionid>
 	</ACTION>
 	<!-- |||||||||||||||||||| CENTRAL SAM |||||||||||||||||||| -->
@@ -499,7 +499,7 @@
 		<sStructureGridno>11912</sStructureGridno>
 		<sLevel>0</sLevel>
 		<sActionType>1</sActionType>
-		<difficulty>10</difficulty>
+		<difficulty>15</difficulty>
 		<luaactionid>24</luaactionid>
 	</ACTION>
 	<!-- |||||||||||||||||||| MEDUNA SAM |||||||||||||||||||| -->

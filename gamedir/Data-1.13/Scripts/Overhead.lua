@@ -203,6 +203,15 @@ StatTypes =
 	LDRAMT = 11,
 }
 
+-- different teams
+Teams =
+{
+	ENEMY_TEAM = 1,
+	CREATURE_TEAM = 2,
+	MILITIA_TEAM = 3,
+	CIV_TEAM = 4,
+}
+
 local iLoop
 local aimLoop
 
@@ -667,7 +676,7 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "It seems an even more advance version of the rocket rifle has been developed.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Several files seem to be missing... you can't find the weapon specifics.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The advanced version never developed further than the prototypes stage.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "It is not known where those 2 prototypes are.")
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "It is not specified where the prototypes are.")
 			end
 		-- money
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_ORTA_BASEMENT_LAB2_PC ) then
@@ -705,7 +714,7 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_ORTA_BASEMENT_CONTROL_CONSOLE_2 ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "This base seems to have different levels of clearance.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Some of the storage rooms are hevily fortified.")
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Some of the storage rooms are heavily fortified.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Explosives likely won't be enough, these doors require a key code.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "It is likely the lead scientists or guards might have the key codes.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The files don't say what exactly is stored here though.")
@@ -718,10 +727,10 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_ORTA_BASEMENT_ENTRANCE_CONSOLE_1 ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "A log lists recent arrivals and departures to this base.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "For a long time, this base onyl received supplies.")
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "For a long time, this base only received supplies.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "But recently, quite a few shipments were sent from here to Meduna.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The logs don't say what was shipped, but the destination was the royal guard HQ.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "This does not sound encouraging.")
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You have a bad feeling about this.")
 				
 				SetModderLUAFact(sLuaactionid, ActionState.STATE_GAVEREWARD_OK)
 			elseif ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_GAVEREWARD_OK ) then
@@ -786,7 +795,7 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			elseif ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_GAVEREWARD_OK ) then
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Apart from the chalice, the museum doesn't seem to have anything of interest.")
 			end
-		-- Drassen SAM: get info from the pc and use the comman console
+		-- Drassen SAM: get info from the pc and use the command console
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_DRASSENSAM_PC_1 ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "We've compromised an army personnel database!")
@@ -815,9 +824,43 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			end	
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_DRASSENSAM_COMMANDCONSOLE ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
+			
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "This seems to be the console that controls the SAM.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You have no idea how this works.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You decide to not touch anything, you might break something.")
+				
+				samhackstatus = GetSamSiteHackStatus(sSectorX, sSectorY)
+				
+				ourhack = 100 - 2 * successpts
+				
+				if ( ourhack < 0 ) then
+					ourhack = 0
+				end
+								
+				-- we can hack the SAM, decreasing its radius, or undo a previous hack
+				-- for simplicity, we will always hack a SAM if enemies are nearby - we are either infiltrating or figting the enemy in those cases
+				-- otherwise, we obviously control the SAM, so try to unhack it			
+				if ( NumNonPlayerTeamInSector(sSectorX, sSectorY, Teams.ENEMY_TEAM) > 0 ) then
+					if ( ourhack >= samhackstatus ) then
+						SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Someone already hacked this thing - and they broke it better than you could.")
+					else
+						SetSamSiteHackStatus(sSectorX, sSectorY, ourhack)
+						
+						SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We've messed up the file system - they will need an expert to get this running again.")
+					end
+				else
+					if ( samhackstatus < 100 ) then					
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You attempt to unhack it.")
+						
+						if ( ourhack <= samhackstatus ) then
+							SetSamSiteHackStatus(sSectorX, sSectorY, 100)
+							
+							SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We are successful, the targetting software is working again.")
+						else
+							SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Whoever hacked the controls was more capable then we are - we cannot release the controls.")
+						end
+					else
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The software seems to work just fine, better not mess with it.")
+					end
+				end	
 			end
 		-- Chitzena SAM: get info from the pc and use the comman console
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_CHITZENASAM_PC_1 ) then
@@ -866,9 +909,43 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			end
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_CHITZENASAM_COMMANDCONSOLE ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
+			
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "This seems to be the console that controls the SAM.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You have no idea how this works.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You decide to not touch anything, you might break something.")
+				
+				samhackstatus = GetSamSiteHackStatus(sSectorX, sSectorY)
+				
+				ourhack = 100 - 2 * successpts
+				
+				if ( ourhack < 0 ) then
+					ourhack = 0
+				end
+								
+				-- we can hack the SAM, decreasing its radius, or undo a previous hack
+				-- for simplicity, we will always hack a SAM if enemies are nearby - we are either infiltrating or figting the enemy in those cases
+				-- otherwise, we obviously control the SAM, so try to unhack it			
+				if ( NumNonPlayerTeamInSector(sSectorX, sSectorY, Teams.ENEMY_TEAM) > 0 ) then
+					if ( ourhack >= samhackstatus ) then
+						SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Someone already hacked this thing - and they broke it better than you could.")
+					else
+						SetSamSiteHackStatus(sSectorX, sSectorY, ourhack)
+						
+						SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We've messed up the file system - they will need an expert to get this running again.")
+					end
+				else
+					if ( samhackstatus < 100 ) then					
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You attempt to unhack it.")
+						
+						if ( ourhack <= samhackstatus ) then
+							SetSamSiteHackStatus(sSectorX, sSectorY, 100)
+							
+							SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We are successful, the targetting software is working again.")
+						else
+							SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Whoever hacked the controls was more capable then we are - we cannot release the controls.")
+						end
+					else
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The software seems to work just fine, better not mess with it.")
+					end
+				end	
 			end
 		-- central SAM: get info from the pc and use the command console
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_CENTRALSAM_PC_1 ) then
@@ -939,9 +1016,43 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			end	
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_CENTRALSAM_COMMANDCONSOLE ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
+			
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "This seems to be the console that controls the SAM.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You have no idea how this works.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You decide to not touch anything, you might break something.")
+				
+				samhackstatus = GetSamSiteHackStatus(sSectorX, sSectorY)
+				
+				ourhack = 100 - 2 * successpts
+				
+				if ( ourhack < 0 ) then
+					ourhack = 0
+				end
+								
+				-- we can hack the SAM, decreasing its radius, or undo a previous hack
+				-- for simplicity, we will always hack a SAM if enemies are nearby - we are either infiltrating or figting the enemy in those cases
+				-- otherwise, we obviously control the SAM, so try to unhack it			
+				if ( NumNonPlayerTeamInSector(sSectorX, sSectorY, Teams.ENEMY_TEAM) > 0 ) then
+					if ( ourhack >= samhackstatus ) then
+						SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Someone already hacked this thing - and they broke it better than you could.")
+					else
+						SetSamSiteHackStatus(sSectorX, sSectorY, ourhack)
+						
+						SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We've messed up the file system - they will need an expert to get this running again.")
+					end
+				else
+					if ( samhackstatus < 100 ) then					
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You attempt to unhack it.")
+						
+						if ( ourhack <= samhackstatus ) then
+							SetSamSiteHackStatus(sSectorX, sSectorY, 100)
+							
+							SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We are successful, the targetting software is working again.")
+						else
+							SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Whoever hacked the controls was more capable then we are - we cannot release the controls.")
+						end
+					else
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The software seems to work just fine, better not mess with it.")
+					end
+				end	
 			end
 		-- Meduna SAM: get info from the pc and use the command console
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_MEDUNASAM_PC_1 ) then
@@ -978,9 +1089,43 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			end		
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_MEDUNASAM_COMMANDCONSOLE ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
+			
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "This seems to be the console that controls the SAM.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You have no idea how this works.")
-				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You decide to not touch anything, you might break something.")
+				
+				samhackstatus = GetSamSiteHackStatus(sSectorX, sSectorY)
+				
+				ourhack = 100 - 2 * successpts
+				
+				if ( ourhack < 0 ) then
+					ourhack = 0
+				end
+								
+				-- we can hack the SAM, decreasing its radius, or undo a previous hack
+				-- for simplicity, we will always hack a SAM if enemies are nearby - we are either infiltrating or figting the enemy in those cases
+				-- otherwise, we obviously control the SAM, so try to unhack it			
+				if ( NumNonPlayerTeamInSector(sSectorX, sSectorY, Teams.ENEMY_TEAM) > 0 ) then
+					if ( ourhack >= samhackstatus ) then
+						SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Someone already hacked this thing - and they broke it better than you could.")
+					else
+						SetSamSiteHackStatus(sSectorX, sSectorY, ourhack)
+						
+						SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We've messed up the file system - they will need an expert to get this running again.")
+					end
+				else
+					if ( samhackstatus < 100 ) then					
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You attempt to unhack it.")
+						
+						if ( ourhack <= samhackstatus ) then
+							SetSamSiteHackStatus(sSectorX, sSectorY, 100)
+							
+							SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We are successful, the targetting software is working again.")
+						else
+							SetScreenMsg(FontColour.FONT_MCOLOR_RED, "Whoever hacked the controls was more capable then we are - we cannot release the controls.")
+						end
+					else
+						SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The software seems to work just fine, better not mess with it.")
+					end
+				end	
 			end
 		-- MEDUNA PALACE BUNKER
 		-- entrance desktop contains a list of important people allied to the queen

@@ -36,6 +36,8 @@ Fields index:
 There is air control table at the end on this file.
 The numbers indicate what sam site controls air space of sector.
 Zero (0) means neither of sams control this sector.
+Each sector now takes a flagmask indicating the SAMs. So 1 is for SAM 1, 2 for SAM 2, 4 for SAM 3, 8 for SAM 4 and so on.
+Add numbers to have mutliple SAMs covering a sector, so 3 means that both SAM 1 and 2 cover a sector.
 
 NOTE: Rows 0 and 17, and also columns 0 and 17 CANNOT BE USED.
       It is world borders.
@@ -91,26 +93,50 @@ Others not.
 			<samGridNoB>11912</samGridNoB>
 		</SAM>
 	</SAMLIST>
+	
+	<!-- The old SAM site setup. Comment this in and the lit below it out to return to vanilla state. -->
+	<!--
 	<SAM_CONTROLLED_SECTORS>
-		<!-- Column index: 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 -->
-		<!-- 									 -->
 		<MAP_ROW row="00"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </MAP_ROW>
 		<MAP_ROW row="01"> 0  1  1  1  1  1  1  1  1  0  0  2  2  2  2  2  2  0 </MAP_ROW>
 		<MAP_ROW row="02"> 0  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="03"> 0  1  1  1  1  1  1  1  3  2  2  2  2  2  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="04"> 0  1  1  1  1  1  1  1  3  3  2  2  2  2  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="05"> 0  1  1  1  1  1  1  3  3  3  3  2  2  2  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="06"> 0  1  1  1  1  1  3  3  3  3  3  3  2  2  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="07"> 0  1  1  1  1  3  3  3  3  3  3  3  3  2  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="08"> 0  1  1  1  3  3  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="09"> 0  1  1  3  3  3  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="10"> 0  1  4  4  4  3  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="11"> 0  4  4  4  4  4  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="12"> 0  4  4  4  4  4  4  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="13"> 0  4  4  4  4  4  4  4  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="14"> 0  4  4  4  4  4  4  4  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
-		<MAP_ROW row="15"> 0  4  4  4  4  4  4  4  4  4  4  4  4  4  4  2  2  0 </MAP_ROW>
-		<MAP_ROW row="16"> 0  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  2  0 </MAP_ROW>
+		<MAP_ROW row="03"> 0  1  1  1  1  1  1  1  4  2  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="04"> 0  1  1  1  1  1  1  1  4  4  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="05"> 0  1  1  1  1  1  1  4  4  4  4  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="06"> 0  1  1  1  1  1  4  4  4  4  4  4  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="07"> 0  1  1  1  1  4  4  4  4  4  4  4  4  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="08"> 0  1  1  1  4  4  4  4  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="09"> 0  1  1  4  4  4  4  4  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="10"> 0  1  8  8  8  4  4  4  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="11"> 0  8  8  8  8  8  4  4  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="12"> 0  8  8  8  8  8  8  4  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="13"> 0  8  8  8  8  8  8  8  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="14"> 0  8  8  8  8  8  8  8  8  8  8  8  8  8  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="15"> 0  8  8  8  8  8  8  8  8  8  8  8  8  8  8  2  2  0 </MAP_ROW>
+		<MAP_ROW row="16"> 0  8  8  8  8  8  8  8  8  8  8  8  8  8  8  8  2  0 </MAP_ROW>
+		<MAP_ROW row="17"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </MAP_ROW>
+	</SAM_CONTROLLED_SECTORS>
+	-->
+	
+	<SAM_CONTROLLED_SECTORS>
+		<!-- Column index: 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 -->
+		<MAP_ROW row="00"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </MAP_ROW>
+		<MAP_ROW row="01"> 0  1  1  1  1  1  1  1  1  0  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="02"> 0  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="03"> 0  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="04"> 0  1  1  1  1  5  5  5  5  6  6  6  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="05"> 0  1  1  1  5  5  5  5  5  6  6  6  6  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="06"> 0  1  1  5  5  5  5  5  5  6  6  6  6  6  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="07"> 0  1  1  5  5  5  5  5  5  4  6  6  6  6  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="08"> 0  1  1  5  5  5  5  5  4  4  6  6  6  6  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="09"> 0  1  1  5  5  5  5  4  4  4  4  6  6  6  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="10"> 0  9  9  13 13 13 12 12 4  4  4  4  4  6  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="11"> 0  8  8  12 12 12 12 12 12 4  4  4  4  4  0  0  0  0 </MAP_ROW>
+		<MAP_ROW row="12"> 0  8  8  12 12 12 12 12 12 4  4  4  4  4  0  0  0  0 </MAP_ROW>
+		<MAP_ROW row="13"> 0  8  8  8  12 12 12 12 12 4  4  4  4  0  0  0  0  0 </MAP_ROW>
+		<MAP_ROW row="14"> 0  8  8  8  8  12 12 12 12 12 4  4  0  0  0  0  0  0 </MAP_ROW>
+		<MAP_ROW row="15"> 0  8  8  8  8  8  8  8  8  0  0  0  0  0  0  0  0  0 </MAP_ROW>
+		<MAP_ROW row="16"> 0  8  8  8  8  8  8  8  8  0  0  0  0  0  0  0  0  0 </MAP_ROW>
 		<MAP_ROW row="17"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </MAP_ROW>
 	</SAM_CONTROLLED_SECTORS>
 </SAM_INFO>
