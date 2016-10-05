@@ -949,6 +949,21 @@ void AddCommonInfoToBox(void)
 	}
 
 	AddSecondColumnMonoString( &hStringHandle, wString );
+
+	// Flugente: if this is a SAM site we know about, display (hack-)status
+	for ( UINT16 x = 0; x < MAX_NUMBER_OF_SAMS; ++x )
+	{
+		if ( pSamList[x] == usSectorValue && fSamSiteFound[x] )
+		{
+			swprintf( wString, pwMiscSectorStrings[7] );
+			AddMonoString( &hStringHandle, wString );
+
+			swprintf( wString, L"%d / %d", StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( usSectorValue )].bSAMCondition, StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( usSectorValue )].sSamHackStatus );
+			AddSecondColumnMonoString( &hStringHandle, wString );
+
+			break;
+		}
+	}
 }
 
 

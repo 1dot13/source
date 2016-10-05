@@ -4225,9 +4225,11 @@ STR16 pwMiscSectorStrings[] =
 	L"Sektor",
 	L"# der Gegenstände",
 	L"Unbekannt",
+
 	L"Kontrolliert",
 	L"Ja",
 	L"Nein",
+	L"Status/Software Status:",
 };
 
 // error strings for inventory

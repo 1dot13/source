@@ -2251,6 +2251,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 					if( IsThisSectorASAMSector( pGroup->ubSectorX, pGroup->ubSectorY, 0 ) )
 					{
 						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].bSAMCondition = 100;
+						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].sSamHackStatus = 100;
 						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].usFlags &= ~SAMSITE_REPAIR_ORDERED;
 
 						UpdateSAMDoneRepair( pGroup->ubSectorX, pGroup->ubSectorY, 0 );

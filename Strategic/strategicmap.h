@@ -119,7 +119,11 @@ void JumpIntoAdjacentSector( UINT8 ubDirection, UINT8 ubJumpCode, INT32 sAdditio
 
 BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ );
 
+extern UINT32 ubSAMControlledSectors[MAP_WORLD_Y][MAP_WORLD_X];
+
 void UpdateAirspaceControl( void );
+
+BOOLEAN DoesSamCoverSector( UINT8 usSam, UINT8 usSector, BOOLEAN* apSamIsWorking = NULL );
 
 BOOLEAN IsThisSectorASAMSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
@@ -186,6 +190,7 @@ BOOLEAN IsSectorRoad( INT16 sSectorX, INT16 sSectorY ); // added by Flugente
 INT32 SAMSitesUnderPlayerControl( INT16 sX, INT16 sY );
 
 INT8 GetSAMIdFromSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
+void SetSamHackStatus( INT16 sSectorX, INT16 sSectorY, INT8 sStatus );
 
 void SetupProfileInsertionDataForSoldier( SOLDIERTYPE *pSoldier );
 

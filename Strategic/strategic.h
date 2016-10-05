@@ -5,14 +5,9 @@
 #include "mapscreen.h"
 #include "soldier control.h"
 
-// different states for airspace control
-enum
-{
-	AIRSPACE_PLAYER_ACTIVE,		// controlled by player and active
-	AIRSPACE_ENEMY_ACTIVE,		// controlled by enemy and active
-	AIRSPACE_PLAYER_INACTIVE,	// controlled by player but not active
-	AIRSPACE_ENEMY_INACTIVE,	// controlled by enemy but not active
-};
+// Flugente: airspace flags
+#define AIRSPACE_ENEMY_ACTIVE				0x01	//1		// controlled by enemy and active
+#define AIRSPACE_PLAYER_ACTIVE				0x02	//2		// controlled by enemy and active
 
 struct strategicmapelement{
 	UINT8 UNUSEDuiFootEta[4];			// eta/mvt costs for feet 
@@ -21,11 +16,11 @@ struct strategicmapelement{
 	UINT8 uiBadVehicleSector[4];		// blocking mvt from vehicles
 	INT8	bNameId;
 	BOOLEAN fEnemyControlled;			// enemy controlled or not
-	UINT8 usAirType;
+	UINT8 usAirType;					// Flugente: This will now be used as a flagmask
 	BOOLEAN UNUSEDfLostControlAtSomeTime;
 	INT8 bSAMCondition;					// SAM Condition .. 0 - 100, just like an item's status
-
-	INT8 bFillupforPadding[ 3 ];		// necessary for padding
+	INT8 sSamHackStatus;				// this status influences a SAM's max radius 
+	INT8 bFillupforPadding[ 2 ];		// necessary for padding
 	UINT32	usFlags;					// Flugente: various flags
 	INT8 bPadding[ 20 ];
 };

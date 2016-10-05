@@ -101,8 +101,6 @@ void EnemyHeliCheckPlayerKnowledge( INT16 id );
 
 void RepairSamSite( UINT8 aSector );
 
-BOOLEAN IsSectorAirSpacePlayerControlled( UINT8 aSector );
-
 UINT8 NumPlayerAirSpaceOnHeliPath( UINT8 aStart, UINT8 aEnd );
 
 // get the next sector in an enemy heli flight path.

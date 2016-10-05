@@ -81,8 +81,6 @@ extern UINT8			gubCurrentTalkingID;
 // current temp path for dest char
 extern PathStPtr pTempHelicopterPath;
 
-extern UINT8 ubSAMControlledSectors[ MAP_WORLD_Y ][ MAP_WORLD_X ];
-
 // the seating capacities
 //extern INT32 iSeatingCapacities[];
 
@@ -1131,17 +1129,14 @@ INT32 GetCostOfPassageForHelicopter( INT16 sX, INT16 sY )
 	INT32 iCost = 0;
 
 	// HEADROCK HAM 3.5: Costs externalized
-	INT32 iBaseCostPerGreenTile = gGameExternalOptions.usHelicopterBaseCostPerGreenTile;
-	INT32 iBaseCostPerRedTile = gGameExternalOptions.usHelicopterBaseCostPerRedTile;
-
 	// if they don't control it
-	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
+	if ( !(StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].usAirType & AIRSPACE_ENEMY_ACTIVE) )
 	{
-		iCost = iBaseCostPerGreenTile;
+		iCost = gGameExternalOptions.usHelicopterBaseCostPerGreenTile;
 	}
 	else
 	{
-		iCost = iBaseCostPerRedTile;
+		iCost = gGameExternalOptions.usHelicopterBaseCostPerRedTile;
 	}
 
 	// HEADROCK HAM 3.5: Apply facility-based modifiers from global integer recalculated hourly
@@ -1349,7 +1344,7 @@ void HandleHeliHoverForAMinute( void )
 		gubHelicopterHoverTime = 0;
 
 		iTotalHeliDistanceSinceRefuel++;
-		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
+		if ( !(StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].usAirType & AIRSPACE_ENEMY_ACTIVE) )
 		{
 			iTotalAccumulatedCostByPlayer += gGameExternalOptions.usHelicopterHoverCostOnGreenTile;
 		}
@@ -2412,65 +2407,46 @@ BOOLEAN IsHelicopterOnGroundAtRefuelingSite( UINT8 ubRefuelingSite )
 
 BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY )
 {
-	UINT8 ubSamNumber = 0;
-	INT8 bSAMCondition;
 	UINT8 ubChance;
 
+	if ( !StrategicMap[(AIRPORT_X + (MAP_WORLD_X * AIRPORT_Y))].fEnemyControlled && !StrategicMap[(AIRPORT2_X + (MAP_WORLD_X * AIRPORT2_Y))].fEnemyControlled )
+	{
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "WillAirRaidBeStopped: enemy has no more airports" ) );
+		return(TRUE);
+	}
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "WillAirRaidBeStopped: enemy air controlled = %d", StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType ) );
+
 	// if enemy controls this SAM site, then it can't stop an air raid
-	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType != AIRSPACE_PLAYER_ACTIVE )
+	if ( !(StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType & AIRSPACE_PLAYER_ACTIVE) )
 	{
 		return( FALSE );
 	}
-
-	if( !StrategicMap[ ( AIRPORT_X + ( MAP_WORLD_X * AIRPORT_Y ) ) ].fEnemyControlled && !StrategicMap[ ( AIRPORT2_X + ( MAP_WORLD_X * AIRPORT2_Y ) ) ].fEnemyControlled )
-	{
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("WillAirRaidBeStopped: enemy has no more airports"));
-		return( TRUE );
-	}
-
-
-	// which SAM controls this sector?
-	ubSamNumber = ubSAMControlledSectors[ sSectorY ][ sSectorX ];
-
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("WillAirRaidBeStopped: SAM number = %d",ubSamNumber));
-	// if none of them
-	if (ubSamNumber == 0)
-	{
-		return( FALSE);
-	}
-
-	// get the condition of that SAM site (NOTE: SAM #s are 1-4, but indexes are 0-3!!!)
-	Assert( ubSamNumber <= NUMBER_OF_SAMS );
-	bSAMCondition = StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[ ubSamNumber - 1 ] ) ].bSAMCondition;
-
-	// if it's too busted to work, then it can't stop an air raid
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("WillAirRaidBeStopped: SAM condition = %d",bSAMCondition));
-	if( bSAMCondition < MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
-	{
-		// no problem, SAM site not working
-		return( FALSE );
-	}
-
 
 	// Friendly airspace controlled by a working SAM site, so SAM site fires a SAM at air raid bomber
 
-	// calc chance that chopper will be shot down
-	ubChance = bSAMCondition;
-
-	// there's a fair chance of a miss even if the SAM site is in perfect working order
-	if (ubChance > gHelicopterSettings.ubHelicopterSAMSiteAccuracy * 3) // Madd - since this is only used for enemy air raids, we'll say that good guy SAMs can have a max of 99% to hit instead of 33%
+	for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
 	{
-		ubChance = gHelicopterSettings.ubHelicopterSAMSiteAccuracy * 3;
-	}
+		BOOLEAN samworking = FALSE;
+		if ( DoesSamCoverSector( i, SECTOR( sSectorX, sSectorY ), &samworking ) && samworking )
+		{
+			// calc chance that chopper will be shot down
+			ubChance = StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[i] )].bSAMCondition;
 
-	if( PreRandom( 100 ) < ubChance)
-	{
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("WillAirRaidBeStopped: return true"));
-		return( TRUE );
-	}
+			// there's a fair chance of a miss even if the SAM site is in perfect working order
+			if ( ubChance > gHelicopterSettings.ubHelicopterSAMSiteAccuracy * 3 ) // Madd - since this is only used for enemy air raids, we'll say that good guy SAMs can have a max of 99% to hit instead of 33%
+			{
+				ubChance = gHelicopterSettings.ubHelicopterSAMSiteAccuracy * 3;
+			}
 
+			if ( PreRandom( 100 ) < ubChance )
+			{
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "WillAirRaidBeStopped: return true" ) );
+				return(TRUE);
+			}
+		}
+	}
+	
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("WillAirRaidBeStopped: return false"));
 	return( FALSE );
 }
@@ -2483,104 +2459,94 @@ void HeliCrashSoundStopCallback( void *pData )
 
 BOOLEAN HandleSAMSiteAttackOfHelicopterInSector( INT16 sSectorX, INT16 sSectorY )
 {
-	UINT8 ubSamNumber = 0;
+	UINT32 ubSamNumber = 0;
 	INT8 bSAMCondition;
 	UINT8 ubChance;
 
+#ifdef JA2TESTVERSION
+	if ( fSAMSitesDisabledFromAttackingPlayer == TRUE )
+	{
+		return(FALSE);
+	}
+#endif
+
 	// if this sector is in friendly airspace, we're safe
-	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
+	if ( !(StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].usAirType & AIRSPACE_ENEMY_ACTIVE) )
 	{
 		// no problem, friendly airspace
 		return( FALSE );
 	}
 
-	// which SAM controls this sector?
-	ubSamNumber = ubSAMControlledSectors[ sSectorY ][ sSectorX ];
-
-	// if none of them
-	if (ubSamNumber == 0)
-	{
-		return( FALSE);
-	}
-
-	// get the condition of that SAM site (NOTE: SAM #s are 1-4, but indexes are 0-3!!!)
-	Assert( ubSamNumber <= NUMBER_OF_SAMS );
-	bSAMCondition = StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[ ubSamNumber - 1 ] ) ].bSAMCondition;
-
-	// if the SAM site is too damaged to be a threat
-	if( bSAMCondition < MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
-	{
-		// no problem, SAM site not working
-		return( FALSE );
-	}
-
-#ifdef JA2TESTVERSION
-	if( fSAMSitesDisabledFromAttackingPlayer == TRUE )
-	{
-		return( FALSE );
-	}
-#endif
 	// Hostile airspace controlled by a working SAM site, so SAM site fires a SAM at Skyrider!!!
 
-	// calc chance that chopper will be shot down
-	ubChance = bSAMCondition;
-
-	// there's a fair chance of a miss even if the SAM site is in perfect working order
-	if (ubChance > gHelicopterSettings.ubHelicopterSAMSiteAccuracy)
+	for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
 	{
-		ubChance = gHelicopterSettings.ubHelicopterSAMSiteAccuracy;
-	}
-
-	if( PreRandom( 100 ) < ubChance)
-	{
-		// another hit!
-		gubHelicopterHitsTaken++;
-
-		// Took a hit!	Pause time so player can reconsider
-		StopTimeCompression();
-
-		// first hit?
-		if ( gubHelicopterHitsTaken == 1 )
+		BOOLEAN samworking = FALSE;
+		if ( DoesSamCoverSector( i, SECTOR( sSectorX, sSectorY ), &samworking ) && samworking )
 		{
-			HeliCharacterDialogue( pSkyRider, HELI_TOOK_MINOR_DAMAGE );
-			if( gGameExternalOptions.fHelicopterPassengersCanGetHit == TRUE )
-				HurtPassengersInHelicopter( iHelicopterVehicleId );
-		}
-		// second hit?
-		else if ( gubHelicopterHitsTaken == 2 )
-		{
-			// going back to base (no choice, dialogue says so)
-			HeliCharacterDialogue( pSkyRider, HELI_TOOK_MAJOR_DAMAGE );
-			MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_DAMAGE );
-			if( gGameExternalOptions.fHelicopterPassengersCanGetHit == TRUE )
-				HurtPassengersInHelicopter( iHelicopterVehicleId );
-		}
-		// third hit!
-		else
-		{
-			// Important: Skyrider must still be alive when he talks, so must do this before heli is destroyed!
-			HeliCharacterDialogue( pSkyRider, HELI_GOING_DOWN );
+			bSAMCondition = StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[i] )].bSAMCondition;
 
-			// everyone die die die
-			// play sound
-		//	if ( PlayJA2StreamingSampleFromFile( "stsounds\\blah2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, HeliCrashSoundStopCallback ) == SOUND_ERROR )
-		//{
-		//// Destroy here if we cannot play streamed sound sample....
-		//		SkyriderDestroyed( );
-		//}
-		//else
-		//{
-		//// otherwise it's handled in the callback
-		//// remove any arrival events for the helicopter's group
-		//DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
-		//}
-			// anv - calling SkyriderDestroyed() in callback from playing sound causes sound system to crash, as SkyriderDestroyed causes new sounds (hit battlesnds) to play while blah2 is not removed yet
-			// + if there's a pause while falling heli sound is played, it's possible to cheat by changing passengers assignments
-			PlayJA2StreamingSampleFromFile( "stsounds\\blah2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, HeliCrashSoundStopCallback );
-			SkyriderDestroyed( );
+			// calc chance that chopper will be shot down
+			ubChance = bSAMCondition;
 
-			// special return code indicating heli was destroyed
-			return( TRUE );
+			// there's a fair chance of a miss even if the SAM site is in perfect working order
+			if ( ubChance > gHelicopterSettings.ubHelicopterSAMSiteAccuracy )
+			{
+				ubChance = gHelicopterSettings.ubHelicopterSAMSiteAccuracy;
+			}
+
+			if ( PreRandom( 100 ) < ubChance )
+			{
+				// another hit!
+				++gubHelicopterHitsTaken;
+
+				// Took a hit!	Pause time so player can reconsider
+				StopTimeCompression( );
+
+				// first hit?
+				if ( gubHelicopterHitsTaken == 1 )
+				{
+					HeliCharacterDialogue( pSkyRider, HELI_TOOK_MINOR_DAMAGE );
+					if ( gGameExternalOptions.fHelicopterPassengersCanGetHit == TRUE )
+						HurtPassengersInHelicopter( iHelicopterVehicleId );
+				}
+				// second hit?
+				else if ( gubHelicopterHitsTaken == 2 )
+				{
+					// going back to base (no choice, dialogue says so)
+					HeliCharacterDialogue( pSkyRider, HELI_TOOK_MAJOR_DAMAGE );
+					MakeHeliReturnToBase( HELICOPTER_RETURN_REASON_DAMAGE );
+					if ( gGameExternalOptions.fHelicopterPassengersCanGetHit == TRUE )
+						HurtPassengersInHelicopter( iHelicopterVehicleId );
+				}
+				// third hit!
+				else
+				{
+					// Important: Skyrider must still be alive when he talks, so must do this before heli is destroyed!
+					HeliCharacterDialogue( pSkyRider, HELI_GOING_DOWN );
+
+					// everyone die die die
+					// play sound
+					//	if ( PlayJA2StreamingSampleFromFile( "stsounds\\blah2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, HeliCrashSoundStopCallback ) == SOUND_ERROR )
+					//{
+					//// Destroy here if we cannot play streamed sound sample....
+					//		SkyriderDestroyed( );
+					//}
+					//else
+					//{
+					//// otherwise it's handled in the callback
+					//// remove any arrival events for the helicopter's group
+					//DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pVehicleList[ iHelicopterVehicleId ].ubMovementGroup );
+					//}
+					// anv - calling SkyriderDestroyed() in callback from playing sound causes sound system to crash, as SkyriderDestroyed causes new sounds (hit battlesnds) to play while blah2 is not removed yet
+					// + if there's a pause while falling heli sound is played, it's possible to cheat by changing passengers assignments
+					PlayJA2StreamingSampleFromFile( "stsounds\\blah2.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN, HeliCrashSoundStopCallback );
+					SkyriderDestroyed( );
+
+					// special return code indicating heli was destroyed
+					return(TRUE);
+				}
+			}
 		}
 	}
 
@@ -2833,7 +2799,7 @@ INT16 GetNumSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-			if ( StrategicMap[uiLocation].usAirType != AIRSPACE_ENEMY_ACTIVE )
+			if ( !(StrategicMap[uiLocation].usAirType & AIRSPACE_ENEMY_ACTIVE) )
 			{
 				++uiCount;
 			}
@@ -2861,7 +2827,7 @@ INT16 GetNumSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-			if ( StrategicMap[uiLocation].usAirType != AIRSPACE_ENEMY_ACTIVE )
+			if ( !(StrategicMap[uiLocation].usAirType & AIRSPACE_ENEMY_ACTIVE) )
 			{
 				++uiCount;
 			}
@@ -2915,7 +2881,7 @@ INT16 GetNumUnSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-			if ( StrategicMap[uiLocation].usAirType == AIRSPACE_ENEMY_ACTIVE )
+			if ( StrategicMap[uiLocation].usAirType & AIRSPACE_ENEMY_ACTIVE )
 			{
 				++uiCount;
 			}
@@ -2942,7 +2908,7 @@ INT16 GetNumUnSafeSectorsInPath( void )
 		{
 			uiLocation = pNode->uiSectorId;
 
-			if ( StrategicMap[uiLocation].usAirType == AIRSPACE_ENEMY_ACTIVE )
+			if ( StrategicMap[uiLocation].usAirType & AIRSPACE_ENEMY_ACTIVE )
 			{
 				++uiCount;
 			}

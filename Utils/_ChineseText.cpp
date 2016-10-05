@@ -4227,9 +4227,11 @@ STR16 pwMiscSectorStrings[] =
 	L"分区",
 	L"物品数量",
 	L"未知",
+
 	L"已占领",
 	L"是",
 	L"否",
+	L"Status/Software status:",	// TODO.Translate
 };
 
 // error strings for inventory

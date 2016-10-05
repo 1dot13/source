@@ -6659,7 +6659,7 @@ void TurnOnSectorLocator( UINT8 ubProfileID )
 		{
 			// if helicopter position is being shown, don't do this, too, cause the helicopter icon is on top and it looks
 			// like crap.	I tried moving the heli icon blit to before, but that screws up it's blitting.
-			if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
+			if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE && gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 			{
 				// can't use his profile, he's where his chopper is
 				Assert( iHelicopterVehicleId != -1 );

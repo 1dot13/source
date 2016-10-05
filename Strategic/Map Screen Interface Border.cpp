@@ -775,7 +775,7 @@ void ToggleShowTeamsMode( void )
 
 void ToggleAirspaceMode( void )
 {
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 	{
 		// turn airspace OFF
 		gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
@@ -1006,23 +1006,26 @@ void TurnOnAirSpaceMode( void )
 {
 	// if mode already on, leave, else set and redraw
 
-	if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
-	{
+	if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE && gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 		gusMapDisplayColourMode = MAP_DISPLAY_AIRSPACE;
+	else if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+		gusMapDisplayColourMode = MAP_DISPLAY_AIRSPACE_COLOURED_SAMS;
 
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
+	{
 		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 
 		// Turn off towns & mines (mostly because town/mine names overlap SAM site names)
-		if( fShowTownFlag == TRUE )
+		if( fShowTownFlag )
 		{
 			fShowTownFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_TOWN_BTN );
 		}
 
-		if( fShowMineFlag == TRUE )
+		if( fShowMineFlag )
 		{
 			fShowMineFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_MINE_BTN );
@@ -1044,7 +1047,7 @@ void TurnOnAirSpaceMode( void )
 */
 
 		// Turn off items
-		if( fShowItemsFlag == TRUE )
+		if( fShowItemsFlag )
 		{
 			fShowItemsFlag = FALSE;
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
@@ -1390,6 +1393,7 @@ void InitializeMapBorderButtonStates( void )
 	switch ( gusMapDisplayColourMode )
 	{
 	case MAP_DISPLAY_AIRSPACE:
+	case MAP_DISPLAY_AIRSPACE_COLOURED_SAMS:
 		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
 		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );

@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			HACKABLE_SAMS									172 // Flugente: SAM sites now have a status for hacking
 #define			LUA_MODDERDATA									171 // Flugente: modders can set and use data in an exclusive array
 #define			WORKERS											170	// Flugente: train workers for facilities
 #define			WEATHER_CHANGE									169	// Flugente: sector-specific weather & more weather types
@@ -90,7 +91,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								LUA_MODDERDATA
+#define			SAVE_GAME_VERSION								HACKABLE_SAMS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

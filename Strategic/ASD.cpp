@@ -59,8 +59,6 @@ extern INT32 giReinforcementPool;
 
 extern BOOLEAN gfTacticalDoHeliRun;
 
-extern UINT8 ubSAMControlledSectors[MAP_WORLD_Y][MAP_WORLD_X];
-
 // Arulco special division decision code
 
 // ASD savegame variables
@@ -1007,68 +1005,74 @@ void EnemyHeliSAMCheck( INT16 id )
 		INT8 heli_y = SECTORY( heli.sector_current );
 
 		// is the airspace in our current sector player-controlled and operational?
-		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( heli_x, heli_y )].usAirType == AIRSPACE_PLAYER_ACTIVE )
+		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( heli_x, heli_y )].usAirType & AIRSPACE_PLAYER_ACTIVE )
 		{
-			UINT8 ubControllingSAM = ubSAMControlledSectors[heli_y][heli_x];
-
-			StrategicMapElement *pSAMStrategicMap = &(StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[ubControllingSAM - 1] )]);
-
-			if ( pSAMStrategicMap )
+			for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
 			{
-				UINT16 ubBestSAMOperatorID = NOBODY;
-				FLOAT samcth = GetBestSAMOperatorCTH_Player( gpSamSectorX[ubControllingSAM - 1], gpSamSectorY[ubControllingSAM - 1], 0, &ubBestSAMOperatorID );
-
-				// cth is reduced if SAM is damaged, even if it can still operate
-				samcth = (samcth * pSAMStrategicMap->bSAMCondition) / 100.0f;
-
-				// determine distance from SAM to heli
-				FLOAT distance = sqrt(FLOAT(abs( heli_x - gpSamSectorX[ubControllingSAM - 1] ) * abs( heli_x - gpSamSectorX[ubControllingSAM - 1] ) + abs( heli_y - gpSamSectorY[ubControllingSAM - 1] ) * abs( heli_y - gpSamSectorY[ubControllingSAM - 1] ) ));
-
-				// distance penalty
-				samcth = (samcth * (100.0f - 8 * distance)) / 100.0f;
-
-				// if cth is too low, we don't fire
-				if ( samcth > 0.01 )
+				BOOLEAN samworking = FALSE;
+				if ( DoesSamCoverSector( i, heli.sector_current, &samworking ) && samworking )
 				{
-					CHAR16 pStrSectorName[128];
-					GetSectorIDString( heli_x, heli_y, 0, pStrSectorName, FALSE );
+					StrategicMapElement *pSAMStrategicMap = &(StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[i] )]);
 
-					CHAR16 pStrSectorName_SAM[128];
-					GetSectorIDString( gpSamSectorX[ubControllingSAM - 1], gpSamSectorY[ubControllingSAM - 1], 0, pStrSectorName_SAM, FALSE );
-
-					MapScreenMessage( FONT_MCOLOR_LTRED, MSG_INTERFACE, szEnemyHeliText[8], pStrSectorName_SAM, pStrSectorName );
-
-					// if we hit, damage the heli
-					BOOLEAN fHit = FALSE;
-					BOOLEAN fDestroyed = FALSE;
-
-					if ( Chance( (UINT32)(samcth) ) )
+					// also check whether this sector is not enemy-controlled - we can't have the AI shooting at its own helis
+					if ( pSAMStrategicMap && !pSAMStrategicMap->fEnemyControlled )
 					{
-						fHit = TRUE;
+						UINT16 ubBestSAMOperatorID = NOBODY;
+						FLOAT samcth = GetBestSAMOperatorCTH_Player( gpSamSectorX[i], gpSamSectorY[i], 0, &ubBestSAMOperatorID );
 
-						UINT8 damage = gGameExternalOptions.gEnemyHeliSAMDamage_Base + Random( gGameExternalOptions.gEnemyHeliSAMDamage_Var );
+						// cth is reduced if SAM is damaged, even if it can still operate
+						samcth = (samcth * pSAMStrategicMap->bSAMCondition) / 100.0f;
 
-						MapScreenMessage( FONT_MCOLOR_LTRED, MSG_INTERFACE, szEnemyHeliText[6], pStrSectorName );
+						// determine distance from SAM to heli
+						FLOAT distance = sqrt( FLOAT( abs( heli_x - gpSamSectorX[i] ) * abs( heli_x - gpSamSectorX[i] ) + abs( heli_y - gpSamSectorY[i] ) * abs( heli_y - gpSamSectorY[i] ) ) );
 
-						heli.hp = max( 0, heli.hp - damage );
+						// distance penalty
+						samcth = (samcth * (100.0f - 8 * distance)) / 100.0f;
 
-						if ( !heli.hp )
+						// if cth is too low, we don't fire
+						if ( samcth > 0.01 )
 						{
-							fDestroyed = TRUE;
+							CHAR16 pStrSectorName[128];
+							GetSectorIDString( heli_x, heli_y, 0, pStrSectorName, FALSE );
 
-							heli.flagmask |= ENEMYHELI_SHOTDOWN;
+							CHAR16 pStrSectorName_SAM[128];
+							GetSectorIDString( gpSamSectorX[i], gpSamSectorY[i], 0, pStrSectorName_SAM, FALSE );
 
-							heli.Destroy( );
+							MapScreenMessage( FONT_MCOLOR_LTRED, MSG_INTERFACE, szEnemyHeliText[8], pStrSectorName_SAM, pStrSectorName );
+
+							// if we hit, damage the heli
+							BOOLEAN fHit = FALSE;
+							BOOLEAN fDestroyed = FALSE;
+
+							if ( Chance( (UINT32)(samcth) ) )
+							{
+								fHit = TRUE;
+
+								UINT8 damage = gGameExternalOptions.gEnemyHeliSAMDamage_Base + Random( gGameExternalOptions.gEnemyHeliSAMDamage_Var );
+
+								MapScreenMessage( FONT_MCOLOR_LTRED, MSG_INTERFACE, szEnemyHeliText[6], pStrSectorName );
+
+								heli.hp = max( 0, heli.hp - damage );
+
+								if ( !heli.hp )
+								{
+									fDestroyed = TRUE;
+
+									heli.flagmask |= ENEMYHELI_SHOTDOWN;
+
+									heli.Destroy( );
+								}
+							}
+
+							// depending on our result, award experience to the operator
+							if ( ubBestSAMOperatorID != NOBODY )
+							{
+								if ( fHit )
+									StatChange( MercPtrs[ubBestSAMOperatorID], EXPERAMT, fDestroyed ? 30 : 10, TRUE );
+
+								StatChange( MercPtrs[ubBestSAMOperatorID], MECHANAMT, 5, TRUE );
+							}
 						}
-					}
-
-					// depending on our result, award experience to the operator
-					if ( ubBestSAMOperatorID != NOBODY )
-					{
-						if ( fHit )
-							StatChange( MercPtrs[ubBestSAMOperatorID], EXPERAMT, fDestroyed ? 30 : 10, TRUE );
-
-						StatChange( MercPtrs[ubBestSAMOperatorID], MECHANAMT, 5, TRUE );
 					}
 				}
 			}
@@ -1230,17 +1234,23 @@ void EnemyHeliCheckPlayerKnowledge( INT16 id )
 		}
 
 		// is the airspace in our current sector player-controlled and operational?
-		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( current_x, current_y )].usAirType == AIRSPACE_PLAYER_ACTIVE )
+		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( current_x, current_y )].usAirType & AIRSPACE_PLAYER_ACTIVE )
 		{
-			UINT8 ubControllingSAM = ubSAMControlledSectors[current_y][current_x];
-
-			// if mercs man the SAM, they will let us know of the new SAM
-			if ( PlayerMercsInSector( gpSamSectorX[ubControllingSAM - 1], gpSamSectorY[ubControllingSAM - 1], 0 ) )
+			for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
 			{
-				// if we previously did not know of the heli, our mercs will alert us
-				if ( !(heli.flagmask & ENEMYHELI_KNOWNTOPLAYER) )
+				if ( DoesSamCoverSector( i, heli.sector_current ) )
 				{
-					SayQuoteFromAnyBodyInThisSector( gpSamSectorX[ubControllingSAM - 1], gpSamSectorY[ubControllingSAM - 1], 0, QUOTE_AIR_RAID );
+					// if mercs man the SAM, they will let us know of the new SAM
+					if ( PlayerMercsInSector( gpSamSectorX[i], gpSamSectorY[i], 0 ) )
+					{
+						// if we previously did not know of the heli, our mercs will alert us
+						if ( !(heli.flagmask & ENEMYHELI_KNOWNTOPLAYER) )
+						{
+							SayQuoteFromAnyBodyInThisSector( gpSamSectorX[i], gpSamSectorY[i], 0, QUOTE_AIR_RAID );
+
+							break;
+						}
+					}
 				}
 			}
 
@@ -1265,11 +1275,6 @@ void RepairSamSite( UINT8 aSector )
 	}
 }
 
-BOOLEAN IsSectorAirSpacePlayerControlled( UINT8 aSector )
-{
-	return (StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( aSector )].usAirType == AIRSPACE_PLAYER_ACTIVE);
-}
-
 UINT8 NumPlayerAirSpaceOnHeliPath( UINT8 aStart, UINT8 aEnd )
 {
 	UINT8 samcontacts = 0;
@@ -1280,7 +1285,7 @@ UINT8 NumPlayerAirSpaceOnHeliPath( UINT8 aStart, UINT8 aEnd )
 	{
 		tmpsect = GetNextEnemyHeliSector( tmpsect, aEnd );
 
-		if ( IsSectorAirSpacePlayerControlled( tmpsect ) )
+		if ( StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( tmpsect )].usAirType & AIRSPACE_PLAYER_ACTIVE )
 			++samcontacts;
 	}
 

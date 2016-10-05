@@ -860,6 +860,10 @@ static int l_GetUsedLanguage( lua_State *L );
 static int l_DoInteractiveActionDefaultResult( lua_State *L );
 static int l_GiveExp( lua_State *L );
 
+static int l_NumNonPlayerTeamInSector( lua_State *L );
+static int l_SetSamSiteHackStatus( lua_State *L );
+static int l_GetSamSiteHackStatus( lua_State *L );
+
 using namespace std;
 
 UINT16 idProfil;
@@ -1728,6 +1732,10 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 
 	lua_register( L, "DoInteractiveActionDefaultResult", l_DoInteractiveActionDefaultResult );
 	lua_register( L, "GiveExp", l_GiveExp );
+
+	lua_register( L, "NumNonPlayerTeamInSector", l_NumNonPlayerTeamInSector );
+	lua_register( L, "SetSamSiteHackStatus", l_SetSamSiteHackStatus );
+	lua_register( L, "GetSamSiteHackStatus", l_GetSamSiteHackStatus );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -7252,7 +7260,7 @@ static int l_ACTION_ITEM_LOCAL_ALARM (lua_State *L)
 {
 	if ( lua_gettop(L) >= 1 )
 	{
-		UINT32 sGridNo = lua_tointeger(L, 1);
+		INT32 sGridNo = lua_tointeger(L, 1);
 
 		// Flugente: check for valid sGridNo
 		if ( TileIsOutOfBounds(sGridNo) )
@@ -13295,4 +13303,47 @@ static int l_GiveExp( lua_State *L )
 	}
 
 	return 0;
+}
+
+static int l_NumNonPlayerTeamInSector( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		INT16 sSectorX = lua_tointeger( L, 1 );
+		INT16 sSectorY = lua_tointeger( L, 2 );
+		UINT8 ubTeam = lua_tointeger( L, 3 );
+		
+		UINT16 numteam = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, ubTeam );
+
+		lua_pushinteger( L, numteam );
+	}
+
+	return 1;
+}
+
+static int l_SetSamSiteHackStatus( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		INT16 sSectorX = lua_tointeger( L, 1 );
+		INT16 sSectorY = lua_tointeger( L, 2 );
+		INT8 sStatus = lua_tointeger( L, 3 );
+
+		SetSamHackStatus( sSectorX, sSectorY, sStatus );
+	}
+
+	return 0;
+}
+
+static int l_GetSamSiteHackStatus( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		INT16 sSectorX = lua_tointeger( L, 1 );
+		INT16 sSectorY = lua_tointeger( L, 2 );
+		
+		lua_pushinteger( L, StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].sSamHackStatus );
+	}
+
+	return 1;
 }

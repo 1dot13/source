@@ -3806,7 +3806,7 @@ BOOLEAN PlayersBetweenTheseSectors( INT16 sSource, INT16 sDest, INT32 *iCountEnt
 
 			// if this group is aboard the helicopter and we're showing the airspace layer, don't count any mercs aboard the
 			// chopper, because the chopper icon itself serves the function of showing the location/size of this group
-			if ( !fHelicopterGroup || gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
+			if ( !fHelicopterGroup || !(gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) )
 			{
 				// if only showing retreat paths, ignore groups not in the battle sector
 				// if NOT showing retreat paths, ignore groups not between sectors

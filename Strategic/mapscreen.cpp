@@ -5641,14 +5641,14 @@ UINT32 MapScreenHandle(void)
 
 
 	// if heli is around, show it
-	if ( fHelicopterAvailable && (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || fShowTeamFlag) && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
+	if ( fHelicopterAvailable && ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) || fShowTeamFlag) && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
 	{
 		// this is done on EVERY frame, I guess it beats setting entire map dirty all the time while he's moving...
 		DisplayPositionOfHelicopter( );
 	}
 
 	// Flugente: enemy helicopter
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
+	if ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
 	{
 		DisplayPositionOfEnemyHelicopter();
 	}
@@ -6625,7 +6625,7 @@ UINT32 HandleMapUI( )
 					if( SectorInfo[ ( SECTOR( sMapX, sMapY ) ) ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] != GROUNDBARRIER )
 					{
 						// if it's not enemy air controlled
-						if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sMapX, sMapY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
+						if ( !(StrategicMap[CALCULATE_STRATEGIC_INDEX( sMapX, sMapY )].usAirType & AIRSPACE_ENEMY_ACTIVE) )
 						{
 							CHAR16 sMsgString[ 128 ], sMsgSubString[ 64 ];
 
@@ -6730,7 +6730,7 @@ UINT32 HandleMapUI( )
 
 
 				// if we're in airspace mode
-				if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+				if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 				{
 					// if not moving soldiers, and not yet plotting the helicopter
 					if ( (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
@@ -11700,7 +11700,7 @@ void PlotTemporaryPaths( void )
 	{
 		if ( fPlotForHelicopter )
 		{
-			Assert( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE );
+			Assert( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS );
 
 			// plot temp path
 			PlotATemporaryPathForHelicopter( sMapX, sMapY);
@@ -11979,7 +11979,7 @@ void CheckIfPlottingForCharacterWhileAirCraft( void )
 	// if the plotting modes are inconsistent, stop plotting
 	BOOLEAN fAbort = FALSE;
 
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 	{
 		if ( (bSelectedDestChar != -1 || fPlotForMilitia) && !fPlotForHelicopter )
 			fAbort = TRUE;
@@ -12762,7 +12762,7 @@ void UpdateCursorIfInLastSector( void )
 	{
 		GetMouseMapXY(&sMapX, &sMapY);
 
-		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 		{
 			// check for helicopter
 			if ( fPlotForHelicopter )
@@ -14592,7 +14592,6 @@ void CheckForInventoryModeCancellation()
 	}
 }
 
-
 void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	// ignore while map inventory pool is showing, or else items can be replicated, since sector inventory always applies
@@ -14609,14 +14608,13 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	// disallow going underground while plotting (surface) movement
 	if ( ( bMapZ != 0 ) && ( ( bSelectedDestChar != -1 ) || fPlotForHelicopter ) )
 		return;
-
-
+	
 	sSelMapX = sMapX;
 	sSelMapY = sMapY;
 	iCurrentMapSectorZ = bMapZ;
 
 	// if going underground while in airspace mode
-	if ( (bMapZ > 0) && (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE) )
+	if ( (bMapZ > 0) && (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) )
 	{
 		// turn off airspace mode
 		ToggleAirspaceMode( );
@@ -14628,8 +14626,6 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	// also need this, to update the text coloring of mercs in this sector
 	fTeamPanelDirty = TRUE;
 }
-
-
 
 BOOLEAN CanChangeDestinationForCharSlot( INT8 bCharNumber, BOOLEAN fShowErrorMessage )
 {
@@ -14786,7 +14782,7 @@ void CancelOrShortenPlottedPath( void )
 	GetMouseMapXY(&sMapX, &sMapY);
 
 	// check if we are in aircraft mode
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 	{
 		// check for helicopter path being plotted
 		if( !fPlotForHelicopter )
@@ -14829,7 +14825,6 @@ void CancelOrShortenPlottedPath( void )
 		// try to delete portion of path AFTER the current sector for the helicopter
 		uiReturnValue = ClearPathAfterThisSectorForCharacter( &Menptr[gCharactersList[bSelectedDestChar].usSolID], sMapX, sMapY );
 	}
-
 
 	switch ( uiReturnValue )
 	{
@@ -15312,7 +15307,6 @@ void MakeMapModesSuitableForDestPlotting( INT8 bCharNumber )
 {
 	SOLDIERTYPE *pSoldier = NULL;
 
-
 	if( gCharactersList[ bCharNumber ].fValid == TRUE )
 	{
 		pSoldier = MercPtrs[ gCharactersList[ bCharNumber ].usSolID ];
@@ -15323,7 +15317,7 @@ void MakeMapModesSuitableForDestPlotting( INT8 bCharNumber )
 
 		if ( ( pSoldier->bAssignment == VEHICLE ) && ( pSoldier->iVehicleId == iHelicopterVehicleId ) )
 		{
-			if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
+			if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE && gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 			{
 				// turn on airspace mode automatically
 				ToggleAirspaceMode();
@@ -15331,7 +15325,7 @@ void MakeMapModesSuitableForDestPlotting( INT8 bCharNumber )
 		}
 		else
 		{
-			if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+			if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 			{
 				// turn off airspace mode automatically
 				ToggleAirspaceMode();
@@ -15791,7 +15785,7 @@ void StartChangeSectorArrivalMode( void )
 BOOLEAN CanMoveBullseyeAndClickedOnIt( INT16 sMapX, INT16 sMapY )
 {
 	// if in airspace mode, and not plotting paths
-	if ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE) && (bSelectedDestChar == -1) && (fPlotForHelicopter == FALSE) )
+	if ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) && (bSelectedDestChar == -1) && (fPlotForHelicopter == FALSE) )
 	{
 		if (is_networked)
 		{

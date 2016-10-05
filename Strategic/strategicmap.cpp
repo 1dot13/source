@@ -238,7 +238,7 @@ INT8 gbMercIsNewInThisSector[MAX_NUM_SOLDIERS];
 BOOLEAN localizedMapTextOnly;
 
 
-UINT8 ubSAMControlledSectors[MAP_WORLD_Y][MAP_WORLD_X];// = {
+UINT32 ubSAMControlledSectors[MAP_WORLD_Y][MAP_WORLD_X];// = {
 //       1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
 //    0,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   0,
 //
@@ -1973,7 +1973,8 @@ void InitializeSAMSites( void )
 	for ( UINT32 cnt = 0; cnt < NUMBER_OF_SAMS; ++cnt )
 	{
 		StrategicMap[gpSamSectorX[cnt] + (MAP_WORLD_X * gpSamSectorY[cnt])].bSAMCondition = 100;
-	};
+		StrategicMap[gpSamSectorX[cnt] + (MAP_WORLD_X * gpSamSectorY[cnt])].sSamHackStatus = 100;
+	}
 
 	// Flugente, bizarrely enough, this structure is not NULLED when starting a new campaign. For now, we NULL the flagmask to clear at least that
 	for ( INT32 cnt = 0; cnt < MAP_WORLD_X*MAP_WORLD_Y; ++cnt )
@@ -5147,6 +5148,15 @@ INT8 GetSAMIdFromSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	return(-1);
 }
 
+void SetSamHackStatus( INT16 sSectorX, INT16 sSectorY, INT8 sStatus )
+{
+	if ( IsThisSectorASAMSector( sSectorX, sSectorY, 0 ) )
+	{
+		StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].sSamHackStatus = sStatus;
+
+		UpdateAirspaceControl();
+	}
+}
 
 BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ )
 {
@@ -5222,47 +5232,40 @@ INT32 SAMSitesUnderPlayerControl( INT16 sX, INT16 sY )
 
 void UpdateAirspaceControl( void )
 {
-	UINT8 ubControllingSAM;
 	StrategicMapElement *pSAMStrategicMap = NULL;
 
 	for ( INT32 iCounterA = 1; iCounterA < (INT32)(MAP_WORLD_X - 1); ++iCounterA )
 	{
 		for ( INT32 iCounterB = 1; iCounterB < (INT32)(MAP_WORLD_Y - 1); ++iCounterB )
 		{
+			StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = 0;
+
 			// if networked, disable SAM airspace restrictions...
 			if ( is_networked )
 			{
-				StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_INACTIVE;
 				continue;
 			}
-
-			// IMPORTANT: B and A are reverse here, since the table is stored transposed
-			ubControllingSAM = ubSAMControlledSectors[iCounterB][iCounterA];
-
-			if ( ubControllingSAM >= 1 && ubControllingSAM <= NUMBER_OF_SAMS )
+			
+			for ( int samcnt = 0; samcnt < NUMBER_OF_SAMS; ++samcnt )
 			{
-				pSAMStrategicMap = &(StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[ubControllingSAM - 1] )]);
+				BOOLEAN samworking = FALSE;
+				if ( DoesSamCoverSector( samcnt, SECTOR( iCounterA, iCounterB ), &samworking ) )
+				{					
+					if ( samworking )
+					{
+						pSAMStrategicMap = &(StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[samcnt] )]);
 
-				// different status depending on who controls the SAM sector, and whether the SAM is operational
-				if ( pSAMStrategicMap->fEnemyControlled )
-				{
-					if ( pSAMStrategicMap->bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
-						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_ACTIVE;
-					else
-						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_INACTIVE;
+						// different status depending on who controls the SAM sector, and whether the SAM is operational
+						if ( pSAMStrategicMap->fEnemyControlled )
+						{
+							StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType |= AIRSPACE_ENEMY_ACTIVE;
+						}
+						else
+						{
+							StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType |= AIRSPACE_PLAYER_ACTIVE;
+						}
+					}
 				}
-				else
-				{
-					if ( pSAMStrategicMap->bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
-						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_PLAYER_ACTIVE;
-					else
-						StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_PLAYER_INACTIVE;
-				}
-			}
-			else
-			{
-				// no controlling SAM site
-				StrategicMap[CALCULATE_STRATEGIC_INDEX( iCounterA, iCounterB )].usAirType = AIRSPACE_ENEMY_INACTIVE;
 			}
 		}
 	}
@@ -5270,7 +5273,7 @@ void UpdateAirspaceControl( void )
 	// check if currently selected arrival sector still has secure airspace
 
 	// if it's not enemy air controlled
-	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gsMercArriveSectorX, gsMercArriveSectorY )].usAirType == AIRSPACE_ENEMY_ACTIVE )
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gsMercArriveSectorX, gsMercArriveSectorY )].usAirType & AIRSPACE_ENEMY_ACTIVE )
 	{
 		// NOPE!
 		CHAR16 sMsgString[256], sMsgSubString1[64], sMsgSubString2[64];
@@ -5280,7 +5283,7 @@ void UpdateAirspaceControl( void )
 
 		// move the landing zone over to Omerta
 		// HEADROCK HAM 3.5: Externalized coordinates
-		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].usAirType != AIRSPACE_ENEMY_ACTIVE )
+		if ( !(StrategicMap[CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].usAirType & AIRSPACE_ENEMY_ACTIVE) )
 		{
 			gsMercArriveSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
 			gsMercArriveSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
@@ -5291,7 +5294,7 @@ void UpdateAirspaceControl( void )
 			{
 				for ( UINT8 ubSectorY = 1; ubSectorY <= 16; ++ubSectorY )
 				{
-					if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY )].usAirType != AIRSPACE_ENEMY_ACTIVE && !sBadSectorsList[ubSectorX][ubSectorY] )
+					if ( !(StrategicMap[CALCULATE_STRATEGIC_INDEX( ubSectorX, ubSectorY )].usAirType & AIRSPACE_ENEMY_ACTIVE) && !sBadSectorsList[ubSectorX][ubSectorY] )
 					{
 						gsMercArriveSectorX = ubSectorX;
 						gsMercArriveSectorY = ubSectorY;
@@ -5324,6 +5327,72 @@ void UpdateAirspaceControl( void )
 	UpdateRefuelSiteAvailability( );
 }
 
+// get the maximum distance from a SAM to its covered sectors (in principle, not taking into account status)
+FLOAT GetSAMMaxDistanceToCoveredSector( UINT8 usSam )
+{
+	FLOAT maxdist = 0.0f;
+
+	if ( usSam < NUMBER_OF_SAMS )
+	{
+		UINT8 samsector = pSamList[usSam];
+		UINT8 sam_x = SECTORX( samsector );
+		UINT8 sam_y = SECTORY( samsector );
+
+		for ( int x = 1; x < MAP_WORLD_X - 1; ++x )
+		{
+			for ( int y = 1; y < MAP_WORLD_Y - 1; ++y )
+			{
+				if ( ubSAMControlledSectors[y][x] & (1 << usSam) )
+				{
+					FLOAT dist = std::sqrt( (sam_x - x)*(sam_x - x) + (sam_y - y)*(sam_y - y) );
+
+					if ( maxdist < dist )
+						maxdist = dist;
+				}
+			}
+		}
+	}
+
+	return maxdist;
+}
+
+
+BOOLEAN DoesSamCoverSector( UINT8 usSam, UINT8 usSector, BOOLEAN* apSamIsWorking )
+{
+	if ( apSamIsWorking )
+		*apSamIsWorking = FALSE;
+	
+	if ( usSam < NUMBER_OF_SAMS )
+	{
+		// can this sam control this sector in principle?
+		if ( ubSAMControlledSectors[SECTORY( usSector )][SECTORX( usSector )] & (1 << usSam) )
+		{
+			UINT8 samsector = pSamList[usSam];
+
+			if ( StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( samsector )].bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK && StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( samsector )].sSamHackStatus > 0 )
+			{
+				if ( apSamIsWorking )
+					*apSamIsWorking = TRUE;
+			}
+
+			FLOAT dist = std::sqrt( (SECTORX( samsector ) - SECTORX( usSector ))*(SECTORX( samsector ) - SECTORX( usSector )) + (SECTORY( samsector ) - SECTORY( usSector ))*(SECTORY( samsector ) - SECTORY( usSector )) );
+
+			// determine max distance SAM has to cover
+			FLOAT sammaxdistance = GetSAMMaxDistanceToCoveredSector( usSam );
+
+			// allowed range ratio according to status and hacking
+			FLOAT samrangeratio = StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( samsector )].bSAMCondition * StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( samsector )].sSamHackStatus / 10000.0f;
+
+			// can this SAM currently cover this sector?
+			if ( dist <= sammaxdistance * samrangeratio )
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
 
 BOOLEAN IsThereAFunctionalSAMSiteInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
@@ -5333,24 +5402,23 @@ BOOLEAN IsThereAFunctionalSAMSiteInSector( INT16 sSectorX, INT16 sSectorY, INT8 
 	}
 
 	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].bSAMCondition < MIN_CONDITION_FOR_SAM_SITE_TO_WORK )
-	{
 		return(FALSE);
-	}
+
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].sSamHackStatus <= 0 )
+		return(FALSE);
 
 	return(TRUE);
 }
 
 BOOLEAN IsThisSectorASAMSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT32	cnt;
-
 	// is the sector above ground?
 	if ( bSectorZ != 0 )
 	{
 		return(FALSE);
 	}
 
-	for ( cnt = 0; cnt < NUMBER_OF_SAMS; cnt++ )
+	for ( INT32 cnt = 0; cnt < NUMBER_OF_SAMS; ++cnt )
 	{
 		if ( (sSectorX == gpSamSectorX[cnt]) && (sSectorY == gpSamSectorY[cnt]) )
 			return(TRUE);
@@ -5445,6 +5513,15 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 
 		if ( guiCurrentSaveGameVersion < MILITIA_MOVEMENT )
 			StrategicMap[i].usFlags = 0;
+	}
+
+	if ( guiCurrentSaveGameVersion < HACKABLE_SAMS )
+	{
+		// all SAM sites start game in perfect working condition
+		for ( UINT32 cnt = 0; cnt < NUMBER_OF_SAMS; ++cnt )
+		{
+			StrategicMap[gpSamSectorX[cnt] + (MAP_WORLD_X * gpSamSectorY[cnt])].sSamHackStatus = 100;
+		}
 	}
 	
 	// Load the Sector Info

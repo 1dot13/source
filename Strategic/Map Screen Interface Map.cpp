@@ -693,7 +693,6 @@ void HandleShowingOfEnemiesWithMilitiaOn( void )
 	}
 }
 
-
 UINT32 DrawMap( void )
 {
 	HVSURFACE hSrcVSurface;
@@ -731,6 +730,11 @@ UINT32 DrawMap( void )
 		UnLockVideoSurface( guiBIGMAP );
 		UnLockVideoSurface( guiSAVEBUFFER );
 
+		// draw SAM sites
+		//ShowSAMSitesOnStrategicMap( );
+
+		//UpdateAirspaceControl();
+
 		if ( !iCurrentMapSectorZ )
 		{
 			// shade map sectors (must be done after Tixa/Orta/Mine icons have been blitted, but before icons!)
@@ -744,42 +748,99 @@ UINT32 DrawMap( void )
 						switch ( gusMapDisplayColourMode )
 						{
 						case MAP_DISPLAY_AIRSPACE:
-							if ( GetSectorFlagStatus( cnt, cnt2, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
 							{
-								if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
+								BOOLEAN fAlreadyVisited = GetSectorFlagStatus( cnt, cnt2, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED );
+
+								if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType & AIRSPACE_PLAYER_ACTIVE )
 								{
-									// sector not visited but air controlled
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
+									if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType & AIRSPACE_ENEMY_ACTIVE )
+									{
+										// sector not visited and not air controlled
+										ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_YELLOW : MAP_SHADE_DK_YELLOW );
+									}
+									else
+									{
+										// sector not visited but air controlled
+										ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_GREEN : MAP_SHADE_DK_GREEN );
+									}
 								}
-								else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
+								else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType & AIRSPACE_ENEMY_ACTIVE )
 								{
 									// sector not visited and not air controlled
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
+									ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_RED : MAP_SHADE_DK_RED );
 								}
 								else
 								{
 									// sector not visited, currently nobody controls the airspace
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MD_BLUE );
+									//ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_BLUE : MAP_SHADE_MD_BLUE );
 								}
 							}
-							else
+							break;
+
+						case MAP_DISPLAY_AIRSPACE_COLOURED_SAMS:
 							{
-								if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_PLAYER_ACTIVE )
+								CHAR16 sString[20];
+								swprintf( sString, L"%d", ubSAMControlledSectors[cnt2][cnt] );
+								
+								BOOLEAN a = FALSE;
+								BOOLEAN b = FALSE;
+								BOOLEAN c = FALSE;
+								BOOLEAN d = FALSE;
+																
 								{
-									// sector visited and air controlled
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN );
+									for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
+									{
+										BOOLEAN samworking = FALSE;
+										if ( DoesSamCoverSector( i, SECTOR( cnt, cnt2 ), &samworking ) && samworking )
+										{
+											if ( i == 0 )	a = TRUE;
+											if ( i == 1 )	b = TRUE;
+											if ( i == 2 )	c = TRUE;
+											if ( i == 3 )	d = TRUE;
+										}
+									}
 								}
-								else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType == AIRSPACE_ENEMY_ACTIVE )
-								{
-									// sector visited but not air controlled
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
-								}
-								else
-								{
-									// sector visited, currently nobody controls the airspace
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_BLUE );
-								}
-							}
+
+								if ( a && !b && !c && !d)
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED );
+								else if ( !a && b && !c && !d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN );
+								else if ( !a && !b && c && !d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_BLUE );
+								else if ( !a && !b && !c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_YELLOW );
+								else if ( a && b && !c && !d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN );
+								else if ( a && !b && c && !d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_BLUE );
+								else if ( a && !b && !c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_YELLOW );
+								else if ( !a && b && c && !d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN_BLUE );
+								else if ( !a && b && !c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN_YELLOW );
+								else if ( !a && !b && c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_BLUE_YELLOW );
+								else if ( a && b && c && !d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN_BLUE );
+								else if ( a && b && !c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN_YELLOW );
+								else if ( a && !b && c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_BLUE_YELLOW );
+								else if ( !a && b && c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN_BLUE_YELLOW );
+								else if ( a && b && c && d )
+									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN_BLUE_YELLOW );
+								
+								INT16 sXCorner = (INT16)(MAP_VIEW_START_X + (cnt * MAP_GRID_X));
+								INT16 sYCorner = (INT16)(MAP_VIEW_START_Y + (cnt2 * MAP_GRID_Y));
+								
+								INT16 usXPos, usYPos;
+								FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, FONT14ARIAL, &usXPos, &usYPos );
+
+								gprintfdirty( usXPos, usYPos, sString );
+								mprintf( usXPos, usYPos, sString );
+							}	
 							break;
 
 						case MAP_DISPLAY_MOBILEMILITIARESTRICTIONS:
@@ -905,7 +966,7 @@ UINT32 DrawMap( void )
 			DrawTownMilitiaForcesOnMap( );
 		}
 		
-		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE && !gfInChangeArrivalSectorMode )
+		if ( ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS ) && !gfInChangeArrivalSectorMode )
 		{
 			DrawBullseye();
 		}
@@ -1172,7 +1233,7 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 				( !PlayerIDGroupInMotion( pSoldier->ubGroupID ) ) )
 		{
 			// skip mercs inside the helicopter if we're showing airspace level - they show up inside chopper icon instead
-			if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE || (pSoldier->bAssignment != VEHICLE) || (pSoldier->iVehicleId != iHelicopterVehicleId) )
+			if ( (gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE && gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) || (pSoldier->bAssignment != VEHICLE) || (pSoldier->iVehicleId != iHelicopterVehicleId) )
 			{
 				++sNumberOfAssigned;
 			}
@@ -1577,7 +1638,29 @@ BOOLEAN InitializePalettesForMap( void )
 
 	pMapPalette[MAP_SHADE_LT_PINK]		= Create16BPPPaletteShaded( pPalette, 200, 40, 175, TRUE );
 	pMapPalette[MAP_SHADE_ORANGE]		= Create16BPPPaletteShaded( pPalette, 255, 127, 40, TRUE );
+	
+	pMapPalette[MAP_SHADE_MIX_RED]						= Create16BPPPaletteShaded( pPalette, 400, 0, 0, TRUE );
+	pMapPalette[MAP_SHADE_MIX_GREEN]					= Create16BPPPaletteShaded( pPalette, 0, 400, 0, TRUE );
+	pMapPalette[MAP_SHADE_MIX_BLUE]					= Create16BPPPaletteShaded( pPalette, 0, 0, 400, TRUE );
+	pMapPalette[MAP_SHADE_MIX_YELLOW]					= Create16BPPPaletteShaded( pPalette, 200, 200, 0, TRUE );
 
+	pMapPalette[MAP_SHADE_MIX_RED_GREEN]				= Create16BPPPaletteShaded( pPalette, 200, 200, 0, TRUE );
+	pMapPalette[MAP_SHADE_MIX_RED_BLUE]				= Create16BPPPaletteShaded( pPalette, 200, 0, 200, TRUE );
+	pMapPalette[MAP_SHADE_MIX_RED_YELLOW]				= Create16BPPPaletteShaded( pPalette, 300, 100, 0, TRUE );
+
+	pMapPalette[MAP_SHADE_MIX_GREEN_BLUE]				= Create16BPPPaletteShaded( pPalette, 0, 200, 200, TRUE );
+	pMapPalette[MAP_SHADE_MIX_GREEN_YELLOW]			= Create16BPPPaletteShaded( pPalette, 100, 300, 0, TRUE );
+
+	pMapPalette[MAP_SHADE_MIX_BLUE_YELLOW]				= Create16BPPPaletteShaded( pPalette, 100, 100, 200, TRUE );
+
+	pMapPalette[MAP_SHADE_MIX_RED_GREEN_BLUE]			= Create16BPPPaletteShaded( pPalette, 133, 133, 133, TRUE );
+	pMapPalette[MAP_SHADE_MIX_RED_GREEN_YELLOW]		= Create16BPPPaletteShaded( pPalette, 200, 200, 0, TRUE );
+	pMapPalette[MAP_SHADE_MIX_RED_BLUE_YELLOW]			= Create16BPPPaletteShaded( pPalette, 200, 66, 133, TRUE );
+
+	pMapPalette[MAP_SHADE_MIX_GREEN_BLUE_YELLOW]		= Create16BPPPaletteShaded( pPalette, 66, 200, 133, TRUE );
+
+	pMapPalette[MAP_SHADE_MIX_RED_GREEN_BLUE_YELLOW]	= Create16BPPPaletteShaded( pPalette, 150, 150, 100, TRUE );
+		
 	// delete image
 	DeleteVideoSurfaceFromIndex(uiTempMap);
 
@@ -2007,7 +2090,7 @@ void PlotPathForHelicopter( INT16 sX, INT16 sY )
 	// will plot the path for the helicopter
 
 	// no heli...go back
-	if ( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE || !fHelicopterAvailable )
+	if ( (gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE && gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) || !fHelicopterAvailable )
 	{
 		return;
 	}
@@ -2943,9 +3026,9 @@ void DisplayThePotentialPathForHelicopter(INT16 sMapX, INT16 sMapY )
 	static INT16  sOldMapX, sOldMapY;
 	INT32 iDifference = 0;
 
-	if ( fOldShowAirCraft != (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE) )
+	if ( fOldShowAirCraft != (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) )
 	{
-		fOldShowAirCraft = (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE);
+		fOldShowAirCraft = (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS);
 		giPotHeliPathBaseTime = GetJA2Clock( );
 
 		sOldMapX = sMapX;
@@ -4396,7 +4479,7 @@ BOOLEAN CheckForClickOverHelicopterIcon( INT16 sClickedSectorX, INT16 sClickedSe
 		fIgnoreClick = TRUE;
 	}
 
-	if ( !fHelicopterAvailable || gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
+	if ( !fHelicopterAvailable || (gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE && gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) )
 	{
 		return( FALSE );
 	}
@@ -6813,7 +6896,7 @@ void ShowSAMSitesOnStrategicMap( void )
 	INT8 ubVidObjIndex = 0;
 	CHAR16 wString[ 40 ];
 	
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 	{
 		BlitSAMGridMarkers( );
 	}
@@ -6843,7 +6926,7 @@ void ShowSAMSitesOnStrategicMap( void )
 		GetVideoObject( &hHandle, guiSAMICON);
 		BltVideoObject( guiSAVEBUFFER, hHandle, ubVidObjIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 		{
 			// write "SAM Site" centered underneath
 
@@ -6911,7 +6994,7 @@ void ShowSAMSitesOnStrategicMap( void )
 		sX += 5;
 		sY += 3;
 
-		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE )
+		if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 		{
 			// write "Refuel Site" centered underneath
 

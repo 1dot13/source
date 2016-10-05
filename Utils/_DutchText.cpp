@@ -4229,9 +4229,11 @@ STR16 pwMiscSectorStrings[] =
 	L"Sector",
 	L"# Items",
 	L"Onbekend",
+
 	L"Gecontrolleerd",
 	L"Ja",
 	L"Nee",
+	L"Status/Software status:",	// TODO.Translate
 };
 
 // error strings for inventory

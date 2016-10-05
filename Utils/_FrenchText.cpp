@@ -4233,9 +4233,11 @@ STR16 pwMiscSectorStrings[] =
 	L"Secteur ",
 	L"Nombre d'objets ",
 	L"Inconnu",
+
 	L"Contrôlé ",
 	L"Oui",
 	L"Non",
+	L"Status/Software status:",	// TODO.Translate
 };
 
 // error strings for inventory
