@@ -3964,11 +3964,11 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
-	L"将俘虏送入监狱", //L"Let them go",
-	L"放俘虏离开这里",
+	L"你打算把俘虏们送到哪里去？",//L"Where do you want to send the %d prisoners?",
+	L"让他们走",//L"Let them go",
 	L"你想要做什么？",
 	L"劝说敌人投降",
-	L"劝降", //L"Offer surrender",
+	L"缴械投降", //L"Offer surrender",
 	L"交谈",
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
@@ -4227,7 +4227,6 @@ STR16 pwMiscSectorStrings[] =
 	L"分区",
 	L"物品数量",
 	L"未知",
-
 	L"已占领",
 	L"是",
 	L"否",
@@ -7963,9 +7962,9 @@ STR16 gzFacilityAssignmentStrings[]=
 };
 STR16 Additional113Text[]=
 {
-	L"铁血联盟2 v1.13 窗口模式需要一个16bpp的颜色深度.",
-	L"铁血联盟2 v1.13 全屏模式(%d x %d)不支持你的显示屏分辨率.\n请改变游戏分辨率或使用16bpp窗口模式.",	//L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",
-	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。",	//L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
+	L"铁血联盟2 v1.13 窗口模式需要一个16bpp的颜色深度。",
+	L"铁血联盟2 v1.13 全屏模式(%d x %d)不支持你的显示屏分辨率。\n请改变游戏分辨率或使用16bpp窗口模式。",	//L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.", TODO.Translate
+	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。", //L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
 	// WANNE: Savegame slots validation against INI file
 	L"佣兵 (MAX_NUMBER_PLAYER_MERCS) / 交通工具 (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"敌人 (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
@@ -8774,8 +8773,8 @@ STR16	szCovertTextStr[]=
 	L"色板无效！", //L"Bad palette found!",
 	L"你得有伪装技能才能做这个！", //L"You need the covert skill to do this!",
 	L"未发现制服！", //L"No uniform found!",
-	L"%s 已伪装成平民", //L"%s is now disguised as a civilian.",
-	L"%s 已伪装成士兵", //L"%s is now disguised as a soldier.",
+	L"%s 已伪装成平民。", //L"%s is now disguised as a civilian.",
+	L"%s 已伪装成士兵。", //L"%s is now disguised as a soldier.",
 	L"%s 穿着件破破烂烂的制服！（Ctrl+. 去除伪装）", // L"%s wears a disorderly uniform!",
 	L"事后看来，穿着伪装去投降不是什么好主意…", // L"In retrospect, asking for surrender in disguise wasn't the best idea...",
 	L"%s 被发现了！", // L"%s was uncovered!",
@@ -8783,7 +8782,7 @@ STR16	szCovertTextStr[]=
 	L"%s 的伪装要被识破了。", // L"%s's disguise will not hold.",
 	L"%s 在偷窃的时候被抓了！", // L"%s was caught stealing!",
 	L"%s 在试图调整 %s 的装备物品。", // L"%s tried to manipulate %s's inventory."
-	L"%s 太靠近精英士兵了！", //L"An elite soldier did not recognize %s!",
+	L"一个精英士兵识别出 %s！", //L"An elite soldier did not recognize %s!",
 	L"敌军所知的 %s 不是军队里的！", //L"A officer knew %s was unfamiliar!",
 };
 
@@ -8820,7 +8819,7 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"审讯了%d军官, %d精英, %d常规, %d管理, %d普通和%d平民。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
+	L"%d 军官, %d 精英, %d 常规, %d 管理, %d 普通和 %d 平民都被审问。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
 	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
 	L"%d军官，%d精英士兵，%d普通士兵和%d巡逻官加入了我方。",
