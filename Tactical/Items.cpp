@@ -7653,77 +7653,85 @@ UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex)
 
 UINT16 DefaultMagazine( UINT16 usItem )
 {
-	WEAPONTYPE *	pWeapon;
-	UINT16				usLoop;
+	WEAPONTYPE*	pWeapon = &(Weapon[usItem]);
+	UINT16		usLoop  = 0;
+	UINT16		usDefault = NOTHING;
+	UINT16		bestfoundsize = 9999;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: item = %d",usItem));
 	if (!(Item[usItem].usItemClass & IC_GUN))
-	{
 		return( 0 );
-	}
 
-	pWeapon = &(Weapon[usItem]);
-	usLoop = 0;
 	while ( Magazine[usLoop].ubCalibre != NOAMMO )
 	{
-		if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre &&
-				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize &&
-				AmmoTypes[ Magazine[usLoop].ubAmmoType ].standardIssue )
+		// Flugente: problems arise if we cannot find a mag that fits exactly. Instead of not using a magazine at all, find a mag of same calibre that has a size as close to what is requested as possible
+		if ( Magazine[usLoop].ubCalibre == pWeapon->ubCalibre && 
+			 AmmoTypes[Magazine[usLoop].ubAmmoType].standardIssue )
 		{
 			// Flugente: forbid ammo with tracer effects to be used on singleshot-only guns (snipers wouldn't use ammo that marks their position, would they?)
 			if ( !pWeapon->ubShotsPerBurst && !pWeapon->bAutofireShotsPerFiveAP && AmmoTypes[ Magazine[usLoop].ubAmmoType ].tracerEffect )
 			{
 				// don't use this one...
-				usLoop++;
+				++usLoop;
 				continue;
 			}
-			else
+
+			if ( Magazine[usLoop].ubMagSize == pWeapon->ubMagSize )
 			{
-				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: found at index %d",usLoop));
-				return(MagazineClassIndexToItemType(usLoop));
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "DefaultMagazine: found at index %d", usLoop ) );
+				return(MagazineClassIndexToItemType( usLoop ));
+			}
+			// as a fallback solution, look for a mag of same calibre and ammotype, but bigger size (as close to requested size as possible)
+			else if ( Magazine[usLoop].ubMagSize > pWeapon->ubMagSize && Magazine[usLoop].ubMagSize < bestfoundsize )
+			{
+				// store this one to use if all else fails
+				usDefault = MagazineClassIndexToItemType( usLoop );
+
+				bestfoundsize = Magazine[Item[usDefault].ubClassIndex].ubMagSize;
 			}
 		}
 
-		usLoop++;
+		++usLoop;
 	}
 
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: can't find any"));
-	return( 0 );
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: can't find exact match, use approximation"));
+	return usDefault;
 }
 
 UINT16 FindReplacementMagazine( UINT8 ubCalibre, UINT16 ubMagSize, UINT8 ubAmmoType )
 {
-	UINT16 usLoop;
-	UINT16 usDefault;
+	UINT16 usLoop = 0;
+	UINT16 usDefault = NOTHING;
+	UINT16 bestfoundsize = 9999;
 
-	usLoop = 0;
-	usDefault = NOTHING;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FindReplacementMagazine: calibre = %d, Mag size = %d, ammo type = %d",ubCalibre,ubMagSize,ubAmmoType));
 
 	while ( Magazine[usLoop].ubCalibre != NOAMMO )
 	{
-		if (Magazine[usLoop].ubCalibre == ubCalibre &&
-				Magazine[usLoop].ubMagSize == ubMagSize )
+		// Flugente: problems arise if we cannot find a mag that fits exactly. Vanilla code then compromises on ammotype - which leads to loading from a AP belt resulting in HP mags.
+		// As that's rather silly, we instead of compromis on mag size
+		if ( Magazine[usLoop].ubCalibre == ubCalibre && Magazine[usLoop].ubAmmoType == ubAmmoType )
 		{
-			if ( Magazine[usLoop].ubAmmoType == ubAmmoType )
+			if ( Magazine[usLoop].ubMagSize == ubMagSize )
 			{
 				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FindReplacementMagazine: returning item = %d",MagazineClassIndexToItemType( usLoop )));
 				return( MagazineClassIndexToItemType( usLoop ) );
 			}
-			else if ( usDefault == NOTHING )
+			// as a fallback solution, look for a mag of same calibre and ammotype, but bigger size (as close to requested size as possible)
+			else if ( Magazine[usLoop].ubMagSize > ubMagSize && Magazine[usLoop].ubMagSize < bestfoundsize )
 			{
 				// store this one to use if all else fails
 				usDefault = MagazineClassIndexToItemType( usLoop );
-			}
 
+				bestfoundsize = Magazine[Item[usDefault].ubClassIndex].ubMagSize;
+			}
 		}
 
-		usLoop++;
+		++usLoop;
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FindReplacementMagazine: returning default item = %d",usDefault));
 	return( usDefault );
-
 }
 
 UINT16 FindReplacementMagazineIfNecessary( UINT16 usOldGun, UINT16 usOldAmmo, UINT16 usNewGun )
