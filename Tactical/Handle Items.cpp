@@ -8935,7 +8935,7 @@ void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSucce
 
 		case INTERACTIVE_STRUCTURE_SODAMACHINE:
 		{
-			static UINT16 usSodaIndex = 1741;
+			static UINT16 usSodaIndex = 1740;
 
 			// we still have to determine whether a soda item exists, and whether we can pay for it
 			if ( aSuccess )
@@ -8945,32 +8945,64 @@ void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSucce
 				// determine soda item, only if this exists can we proceed to sell one
 				if ( HasItemFlag( usSodaIndex, SODA ) || GetFirstItemWithFlag( &usSodaIndex, SODA ) )
 				{
-					if ( LaptopSaveInfo.iCurrentBalance >= Item[usSodaIndex].usPrice )
+					if ( SpendMoney( pSoldier, Item[usSodaIndex].usPrice ) )
 					{
-						aSuccess = TRUE;
+						if ( CreateItem( usSodaIndex, 100, &gTempObject ) && AutoPlaceObjectAnywhere( pSoldier, &gTempObject, TRUE ) )
+						{
+							PlayJA2SampleFromFile( "Sounds\\soda_machine.wav", RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[6], pSoldier->GetName( ), Item[usSodaIndex].szItemName );
+
+							aSuccess = TRUE;
+						}
 					}
 				}
 			}				
 
-			if ( aSuccess )
-			{
-				if ( CreateItem( usSodaIndex, 100, &gTempObject ) && AutoPlaceObjectAnywhere( pSoldier, &gTempObject, TRUE ) )
-				{
-					AddTransactionToPlayersBook( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin( ), Item[usSodaIndex].usPrice );
-
-					PlayJA2SampleFromFile( "Sounds\\soda_machine.wav", RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[6], pSoldier->GetName( ), Item[usSodaIndex].szItemName );
-				}
-			}
-			else
-			{
+			if ( !aSuccess )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[7], pSoldier->GetName( ) );
-			}
 		}
 		break;
+
+		
 
 	default:
 		break;
 	}
+}
+
+// character spends money - either from inventory or the account
+BOOLEAN SpendMoney( SOLDIERTYPE *pSoldier, UINT32 aAmount )
+{
+	if ( !pSoldier )
+		return FALSE;
+
+	INT8 invsize = (INT8)pSoldier->inv.size( );
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( pSoldier->inv[bLoop].exists( ) == true && pSoldier->inv[bLoop].usItem == MONEY )
+		{
+			OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);
+
+			UINT32 remove = min( aAmount, (*pObj)[0]->data.money.uiMoneyAmount );
+			(*pObj)[0]->data.money.uiMoneyAmount -= remove;
+			aAmount -= remove;
+
+			if ( (*pObj)[0]->data.money.uiMoneyAmount <= 0 )
+				DeleteObj( &(pSoldier->inv[bLoop]) );
+
+			if ( aAmount <= 0 )
+				break;
+		}
+	}
+
+	// if we didn't have enough money on us, transfer
+	if ( aAmount > 0 && LaptopSaveInfo.iCurrentBalance >= aAmount )
+	{
+		AddTransactionToPlayersBook( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin( ), -aAmount );
+
+		aAmount = 0;
+	}
+
+	return (aAmount == 0);
 }
