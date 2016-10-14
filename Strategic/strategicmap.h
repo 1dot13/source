@@ -66,7 +66,7 @@ extern	BOOLEAN		gfUseAlternateMap;
 */
 
 // min condition for sam site to be functional
-#define MIN_CONDITION_FOR_SAM_SITE_TO_WORK 80
+#define MIN_CONDITION_FOR_SAM_SITE_TO_WORK 50	// Flugente: changed from 80 to 50
 
 
 // FUNCTIONS FOR DERTERMINING GOOD SECTOR EXIT DATA

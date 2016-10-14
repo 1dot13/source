@@ -2885,13 +2885,11 @@ void DrawCharacterInfo(INT16 sCharNumber)
 			// robot
 			wcscpy( sString, pRepairStrings[ 3 ] );
 		}
-/*
 		else if ( pSoldier->flags.fFixingSAMSite )
 		{
 			// SAM site
 			wcscpy( sString, pRepairStrings[ 1 ] );
 		}
-*/
 		else if ( pSoldier->bVehicleUnderRepairID != -1 )
 		{
 			// vehicle

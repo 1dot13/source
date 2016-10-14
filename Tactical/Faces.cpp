@@ -42,6 +42,7 @@
 	#include "Strategic Event Handler.h"
 	#include "Food.h"	// added by Flugente
 	#include "Queen Command.h"		// added by Flugente for FindUnderGroundSector(...)
+	#include "strategic.h"			// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -2335,6 +2336,14 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 						// reduce to a multiple of VEHICLE_REPAIR_POINTS_DIVISOR.	This way skill too low will show up as 0 repair pts.
 						sPtsAvailable -= ( sPtsAvailable % VEHICLE_REPAIR_POINTS_DIVISOR );
 						usMaximumPts	-= ( usMaximumPts	% VEHICLE_REPAIR_POINTS_DIVISOR );
+					}
+					else if ( Menptr[pFace->ubSoldierID].flags.fFixingSAMSite  )
+					{
+						sPtsAvailable = (sPtsAvailable / SAM_SITE_REPAIR_DIVISOR);
+
+						INT16 sector = CALCULATE_STRATEGIC_INDEX( Menptr[pFace->ubSoldierID].sSectorX, Menptr[pFace->ubSoldierID].sSectorY );
+						
+						usMaximumPts = 100 - StrategicMap[sector].bSAMCondition;
 					}
 
 					break;

@@ -51,10 +51,8 @@ INT8 bCurrentTownMineSectorY = 0;
 INT8 bCurrentTownMineSectorZ = 0;
 
 // inventory button
-UINT32 guiMapButtonInventoryImage[3];
-UINT32 guiMapButtonInventory[3];
-
-BOOLEAN guiSAMButtonDefined = FALSE;
+UINT32 guiMapButtonInventoryImage[2];
+UINT32 guiMapButtonInventory[2];
 
 UINT16 sTotalButtonWidth = 0;
 
@@ -98,7 +96,6 @@ void RemoveInventoryButtonForMapPopUpBox( void );
 // callback to turn on sector inventory list
 void MapTownMineInventoryButtonCallBack( GUI_BUTTON *btn, INT32 reason );
 void MapTownMineExitButtonCallBack( GUI_BUTTON *btn, INT32 reason );
-void MapTownSAMRepairButtonCallBack( GUI_BUTTON *btn, INT32 reason );
 void MinWidthOfTownMineInfoBox( void );
 
 extern INT32 GetCurrentBalance( void );
@@ -1094,34 +1091,7 @@ void AddInventoryButtonForMapPopUpBox( void )
 														TEXT_CJUSTIFIED,
 														(INT16)(sX ), (INT16)( sY ), BUTTON_TOGGLE , MSYS_PRIORITY_HIGHEST - 1,
 														DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)MapTownMineExitButtonCallBack );
-
-	// Flugente: if this is  SAM site we control, we have the option to repair it if it is damagged
-	guiSAMButtonDefined = FALSE;
-
-	for ( UINT16 x = 0; x < MAX_NUMBER_OF_SAMS; ++x )
-	{
-		if ( pSamList[x] == SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) )
-		{
-			StrategicMapElement *pSAMStrategicMap = &(StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX(pSamList[x])]);
-
-			sX = pPosition.iX + (pDimensions.iRight - sTotalBoxWidth) / 3;
-			sY = pPosition.iY + pDimensions.iBottom - ((BOX_BUTTON_HEIGHT + 5)) - BOX_BUTTON_HEIGHT;
-
-			guiMapButtonInventoryImage[2] = LoadButtonImage( "INTERFACE\\mapinvbtns.sti", -1, 1, -1, 3, -1 );
-
-			guiMapButtonInventory[2] = CreateIconAndTextButton( guiMapButtonInventoryImage[2], pMapPopUpInventoryText[2], BLOCKFONT2,
-																FONT_WHITE, FONT_BLACK,
-																FONT_WHITE, FONT_BLACK,
-																TEXT_CJUSTIFIED,
-																(INT16)(sX), (INT16)(sY), BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-																DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)MapTownSAMRepairButtonCallBack );
-
-			guiSAMButtonDefined = TRUE;
-
-			break;
-		}
-	}
-
+	
 	// delete video object
 	DeleteVideoObjectFromIndex( uiObject );
 }
@@ -1134,12 +1104,6 @@ void RemoveInventoryButtonForMapPopUpBox( void )
 
 	RemoveButton( guiMapButtonInventory[1] );
 	UnloadButtonImage( guiMapButtonInventoryImage[1] );
-
-	if ( guiSAMButtonDefined )
-	{
-		RemoveButton( guiMapButtonInventory[2] );
-		UnloadButtonImage( guiMapButtonInventoryImage[2] );
-	}
 }
 
 
@@ -1188,100 +1152,6 @@ void MapTownMineExitButtonCallBack( GUI_BUTTON *btn, INT32 reason )
 			fMapScreenBottomDirty = TRUE;
 			fShowTownInfo = FALSE;
 
-		}
-	}
-}
-
-void SAMRepairCallBack( UINT8 bExitValue )
-{
-	if ( bExitValue == MSG_BOX_RETURN_YES )
-	{
-		for ( UINT16 x = 0; x < MAX_NUMBER_OF_SAMS; ++x )
-		{
-			if ( pSamList[x] == SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) )
-			{
-				StrategicMapElement *pSAMStrategicMap = &(StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[x] )]);
-
-				if ( !pSAMStrategicMap->fEnemyControlled && pSAMStrategicMap->bSAMCondition < 100 )
-				{
-					UINT32 cost = (100 - pSAMStrategicMap->bSAMCondition) * 100;
-
-					AddTransactionToPlayersBook( SAM_REPAIR, 0, GetWorldTotalMin( ), -cost );
-
-					// remember this, so we don't accidentally pay for repair again
-					pSAMStrategicMap->usFlags |= SAMSITE_REPAIR_ORDERED;
-
-					UINT32 time = (100 - pSAMStrategicMap->bSAMCondition) / 4 + 1;
-
-					AddStrategicEvent( EVENT_SAMSITE_REPAIRED, GetWorldTotalMin( ) + 60 * time, pSamList[x] );
-				}
-
-				break;
-			}
-		}
-	}
-}
-
-void MapTownSAMRepairButtonCallBack( GUI_BUTTON *btn, INT32 reason )
-{
-	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if ( btn->uiFlags & BUTTON_CLICKED_ON )
-		{
-			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
-
-			// done
-			fMapPanelDirty = TRUE;
-			fMapScreenBottomDirty = TRUE;
-			fShowTownInfo = FALSE;
-
-			for ( UINT16 x = 0; x < MAX_NUMBER_OF_SAMS; ++x )
-			{
-				if ( pSamList[x] == SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) )
-				{
-					StrategicMapElement *pSAMStrategicMap = &(StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[x] )]);
-
-					if ( pSAMStrategicMap->fEnemyControlled )
-					{
-						DoMapMessageBox( MSG_BOX_BASIC_STYLE, szEnemyHeliText[1], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
-						break;
-					}
-
-					if ( pSAMStrategicMap->bSAMCondition >= 100 )
-					{
-						DoMapMessageBox( MSG_BOX_BASIC_STYLE, szEnemyHeliText[2], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
-						break;
-					}
-
-					if ( pSAMStrategicMap->usFlags & SAMSITE_REPAIR_ORDERED )
-					{
-						DoMapMessageBox( MSG_BOX_BASIC_STYLE, szEnemyHeliText[3], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
-						break;
-					}
-
-					UINT32 cost = (100 - pSAMStrategicMap->bSAMCondition) * 100;
-
-					if ( cost > GetCurrentBalance( ) )
-					{
-						DoMapMessageBox( MSG_BOX_BASIC_STYLE, szEnemyHeliText[4], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
-						break;
-					}
-					
-					UINT32 time = (100 - pSAMStrategicMap->bSAMCondition) / 4 + 1;
-
-					CHAR16	sSamSiteRepairPromptText[320];
-					swprintf( sSamSiteRepairPromptText, szEnemyHeliText[5], cost, time );
-
-					// ask the player whether he really wants to do this
-					DoMapMessageBox( MSG_BOX_BASIC_STYLE, sSamSiteRepairPromptText, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SAMRepairCallBack );
-
-					break;
-				}
-			}
 		}
 	}
 }

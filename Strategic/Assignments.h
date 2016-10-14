@@ -26,6 +26,12 @@
 
 #define	VEHICLE_REPAIR_POINTS_DIVISOR		10
 
+// controls how easily SAM sites are repaired
+// NOTE: A repairman must generate a least this many points / hour to be ABLE to repair a SAM site at all!
+#define SAM_SITE_REPAIR_DIVISOR		4			// Flugente: changed from 10 to 4
+
+// minimum condition at which a destroyed SAM site controller is visible in tactical again
+#define MIN_CONDITION_SHOW_SAM_CONTROLLER 20
 
 // Assignments Defines
 enum
