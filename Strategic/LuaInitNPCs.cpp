@@ -9250,30 +9250,14 @@ static int l_GetMercPtrsGroup (lua_State *L)
 }
 
 static int l_WearGasMaskIfAvailable(lua_State *L)
-{
-	UINT8  n = lua_gettop(L);
-	int i = 0;
-	UINT8 ubID = 0;
-	BOOLEAN Bool = FALSE;
-	SOLDIERTYPE * pSoldier;
+{	
+	if ( lua_gettop( L ) >= 1 )
+	{
+		UINT8 ubID = lua_tointeger( L, 1 );
 
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) ubID = lua_tointeger(L,i);
-	}
-	
-	if ( MercPtrs[ ubID ]->bInSector && MercPtrs[ ubID ]->bActive)
-		Bool = TRUE;
-	else
-		Bool = FALSE;
-		
-	if ( Bool == TRUE )
-	{
-		pSoldier = MercPtrs[ ubID ];
-		
-		if (pSoldier)
+		if ( MercPtrs[ubID] && MercPtrs[ubID]->bInSector && MercPtrs[ubID]->bActive )
 		{
-		WearGasMaskIfAvailable(pSoldier);
+			WearGasMaskIfAvailable( MercPtrs[ubID] );
 		}
 	}
 

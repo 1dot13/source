@@ -16,38 +16,10 @@ extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 void CallAvailableEnemiesTo( INT32 sGridNo )
 {
-	INT32	iLoop;
-	INT32	iLoop2;
-	SOLDIERTYPE * pSoldier;
-
 	// All enemy teams become aware of a very important "noise" coming from here!
-	for (iLoop = 0; iLoop < LAST_TEAM; iLoop++)
+	for ( INT32 iLoop = 0; iLoop < LAST_TEAM; ++iLoop )
 	{
-		// if this team is active
-		if (gTacticalStatus.Team[iLoop].bTeamActive)
-		{
-			// if this team is computer-controlled, and isn't the CIVILIAN "team"
-			if (!(gTacticalStatus.Team[iLoop].bHuman) && (iLoop != CIV_TEAM))
-			{
-				// make this team (publicly) aware of the "noise"
-				gsPublicNoiseGridNo[iLoop] = sGridNo;
-				gubPublicNoiseVolume[iLoop] = MAX_MISC_NOISE_DURATION;
-
-				// new situation for everyone;
-				iLoop2 = gTacticalStatus.Team[ iLoop ].bFirstID;
-				for ( pSoldier = MercPtrs[iLoop2]; iLoop2 <= gTacticalStatus.Team[ iLoop ].bLastID; iLoop2++, pSoldier++ )
-				{
-					if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE)
-					{
-						SetNewSituation( pSoldier );
-						WearGasMaskIfAvailable( pSoldier );
-					}
-				}
-
-			}
-
-		}
-
+		CallAvailableTeamEnemiesTo( sGridNo, iLoop );
 	}
 }
 
@@ -77,7 +49,6 @@ void CallAvailableTeamEnemiesTo( INT32 sGridNo, INT8 bTeam )
 					WearGasMaskIfAvailable( pSoldier );
 				}
 			}
-
 		}
 	}
 }

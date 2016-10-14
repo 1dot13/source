@@ -3905,15 +3905,32 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-				// swap sungoggles and nightgoggles
+				// swap sungoggles and nightgoggles / put on gas masks
 			case 'N':
 				SOLDIERTYPE	*pTeamSoldier;
 				INT8		bLoop;
-				BOOLEAN fToNightVision;
 
-				// HEADROCK HAM B2.8: Added call for CTRL-SHIFT-N to switch all soldiers to day/night.
-				if ( fCtrl )
+				// emergency command: everybody in this sector puts on gasmasks
+				if ( fAlt )
 				{
+					for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier = MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++ )
+					{
+						if ( !AM_A_ROBOT( pTeamSoldier ) && pTeamSoldier->stats.bLife >= OKLIFE && (pTeamSoldier->sSectorX == gWorldSectorX) && (pTeamSoldier->sSectorY == gWorldSectorY) && (pTeamSoldier->bSectorZ == gbWorldSectorZ) )
+						{
+							WearGasMaskIfAvailable( pTeamSoldier );
+						}
+					}
+
+					// redraw panels
+					fCharacterInfoPanelDirty = TRUE;
+					fTeamPanelDirty = TRUE;
+					fInterfacePanelDirty = DIRTYLEVEL2;
+				}
+				// HEADROCK HAM B2.8: Added call for CTRL-SHIFT-N to switch all soldiers to day/night.
+				else if ( fCtrl )
+				{
+					BOOLEAN fToNightVision;
+
 					for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
 					{
 						if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )

@@ -2332,12 +2332,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
             if ( (gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & ANY_SMOKE_EFFECT /* && PreRandom( 4 ) == 0*/ ) || gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
             {
                 EXPLOSIVETYPE *     pExplosive = NULL;
-                INT8                bPosOfMask;
-
-                bPosOfMask = FindGasMask (pSoldier);
-
-                if(!DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
-                    bPosOfMask = NO_SLOT;
+				BOOLEAN				fWearsGasMask = DoesSoldierWearGasMask( pSoldier );
 
                 // WANNE: Only apply the following code for soldiers and not the ROBOT!!
                 // TODO: Madd: This next section is pretty lame because it can't figure out which explosive was used to actually cause a gas effect
@@ -2351,10 +2346,9 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 				// as long as you have been affected once. This is now handled by function DishOutGasDamage() that is used below.
                 if ( !AM_A_ROBOT( pSoldier ) )
                 {
-
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_SMOKE )
                     {
-                        if ( bPosOfMask == NO_SLOT ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_SMOKEGAS) )//dnl ch40 200909
+						if ( !fWearsGasMask ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_SMOKEGAS) )//dnl ch40 200909
                         {
                             pExplosive = &( Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_SMOKE) ].ubClassIndex ]);
                         }
@@ -2363,7 +2357,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_TEARGAS )
                     {
-                        if (  bPosOfMask == NO_SLOT ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_TEARGAS) )
+						if ( !fWearsGasMask ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_TEARGAS) )
                         {
                             pExplosive = &( Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_TEARGAS) ].ubClassIndex ]);
                         }
@@ -2372,7 +2366,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                     //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Overhead pExplosive: %d", pExplosive->ubType );
                     if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_MUSTARDGAS )
                     {
-                        if ( bPosOfMask == NO_SLOT ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_MUSTARDGAS) )
+						if ( !fWearsGasMask ) //&& !(pSoldier->flags.fHitByGasFlags & HIT_BY_MUSTARDGAS) )
                         {
                             pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_MUSTGAS) ].ubClassIndex ]);
                         }

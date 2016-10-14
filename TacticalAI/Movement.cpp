@@ -16,6 +16,7 @@
 
 	#include "Soldier macros.h"
 	#include "Render Fun.h"
+	#include "Soldier Functions.h"		// added by Flugente
 #endif
 #include "connect.h"
 //forward declarations of common classes to eliminate includes
@@ -87,10 +88,11 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubPathMode, 
 
 		//Madd: added to prevent people from running into gas and fire
 		if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
-					FindGasMask(pSoldier) == NO_SLOT	)
+			 !DoesSoldierWearGasMask( pSoldier ) )
 		{
 			return( FALSE );
 		}
+
 		if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
 		{
 			return( FALSE );

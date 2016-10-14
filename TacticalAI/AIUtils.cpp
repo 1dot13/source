@@ -2063,6 +2063,13 @@ BOOLEAN WearGasMaskIfAvailable( SOLDIERTYPE * pSoldier )
 	}
 
 	RearrangePocket( pSoldier, bSlot, bNewSlot, TRUE );
+
+	if ( pSoldier->bTeam == gbPlayerNum )
+	{
+		pSoldier->DeleteSoldierLight( );
+		pSoldier->PositionSoldierLight( );
+	}
+
 	return( TRUE );
 }
 

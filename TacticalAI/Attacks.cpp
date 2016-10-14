@@ -27,6 +27,7 @@
 #include "Reinforcement.h"		// added by Flugente
 #include "Town Militia.h"		// added by Flugente
 #include "Queen Command.h"		// added by Flugente
+#include "Explosion Control.h"	// added by Flugente for GASMASK_MIN_STATUS
 #endif
 
 // anv: for enemy taunts
@@ -2161,7 +2162,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 			iBreathDamage /= 2;		// reduce effective breath damage by 1/2
 
 		bSlot = FindGasMask(pOpponent); //FindObj( pOpponent, GASMASK );
-		if ((bSlot == HEAD1POS || bSlot == HEAD2POS || bSlot == HELMETPOS) && pSoldier->inv[bSlot][0]->data.objectStatus >= 70)
+		if ( (bSlot == HEAD1POS || bSlot == HEAD2POS || bSlot == HELMETPOS) && pSoldier->inv[bSlot][0]->data.objectStatus >= GASMASK_MIN_STATUS )
 		{
 			// take condition of the gas mask into account - it could be leaking
 			iBreathDamage = (iBreathDamage * (100 - pOpponent->inv[bSlot][0]->data.objectStatus)) / 100;
