@@ -79,6 +79,10 @@ typedef struct
 
 } ITEM_POOL_LOCATOR;
 
+// silversurfer: added this to prevent tons of compiler warnings in VS2010 because of new behaviour for array initialization used in below structs
+// see https://msdn.microsoft.com/en-us/library/1ywe7hcy.aspx
+#pragma warning( disable : 4351 )
+
 // Flugente: we can construct and deconstruct map structures via items.
 typedef struct STRUCTURE_DECONSTRUCT {
 	STRUCTURE_DECONSTRUCT()

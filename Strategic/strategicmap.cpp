@@ -5344,7 +5344,7 @@ FLOAT GetSAMMaxDistanceToCoveredSector( UINT8 usSam )
 			{
 				if ( ubSAMControlledSectors[y][x] & (1 << usSam) )
 				{
-					FLOAT dist = std::sqrt( (sam_x - x)*(sam_x - x) + (sam_y - y)*(sam_y - y) );
+					FLOAT dist = std::sqrt( FLOAT((sam_x - x)*(sam_x - x) + (sam_y - y)*(sam_y - y)) );
 
 					if ( maxdist < dist )
 						maxdist = dist;
@@ -5375,7 +5375,7 @@ BOOLEAN DoesSamCoverSector( UINT8 usSam, UINT8 usSector, BOOLEAN* apSamIsWorking
 					*apSamIsWorking = TRUE;
 			}
 
-			FLOAT dist = std::sqrt( (SECTORX( samsector ) - SECTORX( usSector ))*(SECTORX( samsector ) - SECTORX( usSector )) + (SECTORY( samsector ) - SECTORY( usSector ))*(SECTORY( samsector ) - SECTORY( usSector )) );
+			FLOAT dist = std::sqrt( FLOAT((SECTORX( samsector ) - SECTORX( usSector ))*(SECTORX( samsector ) - SECTORX( usSector )) + (SECTORY( samsector ) - SECTORY( usSector ))*(SECTORY( samsector ) - SECTORY( usSector ))) );
 
 			// determine max distance SAM has to cover
 			FLOAT sammaxdistance = GetSAMMaxDistanceToCoveredSector( usSam );
