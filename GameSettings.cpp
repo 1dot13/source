@@ -1001,6 +1001,9 @@ void LoadGameExternalOptions()
 	// WDS - Automatically flag mines
 	gGameExternalOptions.automaticallyFlagMines				= iniReader.ReadBoolean("Tactical Interface Settings","AUTOMATICALLY_FLAG_MINES_WHEN_SPOTTED", FALSE);
 
+	// Flugente: display an animation on any active timed bomb
+	gGameExternalOptions.fTimeBombWarnAnimations			= iniReader.ReadBoolean( "Tactical Interface Settings", "TIME_BOMB_WARNING", FALSE );
+
 	// silversurfer: don't play quote when mine spotted?
 	gGameExternalOptions.fMineSpottedNoTalk					= iniReader.ReadBoolean("Tactical Interface Settings","MINES_SPOTTED_NO_TALK", FALSE);
 

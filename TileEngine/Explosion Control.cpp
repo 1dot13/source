@@ -68,6 +68,7 @@
 #include "campaign.h" // yet another one added
 #include "CampaignStats.h"		// added by Flugente
 #include "Points.h"				// added by Flugente
+#include "Interface Control.h"		// added by Flugente for DrawExplosionWarning(...)
 #endif
 
 #include "Soldier Macros.h"
@@ -4235,7 +4236,59 @@ void HandleExplosionQueue( void )
 
 		gfExplosionQueueActive = FALSE;
 	}
+}
 
+// Flugente: show warnings around armed timebombs both in map and inventories
+void HandleExplosionWarningAnimations( )
+{
+	if ( gGameExternalOptions.fTimeBombWarnAnimations )
+	{
+		OBJECTTYPE * pObj;
+
+		// Go through all the bombs in the world, and look for timed ones
+		for ( UINT32 uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; ++uiWorldBombIndex )
+		{
+			if ( gWorldBombs[uiWorldBombIndex].fExists )
+			{
+				pObj = &(gWorldItems[gWorldBombs[uiWorldBombIndex].iItemIndex].object);
+
+				if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_TIMED && !((*pObj).fFlags & OBJECT_DISABLED_BOMB) && (*pObj)[0]->data.misc.bDelay )
+				{
+					DrawExplosionWarning( gWorldItems[gWorldBombs[uiWorldBombIndex].iItemIndex].sGridNo, gsInterfaceLevel, ( *pObj )[0]->data.misc.bDelay );
+				}
+			}
+		}
+
+		// Flugente: we have to check every inventory for armed bombs and do the countdown for them, too
+		for ( UINT32 cnt = 0; cnt < guiNumMercSlots; ++cnt )
+		{
+			SOLDIERTYPE* pSoldier = MercSlots[cnt];
+
+			if ( pSoldier != NULL )
+			{
+				if ( pSoldier->bInSector && pSoldier->bActive && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
+				{
+					INT8 invsize = (INT8)pSoldier->inv.size( );								// remember inventorysize, so we don't call size() repeatedly
+
+					for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )							// ... for all items in our inventory ...
+					{
+						// ... if Item is a bomb ...
+						if ( pSoldier->inv[bLoop].exists( ) && (Item[pSoldier->inv[bLoop].usItem].usItemClass & (IC_BOMB | IC_GRENADE)) )
+						{
+							OBJECTTYPE * pObj = &(pSoldier->inv[bLoop]);					// ... get pointer for this item ...
+
+							if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_TIMED && (*pObj)[0]->data.misc.bDelay )
+							{
+								DrawExplosionWarning( pSoldier->sGridNo, gsInterfaceLevel, ( *pObj )[0]->data.misc.bDelay );
+
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 void DecayBombTimers( void )
@@ -4337,7 +4390,7 @@ void DecayBombTimers( void )
 				}
 			}
 		}
-	}		
+	}
 }
 
 void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency )

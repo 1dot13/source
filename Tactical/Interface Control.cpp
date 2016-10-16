@@ -46,6 +46,7 @@
 	#include "Map Screen Interface.h"
 	#include "civ quotes.h"
 	#include "GameSettings.h"
+	#include "Explosion Control.h"		// added by Flugente
 #endif
 
 #include "connect.h"
@@ -580,6 +581,83 @@ void RenderRubberBanding( )
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
+// Flugente: draw moving circles around a gridno. This is used to warn the playe of impending explosions
+void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
+{
+	if ( usDelay <= 0 )
+		return;
+
+	UINT16					usLineColor = 0;
+	UINT32					uiDestPitchBYTES;
+	UINT8*					pDestBuf;
+	INT32					iBack = -1;
+	INT16					periods = 120 / usDelay;
+	static INT32			uiTimeOfLastUpdate = 0;	
+	static INT32			updatecounter = 0;
+	INT16					sScreenX, sScreenY;
+
+	if ( TileIsOutOfBounds( sGridno ) || !GridNoOnScreen( sGridno ) )
+		return;
+
+	// Get screen pos of gridno......
+	GetGridNoScreenXY( sGridno, &sScreenX, &sScreenY );
+
+	// ATE: If we are on a higher interface level, substract....
+	if ( usLevel == 1 )
+		sScreenY -= 50;
+	
+	if ( (GetJA2Clock( ) - uiTimeOfLastUpdate) > 30 )
+	{
+		uiTimeOfLastUpdate = GetJA2Clock( );
+
+		if ( ++updatecounter >= 120 )
+			updatecounter = 0;
+	}
+
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
+
+	INT16 numcircles = max( 1, 4 - usDelay);
+
+	for ( int i = 0; i < numcircles; ++i )
+	{
+		INT32 radiusvar = (updatecounter + i * periods / numcircles) % periods;
+		INT32 radius = min(8, max( 1, radiusvar / 8 ) );
+
+		INT16 radius_inner = max( 2, radiusvar );
+		INT16 radius_outer = radius_inner + radius;
+
+		INT32 xl = max( 0, sScreenX - radius_outer );
+		INT32 xr = sScreenX + radius_outer;
+		INT32 yl = max( 0, sScreenY - radius_outer );
+		INT32 yh = sScreenY + radius_outer;
+
+		for ( INT32 x = xl; x <= xr; ++x )
+		{
+			for ( INT32 y = yl; y <= yh; ++y )
+			{
+				FLOAT diff = std::sqrt( (sScreenX - x) * (sScreenX - x) + 2 * (sScreenY - y) * (sScreenY - y) );
+
+				if ( radius_inner <= diff && diff <= radius_outer )
+				{
+					usLineColor = Get16BPPColor( FROMRGB( min( 255, 50 + 2 * radiusvar ), 0, 0 ) );
+
+					PixelDraw( FALSE, x, y, usLineColor, pDestBuf );
+				}
+			}
+		}
+
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, xl, yl, (INT16)(xr + 1), (INT16)(yh + 1) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+	}
+					
+	UnLockVideoSurface( FRAME_BUFFER );
+}
+
 void RenderTopmostTacticalInterface( )
 {
 	SOLDIERTYPE								*pSoldier;
@@ -704,9 +782,11 @@ void RenderTopmostTacticalInterface( )
 	// Syncronize for upcoming soldier counters
 	SYNCTIMECOUNTER( );
 
-
+	
 	// Setup system for video overlay ( text and blitting ) Sets clipping rects, etc
 	StartViewportOverlays( );
+
+	HandleExplosionWarningAnimations( );
 
 	RenderTopmostFlashingItems( );
 
@@ -731,8 +811,8 @@ void RenderTopmostTacticalInterface( )
 			}
 
 			DrawCounters( pSoldier );
-				}
-					}
+		}
+	}
 
 	if ( gusSelectedSoldier != NOBODY )
 	{
@@ -761,7 +841,7 @@ void RenderTopmostTacticalInterface( )
 	RenderAimCubeUI( );
 
 	EndViewportOverlays( );
-
+		
 	RenderRubberBanding( );
 
 	if ( !gfInItemPickupMenu && gpItemPointer == NULL )

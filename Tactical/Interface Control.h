@@ -65,4 +65,8 @@ void DrawCounters( SOLDIERTYPE *pSoldier );
 // width is updated as X offset after printing
 void PrintCounter( INT16 x, INT16 y, INT16 data, UINT16 &width, UINT8 ubForegound, UINT8 scale = PRINT_SCALE_PLAIN_NUMBER );
 void PrintSuppressionCounter( INT16 x, INT16 y, INT16 sX, INT16 sY, UINT8 data, UINT16 &widthDamage, UINT16 &widthSuppression, UINT8 ubForeground, UINT8 scale, UINT8 option);
+
+// Flugente: draw moving circles around a gridno. This is used to warn the playe of impending explosions
+void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay );
+
 #endif

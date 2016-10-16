@@ -106,6 +106,9 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 
 void GenerateExplosion( EXPLOSION_PARAMS *pExpParams );
 
+// Flugente: show warnings around armed timebombs both in map and inventories
+void HandleExplosionWarningAnimations( );
+
 void DecayBombTimers( void );
 void SetOffBombsByFrequency( UINT8 ubID, INT8 bFrequency );
 BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 bLevel );

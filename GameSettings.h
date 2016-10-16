@@ -567,6 +567,9 @@ typedef struct
 	// WDS - Automatically flag mines
 	BOOLEAN automaticallyFlagMines;
 
+	// Flugente: display an animation on any active timed bomb
+	BOOLEAN fTimeBombWarnAnimations;
+
 	// WDS - Automatically try to save when an assertion failure occurs
 	BOOLEAN autoSaveOnAssertionFailure;
 	UINT32  autoSaveTime;
