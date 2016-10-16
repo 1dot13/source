@@ -1450,11 +1450,6 @@ BOOLEAN ASDSoldierUpgradeToTank( )
 			}
 		}
 	}
-	else
-	{
-		gASDResource[ASD_TANK] = max( 0, gASDResource[ASD_TANK] - 1 );
-		return TRUE;
-	}
 
 	return FALSE;
 }
@@ -1471,11 +1466,6 @@ BOOLEAN ASDSoldierUpgradeToJeep( )
 				return TRUE;
 			}
 		}
-	}
-	else
-	{
-		gASDResource[ASD_JEEP] = max( 0, gASDResource[ASD_JEEP] - 1 );
-		return TRUE;
 	}
 
 	return FALSE;
