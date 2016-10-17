@@ -1266,8 +1266,8 @@ STR16 iEditorOptionsToolbarText[]=
 	L"退出编辑模式", //L"Leave Editor mode",
 	L"退出游戏(|A|l|t+|X)", //L"Exit game (|A|l|t+|X)",
 	L"编辑雷达图", //L"Create radar map",
-	L"是否按照原版JA2的地图格式保存.\n该选项只对原版大小的地图有效，地图格数不应超过25600个", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
-	L"是否自动根据选择的行列数多少来放大地图", //L"When checked and you load a map, the map will be enlarged automatically depending on the selected Rows and Cols.",
+	L"如果点选，地图会被保存为原版JA2的地图格式，ID编号大于350的物品会丢失。\n该选项只对原版大小的地图有效，地图不应超过25600格。", //L"When checked, the map will be saved in original JA2 map format.\nThis option is only valid on 'normal' size maps that do not reference grid numbers (e.g: exit grids) > 25600.",
+	L"如果点选，载入地图后，该地图会自动按照所选的行列数放大。", //L"When checked and you load a map, the map will be enlarged automatically depending on the selected Rows and Cols.",
 };
 
 STR16 iEditorTerrainToolbarText[] =
@@ -1296,12 +1296,12 @@ STR16 iEditorTaskbarInternalText[]=
 	L"佣兵", //L"Mercs",
 	L"地图信息", //L"Map Info",
 	L"选项", //L"Options",
-	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Terrain fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
-	L"\n|./|,:切换width:xx选项大小\n \n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Buildings fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
+	L"\n|./|,:切换刷子：宽xx\n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Terrain fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
+	L"\n|./|,:切换刷子：宽xx\n|P|g|U|p/|P|g|D|n:智能模式选择前/后一个模板", //Buildings fasthelp text //L"|./|,: Cycle 'width: xx' dimensions\n|P|g |U|p/|P|g |D|n: Previous/Next tile for selected object(s)/in smart method",
 	L"|S|p|a|c|e: 选择后一个物品\n|C|t|r|l+|S|p|a|c|e: 选择前一个物品\n \n|/:光标下放置同样物品\n|C|t|r|l+|/:光标处放置新物品", //Items fasthelp text //L"|S|p|a|c|e: Select next item\n|C|t|r|l+|S|p|a|c|e: Select previous item\n \n|/: Place same item under mouse cursor\n|C|t|r|l+|/: Place new item under mouse cursor",
-	L"|1-|9:设置路标 \n|C|t|r|l+|C/|C|t|r|l+|V:复制/粘贴佣兵\n|P|g |U|p/|P|g |D|n: 切换俑兵位置层", //Mercs fasthelp text L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc\n|P|g |U|p/|P|g |D|n: Toggle merc placement level",
-	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: 卷轴超出地图边界\n \n(|t|i|l|d|e): 切换光标层\n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换width:xx选项大小", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",
-	L"|C|t|r|l+|N:创造新地图\n \n|F|5:显示总信息/大地图\n|F|1|0:移除所有光源\n|F|1|1:取消修改\n|F|1|2:清空所有\n \n|S|h|i|f|t+|R:随机放置选定数量的物品\n \n命令行选项\n|-|D|O|M|A|P|S: 雷达地图批量生成\n|-|D|O|M|A|P|S|C|N|V: 雷达地图及秘密地图批量生成", //Options fasthelp text //L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version",	// 
+	L"|1-|9:设置路标 \n|C|t|r|l+|C/|C|t|r|l+|V:复制/粘贴佣兵\n|P|g|U|p/|P|g|D|n: 切换俑兵位置层", //Mercs fasthelp text L"|1-|9: Set waypoints\n|C|t|r|l+|C/|C|t|r|l+|V: Copy/Paste merc\n|P|g |U|p/|P|g |D|n: Toggle merc placement level",
+	L"|C|t|r|l+|G:转到某格\n|S|h|i|f|t: 地图超出边界\n \n|~: 切换光标层\n|I:查看小地图\n|J:切换房顶绘制\n|K:显示房顶标记\n|S|h|i|f|t+|L:显示地图边界\n|S|h|i|f|t+|T:显示树顶\n|U:切换地图高度\n \n|./|,:切换刷子：宽xx", //Map Info fasthelp text //L"|C|t|r|l+|G: Go to grid no\n|S|h|i|f|t: Scroll beyond map boundary\n \n(|t|i|l|d|e): Toggle cursor level\n|I: Toggle overhead map\n|J: Toggle draw high ground\n|K: Toggle high ground markers\n|S|h|i|f|t+|L: Toggle map edge points\n|S|h|i|f|t+|T: Toggle treetops\n|U: Toggle world raise\n \n|./|,: Cycle 'width: xx' dimensions",
+	L"|C|t|r|l+|N:创造新地图\n \n|F|5:显示总信息/大地图\n|F|1|0:移除所有光源\n|F|1|1:取消修改\n|F|1|2:清空所有\n \n|S|h|i|f|t+|R:随机放置选定数量的物品\n \n命令行选项\n|-|D|O|M|A|P|S: 雷达地图批量生成\n|-|D|O|M|A|P|S|C|N|V: 雷达及洞穴地图批量生成", //Options fasthelp text //L"|C|t|r|l+|N: Create new map\n \n|F|5: Show Summary Info/Country Map\n|F|1|0: Remove all lights\n|F|1|1: Reverse schedules\n|F|1|2: Clear schedules\n \n|S|h|i|f|t+|R: Toggle random placement based on quantity of selected object(s)\n \nCommand Line options\n|-|D|O|M|A|P|S: Batch radarmap generation\n|-|D|O|M|A|P|S|C|N|V: Batch radarmap generation and covert maps to latest version",	// 
 };
 
 //Editor Taskbar Utils.cpp
@@ -1348,7 +1348,7 @@ STR16 iRenderDoorLockInfoText[]=
 
 STR16 iRenderEditorInfoText[]=
 {
-	L"地图保存为原版JA2(v1.12)格式(Version:5.00/25)", //0 //L"Save map in vanilla JA2 (v1.12) map format (Version: 5.00 / 25)",
+	L"地图保存为原版JA2(v1.12)格式(版本:5.00/25)", //0 //L"Save map in vanilla JA2 (v1.12) map format (Version: 5.00 / 25)",
 	L"尚未读取地图", //L"No map currently loaded.",
 	L"文件:%S，当前分区:%s", //L"File:  %S, Current Tileset:  %s",
 	L"读取时放大地图", //L"Enlarge map on loading",
@@ -2104,7 +2104,7 @@ STR16 wszSelType[6] = {
  L"中", //L"Medium",
  L"大", //L"Large",
  L"超大", //L"XLarge", 
- L"宽:xx", //L"Width: xx", 
+ L"宽xx", //L"Width: xx", 
  L"区域" //L"Area"
  };
 
@@ -2703,7 +2703,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 STR16 pTrainingStrings[] =
 {
 	L"锻炼", // tell merc to train self
-  L"民兵",// tell merc to train town
+    L"民兵",// tell merc to train town
 	L"教练", // tell merc to act as trainer
 	L"学员", // tell merc to be train by other
 };
@@ -3964,8 +3964,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
-	L"你打算把俘虏们送到哪里去？",//L"Where do you want to send the %d prisoners?",
-	L"让他们走",//L"Let them go",
+	L"你打算把 %d 俘虏送到哪里去？",//L"Where do you want to send the %d prisoners?",
+	L"放俘虏离开",//L"Let them go",
 	L"你想要做什么？",
 	L"劝说敌人投降",
 	L"缴械投降", //L"Offer surrender",
@@ -4312,21 +4312,21 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"离开 (|E|s|c)",	// exit sector inventory
 	L"放大", // HEAROCK HAM 5: Inventory Zoom Button
 	L"合并堆叠同类的物品", // HEADROCK HAM 5: Stack and Merge
-	L"|鼠|标|左|击: 将子弹分类装入弹箱\n|鼠|标|右|击: 将子弹分类装入纸盒", //L"|L|e|f|t |C|l|i|c|k: 将子弹分类装入弹箱\n|R|i|g|h|t |C|l|i|c|k: 将子弹分类装入纸盒", HEADROCK HAM 5: Sort ammo
+	L"|鼠|标|左|击: 将子弹分类装入弹箱 \n|鼠|标|右|击: 将子弹分类装入纸盒 ", //L"|L|e|f|t |C|l|i|c|k: 将子弹分类装入弹箱\n|R|i|g|h|t |C|l|i|c|k: 将子弹分类装入纸盒", HEADROCK HAM 5: Sort ammo
 	// 6 - 10
 	L"移除所有物品的附件", // HEADROCK HAM 5: Separate Attachments
 	L"退出所有武器的子弹", //HEADROCK HAM 5: Eject Ammo
-	L"|鼠|标|左|击: 显示全部物品\n|鼠|标|右|击: 隐藏全部物品", // HEADROCK HAM 5: Filter Button
-	L"|鼠|标|左|击: 切换是否显示武器\n|鼠|标|右|击: 只显示武器", // HEADROCK HAM 5: Filter Button
-	L"|鼠|标|左|击: 切换是否显示弹药\n|鼠|标|右|击: 只显示弹药", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 显示全部物品 \n|鼠|标|右|击: 隐藏全部物品 ", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示武器 \n|鼠|标|右|击: 只显示武器 ", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示弹药 \n|鼠|标|右|击: 只显示弹药 ", // HEADROCK HAM 5: Filter Button
 	// 11 - 15
-	L"|鼠|标|左|击: 切换是否显示爆炸物\n|鼠|标|右|击: 只显示爆炸物", // HEADROCK HAM 5: Filter Button
-	L"|鼠|标|左|击: 切换是否显示近战武器\n|鼠|标|右|击: 只显示近战武器", // HEADROCK HAM 5: Filter Button
-	L"|鼠|标|左|击: 切换是否显示护甲\n|鼠|标|右|击: 只显示护甲", // HEADROCK HAM 5: Filter Button
-	L"|鼠|标|左|击: 切换是否显示携行具\n|鼠|标|右|击: 只显示携行具", // HEADROCK HAM 5: Filter Button
-	L"|鼠|标|左|击: 切换是否显示套装包\n|鼠|标|右|击: 只显示套装包", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示爆炸物 \n|鼠|标|右|击: 只显示爆炸物 ", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示近战武器 \n|鼠|标|右|击: 只显示近战武器 ", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示护甲 \n|鼠|标|右|击: 只显示护甲 ", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示携行具 \n|鼠|标|右|击: 只显示携行具 ", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示医疗物品 \n|鼠|标|右|击: 只显示医疗物品 ", // HEADROCK HAM 5: Filter Button
 	// 16 - 20
-	L"|鼠|标|左|击: 切换是否显示杂项物品\n|鼠|标|右|击: 只显示杂项物品", // HEADROCK HAM 5: Filter Button
+	L"|鼠|标|左|击: 切换显示杂项物品 \n|鼠|标|右|击: 只显示杂项物品 ", // HEADROCK HAM 5: Filter Button
 	L"切换搬运中的物品", // Flugente: move item display
 };
 
@@ -4964,7 +4964,7 @@ STR16 pLaptopIcons[] =
 	L"日志",
 	L"文件",
 	L"关闭",
-	L"sir-FER 4.0 简体中文版",		// our play on the company name (Sirtech) and web surFER
+	L"Sir-FER 4.0 简体中文版",		// our play on the company name (Sirtech) and web surFER
 };
 
 // bookmarks for different websites
@@ -4978,7 +4978,7 @@ STR16 pBookMarkStrings[] =
 	L"M.E.R.C.",
 	L"公墓",
 	L"花店",
-	L"M.I.S 保险公司",
+	L"  M.I.S 保险公司",
 	L"取消",
 	L"百科全书",
 	L"简报室",
@@ -5366,7 +5366,7 @@ STR16			MercNoAccountText[] =
 STR16			MercHomePageText[] =
 {
 	//Description of various parts on the MERC page
-	L"Speck T. Kline, 创办者和所有权拥有者",
+	L"  Speck T. Kline   创办者和拥有者",
 	L"开户点击这里",	//"To open an account press here",
 	L"查看帐户点击这里",	//"To view account press here",
 	L"查看文件点击这里",	//"To view files press here",
@@ -7963,8 +7963,8 @@ STR16 gzFacilityAssignmentStrings[]=
 STR16 Additional113Text[]=
 {
 	L"铁血联盟2 v1.13 窗口模式需要一个16bpp的颜色深度。",
-	L"铁血联盟2 v1.13 全屏模式(%d x %d)不支持你的显示屏分辨率。\n请改变游戏分辨率或使用16bpp窗口模式。",	//L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.", TODO.Translate
-	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。", //L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
+	L"铁血联盟2 v1.13 全屏模式(%d x %d)不支持你的显示屏分辨率。\n请改变游戏分辨率或使用16bpp窗口模式。",	//L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",
+	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。",	//L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
 	// WANNE: Savegame slots validation against INI file
 	L"佣兵 (MAX_NUMBER_PLAYER_MERCS) / 交通工具 (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"敌人 (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 
@@ -8775,14 +8775,14 @@ STR16	szCovertTextStr[]=
 	L"未发现制服！", //L"No uniform found!",
 	L"%s 已伪装成平民。", //L"%s is now disguised as a civilian.",
 	L"%s 已伪装成士兵。", //L"%s is now disguised as a soldier.",
-	L"%s 穿着件破破烂烂的制服！（Ctrl+. 去除伪装）", // L"%s wears a disorderly uniform!",
+	L"%s 穿着件破破烂烂的制服！（按 Ctrl + . 去除伪装）", // L"%s wears a disorderly uniform!",
 	L"事后看来，穿着伪装去投降不是什么好主意…", // L"In retrospect, asking for surrender in disguise wasn't the best idea...",
 	L"%s 被发现了！", // L"%s was uncovered!",
 	L"%s 的伪装看起来还可以…", // L"%s's disguise seems to be ok...",
 	L"%s 的伪装要被识破了。", // L"%s's disguise will not hold.",
 	L"%s 在偷窃的时候被抓了！", // L"%s was caught stealing!",
 	L"%s 在试图调整 %s 的装备物品。", // L"%s tried to manipulate %s's inventory."
-	L"一个精英士兵识别出 %s！", //L"An elite soldier did not recognize %s!",
+	L"%s 太靠近精英士兵了！", //L"An elite soldier did not recognize %s!",
 	L"敌军所知的 %s 不是军队里的！", //L"A officer knew %s was unfamiliar!",
 };
 
@@ -8819,18 +8819,18 @@ STR16	szFoodTextStr[]=
 
 STR16	szPrisonerTextStr[]=
 {
-	L"%d 军官, %d 精英, %d 常规, %d 管理, %d 普通和 %d 平民都被审问。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
+	L"%d 军官，%d 精英士兵，%d 普通士兵，%d 巡逻官，%d 平民 都被审问。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
 	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
-	L"%d军官，%d精英士兵，%d普通士兵和%d巡逻官加入了我方。",
+	L"%d 军官，%d 精英士兵，%d 普通士兵，%d 巡逻官 加入了我方。", //L"%d officers, %d elites, %d regulars and %d admins joined our cause.",
 	L"俘虏掀起大规模暴动！在 %s 监狱！", //L"Prisoners start a massive riot in %s!",
-	L"俘虏被押送前往 %s 监狱", //L"The army now occupies the prison in %s, the prisoners were freed!",
+	L"%d 俘虏被押送前往 %s 监狱", //L"%d prisoners were sent to %s!",
 	L"俘虏已被释放！", //L"Prisoners have been released!",
 	L"军队已占领 %s 监狱，俘虏已被释放！", //L"The army now occupies the prison in %s, the prisoners were freed!",
-	L"这敌人丫宁死不从！",//L"The enemy refuses to surrender!",
+	L"敌人宁死不从！", //L"The enemy refuses to surrender!",
 	L"敌人不肯拿你当囚犯 - 他们宁愿你死！", //L"The enemy refuses to take you as prisoners - they prefer you dead!",
 	L"这些可以在 INI 设置关闭。", // 	L"This behaviour is set OFF in your ini settings.",
-	L"%s释放了%s！", //L"%s has freed %s!",
+	L"%s 释放了 %s！", //L"%s has freed %s!",
 	L"一个高阶军官 %s 被发现！",	//L"A high-ranking army officer in %s has been revealed!",
 	L"敌方首领会拒绝即使被认为投降！", //L"The enemy leader refuses to even consider surrender!",
 	L"%d 囚犯自愿加入我军。", //L"%d prisoners volunteered to join our forces.",
@@ -8976,9 +8976,9 @@ STR16		szPersonalityDisplayText[]=
 	L"而且", //L"and care",
 	L"在乎这些。", //L"about that.",
 	L"你是", //L"You are",
-	L"并且讨厌所有", //L"and hate everyone",
-	L"者。",
-	L"种族主义者，讨厌非", //L"racist against non-",
+	L"并且讨厌", //L"and hate everyone",
+	L"。",
+	L"种族主义者，讨厌非 ", //L"racist against non-",
 	L"人。", //L"people.",
 };
 
@@ -9139,7 +9139,7 @@ STR16		szNationalityTextAdjective[] =
 // special text used if we do not hate any nation (value of -1)
 STR16		szNationalityText_Special[]=
 {
-	L"不讨厌别国人。",		// used in personnel.cpp //L"do not hate any other nationality.",
+	L"不讨厌其它国籍的人。",		// used in personnel.cpp //L"do not hate any other nationality.",
 	L"无国籍",		// used in IMP generation //L"of no origin",
 };
 
@@ -9159,10 +9159,10 @@ STR16		szRacistText[]=
 
 STR16		szSexistText[]=
 {
-	L"非性别歧视",
-	L"有些性别歧视",
-	L"极端性别歧视",
-	L"尊重异性",
+	L"非性别歧视者",
+	L"有些性别歧视者",
+	L"极端性别歧视者",
+	L"尊重异性者",
 };
 
 // Flugente: power pack texts
