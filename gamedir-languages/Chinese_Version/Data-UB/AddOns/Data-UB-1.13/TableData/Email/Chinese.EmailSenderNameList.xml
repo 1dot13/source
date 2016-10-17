@@ -230,13 +230,12 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 		<Name>A.I.M.</Name>
 	</NAME>
 	<NAME>
-    <!-- Mails from the PMC -->
 		<uiIndex>51</uiIndex>
-		<Name>Kerberus Inc</Name>
+		<Name>Miguel</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>52</uiIndex>
-		<Name>Angel DaSilva</Name>
+		<Name>None</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>53</uiIndex>
