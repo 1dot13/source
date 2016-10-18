@@ -82,6 +82,9 @@
 	#include "Explosion Control.h"		// added by Flugente
 	#include "Food.h"					// added by Flugente
 	#include "Encyclopedia_new.h"	//Moa: enc. item visibility
+	// sevenfm:
+	#include "Soldier Control.h"
+	#include "Sound Control.h"
 #endif
 
 #include "Multi Language Graphic Utils.h"
@@ -340,6 +343,11 @@ void TransformationMenuPopup_Arm( OBJECTTYPE* pObj );
 BOOLEAN TransformationMenuPopup_Arm_TestValid(OBJECTTYPE * pObj);
 void BombInventoryMessageBoxCallBack( UINT8 ubExitValue );
 void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue );
+
+// sevenfm:
+// delayed grenade explosion
+BOOLEAN TransformationMenuPopup_DelayedGrenadeExplosion_TestValid(OBJECTTYPE* pObj);
+void TransformationMenuPopup_DelayedGrenadeExplosion();
 
 // HEADROCK HAM 5: The maximum number of attachment asterisks shown for an item.
 UINT32 guiAttachmentAsterisks;
@@ -4266,6 +4274,26 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
 
+			// sevenfm: display asterisk if grenade is delayed
+			if( Item[pObject->usItem].usItemClass == IC_GRENADE && (*pObject)[0]->data.sObjectFlag & DELAYED_GRENADE_EXPLOSION )
+			{
+				sNewY = sY + sHeight - 10;
+				SetRGBFontForeground( 120, 120, 120 );
+				swprintf( pStr, L"*" );
+
+				// Get length of string
+				uiStringLength=StringPixLength(pStr, ITEM_FONT );
+
+				sNewX = sX + sWidth - uiStringLength - 4;
+
+				if ( uiBuffer == guiSAVEBUFFER )
+				{
+					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+				}
+				mprintf( sNewX, sNewY, pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
+			}
+
 			// Flugente: if ammo is used to feed a gun externally, show ammo count left on this ammo
 			if ( gGameExternalOptions.ubExternalFeeding > 0 && (Item[pObject->usItem].usItemClass & (IC_AMMO)) && ObjectIsExternalFeeder(pSoldier, pObject)  )
 			{
@@ -6844,8 +6872,9 @@ void RenderItemDescriptionBox( )
 			//		- the item is a bomb and has a detonator or remote detonator attached				
 			BOOLEAN renderTransformIcon = FALSE;
 			if ( ((guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN) && gpItemDescObject->ubNumberOfObjects == 1) &&
-						((Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) ||
-						((Item[gpItemDescObject->usItem].usItemClass == IC_BOMB) && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) ))) )
+					((Item[gpItemDescObject->usItem].usItemClass == IC_GRENADE) ||
+					((Item[gpItemDescObject->usItem].usItemClass == IC_BOMB) && HasAttachmentOfClass( gpItemDescObject, (AC_DETONATOR | AC_REMOTEDET) )) ||
+					CanDelayGrenadeExplosion(gpItemDescObject->usItem) && Item[ gpItemDescObject->usItem ].ubCursor == TOSSCURS) )
 			{
 				renderTransformIcon = TRUE;
 			}
@@ -13400,6 +13429,37 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 			// onyl allow transformations if the item is not an armed bomb
 			if ( !fHaveToDisarm )
 			{
+				// Check if grenade can be delayed
+				// don't allow this transformation if player selected option to make all grenades work in delayed mode
+				if( !gGameExternalOptions.fDelayedGrenadeExplosion &&
+					CanDelayGrenadeExplosion(gpItemDescObject->usItem) &&
+					Item[ gpItemDescObject->usItem ].ubCursor == TOSSCURS ) 
+				{
+					UINT16 usAPCost = APBPConstants[AP_GRENADE_MODE];
+					CHAR16 MenuRowText[300];
+
+					if ( usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
+					{
+						if( (*gpItemDescObject)[0]->data.sObjectFlag & DELAYED_GRENADE_EXPLOSION )
+							swprintf (MenuRowText, gzTransformationMessage[13], usAPCost );
+						else
+							swprintf (MenuRowText, gzTransformationMessage[14], usAPCost );
+					}
+					else
+					{
+						if( (*gpItemDescObject)[0]->data.sObjectFlag & DELAYED_GRENADE_EXPLOSION )
+							swprintf (MenuRowText, gzTransformationMessage[11]);
+						else
+							swprintf (MenuRowText, gzTransformationMessage[12]);
+					}
+
+					// Add option
+					POPUP_OPTION *pOption = new POPUP_OPTION(&std::wstring( MenuRowText ), new popupCallbackFunction<void,void>( &TransformationMenuPopup_DelayedGrenadeExplosion ));
+					pOption->setAvail(new popupCallbackFunction<bool,OBJECTTYPE*>( &TransformationMenuPopup_DelayedGrenadeExplosion_TestValid, gpItemDescObject ));
+					gItemDescTransformPopup->addOption( *pOption );
+					fFoundTransformations = true;
+				}
+
 				for ( INT32 x = 0; x < gMAXITEMS_READ; ++x )
 				{
 					if (Transform[x].usItem == (UINT16)-1)
@@ -13564,6 +13624,12 @@ BOOLEAN TransformationMenuPopup_TestValid(TransformInfoStruct * Transform)
 // Flugente: This function handles callback when the 'ARM' option in the item transformation menu is clicked
 void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
 {
+	// sevenfm: hide transformation menu
+	if (gItemDescTransformPopup != NULL && gfItemDescTransformPopupInitialized == TRUE)
+	{
+		gItemDescTransformPopup->hide();
+	}
+
 	// cant handle item stacks here
 	if (gpItemDescObject->ubNumberOfObjects > 1)
 	{
@@ -13624,6 +13690,11 @@ void TransformationMenuPopup_Arm( OBJECTTYPE* pObj )
 			}
 
 			DeleteObj( pObj );
+
+			// sevenfm: correctly update interface
+			gfSkipDestroyTransformPopup = TRUE;
+			DeleteItemDescriptionBox();
+			gfSkipDestroyTransformPopup = FALSE;
 
 			return;
 		}
@@ -13778,6 +13849,11 @@ void BombInventoryMessageBoxCallBack( UINT8 ubExitValue )
 				}
 
 				DeleteObj( gpItemDescObject );
+
+				// sevenfm: correctly update interface
+				gfSkipDestroyTransformPopup = TRUE;
+				DeleteItemDescriptionBox();
+				gfSkipDestroyTransformPopup = FALSE;
 
 				return;
 			}
@@ -13956,6 +14032,11 @@ void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue )
 			}
 
 			DeleteObj( gpItemDescObject );
+
+			// sevenfm: correctly update interface
+			gfSkipDestroyTransformPopup = TRUE;
+			DeleteItemDescriptionBox();
+			gfSkipDestroyTransformPopup = FALSE;
 
 #ifdef JA2TESTVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arming failed, explosion here" );
@@ -14462,3 +14543,55 @@ void UpdateMercBodyRegionHelpText( )
 		SetRegionFastHelpText( &gSMInvCamoRegion, sString );
 	}
 }
+
+BOOLEAN TransformationMenuPopup_DelayedGrenadeExplosion_TestValid(OBJECTTYPE* pObj)
+{
+	if (pObj == NULL)
+	{
+		return false;
+	}
+	else
+	{
+		UINT16 usAPCost = APBPConstants[AP_GRENADE_MODE];
+		INT32 iBPCost = 0;
+
+		if (EnoughPoints( gpItemDescSoldier, usAPCost, iBPCost, false ))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+
+// sevenfm: change status of delayed grenade explosion
+void TransformationMenuPopup_DelayedGrenadeExplosion()
+{
+	UINT16 usAPCost = APBPConstants[AP_GRENADE_MODE];
+	INT32 iBPCost = 0;
+
+	if (gItemDescTransformPopup != NULL && gfItemDescTransformPopupInitialized == TRUE)
+	{
+		gItemDescTransformPopup->hide();
+	}
+
+	if(EnoughPoints(gpItemDescSoldier, usAPCost, iBPCost, FALSE))
+	{
+		DeductPoints(gpItemDescSoldier, usAPCost, iBPCost);
+
+		if( (*gpItemDescObject)[0]->data.sObjectFlag & DELAYED_GRENADE_EXPLOSION )
+		{
+			(*gpItemDescObject)[0]->data.sObjectFlag &= ~DELAYED_GRENADE_EXPLOSION;
+		}
+		else
+		{
+			(*gpItemDescObject)[0]->data.sObjectFlag |= DELAYED_GRENADE_EXPLOSION;
+		}
+		PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, SoundVolume( MIDVOLUME, gpItemDescSoldier->sGridNo ), 1, SoundDir( gpItemDescSoldier->sGridNo ) );
+
+		RenderItemDescriptionBox();
+	}	
+}
+

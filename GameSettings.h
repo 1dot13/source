@@ -867,6 +867,7 @@ typedef struct
 	BOOLEAN	bAddSmokeAfterExplosion;
 	BOOLEAN	bAllowExplosiveAttachments;
 	BOOLEAN	bAllowSpecialExplosiveAttachments;
+	BOOLEAN fDelayedGrenadeExplosion;
 	INT16 iChanceSayAnnoyingPhrase;
 	BOOLEAN	bNewTacticalAIBehavior;
 	BOOLEAN fAIYellowFlanking;

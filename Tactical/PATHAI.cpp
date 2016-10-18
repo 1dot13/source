@@ -60,6 +60,9 @@ class SOLDIERTYPE;
 
 extern UINT16 gubAnimSurfaceIndex[ TOTALBODYTYPES ][ NUMANIMATIONSTATES ];
 
+// sevenfm:
+extern BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo );
+
 //extern UINT8 gubDiagCost[20];
 // skiplist has extra level of pointers every 4 elements, so a level 5is optimized for
 // 4 to the power of 5 elements, or 2 to the power of 10, 1024
@@ -3124,6 +3127,14 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 			// AI check for mines
 			if ( gpWorldLevelData[newLoc].uiFlags & MAPELEMENT_ENEMY_MINE_PRESENT && s->bSide != 0)
+			{
+				goto NEXTDIR;
+			}
+
+			// sevenfm: skip gas if not in gas already
+			if( !(s->flags.uiStatusFlags & SOLDIER_PC) &&
+				InGas(s, newLoc) &&
+				!InGas(s, s->sGridNo) )
 			{
 				goto NEXTDIR;
 			}

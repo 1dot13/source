@@ -59,28 +59,19 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubPathMode, 
 	// skip mercs if turnbased and adjacent AND not doing an IGNORE_PATH check (which is used almost exclusively by GoAsFarAsPossibleTowards)
 	fSkipTilesWithMercs = (gfTurnBasedAI && ubPathMode != IGNORE_PATH && SpacesAway( pSoldier->sGridNo, sGridNo ) == 1 );
 
-	 // if this gridno is an OK destination
-	 // AND the gridno is NOT in a tear-gassed tile when we have no gas mask
-	 // AND someone is NOT already standing there
-	 // AND we're NOT already standing at that gridno
-	 // AND the gridno hasn't been black-listed for us
-
-	 // Nov 28 98: skip people in destination tile if in turnbased
-	 if ( ( NewOKDestination(pSoldier, sGridNo, fSkipTilesWithMercs, pSoldier->pathing.bLevel ) ) &&
-				( !InGas( pSoldier, sGridNo ) ) &&
-				( sGridNo != pSoldier->sGridNo ) &&
-				( sGridNo != pSoldier->pathing.sBlackList ) )
-	 /*
-	 if ( ( NewOKDestination(pSoldier, sGridno, FALSE, pSoldier->pathing.bLevel ) ) &&
-					( !(gpWorldLevelData[ sGridno ].ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) || ( pSoldier->inv[ HEAD1POS ].usItem == GASMASK || pSoldier->inv[ HEAD2POS ].usItem == GASMASK ) ) &&
-					( sGridno != pSoldier->sGridNo ) &&
-					( sGridno != pSoldier->pathing.sBlackList ) )*/
-	 /*
-	 if ( ( NewOKDestination(pSoldier,sGridno,ALLPEOPLE, pSoldier->pathing.bLevel ) ) &&
-					( !(gpWorldLevelData[ sGridno ].ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) || ( pSoldier->inv[ HEAD1POS ].usItem == GASMASK || pSoldier->inv[ HEAD2POS ].usItem == GASMASK ) ) &&
-					( sGridno != pSoldier->sGridNo ) &&
-					( sGridno != pSoldier->pathing.sBlackList ) )
-					*/
+	// if this gridno is an OK destination
+	// AND the gridno is NOT in a tear-gassed tile when we have no gas mask
+	// AND someone is NOT already standing there
+	// AND we're NOT already standing at that gridno
+	// AND the gridno hasn't been black-listed for us
+	
+	// Nov 28 98: skip people in destination tile if in turnbased
+	// sevenfm: also check for bomb nearby
+	if (	NewOKDestination(pSoldier, sGridNo, fSkipTilesWithMercs, pSoldier->pathing.bLevel ) &&
+			!InGas( pSoldier, sGridNo ) &&
+			!FindBombNearby(pSoldier, sGridNo, DAY_VISION_RANGE/8 ) &&
+			sGridNo != pSoldier->sGridNo &&
+			sGridNo != pSoldier->pathing.sBlackList )
 	{
 		// if water's a problem, and gridno is in a water tile (bridges are OK)
 		if (!ubWaterOK && Water(sGridNo, pSoldier->pathing.bLevel))

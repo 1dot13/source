@@ -636,7 +636,7 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 		{
 			for ( INT32 y = yl; y <= yh; ++y )
 			{
-				FLOAT diff = std::sqrt( (sScreenX - x) * (sScreenX - x) + 2 * (sScreenY - y) * (sScreenY - y) );
+				FLOAT diff = std::sqrt( (FLOAT)((sScreenX - x) * (sScreenX - x) + 2 * (sScreenY - y) * (sScreenY - y)) );
 
 				if ( radius_inner <= diff && diff <= radius_outer )
 				{

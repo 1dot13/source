@@ -987,6 +987,12 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				continue;
 			}
 
+			// sevenfm: avoid tiles near bombs
+			if( FindBombNearby(pSoldier, sGridNo, DAY_VISION_RANGE / 8))
+			{
+				continue;
+			}
+
 			iPathCost = gubAIPathCosts[AI_PATHCOST_RADIUS + sXOffset][AI_PATHCOST_RADIUS + sYOffset];
 			/*
 			// water is OK, if the only good hiding place requires us to get wet, OK

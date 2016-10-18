@@ -820,6 +820,7 @@ extern OBJECTTYPE gTempObject;
 #define TAKEN_BY_MILITIA_TABOO_BLUE			0x0000000800000000	//		34359738368		// this item is taboo for blue militia (have to reset flag for world item upon dropping it)
 
 #define INFECTED							0x0000001000000000	//						// this item is infected with disease 0, getting damaged by this will infect you
+#define DELAYED_GRENADE_EXPLOSION			0x0000002000000000	//						// grenade will blow up on next turn
 
 // Flugente TODO 2012-09-17: next time we break savegame compatibility, extend the flagmasks from UINT32 to UINT64. I didn't do it this time (see double-used flag above), as we try to minimise those breaks. But it is needed.
 // ----------------------------------------------------------------

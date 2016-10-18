@@ -15569,3 +15569,29 @@ FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8
 
 	return fMultiplier;
 }
+
+// check if item is grenade and it can use delayed explosion
+BOOLEAN CanDelayGrenadeExplosion( UINT16 usItem )
+{
+	// check that item is a grenade
+	if( Item[ usItem ].usItemClass != IC_GRENADE )
+	{
+		return FALSE;
+	}
+
+	// check that grenade type is not gas/smoke/fire or flare
+	if( Explosive[Item[ usItem ].ubClassIndex].ubType != EXPLOSV_NORMAL &&
+		Explosive[ Item[ usItem ].ubClassIndex ].ubType != EXPLOSV_STUN &&
+		Explosive[ Item[ usItem ].ubClassIndex ].ubType != EXPLOSV_FLASHBANG )
+	{
+		return FALSE;
+	}
+
+	// check if grenade should always explode on impact
+	if( Explosive[Item[ usItem ].ubClassIndex].fExplodeOnImpact )
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+}

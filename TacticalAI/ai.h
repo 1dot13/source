@@ -295,6 +295,8 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier);
 BOOLEAN ProneSightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
 BOOLEAN SightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
 
+BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
+
 #define MAX_FLANKS_RED 25
 #define MAX_FLANKS_YELLOW 25
 

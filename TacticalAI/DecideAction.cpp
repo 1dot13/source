@@ -1084,7 +1084,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: get out of water and gas"));
 
-	if (bInWater || bInGas)
+	if (bInWater || bInGas || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8))
 	{
 		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
 		
@@ -1543,11 +1543,11 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	BOOLEAN fReachable;
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
-#endif
+#endif	
 
 	// Flugente: to prevent an accidental call
 	if ( pSoldier->IsZombie() )
-		return( ZombieDecideActionYellow(pSoldier) );
+		return( ZombieDecideActionYellow(pSoldier) );	
 
 	if (fCivilian || (gGameExternalOptions.fAllNamedNpcsDecideAction && pSoldier->ubProfile != NO_PROFILE))
 	{
@@ -1599,6 +1599,20 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					return( pSoldier->aiData.bAction );
 				}
 			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
+	////////////////////////////////////////////////////////////////////////////
+
+	if ( InGas(pSoldier, pSoldier->sGridNo) || DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel ) || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8) )
+	{
+		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
+
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+		{
+			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 	}
 
@@ -2537,7 +2551,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
 	////////////////////////////////////////////////////////////////////////////
 
-	if (bInGas && ubCanMove)
+	if (ubCanMove && (bInGas || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8)))
 	{
 		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
 		
@@ -4712,7 +4726,7 @@ INT16 ubMinAPCost;
 	////////////////////////////////////////////////////////////////////////////
 
 	// if soldier in water/gas has enough APs left to move at least 1 square
-	if ( ( bInDeepWater || bInGas ) && ubCanMove)
+	if ( ( bInDeepWater || bInGas || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8) ) && ubCanMove)
 	{
 		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
 		

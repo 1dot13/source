@@ -7425,6 +7425,10 @@ STR16 gzTransformationMessage[] =
 	L"%s was split into %d Magazines containing %d rounds each.",
 	L"%s was split into %s's inventory.",
 	L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
+	L"Instant mode",
+	L"Delayed mode",
+	L"Instant mode (%d AP)",
+	L"Delayed mode (%d AP)",
 };
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!

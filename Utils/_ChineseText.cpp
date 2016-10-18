@@ -7424,6 +7424,10 @@ STR16 gzTransformationMessage[] =
 	L"%s被拆分成%d个弹夹每个有%d发子弹", //L"%s was split into %d Magazines containing %d rounds each.",
 	L"%s拆分完成并放入%s的背包", //L"%s was split into %s's inventory.",
 	L"%s的背包空间不足，放不下这个口径的弹夹了", //L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
+	L"Instant mode",	// TODO.Translate
+	L"Delayed mode",
+	L"Instant mode (%d AP)",
+	L"Delayed mode (%d AP)",
 };
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!

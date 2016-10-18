@@ -548,7 +548,7 @@ BOOLEAN ObjectIsMilitiaRelevant( OBJECTTYPE *pObj );
 
 FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8 ubMode);
 
+// sevenfm: check if this type of grenade can use delayed mode
+BOOLEAN CanDelayGrenadeExplosion( UINT16 usItem );
+
 #endif
-
-
-

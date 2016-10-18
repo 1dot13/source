@@ -7425,6 +7425,10 @@ STR16 gzTransformationMessage[] =
 	L"%s был разделен на %d магазинов по %d патронов в каждом.",
 	L"%s был разделен и помещен в инвентарь %s.",
 	L"Недостаточно места в инвентаре %s для магазинов данного калибра!",
+	L"Instant mode",	// TODO.Translate
+	L"Delayed mode",
+	L"Instant mode (%d AP)",
+	L"Delayed mode (%d AP)",
 };
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!

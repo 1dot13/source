@@ -2011,7 +2011,8 @@ INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 }
 
 BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo )
-{//WarmSteel - One square away from gas is still considered in gas, because it could expand any moment.
+{
+	//WarmSteel - One square away from gas is still considered in gas, because it could expand any moment.
 	//Note: this only works for gas that expands with one tile, but hey it's better than nothing!
 	int iNeighbourGridNo;
 	for(int iDir = 0; iDir < NUM_WORLD_DIRECTIONS; ++iDir)
@@ -2020,12 +2021,13 @@ BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 		if(!TileIsOutOfBounds(iNeighbourGridNo))
 		{
 			// tear/mustard gas
-			if((gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS|MAPELEMENT_EXT_MUSTARDGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
+			if((gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
 			{
 				return(TRUE);
 			}
+			// sevenfm: avoid mustard gas even when wearing gas mask
 			// fire/creature gas
-			if(gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_BURNABLEGAS|MAPELEMENT_EXT_CREATUREGAS))//dnl ch62 240813
+			if(gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_MUSTARDGAS|MAPELEMENT_EXT_BURNABLEGAS|MAPELEMENT_EXT_CREATUREGAS))//dnl ch62 240813
 			{
 				return(TRUE);
 			}
@@ -3978,4 +3980,49 @@ UINT8 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier )
 	}
 
 	return ubFriends;
+}
+
+BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
+{
+	UINT32	uiBombIndex;
+	INT32	sCheckGridno;
+	OBJECTTYPE *pObj;
+
+	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
+
+	// determine maximum horizontal limits
+	sMaxLeft  = min( ubDistance, (sGridNo % MAXCOL));
+	sMaxRight = min( ubDistance, MAXCOL - ((sGridNo % MAXCOL) + 1));
+
+	// determine maximum vertical limits
+	sMaxUp   = min( ubDistance, (sGridNo / MAXROW));
+	sMaxDown = min( ubDistance, MAXROW - ((sGridNo / MAXROW) + 1));
+
+	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
+	{
+		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
+		{
+			sCheckGridno = sGridNo + sXOffset + (MAXCOL * sYOffset);
+
+			if( TileIsOutOfBounds(sCheckGridno) )
+			{
+				continue;
+			}
+
+			// search all bombs that we can see
+			for (uiBombIndex = 0; uiBombIndex < guiNumWorldBombs; uiBombIndex++)
+			{
+				if (gWorldBombs[ uiBombIndex ].fExists &&
+					gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].sGridNo == sCheckGridno &&
+					gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].ubLevel == pSoldier->pathing.bLevel &&
+					gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].bVisible == VISIBLE &&
+					gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].usFlags & WORLD_ITEM_ARMED_BOMB )
+				{
+					return TRUE;
+				}
+			}
+		}
+	}
+
+	return FALSE;
 }

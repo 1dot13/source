@@ -7434,6 +7434,10 @@ STR16 gzTransformationMessage[] =
 	L"%s a été conditionné en %d chargeurs %d coups.",
 	L"%s a été réparti dans l'inventaire de : %s.",
 	L"%s n'a plus de place dans son inventaire pour des chargeurs de ce calibre !",
+	L"Instant mode",	// TODO.Translate
+	L"Delayed mode",
+	L"Instant mode (%d AP)",
+	L"Delayed mode (%d AP)",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

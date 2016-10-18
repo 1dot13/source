@@ -2567,18 +2567,21 @@ BOOLEAN DoCatchObject( REAL_OBJECT *pObject )
 }
 
 
-//#define TESTDUDEXPLOSIVES
-
 void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 {
-	INT16				sZ;
-	BOOLEAN			fDoImpact = FALSE;
-	BOOLEAN			fCheckForDuds = FALSE;
-	bool			fIsDud = FALSE;
+	INT16		sZ;
+	BOOLEAN		fDoImpact = FALSE;
+	BOOLEAN		fCheckForDuds = FALSE;
+	bool		fIsDud = FALSE;
 	OBJECTTYPE	*pObj;
-	INT32				iTrapped = 0;
-	UINT16			usFlags = 0;
-	INT8				bLevel = 0;
+	INT32		iTrapped = 0;
+	UINT16		usFlags = 0;
+	INT8		bLevel = 0;
+
+	// sevenfm: can delay explosion for normal, stun and flashbang type grenades
+	BOOLEAN		fCanDelayExplosion = FALSE;
+	BOOLEAN		fGoodStatus = FALSE;
+	BOOLEAN		fDelayedExplosion = FALSE;
 
 	if (is_networked && is_client)
 	{
@@ -2600,6 +2603,16 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	if ( Item[ pObj->usItem ].usItemClass & IC_GRENADE )
 	{
 		fCheckForDuds = TRUE;
+
+		if( CanDelayGrenadeExplosion(pObj->usItem) && ( Item[pObj->usItem].ubCursor == TOSSCURS || Item[pObj->usItem].glgrenade ))
+		{
+			fCanDelayExplosion = TRUE;
+		}
+
+		if( (*pObj)[0]->data.sObjectFlag & DELAYED_GRENADE_EXPLOSION )
+		{
+			fDelayedExplosion = TRUE;
+		}
 	}
 
 	//	if ( pObj->usItem == MORTAR_SHELL )
@@ -2617,6 +2630,12 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 	if ( fCheckForDuds && (*pObj)[0]->data.misc.bDetonatorType != BOMB_TIMED )
 	{
+		if( (*pObj)[0]->data.objectStatus >= USABLE && 
+			PreRandom(100) < (UINT32) (*pObj)[0]->data.objectStatus + PreRandom( 50 ) )
+		{
+			fGoodStatus = TRUE;
+		}
+
 		// OJW - 20021002 - MP Explosives
 		if (is_networked && is_client && pObject->mpIsFromRemoteClient && pObject->mpHaveClientResult)
 		{
@@ -2624,13 +2643,11 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 		}
 		else
 		{
-
 			// If we landed on anything other than the floor, always! go off...
-#ifdef TESTDUDEXPLOSIVES
-			if ( sZ != 0 || pObject->fInWater )
-#else
-			if ( sZ != 0 || pObject->fInWater || ( (*pObj)[0]->data.objectStatus >= USABLE && ( PreRandom( 100 ) < (UINT32) (*pObj)[0]->data.objectStatus + PreRandom( 50 ) ) ) )
-#endif
+			if( sZ != 0 ||
+				pObject->fInWater ||
+				!fCanDelayExplosion ||
+				fGoodStatus && !gGameExternalOptions.fDelayedGrenadeExplosion && !fDelayedExplosion )
 			{
 				fDoImpact = TRUE;
 				fIsDud = false;
@@ -2643,24 +2660,32 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 		if (fIsDud)
 		{
-#ifdef TESTDUDEXPLOSIVES
-			if ( 1 )
-#else
-			if ( (*pObj)[0]->data.objectStatus >= USABLE && PreRandom(100) < (UINT32) (*pObj)[0]->data.objectStatus + PreRandom( 50 ) )
-#endif
-			{
-				iTrapped = PreRandom( 4 ) + 2;
-			}
+			// Start timed bomb...
+			usFlags |= WORLD_ITEM_ARMED_BOMB;
 
-			if ( iTrapped )
+			(*pObj)[0]->data.misc.bDetonatorType = BOMB_TIMED;
+			if( !fGoodStatus )
 			{
-				// Start timed bomb...
-				usFlags |= WORLD_ITEM_ARMED_BOMB;
-
-				(*pObj)[0]->data.misc.bDetonatorType = BOMB_TIMED;
 				(*pObj)[0]->data.misc.bDelay = (INT8)( 1 + PreRandom( 2 ) );
-				(*pObj)[0]->data.misc.usBombItem = pObj->usItem;
 			}
+			else
+			{
+				(*pObj)[0]->data.misc.bDelay = 1;
+
+				// for non-player grenades, add turn so player could disarm grenade or run away
+				if ( pObject->ubOwner != NOBODY && MercPtrs[pObject->ubOwner]->bTeam != gbPlayerNum )
+				{
+					(*pObj)[0]->data.misc.bDelay++;
+				}
+			}
+			
+			(*pObj)[0]->data.misc.usBombItem = pObj->usItem;
+
+			(*pObj).fFlags |= OBJECT_ARMED_BOMB;
+			(*pObj).fFlags |= OBJECT_KNOWN_TO_BE_TRAPPED;
+
+			// set high trap level
+			(*pObj)[0]->data.bTrap = 10;
 
 			// ATE: If we have collided with roof last...
 			if ( pObject->iOldCollisionCode == COLLISION_ROOF )
@@ -2669,12 +2694,12 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 			}
 
 			// Add item to pool....
-			AddItemToPool( pObject->sGridNo, pObj, INVISIBLE, bLevel, usFlags, 0 );
+			AddItemToPool( pObject->sGridNo, pObj, VISIBLE, bLevel, usFlags, 0 );
 
-			// All teams lok for this...
+			// All teams look for this...
 			NotifySoldiersToLookforItems( );
 
-			if ( pObject->ubOwner != NOBODY )
+			if ( pObject->ubOwner != NOBODY && !fGoodStatus )
 			{
 				MercPtrs[ pObject->ubOwner ]->DoMercBattleSound( (INT8)( BATTLE_SOUND_CURSE1 ) );
 			}
@@ -2689,7 +2714,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	{
 		if ( Item[pObject->Obj.usItem].flare )
 		{
-			//if the light object will ber created OFF the ground
+			//if the light object will be created OFF the ground
 			if( pObject->Position.z > 0 && FindBuilding(pObject->sGridNo) )
 			{
 				//we cannot create the light source above the ground, or on a roof.	The system doesnt support it.
@@ -2698,30 +2723,17 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 			else
 			{
 				// Add a light effect...
-
 				NewLightEffect( pObject->sGridNo, (UINT8)Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubDuration , (UINT8)Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubStartRadius );
 			}
 		}
 		else if ( Item[ pObject->Obj.usItem ].usItemClass & IC_GRENADE	)
 		{
-			/* ARM: Removed.	Rewards even missed throws, and pulling a pin doesn't really teach anything about explosives
-			if ( MercPtrs[ pObject->ubOwner ]->bTeam == gbPlayerNum && gTacticalStatus.uiFlags & INCOMBAT )
-			{
-			// tossed grenade, not a dud, so grant xp
-			// EXPLOSIVES GAIN (10):	Tossing grenade
-			if ( pObject->ubOwner != NOBODY )
-			{
-			StatChange( MercPtrs[ pObject->ubOwner ], EXPLODEAMT, 10, FALSE );
-			}
-			}
-			*/
-
 			if( (*pObj)[0]->data.misc.bDetonatorType != BOMB_TIMED )
 			{
 				IgniteExplosion( pObject->ubOwner, (INT16)pObject->Position.x, (INT16)pObject->Position.y, sZ, pObject->sGridNo, pObject->Obj.usItem, GET_OBJECT_LEVEL( pObject->Position.z - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pObject->sGridNo ].sHeight ) ), DIRECTION_IRRELEVANT, &pObject->Obj );
 			}
 		}
-		else if ( Item[ pObject->Obj.usItem ].usItemClass == IC_BOMB	) //if ( pObject->Obj.usItem == MORTAR_SHELL )
+		else if ( Item[ pObject->Obj.usItem ].usItemClass == IC_BOMB	)
 		{
 			sZ = (INT16)CONVERT_HEIGHTUNITS_TO_PIXELS( (INT16)pObject->Position.z );
 
@@ -2737,8 +2749,6 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	}
 
 }
-
-
 
 BOOLEAN	SavePhysicsTableToSaveGameFile( HWFILE hFile )
 {

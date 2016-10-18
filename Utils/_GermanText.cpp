@@ -7261,6 +7261,10 @@ STR16 gzTransformationMessage[] =
 	L"%s wurde aufgeteilt in %d Magazine, wobei jedes davon %d Schuss enthält.",
 	L"%s wurde aufgeteilt in %s's Inventar.",
 	L"Es ist nicht genügend Platz in %s's Inventar um die Magazine dieses Kalibers abzulegen!",
+	L"Instant mode",	// TODO.Translate
+	L"Delayed mode",
+	L"Instant mode (%d AP)",
+	L"Delayed mode (%d AP)",
 };
 
 // WANNE: These are the email texts Speck sends when one of the 4 new 1.13 MERC mercs have levelled up

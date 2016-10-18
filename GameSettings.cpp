@@ -1478,6 +1478,8 @@ void LoadGameExternalOptions()
 	// <GasCan>, <Marbles> and <Alcohol> add special bonuses to explosion
 	gGameExternalOptions.bAllowSpecialExplosiveAttachments		= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_SPECIAL_EXPLOSIVE_ATTACHMENTS",FALSE);
 
+	gGameExternalOptions.fDelayedGrenadeExplosion		= iniReader.ReadBoolean("Tactical Interface Settings","DELAYED_GRENADE_EXPLOSION",FALSE);
+
 	// Chance to Say Annoying Phrase (you can just turn of it by button in game)
 	gGameExternalOptions.iChanceSayAnnoyingPhrase			= iniReader.ReadInteger("Tactical Interface Settings","CHANCE_SAY_ANNOYING_PHRASE",100);	
 	 
@@ -3263,6 +3265,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[BAD_AP_COST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BAD_AP_COST",36),36);
 	APBPConstants[AP_RELOAD_LOOSE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_RELOAD_LOOSE",8),8);
 	APBPConstants[AP_UNJAM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_UNJAM",2),2);
+	APBPConstants[AP_GRENADE_MODE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_GRENADE_MODE",4),4);
 	
 	// WANNE: APs needed when you jump through a window
 	APBPConstants[AP_JUMPWINDOW] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPWINDOW",40),40);
