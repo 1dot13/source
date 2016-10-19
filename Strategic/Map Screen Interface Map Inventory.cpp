@@ -5806,7 +5806,7 @@ void HandleSetFilterButtons()
 	SaveWorldItemsToTempItemFile( sMapX, sMapY, (INT8)sMapZ, uiTotalNumberOfRealItems, pTotalSectorList );
 }*/
 
-// @brief modifies data of items including, but not limited to: bDirtLevel, bTemperature (food/weapon overheat)
+// @brief modifies data of items including, but not limited to: bTemperature (food/weapon overheat)
 // Uses various external parameters set in ini file(s) labeled under [Tactical Weapon Overheating Settings], [Tactical Food Settings], [Strategic Gameplay Settings](advanced repair/dirt system)
 // to calculate a delta decay and adds it to the itemStack.data
 // It is assumed that the itemStack consists of the same usItem.
@@ -5817,12 +5817,12 @@ void HandleSetFilterButtons()
 // @param isUnderground: flag to reduce food decay in underground sectors to 80%, if omitted default = FALSE is used.
 // @auth origninal code by flugente
 // @auth Moa
-void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  UINT16 naturalDirt, BOOLEAN isUnderground )
+void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOOLEAN isUnderground )
 {
 	INT32 tickspassed = deltaSeconds / NUM_SEC_PER_TACTICAL_TURN;//1 tick is 5 seconds
 
 	if ( tickspassed == 0 || !itemStack->exists() || 
-		!( gGameExternalOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem || gGameOptions.fFoodSystem ) )
+		!( gGameExternalOptions.fWeaponOverheating || gGameOptions.fFoodSystem ) )
 		return;
 	
 
@@ -5872,25 +5872,6 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  UI
 		}
 	}//end overheating
 
-	// ... if it is a weapon or armor and dirt system is active ...
-	if ( gGameExternalOptions.fDirtSystem && ( (Item[ itemStack->usItem ].usItemClass & IC_WEAPON) || (Item[ itemStack->usItem ].usItemClass & IC_ARMOUR) ) )
-	{
-		FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor( itemStack, FALSE );			// ... get dirt increase factor ...
-
-		// the current sector determines how much dirt increases
-		dirtincreasefactor *= (naturalDirt)/100;
-
-		dirtincreasefactor /= gGameExternalOptions.usSectorDirtDivider;
-
-		if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
-		{
-			for( INT16 i = 0; i < itemStack->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
-			{
-				(*itemStack)[i]->data.bDirtLevel = max(0.0f, (*itemStack)[i]->data.bDirtLevel + tickspassed * dirtincreasefactor );	// set new dirt value
-			}
-		}
-	}//end dirt stuff
-
 	// ... if it is food and the food system is active ...
 	if ( gGameOptions.fFoodSystem && Item[ itemStack->usItem ].foodtype > 0 )
 	{
@@ -5914,7 +5895,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  UI
 void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, std::vector<WORLDITEM>& pWorldItem, UINT32 size, BOOLEAN fWithMinutes, BOOLEAN fUndo )//dnl ch75 271013
 {
 	// if not using overheating or food system, no point in all this
-	if ( !gGameExternalOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
+	if ( !gGameExternalOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
 		return;
 
 	UINT32 tickspassed = 1;
@@ -5942,103 +5923,8 @@ void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, std::v
 	if ( sMapZ > 0 )
 		foofdecaymod *= 0.8f;
 
-	// get sector-specific dirt threshold
-	UINT16 sectormod = 0;
-	UINT8 ubSectorId = SECTOR(sMapX, sMapY);	
-	if ( sMapZ > 0 )
-		sectormod = 100;
-	else if ( ubSectorId >= 0 && ubSectorId < 256  )
-	{
-		sectormod = SectorExternalData[ubSectorId][sMapZ].usNaturalDirt;
-	}
-	
 	for( UINT32 uiCount = 0; uiCount < size; ++uiCount )				// ... for all items in the world ...
 	{
-		HandleItemCooldownFunctions( &(pWorldItem[ uiCount ].object), tickspassed * ( fUndo ? -NUM_SEC_PER_TACTICAL_TURN : NUM_SEC_PER_TACTICAL_TURN ), sectormod, (sMapZ > 0) );
-		
-//moved to HandleItemCooldownFunctions to reuse those calculations (see SOLDIERTYPE::SoldierInventoryCoolDown())
-/*
-		if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
-		{
-			OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
-
-			if ( pObj != NULL && pObj->exists() )												// ... if pointer is not obviously useless ...
-			{
-				// ... if we use overheating and item is a gun, a launcher or a barrel ...
-				if ( gGameExternalOptions.fWeaponOverheating && ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[pWorldItem[ uiCount ].object.usItem].barrel == TRUE ) )
-				{
-					for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
-					{
-						FLOAT guntemperature = (*pObj)[i]->data.bTemperature;	// ... get temperature ...
-
-						FLOAT cooldownfactor = GetItemCooldownFactor(pObj);		// ... get item cooldown factor provided of attachments ...
-
-						if ( Item[pWorldItem[ uiCount ].object.usItem].barrel == TRUE )	// ... a barrel lying around cools down a bit faster ...
-							cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
-
-						FLOAT newguntemperature = max(0.0f, guntemperature - tickspassed * cooldownfactor);	// ... calculate new temperature ...
-
-#if 0//def JA2TESTVERSION
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", guntemperature, newguntemperature );
-#endif
-
-						(*pObj)[i]->data.bTemperature = newguntemperature;			// ... set new temperature
-
-						// for every objects, we also have to check whether there are weapon attachments (eg. underbarrel weapons), and cool them down too
-						attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
-						for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter) 
-						{
-							if ( iter->exists() && Item[ iter->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER) )
-							{
-								FLOAT temperature =  (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
-
-								FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
-
-								FLOAT newtemperature = max(0.0f, temperature - tickspassed * cooldownfactor);	// ... calculate new temperature ...
-
-								(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
-
-#if 0//def JA2TESTVERSION
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"World: Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
-#endif
-
-								// we assume that there can exist only 1 underbarrel weapon per gun
-								break;
-							}
-						}
-					}
-				}
-
-				if ( gGameExternalOptions.fDirtSystem && ( (Item[pObj->usItem].usItemClass & IC_WEAPON) || (Item[pObj->usItem].usItemClass & IC_ARMOUR) ) )
-				{
-					FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor(pObj, FALSE);			// ... get dirt increase factor ...
-
-					// the current sector determines how much dirt increases
-					dirtincreasefactor *= (sectormod)/100;
-
-					dirtincreasefactor /= gGameExternalOptions.usSectorDirtDivider;
-
-					if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
-					{
-						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
-						{
-							(*pObj)[i]->data.bDirtLevel = max(0.0f, min( OVERHEATING_MAX_TEMPERATURE, (*pObj)[i]->data.bDirtLevel + tickspassed * dirtincreasefactor) );	// set new dirt value
-						}
-					}
-				}
-
-				if ( gGameOptions.fFoodSystem && Item[pWorldItem[ uiCount ].object.usItem].foodtype > 0 )				// ... if it is food and the food system is active ...
-				{
-					if ( Food[Item[pObj->usItem].foodtype].usDecayRate > 0.0f )		// ... if the food can decay...
-					{
-						for(INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
-						{						
-							(*pObj)[i]->data.bTemperature = max(0.0f, (*pObj)[i]->data.bTemperature - foofdecaymod * Food[Item[pObj->usItem].foodtype].usDecayRate);	// set new temperature
-						}
-					}
-				}
-			}
-		}
-*/
+		HandleItemCooldownFunctions( &(pWorldItem[ uiCount ].object), tickspassed * ( fUndo ? -NUM_SEC_PER_TACTICAL_TURN : NUM_SEC_PER_TACTICAL_TURN ), (sMapZ > 0) );
 	}
 }

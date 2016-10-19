@@ -1049,7 +1049,6 @@ ObjectData::ObjectData(const ObjectData& src)
 		this->ubWireNetworkFlag = src.ubWireNetworkFlag;
 		this->bDefuseFrequency = src.bDefuseFrequency;
 		this->sRepairThreshold = src.sRepairThreshold;
-		this->bDirtLevel = src.bDirtLevel;
 		this->sObjectFlag = src.sObjectFlag;
 		
 		//copy over the union
@@ -1076,7 +1075,6 @@ ObjectData& ObjectData::operator =(const ObjectData& src)
 		this->ubWireNetworkFlag = src.ubWireNetworkFlag;
 		this->bDefuseFrequency = src.bDefuseFrequency;
 		this->sRepairThreshold = src.sRepairThreshold;
-		this->bDirtLevel = src.bDirtLevel;
 		this->sObjectFlag = src.sObjectFlag;
 
 		//copy over the union
@@ -1640,7 +1638,6 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 			}
 
 			(*this)[0]->data.sRepairThreshold = 100;
-			(*this)[0]->data.bDirtLevel = 0.0f;
 			(*this)[0]->data.sObjectFlag = 0;
 
 			//it's unlikely max will get less over the versions, but still, check the min
@@ -1675,7 +1672,6 @@ OBJECTTYPE& OBJECTTYPE::operator=(const OLD_OBJECTTYPE_101& src)
 				}
 
 				(*this)[x]->data.sRepairThreshold = 100;
-				(*this)[x]->data.bDirtLevel = 0.0f;
 				(*this)[x]->data.sObjectFlag = 0;
 			}
 		}

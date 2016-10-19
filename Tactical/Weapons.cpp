@@ -1284,7 +1284,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 			if ((*pObj)[0]->data.gun.bGunAmmoStatus > 0) 
 			{ 
 				// Algorithm for jamming 
-				int maxJamChance = 50; // Externalize this? 
+				int maxJamChance = 50; // Externalize this?
 				int reliability =  GetReliability( pObj ); 
 				int condition = (*pObj)[0]->data.gun.bGunStatus; 
 
@@ -1306,16 +1306,6 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					invertedBaseJamChance -= overheatjamfactor;							// lower invertedBaseJamChance	(thereby increasing jamChance later on)
 				}
 
-				// Flugente: dirt can also influence a gun's jamming behaviour
-				if ( gGameExternalOptions.fDirtSystem )
-				{
-					FLOAT dirtpercentage = (*pObj)[0]->data.bDirtLevel / OVERHEATING_MAX_TEMPERATURE;
-					
-					int dirtjamfactor = (int)(100 * dirtpercentage*dirtpercentage);
-					
-					invertedBaseJamChance -= dirtjamfactor;	
-				}
-
 				if (invertedBaseJamChance < 0) 
 					invertedBaseJamChance = 0; 
 				else if (invertedBaseJamChance > 100) 
@@ -1330,37 +1320,6 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				else if (jamChance > maxJamChance - reliability) 
 					jamChance = maxJamChance - reliability; 
 			 
-				/* Old jam code 
-				// gun might jam, figure out the chance 
-				//iChance = (80 - pObj->bGunStatus); 
-			 
-				//rain 
-				iChance = (80 - pObj->ItemData.Gun.bGunStatus) + gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
-				//end rain 
-			 
-				// CJC: removed reliability from formula... 
-			 
-				// jams can happen to unreliable guns "earlier" than normal or reliable ones. 
-				//iChance = iChance - Item[pObj->usItem].bReliability * 2; 
-			 
-				// decrease the chance of a jam by 20% per point of reliability; 
-				// increased by 20% per negative point... 
-				//iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10; 
-			 
-				//rain 
-				// iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10; // Madd: took it back out 
-				//end rain 
-			 
-				if (pSoldier->bDoBurst > 1) 
-				{ 
-				// if at bullet in a burst after the first, higher chance 
-				iChance -= PreRandom( 80 ); 
-				} 
-				else 
-				{ 
-				iChance -= PreRandom( 100 ); 
-				} 
-			*/ 
 #ifdef TESTGUNJAM 
 				if ( 1 ) 
 #else 
@@ -1373,7 +1332,19 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 
 				 
 					// Deduct AMMO! 
-					DeductAmmo( pSoldier, pSoldier->ubAttackingHand ); 
+					DeductAmmo( pSoldier, pSoldier->ubAttackingHand );
+
+					// silversurfer: Our gun can now take damage when it jams
+					if ( PreRandom( 100 ) < (90 - condition + (Item[(*pObj).usItem].usDamageChance / 2.0f)) )
+					{
+						// damage depends on gun status. The better the status the less damage it takes. Limit it to max 5 or it can be frustrating for the player.
+						UINT32 uiJamDamage = __min( 5, PreRandom( __max( 0, (UINT32)((90 - condition) / 2.0f ) ) ));
+						if ( uiJamDamage > 0 )
+						{
+							(*pObj)[0]->data.objectStatus -= __min( uiJamDamage, (*pObj)[0]->data.objectStatus );
+							(*pObj)[0]->data.sRepairThreshold -= __min( uiJamDamage, (*pObj)[0]->data.sRepairThreshold );
+						}
+					}
 				 
 					TacticalCharacterDialogue( pSoldier, QUOTE_JAMMED_GUN ); 
 					return( TRUE ); 
@@ -2365,28 +2336,65 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	//	ammoReliability = Item[(*pGun)[0]->data.gun.usGunAmmoItem].bReliability;
 	//}
 
+	// silversurfer: Gun status now represents dirt. Shots can increase dirt level.
+	// Some guns are more susceptible to dirt than others.
+	FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor( pObjAttHand, TRUE );			// ... get dirt increase factor ...
+
+	// get sector-specific dirt threshold
+	UINT16 sectormod = 0;
+	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);	
+	if ( gbWorldSectorZ > 0 )
+		sectormod = 100;
+	else if ( ubSectorId >= 0 && ubSectorId < 256  )
+	{
+		sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
+	}
+
+	// the current sector determines how likely it is that dirt increases
+	dirtincreasefactor = __max( 1.0f, (dirtincreasefactor * (FLOAT)sectormod / 5000.0f) );
+
+	// weather also plays a role. A sand storm doesn't help keep our guns clean.
+	switch ( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather )
+	{
+		case WEATHER_FORECAST_NORMAL:
+			break;
+
+		case WEATHER_FORECAST_RAIN:
+			break;
+
+		case WEATHER_FORECAST_THUNDERSHOWERS:
+			dirtincreasefactor *= 1.2f;
+			break;
+
+		case WEATHER_FORECAST_SNOW:
+			dirtincreasefactor *= 1.1f;
+			break;
+
+		case WEATHER_FORECAST_SANDSTORM:
+			dirtincreasefactor *= 2.0f;
+			break;
+
+		default:
+			break;
+	}
+
 	// Flugente: Added a malus to reliability for overheated guns
 	// HEADROCK HAM 5: Variable NCTH base change
 	if ( UsingNewCTHSystem() == true)
 	{
 		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
-		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ) - iOverheatReliabilityMalus);
+		uiDepreciateTest = (UINT32)((usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ) - iOverheatReliabilityMalus)) / dirtincreasefactor);
 		uiDepreciateTest = max(0, uiDepreciateTest);
 	}
 	else
 	{
-		uiDepreciateTest = max( gItemSettings.usBasicDeprecateChance + 3 * GetReliability( pObjAttHand ) - iOverheatReliabilityMalus, 0 );
+		uiDepreciateTest = max( (UINT32)((gItemSettings.usBasicDeprecateChance + 3 * GetReliability( pObjAttHand ) - iOverheatReliabilityMalus) / dirtincreasefactor), 0 );
 	}
+
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjAttHand)[0]->data.objectStatus > 1) )
 	{
 		(*pObjAttHand)[0]->data.objectStatus--;
-
-		// Flugente: reduce repair threshold
-		if ( Random(100) < Item[pObjAttHand->usItem].usDamageChance )
-		{
-			(*pObjAttHand)[0]->data.sRepairThreshold--;
-		}
 	}
 
 	// reduce monster smell (gunpowder smell)
@@ -3027,28 +3035,64 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 	*/
 
+	// silversurfer: Gun status now represents dirt. Shots can increase dirt level.
+	// Some guns are more susceptible to dirt than others.
+	FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor( pObjUsed, TRUE );			// ... get dirt increase factor ...
+
+	// get sector-specific dirt threshold
+	UINT16 sectormod = 0;
+	UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);	
+	if ( gbWorldSectorZ > 0 )
+		sectormod = 100;
+	else if ( ubSectorId >= 0 && ubSectorId < 256  )
+	{
+		sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
+	}
+
+	// the current sector determines how likely it is that dirt increases
+	dirtincreasefactor = __max( 1.0f, (dirtincreasefactor * (FLOAT)sectormod / 5000.0f) );
+
+	// weather also plays a role. A sand storm doesn't help keep our guns clean.
+	switch ( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].usWeather )
+	{
+		case WEATHER_FORECAST_NORMAL:
+			break;
+
+		case WEATHER_FORECAST_RAIN:
+			break;
+
+		case WEATHER_FORECAST_THUNDERSHOWERS:
+			dirtincreasefactor *= 1.2f;
+			break;
+
+		case WEATHER_FORECAST_SNOW:
+			dirtincreasefactor *= 1.1f;
+			break;
+
+		case WEATHER_FORECAST_SANDSTORM:
+			dirtincreasefactor *= 2.0f;
+			break;
+
+		default:
+			break;
+	}
+
 	// Flugente: Added a malus to reliability for overheated guns
 	if ( UsingNewCTHSystem() == true )
 	{
 		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
-		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ])) - iOverheatReliabilityMalus);
+		uiDepreciateTest = (UINT32)(usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ])) - iOverheatReliabilityMalus) / dirtincreasefactor);
 		uiDepreciateTest = max(0, uiDepreciateTest);
 	}
 	else
 	{
-		uiDepreciateTest = max( gItemSettings.usBasicDeprecateChance + 3 * (GetReliability( pObjUsed )) - iOverheatReliabilityMalus, 0 );
+		uiDepreciateTest = max( (UINT32)((gItemSettings.usBasicDeprecateChance + 3 * (GetReliability( pObjUsed )) - iOverheatReliabilityMalus) / dirtincreasefactor), 0 );
 	}
 
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjUsed)[0]->data.objectStatus > 1) )
 	{
 		(*pObjUsed)[0]->data.objectStatus--;
-
-		// Flugente: reduce repair threshold
-		if ( Random(100) < Item[pObjUsed->usItem].usDamageChance )
-		{
-			(*pObjUsed)[0]->data.sRepairThreshold--;
-		}
 	}
 
 	// reduce monster smell (gunpowder smell)
@@ -11347,7 +11391,7 @@ void CalcMagFactorSimple( SOLDIERTYPE *pSoldier, FLOAT d2DDistance, INT16 bAimTi
 
 }
 
-// Flugente: Increase temperature/dirt of gun in ubAttackingHand due to firing a shot
+// Flugente: Increase temperature of gun in ubAttackingHand due to firing a shot
 void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier )
 {
 	if ( gGameExternalOptions.fWeaponOverheating )
@@ -11361,30 +11405,6 @@ void GunIncreaseHeat( OBJECTTYPE *pObj, SOLDIERTYPE* pSoldier )
 		  FLOAT newguntemperature = min(guntemperature + singleshottemperature, OVERHEATING_MAX_TEMPERATURE );					// ... calculate new temperature ...
 
 		  (*pObj)[0]->data.bTemperature = newguntemperature;									// ... apply new temperature
-		}
-	}
-
-	// firing a gun also increases dirt
-	if ( gGameExternalOptions.fDirtSystem )
-	{
-		FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor(pObj, TRUE);			// ... get dirt increase factor ...
-
-		// get sector-specific dirt threshold
-		UINT16 sectormod = 0;
-		UINT8 ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);	
-		if ( gbWorldSectorZ > 0 )
-			sectormod = 100;
-		else if ( ubSectorId >= 0 && ubSectorId < 256  )
-		{
-			sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
-		}
-
-		// the current sector determines how much dirt increases
-		dirtincreasefactor *= (sectormod)/100;
-
-		if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
-		{
-			(*pObj)[0]->data.bDirtLevel = min((*pObj)[0]->data.bDirtLevel + dirtincreasefactor, OVERHEATING_MAX_TEMPERATURE );	// dirt and overheating use the same threshold
 		}
 	}
 }

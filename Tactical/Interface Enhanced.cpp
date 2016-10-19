@@ -1945,12 +1945,9 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				}
 			}
 
-			if ( gGameExternalOptions.fDirtSystem )	// Flugente
-			{	
-				//////////////////// DIRT MODIFICATOR
-				{
-					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 5 ] );
-				}
+			//////////////////// DIRT MODIFICATOR
+			{
+				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + 5 ] );
 			}
 		}
 	}
@@ -4035,9 +4032,8 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			}
 		}
 				
-		if ( gGameExternalOptions.fDirtSystem )
+		///////////////////// DIRT MODIFICATOR
 		{
-			///////////////////// DIRT MODIFICATOR
 			if ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 			{
 				if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt;		// new index line here?
@@ -4611,6 +4607,7 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 1, gItemDescGenRegions[1][0].sLeft+sOffsetX, gItemDescGenRegions[1][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
+
 		//////////////// PRE-ARMOR EXPLOSION
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 2, gItemDescGenRegions[2][0].sLeft+sOffsetX, gItemDescGenRegions[2][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -4625,12 +4622,9 @@ void DrawAmmoStats( OBJECTTYPE * gpItemDescObject )
 			}
 		}
 
-		if ( gGameExternalOptions.fDirtSystem )	// Flugente
+		//////////////// DIRT MODIFICATOR
 		{
-			//////////////// DIRT MODIFICATOR
-			{
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 17, gItemDescGenRegions[5][0].sLeft+sOffsetX, gItemDescGenRegions[5][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
-			}
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAmmoIcon, 17, gItemDescGenRegions[5][0].sLeft+sOffsetX, gItemDescGenRegions[5][0].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		DrawSecondaryStats( gpItemDescObject );
@@ -5617,7 +5611,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 	// Flugente
 	// new line is necessary (Moa: only if needed)
 	INT16 fDrawGenIndexes = FALSE;
-	if ( gGameExternalOptions.fWeaponOverheating || gGameExternalOptions.fDirtSystem )
+	if ( gGameExternalOptions.fWeaponOverheating )
 	{
 		if( ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[gpItemDescObject->usItem].barrel == TRUE || ( Item[gpItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) ) ||
 			( fComparisonMode && ( Item[gpComparedItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[gpComparedItemDescObject->usItem].barrel == TRUE || ( Item[gpComparedItemDescObject->usItem].overheatTemperatureModificator != 0.0 ) || ( Item[gpComparedItemDescObject->usItem].overheatCooldownModificator != 0.0 ) || ( Item[gpComparedItemDescObject->usItem].overheatJamThresholdModificator != 0.0 ) || ( Item[gpComparedItemDescObject->usItem].overheatDamageThresholdModificator != 0.0 ) ) ) )
@@ -5721,12 +5715,11 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 	
-	if ( gGameExternalOptions.fDirtSystem )
+	///////////////////// DIRT MODIFICATOR
 	{
 		if ( ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) ||
 			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) )
 		{
-			///////////////////// DIRT MODIFICATOR
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
 				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 55, gItemDescAdvRegions[cnt-sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt-sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -8979,9 +8972,8 @@ void DrawAmmoValues( OBJECTTYPE * gpItemDescObject, int shotsLeft )
 			}
 		}
 		
-		if ( gGameExternalOptions.fDirtSystem )	// Flugente
+		///////////////////// DIRT MODIFICATOR
 		{
-			///////////////////// DIRT MODIFICATOR
 			// Set line to draw into
 			ubNumLine = 5;
 			// Set Y coordinates
@@ -13769,13 +13761,12 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 		}
 	}
 		
-	if ( gGameExternalOptions.fDirtSystem )
+	///////////////////// DIRT MODIFICATOR
 	{	
 		if ( ( Item[gpItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) ||
 			( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) ) )
 		{
 			if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt; //insert Indexes here?
-			///////////////////// DIRT MODIFICATOR
 			if (cnt >= sFirstLine && cnt < sLastLine)
 			{
 				// Set Y coordinates
@@ -13808,10 +13799,11 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 						if ( cnt2 == 1 || fComparisonMode)
 							SetFontForeground( ITEMDESC_FONTNEGATIVE );
 
-						if ( !fComparisonMode )
+						if ( !fComparisonMode && cnt2 != 1 )
 							swprintf( pStr, L"%4.2f", iFloatModifier[cnt2] );
 						else
 							swprintf( pStr, L"+%4.2f", iFloatModifier[cnt2] );
+
 						FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 						#ifdef CHINESE
 							wcscat( pStr, ChineseSpecString1 );

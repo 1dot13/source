@@ -87,4 +87,4 @@ BOOLEAN	SwitchToInventoryPoolQ(UINT8 newidx);
 // if fWithMinutes = true, adjust cooldown for time since sector was last entered
 // otherwise its used for a turn-precise cooldown
 void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, std::vector<WORLDITEM>& pWorldItem, UINT32 size, BOOLEAN fWithMinutes, BOOLEAN fUndo = FALSE);//dnl ch75 271013
-void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  UINT16 naturalDirt = 100, BOOLEAN isUnderground = FALSE);
+void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds,  BOOLEAN isUnderground = FALSE);

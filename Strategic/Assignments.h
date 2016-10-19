@@ -266,6 +266,9 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts,
 // find number of repair pts repairman has available
 UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts, BOOLEAN fMakeSureKitIsInHand );
 
+// find number of cleaning pts repairman has available
+UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
+
 // Flugente: calculate interrogation and prison guard values
 UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts );
 UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier );

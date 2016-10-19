@@ -61,7 +61,7 @@ void ShowLoadScreenHintInTacticalLog();
 
 #define LOADSCREEN_FOOD					0x00000010	//16		// food tips
 #define LOADSCREEN_ZOMBIE				0x00000020	//32		// zombie tips
-#define LOADSCREEN_OVERHEAT_DIRT   		0x00000040	//64		// tips on overheating & dirt
+#define LOADSCREEN_OVERHEAT				0x00000040	//64		// tips on overheating
 #define LOADSCREEN_NCTH					0x00000080	//128		// tips on using NCTH
 
 #define LOADSCREEN_COVERTOPS			0x00000100	//256		// tips on using the covert ops trait

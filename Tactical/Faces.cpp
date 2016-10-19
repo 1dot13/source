@@ -2326,7 +2326,11 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 					sIconIndex_Assignment = 0;
 					fDoIcon_Assignment		= TRUE;
-					sPtsAvailable = CalculateRepairPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
+					// Show repair points if merc has a toolkit in his hand. Otherwise show cleaning points.
+					if ( Item[pSoldier->inv[HANDPOS].usItem].toolkit )
+						sPtsAvailable = CalculateRepairPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
+					else
+						sPtsAvailable = CalculateCleaningPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
 					fShowNumber = TRUE;
 					fShowMaximum = TRUE;
 

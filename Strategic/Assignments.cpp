@@ -387,6 +387,9 @@ BOOLEAN IsSoldierKnownAsMercInSector(SOLDIERTYPE *pSoldier, INT16 sMapX, INT16 s
 // how many points worth of tool kits does the character have?
 UINT16 ToolKitPoints(SOLDIERTYPE *pSoldier);
 
+// how many points worth of cleaning kits does the character have?
+UINT16 CleaningKitPoints(SOLDIERTYPE *pSoldier);
+
 // how many points worth of doctoring does the character have in his medical kits ?
 UINT16 TotalMedicalKitPoints(SOLDIERTYPE *pSoldier);
 
@@ -410,6 +413,9 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 
 // can item be repaired?
 BOOLEAN IsItemRepairable( SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, INT16 bThreshold );
+
+// can item be cleaned?
+BOOLEAN IsItemCleanable( SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, INT16 bThreshold );
 
 // does another merc have a repairable item on them?
 OBJECTTYPE* FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOtherSoldier, UINT8 ubPassType );
@@ -619,6 +625,7 @@ void AssignmentAborted( SOLDIERTYPE *pSoldier, UINT8 ubReason );
 UINT32 GetLastSquadListedInSquadMenu( void );
 
 BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier );
+BOOLEAN IsAnythingAroundForSoldierToClean( SOLDIERTYPE * pSoldier );
 BOOLEAN HasCharacterFinishedRepairing( SOLDIERTYPE * pSoldier );
 BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE * pSoldier, INT8 bHighestPass );
 
@@ -633,6 +640,7 @@ BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier );
 SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK );
 
 BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * pObj, UINT8 * pubRepairPtsLeft );
+BOOLEAN CleanObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * pObj, UINT8 * pubCleaningPtsLeft );
 void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft );
 BOOLEAN UnjamGunsOnSoldier( SOLDIERTYPE *pOwnerSoldier, SOLDIERTYPE *pRepairSoldier, UINT8 *pubRepairPtsLeft );
 
@@ -667,6 +675,8 @@ static INT16 GetMinimumStackDurability(const OBJECTTYPE* pObj);
 static BOOLEAN IsGunJammed(const OBJECTTYPE* pObj);
 /// Collect items that need repairing and add them to the repair queue
 static void CollectRepairableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSoldier, RepairQueue& itemsToFix);
+/// Collect items that need cleaning and add them to the cleaning queue
+static void CollectCleanableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSoldier, RepairQueue& itemsToClean);
 
 extern BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse );
 
@@ -999,7 +1009,57 @@ BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier )
 	return( FALSE );
 }
 
+BOOLEAN IsAnythingAroundForSoldierToClean( SOLDIERTYPE * pSoldier )
+{
 
+	// first check own inventory
+	// Iterate over all pocket slots and add items in need of repair
+	for (UINT8 pocketIndex = HANDPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex)
+	{
+		const OBJECTTYPE* pObj = &(const_cast<SOLDIERTYPE *>(pSoldier)->inv[pocketIndex]);
+		if(pObj == NULL || pObj->ubNumberOfObjects == NOTHING || pObj->usItem == NOTHING)
+			continue;
+
+		// Check if item needs cleaning
+		for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex)
+		{
+			// Check the stack item itself
+			if ( IsItemCleanable(pSoldier, pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold) )
+			{
+				// found something dirty
+				return ( TRUE );
+			}
+		}
+	}
+
+	// now the other merc's stuff
+	for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex < gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+	{
+		// Ignore self, mercs in other sectors, etc.
+		if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
+		{
+
+			// Iterate over all pocket slots and add items in need of repair
+			for (UINT8 pocketIndex = HANDPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex)
+			{
+				const OBJECTTYPE* pObj = &(const_cast<SOLDIERTYPE *>(MercPtrs[teamIndex])->inv[pocketIndex]);
+				if(pObj == NULL || pObj->ubNumberOfObjects == NOTHING || pObj->usItem == NOTHING)
+					continue;
+
+				// Check if item needs cleaning
+				for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex)
+				{
+					// Check the stack item itself
+					if ( IsItemCleanable(pSoldier, pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold) )
+					{
+						return ( TRUE );
+					}
+				}
+			}
+		}
+	}
+	return ( FALSE );
+}
 
 BOOLEAN HasCharacterFinishedRepairing( SOLDIERTYPE * pSoldier )
 {
@@ -1194,7 +1254,13 @@ BOOLEAN CanCharacterRepairButDoesntHaveARepairkit( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	return( TRUE );
+	// only return TRUE if there is something to repair!
+	if ( IsAnythingAroundForSoldierToRepair( pSoldier ) )
+	{
+		return( TRUE );
+	}
+
+	return( FALSE );
 }
 
 // can character be assigned as repairman?
@@ -1213,23 +1279,29 @@ BOOLEAN CanCharacterRepair( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	// make sure he has a toolkit
-	if ( FindToolkit( pSoldier ) == NO_SLOT )
+	// make sure he has a toolkit or cleaning kit to clean guns
+	if ( FindToolkit( pSoldier ) == NO_SLOT && pSoldier->GetObjectWithFlag( CLEANING_KIT ) == NULL )
 	{
 		return( FALSE );
 	}
 
-	// anything around to fix?
-	if ( !IsAnythingAroundForSoldierToRepair( pSoldier ) )
+	// anything around to clean?
+	if ( pSoldier->GetObjectWithFlag( CLEANING_KIT ) != NULL && IsAnythingAroundForSoldierToClean( pSoldier ) )
 	{
-		return( FALSE );
+		return( TRUE );
+	}
+
+	// anything around to fix?
+	if ( FindToolkit( pSoldier ) != NO_SLOT && IsAnythingAroundForSoldierToRepair( pSoldier ) )
+	{
+		return( TRUE );
 	}
 
 	// NOTE: This will not detect situations where character lacks the SKILL to repair the stuff that needs repairing...
 	// So, in that situation, his assignment will NOT flash, but a message to that effect will be reported every hour.
 
-	// all criteria fit, can repair
-	return ( TRUE );
+	// no criteria fits, can't repair
+	return ( FALSE );
 }
 
 
@@ -2944,6 +3016,67 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	return(( UINT8 )usRepairPts);
 }
 
+UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
+{
+	UINT32 usCleaningPts;
+	UINT16 usKitPts;
+
+	// oops, we have no cleaning kit
+	if ( pSoldier->GetObjectWithFlag( CLEANING_KIT ) == NULL )
+	{
+		*pusMaxPts = 0;
+		return 0;
+	}
+
+	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
+	usCleaningPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier, FALSE ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) )) / ( gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
+
+	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
+	// and equipment was not a hindrance
+	INT16 mechanical = (pSoldier->stats.bMechanical * (100 + pSoldier->GetBackgroundValue( BG_MECHANICAL ))) / 100;
+	INT16 dexterity  = (pSoldier->stats.bDexterity * (100 + pSoldier->GetBackgroundValue( BG_DEXTERITY ))) / 100;
+	*pusMaxPts = (mechanical * dexterity * (100 + (5 * pSoldier->stats.bExpLevel))) / (gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay);
+
+	// SANDRO - Technician trait gives a good bonus to repair items
+	// we also use that for cleaning guns
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		usCleaningPts = usCleaningPts * (100 + gSkillTraitValues.bSpeedModifierRepairing) / 100;
+		*pusMaxPts = *pusMaxPts * (100 + gSkillTraitValues.bSpeedModifierRepairing) / 100;
+
+		if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
+		{
+			usCleaningPts += usCleaningPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
+			*pusMaxPts += *pusMaxPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
+		}
+
+		// Penalty for aggressive people
+		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
+		{	
+			usCleaningPts -= usCleaningPts / 10;	// -10%
+			*pusMaxPts -= *pusMaxPts / 10;
+		}
+		// Bonus for phlegmatic people
+		else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_PHLEGMATIC ) )
+		{	
+			usCleaningPts += usCleaningPts / 20;	// +5%
+			*pusMaxPts += *pusMaxPts / 20;
+		}
+	}
+
+	// adjust for fatigue
+	ReducePointsForFatigue( pSoldier, &usCleaningPts );
+
+	// Flugente: our food situation influences our effectiveness
+	if ( gGameOptions.fFoodSystem )
+		ReducePointsForHunger( pSoldier, &usCleaningPts );
+
+	usKitPts = CleaningKitPoints( pSoldier );
+
+	// return current cleaning pts
+	return(( UINT8 )usCleaningPts);
+}
+
 extern INT32 CalcThreateningEffectiveness( UINT8 ubMerc );
 
 // Flugente: calculate interrogation value
@@ -3517,6 +3650,23 @@ UINT16 ToolKitPoints(SOLDIERTYPE *pSoldier)
 	return( usKitpts );
 }
 
+UINT16 CleaningKitPoints(SOLDIERTYPE *pSoldier)
+{
+	UINT16 usKitpts=0;
+	UINT8 ubPocket;
+
+	// add up kit points
+	// CHRISL: Changed to dynamically determine max inventory locations.
+	for (ubPocket=HANDPOS; ubPocket < NUM_INV_SLOTS; ubPocket++)
+	{
+		if( HasItemFlag( pSoldier->inv[ubPocket].usItem, CLEANING_KIT ) )
+		{
+			usKitpts += TotalPoints( &( pSoldier->inv[ ubPocket ] ) );
+		}
+	}
+
+	return( usKitpts );
+}
 
 UINT16 TotalMedicalKitPoints(SOLDIERTYPE *pSoldier)
 {
@@ -4227,7 +4377,7 @@ void HandleRepairmenInSector( INT16 sX, INT16 sY, INT8 bZ )
 			{
 				if ( IS_REPAIR(pTeamSoldier->bAssignment) && ( pTeamSoldier->flags.fMercAsleep == FALSE ) )
 				{
-					if ( MakeSureToolKitIsInHand( pTeamSoldier ) )
+					if ( MakeSureToolKitIsInHand( pTeamSoldier ) || pTeamSoldier->GetObjectWithFlag( CLEANING_KIT ) != NULL )
 					{
 						// character is in sector, check if can repair
 						if ( CanCharacterRepair( pTeamSoldier ) && ( EnoughTimeOnAssignment( pTeamSoldier ) ) )
@@ -4415,6 +4565,29 @@ static void CollectRepairableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSo
 			}
 			if(foundItem)
 				break;
+		}
+	}
+}
+
+static void CollectCleanableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSoldier, RepairQueue& itemsToClean)
+{
+	// Iterate over all pocket slots and add items in need of repair
+	for (UINT8 pocketIndex = HANDPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex)
+	{
+		const OBJECTTYPE* pObj = &(const_cast<SOLDIERTYPE *>(pSoldier)->inv[pocketIndex]);
+		if(pObj == NULL || pObj->ubNumberOfObjects == NOTHING || pObj->usItem == NOTHING)
+			continue;
+
+		// Check if item needs cleaning
+		for (UINT8 stackIndex = 0; stackIndex < pObj->ubNumberOfObjects; ++stackIndex)
+		{
+			// Check the stack item itself
+			if ( IsItemCleanable(pRepairSoldier, pObj->usItem, (*pObj)[stackIndex]->data.objectStatus, (*pObj)[stackIndex]->data.sRepairThreshold) )
+			{
+				RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
+				itemsToClean.push(item);
+				break;
+			}
 		}
 	}
 }
@@ -4633,12 +4806,6 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 				gMercProfiles[ pSoldier->ubProfile ].records.usItemsRepaired++;
 			}
 
-			if ( (*pObj)[ubLoop]->data.objectStatus == threshold )
-			{
-				// if item was fully repaired, consider it cleaned
-				if ( gGameExternalOptions.fDirtSystem && gGameExternalOptions.fFullRepairCleansGun )
-					(*pObj)[ubLoop]->data.bDirtLevel = 0.0f;
-			}
 			// note: this system is bad if we can repair only 1% per hour (which is rather we are total losers)
 			///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4715,21 +4882,90 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 	return( fSomethingWasRepaired );
 }
 
+BOOLEAN CleanObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * pObj, UINT8 * pubCleaningPtsLeft )
+{
+	UINT8 ubDirtPts, ubPtsCleaned, ubLoop, ubItemsInPocket;
+	BOOLEAN bFullyCleaned = FALSE;
+
+	// no gun? We shouldn't be here...
+	if ( !Item[pObj->usItem].usItemClass & IC_GUN )
+		Assert(0);
+
+	ubItemsInPocket = pObj->ubNumberOfObjects;
+
+	for ( ubLoop = 0; ubLoop < ubItemsInPocket; ++ubLoop )
+	{
+		// Flugente: if using the new advanced repair system, we can only clean up to the repair threshold
+		INT16 sThreshold = 100;
+		if ( gGameExternalOptions.fAdvRepairSystem )
+		{
+			sThreshold = (*pObj)[ubLoop]->data.sRepairThreshold;
+		}
+
+		// how many points of dirt has the gun accumulated?
+		ubDirtPts = sThreshold - (*pObj)[ubLoop]->data.objectStatus;
+
+		// do we have enough pts to fully clean the item?
+		if ( *pubCleaningPtsLeft >= ubDirtPts )
+		{
+			// fix it up to the threshold (max 100%)
+			(*pObj)[ubLoop]->data.objectStatus = sThreshold;
+			*pubCleaningPtsLeft -= ubDirtPts;
+			bFullyCleaned = TRUE;
+		}
+		else	// not enough, partial clean only, if any at all
+		{
+			// clean what we can
+			ubPtsCleaned = *pubCleaningPtsLeft;
+
+			// if we have enough to actually clean anything
+			if (ubPtsCleaned > 0)
+			{
+				(*pObj)[ubLoop]->data.objectStatus += ubPtsCleaned;
+			}
+
+			*pubCleaningPtsLeft = 0;
+			bFullyCleaned = FALSE;
+		}
+
+		// we have fully cleaned the gun
+		if ( (*pObj)[ubLoop]->data.objectStatus == sThreshold )
+		{
+			// report it as cleaned
+			if ( pSoldier == pOwner )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_CLEANED ], pSoldier->GetName(), ItemNames[ pObj->usItem ] );
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_CLEANED_FOR_OWNER ], pSoldier->GetName(), pOwner->GetName(), ItemNames[ pObj->usItem ] );
+			}
+		}
+
+		if ( *pubCleaningPtsLeft == 0 )
+		{
+			// we're out of points!
+			return ( bFullyCleaned );
+		}
+	}
+	return ( bFullyCleaned );
+}
 
 void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 {
-	UINT16 usMax=0;
-	UINT8 ubRepairPtsLeft =0;
-	UINT8 ubInitialRepairPts = 0;
-	UINT8 ubRepairPtsUsed = 0;
-	BOOLEAN fNothingLeftToRepair = FALSE;
+	UINT16 usRepairMax = 0, usCleaningMax = 0;
+	UINT8 ubRepairPtsLeft = 0, ubCleaningPtsLeft = 0;
+	UINT8 ubInitialRepairPts = 0, ubInitialCleaningPts = 0;
+	UINT8 ubRepairPtsUsed = 0, ubCleaningPtsUsed = 0;
+	BOOLEAN fNothingLeftToRepair = FALSE, bNothingLeftToClean = FALSE;
 	UINT16 usKitDegrade = 100;
 
 	// grab max number of repair pts open to this soldier
-	ubRepairPtsLeft = CalculateRepairPointsForRepairman( pSoldier, &usMax, TRUE );
+	ubRepairPtsLeft = CalculateRepairPointsForRepairman( pSoldier, &usRepairMax, TRUE );
+	ubCleaningPtsLeft = CalculateCleaningPointsForRepairman ( pSoldier, &usCleaningMax );
 
 	// no points
-	if ( ubRepairPtsLeft == 0 )
+	if ( ubRepairPtsLeft == 0 && ubCleaningPtsLeft == 0 )
 	{
 		AssignmentDone( pSoldier, TRUE, TRUE );
 		return;
@@ -4737,11 +4973,12 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 
 	// remember what we've started off with
 	ubInitialRepairPts = ubRepairPtsLeft;
+	ubInitialCleaningPts = ubCleaningPtsLeft;
 
 	// check if we are repairing a vehicle
 	if ( pSoldier->bVehicleUnderRepairID != -1 )
 	{
-		if ( CanCharacterRepairVehicle( pSoldier, pSoldier->bVehicleUnderRepairID ) )
+		if ( CanCharacterRepairVehicle( pSoldier, pSoldier->bVehicleUnderRepairID ) && ubRepairPtsLeft > 0 )
 		{
 			// attempt to fix vehicle
 			ubRepairPtsLeft -= RepairVehicle( pSoldier->bVehicleUnderRepairID, ubRepairPtsLeft, &fNothingLeftToRepair );
@@ -4750,7 +4987,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	// check if we are repairing a robot
 	else if( pSoldier->flags.fFixingRobot )
 	{
-		if ( CanCharacterRepairRobot( pSoldier ) )
+		if ( CanCharacterRepairRobot( pSoldier ) && ubRepairPtsLeft > 0 )
 		{
 			// repairing the robot is very slow & difficult
 
@@ -4786,7 +5023,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	}
 	else if ( pSoldier->flags.fFixingSAMSite )
 	{
-		if ( CanSoldierRepairSAM( pSoldier ) )
+		if ( CanSoldierRepairSAM( pSoldier ) && ubRepairPtsLeft > 0 )
 		{
 			// repair the SAM
 			INT16 sStrategicSector = CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY );
@@ -4811,159 +5048,223 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	}
 	else
 	{
-		if (gGameExternalOptions.fAdditionalRepairMode) 
+		// first priority for item repair is cleaning guns
+		if ( ubCleaningPtsLeft > 0 )
 		{
-			// 2Points: Use new repair algorithm
-			// Collect all items in need of repair and assign them priorities
-			RepairQueue itemsToFix;
+			RepairQueue itemsToClean;
 
-			// silversurfer: Looks strange? It's not. This function now needs the guy that does the repairs and the one that owns the stuff. 
-			CollectRepairableItems(pSoldier, pSoldier, itemsToFix);
+			// first build list of guns to be cleaned
+			// silversurfer: Looks strange? It's not. This function now needs the guy that does the cleaning and the one that owns the stuff.
+			// first our own stuff
+			CollectCleanableItems(pSoldier, pSoldier, itemsToClean);
+			// then other mercs' stuff
 			for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex < gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
 			{
 				// Ignore self, mercs in other sectors, etc.
 				if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
 					// silversurfer: This function now needs the guy that does the repairs and the one that owns the stuff.
-					CollectRepairableItems(pSoldier, MercPtrs[teamIndex], itemsToFix);
+					CollectCleanableItems(pSoldier, MercPtrs[teamIndex], itemsToClean);
 			}
 
-			// Step through items, starting with the highest priority item
-			while (!itemsToFix.empty() && ubRepairPtsLeft > 0) 
+			while (!itemsToClean.empty() && ubCleaningPtsLeft > 0) 
 			{
-				const RepairItem object = itemsToFix.top();
-				itemsToFix.pop();
+				const RepairItem object = itemsToClean.top();
+				itemsToClean.pop();
 
 				// Jammed gun; call unjam function first
 				if ( IsGunJammed(object.item) )
-					UnjamGunsOnSoldier(const_cast<SOLDIERTYPE*> (object.owner), pSoldier, &ubRepairPtsLeft);
+					UnjamGunsOnSoldier(const_cast<SOLDIERTYPE*> (object.owner), pSoldier, &ubCleaningPtsLeft);
 
-				// Regular repair function
-				BOOLEAN itemRepaired = RepairObject( pSoldier, const_cast<SOLDIERTYPE*> (object.owner), const_cast<OBJECTTYPE*> (object.item), &ubRepairPtsLeft );
+				// Clean gun
+				BOOLEAN bFullyCleaned = CleanObject( pSoldier, const_cast<SOLDIERTYPE*> (object.owner), const_cast<OBJECTTYPE*> (object.item), &ubCleaningPtsLeft);
+	
+				if ( itemsToClean.empty() && bFullyCleaned )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 7 ], pSoldier->GetName() );
+					bNothingLeftToClean = TRUE;
+				}
+			}
+
+			// we spent some time cleaning so adjust repair points accordingly
+			if ( ubRepairPtsLeft > 0 && ubInitialCleaningPts > ubCleaningPtsLeft )
+			{
+				ubRepairPtsLeft = UINT8()(ubRepairPtsLeft * ubCleaningPtsLeft / ubInitialCleaningPts);
+			}
+		}
+
+		// now check if we can repair items
+		if ( ubRepairPtsLeft > 0 )
+		{
+			if (gGameExternalOptions.fAdditionalRepairMode) 
+			{
+				// 2Points: Use new repair algorithm
+				// Collect all items in need of repair and assign them priorities
+				RepairQueue itemsToFix;
+	
+				// silversurfer: Looks strange? It's not. This function now needs the guy that does the repairs and the one that owns the stuff. 
+				CollectRepairableItems(pSoldier, pSoldier, itemsToFix);
+				for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex < gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+				{
+					// Ignore self, mercs in other sectors, etc.
+					if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
+						// silversurfer: This function now needs the guy that does the repairs and the one that owns the stuff.
+						CollectRepairableItems(pSoldier, MercPtrs[teamIndex], itemsToFix);
+				}
+
+				// Step through items, starting with the highest priority item
+				while (!itemsToFix.empty() && ubRepairPtsLeft > 0) 
+				{
+					const RepairItem object = itemsToFix.top();
+					itemsToFix.pop();
+
+					// Jammed gun; call unjam function first
+					if ( IsGunJammed(object.item) )
+						UnjamGunsOnSoldier(const_cast<SOLDIERTYPE*> (object.owner), pSoldier, &ubRepairPtsLeft);
+	
+					// Regular repair function
+					BOOLEAN itemRepaired = RepairObject( pSoldier, const_cast<SOLDIERTYPE*> (object.owner), const_cast<OBJECTTYPE*> (object.item), &ubRepairPtsLeft );
 
 #ifdef _DEBUG
-				if (itemRepaired)
-					ScreenMsg(FONT_ORANGE, MSG_BETAVERSION, L"Repaired: %s's %s in item slot %d [Dur: %d]. %d points left.", 
-						object.owner->name, Item[object.item->usItem].szItemName, object.inventorySlot, GetMinimumStackDurability(object.item), ubRepairPtsLeft);
+					if (itemRepaired)
+						ScreenMsg(FONT_ORANGE, MSG_BETAVERSION, L"Repaired: %s's %s in item slot %d [Dur: %d]. %d points left.", 
+							object.owner->name, Item[object.item->usItem].szItemName, object.inventorySlot, GetMinimumStackDurability(object.item), ubRepairPtsLeft);
 #endif
 
-				// The following assumes that weapon/armor has higher priority than regular items! If the priorities are changed, this notification
-				// probably won't work reliably anymore.
+					// The following assumes that weapon/armor has higher priority than regular items! If the priorities are changed, this notification
+					// probably won't work reliably anymore.
 
-				// The item has been repaired completely
-				if (GetMinimumStackDurability(object.item) == 100) 
-				{
-					// No items left in queue: All items have been repaired
-					if (itemsToFix.empty())
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 3 ], pSoldier->GetName() );
-					else {
-						// The current item was a weapon/armor
-						if ( (IsWeapon(object.item->usItem) || Item[object.item->usItem].usItemClass == IC_ARMOUR) &&
-						// ...and the next item isn't:
-							 (!IsWeapon(itemsToFix.top().item->usItem) && Item[itemsToFix.top().item->usItem].usItemClass != IC_ARMOUR) ) 
-						{
+					// The item has been repaired completely
+					if (GetMinimumStackDurability(object.item) == 100) 
+					{
+						// No items left in queue: All items have been repaired
+						if (itemsToFix.empty())
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 3 ], pSoldier->GetName() );
+						else {
+							// The current item was a weapon/armor
+							if ( (IsWeapon(object.item->usItem) || Item[object.item->usItem].usItemClass == IC_ARMOUR) &&
+							// ...and the next item isn't:
+								 (!IsWeapon(itemsToFix.top().item->usItem) && Item[itemsToFix.top().item->usItem].usItemClass != IC_ARMOUR) ) 
+							{
 
-							// All weapons & armor have been repaired
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 1 ], pSoldier->GetName() );
-							StopTimeCompression();
+								// All weapons & armor have been repaired
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 1 ], pSoldier->GetName() );
+								StopTimeCompression();
+							}
 						}
 					}
 				}
 			}
-		}
-		else 
-		{
-			// Old repair algorithm
-
-			INT8 bPocket =0;
- 			BOOLEAN fNothingLeftToRepair = FALSE;
-			INT8	bLoop, bLoopStart, bLoopEnd;
-			OBJECTTYPE * pObj;
-
-			BOOLEAN fAnyOfSoldiersOwnItemsWereFixed = UnjamGunsOnSoldier( pSoldier, pSoldier, &ubRepairPtsLeft );
-
-			// repair items on self
-			// HEADROCK HAM B2.8: Experimental feature: Fixes LBEs last, as they don't actually require repairs.
-			for( bLoop = 0; bLoop < 4; ++bLoop )
+			else 
 			{
-				if ( bLoop == 0 )
+				// Old repair algorithm
+	
+				INT8 bPocket =0;
+	 			BOOLEAN fNothingLeftToRepair = FALSE;
+				INT8	bLoop, bLoopStart, bLoopEnd;
+				OBJECTTYPE * pObj;
+	
+				BOOLEAN fAnyOfSoldiersOwnItemsWereFixed = UnjamGunsOnSoldier( pSoldier, pSoldier, &ubRepairPtsLeft );
+
+				// repair items on self
+				// HEADROCK HAM B2.8: Experimental feature: Fixes LBEs last, as they don't actually require repairs.
+				for( bLoop = 0; bLoop < 4; ++bLoop )
 				{
-					bLoopStart = SECONDHANDPOS;
-					// HEADROCK: New loop stage only checks second hand, to avoid LBEs.
-					bLoopEnd = SECONDHANDPOS;
-				}
-				else if ( bLoop == 1 )
-				{
-					// HEADROCK: Second check is for armor and headgear only.
-					bLoopStart = HELMETPOS;
-					bLoopEnd = HEAD2POS;
-				}
-				else if ( bLoop == 2 )
-				{
-					// HEADROCK: Loop stage altered to run through inventory only
-					bLoopStart = UsingNewInventorySystem() == false ? BIGPOCKSTART : GUNSLINGPOCKPOS;
-					// CHRISL: Changed to dynamically determine max inventory locations.
-					bLoopEnd = (NUM_INV_SLOTS - 1);
-				}
-				else if ( bLoop == 3 )
-				{
-					if (UsingNewInventorySystem() == true)
+					if ( bLoop == 0 )
 					{
-						// HEADROCK: Last loop fixes LBEs
-						bLoopStart = VESTPOCKPOS;
-						bLoopEnd = BPACKPOCKPOS;
-					}
-					else
-					{
-						// HEADROCK: In OIV, simply check everything again.
 						bLoopStart = SECONDHANDPOS;
+						// HEADROCK: New loop stage only checks second hand, to avoid LBEs.
+						bLoopEnd = SECONDHANDPOS;
+					}
+					else if ( bLoop == 1 )
+					{
+						// HEADROCK: Second check is for armor and headgear only.
+						bLoopStart = HELMETPOS;
+						bLoopEnd = HEAD2POS;
+					}
+					else if ( bLoop == 2 )
+					{
+						// HEADROCK: Loop stage altered to run through inventory only
+						bLoopStart = UsingNewInventorySystem() == false ? BIGPOCKSTART : GUNSLINGPOCKPOS;
+						// CHRISL: Changed to dynamically determine max inventory locations.
 						bLoopEnd = (NUM_INV_SLOTS - 1);
 					}
-				}
-
-				// now repair objects running from left hand to small pocket
-				for( bPocket = bLoopStart; bPocket <= bLoopEnd; ++bPocket )
-				{
-					//CHRISL: These two conditions allow us to repair LBE pocket items at the same time as worn armor, while
-					//	still letting us repair the item in our offhand first.
-					// HEADROCK HAM B2.8: No longer necessary, as I've artificially added new stages for this. LBE
-					// pockets are now repaired LAST.
-					//if(UsingNewInventorySystem() == true && bLoop == 0 && bPocket>SECONDHANDPOS && bPocket<GUNSLINGPOCKPOS)
-					//	continue;
-					//if(UsingNewInventorySystem() == true && bLoop == 1 && bPocket==SECONDHANDPOS)
-					//	continue;
-					pObj = &(pSoldier->inv[ bPocket ]);
-
-					if ( RepairObject( pSoldier, pSoldier, pObj, &ubRepairPtsLeft ) )
+					else if ( bLoop == 3 )
 					{
-						fAnyOfSoldiersOwnItemsWereFixed = TRUE;
-
-						// quit looking if we're already out
-						if ( ubRepairPtsLeft == 0 )
-							break;
+						if (UsingNewInventorySystem() == true)
+						{
+							// HEADROCK: Last loop fixes LBEs
+							bLoopStart = VESTPOCKPOS;
+							bLoopEnd = BPACKPOCKPOS;
+						}
+						else
+						{
+							// HEADROCK: In OIV, simply check everything again.
+							bLoopStart = SECONDHANDPOS;
+							bLoopEnd = (NUM_INV_SLOTS - 1);
+						}
 					}
+
+					// now repair objects running from left hand to small pocket
+					for( bPocket = bLoopStart; bPocket <= bLoopEnd; ++bPocket )
+					{
+						//CHRISL: These two conditions allow us to repair LBE pocket items at the same time as worn armor, while
+						//	still letting us repair the item in our offhand first.
+						// HEADROCK HAM B2.8: No longer necessary, as I've artificially added new stages for this. LBE
+						// pockets are now repaired LAST.
+						//if(UsingNewInventorySystem() == true && bLoop == 0 && bPocket>SECONDHANDPOS && bPocket<GUNSLINGPOCKPOS)
+						//	continue;
+						//if(UsingNewInventorySystem() == true && bLoop == 1 && bPocket==SECONDHANDPOS)
+						//	continue;
+						pObj = &(pSoldier->inv[ bPocket ]);
+
+						if ( RepairObject( pSoldier, pSoldier, pObj, &ubRepairPtsLeft ) )
+						{
+							fAnyOfSoldiersOwnItemsWereFixed = TRUE;
+
+							// quit looking if we're already out
+							if ( ubRepairPtsLeft == 0 )
+								break;
+						}
+					}
+
+					// quit looking if we're already out
+					if ( ubRepairPtsLeft == 0 )
+						break;
 				}
 
-				// quit looking if we're already out
-				if ( ubRepairPtsLeft == 0 )
-					break;
+				// if he fixed something of his, and now has no more of his own items to fix
+				if ( fAnyOfSoldiersOwnItemsWereFixed && !DoesCharacterHaveAnyItemsToRepair( pSoldier, -1 ) )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 0 ], pSoldier->GetName() );
+
+					// let player react
+					StopTimeCompression();
+				}
+
+				// repair items on others
+				if ( ubRepairPtsLeft )
+					RepairItemsOnOthers( pSoldier, &ubRepairPtsLeft );
 			}
-
-			// if he fixed something of his, and now has no more of his own items to fix
-			if ( fAnyOfSoldiersOwnItemsWereFixed && !DoesCharacterHaveAnyItemsToRepair( pSoldier, -1 ) )
-			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sRepairsDoneString[ 0 ], pSoldier->GetName() );
-
-				// let player react
-				StopTimeCompression();
-			}
-
-			// repair items on others
-			if ( ubRepairPtsLeft )
-				RepairItemsOnOthers( pSoldier, &ubRepairPtsLeft );
 		}
 	}
 
-	// what are the total amount of pts used by character?
+	// what is the total amount of pts used by character?
+	ubCleaningPtsUsed = ubInitialCleaningPts - ubCleaningPtsLeft;
+	if( ubCleaningPtsUsed > 0 )
+	{
+		// improve stats
+		StatChange( pSoldier, MECHANAMT, ( UINT16 ) (ubCleaningPtsUsed / 5), FALSE );
+		StatChange( pSoldier, DEXTAMT,	( UINT16 ) (ubCleaningPtsUsed / 5), FALSE );
+
+		// check if kit damaged/depleted
+		if( ( Random( 50 ) ) < (UINT32)(ubCleaningPtsUsed) )
+		{
+			// kit item damaged/depleted, burn up points of cleaning kit
+			UseKitPoints( pSoldier->GetObjectWithFlag( CLEANING_KIT ), (UINT16)(ubCleaningPtsUsed / 10 + 1), pSoldier );
+		}
+	}
+
+	// what is the total amount of pts used by character?
 	ubRepairPtsUsed = ubInitialRepairPts - ubRepairPtsLeft;
 	if( ubRepairPtsUsed > 0 )
 	{
@@ -4985,27 +5286,30 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	// if he really done
-	if ( HasCharacterFinishedRepairing( pSoldier ) )
+	BOOLEAN bCleaning = FALSE, bRepairing = FALSE;
+	// anything around to clean?
+	if ( pSoldier->GetObjectWithFlag( CLEANING_KIT ) != NULL && !bNothingLeftToClean )
 	{
-		// yup, that's all folks
-		AssignmentDone( pSoldier, TRUE, TRUE );
+		bCleaning = TRUE;
 	}
-	else	// still has stuff to repair
-	{
-		// Flugente: observed an instance where toolkit ran out, but assignment was not quitted, resulting in a crash on the next hour - better check here
-		if ( FindToolkit( pSoldier ) == NO_SLOT )
-		{
-			// he could (maybe) repair something, but can't because he doesn't have a tool kit!
-			AssignmentAborted( pSoldier, NO_MORE_TOOL_KITS );
-		}
 
-		// if nothing got repaired, there's a problem
-		if ( ubRepairPtsUsed == 0 )
-		{
-			// he can't repair anything because he doesn't have enough skill!
-			AssignmentAborted( pSoldier, INSUF_REPAIR_SKILL );
-		}
+	// anything around to fix?
+	if ( FindToolkit( pSoldier ) != NO_SLOT && IsAnythingAroundForSoldierToRepair( pSoldier ) )
+	{
+		bRepairing = TRUE;
+	}
+
+	// if nothing got repaired or cleaned, there's a problem
+	if ( ubRepairPtsUsed == 0 && ubCleaningPtsUsed == 0 )
+	{
+		// he can't repair anything because he doesn't have enough skill!
+		AssignmentAborted( pSoldier, INSUF_REPAIR_SKILL );
+	}
+	// nothing more to do?
+	else if ( !bCleaning && !bRepairing )
+	{
+		AssignmentDone( pSoldier, TRUE, TRUE );
+		StopTimeCompression();
 	}
 }
 
@@ -5039,6 +5343,20 @@ BOOLEAN IsItemRepairable(SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, IN
 	}
 
 	// nope
+	return ( FALSE );
+}
+
+BOOLEAN IsItemCleanable( SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, INT16 bThreshold )
+{
+	// only guns can be cleaned
+	if ( bStatus < 100 && Item[usItem].usItemClass & IC_GUN )
+	{
+		//  can't clean beyond repair threshold when Advanced Repair System is active
+		if ( gGameExternalOptions.fAdvRepairSystem && bStatus >= bThreshold )
+			return ( FALSE );
+		else
+			return ( TRUE );
+	}
 	return ( FALSE );
 }
 
@@ -8607,6 +8925,7 @@ void HandleShadingOfLinesForRepairMenu( void )
 	}
 
 	pSoldier = GetSelectedAssignSoldier( FALSE );
+	BOOL bHasToolkit = (FindToolkit( pSoldier ) != NO_SLOT);
 
 	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
 	// CreateDestroyMouseRegionForRepairMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForRepairMenu().
@@ -8622,7 +8941,7 @@ void HandleShadingOfLinesForRepairMenu( void )
 				{
 					if ( IsThisVehicleAccessibleToSoldier( pSoldier, iVehicleIndex ) )
 					{
-						if( CanCharacterRepairVehicle( pSoldier, iVehicleIndex ) == TRUE )
+						if( CanCharacterRepairVehicle( pSoldier, iVehicleIndex ) == TRUE && bHasToolkit )
 						{
 							// unshade vehicle line
 							UnShadeStringInBox( ghRepairBox, iCount );
@@ -8643,7 +8962,7 @@ void HandleShadingOfLinesForRepairMenu( void )
 	if ( IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) && IsTheSAMSiteInSectorRepairable( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 	{
 		// handle enable disable of repair sam option
-		if( CanSoldierRepairSAM( pSoldier ) )
+		if( CanSoldierRepairSAM( pSoldier ) && bHasToolkit )
 		{
 			// unshade SAM line
 			UnShadeStringInBox( ghRepairBox, iCount );
@@ -8660,7 +8979,7 @@ void HandleShadingOfLinesForRepairMenu( void )
 	if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 	{
 		// handle shading of repair robot option
-		if( CanCharacterRepairRobot( pSoldier ) )
+		if( CanCharacterRepairRobot( pSoldier ) && bHasToolkit )
 		{
 			// unshade robot line
 			UnShadeStringInBox( ghRepairBox, iCount );
@@ -8879,7 +9198,7 @@ void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			pSoldier->bVehicleUnderRepairID = ( INT8 ) iRepairWhat;
 
-			MakeSureToolKitIsInHand( pSoldier );
+//			MakeSureToolKitIsInHand( pSoldier );
 
 			// assign to a movement group
 			AssignMercToAMovementGroup( pSoldier );

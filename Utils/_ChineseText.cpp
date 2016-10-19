@@ -2358,6 +2358,9 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"%s竭尽可能地修理了%s。",
 	L"%s竭尽可能地修理了%s的%s。",
+
+	L"%s has cleaned the %s.",	// TODO.Translate
+	L"%s has cleaned %s's %s.",
 };
 
 // the country and its noun in the game
@@ -2703,7 +2706,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 STR16 pTrainingStrings[] =
 {
 	L"锻炼", // tell merc to train self
-    L"民兵",// tell merc to train town
+  L"民兵",// tell merc to train town
 	L"教练", // tell merc to act as trainer
 	L"学员", // tell merc to be train by other
 };
@@ -7069,6 +7072,7 @@ STR16 sRepairsDoneString[] =
 	L"%s 修复所有人携带的中型物品",//L"%s finished repairing everyone's medium carried items",
 	L"%s 修复所有人携带的小型物品",//L"%s finished repairing everyone's small carried items",
 	L"%s 修复所有人的携行具",//L"%s finished repairing everyone's LBE gear",
+	L"%s finished cleaning everyone's guns.",	// TODO.Translate
 };
 
 STR16 zGioDifConfirmText[]=
@@ -7968,7 +7972,7 @@ STR16 Additional113Text[]=
 {
 	L"铁血联盟2 v1.13 窗口模式需要一个16bpp的颜色深度。",
 	L"铁血联盟2 v1.13 全屏模式(%d x %d)不支持你的显示屏分辨率。\n请改变游戏分辨率或使用16bpp窗口模式。",	//L"Jagged Alliance 2 v1.13 fullscreen mode (%d x %d) is not supported by your primary screen.\nPlease either change the game resolution or use 16bpp windowed mode.",
-	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。",	//L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
+	L"存盘文件内部读取错误：存盘文件的“%s”数量跟 Ja2_Options.ini 设置的（$d）不一致。", //L"Internal error in reading %s slots from Savegame: Number of slots in Savegame (%d) differs from defined slots in ja2_options.ini settings (%d)",	
 	// WANNE: Savegame slots validation against INI file
 	L"佣兵 (MAX_NUMBER_PLAYER_MERCS) / 交通工具 (MAX_NUMBER_PLAYER_VEHICLES)", 
 	L"敌人 (MAX_NUMBER_ENEMIES_IN_TACTICAL)", 

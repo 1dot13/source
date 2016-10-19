@@ -2366,6 +2366,9 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"%s a réparé au mieux : %s.",
 	L"%s a aidé %s pour réparer au mieux : %s.",
+
+	L"%s has cleaned the %s.",	// TODO.Translate
+	L"%s has cleaned %s's %s.",
 };
 
 // the country and its noun in the game		// TODO.Translate
@@ -7076,13 +7079,14 @@ STR16	gzCreditNameFunny[]=
 
 STR16 sRepairsDoneString[] =
 {
-	L"%s a terminé la réparation de ses objets",
-	L"%s a terminé la réparation des armes & protections",
-	L"%s a terminé la réparation des objets portés",
-	L"%s a fini de réparer les grands objets portés par chacun",
-	L"%s a fini de réparer les moyens objets portés par chacun",
-	L"%s a fini de réparer les petits objets portés par chacun",
-	L"%s a fini de réparer le mécanisme LBE de chacun",
+	L"%s a terminé la réparation de ses objets.",
+	L"%s a terminé la réparation des armes & protections.",
+	L"%s a terminé la réparation des objets portés.",
+	L"%s a fini de réparer les grands objets portés par chacun.",
+	L"%s a fini de réparer les moyens objets portés par chacun.",
+	L"%s a fini de réparer les petits objets portés par chacun.",
+	L"%s a fini de réparer le mécanisme LBE de chacun.",
+	L"%s finished cleaning everyone's guns.",	// TODO.Translate
 };
 
 STR16 zGioDifConfirmText[]=

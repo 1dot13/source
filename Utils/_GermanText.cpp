@@ -2372,8 +2372,11 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s passt in keine freie Einbaustelle.",
 	L"Für diese Tasche ist nicht mehr genug Platz.",
 
-	L"%s has repaired the %s as much as possible.", // TODO.Translate
-	L"%s has repaired %s's %s as much as possible.",
+	L"%s hat %s so gut wie möglich repariert.",
+	L"%s hat %s's %s so gut wie möglich repariert.",
+
+	L"%s hat %s gereinigt.",
+	L"%s hat %s's %s gereinigt.",
 };
 
 // the country and its noun in the game
@@ -6908,13 +6911,14 @@ STR16	gzCreditNameFunny[]=
 
 STR16 sRepairsDoneString[] =
 {
-	L"%s hat seine eigenen Gegenstände repariert",
-	L"%s hat die Waffen und Rüstungen aller Teammitglieder repariert",
-	L"%s hat die aktivierten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die großen mitgeführten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die mittelgroßen mitgeführten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die kleinen mitgeführten Gegenstände aller Teammitglieder repariert",
-	L"%s hat die Trageausrüstung aller Teammitglieder repariert",
+	L"%s hat seine eigenen Gegenstände repariert.",
+	L"%s hat die Waffen und Rüstungen aller Teammitglieder repariert.",
+	L"%s hat die aktivierten Gegenstände aller Teammitglieder repariert.",
+	L"%s hat die großen mitgeführten Gegenstände aller Teammitglieder repariert.",
+	L"%s hat die mittelgroßen mitgeführten Gegenstände aller Teammitglieder repariert.",
+	L"%s hat die kleinen mitgeführten Gegenstände aller Teammitglieder repariert.",
+	L"%s hat die Trageausrüstung aller Teammitglieder repariert.",
+	L"%s hat die Waffen aller Teammitglieder gereinigt.",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -7261,10 +7265,10 @@ STR16 gzTransformationMessage[] =
 	L"%s wurde aufgeteilt in %d Magazine, wobei jedes davon %d Schuss enthält.",
 	L"%s wurde aufgeteilt in %s's Inventar.",
 	L"Es ist nicht genügend Platz in %s's Inventar um die Magazine dieses Kalibers abzulegen!",
-	L"Instant mode",	// TODO.Translate
-	L"Delayed mode",
-	L"Instant mode (%d AP)",
-	L"Delayed mode (%d AP)",
+	L"Sofortmodus",
+	L"Verzögerter Modus",
+	L"Sofortmodus (%d AP)",
+	L"Verzögerter Modus (%d AP)",
 };
 
 // WANNE: These are the email texts Speck sends when one of the 4 new 1.13 MERC mercs have levelled up

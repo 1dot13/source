@@ -14139,7 +14139,7 @@ BOOLEAN SOLDIERTYPE::SoldierCarriesTwoHandedWeapon( void )
 	return(FALSE);
 }
 
-extern void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, UINT16 naturalDirt = 100, BOOLEAN isUnderground = TRUE );
+extern void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOOLEAN isUnderground = TRUE );
 // Flugente: Cool down/decay all items in inventory
 void SOLDIERTYPE::SoldierInventoryCoolDown( void )
 {
@@ -14195,10 +14195,9 @@ void SOLDIERTYPE::SoldierInventoryCoolDown( void )
 	// handle flashlight. This is necessary in this location, as we need to do this at least once per turn
 	this->HandleFlashLights( );
 
-	if ( !gGameExternalOptions.fWeaponOverheating && !gGameExternalOptions.fDirtSystem && !gGameOptions.fFoodSystem )
+	if ( !gGameExternalOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
 		return;
 
-#if TRUE //start reusing existing code from HandleItemCooldownFunctions, set to FALSE if original code should be used
 	INT8 numStacks = (INT8)this->inv.size( );											// remember inventorysize, so we don't call size() repeatedly
 	extern UINT32 guiLastTacticalRealTime, guiLastStrategicTime;
 	UINT32 secondsPassed = 5;//GetJA2Clock() > guiLastTacticalRealTime? (GetJA2Clock() - guiLastTacticalRealTime)/1000 : 0;
@@ -14206,110 +14205,6 @@ void SOLDIERTYPE::SoldierInventoryCoolDown( void )
 	{
 		HandleItemCooldownFunctions( &(this->inv[bLoop]), secondsPassed );
 	}
-
-#else //start using original redundant code
-	// one hour has 60 minutes, with 12 5-second-intervals (cooldown values are based on 5-second values)
-	FLOAT fooddecaymod = gGameExternalOptions.sFoodDecayModificator;
-
-	// food decays slower if underground
-	if ( gbWorldSectorZ > 0 )
-		fooddecaymod *= 0.8f;
-
-	// get sector-specific dirt threshold
-	UINT16 sectormod = 0;
-	UINT8 ubSectorId = SECTOR( gWorldSectorX, gWorldSectorY );
-	if ( gbWorldSectorZ > 0 )
-		sectormod = 100;
-	else if ( ubSectorId >= 0 && ubSectorId < 256 )
-	{
-		sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
-	}
-
-	INT8 invsize = (INT8)this->inv.size( );											// remember inventorysize, so we don't call size() repeatedly
-
-	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )									// ... for all items in our inventory ...
-	{
-		if ( this->inv[bLoop].exists( ) )
-		{
-			OBJECTTYPE * pObj = &(this->inv[bLoop]);								// ... get pointer for this item ...
-
-			if ( pObj != NULL )														// ... if pointer is not obviously useless ...
-			{
-				// ... if Item exists and is a gun, a launcher or a barrel ...
-				if ( gGameExternalOptions.fWeaponOverheating && (Item[pObj->usItem].usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObj->usItem].barrel == TRUE) )
-				{
-					for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
-					{
-						FLOAT temperature = (*pObj)[i]->data.bTemperature;			// ... get temperature of item ...
-
-						FLOAT cooldownfactor = GetItemCooldownFactor( pObj );			// ... get cooldown factor ...
-
-						FLOAT newtemperature = max( 0.0f, temperature - cooldownfactor );	// ... calculate new temperature ...
-						(*pObj)[i]->data.bTemperature = newtemperature;				// ... set new temperature
-
-#if 0//def JA2TESTVERSION
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
-#endif
-						// for every objects, we also have to check wether there are weapon attachments (eg. underbarrel grenade launchers), and cool them down too
-						attachmentList::iterator iterend = (*pObj)[i]->attachments.end( );
-						for ( attachmentList::iterator iter = (*pObj)[i]->attachments.begin( ); iter != iterend; ++iter )
-						{
-							if ( iter->exists( ) && Item[iter->usItem].usItemClass & (IC_GUN | IC_LAUNCHER) )
-							{
-								FLOAT temperature = (*iter)[i]->data.bTemperature;			// ... get temperature of item ...
-
-								FLOAT cooldownfactor = GetItemCooldownFactor( &(*iter) );	// ... get cooldown factor ...
-
-								FLOAT newtemperature = max( 0.0f, temperature - cooldownfactor );	// ... calculate new temperature ...
-								(*iter)[i]->data.bTemperature = newtemperature;				// ... set new temperature
-
-#if 0//def JA2TESTVERSION
-								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Item temperature lowered from %4.2f to %4.2f", temperature, newtemperature );
-#endif
-
-								// we assume that there can exist only 1 UGL per weapon
-								break;
-							}
-						}
-					}
-				}
-
-				if ( gGameExternalOptions.fDirtSystem && ((Item[pObj->usItem].usItemClass & IC_WEAPON) || (Item[pObj->usItem].usItemClass & IC_ARMOUR)) )
-				{
-					FLOAT dirtincreasefactor = GetItemDirtIncreaseFactor( pObj, FALSE );			// ... get dirt increase factor ...
-
-					// the current sector determines how much dirt increases
-					dirtincreasefactor *= (sectormod) / 100;
-
-					dirtincreasefactor /= gGameExternalOptions.usSectorDirtDivider;
-
-					// items in pockets are a bit protected from dirt
-					if ( bLoop > KNIFEPOCKPOS )
-						dirtincreasefactor /= 3.0f;
-
-					if ( dirtincreasefactor > 0.0f )									// ... item can get dirtier ...
-					{
-						for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
-						{
-							(*pObj)[i]->data.bDirtLevel = max( 0.0f, min( OVERHEATING_MAX_TEMPERATURE, (*pObj)[i]->data.bDirtLevel + dirtincreasefactor ) );	// set new temperature														
-						}
-					}
-				}
-
-				if ( gGameOptions.fFoodSystem && Item[pObj->usItem].foodtype > 0 )
-				{
-					if ( Food[Item[pObj->usItem].foodtype].usDecayRate > 0.0f )		// ... if the food can decay...
-					{
-						for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )			// ... there might be multiple items here (item stack), so for each one ...
-						{
-							(*pObj)[i]->data.bTemperature = max( 0.0f, (*pObj)[i]->data.bTemperature - fooddecaymod * Food[Item[pObj->usItem].foodtype].usDecayRate );	// set new temperature														
-						}
-					}
-				}
-			}
-		}
-	}
-#endif //end using original code
 }
 
 // Flugente: determine if we can rest our weapon on something. This can only happen when STANDING/CROUCHED. As a result, we get superior handling modifiers (we apply the PRONE modfiers)
@@ -15015,75 +14910,6 @@ OBJECTTYPE* SOLDIERTYPE::GetObjectWithFlag( UINT32 aFlag )
 	}
 
 	return(pObj);
-}
-
-// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all weapons found, otherwise just the first one
-void SOLDIERTYPE::CleanWeapon( BOOLEAN fCleanAll )
-{
-	// in turnbased, this action costs APs. remove them if possible, otherwise, return
-	INT16 apcost = APBPConstants[AP_CLEANINGKIT];
-
-	if ( gTacticalStatus.uiFlags & TURNBASED )
-	{
-		if ( !EnoughPoints( this, apcost, 0, TRUE ) )
-			return;
-	}
-
-	OBJECTTYPE* pCleaningKit = GetObjectWithFlag( CLEANING_KIT );
-
-	if ( pCleaningKit )
-	{
-		INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
-
-		for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )								// ... for all items in our inventory ...
-		{
-			if ( inv[bLoop].exists( ) && (Item[inv[bLoop].usItem].usItemClass & IC_WEAPON) )
-			{
-				OBJECTTYPE* pObj = &(inv[bLoop]);							// ... get pointer for this item ...
-
-				if ( pObj != NULL )													// ... if pointer is not obviously useless ...
-				{
-					for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
-					{
-						if ( (*pObj)[i]->data.bDirtLevel > DIRT_MIN_TO_CLEAN )		// ... if weapon is at least a bit dirty ...
-						{
-							// have to recheck for a cleaning kit, as we might have used it up if cleaning a stack of weapons
-							pCleaningKit = GetObjectWithFlag( CLEANING_KIT );
-
-							if ( pCleaningKit )
-							{
-								if ( (*pObj)[i]->data.bDirtLevel > 0 )
-								{
-									(*pObj)[i]->data.bDirtLevel = 0.0f;
-
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[WEAPON_CLEANING_STR], this->GetName( ), Item[pObj->usItem].szItemName );
-
-									// always use up 1% of the cleaning kit (they last too long otherwise)
-									UseKitPoints( pCleaningKit, 1, this );
-
-									if ( gTacticalStatus.uiFlags & TURNBASED )
-									{
-										// use up APs
-										DeductPoints( this, apcost, 0, AFTERACTION_INTERRUPT );
-
-										// if fCleanAll is false, only clean first weapon
-										if ( !fCleanAll )
-											return;
-
-										// get out of here if we dont have enough APs for another cleaning operation
-										if ( !EnoughPoints( this, apcost, 0, TRUE ) )
-											return;
-									}
-								}
-							}
-							else
-								return;
-						}
-					}
-				}
-			}
-		}
-	}
 }
 
 extern INT16 uiNIVSlotType[NUM_INV_SLOTS];

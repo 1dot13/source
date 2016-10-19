@@ -165,7 +165,7 @@ loadscreenhintsEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "overheat") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curLoadScreenHint.usFlags	|= (UINT8) atol(pData->szCharData) ? LOADSCREEN_OVERHEAT_DIRT : 0;
+			pData->curLoadScreenHint.usFlags	|= (UINT8) atol(pData->szCharData) ? LOADSCREEN_OVERHEAT : 0;
 		}
 		else if(strcmp(name, "ncth") == 0)
 		{

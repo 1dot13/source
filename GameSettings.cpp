@@ -1871,9 +1871,6 @@ void LoadGameExternalOptions()
 	// Flugente: advanced repair/dirt system
 	gGameExternalOptions.fAdvRepairSystem					= iniReader.ReadBoolean("Strategic Gameplay Settings","ADVANCED_REPAIR", FALSE);
 	gGameExternalOptions.fOnlyRepairGunsArmour				= iniReader.ReadBoolean("Strategic Gameplay Settings","ONLY_REPAIR_GUNS_AND_ARMOUR", FALSE);
-	gGameExternalOptions.fDirtSystem						= iniReader.ReadBoolean("Strategic Gameplay Settings","DIRT_SYSTEM", FALSE);
-	gGameExternalOptions.fFullRepairCleansGun				= iniReader.ReadBoolean("Strategic Gameplay Settings","FULL_REPAIR_CLEANS_GUN", FALSE);	
-	gGameExternalOptions.usSectorDirtDivider				= iniReader.ReadInteger("Strategic Gameplay Settings","SECTOR_DIRT_DIVIDER", 1000, 1, 100000);
 	gGameExternalOptions.iDirtGlobalModifier				= iniReader.ReadFloat  ("Strategic Gameplay Settings","DIRT_GLOBAL_MODIFIER", 1.25f, 0.1f, 10.0f);
 	
 	// Flugente: prisoner system
@@ -2302,6 +2299,7 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.ubRepairCostPerJam					= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_POINT_COST_TO_FIX_WEAPON_JAM",2, 1, 10);
 	gGameExternalOptions.ubRepairRateDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_RATE_DIVISOR",2500, 500, 25000);
+	gGameExternalOptions.ubCleaningRateDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","CLEANING_RATE_DIVISOR",500, 100, 25000);
 	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_SESSIONS_PER_DAY",24, 1, 96);
 	
 	//SaveGame slot by Jazz		

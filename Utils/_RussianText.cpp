@@ -2358,6 +2358,9 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"%s отремонтировал(а) %s, насколько это было возможно.",
 	L"%s отремонтировал(а) у наёмника %s предмет %s, насколько это было возможно.",
+
+	L"%s has cleaned the %s.",	// TODO.Translate
+	L"%s has cleaned %s's %s.",
 };
 
 // the country and its noun in the game
@@ -7070,6 +7073,7 @@ STR16 sRepairsDoneString[] =
 	L"%s: завершён ремонт всех малых вещей отряда.",
 	L"%s: завершён ремонт всех мелких вещей отряда.",
 	L"%s: завершён ремонт разгрузочных систем отряда.",
+	L"%s finished cleaning everyone's guns.",	// TODO.Translate
 };
 
 STR16 zGioDifConfirmText[]=

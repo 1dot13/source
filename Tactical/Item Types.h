@@ -225,7 +225,6 @@ typedef enum
 
 // Flugente: define for maximum temperature
 #define OVERHEATING_MAX_TEMPERATURE			60000.0f
-#define DIRT_MIN_TO_CLEAN					10.0f		// minimum dirt until we consider cleaning (as weapons constantly get dirtier, this prevents a gun from being constantly cleaned)
 
 //forward declaration
 class OBJECTTYPE;
@@ -483,9 +482,10 @@ public:
 	UINT32		ubWireNetworkFlag;	// flags for the tripwire network
 	INT8		bDefuseFrequency;	// frequency for defusing, >=0 values used only
 
-	// Flugente: advanced repair/dirt system
+	// Flugente: advanced repair system
 	INT16		sRepairThreshold;	// repair only possible up to this value
-	FLOAT		bDirtLevel;			// counter for how dirty a gun is
+
+	FLOAT		bFiller;			// unused for now
 
 	UINT64		sObjectFlag;		// used to notify of various states that apply to this object, but not the item in general
 };

@@ -3159,7 +3159,6 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 
 		// Flugente: shopkeepers will also restore an item's repair threshold
 		RepairItem.ItemObject[0]->data.sRepairThreshold = 100;
-		RepairItem.ItemObject[0]->data.bDirtLevel = 0.0f;
 	}
 
 	// max condition of all permanent attachments on it
@@ -3171,7 +3170,6 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 
 			// Flugente: shopkeepers will also restore an item's repair threshold and clean it
 			(*iter)[0]->data.sRepairThreshold = 100;
-			(*iter)[0]->data.bDirtLevel = 0.0f;
 		}
 	}
 

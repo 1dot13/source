@@ -1277,10 +1277,6 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 			return FALSE;
 	}
 
-	// silversurfer: we don't need cleaning kits if the dirt system is off
-	if ( !gGameExternalOptions.fDirtSystem && HasItemFlag(usItemIndex, CLEANING_KIT) )
-		return FALSE;
-
 	//if the user has selected the reduced gun list
 	if( !gGameOptions.fGunNut )
 	{
@@ -7962,7 +7958,6 @@ BOOLEAN CreateGun( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	pStackedObject->data.bTemperature = 0.0f;
 	
 	pStackedObject->data.sRepairThreshold = (200 + bStatus)/3;	// arbitrary threshold
-	pStackedObject->data.bDirtLevel = 0.0f;
 	pStackedObject->data.sObjectFlag = 0;
 
 	if (Weapon[ usItem ].ubWeaponClass == MONSTERCLASS)
@@ -8117,7 +8112,6 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 		else
 			(*pObj)[0]->data.sRepairThreshold = 100;
 
-		(*pObj)[0]->data.bDirtLevel = 0.0f;
 	}
 	if (fRet)
 	{

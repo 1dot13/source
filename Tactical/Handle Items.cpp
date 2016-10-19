@@ -157,7 +157,6 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo );
 
 // added by Flugente
 void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
-void CleanWeapons( BOOLEAN fEntireTeam );
 void UpdateGear();
 void StartCorpseMessageBox( SOLDIERTYPE * pSoldier, INT32 sGridNo,  INT8 bLevel );
 
@@ -5041,8 +5040,11 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 		wcscpy( gzUserDefinedButton[1], TacticalStr[TAKE_OFF_CLOTHES_STR] );
 
 	// clean weapons - in realtime of the entire team, in turnbased only for the selected merc
-	wcscpy( gzUserDefinedButton[2], (gTacticalStatus.uiFlags & INCOMBAT) ? TacticalStr[CLEAN_ONE_GUN_STR] : TacticalStr[CLEAN_ALL_GUNS_STR] );
+//	wcscpy( gzUserDefinedButton[2], (gTacticalStatus.uiFlags & INCOMBAT) ? TacticalStr[CLEAN_ONE_GUN_STR] : TacticalStr[CLEAN_ALL_GUNS_STR] );
+	// silversurfer: instant cleaning is not used anymore. Guns are cleaned via repair items assignment.
+	wcscpy( gzUserDefinedButton[2], TacticalStr[UNUSED_STR] );
 
+	// improve gear
 	wcscpy( gzUserDefinedButton[3], TacticalStr[IMPROVEGEARBUTTON_STR] );
 
 	// order militia to drop/pick up gear
@@ -5066,46 +5068,6 @@ void StartTacticalFunctionSelectionMessageBox( SOLDIERTYPE * pSoldier, INT32 sGr
 	wcscpy( gzUserDefinedButton[7], TacticalStr[ UNUSED_STR ] );
 
 	DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ FUNCTION_SELECTION_STR ], GAME_SCREEN, MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS, TacticalFunctionSelectionMessageBoxCallBack, NULL, MSG_BOX_DEFAULT_BUTTON_1 );
-}
-
-void CleanWeapons( BOOLEAN fEntireTeam )
-{
-	if ( !gGameExternalOptions.fDirtSystem )
-		return;
-
-	// no functionality if not in tactical or in combat, or nobody is here
-	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) )
-		return;
-
-	// if in combat, always only for selected merc
-	if ( !fEntireTeam )
-	{
-		if ( gusSelectedSoldier == NOBODY )
-			return;
-
-		SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
-
-		if ( pSoldier->bActive )
-			pSoldier->CleanWeapon(FALSE);
-	}
-	else	// perform action for every merc in this sector
-	{	
-		UINT16									bMercID, bLastTeamID;
-		SOLDIERTYPE*							pSoldier = NULL;
-
-		bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-
-		// loop through all mercs
-		for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; ++bMercID, ++pSoldier )
-		{
-			//if the merc is in this sector
-			if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE && pSoldier->bInSector && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
-			{
-				pSoldier->CleanWeapon(TRUE);
-			}
-		}
-	}
 }
 
 // Flugente: on a key press, we loop over each team members' inventory and exchange it with world items that have a higher status
@@ -5261,7 +5223,6 @@ void UpdateGear()
 									UINT32	ubWireNetworkFlag = (*pObj)[i]->data.ubWireNetworkFlag;
 									INT8	bDefuseFrequency = (*pObj)[i]->data.bDefuseFrequency;
 									INT16	sRepairThreshold = (*pObj)[i]->data.sRepairThreshold;
-									FLOAT	bDirtLevel = (*pObj)[i]->data.bDirtLevel;
 									UINT64	sObjectFlag = (*pObj)[i]->data.sObjectFlag;
 
 									// set data on our object
@@ -5274,7 +5235,6 @@ void UpdateGear()
 									(*pObj)[i]->data.ubWireNetworkFlag = (*pObj_Better)[index]->data.ubWireNetworkFlag;
 									(*pObj)[i]->data.bDefuseFrequency = (*pObj_Better)[index]->data.bDefuseFrequency;
 									(*pObj)[i]->data.sRepairThreshold = (*pObj_Better)[index]->data.sRepairThreshold;
-									(*pObj)[i]->data.bDirtLevel = (*pObj_Better)[index]->data.bDirtLevel;
 									(*pObj)[i]->data.sObjectFlag = (*pObj_Better)[index]->data.sObjectFlag;
 
 									// set data on world object
@@ -5287,7 +5247,6 @@ void UpdateGear()
 									(*pObj_Better)[index]->data.ubWireNetworkFlag = ubWireNetworkFlag;
 									(*pObj_Better)[index]->data.bDefuseFrequency = bDefuseFrequency;
 									(*pObj_Better)[index]->data.sRepairThreshold = sRepairThreshold;
-									(*pObj_Better)[index]->data.bDirtLevel = bDirtLevel;
 									(*pObj_Better)[index]->data.sObjectFlag = sObjectFlag;
 
 									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[IMPROVEGEARDESCRIBE_STR], pSoldier->GetName( ), Item[pObj->usItem].szItemName );
@@ -5511,7 +5470,7 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
        case 3:
 			// clean weapons - in realtime of the entire team, in turnbased only for the selected merc
-		    CleanWeapons( !(gTacticalStatus.uiFlags & INCOMBAT) );
+		    //CleanWeapons( !(gTacticalStatus.uiFlags & INCOMBAT) );
 			break;
        case 4:
 		    UpdateGear();

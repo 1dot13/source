@@ -1767,9 +1767,6 @@ public:
 	// Flugente: return first found object with a specific flag from our inventory
 	OBJECTTYPE* GetObjectWithFlag( UINT32 aFlag );
 
-	// use cleaning kits to clean weapons in inventory. fCleanAll = TRUE: clean all weapons found, otherwise just the first one
-	void	CleanWeapon( BOOLEAN fCleanAll );
-
 	// Flugente: functions for the covert ops trait
 
 	// do we look like a civilian?
