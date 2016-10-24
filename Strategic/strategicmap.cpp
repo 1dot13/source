@@ -5550,7 +5550,7 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 
 		if ( guiCurrentSaveGameVersion < WORKERS )
 		{
-			SectorInfo[sectorID].usWorkers = 0;
+			SectorInfo[sectorID].usWorkers = SectorExternalData[sectorID][0].maxworkers * gGameExternalOptions.dInitialWorkerRate;
 			SectorInfo[sectorID].ubWorkerTrainingHundredths = 0;
 		}
 	}
