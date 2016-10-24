@@ -92,6 +92,8 @@ extern BOOLEAN fMapInventoryZoom;
 // HEADROCK HAM 5: And this, for checking whether an item is in the pool.
 extern std::vector<WORLDITEM> pInventoryPoolList;
 
+extern INT16 uiNIVSlotType[NUM_INV_SLOTS];
+
 UINT16 OldWayOfCalculatingScopeBonus(SOLDIERTYPE *pSoldier);
 // weight units are 100g each
 
@@ -8966,9 +8968,37 @@ void CheckEquipmentForDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 	UINT8 invsize = pSoldier->inv.size();
 	for (UINT8 bSlot = 0; bSlot < invsize; ++bSlot)
 	{
-		if (pSoldier->inv[bSlot].exists() == false) {
+		if (pSoldier->inv[bSlot].exists() == false){
 			continue;
 		}
+
+		// Flugente: if this item is 'in' LBE that protects it, don't damage it
+		if ( UsingNewInventorySystem( ) )
+		{
+			INT16 lbeslot = 0;
+
+			switch ( uiNIVSlotType[bSlot] )
+			{
+			case 3:		lbeslot = VESTPOCKPOS;	break;
+			case 4:
+				if ( bSlot == MEDPOCK3POS || bSlot == SMALLPOCK11POS || bSlot == SMALLPOCK12POS || bSlot == SMALLPOCK13POS || bSlot == SMALLPOCK14POS )
+					lbeslot = LTHIGHPOCKPOS;
+				else
+					lbeslot = RTHIGHPOCKPOS;
+				break;
+			case 5:		lbeslot = CPACKPOCKPOS;	break;
+			case 6:		lbeslot = BPACKPOCKPOS;	break;
+			default:
+				break;
+			}
+
+			if ( VESTPOCKPOS <= lbeslot && lbeslot <= BPACKPOCKPOS )
+			{
+				if ( pSoldier->inv[lbeslot].exists( ) && HasItemFlag( pSoldier->inv[lbeslot].usItem, LBE_EXPLOSIONPROOF ) )
+					continue;
+			}
+		}
+
 		ubNumberOfObjects = pSoldier->inv[bSlot].ubNumberOfObjects;
 		fBlowsUp = DamageItem( &(pSoldier->inv[bSlot]), iDamage, FALSE );
 		if (fBlowsUp)

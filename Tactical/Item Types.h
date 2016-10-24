@@ -769,7 +769,7 @@ extern OBJECTTYPE gTempObject;
 #define ROOF_COLLAPSE_ITEM		0x10000000	//268435456	// this item is required in the collapsing of roof tiles. It is used internally and should never be seen by the player
 #define DISEASEPROTECTION_1		0x20000000	//536870912		// this item protects us from getting diseases by human contact if kept in inventory
 #define DISEASEPROTECTION_2		0x40000000	//1073741824	// this item protects us from getting diseases by human contact if kept in inventory
-/*#define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
+#define LBE_EXPLOSIONPROOF		0x80000000	//2147483648	// any gear in LBE with this flag is protected from explosions
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: flags for objects --------
