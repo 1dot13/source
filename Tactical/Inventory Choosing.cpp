@@ -247,7 +247,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 	{
 		return;
 	}
-	
+		
 	if ( ARMED_VEHICLE( pp ) )
 	{
 		EquipArmouredVehicle( pp, TANK( pp ) );
@@ -332,15 +332,22 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		// SANDRO - I've split the item choosing below, so the item choices for militia can be
 		// handled differently than for enemies.
 		case SOLDIER_CLASS_ADMINISTRATOR:
-			//if ( gGameOptions.fSlowProgressForEnemyItemsChoice )
-			//	bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_ADMINISTRATOR );
-			//else
+		case SOLDIER_CLASS_GREEN_MILITIA:
 			bRating = BAD_ADMINISTRATOR_EQUIPMENT_RATING + bEquipmentModifier;
 
 			// Equipment quality modifier
-			if ( gGameExternalOptions.sEnemyAdminEquipmentQualityModifier != 0 )
-				bRating += gGameExternalOptions.sEnemyAdminEquipmentQualityModifier;
-
+			if ( bSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
+			{
+				if ( gGameExternalOptions.sEnemyAdminEquipmentQualityModifier != 0 )
+					bRating += gGameExternalOptions.sEnemyAdminEquipmentQualityModifier;
+			}
+			else if ( bSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
+			{
+				// SANDRO - Militia equipment quality bonus
+				if ( gGameExternalOptions.bGreenMilitiaEquipmentQualityModifier != 0 )
+					bRating += gGameExternalOptions.bGreenMilitiaEquipmentQualityModifier;
+			}
+			
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -353,9 +360,17 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			bHelmetClass = bRating;
 			// no leggings
 
-			if( Chance( 30 ) )
-				bKnifeClass = bRating;
-
+			if ( bSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
+			{
+				if ( Chance( 30 ) )
+					bKnifeClass = bRating;
+			}
+			else if ( bSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
+			{
+				if ( Chance( 15 ) )
+					bKnifeClass = bRating;
+			}
+			
 			bAmmoClips = (INT8)(3 + Random( 2 ));
 
 			if( bRating >= GOOD_ADMINISTRATOR_EQUIPMENT_RATING )
@@ -382,65 +397,28 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 				}
 			}
 			break;
-		case SOLDIER_CLASS_GREEN_MILITIA:
-
-			bRating = BAD_ADMINISTRATOR_EQUIPMENT_RATING + bEquipmentModifier;
-
-			///////////////////////////////////////////////////////////////////////////////////////////
-			// SANDRO - Militia equipment quality bonus
-			if ( gGameExternalOptions.bGreenMilitiaEquipmentQualityModifier != 0 )
-				bRating += gGameExternalOptions.bGreenMilitiaEquipmentQualityModifier;
-			///////////////////////////////////////////////////////////////////////////////////////////
-
-			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
-
-			bWeaponClass = bRating;
-			//Headrocktest, remove for release
-			//bLBEClass = bRating;
-
-			//Note:  in some cases the class of armour and/or helmet won't be high enough to make
-			//			 the lowest level.
-			bVestClass = bRating;
-			bHelmetClass = bRating;
-
-			if( Chance( 15 ) )
-				bKnifeClass = bRating;
-
-			bAmmoClips = (INT8)(3 + Random( 2 ));
-
-			if( bRating >= GOOD_ADMINISTRATOR_EQUIPMENT_RATING )
-			{
-				bAmmoClips++;
-
-				bMiscClass = bRating;
-			}
-
-			if( bRating >= GREAT_ADMINISTRATOR_EQUIPMENT_RATING )
-			{
-				bGrenades = 1, bGrenadeClass = bRating;
-			}
-
-			if( ( bRating > MIN_EQUIPMENT_CLASS ) && bRating < MAX_EQUIPMENT_CLASS )
-			{ //Randomly decide if there is to be an upgrade of guns vs armour (one goes up, the other down)
-				switch( Random( 5 ) )
-				{
-					case 0:	bWeaponClass++, bVestClass--;					break;	//better gun, worse armour
-					case 1:	bWeaponClass--, bVestClass++;					break;	//worse gun, better armour
-				}
-			}
-			break;
 
 		case SOLDIER_CLASS_ARMY:
+		case SOLDIER_CLASS_REG_MILITIA:
 			//army guys tend to have a broad range of equipment
 			//if ( gGameOptions.fSlowProgressForEnemyItemsChoice )
 			//	bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_ARMY );
 			//else
-				bRating = BAD_ARMY_EQUIPMENT_RATING + bEquipmentModifier;
+			bRating = BAD_ARMY_EQUIPMENT_RATING + bEquipmentModifier;
 
 			// Equipment quality modifier
-			if ( gGameExternalOptions.sEnemyRegularEquipmentQualityModifier != 0 )
-				bRating += gGameExternalOptions.sEnemyRegularEquipmentQualityModifier;
-				
+			if ( bSoldierClass == SOLDIER_CLASS_ARMY )
+			{
+				if ( gGameExternalOptions.sEnemyRegularEquipmentQualityModifier != 0 )
+					bRating += gGameExternalOptions.sEnemyRegularEquipmentQualityModifier;
+			}
+			else if ( bSoldierClass == SOLDIER_CLASS_REG_MILITIA )
+			{
+				// SANDRO - Militia equipment quality bonus
+				if ( gGameExternalOptions.bRegularMilitiaEquipmentQualityModifier != 0 )
+					bRating += gGameExternalOptions.bRegularMilitiaEquipmentQualityModifier;
+			}
+							
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -484,9 +462,17 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 					bBombClass = bRating;
 				}
 			}
-
-			if( Chance( 35 ) )
-				bKnifeClass = bRating;
+			
+			if ( bSoldierClass == SOLDIER_CLASS_ARMY )
+			{
+				if ( Chance( 35 ) )
+					bKnifeClass = bRating;
+			}
+			else if ( bSoldierClass == SOLDIER_CLASS_REG_MILITIA )
+			{
+				if ( Chance( 20 ) )
+					bKnifeClass = bRating;
+			}
 
 			// Headrock: Chance for soldier to carry better LBE
 			//if( Chance( 50 ) )
@@ -541,7 +527,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 
 					case 6:
 						// one per team maximum!
-						if ( (pp->bExpLevel >= 5) && (guiMortarsRolledByTeam < zDiffSetting[gGameOptions.ubDifficultyLevel].usMaxMortarsPerTeam) )
+						if ( bSoldierClass != SOLDIER_CLASS_REG_MILITIA && ( pp->bExpLevel >= 5 ) && (guiMortarsRolledByTeam < zDiffSetting[gGameOptions.ubDifficultyLevel].usMaxMortarsPerTeam) )
 						{
 							//mortar
 							fMortar = TRUE;
@@ -555,121 +541,27 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 				}
 			}
 			break;
-		case SOLDIER_CLASS_REG_MILITIA:
-			
-			bRating = BAD_ARMY_EQUIPMENT_RATING + bEquipmentModifier;
-
-			///////////////////////////////////////////////////////////////////////////////////////////
-			// SANDRO - Militia equipment quality bonus
-			if ( gGameExternalOptions.bRegularMilitiaEquipmentQualityModifier != 0 )
-				bRating += gGameExternalOptions.bRegularMilitiaEquipmentQualityModifier;
-			///////////////////////////////////////////////////////////////////////////////////////////
-
-			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
-
-			bWeaponClass = bRating;
-			bVestClass = bRating;
-			bHelmetClass = bRating;
-			bGrenadeClass = bRating;
-			//WarmSteel - attachments don't need to be as high a class, controversional and might be better to externalize?
-			bAttachClass = bRating*3/8;
-
-
-			if( ( bRating >= GOOD_ARMY_EQUIPMENT_RATING ) && Chance(33) )
-			{
-				fAttachment = TRUE;
-				bAttachClass = bRating*5/8;
-			}
-
-			bAmmoClips = (INT8)(3 + Random( 2 ));
-
-			if( bRating >= AVERAGE_ARMY_EQUIPMENT_RATING )
-			{
-				bGrenades = (INT8)Random( 2 );
-				bKitClass = bRating;
-				bMiscClass = bRating;
-			}
-
-			if( bRating >= GOOD_ARMY_EQUIPMENT_RATING )
-			{
-				bGrenades++;
-			}
-
-			if( bRating >= GREAT_ARMY_EQUIPMENT_RATING )
-			{
-				bGrenades++;
-
-				bLeggingClass = bRating;
-
-				if ( Chance( 25 ) )
-				{
-					bBombClass = bRating;
-				}
-			}
-
-			if( Chance( 20 ) )
-				bKnifeClass = bRating;
-
-			if( ( bRating > MIN_EQUIPMENT_CLASS ) && bRating < MAX_EQUIPMENT_CLASS )
-			{
-				switch( Random( 7 ) )
-				{
-					case 3:	bWeaponClass++, bVestClass--;		break;	//better gun, worse armour
-					case 4: bWeaponClass--, bVestClass++;		break;	//worse gun, better armour
-					case 5: bVestClass++, bHelmetClass--;		break;	//better armour, worse helmet
-					case 6: bVestClass--, bHelmetClass++;		break;	//worse armour, better helmet
-				}
-			}
-
-			// if well-enough equipped, 1/5 chance of something really special
-			if( ( bRating >= GREAT_ARMY_EQUIPMENT_RATING ) && ( Random( 100 ) < 20 ) )
-			{
-				//give this man a special weapon!  No mortars if underground, however
-				ubMaxSpecialWeaponRoll = ( !IsAutoResolveActive() && ( gbWorldSectorZ != 0 ) ) ? 6 : 7;
-				switch ( Random ( ubMaxSpecialWeaponRoll ) )
-				{
-					case 0:
-					case 1:
-					case 2:
-						if ( pp->bExpLevel >= 3 )
-						{
-							//grenade launcher
-							fGrenadeLauncher = TRUE;
-							bGrenades = 3 + (INT8)(Random( 3 )); //3-5
-						}
-						break;
-
-					case 3:
-					case 4:
-						if ( pp->bExpLevel >= 4 )
-						{
-							// LAW rocket launcher
-							fLAW = TRUE;
-						}
-						break;
-					case 5:
-						if ( pp->bExpLevel >= 5 )
-						{
-							// RPG rocket launcher
-							fRPG = TRUE;
-							bGrenades = 2 + (INT8)(Random( 3 )); //2-4
-							bGrenadeClass = RPG_GRENADE_CLASS;
-						}
-						break;
-				}
-			}
-			break;
 
 		case SOLDIER_CLASS_ELITE:
+		case SOLDIER_CLASS_ELITE_MILITIA:
 			//if ( gGameOptions.fSlowProgressForEnemyItemsChoice )
 			//	bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_ELITE );
 			//else
-				bRating = BAD_ELITE_EQUIPMENT_RATING + bEquipmentModifier;
+			bRating = BAD_ELITE_EQUIPMENT_RATING + bEquipmentModifier;
 
 			// Equipment quality modifier
-			if ( gGameExternalOptions.sEnemyEliteEquipmentQualityModifier != 0 )
-				bRating += gGameExternalOptions.sEnemyEliteEquipmentQualityModifier;
-
+			if ( bSoldierClass == SOLDIER_CLASS_ELITE )
+			{
+				if ( gGameExternalOptions.sEnemyEliteEquipmentQualityModifier != 0 )
+					bRating += gGameExternalOptions.sEnemyEliteEquipmentQualityModifier;
+			}
+			else if ( bSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
+			{
+				// SANDRO - Militia equipment quality bonus
+				if ( gGameExternalOptions.bVeteranMilitiaEquipmentQualityModifier != 0 )
+					bRating += gGameExternalOptions.bVeteranMilitiaEquipmentQualityModifier;
+			}
+			
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -698,9 +590,17 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 				bAttachClass = bRating;
 			}
 
-			if( Chance( 35 ) )
-				bKnifeClass = bRating;
-
+			if ( bSoldierClass == SOLDIER_CLASS_ELITE )
+			{
+				if ( Chance( 35 ) )
+					bKnifeClass = bRating;
+			}
+			else if ( bSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
+			{
+				if ( Chance( 25 ) )
+					bKnifeClass = bRating;
+			}
+			
 			if( ( bRating > MIN_EQUIPMENT_CLASS ) && bRating < MAX_EQUIPMENT_CLASS )
 			{
 				UINT32 uiRange = ((UsingNewInventorySystem() == false)) ? Random(11) : Random(12);
@@ -717,13 +617,15 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 				}
 			}
 
-			// if well-enough equipped, 1/3 chance of something really special
-			if( ( bRating >= GOOD_ELITE_EQUIPMENT_RATING ) && ( Random( 100 ) < 33 ) )
+			if ( bSoldierClass == SOLDIER_CLASS_ELITE )
 			{
-				//give this man a special weapon!  No mortars if underground, however
-				ubMaxSpecialWeaponRoll = ( !IsAutoResolveActive() && ( gbWorldSectorZ != 0 ) ) ? 6 : 7;
-				switch ( Random ( ubMaxSpecialWeaponRoll ) )
+				// if well-enough equipped, 1/3 chance of something really special
+				if ( (bRating >= GOOD_ELITE_EQUIPMENT_RATING) && (Random( 100 ) < 33) )
 				{
+					//give this man a special weapon!  No mortars if underground, however
+					ubMaxSpecialWeaponRoll = (!IsAutoResolveActive( ) && (gbWorldSectorZ != 0)) ? 6 : 7;
+					switch ( Random( ubMaxSpecialWeaponRoll ) )
+					{
 					case 0:
 					case 1:
 					case 2:
@@ -755,70 +657,18 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 							bGrenadeClass = MORTAR_GRENADE_CLASS;
 						}
 						break;
+					}
 				}
 			}
-			break;
-		case SOLDIER_CLASS_ELITE_MILITIA:
-			
-			bRating = BAD_ELITE_EQUIPMENT_RATING + bEquipmentModifier;
-
-			///////////////////////////////////////////////////////////////////////////////////////////
-			// SANDRO - Militia equipment quality bonus
-			if ( gGameExternalOptions.bVeteranMilitiaEquipmentQualityModifier != 0 )
-				bRating += gGameExternalOptions.bVeteranMilitiaEquipmentQualityModifier;
-			///////////////////////////////////////////////////////////////////////////////////////////
-
-			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
-
-			bWeaponClass = bRating;
-			bHelmetClass = bRating;
-			bVestClass = bRating;
-			bLeggingClass = bRating;
-			bAttachClass = bRating*7/8;
-			bGrenadeClass = bRating;
-			bKitClass = bRating;
-			bMiscClass = bRating;
-
-			if ( Chance( 25 ) )
+			else if ( bSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
 			{
-				bBombClass = bRating;
-			}
-
-			bAmmoClips = (INT8)(3 + Random( 2 ));
-			bGrenades = (INT8)(2 + Random( 3 ));
-			
-			if( ( bRating >= AVERAGE_ELITE_EQUIPMENT_RATING ) && Chance(75) )
-			{
-				fAttachment = TRUE;
-				bAttachClass = bRating;
-			}
-
-			if( Chance( 25 ) )
-				bKnifeClass = bRating;
-
-			if( ( bRating > MIN_EQUIPMENT_CLASS ) && bRating < MAX_EQUIPMENT_CLASS )
-			{
-				UINT32 uiRange = ((UsingNewInventorySystem() == false)) ? Random(10) : Random(11);
-				switch( uiRange )
+				// if well-enough equipped, 1/3 chance of something really special
+				if ( (bRating >= GOOD_ELITE_EQUIPMENT_RATING) && (Random( 100 ) < 60) )
 				{
-					case 4:		bWeaponClass++, bVestClass--;		break;
-					case 5:		bWeaponClass--, bVestClass--;		break;
-					case 6:		bVestClass++, bHelmetClass--;		break;
-					case 7:		bGrenades += 2;						break;
-					case 8:		bHelmetClass++;						break;
-					case 9:		bVestClass++;						break;
-					case 10:	bWeaponClass++;						break;
-					//case 11:	bLBEClass++;						break;
-				}
-			}
-
-			// if well-enough equipped, 1/3 chance of something really special
-			if( ( bRating >= GOOD_ELITE_EQUIPMENT_RATING ) && ( Random( 100 ) < 60 ) )
-			{
-				//give this man a special weapon!  No mortars if underground, however
-				ubMaxSpecialWeaponRoll = ( !IsAutoResolveActive() && ( gbWorldSectorZ != 0 ) ) ? 4 : 5;
-				switch ( Random ( ubMaxSpecialWeaponRoll ) )
-				{
+					//give this man a special weapon!  No mortars if underground, however
+					ubMaxSpecialWeaponRoll = (!IsAutoResolveActive( ) && (gbWorldSectorZ != 0)) ? 4 : 5;
+					switch ( Random( ubMaxSpecialWeaponRoll ) )
+					{
 					case 0:
 						//grenade launcher
 						fGrenadeLauncher = TRUE;
@@ -841,7 +691,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 						{
 							//mortar
 							fMortar = TRUE;
-							guiMortarsRolledByTeam++;
+							++guiMortarsRolledByTeam;
 
 							// the grenades will actually represent mortar shells in this case
 							bGrenades = 3 + (INT8)(Random( 5 )); //3-7
@@ -855,12 +705,12 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 							bGrenadeClass = RPG_GRENADE_CLASS;
 						}
 						break;
+					}
 				}
 			}
-			break;
 
-		case SOLDIER_CLASS_ZOMBIE:
-			// zombies get no items at all...
+		case SOLDIER_CLASS_ZOMBIE:		// zombies get no items at all...
+		default:
 			break;
 	}
 
