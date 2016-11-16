@@ -11478,7 +11478,7 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 
 	if ( bLightLevel > NORMAL_LIGHTLEVEL_DAY )
 	{
-		if ( pSoldier->pathing.bLevel == 0 )
+		if ( pSoldier->bSectorZ == 0 )
 		{
 			bonus += GetNightVisionRangeBonus(pSoldier, bLightLevel);
 		}
@@ -11511,7 +11511,7 @@ INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	bonus += pSoldier->GetSightRangeBonus();
 
 	// SANDRO - STOMP traits - Scouting bonus for sight range with binoculars and similar
-	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->pathing.bLevel == 0 )
+	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->bSectorZ == 0 )
 	{
 		OBJECTTYPE *pObj = &( pSoldier->inv[HANDPOS]);
 		if (pObj->exists() == true) 
@@ -11617,7 +11617,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 	bonus = max( bonus_body, bonus_gun );
 
 	// SANDRO - STOMP traits - Scouting tunnel vision reduction with binoculars and similar
-	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->pathing.bLevel == 0 )
+	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->bSectorZ == 0 )
 	{
 		OBJECTTYPE *pObj = &( pSoldier->inv[HANDPOS]);
 		if (pObj->exists() == true) 
