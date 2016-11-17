@@ -4902,6 +4902,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -37151,6 +37152,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -37197,6 +37199,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -38234,6 +38237,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -38257,6 +38261,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -38280,6 +38285,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -49695,6 +49701,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -49884,6 +49891,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>2</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50086,6 +50094,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>3</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50559,6 +50568,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<UrbanCamoBonus>2</UrbanCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50783,6 +50793,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -50812,6 +50823,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<DesertCamoBonus>3</DesertCamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -51053,6 +51065,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>2</CamoBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>2147483648</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
