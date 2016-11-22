@@ -3269,7 +3269,6 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 	UINT8		ubCnt;
 	UINT32	uiUnitPrice = 0;
 	UINT32	uiTotalPrice = 0;
-	UINT32	uiDiscountValue = 0;
 //	UINT32	uiDifFrom10 = 0;
 #ifdef JA2UB
 UINT8		ubItemsNotCounted = 0; //ja25 UB
@@ -3361,43 +3360,24 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 			}
 		}*/
 
+		// Flugente: backgrounds can alter prices		
+		INT16 pricepercentage = 100;
+
 		// if it's a GUN or AMMO (but not Launchers, and all attachments and payload is included)
 		if ( Item [ usItemID ].usItemClass & (IC_GUN|IC_AMMO) )
 		{
-			if ( gpSMCurrentMerc->GetBackgroundValue(BG_PERC_PRICES_GUNS) )
-				uiDiscountValue = ( uiItemPrice[ubCnt] * gpSMCurrentMerc->GetBackgroundValue(BG_PERC_PRICES_GUNS) ) / 100;
-			// if we play without backgrounds, Flo gets the hardcoded bonus
-			else if ( gpSMCurrentMerc->ubProfile == FLO )
-				uiDiscountValue = ( uiItemPrice[ubCnt] * FLO_DISCOUNT_PERCENTAGE ) / 100;
+			pricepercentage = max( 0, 100 + (fDealerSelling ? -1 : 1) * gpSMCurrentMerc->GetBackgroundValue( BG_PERC_PRICES_GUNS ) );
 
-			// she gets a discount!  Read her M.E.R.C. profile to understand why
-			if ( fDealerSelling )
-			{
-				// she buys for less...
-				uiItemPrice[ubCnt] -= uiDiscountValue;
-			}
-			else
-			{
-				// and sells for more!
-				uiItemPrice[ubCnt] += uiDiscountValue;
-			}
+			// Even without backgrounds, Flo gets a discount. Read her M.E.R.C. profile to understand why
+			if ( !gGameOptions.fBackGround && gpSMCurrentMerc->ubProfile == FLO )
+				pricepercentage = max( 0, 100 + (fDealerSelling ? -1 : 1) * FLO_DISCOUNT_PERCENTAGE );
 		}
-		// Flugente: backgrounds
 		else if ( Item [ usItemID ].usItemClass & (IC_MAPFILTER_MELEE|IC_MAPFILTER_KIT|IC_MAPFILTER_LBE|IC_MAPFILTER_ARMOR|IC_MAPFILTER_MISC) )
 		{
-			uiDiscountValue = ( uiItemPrice[ubCnt] * gpSMCurrentMerc->GetBackgroundValue(BG_PERC_PRICES) ) / 100;
-
-			if ( fDealerSelling )
-			{
-				// buy for less...
-				uiItemPrice[ubCnt] -= uiDiscountValue;
-			}
-			else
-			{
-				// and sell for more!
-				uiItemPrice[ubCnt] += uiDiscountValue;
-			}
+			pricepercentage = max( 0, 100 + (fDealerSelling ? -1 : 1) * gpSMCurrentMerc->GetBackgroundValue( BG_PERC_PRICES ) );
 		}
+
+		uiItemPrice[ubCnt] = (uiItemPrice[ubCnt] * pricepercentage) / 100;
 
 		// if it's the dealer selling this, make sure the item is worth at least $1
 		// if he is buying this from a player, then we allow a value of 0, since that has a special "worthless" quote #18
@@ -3417,7 +3397,7 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 	}
 
 	// if we want the unit price, find the highest price in the stack
-	for (ubCnt = 0; ubCnt < pItemObject->ubNumberOfObjects; ubCnt++ )
+	for (ubCnt = 0; ubCnt < pItemObject->ubNumberOfObjects; ++ubCnt )
 	{
 		if(fUnitPriceOnly == TRUE)
 		{
