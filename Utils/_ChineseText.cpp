@@ -2282,8 +2282,8 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"小巧",
 	L"高速连发",
 	L"无法连发",
-	L"大容量弹夹",
-	L"小容量弹夹",
+	L"大容量弹匣",
+	L"小容量弹匣",
 
 	// In the following two lines, all %s's are merc names
 
@@ -4714,9 +4714,9 @@ STR16 pBullseyeStrings[] =
 
 STR16 pMiscMapScreenMouseRegionHelpText[] =
 {
-	L"进入存货屏幕 (|E|n|t|e|r)",
+	L"进入装备界面 (|E|n|t|e|r)",
 	L"扔掉物品",	//"Throw Item Away",
-	L"离开存货屏幕 (|E|n|t|e|r)",
+	L"离开装备界面 (|E|n|t|e|r)",
 };
 
 
@@ -5576,7 +5576,7 @@ STR16			BobbyRFilter[] =
 	L"握把/LAM",
 	L"消音等",
 	L"枪托",
-	L"弹夹/握把",
+	L"弹匣/握把",
 	L"其他附件",
 	L"其他", //"Misc.",
 };
@@ -7423,11 +7423,11 @@ STR16 gzTransformationMessage[] =
 	L"%s被拆开了。由于背包没有足够空间，转换后%s的一些物品被丢在了地上", //L"%s was split into several parts. Due to a lack of inventory space, %s has had to drop a few items to the ground.",
 	L"你希望转换该列所有%d吗？如果只想转换1个，请将它从该列中先取出来", //L"Do you wish to adjust all %d items in this stack? (To transform only one item, remove it from the stack first)",
 	// 6 - 10
-	L"拆分弹药箱，弹夹放入背包", //L"Split Crate into Inventory",
-	L"拆分成%d发的弹夹", //L"Split into %d-rd Mags",
-	L"%s被拆分成%d个弹夹每个有%d发子弹", //L"%s was split into %d Magazines containing %d rounds each.",
+	L"拆分弹药箱，弹匣放入背包", //L"Split Crate into Inventory",
+	L"拆分成%d发的弹匣", //L"Split into %d-rd Mags",
+	L"%s被拆分成%d个弹匣每个有%d发子弹", //L"%s was split into %d Magazines containing %d rounds each.",
 	L"%s拆分完成并放入%s的背包", //L"%s was split into %s's inventory.",
-	L"%s的背包空间不足，放不下这个口径的弹夹了", //L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
+	L"%s的背包空间不足，放不下这个口径的弹匣了", //L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
 	L"Instant mode",	// TODO.Translate
 	L"Delayed mode",
 	L"Instant mode (%d AP)",
@@ -8169,8 +8169,8 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|单|发|A|P",
 	L"|点|射|A|P",
 	L"|连|发|A|P",
-	L"|上|弹|A|P",
-	L"|换|弹|夹|A|P",
+	L"|换|弹|匣|A|P",
+	L"|手|动|上|弹|A|P",
 	L"",
 	L"|后|坐|力",
 	L"|连|发|子|弹|数/5|A|P",
@@ -8195,8 +8195,8 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n该武器射出单发弹药所需的AP，\n对于枪械而言，\n该数值显示了在不精瞄的情况下发射\n一发子弹的AP消耗。\n \n如果该图标为灰色，则该武器不可单发射击。\n \n该数值越低越好。",
 	L"\n \n一次点射所需的AP。\n \n每次点射的子弹数由枪支本身决定，\n并显示在该图标上。\n \n如果该图标发灰，则该武器不可点射。\n \n该数值越低越好。",
 	L"\n \n连发模式下，该武器一次\n齐射三发子弹所需的AP。\n \n超过3发子弹，\n则需要额外的AP。\n \n如果该图标发灰，则该武器不可连发。\n \n该数值越低越好。",
-	L"\n \n重新装填子弹所需的AP。\n \n该数值越低越好。",
-	L"\n \n在射击间歇为该武器手动更换弹匣的AP消耗。\n \n该数值越低越好。",
+	L"\n \n重新装填榴弹/更换弹匣所需的AP。\n \n该数值越低越好。",
+	L"\n \n在射击间歇为该武器手动上弹的AP消耗。\n \n该数值越低越好。",
 	L"",	// No longer used!
 	L"\n \n该参数是武器枪口在单发或自动模式下每发子弹所造成的最大偏移量。\n \n该数值越低越好。",
 	L"\n \n该参数显示了该武器每多花费5AP在连发模式时\n可多发射的子弹数。\n \n该数值越高越好。",
