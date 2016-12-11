@@ -393,12 +393,24 @@ ActionTypes =
 	ACTIONTYPE_HACKING = 1,
 	ACTIONTYPE_READFILE = 2,
 	ACTIONTYPE_WATERTAP = 3,
+	ACTIONTYPE_SODAMACHINE = 4,
+	ACTIONTYPE_MINIGAME = 5,
 }
 
 InfoTypes = 
 {	
 	INFO_TYPE_NORMAL = 0,
 	INFO_TYPE_VIP = 1,
+}
+
+ScreenTypes = 
+{
+	MINIGAME = 30,
+}
+
+MiniGames =
+{
+	TETRIS = 0,
 }
 
 -- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
@@ -481,9 +493,12 @@ ModSpecificActions =
 	READING_ORTA_BOOKSHELF_1 = 48,
 	
 	-- San Mona
-	READING_SANMONA_KINGPIN_BOOKSHELF_1 = 49,
-	
+	READING_SANMONA_KINGPIN_BOOKSHELF_1 = 49,	
 	-- |||||||||||||||||||||||||||||||||| books |||||||||||||||||||||||||||||||||||||
+	
+	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
+	MINIGAME_TETRIS = 50,
+	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
 }
 
 -- General defines for various states
@@ -1442,6 +1457,21 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "It seems he controls almost all of San Mona.")
 			SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "But none of the records explicitly state something criminal is going on.")
 		end
+	
+	elseif ( usActionType == ActionTypes.ACTIONTYPE_MINIGAME ) then
+	
+		-- for now, the only game we have is tetris
+		if ( sLuaactionid == ModSpecificActions.MINIGAME_TETRIS ) then
+		
+			-- playing a game costs $1
+			if ( SoldierSpendMoney(ubID, 1) == 1 ) then
+			
+				SetMiniGameType(MiniGames.TETRIS)
+				SetPendingNewScreen(ScreenTypes.MINIGAME)
+			
+			end
+		end
+				
 	end
 end
 

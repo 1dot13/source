@@ -26,6 +26,7 @@
 								2: read a file from a file cabinet
 								3: take water from a water tap
 								4: buy soda from a soda machine
+								5: play a minigame
 	difficulty					how hard it is to perform action
 	luaactionid					if this is set, lua script HandleInteractiveActionResult() in Overhead.lua is called 
 								with this Id to perform special actions. If no ID is set, the standard action is called.
@@ -993,5 +994,16 @@
 		<sActionType>4</sActionType>
 	</ACTION>
 	<!-- |||||||||||||||||||| SODA MACHINE |||||||||||||||||||| -->	
+	
+	<!-- |||||||||||||||||||| MINIGAME |||||||||||||||||||| -->
+	<!-- game machine -->
+	<ACTION>
+		<szTileSetName>lawless3.sti</szTileSetName>		
+		<usTileIndex>8</usTileIndex>
+		<usTileIndex>7</usTileIndex>
+		<sActionType>5</sActionType>
+		<luaactionid>50</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| MINIGAME |||||||||||||||||||| -->	
 	
 </INTERACTIVEACTIONS>
