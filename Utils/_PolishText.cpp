@@ -11206,6 +11206,7 @@ STR16	szInteractiveActionText[] =
 	L"%s doesn't have enough money. That's just embarassing.",
 
 	L"%s drank from water tap",
+	L"This machine doesn't seem to be working.",	// TODO.Translate
 };
 
 #endif //POLISH

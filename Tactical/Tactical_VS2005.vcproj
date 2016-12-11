@@ -531,6 +531,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MiniGame.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Morale.h"
 				>
 			</File>
@@ -882,6 +886,10 @@
 			</File>
 			<File
 				RelativePath=".\Militia Control.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MiniGame.cpp"
 				>
 			</File>
 			<File

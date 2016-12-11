@@ -140,6 +140,9 @@ CursorFileData CursorFileDatabase[] =
 	{"CURSORS\\sodamachine.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},	// Flugente: soda machine
 	{"CURSORS\\sodamachine_r.sti"									, FALSE, 0, ANIMATED_CURSOR, 3, NULL},
 
+	{"CURSORS\\minigame.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},	// Flugente: minigames
+	{"CURSORS\\minigame_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},
+	
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\cur_tagr_ncth.sti"									, FALSE, 0, ANIMATED_CURSOR,	7, NULL },
@@ -1290,7 +1293,7 @@ CursorData CursorDatabase[] =
 		0, 0, 0, 0, 0,
 		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
 
-	// Flugente: soad machine
+	// Flugente: soda machine
 	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_SODAMACHINE, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0, 0, 0, 0, 0,
@@ -1300,6 +1303,21 @@ CursorData CursorDatabase[] =
 
 	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_SODAMACHINE_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+		// Flugente: minigames
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_MINIGAME, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_MINIGAME_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,

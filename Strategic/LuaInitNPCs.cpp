@@ -74,6 +74,8 @@ extern "C" {
 #include "Encrypted File.h"
 
 #include "BriefingRoom_Data.h"
+#include "MiniGame.h"	// added by Flugente
+
 extern UINT8	gubWaitingForAllMercsToExitCode;
 
 //-------------------------- UB ------------------------------
@@ -863,6 +865,9 @@ static int l_GiveExp( lua_State *L );
 static int l_NumNonPlayerTeamInSector( lua_State *L );
 static int l_SetSamSiteHackStatus( lua_State *L );
 static int l_GetSamSiteHackStatus( lua_State *L );
+
+static int l_SetMiniGameType( lua_State *L );
+static int l_SoldierSpendMoney( lua_State *L );
 
 using namespace std;
 
@@ -1736,6 +1741,9 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register( L, "NumNonPlayerTeamInSector", l_NumNonPlayerTeamInSector );
 	lua_register( L, "SetSamSiteHackStatus", l_SetSamSiteHackStatus );
 	lua_register( L, "GetSamSiteHackStatus", l_GetSamSiteHackStatus );
+
+	lua_register( L, "SetMiniGameType", l_SetMiniGameType );
+	lua_register( L, "SoldierSpendMoney", l_SoldierSpendMoney );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -10582,16 +10590,12 @@ static int l_SetPendingNewScreenSEXSCREEN (lua_State *L)
 
 static int l_SetPendingNewScreen (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	
-	UINT8 scr = 0;
-	int i = 0;
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) scr = lua_tointeger(L,i);
-	}
+		UINT32 scr = lua_tointeger( L, 1 );
 
-	SetPendingNewScreen( scr );
+		SetPendingNewScreen( scr );
+	}
 			
 	return 0;
 }
@@ -13327,6 +13331,31 @@ static int l_GetSamSiteHackStatus( lua_State *L )
 		INT16 sSectorY = lua_tointeger( L, 2 );
 		
 		lua_pushinteger( L, StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].sSamHackStatus );
+	}
+
+	return 1;
+}
+
+static int l_SetMiniGameType( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 1 )
+	{
+		UINT32 usMiniGame = lua_tointeger( L, 1 );
+
+		SetNextGame( usMiniGame );
+	}
+
+	return 0;
+}
+
+static int l_SoldierSpendMoney( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		UINT8 usId = lua_tointeger( L, 1 );
+		UINT32 amount = lua_tointeger( L, 2 );
+
+		lua_pushinteger( L, SpendMoney( MercPtrs[usId], amount ) );
 	}
 
 	return 1;

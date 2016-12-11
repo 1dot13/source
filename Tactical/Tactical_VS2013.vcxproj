@@ -71,6 +71,7 @@
     <ClInclude Include="merc entering.h" />
     <ClInclude Include="Merc Hiring.h" />
     <ClInclude Include="Militia Control.h" />
+    <ClInclude Include="MiniGame.h" />
     <ClInclude Include="Morale.h" />
     <ClInclude Include="opplist.h" />
     <ClInclude Include="Overhead Types.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="Merc Entering.cpp" />
     <ClCompile Include="Merc Hiring.cpp" />
     <ClCompile Include="Militia Control.cpp" />
+    <ClCompile Include="Minigame.cpp" />
     <ClCompile Include="Morale.cpp" />
     <ClCompile Include="opplist.cpp" />
     <ClCompile Include="Overhead.cpp" />

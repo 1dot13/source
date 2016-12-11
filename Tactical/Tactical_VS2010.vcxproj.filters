@@ -144,7 +144,10 @@
     <ClInclude Include="Militia Control.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Morale.h">
+    <ClInclude Include="MiniGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+	<ClInclude Include="Morale.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="opplist.h">
@@ -404,7 +407,10 @@
     <ClCompile Include="Militia Control.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Morale.cpp">
+    <ClCompile Include="MiniGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="Morale.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="opplist.cpp">

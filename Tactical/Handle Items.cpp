@@ -8916,14 +8916,15 @@ void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSucce
 						}
 					}
 				}
-			}				
-
-			if ( !aSuccess )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[7], pSoldier->GetName( ) );
+			}	
 		}
 		break;
 
-		
+		case INTERACTIVE_STRUCTURE_MINIGAME:
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[9] );
+		}
+		break;
 
 	default:
 		break;
@@ -8962,6 +8963,10 @@ BOOLEAN SpendMoney( SOLDIERTYPE *pSoldier, UINT32 aAmount )
 
 		aAmount = 0;
 	}
+
+	// warning if we don't have enough money
+	if ( aAmount > 0 )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[7], pSoldier->GetName( ) );
 
 	return (aAmount == 0);
 }

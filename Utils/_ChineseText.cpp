@@ -11184,6 +11184,7 @@ STR16	szInteractiveActionText[] =
 	L"%s 没有足够的钱。那真让人难为情",//L"%s doesn't have enough money. That's just embarassing.",
 
 	L"%s 从水龙头喝水",//L"%s drank from water tap",
+	L"This machine doesn't seem to be working.",	// TODO.Translate
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

@@ -144,6 +144,11 @@ extern  UINT32	MPConnectScreenInit( void );
 extern  UINT32	MPConnectScreenHandle( void );
 extern  UINT32	MPConnectScreenShutdown( void );
 
+extern UINT32	MiniGameScreenInit( void );
+extern UINT32	MiniGameScreenHandle( void );
+extern UINT32	MiniGameScreenShutdown( void );
+
+
 // External functions
 void DisplayFrameRate( );
 

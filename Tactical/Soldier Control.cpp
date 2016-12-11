@@ -19135,6 +19135,16 @@ UINT16	SOLDIERTYPE::GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UIN
 		}
 		break;
 
+		case INTERACTIVE_STRUCTURE_MINIGAME:
+		{
+			if ( this->ubProfile == ROBOT || IsVehicle( this ) )
+				return 0;
+
+			// we are pros at playing games
+			return 100;
+		}
+		break;
+
 		default:
 			break;
 	}

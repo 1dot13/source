@@ -10986,8 +10986,8 @@ STR16	szWeatherTypeText[] =	// TODO.Translate
 
 STR16	szSnakeText[] =
 {
-	L"%s evaded a snake attack!",
-	L"%s was attacked by a snake!",
+	L"%s weicht Schlangenangriff aus!",
+	L"%s wurde von Schlange angegriffen!",
 };
 
 STR16	szSMilitiaResourceText[] =
@@ -11014,6 +11014,7 @@ STR16	szInteractiveActionText[] =
 	L"%s doesn't have enough money. That's just embarassing.",
 
 	L"%s drank from water tap",
+	L"This machine doesn't seem to be working.",	// TODO.Translate
 };
 
 #endif //GERMAN

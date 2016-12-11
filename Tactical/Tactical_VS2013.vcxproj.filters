@@ -276,6 +276,9 @@
     <ClInclude Include="Disease.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MiniGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Air Raid.cpp">
@@ -702,6 +705,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_InteractiveTiles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Minigame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

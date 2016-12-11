@@ -69,6 +69,8 @@ Screens GameScreens[MAX_SCREENS] =
 	{ MPChatScreenInit,					MPChatScreenHandle,					MPChatScreenShutdown				}, // OJW - 20090314
 	{ MPConnectScreenInit,					MPConnectScreenHandle,					MPConnectScreenShutdown				}, // OJW - 20090422
 
+	{ MiniGameScreenInit,					MiniGameScreenHandle,					MiniGameScreenShutdown				},	// added by Flugente
+
 #ifdef JA2BETAVERSION
 	{ AIViewerScreenInit,					AIViewerScreenHandle,			AIViewerScreenShutdown			},
 #endif
