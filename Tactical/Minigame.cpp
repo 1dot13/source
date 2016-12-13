@@ -133,6 +133,12 @@ UINT32	MiniGameScreenShutdown( void )
 }
 
 ////////////////////////////////////////////// TETRIS //////////////////////////////////////////////
+// In case you somehow don't know how Tetris works:
+// In this game, the player has to rotate and move a tile, consisting of several types of each 4 blocks put together in a variety of orientations, while it falls down.
+// Once the tile has been placed, a new tile appears.
+// If the player manages t complete a full line of blocks, that line is erased, and points are awarded.
+// The game is to reach a high a score as possible.
+
 // This defines what tiles a block can belong to
 enum
 {
@@ -149,6 +155,7 @@ enum
 	TETRISBLOCKTYPE_MAX
 };
 
+// we use this struct to remember whether a block is moving, controlled by the player, and what block type it has (necessary for colouring)
 typedef struct
 {
 	BOOLEAN resting;
@@ -156,14 +163,27 @@ typedef struct
 	INT8 blocktype;
 } TETRIS_BLOCK;
 
+// as it would be tedious to always determine the player-controlled blocks again, we remember them with this struct
 typedef struct
 {
 	int x;
 	int y;
 } TETRIS_BLOCK_PLAYER;
 
+// the dimensions of the playing field
+#define TETRIS_FIELD_ROWS	18
+#define TETRIS_FIELD_COLS	10
+
+// we define out playing field
+TETRIS_BLOCK gTetrisBlock[TETRIS_FIELD_ROWS][TETRIS_FIELD_COLS];
+
+// rememeber the tiles the player controls (easier than to always look for them)
+TETRIS_BLOCK_PLAYER gTetrisBlockPlayer[4];
+
+// each tile can be rotated, so a tile has 4 orientations (for some types, these are identical)
 #define TETRIS_ORIENTATIONS 4
 
+// a little helper struct to define a pair of coordinates
 typedef struct coordpair
 {
 	int x;
@@ -173,9 +193,12 @@ typedef struct coordpair
 	coordpair( ){}
 } coordpair;
 
+// Each blocktype has 4 orientations. This struct contains the x- and y-offsets for each of the 4 blocks
+// When we later place a tile, we simpyl determine the 'anchor'-coordinates, and then simply have to add the offsets to get the 4 blocks
+// This of course relies on one block (the first one) retaining the same coordinates (no offset then).
 typedef struct TETRIS_BLOCK_ORIENTATION
 {
-	coordpair cords[TETRIS_ORIENTATIONS];
+	coordpair cords[4];
 
 	TETRIS_BLOCK_ORIENTATION( coordpair a, coordpair b, coordpair c, coordpair d )
 	{
@@ -245,26 +268,18 @@ TETRIS_BLOCK_ORIENTATION gTetrisOrientation[TETRISBLOCKTYPE_MAX][TETRIS_ORIENTAT
 	TETRIS_BLOCK_ORIENTATION( coordpair( 0, 0 ), coordpair( 0, 0 ), coordpair( 0, 0 ), coordpair( 0, 0 ) ),
 };
 
-// the dimensions of the playing field
-#define TETRIS_FIELD_ROWS	18
-#define TETRIS_FIELD_COLS	10
-
-TETRIS_BLOCK gTetrisBlock[TETRIS_FIELD_ROWS][TETRIS_FIELD_COLS];
-
-// rememeber the tiles the player controls (easier than to always look for them)
-TETRIS_BLOCK_PLAYER gTetrisBlockPlayer[4];
-
-BOOLEAN gTetrisplayercontrolledtile = FALSE;
-int gTetrisTimeSinceTileSpawned = 0;
-int gTetrisplayertileOrientation = 0;
-int gTetrisNextTile = TETRISBLOCKTYPE_NONE;
+// a few global variables
+BOOLEAN gTetrisplayercontrolledtile = FALSE;				// Does the player currently control a tile? (If not, maybe we should add a new one...)
+int gTetrisTileSpawnTime = 0;								// The last tile was spawned at this time (we use this to award points fo placing tiles fast)
+int gTetrisplayertileOrientation = 0;						// Orientation of the current tile?
+int gTetrisNextTile = TETRISBLOCKTYPE_NONE;					// What will be the type of the next tile that will spawn? We need this as we preview show the player
 int gTetrisScore = 0;
 int gTetrisLinesDone = 0;
-int gTetrisMenuSelection = 0;
-int gTetrisMenuScreen = 0;
+int gTetrisMenuSelection = 0;								// In a small menu, we can select some options, so we need to keep track where we are
+int gTetrisMenuScreen = 0;									// What page of the menu is currently used?
 int gTetrisInitialLevel = 0;
 int gTetrisHandicap = 0;
-BOOLEAN gTetrisRenewBackground = TRUE;
+BOOLEAN gTetrisRenewBackground = TRUE;						// In order to save cpu-time (not really an issue here, but it's the thought that counts!), only redraw the background if we have to
 
 // for each level of handicap, we add 2 partially filled lines
 #define TETRIS_MAX_HANDICAP	5
@@ -288,7 +303,7 @@ void MiniGame_Init_Tetris()
 	}
 
 	gTetrisplayercontrolledtile = FALSE;
-	gTetrisTimeSinceTileSpawned = 0;
+	gTetrisTileSpawnTime = 0;
 	gTetrisplayertileOrientation = 0;
 	gTetrisNextTile = TETRISBLOCKTYPE_NONE;
 	gTetrisScore = 0;
@@ -617,7 +632,7 @@ UINT32 MiniGame_Handle_Tetris()
 			}
 
 			// on start of the game, if we have a handicap, place handicap tiles
-			if ( !gTetrisTimeSinceTileSpawned && gTetrisHandicap )
+			if ( !gTetrisTileSpawnTime && gTetrisHandicap )
 			{
 				for ( int i = max(0, TETRIS_FIELD_ROWS - 2 * gTetrisHandicap); i < TETRIS_FIELD_ROWS; ++i )
 				{
@@ -639,7 +654,7 @@ UINT32 MiniGame_Handle_Tetris()
 					}
 				}
 
-				gTetrisTimeSinceTileSpawned = 1;
+				gTetrisTileSpawnTime = 1;
 			}
 
 			// coloured block that we can move
@@ -850,7 +865,7 @@ UINT32 MiniGame_Handle_Tetris()
 
 							if ( maxdroptime > 0 )
 							{
-								int timetaken = GetJA2Clock( ) - gTetrisTimeSinceTileSpawned;
+								int timetaken = GetJA2Clock( ) - gTetrisTileSpawnTime;
 
 								int speedbonuspoints = 10 * max( 0, (maxdroptime - timetaken) ) / maxdroptime;
 
@@ -1067,7 +1082,7 @@ UINT32 MiniGame_Handle_Tetris()
 							}
 
 							gTetrisplayercontrolledtile = TRUE;
-							gTetrisTimeSinceTileSpawned = GetJA2Clock();
+							gTetrisTileSpawnTime = GetJA2Clock();
 
 							if ( !spaceisfree )
 							{
