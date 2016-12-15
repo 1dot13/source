@@ -738,7 +738,7 @@ void StoreSelectedIMPGear()
 			if ( usItem )
 			{
 				// add item (make sure it is at least 1)
-				gIMPGearSelectedItems[usItem] = max(1, gIMPGearCount[i]);
+				gIMPGearSelectedItems[usItem] = max( 1, gIMPGearSelectedItems[usItem] + gIMPGearCount[i] );
 			}
 		}
 	}
