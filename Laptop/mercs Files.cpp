@@ -1854,8 +1854,14 @@ void MercWeaponKitSelectionUpdate(UINT8 selectedInventory)
 					//get the item
 					usItem = gMercProfiles[ ubMercID ].inv[ uiLoop ];
 
+					// for an item stack, we obviously need to account fot the number of items
+					// for single items, the number is not always set, so just to be sure...
+					int number = 1;
+					if ( gMercProfileGear[ubMercID][selectedInventory].iNumber.size( ) >= uiLoop )
+						number = max( 1, gMercProfileGear[ubMercID][selectedInventory].iNumber[uiLoop] );
+
 					//add the cost
-					tempGearCost += Item[ usItem ].usPrice;
+					tempGearCost += number * Item[usItem].usPrice;
 				}
 			}
 			//tais: added optional price modifier for gearkits, reads the xml tag mPriceMod from MercStartingGear.xml
