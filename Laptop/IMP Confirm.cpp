@@ -69,10 +69,7 @@ UINT32 giIMPConfirmButton[ 2 ];
 UINT32 giIMPConfirmButtonImage[ 2 ];
 BOOLEAN fNoAlreadySelected = FALSE;
 
-IMP_FACE_VALUES gIMPFaceValues[NUM_PROFILES];
-
-IMP_FEMALE_VALUES gIMPFemaleValues[NUM_PROFILES];
-IMP_MALE_VALUES gIMPMaleValues[NUM_PROFILES];
+IMP_VALUES gIMPValues[NUM_PROFILES];
 
 /*
 UINT16 uiEyeXPositions[ ]={
@@ -253,9 +250,7 @@ void DestroyConfirmButtons( void )
 
 BOOLEAN AddCharacterToPlayersTeam( void )
 {
-
 	MERC_HIRE_STRUCT HireMercStruct;
-
 
 	// last minute chage to make sure merc with right facehas not only the right body but body specific skills...
 	// ie..small mercs have martial arts..but big guys and women don't don't
@@ -272,7 +267,6 @@ BOOLEAN AddCharacterToPlayersTeam( void )
 		GiveItemsToPC( 	HireMercStruct.ubProfileID );
 	}
 
-
 	HireMercStruct.sSectorX									= gsMercArriveSectorX;
 	HireMercStruct.sSectorY									= gsMercArriveSectorY;
 	HireMercStruct.fUseLandingZoneForArrival = TRUE;
@@ -285,38 +279,23 @@ BOOLEAN AddCharacterToPlayersTeam( void )
 	HireMercStruct.ubInsertionCode	= INSERTION_CODE_ARRIVING_GAME;
 	HireMercStruct.uiTimeTillMercArrives = GetMercArrivalTimeOfDay( );
 
-	
-		if( fCharacterIsMale )
-		{
-			if ( gIMPMaleValues[ iPortraitNumber ].PortraitId !=0 )
-			{
-				SetProfileFaceData( HireMercStruct.ubProfileID , (UINT8)(gIMPMaleValues[ iPortraitNumber ].PortraitId), gIMPMaleValues[ iPortraitNumber ].uiEyeXPositions, gIMPMaleValues[ iPortraitNumber ].uiEyeYPositions, gIMPMaleValues[ iPortraitNumber ].uiMouthXPositions, gIMPMaleValues[ iPortraitNumber ].uiMouthYPositions );
-			}
-		}
-		else
-		{
-			if ( gIMPFemaleValues[ iPortraitNumber ].PortraitId !=0 )
-			{
-				SetProfileFaceData( HireMercStruct.ubProfileID , (UINT8)(gIMPFemaleValues[ iPortraitNumber ].PortraitId), gIMPFemaleValues[ iPortraitNumber ].uiEyeXPositions, gIMPFemaleValues[ iPortraitNumber ].uiEyeYPositions, gIMPFemaleValues[ iPortraitNumber ].uiMouthXPositions, gIMPFemaleValues[ iPortraitNumber ].uiMouthYPositions );
-			}
-		}		
-		
+	if ( gIMPValues[iPortraitNumber].PortraitId != 0 )
+	{
+		SetProfileFaceData( HireMercStruct.ubProfileID, (UINT8)(gIMPValues[iPortraitNumber].PortraitId), gIMPValues[iPortraitNumber].uiEyeXPositions, gIMPValues[iPortraitNumber].uiEyeYPositions, gIMPValues[iPortraitNumber].uiMouthXPositions, gIMPValues[iPortraitNumber].uiMouthYPositions );
+	}		
 		
 	//if we succesfully hired the merc
 	if( !HireMerc( &HireMercStruct ) )
 	{
 		return(FALSE);
 	}
-	else
-	{
-		return ( TRUE );
-	}
+	
+	return (TRUE);
 }
 
 
 void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for IMP Homepage About US button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -392,7 +371,6 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 			LaptopSaveInfo.sLastHiredMerc.iIdOfMerc = -1;
 		}
 	}
-
 }
 
 // fixed? by CJC Nov 28 2002
@@ -1626,50 +1604,12 @@ void ResetIMPCharactersEyesAndMouthOffsets( UINT8 ubMercProfileID )
 	return;
 	}
 */
-	/*
-		gMercProfiles[ ubMercProfileID ].usEyesX = gIMPFaceValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiEyeXPositions;
-		gMercProfiles[ ubMercProfileID ].usEyesY = gIMPFaceValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200	].uiEyeYPositions;
-
-		gMercProfiles[ ubMercProfileID ].usMouthX = gIMPFaceValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200	].uiMouthXPositions;
-		gMercProfiles[ ubMercProfileID ].usMouthY = gIMPFaceValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200	].uiMouthYPositions;
-	*/
-
-	/*
-	if( gMercProfiles[ ubMercProfileID ].bSex == 0 )
-	{
-		gMercProfiles[ ubMercProfileID ].usEyesX = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiEyeXPositions;
-		gMercProfiles[ ubMercProfileID ].usEyesY = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiEyeYPositions;
-
-		gMercProfiles[ ubMercProfileID ].usMouthX = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiMouthXPositions;
-		gMercProfiles[ ubMercProfileID ].usMouthY = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiMouthYPositions;
-	}
-	else
-	{
-		gMercProfiles[ ubMercProfileID ].usEyesX = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiEyeXPositions;
-		gMercProfiles[ ubMercProfileID ].usEyesY = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200	].uiEyeYPositions;
-
-		gMercProfiles[ ubMercProfileID ].usMouthX = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiMouthXPositions;
-		gMercProfiles[ ubMercProfileID ].usMouthY = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex - 200 ].uiMouthYPositions;
-	}
-	*/
 	
-	if( gMercProfiles[ ubMercProfileID ].bSex == 0 )
-	{
-		gMercProfiles[ ubMercProfileID ].usEyesX = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiEyeXPositions;
-		gMercProfiles[ ubMercProfileID ].usEyesY = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiEyeYPositions;
+	gMercProfiles[ubMercProfileID].usEyesX = gIMPValues[gMercProfiles[ubMercProfileID].ubFaceIndex].uiEyeXPositions;
+	gMercProfiles[ubMercProfileID].usEyesY = gIMPValues[gMercProfiles[ubMercProfileID].ubFaceIndex].uiEyeYPositions;
 
-		gMercProfiles[ ubMercProfileID ].usMouthX = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiMouthXPositions;
-		gMercProfiles[ ubMercProfileID ].usMouthY = gIMPMaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiMouthYPositions;
-	}
-	else
-	{
-		gMercProfiles[ ubMercProfileID ].usEyesX = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiEyeXPositions;
-		gMercProfiles[ ubMercProfileID ].usEyesY = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiEyeYPositions;
-
-		gMercProfiles[ ubMercProfileID ].usMouthX = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiMouthXPositions;
-		gMercProfiles[ ubMercProfileID ].usMouthY = gIMPFemaleValues[ gMercProfiles[ ubMercProfileID ].ubFaceIndex ].uiMouthYPositions;
-	}
-
+	gMercProfiles[ubMercProfileID].usMouthX = gIMPValues[gMercProfiles[ubMercProfileID].ubFaceIndex].uiMouthXPositions;
+	gMercProfiles[ubMercProfileID].usMouthY = gIMPValues[gMercProfiles[ubMercProfileID].ubFaceIndex].uiMouthYPositions;
 }
 
 

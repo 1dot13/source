@@ -171,39 +171,20 @@ BOOLEAN		RenderFigure();
 //
 //*******************************************************************
 
-
-
 void EnterIMPColorChoice( void )
 {
-//	UINT32 uiCnt;
 	VOBJECT_DESC	VObjectDesc;
 	bBigBody = FALSE;
 	bBadAss = FALSE;
 
-		if( fCharacterIsMale )
-		{
-			if ( gIMPMaleValues[ iPortraitNumber ].uiIndex == iPortraitNumber && gIMPMaleValues[ iPortraitNumber ].bSex == 0 )
-			{		
-				iCurrentSkin = gIMPMaleValues[ iPortraitNumber ].iCurrentSkin;
-				iCurrentHair = gIMPMaleValues[ iPortraitNumber ].iCurrentHair;
-				iCurrentShirt = gIMPMaleValues[ iPortraitNumber ].iCurrentShirt;
-				iCurrentPants = gIMPMaleValues[ iPortraitNumber ].iCurrentPants;
-				bBigBody = gIMPMaleValues[ iPortraitNumber ].bBigBody;
-			}
-		}
-		else
-		{
-			
-			if ( gIMPFemaleValues[ iPortraitNumber ].uiIndex == iPortraitNumber && gIMPFemaleValues[ iPortraitNumber ].bSex == 1 )
-			{		
-				iCurrentSkin = gIMPFemaleValues[ iPortraitNumber ].iCurrentSkin;
-				iCurrentHair = gIMPFemaleValues[ iPortraitNumber ].iCurrentHair;
-				iCurrentShirt = gIMPFemaleValues[ iPortraitNumber ].iCurrentShirt;
-				iCurrentPants = gIMPFemaleValues[ iPortraitNumber ].iCurrentPants;
-				bBigBody = gIMPFemaleValues[ iPortraitNumber ].bBigBody;
-			}
-			
-		}
+	if ( gIMPValues[iPortraitNumber].uiIndex == iPortraitNumber )
+	{
+		iCurrentSkin = gIMPValues[iPortraitNumber].iCurrentSkin;
+		iCurrentHair = gIMPValues[iPortraitNumber].iCurrentHair;
+		iCurrentShirt = gIMPValues[iPortraitNumber].iCurrentShirt;
+		iCurrentPants = gIMPValues[iPortraitNumber].iCurrentPants;
+		bBigBody = gIMPValues[iPortraitNumber].bBigBody;
+	}
 
 	// Based on the portrait chosen, set the default colors, when colors
 /*	switch( iPortraitNumber )
@@ -320,9 +301,7 @@ void EnterIMPColorChoice( void )
 		Assert( 0 );
 		return;
 	}
-
-
-
+		
 	giIMPColorChoiceFinsihButtonImage =	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
 	giIMPColorChoiceFinsihButton = CreateIconAndTextButton( giIMPColorChoiceFinsihButtonImage, pImpButtonText[ 24 ], FONT12ARIAL,
 																FONT_WHITE, DEFAULT_SHADOW,
@@ -330,11 +309,8 @@ void EnterIMPColorChoice( void )
 																TEXT_CJUSTIFIED,
 																LAPTOP_SCREEN_UL_X +	( 350 ), LAPTOP_SCREEN_WEB_UL_Y + ( 340 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 																BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPColorChoiceFinishCallback );
-
-
-
+	
 	SetButtonCursor( giIMPColorChoiceFinsihButton, CURSOR_WWW);
-
 }
 
 

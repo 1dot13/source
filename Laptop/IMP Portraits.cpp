@@ -52,27 +52,28 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason);
 
 void EnterIMPPortraits( void )
 {
-
 	iCurrentPortrait = 0;
-		// create buttons
+
+	// Flugente: for safety, make sure we have a pic of the fitting gender
+	// this will lead to a loop if there is no data for a gender - then again, this was always the case
+	if ( gIMPValues[iCurrentPortrait].bSex == fCharacterIsMale )
+	{
+		IncrementPictureIndex( );
+	}
+
+	// create buttons
 	CreateIMPPortraitButtons( );
 
 	// render background
 	RenderIMPPortraits( );
-
-
-	return;
 }
-
 
 void RenderIMPPortraits( void )
 {
-
-
 	// render background
 	RenderProfileBackGround( );
 
-		// the Voices frame
+	// the Voices frame
 	RenderPortraitFrame( 191, 167 );
 
 	// render the current portrait
@@ -83,33 +84,25 @@ void RenderIMPPortraits( void )
 
 	// text
 	PrintImpText( );
-
-	return;
 }
-
 
 void ExitIMPPortraits( void )
 {
 	// destroy buttons for IMP portrait page
 	DestroyIMPPortraitButtons( );
-
-	return;
 }
 
 void HandleIMPPortraits( void )
 {
-
 	// do we need to re write screen
 	if ( fReDrawPortraitScreenFlag == TRUE )
 	{
-	RenderIMPPortraits( );
+		RenderIMPPortraits( );
 
 		// reset redraw flag
 		fReDrawPortraitScreenFlag = FALSE;
 	}
-	return;
 }
-
 
 BOOLEAN RenderPortrait( INT16 sX, INT16 sY )
 {
@@ -118,160 +111,73 @@ BOOLEAN RenderPortrait( INT16 sX, INT16 sY )
 	HVOBJECT hHandle;
 	UINT32 uiGraphicHandle;
 
-	if( fCharacterIsMale	)
-	{
+	// load it
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
-		// load it
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	
-	
-		if (  gIMPMaleValues[ iCurrentPortrait ].Enabled == 1 )
-		{		
-			///sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPMaleValues[ iCurrentPortrait ].PortraitId );
-			sprintf( VObjectDesc.ImageFile, "IMPFaces\\BigFaces\\%02d.sti", gIMPMaleValues[ iCurrentPortrait ].PortraitId );
-		}
-	
-	
+	if ( gIMPValues[iCurrentPortrait].Enabled == 1 )
+	{
+		///sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPMaleValues[ iCurrentPortrait ].PortraitId );
+		sprintf( VObjectDesc.ImageFile, "IMPFaces\\BigFaces\\%02d.sti", gIMPValues[iCurrentPortrait].PortraitId );
+	}
+
 	//FilenameForBPP( pPlayerSelectedBigFaceFileNames[ iCurrentPortrait ] , VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &uiGraphicHandle));
+	CHECKF( AddVideoObject( &VObjectDesc, &uiGraphicHandle ) );
 
 	// show it
-	GetVideoObject(&hHandle, uiGraphicHandle);
-	BltVideoObject(FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + sX, LAPTOP_SCREEN_WEB_UL_Y + sY , VO_BLT_SRCTRANSPARENCY,NULL);
-
-
+	GetVideoObject( &hHandle, uiGraphicHandle );
+	BltVideoObject( FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + sX, LAPTOP_SCREEN_WEB_UL_Y + sY, VO_BLT_SRCTRANSPARENCY, NULL );
+	
 	// and kick it's sorry ..umm never mind, outta here
 	DeleteVideoObjectFromIndex( uiGraphicHandle );
-
-
-	}
-	else
-	{
-		// load it
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	
-	//FilenameForBPP( pPlayerSelectedBigFaceFileNames[ iCurrentPortrait + 8 ] , VObjectDesc.ImageFile);
-	
-		if (  gIMPFemaleValues[ iCurrentPortrait ].Enabled == 1 )
-		{
-		//	sprintf( VObjectDesc.ImageFile, "Faces\\BigFaces\\%02d.sti", gIMPFemaleValues[ iCurrentPortrait ].PortraitId );
-			sprintf( VObjectDesc.ImageFile, "IMPFaces\\BigFaces\\%02d.sti", gIMPFemaleValues[ iCurrentPortrait ].PortraitId );
-		}
-			
-			
-	CHECKF(AddVideoObject(&VObjectDesc, &uiGraphicHandle));
-
-	// show it
-	GetVideoObject(&hHandle, uiGraphicHandle);
-	BltVideoObject(FRAME_BUFFER, hHandle, 0, LAPTOP_SCREEN_UL_X + sX, LAPTOP_SCREEN_WEB_UL_Y + sY , VO_BLT_SRCTRANSPARENCY,NULL);
-
-
-	// and kick it's sorry ..umm never mind, outta here
-	DeleteVideoObjectFromIndex( uiGraphicHandle );
-
-	}
 
 	return ( TRUE );
 }
 
 void IncrementPictureIndex( void )
 {
-
-iCurrentPortrait++;
-if( fCharacterIsMale )
-{
-	if( gIMPMaleValues[iCurrentPortrait].uiIndex == iCurrentPortrait && gIMPMaleValues[iCurrentPortrait].PortraitId !=0 )
+	++iCurrentPortrait;
+	
+	if ( gIMPValues[iCurrentPortrait].uiIndex == iCurrentPortrait && gIMPValues[iCurrentPortrait].PortraitId != 0 )
 	{
-		iCurrentPortrait = gIMPMaleValues[iCurrentPortrait].uiIndex;
-	}
-	else
-	{
-		iCurrentPortrait = 0;
-	}
-}
-else
-{
-	if( gIMPFemaleValues[iCurrentPortrait].uiIndex == iCurrentPortrait && gIMPFemaleValues[iCurrentPortrait].PortraitId !=0 )
-	{
-		iCurrentPortrait = gIMPFemaleValues[iCurrentPortrait].uiIndex;
+		iCurrentPortrait = gIMPValues[iCurrentPortrait].uiIndex;
 	}
 	else
 	{
 		iCurrentPortrait = 0;
 	}
 
-}		
-	// cycle to next picture
-/*
-	iCurrentPortrait++;
-
-	// gone too far?
-	if( iCurrentPortrait > iLastPicture )
+	// if gender of face is wrong, repeat process
+	if ( gIMPValues[iCurrentPortrait].bSex == fCharacterIsMale )
 	{
-		iCurrentPortrait = 0;
+		IncrementPictureIndex( );
 	}
-
-*/
-	return;
 }
 
 void DecrementPicture( void )
 {
-UINT32 cnt;
-UINT32 idPort = 0;
+	--iCurrentPortrait;
 
-
-if( fCharacterIsMale )
-{
-	for ( cnt = 0; cnt < MAX_NEW_IMP_PORTRAITS; cnt++ )
-		{	
-			if ( gIMPMaleValues[cnt].uiIndex == cnt && gIMPMaleValues[cnt].PortraitId !=0 )
-				{
-					iLastPictureM = gIMPMaleValues[cnt].uiIndex;
-				}
-		}
-		
-		iLastPicture = iLastPictureM;
-}
-else
-{	
-	for ( cnt = 0; cnt < MAX_NEW_IMP_PORTRAITS; cnt++ )
+	if ( iCurrentPortrait < 0 )
+	{
+		for ( UINT32 cnt = 0; cnt < MAX_NEW_IMP_PORTRAITS; cnt++ )
 		{
-			if ( gIMPFemaleValues[cnt].uiIndex == cnt && gIMPFemaleValues[cnt].PortraitId !=0 )
-				{
-					iLastPictureF = gIMPFemaleValues[cnt].uiIndex;
-				}
+			if ( gIMPValues[cnt].uiIndex == cnt && gIMPValues[cnt].PortraitId != 0 )
+			{
+				iLastPictureM = gIMPValues[cnt].uiIndex;
+			}
 		}
-		
-		iLastPicture = iLastPictureF;
-}
 
-iCurrentPortrait--;
-if( fCharacterIsMale )
-{
-	if( iCurrentPortrait < 0 )
-	{
-		iCurrentPortrait = iLastPicture;
-	}
-}
-else
-{
-	if( iCurrentPortrait < 0 )
-	{
+		iLastPicture = iLastPictureM;
+
 		iCurrentPortrait = iLastPicture;
 	}
 
-}
-/*
-	// gone too far?
-	if( iCurrentPortrait < 0 )
+	// if gender of face is wrong, repeat process
+	if ( gIMPValues[iCurrentPortrait].bSex == fCharacterIsMale )
 	{
-		iCurrentPortrait = iLastPicture;
+		DecrementPicture();
 	}
-*/
-	return;
 }
-
 
 void CreateIMPPortraitButtons( void )
 {
@@ -317,19 +223,14 @@ void CreateIMPPortraitButtons( void )
 														TEXT_CJUSTIFIED,
 														LAPTOP_SCREEN_UL_X +	( 187 ), LAPTOP_SCREEN_WEB_UL_Y + ( 330 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 															BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPPortraitDoneCallback);
-
-
-
+	
 	SetButtonCursor(giIMPPortraitButton[0], CURSOR_WWW);
 	SetButtonCursor(giIMPPortraitButton[1], CURSOR_WWW);
 	SetButtonCursor(giIMPPortraitButton[2], CURSOR_WWW);
 }
 
-
-
 void DestroyIMPPortraitButtons( void )
 {
-
 	// will destroy buttons created for IMP Portrait screen
 
 	// the next button
@@ -343,14 +244,10 @@ void DestroyIMPPortraitButtons( void )
 	// the done button
 	RemoveButton(giIMPPortraitButton[ 2 ] );
 	UnloadButtonImage(giIMPPortraitButtonImage[ 2 ] );
-
-	return;
 }
-
 
 void BtnIMPPortraitNextCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for IMP attrbite begin button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -363,7 +260,7 @@ void BtnIMPPortraitNextCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// next picture!!
 			IncrementPictureIndex( );
@@ -375,7 +272,6 @@ void BtnIMPPortraitNextCallback(GUI_BUTTON *btn,INT32 reason)
 
 void BtnIMPPortraitPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for IMP attrbite begin button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -388,7 +284,7 @@ void BtnIMPPortraitPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// previous picture, please!!!
 			DecrementPicture( );
@@ -400,7 +296,6 @@ void BtnIMPPortraitPreviousCallback(GUI_BUTTON *btn,INT32 reason)
 
 void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for IMP attrbite begin button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -413,12 +308,11 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
-
-
-		// Changed to go to voice selection after portrait selection - SANDRO
-		iCurrentImpPage = IMP_VOICE;
-		// Following part has been cut out
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			
+			// Changed to go to voice selection after portrait selection - SANDRO
+			iCurrentImpPage = IMP_VOICE;
+			// Following part has been cut out
 
 			// go to main page
 			//iCurrentImpPage = IMP_MAIN_PAGE;
@@ -449,24 +343,12 @@ void BtnIMPPortraitDoneCallback(GUI_BUTTON *btn,INT32 reason)
 
 			// grab picture number
 			
+			iPortraitNumber = gIMPValues[iCurrentPortrait].uiIndex; //iCurrentPortrait
 
-		
-			if( fCharacterIsMale	)
-			{
-				// male
-				iPortraitNumber = gIMPMaleValues[ iCurrentPortrait ].uiIndex; //iCurrentPortrait
-			}
-			else
-			{
-				// female
-				iPortraitNumber = gIMPFemaleValues[ iCurrentPortrait ].uiIndex; //iCurrentPortrait ;//+ ( 8 );
-			}
-		
 			fButtonPendingFlag = TRUE;
 		}
 	}
 }
-
 
 BOOLEAN CameBackToPortraitsPageButNotFinished()
 {

@@ -26,15 +26,10 @@ typedef struct
 	INT32 iCurrentPants;
 	BOOLEAN bBigBody;
 	BOOLEAN bBadAss;
-
 } IMP_FACE_VALUES;
 
-extern IMP_FACE_VALUES gIMPFaceValues[NUM_PROFILES];
-
-
 typedef struct
 {
-	UINT16 uiIndexIMP;
 	BOOLEAN Enabled;
 	
 	UINT16 uiEyeXPositions;
@@ -52,31 +47,9 @@ typedef struct
 	BOOLEAN bBigBody;
 	BOOLEAN bBadAss;
 	
-} IMP_MALE_VALUES;
+} IMP_VALUES;
 
-typedef struct
-{
-	UINT16 uiIndexIMP;
-	BOOLEAN Enabled;
-	
-	UINT16 uiEyeXPositions;
-	UINT16 uiEyeYPositions;
-	UINT16 uiMouthXPositions;
-	UINT16 uiMouthYPositions;
-	UINT16 uiIndex;
-	UINT16 FaceIndex; 
-	UINT16 PortraitId;
-	BOOLEAN bSex;
-	INT32 iCurrentSkin;
-	INT32 iCurrentHair;
-	INT32 iCurrentShirt;
-	INT32 iCurrentPants;
-	BOOLEAN bBigBody;
-	BOOLEAN bBadAss;
-} IMP_FEMALE_VALUES;
-
-extern IMP_FEMALE_VALUES gIMPFemaleValues[NUM_PROFILES];
-extern IMP_MALE_VALUES gIMPMaleValues[NUM_PROFILES];
+extern IMP_VALUES gIMPValues[NUM_PROFILES];
 
 BOOLEAN AddCharacterToPlayersTeam( void );
 BOOLEAN LoadImpCharacter( STR fileName );

@@ -28,6 +28,8 @@ typedef impPortraitsParseData;
 
 BOOLEAN IMPPortraits_TextOnly;
 
+IMP_FACE_VALUES gIMPFaceValues[NUM_PROFILES];
+
 static void XMLCALL
 impPortraitsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -70,7 +72,6 @@ impPortraitsStartElementHandle(void *userData, const XML_Char *name, const XML_C
 	}
 
 	pData->currentDepth++;
-
 }
 
 static void XMLCALL
@@ -79,12 +80,11 @@ impPortraitsCharacterDataHandle(void *userData, const XML_Char *str, int len)
 	impPortraitsParseData * pData = (impPortraitsParseData *)userData;
 
 	if( (pData->currentDepth <= pData->maxReadDepth) &&
-		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	){
+		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH) )
+	{
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
 	}
 }
-
 
 static void XMLCALL
 impPortraitsEndElementHandle(void *userData, const XML_Char *name)
@@ -101,37 +101,17 @@ impPortraitsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_LIST;	
 			
-			if (!IMPPortraits_TextOnly)
-				{		
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiEyeXPositions = pData->curIMPPortraits.uiEyeXPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiEyeYPositions = pData->curIMPPortraits.uiEyeYPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiMouthXPositions = pData->curIMPPortraits.uiMouthXPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiMouthYPositions = pData->curIMPPortraits.uiMouthYPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].PortraitId = pData->curIMPPortraits.PortraitId;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].bSex = pData->curIMPPortraits.bSex;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentSkin = pData->curIMPPortraits.iCurrentSkin;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentShirt = pData->curIMPPortraits.iCurrentShirt;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentHair = pData->curIMPPortraits.iCurrentHair;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentPants = pData->curIMPPortraits.iCurrentPants;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].bBigBody = pData->curIMPPortraits.bBigBody;
-
-				}
-				else
-				{
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiEyeXPositions = pData->curIMPPortraits.uiEyeXPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiEyeYPositions = pData->curIMPPortraits.uiEyeYPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiMouthXPositions = pData->curIMPPortraits.uiMouthXPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiMouthYPositions = pData->curIMPPortraits.uiMouthYPositions;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].PortraitId = pData->curIMPPortraits.PortraitId;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].bSex = pData->curIMPPortraits.bSex;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentSkin = pData->curIMPPortraits.iCurrentSkin;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentShirt = pData->curIMPPortraits.iCurrentShirt;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentHair = pData->curIMPPortraits.iCurrentHair;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentPants = pData->curIMPPortraits.iCurrentPants;
-					gIMPFaceValues[pData->curIMPPortraits.uiIndex].bBigBody = pData->curIMPPortraits.bBigBody;
-
-				}		
-		
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiEyeXPositions = pData->curIMPPortraits.uiEyeXPositions;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiEyeYPositions = pData->curIMPPortraits.uiEyeYPositions;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiMouthXPositions = pData->curIMPPortraits.uiMouthXPositions;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].uiMouthYPositions = pData->curIMPPortraits.uiMouthYPositions;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].PortraitId = pData->curIMPPortraits.PortraitId;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].bSex = pData->curIMPPortraits.bSex;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentSkin = pData->curIMPPortraits.iCurrentSkin;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentShirt = pData->curIMPPortraits.iCurrentShirt;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentHair = pData->curIMPPortraits.iCurrentHair;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].iCurrentPants = pData->curIMPPortraits.iCurrentPants;
+			gIMPFaceValues[pData->curIMPPortraits.uiIndex].bBigBody = pData->curIMPPortraits.bBigBody;
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{
@@ -231,15 +211,12 @@ BOOLEAN ReadInIMPPortraits(STR fileName, BOOLEAN localizedVersion)
 	lpcBuffer[uiFSize] = 0; //add a null terminator
 
 	FileClose( hFile );
-
-
+	
 	XML_SetElementHandler(parser, impPortraitsStartElementHandle, impPortraitsEndElementHandle);
 	XML_SetCharacterDataHandler(parser, impPortraitsCharacterDataHandle);
-
-
+	
 	memset(&pData,0,sizeof(pData));
 	XML_SetUserData(parser, &pData);
-
 
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
@@ -254,62 +231,33 @@ BOOLEAN ReadInIMPPortraits(STR fileName, BOOLEAN localizedVersion)
 
 	MemFree(lpcBuffer);
 
-
 	XML_ParserFree(parser);
-
 
 	return( TRUE );
 }
 
-
 void LoadIMPPortraitsTEMP()
 {
-UINT32  cnt;
-UINT32 cnt2 = 0;
-UINT32 cnt3 = 0;
+	UINT32 cnt2 = 0;
 
-	for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
+	for ( UINT32 cnt = 0; cnt < NUM_PROFILES; ++cnt )
+	{
+		if ( gIMPFaceValues[cnt].PortraitId !=0)
 		{
-			if (gIMPFaceValues[cnt].bSex == 1 && gIMPFaceValues[cnt].PortraitId !=0)
-				{
-					gIMPFemaleValues[cnt2].uiIndex = cnt2;
-					
-					gIMPFemaleValues[cnt2].Enabled = 1;	
-					
-					gIMPFemaleValues[cnt2].uiEyeXPositions = gIMPFaceValues[cnt].uiEyeXPositions;
-					gIMPFemaleValues[cnt2].uiEyeYPositions = gIMPFaceValues[cnt].uiEyeYPositions;
-					gIMPFemaleValues[cnt2].uiMouthXPositions = gIMPFaceValues[cnt].uiMouthXPositions;
-					gIMPFemaleValues[cnt2].uiMouthYPositions = gIMPFaceValues[cnt].uiMouthYPositions;
-					gIMPFemaleValues[cnt2].PortraitId = gIMPFaceValues[cnt].PortraitId;
-					gIMPFemaleValues[cnt2].bSex = gIMPFaceValues[cnt].bSex;
-					gIMPFemaleValues[cnt2].iCurrentSkin = gIMPFaceValues[cnt].iCurrentSkin;
-					gIMPFemaleValues[cnt2].iCurrentShirt = gIMPFaceValues[cnt].iCurrentShirt;
-					gIMPFemaleValues[cnt2].iCurrentHair = gIMPFaceValues[cnt].iCurrentHair;
-					gIMPFemaleValues[cnt2].iCurrentPants = gIMPFaceValues[cnt].iCurrentPants;
-					gIMPFemaleValues[cnt2].bBigBody = gIMPFaceValues[cnt].bBigBody;
-					cnt2++;
-				}
-		}		
-		
-	for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
-		{
-			if (gIMPFaceValues[cnt].bSex == 0 && gIMPFaceValues[cnt].PortraitId !=0)
-				{
-					gIMPMaleValues[cnt3].uiIndex = cnt3;
-					gIMPMaleValues[cnt3].Enabled = 1;	
-					gIMPMaleValues[cnt3].uiEyeXPositions = gIMPFaceValues[cnt].uiEyeXPositions;
-					gIMPMaleValues[cnt3].uiEyeYPositions = gIMPFaceValues[cnt].uiEyeYPositions;
-					gIMPMaleValues[cnt3].uiMouthXPositions = gIMPFaceValues[cnt].uiMouthXPositions;
-					gIMPMaleValues[cnt3].uiMouthYPositions = gIMPFaceValues[cnt].uiMouthYPositions;
-					gIMPMaleValues[cnt3].PortraitId = gIMPFaceValues[cnt].PortraitId;
-					gIMPMaleValues[cnt3].bSex = gIMPFaceValues[cnt].bSex;
-					gIMPMaleValues[cnt3].iCurrentSkin = gIMPFaceValues[cnt].iCurrentSkin;
-					gIMPMaleValues[cnt3].iCurrentShirt = gIMPFaceValues[cnt].iCurrentShirt;
-					gIMPMaleValues[cnt3].iCurrentHair = gIMPFaceValues[cnt].iCurrentHair;
-					gIMPMaleValues[cnt3].iCurrentPants = gIMPFaceValues[cnt].iCurrentPants;
-					gIMPMaleValues[cnt3].bBigBody = gIMPFaceValues[cnt].bBigBody;
-					cnt3++;
-					}	
+			gIMPValues[cnt2].uiIndex = cnt2;					
+			gIMPValues[cnt2].Enabled = 1;					
+			gIMPValues[cnt2].uiEyeXPositions = gIMPFaceValues[cnt].uiEyeXPositions;
+			gIMPValues[cnt2].uiEyeYPositions = gIMPFaceValues[cnt].uiEyeYPositions;
+			gIMPValues[cnt2].uiMouthXPositions = gIMPFaceValues[cnt].uiMouthXPositions;
+			gIMPValues[cnt2].uiMouthYPositions = gIMPFaceValues[cnt].uiMouthYPositions;
+			gIMPValues[cnt2].PortraitId = gIMPFaceValues[cnt].PortraitId;
+			gIMPValues[cnt2].bSex = gIMPFaceValues[cnt].bSex;
+			gIMPValues[cnt2].iCurrentSkin = gIMPFaceValues[cnt].iCurrentSkin;
+			gIMPValues[cnt2].iCurrentShirt = gIMPFaceValues[cnt].iCurrentShirt;
+			gIMPValues[cnt2].iCurrentHair = gIMPFaceValues[cnt].iCurrentHair;
+			gIMPValues[cnt2].iCurrentPants = gIMPFaceValues[cnt].iCurrentPants;
+			gIMPValues[cnt2].bBigBody = gIMPFaceValues[cnt].bBigBody;
+			++cnt2;
 		}
-
+	}
 }

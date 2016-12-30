@@ -1102,6 +1102,8 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		}
 #endif
 
+	LoadIMPPortraitsTEMP( );
+
 	// Flugente: soldier profiles
 	if (!is_networked)
 	{
@@ -1159,9 +1161,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 			num_found_soldier_profiles[5] = num_found_profiles;
 		}
 	}
-
-	LoadIMPPortraitsTEMP();
-	
+			
 	//Sound profile by jazz 
 	strcpy(fileName, directoryName);
 	strcat(fileName, SOUNDPROFILE);

@@ -588,37 +588,15 @@ UINT32 cnt;
 	// grab face filename
 //	strcpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubUnusedFaceFileName , pPlayerSelectedFaceFileNames[ iPortraitNumber ]);
 
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].ubFaceIndex = (UINT8)iPortraitNumber;
 
-			if( fCharacterIsMale )
-			{
-			//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = 200 + ( UINT8 )iPortraitNumber;
-			
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = ( UINT8 )iPortraitNumber;
+	// eyes
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usEyesX = sFacePositions[gIMPValues[iPortraitNumber].uiEyeXPositions][0];
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usEyesY = sFacePositions[gIMPValues[iPortraitNumber].uiEyeYPositions][1];
 
-			// eyes
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usEyesX = sFacePositions[ gIMPMaleValues[iPortraitNumber].uiEyeXPositions ][ 0 ];
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usEyesY = sFacePositions[ gIMPMaleValues[iPortraitNumber].uiEyeYPositions ][ 1 ];
-
-			// mouth
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usMouthX = sFacePositions[ gIMPMaleValues[iPortraitNumber].uiMouthXPositions ][ 2 ];
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usMouthY = sFacePositions[ gIMPMaleValues[iPortraitNumber].uiMouthYPositions ][ 3 ];
-			}
-			else
-			{
-			//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = 200 + ( UINT8 )iPortraitNumber;
-			
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].ubFaceIndex = ( UINT8 )iPortraitNumber;
-
-			// eyes
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usEyesX = sFacePositions[ gIMPFemaleValues[iPortraitNumber].uiEyeXPositions ][ 0 ];
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usEyesY = sFacePositions[ gIMPFemaleValues[iPortraitNumber].uiEyeYPositions ][ 1 ];
-
-			// mouth
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usMouthX = sFacePositions[ gIMPFemaleValues[iPortraitNumber].uiMouthXPositions ][ 2 ];
-			gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usMouthY = sFacePositions[ gIMPFemaleValues[iPortraitNumber].uiMouthYPositions ][ 3 ];
-
-	
-			}
+	// mouth
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usMouthX = sFacePositions[gIMPValues[iPortraitNumber].uiMouthXPositions][2];
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usMouthY = sFacePositions[gIMPValues[iPortraitNumber].uiMouthYPositions][3];
 
 	// now the offsets
 	/*
@@ -634,7 +612,6 @@ UINT32 cnt;
 	*/
 	// set merc skins and hair color
 	SetMercSkinAndHairColors( );
-	return;
 }
 
 void SetMercSkinAndHairColors( void )

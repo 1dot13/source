@@ -1118,27 +1118,14 @@ BOOLEAN LoadCharacterPortraitForMainPage( void )
 		// load it
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		
-		if( fCharacterIsMale )
+		if ( gIMPValues[iPortraitNumber].Enabled == 1 )
 		{
-			if (  gIMPMaleValues[ iPortraitNumber ].Enabled == 1 )
-			{
 			//	sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPMaleValues[ iPortraitNumber ].PortraitId );
-				sprintf( VObjectDesc.ImageFile, "IMPFaces\\%02d.sti", gIMPMaleValues[ iPortraitNumber ].PortraitId );
-			}
+			sprintf( VObjectDesc.ImageFile, "IMPFaces\\%02d.sti", gIMPValues[iPortraitNumber].PortraitId );
 		}
-		else
-		{
-			if (  gIMPFemaleValues[ iPortraitNumber ].Enabled == 1 )
-			{
-				//sprintf( VObjectDesc.ImageFile, "Faces\\%02d.sti", gIMPFemaleValues[ iPortraitNumber ].PortraitId );
-				sprintf( VObjectDesc.ImageFile, "IMPFaces\\%02d.sti", gIMPFemaleValues[ iPortraitNumber ].PortraitId );
-			}
-		}
-		//FilenameForBPP( pPlayerSelectedFaceFileNames[ iPortraitNumber ] , VObjectDesc.ImageFile);
 		
 		CHECKF(AddVideoObject(&VObjectDesc, &guiCHARACTERPORTRAITFORMAINPAGE));
-
-
+		
 		// now specify
 		SpecifyButtonIcon(	giIMPMainPageButton[4], guiCHARACTERPORTRAITFORMAINPAGE, 0,
 														33, 23, FALSE );
@@ -1146,8 +1133,6 @@ BOOLEAN LoadCharacterPortraitForMainPage( void )
 
 	return( TRUE );
 }
-
-
 
 BOOLEAN IMP_CanWeDisplayPortrait( )
 {
