@@ -478,6 +478,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Значительно пониженный слух.",
 	L"Сниженная дальность видимости.",
 	L"Drastically increased bleeding.",	// TODO.Translate
+	L"Performance suffers while on a rooftop.",	// TODO.Translate
 };
 
 STR16 gzIMPProfileCostText[]=

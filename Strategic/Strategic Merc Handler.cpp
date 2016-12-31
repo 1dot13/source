@@ -258,6 +258,7 @@ void MercDailyUpdate()
 					case CLAUSTROPHOBIC:
 					case NONSWIMMER:
 					case FEAR_OF_INSECTS:
+					case AFRAID_OF_HEIGHTS:
 						// repeatable once per day
 						pSoldier->usQuoteSaidFlags &= ( ~SOLDIER_QUOTE_SAID_PERSONALITY );
 						break;

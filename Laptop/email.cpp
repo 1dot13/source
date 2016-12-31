@@ -4128,6 +4128,16 @@ void HandleIMPCharProfileResultsMessage( void)
 
 			AddEmailRecordToList( pString );
 		}
+		else if ( gMercProfiles[iCurrentIMPSlot].bDisability == AFRAID_OF_HEIGHTS )
+		{
+			swprintf( pString, gzIMPDisabilityTraitEmailTextAfraidOfHeights[0] );
+
+			AddEmailRecordToList( pString );
+
+			swprintf( pString, gzIMPDisabilityTraitEmailTextAfraidOfHeights[1] );
+
+			AddEmailRecordToList( pString );
+		}
 		else
 		{
 			// personality tick

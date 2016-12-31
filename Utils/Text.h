@@ -345,6 +345,7 @@ extern STR16 gzIMPDisabilityTraitText[];			// added by Flugente
 extern STR16 gzIMPDisabilityTraitEmailTextDeaf[];	// added by Flugente
 extern STR16 gzIMPDisabilityTraitEmailTextShortSighted[];
 extern STR16 gzIMPDisabilityTraitEmailTextHemophiliac[];	// added by Flugente
+extern STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[];	// added by Flugente
 extern STR16 sEnemyTauntsFireGun[];
 extern STR16 sEnemyTauntsFireLauncher[];
 extern STR16 sEnemyTauntsThrow[];

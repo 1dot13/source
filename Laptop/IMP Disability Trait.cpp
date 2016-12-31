@@ -34,7 +34,7 @@
 
 enum
 {
-	IMP_DISABILITY_TRAIT__TITLE_TEXT=IMP_DISABILITIES_NUMBER,
+	IMP_DISABILITY_TRAIT__TITLE_TEXT = NUM_DISABILITIES,
 };
 
 
@@ -65,11 +65,11 @@ enum
 
 BOOLEAN gfIST_Redraw3=FALSE;
 
-BOOLEAN	gfDisabilityTraitQuestions[ IMP_DISABILITIES_NUMBER ];
+BOOLEAN	gfDisabilityTraitQuestions[NUM_DISABILITIES];
 
 // these are the buttons for the questions
-INT32 giIMPDisabilityTraitAnswerButton[ IMP_DISABILITIES_NUMBER ];
-INT32 giIMPDisabilityTraitAnswerButtonImage[ IMP_DISABILITIES_NUMBER ];
+INT32 giIMPDisabilityTraitAnswerButton[NUM_DISABILITIES];
+INT32 giIMPDisabilityTraitAnswerButtonImage[NUM_DISABILITIES];
 
 // this is the Done	buttons
 INT32 giIMPDisabilityTraitFinsihButton;
@@ -78,7 +78,7 @@ INT32 giIMPDisabilityTraitFinsihButtonImage;
 //image handle
 UINT32	guiIST_GreyGoldBox3;
 
-MOUSE_REGION	gMR_DisabilityHelpTextRegions[ IMP_DISABILITIES_NUMBER ];
+MOUSE_REGION	gMR_DisabilityHelpTextRegions[NUM_DISABILITIES];
 
 //*******************************************************************
 //
@@ -140,7 +140,7 @@ void EnterIMPDisabilityTrait( void )
 	if( iCurrentProfileMode != IMP__FINISH )
 	{
 		//Have the NONE trait initially selected
-		gfDisabilityTraitQuestions[ IMP_NO_DISABILITY ] = TRUE;
+		gfDisabilityTraitQuestions[ NO_DISABILITY ] = TRUE;
 	}
 
 	HandleDisabilityTraitButtonStates( );
@@ -148,7 +148,7 @@ void EnterIMPDisabilityTrait( void )
 	// add regions for help texts
 	UINT16 usPosX = IMP_DISABILITY_COLUMN_START_X + 62;
 	UINT16 usPosY = IMP_DISABILITY_COLUMN_START_Y + 8;
-	for( UINT8 ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
+	for ( UINT8 ubCnt = 0; ubCnt<NUM_DISABILITIES; ubCnt++ )
 	{
 		MSYS_DefineRegion( &gMR_DisabilityHelpTextRegions[ubCnt], usPosX, ( usPosY ),
 						(usPosX + 156), ( usPosY + 17), MSYS_PRIORITY_HIGH,
@@ -176,7 +176,7 @@ void RenderIMPDisabilityTrait( void )
 	RenderProfileBackGround();
 
 	// Display title
-	DrawTextToScreen( gzIMPDisabilityTraitText[IMP_DISABILITIES_NUMBER], LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DrawTextToScreen( gzIMPDisabilityTraitText[NUM_DISABILITIES], LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	IMPDisabilityTraitDisplayDisabilityTraits();
 }
@@ -189,7 +189,7 @@ void ExitIMPDisabilityTrait( void )
 	DeleteVideoObjectFromIndex( guiIST_GreyGoldBox3 );
 
 	//remove the skill buttons
-	for(ubCnt = 0; ubCnt < IMP_DISABILITIES_NUMBER; ubCnt++)
+	for ( ubCnt = 0; ubCnt < NUM_DISABILITIES; ubCnt++ )
 	{
 		//if there is a button allocated
 		if( giIMPDisabilityTraitAnswerButton[ubCnt] != -1 )
@@ -225,7 +225,7 @@ void AddImpDisabilityTraitButtons()
 	usPosX = IMP_DISABILITY_COLUMN_START_X;
 	usPosY = IMP_DISABILITY_COLUMN_START_Y;
 
-	for(ubCnt = 0; ubCnt < IMP_DISABILITIES_NUMBER; ubCnt++)
+	for ( ubCnt = 0; ubCnt < NUM_DISABILITIES; ubCnt++ )
 	{
 		//reset
 		giIMPDisabilityTraitAnswerButton[ubCnt] = -1;
@@ -294,13 +294,13 @@ void HandleIMPDisabilityTraitAnswers( UINT32 uiSkillPressed )
 	}
 
 	//reset all other buttons
-	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
+	for ( ubCnt = 0; ubCnt<NUM_DISABILITIES; ++ubCnt )
 	{
 		gfDisabilityTraitQuestions[ ubCnt ] = FALSE;
 	}
 
 	//make sure its a valid disability trait
-	if( uiSkillPressed >= IMP_DISABILITIES_NUMBER )
+	if ( uiSkillPressed >= NUM_DISABILITIES )
 	{
 		Assert( 0 );
 		return;
@@ -335,9 +335,7 @@ void HandleIMPDisabilityTraitAnswers( UINT32 uiSkillPressed )
 
 void HandleDisabilityTraitButtonStates( )
 {
-	UINT8 ubCnt;
-
-	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
+	for ( UINT8 ubCnt = 0; ubCnt<NUM_DISABILITIES; ++ubCnt )
 	{
 		//if the skill is selected ( ie depressed )
 		if( gfDisabilityTraitQuestions[ ubCnt ] )
@@ -364,7 +362,7 @@ void IMPDisabilityTraitDisplayDisabilityTraits()
 	usPosX = IMP_DISABILITY_COLUMN_START_X + IMP_DISABILITY_TRAIT__TEXT_OFFSET_X;
 	usPosY = IMP_DISABILITY_COLUMN_START_Y + IMP_DISABILITY_TRAIT__TEXT_OFFSET_Y;
 
-	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
+	for ( ubCnt = 0; ubCnt<NUM_DISABILITIES; ++ubCnt )
 	{
 		usBoxPosX = usPosX - IMP_DISABILITY_TRAIT__GREY_BOX_OFFSET_X;
 		usBoxPosY = usPosY - IMP_DISABILITY_TRAIT__GREY_BOX_OFFSET_Y;
@@ -452,11 +450,10 @@ BOOLEAN CameBackToDisabilityTraitPageButNotFinished()
 
 INT8 iChosenDisabilityTrait()
 {
-	UINT8	ubCnt;
 	INT8 iDisabilityTraitNumber = 0;
 
 	//loop through all the buttons and reset them
-	for( ubCnt=0; ubCnt<IMP_DISABILITIES_NUMBER; ubCnt++ )
+	for ( UINT8 ubCnt = 0; ubCnt<NUM_DISABILITIES; ++ubCnt )
 	{
 		//if the trait is selected
 		if( gfDisabilityTraitQuestions[ ubCnt ] )
@@ -464,6 +461,7 @@ INT8 iChosenDisabilityTrait()
 			iDisabilityTraitNumber = ubCnt;
 		}
 	}
+
 	return( iDisabilityTraitNumber );
 }
 
@@ -472,7 +470,7 @@ INT8 iPlayersAttributePointsBonusForDisabilitySelected()
 	INT8		bExtraAttributePoints = 0;
 
 	//if there is any disability selected, give a bonus to attributes (counted there)
-	if( ( iChosenDisabilityTrait() > 0 ) && ( iChosenDisabilityTrait() <= IMP_DISABILITIES_NUMBER ) )
+	if ( (iChosenDisabilityTrait( ) > 0) && (iChosenDisabilityTrait( ) <= NUM_DISABILITIES) )
 	{
 		bExtraAttributePoints = gGameExternalOptions.iBonusPointsForDisability;
 	}

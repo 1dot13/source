@@ -478,6 +478,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Drastically reduced hearing.",
 	L"Reduced sight range.",
 	L"Drastically increased bleeding.",
+	L"Performance suffers while on a rooftop.",
 };
 
 STR16 gzIMPProfileCostText[]=

@@ -103,6 +103,7 @@ MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS] =
 	{ TACTICAL_MORALE_EVENT,			5},		//MORALE_GOOD_FOOD,
 	{ TACTICAL_MORALE_EVENT,			-1},	//MORALE_BAD_FOOD,
 	{ TACTICAL_MORALE_EVENT,			-5},	//MORALE_LOATHSOME_FOOD,
+	{TACTICAL_MORALE_EVENT,				-8},	//MORALE_FEAR_OF_HEIGHTS,
 	// added by anv
 	{ STRATEGIC_MORALE_EVENT,			-5},	//MORALE_BUDDY_FIRED,
 	{ STRATEGIC_MORALE_EVENT,			-8},	//MORALE_BUDDY_FIRED_ON_BAD_TERMS,
@@ -1004,6 +1005,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 		case MORALE_GOOD_FOOD:
 		case MORALE_BAD_FOOD:
 		case MORALE_LOATHSOME_FOOD:
+		case MORALE_FEAR_OF_HEIGHTS:
 			Assert( pSoldier );
 			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
 			break;

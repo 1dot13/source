@@ -330,6 +330,8 @@ typedef enum
 	DEAF,
 	SHORTSIGHTED,
 	HEMOPHILIAC,
+	AFRAID_OF_HEIGHTS,
+
 	NUM_DISABILITIES
 } PersonalityTrait;
 

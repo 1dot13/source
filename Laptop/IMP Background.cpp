@@ -642,13 +642,13 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 
 	if ( SkillsList[0] == TECHNICIAN_NT || SkillsList[1] == TECHNICIAN_NT || SkillsList[2] == TECHNICIAN_NT )
 	{
-		if ( zBackground[ ubNumber ].value[MECHANICAL] < 0 )
+		if ( zBackground[ ubNumber ].value[BG_MECHANICAL] < 0 )
 			return FALSE;
 	}
 
 	if ( SkillsList[0] == DOCTOR_NT || SkillsList[1] == DOCTOR_NT || SkillsList[2] == DOCTOR_NT )
 	{
-		if ( zBackground[ ubNumber ].value[MEDICAL] < 0 )
+		if ( zBackground[ ubNumber ].value[BG_MEDICAL] < 0 )
 			return FALSE;
 	}
 
@@ -672,7 +672,7 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 		
 	if ( SkillsList[0] == DEMOLITIONS_NT || SkillsList[1] == DEMOLITIONS_NT || SkillsList[2] == DEMOLITIONS_NT )
 	{
-		if ( zBackground[ ubNumber ].value[EXPLOSIVE_ASSIGN] < 0 )
+		if ( zBackground[ ubNumber ].value[BG_EXPLOSIVE_ASSIGN] < 0 )
 			return FALSE;
 	}
 
@@ -697,11 +697,15 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 			return FALSE;
 		break;
 	case FORGETFUL:
-		if ( zBackground[ ubNumber ].value[LEADERSHIP] > 0 )
+		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
 			return FALSE;
 		break;
 	case PSYCHO:
-		if ( zBackground[ ubNumber ].value[LEADERSHIP] > 0 )
+		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
+			return FALSE;
+		break;
+	case AFRAID_OF_HEIGHTS:
+		if ( zBackground[ubNumber].value[BG_HEIGHT] > 0 )
 			return FALSE;
 		break;
 	default:
@@ -716,7 +720,7 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 			return FALSE;
 		break;
 	case CHAR_TRAIT_LONER:
-		if ( zBackground[ ubNumber ].value[LEADERSHIP] > 0 )
+		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
 			return FALSE;
 		break;
 	case CHAR_TRAIT_OPTIMIST:

@@ -477,6 +477,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Drastically reduced hearing.",
 	L"Reduced sight range.",
 	L"Drastically increased bleeding.",	// TODO.Translate
+	L"Performance suffers while on a rooftop.",	// TODO.Translate
 };
 
 

@@ -479,6 +479,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Deutlich geringere Hörweite.",
 	L"Geringere Sichtweite.",
 	L"Drastically increased bleeding.",	// TODO.Translate
+	L"Performance suffers while on a rooftop.",	// TODO.Translate
 };
 
 STR16 gzIMPProfileCostText[]=

@@ -2047,6 +2047,10 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 		{
 			ubPoints = (ubPoints * 9) / 10;
 		}
+		else if ( DoesMercHaveDisability( this, AFRAID_OF_HEIGHTS ) && this->pathing.bLevel > 0 )
+		{
+			ubPoints = (ubPoints * 9) / 10;
+		}
 	}
 
 	// Adjust APs due to drugs...
@@ -9335,13 +9339,16 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 		return;
 	}
-	INT8							bNewDirection;
-	UINT8							ubWhoIsThere;
+
 	if ( is_client )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[43] );
 		return;//hayden disable climbing roof
 	}
+
+	INT8							bNewDirection;
+	UINT8							ubWhoIsThere;	
+
 	if ( FindHeigherLevel( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel == 0) )
 	{
 		if ( EnoughPoints( this, GetAPsToClimbRoof( this, FALSE ), 0, TRUE ) )
@@ -9376,11 +9383,29 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 				else
 					this->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0, FALSE );
 
+				// Flugente: if we are afraid of heights, we complain
+				if ( DoesMercHaveDisability( this, AFRAID_OF_HEIGHTS ) )
+				{
+					if ( !(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) )
+					{
+						HandleMoraleEvent( this, MORALE_FEAR_OF_HEIGHTS, this->sSectorX, this->sSectorY, this->bSectorZ );
+
+						TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
+						this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
+
+						// Flugente: dynamic opinions
+						HandleDynamicOpinionChange( this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+					}
+					// otherwise remove flag, so we'll complain every second time we climb roof
+					else
+					{
+						this->usQuoteSaidFlags &= ~SOLDIER_QUOTE_SAID_PERSONALITY;
+					}
+				}
+
 				this->InternalReceivingSoldierCancelServices( FALSE );
 				this->InternalGivingSoldierCancelServices( FALSE );
-
 			}
-
 		}
 	}
 	else

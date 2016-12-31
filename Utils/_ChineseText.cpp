@@ -7833,6 +7833,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"聋子", //L"Deaf",
 	L"近视眼", //L"Shortsighted",
 	L"血友病",//L"Hemophiliac",
+	L"Fear of Heights",	// TODO.Translate
 	L"I.M.P. 性格缺陷",
 };
 
@@ -7852,6 +7853,12 @@ STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =
 {
 	L"你确信这个工作适合你么？",//L"Are you SURE this is the right job for you?",
 	L"只要你够NB永远不被枪打中，或者战斗只在设施完备的医院中进行，应该就会没事的",//L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[]=	// TODO.Translate
+{
+	L"Let's just say you are a grounded person.",
+	L"You prefer missions where you don't have to scale tall buildings or mountains. We recommend conquering the Netherlands.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility

@@ -209,6 +209,11 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 			// SANDRO - fear of insects, and we are in tropical sector
 			iEffExpLevel -= 1;
 		}
+		else if ( DoesMercHaveDisability( pSoldier, AFRAID_OF_HEIGHTS ) && pSoldier->pathing.bLevel > 0 )
+		{
+			// Flugente: fear of heights
+			iEffExpLevel -= 2;
+		}
 	}
 
 	// Flugente: diseases can affect stat effectivity
