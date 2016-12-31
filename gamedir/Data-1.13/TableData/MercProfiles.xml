@@ -99,6 +99,7 @@
 <!-- (8) Deaf 										-->
 <!-- (9) Shortsighted 								-->
 <!-- (10) Hemophiliac 								-->
+<!-- (11) Fear of Heights 							-->
 
 <!-- Appearance -->
 
@@ -596,7 +597,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
 		<bCharacterTrait>3</bCharacterTrait>
-		<bDisability>3</bDisability>
+		<bDisability>11</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>33</bReputationTolerance>
 		<bDeathRate>18</bDeathRate>
@@ -21476,7 +21477,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>9</bAttitude>
 		<bCharacterTrait>12</bCharacterTrait>
-		<bDisability>4</bDisability>
+		<bDisability>11</bDisability>
 		<ubNeedForSleep>11</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
 		<bDeathRate>101</bDeathRate>
@@ -23566,7 +23567,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
 		<bCharacterTrait>1</bCharacterTrait>
-		<bDisability>0</bDisability>
+		<bDisability>11</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>78</bReputationTolerance>
 		<bDeathRate>90</bDeathRate>
@@ -24396,5 +24397,6 @@
 		<ubCivilianGroup>0</ubCivilianGroup>
 		<bTown>0</bTown>
 		<bTownAttachment>0</bTownAttachment>
+		<usBackground>254</usBackground>
 	</PROFILE>
 </MERCPROFILES>
