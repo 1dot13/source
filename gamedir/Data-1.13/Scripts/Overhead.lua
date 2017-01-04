@@ -411,6 +411,7 @@ ScreenTypes =
 MiniGames =
 {
 	TETRIS = 0,
+	PONG = 1,
 }
 
 -- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
@@ -498,6 +499,7 @@ ModSpecificActions =
 	
 	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
 	MINIGAME_TETRIS = 50,
+	MINIGAME_PONG = 51,
 	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
 }
 
@@ -1467,6 +1469,15 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			if ( SoldierSpendMoney(ubID, 1) == 1 ) then
 			
 				SetMiniGameType(MiniGames.TETRIS)
+				SetPendingNewScreen(ScreenTypes.MINIGAME)
+			
+			end
+		elseif ( sLuaactionid == ModSpecificActions.MINIGAME_PONG ) then
+		
+			-- playing a game costs $1
+			if ( SoldierSpendMoney(ubID, 1) == 1 ) then
+			
+				SetMiniGameType(MiniGames.PONG)
 				SetPendingNewScreen(ScreenTypes.MINIGAME)
 			
 			end

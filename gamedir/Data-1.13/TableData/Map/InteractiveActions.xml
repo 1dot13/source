@@ -1004,6 +1004,15 @@
 		<sActionType>5</sActionType>
 		<luaactionid>50</luaactionid>
 	</ACTION>
+	
+	<!-- one-armed bandit -->
+	<ACTION>
+		<szTileSetName>lawless.sti</szTileSetName>		
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<sActionType>5</sActionType>
+		<luaactionid>51</luaactionid>
+	</ACTION>
 	<!-- |||||||||||||||||||| MINIGAME |||||||||||||||||||| -->	
 	
 </INTERACTIVEACTIONS>
