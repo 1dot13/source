@@ -10,7 +10,11 @@
 enum
 {
 	MINIGAME_FIRST = 0,
+
 	TETRIS = MINIGAME_FIRST,
+	PONG,
+
+	MINIGAME_MAX,
 };
 
 // enums of gamestates
@@ -30,5 +34,8 @@ UINT32	MiniGameScreenShutdown( void );
 
 void MiniGame_Init_Tetris();
 UINT32 MiniGame_Handle_Tetris();
+
+void MiniGame_Init_Pong( );
+UINT32 MiniGame_Handle_Pong( );
 
 #endif //__MINIGAME_H

@@ -49,6 +49,7 @@
 #include "english.h"
 #include "WordWrap.h"
 #include "gamescreen.h"
+#include "Isometric Utils.h"
 
 // remember the previous screen
 UINT32 guiMiniGamePreviousScreen = GAME_SCREEN;
@@ -73,6 +74,10 @@ void MiniGameDataInit()
 		{
 		case TETRIS:
 			MiniGame_Init_Tetris( );
+			break;
+
+		case PONG:
+			MiniGame_Init_Pong( );
 			break;
 
 		default:
@@ -120,6 +125,10 @@ UINT32	MiniGameScreenHandle( void )
 		return MiniGame_Handle_Tetris( );
 		break;
 
+	case PONG:
+		return MiniGame_Handle_Pong( );
+		break;
+
 	default:
 		break;
 	}
@@ -131,6 +140,49 @@ UINT32	MiniGameScreenShutdown( void )
 {
 	return TRUE;
 }
+
+void DisplayPNGImage( SGPRect aDstRect, std::string& arStrImage )
+{
+	VSURFACE_DESC		vs_desc = {};
+	HVSURFACE			hVSurface;
+	UINT32				uiLoadScreen;
+
+	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE | VSURFACE_CREATE_FROMPNG_FALLBACK;
+
+	arStrImage.copy( vs_desc.ImageFile, sizeof(vs_desc.ImageFile) - 1 );
+
+	if ( FileExists( vs_desc.ImageFile ) && AddVideoSurface( &vs_desc, &uiLoadScreen ) )
+	{
+		//Blit the background image
+		GetVideoSurface( &hVSurface, uiLoadScreen );
+
+		// Stretch the background image
+		SGPRect SrcRect;
+		SrcRect.iLeft = 0;
+		SrcRect.iTop = 0;
+		SrcRect.iRight = hVSurface->usWidth;
+		SrcRect.iBottom = hVSurface->usHeight;
+
+		BltStretchVideoSurface( FRAME_BUFFER, uiLoadScreen, 0, 0, 0, &SrcRect, &aDstRect );
+
+		DeleteVideoSurfaceFromIndex( uiLoadScreen );
+	}
+	else
+	{
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, aDstRect.iLeft, aDstRect.iTop, aDstRect.iRight, aDstRect.iBottom, Get16BPPColor( FROMRGB( 55, 55, 55 ) ) );
+	}
+}
+
+// On order to wrk in all resolutions, limit our screen to this
+#define MINIGAME_BG_X_LOW	iScreenWidthOffset
+#define MINIGAME_BG_X_HIGH	(SCREEN_WIDTH - iScreenWidthOffset)
+#define MINIGAME_BG_Y_LOW	iScreenHeightOffset
+#define MINIGAME_BG_Y_HIGH	(SCREEN_HEIGHT - iScreenHeightOffset)
+
+BOOLEAN gMiniGameRenewBackground = TRUE;						// In order to save cpu-time (not really an issue here, but it's the thought that counts!), only redraw the background if we have to
+
+int gMiniGameMenuSelection = 0;								// In a small menu, we can select some options, so we need to keep track where we are
+int gMiniGameMenuScreen = 0;								// What page of the menu is currently used?
 
 ////////////////////////////////////////////// TETRIS //////////////////////////////////////////////
 // In case you somehow don't know how Tetris works:
@@ -275,11 +327,8 @@ int gTetrisplayertileOrientation = 0;						// Orientation of the current tile?
 int gTetrisNextTile = TETRISBLOCKTYPE_NONE;					// What will be the type of the next tile that will spawn? We need this as we preview show the player
 int gTetrisScore = 0;
 int gTetrisLinesDone = 0;
-int gTetrisMenuSelection = 0;								// In a small menu, we can select some options, so we need to keep track where we are
-int gTetrisMenuScreen = 0;									// What page of the menu is currently used?
 int gTetrisInitialLevel = 0;
 int gTetrisHandicap = 0;
-BOOLEAN gTetrisRenewBackground = TRUE;						// In order to save cpu-time (not really an issue here, but it's the thought that counts!), only redraw the background if we have to
 
 // for each level of handicap, we add 2 partially filled lines
 #define TETRIS_MAX_HANDICAP	5
@@ -309,9 +358,9 @@ void MiniGame_Init_Tetris()
 	gTetrisScore = 0;
 	gTetrisLinesDone = 0;
 		
-	gTetrisMenuSelection = 0;
-	gTetrisMenuScreen = 0;
-	gTetrisRenewBackground = TRUE;
+	gMiniGameMenuSelection = 0;
+	gMiniGameMenuScreen = 0;
+	gMiniGameRenewBackground = TRUE;
 
 	// don't reset, so we don't have to set it again every time we start a game
 	//gTetrisInitialLevel = 0;
@@ -328,54 +377,17 @@ void AddScore_Tetris( int aPoints )
 	gTetrisScore += aPoints * bonusperc;
 }
 
-void DisplayPNGImage( SGPRect aDstRect, std::string& arStrImage )
-{
-	VSURFACE_DESC		vs_desc = {};
-	HVSURFACE			hVSurface;
-	UINT32				uiLoadScreen;
-
-	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE | VSURFACE_CREATE_FROMPNG_FALLBACK;
-		
-	arStrImage.copy( vs_desc.ImageFile, sizeof(vs_desc.ImageFile) - 1 );
-
-	if ( FileExists( vs_desc.ImageFile ) && AddVideoSurface( &vs_desc, &uiLoadScreen ) )
-	{
-		//Blit the background image
-		GetVideoSurface( &hVSurface, uiLoadScreen );
-
-		// Stretch the background image
-		SGPRect SrcRect;
-		SrcRect.iLeft = 0;
-		SrcRect.iTop = 0;
-		SrcRect.iRight = hVSurface->usWidth;
-		SrcRect.iBottom = hVSurface->usHeight;
-
-		BltStretchVideoSurface( FRAME_BUFFER, uiLoadScreen, 0, 0, 0, &SrcRect, &aDstRect );
-
-		DeleteVideoSurfaceFromIndex( uiLoadScreen );
-	}
-	else
-	{
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, aDstRect.iLeft, aDstRect.iTop, aDstRect.iRight, aDstRect.iBottom, Get16BPPColor( FROMRGB( 55, 55, 55 ) ) );
-	}
-}
-
-#define MINIGAME_BG_X_LOW	iScreenWidthOffset
-#define MINIGAME_BG_X_HIGH	(SCREEN_WIDTH - iScreenWidthOffset)
-#define MINIGAME_BG_Y_LOW	iScreenHeightOffset
-#define MINIGAME_BG_Y_HIGH	(SCREEN_HEIGHT - iScreenHeightOffset)
-
 #define TETRIS_BLOCKLENGTH	20
 
 // game area
-#define MINIGAME_X_LOW		(MINIGAME_BG_X_LOW + 100)
-#define MINIGAME_X_HIGH		(MINIGAME_X_LOW + TETRIS_FIELD_COLS * TETRIS_BLOCKLENGTH)
-#define MINIGAME_Y_LOW		(MINIGAME_BG_Y_LOW + 100)
-#define MINIGAME_Y_HIGH		(MINIGAME_Y_LOW + TETRIS_FIELD_ROWS * TETRIS_BLOCKLENGTH)
+#define MINIGAME_TETRIS_X_LOW		(MINIGAME_BG_X_LOW + 100)
+#define MINIGAME_TETRIS_X_HIGH		(MINIGAME_TETRIS_X_LOW + TETRIS_FIELD_COLS * TETRIS_BLOCKLENGTH)
+#define MINIGAME_TETRIS_Y_LOW		(MINIGAME_BG_Y_LOW + 100)
+#define MINIGAME_TETRIS_Y_HIGH		(MINIGAME_TETRIS_Y_LOW + TETRIS_FIELD_ROWS * TETRIS_BLOCKLENGTH)
 
 // we also need a small 4x4 area to display the next tile
-#define TETRIS_PREVIEW_X	(MINIGAME_X_HIGH + 50)
-#define TETRIS_PREVIEW_Y	(MINIGAME_Y_HIGH - 4 * TETRIS_BLOCKLENGTH)
+#define TETRIS_PREVIEW_X	(MINIGAME_TETRIS_X_HIGH + 50)
+#define TETRIS_PREVIEW_Y	(MINIGAME_TETRIS_Y_HIGH - 4 * TETRIS_BLOCKLENGTH)
 
 UINT32 MiniGame_Handle_Tetris()
 {
@@ -384,7 +396,7 @@ UINT32 MiniGame_Handle_Tetris()
 	if ( gMiniGame == TETRIS )
 	{
 		// coordinates for the background rectangle
-		if ( gTetrisRenewBackground )
+		if ( gMiniGameRenewBackground )
 		{
 			SGPRect backgroundrect;
 			backgroundrect.iLeft = MINIGAME_BG_X_LOW;
@@ -401,7 +413,7 @@ UINT32 MiniGame_Handle_Tetris()
 
 			DisplayPNGImage( backgroundrect, strImage );
 
-			gTetrisRenewBackground = FALSE;
+			gMiniGameRenewBackground = FALSE;
 		}
 				
 		UINT16 menu_x_low = MINIGAME_BG_X_LOW + 250;
@@ -477,8 +489,8 @@ UINT32 MiniGame_Handle_Tetris()
 		if ( keyactivation_p && gMiniGameState == MINIGAME_GAME )
 		{
 			gMiniGameState = MINIGAME_PAUSE;
-			gTetrisMenuScreen = 3;
-			gTetrisMenuSelection = 0;
+			gMiniGameMenuScreen = 3;
+			gMiniGameMenuSelection = 0;
 		}
 
 		if ( gMiniGameState == MINIGAME_STARTSCREEN )
@@ -495,112 +507,112 @@ UINT32 MiniGame_Handle_Tetris()
 			swprintf( sText, L"" );
 			
 			// different options are here, the one currently selected is coloured differently
-			if ( gTetrisMenuScreen == 0 )
+			if ( gMiniGameMenuScreen == 0 )
 			{
 				int menuentry = 0;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> New Game" : L"   New Game" );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> New Game" : L"   New Game" );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE, 
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE, 
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Options" : L"   Options" );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Options" : L"   Options" );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Quit" : L"   Quit" );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Quit" : L"   Quit" );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 
 				// arrow keys navigate the menu
 				if ( keyactivation_up )
 				{
-					gTetrisMenuSelection = max( 0, gTetrisMenuSelection - 1 );
+					gMiniGameMenuSelection = max( 0, gMiniGameMenuSelection - 1 );
 				}
 				else if ( keyactivation_down )
 				{
-					gTetrisMenuSelection = min( menuentry - 1, gTetrisMenuSelection + 1 );
+					gMiniGameMenuSelection = min( menuentry - 1, gMiniGameMenuSelection + 1 );
 				}
 								
 				// ENTER selects menu entry
 				if ( keyactivation_enter )
 				{
-					if ( gTetrisMenuSelection == 0 )
+					if ( gMiniGameMenuSelection == 0 )
 					{
 						gMiniGameState = MINIGAME_GAME;
 
-						gTetrisRenewBackground = TRUE;
+						gMiniGameRenewBackground = TRUE;
 					}
-					else if ( gTetrisMenuSelection == 1 )
+					else if ( gMiniGameMenuSelection == 1 )
 					{
-						gTetrisMenuScreen = 1;
+						gMiniGameMenuScreen = 1;
 
-						gTetrisRenewBackground = TRUE;
+						gMiniGameRenewBackground = TRUE;
 					}
-					else if ( gTetrisMenuSelection == 2 )
+					else if ( gMiniGameMenuSelection == 2 )
 					{
 						return MiniGameExit( );
 					}
 				}
 			}
-			else if ( gTetrisMenuScreen == 1 )
+			else if ( gMiniGameMenuScreen == 1 )
 			{
 				// menu background
 				ColorFillVideoSurfaceArea( FRAME_BUFFER, menu_x_low, menu_y_low, menu_x_high + 100, menu_y_high, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 				int menuentry = 0;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Starting Level: %d" : L"   Starting Level: %d", gTetrisInitialLevel );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Starting Level: %d" : L"   Starting Level: %d", gTetrisInitialLevel );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Handicap: %d" : L"   Handicap: %d", gTetrisHandicap );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Handicap: %d" : L"   Handicap: %d", gTetrisHandicap );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Apply" : L"   Apply" );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Apply" : L"   Apply" );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 				
 				// arrow keys navigate the menu
 				if ( keyactivation_up )
 				{
-					gTetrisMenuSelection = max( 0, gTetrisMenuSelection - 1 );
+					gMiniGameMenuSelection = max( 0, gMiniGameMenuSelection - 1 );
 				}
 				else if ( keyactivation_down )
 				{
-					gTetrisMenuSelection = min( menuentry - 1, gTetrisMenuSelection + 1 );
+					gMiniGameMenuSelection = min( menuentry - 1, gMiniGameMenuSelection + 1 );
 				}
 				// arrow keys alter settings
 				else if ( keyactivation_left )
 				{
-					if ( gTetrisMenuSelection == 0 )
+					if ( gMiniGameMenuSelection == 0 )
 					{
 						gTetrisInitialLevel = max( 0, gTetrisInitialLevel - 1 );
 					}
-					else if ( gTetrisMenuSelection == 1 )
+					else if ( gMiniGameMenuSelection == 1 )
 					{
 						gTetrisHandicap = max( 0, gTetrisHandicap - 1 );
 					}
 				}
 				else if ( keyactivation_right )
 				{
-					if ( gTetrisMenuSelection == 0 )
+					if ( gMiniGameMenuSelection == 0 )
 					{
 						gTetrisInitialLevel = min( 20, gTetrisInitialLevel + 1 );
 					}
-					else if ( gTetrisMenuSelection == 1 )
+					else if ( gMiniGameMenuSelection == 1 )
 					{
 						gTetrisHandicap = min( TETRIS_MAX_HANDICAP, gTetrisHandicap + 1 );
 					}
@@ -609,12 +621,12 @@ UINT32 MiniGame_Handle_Tetris()
 				// ENTER selects menu entry
 				if ( keyactivation_enter )
 				{
-					if ( gTetrisMenuSelection == 2 )
+					if ( gMiniGameMenuSelection == 2 )
 					{
-						gTetrisMenuScreen = 0;
-						gTetrisMenuSelection = 1;
+						gMiniGameMenuScreen = 0;
+						gMiniGameMenuSelection = 1;
 
-						gTetrisRenewBackground = TRUE;
+						gMiniGameRenewBackground = TRUE;
 					}
 				}
 			}
@@ -685,10 +697,10 @@ UINT32 MiniGame_Handle_Tetris()
 			{
 				// display our score
 				UINT16 sX = TETRIS_PREVIEW_X + 10;
-				UINT16 sY = MINIGAME_Y_LOW + 10;
+				UINT16 sY = MINIGAME_TETRIS_Y_LOW + 10;
 
 				// score background
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, TETRIS_PREVIEW_X, MINIGAME_Y_LOW, TETRIS_PREVIEW_X + 130, MINIGAME_Y_LOW + 80, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, TETRIS_PREVIEW_X, MINIGAME_TETRIS_Y_LOW, TETRIS_PREVIEW_X + 130, MINIGAME_TETRIS_Y_LOW + 80, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 					
 				UINT16 width = 0;
 
@@ -1087,8 +1099,8 @@ UINT32 MiniGame_Handle_Tetris()
 							if ( !spaceisfree )
 							{
 								gMiniGameState = MINIGAME_GAMEOVER;
-								gTetrisMenuScreen = 2;
-								gTetrisMenuSelection = 0;
+								gMiniGameMenuScreen = 2;
+								gMiniGameMenuSelection = 0;
 
 								// game over, man, game over!
 								if ( gusSelectedSoldier != NOBODY )
@@ -1122,7 +1134,7 @@ UINT32 MiniGame_Handle_Tetris()
 					// draw blocks
 					{
 						// background
-						ColorFillVideoSurfaceArea( FRAME_BUFFER, MINIGAME_X_LOW, MINIGAME_Y_LOW, MINIGAME_X_HIGH, MINIGAME_Y_HIGH, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+						ColorFillVideoSurfaceArea( FRAME_BUFFER, MINIGAME_TETRIS_X_LOW, MINIGAME_TETRIS_Y_LOW, MINIGAME_TETRIS_X_HIGH, MINIGAME_TETRIS_Y_HIGH, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 						for ( int i = 0; i < TETRIS_FIELD_ROWS; ++i )
 						{
@@ -1130,8 +1142,8 @@ UINT32 MiniGame_Handle_Tetris()
 							{
 								if ( gTetrisBlock[i][j].blocktype != TETRISBLOCKTYPE_NONE )
 								{
-									UINT16 x = MINIGAME_X_LOW + j * TETRIS_BLOCKLENGTH;
-									UINT16 y = MINIGAME_Y_LOW + i * TETRIS_BLOCKLENGTH;
+									UINT16 x = MINIGAME_TETRIS_X_LOW + j * TETRIS_BLOCKLENGTH;
+									UINT16 y = MINIGAME_TETRIS_Y_LOW + i * TETRIS_BLOCKLENGTH;
 
 									UINT16 colour1 = 0;
 									UINT16 colour2 = col_grey;
@@ -1163,7 +1175,7 @@ UINT32 MiniGame_Handle_Tetris()
 					// draw preview area
 					{
 						// we also need a small 4x4 area to display the next tile
-						ColorFillVideoSurfaceArea( FRAME_BUFFER, TETRIS_PREVIEW_X, TETRIS_PREVIEW_Y, TETRIS_PREVIEW_X + 4 * TETRIS_BLOCKLENGTH, MINIGAME_Y_HIGH, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+						ColorFillVideoSurfaceArea( FRAME_BUFFER, TETRIS_PREVIEW_X, TETRIS_PREVIEW_Y, TETRIS_PREVIEW_X + 4 * TETRIS_BLOCKLENGTH, MINIGAME_TETRIS_Y_HIGH, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 
 						int preview_anchor_x = 2;
 						int preview_anchor_y = 1;
@@ -1218,43 +1230,43 @@ UINT32 MiniGame_Handle_Tetris()
 			width = StringPixLength( sText, fontused );
 			sY += DisplayWrappedString( sX, sY, width, 2, fontused, FONT_RED, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 
-			if ( gTetrisMenuScreen == 2 )
+			if ( gMiniGameMenuScreen == 2 )
 			{
 				int menuentry = 0;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Main Menu" : L"   Main Menu" );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Main Menu" : L"   Main Menu" );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_RED,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_RED,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 				
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Quit" : L"   Quit" );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Quit" : L"   Quit" );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_RED,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_RED,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 				
 				// arrow keys navigate the menu
 				if ( keyactivation_up )
 				{
-					gTetrisMenuSelection = max( 0, gTetrisMenuSelection - 1 );
+					gMiniGameMenuSelection = max( 0, gMiniGameMenuSelection - 1 );
 				}
 				else if ( keyactivation_down )
 				{
-					gTetrisMenuSelection = min( menuentry - 1, gTetrisMenuSelection + 1 );
+					gMiniGameMenuSelection = min( menuentry - 1, gMiniGameMenuSelection + 1 );
 				}
 
 				// ENTER selects menu entry
 				if ( keyactivation_enter )
 				{
-					if ( gTetrisMenuSelection == 0 )
+					if ( gMiniGameMenuSelection == 0 )
 					{
 						MiniGame_Init_Tetris();
 
 						gMiniGameState = MINIGAME_STARTSCREEN;
-						gTetrisRenewBackground = TRUE;
+						gMiniGameRenewBackground = TRUE;
 					}
-					else if ( gTetrisMenuSelection == 1 )
+					else if ( gMiniGameMenuSelection == 1 )
 					{
 						return MiniGameExit( );
 					}
@@ -1277,21 +1289,1170 @@ UINT32 MiniGame_Handle_Tetris()
 			width = StringPixLength( sText, fontused );
 			sY += DisplayWrappedString( sX, sY, width, 2, fontused, FONT_RED, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
 
-			if ( gTetrisMenuScreen == 3 )
+			if ( gMiniGameMenuScreen == 3 )
 			{
 				int menuentry = 0;
 
-				swprintf( sText, (gTetrisMenuSelection == menuentry) ? L"-> Continue" : L"   Continue" );
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Continue" : L"   Continue" );
 				width = StringPixLength( sText, fontused );
-				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gTetrisMenuSelection == menuentry) ? FONT_BLACK : FONT_RED,
-											sText, (gTetrisMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_RED,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
 				++menuentry;
 
 				if ( keyactivation_enter )
 				{
 					gMiniGameState = MINIGAME_GAME;
 
-					gTetrisRenewBackground = TRUE;
+					gMiniGameRenewBackground = TRUE;
+				}
+			}
+		}
+	}
+	else if ( gMiniGame == PONG )
+	{
+
+	}
+
+	return MINIGAME_SCREEN;
+}
+////////////////////////////////////////////// TETRIS //////////////////////////////////////////////
+
+////////////////////////////////////////////// PONG //////////////////////////////////////////////
+// Pong is one of the very first computer games ever created.
+// Basically, you have 2 players who each control a paddle on opposing sides of the playing field.
+// A ball travels between the two sides, the goal is to prevent the other player from guiding the ball behind you.
+// We implement that here with  few extra options (multiple players and such)
+
+// this struct is used to stre data of paddles and balls
+typedef struct PONG_OBJECT
+{
+	double x;
+	double y;
+	
+	double angle;
+	double speed;
+
+	double r;
+	int type;
+
+	int timepassedsincespeedup;			// the longer a ball is in play, the faster it gets (to prevent the game from going on forever).
+	int lastplayerthattouchedthis;		// we log the last player paddle that touched a ball here
+} PONG_OBJECT;
+
+enum
+{
+	PLAYER_PAD = 0,
+	BALL,
+};
+
+int gPongPlayers = 1;				// number of players (1 to 4), with 2 or 4 paddles used accordingly
+
+// game area
+#define MINIGAME_PONG_X_LOW		(MINIGAME_BG_X_LOW + 20)
+#define MINIGAME_PONG_X_HIGH	((!gPongForce4Paddles && gPongPlayers < 3) ? MINIGAME_BG_X_HIGH - 100 : MINIGAME_PONG_X_LOW + 400 )
+#define MINIGAME_PONG_Y_LOW		(MINIGAME_BG_Y_LOW + 60)
+#define MINIGAME_PONG_Y_HIGH	((!gPongForce4Paddles && gPongPlayers < 3) ? MINIGAME_BG_Y_HIGH - 100 : MINIGAME_PONG_Y_LOW + 400)
+
+#define PONG_MAX_SPEED	30		// max speed
+#define PONG_SPEED_INCREASE_TIMER	10000
+
+#define PONG_MAX_BALLS	100		// maximum number of balls
+
+std::vector< PONG_OBJECT > gPongObjects;
+int gPongBallsToUse = 1;
+BOOLEAN gPongForce4Paddles = FALSE;
+BOOLEAN gPongAIHard = FALSE;
+int gPongMaxSpeed = PONG_MAX_SPEED / 2;		// max speed internally (the player can set this up to PONG_MAX_SPEED)
+int gPongScorePlayer[5];
+
+// as movement depends on time spent, we have to create an offset whenever we enter pause mode
+int gPongTimePauseActivated = 0;
+int gPongPauseTimeOffset = 0;
+
+BOOLEAN gPongObjectsInit = FALSE;
+
+void MiniGame_Init_Pong()
+{
+	gPongObjects.clear();
+
+	for (int i = 0; i < 5; ++i )
+		gPongScorePlayer[i] = 0;
+
+	gPongTimePauseActivated = 0;
+	gPongPauseTimeOffset = 0;
+
+	gMiniGameMenuSelection = 0;
+	gMiniGameMenuScreen = 0;
+
+	gMiniGameRenewBackground = TRUE;
+
+	gPongObjectsInit = FALSE;
+}
+
+UINT32 MiniGame_Handle_Pong()
+{
+	static UINT32 uiTimeOfLastUpdate = GetJA2Clock( );
+
+	if ( gMiniGame == PONG )
+	{
+		// coordinates for the background rectangle
+		if ( gMiniGameRenewBackground )
+		{
+			SGPRect backgroundrect;
+			backgroundrect.iLeft = MINIGAME_BG_X_LOW;
+			backgroundrect.iTop = MINIGAME_BG_Y_LOW;
+			backgroundrect.iRight = MINIGAME_BG_X_HIGH;
+			backgroundrect.iBottom = MINIGAME_BG_Y_HIGH;
+
+			// background: display a png picture
+			std::string strImage = "Interface\\background_pong_game.png";
+			if ( gMiniGameState == MINIGAME_STARTSCREEN )
+				strImage = "Interface\\background_tetris_startscreen.png";
+			else if ( gMiniGameState == MINIGAME_GAMEOVER )
+				strImage = "Interface\\background_tetris_gameover.png";
+
+			DisplayPNGImage( backgroundrect, strImage );
+
+			gMiniGameRenewBackground = FALSE;
+		}
+
+		UINT16 menu_x_low = MINIGAME_BG_X_LOW + 250;
+		UINT16 menu_x_high = MINIGAME_BG_X_HIGH - 200;
+		UINT16 menu_y_low = MINIGAME_BG_Y_LOW + 200;
+		UINT16 menu_y_high = MINIGAME_BG_Y_HIGH - 150;
+
+		INT32 fontused = LARGEFONT1;
+
+		SetFontShadow( MILITARY_SHADOW );
+
+		// we have to keep key presses on a delay, otherwise we move to fast
+		BOOLEAN keyactivation_up = FALSE;
+		BOOLEAN keyactivation_down = FALSE;
+		BOOLEAN keyactivation_left = FALSE;
+		BOOLEAN keyactivation_right = FALSE;
+		BOOLEAN keyactivation_enter = FALSE;
+		BOOLEAN keyactivation_p = FALSE;
+
+		UINT32 TETRIS_MENU_INPUTDELAY = 120;
+		static int gTetristimesincelastmove = 0;
+		if ( GetJA2Clock( ) - gTetristimesincelastmove > TETRIS_MENU_INPUTDELAY )
+		{
+			// arrow keys navigate the menu
+			if ( gfKeyState[UPARROW] )
+			{
+				gTetristimesincelastmove = GetJA2Clock( );
+
+				keyactivation_up = TRUE;
+			}
+
+			if ( gfKeyState[DNARROW] )
+			{
+				gTetristimesincelastmove = GetJA2Clock( );
+
+				keyactivation_down = TRUE;
+			}
+
+			if ( gfKeyState[LEFTARROW] )
+			{
+				gTetristimesincelastmove = GetJA2Clock( );
+
+				keyactivation_left = TRUE;
+			}
+
+			if ( gfKeyState[RIGHTARROW] )
+			{
+				gTetristimesincelastmove = GetJA2Clock( );
+
+				keyactivation_right = TRUE;
+			}
+
+			if ( gfKeyState[ENTER] )
+			{
+				gTetristimesincelastmove = GetJA2Clock( );
+
+				keyactivation_enter = TRUE;
+			}
+
+			// 'p' key is 80
+			if ( gfKeyState[80] )
+			{
+				gTetristimesincelastmove = GetJA2Clock( );
+
+				keyactivation_p = TRUE;
+			}
+		}
+
+		InvalidateScreen( );
+
+		SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
+
+		if ( keyactivation_p && gMiniGameState == MINIGAME_GAME )
+		{
+			gMiniGameState = MINIGAME_PAUSE;
+			gMiniGameMenuScreen = 3;
+			gMiniGameMenuSelection = 0;
+
+			gPongTimePauseActivated = GetJA2Clock();
+			gPongPauseTimeOffset = 0;
+		}
+
+		if ( gMiniGameState == MINIGAME_STARTSCREEN )
+		{
+			// menu background
+			ColorFillVideoSurfaceArea( FRAME_BUFFER, menu_x_low, menu_y_low, menu_x_high, menu_y_high, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+
+			// display our score
+			UINT16 sX = menu_x_low + 10;
+			UINT16 sY = menu_y_low + 10;
+			UINT16 width = 0;
+
+			CHAR16		sText[800];
+			swprintf( sText, L"" );
+
+			// different options are here, the one currently selected is coloured differently
+			if ( gMiniGameMenuScreen == 0 )
+			{
+				int menuentry = 0;
+
+				swprintf( sText, L"%s %d Players", (gMiniGameMenuSelection == menuentry) ? L"->" : L"  ", gPongPlayers );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Options" : L"   Options" );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Quit" : L"   Quit" );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				// arrow keys navigate the menu
+				if ( keyactivation_up )
+				{
+					gMiniGameMenuSelection = max( 0, gMiniGameMenuSelection - 1 );
+				}
+				else if ( keyactivation_down )
+				{
+					gMiniGameMenuSelection = min( menuentry - 1, gMiniGameMenuSelection + 1 );
+				}
+				// arrow keys alter settings
+				else if ( keyactivation_left )
+				{
+					if ( gMiniGameMenuSelection == 0 )
+					{
+						gPongPlayers = max( 1, gPongPlayers - 1);
+					}
+				}
+				else if ( keyactivation_right )
+				{
+					if ( gMiniGameMenuSelection == 0 )
+					{
+						gPongPlayers = min( 4, gPongPlayers + 1 );
+					}
+				}
+
+				// ENTER selects menu entry
+				if ( keyactivation_enter )
+				{
+					if ( gMiniGameMenuSelection == 0 )
+					{
+						gMiniGameState = MINIGAME_GAME;
+
+						gMiniGameRenewBackground = TRUE;
+					}
+					else if ( gMiniGameMenuSelection == 1 )
+					{
+						gMiniGameMenuScreen = 1;
+
+						gMiniGameRenewBackground = TRUE;
+					}
+					else if ( gMiniGameMenuSelection == 2 )
+					{
+						return MiniGameExit( );
+					}
+				}
+			}
+			else if ( gMiniGameMenuScreen == 1 )
+			{
+				// menu background
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, menu_x_low, menu_y_low, menu_x_high + 100, menu_y_high, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+
+				int menuentry = 0;
+
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Max Speed: %d" : L"   Max Speed: %d", gPongMaxSpeed );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Balls: %d" : L"   Balls: %d", gPongBallsToUse );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				swprintf( sText, L"%s Force 4 Paddles: %s", (gMiniGameMenuSelection == menuentry) ? L"->" : L"  ", gPongForce4Paddles ? L"True" : L"False" );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				swprintf( sText, L"%s AI: %s", (gMiniGameMenuSelection == menuentry) ? L"->" : L"  ", gPongAIHard ? L"Hard" : L"Easy" );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Apply" : L"   Apply" );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_WHITE,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+				
+				// arrow keys navigate the menu
+				if ( keyactivation_up )
+				{
+					gMiniGameMenuSelection = max( 0, gMiniGameMenuSelection - 1 );
+				}
+				else if ( keyactivation_down )
+				{
+					gMiniGameMenuSelection = min( menuentry - 1, gMiniGameMenuSelection + 1 );
+				}
+				// arrow keys alter settings
+				else if ( keyactivation_left )
+				{
+					if ( gMiniGameMenuSelection == 0 )
+					{
+						gPongMaxSpeed = max( 1, gPongMaxSpeed - 1 );
+					}
+					else if ( gMiniGameMenuSelection == 1 )
+					{
+						gPongBallsToUse = max( 1, gPongBallsToUse - 1 );
+					}
+					else if ( gMiniGameMenuSelection == 2 )
+					{
+						gPongForce4Paddles = FALSE;
+					}
+					else if ( gMiniGameMenuSelection == 3 )
+					{
+						gPongAIHard = FALSE;
+					}
+				}
+				else if ( keyactivation_right )
+				{
+					if ( gMiniGameMenuSelection == 0 )
+					{
+						gPongMaxSpeed = min( PONG_MAX_SPEED, gPongMaxSpeed + 1 );
+					}
+					else if ( gMiniGameMenuSelection == 1 )
+					{
+						gPongBallsToUse = min( PONG_MAX_BALLS, gPongBallsToUse + 1 );
+					}
+					else if ( gMiniGameMenuSelection == 2 )
+					{
+						gPongForce4Paddles = TRUE;
+					}
+					else if ( gMiniGameMenuSelection == 3 )
+					{
+						gPongAIHard = TRUE;
+					}
+				}
+
+				// ENTER selects menu entry
+				if ( keyactivation_enter )
+				{
+					if ( gMiniGameMenuSelection == menuentry - 1 )
+					{
+						gMiniGameMenuScreen = 0;
+						gMiniGameMenuSelection = 1;
+
+						gMiniGameRenewBackground = TRUE;
+					}
+				}
+			}
+		}
+		else if ( gMiniGameState == MINIGAME_GAME )
+		{
+			// we also have to account for any time we spent in pause mode
+			int timesincelasttick = GetJA2Clock( ) - uiTimeOfLastUpdate - gPongPauseTimeOffset;
+
+			for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin(); it != gPongObjects.end(); ++it )
+			{
+				if ( it->type == BALL )
+				{
+					it->timepassedsincespeedup += gPongPauseTimeOffset;
+				}
+			}
+
+			gPongPauseTimeOffset = 0;
+			uiTimeOfLastUpdate = GetJA2Clock( );
+
+			if ( !gPongObjectsInit )
+			{
+				PONG_OBJECT player1paddle;
+				player1paddle.x = MINIGAME_PONG_X_LOW + (MINIGAME_PONG_X_HIGH - MINIGAME_PONG_X_LOW) / 2;
+				player1paddle.y = MINIGAME_PONG_Y_HIGH;
+				player1paddle.angle = 0;
+				player1paddle.speed = 0;
+				player1paddle.r = 20;
+				player1paddle.type = PLAYER_PAD;
+				player1paddle.timepassedsincespeedup = GetJA2Clock( );
+				player1paddle.lastplayerthattouchedthis = 0;
+
+				gPongObjects.push_back( player1paddle );
+
+				PONG_OBJECT player2paddle;
+				player2paddle.x = MINIGAME_PONG_X_LOW + (MINIGAME_PONG_X_HIGH - MINIGAME_PONG_X_LOW) / 2;
+				player2paddle.y = MINIGAME_PONG_Y_LOW;
+				player2paddle.angle = 0;
+				player2paddle.speed = 0;
+				player2paddle.r = 20;
+				player2paddle.type = PLAYER_PAD;
+				player2paddle.timepassedsincespeedup = GetJA2Clock( );
+				player2paddle.lastplayerthattouchedthis = 0;
+
+				gPongObjects.push_back( player2paddle );
+
+				if ( gPongForce4Paddles || gPongPlayers >= 3 )
+				{
+					PONG_OBJECT player3paddle;
+					player3paddle.x = MINIGAME_PONG_X_LOW;
+					player3paddle.y = MINIGAME_PONG_Y_LOW + (MINIGAME_PONG_Y_HIGH - MINIGAME_PONG_Y_LOW) / 2;
+					player3paddle.angle = 0;
+					player3paddle.speed = 0;
+					player3paddle.r = 20;
+					player3paddle.type = PLAYER_PAD;
+					player3paddle.timepassedsincespeedup = GetJA2Clock( );
+					player3paddle.lastplayerthattouchedthis = 0;
+
+					gPongObjects.push_back( player3paddle );
+
+					PONG_OBJECT player4paddle;
+					player4paddle.x = MINIGAME_PONG_X_HIGH;
+					player4paddle.y = MINIGAME_PONG_Y_LOW + (MINIGAME_PONG_Y_HIGH - MINIGAME_PONG_Y_LOW) / 2;
+					player4paddle.angle = 0;
+					player4paddle.speed = 0;
+					player4paddle.r = 20;
+					player4paddle.type = PLAYER_PAD;
+					player4paddle.timepassedsincespeedup = GetJA2Clock( );
+					player4paddle.lastplayerthattouchedthis = 0;
+
+					gPongObjects.push_back( player4paddle );
+				}
+
+				if ( gPongBallsToUse > 3 && gusSelectedSoldier != NOBODY )
+				{
+					// Set to current
+					SOLDIERTYPE* pSoldier = NULL;
+					GetSoldier( &pSoldier, gusSelectedSoldier );
+
+					if ( pSoldier )
+					{
+						pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+					}
+				}
+
+				gPongObjectsInit = TRUE;
+			}
+
+			// check whether we need to add a ball
+			int ballsinplay = 0;
+			for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin(); it != gPongObjects.end(); ++it )
+			{
+				if ( it->type == BALL )
+					++ballsinplay;
+			}
+
+			while ( ballsinplay < gPongBallsToUse )
+			{
+				PONG_OBJECT ball;
+				ball.x = MINIGAME_PONG_X_LOW + (MINIGAME_PONG_X_HIGH - MINIGAME_PONG_X_LOW) / 2 - 50 + Random(100);
+				ball.y = MINIGAME_PONG_Y_LOW + (MINIGAME_PONG_Y_HIGH - MINIGAME_PONG_Y_LOW) / 2 - 30 + Random(60);
+				ball.angle = Random(10);
+				ball.speed = min( gPongMaxSpeed, gPongMaxSpeed / 2 + Random( gPongMaxSpeed ) );
+				ball.r = 4;
+				ball.type = BALL;
+				ball.timepassedsincespeedup = GetJA2Clock( );
+				ball.lastplayerthattouchedthis = 0;
+
+				gPongObjects.push_back( ball );
+
+				++ballsinplay;
+			}
+
+			// iterators to player-paddles
+			std::vector<PONG_OBJECT>::iterator it_player1 = gPongObjects.end( );
+			std::vector<PONG_OBJECT>::iterator it_player2 = gPongObjects.end( );
+			std::vector<PONG_OBJECT>::iterator it_player3 = gPongObjects.end( );
+			std::vector<PONG_OBJECT>::iterator it_player4 = gPongObjects.end( );
+
+			// for the 'AI' we need to know which ball will be the next one to hit our side
+			std::vector<PONG_OBJECT>::iterator it_nextballfor_player2 = gPongObjects.end( );
+			std::vector<PONG_OBJECT>::iterator it_nextballfor_player3 = gPongObjects.end( );
+			std::vector<PONG_OBJECT>::iterator it_nextballfor_player4 = gPongObjects.end( );
+
+			double nextballfor_player2_ydist = 99999;
+			double nextballfor_player3_ydist = 99999;
+			double nextballfor_player4_ydist = 99999;
+			int cnt = 0;
+			for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin(); it != gPongObjects.end(); ++it )
+			{
+				if ( it->type == PLAYER_PAD )
+				{
+					// also, control stuff
+					if ( cnt == 0 )
+						it_player1 = it;
+					else if ( cnt == 1 )
+						it_player2 = it;
+					else if ( cnt == 2 )
+						it_player3 = it;
+					else if ( cnt == 3 )
+						it_player4 = it;
+				}
+				else if ( it->type == BALL )
+				{
+					// only balls that travel in our direction are important
+					if ( cos( it->angle ) < 0 )
+					{
+						double dist = it->y - MINIGAME_PONG_Y_LOW;
+
+						if ( dist < nextballfor_player2_ydist )
+						{
+							nextballfor_player2_ydist = dist;
+							it_nextballfor_player2 = it;
+						}
+					}
+
+					if ( sin( it->angle ) < 0 )
+					{
+						double dist = it->x - MINIGAME_PONG_X_LOW;
+
+						if ( dist < nextballfor_player3_ydist )
+						{
+							nextballfor_player3_ydist = dist;
+							it_nextballfor_player3 = it;
+						}
+					}
+
+					if ( sin( it->angle ) > 0 )
+					{
+						double dist = MINIGAME_PONG_X_HIGH - it->x;
+
+						if ( dist < nextballfor_player4_ydist )
+						{
+							nextballfor_player4_ydist = dist;
+							it_nextballfor_player4 = it;
+						}
+					}
+				}
+
+				++cnt;
+			}
+			
+			if ( it_player1 != gPongObjects.end() )
+			{
+				it_player1->angle = 0;
+				it_player1->speed = 0;
+
+				if ( gfKeyState[LEFTARROW] )
+				{
+					it_player1->angle -= PI / 2;
+					it_player1->speed = gPongMaxSpeed;
+				}
+				if ( gfKeyState[RIGHTARROW] )
+				{
+					it_player1->angle += PI / 2;
+					it_player1->speed = gPongMaxSpeed;
+				}
+			}
+
+			if ( it_player2 != gPongObjects.end( ) )
+			{
+				it_player2->angle = 0;
+				it_player2->speed = 0;
+
+				if ( !gPongForce4Paddles && gPongPlayers >= 2 )
+				{
+					// control with 4 and 6 in numblock
+					if ( gfKeyState[239] )
+					{
+						it_player2->angle -= PI / 2;
+						it_player2->speed = gPongMaxSpeed;
+					}
+					if ( gfKeyState[241] )
+					{
+						it_player2->angle += PI / 2;
+						it_player2->speed = gPongMaxSpeed;
+					}
+				}
+				// 'AI'
+				else
+				{
+					if ( it_nextballfor_player2 != gPongObjects.end() )
+					{
+						double offset = gPongAIHard ? 0 : it_player2->r;
+
+						if ( it_nextballfor_player2->x < it_player2->x + offset )
+						{
+							it_player2->angle -= PI / 2;
+							it_player2->speed = gPongMaxSpeed;
+						}
+						else if ( it_nextballfor_player2->x > it_player2->x - offset )
+						{
+							it_player2->angle += PI / 2;
+							it_player2->speed = gPongMaxSpeed;
+						}
+					}
+				}
+			}
+
+			if ( it_player3 != gPongObjects.end( ) )
+			{
+				it_player3->angle = 0;
+				it_player3->speed = 0;
+
+				if ( !gPongForce4Paddles && gPongPlayers >= 3 )
+				{
+					// 'w'
+					if ( gfKeyState[87] )
+					{
+						it_player3->angle += PI;
+						it_player3->speed = gPongMaxSpeed;
+					}
+					// 's'
+					if ( gfKeyState[83] )
+					{
+						it_player3->angle -= 0;
+						it_player3->speed = gPongMaxSpeed;
+					}
+				}
+				// 'AI'
+				else
+				{
+					if ( it_nextballfor_player3 != gPongObjects.end( ) )
+					{
+						double offset = gPongAIHard ? 0 : it_player3->r;
+
+						if ( it_nextballfor_player3->y < it_player3->y + offset )
+						{
+							it_player3->angle += PI;
+							it_player3->speed = gPongMaxSpeed;
+						}
+						else if ( it_nextballfor_player3->y > it_player3->y - offset )
+						{
+							it_player3->angle -= 0;
+							it_player3->speed = gPongMaxSpeed;
+						}
+					}
+				}
+			}
+
+			if ( it_player4 != gPongObjects.end( ) )
+			{
+				it_player4->angle = 0;
+				it_player4->speed = 0;
+
+				if ( !gPongForce4Paddles && gPongPlayers >= 4 )
+				{
+					// 'i'
+					if ( gfKeyState[73] )
+					{
+						it_player4->angle += PI;
+						it_player4->speed = gPongMaxSpeed;
+					}
+					// 'k'
+					if ( gfKeyState[75] )
+					{
+						it_player4->angle -= 0;
+						it_player4->speed = gPongMaxSpeed;
+					}
+				}
+				// 'AI'
+				else
+				{
+					if ( it_nextballfor_player4 != gPongObjects.end( ) )
+					{
+						double offset = gPongAIHard ? 0 : it_player4->r;
+
+						if ( it_nextballfor_player4->y < it_player4->y + offset )
+						{
+							it_player4->angle += PI;
+							it_player4->speed = gPongMaxSpeed;
+						}
+						else if ( it_nextballfor_player4->y > it_player4->y - offset )
+						{
+							it_player4->angle -= 0;
+							it_player4->speed = gPongMaxSpeed;
+						}
+					}
+				}
+			}
+						
+			// move stuff
+			// only if time has passed
+			if ( timesincelasttick > 0 )
+			{
+				// display our score
+				UINT16 sX = (!gPongForce4Paddles && gPongPlayers < 3) ? MINIGAME_BG_X_LOW + 200 : MINIGAME_BG_X_LOW + 100;
+				UINT16 sY = MINIGAME_BG_Y_LOW + 10;
+
+				// score background
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, sX - 10, sY - 2, (!gPongForce4Paddles && gPongPlayers < 3) ? sX + 220 : sX + 500, sY + 20, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+				
+				CHAR16		sText[800];
+				swprintf( sText, L"" );
+
+				CHAR16		player1name[20];
+				swprintf( player1name, L"Player 1" );
+								
+				CHAR16		player2name[20];
+				swprintf( player2name, L"Player 2" );
+
+				CHAR16		player3name[20];
+				swprintf( player3name, L"Player 3" );
+
+				CHAR16		player4name[20];
+				swprintf( player4name, L"Player 4" );
+
+				// get the name of the players - use the currently controlled mercs and anybody nearby for this
+				BOOLEAN foundplayer_1 = FALSE;
+				BOOLEAN foundplayer_2 = FALSE;
+				BOOLEAN foundplayer_3 = FALSE;
+				BOOLEAN foundplayer_4 = FALSE;
+				INT32 player1gridno = NOWHERE;
+				SOLDIERTYPE*		pSoldier = NULL;
+				if ( gusSelectedSoldier != NOBODY )
+				{
+					GetSoldier( &pSoldier, gusSelectedSoldier );
+
+					if ( pSoldier )
+					{
+						swprintf( player1name, pSoldier->GetName( ) );
+						player1gridno = pSoldier->sGridNo;
+					}
+				}
+
+				UINT16				bMercID = 0;
+				for ( pSoldier = MercPtrs[bMercID]; bMercID <= TOTAL_SOLDIERS; ++bMercID, ++pSoldier )
+				{
+					// everybody other merc in the same sector gets annoyed
+					if ( bMercID != gusSelectedSoldier && pSoldier->bActive && pSoldier->bInSector )
+					{						
+						if ( PythSpacesAway( player1gridno, pSoldier->sGridNo ) < 6 )
+						{
+							if ( !foundplayer_2 )
+							{
+								swprintf( player2name, pSoldier->GetName( ) );
+								foundplayer_2 = TRUE;
+
+								if ( !gPongForce4Paddles && gPongPlayers < 3 )
+									break;
+							}
+							else if ( gPongForce4Paddles || gPongPlayers > 2 )
+							{
+								if ( !foundplayer_3 )
+								{
+									swprintf( player3name, pSoldier->GetName( ) );
+									foundplayer_3 = TRUE;
+								}
+								else if ( !foundplayer_4 )
+								{
+									swprintf( player4name, pSoldier->GetName( ) );
+									foundplayer_4 = TRUE;
+
+									break;
+								}
+							}
+						}
+					}
+				}
+
+				if ( !gPongForce4Paddles && gPongPlayers < 3 )
+					swprintf( sText, L"%s %d - %s %d", player1name, gPongScorePlayer[1], player2name, gPongScorePlayer[2] );
+				else
+					swprintf( sText, L"%s %d - %s %d - %s %d - %s %d", player1name, gPongScorePlayer[1], player2name, gPongScorePlayer[2], player3name, gPongScorePlayer[3], player4name, gPongScorePlayer[4] );
+
+				sY += DisplayWrappedString( sX, sY, StringPixLength( sText, fontused ), 2, fontused, FONT_WHITE, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+				// display key bindings
+				sX = MINIGAME_PONG_X_HIGH + 20;
+				sY = MINIGAME_PONG_Y_LOW;
+
+				swprintf( sText, L"Key bindings" );
+				sY += DisplayWrappedString( sX, sY, StringPixLength( sText, fontused ), 2, fontused, FONT_WHITE, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+				swprintf( sText, L"%s: <, >", player1name );
+				sY += DisplayWrappedString( sX, sY, StringPixLength( sText, fontused ), 2, fontused, FONT_WHITE, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+				if ( !gPongForce4Paddles )
+				{
+					if ( gPongPlayers >= 2 )
+					{
+						swprintf( sText, L"%s: 4, 6", player2name );
+						sY += DisplayWrappedString( sX, sY, StringPixLength( sText, fontused ), 2, fontused, FONT_WHITE, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+					}
+
+					if ( gPongPlayers >= 3 )
+					{
+						swprintf( sText, L"%s: w, s", player3name );
+						sY += DisplayWrappedString( sX, sY, StringPixLength( sText, fontused ), 2, fontused, FONT_WHITE, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+					}
+
+					if ( gPongPlayers >= 4 )
+					{
+						swprintf( sText, L"%s: i, k", player4name );
+						sY += DisplayWrappedString( sX, sY, StringPixLength( sText, fontused ), 2, fontused, FONT_WHITE, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+					}
+				}
+
+				// movement is meant per, say, 100 ticks
+				FLOAT movefraction = (FLOAT)(timesincelasttick) / 50.0f;
+
+				if ( movefraction > 0.0f )
+				{
+					for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin(); it != gPongObjects.end(); )
+					{
+						double delta_x = sin( it->angle ) * it->speed;
+						double delta_y = cos( it->angle ) * it->speed;
+
+						if ( it == it_player1 || it == it_player2 )
+						{
+							// for safety
+							delta_y = 0;
+						}
+						else if ( it == it_player3 || it == it_player4 )
+						{
+							// for safety
+							delta_x = 0;
+						}
+						
+						it->x += movefraction * delta_x;
+						it->y += movefraction * delta_y;
+
+						if ( it->type == BALL )
+						{
+							if ( GetJA2Clock( ) - it->timepassedsincespeedup > PONG_SPEED_INCREASE_TIMER )
+							{
+								it->speed = min( gPongMaxSpeed, it->speed + 1 );
+
+								it->timepassedsincespeedup = 0;
+							}
+						}
+						
+						if ( it->type == PLAYER_PAD )
+						{
+							if ( it == it_player1 || it == it_player2 )
+							{
+								// for safety
+								it->x = min( MINIGAME_PONG_X_HIGH - it->r, max( MINIGAME_PONG_X_LOW + it->r, it->x ) );
+							}
+							else if ( it == it_player3 || it == it_player4 )
+							{
+								// for safety
+								it->y = min( MINIGAME_PONG_Y_HIGH - it->r, max( MINIGAME_PONG_Y_LOW + it->r, it->y ) );
+							}
+						}
+						
+						double factor_move_offset = 0.1f;
+						double factor_paddle_pos_offset = 0.1f;
+
+						BOOLEAN eraseobject = FALSE;
+
+						if ( it->type == BALL )
+						{
+							// check whether we will be reflected by a paddle
+							if ( it->y + it->r > MINIGAME_PONG_Y_HIGH )
+							{
+								if ( it_player1 != gPongObjects.end() )
+								{
+									if ( it->x >= it_player1->x - it_player1->r && it->x <= it_player1->x + it_player1->r )
+									{
+										it->y = MINIGAME_PONG_Y_HIGH - it->r;
+
+										// if a paddle moves, add an offset
+										double paddle_move_offset = PI - it_player1->angle;
+
+										// add an offset depending on where th paddle is hit - the further the hit is from the center, the bigger the offset
+										double paddle_pos_offset = ((it->x - it_player1->x) / it_player1->r) * PI / 2;
+
+										// we need the perpendicular
+										double n = 2 * PI;
+										it->angle = 2 * n + PI - it->angle + factor_move_offset * paddle_move_offset + factor_paddle_pos_offset * paddle_pos_offset;
+
+										it->lastplayerthattouchedthis = 1;
+
+										PlayJA2Sample( BIG_SWITCH3_IN, RATE_11025, 15, 1, MIDDLEPAN );
+									}
+								}
+							}
+
+							if ( it->y - it->r < MINIGAME_PONG_Y_LOW )
+							{
+								if ( it_player2 != gPongObjects.end( ) )
+								{
+									if ( it->x >= it_player2->x - it_player2->r && it->x <= it_player2->x + it_player2->r )
+									{
+										it->y = MINIGAME_PONG_Y_LOW + it->r;
+										
+										// if a paddle moves, add an offset
+										double paddle_move_offset = PI - it_player2->angle;
+
+										// add an offset depending on where th paddle is hit - the further the hit is from the center, the bigger the offset
+										double paddle_pos_offset = ((it->x - it_player2->x) / it_player2->r) * PI / 2;
+
+										// we need the perpendicular
+										double n = PI;
+										it->angle = 2 * n + PI - it->angle + factor_move_offset * paddle_move_offset + factor_paddle_pos_offset * paddle_pos_offset;
+
+										it->lastplayerthattouchedthis = 2;
+
+										PlayJA2Sample( BIG_SWITCH3_IN, RATE_11025, 15, 1, MIDDLEPAN );
+									}
+								}
+							}
+
+							// depending on how many players there are, there are paddles or walls on the sides
+							if ( it->x - it->r < MINIGAME_PONG_X_LOW )
+							{
+								if ( it_player3 != gPongObjects.end( ) )
+								{
+									if ( it->y >= it_player3->y - it_player3->r && it->y <= it_player3->y + it_player3->r )
+									{
+										it->x = MINIGAME_PONG_X_LOW + it->r;
+
+										// if a paddle moves, add an offset
+										double paddle_move_offset = PI - it_player3->angle;
+
+										// add an offset depending on where th paddle is hit - the further the hit is from the center, the bigger the offset
+										double paddle_pos_offset = ((it->y - it_player3->y) / it_player3->r) * PI / 2;
+
+										// we need the perpendicular
+										double n = PI / 2;
+										it->angle = 2 * n + PI - it->angle + factor_move_offset * paddle_move_offset + factor_paddle_pos_offset * paddle_pos_offset;
+
+										it->lastplayerthattouchedthis = 3;
+
+										PlayJA2Sample( BIG_SWITCH3_IN, RATE_11025, 15, 1, MIDDLEPAN );
+									}
+								}
+								else
+								{
+									it->x = MINIGAME_PONG_X_LOW + it->r;
+
+									double n = PI / 2;
+									it->angle = 2 * n + PI - it->angle;
+								}
+							}
+							else if ( it->x + it->r > MINIGAME_PONG_X_HIGH )
+							{
+								if ( it_player4 != gPongObjects.end( ) )
+								{
+									if ( it->y >= it_player4->y - it_player4->r && it->y <= it_player4->y + it_player4->r )
+									{
+										it->x = MINIGAME_PONG_X_HIGH - it->r;
+
+										// if a paddle moves, add an offset
+										double paddle_move_offset = PI - it_player4->angle;
+
+										// add an offset depending on where th paddle is hit - the further the hit is from the center, the bigger the offset
+										double paddle_pos_offset = ((it->y - it_player4->y) / it_player4->r) * PI / 2;
+
+										// we need the perpendicular
+										double n = - PI / 2;
+										it->angle = 2 * n + PI - it->angle + factor_move_offset * paddle_move_offset + factor_paddle_pos_offset * paddle_pos_offset;
+
+										it->lastplayerthattouchedthis = 4;
+
+										PlayJA2Sample( BIG_SWITCH3_IN, RATE_11025, 15, 1, MIDDLEPAN );
+									}
+								}
+								else
+								{
+									it->x = MINIGAME_PONG_X_HIGH - it->r;
+
+									double n = -PI / 2;
+									it->angle = 2 * n + PI - it->angle;
+								}
+							}
+
+							// check whether we will be reflected by another ball
+							std::vector<PONG_OBJECT>::iterator it2 = it;
+							++it2;
+							for ( ; it2 != gPongObjects.end(); ++it2)
+							{
+								if ( it2->type == BALL )
+								{
+									if ( sqrt( (it->x - it2->x) * (it->x - it2->x) + (it->y - it2->y) * (it->y - it2->y) ) <= it->r )
+									{
+										double n2 = PI / 2 + it2->angle;
+										double n1 = PI / 2 + it->angle;
+										it->angle = 2 * n2 + PI - it->angle;
+										it2->angle = 2 * n1 + PI - it2->angle;
+
+										double tmp = it->speed;
+										it->speed = it2->speed;
+										it2->speed = tmp;
+										
+										double delta_x = sin( it2->angle ) * it2->speed;
+										double delta_y = cos( it2->angle ) * it2->speed;
+										
+										it2->x += movefraction * delta_x;
+										it2->y += movefraction * delta_y;
+
+										PlayJA2Sample( VSM_SWITCH2_OUT, RATE_11025, 15, 1, MIDDLEPAN );
+									}
+								}
+							}
+							
+							// award points to the last player that touched the ball (if he doesn't somehow knock it into his own side)
+							if ( it->y < MINIGAME_PONG_Y_LOW )
+							{
+								eraseobject = TRUE;
+
+								if ( it->lastplayerthattouchedthis != 2 )
+									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
+							}
+							else if ( it->y > MINIGAME_PONG_Y_HIGH )
+							{
+								eraseobject = TRUE;
+
+								if ( it->lastplayerthattouchedthis != 1 )
+									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
+							}
+							else if ( (gPongForce4Paddles || gPongPlayers >= 3) && it->x < MINIGAME_PONG_X_LOW )
+							{
+								eraseobject = TRUE;
+
+								if ( it->lastplayerthattouchedthis != 3 )
+									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
+							}
+							else if ( (gPongForce4Paddles || gPongPlayers >= 3) && it->x > MINIGAME_PONG_X_HIGH )
+							{
+								eraseobject = TRUE;
+
+								if ( it->lastplayerthattouchedthis != 4 )
+									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
+							}
+						}
+
+						if ( eraseobject )
+						{
+							it = gPongObjects.erase(it);
+
+							PlayJA2Sample( BIG_SWITCH3_OUT, RATE_11025, 15, 1, MIDDLEPAN );
+						}
+						else
+							++it;
+					}
+				}
+			}
+
+			// draw stuff
+			{
+				UINT16 col_green = Get16BPPColor( FROMRGB( 0, 255, 0 ) );
+				UINT16 col_white = Get16BPPColor( FROMRGB( 255, 255, 255 ) );
+
+				// background
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, MINIGAME_PONG_X_LOW, MINIGAME_PONG_Y_LOW, MINIGAME_PONG_X_HIGH, MINIGAME_PONG_Y_HIGH, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+
+				for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin( ); it != gPongObjects.end( ); ++it )
+				{
+					switch ( it->type )
+					{
+					case PLAYER_PAD:
+						{
+							if ( it == it_player1 || it == it_player2 )
+							{
+								ColorFillVideoSurfaceArea( FRAME_BUFFER, 
+															max( MINIGAME_PONG_X_LOW, it->x - it->r), 
+															max( MINIGAME_PONG_Y_LOW, it->y - 7),
+															min( MINIGAME_PONG_X_HIGH, it->x + it->r),
+															min( MINIGAME_PONG_Y_HIGH, it->y + 7),
+															col_green );
+							}
+							else
+							{
+								ColorFillVideoSurfaceArea( FRAME_BUFFER,
+														   max( MINIGAME_PONG_X_LOW, it->x - 7 ),
+														   max( MINIGAME_PONG_Y_LOW, it->y - it->r ),
+														   min( MINIGAME_PONG_X_HIGH, it->x + 7 ),
+														   min( MINIGAME_PONG_Y_HIGH, it->y + it->r ),
+														   col_green );
+							}
+						}
+						break;
+
+					case BALL:
+						{
+							for ( int x = it->x - it->r + 1; x <= it->x + it->r; ++x )
+							{
+								// colour x, y if
+								// (it->x - x)^2 + (it->y - y)^2 <= r^2
+								// <=> (it->y - y) <= +/- std::sqrt( r^2 - (it->x - x)^2 )
+								// <=> y >= it->y +/- std::sqrt( r^2 - (it->x - x)^2 )
+								int sqrstuff = std::sqrt( it->r * it->r - (it->x - x) * (it->x - x) );
+								
+								ColorFillVideoSurfaceArea( FRAME_BUFFER, 
+														   max( MINIGAME_PONG_X_LOW, x),
+														   max( MINIGAME_PONG_Y_LOW, it->y - sqrstuff),
+														   min( MINIGAME_PONG_X_HIGH, x + 1),
+														   min( MINIGAME_PONG_Y_HIGH, it->y + sqrstuff),
+														   col_white );
+							}
+						}
+						break;
+
+					default:
+						break;
+					}
+				}
+			}
+			
+		}
+		else if ( gMiniGameState == MINIGAME_GAMEOVER )
+		{
+
+		}
+		else if ( gMiniGameState == MINIGAME_PAUSE )
+		{
+			ColorFillVideoSurfaceArea( FRAME_BUFFER, menu_x_low, menu_y_low, menu_x_high, menu_y_high - 20, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+
+			// display our score
+			UINT16 sX = menu_x_low + 10;
+			UINT16 sY = menu_y_low + 10;
+			UINT16 width = 0;
+
+			CHAR16		sText[800];
+			swprintf( sText, L"" );
+
+			swprintf( sText, L"Game paused" );
+			width = StringPixLength( sText, fontused );
+			sY += DisplayWrappedString( sX, sY, width, 2, fontused, FONT_RED, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
+
+			if ( gMiniGameMenuScreen == 3 )
+			{
+				int menuentry = 0;
+
+				swprintf( sText, (gMiniGameMenuSelection == menuentry) ? L"-> Continue" : L"   Continue" );
+				width = StringPixLength( sText, fontused );
+				sY += DisplayWrappedString( sX, sY, width, 2, fontused, (gMiniGameMenuSelection == menuentry) ? FONT_BLACK : FONT_RED,
+											sText, (gMiniGameMenuSelection == menuentry) ? FONT_MCOLOR_WHITE : FONT_MCOLOR_BLACK, FALSE, 0 );
+				++menuentry;
+
+				if ( keyactivation_enter )
+				{
+					gMiniGameState = MINIGAME_GAME;
+
+					gMiniGameRenewBackground = TRUE;
+
+					gPongPauseTimeOffset = GetJA2Clock( ) - gPongTimePauseActivated;
+					gPongTimePauseActivated = 0;
 				}
 			}
 		}
@@ -1299,5 +2460,4 @@ UINT32 MiniGame_Handle_Tetris()
 
 	return MINIGAME_SCREEN;
 }
-
-////////////////////////////////////////////// TETRIS //////////////////////////////////////////////
+////////////////////////////////////////////// PONG //////////////////////////////////////////////
