@@ -1323,9 +1323,18 @@ UINT32 MiniGame_Handle_Tetris()
 // A ball travels between the two sides, the goal is to prevent the other player from guiding the ball behind you.
 // We implement that here with  few extra options (multiple players and such)
 
+// the different types of objects we use 
+enum
+{
+	PLAYER_PAD = 0,
+	BALL,
+};
+
 // this struct is used to stre data of paddles and balls
 typedef struct PONG_OBJECT
 {
+	PONG_OBJECT( ) : x( 0 ), y( 0 ), angle( 0 ), speed( 0 ), r( 1 ), type( BALL ), timepassedsincespeedup( GetJA2Clock( ) ), lastplayerthattouchedthis( 0 ), erasethis( FALSE ) {}
+
 	double x;
 	double y;
 	
@@ -1337,13 +1346,9 @@ typedef struct PONG_OBJECT
 
 	int timepassedsincespeedup;			// the longer a ball is in play, the faster it gets (to prevent the game from going on forever).
 	int lastplayerthattouchedthis;		// we log the last player paddle that touched a ball here
-} PONG_OBJECT;
 
-enum
-{
-	PLAYER_PAD = 0,
-	BALL,
-};
+	BOOLEAN erasethis;					// marker: delete this thing during deletion procedure (ball going out of game area)
+} PONG_OBJECT;
 
 int gPongPlayers = 1;				// number of players (1 to 4), with 2 or 4 paddles used accordingly
 
@@ -1698,24 +1703,16 @@ UINT32 MiniGame_Handle_Pong()
 				PONG_OBJECT player1paddle;
 				player1paddle.x = MINIGAME_PONG_X_LOW + (MINIGAME_PONG_X_HIGH - MINIGAME_PONG_X_LOW) / 2;
 				player1paddle.y = MINIGAME_PONG_Y_HIGH;
-				player1paddle.angle = 0;
-				player1paddle.speed = 0;
 				player1paddle.r = 20;
 				player1paddle.type = PLAYER_PAD;
-				player1paddle.timepassedsincespeedup = GetJA2Clock( );
-				player1paddle.lastplayerthattouchedthis = 0;
 
 				gPongObjects.push_back( player1paddle );
 
 				PONG_OBJECT player2paddle;
 				player2paddle.x = MINIGAME_PONG_X_LOW + (MINIGAME_PONG_X_HIGH - MINIGAME_PONG_X_LOW) / 2;
 				player2paddle.y = MINIGAME_PONG_Y_LOW;
-				player2paddle.angle = 0;
-				player2paddle.speed = 0;
 				player2paddle.r = 20;
 				player2paddle.type = PLAYER_PAD;
-				player2paddle.timepassedsincespeedup = GetJA2Clock( );
-				player2paddle.lastplayerthattouchedthis = 0;
 
 				gPongObjects.push_back( player2paddle );
 
@@ -1724,24 +1721,16 @@ UINT32 MiniGame_Handle_Pong()
 					PONG_OBJECT player3paddle;
 					player3paddle.x = MINIGAME_PONG_X_LOW;
 					player3paddle.y = MINIGAME_PONG_Y_LOW + (MINIGAME_PONG_Y_HIGH - MINIGAME_PONG_Y_LOW) / 2;
-					player3paddle.angle = 0;
-					player3paddle.speed = 0;
 					player3paddle.r = 20;
 					player3paddle.type = PLAYER_PAD;
-					player3paddle.timepassedsincespeedup = GetJA2Clock( );
-					player3paddle.lastplayerthattouchedthis = 0;
 
 					gPongObjects.push_back( player3paddle );
 
 					PONG_OBJECT player4paddle;
 					player4paddle.x = MINIGAME_PONG_X_HIGH;
 					player4paddle.y = MINIGAME_PONG_Y_LOW + (MINIGAME_PONG_Y_HIGH - MINIGAME_PONG_Y_LOW) / 2;
-					player4paddle.angle = 0;
-					player4paddle.speed = 0;
 					player4paddle.r = 20;
 					player4paddle.type = PLAYER_PAD;
-					player4paddle.timepassedsincespeedup = GetJA2Clock( );
-					player4paddle.lastplayerthattouchedthis = 0;
 
 					gPongObjects.push_back( player4paddle );
 				}
@@ -1769,6 +1758,7 @@ UINT32 MiniGame_Handle_Pong()
 					++ballsinplay;
 			}
 
+			// as balls can get erased, we always check whether we have to add new ones
 			while ( ballsinplay < gPongBallsToUse )
 			{
 				PONG_OBJECT ball;
@@ -1777,9 +1767,6 @@ UINT32 MiniGame_Handle_Pong()
 				ball.angle = Random(10);
 				ball.speed = min( gPongMaxSpeed, gPongMaxSpeed / 2 + Random( gPongMaxSpeed ) );
 				ball.r = 4;
-				ball.type = BALL;
-				ball.timepassedsincespeedup = GetJA2Clock( );
-				ball.lastplayerthattouchedthis = 0;
 
 				gPongObjects.push_back( ball );
 
@@ -1787,6 +1774,7 @@ UINT32 MiniGame_Handle_Pong()
 			}
 
 			// iterators to player-paddles
+			// note: as we use iterators and check against gPongObjects.end( ) to know whether a paddle exists, erasing elements should only be done at the very end
 			std::vector<PONG_OBJECT>::iterator it_player1 = gPongObjects.end( );
 			std::vector<PONG_OBJECT>::iterator it_player2 = gPongObjects.end( );
 			std::vector<PONG_OBJECT>::iterator it_player3 = gPongObjects.end( );
@@ -2116,20 +2104,27 @@ UINT32 MiniGame_Handle_Pong()
 
 				if ( movefraction > 0.0f )
 				{
-					for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin(); it != gPongObjects.end(); )
+					// due to our use of iterators, we only erase objects later on
+					// this might seem somewhat odd, but makes use of iterators easier
+					BOOLEAN eraseobject = FALSE;
+
+					for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin(); it != gPongObjects.end(); ++it )
 					{
 						double delta_x = sin( it->angle ) * it->speed;
 						double delta_y = cos( it->angle ) * it->speed;
 
-						if ( it == it_player1 || it == it_player2 )
+						if ( it->type == PLAYER_PAD )
 						{
-							// for safety
-							delta_y = 0;
-						}
-						else if ( it == it_player3 || it == it_player4 )
-						{
-							// for safety
-							delta_x = 0;
+							if ( it == it_player1 || it == it_player2 )
+							{
+								// for safety
+								delta_y = 0;
+							}
+							else if ( it == it_player3 || it == it_player4 )
+							{
+								// for safety
+								delta_x = 0;
+							}
 						}
 						
 						it->x += movefraction * delta_x;
@@ -2161,9 +2156,7 @@ UINT32 MiniGame_Handle_Pong()
 						
 						double factor_move_offset = 0.1f;
 						double factor_paddle_pos_offset = 0.1f;
-
-						BOOLEAN eraseobject = FALSE;
-
+												
 						if ( it->type == BALL )
 						{
 							// check whether we will be reflected by a paddle
@@ -2314,6 +2307,7 @@ UINT32 MiniGame_Handle_Pong()
 							if ( it->y < MINIGAME_PONG_Y_LOW )
 							{
 								eraseobject = TRUE;
+								it->erasethis = TRUE;
 
 								if ( it->lastplayerthattouchedthis != 2 )
 									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
@@ -2321,6 +2315,7 @@ UINT32 MiniGame_Handle_Pong()
 							else if ( it->y > MINIGAME_PONG_Y_HIGH )
 							{
 								eraseobject = TRUE;
+								it->erasethis = TRUE;
 
 								if ( it->lastplayerthattouchedthis != 1 )
 									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
@@ -2328,6 +2323,7 @@ UINT32 MiniGame_Handle_Pong()
 							else if ( (gPongForce4Paddles || gPongPlayers >= 3) && it->x < MINIGAME_PONG_X_LOW )
 							{
 								eraseobject = TRUE;
+								it->erasethis = TRUE;
 
 								if ( it->lastplayerthattouchedthis != 3 )
 									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
@@ -2335,20 +2331,26 @@ UINT32 MiniGame_Handle_Pong()
 							else if ( (gPongForce4Paddles || gPongPlayers >= 3) && it->x > MINIGAME_PONG_X_HIGH )
 							{
 								eraseobject = TRUE;
+								it->erasethis = TRUE;
 
 								if ( it->lastplayerthattouchedthis != 4 )
 									gPongScorePlayer[it->lastplayerthattouchedthis] += 1;
 							}
 						}
+					}
 
-						if ( eraseobject )
+					// erase objects now
+					if ( eraseobject )
+					{
+						for ( std::vector<PONG_OBJECT>::iterator it = gPongObjects.begin(); it != gPongObjects.end(); )
 						{
-							it = gPongObjects.erase(it);
-
-							PlayJA2Sample( BIG_SWITCH3_OUT, RATE_11025, 15, 1, MIDDLEPAN );
+							if ( it->erasethis )
+								it = gPongObjects.erase( it );
+							else
+								++it;
 						}
-						else
-							++it;
+
+						PlayJA2Sample( BIG_SWITCH3_OUT, RATE_11025, 15, 1, MIDDLEPAN );
 					}
 				}
 			}
