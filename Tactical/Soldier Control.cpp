@@ -23164,7 +23164,7 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 		if ( Item[pObj->usItem].cigarette && pSoldier->GetBackgroundValue( BG_SMOKERTYPE ) == 2 )
 		{
 			// merc gets slightly pissed by the player even suggesting this
-			TacticalCharacterDialogue( pSoldier, QUOTE_PRE_NOT_SMART );
+			TacticalCharacterDialogue( pSoldier, QUOTE_POST_NOT_SMART );
 			pSoldier->aiData.bMorale = max( 0, pSoldier->aiData.bMorale - 1 );
 
 			return FALSE;
