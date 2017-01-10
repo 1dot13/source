@@ -8934,7 +8934,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% team capitulation strength if we lead negotiations\n",
 	L" %s%d%% faster running\n",
 	L" %s%d%% bandaging speed\n",
-	L" drinking restores %s%d%% energy\n",
+	L" %s%d%% breath regeneration\n",
 	L" %s%d%% strength to carry items\n",
 	L" %s%d%% food consumption\n",
 	L" %s%d%% water consumption\n",

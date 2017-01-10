@@ -8935,7 +8935,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% à la force de capitulation de l'équipe, si nous menons les négociations\n",
 	L" %s%d%% plus rapide à la marche\n",
 	L" %s%d%% de vitesse de bandage\n",
-	L" Boire restaure %s%d%% d'énergie\n",
+	L" %s%d%% breath regeneration\n",	// TODO.Translate
 	L" %s%d%% de force pour porter des objets\n",
 	L" %s%d%% de besoins énergétiques (nourriture)\n",
 	L" %s%d%% de réhydratation nécessaire (eau)\n",

@@ -937,7 +937,8 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 			ReduceBPRegenForHunger(pSoldier, &iBPCost);
 
 		// Flugente: backgrounds
-		iBPCost = (INT32) (iBPCost * (100 + pSoldier->GetBackgroundValue(BG_PERC_REGEN_ENERGY)) / 100);
+		if ( iBPCost < 0 )
+			iBPCost = (INT32) (iBPCost * (100 + pSoldier->GetBackgroundValue(BG_PERC_REGEN_ENERGY)) / 100);
 
 		if (is_networked)
 		{

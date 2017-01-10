@@ -8933,7 +8933,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％队伍劝降能力\n", //L" %s%d%% team capitulation strength if we lead negotiations\n",
 	L" %s%d%％跑步速度\n", //L" %s%d%% faster running\n", 
 	L" %s%d%％包扎速度\n", //L" %s%d%% bandaging speed\n",
-	L" 饮酒可恢复%s%d%％能量\n", //L" drinking restores %s%d%% energy\n",
+	L" %s%d%% breath regeneration\n",	// TODO.Translate
 	L" %s%d%％负重能力\n", //L" %s%d%% strength to carry items\n",
 	L" %s%d%％食物需求\n", //L" %s%d%% food consumption\n",
 	L" %s%d%％饮水需求\n", //L" %s%d%% water consumption\n",
