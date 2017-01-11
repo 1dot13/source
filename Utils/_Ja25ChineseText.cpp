@@ -479,6 +479,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"减少视力范围",				// L"Reduced sight range.",
 	L"大大增加的流血速度.",	//L"Drastically increased bleeding.",
 	L"Performance suffers while on a rooftop.",	// TODO.Translate
+	L"Occasionally harms self.",
 };
 
 STR16 gzIMPProfileCostText[]=

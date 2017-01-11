@@ -7847,6 +7847,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Shortsighted",
 	L"Hemophiliac",		// TODO.Translate
 	L"Fear of Heights",
+	L"Self-Harming",
 	L"I.M.P. Disabilities",
 };
 
@@ -7872,6 +7873,12 @@ STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[]=	// TODO.Translate
 {
 	L"Let's just say you are a grounded person.",
 	L"You prefer missions where you don't have to scale tall buildings or mountains. We recommend conquering the Netherlands.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextSelfHarm[] =
+{
+	L"Might want to make sure your knives are always clean.",
+	L"You have some issues with knives. Not that you tend to avoid them, quite the opposite, really.",
 };
 
 // TODO.Translate

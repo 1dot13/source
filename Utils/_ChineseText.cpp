@@ -7834,6 +7834,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"近视眼", //L"Shortsighted",
 	L"血友病",//L"Hemophiliac",
 	L"Fear of Heights",	// TODO.Translate
+	L"Self-Harming",
 	L"I.M.P. 性格缺陷",
 };
 
@@ -7859,6 +7860,12 @@ STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[]=	// TODO.Translate
 {
 	L"Let's just say you are a grounded person.",
 	L"You prefer missions where you don't have to scale tall buildings or mountains. We recommend conquering the Netherlands.",
+};
+
+STR16 gzIMPDisabilityTraitEmailTextSelfHarm[] =
+{
+	L"Might want to make sure your knives are always clean.",
+	L"You have some issues with knives. Not that you tend to avoid them, quite the opposite, really.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility

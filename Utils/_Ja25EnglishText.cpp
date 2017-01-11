@@ -479,6 +479,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Reduced sight range.",
 	L"Drastically increased bleeding.",
 	L"Performance suffers while on a rooftop.",
+	L"Occasionally harms self.",
 };
 
 STR16 gzIMPProfileCostText[]=

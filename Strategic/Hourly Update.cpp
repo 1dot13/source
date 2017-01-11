@@ -23,6 +23,7 @@
 	#include "Drugs And Alcohol.h"	// added by Flugente for HourlyDrugUpdate()
 	#include "Interface.h"			// added by Flugente
 	#include "SkillCheck.h"			// added by Flugente
+	#include "Isometric Utils.h"	// added by Flugente for NOWHERE
 #endif
 
 #include "Luaglobal.h"
@@ -45,6 +46,7 @@
 void HourlyQuestUpdate();
 void HourlyLarryUpdate();
 void HourlySmokerUpdate();
+void HourlyDisabilityUpdate();
 void HourlyStealUpdate();	// Flugente: certain characters might steal equipment (backgrounds)
 void HourlySnitchUpdate();	// anv: decreasing cooldown after exposition
 
@@ -120,6 +122,8 @@ CHAR16	zString[128];
 	HourlyLarryUpdate();
 
 	HourlySmokerUpdate( );
+
+	HourlyDisabilityUpdate();
 
 	HourlyStealUpdate();
 
@@ -543,6 +547,86 @@ void HourlySmokerUpdate( )
 						{
 							break;
 						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void HourlyDisabilityUpdate( )
+{
+	SOLDIERTYPE*				pSoldier = NULL;
+	SOLDIERTYPE*				pOtherSoldier = NULL;
+
+	for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
+	{
+		pSoldier = MercPtrs[cnt];
+
+		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep )
+		{
+			// possibl self-harm
+			if ( Chance(20) && DoesMercHaveDisability( pSoldier, SELF_HARM ) )
+			{
+				// don't do this if we are at low health, or in combat, or travelling, or a patient or doctor
+				// only do this if we are rather healed
+				if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->stats.bLifeMax > 0 && (FLOAT)(pSoldier->stats.bLife) / (FLOAT)(pSoldier->stats.bLifeMax) > 0.9f 
+					 && !pSoldier->flags.fBetweenSectors && !gTacticalStatus.fEnemyInSector
+					 && !IS_PATIENT( pSoldier->bAssignment ) && pSoldier->bAssignment != IN_TRANSIT )
+				{
+					// anv: snitches stop mercs from getting wasted
+					BOOLEAN fSnitchStoppedBehaviour = FALSE;
+					for ( INT32 cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
+					{
+						pOtherSoldier = MercPtrs[cnt2];
+
+						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
+						if ( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
+						{
+							if ( ProfileHasSkillTrait( pOtherSoldier->ubProfile, SNITCH_NT ) && !(pSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF) )
+							{
+								if ( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
+								{
+									UINT16 bPreventChance = (EffectiveLeadership( pOtherSoldier ) + EffectiveExpLevel( pOtherSoldier ) / 2);
+									if ( gGameOptions.fNewTraitSystem )
+									{
+										bPreventChance += 25 * NUM_SKILL_TRAITS( pOtherSoldier, SQUADLEADER_NT );
+										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_NT );
+									}
+									else
+									{
+										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
+									}
+
+									// keep 1% chance no matter what
+									bPreventChance = max( 0, min( 99, bPreventChance ) );
+									if ( Chance( bPreventChance ) )
+									{
+										// merc is not amused by being prevented
+										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
+										// also here would be a place for dynamic relationship decrease between them
+										// Flugente: then lets do that, shall we?
+										AddOpinionEvent( pSoldier->ubProfile, pOtherSoldier->ubProfile, OPINIONEVENT_SNITCHINTERFERENCE );
+
+										fSnitchStoppedBehaviour = TRUE;
+										continue;
+									}
+								}
+							}
+						}
+					}
+
+					if ( !fSnitchStoppedBehaviour )
+					{
+						// take damage, but not bleeding damage (otherwise we'd constantly have to check in on this merc and manually bandage them, which is tedious)
+						INT8 oldbleeding = pSoldier->bBleeding;
+
+						pSoldier->SoldierTakeDamage( 0, 1, 0, TAKE_DAMAGE_BLADE, pSoldier->ubID, NOWHERE, 0, FALSE );
+
+						pSoldier->bBleeding = oldbleeding;
+
+						// Flugente: dynamic opinions
+						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
 					}
 				}
 			}

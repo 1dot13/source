@@ -480,6 +480,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Geringere Sichtweite.",
 	L"Drastically increased bleeding.",	// TODO.Translate
 	L"Performance suffers while on a rooftop.",	// TODO.Translate
+	L"Occasionally harms self.",
 };
 
 STR16 gzIMPProfileCostText[]=

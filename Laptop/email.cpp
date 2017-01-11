@@ -4138,6 +4138,16 @@ void HandleIMPCharProfileResultsMessage( void)
 
 			AddEmailRecordToList( pString );
 		}
+		else if ( gMercProfiles[iCurrentIMPSlot].bDisability == SELF_HARM )
+		{
+			swprintf( pString, gzIMPDisabilityTraitEmailTextSelfHarm[0] );
+
+			AddEmailRecordToList( pString );
+
+			swprintf( pString, gzIMPDisabilityTraitEmailTextSelfHarm[1] );
+
+			AddEmailRecordToList( pString );
+		}
 		else
 		{
 			// personality tick
