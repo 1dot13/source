@@ -789,7 +789,7 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 							if ( !HAS_SKILL_TRAIT( pTeamSoldier, COVERT_NT ) || ( (pTeamSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0) )
 							{
 								// SANDRO - no penalty for pacifists to run away
-								if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) )
+								if ( !DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) )
 									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
 
 								// Double morale drop for aggressive people
