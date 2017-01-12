@@ -432,6 +432,7 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 		case(CHAR_TRAIT_PACIFIST) : agreemodifier_personal += 20; break;
 		case(CHAR_TRAIT_MALICIOUS) : agreemodifier_personal += -8; break;
 		case(CHAR_TRAIT_SHOWOFF) : agreemodifier_personal += -3; break;
+		case CHAR_TRAIT_COWARD: agreemodifier_personal += 5; break;
 		}
 
 		// if the event is positive, then we are much more likely to agree
@@ -565,6 +566,10 @@ void CreateSpeechEventsFromDynamicOpinionEvent( DynamicOpinionSpeechEvent aEvent
 							case(CHAR_TRAIT_SHOWOFF) :
 								chance_to_reason += -2;
 								chance_to_agression += 2;
+								break;
+							case CHAR_TRAIT_COWARD:
+								chance_to_reason += 20;
+								chance_to_agression += -20;
 								break;
 							}
 
@@ -2189,6 +2194,9 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 				break;
 
 			case OPINIONEVENT_ORDEREDRETREAT:
+				// cowards obviously won't complain about a retreat, pacifists are also okay with it
+				if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_COWARD ) || DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) )
+					continue;
 				break;
 
 			case OPINIONEVENT_CIVKILLER:

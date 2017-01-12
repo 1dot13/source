@@ -70,7 +70,7 @@ INT32 giIMPCharacterTraitFinsihButtonImage;
 //image handle
 UINT32	guiIST_GreyGoldBox2;
 
-MOUSE_REGION	gMR_CharacterTraitHelpTextRegions[IMP_NUMBER_CHARACTER_TRAITS];
+MOUSE_REGION	gMR_CharacterTraitHelpTextRegions[NUM_CHAR_TRAITS];
 
 //*******************************************************************
 //
@@ -102,7 +102,6 @@ void AssignCharacterTraitHelpText( UINT8 ubNumber );
 
 void EnterIMPCharacterTrait( void )
 {
-//	UINT32 ubCnt;
 	VOBJECT_DESC	VObjectDesc;
 
 	//add the skill trait buttons
@@ -117,8 +116,6 @@ void EnterIMPCharacterTrait( void )
 		return;
 	}
 
-
-
 	giIMPCharacterTraitFinsihButtonImage =	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
 	giIMPCharacterTraitFinsihButton = CreateIconAndTextButton( giIMPCharacterTraitFinsihButtonImage, pImpButtonText[ 13 ], FONT12ARIAL,
 																FONT_WHITE, DEFAULT_SHADOW,
@@ -126,9 +123,7 @@ void EnterIMPCharacterTrait( void )
 																TEXT_CJUSTIFIED,
 																LAPTOP_SCREEN_UL_X +	( 350 ), LAPTOP_SCREEN_WEB_UL_Y + ( 340 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 																BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPCharacterTraitFinishCallback );
-
-
-
+	
 	SetButtonCursor( giIMPCharacterTraitFinsihButton, CURSOR_WWW);
 
 	//if we are not DONE and are just reviewing
@@ -145,7 +140,7 @@ void EnterIMPCharacterTrait( void )
 		// add regions for help texts
 		UINT16 usPosX = IMP_CHARACTER_1ST_COLUMN_START_X + 62;
 		UINT16 usPosY = IMP_CHARACTER_1ST_COLUMN_START_Y + 8;
-		for( UINT8 ubCnt=0; ubCnt<(gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES); ubCnt++ )
+		for ( UINT8 ubCnt = 0; ubCnt<(gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES); ++ubCnt )
 		{
 			MSYS_DefineRegion( &gMR_CharacterTraitHelpTextRegions[ubCnt], ( usPosX ), ( usPosY ),
 							(usPosX + 156), ( usPosY + 17), MSYS_PRIORITY_HIGH,
@@ -167,7 +162,6 @@ void EnterIMPCharacterTrait( void )
 	}
 }
 
-
 void RenderIMPCharacterTrait( void )
 {	
 	//render the metal background graphic
@@ -175,22 +169,19 @@ void RenderIMPCharacterTrait( void )
 
 	//Display the title
 	if ( gGameOptions.fNewTraitSystem )
-		DrawTextToScreen( gzIMPCharacterTraitText[IMP_NUMBER_CHARACTER_TRAITS], LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( gzIMPCharacterTraitText[NUM_CHAR_TRAITS], LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	else
-		DrawTextToScreen( gzIMPAttitudesText[IMP_NUMBER_ATTITUDES], LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( gzIMPAttitudesText[NUM_ATTITUDES], LAPTOP_SCREEN_UL_X - 111, LAPTOP_TITLE_Y, LAPTOP_TEXT_WIDTH, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	IMPCharacterTraitDisplayCharacterTraits();
 }
 
-
 void ExitIMPCharacterTrait( void )
 {
-	INT32 iCnt;
-
 	DeleteVideoObjectFromIndex( guiIST_GreyGoldBox2 );
 
 	//remove the skill buttons
-	for(iCnt = 0; iCnt < (gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES); iCnt++)
+	for ( INT32 iCnt = 0; iCnt < (gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES); ++iCnt )
 	{
 		//if there is a button allocated
 		if( giIMPCharacterTraitAnswerButton[iCnt] != -1 )
@@ -207,7 +198,6 @@ void ExitIMPCharacterTrait( void )
 	UnloadButtonImage( giIMPCharacterTraitFinsihButtonImage );
 }
 
-
 void HandleIMPCharacterTrait( void )
 {
 	if( gfIST_Redraw2 )
@@ -221,13 +211,12 @@ void HandleIMPCharacterTrait( void )
 
 void AddImpCharacterTraitButtons()
 {
-	INT32 iCnt = 0;
 	UINT16 usPosX, usPosY;
 
 	usPosX = IMP_CHARACTER_1ST_COLUMN_START_X;
 	usPosY = IMP_CHARACTER_1ST_COLUMN_START_Y;
 
-	for(iCnt = 0; iCnt < (gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES) ; iCnt++)
+	for ( INT32 iCnt = 0; iCnt < (gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES); ++iCnt )
 	{
 		//reset
 		giIMPCharacterTraitAnswerButton[iCnt] = -1;
@@ -287,8 +276,6 @@ void BtnIMPCharacterTraitAnswerCallback(GUI_BUTTON *btn,INT32 reason)
 
 void HandleIMPCharacterTraitAnswers( UINT32 uiSkillPressed )
 {
-	INT8 bCnt;
-
 	//if we are DONE and are just reviewing
 	if( iCurrentProfileMode == IMP__FINISH )
 	{
@@ -296,13 +283,13 @@ void HandleIMPCharacterTraitAnswers( UINT32 uiSkillPressed )
 	}
 
 	//reset all other buttons
-	for( bCnt=0; bCnt < (gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES); bCnt++ )
+	for ( INT8 bCnt = 0; bCnt < (gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES); ++bCnt )
 	{
 		gfCharacterTraitQuestions[ bCnt ] = FALSE;
 	}
 
 	//make sure its a valid character trait
-	if( uiSkillPressed > (UINT32)(gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES) )
+	if ( uiSkillPressed >( UINT32 )(gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES) )
 	{
 		Assert( 0 );
 		return;
@@ -337,11 +324,8 @@ void HandleIMPCharacterTraitAnswers( UINT32 uiSkillPressed )
 
 void HandleCharacterTraitButtonStates( )
 {
-	INT8 bCnt;
-
-	for( bCnt=0; bCnt < (gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES); bCnt++ )
+	for ( INT8 bCnt = 0; bCnt < (gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES); ++bCnt )
 	{
-
 		//if the skill is selected ( ie depressed )
 		if( gfCharacterTraitQuestions[ bCnt ] )
 		{
@@ -356,7 +340,6 @@ void HandleCharacterTraitButtonStates( )
 
 void IMPCharacterTraitDisplayCharacterTraits()
 {
-	INT8 bCnt;
 	UINT16 usPosX, usPosY;
 	UINT16 usBoxPosX, usBoxPosY;
 	HVOBJECT	hImageHandle;
@@ -367,7 +350,7 @@ void IMPCharacterTraitDisplayCharacterTraits()
 	usPosX = IMP_CHARACTER_1ST_COLUMN_START_X + IMP_CHARACTER_TRAIT__TEXT_OFFSET_X;
 	usPosY = IMP_CHARACTER_1ST_COLUMN_START_Y + IMP_CHARACTER_TRAIT__TEXT_OFFSET_Y;
 
-	for( bCnt=0; bCnt<(gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES); bCnt++ )
+	for ( INT8 bCnt = 0; bCnt<(gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES); ++bCnt )
 	{
 		usBoxPosX = usPosX - IMP_CHARACTER_TRAIT__GREY_BOX_OFFSET_X;
 		usBoxPosY = usPosY - IMP_CHARACTER_TRAIT__GREY_BOX_OFFSET_Y;
@@ -409,7 +392,6 @@ void IMPCharacterTraitDisplayCharacterTraits()
 	}
 }
 
-
 void BtnIMPCharacterTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	// btn callback for IMP personality quiz answer button
@@ -443,7 +425,6 @@ void BtnIMPCharacterTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-
 BOOLEAN CameBackToCharacterTraitPageButNotFinished()
 {
 	//if we are in a page that comes after this one
@@ -459,21 +440,18 @@ BOOLEAN CameBackToCharacterTraitPageButNotFinished()
 
 INT8 iChosenCharacterTrait()
 {
-	INT8	bCnt;
-	INT8 iCharacterTraitNumber = 0;
-
 	//loop through all the buttons and reset them
-	for( bCnt=0; bCnt<(gGameOptions.fNewTraitSystem ? IMP_NUMBER_CHARACTER_TRAITS : IMP_NUMBER_ATTITUDES); bCnt++ )
+	for ( INT8 bCnt = 0; bCnt<(gGameOptions.fNewTraitSystem ? NUM_CHAR_TRAITS : NUM_ATTITUDES); ++bCnt )
 	{
 		//if the trait is selected
 		if( gfCharacterTraitQuestions[ bCnt ] )
 		{
-			iCharacterTraitNumber = bCnt;
+			return bCnt;
 		}
 	}
-	return( iCharacterTraitNumber );
-}
 
+	return 0;
+}
 
 void AssignCharacterTraitHelpText( UINT8 ubNumber )
 {
@@ -484,6 +462,4 @@ void AssignCharacterTraitHelpText( UINT8 ubNumber )
 	// Set region help text
 	SetRegionFastHelpText( &(gMR_CharacterTraitHelpTextRegions[ubNumber]), apStr );
 	SetRegionHelpEndCallback( &gMR_CharacterTraitHelpTextRegions[ubNumber], MSYS_NO_CALLBACK );
-
-	return;
 }

@@ -464,6 +464,7 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"V: Erhält Moralzuwachs für nichtkämpferische Tätigkeiten (Außnahme: Milizausbildung).\nN: Erhält keinen Moralzuwachs für das Töten von Gegnern.",
 	L"V: Hat eine höhere Chance, Statusschäden anzurichten, und kann besonders fiese Wunden verursachen.\n   Erhält mehr Moral für erfolgreiche Statusschäden.\nN: Kann schlechter mit Leuten reden. Die Moral sinkt ohne Kampf schneller.",
 	L"V: Ist leistungsfähiger, wenn Söldner des anderen Geschlechts in der Nähe sind.\nN: Die Moral anderer naher Söldner des gleichen Geschlechts steigt langsamer.",
+	L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=

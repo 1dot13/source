@@ -7810,6 +7810,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Pacifist",
 	L"Malicious",
 	L"Show-off",
+	L"Coward",	// TODO.Translate
 	L"I.M.P. Character Traits",
 };
 

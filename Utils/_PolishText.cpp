@@ -7815,6 +7815,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Pacyfista",
 	L"Podstępny",
 	L"Gwiazdor",
+	L"Coward",	// TODO.Translate
 	L"Cechy charakteru I.M.P.-a",
 };
 

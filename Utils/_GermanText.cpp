@@ -7631,6 +7631,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Pazifistisch",
 	L"Sadistisch",
 	L"Machohaft",		//LOOTF - alt. "Angeberisch"
+	L"Feigling",
 	L"B.S.E. - Charakterzüge",
 };
 

@@ -103,7 +103,9 @@ MoraleEvent gbMoraleEvent[NUM_MORALE_EVENTS] =
 	{ TACTICAL_MORALE_EVENT,			5},		//MORALE_GOOD_FOOD,
 	{ TACTICAL_MORALE_EVENT,			-1},	//MORALE_BAD_FOOD,
 	{ TACTICAL_MORALE_EVENT,			-5},	//MORALE_LOATHSOME_FOOD,
-	{TACTICAL_MORALE_EVENT,				-8},	//MORALE_FEAR_OF_HEIGHTS,
+	{ TACTICAL_MORALE_EVENT,			-8},	//MORALE_FEAR_OF_HEIGHTS,
+	{ TACTICAL_MORALE_EVENT,			+5},	//MORALE_RAN_AWAY_COWARD,
+	{ TACTICAL_MORALE_EVENT,			+5},	//MORALE_ENEMYGROUP_COWARD,
 	// added by anv
 	{ STRATEGIC_MORALE_EVENT,			-5},	//MORALE_BUDDY_FIRED,
 	{ STRATEGIC_MORALE_EVENT,			-8},	//MORALE_BUDDY_FIRED_ON_BAD_TERMS,
@@ -789,12 +791,16 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 							if ( !HAS_SKILL_TRAIT( pTeamSoldier, COVERT_NT ) || ( (pTeamSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER)) == 0) )
 							{
 								// SANDRO - no penalty for pacifists to run away
-								if ( !DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) )
+								if ( !DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) && !DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_COWARD ) )
 									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
-
+																
 								// Double morale drop for aggressive people
 								if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
+
+								// Flugente: cowards actually gain morale this way
+								if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_COWARD ) )
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY_COWARD );
 							}
 						}
 						else
@@ -807,7 +813,8 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
 									break;
 								case ATT_COWARD:
-									// no penalty - cowards are perfectly happy to avoid fights!
+									// Flugente: cowards actually gain morale this way
+									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY_COWARD );
 									break;
 								default:
 									HandleMoraleEventForSoldier( pTeamSoldier, MORALE_RAN_AWAY );
@@ -1008,6 +1015,19 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 		case MORALE_FEAR_OF_HEIGHTS:
 			Assert( pSoldier );
 			HandleMoraleEventForSoldier( pSoldier, bMoraleEvent );
+			break;
+
+		case MORALE_ENEMYGROUP_COWARD:
+			// affects coward in sector
+			ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( pTeamSoldier = MercPtrs[ubLoop]; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++, pTeamSoldier++ )
+			{
+				if ( pTeamSoldier->bActive && (pTeamSoldier->sSectorX == sMapX) && (pTeamSoldier->sSectorY == sMapY) && (pTeamSoldier->bSectorZ == bMapZ) )
+				{
+					if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_COWARD ) )
+						HandleMoraleEventForSoldier( pTeamSoldier, bMoraleEvent );
+				}
+			}
 			break;
 
 		case MORALE_BUDDY_FIRED:

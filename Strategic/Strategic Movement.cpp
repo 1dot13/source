@@ -1075,6 +1075,19 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 #endif
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
+	// Flugente: for cowards, check our teamsize and that of the enemy...
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		UINT16 enemyteamsize = NumNonPlayerTeamMembersInSector( pPlayerDialogGroup->ubSectorX, pPlayerDialogGroup->ubSectorY, ENEMY_TEAM );
+		UINT16 militiateamsize = NumNonPlayerTeamMembersInSector( pPlayerDialogGroup->ubSectorX, pPlayerDialogGroup->ubSectorY, MILITIA_TEAM );
+		UINT16 mercsteamsize = PlayerMercsInSector( pPlayerDialogGroup->ubSectorX, pPlayerDialogGroup->ubSectorY, pPlayerDialogGroup->ubSectorZ );
+
+		if ( enemyteamsize >= 2 * (militiateamsize + mercsteamsize) && mercsteamsize )
+		{
+			HandleMoraleEvent( NULL, MORALE_ENEMYGROUP_COWARD, pPlayerDialogGroup->ubSectorX, pPlayerDialogGroup->ubSectorY, pPlayerDialogGroup->ubSectorZ );
+		}
+	}
+
 	if( gfTacticalTraversal && pInitiatingBattleGroup == gpTacticalTraversalGroup ||
 		pInitiatingBattleGroup && pInitiatingBattleGroup->usGroupTeam != OUR_TEAM &&
 			pInitiatingBattleGroup->ubSectorX == gWorldSectorX &&

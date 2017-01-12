@@ -4287,6 +4287,10 @@ void HandleIMPCharProfileResultsMessage( void)
 					wcscpy(pString, gzIMPCharacterTraitText[CHAR_TRAIT_SHOWOFF]);
 					iOffSet = IMP_ATTITUDE_ARROGANT;
 					break;
+				case CHAR_TRAIT_COWARD:
+					wcscpy( pString, gzIMPCharacterTraitText[CHAR_TRAIT_COWARD] );
+					iOffSet = IMP_ATTITUDE_COWARD;
+					break;
 			}
 
 			wcscat(pString, L". ±");

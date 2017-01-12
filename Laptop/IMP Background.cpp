@@ -712,7 +712,6 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 		break;
 	}
 
-
 	switch ( iAttitude )
 	{
 	case CHAR_TRAIT_SOCIABLE:
@@ -722,17 +721,6 @@ BOOLEAN IsBackGroundAllowed( UINT16 ubNumber )
 	case CHAR_TRAIT_LONER:
 		if ( zBackground[ ubNumber ].value[BG_LEADERSHIP] > 0 )
 			return FALSE;
-		break;
-	case CHAR_TRAIT_OPTIMIST:
-	case CHAR_TRAIT_ASSERTIVE:
-	case CHAR_TRAIT_INTELLECTUAL:
-	case CHAR_TRAIT_PRIMITIVE:
-	case CHAR_TRAIT_AGGRESSIVE:
-	case CHAR_TRAIT_PHLEGMATIC:
-	case CHAR_TRAIT_DAUNTLESS:
-	case CHAR_TRAIT_PACIFIST:
-	case CHAR_TRAIT_MALICIOUS:
-	case CHAR_TRAIT_SHOWOFF:
 		break;
 	default:
 		break;

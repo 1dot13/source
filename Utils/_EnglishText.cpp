@@ -7798,6 +7798,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Pacifist",
 	L"Malicious",
 	L"Show-off",
+	L"Coward",
 	L"I.M.P. Character Traits",
 };
 

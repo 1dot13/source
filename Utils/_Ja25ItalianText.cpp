@@ -460,6 +460,7 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"A: Gains morale on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
 	L"A: Higher chance for inflicting stat loss, which may also inflict special painful wounds.\n   Gains bonus morale for inflicting stat loss.\nD: Penalty in communicating with people and morale sinks faster while not in battle.",
 	L"A: Better performance when mercs of opposite gender are nearby.\nD: Morale for mercs of the same gender grows slower when nearby.",
+	L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=

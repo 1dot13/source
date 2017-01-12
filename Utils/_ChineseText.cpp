@@ -7797,6 +7797,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"和平主义者",
 	L"恶毒",
 	L"爱炫耀",
+	L"Coward",	// TODO.Translate
 	L"I.M.P. 性格特征",
 };
 

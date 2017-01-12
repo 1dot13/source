@@ -187,7 +187,7 @@ BOOLEAN MercIsOwedTooMuchMoney( UINT8 ubProfileID )
 BOOLEAN MercThinksPlayerIsInactiveTooLong( UINT8 ubProfileID )
 {
 	UINT8 ubTolerance = gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS];
-	if( gMercProfiles[ubProfileID].bCharacterTrait == CHAR_TRAIT_PACIFIST )
+	if ( gMercProfiles[ubProfileID].bCharacterTrait == CHAR_TRAIT_PACIFIST || gMercProfiles[ubProfileID].bCharacterTrait == CHAR_TRAIT_COWARD )
 	{
 		ubTolerance = max(0, ubTolerance + gMoraleSettings.bValues[MORALE_PLAYER_INACTIVE_DAYS_PACIFIST_BONUS]);
 	}

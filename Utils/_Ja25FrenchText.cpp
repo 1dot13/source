@@ -461,6 +461,7 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"+ : Gagne du moral lorsque vous faites une mission qui n'est pas liée au combat (excepté l'entraînement de milice).\n- : Pas de gains lorsque vous tuez quelqu'un.",
 	L"+ : A plus de chance d'infliger des pertes de stats sur l'ennemi, qui peut aussi infliger de lourds dégâts.\n    Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemi.\n- : A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
 	L"+ : A de meilleures performances lorsqu'un certain type d'ennemi est opposé à lui.\n- : Les mercenaires qui possèdent le même type que l'ennemi gagne moins de moral.",
+	L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
 
 };
 

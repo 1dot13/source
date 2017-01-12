@@ -7804,6 +7804,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Pacifiste",
 	L"Malicieux",
 	L"Frimeur",
+	L"Coward",	// TODO.Translate
 	L"IMP : Traits de caractère",
 };
 

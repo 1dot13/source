@@ -7798,6 +7798,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Миролюбивый",	//Pacifist
 	L"Злобный",	//Malicious
 	L"Хвастун",	//Show-off
+	L"Coward",	// TODO.Translate
 	L"I.M.P.: Личностные качества",	//I.M.P. Character Traits
 };
 

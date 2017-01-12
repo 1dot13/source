@@ -463,6 +463,7 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"优点：进行非战斗任务时士气会提升（除了训练民兵）。\n缺点：杀人不增加士气。",// L"A: He gains morale when on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
 	L"优点：攻击有更高的几率能造成受害者属性值降低，和更严重的创伤，同时提高自己的士气。\n缺点：与其他人交流是个问题，脱离战斗后士气也会快速下沉。",// L"A: Has bigger chance for inflicting stat loss and can inflict special painful wounds when able to\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
 	L"优点：附近有异性雇佣兵时表现更佳。\n缺点：附近所有同性雇佣兵士气提升得慢。",// L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
+	L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=

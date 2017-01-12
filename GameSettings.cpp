@@ -3656,6 +3656,8 @@ void LoadMoraleSettings()
 	gMoraleSettings.bValues[MORALE_BAD_FOOD]		= iniReader.ReadInteger("Tactical Morale Settings","MORALE_BAD_FOOD", -1, -100, 100);
 	gMoraleSettings.bValues[MORALE_LOATHSOME_FOOD]	= iniReader.ReadInteger("Tactical Morale Settings","MORALE_LOATHSOME_FOOD", -5, -100, 100);
 	gMoraleSettings.bValues[MORALE_FEAR_OF_HEIGHTS] = iniReader.ReadInteger( "Tactical Morale Settings", "MORALE_FEAR_OF_HEIGHTS", -8, -100, 100 );
+	gMoraleSettings.bValues[MORALE_RAN_AWAY_COWARD] = iniReader.ReadInteger( "Tactical Morale Settings", "MORALE_RAN_AWAY_COWARD", 5, -100, 100 );
+	gMoraleSettings.bValues[MORALE_ENEMYGROUP_COWARD]	= iniReader.ReadInteger( "Tactical Morale Settings", "MORALE_ENEMYGROUP_COWARD", -3, -100, 100 );
 
 	gMoraleSettings.bValues[MORALE_KILLED_CIVILIAN]		= iniReader.ReadInteger("Strategic Morale Settings","MORALE_KILLED_CIVILIAN", -5, -100, 100);
 	gMoraleSettings.bValues[MORALE_BATTLE_WON]			= iniReader.ReadInteger("Strategic Morale Settings","MORALE_BATTLE_WON", 4, -100, 100);
