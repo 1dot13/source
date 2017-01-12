@@ -162,7 +162,7 @@ UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 		pSector = FindUnderGroundSector( sSectorX, sSectorY, (UINT8)sSectorZ );
 		if( pSector )
 		{
-			ubNumHostiles = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumTanks);
+			ubNumHostiles = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumJeeps + pSector->ubNumTanks);
 		}
 	}
 	else
@@ -172,7 +172,7 @@ UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 		//Count stationary hostiles
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
-		ubNumHostiles = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumTanks);
+		ubNumHostiles = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumCreatures + pSector->ubNumJeeps + pSector->ubNumTanks);
 
 		//Count mobile enemies
 		pGroup = gpGroupList;
@@ -206,7 +206,7 @@ UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 		pSector = FindUnderGroundSector( sSectorX, sSectorY, (UINT8)sSectorZ );
 		if( pSector )
 		{
-			ubNumEnemies = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks);
+			ubNumEnemies = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumJeeps + pSector->ubNumTanks);
 		}
 	}
 	else
@@ -216,7 +216,7 @@ UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 
 		//Count stationary enemies
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
-		ubNumEnemies = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks);
+		ubNumEnemies = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumJeeps + pSector->ubNumTanks);
 
 		//Count mobile enemies
 		pGroup = gpGroupList;
@@ -373,7 +373,7 @@ UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	if( pSector->ubGarrisonID == ROADBLOCK )
 	{
 		//consider these troops as mobile troops even though they are in a garrison
-		ubNumTroops += (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks);
+		ubNumTroops += (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumJeeps + pSector->ubNumTanks);
 	}
 
 	return ubNumTroops;
