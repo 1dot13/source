@@ -85,6 +85,7 @@
 <!-- (10) Pacifist 									-->
 <!-- (11) Malicious									-->
 <!-- (12) Show-off									-->
+<!-- (13) Coward									-->
 
 <!-- STOMP Disabilities -->
 
@@ -4019,7 +4020,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>9</bAttitude>
-		<bCharacterTrait>1</bCharacterTrait>
+		<bCharacterTrait>13</bCharacterTrait>
 		<bDisability>2</bDisability>
 		<ubNeedForSleep>10</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
@@ -18079,7 +18080,7 @@
 		<ubBodyType>0</ubBodyType>
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>9</bAttitude>
-		<bCharacterTrait>10</bCharacterTrait>
+		<bCharacterTrait>13</bCharacterTrait>
 		<bDisability>2</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>101</bReputationTolerance>
