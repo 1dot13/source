@@ -268,6 +268,10 @@ UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubT
 	{
 		ubNumTroops = (UINT8)(pSector->ubNumberOfCivsAtLevel[0] + pSector->ubNumberOfCivsAtLevel[1] + pSector->ubNumberOfCivsAtLevel[2]);
 	}
+	else if ( ubTeam == CREATURE_TEAM )
+	{
+		ubNumTroops = pSector->ubNumCreatures;
+	}
 
 	pGroup = gpGroupList;
 	while( pGroup )

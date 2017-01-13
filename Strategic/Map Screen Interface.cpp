@@ -5766,7 +5766,7 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	//Setup variables in the PBI for this first battle.  We need to support the
 	//non-persistant PBI in case the user goes to mapscreen.
 	// HEADROCK HAM 3.5: Arrival sector externalized. Fix for entering non-hostile sector/
-	if ( NumEnemiesInAnySector( gubPBSectorX, gubPBSectorY, 0 ) > 0 )
+	if ( NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM ) > 0 )
 	{
 		gfBlitBattleSectorLocator = TRUE;
 		gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;

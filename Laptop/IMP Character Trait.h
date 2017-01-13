@@ -10,7 +10,4 @@ void HandleIMPCharacterTrait( void );
 
 INT8 iChosenCharacterTrait();
 
-STR16 gzIMPCharacterTraitText[];
-STR16 gzIMPAttitudesText[];
-
 #endif

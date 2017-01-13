@@ -2192,7 +2192,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 			}
 
 			// on surface, and enemies are in the sector
-			if( ( pSoldier->bSectorZ == 0 ) && ( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) > 0 ) )
+			if ( (pSoldier->bSectorZ == 0) && (NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0) )
 			{
 				if( fExplainWhyNot )
 				{
@@ -2445,7 +2445,7 @@ BOOLEAN CanCharacterSpreadPropaganda( SOLDIERTYPE *pSoldier )
 	{
 		return( FALSE );
 	}
-	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM) )
 	{
 		return( FALSE );
 	}
@@ -2475,7 +2475,7 @@ BOOLEAN CanCharacterGatherInformation( SOLDIERTYPE *pSoldier )
 	{
 		return( FALSE );
 	}
-	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
+	if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) )
 	{
 		return( FALSE );
 	}
