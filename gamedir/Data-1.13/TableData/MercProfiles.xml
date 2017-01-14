@@ -201,6 +201,7 @@
 		<zName>Barry Unger</zName>
 		<zNickname>Barry</zNickname>
 		<ubFaceIndex>0</ubFaceIndex>
+		<usVoiceIndex>0</usVoiceIndex>
 		<usEyesX>10</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -297,6 +298,7 @@
 		<zName>Keith "Blood" Hanson</zName>
 		<zNickname>Blood</zNickname>
 		<ubFaceIndex>1</ubFaceIndex>
+		<usVoiceIndex>1</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -392,6 +394,7 @@
 		<zName>Rudy "Lynx-Eyed" Roberts</zName>
 		<zNickname>Lynx</zNickname>
 		<ubFaceIndex>2</ubFaceIndex>
+		<usVoiceIndex>2</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -487,6 +490,7 @@
 		<zName>Steve "Grizzly" Bornell</zName>
 		<zNickname>Grizzly</zNickname>
 		<ubFaceIndex>3</ubFaceIndex>
+		<usVoiceIndex>3</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -582,6 +586,7 @@
 		<zName>Victoria Waters</zName>
 		<zNickname>Vicki</zNickname>
 		<ubFaceIndex>4</ubFaceIndex>
+		<usVoiceIndex>4</usVoiceIndex>
 		<usEyesX>2</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>5</usMouthX>
@@ -677,6 +682,7 @@
 		<zName>Trevor Colby</zName>
 		<zNickname>Trevor</zNickname>
 		<ubFaceIndex>5</ubFaceIndex>
+		<usVoiceIndex>5</usVoiceIndex>
 		<usEyesX>10</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -772,6 +778,7 @@
 		<zName>Helmut Grunther</zName>
 		<zNickname>Grunty</zNickname>
 		<ubFaceIndex>6</ubFaceIndex>
+		<usVoiceIndex>6</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -867,6 +874,7 @@
 		<zName>Ivan Dolvich</zName>
 		<zNickname>Ivan</zNickname>
 		<ubFaceIndex>7</ubFaceIndex>
+		<usVoiceIndex>7</usVoiceIndex>
 		<usEyesX>6</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -962,6 +970,7 @@
 		<zName>Bobby "Steroid" Gontarski</zName>
 		<zNickname>Steroid</zNickname>
 		<ubFaceIndex>8</ubFaceIndex>
+		<usVoiceIndex>8</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -1057,6 +1066,7 @@
 		<zName>Igor Dolvich</zName>
 		<zNickname>Igor</zNickname>
 		<ubFaceIndex>9</ubFaceIndex>
+		<usVoiceIndex>9</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -1152,6 +1162,7 @@
 		<zName>Kyle "Shadow" Simmons</zName>
 		<zNickname>Shadow</zNickname>
 		<ubFaceIndex>10</ubFaceIndex>
+		<usVoiceIndex>10</usVoiceIndex>
 		<usEyesX>4</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -1247,6 +1258,7 @@
 		<zName>Ernie "Red" Spragg</zName>
 		<zNickname>Red</zNickname>
 		<ubFaceIndex>11</ubFaceIndex>
+		<usVoiceIndex>11</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -1342,6 +1354,7 @@
 		<zName>Carl "Reaper" Sheppards</zName>
 		<zNickname>Reaper</zNickname>
 		<ubFaceIndex>12</ubFaceIndex>
+		<usVoiceIndex>12</usVoiceIndex>
 		<usEyesX>3</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>3</usMouthX>
@@ -1437,6 +1450,7 @@
 		<zName>Fidel Dahan</zName>
 		<zNickname>Fidel</zNickname>
 		<ubFaceIndex>13</ubFaceIndex>
+		<usVoiceIndex>13</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -1532,6 +1546,7 @@
 		<zName>Cynthia "Fox" Guzzman</zName>
 		<zNickname>Fox</zNickname>
 		<ubFaceIndex>14</ubFaceIndex>
+		<usVoiceIndex>14</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -1627,6 +1642,7 @@
 		<zName>Sidney Nettleson</zName>
 		<zNickname>Sidney</zNickname>
 		<ubFaceIndex>15</ubFaceIndex>
+		<usVoiceIndex>15</usVoiceIndex>
 		<usEyesX>11</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -1722,6 +1738,7 @@
 		<zName>Gus Tarballs</zName>
 		<zNickname>Gus</zNickname>
 		<ubFaceIndex>16</ubFaceIndex>
+		<usVoiceIndex>16</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>4</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -1817,6 +1834,7 @@
 		<zName>Monica "Buns" Sondergaard</zName>
 		<zNickname>Buns</zNickname>
 		<ubFaceIndex>17</ubFaceIndex>
+		<usVoiceIndex>17</usVoiceIndex>
 		<usEyesX>12</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -1912,6 +1930,7 @@
 		<zName>Ice Williams</zName>
 		<zNickname>Ice</zNickname>
 		<ubFaceIndex>18</ubFaceIndex>
+		<usVoiceIndex>18</usVoiceIndex>
 		<usEyesX>10</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -2007,6 +2026,7 @@
 		<zName>Dr. Donna "Spider" Houston</zName>
 		<zNickname>Spider</zNickname>
 		<ubFaceIndex>19</ubFaceIndex>
+		<usVoiceIndex>19</usVoiceIndex>
 		<usEyesX>12</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -2102,6 +2122,7 @@
 		<zName>Dr. Clifford Highball</zName>
 		<zNickname>Cliff</zNickname>
 		<ubFaceIndex>20</ubFaceIndex>
+		<usVoiceIndex>20</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -2197,6 +2218,7 @@
 		<zName>John "Bull" Peters</zName>
 		<zNickname>Bull</zNickname>
 		<ubFaceIndex>21</ubFaceIndex>
+		<usVoiceIndex>21</usVoiceIndex>
 		<usEyesX>3</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>5</usMouthX>
@@ -2292,6 +2314,7 @@
 		<zName>Frank "Hitman" Hennessy</zName>
 		<zNickname>Hitman</zNickname>
 		<ubFaceIndex>22</ubFaceIndex>
+		<usVoiceIndex>22</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -2387,6 +2410,7 @@
 		<zName>Louisa "Buzz" Garneau</zName>
 		<zNickname>Buzz</zNickname>
 		<ubFaceIndex>23</ubFaceIndex>
+		<usVoiceIndex>23</usVoiceIndex>
 		<usEyesX>5</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -2483,6 +2507,7 @@
 		<zName>Ron "Raider" Higgens</zName>
 		<zNickname>Raider</zNickname>
 		<ubFaceIndex>24</ubFaceIndex>
+		<usVoiceIndex>24</usVoiceIndex>
 		<usEyesX>6</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -2578,6 +2603,7 @@
 		<zName>Charlene "Raven" Higgens</zName>
 		<zNickname>Raven</zNickname>
 		<ubFaceIndex>25</ubFaceIndex>
+		<usVoiceIndex>25</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -2673,6 +2699,7 @@
 		<zName>Kirk "Static" Stevenson</zName>
 		<zNickname>Static</zNickname>
 		<ubFaceIndex>26</ubFaceIndex>
+		<usVoiceIndex>26</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -2768,6 +2795,7 @@
 		<zName>Corp. Len Anderson</zName>
 		<zNickname>Len</zNickname>
 		<ubFaceIndex>27</ubFaceIndex>
+		<usVoiceIndex>27</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -2863,6 +2891,7 @@
 		<zName>Dr. Daniel Quinten</zName>
 		<zNickname>Danny</zNickname>
 		<ubFaceIndex>28</ubFaceIndex>
+		<usVoiceIndex>28</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -2958,6 +2987,7 @@
 		<zName>Earl "Magic" Walker</zName>
 		<zNickname>Magic</zNickname>
 		<ubFaceIndex>29</ubFaceIndex>
+		<usVoiceIndex>29</usVoiceIndex>
 		<usEyesX>6</usEyesX>
 		<usEyesY>12</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3053,6 +3083,7 @@
 		<zName>Stephen Rothman</zName>
 		<zNickname>Stephen</zNickname>
 		<ubFaceIndex>30</ubFaceIndex>
+		<usVoiceIndex>30</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>12</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3148,6 +3179,7 @@
 		<zName>Robert James Sullivan</zName>
 		<zNickname>Scully</zNickname>
 		<ubFaceIndex>31</ubFaceIndex>
+		<usVoiceIndex>31</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3243,6 +3275,7 @@
 		<zName>J.P. "La Malice" Viau</zName>
 		<zNickname>Malice</zNickname>
 		<ubFaceIndex>32</ubFaceIndex>
+		<usVoiceIndex>32</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3338,6 +3371,7 @@
 		<zName>Dr. Q. Huaong</zName>
 		<zNickname>Dr. Q</zNickname>
 		<ubFaceIndex>33</ubFaceIndex>
+		<usVoiceIndex>33</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>12</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3434,6 +3468,7 @@
 		<zName>Edgar "Nails" Smorth</zName>
 		<zNickname>Nails</zNickname>
 		<ubFaceIndex>34</ubFaceIndex>
+		<usVoiceIndex>34</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3529,6 +3564,7 @@
 		<zName>Thor Kaufman</zName>
 		<zNickname>Thor</zNickname>
 		<ubFaceIndex>35</ubFaceIndex>
+		<usVoiceIndex>35</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3624,6 +3660,7 @@
 		<zName>Sheila "Scope" Sterling</zName>
 		<zNickname>Scope</zNickname>
 		<ubFaceIndex>36</ubFaceIndex>
+		<usVoiceIndex>36</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -3719,6 +3756,7 @@
 		<zName>Peter "Wolf" Sanderson</zName>
 		<zNickname>Wolf</zNickname>
 		<ubFaceIndex>37</ubFaceIndex>
+		<usVoiceIndex>37</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -3814,6 +3852,7 @@
 		<zName>Dr. Michael Dawson</zName>
 		<zNickname>MD</zNickname>
 		<ubFaceIndex>38</ubFaceIndex>
+		<usVoiceIndex>38</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -3909,6 +3948,7 @@
 		<zName>Norma "Meltdown" Jessop</zName>
 		<zNickname>Meltdown</zNickname>
 		<ubFaceIndex>39</ubFaceIndex>
+		<usVoiceIndex>39</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -4004,6 +4044,7 @@
 		<zName>Biff Apscott</zName>
 		<zNickname>Biff</zNickname>
 		<ubFaceIndex>40</ubFaceIndex>
+		<usVoiceIndex>40</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -4099,6 +4140,7 @@
 		<zName>Frankie "Haywire" Gordon</zName>
 		<zNickname>Haywire</zNickname>
 		<ubFaceIndex>41</ubFaceIndex>
+		<usVoiceIndex>41</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -4194,6 +4236,7 @@
 		<zName>Doug "Gasket" Milton</zName>
 		<zNickname>Gasket</zNickname>
 		<ubFaceIndex>42</ubFaceIndex>
+		<usVoiceIndex>42</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -4289,6 +4332,7 @@
 		<zName>Bill "Razor" Lamont</zName>
 		<zNickname>Razor</zNickname>
 		<ubFaceIndex>43</ubFaceIndex>
+		<usVoiceIndex>43</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -4384,6 +4428,7 @@
 		<zName>Florence Gabriel</zName>
 		<zNickname>Flo</zNickname>
 		<ubFaceIndex>44</ubFaceIndex>
+		<usVoiceIndex>44</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -4479,6 +4524,7 @@
 		<zName>Tim "Gumpy" Hillman</zName>
 		<zNickname>Gumpy</zNickname>
 		<ubFaceIndex>45</ubFaceIndex>
+		<usVoiceIndex>45</usVoiceIndex>
 		<usEyesX>12</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -4574,6 +4620,7 @@
 		<zName>Larry Roachburn</zName>
 		<zNickname>Larry</zNickname>
 		<ubFaceIndex>46</ubFaceIndex>
+		<usVoiceIndex>46</usVoiceIndex>
 		<usEyesX>5</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>5</usMouthX>
@@ -4669,6 +4716,7 @@
 		<zName>Larry Roachburn</zName>
 		<zNickname>Larry</zNickname>
 		<ubFaceIndex>47</ubFaceIndex>
+		<usVoiceIndex>47</usVoiceIndex>
 		<usEyesX>5</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -4764,6 +4812,7 @@
 		<zName>Jim "Cougar" Wallace</zName>
 		<zNickname>Cougar</zNickname>
 		<ubFaceIndex>48</ubFaceIndex>
+		<usVoiceIndex>48</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -4859,6 +4908,7 @@
 		<zName>Tim "Numb" Sutton</zName>
 		<zNickname>Numb</zNickname>
 		<ubFaceIndex>49</ubFaceIndex>
+		<usVoiceIndex>49</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -4954,6 +5004,7 @@
 		<zName>Thorton "Bubba" Jones</zName>
 		<zNickname>Bubba</zNickname>
 		<ubFaceIndex>50</ubFaceIndex>
+		<usVoiceIndex>50</usVoiceIndex>
 		<usEyesX>5</usEyesX>
 		<usEyesY>3</usEyesY>
 		<usMouthX>4</usMouthX>
@@ -5049,6 +5100,7 @@
 		<zName></zName>
 		<zNickname>PGmale1</zNickname>
 		<ubFaceIndex>51</ubFaceIndex>
+		<usVoiceIndex>51</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -5144,6 +5196,7 @@
 		<zName></zName>
 		<zNickname>PGmale2 </zNickname>
 		<ubFaceIndex>52</ubFaceIndex>
+		<usVoiceIndex>52</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -5239,6 +5292,7 @@
 		<zName></zName>
 		<zNickname>PGmale3</zNickname>
 		<ubFaceIndex>53</ubFaceIndex>
+		<usVoiceIndex>53</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -5334,6 +5388,7 @@
 		<zName></zName>
 		<zNickname>PGLady1</zNickname>
 		<ubFaceIndex>54</ubFaceIndex>
+		<usVoiceIndex>54</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -5429,6 +5484,7 @@
 		<zName></zName>
 		<zNickname>PGLady2</zNickname>
 		<ubFaceIndex>55</ubFaceIndex>
+		<usVoiceIndex>55</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -5524,6 +5580,7 @@
 		<zName></zName>
 		<zNickname>PGLady3</zNickname>
 		<ubFaceIndex>56</ubFaceIndex>
+		<usVoiceIndex>56</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -5619,6 +5676,7 @@
 		<zName>Miguel Cordona</zName>
 		<zNickname>Miguel</zNickname>
 		<ubFaceIndex>57</ubFaceIndex>
+		<usVoiceIndex>57</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>33</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -5714,6 +5772,7 @@
 		<zName>Carlos Dasouza</zName>
 		<zNickname>Carlos</zNickname>
 		<ubFaceIndex>58</ubFaceIndex>
+		<usVoiceIndex>58</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>17</usMouthX>
@@ -5809,6 +5868,7 @@
 		<zName>Ira Smythe</zName>
 		<zNickname>Ira</zNickname>
 		<ubFaceIndex>59</ubFaceIndex>
+		<usVoiceIndex>59</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -5904,6 +5964,7 @@
 		<zName>Dimitri Guzzo</zName>
 		<zNickname>Dimitri</zNickname>
 		<ubFaceIndex>60</ubFaceIndex>
+		<usVoiceIndex>60</usVoiceIndex>
 		<usEyesX>20</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -5999,6 +6060,7 @@
 		<zName>Devin Connell</zName>
 		<zNickname>Devin</zNickname>
 		<ubFaceIndex>61</ubFaceIndex>
+		<usVoiceIndex>61</usVoiceIndex>
 		<usEyesX>14</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>17</usMouthX>
@@ -6094,6 +6156,7 @@
 		<zName>Madlab's Robot</zName>
 		<zNickname>Robot</zNickname>
 		<ubFaceIndex>62</ubFaceIndex>
+		<usVoiceIndex>62</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -6189,6 +6252,7 @@
 		<zName>Hamous</zName>
 		<zNickname>Hamous</zNickname>
 		<ubFaceIndex>63</ubFaceIndex>
+		<usVoiceIndex>63</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -6284,6 +6348,7 @@
 		<zName>Slay</zName>
 		<zNickname>Terry</zNickname>
 		<ubFaceIndex>64</ubFaceIndex>
+		<usVoiceIndex>64</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -6379,6 +6444,7 @@
 		<zName>Eskimo - Removed</zName>
 		<zNickname>RPC65</zNickname>
 		<ubFaceIndex>65</ubFaceIndex>
+		<usVoiceIndex>65</usVoiceIndex>
 		<usEyesX>28</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>25</usMouthX>
@@ -6474,6 +6540,7 @@
 		<zName>Greg "Dynamo" Duncan</zName>
 		<zNickname>Dynamo</zNickname>
 		<ubFaceIndex>66</ubFaceIndex>
+		<usVoiceIndex>66</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -6569,6 +6636,7 @@
 		<zName>Breeham "Shank" Druz</zName>
 		<zNickname>Shank</zNickname>
 		<ubFaceIndex>67</ubFaceIndex>
+		<usVoiceIndex>67</usVoiceIndex>
 		<usEyesX>25</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -6664,6 +6732,7 @@
 		<zName>Igmus "Iggy" Palkov</zName>
 		<zNickname>Iggy</zNickname>
 		<ubFaceIndex>68</ubFaceIndex>
+		<usVoiceIndex>68</usVoiceIndex>
 		<usEyesX>17</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>17</usMouthX>
@@ -6759,6 +6828,7 @@
 		<zName>Dr. Vincent Beaumont</zName>
 		<zNickname>Vince</zNickname>
 		<ubFaceIndex>69</ubFaceIndex>
+		<usVoiceIndex>69</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -6854,6 +6924,7 @@
 		<zName>Lt. Conrad Gillitt</zName>
 		<zNickname>Conrad</zNickname>
 		<ubFaceIndex>70</ubFaceIndex>
+		<usVoiceIndex>70</usVoiceIndex>
 		<usEyesX>13</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>15</usMouthX>
@@ -6949,6 +7020,7 @@
 		<zName>Combat Jeep</zName>
 		<zNickname>C. Jeep</zNickname>
 		<ubFaceIndex>71</ubFaceIndex>
+		<usVoiceIndex>71</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -7044,6 +7116,7 @@
 		<zName>Kevin "Maddog" Cameron</zName>
 		<zNickname>Maddog</zNickname>
 		<ubFaceIndex>72</ubFaceIndex>
+		<usVoiceIndex>72</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -7139,6 +7212,7 @@
 		<zName>Darrel Jr.</zName>
 		<zNickname>Darrel</zNickname>
 		<ubFaceIndex>73</ubFaceIndex>
+		<usVoiceIndex>73</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>27</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -7234,6 +7308,7 @@
 		<zName>Alish Perkopoulos</zName>
 		<zNickname>Perko</zNickname>
 		<ubFaceIndex>74</ubFaceIndex>
+		<usVoiceIndex>74</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -7329,6 +7404,7 @@
 		<zName>Queen Deidranna</zName>
 		<zNickname>Deidranna</zNickname>
 		<ubFaceIndex>75</ubFaceIndex>
+		<usVoiceIndex>75</usVoiceIndex>
 		<usEyesX>20</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -7424,6 +7500,7 @@
 		<zName>Auntie</zName>
 		<zNickname>Auntie</zNickname>
 		<ubFaceIndex>76</ubFaceIndex>
+		<usVoiceIndex>76</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -7519,6 +7596,7 @@
 		<zName>Enrico Chivaldori</zName>
 		<zNickname>Enrico</zNickname>
 		<ubFaceIndex>77</ubFaceIndex>
+		<usVoiceIndex>77</usVoiceIndex>
 		<usEyesX>15</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>16</usMouthX>
@@ -7614,6 +7692,7 @@
 		<zName>Carmen Dancio</zName>
 		<zNickname>Carmen</zNickname>
 		<ubFaceIndex>78</ubFaceIndex>
+		<usVoiceIndex>78</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -7709,6 +7788,7 @@
 		<zName>Joseph Papanus</zName>
 		<zNickname>Joe</zNickname>
 		<ubFaceIndex>79</ubFaceIndex>
+		<usVoiceIndex>79</usVoiceIndex>
 		<usEyesX>23</usEyesX>
 		<usEyesY>33</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -7804,6 +7884,7 @@
 		<zName>Dr. Steven Willis</zName>
 		<zNickname>Steve</zNickname>
 		<ubFaceIndex>80</ubFaceIndex>
+		<usVoiceIndex>80</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -7899,6 +7980,7 @@
 		<zName>Ricardo "Rat" Grimaldo</zName>
 		<zNickname>Rat</zNickname>
 		<ubFaceIndex>81</ubFaceIndex>
+		<usVoiceIndex>81</usVoiceIndex>
 		<usEyesX>18</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>19</usMouthX>
@@ -7994,6 +8076,7 @@
 		<zName>MoM</zName>
 		<zNickname>Annie</zNickname>
 		<ubFaceIndex>82</ubFaceIndex>
+		<usVoiceIndex>82</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -8089,6 +8172,7 @@
 		<zName>Imposter</zName>
 		<zNickname>Chris</zNickname>
 		<ubFaceIndex>83</ubFaceIndex>
+		<usVoiceIndex>83</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -8184,6 +8268,7 @@
 		<zName>Bob</zName>
 		<zNickname>Bob</zNickname>
 		<ubFaceIndex>84</ubFaceIndex>
+		<usVoiceIndex>84</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -8279,6 +8364,7 @@
 		<zName>Brenda Drake</zName>
 		<zNickname>Brenda</zNickname>
 		<ubFaceIndex>85</ubFaceIndex>
+		<usVoiceIndex>85</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -8374,6 +8460,7 @@
 		<zName>Peter "Kingpin" Klauss</zName>
 		<zNickname>Kingpin</zNickname>
 		<ubFaceIndex>86</ubFaceIndex>
+		<usVoiceIndex>86</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>23</usMouthX>
@@ -8469,6 +8556,7 @@
 		<zName>Darren Van Haussen</zName>
 		<zNickname>Darren</zNickname>
 		<ubFaceIndex>87</ubFaceIndex>
+		<usVoiceIndex>87</usVoiceIndex>
 		<usEyesX>26</usEyesX>
 		<usEyesY>33</usEyesY>
 		<usMouthX>24</usMouthX>
@@ -8564,6 +8652,7 @@
 		<zName>Maria DaSilva</zName>
 		<zNickname>Maria</zNickname>
 		<ubFaceIndex>88</ubFaceIndex>
+		<usVoiceIndex>88</usVoiceIndex>
 		<usEyesX>19</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>19</usMouthX>
@@ -8659,6 +8748,7 @@
 		<zName>Angel Dasilva</zName>
 		<zNickname>Angel</zNickname>
 		<ubFaceIndex>89</ubFaceIndex>
+		<usVoiceIndex>89</usVoiceIndex>
 		<usEyesX>30</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>28</usMouthX>
@@ -8754,6 +8844,7 @@
 		<zName>Joey Graham</zName>
 		<zNickname>Joey</zNickname>
 		<ubFaceIndex>90</ubFaceIndex>
+		<usVoiceIndex>90</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -8849,6 +8940,7 @@
 		<zName>Tony</zName>
 		<zNickname>Tony</zNickname>
 		<ubFaceIndex>91</ubFaceIndex>
+		<usVoiceIndex>91</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -8944,6 +9036,7 @@
 		<zName>Frank</zName>
 		<zNickname>Frank</zNickname>
 		<ubFaceIndex>92</ubFaceIndex>
+		<usVoiceIndex>92</usVoiceIndex>
 		<usEyesX>14</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>14</usMouthX>
@@ -9039,6 +9132,7 @@
 		<zName>Spike</zName>
 		<zNickname>Spike</zNickname>
 		<ubFaceIndex>93</ubFaceIndex>
+		<usVoiceIndex>93</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -9134,6 +9228,7 @@
 		<zName>Damon Warrick</zName>
 		<zNickname>Damon</zNickname>
 		<ubFaceIndex>94</ubFaceIndex>
+		<usVoiceIndex>94</usVoiceIndex>
 		<usEyesX>31</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>27</usMouthX>
@@ -9229,6 +9324,7 @@
 		<zName>Kyle Lemmons</zName>
 		<zNickname>Kyle</zNickname>
 		<ubFaceIndex>95</ubFaceIndex>
+		<usVoiceIndex>95</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>33</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -9324,6 +9420,7 @@
 		<zName>Micky O'Brien</zName>
 		<zNickname>Micky</zNickname>
 		<ubFaceIndex>96</ubFaceIndex>
+		<usVoiceIndex>96</usVoiceIndex>
 		<usEyesX>20</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -9419,6 +9516,7 @@
 		<zName>James "Skyrider" Bullock</zName>
 		<zNickname>Skyrider</zNickname>
 		<ubFaceIndex>97</ubFaceIndex>
+		<usVoiceIndex>97</usVoiceIndex>
 		<usEyesX>28</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>26</usMouthX>
@@ -9514,6 +9612,7 @@
 		<zName>Pablo Greco</zName>
 		<zNickname>Pablo</zNickname>
 		<ubFaceIndex>98</ubFaceIndex>
+		<usVoiceIndex>98</usVoiceIndex>
 		<usEyesX>19</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -9609,6 +9708,7 @@
 		<zName>Salvatore Lappus</zName>
 		<zNickname>Sal</zNickname>
 		<ubFaceIndex>99</ubFaceIndex>
+		<usVoiceIndex>99</usVoiceIndex>
 		<usEyesX>26</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -9704,6 +9804,7 @@
 		<zName>Father John Walker</zName>
 		<zNickname>Father</zNickname>
 		<ubFaceIndex>100</ubFaceIndex>
+		<usVoiceIndex>100</usVoiceIndex>
 		<usEyesX>28</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -9799,6 +9900,7 @@
 		<zName>Fatima</zName>
 		<zNickname>Fatima</zNickname>
 		<ubFaceIndex>101</ubFaceIndex>
+		<usVoiceIndex>101</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -9894,6 +9996,7 @@
 		<zName>Christine Woltz</zName>
 		<zNickname>Warden</zNickname>
 		<ubFaceIndex>102</ubFaceIndex>
+		<usVoiceIndex>102</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>34</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -9989,6 +10092,7 @@
 		<zName>Gordon Jefferies</zName>
 		<zNickname>Gordon</zNickname>
 		<ubFaceIndex>103</ubFaceIndex>
+		<usVoiceIndex>103</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -10084,6 +10188,7 @@
 		<zName>Gary "Gabby" Mulnick</zName>
 		<zNickname>Gabby</zNickname>
 		<ubFaceIndex>104</ubFaceIndex>
+		<usVoiceIndex>104</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -10179,6 +10284,7 @@
 		<zName>Dr. Ernest Poppin</zName>
 		<zNickname>Ernest</zNickname>
 		<ubFaceIndex>105</ubFaceIndex>
+		<usVoiceIndex>105</usVoiceIndex>
 		<usEyesX>26</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>24</usMouthX>
@@ -10274,6 +10380,7 @@
 		<zName>Fred Morris</zName>
 		<zNickname>Fred</zNickname>
 		<ubFaceIndex>106</ubFaceIndex>
+		<usVoiceIndex>106</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>33</usEyesY>
 		<usMouthX>24</usMouthX>
@@ -10369,6 +10476,7 @@
 		<zName>Madame Layla</zName>
 		<zNickname>Madame</zNickname>
 		<ubFaceIndex>107</ubFaceIndex>
+		<usVoiceIndex>107</usVoiceIndex>
 		<usEyesX>18</usEyesX>
 		<usEyesY>27</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -10464,6 +10572,7 @@
 		<zName>Yanni Nomigotta</zName>
 		<zNickname>Yanni</zNickname>
 		<ubFaceIndex>108</ubFaceIndex>
+		<usVoiceIndex>108</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>24</usMouthX>
@@ -10559,6 +10668,7 @@
 		<zName>Martha Graham</zName>
 		<zNickname>Martha</zNickname>
 		<ubFaceIndex>109</ubFaceIndex>
+		<usVoiceIndex>109</usVoiceIndex>
 		<usEyesX>34</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>31</usMouthX>
@@ -10654,6 +10764,7 @@
 		<zName>Tiffany</zName>
 		<zNickname>Joe</zNickname>
 		<ubFaceIndex>110</ubFaceIndex>
+		<usVoiceIndex>110</usVoiceIndex>
 		<usEyesX>28</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>25</usMouthX>
@@ -10749,6 +10860,7 @@
 		<zName>T-Rex</zName>
 		<zNickname>Jasmin</zNickname>
 		<ubFaceIndex>111</ubFaceIndex>
+		<usVoiceIndex>111</usVoiceIndex>
 		<usEyesX>16</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>17</usMouthX>
@@ -10844,6 +10956,7 @@
 		<zName>Druggist</zName>
 		<zNickname>Charlie</zNickname>
 		<ubFaceIndex>112</ubFaceIndex>
+		<usVoiceIndex>112</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -10939,6 +11052,7 @@
 		<zName>Jake Cameron</zName>
 		<zNickname>Jake</zNickname>
 		<ubFaceIndex>113</ubFaceIndex>
+		<usVoiceIndex>113</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -11034,6 +11148,7 @@
 		<zName>Pacos</zName>
 		<zNickname>Pacos</zNickname>
 		<ubFaceIndex>114</ubFaceIndex>
+		<usVoiceIndex>114</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -11129,6 +11244,7 @@
 		<zName>Dave Gerard</zName>
 		<zNickname>Dave</zNickname>
 		<ubFaceIndex>115</ubFaceIndex>
+		<usVoiceIndex>115</usVoiceIndex>
 		<usEyesX>25</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>23</usMouthX>
@@ -11224,6 +11340,7 @@
 		<zName>Skipper</zName>
 		<zNickname>Skipper</zNickname>
 		<ubFaceIndex>116</ubFaceIndex>
+		<usVoiceIndex>116</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -11319,6 +11436,7 @@
 		<zName>Hans Vanderkilt</zName>
 		<zNickname>Hans</zNickname>
 		<ubFaceIndex>117</ubFaceIndex>
+		<usVoiceIndex>117</usVoiceIndex>
 		<usEyesX>14</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>18</usMouthX>
@@ -11414,6 +11532,7 @@
 		<zName>John Kulba</zName>
 		<zNickname>John</zNickname>
 		<ubFaceIndex>118</ubFaceIndex>
+		<usVoiceIndex>118</usVoiceIndex>
 		<usEyesX>19</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>18</usMouthX>
@@ -11509,6 +11628,7 @@
 		<zName>Mary Kulba</zName>
 		<zNickname>Mary</zNickname>
 		<ubFaceIndex>119</ubFaceIndex>
+		<usVoiceIndex>119</usVoiceIndex>
 		<usEyesX>26</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>23</usMouthX>
@@ -11604,6 +11724,7 @@
 		<zName>General Theo Humphey</zName>
 		<zNickname>General</zNickname>
 		<ubFaceIndex>120</ubFaceIndex>
+		<usVoiceIndex>120</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -11699,6 +11820,7 @@
 		<zName>Sergeant Krott</zName>
 		<zNickname>Sergeant</zNickname>
 		<ubFaceIndex>121</ubFaceIndex>
+		<usVoiceIndex>121</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -11794,6 +11916,7 @@
 		<zName>Armand Ricci</zName>
 		<zNickname>Armand</zNickname>
 		<ubFaceIndex>122</ubFaceIndex>
+		<usVoiceIndex>122</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -11889,6 +12012,7 @@
 		<zName>Lora Ricci</zName>
 		<zNickname>Lora</zNickname>
 		<ubFaceIndex>123</ubFaceIndex>
+		<usVoiceIndex>123</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>33</usEyesY>
 		<usMouthX>23</usMouthX>
@@ -11984,6 +12108,7 @@
 		<zName>Franz Hinkle</zName>
 		<zNickname>Franz</zNickname>
 		<ubFaceIndex>124</ubFaceIndex>
+		<usVoiceIndex>124</usVoiceIndex>
 		<usEyesX>23</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -12079,6 +12204,7 @@
 		<zName>Howard Filmore</zName>
 		<zNickname>Howard</zNickname>
 		<ubFaceIndex>125</ubFaceIndex>
+		<usVoiceIndex>125</usVoiceIndex>
 		<usEyesX>20</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -12174,6 +12300,7 @@
 		<zName>Sam Rozen</zName>
 		<zNickname>Sam</zNickname>
 		<ubFaceIndex>126</ubFaceIndex>
+		<usVoiceIndex>126</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -12269,6 +12396,7 @@
 		<zName>Eldin Fiddes</zName>
 		<zNickname>Eldin</zNickname>
 		<ubFaceIndex>127</ubFaceIndex>
+		<usVoiceIndex>127</usVoiceIndex>
 		<usEyesX>18</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>18</usMouthX>
@@ -12364,6 +12492,7 @@
 		<zName>Arnold Brunzwell</zName>
 		<zNickname>Arnie</zNickname>
 		<ubFaceIndex>128</ubFaceIndex>
+		<usVoiceIndex>128</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>23</usMouthX>
@@ -12459,6 +12588,7 @@
 		<zName>Tina Elzan</zName>
 		<zNickname>Tina</zNickname>
 		<ubFaceIndex>129</ubFaceIndex>
+		<usVoiceIndex>129</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -12554,6 +12684,7 @@
 		<zName>Alexander Fredo</zName>
 		<zNickname>Fredo</zNickname>
 		<ubFaceIndex>130</ubFaceIndex>
+		<usVoiceIndex>130</usVoiceIndex>
 		<usEyesX>17</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>17</usMouthX>
@@ -12649,6 +12780,7 @@
 		<zName>Walter Bazzon</zName>
 		<zNickname>Walter</zNickname>
 		<ubFaceIndex>131</ubFaceIndex>
+		<usVoiceIndex>131</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -12744,6 +12876,7 @@
 		<zName>Jenny Walden</zName>
 		<zNickname>Jenny</zNickname>
 		<ubFaceIndex>132</ubFaceIndex>
+		<usVoiceIndex>132</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -12839,6 +12972,7 @@
 		<zName>Billy GoonBall</zName>
 		<zNickname>Billy</zNickname>
 		<ubFaceIndex>133</ubFaceIndex>
+		<usVoiceIndex>133</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>24</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -12934,6 +13068,7 @@
 		<zName>Brewster Woltz</zName>
 		<zNickname>Brewster</zNickname>
 		<ubFaceIndex>134</ubFaceIndex>
+		<usVoiceIndex>134</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>17</usMouthX>
@@ -13029,6 +13164,7 @@
 		<zName>Messenger of bad news</zName>
 		<zNickname>Elliot</zNickname>
 		<ubFaceIndex>135</ubFaceIndex>
+		<usVoiceIndex>135</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>29</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -13124,6 +13260,7 @@
 		<zName>Part of crowd for end game</zName>
 		<zNickname>Derek</zNickname>
 		<ubFaceIndex>136</ubFaceIndex>
+		<usVoiceIndex>136</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>27</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -13219,6 +13356,7 @@
 		<zName>Part of endgame crowd</zName>
 		<zNickname>Oliver</zNickname>
 		<ubFaceIndex>137</ubFaceIndex>
+		<usVoiceIndex>137</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -13314,6 +13452,7 @@
 		<zName>Waldo Zimmer</zName>
 		<zNickname>Waldo</zNickname>
 		<ubFaceIndex>138</ubFaceIndex>
+		<usVoiceIndex>138</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -13409,6 +13548,7 @@
 		<zName>Doreen Harrows</zName>
 		<zNickname>Doreen</zNickname>
 		<ubFaceIndex>139</ubFaceIndex>
+		<usVoiceIndex>139</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>33</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -13504,6 +13644,7 @@
 		<zName>Jim Perry</zName>
 		<zNickname>Jim</zNickname>
 		<ubFaceIndex>140</ubFaceIndex>
+		<usVoiceIndex>140</usVoiceIndex>
 		<usEyesX>14</usEyesX>
 		<usEyesY>25</usEyesY>
 		<usMouthX>18</usMouthX>
@@ -13599,6 +13740,7 @@
 		<zName>Jack Remington</zName>
 		<zNickname>Jack</zNickname>
 		<ubFaceIndex>141</ubFaceIndex>
+		<usVoiceIndex>141</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>25</usEyesY>
 		<usMouthX>23</usMouthX>
@@ -13694,6 +13836,7 @@
 		<zName>Olaf Helinski</zName>
 		<zNickname>Olaf</zNickname>
 		<ubFaceIndex>142</ubFaceIndex>
+		<usVoiceIndex>142</usVoiceIndex>
 		<usEyesX>29</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>24</usMouthX>
@@ -13789,6 +13932,7 @@
 		<zName>Ray Baker</zName>
 		<zNickname>Ray</zNickname>
 		<ubFaceIndex>143</ubFaceIndex>
+		<usVoiceIndex>143</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -13884,6 +14028,7 @@
 		<zName>Olga Statova</zName>
 		<zNickname>Olga</zNickname>
 		<ubFaceIndex>144</ubFaceIndex>
+		<usVoiceIndex>144</usVoiceIndex>
 		<usEyesX>28</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>25</usMouthX>
@@ -13979,6 +14124,7 @@
 		<zName>Tyrone Banks</zName>
 		<zNickname>Tyrone</zNickname>
 		<ubFaceIndex>145</ubFaceIndex>
+		<usVoiceIndex>145</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>27</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -14074,6 +14220,7 @@
 		<zName>Dr. Nathaniel "MadLab" Kairns</zName>
 		<zNickname>MadLab</zNickname>
 		<ubFaceIndex>146</ubFaceIndex>
+		<usVoiceIndex>146</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>32</usEyesY>
 		<usMouthX>20</usMouthX>
@@ -14169,6 +14316,7 @@
 		<zName>Keith Hemps</zName>
 		<zNickname>Keith</zNickname>
 		<ubFaceIndex>147</ubFaceIndex>
+		<usVoiceIndex>147</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -14264,6 +14412,7 @@
 		<zName>Matt Duncan</zName>
 		<zNickname>Matt</zNickname>
 		<ubFaceIndex>148</ubFaceIndex>
+		<usVoiceIndex>148</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>26</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -14359,6 +14508,7 @@
 		<zName>Mike</zName>
 		<zNickname>Mike</zNickname>
 		<ubFaceIndex>149</ubFaceIndex>
+		<usVoiceIndex>149</usVoiceIndex>
 		<usEyesX>19</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>19</usMouthX>
@@ -14454,6 +14604,7 @@
 		<zName>Daryl Hick</zName>
 		<zNickname>Daryl</zNickname>
 		<ubFaceIndex>150</ubFaceIndex>
+		<usVoiceIndex>150</usVoiceIndex>
 		<usEyesX>21</usEyesX>
 		<usEyesY>21</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -14549,6 +14700,7 @@
 		<zName>Herve Santos</zName>
 		<zNickname>Herve</zNickname>
 		<ubFaceIndex>151</ubFaceIndex>
+		<usVoiceIndex>151</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -14644,6 +14796,7 @@
 		<zName>Peter Santos</zName>
 		<zNickname>Peter</zNickname>
 		<ubFaceIndex>152</ubFaceIndex>
+		<usVoiceIndex>152</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -14739,6 +14892,7 @@
 		<zName>Alberto Santos</zName>
 		<zNickname>Alberto</zNickname>
 		<ubFaceIndex>153</ubFaceIndex>
+		<usVoiceIndex>153</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -14834,6 +14988,7 @@
 		<zName>Carlo Santos</zName>
 		<zNickname>Carlo</zNickname>
 		<ubFaceIndex>154</ubFaceIndex>
+		<usVoiceIndex>154</usVoiceIndex>
 		<usEyesX>24</usEyesX>
 		<usEyesY>28</usEyesY>
 		<usMouthX>22</usMouthX>
@@ -14929,6 +15084,7 @@
 		<zName>Manny Santos</zName>
 		<zNickname>Manny</zNickname>
 		<ubFaceIndex>155</ubFaceIndex>
+		<usVoiceIndex>155</usVoiceIndex>
 		<usEyesX>23</usEyesX>
 		<usEyesY>30</usEyesY>
 		<usMouthX>23</usMouthX>
@@ -15024,6 +15180,7 @@
 		<zName>Oswald Johnston</zName>
 		<zNickname>Oswald</zNickname>
 		<ubFaceIndex>156</ubFaceIndex>
+		<usVoiceIndex>156</usVoiceIndex>
 		<usEyesX>15</usEyesX>
 		<usEyesY>24</usEyesY>
 		<usMouthX>15</usMouthX>
@@ -15119,6 +15276,7 @@
 		<zName>Calvin Barkmore</zName>
 		<zNickname>Calvin</zNickname>
 		<ubFaceIndex>157</ubFaceIndex>
+		<usVoiceIndex>157</usVoiceIndex>
 		<usEyesX>29</usEyesX>
 		<usEyesY>19</usEyesY>
 		<usMouthX>29</usMouthX>
@@ -15214,6 +15372,7 @@
 		<zName>Carl Tercel</zName>
 		<zNickname>Carl</zNickname>
 		<ubFaceIndex>158</ubFaceIndex>
+		<usVoiceIndex>158</usVoiceIndex>
 		<usEyesX>22</usEyesX>
 		<usEyesY>31</usEyesY>
 		<usMouthX>21</usMouthX>
@@ -15309,6 +15468,7 @@
 		<zName></zName>
 		<zNickname>Speck...</zNickname>
 		<ubFaceIndex>159</ubFaceIndex>
+		<usVoiceIndex>159</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -15404,6 +15564,7 @@
 		<zName>Hummer</zName>
 		<zNickname>Hummer</zNickname>
 		<ubFaceIndex>160</ubFaceIndex>
+		<usVoiceIndex>160</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -15499,6 +15660,7 @@
 		<zName>El Dorado</zName>
 		<zNickname>El Dorado</zNickname>
 		<ubFaceIndex>161</ubFaceIndex>
+		<usVoiceIndex>161</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -15594,6 +15756,7 @@
 		<zName>Ice Cream Truck</zName>
 		<zNickname>Truck</zNickname>
 		<ubFaceIndex>162</ubFaceIndex>
+		<usVoiceIndex>162</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -15689,6 +15852,7 @@
 		<zName>Heli</zName>
 		<zNickname>Heli</zNickname>
 		<ubFaceIndex>163</ubFaceIndex>
+		<usVoiceIndex>163</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -15784,6 +15948,7 @@
 		<zName>Tank</zName>
 		<zNickname>Tank</zNickname>
 		<ubFaceIndex>164</ubFaceIndex>
+		<usVoiceIndex>164</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -15879,6 +16044,7 @@
 		<zName>Gaston Cavalier</zName>
 		<zNickname>Gaston</zNickname>
 		<ubFaceIndex>165</ubFaceIndex>
+		<usVoiceIndex>165</usVoiceIndex>
 		<usEyesX>13</usEyesX>
 		<usEyesY>5</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -15974,6 +16140,7 @@
 		<zName>Lt. "Stogie" Horge</zName>
 		<zNickname>Stogie</zNickname>
 		<ubFaceIndex>166</ubFaceIndex>
+		<usVoiceIndex>166</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>4</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -16069,6 +16236,7 @@
 		<zName>Tex Colburn</zName>
 		<zNickname>Tex</zNickname>
 		<ubFaceIndex>167</ubFaceIndex>
+		<usVoiceIndex>167</usVoiceIndex>
 		<usEyesX>3</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>3</usMouthX>
@@ -16164,6 +16332,7 @@
 		<zName>Col. Frederick Biggins</zName>
 		<zNickname>Biggins</zNickname>
 		<ubFaceIndex>168</ubFaceIndex>
+		<usVoiceIndex>168</usVoiceIndex>
 		<usEyesX>5</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>5</usMouthX>
@@ -16259,6 +16428,7 @@
 		<zName></zName>
 		<zNickname>PGmale4</zNickname>
 		<ubFaceIndex>169</ubFaceIndex>
+		<usVoiceIndex>169</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -16354,6 +16524,7 @@
 		<zName>Victor "Monk" Kolesnikov</zName>
 		<zNickname>Monk</zNickname>
 		<ubFaceIndex>170</ubFaceIndex>
+		<usVoiceIndex>170</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -16449,6 +16620,7 @@
 		<zName>Janno "Brain" Allik</zName>
 		<zNickname>Brain</zNickname>
 		<ubFaceIndex>171</ubFaceIndex>
+		<usVoiceIndex>171</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -16544,6 +16716,7 @@
 		<zName>Lennart "Scream" Vilde</zName>
 		<zNickname>Scream</zNickname>
 		<ubFaceIndex>172</ubFaceIndex>
+		<usVoiceIndex>172</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -16639,6 +16812,7 @@
 		<zName>Henning von Branitz</zName>
 		<zNickname>Henning</zNickname>
 		<ubFaceIndex>173</ubFaceIndex>
+		<usVoiceIndex>173</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -16734,6 +16908,7 @@
 		<zName>Luc Fabre</zName>
 		<zNickname>Lucky</zNickname>
 		<ubFaceIndex>174</ubFaceIndex>
+		<usVoiceIndex>174</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -16829,6 +17004,7 @@
 		<zName>Dr. Laura Colin</zName>
 		<zNickname>Laura</zNickname>
 		<ubFaceIndex>175</ubFaceIndex>
+		<usVoiceIndex>175</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -16924,6 +17100,7 @@
 		<zName>Graziella "Grace" Girelli</zName>
 		<zNickname>Grace</zNickname>
 		<ubFaceIndex>176</ubFaceIndex>
+		<usVoiceIndex>176</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -17019,6 +17196,7 @@
 		<zName>Rudolf Steiger</zName>
 		<zNickname>Rudolf</zNickname>
 		<ubFaceIndex>177</ubFaceIndex>
+		<usVoiceIndex>177</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -17114,6 +17292,7 @@
 		<zName>Gregory "Spooky" Block</zName>
 		<zNickname>Spooky</zNickname>
 		<ubFaceIndex>178</ubFaceIndex>
+		<usVoiceIndex>178</usVoiceIndex>
 		<usEyesX>14</usEyesX>
 		<usEyesY>14</usEyesY>
 		<usMouthX>14</usMouthX>
@@ -17209,6 +17388,7 @@
 		<zName>Bruce "Skitz" Bonner</zName>
 		<zNickname>Skitz</zNickname>
 		<ubFaceIndex>179</ubFaceIndex>
+		<usVoiceIndex>179</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>5</usEyesY>
 		<usMouthX>13</usMouthX>
@@ -17304,6 +17484,7 @@
 		<zName>Willy "Weasel" Augustin</zName>
 		<zNickname>Weasel</zNickname>
 		<ubFaceIndex>180</ubFaceIndex>
+		<usVoiceIndex>180</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>5</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -17399,6 +17580,7 @@
 		<zName>Carl "It" Goodman</zName>
 		<zNickname>It</zNickname>
 		<ubFaceIndex>181</ubFaceIndex>
+		<usVoiceIndex>181</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>3</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -17494,6 +17676,7 @@
 		<zName>Dr. Bernie Gloveless</zName>
 		<zNickname>Bernie</zNickname>
 		<ubFaceIndex>182</ubFaceIndex>
+		<usVoiceIndex>182</usVoiceIndex>
 		<usEyesX>6</usEyesX>
 		<usEyesY>2</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -17589,6 +17772,7 @@
 		<zName>Murray "Pops" McGillicutty</zName>
 		<zNickname>Pops</zNickname>
 		<ubFaceIndex>183</ubFaceIndex>
+		<usVoiceIndex>183</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>11</usMouthX>
@@ -17684,6 +17868,7 @@
 		<zName>Walter Yuntz</zName>
 		<zNickname>Wally</zNickname>
 		<ubFaceIndex>184</ubFaceIndex>
+		<usVoiceIndex>184</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -17779,6 +17964,7 @@
 		<zName>Dr. Eli Summers</zName>
 		<zNickname>Eli</zNickname>
 		<ubFaceIndex>185</ubFaceIndex>
+		<usVoiceIndex>185</usVoiceIndex>
 		<usEyesX>10</usEyesX>
 		<usEyesY>4</usEyesY>
 		<usMouthX>12</usMouthX>
@@ -17874,6 +18060,7 @@
 		<zName>Dr. Mitch Shudlem</zName>
 		<zNickname>Mitch</zNickname>
 		<ubFaceIndex>186</ubFaceIndex>
+		<usVoiceIndex>186</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -17969,6 +18156,7 @@
 		<zName>Howard "Carp" Melfield</zName>
 		<zNickname>Carp</zNickname>
 		<ubFaceIndex>187</ubFaceIndex>
+		<usVoiceIndex>187</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -18064,6 +18252,7 @@
 		<zName>Lance Fisher</zName>
 		<zNickname>Lance</zNickname>
 		<ubFaceIndex>188</ubFaceIndex>
+		<usVoiceIndex>188</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>12</usMouthX>
@@ -18159,6 +18348,7 @@
 		<zName>Dr. Raffitto "Raffi" Leevon</zName>
 		<zNickname>Raffi</zNickname>
 		<ubFaceIndex>189</ubFaceIndex>
+		<usVoiceIndex>189</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>12</usMouthX>
@@ -18254,6 +18444,7 @@
 		<zName>Wink E. Dickerson</zName>
 		<zNickname>Wink</zNickname>
 		<ubFaceIndex>190</ubFaceIndex>
+		<usVoiceIndex>190</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>10</usMouthX>
@@ -18349,6 +18540,7 @@
 		<zName>Speck T. Kline</zName>
 		<zNickname>Speck</zNickname>
 		<ubFaceIndex>191</ubFaceIndex>
+		<usVoiceIndex>191</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -18444,6 +18636,7 @@
 		<zName></zName>
 		<zNickname>PGmale5</zNickname>
 		<ubFaceIndex>192</ubFaceIndex>
+		<usVoiceIndex>192</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -18538,6 +18731,7 @@
 		<zName></zName>
 		<zNickname>PGmale6</zNickname>
 		<ubFaceIndex>193</ubFaceIndex>
+		<usVoiceIndex>193</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -18632,6 +18826,7 @@
 		<zName></zName>
 		<zNickname>PGmale7</zNickname>
 		<ubFaceIndex>194</ubFaceIndex>
+		<usVoiceIndex>194</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -18726,6 +18921,7 @@
 		<zName>John Kulba</zName>
 		<zNickname>John</zNickname>
 		<ubFaceIndex>195</ubFaceIndex>
+		<usVoiceIndex>195</usVoiceIndex>
 		<usEyesX>6</usEyesX>
 		<usEyesY>4</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -18821,6 +19017,7 @@
 		<zName>Elio</zName>
 		<zNickname>Elio</zNickname>
 		<ubFaceIndex>196</ubFaceIndex>
+		<usVoiceIndex>196</usVoiceIndex>
 		<usEyesX>12</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>15</usMouthX>
@@ -18916,6 +19113,7 @@
 		<zName>Juan</zName>
 		<zNickname>Juan</zNickname>
 		<ubFaceIndex>197</ubFaceIndex>
+		<usVoiceIndex>197</usVoiceIndex>
 		<usEyesX>5</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -19011,6 +19209,7 @@
 		<zName>Wahan</zName>
 		<zNickname>Wahan</zNickname>
 		<ubFaceIndex>198</ubFaceIndex>
+		<usVoiceIndex>198</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>11</usMouthX>
@@ -19106,6 +19305,7 @@
 		<zName>Jeep</zName>
 		<zNickname>Jeep</zNickname>
 		<ubFaceIndex>199</ubFaceIndex>
+		<usVoiceIndex>199</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19200,6 +19400,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>200</ubFaceIndex>
+		<usVoiceIndex>200</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19294,6 +19495,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>201</ubFaceIndex>
+		<usVoiceIndex>201</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19388,6 +19590,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>202</ubFaceIndex>
+		<usVoiceIndex>202</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19482,6 +19685,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>203</ubFaceIndex>
+		<usVoiceIndex>203</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19576,6 +19780,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>204</ubFaceIndex>
+		<usVoiceIndex>204</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19670,6 +19875,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>205</ubFaceIndex>
+		<usVoiceIndex>205</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19764,6 +19970,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>206</ubFaceIndex>
+		<usVoiceIndex>206</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19858,6 +20065,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>207</ubFaceIndex>
+		<usVoiceIndex>207</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -19952,6 +20160,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>208</ubFaceIndex>
+		<usVoiceIndex>208</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20046,6 +20255,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>209</ubFaceIndex>
+		<usVoiceIndex>209</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20140,6 +20350,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>210</ubFaceIndex>
+		<usVoiceIndex>210</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20234,6 +20445,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>211</ubFaceIndex>
+		<usVoiceIndex>211</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20328,6 +20540,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>212</ubFaceIndex>
+		<usVoiceIndex>212</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20422,6 +20635,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>213</ubFaceIndex>
+		<usVoiceIndex>213</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20516,6 +20730,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>214</ubFaceIndex>
+		<usVoiceIndex>214</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20610,6 +20825,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>215</ubFaceIndex>
+		<usVoiceIndex>215</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20704,6 +20920,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>216</ubFaceIndex>
+		<usVoiceIndex>216</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20798,6 +21015,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>217</ubFaceIndex>
+		<usVoiceIndex>217</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20892,6 +21110,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>218</ubFaceIndex>
+		<usVoiceIndex>218</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -20986,6 +21205,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>219</ubFaceIndex>
+		<usVoiceIndex>219</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
@@ -21080,6 +21300,7 @@
 		<zName>Jack "Postie" Durham</zName>
 		<zNickname>Postie</zNickname>
 		<ubFaceIndex>220</ubFaceIndex>
+		<usVoiceIndex>220</usVoiceIndex>
 		<usEyesX>10</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -21175,6 +21396,7 @@
 		<zName>Unusually Ruthless Reuban</zName>
 		<zNickname>Reuban</zNickname>
 		<ubFaceIndex>221</ubFaceIndex>
+		<usVoiceIndex>221</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -21270,6 +21492,7 @@
 		<zName>Col. Leon Roachburn</zName>
 		<zNickname>Leon</zNickname>
 		<ubFaceIndex>222</ubFaceIndex>
+		<usVoiceIndex>222</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -21366,6 +21589,7 @@
 		<zName>Gary Roachburn</zName>
 		<zNickname>Gary</zNickname>
 		<ubFaceIndex>223</ubFaceIndex>
+		<usVoiceIndex>223</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -21462,6 +21686,7 @@
 		<zName>Megan "Sparky" Roachburn</zName>
 		<zNickname>Sparky</zNickname>
 		<ubFaceIndex>224</ubFaceIndex>
+		<usVoiceIndex>224</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -21557,6 +21782,7 @@
 		<zName>Mary Beth Wilkens</zName>
 		<zNickname>Beth</zNickname>
 		<ubFaceIndex>225</ubFaceIndex>
+		<usVoiceIndex>225</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -21652,6 +21878,7 @@
 		<zName>Samuel Garver</zName>
 		<zNickname>Sam</zNickname>
 		<ubFaceIndex>226</ubFaceIndex>
+		<usVoiceIndex>226</usVoiceIndex>
 		<usEyesX>3</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -21747,6 +21974,7 @@
 		<zName>Hurl E. Cutter</zName>
 		<zNickname>Hurl</zNickname>
 		<ubFaceIndex>227</ubFaceIndex>
+		<usVoiceIndex>227</usVoiceIndex>
 		<usEyesX>6</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -21842,6 +22070,7 @@
 		<zName>Dr. Ahmad "Doc" Koolhan</zName>
 		<zNickname>Doc</zNickname>
 		<ubFaceIndex>228</ubFaceIndex>
+		<usVoiceIndex>228</usVoiceIndex>
 		<usEyesX>4</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>3</usMouthX>
@@ -21937,6 +22166,7 @@
 		<zName>Manuel Rivas</zName>
 		<zNickname>Manuel</zNickname>
 		<ubFaceIndex>229</ubFaceIndex>
+		<usVoiceIndex>229</usVoiceIndex>
 		<usEyesX>32</usEyesX>
 		<usEyesY>26</usEyesY>
 		<usMouthX>18</usMouthX>
@@ -22032,6 +22262,7 @@
 		<zName>Glen "Boss" Hatchet</zName>
 		<zNickname>Boss</zNickname>
 		<ubFaceIndex>230</ubFaceIndex>
+		<usVoiceIndex>230</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -22127,6 +22358,7 @@
 		<zName>Johnny "Snake" Edwards</zName>
 		<zNickname>Snake</zNickname>
 		<ubFaceIndex>231</ubFaceIndex>
+		<usVoiceIndex>231</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -22222,6 +22454,7 @@
 		<zName>Alan "Spam" Webster</zName>
 		<zNickname>Spam</zNickname>
 		<ubFaceIndex>232</ubFaceIndex>
+		<usVoiceIndex>232</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -22317,6 +22550,7 @@
 		<zName>Maj. Spike Scallion</zName>
 		<zNickname>Spike</zNickname>
 		<ubFaceIndex>233</ubFaceIndex>
+		<usVoiceIndex>233</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -22412,6 +22646,7 @@
 		<zName>Jimmy Upton</zName>
 		<zNickname>Jimmy</zNickname>
 		<ubFaceIndex>234</ubFaceIndex>
+		<usVoiceIndex>234</usVoiceIndex>
 		<usEyesX>5</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>5</usMouthX>
@@ -22507,6 +22742,7 @@
 		<zName>Timothy "Leech" Jenkins</zName>
 		<zNickname>Leech</zNickname>
 		<ubFaceIndex>235</ubFaceIndex>
+		<usVoiceIndex>235</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -22602,6 +22838,7 @@
 		<zName>Capt. Bob Adams</zName>
 		<zNickname>Bob</zNickname>
 		<ubFaceIndex>236</ubFaceIndex>
+		<usVoiceIndex>236</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -22697,6 +22934,7 @@
 		<zName>Col. Leo Kelly</zName>
 		<zNickname>Kelly</zNickname>
 		<ubFaceIndex>237</ubFaceIndex>
+		<usVoiceIndex>237</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -22792,6 +23030,7 @@
 		<zName>Vincenzo Massimo</zName>
 		<zNickname>Vinny</zNickname>
 		<ubFaceIndex>238</ubFaceIndex>
+		<usVoiceIndex>238</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -22887,6 +23126,7 @@
 		<zName>Marty "Kaboom" Moffat</zName>
 		<zNickname>Kaboom</zNickname>
 		<ubFaceIndex>239</ubFaceIndex>
+		<usVoiceIndex>239</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -22982,6 +23222,7 @@
 		<zName>Lt. Bud Hellar</zName>
 		<zNickname>Bud</zNickname>
 		<ubFaceIndex>240</ubFaceIndex>
+		<usVoiceIndex>240</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -23077,6 +23318,7 @@
 		<zName>Russel Hunter</zName>
 		<zNickname>Rusty</zNickname>
 		<ubFaceIndex>241</ubFaceIndex>
+		<usVoiceIndex>241</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -23172,6 +23414,7 @@
 		<zName>Dr. Mark "Needle" Kranhuim</zName>
 		<zNickname>Needle</zNickname>
 		<ubFaceIndex>242</ubFaceIndex>
+		<usVoiceIndex>242</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>10</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -23267,6 +23510,7 @@
 		<zName>Patrick "Screw" Phillips</zName>
 		<zNickname>Screw</zNickname>
 		<ubFaceIndex>243</ubFaceIndex>
+		<usVoiceIndex>243</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>9</usMouthX>
@@ -23362,6 +23606,7 @@
 		<zName>Elroy B. Tolken</zName>
 		<zNickname>Elroy</zNickname>
 		<ubFaceIndex>244</ubFaceIndex>
+		<usVoiceIndex>244</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>8</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -23457,6 +23702,7 @@
 		<zName>Anita "Mouse" Backman</zName>
 		<zNickname>Mouse</zNickname>
 		<ubFaceIndex>245</ubFaceIndex>
+		<usVoiceIndex>245</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>11</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -23552,6 +23798,7 @@
 		<zName>Hector Alvarez</zName>
 		<zNickname>Hector</zNickname>
 		<ubFaceIndex>246</ubFaceIndex>
+		<usVoiceIndex>246</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -23647,6 +23894,7 @@
 		<zName>Reverend Clyde Potter</zName>
 		<zNickname>Rev</zNickname>
 		<ubFaceIndex>247</ubFaceIndex>
+		<usVoiceIndex>247</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -23742,6 +23990,7 @@
 		<zName>Dr. Margaret "Stella" Trammel</zName>
 		<zNickname>Stella</zNickname>
 		<ubFaceIndex>248</ubFaceIndex>
+		<usVoiceIndex>248</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>6</usEyesY>
 		<usMouthX>6</usMouthX>
@@ -23837,6 +24086,7 @@
 		<zName>Edward "Ears" Stockwell</zName>
 		<zNickname>Ears</zNickname>
 		<ubFaceIndex>249</ubFaceIndex>
+		<usVoiceIndex>249</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>4</usEyesY>
 		<usMouthX>11</usMouthX>
@@ -23932,6 +24182,7 @@
 		<zName>Murray "Moses" Ebstern</zName>
 		<zNickname>Moses</zNickname>
 		<ubFaceIndex>250</ubFaceIndex>
+		<usVoiceIndex>250</usVoiceIndex>
 		<usEyesX>9</usEyesX>
 		<usEyesY>4</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -24027,6 +24278,7 @@
 		<zName>Lesley "Smoke" Petersen</zName>
 		<zNickname>Smoke</zNickname>
 		<ubFaceIndex>251</ubFaceIndex>
+		<usVoiceIndex>251</usVoiceIndex>
 		<usEyesX>7</usEyesX>
 		<usEyesY>9</usEyesY>
 		<usMouthX>7</usMouthX>
@@ -24122,6 +24374,7 @@
 		<zName>Roger "Dyno" Wittman</zName>
 		<zNickname>Dyno</zNickname>
 		<ubFaceIndex>252</ubFaceIndex>
+		<usVoiceIndex>252</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>8</usMouthX>
@@ -24217,6 +24470,7 @@
 		<zName>Herman "Turtle" Regents</zName>
 		<zNickname>Turtle</zNickname>
 		<ubFaceIndex>253</ubFaceIndex>
+		<usVoiceIndex>253</usVoiceIndex>
 		<usEyesX>8</usEyesX>
 		<usEyesY>7</usEyesY>
 		<usMouthX>5</usMouthX>
@@ -24312,6 +24566,7 @@
 		<zName></zName>
 		<zNickname></zNickname>
 		<ubFaceIndex>254</ubFaceIndex>
+		<usVoiceIndex>254</usVoiceIndex>
 		<usEyesX>0</usEyesX>
 		<usEyesY>0</usEyesY>
 		<usMouthX>0</usMouthX>
