@@ -1626,6 +1626,15 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 					}
 				}
 			}
+
+			// Flugente: voice set
+			if ( guiCurrentSaveGameVersion >= SEPARATE_VOICESETS )
+			{
+				if ( !FileRead( hFile, &this->usVoiceIndex, sizeof(UINT32), &uiNumBytesRead ) )
+				{
+					return(FALSE);
+				}
+			}
 		}
 
 		if ( this->uiProfileChecksum != this->GetChecksum() )
@@ -1728,6 +1737,12 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	}
 
 	if ( !FileWrite( hFile, &this->sDynamicOpinionLongTerm, sizeof(sDynamicOpinionLongTerm), &uiNumBytesWritten ) )
+	{
+		return(FALSE);
+	}
+
+	// Flugente: voice set used
+	if ( !FileWrite( hFile, &this->usVoiceIndex, sizeof(UINT32), &uiNumBytesWritten ) )
 	{
 		return(FALSE);
 	}
@@ -6677,6 +6692,12 @@ BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 		// if not then overwrite with the previously stored data
 		if ( gMercProfiles[cnt].bLifeMax <= 0 )
 			gMercProfiles[cnt] = tempMercProfile;
+
+		/// Flugente: until the introduction of a separate varriable for the voiceset, the voice was identical with the slot
+		if ( guiCurrentSaveGameVersion < SEPARATE_VOICESETS )
+		{
+			gMercProfiles[cnt].usVoiceIndex = cnt;
+		}
 	}
 
 	return( TRUE );

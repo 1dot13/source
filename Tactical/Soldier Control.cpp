@@ -1548,6 +1548,8 @@ void MERCPROFILESTRUCT::initialize( )
 
 	memset( &usDynamicOpinionFlagmask, 0, sizeof(usDynamicOpinionFlagmask) );
 	memset( &sDynamicOpinionLongTerm, 0, sizeof(sDynamicOpinionLongTerm) );
+
+	memset( &usVoiceIndex, 0, sizeof(UINT32) );
 }
 
 // Initialize the soldier.
@@ -10749,11 +10751,14 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	// OK, build file and play!
 	if ( pSoldier->ubProfile != NO_PROFILE )
 	{
-		sprintf( zFilename, "BATTLESNDS\\%03d_%s.ogg", pSoldier->ubProfile, gBattleSndsData[ubSoundID].zName );
+		// Flugente: For the voice set itself, use this number
+		UINT32 usVoiceSet = gMercProfiles[pSoldier->ubProfile].usVoiceIndex;
+
+		sprintf( zFilename, "BATTLESNDS\\%03d_%s.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName );
 
 		if ( !FileExists( zFilename ) )
 		{
-			sprintf( zFilename, "BATTLESNDS\\%03d_%s.wav", pSoldier->ubProfile, gBattleSndsData[ubSoundID].zName );
+			sprintf( zFilename, "BATTLESNDS\\%03d_%s.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName );
 		}
 
 		if ( !FileExists( zFilename ) )

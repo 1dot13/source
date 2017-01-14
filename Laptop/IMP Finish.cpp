@@ -51,8 +51,6 @@ UINT32 uiVoiceSound = 0;
 
 // image handle
 UINT32 guiCHARACTERPORTRAIT;
-extern INT32 iCurrentPortrait;
-extern INT32 iCurrentVoice;
 
 // function definitions
 void CreateIMPFinishButtons( void );

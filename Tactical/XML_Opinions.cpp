@@ -227,7 +227,7 @@ BOOLEAN ReadInMercOpinions(STR fileName)
 	{
 		CHAR8 errorBuf[511];
 
-		sprintf(errorBuf, "XML Parser Error in MercProfiles.xml: %s at line %d", XML_ErrorString(XML_GetErrorCode(parser)), XML_GetCurrentLineNumber(parser));
+		sprintf(errorBuf, "XML Parser Error in MercOpinions.xml: %s at line %d", XML_ErrorString(XML_GetErrorCode(parser)), XML_GetCurrentLineNumber(parser));
 		LiveMessage(errorBuf);
 
 		MemFree(lpcBuffer);

@@ -969,6 +969,8 @@ public:
 
 	INT8	sDynamicOpinionLongTerm[NUM_PROFILES];
 
+	// Flugente: voice set used
+	UINT32 usVoiceIndex;
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!

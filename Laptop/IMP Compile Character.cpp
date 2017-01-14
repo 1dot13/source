@@ -27,6 +27,7 @@
 	#include "IMP Disability Trait.h"
 	#include "IMP Color Choosing.h"
 	#include "IMP Minor Trait.h"
+	#include "IMP Voices.h"
 #endif
 
 #include "IMP Confirm.h"
@@ -116,16 +117,23 @@ void SetMercSkinAndHairColors( void );
 BOOLEAN ShouldThisMercHaveABigBody( void );
 
 
-
-
-
 void CreateACharacterFromPlayerEnteredStats( void )
 {
-
 		// Kaiden: Seems like as good a place as any to stash this function call to
 		// ensure that these lists don't get overwritten or Nulled due to the amount
 		// of changes and revisions that have been made to personalities and attitudes.
 	CreatePlayersPersonalitySkillsAndAttitude();
+
+	// Flugente: as the profile is no longer identical to the voice set, we need to determine a free slot
+	INT32 impslot = 0;
+	if ( fCharacterIsMale )
+		impslot = GetFirstMaleSlot( );
+	else
+		impslot = GetFirstFemaleSlot( );
+
+	INT32 impid = gGameExternalOptions.iaIMPSlots[impslot];
+
+	LaptopSaveInfo.iIMPIndex = GetFreeIMPSlot( impid, -1 );
 
 	// copy over full name
 	wcscpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].zName, pFullName );
@@ -144,8 +152,7 @@ void CreateACharacterFromPlayerEnteredStats( void )
 		// female
 		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSex = FEMALE;
 	}
-
-
+	
 	// attributes
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bLifeMax		= ( INT8 )iHealth;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bLife		= ( INT8 )iHealth;
@@ -154,15 +161,13 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bDexterity	= ( INT8 )iDexterity;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bWisdom	 = ( INT8 )iWisdom;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bLeadership = ( INT8 )iLeadership;
-
-
+	
 		// skills
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bMarksmanship = ( INT8 )iMarksmanship;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bMedical		= ( INT8 )iMedical;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bMechanical	= ( INT8 )iMechanical;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExplosive	= ( INT8 )iExplosives;
-
-
+	
 	// personality
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bDisability = ( INT8 )iPersonality;
 
@@ -176,7 +181,7 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	// Flugente: background
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].usBackground = usBackground;
 
-	// Flugente: sexism, racsim etc.
+	// Flugente: sexism, racism etc.
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bRace							= ( INT8 )bRace;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bNationality					= ( INT8 )bNationality;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bAppearance					= ( INT8 )bAppearance;
@@ -187,6 +192,10 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bHatedNationalityCareLevel	= ( INT8 )bHatedNationalityCareLevel;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bRacist						= ( INT8 )bRacist;
 	gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bSexist						= ( UINT8 )bSexist;
+
+	// Flugente: voice set used
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usVoiceIndex = iSelectedIMPVoiceSet;
+
 		
 	// WDS: Advanced start 
 	//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;
@@ -201,69 +210,6 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	//  Option for badass added - SANDRO
 	if (bBadAssSelected())
 		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].uiBodyTypeSubFlags = 1;
-
-
-	return;
-
-}
-
-
-BOOLEAN DoesCharacterHaveAnAttitude( void )
-{
-
-	// simply checks if caracter has an attitude other than normal
-	switch( iAttitude )
-	{
-		case ATT_LONER:
-		case ATT_PESSIMIST:
-		case ATT_ARROGANT:
-		case ATT_BIG_SHOT:
-		case ATT_ASSHOLE:
-		case ATT_COWARD:
-			return( TRUE );
-		default:
-			return( FALSE );
-	}
-}
-
-
-BOOLEAN DoesCharacterHaveAPersoanlity( void )
-{
-
-
-	if( iPersonality != NO_DISABILITY )
-	{
-		// yep
-	return ( TRUE );
-	}
-	else
-	{
-		// nope
-		return ( FALSE );
-	}
-
-
-	// Kaiden: Following is the original UB section:
-	// The fist return( FALSE ); Statement was the only
-	// thing uncommented.
-/*
-	// only one we can get is PSYCHO, and that is not much of a penalty
-	return( FALSE );
-
-	// simply checks if caracter has a personality other than normal
-	if( iPersonality != NO_DISABILITY )
-	{
-		// yep
-	return ( TRUE );
-	}
-	else
-	{
-		// nope
-		return ( FALSE );
-	}
-	*/
-
-
 }
 
 void CreatePlayerAttitude( void )
@@ -286,8 +232,6 @@ void AddAnAttitudeToAttitudeList( INT8 bAttitude )
 		// increment attitude list counter
 		iLastElementInAttitudeList++;
 	}
-
-	return;
 }
 
 
@@ -316,8 +260,6 @@ void ClearAllSkillsList( void )
 
 	iLastElementInSkillsList = 0;
 }
-
-
 
 void RemoveSkillFromSkillsList( INT32 iIndex )
 {
@@ -348,9 +290,7 @@ void RemoveSkillFromSkillsList( INT32 iIndex )
 
 INT32	FindSkillInSkillsList( INT32 iSkill )
 {
-	INT32		iLoop;
-
-	for ( iLoop = 0; iLoop < iLastElementInSkillsList; iLoop++ )
+	for ( INT32 iLoop = 0; iLoop < iLastElementInSkillsList; iLoop++ )
 	{
 		if ( SkillsList[ iLoop ] == iSkill )
 		{
@@ -389,7 +329,6 @@ void ValidateSkillsList( void )
 			if ( iIndex != -1 )
 				pProfile->bMechanical = 1;
 		}
-
 	}
 
 	// SANDRO - added to give 1 medical skill to doctors
@@ -506,8 +445,6 @@ void AddAPersonalityToPersonalityList( INT8 bPersonlity )
 		// increment attitude list counter
 		iLastElementInPersonalityList++;
 	}
-
-	return;
 }
 
 void CreatePlayerPersonality( void )
@@ -515,8 +452,6 @@ void CreatePlayerPersonality( void )
 	// DELETED UNUSED PART OF THE CODE - SANDRO
 
 	iPersonality = iChosenDisabilityTrait();
-	
-	return;
 }
 
 void CreatePlayersPersonalitySkillsAndAttitude( void )
@@ -531,14 +466,10 @@ void CreatePlayersPersonalitySkillsAndAttitude( void )
 
 	// attitude
 	CreatePlayerAttitude( );
-
-	return;
 }
-
 
 void ResetSkillsAttributesAndPersonality( void )
 {
-
 	// reset count of skills attributes and personality
 
 	iLastElementInPersonalityList = 0;
@@ -546,9 +477,7 @@ void ResetSkillsAttributesAndPersonality( void )
 	iLastElementInSkillsList = 0;
 
 	iLastElementInAttitudeList = 0;
-
 }
-
 
 void ResetIncrementCharacterAttributes( void )
 {
@@ -567,7 +496,6 @@ void ResetIncrementCharacterAttributes( void )
 	iAddExplosives = 0;
 	iAddMedical = 0;
 	iAddMechanical = 0;
-
 }
 
 void SelectMercFace( void )

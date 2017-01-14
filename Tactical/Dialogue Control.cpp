@@ -2021,11 +2021,11 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 
 	// Check face index
 	CHECKF( iFaceIndex != -1 );
-
+	
 	if ( !GetDialogue( ubCharacterNum,
 					usQuoteNum, DIALOGUESIZE, gzQuoteStr, &uiSoundID, zSoundString) )
 	{
-	return( FALSE );
+		return( FALSE );
 	}
 
 	if( bUIHandlerID == DIALOGUE_EXTERNAL_NPC_UI )
@@ -2142,8 +2142,11 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 {
 	static CHAR8 zFileName[164];
 	static CHAR8 zFileNameExists[164];
-	UINT8		ubFileNumID;
+	UINT32		ubFileNumID;
 	BOOLEAN isBartenderSantos = FALSE;
+
+	// Flugente: For the voice set itself, use this number
+	UINT32 usVoiceSet = gMercProfiles[ubCharacterNum].usVoiceIndex;
 
 	// Are we an NPC OR an RPC that has not been recruited?
 	// ATE: Did the || clause here to allow ANY RPC that talks while the talking menu is up to use an npc quote file
@@ -2163,10 +2166,10 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 //			#else
 			if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
 			{
-				sprintf( zFileName,"NPC_SPEECH\\d_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				sprintf( zFileName, "NPC_SPEECH\\d_%03d_%03d.ogg", usVoiceSet, usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
-					sprintf( zFileName,"NPC_SPEECH\\d_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+					sprintf( zFileName, "NPC_SPEECH\\d_%03d_%03d.wav", usVoiceSet, usQuoteNum );
 				}
 			}
 //			#endif
@@ -2174,7 +2177,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 		else
 		{
 			// assume EDT files are in EDT directory on HARD DRIVE
-			sprintf( zFileName,"NPCDATA\\d_%03d.EDT", ubCharacterNum );
+			sprintf( zFileName, "NPCDATA\\d_%03d.EDT", usVoiceSet );
 		}
 	}
 	//else if ( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON &&
@@ -2186,7 +2189,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			)
 
 	{
-		ubFileNumID = ubCharacterNum;
+		ubFileNumID = usVoiceSet;
 		
 		if ( ubCharacterNum == HERVE )
 		{
@@ -2221,7 +2224,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 				ubFileNumID = CARLO;
 		}
 
-		#ifdef JA2UB
+#ifdef JA2UB
 		if ( ubCharacterNum == MANUEL_UB )
 		{
 			sprintf( (char *)zFileNameExists,"NPCDATA\\%03d.EDT", MANUEL_UB );
@@ -2294,7 +2297,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			ubFileNumID = RUDY_UB;
 		}
 		
-		#endif
+#endif
 
 		// If we are character #155, check fact!
 		if ( ubCharacterNum == MANNY && !gubFact[ FACT_MANNY_IS_BARTENDER ] )
@@ -2339,68 +2342,69 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 	{
 		if ( fWavFile )
 		{
-			#ifdef RUSSIAN
+#ifdef RUSSIAN
 			//	if( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
 				//new profiles by Jazz
 				if ( ( gProfilesRPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesNPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesVehicle[ubCharacterNum].ProfilId == ubCharacterNum ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
 				{
-				//inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-				if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
-				{
-			
-					#ifdef JA2UB
-					sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-					if ( !FileExists( zFileName ) )
-					{
-						sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-					}					
-					#else
-					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-					#endif
-					if ( !FileExists( zFileName ) )
-					{
-					//inshy: fix for UB-1.13 version only
-					#ifdef JA2UB
-					sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-						
-					if ( !FileExists( zFileName ) )
-					{
-						sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-					}	
-					#else
-						sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-					#endif
-					//<SB> Also check for Russian Gold sound files (identical to international ones)
-						if(! FileExists( zFileName ) )
+					//inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+					if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
+					{			
+						#ifdef JA2UB
+						sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",usVoiceSet,usQuoteNum );
+						if ( !FileExists( zFileName ) )
 						{
-							sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+							sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",usVoiceSet,usQuoteNum );
+						}					
+						#else
+						sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",usVoiceSet,usQuoteNum );
+						#endif
+						if ( !FileExists( zFileName ) )
+						{
+							//inshy: fix for UB-1.13 version only
+						#ifdef JA2UB
+							sprintf( zFileName,"SPEECH\\%03d_%03d.wav",usVoiceSet,usQuoteNum );
+						
 							if ( !FileExists( zFileName ) )
 							{
-								sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+								sprintf( zFileName,"SPEECH\\%03d_%03d.wav",usVoiceSet,usQuoteNum );
+							}	
+							#else
+								sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",usVoiceSet,usQuoteNum );
+						#endif
+
+							//<SB> Also check for Russian Gold sound files (identical to international ones)
+							if(! FileExists( zFileName ) )
+							{
+								sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",usVoiceSet,usQuoteNum );
+								if ( !FileExists( zFileName ) )
+								{
+									sprintf( zFileName,"SPEECH\\%03d_%03d.wav",usVoiceSet,usQuoteNum );
+								}
 							}
-						}
 //</SB>
-					}
+						}
 					}
 				}
 				else
-			#endif
+#endif
 			{
 				if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
 				{
-				// build name of wav file (characternum + quotenum)
-				sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-				if ( !FileExists( zFileName ) )
-				{
-					sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-				}
+					// build name of wav file (characternum + quotenum)
+					sprintf( zFileName, "SPEECH\\%03d_%03d.ogg", usVoiceSet, usQuoteNum );
+
+					if ( !FileExists( zFileName ) )
+					{
+						sprintf( zFileName, "SPEECH\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+					}
 				}
 			}
 		}
 		else
 		{
 			// assume EDT files are in EDT directory on HARD DRIVE
-			sprintf( zFileName,"MERCEDT\\%03d.EDT", ubCharacterNum );
+			sprintf( zFileName, "MERCEDT\\%03d.EDT", usVoiceSet );
 		}
 	}
 
@@ -2412,6 +2416,9 @@ CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, B
 	static CHAR8 zFileName[164];
 	static CHAR8 zFileNameExists[164];
 
+	// Flugente: For the voice set itself, use this number
+	UINT32 usVoiceSet = gMercProfiles[ubCharacterNum].usVoiceIndex;
+
 	if ( fWavFile )
 	{
 		if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
@@ -2419,18 +2426,18 @@ CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, B
 			// build name of wav file (characternum + quotenum)
 			if(fName)
 			{
-				sprintf( zFileName,"SPEECH\\SNITCH\\NAMES\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d.ogg", usVoiceSet, usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
-					sprintf( zFileName,"SPEECH\\SNITCH\\NAMES\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+					sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
 				}
 			}
 			else
 			{
-				sprintf( zFileName,"SPEECH\\SNITCH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d.ogg", usVoiceSet, usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
-					sprintf( zFileName,"SPEECH\\SNITCH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+					sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
 				}
 			}
 		}
@@ -2439,9 +2446,9 @@ CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, B
 	{
 		// assume EDT files are in EDT directory on HARD DRIVE
 		if(fName)
-			sprintf( zFileName,"MERCEDT\\SNITCH\\NAMES\\%03d.EDT", ubCharacterNum );
+			sprintf( zFileName, "MERCEDT\\SNITCH\\NAMES\\%03d.EDT", usVoiceSet );
 		else
-			sprintf( zFileName,"MERCEDT\\SNITCH\\%03d.EDT", ubCharacterNum );
+			sprintf( zFileName, "MERCEDT\\SNITCH\\%03d.EDT", usVoiceSet );
 	}
 
 	return( zFileName );

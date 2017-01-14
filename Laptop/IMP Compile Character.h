@@ -7,13 +7,11 @@
 
 void AddAnAttitudeToAttitudeList( INT8 bAttitude );
 void CreatePlayerAttitude( void );
-BOOLEAN DoesCharacterHaveAnAttitude( void );
 void CreateACharacterFromPlayerEnteredStats( void );
 void CreatePlayerSkills( void );
 void CreatePlayersPersonalitySkillsAndAttitude( void );
 void AddAPersonalityToPersonalityList( INT8 bPersonlity );
 void CreatePlayerPersonality( void );
-BOOLEAN DoesCharacterHaveAPersoanlity( void );
 void AddSkillToSkillList( INT8 bSkill );
 void ResetSkillsAttributesAndPersonality( void );
 void ResetIncrementCharacterAttributes( void );

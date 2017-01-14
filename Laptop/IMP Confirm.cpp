@@ -1535,6 +1535,13 @@ BOOLEAN LoadImpCharacter( STR nickName )
 			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			return FALSE;
 		}
+
+		/// Flugente: until the introduction of a separate variable for the voiceset, the voice was identical with the slot
+		if ( guiCurrentSaveGameVersion < SEPARATE_VOICESETS )
+		{
+			gMercProfiles[iProfileId].usVoiceIndex = iProfileId;
+		}
+
 		guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
 
 		// close file

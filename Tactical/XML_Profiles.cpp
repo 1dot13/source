@@ -71,6 +71,7 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "zNickname") == 0 ||
 				strcmp(name, "uiIndex") == 0 ||
 				strcmp(name, "ubFaceIndex") == 0 ||
+				strcmp(name, "usVoiceIndex" ) == 0 ||
 				strcmp(name, "usEyesX") == 0 ||
 				strcmp(name, "usEyesY") == 0 ||
 				strcmp(name, "usMouthX") == 0 ||
@@ -190,8 +191,8 @@ profileStartElementHandle(void *userData, const XML_Char *name, const XML_Char *
 				strcmp(name, "ubCivilianGroup")  == 0 ||
 				strcmp(name, "bTown")  == 0 ||
 				strcmp(name, "bTownAttachment")  == 0 ||
-				strcmp(name, "usBackground")  == 0
-												
+				strcmp(name, "usBackground")  == 0 
+											
 				))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -358,7 +359,8 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].bTown = pData->curProfile.bTown;
 					tempProfiles[pData->curIndex].bTownAttachment = pData->curProfile.bTownAttachment;
 					tempProfiles[pData->curIndex].usBackground = pData->curProfile.usBackground;
-
+					tempProfiles[pData->curIndex].usVoiceIndex = pData->curProfile.usVoiceIndex;
+					
 					tempProfiles[pData->curIndex].fGoodGuy = pData->curProfile.fGoodGuy;
 					memcpy( &(tempProfiles[pData->curIndex].usApproachFactor), &(pData->curProfile.usApproachFactor), 4 * sizeof (UINT16));
 					
@@ -1087,7 +1089,11 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curProfile.usBackground = (UINT16) atol(pData->szCharData);
 		}
-		
+		else if ( strcmp( name, "usVoiceIndex" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curProfile.usVoiceIndex = (UINT32)atol( pData->szCharData );
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -1328,6 +1334,7 @@ BOOLEAN WriteMercProfiles()
 			//
 
 			FilePrintf(hFile,"\t\t<ubFaceIndex>%d</ubFaceIndex>\r\n", gMercProfiles[ cnt ].ubFaceIndex);
+			FilePrintf(hFile,"\t\t<usVoiceIndex>%d</usVoiceIndex>\r\n", gMercProfiles[cnt].usVoiceIndex );
 			FilePrintf(hFile,"\t\t<usEyesX>%d</usEyesX>\r\n", gMercProfiles[ cnt ].usEyesX);
 			FilePrintf(hFile,"\t\t<usEyesY>%d</usEyesY>\r\n", gMercProfiles[ cnt ].usEyesY);
 			FilePrintf(hFile,"\t\t<usMouthX>%d</usMouthX>\r\n", gMercProfiles[ cnt ].usMouthX);
@@ -1664,7 +1671,6 @@ BOOLEAN WriteMercProfiles()
 			FilePrintf(hFile,"\t\t<bTownAttachment>%d</bTownAttachment>\r\n", gMercProfiles[ cnt ].bTownAttachment);
 			FilePrintf(hFile,"\t\t<usBackground>%d</usBackground>\r\n", gMercProfiles[ cnt ].usBackground);
 			
-
 			FilePrintf(hFile,"\t</PROFILE>\r\n");
 		}
 		FilePrintf(hFile,"</MERCPROFILES>\r\n");

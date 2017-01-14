@@ -500,6 +500,9 @@
     <ClCompile Include="XML_IMPPortraits.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	<ClCompile Include="XML_IMPVoices.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="XML_AIMAvailability.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

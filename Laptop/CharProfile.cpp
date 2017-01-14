@@ -130,16 +130,13 @@ void BtnIMPCancelCallback(GUI_BUTTON *btn,INT32 reason);
 BOOLEAN HasTheCurrentIMPPageBeenVisited( void );
 extern void SetAttributes( void );
 
-
 void GameInitCharProfile()
 {
 	LaptopSaveInfo.iIMPIndex = 0;
 	iCurrentPortrait = 0;
 	iCurrentProfileMode = 0;
-//	iCurrentVoice = 0;
+	iSelectedIMPVoiceSet = 0;
 	iPortraitNumber = 0;
-
-	return;
 }
 
 void EnterCharProfile()

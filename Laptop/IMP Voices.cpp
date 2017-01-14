@@ -19,19 +19,16 @@
 	#include "soldier profile type.h"
 	#include "GameSettings.h"
 	#include "LaptopSave.h"
+	#include "IMP Confirm.h"
 #endif
 
 INT32 iCurrentVoice = 0;
+UINT32 iSelectedIMPVoiceSet = 0;
 
 UINT32 uiVocVoiceSound = 0;
 // buttons needed for the IMP Voices screen
 INT32 giIMPVoicesButton[ 3 ];
 INT32 giIMPVoicesButtonImage[ 3 ];
-
-
-// hacks to be removeed later
-BOOLEAN fVoiceAVisited = FALSE, fVoiceBVisited = FALSE, fVoiceCVisited = FALSE;
-
 
 // redraw protrait screen
 BOOLEAN fReDrawVoicesScreenFlag = FALSE;
@@ -57,20 +54,17 @@ void IMPPortraitRegionButtonCallback(MOUSE_REGION * pRegion, INT32 iReason );
 
 void EnterIMPVoices( void )
 {
-	fVoiceAVisited = FALSE;
-	fVoiceBVisited = FALSE;
-	fVoiceCVisited = FALSE;
-
 	// Set the initial voice
-	if (fCharacterIsMale == TRUE)
+	for ( int i = 0; i < NUM_IMP_VOICESETS; ++i )
 	{
-		iCurrentVoice = GetFirstFreeSlot(MALE);
+		// MALE is 0, FEMALE is 1, thus the negation
+		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
+		{
+			iCurrentVoice = i;
+			break;
+		}
 	}
-	else
-	{
-		iCurrentVoice = GetFirstFreeSlot(FEMALE);
-	}
-
+	
 	// create buttons
 	CreateIMPVoicesButtons( );
 
@@ -82,15 +76,10 @@ void EnterIMPVoices( void )
 
 	// play voice once
 	uiVocVoiceSound = PlayVoice( );
-
-	return;
 }
-
 
 void RenderIMPVoices( void )
 {
-
-
 	// render background
 	RenderProfileBackGround( );
 
@@ -108,10 +97,7 @@ void RenderIMPVoices( void )
 
 	// text
 	PrintImpText( );
-
-	return;
 }
-
 
 void ExitIMPVoices( void )
 {
@@ -120,95 +106,67 @@ void ExitIMPVoices( void )
 
 	// destroy mouse regions for this screen
 	DestroyIMPVoiceMouseRegions( );
-
-
-	return;
 }
 
 void HandleIMPVoices( void )
 {
-
 	// do we need to re write screen
 	if ( fReDrawVoicesScreenFlag == TRUE )
 	{
-	RenderIMPVoices( );
+		RenderIMPVoices( );
 
 		// reset redraw flag
 		fReDrawVoicesScreenFlag = FALSE;
 	}
-	return;
 }
 
-
-
-// WDS: Allow flexible numbers of IMPs of each sex
-// Ensure the voice is within the valid range
-void FixVoiceRange()
+void IncrementVoice()
 {
-	if (fCharacterIsMale == TRUE)
+	++iCurrentVoice;
+	
+	for ( int i = iCurrentVoice; i < NUM_IMP_VOICESETS; ++i )
 	{
-		if (iCurrentVoice > GetLastMaleSlot())
-			iCurrentVoice = GetFirstMaleSlot();
-		else if (iCurrentVoice < GetFirstMaleSlot())
-			iCurrentVoice = GetLastMaleSlot();
-	}
-	else
-	{
-		if (iCurrentVoice > GetLastFemaleSlot())
-			iCurrentVoice = GetFirstFemaleSlot();
-		else if (iCurrentVoice < GetFirstFemaleSlot())
-			iCurrentVoice = GetLastFemaleSlot();
-	}
-}
-
-
-void IncrementVoice( void )
-{
-	INT32 iIMPIndex = -1;
-	INT32 i;
-
-	iCurrentVoice++;
-	FixVoiceRange();
-
-	// Just to be safe (so we use no endless loop)
-	for (i = 0; i < CountIMPSlots(); i++)
-	{
-		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[iCurrentVoice]) == TRUE)
+		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
 		{
-			// This is a free imp index
-			iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
-			break;
+			iCurrentVoice = i;
+			return;
 		}
+	}
 
-		iCurrentVoice++;
-		FixVoiceRange();
+	// still here? Start from the beginning then
+	for ( int i = 0; i < NUM_IMP_VOICESETS; ++i )
+	{
+		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
+		{
+			iCurrentVoice = i;
+			return;
+		}
 	}
 }
-
 
 void DecrementVoice( void )
 {
-		INT32 iIMPIndex = -1;
-	INT32 i;
+	--iCurrentVoice;
 
-	iCurrentVoice--;
-	FixVoiceRange();
-
-	// Just to be safe (so we use no endless loop)
-	for (i = 0; i < CountIMPSlots(); i++)
+	for ( int i = iCurrentVoice; i > 0; --i )
 	{
-		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[iCurrentVoice]) == TRUE)
+		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
 		{
-			// This is the free imp index
-			iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
-			break;
+			iCurrentVoice = i;
+			return;
 		}
+	}
 
-		iCurrentVoice--;
-		FixVoiceRange();
+	// still here? Start from the beginning then
+	for ( int i = NUM_IMP_VOICESETS - 1; i > 0; --i )
+	{
+		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
+		{
+			iCurrentVoice = i;
+			return;
+		}
 	}
 }
-
 
 void CreateIMPVoicesButtons( void )
 {
@@ -226,8 +184,7 @@ void CreateIMPVoicesButtons( void )
 														TEXT_CJUSTIFIED,
 														LAPTOP_SCREEN_UL_X +	( 343 ), LAPTOP_SCREEN_WEB_UL_Y + ( 205 ),BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 															BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPVoicesNextCallback);
-
-
+	
 	// previous button
 	giIMPVoicesButtonImage[ 1 ]=	LoadButtonImage( "LAPTOP\\voicearrows.sti" ,-1,0,-1,2,-1 );
 /*	giIMPVoicesButton[ 1 ] = QuickCreateButton( giIMPVoicesButtonImage[ 1 ], LAPTOP_SCREEN_UL_X +	( 18 ), LAPTOP_SCREEN_WEB_UL_Y + ( 254 ),
@@ -240,8 +197,7 @@ void CreateIMPVoicesButtons( void )
 														TEXT_CJUSTIFIED,
 														LAPTOP_SCREEN_UL_X +	( 93), LAPTOP_SCREEN_WEB_UL_Y + ( 205 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 														BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPVoicesPreviousCallback);
-
-
+	
 	// done button
 	giIMPVoicesButtonImage[ 2 ]=	LoadButtonImage( "LAPTOP\\button_5.sti" ,-1,0,-1,1,-1 );
 	/* giIMPVoicesButton[ 2 ] = QuickCreateButton( giIMPVoicesButtonImage[ 1 ], LAPTOP_SCREEN_UL_X +	( 349 ), LAPTOP_SCREEN_WEB_UL_Y + ( 220 ),
@@ -254,15 +210,11 @@ void CreateIMPVoicesButtons( void )
 														TEXT_CJUSTIFIED,
 														LAPTOP_SCREEN_UL_X +	( 187 ), LAPTOP_SCREEN_WEB_UL_Y + ( 330 ), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 															BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPVoicesDoneCallback);
-
-
-
+		
 	SetButtonCursor(giIMPVoicesButton[0], CURSOR_WWW);
 	SetButtonCursor(giIMPVoicesButton[1], CURSOR_WWW);
 	SetButtonCursor(giIMPVoicesButton[2], CURSOR_WWW);
 }
-
-
 
 
 void DestroyIMPVoicesButtons( void )
@@ -285,7 +237,6 @@ void DestroyIMPVoicesButtons( void )
 
 void BtnIMPVoicesNextCallback( GUI_BUTTON *btn, INT32 reason )
 {
-
 	// btn callback for IMP attrbite begin button
 	if ( !(btn->uiFlags & BUTTON_ENABLED) )
 		return;
@@ -320,7 +271,6 @@ void BtnIMPVoicesNextCallback( GUI_BUTTON *btn, INT32 reason )
 
 void BtnIMPVoicesPreviousCallback( GUI_BUTTON *btn, INT32 reason )
 {
-
 	// btn callback for IMP attrbite begin button
 	if ( !(btn->uiFlags & BUTTON_ENABLED) )
 		return;
@@ -355,7 +305,6 @@ void BtnIMPVoicesPreviousCallback( GUI_BUTTON *btn, INT32 reason )
 
 void BtnIMPVoicesDoneCallback( GUI_BUTTON *btn, INT32 reason )
 {
-
 	// btn callback for IMP attrbite begin button
 	if ( !(btn->uiFlags & BUTTON_ENABLED) )
 		return;
@@ -372,11 +321,8 @@ void BtnIMPVoicesDoneCallback( GUI_BUTTON *btn, INT32 reason )
 
 			// Changed to continue to color choosing - SANDRO
 			iCurrentImpPage = IMP_COLOR_CHOICE_PAGE;
-			// Following part removed
-
-			// set voice id, to grab character slot
-			// WDS: Allow flexible numbers of IMPs of each sex
-			LaptopSaveInfo.iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
+			
+			iSelectedIMPVoiceSet = gIMPVoice[iCurrentVoice].voiceset;
 
 			// set button up image	pending
 			fButtonPendingFlag = TRUE;
@@ -400,7 +346,7 @@ UINT32 PlayVoice( void )
 {
 	CHAR8 zFileName[164];
 
-	INT32 iSlot = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
+	UINT16 iSlot = gIMPVoice[iCurrentVoice].voiceset;
 	Assert( (iSlot >= 0) && (iSlot <= 999) );
 
 	sprintf( zFileName, "Speech\\%03d_001.ogg", iSlot );
@@ -411,7 +357,6 @@ UINT32 PlayVoice( void )
 
 	return(PlayJA2SampleFromFile( zFileName, RATE_11025, MIDVOLUME, 1, MIDDLEPAN ));
 }
-
 
 void CreateIMPVoiceMouseRegions( void )
 {
@@ -427,7 +372,6 @@ void DestroyIMPVoiceMouseRegions( void )
 	// will destroy already created mouse reiogns for IMP voices page
 	MSYS_RemoveRegion( &gVoicePortraitRegion );
 }
-
 
 void IMPPortraitRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
@@ -446,14 +390,13 @@ void IMPPortraitRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-
 void RenderVoiceIndex( void )
 {
-	CHAR16 sString[32];
+	CHAR16 sString[100];
 	INT16 sX, sY;
 
 	// render the voice index value on the the blank portrait
-	swprintf( sString, L"%s %d", pIMPVoicesStrings[0], GetVoiceCountFromVoiceSlot( iCurrentVoice ) );
+	swprintf( sString, L"%s", gIMPVoice[iCurrentVoice].szVoiceSetName );
 
 	FindFontCenterCoordinates( 290 + LAPTOP_UL_X, 0, 100, 0, sString, FONT12ARIAL, &sX, &sY );
 

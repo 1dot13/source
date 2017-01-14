@@ -51,6 +51,19 @@ typedef struct
 
 extern IMP_VALUES gIMPValues[NUM_PROFILES];
 
+// Flugente: voicesets are no longer tied to a slot
+typedef struct
+{
+	CHAR16	szVoiceSetName[20];
+	UINT16 voiceset;
+	BOOLEAN bSex;
+	BOOLEAN exists;		// set upon reading the xml: this voice exists
+} IMP_VOICESET;
+
+#define NUM_IMP_VOICESETS	100
+
+extern IMP_VOICESET gIMPVoice[NUM_IMP_VOICESETS];
+
 BOOLEAN AddCharacterToPlayersTeam( void );
 BOOLEAN LoadImpCharacter( STR fileName );
 void WriteOutCurrentImpCharacter( INT32 iProfileId );

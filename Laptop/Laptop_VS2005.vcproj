@@ -1073,6 +1073,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_IMPVoices.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_OldAIMArchive.cpp"
 				>
 			</File>

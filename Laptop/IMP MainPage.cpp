@@ -85,8 +85,6 @@ BOOLEAN CheckIfFinishedCharacterGeneration( void );
 
 INT32 iCurrentProfileMode = IMP__REGISTRY;
 
-extern INT32 iCurrentVoice;
-
 // Return a count of how many IMP slots there are in total
 INT32 CountIMPSlots()
 {
@@ -269,11 +267,9 @@ BOOLEAN IsIMPSlotFree(INT32 iIMPId)
 
 void EnterIMPMainPage( void )
 {
-
 	// turn off review mode
 	fReviewStats = FALSE;
-
-
+	
 	// create buttons
 	CreateIMPMainPageButtons( );
 
@@ -288,8 +284,6 @@ void EnterIMPMainPage( void )
 
 	// entry into IMP about us page
 	RenderIMPMainPage( );
-
-	return;
 }
 
 
@@ -300,8 +294,6 @@ void ExitIMPMainPage( void )
 	// delete Buttons
 	DeleteIMPMainPageButtons( );
 	DestoryMouseRegionsForIMPMainPageBasedOnCharGenStatus( );
-
-	return;
 }
 
 
@@ -316,8 +308,6 @@ void RenderIMPMainPage( void )
 	//RenderIMPSymbol( 106, 1 );
 	// indent
 	RenderMainIndentFrame( 164, 74 );
-
-	return;
 }
 
 
@@ -331,7 +321,6 @@ void HandleIMPMainPage( void )
 	}
 	// shade out buttons that should be shaded/unselectable
 	//ShadeUnSelectableButtons( );
-	return;
 }
 
 //
@@ -340,12 +329,10 @@ void HandleIMPMainPage( void )
 void CreateIMPMainPageButtons( void )
 {
 	CHAR16 sString[ 128 ];
-
-
+	
 	// the back button button
 	giIMPMainPageButtonImage[0]=	LoadButtonImage( "LAPTOP\\button_3.sti" ,-1,0,-1,1,-1 );
-
-
+	
 	/* giIMPMainPageButton[0] = QuickCreateButton( giIMPMainPageButtonImage[0], LAPTOP_SCREEN_UL_X + 10 , LAPTOP_SCREEN_WEB_UL_Y + ( 360 ),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnIMPMainPageBackCallback);
@@ -485,11 +472,7 @@ void CreateIMPMainPageButtons( void )
 	{
 		SpecifyButtonIcon(	giIMPMainPageButton[5], guiSMALLSILHOUETTE, 0, 33, 23, FALSE );
 	}
-
-
-
-
-
+		
 	SetButtonCursor(giIMPMainPageButton[ 0 ], CURSOR_WWW);
 	SetButtonCursor(giIMPMainPageButton[ 1 ], CURSOR_WWW);
 	SetButtonCursor(giIMPMainPageButton[ 2 ], CURSOR_WWW);
@@ -507,7 +490,6 @@ void CreateIMPMainPageButtons( void )
 	SpecifyButtonTextWrappedWidth( giIMPMainPageButton[ 3 ], MAIN_PAGE_BUTTON_TEXT_WIDTH);
 	SpecifyButtonTextWrappedWidth( giIMPMainPageButton[ 4 ], MAIN_PAGE_BUTTON_TEXT_WIDTH);
 	SpecifyButtonTextWrappedWidth( giIMPMainPageButton[ 5 ], MAIN_PAGE_BUTTON_TEXT_WIDTH);
-	return;
 }
 
 
@@ -538,9 +520,6 @@ void DeleteIMPMainPageButtons( void )
 	// begin voice button
 	RemoveButton(giIMPMainPageButton[5] );
 	UnloadButtonImage(giIMPMainPageButtonImage[5] );
-
-
-	return;
 }
 
 void BtnIMPMainPageBackCallback(GUI_BUTTON *btn,INT32 reason)
@@ -570,9 +549,7 @@ void BtnIMPMainPageBackCallback(GUI_BUTTON *btn,INT32 reason)
 
 void BtnIMPMainPageBeginCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for Main Page Begin Profiling
-
 
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -666,9 +643,7 @@ void BtnIMPMainPageAttributesCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		return;
 	}
-
-
-
+	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
@@ -697,9 +672,7 @@ void BtnIMPMainPagePortraitCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		return;
 	}
-
-
-
+	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
@@ -715,10 +688,8 @@ void BtnIMPMainPagePortraitCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-
 void BtnIMPMainPageVoiceCallback(GUI_BUTTON *btn,INT32 reason)
 {
-
 	// btn callback for Main Page Begin Profiling
 
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -729,9 +700,7 @@ void BtnIMPMainPageVoiceCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 		return;
 	}
-
-
-
+	
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
@@ -749,7 +718,6 @@ void BtnIMPMainPageVoiceCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-
 void NextProfilingMode( void )
 {
 	// this function will change to mode the player is in for profiling
@@ -757,8 +725,6 @@ void NextProfilingMode( void )
 	// if less than done
 	if(iCurrentProfileMode < IMP__VOICE)
 	iCurrentProfileMode++;
-
-	return;
 }
 
 BOOLEAN CheckIfFinishedCharacterGeneration( void )
@@ -792,7 +758,6 @@ void ShadeUnSelectableButtons( void )
 	}
 
 	fMarkButtonsDirtyFlag = FALSE;
-	return;
 }
 
 
@@ -936,21 +901,11 @@ void CreateMouseRegionsForIMPMainPageBasedOnCharGenStatus( void )
 	// mask for voice page button
 	MSYS_DefineRegion( &pIMPMainPageMouseRegions[ 3 ],LAPTOP_SCREEN_UL_X + 373 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ),	LAPTOP_SCREEN_UL_X + 373	+ 115 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ) + 93 , MSYS_PRIORITY_HIGH+5,
 						CURSOR_WWW, MSYS_NO_CALLBACK, IMPMainPageNotSelectableBtnCallback );
-
-
-
-
-
-
-	return;
 }
-
-
 
 void DestoryMouseRegionsForIMPMainPageBasedOnCharGenStatus( void )
 {
 	// will destroy button masks for the char gen pages
-
 
 	MSYS_RemoveRegion( &pIMPMainPageMouseRegions[ 0 ]);
 
@@ -959,15 +914,10 @@ void DestoryMouseRegionsForIMPMainPageBasedOnCharGenStatus( void )
 	MSYS_RemoveRegion( &pIMPMainPageMouseRegions[ 2 ]);
 
 	MSYS_RemoveRegion( &pIMPMainPageMouseRegions[ 3 ]);
-
-
-
-	return;
 }
 
 void IMPMainPageNotSelectableBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
-
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 
@@ -978,8 +928,6 @@ void IMPMainPageNotSelectableBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 4 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, BeginMessageBoxCallBack);
 	}
-
-	return;
 }
 
 // WDS: Allow flexible numbers of IMPs of each sex
@@ -1006,7 +954,6 @@ INT32 CountFilledIMPSlots( INT8 iSex )
 	// Return the count of filled imp slots
 	return iCount;
 }
-
 
 INT32 CountEmptyIMPSlots( INT8 iSex )
 {
@@ -1161,8 +1108,6 @@ BOOLEAN IMP_CanWeDisplayAttributeGraph( )
 	}
 }
 
-
-
 BOOLEAN IMP_CanWeDisplaySpecialtiesGraph( )
 {
 	if( iCurrentProfileMode == IMP__ATTRIBUTES ||
@@ -1175,7 +1120,6 @@ BOOLEAN IMP_CanWeDisplaySpecialtiesGraph( )
 		return( FALSE );
 	}
 }
-
 
 BOOLEAN IMP_CanWeDisplayVoiceGraph( )
 {

@@ -7,4 +7,6 @@ void ExitIMPVoices( void );
 void HandleIMPVoices( void );
 UINT32 PlayVoice( void );
 
+extern UINT32 iSelectedIMPVoiceSet;
+
 #endif

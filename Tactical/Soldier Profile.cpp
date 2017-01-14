@@ -798,6 +798,12 @@ BOOLEAN LoadMercProfiles(void)
 			FileClose( fptr );
 			return(FALSE);
 		}
+
+		/// Flugente: until the introduction of a separate varriable for the voiceset, the voice was identical with the slot
+		// as we are loading from a .dat file, we always have to account for that
+		{
+			gMercProfiles[uiLoop].usVoiceIndex = uiLoop;
+		}
 		
 		// WANNE: For the new WF merc, there is no entry in prof.dat, so we have to reset some flags manually!		
 		if (uiLoop >= 170)
@@ -864,7 +870,7 @@ BOOLEAN LoadMercProfiles(void)
 		}
 
 		//if the Dialogue exists for the merc, allow the merc to be hired
-		if( DialogueDataFileExistsForProfile( (UINT8)uiLoop, 0, FALSE, NULL ) )
+		if ( DialogueDataFileExistsForProfile( gMercProfiles[uiLoop].usVoiceIndex, 0, FALSE, NULL ) )
 		{
 			gMercProfiles[uiLoop].bMercStatus = 0;
 		}
@@ -2742,6 +2748,7 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].bTown = tempProfiles[uiLoop].bTown;
 		gMercProfiles[ uiLoop ].bTownAttachment = tempProfiles[uiLoop].bTownAttachment;
 		gMercProfiles[ uiLoop ].usBackground = tempProfiles[uiLoop].usBackground;
+		gMercProfiles[ uiLoop ].usVoiceIndex = tempProfiles[uiLoop].usVoiceIndex;
 		
 					//None
 					if ( tempProfiles[uiLoop].Type == 0 )

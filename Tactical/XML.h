@@ -217,6 +217,7 @@ typedef PARSE_STAGE;
 #define FACEGEARFILENAME						"FaceGear.xml"
 #define HIDDENNAMESFILENAME						"HiddenNames.xml"
 #define IMPPORTRAITS							"IMPPortraits.xml"
+#define IMPVOICES								"IMPVoices.xml"
 #define MERCAVAILABILITY						"MercAvailability.xml"
 #define MERCOPINIONSFILENAME					"MercOpinions.xml"
 #define MERCPROFILESFILENAME					"MercProfiles.xml"
@@ -502,6 +503,7 @@ extern BOOLEAN ReadInSenderNameList(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInEnemyRank(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteEnemyRank( STR fileName);
 extern BOOLEAN ReadInIMPPortraits(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN ReadInIMPVoices( STR fileName );
 extern void LoadIMPPortraitsTEMP();
 
 // Flugente: backgrounds

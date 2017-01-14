@@ -420,6 +420,8 @@ typedef struct
 	// Flugente: backgrounds
 	UINT16 usBackground;
 
+	UINT32 usVoiceIndex;
+
 } TEMPPROFILETYPE;
 
 extern TEMPPROFILETYPE tempProfiles[NUM_PROFILES+1];
