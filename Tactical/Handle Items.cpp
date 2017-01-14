@@ -77,6 +77,7 @@
 	#include "LaptopSave.h"			// added by Flugente
 	#include "Game Clock.h"			// added by Flugente
 	#include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
+	#include "DynamicDialogue.h" // added by Flugente for SoldierRelation()
 #endif
 
 #ifdef JA2UB
@@ -311,13 +312,17 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				TacticalCharacterDialogue( pSoldier, QUOTE_REFUSING_ORDER );
 				return( ITEM_HANDLE_REFUSAL );
 			}
+
 			if ( pTargetSoldier->ubProfile != NO_PROFILE )
 			{
+				// Flugente: as relations are now dynamic, check that instead
 				// buddies won't shoot each other
-				if ( WhichBuddy( pSoldier->ubProfile, pTargetSoldier->ubProfile ) != -1 )
+				INT8 bOpinion = SoldierRelation( pSoldier, pTargetSoldier );
+
+				if ( bOpinion > BUDDY_OPINION - 5 || ((gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) && bOpinion > HATED_OPINION + 5) )
 				{
 					TacticalCharacterDialogue( pSoldier, QUOTE_REFUSING_ORDER );
-					return( ITEM_HANDLE_REFUSAL );
+					return(ITEM_HANDLE_REFUSAL);
 				}
 			}
 
