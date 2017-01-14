@@ -1353,6 +1353,21 @@ int CompareItemsForSorting( UINT16 usItem1Index, UINT16 usItem2Index, UINT16 ubI
 		return( 1 );
 	}
 
+	if ( Item[usItem1Index].usItemClass == IC_GUN && Item[usItem2Index].usItemClass == IC_GUN )
+	{
+		UINT8 ubItem1WeaponType = Weapon[Item[usItem1Index].ubClassIndex].ubWeaponType;
+		UINT8 ubItem2WeaponType = Weapon[Item[usItem2Index].ubClassIndex].ubWeaponType;
+		
+		if ( ubItem1WeaponType < ubItem2WeaponType )
+		{
+			return (-1);
+		}
+		else if ( ubItem1WeaponType > ubItem2WeaponType )
+		{
+			return (1);
+		}
+	}
+
 	// the same category
 	//if ( Item[ usItem1Index ].usItemClass == IC_AMMO && Item[ usItem2Index ].usItemClass == IC_AMMO )
 	//{
@@ -1467,7 +1482,7 @@ UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 
 	if ( usItemIndex < gMAXITEMS_READ && IsWeapon( usItemIndex ) )
 	{
-		ubWeaponClass = 0;// Madd: commented out so we can sort guns by name instead ... Weapon[ usItemIndex ].ubWeaponClass;
+		ubWeaponClass = Weapon[usItemIndex].ubWeaponClass;
 	}
 	else
 	{
