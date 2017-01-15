@@ -6712,18 +6712,16 @@ void ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue 
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 }
 
-
-
 // run through what the player has on the table and see if the shop keep will aceept it or not
-BOOLEAN WillShopKeeperRejectObjectsFromPlayer( INT8 bDealerId, INT8 bSlotId )
+BOOLEAN WillShopKeeperRejectItemFromPlayer( INT8 bDealerId, UINT16 usItem )
 {
 	BOOLEAN fRejected = TRUE;
 
-	if( Item[ PlayersOfferArea[ bSlotId ].sItemIndex ].usItemClass == IC_MONEY )
+	if ( Item[usItem].usItemClass == IC_MONEY )
 	{
 		fRejected = FALSE;
 	}
-	else if( CanDealerTransactItem( gbSelectedArmsDealerID, PlayersOfferArea[ bSlotId ].sItemIndex, TRUE ) )
+	else if ( CanDealerTransactItem( gbSelectedArmsDealerID, usItem, TRUE ) )
 	{
 		fRejected = FALSE;
 	}
@@ -6733,9 +6731,29 @@ BOOLEAN WillShopKeeperRejectObjectsFromPlayer( INT8 bDealerId, INT8 bSlotId )
 		fRejected = TRUE;
 	}
 
-	return( fRejected );
+	return fRejected;
 }
 
+BOOLEAN DoesCurrentDealerRefuseToTradeItem( UINT16 usItem )
+{
+	//if non-repairman
+	if ( armsDealerInfo[gbSelectedArmsDealerID].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
+	{
+		// don't evaluate anything he wouldn't buy!
+		if ( WillShopKeeperRejectItemFromPlayer( gbSelectedArmsDealerID, usItem ) )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+// run through what the player has on the table and see if the shop keep will aceept it or not
+BOOLEAN WillShopKeeperRejectObjectsFromPlayer( INT8 bDealerId, INT8 bSlotId )
+{
+	return WillShopKeeperRejectItemFromPlayer( bDealerId, PlayersOfferArea[bSlotId].sItemIndex );
+}
 
 void CheckAndHandleClearingOfPlayerOfferArea( void )
 {

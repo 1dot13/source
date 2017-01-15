@@ -344,6 +344,8 @@ BOOLEAN TransformationMenuPopup_Arm_TestValid(OBJECTTYPE * pObj);
 void BombInventoryMessageBoxCallBack( UINT8 ubExitValue );
 void BombInventoryDisArmMessageBoxCallBack( UINT8 ubExitValue );
 
+extern BOOLEAN DoesCurrentDealerRefuseToTradeItem( UINT16 usItem );
+
 // sevenfm:
 // delayed grenade explosion
 BOOLEAN TransformationMenuPopup_DelayedGrenadeExplosion_TestValid(OBJECTTYPE* pObj);
@@ -2766,6 +2768,14 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	{
 		UINT32 uiWhichBuffer = ( guiCurrentItemDescriptionScreen == MAP_SCREEN ) ? guiSAVEBUFFER : guiRENDERBUFFER;
 		DrawHatchOnInventory( uiWhichBuffer, sX, sY, (UINT16)(gSMInvData[ sPocket ].sWidth-1), (UINT16)(gSMInvData[ sPocket ].sHeight-1) );
+	}
+	// Flugente: if we are currently trading, hatch all items that the trade won't accept anyway in red. That way the player doesn't have to manually find out
+	else if ( (guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) && pObject->exists( ) && DoesCurrentDealerRefuseToTradeItem( pObject->usItem ) )
+	{
+		UINT16 usColor = Get16BPPColor( FROMRGB( 150, 0, 50 ) );
+
+		UINT32 uiWhichBuffer = (guiCurrentItemDescriptionScreen == MAP_SCREEN) ? guiSAVEBUFFER : guiRENDERBUFFER;
+		DrawHatchOnInventory_MilitiaAccess( uiWhichBuffer, sX, sY, (UINT16)(gSMInvData[sPocket].sWidth - 1), (UINT16)(gSMInvData[sPocket].sHeight - 1), usColor );
 	}
 
 	// if there's an item in there
