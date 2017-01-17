@@ -60,9 +60,7 @@ typedef struct
 	BOOLEAN exists;		// set upon reading the xml: this voice exists
 } IMP_VOICESET;
 
-#define NUM_IMP_VOICESETS	100
-
-extern IMP_VOICESET gIMPVoice[NUM_IMP_VOICESETS];
+extern std::vector<IMP_VOICESET> gIMPVoice;
 
 BOOLEAN AddCharacterToPlayersTeam( void );
 BOOLEAN LoadImpCharacter( STR fileName );

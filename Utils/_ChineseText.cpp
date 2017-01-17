@@ -4765,6 +4765,7 @@ STR16 pImpPopUpStrings[] =
 	L"你无法支付此I.M.P.人物的费用。",	// 10
 	L"新的I.M.P.人物加入了你的队伍。",
 	L"你已经设置了最大数量的佣兵特性。",
+	L"No voicesets found.",	// TODO.Translate
 };
 
 

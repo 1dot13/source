@@ -4774,6 +4774,7 @@ STR16 pImpPopUpStrings[] =
 	L"Vous n'avez pas les moyens.",	// 10
 	L"Le nouvel IMP a rejoint votre escouade.",
 	L"Vous avez déjà sélectionné le maximal de traits de caractères.",
+	L"No voicesets found.",	// TODO.Translate
 };
 
 

@@ -4727,6 +4727,7 @@ STR16 pImpPopUpStrings[] =
 	L"Sie können sich den B.S.E.-Charakter nicht leisten.",	// 10
 	L"Der neue B.S.E.-Charakter ist nun in ihrem Team.",
 	L"You have already selected the maximum number of traits.",	// TODO.Translate
+	L"No voicesets found.",	// TODO.Translate
 };
 
 // button labels used on the IMP site

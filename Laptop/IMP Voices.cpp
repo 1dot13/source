@@ -55,7 +55,7 @@ void IMPPortraitRegionButtonCallback(MOUSE_REGION * pRegion, INT32 iReason );
 void EnterIMPVoices( void )
 {
 	// Set the initial voice
-	for ( int i = 0; i < NUM_IMP_VOICESETS; ++i )
+	for ( int i = 0; i < gIMPVoice.size(); ++i )
 	{
 		// MALE is 0, FEMALE is 1, thus the negation
 		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
@@ -124,7 +124,7 @@ void IncrementVoice()
 {
 	++iCurrentVoice;
 	
-	for ( int i = iCurrentVoice; i < NUM_IMP_VOICESETS; ++i )
+	for ( int i = iCurrentVoice; i < gIMPVoice.size( ); ++i )
 	{
 		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
 		{
@@ -134,7 +134,7 @@ void IncrementVoice()
 	}
 
 	// still here? Start from the beginning then
-	for ( int i = 0; i < NUM_IMP_VOICESETS; ++i )
+	for ( int i = 0; i < gIMPVoice.size( ); ++i )
 	{
 		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
 		{
@@ -158,7 +158,7 @@ void DecrementVoice( void )
 	}
 
 	// still here? Start from the beginning then
-	for ( int i = NUM_IMP_VOICESETS - 1; i > 0; --i )
+	for ( int i = gIMPVoice.size( ) - 1; i > 0; --i )
 	{
 		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
 		{

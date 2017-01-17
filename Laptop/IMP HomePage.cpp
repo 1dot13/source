@@ -401,6 +401,13 @@ void ProcessPlayerInputActivationString( void )
 			return;
 		}
 
+		// Flugente: don't proceed if there are no voices
+		if ( gIMPVoice.empty() )
+		{
+			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[13], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+			return;
+		}
+
 		if (CountFilledIMPSlots(-1) < gGameOptions.ubMaxIMPCharacters)
 		{
 			// Kaiden: Need to reset skills, attributes and personalities with the new UB Method.

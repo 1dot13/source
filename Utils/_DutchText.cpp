@@ -4769,6 +4769,7 @@ STR16 pImpPopUpStrings[] =
 	L"You cannot afford the I.M.P character.",	// 10
 	L"The new I.M.P character has joined your team.",
 	L"You have already selected the maximum number of traits.",	// TODO.Translate
+	L"No voicesets found.",	// TODO.Translate
 };
 
 

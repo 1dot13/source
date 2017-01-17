@@ -4775,6 +4775,7 @@ STR16 pImpPopUpStrings[] =
 	L"Nie stać cię na postać I.M.P.",	// 10
 	L"Nowa postać I.M.P. dołączyła do oddziału.",
 	L"You have already selected the maximum number of traits.",	// TODO.Translate
+	L"No voicesets found.",	// TODO.Translate
 };
 
 

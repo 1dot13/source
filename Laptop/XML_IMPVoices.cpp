@@ -23,7 +23,7 @@ struct
 }
 typedef impVoiceParseData;
 
-IMP_VOICESET gIMPVoice[NUM_IMP_VOICESETS];
+std::vector<IMP_VOICESET> gIMPVoice;
 
 static void XMLCALL
 impVoicesStartElementHandle( void *userData, const XML_Char *name, const XML_Char **atts )
@@ -87,10 +87,9 @@ impVoicesEndElementHandle( void *userData, const XML_Char *name )
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			wcscpy( gIMPVoice[pData->curIndex].szVoiceSetName, pData->curIMPVoice.szVoiceSetName );
-			gIMPVoice[pData->curIndex].voiceset = pData->curIMPVoice.voiceset;
-			gIMPVoice[pData->curIndex].bSex = pData->curIMPVoice.bSex;
-			gIMPVoice[pData->curIndex].exists = TRUE;
+			pData->curIMPVoice.exists = TRUE;
+
+			gIMPVoice.push_back( pData->curIMPVoice );
 
 			++pData->curIndex;
 		}
