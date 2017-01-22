@@ -8149,9 +8149,17 @@ void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject )
 		}
 		else if(activeNode == true)
 		{
+			// Flugente: if LBE inv des not exist (corrupted memory?), don't try to access it. This doesn't solve the issue of HOW it got corrupted, but at least we don't crash the game anymore...
+			if ( pLBE->inv.size() <= cnt )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Error in RenderLBENODEItems(...): contents of %s likely corrupted!", Item[pObj->usItem].szItemName );
+				continue;
+			}
+
 			if(pLBE->inv[cnt].exists() == true)
 				pObject = &pLBE->inv[cnt];
 		}
+
 		if(lbePocket == 0){	// Deactivate Pocket
 			DrawHatchOnInventory( guiSAVEBUFFER, sX, sY, (UINT16)(LBEInvPocketXY[cnt].sWidth-1), (UINT16)(LBEInvPocketXY[cnt].sHeight-1), 0 );
 		}
