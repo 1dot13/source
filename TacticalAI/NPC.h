@@ -188,6 +188,8 @@ extern void ShutdownNPCQuotes( void );
 
 extern void SetQuoteRecordAsUsed( UINT8 ubNPC, UINT8 ubRecord );
 
+INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apStr );
+
 // uiApproachData is used for approach things like giving items, etc.
 extern UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach );
 extern void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData );

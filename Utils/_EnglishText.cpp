@@ -5021,10 +5021,10 @@ STR16 gsAtmSideButtonText[] =
 
 STR16 gsAtmStartButtonText[] =
 {
-	L"Transfer $", 		// transfer money to merc -- short form
 	L"Stats", 			// view stats of the merc
-	L"Inventory", 			// view the inventory of the merc
+	L"More Stats",
 	L"Employment",
+	L"Inventory", 			// view the inventory of the merc
 };
 
 STR16 sATMText[ ]=
@@ -5107,6 +5107,7 @@ STR16 pWebPagesTitles[] =
 	L"Mercs Love or Dislike You - Home",
 	L"Mercs Love or Dislike You - Analyze a team",
 	L"Mercs Love or Dislike You - Pairwise comparison",
+	L"Mercs Love or Dislike You - Personality",
 	L"Mercs Love or Dislike You - About us",
 	L"WHO - About WHO",
 	L"WHO - Disease in Arulco",
@@ -9752,8 +9753,9 @@ STR16	szMercCompareWebSite[] =
 	L"About us",
 	L"Analyse a team",
 	L"Pairwise comparison",
-	L"Customer voices",
-
+	L"Personalities",
+	L"Customer voices", 
+	
 	L"If your business provides innovative solutions for critical applications with realtime demands, perhaps some of these observations sound familiar to you:",
 	L"Your team struggles with itself.",
 	L"Your employees waste time working against each other.",
@@ -11202,6 +11204,24 @@ STR16	szInteractiveActionText[] =
 
 	L"%s drank from water tap",
 	L"This machine doesn't seem to be working.",
+};
+
+STR16	szLaptopStatText[] =
+{
+	L"threaten effectiveness %d\n",
+	L"leadership %d\n",
+	L"approach modifier %.2f\n",
+	L"background modifier %.2f\n",
+
+	L"+50 (other) for assertive\n",
+	L"-50 (other) for malicious\n",
+	L"Good Guy",
+	L"%s eschews excessive violence and will refuse to attack non-hostiles.",
+
+	L"Friendly approach",
+	L"Direct approach",
+	L"Friendly approach",
+	L"Friendly approach",
 };
 
 #endif //ENGLISH

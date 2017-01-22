@@ -39,6 +39,7 @@
 #include "Map Screen Interface.h"	// added by Flugente
 #include "Interface.h"				// added by Flugente
 #include "IMP Background.h"			// added by Flugente for AssignBackgroundHelpText()
+#include "NPC.h"					// added by Flugente for GetEffectiveApproachValue(...)
 
 
 // WDS - make number of mercenaries, etc. be configurable
@@ -176,28 +177,18 @@ enum{
 	NUMBER_ATM_BUTTONS,
 };
 
-
 // enums for the buttons in the information side bar ( used with giPersonnelATMStartButton[] )
 enum
 {
 	PERSONNEL_STAT_BTN,
-	PERSONNEL_EMPLOYMENT_BTN,
+	PERSONNEL_PERSONALITY_BTN,
+	PERSONNEL_EMPLOYMENT_BTN,	
 	PERSONNEL_INV_BTN,
 
 	PERSONNEL_NUM_BTN,
 };
 
-
-//enums for the current state of the information side bar ( stat panel )
-enum
-{
-	PRSNL_STATS,
-	PRSNL_EMPLOYMENT,
-	PRSNL_INV,
-};
-UINT8	gubPersonnelInfoState = PRSNL_STATS;
-
-
+UINT8	gubPersonnelInfoState = PERSONNEL_STAT_BTN;
 
 extern BOOLEAN gfTemporaryDisablingOfLoadPendingFlag;
 extern BOOLEAN fExitingLaptopFlag;
@@ -271,8 +262,8 @@ INT32 giDepartedButtonImage[ 2 ];
 INT32 giDepartedButton[ 2 ];
 
 // buttons for ATM
-INT32 giPersonnelATMStartButton[ 3 ];
-INT32 giPersonnelATMStartButtonImage[ 3 ];
+INT32 giPersonnelATMStartButton[PERSONNEL_NUM_BTN];
+INT32 giPersonnelATMStartButtonImage[PERSONNEL_NUM_BTN];
 INT32 giPersonnelATMButton;
 INT32 giPersonnelATMButtonImage;
 
@@ -342,6 +333,7 @@ void DeletePersonnelButtons( void );
 void DisplayHeader( void );
 void DisplayCharName( INT32 iId, INT32 iSlot );
 void DisplayCharStats(INT32 iId, INT32 iSlot);
+void DisplayCharPersonality( INT32 iId, INT32 iSlot );
 void SetPersonnelButtonStates( void );
 void CreateDestroyButtonsForPersonnelDepartures( void );
 void LoadPersonnelScreenBackgroundGraphics( void );
@@ -389,9 +381,7 @@ void DisplayInventoryForSelectedChar( void );
 INT32 GetNumberOfInventoryItemsOnCurrentMerc( void );
 void CreateDestroyPersonnelInventoryScrollButtons( void );
 void EnableDisableInventoryScrollButtons( void );
-void PersonnelINVStartButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void PersonnelEmploymentStartButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void PersonnelStatStartButtonCallback(GUI_BUTTON *btn,INT32 reason);
+void PersonnelDataButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void HandleSliderBarClickCallback( MOUSE_REGION *pRegion, INT32 iReason );
 
 void RenderSliderBarForPersonnelInventory( void );
@@ -651,7 +641,7 @@ void ExitPersonnel( void )
 	CreateDestroyStartATMButton( );
 	CreateDestroyATMButton( );
 
-	gubPersonnelInfoState = PRSNL_STATS;
+	gubPersonnelInfoState = PERSONNEL_STAT_BTN;
 
 	CreateDestroyPersonnelInventoryScrollButtons( );
 
@@ -816,11 +806,12 @@ void RenderPersonnelStats( INT32 iId, INT32 iSlot )
 	SetFontForeground(PERS_TEXT_FONT_COLOR);
 	SetFontBackground(FONT_BLACK);
 
-	if( gubPersonnelInfoState == PERSONNEL_STAT_BTN ) {
+	if( gubPersonnelInfoState == PERSONNEL_STAT_BTN )
 		DisplayCharStats(iId, iSlot);
-	} else if( gubPersonnelInfoState == PERSONNEL_EMPLOYMENT_BTN ) {
+	else if( gubPersonnelInfoState == PERSONNEL_EMPLOYMENT_BTN )
 		DisplayEmploymentinformation( iId, iSlot );
-	}
+	else if ( gubPersonnelInfoState == PERSONNEL_PERSONALITY_BTN )
+		DisplayCharPersonality( iId, iSlot );
 }
 
 // ID -> fortlaufende ID, und nicht die mercID
@@ -1385,39 +1376,39 @@ Moved so the name of the town will be in the same line as the name
 }
 
 
-void DisplayCharStats(INT32 iId, INT32 iSlot)
+void DisplayCharStats( INT32 iId, INT32 iSlot )
 {
-	INT32 iCounter=0;
+	INT32 iCounter = 0;
 	CHAR16 sString[50];
-//	CHAR16 sStringA[ 50 ];
+	//	CHAR16 sStringA[ 50 ];
 	INT16 sX, sY;
 	UINT32 uiHits = 0;
 	SOLDIERTYPE *pSoldier = &Menptr[iId];
 	BOOLEAN	fAmIaRobot = AM_A_ROBOT( pSoldier );
 
 	// SANDRO - remove the regions
-	for( INT8 i = 0; i < 13; i++ )
+	for ( INT8 i = 0; i < 13; i++ )
 	{
-		if( fAddedTraitRegion[i] )
+		if ( fAddedTraitRegion[i] )
 		{
 			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[i] );
 			fAddedTraitRegion[i] = FALSE;
 		}
 	}
 
-	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return;
 	}
 
 	// display the stats for a char
-	for(iCounter=0;iCounter <MAX_STATS; iCounter++)
+	for ( iCounter = 0; iCounter <MAX_STATS; iCounter++ )
 	{
-		switch(iCounter)
+		switch ( iCounter )
 		{
 		case 0:
 			// health
-			if( Menptr[iId].bAssignment != ASSIGNMENT_POW )
+			if ( Menptr[iId].bAssignment != ASSIGNMENT_POW )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bLifeDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_HEALTH]);
@@ -1433,16 +1424,16 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, pPOWStrings[ 1 ] );
+				swprintf( sString, pPOWStrings[1] );
 			}
 
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[PRSNL_TXT_HEALTH]);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[PRSNL_TXT_HEALTH] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 			break;
 		case 1:
 			// agility
-			if( !fAmIaRobot )
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bAgilityDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_AGILITY]);
@@ -1458,15 +1449,15 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 			break;
 		case 2:
-		// dexterity
+			// dexterity
 			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
@@ -1475,24 +1466,24 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 				if ( change )
 				{
 					swprintf( sString, change > 0 ? L"( +%d )" : L"( %d )", change );
-					FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20+TEXT_DELTA_OFFSET ),0,30,0,sString, PERS_FONT,	&sX, &sY);
-					mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 				}
-				
-				swprintf(sString, L"%d",Menptr[iId].stats.bDexterity);
+
+				swprintf( sString, L"%d", Menptr[iId].stats.bDexterity );
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 			break;
 		case 3:
-		// strength
-			if( !fAmIaRobot )
+			// strength
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bStrengthDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH]);
@@ -1508,16 +1499,16 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+			break;
 		case 4:
-		// leadership
-			if( !fAmIaRobot )
+			// leadership
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bLeadershipDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_LEADERSHIP]);
@@ -1533,16 +1524,16 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+			break;
 		case 5:
-		// wisdom
-			if( !fAmIaRobot )
+			// wisdom
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bWisdomDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_WISDOM]);
@@ -1558,42 +1549,42 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+			break;
 		case 6:
-		// exper
-			if( !fAmIaRobot )
+			// exper
+			if ( !fAmIaRobot )
 			{
 
-				if( gMercProfiles[Menptr[iId].ubProfile].bExpLevelDelta > 0 )
+				if ( gMercProfiles[Menptr[iId].ubProfile].bExpLevelDelta > 0 )
 				{
-						swprintf(sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bExpLevelDelta);
-						FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
-						mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+					swprintf( sString, L"( %+d )", gMercProfiles[Menptr[iId].ubProfile].bExpLevelDelta );
+					FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+					mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 				}
 				//else
 				//{
-						swprintf(sString, L"%d",Menptr[iId].stats.bExpLevel );
+				swprintf( sString, L"%d", Menptr[iId].stats.bExpLevel );
 				//}
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
 
-		mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-		FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-		mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
-		break;
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
+			break;
 		case 7:
 			//mrkmanship
-			if( !fAmIaRobot )
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bMarksmanshipDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MARKSMANSHIP]);
@@ -1609,16 +1600,16 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
-			
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 			break;
 		case 8:
-		// mech
-			if( !fAmIaRobot )
+			// mech
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bMechanicDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MECHANICAL]);
@@ -1634,16 +1625,16 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 			break;
 		case 9:
-		// exp
-			if( !fAmIaRobot )
+			// exp
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bExplosivesDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_EXPLOSIVES]);
@@ -1659,16 +1650,16 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
 
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 			break;
 		case 10:
-		// med
-			if( !fAmIaRobot )
+			// med
+			if ( !fAmIaRobot )
 			{
 				// Flugente: stats can have gone up or down, find out which 
 				INT16 change = gMercProfiles[Menptr[iId].ubProfile].bMedicalDelta - (INT16)(pSoldier->ubCriticalStatDamage[DAMAGED_STAT_MEDICAL]);
@@ -1684,17 +1675,17 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			}
 			else
 			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
+				swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
 			}
-			
-			mprintf((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),pPersonnelScreenPoints[iCounter].y,pPersonnelScreenStrings[iCounter]);
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,pPersonnelScreenPoints[iCounter].y,sString);
+
+			mprintf( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), pPersonnelScreenPoints[iCounter].y, pPersonnelScreenStrings[iCounter] );
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, pPersonnelScreenPoints[iCounter].y, sString );
 			break;
 
-		// Added by Flugente
+			// Added by Flugente
 		case 16:
-		// Background
+			// Background
 
 			// display background
 			if ( gGameOptions.fBackGround )
@@ -1702,24 +1693,24 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 				UINT8 loc = 21;
 				UINT8 regionnr = 12;
 
-				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), pPersonnelRecordsHelpTexts[47]); //L"Background:"
-							
-				if ( !gMercProfiles[pSoldier->ubProfile].usBackground )
-					swprintf(sString, pwMiscSectorStrings[3]); //L"unknown"
-				else
-					swprintf(sString, zBackground[ gMercProfiles[pSoldier->ubProfile].usBackground ].szShortName);
+				mprintf( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + 15), pPersonnelRecordsHelpTexts[47] ); //L"Background:"
 
-				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-				mprintf(sX,(pPersonnelScreenPoints[loc].y + 15),sString);
+				if ( !gMercProfiles[pSoldier->ubProfile].usBackground )
+					swprintf( sString, pwMiscSectorStrings[3] ); //L"unknown"
+				else
+					swprintf( sString, zBackground[gMercProfiles[pSoldier->ubProfile].usBackground].szShortName );
+
+				FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+				mprintf( sX, (pPersonnelScreenPoints[loc].y + 15), sString );
 
 				// Add specific region for fast help window
-				if( fAddedTraitRegion[regionnr] )
+				if ( fAddedTraitRegion[regionnr] )
 				{
 					MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[regionnr] );
 				}
-				MSYS_DefineRegion( &gSkillTraitHelpTextRegion[regionnr], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 15),
-								( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 23 ), MSYS_PRIORITY_HIGH,
-									MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+				MSYS_DefineRegion( &gSkillTraitHelpTextRegion[regionnr], (sX - 3), (UINT16)(pPersonnelScreenPoints[loc].y + 15),
+								   (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[loc].y + 23), MSYS_PRIORITY_HIGH,
+								   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 
 				MSYS_AddRegion( &gSkillTraitHelpTextRegion[regionnr] );
 				fAddedTraitRegion[regionnr] = TRUE;
@@ -1727,71 +1718,71 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 				// Info about our background
 				AssignBackgroundHelpText( gMercProfiles[pSoldier->ubProfile].usBackground, &(gSkillTraitHelpTextRegion[12]) );
 			}
-			
-		break;
 
-		// Added by Flugente
+			break;
+
+			// Added by Flugente
 		case 17:
 			// sexism, racism, nationalities etc.
-			{
-				UINT8 loc = 22;
-				UINT8 regionnr = 8;
+		{
+				   UINT8 loc = 22;
+				   UINT8 regionnr = 8;
 
-				mprintf((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[loc].y + 15), pPersonnelRecordsHelpTexts[48]); //L"Personality:"
+				   mprintf( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + 15), pPersonnelRecordsHelpTexts[48] ); //L"Personality:"
 
-				swprintf(sString, L"->");
-				
-				FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[loc].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-				mprintf(sX,(pPersonnelScreenPoints[loc].y + 15),sString);
+				   swprintf( sString, L"->" );
 
-				// Add specific region for fast help window
-				if( fAddedTraitRegion[regionnr] )
-				{
-					MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[regionnr] );
-				}
-				MSYS_DefineRegion( &gSkillTraitHelpTextRegion[regionnr], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 15),
-								( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 23 ), MSYS_PRIORITY_HIGH,
-									MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+				   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+				   mprintf( sX, (pPersonnelScreenPoints[loc].y + 15), sString );
 
-				MSYS_AddRegion( &gSkillTraitHelpTextRegion[regionnr] );
-				fAddedTraitRegion[regionnr] = TRUE;
+				   // Add specific region for fast help window
+				   if ( fAddedTraitRegion[regionnr] )
+				   {
+					   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				   }
+				   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[regionnr], (sX - 3), (UINT16)(pPersonnelScreenPoints[loc].y + 15),
+									  (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[loc].y + 23), MSYS_PRIORITY_HIGH,
+									  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 
-				// assign bubblehelp text
-				AssignPersonalityHelpText( pSoldier, &(gSkillTraitHelpTextRegion[regionnr]) );
-			}
-			
-		break;
+				   MSYS_AddRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				   fAddedTraitRegion[regionnr] = TRUE;
 
-		/////////////////////////////////////////////////////////////////////////
-		// Added by SANDRO
+				   // assign bubblehelp text
+				   AssignPersonalityHelpText( pSoldier, &(gSkillTraitHelpTextRegion[regionnr]) );
+		}
+
+			break;
+
+			/////////////////////////////////////////////////////////////////////////
+			// Added by SANDRO
 		case 15:
-		// Character Trait
+			// Character Trait
 
 			// WANNE: With old trait system, display "Attitudes" instead of "Character"
-			if (gGameOptions.fNewTraitSystem)			
-				mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y + 15),pPersonnelRecordsHelpTexts[43]); //L"Character:"
+			if ( gGameOptions.fNewTraitSystem )
+				mprintf( (INT16)(pPersonnelScreenPoints[23].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[23].y + 15), pPersonnelRecordsHelpTexts[43] ); //L"Character:"
 			else
-				mprintf((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[23].y + 15),pPersonnelRecordsHelpTexts[45]); //L"Attitudes:"
+				mprintf( (INT16)(pPersonnelScreenPoints[23].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[23].y + 15), pPersonnelRecordsHelpTexts[45] ); //L"Attitudes:"
 
-			if ( gGameOptions.fNewTraitSystem)
-				swprintf(sString, gzIMPCharacterTraitText[gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait]);
+			if ( gGameOptions.fNewTraitSystem )
+				swprintf( sString, gzIMPCharacterTraitText[gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait] );
 			else
-				swprintf(sString, gzIMPAttitudesText[gMercProfiles[Menptr[iId].ubProfile].bAttitude]);
+				swprintf( sString, gzIMPAttitudesText[gMercProfiles[Menptr[iId].ubProfile].bAttitude] );
 
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[23].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,(pPersonnelScreenPoints[23].y + 15),sString);
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[23].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, (pPersonnelScreenPoints[23].y + 15), sString );
 
 			//GetVideoObject(&hHandle, guiQMark);
 			//BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[23].x + 148), ( pPersonnelScreenPoints[23].y + 5), VO_BLT_SRCTRANSPARENCY,NULL );
-	
+
 			// Add specific region for fast help window
-			if( fAddedTraitRegion[5] )
+			if ( fAddedTraitRegion[5] )
 			{
 				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[5] );
 			}
-			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[5], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 15),	// 10
-							( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[23].y + 23 ), MSYS_PRIORITY_HIGH,	// 17
-								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[5], (sX - 3), (UINT16)(pPersonnelScreenPoints[23].y + 15),	// 10
+							   (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[23].y + 23), MSYS_PRIORITY_HIGH,	// 17
+							   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 			//MSYS_DefineRegion( &gSkillTraitHelpTextRegion[3], (UINT16)( pPersonnelScreenPoints[23].x + 147 ), (UINT16)(pPersonnelScreenPoints[23].y + 4),
 			//				(UINT16)( pPersonnelScreenPoints[23].x + 166 ), (UINT16)(pPersonnelScreenPoints[23].y + 15), MSYS_PRIORITY_HIGH,
 			//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
@@ -1800,30 +1791,30 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			// Assign the text
 
 			// Only new traits have help text
-			if (gGameOptions.fNewTraitSystem)
+			if ( gGameOptions.fNewTraitSystem )
 				AssignPersonnelCharacterTraitHelpText( gMercProfiles[Menptr[iId].ubProfile].bCharacterTrait );
 
-		break;
+			break;
 
 		case 18:
 			// Disability
-			mprintf((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[25].y + 10),pPersonnelRecordsHelpTexts[44]); //L"Disability:"
-			swprintf(sString, gzIMPDisabilityTraitText[gMercProfiles[Menptr[iId].ubProfile].bDisability]);
+			mprintf( (INT16)(pPersonnelScreenPoints[25].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[25].y + 10), pPersonnelRecordsHelpTexts[44] ); //L"Disability:"
+			swprintf( sString, gzIMPDisabilityTraitText[gMercProfiles[Menptr[iId].ubProfile].bDisability] );
 
-			FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[25].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-			mprintf(sX,(pPersonnelScreenPoints[25].y + 10),sString);
+			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[25].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+			mprintf( sX, (pPersonnelScreenPoints[25].y + 10), sString );
 
 			//GetVideoObject(&hHandle, guiQMark);
 			//BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[25].x + 148), ( pPersonnelScreenPoints[25].y ), VO_BLT_SRCTRANSPARENCY,NULL );
-	
+
 			// Add specific region for fast help window
-			if( fAddedTraitRegion[6] )
+			if ( fAddedTraitRegion[6] )
 			{
 				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[6] );
 			}
-			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[6], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[25].y + 10 ),
-							( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[25].y + 17 ), MSYS_PRIORITY_HIGH,
-								MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[6], (sX - 3), (UINT16)(pPersonnelScreenPoints[25].y + 10),
+							   (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[25].y + 17), MSYS_PRIORITY_HIGH,
+							   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 			//MSYS_DefineRegion( &gSkillTraitHelpTextRegion[6], (UINT16)( pPersonnelScreenPoints[25].x + 147 ), (UINT16)( pPersonnelScreenPoints[25].y - 1),
 			//				(UINT16)( pPersonnelScreenPoints[25].x + 166 ), (UINT16)(pPersonnelScreenPoints[25].y + 10), MSYS_PRIORITY_HIGH,
 			//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
@@ -1831,334 +1822,424 @@ void DisplayCharStats(INT32 iId, INT32 iSlot)
 			fAddedTraitRegion[6] = TRUE;
 			// Assign the text
 			AssignPersonnelDisabilityHelpText( gMercProfiles[Menptr[iId].ubProfile].bDisability );
-		break;
-		/////////////////////////////////////////////////////////////////////////
+			break;
+			/////////////////////////////////////////////////////////////////////////
 
 			// The Mercs Skills
-			case 19:
-			{
-				INT32 iWidth;
-				INT32 iMinimumX;
-				INT8	bScreenLocIndex = 19;	//if you change the '19', change it below in the if statement
+		case 19:
+		{
+				   INT32 iWidth;
+				   INT32 iMinimumX;
+				   INT8	bScreenLocIndex = 19;	//if you change the '19', change it below in the if statement
 
-				//Display the 'Skills' text
-				mprintf( (INT16)( pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),(pPersonnelScreenPoints[bScreenLocIndex].y),pPersonnelScreenStrings[ PRSNL_TXT_SKILLS ] );
+				   //Display the 'Skills' text
+				   mprintf( (INT16)(pPersonnelScreenPoints[bScreenLocIndex].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[bScreenLocIndex].y), pPersonnelScreenStrings[PRSNL_TXT_SKILLS] );
 
-				//KM: April 16, 1999
-				//Added support for the German version, which has potential string overrun problems.	For example, the text "Skills:" can
-				//overlap "NightOps (Expert)" because the German strings are much longer.	In these cases, I ensure that the right
-				//justification of the traits don't overlap.	If it would, I move it over to the right.
-				iWidth = StringPixLength( pPersonnelScreenStrings[ PRSNL_TXT_SKILLS ], PERS_FONT );
-				iMinimumX = iWidth + pPersonnelScreenPoints[bScreenLocIndex].x + iSlot * TEXT_BOX_WIDTH + 2;
+				   //KM: April 16, 1999
+				   //Added support for the German version, which has potential string overrun problems.	For example, the text "Skills:" can
+				   //overlap "NightOps (Expert)" because the German strings are much longer.	In these cases, I ensure that the right
+				   //justification of the traits don't overlap.	If it would, I move it over to the right.
+				   iWidth = StringPixLength( pPersonnelScreenStrings[PRSNL_TXT_SKILLS], PERS_FONT );
+				   iMinimumX = iWidth + pPersonnelScreenPoints[bScreenLocIndex].x + iSlot * TEXT_BOX_WIDTH + 2;
 
-				if( !fAmIaRobot )
-				{
-					if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
-					{
-						UINT8 ubTempSkillArray[30];
-						INT8 bNumSkillTraits = 0;
+				   if ( !fAmIaRobot )
+				   {
+					   if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits check
+					   {
+						   UINT8 ubTempSkillArray[30];
+						   INT8 bNumSkillTraits = 0;
 
-						// lets rearrange our skills to a temp array
-						// we also get the number of lines (skills) to be displayed 
-						for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
-						{
-							if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 2 )
-							{
-								ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
-								bNumSkillTraits++;
-							}
-							else if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 1 )
-							{
-								ubTempSkillArray[bNumSkillTraits] = ubCnt;
-								bNumSkillTraits++;
-							}
-						}
+						   // lets rearrange our skills to a temp array
+						   // we also get the number of lines (skills) to be displayed 
+						   for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+						   {
+							   if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 2 )
+							   {
+								   ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+								   bNumSkillTraits++;
+							   }
+							   else if ( ProfileHasSkillTrait( Menptr[iId].ubProfile, ubCnt ) == 1 )
+							   {
+								   ubTempSkillArray[bNumSkillTraits] = ubCnt;
+								   bNumSkillTraits++;
+							   }
+						   }
 
-						if ( bNumSkillTraits == 0 )
-						{
-							swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+						   if ( bNumSkillTraits == 0 )
+						   {
+							   swprintf( sString, L"%s", pPersonnelScreenStrings[PRSNL_TXT_NOSKILLS] );
 
-							FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-							mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+							   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[bScreenLocIndex].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+							   mprintf( sX, pPersonnelScreenPoints[bScreenLocIndex].y, sString );
 
-							// Add specific region for fast help window
-							if( fAddedTraitRegion[0] )
-							{
-								MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
-							}
-							MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
-											( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
-												MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-							MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
-							fAddedTraitRegion[0] = TRUE;
+							   // Add specific region for fast help window
+							   if ( fAddedTraitRegion[0] )
+							   {
+								   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+							   }
+							   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], (sX - 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y),
+												  (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y + 7), MSYS_PRIORITY_HIGH,
+												  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+							   MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+							   fAddedTraitRegion[0] = TRUE;
 
-							// Assign the text
-							CHAR16	apStr[5000];
-							swprintf( apStr, L"" );
-							AssignPersonnelSkillTraitHelpText( 0, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
+							   // Assign the text
+							   CHAR16	apStr[5000];
+							   swprintf( apStr, L"" );
+							   AssignPersonnelSkillTraitHelpText( 0, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
 
-							// Set region help text
-							SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
-							SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
-						}
-						else
-						{
-							CHAR16 sString2[500];
-							swprintf( sString2, L"" );
-							BOOLEAN fDisplayMoreTraits = FALSE;
+							   // Set region help text
+							   SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+							   SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
+						   }
+						   else
+						   {
+							   CHAR16 sString2[500];
+							   swprintf( sString2, L"" );
+							   BOOLEAN fDisplayMoreTraits = FALSE;
 
-							for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
-							{
-								if ( ubCnt >= 3 && bNumSkillTraits > 4 )
-								{
-									fDisplayMoreTraits = TRUE;
-									swprintf( sString, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
-									wcscat( sString2, sString );
-								}
-								else
-								{
-									swprintf( sString, L"%s", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
-								
-									if ( ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET )
-									{
-										FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, FONT10ARIALBOLD,	&sX, &sY);
+							   for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+							   {
+								   if ( ubCnt >= 3 && bNumSkillTraits > 4 )
+								   {
+									   fDisplayMoreTraits = TRUE;
+									   swprintf( sString, L"%s\n", gzMercSkillTextNew[ubTempSkillArray[ubCnt]] );
+									   wcscat( sString2, sString );
+								   }
+								   else
+								   {
+									   swprintf( sString, L"%s", gzMercSkillTextNew[ubTempSkillArray[ubCnt]] );
 
-										if( sX <= iMinimumX )
-										{
-											FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, FONT10ARIALBOLD,	&sX, &sY);
-											sX = (INT16)max( sX, iMinimumX );
-										}
-										sY = (INT16)(pPersonnelScreenPoints[19].y + (ubCnt * 12));
+									   if ( ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET )
+									   {
+										   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[19].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, FONT10ARIALBOLD, &sX, &sY );
 
-										SetFont( FONT10ARIALBOLD );
-										mprintf(sX,sY,sString);
-										SetFont( PERS_FONT );
-									}
-									else
-									{
-										FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-										if( sX <= iMinimumX )
-										{
-											FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
-											sX = (INT16)max( sX, iMinimumX );
-										}
-										sY = (INT16)(pPersonnelScreenPoints[19].y + (ubCnt * 12));
+										   if ( sX <= iMinimumX )
+										   {
+											   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[19].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, FONT10ARIALBOLD, &sX, &sY );
+											   sX = (INT16)max( sX, iMinimumX );
+										   }
+										   sY = (INT16)(pPersonnelScreenPoints[19].y + (ubCnt * 12));
 
-										mprintf(sX,sY,sString);
+										   SetFont( FONT10ARIALBOLD );
+										   mprintf( sX, sY, sString );
+										   SetFont( PERS_FONT );
+									   }
+									   else
+									   {
+										   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[19].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+										   if ( sX <= iMinimumX )
+										   {
+											   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[19].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+											   sX = (INT16)max( sX, iMinimumX );
+										   }
+										   sY = (INT16)(pPersonnelScreenPoints[19].y + (ubCnt * 12));
 
-									}
+										   mprintf( sX, sY, sString );
 
-									// Add specific region for fast help window
-									if( fAddedTraitRegion[ubCnt] )
-									{
-										MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[ubCnt] );
-									}
-									MSYS_DefineRegion( &gSkillTraitHelpTextRegion[ubCnt], ( sX ), ( sY ),
-													( sX + StringPixLength(sString,PERS_FONT) ), ( sY + 7 ), MSYS_PRIORITY_HIGH,
-														MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-									MSYS_AddRegion( &gSkillTraitHelpTextRegion[ubCnt] );
-									fAddedTraitRegion[ubCnt] = TRUE;
+									   }
 
-									// Assign the text
-									BOOLEAN fExpert = (ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET);
+									   // Add specific region for fast help window
+									   if ( fAddedTraitRegion[ubCnt] )
+									   {
+										   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[ubCnt] );
+									   }
+									   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[ubCnt], (sX), (sY),
+														  (sX + StringPixLength( sString, PERS_FONT )), (sY + 7), MSYS_PRIORITY_HIGH,
+														  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+									   MSYS_AddRegion( &gSkillTraitHelpTextRegion[ubCnt] );
+									   fAddedTraitRegion[ubCnt] = TRUE;
 
-									UINT8 traitnr = ubTempSkillArray[ubCnt];
-									if ( fExpert )
-										traitnr -= NEWTRAIT_MERCSKILL_EXPERTOFFSET;
+									   // Assign the text
+									   BOOLEAN fExpert = (ubTempSkillArray[ubCnt] > NEWTRAIT_MERCSKILL_EXPERTOFFSET);
 
-									CHAR16	apStr[5000];
-									swprintf( apStr, L"" );
-									AssignPersonnelSkillTraitHelpText( traitnr, fExpert, (gMercProfiles[Menptr[iId].ubProfile].ubBodyType == REGMALE), apStr );
+									   UINT8 traitnr = ubTempSkillArray[ubCnt];
+									   if ( fExpert )
+										   traitnr -= NEWTRAIT_MERCSKILL_EXPERTOFFSET;
 
-									// Set region help text
-									SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[ubCnt]), apStr );
-									SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[ubCnt], MSYS_NO_CALLBACK );
-								}
-							}
+									   CHAR16	apStr[5000];
+									   swprintf( apStr, L"" );
+									   AssignPersonnelSkillTraitHelpText( traitnr, fExpert, (gMercProfiles[Menptr[iId].ubProfile].ubBodyType == REGMALE), apStr );
 
-							// if we have more skills than we can display, show "more" and create a tooltip box with the rest of them
-							if ( fDisplayMoreTraits )
-							{
-								swprintf( sString, L"%s", gzMercSkillTextNew[2 * NEWTRAIT_MERCSKILL_EXPERTOFFSET + 1] ); // display "More..."
-								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-								if( sX <= iMinimumX )
-								{
-									FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[19].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
-									sX = (INT16)max( sX, iMinimumX );
-								}
-								sY = (INT16)(pPersonnelScreenPoints[19].y + 36);
+									   // Set region help text
+									   SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[ubCnt]), apStr );
+									   SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[ubCnt], MSYS_NO_CALLBACK );
+								   }
+							   }
 
-								mprintf(sX,sY,sString);
+							   // if we have more skills than we can display, show "more" and create a tooltip box with the rest of them
+							   if ( fDisplayMoreTraits )
+							   {
+								   swprintf( sString, L"%s", gzMercSkillTextNew[2 * NEWTRAIT_MERCSKILL_EXPERTOFFSET + 1] ); // display "More..."
+								   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[19].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+								   if ( sX <= iMinimumX )
+								   {
+									   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[19].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+									   sX = (INT16)max( sX, iMinimumX );
+								   }
+								   sY = (INT16)(pPersonnelScreenPoints[19].y + 36);
 
-								// Add specific region for fast help window
-								if( fAddedTraitRegion[4] )
-								{
-									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[4] );
-								}
-								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[4], ( sX ), ( sY ),
-												( sX + StringPixLength(sString,PERS_FONT) ), ( sY + 7 ), MSYS_PRIORITY_HIGH,
-													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-								MSYS_AddRegion( &gSkillTraitHelpTextRegion[4] );
-								fAddedTraitRegion[4] = TRUE;
-								// Set region help text
-								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[4]), sString2 );
-								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[4], MSYS_NO_CALLBACK );
-							}
-						}
-					}
-					else
-					{
-						INT8 bSkill1 = 0, bSkill2 = 0; 	
-						bSkill1 = gMercProfiles[ Menptr[iId].ubProfile ].bSkillTraits[0];
-						bSkill2 = gMercProfiles[ Menptr[iId].ubProfile ].bSkillTraits[1];
+								   mprintf( sX, sY, sString );
 
-						//if the 2 skills are the same, add the '(expert)' at the end
-						if( bSkill1 == bSkill2 && bSkill1 != 0 )
-						{
-							swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
+								   // Add specific region for fast help window
+								   if ( fAddedTraitRegion[4] )
+								   {
+									   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[4] );
+								   }
+								   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[4], (sX), (sY),
+													  (sX + StringPixLength( sString, PERS_FONT )), (sY + 7), MSYS_PRIORITY_HIGH,
+													  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								   MSYS_AddRegion( &gSkillTraitHelpTextRegion[4] );
+								   fAddedTraitRegion[4] = TRUE;
+								   // Set region help text
+								   SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[4]), sString2 );
+								   SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[4], MSYS_NO_CALLBACK );
+							   }
+						   }
+					   }
+					   else
+					   {
+						   INT8 bSkill1 = 0, bSkill2 = 0;
+						   bSkill1 = gMercProfiles[Menptr[iId].ubProfile].bSkillTraits[0];
+						   bSkill2 = gMercProfiles[Menptr[iId].ubProfile].bSkillTraits[1];
 
-							FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+						   //if the 2 skills are the same, add the '(expert)' at the end
+						   if ( bSkill1 == bSkill2 && bSkill1 != 0 )
+						   {
+							   swprintf( sString, L"%s %s", gzMercSkillText[bSkill1], gzMercSkillText[EXPERT] );
 
-							//KM: April 16, 1999
-							//Perform the potential overrun check
-							if( sX <= iMinimumX )
-							{
-								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[iCounter].x+(iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH-20 +TEXT_DELTA_OFFSET),0,30,0,sString, PERS_FONT,	&sX, &sY);
-								sX = (INT16)max( sX, iMinimumX );
-							}
+							   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[bScreenLocIndex].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
 
-							mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
-							
-							// Add specific region for fast help window
-							if( fAddedTraitRegion[0] )
-							{
-								MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
-							}
-							MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
-											( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
-												MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-							MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
-							fAddedTraitRegion[0] = TRUE;
+							   //KM: April 16, 1999
+							   //Perform the potential overrun check
+							   if ( sX <= iMinimumX )
+							   {
+								   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[iCounter].x + (iSlot*TEXT_BOX_WIDTH) + TEXT_BOX_WIDTH - 20 + TEXT_DELTA_OFFSET), 0, 30, 0, sString, PERS_FONT, &sX, &sY );
+								   sX = (INT16)max( sX, iMinimumX );
+							   }
 
-							// Assign the text
-							CHAR16	apStr[5000];
-							swprintf( apStr, L"" );
-							AssignPersonnelSkillTraitHelpText( bSkill1, TRUE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
+							   mprintf( sX, pPersonnelScreenPoints[bScreenLocIndex].y, sString );
 
-							// Set region help text
-							SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
-							SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
-						}
-						else
-						{
-							//Display the first skill
-							if( bSkill1 != 0 )
-							{
-								swprintf( sString, L"%s", gzMercSkillText[bSkill1] );
+							   // Add specific region for fast help window
+							   if ( fAddedTraitRegion[0] )
+							   {
+								   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+							   }
+							   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], (sX - 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y),
+												  (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y + 7), MSYS_PRIORITY_HIGH,
+												  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+							   MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+							   fAddedTraitRegion[0] = TRUE;
 
-								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+							   // Assign the text
+							   CHAR16	apStr[5000];
+							   swprintf( apStr, L"" );
+							   AssignPersonnelSkillTraitHelpText( bSkill1, TRUE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
 
-								//KM: April 16, 1999
-								//Perform the potential overrun check
-								sX = (INT16)max( sX, iMinimumX );
-								mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+							   // Set region help text
+							   SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+							   SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
+						   }
+						   else
+						   {
+							   //Display the first skill
+							   if ( bSkill1 != 0 )
+							   {
+								   swprintf( sString, L"%s", gzMercSkillText[bSkill1] );
 
-								// Add specific region for fast help window
-								if( fAddedTraitRegion[0] )
-								{
-									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
-								}
-								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
-												( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
-													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-								MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
-								fAddedTraitRegion[0] = TRUE;
+								   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[bScreenLocIndex].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
 
-								// Assign the text
-								CHAR16	apStr[5000];
-								swprintf( apStr, L"" );
-								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
-	
-								// Set region help text
-								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
-								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
-	
-								++bScreenLocIndex;
-							}
+								   //KM: April 16, 1999
+								   //Perform the potential overrun check
+								   sX = (INT16)max( sX, iMinimumX );
+								   mprintf( sX, pPersonnelScreenPoints[bScreenLocIndex].y, sString );
 
-							//Display the second skill
-							if( bSkill2 != 0 )
-							{
-								swprintf( sString, L"%s", gzMercSkillText[bSkill2] );
+								   // Add specific region for fast help window
+								   if ( fAddedTraitRegion[0] )
+								   {
+									   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+								   }
+								   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], (sX - 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y),
+													  (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y + 7), MSYS_PRIORITY_HIGH,
+													  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								   MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+								   fAddedTraitRegion[0] = TRUE;
 
-								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
+								   // Assign the text
+								   CHAR16	apStr[5000];
+								   swprintf( apStr, L"" );
+								   AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
 
-								//KM: April 16, 1999
-								//Perform the potential overrun check
-								sX = (INT16)max( sX, iMinimumX );
-								mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+								   // Set region help text
+								   SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+								   SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
 
-								// Add specific region for fast help window
-								if( fAddedTraitRegion[1] )
-								{
-									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[1] );
-								}
-								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[1], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
-												( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
-													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-								MSYS_AddRegion( &gSkillTraitHelpTextRegion[1] );
-								fAddedTraitRegion[1] = TRUE;
+								   ++bScreenLocIndex;
+							   }
 
-								// Assign the text
-								CHAR16	apStr[5000];
-								swprintf( apStr, L"" );
-								AssignPersonnelSkillTraitHelpText( bSkill2, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
-	
-								// Set region help text
-								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[1]), apStr );
-								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[1], MSYS_NO_CALLBACK );
-	
-								++bScreenLocIndex;
-							}
+							   //Display the second skill
+							   if ( bSkill2 != 0 )
+							   {
+								   swprintf( sString, L"%s", gzMercSkillText[bSkill2] );
 
-							//if no skill was displayed
-							if( bScreenLocIndex == 19 )
-							{
-								swprintf( sString, L"%s", pPersonnelScreenStrings[ PRSNL_TXT_NOSKILLS ] );
+								   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[bScreenLocIndex].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
 
-								FindFontRightCoordinates((INT16)(pPersonnelScreenPoints[bScreenLocIndex].x+(iSlot*TEXT_BOX_WIDTH)),0,TEXT_BOX_WIDTH-20,0,sString, PERS_FONT,	&sX, &sY);
-								mprintf(sX,pPersonnelScreenPoints[bScreenLocIndex].y,sString);
+								   //KM: April 16, 1999
+								   //Perform the potential overrun check
+								   sX = (INT16)max( sX, iMinimumX );
+								   mprintf( sX, pPersonnelScreenPoints[bScreenLocIndex].y, sString );
 
-								// Add specific region for fast help window
-								if( fAddedTraitRegion[0] )
-								{
-									MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
-								}
-								MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y ),
-												( sX + StringPixLength(sString,PERS_FONT) + 3 ), (UINT16)( pPersonnelScreenPoints[bScreenLocIndex].y + 7 ), MSYS_PRIORITY_HIGH,
-													MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-								MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
-								fAddedTraitRegion[0] = TRUE;
+								   // Add specific region for fast help window
+								   if ( fAddedTraitRegion[1] )
+								   {
+									   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[1] );
+								   }
+								   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[1], (sX - 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y),
+													  (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y + 7), MSYS_PRIORITY_HIGH,
+													  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								   MSYS_AddRegion( &gSkillTraitHelpTextRegion[1] );
+								   fAddedTraitRegion[1] = TRUE;
 
-								// Assign the text
-								CHAR16	apStr[5000];
-								swprintf( apStr, L"" );
-								AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
+								   // Assign the text
+								   CHAR16	apStr[5000];
+								   swprintf( apStr, L"" );
+								   AssignPersonnelSkillTraitHelpText( bSkill2, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
 
-								// Set region help text
-								SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
-								SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
-							}
-						}
-					}
-				}
-			else
-			{
-				swprintf( sString, L"%s", gpStrategicString[ STR_PB_NOTAPPLICABLE_ABBREVIATION ] );
-			}
-			}
+								   // Set region help text
+								   SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[1]), apStr );
+								   SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[1], MSYS_NO_CALLBACK );
+
+								   ++bScreenLocIndex;
+							   }
+
+							   //if no skill was displayed
+							   if ( bScreenLocIndex == 19 )
+							   {
+								   swprintf( sString, L"%s", pPersonnelScreenStrings[PRSNL_TXT_NOSKILLS] );
+
+								   FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[bScreenLocIndex].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+								   mprintf( sX, pPersonnelScreenPoints[bScreenLocIndex].y, sString );
+
+								   // Add specific region for fast help window
+								   if ( fAddedTraitRegion[0] )
+								   {
+									   MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[0] );
+								   }
+								   MSYS_DefineRegion( &gSkillTraitHelpTextRegion[0], (sX - 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y),
+													  (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[bScreenLocIndex].y + 7), MSYS_PRIORITY_HIGH,
+													  MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+								   MSYS_AddRegion( &gSkillTraitHelpTextRegion[0] );
+								   fAddedTraitRegion[0] = TRUE;
+
+								   // Assign the text
+								   CHAR16	apStr[5000];
+								   swprintf( apStr, L"" );
+								   AssignPersonnelSkillTraitHelpText( bSkill1, FALSE, (gMercProfiles[iId].ubBodyType == REGMALE), apStr );
+
+								   // Set region help text
+								   SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[0]), apStr );
+								   SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[0], MSYS_NO_CALLBACK );
+							   }
+						   }
+					   }
+				   }
+				   else
+				   {
+					   swprintf( sString, L"%s", gpStrategicString[STR_PB_NOTAPPLICABLE_ABBREVIATION] );
+				   }
+		}
 			break;
 		}
+	}
+}
+
+void DisplayCharPersonality(INT32 iId, INT32 iSlot)
+{
+	INT32 iCounter=0;
+	INT16 sX, sY;
+	SOLDIERTYPE *pSoldier = &Menptr[iId];
+
+	// SANDRO - remove the regions
+	for( INT8 i = 0; i < 13; ++i )
+	{
+		if( fAddedTraitRegion[i] )
+		{
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[i] );
+			fAddedTraitRegion[i] = FALSE;
+		}
+	}
+
+	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pSoldier ) || pSoldier->ubProfile == NO_PROFILE )
+	{
+		return;
+	}
+
+	int loc = 0;
+	int region = 0;
+
+	for ( int i = APPROACH_FRIENDLY; i <= APPROACH_RECRUIT; ++i )
+	{
+		mprintf( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[loc].y + 15), szLaptopStatText[7 + i] );
+
+		CHAR16 sStr[200];
+		swprintf( sStr, L"" );
+		CHAR16 sString[200];
+		swprintf( sString, L"" );
+		INT32 val = GetEffectiveApproachValue( pSoldier->ubProfile, i, sString );
+	
+		swprintf( sStr, L"%d", val );
+
+		FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sStr, PERS_FONT, &sX, &sY );
+		mprintf( sX, (pPersonnelScreenPoints[loc].y + 15), sStr );
+
+		// Add specific region for fast help window
+		if ( fAddedTraitRegion[region] )
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[region] );
+
+		MSYS_DefineRegion( &gSkillTraitHelpTextRegion[region], (sX - 3), (UINT16)(pPersonnelScreenPoints[loc].y + 15),
+						   (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[loc].y + 23), MSYS_PRIORITY_HIGH,
+						   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+
+		MSYS_AddRegion( &gSkillTraitHelpTextRegion[region] );
+		fAddedTraitRegion[region] = TRUE;
+	
+		// Set region help text
+		SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[region]), sString );
+		SetRegionHelpEndCallback( &(gSkillTraitHelpTextRegion[region]), MSYS_NO_CALLBACK );
+
+		++loc;
+		++region;
+	}
+
+	if ( (gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) )
+	{
+		CHAR16 sStr1[200];
+		swprintf( sStr1, szLaptopStatText[6] );
+
+		CHAR16 sStr2[200];
+		swprintf( sStr2, szLaptopStatText[7], pSoldier->GetName( ) );
+
+		sX = pPersonnelScreenPoints[loc].x + (iSlot*TEXT_BOX_WIDTH);
+
+		mprintf( (INT16)(sX), (pPersonnelScreenPoints[loc].y + 15), sStr1 );
+
+		// Add specific region for fast help window
+		if ( fAddedTraitRegion[region] )
+			MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[region] );
+
+		MSYS_DefineRegion( &gSkillTraitHelpTextRegion[region], (sX - 3), (UINT16)(pPersonnelScreenPoints[loc].y + 15),
+						   (sX + StringPixLength( sStr2, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[loc].y + 23), MSYS_PRIORITY_HIGH,
+						   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+
+		MSYS_AddRegion( &gSkillTraitHelpTextRegion[region] );
+		fAddedTraitRegion[region] = TRUE;
+
+		// Set region help text
+		SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[region]), sStr2 );
+		SetRegionHelpEndCallback( &(gSkillTraitHelpTextRegion[region]), MSYS_NO_CALLBACK );
+
+		++loc;
+		++region;
 	}
 }
 
@@ -2487,7 +2568,7 @@ void DisplayFaceOfDisplayedMerc( )
 		DisplayHighLightBox();
 		RenderPersonnelFace(-1, currentTeamList[currentTeamIndex], FALSE, FALSE, FALSE );
 		DisplayCharName(currentTeamList[currentTeamIndex], 0 );
-		if( gubPersonnelInfoState == PRSNL_INV ) 
+		if ( gubPersonnelInfoState == PERSONNEL_INV_BTN )
 		{
 			return;
 		}
@@ -2508,7 +2589,7 @@ void DisplayFaceOfDisplayedMerc( )
 		RenderPersonnelFace(	GetIdOfPastMercInSlot( iCurrentPersonSelectedId ), 0, IsPastMercDead( iCurrentPersonSelectedId ), IsPastMercFired( iCurrentPersonSelectedId ), IsPastMercOther( iCurrentPersonSelectedId ) );
 		DisplayDepartedCharName(	GetIdOfPastMercInSlot( iCurrentPersonSelectedId ), 0, GetTheStateOfDepartedMerc( GetIdOfPastMercInSlot( iCurrentPersonSelectedId	) ) );
 		
-		if( gubPersonnelInfoState == PRSNL_INV ) 
+		if ( gubPersonnelInfoState == PERSONNEL_INV_BTN )
 		{
 			return;
 		}
@@ -2520,7 +2601,7 @@ void DisplayFaceOfDisplayedMerc( )
 void DisplayInventoryForSelectedChar( void )
 {
 	// display the inventory for this merc
-	if( gubPersonnelInfoState != PRSNL_INV ) {
+	if ( gubPersonnelInfoState != PERSONNEL_INV_BTN ) {
 		return;
 	}
 
@@ -2531,8 +2612,6 @@ void DisplayInventoryForSelectedChar( void )
 	} else {
 		RenderInventoryForCharacter (GetIdOfPastMercInSlot(iCurrentPersonSelectedId), 0 );
 	}
-
-	return;
 }
 
 void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
@@ -2798,7 +2877,7 @@ void InventoryDownButtonCallback(GUI_BUTTON *btn,INT32 reason)
 void EnableDisableInventoryScrollButtons( void )
 {
 //	if( fShowInventory == FALSE )
-	if( gubPersonnelInfoState != PRSNL_INV )
+	if ( gubPersonnelInfoState != PERSONNEL_INV_BTN )
 	{
 		return;
 	}
@@ -2852,7 +2931,7 @@ void CreateDestroyPersonnelInventoryScrollButtons( void )
 	static BOOLEAN fCreated = FALSE;
 
 //	if( ( fShowInventory == TRUE ) && ( fCreated == FALSE ) )
-	if( ( gubPersonnelInfoState == PRSNL_INV ) && ( fCreated == FALSE ) )
+	if ( (gubPersonnelInfoState == PERSONNEL_INV_BTN) && (fCreated == FALSE) )
 	{
 		// create buttons
 		giPersonnelInventoryButtonsImages[ 0 ]=	LoadButtonImage( "LAPTOP\\personnel_inventory.sti" ,-1,1,-1,2,-1 );
@@ -2913,8 +2992,6 @@ void DisplayNumberOnCurrentTeam( void )
 
 	// now the cost of the current team, if applicable
 	DisplayCostOfCurrentTeam( );
-
-	return;
 }
 
 void DisplayNumberDeparted( void )
@@ -2961,7 +3038,6 @@ INT32 GetTotalDailyCostOfCurrentTeam( void )
 
 		if( ( pSoldier->bActive) && ( pSoldier->stats.bLife > 0 ) )
 		{
-
 			// valid soldier, get cost
 			if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
 			{
@@ -3063,11 +3139,9 @@ INT32 GetLowestDailyCostOfCurrentTeam( void )
 	{
 		iLowest = 0;
 	}
-
-
+	
 	return iLowest;
 }
-
 
 INT32 GetHighestDailyCostOfCurrentTeam( void )
 {
@@ -3091,7 +3165,6 @@ INT32 GetHighestDailyCostOfCurrentTeam( void )
 
 		if( ( pSoldier->bActive) && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && ( pSoldier->stats.bLife > 0 ) )
 		{
-
 			// valid soldier, get cost
 			if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
 			{
@@ -3122,8 +3195,7 @@ INT32 GetHighestDailyCostOfCurrentTeam( void )
 					// no cost
 				iCost = 0;
 			}
-
-
+			
 			if( iCost >= iHighest )
 			{
 				iHighest = iCost;
@@ -3134,15 +3206,12 @@ INT32 GetHighestDailyCostOfCurrentTeam( void )
 	return iHighest;
 }
 
-
-
 void DisplayCostOfCurrentTeam( void )
 {
 	// display number on team
 	CHAR16 sString[ 32 ];
 	INT16 sX, sY;
-
-
+	
 	// font stuff
 	SetFont( FONT10ARIAL );
 	SetFontBackground( FONT_BLACK );
@@ -3342,11 +3411,9 @@ INT32 GetIdOfDepartedMercWithHighestStat( INT32 iStat )
 
 		bCurrentListValue++;
 	}
-
-
+	
 	return( iId );
 }
-
 
 INT32 GetIdOfDepartedMercWithLowestStat( INT32 iStat )
 {
@@ -5612,13 +5679,11 @@ BOOLEAN RenderAtmPanel( void )
 	return( TRUE );
 }
 
-
 void CreateDestroyStartATMButton( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	// create/destroy atm start button as needed
-
-
+	
 	if( ( fCreated == FALSE ) && ( fShowAtmPanelStartButton == TRUE ) )
 	{
 		// not created, must create
@@ -5636,58 +5701,36 @@ void CreateDestroyStartATMButton( void )
 		SpecifyButtonFont( giPersonnelATMStartButton[ 0 ], PERS_FONT );
 		SetButtonCursor(giPersonnelATMStartButton[ 0 ], CURSOR_LAPTOP_SCREEN);
 */
-		// the stats button
-		giPersonnelATMStartButtonImage[ PERSONNEL_STAT_BTN ]=	LoadButtonImage( "LAPTOP\\AtmButtons.sti" ,-1,2,-1,3,-1 );
-		giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] = QuickCreateButton( giPersonnelATMStartButtonImage[ PERSONNEL_STAT_BTN ] , iScreenWidthOffset + 519, iScreenHeightOffset + 80,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										MSYS_NO_CALLBACK, (GUI_CALLBACK)PersonnelStatStartButtonCallback );
 
-		// set text and what not
-		SpecifyButtonText( giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] ,gsAtmStartButtonText[ 1 ] );
-		SpecifyButtonUpTextColors( giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ], FONT_BLACK, FONT_BLACK );
-		SpecifyButtonFont( giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ], PERS_FONT );
-		SetButtonCursor(giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ], CURSOR_LAPTOP_SCREEN);
+		INT16 x = iScreenWidthOffset + 519;
+		INT16 y = iScreenHeightOffset + 74;
 
-		// the Employment selection button
-		giPersonnelATMStartButtonImage[ PERSONNEL_EMPLOYMENT_BTN ]=	LoadButtonImage( "LAPTOP\\AtmButtons.sti" ,-1,2,-1,3,-1 );
-		giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] = QuickCreateButton( giPersonnelATMStartButtonImage[ PERSONNEL_EMPLOYMENT_BTN ] , iScreenWidthOffset + 519, iScreenHeightOffset + 110,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										MSYS_NO_CALLBACK, (GUI_CALLBACK)PersonnelEmploymentStartButtonCallback );
+		for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
+		{
+			giPersonnelATMStartButtonImage[i] = LoadButtonImage( "LAPTOP\\AtmButtons.sti", -1, 2, -1, 3, -1 );
+			giPersonnelATMStartButton[i] = QuickCreateButton( giPersonnelATMStartButtonImage[i], x, y,
+															  BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+															  MSYS_NO_CALLBACK, (GUI_CALLBACK)PersonnelDataButtonCallback );
 
-		// set text and what not
-		SpecifyButtonText( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] ,gsAtmStartButtonText[ 3 ] );
-		SpecifyButtonUpTextColors( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ], FONT_BLACK, FONT_BLACK );
-		SpecifyButtonFont( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ], PERS_FONT );
-		SetButtonCursor(giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ], CURSOR_LAPTOP_SCREEN);
+			// set text and what not
+			SpecifyButtonText( giPersonnelATMStartButton[i], gsAtmStartButtonText[i] );
+			SpecifyButtonUpTextColors( giPersonnelATMStartButton[i], FONT_BLACK, FONT_BLACK );
+			SpecifyButtonFont( giPersonnelATMStartButton[i], PERS_FONT );
+			SetButtonCursor( giPersonnelATMStartButton[i], CURSOR_LAPTOP_SCREEN );
 
-		// the inventory selection button
-		giPersonnelATMStartButtonImage[ PERSONNEL_INV_BTN ]=	LoadButtonImage( "LAPTOP\\AtmButtons.sti" ,-1,2,-1,3,-1 );
-		giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] = QuickCreateButton( giPersonnelATMStartButtonImage[ PERSONNEL_INV_BTN ] , iScreenWidthOffset + 519, iScreenHeightOffset + 140,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										MSYS_NO_CALLBACK, (GUI_CALLBACK)PersonnelINVStartButtonCallback );
-
-		// set text and what not
-		SpecifyButtonText( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] ,gsAtmStartButtonText[ 2 ] );
-		SpecifyButtonUpTextColors( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ], FONT_BLACK, FONT_BLACK );
-		SpecifyButtonFont( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ], PERS_FONT );
-		SetButtonCursor(giPersonnelATMStartButton[ PERSONNEL_INV_BTN ], CURSOR_LAPTOP_SCREEN);
-
-
+			y += 24;
+		}
+		
 		fCreated = TRUE;
 	}
 	else if( ( fCreated == TRUE ) && ( fShowAtmPanelStartButton == FALSE ) )
 	{
 		// stop showing
-		/*
-		RemoveButton( giPersonnelATMStartButton[ 0 ] );
-		UnloadButtonImage( giPersonnelATMStartButtonImage[ 0 ] );
-		*/
-		RemoveButton( giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] );
-		UnloadButtonImage( giPersonnelATMStartButtonImage[ PERSONNEL_STAT_BTN ] );
-		RemoveButton( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] );
-		UnloadButtonImage( giPersonnelATMStartButtonImage[ PERSONNEL_EMPLOYMENT_BTN ] );
-		RemoveButton( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] );
-		UnloadButtonImage( giPersonnelATMStartButtonImage[ PERSONNEL_INV_BTN ] );
+		for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
+		{
+			RemoveButton( giPersonnelATMStartButton[i] );
+			UnloadButtonImage( giPersonnelATMStartButtonImage[i] );
+		}
 
 		fCreated = FALSE;
 	}
@@ -5715,7 +5758,6 @@ void FindPositionOfPersInvSlider( void )
 
 	// get slider position
 	guiSliderPosition = uiCurrentInventoryIndex * sSizeOfEachSubRegion;
-
 }
 
 
@@ -5778,10 +5820,7 @@ void HandleSliderBarClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			fReDrawScreenFlag = TRUE;
 		}
 	}
-
 }
-
-
 
 void RenderSliderBarForPersonnelInventory( void )
 {
@@ -5790,7 +5829,6 @@ void RenderSliderBarForPersonnelInventory( void )
 	// render slider bar for personnel
 	GetVideoObject(&hHandle, guiPersonnelInventory );
 	BltVideoObject( FRAME_BUFFER, hHandle, 5,( INT16 ) ( X_OF_PERSONNEL_SCROLL_REGION ), ( INT16 ) ( guiSliderPosition + Y_OF_PERSONNEL_SCROLL_REGION), VO_BLT_SRCTRANSPARENCY,NULL);
-
 }
 
 void CreateDestroyATMButton( void )
@@ -5927,54 +5965,28 @@ void ATMStartButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void PersonnelINVStartButtonCallback(GUI_BUTTON *btn,INT32 reason)
+void PersonnelDataButtonCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
+		UINT32	uiButton = btn->IDNum;
+
 		fReDrawScreenFlag=TRUE;
-	btn->uiFlags |= (BUTTON_CLICKED_ON);
-		ButtonList[giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] ]->uiFlags &= ~(BUTTON_CLICKED_ON);
-		ButtonList[giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] ]->uiFlags &= ~(BUTTON_CLICKED_ON);
-//		fShowInventory = TRUE;
-		gubPersonnelInfoState = PRSNL_INV;
+
+		for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
+		{
+			ButtonList[giPersonnelATMStartButton[i]]->uiFlags &= ~(BUTTON_CLICKED_ON);
+
+			if ( uiButton == giPersonnelATMStartButton[i] )
+				gubPersonnelInfoState = i;
+		}
+		
+		btn->uiFlags |= BUTTON_CLICKED_ON;
 	}
 }
-
-void PersonnelStatStartButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		fReDrawScreenFlag=TRUE;
-	btn->uiFlags |= BUTTON_CLICKED_ON;
-		ButtonList[giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] ]->uiFlags &= ~(BUTTON_CLICKED_ON);
-		ButtonList[giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] ]->uiFlags &= ~(BUTTON_CLICKED_ON);
-//		fShowInventory = FALSE;
-		gubPersonnelInfoState = PRSNL_STATS;
-	}
-}
-
-
-void PersonnelEmploymentStartButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		fReDrawScreenFlag=TRUE;
-	btn->uiFlags |= BUTTON_CLICKED_ON;
-		ButtonList[giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] ]->uiFlags &= ~(BUTTON_CLICKED_ON);
-		ButtonList[giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] ]->uiFlags &= ~(BUTTON_CLICKED_ON);
-		gubPersonnelInfoState = PRSNL_EMPLOYMENT;
-	}
-}
-
 
 void ATMOther2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
@@ -5982,7 +5994,6 @@ void ATMOther2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
-
 
 	iValue = MSYS_GetBtnUserData( btn, 0 );
 
@@ -6008,7 +6019,6 @@ void ATMOther2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			break;
 		}
 	}
-
 }
 
 void ATMOtherButtonCallback(GUI_BUTTON *btn,INT32 reason)
@@ -6407,69 +6417,58 @@ void DisplayATMStrings( void )
 
 void UpDateStateOfStartButton( void )
 {
-	INT32 iId = 0;
-
 	// start button being shown?
-	if (!fShowAtmPanelStartButton) {
+	if (!fShowAtmPanelStartButton)
 		return;
-	}
 
-	if (gubPersonnelInfoState == PRSNL_INV) {
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] ]->uiFlags |= BUTTON_CLICKED_ON;
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] ]->uiFlags &= ~( BUTTON_CLICKED_ON );
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] ]->uiFlags &= ~( BUTTON_CLICKED_ON );
-	} else if (gubPersonnelInfoState == PRSNL_STATS) {
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] ]->uiFlags |= BUTTON_CLICKED_ON;
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] ]->uiFlags &= ~( BUTTON_CLICKED_ON );
-	} else {
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] ]->uiFlags &= ~( BUTTON_CLICKED_ON );
-		ButtonList[ giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] ]->uiFlags |= BUTTON_CLICKED_ON;
-	}
+	for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
+		ButtonList[giPersonnelATMStartButton[i]]->uiFlags &= ~(BUTTON_CLICKED_ON);
+
+	ButtonList[giPersonnelATMStartButton[gubPersonnelInfoState]]->uiFlags |= BUTTON_CLICKED_ON;
 
 	// if in current mercs and the currently selected guy is valid, enable button, else disable it
-	if (fCurrentTeamMode) {
+	if (fCurrentTeamMode)
+	{
 		// is the current guy valid
-		if (currentTeamIndex != -1) {
-			//EnableButton( giPersonnelATMStartButton[ 0 ] );
-			EnableButton( giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] );
-			EnableButton( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] );
-			EnableButton( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] );
+		if (currentTeamIndex != -1)
+		{
+			for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
+				EnableButton( giPersonnelATMStartButton[ i ] );
 
-			iId = currentTeamList[currentTeamIndex];
+			INT32 iId = currentTeamList[currentTeamIndex];
 
-			if (iId != -1) {
-				if ( Menptr[ iId ].bAssignment == ASSIGNMENT_POW ) {
-					//DisableButton( giPersonnelATMStartButton[ 0 ] );
+			if (iId != -1)
+			{
+				if ( Menptr[ iId ].bAssignment == ASSIGNMENT_POW )
+				{
 					DisableButton( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] );
 
-					if( gubPersonnelInfoState == PRSNL_INV ) {
-						gubPersonnelInfoState = PRSNL_STATS;
+					if ( gubPersonnelInfoState == PERSONNEL_INV_BTN )
+					{
+						gubPersonnelInfoState = PERSONNEL_STAT_BTN;
 						fPausedReDrawScreenFlag = TRUE;
 					}
 
-					if( fATMFlags ) {
+					if( fATMFlags )
+					{
 						fATMFlags = 0;
 						fPausedReDrawScreenFlag = TRUE;
 					}
 				}
 			}
-		} else {
+		}
+		else
+		{
 			// not valid, disable
-			//DisableButton( giPersonnelATMStartButton[ 0 ] );
-			DisableButton( giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] );
-			DisableButton( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] );
-			DisableButton( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] );
+			for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
+				DisableButton( giPersonnelATMStartButton[ i ] );
 		}
 	}
 	else
 	{
 		// disable button
-		//DisableButton( giPersonnelATMStartButton[ 0 ] );
-		EnableButton( giPersonnelATMStartButton[ PERSONNEL_STAT_BTN ] );
-		DisableButton( giPersonnelATMStartButton[ PERSONNEL_INV_BTN ] );
-		DisableButton( giPersonnelATMStartButton[ PERSONNEL_EMPLOYMENT_BTN ] );
+		for ( int i = 0; i < PERSONNEL_NUM_BTN; ++i )
+			DisableButton( giPersonnelATMStartButton[i] );
 	}
 }
 
@@ -6507,8 +6506,6 @@ void DisplayAmountOnCurrentMerc( void )
 
 	// print string
 	mprintf( sX, sY, sString );
-
-	return;
 }
 
 void HandlePersonnelKeyboard( void )
@@ -6563,7 +6560,7 @@ void HandlePersonnelKeyboard( void )
 						if( gubPersonnelInfoState > PERSONNEL_STAT_BTN )
 							gubPersonnelInfoState--;
 						else
-							gubPersonnelInfoState = PERSONNEL_INV_BTN;
+							gubPersonnelInfoState = PERSONNEL_NUM_BTN - 1;
 
 						fReDrawScreenFlag = TRUE;
 
@@ -6677,8 +6674,7 @@ void RenderRectangleForPersonnelTransactionAmount( void )
 	UINT8											*pDestBuf;
 	CHAR16 sTempString[ 32 ];
 	INT32	iCounter = 0;
-
-
+	
 	wcscpy( sTempString, sTransferString );
 
 	if( ( sTempString[ 0 ] == 48 ) && ( sTempString[ 1 ] != 0 ) )
@@ -6707,7 +6703,6 @@ void RenderRectangleForPersonnelTransactionAmount( void )
 	RestoreClipRegionToFullScreenForRectangle( uiDestPitchBYTES );
 	RectangleDraw( TRUE, ( ATM_DISPLAY_X + ATM_DISPLAY_WIDTH ) - iLength - 2,	ATM_DISPLAY_Y + 35, ATM_DISPLAY_X + ATM_DISPLAY_WIDTH + 1, ATM_DISPLAY_Y + iHeight + 36, Get16BPPColor( FROMRGB( 255, 255, 255 ) ), pDestBuf );
 	UnLockVideoSurface( FRAME_BUFFER );
-
 }
 
 void HandleTimedAtmModes( void )
@@ -6727,8 +6722,7 @@ void HandleTimedAtmModes( void )
 		fOldAtmMode = fATMFlags;
 		fPausedReDrawScreenFlag = TRUE;
  	}
-
-
+	
 	if( ( GetJA2Clock() - uiBaseTime ) > DELAY_PER_MODE_CHANGE_IN_ATM )
 	{
 		switch( fATMFlags )
@@ -6748,21 +6742,19 @@ BOOLEAN IsPastMercDead( INT32 iId )
 	if( GetTheStateOfDepartedMerc( GetIdOfPastMercInSlot( iId ) ) == DEPARTED_DEAD )
 	{
 		return( TRUE );
-		}
+	}
 	else
 	{
 		return( FALSE );
 	}
-
 }
-
 
 BOOLEAN IsPastMercFired( INT32 iId )
 {
 	if( GetTheStateOfDepartedMerc( GetIdOfPastMercInSlot( iId )	) == DEPARTED_FIRED )
 	{
 		return( TRUE );
-		}
+	}
 	else
 	{
 		return( FALSE );
@@ -6774,14 +6766,12 @@ BOOLEAN IsPastMercOther( INT32 iId )
 	if( GetTheStateOfDepartedMerc( GetIdOfPastMercInSlot( iId )	) == DEPARTED_OTHER )
 	{
 		return( TRUE );
-		}
+	}
 	else
 	{
 		return( FALSE );
 	}
 }
-
-
 
 void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 {
@@ -6808,7 +6798,7 @@ void DisplayEmploymentinformation( INT32 iId, INT32 iSlot )
 	}
 
 	// display the stats for a char
-	for(iCounter=0;iCounter <MAX_STATS; iCounter++)
+	for(iCounter=0;iCounter <MAX_STATS; ++iCounter)
 	{
 		switch(iCounter)
 		{
@@ -8912,8 +8902,6 @@ void AssignPersonnelWoundsHelpText( INT32 ubProfile )
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[12]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[12], MSYS_NO_CALLBACK );
-	
-	return;
 }
 
 INT8 CalculateMercsAchievementPercentage( INT32 ubProfile )
@@ -9033,12 +9021,11 @@ void AssignPersonalityHelpText( SOLDIERTYPE* pSoldier, MOUSE_REGION* pMouseregio
 		swprintf(atStr, L"- %s %s.\n", szPersonalityDisplayText[6], szSexistText[gMercProfiles[ pSoldier->ubProfile ].bSexist] );
 		wcscat( apStr, atStr );
 	}
-	else
-		return;
 
-	// Set region help text
-	SetRegionFastHelpText( pMouseregion, apStr );
-	SetRegionHelpEndCallback( pMouseregion, MSYS_NO_CALLBACK );
-
-	return;
+	if ( pMouseregion )
+	{
+		// Set region help text
+		SetRegionFastHelpText( pMouseregion, apStr );
+		SetRegionHelpEndCallback( pMouseregion, MSYS_NO_CALLBACK );
+	}
 }

@@ -11203,6 +11203,24 @@ STR16	szInteractiveActionText[] =
 	L"This machine doesn't seem to be working.",	// TODO.Translate
 };
 
+STR16	szLaptopStatText[] =	// TODO.Translate
+{
+	L"threaten effectiveness %d\n",
+	L"leadership %d\n",
+	L"approach modifier %.2f\n",
+	L"background modifier %.2f\n",
+
+	L"+50 (other) for assertive\n",
+	L"-50 (other) for malicious\n",
+	L"Good Guy",
+	L"%s eschews excessive violence and will refuse to attack non-hostiles.",
+
+	L"Friendly approach",
+	L"Direct approach",
+	L"Friendly approach",
+	L"Friendly approach",
+};
+
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
 STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode

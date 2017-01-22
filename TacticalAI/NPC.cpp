@@ -882,6 +882,98 @@ INT32 CalcThreateningEffectiveness( UINT8 ubMerc )
 	return( (EffectiveLeadership( pSoldier ) + iStrength + iDeadliness) / 3 ); //Trail minor bug fix.
 }
 
+INT32 GetEffectiveApproachValue( UINT8 usProfile, UINT8 usApproach, CHAR16* apStr )
+{
+	if ( usApproach >  APPROACH_RECRUIT )
+		return 100;
+
+	FLOAT val = 0;
+	CHAR16	atStr[500];
+	swprintf( atStr, L"" );
+				
+	if ( usApproach == APPROACH_THREATEN )
+	{
+		INT32 threateneffectiveness = CalcThreateningEffectiveness( usProfile );
+
+		if ( apStr )
+		{
+			swprintf( atStr, szLaptopStatText[0], threateneffectiveness );
+			wcscat( apStr, atStr );
+		}
+
+		val = threateneffectiveness;
+	}
+	else
+	{
+		if ( apStr )
+		{
+			swprintf( atStr, szLaptopStatText[1], gMercProfiles[usProfile].bLeadership );
+			wcscat( apStr, atStr );
+		}
+
+		val = ((INT32)gMercProfiles[usProfile].bLeadership);
+	}
+	
+	FLOAT approachfactor = (FLOAT)(gMercProfiles[usProfile].usApproachFactor[usApproach - 1]) / 100.0f;
+
+	if ( apStr )
+	{
+		swprintf( atStr, szLaptopStatText[2], approachfactor );
+		wcscat( apStr, atStr );
+	}
+
+	val *= approachfactor;
+
+	// Flugente: backgrounds
+	SOLDIERTYPE* pSoldier = FindSoldierByProfileID( usProfile, TRUE );
+
+	if ( pSoldier )
+	{
+		UINT8 bgprperty = 0;
+
+		if ( usApproach == APPROACH_FRIENDLY )
+			bgprperty = BG_PERC_APPROACH_FRIENDLY;
+		else if ( usApproach == APPROACH_DIRECT )
+			bgprperty = BG_PERC_APPROACH_DIRECT;
+		else if ( usApproach == APPROACH_THREATEN )
+			bgprperty = BG_PERC_APPROACH_THREATEN;
+		else if ( usApproach == APPROACH_RECRUIT )
+			bgprperty = BG_PERC_APPROACH_RECRUIT;
+
+		FLOAT bgmodifier = (FLOAT)((100.0f + pSoldier->GetBackgroundValue( bgprperty ))) / 100.0f;
+
+		if ( apStr )
+		{
+			swprintf( atStr, szLaptopStatText[3], bgmodifier );
+			wcscat( apStr, atStr );
+		}
+
+		val = val * bgmodifier;
+
+		if ( apStr && gGameOptions.fNewTraitSystem && usApproach != APPROACH_THREATEN )
+		{
+			if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_ASSERTIVE ) )
+			{
+				swprintf( atStr, L"  \n" );
+				wcscat( apStr, atStr );
+
+				swprintf( atStr, szLaptopStatText[4] );
+				wcscat( apStr, atStr );
+			}
+			else if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_MALICIOUS ) )
+			{
+				swprintf( atStr, L"  \n" );
+				wcscat( apStr, atStr );
+
+				swprintf( atStr, szLaptopStatText[5] );
+				wcscat( apStr, atStr );
+			}
+		}
+	}
+
+	return (INT32)val;
+}
+
 UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 {
 	INT32 iWillingness;
@@ -920,37 +1012,9 @@ UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 	{
 		iApproachVal = 100;
 	}
-	else if ( bApproach == APPROACH_THREATEN )
-	{
-		iEffectiveLeadership = CalcThreateningEffectiveness( ubMerc ) * pMercProfile->usApproachFactor[bApproach - 1] / 100;
-
-		// Flugente: backgrounds
-		SOLDIERTYPE* pSoldier = FindSoldierByProfileID( ubMerc, TRUE );
-
-		if ( pSoldier )
-		{
-			if ( bApproach == APPROACH_THREATEN )
-				iEffectiveLeadership = (iEffectiveLeadership * (100 + pSoldier->GetBackgroundValue(BG_PERC_APPROACH_THREATEN))) / 100;
-		}
-
-		iApproachVal = pNPCProfile->ubApproachVal[bApproach - 1] * iEffectiveLeadership / 50;
-	}
 	else
 	{
-		iEffectiveLeadership = ((INT32) pMercProfile->bLeadership) * pMercProfile->usApproachFactor[bApproach - 1] / 100;
-		
-		// Flugente: backgrounds
-		SOLDIERTYPE* pSoldier = FindSoldierByProfileID( ubMerc, TRUE );
-
-		if ( pSoldier )
-		{
-			if ( bApproach == APPROACH_FRIENDLY )
-				iEffectiveLeadership = (iEffectiveLeadership * (100 + pSoldier->GetBackgroundValue(BG_PERC_APPROACH_FRIENDLY))) / 100;
-			else if ( bApproach == APPROACH_DIRECT )
-				iEffectiveLeadership = (iEffectiveLeadership * (100 + pSoldier->GetBackgroundValue(BG_PERC_APPROACH_DIRECT))) / 100;
-			else if ( bApproach == APPROACH_RECRUIT )
-				iEffectiveLeadership = (iEffectiveLeadership * (100 + pSoldier->GetBackgroundValue(BG_PERC_APPROACH_RECRUIT))) / 100;
-		}
+		iEffectiveLeadership = GetEffectiveApproachValue( ubMerc, bApproach, NULL );
 				
 		iApproachVal = pNPCProfile->ubApproachVal[bApproach - 1] * iEffectiveLeadership / 50;
 	}
