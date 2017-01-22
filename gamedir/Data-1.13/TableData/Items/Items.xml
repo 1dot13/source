@@ -8931,6 +8931,7 @@
 		<BR_ROF>30</BR_ROF>
 		<Hardware>1</Hardware>
 		<LocksmithKit>1</LocksmithKit>
+		<LockPickModifier>-10</LockPickModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DisarmModifier>5</DisarmModifier>
 		<STAND_MODIFIERS />
