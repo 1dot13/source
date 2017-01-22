@@ -1340,13 +1340,11 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					{
 						if ( PreRandom( 100 ) < ( Item[(*pObj).usItem].usDamageChance + ( 100 - condition ) / 5 ) )
 						{
-							// damage depends on gun status. The better the status the less damage it takes. Leave a chance for 0 damage.
-							UINT32 uiJamDamage = __max( 0, PreRandom( 5 - UINT32(condition / 30.0f) ) );
-							if ( uiJamDamage > 0 )
-							{
-								(*pObj)[0]->data.objectStatus -= __min( uiJamDamage, (*pObj)[0]->data.objectStatus );
-								(*pObj)[0]->data.sRepairThreshold -= __min( uiJamDamage, (*pObj)[0]->data.sRepairThreshold );
-							}
+							// damage depends on gun status. The better the status the less damage it takes.
+							UINT32 uiJamDamage = 1 + PreRandom( 5 - UINT32(condition / 30.0f) );
+
+							(*pObj)[0]->data.objectStatus -= __min( uiJamDamage, (*pObj)[0]->data.objectStatus );
+							(*pObj)[0]->data.sRepairThreshold -= __min( uiJamDamage, (*pObj)[0]->data.sRepairThreshold );
 						}
 					}
 				 
