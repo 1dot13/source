@@ -27,6 +27,7 @@
 	#include "tile animation.h"
 	#include "Dialogue Control.h"
 	#include "SkillCheck.h"
+	#include "Render Fun.h"
 	#include "explosion control.h"
 	#include "Quests.h"
 	#include "Physics.h"
@@ -1334,15 +1335,18 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					// Deduct AMMO! 
 					DeductAmmo( pSoldier, pSoldier->ubAttackingHand );
 
-					// silversurfer: Our gun can now take damage when it jams
-					if ( PreRandom( 100 ) < (90 - condition + (Item[(*pObj).usItem].usDamageChance / 2.0f)) )
+					// silversurfer: Our gun can now take damage when it jams but only if the gun is below the jam damage threshold
+					if ( condition < gItemSettings.usJamDamageThresholdGun[Weapon[(*pObj).usItem].ubWeaponType] )
 					{
-						// damage depends on gun status. The better the status the less damage it takes. Limit it to max 5 or it can be frustrating for the player.
-						UINT32 uiJamDamage = __min( 5, PreRandom( __max( 0, (UINT32)((90 - condition) / 2.0f ) ) ));
-						if ( uiJamDamage > 0 )
+						if ( PreRandom( 100 ) < ( Item[(*pObj).usItem].usDamageChance + ( 100 - condition ) / 5 ) )
 						{
-							(*pObj)[0]->data.objectStatus -= __min( uiJamDamage, (*pObj)[0]->data.objectStatus );
-							(*pObj)[0]->data.sRepairThreshold -= __min( uiJamDamage, (*pObj)[0]->data.sRepairThreshold );
+							// damage depends on gun status. The better the status the less damage it takes. Leave a chance for 0 damage.
+							UINT32 uiJamDamage = __max( 0, PreRandom( 5 - UINT32(condition / 30.0f) ) );
+							if ( uiJamDamage > 0 )
+							{
+								(*pObj)[0]->data.objectStatus -= __min( uiJamDamage, (*pObj)[0]->data.objectStatus );
+								(*pObj)[0]->data.sRepairThreshold -= __min( uiJamDamage, (*pObj)[0]->data.sRepairThreshold );
+							}
 						}
 					}
 				 
@@ -2348,6 +2352,9 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	else if ( ubSectorId >= 0 && ubSectorId < 256  )
 	{
 		sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
+		// half dirt value if we are in a building (room)
+		if ( InARoom( pSoldier->sGridNo, NULL ) )
+			sectormod /= 2;
 	}
 
 	// the current sector determines how likely it is that dirt increases
@@ -3047,6 +3054,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	else if ( ubSectorId >= 0 && ubSectorId < 256  )
 	{
 		sectormod = SectorExternalData[ubSectorId][gbWorldSectorZ].usNaturalDirt;
+		// half dirt value if we are in a building (room)
+		if ( InARoom( pSoldier->sGridNo, NULL ) )
+			sectormod /= 2;
 	}
 
 	// the current sector determines how likely it is that dirt increases

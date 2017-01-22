@@ -3123,6 +3123,16 @@ void LoadItemSettings()
 	gItemSettings.fRecoilXModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","RECOILX_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
 	gItemSettings.fRecoilYModifierGun[GUN_SHOTGUN]					= iniReader.ReadFloat  ("Weapon Settings","RECOILY_SHOTGUN_MODIFIER", 1.0f, 0.1f, 5.0f);
 
+	gItemSettings.usJamDamageThresholdGun[NOT_GUN]					= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_NOT_GUN", 0, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_PISTOL]				= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_PISTOL", 50, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_M_PISTOL]				= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_MP", 75, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_SMG]					= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_SMG", 70, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_RIFLE]				= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_RIFLE", 40, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_SN_RIFLE]				= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_SNIPER", 45, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_AS_RIFLE]				= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_AR", 65, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_LMG]					= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_LMG", 60, 0, 100 );
+	gItemSettings.usJamDamageThresholdGun[GUN_SHOTGUN]				= iniReader.ReadInteger("Weapon Settings","JAM_DAMAGE_THRESHOLD_SHOTGUN", 30, 0, 100 );
+	
 	// -------------- ARMOR MODIFIERS ----------------
 	gItemSettings.fCamoLBEoverVestModifier							= iniReader.ReadFloat  ("Armor Settings","CAMO_LBE_OVER_VEST_MODIFIER", 0.2f, 0.0f, 1.0f);
 	gItemSettings.fCamoLBEoverPantsModifier							= iniReader.ReadFloat  ("Armor Settings","CAMO_LBE_OVER_PANTS_MODIFIER", 0.2f, 0.0f, 1.0f);

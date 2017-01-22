@@ -3029,27 +3029,18 @@ UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxP
 	}
 
 	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
-	usCleaningPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier, FALSE ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) )) / ( gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
+	usCleaningPts = (UINT32)( (( EffectiveMechanical( pSoldier ) + 3 * EffectiveDexterity( pSoldier, FALSE ) + 50 * EffectiveExpLevel( pSoldier) ) * 1000 ) / ( gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ) );
 
 	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
 	INT16 mechanical = (pSoldier->stats.bMechanical * (100 + pSoldier->GetBackgroundValue( BG_MECHANICAL ))) / 100;
 	INT16 dexterity  = (pSoldier->stats.bDexterity * (100 + pSoldier->GetBackgroundValue( BG_DEXTERITY ))) / 100;
-	*pusMaxPts = (mechanical * dexterity * (100 + (5 * pSoldier->stats.bExpLevel))) / (gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay);
+	*pusMaxPts = ( ( mechanical + 3 * dexterity + 50 * pSoldier->stats.bExpLevel ) * 1000 ) / (gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay);
 
 	// SANDRO - Technician trait gives a good bonus to repair items
 	// we also use that for cleaning guns
 	if ( gGameOptions.fNewTraitSystem )
 	{
-		usCleaningPts = usCleaningPts * (100 + gSkillTraitValues.bSpeedModifierRepairing) / 100;
-		*pusMaxPts = *pusMaxPts * (100 + gSkillTraitValues.bSpeedModifierRepairing) / 100;
-
-		if ( HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
-		{
-			usCleaningPts += usCleaningPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
-			*pusMaxPts += *pusMaxPts * gSkillTraitValues.usTERepairSpeedBonus * (NUM_SKILL_TRAITS( pSoldier, TECHNICIAN_NT )) / 100;
-		}
-
 		// Penalty for aggressive people
 		if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )
 		{	
@@ -3070,8 +3061,6 @@ UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxP
 	// Flugente: our food situation influences our effectiveness
 	if ( gGameOptions.fFoodSystem )
 		ReducePointsForHunger( pSoldier, &usCleaningPts );
-
-	usKitPts = CleaningKitPoints( pSoldier );
 
 	// return current cleaning pts
 	return(( UINT8 )usCleaningPts);

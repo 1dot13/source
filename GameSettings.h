@@ -2355,6 +2355,8 @@ typedef struct
 	// Recoil modifiers
 	FLOAT fRecoilXModifierGun[GUN_TYPES_MAX];
 	FLOAT fRecoilYModifierGun[GUN_TYPES_MAX];
+	// Jam damage thresholds
+	UINT16 usJamDamageThresholdGun[GUN_TYPES_MAX];
 
 	// -------------- ARMOR MODIFIERS ----------------
 	FLOAT fCamoLBEoverVestModifier;
