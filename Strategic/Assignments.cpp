@@ -575,7 +575,6 @@ BOOLEAN CanSoldierBeHealedByDoctor( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pDoctor,
 UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery );
 
 void CheckForAndHandleHospitalPatients( void );
-void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft );
 
 BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier );
 
@@ -4044,6 +4043,11 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	// SANDRO - this whole procedure was heavily changed
 	// Flugente: what he said
 	////////////////////////////////////////////////////
+
+	// if pPatient does not exist, get out of here
+	// this does not apply for pDoctor. We also use this routine for hospital healing, where the pointer is NULL
+	if ( !pPatient )
+		return 0;
 	
 	INT16	bPointsHealed = 0;
 	UINT16  ubReturnDamagedStatRate = 0;
@@ -4063,18 +4067,32 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	INT32	sHundredsToRepair_Used		= 0;
 	INT32	sHundredsToDiseaseCure_Used = 0;
 
+	// how good is the doctor?
+	INT8	sDoctortraits = 2;		// we just assume doctors in hospitals are capable
+	if ( pDoctor )
+	{
+		if ( gGameOptions.fNewTraitSystem )
+			sDoctortraits = NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT );
+		else
+			sDoctortraits = 0;
+	}
+
 	INT8	bMedFactor = 1;	// basic medical factor
 	// Added a penalty for not experienced mercs, they consume the bag faster
 	// if healing an repairing stat at the same time, this is increased again, but we wont recalculate for now
-	if ( gGameOptions.fNewTraitSystem && !HAS_SKILL_TRAIT( pDoctor, DOCTOR_NT ) && (pDoctor->stats.bMedical < 50) )
+	if ( gGameOptions.fNewTraitSystem && pDoctor && !sDoctortraits && (pDoctor->stats.bMedical < 50) )
 		bMedFactor += 1;
-
-	// calculate how much total points we have in all medical bags - this ultimately limits how much we can heal
-	UINT16 usTotalMedPoints = TotalMedicalKitPoints( pDoctor );
-	
+			
 	// we are limited by our supplies
-	UINT16 ptsleft = min( usHealAmount, (usTotalMedPoints * 100) / bMedFactor );
-	
+	UINT16 ptsleft = usHealAmount;
+	if ( pDoctor )
+	{
+		// calculate how much total points we have in all medical bags - this ultimately limits how much we can heal
+		UINT16 usTotalMedPoints = TotalMedicalKitPoints( pDoctor );
+
+		ptsleft = min( usHealAmount, (usTotalMedPoints * 100) / bMedFactor );
+	}
+
 	//////// DETERMINE LIFE HEAL ////////////////////
 	// Look how much life do we need to heal
 	sHundredsToHeal = (pPatient->stats.bLifeMax - pPatient->stats.bLife) * 100;
@@ -4090,18 +4108,18 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 		fWillHealLife = TRUE;
 
 	//////// DETERMINE STAT REPAIR ////////////////////
-	if ( gGameOptions.fNewTraitSystem && (NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT ) > 0) && (NumberOfDamagedStats( pPatient ) > 0) )
+	if ( sDoctortraits > 0 && (NumberOfDamagedStats( pPatient ) > 0) )
 	{
 		fWillRepairStats = TRUE;
 		sHundredsToRepair = 100 * NumberOfDamagedStats( pPatient );
 
-		ubReturnDamagedStatRate = ((gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop * NUM_SKILL_TRAITS( pDoctor, DOCTOR_NT )));
+		ubReturnDamagedStatRate = ((gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop * sDoctortraits));
 
 		// reduce rate if we are going to heal at the same time
 		if ( fWillHealLife )
 			ubReturnDamagedStatRate -= ((ubReturnDamagedStatRate * gSkillTraitValues.ubDORepStPenaltyIfAlsoHealing) / 100);
 	}
-		
+	
 	//////// DETERMINE DISEASE CURE ////////////////////
 	if ( pPatient->HasDisease( TRUE, TRUE ) )
 	{
@@ -4216,12 +4234,13 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 			}
 
 			// patient expresses his gratitude
-			AddOpinionEvent( pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE );
+			if ( pDoctor )
+				AddOpinionEvent( pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE );
 		}
 	}
 	
 	// Finally use all kit points (we are sure, we have that much)
-	if ( UseTotalMedicalKitPoints( pDoctor, max(1, ((sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used) * bMedFactor) / 100) ) == FALSE )
+	if ( pDoctor && UseTotalMedicalKitPoints( pDoctor, max( 1, ((sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used) * bMedFactor) / 100 ) ) == FALSE )
 	{
 		// throw message if this went wrong for feedback on debugging
 #ifdef JA2TESTVERSION
@@ -4233,6 +4252,12 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	if ( (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used) > usHealAmount )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! HealPatient uses more points than it should!" );
 
+	// if this patient is fully healed and cured
+	if ( !pDoctor && pPatient->stats.bLife == pPatient->stats.bLifeMax && !NumberOfDamagedStats( pPatient ) && !pPatient->HasDisease( TRUE, TRUE ) )
+	{
+		AssignmentDone( pPatient, TRUE, TRUE );
+	}
+
 	return (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used);
 }
 
@@ -4242,7 +4267,7 @@ void CheckForAndHandleHospitalPatients( void )
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
 	INT32 cnt=0;
 
-	if( fSectorsWithSoldiers[ HOSPITAL_SECTOR_X + HOSPITAL_SECTOR_Y * MAP_WORLD_X ][ 0 ] == FALSE )
+	if ( fSectorsWithSoldiers[gModSettings.ubHospitalSectorX + gModSettings.ubHospitalSectorY * MAP_WORLD_X][0] == FALSE )
 	{
 		// nobody in the hospital sector... leave
 		return;
@@ -4258,94 +4283,15 @@ void CheckForAndHandleHospitalPatients( void )
 		{
 			if ( pTeamSoldier->bAssignment == ASSIGNMENT_HOSPITAL )
 			{
-				if ( ( pTeamSoldier->sSectorX == HOSPITAL_SECTOR_X ) && ( pTeamSoldier->sSectorY == HOSPITAL_SECTOR_Y ) && ( pTeamSoldier->bSectorZ == 0 ) )
+				if ( (pTeamSoldier->sSectorX == gModSettings.ubHospitalSectorX) && (pTeamSoldier->sSectorY == gModSettings.ubHospitalSectorY) && (pTeamSoldier->bSectorZ == gModSettings.ubHospitalSectorZ) )
 				{
 					// heal this character
-					HealHospitalPatient( pTeamSoldier, gGameExternalOptions.ubHospitalHealingRate );
+					HealPatient( pTeamSoldier, NULL, gGameExternalOptions.ubHospitalHealingRate * 100 );
 				}
 			}
 		}
 	}
 }
-
-
-void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
-{
-	INT8 bPointsToUse;
-
-	if (usHealingPtsLeft <= 0)
-	{
-		return;
-	}
-
-/*	Stopping hospital patients' bleeding must be handled immediately, not during a regular hourly check
-	// stop all bleeding of patient..for 1 pt.
-	if (pPatient->bBleeding > 0)
-	{
-		usHealingPtsLeft--;
-		pPatient->bBleeding = 0;
-	}
-*/
-
-	// if below ok life, heal these first at double cost
-	if( pPatient->stats.bLife < OKLIFE )
-	{
-		// get points needed to heal him to OKLIFE
-		bPointsToUse = gGameExternalOptions.ubPointCostPerHealthBelowOkLife * ( OKLIFE - pPatient->stats.bLife );
-
-		// if he needs more than we have, reduce to that
-		if( bPointsToUse > usHealingPtsLeft )
-		{
-			bPointsToUse = ( INT8 )usHealingPtsLeft;
-		}
-
-		usHealingPtsLeft -= bPointsToUse;
-
-		// heal person the amount / POINT_COST_PER_HEALTH_BELOW_OKLIFE
-		pPatient->stats.bLife += ( bPointsToUse / gGameExternalOptions.ubPointCostPerHealthBelowOkLife );
-						
-		// SANDRO - doctor trait - when being healed normally, reduce insta-healable HPs value 
-		if ( gGameOptions.fNewTraitSystem && pPatient->iHealableInjury > 0 ) 
-		{
-			pPatient->iHealableInjury -= (bPointsToUse / gGameExternalOptions.ubPointCostPerHealthBelowOkLife * 100);
-			if (pPatient->iHealableInjury < 0)
-				pPatient->iHealableInjury = 0;
-		}
-	}
-
-	// critical condition handled, now solve normal healing
-
-	if ( pPatient->stats.bLife < pPatient->stats.bLifeMax )
-	{
-		bPointsToUse = ( pPatient->stats.bLifeMax - pPatient->stats.bLife );
-
-		// if guy is hurt more than points we have...heal only what we have
-		if( bPointsToUse > usHealingPtsLeft )
-		{
-			bPointsToUse = ( INT8 )usHealingPtsLeft;
-		}
-
-		usHealingPtsLeft -= bPointsToUse;
-
-		// heal person the amount
-		pPatient->stats.bLife += bPointsToUse;
-				
-		// SANDRO - doctor trait - when being healed normally, reduce insta-healable HPs value 
-		if ( gGameOptions.fNewTraitSystem && pPatient->iHealableInjury > 0 ) 
-		{
-			pPatient->iHealableInjury -= (bPointsToUse * 100);
-			if (pPatient->iHealableInjury < 0)
-				pPatient->iHealableInjury = 0;
-		}
-	}
-	
-	// if this patient is fully healed and cured
-	if ( pPatient->stats.bLife == pPatient->stats.bLifeMax )
-	{
-		AssignmentDone( pPatient, TRUE, TRUE );
-	}
-}
-
 
 void HandleRepairmenInSector( INT16 sX, INT16 sY, INT8 bZ )
 {

@@ -2852,12 +2852,20 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 	
 					fDidRequester = TRUE;
 	
-					if (pTSoldier->bBleeding)
-						swprintf( zStr, New113Message[ MSG113_DO_WE_WANT_SURGERY_FIRST ], pTSoldier->GetName(), (pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000) );
-					else
-						swprintf( zStr, New113Message[ MSG113_DO_WE_WANT_SURGERY ], pTSoldier->GetName(), (pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000) );
+					// Flugente: if we wouldn't really heal anything due to the wound being too small, tell us so
+					if ( !pTSoldier->bBleeding && ( pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000 ) <= 0 )
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[19], pTSoldier->GetName( ) );
+					}
+					else 
+					{
+						if (pTSoldier->bBleeding)
+							swprintf( zStr, New113Message[ MSG113_DO_WE_WANT_SURGERY_FIRST ], pTSoldier->GetName(), (pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000) );
+						else
+							swprintf( zStr, New113Message[ MSG113_DO_WE_WANT_SURGERY ], pTSoldier->GetName(), (pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000) );
 
-					DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurgeryRequesterCallback, NULL );
+						DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurgeryRequesterCallback, NULL );
+					}
 				}
 				////////////////////////////////////////////////////////////////////////////////////////////////
 			}

@@ -1925,7 +1925,7 @@ void CheckAndHandleSkyriderMonologues( void )
 		else if( guiHelicopterSkyriderTalkState == 1 )
 		{
 			// if enemy still controls the Cambria hospital sector
-			if( StrategicMap[ CALCULATE_STRATEGIC_INDEX( HOSPITAL_SECTOR_X, HOSPITAL_SECTOR_Y ) ].fEnemyControlled )
+			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gModSettings.ubHospitalSectorX, gModSettings.ubHospitalSectorY )].fEnemyControlled )
 			{
 				HandleSkyRiderMonologueEvent( SKYRIDER_MONOLOGUE_EVENT_CAMBRIA_HOSPITAL, 0 );
 			}
@@ -1983,7 +1983,7 @@ void HandleAnimationOfSectors( void )
 	if( fShowCambriaHospitalHighLight )
 	{
 		fOldShowCambriaHospitalHighLight = TRUE;
-		HandleBlitOfSectorLocatorIcon( HOSPITAL_SECTOR_X, HOSPITAL_SECTOR_Y, 0, LOCATOR_COLOR_RED );
+		HandleBlitOfSectorLocatorIcon( gModSettings.ubHospitalSectorX, gModSettings.ubHospitalSectorY, 0, LOCATOR_COLOR_RED );
 		fSkipSpeakersLocator = TRUE;
 	}
 	else if( fOldShowCambriaHospitalHighLight )

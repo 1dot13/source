@@ -2998,7 +2998,7 @@ void HandleQuestCodeOnSectorExit( INT16 sOldSectorX, INT16 sOldSectorY, INT8 bOl
 		}
 	}
 #endif
-	if ( sOldSectorX == HOSPITAL_SECTOR_X && sOldSectorY == HOSPITAL_SECTOR_Y && bOldSectorZ == HOSPITAL_SECTOR_Z )
+	if ( sOldSectorX == gModSettings.ubHospitalSectorX && sOldSectorY == gModSettings.ubHospitalSectorY && bOldSectorZ == gModSettings.ubHospitalSectorZ )
 	{
 		CheckForMissingHospitalSupplies( );
 	}

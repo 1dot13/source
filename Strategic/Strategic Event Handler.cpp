@@ -1090,7 +1090,7 @@ void HandleEarlyMorningEvents( void )
 		SetFactFalse( FACT_DAVE_HAS_GAS );
 	}
 
-	if ( gWorldSectorX == HOSPITAL_SECTOR_X && gWorldSectorY == HOSPITAL_SECTOR_Y && gbWorldSectorZ == HOSPITAL_SECTOR_Z )
+	if ( gWorldSectorX == gModSettings.ubHospitalSectorX && gWorldSectorY == gModSettings.ubHospitalSectorY && gbWorldSectorZ == gModSettings.ubHospitalSectorZ )
 	{
 		CheckForMissingHospitalSupplies();
 	}
