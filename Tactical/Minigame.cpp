@@ -50,6 +50,7 @@
 #include "WordWrap.h"
 #include "gamescreen.h"
 #include "Isometric Utils.h"
+#include "math.h"
 
 // remember the previous screen
 UINT32 guiMiniGamePreviousScreen = GAME_SCREEN;
@@ -2396,9 +2397,9 @@ UINT32 MiniGame_Handle_Pong()
 							{
 								// colour x, y if
 								// (it->x - x)^2 + (it->y - y)^2 <= r^2
-								// <=> (it->y - y) <= +/- std::sqrt( r^2 - (it->x - x)^2 )
-								// <=> y >= it->y +/- std::sqrt( r^2 - (it->x - x)^2 )
-								int sqrstuff = std::sqrt( it->r * it->r - (it->x - x) * (it->x - x) );
+								// <=> (it->y - y) <= +/- sqrt( r^2 - (it->x - x)^2 )
+								// <=> y >= it->y +/- sqrt( r^2 - (it->x - x)^2 )
+								int sqrstuff = sqrt( it->r * it->r - (it->x - x) * (it->x - x) );
 								
 								ColorFillVideoSurfaceArea( FRAME_BUFFER, 
 														   max( MINIGAME_PONG_X_LOW, x),
