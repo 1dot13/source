@@ -258,6 +258,7 @@
 		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
+		<!-- due to the deadliness of Ebola (it cannot be cured) this disabled by default (all chances set to 0) -->
 		<uiIndex>6</uiIndex>
 		<szName>Ebola</szName>
 		<szFatName>|E|b|o|l|a</szFatName>
@@ -269,9 +270,9 @@
 		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
 		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
 		<InfectionChance_SEX>0</InfectionChance_SEX>
-		<InfectionChance_CONTACT_HUMAN>6</InfectionChance_CONTACT_HUMAN>
-		<InfectionChance_CONTACT_CORPSE>0.7</InfectionChance_CONTACT_CORPSE>
-		<InfectionChance_WOUND_ANIMAL>12</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
 		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
 		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
 		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>

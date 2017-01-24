@@ -1,0 +1,40 @@
+<!-- 
+voiceset : 0 - x
+
+bSex : 
+		0 - Male 
+		1 - Female
+-->
+
+<IMPVOICELIST>
+	<VOICE>
+		<szVoiceSetName>Male 1</szVoiceSetName>
+		<voiceset>51</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male 2</szVoiceSetName>
+		<voiceset>52</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male 3</szVoiceSetName>
+		<voiceset>53</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 1</szVoiceSetName>
+		<voiceset>54</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 2</szVoiceSetName>
+		<voiceset>55</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 3</szVoiceSetName>
+		<voiceset>56</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+</IMPVOICELIST>
