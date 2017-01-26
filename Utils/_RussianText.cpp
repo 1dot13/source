@@ -3082,6 +3082,11 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Биография:",
 	L"Характер:", 
+
+	L"Prisoners interrogated: %d\n",	// TODO.Translate
+	L"Diseases caught: %d\n",
+	L"Total damage received: %d\n",
+	L"Total damage caused: %d\n",
 };
 
 

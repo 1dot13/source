@@ -3082,6 +3082,11 @@ STR16 pPersonnelRecordsHelpTexts[] =
 
 	L"Background:",
 	L"Personality:",
+
+	L"Prisoners interrogated: %d\n",
+	L"Diseases caught: %d\n",
+	L"Total damage received: %d\n",
+	L"Total damage caused: %d\n",
 };
 
 

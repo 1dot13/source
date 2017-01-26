@@ -442,13 +442,11 @@ public:
 	UINT16	usNPCsDiscovered;
 	UINT16	usSectorsDiscovered;
 	UINT8   ubQuestsHandled;
-
-	UINT16  zFiller1;
-	UINT16  zFiller2;
-	UINT16  zFiller3;
-	UINT16  zFiller4;
-	UINT16  zFiller5;
-	UINT16  zFiller6;
+	
+	UINT16  usInterrogations;
+	UINT32  usDamageTaken;
+	UINT32  usDamageDealt;
+	UINT16  usTimesInfected;
 	UINT16  zFiller7;
 	UINT16  zFiller8;
 	UINT8   zFiller9;

@@ -9930,6 +9930,14 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		
 		VehicleTakeDamage( this->bVehicleID, ubReason, sLifeDeduct, this->sGridNo, ubAttacker );
 		HandleTakeDamageDeath( this, bOldLife, ubReason );
+
+		// add to our records.
+		if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && MercPtrs[ubAttacker]->ubProfile != NO_PROFILE )
+			gMercProfiles[MercPtrs[ubAttacker]->ubProfile].records.usDamageDealt += sLifeDeduct;
+
+		if ( this->ubProfile != NO_PROFILE )
+			gMercProfiles[this->ubProfile].records.usDamageTaken += sLifeDeduct;
+
 		return(0);
 	}
 
@@ -10095,6 +10103,13 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		// We don't want that, because he is dying, so we manually skip that animation
 		this->usPendingAnimation = NO_PENDING_ANIMATION;
 	}
+
+	// add to our records.
+	if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] && MercPtrs[ubAttacker]->ubProfile != NO_PROFILE )
+		gMercProfiles[MercPtrs[ubAttacker]->ubProfile].records.usDamageDealt += sLifeDeduct;
+
+	if ( this->ubProfile != NO_PROFILE )
+		gMercProfiles[this->ubProfile].records.usDamageTaken += sLifeDeduct;
 
 	if ( fShowDamage )
 	{
@@ -18478,6 +18493,10 @@ void	SOLDIERTYPE::AnnounceDisease( UINT8 aDisease )
 
 	if ( this->bTeam == gbPlayerNum )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szDiseaseText[TEXT_DISEASE_DIAGNOSE_GENERAL], this->GetName( ), Disease[aDisease].szName );
+
+	// add to our records.
+	if ( this->ubProfile != NO_PROFILE )
+		gMercProfiles[this->ubProfile].records.usTimesInfected += 1;
 }
 
 // do we have any disease? fDiagnosedOnly: check for wether we know of this infection fHealableOnly: check wether it can be healed

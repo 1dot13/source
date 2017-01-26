@@ -8644,8 +8644,6 @@ void AssignPersonnelAssistsHelpText( INT32 ubProfile )
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[8]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[8], MSYS_NO_CALLBACK );
-	
-	return;
 }
 
 void AssignPersonnelHitPercentageHelpText( INT32 ubProfile )
@@ -8689,12 +8687,15 @@ void AssignPersonnelHitPercentageHelpText( INT32 ubProfile )
 		swprintf(atStr, pPersonnelRecordsHelpTexts[ 16 ], gMercProfiles[ubProfile].records.usShotsHit );
 		wcscat( apStr, atStr );
 	}
+	if ( gMercProfiles[ubProfile].records.usDamageDealt > 0 || fShowRecordsIfZero )
+	{
+		swprintf( atStr, pPersonnelRecordsHelpTexts[52], gMercProfiles[ubProfile].records.usDamageDealt );
+		wcscat( apStr, atStr );
+	}
 
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[9]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[9], MSYS_NO_CALLBACK );
-	
-	return;
 }
 
 void AssignPersonnelAchievementsHelpText( INT32 ubProfile )
@@ -8800,12 +8801,15 @@ void AssignPersonnelAchievementsHelpText( INT32 ubProfile )
 		swprintf(atStr, pPersonnelRecordsHelpTexts[ 30 ], gMercProfiles[ubProfile].records.ubQuestsHandled );
 		wcscat( apStr, atStr );
 	}
+	if ( gMercProfiles[ubProfile].records.usInterrogations > 0 || fShowRecordsIfZero )
+	{
+		swprintf( atStr, pPersonnelRecordsHelpTexts[49], gMercProfiles[ubProfile].records.usInterrogations );
+		wcscat( apStr, atStr );
+	}
 
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[10]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[10], MSYS_NO_CALLBACK );
-	
-	return;
 }
 
 void AssignPersonnelBattlesHelpText( INT32 ubProfile )
@@ -8899,6 +8903,18 @@ void AssignPersonnelWoundsHelpText( INT32 ubProfile )
 		wcscat( apStr, atStr );
 	}
 
+	if ( gMercProfiles[ubProfile].records.usTimesInfected > 0 || fShowRecordsIfZero )
+	{
+		swprintf( atStr, pPersonnelRecordsHelpTexts[50], gMercProfiles[ubProfile].records.usTimesInfected );
+		wcscat( apStr, atStr );
+	}
+
+	if ( gMercProfiles[ubProfile].records.usDamageTaken > 0 || fShowRecordsIfZero )
+	{
+		swprintf( atStr, pPersonnelRecordsHelpTexts[51], gMercProfiles[ubProfile].records.usDamageTaken );
+		wcscat( apStr, atStr );
+	}
+
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[12]), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[12], MSYS_NO_CALLBACK );
@@ -8946,8 +8962,9 @@ INT8 CalculateMercsAchievementPercentage( INT32 ubProfile )
 					+ 
 					( gMercProfiles[ pTeamSoldier->ubProfile ].records.usMilitiaTrained /4)
 					+ 
-					( gMercProfiles[ pTeamSoldier->ubProfile ].records.ubQuestsHandled *2);
-
+					( gMercProfiles[ pTeamSoldier->ubProfile ].records.ubQuestsHandled *2)
+					+
+					(gMercProfiles[pTeamSoldier->ubProfile].records.usInterrogations);
 			}
 		}
 	}
@@ -8978,7 +8995,9 @@ INT8 CalculateMercsAchievementPercentage( INT32 ubProfile )
 		+ 
 		( gMercProfiles[ ubProfile ].records.usMilitiaTrained /4)
 		+ 
-		( gMercProfiles[ ubProfile ].records.ubQuestsHandled *2);
+		( gMercProfiles[ ubProfile ].records.ubQuestsHandled *2)
+		+
+		( gMercProfiles[ubProfile].records.usInterrogations );
 
 	// Calculate percentage
 	if( ulTotalMercPoints != 0 )

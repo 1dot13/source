@@ -7277,6 +7277,10 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					StatChange( pSoldier, WISDOMAMT, max( 0, exppoints ), TRUE );
 					StatChange( pSoldier, EXPERAMT, max( 0, exppoints - 1 ), TRUE );
 				}
+
+				// add to our records. Screw exact values, just add them all and call it a day
+				if ( pSoldier->ubProfile != NO_PROFILE )
+					gMercProfiles[pSoldier->ubProfile].records.usInterrogations += prisonersinterrogated;
 			}
 		}
 	}
