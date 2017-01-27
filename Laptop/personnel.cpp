@@ -8778,6 +8778,11 @@ void AssignPersonnelAchievementsHelpText( INT32 ubProfile )
 			}
 		}
 	}
+	if ( gMercProfiles[ubProfile].records.usPointsHealed /100 > 0 || fShowRecordsIfZero )
+	{
+		swprintf( atStr, pPersonnelRecordsHelpTexts[53], gMercProfiles[ubProfile].records.usPointsHealed / 100 );
+		wcscat( apStr, atStr );
+	}
 	if (gMercProfiles[ubProfile].records.usNPCsDiscovered > 0 || fShowRecordsIfZero)
 	{
 		swprintf(atStr, pPersonnelRecordsHelpTexts[ 27 ], gMercProfiles[ubProfile].records.usNPCsDiscovered );

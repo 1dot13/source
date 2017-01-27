@@ -3093,6 +3093,7 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Diseases caught: %d\n",
 	L"Total damage received: %d\n",
 	L"Total damage caused: %d\n",
+	L"Total healing: %d\n",
 };
 
 

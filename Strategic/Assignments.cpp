@@ -4258,6 +4258,10 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 		AssignmentDone( pPatient, TRUE, TRUE );
 	}
 
+	// add to our records
+	if ( pDoctor && pDoctor->ubProfile != NO_PROFILE )
+		gMercProfiles[pDoctor->ubProfile].records.usPointsHealed += (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used);
+
 	return (sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used);
 }
 

@@ -447,9 +447,8 @@ public:
 	UINT32  usDamageTaken;
 	UINT32  usDamageDealt;
 	UINT16  usTimesInfected;
-	UINT16  zFiller7;
-	UINT16  zFiller8;
-	UINT8   zFiller9;
+	UINT16	zFiller7;
+	UINT32  usPointsHealed;		// we store the healed hundreth, because we can
 
 }; // RECORDS
 //////////////////////////////////////////////////////////////////////////////
