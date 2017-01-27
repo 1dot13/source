@@ -3112,9 +3112,10 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	}
 	SWeaponHit.ubSpecial = ubSpecial;
 
+	// Flugente: we already accounted in the impact calculation whether this is a vehicle or not. Vehicles can be pierced just as well.
 	// now check to see if the bullet goes THROUGH this person! (not vehicles)
 	// HEADROCK HAM 5: Attacking weapon already defined above.
-	if ( !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE) && (AmmoTypes[ubAmmoType].canGoThrough) && !EXPLOSIVE_GUN( usAttackingWeapon ) )
+	if ( AmmoTypes[ubAmmoType].usPiercePersonChanceModifier > 0 && !EXPLOSIVE_GUN( usAttackingWeapon ) )
 	{
 		// if we do more damage than expected, then the bullet will be more likely
 		// to be lodged in the body
@@ -3130,7 +3131,9 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 		{
 			iImpact = iDamage;
 		}
-		uiChanceThrough = (UINT8) __max( 0, ( iImpact - 20 ) );
+
+		// Flugente: a separate modifier for chance to go through
+		uiChanceThrough = (UINT32)__max( 0, (iImpact - 20) + AmmoTypes[ubAmmoType].usPiercePersonChanceModifier );
 		if (PreRandom( 100 ) < uiChanceThrough )
 		{
 			// bullet MAY go through
@@ -3460,7 +3463,7 @@ INT32 HandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStructure
 		iImpactReduction = StructureResistanceIncreasedByRange( iImpactReduction, pBullet->iRange, pBullet->iLoop );
 
 		iImpactReduction = (INT32) (iImpactReduction * AmmoTypes[ubAmmoType].structureImpactReductionMultiplier / max(1,AmmoTypes[ubAmmoType].structureImpactReductionDivisor));
-
+		
 		//switch (pBullet->pFirer->inv[ pBullet->pFirer->ubAttackingHand ][0]->data.gun.ubGunAmmoType)
 		//{
 		//	case AMMO_HP:

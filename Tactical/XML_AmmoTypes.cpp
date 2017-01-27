@@ -64,7 +64,7 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "beforeArmourDamageDivisor") == 0 ||
 				strcmp(name, "multipleBulletDamageDivisor") == 0 ||
 				strcmp(name, "zeroMinimumDamage") == 0 ||
-				strcmp(name, "canGoThrough") == 0 ||
+				strcmp(name, "usPiercePersonChanceModifier") == 0 ||
 				strcmp(name, "standardIssue") == 0 ||
 				strcmp(name, "numberOfBullets") == 0 ||
 				//zilpin: pellet spread patterns externalized in XML
@@ -218,10 +218,10 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.zeroMinimumDamage	= (BOOLEAN) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "canGoThrough") == 0)
+		else if(strcmp(name, "usPiercePersonChanceModifier") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.canGoThrough	= (BOOLEAN) atol(pData->szCharData);
+			pData->curAmmoType.usPiercePersonChanceModifier = (UINT16)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "standardIssue") == 0)
 		{
@@ -448,7 +448,7 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<afterArmourDamageMultiplier>%d</afterArmourDamageMultiplier>\r\n",					AmmoTypes[cnt].afterArmourDamageMultiplier	);
 			FilePrintf(hFile,"\t\t<afterArmourDamageDivisor>%d</afterArmourDamageDivisor>\r\n",							AmmoTypes[cnt].afterArmourDamageDivisor	);
 			FilePrintf(hFile,"\t\t<zeroMinimumDamage>%d</zeroMinimumDamage>\r\n",										AmmoTypes[cnt].zeroMinimumDamage	);
-			FilePrintf(hFile,"\t\t<canGoThrough>%d</canGoThrough>\r\n",													AmmoTypes[cnt].canGoThrough	);
+			FilePrintf(hFile,"\t\t<usPiercePersonChanceModifier>%d</usPiercePersonChanceModifier>\r\n",					AmmoTypes[cnt].usPiercePersonChanceModifier );
 			FilePrintf(hFile,"\t\t<standardIssue>%d</standardIssue>\r\n",												AmmoTypes[cnt].standardIssue	);
 			FilePrintf(hFile,"\t\t<numberOfBullets>%d</numberOfBullets>\r\n",											AmmoTypes[cnt].numberOfBullets	);
 			FilePrintf(hFile,"\t\t<multipleBulletDamageMultiplier>%d</multipleBulletDamageMultiplier>\r\n",				AmmoTypes[cnt].multipleBulletDamageMultiplier	);

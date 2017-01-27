@@ -230,7 +230,7 @@ typedef struct
 
 	// minimum damage can be zero
 	BOOLEAN zeroMinimumDamage;
-	BOOLEAN canGoThrough;
+	UINT16 usPiercePersonChanceModifier;
 	BOOLEAN standardIssue;
 	UINT8 numberOfBullets;
 	INT32 multipleBulletDamageMultiplier;
