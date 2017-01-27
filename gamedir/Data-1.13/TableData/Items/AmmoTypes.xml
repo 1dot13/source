@@ -21,7 +21,8 @@
 						modifies damage after armour is hit. Not used against armed vehicles.
 						
 	<zeroMinimumDamage>	0/1 setting. If set to 1, bullet damage can be 0.
-	<canGoThrough>		0/1 setting. If set to 1, person hit is not a vehicle and gun isn't a rocket launcher or cannon, the bullet has a chance to continue flying
+	<usPiercePersonChanceModifier>
+						if > 0, extra chance for bullet to continue flying if gun isn't a rocket launcher or cannon (and bullet is still powerful enough)
 	<standardIssue>		0/1 setting. If set to 1, magazines  of this ammo are considered when determining ammo for the AI inventory.
 	<numberOfBullets>	number of projectiles fired per shot. If > 1, this is considered buckshot
 	
@@ -68,7 +69,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -109,7 +110,7 @@
 		<afterArmourDamageMultiplier>17</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -141,8 +142,8 @@
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
 		<onNormal>7</onNormal>
-		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
-		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
 		<armourImpactReductionDivisor>4</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
@@ -150,7 +151,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>10</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -191,7 +192,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>10</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -232,7 +233,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>9</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -273,7 +274,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>50</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>20</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -314,7 +315,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -355,7 +356,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -396,7 +397,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -437,7 +438,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -478,7 +479,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -519,7 +520,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -560,7 +561,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -601,7 +602,7 @@
 		<afterArmourDamageMultiplier>17</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>5</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -642,7 +643,7 @@
 		<afterArmourDamageMultiplier>30</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -683,7 +684,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -715,8 +716,8 @@
 		<grayed>4</grayed>
 		<offNormal>17</offNormal>
 		<onNormal>19</onNormal>
-		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
-		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
 		<armourImpactReductionDivisor>4</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
@@ -724,7 +725,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>10</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -765,7 +766,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>5</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -797,8 +798,8 @@
 		<grayed>4</grayed>
 		<offNormal>13</offNormal>
 		<onNormal>15</onNormal>
-		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
-		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
 		<armourImpactReductionDivisor>4</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
@@ -806,7 +807,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>15</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -847,7 +848,7 @@
 		<afterArmourDamageMultiplier>95</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>100</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -888,7 +889,7 @@
 		<afterArmourDamageMultiplier>16</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -929,7 +930,7 @@
 		<afterArmourDamageMultiplier>75</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>100</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>5</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -970,7 +971,7 @@
 		<afterArmourDamageMultiplier>75</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>100</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>10</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1011,7 +1012,7 @@
 		<afterArmourDamageMultiplier>26</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1052,7 +1053,7 @@
 		<afterArmourDamageMultiplier>26</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1093,7 +1094,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1126,7 +1127,7 @@
 		<offNormal>21</offNormal>
 		<onNormal>23</onNormal>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
-		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
+		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
 		<armourImpactReductionDivisor>2</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>3</beforeArmourDamageMultiplier>
@@ -1134,7 +1135,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>60</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1175,7 +1176,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>2</numberOfBullets>
 		<multipleBulletDamageMultiplier>2</multipleBulletDamageMultiplier>
@@ -1216,7 +1217,7 @@
 		<afterArmourDamageMultiplier>15</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1257,7 +1258,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1297,7 +1298,7 @@
 		<afterArmourDamageMultiplier>0</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>0</multipleBulletDamageMultiplier>
@@ -1338,7 +1339,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>20</usPiercePersonChanceModifier>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1379,7 +1380,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
-		<canGoThrough>1</canGoThrough>
+		<usPiercePersonChanceModifier>1</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
@@ -1420,7 +1421,7 @@
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
-		<canGoThrough>0</canGoThrough>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
