@@ -286,6 +286,29 @@ UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubT
 	return ubNumTroops;
 }
 
+// returns how many members of a team are in a sector - only intended for OUR_TEAM! POWs not included
+UINT16 NumPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ )
+{
+	UINT16 teammemberspresent = 0;
+
+	SOLDIERTYPE*		pTeamSoldier = NULL;
+	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( pTeamSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pTeamSoldier++ )
+	{
+		// we test several conditions before we allow adding an opinion
+		// other merc must be active, have a profile, be someone else and not be in transit or dead
+		if ( pTeamSoldier->bActive && !pTeamSoldier->flags.fBetweenSectors  && pTeamSoldier->stats.bLife > 0 && !(pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) &&
+			 !(pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW) &&
+			 (pTeamSoldier->sSectorX == sSectorX && pTeamSoldier->sSectorY == sSectorY && pTeamSoldier->bSectorZ == sSectorZ) )
+		{
+			++teammemberspresent;
+		}
+	}
+
+	return teammemberspresent;
+}
+
 UINT16 NumEnemyArmedVehiclesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam )
 {
 	SECTORINFO *pSector;

@@ -340,18 +340,16 @@ void InitTacticalPlacementGUI()
 	//First pass:	Count the number of mercs that are going to be placed by the player.
 	//			 This determines the size of the array we will allocate.
 	giPlacements = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
 
 		if( MercPtrs[ i ]->bActive && !MercPtrs[ i ]->flags.fBetweenSectors &&
-				MercPtrs[ i ]->sSectorX == gpBattleGroup->ubSectorX &&
-				MercPtrs[ i ]->sSectorY == gpBattleGroup->ubSectorY	&&
+			CurrentBattleSectorIs( MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY, MercPtrs[i]->bSectorZ ) &&
 				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) && // ATE Ignore vehicles
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
-				MercPtrs[ i ]->bAssignment != IN_TRANSIT &&
-				!MercPtrs[ i ]->bSectorZ )
+				MercPtrs[ i ]->bAssignment != IN_TRANSIT )
 		{
-			giPlacements++;
+			++giPlacements;
 		}
 	}
 	//Allocate the array based on how many mercs there are.
@@ -362,12 +360,10 @@ void InitTacticalPlacementGUI()
 	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !MercPtrs[ i ]->flags.fBetweenSectors &&
-				MercPtrs[ i ]->sSectorX == gpBattleGroup->ubSectorX &&
-				MercPtrs[ i ]->sSectorY == gpBattleGroup->ubSectorY	&&
+			CurrentBattleSectorIs( MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY, MercPtrs[i]->bSectorZ ) &&
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
 				MercPtrs[ i ]->bAssignment != IN_TRANSIT &&
-				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) && // ATE Ignore vehicles
-				!MercPtrs[ i ]->bSectorZ )
+				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) ) // ATE Ignore vehicles
 		{
 			// Flugente: if options allow it and we entered this sector - in combat - via helicopter, then allow us free selection of our entry point, and drop us from the helicopter
 			if ( MercPtrs[ i ]->bTeam == gbPlayerNum && gGameExternalOptions.ubSkyriderHotLZ == 3 && MercPtrs[ i ]->usSoldierFlagMask & SOLDIER_AIRDROP )

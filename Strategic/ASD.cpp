@@ -449,7 +449,7 @@ void ASDDecideHeliOperations()
 				// lower a sector's rating for the amount of militia and mercs here - no sense in dropping a squad into a killing field
 				// for now, the AI simply knows the player's amount of troops - later on, try to rely on espionage
 				UINT16 num_militia = CountAllMilitiaInFiveSectors( sX, sY );
-				UINT16 num_mercs = PlayerMercsInSector( sX, sY, 0 );
+				UINT16 num_mercs = NumPlayerTeamMembersInSector( sX, sY, 0);
 				if ( num_militia + num_mercs )
 				{
 					if ( num_militia + num_mercs > 2 * gEnemyHeliMaxTroops )
@@ -619,7 +619,7 @@ void ENEMY_HELI::Destroy( )
 					SectorInfo[sector_current].ubNumElites = min( 255, SectorInfo[sector_current].ubNumElites + 1 + Random(troopcount) );
 
 					// if no militia or mercs are here, enemy takes this sector
-					if ( PlayerMercsInSector( SECTORX( sector_current ), SECTORY( sector_current ), 0 ) + NumNonPlayerTeamMembersInSector( SECTORX( sector_current ), SECTORY( sector_current ), MILITIA_TEAM ) <= 0 )
+					if ( NumPlayerTeamMembersInSector( SECTORX( sector_current ), SECTORY( sector_current ), 0 ) + NumNonPlayerTeamMembersInSector( SECTORX( sector_current ), SECTORY( sector_current ), MILITIA_TEAM ) <= 0 )
 					{
 						SetThisSectorAsEnemyControlled( SECTORX( sector_current ), SECTORY( sector_current ), 0, TRUE );
 					}
@@ -954,7 +954,7 @@ void UpdateEnemyHeli( INT16 id )
 			heli.flagmask &= ~ENEMYHELI_ORDER_DROPTROOPS;
 
 			// if no militia or mercs are here, enemy takes this sector
-			if ( PlayerMercsInSector( SECTORX( heli.sector_current ), SECTORY( heli.sector_current ), 0 ) + NumNonPlayerTeamMembersInSector( SECTORX( heli.sector_current ), SECTORY( heli.sector_current ), MILITIA_TEAM ) <= 0 )
+			if ( NumPlayerTeamMembersInSector( SECTORX( heli.sector_current ), SECTORY( heli.sector_current ), 0 ) + NumNonPlayerTeamMembersInSector( SECTORX( heli.sector_current ), SECTORY( heli.sector_current ), MILITIA_TEAM ) <= 0 )
 			{
 				SetThisSectorAsEnemyControlled( SECTORX( heli.sector_current ), SECTORY( heli.sector_current ), 0, TRUE );
 			}
@@ -969,7 +969,7 @@ void UpdateEnemyHeli( INT16 id )
 		if ( heli.flagmask & ENEMYHELI_ORDER_PICKUPTROOPS && heli.sector_current == heli.sector_destination )
 		{
 			// for now, not if the player is here
-			if ( !PlayerMercsInSector( SECTORX( heli.sector_current ), SECTORY( heli.sector_current ), 0 ) )
+			if ( !NumPlayerTeamMembersInSector( SECTORX( heli.sector_current ), SECTORY( heli.sector_current ), 0 ) )
 			{
 				if ( heli.troopcount < gEnemyHeliMaxTroops )
 				{
@@ -1209,7 +1209,7 @@ void EnemyHeliCheckPlayerKnowledge( INT16 id )
 		INT8 current_y = SECTORY( heli.sector_current );
 
 		// if there are mercs in this sector, they spot the heli and let us know
-		if ( PlayerMercsInSector( current_x, current_y, 0 ) )
+		if ( NumPlayerTeamMembersInSector( current_x, current_y, 0 ) )
 		{
 			// if we previously did not know of the heli, our mercs will alert us
 			if ( !(heli.flagmask & ENEMYHELI_KNOWNTOPLAYER) )
@@ -1241,7 +1241,7 @@ void EnemyHeliCheckPlayerKnowledge( INT16 id )
 				if ( DoesSamCoverSector( i, heli.sector_current ) )
 				{
 					// if mercs man the SAM, they will let us know of the new SAM
-					if ( PlayerMercsInSector( gpSamSectorX[i], gpSamSectorY[i], 0 ) )
+					if ( NumPlayerTeamMembersInSector( gpSamSectorX[i], gpSamSectorY[i], 0 ) )
 					{
 						// if we previously did not know of the heli, our mercs will alert us
 						if ( !(heli.flagmask & ENEMYHELI_KNOWNTOPLAYER) )

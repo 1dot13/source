@@ -22,6 +22,9 @@ UINT8 NumEnemiesInAnySector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
 // returns how many members of a team are in a sector - not intended for OUR_TEAM!
 UINT8 NumNonPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam );
 
+// returns how many members of a team are in a sector - only intended for OUR_TEAM! POWs not included
+UINT16 NumPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, INT8 sSectorZ );
+
 UINT16 NumEnemyArmedVehiclesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam );
 UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
 UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
