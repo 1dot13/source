@@ -618,7 +618,7 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 
 	// make sure to check for these boundaries later on, and only draw inside them
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, gsVIEWPORT_START_X, gsVIEWPORT_WINDOW_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
 
 	INT16 numcircles = max( 1, 4 - usDelay);
 
@@ -640,9 +640,9 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 		usLineColor = Get16BPPColor( FROMRGB( min( 255, 50 + 2 * radiusvar ), 0, 0 ) );
 
 		// determine area of where the circle will be drawn in, take into account what part of the sector we actually see
-		INT32 xl = max( 0, sScreenX - radius_outer );
+		INT32 xl = max( gsVIEWPORT_START_X, sScreenX - radius_outer );
 		INT32 xr = min( gsVIEWPORT_END_X, sScreenX + radius_outer );
-		INT32 yl = max( 0, sScreenY - radius_outer );
+		INT32 yl = max( gsVIEWPORT_WINDOW_START_Y, sScreenY - radius_outer );
 		INT32 yr = min( gsVIEWPORT_WINDOW_END_Y, sScreenY + radius_outer );
 
 		best_xl = min( best_xl, xl );
