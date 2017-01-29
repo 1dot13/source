@@ -582,7 +582,7 @@ void RenderRubberBanding( )
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
-// Flugente: draw moving circles around a gridno. This is used to warn the playe of impending explosions
+// Flugente: draw moving circles around a gridno. This is used to warn the player of impending explosions
 void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 {
 	if ( usDelay <= 0 )
@@ -597,7 +597,7 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 	static INT32			updatecounter = 0;
 	INT16					sScreenX, sScreenY;
 
-	if ( TileIsOutOfBounds( sGridno ) || !GridNoOnScreen( sGridno ) )
+	if ( TileIsOutOfBounds( sGridno ) )
 		return;
 
 	// Get screen pos of gridno......
@@ -616,6 +616,8 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 	}
 
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+	// make sure to check for these boundaries later on, and only draw inside them
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
 
 	INT16 numcircles = max( 1, 4 - usDelay);
@@ -628,11 +630,14 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 		INT16 radius_inner = max( 2, radiusvar );
 		INT16 radius_outer = radius_inner + radius;
 
-		INT32 xl = max( 0, sScreenX - radius_outer );
-		INT32 xr = sScreenX + radius_outer;
-		INT32 yl = max( 0, sScreenY - radius_outer );
-		INT32 yh = sScreenY + radius_outer;
+		usLineColor = Get16BPPColor( FROMRGB( min( 255, 50 + 2 * radiusvar ), 0, 0 ) );
 
+		// determine area of where the circle will be drawn in, take into account what part of the sector we actually see
+		INT32 xl = max( 0, sScreenX - radius_outer );
+		INT32 xr = min( gsVIEWPORT_END_X, sScreenX + radius_outer );
+		INT32 yl = max( 0, sScreenY - radius_outer );
+		INT32 yh = min( gsVIEWPORT_WINDOW_END_Y, sScreenY + radius_outer );
+		
 		for ( INT32 x = xl; x <= xr; ++x )
 		{
 			for ( INT32 y = yl; y <= yh; ++y )
@@ -641,8 +646,6 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 
 				if ( radius_inner <= diff && diff <= radius_outer )
 				{
-					usLineColor = Get16BPPColor( FROMRGB( min( 255, 50 + 2 * radiusvar ), 0, 0 ) );
-
 					PixelDraw( FALSE, x, y, usLineColor, pDestBuf );
 				}
 			}
