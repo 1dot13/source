@@ -4254,7 +4254,7 @@ void HandleExplosionWarningAnimations( )
 
 				if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_TIMED && !((*pObj).fFlags & OBJECT_DISABLED_BOMB) && (*pObj)[0]->data.misc.bDelay )
 				{
-					DrawExplosionWarning( gWorldItems[gWorldBombs[uiWorldBombIndex].iItemIndex].sGridNo, gsInterfaceLevel, ( *pObj )[0]->data.misc.bDelay );
+					DrawExplosionWarning( gWorldItems[gWorldBombs[uiWorldBombIndex].iItemIndex].sGridNo, gWorldItems[gWorldBombs[uiWorldBombIndex].iItemIndex].ubLevel, (*pObj)[0]->data.misc.bDelay );
 				}
 			}
 		}
@@ -4279,7 +4279,7 @@ void HandleExplosionWarningAnimations( )
 
 							if ( (*pObj)[0]->data.misc.bDetonatorType == BOMB_TIMED && (*pObj)[0]->data.misc.bDelay )
 							{
-								DrawExplosionWarning( pSoldier->sGridNo, gsInterfaceLevel, ( *pObj )[0]->data.misc.bDelay );
+								DrawExplosionWarning( pSoldier->sGridNo, pSoldier->pathing.bLevel, (*pObj)[0]->data.misc.bDelay );
 
 								break;
 							}

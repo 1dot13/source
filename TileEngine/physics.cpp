@@ -2643,11 +2643,11 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 		}
 		else
 		{
+			// Flugente: explosions on the roof do work...
 			// If we landed on anything other than the floor, always! go off...
-			if( sZ != 0 ||
-				pObject->fInWater ||
-				!fCanDelayExplosion ||
-				fGoodStatus && !gGameExternalOptions.fDelayedGrenadeExplosion && !fDelayedExplosion )
+			if (  pObject->fInWater ||
+				 !fCanDelayExplosion || 
+				 fGoodStatus && !gGameExternalOptions.fDelayedGrenadeExplosion && !fDelayedExplosion )
 			{
 				fDoImpact = TRUE;
 				fIsDud = false;

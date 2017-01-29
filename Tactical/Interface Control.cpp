@@ -606,7 +606,7 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 	// ATE: If we are on a higher interface level, substract....
 	if ( usLevel == 1 )
 		sScreenY -= 50;
-	
+		
 	if ( (GetJA2Clock( ) - uiTimeOfLastUpdate) > 30 )
 	{
 		uiTimeOfLastUpdate = GetJA2Clock( );
@@ -622,6 +622,13 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 
 	INT16 numcircles = max( 1, 4 - usDelay);
 
+	// we determine the biggest rectangle we have to reserve
+	INT32 best_xl = 99999;
+	INT32 best_xr = 0;
+	INT32 best_yl = 99999;
+	INT32 best_yr = 0;
+	BOOLEAN sthdrawn = FALSE;
+
 	for ( int i = 0; i < numcircles; ++i )
 	{
 		INT32 radiusvar = (updatecounter + i * periods / numcircles) % periods;
@@ -636,29 +643,42 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 		INT32 xl = max( 0, sScreenX - radius_outer );
 		INT32 xr = min( gsVIEWPORT_END_X, sScreenX + radius_outer );
 		INT32 yl = max( 0, sScreenY - radius_outer );
-		INT32 yh = min( gsVIEWPORT_WINDOW_END_Y, sScreenY + radius_outer );
+		INT32 yr = min( gsVIEWPORT_WINDOW_END_Y, sScreenY + radius_outer );
+
+		best_xl = min( best_xl, xl );
+		best_xr = max( best_xr, xr );
+		best_yl = min( best_yl, yl );
+		best_yr = max( best_yr, yr );
 		
 		for ( INT32 x = xl; x <= xr; ++x )
 		{
-			for ( INT32 y = yl; y <= yh; ++y )
+			FLOAT xdiffsquared = (FLOAT)((sScreenX - x) * (sScreenX - x));
+
+			for ( INT32 y = yl; y <= yr; ++y )
 			{
-				FLOAT diff = sqrt( (FLOAT)((sScreenX - x) * (sScreenX - x) + 2 * (sScreenY - y) * (sScreenY - y)) );
+				FLOAT diff = sqrt( (FLOAT)(xdiffsquared + 2 * (sScreenY - y) * (sScreenY - y)) );
 
 				if ( radius_inner <= diff && diff <= radius_outer )
 				{
 					PixelDraw( FALSE, x, y, usLineColor, pDestBuf );
+
+					sthdrawn = TRUE;
 				}
 			}
 		}
+	}
 
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, xl, yl, (INT16)(xr + 1), (INT16)(yh + 1) );
+	// only do this once
+	if ( sthdrawn )
+	{
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, best_xl, best_yl, (INT16)(best_xr + 1), (INT16)(best_yr + 1) );
 
 		if ( iBack != -1 )
 		{
 			SetBackgroundRectFilled( iBack );
 		}
 	}
-					
+
 	UnLockVideoSurface( FRAME_BUFFER );
 }
 
