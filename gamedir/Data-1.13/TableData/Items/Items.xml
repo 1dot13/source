@@ -18290,7 +18290,7 @@
 		<ubGraphicNum>86</ubGraphicNum>
 		<ubWeight>34</ubWeight>
 		<ItemSize>7</ItemSize>
-		<usPrice>1891</usPrice>
+		<usPrice>2790</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -18324,7 +18324,7 @@
 		<ubGraphicNum>264</ubGraphicNum>
 		<ubWeight>27</ubWeight>
 		<ItemSize>7</ItemSize>
-		<usPrice>1882</usPrice>
+		<usPrice>2600</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bReliability>-1</bReliability>
 		<Damageable>1</Damageable>
@@ -25081,7 +25081,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>221</ubGraphicNum>
 		<ubWeight>5</ubWeight>
-		<ItemSize>99</ItemSize>
+		<ItemSize>22</ItemSize>
 		<usPrice>1000</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-2</bRepairEase>
@@ -25116,7 +25116,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>222</ubGraphicNum>
 		<ubWeight>16</ubWeight>
-		<ItemSize>99</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>1200</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-2</bRepairEase>
@@ -25147,7 +25147,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>223</ubGraphicNum>
 		<ubWeight>27</ubWeight>
-		<ItemSize>99</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>1500</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-2</bRepairEase>

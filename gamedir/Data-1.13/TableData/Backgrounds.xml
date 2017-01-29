@@ -114,23 +114,13 @@
 		<szName>ANC Veteran</szName>
 		<szShortName>ANC Veteran</szShortName>
 		<szDescription>Militant veterans of the ANC's struggle were not only versed&#10; in jungle warfare, but also in political theory.</szDescription>
-		<leadership>5</leadership>
-		<ap_swamp>2</ap_swamp>
+		<ap_swamp>3</ap_swamp>
 		<ap_tropical>3</ap_tropical>
-		<ap_assault>5</ap_assault>
-		<ap_fortify>-5</ap_fortify>
-		<ap_artillery>-2</ap_artillery> 
-		<resistance_physical>3</resistance_physical>
-		<resistance_fear>5</resistance_fear>
-		<resistance_suppression>5</resistance_suppression>
-		<interrogation>5</interrogation>
-		<carrystrength>3</carrystrength>
-		<approach_recruit>5</approach_recruit>
+		<ap_mountain>-5</ap_mountain>
+		<resistance_suppression>6</resistance_suppression>
+		<interrogation>15</interrogation>
 		<travel_foot>2</travel_foot>
-		<speed_run>2</speed_run>
-		<food>-2</food>
-		<water>-2</water>
-		<drink_energyregen>10</drink_energyregen>
+		<food>-5</food>
 		<capitulation>15</capitulation>
 		<spotter>5</spotter>
 		<smoker>1</smoker>
@@ -143,16 +133,12 @@
 		<szName>Big Game Hunter</szName>
 		<szShortName>Big Game Hunter</szShortName>
 		<szDescription>Travel to virgin soil, seek fascinating species, and &#10;KILL THEM ALL.</szDescription>
-		<ap_polar>1</ap_polar>
-		<ap_desert>1</ap_desert>
+		<ap_desert>2</ap_desert>
 		<ap_swamp>2</ap_swamp>
 		<ap_urban>-3</ap_urban>
-		<ap_river>3</ap_river>
-		<ap_coastal>3</ap_coastal>
-		<ap_tropical>3</ap_tropical>
-		<ap_mountain>2</ap_mountain>
-		<travel_foot>3</travel_foot>
-		<carrystrength>4</carrystrength>
+		<ap_river>2</ap_river>
+		<ap_tropical>2</ap_tropical>		
+		<travel_foot>4</travel_foot>
 		<stealth>6</stealth>
 		<cth_vs_creatures>10</cth_vs_creatures>
 		<spotter>9</spotter>
@@ -164,35 +150,16 @@
 	<!-- Grizzly -->
 	<BACKGROUND>
 		<uiIndex>3</uiIndex>
-		<szName>Daredevil</szName>
-		<szShortName>Daredevil</szShortName>
-		<szDescription>An imposing sight on the battlefield, Grizzly is never one to shy away from taking the enemy head-on.</szDescription>
-		<agility>6</agility>
-		<strength>3</strength>
-		<dexterity>3</dexterity>
-		<leadership>6</leadership>
-		<ap_polar>2</ap_polar>
-		<ap_desert>2</ap_desert>
-		<ap_swamp>2</ap_swamp>
-		<ap_urban>2</ap_urban>
-		<ap_river>2</ap_river>
-		<ap_coastal>2</ap_coastal>
-		<ap_tropical>2</ap_tropical>
-		<ap_mountain>2</ap_mountain>
+		<szName>Veteran</szName>
+		<szShortName>Veteran</szShortName>
+		<szDescription>After several tours of duty in the middle east,#10;Grizzly became a freelancer.</szDescription>
+		<ap_desert>5</ap_desert>
+		<ap_swamp>-2</ap_swamp>
 		<ap_assault>3</ap_assault>
-		<ap_airdrop>3</ap_airdrop>
-		<travel_foot>3</travel_foot>
-		<travel_car>3</travel_car>
-		<travel_air>3</travel_air>
-		<travel_boat>3</travel_boat>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
 		<resistance_physical>10</resistance_physical>
 		<drink_energyregen>33</drink_energyregen>
-		<speed_run>5</speed_run>
-		<carrystrength>3</carrystrength>
-		<approach_direct>8</approach_direct>
-		<approach_threaten>5</approach_threaten>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -202,23 +169,16 @@
 		<uiIndex>4</uiIndex>
 		<szName>Mercenary/Car Mechanic</szName>
 		<szShortName>Mercenary/Mechanic</szShortName>
-		<szDescription>Working day and night in her car repair shop when she's not travelling around the world, Vicky is a very versed mechanic. But she never overcame her fear of heights.</szDescription>
-		<dexterity>3</dexterity>
-		<mechanical>6</mechanical>
-		<leadership>2</leadership>
+		<szDescription>Working day and night in her car repair shop when she's&#10;not travelling around the world, Vicky is a very versed mechanic.&#10;But she never overcame her fear of heights.</szDescription>
 		<ap_assault>3</ap_assault>
 		<ap_height>-8</ap_height>
 		<ap_urban>3</ap_urban>
 		<ap_airdrop>-10</ap_airdrop>
 		<ap_fortify>-2</ap_fortify>
 		<travel_car>10</travel_car>
-		<resistance_physical>3</resistance_physical>
-		<resistance_fear>7</resistance_fear>
 		<resistance_suppression>7</resistance_suppression>
-		<approach_threaten>10</approach_threaten>
 		<disarm_trap>5</disarm_trap>
 		<capitulation>10</capitulation>
-		<spotter>3</spotter>
 		<sleep>-1</sleep>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -229,15 +189,12 @@
 		<szName>Technical Wizard/Bomber</szName>
 		<szShortName>Tech Whiz/Bomber</szShortName>
 		<szDescription>The difference to MacGyver is that Trevor does use &#10;guns . . . and bombs.</szDescription>
-		<dexterity>8</dexterity>
-		<mechanical>8</mechanical>
-		<explosives>6</explosives>
 		<resistance_fear>10</resistance_fear>
-		<resistance_suppression>10</resistance_suppression>
 		<breachingcharge>50</breachingcharge>
 		<disarm_trap>25</disarm_trap>
 		<traplevel>1</traplevel>
 		<ap_inventory>-10</ap_inventory> 
+		<fortify_assignment>20</fortify_assignment>
 		<insurance>40</insurance>
 		<smoker>2</smoker>
 		<no_male>1</no_male>
@@ -249,13 +206,15 @@
 		<szName>Bodyguard</szName>
 		<szShortName>Bodyguard</szShortName>
 		<szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?.</szDescription>
-		<strength>2</strength>
-		<resistance_physical>10</resistance_physical>
-		<resistance_fear>10</resistance_fear>
-		<resistance_suppression>10</resistance_suppression>
+		<ap_urban>2</ap_urban>
+		<ap_desert>-3</ap_desert>
+		<ap_swamp>-3</ap_swamp>
+		<ap_artillery>-6</ap_artillery>
+		<resistance_physical>5</resistance_physical>
+		<resistance_suppression>5</resistance_suppression>
 		<ap_inventory>-10</ap_inventory>
-		<meleedamage>2</meleedamage>
-		<spotter>3</spotter>
+		<meleedamage>5</meleedamage>
+		<spotter>10</spotter>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -265,21 +224,14 @@
 		<szName>Red Army Major</szName>
 		<szShortName>Red Army</szShortName>
 		<szDescription>Ivan's training program is the stuff of nightmares, &#10;but it pays off evidently.</szDescription>
-		<leadership>5</leadership>
-		<ap_polar>5</ap_polar>
+		<ap_assault>5</ap_assault>
 		<ap_swimming>-10</ap_swimming>
 		<ap_fortify>-3</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
-		<resistance_physical>3</resistance_physical>
-		<resistance_fear>3</resistance_fear>
-		<resistance_suppression>3</resistance_suppression>
-		<interrogation>5</interrogation>
-		<carrystrength>3</carrystrength>
-		<speed_run>5</speed_run>
-		<ap_assault>5</ap_assault>
-		<drink_energyregen>15</drink_energyregen>
+		<resistance_physical>5</resistance_physical>
+		<resistance_suppression>5</resistance_suppression>
+		<speed_run>5</speed_run>		
 		<capitulation>10</capitulation>
-		<spotter>3</spotter>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -290,13 +242,8 @@
 		<szName>Firefighter</szName>
 		<szShortName>Firefighter</szShortName>
 		<szDescription>Just because it involves no shooting, it doesn't have to be &#10;less dangerous.</szDescription>
-		<agility>2</agility>
-		<medical>2</medical>
-		<leadership>2</leadership>
 		<ap_urban>2</ap_urban>
 		<ap_height>2</ap_height>
-		<mechanical>3</mechanical>
-		<explosives>2</explosives>
 		<travel_car>5</travel_car>
 		<resistance_fear>6</resistance_fear>
 		<resistance_suppression>3</resistance_suppression>
@@ -311,24 +258,14 @@
 		<uiIndex>9</uiIndex>
 		<szName>Veteran Mountain Troop</szName>
 		<szShortName>Vet Mountain Troop</szShortName>
-		<szDescription>Serving in the Russian campaign in Chechnya, Igor is used to harsh environments.</szDescription>
-		<leadership>5</leadership>
-		<ap_polar>5</ap_polar>
-		<ap_mountain>8</ap_mountain>
-		<ap_swamp>-3</ap_swamp>
+		<szDescription>After serving in the Russian campaign in Chechnya,&#10;Igor is used to harsh environments.</szDescription>
+		<ap_mountain>3</ap_mountain>
 		<ap_tropical>-3</ap_tropical>
-		<ap_assault>5</ap_assault>
+		<ap_assault>2</ap_assault>
 		<ap_fortify>-5</ap_fortify>
-		<ap_artillery>-2</ap_artillery> 
-		<resistance_fear>5</resistance_fear>
 		<resistance_suppression>5</resistance_suppression>
-		<interrogation>5</interrogation>
 		<resistance_physical>5</resistance_physical>
 		<resistance_alcohol>20</resistance_alcohol>
-		<interrogation>5</interrogation>
-		<carrystrength>3</carrystrength>
-		<drink_energyregen>15</drink_energyregen>
-		<capitulation>15</capitulation>
 		<spotter>5</spotter>
 		<food>-20</food>
 		<water>-5</water>
@@ -341,25 +278,18 @@
 		<uiIndex>10</uiIndex>
 		<szName>Ranger</szName>
 		<szShortName>Ranger</szShortName>
-		<szDescription>The Rangers form the elite of US army infantry.</szDescription>
-		<ap_assault>5</ap_assault>
-		<ap_fortify>-3</ap_fortify>
-		<ap_artillery>-2</ap_artillery> 
-		<marksmanship>2</marksmanship>
-		<travel_foot>5</travel_foot>
-		<speed_run>5</speed_run>
+		<szDescription>Survival and ambush tatics were part of Shadow's intense training.</szDescription>
+		<ap_river>5</ap_river>
+		<ap_coastal>3</ap_coastal>
 		<food>-10</food>
 		<water>-10</water>
-		<resistance_physical>3</resistance_physical>
-		<resistance_fear>5</resistance_fear>
-		<resistance_suppression>3</resistance_suppression>
-		<carrystrength>3</carrystrength>
-		<leadership>2</leadership>
-		<capitulation>10</capitulation>
-		<spotter>5</spotter>
-		<ambush_radius>25</ambush_radius>
+		<camo>15</camo>
+		<resistance_physical>5</resistance_physical>
+		<resistance_fear>10</resistance_fear>
+		<ambush_radius>30</ambush_radius>
+		<traplevel>1</traplevel>		<!-- +1 level on bombs planted -->
 		<no_male>1</no_male>
-		<no_female>1</no_female>
+		<no_female>1</no_female>		
 	</BACKGROUND>
 	<!-- Red -->
 	<BACKGROUND>
@@ -367,10 +297,6 @@
 		<szName>Veteran Sapper</szName>
 		<szShortName>Veteran Sapper</szShortName>
 		<szDescription>A sapper can make only two mistakes in his life. The first one is a &#10;career choice.</szDescription>
-		<dexterity>5</dexterity>
-		<mechanical>5</mechanical>
-		<explosives>8</explosives>
-		<wisdom>3</wisdom>
 		<ap_fortify>-30</ap_fortify>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
@@ -390,23 +316,14 @@
 		<szShortName>Hitman</szShortName>
 		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
 		<stealth>5</stealth>
-		<marksmanship>3</marksmanship>
 		<ap_urban>3</ap_urban>
-		<ap_assault>5</ap_assault>
-		<ap_inventory>-3</ap_inventory>
+		<ap_height>4</ap_height>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>5</resistance_suppression>
-		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
-		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
-		<capitulation>10</capitulation>
 		<insurance>20</insurance>
-		<spotter>5</spotter>
+		<spotter>10</spotter>
 		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -5036,8 +4953,7 @@
 		<szShortName>Graduate/Bomber</szShortName>
 		<szDescription>Fresh outta school, with diploma still warm in a hand, it's time &#10;to finally make yourself a living.</szDescription>
 		<disarm_trap>10</disarm_trap>
-		<resistance_fear>5</resistance_fear>
-		<resistance_suppression>-5</resistance_suppression>
+		<resistance_suppression>-7</resistance_suppression>
 		<breachingcharge>30</breachingcharge>
 		<traplevel>1</traplevel>
 		<spotter>-10</spotter>
