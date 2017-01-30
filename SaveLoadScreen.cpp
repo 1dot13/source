@@ -240,6 +240,11 @@ void		SelectedSaveRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reason );
 MOUSE_REGION		gSLSEntireScreenRegion;
 void		SelectedSLSEntireRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
+#ifdef JA2BETAVERSION
+extern BOOLEAN ValidateSoldierInitLinks( UINT8 ubCode );
+#endif
+
+extern BOOLEAN fFirstTimeInGameScreen; // added by Flugente
 
 //////////////////////////////////////////////////////
 //
@@ -2478,10 +2483,6 @@ void DisplayOnScreenNumber( BOOLEAN fErase )
 	}
 }
 
-#ifdef JA2BETAVERSION
-	extern BOOLEAN ValidateSoldierInitLinks( UINT8 ubCode );
-#endif
-
 void DoneFadeOutForSaveLoadScreen( void )
 {
 	if( !LoadSavedGame( VAL_SLOT_START + gbSelectedSaveLocation ) )
@@ -2569,6 +2570,10 @@ void DoneFadeOutForSaveLoadScreen( void )
 		}
 		#endif
 	}
+	
+	// Flugente: enforce screen redraw (observed an issue where, on loading a savegame repeatedly, this was not reset, resulting in teampanel not being drawn, causing subsequent crashes)
+	fFirstTimeInGameScreen = TRUE;
+
 	gfStartedFadingOut = FALSE;
 }
 
