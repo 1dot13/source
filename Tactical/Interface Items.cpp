@@ -1886,7 +1886,10 @@ void popupCallbackAmmo(UINT16 item, UINT16 pocket, SOLDIERTYPE* pSoldier ){
 		{
 			clipCreated = false;
 			bLoop = tempStack.ubNumberOfObjects;
-			while(tempStack.ubNumberOfObjects > 0)
+
+			// Flugente: This is just asking for trouble if AddObjectsToStack(...) fails. As we don't know from its return value whether it worked (wtf?), we exit in a different way
+			int loopcnt = bLoop;
+			while ( tempStack.ubNumberOfObjects > 0 && loopcnt > 0 )
 			{
 				if(pocket != -1)
 				{
@@ -1898,7 +1901,10 @@ void popupCallbackAmmo(UINT16 item, UINT16 pocket, SOLDIERTYPE* pSoldier ){
 				}
 				if(bLoop < 1)
 					break;
+
+				--loopcnt;
 			}
+
 			if(tempStack.ubNumberOfObjects < 1)
 				clipCreated = true;
 			else
