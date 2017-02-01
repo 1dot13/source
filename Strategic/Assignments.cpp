@@ -17090,9 +17090,8 @@ void ReEvaluateEveryonesNothingToDo()
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	BOOLEAN fNothingToDo;
-
-
-	for( iCounter = 0; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	
+	for( iCounter = 0; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++iCounter )
 	{
 		pSoldier = &Menptr[ iCounter ];
 
@@ -17172,7 +17171,13 @@ void ReEvaluateEveryonesNothingToDo()
 					break;
 
 				case MOVE_EQUIPMENT:
-					fNothingToDo = FALSE;
+					{
+						// which sector do we want to move stuff to?
+						INT16 targetX = SECTORX( pSoldier->usItemMoveSectorID );
+						INT16 targetY = SECTORY( pSoldier->usItemMoveSectorID );
+
+						fNothingToDo = (GetNumberOfMovableItems( targetX, targetY, 0 ) == 0);
+					}
 					break;
 
 				case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
@@ -17218,15 +17223,12 @@ void ReEvaluateEveryonesNothingToDo()
 			{
 				pSoldier->usQuoteSaidExtFlags &= ~SOLDIER_QUOTE_SAID_DONE_ASSIGNMENT;
 			}
-
-
 		}
 	}
 
 	// re-evaluation completed
 	gfReEvaluateEveryonesNothingToDo = FALSE;
-
-
+	
 	// redraw the map, in case we're showing teams, and someone just came on duty or off duty, their icon needs updating
 	fMapPanelDirty = TRUE;
 }

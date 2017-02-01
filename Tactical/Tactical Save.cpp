@@ -798,6 +798,63 @@ BOOLEAN GetNumberOfWorldItemsFromTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bM
 	return( TRUE );
 }
 
+UINT32 GetNumberOfMovableItems( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+{
+	// not underground!
+	if ( bMapZ )
+		return 0;
+
+	// open the inventory of the sector we are taking stuff from
+	SECTORINFO *pSectorInfo_Target = &(SectorInfo[SECTOR( sMapX, sMapY )]);
+	UINT32 uiTotalNumberOfRealItems_Target = 0;
+
+	// use the new map
+	std::vector<WORLDITEM> pWorldItem_Target;
+
+	if ( (gWorldSectorX == sMapX) && (gWorldSectorY == sMapY) && (gbWorldSectorZ == bMapZ) )
+	{
+		uiTotalNumberOfRealItems_Target = guiNumWorldItems;
+		pWorldItem_Target = gWorldItems;
+	}
+	else
+	{
+		// not loaded, load
+		// get total number, visable and invisible
+		BOOLEAN fReturn = GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &(uiTotalNumberOfRealItems_Target), FALSE );
+		Assert( fReturn );
+
+		if ( uiTotalNumberOfRealItems_Target > 0 )
+		{
+			// allocate space for the list
+			pWorldItem_Target.resize( uiTotalNumberOfRealItems_Target );//dnl ch75 271013
+
+			// now load into mem
+			LoadWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, pWorldItem_Target );
+		}
+	}
+	
+	UINT32 validitems = 0;
+
+	for ( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems_Target; ++uiCount )				// ... for all items in the world ...
+	{
+		if ( pWorldItem_Target[uiCount].fExists )										// ... if item exists ...
+		{
+			// test wether item is reachable and allowed to be moved by this assignment
+			if ( (pWorldItem_Target[uiCount].usFlags & WORLD_ITEM_REACHABLE) && !(pWorldItem_Target[uiCount].usFlags & WORLD_ITEM_MOVE_ASSIGNMENT_IGNORE) && pWorldItem_Target[uiCount].bVisible > 0 )
+			{
+				OBJECTTYPE* pObj = &(pWorldItem_Target[uiCount].object);			// ... get pointer for this item ...
+
+				if ( pObj != NULL && pObj->exists( ) )												// ... if pointer is not obviously useless ...
+				{
+					++validitems;
+				}
+			}
+		}
+	}
+
+	return validitems;
+}
+
 
 BOOLEAN AddItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT32 sGridNo, UINT32 uiNumberOfItemsToAdd, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, BOOLEAN fReplaceEntireFile )
 {

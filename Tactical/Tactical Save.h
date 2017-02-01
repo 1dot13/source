@@ -40,6 +40,9 @@ BOOLEAN DeleteTempItemMapFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 //Retrieves the number of items in the sectors temp item file
 BOOLEAN GetNumberOfWorldItemsFromTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT32 *puiNumberOfItems, BOOLEAN fIfEmptyCreate );
 
+// Flugente: how many items in this sector can be moved via the MOVE_EQUIPMENT assignement?
+UINT32 GetNumberOfMovableItems( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
+
 //Saves the Current Sectors, ( world Items, rotting corpses, ... )  to the temporary file used to store the sectors items
 BOOLEAN SaveCurrentSectorsInformationToTempItemFile( );
 
