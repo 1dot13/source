@@ -1648,9 +1648,9 @@ void AddItemToArmsDealerInventory( UINT8 ubArmsDealer, OBJECTTYPE& object )
 {
 	//we can only add items to a stack if the item has no attachments (not even default)
 	//and if it is either perfect or ammo (and same amount of ammo)
-	if (/*object[0]->attachments.empty() == true*/ object[0]->AttachmentListSize() &&
-		(object[0]->data.objectStatus == 100 || Item [ object.usItem ].usItemClass == IC_AMMO)) {
-
+	if ( !object[0]->AttachmentListSize() &&
+		(object[0]->data.objectStatus == 100 || Item [ object.usItem ].usItemClass == IC_AMMO) )
+	{
 		//first find existing items with same perfect status, if found add to that, else create new one
 		for (DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin();
 			iter != gArmsDealersInventory[ubArmsDealer].end(); ++iter) {
