@@ -218,29 +218,6 @@
 
 #define		WEAPONBOX_LOADOUT_ONE_X					iScreenWidthOffset + 143
 #define		WEAPONBOX_LOADOUT_ONE_Y					iScreenHeightOffset + 367 + LAPTOP_SCREEN_WEB_DELTA_Y
-#define		WEAPONBOX_LOADOUT_ONE_BOX_Y				WEAPONBOX_LOADOUT_ONE_Y - 4
-#define		WEAPONBOX_LOADOUT_ONE_BR_X				WEAPONBOX_LOADOUT_ONE_X + WEAPONBOX_BUTTON_START_WIDTH
-#define		WEAPONBOX_LOADOUT_ONE_BR_Y				WEAPONBOX_LOADOUT_ONE_BOX_Y + WEAPONBOX_BUTTON_START_HEIGHT
-#define		WEAPONBOX_LOADOUT_TWO_X					WEAPONBOX_LOADOUT_ONE_X + WEAPONBOX_BUTTON_START_WIDTH + WEAPONBOX_LOADOUT_BUTTON_X_DISTANCE
-#define		WEAPONBOX_LOADOUT_TWO_Y					WEAPONBOX_LOADOUT_ONE_Y
-#define		WEAPONBOX_LOADOUT_TWO_BOX_Y				WEAPONBOX_LOADOUT_TWO_Y - 4
-#define		WEAPONBOX_LOADOUT_TWO_BR_X				WEAPONBOX_LOADOUT_TWO_X + WEAPONBOX_BUTTON_START_WIDTH
-#define		WEAPONBOX_LOADOUT_TWO_BR_Y				WEAPONBOX_LOADOUT_TWO_BOX_Y + WEAPONBOX_BUTTON_START_HEIGHT
-#define		WEAPONBOX_LOADOUT_THREE_X				WEAPONBOX_LOADOUT_TWO_X + WEAPONBOX_BUTTON_START_WIDTH + WEAPONBOX_LOADOUT_BUTTON_X_DISTANCE
-#define		WEAPONBOX_LOADOUT_THREE_Y				WEAPONBOX_LOADOUT_TWO_Y
-#define		WEAPONBOX_LOADOUT_THREE_BOX_Y			WEAPONBOX_LOADOUT_THREE_Y - 4
-#define		WEAPONBOX_LOADOUT_THREE_BR_X			WEAPONBOX_LOADOUT_THREE_X + WEAPONBOX_BUTTON_START_WIDTH
-#define		WEAPONBOX_LOADOUT_THREE_BR_Y			WEAPONBOX_LOADOUT_THREE_BOX_Y + WEAPONBOX_BUTTON_START_HEIGHT
-#define		WEAPONBOX_LOADOUT_FOUR_X				WEAPONBOX_LOADOUT_THREE_X + WEAPONBOX_BUTTON_START_WIDTH + WEAPONBOX_LOADOUT_BUTTON_X_DISTANCE
-#define		WEAPONBOX_LOADOUT_FOUR_Y				WEAPONBOX_LOADOUT_THREE_Y
-#define		WEAPONBOX_LOADOUT_FOUR_BOX_Y			WEAPONBOX_LOADOUT_FOUR_Y - 4
-#define		WEAPONBOX_LOADOUT_FOUR_BR_X				WEAPONBOX_LOADOUT_FOUR_X + WEAPONBOX_BUTTON_START_WIDTH
-#define		WEAPONBOX_LOADOUT_FOUR_BR_Y				WEAPONBOX_LOADOUT_FOUR_BOX_Y + WEAPONBOX_BUTTON_START_HEIGHT
-#define		WEAPONBOX_LOADOUT_FIVE_X				WEAPONBOX_LOADOUT_FOUR_X + WEAPONBOX_BUTTON_START_WIDTH + WEAPONBOX_LOADOUT_BUTTON_X_DISTANCE
-#define		WEAPONBOX_LOADOUT_FIVE_Y				WEAPONBOX_LOADOUT_FOUR_Y
-#define		WEAPONBOX_LOADOUT_FIVE_BOX_Y			WEAPONBOX_LOADOUT_FIVE_Y - 4
-#define		WEAPONBOX_LOADOUT_FIVE_BR_X				WEAPONBOX_LOADOUT_FIVE_X + WEAPONBOX_BUTTON_START_WIDTH
-#define		WEAPONBOX_LOADOUT_FIVE_BR_Y				WEAPONBOX_LOADOUT_FIVE_BOX_Y + WEAPONBOX_BUTTON_START_HEIGHT
 
 //tais: nsgi changed defines, kept old to keep old looks..
 #define		STATS_X_NSGI				IMAGE_OFFSET_X + 121
@@ -583,17 +560,10 @@ BOOLEAN		gfAimMemberCanMercSayOpeningQuote = TRUE;
 INT32		guiPreviousContactNextButtonImage;
 
 //tais: nsgi, gearkit selection buttons and eventhandlers
-INT32	giWeaponboxSelectionButtonOne;
-INT32	giWeaponboxSelectionButtonTwo;
-INT32	giWeaponboxSelectionButtonThree;
-INT32	giWeaponboxSelectionButtonFour;
-INT32	giWeaponboxSelectionButtonFive;
+INT32	giWeaponboxSelectionButton[NUM_MERCSTARTINGGEAR_KITS];
+BOOLEAN giWeaponboxSelectionButtonsCreated = FALSE;
 
-void BtnWeaponboxSelectOneButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnWeaponboxSelectTwoButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnWeaponboxSelectThreeButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnWeaponboxSelectFourButtonCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnWeaponboxSelectFiveButtonCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnWeaponboxSelectButtonCallback(GUI_BUTTON *btn,INT32 reason);
 
 //Previous Button
 void BtnPreviousButtonCallback(GUI_BUTTON *btn,INT32 reason);
@@ -694,7 +664,7 @@ UINT8		DisplayTransparentSnow(UINT8 ubMode, UINT32 uiImageIdentifier, UINT8 ubMa
 //tais: nsgi, kit selection
 void CreateWeaponBoxMouseRegions();
 void CreateKitSelectionButtons();
-void EraseWeaponBoxItems();
+void EraseKitSelectionButtons( );
 void CreateWeaponBoxBackground();
 void EnableWeaponKitSelectionButtons();
 void RefreshWeaponKitSelectionButtons();
@@ -998,7 +968,16 @@ void ExitAIMMembers()
 	UnloadButtonImage( giXToCloseVideoConfButtonImage );
 
 	//tais: nsgi, erase tooltip regions and buttons
-	if(gGameExternalOptions.gfUseNewStartingGearInterface) EraseWeaponBoxItems();
+	if(gGameExternalOptions.gfUseNewStartingGearInterface)
+	{
+		//tais: tooltips for weaponbox
+		for ( int i = 0; i<WEAPONBOX_TOTAL_ITEMS; ++i )
+		{
+			MSYS_RemoveRegion( &gWeaponboxFasthelpRegion[i] );
+		}
+		
+		EraseKitSelectionButtons( );
+	}
 
 	RemoveButton( giPreviousButton );
 	RemoveButton( giContactButton );
@@ -1741,7 +1720,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 
 
 //tais: nsgi, kit selection button callbacks one to five
-void BtnWeaponboxSelectOneButtonCallback(GUI_BUTTON *btn,INT32 reason)
+void BtnWeaponboxSelectButtonCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
@@ -1752,140 +1731,21 @@ void BtnWeaponboxSelectOneButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-			//tais: handle selected kit
-			WeaponKitSelectionUpdate(0);
-
-			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-			gfRedrawScreen = TRUE;
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-			gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-		}
-	}
-	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-}
-
-void BtnWeaponboxSelectTwoButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-			//tais: handle selected kit
-			WeaponKitSelectionUpdate(1);
-
-			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-			gfRedrawScreen = TRUE;
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-
-			gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-		}
-	}
-	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-}
-void BtnWeaponboxSelectThreeButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-			//tais: handle selected kit
-			WeaponKitSelectionUpdate(2);
-
-			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-			gfRedrawScreen = TRUE;
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-
-			gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-		}
-	}
-	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-}
-void BtnWeaponboxSelectFourButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 
 			//tais: handle selected kit
-			WeaponKitSelectionUpdate(3);
+			for ( int i = 0; i < NUM_MERCSTARTINGGEAR_KITS; ++i )
+			{
+				if ( btn->IDNum == giWeaponboxSelectionButton[i] )
+				{
+					WeaponKitSelectionUpdate( i );
+					break;
+				}
+			}
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 			gfRedrawScreen = TRUE;
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-
-			gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-		}
-	}
-	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-}
-void BtnWeaponboxSelectFiveButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-
-			//tais: handle selected kit
-			WeaponKitSelectionUpdate(4);
-
-			btn->uiFlags &= (~BUTTON_CLICKED_ON );
-			gfRedrawScreen = TRUE;
-//			gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-			gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-
 			gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
 			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 		}
@@ -5238,21 +5098,32 @@ void HandleAimMemberKeyBoardInput()
 					break;
 #endif
 				case '1':
+				case '2':
+				case '3':
+				case '4':
+				case '5':
 					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
 					{
-						// kit 1
-						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
+
 						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
 						{
-							UINT8 i;
-							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
+							for ( UINT8 i = INV_START_POS; i<NUM_INV_SLOTS; ++i )
 							{
 								if(gMercProfileGear[gbCurrentSoldier][0].inv[i] != NONE)
 								{
 									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
+
 									//tais: handle selected kit
-									WeaponKitSelectionUpdate(0);
+									switch ( InputEvent.usParam )
+									{
+									case '1':	WeaponKitSelectionUpdate( 0 );	break;
+									case '2':	WeaponKitSelectionUpdate( 1 );	break;
+									case '3':	WeaponKitSelectionUpdate( 2 );	break;
+									case '4':	WeaponKitSelectionUpdate( 3 );	break;
+									case '5':	WeaponKitSelectionUpdate( 4 );	break;
+									}
+
 									gfRedrawScreen = TRUE;
 									break;
 								}
@@ -5260,98 +5131,7 @@ void HandleAimMemberKeyBoardInput()
 						}
 					}
 				break;
-				case '2':
-					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
-					{
-						// kit 2
-						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
-						{
-							UINT8 i;							
-							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
-							{
-								if(gMercProfileGear[gbCurrentSoldier][1].inv[i] != NONE)
-								{
-									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-									//tais: handle selected kit
-									WeaponKitSelectionUpdate(1);
-									gfRedrawScreen = TRUE;
-									break;
-								}
-							}
-						}
-					}
-				break;
-				case '3':
-					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
-					{
-						// kit 3
-						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
-						{
-							UINT8 i;							
-							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
-							{
-								if(gMercProfileGear[gbCurrentSoldier][2].inv[i] != NONE)
-								{
-									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-									//tais: handle selected kit
-									WeaponKitSelectionUpdate(2);
-									gfRedrawScreen = TRUE;
-									break;
-								}
-							}
-						}
-					}
-				break;
-				case '4':
-					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
-					{
-						// kit 4
-						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
-						{
-							UINT8 i;							
-							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
-							{
-								if(gMercProfileGear[gbCurrentSoldier][3].inv[i] != NONE)
-								{
-									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-									//tais: handle selected kit
-									WeaponKitSelectionUpdate(3);
-									gfRedrawScreen = TRUE;
-									break;
-								}
-							}
-						}
-					}
-				break;
-				case '5':
-					if((gGameExternalOptions.gfUseNewStartingGearInterface) && (UsingNewInventorySystem() == true))
-					{
-						// kit 5
-						//gbCurrentSoldier = AimMercArray[gbCurrentIndex];
-						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
-						{
-							UINT8 i;							
-							for(i=INV_START_POS; i<NUM_INV_SLOTS; i++)
-							{
-								if(gMercProfileGear[gbCurrentSoldier][4].inv[i] != NONE)
-								{
-									gubVideoConferencingMode = AIM_VIDEO_NOT_DISPLAYED_MODE;
-									//tais: handle selected kit
-									WeaponKitSelectionUpdate(4);
-									gfRedrawScreen = TRUE;
-									break;
-								}
-							}
-						}
-					}
-				break;
+				
 				default:
 					HandleKeyBoardShortCutsForLapTop( InputEvent.usEvent, InputEvent.usParam, InputEvent.usKeyState );
 				break;
@@ -5737,68 +5517,42 @@ void CreateWeaponBoxMouseRegions()
 			MSYS_AddRegion(&gWeaponboxFasthelpRegion[itemcounter]);
 			MSYS_DisableRegion(&gWeaponboxFasthelpRegion[itemcounter]);
 			uiPosX += WEAPONBOX_SIZE_X_NSGI;
-			itemcounter++;
+			++itemcounter;
 		}
 	}
 }
 void CreateKitSelectionButtons()
 {
 	//tais: nsgi, create kit selection buttons one to five
-	giWeaponboxSelectionButtonOne = CreateIconAndTextButton( guiPreviousContactNextButtonImage, CharacterInfo[AIM_MEMBER_GEAR_KIT_ONE], AIM_M_KIT_BUTTON_FONT,
-																AIM_M_KIT_BUTTON_UP_COLOR, DEFAULT_SHADOW,
-																AIM_M_KIT_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
-																TEXT_CJUSTIFIED,
-																WEAPONBOX_LOADOUT_ONE_X, WEAPONBOX_LOADOUT_ONE_BOX_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-																DEFAULT_MOVE_CALLBACK, BtnWeaponboxSelectOneButtonCallback);
-	SetButtonCursor(giWeaponboxSelectionButtonOne, CURSOR_WWW );
+	for ( int i = 0; i < NUM_MERCSTARTINGGEAR_KITS; ++i )
+	{
+		giWeaponboxSelectionButton[i] = CreateIconAndTextButton( guiPreviousContactNextButtonImage, CharacterInfo[AIM_MEMBER_GEAR_KIT_ONE + i], AIM_M_KIT_BUTTON_FONT,
+																 AIM_M_KIT_BUTTON_UP_COLOR, DEFAULT_SHADOW,
+																 AIM_M_KIT_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
+																 TEXT_CJUSTIFIED,
+																 WEAPONBOX_LOADOUT_ONE_X + i * (WEAPONBOX_BUTTON_START_WIDTH + WEAPONBOX_LOADOUT_BUTTON_X_DISTANCE),
+																 WEAPONBOX_LOADOUT_ONE_Y - 4,
+																 BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+																 DEFAULT_MOVE_CALLBACK, BtnWeaponboxSelectButtonCallback );
 
-	giWeaponboxSelectionButtonTwo = CreateIconAndTextButton( guiPreviousContactNextButtonImage, CharacterInfo[AIM_MEMBER_GEAR_KIT_TWO], AIM_M_KIT_BUTTON_FONT,
-																AIM_M_KIT_BUTTON_UP_COLOR, DEFAULT_SHADOW,
-																AIM_M_KIT_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
-																TEXT_CJUSTIFIED,
-																WEAPONBOX_LOADOUT_TWO_X, WEAPONBOX_LOADOUT_TWO_BOX_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-																DEFAULT_MOVE_CALLBACK, BtnWeaponboxSelectTwoButtonCallback);
-	SetButtonCursor(giWeaponboxSelectionButtonTwo, CURSOR_WWW );
-
-	giWeaponboxSelectionButtonThree = CreateIconAndTextButton( guiPreviousContactNextButtonImage, CharacterInfo[AIM_MEMBER_GEAR_KIT_THREE], AIM_M_KIT_BUTTON_FONT,
-																AIM_M_KIT_BUTTON_UP_COLOR, DEFAULT_SHADOW,
-																AIM_M_KIT_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
-																TEXT_CJUSTIFIED,
-																WEAPONBOX_LOADOUT_THREE_X, WEAPONBOX_LOADOUT_THREE_BOX_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-																DEFAULT_MOVE_CALLBACK, BtnWeaponboxSelectThreeButtonCallback);
-	SetButtonCursor(giWeaponboxSelectionButtonThree, CURSOR_WWW );
-
-	giWeaponboxSelectionButtonFour = CreateIconAndTextButton( guiPreviousContactNextButtonImage, CharacterInfo[AIM_MEMBER_GEAR_KIT_FOUR], AIM_M_KIT_BUTTON_FONT,
-																AIM_M_KIT_BUTTON_UP_COLOR, DEFAULT_SHADOW,
-																AIM_M_KIT_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
-																TEXT_CJUSTIFIED,
-																WEAPONBOX_LOADOUT_FOUR_X, WEAPONBOX_LOADOUT_FOUR_BOX_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-																DEFAULT_MOVE_CALLBACK, BtnWeaponboxSelectFourButtonCallback);
-	SetButtonCursor(giWeaponboxSelectionButtonFour, CURSOR_WWW );
-
-	giWeaponboxSelectionButtonFive = CreateIconAndTextButton( guiPreviousContactNextButtonImage, CharacterInfo[AIM_MEMBER_GEAR_KIT_FIVE], AIM_M_KIT_BUTTON_FONT,
-																AIM_M_KIT_BUTTON_UP_COLOR, DEFAULT_SHADOW,
-																AIM_M_KIT_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
-																TEXT_CJUSTIFIED,
-																WEAPONBOX_LOADOUT_FIVE_X, WEAPONBOX_LOADOUT_FIVE_BOX_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-																DEFAULT_MOVE_CALLBACK, BtnWeaponboxSelectFiveButtonCallback);
-	SetButtonCursor(giWeaponboxSelectionButtonFive, CURSOR_WWW );
-}
-
-void EraseWeaponBoxItems()
-{
-	UINT16 i;
-	//tais: tooltips for weaponbox
-	for(i=0;i<WEAPONBOX_TOTAL_ITEMS;i++) {
-		MSYS_RemoveRegion( &gWeaponboxFasthelpRegion[i] );
+		SetButtonCursor( giWeaponboxSelectionButton[i], CURSOR_WWW );
 	}
 
-	//tais: remove weaponbox kit selection buttons
-	RemoveButton( giWeaponboxSelectionButtonOne );
-	RemoveButton( giWeaponboxSelectionButtonTwo );
-	RemoveButton( giWeaponboxSelectionButtonThree );
-	RemoveButton( giWeaponboxSelectionButtonFour );
-	RemoveButton( giWeaponboxSelectionButtonFive );
+	giWeaponboxSelectionButtonsCreated = TRUE;
+}
+
+void EraseKitSelectionButtons( )
+{
+	if ( giWeaponboxSelectionButtonsCreated )
+	{
+		//tais: remove weaponbox kit selection buttons
+		for ( int i = 0; i < NUM_MERCSTARTINGGEAR_KITS; ++i )
+		{
+			RemoveButton( giWeaponboxSelectionButton[i] );
+		}
+
+		giWeaponboxSelectionButtonsCreated = FALSE;
+	}
 }
 
 void CreateWeaponBoxBackground()
@@ -5823,78 +5577,56 @@ void RefreshWeaponKitSelectionButtons()
 {
 	//tais: shorthand function to refresh buttons
 	DisableWeaponKitSelectionButtons();
-		STR16 
-		kit1label = CharacterInfo[AIM_MEMBER_GEAR_KIT_ONE],
-		kit2label = CharacterInfo[AIM_MEMBER_GEAR_KIT_TWO],
-		kit3label = CharacterInfo[AIM_MEMBER_GEAR_KIT_THREE],
-		kit4label = CharacterInfo[AIM_MEMBER_GEAR_KIT_FOUR],
-		kit5label = CharacterInfo[AIM_MEMBER_GEAR_KIT_FIVE];
-	
-	if (gbCurrentSoldier != -1)
+
+	for ( int i = 0; i < NUM_MERCSTARTINGGEAR_KITS; ++i )
 	{
-		if (gMercProfileGear[gbCurrentSoldier][0].mGearKitName[0] != '\0')
-			kit1label = gMercProfileGear[gbCurrentSoldier][0].mGearKitName;
-		if (gMercProfileGear[gbCurrentSoldier][1].mGearKitName[0] != '\0')
-			kit2label = gMercProfileGear[gbCurrentSoldier][1].mGearKitName;
-		if (gMercProfileGear[gbCurrentSoldier][2].mGearKitName[0] != '\0')
-			kit3label = gMercProfileGear[gbCurrentSoldier][2].mGearKitName;
-		if (gMercProfileGear[gbCurrentSoldier][3].mGearKitName[0] != '\0')
-			kit4label = gMercProfileGear[gbCurrentSoldier][3].mGearKitName;
-		if (gMercProfileGear[gbCurrentSoldier][4].mGearKitName[0] != '\0')
-			kit5label = gMercProfileGear[gbCurrentSoldier][4].mGearKitName;
+		STR16 kitlabel = CharacterInfo[AIM_MEMBER_GEAR_KIT_ONE + i];
+
+		if ( gbCurrentSoldier != NO_PROFILE )
+		{
+			if ( gMercProfileGear[gbCurrentSoldier][i].mGearKitName[0] != '\0' )
+				kitlabel = gMercProfileGear[gbCurrentSoldier][i].mGearKitName;
+		}
+
+		SpecifyButtonText( giWeaponboxSelectionButton[i], kitlabel );
 	}
-	SpecifyButtonText( giWeaponboxSelectionButtonOne, kit1label );
-	SpecifyButtonText( giWeaponboxSelectionButtonTwo, kit2label );
-	SpecifyButtonText( giWeaponboxSelectionButtonThree, kit3label );
-	SpecifyButtonText( giWeaponboxSelectionButtonFour, kit4label );
-	SpecifyButtonText( giWeaponboxSelectionButtonFive, kit5label );
+	
 	EnableWeaponKitSelectionButtons();
 }
 
 void DisableWeaponKitSelectionButtons()
 {
 	//tais: hide all kit selection buttons
-	HideButton( giWeaponboxSelectionButtonOne );
-	HideButton( giWeaponboxSelectionButtonTwo );
-	HideButton( giWeaponboxSelectionButtonThree );
-	HideButton( giWeaponboxSelectionButtonFour );
-	HideButton( giWeaponboxSelectionButtonFive );
+	for ( int i = 0; i < NUM_MERCSTARTINGGEAR_KITS; ++i )
+	{
+		HideButton( giWeaponboxSelectionButton[i] );
+	}
 }
 
 void EnableWeaponKitSelectionButtons()
 {
-	UINT8 i,j;
-	UINT8 buttonCount = 0;
-	BOOL buttonEnabled[5];
 	//tais: weaponbox gear selection buttons
-	if(UsingNewInventorySystem() == true) {
-		if(!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS)) {
-			for(i=0; i<NUM_MERCSTARTINGGEAR_KITS; i++)
+	if ( UsingNewInventorySystem() )
+	{
+		if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+		{
+			for(int i=0; i<NUM_MERCSTARTINGGEAR_KITS; ++i)
 			{
-				buttonEnabled[i] = FALSE;
-				for(j=INV_START_POS; j<NUM_INV_SLOTS; j++)
+				for(int j=INV_START_POS; j<NUM_INV_SLOTS; ++j)
 				{
 					if(gMercProfileGear[gbCurrentSoldier][i].inv[j] != NONE)
 					{
-						buttonEnabled[i] = TRUE;
-						buttonCount++;
+						ShowButton( giWeaponboxSelectionButton[i] );
 						break;
 					}
 				}
-			}
-			if(buttonCount > 1) {
-				if(buttonEnabled[0] == TRUE) ShowButton(giWeaponboxSelectionButtonOne);
-				if(buttonEnabled[1] == TRUE) ShowButton(giWeaponboxSelectionButtonTwo);
-				if(buttonEnabled[2] == TRUE) ShowButton(giWeaponboxSelectionButtonThree);
-				if(buttonEnabled[3] == TRUE) ShowButton(giWeaponboxSelectionButtonFour);
-				if(buttonEnabled[4] == TRUE) ShowButton(giWeaponboxSelectionButtonFive);
 			}
 		}
 	}
 }
 
 void WeaponKitSelectionUpdate(UINT8 selectedInventory = 0)
-{
+{	
 	UINT32 uiLoop;
 	INT16 usItem;
 	if(UsingNewInventorySystem() == true){
