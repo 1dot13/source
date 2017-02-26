@@ -11,6 +11,8 @@
 		<ap_desert>0</ap_desert>
 		<ap_swamp>0</ap_swamp>
 		<ap_urban>0</ap_urban>
+		<ap_forest>0</ap_forest>
+		<ap_plains>0</ap_plains>
 		<ap_river>0</ap_river>
 		<ap_coastal>0</ap_coastal>
 		<ap_tropical>0</ap_tropical>
