@@ -17107,6 +17107,16 @@ INT16	SOLDIERTYPE::GetAPBonus( )
 	case TROPICS_ROAD:
 		bonus += this->GetBackgroundValue( BG_TROPICAL );
 		break;
+	case PLAINS:
+	case PLAINS_ROAD:
+	case FARMLAND:
+	case FARMLAND_ROAD:
+		bonus += this->GetBackgroundValue( BG_PLAINS );
+		break;
+	case DENSE:
+	case DENSE_ROAD:
+		bonus += this->GetBackgroundValue( BG_FOREST );
+		break;
 	case HILLS:
 	case HILLS_ROAD:
 		bonus += this->GetBackgroundValue( BG_MOUNTAIN );

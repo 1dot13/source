@@ -8908,6 +8908,8 @@ STR16	szBackgroundText_Value[]=
 	L" 在沙漠地区%s%d%％AP\n",	 //L" %s%d%% APs in desert sectors\n",
 	L" 在沼泽地区%s%d%％AP\n", //L" %s%d%% APs in swamp sectors\n",
 	L" 在城镇地区%s%d%％AP\n", //L" %s%d%% APs in urban sectors\n",
+	L" %s%d%% APs in forest sectors\n",	// TODO.Translate
+	L" %s%d%% APs in plain sectors\n",
 	L" 在河流地区%s%d%％AP\n", //	L" %s%d%% APs in river sectors\n",
 	L" 在热带地区%s%d%％AP\n", //L" %s%d%% APs in tropical sectors\n",
 	L" 在海岸地区%s%d%％AP\n", //L" %s%d%% APs in coastal sectors\n",

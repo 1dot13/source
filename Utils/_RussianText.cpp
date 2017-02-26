@@ -8909,6 +8909,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% ОД в пустынных секторах\n",	
 	L" %s%d%% ОД в болотных секторах\n",
 	L" %s%d%% ОД в городских секторах\n",
+	L" %s%d%% APs in forest sectors\n",	// TODO.Translate
+	L" %s%d%% APs in plain sectors\n",
 	L" %s%d%% ОД в речных секторах\n",
 	L" %s%d%% ОД в тропических секторах\n",
 	L" %s%d%% ОД в секторах на побережье\n",

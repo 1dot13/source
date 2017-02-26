@@ -8928,6 +8928,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% APs in desert sectors\n",	
 	L" %s%d%% APs in swamp sectors\n",
 	L" %s%d%% APs in urban sectors\n",
+	L" %s%d%% APs in forest sectors\n",	// TODO.Translate
+	L" %s%d%% APs in plain sectors\n",
 	L" %s%d%% APs in river sectors\n",
 	L" %s%d%% APs in tropical sectors\n",
 	L" %s%d%% APs in coastal sectors\n",

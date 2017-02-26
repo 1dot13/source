@@ -68,6 +68,8 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "ap_desert") == 0 ||
 				strcmp(name, "ap_swamp") == 0 ||
 				strcmp(name, "ap_urban") == 0 ||
+				strcmp(name, "ap_forest" ) == 0 ||
+				strcmp(name, "ap_plains" ) == 0 ||
 				strcmp(name, "ap_river") == 0 ||
 				strcmp(name, "ap_coastal") == 0 ||
 				strcmp(name, "ap_tropical") == 0 ||
@@ -244,6 +246,16 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_URBAN] = min(XML_BACKGROUND_AP_MAX, max(-XML_BACKGROUND_AP_MAX, (INT8) atol(pData->szCharData) ));
+		}
+		else if ( strcmp( name, "ap_forest" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_FOREST] = min( XML_BACKGROUND_AP_MAX, max( -XML_BACKGROUND_AP_MAX, (INT8)atol( pData->szCharData ) ) );
+		}
+		else if ( strcmp( name, "ap_plains" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_PLAINS] = min( XML_BACKGROUND_AP_MAX, max( -XML_BACKGROUND_AP_MAX, (INT8)atol( pData->szCharData ) ) );
 		}
 		else if(strcmp(name, "ap_river") == 0)
 		{
