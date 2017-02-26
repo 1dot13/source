@@ -5863,6 +5863,7 @@ STR16 SKI_Text[] =
 	L"Es ist kein Platz mehr, um Sachen anzubieten.",	//Message box that tells the user there is no more room to put there stuff
 	L"%d MINUTEN",		// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"Gegenstand fallenlassen.",
+	L"BUDGET",
 };
 
 //ShopKeeper Interface

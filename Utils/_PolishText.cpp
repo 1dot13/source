@@ -6013,6 +6013,7 @@ STR16 SKI_Text[ ] =
 	L"Brak miejsca by zaoferować więcej rzeczy.",	//Message box that tells the user there is no more room to put there stuff
 	L"%d MINUT(Y)",		// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"Upuść przedmiot na ziemię.",
+	L"BUDGET",	// TODO.Translate
 };
 
 //ShopKeeper Interface

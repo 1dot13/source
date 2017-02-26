@@ -13,7 +13,6 @@
 	#include "Interface Control.h"
 	#include "Overhead.h"
 	#include "Cursors.h"
-	//#include "Store Inventory.h"
 	#include "SysUtil.h"
 	#include "Interface Panels.h"
 	#include "Radar Screen.h"
@@ -70,31 +69,6 @@
 #include "BuildDefines.h"
 #include <algorithm>
 
-// temp
-struct skirgbcolor
-{
-	UINT8 ubRed;
-	UINT8 ubGreen;
-	UINT8 ubBlue;
-};
-typedef struct skirgbcolor SKIRGBCOLOR;
-
-SKIRGBCOLOR SkiGlowColorsA[]={
-	{0,0,0},
-	{25,0,0},
-	{50,0,0},
-	{75,0,0},
-	{100,0,0},
-	{125,0,0},
-	{150,0,0},
-	{175,0,0},
-	{200,0,0},
-	{225,0,0},
-	{250,0,0},
-};
-
-
-
 ////////////////////////////////////////////
 //
 //	global defines
@@ -104,131 +78,46 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 #define		SKI_INTERFACE_WIDTH								536
 #define		SKI_INTERFACE_HEIGHT							340
 
-#define		SCREEN_X_OFFSET								(((SCREEN_WIDTH - SKI_INTERFACE_WIDTH) / 2))
-#define		SCREEN_Y_OFFSET								((((SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) - (SKI_INTERFACE_HEIGHT)) / 2))
+#define		SCREEN_X_OFFSET									(((SCREEN_WIDTH - SKI_INTERFACE_WIDTH) / 2))
+#define		SCREEN_Y_OFFSET									((((SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) - (SKI_INTERFACE_HEIGHT)) / 2))
 
-#define		SKI_BUTTON_FONT										MILITARYFONT1//FONT14ARIAL
-#define		SKI_BUTTON_COLOR									73
+#define		SKI_BUTTON_FONT									MILITARYFONT1//FONT14ARIAL
+#define		SKI_BUTTON_COLOR								73
 
+#define		SKI_TITLE_FONT									MILITARYFONT1//FONT14ARIAL
+#define		SKI_TITLE_COLOR									169//FONT_MCOLOR_LTYELLOW
 
-#define		SKI_ATM_BUTTON_FONT								FONT10ARIAL
-#define		SKI_ATM_BUTTON_COLOR							FONT_MCOLOR_BLACK
-
-#define		SKI_TITLE_FONT										MILITARYFONT1//FONT14ARIAL
-#define		SKI_TITLE_COLOR										169//FONT_MCOLOR_LTYELLOW
-
-#define		SKI_LABEL_FONT										MILITARYFONT1
+#define		SKI_LABEL_FONT									MILITARYFONT1
 
 #define		SKI_ITEM_DESC_FONT								SMALLCOMPFONT
 #define		SKI_ITEM_PRICE_COLOR							FONT_MCOLOR_WHITE
 
-#define		SKIT_NUMBER_FONT									BLOCKFONT2
-
-#define		SKI_MAIN_BACKGROUND_X							SCREEN_X_OFFSET
-#define		SKI_MAIN_BACKGROUND_Y							SCREEN_Y_OFFSET
-
-#define		SKI_FACE_X										(SCREEN_X_OFFSET + 13)
-#define		SKI_FACE_Y										(SCREEN_Y_OFFSET + 13)
-#define		SKI_FACE_WIDTH										90
-#define		SKI_FACE_HEIGHT										100
-
-#define		SKI_PAGE_UP_ARROWS_X							(SCREEN_X_OFFSET + 121)
-#define		SKI_PAGE_UP_ARROWS_Y							(SCREEN_Y_OFFSET + 35)
-
-#define		SKI_PAGE_DOWN_ARROWS_X						SKI_PAGE_UP_ARROWS_X
-#define		SKI_PAGE_DOWN_ARROWS_Y						(SCREEN_Y_OFFSET + 102)
-
-//Evaluate:
-//#define		SKI_EVALUATE_BUTTON_X							15
-//#define		SKI_EVALUATE_BUTTON_Y							233
-
-#define		SKI_TRANSACTION_BUTTON_X					(SCREEN_X_OFFSET + 147)//214
-#define		SKI_TRANSACTION_BUTTON_Y					(SCREEN_Y_OFFSET  +233)//SKI_EVALUATE_BUTTON_Y
-
-#define		SKI_DONE_BUTTON_X							(SCREEN_X_OFFSET + 292)//414
-#define		SKI_DONE_BUTTON_Y							(SCREEN_Y_OFFSET + 233)//SKI_EVALUATE_BUTTON_Y
-
-#define		SKI_MAIN_TITLE_X										(SCREEN_X_OFFSET + 112)
-#define		SKI_MAIN_TITLE_Y										(SCREEN_Y_OFFSET + 12)
-
-#define		SKI_MAIN_TITLE_WIDTH								420
-
-#define		SKI_TOTAL_COST_X										(SCREEN_X_OFFSET + 9)
-#define		SKI_TOTAL_COST_Y										(SCREEN_Y_OFFSET + 162)//159
-#define		SKI_TOTAL_COST_WIDTH								73
-
-#define		SKI_TOTAL_VALUE_X										SKI_TOTAL_COST_X
-#define		SKI_TOTAL_VALUE_Y										(SCREEN_Y_OFFSET + 291)//268
-#define		SKI_TOTAL_VALUE_WIDTH								SKI_TOTAL_COST_WIDTH
-
-#define		SKI_PLAYERS_CURRENT_BALANCE_X						SKI_TOTAL_COST_X
-#define		SKI_PLAYERS_CURRENT_BALANCE_Y						(SCREEN_Y_OFFSET + 235)
-#define		SKI_PLAYERS_CURRENT_BALANCE_WIDTH					SKI_TOTAL_COST_WIDTH
-#define		SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE			SCREEN_Y_OFFSET + 265
-
-#define		SKI_PAGE_X													(SCREEN_X_OFFSET + 112)
-#define		SKI_PAGE_Y													(SCREEN_Y_OFFSET + 70)
-#define		SKI_PAGE_WIDTH											45
-#define		SKI_PAGE_HEIGHT											27
-
+#define		SKIT_NUMBER_FONT								BLOCKFONT2
 
 //Number of Inventory slots
-#define		SKI_NUM_ARMS_DEALERS_INV_SLOTS			15
-#define		SKI_NUM_ARMS_DEALERS_INV_ROWS				3
-#define		SKI_NUM_ARMS_DEALERS_INV_COLS				5
+#define		SKI_NUM_ARMS_DEALERS_INV_SLOTS					500		// Flugente: simply a resonably huge number
+#define		SKI_NUM_TRADING_INV_SLOTS						500		// Flugente: simply a resonably huge number
 
 //Inventory Slots size and offsets
-#define		SKI_INV_SLOT_WIDTH									67
-#define		SKI_INV_SLOT_HEIGHT									31
-#define		SKI_INV_HEIGHT											SKI_INV_SLOT_HEIGHT - 7
-#define		SKI_INV_WIDTH												60
+#define		SKI_INV_SLOT_WIDTH								67
+#define		SKI_INV_SLOT_HEIGHT								31
+#define		SKI_INV_HEIGHT									(SKI_INV_SLOT_HEIGHT - 7)
+#define		SKI_INV_WIDTH									60
+#define		SKI_INV_OFFSET_X								74
+#define		SKI_INV_OFFSET_Y								36
 
 #define		SKI_INV_PRICE_OFFSET_X							1
 #define		SKI_INV_PRICE_OFFSET_Y							24
 
-#define		SKI_INV_OFFSET_X										74
-#define		SKI_INV_OFFSET_Y										36
-
-
 // the delay for glow cycling in glow areas, in millisecs
-#define SKI_GLOW_DELAY 70
-
-//Start Locations for the inventory boxes
-#define		SKI_ARMS_DEALERS_INV_START_X					(SCREEN_X_OFFSET + 165)
-#define		SKI_ARMS_DEALERS_INV_START_Y					(SCREEN_Y_OFFSET + 30)
-
-#define		SKI_ARMS_DEALERS_TRADING_INV_X				(SCREEN_X_OFFSET + 91)
-#define		SKI_ARMS_DEALERS_TRADING_INV_Y				(SCREEN_Y_OFFSET + 151)
-#define		SKI_ARMS_DEALERS_TRADING_INV_WIDTH		436
-#define		SKI_ARMS_DEALERS_TRADING_INV_HEIGHT		67
-
-#define		SKI_PLAYERS_TRADING_INV_X							(SCREEN_X_OFFSET + 91)
-#define		SKI_PLAYERS_TRADING_INV_Y							(SCREEN_Y_OFFSET + 266)
-#define		SKI_PLAYERS_TRADING_INV_HEIGHT				70
-#define		SKI_PLAYERS_TRADING_INV_WIDTH					440
-
-#define		SKI_ARMS_DEALER_TOTAL_COST_X					(SCREEN_X_OFFSET + 16)
-#define		SKI_ARMS_DEALER_TOTAL_COST_Y					(SCREEN_Y_OFFSET + 194)//191
-#define		SKI_ARMS_DEALER_TOTAL_COST_WIDTH			59
-#define		SKI_ARMS_DEALER_TOTAL_COST_HEIGHT			20
-
-#define		SKI_PLAYERS_TOTAL_VALUE_X							(SCREEN_X_OFFSET + 16)
-#define		SKI_PLAYERS_TOTAL_VALUE_Y							(SCREEN_Y_OFFSET + 310)//308
-#define		SKI_PLAYERS_TOTAL_VALUE_WIDTH					59
-#define		SKI_PLAYERS_TOTAL_VALUE_HEIGHT				20
-
+#define		SKI_GLOW_DELAY 70
 
 #define		SKI_TACTICAL_BACKGROUND_START_X				(SCREEN_X_OFFSET + SKI_INTERFACE_WIDTH)
-
 #define		SKI_TACTICAL_BACKGROUND_START_Y				0
 
 #define		SKI_DROP_ITEM_TO_GROUND_START_X				SKI_TACTICAL_BACKGROUND_START_X
 #define		SKI_DROP_ITEM_TO_GROUND_START_Y				(SCREEN_Y_OFFSET + 262)
 #define		SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y		(SCREEN_Y_OFFSET + 262)
-
-#define		SKI_TACTICAL_BACKGROUND_START_WIDTH		(SCREEN_WIDTH - SKI_TACTICAL_BACKGROUND_START_X)
-
-#define		SKI_TACTICAL_BACKGROUND_START_HEIGHT	(SCREEN_HEIGHT - INV_INTERFACE_HEIGHT)
 
 #define		SKI_ITEM_MOVEMENT_AREA_X							(SCREEN_X_OFFSET + 85)
 #define		SKI_ITEM_MOVEMENT_AREA_Y							(SCREEN_Y_OFFSET + 263)
@@ -253,31 +142,10 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 #define		SKI_ATTACHMENT_SYMBOL_X_OFFSET				56
 #define		SKI_ATTACHMENT_SYMBOL_Y_OFFSET				14
 
-
-#define		SKI_ATM_PANEL_X												(SCREEN_X_OFFSET + 87)
-#define		SKI_ATM_PANEL_Y												(SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT)
-#define		SKI_ATM_PANEL_WIDTH										127
-#define		SKI_ATM_PANEL_HEIGHT									135
-
-#define		SKI_ATM_BUTTON_X											SKI_ATM_PANEL_X + 23
-#define		SKI_ATM_BUTTON_Y											SKI_ATM_PANEL_Y + 64
-#define		SKI_ATM_BUTTON_HEIGHT									15
-#define		SKI_ATM_NUM_BUTTON_WIDTH							15
-#define		SKI_ATM_SIDE_MENU_PANEL_START_X				(SCREEN_X_OFFSET + 48)
-
-#define		SKI_TRANSFER_STRING_X									SKI_ATM_PANEL_X + 22
-#define		SKI_TRANSFER_STRING_Y									SKI_ATM_PANEL_Y + 50
-#define		SKI_TRANSFER_STRING_WIDTH							83
-#define		SKI_TRANSFER_STRING_HEIGHT						10
-
-#define		SKI_MERCS_MONEY_Y											SKI_ATM_PANEL_Y + 11
-
-#define		SKI_MODE_TEXT_X												SKI_TRANSFER_STRING_X
-#define		SKI_MODE_TEXT_Y												SKI_ATM_PANEL_Y + 27
-#define		SKI_MODE_TEXT_WIDTH										SKI_TRANSFER_STRING_WIDTH
-
-
 #define		SKI_MAX_AMOUNT_OF_ITEMS_DEALER_CAN_REPAIR_AT_A_TIME			4
+
+// round off reapir times shown to the near quarter-hour
+#define		REPAIR_MINUTES_INTERVAL						15
 
 #define		SKI_DEALERS_RANDOM_QUOTE_DELAY				15000
 #define		SKI_DEALERS_RANDOM_QUOTE_DELAY_INCREASE_RATE		5000
@@ -296,6 +164,107 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 #define		SKI_RAUL_MINIMUM_AMOUNT_TO_SET_FACT			100
 #endif
 
+// Flugente: new defines for shopkeeper interface with a resolution-dependent size
+
+// the main tradescreen is a rectangle, which contains trader inventory, trader offer area and player offer area as sub-rectangles
+#define		SKI_TOTAL_END_X						(SCREEN_X_OFFSET + SKI_INTERFACE_WIDTH)
+#define		SKI_TOTAL_END_Y						(SCREEN_HEIGHT - INV_INTERFACE_HEIGHT)
+#define		SKI_TOTAL_BEGIN_Y					0
+
+// we determine how many item boxes we could display in a row, and then depend where the shopkeeper display should start
+// as a result, the margins will always look the same
+#define		SKI_TOTAL_BEGIN_X					(SKI_TOTAL_END_X - 166 - ((SKI_TOTAL_END_X - 166) / SKI_INV_OFFSET_X) * SKI_INV_OFFSET_X)
+
+// first: trader inventory
+#define		SKI_TRADER_INVENTORY_BEGIN_X		SKI_TOTAL_BEGIN_X
+#define		SKI_TRADER_INVENTORY_BEGIN_Y		SKI_TOTAL_BEGIN_Y
+#define		SKI_TRADER_INVENTORY_END_X			SKI_TOTAL_END_X
+#define		SKI_TRADER_INVENTORY_END_Y			(143 + (SKI_TOTAL_END_Y - SKI_INTERFACE_HEIGHT) / 2)
+
+#define		SKI_MAIN_TITLE_X					(SKI_TRADER_INVENTORY_BEGIN_X + 112)
+#define		SKI_MAIN_TITLE_Y					(SKI_TRADER_INVENTORY_BEGIN_Y + 12)
+#define		SKI_MAIN_TITLE_WIDTH				420
+
+// merchant face
+#define		SKI_FACE_X							(SKI_TRADER_INVENTORY_BEGIN_X + 13)
+#define		SKI_FACE_Y							(SKI_TRADER_INVENTORY_BEGIN_Y + 13)
+#define		SKI_FACE_WIDTH						90
+#define		SKI_FACE_HEIGHT						100
+
+// trader inventory page buttons
+#define		SKI_PAGE_UP_ARROWS_X				(SKI_TRADER_INVENTORY_BEGIN_X + 121)
+#define		SKI_PAGE_UP_ARROWS_Y				(SKI_TRADER_INVENTORY_BEGIN_Y + 35)
+
+#define		SKI_PAGE_DOWN_ARROWS_X				SKI_PAGE_UP_ARROWS_X
+#define		SKI_PAGE_DOWN_ARROWS_Y				(SKI_TRADER_INVENTORY_BEGIN_Y + 102)
+
+#define		SKI_PAGE_X							(SKI_TRADER_INVENTORY_BEGIN_X + 112)
+#define		SKI_PAGE_Y							(SKI_TRADER_INVENTORY_BEGIN_Y + 70)
+#define		SKI_PAGE_WIDTH						45
+#define		SKI_PAGE_HEIGHT						27
+
+#define		SKI_BUDGET_X						(SKI_TRADER_INVENTORY_BEGIN_X + 9)
+#define		SKI_BUDGET_Y						(SKI_FACE_Y + SKI_FACE_HEIGHT + 5)
+#define		SKI_BUDGET_WIDTH					73
+#define		SKI_BUDGET_OFFSET_TO_VALUE			(SKI_BUDGET_Y + 10)
+
+// trader inventory item boxes
+#define		SKI_TRADER_INVENTORY_BOXES_BEGIN_X	(SKI_TRADER_INVENTORY_BEGIN_X + 166)
+#define		SKI_TRADER_INVENTORY_BOXES_BEGIN_Y	(SKI_TRADER_INVENTORY_BEGIN_Y + 30)
+#define		SKI_TRADER_INVENTORY_BOXES_PER_ROW	((SKI_TRADER_INVENTORY_END_X - SKI_TRADER_INVENTORY_BOXES_BEGIN_X) / SKI_INV_OFFSET_X) 
+#define		SKI_TRADER_INVENTORY_BOXES_PER_COL	((SKI_TRADER_INVENTORY_END_Y - SKI_TRADER_INVENTORY_BOXES_BEGIN_Y) / SKI_INV_OFFSET_Y) 
+
+// second: trader offer area
+#define		SKI_TRADER_OFFER_BEGIN_X			SKI_TOTAL_BEGIN_X
+#define		SKI_TRADER_OFFER_BEGIN_Y			SKI_TRADER_INVENTORY_END_Y
+#define		SKI_TRADER_OFFER_END_X				SKI_TOTAL_END_X
+#define		SKI_TRADER_OFFER_END_Y				(82 + SKI_TRADER_INVENTORY_END_Y)
+
+// trader offer area item boxes
+#define		SKI_TRADER_OFFER_BOXES_BEGIN_X		(SKI_TRADER_OFFER_BEGIN_X + 91)
+#define		SKI_TRADER_OFFER_BOXES_BEGIN_Y		(SKI_TRADER_OFFER_BEGIN_Y + 8)
+#define		SKI_TRADER_OFFER_BOXES_PER_ROW		((SKI_TRADER_OFFER_END_X - SKI_TRADER_OFFER_BOXES_BEGIN_X) / SKI_INV_OFFSET_X) 
+#define		SKI_TRADER_OFFER_BOXES_PER_COL		((SKI_TRADER_OFFER_END_Y - SKI_TRADER_OFFER_BOXES_BEGIN_Y) / SKI_INV_OFFSET_Y)
+
+#define		SKI_TOTAL_COST_X					(SKI_TRADER_OFFER_BEGIN_X + 9)
+#define		SKI_TOTAL_COST_Y					(SKI_TRADER_OFFER_BEGIN_Y + 35)//159
+#define		SKI_TOTAL_COST_WIDTH				73
+
+#define		SKI_ARMS_DEALER_TOTAL_COST_X		(SKI_TRADER_OFFER_BEGIN_X + 16)
+#define		SKI_ARMS_DEALER_TOTAL_COST_Y		(SKI_TRADER_OFFER_BEGIN_Y + 51)//191
+#define		SKI_ARMS_DEALER_TOTAL_COST_WIDTH	59
+#define		SKI_ARMS_DEALER_TOTAL_COST_HEIGHT	20
+
+// third: player offer area
+#define		SKI_PLAYER_OFFER_BEGIN_X			SKI_TOTAL_BEGIN_X
+#define		SKI_PLAYER_OFFER_BEGIN_Y			SKI_TRADER_OFFER_END_Y
+#define		SKI_PLAYER_OFFER_END_X				SKI_TOTAL_END_X
+#define		SKI_PLAYER_OFFER_END_Y				SKI_TOTAL_END_Y
+
+// player offer area item boxes
+#define		SKI_PLAYER_OFFER_BOXES_BEGIN_X		(SKI_PLAYER_OFFER_BEGIN_X + 91)
+#define		SKI_PLAYER_OFFER_BOXES_BEGIN_Y		(SKI_PLAYER_OFFER_BEGIN_Y + 41)
+#define		SKI_PLAYER_OFFER_BOXES_PER_ROW		((SKI_PLAYER_OFFER_END_X - SKI_PLAYER_OFFER_BOXES_BEGIN_X) / SKI_INV_OFFSET_X) 
+#define		SKI_PLAYER_OFFER_BOXES_PER_COL		((SKI_PLAYER_OFFER_END_Y - SKI_PLAYER_OFFER_BOXES_BEGIN_Y) / SKI_INV_OFFSET_Y) 
+
+#define		SKI_PLAYERS_CURRENT_BALANCE_X						(SKI_PLAYER_OFFER_BEGIN_X + 9)
+#define		SKI_PLAYERS_CURRENT_BALANCE_Y						(SKI_PLAYER_OFFER_BEGIN_Y + 35)
+#define		SKI_PLAYERS_CURRENT_BALANCE_WIDTH					SKI_TOTAL_COST_WIDTH
+#define		SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE			(SKI_PLAYERS_CURRENT_BALANCE_Y + 20)
+
+#define		SKI_TOTAL_VALUE_X									(SKI_PLAYER_OFFER_BEGIN_X + 9)
+#define		SKI_TOTAL_VALUE_Y									(SKI_PLAYERS_CURRENT_BALANCE_Y + 50)
+#define		SKI_TOTAL_VALUE_WIDTH								SKI_TOTAL_COST_WIDTH
+#define		SKI_TOTAL_VALUE_OFFSET_TO_VALUE						(SKI_TOTAL_VALUE_Y + 20)
+
+#define		SKI_TRANSACTION_BUTTON_X			(SKI_PLAYER_OFFER_BEGIN_X + 147)//214
+#define		SKI_TRANSACTION_BUTTON_Y			(SKI_PLAYER_OFFER_BEGIN_Y + 8)
+
+#define		SKI_DONE_BUTTON_X					(SKI_PLAYER_OFFER_BEGIN_X + 292)//414
+#define		SKI_DONE_BUTTON_Y					SKI_TRANSACTION_BUTTON_Y
+
+// when colouring the tradescreen, we use this margin
+#define		SKI_MARGIN							4
 ////////////////////////////////////////////
 //
 //	Global Variables
@@ -314,16 +283,11 @@ void AskUserToAttachTransmitterToLaptop();
 void AttachLaptopTransmitterToLaptop( UINT8 ubExitValue );
 #endif
 
-UINT32		guiMainTradeScreenImage;
 UINT32		guiCornerWhereTacticalIsStillSeenImage;		//This image is for where the corner of tactical is still seen through the shop keeper interface
-
-//ATM:
-//UINT32		guiSkiAtmImage;
 
 BOOLEAN		gfSKIScreenEntry = TRUE;
 BOOLEAN		gfSKIScreenExit	= FALSE;
 BOOLEAN		gfUserHasRequestedToLeave = FALSE;
-//BOOLEAN		gfRedrawSkiScreen = TRUE;
 
 BOOLEAN		gfRenderScreenOnNextLoop = FALSE;
 
@@ -338,7 +302,6 @@ UINT8			gusIDOfCivTrader = NOBODY;
 //the quote that is in progress, in certain circumstances, we don't want queuing of related but different quotes
 INT32			giShopKeepDialogueEventinProgress = - 1;
 
-//OBJECTTYPE				gpSkiItemPointer;
 INVENTORY_IN_SLOT		gMoveingItem;
 
 OBJECTTYPE					*gpHighLightedItemObject=NULL;
@@ -355,10 +318,7 @@ typedef struct
 
 } SELECTED_ARMS_DEALERS_STATS;
 
-
-
 SELECTED_ARMS_DEALERS_STATS		gSelectArmsDealerInfo;
-
 
 //This pointer is used to store the inventory the arms dealer has for sale
 std::vector<INVENTORY_IN_SLOT> gpTempDealersInventory;
@@ -391,7 +351,6 @@ BOOLEAN fDeltaColorForShopkeepUnwanted = TRUE;
 INT8 bShopKeepGlowIndex = 9;
 BOOLEAN fDoShopkeepGlow = FALSE;
 
-
 BOOLEAN		gfRemindedPlayerToPickUpHisStuff = FALSE;
 
 BOOLEAN		gfDoneBusinessThisSession = FALSE;
@@ -405,9 +364,6 @@ UINT8			gubNumberMercsInArray;
 CHAR16		gsShopKeeperTalkingText[ SKI_SUBTITLE_TEXT_SIZE ];
 
 UINT16		gusPositionOfSubTitlesX=0;
-
-// the transfer funds string
-CHAR16 gzSkiAtmTransferString[ 32 ];
 
 BOOLEAN	gfExitSKIDueToMessageBox=FALSE;
 
@@ -425,7 +381,6 @@ BOOLEAN gfPerformTransactionInProgress = FALSE;
 
 BOOLEAN gfCommonQuoteUsedThisSession[ NUM_COMMON_SK_QUOTES ];
 
-
 extern		SOLDIERTYPE			*gpSMCurrentMerc;
 extern		SOLDIERTYPE			*gpItemDescSoldier;
 extern		MOUSE_REGION		gItemDescAttachmentRegions[MAX_ATTACHMENTS];
@@ -441,20 +396,6 @@ extern		INT32						giItemDescAmmoButton;
 extern		BOOLEAN BltVSurfaceUsingDD( HVSURFACE hDestVSurface, HVSURFACE hSrcVSurface, UINT32 fBltFlags, INT32 iDestX, INT32 iDestY, RECT *SrcRect );
 
 extern		UINT8 gubLastSpecialItemAddedAtElement;
-
-//Enums for the various Atm modes
-enum
-{
-	SKI_ATM_DISABLED_MODE,
-	SKI_ATM_TAKE_MODE,
-	SKI_ATM_GIVE_MODE,
-	SKI_ATM_ERR_TAKE_MODE,
-	SKI_ATM_ERR_GIVE_MODE,
-	SKI_ATM_DISPLAY_PLAYERS_BALANCE,
-};
-
-UINT8	gubCurrentSkiAtmMode = SKI_ATM_DISABLED_MODE;
-
 
 // Enums for possible evaluation results
 enum
@@ -486,7 +427,6 @@ public:
 };
 ITEM_TO_ADD_AFTER_SKI_OPEN gItemToAdd;
 
-
 //Page up buttons for the merchants
 void		BtnSKI_InvPageUpButtonCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32		guiSKI_InvPageUpButton;
@@ -496,15 +436,6 @@ INT32		guiSKI_InvPageUpButtonImage;
 void		BtnSKI_InvPageDownButtonCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32		guiSKI_InvPageDownButton;
 INT32		guiSKI_InvPageDownButtonImage;
-
-
-/*
-//Evaluate:
-//Evaluate buttons
-void		BtnSKI_EvaluateButtonCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32	guiSKI_EvaluateButton;
-INT32		guiSKI_EvaluateButtonImage;
-*/
 
 //Transaction buttons
 void		BtnSKI_TransactionButtonCallback(GUI_BUTTON *btn,INT32 reason);
@@ -516,13 +447,6 @@ void		BtnSKI_DoneButtonCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32		guiSKI_DoneButton;
 INT32		guiSKI_DoneButtonImage;
 
-//Atm buttons
-void		BtnSKI_AtmButtonCallback(GUI_BUTTON *btn,INT32 reason);
-UINT32		guiSKI_AtmButton[ NUM_SKI_ATM_BUTTONS ];
-INT32		guiSKI_AtmNumButtonImage;
-INT32		guiSKI_AtmOkButtonImage;
-INT32		guiSKI_AtmSideMenuButtonImage;
-
 UINT32 guiItemCrossOut;
 
 BOOLEAN gfDisplayNoRoomMsg = FALSE;
@@ -530,35 +454,29 @@ BOOLEAN gfDisplayNoRoomMsg = FALSE;
 //Blanket the entire screen
 MOUSE_REGION		gSKI_EntireScreenMouseRegions;
 
-
 MOUSE_REGION		gDealersInventoryMouseRegions[ SKI_NUM_ARMS_DEALERS_INV_SLOTS ];
 MOUSE_REGION		gRepairmanInventorySmallFaceMouseRegions[ SKI_NUM_ARMS_DEALERS_INV_SLOTS ];
+int					gDealersInventoryActiveRegions = 0;
 void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SelectDealersInventoryMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 MOUSE_REGION		gDealersOfferSlotsMouseRegions[ SKI_NUM_TRADING_INV_SLOTS ];
+MOUSE_REGION		gDealersOfferSlotsSmallFaceMouseRegions[SKI_NUM_TRADING_INV_SLOTS];
+int					gDealersOfferActiveRegions = 0;
 void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SelectDealersOfferSlotsMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 MOUSE_REGION		gPlayersOfferSlotsMouseRegions[ SKI_NUM_TRADING_INV_SLOTS ];
+MOUSE_REGION		gPlayersOfferSlotsSmallFaceMouseRegions[SKI_NUM_TRADING_INV_SLOTS];
+int					gPlayersOfferActiveRegions = 0;
 void SelectPlayersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SelectPlayersOfferSlotsMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
-MOUSE_REGION		gDealersOfferSlotsSmallFaceMouseRegions[ SKI_NUM_TRADING_INV_SLOTS ];
-MOUSE_REGION		gPlayersOfferSlotsSmallFaceMouseRegions[ SKI_NUM_TRADING_INV_SLOTS ];
-
-
-
 MOUSE_REGION		gSkiInventoryMovementAreaMouseRegions;
-//void SelectSkiInventoryMovementAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-
 
 //Mouse region for the subtitles region when the merc is talking
 MOUSE_REGION		gShopKeeperSubTitleMouseRegion;
 void ShopKeeperSubTitleRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
-
-//ATM:
-//MOUSE_REGION		gShopKeeperCoverTacticalButtonMouseRegion;
 
 MOUSE_REGION		gArmsDealersFaceMouseRegions;
 void SelectArmsDealersFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
@@ -602,9 +520,6 @@ UINT32		CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly,
 FLOAT			ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus);
 BOOLEAN		RemoveItemFromPlayersOfferArea( INT16 bSlotIdInOtherLocation );
 
-//Evaluate:
-//void			EvaluateAllItemsInPlayersOfferArea( );
-
 UINT32		CalculateTotalArmsDealerCost();
 UINT32		CalculateTotalPlayersValue();
 void			MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( );
@@ -626,17 +541,7 @@ UINT8			CountNumberOfItemsOfValueInThePlayersOfferArea( );
 UINT8			CountNumberOfItemsInThePlayersOfferArea( );
 UINT8			CountNumberOfItemsInTheArmsDealersOfferArea( );
 INT8			GetSlotNumberForMerc( UINT8 ubProfile );
-void			RenderSkiAtmPanel();
-void			RemoveSkiAtmButtons();
-void			CreateSkiAtmButtons();
-void			AddNumberToSkiAtm( UINT8 ubNumber );
-void			HandleSkiAtmPanel( );
-void			DisplaySkiAtmTransferString();
-void			HandleSkiAtmPanelInput( UINT8	ubButtonPress );
-void			EnableDisableSkiAtmButtons();
 void			HandleCurrentModeText( UINT8 ubMode );
-void			ToggleSkiAtmButtons();
-void			HandleAtmOK();
 void			EnableDisableDealersInventoryPageButtons();
 void			EnableDisableEvaluateAndTransactionButtons();
 BOOLEAN		IsMoneyTheOnlyItemInThePlayersOfferArea( );
@@ -706,14 +611,12 @@ void EnableAllDealersOfferSlots( void );
 
 void HatchOutInvSlot( UINT16 usPosX, UINT16 usPosY );
 
-
 extern BOOLEAN ItemIsARocketRifle( INT16 sItemIndex );
 
 #ifdef JA2TESTVERSION
 BOOLEAN gfTestDisplayDealerCash = FALSE;
 void DisplayAllDealersCash();
 #endif;
-
 
 void INVENTORY_IN_SLOT::initialize()
 {
@@ -742,10 +645,7 @@ INVENTORY_IN_SLOT& INVENTORY_IN_SLOT::operator=(OLD_INVENTORY_IN_SLOT_101& src)
 	return *this;
 }
 
-
 //ppp
-
-
 
 //
 // screen handler functions
@@ -755,11 +655,9 @@ UINT32	ShopKeeperScreenInit()
 {
 	//Set so next time we come in, we can set up
 	gfSKIScreenEntry = TRUE;
-
-
+	
 	return( TRUE );
 }
-
 
 UINT32	ShopKeeperScreenHandle()
 {
@@ -822,14 +720,7 @@ UINT32	ShopKeeperScreenHandle()
 	}
 
 	// render buttons marked dirty
-//ATM:
 	DisableSMPpanelButtonsWhenInShopKeeperInterface( FALSE );
-	//Heinz: 22.02.09 BUGFIX: buttons should not render upon shopkeeper's message
-	if( gfIsTheShopKeeperTalking && !gfInItemDescBox )
-	{
-		ButtonList[ guiSKI_TransactionButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
-		ButtonList[ guiSKI_DoneButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
-	}
 
 	RenderButtons( );
 	
@@ -870,10 +761,6 @@ UINT32	ShopKeeperScreenShutdown()
 
 	return( TRUE );
 }
-
-//
-//
-//
 
 BOOLEAN EnterShopKeeperInterface()
 {
@@ -990,19 +877,7 @@ BOOLEAN EnterShopKeeperInterface()
 	SetCurrentInterfacePanel( SM_PANEL );
 	SetCurrentTacticalPanelCurrentMerc( (UINT8)gusSelectedSoldier );
 	SetSMPanelCurrentMerc( (UINT8)gusSelectedSoldier );
-
-	// load the Main trade screen backgroiund image
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("InterFace\\TradeScreen.sti", VObjectDesc.ImageFile);
-	if( !AddVideoObject(&VObjectDesc, &guiMainTradeScreenImage ))
-	{
-#ifdef JA2BETAVERSION
-		ScreenMsg( FONT_MCOLOR_WHITE, MSG_BETAVERSION, L"Failed to load TradeScreen.sti" );
-#endif
-
-		return( FALSE );
-	}
-
+	
 	// load the Main trade screen background image
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("InterFace\\itemcrossout.sti", VObjectDesc.ImageFile);
@@ -1013,15 +888,7 @@ BOOLEAN EnterShopKeeperInterface()
 #endif
 		return( FALSE );
 	}
-
-/*
-ATM:
-	// load the Main trade screen backgroiund image
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("InterFace\\TradeScreenAtm.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiSkiAtmImage ));
-*/
-
+	
 	//Create an array of all mercs (anywhere!) currently in the player's employ, and load their small faces
 	// This is to support showing of repair item owner's faces even when they're not in the sector, as long as they still work for player
 	gubNumberMercsInArray = 0;
@@ -1035,9 +902,7 @@ ATM:
 			// remember whose face is in this slot
 			gubArrayOfEmployedMercs[ gubNumberMercsInArray ] = pSoldier->ubProfile;
 
-			//Create the string for the face file name
-			//sprintf( zTemp, "FACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
-						
+			//Create the string for the face file name						
 			if ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile )
 			{
 				sprintf( zTemp, "IMPFACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );	
@@ -1058,15 +923,14 @@ ATM:
 				return( FALSE );
 			}
 
-			gubNumberMercsInArray++;
+			++gubNumberMercsInArray;
 		}
 	}
 
 	//Load the graphic for the arrow button
 	guiSKI_InvPageUpButtonImage = LoadButtonImage("INTERFACE\\TradeScrollArrows.sti", -1,0,-1,1,-1 );
 	guiSKI_InvPageDownButtonImage = UseLoadedButtonImage( guiSKI_InvPageUpButtonImage, -1,2,-1,3,-1 );
-
-
+	
 	//Page up button for the merchant inventory
 	guiSKI_InvPageUpButton = QuickCreateButton( guiSKI_InvPageUpButtonImage, SKI_PAGE_UP_ARROWS_X, SKI_PAGE_UP_ARROWS_Y,
 										BUTTON_NEWTOGGLE, MSYS_PRIORITY_HIGHEST,
@@ -1079,65 +943,13 @@ ATM:
 										DEFAULT_MOVE_CALLBACK, BtnSKI_InvPageDownButtonCallback );
 	SpecifyDisabledButtonStyle( guiSKI_InvPageDownButton, DISABLED_STYLE_HATCHED );
 	
-//Evaluate:
 	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, ACTIVATE_BUTTON);
-	//	guiSKI_EvaluateButtonImage = LoadButtonImage("INTERFACE\\TradeButtons.sti", -1,0,-1,1,-1 );
-//	guiSKI_TransactionButtonImage = UseLoadedButtonImage( guiSKI_EvaluateButtonImage, -1,0,-1,1,-1 );
-	//guiSKI_TransactionButtonImage = LoadButtonImage("INTERFACE\\TradeButtons.sti", -1,0,-1,1,-1 );
-	//guiSKI_DoneButtonImage = UseLoadedButtonImage( guiSKI_TransactionButtonImage, -1,0,-1,1,-1 );
-
-/*
-//Evaluate:
-	//Evaluate button
-	guiSKI_EvaluateButton = CreateIconAndTextButton( guiSKI_EvaluateButtonImage, SKI_Text[SKI_TEXT_EVALUATE], SKI_BUTTON_FONT,
-													 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-													 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-													 TEXT_CJUSTIFIED,
-													 SKI_EVALUATE_BUTTON_X, SKI_EVALUATE_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													 DEFAULT_MOVE_CALLBACK, BtnSKI_EvaluateButtonCallback);
-	SpecifyDisabledButtonStyle( guiSKI_EvaluateButton, DISABLED_STYLE_HATCHED );
-*/
-
-	//Transaction button
-	//guiSKI_TransactionButton = CreateIconAndTextButton( guiSKI_TransactionButtonImage, SKI_Text[SKI_TEXT_TRANSACTION], SKI_BUTTON_FONT,
-	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-	//												 TEXT_CJUSTIFIED,
-	//												 SKI_TRANSACTION_BUTTON_X, SKI_TRANSACTION_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-	//												 DEFAULT_MOVE_CALLBACK, BtnSKI_TransactionButtonCallback);
-	//SpecifyDisabledButtonStyle( guiSKI_TransactionButton, DISABLED_STYLE_HATCHED );
-
-	//if the dealer repairs, use the repair fast help text for the transaction button
-	//if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
-	//	SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_REPAIR_TRANSACTION_BUTTON_HELP_TEXT ] );
-	//else
-	//	SetButtonFastHelpText( guiSKI_TransactionButton, SkiMessageBoxText[ SKI_TRANSACTION_BUTTON_HELP_TEXT ] );
-
-
-	//Done button
-	//guiSKI_DoneButton = CreateIconAndTextButton( guiSKI_DoneButtonImage, SKI_Text[SKI_TEXT_DONE], SKI_BUTTON_FONT,
-	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-	//												 SKI_BUTTON_COLOR, DEFAULT_SHADOW,
-	//												 TEXT_CJUSTIFIED,
-	//												 SKI_DONE_BUTTON_X, SKI_DONE_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+10,
-	//												 DEFAULT_MOVE_CALLBACK, BtnSKI_DoneButtonCallback);
-	//SpecifyDisabledButtonStyle( guiSKI_DoneButton, DISABLED_STYLE_HATCHED );
-	//SetButtonFastHelpText( guiSKI_DoneButton, SkiMessageBoxText[ SKI_DONE_BUTTON_HELP_TEXT ] );
-
-
+	
 	//Blanket the entire screen
 	MSYS_DefineRegion( &gSKI_EntireScreenMouseRegions, 0, 0, (SCREEN_WIDTH - 1), (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT), MSYS_PRIORITY_HIGH-2,
 						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK);
 	MSYS_AddRegion( &gSKI_EntireScreenMouseRegions );
 	
-/*
-//ATM:
-	//Blanket the tactical buttons where the ATM will go
-	MSYS_DefineRegion( &gShopKeeperCoverTacticalButtonMouseRegion, SKI_ATM_PANEL_X, SKI_ATM_PANEL_Y, (UINT16)(SKI_ATM_PANEL_X+SKI_ATM_PANEL_WIDTH), (UINT16)(SKI_ATM_PANEL_Y+SKI_ATM_PANEL_HEIGHT), MSYS_PRIORITY_HIGH-1,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK);
-	MSYS_AddRegion( &gSKI_EntireScreenMouseRegions );
-*/
-
 	//Create the mouse regions for the inventory slot
 	CreateSkiInventorySlotMouseRegions( );
 	
@@ -1153,11 +965,7 @@ ATM:
 	MSYS_DefineRegion( &gArmsDealersFaceMouseRegions, SKI_FACE_X, SKI_FACE_Y, (UINT16)(SKI_FACE_X+SKI_FACE_WIDTH), (UINT16)(SKI_FACE_Y+SKI_FACE_HEIGHT), MSYS_PRIORITY_HIGH-1,
 				CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectArmsDealersFaceRegionCallBack );
 	MSYS_AddRegion( &gArmsDealersFaceMouseRegions );
-	
-	//Create the atm button
-//ATM:
-	//	CreateSkiAtmButtons();
-
+		
 	for (int x = 0; x < SKI_NUM_TRADING_INV_SLOTS; ++x)
 	{
 		ArmsDealerOfferArea[x].initialize();
@@ -1195,7 +1003,6 @@ ATM:
 	//Reset
 	gfRemindedPlayerToPickUpHisStuff = FALSE;
 	gfUserHasRequestedToLeave = FALSE;
-	gubCurrentSkiAtmMode = SKI_ATM_DISABLED_MODE;
 	gfDisplayNoRoomMsg = FALSE;
 
 	//Disable the map radar region
@@ -1209,7 +1016,7 @@ ATM:
 		//if this is NOT a repair dealer or he is is but there is enough space in the player's offer area
 		// (you can't be out of space if it isn't a repairman, only they can fill it up with repaired items!)
 		if( ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS ) ||
-				( CountNumberOfItemsInThePlayersOfferArea( ) < SKI_NUM_ARMS_DEALERS_INV_SLOTS ) )
+			(CountNumberOfItemsInThePlayersOfferArea( ) < (SKI_TRADER_INVENTORY_BOXES_PER_ROW * SKI_TRADER_INVENTORY_BOXES_PER_COL)) )
 		{
 			if ( OfferObjectToDealer( &(gItemToAdd.ItemObject), gpSMCurrentMerc->ubProfile, NO_SLOT ) )
 			{
@@ -1240,8 +1047,7 @@ ATM:
 	guiRandomQuoteDelayTime = SKI_DEALERS_RANDOM_QUOTE_DELAY;
 
 	pShopKeeperItemDescObject = NULL;
-
-
+	
 //Region to allow the user to drop items to the ground
 	MSYS_DefineRegion( &gArmsDealersDropItemToGroundMouseRegions, SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_START_Y, SCREEN_WIDTH - 1, SCREEN_HEIGHT - INV_INTERFACE_HEIGHT, MSYS_PRIORITY_HIGH,
 						 CURSOR_NORMAL, SelectArmsDealersDropItemToGroundMovementRegionCallBack, SelectArmsDealersDropItemToGroundRegionCallBack );
@@ -1263,7 +1069,6 @@ ATM:
 #endif
 	return( TRUE );
 }
-
 
 BOOLEAN InitShopKeepersFace( UINT8 usProfileID )
 {
@@ -1295,11 +1100,8 @@ BOOLEAN InitShopKeepersFace( UINT8 usProfileID )
 	return(TRUE);
 }
 
-
 BOOLEAN ExitShopKeeperInterface()
 {
-	UINT8	ubCnt;
-
 	if( gfExitSKIDueToMessageBox )
 	{
 		gfSKIScreenExit = FALSE;
@@ -1315,25 +1117,16 @@ BOOLEAN ExitShopKeeperInterface()
 	FreeMouseCursor( TRUE );
 
 	//Delete the main shopkeep background
-	DeleteVideoObjectFromIndex( guiMainTradeScreenImage );
 	DeleteVideoObjectFromIndex( guiItemCrossOut );
 	DeleteVideoSurfaceFromIndex( guiCornerWhereTacticalIsStillSeenImage );
 
 	ShutUpShopKeeper();
-
-	//Delete the Atm backgorund
-//ATM:
-//	DeleteVideoObjectFromIndex( guiSkiAtmImage );
-
+	
 	UnloadButtonImage( guiSKI_InvPageUpButtonImage );
 	UnloadButtonImage( guiSKI_InvPageDownButtonImage );
 
-	//UnloadButtonImage( guiSKI_TransactionButtonImage );
-	//	UnloadButtonImage( guiSKI_EvaluateButtonImage );
-	//UnloadButtonImage( guiSKI_DoneButtonImage );
-
 	//loop through the area and delete small faces
-	for(ubCnt=0; ubCnt<gubNumberMercsInArray; ubCnt++)
+	for (UINT8 ubCnt=0; ubCnt<gubNumberMercsInArray; ++ubCnt)
 	{
 		DeleteVideoObjectFromIndex( guiSmallSoldiersFace[ ubCnt ] );
 	}
@@ -1341,27 +1134,15 @@ BOOLEAN ExitShopKeeperInterface()
 	RemoveButton( guiSKI_InvPageUpButton );
 	RemoveButton( guiSKI_InvPageDownButton );
 
-//Evaluate:
-	//	RemoveButton( guiSKI_EvaluateButton );
 	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, DEACTIVATE_BUTTON);
-	//RemoveButton( guiSKI_TransactionButton );
-	//RemoveButton( guiSKI_DoneButton );
 
 	MSYS_RemoveRegion( &gSKI_EntireScreenMouseRegions);
 
 	MSYS_RemoveRegion( &gSkiInventoryMovementAreaMouseRegions );
-
-//ATM:
-//	MSYS_RemoveRegion( &gShopKeeperCoverTacticalButtonMouseRegion );
-
+	
 	//Remove the region for the face
 	MSYS_RemoveRegion( &gArmsDealersFaceMouseRegions );
-
-	//Remove the Atm buttons
-//ATM:
-	//	RemoveSkiAtmButtons();
-
-
+	
 	//Region to allow the user to drop items to the ground
 	MSYS_RemoveRegion( &gArmsDealersDropItemToGroundMouseRegions );
 
@@ -1392,10 +1173,8 @@ BOOLEAN ExitShopKeeperInterface()
 	//if the laptop was just fixed
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE && !( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE ) )
 	{
-
 		INT8	bSoldierID=-1;
-
-			
+		
 		//Have a new merc say a quote
 		bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 		if( bSoldierID != -1 )
@@ -1408,8 +1187,6 @@ BOOLEAN ExitShopKeeperInterface()
 #endif
 	return( TRUE );
 }
-
-
 
 void HandleShopKeeperInterface()
 {
@@ -1464,26 +1241,8 @@ void HandleShopKeeperInterface()
 	{
 		fInterfacePanelDirty = DIRTYLEVEL0;
 	}
-
-	// CHRISL: If in NIV mode, don't display the clock
-	if( UsingNewInventorySystem() == false )
-		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
-	// CHRISL: Added X,Y parameters to allow control of TownID string placement.
-	//RenderTownIDString( CLOCK_X, (CLOCK_Y - 29) );
-	RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
-
-//ATM:
-//	RenderSkiAtmPanel();
-
+		
 	DisplayTalkingArmsDealer();
-
-	DisplayArmsDealerCurrentInventoryPage( );
-
-	DisplayArmsDealerOfferArea();
-
-	DisplayPlayersOfferArea();
-
-	EnableDisableEvaluateAndTransactionButtons();
 
 	MarkButtonsDirty( );
 
@@ -1493,7 +1252,7 @@ void HandleShopKeeperInterface()
 
 		gfDoEvaluationAfterOpening = FALSE;
 
-		for( iCounter = 0; iCounter < SKI_NUM_TRADING_INV_SLOTS; iCounter++ )
+		for ( iCounter = 0; iCounter < gPlayersOfferActiveRegions; ++iCounter )
 		{
 			if( PlayersOfferArea[ iCounter ].fActive )
 			{
@@ -1520,8 +1279,7 @@ void HandleShopKeeperInterface()
 		//Heinz: 23.02.09 BUGFIX: if shopkeeper is talking we should render popup in all cases
 		//if( gpHighLightedItemObject != NULL || gubSkiDirtyLevel != SKI_DIRTY_LEVEL0 )
 				RenderMercPopUpBoxFromIndex( giPopUpBoxId, gusPositionOfSubTitlesX, SKI_POSITION_SUBTITLES_Y, FRAME_BUFFER);
-
-
+	
 	//if we are to display the drop item to ground text
 	if( gfSkiDisplayDropItemToGroundText )
 	{
@@ -1547,10 +1305,8 @@ void HandleShopKeeperInterface()
 #endif
 }
 
-
 BOOLEAN RenderShopKeeperInterface()
 {
-	HVOBJECT	hPixHandle;
 	CHAR16	zMoney[128];
 	HVSURFACE hDestVSurface, hSrcVSurface;
 	SGPRect		SrcRect;
@@ -1560,18 +1316,137 @@ BOOLEAN RenderShopKeeperInterface()
 		return( TRUE );
 	}
 	
-//	RenderSMPanel( &fDirty );
+	// wipe everything once and then redraw
+	if ( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
+	{
+		//Restore the area before blitting the new data on
+		RestoreExternBackgroundRect( SKI_TOTAL_BEGIN_X, SKI_TOTAL_BEGIN_Y,
+									 SKI_TOTAL_END_X - SKI_TOTAL_BEGIN_X,
+									 SKI_TOTAL_END_Y - SKI_TOTAL_BEGIN_Y );
+	}
+		
+	UINT16 col_tradescreenmargin	= Get16BPPColor( FROMRGB( 64, 64, 64 ) );
+	UINT16 col_tradescreen			= Get16BPPColor( FROMRGB( 127, 127, 127 ) );
+	UINT16 col_itembox				= Get16BPPColor( FROMRGB( 74, 65, 49 ) );
+	UINT16 col_itemdescription		= Get16BPPColor( FROMRGB( 181, 150, 74 ) );
+	UINT16 col_itemstatusbar		= Get16BPPColor( FROMRGB( 57, 56, 41 ) );
 
-//	RenderTacticalInterface( );
-	// Render view window
-//	RenderRadarScreen( );
+	// we need to do the colouring twice to colour the margin differently
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TOTAL_BEGIN_X, SKI_TOTAL_BEGIN_Y,
+							   SKI_TOTAL_END_X, SKI_TOTAL_END_Y,
+							   col_tradescreenmargin );
 
-	//Get the main background screen graphic and blt it
-	GetVideoObject(&hPixHandle, guiMainTradeScreenImage );
-	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,SKI_MAIN_BACKGROUND_X, SKI_MAIN_BACKGROUND_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TRADER_INVENTORY_BEGIN_X + SKI_MARGIN, SKI_TRADER_INVENTORY_BEGIN_Y + SKI_MARGIN,
+							   SKI_TRADER_INVENTORY_END_X - SKI_MARGIN, SKI_TRADER_INVENTORY_END_Y - SKI_MARGIN,
+							   col_tradescreen );
 
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TRADER_OFFER_BEGIN_X + SKI_MARGIN, SKI_TRADER_OFFER_BEGIN_Y + SKI_MARGIN,
+							   SKI_TRADER_OFFER_END_X - SKI_MARGIN, SKI_TRADER_OFFER_END_Y - SKI_MARGIN,
+							   col_tradescreen );
+
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_PLAYER_OFFER_BEGIN_X + SKI_MARGIN, SKI_PLAYER_OFFER_BEGIN_Y + SKI_MARGIN,
+							   SKI_PLAYER_OFFER_END_X - SKI_MARGIN, SKI_PLAYER_OFFER_END_Y - SKI_MARGIN,
+							   col_tradescreen );
+	
+	{
+		int usPosY = SKI_TRADER_INVENTORY_BOXES_BEGIN_Y;
+		for ( int y = 0; y<SKI_TRADER_INVENTORY_BOXES_PER_COL; ++y )
+		{
+			int usPosX = SKI_TRADER_INVENTORY_BOXES_BEGIN_X;
+
+			for ( int x = 0; x<SKI_TRADER_INVENTORY_BOXES_PER_ROW; ++x )
+			{
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY,
+										   (INT16)(usPosX + 4), (INT16)(usPosY + 24),
+										   col_itemstatusbar );
+
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, (INT16)(usPosX + 4), usPosY,
+										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + 24),
+										   col_itembox );
+
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, (INT16)(usPosY + 24),
+										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT),
+										   col_itemdescription );
+
+				usPosX += SKI_INV_OFFSET_X;
+			}
+			usPosY += SKI_INV_OFFSET_Y;
+		}
+	}
+
+	{
+		int usPosY = SKI_TRADER_OFFER_BOXES_BEGIN_Y;
+		for ( int y = 0; y<SKI_TRADER_OFFER_BOXES_PER_COL; ++y )
+		{
+			int usPosX = SKI_TRADER_OFFER_BOXES_BEGIN_X;
+
+			for ( int x = 0; x<SKI_TRADER_OFFER_BOXES_PER_ROW; ++x )
+			{
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY,
+										   (INT16)(usPosX + 4), (INT16)(usPosY + 24),
+										   col_itemstatusbar );
+
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, (INT16)(usPosX + 4), usPosY,
+										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + 24),
+										   col_itembox );
+
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, (INT16)(usPosY + 24),
+										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT),
+										   col_itemdescription );
+
+				usPosX += SKI_INV_OFFSET_X;
+			}
+			usPosY += SKI_INV_OFFSET_Y;
+		}
+	}
+
+	{
+		int usPosY = SKI_PLAYER_OFFER_BOXES_BEGIN_Y;
+		for ( int y = 0; y<SKI_PLAYER_OFFER_BOXES_PER_COL; ++y )
+		{
+			int usPosX = SKI_PLAYER_OFFER_BOXES_BEGIN_X;
+
+			for ( int x = 0; x<SKI_PLAYER_OFFER_BOXES_PER_ROW; ++x )
+			{
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY,
+										   (INT16)(usPosX + 4), (INT16)(usPosY + 24),
+										   col_itemstatusbar );
+
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, (INT16)(usPosX + 4), usPosY,
+										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + 24),
+										   col_itembox );
+
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, (INT16)(usPosY + 24),
+										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT),
+										   col_itemdescription );
+
+				usPosX += SKI_INV_OFFSET_X;
+			}
+			usPosY += SKI_INV_OFFSET_Y;
+		}
+	}
+
+	if ( giShopKeeperFaceIndex > -1 )
+		RenderAutoFace( giShopKeeperFaceIndex );
+
+	// CHRISL: If in NIV mode, don't display the clock
+	if ( UsingNewInventorySystem( ) == false )
+		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
+
+	// CHRISL: Added X,Y parameters to allow control of TownID string placement.
+	RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
+	
 	//Display the Title
 	DrawTextToScreen( SKI_Text[ SKI_TEXT_MERCHADISE_IN_STOCK ], SKI_MAIN_TITLE_X, SKI_MAIN_TITLE_Y, SKI_MAIN_TITLE_WIDTH, SKI_TITLE_FONT, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	// display shopkeeper budget
+	DisplayWrappedString( SKI_BUDGET_X, SKI_BUDGET_Y, SKI_BUDGET_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[SKI_TEXT_BUDGET], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+	swprintf( zMoney, L"%d", gArmsDealerStatus[gbSelectedArmsDealerID].uiArmsDealersCash );
+
+	InsertCommasForDollarFigure( zMoney );
+	InsertDollarSignInToString( zMoney );
+	DrawTextToScreen( zMoney, SKI_BUDGET_X, SKI_BUDGET_OFFSET_TO_VALUE, SKI_BUDGET_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
 
 	//if the dealer repairs
 	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
@@ -1585,9 +1460,6 @@ BOOLEAN RenderShopKeeperInterface()
 		DisplayWrappedString( SKI_TOTAL_COST_X, SKI_TOTAL_COST_Y, SKI_TOTAL_COST_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_TOTAL_COST ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	}
 
-	//Display the total value text
-	DisplayWrappedString( SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_Y, SKI_TOTAL_VALUE_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_TOTAL_VALUE ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	
 	//Display the players current balance text
 	DisplayWrappedString( SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_Y, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SkiMessageBoxText[ SKI_PLAYERS_CURRENT_BALANCE ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
@@ -1597,6 +1469,9 @@ BOOLEAN RenderShopKeeperInterface()
 	InsertCommasForDollarFigure( zMoney );
 	InsertDollarSignInToString( zMoney );
 	DrawTextToScreen( zMoney, SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
+
+	//Display the total value text
+	DisplayWrappedString( SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_Y, SKI_TOTAL_VALUE_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[SKI_TEXT_TOTAL_VALUE], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	//Heinz: 22.02.09 BUGFIX: best way - to update whole tactical screen around SKI
 	//BlitBufferToBuffer( guiRENDERBUFFER, guiSAVEBUFFER, 0, 0, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_HEIGHT );
@@ -1625,27 +1500,16 @@ BOOLEAN RenderShopKeeperInterface()
 
 	DisplayArmsDealerCurrentInventoryPage( );
 
-	DisplayArmsDealerOfferArea();
+	DisplayArmsDealerOfferArea( );
 
-	DisplayPlayersOfferArea();
+	DisplayPlayersOfferArea( );
+
+	EnableDisableEvaluateAndTransactionButtons( );
 
 	//if the merc is talking and the screen has been dirtied
 	if( gfIsTheShopKeeperTalking )
 		RenderMercPopUpBoxFromIndex( giPopUpBoxId, gusPositionOfSubTitlesX, SKI_POSITION_SUBTITLES_Y, FRAME_BUFFER);
-
-	CrossOutUnwantedItems( );
-
-	//Render the clock and the town name
-	// CHRISL: If in NIV mode, don't display the clock
-	if( UsingNewInventorySystem() == false )
-		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
-	// CHRISL: Added X,Y parameters to allow control of TownID string placement.
-	RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
-	//RenderTownIDString( CLOCK_X, (CLOCK_Y - 29) );
-
-//	RenderTacticalInterface( );
-//	RenderSMPanel( &fDirty );
-
+	
 	//Restore the tactical background that is visble behind the SKI panel
 	RestoreTacticalBackGround();
 
@@ -1661,43 +1525,35 @@ void RestoreTacticalBackGround()
 
 	GetVideoSurface( &hDestVSurface, guiRENDERBUFFER );
 	GetVideoSurface( &hSrcVSurface, guiCornerWhereTacticalIsStillSeenImage );
-
-	//Heinz: 22.02.09 BUGFIX: best way - to update whole tactical screen around SKI
-	//SrcRect.iLeft = SKI_TACTICAL_BACKGROUND_START_X; //0;
-	//SrcRect.iTop = SKI_TACTICAL_BACKGROUND_START_Y; //0;
-	//SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_WIDTH;		//SKI_TACTICAL_BACKGROUND_START_WIDTH;
-	//SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_HEIGHT;	//SKI_TACTICAL_BACKGROUND_START_HEIGHT;
-
-	//BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
+	
 	// Top
 	SrcRect.iLeft = 0; 
 	SrcRect.iTop = 0; 
 	SrcRect.iRight = SCREEN_WIDTH; 
-	SrcRect.iBottom = SCREEN_Y_OFFSET; 
+	SrcRect.iBottom = SKI_TOTAL_BEGIN_Y;
 	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
+
 	// Bottom
 	SrcRect.iLeft = 0; 
-	SrcRect.iTop = SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT; 
+	SrcRect.iTop = SKI_TOTAL_END_Y;
 	SrcRect.iRight = SCREEN_WIDTH; 
 	SrcRect.iBottom = SCREEN_HEIGHT - INV_INTERFACE_HEIGHT; 
 	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
+
 	// Left
 	SrcRect.iLeft = 0; 
-	SrcRect.iTop = SCREEN_Y_OFFSET; 
-	SrcRect.iRight = SCREEN_X_OFFSET; 
-	SrcRect.iBottom = SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT; 
+	SrcRect.iTop = SKI_TOTAL_BEGIN_Y;
+	SrcRect.iRight = SKI_TOTAL_BEGIN_X;
+	SrcRect.iBottom = SKI_TOTAL_END_Y;
 	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
+
 	// Right
-	SrcRect.iLeft = SCREEN_X_OFFSET + SKI_INTERFACE_WIDTH; 
-	SrcRect.iTop = SCREEN_Y_OFFSET; 
+	SrcRect.iLeft = SKI_TOTAL_END_X;
+	SrcRect.iTop = SKI_TOTAL_BEGIN_Y;
 	SrcRect.iRight = SCREEN_WIDTH; 
-	SrcRect.iBottom = SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT; 
+	SrcRect.iBottom = SKI_TOTAL_END_Y;
 	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SrcRect.iLeft, SrcRect.iTop, (RECT*)&SrcRect );
-	// WANNE: I think it is not used.
-	//InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 }
-
-
 
 void		GetShopKeeperInterfaceUserInput()
 {
@@ -1709,29 +1565,8 @@ void		GetShopKeeperInterfaceUserInput()
 
 	while (DequeueSpecificEvent(&Event, KEY_DOWN|KEY_UP|KEY_REPEAT))
 	{
-		// HOOK INTO MOUSE HOOKS
-/* removed warning condition C4060 (jonathanl)
-		switch( Event.usEvent)
-		{
-		}
-*/
-
 		if( !HandleTextInput( &Event ) && Event.usEvent == KEY_DOWN )
 		{
-
-/*
-//ATM:
-
-			//if the number entered was a number
-			if( (Event.usParam >= '0' ) && ( Event.usParam <= '9') )
-			{
-				UINT8 ubValue = 0;
-				ubValue = ( INT8 )( Event.usParam - '0' );
-
-				AddNumberToSkiAtm( ubValue );
-			}
-*/
-
 			switch( Event.usParam )
 			{
 				case ESC:
@@ -1788,18 +1623,15 @@ void		GetShopKeeperInterfaceUserInput()
 	}
 }
 
-
-
 #ifdef JA2TESTVERSION
 void DisplayAllDealersCash()
 {
-	INT8		bArmsDealer;
 	UINT16	usPosY=0;
 	CHAR16	zTemp[512];
-	UINT8		ubForeColor;
+	UINT8	ubForeColor;
 
 	//loop through all the shopkeeper's and display their money
-	for( bArmsDealer=0; bArmsDealer<NUM_ARMS_DEALERS; bArmsDealer++ )
+	for ( INT8 bArmsDealer = 0; bArmsDealer<NUM_ARMS_DEALERS; bArmsDealer++ )
 	{
 		//Display the shopkeeper's name
 		DrawTextToScreen( gMercProfiles[ armsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, SCREEN_X_OFFSET + 540, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
@@ -1838,7 +1670,6 @@ void BtnSKI_InvPageUpButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-
 void BtnSKI_InvPageDownButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -1861,26 +1692,6 @@ void BtnSKI_InvPageDownButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-/*
-//Evaluate:
-void BtnSKI_EvaluateButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-
-		ShutUpShopKeeper();
-		EvaluateAllItemsInPlayersOfferArea( );
-
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-}
-*/
 void BtnSKI_TransactionButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -1923,25 +1734,24 @@ void BtnSKI_DoneButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 void CreateSkiInventorySlotMouseRegions( )
 {
-	UINT8	x,y,ubCnt;
+	int ubCnt, x,y;
 	UINT16	usPosX, usPosY;
-
-
+	
 	// Create the mouse regions for the shopkeeper's inventory
-	usPosY = SKI_ARMS_DEALERS_INV_START_Y;
+	usPosY = SKI_TRADER_INVENTORY_BOXES_BEGIN_Y;
 	ubCnt=0;
-	for(y=0; y<SKI_NUM_ARMS_DEALERS_INV_ROWS; y++)
+	for ( y = 0; y<SKI_TRADER_INVENTORY_BOXES_PER_COL; ++y )
 	{
-		usPosX = SKI_ARMS_DEALERS_INV_START_X;
+		usPosX = SKI_TRADER_INVENTORY_BOXES_BEGIN_X;
 
-		for(x=0; x<SKI_NUM_ARMS_DEALERS_INV_COLS; x++)
+		for ( x = 0; x<SKI_TRADER_INVENTORY_BOXES_PER_ROW; ++x )
 		{
 			MSYS_DefineRegion( &gDealersInventoryMouseRegions[ ubCnt ], usPosX, usPosY, (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT), MSYS_PRIORITY_HIGH,
 										 CURSOR_NORMAL, SelectDealersInventoryMovementRegionCallBack, SelectDealersInventoryRegionCallBack );
 			MSYS_AddRegion( &gDealersInventoryMouseRegions[ubCnt] );
 			MSYS_SetRegionUserData( &gDealersInventoryMouseRegions[ ubCnt ], 0, ubCnt);
 			MSYS_SetRegionUserData( &gDealersInventoryMouseRegions[ ubCnt ], 1, ARMS_DEALER_INVENTORY );
-
+			
 			//if the dealer repairs
 			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
@@ -1954,26 +1764,26 @@ void CreateSkiInventorySlotMouseRegions( )
 			}
 
 			usPosX += SKI_INV_OFFSET_X;
-			ubCnt++;
+			++ubCnt;
+			++gDealersInventoryActiveRegions;
 		}
 		usPosY += SKI_INV_OFFSET_Y;
 	}
 
 	// Create the mouse regions for the shopkeeper's trading slots
-	usPosY = SKI_ARMS_DEALERS_TRADING_INV_Y;
+	usPosY = SKI_TRADER_OFFER_BOXES_BEGIN_Y;
 	ubCnt=0;
-	for(y=0; y<SKI_NUM_TRADING_INV_ROWS; y++)
+	for ( y = 0; y<SKI_TRADER_OFFER_BOXES_PER_COL; ++y )
 	{
-		usPosX = SKI_ARMS_DEALERS_TRADING_INV_X;
+		usPosX = SKI_TRADER_OFFER_BOXES_BEGIN_X;
 
-		for(x=0; x<SKI_NUM_TRADING_INV_COLS; x++)
+		for ( x = 0; x<SKI_TRADER_OFFER_BOXES_PER_ROW; ++x )
 		{
 			MSYS_DefineRegion( &gDealersOfferSlotsMouseRegions[ ubCnt ], usPosX, usPosY, (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT), MSYS_PRIORITY_HIGH,
 										 CURSOR_NORMAL, SelectDealersOfferSlotsMovementRegionCallBack, SelectDealersOfferSlotsRegionCallBack );
 			MSYS_AddRegion( &gDealersOfferSlotsMouseRegions[ubCnt] );
 			MSYS_SetRegionUserData( &gDealersOfferSlotsMouseRegions[ ubCnt ], 0, ubCnt);
-
-
+						
 			//if the dealer repairs
 			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 			{
@@ -1984,35 +1794,29 @@ void CreateSkiInventorySlotMouseRegions( )
 				MSYS_SetRegionUserData( &gDealersOfferSlotsSmallFaceMouseRegions[ ubCnt ], 0, ubCnt);
 				MSYS_SetRegionUserData( &gDealersOfferSlotsSmallFaceMouseRegions[ ubCnt ], 1, ARMS_DEALER_OFFER_AREA );
 			}
-
-
+			
 			usPosX += SKI_INV_OFFSET_X;
-			ubCnt++;
+			++ubCnt;
+			++gDealersOfferActiveRegions;
 		}
 		usPosY += SKI_INV_OFFSET_Y;
 	}
 
 	// Create the mouse regions for the Players trading slots
-	usPosY = SKI_PLAYERS_TRADING_INV_Y;
+	usPosY = SKI_PLAYER_OFFER_BOXES_BEGIN_Y;
 	ubCnt=0;
-	for(y=0; y<SKI_NUM_TRADING_INV_ROWS; y++)
+	for ( y = 0; y<SKI_PLAYER_OFFER_BOXES_PER_COL; ++y )
 	{
-		usPosX = SKI_PLAYERS_TRADING_INV_X;
+		usPosX = SKI_PLAYER_OFFER_BOXES_BEGIN_X;
 
-		for(x=0; x<SKI_NUM_TRADING_INV_COLS; x++)
+		for ( x = 0; x<SKI_PLAYER_OFFER_BOXES_PER_ROW; ++x )
 		{
 			//Trading Slots
 			MSYS_DefineRegion( &gPlayersOfferSlotsMouseRegions[ ubCnt ], usPosX, usPosY, (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT), MSYS_PRIORITY_HIGH,
 										 CURSOR_NORMAL, SelectPlayersOfferSlotsMovementRegionCallBack, SelectPlayersOfferSlotsRegionCallBack );
 			MSYS_AddRegion( &gPlayersOfferSlotsMouseRegions[ubCnt] );
 			MSYS_SetRegionUserData( &gPlayersOfferSlotsMouseRegions[ ubCnt ], 0, ubCnt);
-/*
-			//if the dealer repairs
-			if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
-			{
-				MSYS_SetRegionUserData( &gPlayersOfferSlotsSmallFaceMouseRegions[ ubCnt ], 1, PLAYERS_OFFER_AREA );
-			}
-*/
+			
 			//Small Faces
 			MSYS_DefineRegion( &gPlayersOfferSlotsSmallFaceMouseRegions[ ubCnt ], (UINT16)(usPosX+SKI_SMALL_FACE_OFFSET_X), (UINT16)(usPosY), (INT16)(usPosX + SKI_SMALL_FACE_OFFSET_X + SKI_SMALL_FACE_WIDTH), (INT16)(usPosY+ SKI_SMALL_FACE_HEIGHT), MSYS_PRIORITY_HIGH+1,
 										 CURSOR_NORMAL, SelectPlayersOfferSlotsMovementRegionCallBack, SelectPlayersOfferSlotsRegionCallBack );
@@ -2021,20 +1825,16 @@ void CreateSkiInventorySlotMouseRegions( )
 			MSYS_SetRegionUserData( &gPlayersOfferSlotsSmallFaceMouseRegions[ ubCnt ], 1, PLAYERS_OFFER_AREA );
 
 			usPosX += SKI_INV_OFFSET_X;
-			ubCnt++;
+			++ubCnt;
+			++gPlayersOfferActiveRegions;
 		}
 		usPosY += SKI_INV_OFFSET_Y;
 	}
-
-
 }
-
 
 void DestroySkiInventorySlotMouseRegions( )
 {
-	UINT8	i;
-
-	for(i=0; i<SKI_NUM_ARMS_DEALERS_INV_SLOTS; i++)
+	for ( int i = 0; i<gDealersInventoryActiveRegions; ++i )
 	{
 		MSYS_RemoveRegion( &gDealersInventoryMouseRegions[ i ] );
 
@@ -2045,7 +1845,9 @@ void DestroySkiInventorySlotMouseRegions( )
 		}
 	}
 
-	for(i=0; i<SKI_NUM_TRADING_INV_SLOTS; i++)
+	gDealersInventoryActiveRegions = 0;
+
+	for ( int i = 0; i<gDealersOfferActiveRegions; ++i )
 	{
 		MSYS_RemoveRegion( &gDealersOfferSlotsMouseRegions[ i ] );
 
@@ -2054,13 +1856,19 @@ void DestroySkiInventorySlotMouseRegions( )
 		{
 			MSYS_RemoveRegion( &gDealersOfferSlotsSmallFaceMouseRegions[ i ] );
 		}
-
-		MSYS_RemoveRegion( &gPlayersOfferSlotsMouseRegions[ i ] );
-
-		MSYS_RemoveRegion( &gPlayersOfferSlotsSmallFaceMouseRegions[ i ] );
 	}
-}
 
+	gDealersOfferActiveRegions = 0;
+
+	for ( int i = 0; i<gPlayersOfferActiveRegions; ++i )
+	{
+		MSYS_RemoveRegion( &gPlayersOfferSlotsMouseRegions[i] );
+
+		MSYS_RemoveRegion( &gPlayersOfferSlotsSmallFaceMouseRegions[i] );
+	}
+
+	gPlayersOfferActiveRegions = 0;
+}
 
 //Mouse Call back for the Arms traders inventory slot
 void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
@@ -2142,7 +1950,6 @@ void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason 
 			}
 		}
 	}
-
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 		UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
@@ -2194,8 +2001,6 @@ void SelectDealersInventoryRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason 
 		}
 	}
 }
-
-
 
 void SelectDealersInventoryMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
@@ -2288,8 +2093,6 @@ void SelectPlayersOfferSlotsMovementRegionCallBack(MOUSE_REGION * pRegion, INT32
 		HandleCompatibleAmmoUI( gpSMCurrentMerc, -1, FALSE );
 	}
 }
-
-
 
 //Mouse Call back for the dealer's OFFER slot
 void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
@@ -2413,14 +2216,12 @@ void SelectDealersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 	}
 }
 
-
 //Mouse Call back for the Players OFFER slot
 void SelectPlayersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT16	ubSelectedInvSlot = MSYS_GetRegionUserData( pRegion, 0 );
 	INT16 bAddedToSlotID = -1;
-
-
+	
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -2525,7 +2326,6 @@ item description
 	}
 }
 
-
 void SelectSkiInventoryMovementAreaRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
@@ -2574,24 +2374,21 @@ void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
 	LeaveTacticalScreen( SHOPKEEPER_SCREEN );
 }
 
-
 void InitializeShopKeeper( BOOLEAN fResetPage )
 {
 	// update time player last dealt with him
 	gArmsDealerStatus[ gbSelectedArmsDealerID ].uiTimePlayerLastInSKI = GetWorldTotalMin();
-
-
+	
 	gpTempDealersInventory.clear();
 
 	//Get the number of distinct items in the inventory
 	//Create the shopkeeper's temp inventory
 	DetermineArmsDealersSellingInventory( );
 
-	gSelectArmsDealerInfo.ubNumberOfPages = (UINT8)( gpTempDealersInventory.size() / SKI_NUM_ARMS_DEALERS_INV_SLOTS );
+	gSelectArmsDealerInfo.ubNumberOfPages = (UINT8)(gpTempDealersInventory.size( ) / (SKI_TRADER_INVENTORY_BOXES_PER_ROW * SKI_TRADER_INVENTORY_BOXES_PER_COL));
 	if( gpTempDealersInventory.size() % 15 != 0 )
 		gSelectArmsDealerInfo.ubNumberOfPages += 1;
-
-
+	
 	//Should we reset the current inventory page being displayed
 	if( gpTempDealersInventory.empty() == true )
 		gSelectArmsDealerInfo.ubCurrentPage = 0;
@@ -2614,8 +2411,7 @@ void InitializeShopKeeper( BOOLEAN fResetPage )
 		else if( gpTempDealersInventory.empty() == false )
 			gSelectArmsDealerInfo.ubCurrentPage = 1;
 	}
-
-
+	
 	//if there is no inventory
 	if( gpTempDealersInventory.empty() == true )
 	{
@@ -2634,18 +2430,14 @@ void InitializeShopKeeper( BOOLEAN fResetPage )
 		EnableButton( guiSKI_InvPageUpButton );
 		EnableButton( guiSKI_InvPageDownButton );
 	}
-
-
+	
 	EnableDisableDealersInventoryPageButtons();
 }
 
-
 void CalculateFirstItemIndexOnPage( )
 {
-	gSelectArmsDealerInfo.ubFirstItemIndexOnPage = ( gSelectArmsDealerInfo.ubCurrentPage -1 ) * SKI_NUM_ARMS_DEALERS_INV_SLOTS;
+	gSelectArmsDealerInfo.ubFirstItemIndexOnPage = (gSelectArmsDealerInfo.ubCurrentPage - 1) * (SKI_TRADER_INVENTORY_BOXES_PER_ROW * SKI_TRADER_INVENTORY_BOXES_PER_COL);
 }
-
-
 
 void DisplayArmsDealerCurrentInventoryPage( )
 {
@@ -2653,12 +2445,11 @@ void DisplayArmsDealerCurrentInventoryPage( )
 	UINT16			uiFontHeight;
 	UINT16			usCnt=0;
 	UINT16			usPosX, usPosY;
-	UINT8				sItemCount=0;
+	int				sItemCount=0;
 	BOOLEAN			fDisplayHatchOnItem=FALSE;
-
-
-	usPosX = SKI_ARMS_DEALERS_INV_START_X;
-	usPosY = SKI_ARMS_DEALERS_INV_START_Y;
+	
+	usPosX = SKI_TRADER_INVENTORY_BOXES_BEGIN_X;
+	usPosY = SKI_TRADER_INVENTORY_BOXES_BEGIN_Y;
 
 	//if there is any inventory
 	if( gpTempDealersInventory.empty() == false )
@@ -2667,12 +2458,6 @@ void DisplayArmsDealerCurrentInventoryPage( )
 		{
 			//Calculate the item that is at the top of the list
 			CalculateFirstItemIndexOnPage( );
-
-			//Restore the background before blitting the text back on
-			RestoreExternBackgroundRect( SKI_PAGE_X, SKI_PAGE_Y, SKI_PAGE_WIDTH, SKI_PAGE_HEIGHT );
-
-			//Restore the pristine region
-			RestoreExternBackgroundRect( SKI_ARMS_DEALERS_INV_START_X, SKI_ARMS_DEALERS_INV_START_Y, 370, 107 );
 
 			//Display the current inventory page
 			DrawTextToScreen( SKI_Text[ SKI_TEXT_PAGE ], SKI_PAGE_X, (UINT16)(SKI_PAGE_Y+3), SKI_PAGE_WIDTH, SKI_LABEL_FONT, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
@@ -2684,7 +2469,7 @@ void DisplayArmsDealerCurrentInventoryPage( )
 		}
 
 		//Display all the items for the current page
-		for( usCnt=gSelectArmsDealerInfo.ubFirstItemIndexOnPage; ( ( usCnt<gpTempDealersInventory.size() ) && ( sItemCount < SKI_NUM_ARMS_DEALERS_INV_SLOTS ) ); usCnt++ )
+		for ( usCnt = gSelectArmsDealerInfo.ubFirstItemIndexOnPage; ((usCnt<gpTempDealersInventory.size( )) && (sItemCount < gDealersInventoryActiveRegions)); ++usCnt )
 		{
 			//if the item is still in the inventory
 			if( gpTempDealersInventory[ usCnt ].sItemIndex != 0 )
@@ -2715,15 +2500,13 @@ void DisplayArmsDealerCurrentInventoryPage( )
 						fDisplayHatchOnItem = FALSE;
 					}
 				}
-
-
+				
 				// Display the inventory slot
 				DisplayInvSlot( usCnt, gpTempDealersInventory[ usCnt ].sItemIndex, usPosX, usPosY,
 												&gpTempDealersInventory[ usCnt ].ItemObject,
 												fDisplayHatchOnItem,
 												ARMS_DEALER_INVENTORY );
-
-
+				
 				if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 				{
 					SetSkiRegionHelpText( &gpTempDealersInventory[ usCnt ], &gDealersInventoryMouseRegions[sItemCount], ARMS_DEALER_INVENTORY );
@@ -2735,14 +2518,14 @@ void DisplayArmsDealerCurrentInventoryPage( )
 					}
 				}
 
-				sItemCount++;
+				++sItemCount;
 
 				usPosX += SKI_INV_OFFSET_X;
 
 				//if we are on to the next row
-				if( !( sItemCount % SKI_NUM_ARMS_DEALERS_INV_COLS ) )
+				if ( !(sItemCount % SKI_TRADER_INVENTORY_BOXES_PER_ROW) )
 				{
-					usPosX = SKI_ARMS_DEALERS_INV_START_X;
+					usPosX = SKI_TRADER_INVENTORY_BOXES_BEGIN_X;
 					usPosY += SKI_INV_OFFSET_Y;
 				}
 			}
@@ -2752,7 +2535,7 @@ void DisplayArmsDealerCurrentInventoryPage( )
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
 		//This handles the remaining (empty) slots, resetting Fast Help text, and hatching out disabled ones
-		while ( sItemCount < SKI_NUM_ARMS_DEALERS_INV_SLOTS )
+		while ( sItemCount < gDealersInventoryActiveRegions )
 		{
 			SetSkiRegionHelpText( NULL, &gDealersInventoryMouseRegions[ sItemCount ], ARMS_DEALER_INVENTORY );
 
@@ -2768,20 +2551,19 @@ void DisplayArmsDealerCurrentInventoryPage( )
 				HatchOutInvSlot( usPosX, usPosY );
 			}
 
-			sItemCount++;
+			++sItemCount;
 
 			usPosX += SKI_INV_OFFSET_X;
 
 			//if we are on to the next row
-			if( !( sItemCount % SKI_NUM_ARMS_DEALERS_INV_COLS ) )
+			if ( !(sItemCount % SKI_TRADER_INVENTORY_BOXES_PER_ROW) )
 			{
-				usPosX = SKI_ARMS_DEALERS_INV_START_X;
+				usPosX = SKI_TRADER_INVENTORY_BOXES_BEGIN_X;
 				usPosY += SKI_INV_OFFSET_Y;
 			}
 		}
 	}
 }
-
 
 UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT16 usPosY, OBJECTTYPE	*pItemObject, BOOLEAN fHatchedOut, UINT8 ubItemArea )
 {
@@ -2801,12 +2583,7 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 	//if the item is not highlighted, and we are not rerendering the screen
 	if( !( fHighlighted || gubSkiDirtyLevel != SKI_DIRTY_LEVEL0 ) )
 		return( 0 );
-
-	//
-//	if( fHighlighted )
-//		gubSkiDirtyLevel = SKI_DIRTY_LEVEL1;
-
-
+	
 	//Display the item graphic, and price
 	pItem = &Item[ usItemIndex ];
 	GetVideoObject( &hVObject, GetInterfaceGraphicForItem( pItem ) );
@@ -2818,12 +2595,7 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 
 	sCenX = usPosX + 7 + (INT16)( abs( (long)(SKI_INV_WIDTH - 3 - usWidth) ) / 2 ) - pTrav->sOffsetX;
 	sCenY = usPosY + (INT16)( abs( (long) (SKI_INV_HEIGHT - usHeight) ) / 2 ) - pTrav->sOffsetY;
-
-
-	//Restore the background region
-	RestoreExternBackgroundRect( usPosX, usPosY, SKI_INV_SLOT_WIDTH, SKI_INV_HEIGHT );
-
-
+	
 	//blt the shadow of the item
 	if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), g_bUsePngItemImages ? 0 : pItem->ubGraphicNum, sCenX-2, sCenY+2);
 
@@ -2837,8 +2609,7 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 
 	//Display the status of the item
 	DrawItemUIBarEx( pItemObject, 0, (INT16)(usPosX+2), (INT16)(usPosY+2+20), 2, 20, 	Get16BPPColor( FROMRGB( 140, 136, 119 ) ), Get16BPPColor( FROMRGB( 140, 136, 119 ) ), TRUE, guiRENDERBUFFER );//guiSAVEBUFFER
-
-
+	
 	//Display the Items Cost
 	if( ubItemArea == PLAYERS_OFFER_AREA )
 	{
@@ -2906,7 +2677,6 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 		}
 		else
 			uiItemCost = CalcShopKeeperItemPrice( DEALER_SELLING, FALSE, usItemIndex, armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier, pItemObject );
-
 	}
 
 	//if the item has a price, display it
@@ -2917,7 +2687,6 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 		InsertDollarSignInToString( zTemp );
 		DrawTextToScreen( zTemp, (UINT16)(usPosX+SKI_INV_PRICE_OFFSET_X), (UINT16)(usPosY+SKI_INV_PRICE_OFFSET_Y), SKI_INV_SLOT_WIDTH, SKI_ITEM_DESC_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
-
 
 	//if the there is more then 1 or if the item is stackable and some of it has been bought and only 1 remains
 	if( ( pItemObject->ubNumberOfObjects > 1 ) ||
@@ -2981,8 +2750,6 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 
 	return( uiItemCost );
 }
-
-
 
 BOOLEAN DetermineArmsDealersSellingInventory( )
 {
@@ -3081,7 +2848,6 @@ BOOLEAN DetermineArmsDealersSellingInventory( )
 	return( TRUE );
 }
 
-
 bool ArmsDealerItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT& pInvSlot2)
 {
 	int retVal = ( CompareItemsForSorting( pInvSlot1.sItemIndex, pInvSlot2.sItemIndex,
@@ -3092,8 +2858,6 @@ bool ArmsDealerItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT&
 	return false;
 }
 
-
-
 bool RepairmanItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT& pInvSlot2)
 {
 	// lower repair time first
@@ -3103,8 +2867,6 @@ bool RepairmanItemQsortCompare(INVENTORY_IN_SLOT& pInvSlot1, INVENTORY_IN_SLOT& 
 	}
 	return false;
 }
-
-
 
 void StoreObjectsInNextFreeDealerInvSlot( DEALER_SPECIAL_ITEM *pSpclItemInfo, std::vector<INVENTORY_IN_SLOT>& pInventory, UINT8 ubOwner )
 {
@@ -3133,8 +2895,6 @@ void StoreObjectsInNextFreeDealerInvSlot( DEALER_SPECIAL_ITEM *pSpclItemInfo, st
 	}
 	*/
 }
-
-
 
 BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 {
@@ -3197,7 +2957,6 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 	// there was room to add it to player's area
 	return(TRUE);
 }
-
 
 void DrawHatchOnInventory( UINT32 uiSurface, UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT16 usHeight, UINT16 usColor )
 {
@@ -3263,7 +3022,6 @@ void DrawHatchOnInventory_MilitiaAccess( UINT32 uiSurface, UINT16 usPosX, UINT16
 	UnLockVideoSurface( uiSurface );
 }
 
-
 UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, UINT16 usItemID, FLOAT dModifier, OBJECTTYPE *pItemObject )
 {
 	UINT8		ubCnt;
@@ -3277,7 +3035,7 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 
 	uiItemPrice.resize(pItemObject->ubNumberOfObjects);
 
-	for (ubCnt = 0; ubCnt < pItemObject->ubNumberOfObjects; ubCnt++ )
+	for (ubCnt = 0; ubCnt < pItemObject->ubNumberOfObjects; ++ubCnt )
 	{
 		uiItemPrice[ubCnt] = 0;
 		// add up value of the main item(s), exact procedure depends on its item class
@@ -3486,7 +3244,6 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 	return( uiTotalPrice );
 }
 
-
 FLOAT ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus)
 {
 	FLOAT dConditionModifier = 1.0f;
@@ -3523,7 +3280,6 @@ FLOAT ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus)
 	return( dConditionModifier );
 }
 
-
 void DisplayArmsDealerOfferArea()
 {
 	INT16		sCnt, sCount;
@@ -3531,22 +3287,15 @@ void DisplayArmsDealerOfferArea()
 	UINT32	uiTotalCost;
 	UINT16	usPosX, usPosY;
 	BOOLEAN fDisplayHatchOnItem;
-
-
-	usPosX = SKI_ARMS_DEALERS_TRADING_INV_X;
-	usPosY = SKI_ARMS_DEALERS_TRADING_INV_Y;
-
-	if( gubSkiDirtyLevel != SKI_DIRTY_LEVEL0 )
-	{
-		//Restore the area before blitting the new data on
-		RestoreExternBackgroundRect( usPosX, usPosY, SKI_ARMS_DEALERS_TRADING_INV_WIDTH, SKI_ARMS_DEALERS_TRADING_INV_HEIGHT );
-	}
+	
+	usPosX = SKI_TRADER_OFFER_BOXES_BEGIN_X;
+	usPosY = SKI_TRADER_OFFER_BOXES_BEGIN_Y;
 
 	sCount = 0;
 
 	//Display all the items that are in the Arms traders offered area
 	uiTotalCost = 0;
-	for( sCnt=0; sCnt<SKI_NUM_TRADING_INV_SLOTS; sCnt++)
+	for ( sCnt = 0; sCnt<gDealersOfferActiveRegions; ++sCnt )
 	{
 		if( ArmsDealerOfferArea[ sCnt ].fActive )
 		{
@@ -3579,25 +3328,18 @@ void DisplayArmsDealerOfferArea()
 
 		usPosX += SKI_INV_OFFSET_X;
 
-		sCount++;
+		++sCount;
 
 		//if we are on to the next row
-		if( !( sCount % SKI_NUM_TRADING_INV_COLS ) )
+		if ( !(sCount % SKI_TRADER_OFFER_BOXES_PER_ROW) )
 		{
-			usPosX = SKI_ARMS_DEALERS_TRADING_INV_X;
+			usPosX = SKI_TRADER_OFFER_BOXES_BEGIN_X;
 			usPosY += SKI_INV_OFFSET_Y;
 		}
 	}
 
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
-		//
-		//Display the Total cost text and number
-		//
-
-		//Restore the previous area
-		RestoreExternBackgroundRect( SKI_ARMS_DEALER_TOTAL_COST_X, SKI_ARMS_DEALER_TOTAL_COST_Y, SKI_ARMS_DEALER_TOTAL_COST_WIDTH, SKI_ARMS_DEALER_TOTAL_COST_HEIGHT );
-
 		//Display the total cost text
 		swprintf( zTemp, L"%d", uiTotalCost );
 		InsertCommasForDollarFigure( zTemp );
@@ -3606,12 +3348,9 @@ void DisplayArmsDealerOfferArea()
 	}
 }
 
-
 INT16 AddItemToArmsDealerOfferArea( INVENTORY_IN_SLOT* pInvSlot, INT16 bSlotIdInOtherLocation )
 {
-	INT16	bCnt;
-
-	for( bCnt=0; bCnt<SKI_NUM_TRADING_INV_SLOTS; bCnt++)
+	for ( INT16 bCnt = 0; bCnt<gDealersOfferActiveRegions; ++bCnt )
 	{
 		//if there are no items here, copy the data in
 		if( ArmsDealerOfferArea[bCnt].fActive == FALSE )
@@ -3646,33 +3385,24 @@ INT16 AddItemToArmsDealerOfferArea( INVENTORY_IN_SLOT* pInvSlot, INT16 bSlotIdIn
 
 BOOLEAN RemoveItemFromArmsDealerOfferArea( INT16	bSlotId, BOOLEAN fKeepItem )
 {
-//	UINT16	usCnt;
-
-	//Loop through all the slot to see if the requested one is here
-//	for( usCnt=0; usCnt<SKI_NUM_TRADING_INV_SLOTS; usCnt++)
+	//if this is the requested slot
+	if( ArmsDealerOfferArea[bSlotId].fActive )
 	{
-		//if this is the requested slot
-		if( ArmsDealerOfferArea[bSlotId].fActive )//bSlotIdInOtherLocation == bSlotIdInOtherLocation )
+		if( fKeepItem )
 		{
-			//if there are more then 1 item
-//			if( ArmsDealerOfferArea[ usCnt ].ItemObject.ubNumberOfObjects > 1 )
-			if( fKeepItem )
-			{
-				gpTempDealersInventory[ ArmsDealerOfferArea[bSlotId].bSlotIdInOtherLocation ].ItemObject.ForceAddObjectsToStack(ArmsDealerOfferArea[ bSlotId ].ItemObject);
-			}
-
-			//Clear the flag that hatches out the item
-			gpTempDealersInventory[ ArmsDealerOfferArea[bSlotId].bSlotIdInOtherLocation ].uiFlags &= ~ARMS_INV_ITEM_SELECTED;
-
-			ClearArmsDealerOfferSlot( bSlotId );
-
-			return( TRUE );
+			gpTempDealersInventory[ ArmsDealerOfferArea[bSlotId].bSlotIdInOtherLocation ].ItemObject.ForceAddObjectsToStack(ArmsDealerOfferArea[ bSlotId ].ItemObject);
 		}
+
+		//Clear the flag that hatches out the item
+		gpTempDealersInventory[ ArmsDealerOfferArea[bSlotId].bSlotIdInOtherLocation ].uiFlags &= ~ARMS_INV_ITEM_SELECTED;
+
+		ClearArmsDealerOfferSlot( bSlotId );
+
+		return( TRUE );
 	}
 
 	return( FALSE );
 }
-
 
 void SetSkiRegionHelpText( INVENTORY_IN_SLOT *pInv, MOUSE_REGION *pRegion, UINT8 ubScreenArea )
 {
@@ -3685,7 +3415,6 @@ void SetSkiRegionHelpText( INVENTORY_IN_SLOT *pInv, MOUSE_REGION *pRegion, UINT8
 	SetRegionFastHelpText( pRegion, zHelpText );
 	SetRegionHelpEndCallback( pRegion, SkiHelpTextDoneCallBack );
 }
-
 
 void SetSkiFaceRegionHelpText( INVENTORY_IN_SLOT *pInv, MOUSE_REGION *pRegion, UINT8 ubScreenArea )
 {
@@ -3710,12 +3439,10 @@ void SetSkiFaceRegionHelpText( INVENTORY_IN_SLOT *pInv, MOUSE_REGION *pRegion, U
 	SetRegionHelpEndCallback( pRegion, SkiHelpTextDoneCallBack );
 }
 
-
 void SkiHelpTextDoneCallBack( void )
 {
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 }
-
 
 INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, INT16 bSlotIdInOtherLocation )
 {
@@ -3729,9 +3456,8 @@ INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, 
 			return( -1 );
 	}
 
-
 	//look for the first free slot
-	for( bCnt=0; bCnt<SKI_NUM_TRADING_INV_SLOTS; bCnt++)
+	for ( bCnt = 0; bCnt<gPlayersOfferActiveRegions; ++bCnt )
 	{
 		//if there are no items here, copy the data in
 		if( PlayersOfferArea[bCnt].fActive == FALSE )
@@ -3748,7 +3474,6 @@ INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, 
 
 			SetSkiRegionHelpText( &PlayersOfferArea[bCnt], &gPlayersOfferSlotsMouseRegions[ bCnt ], PLAYERS_OFFER_AREA );
 			SetSkiFaceRegionHelpText( &PlayersOfferArea[bCnt], &gPlayersOfferSlotsSmallFaceMouseRegions[ bCnt ], PLAYERS_OFFER_AREA );
-
 
 			//if the item we are adding is money
 			if( Item[ PlayersOfferArea[ bCnt ].sItemIndex ].usItemClass == IC_MONEY )
@@ -3787,31 +3512,20 @@ BOOLEAN RemoveItemFromPlayersOfferArea( INT16 bSlot )
 	return( TRUE );
 }
 
-
 void DisplayPlayersOfferArea()
 {
-	INT16		sCnt, sCount;
+	INT16	sCount = 0;
 	CHAR16	zTemp[32];
 	UINT32	uiTotalCost;
 	UINT16	usPosX, usPosY;
 	BOOLEAN	fDisplayHatchOnItem=FALSE;
-
-
-	usPosX = SKI_PLAYERS_TRADING_INV_X;
-	usPosY = SKI_PLAYERS_TRADING_INV_Y;
-
-	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
-	{
-		//Restore the area before blitting the new data on
-		RestoreExternBackgroundRect( SKI_PLAYERS_TRADING_INV_X, SKI_PLAYERS_TRADING_INV_Y, SKI_PLAYERS_TRADING_INV_WIDTH, SKI_PLAYERS_TRADING_INV_HEIGHT );
-	}
-
-	sCount = 0;
-
-
+	
+	usPosX = SKI_PLAYER_OFFER_BOXES_BEGIN_X;
+	usPosY = SKI_PLAYER_OFFER_BOXES_BEGIN_Y;
+		
 	//Display all the items that are in the Players offered area
 	uiTotalCost = 0;
-	for( sCnt=0; sCnt<SKI_NUM_TRADING_INV_SLOTS; sCnt++)
+	for ( int sCnt = 0; sCnt < gPlayersOfferActiveRegions; ++sCnt )
 	{
 		if( PlayersOfferArea[ sCnt ].fActive )
 		{
@@ -3848,9 +3562,6 @@ void DisplayPlayersOfferArea()
 				}
 			}
 
-			// hatch it out if it hasn't been evaluated or just purchased
-//			fDisplayHatchOnItem = ( PlayersOfferArea[ sCnt ].uiFlags & ( ARMS_INV_PLAYERS_ITEM_HAS_BEEN_EVALUATED | ARMS_INV_JUST_PURCHASED ) ) == 0;
-
 			// Display the inventory slot
 			DisplayInvSlot( (UINT16)sCnt, PlayersOfferArea[ sCnt ].sItemIndex, usPosX, usPosY,
 											&PlayersOfferArea[ sCnt ].ItemObject,
@@ -3860,43 +3571,34 @@ void DisplayPlayersOfferArea()
 			if( PlayersOfferArea[ sCnt ].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE )
 				uiTotalCost += PlayersOfferArea[ sCnt ].uiItemPrice;
 		}
-			usPosX += SKI_INV_OFFSET_X;
 
-			sCount++;
+		usPosX += SKI_INV_OFFSET_X;
 
-			//if we are on to the next row
-			if( !( sCount % SKI_NUM_TRADING_INV_COLS ) )
-			{
-				usPosX = SKI_ARMS_DEALERS_TRADING_INV_X;
-				usPosY += SKI_INV_OFFSET_Y;
-			}
+		++sCount;
+
+		//if we are on to the next row
+		if ( !(sCount % SKI_TRADER_OFFER_BOXES_PER_ROW) )
+		{
+			usPosX = SKI_PLAYER_OFFER_BOXES_BEGIN_X;
+			usPosY += SKI_INV_OFFSET_Y;
+		}
 	}
 
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
-		//
-		//Display the Total value text and number
-		//
-
-		//Restore the previous area
-		RestoreExternBackgroundRect( SKI_PLAYERS_TOTAL_VALUE_X, SKI_PLAYERS_TOTAL_VALUE_Y, SKI_PLAYERS_TOTAL_VALUE_WIDTH, SKI_PLAYERS_TOTAL_VALUE_HEIGHT );
-
 		//Display the total cost text
 		swprintf( zTemp, L"%d", uiTotalCost );
 		InsertCommasForDollarFigure( zTemp );
 		InsertDollarSignInToString( zTemp );
-		DrawTextToScreen( zTemp, SKI_PLAYERS_TOTAL_VALUE_X, (UINT16)(SKI_PLAYERS_TOTAL_VALUE_Y+5), SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( zTemp, SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_OFFSET_TO_VALUE, SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
 
 	CrossOutUnwantedItems( );
 }
 
-
 INVENTORY_IN_SLOT	*GetPtrToOfferSlotWhereThisItemIs( UINT8 ubProfileID, INT16 bInvPocket )
 {
-	UINT8 ubCnt = 0;
-
-	for( ubCnt = 0; ubCnt < SKI_NUM_TRADING_INV_SLOTS; ubCnt++ )
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		if( ( PlayersOfferArea[ ubCnt ].bSlotIdInOtherLocation == bInvPocket ) &&
 				( PlayersOfferArea[ ubCnt ].ubIdOfMercWhoOwnsTheItem == ubProfileID ) &&
@@ -3904,12 +3606,15 @@ INVENTORY_IN_SLOT	*GetPtrToOfferSlotWhereThisItemIs( UINT8 ubProfileID, INT16 bI
 		{
 			return( &( PlayersOfferArea[ ubCnt ] ) );
 		}
+	}
 
-		if( ( ArmsDealerOfferArea[ ubCnt ].bSlotIdInOtherLocation == bInvPocket ) &&
-				( ArmsDealerOfferArea[ ubCnt ].ubIdOfMercWhoOwnsTheItem == ubProfileID ) &&
-				( ArmsDealerOfferArea[ ubCnt ].ItemObject.exists() == true ) )
+	for ( int ubCnt = 0; ubCnt < gDealersOfferActiveRegions; ++ubCnt )
+	{
+		if ( (ArmsDealerOfferArea[ubCnt].bSlotIdInOtherLocation == bInvPocket) &&
+			 (ArmsDealerOfferArea[ubCnt].ubIdOfMercWhoOwnsTheItem == ubProfileID) &&
+			 (ArmsDealerOfferArea[ubCnt].ItemObject.exists( ) == true) )
 		{
-			return( &( ArmsDealerOfferArea[ ubCnt ] ) );
+			return(&(ArmsDealerOfferArea[ubCnt]));
 		}
 	}
 
@@ -3917,28 +3622,23 @@ INVENTORY_IN_SLOT	*GetPtrToOfferSlotWhereThisItemIs( UINT8 ubProfileID, INT16 bI
 	return( NULL );
 }
 
-
 BOOLEAN ShouldSoldierDisplayHatchOnItem( UINT8 ubProfileID, INT16 sSlotNum )
 {
-	INVENTORY_IN_SLOT	*pInvSlot = NULL;
-
-	pInvSlot = GetPtrToOfferSlotWhereThisItemIs( ubProfileID, sSlotNum );
+	INVENTORY_IN_SLOT	*pInvSlot = GetPtrToOfferSlotWhereThisItemIs( ubProfileID, sSlotNum );
 
 	if( pInvSlot == NULL )
 		// not found in either offer area
 		return( FALSE );
-	else
-		// found it, display it hatched out
-		return( TRUE );
-}
 
+	// found it, display it hatched out
+	return( TRUE );
+}
 
 UINT32 CalculateTotalArmsDealerCost()
 {
-	UINT32	uiCnt;
 	UINT32	uiTotal=0;
 
-	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
+	for ( int uiCnt = 0; uiCnt< gDealersOfferActiveRegions; ++uiCnt )
 	{
 		if( ArmsDealerOfferArea[ uiCnt ].fActive )
 		{
@@ -3952,13 +3652,11 @@ UINT32 CalculateTotalArmsDealerCost()
 	return( uiTotal );
 }
 
-
 UINT32 CalculateTotalPlayersValue()
 {
-	UINT8	ubCnt;
 	UINT32 uiTotal = 0;
 
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		if( ( PlayersOfferArea[ ubCnt ].fActive ) && ( PlayersOfferArea[ ubCnt ].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE ) )
 		{
@@ -3972,7 +3670,6 @@ UINT32 CalculateTotalPlayersValue()
 
 	return( uiTotal );
 }
-
 
 void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 {
@@ -4006,13 +3703,13 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 		//if the dealer is not a repairman
 		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 		{
-			uiAvailablePlayerOfferSlots = ( SKI_NUM_TRADING_INV_SLOTS - CountNumberOfValuelessItemsInThePlayersOfferArea( ) );
+			uiAvailablePlayerOfferSlots = (gPlayersOfferActiveRegions - CountNumberOfValuelessItemsInThePlayersOfferArea( ));
 
 			// always reserve an empty slot for change.  We can't tell for sure whether player is getting change because that
 			// could depend on how many items he's trying to buy won't fit - he could only be getting change because of that!
 			if ( uiAvailablePlayerOfferSlots > 0 )
 			{
-				uiAvailablePlayerOfferSlots--;
+				--uiAvailablePlayerOfferSlots;
 			}
 
 			//if there is NOT enough room in the players offer area
@@ -4059,11 +3756,9 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 			return;
 		}
 
-
 		// to get this far, player should have the money needed!
 		Assert( uiPlayersTotalMoneyValue >= uiArmsDealersItemsCost );
-
-
+		
 		//if the dealer repairs
 		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
@@ -4092,8 +3787,7 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 					else
 						StartShopKeeperTalking( SK_QUOTES_PLAYER_HAS_EXACTLY_ENOUGH_MONEY_FOR_TRANSACTION );
 				}
-
-
+				
 				// move the offered items to the repairman's inventory
 				MovePlayersItemsToBeRepairedToArmsDealersInventory();
 			}
@@ -4109,8 +3803,7 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 			// to subtract from his balance, but there isn't enough room.  In that case, the cost of items not transfered is
 			// used to reduce his balance deduction instead (not here, in the calling function).
 			iChangeToGiveToPlayer = CalculateTotalPlayersValue() - uiArmsDealersItemsCost;
-
-
+			
 			//if the arms dealer buys stuff
 			if( ( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_BUYS_ONLY ) ||
 					( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_BUYS_SELLS ) )
@@ -4129,7 +3822,6 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 					}
 				}
 			}
-
 
 			//Move all the player's evaluated items to the dealer
 			MovePlayerOfferedItemsOfValueToArmsDealersInventory();
@@ -4225,7 +3917,6 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 				SetFactTrue( 222 );
 		}
 
-
 		// add cash transfered from player's account directly to dealer's cash balance
 		if( uiMoneyFromPlayersAccount > 0 )
 		{
@@ -4240,24 +3931,19 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 		//The shopkeeper's inventory has changed, reinitialize
 		InitializeShopKeeper( FALSE );
 	}
-
-
+	
 	gfResetShopKeepIdleQuote = TRUE;
-
-	return;
 }
-
 
 void MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( )
 {
 	//for all items in the dealers items offer area
-	UINT32	uiCnt;
 	INT16		bSlotID=0;
 #ifdef JA2UB	
 	BOOLEAN	fAddItemToPlayer=TRUE;
 #endif
 	//loop through all the slots in the shopkeeper's offer area
-	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
+	for ( int uiCnt = 0; uiCnt<gDealersOfferActiveRegions; ++uiCnt )
 	{
 		//if there is an item here
 		if( ArmsDealerOfferArea[ uiCnt ].fActive )
@@ -4338,24 +4024,17 @@ void MoveAllArmsDealersItemsInOfferAreaToPlayersOfferArea( )
 	}
 
 	//loop through all the slots in the shopkeeper's offer area
-	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
+	for ( int uiCnt = 0; uiCnt < gDealersOfferActiveRegions; ++uiCnt )
 	{
 		if( ArmsDealerOfferArea[uiCnt].fActive )
 			Assert(0);
 	}
-
 }
 
 BOOLEAN RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT16 ubSlot )
 {
-	INT16		sInvSlot;
-	INT16		sItemID;
-	sInvSlot = ubSlot;
-//	sInvSlot = ( gSelectArmsDealerInfo.ubCurrentPage - 1 ) * SKI_NUM_ARMS_DEALERS_INV_SLOTS + ubSlot;
-
 	//Remove all of this item out of the specified inventory slot
-	sItemID = gpTempDealersInventory[ sInvSlot ].sItemIndex;
-	RemoveItemFromArmsDealerInventory( gbSelectedArmsDealerID, sItemID, pInvSlot->ItemObject.ubNumberOfObjects, &pInvSlot->ItemObject );
+	RemoveItemFromArmsDealerInventory( gbSelectedArmsDealerID, gpTempDealersInventory[ubSlot].sItemIndex, pInvSlot->ItemObject.ubNumberOfObjects, &pInvSlot->ItemObject );
 
 	gfResetShopKeepIdleQuote = TRUE;
 	return( TRUE );
@@ -4363,12 +4042,11 @@ BOOLEAN RemoveItemFromDealersInventory( INVENTORY_IN_SLOT* pInvSlot, UINT16 ubSl
 
 void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 {
-	UINT32	uiCnt;
 #ifdef JA2UB
 	BOOLEAN	fAddItemToDealer=TRUE;
 #endif
 	//loop through all the slots in the players offer area
-	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
+	for ( int uiCnt = 0; uiCnt < gPlayersOfferActiveRegions; ++uiCnt )
 	{
 		//if there is an item here
 		if( PlayersOfferArea[ uiCnt ].fActive )
@@ -4446,7 +4124,6 @@ void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 						PlayersOfferArea[ uiCnt ].ItemObject.initialize();
 					}
 				}
-
 #endif
 				//erase the item from the player's offer area
 				ClearPlayersOfferSlot( uiCnt );
@@ -4456,8 +4133,6 @@ void MovePlayerOfferedItemsOfValueToArmsDealersInventory()
 
 	gfResetShopKeepIdleQuote = TRUE;
 }
-
-
 
 void BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealerFirst )
 {
@@ -4486,8 +4161,7 @@ void BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealer
 
 			//remove the item from the slot
 			ClearArmsDealerOfferSlot( bSlotNum );
-
-
+			
 			//Restrict the cursor to the arms dealer offer area, players offer area and the players inventory
 			Rect.iLeft = 0;//SKI_ITEM_MOVEMENT_AREA_X;
 			Rect.iTop = SKI_DEALER_OFFER_AREA_Y;
@@ -4513,7 +4187,6 @@ void BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealer
 				gpItemPointerSoldier = gpSMCurrentMerc;
 
 			break;
-
 
 		case PLAYERS_OFFER_AREA:
 			//Get the item from the slot.
@@ -4580,8 +4253,7 @@ void BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealer
 #endif
 
 			break;
-
-
+			
 		case PLAYERS_INVENTORY:
 			// better be a valid merc pocket index, or -1
 			Assert( ( bSlotNum >= -1 ) && ( bSlotNum < (INT8)gpSMCurrentMerc->inv.size() ) );
@@ -4669,7 +4341,6 @@ void BeginSkiItemPointer( UINT8 ubSource, INT16 bSlotNum, BOOLEAN fOfferToDealer
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 }
 
-
 void RestrictSkiMouseCursor()
 {
 	SGPRect			Rect;
@@ -4681,7 +4352,6 @@ void RestrictSkiMouseCursor()
 
 	RestrictMouseCursor( &Rect );
 }
-
 
 void SetSkiCursor( UINT16	usCursor )
 {
@@ -4716,13 +4386,13 @@ void SetSkiCursor( UINT16	usCursor )
 		if( gInvDesc.uiFlags & MSYS_REGION_EXISTS )
 			MSYS_ChangeRegionCursor( &gInvDesc, usCursor );
 
-		for( ubCnt = 0; ubCnt < gMoveingItem.ItemObject[0]->attachments.size(); ubCnt++)
+		for( ubCnt = 0; ubCnt < gMoveingItem.ItemObject[0]->attachments.size(); ++ubCnt)
 		{
 			if( gItemDescAttachmentRegions[ubCnt].uiFlags & MSYS_REGION_EXISTS )
 				MSYS_ChangeRegionCursor( &gItemDescAttachmentRegions[ubCnt], usCursor );
 		}
 
-		for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+		for ( ubCnt = 0; ubCnt<gDealersOfferActiveRegions; ++ubCnt )
 		{
 			MSYS_ChangeRegionCursor( &gPlayersOfferSlotsMouseRegions[ ubCnt], usCursor );
 			MSYS_ChangeRegionCursor( &gPlayersOfferSlotsSmallFaceMouseRegions[ ubCnt], usCursor );
@@ -4738,7 +4408,6 @@ void SetSkiCursor( UINT16	usCursor )
 
 		MSYS_ChangeRegionCursor( &gSkiInventoryMovementAreaMouseRegions, usCursor );
 	}
-
 	//else we are restoring the old cursor
 	else
 	{
@@ -4765,11 +4434,8 @@ void SetSkiCursor( UINT16	usCursor )
 
 		MSYS_ChangeRegionCursor( &gArmsDealersDropItemToGroundMouseRegions, usCursor );
 
-		for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+		for ( ubCnt = 0; ubCnt<gDealersOfferActiveRegions; ++ubCnt )
 		{
-			MSYS_ChangeRegionCursor( &gPlayersOfferSlotsMouseRegions[ ubCnt ], usCursor );
-			MSYS_ChangeRegionCursor( &gPlayersOfferSlotsSmallFaceMouseRegions[ ubCnt ], usCursor );
-
 			MSYS_ChangeRegionCursor( &gDealersOfferSlotsMouseRegions[ ubCnt ], usCursor );
 
 			//if the dealer repairs
@@ -4779,6 +4445,12 @@ void SetSkiCursor( UINT16	usCursor )
 			}
 		}
 
+		for ( ubCnt = 0; ubCnt<gPlayersOfferActiveRegions; ++ubCnt )
+		{
+			MSYS_ChangeRegionCursor( &gPlayersOfferSlotsMouseRegions[ubCnt], usCursor );
+			MSYS_ChangeRegionCursor( &gPlayersOfferSlotsSmallFaceMouseRegions[ubCnt], usCursor );
+		}
+		
 		//if the item desc window is up
 		if( gInvDesc.uiFlags & MSYS_REGION_EXISTS )
 			MSYS_ChangeRegionCursor( &gInvDesc, usCursor );
@@ -4788,8 +4460,7 @@ void SetSkiCursor( UINT16	usCursor )
 			if( gItemDescAttachmentRegions[ubCnt].uiFlags & MSYS_REGION_EXISTS )
 				MSYS_ChangeRegionCursor( &gItemDescAttachmentRegions[ubCnt], usCursor );
 		}
-
-
+		
 		MSYS_ChangeRegionCursor( &gSkiInventoryMovementAreaMouseRegions, usCursor );
 
 		MSYS_SetCurrentCursor( usCursor );
@@ -4811,11 +4482,9 @@ void SetSkiCursor( UINT16	usCursor )
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 }
 
-
 INT16 AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT16 ubSpotLocation, UINT8 ubWhere )
 {
 	INT16 bSlotAddedTo = -1;
-
 
 	switch( ubWhere )
 	{
@@ -4888,15 +4557,13 @@ INT16 AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT16 ubSpotLocation,
 	return( bSlotAddedTo );
 }
 
-
 void DisplayTalkingArmsDealer()
 {
 	static BOOLEAN	fWasTheMercTalking= FALSE;
 //	static UINT32		uiLastTime=0;
 //	UINT32					uiCurTime = GetJA2Clock();
 //	static	UINT32	uiMinimumLengthForTalkingText;
-
-
+	
 	//Make sure the Dealers doesn't get disabled
 	if ( giShopKeeperFaceIndex > -1 )
 		gFacesData[ giShopKeeperFaceIndex ].fDisabled = FALSE;
@@ -4931,7 +4598,6 @@ void DisplayTalkingArmsDealer()
 	}
 }
 
-
 void HandleShopKeeperDialog( UINT8 ubInit )
 {
 	UINT32	uiCurTime = GetJA2Clock();
@@ -4939,8 +4605,7 @@ void HandleShopKeeperDialog( UINT8 ubInit )
 	static	UINT32	uiLastTime = 0;
 	static	UINT32	uiLastTimeSpoke = 0;
 	static	INT8		bSpeech = -1;
-
-
+	
 	if( ubInit >= 1 )
 	{
 		uiLastTime = GetJA2Clock();
@@ -4966,9 +4631,9 @@ void HandleShopKeeperDialog( UINT8 ubInit )
 		{
 			bSpeech = SK_QUOTES_PLAYER_FIRST_ENTERS_SKI;
 		}
+
 		return;
 	}
-
 
 	//if its the first time in
 	if( bSpeech != -1 )
@@ -4981,8 +4646,7 @@ void HandleShopKeeperDialog( UINT8 ubInit )
 			uiLastTime = GetJA2Clock();
 		}
 	}
-
-
+	
 	//Handle Idle converstions
 	if( gfIsTheShopKeeperTalking )
 	{
@@ -5109,8 +4773,6 @@ void HandleShopKeeperDialog( UINT8 ubInit )
 	}
 }
 
-
-
 BOOLEAN StartShopKeeperTalking( UINT16 usQuoteNum )
 {
 	BOOLEAN fSuccess;
@@ -5138,8 +4800,6 @@ BOOLEAN StartShopKeeperTalking( UINT16 usQuoteNum )
 	gfResetShopKeepIdleQuote = TRUE;
 	return( TRUE );
 }
-
-
 
 BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 {
@@ -5174,8 +4834,7 @@ BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 			}
 		}
 	}
-
-
+	
 	//if the highlighted object is an attachment
 //	if( Item[ pItemObject->usItem ].fFlags & ITEM_ATTACHMENT )
 	if( Item[ pItemObject->usItem ].attachment  )
@@ -5246,10 +4905,8 @@ void RemoveShopKeeperSubTitledText()
 
 BOOLEAN AreThereItemsInTheArmsDealersOfferArea( )
 {
-	UINT8	ubCnt;
-
 	//loop through the players offer area and see if there are any items there
-	for( ubCnt = 0; ubCnt < SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gDealersOfferActiveRegions; ++ubCnt )
 	{
 		//if is an item here
 		if( ArmsDealerOfferArea[ ubCnt ].fActive )
@@ -5257,15 +4914,14 @@ BOOLEAN AreThereItemsInTheArmsDealersOfferArea( )
 			return( TRUE );
 		}
 	}
+
 	return( FALSE );
 }
 
 BOOLEAN AreThereItemsInThePlayersOfferArea( )
 {
-	UINT8	ubCnt;
-
 	//loop through the players offer area and see if there are any items there
-	for( ubCnt = 0; ubCnt < SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		//if is an item here
 		if( PlayersOfferArea[ ubCnt ].fActive )
@@ -5273,6 +4929,7 @@ BOOLEAN AreThereItemsInThePlayersOfferArea( )
 			return( TRUE );
 		}
 	}
+
 	return( FALSE );
 }
 
@@ -5310,15 +4967,12 @@ void ShutUpShopKeeper()
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 }
 
-
-
 UINT8 CountNumberOfValuelessItemsInThePlayersOfferArea( )
 {
-	UINT8	ubCnt;
 	UINT8	ubCount=0;
 
 	//loop through the players offer area and see if there are any items there
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt<gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		//if is an item here
 		if( PlayersOfferArea[ubCnt].fActive )
@@ -5326,20 +4980,20 @@ UINT8 CountNumberOfValuelessItemsInThePlayersOfferArea( )
 			//and if it has no value
 			if( !( PlayersOfferArea[ubCnt].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE ) )
 			{
-				ubCount++;
+				++ubCount;
 			}
 		}
 	}
+
 	return( ubCount );
 }
 
 UINT8 CountNumberOfItemsOfValueInThePlayersOfferArea( )
 {
-	UINT8	ubCnt;
 	UINT8	ubCount=0;
 
 	//loop through the players offer area and see if there are any items there
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		//if is an item here
 		if( PlayersOfferArea[ubCnt].fActive )
@@ -5351,51 +5005,46 @@ UINT8 CountNumberOfItemsOfValueInThePlayersOfferArea( )
 			}
 		}
 	}
+
 	return( ubCount );
 }
 
-
 UINT8 CountNumberOfItemsInThePlayersOfferArea( )
 {
-	UINT8	ubCnt;
 	UINT8	ubItemCount=0;
 
 	//loop through the player's offer area and see if there are any items there
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		//if is an item here
 		if( PlayersOfferArea[ubCnt].fActive )
 		{
-			ubItemCount++;
+			++ubItemCount;
 		}
 	}
 	return( ubItemCount );
 }
 
-
 UINT8 CountNumberOfItemsInTheArmsDealersOfferArea( )
 {
-	UINT8	ubCnt;
 	UINT8	ubItemCount=0;
 
 	//loop through the dealer's offer area and see if there are any items there
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gDealersOfferActiveRegions; ++ubCnt )
 	{
 		//if is an item here
 		if( ArmsDealerOfferArea[ubCnt].fActive )
 		{
-			ubItemCount++;
+			++ubItemCount;
 		}
 	}
+
 	return( ubItemCount );
 }
 
-
 INT8 GetSlotNumberForMerc( UINT8 ubProfile )
 {
-	INT8	bCnt;
-
-	for( bCnt = 0; bCnt < gubNumberMercsInArray; bCnt++ )
+	for( INT8 bCnt = 0; bCnt < gubNumberMercsInArray; ++bCnt )
 	{
 		if( gubArrayOfEmployedMercs[ bCnt ] == ubProfile )
 			return( bCnt );
@@ -5403,554 +5052,6 @@ INT8 GetSlotNumberForMerc( UINT8 ubProfile )
 
 	// not found - not currently working for the player
 	return( -1 );
-}
-
-
-void RenderSkiAtmPanel()
-{
-//	HVOBJECT	hPixHandle;
-
-	//Get the Atm background panel graphic and blt it
-//	GetVideoObject(&hPixHandle, guiSkiAtmImage );
-//	BltVideoObject(FRAME_BUFFER, hPixHandle, 0,SKI_ATM_PANEL_X, SKI_ATM_PANEL_Y, VO_BLT_SRCTRANSPARENCY,NULL);
-}
-
-void CreateSkiAtmButtons()
-{
-	UINT16	usPosX, usPosY;
-	UINT8		ubCount=0;
-	UINT8		ubCnt;
-
-	guiSKI_AtmNumButtonImage			= LoadButtonImage("INTERFACE\\TradeScreenAtm.sti", 1,2,-1,3,-1 );
-	guiSKI_AtmOkButtonImage				= UseLoadedButtonImage( guiSKI_AtmNumButtonImage, 4,5,-1,6,-1 );
-	guiSKI_AtmSideMenuButtonImage	= UseLoadedButtonImage( guiSKI_AtmNumButtonImage, 7,8,-1,9,-1 );
-
-
-	//Create the number buttons
-	usPosX = SKI_ATM_BUTTON_X;
-	usPosY = SKI_ATM_BUTTON_Y;
-	ubCount=0;
-	for( ubCnt=SKI_ATM_1; ubCnt<=SKI_ATM_9;ubCnt++)
-	{
-		guiSKI_AtmButton[ubCnt] = CreateIconAndTextButton( guiSKI_AtmNumButtonImage, SkiAtmText[ubCnt], SKI_ATM_BUTTON_FONT,
-														 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-														 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-														 TEXT_CJUSTIFIED,
-														 usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+2,
-														 DEFAULT_MOVE_CALLBACK, BtnSKI_AtmButtonCallback );
-
-		SpecifyDisabledButtonStyle( guiSKI_AtmButton[ubCnt], DISABLED_STYLE_SHADED );
-
-		MSYS_SetBtnUserData(guiSKI_AtmButton[ubCnt], 0, ubCnt );
-		ubCount++;
-
-		usPosX += SKI_ATM_NUM_BUTTON_WIDTH;
-
-		if( ( ubCount % 3 ) == 0 )
-		{
-			usPosX = SKI_ATM_BUTTON_X;
-			usPosY += SKI_ATM_BUTTON_HEIGHT;
-		}
-	}
-
-	//Create the zero button
-	usPosX = SKI_ATM_BUTTON_X;
-	guiSKI_AtmButton[SKI_ATM_0] = CreateIconAndTextButton( guiSKI_AtmOkButtonImage, SkiAtmText[SKI_ATM_0], SKI_ATM_BUTTON_FONT,
-													 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-													 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-													 TEXT_CJUSTIFIED,
-													 usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+2,
-													 DEFAULT_MOVE_CALLBACK, BtnSKI_AtmButtonCallback );
-	MSYS_SetBtnUserData(guiSKI_AtmButton[SKI_ATM_0], 0, SKI_ATM_0 );
-
-
-
-	//Create the ok button
-	usPosX = SKI_ATM_BUTTON_X + SKI_ATM_NUM_BUTTON_WIDTH + 8;
-	guiSKI_AtmButton[SKI_ATM_OK] = CreateIconAndTextButton( guiSKI_AtmOkButtonImage, SkiAtmText[SKI_ATM_OK], SKI_ATM_BUTTON_FONT,
-													 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-													 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-													 TEXT_CJUSTIFIED,
-													 usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+2,
-													 DEFAULT_MOVE_CALLBACK, BtnSKI_AtmButtonCallback );
-	MSYS_SetBtnUserData(guiSKI_AtmButton[SKI_ATM_OK], 0, SKI_ATM_OK );
-
-
-	//Create the side menu text buttons
-	usPosX = SKI_ATM_BUTTON_X + SKI_ATM_SIDE_MENU_PANEL_START_X;
-	usPosY = SKI_ATM_BUTTON_Y;
-	for( ubCnt=SKI_ATM_TAKE; ubCnt<=SKI_ATM_CLEAR;ubCnt++ )
-	{
-		guiSKI_AtmButton[ubCnt] = CreateIconAndTextButton( guiSKI_AtmSideMenuButtonImage, SkiAtmText[ubCnt], SKI_ATM_BUTTON_FONT,
-														 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-														 SKI_ATM_BUTTON_COLOR, NO_SHADOW,
-														 TEXT_CJUSTIFIED,
-														 usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH+2,
-														 DEFAULT_MOVE_CALLBACK, BtnSKI_AtmButtonCallback );
-
-		MSYS_SetBtnUserData(guiSKI_AtmButton[ubCnt], 0, ubCnt );
-
-		usPosY += SKI_ATM_BUTTON_HEIGHT;
-	}
-
-	//Enable/disable the appropriate buttons
-//ATM:
-//	EnableDisableSkiAtmButtons();
-}
-
-
-void RemoveSkiAtmButtons()
-{
-	UINT8		ubCnt;
-
-	//Remove atm images
-	UnloadButtonImage( guiSKI_AtmNumButtonImage );
-	UnloadButtonImage( guiSKI_AtmOkButtonImage );
-	UnloadButtonImage( guiSKI_AtmSideMenuButtonImage );
-
-
-	//Remove the atm buttons
-	for( ubCnt=0; ubCnt<NUM_SKI_ATM_BUTTONS;ubCnt++)
-	{
-		RemoveButton( guiSKI_AtmButton[ubCnt] );
-	}
-}
-
-
-void BtnSKI_AtmButtonCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags |= BUTTON_CLICKED_ON;
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		/*UINT8	ubButton = (UINT8) */MSYS_GetBtnUserData( btn, 0 );
-		btn->uiFlags &= (~BUTTON_CLICKED_ON );
-
-//ATM:
-
-//		HandleSkiAtmPanelInput( ubButton );
-
-		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
-	}
-}
-
-
-
-void HandleSkiAtmPanel( )
-{
-	//Dispaly the appropriate text for the the curret atm mode
-	HandleCurrentModeText( gubCurrentSkiAtmMode );
-
-	//Display Atm transfer string
-	DisplaySkiAtmTransferString();
-
-	ToggleSkiAtmButtons();
-}
-
-void HandleSkiAtmPanelInput( UINT8	ubButtonPress )
-{
-	//switch on the current mode
-	switch( ubButtonPress )
-	{
-		case SKI_ATM_1:
-		case SKI_ATM_2:
-		case SKI_ATM_3:
-		case SKI_ATM_4:
-		case SKI_ATM_5:
-		case SKI_ATM_6:
-		case SKI_ATM_7:
-		case SKI_ATM_8:
-		case SKI_ATM_9:
-		case SKI_ATM_0:
-
-			AddNumberToSkiAtm( ubButtonPress );
-			break;
-
-
-		case SKI_ATM_OK:
-		{
-			HandleAtmOK();
-			break;
-		}
-
-
-		case SKI_ATM_TAKE:
-			gubCurrentSkiAtmMode = SKI_ATM_TAKE_MODE;
-			EnableDisableSkiAtmButtons();
-			break;
-
-
-		case SKI_ATM_GIVE:
-			gubCurrentSkiAtmMode = SKI_ATM_GIVE_MODE;
-			EnableDisableSkiAtmButtons();
-			break;
-
-
-		case SKI_ATM_CANCEL:
-			memset( gzSkiAtmTransferString, 0, 32 );
-			gubCurrentSkiAtmMode = SKI_ATM_DISABLED_MODE;
-			EnableDisableSkiAtmButtons();
-			break;
-
-
-		case SKI_ATM_CLEAR:
-			memset( gzSkiAtmTransferString, 0, 32 );
-			break;
-
-		default:
-			Assert( 0 );
-	}
-}
-
-
-void HandleAtmOK()
-{
-	INT32	iAmountToTransfer;
-	BOOLEAN fOkToClear=FALSE;
-
-	//Get the amount to transfer
-	swscanf( gzSkiAtmTransferString, L"%d", &iAmountToTransfer );
-
-	if( iAmountToTransfer == 0 )
-		return;
-
-	//if we are in an error mode
-	if( gubCurrentSkiAtmMode == SKI_ATM_ERR_TAKE_MODE )
-		gubCurrentSkiAtmMode = SKI_ATM_TAKE_MODE;
-	else if( gubCurrentSkiAtmMode == SKI_ATM_ERR_GIVE_MODE )
-		gubCurrentSkiAtmMode = SKI_ATM_GIVE_MODE;
-
-	//if we are in either the give or take mode, exit
-	if( gubCurrentSkiAtmMode != SKI_ATM_TAKE_MODE && gubCurrentSkiAtmMode != SKI_ATM_GIVE_MODE )
-		return;
-
-
-	//if we are taking money
-	if( gubCurrentSkiAtmMode == SKI_ATM_TAKE_MODE )
-	{
-		//are we trying to take more then the merc has
-		if( iAmountToTransfer > GetFundsOnMerc( gpSMCurrentMerc ) )
-		{
-			UINT32	uiFundsOnCurrentMerc = GetFundsOnMerc( gpSMCurrentMerc );
-
-			if( uiFundsOnCurrentMerc == 0 )
-				memset( gzSkiAtmTransferString, 0, 32 );
-			else
-			{
-				//Set the amount to transfer
-				swprintf( gzSkiAtmTransferString, L"%d", uiFundsOnCurrentMerc );
-			}
-
-			gubCurrentSkiAtmMode = SKI_ATM_ERR_TAKE_MODE;
-			HandleCurrentModeText( gubCurrentSkiAtmMode );
-		}
-		else
-		{
-			TransferFundsFromMercToBank( gpSMCurrentMerc, iAmountToTransfer );
-
-			fOkToClear=TRUE;
-		}
-
-	}
-	else if( gubCurrentSkiAtmMode == SKI_ATM_GIVE_MODE )
-	{
-		//are we tring to take more then we have?
-		if( iAmountToTransfer > LaptopSaveInfo.iCurrentBalance )
-		{
-			if( LaptopSaveInfo.iCurrentBalance == 0 )
-				memset( gzSkiAtmTransferString, 0, 32 );
-			else
-			{
-				//Set the amount to transfer
-				swprintf( gzSkiAtmTransferString, L"%d", LaptopSaveInfo.iCurrentBalance );
-			}
-
-			gubCurrentSkiAtmMode = SKI_ATM_ERR_GIVE_MODE;
-			HandleCurrentModeText( gubCurrentSkiAtmMode );
-		}
-		else
-		{
-			TransferFundsFromBankToMerc( gpSMCurrentMerc, iAmountToTransfer );
-
-			fOkToClear=TRUE;
-		}
-	}
-
-	if( fOkToClear )
-	{
-		gubCurrentSkiAtmMode = SKI_ATM_DISABLED_MODE;
-		EnableDisableSkiAtmButtons();
-		memset( gzSkiAtmTransferString, 0, 32 );
-	}
-
-	//Redraw the screen
-	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
-}
-
-
-void AddNumberToSkiAtm( UINT8 ubNumber )
-{
-	CHAR16	zTemp[16];
-
-
-	//make sure to durt the panel
-	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
-
-	//if the mode is an error mode
-	if( gubCurrentSkiAtmMode == SKI_ATM_ERR_TAKE_MODE )
-	{
-		gubCurrentSkiAtmMode = SKI_ATM_TAKE_MODE;
-		HandleCurrentModeText( gubCurrentSkiAtmMode );
-	}
-	//else if the mode was
-	else if( gubCurrentSkiAtmMode == SKI_ATM_ERR_GIVE_MODE )
-	{
-		gubCurrentSkiAtmMode = SKI_ATM_GIVE_MODE;
-		HandleCurrentModeText( gubCurrentSkiAtmMode );
-	}
-
-
-	//if we are not in the correct mode, return
-	if( gubCurrentSkiAtmMode != SKI_ATM_TAKE_MODE && gubCurrentSkiAtmMode != SKI_ATM_GIVE_MODE )
-		return;
-
-	//make sure we arent going over the numbers max size
-	if( wcslen( gzSkiAtmTransferString ) >= 9 )
-		return;
-
-	//if its the first number being added and the number is a zero
-	if( gzSkiAtmTransferString[0] == L'\0' && ubNumber == SKI_ATM_0 )
-		return;
-
-	swprintf( zTemp, L"%d", ubNumber );
-
-	//add the number to the current amount
-	wcscat( gzSkiAtmTransferString, zTemp );
-}
-
-
-void DisplaySkiAtmTransferString()
-{
-	CHAR16 zSkiAtmTransferString[ 32 ];
-	UINT32	uiMoney;
-
-	//Erase the background behind the string
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TRANSFER_STRING_X, SKI_TRANSFER_STRING_Y, SKI_TRANSFER_STRING_X+SKI_TRANSFER_STRING_WIDTH,	SKI_TRANSFER_STRING_Y+SKI_TRANSFER_STRING_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-
-	wcscpy( zSkiAtmTransferString, gzSkiAtmTransferString );
-	InsertCommasForDollarFigure( zSkiAtmTransferString );
-	InsertDollarSignInToString( zSkiAtmTransferString );
-
-
-	//Display the transfer string
-	DrawTextToScreen( zSkiAtmTransferString, SKI_TRANSFER_STRING_X, SKI_TRANSFER_STRING_Y, SKI_TRANSFER_STRING_WIDTH, SKI_ATM_BUTTON_FONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED );
-
-
-	//
-	//Get and Display the money on the merc
-	//
-	uiMoney = GetFundsOnMerc( gpSMCurrentMerc );
-
-	swprintf( zSkiAtmTransferString, L"%d", uiMoney );
-
-	InsertCommasForDollarFigure( zSkiAtmTransferString );
-	InsertDollarSignInToString( zSkiAtmTransferString );
-
-	DrawTextToScreen( zSkiAtmTransferString, SKI_TRANSFER_STRING_X, SKI_MERCS_MONEY_Y, SKI_TRANSFER_STRING_WIDTH, SKI_ATM_BUTTON_FONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED );
-}
-
-
-
-void EnableDisableSkiAtmButtons()
-{
-	UINT8	ubCnt;
-
-	switch( gubCurrentSkiAtmMode )
-	{
-		case SKI_ATM_DISABLED_MODE:
-
-			//Disable number positions
-			for( ubCnt=SKI_ATM_0; ubCnt<=SKI_ATM_9; ubCnt++)
-				DisableButton( guiSKI_AtmButton[ubCnt] );
-
-			DisableButton( guiSKI_AtmButton[SKI_ATM_OK] );
-			DisableButton( guiSKI_AtmButton[SKI_ATM_CANCEL] );
-			DisableButton( guiSKI_AtmButton[SKI_ATM_CLEAR] );
-
-			EnableButton( guiSKI_AtmButton[ SKI_ATM_TAKE ] );
-			EnableButton( guiSKI_AtmButton[ SKI_ATM_GIVE ] );
-
-
-			break;
-
-		case SKI_ATM_TAKE_MODE:
-
-			//Make sure the numbers are not disbaled
-			for( ubCnt=SKI_ATM_0; ubCnt<=SKI_ATM_9; ubCnt++)
-				EnableButton( guiSKI_AtmButton[ubCnt] );
-
-
-			//enable other
-			EnableButton( guiSKI_AtmButton[SKI_ATM_OK] );
-			EnableButton( guiSKI_AtmButton[SKI_ATM_CANCEL] );
-			EnableButton( guiSKI_AtmButton[SKI_ATM_CLEAR] );
-
-
-			break;
-
-
-		case SKI_ATM_GIVE_MODE:
-
-			//Make sure the numbers are not disbaled
-			for( ubCnt=SKI_ATM_0; ubCnt<=SKI_ATM_9; ubCnt++)
-				EnableButton( guiSKI_AtmButton[ubCnt] );
-
-			EnableButton( guiSKI_AtmButton[SKI_ATM_OK] );
-			EnableButton( guiSKI_AtmButton[SKI_ATM_CANCEL] );
-			EnableButton( guiSKI_AtmButton[SKI_ATM_CLEAR] );
-
-
-
-			break;
-
-		default:
-			Assert( 0 );
-			break;
-	}
-}
-
-
-
-void HandleCurrentModeText( UINT8 ubMode )
-{
-	CHAR16					zTemp[128];
-	CHAR16					zMoney[128];
-	static UINT32		uiLastTime=0;
-	UINT32					uiCurTime=GetJA2Clock();
-	static UINT8		ubLastMode=0;
-	static UINT8		ubDisplayMode=0;
-
-	if( ubMode != ubLastMode )
-	{
-		uiLastTime = uiCurTime;
-		ubLastMode = ubMode;
-		ubDisplayMode = ubMode;
-	}
-	else
-	{
-		//if the current mode is an error mode
-		if( ubLastMode != SKI_ATM_ERR_TAKE_MODE && ubLastMode != SKI_ATM_ERR_GIVE_MODE )
-		{
-			//has the timer gone off?
-			if( ( uiCurTime - uiLastTime ) > DELAY_PER_MODE_CHANGE_IN_ATM )
-			{
-				//display the players current balance
-
-				//if the modes are the same, change to display the players balance
-				if( ubLastMode == ubMode )
-					if( ubMode == ubDisplayMode )
-						ubMode = SKI_ATM_DISPLAY_PLAYERS_BALANCE;
-
-				ubDisplayMode = ubMode;
-
-				uiLastTime = GetJA2Clock();
-			}
-			else
-				ubMode = ubDisplayMode;
-		}
-	}
-
-	//if the current mode is an error mode
-	if( ubLastMode == SKI_ATM_ERR_TAKE_MODE || ubLastMode == SKI_ATM_ERR_GIVE_MODE )
-	{
-		//if it is time to get rid of the error message
-		if( ( uiCurTime - uiLastTime ) > DELAY_PER_MODE_CHANGE_IN_ATM )
-		{
-			if( ubLastMode == SKI_ATM_ERR_TAKE_MODE )
-			{
-				ubLastMode = SKI_ATM_TAKE_MODE;
-				gubCurrentSkiAtmMode = ubLastMode;
-			}
-			else
-			{
-				ubLastMode = SKI_ATM_GIVE_MODE;
-				gubCurrentSkiAtmMode = ubLastMode;
-			}
-		}
-	}
-
-	switch( ubMode )
-	{
-		case SKI_ATM_DISABLED_MODE:
-			wcscpy( zTemp, gzSkiAtmText[ SKI_ATM_MODE_TEXT_SELECT_MODE ] );
-			break;
-
-		case SKI_ATM_TAKE_MODE:
-			//if the player has selected any money yet
-			if( gzSkiAtmTransferString[0] == L'\0' )
-				wcscpy( zTemp, gzSkiAtmText[ SKI_ATM_MODE_TEXT_ENTER_AMOUNT ] );
-			else
-				wcscpy( zTemp, gzSkiAtmText[ SKI_ATM_MODE_TEXT_SELECT_FROM_MERC ] );
-			break;
-
-
-		case SKI_ATM_GIVE_MODE:
-			//if the player has selected any money yet
-			if( gzSkiAtmTransferString[0] == L'\0' )
-				wcscpy( zTemp, gzSkiAtmText[ SKI_ATM_MODE_TEXT_ENTER_AMOUNT ] );
-			else
-				wcscpy( zTemp, gzSkiAtmText[ SKI_ATM_MODE_TEXT_SELECT_TO_MERC ] );
-			break;
-
-		case SKI_ATM_ERR_TAKE_MODE:
-		case SKI_ATM_ERR_GIVE_MODE:
-			wcscpy( zTemp, gzSkiAtmText[ SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS ] );
-			break;
-
-		case SKI_ATM_DISPLAY_PLAYERS_BALANCE:
-			swprintf( zMoney, L"%d", LaptopSaveInfo.iCurrentBalance );
-			InsertCommasForDollarFigure( zMoney );
-			InsertDollarSignInToString( zMoney );
-
-			swprintf( zTemp, L"%s: %s", gzSkiAtmText[ SKI_ATM_MODE_TEXT_BALANCE ], zMoney );
-			break;
-	}
-
-	DisplayWrappedString( SKI_MODE_TEXT_X, SKI_MODE_TEXT_Y, SKI_MODE_TEXT_WIDTH, 2, SKI_ATM_BUTTON_FONT, FONT_MCOLOR_WHITE, zTemp, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
-
-	//invalidate the atm panel area
-	InvalidateRegion( SKI_ATM_PANEL_X, SKI_ATM_PANEL_Y, SKI_ATM_PANEL_X+SKI_ATM_PANEL_WIDTH, SKI_ATM_PANEL_Y+SKI_ATM_PANEL_HEIGHT );
-}
-
-
-void	ToggleSkiAtmButtons()
-{
-	switch( gubCurrentSkiAtmMode )
-	{
-		case SKI_ATM_DISABLED_MODE:
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_TAKE] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_GIVE] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_CANCEL] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-			break;
-		case SKI_ATM_TAKE_MODE:
-		case SKI_ATM_ERR_TAKE_MODE:
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_GIVE] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_CANCEL] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_TAKE] ]->uiFlags |= BUTTON_CLICKED_ON;
-			break;
-
-		case SKI_ATM_GIVE_MODE:
-		case SKI_ATM_ERR_GIVE_MODE:
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_TAKE] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_CANCEL] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-
-			ButtonList[ guiSKI_AtmButton[SKI_ATM_GIVE] ]->uiFlags |= BUTTON_CLICKED_ON;
-			break;
-	}
 }
 
 void EnableDisableDealersInventoryPageButtons()
@@ -6055,17 +5156,15 @@ void EnableDisableShopkeeperButtons(UINT32 uiCurrentItemDescriptionScreen, int b
 
 void EnableDisableEvaluateAndTransactionButtons()
 {
-	UINT8	ubCnt;
 	BOOLEAN	fItemsHere=FALSE;
 	BOOLEAN	fItemEvaluated=FALSE;
 	UINT32	uiArmsDealerTotalCost = CalculateTotalArmsDealerCost();
 	UINT32	uiPlayersOfferAreaTotalCost = CalculateTotalPlayersValue();
 	UINT32	uiPlayersOfferAreaTotalMoney = CalculateHowMuchMoneyIsInPlayersOfferArea( );
-
-
+	
 	//loop through the players offer area
 	//loop through all the items in the players offer area and determine if they can be sold here.
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		//if there is an item here
 		if( PlayersOfferArea[ ubCnt ].fActive )
@@ -6084,32 +5183,21 @@ void EnableDisableEvaluateAndTransactionButtons()
 					fItemEvaluated = TRUE;
 			}
 		}
+	}
 
+	for ( int ubCnt = 0; ubCnt < gDealersOfferActiveRegions; ++ubCnt )
+	{		
 		//if the dealer is a repair dealer
-		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
+		if ( armsDealerInfo[gbSelectedArmsDealerID].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			//if there is an item here, the item has to have been evaluated
-			if( ArmsDealerOfferArea[ ubCnt ].fActive )
+			if ( ArmsDealerOfferArea[ubCnt].fActive )
 			{
 				fItemEvaluated = TRUE;
 			}
 		}
 	}
-
-/*
-//Evaluate:
-	//if there is an item present
-	if( fItemsHere )
-	{
-		EnableButton( guiSKI_EvaluateButton );
-	}
-	else
-	{
-		DisableButton( guiSKI_EvaluateButton );
-	}
-*/
-
-
+	
 	//if there are evaluated items here
 	if( fItemEvaluated )
 	{
@@ -6141,8 +5229,7 @@ void EnableDisableEvaluateAndTransactionButtons()
 	{
 		DisableButton( guiSKI_TransactionButton );
 	}
-
-
+	
 	if( uiArmsDealerTotalCost > uiPlayersOfferAreaTotalCost + LaptopSaveInfo.iCurrentBalance )
 	{
 		DisableButton( guiSKI_TransactionButton );
@@ -6157,23 +5244,17 @@ void EnableDisableEvaluateAndTransactionButtons()
 	{
 		DisableButton( guiSKI_TransactionButton );
 	}
-
-
+	
 	//if the player is currently moving an item, disable the transaction button
 	if( gMoveingItem.sItemIndex != 0 )
 	{
-//Evaluate:
-//		DisableButton( guiSKI_EvaluateButton );
 		EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, DISABLE_BUTTON);
-		//DisableButton( guiSKI_TransactionButton );
-		//DisableButton( guiSKI_DoneButton );
 	}
 	else
 	{
 		EnableButton( guiSKI_DoneButton );
 	}
-
-
+	
 //ARM: Always permit trying bribes, even if they don't work on a given dealer!
 	// if the arms dealer is the kind of person who accepts gifts, and there is stuff to take
 //	if( armsDealerInfo[ gbSelectedArmsDealerID ].uiFlags & ARMS_DEALER_ACCEPTS_GIFTS )
@@ -6187,8 +5268,7 @@ void EnableDisableEvaluateAndTransactionButtons()
 
 	if( gfUserHasRequestedToLeave )
 		DisableButton( guiSKI_TransactionButton );
-
-
+	
 	//if the player is in the item desc for the arms dealer items
 	if( InItemDescriptionBox( ) && pShopKeeperItemDescObject != NULL )
 	{
@@ -6200,10 +5280,7 @@ void EnableDisableEvaluateAndTransactionButtons()
 		ButtonList[ guiSKI_TransactionButton ]->uiFlags &= ~BUTTON_FORCE_UNDIRTY;
 		ButtonList[ guiSKI_DoneButton ]->uiFlags &= ~BUTTON_FORCE_UNDIRTY;
 	}
-
-
 }
-
 
 void AddItemToPlayersOfferAreaAfterShopKeeperOpen( OBJECTTYPE *pItemObject)
 {
@@ -6211,13 +5288,11 @@ void AddItemToPlayersOfferAreaAfterShopKeeperOpen( OBJECTTYPE *pItemObject)
 	gItemToAdd.ItemObject = *pItemObject;
 }
 
-
 BOOLEAN IsMoneyTheOnlyItemInThePlayersOfferArea( )
 {
-	UINT8	ubCnt;
 	BOOLEAN fFoundMoney = FALSE;
 
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		//if there is an item here
 		if( PlayersOfferArea[ ubCnt ].fActive )
@@ -6236,35 +5311,11 @@ BOOLEAN IsMoneyTheOnlyItemInThePlayersOfferArea( )
 	return( fFoundMoney );
 }
 
-
-/*
-
-void MoveRepairEvaluatedPlayerOfferedItemsToArmsDealersOfferArea()
-{
-	UINT32	uiCnt;
-
-	//loop through all the slots in the players offer area
-	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
-	{
-		//if there is an item here
-		if( PlayersOfferArea[ uiCnt ].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE )
-		{
-			AddItemToArmsDealerOfferArea( &PlayersOfferArea[ uiCnt ], -1 );
-		}
-	}
-}
-
-*/
-
-
-
 UINT32 CalculateHowMuchMoneyIsInPlayersOfferArea( )
 {
-	UINT8	ubCnt;
 	UINT32	uiTotalMoneyValue=0;
 
-
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
 	{
 		//if there is an item here
 		if( PlayersOfferArea[ ubCnt ].fActive )
@@ -6279,15 +5330,10 @@ UINT32 CalculateHowMuchMoneyIsInPlayersOfferArea( )
 	return( uiTotalMoneyValue );
 }
 
-
-
 void MovePlayersItemsToBeRepairedToArmsDealersInventory()
 {
-	//for all items in the dealers items offer area
-	UINT32	uiCnt;
-
 	//loop through all the slots in the shopkeeper's offer area
-	for( uiCnt=0; uiCnt<SKI_NUM_TRADING_INV_SLOTS; uiCnt++)
+	for ( int uiCnt = 0; uiCnt<gDealersOfferActiveRegions; ++uiCnt )
 	{
 		//if there is a item here
 		if( ArmsDealerOfferArea[ uiCnt ].fActive )
@@ -6308,10 +5354,9 @@ void MovePlayersItemsToBeRepairedToArmsDealersInventory()
 			ClearArmsDealerOfferSlot( uiCnt );
 		}
 	}
+
 	gfResetShopKeepIdleQuote = TRUE;
 }
-
-
 
 BOOLEAN RemoveRepairItemFromDealersOfferArea( INT16	bSlot )
 {
@@ -6334,7 +5379,6 @@ BOOLEAN RemoveRepairItemFromDealersOfferArea( INT16	bSlot )
 	return( TRUE );
 }
 
-
 INT8	GetInvSlotOfUnfullMoneyInMercInventory( SOLDIERTYPE *pSoldier )
 {
 	//loop through the soldier's inventory
@@ -6347,9 +5391,9 @@ INT8	GetInvSlotOfUnfullMoneyInMercInventory( SOLDIERTYPE *pSoldier )
 			return( bCnt );
 		}
 	}
+
 	return( NO_SLOT );
 }
-
 
 void ClearArmsDealerOfferSlot( INT32 ubSlotToClear )
 {
@@ -6366,7 +5410,6 @@ void ClearArmsDealerOfferSlot( INT32 ubSlotToClear )
 	}
 }
 
-
 void ClearPlayersOfferSlot( INT32 ubSlotToClear )
 {
 	// Clear the contents
@@ -6380,15 +5423,12 @@ void ClearPlayersOfferSlot( INT32 ubSlotToClear )
 	CheckAndHandleClearingOfPlayerOfferArea( );
 }
 
-
-
 void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 {
 	UINT32	uiEvalResult = EVAL_RESULT_NORMAL;
 	BOOLEAN	fRocketRifleWasEvaluated = FALSE;
 	UINT8		ubNumberOfItemsAddedToRepairDuringThisEvaluation=0;
-
-
+	
 	// there better be an item there
 	Assert ( PlayersOfferArea[ bSlotID ].fActive );
 
@@ -6401,7 +5441,6 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 	{
 		return;
 	}
-
 
 	// say "Hmm... Let's see" once per trading session to start evaluation
 	// SPECIAL: Devin doesn't have this quote (he's the only one)
@@ -6437,6 +5476,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 					StartShopKeeperTalking( SK_QUOTES_CANT_AFFORD_TO_BUY_OR_TOO_MUCH_TO_REPAIR );
 					gfAlreadySaidTooMuchToRepair = TRUE;
 				}
+
 				return;
 			}
 
@@ -6445,8 +5485,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 			{
 				fRocketRifleWasEvaluated = TRUE;
 			}
-
-
+			
 			//if the item is damaged, or is a rocket rifle (which always "need repairing" even at 100%, to reset imprinting)
 			if( ( PlayersOfferArea[ bSlotID ].ItemObject[0]->data.objectStatus < 100 ) || fRocketRifleWasEvaluated )
 			{
@@ -6529,20 +5568,17 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 			uiEvalResult = EVAL_RESULT_DONT_HANDLE;
 		}
 	}
-
-
+	
 	// mark this item as having been evaluated
 	PlayersOfferArea[ bSlotID ].uiFlags |= ARMS_INV_PLAYERS_ITEM_HAS_BEEN_EVALUATED;
-
-
+	
 	// when evaluating complex items that get split into multiple subobjects, dealer will talk only about the first one!
 	// don't bother with any of this if shopkeeper can't talk right now
 	if ( fFirstOne && CanShopkeeperOverrideDialogue( ) )
 	{
 		INT16 sQuoteNum = -1;
 		UINT8 ubChanceToSayNormalQuote;
-
-
+		
 		switch ( uiEvalResult )
 		{
 			case EVAL_RESULT_DONT_HANDLE:
@@ -6660,7 +5696,6 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 	}
 }
 
-
 BOOLEAN DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect pCenteringRect= {0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - INV_INTERFACE_HEIGHT };
@@ -6685,11 +5720,7 @@ void ConfirmDontHaveEnoughForTheDealerMessageBoxCallBack( UINT8 bExitValue )
 
 	// done, re-enable calls to PerformTransaction()
 	gfPerformTransactionInProgress = FALSE;
-
-	return;
 }
-
-
 
 void ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue )
 {
@@ -6761,7 +5792,7 @@ void CheckAndHandleClearingOfPlayerOfferArea( void )
 	BOOLEAN fActiveSlot = FALSE;
 
 	// find out if all the player trade slots/offer area is empty
-	for( iCounter=0; iCounter<SKI_NUM_TRADING_INV_SLOTS; iCounter++)
+	for ( iCounter = 0; iCounter<gPlayersOfferActiveRegions; ++iCounter )
 	{
 		if( PlayersOfferArea[ iCounter ].fActive == TRUE )
 		{
@@ -6776,10 +5807,7 @@ void CheckAndHandleClearingOfPlayerOfferArea( void )
 		ResetAllQuoteSaidFlags();
 		gfRemindedPlayerToPickUpHisStuff = FALSE;
 	}
-
-	return;
 }
-
 
 BOOLEAN CanShopkeeperOverrideDialogue( void )
 {
@@ -6802,14 +5830,11 @@ BOOLEAN CanShopkeeperOverrideDialogue( void )
 	return( FALSE );
 }
 
-
 void CrossOutUnwantedItems( void )
 {
 	HVOBJECT hHandle;
-	INT8 bSlotId = 0;
 	INT16 sBoxStartX = 0, sBoxStartY = 0;
 	INT16 sBoxWidth = 0, sBoxHeight = 0;
-
 
 	// load the "cross out" graphic
 	GetVideoObject( &hHandle, guiItemCrossOut );
@@ -6818,7 +5843,7 @@ void CrossOutUnwantedItems( void )
 	sBoxWidth = SKI_INV_SLOT_WIDTH;
 	sBoxHeight = SKI_INV_SLOT_HEIGHT;
 
-	for( bSlotId = 0; bSlotId < SKI_NUM_TRADING_INV_SLOTS; bSlotId++ )
+	for ( INT8 bSlotId = 0; bSlotId < gPlayersOfferActiveRegions; ++bSlotId )
 	{
 		// now run through what's on the players offer area
 		if( PlayersOfferArea[ bSlotId ].fActive )
@@ -6831,8 +5856,8 @@ void CrossOutUnwantedItems( void )
 						!( PlayersOfferArea[ bSlotId ].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE ) )
 				{
 					// get x and y positions
-					sBoxStartX = SKI_PLAYERS_TRADING_INV_X + ( bSlotId % SKI_NUM_TRADING_INV_COLS ) * ( SKI_INV_OFFSET_X );
-					sBoxStartY = SKI_PLAYERS_TRADING_INV_Y + ( bSlotId / SKI_NUM_TRADING_INV_COLS ) * ( SKI_INV_OFFSET_Y );
+					sBoxStartX = SKI_PLAYER_OFFER_BOXES_BEGIN_X + (bSlotId % SKI_PLAYER_OFFER_BOXES_PER_ROW) * (SKI_INV_OFFSET_X);
+					sBoxStartY = SKI_PLAYER_OFFER_BOXES_BEGIN_Y + (bSlotId / SKI_PLAYER_OFFER_BOXES_PER_COL) * (SKI_INV_OFFSET_Y);
 
 					BltVideoObject(FRAME_BUFFER, hHandle, 0,( sBoxStartX + 22 ), ( sBoxStartY ), VO_BLT_SRCTRANSPARENCY,NULL);
 
@@ -6842,23 +5867,19 @@ void CrossOutUnwantedItems( void )
 			}
 		}
 	}
-
-	return;
 }
-
 
 INT16 GetNumberOfItemsInPlayerOfferArea( void )
 {
 	INT16 sCounter = 0;
 	INT32 iCounter = 0;
 
-
 	// find number of active slot in player offer area
-	for( iCounter = 0; iCounter < SKI_NUM_TRADING_INV_SLOTS; iCounter++ )
+	for ( iCounter = 0; iCounter < gPlayersOfferActiveRegions; ++iCounter )
 	{
 		if( PlayersOfferArea[ iCounter ].fActive )
 		{
-			sCounter++;
+			++sCounter;
 		}
 	}
 
@@ -6897,17 +5918,12 @@ void HandleCheckIfEnoughOnTheTable( void )
 
 		gfResetShopKeepIdleQuote = TRUE;
 	}
-
-	return;
 }
-
-
 
 void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFromLocation )
 {
 	INT16	sPosX, sPosY;
-
-
+			
 	bool showItemDescriptionBox = false;
 	switch( ubFromLocation )
 	{
@@ -6917,10 +5933,10 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFr
 
 			UINT16	ubSelectedInvSlot = ubPocket - gSelectArmsDealerInfo.ubFirstItemIndexOnPage;
 
-			if(gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == FALSE)
+			if( gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == FALSE)
 			{
-				sPosX = SKI_ARMS_DEALERS_INV_START_X; // + ( SKI_INV_OFFSET_X * ( ubSelectedInvSlot % SKI_NUM_ARMS_DEALERS_INV_COLS ) - ( 358 / 2 ) ) + SKI_INV_SLOT_WIDTH / 2;
-				sPosY = SKI_ARMS_DEALERS_INV_START_Y; // + ( ( SKI_INV_OFFSET_Y * ubSelectedInvSlot / SKI_NUM_ARMS_DEALERS_INV_COLS ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
+				sPosX = SKI_TRADER_INVENTORY_BOXES_BEGIN_X;
+				sPosY = SKI_TRADER_INVENTORY_BOXES_BEGIN_Y;
 			}
 			else
 			{
@@ -6931,7 +5947,6 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFr
 			//if the start position + the height of the box is off the screen, reposition
 			if( sPosY < (0 + SCREEN_Y_OFFSET) )
 				sPosY = 0 + SCREEN_Y_OFFSET;
-
 
 			//if the start position + the width of the box is off the screen, reposition
 			if( ( sPosX + 358 ) > SCREEN_WIDTH )
@@ -6945,7 +5960,6 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFr
 			if( sPosY < SKI_FACE_Y + SKI_FACE_HEIGHT + 20 )
 				if( sPosX < (SCREEN_X_OFFSET + 160) )
 					sPosX = SCREEN_X_OFFSET + 160;
-
 		}
 		break;
 
@@ -6953,14 +5967,12 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFr
 		{
 			showItemDescriptionBox = false;
 
-			sPosX = SKI_ARMS_DEALERS_TRADING_INV_X; // + ( SKI_INV_OFFSET_X * ( ubPocket % ( SKI_NUM_TRADING_INV_SLOTS/2) ) - ( 358 / 2 ) ) + SKI_INV_SLOT_WIDTH / 2;
-
-			sPosY = SKI_ARMS_DEALERS_TRADING_INV_Y; // + ( ( SKI_INV_OFFSET_Y * ubPocket / ( SKI_NUM_TRADING_INV_SLOTS/2) ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
+			sPosX = SKI_TRADER_OFFER_BOXES_BEGIN_X;
+			sPosY = SKI_TRADER_OFFER_BOXES_BEGIN_Y;
 
 			//if the start position + the height of the box is off the screen, reposition
 			if( sPosY < (SCREEN_Y_OFFSET + 0) )
 				sPosY = 0 + SCREEN_Y_OFFSET;
-
 
 			//if the start position + the width of the box is off the screen, reposition
 			if( ( sPosX + 358 ) > SCREEN_WIDTH )
@@ -6993,23 +6005,10 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT16 ubPocket, UINT8 ubFr
 	}
 }
 
-
 void StartSKIDescriptionBox( void )
 {
-	INT32 iCnt;
-
 	//shadow the entire screen
-//	ShadowVideoSurfaceRect( FRAME_BUFFER, 0, 0, 640, 480 );
-
-	//if the current merc is too far away, dont shade the SM panel because it is already shaded
-
-	// WANNE: Do not shade the background
-	if( gfSMDisableForItems )
-		DrawHatchOnInventory( FRAME_BUFFER, SCREEN_X_OFFSET, SCREEN_Y_OFFSET, SKI_INTERFACE_WIDTH, SKI_INTERFACE_HEIGHT );
-	else
-	{
-		DrawHatchOnInventory( FRAME_BUFFER, SCREEN_X_OFFSET, SCREEN_Y_OFFSET, SKI_INTERFACE_WIDTH, SKI_INTERFACE_HEIGHT );
-	}
+	DrawHatchOnInventory( FRAME_BUFFER, SKI_TOTAL_BEGIN_X, SKI_TOTAL_BEGIN_Y, SKI_TOTAL_END_X - SKI_TOTAL_BEGIN_X, SKI_TOTAL_END_Y - SKI_TOTAL_BEGIN_Y );
 
 	InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
@@ -7020,19 +6019,12 @@ void StartSKIDescriptionBox( void )
 
 	DisableButton( guiSKI_InvPageUpButton );
 	DisableButton( guiSKI_InvPageDownButton );
-//	DisableButton( guiSKI_EvaluateButton );
 	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, DISABLE_BUTTON);
-	//DisableButton( guiSKI_TransactionButton );
-	//DisableButton( guiSKI_DoneButton );
-/*
-	for (iCnt = 0; iCnt < NUM_SKI_ATM_BUTTONS; iCnt++)
-		DisableButton( guiSKI_AtmButton[ iCnt ] );
-*/
 
 	DisableAllDealersInventorySlots();
 	DisableAllDealersOfferSlots();
 
-	for (iCnt = 0; iCnt < SKI_NUM_TRADING_INV_SLOTS; iCnt++)
+	for ( int iCnt = 0; iCnt < gPlayersOfferActiveRegions; ++iCnt )
 	{
 		MSYS_DisableRegion( &gPlayersOfferSlotsMouseRegions[ iCnt ] );
 		MSYS_DisableRegion( &gPlayersOfferSlotsSmallFaceMouseRegions[ iCnt ] );
@@ -7043,14 +6035,8 @@ void StartSKIDescriptionBox( void )
 		MSYS_DisableRegion( &gShopKeeperSubTitleMouseRegion );
 	}
 
-//	MSYS_DisableRegion( &gShopKeeperCoverTacticalButtonMouseRegion );
-
-//	if( giItemDescAmmoButton >= 0 && ButtonList[ giItemDescAmmoButton ].
-//	DisableButton( giItemDescAmmoButton );
-
 	RenderItemDescriptionBox( );
 }
-
 
 void DeleteShopKeeperItemDescBox()
 {
@@ -7069,23 +6055,14 @@ void DeleteShopKeeperItemDescBox()
 	EnableButton( guiSKI_InvPageUpButton );
 	EnableButton( guiSKI_InvPageDownButton );
 	EnableDisableShopkeeperButtons(SHOPKEEPER_SCREEN, ENABLE_BUTTON);
-	//EnableButton( guiSKI_TransactionButton );
-	//EnableButton( guiSKI_DoneButton );
 
 	EnableDisableDealersInventoryPageButtons();
 	EnableDisableEvaluateAndTransactionButtons();
-
-//	EnableButton( guiSKI_EvaluateButton );
-
-/*
-	for (iCnt = 0; iCnt < NUM_SKI_ATM_BUTTONS; iCnt++)
-		EnableButton( guiSKI_AtmButton[ iCnt ] );
-*/
-
+	
 	EnableAllDealersInventorySlots();
 	EnableAllDealersOfferSlots();
 
-	for ( INT32 iCnt = 0; iCnt < SKI_NUM_TRADING_INV_SLOTS; ++iCnt )
+	for ( INT32 iCnt = 0; iCnt < gPlayersOfferActiveRegions; ++iCnt )
 	{
 		MSYS_EnableRegion( &gPlayersOfferSlotsMouseRegions[ iCnt ] );
 		MSYS_EnableRegion( &gPlayersOfferSlotsSmallFaceMouseRegions[ iCnt ] );
@@ -7095,13 +6072,7 @@ void DeleteShopKeeperItemDescBox()
 	{
 		MSYS_EnableRegion( &gShopKeeperSubTitleMouseRegion );
 	}
-
-//	MSYS_EnableRegion( &gShopKeeperCoverTacticalButtonMouseRegion );
-
-//	if( giItemDescAmmoButton >= 0 && ButtonList[ giItemDescAmmoButton ].
-//	EnableButton( giItemDescAmmoButton );
 }
-
 
 BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId, INT16 bOwnerSlotId )
 {
@@ -7157,7 +6128,7 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 		}
 
 		//this is a silly assert, was it meant to be something else?
-		Assert( SKI_MAX_AMOUNT_OF_ITEMS_DEALER_CAN_REPAIR_AT_A_TIME < SKI_NUM_TRADING_INV_SLOTS );
+		Assert( SKI_MAX_AMOUNT_OF_ITEMS_DEALER_CAN_REPAIR_AT_A_TIME < (SKI_PLAYER_OFFER_BOXES_PER_ROW * SKI_PLAYER_OFFER_BOXES_PER_COL) );
 /*
 		This code is commented out because a repair dealer will never be allowed to repair over more then
 		SKI_MAX_AMOUNT_OF_ITEMS_DEALER_CAN_REPAIR_AT_A_TIME ( 4 ) items at a time, therefore, cant fill up the dealer offer area
@@ -7171,7 +6142,7 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 		}
 */
 
-		if ( ( ubPlayerOfferAreaSlotsNeeded + CountNumberOfItemsInThePlayersOfferArea( ) ) > SKI_NUM_TRADING_INV_SLOTS )
+		if ( (ubPlayerOfferAreaSlotsNeeded + CountNumberOfItemsInThePlayersOfferArea( )) > (SKI_PLAYER_OFFER_BOXES_PER_ROW * SKI_PLAYER_OFFER_BOXES_PER_COL) )
 		{
 			gfDisplayNoRoomMsg = TRUE;
 			return(FALSE);	// no room
@@ -7210,8 +6181,6 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 
 	return(TRUE);		// it worked
 }
-
-
 
 void SplitComplexObjectIntoSubObjects( OBJECTTYPE *pComplexObject )
 {
@@ -7282,7 +6251,6 @@ void SplitComplexObjectIntoSubObjects( OBJECTTYPE *pComplexObject )
 	}
 }
 
-
 void CountSubObjectsInObject( OBJECTTYPE *pComplexObject, UINT8 *pubRepairableSubObjects, UINT8 *pubNonRepairableSubObjects )
 {
 	UINT8 ubSubObject;
@@ -7306,7 +6274,6 @@ void CountSubObjectsInObject( OBJECTTYPE *pComplexObject, UINT8 *pubRepairableSu
 		}
 	}
 }
-
 
 BOOLEAN AddObjectForEvaluation(OBJECTTYPE *pObject, UINT8 ubOwnerProfileId, INT16 bOwnerSlotId, BOOLEAN fFirstOne )
 {
@@ -7336,8 +6303,6 @@ BOOLEAN AddObjectForEvaluation(OBJECTTYPE *pObject, UINT8 ubOwnerProfileId, INT1
 	}
 }
 
-
-
 // The Shopkeeper interface *MUST* use this intermediary function instead of calling AutoPlaceObject() directly!
 // This is because the OBJECTTYPEs used within Shopkeeper may contain an illegal ubNumberOfObjects
 BOOLEAN ShopkeeperAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObject, BOOLEAN fNewItem )
@@ -7364,7 +6329,6 @@ BOOLEAN ShopkeeperAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObject,
 
 	return( TRUE );
 }
-
 
 // The Shopkeeper interface *MUST* use this intermediary function instead of calling AddItemToPool() directly!
 // This is because the OBJECTTYPEs used within Shopkeeper may contain an illegal ubNumberOfObjects
@@ -7400,19 +6364,16 @@ void IfMercOwnedCopyItemToMercInv( INVENTORY_IN_SLOT *pInv )
 		Assert( pInv->bSlotIdInOtherLocation < (INT8)Menptr[ sSoldierID ].inv.size() );
 		// and it better have a valid merc who owned it
 		Assert( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE );
-
-
+		
 		//Copy the object back into that merc's original inventory slot
 		Menptr[ sSoldierID ].inv[ pInv->bSlotIdInOtherLocation ] = pInv->ItemObject;
 	}
 }
 
-
 void IfMercOwnedRemoveItemFromMercInv( INVENTORY_IN_SLOT *pInv )
 {
 	IfMercOwnedRemoveItemFromMercInv2( pInv->ubIdOfMercWhoOwnsTheItem, pInv->bSlotIdInOtherLocation );
 }
-
 
 void IfMercOwnedRemoveItemFromMercInv2( UINT8 ubOwnerProfileId, INT16 bOwnerSlotId )
 {
@@ -7432,8 +6393,6 @@ void IfMercOwnedRemoveItemFromMercInv2( UINT8 ubOwnerProfileId, INT16 bOwnerSlot
 		DeleteObj(&(Menptr[ sSoldierID ].inv[bOwnerSlotId]));
 	}
 }
-
-
 
 BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 {
@@ -7481,7 +6440,6 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 	//failed to add item, either inventory was filled up, or nobody was even eligible to receive it
 	return( FALSE );
 }
-
 
 BOOLEAN SKITryToAddInvToMercsInventory( INVENTORY_IN_SLOT *pInv, SOLDIERTYPE *pSoldier )
 {
@@ -7658,10 +6616,8 @@ void ExitSKIRequested()
 
 void ResetAllQuoteSaidFlags()
 {
-	UINT8 uiCnt;
-
 	// reset flags for quotes said
-	for ( uiCnt = 0; uiCnt < NUM_EVAL_RESULTS; uiCnt++ )
+	for ( UINT8 uiCnt = 0; uiCnt < NUM_EVAL_RESULTS; ++uiCnt )
 	{
 		gfEvalResultQuoteSaid[ uiCnt ] = FALSE;
 	}
@@ -7671,7 +6627,6 @@ void ResetAllQuoteSaidFlags()
 
 void DealWithItemsStillOnTheTable()
 {
-	UINT8	ubCnt;
 	SOLDIERTYPE *pDropSoldier;
 	
 	// in case we have have to drop stuff off at someone's feet, figure out where it's all gonna go
@@ -7688,10 +6643,9 @@ void DealWithItemsStillOnTheTable()
 
 	// this guy HAS to be valid!
 	Assert( CanMercInteractWithSelectedShopkeeper( pDropSoldier ) );
-
-
+	
 	//loop through the players offer area and add return any items there to the player
-	for( ubCnt=0; ubCnt<SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+	for ( int ubCnt = 0; ubCnt < (SKI_PLAYER_OFFER_BOXES_PER_ROW * SKI_PLAYER_OFFER_BOXES_PER_COL); ++ubCnt )
 	{
 		//if there is an item here, give it back somehow
 		if( PlayersOfferArea[ ubCnt ].fActive )
@@ -7700,15 +6654,14 @@ void DealWithItemsStillOnTheTable()
 			ClearPlayersOfferSlot( ubCnt );
 		}
 	}
-
-
+	
 	//if the dealer repairs
 	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 	{
 		//loop through the arms dealers' offer area and return any items there to the player
-		for( ubCnt = 0; ubCnt < SKI_NUM_TRADING_INV_SLOTS; ubCnt++)
+		for ( int ubCnt = 0; ubCnt < (SKI_TRADER_OFFER_BOXES_PER_ROW * SKI_TRADER_OFFER_BOXES_PER_COL); ++ubCnt)
 		{
-		//if there is an item here, give it back somehow
+			//if there is an item here, give it back somehow
 			if( ArmsDealerOfferArea[ ubCnt ].fActive )
 			{
 				ReturnItemToPlayerSomehow( &( ArmsDealerOfferArea[ ubCnt ] ), pDropSoldier );
@@ -7889,8 +6842,7 @@ BOOLEAN RepairmanFixingAnyItemsThatShouldBeDoneNow( UINT32 *puiHoursSinceOldestI
 void DelayRepairsInProgressBy( UINT32 uiMinutesDelayed )
 {
 	UINT32 uiMinutesShopClosedBeforeItsDone;
-
-
+	
 	//if the dealer is not a repair dealer, return
 	if( !DoesDealerDoRepairs( gbSelectedArmsDealerID ) )
 		return;
@@ -7973,7 +6925,6 @@ void SelectArmsDealersDropItemToGroundMovementRegionCallBack(MOUSE_REGION * pReg
 	}
 }
 
-
 BOOLEAN	CanTheDropItemToGroundStringBeDisplayed()
 {
 	//if we don't have an item, pick one up
@@ -7985,25 +6936,15 @@ BOOLEAN	CanTheDropItemToGroundStringBeDisplayed()
 
 void DisplayTheSkiDropItemToGroundString()
 {
-	UINT16	usHeight;
-
-	//get the height of the displayed text
-	usHeight = DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y, (UINT16)(SCREEN_WIDTH-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
-
-	// WANNE: Not needed to show the string
-	//display the 'drop item to ground' text
-	//DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, (UINT16)(SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y-usHeight), (UINT16)(SCREEN_WIDTH-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | INVALIDATE_TEXT );
+	DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y, (UINT16)(SCREEN_WIDTH-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
 }
-
-
 
 UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 {
 	UINT32	uiEvalResult = EVAL_RESULT_NORMAL;
 	FLOAT		dPriceModifier;
 	UINT32	uiBuyingPrice;
-
-
+	
 	//if the dealer is Micky
 	if( gbSelectedArmsDealerID == ARMS_DEALER_MICKY )
 	{
@@ -8024,7 +6965,6 @@ UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 	{
 		dPriceModifier = armsDealerInfo[ gbSelectedArmsDealerID ].dBuyModifier;
 	}
-
 
 	// Calculate dealer's buying price for the item
 	uiBuyingPrice = CalcShopKeeperItemPrice( DEALER_BUYING, FALSE, pInvSlot->sItemIndex, dPriceModifier, &( pInvSlot->ItemObject ) );
@@ -8056,21 +6996,13 @@ UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 	return( uiEvalResult );
 }
 
-
-
-// round off reapir times shown to the near quarter-hour
-#define REPAIR_MINUTES_INTERVAL	15
-
-
 void BuildRepairTimeString( CHAR16 sString[], UINT32 uiTimeInMinutesToFixItem )
 {
 	UINT16	usNumberOfHoursToFixItem = 0;
-
-
+	
 	// if it's 0, it shouldn't be up here any more!
 	Assert ( uiTimeInMinutesToFixItem > 0 );
-
-
+	
 	// round off to next higher 15 minutes
 	if ( ( uiTimeInMinutesToFixItem % REPAIR_MINUTES_INTERVAL ) > 0 )
 	{
@@ -8106,14 +7038,11 @@ void BuildRepairTimeString( CHAR16 sString[], UINT32 uiTimeInMinutesToFixItem )
 	}
 }
 
-
-
 void BuildDoneWhenTimeString( CHAR16 sString[], UINT8 ubArmsDealer, INVENTORY_IN_SLOT* pObject )
 {
 	UINT32 uiDoneTime;
 	UINT32 uiDay, uiHour, uiMin;
-
-
+	
 	//dealer must be a repair dealer
 	Assert( DoesDealerDoRepairs( ubArmsDealer ) );
 
@@ -8139,8 +7068,7 @@ void BuildDoneWhenTimeString( CHAR16 sString[], UINT8 ubArmsDealer, INVENTORY_IN
 		wcscpy( sString, L"" );
 		return;
 	}
-
-
+	
 	// round off to next higher 15 minutes
 	if ( ( uiDoneTime % REPAIR_MINUTES_INTERVAL ) > 0 )
 	{
@@ -8162,7 +7090,6 @@ void BuildDoneWhenTimeString( CHAR16 sString[], UINT8 ubArmsDealer, INVENTORY_IN
 		swprintf( sString, L"%02d:%02d", uiHour, uiMin );
 	}
 }
-
 
 void BuildItemHelpTextString( CHAR16 sString[], INVENTORY_IN_SLOT *pInv, UINT8 ubScreenArea )
 {
@@ -8191,13 +7118,9 @@ void BuildItemHelpTextString( CHAR16 sString[], INVENTORY_IN_SLOT *pInv, UINT8 u
 	}
 }
 
-
-
 void DisableAllDealersInventorySlots( void )
 {
-	INT32 iCnt;
-
-	for (iCnt = 0; iCnt < SKI_NUM_ARMS_DEALERS_INV_SLOTS; iCnt++)
+	for ( int iCnt = 0; iCnt < gDealersInventoryActiveRegions; ++iCnt )
 	{
 		MSYS_DisableRegion( &gDealersInventoryMouseRegions[ iCnt ] );
 
@@ -8209,12 +7132,9 @@ void DisableAllDealersInventorySlots( void )
 	}
 }
 
-
 void EnableAllDealersInventorySlots( void )
 {
-	INT32 iCnt;
-
-	for (iCnt = 0; iCnt < SKI_NUM_ARMS_DEALERS_INV_SLOTS; iCnt++)
+	for ( int iCnt = 0; iCnt < gDealersInventoryActiveRegions; ++iCnt )
 	{
 		MSYS_EnableRegion( &gDealersInventoryMouseRegions[ iCnt ] );
 
@@ -8226,13 +7146,9 @@ void EnableAllDealersInventorySlots( void )
 	}
 }
 
-
-
 void DisableAllDealersOfferSlots( void )
 {
-	INT32 iCnt;
-
-	for (iCnt = 0; iCnt < SKI_NUM_TRADING_INV_SLOTS; iCnt++)
+	for ( int iCnt = 0; iCnt < gDealersOfferActiveRegions; ++iCnt )
 	{
 		MSYS_DisableRegion( &gDealersOfferSlotsMouseRegions[ iCnt ] );
 
@@ -8244,12 +7160,9 @@ void DisableAllDealersOfferSlots( void )
 	}
 }
 
-
 void EnableAllDealersOfferSlots( void )
 {
-	INT32 iCnt;
-
-	for (iCnt = 0; iCnt < SKI_NUM_TRADING_INV_SLOTS; iCnt++)
+	for ( int iCnt = 0; iCnt < gDealersOfferActiveRegions; ++iCnt )
 	{
 		MSYS_EnableRegion( &gDealersOfferSlotsMouseRegions[ iCnt ] );
 
@@ -8260,8 +7173,6 @@ void EnableAllDealersOfferSlots( void )
 		}
 	}
 }
-
-
 
 void HatchOutInvSlot( UINT16 usPosX, UINT16 usPosY )
 {

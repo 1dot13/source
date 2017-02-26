@@ -5998,6 +5998,7 @@ STR16 SKI_Text[ ] =
 	L"Non c'è abbastanza spazio nel vostro margine di ordine.",	//Message box that tells the user there is no more room to put there stuff
 	L"%d MINUTI",		// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"Lascia oggetto a terra.",
+	L"BUDGET",	// TODO.Translate
 };
 
 //ShopKeeper Interface

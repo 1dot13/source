@@ -6017,6 +6017,7 @@ STR16 SKI_Text[ ] =
 	L"Plus d'emplacements libres.",	//Message box that tells the user there is non more room to put there stuff
 	L"%d MINUTES",		// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"Objet lâché à terre.",
+	L"BUDGET",	// TODO.Translate
 };
 
 //ShopKeeper Interface

@@ -6003,6 +6003,7 @@ STR16 SKI_Text[ ] =
 	L"你没有空余的位置来放东西了。",	//"There is not enough room in your offer area.",//Message box that tells the user there is no more room to put there stuff
 	L"%d分钟",		//"%d MINUTES",	// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"把物品放在地上。",	//"Drop Item To Ground.",
+	L"BUDGET",	// TODO.Translate
 };
 
 //ShopKeeper Interface

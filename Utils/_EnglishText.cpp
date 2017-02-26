@@ -6005,6 +6005,7 @@ STR16 SKI_Text[ ] =
 	L"There is not enough room in your offer area.",	//Message box that tells the user there is no more room to put there stuff
 	L"%d MINUTES",		// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"Drop Item To Ground.",
+	L"BUDGET",
 };
 
 //ShopKeeper Interface

@@ -3,25 +3,6 @@
 
 #include "Store Inventory.h"
 
-
-
-
-
-#define		SKI_NUM_TRADING_INV_SLOTS						12
-#define		SKI_NUM_TRADING_INV_ROWS						2
-#define		SKI_NUM_TRADING_INV_COLS						6
-
-
-
-
-
-
-
-
-
-
-
-
 //Enums used for when the user clicks on an item and the item goes to..
 enum
 {
@@ -83,9 +64,6 @@ public:
 
 #define SIZEOF_INVENTORY_IN_SLOT_POD offsetof (INVENTORY_IN_SLOT, endOfPod)
 
-
-
-extern INVENTORY_IN_SLOT	PlayersOfferArea[ SKI_NUM_TRADING_INV_SLOTS ];
 extern INT32	giShopKeepDialogueEventinProgress;
 
 
