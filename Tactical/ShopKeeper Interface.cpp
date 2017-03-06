@@ -53,6 +53,7 @@
 	#include "Points.h"
 	#include "InterfaceItemImages.h"
 	#include "Encyclopedia_new.h"
+	#include "Animation Control.h"	// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -559,7 +560,6 @@ BOOLEAN			DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UI
 
 BOOLEAN		WillShopKeeperRejectObjectsFromPlayer( INT8 bDealerId, INT8 bSlotId );
 void			CheckAndHandleClearingOfPlayerOfferArea( void );
-void			CrossOutUnwantedItems( void );
 BOOLEAN		CanShopkeeperOverrideDialogue( void );
 INT16			GetNumberOfItemsInPlayerOfferArea( void );
 void			HandleCheckIfEnoughOnTheTable( void );
@@ -1428,6 +1428,46 @@ BOOLEAN RenderShopKeeperInterface()
 
 	if ( giShopKeeperFaceIndex > -1 )
 		RenderAutoFace( giShopKeeperFaceIndex );
+	// Flugente: if this is a non-NPC dealer, we instead show their body in their current animation
+	else if ( gusIDOfCivTrader != NOBODY )
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[gusIDOfCivTrader];
+
+		if ( pSoldier )
+		{
+			UINT32								uiPitch;
+
+			// Lock video surface
+			UINT16* pBuffer = (UINT16*)LockVideoSurface( FRAME_BUFFER, &uiPitch );
+
+			if ( pBuffer != NULL )
+			{
+				UINT16 usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
+
+				HVOBJECT hVObject = gAnimSurfaceDatabase[usAnimSurface].hVideoObject;
+
+				ETRLEObject* pTrav = &(hVObject->pETRLEObject[pSoldier->usAniFrame]);
+
+				INT32 sCenX = SKI_FACE_X + (INT16)(abs( (long)(SKI_FACE_WIDTH - pTrav->usWidth) ) / 2) - pTrav->sOffsetX;
+				INT32 sCenY = SKI_FACE_Y + (INT16)(abs( (long)(SKI_FACE_HEIGHT - pTrav->usHeight) ) / 2) - pTrav->sOffsetY;
+
+				SGPRect rect;
+				rect.iLeft		= SKI_FACE_X;
+				rect.iTop		= SKI_FACE_Y;
+				rect.iRight		= SKI_FACE_X + SKI_FACE_WIDTH;
+				rect.iBottom	= SKI_FACE_Y + SKI_FACE_HEIGHT;
+
+				Blt8BPPDataTo16BPPBufferTransShadowClip( pBuffer, uiPitch,
+														 hVObject,
+														 sCenX, sCenY,
+														 pSoldier->usAniFrame,
+														 &rect,
+														 pSoldier->pShades[pSoldier->ubFadeLevel] );
+				
+				UnLockVideoSurface( FRAME_BUFFER );
+			}
+		}
+	}
 
 	// CHRISL: If in NIV mode, don't display the clock
 	if ( UsingNewInventorySystem( ) == false )
@@ -3519,6 +3559,10 @@ void DisplayPlayersOfferArea()
 	UINT32	uiTotalCost;
 	UINT16	usPosX, usPosY;
 	BOOLEAN	fDisplayHatchOnItem=FALSE;
+	HVOBJECT hHandle;
+
+	// load the "cross out" graphic
+	GetVideoObject( &hHandle, guiItemCrossOut );
 	
 	usPosX = SKI_PLAYER_OFFER_BOXES_BEGIN_X;
 	usPosY = SKI_PLAYER_OFFER_BOXES_BEGIN_Y;
@@ -3570,6 +3614,19 @@ void DisplayPlayersOfferArea()
 
 			if( PlayersOfferArea[ sCnt ].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE )
 				uiTotalCost += PlayersOfferArea[ sCnt ].uiItemPrice;
+
+			// cross out unwanted items
+			if ( !(PlayersOfferArea[sCnt].uiFlags & ARMS_INV_JUST_PURCHASED) )
+			{
+				//If item can't be sold here, or it's completely worthless (very cheap / very broken)
+				if ( (WillShopKeeperRejectObjectsFromPlayer( gbSelectedArmsDealerID, sCnt ) == TRUE) || !(PlayersOfferArea[sCnt].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE) )
+				{
+					BltVideoObject( FRAME_BUFFER, hHandle, 0, (usPosX + 22), (usPosY), VO_BLT_SRCTRANSPARENCY, NULL );
+
+					// invalidate the region
+					InvalidateRegion( usPosX - 1, usPosY - 1, usPosX + SKI_INV_SLOT_WIDTH + 1, usPosY + SKI_INV_SLOT_HEIGHT + 1 );
+				}
+			}
 		}
 
 		usPosX += SKI_INV_OFFSET_X;
@@ -3592,8 +3649,6 @@ void DisplayPlayersOfferArea()
 		InsertDollarSignInToString( zTemp );
 		DrawTextToScreen( zTemp, SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_OFFSET_TO_VALUE, SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
-
-	CrossOutUnwantedItems( );
 }
 
 INVENTORY_IN_SLOT	*GetPtrToOfferSlotWhereThisItemIs( UINT8 ubProfileID, INT16 bInvPocket )
@@ -5828,45 +5883,6 @@ BOOLEAN CanShopkeeperOverrideDialogue( void )
 
 	// he's currently saying something important
 	return( FALSE );
-}
-
-void CrossOutUnwantedItems( void )
-{
-	HVOBJECT hHandle;
-	INT16 sBoxStartX = 0, sBoxStartY = 0;
-	INT16 sBoxWidth = 0, sBoxHeight = 0;
-
-	// load the "cross out" graphic
-	GetVideoObject( &hHandle, guiItemCrossOut );
-
-	// get the box height and width
-	sBoxWidth = SKI_INV_SLOT_WIDTH;
-	sBoxHeight = SKI_INV_SLOT_HEIGHT;
-
-	for ( INT8 bSlotId = 0; bSlotId < gPlayersOfferActiveRegions; ++bSlotId )
-	{
-		// now run through what's on the players offer area
-		if( PlayersOfferArea[ bSlotId ].fActive )
-		{
-			// skip purchased items!
-			if ( !( PlayersOfferArea[ bSlotId ].uiFlags & ARMS_INV_JUST_PURCHASED ) )
-			{
-				//If item can't be sold here, or it's completely worthless (very cheap / very broken)
-				if( ( WillShopKeeperRejectObjectsFromPlayer( gbSelectedArmsDealerID, bSlotId ) == TRUE ) ||
-						!( PlayersOfferArea[ bSlotId ].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE ) )
-				{
-					// get x and y positions
-					sBoxStartX = SKI_PLAYER_OFFER_BOXES_BEGIN_X + (bSlotId % SKI_PLAYER_OFFER_BOXES_PER_ROW) * (SKI_INV_OFFSET_X);
-					sBoxStartY = SKI_PLAYER_OFFER_BOXES_BEGIN_Y + (bSlotId / SKI_PLAYER_OFFER_BOXES_PER_COL) * (SKI_INV_OFFSET_Y);
-
-					BltVideoObject(FRAME_BUFFER, hHandle, 0,( sBoxStartX + 22 ), ( sBoxStartY ), VO_BLT_SRCTRANSPARENCY,NULL);
-
-					// invalidate the region
-					InvalidateRegion(sBoxStartX - 1, sBoxStartY - 1, sBoxStartX + sBoxWidth + 1, sBoxStartY + sBoxHeight + 1 );
-				}
-			}
-		}
-	}
 }
 
 INT16 GetNumberOfItemsInPlayerOfferArea( void )
