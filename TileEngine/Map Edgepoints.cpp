@@ -1236,15 +1236,21 @@ void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategic
 	psTempArray = (INT32 *) MemAlloc( sizeof(INT32) * usArraySize );
 	memcpy(psTempArray, psArray, sizeof(INT32) * usArraySize );
 	psArray = psTempArray;
-	for (i = 0; i < usArraySize; i++)
+	for (i = 0; i < usArraySize; ++i)
 	{
-		if (TERRAIN_IS_HIGH_WATER( GetTerrainType(psArray[ i ]) ) )
+		// Flugente: if troops spawn at the very northern edge of a sector, we often barely see them, and cannot target their head or torso.
+		// To stop that from happening, also remove these spawning points
+		INT32 nextgridno = NewGridNo( psArray[i], DirectionInc( NORTHWEST ) );
+
+		if ( TERRAIN_IS_HIGH_WATER( GetTerrainType(psArray[ i ]) ) ||
+			 gubWorldMovementCosts[(psArray[i] + DirectionInc( NORTHWEST ))][NORTHWEST][0] == TRAVELCOST_OFF_MAP ||
+			 gubWorldMovementCosts[(nextgridno + DirectionInc( NORTHWEST ))][NORTHWEST][0] == TRAVELCOST_OFF_MAP )
 		{
 			if (i == usArraySize - 1)
 			{
 				// just axe it and we're done.
 				psArray[ i ] = 0;
-				usArraySize--;
+				--usArraySize;
 				break;
 			}
 			else
@@ -1252,9 +1258,9 @@ void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategic
 				// replace this element in the array with the LAST element in the array, then decrement
 				// the array size
 				psArray[ i ] = psArray[usArraySize-1];
-				usArraySize--;
+				--usArraySize;
 				// we're going to have to check the array element we just copied into this spot, too
-				i--;
+				--i;
 			}
 		}
 	}
@@ -1262,7 +1268,7 @@ void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategic
 	if( ubNumDesiredPoints >= usArraySize )
 	{ //We don't have enough points for everyone, return them all.
 		pMapEdgepointInfo->ubNumPoints = (UINT8)usArraySize;
-		for( i = 0; i < usArraySize; i++ )
+		for( i = 0; i < usArraySize; ++i )
 			pMapEdgepointInfo->sGridNo[i] = psArray[i];
 
 		// JA2Gold: free the temp array
@@ -1273,19 +1279,18 @@ void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategic
 	usSlots = usArraySize;
 	usCurrSlot = 0;
 	pMapEdgepointInfo->ubNumPoints = ubNumDesiredPoints;
-	for( i = 0; i < usArraySize; i++ )
+	for( i = 0; i < usArraySize; ++i )
 	{
 		if( Random( usSlots ) < ubNumDesiredPoints )
 		{
 			pMapEdgepointInfo->sGridNo[ usCurrSlot++ ] = psArray[ i ];
-			ubNumDesiredPoints--;
+			--ubNumDesiredPoints;
 		}
-		usSlots--;
+		--usSlots;
 	}
 
 	// JA2Gold: free the temp array
 	MemFree(psTempArray);
-
 }
 
 
