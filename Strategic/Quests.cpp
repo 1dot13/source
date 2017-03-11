@@ -270,30 +270,29 @@ BOOLEAN CheckIfMercIsNearNPC( SOLDIERTYPE *pMerc, UINT8 ubProfileId )
 }
 
 
-INT8 NumWoundedMercsNearby( UINT8 ubProfileID )
+UINT32 NumWoundedMercsNearby( UINT8 ubProfileID )
 {
-	INT8						bNumber = 0;
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pNPC;
-	SOLDIERTYPE *		pSoldier;
-	INT32 sGridNo;
+	UINT32				bNumber = 0;
+	SOLDIERTYPE*		pSoldier;
 
-	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
+	SOLDIERTYPE* pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
 	if (!pNPC)
 	{
 		return( FALSE );
 	}
-	sGridNo = pNPC->sGridNo;
 
-	for ( uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	INT32 sGridNo = pNPC->sGridNo;
+
+	for ( UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife > 0 && pSoldier->stats.bLife < pSoldier->stats.bLifeMax && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL )
+		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife > 0 && pSoldier->stats.bLife < pSoldier->stats.bLifeMax && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL
+			 && pSoldier->sSectorX == pNPC->sSectorX && pSoldier->sSectorY == pNPC->sSectorY && pSoldier->bSectorZ == pNPC->bSectorZ )
 		{
 			if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) <= HOSPITAL_PATIENT_DISTANCE)
 			{
-				bNumber++;
+				++bNumber;
 			}
 		}
 	}

@@ -667,7 +667,7 @@ extern BOOLEAN CheckGuyVisible( UINT8 ubNPC, UINT8 ubGuy );
 extern BOOLEAN CheckNPCAt( UINT8 ubNPC, INT32 sGridNo );
 extern BOOLEAN CheckNPCIsEnemy( UINT8 ubProfileID );
 extern BOOLEAN CheckIfMercIsNearNPC( SOLDIERTYPE *pMerc, UINT8 ubProfileId );
-extern INT8 NumWoundedMercsNearby( UINT8 ubProfileID );
+extern UINT32 NumWoundedMercsNearby( UINT8 ubProfileID );
 extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
 extern BOOLEAN CheckNPCIsEPC( UINT8 ubProfileID );
 //DBrot: More Rooms

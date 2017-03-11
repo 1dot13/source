@@ -4550,23 +4550,19 @@ UINT32 CalcPatientMedicalCost( SOLDIERTYPE * pSoldier )
 
 UINT32 CalcMedicalCost( UINT8 ubId )
 {
-	INT32		cnt;
-	UINT32	uiCostSoFar;
-	INT32 sGridNo = 0;
-	SOLDIERTYPE * pSoldier, *pNPC;
-
-	uiCostSoFar = 0;
-
+	UINT32	uiCostSoFar = 0;
+	SOLDIERTYPE* pSoldier;
+	
 	// find the doctor's soldiertype to get his position
-	pNPC = FindSoldierByProfileID( ubId, FALSE );
+	SOLDIERTYPE* pNPC = FindSoldierByProfileID( ubId, FALSE );
 	if (!pNPC)
 	{
 		return( 0 );
 	}
 
-	sGridNo = pNPC->sGridNo;
+	INT32 sGridNo = pNPC->sGridNo;
 
-	for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++)
+	for ( UINT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 	{
 		pSoldier = MercPtrs[ cnt ];
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL )
@@ -4595,8 +4591,6 @@ BOOLEAN PlayerTeamHasTwoSpotsLeft( )
 {
 	return ( CountNonVehiclesOnPlayerTeam() <= OUR_TEAM_SIZE_NO_VEHICLE - 2 );
 }
-
-
 
 void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 {
@@ -4869,85 +4863,50 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 			}
 			break;
 		case NPC_ACTION_MEDICAL_REQUESTOR:
-		case NPC_ACTION_MEDICAL_REQUESTOR_2:
-			if (ubProfile == VINCE)
+		case NPC_ACTION_MEDICAL_REQUESTOR_2:			
+			if ( gusDialogueMessageBoxType == NPC_ACTION_MEDICAL_REQUESTOR )
 			{
-				if ( gusDialogueMessageBoxType == NPC_ACTION_MEDICAL_REQUESTOR )
+				if ( ubExitValue == MSG_BOX_RETURN_YES )
 				{
-					if ( ubExitValue == MSG_BOX_RETURN_YES )
-					{
-						// give the guy the cash
-						TriggerNPCRecord( VINCE, 23 );
-					}
-					else
-					{
-						// no cash, no help
-						TriggerNPCRecord( VINCE, 24 );
-					}
+					// give the guy the cash
+					TriggerNPCRecord( ubProfile, 23 );
 				}
 				else
 				{
-					if ( ubExitValue == MSG_BOX_RETURN_YES )
+					// no cash, no help
+					TriggerNPCRecord( ubProfile, 24 );
+				}
+			}
+			else
+			{
+				if ( ubExitValue == MSG_BOX_RETURN_YES )
+				{
+					//HandleNPCDoAction( VINCE, NPC_ACTION_CHECK_DOCTORING_MONEY_GIVEN, 0 );
+					if ( CheckFact( FACT_WOUNDED_MERCS_NEARBY, ubProfile ) )
 					{
-						//HandleNPCDoAction( VINCE, NPC_ACTION_CHECK_DOCTORING_MONEY_GIVEN, 0 );
-						if ( CheckFact( FACT_WOUNDED_MERCS_NEARBY, VINCE) )
-						{
-							TriggerNPCRecord( VINCE, 26 );
-						}
-						else if(	CheckFact( FACT_ONE_WOUNDED_MERC_NEARBY, VINCE ) )
-						{
-							TriggerNPCRecord( VINCE, 25 );
-						}
+						TriggerNPCRecord( ubProfile, 26 );
+					}
+					else if ( CheckFact( FACT_ONE_WOUNDED_MERC_NEARBY, ubProfile ) )
+					{
+						TriggerNPCRecord( ubProfile, 25 );
+					}
+
+					if ( ubProfile == VINCE )
 						giHospitalTempBalance = 0;
-					}
 					else
-					{
-						// just don't want the help
-						TriggerNPCRecord( VINCE, 34 );
-					}
-				}
-
-				DeleteTalkingMenu();
-			}
-			else // Steven Willis
-			{
-				if( gusDialogueMessageBoxType == NPC_ACTION_MEDICAL_REQUESTOR )
-				{
-					if ( ubExitValue == MSG_BOX_RETURN_YES )
-					{
-						// give the guy the cash
-						TriggerNPCRecord( STEVE, 23 );
-					}
-					else
-					{
-						// no cahs, no help
-						TriggerNPCRecord( STEVE, 24 );
-					}
+						gMercProfiles[VINCE].iBalance = 0;
 				}
 				else
 				{
-					if ( ubExitValue == MSG_BOX_RETURN_YES )
-					{
-						//HandleNPCDoAction( STEVE, NPC_ACTION_CHECK_DOCTORING_MONEY_GIVEN, 0 );
-						if ( CheckFact( FACT_WOUNDED_MERCS_NEARBY, STEVE) )
-						{
-							TriggerNPCRecord( STEVE, 26 );
-						}
-						else if(	CheckFact( FACT_ONE_WOUNDED_MERC_NEARBY, STEVE ) )
-						{
-							TriggerNPCRecord( STEVE, 25 );
-						}
-						gMercProfiles[ VINCE ].iBalance = 0;
-					}
+					// just don't want the help
+					if ( ubProfile == VINCE )
+						TriggerNPCRecord( ubProfile, 34 );
 					else
-					{
-						// just don't want the help
 						TriggerNPCRecord( STEVE, 30 );
-					}
 				}
-
-				DeleteTalkingMenu();
 			}
+
+			DeleteTalkingMenu();
 			break;
 		case NPC_ACTION_BUY_VEHICLE_REQUESTOR:
 			if ( ubExitValue == MSG_BOX_RETURN_YES )

@@ -15358,14 +15358,14 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 					TakeSoldierOutOfVehicle( pSoldier );
 				}
 
-				if( ( pSoldier->bAssignment != ASSIGNMENT_HOSPITAL ) )
+				if ( (pSoldier->bAssignment != bAssignment) )
 				{
 					SetTimeOfAssignmentChangeForMerc( pSoldier );
 				}
 				
 				RebuildCurrentSquad( );
 
-				ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_HOSPITAL );
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
 
 				AssignMercToAMovementGroup( pSoldier );
 			}
@@ -16029,15 +16029,7 @@ BOOLEAN IsTheSAMSiteInSectorRepairable( INT16 sSectorX, INT16 sSectorY, INT16 sS
 		{
 			INT8 bSAMCondition = StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY )].bSAMCondition;
 
-			if ( bSAMCondition < 100 )
-			{
-				return( TRUE );
-			}
-			else
-			{
-				// it's not broken at all, or it's beyond repair
-				return( FALSE );
-			}
+			return (bSAMCondition < 100);
 		}
 	}
 

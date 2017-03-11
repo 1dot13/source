@@ -4864,31 +4864,27 @@ return 1;
 
 static int l_NumWoundedMercsNearby(lua_State *L)
 {
-
 	if ( lua_gettop(L) >= 1 )
 	{
-		INT8 ID = lua_tointeger(L,1);
-		INT8 ID2 = 	NumWoundedMercsNearby(ID);
+		UINT8 ID = lua_tointeger(L,1);
+		UINT32 ID2 = NumWoundedMercsNearby( ID );
 		lua_pushinteger(L, ID2);
 	}	
 	
-return 1;
+	return 1;
 }
-
 
 static int l_gubFact(lua_State *L)
 {
-
 	if ( lua_gettop(L) >= 2 )
 	{
 		UINT32 Fact = lua_tointeger(L,1);
 		BOOLEAN Bool = lua_toboolean(L,2);
 
-		gubFact[Fact] = Bool;
-		
+		gubFact[Fact] = Bool;		
 	}	
 	
-return 0;
+	return 0;
 }
 
 static int l_CheckPlayerHasHead(lua_State *L)
