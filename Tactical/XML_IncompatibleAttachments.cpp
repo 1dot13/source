@@ -9,6 +9,9 @@
 	#include "XML.h"
 #endif
 
+// Flugente: in order not to loop over MAXATTACHMENTS entries in IncompatibleAttachments[] if we only have a few thousand, remember the actual number read in
+UINT32 gINCOMPATIBLEATTACHMENTS_READ = 0;
+
 struct
 {
 	PARSE_STAGE	curElement;
@@ -91,6 +94,9 @@ incompatibleattachmentEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT_LIST;
 
+			// Flugente: new entry
+			gINCOMPATIBLEATTACHMENTS_READ = pData->curIndex;
+
 			if(pData->curIndex < pData->maxArraySize)
 			{
 				//DebugMsg(TOPIC_JA2, DBG_LEVEL_3,"IncompatibleAttachmentStartElementHandle: writing incompatibleattachment to array");
@@ -172,8 +178,10 @@ BOOLEAN ReadInIncompatibleAttachmentStats(STR fileName)
 		return FALSE;
 	}
 
-	MemFree(lpcBuffer);
+	// read was x -> x+1 entries
+	++gINCOMPATIBLEATTACHMENTS_READ;
 
+	MemFree(lpcBuffer);
 
 	XML_ParserFree(parser);
 

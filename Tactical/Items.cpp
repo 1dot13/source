@@ -1175,6 +1175,9 @@ ComboMergeInfoStruct AttachmentComboMerge[MAXITEMS+1];// =
 // HEADROCK HAM 5: Item Transformations table, containing all possible Transformations.
 TransformInfoStruct Transform[MAXITEMS+1];
 
+// Flugente: in order not to loop over MAXATTACHMENTS entries in IncompatibleAttachments[] if we only have a few thousand, remember the actual number read in
+UINT32 extern gINCOMPATIBLEATTACHMENTS_READ;
+
 UINT16 IncompatibleAttachments[MAXATTACHMENTS][2];// =
 //{
 //	{BIPOD,UNDER_GLAUNCHER},
@@ -1214,7 +1217,7 @@ UINT16 ReplacementGuns[][2] =
 	{ 0,						0						}
 };
 
-UINT16 ReplacementAmmo[][2] =
+/*UINT16 ReplacementAmmo[][2] =
 {
 	{ CLIP545_30_AP,		CLIP556_30_AP  },
 	{ CLIP545_30_HP,		CLIP556_30_HP  },
@@ -1223,7 +1226,7 @@ UINT16 ReplacementAmmo[][2] =
 	{ CLIP762W_10_HP,		CLIP762N_5_HP  },
 	{ CLIP762W_30_HP,		CLIP762N_20_HP },
 	{ 0,								0							 }
-};
+};*/
 
 // CHRISL: Structure Definitions for new inventory system items.
 std::vector<LBETYPE> LoadBearingEquipment;
@@ -1350,7 +1353,7 @@ UINT16 StandardGunListReplacement( UINT16 usGun )
 	}
 }
 
-UINT16 StandardGunListAmmoReplacement( UINT16 usAmmo )
+/*UINT16 StandardGunListAmmoReplacement( UINT16 usAmmo )
 {
 	UINT8 ubLoop;
 
@@ -1373,7 +1376,7 @@ UINT16 StandardGunListAmmoReplacement( UINT16 usAmmo )
 	{
 		return( NOTHING );
 	}
-}
+}*/
 
 BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier )
 {
@@ -2127,7 +2130,7 @@ BOOLEAN ValidAttachmentClass( UINT16 usAttachment, UINT16 usItem )
 				}
 			}
 		}
-		iLoop++;
+		++iLoop;
 		if (AttachmentInfo[iLoop].usItem == 0)
 		{
 			// end of the array
@@ -2137,7 +2140,7 @@ BOOLEAN ValidAttachmentClass( UINT16 usAttachment, UINT16 usItem )
 	return( FALSE );
 }
 
-INT8 GetAttachmentInfoIndex( UINT16 usItem )
+INT32 GetAttachmentInfoIndex( UINT16 usItem )
 {
 	INT32 iLoop = 0;
 
@@ -2145,9 +2148,9 @@ INT8 GetAttachmentInfoIndex( UINT16 usItem )
 	{
 		if ( AttachmentInfo[ iLoop ].usItem == usItem )
 		{
-			return( (INT8) iLoop );
+			return( iLoop );
 		}
-		iLoop++;
+		++iLoop;
 		if (AttachmentInfo[iLoop].usItem == 0)
 		{
 			// end of the array
@@ -2183,7 +2186,7 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 		{
 			break;
 		}
-		iLoop++;
+		++iLoop;
 		if (Attachment[iLoop][0] == 0)
 		{
 			// the proposed item cannot be attached to anything!
@@ -2195,14 +2198,14 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 	{
 		if (Attachment[iLoop][1] == usItem)
 		{
-			if((UsingNewAttachmentSystem()==false && Attachment[iLoop][3] != 1) || UsingNewAttachmentSystem()==true) {
-				if (pubAPCost) {
+			if ( UsingNewAttachmentSystem( ) || Attachment[iLoop][3] != 1 )
+			{
+				if (pubAPCost)
 					*pubAPCost = (UINT8)Attachment[iLoop][2]; //Madd: get ap cost of attaching items :)
-				}
 				break;
 			}
 		}
-		iLoop++;
+		++iLoop;
 		if (Attachment[iLoop][0] != usAttachment)
 		{
 			// the proposed item cannot be attached to the item in question
@@ -2294,79 +2297,92 @@ UINT8 AttachmentAPCost( UINT16 usAttachment, OBJECTTYPE * pObj, SOLDIERTYPE * pS
 	return ubAPCost;
 }
 
+// Flugente: as we call this function quite a lot during rendering, I've modified it so that we evaluate as quickly as possible
 //Determine if this slot can receive this attachment.  This is different, in that it may
 //be possible to have this attachment on this item, but may already have an attachment
 //in the slot we're trying to attach to.
 BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAttemptingAttachment, BOOLEAN fDisplayMessage, UINT8 subObject, INT16 slotCount, BOOLEAN fIgnoreAttachmentInSlot, OBJECTTYPE ** ppAttachInSlot, std::vector<UINT16> usAttachmentSlotIndexVector)
 {
-	BOOLEAN		fSimilarItems = FALSE, fSameItem = FALSE, fNoSpace = FALSE;
+	BOOLEAN		fSimilarItems = FALSE, fSameItem = FALSE;
 	UINT16		usSimilarItem = NOTHING;
 	INT16		ubSlotIndex = 0;
-//	INT32		iLoop2 = 0;
-//	INT16		sTimesToRun = 0;
 	UINT8		curSlot = 0;
 	UINT8		ubVolumeTaken;
 	BOOLEAN		foundValidAttachment = FALSE;
 
-	if (pObj->exists() == false) {
+	if (pObj->exists() == false)
 		return FALSE;
-	}
 
 	//It's possible we could get here without being sent the usAttachmentSlotIndexVector parameter
 	if(usAttachmentSlotIndexVector.empty())
 		usAttachmentSlotIndexVector = GetItemSlots(pObj, subObject);
 
 	//No slots means nothing will ever be valid, also a slotCount outside this vector will never be valid either.
-	if(usAttachmentSlotIndexVector.empty() || (INT16)usAttachmentSlotIndexVector.size() <= slotCount)
+	if ( (INT16)usAttachmentSlotIndexVector.size() <= slotCount)
 		return FALSE;
-
-	//Search for incompatible attachments
-	//Madd: check for gun on tripwire first
-	if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass(pObj,IC_GUN,subObject) != 0 )
+	
+	// some checks are only necessary if we want to attach the thing in the first place
+	if ( fAttemptingAttachment )
 	{
-		fSimilarItems = TRUE;
-		OBJECTTYPE * tmpObj = FindAttachmentByClass(pObj,IC_GUN,subObject);
-		usSimilarItem = tmpObj->usItem;
-	}
-	if ( !fSameItem )	//Nav: why is this check here? fSameItem can only be false here, doesn't hurt I guess...
-	{
-		//for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
-		for(int i = 0; i < MAXATTACHMENTS; i++)
+		//Search for incompatible attachments
+		//Madd: check for gun on tripwire first
+		if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass( pObj, IC_GUN, subObject ) != 0 )
 		{
-			if ( FindAttachment(pObj, usAttachment, subObject) != 0 && !IsAttachmentClass(usAttachment, (AC_GRENADE|AC_ROCKET|AC_MODPOUCH) ) )
-			{//Search for identical attachments unless we're dealing with rifle grenades
-			//DBrot: or pouches
+			fSimilarItems = TRUE;
+			OBJECTTYPE * tmpObj = FindAttachmentByClass( pObj, IC_GUN, subObject );
+			usSimilarItem = tmpObj->usItem;
+		}
+
+		if ( !fSameItem )	//Nav: why is this check here? fSameItem can only be false here, doesn't hurt I guess...
+		{
+			if ( !IsAttachmentClass( usAttachment, (AC_GRENADE | AC_ROCKET | AC_MODPOUCH) ) && FindAttachment( pObj, usAttachment, subObject ) != 0 )
+			{
+				//Search for identical attachments unless we're dealing with rifle grenades
+				//DBrot: or pouches
 				fSameItem = TRUE;
-				break;
 			}
 
-			if ( IncompatibleAttachments[i][0] == NONE )	
-				break;	//0 terminated, end search, when we are done with all entries and nothing meaningful is left
-			if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 ) //TODO fill in comment 1
+			if ( !fSameItem )
 			{
-				fSimilarItems = TRUE;
-				usSimilarItem = IncompatibleAttachments[i][1];
-				break;
+				for ( int i = 0; i < gINCOMPATIBLEATTACHMENTS_READ; ++i )
+				{
+					if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 ) //TODO fill in comment 1
+					{
+						fSimilarItems = TRUE;
+						usSimilarItem = IncompatibleAttachments[i][1];
+						break;
+					}
+				}
 			}
 		}
-	}
-	if (Item[pObj->usItem].usItemClass == IC_LBEGEAR && Item[usAttachment].usItemClass == IC_LBEGEAR){
-		ubVolumeTaken = GetVolumeAlreadyTaken(pObj, slotCount);
-		if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbeAvailableVolume	< (ubVolumeTaken +  LBEPocketType[GetFirstPocketOnItem(usAttachment)].pVolume)){
-			fNoSpace = TRUE;
+
+		if ( fSameItem )
+		{
+			if ( fDisplayMessage ) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[STR_ATTACHMENT_ALREADY] );
+			return(FALSE);
+		}
+
+		if (Item[pObj->usItem].usItemClass == IC_LBEGEAR && Item[usAttachment].usItemClass == IC_LBEGEAR)
+		{
+			ubVolumeTaken = GetVolumeAlreadyTaken(pObj, slotCount);
+			if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbeAvailableVolume	< (ubVolumeTaken +  LBEPocketType[GetFirstPocketOnItem(usAttachment)].pVolume))
+			{
+				if ( fDisplayMessage ) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[STR_NO_SPACE_FOR_POCKET] );
+				return(FALSE);
+			}
 		}
 	}
 
 	//Do we want to check all attachment slots or just the one in slotcount?
-	if(slotCount == -1){
+	if(slotCount == -1)
+	{
 		//Loop through slots
 		UINT32 uiSlots = min((*pObj)[subObject]->attachments.size(), usAttachmentSlotIndexVector.size());//dnl ch76 091113 ugly fix as AK74 after attach/remove GL will have more attachments then usAttachmentSlotIndexVector which lead to CTD
-		for(UINT8 curSlot = 0; curSlot < uiSlots && !foundValidAttachment; curSlot++){
+		for ( UINT8 curSlot = 0; curSlot < uiSlots; ++curSlot)
+		{
 			//Any attachment that is already in this slot will go here.
-			OBJECTTYPE * pAttachment;
-
 			//Get the current attachment in the slot we're looking at.
-			pAttachment = (*pObj)[subObject]->GetAttachmentAtIndex(curSlot);
+			OBJECTTYPE* pAttachment = (*pObj)[subObject]->GetAttachmentAtIndex( curSlot );
 			ubSlotIndex = usAttachmentSlotIndexVector[curSlot];
 
 			//WarmSteel - does this particular slot already hold an item?
@@ -2382,22 +2398,25 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 				ValidLaunchable(usAttachment, pObj->usItem)))
 			{
 				foundValidAttachment = TRUE;
+				break;
 			}
 		}
-	} else {
-
-		OBJECTTYPE * pAttachment;
-
-		pAttachment = (*pObj)[subObject]->GetAttachmentAtIndex((UINT8)slotCount);
+	} 
+	else
+	{
+		OBJECTTYPE* pAttachment = (*pObj)[subObject]->GetAttachmentAtIndex( (UINT8)slotCount );
 
 		ubSlotIndex = usAttachmentSlotIndexVector[slotCount];
 
 		//WarmSteel - does this particular slot already hold an item? :( If we have a pAttachInSlot we're trying to switch, so then it doesn't matter.
-		if(!fIgnoreAttachmentInSlot && pAttachment->exists() && fAttemptingAttachment && (!ppAttachInSlot || Item[pAttachment->usItem].inseparable == 1)){
+		if(!fIgnoreAttachmentInSlot && pAttachment->exists() && fAttemptingAttachment && (!ppAttachInSlot || Item[pAttachment->usItem].inseparable == 1))
+		{
 			//If we have a parameter to return pAttachment to, store it, else the item does not attach to this slot.
 			fSimilarItems = TRUE;
 			usSimilarItem = pAttachment->usItem;
-		} else {
+		}
+		else
+		{
 			//CHRISL: This should allow attachment swapping even if our attachments can't normally be on the weapon at the same time.
 			if(slotCount != -1 && pAttachment->exists() && usSimilarItem == pAttachment->usItem && FindAttachmentSlot(pObj, pAttachment->usItem, subObject) == slotCount)
 				fSimilarItems = FALSE;
@@ -2419,22 +2438,13 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 		}
 	}
 
-	if(fAttemptingAttachment){
+	if(fAttemptingAttachment)
+	{
 		if (fSimilarItems)
 		{
 			if(fDisplayMessage) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_CANT_USE_TWO_ITEMS ], ItemNames[ usSimilarItem ], ItemNames[ usAttachment ] );
 			return( FALSE );
 		} 
-		else if (fSameItem)
-		{
-			if (fDisplayMessage) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_ATTACHMENT_ALREADY ] );
-			return( FALSE );
-		}
-		else if (fNoSpace)
-		{	
-			if (fDisplayMessage) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_NO_SPACE_FOR_POCKET ] );
-			return( FALSE );
-		}
 		else if ( !foundValidAttachment && fDisplayMessage && !ValidMerge( usAttachment, pObj->usItem ) )
 		{
 			//We don't want a message if we might be merging this little thingey later.
@@ -2454,34 +2464,15 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 //it which doesn't work simultaneously with the new attachment (like a silencer and duckbill).
 BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAttemptingAttachment, BOOLEAN fDisplayMessage, UINT8 subObject, std::vector<UINT16> usAttachmentSlotIndexVector)
 {
-	BOOLEAN		fSameItem = FALSE, fSimilarItems = FALSE;
-	UINT16		usSimilarItem = NOTHING;
-
-	if (pObj->exists() == false) {
+	if (pObj->exists() == false)
 		return FALSE;
-	}
+
 	if ( !ValidAttachment( usAttachment, pObj, NULL, subObject, usAttachmentSlotIndexVector ) )
 	{
 		// check for an underslung grenade launcher attached to the gun
 		if ( (IsGrenadeLauncherAttached ( pObj, subObject ) ) && ValidLaunchable( usAttachment, GetAttachedGrenadeLauncher( pObj ) ) )
 		{
 			return ( TRUE );
-			/*
-			if ( fAttemptingAttachment )
-			{
-				// if there is no other grenade attached already, then we can attach it
-				if (FindAttachmentByClass( pObj, IC_GRENADE) != ITEM_NOT_FOUND)
-				{
-					return( FALSE );
-				}
-				// keep going, it can be attached to the grenade launcher
-			}
-			else
-			{
-				// logically, can be added
-				return( TRUE );
-			}
-			*/
 		}
 		else
 		{
@@ -2497,133 +2488,41 @@ BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAt
 			return( FALSE );
 		}
 	}
-	// special conditions go here
-	// can't have two of the same attachment on an item
-	/*
-	if (FindAttachment( pObj, usAttachment ) != 0)
-	{
-		fSameItem = TRUE;
-	}
-	*/
-	//Madd: check for gun on tripwire first
-	if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass(pObj,IC_GUN,subObject) != 0 )
-	{
-		fSimilarItems = TRUE;
-		OBJECTTYPE * tmpObj = FindAttachmentByClass(pObj,IC_GUN,subObject);
-		usSimilarItem = tmpObj->usItem;
-	}
-
-	if ( !fSameItem )
-	{
-		//for(int i = 0;i<sizeof(IncompatibleAttachments);i++)
-		for(int i = 0; i < MAXATTACHMENTS; i++)
-		{
-			if ( FindAttachment(pObj, usAttachment, subObject) != 0 )
-			{
-				fSameItem = TRUE;
-				break;
-			}
-
-			if ( IncompatibleAttachments[i][0] == NONE )
-				break;
-
-			if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment (pObj,IncompatibleAttachments[i][1],subObject) != 0 )
-			{
-				fSimilarItems = TRUE;
-				usSimilarItem = IncompatibleAttachments[i][1];
-				break;
-			}
-		}
-	}
-
-
-	//// special code for items which won't attach if X is present
-	//switch( usAttachment )
-	//{
-	//	case BIPOD:
-	//		if ( FindAttachment( pObj, UNDER_GLAUNCHER) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = UNDER_GLAUNCHER;
-	//		}
-	//		break;
-	//	case UNDER_GLAUNCHER:
-	//		if ( FindAttachment( pObj, BIPOD ) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = BIPOD;
-	//		}
-	//		break;
-	///*
-	//	case LASERSCOPE:
-	//		if (FindAttachment( pObj, SNIPERSCOPE ) != 0)
-	//		{
-	//			return( FALSE );
-	//		}
-	//		break;
-	//	case SNIPERSCOPE:
-	//		if (FindAttachment( pObj, LASERSCOPE ) != 0)
-	//		{
-	//			return( FALSE );
-	//		}
-	//		break;
-	//		*/
-	//	case DETONATOR:
-	//		if( FindAttachment( pObj, REMDETONATOR ) != 0 )
-	//		{
-	//			fSameItem = TRUE;
-	//		}
-	//		break;
-	//	case REMDETONATOR:
-	//		if( FindAttachment( pObj, DETONATOR ) != 0 )
-	//		{
-	//			fSameItem = TRUE;
-	//		}
-	//		break;
-	//	case SNIPERSCOPE:
-	//		if( FindAttachment( pObj, REFLEX_SCOPED ) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = REFLEX_SCOPED;
-	//		}
-	//		break;
-	//	case REFLEX_SCOPED:
-	//		if( FindAttachment( pObj, SNIPERSCOPE ) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = SNIPERSCOPE;
-	//		}
-	//		if( FindAttachment( pObj, REFLEX_UNSCOPED ) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = REFLEX_UNSCOPED;
-	//		}
-	//		break;
-	//	case REFLEX_UNSCOPED:
-	//		if( FindAttachment( pObj, REFLEX_SCOPED ) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = REFLEX_SCOPED;
-	//		}
-	//		break;
-	//	case SILENCER:
-	//		if( FindAttachment( pObj, FLASH_SUPPRESSOR  ) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = FLASH_SUPPRESSOR;
-	//		}
-	//		break;
-	//	case FLASH_SUPPRESSOR:
-	//		if( FindAttachment( pObj, SILENCER  ) != 0 )
-	//		{
-	//			fSimilarItems = TRUE;
-	//			usSimilarItem = SILENCER;
-	//		}
-	//		break;
-	//}
-
+	
 	if (fAttemptingAttachment)
 	{
+		BOOLEAN		fSameItem = FALSE, fSimilarItems = FALSE;
+		UINT16		usSimilarItem = NOTHING;
+
+		//Madd: check for gun on tripwire first
+		if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass( pObj, IC_GUN, subObject ) != 0 )
+		{
+			fSimilarItems = TRUE;
+			OBJECTTYPE * tmpObj = FindAttachmentByClass( pObj, IC_GUN, subObject );
+			usSimilarItem = tmpObj->usItem;
+		}
+
+		if ( !fSameItem )
+		{
+			if ( FindAttachment( pObj, usAttachment, subObject ) != 0 )
+			{
+				fSameItem = TRUE;
+			}
+
+			if ( !fSameItem )
+			{
+				for ( int i = 0; i < gINCOMPATIBLEATTACHMENTS_READ; ++i )
+				{
+					if ( IncompatibleAttachments[i][0] == usAttachment && FindAttachment( pObj, IncompatibleAttachments[i][1], subObject ) != 0 )
+					{
+						fSimilarItems = TRUE;
+						usSimilarItem = IncompatibleAttachments[i][1];
+						break;
+					}
+				}
+			}
+		}
+
 		if (fSameItem)
 		{
 			if (fDisplayMessage) ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_ATTACHMENT_ALREADY ] );
@@ -2668,7 +2567,7 @@ BOOLEAN CompatibleFaceItem( UINT16 usItem1, UINT16 usItem2 )
 		{
 			break;
 		}
-		iLoop++;
+		++iLoop;
 		if (CompatibleFaceItems[iLoop][0] == 0)
 		{
 			// the proposed item cannot fit with anything!
@@ -2682,7 +2581,7 @@ BOOLEAN CompatibleFaceItem( UINT16 usItem1, UINT16 usItem2 )
 		{
 			break;
 		}
-		iLoop++;
+		++iLoop;
 		if (CompatibleFaceItems[iLoop][0] != usItem1)
 		{
 			// the proposed item cannot be attached to the item in question
@@ -4115,7 +4014,8 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 	INT8		bLoop;
 	UINT8		ubType, ubAPCost;
 	INT32		iCheckResult;
-	INT8		bAttachInfoIndex = -1, bAttachComboMerge;
+	INT32		bAttachInfoIndex = -1;
+	INT8		bAttachComboMerge;
 	BOOLEAN		fValidLaunchable = FALSE;
 	UINT16		oldMagSize = 0;
 
@@ -4686,7 +4586,6 @@ BOOLEAN OBJECTTYPE::AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachme
 //WarmSteel - if uiItemPos is -1, we're not checking for a specific slot, but scrolling through them all. TODO comment the rest
 BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachment, BOOLEAN playSound, UINT8 subObject, INT32 iItemPos, BOOLEAN fRemoveProhibited, std::vector<UINT16> usAttachmentSlotIndexVector )
 {
-
 	if (pAttachment->exists() == false) {
 		return FALSE;
 	}
@@ -4695,7 +4594,8 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 	INT8		bLoop;
 	UINT8		ubType, ubAPCost;
 	INT32		iCheckResult;
-	INT8		bAttachInfoIndex = -1, bAttachComboMerge;
+	INT32		bAttachInfoIndex = -1;
+	INT8		bAttachComboMerge;
 	BOOLEAN		fValidLaunchable = FALSE;
 	BOOLEAN		fValidItemAttachment = FALSE;
 	INT32		curSlot = 0;

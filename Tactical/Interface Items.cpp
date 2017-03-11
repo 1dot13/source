@@ -2733,9 +2733,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 				RenderPocketItemCapacity( guiSAVEBUFFER, itemSlotLimit, sPocket, pSoldier, &pSoldier->inv[sPocket], sX, sY );
 
 				if ( itemSlotLimit == 0 )
-				{
 					fHatchItOut = TRUE;
-				}
 			}
 
 			// CHRISL: Change whether we hatch a pocket to be dependant on the current item
@@ -2743,8 +2741,10 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 			{
 				fHatchItOut = FALSE;
 			}
-			else if (!UsingNewAttachmentSystem( ) && !ValidAttachment( gpItemPointer->usItem, pObject ) ||
-				 (UsingNewAttachmentSystem( ) && !ValidItemAttachmentSlot( pObject, gpItemPointer->usItem, FALSE, FALSE )) )
+			// Flugente: we call this function a lot, so only call if necessary 
+			else if ( !fHatchItOut && (
+						!UsingNewAttachmentSystem( ) && !ValidAttachment( gpItemPointer->usItem, pObject ) ||
+						(UsingNewAttachmentSystem( ) && !ValidItemAttachmentSlot( pObject, gpItemPointer->usItem, FALSE, FALSE )) ) )
 			{
 				fHatchItOut = TRUE;
 			}
@@ -2915,12 +2915,21 @@ void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject,
 BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//dnl ch76 091113
 {
 	UINT32 uiLoop = 0;
-	while(Attachment[uiLoop][0] | Launchable[uiLoop][0])
+	while ( Attachment[uiLoop][0] )
 	{
-		if(Attachment[uiLoop][0] == usAttItem && Attachment[uiLoop][1] == usItem || Attachment[uiLoop][0] == usItem && Attachment[uiLoop][1] == usAttItem || Launchable[uiLoop][0] == usAttItem && Launchable[uiLoop][1] == usItem || Launchable[uiLoop][0] == usItem && Launchable[uiLoop][1] == usAttItem)
+		if(Attachment[uiLoop][0] == usAttItem && Attachment[uiLoop][1] == usItem || Attachment[uiLoop][0] == usItem && Attachment[uiLoop][1] == usAttItem )
 			return(TRUE);
 		++uiLoop;
 	}
+
+	uiLoop = 0;
+	while ( Launchable[uiLoop][0] )
+	{
+		if ( Launchable[uiLoop][0] == usAttItem && Launchable[uiLoop][1] == usItem || Launchable[uiLoop][0] == usItem && Launchable[uiLoop][1] == usAttItem )
+			return(TRUE);
+		++uiLoop;
+	}
+
 	return(FALSE);
 }
 

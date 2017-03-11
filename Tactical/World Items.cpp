@@ -42,7 +42,7 @@ UINT32				guiNumWorldBombs = 0;
 void DeleteWorldItemsBelongingToTerroristsWhoAreNotThere( void );
 void DeleteWorldItemsBelongingToQueenIfThere( void );
 
-extern UINT16 StandardGunListAmmoReplacement( UINT16 usAmmo );
+//extern UINT16 StandardGunListAmmoReplacement( UINT16 usAmmo );
 extern UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex );
 
 //dnl ch33 120909
