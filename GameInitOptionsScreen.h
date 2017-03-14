@@ -16,7 +16,7 @@ enum
 	DIF_LEVEL_MEDIUM,
 	DIF_LEVEL_HARD,
 	DIF_LEVEL_INSANE,
-	MAX_DIF_LEVEL = 15,
+	MAX_DIF_LEVEL,
 };
 
 typedef struct
@@ -31,6 +31,7 @@ typedef struct
 	UINT16 iNumKillsPerProgressPoint;
 	INT32 iInitialGarrisonPercentages;
 	UINT8 iMinEnemyGroupSize;
+	UINT8 iCounterAttackGroupSize;
 	BOOLEAN bUnlimitedPoolOfTroops;
 	INT32 iQueensInitialPoolOfTroops;
 	UINT32 iQueenPoolIncrementPerDifficultyLevel;

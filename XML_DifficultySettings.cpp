@@ -55,6 +55,7 @@ DifficultySettingsParseDataStartElementHandle(void *userData, const XML_Char *na
 				strcmp(name, "NumKillsPerProgressPoint") == 0 ||
 				strcmp(name, "InitialGarrisonPercentages") == 0 ||
 				strcmp(name, "MinEnemyGroupSize") == 0 ||
+				strcmp(name, "CounterAttackGroupSize") == 0 ||
 				strcmp(name, "UnlimitedPoolOfTroops") == 0 ||
 				strcmp(name, "QueensInitialPoolOfTroops") == 0 ||
 				strcmp(name, "QueenPoolIncrementPerDifficultyLevel") == 0 ||
@@ -161,6 +162,7 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iNumKillsPerProgressPoint = pData->curDifficultySettings.iNumKillsPerProgressPoint;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iInitialGarrisonPercentages = pData->curDifficultySettings.iInitialGarrisonPercentages;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iMinEnemyGroupSize = pData->curDifficultySettings.iMinEnemyGroupSize;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].iCounterAttackGroupSize = pData->curDifficultySettings.iCounterAttackGroupSize;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bUnlimitedPoolOfTroops = pData->curDifficultySettings.bUnlimitedPoolOfTroops;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueensInitialPoolOfTroops = pData->curDifficultySettings.iQueensInitialPoolOfTroops;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueenPoolIncrementPerDifficultyLevel = pData->curDifficultySettings.iQueenPoolIncrementPerDifficultyLevel;
@@ -285,6 +287,11 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curDifficultySettings.iMinEnemyGroupSize	= (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "CounterAttackGroupSize") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.iCounterAttackGroupSize	= (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "PercentElitesBonus") == 0)
 		{

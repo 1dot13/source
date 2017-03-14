@@ -4556,23 +4556,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			if ( !NumNonPlayerTeamMembersInSector( SECTORX( ubSourceSectorID ), SECTORY( ubSourceSectorID ), ENEMY_TEAM ) )
 				ubSourceSectorID = SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY );
 
-			UINT8 val;
-			if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-				val = 1;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-				val = 2;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-				val = 3;
-			else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-				val = 4;
-			else
-			{
-				val = Random (4);			
-				if (val == 0)
-					val = 1;
-			}	
-				
-			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + val * 3);
+			// make sure that we use at least the min group size
+			ubNumSoldiers = (UINT8)( __max(zDiffSetting[gGameOptions.ubDifficultyLevel].iCounterAttackGroupSize, zDiffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize) );
 
 			// anv: replace one of soldiers with tank
 			if ( ubNumSoldiers )
@@ -4584,7 +4569,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					grouptanks[ubCounter] = 0;
 					groupjeeps[ubCounter] = 0;
 					
-					if ( Random( 10 ) < val )
+					if ( Random( 10 ) < gGameOptions.ubDifficultyLevel )
 					{
 						if ( gGameExternalOptions.fArmyUsesJeepsInAttacks && ASDSoldierUpgradeToJeep( ) )
 						{
@@ -4598,8 +4583,12 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						}
 					}
 
-					if ( val > 0 )
-						groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / val;
+					// replace some soldiers with elites
+					if ( gGameOptions.ubDifficultyLevel > 0 )
+					{
+						groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / gGameOptions.ubDifficultyLevel;
+						grouptroops[ubCounter] -= groupelites[ubCounter];
+					}
 
 					totalusedsoldiers += grouptroops[ubCounter] + groupelites[ubCounter] + grouptanks[ubCounter] + groupjeeps[ubCounter];
 				}
@@ -4655,23 +4644,9 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					break;
 				}
 
-				UINT8 value;
-				if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-					value = 1;
-				else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-					value = 2;
-				else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-					value = 3;
-				else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-					value = 4;	
-				else
-				{
-					value = Random (4);
-					if (value == 0) value = 1;
-				}
-						
-				ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + value * 3);
-				
+				// make sure that we use at least the min group size
+				ubNumSoldiers = (UINT8)( __max(zDiffSetting[gGameOptions.ubDifficultyLevel].iCounterAttackGroupSize, zDiffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize) );
+
 				// anv: replace one of soldiers with tank
 				for( UINT8 ubCounter = 0; ubCounter < 4; ++ubCounter )
 				{
@@ -4682,7 +4657,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 					if( ubNumSoldiers )
 					{
-						if ( Random( 10 ) < value )
+						if ( Random( 10 ) < gGameOptions.ubDifficultyLevel )
 						{
 							if ( gGameExternalOptions.fArmyUsesJeepsInAttacks && ASDSoldierUpgradeToJeep( ) )
 							{
@@ -4697,8 +4672,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						}
 					}
 
-					if ( value > 0 )
-						groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / value;
+					if ( gGameOptions.ubDifficultyLevel > 0 )
+					{
+						groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / gGameOptions.ubDifficultyLevel;
+						grouptroops[ubCounter] -= groupelites[ubCounter];
+					}
 
 					totalusedsoldiers += grouptroops[ubCounter] + groupelites[ubCounter] + grouptanks[ubCounter] + groupjeeps[ubCounter];
 				}
