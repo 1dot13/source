@@ -18,6 +18,7 @@
 									100 = All "default" troops are placed.
 									200 = Twice as many troops are placed.
 		MinEnemyGroupSize : Minimum enemy group size. Enemy groups will never be smaller than this!
+		CounterAttackGroupSize : Counter attacks on cities consist of 4 groups of this size.
 		PercentElitesBonus : Percent of troops converted to extra elites in enemy groups
 		UnlimitedPoolOfTroops : 0 - false, 1 - true. Determines whether or not the queen has unlimited troops. If she does, most of the settings below are completely ignored.
 		QueensInitialPoolOfTroops : Amount of troops available to the queen at game start
@@ -127,6 +128,7 @@
 		<NumKillsPerProgressPoint>0</NumKillsPerProgressPoint>
 		<InitialGarrisonPercentages>0</InitialGarrisonPercentages>
 		<MinEnemyGroupSize>0</MinEnemyGroupSize>
+		<CounterAttackGroupSize>0</CounterAttackGroupSize>
 		<PercentElitesBonus>0</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>0</QueensInitialPoolOfTroops>
@@ -198,6 +200,7 @@
 		<NumKillsPerProgressPoint>7</NumKillsPerProgressPoint>
 		<InitialGarrisonPercentages>70</InitialGarrisonPercentages>
 		<MinEnemyGroupSize>3</MinEnemyGroupSize>
+		<CounterAttackGroupSize>6</CounterAttackGroupSize>
 		<PercentElitesBonus>0</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>150</QueensInitialPoolOfTroops>
@@ -269,6 +272,7 @@
 		<NumKillsPerProgressPoint>10</NumKillsPerProgressPoint>
 		<InitialGarrisonPercentages>100</InitialGarrisonPercentages>
 		<MinEnemyGroupSize>4</MinEnemyGroupSize>
+		<CounterAttackGroupSize>10</CounterAttackGroupSize>
 		<PercentElitesBonus>0</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>200</QueensInitialPoolOfTroops>
@@ -340,6 +344,7 @@
 		<NumKillsPerProgressPoint>15</NumKillsPerProgressPoint>
 		<InitialGarrisonPercentages>150</InitialGarrisonPercentages>
 		<MinEnemyGroupSize>6</MinEnemyGroupSize>
+		<CounterAttackGroupSize>15</CounterAttackGroupSize>
 		<PercentElitesBonus>25</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>400</QueensInitialPoolOfTroops>
@@ -411,6 +416,7 @@
 		<NumKillsPerProgressPoint>60</NumKillsPerProgressPoint>
 		<InitialGarrisonPercentages>200</InitialGarrisonPercentages>
 		<MinEnemyGroupSize>12</MinEnemyGroupSize>
+		<CounterAttackGroupSize>24</CounterAttackGroupSize>
 		<PercentElitesBonus>50</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>1</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>8000</QueensInitialPoolOfTroops>
