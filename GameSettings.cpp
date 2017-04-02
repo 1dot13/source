@@ -4123,23 +4123,23 @@ void DisplayGameSettings( )
 	
 	//Bobby Ray option 1
 	if ( gGameOptions.ubBobbyRayQuality >= BR_GOOD && gGameOptions.ubBobbyRayQuality < BR_GREAT )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_GOOD_TEXT ], BR_GOOD );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_GOOD_TEXT ], gGameOptions.ubBobbyRayQuality );
 	else if ( gGameOptions.ubBobbyRayQuality >= BR_GREAT && gGameOptions.ubBobbyRayQuality < BR_EXCELLENT )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_GREAT_TEXT ], BR_GREAT );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_GREAT_TEXT ], gGameOptions.ubBobbyRayQuality );
 	else if ( gGameOptions.ubBobbyRayQuality >= BR_EXCELLENT && gGameOptions.ubBobbyRayQuality < BR_AWESOME )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_EXCELLENT_TEXT ], BR_EXCELLENT );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_EXCELLENT_TEXT ], gGameOptions.ubBobbyRayQuality );
 	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_AWESOME_TEXT ], BR_AWESOME );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%d)", gzGIOScreenText[ GIO_BR_QUALITY_TEXT ], gzGIOScreenText[ GIO_BR_AWESOME_TEXT ], gGameOptions.ubBobbyRayQuality );
 
 	//Bobby Ray option 2
 	if ( gGameOptions.ubBobbyRayQuantity >= BR_GOOD && gGameOptions.ubBobbyRayQuantity < BR_GREAT )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_GOOD_TEXT ], BR_GOOD );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_GOOD_TEXT ], gGameOptions.ubBobbyRayQuantity );
 	else if ( gGameOptions.ubBobbyRayQuantity >= BR_GREAT && gGameOptions.ubBobbyRayQuantity < BR_EXCELLENT )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_GREAT_TEXT ], BR_GREAT );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_GREAT_TEXT ], gGameOptions.ubBobbyRayQuantity );
 	else if ( gGameOptions.ubBobbyRayQuantity >= BR_EXCELLENT && gGameOptions.ubBobbyRayQuantity < BR_AWESOME )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_EXCELLENT_TEXT ], BR_EXCELLENT );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_EXCELLENT_TEXT ], gGameOptions.ubBobbyRayQuantity );
 	else
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_AWESOME_TEXT ], BR_AWESOME );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s (%dx)", gzGIOScreenText[ GIO_BR_QUANTITY_TEXT ], gzGIOScreenText[ GIO_BR_AWESOME_TEXT ], gGameOptions.ubBobbyRayQuantity );
 
 	// Item Progress Speed Option
 	switch( gGameOptions.ubProgressSpeedOfItemsChoices )
