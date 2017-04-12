@@ -14,7 +14,6 @@
 	#include "renderworld.h"
 	#include "interface control.h"
 	#include "keymap.h"
-
 #endif
 
 #ifndef WIN32_LEAN_AND_MEAN
@@ -27,7 +26,7 @@
 // Base resolution of callback timer
 static INT32 BASETIMESLICE = 10;
 const INT32 FASTFORWARDTIMESLICE = 1000;
-const UINT32 FREQUENCY_CONST = 1000000;
+const LONGLONG FREQUENCY_CONST = 1000000;
 static INT32 MIN_NOTIFY_TIME = 16000;
 static INT32 UPDATETIMESLICE = 10000;
 
@@ -118,6 +117,12 @@ SOLDIERTYPE		*gPSOLDIER;
 UINT32		guiClockDiff = 0;
 UINT32		guiClockStart = 0;
 
+// BOB: made global to help track freeze issue
+LONGLONG gliTimestampDiff = 0;
+LONGLONG gliWaitTime = 0;
+LONGLONG giIncrement = 0;
+UINT32 giSleepTime = 0;
+
 
 extern UINT32 guiCompressionStringBaseTime;
 extern INT32 giFlashHighlightedItemBaseTime;
@@ -151,13 +156,12 @@ static void BroadcastTimerNotify(INT32 );
 static BOOLEAN UpdateTimeCounter( INT32 &counter, INT32 &iTimeLeft );
 static BOOLEAN UpdateCounter( INT32 counter, INT32 &iTimeLeft);
 static void UpdateTimer();
-
+void ResetJA2ClockGlobalTimers(void);
 
 UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UINT32 uiUser );
 
 // CALLBACKS
 void CALLBACK FlashItem( UINT uiID, UINT uiMsg, DWORD uiUser, DWORD uiDw1, DWORD uiDw2 );
-
 
 void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	)
 {
@@ -180,7 +184,8 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 			if (gliPerfCount.QuadPart > gliPerfCountNext.QuadPart)
 			{
 				INT32 iNext = IsFastForwardMode() ? giFastForwardPeriod : UPDATETIMESLICE;
-				gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + (iNext * gliPerfFreq.QuadPart) / FREQUENCY_CONST;
+				giIncrement = (iNext * gliPerfFreq.QuadPart) / FREQUENCY_CONST;
+				gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + giIncrement;
 				iTimeLeft = iNext;
 				timerDone = IsFastForwardMode();
 				tickTime = TRUE;
@@ -265,20 +270,32 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 	}
 }
 
-
-
 static UINT32 MIN_TIMER(UINT32 timer, UINT32 other)
 {
 	UINT32 value = TIME_MS_TO_US(timer);
 	return ( value && value < other ? value : other );
 }
 
+// checks if the clock based on QueryPerformanceCounter is using sane values
+static inline bool TimerSanityCheck() {
+	// quick and drity check for messed up gliPerfCountNext - if the high part is ahead by more than 2, something very bad is going on.
+	return !( gliPerfCountNext.HighPart > gliPerfCount.HighPart + 1L );
+}
+
 // Returns the smallest time interval for a counter currently in use
 UINT32 GetNextCounterDoneTime(void)
 {
 	QueryPerformanceCounter(&gliPerfCount);
-	INT32 time = (INT32)(((gliPerfCountNext.QuadPart - gliPerfCount.QuadPart) * FREQUENCY_CONST) / gliPerfFreq.QuadPart);
-	return (UINT32)((time > 0) ? time : 0);
+
+	if (TimerSanityCheck() == false) {
+		// timer has gone off the rails, try to reset and hope for the best.
+		gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + 25;
+	}
+
+	gliTimestampDiff = gliPerfCountNext.QuadPart - gliPerfCount.QuadPart;
+	gliWaitTime = (gliTimestampDiff * FREQUENCY_CONST) / gliPerfFreq.QuadPart;
+
+	return (UINT32)((gliWaitTime > 0) ? gliWaitTime : 0);
 }
 
 // Function to test if there are any outstanding timers.  Used in fast forward routines
@@ -301,18 +318,28 @@ DWORD WINAPI JA2ClockThread( LPVOID lpParam )
 			YieldProcessor();
 
 			// Sleep for a couple of milliseconds if not in fast forward mode
-			if (!IsFastForwardMode())
-				Sleep( TIME_US_TO_MS( GetNextCounterDoneTime() ) );
+			if (!IsFastForwardMode()) {
+				
+				giSleepTime = TIME_US_TO_MS(GetNextCounterDoneTime());
+
+				// monitor the returned sleep times, if we try to sleep for more than 2 secs then somehing must be very wrong.
+				if (giSleepTime > 2000) {
+					giSleepTime = 250;
+				}
+
+				Sleep(giSleepTime);
+			}
 		} 
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER  )
 	{
 		// Unhandled exception just exit
+		__debugbreak();
 	}
 	return 0L;
 }
 
-DWORD WINAPI JA2NotifyThread( LPVOID lpParam ) 
+DWORD WINAPI JA2NotifyThread( LPVOID lpParam )
 {
 	HANDLE waitHandles[] = {ghClockThreadShutdown, ghNotifyThreadEvent};
 	for(;;) 
@@ -337,6 +364,8 @@ DWORD WINAPI JA2NotifyThread( LPVOID lpParam )
 		else
 		{
 			// unexpected failure
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "JA2NotifyThread failed!");
+			__debugbreak();
 		}
 	} 
 	SetEvent(ghNotifyThreadShutdownComplete);
@@ -451,6 +480,7 @@ UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UIN
 
 	if ( mmResult != TIMERR_NOERROR )
 	{
+		__debugbreak();
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
 	}
 
@@ -459,6 +489,7 @@ UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UIN
 
 	if ( !TimerID )
 	{
+		__debugbreak();
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
 	}
 
@@ -668,7 +699,10 @@ static void InnerTimerNotify(INT32 timer)
 			(*itr).callback( timer, (*itr).state );
 	  }
    }
-   catch (...)   {}
+   catch (...)   {
+	   __debugbreak();
+	   DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "InnerTimerNotify Failed!");
+   }
 }
 static void BroadcastTimerNotify(INT32 timer)
 {
@@ -677,7 +711,10 @@ static void BroadcastTimerNotify(INT32 timer)
 	{
 		__try { InnerTimerNotify(timer); }
 		__except( EXCEPTION_EXECUTE_HANDLER  )
-		{ /*  Not sure.  exit? */ }
+		{ /*  Not sure.  exit? */ 
+			__debugbreak();
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "BroadcastTimerNotify Failed!");
+		}
 	}
 	__finally
 	{
@@ -792,6 +829,7 @@ void UpdateTimer()
 			gTimerID = timeSetEvent( uiTimeSlice, uiTimeSlice, TimeProc, (DWORD)0, TIME_PERIODIC );
 			if ( !gTimerID )
 			{
+				__debugbreak();
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
 			}
 		}

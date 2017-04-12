@@ -2208,7 +2208,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					if ( !InKeyRingPopup( ) )
 					{
-						if ( _KeyDown( SHIFT ) )
+						
+						if (_KeyDown(CTRL))
+						{							
+							checkLBEArrayIntegrity();
+						}
+						else if (_KeyDown(ALT))
+						{
+							checkLBEArrayIntegrity(true);
+						}
+						else if (_KeyDown(SHIFT))
 						{
 							SOLDIERTYPE *pNewSoldier;
 							INT32		iCurrentSquad;

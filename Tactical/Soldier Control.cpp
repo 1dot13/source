@@ -22397,7 +22397,7 @@ BOOLEAN IsValidArtilleryOrderSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 
 	UINT16 usEnemies = (UINT16)NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, ENEMY_TEAM );
 	UINT16 usMilitia = (UINT16)NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM );
-	UINT16 usMercs = NumPlayerTeamMembersInSector( sSectorX, sSectorY, bSectorZ );
+	UINT16 usMercs = (UINT16)PlayerMercsInSector( (UINT8)sSectorX, (UINT8)sSectorY, (UINT8)bSectorZ );
 
 	SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sSectorX, sSectorY )]);
 

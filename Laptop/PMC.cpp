@@ -557,7 +557,7 @@ void PMCTeamHireCallback( GUI_BUTTON *btn, INT32 reason )
 					}
 				}
 
-				if ( found = TRUE )
+				if ( found == TRUE )
 					break;
 			}
 

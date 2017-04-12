@@ -7081,7 +7081,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case SPACE:
-						if( fShowUpdateBox )
+					
+						if (fCtrl) {
+							checkLBEArrayIntegrity();
+						}
+						else if( fShowUpdateBox )
 						{
 							EndUpdateBox( TRUE );	// restart time compression
 						}

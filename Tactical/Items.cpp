@@ -4836,7 +4836,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					}
 
 					LBENODE* pLBE = pAttachment->GetLBEPointer(0);
-					for(unsigned int i=0; i<LBESlots.size(); i++)
+					for(unsigned int i=0; pLBE && i<LBESlots.size(); i++)
 					{
 						// Is there an item in this LBE pocket?
 						if( pLBE->inv[i].exists() )

@@ -4587,6 +4587,9 @@ OBJECTTYPE* FindRepairableItemInLBENODE(SOLDIERTYPE * pSoldier, OBJECTTYPE * pOb
 	if(pObj->IsActiveLBE(subObject) == true)
 	{
 		LBENODE* pLBE = pObj->GetLBEPointer(subObject);
+
+		if (!pLBE) return(NULL);
+
 		UINT8 invsize = pLBE->inv.size();
 		for(UINT8 lbePocket = 0; lbePocket < invsize; ++lbePocket)
 		{
@@ -4608,7 +4611,7 @@ OBJECTTYPE* FindRepairableItemInLBENODE(SOLDIERTYPE * pSoldier, OBJECTTYPE * pOb
 			}
 		}
 	}
-	return( 0 );
+	return(NULL);
 }
 
 OBJECTTYPE* FindRepairableItemInSpecificPocket(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, UINT8 subObject)
@@ -4799,19 +4802,22 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 		}
 
 		//CHRISL: Now check and see if this is an LBENODE with items that need repairing
-		if(UsingNewInventorySystem() == true && Item[pObj->usItem].usItemClass == IC_LBEGEAR && pObj->IsActiveLBE(ubLoop) == true)
+		if (UsingNewInventorySystem() == true && Item[pObj->usItem].usItemClass == IC_LBEGEAR && pObj->IsActiveLBE(ubLoop) == true)
 		{
 			LBENODE* pLBE = pObj->GetLBEPointer(ubLoop);
-			UINT8 invsize = pLBE->inv.size();
-			for(lbeLoop = 0; lbeLoop < invsize; ++lbeLoop)
-			{
-				if(RepairObject(pSoldier, pOwner, &pLBE->inv[lbeLoop], pubRepairPtsLeft))
+			if (pLBE) {
+
+				UINT8 invsize = pLBE->inv.size();
+				for (lbeLoop = 0; lbeLoop < invsize; ++lbeLoop)
 				{
-					fSomethingWasRepaired = true;
-					if ( *pubRepairPtsLeft == 0 )
+					if (RepairObject(pSoldier, pOwner, &pLBE->inv[lbeLoop], pubRepairPtsLeft))
 					{
-						// we're out of points!
-						return true;
+						fSomethingWasRepaired = true;
+						if (*pubRepairPtsLeft == 0)
+						{
+							// we're out of points!
+							return true;
+						}
 					}
 				}
 			}
@@ -17082,7 +17088,14 @@ void ReEvaluateEveryonesNothingToDo()
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	BOOLEAN fNothingToDo;
-	
+
+	UINT32 numberOfMovableItemsCache[MAXIMUM_VALID_X_COORDINATE][MAXIMUM_VALID_Y_COORDINATE];
+	for (int i = 0; i < MAXIMUM_VALID_X_COORDINATE; i++) {
+		for (int j = 0; j < MAXIMUM_VALID_Y_COORDINATE; j++) {
+			numberOfMovableItemsCache[i][j] = INT_MAX;
+		}
+	}
+
 	for( iCounter = 0; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++iCounter )
 	{
 		pSoldier = &Menptr[ iCounter ];
@@ -17168,7 +17181,12 @@ void ReEvaluateEveryonesNothingToDo()
 						INT16 targetX = SECTORX( pSoldier->usItemMoveSectorID );
 						INT16 targetY = SECTORY( pSoldier->usItemMoveSectorID );
 
-						fNothingToDo = (GetNumberOfMovableItems( targetX, targetY, 0 ) == 0);
+						if (numberOfMovableItemsCache[targetX][targetY] == INT_MAX)
+						{
+							numberOfMovableItemsCache[targetX][targetY] = GetNumberOfMovableItems(targetX, targetY, 0);
+						}
+
+						fNothingToDo = (numberOfMovableItemsCache[targetX][targetY] == 0);
 					}
 					break;
 

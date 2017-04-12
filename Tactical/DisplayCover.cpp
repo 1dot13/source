@@ -433,7 +433,7 @@ void RemoveCoverObjectsFromViewArea()
 
 				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
 
-				if ( bOverlayType != INVALID_COVER )
+				if ( bOverlayType != INVALID_COVER && sGridNo != -1 )
 				{
 					TileDefines tile = GetOverlayIndex( bOverlayType );
 					RemoveCoverObjectFromWorld( sGridNo, tile, (BOOLEAN) ubZ );

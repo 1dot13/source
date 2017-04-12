@@ -6,6 +6,9 @@
 #include "screenids.h"
 #include "Action Items.h"	// added by Flugente for the ACTION_ITEM_BLOW_UP value
 #include "Random.h"			// added by Flugente
+#include "Message.h"		// added by BOB for missing LBE info messages
+#include "overhead.h"		// added by BOB for missing LBE info messages
+#include "Map Screen Interface.h" // added by BOB for missing LBE info messages
 
 
 int		BODYPOSFINAL		= GUNSLINGPOCKPOS;//RESET in initInventory
@@ -23,6 +26,83 @@ int gLastLBEUniqueID = 0;
 extern UINT32			guiCurrentItemDescriptionScreen;
 extern BOOLEAN			fShowMapInventoryPool;
 //extern BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo );
+
+bool checkObjectLBEIntegrity(OBJECTTYPE * object) {
+	bool integrityCheck = TRUE;
+
+	 
+		for (int i = 0; i < object->ubNumberOfObjects; i++)
+		{
+			if ((*object)[i]->data.lbe.bLBE == -1 && object->GetLBEPointer(i) == NULL) {
+				integrityCheck = false;
+			}
+		}
+	
+	return integrityCheck;
+}
+
+bool checkLBEArrayIntegrity(bool verbose) {
+	bool integrityCheck = TRUE;
+	int itemCnt = 0;
+
+	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items...");
+
+	for (int i = 0; i < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; i++) {
+		if (!gCharactersList[i].fValid || gCharactersList[i].usSolID < 0) continue;
+
+		int id = gCharactersList[i].usSolID;
+		SOLDIERTYPE soldier = Menptr[id];
+
+		if (verbose)ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking soldier items (%s)...", soldier.name);
+
+		for (int j = 0; j < soldier.inv.size(); j++) {
+			OBJECTTYPE * object = &(soldier.inv[j]);
+			if (object->HasAnyActiveLBEs()) {
+
+				if (!checkObjectLBEIntegrity(object)) {
+					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"> LBENODE missing: %s -> %s!", soldier.name, Item[object->usItem].szItemName);
+					integrityCheck = false;
+				}
+				else {
+					if (verbose)ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"> OK: %s -> %s", soldier.name, Item[object->usItem].szItemName);
+				}
+			}
+			else {
+				if (verbose)ScreenMsg(FONT_MCOLOR_LTGRAY, MSG_INTERFACE, L"> SKIP: %s -> %s", soldier.name, Item[object->usItem].szItemName);
+			}
+		}
+	}
+
+	
+
+	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LBENODE integrity check start: checking around %i world items", gWorldItems.size());
+	for (std::vector<WORLDITEM>::iterator worldItem = gWorldItems.begin(); worldItem != gWorldItems.end(); ++worldItem)
+	{
+		OBJECTTYPE* object = &(worldItem->object);
+		if (object->HasAnyActiveLBEs()) {
+			if (!checkObjectLBEIntegrity(object)) {
+				ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"> LBENODE missing: loaded sector -> %s!", Item[object->usItem].szItemName);
+				integrityCheck = false;
+			}
+			else {
+				if (verbose)ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"> OK: loaded sector -> %s", Item[object->usItem].szItemName);
+			}
+		}
+		else {
+			if (verbose)ScreenMsg(FONT_MCOLOR_LTGRAY, MSG_INTERFACE, L"> SKIP: loaded sector -> %s", Item[object->usItem].szItemName);
+		}
+		itemCnt++;
+	}
+
+	if (integrityCheck) {
+		ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"LBENODE integrity check passed!");
+	}
+	else {
+		ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Missing LBENODE(s) detected! Restart the game and check last save for corruption.");
+	}
+
+	return integrityCheck;
+}
 
 bool IsSlotAnLBESlot(int slot)
 {
@@ -179,13 +259,15 @@ void MoveItemsInSlotsToLBE( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBESlots, 
 // CHRISL: New function to move items from default pockets to usable pockets
 BOOLEAN MoveItemsToActivePockets( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBESlots, UINT32 uiHandPos, OBJECTTYPE *pObj )
 {
-	BOOLEAN	flag=FALSE;
+	BOOLEAN	flag= FALSE;
 
 	if(pObj->IsActiveLBE(0) == false) {
 		CreateLBE(pObj, pSoldier->ubID, LBESlots.size());
 	}
 
 	LBENODE* pLBE = pObj->GetLBEPointer(0);
+	if (!pLBE) return FALSE;
+
 	MoveItemsInSlotsToLBE(pSoldier, LBESlots, pLBE, pObj);
 	DestroyLBEIfEmpty(pObj);
 
@@ -327,7 +409,7 @@ BOOLEAN MoveItemToLBEItem( SOLDIERTYPE *pSoldier, UINT32 uiHandPos )
 
 	CreateLBE(&(pSoldier->inv[uiHandPos]), pSoldier->ubID, LBESlots.size());
 	LBENODE* pLBE = pSoldier->inv[uiHandPos].GetLBEPointer(0);
-	for(unsigned int i=0; i<LBESlots.size(); i++)
+	for(unsigned int i=0; pLBE && i<LBESlots.size(); i++)
 	{
 		// Is there an item in this pocket?
 		if(pSoldier->inv[LBESlots[i]].exists() == true)
@@ -359,7 +441,7 @@ BOOLEAN MoveItemFromLBEItem( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, OBJECTTYPE
 	}
 
 	LBENODE* pLBE = pObj->GetLBEPointer(0);
-	for(unsigned int i=0; i<LBESlots.size(); i++)
+	for(unsigned int i=0; pLBE && i<LBESlots.size(); i++)
 	{
 		// Is there an item in this LBE pocket?
 		if(pLBE->inv[i].exists() == true)
@@ -480,18 +562,38 @@ bool OBJECTTYPE::HasAnyActiveLBEs(SOLDIERTYPE * pSoldier, UINT8 iter)
 
 LBENODE* OBJECTTYPE::GetLBEPointer(unsigned int index)
 {
+	CHAR16	msgTemp[150];
 	if (LBEArray.empty() == false) {
 		int uniqueID = (*this)[index]->data.lbe.uniqueID;
+		
 		for (std::list<LBENODE>::iterator iter = LBEArray.begin(); iter != LBEArray.end(); ++iter) {
 			if (iter->uniqueID == uniqueID) {
 				return &(*iter);
 			}
 		}
+
+		//BOB: if we got here somehow it means we're missing LBE data for this uniqueID
+		{
+			
+			swprintf(msgTemp, L"> Missing LBENODE for %s!", Item[this->usItem].szItemName);
+			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, msgTemp);
+			// mark as no longer active LBE
+			(*this)[index]->data.lbe.bLBE = 0;
+		}
+
+		return NULL;
 	}
-	//CHRISL: if the LBEArray is empty, we probably need to force the creation of an entry so that future functions don't crash.
-	//return NULL;
-	LBEArray.resize(1);
-	return &(*LBEArray.begin());
+	else //BOB: only do this if the LBEArray was actually empty! Otherwise this would create a cascading clusterfuck of missing LBE data.
+	{
+		//CHRISL: if the LBEArray is empty, we probably need to force the creation of an entry so that future functions don't crash.
+		
+		swprintf(msgTemp, L"Reinit LBEArray!");
+		ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, msgTemp);
+
+		LBEArray.resize(1);
+		return &(*LBEArray.begin());
+	}
+	
 }
 
 bool OBJECTTYPE::exists()

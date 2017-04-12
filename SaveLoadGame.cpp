@@ -3259,7 +3259,7 @@ BOOLEAN OBJECTTYPE::Save( HWFILE hFile, bool fSavingMap )
 		}
 		if (this->IsActiveLBE(x) == true) {
 			LBENODE* pLBE = this->GetLBEPointer(x);
-			if (! pLBE->Save(hFile, fSavingMap)) {
+			if (!pLBE || !pLBE->Save(hFile, fSavingMap)) {
 				return FALSE;
 			}
 			//CHRISL: I've remarked this to resolve a problem when the autosave option is active where LBEArray info is

@@ -211,7 +211,7 @@ BOOLEAN POPUP_OPTION::runHoverCallback(MOUSE_REGION * pRegion)
 
 BOOLEAN POPUP_OPTION::run()
 {
-	// check if it's aaliable at this time
+	// check if it's available at this time
 	if ( this->action != 0 && this->checkAvailability() )
 	{
 		this->action->call();
@@ -1559,10 +1559,13 @@ void POPUP::HandleShadingOfLines( void )
 	// shade strings past the this->subPopupOptionCount offset
 	for(std::vector<POPUP_OPTION*>::iterator cOption=this->options.begin(); cOption != this->options.end(); ++cOption)
 	{
-		if ( (*cOption)->checkAvailability() )
-			UnShadeStringInBox( this->boxId, i+this->subPopupOptionCount);	
-		else																
-			ShadeStringInBox( this->boxId, i+this->subPopupOptionCount);
+		if ((*cOption)->checkAvailability()) {
+			UnShadeStringInBox(this->boxId, i + this->subPopupOptionCount);
+		}
+		else {
+			SetStringShade((*cOption)->stringHandle, (*cOption)->color_shade); // handle checkAvailability() changing string shade color
+			ShadeStringInBox(this->boxId, i + this->subPopupOptionCount);
+		}
 		i++;
 	}
 		

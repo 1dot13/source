@@ -1491,7 +1491,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			// Buggler: sector inventory item deletion before item reachable & in-sector checks to allow deletion of any item
 			if ( _KeyDown ( DEL ) )
 			{
-				if ( _KeyDown ( 89 )) //Lalien: delete all items of this type
+				if ( _KeyDown ( 89 )) //Lalien: delete all items of this type (Y)
 				{
 					DeleteItemsOfType( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object.usItem );
 					ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETE_ALL] );

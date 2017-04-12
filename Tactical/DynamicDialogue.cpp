@@ -1275,7 +1275,7 @@ INT8 GetDynamicOpinionDay( UINT8 usProfileA, UINT8 usProfileB, UINT8 usDay )
 {
 	INT32 opinion = 0;
 
-	if ( usProfileA == NO_PROFILE || usProfileA == NO_PROFILE )
+	if ( usProfileA == NO_PROFILE || usProfileB == NO_PROFILE )
 		return opinion;
 
 	// only for today (0) or one of the last 3 days (1-3)

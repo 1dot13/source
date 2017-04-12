@@ -254,6 +254,8 @@ public:
 	std::vector<OBJECTTYPE> inv;
 };
 #define SIZEOF_LBENODE_POD (offsetof(LBENODE, endOfPOD))
+bool	checkLBEArrayIntegrity(bool verbose=false); // BOB: checks all worldItems for missing LBE info
+
 void	CreateLBE(OBJECTTYPE* pObj, UINT8 ubID, int numSubPockets);
 bool	DestroyLBEIfEmpty(OBJECTTYPE* pObj);
 void	DestroyLBE(OBJECTTYPE* pObj);

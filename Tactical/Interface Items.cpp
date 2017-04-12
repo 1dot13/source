@@ -675,30 +675,22 @@ void popupCallbackItem(INT16 itemId){
 		//UpdateAttachmentTooltips(gpItemDescObject, gubItemDescStatusIndex);
 		return;
 	}
-/*
-	for(UINT16 i = 0; i < pInventoryPoolList.size(); i++){
-		if( pInventoryPoolList[i].object.usItem == itemId ) {
-			
-			gpItemPointer = &pInventoryPoolList[i].object;				// pick up the object (or stack)
-			DoAttachment((UINT8)gubPopupStatusIndex, guiPopupItemPos);	// try to attach it
-			gpItemPointer = NULL;										// and drop it
-
-			gItemDescAttachmentPopups[giActiveAttachmentPopup]->hide();
-			RenderItemDescriptionBox();
-			giActiveAttachmentPopup = -1;
-
-			//UpdateAttachmentTooltips(gpItemDescObject, gubItemDescStatusIndex);
-			return;
-			
-		}
-	}
-*/
 }
 
-bool popupCallbackItemInSector(INT16 itemId){
-	for(UINT16 i = 0; i < pInventoryPoolList.size(); i++)
-		if( pInventoryPoolList[i].object.usItem == itemId ) return true;
-
+bool popupCallbackItemInSector(INT16 usAttachment, OBJECTTYPE * pObj, POPUP_OPTION * o){
+	for (UINT16 i = 0; i < pInventoryPoolList.size(); i++) {
+		if (pInventoryPoolList[i].object.usItem == usAttachment) {
+			if (ValidItemAttachmentSlot(pObj, usAttachment, true, false, 0, -1, true, NULL, GetItemSlots(pObj))) {
+				return true;
+			}
+			else {
+				o->color_shade = COLOR_RED;
+				return false;
+			}
+		}
+	}
+	//return ValidAttachment(itemId, pObj);
+	o->color_shade = COLOR_DKGREY;
 	return false;
 }
 
@@ -2504,11 +2496,11 @@ void PocketPopupDefault( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 
 				if( LBEPocketPopup.find(pocketType) == LBEPocketPopup.end() ){
 					// default for LBE slots - grenades + ammo for merc's guns
-				addAmmoToPocketPopup( pSoldier, sPocket, popup );
+					addAmmoToPocketPopup( pSoldier, sPocket, popup );
 
-				POPUP * subPopup = popup->addSubMenuOption( new std::wstring( BobbyRFilter[28]/*Grenades*/ ) );
-				popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
-				addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
+					POPUP * subPopup = popup->addSubMenuOption( new std::wstring( BobbyRFilter[28]/*Grenades*/ ) );
+					popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
+					addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
 				} else {
 					// popup definition for this slot exists - apply it to the popup
 					gsPocketUnderCursor = sPocket;
@@ -5885,16 +5877,24 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 							POPUP_OPTION * o = new POPUP_OPTION(	&std::wstring( Item[ usAttachment ].szItemName ), 
 																	new popupCallbackFunction<void,UINT16>(&popupCallbackItem,usAttachment));
 							// set an availiability callback to gray out any compatible attachments not found in this sector
-							o->setAvail( new popupCallbackFunction<bool,UINT16>(&popupCallbackItemInSector,usAttachment) );
+							o->setAvail( new popupCallbackFunction3<bool,UINT16, OBJECTTYPE*, POPUP_OPTION*>(&popupCallbackItemInSector,usAttachment, pObject, o) );
 						
 							if (loop == 11 && attachList.size() > 11){ // if there's too much stuff to list, we create a subpopup for the rest
 								gItemDescAttachmentPopups[slotCount]->addSubMenuOption( &std::wstring(L"More...") );
 								POPUP_SUB_POPUP_OPTION * tmp = gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0);
 
 								// positioning sub popups is handled through the option that holds them
-								tmp->setPopupPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX),
-													(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
-													POPUP_POSITION_TOP_RIGHT);	// put it to the right of the main box
+								if (gItemDescAttachmentPopups[slotCount]->Position.iX + 200 > SCREEN_WIDTH) {
+									// near screen edge, put it below the original box					
+									tmp->setPopupPosition(
+										gItemDescAttachmentPopups[slotCount]->Position.iX,
+										gItemDescAttachmentPopups[slotCount]->Position.iY + gItemDescAttachmentPopups[slotCount]->getCurrentHeight(),
+										POPUP_POSITION_TOP_LEFT
+									);
+								}
+								else { // we still got room, position the next box to the right of the previous one									
+									tmp->setPopupPosition(10,0,POPUP_POSITION_RELATIVE);
+								}
 
 								// hide the other box too
 								// note that we're working with the sub popup options's sub-popup here, not the option itself
@@ -6392,9 +6392,10 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							{
 								LBENODE* pLBE = gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex);
 								// we have an item in this pocket
-								if( pLBE->inv[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)].exists() )
+								if (pLBE && pLBE->inv[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping - 1)].exists()) {
 									// place item on the ground
-									AutoPlaceObjectToWorld(gpItemDescSoldier, &pLBE->inv[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping -1)], TRUE);
+									AutoPlaceObjectToWorld(gpItemDescSoldier, &pLBE->inv[(AttachmentSlots[usAttachmentSlotIndexVector[slotCount]].ubPocketMapping - 1)], TRUE);
+								}
 							}
 							else // the soldier is wearing the LBE
 							{
@@ -6696,12 +6697,16 @@ INT8 DetermineShowLBE( )
 		}
 		else
 		{
-			if(gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex))
-				return (gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex)->lbeClass - 1);
-			else if(Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
+			if (gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex)) {
+				LBENODE* pLBE = gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex);
+				return pLBE ? (pLBE->lbeClass - 1) : -1;
+			}
+			else if (Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR) {
 				return (LoadBearingEquipment[Item[gpItemDescObject->usItem].ubClassIndex].lbeClass - 1);
-			else
+			}
+			else {
 				return -1;
+			}
 		}
 	}
 }
@@ -8049,9 +8054,8 @@ void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject )
 	}
 
 	LBENODE* pLBE = NULL;
-	if(activeNode == true)
-	{
-		pLBE = pObj->GetLBEPointer(subObject);
+	if(activeNode == true && ( pLBE = pObj->GetLBEPointer(subObject) ) != NULL )
+	{		
 		lClass = pLBE->lbeClass;
 	}
 	else {

@@ -1182,22 +1182,29 @@ void SaveVideoOverlaysArea( UINT32 uiSrcBuffer )
 	{
 		if( gVideoOverlays[uiCount].fAllocated && !gVideoOverlays[uiCount].fDisabled )
 		{
+			iBackIndex = gVideoOverlays[uiCount].uiBackground;
+
 			// OK, if our saved area is null, allocate it here!
 			if ( gVideoOverlays[uiCount].pSaveArea == NULL )
 			{
 				AllocateVideoOverlayArea( uiCount );
 			}
 
-			if ( gVideoOverlays[uiCount].pSaveArea != NULL )
+			if ( gVideoOverlays[uiCount].pSaveArea != NULL && gBackSaves[iBackIndex].sHeight > 0 && gBackSaves[iBackIndex].sWidth > 0)
 			{
-				iBackIndex = gVideoOverlays[uiCount].uiBackground;
-
-				// Save data from frame buffer!
-				Blt16BPPTo16BPP((UINT16 *)gVideoOverlays[uiCount].pSaveArea, gBackSaves[ iBackIndex ].sWidth*2,
-							(UINT16 *)pSrcBuf, uiSrcPitchBYTES,
-							0, 0,
-							gBackSaves[ iBackIndex ].sLeft , gBackSaves[ iBackIndex ].sTop,
-							gBackSaves[ iBackIndex ].sWidth, gBackSaves[ iBackIndex ].sHeight );
+				// Save data from frame buffer!				
+				Blt16BPPTo16BPP(
+					(UINT16 *)gVideoOverlays[uiCount].pSaveArea, 
+					gBackSaves[iBackIndex].sWidth * 2,
+					(UINT16 *)pSrcBuf, 
+					uiSrcPitchBYTES,
+					0, 
+					0,
+					gBackSaves[iBackIndex].sLeft, 
+					gBackSaves[iBackIndex].sTop,
+					gBackSaves[iBackIndex].sWidth, 
+					gBackSaves[iBackIndex].sHeight
+				);				
 			}
 		}
 	}

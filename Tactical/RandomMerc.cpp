@@ -989,7 +989,7 @@ void RandomizeMerc(UINT8 profile_id, MERCPROFILESTRUCT* merc, BOOL random_gear_k
 				}
 
 				//sidearm for snipers/rifle users (50% chance), and sometimes to just someone randomly (10% chance).
-				if (((weapon->ubWeaponType == GUN_SN_RIFLE || weapon->ubWeaponType == GUN_SN_RIFLE) && Random(2) < 1) || (Random(10) < 1 && weapon->ubWeaponType != GUN_PISTOL))
+				if (((	weapon->ubWeaponType == GUN_SN_RIFLE || weapon->ubWeaponType == GUN_RIFLE) && Random(2) < 1) || (Random(10) < 1 && weapon->ubWeaponType != GUN_PISTOL))
 				{
 					INVTYPE* pistol = GearGetRandomWeapon(min_kit_level, max_kit_level - 1, GUN_PISTOL, -1);
 

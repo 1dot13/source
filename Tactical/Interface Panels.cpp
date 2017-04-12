@@ -4154,7 +4154,8 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 							break;
 						}
 						if(gWorldItems[wi].object.IsActiveLBE(x)) {
-							if(gWorldItems[wi].object.GetLBEPointer(x)->lbeIndex != NONE) {
+							LBENODE* pLBE = gWorldItems[wi].object.GetLBEPointer(x);
+							if(pLBE && pLBE->lbeIndex != NONE) {
 								// Found an associated backpack so figure out how far that pack is from us
 								iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, gWorldItems[wi].sGridNo );
 								if(gWorldItems[wi].sGridNo == pSoldier->sGridNo)	// standing on pack - pickup regardless
