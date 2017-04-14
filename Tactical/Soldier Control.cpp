@@ -22006,8 +22006,10 @@ BOOLEAN ResolvePendingInterrupt( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType )
 			pInterrupter = MercPtrs[uCnt];
 			if ( pInterrupter == NULL )
 				continue;			// not valid
-			if ( pInterrupter->stats.bLife < OKLIFE || pInterrupter->bCollapsed || !pInterrupter->bActive || !pInterrupter->bInSector || pInterrupter->bActionPoints < 4 )
+			if (pInterrupter->stats.bLife < OKLIFE || pInterrupter->bCollapsed || !pInterrupter->bActive || !pInterrupter->bInSector || pInterrupter->bActionPoints < 4)
 				continue;			// not active
+			if (pInterrupter->bBreath < OKBREATH && pInterrupter->bTeam != OUR_TEAM)
+				continue;			// BOB: prevent NPCs from getting interrupts when out of breath
 			if ( pSoldier->bTeam == pInterrupter->bTeam )
 				continue;			// same team
 			if ( pSoldier->bSide == pInterrupter->bSide )

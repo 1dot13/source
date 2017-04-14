@@ -289,12 +289,12 @@ UINT32 GetNextCounterDoneTime(void)
 	gliTimestampDiff = gliPerfCountNext.QuadPart - gliPerfCount.QuadPart;
 	gliWaitTime = (gliTimestampDiff * FREQUENCY_CONST) / gliPerfFreq.QuadPart;
 
-	// if the wait time is too long/short, re-evaluate the timer and try waiting 125ms
-	if (gliWaitTime > 15 * FREQUENCY_CONST) {
+	// if the wait time is too long, or the "missed" step gets too long, re-evaluate the timer and try waiting 125ms
+	if (gliWaitTime > 15000 || gliWaitTime < -15000) {
 		gliWaitTime = 125; // in mili-seconds
 
 		QueryPerformanceFrequency(&gliPerfFreq);
-		gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + ((125 * gliPerfFreq.QuadPart) / 1000000);
+		gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + ((125 * gliPerfFreq.QuadPart) / FREQUENCY_CONST);
 	}
 
 	return (UINT32)((gliWaitTime > 0) ? gliWaitTime : 0);
