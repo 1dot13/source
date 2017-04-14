@@ -17178,12 +17178,12 @@ void ReEvaluateEveryonesNothingToDo()
 				case MOVE_EQUIPMENT:
 					{
 						// which sector do we want to move stuff to?
-						INT16 targetX = SECTORX( pSoldier->usItemMoveSectorID );
-						INT16 targetY = SECTORY( pSoldier->usItemMoveSectorID );
+						INT16 targetX = SECTORX( pSoldier->usItemMoveSectorID )-1;
+						INT16 targetY = SECTORY( pSoldier->usItemMoveSectorID )-1;
 
 						if (numberOfMovableItemsCache[targetX][targetY] == INT_MAX)
 						{
-							numberOfMovableItemsCache[targetX][targetY] = GetNumberOfMovableItems(targetX, targetY, 0);
+							numberOfMovableItemsCache[targetX][targetY] = GetNumberOfMovableItems(targetX+1, targetY+1, 0);
 						}
 
 						fNothingToDo = (numberOfMovableItemsCache[targetX][targetY] == 0);

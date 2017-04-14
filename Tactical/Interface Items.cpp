@@ -599,6 +599,25 @@ INT16 getStatusOfLeastDamagedItemInStack( OBJECTTYPE * stack );
 // BOB : globals for telling attachment popups _where_ should the attachment go
 UINT8	gubPopupStatusIndex;
 UINT32	guiPopupItemPos;
+
+// BOB : common class for attachment popup callbacks.
+class PopupAttachmentInfo {
+public:
+	INT16 usAttachment;	// attachment being attached
+
+	OBJECTTYPE * pObj;	// object it is being attached to
+	UINT8 subObject;	// in case we're in an object stack
+	INT16 slotCount;	// the attachment slot that's being attached to
+
+	POPUP_OPTION * o;	// option that's doing the attaching
+	POPUP * p;			// the popup that's tied to the attachment slot
+
+	PopupAttachmentInfo() {};
+	PopupAttachmentInfo(INT16 usAttachment, OBJECTTYPE * pObj, UINT8 subObject, INT16 slotCount, POPUP_OPTION * o, POPUP * p) :
+		usAttachment(usAttachment), pObj(pObj), subObject(subObject), slotCount(slotCount), o(o), p(p) {}
+};
+std::vector<PopupAttachmentInfo*> gPopupAttachmentInfos;
+
 void popupCallbackItem(INT16 itemId){
 
 	OBJECTTYPE* bestStack;
@@ -677,20 +696,20 @@ void popupCallbackItem(INT16 itemId){
 	}
 }
 
-bool popupCallbackItemInSector(INT16 usAttachment, OBJECTTYPE * pObj, POPUP_OPTION * o){
+bool popupCallbackItemInSector(PopupAttachmentInfo * pai) {
 	for (UINT16 i = 0; i < pInventoryPoolList.size(); i++) {
-		if (pInventoryPoolList[i].object.usItem == usAttachment) {
-			if (ValidItemAttachmentSlot(pObj, usAttachment, true, false, 0, -1, true, NULL, GetItemSlots(pObj))) {
+		if (pInventoryPoolList[i].object.usItem == pai->usAttachment) {
+			if (ValidItemAttachmentSlot(pai->pObj, pai->usAttachment, true, false, pai->subObject, pai->slotCount, false, NULL, GetItemSlots(pai->pObj))) {
 				return true;
 			}
 			else {
-				o->color_shade = COLOR_RED;
+				pai->o->color_shade = COLOR_RED;
 				return false;
 			}
 		}
 	}
-	//return ValidAttachment(itemId, pObj);
-	o->color_shade = COLOR_DKGREY;
+	
+	pai->o->color_shade = COLOR_DKGREY;
 	return false;
 }
 
@@ -5664,9 +5683,14 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 		if( gItemDescAttachmentPopupsInitialized && gItemDescAttachmentPopups[cnt] != NULL ){
 			delete(gItemDescAttachmentPopups[cnt]);			
 		}
-		gItemDescAttachmentPopups[cnt] = NULL;
+		gItemDescAttachmentPopups[cnt] = NULL;		
 	}
 	gItemDescAttachmentPopupsInitialized = TRUE;
+
+	for (auto iter = gPopupAttachmentInfos.begin(); iter != gPopupAttachmentInfos.end(); iter++) {
+		delete (*iter);
+	}
+	gPopupAttachmentInfos.clear();
 
 	//now, create new regions
 	for (slotCount = 0; ; ++slotCount )
@@ -5876,8 +5900,11 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						{	// add the current attachment to the popup assigned to this attachment slot
 							POPUP_OPTION * o = new POPUP_OPTION(	&std::wstring( Item[ usAttachment ].szItemName ), 
 																	new popupCallbackFunction<void,UINT16>(&popupCallbackItem,usAttachment));
+							
+							gPopupAttachmentInfos.push_back(new PopupAttachmentInfo(usAttachment, pObject, ubStatusIndex, slotCount, o, gItemDescAttachmentPopups[slotCount]));
+
 							// set an availiability callback to gray out any compatible attachments not found in this sector
-							o->setAvail( new popupCallbackFunction3<bool,UINT16, OBJECTTYPE*, POPUP_OPTION*>(&popupCallbackItemInSector,usAttachment, pObject, o) );
+							o->setAvail(new popupCallbackFunction<bool, PopupAttachmentInfo*>(&popupCallbackItemInSector, (gPopupAttachmentInfos.back())));
 						
 							if (loop == 11 && attachList.size() > 11){ // if there's too much stuff to list, we create a subpopup for the rest
 								gItemDescAttachmentPopups[slotCount]->addSubMenuOption( &std::wstring(L"More...") );
@@ -6420,14 +6447,23 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 					if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
 					{
-						// Set mouse
-						guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
-						gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[ gpItemPointer->usItem ].ubGraphicNum;
+						//Autoplace to map sector inventory
+						if (_KeyDown(CTRL))
+						{
+							AutoPlaceObjectToWorld(gpItemPointerSoldier, gpItemPointer);
+							gpItemPointer = NULL;
+						}
+						else {
+							// Set mouse
+							guiExternVo = GetInterfaceGraphicForItem(&(Item[gpItemPointer->usItem]));
+							gusExternVoSubIndex = g_bUsePngItemImages ? 0 : Item[gpItemPointer->usItem].ubGraphicNum;
 
-						MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
-						MSYS_SetCurrentCursor( EXTERN_CURSOR );
-						fMapInventoryItem=TRUE;
-						fTeamPanelDirty=TRUE;
+							MSYS_ChangeRegionCursor(&gMPanelRegion, EXTERN_CURSOR);
+							MSYS_SetCurrentCursor(EXTERN_CURSOR);
+							fMapInventoryItem = TRUE;
+							fTeamPanelDirty = TRUE;
+						}
+
 					}
 										
 					//if we are currently in the shopkeeper interface

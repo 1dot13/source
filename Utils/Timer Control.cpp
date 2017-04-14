@@ -286,14 +286,16 @@ static inline bool TimerSanityCheck() {
 UINT32 GetNextCounterDoneTime(void)
 {
 	QueryPerformanceCounter(&gliPerfCount);
-
-	if (TimerSanityCheck() == false) {
-		// timer has gone off the rails, try to reset and hope for the best.
-		gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + 25;
-	}
-
 	gliTimestampDiff = gliPerfCountNext.QuadPart - gliPerfCount.QuadPart;
 	gliWaitTime = (gliTimestampDiff * FREQUENCY_CONST) / gliPerfFreq.QuadPart;
+
+	// if the wait time is too long/short, re-evaluate the timer and try waiting 125ms
+	if (gliWaitTime > 15 * FREQUENCY_CONST) {
+		gliWaitTime = 125; // in mili-seconds
+
+		QueryPerformanceFrequency(&gliPerfFreq);
+		gliPerfCountNext.QuadPart = gliPerfCount.QuadPart + ((125 * gliPerfFreq.QuadPart) / 1000000);
+	}
 
 	return (UINT32)((gliWaitTime > 0) ? gliWaitTime : 0);
 }
