@@ -2663,7 +2663,7 @@ void UpdateAssignments()
 	HandleContinueOfTownTraining( );
 
 	// check if anyone is on an assignment where they have nothing to do
-	ReEvaluateEveryonesNothingToDo();
+	ReEvaluateEveryonesNothingToDo(TRUE);
 
 	// update mapscreen
 	fCharacterInfoPanelDirty = TRUE;
@@ -17083,15 +17083,17 @@ void BandageBleedingDyingPatientsBeingTreated( )
 
 
 
-void ReEvaluateEveryonesNothingToDo()
+void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 {
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
-	BOOLEAN fNothingToDo;
+	BOOLEAN fNothingToDo = FALSE;
 
 	UINT32 numberOfMovableItemsCache[MAXIMUM_VALID_X_COORDINATE][MAXIMUM_VALID_Y_COORDINATE];
-	for (int i = 0; i < MAXIMUM_VALID_X_COORDINATE; i++) {
-		for (int j = 0; j < MAXIMUM_VALID_Y_COORDINATE; j++) {
+	for (int i = 0; i < MAXIMUM_VALID_X_COORDINATE; ++i)
+	{
+		for (int j = 0; j < MAXIMUM_VALID_Y_COORDINATE; ++j )
+		{
 			numberOfMovableItemsCache[i][j] = INT_MAX;
 		}
 	}
@@ -17177,16 +17179,20 @@ void ReEvaluateEveryonesNothingToDo()
 
 				case MOVE_EQUIPMENT:
 					{
-						// which sector do we want to move stuff to?
-						INT16 targetX = SECTORX( pSoldier->usItemMoveSectorID )-1;
-						INT16 targetY = SECTORY( pSoldier->usItemMoveSectorID )-1;
-
-						if (numberOfMovableItemsCache[targetX][targetY] == INT_MAX)
+						// unfortunately, this check can be quite expensive, so don't always perform it
+						if ( aDoExtensiveCheck )
 						{
-							numberOfMovableItemsCache[targetX][targetY] = GetNumberOfMovableItems(targetX+1, targetY+1, 0);
-						}
+							// which sector do we want to move stuff to?
+							INT16 targetX = SECTORX( pSoldier->usItemMoveSectorID )-1;
+							INT16 targetY = SECTORY( pSoldier->usItemMoveSectorID )-1;
 
-						fNothingToDo = (numberOfMovableItemsCache[targetX][targetY] == 0);
+							if (numberOfMovableItemsCache[targetX][targetY] == INT_MAX)
+							{
+								numberOfMovableItemsCache[targetX][targetY] = GetNumberOfMovableItems(targetX+1, targetY+1, 0);
+							}
+
+							fNothingToDo = (numberOfMovableItemsCache[targetX][targetY] == 0);
+						}
 					}
 					break;
 

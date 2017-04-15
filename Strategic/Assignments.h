@@ -476,7 +476,7 @@ void RebuildAssignmentsBox( void );
 
 void BandageBleedingDyingPatientsBeingTreated( );
 
-void ReEvaluateEveryonesNothingToDo();
+void ReEvaluateEveryonesNothingToDo(BOOLEAN aDoExtensiveCheck = FALSE);
 
 // set assignment for list of characters
 void SetAssignmentForList( INT8 bAssignment, INT8 bParam );
