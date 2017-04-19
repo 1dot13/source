@@ -1227,7 +1227,7 @@ STR16 iEditorItemsToolbarText[] =
 	L"Wpns", //0
 	L"Ammo",
 	L"Armour",
-	L"LBE",
+	L"Разгр.",
 	L"Exp",
 	L"E1",
 	L"E2",
@@ -2211,7 +2211,7 @@ CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 
 CHAR16 WeaponType[MAXITEMS][30] =
 {
-	L"",
+	L"Прочие",
 	L"Пистолет",
 	L"Авт.пистолет",
 	L"ПП",
@@ -2229,11 +2229,11 @@ CHAR16 TeamTurnString[][STRING_LENGTH] =
 	L"Ход Тварей",
 	L"Ход Ополчения",
 	L"Ход Гражданских",
-	L"Player_Plan",// planning turn
-	L"Client №1",//hayden
-	L"Client №2",//hayden
-	L"Client №3",//hayden
-	L"Client №4",//hayden
+	L"Планирование",// planning turn
+	L"Клиент №1",//hayden
+	L"Клиент №2",//hayden
+	L"Клиент №3",//hayden
+	L"Клиент №4",//hayden
 
 };
 
@@ -2354,13 +2354,13 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"Нельзя установить навеску %s на это место.",
 	L"%s не поместится ни в один слот.",
-	L"недостаточно места для этого кармана.",
+	L"Недостаточно места для этого кармана.",
 
 	L"%s отремонтировал(а) %s, насколько это было возможно.",
-	L"%s отремонтировал(а) у наёмника %s предмет %s, насколько это было возможно.",
+	L"%s отремонтировал(а) у наёмника %s %s, насколько это было возможно.",
 
-	L"%s has cleaned the %s.",	// TODO.Translate
-	L"%s has cleaned %s's %s.",
+	L"%s почистил(а) %s.",	// TODO.Translate
+	L"%s почистил(а) у %s %s.",
 };
 
 // the country and its noun in the game
@@ -2460,14 +2460,14 @@ STR16 pAssignmentStrings[] =
 	L"Слухи",	// facility: gather information
 	L"Пропаганда",	// spread propaganda
 	L"Слухи",	// gather information
-	L"Command",	// militia movement orders							//TODO.Translate
-	L"Осмотр", // disease diagnosis	
+	L"Командует",	// militia movement orders
+	L"Осмотр", // disease diagnosis
 	L"Леч.насел.", // treat disease among the population
 	L"Медик",	// administering medical aid
 	L"Пациент",	// getting medical aid
 	L"Ремонт",	// repairing
-	L"Fortify",		// build structures according to external layout	// TODO.Translate
-	L"Train W.",
+	L"Укрепляет",		// build structures according to external layout
+	L"Учит рабочих",
 };
 
 
@@ -2569,8 +2569,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Медик",
 	L"Пациент",
 	L"Ремонт",
-	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
-	L"Train workers",
+	L"Укрепляет сектор",		// build structures according to external layout
+	L"Учит рабочих",
 };
 
 
@@ -2631,8 +2631,8 @@ STR16 pLongAssignmentStrings[] =
 	L"Медик",
 	L"Пациент",
 	L"Ремонтирует",
-	L"Fortify sector",		// build structures according to external layout	// TODO.Translate
-	L"Train workers",
+	L"Укрепляет сектор",		// build structures according to external layout
+	L"Учит рабочих",
 };
 
 
@@ -2706,7 +2706,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 STR16 pTrainingStrings[] =
 {
 	L"Практика", // tell merc to train self 
-    L"Ополчение", // tell merc to train town 
+	L"Ополчение", // tell merc to train town 
 	L"Тренер", // tell merc to act as trainer
 	L"Ученик", // tell merc to be train by other 
 };
@@ -2753,7 +2753,7 @@ STR16 pAssignMenuStrings[] =
 	L"Осведомитель", // anv: snitch actions
 	L"Обучение", // the merc is training
 	L"Носильщик",	// move items
-	L"Fortify",		// fortify sector	// TODO.Translate
+	L"Укреплять",		// fortify sector
 	L"Занятия", // the merc is using/staffing a facility
 	L"Отмена", // cancel this menu
 };
@@ -2820,7 +2820,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %d минут на подготовку\n",
 	L" - позиции миномётов в соседних секторах\n",
 	L" - %s |и|л|и %s |и %s или %s или выше\n"
-	L" - одержимость бесами",
+	L" - одержим бесами",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -2879,7 +2879,7 @@ STR16 pSnitchSectorMenuStrings[] =
 STR16 pSnitchSectorMenuDescStrings[] =
 {
 	L"Прославлять действия наёмников для повышения лояльности. ",
-	L"Тщательно собирать любые слухи о действиях противника.",
+	L"Собирать слухи о действиях противника.",
 	L"",
 };
 
@@ -2954,7 +2954,7 @@ STR16 pTrainingMenuStrings[] =
  L"Практика", // train yourself 
  L"Ополчение", // train the town 
  L"Патрульные",
- L"Train workers",	// TODO.Translate
+ L"Рабочие",	// Train workers
  L"Тренер", // train your teammates 
  L"Ученик",  // be trained by an instructor 
  L"Отмена", // cancel this menu
@@ -3083,11 +3083,11 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Биография:",
 	L"Характер:", 
 
-	L"Prisoners interrogated: %d\n",	// TODO.Translate
-	L"Diseases caught: %d\n",
-	L"Total damage received: %d\n",
-	L"Total damage caused: %d\n",
-	L"Total healing: %d\n",
+	L"Допросил(а): %d\n",
+	L"Заболел(а): %d\n",
+	L"Получено урона: %d\n",
+	L"Нанесено урона: %d\n",
+	L"Вылечено: %d\n",
 };
 
 
@@ -3250,8 +3250,8 @@ STR16 pNoiseVolStr[] =
 
 STR16 pNoiseTypeStr[] = // OBSOLETE
 {
-	L"НЕЗНАКОМЫЙ",
-	L"ЗВУК ШАГОВ",
+	L"НЕПОНЯТНЫЙ",
+	L"ШАГИ",
 	L"СКРИП",
 	L"ВСПЛЕСК",
 	L"УДАР",
@@ -3467,10 +3467,10 @@ STR16 gpStrategicString[] =
 
 	// Flugente: militia movement forbidden due to limited roaming
 	L"Ополчение не может быть сюда перемещено (RESTRICT_ROAMING = TRUE).",
-	L"War room isn't staffed - militia move aborted!",
+	L"War room isn't staffed - militia move aborted!", 	// TODO.Translate
 
 	L"Танк",								//STR_AR_TANK_NAME,
-	L"Jeep",								//STR_AR_JEEP_NAME	// TODO.Translate
+	L"Джип",								//STR_AR_JEEP_NAME
 
 	L"\nВосстановление дыхания в час: %d",	// STR_BREATH_REGEN_SLEEP
 };
@@ -3486,7 +3486,7 @@ STR16 gpGameClockString[] =
 STR16 sKeyDescriptionStrings[2] =
 {
 	L"Найдено в секторе:",
-	L"Найдено за день:",
+	L"День находки:",
 };
 
 //The headers used to describe various weapon statistics.
@@ -3518,7 +3518,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 	L"Предустановка:",	//17 //WarmSteel - So we can also display default attachments
 	L"Нагар:",	// 18
 	L"Место:", // 19 //space left on Molle items
-	L"Spread Pattern:",	// 20	// TODO.Translate
+	L"Разброс:",	// 20
 
 };
 
@@ -3973,7 +3973,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// added by Flugente: decide what to do with prisoners
 	L"У вас нет тюрьмы для содержания заключённых, придётся отпустить их",
-	L"Where do you want to send the %d prisoners?",			// TODO.Translate
+	L"Куда отправить %d пленного(-иков)?",
 	L"Отпустить",
 	L"Что вы хотите сделать?",
 	L"Требовать сдаться",
@@ -4008,11 +4008,11 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
     L"Предмет не обнаружен",
     L"Невозможно взять предмет в руку",
 
-	L"Attempting to bandage travelling mercs...",	//TODO.Translate
+	L"Перевязка идуших бойцов...",
 
-	L"Improve gear",
-	L"%s changed %s for superior version",
-	L"%s picked up %s",	// TODO.Translate
+	L"Комплектовать",
+	L"%s скомплевтовал %s",
+	L"%s поднял %s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -4312,7 +4312,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Ополчение и враги (|Z)",
 	L"Патруль ополчения (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Очаги заболеваний",
-	L"Show Weather",	// TODO.Translate
+	L"Погода",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -4689,7 +4689,7 @@ STR16 pMapErrorString[] =
 	L"Машина сильно повреждена!",
 	L"Внимание! Тренировать ополченцев в одном секторе могут не более двух наёмников.",
 	L"Роботом обязательно нужно управлять. Назначьте наёмника с пультом и робота в один отряд.",
-	L"Items cannot be moved to %s, as no valid dropoff point was found. Please enter map to resolve this issue.",	// TODO.Translate
+	L"Невозможно переместить вещи в %s, непонятно куда складывать. Зайдите в сектор, чтобы исправить.",
 // 51-55
 	L"%d items moved from %s to %s",
 };
@@ -4772,7 +4772,7 @@ STR16 pImpPopUpStrings[] =
 	L"Вы не можете позволить себе такой I.M.P.-персонаж.",	// 10
 	L"Новый I.M.P.-персонаж присоединился к команде.",
 	L"Вы уже выбрали максимальное количество навыков.",
-	L"No voicesets found.",	// TODO.Translate
+	L"Голоса не найдены.",
 };
 
 
@@ -4997,7 +4997,7 @@ STR16 pBookMarkStrings[] =
 	L"БоЛТиК",
 	L"ВОЗ",
 	L"Цербер",
-	L"Militia Overview",	// TODO.Translate
+	L"Ополчение",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5027,10 +5027,10 @@ STR16 gsAtmSideButtonText[] =
 
 STR16 gsAtmStartButtonText[] =
 {
-	L"Перевести $", 		// transfer money to merc -- short form
 	L"Параметры", 			// view stats of the merc
-	L"Снаряжение", 			// view the inventory of the merc
+	L"Отношения",
 	L"Контракт",
+	L"Снаряжение", 			// view the inventory of the merc
 };
 
 STR16 sATMText[ ]=
@@ -5114,14 +5114,15 @@ STR16 pWebPagesTitles[] =
 	L"\"Бойцы Любят Тебя или Клянут\" Анализ команды",
 	L"\"Бойцы Любят Тебя или Клянут\" Парные сравнения",
 	L"\"Бойцы Любят Тебя или Клянут\" Комментарии",
+	L"\"Бойцы Любят Тебя или Клянут\" О нас",
 	L"ВОЗ",
 	L"ВОЗ - Заболевания в Арулько",
 	L"ВОЗ - Полезно знать",
 	L"Цербер",
 	L"Цербер - Найм команды",
 	L"Цербер - Индивидуальные контракты",
-	L"Militia Roster",			// TODO.Translate
-	L"Militia Statistics",
+	L"Список ополчения",
+	L"Статистика ополчения",
 	L"Бобби Рэй - последние поступления",
 	L"Энциклопедия",
 	L"Энциклопедия - данные",
@@ -6004,7 +6005,7 @@ STR16 SKI_Text[ ] =
 	L"Вам уже некуда класть вещи.",	//Message box that tells the user there is no more room to put there stuff
 	L"%d МИНУТ",			// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"Выбросить предмет на землю.",
-	L"BUDGET",	// TODO.Translate
+	L"БЮДЖЕТ",
 };
 
 //ShopKeeper Interface
@@ -6190,7 +6191,7 @@ STR16		zMarksMapScreenText[] =
 	L"Здесь показаны вспышки заболеваний по секторам. Число указывает средний показатель инфекции на человека, цвет - насколько широко распространена инфекция. СЕРЫЙ= нет информации о заболеваемости. ЗЕЛЁНЫЙ - КРАСНЫЙ = уровень роста заболеваемости.",
 
 	// Flugente: weather texts describing what a map view does
-	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",	// TODO.Translate
+	L"Здесь паказана актуальная погода. Без цвета=солнечно, зеленый=дождь, Синий=Гроза, Оранжевый=песчаная буря, Белый=снег.",
 };
 
 
@@ -6535,7 +6536,7 @@ STR16	gzMPJScreenText[] =
 	L"# Plrs",
 	L"Версия",	//Version
 	L"Тип игры",	//Game Type
-	L"Ping",
+	L"Пинг",	//Ping
 	L"Впишите имя игрока.",
 	L"Впишите корректный IP адрес. (пример 84.114.195.239).",
 	L"Впишите корректный порт сервера (используйте диапазон от 1 до 65535).",
@@ -6570,7 +6571,7 @@ STR16	gzMPHScreenText[] =
 	L"Co-Operative",
 	L"Количество игроков",				//Max Players
 	L"Солдат в отряде",				//Maximum Mercs
-	L"Merc Selection",
+	L"Выбор бойцов",
 	L"Найм бойцов",
 	L"Нанят игроком",				//Hired by Player
 	L"Деньги при старте",			//Starting Cash
@@ -6920,8 +6921,8 @@ STR16 gzLaptopHelpText[] =
 	L"События и факты. Арулькийские новости",
 	L"Бойцы Любят Тебя или Клянут",
 	L"Всемирная организация здравоохранения",
-	L"Kerberus - Experience In Security",
-	L"Militia Overview",	// TODO.Translate
+	L"Цербер - Опыт в безопасности",
+	L"Ополчение",
 };
 
 
@@ -7081,7 +7082,7 @@ STR16 sRepairsDoneString[] =
 	L"%s: завершён ремонт всех малых вещей отряда.",
 	L"%s: завершён ремонт всех мелких вещей отряда.",
 	L"%s: завершён ремонт разгрузочных систем отряда.",
-	L"%s finished cleaning everyone's guns.",	// TODO.Translate
+	L"%s: завершена чистка всего оружия отряда.",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -7128,7 +7129,7 @@ STR16 gzLateLocalizedString[] =
 
 	//14
 #ifdef JA2UB
-	L"Tracona",
+	L"Тракона",
 #else
 	L"Арулько",
 #endif
@@ -7407,8 +7408,8 @@ STR16 New113HAMMessage[] =
 	L"%s имеет недостаточно интеллекта для этого занятия.",
 	L"Учереждение %s полностью укомплектованно персоналом.",
 	L"Один час этого назначения обойдётся вам в $%d. Согласны оплачивать?",
-    L"У вас недостаточно денег, чтобы оплатить за сегодня. $%d выплачено, ещё нужно $%d. Местным это не понравилось.",
-    L"У вас недостаточно денег, чтобы выплатить заработную плату всем рабочим. Теперь долг составил $%d. Местным это не понравилось.",
+	L"У вас недостаточно денег, чтобы оплатить за сегодня. $%d выплачено, ещё нужно $%d. Местным это не понравилось.",
+	L"У вас недостаточно денег, чтобы выплатить заработную плату всем рабочим. Теперь долг составил $%d. Местным это не понравилось.",
 	// 16 - 20
 	L"Непогашенный долг составляет $%d, и нет денег, чтобы его погасить!",
 	L"Непогашенный долг составляет $%d. Вы не можете выбрать это назначение, пока не погасите задолженность.",
@@ -7545,10 +7546,10 @@ STR16 NewInvMessage[] =
 	L"Вы уверены, что хотите продать весь хлам этого сектора голодающему населению Арулько?",
 	L"Вы уверены, что хотите выбросить весь хлам, валяющийся в этом секторе?",
 	L"Тяжеловато будет взбираться с полным рюкзаком на крышу. Может, снимем?",
-	L"Все рюкзаки сброшены",
-	L"Все рюкзаки подняты",
-	L"%s drops backpack",
-	L"%s picks up backpack",
+	L"Все рюкзаки сняты",
+	L"Все рюкзаки надеты",
+	L"%s снял(а) рюкзак",
+	L"%s надел(а) рюкзак",
 };
 
 // WANNE - MP: Multiplayer messages
@@ -7773,7 +7774,7 @@ STR16 pCharacterTraitBeginIMPStrings[] =
 {
 	L"I.M.P.: Анализ личных качеств",	//I.M.P. Character Analysis
 	L"Следующий шаг - анализ ваших личных качеств. На первой странице вам на выбор будет предложен список черт характера. Уверены, что вам могут быть свойственны несколько из указанных черт, но выбрать нужно лишь одну. Выберите лишь самую ярко выраженную вашу черту характера.",
-	L"На второй странице вам будет предложен список недостатков, которые, возможно, есть у вас. Если найдёте свой недостаток в списке, отметьте его. Будьте предельно честны при ответах, очень важно предоставить вашим потенциальным работодателям достоверную информацию о вас.",
+	L"На второй странице вам будет предложен список проблем, которые, возможно, есть у вас. Если найдёте свою проблемы в списке, отметьте её. Будьте предельно честны при ответах, очень важно предоставить вашим потенциальным работодателям достоверную информацию о вас.",
 };
 
 STR16 gzIMPAttitudesText[]=
@@ -7806,7 +7807,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"Миролюбивый",	//Pacifist
 	L"Злобный",	//Malicious
 	L"Хвастун",	//Show-off
-	L"Coward",	// TODO.Translate
+	L"Трус",
 	L"I.M.P.: Личностные качества",	//I.M.P. Character Traits
 };
 
@@ -7832,7 +7833,7 @@ STR16 sColorChoiceExplanationTexts[]=
 
 STR16 gzIMPDisabilityTraitText[]=
 {
-	L"Идеален",		//No Disability
+	L"Нет проблем",		//No Disability
 	L"Непереносимость жары",	//Heat Intolerant
 	L"Нервный",		//Nervous
 	L"Клаустрафоб",	//Claustrophobic
@@ -7840,12 +7841,12 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Боязнь насекомых",	//Fear of Insects
 	L"Забывчивый",		//Forgetful
 	L"Психопат",		//Psychotic
-	L"Глухой",
-	L"Близорукий",
-	L"Hemophiliac",		// TODO.Translate
-	L"Fear of Heights",
-	L"Self-Harming",
-	L"I.M.P.: Недостатки",	//I.M.P. Disabilities
+	L"Глухой",		//Deaf
+	L"Близорукий",		//Shortsighted
+	L"Гемофилик",		// Hemophiliac
+	L"Боязнь высоты",		// Fear of Heights
+	L"Самоистезание",		// Self-Harming
+	L"I.M.P.: Проблемы",	//I.M.P. Disabilities
 };
 
 STR16 gzIMPDisabilityTraitEmailTextDeaf[] =
@@ -7860,22 +7861,22 @@ STR16 gzIMPDisabilityTraitEmailTextShortSighted[] =
 	L"Это случается, если проводить много времени перед светящимися прямоугольниками. Нужно было есть больше морковок. Вы когда-нибудь видели кролика в очках?",
 };
 
-STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =	// TODO.Translate
+STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =
 {
-	L"Are you SURE this is the right job for you?",
-	L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
+	L"Вы УВЕРЕНЫ, что это подходящая работа для Вас?",
+	L"Разве что Вы так круты, что никогда не получаете ран или сражаетесь только в хорошо оснащенном госпитале.",
 };
 
-STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[]=	// TODO.Translate
+STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[]=
 {
-	L"Let's just say you are a grounded person.",
-	L"You prefer missions where you don't have to scale tall buildings or mountains. We recommend conquering the Netherlands.",
+	L"Скажем просто, вы любите быть только на твердой земле.",
+	L"Вам больше нравятся миссии, в которых не надо покорять горы и лезть на высокие здания. Рекомендуем завоевать Голландию.",
 };
 
 STR16 gzIMPDisabilityTraitEmailTextSelfHarm[] =
 {
-	L"Might want to make sure your knives are always clean.",
-	L"You have some issues with knives. Not that you tend to avoid them, quite the opposite, really.",
+	L"Возможно вы хотите убедиться в чистоте ваших ножей.",
+	L"У вас определенные проблемы с ножами. Т.е. вы не избегаете из, а даже наоборот, серьезно!",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
@@ -8221,7 +8222,7 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nЧисло ОД, необходимых для автоматической\nстрельбы тремя пулями.\n \nЕсли вы хотите выстрелить большим\nчислом пуль, то вам необходимо затратить\nбольшее число ОД.\n \nЕсли эта иконка серого цвета, то автоматическая\nстрельба недоступна для этого оружия.\n \nМеньше - лучше.",
 	L"\n \nЧисло ОД, необходимых для перезарядки\nэтого оружия.\n \nМеньше - лучше.",
 	L"\n \nЧисло ОД, необходимых для досылания\nпатрона в патронник между выстрелами.\n \nМеньше - лучше.",
-	L"\n \nThe distance this weapon's muzzle will shift\nhorizontally between each and every bullet in a\nburst or autofire volley.\n \nPositive numbers indicate shifting to the right.\nNegative numbers indicate shifting to the left.\n \nCloser to 0 is better.", // No longer used
+	L"\n \nДистанция на которую может сместиться дуло\nв горизонтале между каждой пулей\n в очереди.\n \nПоложительное число указывает на смещение вправо.\nОтрицательное число указывает на смещение влево.\n \nЧем ближе к нулю, тем лучше.", // No longer used
 	L"\n \nРасстояние, на которое сдвинется ствол\nпри каждом выстреле в режиме очереди\nили автоматической стрельбы, если не задействуется\nсистема противодействия.\n \nМеньше - лучше.",
 	L"\n \nУказывает, какое количество пуль будет\nдобавлено к очереди или залпу при автоматической\nстрельбе за каждые 5 ОД.\n \nБольше - лучше.",
 	L"\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
@@ -8676,13 +8677,13 @@ STR16 gzMercCompare[] =
 	L"Лютый сексист",			// 10
 	L"Сексист",
 
-	L"Dislikes other background",
-	L"Dislikes other backgrounds",
+	L"Не нравится другое прошлое",
+	L"Не нравится другое прошлое",
 
 	L"Затаил обиду",	//Past grievances
 	L"____",				// 15
 	L"/",
-	L"* Opinion is always in [%d; %d]",		// TODO.Translate
+	L"* Мнение всегда между [%d; %d]",
 };
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
@@ -8814,8 +8815,8 @@ STR16	szCovertTextStr[]=
 	L"%s: маскировка не выдержит проверки.",
 	L"%s был пойман на краже!",
 	L"%s пытался залезть в инвентарь %s.",
-	L"An elite soldier did not recognize %s!",	// TODO.Translate
-	L"A officer knew %s was unfamiliar!",
+	L"Элитный солдат не распознал %s!",	// TODO.Translate
+	L"Офицер не знаком с %s!",
 };
 
 STR16	szCorpseTextStr[]=
@@ -8863,7 +8864,7 @@ STR16	szPrisonerTextStr[]=
 	L"Противник отказывается взять вас в плен - они предпочли бы видеть вас мертвыми!",
 	L"Этот режим отключен в настройках.",
 	L"%s освободил %s!",
-	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
+	L"В %s был раскрыт высокопоставленный офицер!",
 	L"Вражеский командир отказывается даже подумать о сдаче!",
 	L"%d заключенных добровольно присоединились к нашим силам.",
 };
@@ -8873,7 +8874,7 @@ STR16	szMTATextStr[]=
 	L"ничего",
 	L"укрепление строится",
 	L"укрепление убирается",
-	L"hacking",	// TODO.Translate
+	L"взлом",
 	L"%s был вынужден прекратить %s.",
 	L"Выбранное укрепление не может быть построено в этом секторе",
 };
@@ -8909,8 +8910,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% ОД в пустынных секторах\n",	
 	L" %s%d%% ОД в болотных секторах\n",
 	L" %s%d%% ОД в городских секторах\n",
-	L" %s%d%% APs in forest sectors\n",	// TODO.Translate
-	L" %s%d%% APs in plain sectors\n",
+	L" %s%d%% ОД в лесных секторах\n",
+	L" %s%d%% ОД на равнинных секторах\n",
 	L" %s%d%% ОД в речных секторах\n",
 	L" %s%d%% ОД в тропических секторах\n",
 	L" %s%d%% ОД в секторах на побережье\n",
@@ -8952,7 +8953,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% к силе капитуляции при ведении переговоров\n",
 	L" %s%d%% быстрее бег\n",
 	L" %s%d%% скорость перевязки\n",
-	L" %s%d%% breath regeneration\n",	// TODO.Translate
+	L" %s%d%% востановление дыхания\n",
 	L" %s%d%% сила для переноски вещей\n",
 	L" %s%d%% потребление еды\n",
 	L" %s%d%% потребление воды\n",
@@ -8980,14 +8981,14 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% эффективность в лечении населения от болезней\n",
 	L"Замечает следы на расстоянии до %d метров\n",
 	L" %s%d%% начальное расстояние до противника в засаде\n",
-	L" %s%d%% chance to evade snake attacks\n",	// TODO.Translate
+	L" %s%d%% шанс избежать укуса змей\n",
 
-	L" dislikes some other backgrounds\n",	// TODO.Translate
+	L" не нравиться другое прошлое\n",
 	L"Курит",
 	L"Не курит",
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
-	L" %s%d%% building speed\n",
-	L" hacking skill: %s%d ",	// TODO.Translate
+	L" %s%d%% кровотечение\n",
+	L" Взлом: %s%d ",
 };
 
 STR16		szBackgroundTitleText[] = 
@@ -9258,15 +9259,15 @@ STR16	szCampaignHistoryDetail[]=
 {
 	L"%s, %s %s %s в %s.",
 
-	L"повстанцы",
+	L"ополченцы",
 	L"армия",
 
-	L"атакован",
+	L"атаковали",
 	L"попал в засаду",
 	L"высадился",
 		
 	L"Атака осуществлена с %s.",
-	L"%s подкрепления пришли с %s.",
+	L"Подкрепление для %s пришли с %s.",
 	L"Атакованы с %s, %s получили подкрепления с %s.",
 	L"севера",
 	L"востока",
@@ -9284,7 +9285,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"В результате серьезной эскалации конфликта отмечается использование танков обеими сторонами.",
 	L"%d танков было использовано %s, %d было уничтожено в ожесточенном бою.",
 	L"Обе стороны утверждают, что использовали снайперов.",
-	L"По непроверенным данным, в столкновении участвовало %s снайперов.",
+	L"По непроверенным данным, у %s в столкновении участвовали снайперы.",
 	L"Этот сектор имеет большое стратегическое значение, поскольку в нем расположена одна из батарей ПВО, которыми располагает армия %s. Аэрофотосьемка показывает, что центр управления получил серьезные повреждения. В результате воздушное пространство над %s некоторое время будет незащищенным.",
 	L"Ситуация становится все более запутанной, так как, судя по всему, разногласия между повстанцами достигли серьезного уровня. У нас есть подтверждение, что между повстанцами и иностранными наёмниками произошел бой.",
 	L"Положение правительственных войск оказалось более шатким, чем представлялось ранее. Есть свидетельства раскола и стрельбы между армейскими подразделениями.",
@@ -9382,372 +9383,372 @@ STR16	szCampaignHistoryWebpageString[]=
 
 STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 {
-	L"Glorious %s",
-	L"Mighty %s",
-	L"Awesome %s",
-	L"Intimidating %s",
+	L"Славный %s",
+	L"Мощный %s",
+	L"Грозный %s",
+	L"Пугающий %s",
 
-	L"Powerful %s",
-	L"Earth-Shattering %s",
-	L"Insidious %s",
-	L"Swift %s",
+	L"Могучий %s",
+	L"Поразительный %s",
+	L"Вероломный %s",
+	L"Скорый %s",
 
-	L"Violent %s",
-	L"Brutal %s",
-	L"Relentless %s",
-	L"Merciless %s",
+	L"Неистовый %s",
+	L"Жестокий %s",
+	L"Безжалостный %s",
+	L"Беспощадный %s",
 
-	L"Cannibalistic %s",
-	L"Gorgeous %s",
-	L"Rogue %s",
-	L"Dubious %s",
+	L"Каннибальский %s",
+	L"Великолепный %s",
+	L"Плутливый %s",
+	L"Неясный %s",
 
-	L"Sexually Ambigious %s",
-	L"Burning %s",
-	L"Enraged %s",
-	L"Visonary %s",
+	L"Неопределенный %s",
+	L"Сжигающий %s",
+	L"Разгневанный %s",
+	L"Воображаемый %s",
 
 	// 20
-	L"Gruseome %s",
-	L"International-law-ignoring %s",
-	L"Provoked %s",
-	L"Ceaseless %s",
+	L"Ужастный %s",
+	L"Плевать-на-право %s",
+	L"Спровоцированный %s",
+	L"Непрестанный %s",
 
-	L"Inflexible %s",
-	L"Unyielding %s",
-	L"Regretless %s",
-	L"Remorseless %s",
+	L"Жесткий %s",
+	L"Упорный %s",
+	L"Безрассудный %s",
+	L"Невозможный %s",
 
-	L"Choleric %s",
-	L"Unexpected %s",
-	L"Democratic %s",
-	L"Bursting %s",
+	L"Страшнейший %s",
+	L"Внезапный %s",
+	L"Демократический %s",
+	L"Разрывной %s",
 
-	L"Bipartisan %s",
-	L"Bloodstained %s",
-	L"Rouge-wearing %s",
-	L"Innocent %s",
+	L"Двухпартийный %s",
+	L"Кровавый %s",
+	L"Румяный %s",
+	L"Невинный %s",
 
-	L"Hateful %s",
-	L"Underwear-staining %s",
-	L"Civilian-devouring %s",
-	L"Unflinching %s",
+	L"Злобный %s",
+	L"Дразнящий %s",
+	L"Уничтожающий %s",
+	L"Стойкий %s",
 
 	// 40
-	L"Expect No Mercy From Our %s",
-	L"Very Mad %s",
-	L"Ultimate %s",
-	L"Furious %s",
+	L"Немилосердный %s",
+	L"Сумасшедший %s",
+	L"Окончательный %s",
+	L"Яростный %s",
 
-	L"Its best to Avoid Our %s",
-	L"Fear the %s",
-	L"All Hail the %s!",
-	L"Protect the %s",
+	L"Лучше избежать нашего %s",
+	L"Страшный %s",
+	L"Благодарный %s!",
+	L"Защитить %s",
 
-	L"Beware the %s",
-	L"Crush the %s",
-	L"Backstabbing %s",
-	L"Vicious %s",
+	L"Внимательный %s",
+	L"Крушаший %s",
+	L"Колющий %s",
+	L"Побеждающий %s",
 
-	L"Sadistic %s",
-	L"Burning %s",
-	L"Wrathful %s",
-	L"Invincible %s",
+	L"Садистский %s",
+	L"Горящий %s",
+	L"Гневный %s",
+	L"Невидимый %s",
 
-	L"Guilt-ridden %s",
-	L"Rotting %s",
-	L"Sanitized %s",
-	L"Self-doubting %s",
+	L"Виновный %s",
+	L"Гниющий %s",
+	L"Очищающий %s",
+	L"Беспокойный %s",
 
 	// 60
-	L"Ancient %s",
-	L"Very Hungry %s",
-	L"Sleepy %s",
-	L"Demotivated %s",
+	L"Страый %s",
+	L"Голодный %s",
+	L"Спящий %s",
+	L"Угрюмый %s",
 
-	L"Cruel %s",
-	L"Annoying %s",
-	L"Huffy %s",
-	L"Bisexual %s",
+	L"Гибкий %s",
+	L"Назойливый %s",
+	L"Обиженный %s",
+	L"Привлекательный %s",
 
-	L"Screaming %s",
-	L"Hideous %s",
-	L"Praying %s",
-	L"Stalking %s",
+	L"Кричащий %s",
+	L"Прячущийся %s",
+	L"Молящийся %s",
+	L"Бродящий %s",
 
-	L"Cold-blooded %s",
-	L"Fearsome %s",
-	L"Trippin' %s",
-	L"Damned %s",
+	L"Хладнокровный %s",
+	L"Бесстрашный %s",
+	L"Быстроногий %s",
+	L"Праклятый %s",
 
-	L"Vegetarian %s",
-	L"Grotesque %s",
-	L"Backward %s",
-	L"Superior %s",
+	L"Вегетарианский %s",
+	L"Нелепый %s",
+	L"Отсталый %s",
+	L"Превосходный %s",
 
 	// 80
-	L"Inferior %s",
-	L"Okay-ish %s",
-	L"Porn-consuming %s",
-	L"Poisoned %s",
+	L"Героический %s",
+	L"Подходящий %s",
+	L"Смотрящий %s",
+	L"Отравленный %s",
 
-	L"Spontaneous %s",
-	L"Lethargic %s",
-	L"Tickled %s",
-	L"The %s is a dupe!",
+	L"Неожиданный %s",
+	L"Продолжительный %s",
+	L"Веселящий %s",
+	L"%s - обмен!",
 
-	L"%s on Steroids",
-	L"%s vs. Predator",
-	L"A %s with a twist",
-	L"Self-Pleasuring %s",
+	L"%s на стероидах",
+	L"%s против Прищельцев",
+	L"%s с твистом",
+	L"Удовлетворяющий %s",
 
-	L"Man-%s hybrid",
-	L"Inane %s",
-	L"Overpriced %s",
-	L"Midnight %s",
+	L"Гибрид Человек-%s",
+	L"Пустынный %s",
+	L"Дорогой %s",
+	L"Полуночный %s",
 
-	L"Capitalist %s",
-	L"Communist %s",
-	L"Intense %s",
-	L"Steadfast %s",
+	L"Капиталистический %s",
+	L"Коммунистический %s",
+	L"Значительный %s",
+	L"Устойчивый %s",
 
 	// 100
-	L"Narcoleptic %s",		// TODO.Translate
-	L"Bleached %s",
-	L"Nail-biting %s",
-	L"Smite the %s",
+	L"Ннарколептический %s",
+	L"Отбеливающий %s",
+	L"Дробящий %s",
+	L"Бьющий %s",
 
-	L"Bloodthirsty %s",
-	L"Obese %s",
-	L"Scheming %s",
-	L"Tree-Humping %s",
+	L"Кровожадный %s",
+	L"Тучный %s",
+	L"Лукавый %s",
+	L"Древовидный %s",
 
-	L"Cheaply made %s",
-	L"Sanctified %s",
-	L"Falsely accused %s",
-	L"%s to the rescue",
+	L"Дешевый %s",
+	L"Удовлетворенный %s",
+	L"Ложный %s",
+	L"%s в помощь",
 
-	L"Crab-people vs. %s",
-	L"%s in Space!!!",
-	L"%s vs. Godzilla",
-	L"Untamed %s",
+	L"Крабы против %s",
+	L"%s в космосе!!!",
+	L"%s против Годзиллы",
+	L"Ннеукрощённый %s",
 
-	L"Durable %s",
-	L"Brazen %s",
-	L"Greedy %s",
-	L"Midnight %s",
+	L"Надёжный %s",
+	L"Медный %s",
+	L"Алчный %s",
+	L"Ночной %s",
 
 	// 120
-	L"Confused %s",
-	L"Irritated %s",
-	L"Loathsome %s",
-	L"Manic %s",
+	L"Мешающий %s",
+	L"Сердитый %s",
+	L"Противный %s",
+	L"Мманиакальный %s",
 
-	L"Ancient %s",
-	L"Sneaking %s",
-	L"%s of Doom",
-	L"%s's revenge",
+	L"Древний %s",
+	L"Крадущийся %s",
+	L"%s Рока",
+	L"Месть %s",
 
-	L"A %s on the run",
-	L"A %s out of time",
-	L"One with %s",
-	L"%s from hell",
+	L"%s в бегах",
+	L"%s вне времени",
+	L"Один с %s",
+	L"%s из Ада",
 
-	L"Super-%s",
-	L"Ultra-%s",
-	L"Mega-%s",
-	L"Giga-%s",
+	L"Супер-%s",
+	L"Ультра-%s",
+	L"Мега-%s",
+	L"Гига-%s",
 
-	L"A quantum of %s",
-	L"Her Majesties' %s",
-	L"Shivering %s",
-	L"Fearful %s",
+	L"Частичный %s",
+	L"Отличный %s",
+	L"Дрожащий %s",
+	L"Ободряющий %s",
 
 	// 140
 };
 
 STR16	szCampaignStatsOperationSuffix[] =
 {
-	L"Dragon",
-	L"Mountain Lion",
-	L"Copperhead Snake",
-	L"Jack Russell Terrier",
+	L"Дракон",
+	L"Горный Лев",
+	L"Красноголовый Змей",
+	L"Терьерь Рассела",
 
-	L"Arch-Nemesis",
-	L"Basilisk",
-	L"Blade",
-	L"Shield",
+	L"Грод Немезида",
+	L"Василиск",
+	L"Клинок",
+	L"Щит",
 
-	L"Hammer",
-	L"Spectre",
-	L"Congress",
-	L"Oilfield",
+	L"Молот",
+	L"Призрак",
+	L"Конкресс",
+	L"Нефтяной Бур",
 
-	L"Boyfriend",
-	L"Girlfriend",
-	L"Husband",
-	L"Stepmother",
+	L"Друг",
+	L"Товарищ",
+	L"Муж",
+	L"Тесть",
 
-	L"Sand Lizard",
-	L"Bankers",
-	L"Anaconda",
-	L"Kitten",
+	L"Дюнный Змей",
+	L"Банкир",
+	L"Удав",
+	L"Кот",
 
 	// 20
-	L"Congress",
-	L"Senate",
-	L"Cleric",
-	L"Badass",
+	L"Съезд",
+	L"Сенат",
+	L"Церковник",
+	L"Задира",
 
-	L"Bayonet",
-	L"Wolverine",
-	L"Soldier",
-	L"Tree Frog",
+	L"Штык",
+	L"Волк",
+	L"Солдат",
+	L"Древестник",
 
-	L"Weasel",
-	L"Shrubbery",
-	L"Tar pit",
-	L"Sunset",
+	L"Писец",
+	L"Куст",
+	L"Асфальт",
+	L"Закат",
 
-	L"Hurricane",
-	L"Ocelot",
-	L"Tiger",
-	L"Defense Industry",
+	L"Ураган",
+	L"Оцелот",
+	L"Тигр",
+	L"Завод",
 
-	L"Snow Leopard",
-	L"Megademon",
-	L"Dragonfly",
-	L"Rottweiler",
+	L"Леопард",
+	L"Демон",
+	L"Овод",
+	L"Ротвейлер",
 
 	// 40
-	L"Cousin",
-	L"Grandma",
-	L"Newborn",
-	L"Cultist",
+	L"Кузен",
+	L"Дед",
+	L"Новорожденный",
+	L"Сектант",
 
-	L"Disinfectant",
-	L"Democracy",
-	L"Warlord",
-	L"Doomsday Device",
+	L"Антибиотик",
+	L"Демократ",
+	L"Полкоодец",
+	L"Молот Судного Дня",
 
-	L"Minister",
-	L"Beaver",
-	L"Assassin",
-	L"Rain of Burning Death",
+	L"Министр",
+	L"Бобр",
+	L"Террорист",
+	L"Дождь Смерти",
 
-	L"Prophet",
-	L"Interloper",
-	L"Crusader",
-	L"Administration",
+	L"Пророк",
+	L"Торговец",
+	L"Крестоносец",
+	L"Управленец",
 
-	L"Supernova",
-	L"Liberty",
-	L"Explosion",
-	L"Bird of Prey",
+	L"Пульсар",
+	L"Отпуск",
+	L"Взрыв",
+	L"Хищник",
 
 	// 60
-	L"Manticore",
-	L"Frost Giant",
-	L"Celebrity",
-	L"Middle Class",
+	L"Мантикор",
+	L"Ледяной Гигант",
+	L"Антракт",
+	L"Средний Класс",
 
-	L"Loudmouth",
-	L"Scape Goat",
-	L"Warhound",
-	L"Vengeance",
+	L"Крикун",
+	L"Козел",
+	L"Пес",
+	L"Ответ",
 
-	L"Fortress",
-	L"Mime",
-	L"Conductor",
-	L"Job-Creator",
+	L"Бункер",
+	L"Мим",
+	L"Проводник",
+	L"Работодатель",
 
-	L"Frenchman",
-	L"Superglue",
-	L"Newt",
-	L"Incompetency",
+	L"Француз",
+	L"Момент",
+	L"Тритон",
+	L"Дурак",
 
-	L"Steppenwolf",
-	L"Iron Anvil",
-	L"Grand Lord",
-	L"Supreme Ruler",
+	L"Степной Волк",
+	L"Железный Молот",
+	L"Лорд",
+	L"Правитель",
 
 	// 80
-	L"Dictator",
-	L"Old Man Death",
-	L"Shredder",
-	L"Vacuum Cleaner",
+	L"Диктатор",
+	L"Старик",
+	L"Измельчитель",
+	L"пылесос",
 
-	L"Hamster",
-	L"Hypno-Toad",
-	L"Discjockey",
-	L"Undertaker",
+	L"Хомяк",
+	L"Гипноз",
+	L"Диджей",
+	L"Uробовщик",
 
-	L"Gorgon",
-	L"Child",
-	L"Mob",
-	L"Raptor",
+	L"Гном",
+	L"Ребенок",
+	L"Гангстер",
+	L"Мясоед",
 
-	L"Goddess",
-	L"Gender Inequality",
-	L"Mole",
-	L"Baby Jesus",
+	L"Бог",
+	L"Гендер",
+	L"Моль",
+	L"Малыш",
 
-	L"Gunship",
-	L"Citizen",
-	L"Lover",
-	L"Mutual Fund",
+	L"Самолет",
+	L"Гражданин",
+	L"Любовни",
+	L"Фонд",
 
 	// 100
-	L"Uniform",			// TODO.Translate
-	L"Saber",
-	L"Snow Leopard",
-	L"Panther",
+	L"Формат",
+	L"Меч",
+	L"Барс",
+	L"Ирбис",
 
-	L"Centaur",
-	L"Scorpion",
-	L"Serpent",
-	L"Black Widow",
+	L"Кентавр",
+	L"Скорпион",
+	L"Серпент",
+	L"Черный Паук",
 
-	L"Tarantula",
-	L"Vulture",
-	L"Heretic",
-	L"Zombie",
+	L"Тарантул",
+	L"Гриф",
+	L"Еретик",
+	L"Кретин",
 
-	L"Role-Model",
-	L"Hellhound",
-	L"Mongoose",
-	L"Nurse",
+	L"Образец",
+	L"Цербер",
+	L"Мангуст",
+	L"Ухажер",
 
-	L"Nun",
-	L"Space Ghost",
-	L"Viper",
-	L"Mamba",
+	L"Монах",
+	L"Скиталец",
+	L"Гад",
+	L"Сом",
 
 	// 120
-	L"Sinner",
-	L"Saint",
-	L"Comet",
-	L"Meteor",
+	L"Греховник",
+	L"Праведник",
+	L"Астероид",
+	L"Метеор",
 
-	L"Can of worms",
-	L"Fish oil pills",
-	L"Breastmilk",
-	L"Tentacle",
+	L"Клубок Проблем",
+	L"Рыбий Жир",
+	L"Молочник",
+	L"Ус",
 
-	L"Insanity",
-	L"Madness",
-	L"Cough reflex",
-	L"Colon",
+	L"Псих",
+	L"Безумец",
+	L"рефлекс",
+	L"Знак",
 
-	L"King",
-	L"Queen",
-	L"Bishop",
-	L"Peasant",
+	L"Король",
+	L"Принц",
+	L"Епископ",
+	L"Раб",
 
-	L"Tower",
-	L"Mansion",
-	L"Warhorse",
-	L"Referee",
+	L"Оплот",
+	L"Дворец",
+	L"Конь",
+	L"Суд",
 
 	// 140
 };
@@ -9758,17 +9759,18 @@ STR16	szMercCompareWebSite[] =
 	L"Бойцы Любят Тебя или Клянут",
 	L"Ваш эксперт №1 по сплочению комманды",
 
-	L" Кто мы?",
-	L" Анализ команды",
-	L" Парные сравнения",
-	L" Отзывы клиентов",
+	L"Кто мы?",
+	L"Анализ команды",
+	L"Парные сравнения",
+	L"Персоналии",
+	L"Отзывы клиентов",
 
-	L"   Если ваш бизнес предполагает инновационные решения для критических приложений, работающих в режиме реального времени, возможно, некоторые из этих наблюдений будут вам знакомы:",
+	L"Если ваш бизнес предполагает инновационные решения для критических приложений, работающих в режиме реального времени, возможно, некоторые из этих наблюдений будут вам знакомы:",
 	L"Ваша команда борется сама с собой.",
 	L"Ваши сотрудники тратят время мешая друг другу.",
 	L"В вашем коллективе большая текучесть кадров.",
 	L"Вы постоянно получаете низкие оценки по удовлетворенности персонала работой.",	
-	L"   Если вы столкнулись хотя бы с одной из этих ситуаций, то, возможно, в вашем деле есть проблемы. И скорее всего, ваши сотрудники не станут работать в полную силу. Но благодаря нашей запатентованной и простой для понимания системе \"БоЛТиК\", вы сможете  вернуть производительность и счастливые улыбки на лицах всех ваших сотрудников в мгновение ока!",
+	L"Если вы столкнулись хотя бы с одной из этих ситуаций, то, возможно, в вашем деле есть проблемы. И скорее всего, ваши сотрудники не станут работать в полную силу. Но благодаря нашей запатентованной и простой для понимания системе \"БоЛТиК\", вы сможете  вернуть производительность и счастливые улыбки на лицах всех ваших сотрудников в мгновение ока!",
 
 	// customer quotes
 	L"Несколько цитат наших благодарных клиентов:",
@@ -9797,13 +9799,13 @@ STR16	szMercCompareWebSite[] =
 
 STR16	szMercCompareEventText[]=
 {
-	L"%s подстрелил меня!",
+	L"%s подстрелил(а) меня!",
 	L"%s плетёт интриги за моей спиной",
 	L"%s вмешивается в мои дела",
 	L"%s дружит с моим врагом",
 
-	L"%s получил контракт до меня",
-	L"%s приказал позорно отступить",
+	L"%s получил(а) контракт до меня",
+	L"%s приказал(а) позорно отступить",
 	L"%s убивает невинных",
 	L"%s тормозит нас",
 
@@ -9817,10 +9819,10 @@ STR16	szMercCompareEventText[]=
 	L"%s получает всё самое лучшее",
 	L"%s держит меня на мушке",
 
-	L"%s обрабатывал мои раны",
+	L"%s обрабатывал(а) мои раны",
 	L"Хорошо посидели за бутылочкой с %s",
 	L"C %s классно напиваться",
-	L"%s доставучий когда пьян",
+	L"%s доставучий(-ая) когда пьян(а)",
 
 	L"%s идиот когда пьян",
 	L"%s не поддерживает нашу точку зрения",
@@ -9829,23 +9831,23 @@ STR16	szMercCompareEventText[]=
 
 	L"Убеждения %s противоречат нашим",
 	L"%s знает, как успокоить людей",
-	L"%s бесчувственный",
+	L"%s бесчувственный(-ая)",
 	L"%s ставит людей на своё место",
 
-	L"%s очень импульсивен",
-	L"%s разносчик заразы",
+	L"%s очень импульсивен(а)",
+	L"%s - разносчик заразы",
 	L"%s лечит мои заболевания",
 	L"%s не сдерживается в бою",
 
 	L"%s наслаждается битвой сверх меры",
-	L"%s хороший учитель",
-	L"%s привёл нас к победе",
-	L"%s спас мою жизнь",
+	L"%s хороший преподаватель",
+	L"%s привёл(а) нас к победе",
+	L"%s спас(ла) мою жизнь",
 
-	L"%s украл моё убийство",
-	L"%s и я отлично сражаемся вместе",
-	L"%s заставил противника сдаться",
-	L"%s ранил гражданских",
+	L"%s украл(а) моё убийство",
+	L"%s и я отлично работаем вместе",
+	L"%s заставил(а) противника сдаться",
+	L"%s ранил(а) гражданских",
 };
 
 STR16	szWHOWebSite[] =
@@ -9855,34 +9857,34 @@ STR16	szWHOWebSite[] =
 	L"Возвращаем здоровье в жизнь",
 
 	// links to other pages
-	L" О ВОЗ",
-	L" Болезни Арулько",
-	L" О заболеваниях",
+	L"О ВОЗ",
+	L"Болезни Арулько",
+	L"О заболеваниях",
 
 	// text on the main page
-	L"   ВОЗ является органом, направляющим и координирующим международную работу в области здравоохранения в рамках системы ООН.",
-	L"   ВОЗ выполняет следующие функции:                                                     -обеспечение глобального лидерства в области общественного здравоохранения;   -составление повестки дня исследований в области здравоохранения;                        -установление норм и стандартов;                                                                -формулирование этических и основанных на фактических данных вариантов политики;   -оказание технической поддержки странам;                                                   -мониторинг ситуации и оценка тенденций в области здравоохранения.",
-	L"   Здравоохранение в 21-м веке является общей ответственностью, включая равноправный доступ к основной помощи и коллективной защите от международных угроз.",
+	L"ВОЗ является органом, направляющим и координирующим международную работу в области здравоохранения в рамках системы ООН.",
+	L"ВОЗ выполняет следующие функции:                                                     -обеспечение глобального лидерства в области общественного здравоохранения;   -составление повестки дня исследований в области здравоохранения;                        -установление норм и стандартов;                                                                -формулирование этических и основанных на фактических данных вариантов политики;   -оказание технической поддержки странам;                                                   -мониторинг ситуации и оценка тенденций в области здравоохранения.",
+	L"Здравоохранение в 21-м веке является общей ответственностью, включая равноправный доступ к основной помощи и коллективной защите от международных угроз.",
 
 	// contract page
-	L"   Маленькую страну Арулько в настоящее время потрясают хаотичные вспышки смертельного вируса арулькийской чумы.",
-	L"   Из-за катастрофического состояния системы здравоохранения страны только армейский лечебный корпус способен бороться со смертельным заболеванием.",
-	L"   Страна Арулько закрыта для партнёров ООН, поэтому, всё что мы можем предоставить - это подробные карты о текущем состоянии инфекционных заболеваний. Из-за трудностей в работе с Арулько мы вынуждены брать ежедневную плату со всех желающих получать актуальную информацию по заболеваемости в размере %d$.",
-	L"   Желаете приобрести подробные данные о текущем состоянии заболеваемости в Арулько? Доступ к этим данным вы можете получить на стратегической карте, оплатив стоимость нашей услуги.",
-	L"   В настоящее время вы не имеете доступа к данным ВОЗ по арулькийской чуме.",
-	L"   Вы приобрели подробные карты о состоянии заболеваемости.",
+	L"Маленькую страну Арулько в настоящее время потрясают хаотичные вспышки смертельного вируса арулькийской чумы.",
+	L"Из-за катастрофического состояния системы здравоохранения страны только армейский лечебный корпус способен бороться со смертельным заболеванием.",
+	L"Страна Арулько закрыта для партнёров ООН, поэтому, всё что мы можем предоставить - это подробные карты о текущем состоянии инфекционных заболеваний. Из-за трудностей в работе с Арулько мы вынуждены брать ежедневную плату со всех желающих получать актуальную информацию по заболеваемости в размере %d$.",
+	L"Желаете приобрести подробные данные о текущем состоянии заболеваемости в Арулько? Доступ к этим данным вы можете получить на стратегической карте, оплатив стоимость нашей услуги.",
+	L"В настоящее время вы не имеете доступа к данным ВОЗ по арулькийской чуме.",
+	L"Вы приобрели подробные карты о состоянии заболеваемости.",
 	L"Заказать обновление карт",
-	L"    Отказаться от карт",
+	L"Отказаться от карт",
 
 	// helpful tips page
-	L"  Арулькийская чума - это смертельный штамм чумы, который распространён лишь на небольшой части территории Арулько. Первые жертвы штамма были заражены через укусы комаров в болотистой либо тропической местности и непреднамеренно стали причиной заражения населения близлежащих городов.",
-	L"  Симптомы болезни проявляются не сразу, и до первых проявлений заражения может пройти несколько дней.",
-	L"  Чтобы посмотреть от каких известных болезней страдают ваши наёмники, надо подвести курсор к портрету бойца на стратегической карте.",
- 	L"  Большинство заболеваний прогрессирует с течением времени, поэтому следует начинать лечение как можно скорее.",
-	L"  Определённые болезни можно вылечить с помощью медикаментов. Некоторые из них вы можете найти в специализированных аптеках.",
-	L"  Врачам можно дать указание обследовать на предмет заболеваний всех товарищей по команде, находящихся в секторе. Это позволит узнать о болезни, прежде, чем произойдёт массовое заражение!",
-	L"  Врачи находятся в большей степени риска заразиться при лечении инфицированных пациентов. Средства индивидуальной защиты снизят риск заражения.",
-	L"  Если клинковое оружие ранит инфицированного человека, лезвие оружия становится заражённым и может стать причиной распространения инфекции.",
+	L"Арулькийская чума - это смертельный штамм чумы, который распространён лишь на небольшой части территории Арулько. Первые жертвы штамма были заражены через укусы комаров в болотистой либо тропической местности и непреднамеренно стали причиной заражения населения близлежащих городов.",
+	L"Симптомы болезни проявляются не сразу, и до первых проявлений заражения может пройти несколько дней.",
+	L"Чтобы посмотреть от каких известных болезней страдают ваши наёмники, надо подвести курсор к портрету бойца на стратегической карте.",
+ 	L"Большинство заболеваний прогрессирует с течением времени, поэтому следует начинать лечение как можно скорее.",
+	L"Определённые болезни можно вылечить с помощью медикаментов. Некоторые из них вы можете найти в специализированных аптеках.",
+	L"Врачам можно дать указание обследовать на предмет заболеваний всех товарищей по команде, находящихся в секторе. Это позволит узнать о болезни, прежде, чем произойдёт массовое заражение!",
+	L"Врачи находятся в большей степени риска заразиться при лечении инфицированных пациентов. Средства индивидуальной защиты снизят риск заражения.",
+	L"Если клинковое оружие ранит инфицированного человека, лезвие оружия становится заражённым и может стать причиной распространения инфекции.",
 };
 
 STR16	szPMCWebSite[] =
@@ -9897,16 +9899,16 @@ STR16	szPMCWebSite[] =
 	L" Нанять солдата",
 
 	// text on the main page
-	L"   Корпорация Цербер - хорошо известный международный частный военный подрядчик. Начиная с 1983 года, мы предоставляем свои услуги охраны и обучения подразделений боевого назначения по всему миру.",
-	L"   Наш профессионально обученный персонал обеспечивает безопасность более 30 правительств по всему миру. В том числе в нескольких горячих точках.",
-	L"   Наши тренировочные центры есть почти в каждой точке мира, включая Индонезию, Колумбию, Катар, Южную Африку и Румынию. Благодаря этому мы можем, как правило, выполнить свои обязательства по контракту в течение 24 часов.",
-	L"   В разделе \"Нанять солдата\" мы предлагаем индивидуальные договоры с опытными ветеранами в сфере безопасности.",
-	L"   Конечно же, вы можете нанять сразу целую роту солдат. В разделе \"Нанять команду\", вы можете указать количество солдат к найму, а так же, выбрать место, где необходимы их услуги. В связи с трагическим инцидентом в прошлом, мы доставляем своих контрактников лишь в зоны, которые находятся под вашим контролем.",
-	L"   Своих сотрудников мы можем доставить воздухом, в этом случае, в месте прибытия, конечно, должен быть аэропорт. В зависимости от региона прибытия также возможны внедрения/проникновения через порты или пограничные посты.",
-	L"   Работаем только по предоплате. Далее ежедневная оплата услуг наших сотрудников будет списываться с вашего счёта.",
+	L"Корпорация Цербер - хорошо известный международный частный военный подрядчик. Начиная с 1983 года, мы предоставляем свои услуги охраны и обучения подразделений боевого назначения по всему миру.",
+	L"Наш профессионально обученный персонал обеспечивает безопасность более 30 правительств по всему миру. В том числе в нескольких горячих точках.",
+	L"Наши тренировочные центры есть почти в каждой точке мира, включая Индонезию, Колумбию, Катар, Южную Африку и Румынию. Благодаря этому мы можем, как правило, выполнить свои обязательства по контракту в течение 24 часов.",
+	L"В разделе \"Нанять солдата\" мы предлагаем индивидуальные договоры с опытными ветеранами в сфере безопасности.",
+	L"Конечно же, вы можете нанять сразу целую роту солдат. В разделе \"Нанять команду\", вы можете указать количество солдат к найму, а так же, выбрать место, где необходимы их услуги. В связи с трагическим инцидентом в прошлом, мы доставляем своих контрактников лишь в зоны, которые находятся под вашим контролем.",
+	L"Своих сотрудников мы можем доставить воздухом, в этом случае, в месте прибытия, конечно, должен быть аэропорт. В зависимости от региона прибытия также возможны внедрения/проникновения через порты или пограничные посты.",
+	L"Работаем только по предоплате. Далее ежедневная оплата услуг наших сотрудников будет списываться с вашего счёта.",
 	
 	// militia contract page
-	L" Выберите уровень и количество ополченцев:",
+	L"Выберите уровень и количество ополченцев:",
 	L"Новобранец",
 	L"Солдат рядовой",
 	L"Солдат ветеран",
@@ -9915,9 +9917,9 @@ STR16	szPMCWebSite[] =
 	L"К найму: %d",
 	L"Стоимость: %d$",
 
-	L" Выберите место высадки солдат:",
-	L" Общая стоимость: %d$",
-	L" Рассчётное время прибытия: %02d:%02d",
+	L"Выберите место высадки солдат:",
+	L"Общая стоимость: %d$",
+	L"РВП: %02d:%02d",
 	L"Оплатить",
 
 	L"Благодарим за сотрудничество! Наши солдаты прибудут в место назначения завтра в %02d:%02d.",
@@ -9958,14 +9960,14 @@ STR16   szTacticalCoverDialogString[]=
         L"Режим отображения укрытий",
 
         L"Выкл",
-        L"Враг",
+        L"Враги",
         L"Боец",
         L"",
 
-        L"Задачи",
-		L"Fortification",	// TODO.Translate
-        L"Слежение",
-		L"CTH mode",
+        L"Роли",
+	L"Укреп.",
+        L"Следы",
+	L"Шанс",
 
         L"Ловушки",
         L"Сеть",
@@ -9982,13 +9984,13 @@ STR16   szTacticalCoverDialogPrintString[]=
 {
         
         L"Выключение отображения укрытий или ловушек",
-        L"Показывать опасные зоны",
-        L"Показывать что видит боец",
+        L"Показывает опасные зоны",
+        L"Показывает что видит боец",
         L"",
 
-		L"Display enemy role symbols",	// TODO.Translate
-		L"Display planned fortifications",
-		L"Display enemy tracks",
+	L"Показать символ роли противников",
+	L"Показать планируемые укрепления",
+	L"Показать следы противника",
         L"",
 
         L"Показать сеть ловушек",
@@ -10006,33 +10008,33 @@ STR16   szTacticalCoverDialogPrintString[]=
 STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 {
 	// OPINIONEVENT_FRIENDLYFIRE
-	L"What the hell! $CAUSE$ attacked me!",
+	L"Какого черта! $CAUSE$ атаковал(а) меня!",
 	L"",
 	L"",
-	L"What? Me? No way, I'm engaging at the enemy!",
-	L"Oops.",
+	L"Что? Я? Никогда! Я целился(-ась) во врага!",
+	L"Ой.",
 	L"",
 	L"",
-	L"$CAUSE$ has attacked $VICTIM$. What do you do?",
-	L"Nah, that must have been enemy fire!",
-	L"Yeah, I saw it too!",
-	L"Don't play stupid, $CAUSE$. You had a clear line of sight! What side are you on?",
-	L"I saw it, it was clearly enemy fire!",
-	L"In the heat of battle, this can happen. Just be more careful next time, $CAUSE$.",
-	L"This is war! People get shot all the time! Speaking of... shoot more people, people!",
+	L"$CAUSE$ атаковал(а) $VICTIM$. Что ты делаешь?",
+	L"Хмм, это должно быть дружественный огонь!",
+	L"Да, Я тоже это видел(а)!",
+	L"Не увиливай, $CAUSE$. Ты всё четко видел(а)! На чьей ты стороне?",
+	L"Я все видел(а), это точно был дружественный огонь!",
+	L"Такое может случиться в пылу битвы. $CAUSE$, будь повнимательнее в следующий раз.",
+	L"Мы на войне! Люди постоянно ловят пули!",
 	L"",
 	L"",
 	L"",
 
 	// OPINIONEVENT_SNITCHSOLDMEOUT
-	L"Hey! Keep your mouth shut, $CAUSE$! Freakin' snitch!",
+	L"Эй! Забали варежку, $CAUSE$! Стукач!",
 	L"",
 	L"",
-	L"I would if you weren't such a wussy!",
-	L"You heard that? Dammit.",
+	L"Ага, как же! А ты слабачек",
+	L"Ты слышишь это? Чёрт.",
 	L"",
 	L"",
-	L"$VICTIM$ is angry with $CAUSE$ because $CAUSE_GENDER$ spoke to you. What do you do?",
+	L"$VICTIM$ зол с $CAUSE$ потому что $CAUSE_GENDER$ говорил с тобой. Что ты делаешь?",
 	L"Nono, $CAUSE$, speak up... What did $VICTIM$ do?",
 	L"Yeah, mind your own business, $CAUSE$!",
 	L"This isn't girls college, keep your snickering to yourself, $CAUSE$.",
@@ -10310,16 +10312,16 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"",
 
 	// OPINIONEVENT_BANDAGED
-	L"Thanks, $CAUSE$. I thought I was gonna bleed out.",
+	L"Спасибо, $CAUSE$. Я уж думал я истеку кровью до смерти.",
 	L"",
 	L"",
-	L"I'm doing my job. Get back to yours!",
-	L"Hey, we have to look after each other. You'd do the same, $VICTIM$.",
+	L"Я делаю свою работу, ты можешь вернуться к своей!",
+	L"Эй, мы должны присматривать друг за другом, ты же ведь сделашь также в следующий раз, $VICTIM$.",
 	L"",
 	L"",
-	L"$CAUSE$ has bandaged $VICTIM$. What do you do?",
+	L"$CAUSE$ перевязал $VICTIM$. Что ты делаешь?",
 	L"Patched together again? Good, now move!",
-	L"You're welcome.",
+	L"Всегда пожалуйста.",
 	L"Jeez. Woken up on the wrong foot today?",
 	L"Talk about a no-nonsense approach...",
 	L"How did you even get wounded? Where did the attack come from?",
@@ -10424,11 +10426,11 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"",
 
 	// OPINIONEVENT_FOR_US
-	L"Ha! See? Even $CAUSE$ agrees with me.",
+	L"Ха! Видите? Даже $CAUSE$ поддерживает меня.",
 	L"",
 	L"",
-	L"'Even'? What does that mean?",
-	L"Yeah. I'm 100%% with $VICTIM$ on this.",
+	L"'Даже'? Что это значит?",
+	L"Да. Я польностью с $VICTIM$ здесь.",
 	L"",
 	L"",
 	L"$VICTIM$ likes what $CAUSE$ has to say about $VICTIM_GENDER$. What do you do?",
@@ -10595,7 +10597,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"",
 
 	// OPINIONEVENT_BRUTAL_GOOD
-	L"Nice one, $CAUSE$!",
+	L"Отлично, $CAUSE$!",
 	L"",
 	L"",
 	L"Whoa. Are you really getting off on that?",
@@ -10614,11 +10616,11 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"",
 
 	// OPINIONEVENT_BRUTAL_BAD
-	L"Dammit, $CAUSE$, your supposed to kill them, not evaporate them!",
+	L"Черт, $CAUSE$, тебе надо было просто убить их, а не испарить!",
 	L"",
 	L"",
-	L"Is there a difference?",
-	L"Oops. This thing is powerful!",
+	L"А чё, если разница?",
+	L"Ого. Мощная штучка!",
 	L"",
 	L"",
 	L"$VICTIM$ is appalled by $CAUSE$'s excessive violence. What do you think?",
@@ -10780,29 +10782,29 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 	L"Следи за языком!",
 
 	L"Не твоего ума дело.",
-	L"Who ever invited you?",
-	L"Nobody asked for your opinion, $INTERJECTOR$.",
-	L"You stay away from me.",
+	L"Кто вообще тебя позвал?",
+	L"Никто и не спрашивал мнения тебя, $INTERJECTOR$.",
+	L"Держись от меня подальше.",
 
-	L"Why are you all against me?",
-	L"Why are you against me, $INTERJECTOR$?",
-	L"I knew it! $VICTIM$ and $INTERJECTOR$ are in cahoots!",
-	L"Not listening...!",
+	L"Почему вы все пртив меня?",
+	L"Почему ты против меня, $INTERJECTOR$?",
+	L"Я знал(а) это! $VICTIM$ и $INTERJECTOR$ - соучастники!",
+	L"Не слушаю..!",
 
-	L"I hate this psycho circus.",
-	L"I hate this freak show.",
-	L"Back off!",
-	L"Lies, lies, lies...",
+	L"Ненавижу этот дурдом.",
+	L"Ненавижу этот бредлам.",
+	L"Отвали!",
+	L"Вранье, вранье, вранье...",
 
-	L"No way!",
-	L"So not true.",
-	L"That is so not true.",
-	L"I know what I saw.",
+	L"Никогда!",
+	L"Не правда.",
+	L"Это такие враки.",
+	L"Я знаю, то что у меня перед глазами.",
 
-	L"I don't know what $INTERJECTOR_GENDER$ is talking off.",
-	L"Don't listen to $INTERJECTOR_PRONOUN$!",
-	L"Nope.",
-	L"You are mistaken.",
+	L"Я бес понятия о чем $INTERJECTOR_GENDER$ ведет речь.",
+	L"Да не слушайте, $INTERJECTOR_PRONOUN$!",
+	L"Неа.",
+	L"Ошибаешься.",
 };
 
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
@@ -10810,46 +10812,46 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 	L"I knew you'd back me, $INTERJECTOR$",
 	L"I knew $INTERJECTOR$ would back me.",
 	L"What $INTERJECTOR$ said.",
-	L"What $INTERJECTOR_GENDER$ said.",
+	L"Что $INTERJECTOR_GENDER$ сказал.",
 
-	L"Thanks, $INTERJECTOR$!",
-	L"Once again I'm right!",
-	L"See, $CAUSE$? I am right!",
-	L"Once again $SPEAKER$ is right!",
+	L"Спасибо, $INTERJECTOR$!",
+	L"Еще раз, я прав(а)!",
+	L"Видишь, $CAUSE$? Правда на моей стороне!",
+	L"Еще раз - $SPEAKER$ говорит дело!",
 
-	L"Aye.",
-	L"Yup.",
-	L"Yep",
-	L"Yes.",
+	L"Ну да.",
+	L"Угу.",
+	L"Ага",
+	L"Да.",
 
-	L"Indeed.",	
-	L"True.",
-	L"Ha!",
-	L"See?",
+	L"Конечно.",	
+	L"Правда.",
+	L"Ха!",
+	L"Видишь?",
 
-	L"Exactly!",
+	L"Именно!",
 };
 
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 {
-	L"That's right!",
-	L"Indeed!",
-	L"Exactly that.",
-	L"$CAUSE$ does that all the time.",
+	L"Так!",
+	L"Действительно!",
+	L"Именно",
+	L"$CAUSE$ всегда это делает.",
 
-	L"$VICTIM$ is right!",
-	L"I was gonna' point that out, too!",
-	L"What $VICTIM$ said.",
-	L"That's our $CAUSE$!",
+	L"$VICTIM$ прав(а)!",
+	L"Я тоже хотел(а) это сказать!",
+	L"Что сказал(а) $VICTIM$.",
+	L"Это наша $CAUSE$!",
 
-	L"Yeah!",
-	L"Now THIS is going to be interesting...",
-	L"You tell'em, $VICTIM$!",
-	L"Agreeing with $VICTIM$ here...",
+	L"Дааа!",
+	L"Становится интересно...",
+	L"Скажи им, $VICTIM$!",
+	L"Соглашаюсь с $VICTIM$...",
 
-	L"Classic $CAUSE$.",
-	L"I couldn't have said it better myself.",
-	L"That is exactly what happened.",
+	L"Классический $CAUSE$.",
+	L"Невозможно сказать лучше.",
+	L"Именно это и случилось.",
 	L"Согласен!",
 
 	L"Ага.",
@@ -10859,37 +10861,37 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 {
-	L"Now wait a minute...",
-	L"Wait a sec, that's not what right...",
-	L"What? No.",
-	L"That is not what happened.",
+	L"А теперь подождите...",
+	L"Скундочку, это не верно...",
+	L"Что? Нет.",
+	L"Это не то, что произошло.",
 
-	L"Hey, stop blaming $CAUSE$!",
-	L"Oh shut up, $VICTIM$!",
-	L"Nonono, you got that wrong.",
-	L"Whoa. Why so stiff all of a sudden, $VICTIM$?",
+	L"Хватит трепаться о $CAUSE$!",
+	L"Ой, закнись, $VICTIM$, а!",
+	L"Не-не-не, было не так.",
+	L"Вау. Почему такая резкая неожиданность, $VICTIM$?",
 
-	L"And I suppose you never did, $VICTIM$?",
-	L"Hmmmm... no.",
-	L"Great. Let's have an argument. It's not like we have other things to do...",
-	L"You are mistaken!",
+	L"И я предполагаю такого не было, $VICTIM$?",
+	L"Хммммм... нет.",
+	L"Отлично, давайте услышим доводы. Позоже у нас нет других вариантов...",
+	L"Ты ошибаешься!",
 
-	L"You are wrong!",
-	L"Me and $CAUSE$ would never do such a thing.",
-	L"Nah, can't be.",
+	L"Ты ошибаешься!",
+	L"Я и $CAUSE$ никогад не сделали бы такого.",
+	L"Хах, не может быть.",
 	L"Я так не думаю.",
 
-	L"Why bring that up now?",
-	L"Really, $VICTIM$? Is this necessary?",
+	L"Зачем про это вспоминать сейчас?",
+	L"Серьезно, $VICTIM$? Это необходимо?",
 };
 
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
 	L"Тихо",
-	L"Support $VICTIM$",
-	L"Support $CAUSE$",
-	L"Appeal to reason",
-	L"Shut them up",
+	L"Поддерживаю $VICTIM$",
+	L"Поддерживаю $CAUSE$",
+	L"подумайте",
+	L"Заткнитесь",
 };
 
 STR16	szDynamicDialogueText_GenderText[] = 
@@ -10954,60 +10956,60 @@ STR16 szIMPGearWebSiteText[] =
 
 STR16 szIMPGearDropDownText[] =
 {
-	L"Select LBE vest",
-	L"Select LBE combat pack",
-	L"Select LBE backpack",
-	L"Select LBE holster",
-	L"Select LBE holster", 
+	L"Выбрать разгр. жилета",
+	L"Выбрать разгр. ранец",
+	L"Выбрать разгр. рюкзак",
+	L"Выбрать разгр. кобуру",
+	L"Выбрать разгр. кобуру", 
 	
-	L"Select main gun",
-	L"Select ammo",
-	L"Select sidearm",
-	L"Select additional ammo",
-	L"Select melee weapon",
+	L"Выбрать осн. оружие",
+	L"Выбрать патроны",
+	L"Выбрать доп. оружие",
+	L"Выбрать доп. патроны",
+	L"Выбрать оружие ближ. боя",
 	
-	L"Select helmet",
-	L"Select vest",
-	L"Select pants",
-	L"Select face gear",
-	L"Select face gear",
+	L"Выбрать шлем",
+	L"Выбрать жилет",
+	L"Выбрать поножи",
+	L"Выбрать для лица",
+	L"Выбрать для лица",
 
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
-	L"Select additional items",
+	L"Выбрать доп. предметы",
+	L"Выбрать доп. предметы",
+	L"Выбрать доп. предметы",
+	L"Выбрать доп. предметы",
+	L"Выбрать доп. предметы",
+	L"Выбрать доп. предметы",
+	L"Выбрать доп. предметы",
 };
 
 STR16 szIMPGearDropDownNoneText[] =
 {
-	L"No LBE vest",
-	L"No LBE combat pack",
-	L"No LBE backpack",
-	L"No LBE holster",
-	L"No LBE holster", 
+	L"Нет разгр. жилета",
+	L"Нет разгр. ранца",
+	L"Нет разгр. рюкзака",
+	L"Нет разгр. кобуры",
+	L"Нет разгр. кобуры", 
 	
-	L"No gun",
-	L"No ammo",
-	L"No gun",
-	L"No ammo",
-	L"No weapon",
+	L"Нет оружий",
+	L"Нет патронов",
+	L"Нет оружия",
+	L"Нет патровно",
+	L"Нет оружия",
 	
-	L"No helmet",
-	L"No vest",
-	L"No pants",
-	L"No face gear",
-	L"No face gear",
+	L"Нет шлема",
+	L"Нет жилета",
+	L"Нет поножей",
+	L"Нет ничего для лица",
+	L"Нет ничего для лица",
 
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
-	L"No additional items",
+	L"Нет доп. предметов",
+	L"Нет доп. предметов",
+	L"Нет доп. предметов",
+	L"Нет доп. предметов",
+	L"Нет доп. предметов",
+	L"Нет доп. предметов",
+	L"Нет доп. предметов",
 };
 
 STR16 szMilitiaStrategicMovementText[] =
@@ -11022,7 +11024,7 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Группа %d",
 	L"Final",
 
-	L"Volunteers: %d (+%5.3f)",	// TODO.Translate
+	L"Желающих: %d (+%5.3f)",
 };
 
 STR16 szEnemyHeliText[] =
@@ -11035,7 +11037,7 @@ STR16 szEnemyHeliText[] =
 	L"Нам нехватает ресурсов, чтобы выполнить приказ.",
 	L"Отремонтировать оборудование ПВО? Это обойдётся в %d$ и займёт %d часов.",
 	L"Вражеский вертолёт подбит в %s.",
-	L"%s fires %s at enemy helicopter in %s.",
+	L"%s стреляет %s по вражескому вертолюту в %s.",
 
 	L"База ПВО в %s обстреляла вражеский вертолёт в %s.",
 };
@@ -11054,29 +11056,29 @@ STR16 szFortificationText[] =	// TODO.Translate
 STR16	szMilitiaWebSite[] =
 {
 	// main page
-	L"Militia",
-	L"Militia Forces Overview",
+	L"Ополчение",
+	L"Силы ополчения",
 
 	// links to other pages
-	L"Militia Roster",
-	L"Statistics",
-	L"About",
+	L"Список",
+	L"Статистика",
+	L"О нас",
 
 };
 
 STR16 szIndividualMilitiaBattleReportText[] =
 {
-	L"Took part in Operation %s",
-	L"Recruited on Day %d, %d:%2d in %s",
-	L"Promoted on Day %d, %d:%2d",
+	L"Участи в Операции %s",
+	L"Пришел в день %d, %d:%2d in %s",
+	L"Повышен в день %d, %d:%2d",
 	L"KIA, Operation %s",
 
-	L"Lightly wounded during Operation %s",
-	L"Heavily wounded during Operation %s",
-	L"Critically wounded during Operation %s",
-	L"Valiantly fought in Operation %s",
+	L"Мелкое ранение в операции %s",
+	L"Сильное ранение в операции %s",
+	L"Критическое ранение в операции %s",
+	L"Проявил(а) доблесть в операции %s",
 
-	L"Hired from Kerberus on Day %d, %d:%2d in %s",
+	L"Нанят из Цербера в день %d, %d:%2d in %s",
 	L"Defected to us on  Day %d, %d:%2d in %s",
 	L"Contract terminated on Day %d, %d:%2d",
 };
@@ -11159,76 +11161,76 @@ STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 
 STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
 {
-	L"All sectors",
+	L"Все сектора",
 };
 
 STR16	szNonProfileMerchantText[] =
 {
-	L"Merchant is hostile and does not want to trade.",
-	L"Merchant is in no state to do business.",
-	L"Merchant won't trade during combat.",
-	L"Merchant refuses to interact with you.",
+	L"Торговец настроен враждебно и не будет торговать.",
+	L"Торговец не в состоянии вести дела",
+	L"Торговец отказывается работать во время боя.",
+	L"Торговец отказывается разговаривать.",
 };
 
-STR16	szWeatherTypeText[] =	// TODO.Translate
+STR16	szWeatherTypeText[] =
 {
-	L"normal",
-	L"rain",
-	L"thunderstorm",
-	L"sandstorm",
+	L"обычно",
+	L"дождь",
+	L"гроза",
+	L"песч. буря",
 
-	L"snow",
+	L"снег",
 };
 
 STR16	szSnakeText[] =
 {
-	L"%s evaded a snake attack!",
-	L"%s was attacked by a snake!",
+	L"%s избежал(а) от укуса змеи!",
+	L"%s был(а) укушена змеёй!",
 };
 
 STR16	szSMilitiaResourceText[] =
 {
-	L"Converted %s into resources",
-	L"Guns: ",
-	L"Armour: ",
-	L"Misc: ",
+	L"Превратил %s в ресурсы",
+	L"Оружие: ",
+	L"Броня: ",
+	L"Прочее: ",
 
-	L"There are no volunteers left for militia!",
-	L"Not enough resources to train militia!",
+	L"Не осталось кандидатов в ополчение!",
+	L"Не хватает ресурсов для обучения ополчения!",
 };
 
 STR16	szInteractiveActionText[] =
 {
-	L"%s starts hacking.",
-	L"%s accesses the computer, but finds nothing of interest.",
-	L"%s is not skilled enough to hack the computer.",
-	L"%s reads the file, but learns nothing new.",
+	L"%s начал взлом.",
+	L"%s получил доступ, но не узнал ничего интересного.",
+	L"%s не достаточно навыка для взлома.",
+	L"%s прочел документ, но не узнал ничего интересного.",
 
 	L"%s can't make sense out of this.",
-	L"%s couldn't use the watertap.",
-	L"%s has bought a %s.",
-	L"%s doesn't have enough money. That's just embarassing.",
+	L"%s не может использовать источник воды.",
+	L"%s купил %s.",
+	L"%s не может купить - нет достаточно денег. Даже неловко как-то.",
 
-	L"%s drank from water tap",
-	L"This machine doesn't seem to be working.",	// TODO.Translate
+	L"%s выпил из источника воды",
+	L"Эта штука похоже не работает.",
 };
 
 STR16	szLaptopStatText[] =	// TODO.Translate
 {
-	L"threaten effectiveness %d\n",
-	L"leadership %d\n",
-	L"approach modifier %.2f\n",
-	L"background modifier %.2f\n",
+	L"эффективность угроз %d\n",
+	L"лидерство %d\n",
+	L"модификатор подхода %.2f\n",
+	L"модификатор прошлого %.2f\n",
 
 	L"+50 (other) for assertive\n",
 	L"-50 (other) for malicious\n",
-	L"Good Guy",
-	L"%s eschews excessive violence and will refuse to attack non-hostiles.",
+	L"Хороший человек",
+	L"%s сторонится лишнего насилия и будет акатовать только явных врагов.",
 
-	L"Friendly approach",
-	L"Direct approach",
-	L"Friendly approach",
-	L"Friendly approach",
+	L"Дружески",
+	L"Прямо",
+	L"Дружески",
+	L"Дружески",
 };
 
 #endif //RUSSIAN
