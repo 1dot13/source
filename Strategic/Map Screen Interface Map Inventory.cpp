@@ -337,6 +337,7 @@ void AnimateZoomInventory ( UINT16 iLocationInPool, UINT16 iCounter, INT32 iStar
 // the currently-opened sector inventory ammo.
 void SortSectorInventoryAmmo(bool useBoxes);
 void SortSectorInventoryEjectAmmo();
+void SortSectorInventoryEmptyLBE(); // Bob: added option to empty LBE items in sector
 void SortSectorInventorySeparateAttachments();
 void SortSectorInventoryStackAndMerge(bool ammoOnly);
 // HEADROCK HAM 5: A quick function to rebuilt the Seen and Unseen item pools without saving the inventory.
@@ -2244,15 +2245,22 @@ void BuildStashForSelectedSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	{
 		uiTotalNumberOfItems = guiNumWorldItems;
 		uiNumOfSlots = (uiTotalNumberOfItems / MAP_INVENTORY_POOL_SLOT_COUNT + 1) * MAP_INVENTORY_POOL_SLOT_COUNT;
-		if(pInventoryPoolList.size() < uiNumOfSlots)
+		
+		if (pInventoryPoolList.size() < uiNumOfSlots) {
 			pInventoryPoolList.resize(uiNumOfSlots);
-		if(pUnSeenItems.size() < uiNumOfSlots)
+		}
+		
+		if (pUnSeenItems.size() < uiNumOfSlots) {
 			pUnSeenItems.resize(uiNumOfSlots);
+		}
+		
 		uiNumberOfSeenItems = 0;
 		uiNumberOfUnSeenItems = 0;
+		
 		pwi = &gWorldItems.front();
 		pipl = &pInventoryPoolList.front();
 		pusi = &pUnSeenItems.front();
+
 		for(i=0; i<uiTotalNumberOfItems; i++, pwi++)
 		{
 			if(IsMapScreenWorldItemVisibleInMapInventory(pwi))
@@ -2814,11 +2822,19 @@ void MapInventoryPoolStackAndMergeBtn( GUI_BUTTON *btn, INT32 reason )
 // HEADROCK HAM 5: Sort attachments button callback
 void MapInventoryPoolSortAttachmentsBtn( GUI_BUTTON *btn, INT32 reason )
 {
-	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
+	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN || reason & MSYS_CALLBACK_REASON_RBUTTON_DWN)
 	{
 		if (!(btn->uiFlags & (BUTTON_CLICKED_ON)))
 		{
 			btn->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+	}
+	if (reason & MSYS_CALLBACK_REASON_RBUTTON_UP)
+	{
+		if (btn->uiFlags & (BUTTON_CLICKED_ON))
+		{
+			SortSectorInventoryEmptyLBE();
+			btn->uiFlags &= ~(BUTTON_CLICKED_ON);
 		}
 	}
 	if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
@@ -2829,6 +2845,7 @@ void MapInventoryPoolSortAttachmentsBtn( GUI_BUTTON *btn, INT32 reason )
 			btn->uiFlags &=~ (BUTTON_CLICKED_ON);
 		}
 	}
+
 }
 
 // HEADROCK HAM 5: Eject Ammo button callback
@@ -4002,21 +4019,27 @@ BOOLEAN SortInventoryPoolQ(void)
 BOOLEAN SwitchToInventoryPoolQ(UINT8 newidx)//dnl ch75 021113
 {
 	UINT8 curidx = gInventoryPoolIndex & 0x0F;
+	if(curidx >= INVPOOLLISTNUM)
+		return(FALSE);
+
 	newidx &= 0x0F;
+
 	if(curidx == newidx)
 		return(FALSE);
+
 	MapInventoryFilterSet(IC_MAPFILTER_ALL);
-#if 0
-	pInventoryPoolListQ[curidx] = pInventoryPoolList;
-#else
+
 	UINT32 uiNumOfSlots = (iLastInventoryPoolPage + 1) * MAP_INVENTORY_POOL_SLOT_COUNT;
+	
 	if(pInventoryPoolListQ[curidx].size() != uiNumOfSlots)
 		pInventoryPoolListQ[curidx].resize(uiNumOfSlots);
+
 	WORLDITEM *pwiQ1 = &pInventoryPoolListQ[curidx].front();
 	WORLDITEM *pwiQ2 = &pInventoryPoolListQ[curidx].back();
 	WORLDITEM *pwi1 = &pInventoryPoolList.front();
 	WORLDITEM *pwi2 = &pInventoryPoolList.back();
 	int cnt = 0;
+
 	while(pwi1 <= pwi2)
 	{
 		if(pwi1->fExists)
@@ -4027,22 +4050,23 @@ BOOLEAN SwitchToInventoryPoolQ(UINT8 newidx)//dnl ch75 021113
 		pwi1++;
 		cnt++;
 	}
+
 	while(pwiQ1 <= pwiQ2)
 	{
 		pwiQ1->fExists = FALSE;
 		pwiQ1->object.ubNumberOfObjects = 0;
 		pwiQ1++;
 	}
-#endif
+
 	iCurrentInventoryPoolPageQ[curidx] = iCurrentInventoryPoolPage;
 	iLastInventoryPoolPageQ[curidx] = iLastInventoryPoolPage;
+	
 	if(pInventoryPoolListQ[newidx].empty() == true)
 		pInventoryPoolListQ[newidx].resize(MAP_INVENTORY_POOL_SLOT_COUNT);
-#if 0
-	pInventoryPoolList = pInventoryPoolListQ[newidx];
-#else
+
 	if(pInventoryPoolList.size() < pInventoryPoolListQ[newidx].size())
 		pInventoryPoolList.resize(pInventoryPoolListQ[newidx].size());
+
 	pwiQ1 = &pInventoryPoolListQ[newidx].front();
 	pwiQ2 = &pInventoryPoolListQ[newidx].back();
 	pwi1 = &pInventoryPoolList.front();
@@ -4064,11 +4088,12 @@ BOOLEAN SwitchToInventoryPoolQ(UINT8 newidx)//dnl ch75 021113
 		pwi1->object.ubNumberOfObjects = 0;
 		pwi1++;
 	}
-#endif
+
 	iCurrentInventoryPoolPage = iCurrentInventoryPoolPageQ[newidx];
 	iLastInventoryPoolPage = iLastInventoryPoolPageQ[newidx];
 	gInventoryPoolIndex = newidx | 0x30;
 	fMapPanelDirty = TRUE;
+
 	return(TRUE);
 }
 
@@ -5011,23 +5036,98 @@ void SortSectorInventoryEjectAmmo()
 	fMapPanelDirty=TRUE;
 }
 
+void SortSectorInventoryEmptyLBE() {
+	// current item
+	WORLDITEM * pInventoryItem = NULL;
+
+	SOLDIERTYPE * pSoldier = &(Menptr[gCharactersList[bSelectedInfoChar].usSolID]);
+
+	for (UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++) //for all items in sector
+	{
+		pInventoryItem = &(pInventoryPoolList[uiLoop]);
+
+		if (pInventoryItem->bVisible == TRUE && // Visible
+			pInventoryItem->object.exists() == true && // Exists
+			pInventoryItem->usFlags & WORLD_ITEM_REACHABLE && // Reachable
+			!(pInventoryItem->usFlags & WORLD_ITEM_ARMED_BOMB)) // Not booby-trapped!
+		{
+			// Iterate through stacks
+			for (int x = 0; x < pInventoryItem->object.ubNumberOfObjects; ++x)
+			{
+				UINT8 size = 0, cnt = 0, uiLoopCnt = 0;
+				// Bob: empty LBE items in sector inventory
+				if (pInventoryItem->object.IsActiveLBE(x)) {
+					LBENODE * lbePtr = pInventoryItem->object.GetLBEPointer(x);
+					INVTYPE & LBEType = Item[pInventoryItem->object.usItem];
+
+					if (lbePtr != NULL) {
+						int dropCnt = 0;
+
+						for (auto lbeInvIter = lbePtr->inv.begin(); lbeInvIter != lbePtr->inv.end(); lbeInvIter++) {
+							OBJECTTYPE * LBEStack = lbeInvIter._Ptr;
+							dropCnt += LBEStack->ubNumberOfObjects;
+
+							AutoPlaceObjectToWorld(pSoldier, LBEStack, true);
+							if (LBEStack != NULL)
+							{
+								DeleteObj(lbeInvIter._Ptr);
+							}
+						}
+
+						if (dropCnt > 0) {
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzMapInventorySortingMessage[5], dropCnt, LBEType.szItemName);
+						}
+						else {
+							ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, gzMapInventorySortingMessage[6], LBEType.szItemName);
+						}
+
+						if (DestroyLBEIfEmpty(&(pInventoryItem->object), x)) {
+							ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, gzMapInventorySortingMessage[7], LBEType.szItemName);
+						}
+						else {
+							ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, gzMapInventorySortingMessage[8], LBEType.szItemName);
+						}
+					}
+					else { // can't get LBE pointer, something is wrong
+						ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, gzMapInventorySortingMessage[9], LBEType.szItemName);
+					}
+				} // IsActiveLBE
+			} // Iterate through stacks
+		} // pInventoryPoolList loop
+	}
+
+	// "FINISHED"
+	CHAR16 pStr[500];
+	swprintf(pStr, gzMapInventorySortingMessage[4], 'A' + sSelMapY - 1, sSelMapX);
+	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pStr);
+
+	// Dirty!
+	fMapPanelDirty = TRUE;
+}
+
 void SortSectorInventorySeparateAttachments()
 {
-
+	// attachment ref and pointer
 	OBJECTTYPE gTempObject;
-	
-	SOLDIERTYPE * pSoldier = &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]);
+	OBJECTTYPE * gpTempObject = NULL;
 
-	for ( UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++ ) //for all items in sector
+	// current item
+	WORLDITEM * pInventoryItem = NULL;
+
+
+	SOLDIERTYPE * pSoldier = &(Menptr[gCharactersList[bSelectedInfoChar].usSolID]);
+
+	for (UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++) //for all items in sector
 	{
-		if ( pInventoryPoolList[uiLoop].bVisible == TRUE && // Visible
-			pInventoryPoolList[uiLoop].object.exists() == true && // Exists
-			pInventoryPoolList[uiLoop].usFlags & WORLD_ITEM_REACHABLE && // Reachable
-			!(pInventoryPoolList[uiLoop].usFlags & WORLD_ITEM_ARMED_BOMB) ) // Not booby-trapped!
-		{
+		pInventoryItem = &(pInventoryPoolList[uiLoop]);
 
+		if (pInventoryItem->bVisible == TRUE && // Visible
+			pInventoryItem->object.exists() == true && // Exists
+			pInventoryItem->usFlags & WORLD_ITEM_REACHABLE && // Reachable
+			!(pInventoryItem->usFlags & WORLD_ITEM_ARMED_BOMB)) // Not booby-trapped!
+		{
 			// Iterate through stacks
-			for (int x = 0; x < pInventoryPoolList[uiLoop].object.ubNumberOfObjects; ++x) 
+			for (int x = 0; x < pInventoryItem->object.ubNumberOfObjects; ++x)
 			{
 				UINT8 size = 0, cnt = 0, uiLoopCnt = 0;
 
@@ -5035,17 +5135,28 @@ void SortSectorInventorySeparateAttachments()
 				// launchers before detaching the launchers (and their grenade slots) themselves.
 				// Since the size of the attachmentList remains constant under NAS but decrements by one
 				// under OAS, recheck the list size every iteration in order to calculate an rindex.
-				while((size = pInventoryPoolList[uiLoop].object[x]->attachments.size()) != cnt)
+				while ((size = pInventoryItem->object[x]->attachments.size()) != cnt)
 				{
-					gTempObject = *(pInventoryPoolList[uiLoop].object[x]->GetAttachmentAtIndex(size - 1 - cnt));
+					OBJECTTYPE * pNewObj = new OBJECTTYPE();
+					gpTempObject = pInventoryItem->object[x]->GetAttachmentAtIndex(size - 1 - cnt);
 
 					//WarmSteel - This actually still works with NAS, be it by accident
-					if (pInventoryPoolList[uiLoop].object.RemoveAttachment(&gTempObject,0,x))
+					if (gpTempObject != NULL && pInventoryItem->object.RemoveAttachment(gpTempObject, pNewObj, x))
 					{
-						AutoPlaceObjectToWorld( pSoldier, &gTempObject, true );
-						if (&gTempObject != NULL)
+						// Bob: sanity check! I think RemoveAttachment shouldn't be used like it was here.
+						if (gpTempObject->usItem > 0 && (gpTempObject->ubNumberOfObjects != 1 || gpTempObject->usItem > MAXITEMS || gpTempObject->ubMission != 0)) {
+							gpTempObject = pNewObj;
+						}
+
+						// Bob: not sure why was this a ref instead of a pointer, 
+						//		I'll leave it here so it gets cleaned up when going out of scope
+						//		since DeleteObj() doesn't free all the memory 
+						gTempObject = *gpTempObject;
+
+						AutoPlaceObjectToWorld(pSoldier, gpTempObject, true);
+						if (gpTempObject != NULL)
 						{
-							DeleteObj( &gTempObject );
+							DeleteObj(gpTempObject);
 						}
 					}
 					else
@@ -5053,24 +5164,25 @@ void SortSectorInventorySeparateAttachments()
 						cnt++;
 					}
 
-					uiLoopCnt ++;
+					uiLoopCnt++;
 
 					// Failsafe
-					if(uiLoopCnt > 100)
+					if (uiLoopCnt > 100)
 					{
 						break;
 					}
 				}
-			}
-		}
+			} // Iterate through stacks		
+		} // pInventoryPoolList loop
 	}
+
 	// "FINISHED"
 	CHAR16 pStr[500];
-	swprintf( pStr, gzMapInventorySortingMessage[ 1 ], 'A' + sSelMapY - 1, sSelMapX );
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pStr );
+	swprintf(pStr, gzMapInventorySortingMessage[1], 'A' + sSelMapY - 1, sSelMapX);
+	ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pStr);
 
 	// Dirty!
-	fMapPanelDirty=TRUE;
+	fMapPanelDirty = TRUE;
 }
 
 // HEADROCK HAM 5: This function sorts all inventory items into stacks. It is similar to a hotkey-driven

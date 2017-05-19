@@ -4833,7 +4833,7 @@ BOOLEAN CleanObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE * 
 	BOOLEAN bFullyCleaned = FALSE;
 
 	// no gun? We shouldn't be here...
-	if ( !Item[pObj->usItem].usItemClass & IC_GUN )
+	if ( !(Item[pObj->usItem].usItemClass & IC_GUN) )
 		Assert(0);
 
 	ubItemsInPocket = pObj->ubNumberOfObjects;
@@ -5033,7 +5033,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			// we spent some time cleaning so adjust repair points accordingly
 			if ( ubRepairPtsLeft > 0 && ubInitialCleaningPts > ubCleaningPtsLeft )
 			{
-				ubRepairPtsLeft = UINT8()(ubRepairPtsLeft * ubCleaningPtsLeft / ubInitialCleaningPts);
+				ubRepairPtsLeft = (UINT8)(ubRepairPtsLeft * ubCleaningPtsLeft / ubInitialCleaningPts);
 			}
 		}
 

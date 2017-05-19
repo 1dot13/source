@@ -210,7 +210,7 @@ BOOLEAN WriteClothesStats()
 		UINT32 cnt;
 
 		FilePrintf(hFile,"<CLOTHESLIST>\r\n");
-		for(cnt = 0; cnt < MAXITEMS; ++cnt)
+		for(cnt = 0; cnt < CLOTHES_MAX; ++cnt)
 		{
 			FilePrintf(hFile,"\t<CLOTHES>\r\n");
 

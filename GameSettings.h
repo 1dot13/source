@@ -807,6 +807,8 @@ typedef struct
 
 	// CHRISL: option to allow Slay to remain as a hired PC
 	BOOLEAN fEnableSlayForever;
+	// Bob: % chance Slay will leave every hour if left alone in sector
+	UINT16  ubHourlyChanceSlayWillLeave;
 
 	// anv: playable Speck
 	BOOLEAN fEnableRecruitableSpeck;

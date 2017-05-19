@@ -453,6 +453,9 @@ public:
 }; // RECORDS
 //////////////////////////////////////////////////////////////////////////////
 
+#define mNameLength 80
+#define mGearKitNameLength 80
+
 // CHRISL: Class to handle profile equipment from XML_MercStartingGear
 class MERCPROFILEGEAR {
 public:
@@ -472,8 +475,8 @@ public:
 	UINT16		mIndex;
 	INT16		PriceModifier;
 	INT16		AbsolutePrice;
-	CHAR16		mGearKitName[80];
-	CHAR8		mName[80];
+	CHAR16		mGearKitName[mGearKitNameLength];
+	CHAR8		mName[mNameLength];
 	char		endOfPOD;	// marker for end of POD (plain old data)
 	std::vector<int>	inv;
 	std::vector<int>	iStatus;

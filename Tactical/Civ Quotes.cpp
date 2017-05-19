@@ -589,8 +589,10 @@ UINT16 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT16 *pubCivHintToUse, BOOLE
 		// Determine what type of quote to say...
 		// Are are we going to attack?
 
-		if ( pCiv->aiData.bAction == AI_ACTION_TOSS_PROJECTILE || pCiv->aiData.bAction == AI_ACTION_FIRE_GUN ||
-							pCiv->aiData.bAction == AI_ACTION_FIRE_GUN || pCiv->aiData.bAction == AI_ACTION_KNIFE_MOVE )
+		if (	pCiv->aiData.bAction == AI_ACTION_TOSS_PROJECTILE 
+			||	pCiv->aiData.bAction == AI_ACTION_FIRE_GUN 
+			||	pCiv->aiData.bAction == AI_ACTION_THROW_KNIFE 
+			||	pCiv->aiData.bAction == AI_ACTION_KNIFE_MOVE )
 		{
 			return( CIV_QUOTE_ENEMY_THREAT );
 		}

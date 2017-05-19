@@ -2201,7 +2201,15 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 		*pdZPos = ( WALL_HEIGHT_UNITS * 2 ) - 1;
 	}
 
-	*pdZPos += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[pSoldier->sGridNo].sHeight );
+	// Bob: check if sGridNo is set, otherwise bail out to avoid access violation
+	INT32 grid = pSoldier->sGridNo;
+	if (grid > 0) {
+		*pdZPos += CONVERT_PIXELS_TO_HEIGHTUNITS(gpWorldLevelData[grid].sHeight);
+	}
+	else {
+		// ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"CalculateSoldierZPos: Caught bad LOS height check!");
+	}
+
 	return( TRUE );
 }
 
@@ -2505,6 +2513,13 @@ INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, I
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sStartXPos, sStartYPos, sEndXPos, sEndYPos;
+
+	// Bob: prevent access violation 
+	if (sStartGridNo < 0) { 
+		// ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"LocationToLocationLineOfSightTest: Caught bad LOS check!");
+		return 0; 
+	}
+
 //	UINT8						ubStartID;
 
 	// sevenfm: always use standing heights

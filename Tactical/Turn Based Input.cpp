@@ -6703,6 +6703,21 @@ void SeperateItems()
 								break;
 						}
 					}
+					
+					// Bob: also empty out LBE items in sector inventory
+					if (gWorldItems[uiLoop].object.IsActiveLBE(x)) {
+						LBENODE * lbePtr = gWorldItems[uiLoop].object.GetLBEPointer(x);
+
+						for (auto lbeInvIter = lbePtr->inv.begin(); lbeInvIter != lbePtr->inv.end(); lbeInvIter++) {
+							OBJECTTYPE * LBEStack = lbeInvIter._Ptr;
+							
+							if (LBEStack->usItem != 0 && LBEStack->exists()) {
+								AddItemToPool(gWorldItems[uiLoop].sGridNo, LBEStack, 1, gWorldItems[uiLoop].ubLevel, WORLD_ITEM_REACHABLE, -1);
+							}
+						}
+						DestroyLBE(&(gWorldItems[uiLoop].object), x);
+					}
+				
 				}
 			}
 		}

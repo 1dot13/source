@@ -864,6 +864,8 @@ void LoadGameExternalOptions()
 
 	// CHRISL: New setting to allow Slay to remain as a hired PC
 	gGameExternalOptions.fEnableSlayForever				= iniReader.ReadBoolean("Recruitment Settings", "SLAY_STAYS_FOREVER", FALSE);
+	// Bob: externalized Slay's chance to leave
+	gGameExternalOptions.ubHourlyChanceSlayWillLeave = iniReader.ReadInteger("Recruitment Settings", "SLAY_HOURLY_CHANCE_TO_LEAVE", 15, 0, 100);
 
 	// anv: playable Speck
 	gGameExternalOptions.fEnableRecruitableSpeck		= iniReader.ReadBoolean("Recruitment Settings", "RECRUITABLE_SPECK", TRUE);

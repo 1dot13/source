@@ -1035,6 +1035,14 @@ void ChangeCharacterListSortMethod( INT32 iValue );
 
 void MapscreenMarkButtonsDirty();
 
+// Bob: functions for packing vehicles with filled LBE items
+void moveSectorInventoryToVehicle(SOLDIERTYPE *pSoldier);
+void fillCurrentSectorLBEItems(SOLDIERTYPE *pSoldier);
+void fillLBEWithSectorItems(OBJECTTYPE * LBEObject);
+void moveCurrentSectorItemsToVehicle(SOLDIERTYPE *pSoldier);
+bool placeItemInVehicle(SOLDIERTYPE *pSoldier, WORLDITEM &worldItem);
+bool placeItemInVehicle(SOLDIERTYPE *pSoldier, OBJECTTYPE &item);
+
 extern BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSectorY, INT8 bClickedTownId );
 
 extern INT32 GetNumberOfMercsInUpdateList( void );
@@ -7671,34 +7679,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 									{
 										if (gGameExternalOptions.fVehicleInventory)
 										{
-											for (unsigned int i = 0; i < pInventoryPoolList.size(); i++)
-											{
-												if (pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
-												{
-													for (int x = 0; x < NUM_INV_SLOTS; x++)
-													{
-														if (vehicleInv[x] == FALSE)
-															continue;
-														if (pSoldier->inv[x].exists() == true)
-														{
-															if (pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
-																continue;
-															else
-																pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
-														}
-														else
-															pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
-														if (pInventoryPoolList[i].object.ubNumberOfObjects < 0)
-														{
-															//RemoveItemFromWorld(i);
-															break;
-														}
-													}
-												}
-												fTeamPanelDirty = TRUE;
-												fMapPanelDirty = TRUE;
-												fInterfacePanelDirty = DIRTYLEVEL2;
-											}
+											moveSectorInventoryToVehicle(pSoldier);
 										}
 									}
 									// Flugente: also allow mercs to qickly pick up items this way (but not EPCs)
@@ -16972,4 +16953,167 @@ BOOLEAN CanGiveStrategicMilitiaMoveOrder( INT16 sMapX, INT16 sMapY )
 void RetreatBandageCallback( UINT8 ubResult )
 {
 	HandleRetreatBandaging( );
+}
+
+// Bob: moved here to expand what CHRISL did
+// try to move all items in sector into the vehicle inventory. Try to use LBE items in sector to store as much stuff as possible
+void moveSectorInventoryToVehicle(SOLDIERTYPE *pSoldier) {
+
+	fillCurrentSectorLBEItems(pSoldier);	// puts LBE items in vehicle
+	// ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"---------------------------------------------");
+	// ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Moving remaining sector items into the car...");
+	moveCurrentSectorItemsToVehicle(pSoldier); // puts remaining items in vehicle
+
+	fTeamPanelDirty = TRUE;
+	fMapPanelDirty = TRUE;
+	fInterfacePanelDirty = DIRTYLEVEL2;
+}
+
+// fills all empty LBE items in currebt sector with other sector items then tries to place all LBE items in the vehicle (pSoldier)
+void fillCurrentSectorLBEItems(SOLDIERTYPE *pSoldier) {
+	std::vector<OBJECTTYPE*> LBEObjects; // list of LBE objects found in sector
+
+	// build a list of LBE objects in sector. Stacks are split into separate items.
+	for (unsigned int i = 0; i < pInventoryPoolList.size(); i++)
+	{
+		WORLDITEM & stack = pInventoryPoolList[i];
+		OBJECTTYPE & stackContents = pInventoryPoolList[i].object;
+		INVTYPE & stackContentType = Item[stackContents.usItem];
+
+		if (	stack.fExists == TRUE
+			&&	stack.usFlags & WORLD_ITEM_REACHABLE
+			&&	stackContentType.usItemClass == IC_LBEGEAR
+		) {
+			for (int j = 0; j< stackContents.ubNumberOfObjects; j++) {
+				OBJECTTYPE * LBEObject = new OBJECTTYPE();
+									
+				stackContents.MoveThisObjectTo(*LBEObject, 1);
+				LBEObjects.push_back(LBEObject);
+			}
+		}
+	}
+
+	// fill the LBE items in the list with items from current sector then try to put them in the vehicle
+	for (std::vector<OBJECTTYPE*>::iterator LBEItemIter = LBEObjects.begin(); LBEItemIter != LBEObjects.end(); LBEItemIter++) {
+		OBJECTTYPE* LBEItem = *LBEItemIter;
+		INVTYPE LBEItemType = Item[LBEItem->usItem];
+		LBETYPE LBEType = LoadBearingEquipment[LBEItemType.ubClassIndex];
+
+		//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"===================================");
+		//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Filling: %s", LBEItemType.szItemName);		
+
+		if ( LBEItem->IsActiveLBE(0) == FALSE ) {
+			// init LBE data
+			CreateLBE(LBEItem, pSoldier->ubID, LBEType.lbePocketIndex.size());
+			// stuff it full of sector items
+			fillLBEWithSectorItems(LBEItem);
+		}
+
+		// try to put the LBE item in the vehicle, if we fail then drop it.
+		if (placeItemInVehicle(pSoldier, *LBEItem) == false) {
+			// ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Dropped %s on the ground", LBEItemType.szItemName);
+			AutoPlaceObjectToWorld(pSoldier, LBEItem);
+		} else {
+			// ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Moved %s into the car", LBEItemType.szItemName);
+		}
+		
+	}
+}
+
+// fills LBEObject with items from currently loaded sector. Assumes that LBEObject contains only one item
+void fillLBEWithSectorItems(OBJECTTYPE * LBEObject) {
+	LBENODE* pLBE = LBEObject->GetLBEPointer(0);
+
+	INVTYPE LBEItemType = Item[LBEObject->usItem];
+	LBETYPE LBEType = LoadBearingEquipment[LBEItemType.ubClassIndex];
+
+	int movedItemsTotal = 0;
+
+	for (int i = 0; i < LBEType.lbePocketIndex.size(); i++) {
+		INT16 lbePocket = LBEType.lbePocketIndex[i];
+		if (lbePocket == 0) continue;
+
+		POCKETTYPE lbePocketType = LBEPocketType[lbePocket];
+
+		for (auto itemIterator = pInventoryPoolList.begin(); itemIterator != pInventoryPoolList.end(); itemIterator++) {
+			WORLDITEM * sectorItemStack = &(*itemIterator);
+			OBJECTTYPE * sectorItemObject = &(itemIterator->object);
+			INVTYPE sectorItemType = Item[sectorItemObject->usItem];
+
+			if (sectorItemStack->fExists && sectorItemStack->usFlags & WORLD_ITEM_REACHABLE && sectorItemType.usItemClass != IC_LBEGEAR && sectorItemObject->usItem > 0) {
+				int pocketCapacity = lbePocketType.ItemCapacityPerSize[sectorItemType.ItemSize];
+			
+				if (pocketCapacity > 0) {								
+					OBJECTTYPE * pocketItemObject = new OBJECTTYPE();
+
+					int movedItems = (sectorItemObject->ubNumberOfObjects > pocketCapacity) ? pocketCapacity : sectorItemObject->ubNumberOfObjects;
+
+					int remainingItems = sectorItemObject->MoveThisObjectTo(*pocketItemObject, movedItems);				
+
+					//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Moved %s * %i (%i remaining) into %s (%s)", sectorItemType.szItemName, movedItems, remainingItems, LBEItemType.szItemName, lbePocketType.pName);
+
+					pLBE->inv[i] = (*pocketItemObject);
+
+					movedItemsTotal += movedItems;
+
+					break;
+				}
+			} 
+		}
+	}
+
+	if (movedItemsTotal == 0) {
+		DestroyLBE(LBEObject);
+	}
+}
+
+void moveCurrentSectorItemsToVehicle(SOLDIERTYPE *pSoldier) {
+	for (unsigned int i = 0; i < pInventoryPoolList.size(); i++)
+	{
+		if (pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
+		{
+			placeItemInVehicle(pSoldier, pInventoryPoolList[i]);
+		}
+	}
+}
+
+bool placeItemInVehicle(SOLDIERTYPE *pSoldier, WORLDITEM &worldItem) {
+	return placeItemInVehicle(pSoldier, worldItem.object);
+}
+
+bool placeItemInVehicle(SOLDIERTYPE *pSoldier, OBJECTTYPE &item) {
+	if (item.usItem < 1) return false;
+
+	INVTYPE sectorItemType = Item[item.usItem];
+
+	for (int x = 0; x < NUM_INV_SLOTS && item.ubNumberOfObjects > 0; x++)
+	{
+		if (vehicleInv[x] == FALSE)
+			continue;
+
+		if (pSoldier->inv[x].exists() == true)
+		{
+			if (pSoldier->inv[x].usItem != item.usItem)
+			{
+				continue;
+			}
+			else
+			{
+				//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Stacking %s * %i in car slot %i", sectorItemType.szItemName, item.ubNumberOfObjects, x);
+				pSoldier->inv[x].AddObjectsToStack(item, -1, pSoldier, x);
+			}
+		}
+		else
+		{
+			//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Placing %s * %i in car slot %i", sectorItemType.szItemName, item.ubNumberOfObjects, x);
+			int result = item.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
+		}
+
+		if (item.ubNumberOfObjects < 0)
+		{
+			break;
+		}
+	}
+
+	return (item.ubNumberOfObjects == 0);
 }

@@ -4324,7 +4324,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"Сложить и объединить предметы", // HEADROCK HAM 5: Stack and Merge
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Собрать патроны в ящики\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Собрать патроны в коробки", // HEADROCK HAM 5: Sort ammo
 	// 6 - 10
-	L"Снять всю навеску \nс предметов", // HEADROCK HAM 5: Separate Attachments
+	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Снять всю навеску \nс предметов\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: empty LBE in sector", // HEADROCK HAM 5: Separate Attachments
 	L"Разрядить всё оружие", //HEADROCK HAM 5: Eject Ammo
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Показать все предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Скрыть все предметы", // HEADROCK HAM 5: Filter Button
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть оружие\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать оружие", // HEADROCK HAM 5: Filter Button
@@ -8639,6 +8639,13 @@ STR16 gzMapInventorySortingMessage[] =
 	L"С предметов в секторе %c%d снята вся навеска.",
 	L"В секторе %c%d всё оружие разряжено.",
 	L"В секторе %c%d все вещи сгруппированы и объединены.",
+	// Bob: new strings for emptying LBE items
+	L"Finished emptying LBE items in sector %c%d.",
+	L"Dropped %i item(s) from %s",	// Bunch of stuff removed from LBE item %s
+	L"No droppable items in %s!",	// LBE item %s had a LBENode assigned but it contained no items (error!)
+	L"%s is now empty.",			// LBE item %s contained stuff and was emptied
+	L"Cannot empty %s!",			// Removed everything we could from LBE item %s but it's still not marked as empty (error!)
+	L"%s contents lost!",			// LBE item %s not marked as empty but LBENode not found (error!!!)
 };
 
 STR16 gzMapInventoryFilterOptions[] =

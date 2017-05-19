@@ -11002,7 +11002,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					else
 					{
 						SetFontForeground( 5 );
-						swprintf( pStr, L"=", iFloatModifier[cnt2] );
+						swprintf( pStr, L"=" );
 					}
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
@@ -12016,25 +12016,25 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 					if (iModifier[cnt2])
 					{
 						SetFontForeground( 5 );
-						swprintf( pStr, L"=", iModifier[cnt2] );
+						swprintf( pStr, L"=" );
 					}
 					else
 					{
 						SetFontForeground( ITEMDESC_FONTPOSITIVE );
-						swprintf( pStr, L"Y", iModifier[cnt2] );
+						swprintf( pStr, L"Y" );
 					}
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else if ( fComparisonMode && !iComparedModifier[0] )
 				{
 					SetFontForeground( ITEMDESC_FONTNEGATIVE );
-					swprintf( pStr, L"N", iModifier[cnt2] );
+					swprintf( pStr, L"N" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else if (iModifier[cnt2])
 				{
 					SetFontForeground( ITEMDESC_FONTPOSITIVE );
-					swprintf( pStr, L"Y", iModifier[cnt2] ); // FIXME: unused param
+					swprintf( pStr, L"Y" );
 					FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY);
 				}
 				else

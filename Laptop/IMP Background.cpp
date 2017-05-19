@@ -309,7 +309,7 @@ void HandleIMPBackgroundAnswers( UINT16 uiSkillPressed )
 	}
 
 	//make sure its a valid skill
-	if( uiSkillPressed > IMP_BACKGROUND_DISPLAYED_CHOICES )
+	if( uiSkillPressed >= IMP_BACKGROUND_DISPLAYED_CHOICES )
 	{
 		Assert( 0 );
 		return;

@@ -676,7 +676,7 @@ samsiteEndElementHandle( void *userData, const XML_Char *name )
 			pData->curElement = SAMSITE_ELEMENT_SAM;
 
 			pData->curSamInfo.samOrientation = (INT8)atol( pData->szCharData );
-			if ( pData->curSamInfo.samOrientation != 3 || pData->curSamInfo.samOrientation != 4 )
+			if ( pData->curSamInfo.samOrientation != 3 && pData->curSamInfo.samOrientation != 4 )
 			{
 				pData->curSamInfo.samOrientation = 3;
 			}
@@ -2045,7 +2045,7 @@ void GetMapFileName( INT16 sMapX, INT16 sMapY, INT8 bSectorZ, STR8 bString, BOOL
 		// Debug str
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Map does not exist for %s, using default.", bTestString ) );
 		// Set to a string we know!
-		sprintf( bString, "H10.DAT", pVertStrings[sMapY], pHortStrings[sMapX] );
+		sprintf( bString, "H10.DAT");
 		ScreenMsg( FONT_YELLOW, MSG_DEBUG, L"Using PLACEHOLDER map!" );
 	}
 	return;

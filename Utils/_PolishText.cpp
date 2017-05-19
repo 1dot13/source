@@ -4333,7 +4333,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"Stack and merge items", // HEADROCK HAM 5: Stack and Merge
 	L"|L|e|f|t |C|l|i|c|k: Sort ammo into crates\n|R|i|g|h|t |C|l|i|c|k: Sort ammo into boxes", // HEADROCK HAM 5: Sort ammo
 	// 6 - 10
-	L"Remove all item attachments", // HEADROCK HAM 5: Separate Attachments
+	L"|L|e|f|t |C|l|i|c|k: Remove all item attachments\n|R|i|g|h|t |C|l|i|c|k: empty LBE in sector", // HEADROCK HAM 5: Separate Attachments; Bob: empty LBE items
 	L"Eject ammo from all weapons", //HEADROCK HAM 5: Eject Ammo
 	L"|L|e|f|t |C|l|i|c|k: Show all items\n|R|i|g|h|t |C|l|i|c|k: Hide all items", // HEADROCK HAM 5: Filter Button
 	L"|L|e|f|t |C|l|i|c|k: Toggle Guns\n|R|i|g|h|t |C|l|i|c|k|: Show only Guns", // HEADROCK HAM 5: Filter Button
@@ -8653,10 +8653,17 @@ STR16 gzNCTHlabels[]=
 // HEADROCK HAM 5: Screen messages for sector inventory sorting reports.
 STR16 gzMapInventorySortingMessage[] =
 {
-	L"Finished sorting ammo into crates in sector %c%d.",
-	L"Finished removing attachments from items in sector %c%d.",
-	L"Finished ejecting ammo from weapons in sector %c%d.",
-	L"Finished stacking and merging all items in sector %c%d.",
+	L"Spakowano amunicję do skrzyń w sektorze %c%d.",
+	L"Usunięto dodatki z przedmiotów w sektorze %c%d.",
+	L"Rozładowano amunicję z broni w sektorze %c%d.",
+	L"Poukładano i scalono przedmioty w sektorze %c%d.",
+	// Bob: new strings for emptying LBE items
+	L"Rozładowano LBE w sektorze %c%d.",
+	L"Wyrzucono %i przedmiot(ów) z %s",	// Bunch of stuff removed from LBE item %s
+	L"Nie można nic wyjąć z %s!",		// LBE item %s had a LBENode assigned but it contained no items (error!)
+	L"Rozładowano %s.",					// LBE item %s contained stuff and was emptied
+	L"Nie udało się rozładować %s!",	// Removed everything we could from LBE item %s but it's still not marked as empty (error!)
+	L"Utracona zawartość %s!",			// LBE item %s not marked as empty but LBENode not found (error!!!)
 };
 
 STR16 gzMapInventoryFilterOptions[] =

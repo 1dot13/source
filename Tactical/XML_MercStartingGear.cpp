@@ -188,14 +188,16 @@ MercStartingGearEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "mName") == 0)
 		{
 			pData->curElement = ELEMENT;
-			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-				strcpy(pData->curMercStartingGear.mName,pData->szCharData);
+			if (strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH ) {
+				strncpy(pData->curMercStartingGear.mName, pData->szCharData, mNameLength);
+			}
 			else
 			{
-				strncpy(pData->curMercStartingGear.mName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-				pData->curMercStartingGear.mName[MAX_CHAR_DATA_LENGTH] = '\0';
+				strncpy(pData->curMercStartingGear.mName,pData->szCharData, mNameLength);
+				pData->curMercStartingGear.mName[mNameLength-1] = '\0';
 			}
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
+
+			for(int i=0;i<min( (int)strlen(pData->szCharData), mNameLength);i++)
 			{
 				temp = pData->szCharData[i];
 				pData->curMercStartingGear.mName[i] = temp;

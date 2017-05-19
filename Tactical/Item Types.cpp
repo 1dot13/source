@@ -156,10 +156,10 @@ void CreateLBE (OBJECTTYPE* pObj, UINT8 ubID, int numSubPockets)
 	(*pObj)[0]->data.lbe.uniqueID = uniqueID;
 }
 
-bool DestroyLBEIfEmpty(OBJECTTYPE* pObj)
+bool DestroyLBEIfEmpty(OBJECTTYPE* pObj, int stackIndex)
 {
-	if (pObj->IsActiveLBE(0) == true) {
-		LBENODE* pLBE = pObj->GetLBEPointer(0);
+	if (pObj->IsActiveLBE(stackIndex) == true) {
+		LBENODE* pLBE = pObj->GetLBEPointer(stackIndex);
 		if (pLBE)
 		{
 			UINT16 plbesize = pLBE->inv.size();
@@ -174,19 +174,19 @@ bool DestroyLBEIfEmpty(OBJECTTYPE* pObj)
 					break;
 				}
 			}
-			(*pObj)[0]->data.lbe.uniqueID = 0;
-			(*pObj)[0]->data.lbe.bLBE = 0;
+			(*pObj)[stackIndex]->data.lbe.uniqueID = 0;
+			(*pObj)[stackIndex]->data.lbe.bLBE = 0;
 			return true;
 		}
 	}
 	return false;
 }
 
-void DestroyLBE(OBJECTTYPE* pObj)
+void DestroyLBE(OBJECTTYPE* pObj, int stackIndex)
 {
-	if(pObj->IsActiveLBE(0) == true)
+	if(pObj->IsActiveLBE(stackIndex) == true)
 	{
-		LBENODE* pLBE = pObj->GetLBEPointer(0);
+		LBENODE* pLBE = pObj->GetLBEPointer(stackIndex);
 		if(pLBE)
 		{
 			UINT16 plbesize = pLBE->inv.size();
@@ -206,8 +206,8 @@ void DestroyLBE(OBJECTTYPE* pObj)
 				}
 			}
 
-			(*pObj)[0]->data.lbe.uniqueID = 0;
-			(*pObj)[0]->data.lbe.bLBE = 0;
+			(*pObj)[stackIndex]->data.lbe.uniqueID = 0;
+			(*pObj)[stackIndex]->data.lbe.bLBE = 0;
 			return;
 		}
 	}
@@ -1009,7 +1009,11 @@ OBJECTTYPE* StackedObjectData::GetAttachmentAtIndex(UINT8 index)
 	}
 
 	if (iter != attachments.end()) {
-		return &(*iter);
+		OBJECTTYPE * attachment = &(*iter);
+		if (attachment->usItem > 0 && (attachment->ubNumberOfObjects != 1 || attachment->usItem > MAXITEMS || attachment->ubMission != 0) ) {
+			__debugbreak();
+		}
+		return attachment;
 	}
 	return 0;
 }

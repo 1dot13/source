@@ -811,6 +811,8 @@ void HourlyStealUpdate()
 #else 
 void HourlyCheckIfSlayAloneSoHeCanLeave()
 {
+	if (gGameExternalOptions.fEnableSlayForever || gGameExternalOptions.ubHourlyChanceSlayWillLeave < 1) return;
+
 	SOLDIERTYPE *pSoldier;
 	pSoldier = FindSoldierByProfileID( SLAY, TRUE );
 	if( !pSoldier )
@@ -827,7 +829,7 @@ void HourlyCheckIfSlayAloneSoHeCanLeave()
 	}
 	if( PlayerMercsInSector( (UINT8)pSoldier->sSectorX, (UINT8)pSoldier->sSectorY, pSoldier->bSectorZ ) == 1 )
 	{
-		if( Chance( 15 ) )
+		if( Chance( gGameExternalOptions.ubHourlyChanceSlayWillLeave ) )
 		{
 			pSoldier->ubLeaveHistoryCode = HISTORY_SLAY_MYSTERIOUSLY_LEFT;
 			TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING_NO_ASK_EQUIP, 0, 0 );

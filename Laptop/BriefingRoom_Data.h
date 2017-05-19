@@ -49,7 +49,7 @@ typedef struct
 	
 	BOOLEAN bvisible;
 	
-	CHAR16		sCode[150];
+	CHAR16		sCode[ENCYCLOPEDIA_DECRIPTION_SIZE];
 	
 	INT32 NextMission;
 	UINT32 MissionID;

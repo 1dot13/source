@@ -4331,7 +4331,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"Empiler les mêmes objets", // HEADROCK HAM 5: Stack and Merge
 	L"|C|l|i|c |G|. : Trier munitions par caisse\n|C|l|i|c |D|. : Trier munitions par boîte", // HEADROCK HAM 5: Sort ammo
 	// 6 - 10
-	L"Ôter tous les accessoires des objets", // HEADROCK HAM 5: Separate Attachments
+	L"|C|l|i|c |G|. : Ôter tous les accessoires des objets\n|C|l|i|c |D|. : empty LBE in sector", // HEADROCK HAM 5: Separate Attachments
 	L"Décharger toutes les armes", //HEADROCK HAM 5: Eject Ammo
 	L"|C|l|i|c |G|. : Voir tous les objets\n|C|l|i|c |D|. : Cacher tous les objets", // HEADROCK HAM 5: Filter Button
 	L"|C|l|i|c |G|. : Avec/sans armes\n|C|l|i|c |D|. : Voir que les armes", // HEADROCK HAM 5: Filter Button
@@ -8640,6 +8640,13 @@ STR16 gzMapInventorySortingMessage[] =
 	L"Fin du démontage de tous les accessoires au secteur %c%d.",
 	L"Fin du déchargement des armes au secteur %c%d.",
 	L"Fin du classement et de l'empilage par type au secteur %c%d.",
+	// Bob: new strings for emptying LBE items
+	L"Finished emptying LBE items in sector %c%d.",
+	L"Dropped %i item(s) from %s",	// Bunch of stuff removed from LBE item %s
+	L"No droppable items in %s!",	// LBE item %s had a LBENode assigned but it contained no items (error!)
+	L"%s is now empty.",			// LBE item %s contained stuff and was emptied
+	L"Cannot empty %s!",			// Removed everything we could from LBE item %s but it's still not marked as empty (error!)
+	L"%s contents lost!",			// LBE item %s not marked as empty but LBENode not found (error!!!)
 };
 
 STR16 gzMapInventoryFilterOptions[] =

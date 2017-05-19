@@ -254,7 +254,7 @@ INT32 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT32 sStartGridNo, INT32 sD
 
 BUILDING * CreateNewBuilding( UINT8 * pubBuilding )
 {
-	if (gubNumberOfBuildings >= MAX_BUILDINGS)
+	if (gubNumberOfBuildings >= MAX_BUILDINGS-1)
 	{
 		return( NULL );
 	}

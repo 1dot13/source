@@ -230,10 +230,10 @@ newCarEndElementHandle(void *userData, const XML_Char *name)
 			else
 			{
 				strncpy(pData->curNewCar.szIconFace,pData->szCharData,MAX_MAIN_VEHICLE_CHARS);
-				pData->curNewCar.szIconFace[MAX_MAIN_VEHICLE_CHARS] = '\0';
+				pData->curNewCar.szIconFace[MAX_MAIN_VEHICLE_CHARS-1] = '\0';
 			}
 
-			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_MAIN_VEHICLE_CHARS);i++)
+			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_MAIN_VEHICLE_CHARS-1);i++)
 			{
 				temp = pData->szCharData[i];
 				pData->curNewCar.szIconFace[i] = temp;

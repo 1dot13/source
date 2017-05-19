@@ -372,7 +372,7 @@ void BuildListFile( )
 	fOKFiles = TRUE;
 
 	cnt = 0;
-	while( !feof( infoFile ) )
+	while( !feof( infoFile ) && cnt < numEntries )
 	{
 		fgets( currFilename, 128, infoFile );
 
@@ -384,9 +384,11 @@ void BuildListFile( )
 
 		if ( usState != 5555 )
 		{
+			// Bob: swapped places, there's numEntries things to be put in pusStates, I'm guessing supposed to start at 0
+			pusStates[cnt] = usState;
 			cnt++;
-			ubNumStates	= (UINT8)cnt;
-			pusStates[ cnt ] = usState;
+			ubNumStates	= (UINT8)cnt;			
+			// pusStates[ cnt ] = usState;
 		}
 		else
 		{

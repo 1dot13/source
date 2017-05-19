@@ -759,12 +759,11 @@ void CreateTileDatabase( INT32 iTilesetID )
 						}
 
 */
+						Assert(gusNumAnimatedTiles < MAX_ANIMATED_TILES);
 
 						// set into animation controller array
 						gusAnimatedTiles[ gusNumAnimatedTiles ] = gTileDatabaseSize;
-						gusNumAnimatedTiles++;
-
-						Assert( gusNumAnimatedTiles <= MAX_ANIMATED_TILES );
+						gusNumAnimatedTiles++;						
 
 						TileElement.uiFlags				|= ANIMATED_TILE;
 					}

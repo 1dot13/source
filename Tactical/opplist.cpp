@@ -1218,6 +1218,12 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		return( 0 );
 	}
 
+	// Bob: if gridNo isn't set, this would cause a access violation later on
+	if (pSoldier->sGridNo < 0) {
+		// ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"DistanceVisible(): Caught bad LOS distance check!");
+		return(0);
+	}
+
 	// anv: some places in vehicle don't give passenger any view outside
 	INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
 	if( bSeatIndex != (-1) )
