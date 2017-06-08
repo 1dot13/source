@@ -199,12 +199,12 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 	<SECTOR>
 		<uiIndex>18</uiIndex>
 		<szLocation>B2</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayChitzena</szDay>
 		<szNight>Loadscreens\LS_NightChitzena</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>		
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>		
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>19</uiIndex>
@@ -541,12 +541,12 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 	<SECTOR>
 		<uiIndex>52</uiIndex>
 		<szLocation>D4</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMine</szDay>
 		<szNight>Loadscreens\LS_NightMine</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>53</uiIndex>
@@ -1175,12 +1175,12 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 	<SECTOR>
 		<uiIndex>115</uiIndex>
 		<szLocation>H3</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMine</szDay>
 		<szNight>Loadscreens\LS_NightMine</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>116</uiIndex>
@@ -1225,12 +1225,12 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 	<SECTOR>
 		<uiIndex>120</uiIndex>
 		<szLocation>H8</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMine</szDay>
 		<szNight>Loadscreens\LS_NightMine</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>121</uiIndex>
@@ -1275,22 +1275,22 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 	<SECTOR>
 		<uiIndex>125</uiIndex>
 		<szLocation>H13</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>126</uiIndex>
 		<szLocation>H14</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>127</uiIndex>
@@ -1436,12 +1436,12 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 	<SECTOR>
 		<uiIndex>141</uiIndex>
 		<szLocation>I13</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>142</uiIndex>
@@ -2181,12 +2181,12 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 	<SECTOR>
 		<uiIndex>215</uiIndex>
 		<szLocation>N7</szLocation>
-		<RandomAltSector>0</RandomAltSector>
+		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayMilitary</szDay>
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
+		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
+		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>216</uiIndex>

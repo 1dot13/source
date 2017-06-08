@@ -48,8 +48,8 @@
 **************
 ** Examples **
 **************
-	
-	if ( SectorEnemyControlled ( CALCULATE_STRATEGIC_INDEX (13,4) ) == false ) then
+		
+	if ( SectorEnemyControlled ( CALCULATE_STRATEGIC_INDEX(13,4) ) ) == false then
 		-- instructions
 	else
 		-- instructions

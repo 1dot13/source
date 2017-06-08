@@ -1,204 +1,213 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<!--
+
+This file contains the email text for each merc (that is available on the M.E.R.C website), 
+when Speck sends us the mail, when the salary of a M.E.R.C merc increases.
+
+uiIndex:		This represents the merc index from MercProfiles.xml (Prof.dat)
+Subject:		The email subject
+Message:		The email message body
+
+-->
 
 <EMAIL_MERC_LEVEL_UP>
 	<EMAIL>
 		<uiIndex>0</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>1</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>2</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>3</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>4</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>5</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>6</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>7</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>8</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>9</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>10</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>11</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>12</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>13</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>14</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>15</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>16</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>17</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>18</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>19</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>20</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>21</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>22</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>23</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>24</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>25</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>26</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>27</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>28</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>29</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>30</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>31</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>32</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>33</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>34</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>35</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>36</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>37</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>38</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>39</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
@@ -269,37 +278,37 @@
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>51</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>52</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>53</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>54</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>55</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>56</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>57</uiIndex>
-		<Subject>Subject : None</Subject>
+		<Subject>Subject: None</Subject>
 		<Message>Message : None</Message>
 	</EMAIL>
 	<EMAIL>

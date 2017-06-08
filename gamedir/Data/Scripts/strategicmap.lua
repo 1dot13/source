@@ -79,8 +79,6 @@ Facts = {
 	FACT_ALL_TERRORISTS_KILLED   =      156,
 }
 
-local NOBODY = 254
-
 History = {
 	HISTORY_ENTERED_HISTORY_MODE = 0,
 	HISTORY_HIRED_MERC_FROM_AIM = 1,
@@ -169,9 +167,93 @@ Profil =
 	ELLIOT = 135,
 	CONRAD = 70,
 	CARMEN = 78,
+	KINGPIN = 86,
 	MADLAB = 146,
 	ROBOT = 62,
+	MIGUEL = 57,
+	KYLE = 95,
 }
+
+SoldierClass = 
+{                   
+    SOLDIER_CLASS_NONE = 0,
+	SOLDIER_CLASS_ADMINISTRATOR = 1,
+	SOLDIER_CLASS_ELITE = 2,
+	SOLDIER_CLASS_ARMY = 3,
+}
+
+CivGroup =
+{
+	REBEL_CIV_GROUP = 1,
+	KINGPIN_CIV_GROUP = 2,
+	WARDEN_CIV_GROUP = 11,
+	BOUNTYHUNTER_CIV_GROUP = 25,
+	SCIENTIST_GROUP = 27,
+	RADAR_TECHNICIAN_GROUP = 28,
+	AIRPORT_STAFF_GROUP = 29,
+	BARRACK_STAFF_GROUP = 30,
+	FACTORY_GROUP = 31,
+	ADMINISTRATIVE_STAFF_GROUP = 32,
+	LOYAL_CIV_GROUP = 33,
+}
+
+Bodytype = 
+{
+	REGMALE = 0,
+	BIGMALE = 1,
+	STOCKYMALE = 2,
+	REGFEMALE = 3,
+	FATCIV = 11,
+	MANCIV = 12,
+	MINICIV = 13,
+	DRESSCIV = 14,
+	HATKIDCIV = 15,
+	KIDCIV = 16,
+	CRIPPLECIV = 17,
+}
+
+Skin = 
+{
+	PINKSKIN = 0,
+	TANSKIN = 1,
+	DARKSKIN = 2,
+	BLACKSKIN = 3,
+}
+
+Hair = 
+{
+	WHITEHEAD = 0,
+	BLACKHEAD = 1,
+	BROWNHEAD = 2,
+	BLONDEHEAD = 3,
+	REDHEAD = 4,
+}
+
+Vest = 
+{
+	WHITEVEST = 0,
+	GYELLOWSHIRT = 1,
+	YELLOWVEST = 2,
+	GREYVEST = 3,
+	BROWNVEST = 4,
+	PURPLESHIRT = 5,
+	BLUEVEST = 6,
+	JEANVEST = 7,
+	GREENVEST = 8,
+	REDVEST = 9,
+	BLACKSHIRT = 10,
+}
+
+Pants = 
+{
+	BLUEPANTS = 0,
+	BLACKPANTS = 1,
+	JEANPANTS = 2,
+	TANPANTS = 3,
+	BEIGEPANTS = 4,
+	GREENPANTS = 5,
+}
+
 local gsRobotGridNo
 
 function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
@@ -183,11 +265,9 @@ function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
 		SetCharacterSectorX(Profil.ANGEL, 0)
 		SetCharacterSectorY(Profil.ANGEL, 0)
 	end
-
+	
 	if ( sNewSectorX == 5 and sNewSectorY == SectorY.MAP_ROW_D ) then
-		gubBoxerID( 0, NOBODY )
-		gubBoxerID( 1, NOBODY ) 
-		gubBoxerID( 2, NOBODY )
+		ResetBoxers()
 	end
 
 	if ( sNewSectorX == 3 and sNewSectorY == SectorY.MAP_ROW_P ) then

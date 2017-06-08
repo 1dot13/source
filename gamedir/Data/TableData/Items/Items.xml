@@ -24,6 +24,7 @@
 		<AttachmentPoint>0</AttachmentPoint>
 		<AttachToPointAPCost>0</AttachToPointAPCost>
 		<ubClassIndex>0</ubClassIndex>
+		<ItemFlag>0</ItemFlag>
 		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
@@ -62,6 +63,7 @@
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<Bipod>0</Bipod>
 		<RangeBonus>0</RangeBonus>
+		<PercentRangeBonus>0</PercentRangeBonus>
 		<ToHitBonus>0</ToHitBonus>
 		<BestLaserRange>0</BestLaserRange>
 		<AimBonus>0</AimBonus>
@@ -125,6 +127,7 @@
 		<CaveVisionRangeBonus>0</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>0</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>0</PercentTunnelVision>
+		<FlashLightRange>0</FlashLightRange>
 		<ThermalOptics>0</ThermalOptics>
 		<GasMask>0</GasMask>
 		<Alcohol>0</Alcohol>
@@ -147,6 +150,7 @@
 		<NeedsBatteries>0</NeedsBatteries>
 		<ContainsLiquid>0</ContainsLiquid>
 		<MetalDetector>0</MetalDetector>
+		<usSpotting>0</usSpotting>
 		<FingerPrintID>0</FingerPrintID>
 		<TripWireActivation>0</TripWireActivation>
 		<TripWire>0</TripWire>
@@ -160,11 +164,33 @@
 		<PercentAccuracyModifier>0</PercentAccuracyModifier>
 		<spreadPattern />
 		<barrel>0</barrel>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<overheatTemperatureModificator>0</overheatTemperatureModificator>
-		<overheatCooldownModificator>0</overheatCooldownModificator>
-		<overheatJamThresholdModificator>0</overheatJamThresholdModificator>
-		<overheatDamageThresholdModificator>0</overheatDamageThresholdModificator>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<overheatTemperatureModificator>0.0</overheatTemperatureModificator>
+		<overheatCooldownModificator>0.0</overheatCooldownModificator>
+		<overheatJamThresholdModificator>0.0</overheatJamThresholdModificator>
+		<overheatDamageThresholdModificator>0.0</overheatDamageThresholdModificator>
+		<PoisonPercentage>0</PoisonPercentage>
+		<FoodType>0</FoodType>
+		<LockPickModifier>0</LockPickModifier>
+		<CrowbarModifier>0</CrowbarModifier>
+		<DisarmModifier>0</DisarmModifier>
+		<RepairModifier>0</RepairModifier>
+		<DamageChance>0</DamageChance>
+		<DirtIncreaseFactor>0.0</DirtIncreaseFactor>
+		<clothestype>0</clothestype>
+		<usActionItemFlag>0</usActionItemFlag>
+		<randomitem>0</randomitem>
+		<randomitemcoolnessmodificator>0</randomitemcoolnessmodificator>
+		<ItemChoiceTimeSetting>0</ItemChoiceTimeSetting>
+		<buddyitem>0</buddyitem>
+		<SleepModifier>0</SleepModifier>
+		<sBackpackWeightModifier>0</sBackpackWeightModifier>
+		<fAllowClimbing>0</fAllowClimbing>
+		<antitankmine>0</antitankmine>
+		<cigarette>0</cigarette>
+		<usPortionSize>0</usPortionSize>
+		<diseaseprotectionface>0</diseaseprotectionface>
+		<diseaseprotectionhand>0</diseaseprotectionhand>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -175,6 +201,7 @@
 			<PercentDropCompensation>0</PercentDropCompensation>
 			<PercentMaxCounterForce>0</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
+			<PercentCounterForceFrequency>-101</PercentCounterForceFrequency>
 			<AimLevels>0</AimLevels>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS>
@@ -187,6 +214,7 @@
 			<PercentDropCompensation>0</PercentDropCompensation>
 			<PercentMaxCounterForce>0</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
+			<PercentCounterForceFrequency>-101</PercentCounterForceFrequency>
 			<AimLevels>0</AimLevels>
 		</CROUCH_MODIFIERS>
 		<PRONE_MODIFIERS>
@@ -199,6 +227,7 @@
 			<PercentDropCompensation>0</PercentDropCompensation>
 			<PercentMaxCounterForce>0</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
+			<PercentCounterForceFrequency>-101</PercentCounterForceFrequency>
 			<AimLevels>0</AimLevels>
 		</PRONE_MODIFIERS>
 	</ITEM>
@@ -230,7 +259,9 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>36</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -263,7 +294,9 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>1300</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -296,7 +329,9 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>36</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -330,7 +365,9 @@
 		<BR_ROF>1100</BR_ROF>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>11</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>30</PercentMaxCounterForce>
@@ -371,6 +408,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>30</BR_ROF>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DamageChance>8</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -403,7 +442,9 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -434,7 +475,9 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>13</DamageChance>
+		<DirtIncreaseFactor>30.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -465,7 +508,9 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>30</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>12</DamageChance>
+		<DirtIncreaseFactor>24.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -498,7 +543,9 @@
 		<BR_ROF>900</BR_ROF>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>30</PercentMaxCounterForce>
@@ -539,7 +586,9 @@
 		<BR_ROF>1100</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -576,7 +625,9 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>700</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>27.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -609,7 +660,9 @@
 		<BR_ROF>750</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>15</DamageChance>
+		<DirtIncreaseFactor>40.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -647,7 +700,9 @@
 		<BR_ROF>750</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>30.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -685,7 +740,9 @@
 		<BR_ROF>735</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>7</DamageChance>
+		<DirtIncreaseFactor>18.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -725,7 +782,9 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentAPReduction>20</PercentAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>30</PercentMaxCounterForce>
@@ -769,7 +828,9 @@
 		<BR_ROF>750</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>34</DamageChance>
+		<DirtIncreaseFactor>32.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -806,7 +867,9 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>24.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -839,7 +902,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
 		<DefaultAttachment>999</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>30.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -872,7 +937,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>30.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -907,7 +974,9 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<DefaultAttachment>1029</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>28.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>30</PercentMaxCounterForce>
@@ -948,7 +1017,9 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>650</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>27.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -981,7 +1052,9 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>24.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1015,7 +1088,9 @@
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<DefaultAttachment>1030</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>41.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -1053,7 +1128,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>1100</BR_ROF>
 		<Bipod>10</Bipod>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>33.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>20</PercentHandling>
 		</STAND_MODIFIERS>
@@ -1092,7 +1169,9 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>650</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>6</DamageChance>
+		<DirtIncreaseFactor>17.5</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1125,7 +1204,9 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>5</DamageChance>
+		<DirtIncreaseFactor>19.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1157,7 +1238,9 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>750</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>40.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1190,7 +1273,9 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>700</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>26.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1223,7 +1308,9 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>27.4</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1258,7 +1345,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
 		<DefaultAttachment>1029</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>40</DamageChance>
+		<DirtIncreaseFactor>28.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1291,8 +1380,10 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<spreadPattern>ChokeImpModSpread</spreadPattern>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<spreadPattern>Imp Mod Choke</spreadPattern>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1326,7 +1417,9 @@
 		<BR_ROF>24</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -1364,7 +1457,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>240</BR_ROF>
 		<DefaultAttachment>1029</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>20</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1379,6 +1474,7 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>34</ubClassIndex>
+		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>34</ubGraphicNum>
 		<ubWeight>71</ubWeight>
@@ -1397,7 +1493,9 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>1000</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>24.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1432,7 +1530,10 @@
 		<BR_ROF>600</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DefaultAttachment>209</DefaultAttachment>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>19.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -1451,6 +1552,7 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>36</ubClassIndex>
+		<ItemFlag>128</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>36</ubGraphicNum>
 		<ubWeight>93</ubWeight>
@@ -1469,10 +1571,19 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<Bipod>10</Bipod>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
+		<STAND_MODIFIERS>
+			<PercentHandling>20</PercentHandling>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-75</PercentHandling>
+			<PercentMaxCounterForce>100</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -1482,6 +1593,8 @@
 		<szBRName>Combat Knife</szBRName>
 		<szBRDesc>When the enemy is too close for comfort, this full-tang bowie-styled combat knife will definitely come in handy. It features a serrated 9" blade, and a wooden handle with a heavy-duty guard and pommel.</szBRDesc>
 		<usItemClass>4</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>37</ubClassIndex>
 		<ubCursor>4</ubCursor>
@@ -1492,21 +1605,22 @@
 		<ItemSize>24</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<bReliability>2</bReliability>
-		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<Attachment>1</Attachment>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
-		<AttachmentSystem>1</AttachmentSystem>
+		<ToHitBonus>-3</ToHitBonus>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-10</PercentHandling>
+			<PercentMaxCounterForce>-10</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -1540,8 +1654,8 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<BloodiedItem>62</BloodiedItem>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1564,7 +1678,7 @@
 		<ItemSize>14</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Rock>1</Rock>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1596,7 +1710,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
 		<GrenadeLauncher>1</GrenadeLauncher>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1612,6 +1728,7 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>41</ubClassIndex>
 		<ubCursor>20</ubCursor>
+		<ubGraphicNum>343</ubGraphicNum>
 		<ubWeight>211</ubWeight>
 		<ItemSize>8</ItemSize>
 		<usPrice>1800</usPrice>
@@ -1627,7 +1744,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>10</BR_ROF>
 		<Mortar>1</Mortar>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1650,7 +1769,7 @@
 		<ItemSize>14</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Rock>1</Rock>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1672,7 +1791,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>24</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1694,7 +1813,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>24</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1716,7 +1835,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>24</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1738,7 +1857,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>24</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1760,7 +1879,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>24</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1782,7 +1901,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>20</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1815,8 +1934,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>30</BR_ROF>
 		<BrassKnuckles>1</BrassKnuckles>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1825,15 +1943,17 @@
 		<uiIndex>50</uiIndex>
 		<szItemName>Talon</szItemName>
 		<szLongItemName>Talon Grenade Launcher</szLongItemName>
-		<szItemDesc>The "Talon" US military grenade launcher is known to propel enemies into the waiting claws of death.</szItemDesc>
+		<szItemDesc>The "Talon" US military grenade launcher is known to propel enemies into the waiting claws of death.  This GL is basically a carbon copy of the well known Colt M203PI.</szItemDesc>
 		<szBRName>Talon Grenade Launcher</szBRName>
 		<szBRDesc>Developed by the US military, this launcher can be attached to a wide range of assault rifles and machine guns. It comes equipped with a light folding stock and a special pistol grip stock, allowing it to be fired like a pistol. It is considered to be a good entry weapon.</szBRDesc>
 		<usItemClass>16</usItemClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>50</ubClassIndex>
 		<ubCursor>20</ubCursor>
 		<ubGraphicNum>39</ubGraphicNum>
 		<ubWeight>14</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>4</ItemSize>
 		<usPrice>600</usPrice>
 		<bRepairEase>-1</bRepairEase>
@@ -1845,7 +1965,9 @@
 		<Attachment>1</Attachment>
 		<BR_ROF>12</BR_ROF>
 		<GrenadeLauncher>1</GrenadeLauncher>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1854,7 +1976,7 @@
 		<uiIndex>51</uiIndex>
 		<szItemName>LAW</szItemName>
 		<szLongItemName>M72A4 LAW</szLongItemName>
-		<szItemDesc>One hit from this Light Anti-Tank Weapon is better than a one way ticket to Judgement Day. No judge, no jury, and all executioner.</szItemDesc>
+		<szItemDesc>One hit from this Light Anti-Tank Weapon is better than a one way ticket to Judgement Day. No judge, no jury, and all executioner. Extend before firing...</szItemDesc>
 		<szBRName>M72A4 LAW</szBRName>
 		<szBRDesc>The M72A2 Light Anti-Tank Weapon is a light-weight shoulder-fired rocket launcher which can penetrate a foot of tank armour or destroy small battlefield fortifications.  A one-shot weapon of awesome destructive power.</szBRDesc>
 		<usItemClass>16</usItemClass>
@@ -1879,7 +2001,9 @@
 		<RocketLauncher>1</RocketLauncher>
 		<SingleShotRocketLauncher>1</SingleShotRocketLauncher>
 		<DiscardedLauncherItem>247</DiscardedLauncherItem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1901,7 +2025,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>32</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1923,7 +2047,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>24</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1954,7 +2078,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -1995,7 +2119,9 @@
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
 		<ProjectionFactor>1.2</ProjectionFactor>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -2034,7 +2160,9 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<BR_ROF>20</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2055,7 +2183,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>26</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2076,7 +2204,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>20</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2097,7 +2225,7 @@
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>20</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2122,7 +2250,7 @@
 		<DefaultUndroppable>1</DefaultUndroppable>
 		<BR_ROF>16</BR_ROF>
 		<Cannon>1</Cannon>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2137,6 +2265,7 @@
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>61</ubClassIndex>
+		<ItemFlag>16384</ItemFlag>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>46</ubGraphicNum>
 		<ubWeight>12</ubWeight>
@@ -2155,7 +2284,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>36</BR_ROF>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2187,8 +2318,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Attachment>1</Attachment>
 		<BR_ROF>28</BR_ROF>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2216,7 +2346,9 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BR_ROF>20</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>14</DamageChance>
+		<DirtIncreaseFactor>25.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2249,7 +2381,7 @@
 		<BR_ROF>20</BR_ROF>
 		<Crowbar>1</Crowbar>
 		<Hardware>1</Hardware>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2290,7 +2422,9 @@
 		<RocketRifle>1</RocketRifle>
 		<FingerPrintID>1</FingerPrintID>
 		<ProjectionFactor>1.2</ProjectionFactor>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -2328,7 +2462,9 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<BR_ROF>22</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2359,7 +2495,9 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>36</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2391,7 +2529,9 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2428,7 +2568,9 @@
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-10</PercentHandling>
 			<PercentMaxCounterForce>10</PercentMaxCounterForce>
@@ -2452,7 +2594,7 @@
 		<usItemClass>1</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ItemSize>34</ItemSize>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2476,8 +2618,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>10</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2501,8 +2642,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2526,8 +2666,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2551,8 +2690,7 @@
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>7</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2576,8 +2714,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>9</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2601,8 +2738,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2626,8 +2762,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>10</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2651,8 +2786,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>9</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2661,7 +2795,7 @@
 		<uiIndex>79</uiIndex>
 		<szItemName>.38 S-Load HP</szItemName>
 		<szLongItemName>.38 Speed Loader, HP</szLongItemName>
-		<szItemDesc>Although these 6 rounds of .38 Special hollow point ammo tend to perform poorly against armor, it makes up for it by creating wider wound channels in unarmored opponents.</szItemDesc>
+		<szItemDesc>Although these 6 rounds of .38 Special hollow point ammo tend to perform poorly against armor, they makes up for it by creating wider wound channels in unarmored opponents.</szItemDesc>
 		<szBRName>.38 S-Load HP</szBRName>
 		<szBRDesc>The latest deal from Cor-Bon brought us this 6-round package of .38 Special +P 158 grain ammunition. It packs a punch few will live to forget. Warning: its continuous use in alloy frame revolvers is highly inadvisable.</szBRDesc>
 		<usItemClass>1024</usItemClass>
@@ -2676,8 +2810,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>10</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2701,8 +2834,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>9</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2726,8 +2858,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2751,8 +2882,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>9</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2776,8 +2906,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -2976,18 +3105,17 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>9</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>92</uiIndex>
-		<szItemName>5.45x39mm Mag</szItemName>
-		<szLongItemName>5.45x39mm Magazine</szLongItemName>
+		<szItemName>5.45x39mm Mag 30 AP</szItemName>
+		<szLongItemName>5.45x39mm Magazine, 30 AP</szLongItemName>
 		<szItemDesc>This 30-round magazine holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
-		<szBRName>5.45x39mm Mag</szBRName>
+		<szBRName>5.45x39mm Mag 30 AP</szBRName>
 		<szBRDesc>One of our hottest commodities is this 30-round mag of 'acquired' Russian 5.45mm Armor Piercing ammunition. This round is guaranteed to make you the death of any party.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3001,18 +3129,17 @@
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>7</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>93</uiIndex>
-		<szItemName>5.45x39mm Mag HP</szItemName>
-		<szLongItemName>5.45x39mm Mag, HP</szLongItemName>
+		<szItemName>5.45x39mm Mag 30 HP</szItemName>
+		<szLongItemName>5.45x39mm Mag, 30 HP</szLongItemName>
 		<szItemDesc>This 30-round magazine contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szItemDesc>
-		<szBRName>5.45x39mm Mag, HP</szBRName>
+		<szBRName>5.45x39mm Mag 30 HP</szBRName>
 		<szBRDesc>Need a quick sure-shot way to collect on a life insurance policy? These 30 rounds of 5.45mm Hollow Point ammunition will show you the money in no time at all.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3026,18 +3153,17 @@
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>7</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>94</uiIndex>
-		<szItemName>5.56mm Mag 30</szItemName>
-		<szLongItemName>5.56x45mm Mag, 30</szLongItemName>
+		<szItemName>5.56x45mm Mag 30 AP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 30 AP</szLongItemName>
 		<szItemDesc>These 30 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
-		<szBRName>5.56x45mm Mag 30</szBRName>
+		<szBRName>5.56x45mm Mag 30 AP</szBRName>
 		<szBRDesc>This 30-round magazine is filled with our NATO standard 5.56mm. This round's steel penetrator makes it possible to beat all but the best in today's body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3051,15 +3177,14 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>95</uiIndex>
-		<szItemName>5.56mm Mag 30 HP</szItemName>
+		<szItemName>5.56x45mm Mag 30 HP</szItemName>
 		<szLongItemName>5.56x45mm Mag, 30 HP</szLongItemName>
 		<szItemDesc>This 30-round magazine of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
 		<szBRName>5.56x45mm Mag 30 HP</szBRName>
@@ -3076,18 +3201,17 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>96</uiIndex>
-		<szItemName>7.62x39mm 10</szItemName>
-		<szLongItemName>7.62x39mm Mag, 10</szLongItemName>
+		<szItemName>7.62x39mm Mag 10 AP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 10 AP</szLongItemName>
 		<szItemDesc>This 10-round magazine of 7.62 Warsaw Pact issued AP ammunition is noted for its ability to defeat almost all forms of body armor and cause significant damage to unwilling recipients.</szItemDesc>
-		<szBRName>7.62x39mm 10</szBRName>
+		<szBRName>7.62x39mm 10 AP</szBRName>
 		<szBRDesc>Packaged especially for the aspiring sharpshooter, these 10 rounds of Chinese 7.62mm Armor Piercing ammo is sure to provide you with the 'One Shot, One Kill' that'll make headlines the world over.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3101,18 +3225,17 @@
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>7</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>97</uiIndex>
-		<szItemName>7.62x39mm 30</szItemName>
-		<szLongItemName>7.62x39mm Mag, 30</szLongItemName>
+		<szItemName>7.62x39mm Mag 30 AP</szItemName>
+		<szLongItemName>7.62x39mm Mag, 30 AP</szLongItemName>
 		<szItemDesc>These 30 rounds of Warsaw Pact issued 7.62mm anti-personnel AP ammo tend to maintain their shape on impact. Shape retention may increase its ability to defeat light body armor but it also reduces injury severity.</szItemDesc>
-		<szBRName>7.62x39mm 30</szBRName>
+		<szBRName>7.62x39mm 30 AP</szBRName>
 		<szBRDesc>Looking for the perfect gift for the terrorist who has it all? Try a magazine of our surplus 7.62mm Warsaw Pact AP. It's the gift to end all gift giving.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3126,8 +3249,7 @@
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>7</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3151,8 +3273,7 @@
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>7</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3176,18 +3297,17 @@
 		<ubCoolness>4</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>7</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>100</uiIndex>
-		<szItemName>7.62x51mm 5</szItemName>
-		<szLongItemName>7.62x51mm Mag, 5</szLongItemName>
+		<szItemName>7.62x51mm Bullets 5 AP</szItemName>
+		<szLongItemName>7.62x51mm Bullets, 5 AP</szLongItemName>
 		<szItemDesc>These 5 loose rounds of 7.62x51mm armor piercing ammo have the ability to defeat body armor at long ranges, making it the ideal sniping round.</szItemDesc>
-		<szBRName>7.62x51mm 5</szBRName>
+		<szBRName>7.62x51mm Bullets 5 AP</szBRName>
 		<szBRDesc>This Armor Piercing 7.62x51mm ammunition offers an ideal combination of range, penetration and damage that professional snipers demand.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3201,18 +3321,17 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>101</uiIndex>
-		<szItemName>7.62x51mm 20</szItemName>
-		<szLongItemName>7.62x51mm Mag, 20</szLongItemName>
+		<szItemName>7.62x51mm Mag 20 AP</szItemName>
+		<szLongItemName>7.62x51mm Mag, 20 AP</szLongItemName>
 		<szItemDesc>This mag contains 20 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
-		<szBRName>7.62x51mm 20</szBRName>
+		<szBRName>7.62x51mm Mag 20 AP</szBRName>
 		<szBRDesc>This 7.62mm 20-round magazine is simply brimming with death, especially when it's filled with a surplus of Full Metal Jacketed rounds. This magazine makes armor more or less moot.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3226,18 +3345,17 @@
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>6</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>102</uiIndex>
-		<szItemName>7.62x51mm 5 HP</szItemName>
-		<szLongItemName>7.62x51mm Mag, 5 HP</szLongItemName>
+		<szItemName>7.62x51mm Bullets 5 HP</szItemName>
+		<szLongItemName>7.62x51mm Bullets, 5 HP</szLongItemName>
 		<szItemDesc>What these 5 rounds of civilian .308 Winchester hunting ammunition lack in armor piercing abilities, is compensated for with their ability to cause severe injuries in unarmored opponents.</szItemDesc>
-		<szBRName>7.62x51mm 5 HP</szBRName>
+		<szBRName>7.62x51mm Bullets 5 HP</szBRName>
 		<szBRDesc>Take advantage of our limited time offer on a price-reduced 5-round sampler box of .308 Winchester Hollow Point ammunition. Whether you're out hunting or sniping, this round will be your one-shot stopper.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3251,18 +3369,17 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>103</uiIndex>
-		<szItemName>7.62x51mm 20 HP</szItemName>
+		<szItemName>7.62x51mm Mag 20 HP</szItemName>
 		<szLongItemName>7.62x51mm Mag, 20 HP</szLongItemName>
 		<szItemDesc>This high capacity magazine holds 20 rounds of .308 Winchester ammunition, the civilian variant of the 7.62 NATO round. It is best suited for hunting unarmored targets.</szItemDesc>
-		<szBRName>7.62x51mm 20 HP</szBRName>
+		<szBRName>7.62x51mm Mag 20 HP</szBRName>
 		<szBRDesc>If power is what you demand, more power is what you'll get with these 20 rounds of Cor-Bon Tactical .308 Winchester ammunition, the civilian variant of the 7.62x51mm round. It's more than enough power to put any problem 6-feet under.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3276,18 +3393,17 @@
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>6</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>104</uiIndex>
-		<szItemName>4.7mm Mag 45</szItemName>
-		<szLongItemName>4.7x33mm Mag, 45</szLongItemName>
+		<szItemName>4.7mm Mag 45 AP</szItemName>
+		<szLongItemName>4.7x33mm Mag, 45 AP</szLongItemName>
 		<szItemDesc>This 45-round magazine contains 4.7mm caseless ammunition. This round possesses wound and range capabilites that are comparable to the 5.56mm NATO round, but is 40 per cent lighter.</szItemDesc>
-		<szBRName>4.7x33mm Mag 45</szBRName>
+		<szBRName>4.7x33mm Mag 45 AP</szBRName>
 		<szBRDesc>Recovered crates from a classified German warehouse have supplied us with these 45-round magazines. They come complete with a full load of the legandary 4.7mm caseless ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3301,18 +3417,17 @@
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>3</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>105</uiIndex>
-		<szItemName>5.7mm Mag 50</szItemName>
-		<szLongItemName>5.7x28mm Mag, 50</szLongItemName>
+		<szItemName>5.7mm Mag 50 AP</szItemName>
+		<szLongItemName>5.7x28mm Mag, 50 AP</szLongItemName>
 		<szItemDesc>This magazine contains 50 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
-		<szBRName>5.7x28mm Mag 50</szBRName>
+		<szBRName>5.7x28mm Mag 50 AP</szBRName>
 		<szBRDesc>Do you loathe it when your opponents wear body armor? Say hasta la vista to every form of body armor that might stand between your target and Judgement Day with our 50-round magazine of 5.7mm pistol ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3326,8 +3441,7 @@
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3351,8 +3465,7 @@
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3376,9 +3489,9 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
 		<RangeBonus>50</RangeBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DamageBonus>3</DamageBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3386,7 +3499,7 @@
 	<ITEM>
 		<uiIndex>108</uiIndex>
 		<szItemName>12g Shells 7 BS</szItemName>
-		<szLongItemName>12 Gauge Buckshot Shells, 7</szLongItemName>
+		<szLongItemName>12 Gauge Shells, 7 Buckshot</szLongItemName>
 		<szItemDesc>This 12 gauge magazine holds 7 rounds of "00" SSG ammunition. Favored by law enforcement personnel, it is very effective in urban firefights against unarmored opponents.</szItemDesc>
 		<szBRName>12g Shells 7 Buckshot</szBRName>
 		<szBRDesc>The ideal short-range man-stopper round. This 12 gauge magazine holds 7 rounds of '00' SSG ammunition. Law enforcement personnel worldwide favor this round for its effectiveness in urban firefights against unarmored opponents.</szBRDesc>
@@ -3402,18 +3515,17 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>109</uiIndex>
-		<szItemName>CAWS Mag</szItemName>
-		<szLongItemName>CAWS Magazine</szLongItemName>
+		<szItemName>CAWS Mag AP</szItemName>
+		<szLongItemName>CAWS Magazine AP</szLongItemName>
 		<szItemDesc>This 10-round CAWS magazine is quite simply brimming with destruction. Each round contains a single tungsten steel composite slug capable of tearing through most forms of body armor and car engine blocks.</szItemDesc>
-		<szBRName>CAWS Mag</szBRName>
+		<szBRName>CAWS Mag AP</szBRName>
 		<szBRDesc>This 10 round CAWS magazine is quite simply brimming with destruction. Each round contains a single tungsten steel composite slug capable of tearing through most forms of body armor and most car engine blocks. No serious mercenary should leave home-base without it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3426,8 +3538,8 @@
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<RangeBonus>50</RangeBonus>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3451,8 +3563,7 @@
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3477,7 +3588,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<SciFi>1</SciFi>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3502,7 +3613,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<SciFi>1</SciFi>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3527,7 +3638,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<SciFi>1</SciFi>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3537,7 +3648,7 @@
 		<szItemName>Dart</szItemName>
 		<szLongItemName>Tranquilizer Dart</szLongItemName>
 		<szItemDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.'</szItemDesc>
-		<szBRName>Dart</szBRName>
+		<szBRName>Tranquilizer Dart</szBRName>
 		<szBRDesc>Normally used to take down large game, this dart will put someone under before they can even say, 'feeling woozy.'</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3549,9 +3660,8 @@
 		<ItemSize>12</ItemSize>
 		<usPrice>10</usPrice>
 		<ubCoolness>2</ubCoolness>
-		<BR_NewInventory>9</BR_NewInventory>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3560,30 +3670,31 @@
 		<uiIndex>115</uiIndex>
 		<szItemName>Flamethrower Clip</szItemName>
 		<szLongItemName>Flamethrower Clip</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>This highly flamable napalm is used for a portable flamethrower.</szItemDesc>
 		<szBRName>Flamethrower Clip</szBRName>
-		<szBRDesc>NO DESCRIPTION NECESSARY!</szBRDesc>
+		<szBRDesc>This highly flamable napalm is used for a portable flamethrower.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
-		<ubClassIndex>55</ubClassIndex>
+		<ubClassIndex>347</ubClassIndex>
 		<ubGraphicNum>49</ubGraphicNum>
 		<ubWeight>26</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>26</ItemSize>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>116</uiIndex>
-		<szItemName>.50 Mag</szItemName>
-		<szLongItemName>.50 Magazine</szLongItemName>
-		<szItemDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szItemDesc>
-		<szBRName>.50 Mag</szBRName>
-		<szBRDesc>An 11 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
+		<szItemName>.50 BMG Mag AP</szItemName>
+		<szLongItemName>.50 BMG Magazine, AP</szLongItemName>
+		<szItemDesc>An 10 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szItemDesc>
+		<szBRName>.50 BMG Mag AP</szBRName>
+		<szBRDesc>An 10 round magazine of .50 caliber (Browning) bullets for the Barrett M82A2.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>56</ubClassIndex>
@@ -3596,18 +3707,18 @@
 		<ubCoolness>10</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>1</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<BigGunList>1</BigGunList>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>117</uiIndex>
-		<szItemName>9x39mm Mag</szItemName>
-		<szLongItemName>9x39mm Magazine</szLongItemName>
+		<szItemName>9x39mm Mag AP</szItemName>
+		<szLongItemName>9x39mm Magazine, AP</szLongItemName>
 		<szItemDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms.</szItemDesc>
-		<szBRName>9x39mm Mag</szBRName>
+		<szBRName>9x39mm Mag AP</szBRName>
 		<szBRDesc>Heavier than regular 9mm ammo, this 20 round magazine is manufactured for a unique set of Russian firearms, including the ever popular VAL Silent Sniper rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3696,18 +3807,17 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>121</uiIndex>
-		<szItemName>5.45x39mm Mag</szItemName>
-		<szLongItemName>5.45x39mm RPK-Mag</szLongItemName>
+		<szItemName>5.45x39mm RPK-Mag AP</szItemName>
+		<szLongItemName>5.45x39mm RPK-Mag, AP</szLongItemName>
 		<szItemDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szItemDesc>
-		<szBRName>5.45x39mm Mag</szBRName>
+		<szBRName>5.45x39mm RPK-Mag AP</szBRName>
 		<szBRDesc>This 45-round mag holds 5.45 light armor piercing anti-personnel ammo. Its metal jacketing not only improves its ability to punch through walls, but it can tear through multiple bodies as well.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3721,18 +3831,17 @@
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>122</uiIndex>
-		<szItemName>5.45x39mm Mag HP</szItemName>
+		<szItemName>5.45x39mm RPK-Mag HP</szItemName>
 		<szLongItemName>5.45x39mm RPK-Mag, HP</szLongItemName>
 		<szItemDesc>This 45-round mag contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szItemDesc>
-		<szBRName>5.45x39mm Mag, HP</szBRName>
+		<szBRName>5.45x39mm RPK-Mag, HP</szBRName>
 		<szBRDesc>This 45-round mag contains 5.45 jacketed hollow point ammunition. It features the combined effect of mushrooming on impact, and tumbling within its target to create enormous wound cavities.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3746,18 +3855,17 @@
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>123</uiIndex>
-		<szItemName>5.56mm Belt</szItemName>
-		<szLongItemName>5.56x45mm Belt</szLongItemName>
+		<szItemName>5.56x45mm Belt AP</szItemName>
+		<szLongItemName>5.56x45mm Belt, AP</szLongItemName>
 		<szItemDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
-		<szBRName>5.56x45mm Belt</szBRName>
+		<szBRName>5.56x45mm Belt AP</szBRName>
 		<szBRDesc>These 200 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3770,15 +3878,14 @@
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>124</uiIndex>
-		<szItemName>5.56mm Belt HP</szItemName>
+		<szItemName>5.56x45mm Belt HP</szItemName>
 		<szLongItemName>5.56x45mm Belt, HP</szLongItemName>
 		<szItemDesc>This 200-round belt of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
 		<szBRName>5.56x45mm Belt HP</szBRName>
@@ -3795,18 +3902,17 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>125</uiIndex>
-		<szItemName>7.62x51mm Belt</szItemName>
-		<szLongItemName>7.62x51mm Belt</szLongItemName>
+		<szItemName>7.62x51mm Belt AP</szItemName>
+		<szLongItemName>7.62x51mm Belt, AP</szLongItemName>
 		<szItemDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szItemDesc>
-		<szBRName>7.62x51mm Belt</szBRName>
+		<szBRName>7.62x51mm Belt AP</szBRName>
 		<szBRDesc>This belt contains 100 rounds of NATO standard 7.62mm AP ammo. This round has gained favorable attention from armed forces worldwide due to its ability to penetrate a steel helmet at extreme ranges.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3819,8 +3925,7 @@
 		<ubCoolness>6</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>5</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3844,18 +3949,17 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>5</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>127</uiIndex>
-		<szItemName>7.62x54R Mag 10</szItemName>
-		<szLongItemName>7.62x54R Mag, 10</szLongItemName>
+		<szItemName>7.62x54R Mag 10 AP</szItemName>
+		<szLongItemName>7.62x54R Mag, 10 AP</szLongItemName>
 		<szItemDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection.</szItemDesc>
-		<szBRName>7.62x54R Mag 10</szBRName>
+		<szBRName>7.62x54R Mag 10 AP</szBRName>
 		<szBRDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3869,8 +3973,8 @@
 		<ubCoolness>6</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>4</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<BigGunList>1</BigGunList>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3891,10 +3995,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>129</uiIndex>
-		<szItemName>7.62x25mm SMG Mag</szItemName>
-		<szLongItemName>7.62x25mm SMG Mag</szLongItemName>
+		<szItemName>7.62x25mm SMG Mag AP</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag, AP</szLongItemName>
 		<szItemDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szItemDesc>
-		<szBRName>7.62x25mm SMG Mag</szBRName>
+		<szBRName>7.62x25mm SMG Mag AP</szBRName>
 		<szBRDesc>Penetrating power isn't as important when you can shoot your target multiple times. 30-rounds of 7.62x25mm will make sure they stay down.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -3908,8 +4012,8 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<BigGunList>1</BigGunList>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3934,8 +4038,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>8</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3965,8 +4068,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -3997,8 +4099,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4029,8 +4130,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4061,19 +4161,19 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Directional>1</Directional>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>135</uiIndex>
-		<szItemName>Frag Grenade</szItemName>
-		<szLongItemName>Frag Grenade</szLongItemName>
-		<szItemDesc>This standard army issued fragmentation grenade is packed with TNT and has a pull-ring, pressure-released firing trigger.</szItemDesc>
-		<szBRName>Frag Grenade</szBRName>
-		<szBRDesc>Your typical army issue standard fragmentation hand grenade. Jam packed with TNT, this pressure-released firing device with pull-ring, provides great lethal coverage. Stop 'em dead in their tracks, every time.</szBRDesc>
+		<szItemName>Mk2 Grenade</szItemName>
+		<szLongItemName>Mk2 Defensive Grenade</szLongItemName>
+		<szItemDesc>An old, but still extremely effective US hand grenade. The MK2 is a defensive grenade packed with TNT, and delivers a wide fragmentation radius. Uses a pull-ring, pressure-released firing trigger.</szItemDesc>
+		<szBRName>Mk2 Defensive Grenade</szBRName>
+		<szBRDesc>This "pineapple" may be older than you are, but it's no less effective on the modern battlefield. Jam packed with TNT, this pressure-released firing device with pull-ring provides great lethal coverage. Stop 'em dead in their tracks, every time.</szBRDesc>
 		<usItemClass>256</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>4</ubClassIndex>
@@ -4093,8 +4193,8 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Directional>1</Directional>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4121,7 +4221,7 @@
 		<Repairable>1</Repairable>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4147,7 +4247,7 @@
 		<Repairable>1</Repairable>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4174,7 +4274,7 @@
 		<Repairable>1</Repairable>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4189,6 +4289,7 @@
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>8</ubClassIndex>
+		<ItemFlag>16384</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>45</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -4201,7 +4302,7 @@
 		<Repairable>1</Repairable>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4233,7 +4334,8 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Directional>1</Directional>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4242,9 +4344,9 @@
 		<uiIndex>141</uiIndex>
 		<szItemName>Mine</szItemName>
 		<szLongItemName>Land Mine</szLongItemName>
-		<szItemDesc>This anti-personnel mine is a fragmentation weapon that becomes activated when stepped on. It includes an anti-disturbance device to inhibit clearance, and a sensor that neutralizes the mine after a specified time.</szItemDesc>
+		<szItemDesc>This anti-personnel mine is a blast mine that becomes activated when stepped on. It includes an anti-disturbance device to inhibit clearance, and a sensor that neutralizes the mine after a specified time.</szItemDesc>
 		<szBRName>Land Mine</szBRName>
-		<szBRDesc>Designed to stop enemies dead in their tracks, or at least slow them up a while. This anti-personnel mine is a fragmentation weapon that blows up when stepped on. It includes a built-in anti-disturbance device to inhibit clearance, and a sensor that neutralizes the minefield after a while.</szBRDesc>
+		<szBRDesc>Designed to stop enemies dead in their tracks, or at least slow them up a while. This anti-personnel mine is a blast mine that blows up when stepped on. It includes a built-in anti-disturbance device to inhibit clearance, and a sensor that neutralizes the minefield after a while.</szBRDesc>
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>10</ubClassIndex>
@@ -4264,8 +4366,8 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Mine>1</Mine>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Directional>1</Directional>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4280,6 +4382,7 @@
 		<usItemClass>512</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>11</ubClassIndex>
+		<ItemFlag>16384</ItemFlag>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>44</ubGraphicNum>
 		<ubWeight>11</ubWeight>
@@ -4292,7 +4395,7 @@
 		<Repairable>1</Repairable>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4319,7 +4422,7 @@
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
 		<Flare>1</Flare>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4345,7 +4448,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4375,8 +4478,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<LockBomb>1</LockBomb>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4405,8 +4507,7 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Flare>1</Flare>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4439,7 +4540,8 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Directional>1</Directional>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4472,7 +4574,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4505,7 +4607,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4538,7 +4640,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GLGrenade>1</GLGrenade>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4569,8 +4671,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4595,7 +4696,8 @@
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
 		<NotInEditor>1</NotInEditor>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Directional>1</Directional>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4619,7 +4721,7 @@
 		<bRepairEase>-4</bRepairEase>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4643,7 +4745,7 @@
 		<usPrice>50</usPrice>
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4667,7 +4769,7 @@
 		<bRepairEase>-4</bRepairEase>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4691,7 +4793,7 @@
 		<bRepairEase>-4</bRepairEase>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4717,7 +4819,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -4734,7 +4836,7 @@
 		<ubClassIndex>27</ubClassIndex>
 		<ItemSize>34</ItemSize>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -5554,7 +5656,7 @@
 		<NotBuyable>1</NotBuyable>
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -5578,7 +5680,7 @@
 		<NotBuyable>1</NotBuyable>
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -5602,7 +5704,7 @@
 		<NotBuyable>1</NotBuyable>
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -5789,7 +5891,7 @@
 		<NotBuyable>1</NotBuyable>
 		<NotInEditor>1</NotInEditor>
 		<DefaultUndroppable>1</DefaultUndroppable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6041,8 +6143,7 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<Medical>1</Medical>
 		<FirstAidKit>1</FirstAidKit>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6069,7 +6170,7 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<Medical>1</Medical>
 		<MedicalKit>1</MedicalKit>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6098,7 +6199,8 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<Hardware>1</Hardware>
 		<Toolkit>1</Toolkit>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DisarmModifier>15</DisarmModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6131,8 +6233,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Hardware>1</Hardware>
 		<LocksmithKit>1</LocksmithKit>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6160,8 +6261,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<CamoBonus>100</CamoBonus>
 		<CamouflageKit>1</CamouflageKit>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6176,20 +6276,21 @@
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ItemSize>18</ItemSize>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>207</uiIndex>
-		<szItemName>Silencer</szItemName>
-		<szLongItemName>Small Caliber Silencer</szLongItemName>
+		<szItemName>Pistol Supp.</szItemName>
+		<szLongItemName>Pistol Suppressor</szLongItemName>
 		<szItemDesc>The light, compact design of this silencer can be fitted easily to most handguns and sub-machine guns.</szItemDesc>
-		<szBRName>Small Caliber Silencer</szBRName>
+		<szBRName>Pistol Suppressor</szBRName>
 		<szBRDesc>This is the ideal silencer for both indoor and outdoor missions that have to be kept quiet. Its light and compact design can be fitted easily to most handguns and sub-machine guns.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<AttachmentClass>2</AttachmentClass>
+		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>52</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -6207,8 +6308,13 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<PercentNoiseReduction>85</PercentNoiseReduction>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<overheatCooldownModificator>-0.2</overheatCooldownModificator>
+		<STAND_MODIFIERS>
+			<PercentHandling>-3</PercentHandling>
+			<PercentMaxCounterForce>20</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>10</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -6235,6 +6341,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
+		<BlockIronSight>1</BlockIronSight>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>20</AimBonus>
@@ -6247,8 +6354,10 @@
 		<BrightLightVisionRangeBonus>90</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>90</PercentTunnelVision>
 		<ScopeMagFactor>10.0</ScopeMagFactor>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS>
+			<AimLevels>3</AimLevels>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
@@ -6277,15 +6386,15 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Bipod>10</Bipod>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>20</PercentHandling>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS>
 			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
+			<PercentMaxCounterForce>100</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
 		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
@@ -6313,7 +6422,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<HearingRangeBonus>5</HearingRangeBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6346,7 +6455,7 @@
 		<NightVisionRangeBonus>10</NightVisionRangeBonus>
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6377,7 +6486,7 @@
 		<DayVisionRangeBonus>10</DayVisionRangeBonus>
 		<CaveVisionRangeBonus>-20</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6406,8 +6515,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<GasMask>1</GasMask>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6433,8 +6541,9 @@
 		<BR_NewInventory>5</BR_NewInventory>
 		<Hardware>1</Hardware>
 		<Canteen>1</Canteen>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>1</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6465,8 +6574,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<MetalDetector>1</MetalDetector>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6490,7 +6598,7 @@
 		<Damageable>1</Damageable>
 		<SciFi>1</SciFi>
 		<BR_NewInventory>2</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6514,7 +6622,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Jar>1</Jar>
 		<ContainsLiquid>1</ContainsLiquid>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6538,7 +6646,7 @@
 		<Damageable>1</Damageable>
 		<Jar>1</Jar>
 		<ContainsLiquid>1</ContainsLiquid>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6559,7 +6667,7 @@
 		<ItemSize>10</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6584,7 +6692,7 @@
 		<Damageable>1</Damageable>
 		<Medical>1</Medical>
 		<Jar>1</Jar>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6610,7 +6718,7 @@
 		<Medical>1</Medical>
 		<Jar>1</Jar>
 		<ContainsLiquid>1</ContainsLiquid>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6636,8 +6744,7 @@
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
 		<DrugType>1</DrugType>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6666,7 +6773,7 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6696,7 +6803,7 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6716,7 +6823,7 @@
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>21</ItemSize>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6737,7 +6844,7 @@
 		<ItemSize>10</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6758,7 +6865,7 @@
 		<ItemSize>11</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6778,7 +6885,7 @@
 		<ubPerPocket>1</ubPerPocket>
 		<ItemSize>13</ItemSize>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6798,7 +6905,7 @@
 		<ItemSize>26</ItemSize>
 		<usPrice>3000</usPrice>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6820,7 +6927,7 @@
 		<usPrice>50</usPrice>
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6842,7 +6949,7 @@
 		<usPrice>100</usPrice>
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6856,6 +6963,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>65536</ItemFlag>
 		<ubGraphicType>3</ubGraphicType>
 		<ubGraphicNum>9</ubGraphicNum>
 		<ubWeight>60</ubWeight>
@@ -6863,7 +6971,7 @@
 		<usPrice>400</usPrice>
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6883,7 +6991,7 @@
 		<ItemSize>34</ItemSize>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6902,7 +7010,7 @@
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>34</ItemSize>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6928,9 +7036,8 @@
 		<SciFi>1</SciFi>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<DrugType>4</DrugType>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DrugType>5</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6951,7 +7058,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6972,7 +7079,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -6993,7 +7100,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
 		<Medical>1</Medical>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7018,7 +7125,7 @@
 		<Medical>1</Medical>
 		<Jar>1</Jar>
 		<ContainsLiquid>1</ContainsLiquid>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7035,7 +7142,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ItemSize>34</ItemSize>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7068,7 +7175,7 @@
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>90</BestLaserRange>
 		<ProjectionFactor>1.2</ProjectionFactor>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7099,8 +7206,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<RemoteTrigger>1</RemoteTrigger>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7131,8 +7237,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Hardware>1</Hardware>
 		<WireCutters>1</WireCutters>
-		<AttachmentSystem>1</AttachmentSystem>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DisarmModifier>10</DisarmModifier>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7145,6 +7251,7 @@
 		<szBRName>Duckbill</szBRName>
 		<szBRDesc>Attach this metal object to the end of a shotgun barrel for a real deadly effect. It causes buckshot fired from the shotgun to spread out along a horizontal line instead of its standard circular pattern. Say good-bye to  anyone who gets into its path.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>2</AttachmentClass>
 		<nasAttachmentClass>2</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>90</ubGraphicNum>
@@ -7162,8 +7269,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<RangeBonus>20</RangeBonus>
 		<Duckbill>1</Duckbill>
-		<spreadPattern>DuckbillSpread</spreadPattern>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<spreadPattern>Duckbill</spreadPattern>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7186,8 +7293,11 @@
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<Alcohol>1</Alcohol>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Alcohol>192</Alcohol>		<!-- full bottle weighs 1000g - bottle weighs 400g - 40% alc, volume mass 0.8 -> 600 * 0.4 * 0.8 = 192g of alcohol -->
+		<DrugType>2</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>2</FoodType>
+		<usPortionSize>10</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7221,7 +7331,7 @@
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
 		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7246,7 +7356,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7264,7 +7374,7 @@
 		<ubWeight>40</ubWeight>
 		<ItemSize>23</ItemSize>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7283,7 +7393,7 @@
 		<ubWeight>40</ubWeight>
 		<ItemSize>23</ItemSize>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7302,7 +7412,7 @@
 		<ubWeight>40</ubWeight>
 		<ItemSize>23</ItemSize>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7321,7 +7431,7 @@
 		<ubWeight>40</ubWeight>
 		<ItemSize>23</ItemSize>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7340,7 +7450,7 @@
 		<ubWeight>40</ubWeight>
 		<ItemSize>23</ItemSize>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7359,7 +7469,7 @@
 		<ubWeight>40</ubWeight>
 		<ItemSize>23</ItemSize>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7378,7 +7488,7 @@
 		<ubWeight>40</ubWeight>
 		<ItemSize>23</ItemSize>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7400,8 +7510,11 @@
 		<usPrice>20</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<Alcohol>1</Alcohol>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Alcohol>61.6</Alcohol>	<!-- full bottle weighs 1200g - bottle weighs 500g - 11% alc, volume mass 0.8 -> 700 * 0.11 * 0.8 = 192g of alcohol -->
+		<DrugType>4</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>4</FoodType>
+		<usPortionSize>20</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7423,8 +7536,11 @@
 		<usPrice>10</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<Alcohol>1</Alcohol>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<Alcohol>16.56</Alcohol>	<!-- full bottle weighs 600g - bottle weighs 300g - 6.9% alc, volume mass 0.8 -> 300 * 0.069 * 0.8 = 192g of alcohol -->
+		<DrugType>3</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<FoodType>3</FoodType>
+		<usPortionSize>100</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7445,7 +7561,7 @@
 		<usPrice>20</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7469,7 +7585,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Electronic>1</Electronic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7494,7 +7610,7 @@
 		<Metal>1</Metal>
 		<Electronic>1</Electronic>
 		<RobotRemoteControl>1</RobotRemoteControl>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7515,7 +7631,7 @@
 		<usPrice>500</usPrice>
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7536,7 +7652,7 @@
 		<usPrice>250</usPrice>
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7557,7 +7673,7 @@
 		<usPrice>1000</usPrice>
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7583,7 +7699,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7607,7 +7723,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7630,7 +7746,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7657,7 +7773,7 @@
 		<Metal>1</Metal>
 		<Electronic>1</Electronic>
 		<Walkman>1</Walkman>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7681,7 +7797,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Electronic>1</Electronic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7696,7 +7812,7 @@
 		<usItemClass>536870912</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ItemSize>34</ItemSize>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7718,7 +7834,10 @@
 		<usPrice>30</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<DrugType>7</DrugType>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<cigarette>1</cigarette>
+		<usPortionSize>5</usPortionSize>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7735,7 +7854,7 @@
 		<ubClassIndex>29</ubClassIndex>
 		<ItemSize>34</ItemSize>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7756,7 +7875,7 @@
 		<ItemSize>10</ItemSize>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7777,7 +7896,7 @@
 		<ItemSize>10</ItemSize>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -7798,7 +7917,7 @@
 		<ItemSize>10</ItemSize>
 		<Metal>1</Metal>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8386,6 +8505,7 @@
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>303</uiIndex>
@@ -8404,7 +8524,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
 		<Metal>1</Metal>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8427,7 +8547,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<HiddenAddon>1</HiddenAddon>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8453,7 +8573,7 @@
 		<Sinks>1</Sinks>
 		<HiddenAddon>1</HiddenAddon>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8479,7 +8599,7 @@
 		<HiddenAddon>1</HiddenAddon>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8510,7 +8630,7 @@
 		<Inseparable>1</Inseparable>
 		<PercentBurstFireAPReduction>80</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>50</PercentAutofireAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8536,7 +8656,7 @@
 		<Sinks>1</Sinks>
 		<HiddenAddon>1</HiddenAddon>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8559,7 +8679,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Damageable>1</Damageable>
 		<HiddenAddon>1</HiddenAddon>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8568,7 +8688,7 @@
 		<uiIndex>310</uiIndex>
 		<szItemName>Extender</szItemName>
 		<szLongItemName>Gun Barrel Extender</szLongItemName>
-		<szItemDesc>attach this nifty chunk of hardware to any gun barrel and watch your range soar.</szItemDesc>
+		<szItemDesc>Attach this nifty chunk of hardware to any gun barrel and watch your range soar.</szItemDesc>
 		<szBRName>Gun Barrel Extender</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
@@ -8592,9 +8712,12 @@
 		<Inseparable>1</Inseparable>
 		<RangeBonus>100</RangeBonus>
 		<PercentRecoilModifier>-10</PercentRecoilModifier>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<overheatCooldownModificator>-0.15</overheatCooldownModificator>
 		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
+			<PercentHandling>-3</PercentHandling>
+			<PercentMaxCounterForce>20</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>10</PercentCounterForceAccuracy>
 		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8618,7 +8741,7 @@
 		<HiddenAddon>1</HiddenAddon>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8643,7 +8766,7 @@
 		<HiddenAddon>1</HiddenAddon>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8667,7 +8790,7 @@
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
 		<CanAndString>1</CanAndString>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8691,7 +8814,7 @@
 		<Damageable>1</Damageable>
 		<NotBuyable>1</NotBuyable>
 		<Marbles>1</Marbles>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8716,7 +8839,7 @@
 		<Repairable>1</Repairable>
 		<HiddenAddon>1</HiddenAddon>
 		<Electronic>1</Electronic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8740,7 +8863,7 @@
 		<Metal>1</Metal>
 		<HiddenAddon>1</HiddenAddon>
 		<Attachment>1</Attachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8766,7 +8889,7 @@
 		<HiddenAddon>1</HiddenAddon>
 		<NotBuyable>1</NotBuyable>
 		<Electronic>1</Electronic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8790,7 +8913,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Electronic>1</Electronic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8814,7 +8937,7 @@
 		<Damageable>1</Damageable>
 		<HiddenAddon>1</HiddenAddon>
 		<Attachment>1</Attachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8837,7 +8960,7 @@
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
 		<HiddenAddon>1</HiddenAddon>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8863,7 +8986,7 @@
 		<HiddenAddon>1</HiddenAddon>
 		<NotBuyable>1</NotBuyable>
 		<Electronic>1</Electronic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8887,7 +9010,7 @@
 		<Damageable>1</Damageable>
 		<Attachment>1</Attachment>
 		<Batteries>1</Batteries>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8909,7 +9032,7 @@
 		<ubCoolness>1</ubCoolness>
 		<NotBuyable>1</NotBuyable>
 		<Unaerodynamic>1</Unaerodynamic>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8937,7 +9060,7 @@
 		<Electronic>1</Electronic>
 		<XRay>1</XRay>
 		<NeedsBatteries>1</NeedsBatteries>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8958,7 +9081,7 @@
 		<ItemSize>10</ItemSize>
 		<usPrice>100</usPrice>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -8979,7 +9102,7 @@
 		<ItemSize>10</ItemSize>
 		<usPrice>300</usPrice>
 		<NotBuyable>1</NotBuyable>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -9002,17 +9125,17 @@
 		<Damageable>1</Damageable>
 		<GasCan>1</GasCan>
 		<ContainsLiquid>1</ContainsLiquid>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>328</uiIndex>
-		<szItemName>5.56mm Mag 10</szItemName>
-		<szLongItemName>5.56x45mm Mag, 10</szLongItemName>
+		<szItemName>5.56x45mm Mag 10 AP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10 AP</szLongItemName>
 		<szItemDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szItemDesc>
-		<szBRName>5.56x45mm Mag 10</szBRName>
+		<szBRName>5.56x45mm Mag 10 AP</szBRName>
 		<szBRDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
@@ -9027,15 +9150,14 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>6</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>329</uiIndex>
-		<szItemName>5.56mm Mag 10 HP</szItemName>
+		<szItemName>5.56x45mm Mag 10 HP</szItemName>
 		<szLongItemName>5.56x45mm Mag, 10 HP</szLongItemName>
 		<szItemDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szItemDesc>
 		<szBRName>5.56x45mm Mag 10 HP</szBRName>
@@ -9053,8 +9175,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>6</BR_NewInventory>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -9089,7 +9210,9 @@
 		<BR_ROF>1250</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS>
 			<PercentMaxCounterForce>-20</PercentMaxCounterForce>
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
@@ -9125,7 +9248,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>650</BR_ROF>
 		<DefaultAttachment>1030</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>17</DamageChance>
+		<DirtIncreaseFactor>39.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -9158,18 +9283,20 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>900</BR_ROF>
 		<DefaultAttachment>1006</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
 	<ITEM>
 		<uiIndex>333</uiIndex>
-		<szItemName>AS Val</szItemName>
-		<szLongItemName>AS Val</szLongItemName>
-		<szItemDesc>The Val assault rifle's integral supressor enables the user to hose down a room full of enemies in utter and deadly silence.</szItemDesc>
-		<szBRName>AS Val</szBRName>
-		<szBRDesc>The tactical applications of a silenced assault weapon are limited only by the imagination (and moral inclinations) of the user.</szBRDesc>
+		<szItemName>VSS</szItemName>
+		<szLongItemName>VSS Vintorez</szLongItemName>
+		<szItemDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szItemDesc>
+		<szBRName>VSS Vintorez</szBRName>
+		<szBRDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>333</ubClassIndex>
@@ -9193,7 +9320,9 @@
 		<PercentNoiseReduction>85</PercentNoiseReduction>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<DefaultAttachment>999</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>43.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -9226,7 +9355,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
 		<DefaultAttachment>1007</DefaultAttachment>
-		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>26.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -9242,8 +9373,9 @@
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubClassIndex>335</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>55</ubGraphicNum>
-		<ubWeight>129</ubWeight>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>726</ubGraphicNum>
+		<ubWeight>148</ubWeight>
 		<ItemSize>9</ItemSize>
 		<usPrice>14671</usPrice>
 		<ubCoolness>10</ubCoolness>

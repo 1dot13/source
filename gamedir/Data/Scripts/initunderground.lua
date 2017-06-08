@@ -116,22 +116,22 @@ CreatureMusic = {
 local sectorList = {
 
     -- Miguel's basement
-    { location = "A10-1", loadscreen = "LS_Basement", },
+    { location = "A10-1", loadscreens = { "LS_Basement", "LS_Upstairs" }, },
 
 
     -- Tixa
-    { location = "J9-1", loadscreen = "LS_Basement", },
+    { location = "J9-1", loadscreens = { "LS_Basement", "LS_Upstairs" }, },
 
     -- feeding zone
     { location = "J9-2", loadscreen = "LS_Cave", },
 
 
     -- Orta
-    { location = "K4-1", loadscreen = "LS_Basement", },
+    { location = "K4-1", loadscreens = { "LS_Basement", "LS_Upstairs" }, },
    
     -- Meduna
-    { location = "O3-1", loadscreen = "LS_Basement", },
-    { location = "P3-1", loadscreen = "LS_Basement", },
+    { location = "O3-1", loadscreens = { "LS_Basement", "LS_Upstairs" }, },
+    { location = "P3-1", loadscreens = { "LS_Basement", "LS_Upstairs" }, },
     
     
     -- San Mona mine
@@ -352,18 +352,34 @@ Return values
 
 function GetLoadscreen(location, timeOfDay)
 
+    local function Return(name)
+        return "Loadscreens\\" .. name, "sti"
+    end
+
     local s = sectorList[location]
 
-    if s ~= nil and s.loadscreen ~= nil then
-        return "Loadscreens\\" .. s.loadscreen, "sti"
-    else
-        -- resorting to defaults
+    if s ~= nil then
+
+        -- multiple screens to choose from?
+        if s.loadscreens ~= nil and #s.loadscreens > 0 then
+            local screen = s.loadscreens[math.random(#s.loadscreens)]
+            return Return(screen)
+        end
+
+        -- single screen?
+        if s.loadscreen ~= nil then
+            return Return(s.loadscreen)
+        end
+    end
+
+    -- resorting to defaults
+    do
         -- get last character, aka z level
-        level = location:sub(#location, #location)
+        local level = location:sub(#location, #location)
         if level == "1" then
-            return "Loadscreens\\LS_Mine", "sti"
+            return Return("LS_Mine")
         else
-            return "Loadscreens\\LS_Cave", "sti"
+            return Return("LS_Cave")
         end
     end
 end

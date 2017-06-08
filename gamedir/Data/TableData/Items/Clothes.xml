@@ -24,7 +24,12 @@
 -->
 
 <CLOTHESLIST>
-	
+	<CLOTHES>
+		<uiIndex>0</uiIndex>
+		<szName>None</szName>
+		<Vest />
+		<Pants />
+	</CLOTHES>
 	<CLOTHES>
     <uiIndex>1</uiIndex>
 		<szName>YELLOWVEST</szName>
