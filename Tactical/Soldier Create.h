@@ -273,7 +273,7 @@ public:
 	void initialize();
 
 	BOOLEAN Load(HWFILE hFile, int versionToLoad, bool loadChecksum);
-	BOOLEAN Load(INT8 **hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion);
+	BOOLEAN Load(INT8 **hBuffer, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
 	BOOLEAN Save(HWFILE hFile, bool fSavingMap, FLOAT dMajorMapVersion=MAJOR_MAP_VERSION, UINT8 ubMinorMapVersion=MINOR_MAP_VERSION);//dnl ch42 250909
 
 public:

@@ -21,7 +21,7 @@ extern SOLDIERINITNODE *gSoldierInitTail;
 //These serialization functions are assuming the passing of a valid file 
 //pointer to the beginning of the save/load area, at the correct part of the
 //map file.
-BOOLEAN LoadSoldiersFromMap( INT8 **hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion	);
+BOOLEAN LoadSoldiersFromMap( INT8 **hBuffer, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion	);
 BOOLEAN SaveSoldiersToMap(HWFILE fp, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);//dnl ch33 150909
 
 //For the purpose of keeping track of which soldier belongs to which placement within the game,

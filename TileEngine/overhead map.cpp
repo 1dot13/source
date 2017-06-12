@@ -2038,7 +2038,11 @@ BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo )
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
 		// Get gridNo
-		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
+		(*psGridNo) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
+
+		if ((*psGridNo) == -1) {
+			return(FALSE);
+		}
 
 		// Adjust for height.....
 		sWorldScreenY = sWorldScreenY + gpWorldLevelData[ (*psGridNo) ].sHeight;

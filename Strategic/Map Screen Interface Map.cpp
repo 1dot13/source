@@ -1754,13 +1754,17 @@ void PlotATemporaryPathForCharacter( SOLDIERTYPE *pCharacter, INT16 sX, INT16 sY
 		return;
 	}
 
+	// Bob: make sure we have a valid movement group
+	UINT8 soldierGroupId = GetSoldierGroupId(pCharacter);
+	if (soldierGroupId == 0) {
+		soldierGroupId = tryToRecoverSquadsAndMovementGroups(pCharacter);
+	}
+
 	// build path
-	pTempCharacterPath = BuildAStrategicPath( pTempCharacterPath, GetLastSectorIdInCharactersPath( pCharacter ) , ( INT16 )( sX + sY*( MAP_WORLD_X ) ), GetSoldierGroupId( pCharacter ), FALSE /*, TRUE */ );
+	pTempCharacterPath = BuildAStrategicPath( pTempCharacterPath, GetLastSectorIdInCharactersPath( pCharacter ) , ( INT16 )( sX + sY*( MAP_WORLD_X ) ), soldierGroupId, FALSE /*, TRUE */ );
 
 	return;
 }
-
-
 
 // clear out character path list, after and including this sector
 UINT32 ClearPathAfterThisSectorForCharacter( SOLDIERTYPE *pCharacter, INT16 sX, INT16 sY )

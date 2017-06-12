@@ -225,4 +225,7 @@ void HandleEmailBeingSentWhenEnteringSector( INT16 sMapX, INT16 sMapY, INT8 bMap
 // Flugente: militia movement: can we order militia reinforcements from( sSrcMapX, sSrcMapY ) to( sMapX, sMapY ) ?
 BOOLEAN CanRequestMilitiaReinforcements( INT16 sMapX, INT16 sMapY, INT16 sSrcMapX, INT16 sSrcMapY );
 
+// Bob: check and try to fix issues with squad and group assignment
+UINT8 tryToRecoverSquadsAndMovementGroups(SOLDIERTYPE* pCharacter);
+
 #endif

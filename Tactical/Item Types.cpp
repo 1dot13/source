@@ -1010,9 +1010,6 @@ OBJECTTYPE* StackedObjectData::GetAttachmentAtIndex(UINT8 index)
 
 	if (iter != attachments.end()) {
 		OBJECTTYPE * attachment = &(*iter);
-		if (attachment->usItem > 0 && (attachment->ubNumberOfObjects != 1 || attachment->usItem > MAXITEMS || attachment->ubMission != 0) ) {
-			__debugbreak();
-		}
 		return attachment;
 	}
 	return 0;

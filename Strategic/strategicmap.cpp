@@ -4939,9 +4939,16 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 				// ATE: Dont's assume exit grids here...
 				if ( bExitDirection != -1 )
 				{
+					// Bob: make sure we have a valid movement group
+					UINT8 soldierGroupId = GetSoldierGroupId(pValidSoldier);
+					if (soldierGroupId == 0) {
+						soldierGroupId = tryToRecoverSquadsAndMovementGroups(pValidSoldier);
+					}
+
 					//Now, determine if this is a valid path.
-					pGroup = GetGroup( pValidSoldier->ubGroupID );
+					pGroup = GetGroup(soldierGroupId);
 					AssertMsg( pGroup, String( "%S is not in a valid group (pSoldier->ubGroupID is %d)", pValidSoldier->name, pValidSoldier->ubGroupID ) );
+					
 					if ( !gbWorldSectorZ )
 					{
 						*puiTraverseTimeInMinutes = GetSectorMvtTimeForGroup( (UINT8)SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ), bExitDirection, pGroup );
@@ -7861,4 +7868,31 @@ BOOLEAN CanRequestMilitiaReinforcements( INT16 sMapX, INT16 sMapY, INT16 sSrcMap
 	}
 
 	return FALSE;
+}
+
+// Bob: this function will check if the merc is in a valid squad and if there are other mercs assigned to that squad who lack a mvt group.
+// Will attempt to fix this by assigning everyone to a proper squad and forcing squads to reevaluate movement groups.
+// returns the movement group the character was reassigned to or zero if we failed.
+UINT8 tryToRecoverSquadsAndMovementGroups(SOLDIERTYPE* pCharacter) {
+	// check if the char we're trying to move is in a valid squad!
+	if (SquadCharacterIsIn(pCharacter) == -1) {
+
+		if (pCharacter->bAssignment < ON_DUTY && SquadIsEmpty(pCharacter->bAssignment)) 
+		{ // assignment says we're in a squad but that squad is empty!			
+			int squadWeThinkWeAreIn = pCharacter->bAssignment;
+
+			for (int i = 0; i < MAXMERCS; i++) {
+				if (Menptr[i].bActive && Menptr[i].bTeam == pCharacter->bTeam && Menptr[i].bAssignment == squadWeThinkWeAreIn) 
+				{ // reassign everyone who's supposed to be in the bogus squad
+					AddCharacterToAnySquad(&Menptr[i]); 
+				}
+			}
+		}
+		else 
+		{ // that squad seems fine, it's just the merc that got confused
+			AddCharacterToAnySquad(pCharacter); 
+		}
+	}
+	CheckSquadMovementGroups();
+	return GetSoldierGroupId(pCharacter);
 }

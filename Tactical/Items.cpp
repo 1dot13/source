@@ -8282,11 +8282,6 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 	for (std::list<OBJECTTYPE>::iterator iter = (*this)[subObject]->attachments.begin();
 		iter != (*this)[subObject]->attachments.end(); ++iter){
 
-		// Bob: sanity check!
-		if (pAttachment != NULL && pAttachment->usItem > 0 && (pAttachment->ubNumberOfObjects != 1 || pAttachment->usItem > MAXITEMS || pAttachment->ubMission != 0)) {
-			__debugbreak();
-		}
-
 		//Compare the adress
 		if(&(*iter) == pAttachment)
 		{
@@ -8297,14 +8292,11 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 			break;
 		}
 	}
+
 	//It is possible that the previous loop did not find the EXACT attachment we wanted to delete, look if there is one that is at least equal in data.
 	if(!objDeleted){
 		for (std::list<OBJECTTYPE>::iterator iter = (*this)[subObject]->attachments.begin();
 			iter != (*this)[subObject]->attachments.end(); ++iter){
-				// Bob: sanity check!
-			if (pAttachment != NULL && pAttachment->usItem > 0 && (pAttachment->ubNumberOfObjects != 1 || pAttachment->usItem > MAXITEMS || pAttachment->ubMission != 0)) {
-					__debugbreak();
-				}
 
 				//This compares the internal data of the objects.
 				if(*iter == *pAttachment)
@@ -8318,18 +8310,8 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 		}
 	}
 
-	// Bob: sanity check!
-	if (pAttachment != NULL && pAttachment->usItem > 0 && (pAttachment->ubNumberOfObjects != 1 || pAttachment->usItem > MAXITEMS || pAttachment->ubMission != 0)) {
-		__debugbreak();
-	}
-
 	if(!objDeleted)
 		return( FALSE );
-
-	// Bob: this function tends to leave this pointer in a messed up state, leading to other code to deal with bogus item data
-	if (pAttachment != NULL) {
-		__debugbreak();
-	}
 
 	//After removing an attachment, the ammo capacity might have changed.
 	if ( Item[this->usItem].usItemClass == IC_GUN && (*this)[subObject]->data.gun.usGunAmmoItem != NONE && (*this)[subObject]->data.gun.ubGunShotsLeft > 0 && oldMagSize != GetMagSize(this, subObject) )
@@ -8423,28 +8405,9 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 		RemoveProhibitedAttachments(pSoldier, this, this->usItem);
 	}
 
-	// Bob: this function tends to leave this pointer in a messed up state, leading to other code to deal with bogus item data
-	if (pAttachment != NULL) {
-		__debugbreak();
-	}
-
 	if (pNewObj != NULL) {
 		*pNewObj = removedAttachment;
 	}
-	else {
-		*pAttachment = removedAttachment;
-	}
-
-	// Bob: this function tends to leave this pointer in a messed up state, leading to other code to deal with bogus item data
-	if (pAttachment != NULL) {
-		__debugbreak();
-	}
-
-
-	// Why is this here? By now, the object, pAttachment had been pointing to, has already been deconstructed via RemoveAttachmentAtIter.
-	// (Commenting out the following two lines)
-	//if(pAttachment->exists() && (pAttachment->usItem == 0 || pAttachment->usItem == removedAttachment.usItem ))
-	//	*pAttachment = removedAttachment;
 
 	if (pNewObj->exists() && Item[pNewObj->usItem].grenadelauncher )//UNDER_GLAUNCHER)
 	{
@@ -8453,9 +8416,6 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 		OBJECTTYPE* pGrenade = FindAttachmentByClass( this, IC_GRENADE );
 		if (pGrenade->exists())
 		{
-			//ADB ubWeight has been removed, see comments in OBJECTTYPE
-			//pNewObj->ubWeight = CalculateObjectWeight( pNewObj );
-
 			// we might have to do it in this order, because if we attach first,
 			// the object is pretty much gone and RemoveAttachment won't work (returns right away)
 			OBJECTTYPE tmp;
@@ -8464,23 +8424,11 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 		}
 	}
 
-	// Bob: this function tends to leave this pointer in a messed up state, leading other code to deal with bogus item data
-	if (pAttachment != NULL) {
-		__debugbreak();
-	}
-
 	//Removing an attachment can alter slots, check them.
 	if(UsingNewAttachmentSystem()==true && fRemoveProhibited){
 		RemoveProhibitedAttachments(pSoldier, this, this->usItem);
 	}
 
-	// Bob: this function tends to leave this pointer in a messed up state, leading to other code to deal with bogus item data
-	if (pAttachment != NULL) {
-		__debugbreak();
-	}
-
-	//ADB ubWeight has been removed, see comments in OBJECTTYPE
-	//this->ubWeight = CalculateObjectWeight( this );
 	return( TRUE );
 }
 

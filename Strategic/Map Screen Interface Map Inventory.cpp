@@ -5108,7 +5108,7 @@ void SortSectorInventoryEmptyLBE() {
 void SortSectorInventorySeparateAttachments()
 {
 	// attachment ref and pointer
-	OBJECTTYPE gTempObject;
+	//OBJECTTYPE gTempObject;
 	OBJECTTYPE * gpTempObject = NULL;
 
 	// current item
@@ -5143,15 +5143,7 @@ void SortSectorInventorySeparateAttachments()
 					//WarmSteel - This actually still works with NAS, be it by accident
 					if (gpTempObject != NULL && pInventoryItem->object.RemoveAttachment(gpTempObject, pNewObj, x))
 					{
-						// Bob: sanity check! I think RemoveAttachment shouldn't be used like it was here.
-						if (gpTempObject->usItem > 0 && (gpTempObject->ubNumberOfObjects != 1 || gpTempObject->usItem > MAXITEMS || gpTempObject->ubMission != 0)) {
-							gpTempObject = pNewObj;
-						}
-
-						// Bob: not sure why was this a ref instead of a pointer, 
-						//		I'll leave it here so it gets cleaned up when going out of scope
-						//		since DeleteObj() doesn't free all the memory 
-						gTempObject = *gpTempObject;
+						gpTempObject = pNewObj;
 
 						AutoPlaceObjectToWorld(pSoldier, gpTempObject, true);
 						if (gpTempObject != NULL)

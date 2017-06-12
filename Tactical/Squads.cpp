@@ -1655,7 +1655,8 @@ BOOLEAN DoesVehicleExistInSquad( INT8 bSquadValue )
 
 void CheckSquadMovementGroups( void )
 {
-	INT32			iSquad;
+	INT32		iSquad;
+	INT8		iSoldier;
 	GROUP *		pGroup;
 
 	for( iSquad = 0; iSquad < NUMBER_OF_SQUADS; iSquad++ )
@@ -1670,6 +1671,14 @@ void CheckSquadMovementGroups( void )
 			pGroup = GetGroup( SquadMovementGroups[ iSquad ] );
 			Assert( pGroup );
 			pGroup->fPersistant = TRUE;
+		}
+
+		// Bob: propagate the group id to the squad members
+		for (INT8 iSoldier = 0; iSoldier < NUMBER_OF_SOLDIERS_PER_SQUAD; iSoldier++) {
+			if (Squad[iSquad][iSoldier] != NULL)
+			{
+				Squad[iSquad][iSoldier]->ubGroupID = pGroup->ubGroupID;
+			}
 		}
 	}
 }
