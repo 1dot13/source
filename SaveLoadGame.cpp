@@ -6628,20 +6628,26 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//now change the savegame format so that temp files are saved and loaded correctly
 	guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
 
-	// silversurfer: added additional check to only remove the flags when there is no boxing activity going on at the moment.
-	// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
-	if ( gTacticalStatus.bBoxingState == NOT_BOXING )
+	// player team character fixes
+	SOLDIERTYPE	*pTeamSoldier;
+	for (INT8 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
 	{
-		SOLDIERTYPE	*pTeamSoldier;
-		for (INT8 bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++)
-		{
-			pTeamSoldier=MercPtrs[bLoop]; 
+		pTeamSoldier=MercPtrs[bLoop]; 
 
+		// silversurfer: added additional check to only remove the flags when there is no boxing activity going on at the moment.
+		// WANNE: This should fix the bug if any merc are still under PC control. This could happen after boxing in SAN MONA.
+		if ( gTacticalStatus.bBoxingState == NOT_BOXING )
+		{
 			if (pTeamSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL)
 				pTeamSoldier->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
 
 			pTeamSoldier->DeleteBoxingFlag();
 		}
+
+		// silversurfer: check for covert flags that shouldn't be active on a robot/vehicle and when playing with old traits
+		if ( (pTeamSoldier->flags.uiStatusFlags & (SOLDIER_ROBOT | SOLDIER_VEHICLE) && pTeamSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER | SOLDIER_COVERT_NPC_SPECIAL))
+			|| (!gGameOptions.fNewTraitSystem && pTeamSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER | SOLDIER_COVERT_NPC_SPECIAL)) )
+			pTeamSoldier->LooseDisguise( );
 	}
 
 	// Reinforcement parameter is not stored in the savegame so we have to reset it here.
