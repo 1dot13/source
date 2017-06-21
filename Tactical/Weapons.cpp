@@ -1276,16 +1276,23 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 	// INT32 iChance, iResult; 
  
 	// should jams apply to enemies? 
-	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC) 
+	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC || gGameExternalOptions.fEnemyJams) 
 	{ 
-		if ( Item[pSoldier->usAttackingWeapon].usItemClass == IC_GUN && !EXPLOSIVE_GUN( pSoldier->usAttackingWeapon ) && !(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO) ) 
+		if( Item[pSoldier->usAttackingWeapon].usItemClass == IC_GUN &&
+			!EXPLOSIVE_GUN( pSoldier->usAttackingWeapon ) &&
+			!(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO) ) 
 		{ 
 			pObj = pSoldier->GetUsedWeapon(&pSoldier->inv[pSoldier->ubAttackingHand]);
 
 			if ((*pObj)[0]->data.gun.bGunAmmoStatus > 0) 
 			{ 
 				// Algorithm for jamming 
-				int maxJamChance = 50; // Externalize this?
+				
+				// sevenfm: max chance depends on weapon reliability
+				int maxJamChance = 30 - 4 * GetReliability( pObj );
+				maxJamChance = __max( 10, maxJamChance );
+				maxJamChance = __min( 50, maxJamChance );
+
 				int reliability =  GetReliability( pObj ); 
 				int condition = (*pObj)[0]->data.gun.bGunStatus; 
 
@@ -1310,12 +1317,14 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				if (invertedBaseJamChance < 0) 
 					invertedBaseJamChance = 0; 
 				else if (invertedBaseJamChance > 100) 
-					invertedBaseJamChance = 100; 
+					invertedBaseJamChance = 100;
+
 				int jamChance = 100;
 				if ( pSoldier->ubAttackingHand == SECONDHANDPOS && pSoldier->IsValidSecondHandBurst() ) 
 					jamChance -= (int)sqrt((double)invertedBaseJamChance * ((75.0-(int)((pSoldier->bDoBurst/2)>1)*15) + (double)invertedBaseJamChance / 2.0)); 
 				else
 					jamChance -= (int)sqrt((double)invertedBaseJamChance * ((75.0-(int)(pSoldier->bDoBurst>1)*15) + (double)invertedBaseJamChance / 2.0)); 
+
 				if (jamChance < 0) 
 					jamChance = 0; 
 				else if (jamChance > maxJamChance - reliability) 
@@ -1348,29 +1357,40 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 						}
 					}
 				 
-					TacticalCharacterDialogue( pSoldier, QUOTE_JAMMED_GUN ); 
+					// sevenfm: use curse battlesound for AI soldiers
+					if (pSoldier->flags.uiStatusFlags & SOLDIER_PC) 
+					{
+						TacticalCharacterDialogue( pSoldier, QUOTE_JAMMED_GUN ); 
+					}
+					else
+					{
+						pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+					}
+
 					return( TRUE ); 
 				} 
 			} 
 			else if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0) 
 			{ 
-			// try to unjam gun 
+				// try to unjam gun 
 				if(EnoughPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
 				{
 					DeductPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM] );
+
 					INT8 bChanceMod;
 					
 					if ( Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].EasyUnjam )
 						bChanceMod = 100;
 					else
 						bChanceMod = (INT8) (GetReliability( pObj )* 4);
-					
+
 					int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, bChanceMod); 
 					
-					if (iResult > 0) 
+					// sevenfm: AI always unjams successfully
+					if (iResult > 0 || !(pSoldier->flags.uiStatusFlags & SOLDIER_PC)) 
 					{ 
 						// yay! unjammed the gun 
-						(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 
+						(*pObj)[0]->data.gun.bGunAmmoStatus *= -1;
 					 
 						// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
 						

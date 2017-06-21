@@ -293,10 +293,20 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 	INT32	iRangeChange, iRangeFactor, iRangeFactorMultiplier;
 	SOLDIERTYPE *pHim;
 
+	// sevenfm
+	INT8	bHisLevel;
+	INT8	bMyLevel;
+	INT32	sDist;
+	UINT8	ubCoverReduction;
+
 	dMyX = dMyY = dHisX = dHisY = -1.0;
 
 	pHim = Threat[uiThreatIndex].pOpponent;
 	sHisGridNo = Threat[uiThreatIndex].sGridNo;
+
+	// sevenfm
+	bHisLevel = pHim->pathing.bLevel;
+	bMyLevel = pMe->pathing.bLevel;
 
 	// THE FOLLOWING STUFF IS *VEERRRY SCAARRRY*, BUT SHOULD WORK.	IF YOU REALLY
 	// HATE IT, THEN CHANGE ChanceToGetThrough() TO WORK FROM A GRIDNO TO GRIDNO
@@ -418,6 +428,24 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 	iHisPosValue = bHisCTGT * Threat[uiThreatIndex].iValue * Threat[uiThreatIndex].iAPs;
 	iMyPosValue =	bMyCTGT *	iMyThreat * iMyAPsLeft;
 
+	// add penalty to enemy position, bonus to my position if soldier has cover at spot
+	// max 25% at DAY_VISION_RANGE/2, 0 at zero range
+	if( gGameExternalOptions.fAIBetterCover )
+	{
+		if( AnyCoverFromSpot(sMyGridNo, bMyLevel, sHisGridNo, bHisLevel) )
+		{
+			ubCoverReduction = 25;
+
+			sDist = PythSpacesAway(sMyGridNo, sHisGridNo);
+
+			if( sDist < DAY_VISION_RANGE / 2 )
+			{
+				ubCoverReduction = ubCoverReduction * 2 * sDist / DAY_VISION_RANGE;
+			}
+			iHisPosValue -= iHisPosValue * ubCoverReduction / 100;
+			iMyPosValue += iMyPosValue * ubCoverReduction / 100;
+		}
+	}
 
 	// try to account for who outnumbers who: the side with the advantage thus
 	// (hopefully) values offense more, while those in trouble will play defense
@@ -460,6 +488,16 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 			{
 				//iRangeFactor = (iRangeChange * (morale - 1)) / 4;
 				iRangeFactor = (iRangeChange * iRangeFactorMultiplier) / 2;
+
+				// sevenfm: reduce range bonus depending on cover
+				if( gGameExternalOptions.fAIBetterCover )
+				{
+					if( !AnyCoverFromSpot(sMyGridNo, bMyLevel, sHisGridNo, bHisLevel) && 
+						CountSeenEnemiesLastTurn(pMe) > CountNearbyFriends(pMe, sMyGridNo, DAY_VISION_RANGE / 2) )
+					{
+						iRangeFactor = iRangeFactor * (100 - bHisCTGT * __min(Threat[uiThreatIndex].iAPs, APBPConstants[AP_MAXIMUM]) / APBPConstants[AP_MAXIMUM]) / 100;
+					}
+				}				
 
 	#ifdef DEBUGCOVER
 				DebugAI( String( "CalcCoverValue: iRangeChange %d, iRangeFactor %d\n", iRangeChange, iRangeFactor ) );
@@ -808,7 +846,8 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		// sevenfm: sight test
 		if( gGameExternalOptions.fAIBetterCover )
 		{
-			if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, pSoldier->sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
+			if ( LocationToLocationLineOfSightTest( Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, pSoldier->sGridNo, pSoldier->pathing.bLevel, TRUE, DAY_VISION_RANGE * 2, STANDING_LOS_POS, PRONE_LOS_POS ) )
+			//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, pSoldier->sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, NO_DISTANCE_LIMIT ) )
 			{
 				fProneCover = FALSE;
 			}
@@ -1040,7 +1079,8 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				// sevenfm: sight test
 				if( gGameExternalOptions.fAIBetterCover )
 				{
-					if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
+					if ( LocationToLocationLineOfSightTest( Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, sGridNo, pSoldier->pathing.bLevel, TRUE, DAY_VISION_RANGE * 2, STANDING_LOS_POS, PRONE_LOS_POS ) )
+					//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
 					{
 						fProneCover = FALSE;
 					}

@@ -4026,3 +4026,73 @@ BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
 
 	return FALSE;
 }
+
+BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel )
+{
+	UINT8	ubDirection;
+	INT32	sCoverSpot;
+	INT8	bCoverHeight;
+
+	if( TileIsOutOfBounds( sSpot ) || TileIsOutOfBounds(sThreatLoc) )
+	{
+		return FALSE;
+	}
+
+	ubDirection = atan8(CenterX(sSpot), CenterY(sSpot), CenterX(sThreatLoc), CenterY(sThreatLoc));
+	sCoverSpot = NewGridNo( sSpot, DirectionInc( ubDirection ) );
+
+	if ( TileIsOutOfBounds( sCoverSpot ) )
+	{
+		return FALSE;
+	}
+
+	if ( WhoIsThere2( sCoverSpot, bLevel ) != NOBODY )
+	{
+		return FALSE;
+	}
+
+	if ( IsLocationSittable( sCoverSpot, bLevel ) )
+	{
+		return FALSE;
+	}
+
+	bCoverHeight = GetTallestStructureHeight( sCoverSpot, bLevel );
+
+	if ( bCoverHeight >= 2 )
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE* pSoldier )
+{
+	CHECKF(pSoldier);
+
+	UINT8	ubTeamLoop;
+	UINT8	ubIDLoop;
+	UINT8	cnt = 0;
+
+	for( ubTeamLoop = 0; ubTeamLoop < MAXTEAMS; ubTeamLoop++ )
+	{
+		if( !gTacticalStatus.Team[ubTeamLoop].bTeamActive )
+			continue;
+
+		if( gTacticalStatus.Team[ ubTeamLoop ].bSide != pSoldier->bSide )
+		{
+			// consider guys in this team, which isn't on our side
+			for( ubIDLoop = gTacticalStatus.Team[ ubTeamLoop ].bFirstID; ubIDLoop <= gTacticalStatus.Team[ ubTeamLoop ].bLastID; ubIDLoop++ )
+			{
+				// if this guy SAW an enemy recently...
+				if( pSoldier->aiData.bOppList[ ubIDLoop ] >= SEEN_CURRENTLY &&
+					pSoldier->aiData.bOppList[ ubIDLoop ] <= SEEN_LAST_TURN )
+				{
+					cnt++;
+				}
+			}
+		}
+	}
+
+	return cnt;
+}

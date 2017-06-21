@@ -1430,6 +1430,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAccessOtherMercInventories		= iniReader.ReadBoolean("Tactical Gameplay Settings","ACCESS_OTHER_MERC_INVENTORIES", TRUE);
 	gGameExternalOptions.fBackPackWeightLowersAP			= iniReader.ReadBoolean("Tactical Gameplay Settings","BACKPACKWEIGHT_LOWERS_AP", TRUE);
 
+	gGameExternalOptions.fEnemyJams							= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENEMY_JAMS", true, false);
+
 	gGameExternalOptions.fExtMouseKeyEnabled				= iniReader.ReadBoolean("Tactical Interface Settings", "ENABLE_EXT_MOUSE_KEYS", FALSE);
 
 	// sevenfm: new mouse commands

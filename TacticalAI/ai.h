@@ -297,6 +297,9 @@ BOOLEAN SightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
 
 BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 
+BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel );
+UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
+
 #define MAX_FLANKS_RED 25
 #define MAX_FLANKS_YELLOW 25
 

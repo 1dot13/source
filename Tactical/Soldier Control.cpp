@@ -10882,7 +10882,10 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	// If we are an enemy.....reduce due to volume
 	if ( pSoldier->bTeam != gbPlayerNum )
 	{
-		spParms.uiVolume = SoundVolume( (UINT8)spParms.uiVolume, pSoldier->sGridNo );
+		if( ubBattleSoundID == BATTLE_SOUND_CURSE1 )
+			spParms.uiVolume = (INT8)CalculateSpeechVolume( MIDVOLUME );
+		else
+			spParms.uiVolume = SoundVolume( (UINT8)spParms.uiVolume, pSoldier->sGridNo );
 	}
 
 	spParms.uiLoop = 1;
