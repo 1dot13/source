@@ -243,7 +243,7 @@
 		<uiIndex>8</uiIndex>
 		<szName>Firefighter</szName>
 		<szShortName>Firefighter</szShortName>
-		<szDescription>Just because it involves no shooting, it doesn't have to be &#10;less dangerous.</szDescription>
+		<szDescription>Just because it doesn't involve shooting, it doesn't have to be &#10;less dangerous.</szDescription>
 		<ap_urban>2</ap_urban>
 		<ap_height>2</ap_height>
 		<travel_car>5</travel_car>
@@ -260,7 +260,7 @@
 		<uiIndex>9</uiIndex>
 		<szName>Veteran Mountain Troop</szName>
 		<szShortName>Vet Mountain Troop</szShortName>
-		<szDescription>After serving in the Russian campaign in Chechnya,&#10;Igor is used to harsh environments.</szDescription>
+		<szDescription>After serving in Chechnya,&#10;Igor is used to harsh environments.</szDescription>
 		<ap_mountain>3</ap_mountain>
 		<ap_tropical>-3</ap_tropical>
 		<ap_assault>2</ap_assault>
@@ -280,7 +280,7 @@
 		<uiIndex>10</uiIndex>
 		<szName>Ranger</szName>
 		<szShortName>Ranger</szShortName>
-		<szDescription>Survival and ambush tatics were part of Shadow's intense training.</szDescription>
+		<szDescription>Survival and ambush tactics were part of Shadow's intense training.</szDescription>
 		<ap_river>5</ap_river>
 		<ap_coastal>3</ap_coastal>
 		<food>-10</food>
@@ -335,15 +335,16 @@
 		<uiIndex>13</uiIndex>
 		<szName>Bomber</szName>
 		<szShortName>Bomber</szShortName>
-		<szDescription>Wether you call them terrorists or freedom fighters often &#10;depends on your relation to those killed.</szDescription>
-		<explosives>6</explosives>
+		<szDescription>Fidel is very apt at solving problems with various applications of &#10;destruction, not so much at moderation.</szDescription>
+		<ap_artillery>-6</ap_artillery>
 		<breachingcharge>30</breachingcharge>
 		<disarm_trap>10</disarm_trap>
 		<traplevel>1</traplevel>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
+		<interrogation>-10</interrogation>
+		<capitulation>-10</capitulation>
 		<insurance>40</insurance>
-		<spotter>3</spotter>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -353,17 +354,16 @@
 		<uiIndex>14</uiIndex>
 		<szName>Nurse</szName>
 		<szShortName>Nurse</szShortName>
-		<szDescription>While not full-blown doctors, nurses are still in high demand&#10; in warzones, due to the grim business.</szDescription>
-		<dexterity>3</dexterity>
-		<medical>7</medical>
+		<szDescription>While she isn't a full-blown doctor, Cynthia is always a welcome sight to her comrades in the field.</szDescription>
 		<ap_fortify>10</ap_fortify>
-		<ap_artillery>10</ap_artillery>
-		<ap_inventory>-10</ap_inventory>
-		<ap_airdrop>-3</ap_airdrop>
 		<ap_assault>-5</ap_assault>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
-		<approach_friendly>10</approach_friendly>
+		<carrystrength>-5</carrystrength>
+		<interrogation>15</interrogation>
+		<prisonguard>-15</prisonguard>
+		<disease_diagnose>20</disease_diagnose>
+		<disease_treatment>10</disease_treatment>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -373,17 +373,15 @@
 		<szName>Nobility</szName>
 		<szShortName>Nobility</szShortName>
 		<szDescription>Some people join this business not out of necessity. While easy &#10;to label them as sissy aristocrats, some are actually quite capable, as they have received the best training money can buy.</szDescription>
-		<xenophobic>1</xenophobic>
-		<marksmanship>2</marksmanship>
 		<ap_fortify>10</ap_fortify>
-		<ap_artillery>10</ap_artillery>
-		<ap_inventory>-3</ap_inventory>
-		<betterprices>10</betterprices>
-		<meleedamage>-2</meleedamage>
-		<approach_recruit>10</approach_recruit>
+		<ap_inventory>-10</ap_inventory>
+		<betterprices>-10</betterprices>
+		<capitulation>10</capitulation>
+		<increased_maxcth>2</increased_maxcth>
 		<carrystrength>-5</carrystrength>
-		<spotter>3</spotter>
+		<spotter>10</spotter>
 		<smoker>2</smoker>
+		<xenophobic>1</xenophobic>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
