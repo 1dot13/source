@@ -1401,40 +1401,42 @@ extern UINT16				gsCurMouseWidth;*/
 
 void DrawMouseGraphicsNCTH( )
 {
-	//////////////////////////////////////////////////////////////////////////////////////
-	// HEADROCK HAM 4: This entire cursor drawing function is now OBSOLETE in NCTH.
-	// Instead of drawing the targeting cursor on limited cursor space (in the MOUSEBUFFER),
-	// I draw the new indicator directly on the FRAMEBUFFER through a function in 
-	// Tactical\Interface.CPP. It bypasses the cursor system entirely in order to create
-	// a pseudo-cursor that can potentially be as large as the viewport (or larger). That
-	// is unfortunately not doable with the cursor system, so this code is now commented out.
-
-	// HEADROCK (HAM): Made several changes here to allow multi-shot CtH display for bursts.
-	UINT16 * ptrBuf;
-	UINT32 uiPitch;
-	UINT32 cnt, i;
-	UINT32 actualPct		= __min(gbCtH[0],99);
-	UINT16 usCBorderTop		= Get16BPPColor( FROMRGB( 155, 155, 155 ) );
-	UINT16 usCBorderBottom	= Get16BPPColor( FROMRGB( 120, 120, 120 ) );
-	UINT16 usCBar			= Get16BPPColor( FROMRGB( 255, 255-255*actualPct/99, 0 ) );
-	UINT16 usCBack			= Get16BPPColor( FROMRGB( 155, 155-155*actualPct/99, 0 ) );
-	UINT16 usCBar2			= Get16BPPColor( FROMRGB( 180, 140-140*actualPct/99, 0 ) );
-	UINT16 usCBack2			= Get16BPPColor( FROMRGB( 110, 100-100*actualPct/99, 0 ) );
-	UINT32 barLength		= __min(35,gsCurMouseWidth);
-	//UINT32 barY				= gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
-	UINT32 barY;
-
-	if(gfUICtHBar)
+	if ( gfUICtHBar )
 	{
+		//////////////////////////////////////////////////////////////////////////////////////
+		// HEADROCK HAM 4: This entire cursor drawing function is now OBSOLETE in NCTH.
+		// Instead of drawing the targeting cursor on limited cursor space (in the MOUSEBUFFER),
+		// I draw the new indicator directly on the FRAMEBUFFER through a function in 
+		// Tactical\Interface.CPP. It bypasses the cursor system entirely in order to create
+		// a pseudo-cursor that can potentially be as large as the viewport (or larger). That
+		// is unfortunately not doable with the cursor system, so this code is now commented out.
+
+		// HEADROCK (HAM): Made several changes here to allow multi-shot CtH display for bursts.
+		UINT16 * ptrBuf;
+		UINT32 uiPitch;
+		UINT32 cnt, i;
+		UINT32 actualPct		= __min(gbCtH[0],99);
+		UINT16 usCBorderTop		= Get16BPPColor( FROMRGB( 155, 155, 155 ) );
+		UINT16 usCBorderBottom	= Get16BPPColor( FROMRGB( 120, 120, 120 ) );
+		UINT16 usCBar			= Get16BPPColor( FROMRGB( 255, 255-255*actualPct/99, 0 ) );
+		UINT16 usCBack			= Get16BPPColor( FROMRGB( 155, 155-155*actualPct/99, 0 ) );
+		UINT16 usCBar2			= Get16BPPColor( FROMRGB( 180, 140-140*actualPct/99, 0 ) );
+		UINT16 usCBack2			= Get16BPPColor( FROMRGB( 110, 100-100*actualPct/99, 0 ) );
+		UINT32 barLength		= __min(35,gsCurMouseWidth);
+		//UINT32 barY				= gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
+		UINT32 barY;
+		
 		// HEADROCK HAM B1/2/2.6:
 		// This causes the function to display two CTH bars for autofire - the CTH of the first bullet,
 		// and the CTH of the last bullet in the volley, stored in gbCtH[0] and [1] respectively.
-		if ( gbCtHAutoFire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
-			gbCtHBurstCount = 2;
-		else if	( gbCtHAutoFire )
-			gbCtHBurstCount = 0;
+		if ( gbCtHAutoFire )
+		{
+			if ( (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
+				gbCtHBurstCount = 2;
+			else
+				gbCtHBurstCount = 0;
+		}
 		
-
 		// Sets the initial offsets of the bars. Burst and Autofire will display them higher above the
 		// cursor, to avoid obscuring the target or other data.
 		if (gbCtHBurstCount > 1 && !gbCtHAutoFire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
@@ -1444,14 +1446,14 @@ void DrawMouseGraphicsNCTH( )
 		else
 			barY = gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
 		
-		for (i=0; i<gbCtHBurstCount; i++)
+		for (i=0; i<gbCtHBurstCount; ++i)
 		{
 			actualPct		= __min(gbCtH[ i ],99);
 
 			ptrBuf = (UINT16 *) LockMouseBuffer( &uiPitch );
 			uiPitch >>= 1;
 
-			for(cnt = gsCurMouseOffsetX+barLength/2;cnt > gsCurMouseOffsetX-barLength/2+1;cnt--)
+			for(cnt = gsCurMouseOffsetX+barLength/2;cnt > gsCurMouseOffsetX-barLength/2+1; --cnt)
 			{
 				ptrBuf[cnt-1 + uiPitch*(3+barY)] = usCBorderBottom;
 				ptrBuf[cnt-1 + uiPitch*barY] = usCBorderTop;
@@ -1462,62 +1464,62 @@ void DrawMouseGraphicsNCTH( )
 
 			ptrBuf[gsCurMouseOffsetX+barLength/2 + uiPitch*(2+barY)] = usCBorderBottom;
 			ptrBuf[gsCurMouseOffsetX-barLength/2 + uiPitch*(2+barY)] = usCBorderTop;
-
-
-			for(cnt = 0;cnt < (barLength-2)*actualPct/99;cnt++)
+			
+			for(cnt = 0;cnt < (barLength-2)*actualPct/99; ++cnt)
 			{
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+2)] = usCBar2;
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+1)] = usCBar;
 			}
 
-			for(cnt = (barLength-2)*actualPct/99;cnt < (barLength-2);cnt++)
+			for(cnt = (barLength-2)*actualPct/99;cnt < (barLength-2); ++cnt)
 			{
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+2)] = usCBack2;
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+1)] = usCBack;
 			}
-
-
+			
 			UnlockMouseBuffer();
+
 			if (gbCtHBurstCount>1)
-			barY = barY+5;	
+				barY = barY+5;	
 		}
+
 		barY = gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
 	}
-
 }
 
 void DrawMouseGraphics( )
 {
-	if(UsingNewCTHSystem() == true){
-		DrawMouseGraphicsNCTH();
-		return;
-	}
-	// HEADROCK (HAM): Made several changes here to allow multi-shot CtH display for bursts.
-	UINT16 * ptrBuf;
-	UINT32 uiPitch;
-	UINT32 cnt, i;
-	UINT32 actualPct		= __min(gbCtH[0],99);
-	UINT16 usCBorderTop		= Get16BPPColor( FROMRGB( 155, 155, 155 ) );
-	UINT16 usCBorderBottom	= Get16BPPColor( FROMRGB( 120, 120, 120 ) );
-	UINT16 usCBar			= Get16BPPColor( FROMRGB( 255, 255-255*actualPct/99, 0 ) );
-	UINT16 usCBack			= Get16BPPColor( FROMRGB( 155, 155-155*actualPct/99, 0 ) );
-	UINT16 usCBar2			= Get16BPPColor( FROMRGB( 180, 140-140*actualPct/99, 0 ) );
-	UINT16 usCBack2			= Get16BPPColor( FROMRGB( 110, 100-100*actualPct/99, 0 ) );
-	UINT32 barLength		= __min(35,gsCurMouseWidth);
-	//UINT32 barY				= gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
-	UINT32 barY;
-
+	if(UsingNewCTHSystem() )
+		return DrawMouseGraphicsNCTH( );
+	
 	if(gfUICtHBar)
 	{
+		// HEADROCK (HAM): Made several changes here to allow multi-shot CtH display for bursts.
+		UINT16 * ptrBuf;
+		UINT32 uiPitch;
+		UINT32 cnt, i;
+		UINT32 actualPct		= __min( gbCtH[0], 99 );
+		UINT16 usCBorderTop		= Get16BPPColor( FROMRGB( 155, 155, 155 ) );
+		UINT16 usCBorderBottom	= Get16BPPColor( FROMRGB( 120, 120, 120 ) );
+		UINT16 usCBar			= Get16BPPColor( FROMRGB( 255, 255 - 255 * actualPct / 99, 0 ) );
+		UINT16 usCBack			= Get16BPPColor( FROMRGB( 155, 155 - 155 * actualPct / 99, 0 ) );
+		UINT16 usCBar2			= Get16BPPColor( FROMRGB( 180, 140 - 140 * actualPct / 99, 0 ) );
+		UINT16 usCBack2			= Get16BPPColor( FROMRGB( 110, 100 - 100 * actualPct / 99, 0 ) );
+		UINT32 barLength		= __min( 35, gsCurMouseWidth );
+		//UINT32 barY				= gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
+		UINT32 barY;
+
 		// HEADROCK HAM B1/2/2.6:
 		// This causes the function to display two CTH bars for autofire - the CTH of the first bullet,
 		// and the CTH of the last bullet in the volley, stored in gbCtH[0] and [1] respectively.
-		if ( gbCtHAutoFire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
-			gbCtHBurstCount = 2;
-		else if	( gbCtHAutoFire )
-			gbCtHBurstCount = 0;
+		if ( gbCtHAutoFire )
+		{
+			if ( (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
+				gbCtHBurstCount = 2;
+			else
+				gbCtHBurstCount = 0;
+		}
 		
-
 		// Sets the initial offsets of the bars. Burst and Autofire will display them higher above the
 		// cursor, to avoid obscuring the target or other data.
 		if (gbCtHBurstCount > 1 && !gbCtHAutoFire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
@@ -1527,14 +1529,14 @@ void DrawMouseGraphics( )
 		else
 			barY = gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
 		
-		for (i=0; i<gbCtHBurstCount; i++)
+		for (i=0; i<gbCtHBurstCount; ++i)
 		{
 			actualPct		= __min(gbCtH[ i ],99);
 
 			ptrBuf = (UINT16 *) LockMouseBuffer( &uiPitch );
 			uiPitch >>= 1;
 
-			for(cnt = gsCurMouseOffsetX+barLength/2;cnt > gsCurMouseOffsetX-barLength/2+1;cnt--)
+			for(cnt = gsCurMouseOffsetX+barLength/2;cnt > gsCurMouseOffsetX-barLength/2+1; --cnt)
 			{
 				ptrBuf[cnt-1 + uiPitch*(3+barY)] = usCBorderBottom;
 				ptrBuf[cnt-1 + uiPitch*barY] = usCBorderTop;
@@ -1545,28 +1547,27 @@ void DrawMouseGraphics( )
 
 			ptrBuf[gsCurMouseOffsetX+barLength/2 + uiPitch*(2+barY)] = usCBorderBottom;
 			ptrBuf[gsCurMouseOffsetX-barLength/2 + uiPitch*(2+barY)] = usCBorderTop;
-
-
-			for(cnt = 0;cnt < (barLength-2)*actualPct/99;cnt++)
+			
+			for(cnt = 0;cnt < (barLength-2)*actualPct/99; ++cnt)
 			{
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+2)] = usCBar2;
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+1)] = usCBar;
 			}
 
-			for(cnt = (barLength-2)*actualPct/99;cnt < (barLength-2);cnt++)
+			for(cnt = (barLength-2)*actualPct/99;cnt < (barLength-2); ++cnt)
 			{
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+2)] = usCBack2;
 				ptrBuf[cnt + gsCurMouseOffsetX-barLength/2+1 + uiPitch*(barY+1)] = usCBack;
 			}
 
-
 			UnlockMouseBuffer();
+
 			if (gbCtHBurstCount>1)
-			barY = barY+5;	
+				barY = barY+5;
 		}
+
 		barY = gsCurMouseOffsetY-__min(35,gsCurMouseHeight)/2;
 	}
-
 }
 
 void BltJA2CursorData( )
@@ -1609,7 +1610,7 @@ void DrawMouseText( )
 	{
 		// Set dest for gprintf to be different
 		SetFontDestBuffer( MOUSE_BUFFER , 0, 0, 64, 64, FALSE );
-
+		
 
 		SetFont( TINYFONT1 );
 
@@ -1678,7 +1679,7 @@ void DrawMouseText( )
 		// reset
 		SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 	}
-
+	
 
 	//if ( ( ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.uiFlags & INCOMBAT ) ) )
 	{
