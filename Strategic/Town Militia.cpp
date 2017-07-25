@@ -2598,14 +2598,14 @@ FLOAT CalcHourlyVolunteerGain()
 			UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].bNameId;
 			if ( ubTownID != BLANK_SECTOR )
 			{
-				UINT16 population = GetSectorPopulation( sX, sY );
+				UINT16 population = GetSectorPopulation( sX, sY, FALSE );
 
 				loyalpopulation += gTownLoyalty[ubTownID].ubRating * population / 100;
 			}
 		}
 	}
 
-	FLOAT hourlygain = loyalpopulation * populationmodifier * gGameExternalOptions.dMilitiaVolunteerGainFactorHourly;
+	FLOAT hourlygain = log( 1.0 + loyalpopulation * populationmodifier * gGameExternalOptions.dMilitiaVolunteerGainFactorHourly);
 
 	return hourlygain;
 }

@@ -3140,8 +3140,9 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier )
 	// this is not an assignment. Simply being in the sector will allow us to be counted as guards
 	UINT32 usValue = 0;	
 	
-	if ( pSoldier->flags.fMercAsleep )
-		return 0;
+	// for simplicity, ignore sleep status (forcing the player to finetune sleeping is annoying)
+	/*if ( psoldier->flags.fMercAsleep )
+		return 0;*/
 
 	// anv: undercover snitches don't count as guards as they don't guard in traditional sense
 	if ( pSoldier->bAssignment == FACILITY_PRISON_SNITCH )
@@ -3214,7 +3215,7 @@ UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
 	{
-		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && !pSoldier->flags.fMercAsleep )
+		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
 		{
 			prisonguardvalue += CalculatePrisonGuardValue(pSoldier );
 		}
