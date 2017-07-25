@@ -51,6 +51,7 @@ extern BOOLEAN PlaceObjectAtObjectIndex( OBJECTTYPE * pSourceObj, OBJECTTYPE * p
 
 UINT16 CalculateAmmoWeight( UINT16 usGunAmmoItem, UINT16 ubShotsLeft );
 UINT16	CalculateObjectWeight( OBJECTTYPE *pObject );
+UINT32 GetTotalWeight( SOLDIERTYPE* pSoldier );
 UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier );
 // CHRISL:
 UINT16 CalculateItemSize( OBJECTTYPE *pObject );

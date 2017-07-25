@@ -1178,8 +1178,12 @@ typedef struct
 	INT16	sBackpackWeightModifier; //modifier to weight calculation to climb.
 	BOOLEAN fAllowClimbing; //does item allow climbing while wearing it
 
-	BOOLEAN cigarette;				// Flugenete: this item can be smoked
-	UINT8	usPortionSize;			// Flugente: for consumables: how much of this item is consumed at once	
+	BOOLEAN cigarette;				// Flugente: this item can be smoked
+	UINT8	usPortionSize;			// Flugente: for consumables: how much of this item is consumed at once
+
+	// Flugente: riot shields
+	UINT16	usRiotShieldStrength;	// strength of shield
+	UINT16	usRiotShieldGraphic;	// graphic of shield (when deployed in tactical, taken from Tilecache/riotshield.sti)
 
 } INVTYPE;
 
@@ -1800,6 +1804,7 @@ typedef enum
 	MECHANICAL_MERGE_HARD,
 	TRIPWIRE_ROLL,
 	USE_ITEM_NEW,
+	CANNIBALIZE,
 } MergeType;
 
 extern UINT16 Merge[MAXITEMS+1][6];

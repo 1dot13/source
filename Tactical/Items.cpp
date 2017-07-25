@@ -1527,7 +1527,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 	if(cntAttach == TRUE)
 	{
 		iSize = CalculateItemSize(pObject);
-		if(pSoldier != NULL && pSoldier->inv[bSlot].usItem == pObject->usItem)
+		if(pSoldier != NULL && pSoldier->inv[bSlot].usItem == usItem)
 		{
 			sSize = CalculateItemSize(&pSoldier->inv[bSlot]);
 			if(LBEPocketType[pIndex].ItemCapacityPerSize[sSize] < LBEPocketType[pIndex].ItemCapacityPerSize[iSize])
@@ -1535,7 +1535,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 		}
 	}
 	else
-		iSize = Item[pObject->usItem].ItemSize;
+		iSize = Item[usItem].ItemSize;
 	iSize = __min(iSize,gGameExternalOptions.guiMaxItemSize);
 	ubSlotLimit = LBEPocketType[pIndex].ItemCapacityPerSize[iSize];
 
@@ -2696,11 +2696,21 @@ BOOLEAN EvaluateValidMerge( UINT16 usMerge, UINT16 usItem, UINT16 * pusResult, U
 	INT32 iLoop = 0;
 
 	//CHRISL: Update this so we can also merge IC_MONEY like wallets and nuggets.
-	if (usMerge == usItem && (Item[ usItem ].usItemClass == IC_AMMO || Item[ usItem ].usItemClass == IC_MONEY))
+	if (usMerge == usItem )
 	{
-		*pusResult = usItem;
-		*pubType = COMBINE_POINTS;
-		return( TRUE );
+		if ( (Item[usItem].usItemClass == IC_AMMO || Item[usItem].usItemClass == IC_MONEY) )
+		{
+			*pusResult = usItem;
+			*pubType = COMBINE_POINTS;
+			return( TRUE );
+		}
+		// Flugente: guns can be merged to cannibalize them
+		else if ( (Item[usItem].usItemClass & (IC_GUN | IC_LAUNCHER) ) )
+		{
+			*pusResult = usItem;
+			*pubType = CANNIBALIZE;
+			return(TRUE);
+		}
 	}
 	// look for the section of the array pertaining to this Merge...
 	while( 1 )
@@ -3063,20 +3073,26 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 	return weight;
 }
 
-UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
+UINT32 GetTotalWeight( SOLDIERTYPE* pSoldier )
 {
 	UINT32	uiTotalWeight = 0;
-	UINT32	uiPercent;
-	UINT8		ubLoop;
-	UINT32		ubStrengthForCarrying;
 
-	//Pulmu: Changes for dynamic ammo weight
-	UINT8 invsize = pSoldier->inv.size();
-	for( ubLoop = 0; ubLoop < invsize; ++ubLoop)
+	UINT8 invsize = pSoldier->inv.size( );
+	for ( UINT8 ubLoop = 0; ubLoop < invsize; ++ubLoop )
 	{
 		//ADB the weight of the object is already counting stacked objects, attachments, et al
-		uiTotalWeight += CalculateObjectWeight(&pSoldier->inv[ubLoop]);
+		uiTotalWeight += CalculateObjectWeight( &pSoldier->inv[ubLoop] );
 	}
+
+	return uiTotalWeight;
+}
+
+UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
+{
+	UINT32	uiTotalWeight = GetTotalWeight( pSoldier );
+	UINT32	uiPercent;
+	UINT32	ubStrengthForCarrying;
+		
 	// for now, assume soldiers can carry 1/2 their strength in KGs without penalty.
 	// instead of multiplying by 100 for percent, and then dividing by 10 to account
 	// for weight units being in 10ths of kilos, not kilos... we just start with 10 instead of 100!
@@ -4242,13 +4258,15 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			if(this->IsActiveLBE(subObject) == true)
 				return( FALSE );
 		}
-		//CHRISL: We don't want to do any merges if we're looking at a stack of items, with the exception of combines.
-		if ( this->ubNumberOfObjects > 1 && ubType != COMBINE_POINTS )
-		{
-			return( FALSE );
-		}
+		
 		if ( ubType != COMBINE_POINTS )
 		{
+			//CHRISL: We don't want to do any merges if we're looking at a stack of items, with the exception of combines.
+			if ( this->ubNumberOfObjects > 1 )
+			{
+				return(FALSE);
+			}
+
 			if ( pSoldier )
 			{
 				if ( !EnoughPoints( pSoldier, ubAPCost, 0, TRUE ) )
@@ -4382,6 +4400,38 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					}
 				}
 				break;
+
+			// Flugente: guns can be cannibalized
+			// A gun is merged with a similar gun. This improves a gun's condition, but the other gun is damaged a lot more
+			case CANNIBALIZE:
+				{
+					INT16 cannibalize_max = 90;
+					INT16 cannibalize_min = 20;
+					FLOAT cannibalize_lossratio = 2.0f;
+
+					for ( bLoop = 0; bLoop < pAttachment->ubNumberOfObjects; ++bLoop )
+					{
+						if ( (*this)[subObject]->data.objectStatus >= cannibalize_max )
+							break;
+
+						if ( (*pAttachment)[bLoop]->data.objectStatus > cannibalize_min )
+						{
+							INT16 possibleincrease = cannibalize_max - (*this)[subObject]->data.objectStatus;
+							INT16 possibletake = (*pAttachment)[bLoop]->data.objectStatus - cannibalize_min;
+
+							INT16 transfer = min( possibletake / cannibalize_lossratio, possibleincrease );
+
+							(*pAttachment)[bLoop]->data.objectStatus -= transfer * cannibalize_lossratio;
+							(*this)[subObject]->data.objectStatus += transfer;
+
+							// we also have to alter the repair threshold
+							(*pAttachment)[bLoop]->data.sRepairThreshold = max( 1, (*pAttachment)[bLoop]->data.sRepairThreshold * (FLOAT)(1.0f - transfer * cannibalize_lossratio / 100.0f) );
+							(*this)[subObject]->data.sRepairThreshold = min( 100, (*this)[subObject]->data.sRepairThreshold * (FLOAT)(1.0f + transfer / cannibalize_lossratio / 100.0f) );
+						}
+					}
+				}
+				break;
+
 			case DESTRUCTION:
 				// the merge destroyed both items!
 				this->RemoveObjectsFromStack(1);
@@ -4988,13 +5038,15 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			if(this->IsActiveLBE(subObject) == true)
 				return( FALSE );
 		}
-		//CHRISL: We don't want to do any merges if we're looking at a stack of items, with the exception of combines.
-		if ( this->ubNumberOfObjects > 1 && ubType != COMBINE_POINTS )
-		{
-			return( FALSE );
-		}
+		
 		if ( ubType != COMBINE_POINTS )
 		{
+			//CHRISL: We don't want to do any merges if we're looking at a stack of items, with the exception of combines.
+			if ( this->ubNumberOfObjects > 1 )
+			{
+				return(FALSE);
+			}
+
 			if ( pSoldier )
 			{
 				if ( !EnoughPoints( pSoldier, ubAPCost, 0, TRUE ) )
@@ -5167,6 +5219,38 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					}
 				}
 				break;
+
+			// Flugente: guns can be cannibalized
+			// A gun is merged with a similar gun. This improves a gun's condition, but the other gun is damaged a lot more
+			case CANNIBALIZE:
+				{
+					INT16 cannibalize_max = 90;
+					INT16 cannibalize_min = 20;
+					FLOAT cannibalize_lossratio = 2.0f;
+					
+					for ( bLoop = 0; bLoop < pAttachment->ubNumberOfObjects; ++bLoop )
+					{
+						if ( (*this)[subObject]->data.objectStatus >= cannibalize_max )
+							break;
+
+						if ( (*pAttachment)[bLoop]->data.objectStatus > cannibalize_min )
+						{
+							INT16 possibleincrease = cannibalize_max - (*this)[subObject]->data.objectStatus;
+							INT16 possibletake = (*pAttachment)[bLoop]->data.objectStatus - cannibalize_min;
+
+							INT16 transfer = min( possibletake / cannibalize_lossratio, possibleincrease );
+
+							(*pAttachment)[bLoop]->data.objectStatus -= transfer * cannibalize_lossratio;
+							(*this)[subObject]->data.objectStatus += transfer;
+
+							// we also have to alter the repair threshold
+							(*pAttachment)[bLoop]->data.sRepairThreshold = max( 1, (*pAttachment)[bLoop]->data.sRepairThreshold * (FLOAT)(1.0f - transfer * cannibalize_lossratio / 100.0f) );
+							(*this)[subObject]->data.sRepairThreshold = min( 100, (*this)[subObject]->data.sRepairThreshold * (FLOAT)(1.0f + transfer / cannibalize_lossratio / 100.0f) );
+						}
+					}
+				}				
+				break;
+
 			case DESTRUCTION:
 				// the merge destroyed both items!
 				this->RemoveObjectsFromStack(1);
