@@ -2783,6 +2783,9 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =
 {
+	// sniper
+	L"Focus",	// TODO.Translate
+
 	// radio operator
 	L"Артналет",
 	L"Постановка помех",
@@ -2798,6 +2801,9 @@ STR16 pTraitSkillsMenuStrings[] =
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
+	// sniper
+	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
+
 	// radio operator
 	L"Вызвать артиллерийский удар из сектора...",
 	L"Заполнить эфир помехами, чтобы сделать невозможным использование средств связи.",
@@ -3560,7 +3566,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить его свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 35 ] =
+STR16		gzMiscItemStatsFasthelp[] =
 {
 	L"Модификатор размера предмета\n(меньше - лучше)", //0
 	L"Модификатор надёжности",
@@ -3597,6 +3603,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Туннельное зрение\n(меньше - лучше)",
 	L"Минимальное расстояние\nдля бонуса при прицеливании",
 	L"Зажмите |C|t|r|l для сравнения предметов",									// item compare help text 
+	L"Equipment weight: %4.1f kg",	// 35	// TODO.Translate
 };
 
 // HEADROCK: End new tooltip text
@@ -4338,6 +4345,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// 16 - 20
 	L"|Л|е|в|ы|й| |щ|е|л|ч|о|к|: Скрыть прочие предметы\n|П|р|а|в|ы|й| |щ|е|л|ч|о|к|: Показать прочие предметы",	// HEADROCK HAM 5: Filter Button
 	L"Переключить отображение перемещения предметов",											// Flugente: move item display
+	L"Save Gear Template",	// TODO.Translate
+	L"Load Gear Template...",
 };
 
 STR16 pMapScreenBottomFastHelp[] =

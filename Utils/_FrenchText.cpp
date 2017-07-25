@@ -2791,6 +2791,9 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =
 {
+	// sniper
+	L"Focus",	// TODO.Translate
+
 	// radio operator
 	L"Tir d'artillerie",
 	L"Brouiller les communications",
@@ -2806,6 +2809,9 @@ STR16 pTraitSkillsMenuStrings[] =
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
+	// sniper
+	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
+
 	// radio operator
 	L"Ordonner un tir d'artillerie au secteur...",
 	L"Brouiller toutes les fréquences radios pour rendre les communications impossibles.",
@@ -3566,7 +3572,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|F|a|c|i|l|i|t|é |d|e |r|é|p|a|r|a|t|i|o|n\n \nDétermine la difficulté à réparer une arme\net qui peut la réparer complètement.\n \nVert = N'importe qui peut la réparer.\n \nJaune = Seuls des PNJ spécialisés peuvent la\nréparer au-delà du seuil de réparation.\n \nRouge = L'arme ne peut pas être réparée.\n \nValeur élevée recommandée.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 35 ] =
+STR16		gzMiscItemStatsFasthelp[] =
 {
 	L"Facteur d'encombrement (Valeur faible recommandée)", // 0
 	L"Facteur de fiabilité",
@@ -3603,6 +3609,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Pourcentage d'effet tunnel (Valeur faible recommandée)",
 	L"Portée minimale pour bonus de visée",
 	L"Maintenez |C|T|R|L pour comparer les objets", // item compare help text
+	L"Equipment weight: %4.1f kg",	// 35	// TODO.Translate
 };
 
 // HEADROCK: End new tooltip text
@@ -4345,6 +4352,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// 16 - 20
 	L"|C|l|i|c |G|. : Avec/sans objets divers\n|C|l|i|c |D|. : Voir que les objets divers", // HEADROCK HAM 5: Filter Button
 	L"Pour afficher ou non les objets déplacés.", // Flugente: move item display
+	L"Save Gear Template",	// TODO.Translate
+	L"Load Gear Template...",
 };
 
 STR16 pMapScreenBottomFastHelp[] =

@@ -2783,6 +2783,9 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =
 {
+	// sniper
+	L"Focus",	// TODO.Translate
+
 	// radio operator
 	L"火炮攻击", //L"Artillery Strike",
 	L"通讯干扰", //L"Jam communications",
@@ -2798,6 +2801,9 @@ STR16 pTraitSkillsMenuStrings[] =
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
+	// sniper
+	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
+
 	// radio operator
 	L"命令某分区发动火炮攻击。", //L"Order an artillery strike from sector...",
 	L"所有通讯频率加入空白噪音，阻断正常通讯。", //L"Fill all radio frequencies with white noise, making communications impossible.",
@@ -3560,7 +3566,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|维|修|难|度\n \n决定了修理难度以及谁可以完全修复其损坏值\n \n绿色 = 任何人都可以修理\n \n黄色 = 只有特殊NPC可以修复损坏值\n \n红色 = 这个物品不能被修理\n \n 越高越好", //L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 35 ] =
+STR16		gzMiscItemStatsFasthelp[] =
 {
 	L"物品大小修正（越低越好）", // 0
 	L"可靠性修正",
@@ -3597,6 +3603,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"隧道视野百分比（越低越好）",
 	L"精瞄加成所需最小距离",
 	L"按住 |C|t|r|l 点击装备物品", //L"Hold |C|t|r|l to compare items", item compare help text
+	L"Equipment weight: %4.1f kg",	// 35	// TODO.Translate
 };
 
 // HEADROCK: End new tooltip text
@@ -4337,6 +4344,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// 16 - 20
 	L"|鼠|标|左|击: 切换显示杂项物品 \n|鼠|标|右|击: 只显示杂项物品 ", // HEADROCK HAM 5: Filter Button
 	L"切换搬运中的物品", // Flugente: move item display
+	L"Save Gear Template",	// TODO.Translate
+	L"Load Gear Template...",
 };
 
 STR16 pMapScreenBottomFastHelp[] =

@@ -469,6 +469,7 @@ MOUSE_REGION	gTEAM_FirstHandInv[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
 MOUSE_REGION	gTEAM_SecondHandInv[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
 MOUSE_REGION	gTEAM_EnemyIndicator[ NUMBER_OF_SOLDIERS_PER_SQUAD ];
 
+MOUSE_REGION	gSM_SELMERCWeightRegion; // Added by Flugente
 MOUSE_REGION	gSM_SELMERCCamoRegion; // Added by Sandro
 
 BOOLEAN			gfTEAM_HandInvDispText[ NUMBER_OF_SOLDIERS_PER_SQUAD ][ NUM_INV_SLOTS ];
@@ -2105,6 +2106,11 @@ BOOLEAN InitializeSMPanel(	)
 					SM_SELMERC_BARS_TIP_X + SM_SELMERC_BARS_TIP_WIDTH, SM_SELMERC_BARS_TIP_Y + SM_SELMERC_BARS_TIP_HEIGHT, MSYS_PRIORITY_NORMAL,
 						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercButtonCallback );
 	MSYS_AddRegion( &gSM_SELMERCBarsRegion );
+	
+	MSYS_DefineRegion( &gSM_SELMERCWeightRegion, (SM_WEIGHT_X + 2), (SM_WEIGHT_Y),
+					   (SM_WEIGHT_X + 28), (SM_WEIGHT_Y + 10), MSYS_PRIORITY_NORMAL,
+					   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercButtonCallback );
+	MSYS_AddRegion( &gSM_SELMERCWeightRegion );
 
 	// Added by SANDRO - define region for camo tooltip window
 	MSYS_DefineRegion( &gSM_SELMERCCamoRegion, ( SM_CAMMO_X + 2), ( SM_CAMMO_Y ),
@@ -2456,7 +2462,7 @@ BOOLEAN ShutdownSMPanel( )
 	MSYS_RemoveRegion( &gSM_SELMERCBarsRegion );
 	MSYS_RemoveRegion( &gSM_SELMERCMoneyRegion );
 	MSYS_RemoveRegion( &gSM_SELMERCEnemyIndicatorRegion );
-
+	MSYS_RemoveRegion( &gSM_SELMERCWeightRegion );
 	MSYS_RemoveRegion( &gSM_SELMERCCamoRegion ); // added - SANDRO
 
 	HandleMouseOverSoldierFaceForContMove( gpSMCurrentMerc, FALSE );
@@ -2854,16 +2860,13 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			swprintf( sString, L"%3d", max(0, min(max((gpSMCurrentMerc->bCamo + gpSMCurrentMerc->wornCamo), max((gpSMCurrentMerc->urbanCamo+gpSMCurrentMerc->wornUrbanCamo), max((gpSMCurrentMerc->desertCamo+gpSMCurrentMerc->wornDesertCamo), (gpSMCurrentMerc->snowCamo+gpSMCurrentMerc->wornSnowCamo)))),100)) );
 			FindFontRightCoordinates(SM_CAMMO_X, SM_CAMMO_Y ,SM_PERCENT_WIDTH ,SM_PERCENT_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
-
-
+			
 			// reset to frame buffer!
 			SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 			RestoreExternBackgroundRect( INTERFACE_START_X, INV_INTERFACE_START_Y, SCREEN_WIDTH - INTERFACE_START_X , INV_INTERFACE_HEIGHT );
-
-
+			
 			RenderSoldierFace( gpSMCurrentMerc, SM_SELMERC_FACE_X, SM_SELMERC_FACE_Y, TRUE );
-
 		}
 
 		// Render Name!
@@ -2955,6 +2958,12 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 		SetRegionFastHelpText( &(gSM_SELMERCCamoRegion), pStr );
 		SetRegionHelpEndCallback( &gSM_SELMERCCamoRegion, SkiHelpTextDoneCallBack );
+
+		// Flugente: weight help text
+		FLOAT totalweight = GetTotalWeight( gpSMCurrentMerc );
+		swprintf( pStr, gzMiscItemStatsFasthelp[35], totalweight / 10.0 );
+
+		SetRegionFastHelpText( &(gSM_SELMERCWeightRegion), pStr );
 
 		/////////////////////////////////////////////////////////////////////////////////////////
 

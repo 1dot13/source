@@ -2793,6 +2793,7 @@ STR16 pTraitSkillsMenuStrings[] =
 
 	// various
 	L"Spotter",
+	L"Focus",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2808,6 +2809,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 
 	// various
 	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",
+	L"Increase interrupt modifier (penalty outside of area)",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -3560,7 +3562,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 35 ] =
+STR16		gzMiscItemStatsFasthelp[] =
 {
 	L"Item Size Modifier (Lower is better)", // 0
 	L"Reliability Modifier",
@@ -3597,6 +3599,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Tunnel Vision Percentage (Lower is better)",
 	L"Minimum Range for Aiming Bonus",
 	L"Hold |C|t|r|l to compare items", // item compare help text
+	L"Equipment weight: %4.1f kg",	// 35
 };
 
 // HEADROCK: End new tooltip text
@@ -4338,6 +4341,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// 16 - 20
 	L"|L|e|f|t |C|l|i|c|k: Toggle Misc. Items\n|R|i|g|h|t |C|l|i|c|k: Show only Misc. Items", // HEADROCK HAM 5: Filter Button
 	L"Toggle Get Item Display", // Flugente: move item display
+	L"Save Gear Template",
+	L"Load Gear Template...",
 };
 
 STR16 pMapScreenBottomFastHelp[] =

@@ -609,6 +609,7 @@ MOUSE_REGION gMPanelRegion;
 MOUSE_REGION gMapViewRegion;
 MOUSE_REGION gMapScreenMaskRegion;
 MOUSE_REGION gTrashCanRegion;
+MOUSE_REGION gMapMercWeightRegion;
 MOUSE_REGION gMapMercCamoRegion;
 
 // mouse regions for team info panel
@@ -5190,6 +5191,9 @@ UINT32 MapScreenHandle(void)
 		// screen mask for animated cursors
 		MSYS_DefineRegion( &gMapScreenMaskRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_LOW,
 							CURSOR_NORMAL, MSYS_NO_CALLBACK, MapScreenMarkRegionBtnCallback);
+		
+		// region for detailed merc weight
+		MSYS_DefineRegion( &gMapMercWeightRegion, (MAP_WEIGHT_X + 2), (MAP_WEIGHT_Y), (MAP_WEIGHT_X + 28), (MAP_WEIGHT_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
 
 		// region for detailed merc camo
 		MSYS_DefineRegion( &gMapMercCamoRegion, ( MAP_CAMMO_X + 2), ( MAP_CAMMO_Y ), (MAP_CAMMO_X + 28), (MAP_CAMMO_Y + 10), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MAPInvMoveCamoCallback );
@@ -5244,6 +5248,7 @@ UINT32 MapScreenHandle(void)
 		MSYS_AddRegion( &gMapViewRegion);
 		MSYS_AddRegion( &gCharInfoFaceRegion);
 		MSYS_AddRegion( &gMPanelRegion);
+		MSYS_AddRegion( &gMapMercWeightRegion );
 		MSYS_AddRegion( &gMapMercCamoRegion );
 
 	if ( !gfFadeOutDone && !gfFadeIn )
@@ -8550,6 +8555,7 @@ INT32 iCounter2 = 0;
 	MSYS_RemoveRegion( &gCharInfoHandRegion );
 	MSYS_RemoveRegion( &gMPanelRegion);
 	MSYS_RemoveRegion( &gMapScreenMaskRegion );
+	MSYS_RemoveRegion( &gMapMercWeightRegion );
 	MSYS_RemoveRegion( &gMapMercCamoRegion);
 	fInMapMode = FALSE;
 
@@ -9259,8 +9265,9 @@ void CreateDestroyMapInvButton()
 
 	InitInvSlotInterface( gMapScreenInvPocketXY, &gSCamoXY, MAPInvMoveCallback, MAPInvClickCallback, MAPInvMoveCamoCallback, MAPInvClickCamoCallback, FALSE );
 	MSYS_EnableRegion(&gMPanelRegion);
+	MSYS_EnableRegion(&gMapMercWeightRegion);
 	MSYS_EnableRegion(&gMapMercCamoRegion);
-
+	
 	// switch hand region help text to "Exit Inventory"
 	SetRegionFastHelpText( &gCharInfoHandRegion, pMiscMapScreenMouseRegionHelpText[ 2 ] );
 
@@ -9280,6 +9287,7 @@ void CreateDestroyMapInvButton()
 	//UnloadButtonImage( giMapInvButtonImage );
 	fTeamPanelDirty=TRUE;
 	MSYS_DisableRegion(&gMPanelRegion);
+	MSYS_DisableRegion(&gMapMercWeightRegion);
 	MSYS_DisableRegion(&gMapMercCamoRegion);
 
 	// switch hand region help text to "Enter Inventory"
@@ -9419,7 +9427,7 @@ void BltCharInvPanel()
 		swprintf( sString, L"%3d", CalculateCarriedWeight( pSoldier ) );
 		FindFontRightCoordinates(MAP_WEIGHT_X, MAP_WEIGHT_Y, MAP_PERCENT_WIDTH, MAP_PERCENT_HEIGHT, sString, BLOCKFONT2, &usX, &usY);
 		mprintf( usX, usY, sString ); 
-
+		
 		ApplyEquipmentBonuses(pSoldier);
 
 		// Display camo value
@@ -9495,6 +9503,12 @@ void BltCharInvPanel()
 			}
 
 			SetRegionFastHelpText( &(gMapMercCamoRegion), pStr );
+
+			// Flugente: weight help text
+			FLOAT totalweight = GetTotalWeight( pSoldier );
+			swprintf( pStr, gzMiscItemStatsFasthelp[35], totalweight / 10.0 );
+			
+			SetRegionFastHelpText( &(gMapMercWeightRegion), pStr );
 		}
 	}
 

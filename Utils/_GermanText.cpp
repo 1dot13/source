@@ -2786,6 +2786,9 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =
 {
+	// sniper
+	L"Fokus",
+
 	// radio operator
 	L"Artillerie befehligen",
 	L"Kommunikation stören",
@@ -2801,8 +2804,11 @@ STR16 pTraitSkillsMenuStrings[] =
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
+	// sniper
+	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
+
 	// radio operator
-	L"Artillerieanschlag befehligen von einem Sektor...",
+	L"Artillerieschlag befehligen von einem Sektor...",
 	L"Alle Funkfrequenzen mit weißem Rauschen füllen, sodass eine Kommunikation nicht mehr möglich ist.",
 	L"Nach Störsignalen scannen.",
 	L"Das Radiogerät verwenden, um feindliche Bewegungen zu orten.",
@@ -3570,7 +3576,7 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 	L"|R|e|p|a|r|a|t|u|r|l|e|i|c|h|t|i|g|k|e|i|t\n \nBestimmt, wie schwierig es ist, die Waffe\nzu reparieren und wer sie vollständig reparieren kann.\n \ngrün = Jeder kann sie reparieren.\n \ngelb = Nur spezielle NPCs können\nsie über die Reparaturschwelle hinaus reparieren.\n \nrot = Dieser Gegenstand kann nicht repariert werden.\n \nHöher ist besser.",
 };
 
-STR16		gzMiscItemStatsFasthelp[ 35 ] =
+STR16		gzMiscItemStatsFasthelp[] =
 {
 	L"Gegenstandsgrößen-Modifikator (Niedriger ist besser)",
 	L"Zuverlässigkeits-Modifikator",
@@ -3607,6 +3613,7 @@ STR16		gzMiscItemStatsFasthelp[ 35 ] =
 	L"Tunnelblick-Modifikator (Niedriger ist besser)",
 	L"Minimale Reichweite für Zielbonus",
 	L"Hold |C|t|r|l to compare items", // item compare help text // TODO.Translate
+	L"Gesamtgewicht: %4.1f kg",	// 35
 };
 
 // HEADROCK: End new tooltip text
@@ -4331,6 +4338,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// 16 - 20
 	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von anderen Gegenständen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur andere Gegenstände anzeigen", // HEADROCK HAM 5: Filter Button
 	L"Ein-/Ausblenden von zu bewegenden Gegenständen", // Flugente: move item display
+	L"Save Gear Template",	// TODO.Translate
+	L"Load Gear Template...",
 };
 
 STR16 pMapScreenBottomFastHelp[] =
