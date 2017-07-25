@@ -583,28 +583,27 @@ void RenderRubberBanding( )
 }
 
 // Flugente: draw moving circles around a gridno. This is used to warn the player of impending explosions
-void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
+void DrawExplosionWarning( INT32 sGridno, INT8 sLevel, INT8 sDelay )
 {
-	if ( usDelay <= 0 )
-		return;
-
-	UINT16					usLineColor = 0;
-	UINT32					uiDestPitchBYTES;
-	UINT8*					pDestBuf;
-	INT32					iBack = -1;
-	INT16					periods = 120 / usDelay;
-	static INT32			uiTimeOfLastUpdate = 0;	
-	static INT32			updatecounter = 0;
-	INT16					sScreenX, sScreenY;
-
 	if ( TileIsOutOfBounds( sGridno ) )
 		return;
 
+	if ( sDelay <= 0 )
+		return;
+
+	UINT32					uiDestPitchBYTES;
+	UINT8*					pDestBuf;
+	INT32					iBack = -1;
+	INT16					periods = 120 / sDelay;
+	static INT32			uiTimeOfLastUpdate = 0;	
+	static INT32			updatecounter = 0;
+	INT16					sScreenX, sScreenY;
+		
 	// Get screen pos of gridno......
 	GetGridNoScreenXY( sGridno, &sScreenX, &sScreenY );
 
 	// ATE: If we are on a higher interface level, substract....
-	if ( usLevel == 1 )
+	if ( sLevel == 1 )
 		sScreenY -= 50;
 		
 	if ( (GetJA2Clock( ) - uiTimeOfLastUpdate) > 30 )
@@ -620,7 +619,7 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 	// make sure to check for these boundaries later on, and only draw inside them
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, gsVIEWPORT_START_X, gsVIEWPORT_WINDOW_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
 
-	INT16 numcircles = max( 1, 4 - usDelay);
+	INT16 numcircles = max( 1, 4 - sDelay);
 
 	// we determine the biggest rectangle we have to reserve
 	INT32 best_xl = 99999;
@@ -636,9 +635,7 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 
 		INT16 radius_inner = max( 2, radiusvar );
 		INT16 radius_outer = radius_inner + radius;
-
-		usLineColor = Get16BPPColor( FROMRGB( min( 255, 50 + 2 * radiusvar ), 0, 0 ) );
-
+		
 		// determine area of where the circle will be drawn in, take into account what part of the sector we actually see
 		INT32 xl = max( gsVIEWPORT_START_X, sScreenX - radius_outer );
 		INT32 xr = min( gsVIEWPORT_END_X, sScreenX + radius_outer );
@@ -656,11 +653,12 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 
 			for ( INT32 y = yl; y <= yr; ++y )
 			{
-				FLOAT diff = sqrt( (FLOAT)(xdiffsquared + 2 * (sScreenY - y) * (sScreenY - y)) );
+				FLOAT diff = sqrt( (FLOAT)(xdiffsquared + 4 * (sScreenY - y) * (sScreenY - y)) );
 
 				if ( radius_inner <= diff && diff <= radius_outer )
 				{
-					PixelDraw( FALSE, x, y, usLineColor, pDestBuf );
+					// we alter the colour of existing pixels instead of fully replacing the colour. As a result, one can still see the map regions we draw over, which looks a lot better
+					PixelAlterColour( FALSE, x, y, 0x00, 0x88, pDestBuf );
 
 					sthdrawn = TRUE;
 				}
@@ -668,14 +666,104 @@ void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay )
 		}
 	}
 
-	// only do this once
-	if ( sthdrawn )
+	// redraw background to stop weird graphic remnants remaining
+	// but don't do so while scrolling, because that looks weird
+	if ( !gfScrollPending && !gfScrollInertia )
 	{
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, best_xl, best_yl, (INT16)(best_xr + 1), (INT16)(best_yr + 1) );
-
-		if ( iBack != -1 )
+		// only do this once
+		if ( sthdrawn )
 		{
-			SetBackgroundRectFilled( iBack );
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, best_xl, best_yl, (INT16)(best_xr + 1), (INT16)(best_yr + 1) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+		}
+	}
+
+	UnLockVideoSurface( FRAME_BUFFER );
+}
+
+// Flugente: draw a circle around a gridno
+// For now, we aren't using usColour, but that will likely change in the future
+void DrawTraitRadius( INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThickness, UINT16 usColour )
+{
+	if ( TileIsOutOfBounds( sGridno ) )
+		return;
+
+	if ( sRadius <= 0 )
+		return;
+
+	UINT32					uiDestPitchBYTES;
+	UINT8*					pDestBuf;
+	INT32					iBack = -1;
+	INT16					sScreenX, sScreenY;
+
+	// Get screen pos of gridno......
+	GetGridNoScreenXY( sGridno, &sScreenX, &sScreenY );
+
+	// ATE: If we are on a higher interface level, substract....
+	if ( sLevel == 1 )
+		sScreenY -= 50;
+		
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
+	// make sure to check for these boundaries later on, and only draw inside them
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, gsVIEWPORT_START_X, gsVIEWPORT_WINDOW_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
+	
+	// we determine the biggest rectangle we have to reserve
+	INT32 best_xl = 99999;
+	INT32 best_xr = 0;
+	INT32 best_yl = 99999;
+	INT32 best_yr = 0;
+	BOOLEAN sthdrawn = FALSE;
+		
+	INT16 radius_inner = sRadius - sThickness / 2;
+	INT16 radius_outer = sRadius + sThickness / 2;
+		
+	// determine area of where the circle will be drawn in, take into account what part of the sector we actually see
+	INT32 xl = max( gsVIEWPORT_START_X, sScreenX - radius_outer );
+	INT32 xr = min( gsVIEWPORT_END_X, sScreenX + radius_outer );
+	INT32 yl = max( gsVIEWPORT_WINDOW_START_Y, sScreenY - radius_outer );
+	INT32 yr = min( gsVIEWPORT_WINDOW_END_Y, sScreenY + radius_outer );
+
+	best_xl = min( best_xl, xl );
+	best_xr = max( best_xr, xr );
+	best_yl = min( best_yl, yl );
+	best_yr = max( best_yr, yr );
+
+	for ( INT32 x = xl; x <= xr; ++x )
+	{
+		FLOAT xdiffsquared = (FLOAT)((sScreenX - x) * (sScreenX - x));
+
+		for ( INT32 y = yl; y <= yr; ++y )
+		{
+			FLOAT diff = sqrt( (FLOAT)(xdiffsquared + 4 * (sScreenY - y) * (sScreenY - y)) );
+
+			if ( radius_inner <= diff && diff <= radius_outer )
+			{
+				// we alter the colour of existing pixels instead of fully replacing the colour. As a result, one can still see the map regions we draw over, which looks a lot better
+				PixelAlterColour( FALSE, x, y, 0xFF, 0x00, pDestBuf );
+
+				sthdrawn = TRUE;
+			}
+		}
+	}
+
+	// redraw background to stop weird graphic remnants remaining
+	// but don't do so while scrolling, because that looks weird
+	if (!gfScrollPending && !gfScrollInertia)
+	{
+		// only do this once
+		if (sthdrawn)
+		{
+			iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, best_xl, best_yl, (INT16)(best_xr + 1), (INT16)(best_yr + 1));
+
+			if (iBack != -1)
+			{
+				SetBackgroundRectFilled(iBack);
+			}
 		}
 	}
 

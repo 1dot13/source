@@ -352,20 +352,30 @@ void LineDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Col
 //Draws a pixel in the specified color
 void PixelDraw( BOOLEAN fClip, INT32 xp, INT32 yp, INT16 sColor, UINT8 *pScreen )
 {
-	INT8 col2 = sColor >> 8;
-	INT8 col1 = sColor & 0x00ff;
-
-	if ( fClip )
-	{
-		if ( !ClipPoint( xp, yp ) )
-			return;
-	}
-
+	if ( fClip && !ClipPoint( xp, yp ) )
+		return;
+	
 	// point to the bitmap address first pixel to draw
 	pScreen += yp * giImageWidth + xp * 2;
 
+	INT8 col2 = sColor >> 8;
+	INT8 col1 = sColor & 0x00ff;
+
 	pScreen[ 0 ] = col1;
 	pScreen[ 1 ] = col2;
+}
+
+// Flugente: alter the colour of existing pixels instead of fully replacing the colour
+void PixelAlterColour(BOOLEAN fClip, INT32 xp, INT32 yp, UINT8 col1, UINT8 col2, UINT8 *pScreen)
+{
+	if ( fClip && !ClipPoint( xp, yp ) )
+		return;
+	
+	// point to the bitmap address first pixel to draw
+	pScreen += yp * giImageWidth + xp * 2;
+	
+	pScreen[0] |= col1;
+	pScreen[1] |= col2;
 }
 
 /* Draws a horizontal run of pixels, then advances the bitmap pointer to

@@ -66,7 +66,11 @@ void DrawCounters( SOLDIERTYPE *pSoldier );
 void PrintCounter( INT16 x, INT16 y, INT16 data, UINT16 &width, UINT8 ubForegound, UINT8 scale = PRINT_SCALE_PLAIN_NUMBER );
 void PrintSuppressionCounter( INT16 x, INT16 y, INT16 sX, INT16 sY, UINT8 data, UINT16 &widthDamage, UINT16 &widthSuppression, UINT8 ubForeground, UINT8 scale, UINT8 option);
 
-// Flugente: draw moving circles around a gridno. This is used to warn the playe of impending explosions
-void DrawExplosionWarning( INT32 sGridno, INT8 usLevel, INT8 usDelay );
+// Flugente: draw moving circles around a gridno. This is used to warn the player of impending explosions
+void DrawExplosionWarning( INT32 sGridno, INT8 sLevel, INT8 sDelay );
+
+// Flugente: draw a circle around a gridno
+// For now, we aren't using usColour, but that will likely change in the future
+void DrawTraitRadius( INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThickness, UINT16 usColour );
 
 #endif
