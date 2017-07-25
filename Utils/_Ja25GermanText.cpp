@@ -140,6 +140,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"Gibt weitere %d Ziel-Klicks für gewehrartige Waffen\n",
 	L"Schnelleres Zielen mit Gewehren bei genau einem Zielgenauigkeit-Klick\n",
 	L"Schnelleres Zielen mit Gewehren bei %d Zielgenauigkeit-Klicks\n",
+	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -275,7 +276,7 @@ STR16 gzIMPMajorTraitsHelpTextsNone[]=
 
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
-	L"Die Ungenauigkeit beim Schießen mit zwei Waffen wird um %d%s reduziert\n",
+	L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",	// TODO.Translate
 	L"+%d%s schnelleres Nachladen mit Magazinen\n",
 	L"+%d%s schnelleres Nachladen mit einzelnen Patronen\n",
 	L"-%d%s APs benötigt um Gegenstände aufzuheben\n",

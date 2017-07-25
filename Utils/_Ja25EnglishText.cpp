@@ -140,6 +140,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"Adds %d more aim clicks for rifle-type guns\n",
 	L"Makes aiming faster with rifle-type guns by one aim click\n",
 	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
+	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -275,7 +276,7 @@ STR16 gzIMPMajorTraitsHelpTextsNone[]=
 
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
-	L"Reduced penalty to shoot dual weapons by %d%s\n",
+	L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",
 	L"+%d%s speed on reloading guns with magazines\n",
 	L"+%d%s speed on reloading guns with loose rounds\n",
 	L"-%d%s APs to pickup items\n",

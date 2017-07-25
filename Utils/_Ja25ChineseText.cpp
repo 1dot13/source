@@ -140,6 +140,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"步枪精确瞄准次数增加 %d次\n",// L"Adds %d more aim clicks for rifle-type guns\n",
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）1次\n",//L"Makes aiming faster with rifle-type guns by one aim click\n",
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）%d次\n",//L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
+	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -275,7 +276,7 @@ STR16 gzIMPMajorTraitsHelpTextsNone[]=
 
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
-	L"双持武器的惩罚降低 %d%s\n",// L"Reduce penalty to shoot dual weapons by %d%s\n",
+	L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",	// TODO.Translate
 	L"弹匣类武器装填速度 +%d%s\n",// L"+%d%s speed of reloading guns with magazines\n",
 	L"零散弹药装填速度 +%d%s\n",// L"+%d%s speed of reloading guns with loose rounds\n",
 	L"拾物品所需行动点 -%d%s\n",// L"-%d%s APs needed to pickup items\n",

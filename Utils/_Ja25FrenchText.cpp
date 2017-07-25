@@ -141,6 +141,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 
 	L"Fait viser plus rapidement avec un : réduit d'un niveau de visée\n",
 	L"Fait viser plus rapidement avec un fusil : réduit de %d niveau(x) de visée\n",
+	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -275,7 +276,7 @@ STR16 gzIMPMajorTraitsHelpTextsNone[]=
 
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
-	L"Réduit la pénalité de tirer avec deux armes de %d%s\n",
+	L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",	// TODO.Translate
 	L"+%d%s de vitesse de rechargement d'une arme avec un chargeur\n",
 	L"+%d%s de vitesse de rechargement d'une arme avec des cartouches\n",
 	L"-%d%s du nombre de PA nécessaire pour prendre un objet\n",

@@ -6245,31 +6245,18 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 			{
 				iChance -= AIM_PENALTY_SMG;
 			}
+
+			// Flugente: ambidextrous reduces penalty for any second item, regardless whether it is a gun or not
 			if (gGameOptions.fNewTraitSystem)
 			{
-				// Okay, we will shoot from both weapons, calculate penalty to CtH
-				if ( pSoldier->IsValidSecondHandShot() )
-				{					
-					// penaly to shoot from dual weapons
-					iChance -= (INT32)(gSkillTraitValues.ubCtHPenaltyDualShot * (HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) ? ((100 - gSkillTraitValues.ubAMPenaltyDoubleReduction)/100) : 1 ));
-				}
+				iChance -= (INT32)(gSkillTraitValues.ubCtHPenaltyDualShot * (HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) ? ((100 - gSkillTraitValues.ubAMPenaltyDoubleReduction) / 100) : 1));
 			}
 			else // original code
 			{
 				if ( !HAS_SKILL_TRAIT( pSoldier, AMBIDEXT_OT ) )
 				{
-					if ( pSoldier->IsValidSecondHandShot( ) )
-					{
-						// penalty to aim when firing two pistols
-						iChance -= AIM_PENALTY_DUAL_PISTOLS;
-					}
-					/*
-					else
-					{
-						// penalty to aim with pistol being fired one-handed
-						iChance -= AIM_PENALTY_ONE_HANDED_PISTOL;
-					}
-					*/
+					// penalty to aim when firing two pistols
+					iChance -= AIM_PENALTY_DUAL_PISTOLS;
 				}
 			}
 		}
@@ -11718,7 +11705,18 @@ FLOAT CalcNewChanceToHitBaseWeaponBonus(SOLDIERTYPE *pSoldier, INT32 sGridNo, IN
 			else
 			{
 				// Penalty for shooting a pistol with just one hand
-				fGunBaseDifficulty *= gGameCTHConstants.BASE_ONE_HANDED;
+				// Flugente: Ambidextrous trait lowers penalty
+				FLOAT fTempPenalty = (gGameCTHConstants.BASE_ONE_HANDED * fGunBaseDifficulty) - fGunBaseDifficulty;
+				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
+				{
+					fTempPenalty = fTempPenalty * (100 - gSkillTraitValues.ubAMPenaltyDoubleReduction) / 100;
+				}
+				else if ( !gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXT_OT ) )
+				{
+					fTempPenalty = 0;
+				}
+
+				fGunBaseDifficulty += fTempPenalty;
 			}
 		}
 	}
@@ -12070,7 +12068,18 @@ FLOAT CalcNewChanceToHitAimWeaponBonus(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT
 			else
 			{
 				// Penalty for shooting a pistol with just one hand
-				fGunAimDifficulty *= gGameCTHConstants.AIM_ONE_HANDED;
+				// Flugente: Ambidextrous trait lowers penalty
+				FLOAT fTempPenalty = (gGameCTHConstants.AIM_ONE_HANDED * fGunAimDifficulty) - fGunAimDifficulty;
+				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
+				{
+					fTempPenalty = fTempPenalty * (100 - gSkillTraitValues.ubAMPenaltyDoubleReduction) / 100;
+				}
+				else if ( !gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXT_OT ) )
+				{
+					fTempPenalty = 0;
+				}
+
+				fGunAimDifficulty += fTempPenalty;
 			}
 		}
 	}
