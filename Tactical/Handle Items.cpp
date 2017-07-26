@@ -89,7 +89,7 @@
 #define					NUM_ITEM_FLASH_SLOTS	50
 #define					MIN_LOB_RANGE					6
 
-// directory for fortification plans (locaed in Profiles sub-folder)
+// directory for fortification plans (located in Profiles sub-folder)
 #define FORTIFICATIONPLAN_DIRECTORY						"FortificationPlan\\"
 
 ITEM_POOL_LOCATOR				FlashItemSlots[ NUM_ITEM_FLASH_SLOTS ];
@@ -4352,7 +4352,7 @@ BOOLEAN RemoveFlashItemSlot( ITEM_POOL *pItemPool )
 
 	CHECKF( pItemPool != NULL );
 
-	for( uiCount=0; uiCount < guiNumFlashItemSlots; uiCount++)
+	for( uiCount=0; uiCount < guiNumFlashItemSlots; ++uiCount)
 	{
 		if ( FlashItemSlots[ uiCount ].fAllocated )
 		{
@@ -4387,7 +4387,7 @@ void HandleFlashingItems( )
 	{
 		RESETCOUNTER( CYCLERENDERITEMCOLOR );
 
-		for ( cnt = 0; cnt < guiNumFlashItemSlots; cnt++ )
+		for ( cnt = 0; cnt < guiNumFlashItemSlots; ++cnt )
 		{
 			pLocator	= &( FlashItemSlots[ cnt ] );
 
@@ -4414,9 +4414,7 @@ void HandleFlashingItems( )
 
 					// Update radio locator
 					{
-						UINT32			uiClock;
-
-						uiClock = GetJA2Clock( );
+						UINT32 uiClock = GetJA2Clock( );
 
 						// Update frame values!
 						if ( ( uiClock - pLocator->uiLastFrameUpdate ) > 80 )
@@ -4436,7 +4434,8 @@ void HandleFlashingItems( )
 					// UPDATE FLASH COLOR VALUE
 					pItemPool->bFlashColor--;
 
-					if ( pItemPool->ubLevel == 0 )
+					// Flugente: as someone commented out the changes to uiFlags, this part serves no purpose, so I'm commenting it out
+					/*if ( pItemPool->ubLevel == 0 )
 					{
 						pObject = gpWorldLevelData[ pItemPool->sGridNo ].pStructHead;
 					}
@@ -4463,7 +4462,7 @@ void HandleFlashingItems( )
 						}
 
 						pObject = pObject->pNext;
-					}
+					}*/
 
 					if ( pItemPool->bFlashColor == 1 )
 					{
@@ -4479,9 +4478,7 @@ void HandleFlashingItems( )
 		}
 
 		RecountFlashItemSlots( );
-
 	}
-
 }
 
 
@@ -4491,7 +4488,7 @@ void RenderTopmostFlashingItems( )
 	ITEM_POOL		*pItemPool;
 	ITEM_POOL_LOCATOR	*pLocator;
 
-	for ( cnt = 0; cnt < guiNumFlashItemSlots; cnt++ )
+	for ( cnt = 0; cnt < guiNumFlashItemSlots; ++cnt )
 	{
 		pLocator	= &( FlashItemSlots[ cnt ] );
 
@@ -4546,12 +4543,10 @@ void RenderTopmostFlashingItems( )
 					BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, pLocator->bRadioFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 
 					DrawItemPoolList( pItemPool, pItemPool->sGridNo	, ITEMLIST_DISPLAY, pItemPool->bRenderZHeightAboveLevel, sXPos, sYPos );
-
 				}
 			}
 		}
 	}
-
 }
 
 
@@ -5492,7 +5487,7 @@ void TacticalFunctionSelectionMessageBoxCallBack( UINT8 ubExitValue )
 			break;
 		case 7:
 			// test our disguise
-			if ( gpTempSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			if (gpTempSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER))
 				gpTempSoldier->SpySelfTest();
 			break;
 

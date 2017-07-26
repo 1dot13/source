@@ -2964,7 +2964,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 	}
 
 #ifdef LUA_OVERHEAD
-    LetLuaMyCustomHandleAtNewGridNo(NULL,pSoldier->ubProfile, 0);
+    LetLuaMyCustomHandleAtNewGridNo(0,pSoldier->ubProfile, 0);
 #else
     //----------------Lua------------------------
 
