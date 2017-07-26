@@ -2451,6 +2451,8 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubSNDamageBonusFromNumClicks = iniReader.ReadInteger("Sniper","GUN_DAMAGE_BONUS_FROM_NUM_CLICKS", 4, 0, 8);
 	gSkillTraitValues.ubSNChamberRoundAPsReduction = iniReader.ReadInteger("Sniper","CHAMBER_ROUND_APS_REDUCTION", 25, 0, 45);
 	gSkillTraitValues.ubSNAimClicksAdded = iniReader.ReadInteger("Sniper","POSSIBLE_AIM_CLICK_ADDED_RIFLES", 1, 0, 3);
+	gSkillTraitValues.ubSNFocusRadius = iniReader.ReadInteger( "Sniper", "FOCUS_SKILL_RADIUS", 5, 1, 30 );
+	gSkillTraitValues.sSNFocusInterruptBonus = iniReader.ReadInteger( "Sniper", "FOCUS_SKILL_INTERRUPT_BONUS", 2, 1, 10 );
 
 	// RANGER
 	gSkillTraitValues.ubRABonusCtHRifles = iniReader.ReadInteger("Ranger","BONUS_CTH_RIFLES", 5, 0, 100);

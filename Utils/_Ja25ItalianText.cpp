@@ -138,7 +138,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"Adds %d more aim clicks for rifle-type guns\n",
 	L"Makes aiming faster with rifle-type guns by one aim click\n",
 	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
-	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",	// TODO.Translate
+	L"Focus skill: +%d interrupt modifier in marked area\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

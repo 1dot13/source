@@ -140,7 +140,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"+%d кликов прицеливания для оружия типа винтовок\n",
 	L"Прицеливание оружия типа винтовок быстрее на один клик прицеливания\n",
 	L"Прицеливание оружия типа винтовок быстрее на %d кликов прицеливания\n",
-	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",	// TODO.Translate
+	L"Focus skill: +%d interrupt modifier in marked area\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

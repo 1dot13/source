@@ -140,7 +140,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"Gibt weitere %d Ziel-Klicks für gewehrartige Waffen\n",
 	L"Schnelleres Zielen mit Gewehren bei genau einem Zielgenauigkeit-Klick\n",
 	L"Schnelleres Zielen mit Gewehren bei %d Zielgenauigkeit-Klicks\n",
-	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",	// TODO.Translate
+	L"Focus skill: +%d interrupt modifier in marked area\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

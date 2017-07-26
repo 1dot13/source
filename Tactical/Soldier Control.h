@@ -415,6 +415,7 @@ enum
 #define SOLDIER_TAKEN_LARGE_HIT				0x00000800					// we recently received a lot of damage in a single hit
 
 #define SOLDIER_COVERT_NOREDISGUISE			0x00001000					// this soldier does not want to be redisguised
+#define SOLDIER_TRAIT_FOCUS					0x00002000					// 'focus' skill is active
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -574,7 +575,7 @@ enum
 enum{
 	// first skill
 	SKILLS_FIRST = 0,
-
+	
 	// radio operator
 	SKILLS_RADIO_FIRST = SKILLS_FIRST,
 	SKILLS_RADIO_ARTILLERY = SKILLS_RADIO_FIRST,
@@ -588,7 +589,8 @@ enum{
 	// various
 	SKILLS_VARIOUS_FIRST,
 	SKILLS_SPOTTER = SKILLS_VARIOUS_FIRST,
-	SKILLS_VARIOUS_LAST = SKILLS_SPOTTER,
+	SKILLS_FOCUS,
+	SKILLS_VARIOUS_LAST = SKILLS_FOCUS,
 
 	SKILLS_MAX,
 };
@@ -1525,10 +1527,13 @@ public:
 	// Flugente: diseases
 	INT16	sDiseasePoints[NUM_DISEASES];			// we store the state of our diseases here
 	UINT8	sDiseaseFlag[NUM_DISEASES];				// we need to store some special flags for every disease
-	
+		
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
-	UINT8	ubFiller[20];
+	UINT8	ubFiller[16];
+
+	// Flugente: focus skill gridno
+	INT32	sFocusGridNo;
 
 	UINT32	usSoldierFlagMask2;		// anv: another usSoldierFlagMask
 
@@ -1858,7 +1863,7 @@ public:
 	// Flugente: functions for skill usage
 	// traits can allow use of certain skills
 	// check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
-	BOOLEAN CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck = TRUE );
+	BOOLEAN CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck = TRUE, INT32 sGridNo = -1 );
 
 	// use a skill. For safety reasons, this calls CanUseSkill again (it is possible to switch the soldier while the menu is open)
 	BOOLEAN UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID );

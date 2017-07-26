@@ -1936,6 +1936,30 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 		{
 			iPoints -= 1;
 		}
+
+		// Flugente: focus skill
+		if ( (pSoldier->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS) )
+		{
+			if ( pSoldier->CanUseSkill( SKILLS_FOCUS, FALSE, pSoldier->sFocusGridNo ) )
+			{
+				// if target is in focus, increase interrupt chance, otherwise lower it
+				// radius depends on range
+				INT16 range = PythSpacesAway( pSoldier->sFocusGridNo, pSoldier->sGridNo );
+				INT16 radius = gSkillTraitValues.ubSNFocusRadius * range / 20;
+
+				INT16 range_opponent = PythSpacesAway( pSoldier->sFocusGridNo, MercPtrs[ubOpponentID]->sGridNo );
+
+				if ( range_opponent <= radius )
+					iPoints += gSkillTraitValues.sSNFocusInterruptBonus;
+				else
+					iPoints -= 2 * gSkillTraitValues.sSNFocusInterruptBonus;
+			}
+			else
+			{
+				pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TRAIT_FOCUS;
+				pSoldier->sFocusGridNo = NOWHERE;
+			}
+		}
 	}
 	else
 	{
@@ -1949,7 +1973,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 			}
 		}
 	}
-
+		
 	// Flugente: interrupt modifier from special stats
 	iPoints += pSoldier->GetInterruptModifier( ubDistance );
 

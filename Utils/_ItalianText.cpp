@@ -2819,8 +2819,10 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %s or higher or\n",
 	L" - %d minutes to be ready\n",
 	L" - mortar positions in neighbouring sectors\n",
-	L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - %s |o|r %s |a|n|d %s or %s or higher\n",
 	L" - possession by a demon",
+	L" - a gun-related trait\n",	// TODO.Translate
+	L" - aimed gun\n",
 };
 
 STR16 pSkillMenuStrings[] =	// TODO.Translate

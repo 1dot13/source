@@ -230,7 +230,7 @@ SkillSelection::Setup( UINT32 aVal )
 					pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Function_SkillSelection, uiCounter ) );
 
 					// if we cannot perform this skill, grey it out
-					if ( !(pSoldier->CanUseSkill(uiCounter, TRUE)) )
+					if ( !(pSoldier->CanUseSkill( uiCounter, TRUE, sTraitsMenuTargetGridNo )) )
 					{
 						// Set this option off.
 						pOption->setAvail(new popupCallbackFunction<bool,void*>( &Popup_OptionOff, NULL ));
@@ -262,7 +262,7 @@ SkillSelection::Setup( UINT32 aVal )
 	{
 		UINT8 cnt = 0;
 		switch ( aVal )
-		{
+		{			
 			case RADIO_OPERATOR_NT:
 			{
 				for(UINT32 uiCounter = SKILLS_RADIO_FIRST; uiCounter <= SKILLS_RADIO_LAST; ++uiCounter)

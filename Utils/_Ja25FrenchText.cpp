@@ -141,7 +141,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 
 	L"Fait viser plus rapidement avec un : réduit d'un niveau de visée\n",
 	L"Fait viser plus rapidement avec un fusil : réduit de %d niveau(x) de visée\n",
-	L"Focus skill: +%d interrupt modifier in a %d-radius area\n",	// TODO.Translate
+	L"Focus skill: +%d interrupt modifier in marked area\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=

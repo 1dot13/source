@@ -17276,7 +17276,7 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 }
 
 // check if Soldier can use the spell skillwise, with fAPCheck = TRUE also check current APs
-BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
+BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 {
 	if ( fAPCheck )
 	{
@@ -17287,8 +17287,8 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
 	BOOLEAN canuse = FALSE;
 
 	switch ( iSkill )
-	{
-		// radio operator
+	{	
+	// radio operator
 	case SKILLS_RADIO_ARTILLERY:
 		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE )) && CanUseRadio( ) )
 		{
@@ -17317,6 +17317,16 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
 			canuse = TRUE;
 		break;
 
+	case SKILLS_FOCUS:
+		// requires sniper trait, an aimed gun and only works on gridnos in our direction
+		if ( gGameOptions.fNewTraitSystem && 
+			 (HAS_SKILL_TRAIT( this, AUTO_WEAPONS_NT ) || HAS_SKILL_TRAIT( this, HEAVY_WEAPONS_NT ) || HAS_SKILL_TRAIT( this, SNIPER_NT ) || 
+			 HAS_SKILL_TRAIT( this, RANGER_NT ) || HAS_SKILL_TRAIT( this, GUNSLINGER_NT ))
+			 && this->inv[HANDPOS].exists( ) && Item[this->inv[HANDPOS].usItem].usItemClass & (IC_GUN | IC_LAUNCHER) && WeaponReady( this )
+			 && sGridNo != NOWHERE && this->ubDirection == GetDirectionFromGridNo( sGridNo, this ) )
+			canuse = TRUE;
+		break;
+
 	default:
 		break;
 	}
@@ -17327,24 +17337,24 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck )
 // use a skill. For safety reasons, this calls CanUseSkill again
 BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 {
-	if ( !CanUseSkill( iSkill, TRUE ) )
+	if ( !CanUseSkill( iSkill, TRUE, usMapPos ) )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_CANNOT_USE_SKILL] );
 		return FALSE;
 	}
 
 	switch ( iSkill )
-	{
-		// radio operator
-		// the call for SKILLS_RADIO_ARTILLERY is only used by the AI
+	{		
+	// radio operator
+	// the call for SKILLS_RADIO_ARTILLERY is only used by the AI
 	case SKILLS_RADIO_ARTILLERY:
-	{
-								   UINT32 sector = 0;
-								   if ( this->CanAnyArtilleryStrikeBeOrdered( &sector ) )
-								   {
-									   return OrderArtilleryStrike( sector, usMapPos, this->bTeam );
-								   }
-	}
+		{
+			UINT32 sector = 0;
+			if ( this->CanAnyArtilleryStrikeBeOrdered( &sector ) )
+			{
+				return OrderArtilleryStrike( sector, usMapPos, this->bTeam );
+			}
+		}
 		break;
 
 	case SKILLS_RADIO_JAM:
@@ -17372,6 +17382,20 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 		return BecomeSpotter( usMapPos );
 		break;
 
+	case SKILLS_FOCUS:
+		// activating skill on same gridno again deactivates it
+		if ((usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS) && sFocusGridNo == usMapPos)
+		{
+			usSoldierFlagMask2 &= ~SOLDIER_TRAIT_FOCUS;
+			sFocusGridNo = NOWHERE;
+		}
+		else
+		{
+			usSoldierFlagMask2 |= SOLDIER_TRAIT_FOCUS;
+			sFocusGridNo = usMapPos;
+		}
+		break;
+
 	default:
 		break;
 	}
@@ -17395,15 +17419,15 @@ static CHAR16 skilldescarray[500];
 // print a small description of the skill if we can use it, or its requirements if we cannot
 STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 {
-	CHAR16	atStr[200];
-	swprintf( skilldescarray, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_REQ] );
-
 	if ( CanUseSkill( iSkill, TRUE ) )
 	{
 		return pTraitSkillsMenuDescStrings[iSkill];
 	}
 	else
 	{
+		CHAR16	atStr[200];
+		swprintf( skilldescarray, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_REQ] );
+
 		if ( iSkill >= SKILLS_RADIO_FIRST && iSkill <= SKILLS_RADIO_LAST )
 		{
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_RADIO] );
@@ -17412,7 +17436,7 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 
 		switch ( iSkill )
 		{
-			// radio operator
+		// radio operator
 		case SKILLS_RADIO_ARTILLERY:
 		case SKILLS_RADIO_JAM:
 		case SKILLS_RADIO_SCAN_FOR_JAM:
@@ -17437,6 +17461,16 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[MSG113_PATIENCE] );
 			wcscat( skilldescarray, atStr );
+			break;
+
+		case SKILLS_FOCUS:
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_GUNTRAIT] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_AIMEDGUN] );
+			wcscat(skilldescarray, atStr);
+
 			break;
 
 		default:

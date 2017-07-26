@@ -4289,6 +4289,32 @@ void HandleExplosionWarningAnimations( )
 			}
 		}
 	}
+
+	// show focus area if skill is active
+	if ( gusSelectedSoldier != NOBODY )
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[gusSelectedSoldier];
+
+		if ( pSoldier->bActive && pSoldier->bInSector && (pSoldier->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS) )
+		{
+			// checking whether this skill is active is relatively cheap. If it fails, deactivate skill properly
+			// we cannot use CanUseSkill(...) again though, as this would fail upon opening the menu
+			if ( pSoldier->CanUseSkill( SKILLS_FOCUS, FALSE, pSoldier->sFocusGridNo ) )
+			{
+				// radius depends on range
+				INT16 range = PythSpacesAway(pSoldier->sFocusGridNo, pSoldier->sGridNo);
+				INT16 radius = gSkillTraitValues.ubSNFocusRadius * range / 20;
+
+				DrawTraitRadius( pSoldier->sFocusGridNo, pSoldier->pathing.bLevel, sqrt( 0.5 ) * (20 + 40 * radius), 8, 0 );
+			}
+			else
+			{
+				// if condition'S don't apply, deactivate skill. This will cause it to update to status changes very fast
+				pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TRAIT_FOCUS;
+				pSoldier->sFocusGridNo = NOWHERE;
+			}
+		}
+	}
 }
 
 void DecayBombTimers( void )

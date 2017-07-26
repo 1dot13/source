@@ -2321,6 +2321,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				numBytesRead = ReadFieldByField( hFile, &this->sDiseasePoints, sizeof(sDiseasePoints), sizeof(INT32), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->sDiseaseFlag, sizeof(sDiseaseFlag), sizeof(UINT8), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead );
+				numBytesRead = ReadFieldByField( hFile, &this->sFocusGridNo, sizeof(sFocusGridNo), sizeof(INT32), numBytesRead );
 			}
 			else
 			{
@@ -2334,6 +2335,9 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 					this->sDiseasePoints[i] = 0;
 					this->sDiseaseFlag[i] = 0;
 				}
+
+				buffer += sizeof(sFocusGridNo);
+				while ( (buffer % 4) > 0 )	++buffer;
 
 				numBytesRead = ReadFieldByField( hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead );
 			}
@@ -2374,6 +2378,11 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			for(int i = 0; i < sizeof(ubFiller); ++i)
 				buffer++;
 			while((buffer%4) > 0)
+				buffer++;
+
+			for ( int i = 0; i < sizeof(sFocusGridNo); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
 				buffer++;
 
 			// we now have to substract the 7 bytes we read from the old ubFiller, but have to account for usAISkillUse

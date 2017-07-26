@@ -1730,6 +1730,8 @@ typedef struct
 	UINT8 ubSNDamageBonusFromNumClicks;
 	UINT8 ubSNChamberRoundAPsReduction;
 	UINT8 ubSNAimClicksAdded;
+	UINT8 ubSNFocusRadius;
+	INT8 sSNFocusInterruptBonus;
 	
 	// RANGER
 	UINT8 ubRABonusCtHRifles;

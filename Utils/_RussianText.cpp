@@ -2825,8 +2825,10 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %s или выше или\n",
 	L" - %d минут на подготовку\n",
 	L" - позиции миномётов в соседних секторах\n",
-	L" - %s |и|л|и %s |и %s или %s или выше\n"
+	L" - %s |и|л|и %s |и %s или %s или выше\n",
 	L" - одержим бесами",
+	L" - a gun-related trait\n",	// TODO.Translate
+	L" - aimed gun\n",
 };
 
 STR16 pSkillMenuStrings[] =

@@ -7288,6 +7288,12 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsAutoWeapons[6]);
 					wcscat( apStr, atStr );
 				}
+				// Flugente: focus is a skill that can be used by multiple traits. For simplicity, the ini values are in the sniper trait section
+				if ( gSkillTraitValues.ubSNFocusRadius != 0 && gSkillTraitValues.sSNFocusInterruptBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[19], gSkillTraitValues.sSNFocusInterruptBonus );
+					wcscat( apStr, atStr );
+				}
 				break;
 			}
 			case HEAVY_WEAPONS_NT:
@@ -7331,6 +7337,12 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				if( gSkillTraitValues.ubHWDamageBonusPercentForHW != 0 )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsHeavyWeapons[7], ( gSkillTraitValues.ubHWDamageBonusPercentForHW * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
+					wcscat( apStr, atStr );
+				}
+				// Flugente: focus is a skill that can be used by multiple traits. For simplicity, the ini values are in the sniper trait section
+				if ( gSkillTraitValues.ubSNFocusRadius != 0 && gSkillTraitValues.sSNFocusInterruptBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[19], gSkillTraitValues.sSNFocusInterruptBonus );
 					wcscat( apStr, atStr );
 				}
 				break;
@@ -7401,6 +7413,13 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					}
 					wcscat( apStr, atStr );
 				}
+
+				if ( gSkillTraitValues.ubSNFocusRadius != 0 && gSkillTraitValues.sSNFocusInterruptBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[19], gSkillTraitValues.sSNFocusInterruptBonus );
+					wcscat( apStr, atStr );
+				}
+
 				break;
 			}
 			case RANGER_NT:
@@ -7450,6 +7469,12 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				if( gSkillTraitValues.ubRAEffectiveRangeBonusShotguns != 0 )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsRanger[6], ( gSkillTraitValues.ubRAEffectiveRangeBonusShotguns * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
+					wcscat( apStr, atStr );
+				}
+				// Flugente: focus is a skill that can be used by multiple traits. For simplicity, the ini values are in the sniper trait section
+				if ( gSkillTraitValues.ubSNFocusRadius != 0 && gSkillTraitValues.sSNFocusInterruptBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[19], gSkillTraitValues.sSNFocusInterruptBonus );
 					wcscat( apStr, atStr );
 				}
 
@@ -7503,6 +7528,12 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					else
 						swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[9], ( gSkillTraitValues.ubGSAimClicksAdded * (fExpertLevel ? 2 : 1)));
 
+					wcscat( apStr, atStr );
+				}
+				// Flugente: focus is a skill that can be used by multiple traits. For simplicity, the ini values are in the sniper trait section
+				if ( gSkillTraitValues.ubSNFocusRadius != 0 && gSkillTraitValues.sSNFocusInterruptBonus != 0 )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[19], gSkillTraitValues.sSNFocusInterruptBonus );
 					wcscat( apStr, atStr );
 				}
 				break;

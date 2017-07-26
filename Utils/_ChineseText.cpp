@@ -2825,8 +2825,10 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - %s或更高，或\n", //L" - %s or higher or\n",
 	L" - %d分钟后就绪\n", //L" - %d minutes to be ready\n",
 	L" - 临区的迫击炮位置\n", //L" - mortar positions in neighbouring sectors\n",
-	L" - %s|或%s|和%s或%s或更高\n" //L" - %s |o|r %s |a|n|d %s or %s or higher\n"
-	L" - 恶魔的财产", //L" - posession by a demon"
+	L" - %s|或%s|和%s或%s或更高\n", //L" - %s |o|r %s |a|n|d %s or %s or higher\n"
+	L" - 恶魔的财产\n", //L" - posession by a demon"
+	L" - a gun-related trait\n",	// TODO.Translate
+	L" - aimed gun\n",
 };
 
 STR16 pSkillMenuStrings[] =

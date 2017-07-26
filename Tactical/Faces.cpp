@@ -2254,6 +2254,13 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 			}
 
+			// Flugente: focus trait
+			if ( MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS )
+			{
+				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 17 );
+				bNumRightIcons++;
+			}
+
 			// Flugente: disease
 			if ( MercPtrs[pFace->ubSoldierID]->HasDisease(TRUE, FALSE, TRUE) )
 			{
