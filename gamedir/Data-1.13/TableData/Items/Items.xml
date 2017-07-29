@@ -191,6 +191,8 @@
 		<usPortionSize>0</usPortionSize>
 		<diseaseprotectionface>0</diseaseprotectionface>
 		<diseaseprotectionhand>0</diseaseprotectionhand>
+		<usRiotShieldStrength>0</usRiotShieldStrength>
+		<usRiotShieldGraphic>0</usRiotShieldGraphic>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -50267,7 +50269,7 @@
 		<szLongItemName>Multicam Molle Vest</szLongItemName>
 		<szItemDesc>The Multicam MOLLE  tactical vest is mounted on tough mesh material for superior ventilation, and is equipped with a multitude of ammo pouches and holsters for all your firearms.</szItemDesc>
 		<szBRName>Multicam Molle Vest</szBRName>
-		<szBRDesc>The Multicam MOLLE compatible cross draw military vest is the maximum in practicality and durabilty for a tactical vest.</szBRDesc>
+		<szBRDesc>The Multicam MOLLE compatible cross draw military vest is the maximum in practicality and durability for a tactical vest.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>8</nasLayoutClass>
 		<AvailableAttachmentPoint>1</AvailableAttachmentPoint>
@@ -51744,7 +51746,7 @@
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>237</ubGraphicNum>
 		<ubWeight>120</ubWeight>
-		<ItemSize>949</ItemSize>
+		<ItemSize>6</ItemSize>
 		<usPrice>1</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -51766,7 +51768,7 @@
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>239</ubGraphicNum>
 		<ubWeight>150</ubWeight>
-		<ItemSize>949</ItemSize>
+		<ItemSize>6</ItemSize>
 		<usPrice>100</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -51789,7 +51791,7 @@
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>240</ubGraphicNum>
 		<ubWeight>3</ubWeight>
-		<ItemSize>916</ItemSize>
+		<ItemSize>13</ItemSize>
 		<usPrice>5</usPrice>
 		<ubCoolness>1</ubCoolness>
 		<Damageable>1</Damageable>
@@ -52226,6 +52228,88 @@
 		<Mine>1</Mine>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<ItemFlag>4</ItemFlag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1742</uiIndex>
+		<szItemName>Wood Shield</szItemName>
+		<szLongItemName>Wooden Shield</szLongItemName>
+		<szItemDesc>These pieces of construction wood were hastily nailed together to form a primitive shield. They won't stop much, but it's better than nothing.</szItemDesc>
+		<szBRName>Wood Shield</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>239</ubGraphicNum>
+		<ubWeight>25</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>34</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<TwoHanded>1</TwoHanded>
+		<buddyitem>1724</buddyitem>
+		<usRiotShieldStrength>10</usRiotShieldStrength>
+		<usRiotShieldGraphic>1</usRiotShieldGraphic>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1743</uiIndex>
+		<szItemName>Riot Shield</szItemName>
+		<szLongItemName>Riot Shield</szLongItemName>
+		<szItemDesc>This shield protects against small arms fire, but hinders mobility. A crenel allows the simultaneous use of a handgun.</szItemDesc>
+		<szBRName>Riot Shield</szBRName>
+		<szBRDesc>Part of our 'Agents of (Riot) S.H.I.E.L.D' merchandise.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>902</ubGraphicNum>
+		<ubWeight>25</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>34</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<TwoHanded>1</TwoHanded>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usRiotShieldStrength>28</usRiotShieldStrength>
+		<usRiotShieldGraphic>2</usRiotShieldGraphic>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1744</uiIndex>
+		<szItemName>Ballistic Shield</szItemName>
+		<szLongItemName>Ballistic Shield</szLongItemName>
+		<szItemDesc>This shield protects against weapons fire. You can still use a handgun while carrying this. However it will slow you down.</szItemDesc>
+		<szBRName>Ballistic Shield</szBRName>
+		<szBRDesc>Shields like these are used by SWAT and military teams to provide protection against weapons fire. They offer tremendous protection against all but the heaviest firearms. Get yours today!</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>901</ubGraphicNum>
+		<ubWeight>102</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<ItemSize>34</ItemSize>
+		<usPrice>2700</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<TwoHanded>1</TwoHanded>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<usRiotShieldStrength>50</usRiotShieldStrength>
+		<usRiotShieldGraphic>0</usRiotShieldGraphic>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
