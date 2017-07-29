@@ -1943,6 +1943,12 @@ public:
 
 	// Flugente: interactive actions
 	UINT16	GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UINT16 usType );
+
+	// Flugente: riot shields
+	OBJECTTYPE*	GetEquippedRiotShield();
+	BOOLEAN		IsRiotShieldEquipped();
+	void		DestroyEquippedRiotShield();
+	void		RiotShieldTakeDamage(INT32 sDamage);
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

@@ -3148,6 +3148,9 @@ void LoadItemSettings()
 	gItemSettings.fDamageBreathModifierExplosive					= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_BREATH_EXPLOSIVE_MODIFIER", 1.0f, 0.1f, 5.0f);
 	gItemSettings.fDamageHealthMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_HEALTH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
 	gItemSettings.fDamageBreathMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_BREATH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
+
+	// ------------ MISC MODIFIERS --------------
+	gItemSettings.fShieldMovementAPCostModifier						= iniReader.ReadFloat  ("Misc Settings", "SHIELD_MOVEMENT_APCOST_MODIFIER", 1.7f, 1.0f, 10.0f );
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

@@ -8386,6 +8386,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|A|n|t|i|-|M|a|t|e|r|i|e|l |A|m|m|o",
 	L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
 	L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	// 39
+	L"|S|h|i|e|l|d",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8430,6 +8431,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis ammo can destroy light walls\nand various other objects.",
 	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
 	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
+	L"\n \nIf equipped in a hand, this will block incoming damage.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

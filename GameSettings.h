@@ -2376,6 +2376,10 @@ typedef struct
 	FLOAT fDamageHealthMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
 	FLOAT fDamageBreathMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
 
+	// ------------ MISC MODIFIERS --------------
+	// Flugente
+	FLOAT fShieldMovementAPCostModifier;		// movement AP costs are multiplied with this while a shield is equipped
+
 }ITEM_SETTINGS;
 
 extern MOD_SETTINGS gModSettings;

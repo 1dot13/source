@@ -1571,6 +1571,28 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 		return( FALSE );
 	}
 
+	// Flugente: do we have a riot shield equipped?
+	if ( pSoldier->IsRiotShieldEquipped( ) )
+	{
+		UINT8 attackdir_inverse = GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, sBombGridNo );
+
+		// if the shield faces the direction of the attack, block it
+		if ( attackdir_inverse == pSoldier->ubDirection || attackdir_inverse == gOneCCDirection[pSoldier->ubDirection] || attackdir_inverse == gOneCDirection[pSoldier->ubDirection] )
+		{
+			INT32 damage = sWoundAmt;
+			INT32 breathdamage = sBreathAmt;
+			DamageRiotShield( pSoldier, damage, breathdamage );
+
+			sWoundAmt = damage;
+			sBreathAmt = breathdamage;
+
+			if ( sWoundAmt == 0 && sBreathAmt == 0 )
+			{
+				return FALSE;
+			}
+		}
+	}
+
 	// Lesh: if flashbang
 	// check if soldier is outdoor and situated farther that half explosion radius and not underground
 	usHalfExplosionRadius = Explosive[Item[usItem].ubClassIndex].ubRadius / 2;
@@ -4238,6 +4260,9 @@ void HandleExplosionQueue( void )
 	}
 }
 
+// Flugente: riot shields
+extern void ShowRiotShield( SOLDIERTYPE* pSoldier );
+
 // Flugente: show warnings around armed timebombs both in map and inventories
 void HandleExplosionWarningAnimations( )
 {
@@ -4312,6 +4337,25 @@ void HandleExplosionWarningAnimations( )
 				// if condition'S don't apply, deactivate skill. This will cause it to update to status changes very fast
 				pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TRAIT_FOCUS;
 				pSoldier->sFocusGridNo = NOWHERE;
+			}
+		}
+	}
+
+	// show riot shields
+	SOLDIERTYPE*	pSoldier;
+	UINT16 cnt = gTacticalStatus.Team[0].bFirstID;
+	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt, pSoldier++ )
+	{
+		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
+		{
+			if ( (pSoldier->ubDirection == EAST ||
+				pSoldier->ubDirection == SOUTHEAST || 
+				pSoldier->ubDirection == SOUTH || 
+				pSoldier->ubDirection == SOUTHWEST ||
+				pSoldier->ubDirection == NORTHEAST)
+				 && pSoldier->IsRiotShieldEquipped( ) )
+			{
+				ShowRiotShield( pSoldier );
 			}
 		}
 	}

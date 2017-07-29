@@ -291,7 +291,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "cigarette" ) == 0 ||
 				strcmp(name, "usPortionSize" ) == 0 ||
 				strcmp(name, "diseaseprotectionface" ) == 0 ||
-				strcmp(name, "diseaseprotectionhand" ) == 0))
+				strcmp(name, "diseaseprotectionhand" ) == 0||
+				strcmp(name, "usRiotShieldStrength" ) == 0 ||
+				strcmp(name, "usRiotShieldGraphic" ) == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1499,6 +1501,16 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			if ( val )
 				pData->curItem.usItemFlag |= DISEASEPROTECTION_2;
 		}
+		else if ( strcmp( name, "usRiotShieldStrength" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usRiotShieldStrength = min( 100, (UINT16)atol( pData->szCharData ) );
+		}
+		else if ( strcmp( name, "usRiotShieldGraphic" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usRiotShieldGraphic = (UINT16)atol( pData->szCharData );
+		}
 										
 		--pData->maxReadDepth;
 	}
@@ -2128,13 +2140,16 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<usSpotting>%d</usSpotting>\r\n",										Item[cnt].usSpotting  );
 			FilePrintf(hFile,"\t\t<sBackpackWeightModifier>%d</sBackpackWeightModifier>\r\n",			Item[cnt].sBackpackWeightModifier);
 			FilePrintf(hFile,"\t\t<fAllowClimbing>%d</fAllowClimbing>\r\n",								Item[cnt].fAllowClimbing);
-			FilePrintf(hFile, "\t\t<cigarette>%d</cigarette>\r\n",										Item[cnt].cigarette );
+			FilePrintf(hFile,"\t\t<cigarette>%d</cigarette>\r\n",										Item[cnt].cigarette );
 			FilePrintf(hFile,"\t\t<usPortionSize>%d</usPortionSize>\r\n",								Item[cnt].usPortionSize );
 
 			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_1 )
 				FilePrintf( hFile, "\t\t<diseaseprotectionface>%d</diseaseprotectionface>\r\n", 1 );
 			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_2 )
 				FilePrintf( hFile, "\t\t<diseaseprotectionhand>%d</diseaseprotectionhand>\r\n", 1 );
+
+			FilePrintf(hFile,"\t\t<usRiotShieldStrength>%d</usRiotShieldStrength>\r\n",					Item[cnt].usRiotShieldStrength );
+			FilePrintf(hFile,"\t\t<usRiotShieldGraphic>%d</usRiotShieldGraphic>\r\n",					Item[cnt].usRiotShieldGraphic );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

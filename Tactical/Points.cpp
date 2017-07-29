@@ -474,6 +474,12 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			sPoints = max(1, (INT16)((sPoints * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5));
 		}
 
+		// Flugente: riot shields lower movement speed
+		if ( pSoldier->IsRiotShieldEquipped( ) )
+		{
+			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
+		}
+
 		// Flugente: scuba fins reduce movement cost in water, but increase cost on land
 		if ( pSoldier->inv[LEGPOS].exists() && HasItemFlag( pSoldier->inv[LEGPOS].usItem, SCUBA_FINS ) )
 		{
@@ -715,6 +721,13 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 		{
 			sPoints = max(1, (INT16)((sPoints * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5));
 		}
+
+		// Flugente: riot shields lower movement speed
+		if ( pSoldier->IsRiotShieldEquipped( ) )
+		{
+			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
+		}
+
 		// Check if doors if not player's merc (they have to open them manually)
 		if ( sSwitchValue == TRAVELCOST_DOOR && pSoldier->bTeam != gbPlayerNum )
 		{
@@ -4209,17 +4222,23 @@ INT16 GetAPsProne( SOLDIERTYPE *pSoldier, BOOLEAN fBackpackCheck )
 // SANDRO - Added feature to calculate start run cost (for Athletics trait)
 INT16 GetAPsStartRun( SOLDIERTYPE *pSoldier )
 {
+	INT16 val = APBPConstants[AP_START_RUN_COST];
+
+	// Flugente: riot shields lower movement speed
+	if ( pSoldier->IsRiotShieldEquipped( ) )
+		val *= gItemSettings.fShieldMovementAPCostModifier;
+
 	// Athletics trait
-	if ( HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ) && gGameOptions.fNewTraitSystem )
-		return( max( 1, (INT16)((APBPConstants[AP_START_RUN_COST] * (100 - gSkillTraitValues.ubATAPsMovementReduction)/100) + 0.5 )) );
-	else
-		return(	APBPConstants[AP_START_RUN_COST] );
+	if( HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ) && gGameOptions.fNewTraitSystem )
+		val = max( 1, (INT16)((val * (100 - gSkillTraitValues.ubATAPsMovementReduction) / 100) + 0.5) );
+
+	return val;
 }
 
 // SANDRO - Added feature to calculate APs for handling doors (for Ambidextrous trait)
 INT16 GetAPsToOpenDoor( SOLDIERTYPE *pSoldier )
 {
-	if( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
+	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
 		return( max( 1, (INT16)((APBPConstants[AP_OPEN_DOOR] * (100 - gSkillTraitValues.ubAMHandleDoorsAPsReduction)/100) + 0.5 )) );
 	else
 		return( APBPConstants[AP_OPEN_DOOR] );

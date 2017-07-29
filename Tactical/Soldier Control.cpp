@@ -8917,7 +8917,7 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 
 	pSoldier->sAniDelay = (INT16)uiTerrainDelay;
 
-	// If a moving animation and w/re on drugs, increase speed....
+	// If a moving animation and we're on drugs, increase speed....
 	if ( gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_MOVING )
 	{
 		if ( pSoldier->newdrugs.size[DRUG_EFFECT_AP] )
@@ -8949,6 +8949,7 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 				pSoldier->sAniDelay = (INT16)(pSoldier->sAniDelay * 2);
 			}
 		}
+
 		// SANDRO - STOMP traits - bonus to movement speed for Athletics
 		if ( gGameOptions.fNewTraitSystem && (gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_MOVING) )
 		{
@@ -8956,6 +8957,12 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 			{
 				pSoldier->sAniDelay = (INT16)(pSoldier->sAniDelay * (100 - min( 75, gSkillTraitValues.ubATAPsMovementReduction )) / 100);
 			}
+		}
+
+		// Flugente: riot shields lower movement speed
+		if ( pSoldier->IsRiotShieldEquipped( ) )
+		{
+			pSoldier->sAniDelay = gItemSettings.fShieldMovementAPCostModifier * pSoldier->sAniDelay;
 		}
 
 		//pSoldier->sAniDelay = pSoldier->sAniDelay * ( 1 * gTacticalStatus.bRealtimeSpeed / 2 );
@@ -9899,6 +9906,33 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		break;
 	default:
 		break;
+	}
+
+	// Flugente: do we have a riot shield equipped?
+	if ( this->IsRiotShieldEquipped( ) )
+	{
+		//  if we have equipped a riot shield and are being attacked in melee, ignore damage from some directions
+		if ( ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND || ubReason == TAKE_DAMAGE_TENTACLES )
+		{
+			if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] )
+			{
+				UINT8 attackdir_inverse = GetDirectionToGridNoFromGridNo( this->sGridNo, MercPtrs[ubAttacker]->sGridNo );
+
+				// if the shield faces the direction of the attacker, we block the attack
+				if ( attackdir_inverse == this->ubDirection || attackdir_inverse == gOneCCDirection[this->ubDirection] || attackdir_inverse == gOneCDirection[this->ubDirection] )
+				{
+					// damaging even a wooden shield is hard. For that reason we lower the initial damage.
+					INT32 damage = sLifeDeduct / 3;
+					INT32 breathdamage = sBreathLoss;
+					DamageRiotShield( this, damage, breathdamage );
+
+					sLifeDeduct = damage;
+					sBreathLoss = breathdamage;
+
+					PlayJA2Sample( (UINT32)(S_WOOD_IMPACT1 + Random(3)), RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+				}
+			}
+		}
 	}
 	
 	// Deduct life!, Show damage if we want!
@@ -17360,7 +17394,7 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 	case SKILLS_RADIO_JAM:
 		return JamCommunications( );
 		break;
-
+		
 	case SKILLS_RADIO_SCAN_FOR_JAM:
 		return ScanForJam( );
 		break;
@@ -19242,6 +19276,79 @@ UINT16	SOLDIERTYPE::GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UIN
 	}
 
 	return 0;
+}
+
+// Flugente: riot shields
+OBJECTTYPE* SOLDIERTYPE::GetEquippedRiotShield()
+{
+	OBJECTTYPE* pObj = NULL;
+
+	if ( this->inv[HANDPOS].exists( ) && Item[this->inv[HANDPOS].usItem].usRiotShieldStrength > 0 )
+		pObj = &(this->inv[HANDPOS]);
+
+	if ( this->inv[SECONDHANDPOS].exists( ) && Item[this->inv[SECONDHANDPOS].usItem].usRiotShieldStrength > 0 )
+		pObj = &(this->inv[SECONDHANDPOS]);
+
+	return pObj;
+}
+
+
+BOOLEAN	SOLDIERTYPE::IsRiotShieldEquipped()
+{
+	// shield is not erect if prone
+	if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE )
+		return FALSE;
+
+	// no shield while swimming
+	if ( TERRAIN_IS_HIGH_WATER(this->sGridNo) )
+		return FALSE;
+
+	return (GetEquippedRiotShield() != NULL);
+}
+
+void	SOLDIERTYPE::DestroyEquippedRiotShield( )
+{
+	// create graphic (destroyed shield item?)
+	OBJECTTYPE* pObj = GetEquippedRiotShield( );
+
+	if ( pObj )
+	{
+		if ( Item[pObj->usItem].usBuddyItem )
+		{
+			CreateItem( Item[pObj->usItem].usBuddyItem, 100, pObj );
+
+			// Flugente: why would we keep a piece of scrap in our hands in the first place? just drop it to the ground
+			AddItemToPool( this->sGridNo, pObj, 1, this->pathing.bLevel, 0, -1 );
+
+			NotifySoldiersToLookforItems( );
+		}
+
+		// Delete object
+		DeleteObj( pObj );
+	}
+
+	// dirty interface panel
+	DirtyMercPanelInterface( this, DIRTYLEVEL2 );
+
+	this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+}
+
+void	SOLDIERTYPE::RiotShieldTakeDamage( INT32 sDamage )
+{
+	OBJECTTYPE* pObj = GetEquippedRiotShield();
+
+	if ( pObj  )
+	{
+		PlayJA2Sample( (UINT32)(S_METAL_IMPACT1 + +Random( 3 )), RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+
+		(*pObj)[0]->data.objectStatus -= sDamage;
+
+		// if shield should have been destroyed, do so
+		if ( (*pObj)[0]->data.objectStatus < 1 )
+		{
+			DestroyEquippedRiotShield( );
+		}
+	}
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

@@ -248,4 +248,7 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 // HEADROCK HAM 5: New function, completely replaces the Counter Force Frequency check.
 FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccuracy, FLOAT dCounterForceMax, FLOAT dMuzzleOffset, FLOAT bRecoil, FLOAT dPrevCounterForce, UINT32 uiIntendedBullets );
 
+// Flugente: riot shields
+void DamageRiotShield( SOLDIERTYPE* pSoldier, INT32& rsDamage, INT32& rsSecondaryDamage );
+
 #endif

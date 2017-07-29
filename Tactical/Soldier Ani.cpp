@@ -1510,7 +1510,8 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 					// ONLY DO THIS IF CERTAIN CONDITIONS ARISE!
 					// For one, only do for mercs!
-					if ( pSoldier->ubBodyType <= REGFEMALE )
+					// Flugente: don't do this while equipping a shield, as this renders them almost useless
+					if ( pSoldier->ubBodyType <= REGFEMALE && !pSoldier->IsRiotShieldEquipped( ) )
 					{
 						// Secondly, don't if we are going to collapse
 						if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->bBreath > 0 && pSoldier->pathing.bLevel == 0 )

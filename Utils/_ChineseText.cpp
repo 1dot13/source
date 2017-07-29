@@ -8388,6 +8388,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|反|器|材|弹|药", //L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",
 	L"|面|部|防|护", //L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
 	L"|感|染|防|护", //L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	 // 39
+	L"|S|h|i|e|l|d",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8432,6 +8433,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这种弹药可以破坏发光的墙\n或者其他不同种类的物品。", //L"\n \nThis ammo can destroy light walls\nand various other objects.",
 	L"\n \n如果你脸上带了这个，这就将降低\n传播给其他人的几率。", //L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
 	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
+	L"\n \nIf equipped in a hand, this will block incoming damage.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

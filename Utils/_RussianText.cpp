@@ -8390,6 +8390,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|С|н|а|р|я|д |п|р|о|т|и|в |б|р|о|н|и",
 	L"|З|а|щ|и|т|а |д|л|я |л|и|ц|а",
 	L"|И|н|ф|е|к|ц|и|о|н|н|а|я |з|а|щ|и|т|а",	// 39
+	L"|S|h|i|e|l|d",	// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8434,6 +8435,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nЭтот боеприпас может уничтожать тонкие стены\nи некоторые другие объекты.",
 	L"\n \nЕсли одето на лицо, понижает шанс\nзаражения от других людей.",
 	L"\n \nЕсли хранить в своём кармане,\nпонижается шанс заражения\n от других людей.",
+	L"\n \nIf equipped in a hand, this will block incoming damage.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=

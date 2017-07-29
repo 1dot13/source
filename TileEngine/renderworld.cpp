@@ -53,6 +53,11 @@
 #include "Render Z.h"
 ///////////////////////////
 
+#include "Utilities.h"
+
+UINT32 guiShieldGraphic = 0;
+BOOLEAN fShieldGraphicInit = FALSE;
+
 extern	CHAR8	gDebugStr[128];
 extern	BOOLEAN fLandLayerDirty	= TRUE;
 
@@ -602,6 +607,50 @@ void DeleteFromWorld( UINT16 usTileIndex, UINT32 uiRenderTiles, UINT16 usIndex )
 
 void RenderHighlight( INT16 sMouseX_M, INT16 sMouseY_M, INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS );
 BOOLEAN CheckRenderCenter( INT16 sNewCenterX, INT16 sNewCenterY );
+
+// Flugente: display a riot shield
+void ShowRiotShield( SOLDIERTYPE* pSoldier )
+{
+	if (pSoldier)
+	{
+		if (!fShieldGraphicInit)
+		{
+			VOBJECT_DESC	VObjectDesc;
+
+			// Flugente: enemy role symbols
+			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+			FilenameForBPP("Tilecache\\riotshield.sti", VObjectDesc.ImageFile);
+			if (!AddVideoObject(&VObjectDesc, &guiShieldGraphic))
+				AssertMsg(0, "Missing Tilecache\\riotshield.sti");
+
+			fShieldGraphicInit = TRUE;
+		}
+
+		// Get screen pos of gridno......
+		INT16					sScreenX, sScreenY;
+		GetGridNoScreenXY(pSoldier->sGridNo, &sScreenX, &sScreenY);
+
+		// redraw background to stop weird graphic remnants remaining
+		// but don*t do so while scrolling, because that looks weird
+		if ( !gfScrollPending && !gfScrollInertia)
+		{
+			INT32 iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sScreenX - 50, sScreenY - 60, sScreenX + 50, sScreenY + 35);
+
+			if (iBack != -1)
+			{
+				SetBackgroundRectFilled(iBack);
+			}
+		}
+
+		UINT16 offset = 0;
+		OBJECTTYPE* pObj = pSoldier->GetEquippedRiotShield();
+
+		if (pObj)
+			offset = Item[pObj->usItem].usRiotShieldGraphic;
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiShieldGraphic, offset * 8 + pSoldier->ubDirection, sScreenX - 20, sScreenY - 60, VO_BLT_TRANSSHADOW, NULL );
+	}
+}
 
 BOOLEAN RevealWalls(INT16 sX, INT16 sY, INT16 sRadius)
 {
@@ -1835,6 +1884,16 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 									if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] && pSoldier->stats.bLife > 0 )
 									{
 										usImageIndex = pSoldier->CryoAniFrame( );
+									}
+
+									// Flugente: riot shields
+									if ( pSoldier &&
+										(pSoldier->ubDirection == NORTH || 
+											pSoldier->ubDirection == NORTHWEST ||
+											pSoldier->ubDirection == WEST)
+										&& pSoldier->IsRiotShieldEquipped( ) )
+									{
+										ShowRiotShield( pSoldier );
 									}
 
 									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED| BGND_FLAG_MERC;

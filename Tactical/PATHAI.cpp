@@ -1404,6 +1404,12 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	// Flugente: riot shields lower movement speed
+	if ( pSoldier->IsRiotShieldEquipped( ) )
+	{
+		movementAPCost *= gItemSettings.fShieldMovementAPCostModifier;
+	}
+
 	if (terrainCost == TRAVELCOST_FENCE)
 	{
 		switch( movementModeToUseForAPs )
@@ -3629,6 +3635,12 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				if ( TERRAIN_IS_HIGH_WATER( gpWorldLevelData[ newLoc ].ubTerrainID ) )
 					ubAPCost = (ubAPCost * (100 + s->GetBackgroundValue(BG_SWIMMING))) / 100;
 
+				// Flugente: riot shields lower movement speed
+				if ( s->IsRiotShieldEquipped( ) )
+				{
+					ubAPCost *= gItemSettings.fShieldMovementAPCostModifier;
+				}
+
 				// SANDRO - moved backpack check to here
 				// Moa: backpack penalty
 				//if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( s ) != ITEM_NOT_FOUND )
@@ -4699,6 +4711,13 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						sMovementAPsCost += APBPConstants[AP_STEALTH_MODIFIER];
 					}
 				}
+
+				// Flugente: riot shields lower movement speed
+				if ( pSold->IsRiotShieldEquipped( ) )
+				{
+					sMovementAPsCost *= gItemSettings.fShieldMovementAPCostModifier;
+				}
+
 				// Check for backpack
 				//if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 				//	sMovementAPsCost += APBPConstants[AP_MODIFIER_PACK];
@@ -4747,11 +4766,13 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - This part was modified "a bit"
 				sMovementAPsCost = sTileCost;
+
 				// Check for reverse mode
 				if ( pSold->bReverse || bReverse )
 				{
 					sMovementAPsCost += APBPConstants[AP_REVERSE_MODIFIER];
 				}
+
 				// STOMP traits - Athletics trait decreases movement cost
 				if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSold, ATHLETICS_NT ))
 				{
@@ -4818,6 +4839,16 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						sPointsRun += APBPConstants[AP_STEALTH_MODIFIER];
 					}
 				}
+
+				// Flugente: riot shields lower movement speed
+				if ( pSold->IsRiotShieldEquipped( ) )
+				{
+					sPointsWalk *= gItemSettings.fShieldMovementAPCostModifier;
+					sPointsCrawl *= gItemSettings.fShieldMovementAPCostModifier;
+					sPointsSwat *= gItemSettings.fShieldMovementAPCostModifier;
+					sPointsRun *= gItemSettings.fShieldMovementAPCostModifier;
+				}
+
 				// Check for backpack
 				//if((UsingNewInventorySystem() == true) && FindBackpackOnSoldier( pSold ) != ITEM_NOT_FOUND )
 				//{

@@ -2714,6 +2714,15 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				cnt++;
 			}
 		}
+
+		//////////////////// SHIELD
+		if ( Item[gpItemDescObject->usItem].usRiotShieldStrength > 0 )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[40], szUDBGenSecondaryStatsExplanationsTooltipText[40] );
+			SetRegionFastHelpText( &(gUDBFasthelpRegions[iFirstDataRegion + cnt]), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+			++cnt;
+		}
 	}
 
 	//////////////////////////////////////////////////////
@@ -6254,6 +6263,14 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 37, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			++cnt;
 		}
+	}
+
+	//////////////////// SHIELD
+	if ( (Item[gpItemDescObject->usItem].usRiotShieldStrength > 0 && !fComparisonMode) ||
+		 (fComparisonMode && Item[gpComparedItemDescObject->usItem].usRiotShieldStrength > 0) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 38, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		++cnt;
 	}
 }
 

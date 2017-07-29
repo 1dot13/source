@@ -2571,6 +2571,105 @@ return( iImpact );
 }
 */
 
+// Flugente: riot shields
+void DamageRiotShield( SOLDIERTYPE* pSoldier, INT32& rsDamage, INT32& rsSecondaryDamage )
+{
+	if ( !pSoldier )
+		return;
+
+	OBJECTTYPE* pObj = pSoldier->GetEquippedRiotShield( );
+	if ( pObj && rsDamage > 0 && Item[pObj->usItem].usRiotShieldStrength > 0 )
+	{
+		INT32 damage_original = rsDamage;
+
+		UINT16 shieldstrength = Item[pObj->usItem].usRiotShieldStrength;
+
+		UINT16 damagetoshield = 2 * damage_original / shieldstrength;
+
+		pSoldier->RiotShieldTakeDamage( damagetoshield );
+
+		INT32 damage_new = max( 0, min( damage_original, ((100.0f - shieldstrength) / 100.0f) * (damage_original - shieldstrength) ) );
+
+		if ( rsSecondaryDamage > 0 )
+			rsSecondaryDamage = max( 0, rsSecondaryDamage * damage_new / damage_original );
+
+		rsDamage = damage_new;
+	}
+}
+
+// Flugente: handle bullet impact on riot shield. Returns true if bullet should be removed
+BOOLEAN DamageRiotShield_Bullet( SOLDIERTYPE* pSoldier, BULLET* pBullet )
+{
+	UINT16 ubAmmoType = 0;
+
+	SOLDIERTYPE * pFirer = NULL;
+	if ( pBullet->ubFirerID != NOBODY )
+		pFirer = pBullet->pFirer;
+
+	// HEADROCK HAM 5: Fragments read attacking weapon from explosive, not from firer. Theoretically,
+	// all bullets should read this value...
+	UINT16 usAttackingWeapon = 0;
+	if ( pBullet->ubFirerID == NOBODY || pBullet->fFragment )
+	{
+		usAttackingWeapon = pBullet->fromItem;
+	}
+	else
+	{
+		usAttackingWeapon = pFirer->usAttackingWeapon;
+	}
+	
+	if ( pBullet->usFlags & BULLET_FLAG_KNIFE )
+	{
+		UINT16 usItem = (Item[pBullet->fromItem].bloodieditem>0 ? Item[pBullet->fromItem].bloodieditem : pBullet->fromItem);
+		UINT16 usItemStatus = (pBullet->ubItemStatus>1 ? pBullet->ubItemStatus - Random( 2 ) : pBullet->ubItemStatus);
+
+		// Add item
+		CreateItem( usItem, usItemStatus, &gTempObject );
+		AddItemToPool( pSoldier->sGridNo, &gTempObject, -1, pSoldier->pathing.bLevel, 0, 0 );
+
+		// Make team look for items
+		NotifySoldiersToLookforItems( );
+
+		// Flugente: if this guy has the disease, or the blade was already infected, the new one will be too
+		if ( pSoldier->sDiseasePoints[0] > 0 || pBullet->usFlags & BULLET_FLAG_INFECTED )
+			(*&gTempObject)[0]->data.sObjectFlag |= INFECTED;
+
+		ubAmmoType = AMMO_KNIFE;
+
+		// as we've already stopped the bullet, get out of here
+		return TRUE;
+	}
+	else if ( pBullet->fFragment )
+	{
+		// Read ammo type from the explosive data.
+		ubAmmoType = Explosive[Item[usAttackingWeapon].ubClassIndex].ubFragType;
+	}
+	else
+	{
+		ubAmmoType = AMMO_REGULAR;
+
+		if ( pFirer )
+			ubAmmoType = pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType;
+	}
+
+	INT32 impact_original = max(0, pBullet->iImpact - pBullet->iImpactReduction);
+	
+	FLOAT damagepercentage = (FLOAT)((FLOAT)AmmoTypes[ubAmmoType].armourImpactReductionDivisor / (FLOAT)max( 1, AmmoTypes[ubAmmoType].armourImpactReductionMultiplier ));
+
+	damagepercentage *= 1.0f + max( AmmoTypes[ubAmmoType].dDamageModifierArmouredVehicle, AmmoTypes[ubAmmoType].dDamageModifierTank );
+
+	INT32 impact_new = impact_original * damagepercentage;
+
+	INT32 tmp = 0;
+	DamageRiotShield( pSoldier, impact_new, tmp );
+
+	INT32 impactreduction = impact_original - impact_new / damagepercentage;
+
+	pBullet->iImpactReduction += impactreduction;
+
+	return (pBullet->iImpact <= pBullet->iImpactReduction);
+}
+
 BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntended )
 {
 	INT32								iImpact, iDamage;
@@ -6365,6 +6464,8 @@ void MoveBullet( INT32 iBullet )
 	FIXEDPT					qWindowBottomHeight;
 	FIXEDPT					qWindowTopHeight;
 
+	UINT16					lastriotshieldholder = NOBODY;	// added by Flugente
+
 	pBullet = GetBulletPtr( iBullet );
 
 	// CHECK MIN TIME ELAPSED
@@ -6913,6 +7014,33 @@ void MoveBullet( INT32 iBullet )
 						pStructure = gpLocalStructure[iStructureLoop];
 						if (pStructure && pStructure->sCubeOffset == sDesiredLevel)
 						{
+							// Flugente: a riot shield would cover the entire front of a tile. We thus cannot check whether the person would be hit, as the bullet might miss a soldier
+							// Instead, we check whether the structure is indeed a person, whether that person has a riot shield equipped, and whether that shield faces the bullet before it would hit the soldier
+							// the same bullet cannot hit a shield multiple times
+							if ( lastriotshieldholder != pStructure->usStructureID && pStructure->fFlags & STRUCTURE_PERSON )
+							{
+								SOLDIERTYPE* pTarget = MercPtrs[pStructure->usStructureID];
+
+								lastriotshieldholder = pStructure->usStructureID;
+								
+								// check for riot shield contact
+								if ( pTarget && pTarget->IsRiotShieldEquipped( ) )
+								{
+									UINT8 bulletdir_inverse = GetDirectionToGridNoFromGridNo( pTarget->sGridNo, pBullet->sOrigGridNo );
+
+									// check whether the opposite direction of the bullet is the direction the soldier looks, or adjacant to that. That would mean the shield is between bullet and soldier
+									if ( bulletdir_inverse == pTarget->ubDirection || bulletdir_inverse == gOneCCDirection[pTarget->ubDirection] || bulletdir_inverse == gOneCDirection[pTarget->ubDirection] )
+									{
+										if ( DamageRiotShield_Bullet( pTarget, pBullet ) )
+										{
+											RemoveBullet( pBullet->iBullet );
+
+											return;
+										}
+									}
+								}
+							}
+
 							if (((*(pStructure->pShape))[pBullet->bLOSIndexX][pBullet->bLOSIndexY] & AtHeight[iCurrCubesAboveLevelZ]) > 0)
 							{
 								if (pStructure->fFlags & STRUCTURE_PERSON)
@@ -7099,6 +7227,32 @@ void MoveBullet( INT32 iBullet )
 													return;
 												}
 											}
+										}
+									}
+								}
+							}
+
+							// Flugente: a riot shield would cover the entire front of a tile. We thus cannot check whether the person would be hit, as the bullet might miss a soldier
+							// Instead, we check whether the structure is indeed a person, whether that person has a riot shield equipped, and whether that shield faces the bullet before it would hit the soldier
+							if ( lastriotshieldholder != pStructure->usStructureID && pStructure->fFlags & STRUCTURE_PERSON )
+							{
+								SOLDIERTYPE* pTarget = MercPtrs[pStructure->usStructureID];
+
+								lastriotshieldholder = pStructure->usStructureID;
+								
+								// check for riot shield contact
+								if ( pTarget && pTarget->IsRiotShieldEquipped( ) )
+								{
+									UINT8 bulletdir = GetDirectionToGridNoFromGridNo( pBullet->sOrigGridNo, pTarget->sGridNo );
+
+									// check whether the direction of the bullet is the direction the soldier looks, or adjacant to that. That would mean the shield is hit after the and soldier
+									if ( bulletdir == pTarget->ubDirection || bulletdir == gOneCCDirection[pTarget->ubDirection] || bulletdir == gOneCDirection[pTarget->ubDirection] )
+									{
+										if ( DamageRiotShield_Bullet( pTarget, pBullet ) )
+										{
+											RemoveBullet( pBullet->iBullet );
+
+											return;
 										}
 									}
 								}
