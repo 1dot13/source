@@ -11245,8 +11245,8 @@ STR16	szLaptopStatText[] =
 
 	L"Friendly approach",
 	L"Direct approach",
-	L"Friendly approach",
-	L"Friendly approach",
+	L"Threaten approach",
+	L"Recruit approach",
 };
 
 #endif //ENGLISH

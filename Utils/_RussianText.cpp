@@ -11249,8 +11249,8 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 
 	L"Дружески",
 	L"Прямо",
-	L"Дружески",
-	L"Дружески",
+	L"Threaten approach",
+	L"Recruit approach",
 };
 
 #endif //RUSSIAN

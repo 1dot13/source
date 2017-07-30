@@ -11246,8 +11246,8 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 
 	L"Friendly approach",
 	L"Direct approach",
-	L"Friendly approach",
-	L"Friendly approach",
+	L"Threaten approach",
+	L"Recruit approach",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
