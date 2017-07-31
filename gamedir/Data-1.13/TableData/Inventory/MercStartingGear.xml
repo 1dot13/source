@@ -571,25 +571,24 @@
 			<lBPackStatus>0</lBPackStatus>
 		</GEARKIT>
 		<GEARKIT>
-			<mGearKitName>HTH</mGearKitName>
+			<mGearKitName>Breach</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
 			<mHelmetStatus>99</mHelmetStatus>
 			<mVest>161</mVest>
-			<mVestStatus>100</mVestStatus>
-			<mWeapon>7</mWeapon>
-			<mWeaponStatus>92</mWeaponStatus>
-			<mBig0>87</mBig0>
-			<mBig0Status>100</mBig0Status>
-			<mBig0Quantity>3</mBig0Quantity>
+			<mVestStatus>100</mVestStatus>			
+			<mWeapon>1743</mWeapon>
+			<mWeaponStatus>100</mWeaponStatus>			
+			<mBig0>7</mBig0>
+			<mBig0Status>92</mBig0Status>
 			<mBig2>49</mBig2>
 			<mBig2Status>98</mBig2Status>
 			<mBig2Quantity>1</mBig2Quantity>
+			<mBig3>87</mBig3>
+			<mBig3Quantity>3</mBig3Quantity>			
 			<mSmall0>214</mSmall0>
 			<lVest>1090</lVest>
-			<lVestStatus>100</lVestStatus>
 			<lRightThigh>1641</lRightThigh>
-			<lRightThighStatus>100</lRightThighStatus>
 		</GEARKIT>
 		<GEARKIT>
 			<mGearKitName>Heavy WPNS</mGearKitName>
@@ -3740,25 +3739,23 @@
 			<lRightThigh>1091</lRightThigh>
 		</GEARKIT>
 		<GEARKIT>
-			<mGearKitName>Gun Choice</mGearKitName>
+			<mGearKitName>Riot Gear</mGearKitName>
 			<mAbsolutePrice>-1</mAbsolutePrice>
 			<mHelmet>176</mHelmet>
 			<mHelmetStatus>98</mHelmetStatus>
 			<mVest>161</mVest>
 			<mVestStatus>98</mVestStatus>
-			<mLegStatus>91</mLegStatus>
-			<mWeapon>747</mWeapon>
-			<mWeaponStatus>92</mWeaponStatus>
-			<mBig0>530</mBig0>
-			<mBig0Quantity>3</mBig0Quantity>
+			<mLegStatus>91</mLegStatus>			
+			<mWeapon>1</mWeapon>			
+			<mBig0>1743</mBig0>
 			<mBig1>214</mBig1>
 			<mBig1Quantity>1</mBig1Quantity>
-			<mBig2>37</mBig2>
+			<mBig2>298</mBig2>
 			<mBig2Status>89</mBig2Status>
 			<mBig2Quantity>1</mBig2Quantity>
+			<mBig3>71</mBig3>
+			<mBig3Quantity>3</mBig3Quantity>			
 			<mSmall0>1625</mSmall0>
-			<mSmall0Status>100</mSmall0Status>
-			<mSmall0Quantity>1</mSmall0Quantity>
 			<lVest>1090</lVest>
 			<lVestStatus>98</lVestStatus>
 		</GEARKIT>
@@ -19810,6 +19807,7 @@
 			<mBig0>64</mBig0>
 			<mBig0Status>93</mBig0Status>
 			<mBig0Quantity>1</mBig0Quantity>
+			<mBig1>1743</mBig1>
 			<mSmall0>86</mSmall0>
 			<mSmall0Status>100</mSmall0Status>
 			<mSmall0Quantity>2</mSmall0Quantity>

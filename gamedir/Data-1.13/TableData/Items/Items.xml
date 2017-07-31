@@ -52279,7 +52279,7 @@
 		<TwoHanded>1</TwoHanded>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usRiotShieldStrength>28</usRiotShieldStrength>
+		<usRiotShieldStrength>25</usRiotShieldStrength>
 		<usRiotShieldGraphic>2</usRiotShieldGraphic>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -52308,7 +52308,7 @@
 		<TwoHanded>1</TwoHanded>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<usRiotShieldStrength>50</usRiotShieldStrength>
+		<usRiotShieldStrength>52</usRiotShieldStrength>
 		<usRiotShieldGraphic>0</usRiotShieldGraphic>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
