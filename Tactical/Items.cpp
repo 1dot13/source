@@ -6405,7 +6405,10 @@ INT32 PickPocket(SOLDIERTYPE *pSoldier, UINT8 ppStart, UINT8 ppStop, UINT16 usIt
 	INT32	pocket=0;
 	UINT8	capacity=254;
 
-	for(UINT32 uiPos=ppStart; uiPos<ppStop; uiPos++){
+	// Flugente: if we're going to fail miserably, at least tell us why
+	AssertMsg( Item[usItem].ItemSize < gGameExternalOptions.guiMaxItemSize + 1, String( "Size of item %d (%d) exceeds max item size (%d)!", usItem, Item[usItem].ItemSize, gGameExternalOptions.guiMaxItemSize + 1 ) );
+
+	for(UINT32 uiPos=ppStart; uiPos<ppStop; ++uiPos){
 		if(pSoldier->inv[icLBE[uiPos]].exists() == false){
 			pIndex=LoadBearingEquipment[Item[icDefault[uiPos]].ubClassIndex].lbePocketIndex[icPocket[uiPos]];
 		}
