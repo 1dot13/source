@@ -7406,6 +7406,7 @@ STR16 New113Message[] =
 	L"une radio",
 	L"des jumelles",
 	L"de la patience",
+	L"%s's shield has been destroyed!",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 

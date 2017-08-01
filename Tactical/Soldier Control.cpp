@@ -19325,12 +19325,14 @@ void	SOLDIERTYPE::DestroyEquippedRiotShield( )
 
 		// Delete object
 		DeleteObj( pObj );
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SHIELD_DESTROYED], this->GetName( ) );
+
+		// dirty interface panel
+		DirtyMercPanelInterface( this, DIRTYLEVEL2 );
+
+		this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 	}
-
-	// dirty interface panel
-	DirtyMercPanelInterface( this, DIRTYLEVEL2 );
-
-	this->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 }
 
 void	SOLDIERTYPE::RiotShieldTakeDamage( INT32 sDamage )

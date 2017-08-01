@@ -2584,7 +2584,7 @@ void DamageRiotShield( SOLDIERTYPE* pSoldier, INT32& rsDamage, INT32& rsSecondar
 
 		UINT16 shieldstrength = Item[pObj->usItem].usRiotShieldStrength;
 
-		UINT16 damagetoshield = 2 * damage_original / shieldstrength;
+		UINT16 damagetoshield = 1.5f * damage_original / shieldstrength;
 
 		pSoldier->RiotShieldTakeDamage( damagetoshield );
 

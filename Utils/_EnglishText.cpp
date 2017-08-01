@@ -7394,6 +7394,7 @@ STR16 New113Message[] =
 	L"a working radio set",
 	L"a binocular",
 	L"patience",
+	L"%s's shield has been destroyed!",
 };
 
 STR16 New113HAMMessage[] = 

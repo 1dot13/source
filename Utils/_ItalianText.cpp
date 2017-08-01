@@ -7400,6 +7400,7 @@ STR16 New113Message[] =
 	L"a working radio set",
 	L"a binocular",
 	L"patience",
+	L"%s's shield has been destroyed!",	// TODO.Translate
 };
 
 // TODO.Translate

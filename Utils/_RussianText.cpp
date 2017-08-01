@@ -7398,6 +7398,7 @@ STR16 New113Message[] =
 	L"работающая радиостанция",
 	L"бинокль",
 	L"терпение",
+	L"%s's shield has been destroyed!",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 
