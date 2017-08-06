@@ -9228,6 +9228,13 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 
 		UINT16 usReloadSound = 0;
 		BOOLEAN attachmentsound = FALSE;
+
+		// refill canteens (for convenience only with drinkable, non-poisonous water)
+		UINT8 waterquality = GetWaterQuality( sSelMapX, sSelMapY, iCurrentMapSectorZ );
+		BOOLEAN refillwaterfromsector = (waterquality == WATER_DRINKABLE);
+
+		// the temperature of the water in this sector (temperature reflects the quality)
+		FLOAT wateraddtemperature = OVERHEATING_MAX_TEMPERATURE;
 		
 		// 1. loop over the gear we should pick up and remove mismatching items if we can find a fitting one in the sector
 		for (std::vector<GEAR_NODE>::iterator it = vec.begin(); it != vec.end(); ++it)
@@ -9625,6 +9632,22 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 					if ( GetBetterObject_InventoryPool( (pSoldier->inv[slot]).usItem, 0, poolslot, index ) )
 					{
 						DistributeStatus( &(pInventoryPoolList[poolslot].object), &(pSoldier->inv[slot]), 100);
+					}
+				}
+
+				// if there is water in this sector, refill canteens
+				if ( refillwaterfromsector && Item[(pSoldier->inv[slot]).usItem].canteen && Food[Item[(pSoldier->inv[slot]).usItem].foodtype].bDrinkPoints > 0 )
+				{
+					OBJECTTYPE* pObj = &(pSoldier->inv[slot]);
+
+					for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+					{
+						UINT16 status = (*pObj)[i]->data.objectStatus;
+						UINT16 statusmmissing = max( 0, 100 - status );
+						FLOAT temperature = (*pObj)[i]->data.bTemperature;
+
+						(*pObj)[i]->data.objectStatus = 100;
+						(*pObj)[i]->data.bTemperature = (status * temperature + statusmmissing * wateraddtemperature) / 100;
 					}
 				}
 				
