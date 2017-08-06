@@ -78,6 +78,9 @@
 	#include "Game Clock.h"			// added by Flugente
 	#include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
 	#include "DynamicDialogue.h" // added by Flugente for SoldierRelation()
+	#include "MessageBoxScreen.h"	// added by Flugente
+	#include "Map Screen Interface.h"		// added by Flugente
+	#include "Map Screen Interface Map.h"	// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -91,6 +94,18 @@
 
 // directory for fortification plans (located in Profiles sub-folder)
 #define FORTIFICATIONPLAN_DIRECTORY						"FortificationPlan\\"
+
+#define EQUIPMENTTEMPLATE_DIRECTORY						"GearTemplate\\"
+
+extern BOOL GetBetterObject_InventoryPool( UINT16 usItem, INT16 status, UINT32& arLoop, UINT8& arIndex );
+extern BOOL GetFittingAmmo_InventoryPool( UINT8 usCalibre, UINT8 usAmmoType, UINT32& arLoop );
+
+extern BOOLEAN HandleNailsVestFetish( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, UINT16 usReplaceItem );
+
+extern std::vector<WORLDITEM> pInventoryPoolList;
+extern INT32 GetAttachmentInfoIndex( UINT16 usItem );
+
+extern INT32 giItemDescAmmoButton;
 
 ITEM_POOL_LOCATOR				FlashItemSlots[ NUM_ITEM_FLASH_SLOTS ];
 UINT32									guiNumFlashItemSlots = 0;
@@ -8969,4 +8984,770 @@ BOOLEAN SpendMoney( SOLDIERTYPE *pSoldier, UINT32 aAmount )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szInteractiveActionText[7], pSoldier->GetName( ) );
 
 	return (aAmount == 0);
+}
+
+// Flugente: gear templates
+extern std::vector<std::string> gTemplateVector;
+
+// this class is used to store our gear templates
+class GEAR_NODE
+{
+public:
+	GEAR_NODE(INT8 a, UINT16 b, UINT16 c) :
+		slot( a ), item( b ), ammoitem(c){}
+
+	GEAR_NODE() :
+		slot( NOWHERE ), item( 0 ), ammoitem(0) {}
+
+	void swap(GEAR_NODE& other)
+	{
+		std::swap( slot, other.slot );
+		std::swap( item, other.item );
+		std::swap( ammoitem, other.ammoitem );
+
+		std::vector<UINT16> tmp = other.attachments;
+		other.attachments = attachments;
+		attachments = tmp;
+	}
+
+	INT8 slot;
+	UINT16 item;
+	UINT16 ammoitem;
+
+	std::vector<UINT16>	attachments;
+};
+
+std::ostream& operator<<(std::ostream& stream, GEAR_NODE const& data)
+{
+	stream << (int)(data.slot) << " " << (UINT16)(data.item) << " " << (UINT16)(data.ammoitem);
+
+	std::vector<UINT16> tmp = data.attachments;
+
+	for ( std::vector<UINT16>::iterator it = tmp.begin( ); it != tmp.end( ); ++it )
+		stream << " " << (*it);
+
+	stream << std::endl;
+
+	return stream;
+}
+
+std::vector<GEAR_NODE> LoadEquipmentTemplate( std::string aName )
+{
+	CHAR8	filename[MAX_PATH];
+
+	sprintf(filename, "%s%s", EQUIPMENTTEMPLATE_DIRECTORY, aName.c_str());
+
+	// get full path to save file
+	vfs::Path vfsPath;
+	vfs::COpenWriteFile rfile( filename, true );
+	rfile->_getRealPath(vfsPath);
+	std::string str = vfsPath.to_string();
+
+	const char* filenamewithpath = str.c_str();
+
+	// Read data
+	std::ifstream file;
+	file.open(filenamewithpath, std::ios::in);
+	std::vector<GEAR_NODE> vec;
+
+	std::string line;
+
+	while ( std::getline( file >> std::ws, line ) )
+	{
+		if ( line[0] != '#' && line[0] != '/' )
+		{
+			std::istringstream iss( line );
+
+			GEAR_NODE node;
+
+			int num;
+			if ( iss >> num && iss >> (UINT16)node.item )
+			{
+				node.slot = num;
+
+				// additional data is optional
+				if ( iss >> (UINT16)node.ammoitem )
+				{
+					while ( iss >> num )
+					{
+						node.attachments.push_back( num );
+					}
+				}
+
+				vec.push_back(node);
+			}
+		}
+	}
+	
+	file.close();
+
+	return vec;
+}
+
+void SaveEquipmentTemplate(std::vector<GEAR_NODE> aVec, STR16 aName)
+{
+	CHAR8	filename[MAX_PATH];
+
+	sprintf(filename, "%s%S.txt", EQUIPMENTTEMPLATE_DIRECTORY, aName);
+
+	// get full path to save file
+	// what we are doing here might seem rather odd. If the file does not exist, we are creating a new file via vfs... and then create a fresh binary file afterwards.
+	// I found this to be the easiest solution for using both vfs pathing and being able to use a std::fstream
+	// If you don't like it, fix it yourself, or make vfs not such a pain to use
+	vfs::Path vfsPath;
+	vfs::COpenWriteFile rfile(filename, true);
+	rfile->_getRealPath(vfsPath);
+	std::string str = vfsPath.to_string();
+
+	const char* filenamewithpath = str.c_str();
+
+	// write
+	std::fstream binary_file(filenamewithpath, std::ios::out);
+
+	for (std::vector<GEAR_NODE>::iterator it = aVec.begin(); it != aVec.end(); ++it)
+	{
+		GEAR_NODE node = (*it);
+
+		binary_file << node;
+	}
+
+	binary_file.close();
+}
+
+void WriteEquipmentTemplate(SOLDIERTYPE* pSoldier, STR16 name)
+{
+	if (pSoldier)
+	{
+		std::vector<GEAR_NODE> vec;
+
+		INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+		for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)								// ... for all items in our inventory ...
+		{
+			if (pSoldier->inv[bLoop].exists())
+			{
+				// if this item is a gun, note what magazine is currently loaded
+				UINT16 ammoitem = 0;
+				if ( Item[(pSoldier->inv[bLoop]).usItem].usItemClass & IC_GUN )
+					ammoitem = (pSoldier->inv[bLoop])[0]->data.gun.usGunAmmoItem;
+
+				GEAR_NODE node( bLoop, (pSoldier->inv[bLoop]).usItem, ammoitem );
+
+				// add all attachments
+				attachmentList::iterator iterend = (pSoldier->inv[bLoop])[0]->attachments.end( );
+				for ( attachmentList::iterator iter = (pSoldier->inv[bLoop])[0]->attachments.begin( ); iter != iterend; ++iter )
+				{
+					if ( iter->exists( ) )
+						node.attachments.push_back( iter->usItem );
+				}
+				
+				vec.push_back(node);
+			}
+		}
+
+		SaveEquipmentTemplate(vec, name);
+	}
+}
+
+std::vector<std::string> get_all_files_names_within_folder(std::string folder)
+{
+	std::vector<std::string> names;
+	std::string search_path = folder + "/*.*";
+	WIN32_FIND_DATA fd;
+	HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd);
+	
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			// read all (real) files in current folder
+			// , delete '!' read other 2 default folder . and ..
+			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				names.push_back(fd.cFileName);
+			}
+		}
+		while (::FindNextFile(hFind, &fd));
+
+		::FindClose(hFind);
+	}
+	return names;
+}
+
+// get a vector of all tilesets that are allowed to be built in this sector (the above filtered by structure construct/deconstruct basically)
+void GetEquipmentTemplates()
+{
+	CHAR8	filename[MAX_PATH];
+
+	sprintf(filename, "%sUpdate Gear.txt", EQUIPMENTTEMPLATE_DIRECTORY);
+
+	// get full path to save file
+	// what we are doing here might seem rather odd. If the file does not exist, we are creating a new empty file via vfs
+	// in this case, this is rather useful, as the above file simply updates our gear, which is already neat
+	// I found this to be the easiest solution for using both vfs pathing and being able to use a std::fstream
+	// If you don't like it, fix it yourself, or make vfs not such a pain to use
+	vfs::Path vfsPath;	
+	vfs::COpenWriteFile rfile( filename, true );
+	rfile->_getRealPath(vfsPath);
+
+	vfs::Path dir, file;
+	vfsPath.splitLast(dir, file);
+
+	std::string str = dir.to_string();
+
+	const char* filenamewithpath = str.c_str();
+
+	gTemplateVector = get_all_files_names_within_folder( filenamewithpath );
+}
+
+void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
+{
+	// make sure the merc is actually in this sector
+	if ( pSoldier )
+	{
+		UINT16 color = FONT_MCOLOR_WHITE;
+
+		// for safety, test again
+		if ( pSoldier->sSectorX != sSelMapX ||
+			 pSoldier->sSectorY != sSelMapY ||
+			 pSoldier->bSectorZ != iCurrentMapSectorZ )
+		{
+			ScreenMsg( color, MSG_INTERFACE, szGearTemplateText[3], pSoldier->GetName( ) );
+
+			return;
+		}
+
+		if ( (gTacticalStatus.uiFlags & INCOMBAT || gTacticalStatus.fEnemyInSector) )
+		{
+			ScreenMsg( color, MSG_INTERFACE, szGearTemplateText[1] );
+
+			return;
+		}
+
+		std::vector<GEAR_NODE> vec = LoadEquipmentTemplate(name);
+
+		UINT16 usReloadSound = 0;
+		BOOLEAN attachmentsound = FALSE;
+		
+		// 1. loop over the gear we should pick up and remove mismatching items if we can find a fitting one in the sector
+		for (std::vector<GEAR_NODE>::iterator it = vec.begin(); it != vec.end(); ++it)
+		{
+			GEAR_NODE node = (*it);
+
+			if ( node.slot >= 0 && node.slot < NUM_INV_SLOTS && node.item != NOTHING )
+			{
+				// is there already an item here?
+				if (pSoldier->inv[node.slot].exists())
+				{
+					if ( (pSoldier->inv[node.slot]).usItem != node.item )
+					{
+						// can we get the requested item in the first place?
+						UINT32 poolslot = 0;
+						UINT8 index = 0;
+						if ( GetBetterObject_InventoryPool( node.item, 0, poolslot, index ) )
+						{
+							// We have to check whether we have any LBE equipped that isn't in the template
+							// in that case we have to dump it and it's contents, otherwise it can block slots that are used in the template
+							if ( node.slot >= VESTPOCKPOS && node.slot <= BPACKPOCKPOS )
+							{
+								std::vector<INT8> pocketKey;
+								GetLBESlots( node.slot, pocketKey );
+
+								// remove everything inside LBE
+								for ( std::vector<INT8>::iterator lbeslotit = pocketKey.begin( ); lbeslotit != pocketKey.end( ); ++lbeslotit )
+								{
+									if ( pSoldier->inv[(*lbeslotit)].exists( ) )
+									{
+										AutoPlaceObjectInInventoryStash( &pSoldier->inv[(*lbeslotit)], pSoldier->sGridNo, pSoldier->pathing.bLevel );
+										DeleteObj( &pSoldier->inv[(*lbeslotit)] );
+									}
+								}
+							}
+							// if we want to equip a two-handed item in our first hand, also drop whatever we have in the second hand
+							else if ( node.slot == HANDPOS && Item[node.item].twohanded && pSoldier->inv[SECONDHANDPOS].exists( ) )
+							{
+								AutoPlaceObjectInInventoryStash( &pSoldier->inv[SECONDHANDPOS], pSoldier->sGridNo, pSoldier->pathing.bLevel );
+								DeleteObj( &pSoldier->inv[SECONDHANDPOS] );
+							}
+							// if we are Nails and are ordered to drop our vest, refuse and complain!
+							else if ( node.slot == VESTPOS && HandleNailsVestFetish( pSoldier, node.slot, NOTHING ) )
+								continue;
+
+							// drop item
+							AutoPlaceObjectInInventoryStash( &pSoldier->inv[node.slot], pSoldier->sGridNo, pSoldier->pathing.bLevel );
+							DeleteObj( &pSoldier->inv[node.slot] );
+						}
+					}
+				}
+			}
+		}
+
+		// 2. loop over the gear again and pick up what fits
+		for ( std::vector<GEAR_NODE>::iterator it = vec.begin( ); it != vec.end( ); ++it )
+		{
+			GEAR_NODE node = (*it);
+
+			if ( node.slot >= 0 && node.slot < NUM_INV_SLOTS )
+			{
+				// only if slot is still empty...
+				if ( !pSoldier->inv[node.slot].exists( ) && node.item != NOTHING )
+				{
+					// see if we can find a better object in this sector and put it into our slot
+					UINT32 poolslot = 0;
+					UINT8 index = 0;
+					if ( GetBetterObject_InventoryPool( node.item, 0, poolslot, index ) )
+					{
+						(pInventoryPoolList[poolslot].object).RemoveObjectAtIndex( index, &gItemPointer );
+
+						if ( !PlaceObject( pSoldier, node.slot, &gItemPointer ) )
+						{
+							ScreenMsg( color, MSG_INTERFACE, szGearTemplateText[4], pSoldier->GetName( ), Item[node.item].szItemName );
+
+							AutoPlaceObjectInInventoryStash( &gItemPointer, pSoldier->sGridNo, pSoldier->pathing.bLevel );
+							DeleteObj( &gItemPointer );
+						}
+					}
+					else
+					{
+						// if this is ammo, we might still be able to create a mag from different-sized mags
+						if ( Item[node.item].usItemClass & IC_AMMO )
+						{
+							UINT16 usMagIndex = Item[node.item].ubClassIndex;
+
+							UINT16 neededammo = Magazine[usMagIndex].ubMagSize;
+
+							if ( neededammo > 0 )
+							{
+								UINT32 poolslot = 0;
+								if ( GetFittingAmmo_InventoryPool( Magazine[usMagIndex].ubCalibre, Magazine[usMagIndex].ubAmmoType, poolslot ) )
+								{
+									UINT32 takeammo = min( neededammo, pInventoryPoolList[poolslot].object[pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1]->data.ubShotsLeft );
+									
+									pInventoryPoolList[poolslot].object[pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1]->data.ubShotsLeft -= takeammo;
+
+									if ( !pInventoryPoolList[poolslot].object[pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1]->data.ubShotsLeft )
+									{
+										pInventoryPoolList[poolslot].object.RemoveObjectAtIndex( pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1 );
+									}
+
+									CreateAmmo( node.item, &gItemPointer, takeammo );
+
+									if ( !PlaceObject( pSoldier, node.slot, &gItemPointer ) )
+									{
+										ScreenMsg( color, MSG_INTERFACE, szGearTemplateText[4], pSoldier->GetName( ), Item[node.item].szItemName );
+
+										AutoPlaceObjectInInventoryStash( &gItemPointer, pSoldier->sGridNo, pSoldier->pathing.bLevel );
+										DeleteObj( &gItemPointer );
+									}
+								}
+							}
+						}
+
+						//if ( !pSoldier->inv[node.slot].exists( ) )
+							//ScreenMsg( color, MSG_INTERFACE, L"%s found no %s to equip.", pSoldier->GetName( ), Item[node.item].szItemName );
+					}
+				}
+
+				// if this slot is a LBE slot, we need to add attachments here. Otherwise we add the attachments after we fail to pick up other items as their LBE slots won't exist
+				if ( pSoldier->inv[node.slot].exists() && node.slot >= VESTPOCKPOS && node.slot <= BPACKPOCKPOS )
+				{
+					// try to add attachments if nod entry fits the item, or if the node item is NOTHING (essentially a wildcard for this)
+					if ( !node.attachments.empty( ) && (pSoldier->inv[node.slot]).usItem == node.item || NOTHING == node.item )
+					{
+						OBJECTTYPE* pObj = &(pSoldier->inv[node.slot]);
+
+						for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+						{
+							for ( std::vector<UINT16>::iterator attit = node.attachments.begin( ); attit != node.attachments.end( ); ++attit )
+							{
+								UINT16 item_attachment = (*attit);
+
+								// only apply attachments if they don't require any checks!
+								INT32 bAttachInfoIndex = GetAttachmentInfoIndex( item_attachment );
+
+								if ( bAttachInfoIndex < 0 || AttachmentInfo[bAttachInfoIndex].bAttachmentSkillCheck == NO_CHECK )
+								{
+									UINT32 poolslot = 0;
+									UINT8 index = 0;
+									if ( GetBetterObject_InventoryPool( item_attachment, 0, poolslot, index ) )
+									{
+										(pInventoryPoolList[poolslot].object).RemoveObjectAtIndex( index, &gItemPointer );
+
+										BOOLEAN isAttachedNow = pObj->AttachObject( pSoldier, &gItemPointer, FALSE, i ); //do the actual attaching
+
+										if ( !isAttachedNow )
+										{
+											attachmentsound = TRUE;
+
+											//ScreenMsg( color, MSG_INTERFACE, L"%s could not attach %s to %s", pSoldier->GetName( ), Item[item_attachment].szItemName, Item[pObj->usItem].szItemName );
+
+											AutoPlaceObjectInInventoryStash( &gItemPointer, pSoldier->sGridNo, pSoldier->pathing.bLevel );
+											DeleteObj( &gItemPointer );
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 3. loop over all slots (not just those of the gear vector), improve, merge and fill stacks
+		for ( int slot = HELMETPOS; slot < NUM_INV_SLOTS; ++slot )
+		{
+			if (pSoldier->inv[slot].exists())
+			{
+				OBJECTTYPE* pObj = &(pSoldier->inv[slot]);
+
+				if ( Item[pObj->usItem].usItemClass & (IC_KIT | IC_MEDKIT) && pObj->ubNumberOfObjects > 1 )
+				{
+					CleanUpStack( pObj, pObj );
+				}
+				
+				// if this is ammo, try merging mags first before replacing them, the not-full mag being the visible one
+				// by doing this we won't have so many used magazines lying around
+				if ( (Item[pObj->usItem].usItemClass & IC_AMMO) && pObj->ubNumberOfObjects > 1 )
+				{
+					UINT16 usMagIndex = Item[pObj->usItem].ubClassIndex;
+					UINT16 magsize = Magazine[usMagIndex].ubMagSize;
+
+					if ( magsize )
+					{
+						UINT32 ammocount = 0;
+						for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+							ammocount += (*pObj)[i]->data.ubShotsLeft;
+
+						UINT8 fullmags = ammocount / magsize;
+
+						UINT16 leftover = ammocount - fullmags * magsize;
+
+						UINT8 totalmags = fullmags + (leftover > 0 ? 1 : 0);
+
+						if ( totalmags < pObj->ubNumberOfObjects )
+							pObj->RemoveObjectsFromStack( pObj->ubNumberOfObjects - totalmags );
+
+						for ( INT16 i = 0; i < totalmags; ++i )
+							(*pObj)[i]->data.ubShotsLeft = magsize;
+
+						if ( leftover > 0 )
+							(*pObj)[0]->data.ubShotsLeft = leftover;
+					}
+				}
+
+				// for every object in the stack, try to find a better improvement
+				for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+				{
+					// see if we can find a better object in this sector and put it into our slot
+					UINT32 poolslot = 0;
+					UINT8 index = 0;
+					if ( (*pObj)[i]->data.objectStatus < 100 && GetBetterObject_InventoryPool( pObj->usItem, (*pObj)[i]->data.objectStatus, poolslot, index ) )
+					{
+						// WARNING! The correct way of doing this would be to exchange both objects
+						// we are not doing this here on purpose, as we want to save time
+						// instead, we switch status and a few other properties
+						// Only do this if you know what you are doing - in the wrong location, we could do odd things to global pointers. Consider yourself warned!
+
+						// tmp data
+						INT16	objectStatus = (*pObj)[i]->data.objectStatus;
+						INT8	bTrap = (*pObj)[i]->data.bTrap;
+						UINT8	fUsed = (*pObj)[i]->data.fUsed;
+						UINT8	ubImprintID = (*pObj)[i]->data.ubImprintID;
+						FLOAT	bTemperature = (*pObj)[i]->data.bTemperature;
+						UINT8	ubDirection = (*pObj)[i]->data.ubDirection;
+						UINT32	ubWireNetworkFlag = (*pObj)[i]->data.ubWireNetworkFlag;
+						INT8	bDefuseFrequency = (*pObj)[i]->data.bDefuseFrequency;
+						INT16	sRepairThreshold = (*pObj)[i]->data.sRepairThreshold;
+						UINT64	sObjectFlag = (*pObj)[i]->data.sObjectFlag;
+
+						// set data on our object
+						(*pObj)[i]->data.objectStatus = (pInventoryPoolList[poolslot].object)[index]->data.objectStatus;
+						(*pObj)[i]->data.bTrap = (pInventoryPoolList[poolslot].object)[index]->data.bTrap;
+						(*pObj)[i]->data.fUsed = (pInventoryPoolList[poolslot].object)[index]->data.fUsed;
+						(*pObj)[i]->data.ubImprintID = (pInventoryPoolList[poolslot].object)[index]->data.ubImprintID;
+						(*pObj)[i]->data.bTemperature = (pInventoryPoolList[poolslot].object)[index]->data.bTemperature;
+						(*pObj)[i]->data.ubDirection = (pInventoryPoolList[poolslot].object)[index]->data.ubDirection;
+						(*pObj)[i]->data.ubWireNetworkFlag = (pInventoryPoolList[poolslot].object)[index]->data.ubWireNetworkFlag;
+						(*pObj)[i]->data.bDefuseFrequency = (pInventoryPoolList[poolslot].object)[index]->data.bDefuseFrequency;
+						(*pObj)[i]->data.sRepairThreshold = (pInventoryPoolList[poolslot].object)[index]->data.sRepairThreshold;
+						(*pObj)[i]->data.sObjectFlag = (pInventoryPoolList[poolslot].object)[index]->data.sObjectFlag;
+
+						// set data on world object
+						(pInventoryPoolList[poolslot].object)[index]->data.objectStatus = objectStatus;
+						(pInventoryPoolList[poolslot].object)[index]->data.bTrap = bTrap;
+						(pInventoryPoolList[poolslot].object)[index]->data.fUsed = fUsed;
+						(pInventoryPoolList[poolslot].object)[index]->data.ubImprintID = ubImprintID;
+						(pInventoryPoolList[poolslot].object)[index]->data.bTemperature = bTemperature;
+						(pInventoryPoolList[poolslot].object)[index]->data.ubDirection = ubDirection;
+						(pInventoryPoolList[poolslot].object)[index]->data.ubWireNetworkFlag = ubWireNetworkFlag;
+						(pInventoryPoolList[poolslot].object)[index]->data.bDefuseFrequency = bDefuseFrequency;
+						(pInventoryPoolList[poolslot].object)[index]->data.sRepairThreshold = sRepairThreshold;
+						(pInventoryPoolList[poolslot].object)[index]->data.sObjectFlag = sObjectFlag;
+					}
+				}
+				
+				// pick up new items from the sector and put them on the stack
+				UINT8 ubSlotLimit = ItemSlotLimit(pObj, slot, pSoldier, FALSE);
+
+				while (pObj->ubNumberOfObjects < ubSlotLimit)
+				{
+					UINT32 poolslot = 0;
+					UINT8 index = 0;
+					if ( GetBetterObject_InventoryPool( pObj->usItem, 0, poolslot, index ) )
+					{
+						(pInventoryPoolList[poolslot].object).RemoveObjectAtIndex( index, &gItemPointer );
+
+						if ( !TryToStackInSlot( pSoldier, &gItemPointer, slot ) )
+							break;
+					}
+					else
+					{
+						break;
+					}
+				}
+
+				// try to improve attachments, too
+				for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+				{
+					for ( attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != (*pObj)[i]->attachments.end(); ++iter )
+					{
+						if ( iter->exists() )
+						{
+							// see if we can find a better object in this sector and put it into our slot
+							UINT32 poolslot = 0;
+							UINT8 index = 0;
+							if ( (*iter)[0]->data.objectStatus < 100 && GetBetterObject_InventoryPool( iter->usItem, (*iter)[0]->data.objectStatus, poolslot, index ) )
+							{
+								// WARNING! The correct way of doing this would be to exchange both objects
+								// we are not doing this here on purpose, as we want to save time
+								// instead, we switch status and a few other properties
+								// Only do this if you know what you are doing - in the wrong location, we could do odd things to global pointers. Consider yourself warned!
+
+								// tmp data
+								INT16	objectStatus = (*iter)[0]->data.objectStatus;
+								INT8	bTrap = (*iter)[0]->data.bTrap;
+								UINT8	fUsed = (*iter)[0]->data.fUsed;
+								UINT8	ubImprintID = (*iter)[0]->data.ubImprintID;
+								FLOAT	bTemperature = (*iter)[0]->data.bTemperature;
+								UINT8	ubDirection = (*iter)[0]->data.ubDirection;
+								UINT32	ubWireNetworkFlag = (*iter)[0]->data.ubWireNetworkFlag;
+								INT8	bDefuseFrequency = (*iter)[0]->data.bDefuseFrequency;
+								INT16	sRepairThreshold = (*iter)[0]->data.sRepairThreshold;
+								UINT64	sObjectFlag = (*iter)[0]->data.sObjectFlag;
+
+								// set data on our object
+								(*iter)[0]->data.objectStatus = (pInventoryPoolList[poolslot].object)[index]->data.objectStatus;
+								(*iter)[0]->data.bTrap = (pInventoryPoolList[poolslot].object)[index]->data.bTrap;
+								(*iter)[0]->data.fUsed = (pInventoryPoolList[poolslot].object)[index]->data.fUsed;
+								(*iter)[0]->data.ubImprintID = (pInventoryPoolList[poolslot].object)[index]->data.ubImprintID;
+								(*iter)[0]->data.bTemperature = (pInventoryPoolList[poolslot].object)[index]->data.bTemperature;
+								(*iter)[0]->data.ubDirection = (pInventoryPoolList[poolslot].object)[index]->data.ubDirection;
+								(*iter)[0]->data.ubWireNetworkFlag = (pInventoryPoolList[poolslot].object)[index]->data.ubWireNetworkFlag;
+								(*iter)[0]->data.bDefuseFrequency = (pInventoryPoolList[poolslot].object)[index]->data.bDefuseFrequency;
+								(*iter)[0]->data.sRepairThreshold = (pInventoryPoolList[poolslot].object)[index]->data.sRepairThreshold;
+								(*iter)[0]->data.sObjectFlag = (pInventoryPoolList[poolslot].object)[index]->data.sObjectFlag;
+
+								// set data on world object
+								(pInventoryPoolList[poolslot].object)[index]->data.objectStatus = objectStatus;
+								(pInventoryPoolList[poolslot].object)[index]->data.bTrap = bTrap;
+								(pInventoryPoolList[poolslot].object)[index]->data.fUsed = fUsed;
+								(pInventoryPoolList[poolslot].object)[index]->data.ubImprintID = ubImprintID;
+								(pInventoryPoolList[poolslot].object)[index]->data.bTemperature = bTemperature;
+								(pInventoryPoolList[poolslot].object)[index]->data.ubDirection = ubDirection;
+								(pInventoryPoolList[poolslot].object)[index]->data.ubWireNetworkFlag = ubWireNetworkFlag;
+								(pInventoryPoolList[poolslot].object)[index]->data.bDefuseFrequency = bDefuseFrequency;
+								(pInventoryPoolList[poolslot].object)[index]->data.sRepairThreshold = sRepairThreshold;
+								(pInventoryPoolList[poolslot].object)[index]->data.sObjectFlag = sObjectFlag;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// 4. add attachments. If an attachment cannot be attached - for example because a different one is blocking it - tell us so
+		for ( std::vector<GEAR_NODE>::iterator it = vec.begin( ); it != vec.end( ); ++it )
+		{
+			GEAR_NODE node = (*it);
+			
+			// try to add attachments if nod entry fits the item, or if the node item is NOTHING (essentially a wildcard for this)
+			if ( node.slot >= 0 && node.slot < NUM_INV_SLOTS && 
+				 (node.slot < VESTPOCKPOS || node.slot > BPACKPOCKPOS) &&		// we already did that for LBE slots though, no need to repeat
+				 !node.attachments.empty( ) && pSoldier->inv[node.slot].exists( ) &&
+				 ((pSoldier->inv[node.slot]).usItem == node.item || NOTHING == node.item) )
+			{
+				OBJECTTYPE* pObj = &(pSoldier->inv[node.slot]);
+
+				for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+				{
+					for ( std::vector<UINT16>::iterator attit = node.attachments.begin( ); attit != node.attachments.end( ); ++attit )
+					{
+						UINT16 item_attachment = (*attit);
+
+						// only apply attachments if they don't require any checks!
+						INT32 bAttachInfoIndex = GetAttachmentInfoIndex( item_attachment );
+
+						if ( bAttachInfoIndex < 0 || AttachmentInfo[bAttachInfoIndex].bAttachmentSkillCheck == NO_CHECK )
+						{
+							UINT32 poolslot = 0;
+							UINT8 index = 0;
+							if ( GetBetterObject_InventoryPool( item_attachment, 0, poolslot, index ) )
+							{
+								(pInventoryPoolList[poolslot].object).RemoveObjectAtIndex( index, &gItemPointer );
+
+								BOOLEAN isAttachedNow = pObj->AttachObject( pSoldier, &gItemPointer, FALSE, i ); //do the actual attaching
+
+								if ( !isAttachedNow )
+								{
+									attachmentsound = TRUE;
+
+									//ScreenMsg( color, MSG_INTERFACE, L"%s could not attach %s to %s", pSoldier->GetName( ), Item[item_attachment].szItemName, Item[pObj->usItem].szItemName );
+
+									AutoPlaceObjectInInventoryStash( &gItemPointer, pSoldier->sGridNo, pSoldier->pathing.bLevel );
+									DeleteObj( &gItemPointer );
+								}
+							}
+						}						
+					}
+				}
+			}
+		}
+
+		// 5. reload guns, fill mags
+		for ( int slot = HELMETPOS; slot < NUM_INV_SLOTS; ++slot )
+		{
+			if ( pSoldier->inv[slot].exists( ) )
+			{
+				if ( Item[(pSoldier->inv[slot]).usItem].usItemClass & (IC_KIT | IC_MEDKIT) )
+				{
+					UINT32 poolslot = 0;
+					UINT8 index = 0;
+					if ( GetBetterObject_InventoryPool( (pSoldier->inv[slot]).usItem, 0, poolslot, index ) )
+					{
+						DistributeStatus( &(pInventoryPoolList[poolslot].object), &(pSoldier->inv[slot]), 100);
+					}
+				}
+				
+				if ( (Item[(pSoldier->inv[slot]).usItem].usItemClass & (IC_GUN | IC_AMMO)))
+				{
+					OBJECTTYPE* pObj = &(pSoldier->inv[slot]);
+
+					for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+					{
+						UINT16 ammoitem = (pSoldier->inv[slot]).usItem;
+
+						if ( (Item[(pSoldier->inv[slot]).usItem].usItemClass & IC_GUN) )
+						{
+							UINT8 calibre = Weapon[pObj->usItem].ubCalibre;
+							UINT16 magsize = GetMagSize( pObj, i );
+
+							ammoitem = (*pObj)[i]->data.gun.usGunAmmoItem;
+							for ( std::vector<GEAR_NODE>::iterator it = vec.begin( ); it != vec.end( ); ++it )
+							{
+								if ( (*it).slot == slot && (*it).item == pObj->usItem )
+								{
+									ammoitem = (*it).ammoitem;
+									break;
+								}
+							}
+
+							// if we somehow don't have a valid ammoitem (for example, if the gun was empty), find one
+							if ( !ammoitem )
+								ammoitem = DefaultMagazine( pObj->usItem );
+
+							UINT16 usMagIndex = Item[ammoitem].ubClassIndex;
+
+							// safety check: if the calibre or mag size doesn't fit, get a better mag
+							if ( calibre != Magazine[usMagIndex].ubCalibre || magsize != Magazine[usMagIndex].ubMagSize )
+							{
+								ammoitem = FindReplacementMagazine( calibre, magsize, Magazine[usMagIndex].ubAmmoType );
+								usMagIndex = Item[ammoitem].ubClassIndex;
+							}
+
+							// if the requested ammo isn't the only currently loaded, take that one out
+							if ( (*pObj)[i]->data.gun.usGunAmmoItem != ammoitem && (*pObj)[i]->data.gun.usGunAmmoItem != NOTHING && ammoitem != NOTHING )
+							{
+								CreateAmmo( (*pObj)[i]->data.gun.usGunAmmoItem, &gItemPointer, (*pObj)[i]->data.gun.ubGunShotsLeft );
+
+								AutoPlaceObjectInInventoryStash( &gItemPointer, pSoldier->sGridNo, pSoldier->pathing.bLevel );
+								DeleteObj( &gItemPointer );
+
+								(*pObj)[i]->data.gun.usGunAmmoItem = NOTHING;
+								(*pObj)[i]->data.gun.ubGunShotsLeft = 0;
+								(*pObj)[i]->data.gun.ubGunAmmoType = 0;
+							}
+						}
+
+						UINT16 usMagIndex = Item[ammoitem].ubClassIndex;
+
+						UINT16 neededammo = Magazine[usMagIndex].ubMagSize - (*pObj)[i]->data.ubShotsLeft;
+						if ( (Item[(pSoldier->inv[slot]).usItem].usItemClass & IC_GUN) )
+							neededammo = Magazine[usMagIndex].ubMagSize - (*pObj)[i]->data.gun.ubGunShotsLeft;
+						
+						while ( neededammo > 0 )
+						{
+							UINT32 poolslot = 0;
+							if ( GetFittingAmmo_InventoryPool( Magazine[usMagIndex].ubCalibre, Magazine[usMagIndex].ubAmmoType, poolslot ) )
+							{
+								for ( INT16 j = pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1; j >= 0; --j )
+								{
+									UINT32 takeammo = min( neededammo, pInventoryPoolList[poolslot].object[j]->data.ubShotsLeft );
+
+									neededammo -= takeammo;
+									
+									pInventoryPoolList[poolslot].object[j]->data.ubShotsLeft -= takeammo;
+
+									if ( (Item[(pSoldier->inv[slot]).usItem].usItemClass & IC_GUN) )
+									{
+										(*pObj)[i]->data.gun.usGunAmmoItem = ammoitem;
+										(*pObj)[i]->data.gun.ubGunAmmoType = Magazine[usMagIndex].ubAmmoType;
+										(*pObj)[i]->data.gun.ubGunShotsLeft += takeammo;
+
+										usReloadSound = Weapon[pObj->usItem].sReloadSound;
+									}
+									else
+									{
+										(*pObj)[i]->data.ubShotsLeft += takeammo;
+									}
+
+									if ( !pInventoryPoolList[poolslot].object[j]->data.ubShotsLeft )
+									{
+										pInventoryPoolList[poolslot].object.RemoveObjectAtIndex( j );
+									}
+
+									if ( !neededammo )
+										break;
+								}
+							}
+							else
+							{
+								break;
+							}
+
+							if ( (Item[(pSoldier->inv[slot]).usItem].usItemClass & IC_GUN) )
+								neededammo = Magazine[usMagIndex].ubMagSize - (*pObj)[i]->data.gun.ubGunShotsLeft;
+							else
+								neededammo = Magazine[usMagIndex].ubMagSize - (*pObj)[i]->data.ubShotsLeft;
+						}
+					}
+				}
+			}
+		}
+
+		// Immersion, let's play a reload sound
+		if ( usReloadSound != 0 )
+			PlayJA2Sample( usReloadSound, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+		else if ( attachmentsound )
+			PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+
+		// 6. redraw inventory
+		fTeamPanelDirty = TRUE;
+		fMapPanelDirty = TRUE;
+		fInterfacePanelDirty = DIRTYLEVEL2;
+		fCharacterInfoPanelDirty = TRUE;
+
+		// refresh ammo button in description box if it exists
+		if ( giItemDescAmmoButton > -1 )
+			MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
+	}
 }

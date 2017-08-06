@@ -2839,14 +2839,15 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - aimed gun\n",
 };
 
-STR16 pSkillMenuStrings[] =	// TODO.Translate
+STR16 pSkillMenuStrings[] =
 {
 	L"Milice",
 	L"Autre escouade",
 	L"Annuler",
 	L"%d miliciens",
-
 	L"Tous",
+
+	L"More",	// TODO.Translate
 };
 
 STR16 pSnitchMenuStrings[] =
@@ -11249,6 +11250,15 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 	L"Direct approach",
 	L"Threaten approach",
 	L"Recruit approach",
+};
+
+STR16	szGearTemplateText[] =	// TODO.Translate
+{
+	L"Enter Template Name",
+	L"Not possible during combat.",
+	L"Selected mercenary is not in this sector.",
+	L"%s is not in that sector.",
+	L"%s could not equip %s.",
 };
 
 #endif //FRENCH

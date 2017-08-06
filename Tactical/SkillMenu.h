@@ -10,7 +10,7 @@
 
 /**
  * @brief	A basic class for popup menus
- *			Use this to create mensu calling other menus, each having various sub-options
+ *			Use this to create menus calling other menus, each having various sub-options
  *			I tried to make this as orderly as possible. It's ugly, but much more clean than the first solution, which was a hardcoded mess.
  *			You will, however, still need wrapper functions (we use callbacks on member functions), see Implementation.
  */
@@ -161,5 +161,19 @@ private:
  *  This will create other boxes when needed
  */
 void TraitsMenu( INT32 usMapPos );
+
+// C17
+// not skill-related, but while we're here...
+class EquipmentSelection : public SkillMenuItem
+{
+public:
+	EquipmentSelection() {}
+
+	void Setup(UINT32 aVal);
+	void Functions(UINT32 aVal);
+};
+
+void EquipmentListMenu();
+void EquipmentListMenuCancel();
 
 #endif

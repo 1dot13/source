@@ -199,7 +199,7 @@ UINT32 guiMapInvenSortButton[4];
 
 UINT32 guiMapInvenFilterButtonImage[MAP_INVENTORY_FILTER_BUTTONS];
 UINT32 guiMapInvenFilterButton[MAP_INVENTORY_FILTER_BUTTONS];
-
+BOOLEAN guiMapInvenFilterButtonDefined[MAP_INVENTORY_FILTER_BUTTONS];
 
 
 BOOLEAN gfCheckForCursorOverMapSectorInventoryItem = FALSE;
@@ -286,6 +286,11 @@ void MapInventoryPoolEjectAmmoBtn( GUI_BUTTON *btn, INT32 reason );
 // HEADROCK HAM 5: Preliminary Filter Button
 void MapInventoryPoolFilterBtn( GUI_BUTTON *btn, INT32 reason );
 void MapInventoryPoolFilterBtnMoveItemDisplay( GUI_BUTTON *btn, INT32 reason );	// Flugente
+
+// Flugente: gear templates
+void MapInventoryWriteEquipmentTemplate(GUI_BUTTON *btn, INT32 reason);
+void MapInventoryReadEquipmentTemplate(GUI_BUTTON *btn, INT32 reason);
+
 void DisplayCurrentSector( void );
 void ResizeInventoryList( void );
 #ifdef INVFIX_Moa//dnl ch85 050214
@@ -821,7 +826,8 @@ void UpdateHelpTextForInvnentoryStashSlots( void )
 	return;
 }
 
-
+// Flugente: 
+extern void EquipmentListMenuCancel( );
 
 // create and remove buttons for inventory
 void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
@@ -1861,6 +1867,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 0 ] ]->UserData[1] = IC_MAPFILTER_ALL;
 	ButtonList[ guiMapInvenFilterButton[ 0 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 0 ] ]->UserData[3] = 0;
+	guiMapInvenFilterButtonDefined[0] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 1 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 20, 20, -1, 21, -1 );
 	guiMapInvenFilterButton[ 1 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 1 ], INVEN_POOL_X+214 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
@@ -1872,6 +1879,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 1 ] ]->UserData[1] = IC_MAPFILTER_GUN;
 	ButtonList[ guiMapInvenFilterButton[ 1 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 1 ] ]->UserData[3] = IC_MAPFILTER_GUN;
+	guiMapInvenFilterButtonDefined[1] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 2 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 22, 22, -1, 23, -1 );
 	guiMapInvenFilterButton[ 2 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 2 ], INVEN_POOL_X+214 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
@@ -1883,6 +1891,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 2 ] ]->UserData[1] = IC_MAPFILTER_AMMO;
 	ButtonList[ guiMapInvenFilterButton[ 2 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 2 ] ]->UserData[3] = IC_MAPFILTER_AMMO;
+	guiMapInvenFilterButtonDefined[2] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 3 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 24, 24, -1, 25, -1 );
 	guiMapInvenFilterButton[ 3 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 3 ], INVEN_POOL_X+243 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
@@ -1894,6 +1903,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 3 ] ]->UserData[1] = IC_MAPFILTER_EXPLOSV;
 	ButtonList[ guiMapInvenFilterButton[ 3 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 3 ] ]->UserData[3] = IC_MAPFILTER_EXPLOSV;
+	guiMapInvenFilterButtonDefined[3] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 4 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 26, 26, -1, 27, -1 );
 	guiMapInvenFilterButton[ 4 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 4 ], INVEN_POOL_X+243 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
@@ -1905,6 +1915,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 4 ] ]->UserData[1] = IC_MAPFILTER_MELEE;
 	ButtonList[ guiMapInvenFilterButton[ 4 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 4 ] ]->UserData[3] = IC_MAPFILTER_MELEE;
+	guiMapInvenFilterButtonDefined[4] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 5 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 28, 28, -1, 29, -1 );
 	guiMapInvenFilterButton[ 5 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 5 ], INVEN_POOL_X+272 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
@@ -1916,6 +1927,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 5 ] ]->UserData[1] = IC_MAPFILTER_ARMOR;
 	ButtonList[ guiMapInvenFilterButton[ 5 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 5 ] ]->UserData[3] = IC_MAPFILTER_ARMOR;
+	guiMapInvenFilterButtonDefined[5] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 6 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 30, 30, -1, 31, -1 );
 	guiMapInvenFilterButton[ 6 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 6 ], INVEN_POOL_X+272 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
@@ -1927,6 +1939,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 6 ] ]->UserData[1] = IC_MAPFILTER_LBE;
 	ButtonList[ guiMapInvenFilterButton[ 6 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 6 ] ]->UserData[3] = IC_MAPFILTER_LBE;
+	guiMapInvenFilterButtonDefined[6] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 7 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 32, 32, -1, 33, -1 );
 	guiMapInvenFilterButton[ 7 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 7 ], INVEN_POOL_X+301 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
@@ -1938,6 +1951,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 7 ] ]->UserData[1] = IC_MAPFILTER_KIT;
 	ButtonList[ guiMapInvenFilterButton[ 7 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 7 ] ]->UserData[3] = IC_MAPFILTER_KIT;
+	guiMapInvenFilterButtonDefined[7] = TRUE;
 
 	guiMapInvenFilterButtonImage[ 8 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 34, 34, -1, 35, -1 );
 	guiMapInvenFilterButton[ 8 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 8 ], INVEN_POOL_X+301 + xResOffset, INVEN_POOL_Y + 24 + yResOffset,
@@ -1949,6 +1963,7 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 8 ] ]->UserData[1] = IC_MAPFILTER_MISC;
 	ButtonList[ guiMapInvenFilterButton[ 8 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 8 ] ]->UserData[3] = IC_MAPFILTER_MISC;
+	guiMapInvenFilterButtonDefined[8] = TRUE;
 
 	// Flugente: toggle button for move item display
 	guiMapInvenFilterButtonImage[ 9 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 36, 36, -1, 37, -1 );
@@ -1963,24 +1978,33 @@ void CreateMapInventoryButtons( void )
 	ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[1] = IC_MAPFILTER_MISC;
 	ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[2] = 0;
 	ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[3] = IC_MAPFILTER_MISC;
+	guiMapInvenFilterButtonDefined[9] = TRUE;
 
-	/*
-	guiMapInvenFilterButtonImage[ 9 ]=  LoadButtonImage( "INTERFACE\\sector_inventory_buttons.sti" , 19, 17, -1, 18, -1 );
-	guiMapInvenFilterButton[ 9 ] = QuickCreateButton( guiMapInvenFilterButtonImage[ 9 ], INVEN_POOL_X+340 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
-										NULL, (GUI_CALLBACK)MapInventoryPoolFilterBtn );
+	// as no space is left, further buttons require better resolutions
+	if ( iResolution > _640x480 )
+	{
+		// Flugente: gear templates
+		guiMapInvenFilterButtonImage[10] = LoadButtonImage("INTERFACE\\sector_inventory_buttons.sti", 40, 40, -1, 40, -1);
+		guiMapInvenFilterButton[10] = QuickCreateButton(guiMapInvenFilterButtonImage[10], INVEN_POOL_X + 371 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
+			BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+			NULL, (GUI_CALLBACK)MapInventoryWriteEquipmentTemplate);
+	
+		SetButtonFastHelpText(guiMapInvenFilterButton[10], pMapScreenInvenButtonHelpText[18]);
+		guiMapInvenFilterButtonDefined[10] = TRUE;
 
-	SetButtonFastHelpText( guiMapInvenFilterButton[ 9 ], pMapScreenInvenButtonHelpText[ 17 ] );
-	ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[0] = 0;
-	ButtonList[ guiMapInvenFilterButton[ 9 ] ]->UserData[1] = 0;
-	*/
+		guiMapInvenFilterButtonImage[11] = LoadButtonImage("INTERFACE\\sector_inventory_buttons.sti", 42, 42, -1, 42, -1);
+		guiMapInvenFilterButton[11] = QuickCreateButton(guiMapInvenFilterButtonImage[11], INVEN_POOL_X + 406 + xResOffset, INVEN_POOL_Y + 10 + yResOffset,
+			BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+			NULL, (GUI_CALLBACK)MapInventoryReadEquipmentTemplate);
+
+		SetButtonFastHelpText(guiMapInvenFilterButton[11], pMapScreenInvenButtonHelpText[19]);
+		guiMapInvenFilterButtonDefined[11] = TRUE;
+	}
 
 	//reset the current inventory page to be the first page
 	iCurrentInventoryPoolPage = 0;
 
 	HandleSetFilterButtons();
-
-	return;
 }
 
 
@@ -2010,11 +2034,18 @@ void DestroyMapInventoryButtons( void )
 	UnloadButtonImage( guiMapInvenSortButtonImage[ 3 ] );
 
 	// HEADROCK HAM 5: Filter button
-	for (INT32 iCounter = 0; iCounter < MAP_INVENTORY_FILTER_BUTTONS; iCounter++)
+	for (INT32 iCounter = 0; iCounter < MAP_INVENTORY_FILTER_BUTTONS; ++iCounter)
 	{
-		RemoveButton( guiMapInvenFilterButton[ iCounter ] );
-		UnloadButtonImage( guiMapInvenFilterButtonImage[ iCounter ] );
+		if ( guiMapInvenFilterButtonDefined[ iCounter ] )
+		{
+			RemoveButton( guiMapInvenFilterButton[ iCounter ] );
+			UnloadButtonImage( guiMapInvenFilterButtonImage[ iCounter ] );
+			guiMapInvenFilterButtonDefined[ iCounter ] = FALSE;
+		}
 	}
+
+	// Flugente: destroy gear template selection, in case that thing is still open
+	EquipmentListMenuCancel( );
 
 	/*
 	// Destroy the popup.
@@ -2023,8 +2054,6 @@ void DestroyMapInventoryButtons( void )
 	gfMapInventoryFilterPopupInitialized = FALSE;
 	gfMapInventoryFilterPopupVisible = FALSE;
 	*/
-
-	return;
 }
 
 ////////////////////////////
@@ -2937,28 +2966,99 @@ void MapInventoryPoolFilterBtnMoveItemDisplay( GUI_BUTTON *btn, INT32 reason )
 			// The refresh function moves the necessary items from the Seen to the Unseen inventories, and vice versa.
 			RefreshSeenAndUnseenPools();
 
-			BlitInventoryPoolGraphic( );
+			BlitInventoryPoolGraphic();
 
 			HandleSetFilterButtons();
 		}
 	}
-	/*if (reason & MSYS_CALLBACK_REASON_RBUTTON_UP)
+}
+
+// Flugente: gear templates
+extern void WriteEquipmentTemplate(SOLDIERTYPE* pSoldier, STR16 name);
+extern void EquipmentListMenu( );
+
+void TemplateNameInputCallBack(UINT8 ubResult)
+{
+	if (ubResult == MSG_BOX_RETURN_OK && wcscmp(gszMsgBoxInputString, L"") > 0)
 	{
-		if (btn->uiFlags & (BUTTON_CLICKED_ON))
+		SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+		if (pSoldier)
 		{
-			if (btn->UserData[2] == 0)
+			WriteEquipmentTemplate(pSoldier, gszMsgBoxInputString);
+
+			// The refresh function moves the necessary items from the Seen to the Unseen inventories, and vice versa.
+			RefreshSeenAndUnseenPools();
+
+			BlitInventoryPoolGraphic();
+
+			HandleSetFilterButtons();
+		}
+	}
+	memset(gszMsgBoxInputString, 0, sizeof(gszMsgBoxInputString));
+}
+
+void MapInventoryWriteEquipmentTemplate(GUI_BUTTON *btn, INT32 reason)
+{
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN ||
+		 reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
+	{
+		if ( !(btn->uiFlags & (BUTTON_CLICKED_ON)) )
+		{
+			// Set as "clicked on", but do nothing until the mouse is released.
+			btn->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+	}
+
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if ( btn->uiFlags & (BUTTON_CLICKED_ON) )
+		{
+			SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+			if ( pSoldier )
 			{
-				MapInventoryFilterSet( btn->UserData[3] );
+				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, szGearTemplateText[0], guiCurrentScreen, MSG_BOX_FLAG_INPUTBOX, TemplateNameInputCallBack, NULL );
+			}
+		}
+	}
+}
+
+void MapInventoryReadEquipmentTemplate(GUI_BUTTON *btn, INT32 reason)
+{
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN ||
+		 reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
+	{
+		if ( !(btn->uiFlags & (BUTTON_CLICKED_ON)) )
+		{
+			// Set as "clicked on", but do nothing until the mouse is released.
+			btn->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+	}
+
+	if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		if ( btn->uiFlags & (BUTTON_CLICKED_ON) )
+		{
+			SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+			if ( pSoldier &&
+				 pSoldier->sSectorX == sSelMapX && pSoldier->sSectorY == sSelMapY && pSoldier->bSectorZ == iCurrentMapSectorZ &&
+				 !pSoldier->flags.fBetweenSectors )
+			{
+				if ( (gTacticalStatus.uiFlags & INCOMBAT || gTacticalStatus.fEnemyInSector) )
+				{
+					DoScreenIndependantMessageBox( szGearTemplateText[1], MSG_BOX_FLAG_OK, NULL );
+				}
+				else
+				{
+					// open the menu
+					EquipmentListMenu( );
+				}
 			}
 			else
 			{
-				MapInventoryFilterToggle( btn->UserData[3] );
+				DoScreenIndependantMessageBox( szGearTemplateText[2], MSG_BOX_FLAG_OK, NULL );
 			}
-
-			// HEADROCK HAM 5: Disabled for now, as we've got buttons for this.
-			//CreateMapInventoryFilterMenu( );
 		}
-	}*/
+	}
 }
 
 // HEADROCK HAM 5: Zoom button.
@@ -5138,7 +5238,11 @@ void SortSectorInventorySeparateAttachments()
 				while ((size = pInventoryItem->object[x]->attachments.size()) != cnt)
 				{
 					OBJECTTYPE * pNewObj = new OBJECTTYPE();
-					gpTempObject = pInventoryItem->object[x]->GetAttachmentAtIndex(size - 1 - cnt);
+
+					// Flugente: prevent an underflow
+					UINT8 attindex = size > cnt ? size - 1 - cnt : 0;
+
+					gpTempObject = pInventoryItem->object[x]->GetAttachmentAtIndex( attindex );
 
 					//WarmSteel - This actually still works with NAS, be it by accident
 					if (gpTempObject != NULL && pInventoryItem->object.RemoveAttachment(gpTempObject, pNewObj, x))
@@ -5153,13 +5257,13 @@ void SortSectorInventorySeparateAttachments()
 					}
 					else
 					{
-						cnt++;
+						++cnt;
 					}
 
-					uiLoopCnt++;
+					++uiLoopCnt;
 
 					// Failsafe
-					if (uiLoopCnt > 100)
+					if (uiLoopCnt > 50)
 					{
 						break;
 					}
@@ -5260,6 +5364,83 @@ void SortSectorInventoryStackAndMerge(bool ammoOnly )
 
 	// Dirty!
 	fMapPanelDirty = TRUE;
+}
+
+// Flugente: on a key press, we loop over each team members' inventory and exchange it with world items that have a higher status
+// however, we ignore items that have inseparable attachments
+// the goal is to simulate the player manually changing items, as that is rather tedious
+BOOL GetBetterObject_InventoryPool(UINT16 usItem, INT16 status, UINT32& arLoop, UINT8& arIndex)
+{
+	OBJECTTYPE* pBestObj = NULL;
+
+	INT16	beststatus = status;
+	BOOLEAN	found = FALSE;
+
+	for (UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); ++uiLoop)				// ... for all items in the world ...
+	{
+		if (pInventoryPoolList[uiLoop].object.exists() &&
+			pInventoryPoolList[uiLoop].usFlags & WORLD_ITEM_REACHABLE &&
+			!(pInventoryPoolList[uiLoop].usFlags & WORLD_ITEM_ARMED_BOMB) &&
+			pInventoryPoolList[uiLoop].bVisible == VISIBLE &&
+			pInventoryPoolList[uiLoop].object.usItem == usItem)
+		{
+			OBJECTTYPE* pObj = &(pInventoryPoolList[uiLoop].object);
+
+			if (pObj != NULL )
+			{
+				for (UINT8 i = 0; i < pObj->ubNumberOfObjects; ++i)
+				{
+					if ((*pObj)[i]->data.objectStatus > beststatus)
+					{
+						// ignore if there are inseparable attachments - we wouldn't be able to change those by hand
+						attachmentList::iterator iterend = (*pObj)[i]->attachments.end();
+						for (attachmentList::iterator iter = (*pObj)[i]->attachments.begin(); iter != iterend; ++iter)
+						{
+							if (iter->exists() && Item[iter->usItem].inseparable)
+							{
+								continue;
+							}
+						}
+
+						beststatus = (*pObj)[i]->data.objectStatus;
+						arLoop = uiLoop;
+						arIndex = i;
+						found = TRUE;
+					}
+				}
+			}
+		}
+	}
+
+	return found;
+}
+
+// Flugente: tell us the position of the first inventory item with a fitting calibre and ammotype
+BOOL GetFittingAmmo_InventoryPool( UINT8 usCalibre, UINT8 usAmmoType, UINT32& arLoop )
+{
+	for ( UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size( ); ++uiLoop )
+	{
+		if ( pInventoryPoolList[uiLoop].object.exists( ) &&
+			 pInventoryPoolList[uiLoop].usFlags & WORLD_ITEM_REACHABLE &&
+			 !(pInventoryPoolList[uiLoop].usFlags & WORLD_ITEM_ARMED_BOMB) &&
+			 pInventoryPoolList[uiLoop].bVisible == VISIBLE &&
+			 (Item[pInventoryPoolList[uiLoop].object.usItem].usItemClass & IC_AMMO) )
+		{
+			UINT16 usMagIndex = Item[pInventoryPoolList[uiLoop].object.usItem].ubClassIndex;
+
+			if ( usCalibre == Magazine[usMagIndex].ubCalibre )
+			{
+				if ( usAmmoType == Magazine[usMagIndex].ubAmmoType )
+				{						
+					arLoop = uiLoop;
+
+					return TRUE;
+				}
+			}
+		}
+	}
+
+	return FALSE;
 }
 
 // HEADROCK HAM 5: This is a helper function that puts together all seen and unseen items from the two
@@ -5767,96 +5948,126 @@ void MapInventoryFilterSet( UINT32 uiFlags )
 void HandleSetFilterButtons()
 {
 	// Show/Hide All button always off.
-	ButtonList[guiMapInvenFilterButton[ 0 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+	if ( guiMapInvenFilterButtonDefined[0] )
+	{
+		ButtonList[guiMapInvenFilterButton[ 0 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+	}
 
 	// Guns
-	if (guiMapInventoryFilter & IC_MAPFILTER_GUN)
+	if ( guiMapInvenFilterButtonDefined[1] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 1 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 1 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if (guiMapInventoryFilter & IC_MAPFILTER_GUN)
+		{
+			ButtonList[guiMapInvenFilterButton[ 1 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 1 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// Ammo
-	if (guiMapInventoryFilter & IC_MAPFILTER_AMMO)
+	if ( guiMapInvenFilterButtonDefined[2] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 2 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 2 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if (guiMapInventoryFilter & IC_MAPFILTER_AMMO)
+		{
+			ButtonList[guiMapInvenFilterButton[ 2 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 2 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// Explosives
-	if (guiMapInventoryFilter & IC_MAPFILTER_EXPLOSV)
+	if ( guiMapInvenFilterButtonDefined[3] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 3 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 3 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if (guiMapInventoryFilter & IC_MAPFILTER_EXPLOSV)
+		{
+			ButtonList[guiMapInvenFilterButton[ 3 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 3 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// Melee Weapons
-	if (guiMapInventoryFilter & IC_MAPFILTER_MELEE)
-	{
-		ButtonList[guiMapInvenFilterButton[ 4 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 4 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+	if ( guiMapInvenFilterButtonDefined[4] )
+		{
+		if (guiMapInventoryFilter & IC_MAPFILTER_MELEE)
+		{
+			ButtonList[guiMapInvenFilterButton[ 4 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 4 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// Armor
-	if (guiMapInventoryFilter & IC_MAPFILTER_ARMOR)
+	if ( guiMapInvenFilterButtonDefined[5] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 5 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 5 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if (guiMapInventoryFilter & IC_MAPFILTER_ARMOR)
+		{
+			ButtonList[guiMapInvenFilterButton[ 5 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 5 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// LBEs
-	if (guiMapInventoryFilter & IC_MAPFILTER_LBE)
+	if ( guiMapInvenFilterButtonDefined[6] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 6 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 6 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if (guiMapInventoryFilter & IC_MAPFILTER_LBE)
+		{
+			ButtonList[guiMapInvenFilterButton[ 6 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 6 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// Kits
-	if (guiMapInventoryFilter & IC_MAPFILTER_KIT)
+	if ( guiMapInvenFilterButtonDefined[7] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 7 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 7 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if (guiMapInventoryFilter & IC_MAPFILTER_KIT)
+		{
+			ButtonList[guiMapInvenFilterButton[ 7 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 7 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// Misc. Items
-	if (guiMapInventoryFilter & IC_MAPFILTER_MISC)
+	if ( guiMapInvenFilterButtonDefined[8] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 8 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 8 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if (guiMapInventoryFilter & IC_MAPFILTER_MISC)
+		{
+			ButtonList[guiMapInvenFilterButton[ 8 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 8 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 
 	// Flugente: move item display
-	if ( IsShowMoveItem() )
+	if ( guiMapInvenFilterButtonDefined[9] )
 	{
-		ButtonList[guiMapInvenFilterButton[ 9 ]]->uiFlags |= (BUTTON_CLICKED_ON);
-	}
-	else
-	{
-		ButtonList[guiMapInvenFilterButton[ 9 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		if ( IsShowMoveItem() )
+		{
+			ButtonList[guiMapInvenFilterButton[ 9 ]]->uiFlags |= (BUTTON_CLICKED_ON);
+		}
+		else
+		{
+			ButtonList[guiMapInvenFilterButton[ 9 ]]->uiFlags &=~ (BUTTON_CLICKED_ON);
+		}
 	}
 }
 

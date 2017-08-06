@@ -2833,8 +2833,9 @@ STR16 pSkillMenuStrings[] =
 	L"Other Squads",
 	L"Cancel",
 	L"%d Militia",
-
 	L"All Militia",
+
+	L"More",
 };
 
 STR16 pSnitchMenuStrings[] =
@@ -11248,6 +11249,15 @@ STR16	szLaptopStatText[] =
 	L"Direct approach",
 	L"Threaten approach",
 	L"Recruit approach",
+};
+
+STR16	szGearTemplateText[] =
+{
+	L"Enter Template Name",
+	L"Not possible during combat.",
+	L"Selected mercenary is not in this sector.",
+	L"%s is not in that sector.",
+	L"%s could not equip %s.",
 };
 
 #endif //ENGLISH

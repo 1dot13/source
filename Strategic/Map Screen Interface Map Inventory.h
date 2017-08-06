@@ -8,7 +8,7 @@
 #define MAX_DISTANCE_TO_PICKUP_ITEM 5
 
 // Flugente: number of map inventory filter buttons
-#define	MAP_INVENTORY_FILTER_BUTTONS	10	// Flugente: 9 -> 10
+#define	MAP_INVENTORY_FILTER_BUTTONS	12	// Flugente: 9 -> 12
 
 // number of inventory slots
 //#define MAP_INVENTORY_POOL_SLOT_COUNT				84	//45	//45

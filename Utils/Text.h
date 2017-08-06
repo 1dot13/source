@@ -167,6 +167,7 @@ enum
 	SKILLMENU_CANCEL,
 	SKILLMENU_X_MILITIA,
 	SKILLMENU_ALL_MILITIA,
+	SKILLMENU_MORE,
 };
 
 extern STR16 pSkillMenuStrings[];			//Flugente
@@ -2991,6 +2992,9 @@ extern STR16	szSMilitiaResourceText[];
 extern STR16	szInteractiveActionText[];
 
 extern STR16	szLaptopStatText[];
+
+// Flugente: gear templates
+extern STR16	szGearTemplateText[];
 
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16

@@ -2837,8 +2837,9 @@ STR16 pSkillMenuStrings[] =
 	L"其他队伍",
 	L"取消",
 	L"%d 民兵",
-
 	L"所有民兵",
+
+	L"More",
 };
 
 STR16 pSnitchMenuStrings[] =
@@ -11249,6 +11250,15 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 	L"Direct approach",
 	L"Threaten approach",
 	L"Recruit approach",
+};
+
+STR16	szGearTemplateText[] =	// TODO.Translate
+{
+	L"Enter Template Name",
+	L"Not possible during combat.",
+	L"Selected mercenary is not in this sector.",
+	L"%s is not in that sector.",
+	L"%s could not equip %s.",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

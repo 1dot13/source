@@ -12,6 +12,15 @@
 #include "worldman.h"
 #include "Queen Command.h"
 #include "strategicmap.h"
+#include "Map Screen Interface.h"
+
+extern void GetEquipmentTemplates( );
+
+std::vector<std::string> gTemplateVector;
+
+extern void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name );
+
+extern INT8 bSelectedInfoChar;
 
 // sevenfm: need this for correct calculation of traits menu position
 extern INT16 gsInterfaceLevel;
@@ -739,4 +748,142 @@ void TraitsMenu( INT32 usMapPos )
 	sTraitsMenuTargetGridNo = usMapPos;
 
 	gTraitSelection.Setup(0);
+}
+
+/////////////////////////////// Trait Selection ////////////////////////////////////////////
+EquipmentSelection	gEquipmentSelection;
+
+void Wrapper_Function_EquipmentSelection(UINT32 aVal) { gEquipmentSelection.Functions(aVal); }
+void Wrapper_Setup_EquipmentSelection(UINT32 aVal) { gEquipmentSelection.Setup(aVal); }
+void Wrapper_Cancel_EquipmentSelection(UINT32 aVal) { gEquipmentSelection.Cancel(); }
+/////////////////////////////// Trait Selection ////////////////////////////////////////////
+
+/////////////////////////////// Trait Selection ////////////////////////////////////////////
+UINT32 gEquipmentSelectionFirstEntryShown = 0;
+UINT32 gEquipmentSelectionLastEntryShown = 0;
+UINT32 gEquipmentSelectionMaxEntriesShown = 0;
+
+void
+EquipmentSelection::Setup(UINT32 aVal)
+{
+	Destroy();
+
+	SetupPopup("EquipmentSelection");
+	
+	INT16 sX = 261 + 406 + xResOffset + 30;
+	INT16 sY = 0 + 10 + yResOffset + 30;
+
+	if ( sX < 0 ) sX = 0;
+	if ( sY < 0 ) sY = 0;
+
+	usTraitMenuPosX = sX + 30;
+	usTraitMenuPosY = sY;
+
+	if ( (usTraitMenuPosX + 400) > SCREEN_WIDTH )
+		usTraitMenuPosX = SCREEN_WIDTH - 400;
+
+	if ( (usTraitMenuPosY + 130) > SCREEN_HEIGHT )
+		usTraitMenuPosY = SCREEN_HEIGHT - 190;
+
+	POPUP_OPTION *pOption;
+
+	CHAR16 pStr[300];
+
+	// create entries for the sub-menus for each trait
+	GetEquipmentTemplates();
+
+	// we limit the maximum number of entries shown at once - too many entries could theoretically cause the button system to freak out
+	gEquipmentSelectionMaxEntriesShown = min(40, max( 0, (SCREEN_HEIGHT - 150 - usTraitMenuPosY) / 12 ) );
+
+	gEquipmentSelectionLastEntryShown = min( gEquipmentSelectionFirstEntryShown + gEquipmentSelectionMaxEntriesShown, gTemplateVector.size( ) );
+
+	if ( gEquipmentSelectionLastEntryShown < gEquipmentSelectionMaxEntriesShown )
+		gEquipmentSelectionFirstEntryShown = 0;
+	else
+		gEquipmentSelectionFirstEntryShown = gEquipmentSelectionLastEntryShown - gEquipmentSelectionMaxEntriesShown;
+	
+	UINT32 cnt = gEquipmentSelectionFirstEntryShown;
+	for ( UINT32 i = gEquipmentSelectionFirstEntryShown; i < gEquipmentSelectionLastEntryShown; ++i )
+	{
+		//std::string str8 = (*it);
+		std::string str8 = gTemplateVector[i];
+
+		std::size_t found = str8.find_last_of( "." );
+
+		std::string str82 = str8.substr( 0, found );
+		
+		const char* coca = str82.c_str( );
+
+		CHAR16 tmpchar[256];
+
+		int nChars = MultiByteToWideChar( CP_ACP, 0, coca, -1, NULL, 0 );
+		MultiByteToWideChar( CP_UTF8, 0, coca, -1, tmpchar, nChars );
+
+		pOption = new POPUP_OPTION( &std::wstring( tmpchar ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_EquipmentSelection, i ) );
+
+		pOption->color_foreground = FONT_GREEN;
+
+		GetPopup()->addOption(*pOption);
+	}
+
+	// 'more' option (moves down list)
+	if ( gEquipmentSelectionMaxEntriesShown < gTemplateVector.size( ) )
+	{
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_MORE] );
+		pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_EquipmentSelection, 99999 ) );
+		GetPopup( )->addOption( *pOption );
+	}
+	
+	// cancel option
+	swprintf(pStr, pSkillMenuStrings[SKILLMENU_CANCEL]);
+	pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_EquipmentSelection, 99998 ) );
+	GetPopup()->addOption(*pOption);
+	
+	SetPos(usTraitMenuPosX, usTraitMenuPosY);
+}
+
+void
+EquipmentSelection::Functions(UINT32 aVal)
+{
+	// this special value allows to 'scroll down'
+	if ( aVal == 99999 )
+	{
+		gEquipmentSelectionFirstEntryShown += gEquipmentSelectionMaxEntriesShown;
+
+		if ( gEquipmentSelectionFirstEntryShown >= gTemplateVector.size( ) )
+			gEquipmentSelectionFirstEntryShown = 0;
+
+		Cancel( );
+
+		EquipmentListMenu();
+	}
+	else if ( aVal == 99998 )
+	{
+		gEquipmentSelectionFirstEntryShown = 0;
+
+		Cancel( );
+	}
+	else if ( aVal < gTemplateVector.size( ) )
+	{
+		SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+		if ( pSoldier )
+		{
+			std::string name = gTemplateVector[aVal];
+
+			ReadEquipmentTable( pSoldier, name );
+		}
+
+		// Note that we don't close menu - this way we don't have to open it every time we want to apply a template
+	}
+}
+/////////////////////////////// Trait Selection ////////////////////////////////////////////
+
+void EquipmentListMenu()
+{
+	gEquipmentSelection.Setup(0);
+}
+
+void EquipmentListMenuCancel()
+{
+	gEquipmentSelection.Cancel();
 }
