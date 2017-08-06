@@ -6009,24 +6009,22 @@ BOOLEAN ReloadItemDesc( )
 void RenderBulletIcon(OBJECTTYPE *pObject, UINT32 ubStatusIndex)
 {
 	CHAR16		pStr[10];
-	CHAR8		ubString[48];
-
-	if(pObject->exists() == false)
-		return;
-
-	if(!gfInItemDescBox)
-		return;
 
 	// Flugente: if the ammo button does not exist, no point in entering its text...
 	if ( giItemDescAmmoButton < 0 )
 		return;
 
-	if ( GetMagSize(pObject) <= 99 )
-		swprintf( pStr, L"%d/%d", (*pObject)[ubStatusIndex]->data.gun.ubGunShotsLeft, GetMagSize(pObject));
+	if ( !gfInItemDescBox )
+		return;
+
+	if ( pObject->exists( ) == false )
+		return;
+
+	UINT16 magsize = GetMagSize( pObject );
+	if ( magsize <= 99 )
+		swprintf( pStr, L"%d/%d", (*pObject)[ubStatusIndex]->data.gun.ubGunShotsLeft, magsize );
 	else
 		swprintf( pStr, L"%d", (*pObject)[ubStatusIndex]->data.gun.ubGunShotsLeft );
-
-	FilenameForBPP("INTERFACE\\infobox.sti", ubString);
 
 	SpecifyButtonText( giItemDescAmmoButton, pStr );
 }
@@ -6902,6 +6900,11 @@ void RenderItemDescriptionBox( )
 				}
 			}
 		}
+
+		// Flugente: redraw bullet count
+		if ( giItemDescAmmoButton > -1 && ButtonList[giItemDescAmmoButton]->uiFlags & BUTTON_DIRTY )
+			RenderBulletIcon( gpItemDescObject, gubItemDescStatusIndex );
+
 		//Display the money 'seperating' border
  		if ( gpItemDescObject->usItem == MONEY )
 		{
