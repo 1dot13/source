@@ -440,7 +440,7 @@ void ASDDecideHeliOperations()
 				{
 					if ( pSamList[x] == sector )
 					{
-						rating += 20;
+						rating += 30;
 
 						break;
 					}
@@ -452,12 +452,13 @@ void ASDDecideHeliOperations()
 				UINT16 num_mercs = NumPlayerTeamMembersInSector( sX, sY, 0);
 				if ( num_militia + num_mercs )
 				{
-					if ( num_militia + num_mercs > 2 * gEnemyHeliMaxTroops )
+					// mercs are much more dangerous than militia, so increase their weight
+					if ( num_militia + 2.5f * num_mercs > 2 * gEnemyHeliMaxTroops )
 						rating = 0;
-					else if ( num_militia + num_mercs > gEnemyHeliMaxTroops )
+					else if ( num_militia + 2.5f * num_mercs > gEnemyHeliMaxTroops )
 						rating /= 2;
 					// only a very small garrison - we can wipe them out with no risk and add losses to the player. We should totally do that!
-					else if ( num_militia + num_mercs < gEnemyHeliMaxTroops )
+					else if ( num_militia + 2.5f * num_mercs < gEnemyHeliMaxTroops )
 						rating *= 1.5f;
 				}
 
