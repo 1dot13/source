@@ -1441,9 +1441,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 //SendFmtMsg("CalcBestThrow=%d APs=%d mat=%d gno=%d", ubChanceToHit, ubRawAPCost, ubMaxPossibleAimTime, sGridNo);
 				}
 
-				// mortars are inherently quite inaccurate, don't get proximity bonus
-				// rockets can go right past people too so...
-				if (!Item[usInHand].mortar && EXPLOSIVE_GUN( usInHand ) )
+				// no bonus for RPGs as they can miss too much
+				if ( !EXPLOSIVE_GUN( usInHand ) )
 				{
 					// special 50% to Hit bonus: this reflects that even if a tossed item
 					// misses by a bit, it's still likely to affect the intended target(s)
@@ -1502,29 +1501,24 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		}
 	}
 
-	// this is try to minimize enemies wasting their (limited) toss attacks:
-	switch( ubDiff )
+	// this is try to minimize enemies wasting their (limited) toss attacks:	
+	UINT8 ubMinChanceToReallyHit;
+
+	if( usGrenade != NOTHING && Item[usGrenade].flare )
 	{
-	case 0:
-	case 1:
-		// don't use unless have a 70% chance to hit
-		if (pBestThrow->ubChanceToReallyHit < 70)
-		{
-			pBestThrow->ubPossible = FALSE;
-		}
-		break;
-	case 2:
-	case 3:
-	case 4:
-		// don't use unless have a 50% chance to hit
-		if (pBestThrow->ubChanceToReallyHit < 50)
-		{
-			pBestThrow->ubPossible = FALSE;
-		}
-		break;
-	default:
-		break;
+		ubMinChanceToReallyHit = 30;
 	}
+	else
+	{
+		// 80-40% depending on soldier difficulty
+		ubMinChanceToReallyHit = 80 - 10 * ubDiff;
+	}
+
+	if( pBestThrow->ubChanceToReallyHit < ubMinChanceToReallyHit )
+	{
+		pBestThrow->ubPossible = FALSE;
+	}
+	
 //if(pBestThrow->ubPossible)SendFmtMsg("CalcBestThrow;\r\n  ID=%d Loc=%d APs=%d Ac=%d AcData=%d Al=%d, SM=%d, LAc=%d, NAc=%d AT=%d\r\n  AP?=%d,%d,%d/%d BS=%d", pSoldier->ubID, pSoldier->sGridNo, pSoldier->bActionPoints, pSoldier->aiData.bAction, pSoldier->aiData.usActionData, pSoldier->aiData.bAlertStatus, pBestThrow->bScopeMode, pSoldier->aiData.bLastAction, pSoldier->aiData.bNextAction, pBestThrow->ubAimTime, pBestThrow->ubAPCost, CalcAPCostForAiming(pSoldier, pBestThrow->sTarget, (INT8)pBestThrow->ubAimTime), CalcTotalAPsToAttack(pSoldier, pBestThrow->sTarget, TRUE, pBestThrow->ubAimTime), CalcTotalAPsToAttack(pSoldier, pBestThrow->sTarget, FALSE, pBestThrow->ubAimTime), pBestThrow->ubStance);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow done");
 }

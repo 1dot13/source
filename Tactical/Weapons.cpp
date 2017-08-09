@@ -10523,7 +10523,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 			if ( Item[ usHandItem ].mortar )
 			{
 				if (HAS_SKILL_TRAIT( pSoldier, HEAVY_WEAPONS_NT ))
-					iChance += (gSkillTraitValues.sCtHModifierMortar * max( 0, ((100 - gSkillTraitValues.ubHWMortarCtHPenaltyReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ))/100)));
+					iChance += gSkillTraitValues.sCtHModifierMortar * max( 0, 100 - gSkillTraitValues.ubHWMortarCtHPenaltyReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT )) / 100;
 				else
 					iChance += gSkillTraitValues.sCtHModifierMortar; // -60% for untrained mercs
 			}

@@ -360,7 +360,7 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE | VSURFACE_CREATE_FROMPNG_FALLBACK;
 
 	szSector = szSectorMap [gWorldSectorY][gWorldSectorX];
-	const BOOLEAN fExternalLS = (szSector != NULL && szSector != "N") && ((DAY <= ubLoadScreenID && ubLoadScreenID <= NIGHT_ALT) || (ubLoadScreenID == UNDERGROUND));
+	const BOOLEAN fExternalLS = (szSector != NULL && strcmp(szSector, "N") != 0) && ((DAY <= ubLoadScreenID && ubLoadScreenID <= NIGHT_ALT) || (ubLoadScreenID == UNDERGROUND));
 	
 	if (fExternalLS)
 	{
