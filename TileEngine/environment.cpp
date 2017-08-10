@@ -913,6 +913,10 @@ void	ChangeWeather( UINT8 aSector, UINT8 aType )
 
 UINT8	GetWeatherInCurrentSector()
 {
+	// no weather underground!
+	if ( gbWorldSectorZ )
+		return WEATHER_FORECAST_NORMAL;
+	
 	return SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather;
 }
 
