@@ -3405,6 +3405,7 @@ STR16 gpStrategicString[] =
 	L"AANVAL BEEST",							//STR_PB_CREATUREATTACK_HEADER
 	L"BLOODCAT VAL",							//STR_PB_BLOODCATAMBUSH_HEADER
 	L"BINNENGAAN HOL BLOODCAT",			//STR_PB_ENTERINGBLOODCATLAIR_HEADER
+	L"ENEMY AIRDROP",					//STR_PB_ENEMYINVASION_AIRDROP_HEADER	// TODO.Translate
 
 	//Various single words for direct translation.  The Civilians represent the civilian
 	//militia occupying the sector being attacked.  Limited to 9-10 chars

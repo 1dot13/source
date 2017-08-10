@@ -3405,6 +3405,7 @@ STR16 gpStrategicString[] =
 	L"异形攻击",					//STR_PB_CREATUREATTACK_HEADER
 	L"血猫伏击",					//STR_PB_BLOODCATAMBUSH_HEADER
 	L"进入血猫巢穴",
+	L"ENEMY AIRDROP",					//STR_PB_ENEMYINVASION_AIRDROP_HEADER	// TODO.Translate
 
 	//Various single words for direct translation.  The Civilians represent the civilian
 	//militia occupying the sector being attacked.  Limited to 9-10 chars

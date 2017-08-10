@@ -436,7 +436,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 						gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
 						gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
 						gubEnemyEncounterCode == CREATURE_ATTACK_CODE ||
-						gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+						gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
+						gubEnemyEncounterCode == ENEMY_INVASION_AIRDROP_CODE )
 		{ //use same code
 			gubExplicitEnemyEncounterCode = gubEnemyEncounterCode;
 		}
@@ -615,7 +616,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		{
 			if ( gubSpecialEncounterCodeForEnemyHeli )
 			{
-				gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+				if ( gubEnemyEncounterCode != ENEMY_INVASION_AIRDROP_CODE )
+					gubEnemyEncounterCode = ENEMY_INVASION_CODE;
 			}
 			else
 			{
@@ -894,6 +896,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			case CREATURE_ATTACK_CODE:
 			case ENEMY_ENCOUNTER_CODE:
 			case ENEMY_INVASION_CODE:
+			case ENEMY_INVASION_AIRDROP_CODE:
 				SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 2 ] );
 				break;
 			case ENTERING_ENEMY_SECTOR_CODE:
@@ -1158,6 +1161,9 @@ void RenderPBHeader( INT32 *piX, INT32 *piWidth)
 			break;
 		case ENTERING_BLOODCAT_LAIR_CODE:
 			swprintf( str, gpStrategicString[ STR_PB_ENTERINGBLOODCATLAIR_HEADER ] );
+			break;
+		case ENEMY_INVASION_AIRDROP_CODE:
+			swprintf( str, gpStrategicString[STR_PB_ENEMYINVASION_AIRDROP_HEADER] );
 			break;
 	}
 	width = StringPixLength( str, FONT10ARIALBOLD );
@@ -1545,7 +1551,8 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 			if ( gfPersistantPBI && gpBattleGroup && gpBattleGroup->usGroupTeam == OUR_TEAM &&
 				gubEnemyEncounterCode != ENEMY_AMBUSH_CODE &&
 				gubEnemyEncounterCode != CREATURE_ATTACK_CODE &&
-				gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE )
+				gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE &&
+				gubEnemyEncounterCode != ENEMY_INVASION_AIRDROP_CODE )
 			{
 				gfEnterTacticalPlacementGUI = TRUE;
 			}
@@ -2350,6 +2357,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				break;
 			case ENEMY_AMBUSH_CODE:
 			case ENEMY_AMBUSH_DEPLOYMENT_CODE:
+			case ENEMY_INVASION_AIRDROP_CODE:
 				AddHistoryToPlayersLog( HISTORY_WIPEDOUTENEMYAMBUSH, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENTERING_ENEMY_SECTOR_CODE:
@@ -2379,6 +2387,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				break;
 			case ENEMY_AMBUSH_CODE:
 			case ENEMY_AMBUSH_DEPLOYMENT_CODE:
+			case ENEMY_INVASION_AIRDROP_CODE:
 				AddHistoryToPlayersLog( HISTORY_FATALAMBUSH, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENTERING_ENEMY_SECTOR_CODE:
@@ -2411,6 +2420,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 		case ENEMY_AMBUSH_CODE:
 		case BLOODCAT_AMBUSH_CODE:
 		case ENEMY_AMBUSH_DEPLOYMENT_CODE:
+		case ENEMY_INVASION_AIRDROP_CODE:
 			gCurrentIncident.usIncidentFlags |= (INCIDENT_ATTACK_ENEMY|INCIDENT_AMBUSH);
 			break;
 	}

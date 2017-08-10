@@ -5996,7 +5996,7 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 	BOOLEAN fCombatAbleMerc = FALSE;
 	BOOLEAN fBloodCatAmbush = FALSE;
 	
-	gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+	gubEnemyEncounterCode = ENEMY_INVASION_AIRDROP_CODE;
 
 	gubSectorIDOfCreatureAttack = SECTOR(sX, sY);
 

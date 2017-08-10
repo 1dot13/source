@@ -3415,7 +3415,8 @@ STR16 gpStrategicString[] =
 	L"FEINDLICHEN SEKTOR BETRETEN",				
 	L"MONSTERANGRIFF",
 	L"BLOODCAT-HINTERHALT",							
-	L"BLOODCAT-HÖHLE BETRETEN",			
+	L"BLOODCAT-HÖHLE BETRETEN",
+	L"ENEMY AIRDROP",					//STR_PB_ENEMYINVASION_AIRDROP_HEADER	// TODO.Translate
 
 	//Various single words for direct translation. The Civilians represent the civilian
 	//militia occupying the sector being attacked. Limited to 9-10 chars

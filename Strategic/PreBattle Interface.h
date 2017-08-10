@@ -41,6 +41,7 @@ enum
 	HOSTILE_BLOODCATS_CODE,
 
 	ENEMY_AMBUSH_DEPLOYMENT_CODE,	// Flugente: an ambush in which we can deploy our mercs (somewhat)
+	ENEMY_INVASION_AIRDROP_CODE,	// Flugente: enemy airdrop
 };
 
 extern BOOLEAN gfAutoAmbush;

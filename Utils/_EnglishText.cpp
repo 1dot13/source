@@ -3401,6 +3401,7 @@ STR16 gpStrategicString[] =
 	L"CREATURE ATTACK",							//STR_PB_CREATUREATTACK_HEADER
 	L"BLOODCAT AMBUSH",							//STR_PB_BLOODCATAMBUSH_HEADER
 	L"ENTERING BLOODCAT LAIR",			//STR_PB_ENTERINGBLOODCATLAIR_HEADER
+	L"ENEMY AIRDROP",					//STR_PB_ENEMYINVASION_AIRDROP_HEADER
 
 	//Various single words for direct translation.  The Civilians represent the civilian
 	//militia occupying the sector being attacked.  Limited to 9-10 chars
