@@ -9667,7 +9667,8 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 							ammoitem = (*pObj)[i]->data.gun.usGunAmmoItem;
 							for ( std::vector<GEAR_NODE>::iterator it = vec.begin( ); it != vec.end( ); ++it )
 							{
-								if ( (*it).slot == slot && (*it).item == pObj->usItem )
+								// use the ammotype of the node, provided it exists and fits the gun or a wildcard
+								if ( (*it).slot == slot && (*it).ammoitem != NOTHING && ( (*it).item == pObj->usItem || (*it).item == NOTHING ) )
 								{
 									ammoitem = (*it).ammoitem;
 									break;
