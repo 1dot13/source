@@ -664,7 +664,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, ELITE_MILITIA, bElitesDestTeam );
 
 			// Flugente: move along individual militia data
-			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), bGreensDestTeam, bRegularsDestTeam, bElitesDestTeam );
+			MoveIndividualMilitiaProfiles( SECTOR( sMapX, sMapY ), SECTOR( sTMapX, sTMapY ), greens, regulars, elites );
 
 			// Add half team to target sector
 			StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, bGreensDestTeam );

@@ -2379,6 +2379,9 @@ void HandleMilitiaUpkeepPayment( void )
 						// Increase tally of militia removed
 						++uiNumMilitiaDisbanded;
 						++usElitesDisbanded;
+
+						// Flugente: individual militia profiles need to be adjusted
+						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 0, 0, 1 );
 					}
 					else if (MilitiaList[0].ubNumMobileRegulars > 0)
 					{
@@ -2387,6 +2390,8 @@ void HandleMilitiaUpkeepPayment( void )
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[REGULAR_MILITIA];
 						++uiNumMilitiaDisbanded;
 						++usRegularsDisbanded;
+
+						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 0, 1, 0 );
 					}
 					else if (MilitiaList[0].ubNumMobileGreens > 0)
 					{
@@ -2395,6 +2400,8 @@ void HandleMilitiaUpkeepPayment( void )
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[GREEN_MILITIA];
 						++uiNumMilitiaDisbanded;
 						++usGreenDisbanded;
+
+						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 1, 0, 0 );
 					}							
 					else if (MilitiaList[0].ubNumTownElites > 0)
 					{
@@ -2403,6 +2410,8 @@ void HandleMilitiaUpkeepPayment( void )
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTown[ELITE_MILITIA];
 						++uiNumMilitiaDisbanded;
 						++usElitesDisbanded;
+
+						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 0, 0, 1 );
 					}
 					else if (MilitiaList[0].ubNumTownRegulars > 0)
 					{
@@ -2411,6 +2420,8 @@ void HandleMilitiaUpkeepPayment( void )
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTown[REGULAR_MILITIA];
 						++uiNumMilitiaDisbanded;
 						++usRegularsDisbanded;
+
+						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 0, 1, 0 );
 					}
 					else if (MilitiaList[0].ubNumTownGreens > 0)
 					{
@@ -2419,6 +2430,8 @@ void HandleMilitiaUpkeepPayment( void )
 						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostTown[GREEN_MILITIA];
 						++uiNumMilitiaDisbanded;
 						++usGreenDisbanded;
+
+						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 1, 0, 0 );
 					}
 					else
 					{
@@ -2433,9 +2446,6 @@ void HandleMilitiaUpkeepPayment( void )
 				// Pay all we can
 				uiPayment = LaptopSaveInfo.iCurrentBalance;
 				
-				// Flugente: individual militia
-				DisbandIndividualMilitia( MilitiaList[0].ubSectorId, usGreenDisbanded, usRegularsDisbanded, usElitesDisbanded );
-
 				// Notify player that X militia have been automatically disbanded due to debt.
 				CHAR16 sString[256];
 				swprintf( sString, New113HAMMessage[21], uiNumMilitiaDisbanded );

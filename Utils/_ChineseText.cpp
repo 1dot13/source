@@ -5122,18 +5122,17 @@ STR16 pWebPagesTitles[] =
 	L"%s新闻发布会 - 战役报告",
 	L"%s新闻发布会 - 最新消息",
 	L"%s新闻发布会 - 关于我们",
-	L"佣兵喜欢或不喜欢你 - 家",			 //L"Mercs Love or Dislike You - Home",
+	L"佣兵喜欢或不喜欢你 - 关于我们", //L"Mercs Love or Dislike You - About us",
 	L"佣兵喜欢或不喜欢你 - 队伍分析", //L"Mercs Love or Dislike You - Analyze a team",
 	L"佣兵喜欢或不喜欢你 - 成对对比", //L"Mercs Love or Dislike You - Pairwise comparison",
-	L"佣兵喜欢或不喜欢你 - 关于我们", //L"Mercs Love or Dislike You - About us",
+	L"Mercs Love or Dislike You - Personality",					// TODO.Translate
 	L"世界卫生组织 - 关于世界卫生组织", //L"WHO - About WHO",
 	L"世界卫生组织 - 阿鲁克的疾病", //L"WHO - Disease in Arulco",
 	L"世界卫生组织 - 有用的贴士", //L"WHO - Helpful Tips",
 	L"Kerberus安保公司 - 关于我们", //L"Kerberus - About Us",
 	L"Kerberus安保公司 - 雇佣队伍", //L"Kerberus - Hire a Team",
 	L"Kerberus安保公司 - 独立协议", //L"Kerberus - Individual Contracts",
-	L"民兵名单",//L"Militia Roster",
-	L"民兵统计",//L"Militia Statistics",
+	L"Militia Overview",										// TODO.Translate
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -11078,12 +11077,6 @@ STR16	szMilitiaWebSite[] =
 	// main page
 	L"民兵",//L"Militia",
 	L"民兵力量总览",//L"Militia Forces Overview",
-
-	// links to other pages
-	L"民兵名单",//L"Militia Roster",
-	L"统计",//L"Statistics",
-	L"关于",//L"About",
-
 };
 
 STR16 szIndividualMilitiaBattleReportText[] =

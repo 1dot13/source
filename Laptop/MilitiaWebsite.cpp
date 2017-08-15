@@ -85,31 +85,7 @@ extern UINT32	guiMercCompareLogoImage;
 
 extern UINT32	gusMostImportantPage;
 
-//link to the various pages
-MOUSE_REGION	gLinkRegion_MilitiaWebsite[NUM_LINKS];
-
 UINT32 gARFacesLib = 0;
-
-void SelectLinkRegionCallBack_MilitiaWebsite( MOUSE_REGION * pRegion, INT32 iReason )
-{
-	if ( iReason & MSYS_CALLBACK_REASON_INIT )
-	{
-	}
-	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		UINT32 uiLink = MSYS_GetRegionUserData( pRegion, 0 );
-
-		if ( uiLink == 0 )
-			guiCurrentLaptopMode = LAPTOP_MODE_MILITIAROSTER_MAIN;
-		else if ( uiLink == 1 )
-			guiCurrentLaptopMode = LAPTOP_MODE_MILITIAROSTER_ABOUT;
-		else if ( uiLink == 2 )
-			guiCurrentLaptopMode = LAPTOP_MODE_BROKEN_LINK;
-	}
-	else if ( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
-	{
-	}
-}
 
 void InitDefaults_MilitiaWebsite( )
 {
@@ -137,18 +113,6 @@ void InitDefaults_MilitiaWebsite( )
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP( "Interface\\SmFaces.sti", VObjectDesc.ImageFile );
 	CHECKV( AddVideoObject( &VObjectDesc, &gARFacesLib ) );
-
-	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
-	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
-	for ( int i = 0; i<NUM_LINKS; ++i )
-	{
-		MSYS_DefineRegion( &gLinkRegion_MilitiaWebsite[i], usPosX, usPosY, (UINT16)(usPosX + CAMPAIGN_HISTORY_LINK_TEXT_WIDTH), usPosY + CAMPAIGN_HISTORY_LINK_STEP_Y, MSYS_PRIORITY_HIGH,
-						   CURSOR_WWW, MSYS_NO_CALLBACK, SelectLinkRegionCallBack_MilitiaWebsite );
-		MSYS_AddRegion( &gLinkRegion_MilitiaWebsite[i] );
-		MSYS_SetRegionUserData( &gLinkRegion_MilitiaWebsite[i], 0, i );
-
-		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
-	}
 }
 
 void DisplayDefaults_MilitiaWebsite( )
@@ -166,24 +130,14 @@ void DisplayDefaults_MilitiaWebsite( )
 
 	//Display the title slogan
 	swprintf( sText, szMilitiaWebSite[TEXT_MILITIAWEBSITE_WEBSITENAME] );
-	DrawTextToScreen( sText, CAMPAIGN_HISTORY_BIG_TITLE_X, CAMPAIGN_HISTORY_BIG_TITLE_Y, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
+	DrawTextToScreen( sText, usPosX, CAMPAIGN_HISTORY_BIG_TITLE_Y, LAPTOP_SCREEN_LR_X - LAPTOP_SCREEN_UL_X, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
 
 	//Display the subtitle slogan
 	swprintf( sText, szMilitiaWebSite[TEXT_MILITIAWEBSITE_SLOGAN] );
-	DrawTextToScreen( sText, CAMPAIGN_HISTORY_SUBTITLE_X, CAMPAIGN_HISTORY_SUBTITLE_Y, 0, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
+	DrawTextToScreen( sText, usPosX, CAMPAIGN_HISTORY_SUBTITLE_Y, 0, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
 
 	usPosX = CAMPAIGN_HISTORY_LINK_START_X;
-	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
-	for ( int i = 0; i<NUM_LINKS; ++i )
-	{
-		swprintf( sText, szMilitiaWebSite[TEXT_MILITIAWEBSITE_SUBSITE1 + i] );
-		DisplayWrappedString( usPosX, usPosY, CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, sText, FONT_MCOLOR_BLACK, FALSE, 0 );
-
-		usPosY += CAMPAIGN_HISTORY_LINK_STEP_Y;
-
-		//Display the red bar under the link at the bottom.	and the text
-		DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_UL_X + CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, usPosY - 2, FROMRGB( 255, 127, 0 ) );
-	}
+	usPosY = CAMPAIGN_HISTORY_SUBTITLE_Y + CAMPAIGN_HISTORY_LINK_STEP_Y;
 
 	// closing line that separates header from individual page
 	DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, LAPTOP_SCREEN_LR_X, usPosY - 2, FROMRGB( 255, 127, 0 ) );
@@ -201,9 +155,6 @@ void RemoveDefaults_MilitiaWebsite( )
 	DeleteVideoObjectFromIndex( guiInsuranceBigRedLineImage );
 	DeleteVideoObjectFromIndex( guiMercCompareBulletImage );
 	DeleteVideoObjectFromIndex( guiMercCompareLogoImage );
-
-	for ( int i = 0; i<NUM_LINKS; ++i )
-		MSYS_RemoveRegion( &gLinkRegion_MilitiaWebsite[i] );
 }
 
 ////////////////////////// MAIN PAGE ////////////////////////////////

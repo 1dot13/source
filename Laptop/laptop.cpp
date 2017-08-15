@@ -1503,7 +1503,6 @@ void RenderLaptop()
 			break;
 
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
-		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
 			RenderMilitiaWebsiteMain( );
 			break;
 	}
@@ -1968,7 +1967,6 @@ void EnterNewLaptopMode()
 			break;
 
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
-		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
 			EnterMilitiaWebsiteMain( );
 			break;
 	}
@@ -2248,7 +2246,6 @@ void HandleLapTopHandles()
 			break;
 
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
-		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
 			HandleMilitiaWebsiteMain( );
 			break;
 	}
@@ -2836,7 +2833,6 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 			break;
 
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
-		case LAPTOP_MODE_MILITIAROSTER_ABOUT:
 			ExitMilitiaWebsiteMain();
 			break;
 	}

@@ -5135,18 +5135,17 @@ STR16 pWebPagesTitles[] =
 	L"%s, conseil de presse : Rapports",
 	L"%s, conseil de presse : Dernières nouvelles",
 	L"%s, conseil de presse : À propos de nous",
-	L"Mercs Love or Dislike You - Home",				// TODO.Translate
+	L"Mercs Love or Dislike You - About us",		// TODO.Translate
 	L"Mercs Love or Dislike You - Analyze a team",
 	L"Mercs Love or Dislike You - Pairwise comparison",
-	L"Mercs Love or Dislike You - About us",
+	L"Mercs Love or Dislike You - Personality",
 	L"WHO - About WHO",
 	L"WHO - Disease in Arulco",
 	L"WHO - Helpful Tips",
 	L"Kerberus - About Us",
 	L"Kerberus - Hire a Team",
 	L"Kerberus - Individual Contracts",
-	L"Militia Roster",			// TODO.Translate
-	L"Militia Statistics",
+	L"Militia Overview",			// TODO.Translate
 	L"Bobby Ray : Dernières commandes",
 	L"Encyclopédie",
 	L"Encyclopédie : Données",
@@ -11078,12 +11077,6 @@ STR16	szMilitiaWebSite[] =
 	// main page
 	L"Militia",
 	L"Militia Forces Overview",
-
-	// links to other pages
-	L"Militia Roster",
-	L"Statistics",
-	L"About",
-
 };
 
 STR16 szIndividualMilitiaBattleReportText[] =
