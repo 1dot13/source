@@ -9429,7 +9429,7 @@ STR16	szCampaignStatsOperationPrefix[] =
 	L"有远见的 %s",  //"Visonary %s"
 
 	// 20
-	L"骇人的 %s",	 //L"Gruseome %s",
+	L"骇人的 %s",	 //L"Gruesome %s",
 	L"不人道的 %s",  //L"International-law-ignoring %s",
 	L"受到挑衅的 %s",  //L"Provoked %s",
 	L"不知疲倦的 %s",  //L"Ceaseless %s",
@@ -10058,7 +10058,7 @@ STR16	szDynamicDialogueText[40][17] =
 	L"嘿，少管闲事， $CAUSE$！",  //L"Yeah, mind your own business, $CAUSE$!",
 	L"这儿又不是女子学校，偷着乐吧， $CAUSE$。",  //L"This isn't girls college, keep your snickering to yourself, $CAUSE$.",
 	L"对，像个爷们儿！",  //L"Yeah. Man up!",
-	L"我不确定那是正确的方法，但是 $CAUSE_GENDER$ 做这种事情应该有原因的...",  //L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
+	L"我不确定那是正确的方法，但是 $CAUSE_GENDER$ 做这种事情应该有原因的...",  //L"I'm not sure whether it was the correct way, but $CAUSE_GENDER$ does have a point...",
 	L"又来？把小报告藏在心里吧，我们可没这时间！",  //L"This again? Keep your bickering to yourself, we have no time for this!",
 	L"",
 	L"",

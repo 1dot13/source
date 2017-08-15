@@ -9138,8 +9138,8 @@ STR16	szCampaignHistoryDetail[]=
 	L"Both sides are said to have used snipers.",
 	L"Unverified reports indicate %s snipers were involved in the firefight.",
 	L"This sector is of huge strategic importance, as it houses one of the handful of anti-air missile batteries the %s army posesses. Aerial photographs show extensive damage to the command center. This will leave the airspace above %s undefended for the time being.",
-	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaed in active combat with foreign mercenaries.",
-	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with amry personnel opening fire on each other.",
+	L"The situation on the ground has gotten even more confusing, as it seems rebel infighting has reached a new level. We now have confirmation that rebel militia engaged in active combat with foreign mercenaries.",
+	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with army personnel opening fire on each other.",
 };
 
 STR16	szCampaignHistoryTimeString[]=
@@ -9181,7 +9181,7 @@ STR16	szCampaignHistoryResultString[]=
 	L"In a bloody fight, the rebels finally overcame the opposition. The army had severe losses.",
 	L"The rebels had losses but defeated the royalists. Unverified information says several soldiers might have been taken prisoner.",
 
-	L"In a phyrric victory, the rebels defeated the royalists but had severe casualties of their own. Wether they will be able to hold this position against continued attacks is doubtful.",
+	L"In a phyrric victory, the rebels defeated the royalists but had severe casualties of their own. Whether they will be able to hold this position against continued attacks is doubtful.",
 	
 	L"The army's superiority in numbers came into full play. The rebels never had a chance and had to either retreat or be killed or captured.",
 	L"Despite the high number of rebels in this sector, the army easily dispatched them.",
@@ -9260,7 +9260,7 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 	L"Visonary %s",
 
 	// 20
-	L"Gruseome %s",
+	L"Gruesome %s",
 	L"International-law-ignoring %s",
 	L"Provoked %s",
 	L"Ceaseless %s",
@@ -9888,7 +9888,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"Yeah, mind your own business, $CAUSE$!",
 	L"This isn't girls college, keep your snickering to yourself, $CAUSE$.",
 	L"Yeah. Man up!",
-	L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
+	L"I'm not sure whether it was the correct way, but $CAUSE_GENDER$ does have a point...",
 	L"This again? Keep your bickering to yourself, we have no time for this!",
 	L"",
 	L"",

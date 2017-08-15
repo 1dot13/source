@@ -9430,7 +9430,7 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 	L"Visonary %s",
 
 	// 20
-	L"Gruseome %s",
+	L"Gruesome %s",
 	L"International-law-ignoring %s",
 	L"Provoked %s",
 	L"Ceaseless %s",
@@ -10058,7 +10058,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"Yeah, mind your own business, $CAUSE$!",
 	L"This isn't girls college, keep your snickering to yourself, $CAUSE$.",
 	L"Yeah. Man up!",
-	L"I'm not sure wether it was the correct way, but $CAUSE_GENDER$ does have a point...",
+	L"I'm not sure whether it was the correct way, but $CAUSE_GENDER$ does have a point...",
 	L"This again? Keep your bickering to yourself, we have no time for this!",
 	L"",
 	L"",
