@@ -317,7 +317,10 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		return( ITEM_HANDLE_BROKEN );
 	}
 
-	if ( fFromUI && pSoldier->bTeam == gbPlayerNum && pTargetSoldier && (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral) && pTargetSoldier->ubBodyType != CROW && Item[ usHandItem ].usItemClass != IC_MEDKIT && !ItemCanBeAppliedToOthers(usHandItem) )
+	if ( fFromUI && pSoldier->bTeam == gbPlayerNum && pTargetSoldier && 
+		 (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral) && pTargetSoldier->ubBodyType != CROW && 
+		 Item[usHandItem].usItemClass != IC_MEDKIT && !Item[usHandItem].gascan &&
+		 !ItemCanBeAppliedToOthers( usHandItem ) )
 	{
 		if ( pSoldier->ubProfile != NO_PROFILE	)
 		{
