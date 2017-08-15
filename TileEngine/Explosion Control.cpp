@@ -4334,7 +4334,7 @@ void HandleExplosionWarningAnimations( )
 			}
 			else
 			{
-				// if condition'S don't apply, deactivate skill. This will cause it to update to status changes very fast
+				// if conditions don't apply, deactivate skill. This will cause it to update to status changes very fast
 				pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TRAIT_FOCUS;
 				pSoldier->sFocusGridNo = NOWHERE;
 			}
@@ -4342,10 +4342,10 @@ void HandleExplosionWarningAnimations( )
 	}
 
 	// show riot shields
-	SOLDIERTYPE*	pSoldier;
-	UINT16 cnt = gTacticalStatus.Team[0].bFirstID;
-	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt, pSoldier++ )
+	for ( UINT32 cnt = 0; cnt < TOTAL_SOLDIERS; ++cnt )
 	{
+		SOLDIERTYPE* pSoldier = MercPtrs[cnt];
+
 		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( (pSoldier->ubDirection == EAST ||

@@ -9671,7 +9671,9 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 								if ( (*it).slot == slot && (*it).ammoitem != NOTHING && ( (*it).item == pObj->usItem || (*it).item == NOTHING ) )
 								{
 									ammoitem = (*it).ammoitem;
-									break;
+
+									if ( (*it).item == pObj->usItem )
+										break;
 								}
 							}
 
