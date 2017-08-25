@@ -198,17 +198,6 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 	// if we can't train as many militia as we should due to lack of volunteers, the excess training goes into promoting militia
 	UINT8 promotionsfromvolunteers = ubMilitiaToTrain;
 	ubMilitiaToTrain = min( ubMilitiaToTrain, GetVolunteerPool( ) );
-
-	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
-	{
-		FLOAT val_gun, val_armour, val_misc;
-		GetResources( val_gun, val_armour, val_misc );
-
-		ubMilitiaToTrain = min( ubMilitiaToTrain, (INT32)val_gun );
-		ubMilitiaToTrain = min( ubMilitiaToTrain, (INT32)val_armour );
-		ubMilitiaToTrain = min( ubMilitiaToTrain, (INT32)val_misc );
-	}
-
 	promotionsfromvolunteers -= ubMilitiaToTrain;
 
 	// HEADROCK HAM 3.4: Composition of new Mobile Militia groups is now dictated by two INI settings controlling
@@ -324,6 +313,49 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		--ubTargetGreen;
 	}
 
+	// Flugente: resources limit our training
+	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+	{
+		FLOAT val_gun, val_armour, val_misc;
+		GetResources( val_gun, val_armour, val_misc );
+
+		while ( ubTargetElite >  (INT32)val_misc )
+		{
+			--ubTargetElite;
+			++ubTargetRegular;
+		}
+
+		while ( 2 * ubTargetElite + ubTargetRegular > (INT32)val_armour )
+		{
+			if ( ubTargetElite )
+			{
+				--ubTargetElite;
+				++ubTargetRegular;
+			}
+			else
+			{
+				--ubTargetRegular;
+				++ubTargetGreen;
+			}
+		}
+
+		while ( 3 * ubTargetElite + 2 * ubTargetRegular + ubTargetGreen > (INT32)val_gun )
+		{
+			if ( ubTargetElite )
+			{
+				--ubTargetElite;
+				++ubTargetRegular;
+			}
+			else if ( ubTargetRegular )
+			{
+				--ubTargetRegular;
+				++ubTargetGreen;
+			}
+			else
+				--ubTargetGreen;
+		}
+	}
+
 	while ( trained + promotionstodo < ubMilitiaToTrain )
 	{
 		////////////////////////////////
@@ -389,6 +421,17 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 		AddResources( -numcreated[GREEN_MILITIA] - numcreated[REGULAR_MILITIA] - numcreated[ELITE_MILITIA], -numcreated[REGULAR_MILITIA] - numcreated[ELITE_MILITIA], -numcreated[ELITE_MILITIA] );
 	}
 
+	// Flugente: we need to create profiles fro individual militia here, as they might immediately be promoted afterwards in rare cases
+	// Flugente: create individual militia
+	for ( int i = 0; i < numcreated[GREEN_MILITIA]; ++i )
+		CreateNewIndividualMilitia( GREEN_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
+
+	for ( int i = 0; i < numcreated[REGULAR_MILITIA]; ++i )
+		CreateNewIndividualMilitia( REGULAR_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
+
+	for ( int i = 0; i < numcreated[ELITE_MILITIA]; ++i )
+		CreateNewIndividualMilitia( ELITE_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
+
 	// handle promotions
 	UINT8 promotions = 0;
 	UINT8 promotedto = 0;
@@ -411,16 +454,6 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, 
 
 		// Flugente: substract volunteers
 		AddVolunteers( -trained );
-		
-		// Flugente: create individual militia
-		for ( int i = 0; i < numcreated[GREEN_MILITIA]; ++i )
-			CreateNewIndividualMilitia( GREEN_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
-
-		for ( int i = 0; i < numcreated[REGULAR_MILITIA]; ++i )
-			CreateNewIndividualMilitia( REGULAR_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
-
-		for ( int i = 0; i < numcreated[ELITE_MILITIA]; ++i )
-			CreateNewIndividualMilitia( ELITE_MILITIA, MO_ARULCO, SECTOR( sTMapX, sTMapY ) );
 	}
 
 	if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )

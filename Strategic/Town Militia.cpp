@@ -270,8 +270,6 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 		GetResources( val_gun, val_armour, val_misc );
 
 		iTrainingSquadSize = min( iTrainingSquadSize, (INT32)val_gun );
-		iTrainingSquadSize = min( iTrainingSquadSize, (INT32)val_armour );
-		iTrainingSquadSize = min( iTrainingSquadSize, (INT32)val_misc );
 	}
 
 	promotionsfromvolunteers -= iTrainingSquadSize;

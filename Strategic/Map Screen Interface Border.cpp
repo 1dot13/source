@@ -451,52 +451,19 @@ BOOLEAN CreateButtonsForMapBorder( void )
 
 void DeleteMapBorderButtons( void )
 {
-	UINT8 ubCnt;
-
-	RemoveButton( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ]);
-	RemoveButton( giMapBorderButtons[ MAP_BORDER_MINE_BTN ]);
-	RemoveButton( giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ]);
-	RemoveButton( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ]);
-	RemoveButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]);
-	RemoveButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]);
-
-	// WANNE: Only remove if we added the button
-	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-		RemoveButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]); // HEADROCK HAM 4
-
-	if ( giMapBorderButtons[MAP_BORDER_DISEASE_BTN] != -1 )
-		RemoveButton( giMapBorderButtons[MAP_BORDER_DISEASE_BTN] );
-
-	if ( giMapBorderButtons[MAP_BORDER_WEATHER_BTN] != -1 )
-		RemoveButton( giMapBorderButtons[MAP_BORDER_WEATHER_BTN] );
-
-	// images
-
-	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ] );
-	UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ] );
-
-	// WANNE: Only unload if we added the button
-	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-		UnloadButtonImage( giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ] ); // HEADROCK HAM 4
-
-	if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] != -1 )
-		UnloadButtonImage( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] );
-
-	if ( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] != -1 )
-		UnloadButtonImage( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] );
-		
-	// HEADROCK HAM 4: Increased number of buttons by one.
-	for ( ubCnt = 0; ubCnt < NUM_MAP_BORDER_BTNS; ++ubCnt )
+	for ( int i = 0; i < NUM_MAP_BORDER_BTNS; ++i )
 	{
-		giMapBorderButtons[ ubCnt ] = -1;
-		giMapBorderButtonsImage[ ubCnt ] = -1;
+		if ( giMapBorderButtons[i] != -1 )
+			RemoveButton( giMapBorderButtons[i] );
+
+		giMapBorderButtons[i] = -1;
+
+		if ( giMapBorderButtonsImage[i] != -1 )
+			UnloadButtonImage( giMapBorderButtonsImage[i] );
+
+		giMapBorderButtonsImage[i] = -1;
 	}
 }
-
 
 // callbacks
 void BtnMilitiaCallback(GUI_BUTTON *btn,INT32 reason)
@@ -512,7 +479,6 @@ void BtnMilitiaCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-
 void BtnTeamCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -525,7 +491,6 @@ void BtnTeamCallback(GUI_BUTTON *btn,INT32 reason)
 		CommonBtnCallbackBtnDownChecks();
 	}
 }
-
 
 void BtnTownCallback(GUI_BUTTON *btn,INT32 reason)
 {
@@ -540,7 +505,6 @@ void BtnTownCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-
 void BtnMineCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
@@ -553,7 +517,6 @@ void BtnMineCallback(GUI_BUTTON *btn,INT32 reason)
 		CommonBtnCallbackBtnDownChecks();
 	}
 }
-
 
 void BtnAircraftCallback(GUI_BUTTON *btn,INT32 reason)
 {
@@ -568,7 +531,6 @@ void BtnAircraftCallback(GUI_BUTTON *btn,INT32 reason)
 		CommonBtnCallbackBtnDownChecks();
 	}
 }
-
 
 void BtnItemCallback(GUI_BUTTON *btn,INT32 reason)
 {
