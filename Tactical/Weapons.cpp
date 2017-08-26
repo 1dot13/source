@@ -8912,7 +8912,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 							else
 							{
 								// 50:50 to lose strength or dexterity
-								if (PreRandom( 3 ) < 4 )
+								if ( Chance(50) )
 								{
 									if (bStatLoss >= pTarget->stats.bDexterity)
 									{
