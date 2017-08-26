@@ -1646,6 +1646,13 @@ void POPUP::DetermineBoxPositions( void )
 			return;
 	}
 
+	// Flugente: fix obvious errors
+	pPoint.iX = max( pPoint.iX, 0 );
+	pPoint.iX = min( pPoint.iX, SCREEN_WIDTH );
+
+	pPoint.iY = max( pPoint.iY, 0 );
+	pPoint.iY = min( pPoint.iY, SCREEN_HEIGHT );
+
 	// set all the other positions to match this one
 	this->Position = pPoint;
 	this->BoxesX = pPoint.iX;

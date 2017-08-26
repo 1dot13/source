@@ -1546,8 +1546,10 @@ void ResizeBoxToText(INT32 hBoxHandle)
 			break;
 		}
 	}
-	PopUpBoxList[hBoxHandle]->Dimensions.iBottom=iHeight;
-	PopUpBoxList[hBoxHandle]->Dimensions.iRight=iWidth;
+
+	// Flugente we shouldn't have added more popup options than we can display anyway, but I have no idea where to stop that, so at least we can fix this
+	PopUpBoxList[hBoxHandle]->Dimensions.iBottom = min( iHeight, SCREEN_HEIGHT - PopUpBoxList[hBoxHandle]->Position.iY);
+	PopUpBoxList[hBoxHandle]->Dimensions.iRight  = min( iWidth, SCREEN_WIDTH - PopUpBoxList[hBoxHandle]->Position.iX );
 }
 
 
