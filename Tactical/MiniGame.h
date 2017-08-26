@@ -38,13 +38,4 @@ UINT32 MiniGame_Handle_Tetris();
 void MiniGame_Init_Pong( );
 UINT32 MiniGame_Handle_Pong( );
 
-
-// for now, here
-UINT32	KeyPadScreenInit( void );
-UINT32	KeyPadScreenHandle( void );
-UINT32	KeyPadScreenShutdown( void );
-
-void KeyPad_Init( );
-UINT32 KeyPad_Handle( );
-
 #endif //__MINIGAME_H
