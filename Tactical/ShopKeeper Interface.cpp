@@ -449,6 +449,7 @@ UINT32		guiSKI_DoneButton;
 INT32		guiSKI_DoneButtonImage;
 
 UINT32 guiItemCrossOut;
+UINT32 guiMainTradeScreenImage = -1;
 
 BOOLEAN gfDisplayNoRoomMsg = FALSE;
 
@@ -1120,6 +1121,12 @@ BOOLEAN ExitShopKeeperInterface()
 	DeleteVideoObjectFromIndex( guiItemCrossOut );
 	DeleteVideoSurfaceFromIndex( guiCornerWhereTacticalIsStillSeenImage );
 
+	if ( guiMainTradeScreenImage != -1 )
+	{
+		DeleteVideoSurfaceFromIndex( guiMainTradeScreenImage );
+		guiMainTradeScreenImage = -1;
+	}
+
 	ShutUpShopKeeper();
 	
 	UnloadButtonImage( guiSKI_InvPageUpButtonImage );
@@ -1305,59 +1312,6 @@ void HandleShopKeeperInterface()
 #endif
 }
 
-// Flugente: for a fancy background we need a lot of random numbers
-// Some of the following code was partially adapted from http://lodev.org/cgtutor/randomnoise.html
-double noise[3000][3000];
-
-// the background pixel colour values are stored in here. For simplicity we only generate them once
-UINT16 backgroundval[3000][3000];
-
-void generatenoise()
-{
-	for ( int y = 0; y < SKI_TOTAL_END_Y - SKI_TOTAL_BEGIN_Y; ++y )
-	for ( int x = 0; x < SKI_TOTAL_END_X - SKI_TOTAL_BEGIN_X; ++x )
-	{
-		noise[y][x] = (Random( 32768 ) % 32768) / 32768.0;
-	}
-}
-
-double smoothNoise( double x, double y, int height, int width )
-{
-	//get fractional part of x and y
-	double fractX = x - int( x );
-	double fractY = y - int( y );
-
-	//wrap around
-	int x1 = (int( x ) + width) % width;
-	int y1 = (int( y ) + height) % height;
-
-	//neighbor values
-	int x2 = (x1 + width - 1) % width;
-	int y2 = (y1 + height - 1) % height;
-
-	//smooth the noise with bilinear interpolation
-	double value = 0.0;
-	value += fractX     * fractY     * noise[y1][x1];
-	value += (1 - fractX) * fractY     * noise[y1][x2];
-	value += fractX     * (1 - fractY) * noise[y2][x1];
-	value += (1 - fractX) * (1 - fractY) * noise[y2][x2];
-	
-	return value;
-}
-
-double turbulence( double x, double y, int height, int width, double size )
-{
-	double value = 0.0, initialSize = size;
-
-	while ( size >= 1 )
-	{
-		value += smoothNoise( x / size, y / size, height, width ) * size;
-		size /= 2.0;
-	}
-
-	return(128.0 * value / initialSize);
-}
-
 BOOLEAN RenderShopKeeperInterface()
 {
 	CHAR16	zMoney[128];
@@ -1388,84 +1342,75 @@ BOOLEAN RenderShopKeeperInterface()
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TOTAL_BEGIN_X, SKI_TOTAL_BEGIN_Y,
 							   SKI_TOTAL_END_X, SKI_TOTAL_END_Y,
 							   col_tradescreenmargin );
-	
+				
 	// Flugente: because people find simple plane backgrounds to be offputting, we try for something more fancy
-	// generate noise once
-	static BOOLEAN noisegenerated = FALSE;
-
-	if ( !noisegenerated )
+	// we use a very huge background picture and then display parts of it. 
+	// Given that the default picture has a size of 3088x2056, you would need a gigantic resolution for this to not work out. Nevertheless, set this to FALSE to display a simple grey background instead.
+	if ( TRUE )
 	{
-		generatenoise();
-
-		noisegenerated = TRUE;
-
-		int height = SKI_TOTAL_END_Y - SKI_TOTAL_BEGIN_Y;
-		int width = SKI_TOTAL_END_X - SKI_TOTAL_BEGIN_X;
-		double size = 64.0;
-
-		//xPeriod and yPeriod together define the angle of the lines
-		//xPeriod and yPeriod both 0 ==> it becomes a normal clouds or turbulence pattern
-		double xPeriod = 2.0; //defines repetition of marble lines in x direction
-		double yPeriod = 4.0; //defines repetition of marble lines in y direction
-		//turbPower = 0 ==> it becomes a normal sine pattern
-		double turbPower = 3.0; //makes twists
-		double turbSize = 128.0; //initial size of the turbulence
+		// Flugente: guiMainTradeScreenImage is unsigned as the functions require UINT32. As it is unlikely we will ever use 2^32 pictures, this works well enough
+		if ( guiMainTradeScreenImage == -1 )
+		{
+			VSURFACE_DESC		vs_desc;		
+			vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+			strcpy( vs_desc.ImageFile, "LAPTOP\\shopkeeperbackground.pcx" );
+			if ( !AddVideoSurface( &vs_desc, &guiMainTradeScreenImage ) )
+			{
+				ScreenMsg( FONT_MCOLOR_WHITE, MSG_BETAVERSION, L"File LAPTOP\\shopkeeperbackground.pcx could not be opened" );
+			}
+		}
+				
+		HVSURFACE hSrcVSurface;
+		UINT32 uiDestPitchBYTES;
+		UINT32 uiSrcPitchBYTES;
+		UINT16	*pDestBuf;
+		UINT8	*pSrcBuf;
+		SGPRect clip;
+						
+		// get surfaces
+		pDestBuf = (UINT16*)LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+		GetVideoSurface( &hSrcVSurface, guiMainTradeScreenImage );
+		pSrcBuf = LockVideoSurface( guiMainTradeScreenImage, &uiSrcPitchBYTES );
 		
-		for ( int x = SKI_TOTAL_BEGIN_X; x < SKI_TOTAL_END_X; ++x )
-		{
-			double xper = x * xPeriod / width;
+		// for our 3 regions we display only parts of the picture
+		clip.iLeft = SKI_TRADER_INVENTORY_BEGIN_X + SKI_MARGIN;
+		clip.iRight = SKI_TRADER_INVENTORY_END_X - SKI_MARGIN;
+		clip.iTop = SKI_TRADER_INVENTORY_BEGIN_Y + SKI_MARGIN;
+		clip.iBottom = SKI_TRADER_INVENTORY_END_Y - SKI_MARGIN;
 
-			for ( int y = SKI_TRADER_INVENTORY_BEGIN_Y + SKI_MARGIN; y < SKI_TRADER_INVENTORY_END_Y - SKI_MARGIN; ++y )
-			{
-				double xyValue = xper + y * yPeriod / height + turbPower * turbulence( x, y, height, width, turbSize ) / 256.0;
-				double sineValue = 100 * fabs( sin( xyValue * 3.14159 ) );
-				UINT16 red = ( 30 + sineValue );
-				UINT16 green = (10 + sineValue);
-				UINT16 blue = (sineValue);
+		Blt8BPPDataSubTo16BPPBuffer( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf, uiSrcPitchBYTES, SKI_TRADER_INVENTORY_BEGIN_X + SKI_MARGIN, SKI_TRADER_INVENTORY_BEGIN_Y + SKI_MARGIN, &clip );
 
-				backgroundval[x][y] = Get16BPPColor( FROMRGB( red, green, blue ) );
-			}
+		clip.iLeft = SKI_TRADER_OFFER_BEGIN_X + SKI_MARGIN;
+		clip.iRight = SKI_TRADER_OFFER_END_X - SKI_MARGIN;
+		clip.iTop = SKI_TRADER_OFFER_BEGIN_Y + SKI_MARGIN;
+		clip.iBottom = SKI_TRADER_OFFER_END_Y - SKI_MARGIN;
 
-			for ( int y = SKI_TRADER_OFFER_BEGIN_Y + SKI_MARGIN; y < SKI_TRADER_OFFER_END_Y - SKI_MARGIN; ++y )
-			{
-				double xyValue = xper + y * yPeriod / height + turbPower * turbulence( x, y, height, width, turbSize ) / 256.0;
-				double sineValue = 100 * fabs( sin( xyValue * 3.14159 ) );
-				UINT16 red = (sineValue);
-				UINT16 green = (10 + sineValue);
-				UINT16 blue = (30 + sineValue);
+		Blt8BPPDataSubTo16BPPBuffer( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf, uiSrcPitchBYTES, SKI_TRADER_OFFER_BEGIN_X + SKI_MARGIN, SKI_TRADER_OFFER_BEGIN_Y + SKI_MARGIN, &clip );
 
-				backgroundval[x][y] = Get16BPPColor( FROMRGB( red, green, blue ) );
-			}
+		clip.iLeft = SKI_PLAYER_OFFER_BEGIN_X + SKI_MARGIN;
+		clip.iRight = SKI_PLAYER_OFFER_END_X - SKI_MARGIN;
+		clip.iTop = SKI_PLAYER_OFFER_BEGIN_Y + SKI_MARGIN;
+		clip.iBottom = SKI_PLAYER_OFFER_END_Y - SKI_MARGIN;
 
-			for ( int y = SKI_PLAYER_OFFER_BEGIN_Y + SKI_MARGIN; y < SKI_PLAYER_OFFER_END_Y - SKI_MARGIN; ++y )
-			{
-				double xyValue = xper + y * yPeriod / height + turbPower * turbulence( x, y, height, width, turbSize ) / 256.0;
-				double sineValue = 100 * fabs( sin( xyValue * 3.14159 ) );
-				UINT16 red = (15 + sineValue);
-				UINT16 green = (30 + sineValue);
-				UINT16 blue = (15 + sineValue);
-
-				backgroundval[x][y] = Get16BPPColor( FROMRGB( red, green, blue ) );
-			}
-		}
+		Blt8BPPDataSubTo16BPPBuffer( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf, uiSrcPitchBYTES, SKI_PLAYER_OFFER_BEGIN_X + SKI_MARGIN, SKI_PLAYER_OFFER_BEGIN_Y + SKI_MARGIN, &clip );
+		
+		// release surfaces
+		UnLockVideoSurface( guiMainTradeScreenImage );
+		UnLockVideoSurface( FRAME_BUFFER );		
 	}
-
-	for ( int x = SKI_TOTAL_BEGIN_X; x < SKI_TOTAL_END_X; ++x )
+	else
 	{
-		for ( int y = SKI_TRADER_INVENTORY_BEGIN_Y + SKI_MARGIN; y < SKI_TRADER_INVENTORY_END_Y - SKI_MARGIN; ++y )
-		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, x, y, x + 1, y + 1, backgroundval[x][y] );
-		}
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TRADER_INVENTORY_BEGIN_X + SKI_MARGIN, SKI_TRADER_INVENTORY_BEGIN_Y + SKI_MARGIN,
+								   SKI_TRADER_INVENTORY_END_X - SKI_MARGIN, SKI_TRADER_INVENTORY_END_Y - SKI_MARGIN,
+								   col_tradescreen );
 
-		for ( int y = SKI_TRADER_OFFER_BEGIN_Y + SKI_MARGIN; y < SKI_TRADER_OFFER_END_Y - SKI_MARGIN; ++y )
-		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, x, y, x + 1, y + 1, backgroundval[x][y] );
-		}
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TRADER_OFFER_BEGIN_X + SKI_MARGIN, SKI_TRADER_OFFER_BEGIN_Y + SKI_MARGIN,
+								   SKI_TRADER_OFFER_END_X - SKI_MARGIN, SKI_TRADER_OFFER_END_Y - SKI_MARGIN,
+								   col_tradescreen );
 
-		for ( int y = SKI_PLAYER_OFFER_BEGIN_Y + SKI_MARGIN; y < SKI_PLAYER_OFFER_END_Y - SKI_MARGIN; ++y )
-		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER, x, y, x + 1, y + 1, backgroundval[x][y] );
-		}
+		ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_PLAYER_OFFER_BEGIN_X + SKI_MARGIN, SKI_PLAYER_OFFER_BEGIN_Y + SKI_MARGIN,
+								   SKI_PLAYER_OFFER_END_X - SKI_MARGIN, SKI_PLAYER_OFFER_END_Y - SKI_MARGIN,
+								   col_tradescreen );
 	}
 	
 	{
