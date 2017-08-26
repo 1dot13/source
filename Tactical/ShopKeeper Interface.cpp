@@ -1333,7 +1333,7 @@ BOOLEAN RenderShopKeeperInterface()
 	}
 		
 	UINT16 col_tradescreenmargin	= Get16BPPColor( FROMRGB( 64, 64, 64 ) );
-	UINT16 col_tradescreen			= Get16BPPColor( FROMRGB( 127, 127, 127 ) );
+	UINT16 col_tradescreen			= Get16BPPColor( FROMRGB( 255, 0, 255 ) );
 	UINT16 col_itembox				= Get16BPPColor( FROMRGB( 74, 65, 49 ) );
 	UINT16 col_itemdescription		= Get16BPPColor( FROMRGB( 181, 150, 74 ) );
 	UINT16 col_itemstatusbar		= Get16BPPColor( FROMRGB( 57, 56, 41 ) );
@@ -1345,21 +1345,21 @@ BOOLEAN RenderShopKeeperInterface()
 				
 	// Flugente: because people find simple plane backgrounds to be offputting, we try for something more fancy
 	// we use a very huge background picture and then display parts of it. 
-	// Given that the default picture has a size of 3088x2056, you would need a gigantic resolution for this to not work out. Nevertheless, set this to FALSE to display a simple grey background instead.
-	if ( TRUE )
+	// Given that the default picture has a size of 3088x2056, you would need a gigantic resolution for this to not work out.
+	// Flugente: guiMainTradeScreenImage is unsigned as the functions require UINT32. As it is unlikely we will ever use 2^32 pictures, this works well enough
+	if ( guiMainTradeScreenImage == -1 )
 	{
-		// Flugente: guiMainTradeScreenImage is unsigned as the functions require UINT32. As it is unlikely we will ever use 2^32 pictures, this works well enough
-		if ( guiMainTradeScreenImage == -1 )
+		VSURFACE_DESC		vs_desc;
+		vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
+		strcpy( vs_desc.ImageFile, "LAPTOP\\shopkeeperbackground.pcx" );
+		if ( FileExists( vs_desc.ImageFile ) )
 		{
-			VSURFACE_DESC		vs_desc;		
-			vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
-			strcpy( vs_desc.ImageFile, "LAPTOP\\shopkeeperbackground.pcx" );
-			if ( !AddVideoSurface( &vs_desc, &guiMainTradeScreenImage ) )
-			{
-				ScreenMsg( FONT_MCOLOR_WHITE, MSG_BETAVERSION, L"File LAPTOP\\shopkeeperbackground.pcx could not be opened" );
-			}
+			AddVideoSurface( &vs_desc, &guiMainTradeScreenImage );
 		}
-				
+	}
+
+	if ( guiMainTradeScreenImage != -1 )
+	{
 		HVSURFACE hSrcVSurface;
 		UINT32 uiDestPitchBYTES;
 		UINT32 uiSrcPitchBYTES;
@@ -1398,6 +1398,7 @@ BOOLEAN RenderShopKeeperInterface()
 		UnLockVideoSurface( guiMainTradeScreenImage );
 		UnLockVideoSurface( FRAME_BUFFER );		
 	}
+	// if we cannot find the picture, use a fallback solution
 	else
 	{
 		ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TRADER_INVENTORY_BEGIN_X + SKI_MARGIN, SKI_TRADER_INVENTORY_BEGIN_Y + SKI_MARGIN,
