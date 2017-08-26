@@ -3325,6 +3325,10 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 			// record old ammo
 			CreateAmmo((*pGun)[subObject]->data.gun.usGunAmmoItem, &gTempObject, (*pGun)[subObject]->data.gun.ubGunShotsLeft);
 
+			// Flugente: safety check: if object is broken, wipe it
+			if ( gTempObject.usItem == NOTHING )
+				gTempObject.initialize( );
+
 			if (fSameMagazineSize)
 			{
 				if (fSameAmmoType)
@@ -3470,7 +3474,8 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 				if (fReloadingWithStack)
 				{
 					// add to end of stack
-					pAmmo->AddObjectsToStack( gTempObject, 1 );
+					if ( gTempObject.exists( ) )
+						pAmmo->AddObjectsToStack( gTempObject, 1 );
 				}
 				else
 				{
@@ -3482,7 +3487,7 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 						|| pAmmo->ubNumberOfObjects > 1)
 					{
 						// try autoplace
-						if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+						if ( gTempObject.exists( ) && !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
 						{
 							// put it on the ground
 							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0 , -1 );
@@ -3498,7 +3503,7 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 				}
 				break;
 			case RELOAD_AUTOPLACE_OLD:
-				if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
+				if ( gTempObject.exists() && !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
 				{
 					// error msg!
 					return( FALSE );
@@ -7694,7 +7699,7 @@ UINT16 FindReplacementMagazine( UINT8 ubCalibre, UINT16 ubMagSize, UINT8 ubAmmoT
 	while ( Magazine[usLoop].ubCalibre != NOAMMO )
 	{
 		// Flugente: problems arise if we cannot find a mag that fits exactly. Vanilla code then compromises on ammotype - which leads to loading from a AP belt resulting in HP mags.
-		// As that's rather silly, we instead of compromis on mag size
+		// As that's rather silly, we instead compromise on mag size
 		if ( Magazine[usLoop].ubCalibre == ubCalibre && Magazine[usLoop].ubAmmoType == ubAmmoType )
 		{
 			if ( Magazine[usLoop].ubMagSize == ubMagSize )
