@@ -9714,7 +9714,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			
 			if ( pSoldier->inv[ uiHandPos ].exists() == false )
 			{
-				if (gGameSettings.fOptions[ TOPTION_ENABLE_INVENTORY_POPUPS ] == TRUE) // the_bob : enable popups for picking items from sector inv
+				if ( gGameSettings.fOptions[TOPTION_ENABLE_INVENTORY_POPUPS] == TRUE && !IsVehicle( pSoldier ) ) // the_bob : enable popups for picking items from sector inv
 				{
 					if ( _KeyDown(CTRL) )
 					{
