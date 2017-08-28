@@ -7072,6 +7072,23 @@ void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 		DistributeStatus(pCursorObj, pObj, bMaxPoints);
 	}
 	DistributeStatus(pObj, pObj, bMaxPoints);
+
+	// Flugente: one of the items on the stack might not be full. Make sure it is the first one, so the player can see what is missing at a glance
+	if ( pObj->ubNumberOfObjects > 1 )
+	{
+		if ( Item[pObj->usItem].usItemClass & IC_AMMO )
+		{
+			UINT16 shots_first	= (*pObj)[0]->data.ubShotsLeft;
+			(*pObj)[0]->data.ubShotsLeft = (*pObj)[pObj->ubNumberOfObjects - 1]->data.ubShotsLeft;
+			(*pObj)[pObj->ubNumberOfObjects - 1]->data.ubShotsLeft = shots_first;
+		}
+		else if ( Item[pObj->usItem].usItemClass & IC_MAPFILTER_KIT )
+		{
+			INT16 status_first = (*pObj)[0]->data.objectStatus;
+			(*pObj)[0]->data.objectStatus = (*pObj)[pObj->ubNumberOfObjects - 1]->data.objectStatus;
+			(*pObj)[pObj->ubNumberOfObjects - 1]->data.objectStatus = status_first;
+		}
+	}
 }
 
 UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
