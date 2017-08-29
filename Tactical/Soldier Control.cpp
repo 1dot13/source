@@ -16032,8 +16032,8 @@ BOOLEAN		SOLDIERTYPE::FreePrisoner( )
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_X_FREES_Y], this->GetName( ), pSoldier->GetName( ) );
 
 			// alert both soldiers
-			this->aiData.bAlertStatus = min( this->aiData.bAlertStatus, STATUS_RED );
-			pSoldier->aiData.bAlertStatus = min( pSoldier->aiData.bAlertStatus, STATUS_RED );
+			this->aiData.bAlertStatus = max( this->aiData.bAlertStatus, STATUS_RED );
+			pSoldier->aiData.bAlertStatus = max( pSoldier->aiData.bAlertStatus, STATUS_RED );
 
 			return TRUE;
 		}
@@ -18426,8 +18426,8 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend( )
 			pSoldier->sDamage -= pSoldier->stats.bLife - oldlife;
 
 			// alert both soldiers
-			this->aiData.bAlertStatus = min( this->aiData.bAlertStatus, STATUS_RED );
-			pSoldier->aiData.bAlertStatus = min( pSoldier->aiData.bAlertStatus, STATUS_RED );
+			this->aiData.bAlertStatus = max( this->aiData.bAlertStatus, STATUS_RED );
+			pSoldier->aiData.bAlertStatus = max( pSoldier->aiData.bAlertStatus, STATUS_RED );
 
 			return TRUE;
 		}
@@ -18471,7 +18471,7 @@ BOOLEAN		SOLDIERTYPE::AIDoctorSelf( )
 		this->sDamage -= this->stats.bLife - oldlife;
 
 		// alert ourself
-		this->aiData.bAlertStatus = min( this->aiData.bAlertStatus, STATUS_RED );
+		this->aiData.bAlertStatus = max( this->aiData.bAlertStatus, STATUS_RED );
 
 		return TRUE;
 	}
@@ -20313,7 +20313,7 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pSoldier->GetName(), this->GetName()  );
 
 				// alert the soldier
-				pSoldier->aiData.bAlertStatus = min( pSoldier->aiData.bAlertStatus, STATUS_RED );
+				pSoldier->aiData.bAlertStatus = max( pSoldier->aiData.bAlertStatus, STATUS_RED );
 
 				ProcessImplicationsOfPCAttack( this, &pSoldier, REASON_NORMAL_ATTACK );
 			}
