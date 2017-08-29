@@ -20375,7 +20375,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 						}
 
 						// alert the soldier
-						pSoldier->aiData.bAlertStatus = min( pSoldier->aiData.bAlertStatus, STATUS_RED );
+						pSoldier->aiData.bAlertStatus = max( pSoldier->aiData.bAlertStatus, STATUS_RED );
 
 						ProcessImplicationsOfPCAttack( this, &pSoldier, REASON_NORMAL_ATTACK );
 					}
