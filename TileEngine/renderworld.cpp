@@ -634,7 +634,7 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier )
 		// but don*t do so while scrolling, because that looks weird
 		if ( !gfScrollPending && !gfScrollInertia)
 		{
-			INT32 iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sScreenX - 50, sScreenY - 60, sScreenX + 50, sScreenY + 35);
+			INT32 iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sScreenX - 50, sScreenY - 60, sScreenX + 50, sScreenY + 35 );
 
 			if (iBack != -1)
 			{
@@ -648,7 +648,18 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier )
 		if (pObj)
 			offset = Item[pObj->usItem].usRiotShieldGraphic;
 
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiShieldGraphic, offset * 8 + pSoldier->ubDirection, sScreenX - 20, sScreenY - 60, VO_BLT_TRANSSHADOW, NULL );
+		// try to keep the shield 'moving' alongside the soldier. This won't work perfectly, but it's better than nothing		
+		INT16 base_x = 0;
+		INT16 base_y = 0;
+		ConvertMapPosToWorldTileCenter( pSoldier->sGridNo, &base_x, &base_y );
+
+		INT16 dx = pSoldier->sX - base_x;
+		INT16 dy = pSoldier->sY - base_y;
+
+		INT16 offset_x = (dx - dy);
+		INT16 offset_y = (dx + dy);
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiShieldGraphic, offset * 8 + pSoldier->ubDirection, sScreenX - 20 + offset_x, sScreenY - 60 + offset_y, VO_BLT_TRANSSHADOW, NULL );
 	}
 }
 
