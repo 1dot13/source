@@ -1772,7 +1772,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	FLOAT								dTargetY;
 	FLOAT								dTargetZ;
 	UINT16							usItemNum;
-	BOOLEAN							fBuckshot;
+	BOOLEAN							fBuckshot = 0;
 	UINT8								ubVolume;
 	CHAR8								zBurstString[512];
 	UINT8								ubDirection;

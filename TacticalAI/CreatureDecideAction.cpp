@@ -1171,7 +1171,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 									#endif
 									// then make decision as if at alert status RED, but make sure
 									// we don't try to SEEK OPPONENT the unconscious guy!
-									return(DecideActionRed(pSoldier,FALSE));
+									return(CreatureDecideActionRed(pSoldier,FALSE));
 								}
 								// else kill the guy, he could be the last opponent alive in this sector
 							}
