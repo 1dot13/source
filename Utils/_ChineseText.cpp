@@ -2359,8 +2359,8 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s竭尽可能地修理了%s。",
 	L"%s竭尽可能地修理了%s的%s。",
 
-	L"%s has cleaned the %s.",	// TODO.Translate
-	L"%s has cleaned %s's %s.",
+	L"%s清理了%s。", //L"%s has cleaned the %s.",
+	L"%s清理了%s的%s。", //L"%s has cleaned %s's %s.",
 };
 
 // the country and its noun in the game
@@ -2784,7 +2784,7 @@ STR16 pMilitiaControlMenuStrings[] =
 STR16 pTraitSkillsMenuStrings[] =
 {
 	// sniper
-	L"Focus",	// TODO.Translate
+	L"聚焦", //L"Focus",
 
 	// radio operator
 	L"火炮攻击", //L"Artillery Strike",
@@ -2802,7 +2802,7 @@ STR16 pTraitSkillsMenuStrings[] =
 STR16 pTraitSkillsMenuDescStrings[] =
 {
 	// sniper
-	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
+	L"提高中断修正 (malus outside of area)", //L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
 
 	// radio operator
 	L"命令某分区发动火炮攻击。", //L"Order an artillery strike from sector...",
@@ -2827,8 +2827,8 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 临区的迫击炮位置\n", //L" - mortar positions in neighbouring sectors\n",
 	L" - %s|或%s|和%s或%s或更高\n", //L" - %s |o|r %s |a|n|d %s or %s or higher\n"
 	L" - 恶魔的财产\n", //L" - posession by a demon"
-	L" - a gun-related trait\n",	// TODO.Translate
-	L" - aimed gun\n",
+	L" - 与枪有关的特长\n", //L" - a gun-related trait\n",
+	L" - 针对枪\n", //L" - aimed gun\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -3092,11 +3092,11 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"背景：",
 	L"性格：",
 
-	L"Prisoners interrogated: %d\n",	// TODO.Translate
-	L"Diseases caught: %d\n",
-	L"Total damage received: %d\n",
-	L"Total damage caused: %d\n",
-	L"Total healing: %d\n",
+	L"已审讯俘虏: %d\n", //L"Prisoners interrogated: %d\n",
+	L"已感染疾病: %d\n", //L"Diseases caught: %d\n",
+	L"总共受到伤害: %d\n", //L"Total damage received: %d\n",
+	L"总共造成伤害: %d\n", //L"Total damage caused: %d\n",
+	L"总共治疗: %d\n", //L"Total healing: %d\n",
 };
 
 
@@ -3405,7 +3405,7 @@ STR16 gpStrategicString[] =
 	L"异形攻击",					//STR_PB_CREATUREATTACK_HEADER
 	L"血猫伏击",					//STR_PB_BLOODCATAMBUSH_HEADER
 	L"进入血猫巢穴",
-	L"ENEMY AIRDROP",					//STR_PB_ENEMYINVASION_AIRDROP_HEADER	// TODO.Translate
+	L"敌方空降", //L"ENEMY AIRDROP",					//STR_PB_ENEMYINVASION_AIRDROP_HEADER
 
 	//Various single words for direct translation.  The Civilians represent the civilian
 	//militia occupying the sector being attacked.  Limited to 9-10 chars
@@ -3607,7 +3607,7 @@ STR16		gzMiscItemStatsFasthelp[] =
 	L"隧道视野百分比（越低越好）",
 	L"精瞄加成所需最小距离",
 	L"按住 |C|t|r|l 点击装备物品", //L"Hold |C|t|r|l to compare items", item compare help text
-	L"Equipment weight: %4.1f kg",	// 35	// TODO.Translate
+	L"装备重量: %4.1f 公斤", //L"Equipment weight: %4.1f kg",	// 35
 };
 
 // HEADROCK: End new tooltip text
@@ -4250,7 +4250,7 @@ STR16 pwMiscSectorStrings[] =
 	L"已占领",
 	L"是",
 	L"否",
-	L"Status/Software status:",	// TODO.Translate
+	L"状态/软件状态:", //L"Status/Software status:",
 };
 
 // error strings for inventory
@@ -4334,7 +4334,7 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	L"合并堆叠同类的物品", // HEADROCK HAM 5: Stack and Merge
 	L"|鼠|标|左|击: 将子弹分类装入弹箱 \n|鼠|标|右|击: 将子弹分类装入纸盒 ", //L"|L|e|f|t |C|l|i|c|k: 将子弹分类装入弹箱\n|R|i|g|h|t |C|l|i|c|k: 将子弹分类装入纸盒", HEADROCK HAM 5: Sort ammo
 	// 6 - 10
-	L"|鼠|标|左|击: 移除所有物品的附件\n|鼠|标|右|击: empty LBE in sector", // HEADROCK HAM 5: Separate Attachments
+	L"|鼠|标|左|击: 移除所有物品的附件\n|鼠|标|右|击: 清空此区携行具", //L"|鼠|标|左|击: 移除所有物品的附件\n|鼠|标|右|击: empty LBE in sector", // HEADROCK HAM 5: Separate Attachments
 	L"退出所有武器的子弹", //HEADROCK HAM 5: Eject Ammo
 	L"|鼠|标|左|击: 显示全部物品 \n|鼠|标|右|击: 隐藏全部物品 ", // HEADROCK HAM 5: Filter Button
 	L"|鼠|标|左|击: 切换显示武器 \n|鼠|标|右|击: 只显示武器 ", // HEADROCK HAM 5: Filter Button
@@ -4348,8 +4348,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// 16 - 20
 	L"|鼠|标|左|击: 切换显示杂项物品 \n|鼠|标|右|击: 只显示杂项物品 ", // HEADROCK HAM 5: Filter Button
 	L"切换搬运中的物品", // Flugente: move item display
-	L"Save Gear Template",	// TODO.Translate
-	L"Load Gear Template...",
+	L"保存装备模版", //L"Save Gear Template",
+	L"载入装备模版...", //L"Load Gear Template...",
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -4784,7 +4784,7 @@ STR16 pImpPopUpStrings[] =
 	L"你无法支付此I.M.P.人物的费用。",	// 10
 	L"新的I.M.P.人物加入了你的队伍。",
 	L"你已经设置了最大数量的佣兵特性。",
-	L"No voicesets found.",	// TODO.Translate
+	L"未找到语音包。", //L"No voicesets found.",
 };
 
 
@@ -5125,14 +5125,14 @@ STR16 pWebPagesTitles[] =
 	L"佣兵喜欢或不喜欢你 - 关于我们", //L"Mercs Love or Dislike You - About us",
 	L"佣兵喜欢或不喜欢你 - 队伍分析", //L"Mercs Love or Dislike You - Analyze a team",
 	L"佣兵喜欢或不喜欢你 - 成对对比", //L"Mercs Love or Dislike You - Pairwise comparison",
-	L"Mercs Love or Dislike You - Personality",					// TODO.Translate
+	L"佣兵喜欢或不喜欢你 - 人格分析", //L"Mercs Love or Dislike You - Personality",
 	L"世界卫生组织 - 关于世界卫生组织", //L"WHO - About WHO",
 	L"世界卫生组织 - 阿鲁克的疾病", //L"WHO - Disease in Arulco",
 	L"世界卫生组织 - 有用的贴士", //L"WHO - Helpful Tips",
 	L"Kerberus安保公司 - 关于我们", //L"Kerberus - About Us",
 	L"Kerberus安保公司 - 雇佣队伍", //L"Kerberus - Hire a Team",
 	L"Kerberus安保公司 - 独立协议", //L"Kerberus - Individual Contracts",
-	L"Militia Overview",										// TODO.Translate
+	L"民兵总览", //L"Militia Overview",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -6015,7 +6015,7 @@ STR16 SKI_Text[ ] =
 	L"你没有空余的位置来放东西了。",	//"There is not enough room in your offer area.",//Message box that tells the user there is no more room to put there stuff
 	L"%d分钟",		//"%d MINUTES",	// The text underneath the inventory slot when an item is given to the dealer to be repaired
 	L"把物品放在地上。",	//"Drop Item To Ground.",
-	L"BUDGET",	// TODO.Translate
+	L"特价", //L"BUDGET",
 };
 
 //ShopKeeper Interface
@@ -7092,7 +7092,7 @@ STR16 sRepairsDoneString[] =
 	L"%s 修复所有人携带的中型物品",//L"%s finished repairing everyone's medium carried items",
 	L"%s 修复所有人携带的小型物品",//L"%s finished repairing everyone's small carried items",
 	L"%s 修复所有人的携行具",//L"%s finished repairing everyone's LBE gear",
-	L"%s finished cleaning everyone's guns.",	// TODO.Translate
+	L"%s 清空了所有人的枪支。", //L"%s finished cleaning everyone's guns.",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -7397,7 +7397,7 @@ STR16 New113Message[] =
 	L"正在工作的无线电设备。",
 	L"望远镜",
 	L"病人",
-	L"%s's shield has been destroyed!",	// TODO.Translate
+	L"%s的防护盾毁坏了！", //L"%s's shield has been destroyed!",
 };
 
 STR16 New113HAMMessage[] = 
@@ -7449,10 +7449,10 @@ STR16 gzTransformationMessage[] =
 	L"%s被拆分成%d个弹匣每个有%d发子弹", //L"%s was split into %d Magazines containing %d rounds each.",
 	L"%s拆分完成并放入%s的背包", //L"%s was split into %s's inventory.",
 	L"%s的背包空间不足，放不下这个口径的弹匣了", //L"There is insufficient room in %s's inventory to fit any magazines of this caliber!",
-	L"Instant mode",	// TODO.Translate
-	L"Delayed mode",
-	L"Instant mode (%d AP)",
-	L"Delayed mode (%d AP)",
+	L"即时模式", //L"Instant mode",
+	L"延时模式", //L"Delayed mode",
+	L"即时模式 (%d AP)", //L"Instant mode (%d AP)",
+	L"延时模式 (%d AP)", //L"Delayed mode (%d AP)",
 };
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!
@@ -7818,7 +7818,7 @@ STR16 gzIMPCharacterTraitText[]=
 	L"和平主义者",
 	L"恶毒",
 	L"爱炫耀",
-	L"Coward",	// TODO.Translate
+	L"懦夫", //L"Coward",
 	L"I.M.P. 性格特征",
 };
 
@@ -7855,8 +7855,8 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"聋子", //L"Deaf",
 	L"近视眼", //L"Shortsighted",
 	L"血友病",//L"Hemophiliac",
-	L"Fear of Heights",	// TODO.Translate
-	L"Self-Harming",
+	L"恐高", //L"Fear of Heights",
+	L"自残倾向", //L"Self-Harming",
 	L"I.M.P. 性格缺陷",
 };
 
@@ -7878,16 +7878,16 @@ STR16 gzIMPDisabilityTraitEmailTextHemophiliac[] =
 	L"只要你够NB永远不被枪打中，或者战斗只在设施完备的医院中进行，应该就会没事的",//L"As long as you are so good to never ever get hit, or fight only in fully staffed hospitals, you should be fine.",
 };
 
-STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[]=	// TODO.Translate
+STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[]=
 {
-	L"Let's just say you are a grounded person.",
-	L"You prefer missions where you don't have to scale tall buildings or mountains. We recommend conquering the Netherlands.",
+	L"这么说吧，你是个走路鸡。", //L"Let's just say you are a grounded person.",
+	L"登高啊，上房啊，爬山什么的任务啊对你来说很艰难，我们推荐你去没有山的地方执行任务，比如荷兰。", //L"You prefer missions where you don't have to scale tall buildings or mountains. We recommend conquering the Netherlands.",
 };
 
 STR16 gzIMPDisabilityTraitEmailTextSelfHarm[] =
 {
-	L"Might want to make sure your knives are always clean.",
-	L"You have some issues with knives. Not that you tend to avoid them, quite the opposite, really.",
+	L"你应该经常消毒你的刀子。", //L"Might want to make sure your knives are always clean.",
+	L"你对刀子有种特别的感情。我不是说你害怕刀子，而是完全相反的那种感情，你懂吧？", //L"You have some issues with knives. Not that you tend to avoid them, quite the opposite, really.",
 };
 
 // HEADROCK HAM 3.6: Error strings for assigning a merc to a facility
@@ -8390,7 +8390,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|反|器|材|弹|药", //L"|A|n|t|i|-|M|a|t|e|r|i|a|l |A|m|m|o",
 	L"|面|部|防|护", //L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
 	L"|感|染|防|护", //L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	 // 39
-	L"|S|h|i|e|l|d",	// TODO.Translate
+	L"|护|盾", //L"|S|h|i|e|l|d",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8435,7 +8435,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这种弹药可以破坏发光的墙\n或者其他不同种类的物品。", //L"\n \nThis ammo can destroy light walls\nand various other objects.",
 	L"\n \n如果你脸上带了这个，这就将降低\n传播给其他人的几率。", //L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
 	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
-	L"\n \nIf equipped in a hand, this will block incoming damage.",	// TODO.Translate
+	L"\n \n拿在手里，就可以抵挡前方的伤害。", //L"\n \nIf equipped in a hand, this will block incoming damage.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8653,12 +8653,12 @@ STR16 gzMapInventorySortingMessage[] =
 	L"已完成 退出所有武器里的子弹 在区域 %c%d.",
 	L"已完成 合并后堆叠了所有物品 在区域 %c%d.",
 	// Bob: new strings for emptying LBE items
-	L"Finished emptying LBE items in sector %c%d.",
-	L"Dropped %i item(s) from %s",	// Bunch of stuff removed from LBE item %s
-	L"No droppable items in %s!",	// LBE item %s had a LBENode assigned but it contained no items (error!)
-	L"%s is now empty.",			// LBE item %s contained stuff and was emptied
-	L"Cannot empty %s!",			// Removed everything we could from LBE item %s but it's still not marked as empty (error!)
-	L"%s contents lost!",			// LBE item %s not marked as empty but LBENode not found (error!!!)
+	L"已清空区域 %c%d 的携行具。", //L"Finished emptying LBE items in sector %c%d.",
+	L"从携行具 %s 清空了 %i 个物品。", //L"Dropped %i item(s) from %s",	// Bunch of stuff removed from LBE item %s
+	L"%s 内没有可清空的物品！", //L"No droppable items in %s!",	// LBE item %s had a LBENode assigned but it contained no items (error!)
+	L"%s 现在已经清空了。", //L"%s is now empty.",			// LBE item %s contained stuff and was emptied
+	L"无法清空 %s！", //L"Cannot empty %s!",			// Removed everything we could from LBE item %s but it's still not marked as empty (error!)
+	L"找不到 %s 内的物品！", //L"%s contents lost!",			// LBE item %s not marked as empty but LBENode not found (error!!!)
 };
 
 STR16 gzMapInventoryFilterOptions[] =
@@ -8930,8 +8930,8 @@ STR16	szBackgroundText_Value[]=
 	L" 在沙漠地区%s%d%％AP\n",	 //L" %s%d%% APs in desert sectors\n",
 	L" 在沼泽地区%s%d%％AP\n", //L" %s%d%% APs in swamp sectors\n",
 	L" 在城镇地区%s%d%％AP\n", //L" %s%d%% APs in urban sectors\n",
-	L" %s%d%% APs in forest sectors\n",	// TODO.Translate
-	L" %s%d%% APs in plain sectors\n",
+	L" 在森林地区%s%d%%AP\n", //L" %s%d%% APs in forest sectors\n",
+	L" 在平原地区%s%d%%AP\n", //L" %s%d%% APs in plain sectors\n",
 	L" 在河流地区%s%d%％AP\n", //	L" %s%d%% APs in river sectors\n",
 	L" 在热带地区%s%d%％AP\n", //L" %s%d%% APs in tropical sectors\n",
 	L" 在海岸地区%s%d%％AP\n", //L" %s%d%% APs in coastal sectors\n",
@@ -8973,7 +8973,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％队伍劝降能力\n", //L" %s%d%% team capitulation strength if we lead negotiations\n",
 	L" %s%d%％跑步速度\n", //L" %s%d%% faster running\n", 
 	L" %s%d%％包扎速度\n", //L" %s%d%% bandaging speed\n",
-	L" %s%d%% breath regeneration\n",	// TODO.Translate
+	L" %s%d%% 精力恢复\n", //L" %s%d%% breath regeneration\n",
 	L" %s%d%％负重能力\n", //L" %s%d%% strength to carry items\n",
 	L" %s%d%％食物需求\n", //L" %s%d%% food consumption\n",
 	L" %s%d%％饮水需求\n", //L" %s%d%% water consumption\n",
@@ -11225,34 +11225,34 @@ STR16	szInteractiveActionText[] =
 	L"%s 没有足够的钱。那真让人难为情",//L"%s doesn't have enough money. That's just embarassing.",
 
 	L"%s 从水龙头喝水",//L"%s drank from water tap",
-	L"This machine doesn't seem to be working.",	// TODO.Translate
+	L"这台机器看起来无法工作。", //L"This machine doesn't seem to be working.",
 };
 
-STR16	szLaptopStatText[] =	// TODO.Translate
+STR16	szLaptopStatText[] =
 {
-	L"threaten effectiveness %d\n",
-	L"leadership %d\n",
-	L"approach modifier %.2f\n",
-	L"background modifier %.2f\n",
+	L"威胁效率 %d\n", //L"threaten effectiveness %d\n",
+	L"领导能力 %d\n", //L"leadership %d\n",
+	L"对话修正 %.2f\n", //L"approach modifier %.2f\n",
+	L"背景修正 %.2f\n", //L"background modifier %.2f\n",
 
-	L"+50 (other) for assertive\n",
-	L"-50 (other) for malicious\n",
-	L"Good Guy",
-	L"%s eschews excessive violence and will refuse to attack non-hostiles.",
+	L"+50来源于自信 (其它) \n", //L"+50 (other) for assertive\n",
+	L"-50来源于恶毒 (其它) \n", //L"-50 (other) for malicious\n",
+	L"好人", //L"Good Guy",
+	L"%s 不愿过度使用暴力，并且拒绝攻击非敌对目标。", //L"%s eschews excessive violence and will refuse to attack non - hostiles.",
 
-	L"Friendly approach",
-	L"Direct approach",
-	L"Threaten approach",
-	L"Recruit approach",
+	L"友好对话", //L"Friendly approach",
+	L"直接对话", //L"Direct approach",
+	L"威胁对话", //L"Threaten approach",
+	L"招募对话", //L"Recruit approach",
 };
 
-STR16	szGearTemplateText[] =	// TODO.Translate
+STR16	szGearTemplateText[] =
 {
-	L"Enter Template Name",
-	L"Not possible during combat.",
-	L"Selected mercenary is not in this sector.",
-	L"%s is not in that sector.",
-	L"%s could not equip %s.",
+	L"输入模版名称", //L"Enter Template Name",
+	L"无法在战斗中进行。", //L"Not possible during combat.",
+	L"所选佣兵不在这个区域。", //L"Selected mercenary is not in this sector.",
+	L"%s 不在这个区域。", //L"%s is not in that sector.",
+	L"%s无法装备%s。", //L"%s could not equip %s.",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
