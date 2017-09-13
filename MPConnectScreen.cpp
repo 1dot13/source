@@ -521,6 +521,7 @@ void CheckForContinue()
 #include <vfs/Core/vfs_profile.h>
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_init.h>
+#include <memory>
 
 void ja2::mp::InitializeMultiplayerProfile(vfs::Path const& profileRoot)
 {
