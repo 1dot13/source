@@ -1655,11 +1655,9 @@ BOOLEAN DoesVehicleExistInSquad( INT8 bSquadValue )
 
 void CheckSquadMovementGroups( void )
 {
-	INT32		iSquad;
-	INT8		iSoldier;
 	GROUP *		pGroup;
 
-	for( iSquad = 0; iSquad < NUMBER_OF_SQUADS; iSquad++ )
+	for(INT32 iSquad = 0; iSquad < NUMBER_OF_SQUADS; ++iSquad )
 	{
 		pGroup = GetGroup( SquadMovementGroups[ iSquad ] );
 		if ( pGroup == NULL )

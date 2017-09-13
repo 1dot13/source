@@ -1261,7 +1261,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 		{
 #ifdef JA2BETAVERSION
 				CHAR16 str[256];
-				swprintf( str, L"Attempting to process player group thinking it's an enemy group in ProcessQueenCmdImplicationsOfDeath()", pSoldier->ubGroupID );
+				swprintf( str, L"Attempting to process player group %d thinking it's an enemy group in ProcessQueenCmdImplicationsOfDeath()", pSoldier->ubGroupID );
 				DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 #endif
 			return;
@@ -1270,7 +1270,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 		{
 #ifdef JA2BETAVERSION
 			CHAR16 str[256];
-			swprintf( str, L"Attempting to process militia group thinking it's an enemy group in ProcessQueenCmdImplicationsOfDeath()", pSoldier->ubGroupID );
+			swprintf( str, L"Attempting to process militia group %d thinking it's an enemy group in ProcessQueenCmdImplicationsOfDeath()", pSoldier->ubGroupID );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 #endif
 			return;

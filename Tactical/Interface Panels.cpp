@@ -345,8 +345,7 @@ extern UINT32 guiCurrentItemDescriptionScreen;
 
 extern UINT32 guiCurrentItemDescriptionScreen;
 
-
-typedef enum
+enum
 {
 	STANCEUP_IMAGES = 0,
 	UPDOWN_IMAGES,
@@ -368,7 +367,7 @@ typedef enum
 	NUM_SM_BUTTON_IMAGES
 };
 
-typedef enum
+enum
 {
 	ENDTURN_IMAGES = 0,
 	ROSTERMODE_IMAGES,

@@ -198,7 +198,7 @@ extern BOOLEAN gfUserTurnRegionActive;
 extern UINT8 gubSelectSMPanelToMerc;
 extern BOOLEAN gfIgnoreOnSelectedGuy;
 
-typedef enum
+enum
 {
 	WALK_IMAGES = 0,
 	SNEAK_IMAGES,

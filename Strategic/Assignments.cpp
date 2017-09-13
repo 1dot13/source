@@ -3018,7 +3018,6 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 {
 	UINT32 usCleaningPts;
-	UINT16 usKitPts;
 
 	// oops, we have no cleaning kit
 	if ( pSoldier->GetObjectWithFlag( CLEANING_KIT ) == NULL )
@@ -3624,11 +3623,10 @@ BOOLEAN IsSoldierKnownAsMercInSector(SOLDIERTYPE *pSoldier, INT16 sMapX, INT16 s
 UINT16 ToolKitPoints(SOLDIERTYPE *pSoldier)
 {
 	UINT16 usKitpts=0;
-	UINT8 ubPocket;
 
 	// add up kit points
 	// CHRISL: Changed to dynamically determine max inventory locations.
-	for (ubPocket=HANDPOS; ubPocket < NUM_INV_SLOTS; ubPocket++)
+	for (int ubPocket=HANDPOS; ubPocket < NUM_INV_SLOTS; ++ubPocket)
 	{
 		if( Item[pSoldier->inv[ ubPocket ].usItem].toolkit )
 		{
@@ -3642,11 +3640,10 @@ UINT16 ToolKitPoints(SOLDIERTYPE *pSoldier)
 UINT16 CleaningKitPoints(SOLDIERTYPE *pSoldier)
 {
 	UINT16 usKitpts=0;
-	UINT8 ubPocket;
 
 	// add up kit points
 	// CHRISL: Changed to dynamically determine max inventory locations.
-	for (ubPocket=HANDPOS; ubPocket < NUM_INV_SLOTS; ubPocket++)
+	for (int ubPocket=HANDPOS; ubPocket < NUM_INV_SLOTS; ++ubPocket)
 	{
 		if( HasItemFlag( pSoldier->inv[ubPocket].usItem, CLEANING_KIT ) )
 		{
@@ -3659,12 +3656,11 @@ UINT16 CleaningKitPoints(SOLDIERTYPE *pSoldier)
 
 UINT16 TotalMedicalKitPoints(SOLDIERTYPE *pSoldier)
 {
-	UINT8 ubPocket;
 	UINT16 usKitpts=0;
 
 	// add up kit points of all medkits
 	// CHRISL: Changed to dynamically determine max inventory locations.
-	for (ubPocket = HANDPOS; ubPocket < NUM_INV_SLOTS; ubPocket++)
+	for (int ubPocket = HANDPOS; ubPocket < NUM_INV_SLOTS; ++ubPocket)
 	{
 		// NOTE: Here, we don't care whether these are MEDICAL BAGS or FIRST AID KITS!
 		if ( IsMedicalKitItem( &( pSoldier->inv[ ubPocket ] ) ) )

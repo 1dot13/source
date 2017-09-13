@@ -1,8 +1,7 @@
 #ifndef __INTERFACE_PANELS
 #define __INTERFACE_PANELS
 
-
-typedef enum
+enum
 {
 	STANCEUP_BUTTON = 0,
 	UPDOWN_BUTTON,
@@ -22,8 +21,7 @@ typedef enum
 	NUM_SM_BUTTONS
 };
 
-
-typedef enum
+enum
 {
 	TEAM_DONE_BUTTON = 0,
 	TEAM_MAP_SCREEN_BUTTON,
@@ -35,7 +33,6 @@ typedef enum
 #define NEW_ITEM_CYCLE_COUNT				19
 #define NEW_ITEM_CYCLES						4
 #define	NUM_TEAM_SLOTS						10
-
 
 #define	PASSING_ITEM_DISTANCE_OKLIFE		3
 #define	PASSING_ITEM_DISTANCE_NOTOKLIFE		2

@@ -79,7 +79,7 @@ enum SoldierBodyTypes
 // RGM = Regular Male
 // (RG) = Body desc ( Regular - RG, Short Stocky ( SS ), etc
 // (M) = Sex, Male, female
-typedef enum
+typedef enum AnimationSurfaceTypes
 {
 	RGMBASICWALKING = 0,
 	RGMSTANDING,
@@ -615,7 +615,7 @@ BGMWITHSTONE,
 } AnimationSurfaceTypes;
 
 // Enumerations for struct data
-typedef enum
+enum
 {
 	S_STRUCT,
 	C_STRUCT,

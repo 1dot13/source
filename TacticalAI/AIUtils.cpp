@@ -3986,7 +3986,6 @@ BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
 {
 	UINT32	uiBombIndex;
 	INT32	sCheckGridno;
-	OBJECTTYPE *pObj;
 
 	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 
@@ -3998,9 +3997,9 @@ BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
 	sMaxUp   = min( ubDistance, (sGridNo / MAXROW));
 	sMaxDown = min( ubDistance, MAXROW - ((sGridNo / MAXROW) + 1));
 
-	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
+	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; ++sYOffset)
 	{
-		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
+		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; ++sXOffset)
 		{
 			sCheckGridno = sGridNo + sXOffset + (MAXCOL * sYOffset);
 
@@ -4010,7 +4009,7 @@ BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
 			}
 
 			// search all bombs that we can see
-			for (uiBombIndex = 0; uiBombIndex < guiNumWorldBombs; uiBombIndex++)
+			for (uiBombIndex = 0; uiBombIndex < guiNumWorldBombs; ++uiBombIndex)
 			{
 				if (gWorldBombs[ uiBombIndex ].fExists &&
 					gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].sGridNo == sCheckGridno &&
