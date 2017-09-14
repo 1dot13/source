@@ -838,7 +838,7 @@ void PickIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 	}
 
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
-	if ( gGameExternalOptions.fIndividualMilitia )
+	if ( aNumber && gGameExternalOptions.fIndividualMilitia )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in PickIndividualMilitia" );
 }
 
@@ -877,6 +877,6 @@ void DropIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 	}
 
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
-	if ( gGameExternalOptions.fIndividualMilitia )
+	if ( aNumber && gGameExternalOptions.fIndividualMilitia )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in DropIndividualMilitia" );
 }
