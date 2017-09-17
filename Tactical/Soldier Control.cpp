@@ -101,6 +101,7 @@
 #include "MilitiaIndividual.h"	// added by Flugente
 #include "Arms Dealer Init.h"	// added by Flugente for armsDealerInfo[]
 #include "LuaInitNPCs.h"		// added by Flugente
+#include "SaveLoadMap.h"		// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -1027,6 +1028,8 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->bScopeMode = USE_BEST_SCOPE;
 
 		this->ubMilitiaAssists = 0;
+
+		this->CancelDrag();
 		
 		this->bFoodLevel = 0;
 		this->bDrinkLevel = 0;
@@ -11193,12 +11196,10 @@ InternalpSoldier->GivingSoldierCancelServices(, FALSE );
 
 void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckRange )
 {
-	//INT16					dDegAngle;
 	FLOAT					dDeltaPos;
 	FLOAT					dXPos, dYPos;
-	BOOLEAN				fStop = FALSE;
-
-
+	BOOLEAN					fStop = FALSE;
+	
 	//dDegAngle = (INT16)( dAngle * 180 / PI );
 	//sprintf( gDebugStr, "Move Angle: %d", (int)dDegAngle );
 
@@ -11306,11 +11307,104 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 		}
 	}
 
+	// Flugente: as we move a tile, we would now be too far away to drag someone.
+	// So remember whether we were dragging (we have to set our position now, otherwise the person we drag woul soon occupy our gridno).
+	BOOLEAN currentlydragging = this->IsDraggingSomeone();
+	INT32 sOldGridNo = this->sGridNo;
+
 	// OK, set new position
 	this->EVENT_InternalSetSoldierPosition( dXPos, dYPos, FALSE, FALSE, FALSE );
+	
+	// Flugente: drag people	
+	if ( currentlydragging )
+	{
+		if ( this->usDragPersonID != NOBODY )
+		{
+			SOLDIERTYPE* pSoldier = MercPtrs[this->usDragPersonID];
+			
+			// while it would be neat to take the opposite direction (which would make it look like we drag the other person by the legs),
+			// this causes problems, as a prone person needs additional space for the legs. So just take the same direction
+			//pSoldier->ubDirection = (this->ubDirection + 4 ) % NUM_WORLD_DIRECTIONS;
+			pSoldier->ubDirection = this->ubDirection;
+						
+			FLOAT dx = 0;
+			FLOAT dy = 0;
 
+			INT32 gridnotouse = pSoldier->sGridNo;
+			if ( sOldGridNo != this->sGridNo )
+			{
+				gridnotouse = sOldGridNo;
+			}
+			else
+			{
+				INT16 this_base_x = 0;
+				INT16 this_base_y = 0;
+				ConvertMapPosToWorldTileCenter(this->sGridNo, &this_base_x, &this_base_y);
+
+				dx = this->dXPos - this_base_x;
+				dy = this->dYPos - this_base_y;
+			}
+
+			INT16 base_x = 0;
+			INT16 base_y = 0;
+			ConvertMapPosToWorldTileCenter( gridnotouse, &base_x, &base_y );
+
+			pSoldier->EVENT_InternalSetSoldierPosition( base_x + dx, base_y + dy, FALSE, FALSE, FALSE );
+		}
+		else if ( this->sDragCorpseID >= 0 )
+		{
+			ROTTING_CORPSE* pCorpse = GetRottingCorpse( this->sDragCorpseID );
+
+			if ( pCorpse )
+			{
+				// move corpse to new location. We have to actually delete and recreate the corpse, otherwise direction changes will only be visible after saving the game
+				ROTTING_CORPSE_DEFINITION CorpseDef;
+
+				// Copy corpse definition...
+				memcpy(&CorpseDef, &(pCorpse->def), sizeof(ROTTING_CORPSE_DEFINITION));
+
+				// Remove old one...
+				RemoveCorpse(pCorpse->iID);
+
+				// drop blood at old location
+				InternalDropBlood(pCorpse->def.sGridNo, this->pathing.bLevel, 0, 5, 1);
+
+				// adjust both gridno and x,y coordinates
+				if (sOldGridNo != this->sGridNo)
+				{
+					CorpseDef.sGridNo	= sOldGridNo;
+					CorpseDef.dXPos		= CenterX(CorpseDef.sGridNo);
+					CorpseDef.dYPos		= CenterY(CorpseDef.sGridNo);
+				}
+				else
+				{
+					// move corpse a bit
+					INT16 this_base_x = 0;
+					INT16 this_base_y = 0;
+					ConvertMapPosToWorldTileCenter(this->sGridNo, &this_base_x, &this_base_y);
+
+					FLOAT dx = this->dXPos - this_base_x;
+					FLOAT dy = this->dYPos - this_base_y;
+						
+					INT16 base_x = 0;
+					INT16 base_y = 0;
+					ConvertMapPosToWorldTileCenter(pCorpse->def.sGridNo, &base_x, &base_y);
+
+					CorpseDef.sGridNo	= pCorpse->def.sGridNo;
+					CorpseDef.dXPos		= CenterX(CorpseDef.sGridNo) + dx;
+					CorpseDef.dYPos		= CenterY(CorpseDef.sGridNo) + dy;
+				}
+
+				CorpseDef.usFlags		|= ROTTING_CORPSE_USE_XY_PROVIDED;
+
+				CorpseDef.ubDirection	= this->ubDirection;
+
+				this->sDragCorpseID = AddRottingCorpse(&CorpseDef);
+			}
+		}
+	}
+	
 	//	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("X: %f Y: %f", dXPos, dYPos ) );
-
 }
 
 BOOLEAN GetDirectionChangeAmount( INT32 sGridNo, SOLDIERTYPE *pSoldier, UINT8 uiTurnAmount )
@@ -17361,6 +17455,13 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 			canuse = TRUE;
 		break;
 
+	case SKILLS_DRAG:
+
+		// TODO: a better check would be whether we can drag anything at the moment - CanDrag is more used for a specific person
+		if ( CanDragInPrinciple() )
+			canuse = TRUE;
+		break;
+
 	default:
 		break;
 	}
@@ -17369,7 +17470,7 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 }
 
 // use a skill. For safety reasons, this calls CanUseSkill again
-BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
+BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 {
 	if ( !CanUseSkill( iSkill, TRUE, usMapPos ) )
 	{
@@ -17428,6 +17529,13 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID )
 			usSoldierFlagMask2 |= SOLDIER_TRAIT_FOCUS;
 			sFocusGridNo = usMapPos;
 		}
+		break;
+
+	case SKILLS_DRAG:
+		if ( ID < NOBODY )
+			SetDragOrderPerson( ID );
+		else
+			SetDragOrderCorpse( ID - NOBODY );
 		break;
 
 	default:
@@ -17504,6 +17612,19 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_AIMEDGUN] );
 			wcscat(skilldescarray, atStr);
+
+			break;
+
+		case SKILLS_DRAG:
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_PRONEPERSONORCORPSE] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_CROUCH] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_FREEHANDS] );
+			wcscat( skilldescarray, atStr );
 
 			break;
 
@@ -19351,6 +19472,156 @@ void	SOLDIERTYPE::RiotShieldTakeDamage( INT32 sDamage )
 			DestroyEquippedRiotShield( );
 		}
 	}
+}
+
+// Flugente: drag people
+BOOLEAN		SOLDIERTYPE::CanDragInPrinciple()
+{
+	// only prone while crouched
+	if ( gAnimControl[this->usAnimState].ubEndHeight != ANIM_CROUCH )
+		return FALSE;
+
+	// not in water
+	if ( TERRAIN_IS_HIGH_WATER( this->sGridNo ) )
+		return FALSE;
+
+	// main hand must be free
+	if ( this->inv[HANDPOS].exists( ) )
+		return FALSE;
+
+	return TRUE;
+}
+
+BOOLEAN		SOLDIERTYPE::CanDragPerson( UINT8 usID )
+{
+	if ( !CanDragInPrinciple() )
+		return FALSE;
+		
+	// check whether this guy exists etc.
+	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+
+	if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
+	{
+		// must be on same level
+		if ( pSoldier->pathing.bLevel != this->pathing.bLevel )
+			return FALSE;
+
+		// only prone people can be dragged
+		if ( gAnimControl[pSoldier->usAnimState].ubEndHeight != ANIM_PRONE )
+			return FALSE;
+
+		// not in water
+		if ( TERRAIN_IS_HIGH_WATER( pSoldier->sGridNo ) )
+			return FALSE;
+
+		// don't drag nonsense around
+		if ( pSoldier->ubBodyType >= COW || pSoldier->ubBodyType == QUEENMONSTER )
+			return FALSE;
+
+		// must be near us 
+		if ( PythSpacesAway( pSoldier->sGridNo, this->sGridNo ) > 1 )
+			return FALSE;
+
+		// we must be able to see the other guy even if if both would be prone. This is to stop the player from dragging someone through solid structures
+		if ( !LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, this->sGridNo, this->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS, PRONE_LOS_POS, PRONE_LOS_POS))
+			return FALSE;
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN		SOLDIERTYPE::CanDragCorpse( UINT16 usCorpseNum )
+{
+	if ( !CanDragInPrinciple( ) )
+		return FALSE;
+
+	ROTTING_CORPSE* pCorpse = GetRottingCorpse( usCorpseNum );
+
+	if ( pCorpse )
+	{
+		// must be on same level
+		if ( pCorpse->def.bLevel != this->pathing.bLevel )
+			return FALSE;
+
+		// don't drag nonsense around
+		if ( pCorpse->def.ubBodyType >= COW || pCorpse->def.ubBodyType == QUEENMONSTER )
+			return FALSE;
+				
+		// must be near us 
+		if ( PythSpacesAway( pCorpse->def.sGridNo, this->sGridNo ) > 2 )
+			return FALSE;
+
+		// we must be able to see the other guy even if if both would be prone. This is to stop the player from dragging someone through solid structures
+		if (!LocationToLocationLineOfSightTest(pCorpse->def.sGridNo, this->pathing.bLevel, this->sGridNo, this->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS, PRONE_LOS_POS, PRONE_LOS_POS))
+			return FALSE;
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN		SOLDIERTYPE::IsDraggingSomeone( )
+{
+	if ( this->sDragCorpseID >= 0 )
+	{
+		if ( this->CanDragCorpse(this->sDragCorpseID) )
+			return TRUE;
+		else
+			CancelDrag();
+	}
+	else if ( this->usDragPersonID != NOBODY )
+	{
+		if ( this->CanDragPerson(this->usDragPersonID) )
+			return TRUE;
+		else
+			CancelDrag();
+	}
+
+	return FALSE;
+}
+
+void	SOLDIERTYPE::SetDragOrderPerson( UINT16 usID )
+{
+	if ( CanDragPerson( usID ) )
+	{
+		CancelDrag();
+
+		this->usDragPersonID = usID;
+	}
+}
+
+void	SOLDIERTYPE::SetDragOrderCorpse( UINT32 usID )
+{
+	if ( CanDragCorpse( usID ) )
+	{
+		CancelDrag();
+
+		this->sDragCorpseID = usID;
+	}
+}
+
+void	SOLDIERTYPE::CancelDrag()
+{
+	// if we are dragging a person, set them to the center of their gridno, otherwise their position might be off
+	if (this->usDragPersonID != NOBODY)
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[this->usDragPersonID];
+
+		if ( pSoldier && !TileIsOutOfBounds(pSoldier->sGridNo) )
+		{
+			INT16 base_x = 0;
+			INT16 base_y = 0;
+			ConvertMapPosToWorldTileCenter(pSoldier->sGridNo, &base_x, &base_y);
+
+			pSoldier->EVENT_InternalSetSoldierPosition(base_x, base_y, FALSE, FALSE, FALSE);
+		}
+	}
+
+	this->usDragPersonID = NOBODY;
+	this->sDragCorpseID = -1;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

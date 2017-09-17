@@ -693,7 +693,7 @@ typedef struct
 	BOOLEAN fEnemyHeliActive;
 	UINT8 usEnemyHeliMinimumProgress;
 	
-	UINT16 gEnemyHeliMaxHP;
+	UINT8 gEnemyHeliMaxHP;
 	UINT16 gEnemyHeliTimePerHPRepair;
 	INT32  gEnemyHeliCostPerRepair1HP;
 	UINT16 gEnemyHeliMaxFuel;
@@ -2379,6 +2379,7 @@ typedef struct
 	// ------------ MISC MODIFIERS --------------
 	// Flugente
 	FLOAT fShieldMovementAPCostModifier;		// movement AP costs are multiplied with this while a shield is equipped
+	FLOAT fDragAPCostModifier;
 
 }ITEM_SETTINGS;
 

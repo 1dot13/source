@@ -2783,9 +2783,6 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =
 {
-	// sniper
-	L"Focus",	// TODO.Translate
-
 	// radio operator
 	L"Артналет",
 	L"Постановка помех",
@@ -2796,24 +2793,25 @@ STR16 pTraitSkillsMenuStrings[] =
 
 	// various
 	L"Наблюдатель",
+	L"Focus",	// TODO.Translate
+	L"Drag",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
-	// sniper
-	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
-
 	// radio operator
 	L"Вызвать артиллерийский удар из сектора...",
 	L"Заполнить эфир помехами, чтобы сделать невозможным использование средств связи.",
 	L"Искать источник помех.",
 	L"Использовать радиопрослушку для обнаружения противника.",
 	L"Вызвать подкрепления из соседних секторов.",
-	L"Выключить радиостанцию для экономии батарей.",
+	L"Turn off radio set.",	// TODO.Translate
 
 	// various
 	L"Наблюдать за местностью, чтобы обеспечить более меткую стрельбу своим снайперам.",
+	L"Increase interrupt modifier (penalty outside of area).",	// TODO.Translate
+	L"Drag a person or corpse while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2829,6 +2827,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - одержим бесами",
 	L" - a gun-related trait\n",	// TODO.Translate
 	L" - aimed gun\n",
+	L" - prone person or corpse next to merc\n",	// TODO.Translate
+	L" - crouched position\n",
+	L" - free main hand\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -2840,6 +2841,7 @@ STR16 pSkillMenuStrings[] =
 	L"Все ополченцы",
 
 	L"More",	// TODO.Translate
+	L"Corpse: %s",	// TODO.Translate
 };
 
 STR16 pSnitchMenuStrings[] =

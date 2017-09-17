@@ -416,6 +416,7 @@ enum
 
 #define SOLDIER_COVERT_NOREDISGUISE			0x00001000					// this soldier does not want to be redisguised
 #define SOLDIER_TRAIT_FOCUS					0x00002000					// 'focus' skill is active
+#define SOLDIER_DRAG_CORPSE					0x00004000					// we are dragging a corpse, not a person
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -590,7 +591,8 @@ enum{
 	SKILLS_VARIOUS_FIRST,
 	SKILLS_SPOTTER = SKILLS_VARIOUS_FIRST,
 	SKILLS_FOCUS,
-	SKILLS_VARIOUS_LAST = SKILLS_FOCUS,
+	SKILLS_DRAG,
+	SKILLS_VARIOUS_LAST = SKILLS_DRAG,
 
 	SKILLS_MAX,
 };
@@ -1485,12 +1487,14 @@ public:
 	// Flugente: this was the location of required variables required for the now removed poison feature. They can be used again
 	UINT8	ubMilitiaAssists;		// Flugente: stores militia assists
 	INT8	sNonNPCTraderID;		// Flugente: we can set up non-NPC soldiers to be merchants, we store their dealer id here (value > 0 means arms dealer entry x)
-	INT8	bUnusedINT8_3;
+	//INT8	bUnusedINT8_3;
+	UINT8	usDragPersonID;			// Flugente: id of person we are dragging
 
-	INT16	bUnusedINT16_4;
+	//INT16	bUnusedINT16_4;
+	INT16	sDragCorpseID;			// Flugente: id of corpse we are dragging
+
 	INT16	bUnusedINT16_5;
-	///////////////////////////////////////////////////////
-
+	
 	// Flugente: new variables for extra stats	
 	INT16	bExtraStrength;			// additional strength gained via power armor
 	INT16	bExtraDexterity;		// additional dexterity gained via drugs
@@ -1866,7 +1870,7 @@ public:
 	BOOLEAN CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck = TRUE, INT32 sGridNo = -1 );
 
 	// use a skill. For safety reasons, this calls CanUseSkill again (it is possible to switch the soldier while the menu is open)
-	BOOLEAN UseSkill( UINT8 iSkill, INT32 usMapPos, UINT8 ID );
+	BOOLEAN UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID );
 
 	// is the AI allowed to use a skill? we have to check how much breath and life using this skill would cost, as otherwise the AI might commit suicide by casting
 	BOOLEAN IsAIAllowedtoUseSkill( INT8 iSkill );
@@ -1949,6 +1953,15 @@ public:
 	BOOLEAN		IsRiotShieldEquipped();
 	void		DestroyEquippedRiotShield();
 	void		RiotShieldTakeDamage(INT32 sDamage);
+
+	// Flugente: drag people
+	BOOLEAN		CanDragInPrinciple();
+	BOOLEAN		CanDragPerson( UINT8 usID );
+	BOOLEAN		CanDragCorpse( UINT16 usCorpseNum );
+	BOOLEAN		IsDraggingSomeone();
+	void		SetDragOrderPerson( UINT16 usID );
+	void		SetDragOrderCorpse( UINT32 usID );
+	void		CancelDrag();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

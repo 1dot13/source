@@ -2060,7 +2060,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fEnemyHeliActive					= iniReader.ReadBoolean( "Enemy Helicopter Settings", "ENEMYHELI_ACTIVE", TRUE );
 	gGameExternalOptions.usEnemyHeliMinimumProgress			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_DEFINITE_UNLOCK_AT_PROGRESS", 30, 0, 100 );
 
-	gGameExternalOptions.gEnemyHeliMaxHP					= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP", 100, 1, 500 );
+	gGameExternalOptions.gEnemyHeliMaxHP					= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP", 100, 1, 255 );
 	gGameExternalOptions.gEnemyHeliTimePerHPRepair			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP_REPAIRTIME", 6, 1, 20 );
 	gGameExternalOptions.gEnemyHeliCostPerRepair1HP			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_HP_COST", 200, 10, 1000 );
 	gGameExternalOptions.gEnemyHeliMaxFuel					= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_FUEL", 50, 25, 200 );
@@ -3151,6 +3151,7 @@ void LoadItemSettings()
 
 	// ------------ MISC MODIFIERS --------------
 	gItemSettings.fShieldMovementAPCostModifier						= iniReader.ReadFloat  ("Misc Settings", "SHIELD_MOVEMENT_APCOST_MODIFIER", 1.7f, 1.0f, 10.0f );
+	gItemSettings.fDragAPCostModifier								= iniReader.ReadFloat  ("Misc Settings", "DRAG_MOVEMENT_APCOST_MODIFIER", 1.5f, 1.0f, 10.0f );
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

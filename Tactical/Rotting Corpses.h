@@ -94,6 +94,8 @@ enum RottingCorpseDefines
 #define		ROTTING_CORPSE_NO_VEST									0x00004000		// corpse has no vest (atm not visually)
 #define		ROTTING_CORPSE_NO_PANTS									0x00008000		// corpse has no vest (atm not visually)
 
+#define		ROTTING_CORPSE_USE_XY_PROVIDED							0x00010000		// use the x,y coordinates provided in the definition when adding a corpse
+
 typedef struct
 {
 	UINT8												ubType;
@@ -219,6 +221,9 @@ INT32 GetGridNoOfCorpseGivenProfileID( UINT8 ubProfileID );
 
 void DecayRottingCorpseAIWarnings( void );
 UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo );
+
+ROTTING_CORPSE* GetRottingCorpse( INT16 aNum );
+std::vector<INT16> GetCorpseIDsNearGridNo( INT32 sGridNo, INT8 bLevel, INT8 sRadius );
 
 // Flugente: Raise zombies
 void RaiseZombies( void );

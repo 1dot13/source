@@ -3087,9 +3087,27 @@ UINT32 GetTotalWeight( SOLDIERTYPE* pSoldier )
 	return uiTotalWeight;
 }
 
-UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
+UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier, BOOLEAN fConsiderDragging)
 {
 	UINT32	uiTotalWeight = GetTotalWeight( pSoldier );
+
+	// Flugente: if we drag someone, add their weight to ours
+	if ( fConsiderDragging && pSoldier->IsDraggingSomeone() )
+	{
+		if (pSoldier->usDragPersonID != NOBODY)
+		{
+			SOLDIERTYPE* pOtherSoldier = MercPtrs[pSoldier->usDragPersonID];
+
+			uiTotalWeight += GetTotalWeight( pOtherSoldier );
+			uiTotalWeight += pOtherSoldier->GetBodyWeight();
+		}
+		else if (pSoldier->sDragCorpseID >= 0)
+		{
+			// just give corpses a flat weight
+			uiTotalWeight += 100.0f;
+		}
+	}
+
 	UINT32	uiPercent;
 	UINT32	ubStrengthForCarrying;
 		

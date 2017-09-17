@@ -2777,9 +2777,6 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
 {
-	// sniper
-	L"Focus",	// TODO.Translate
-
 	// radio operator
 	L"Artillery Strike",
 	L"Jam communications",
@@ -2790,24 +2787,25 @@ STR16 pTraitSkillsMenuStrings[] =	// TODO.Translate
 
 	// various
 	L"Spotter",		// TODO.Translate
+	L"Focus",	// TODO.Translate
+	L"Drag",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
-	// sniper
-	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
-
 	// radio operator
 	L"Order an artillery strike from sector...",
 	L"Fill all radio frequencies with white noise, making communications impossible.",
 	L"Scan for jamming signals.",
 	L"Use your radio equipment to continously listen for enemy movement.",
 	L"Call in reinforcements from neighbouring sectors.",
-	L"Turn off radio set to save batteries.",
+	L"Turn off radio set.",	// TODO.Translate
 
 	// various
 	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",	// TODO.Translate
+	L"Increase interrupt modifier (penalty outside of area).",	// TODO.Translate
+	L"Drag a person or corpse while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2823,6 +2821,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - possession by a demon",
 	L" - a gun-related trait\n",	// TODO.Translate
 	L" - aimed gun\n",
+	L" - prone person or corpse next to merc\n",	// TODO.Translate
+	L" - crouched position\n",
+	L" - free main hand\n",
 };
 
 STR16 pSkillMenuStrings[] =	// TODO.Translate
@@ -2834,6 +2835,7 @@ STR16 pSkillMenuStrings[] =	// TODO.Translate
 	L"All Militia",
 
 	L"More",	// TODO.Translate
+	L"Corpse: %s",	// TODO.Translate
 };
 
 // TODO.Translate

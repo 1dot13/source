@@ -1767,21 +1767,19 @@ BOOLEAN ExecuteOverhead( )
                             //  dAngle = (FLOAT)atan2( dDeltaX, dDeltaY );
                             dAngle = gdRadiansForAngle[ pSoldier->bMovementDirection ];
 
+							FLOAT movementchange = gAnimControl[pSoldier->usAnimState].dMovementChange;
+
                             // For walking, base it on body type!
                             if ( pSoldier->usAnimState == WALKING || 
                                     pSoldier->usAnimState == WALKING_WEAPON_RDY ||
                                     pSoldier->usAnimState == WALKING_DUAL_RDY ||
                                     pSoldier->usAnimState == WALKING_ALTERNATIVE_RDY )
                             {
-                                pSoldier->MoveMerc( gubAnimWalkSpeeds[ pSoldier->ubBodyType ].dMovementChange, dAngle, TRUE );
-
+								movementchange = gubAnimWalkSpeeds[pSoldier->ubBodyType].dMovementChange;
                             }
-                            else
-                            {
-                                pSoldier->MoveMerc( gAnimControl[ pSoldier->usAnimState ].dMovementChange, dAngle, TRUE );
-                            }
-                        }
 
+							pSoldier->MoveMerc( movementchange, dAngle, TRUE );
+						}
                     }
                     // Check for direction change
                     if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_TURNING )
@@ -2007,8 +2005,8 @@ void HandleLocateToGuyAsHeWalks( SOLDIERTYPE *pSoldier )
     }
 }
 
-#pragma optimize("gpt",on)
-    __forceinline
+//#pragma optimize("gpt",on)
+  //  __forceinline
 BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLEAN fInitialMove, UINT16 usAnimState )
 {
     INT16                           sAPCost;

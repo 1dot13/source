@@ -155,6 +155,17 @@ private:
 	UINT32 usSkill;
 };
 
+class DragSelection : public SkillMenuItem
+{
+public:
+	DragSelection( )	{}
+
+	void Setup( UINT32 aVal );
+	void Functions( UINT32 aVal );
+
+private:
+	UINT32 usSkill;
+};
 
 /**
  *	Flugente: traits menu popup box

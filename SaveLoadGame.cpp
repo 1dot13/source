@@ -2208,8 +2208,16 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->ubMilitiaAssists, sizeof(ubMilitiaAssists), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &this->sNonNPCTraderID, sizeof(sNonNPCTraderID), sizeof(INT8), numBytesRead );
-		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_3, sizeof(bUnusedINT8_3), sizeof(INT8), numBytesRead );
-		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_4, sizeof(bUnusedINT16_4), sizeof(INT16), numBytesRead );
+		//numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT8_3, sizeof(bUnusedINT8_3), sizeof(INT8), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->usDragPersonID, sizeof(usDragPersonID), sizeof(UINT8), numBytesRead );
+		//numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_4, sizeof(bUnusedINT16_4), sizeof(INT16), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->sDragCorpseID, sizeof(sDragCorpseID), sizeof(INT16), numBytesRead );
+		
+		if ( guiCurrentSaveGameVersion < DRAGPERSONS )
+		{
+			this->CancelDrag();
+		}
+
 		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_5, sizeof(bUnusedINT16_5), sizeof(INT16), numBytesRead );
 				
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraStrength, sizeof(bExtraStrength), sizeof(INT16), numBytesRead);

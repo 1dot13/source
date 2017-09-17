@@ -216,7 +216,7 @@ INT16 BreathPointAdjustmentForCarriedWeight( SOLDIERTYPE * pSoldier )
 	UINT32	uiCarriedPercent;
 	UINT32	uiPercentCost;
 
-	uiCarriedPercent = CalculateCarriedWeight( pSoldier );
+	uiCarriedPercent = CalculateCarriedWeight( pSoldier, TRUE );
 	if (uiCarriedPercent < 101)
 	{
 		// normal BP costs
@@ -476,9 +476,11 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 
 		// Flugente: riot shields lower movement speed
 		if ( pSoldier->IsRiotShieldEquipped( ) )
-		{
 			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
-		}
+
+		// Flugente: dragging someone
+		if ( pSoldier->IsDraggingSomeone( ) )
+			sPoints *= gItemSettings.fDragAPCostModifier;
 
 		// Flugente: scuba fins reduce movement cost in water, but increase cost on land
 		if ( pSoldier->inv[LEGPOS].exists() && HasItemFlag( pSoldier->inv[LEGPOS].usItem, SCUBA_FINS ) )
@@ -724,9 +726,11 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 
 		// Flugente: riot shields lower movement speed
 		if ( pSoldier->IsRiotShieldEquipped( ) )
-		{
 			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
-		}
+
+		// Flugente: dragging someone
+		if ( pSoldier->IsDraggingSomeone( ) )
+			sPoints *= gItemSettings.fDragAPCostModifier;
 
 		// Check if doors if not player's merc (they have to open them manually)
 		if ( sSwitchValue == TRAVELCOST_DOOR && pSoldier->bTeam != gbPlayerNum )
@@ -4227,6 +4231,9 @@ INT16 GetAPsStartRun( SOLDIERTYPE *pSoldier )
 	// Flugente: riot shields lower movement speed
 	if ( pSoldier->IsRiotShieldEquipped( ) )
 		val *= gItemSettings.fShieldMovementAPCostModifier;
+
+	if ( pSoldier->IsDraggingSomeone( ) )
+		val *= gItemSettings.fDragAPCostModifier;
 
 	// Athletics trait
 	if( HAS_SKILL_TRAIT( pSoldier, ATHLETICS_NT ) && gGameOptions.fNewTraitSystem )

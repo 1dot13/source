@@ -2783,9 +2783,6 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =
 {
-	// sniper
-	L"聚焦", //L"Focus",
-
 	// radio operator
 	L"火炮攻击", //L"Artillery Strike",
 	L"通讯干扰", //L"Jam communications",
@@ -2796,24 +2793,25 @@ STR16 pTraitSkillsMenuStrings[] =
 
 	// various
 	L"侦查员",
+	L"聚焦", //L"Focus",	
+	L"Drag",	// TODO.Translate
 };
 
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
-	// sniper
-	L"提高中断修正 (malus outside of area)", //L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
-
 	// radio operator
 	L"命令某分区发动火炮攻击。", //L"Order an artillery strike from sector...",
 	L"所有通讯频率加入空白噪音，阻断正常通讯。", //L"Fill all radio frequencies with white noise, making communications impossible.",
 	L"查找干扰信号源。", //L"Scan for jamming signals.",
 	L"使用无线电设备持续监听敌军动向。", //L"Use your radio equipment to continously listen for enemy movement",
 	L"从邻区呼叫支援。", //L"Call in reinforcements from neighbouring sectors.",
-	L"关闭无线电设备以节约电池。", //L"Turn off radio set to save batteries.",
+	L"Turn off radio set.",	// TODO.Translate
 
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率值。",
+	L"提高中断修正 (malus outside of area)", //L"Increase interrupt modifier (malus outside of area)",
+	L"Drag a person or corpse while you move.",	// TODO.Translate
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2829,6 +2827,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产\n", //L" - posession by a demon"
 	L" - 与枪有关的特长\n", //L" - a gun-related trait\n",
 	L" - 针对枪\n", //L" - aimed gun\n",
+	L" - prone person or corpse next to merc\n",	// TODO.Translate
+	L" - crouched position\n",
+	L" - free main hand\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -2840,6 +2841,7 @@ STR16 pSkillMenuStrings[] =
 	L"所有民兵",
 
 	L"More",
+	L"Corpse: %s",	// TODO.Translate
 };
 
 STR16 pSnitchMenuStrings[] =

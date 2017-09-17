@@ -2794,6 +2794,7 @@ STR16 pTraitSkillsMenuStrings[] =
 	// various
 	L"Spotter",
 	L"Focus",
+	L"Drag",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2805,11 +2806,12 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Scan for jamming signals.",
 	L"Use your radio equipment to continously listen for enemy movement.",
 	L"Call in reinforcements from neighbouring sectors.",
-	L"Turn off radio set to save batteries.",
+	L"Turn off radio set.",
 
 	// various
 	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",
-	L"Increase interrupt modifier (penalty outside of area)",
+	L"Increase interrupt modifier (penalty outside of area).",
+	L"Drag a person or corpse while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2825,6 +2827,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - possession by a demon\n",
 	L" - a gun-related trait\n",
 	L" - aimed gun\n",
+	L" - prone person or corpse next to merc\n",
+	L" - crouched position\n",
+	L" - free main hand\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -2836,6 +2841,7 @@ STR16 pSkillMenuStrings[] =
 	L"All Militia",
 
 	L"More",
+	L"Corpse: %s",
 };
 
 STR16 pSnitchMenuStrings[] =

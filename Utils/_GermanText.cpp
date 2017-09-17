@@ -2786,9 +2786,6 @@ STR16 pMilitiaControlMenuStrings[] =
 //Flugente
 STR16 pTraitSkillsMenuStrings[] =
 {
-	// sniper
-	L"Fokus",
-
 	// radio operator
 	L"Artillerie befehligen",
 	L"Kommunikation stören",
@@ -2799,24 +2796,25 @@ STR16 pTraitSkillsMenuStrings[] =
 
 	// various
 	L"Spotter",
+	L"Fokus",
+	L"Greifen",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
 STR16 pTraitSkillsMenuDescStrings[] =
 {
-	// sniper
-	L"Increase interrupt modifier (malus outside of area)",	// TODO.Translate
-
 	// radio operator
 	L"Artillerieschlag befehligen von einem Sektor...",
 	L"Alle Funkfrequenzen mit weißem Rauschen füllen, sodass eine Kommunikation nicht mehr möglich ist.",
 	L"Nach Störsignalen scannen.",
 	L"Das Radiogerät verwenden, um feindliche Bewegungen zu orten.",
 	L"Verstärkung aus dem Nachbarsektor anfordern.",
-	L"Radiogerät ausschalten, um Batterien zu sparen.",
+	L"Radiogerät ausschalten.",
 
 	// various
 	L"Bestimmtes Gebiet beobachten, damit Scharfschützen einen Bonus auf deren Treffsicherheit erhalten.",
+	L"Increase interrupt modifier (penalty outside of area).",	// TODO.Translate
+	L"Drag a person or corpse while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2832,6 +2830,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - besessen von einem Dämon",
 	L" - a gun-related trait\n",	// TODO.Translate
 	L" - aimed gun\n",
+	L" - prone person or corpse next to merc\n",	// TODO.Translate
+	L" - crouched position\n",
+	L" - free main hand\n",
 };
 
 STR16 pSkillMenuStrings[] =	// TODO.Translate
@@ -2843,6 +2844,7 @@ STR16 pSkillMenuStrings[] =	// TODO.Translate
 	L"All Militia",
 
 	L"More",	// TODO.Translate
+	L"Corpse: %s",	// TODO.Translate
 };
 
 // TODO.Translate

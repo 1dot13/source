@@ -13,6 +13,8 @@
 #include "Queen Command.h"
 #include "strategicmap.h"
 #include "Map Screen Interface.h"
+#include "Rotting Corpses.h"
+
 
 extern void GetEquipmentTemplates( );
 
@@ -109,6 +111,13 @@ void Wrapper_Setup_SoldierSelection( UINT32 aVal)		{	gSoldierSelection.Setup(aVa
 void Wrapper_Cancel_SoldierSelection( UINT32 aVal )		{	gSoldierSelection.Cancel();	}
 /////////////////////////////// Soldier Target Selection ////////////////////////////////////////////
 
+/////////////////////////////// Drag Selection ////////////////////////////////////////////
+DragSelection	gDragSelection;
+
+void Wrapper_Function_DragSelection( UINT32 aVal)		{ gDragSelection.Functions(aVal);	}
+void Wrapper_Setup_DragSelection( UINT32 aVal )			{ gDragSelection.Setup( aVal ); }
+void Wrapper_Cancel_DragSelection( UINT32 aVal )		{ gDragSelection.Cancel( ); }
+/////////////////////////////// Drag Selection ////////////////////////////////////////////
 
 /////////////////////////////// Trait Selection ////////////////////////////////////////////
 void
@@ -236,7 +245,10 @@ SkillSelection::Setup( UINT32 aVal )
 				{
 					swprintf( pStr, pTraitSkillsMenuStrings[uiCounter] );
 
-					pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Function_SkillSelection, uiCounter ) );
+					if ( uiCounter == SKILLS_DRAG )
+						pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Setup_DragSelection, uiCounter ) );
+					else
+						pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_SkillSelection, uiCounter ) );
 
 					// if we cannot perform this skill, grey it out
 					if ( !(pSoldier->CanUseSkill( uiCounter, TRUE, sTraitsMenuTargetGridNo )) )
@@ -738,6 +750,85 @@ SoldierSelection::Functions( UINT32 aVal )
 }
 /////////////////////////////// Soldier Target Selection ////////////////////////////////////////////
 
+/////////////////////////////// Drag Selection ////////////////////////////////////////////
+void
+DragSelection::Setup( UINT32 aVal )
+{
+	Destroy( );
+
+	SOLDIERTYPE * pSoldier = NULL;
+
+	GetSoldier( &pSoldier, gusSelectedSoldier );
+
+	if ( pSoldier == NULL )
+		return;
+
+	if ( pSoldier->CanUseSkill( aVal ) )
+	{
+		usSkill = aVal;
+
+		SetupPopup( "DragSelection" );
+
+		POPUP_OPTION *pOption;
+
+		CHAR16 pStr[300];
+
+		// pretty simple: we find every soldier in a radius around the target position and add him to the list
+		// loop through all soldiers around
+		for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt )
+		{
+			if ( cnt != pSoldier->ubID && pSoldier->CanDragPerson(cnt) )
+			{
+				swprintf( pStr, L"%s", MercPtrs[cnt]->GetName( ) );
+
+				pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_DragSelection, cnt ) );
+				
+				GetPopup( )->addOption( *pOption );
+			}
+		}
+
+		// corpses
+		std::vector<INT16> corpseids = GetCorpseIDsNearGridNo( pSoldier->sGridNo, pSoldier->pathing.bLevel, 1 );
+
+		for ( std::vector<INT16>::iterator it = corpseids.begin(); it != corpseids.end(); ++it )
+		{
+			ROTTING_CORPSE* pCorpse = GetRottingCorpse( (*it) );
+
+			swprintf( pStr, pSkillMenuStrings[SKILLMENU_CORPSES], pCorpse->name );
+
+			// we have to use an offset of NOBODY in order to differentiate between person and corpse
+			pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_DragSelection, (*it) + NOBODY ) );
+			
+			GetPopup( )->addOption( *pOption );
+		}
+
+		// cancel option
+		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
+		pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Cancel_SoldierSelection, 0 ) );
+		GetPopup( )->addOption( *pOption );
+	}
+
+	// same y, different x
+	SetPos( gSkillSelection.GetMaxPosX( ), usTraitMenuPosY );
+}
+
+void
+DragSelection::Functions( UINT32 aVal )
+{
+	SOLDIERTYPE * pSoldier = NULL;
+
+	GetSoldier( &pSoldier, gusSelectedSoldier );
+
+	if ( pSoldier )
+	{
+		pSoldier->UseSkill( usSkill, sTraitsMenuTargetGridNo, aVal );
+	}
+
+	Cancel( );
+	gSkillSelection.Cancel();
+	gTraitSelection.Cancel( );
+}
+/////////////////////////////// Drag Selection ////////////////////////////////////////////
 
 /**
  *	Flugente: traits menu popup box

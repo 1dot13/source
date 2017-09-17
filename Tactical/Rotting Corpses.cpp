@@ -557,8 +557,19 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	AniParams.sDelay							= (INT16)( 150 );
 	AniParams.sStartFrame					= 0;
 	AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_PAUSED | ANITILE_OPTIMIZEFORSLOWMOVING | ANITILE_ANIMATE_Z | ANITILE_ERASEITEMFROMSAVEBUFFFER | uiDirectionUseFlag;
-	AniParams.sX									= CenterX( pCorpse->def.sGridNo );
-	AniParams.sY									= CenterY( pCorpse->def.sGridNo );
+
+	// use the x,y coordinates provided in the definition when adding a corpse
+	if (pCorpse->def.usFlags |= ROTTING_CORPSE_USE_XY_PROVIDED)
+	{
+		AniParams.sX = pCorpse->def.dXPos;
+		AniParams.sY = pCorpse->def.dYPos;
+	}
+	else
+	{
+		AniParams.sX = CenterX(pCorpse->def.sGridNo);
+		AniParams.sY = CenterY(pCorpse->def.sGridNo);
+	}
+		
 	AniParams.sZ									= (INT16)pCorpse->def.sHeightAdjustment;
 	AniParams.uiUserData3					= pCorpse->def.ubDirection;
 	
@@ -2573,6 +2584,36 @@ UINT8 GetNearestRottingCorpseAIWarning( INT32 sGridNo )
 	}
 
 	return( ubHighestWarning );
+}
+
+ROTTING_CORPSE* GetRottingCorpse( INT16 aNum )
+{
+	if ( aNum < giNumRottingCorpse )
+		return &(gRottingCorpse[aNum]);
+
+	return NULL;
+}
+
+std::vector<INT16> GetCorpseIDsNearGridNo( INT32 sGridNo, INT8 bLevel, INT8 sRadius )
+{
+	std::vector<INT16> idvec;
+
+	ROTTING_CORPSE* pCorpse;
+
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
+	{
+		pCorpse = &(gRottingCorpse[cnt]);
+
+		if ( pCorpse->fActivated && pCorpse->def.bLevel == bLevel )
+		{
+			if ( PythSpacesAway( sGridNo, pCorpse->def.sGridNo ) <= sRadius )
+			{
+				idvec.push_back(cnt);
+			}
+		}
+	}
+
+	return idvec;
 }
 
 // Flugente Zombies: resurrect zombies
