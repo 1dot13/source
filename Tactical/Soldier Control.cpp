@@ -8962,15 +8962,20 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 			}
 		}
 
-		// Flugente: riot shields lower movement speed
-		if ( pSoldier->IsRiotShieldEquipped( ) )
-		{
-			pSoldier->sAniDelay = gItemSettings.fShieldMovementAPCostModifier * pSoldier->sAniDelay;
-		}
-
 		//pSoldier->sAniDelay = pSoldier->sAniDelay * ( 1 * gTacticalStatus.bRealtimeSpeed / 2 );
 	}
 
+	// Flugente: riot shields lower movement speed
+	if (pSoldier->IsRiotShieldEquipped())
+	{
+		pSoldier->sAniDelay = gItemSettings.fShieldMovementAPCostModifier * pSoldier->sAniDelay;
+	}
+
+	// Flugente: drag people
+	if (pSoldier->IsDraggingSomeone())
+	{
+		pSoldier->sAniDelay = gItemSettings.fDragAPCostModifier * pSoldier->sAniDelay;
+	}
 }
 
 FLOAT GetSpeedUpFactor( )
