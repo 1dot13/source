@@ -2794,7 +2794,7 @@ STR16 pTraitSkillsMenuStrings[] =
 	// various
 	L"侦查员",
 	L"聚焦", //L"Focus",	
-	L"Drag",	// TODO.Translate
+	L"拖拽", //L"Drag",
 };
 
 //Flugente: short description of the above skills for the skill selection menu
@@ -2806,12 +2806,12 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"查找干扰信号源。", //L"Scan for jamming signals.",
 	L"使用无线电设备持续监听敌军动向。", //L"Use your radio equipment to continously listen for enemy movement",
 	L"从邻区呼叫支援。", //L"Call in reinforcements from neighbouring sectors.",
-	L"Turn off radio set.",	// TODO.Translate
+	L"关闭无线电设备。", //L"Turn off radio set.",
 
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率值。",
 	L"提高中断修正 (malus outside of area)", //L"Increase interrupt modifier (malus outside of area)",
-	L"Drag a person or corpse while you move.",	// TODO.Translate
+	L"移动时拖人或尸体", //L"Drag a person or corpse while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2827,9 +2827,9 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产\n", //L" - posession by a demon"
 	L" - 与枪有关的特长\n", //L" - a gun-related trait\n",
 	L" - 针对枪\n", //L" - aimed gun\n",
-	L" - prone person or corpse next to merc\n",	// TODO.Translate
-	L" - crouched position\n",
-	L" - free main hand\n",
+	L" - 在佣兵旁边放下人或尸体\n", //L" - prone person or corpse next to merc\n",
+	L" - 下蹲姿势\n", //L" - crouched position\n",
+	L" - free main hand\n",	// TODO.Translate
 };
 
 STR16 pSkillMenuStrings[] =
@@ -2840,8 +2840,8 @@ STR16 pSkillMenuStrings[] =
 	L"%d 民兵",
 	L"所有民兵",
 
-	L"More",
-	L"Corpse: %s",	// TODO.Translate
+	L"更多",
+	L"尸体: %s", //L"Corpse: %s",
 };
 
 STR16 pSnitchMenuStrings[] =
