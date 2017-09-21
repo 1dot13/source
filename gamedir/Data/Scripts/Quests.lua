@@ -47,6 +47,9 @@ Profiles =
 {	
 	DYNAMO = 66,
 	CARMEN = 78,
+	KINGPIN = 86,
+	MARIA = 88,
+	ANGEL = 89,
 	MADAME = 107,
 }
 
@@ -55,7 +58,7 @@ nHistory = {
 	HISTORY_QUEST_FINISHED = 16,
 	}
 	
-nFacts = {
+Facts = {
 
 	FACT_ESTONI_REFUELLING_POSSIBLE = 277,
 
@@ -65,13 +68,15 @@ local NO_PROFILE = 200
 
 function InternalStartQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory )
 
-if ( CheckQuest(ubQuest) == qStatus.QUESTNOTSTARTED ) then 
+	if ( CheckQuest(ubQuest) == qStatus.QUESTNOTSTARTED ) then 
+	
 		SetQuest( ubQuest, qStatus.QUESTINPROGRESS ) 	
-			if ( fUpdateHistory == true) then		
-				if ( is_networked == 0 ) then
-					   SetHistoryFact( nHistory.HISTORY_QUEST_STARTED, ubQuest, GetWorldTotalMin(), sSectorX, sSectorY )
-					end	
-			end		
+		
+		if ( fUpdateHistory == true) then		
+			if ( is_networked == 0 ) then
+			   SetHistoryFact( nHistory.HISTORY_QUEST_STARTED, ubQuest, GetWorldTotalMin(), sSectorX, sSectorY )
+			end	
+		end		
 	else
 		SetQuest( ubQuest, qStatus.QUESTINPROGRESS )
 	end

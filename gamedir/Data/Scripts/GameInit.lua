@@ -515,7 +515,7 @@ function InitNewGame()
 			AddEmail (MERC_INTRO, MERC_INTRO_LENGTH, Sender.SPECK_FROM_MERC, -1, -1)
 		end
 	end
-		
+	
 	-- Get starting cash from DifficultySettings.xml
 	SetStartingCashDifLevel(newDIFFICULTY_LEVEL)
 	

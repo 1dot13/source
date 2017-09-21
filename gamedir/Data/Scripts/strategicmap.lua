@@ -266,6 +266,13 @@ function HandleQuestCodeOnSectorEntry( sNewSectorX, sNewSectorY, bNewSectorZ )
 		SetCharacterSectorY(Profil.ANGEL, 0)
 	end
 	
+	if ( sNewSectorX == 6 and sNewSectorY == SectorY.MAP_ROW_C and gubQuest( Quests.QUEST_LEATHER_SHOP_DREAM ) == qStatus.QUESTDONE ) then
+		-- move Kyle to his shop
+		SetCharacterSectorX(Profil.KYLE, 6)
+		SetCharacterSectorY(Profil.KYLE, SectorY.MAP_ROW_C)
+		SetProfileStrategicInsertionData(Profil.KYLE, 12380)
+	end
+
 	if ( sNewSectorX == 5 and sNewSectorY == SectorY.MAP_ROW_D ) then
 		ResetBoxers()
 	end
@@ -315,4 +322,42 @@ function HandleQuestCodeOnSectorExit( sOldSectorX, sOldSectorY, bOldSectorZ )
 	-- reset the state of the museum alarm for Eldin's quotes
 	SetFactFalse( Facts.FACT_MUSEUM_ALARM_WENT_OFF )
 	
+end
+
+-- text colours
+FontColour =
+{
+	FONT_MCOLOR_DKWHITE = 134,
+	FONT_MCOLOR_LTYELLOW = 144,
+	FONT_MCOLOR_RED = 163,
+	FONT_MCOLOR_DKRED = 164,
+	FONT_MCOLOR_LTGREEN = 184,
+}
+
+-- these numbers aren't used in the code - we only use them in LUA
+Languages =
+{
+	LANGUAGE_ENGLISH = 0,
+	LANGUAGE_GERMAN = 1,
+	LANGUAGE_RUSSIAN = 2,
+	LANGUAGE_DUTCH = 3,
+	LANGUAGE_POLISH = 4,
+	LANGUAGE_FRENCH = 5,
+	LANGUAGE_ITALIAN = 6,
+	LANGUAGE_CHINESE = 7,
+}
+
+-- this function is called whenever we liberate a sector. If fFirstTime is true, this is the first time we liberate this sector
+function HandleSectorLiberation( sNewSectorX, sNewSectorY, bNewSectorZ, fFirstTime )
+
+end
+
+-- this function is called whenever we recruit a RPC
+function RecruitRPCAdditionalHandling( usProfile )
+
+end
+
+-- this function is called whenever we enter a sector in tactical
+function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPlayerControlled )
+
 end

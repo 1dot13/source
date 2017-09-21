@@ -164,6 +164,54 @@ SectorY =
 	MAP_ROW_P = 16,
 }
 
+-- text colours
+FontColour =
+{
+	FONT_MCOLOR_DKWHITE = 134,
+	FONT_MCOLOR_LTYELLOW = 144,
+	FONT_MCOLOR_RED = 163,
+	FONT_MCOLOR_DKRED = 164,
+	FONT_MCOLOR_LTGREEN = 184,
+}
+
+-- these numbers aren't used in the code - we only use them in LUA
+Languages =
+{
+	LANGUAGE_ENGLISH = 0,
+	LANGUAGE_GERMAN = 1,
+	LANGUAGE_RUSSIAN = 2,
+	LANGUAGE_DUTCH = 3,
+	LANGUAGE_POLISH = 4,
+	LANGUAGE_FRENCH = 5,
+	LANGUAGE_ITALIAN = 6,
+	LANGUAGE_CHINESE = 7,
+}
+
+-- numbers for addressing which stat should get more experience
+StatTypes = 
+{	
+	HEALTHAMT = 1,
+	AGILAMT = 2,
+	DEXTAMT = 3,
+	WISDOMAMT = 4,
+	MEDICALAMT = 5,
+	EXPLODEAMT = 6,
+	MECHANAMT = 7,
+	MARKAMT = 8,
+	EXPERAMT = 9,
+	STRAMT = 10,
+	LDRAMT = 11,
+}
+
+-- different teams
+Teams =
+{
+	ENEMY_TEAM = 1,
+	CREATURE_TEAM = 2,
+	MILITIA_TEAM = 3,
+	CIV_TEAM = 4,
+}
+
 local iLoop
 local aimLoop
 
@@ -338,3 +386,11 @@ function HandleAtNewGridNo( ProfileId )
 		end -- End what EPC
 	end -- End team
 end
+	
+
+-- handle the result of an interactive action that has a special id set for lua
+-- for more info, see InteractiveActions.xml
+function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bLevel, ubID, usActionType, sLuaactionid, difficulty, skill )
+		
+end
+
