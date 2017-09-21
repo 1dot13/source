@@ -136,15 +136,10 @@ MilitiaPersonalDataTableFireConfirmationCallback( UINT8 val )
 				militia.Fire();
 
 				UpdateMilitia( militia );
-
-				INT8 type = SoldierClassToMilitiaRank( militia.soldierclass);
-
-				if ( type > -1 )
-				{
-					StrategicRemoveMilitiaFromSector( SECTORX( militia.sector ), SECTORY( militia.sector ), (UINT8)type, 1 );
+								
+				StrategicRemoveMilitiaFromSector( SECTORX( militia.sector ), SECTORY( militia.sector ), militia.militiarank, 1 );
 				
-					ResetMilitia();
-				}
+				ResetMilitia();
 
 				militiaindividualmainwidget.SetRefresh();
 			}
@@ -245,9 +240,9 @@ MilitiaPersonalDataTable::Display( )
 				{
 					UINT8 vest = GREENVEST;
 					UINT8 pants = BEIGEPANTS;
-					if ( militia.soldierclass == SOLDIER_CLASS_REG_MILITIA )
+					if ( militia.militiarank == REGULAR_MILITIA)
 						vest = JEANVEST;
-					else if ( militia.soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+					else if ( militia.militiarank == ELITE_MILITIA)
 						vest = BLUEVEST;
 
 					// show background first

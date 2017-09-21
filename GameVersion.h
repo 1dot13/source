@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			INDIVIDUAL_MILITIA_RANKFIX						175	// Flugente: internal individual militia change requires variable change
 #define			DRAGPERSONS										174	// Flugente: we can drag people and corpses now
 #define			SEPARATE_VOICESETS								173 // Flugente: voice sets are now separate from profile slots, and we can have many more of them
 #define			HACKABLE_SAMS									172 // Flugente: SAM sites now have a status for hacking
@@ -93,7 +94,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								DRAGPERSONS
+#define			SAVE_GAME_VERSION								INDIVIDUAL_MILITIA_RANKFIX
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

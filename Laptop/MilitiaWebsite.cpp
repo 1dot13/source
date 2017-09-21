@@ -233,9 +233,9 @@ void FilterIndividualMilitia( InidivualMilitiaLifeState aLifeState, InidivualMil
 			 || (aLifeState != IMLS_FIRED && aLifeState != IMLS_ALL && ((*it).flagmask & MILITIAFLAG_FIRED)) )
 			 continue;
 
-		if ( (aRankState == IMRS_GREEN && (*it).soldierclass != SOLDIER_CLASS_GREEN_MILITIA ) ||
-			 (aRankState == IMRS_REGULAR && (*it).soldierclass != SOLDIER_CLASS_REG_MILITIA) ||
-			 (aRankState == IMRS_ELITE && (*it).soldierclass != SOLDIER_CLASS_ELITE_MILITIA) )
+		if ( (aRankState == IMRS_GREEN && (*it).militiarank != GREEN_MILITIA) ||
+			 (aRankState == IMRS_REGULAR && (*it).militiarank != REGULAR_MILITIA) ||
+			 (aRankState == IMRS_ELITE && (*it).militiarank != ELITE_MILITIA) )
 			 continue;
 
 		if ( (aOriginState == IMOS_ARULCO && (*it).origin != MO_ARULCO) ||
@@ -545,11 +545,11 @@ void GetFaceData( UINT32 aMilitiaId, UINT32& arImageLib, UINT16& arImage )
 	{
 		if ( militia.flagmask & MILITIAFLAG_DEAD )
 			arImage = HUMAN_SKULL;
-		else if ( militia.soldierclass == SOLDIER_CLASS_GREEN_MILITIA )
+		else if ( militia.militiarank == GREEN_MILITIA)
 			arImage = militia.bodytype == REGFEMALE ? MILITIA1F_FACE : MILITIA1_FACE;
-		else if ( militia.soldierclass == SOLDIER_CLASS_REG_MILITIA )
+		else if ( militia.militiarank == REGULAR_MILITIA)
 			arImage = militia.bodytype == REGFEMALE ? MILITIA2F_FACE : MILITIA2_FACE;
-		else if ( militia.soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+		else if ( militia.militiarank == ELITE_MILITIA)
 			arImage = militia.bodytype == REGFEMALE ? MILITIA3F_FACE : MILITIA3_FACE;
 	}
 }

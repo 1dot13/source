@@ -104,7 +104,7 @@ public:
 	UINT8	age;
 	
 	// visuals
-	UINT8	soldierclass;	// green/veteran/elite
+	UINT8	militiarank;	// green/veteran/elite
 	UINT8	bodytype;		// male/bigmale1/bigmale2/female
 	UINT8	skin;
 	UINT8	hair;
@@ -159,9 +159,9 @@ void UpdateAllMilitiaHealthInTactical();
 
 void HandleHourlyMilitiaHealing( );
 
-UINT32 CreateRandomIndividualMilitia( UINT8 aSoldierClass, UINT8 aOrigin, UINT8 aSector );
+UINT32 CreateRandomIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector );
 
-UINT32 CreateNewIndividualMilitia( UINT8 aSoldierClass, UINT8 aOrigin, UINT8 aSector );
+UINT32 CreateNewIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector );
 
 UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector );
 

@@ -63,7 +63,7 @@ MILITIA::Load( HWFILE hwFile )
 		numBytesRead = ReadFieldByField( hwFile, &originsector, sizeof(originsector), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField( hwFile, &sector, sizeof(sector), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField( hwFile, &age, sizeof(age), sizeof(UINT8), numBytesRead );
-		numBytesRead = ReadFieldByField( hwFile, &soldierclass, sizeof(soldierclass), sizeof(UINT8), numBytesRead );
+		numBytesRead = ReadFieldByField( hwFile, &militiarank, sizeof(militiarank), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField( hwFile, &bodytype, sizeof(bodytype), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField( hwFile, &skin, sizeof(skin), sizeof(UINT8), numBytesRead );
 		numBytesRead = ReadFieldByField( hwFile, &hair, sizeof(hair), sizeof(UINT8), numBytesRead );
@@ -146,25 +146,19 @@ void	MILITIA::AddKills( UINT16 aKills, UINT16 aAssists )
 	// important: increase by the NEW points (as militia that start with a higher rank have their points adjusted, promotion points are not always the sum of kills and assists)
 	promotionpoints += 2 * aKills + aAssists;
 
-	if ( soldierclass == SOLDIER_CLASS_REG_MILITIA )
+	if ( militiarank == REGULAR_MILITIA )
 	{
 		promotionpoints = max( promotionpoints, gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular );
 	}
-	else if ( soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+	else if ( militiarank == ELITE_MILITIA )
 	{
 		promotionpoints = max( promotionpoints, gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular + gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Elite );
 	}
 }
 
 UINT16	MILITIA::GetWage( )
-{
-	UINT8 type = GREEN_MILITIA;
-	if ( soldierclass == SOLDIER_CLASS_REG_MILITIA )
-		type = REGULAR_MILITIA;
-	else if ( soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
-		type = ELITE_MILITIA;
-	
-	return gMilitiaOriginData[origin].dailycost[type];
+{	
+	return gMilitiaOriginData[origin].dailycost[militiarank];
 }
 
 // release militia from our service. Does not take care of actually removing a militia from the sector!
@@ -217,6 +211,10 @@ BOOLEAN LoadIndividualMilitiaData( HWFILE hwFile )
 		MILITIA data;
 		if ( !data.Load( hwFile ) )
 			return(FALSE);
+
+		// we changed variable storing the militia quality from soldierclass to militia rank, so we have to change this here
+		if ( guiCurrentSaveGameVersion < INDIVIDUAL_MILITIA_RANKFIX )
+			data.militiarank = SoldierClassToMilitiaRank( data.militiarank );
 
 		gIndividualMilitiaVector.push_back(data);
 	}
@@ -349,9 +347,9 @@ void HandleHourlyMilitiaHealing( )
 	}
 }
 
-UINT32 CreateRandomIndividualMilitia( UINT8 aSoldierClass, UINT8 aOrigin, UINT8 aSector )
+UINT32 CreateRandomIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector )
 {
-	UINT32 militiaid = CreateNewIndividualMilitia( aSoldierClass, aOrigin, aSector );
+	UINT32 militiaid = CreateNewIndividualMilitia(aMilitiaRank, aOrigin, aSector );
 
 	MILITIA newmilitia;
 	if ( GetMilitia( militiaid, &newmilitia ) )
@@ -410,21 +408,19 @@ UINT32 CreateRandomIndividualMilitia( UINT8 aSoldierClass, UINT8 aOrigin, UINT8 
 	return militiaid;
 }
 
-UINT32 CreateNewIndividualMilitia( UINT8 aSoldierClass, UINT8 aOrigin, UINT8 aSector )
+UINT32 CreateNewIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector )
 {
 	if ( !gGameExternalOptions.fIndividualMilitia )
 		return 0;
-
-	// make sure we use a valid soldier class
-	UINT8 soldierclass = aSoldierClass;
-	if ( soldierclass < SOLDIER_CLASS_GREEN_MILITIA || soldierclass > SOLDIER_CLASS_ELITE_MILITIA )
-		soldierclass = SOLDIER_CLASS_GREEN_MILITIA;
-
+	
 	MILITIA newmilitia;
 
 	newmilitia.id = GetFreeIndividualMilitiaId( );
 
-	newmilitia.soldierclass = soldierclass;
+	// make sure we use a valid soldier class
+	newmilitia.militiarank = aMilitiaRank;
+	if ( newmilitia.militiarank >= MAX_MILITIA_LEVELS )
+		newmilitia.militiarank = GREEN_MILITIA;
 
 	// according to origin, we choose bodytype, skin, hair, fore- and surname
 	newmilitia.origin = aOrigin;
@@ -518,10 +514,12 @@ UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 	if ( !gGameExternalOptions.fIndividualMilitia )
 		return 0;
 
+	UINT8 militialevel = SoldierClassToMilitiaRank( aSoldierClass );
+
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
 	{
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector && (*it).soldierclass == aSoldierClass )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector && (*it).militiarank == militialevel )
 		{
 			// fitting data found - now we have to make sure this one isn't already in use
 			BOOLEAN found = FALSE;
@@ -530,21 +528,21 @@ UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 
 			INT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
 			INT32 lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
-			for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
+			for (pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier)
 			{
-				if ( pSoldier && pSoldier->bActive && (*it).id == pSoldier->usIndividualMilitiaID && IsLegalMilitiaId( pSoldier->usIndividualMilitiaID ) )
+				if (pSoldier && pSoldier->bActive && (*it).id == pSoldier->usIndividualMilitiaID && IsLegalMilitiaId(pSoldier->usIndividualMilitiaID) )
 				{
 					found = TRUE;
 					break;
 				}
 			}
 
-			if ( IndividualMilitiaInUse_AutoResolve( (*it).id ) )
+			if ( !found && IndividualMilitiaInUse_AutoResolve((*it).id))
 			{
 				found = TRUE;
 			}
 
-			if ( !found )
+			if (!found)
 			{
 				return (*it).id;
 			}
@@ -556,7 +554,7 @@ UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in GetIdOfUnusedindividualMilitia" );
 
 	// nobody found. That shouldn't really happen, as we are supposed to create data whenever new militia is created. Create new data and use that
-	return CreateNewIndividualMilitia( aSoldierClass, MO_ARULCO, aSector );
+	return CreateNewIndividualMilitia( militialevel, MO_ARULCO, aSector );
 }
 
 // handle possible militia promotion and individual militia update
@@ -569,7 +567,7 @@ void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve
 		militia.AddKills( pSoldier->ubMilitiaKills, pSoldier->ubMilitiaAssists );
 
 		// if we have enough points, promote
-		if ( militia.soldierclass == SOLDIER_CLASS_GREEN_MILITIA )
+		if ( militia.militiarank == GREEN_MILITIA)
 		{
 			if ( militia.promotionpoints >= gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular )
 			{
@@ -598,7 +596,7 @@ void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve
 				}
 			}
 		}
-		else if ( militia.soldierclass == SOLDIER_CLASS_REG_MILITIA )
+		else if ( militia.militiarank == REGULAR_MILITIA)
 		{
 			if ( militia.promotionpoints >= gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular + gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Elite )
 			{
@@ -640,7 +638,7 @@ void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve
 		}
 
 		// separate report for promotion
-		if ( militia.soldierclass != pSoldier->ubSoldierClass )
+		if ( militia.militiarank != SoldierClassToMilitiaRank( pSoldier->ubSoldierClass ) )
 		{
 			MILITIA_BATTLEREPORT report;
 			report.id = GetWorldTotalMin( );
@@ -649,7 +647,7 @@ void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve
 		}
 
 		militia.healthratio = 100.0f * pSoldier->stats.bLife / pSoldier->stats.bLifeMax;
-		militia.soldierclass = pSoldier->ubSoldierClass;
+		militia.militiarank = SoldierClassToMilitiaRank( pSoldier->ubSoldierClass );
 
 		UpdateMilitia( militia );
 	}
@@ -697,17 +695,17 @@ void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UI
 
 		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSourceSector )
 		{
-			if ( usGreens && ( *it ).soldierclass == SOLDIER_CLASS_GREEN_MILITIA )
+			if ( usGreens && ( *it ).militiarank == GREEN_MILITIA)
 			{
 				(*it).sector = aTargetSector;
 				--usGreens;
 			}
-			else if ( usRegulars && (*it).soldierclass == SOLDIER_CLASS_REG_MILITIA )
+			else if ( usRegulars && (*it).militiarank == REGULAR_MILITIA)
 			{
 				(*it).sector = aTargetSector;
 				--usRegulars;
 			}
-			else if ( usElites && (*it).soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+			else if ( usElites && (*it).militiarank == ELITE_MILITIA)
 			{
 				(*it).sector = aTargetSector;
 				--usElites;
@@ -732,15 +730,15 @@ void DisbandIndividualMilitia( UINT8 aSector, UINT8 usGreens, UINT8 usRegulars, 
 
 		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector )
 		{
-			if ( usGreens && (*it).soldierclass == SOLDIER_CLASS_GREEN_MILITIA )
+			if ( usGreens && (*it).militiarank == GREEN_MILITIA)
 			{
 				--usGreens;
 			}
-			else if ( usRegulars && (*it).soldierclass == SOLDIER_CLASS_REG_MILITIA )
+			else if ( usRegulars && (*it).militiarank == REGULAR_MILITIA)
 			{
 				--usRegulars;
 			}
-			else if ( usElites && (*it).soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+			else if ( usElites && (*it).militiarank == ELITE_MILITIA)
 			{
 				--usElites;
 			}
@@ -756,12 +754,14 @@ void DisbandIndividualMilitia( UINT8 aSector, UINT8 usGreens, UINT8 usRegulars, 
 
 void PromoteIndividualMilitia( UINT8 aSector, UINT8 aSoldierClass )
 {
+	UINT8 militiarank = SoldierClassToMilitiaRank( aSoldierClass );
+
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end( );
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
 	{
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector && (*it).soldierclass == aSoldierClass )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector && (*it).militiarank == militiarank )
 		{
-			(*it).soldierclass++;
+			(*it).militiarank++;
 
 			// to properly update promotion points
 			(*it).AddKills(0, 0);
@@ -785,11 +785,11 @@ UINT32 GetDailyUpkeep_IndividualMilitia( UINT32& arNumGreen, UINT32& arNumRegula
 	{
 		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) )
 		{
-			if ( (*it).soldierclass == SOLDIER_CLASS_REG_MILITIA )
+			if ( (*it).militiarank == REGULAR_MILITIA )
 			{
 				++arNumRegular;
 			}
-			else if ( (*it).soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+			else if ( (*it).militiarank == ELITE_MILITIA )
 			{
 				++arNumElite;
 			}
@@ -816,19 +816,7 @@ void PickIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 
 		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_NEEDS_SECTOR)) && (*it).sector == aSector )
 		{
-			if ( ubType == GREEN_MILITIA && (*it).soldierclass == SOLDIER_CLASS_GREEN_MILITIA )
-			{
-				(*it).flagmask |= MILITIAFLAG_NEEDS_SECTOR;
-
-				--aNumber;
-			}
-			else if ( ubType == REGULAR_MILITIA && (*it).soldierclass == SOLDIER_CLASS_REG_MILITIA )
-			{
-				(*it).flagmask |= MILITIAFLAG_NEEDS_SECTOR;
-
-				--aNumber;
-			}
-			else if ( ubType == ELITE_MILITIA && (*it).soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+			if ( ubType == (*it).militiarank )
 			{
 				(*it).flagmask |= MILITIAFLAG_NEEDS_SECTOR;
 
@@ -852,21 +840,7 @@ void DropIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 
 		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && ((*it).flagmask & MILITIAFLAG_NEEDS_SECTOR) )
 		{
-			if ( ubType == GREEN_MILITIA && (*it).soldierclass == SOLDIER_CLASS_GREEN_MILITIA )
-			{
-				(*it).flagmask &= ~MILITIAFLAG_NEEDS_SECTOR;
-				(*it).sector = aSector;
-
-				--aNumber;
-			}
-			else if ( ubType == REGULAR_MILITIA && (*it).soldierclass == SOLDIER_CLASS_REG_MILITIA )
-			{
-				(*it).flagmask &= ~MILITIAFLAG_NEEDS_SECTOR;
-				(*it).sector = aSector;
-
-				--aNumber;
-			}
-			else if ( ubType == ELITE_MILITIA && (*it).soldierclass == SOLDIER_CLASS_ELITE_MILITIA )
+			if ( ubType == (*it).militiarank )
 			{
 				(*it).flagmask &= ~MILITIAFLAG_NEEDS_SECTOR;
 				(*it).sector = aSector;
