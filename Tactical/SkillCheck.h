@@ -17,7 +17,7 @@ INT8 EffectiveExplosive( SOLDIERTYPE *pSoldier );
 INT8 EffectiveLeadership( SOLDIERTYPE *pSoldier );
 INT8 EffectiveMarksmanship( SOLDIERTYPE *pSoldier );
 INT16 EffectiveDexterity( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer );
-INT8 EffectiveExpLevel( SOLDIERTYPE *pSoldier );
+INT8 EffectiveExpLevel( SOLDIERTYPE *pSoldier, BOOLEAN fTactical = TRUE );
 INT8 EffectiveMedical( SOLDIERTYPE *pSoldier );
 
 enum SkillChecks

@@ -172,7 +172,8 @@ INT8 EffectiveLeadership( SOLDIERTYPE * pSoldier )
 	return( (INT8) iEffLeadership );
 }
 
-INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
+// Flugente: modifiers that depend on physical position (squadleader, afraid of heights) only apply if fTactical is TRUE
+INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier, BOOLEAN fTactical )
 {
 	INT32	iEffExpLevel;
 	INT8	bDrunkLevel;
@@ -187,7 +188,7 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 	iEffExpLevel = pSoldier->stats.bExpLevel;
 
 	// SANDRO - STOMP traits - Squadleader bonus to effective level
-	if ( gGameOptions.fNewTraitSystem && IS_MERC_BODY_TYPE( pSoldier ))
+	if ( fTactical && gGameOptions.fNewTraitSystem && IS_MERC_BODY_TYPE( pSoldier ))
 	{
 		iEffExpLevel += (gSkillTraitValues.ubSLEffectiveLevelInRadius * GetSquadleadersCountInVicinity( pSoldier, TRUE, FALSE ));
 	}
@@ -209,7 +210,7 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 			// SANDRO - fear of insects, and we are in tropical sector
 			iEffExpLevel -= 1;
 		}
-		else if ( DoesMercHaveDisability( pSoldier, AFRAID_OF_HEIGHTS ) && pSoldier->pathing.bLevel > 0 )
+		else if ( fTactical & DoesMercHaveDisability( pSoldier, AFRAID_OF_HEIGHTS ) && pSoldier->pathing.bLevel > 0 )
 		{
 			// Flugente: fear of heights
 			iEffExpLevel -= 2;

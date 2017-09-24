@@ -2832,7 +2832,7 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	}
 
 	// calculate effective doctoring rate (adjusted for drugs, alcohol, etc.)
-	usHealPts = (UINT32) (( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor, FALSE ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor);
+	usHealPts = (UINT32) (( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor, FALSE ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor, FALSE) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor);
 	usHealPts = __max(0, (usHealPts * sSectorModifier)/100);
 
 	// calculate normal doctoring rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
@@ -2934,7 +2934,7 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	ubKitEffectiveness = 100 + Item[pSoldier->inv[HANDPOS].usItem].RepairModifier;
 
 	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
-	usRepairPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier, FALSE ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
+	usRepairPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier, FALSE ) * (100 + ( 5 * EffectiveExpLevel( pSoldier, FALSE) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
 
 	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
@@ -3027,7 +3027,7 @@ UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxP
 	}
 
 	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
-	usCleaningPts = (UINT32)( (( EffectiveMechanical( pSoldier ) + 3 * EffectiveDexterity( pSoldier, FALSE ) + 50 * EffectiveExpLevel( pSoldier) ) * 1000 ) / ( gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ) );
+	usCleaningPts = (UINT32)( (( EffectiveMechanical( pSoldier ) + 3 * EffectiveDexterity( pSoldier, FALSE ) + 50 * EffectiveExpLevel( pSoldier, FALSE) ) * 1000 ) / ( gGameExternalOptions.ubCleaningRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ) );
 
 	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
@@ -3087,7 +3087,7 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 	if ( !*pusMaxPts )
 		return 0;
 
-	usInterrogationPoints = 20 + 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier ) / 2;
+	usInterrogationPoints = 20 + 3 * EffectiveExpLevel( pSoldier, FALSE ) + EffectiveLeadership( pSoldier ) / 2;
 
 	// adjust for threatening value
 	INT32 threatenvalue = CalcThreateningEffectiveness( pSoldier->ubProfile ) * gMercProfiles[pSoldier->ubProfile].usApproachFactor[2] ;
@@ -3147,7 +3147,7 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier )
 	if ( pSoldier->bAssignment == FACILITY_PRISON_SNITCH )
 		return 0;
 
-	usValue = 15 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier ) / 2 + 2 * EffectiveStrength( pSoldier, FALSE);
+	usValue = 15 * EffectiveExpLevel( pSoldier, FALSE ) + EffectiveLeadership( pSoldier ) / 2 + 2 * EffectiveStrength( pSoldier, FALSE);
 
 	if (gGameOptions.fNewTraitSystem)
 	{
@@ -3179,7 +3179,7 @@ UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
 	if ( pSoldier->bAssignment != FACILITY_PRISON_SNITCH )
 		return 0;
 
-	usValue = 15 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier ) / 2 + 2 * EffectiveWisdom( pSoldier );
+	usValue = 15 * EffectiveExpLevel( pSoldier, FALSE ) + EffectiveLeadership( pSoldier ) / 2 + 2 * EffectiveWisdom( pSoldier );
 
 	// snitch trait doesn't give bonus, as it's required to take assignment anyway
 	if (gGameOptions.fNewTraitSystem)
@@ -3298,7 +3298,7 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 	if ( !*pusMaxPts )
 		return 0;
 
-	usInterrogationPoints = 20 + 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier )/2 + EffectiveWisdom( pSoldier )/2;
+	usInterrogationPoints = 20 + 3 * EffectiveExpLevel( pSoldier, FALSE) + EffectiveLeadership( pSoldier )/2 + EffectiveWisdom( pSoldier )/2;
 
 	// no bonuses for snitch trait, as merc has to have it to take this assignment anyway
 	if (gGameOptions.fNewTraitSystem)
@@ -3388,7 +3388,7 @@ INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier)
 	if ( pSoldier->flags.fMercAsleep )
 		return 0;
 
-	INT16 val = 3 * EffectiveExpLevel( pSoldier ) + EffectiveLeadership( pSoldier );
+	INT16 val = 3 * EffectiveExpLevel( pSoldier, FALSE) + EffectiveLeadership( pSoldier );
 
 	if (gGameOptions.fNewTraitSystem)
 	{
@@ -3432,7 +3432,7 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 	INT16 aPrisoners[PRISONER_MAX] = {0};
 	UINT16 numprisoners = GetNumberOfPrisoners( pSectorInfo, aPrisoners );
 
-	uiCoverQuality = ( 10 * EffectiveExpLevel( pSoldier ) + 2 * EffectiveLeadership( pSoldier ) + EffectiveWisdom( pSoldier ) ) / 4;
+	uiCoverQuality = ( 10 * EffectiveExpLevel( pSoldier, FALSE) + 2 * EffectiveLeadership( pSoldier ) + EffectiveWisdom( pSoldier ) ) / 4;
 
 	uiSuspicion = 10 + aPrisoners[PRISONER_ELITE] + aPrisoners[PRISONER_OFFICER];
 
@@ -3464,7 +3464,7 @@ BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 		{
 			ScreenMsg( FONT_GRAY2, MSG_INTERFACE, pSnitchPrisonExposedStrings[ SNITCH_PRISON_EXPOSED_FINE_LEADERSHIP ], pSoldier->GetName() );
 		}
-		else if( EffectiveExpLevel( pSoldier ) > PreRandom(100) ) // he avoided ambush
+		else if( EffectiveExpLevel( pSoldier, FALSE ) > PreRandom(100) ) // he avoided ambush
 		{
 			ScreenMsg( FONT_GRAY2, MSG_INTERFACE, pSnitchPrisonExposedStrings[ SNITCH_PRISON_EXPOSED_FINE_EXPLEVEL ], pSoldier->GetName() );
 		}
@@ -6144,7 +6144,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 
 	UINT16 usNormalGroupSize = 2 * zDiffSetting[gGameOptions.ubDifficultyLevel].iMinEnemyGroupSize;
 
-	FLOAT fBaseChance = ( EffectiveLeadership(pSoldier) + EffectiveWisdom(pSoldier) + EffectiveExpLevel(pSoldier) * 10 ) / 3000.0f;
+	FLOAT fBaseChance = ( EffectiveLeadership(pSoldier) + EffectiveWisdom(pSoldier) + EffectiveExpLevel(pSoldier, FALSE) * 10 ) / 3000.0f;
 
 	if ( DoesMercHaveDisability( pSoldier, DEAF ) )
 	{
@@ -7908,7 +7908,7 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 
 	// calculate effective training points (this is hundredths of pts / hour)
 	// typical: 300/hr, maximum: 600/hr
-	sTotalTrainingPts = ( EffectiveWisdom( pTrainer ) + EffectiveLeadership ( pTrainer ) + ( 10 * EffectiveExpLevel ( pTrainer ) ) ) * gGameExternalOptions.ubTownMilitiaTrainingRate;
+	sTotalTrainingPts = ( EffectiveWisdom( pTrainer ) + EffectiveLeadership ( pTrainer ) + ( 10 * EffectiveExpLevel ( pTrainer, FALSE) ) ) * gGameExternalOptions.ubTownMilitiaTrainingRate;
 
 	// check for teaching bonuses
 	if( gGameOptions.fNewTraitSystem ) // old/new traits - SANDRO 

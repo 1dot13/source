@@ -967,7 +967,7 @@ INT16 FacilityRiskResult( SOLDIERTYPE *pSoldier, UINT8 ubRiskType, UINT8 ubFacil
 	INT16 ubWisdom = EffectiveWisdom( pSoldier );
 	UINT8 ubLeadership = EffectiveLeadership( pSoldier );
 	UINT8 ubExplosives = EffectiveExplosive( pSoldier );
-	UINT8 ubExpLevel = EffectiveExpLevel( pSoldier );
+	UINT8 ubExpLevel = EffectiveExpLevel( pSoldier, FALSE);
 	UINT8 ubLocalLoyalty = 0;
 	if (GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY ) != BLANK_SECTOR )
 	{
