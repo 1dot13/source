@@ -644,7 +644,7 @@ extern CLOTHES_STRUCT Clothes[CLOTHES_MAX];
 #define CONSIDERED_NEUTRAL( me, them )  (\
 										( them->aiData.bNeutral || them->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER|SOLDIER_POW) ) \
 										&& ( me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) ) \
-										&& !( me->flags.uiStatusFlags & SOLDIER_BOXER || them->flags.uiStatusFlags & SOLDIER_BOXER ) \
+										&& !( me->flags.uiStatusFlags & SOLDIER_BOXER && them->flags.uiStatusFlags & SOLDIER_BOXER ) \
 										)
 
 typedef struct

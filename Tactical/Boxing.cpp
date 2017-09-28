@@ -273,7 +273,14 @@ void CountPeopleInBoxingRingAndDoActions( void )
 		{
 			// time to go to pre-boxing
 			SetBoxingState( PRE_BOXING );
+
+			// Flugente: in order for boxing to work while covert, we require the boxer to recognize our covert merc as a boxer, but that flag is not yet set
+			// so temporarily set the flag, recognize our merc, and then remove the flag again. it will be properly set later
+			pInRing[0]->flags.uiStatusFlags |= SOLDIER_BOXER;
+
 			PickABoxer();
+
+			pInRing[0]->DeleteBoxingFlag();
 		}
 	}
 	else
@@ -555,7 +562,12 @@ void ClearAllBoxerFlags( void )
 	{
 		if ( MercSlots[ uiSlot ] && MercSlots[ uiSlot ]->flags.uiStatusFlags & SOLDIER_BOXER )
 		{
+			// Flugente: nuke the entire opponent count, remove boxing flag, reevaluate opponent list
+			DecayIndividualOpplist(MercSlots[uiSlot]);
+			
 			MercSlots[ uiSlot ]->DeleteBoxingFlag();
+
+			ManLooksForOtherTeams(MercSlots[uiSlot]);
 
 			if ( MercSlots[uiSlot]->bTeam == gbPlayerNum )
 				MercSlots[uiSlot]->flags.uiStatusFlags &= (~SOLDIER_PCUNDERAICONTROL);
