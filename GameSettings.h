@@ -363,6 +363,7 @@ typedef struct
 	BOOLEAN fAllowInstantInterruptsOnSight;
 
 	BOOLEAN fNoEnemyAutoReadyWeapon;
+	BOOLEAN fReducedInstantDeath;
 	BOOLEAN fAllNamedNpcsDecideAction;
 
 	UINT16 usAwardSpecialExpForQuests;

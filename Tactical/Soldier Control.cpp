@@ -6046,7 +6046,18 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		return;
 	}
 
-		// DEDUCT LIFE
+	// sevenfm: player mercs should not die instantly
+	if (gGameExternalOptions.fReducedInstantDeath &&
+		this->flags.uiStatusFlags & SOLDIER_PC &&
+		this->stats.bLife >= OKLIFE &&
+		ubSpecial != FIRE_WEAPON_HEAD_EXPLODE_SPECIAL &&
+		ubSpecial != FIRE_WEAPON_CHEST_EXPLODE_SPECIAL &&
+		Item[usWeaponIndex].usItemClass & (IC_GUN | IC_THROWING_KNIFE | IC_BLADE))
+	{
+		sDamage = __min(sDamage, this->stats.bLife - OKLIFE + 1 + sDamage / 10);
+	}
+
+	// DEDUCT LIFE
 	ubCombinedLoss = this->SoldierTakeDamage( ANIM_CROUCH, sDamage, sBreathLoss, ubReason, this->ubAttackerID, NOWHERE, FALSE, TRUE );
 
 	// ATE: OK, Let's check our ASSIGNMENT state,
