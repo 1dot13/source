@@ -1642,6 +1642,13 @@ void RenderOverheadOverlays()
 	//ITEMS OVERLAY
 	if( !gfTacticalPlacementGUIActive )
 	{
+		// colours
+		UINT16 red		= Get16BPPColor(FROMRGB(255, 0, 0));
+		UINT16 black	= Get16BPPColor(FROMRGB(0, 0, 0));
+		UINT16 blue		= Get16BPPColor(FROMRGB(0, 0, 255));
+		UINT16 green	= Get16BPPColor(FROMRGB(0, 255, 0));
+		UINT16 white	= Get16BPPColor(FROMRGB(255, 255, 255));
+		
 		for( i = 0 ; i < guiNumWorldItems; ++i	)
 		{
 			pWorldItem = &gWorldItems[ i ];
@@ -1682,23 +1689,22 @@ void RenderOverheadOverlays()
 
 			/*sX += iOffsetHorizontal + gsStartRestrictedX;
 			sY += iOffsetVertical + gsStartRestrictedY;*/
-
-			if ( gfRadarCurrentGuyFlash )
-			{
-				usLineColor = Get16BPPColor( FROMRGB( 0, 0, 0 ) );
-			}
-			else switch( pWorldItem->bVisible )
-			{
-				case HIDDEN_ITEM:				usLineColor = Get16BPPColor( FROMRGB(	0,	0, 255 ) );	break;
-				case BURIED:						usLineColor = Get16BPPColor( FROMRGB( 255,	0,	0 ) );	break;
-				case HIDDEN_IN_OBJECT:	usLineColor = Get16BPPColor( FROMRGB(	0,	0, 255 ) );	break;
-				case INVISIBLE:					usLineColor = Get16BPPColor( FROMRGB(	0, 255,	0 ) );	break;
-				case VISIBLE:						usLineColor = Get16BPPColor( FROMRGB( 255, 255, 255 ) );	break;
-			}
-
+						
 			if ( gfOverItemPool && gsOveritemPoolGridNo == pWorldItem->sGridNo )
 			{
-				usLineColor = Get16BPPColor( FROMRGB( 255,	0,	0 ) );
+				usLineColor = red;
+			}
+			else if (gfRadarCurrentGuyFlash)
+			{
+				usLineColor = black;
+			}
+			else switch (pWorldItem->bVisible)
+			{
+			case HIDDEN_ITEM:		usLineColor = blue;	break;
+			case BURIED:			usLineColor = red;	break;
+			case HIDDEN_IN_OBJECT:	usLineColor = blue;	break;
+			case INVISIBLE:			usLineColor = green;	break;
+			case VISIBLE:			usLineColor = white;	break;
 			}
 
 			PixelDraw( FALSE, sX, sY, usLineColor, pDestBuf );
