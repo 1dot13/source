@@ -319,6 +319,18 @@ void RefreshBoxes( )
 	// also halt dialogue if sector inventory is open
 	if ( guiCurrentScreen == GAME_SCREEN || guiCurrentScreen == MAP_SCREEN && !fShowMapInventoryPool )
 	{
+		// if we are scrolling, don't redraw the boxes as often
+		if (gfScrollPending || gfScrollInertia)
+		{
+			UINT32 timepassednotdisplaying = max(0, GetJA2Clock() - lasttimenhere);
+
+			if (timepassednotdisplaying < 100)
+			{
+				lasttimenhere = GetJA2Clock();
+				return;
+			}
+		}
+
 		// refresh all boxes, and while you're at it, check wether there are any
 		BOOLEAN fFound = FALSE;
 		for ( UINT8 i = 0; i < MYBOX_NUMBER; ++i )
@@ -344,7 +356,8 @@ void RefreshBoxes( )
 		else
 		{
 			// boxes are active, thus we have to refresh them
-			fMapPanelDirty = TRUE;
+			if (guiCurrentScreen == MAP_SCREEN)
+				fMapPanelDirty = TRUE;
 		}
 	}
 	else

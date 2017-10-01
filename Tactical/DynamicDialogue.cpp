@@ -1239,14 +1239,7 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 		// if this option is turned on, a small message will show us how opinions have changed
 		if ( gGameExternalOptions.fDynamicOpinionsShowChange )
 		{
-			if ( gDynamicOpinionEvent[usEvent].sOpinionModifier >= 0 )
-			{
-				ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"%s: %s +%d", gMercProfiles[usProfileA].zNickname, gMercProfiles[usProfileB].zNickname, gDynamicOpinionEvent[usEvent].sOpinionModifier );
-			}
-			else
-			{
-				ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"%s: %s %d", gMercProfiles[usProfileA].zNickname, gMercProfiles[usProfileB].zNickname, gDynamicOpinionEvent[usEvent].sOpinionModifier );
-			}
+			ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, gDynamicOpinionEvent[usEvent].sOpinionModifier >= 0 ? L"%s: %s +%d" : L"%s: %s %d", gMercProfiles[usProfileA].zNickname, gMercProfiles[usProfileB].zNickname, gDynamicOpinionEvent[usEvent].sOpinionModifier );
 		}
 
 		// if dialogue is allowed, set up dialogue
@@ -1743,7 +1736,7 @@ void HandleDynamicOpinionOnContractExtension( UINT8 ubCode, UINT8 usProfile )
 			if ( pSoldierWhoGotPaid->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 				return;
 
-			// determine the remaining length of his contract BEFORE it go renewed
+			// determine the remaining length of his contract BEFORE it got renewed
 			INT32 oldcontract = pSoldierWhoGotPaid->iEndofContractTime;
 			if ( ubCode == EXTENDED_CONTRACT_BY_1_DAY )
 				oldcontract -= 1440;
@@ -1752,7 +1745,7 @@ void HandleDynamicOpinionOnContractExtension( UINT8 ubCode, UINT8 usProfile )
 			else if ( ubCode == EXTENDED_CONTRACT_BY_2_WEEKS )
 				oldcontract -= 14 * 1440;
 
-			// someones contract got extended. Other mercs who have less time on their contract will be annoyed by this, as they feel they shoul be paid first
+			// someones contract got extended. Other mercs who have less time on their contract will be annoyed by this, as they feel they should have been paid first
 			SOLDIERTYPE*		pSoldier = NULL;
 			UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 			UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
@@ -2158,7 +2151,7 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 		break;
 	}
 
-	UINT8				usEventUsed;		// it is possible that the individaul event is switched
+	UINT8				usEventUsed;		// it is possible that the individual event is switched
 	SOLDIERTYPE*		pTeamSoldier = NULL;
 	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 	UINT16				bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
