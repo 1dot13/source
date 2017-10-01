@@ -1899,6 +1899,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 
 									// Flugente: riot shields
 									if ( pSoldier &&
+										pSoldier->bVisible != -1 &&
 										(pSoldier->ubDirection == NORTH || 
 											pSoldier->ubDirection == NORTHWEST ||
 											pSoldier->ubDirection == WEST)

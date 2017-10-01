@@ -4353,7 +4353,8 @@ void HandleExplosionWarningAnimations( )
 				pSoldier->ubDirection == SOUTH || 
 				pSoldier->ubDirection == SOUTHWEST ||
 				pSoldier->ubDirection == NORTHEAST)
-				 && pSoldier->IsRiotShieldEquipped( ) )
+				&& pSoldier->bVisible != -1
+				&& pSoldier->IsRiotShieldEquipped( ) )
 			{
 				ShowRiotShield( pSoldier );
 			}
