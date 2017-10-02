@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MapEditorD|Win32">
+      <Configuration>MapEditorD</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MapEditor|Win32">
+      <Configuration>MapEditor</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_WithDebugInfo|Win32">
+      <Configuration>Release_WithDebugInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bitmap.h" />
+    <ClInclude Include="Button Sound Control.h" />
+    <ClInclude Include="Button System.h" />
+    <ClInclude Include="Compression.h" />
+    <ClInclude Include="Container.h" />
+    <ClInclude Include="Cursor Control.h" />
+    <ClInclude Include="DbMan.h" />
+    <ClInclude Include="ddraw.h" />
+    <ClInclude Include="DEBUG.H" />
+    <ClInclude Include="debug_util.h" />
+    <ClInclude Include="DirectDraw Calls.h" />
+    <ClInclude Include="DirectX Common.h" />
+    <ClInclude Include="dsound.h" />
+    <ClInclude Include="english.h" />
+    <ClInclude Include="ExceptionHandling.h" />
+    <ClInclude Include="expat.h" />
+    <ClInclude Include="FileCat.h" />
+    <ClInclude Include="FileMan.h" />
+    <ClInclude Include="flic.h" />
+    <ClInclude Include="fmod.h" />
+    <ClInclude Include="fmod_errors.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="himage.h" />
+    <ClInclude Include="imgfmt.h" />
+    <ClInclude Include="impTGA.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="Install.h" />
+    <ClInclude Include="Ja2 Libs.h" />
+    <ClInclude Include="JA2 SGP ALL.H" />
+    <ClInclude Include="LibraryDataBase.h" />
+    <ClInclude Include="line.h" />
+    <ClInclude Include="MemMan.h" />
+    <ClInclude Include="mousesystem.h" />
+    <ClInclude Include="mousesystem_macros.h" />
+    <ClInclude Include="Mss-old.h" />
+    <ClInclude Include="Mss.h" />
+    <ClInclude Include="Mutex Manager.h" />
+    <ClInclude Include="pcx.h" />
+    <ClInclude Include="PngLoader.h" />
+    <ClInclude Include="RAD.H" />
+    <ClInclude Include="radbase.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="readdir.h" />
+    <ClInclude Include="RegInst.h" />
+    <ClInclude Include="sgp.h" />
+    <ClInclude Include="sgp_auto_memory.h" />
+    <ClInclude Include="sgp_logger.h" />
+    <ClInclude Include="shading.h" />
+    <ClInclude Include="SMACK.H" />
+    <ClInclude Include="soundman.h" />
+    <ClInclude Include="STCI.h" />
+    <ClInclude Include="stringicmp.h" />
+    <ClInclude Include="timer.h" />
+    <ClInclude Include="TopicIDs.h" />
+    <ClInclude Include="TopicOps.h" />
+    <ClInclude Include="trle.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="video.h" />
+    <ClInclude Include="video_private.h" />
+    <ClInclude Include="vobject.h" />
+    <ClInclude Include="vobject_blitters.h" />
+    <ClInclude Include="vobject_private.h" />
+    <ClInclude Include="vsurface.h" />
+    <ClInclude Include="vsurface_private.h" />
+    <ClInclude Include="WCheck.h" />
+    <ClInclude Include="WinFont.h" />
+    <ClInclude Include="WizShare.h" />
+    <ClInclude Include="ZCONF.H" />
+    <ClInclude Include="ZLIB.H" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Button Sound Control.cpp" />
+    <ClCompile Include="Button System.cpp" />
+    <ClCompile Include="Compression.cpp" />
+    <ClCompile Include="Container.cpp" />
+    <ClCompile Include="Cursor Control.cpp" />
+    <ClCompile Include="DbMan.cpp" />
+    <ClCompile Include="DEBUG.cpp" />
+    <ClCompile Include="debug_util.cpp" />
+    <ClCompile Include="debug_win_util.cpp" />
+    <ClCompile Include="DirectDraw Calls.cpp" />
+    <ClCompile Include="DirectX Common.cpp" />
+    <ClCompile Include="English.cpp" />
+    <ClCompile Include="ExceptionHandling.cpp" />
+    <ClCompile Include="FileCat.cpp" />
+    <ClCompile Include="FileMan.cpp" />
+    <ClCompile Include="Flic.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="himage.cpp" />
+    <ClCompile Include="impTGA.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="Install.cpp" />
+    <ClCompile Include="Ja2 Libs.cpp" />
+    <ClCompile Include="LibraryDataBase.cpp" />
+    <ClCompile Include="line.cpp" />
+    <ClCompile Include="MemMan.cpp" />
+    <ClCompile Include="mousesystem.cpp" />
+    <ClCompile Include="Mutex Manager.cpp" />
+    <ClCompile Include="PCX.cpp" />
+    <ClCompile Include="PngLoader.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="readdir.cpp" />
+    <ClCompile Include="RegInst.cpp" />
+    <ClCompile Include="sgp.cpp" />
+    <ClCompile Include="sgp_logger.cpp" />
+    <ClCompile Include="shading.cpp" />
+    <ClCompile Include="soundman.cpp" />
+    <ClCompile Include="STCI.cpp" />
+    <ClCompile Include="stringicmp.cpp" />
+    <ClCompile Include="timer.cpp" />
+    <ClCompile Include="video.cpp" />
+    <ClCompile Include="vobject.cpp" />
+    <ClCompile Include="vobject_blitters.cpp" />
+    <ClCompile Include="vsurface.cpp" />
+    <ClCompile Include="WinFont.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1237FA1E-6E76-4AB5-B569-45B01C691FAB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SGP</RootNamespace>
+    <ProjectName>SGP</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+    <Import Project="..\ja2_Debug.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+    <Import Project="..\ja2_Debug.props" />
+    <Import Project="..\ja2_Editor.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+    <Import Project="..\ja2_Editor.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\ja2.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'">
+    <OutDir>$(SolutionDir)\lib\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
