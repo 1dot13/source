@@ -9261,6 +9261,10 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 		if( pSoldier->bWeaponMode == WM_ATTACHED_BAYONET )
 		{
 			iBonus += gSkillTraitValues.ubMEDamageBonusBlades; // +30% damage
+
+			// if this attack happens directly after running, the attack is slightly more powerful due to extra force
+			if (pSoldier->usSoldierFlagMask2 & SOLDIER_BAYONET_RUNBONUS)
+				iBonus += 20;
 		}
 		else if ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) && ( gGameOptions.fNewTraitSystem ))
 		{
@@ -9296,6 +9300,9 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 				break;
 		}*/
 	}
+
+	// remove flag, regardless of whether it was used
+	pSoldier->usSoldierFlagMask2 &= ~SOLDIER_BAYONET_RUNBONUS;
 
 	// bonus damage for aggressive characters
 	if ( DoesMercHavePersonality( pSoldier, CHAR_TRAIT_AGGRESSIVE ) )

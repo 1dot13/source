@@ -2410,16 +2410,13 @@ void	RemoveSMPanelButtons( )
 	}
 	RenderBackpackButtons(UNLOAD_BUTTON);	/* CHRISL: Needed for new inventory backpack buttons */
 	
-	UnloadButtonImage( iBurstButtonImages[ WM_NORMAL ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_BURST ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_AUTOFIRE ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL_BURST ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_GL_AUTO ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB_BURST ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_UB_AUTO ] );
-	UnloadButtonImage( iBurstButtonImages[ WM_ATTACHED_BAYONET ] );
+	for (int i = 0; i < NUM_WEAPON_MODES; ++i)
+	{
+		if ( iBurstButtonImages[i] != -1)
+		{
+			UnloadButtonImage(iBurstButtonImages[i]);
+		}
+	}
 }
 
 

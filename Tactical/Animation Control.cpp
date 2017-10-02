@@ -100,6 +100,9 @@ static UINT16 LONG_JUMP_AnimationScript[MAX_FRAMES_PER_ANIM] = { 2,703,3,4,5,6,6
 static UINT16 CRYO_DEATH_AnimationScript[MAX_FRAMES_PER_ANIM] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 465, 440, 497, 442, 0, 0, 0, 0};
 static UINT16 CRYO_DEATH_CROUCHED_AnimationScript[MAX_FRAMES_PER_ANIM] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 465, 440, 497, 442, 0, 0, 0, 0};
 
+// 1038 is the jump to READY_ALTERNATIVE_STAND
+static UINT16 BAYONET_STAB_AnimationScript[MAX_FRAMES_PER_ANIM] = {757, 1, 2, 3, 4, 5, 6, 7, 727, 492, 8, 9, 430, 10, 11, 12, 13, 14, 15, 16, 17, 442, 1038, 494, 0};
+
 ANI_SPEED_DEF gubAnimCrawlSpeeds[ TOTALBODYTYPES ];
 //Block for anim file
 UINT16	gusAnimInst[ MAX_ANIMATIONS ][ MAX_FRAMES_PER_ANIM ];
@@ -1085,6 +1088,9 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 	// CRYO_DEATH_CROUCHED
 	{"CRYO_DEATH_CROUCHED", 0, 150, (FLOAT)0, ANIM_STATIONARY | ANIM_NOMOVE_MARKER | ANIM_NO_EFFORT | ANIM_NONINTERRUPT | ANIM_NOCHANGE_WEAPON | ANIM_IGNORE_AUTOSTANCE | ANIM_ATTACK, ANIM_CROUCH, ANIM_CROUCH, -1},
 
+	//BAYONET_STAB
+	{ "BAYONET_STAB"					, 0,			70,		(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_LIGHT_EFFORT | ANIM_ATTACK ,		ANIM_STAND,	ANIM_STAND, -1 },
+
 };
 
 ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
@@ -1338,6 +1344,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ SLICE ]													= RGMSLICE;
 	gubAnimSurfaceIndex[ REGMALE ][ STAB ]													= RGMSTAB;
 	gubAnimSurfaceIndex[ REGMALE ][ CROUCH_STAB ]										= RGMCSTAB;
+	gubAnimSurfaceIndex[ REGMALE ][ BAYONET_STAB ]										= RGMBAYONET;
 	gubAnimSurfaceIndex[ REGMALE ][ START_AID ]											= RGMMEDIC;
 	gubAnimSurfaceIndex[ REGMALE ][ GIVING_AID ]										= RGMMEDIC;
 	gubAnimSurfaceIndex[ REGMALE ][ END_AID ]												= RGMMEDIC;
@@ -1785,6 +1792,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BIGMALE ][ SLICE ]													= BGMSLICE;
 	gubAnimSurfaceIndex[ BIGMALE ][ STAB ]													= BGMSTAB;
 	gubAnimSurfaceIndex[ BIGMALE ][ CROUCH_STAB ]										= BGMCSTAB;
+	gubAnimSurfaceIndex[ BIGMALE ][ BAYONET_STAB ]										= BGMBAYONET;
 	gubAnimSurfaceIndex[ BIGMALE ][ START_AID ]											= BGMMEDIC;
 	gubAnimSurfaceIndex[ BIGMALE ][ GIVING_AID ]										= BGMMEDIC;
 	gubAnimSurfaceIndex[ BIGMALE ][ END_AID ]												= BGMMEDIC;
@@ -2250,6 +2258,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ STOCKYMALE ][ SLICE ]													= RGMSLICE;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ STAB ]														= RGMSTAB;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ CROUCH_STAB ]										= RGMCSTAB;
+	gubAnimSurfaceIndex[ STOCKYMALE ][ BAYONET_STAB ]										= RGMBAYONET;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ START_AID ]											= RGMMEDIC;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ GIVING_AID ]										= RGMMEDIC;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ END_AID ]												= RGMMEDIC;
@@ -2692,6 +2701,7 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ SLICE ]													= RGFSLICE;
 	gubAnimSurfaceIndex[ REGFEMALE ][ STAB ]													= RGFSTAB;
 	gubAnimSurfaceIndex[ REGFEMALE ][ CROUCH_STAB ]										= RGFCSTAB;
+	gubAnimSurfaceIndex[ REGFEMALE ][ BAYONET_STAB ]									= RGFBAYONET;
 	gubAnimSurfaceIndex[ REGFEMALE ][ START_AID ]											= RGFMEDIC;
 	gubAnimSurfaceIndex[ REGFEMALE ][ GIVING_AID ]										= RGFMEDIC;
 	gubAnimSurfaceIndex[ REGFEMALE ][ END_AID ]												= RGFMEDIC;
@@ -3772,6 +3782,8 @@ BOOLEAN LoadAnimationStateInstructions( )
 
 	memcpy( gusAnimInst[CRYO_DEATH], CRYO_DEATH_AnimationScript, sizeof(CRYO_DEATH_AnimationScript) );
 	memcpy( gusAnimInst[CRYO_DEATH_CROUCHED], CRYO_DEATH_CROUCHED_AnimationScript, sizeof(CRYO_DEATH_CROUCHED_AnimationScript) );
+
+	memcpy(gusAnimInst[BAYONET_STAB], BAYONET_STAB_AnimationScript, sizeof(BAYONET_STAB_AnimationScript));
 
 	// NOTE: Careful here... keep in mind you have to increase MAX_ANIMATIONS whenever you would go over 399(currently) animation numbers 
 

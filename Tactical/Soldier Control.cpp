@@ -12320,7 +12320,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 		{
 			GetSoldier( &pTSoldier, usSoldierIndex );
 
-			// Flugente: if we attack with a bayonet, we don't need to change stance if even if we are stadning and the target is prone...
+			// Flugente: if we attack with a bayonet, we don't need to change stance if even if we are standing and the target is prone...
 			// so we simulate here that the target is still standing
 			UINT8 targetheight = gAnimControl[pTSoldier->usAnimState].ubEndHeight;
 #if 0//dnl ch73 031013 several reasons why disabling this; 1. no animation for bayonet, 2. if target is prone it look ridicules to swing through air instead stub target, 3. incorrect APs calculation
@@ -12332,42 +12332,32 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 			{
 			case ANIM_STAND:
 			case ANIM_CROUCH:
-
-				// CHECK IF HE CAN SEE US, IF SO RANDOMIZE
-				if ( pTSoldier->aiData.bOppList[this->ubID] == 0 && pTSoldier->bTeam != this->bTeam )
+							
+				// WE ARE SEEN
+				if ( this->bWeaponMode == WM_ATTACHED_BAYONET && gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND)
 				{
-					// WE ARE NOT SEEN					
-					// SANDRO - use focused stab animation on aimed blade attacks
-					if ( gGameExternalOptions.fEnhancedCloseCombatSystem && (this->aiData.bAimTime > 0) )
-					{
-						this->EVENT_InitNewSoldierAnim( FOCUSED_STAB, 0, FALSE );
-					}
-					else
-					{
-						this->EVENT_InitNewSoldierAnim( STAB, 0, FALSE );
-					}
+					// if this attack happens directly after running, the attack is slightly more powerful due to extra force
+					if (this->usAnimState == RUNNING || this->usAnimState == RUNNING_W_PISTOL)
+						this->usSoldierFlagMask2 |= SOLDIER_BAYONET_RUNBONUS;
+
+					this->EVENT_InitNewSoldierAnim(BAYONET_STAB, 0, FALSE);
+				}
+				// SANDRO - use focused stab animation on aimed blade attacks
+				else if (gGameExternalOptions.fEnhancedCloseCombatSystem && (this->aiData.bAimTime > 0))
+				{
+					this->EVENT_InitNewSoldierAnim(FOCUSED_STAB, 0, FALSE);
+				}
+				else if ( Chance( 50 ) )
+				{
+					this->EVENT_InitNewSoldierAnim( STAB, 0, FALSE );
 				}
 				else
 				{
-					// WE ARE SEEN				
-					// SANDRO - use focused stab animation on aimed blade attacks
-					if ( gGameExternalOptions.fEnhancedCloseCombatSystem && (this->aiData.bAimTime > 0) )
-					{
-						this->EVENT_InitNewSoldierAnim( FOCUSED_STAB, 0, FALSE );
-					}
-					else
-					{
-						// sevenfm: always use STAB attack for bayonet
-						if ( Random( 50 ) > 25 || this->bWeaponMode == WM_ATTACHED_BAYONET)
-						{
-							this->EVENT_InitNewSoldierAnim( STAB, 0, FALSE );
-						}
-						else
-						{
-							this->EVENT_InitNewSoldierAnim( SLICE, 0, FALSE );
-						}
-					}
+					this->EVENT_InitNewSoldierAnim( SLICE, 0, FALSE );
+				}
 
+				if (pTSoldier->aiData.bOppList[this->ubID] != 0 || pTSoldier->bTeam == this->bTeam)
+				{
 					// IF WE ARE SEEN, MAKE SURE GUY TURNS!
 					// Get direction to target
 					// IF WE ARE AN ANIMAL, CAR, MONSTER, DONT'T TURN
@@ -23050,6 +23040,7 @@ UINT16	GetSuspiciousAnimationAPDuration( UINT16 usAnimation )
 	case SLICE:
 	case STAB:
 	case CROUCH_STAB:
+	case BAYONET_STAB:
 	case PUNCH:
 	case PUNCH_BREATH:
 	case KICK_DOOR:

@@ -416,7 +416,7 @@ enum
 
 #define SOLDIER_COVERT_NOREDISGUISE			0x00001000					// this soldier does not want to be redisguised
 #define SOLDIER_TRAIT_FOCUS					0x00002000					// 'focus' skill is active
-#define SOLDIER_DRAG_CORPSE					0x00004000					// we are dragging a corpse, not a person
+#define SOLDIER_BAYONET_RUNBONUS			0x00004000					// we are performing a bayonet attack after transitioning from running, giving our attack extra force
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
