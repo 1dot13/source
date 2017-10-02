@@ -103,38 +103,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\JA2 C17\</OutDir>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
     <TargetExt>.exe</TargetExt>
-    <IntDir>..\..\..\JA2 C17\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditorD|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\JA2 C17\</OutDir>
     <TargetExt>.exe</TargetExt>
     <TargetName>MapEditor_$(JA2LangPrefix)_Debug</TargetName>
-    <IntDir>..\..\..\JA2 C17\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\JA2 C17\</OutDir>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
     <TargetExt>.exe</TargetExt>
-    <IntDir>..\..\..\JA2 C17\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\JA2 C17\</OutDir>
     <TargetName>MapEditor_$(JA2LangPrefix)_Release</TargetName>
     <TargetExt>.exe</TargetExt>
-    <IntDir>..\..\..\JA2 C17\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\JA2 C17\</OutDir>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)</TargetName>
     <TargetExt>.exe</TargetExt>
-    <IntDir>..\..\..\JA2 C17\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
