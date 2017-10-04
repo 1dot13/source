@@ -23,7 +23,7 @@ typedef struct
 {
 	UINT16		uiIndex;
 	CHAR16	szDiffName[128];
-	CHAR16 szConfirmText[255];
+	CHAR16 szConfirmText[1024];
 	CHAR16	szPrefixXmlName[128];
 	
 	INT32 iStartingCash;
