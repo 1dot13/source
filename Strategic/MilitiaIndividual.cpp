@@ -714,7 +714,7 @@ void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UI
 	}
 
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
-	if ( gGameExternalOptions.fIndividualMilitia )
+	if ( (usGreens + usRegulars + usElites) && gGameExternalOptions.fIndividualMilitia )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in MoveIndividualMilitiaProfiles" );
 }
 
@@ -748,7 +748,7 @@ void DisbandIndividualMilitia( UINT8 aSector, UINT8 usGreens, UINT8 usRegulars, 
 	}
 
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
-	if ( gGameExternalOptions.fIndividualMilitia )
+	if ( (usGreens + usRegulars + usElites) && gGameExternalOptions.fIndividualMilitia )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in DisbandIndividualMilitia" );
 }
 
