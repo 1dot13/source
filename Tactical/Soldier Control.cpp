@@ -12340,7 +12340,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 					if (this->usAnimState == RUNNING || this->usAnimState == RUNNING_W_PISTOL)
 						this->usSoldierFlagMask2 |= SOLDIER_BAYONET_RUNBONUS;
 
-					this->EVENT_InitNewSoldierAnim(BAYONET_STAB, 0, FALSE);
+					this->EVENT_InitNewSoldierAnim(BAYONET_STAB_STANDING_VS_STANDING, 0, FALSE);
 				}
 				// SANDRO - use focused stab animation on aimed blade attacks
 				else if (gGameExternalOptions.fEnhancedCloseCombatSystem && (this->aiData.bAimTime > 0))
@@ -12379,9 +12379,17 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 				break;
 
 			case ANIM_PRONE:
+				
+				if (this->bWeaponMode == WM_ATTACHED_BAYONET && gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND)
+				{
+					// if this attack happens directly after running, the attack is slightly more powerful due to extra force
+					if (this->usAnimState == RUNNING || this->usAnimState == RUNNING_W_PISTOL)
+						this->usSoldierFlagMask2 |= SOLDIER_BAYONET_RUNBONUS;
 
+					this->EVENT_InitNewSoldierAnim(BAYONET_STAB_STANDING_VS_PRONE, 0, FALSE);
+				}
 				// CHECK OUR STANCE
-				if ( gAnimControl[this->usAnimState].ubEndHeight != ANIM_CROUCH )
+				else if ( gAnimControl[this->usAnimState].ubEndHeight != ANIM_CROUCH )
 				{
 					// SET DESIRED STANCE AND SET PENDING ANIMATION
 					SendChangeSoldierStanceEvent( this, ANIM_CROUCH );
@@ -23040,7 +23048,8 @@ UINT16	GetSuspiciousAnimationAPDuration( UINT16 usAnimation )
 	case SLICE:
 	case STAB:
 	case CROUCH_STAB:
-	case BAYONET_STAB:
+	case BAYONET_STAB_STANDING_VS_STANDING:
+	case BAYONET_STAB_STANDING_VS_PRONE:
 	case PUNCH:
 	case PUNCH_BREATH:
 	case KICK_DOOR:
