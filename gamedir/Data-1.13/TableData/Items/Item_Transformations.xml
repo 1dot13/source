@@ -595,4 +595,140 @@
 		<szMenuRowText>Seperate Stacks</szMenuRowText>
 		<szTooltipText>seperate into 4 small stacks</szTooltipText>
 	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1008</usItem>
+		<usResult1>1745</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Fold stock</szMenuRowText>
+		<szTooltipText>Fold stock</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1745</usItem>
+		<usResult1>1008</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Unfold stock</szMenuRowText>
+		<szTooltipText>Unfold stock</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1746</usItem>
+		<usResult1>1747</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Fold stock</szMenuRowText>
+		<szTooltipText>Fold stock</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1747</usItem>
+		<usResult1>1746</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Unfold stock</szMenuRowText>
+		<szTooltipText>Unfold stock</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1009</usItem>
+		<usResult1>1748</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Retract stock</szMenuRowText>
+		<szTooltipText>Retract stock</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1748</usItem>
+		<usResult1>1009</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Extend stock</szMenuRowText>
+		<szTooltipText>Extend stock</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1749</usItem>
+		<usResult1>1750</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Retract stock</szMenuRowText>
+		<szTooltipText>Retract stock</szTooltipText>
+	</TRANSFORM>
+	<TRANSFORM>
+		<usItem>1750</usItem>
+		<usResult1>1749</usResult1>
+		<usResult2>0</usResult2>
+		<usResult3>0</usResult3>
+		<usResult4>0</usResult4>
+		<usResult5>0</usResult5>
+		<usResult6>0</usResult6>
+		<usResult7>0</usResult7>
+		<usResult8>0</usResult8>
+		<usResult9>0</usResult9>
+		<usResult10>0</usResult10>
+		<usAPCost>20</usAPCost>
+		<iBPCost>20</iBPCost>
+		<szMenuRowText>Extend stock</szMenuRowText>
+		<szTooltipText>Extend stock</szTooltipText>
+	</TRANSFORM>
 </TRANSFORMATIONS_LIST>
