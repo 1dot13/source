@@ -3363,7 +3363,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		{
 			if ( usNewState == WALKING || usNewState == RUNNING || usNewState == SWATTING
 				 //*** ddd
-				 || usNewState == SWATTING_WK )
+				 || usNewState == SWATTING_WK || usNewState == START_SWAT )
 			{
 				// CHECK FOR SIDEWAYS!
 				if ( !(this->flags.uiStatusFlags & SOLDIER_VEHICLE) && this->ubDirection == gPurpendicularDirection[this->ubDirection][this->pathing.usPathingData[this->pathing.usPathIndex]] )
@@ -3375,23 +3375,45 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					{
 						if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
 						{
-							if ( this->IsValidSecondHandShot( ) )
+							if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
 							{
-								usNewState = SIDE_STEP_DUAL_RDY;
-							}
-							else if ( gAnimControl[this->usAnimState].uiFlags & ANIM_ALT_WEAPON_HOLDING )
-							{
-								usNewState = SIDE_STEP_ALTERNATIVE_RDY;
-							}
-							else
-							{
-								usNewState = SIDE_STEP_WEAPON_RDY;
+								if ( this->IsValidSecondHandShot() )
+								{
+									usNewState = SIDE_STEP_DUAL_RDY;
+								}
+								else if ( gAnimControl[this->usAnimState].uiFlags & ANIM_ALT_WEAPON_HOLDING )
+								{
+									usNewState = SIDE_STEP_ALTERNATIVE_RDY;
+								}
+								else
+								{
+									usNewState = SIDE_STEP_WEAPON_RDY;
+								}
 							}
 						}
 					}
 					else
 					{
-						usNewState = SIDE_STEP;
+						if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND )
+						{
+							usNewState = SIDE_STEP;
+						}
+						// comment in once animations are ready
+						/*else if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_CROUCH )
+						{
+							if ( this->IsValidSecondHandShot() )
+							{
+								usNewState = SIDE_STEP_CROUCH_DUAL;
+							}
+							else if ( !Item[this->inv[HANDPOS].usItem].twohanded )
+							{
+								usNewState = SIDE_STEP_CROUCH_PISTOL;
+							}
+							else
+							{
+								usNewState = SIDE_STEP_CROUCH_RIFLE;
+							}
+						}*/
 					}
 				}
 				else
@@ -3467,26 +3489,43 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			}
 		}
 		// SANDRO - check if we are gonna move with weapon raised
-		else if ( ((gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY) ||
-			(gAnimControl[this->usAnimState].uiFlags & ANIM_FIRE)) && (usNewState == WALKING) && gGameExternalOptions.fAllowWalkingWithWeaponRaised )
+		else if ( gGameExternalOptions.fAllowWalkingWithWeaponRaised && ( (gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY) || (gAnimControl[this->usAnimState].uiFlags & ANIM_FIRE) ) )
 		{
 			if ( this->inv[HANDPOS].exists( ) == true && Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
 			{
-				if ( this->IsValidSecondHandShot( ) )
+				if ( usNewState == WALKING )
 				{
-					usNewState = WALKING_DUAL_RDY;
+					if (this->IsValidSecondHandShot())
+					{
+						usNewState = WALKING_DUAL_RDY;
+					}
+					else if (gAnimControl[this->usAnimState].uiFlags & ANIM_ALT_WEAPON_HOLDING)
+					{
+						usNewState = WALKING_ALTERNATIVE_RDY;
+					}
+					else
+					{
+						usNewState = WALKING_WEAPON_RDY;
+					}
 				}
-				else if ( gAnimControl[this->usAnimState].uiFlags & ANIM_ALT_WEAPON_HOLDING )
+				else if (usNewState == SWATTING || usNewState == START_SWAT )
 				{
-					usNewState = WALKING_ALTERNATIVE_RDY;
-				}
-				else
-				{
-					usNewState = WALKING_WEAPON_RDY;
+					if ( this->IsValidSecondHandShot() )
+					{
+						usNewState = CROUCHEDMOVE_DUAL_READY;
+					}
+					else if ( !Item[this->inv[HANDPOS].usItem].twohanded )
+					{
+						usNewState = CROUCHEDMOVE_PISTOL_READY;
+					}
+					else
+					{
+						usNewState = CROUCHEDMOVE_RIFLE_READY;
+					}
 				}
 			}
 		}
-
+		
 		// Turn off anipause flag for any anim!
 		this->flags.uiStatusFlags &= (~SOLDIER_PAUSEANIMOVE);
 
@@ -3704,7 +3743,6 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	// ONLY DO FOR EVERYONE BUT PLANNING GUYS
 	if ( this->ubID < MAX_NUM_SOLDIERS )
 	{
-
 		// Do special things based on new state
 		// CHRISL: Make changes so that we charge extra APs while wearing a backpack while using new inventory system
 		switch ( usNewState )
@@ -3762,6 +3800,9 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			break;
 
 		case SWATTING:
+		case CROUCHEDMOVE_RIFLE_READY:
+		case CROUCHEDMOVE_PISTOL_READY:
+		case CROUCHEDMOVE_DUAL_READY:
 
 			this->usPendingAnimation = NO_PENDING_ANIMATION;
 			this->aiData.ubPendingActionAnimCount = 0;
@@ -7247,6 +7288,19 @@ void SOLDIERTYPE::SoldierGotoStationaryStance( void )
 			{
 				this->EVENT_InitNewSoldierAnim( COWERING, 0, FALSE );
 			}
+			// Flugente: if we walk with our gun raised, we should still have it raised once we stop walking
+			else if (this->usAnimState == CROUCHEDMOVE_RIFLE_READY )
+			{
+				this->EVENT_InitNewSoldierAnim(AIM_RIFLE_CROUCH, 0, FALSE);
+			}
+			else if (this->usAnimState == CROUCHEDMOVE_PISTOL_READY )
+			{
+				this->EVENT_InitNewSoldierAnim(AIM_RIFLE_CROUCH, 0, FALSE);
+			}
+			else if (this->usAnimState == CROUCHEDMOVE_DUAL_READY)
+			{
+				this->EVENT_InitNewSoldierAnim(AIM_DUAL_CROUCH, 0, FALSE);
+			}
 			else
 			{
 				this->EVENT_InitNewSoldierAnim( CROUCHING, 0, FALSE );
@@ -7331,8 +7385,16 @@ void SOLDIERTYPE::EVENT_InternalSetSoldierDestination( UINT16	usNewDirection, BO
 
 
 	// OK, ATE: If we are side_stepping, calculate a NEW desired direction....
-	if ( this->bReverse && (usAnimState == SIDE_STEP || usAnimState == ROLL_PRONE_R || usAnimState == ROLL_PRONE_L || usAnimState == SIDE_STEP_ALTERNATIVE_RDY
-		|| usAnimState == SIDE_STEP_WEAPON_RDY || usAnimState == SIDE_STEP_DUAL_RDY) )
+	if ( this->bReverse && 
+		(usAnimState == SIDE_STEP ||
+			usAnimState == ROLL_PRONE_R ||
+			usAnimState == ROLL_PRONE_L ||
+			usAnimState == SIDE_STEP_CROUCH_RIFLE ||
+			usAnimState == SIDE_STEP_CROUCH_PISTOL ||
+			usAnimState == SIDE_STEP_CROUCH_DUAL ||
+			usAnimState == SIDE_STEP_ALTERNATIVE_RDY ||
+			usAnimState == SIDE_STEP_WEAPON_RDY ||
+			usAnimState == SIDE_STEP_DUAL_RDY) )
 	{
 		UINT8 ubPerpDirection;
 
@@ -7443,14 +7505,21 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 	INT32 iBPCost = 0;
 
 	//if ( usAnimState == WALK_BACKWARDS )
-	if ( pSoldier->bReverse && (usAnimState != SIDE_STEP && usAnimState != ROLL_PRONE_R && usAnimState != ROLL_PRONE_L
-		&& usAnimState != SIDE_STEP_WEAPON_RDY && usAnimState != SIDE_STEP_DUAL_RDY && usAnimState != SIDE_STEP_ALTERNATIVE_RDY) )
+	if ( pSoldier->bReverse && 
+		(usAnimState != SIDE_STEP && 
+			usAnimState != ROLL_PRONE_R &&
+			usAnimState != ROLL_PRONE_L	&&
+			usAnimState != SIDE_STEP_CROUCH_RIFLE &&
+			usAnimState != SIDE_STEP_CROUCH_PISTOL &&
+			usAnimState != SIDE_STEP_CROUCH_DUAL &&
+			usAnimState != SIDE_STEP_WEAPON_RDY &&
+			usAnimState != SIDE_STEP_DUAL_RDY &&
+			usAnimState != SIDE_STEP_ALTERNATIVE_RDY) )
 	{
 		// OK, check if we are going to go in the exact opposite than our facing....
 		ubNewDirection = gOppositeDirection[ubNewDirection];
 	}
-
-
+	
 	pSoldier->pathing.bDesiredDirection = (INT8)ubNewDirection;
 
 	// If we are prone, goto crouched first!
@@ -8834,6 +8903,12 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		//***ddd
 	case SWATTING_WK:
 	case SWAT_BACKWARDS_WK:
+	case CROUCHEDMOVE_RIFLE_READY:
+	case CROUCHEDMOVE_PISTOL_READY:
+	case CROUCHEDMOVE_DUAL_READY:
+	case SIDE_STEP_CROUCH_RIFLE:
+	case SIDE_STEP_CROUCH_PISTOL:
+	case SIDE_STEP_CROUCH_DUAL:
 
 		// Adjust based on body type
 		if ( pStatsSoldier->ubBodyType <= REGFEMALE )
@@ -8916,10 +8991,16 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	case WALKING:
 	case WALKING_WEAPON_RDY:
 	case WALKING_DUAL_RDY:
+	case CROUCHEDMOVE_RIFLE_READY:
+	case CROUCHEDMOVE_PISTOL_READY:
+	case CROUCHEDMOVE_DUAL_READY:
 	case WALKING_ALTERNATIVE_RDY:
 	case RUNNING:
 	case SWATTING:
 	case SWATTING_WK:
+	case SIDE_STEP_CROUCH_RIFLE:
+	case SIDE_STEP_CROUCH_PISTOL:
+	case SIDE_STEP_CROUCH_DUAL:
 	case SWAT_BACKWARDS_WK:
 		// Flugente: background running speed reduces time needed: + is good, - is bad
 		uiTerrainDelay = (uiTerrainDelay * (100 - pSoldier->GetBackgroundValue( BG_PERC_SPEED_RUNNING ))) / 100;
@@ -14222,11 +14303,8 @@ void SelectMoveAnimationFromStance( SOLDIERTYPE *pSoldier )
 	case ANIM_CROUCH:
 		pSoldier->EVENT_InitNewSoldierAnim( SWATTING, 0, FALSE );
 		break;
-
 	}
-
 }
-
 
 void GetActualSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *psWidth )
 {

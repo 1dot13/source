@@ -294,7 +294,11 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 		return(0);
 	}
 
-	if ( usMovementMode == WALKING_WEAPON_RDY || usMovementMode == WALKING_DUAL_RDY )
+	if ( usMovementMode == WALKING_WEAPON_RDY || 
+		usMovementMode == WALKING_DUAL_RDY || 
+		usMovementMode == CROUCHEDMOVE_RIFLE_READY ||
+		usMovementMode == CROUCHEDMOVE_DUAL_READY ||
+		usMovementMode == CROUCHEDMOVE_PISTOL_READY )
 	{
 		iPoints += APBPConstants[BP_MOVEMENT_READY];
 	}
@@ -331,6 +335,12 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 		case START_SWAT:
 		case SWATTING:
 		case SWAT_BACKWARDS:
+		case SIDE_STEP_CROUCH_RIFLE:
+		case SIDE_STEP_CROUCH_PISTOL:
+		case SIDE_STEP_CROUCH_DUAL:
+		case CROUCHEDMOVE_RIFLE_READY:
+		case CROUCHEDMOVE_PISTOL_READY:
+		case CROUCHEDMOVE_DUAL_READY:
 			iPoints *= APBPConstants[BP_SWAT_ENERGYCOSTFACTOR];	break;
 		case CRAWLING:	iPoints *= APBPConstants[BP_CRAWL_ENERGYCOSTFACTOR];	break;
 
@@ -451,6 +461,12 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			case START_SWAT:
 			case SWAT_BACKWARDS:
 			case SWATTING:
+			case SIDE_STEP_CROUCH_RIFLE:
+			case SIDE_STEP_CROUCH_PISTOL:
+			case SIDE_STEP_CROUCH_DUAL:
+			case CROUCHEDMOVE_RIFLE_READY:
+			case CROUCHEDMOVE_PISTOL_READY:
+			case CROUCHEDMOVE_DUAL_READY:
 				sPoints = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
 				break;
 			case CRAWLING:
@@ -625,6 +641,12 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 			case SWATTING:
 			case START_SWAT:
 			case SWAT_BACKWARDS:
+			case SIDE_STEP_CROUCH_RIFLE:
+			case SIDE_STEP_CROUCH_PISTOL:
+			case SIDE_STEP_CROUCH_DUAL:
+			case CROUCHEDMOVE_RIFLE_READY:
+			case CROUCHEDMOVE_PISTOL_READY:
+			case CROUCHEDMOVE_DUAL_READY:
 
 				// Add cost to stand once there BEFORE....
 				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
@@ -2736,6 +2758,9 @@ INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode )
 			}
 			break;
 		case SWATTING:
+		case CROUCHEDMOVE_RIFLE_READY:
+		case CROUCHEDMOVE_PISTOL_READY:
+		case CROUCHEDMOVE_DUAL_READY:
 			if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
 			{
 				bAPs += GetAPsProne(pSoldier, TRUE);

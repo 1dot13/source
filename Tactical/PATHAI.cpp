@@ -3609,6 +3609,12 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						ubAPCost += APBPConstants[AP_MODIFIER_WALK];	//WALKCOST);
 						break;
 					case SWATTING:
+					case SIDE_STEP_CROUCH_RIFLE:
+					case SIDE_STEP_CROUCH_PISTOL:
+					case SIDE_STEP_CROUCH_DUAL:
+					case CROUCHEDMOVE_RIFLE_READY:
+					case CROUCHEDMOVE_PISTOL_READY:
+					case CROUCHEDMOVE_DUAL_READY:
 						ubAPCost += APBPConstants[AP_MODIFIER_SWAT];	//SWATCOST);
 						break;
 					case CRAWLING:
@@ -3703,6 +3709,9 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 							break;
 
 						case SWATTING:
+						case CROUCHEDMOVE_RIFLE_READY:
+						case CROUCHEDMOVE_PISTOL_READY:
+						case CROUCHEDMOVE_DUAL_READY:
 
 							// Add cost to stand once there BEFORE jumping....
 							ubAPCost += GetAPsCrouch( s, TRUE );
@@ -4611,6 +4620,9 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						break;
 
 					case SWATTING:
+					case CROUCHEDMOVE_RIFLE_READY:
+					case CROUCHEDMOVE_PISTOL_READY:
+					case CROUCHEDMOVE_DUAL_READY:
 
 						// Add cost to stand once there BEFORE....
 						sExtraCostSwat += GetAPsCrouch(pSold, TRUE);
@@ -4674,6 +4686,12 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_WALK] + APBPConstants[AP_MODIFIER_READY];
 						break;
 					case SWATTING:
+					case SIDE_STEP_CROUCH_RIFLE:
+					case SIDE_STEP_CROUCH_PISTOL:
+					case SIDE_STEP_CROUCH_DUAL:
+					case CROUCHEDMOVE_RIFLE_READY:
+					case CROUCHEDMOVE_PISTOL_READY:
+					case CROUCHEDMOVE_DUAL_READY:
 						sMovementAPsCost = sTileCost + APBPConstants[AP_MODIFIER_SWAT];
 						break;
 					case CRAWLING:

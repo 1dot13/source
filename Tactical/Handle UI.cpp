@@ -4920,6 +4920,9 @@ void SetMovementModeCursor( SOLDIERTYPE *pSoldier )
 				///ddd quick fix for losed cursor {
 			case SWATTING_WK:
 				///ddd quick fix for losed cursor }
+			case CROUCHEDMOVE_RIFLE_READY:
+			case CROUCHEDMOVE_PISTOL_READY:
+			case CROUCHEDMOVE_DUAL_READY:
 				guiNewUICursor = MOVE_SWAT_UICURSOR;
 				break;
 
@@ -4980,6 +4983,12 @@ void SetConfirmMovementModeCursor( SOLDIERTYPE *pSoldier, BOOLEAN fFromMove )
 					break;
 
 				case SWATTING:
+				case SIDE_STEP_CROUCH_RIFLE:
+				case SIDE_STEP_CROUCH_PISTOL:
+				case SIDE_STEP_CROUCH_DUAL:
+				case CROUCHEDMOVE_RIFLE_READY:
+				case CROUCHEDMOVE_PISTOL_READY:
+				case CROUCHEDMOVE_DUAL_READY:
 					guiNewUICursor = ALL_MOVE_SWAT_UICURSOR;
 					break;
 

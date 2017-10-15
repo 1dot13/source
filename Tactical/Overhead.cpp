@@ -1284,6 +1284,25 @@ BOOLEAN ExecuteOverhead( )
                                     pSoldier->usPendingAnimation = AIM_DUAL_STAND;
                                     pSoldier->ubPendingDirection = pSoldier->ubDirection;
                                 }
+								else if ( pSoldier->usAnimState == CROUCHEDMOVE_RIFLE_READY )
+								{
+									fAimAfterMove = TRUE;
+									pSoldier->usPendingAnimation = AIM_RIFLE_CROUCH;
+									pSoldier->ubPendingDirection = pSoldier->ubDirection;
+								}
+								else if ( pSoldier->usAnimState == CROUCHEDMOVE_PISTOL_READY )
+								{
+									fAimAfterMove = TRUE;
+									pSoldier->usPendingAnimation = AIM_RIFLE_CROUCH;
+									pSoldier->ubPendingDirection = pSoldier->ubDirection;
+								}
+								else if ( pSoldier->usAnimState == CROUCHEDMOVE_DUAL_READY )
+								{
+									fAimAfterMove = TRUE;
+									pSoldier->usPendingAnimation = AIM_DUAL_CROUCH;
+									pSoldier->ubPendingDirection = pSoldier->ubDirection;
+								}
+
                                 // OK, if we are the selected soldier, refresh some UI stuff
                                 if ( pSoldier->ubID == (UINT8)gusSelectedSoldier )
                                 {
@@ -1582,7 +1601,7 @@ BOOLEAN ExecuteOverhead( )
                                                 if ( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT && gGameExternalOptions.fNoStandingAnimAdjustInCombat &&
                                                         !pSoldier->bCollapsed && !pSoldier->bBreathCollapsed )
                                                 {
-                                                    // Flugente: We have to decide depending on the animation we have, otherwise we canc ause bugs if we do this after being hit by an explosion etc.
+                                                    // Flugente: We have to decide depending on the animation we have, otherwise we can cause bugs if we do this after being hit by an explosion etc.
                                                     BOOLEAN dontadjustanim = FALSE;
                                                     switch ( pSoldier->usAnimState )
                                                     {
@@ -1599,10 +1618,16 @@ BOOLEAN ExecuteOverhead( )
                                                         case RUNNING_W_PISTOL:
                                                         case SIDE_STEP_WEAPON_RDY:
                                                         case SIDE_STEP_DUAL_RDY:
+														case SIDE_STEP_CROUCH_RIFLE:
+														case SIDE_STEP_CROUCH_PISTOL:
+														case SIDE_STEP_CROUCH_DUAL:
                                                         case WALKING_WEAPON_RDY:
                                                         case WALKING_DUAL_RDY:
                                                         case WALKING_ALTERNATIVE_RDY:
                                                         case SIDE_STEP_ALTERNATIVE_RDY:
+														case CROUCHEDMOVE_RIFLE_READY:
+														case CROUCHEDMOVE_PISTOL_READY:
+														case CROUCHEDMOVE_DUAL_READY:
                                                             dontadjustanim = TRUE;
                                                             break;
                                                     }
