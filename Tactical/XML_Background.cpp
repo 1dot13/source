@@ -430,7 +430,7 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "speed_run") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curBackground.value[BG_PERC_SPEED_RUNNING] = min(30, max(-30, (INT16) atol(pData->szCharData) ));
+			pData->curBackground.value[BG_PERC_SPEED_RUNNING] = min(50, max(-50, (INT16) atol(pData->szCharData) ));
 		}	
 		else if(strcmp(name, "speed_bandaging") == 0)
 		{
