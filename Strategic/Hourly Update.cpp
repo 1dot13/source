@@ -658,7 +658,7 @@ void HourlyStealUpdate()
 		pSoldier = MercPtrs[ cnt ];
 
 		// merc must be alive, not travelling and awake. If he is in the currently loaded sector, we may not be in tactical (we would see an item suddenly disappearing) and not in combat
-		if ( pSoldier && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && !pSoldier->flags.fMercAsleep && 
+		if ( pSoldier && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && !pSoldier->flags.fMercAsleep && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_POW &&
 			!( ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) ) && (gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ))  )
 		{
 			if ( pSoldier->HasBackgroundFlag( BACKGROUND_SCROUNGING ) )
@@ -672,7 +672,8 @@ void HourlyStealUpdate()
 					{					
 						pOtherSoldier = MercPtrs[ cnt2 ];
 						// note - snitches stop others, but can scrounge themselves (if they have scrounging specifically set in background...)
-						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
+						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bAssignment != IN_TRANSIT && pOtherSoldier->bAssignment != ASSIGNMENT_POW &&
+							pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
 						{
 							if ( ProfileHasSkillTrait( pOtherSoldier->ubProfile, SNITCH_NT ) && !( pSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF ) )
 							{
