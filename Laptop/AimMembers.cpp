@@ -3277,12 +3277,12 @@ BOOLEAN CanMercBeHired()
 				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
 				{
 					WaitForMercToFinishTalkingOrUserToClick();
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_1_ON_TEAM);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_1_ON_TEAM );
 					fRetVal = FALSE;
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_1);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
 					fRetVal = TRUE;
 				}
 			}
@@ -3291,12 +3291,12 @@ BOOLEAN CanMercBeHired()
 				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
 				{
 					WaitForMercToFinishTalkingOrUserToClick();
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_2_ON_TEAM);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_2_ON_TEAM );
 					fRetVal = FALSE;
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_2);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_2 );
 //					DelayMercSpeech( gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_2, 750, TRUE, FALSE );
 					fRetVal = TRUE;
 				}
@@ -3306,12 +3306,12 @@ BOOLEAN CanMercBeHired()
 				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
 				{
 					WaitForMercToFinishTalkingOrUserToClick();
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_3_ON_TEAM);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_3_ON_TEAM );
 					fRetVal = FALSE;
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_3);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_3 );
 					fRetVal = TRUE;
 				}
 			}
@@ -3320,12 +3320,12 @@ BOOLEAN CanMercBeHired()
 				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
 				{
 					WaitForMercToFinishTalkingOrUserToClick();
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_4_ON_TEAM);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_4_ON_TEAM );
 					fRetVal = FALSE;
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_4);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_4 );
 					fRetVal = TRUE;
 				}
 			}
@@ -3334,12 +3334,12 @@ BOOLEAN CanMercBeHired()
 				if( gMercProfiles[ gbCurrentSoldier ].bHatedTime[ i ] < 24 )
 				{
 					WaitForMercToFinishTalkingOrUserToClick();
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATE_MERC_5_ON_TEAM);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_5_ON_TEAM );
 					fRetVal = FALSE;
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_5);
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_5 );
 					fRetVal = TRUE;
 				}
 			}

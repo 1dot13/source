@@ -1010,32 +1010,32 @@ void UpdateBuddyAndHatedCounters( void )
 											// complain!
 											if (iLoop == 0)
 											{
-												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_ONE );
+												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_1 );
 											}
 											else if (iLoop == 1)
 											{
-												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_TWO );
+												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_2 );
 											}
 											else if (iLoop == 2)
 											{
 												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_THREE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_3 );
 												else
-													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_THREE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_3 );
 											}
 											else if (iLoop == 3)
 											{
 												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FOUR );
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_4 );
 												else
-													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FOUR );
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_4 );
 											}
 											else if (iLoop == 4)
 											{
 												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FIVE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_5 );
 												else
-													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FIVE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_5 );
 											}
 											StopTimeCompression();
 										}
@@ -1047,23 +1047,23 @@ void UpdateBuddyAndHatedCounters( void )
 												// MERC mercs leave now!
 												if (iLoop == 0)
 												{
-													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED1 );
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED_1 );
 												}
 												else if (iLoop == 1)
 												{
-													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED2 );
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED_2 );
 												}
 												else if (iLoop == 2)
 												{
-													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED3 );
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED_3 );
 												}
 												else if (iLoop == 3)
 												{
-													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED4 );
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED_4 );
 												}
 												else if (iLoop == 4)
 												{
-													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED5 );
+													TacticalCharacterDialogue( pSoldier, QUOTE_MERC_QUIT_HATED_5 );
 												}
 
 												// Leave now! ( handle equipment too )....
@@ -1076,32 +1076,32 @@ void UpdateBuddyAndHatedCounters( void )
 												// complain!
 												if (iLoop == 0)
 												{
-													TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_ONE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_HATED_1 );
 												}
 												else if (iLoop == 1) 
 												{
-													TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_TWO );
+													TacticalCharacterDialogue( pSoldier, QUOTE_HATED_2 );
 												}
 												else if (iLoop == 2) 
 												{
 													if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_THREE );
+														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_3 );
 													else
-														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_THREE );
+														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_3 );
 												}
 												else if (iLoop == 3) 
 												{
 													if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FOUR );
+														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_4 );
 													else
-														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FOUR );
+														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_4 );
 												}
 												else if (iLoop == 4) 
 												{
 													if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FIVE );
+														TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_5 );
 													else
-														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FIVE );
+														TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_5 );
 												}
 												pProfile->ubTimeTillNextHatedComplaint = TIME_BETWEEN_HATED_COMPLAINTS - 1;
 											}
@@ -1129,32 +1129,32 @@ void UpdateBuddyAndHatedCounters( void )
 											// complain!
 											if (iLoop == 0)
 											{
-												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_ONE );
+												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_1 );
 											}
 											else if (iLoop == 1) 
 											{
-												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_MERC_TWO );
+												TacticalCharacterDialogue( pSoldier, QUOTE_HATED_2 );
 											}
 											else if (iLoop == 2) 
 											{
 												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_THREE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_3 );
 												else
-													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_THREE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_3 );
 											}
 											else if (iLoop == 3) 
 											{
 												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FOUR );
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_4 );
 												else
-													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FOUR );
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_4 );
 											}
 											else if (iLoop == 4) 
 											{
 												if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_MERC_FIVE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_AIM_HATED_5 );
 												else
-													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_MERC_FIVE );
+													TacticalCharacterDialogue( pSoldier, QUOTE_NON_AIM_HATED_5 );
 											}
 										}
 									}

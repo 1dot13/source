@@ -586,15 +586,15 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 			if ( fUnhappy )
 			{
 				if( i == 0 )
-					usReasonQuote = QUOTE_HATE_MERC_1_ON_TEAM_WONT_RENEW;
+					usReasonQuote = QUOTE_HATED_1_ON_TEAM_WONT_RENEW;
 				else if( i == 1 )
-					usReasonQuote = QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW;
+					usReasonQuote = QUOTE_HATED_2_ON_TEAM_WONT_RENEW;
 				else if( i == 2 )
-					usReasonQuote = QUOTE_HATE_MERC_3_ON_TEAM_WONT_RENEW;
+					usReasonQuote = QUOTE_HATED_3_ON_TEAM_WONT_RENEW;
 				else if( i == 3 )
-					usReasonQuote = QUOTE_HATE_MERC_4_ON_TEAM_WONT_RENEW;
+					usReasonQuote = QUOTE_HATED_4_ON_TEAM_WONT_RENEW;
 				else if( i == 4 )
-					usReasonQuote = QUOTE_HATE_MERC_5_ON_TEAM_WONT_RENEW;
+					usReasonQuote = QUOTE_HATED_5_ON_TEAM_WONT_RENEW;
 				// use first hated in case there are multiple
 				break;
 			}
@@ -615,9 +615,9 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 				{
 					// our tolerance has run out!
 					fUnhappy = TRUE;
-					usReasonQuote = QUOTE_LEARNED_TO_HATE_MERC_1_ON_TEAM_WONT_RENEW;
+					usReasonQuote = QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW;
 
-		}
+				}
 				else if ( gMercProfiles[ pSoldier->ubProfile ].bLearnToHateCount <= gMercProfiles[ pSoldier->ubProfile ].bLearnToHateTime / 2 )
 				{
 					pHated = FindSoldierByProfileID( bMercID, TRUE );
@@ -626,7 +626,7 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 										pHated->bSectorZ == pSoldier->bSectorZ )
 					{
 						fUnhappy = TRUE;
-						usReasonQuote = QUOTE_LEARNED_TO_HATE_MERC_1_ON_TEAM_WONT_RENEW;
+						usReasonQuote = QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW;
 					}
 				}
 			}

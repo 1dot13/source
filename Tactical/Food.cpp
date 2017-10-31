@@ -118,7 +118,7 @@ BOOLEAN DoesSoldierRefuseToEat( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 			 ((Food[foodtype].bDrinkPoints > 0 && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_MERC_REFUSAL].bThreshold) || Food[foodtype].bDrinkPoints <= 0) )
 		{
 			// Say quote!
-			TacticalCharacterDialogue( pSoldier, QUOTE_PRE_NOT_SMART );
+			TacticalCharacterDialogue( pSoldier, QUOTE_REFUSE_TO_EATFOOD );
 
 			return TRUE;
 		}
@@ -147,7 +147,7 @@ BOOLEAN DoesSoldierRefuseToEat( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFoodTextStr[STR_FOOD_DONOTWANT_DRINK], pSoldier->GetName( ), Item[pObj->usItem].szItemName );
 
 				// Say quote!
-				TacticalCharacterDialogue( pSoldier, QUOTE_PRE_NOT_SMART );
+				TacticalCharacterDialogue( pSoldier, QUOTE_REFUSE_TO_EATFOOD );
 
 				return TRUE;
 			}

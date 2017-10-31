@@ -3506,32 +3506,32 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
                 {
                     case 0:
                         // buddy #1 died!
-                        TacticalCharacterDialogue( pTeamSoldier, QUOTE_BUDDY_ONE_KILLED );
+                        TacticalCharacterDialogue( pTeamSoldier, QUOTE_BUDDY_1_KILLED );
                         break;
                     case 1:
                         // buddy #2 died!
-                        TacticalCharacterDialogue( pTeamSoldier, QUOTE_BUDDY_TWO_KILLED );
+                        TacticalCharacterDialogue( pTeamSoldier, QUOTE_BUDDY_2_KILLED );
                         break;
 					case 2:
 						// buddy #3 died!
 						if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_THREE_KILLED );
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_3_KILLED );
 						else
-							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_THREE_KILLED );
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_3_KILLED );
 						break;
 					case 3:
 						// buddy #4 died!
 						if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_FOUR_KILLED );
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_4_KILLED );
 						else
-							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_FOUR_KILLED );
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_4_KILLED );
 						break;
 					case 4:
 						// buddy #5 died!
 						if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_FIVE_KILLED );
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_5_KILLED );
 						else
-							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_FIVE_KILLED );
+							TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_5_KILLED );
 						break;
 					case 5:
 						// learn to like buddy died!
