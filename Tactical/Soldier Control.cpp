@@ -102,6 +102,7 @@
 #include "Arms Dealer Init.h"	// added by Flugente for armsDealerInfo[]
 #include "LuaInitNPCs.h"		// added by Flugente
 #include "SaveLoadMap.h"		// added by Flugente
+#include "qarray.h"				// added by Flugente
 #endif
 
 #include "ub_config.h"
@@ -236,7 +237,6 @@ UINT8 gExtOneCDirection[EX_NUM_WORLD_DIRECTIONS] =
 typedef struct
 {
 	CHAR8				zName[20];
-	UINT8				ubRandomVal;
 	BOOLEAN			fPreload;
 	BOOLEAN			fBadGuy;
 	BOOLEAN			fDontAllowTwoInRow;
@@ -247,23 +247,20 @@ typedef struct
 
 BATTLESNDS_STRUCT	 gBattleSndsData[] =
 {
-	"ok1", 2, 1, 1, 1, 2,
-	"ok2", 0, 1, 1, 1, 2,
-	"cool", 0, 1, 0, 1, 0,
-	"curse", 0, 1, 1, 1, 0,
-	"hit1", 2, 1, 1, 1, 1,
-	"hit2", 0, 1, 1, 1, 1,
-	"laugh", 0, 1, 1, 1, 0,
-	"attn", 0, 1, 0, 1, 0,
-	"dying", 0, 1, 1, 1, 1,
-	"humm", 0, 0, 0, 1, 1,
-	"noth", 0, 0, 0, 1, 1,
-	"gotit", 0, 0, 0, 1, 1,
-	"lmok1", 2, 1, 0, 1, 2,
-	"lmok2", 0, 1, 0, 1, 2,
-	"lmattn", 0, 1, 0, 1, 0,
-	"locked", 0, 0, 0, 1, 0,
-	"enem", 0, 1, 1, 1, 0,
+	"ok", 1, 1, 1, 2,
+	"cool", 1, 0, 1, 0,
+	"curse", 1, 1, 1, 0,
+	"hit", 1, 1, 1, 1,
+	"laugh", 1, 1, 1, 0,
+	"attn", 1, 0, 1, 0,
+	"dying", 1, 1, 1, 1,
+	"humm", 0, 0, 1, 1,
+	"noth", 0, 0, 1, 1,
+	"gotit", 0, 0, 1, 1,
+	"lmok", 1, 0, 1, 2,
+	"lmattn", 1, 0, 1, 0,
+	"locked", 0, 0, 1, 0,
+	"enem", 1, 1, 1, 0,
 };
 
 extern void ReduceAttachmentsOnGunForNonPlayerChars( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj );
@@ -10621,19 +10618,17 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 extern BOOLEAN IsMercSayingDialogue( UINT8 ubProfileID );
 
-
 BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpecialCode )
 {
 	//in this function, pSoldier stands in for the this pointer, since
 	//this soldier could be a vehicle, then the merc that makes the sound is inside
 	SGPFILENAME		zFilename;
 	SOUNDPARMS		spParms;
-	UINT8					ubSoundID;
+	UINT8				ubSoundID = 0;
 	UINT32				uiSoundID;
 	UINT32				iFaceIndex;
 	BOOLEAN				fDoSub = FALSE;
 	INT32					uiSubSoundID = 0;
-	BOOLEAN				fSpeechSound = FALSE;
 	SOLDIERTYPE*		pSoldier = this;
 
 	// DOUBLECHECK RANGE
@@ -10670,7 +10665,7 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	//	uiTimeSameBattleSndDone
 
 	// If we are a creature, etc, pick a better sound...
-	if ( ubBattleSoundID == BATTLE_SOUND_HIT1 || ubBattleSoundID == BATTLE_SOUND_HIT2 )
+	if ( ubBattleSoundID == BATTLE_SOUND_HIT1 )
 	{
 		switch ( pSoldier->ubBodyType )
 		{
@@ -10805,6 +10800,7 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 		{
 			PlayJA2Sample( uiSubSoundID, RATE_11025, SoundVolume( (UINT8)CalculateSpeechVolume( HIGHVOLUME ), pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 		}
+
 		return(TRUE);
 	}
 
@@ -10855,59 +10851,87 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	pSoldier->bOldBattleSnd = ubBattleSoundID;
 	pSoldier->uiTimeSameBattleSndDone = GetJA2Clock( );
 	
-	// Adjust based on morale...
-	if ( ubBattleSoundID == BATTLE_SOUND_OK1 && pSoldier->aiData.bMorale < LOW_MORALE_BATTLE_SND_THREASHOLD )
+	//if the sound to be played is a confirmation, check to see if we are to play it
+	if ( ubBattleSoundID == BATTLE_SOUND_OK1 )
 	{
-		//ddd {
-		if ( Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) )
-			ubBattleSoundID = BATTLE_SOUND_LOWMARALE_OK1;
-		///ddd }
+		if ( gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS] )
+			return( TRUE );
 
-		//ubBattleSoundID = BATTLE_SOUND_LOWMARALE_OK1;
+		//ddd
+		if ( !Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) )
+			return( TRUE );
 	}
-	if ( ubBattleSoundID == BATTLE_SOUND_ATTN1 && pSoldier->aiData.bMorale < LOW_MORALE_BATTLE_SND_THREASHOLD )
-	{
-		//ddd {
-		if ( Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) )
-			ubBattleSoundID = BATTLE_SOUND_LOWMARALE_ATTN1;
 
-		//ubBattleSoundID = BATTLE_SOUND_LOWMARALE_ATTN1;
+	// Adjust based on morale...
+	if ( pSoldier->aiData.bMorale < LOW_MORALE_BATTLE_SND_THREASHOLD )
+	{
+		if ( ubBattleSoundID == BATTLE_SOUND_OK1 )
+			ubBattleSoundID = BATTLE_SOUND_LOWMARALE_OK1;
+		else if ( ubBattleSoundID == BATTLE_SOUND_ATTN1 )
+			ubBattleSoundID = BATTLE_SOUND_LOWMARALE_ATTN1;
 	}
 
 	ubSoundID = ubBattleSoundID;
-
-	//if the sound to be played is a confirmation, check to see if we are to play it
-	if ( ubSoundID == BATTLE_SOUND_OK1 )
-	{
-		if ( gGameSettings.fOptions[TOPTION_MUTE_CONFIRMATIONS] )
-			return(TRUE);
-		//ddd {
-		if ( !Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) )
-			return(TRUE);
-		///ddd }
-
-		//else a speech sound is to be played
-		else
-			fSpeechSound = TRUE;
-	}
-
-	// Randomize between sounds, if appropriate
-	if ( gBattleSndsData[ubSoundID].ubRandomVal != 0 )
-	{
-		ubSoundID = ubSoundID + (UINT8)Random( gBattleSndsData[ubSoundID].ubRandomVal );
-	}
-
+	
 	// OK, build file and play!
 	if ( pSoldier->ubProfile != NO_PROFILE )
 	{
 		// Flugente: For the voice set itself, use this number
 		UINT32 usVoiceSet = gMercProfiles[pSoldier->ubProfile].usVoiceIndex;
 
-		sprintf( zFilename, "BATTLESNDS\\%03d_%s.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName );
-
-		if ( !FileExists( zFilename ) )
+		// Flugente: check if perhaps a sound with a higher number is present, if so, increase number of found sounds
+		// if not, mark that this search is finished (no need to constantly check for sounds)
+		// This way we don't have to add new xml data, but can still use any soundfile we add (provided we numbered it correctly)
+		// Soundfiles are named just like before, with increasing numbers
+		// Due to legacy reasons, the first sound can either have a '1' at the end (212_OK1.xx) or no number at all (212_HUMM.xxx)
+		// Otherwise we'd have to rename quite a lot of vanilla files
+		while ( !QuoteExp[pSoldier->ubProfile].BattleSoundSearchDone[ubSoundID] )
 		{
-			sprintf( zFilename, "BATTLESNDS\\%03d_%s.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName );
+			// at least one sound exists (if not, we use a fallback solution anyway)
+			QuoteExp[pSoldier->ubProfile].numBattleSounds[ubSoundID] = max( 1, QuoteExp[pSoldier->ubProfile].numBattleSounds[ubSoundID] );
+
+			UINT16 numsounds = QuoteExp[pSoldier->ubProfile].numBattleSounds[ubSoundID];
+
+			// check: is there a sound with a bigger number?
+			sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
+
+			if ( !FileExists( zFilename ) )
+			{
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
+			}
+
+			if ( FileExists( zFilename ) )
+			{
+				QuoteExp[pSoldier->ubProfile].numBattleSounds[ubSoundID]++;
+			}
+			else
+			{
+				QuoteExp[pSoldier->ubProfile].BattleSoundSearchDone[ubSoundID] = TRUE;
+			}
+		}
+
+		UINT16 soundtoplay = 1 + Random( QuoteExp[pSoldier->ubProfile].numBattleSounds[ubSoundID] );
+
+		if ( soundtoplay > 1 )
+		{
+			sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
+
+			if ( !FileExists( zFilename ) )
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
+		}
+		else
+		{
+			sprintf( zFilename, "BATTLESNDS\\%03d_%s.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName );
+
+			if ( !FileExists( zFilename ) )
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName );
+
+			// due to legacy reasons, we both have to check for versions with '1' and without a number here
+			if ( !FileExists( zFilename ) )
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
+
+			if ( !FileExists( zFilename ) )
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
 		}
 
 		if ( !FileExists( zFilename ) )
@@ -11047,14 +11071,10 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 					ExternSetFaceTalking( iFaceIndex, uiSoundID );
 				}
 			}
-
-			return(TRUE);
 		}
 	}
-	else
-	{
-		return(TRUE);
-	}
+	
+	return( TRUE );
 }
 
 BOOLEAN SOLDIERTYPE::DoMercBattleSound( UINT8 ubBattleSoundID )
@@ -11083,11 +11103,9 @@ BOOLEAN SOLDIERTYPE::DoMercBattleSound( UINT8 ubBattleSoundID )
 
 BOOLEAN PreloadSoldierBattleSounds( SOLDIERTYPE *pSoldier, BOOLEAN fRemove )
 {
-	UINT32 cnt;
-
 	CHECKF( pSoldier->bActive != FALSE );
 
-	for ( cnt = 0; cnt < NUM_MERC_BATTLE_SOUNDS; cnt++ )
+	for ( UINT32 cnt = 0; cnt < NUM_MERC_BATTLE_SOUNDS; ++cnt )
 	{
 		// OK, build file and play!
 		if ( pSoldier->ubProfile != NO_PROFILE )
@@ -18288,7 +18306,7 @@ BOOLEAN SOLDIERTYPE::OrderArtilleryStrike( UINT32 usSectorNr, INT32 sTargetGridN
 			pSoldier->UseRadio( );
 
 			if ( shellsfired )
-				TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND, BATTLE_SOUND_OK2, 500 );
+				TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_DO_BATTLE_SND, BATTLE_SOUND_OK1, 500 );
 			else
 				DelayedTacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_AMMO );
 		}

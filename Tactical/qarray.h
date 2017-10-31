@@ -21,7 +21,8 @@ typedef struct
 	BOOLEAN QuoteExpPassingDislike;	
 	BOOLEAN QuoteExpWitnessQueenBugDeath;
 	BOOLEAN QuoteExpWitnessDeidrannaDeath;
-
+	UINT16 numBattleSounds[NUM_MERC_BATTLE_SOUNDS];
+	BOOLEAN BattleSoundSearchDone[NUM_MERC_BATTLE_SOUNDS];
 } QARRAY_VALUES;
 
 extern QARRAY_VALUES QuoteExp[NUM_PROFILES];
