@@ -5642,13 +5642,13 @@ void HandleSeeingPowerGenFan( UINT32 sGridNo )
 		if( IsSoldierQualifiedMerc( pSoldier ) && fFanIsStopped )
 		{
 			//Have the merc say the quote
-			TacticalCharacterDialogue( pSoldier, QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW );
+			TacticalCharacterDialogue( pSoldier, QUOTE_HATED_2_ON_TEAM_WONT_RENEW );
 			fSaidQuote = TRUE;
 		}
 		else if( IsSoldierQualifiedMercForSeeingPowerGenFan( pSoldier ) )
 		{
 			//Have the merc say the quote
-			TacticalCharacterDialogue( pSoldier, QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW );
+			TacticalCharacterDialogue( pSoldier, QUOTE_HATED_2_ON_TEAM_WONT_RENEW );
 			fSaidQuote = TRUE;
 		}
 		else
@@ -5670,7 +5670,7 @@ void HandleSeeingPowerGenFan( UINT32 sGridNo )
 							( IsSoldierQualifiedMercForSeeingPowerGenFan( pOtherSoldier ) ) ) )
 					{
 						//Have the merc say the quote
-						TacticalCharacterDialogue( pOtherSoldier, QUOTE_HATE_MERC_2_ON_TEAM_WONT_RENEW );
+						TacticalCharacterDialogue( pOtherSoldier, QUOTE_HATED_2_ON_TEAM_WONT_RENEW );
 						fSaidQuote = TRUE;
 						break;
 					}

@@ -3826,7 +3826,7 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
                     if( bSoldierID != -1 )
                     {
                         //say the MORRIS dead quote
-                        TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_MERC_1_ON_TEAM_WONT_RENEW );
+                        TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW );
                     }                   
                 }
         }

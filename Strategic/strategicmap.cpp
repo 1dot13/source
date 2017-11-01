@@ -6866,7 +6866,7 @@ void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, I
 	ENTER_SECTOR_PLAYER_QUOTE	PlayerSectorDescQuote[ NUM_VALID_SECTORS ] = 
 	{
 	    //SEC_H9-0
-		{ SECTOR( gGameUBOptions.SectorGuardPostX, gGameUBOptions.SectorGuardPostY ),		gGameUBOptions.SectorGuardPostZ,	QUOTE_HATE_MERC_1_ON_TEAM },
+		{ SECTOR( gGameUBOptions.SectorGuardPostX, gGameUBOptions.SectorGuardPostY ),		gGameUBOptions.SectorGuardPostZ,	QUOTE_HATED_1_ON_TEAM },
 		
 		//SEC_I9-0
 		{ SECTOR( gGameUBOptions.I9SectorPlayerQuoteX, gGameUBOptions.I9SectorPlayerQuoteY ),		gGameUBOptions.I9SectorPlayerQuoteZ,	QUOTE_LEARNED_TO_HATE_MERC_ON_TEAM },
@@ -6875,7 +6875,7 @@ void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, I
 		{ SECTOR( gGameUBOptions.H10SectorPlayerQuoteX, gGameUBOptions.H10SectorPlayerQuoteY ),	gGameUBOptions.H10SectorPlayerQuoteZ,	QUOTE_LEARNED_TO_HATE_MERC_ON_TEAM },
 		
 		//SEC_I10-0
-		{ SECTOR( gGameUBOptions.FristSectorTownX, gGameUBOptions.FristSectorTownY ),	gGameUBOptions.FristSectorTownZ,	QUOTE_HATE_MERC_2_ON_TEAM },
+		{ SECTOR( gGameUBOptions.FristSectorTownX, gGameUBOptions.FristSectorTownY ),	gGameUBOptions.FristSectorTownZ,	QUOTE_HATED_2_ON_TEAM },
 		
 		//SEC_J13-0
 		{ SECTOR( gGameUBOptions.SectorFanX, gGameUBOptions.SectorFanY ),	gGameUBOptions.SectorFanZ,	QUOTE_ENTER_SECTOR_WITH_FAN_1 },

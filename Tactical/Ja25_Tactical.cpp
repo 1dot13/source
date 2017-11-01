@@ -889,7 +889,7 @@ void HandlePowerGenAlarm()
 
 				if( bID != -1 )
 				{
-					TacticalCharacterDialogue( &Menptr[ bID ], QUOTE_PERSONALITY_BIAS_WITH_MERC_2 );
+					TacticalCharacterDialogue( &Menptr[ bID ], QUOTE_PERSONALITY_BIAS_WITH_HATED_2 );
 				}
 			}
 			else
@@ -899,15 +899,15 @@ void HandlePowerGenAlarm()
 
 				if( bSoldierId1 != -1 && Menptr[ bSoldierId1 ].ubProfile != BIGGENS_UB ) //BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId1 ], QUOTE_PERSONALITY_BIAS_WITH_MERC_1 );
+					TacticalCharacterDialogue( &Menptr[ bSoldierId1 ], QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
 				}
 				else if( bSoldierId2 != -1 && Menptr[ bSoldierId2 ].ubProfile != BIGGENS_UB ) //BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId2 ], QUOTE_PERSONALITY_BIAS_WITH_MERC_1 );
+					TacticalCharacterDialogue( &Menptr[ bSoldierId2 ], QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
 				}
 				else if( bSoldierId3 != -1 && Menptr[ bSoldierId3 ].ubProfile != BIGGENS_UB ) // BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId3 ], QUOTE_PERSONALITY_BIAS_WITH_MERC_1 );
+					TacticalCharacterDialogue( &Menptr[ bSoldierId3 ], QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
 				}
 			}
 		}
@@ -1073,7 +1073,7 @@ void HandlePlayingQuoteWhenHiringNpc( UINT8 ubProfile )
 		{
 			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_DEPART_COMMET_CONTRACT_NOT_RENEWED_OR_TERMINATED_UNDER_48 );
 			//Delay John saying quote about town
-			DelayedMercQuote( JOHN_K_UB, QUOTE_HATE_MERC_2_ON_TEAM, GetWorldTotalSeconds() + 5 + Random( 10 ) );
+			DelayedMercQuote( JOHN_K_UB, QUOTE_HATED_2_ON_TEAM, GetWorldTotalSeconds() + 5 + Random( 10 ) );
 		}
 	else if ( ubProfile == TEX_UB ) //TEX:
 			SayQuoteFromAllNewHiredMercButDoGastonLast( ubProfile, QUOTE_DEATH_RATE_RENEWAL );
@@ -1179,7 +1179,7 @@ BOOLEAN HandleNewGunComment( SOLDIERTYPE *pSoldier, INT32 iItemIndex, BOOLEAN fF
 		else
 		{
 			//say the new gun quote
-			TacticalCharacterDialogue( pSoldier, QUOTE_HATE_MERC_1_ON_TEAM_WONT_RENEW );
+			TacticalCharacterDialogue( pSoldier, QUOTE_HATED_1_ON_TEAM_WONT_RENEW );
 		}
 
 		//rememeber we have played the quote
