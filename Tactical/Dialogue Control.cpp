@@ -1586,7 +1586,7 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 		return FALSE;
 
 	if (pSoldier->stats.bLife < OKLIFE && usQuoteNum != QUOTE_SERIOUSLY_WOUNDED )
-	return( FALSE );
+		return( FALSE );
 
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
 		return( FALSE );
@@ -1636,7 +1636,8 @@ BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 				//Replace with me too....
 				usQuoteNum = QUOTE_ME_TOO;
 			}
-			gubLogForMeTooBleeds++;
+
+			++gubLogForMeTooBleeds;
 		}
 	}
 
@@ -3439,15 +3440,13 @@ void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQ
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
+	INT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
 
 	// Loop through all our guys and randomly say one from someone in our sector
 
 	// set up soldier ptr as first element in mercptrs list
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt,pTeamSoldier++ )
 	{
 		// Add guy if he's a candidate...
 		if ( OK_INSECTOR_MERC( pTeamSoldier ) && PythSpacesAway( sGridNo, pTeamSoldier->sGridNo ) < bDistance && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep &&
@@ -3465,7 +3464,7 @@ void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQ
 			}
 
 			ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
-			ubNumMercs++;
+			++ubNumMercs;
 		}
 	}
 
@@ -3475,7 +3474,6 @@ void SayQuote58FromNearbyMercInSector( INT32 sGridNo, INT8 bDistance, UINT16 usQ
 		ubChosenMerc = (UINT8)Random( ubNumMercs );
 		TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
 	}
-
 }
 
 

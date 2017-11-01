@@ -3439,7 +3439,7 @@ BOOLEAN ShouldMercSayHappyWithGunQuote( SOLDIERTYPE *pSoldier )
 			if ( Weapon[ pSoldier->usAttackingWeapon ].ubDeadliness > MIN_DEADLINESS_FOR_LIKE_GUN_QUOTE )
 			{
 				// 20 % chance?
-				if ( Random( 100 ) < 20 )
+				if ( Chance( 20 ) )
 				{
 					return( TRUE );
 				}
@@ -3768,14 +3768,11 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 
 					// Buddy witnessed?
 					SayBuddyWitnessedQuoteFromKill( pKillerSoldier, sGridNo, bLevel );
-
 				}
 			}
 		}
 	}
 }
-
-
 
 BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 {

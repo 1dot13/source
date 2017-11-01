@@ -4626,7 +4626,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		if( pTarget->pSoldier->stats.bLife >= CONSCIOUSNESS || pTarget->uiFlags & CELL_CREATURE )
 		{
 			if( gpAR->fSound )
-				pTarget->pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + PreRandom( 2 ) ) );
+				pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 		}
 		if( !(pTarget->uiFlags & CELL_CREATURE) && iNewLife < OKLIFE && pTarget->pSoldier->stats.bLife >= OKLIFE )
 		{
@@ -4844,7 +4844,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 	if( pTarget->pSoldier->stats.bLife >= CONSCIOUSNESS )
 	{
 		if( gpAR->fSound )
-			pTarget->pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + PreRandom( 2 ) ) );
+			pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 	}
 
 	if( iNewLife < OKLIFE && pTarget->pSoldier->stats.bLife >= OKLIFE )

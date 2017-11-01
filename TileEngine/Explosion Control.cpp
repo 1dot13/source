@@ -2154,7 +2154,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 
 		if ( pSoldier->stats.bLife >= CONSCIOUSNESS )
 		{
-			pSoldier->DoMercBattleSound( (INT8)( BATTLE_SOUND_HIT1 + Random( 2 ) ) );
+			pSoldier->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 		}
 
 		if ( ubOwner != NOBODY && MercPtrs[ ubOwner ]->bTeam == gbPlayerNum && pSoldier->bTeam != gbPlayerNum )

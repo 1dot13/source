@@ -6161,7 +6161,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			}
 			else
 			{
-				this->DoMercBattleSound( (INT8)(BATTLE_SOUND_HIT1 + Random( 2 )) );
+				this->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 			}
 		}
 	}
@@ -6685,14 +6685,14 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 		{
 			if ( sRange >= 2 && sRange <= 4 )
 			{
-				pSoldier->DoMercBattleSound( (INT8)(BATTLE_SOUND_HIT1 + Random( 2 )) );
+				pSoldier->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 
 				pSoldier->EVENT_InitNewSoldierAnim( CHARIOTS_OF_FIRE, 0, FALSE );
 				return;
 			}
 			else if ( sRange <= 1 )
 			{
-				pSoldier->DoMercBattleSound( (INT8)(BATTLE_SOUND_HIT1 + Random( 2 )) );
+				pSoldier->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 
 				pSoldier->EVENT_InitNewSoldierAnim( BODYEXPLODING, 0, FALSE );
 				return;
@@ -21598,7 +21598,7 @@ void SOLDIERTYPE::HandleSoldierTakeDamageFeedback( void )
 		{
 			this->uiTimeSinceLastBleedGrunt = GetJA2Clock( );
 
-			this->DoMercBattleSound( (INT8)(BATTLE_SOUND_HIT1 + Random( 2 )) );
+			this->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 		}
 	}
 
