@@ -1077,6 +1077,101 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubShowSuppressionCountAlt			= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_SUPPRESSION_COUNT_ALT", FALSE);
 	gGameExternalOptions.ubShowSuppressionScaleAsterisk		= iniReader.ReadBoolean("Tactical Interface Settings","SHOW_SUPPRESSION_SCALE_ASTERISK", FALSE);
 
+	gGameExternalOptions.fExtMouseKeyEnabled				= iniReader.ReadBoolean("Tactical Interface Settings", "ENABLE_EXT_MOUSE_KEYS", FALSE);
+
+	// sevenfm: new mouse commands
+	gGameExternalOptions.bAlternateMouseCommands			= iniReader.ReadBoolean("Tactical Interface Settings", "ALTERNATE_MOUSE_COMMANDS", FALSE);
+
+	gGameExternalOptions.iQuickItem1						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_1", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem2						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_2", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem3						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_3", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem4						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_4", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem5						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_5", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem6						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_6", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem7						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_7", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem8						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_8", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem9						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_9", 0, -100, MAXITEMS);
+	gGameExternalOptions.iQuickItem0						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_0", 0, -100, MAXITEMS);
+
+	// Alternative system for aiming - progressive method depending on marksmanship of Merc
+	gGameExternalOptions.bAltAimEnabled						= iniReader.ReadBoolean("Tactical Interface Settings","ALT_AIMING_ENABLED",FALSE);
+	
+	// Use aimed burst
+	gGameExternalOptions.bAimedBurstEnabled				= iniReader.ReadBoolean("Tactical Interface Settings","USE_AIMED_BURST",FALSE);
+						
+	// Penalty for aimed burst
+	gGameExternalOptions.uAimedBurstPenalty				= iniReader.ReadInteger("Tactical Interface Settings","AIMING_BURST_PENALTY",2, 0, 10);
+	
+	// We could see all what can see militia
+	gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa = iniReader.ReadBoolean("Tactical Interface Settings","WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA",TRUE);
+	
+	// Gun supressor can deterioration
+	gGameExternalOptions.bAllowWearSuppressor				= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_WEAR_SUPPRESSOR",FALSE);	
+	
+	// Civils don't make too much actions (for faster civils turn)
+	gGameExternalOptions.bLazyCivilians						= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_LAZY_CIVILIANS",FALSE);	
+	
+	// Neutral civilians can detect and avoid player's mines
+	gGameExternalOptions.bNeutralCiviliansAvoidPlayerMines			= iniReader.ReadBoolean("Tactical Interface Settings","CIVILIANS_AVOID_PLAYER_MINES",FALSE);
+
+	// can extra civilians be created via LUA?
+	gGameExternalOptions.bExtraCivilians					= iniReader.ReadBoolean( "Tactical Interface Settings", "ALLOW_EXTRA_CIVILIANS", FALSE );
+	gGameExternalOptions.bExtraMerchants					= iniReader.ReadBoolean( "Tactical Interface Settings", "ALLOW_EXTRA_MERCHANTS", FALSE );
+	
+	// Add smoke after regular explosions
+	gGameExternalOptions.bAddSmokeAfterExplosion				= iniReader.ReadBoolean("Tactical Interface Settings","ADD_SMOKE_AFTER_EXPLOSION",FALSE);
+
+	// Attachments now can explode
+	gGameExternalOptions.bAllowExplosiveAttachments				= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_EXPLOSIVE_ATTACHMENTS",FALSE);
+
+	// <GasCan>, <Marbles> and <Alcohol> add special bonuses to explosion
+	gGameExternalOptions.bAllowSpecialExplosiveAttachments		= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_SPECIAL_EXPLOSIVE_ATTACHMENTS",FALSE);
+
+	gGameExternalOptions.fDelayedGrenadeExplosion		= iniReader.ReadBoolean("Tactical Interface Settings","DELAYED_GRENADE_EXPLOSION",FALSE);
+
+	// Chance to Say Annoying Phrase (you can just turn of it by button in game)
+	gGameExternalOptions.iChanceSayAnnoyingPhrase			= iniReader.ReadInteger("Tactical Interface Settings","CHANCE_SAY_ANNOYING_PHRASE",100);	
+	 
+	// New enemy AI for night battles
+	gGameExternalOptions.bNewTacticalAIBehavior				= iniReader.ReadBoolean("Tactical Interface Settings","NEW_AI_TACTICAL",FALSE);	
+
+	// sevenfm: AI tweaks and improvements
+	gGameExternalOptions.fAIYellowFlanking					= iniReader.ReadBoolean("Tactical Interface Settings","AI_YELLOW_FLANKING",FALSE);
+	gGameExternalOptions.fAIExtraSuppression				= iniReader.ReadBoolean("Tactical Interface Settings","AI_EXTRA_SUPPRESSION",FALSE);
+	gGameExternalOptions.fAINewMorale						= iniReader.ReadBoolean("Tactical Interface Settings","AI_NEW_MORALE",FALSE);
+	gGameExternalOptions.fAIBetterCover						= iniReader.ReadBoolean("Tactical Interface Settings","AI_BETTER_COVER",FALSE);
+	
+	// Heahshot penalty
+	gGameExternalOptions.uShotHeadPenalty					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_PENALTY",3,0,100);	
+	
+	// Modifer of damage for HEADSHOT
+	gGameExternalOptions.fShotHeadMultiplier					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_MULTIPLIER",2,1,10);	
+
+	// Penalty for fire when you don't see enemy (when you see enemy because his see militya or ather merc)
+	gGameExternalOptions.iPenaltyShootUnSeen				= iniReader.ReadInteger("Tactical Interface Settings","SHOOT_UNSEEN_PENALTY",0,0,100);
+
+	if (!is_networked)
+		// Flugente: in turnbased combat, do not adjust animation after arriving at target location
+		gGameExternalOptions.fNoStandingAnimAdjustInCombat		= iniReader.ReadBoolean("Tactical Interface Settings","NO_STANDING_ANIM_ADJUSTMENT_IN_COMBAT", TRUE);	
+	else
+		// WANNE: This makes problem for the AI soldiers on the pure client, so why is is set to false
+		gGameExternalOptions.fNoStandingAnimAdjustInCombat		= FALSE;
+
+	//Inventory AP Weight Divisor
+	gGameExternalOptions.uWeightDivisor						= iniReader.ReadFloat("Tactical Interface Settings","INV_AP_WEIGHT_DIVISOR",5,1,100);		
+	
+	 
+	// CtH/2 if the target are out of gun range or invisible for this merc
+	gGameExternalOptions.fOutOfGunRangeOrSight				= iniReader.ReadFloat("Tactical Interface Settings","OUT_OF_SIGHT_OR_GUN_RANGE",2,1,100);	
+
+	// anv: automatically return to team panel on turn end (better situation overview during enemy turn)
+	gGameExternalOptions.fAutoCollapseInventoryOnTurnEnd	= iniReader.ReadBoolean("Tactical Interface Settings","AUTO_COLLAPSE_INVENTORY_ON_TURN_END", TRUE);
+
+	// anv: vehicle interface options
+	gGameExternalOptions.fAddPassengerToAnySquad			= iniReader.ReadBoolean("Tactical Interface Settings","ADD_PASSENGER_TO_ANY_SQUAD", TRUE);
+	gGameExternalOptions.fPassengerLeavingSwitchToNewSquad	= iniReader.ReadBoolean("Tactical Interface Settings","PASSENGER_LEAVING_SWITCH_TO_NEW_SQUAD", FALSE);
+
+
 	//################# Tactical Difficulty Settings #################
 
 	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("Tactical Difficulty Settings","PLAYER_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
@@ -1236,7 +1331,7 @@ void LoadGameExternalOptions()
 
 	//SCORE: Settings for UDT
 	gGameExternalOptions.gfAllowUDTRange					= iniReader.ReadBoolean("Tactical Tooltip Settings","ALLOW_DYNAMIC_TOOLTIP_RANGE",0);
-	gGameExternalOptions.ubUDTModifier						= (UINT8) iniReader.ReadInteger("Tactical Tooltip Settings", "DYNAMIC_TOOLTIP_RANGE_MODIFIER", 50);
+	gGameExternalOptions.ubUDTModifier						= (UINT8) iniReader.ReadInteger("Tactical Tooltip Settings", "DYNAMIC_TOOLTIP_RANGE_MODIFIER", 50, 0, 100);
 	gGameExternalOptions.gfAllowUDTDetail					= iniReader.ReadBoolean("Tactical Tooltip Settings","ALLOW_DYNAMIC_TOOLTIP_DETAIL_LEVEL",0);
 
 
@@ -1285,12 +1380,12 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubRealisticTracers					= iniReader.ReadInteger("Tactical Gameplay Settings","REALISTIC_TRACERS", 0, 0, 2);
 
 	// HEADROCK HAM B2.5: Realistic tracers - one of every X bullets in a tracer magazines will be a tracer bullet. 0 = off (JA2 normal)
-	gGameExternalOptions.ubNumBulletsPerTracer				= __max(iniReader.ReadInteger("Tactical Gameplay Settings","NUM_BULLETS_PER_TRACER", 5, 1, 255),1);
+	gGameExternalOptions.ubNumBulletsPerTracer				= iniReader.ReadInteger("Tactical Gameplay Settings","NUM_BULLETS_PER_TRACER", 5, 1, 255);
 
 	// HEADROCK HAM B2.5: Realistic tracers - CTH increased by this amount whenever a tracer is fired. 0 = off.
 	gGameExternalOptions.ubCTHBumpPerTracer					= iniReader.ReadInteger("Tactical Gameplay Settings","CTH_BUMP_PER_TRACER", 30, 0, 100 );
 
-	// CHRISL: Exeternalize the minimum range at which tracers can improve autofire hit chance
+	// CHRISL: Externalize the minimum range at which tracers can improve autofire hit chance
 	gGameExternalOptions.ubMinRangeTracerEffect				= iniReader.ReadInteger("Tactical Gameplay Settings","MIN_RANGE_FOR_TRACER", 10);
 
 	// HEADROCK HAM 3.5: Limit bonus from tracers based on range to target. This is a multiplier factor - higher means harder to aim with tracers.
@@ -1413,6 +1508,8 @@ void LoadGameExternalOptions()
 	//tais: soldiers always wear any armour..
 	gGameExternalOptions.fSoldiersWearAnyArmour				= iniReader.ReadBoolean("Tactical Gameplay Settings", "SOLDIERS_ALWAYS_WEAR_ANY_ARMOR", FALSE);
 
+	gGameExternalOptions.fRobotNoReadytime					= iniReader.ReadBoolean("Tactical Gameplay Settings", "ROBOT_NO_READYTIME", FALSE); 
+	
 	// improved Interrupt System (info: multiplayer game ALWAYS use the old interrupt system, because the new one causes crashes, no problem so far)
 	//gGameOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);
 	gGameExternalOptions.ubBasicPercentRegisterValueIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_PERCENTAGE_APS_REGISTERED", 60, 0, 250);
@@ -1435,99 +1532,6 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fEnemyJams							= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENEMY_JAMS", true, false);
 
-	gGameExternalOptions.fExtMouseKeyEnabled				= iniReader.ReadBoolean("Tactical Interface Settings", "ENABLE_EXT_MOUSE_KEYS", FALSE);
-
-	// sevenfm: new mouse commands
-	gGameExternalOptions.bAlternateMouseCommands			= iniReader.ReadBoolean("Tactical Interface Settings", "ALTERNATE_MOUSE_COMMANDS", FALSE);
-
-	gGameExternalOptions.iQuickItem1						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_1", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem2						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_2", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem3						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_3", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem4						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_4", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem5						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_5", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem6						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_6", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem7						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_7", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem8						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_8", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem9						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_9", 0, -100, MAXITEMS);
-	gGameExternalOptions.iQuickItem0						= iniReader.ReadInteger("Tactical Interface Settings", "QUICK_ITEM_0", 0, -100, MAXITEMS);
-
-	// Alternative system for aiming - progressive method depending on marksmanship of Merc
-	gGameExternalOptions.bAltAimEnabled						= iniReader.ReadBoolean("Tactical Interface Settings","ALT_AIMING_ENABLED",FALSE);
-	
-	// Use aimed burst
-	gGameExternalOptions.bAimedBurstEnabled				= iniReader.ReadBoolean("Tactical Interface Settings","USE_AIMED_BURST",FALSE);
-						
-	// Penalty for aimed burst
-	gGameExternalOptions.uAimedBurstPenalty				= iniReader.ReadInteger("Tactical Interface Settings","AIMING_BURST_PENALTY",2, 0, 10);
-	
-	// We could see all what can see militia
-	gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa = iniReader.ReadBoolean("Tactical Interface Settings","WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA",TRUE);
-	
-	// Gun supressor can deterioration
-	gGameExternalOptions.bAllowWearSuppressor				= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_WEAR_SUPPRESSOR",FALSE);	
-	
-	// Civils don't make too much actions (for faster civils turn)
-	gGameExternalOptions.bLazyCivilians						= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_LAZY_CIVILIANS",FALSE);	
-	
-	// Neutral civilians can detect and avoid player's mines
-	gGameExternalOptions.bNeutralCiviliansAvoidPlayerMines			= iniReader.ReadBoolean("Tactical Interface Settings","CIVILIANS_AVOID_PLAYER_MINES",FALSE);
-
-	// can extra civilians be created via LUA?
-	gGameExternalOptions.bExtraCivilians					= iniReader.ReadBoolean( "Tactical Interface Settings", "ALLOW_EXTRA_CIVILIANS", FALSE );
-	gGameExternalOptions.bExtraMerchants					= iniReader.ReadBoolean( "Tactical Interface Settings", "ALLOW_EXTRA_MERCHANTS", FALSE );
-	
-	// Add smoke after regular explosions
-	gGameExternalOptions.bAddSmokeAfterExplosion				= iniReader.ReadBoolean("Tactical Interface Settings","ADD_SMOKE_AFTER_EXPLOSION",FALSE);
-
-	// Attachments now can explode
-	gGameExternalOptions.bAllowExplosiveAttachments				= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_EXPLOSIVE_ATTACHMENTS",FALSE);
-
-	// <GasCan>, <Marbles> and <Alcohol> add special bonuses to explosion
-	gGameExternalOptions.bAllowSpecialExplosiveAttachments		= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_SPECIAL_EXPLOSIVE_ATTACHMENTS",FALSE);
-
-	gGameExternalOptions.fDelayedGrenadeExplosion		= iniReader.ReadBoolean("Tactical Interface Settings","DELAYED_GRENADE_EXPLOSION",FALSE);
-
-	// Chance to Say Annoying Phrase (you can just turn of it by button in game)
-	gGameExternalOptions.iChanceSayAnnoyingPhrase			= iniReader.ReadInteger("Tactical Interface Settings","CHANCE_SAY_ANNOYING_PHRASE",100);	
-	 
-	// New enemy AI for night battles
-	gGameExternalOptions.bNewTacticalAIBehavior				= iniReader.ReadBoolean("Tactical Interface Settings","NEW_AI_TACTICAL",FALSE);	
-
-	// sevenfm: AI tweaks and improvements
-	gGameExternalOptions.fAIYellowFlanking					= iniReader.ReadBoolean("Tactical Interface Settings","AI_YELLOW_FLANKING",FALSE);
-	gGameExternalOptions.fAIExtraSuppression				= iniReader.ReadBoolean("Tactical Interface Settings","AI_EXTRA_SUPPRESSION",FALSE);
-	gGameExternalOptions.fAINewMorale						= iniReader.ReadBoolean("Tactical Interface Settings","AI_NEW_MORALE",FALSE);
-	gGameExternalOptions.fAIBetterCover						= iniReader.ReadBoolean("Tactical Interface Settings","AI_BETTER_COVER",FALSE);
-	
-	// Heahshot penalty
-	gGameExternalOptions.uShotHeadPenalty					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_PENALTY",3,0,100);	
-	
-	// Modifer of damage for HEADSHOT
-	gGameExternalOptions.fShotHeadMultiplier					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_MULTIPLIER",2,1,10);	
-
-	// Penalty for fire when you don't see enemy (when you see enemy because his see militya or ather merc)
-	gGameExternalOptions.iPenaltyShootUnSeen				= iniReader.ReadInteger("Tactical Interface Settings","SHOOT_UNSEEN_PENALTY",0,0,255);
-
-	if (!is_networked)
-		// Flugente: in turnbased combat, do not adjust animation after arriving at target location
-		gGameExternalOptions.fNoStandingAnimAdjustInCombat		= iniReader.ReadBoolean("Tactical Interface Settings","NO_STANDING_ANIM_ADJUSTMENT_IN_COMBAT", TRUE);	
-	else
-		// WANNE: This makes problem for the AI soldiers on the pure client, so why is is set to false
-		gGameExternalOptions.fNoStandingAnimAdjustInCombat		= FALSE;
-
-	//Inventory AP Weight Divisor
-	gGameExternalOptions.uWeightDivisor						= iniReader.ReadFloat("Tactical Interface Settings","INV_AP_WEIGHT_DIVISOR",5,0,100);		
-	
-	 
-	// CtH/2 if the target are out of gun range or invisible for this merc
-	gGameExternalOptions.fOutOfGunRangeOrSight				= iniReader.ReadFloat("Tactical Interface Settings","OUT_OF_SIGHT_OR_GUN_RANGE",2,1,100);	
-
-	// anv: automatically return to team panel on turn end (better situation overview during enemy turn)
-	gGameExternalOptions.fAutoCollapseInventoryOnTurnEnd	= iniReader.ReadBoolean("Tactical Interface Settings","AUTO_COLLAPSE_INVENTORY_ON_TURN_END", TRUE);
-
-	// anv: vehicle interface options
-	gGameExternalOptions.fAddPassengerToAnySquad			= iniReader.ReadBoolean("Tactical Interface Settings","ADD_PASSENGER_TO_ANY_SQUAD", TRUE);
-	gGameExternalOptions.fPassengerLeavingSwitchToNewSquad	= iniReader.ReadBoolean("Tactical Interface Settings","PASSENGER_LEAVING_SWITCH_TO_NEW_SQUAD", FALSE);
 
 	//################# Tactical Enemy Role Settings ##################
 	// Flugente: enemy roles
@@ -1618,7 +1622,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubCoweringPenaltyDivisorProne			= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_PRONE_SHOCKED_TARGET", 1, 1, 100 );
 	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedHead	= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_CROUCHED_SHOCKED_TARGET_HEAD", 3, 1, 100);
 	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedTorso	= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_CROUCHED_SHOCKED_TARGET_TORSO", 4, 1, 100);
-	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs	= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_CROUCHED_SHOCKED_TARGET_LEGS_DIVISOR", 5, 1, 100);
+	gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedLegs	= iniReader.ReadInteger("Tactical Suppression Fire Settings","CTH_PENALTY_DIVISOR_FOR_CROUCHED_SHOCKED_TARGET_LEGS", 5, 1, 100);
 
 	// HEADROCK HAM B2.8: This is the maximum range at which a target gives out the full CTH penalty for cowering. At lower range, it'll give proportionally less penalty.
 	gGameExternalOptions.usMinRangeForFullCoweringPenalty		= iniReader.ReadInteger("Tactical Suppression Fire Settings","MIN_RANGE_FOR_FULL_TARGET_SHOCK_PENALTY", 300, 10, 10000 );
@@ -1835,7 +1839,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubSendTroopsToDrassen			= iniReader.ReadBoolean("Strategic Event Settings","TRIGGER_MASSIVE_ENEMY_COUNTERATTACK_AT_DRASSEN",TRUE);
 
 	// Flugente: new strategic AI
-	gGameExternalOptions.ubAgressiveStrategicAI			= iniReader.ReadInteger("Strategic Event Settings","AGGRESSIVE_STRATEGIC_AI", 1, 0, 4);
+	gGameExternalOptions.ubAgressiveStrategicAI			= iniReader.ReadInteger("Strategic Event Settings","AGGRESSIVE_STRATEGIC_AI", 1, 0, 2);
 		
 	// Enable/Disable crepitus completely in SCI-FI mode.
 	gGameExternalOptions.fEnableCrepitus				= iniReader.ReadBoolean("Strategic Event Settings", "ENABLE_CREPITUS", TRUE);
@@ -1855,6 +1859,26 @@ void LoadGameExternalOptions()
 	// Allow reinforcements only between City sectors?
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("Strategic Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
 
+	//dnl ch68 090913 Reinforcements minimum+random turn delay and minimum+random units enter for enemy and militia after they have been called
+	gGameExternalOptions.sMinDelayEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_DELAY_ENEMY_REINFORCEMENTS", 7, 0, 100);
+	gGameExternalOptions.sRndDelayEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_DELAY_ENEMY_REINFORCEMENTS", 8, 0, 100);
+	gGameExternalOptions.sMinEnterEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_ENTER_ENEMY_REINFORCEMENTS", 6, 1, 64);
+	gGameExternalOptions.sRndEnterEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_ENEMY_REINFORCEMENTS", 6, 1, 64);
+	gGameExternalOptions.sMinDelayMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_DELAY_MILITIA_REINFORCEMENTS", 10, 0, 100);
+	gGameExternalOptions.sRndDelayMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_DELAY_MILITIA_REINFORCEMENTS", 10, 0, 100);
+	gGameExternalOptions.sMinEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_ENTER_MILITIA_REINFORCEMENTS", 6, 1, 64);
+	gGameExternalOptions.sRndEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_MILITIA_REINFORCEMENTS", 4, 1, 64);
+	//dnl ch68 090913 Don't allow permanent items removal from sector
+	gGameExternalOptions.fNoRemoveRandomSectorItems			= iniReader.ReadBoolean("Strategic GamePlay Settings", "NO_REMOVE_RANDOM_SECTOR_ITEMS", true, false);
+
+	gGameExternalOptions.fArmyUsesTanksInAttacks			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_ATTACKS", FALSE);
+	gGameExternalOptions.fArmyUsesTanksInPatrols			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_PATROLS", FALSE);
+	gGameExternalOptions.usTankMinimumProgress				= iniReader.ReadInteger("Strategic Gameplay Settings","TANK_MINIMUM_PROGRESS", 60, 0, 100);
+
+	gGameExternalOptions.fArmyUsesJeepsInAttacks			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_ATTACKS", FALSE );
+	gGameExternalOptions.fArmyUsesJeepsInPatrols			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_PATROLS", FALSE );
+	gGameExternalOptions.usJeepMinimumProgress				= iniReader.ReadInteger( "Strategic Gameplay Settings", "JEEP_MINIMUM_PROGRESS", 30, 0, 100 );
+
 	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
 	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("Strategic Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
 
@@ -1862,7 +1886,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fHumveeOffroad						= iniReader.ReadBoolean("Strategic Gameplay Settings","HUMVEE_OFFROAD", FALSE);
 
 	// HEADROCK HAM B2.6/B1: Adjustable "luck" factor in Auto-Resolve
-	gGameExternalOptions.iAutoResolveLuckFactor				= (float)(__max(iniReader.ReadDouble("Strategic Gameplay Settings","AUTORESOLVE_LUCK_FACTOR", 2.0, 0.0, 255.0),1.0));
+	gGameExternalOptions.iAutoResolveLuckFactor				= iniReader.ReadDouble("Strategic Gameplay Settings","AUTORESOLVE_LUCK_FACTOR", 2.0f, 1.0f, 10.0f);
 
 	// HEADROCK HAM 3.2: When enabled, this setting removes the player's omniscience inside his own sectors. The player will no longer see the movement of enemy groups unless someone is nearby to scout them.
 	gGameExternalOptions.fNoEnemyDetectionWithoutRecon		= iniReader.ReadBoolean("Strategic Gameplay Settings","NO_ENEMY_DETECTION_WITHOUT_RECON", FALSE);
@@ -1940,13 +1964,16 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sMoraleModSexism					= iniReader.ReadInteger("Morale Settings","MORALE_MOD_SEXISM",					1, 0, 5);
 	gGameExternalOptions.sMoraleModXenophobicBackGround		= iniReader.ReadInteger("Morale Settings","MORALE_MOD_BACKGROUND_XENOPHOBIC",	5, 0, 15);
 
+	//################# Dynamic Opinion Settings ##################
 	gGameExternalOptions.fDynamicOpinions					= iniReader.ReadBoolean("Dynamic Opinion Settings","DYNAMIC_OPINIONS", TRUE );
 	gGameExternalOptions.fDynamicOpinionsShowChange			= iniReader.ReadBoolean("Dynamic Opinion Settings", "DYNAMIC_OPINIONS_SHOWCHANGE", TRUE );
 	gGameExternalOptions.fDynamicWageFactor					= iniReader.ReadFloat("Dynamic Opinion Settings","WAGE_ACCEPTANCE_FACTOR", 1.5f, 0.1f, 10.0f );
 
+	//################# Dynamic Dialogue Settings ##################
 	gGameExternalOptions.fDynamicDialogue					= iniReader.ReadBoolean("Dynamic Dialogue Settings", "DYNAMIC_DIALOGUE", FALSE );
 	gGameExternalOptions.sDynamicDialogueTimeOffset			= iniReader.ReadInteger( "Dynamic Dialogue Settings", "DYNAMIC_DIALOGUE_TIME_OFFSET", 3000, 500, 10000 );
 
+	//################# PMC Settings ##################
 	gGameExternalOptions.fPMC								= iniReader.ReadBoolean( "PMC Settings", "PMC", TRUE );
 	gGameExternalOptions.usPMCMaxRegulars					= iniReader.ReadInteger( "PMC Settings", "PMC_MAX_REGULARS", 35, 5, 100 );
 	gGameExternalOptions.usPMCMaxVeterans					= iniReader.ReadInteger( "PMC Settings", "PMC_MAX_VETERANS", 20, 5, 100 );
@@ -1993,7 +2020,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fStealingDisabled					= iniReader.ReadBoolean("Bobby Ray Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
 
 	// WANNE - Chance of shipment lost
-	gGameExternalOptions.gubChanceOfShipmentLost			= iniReader.ReadInteger("Bobby Ray Settings","CHANCE_OF_SHIPMENT_LOSS", 10);
+	gGameExternalOptions.gubChanceOfShipmentLost			= iniReader.ReadInteger("Bobby Ray Settings","CHANCE_OF_SHIPMENT_LOSS", 10, 0, 100);
 
 
 	//################# Item Property Settings ##################
@@ -2309,6 +2336,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubCleaningRateDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","CLEANING_RATE_DIVISOR",500, 100, 25000);
 	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_SESSIONS_PER_DAY",24, 1, 96);
 	
+	gGameExternalOptions.fUseXMLSquadNames					= iniReader.ReadBoolean("Strategic Assignment Settings", "USE_XML_SQUADNAMES", FALSE);
+
 	//SaveGame slot by Jazz		
 	// WANNE: No need to make it external to switch between old/new. We always use the new save/load screen with more save slots
 	//gGameExternalOptions.fSaveGameSlot					= iniReader.ReadBoolean("Extension","SAVE_GAMES_SLOT",FALSE);
@@ -2319,30 +2348,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubGridResolutionDay				= iniReader.ReadInteger("Overhead Map Settings", "DAYTIME_PRECISION", 0, 0, 5);
 	gGameExternalOptions.ubGridResolutionNight				= iniReader.ReadInteger("Overhead Map Settings", "NIGHTTIME_PRECISION", 0, 0, 5);
 	gGameExternalOptions.ubSoldiersLeft						= iniReader.ReadInteger("Overhead Map Settings", "MAX_SOLDIERS_LEFT", 1, 1, 64);
-
-	gGameExternalOptions.fRobotNoReadytime					= iniReader.ReadBoolean("Tactical Gameplay Settings", "ROBOT_NO_READYTIME", FALSE); 
-	
-	gGameExternalOptions.fUseXMLSquadNames					= iniReader.ReadBoolean("Strategic Assignment Settings", "USE_XML_SQUADNAMES", FALSE);
-
-	//dnl ch68 090913 Reinforcements minimum+random turn delay and minimum+random units enter for enemy and militia after they have been called
-	gGameExternalOptions.sMinDelayEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_DELAY_ENEMY_REINFORCEMENTS", 7, 0, 100);
-	gGameExternalOptions.sRndDelayEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_DELAY_ENEMY_REINFORCEMENTS", 8, 0, 100);
-	gGameExternalOptions.sMinEnterEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_ENTER_ENEMY_REINFORCEMENTS", 6, 1, 64);
-	gGameExternalOptions.sRndEnterEnemyReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_ENEMY_REINFORCEMENTS", 6, 1, 64);
-	gGameExternalOptions.sMinDelayMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_DELAY_MILITIA_REINFORCEMENTS", 10, 0, 100);
-	gGameExternalOptions.sRndDelayMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_DELAY_MILITIA_REINFORCEMENTS", 10, 0, 100);
-	gGameExternalOptions.sMinEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_ENTER_MILITIA_REINFORCEMENTS", 6, 1, 64);
-	gGameExternalOptions.sRndEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_MILITIA_REINFORCEMENTS", 4, 1, 64);
-	//dnl ch68 090913 Don't allow permanent items removal from sector
-	gGameExternalOptions.fNoRemoveRandomSectorItems			= iniReader.ReadBoolean("Strategic GamePlay Settings", "NO_REMOVE_RANDOM_SECTOR_ITEMS", true, false);
-
-	gGameExternalOptions.fArmyUsesTanksInAttacks			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_ATTACKS", FALSE);
-	gGameExternalOptions.fArmyUsesTanksInPatrols			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_PATROLS", FALSE);
-	gGameExternalOptions.usTankMinimumProgress				= iniReader.ReadInteger("Strategic Gameplay Settings","TANK_MINIMUM_PROGRESS", 60, 0, 100);
-
-	gGameExternalOptions.fArmyUsesJeepsInAttacks			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_ATTACKS", FALSE );
-	gGameExternalOptions.fArmyUsesJeepsInPatrols			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_PATROLS", FALSE );
-	gGameExternalOptions.usJeepMinimumProgress				= iniReader.ReadInteger( "Strategic Gameplay Settings", "JEEP_MINIMUM_PROGRESS", 30, 0, 100 );
 
 	// WANNE: This is just a debug setting. Only in debug version we set that property to TRUE.
 	// In Release version this should always be set to FALSE
