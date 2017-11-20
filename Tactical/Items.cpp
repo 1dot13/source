@@ -7645,7 +7645,8 @@ UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex)
 	
 	// WANNE: Now ammo can be inserted anywhere in Items.xml (before only on index > 70 [FIRST_AMMO] (fix by Realist)
 	//for (usLoop = FIRST_AMMO; usLoop < MAXITEMS; usLoop++)
-	for ( UINT16 usLoop = 0; usLoop < gMAXITEMS_READ; ++usLoop )
+	UINT16 usLoop;
+	for (usLoop = 0; usLoop < gMAXITEMS_READ; ++usLoop )
 	{
 		if (Item[usLoop].ubClassIndex == usMagIndex && Item[usLoop].usItemClass == IC_AMMO )
 		{

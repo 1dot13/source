@@ -118,9 +118,9 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 	}
 	strcat( cAdditionalPropertiesFilename, ADDITIONAL_TILE_PROPERTIES_EXTENSION );
 	// first in /Tilesets/XX/
-	if (FileExists( cAdditionalPropertiesFilename ))
+	if (FileExists(cAdditionalPropertiesFilename))
 	{	
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", cAdditionalPropertiesFilename));
 		SGP_THROW_IFFALSE(ReadInAdditionalTileProperties(cAdditionalPropertiesFilename), cAdditionalPropertiesFilename);
 	}
 	else
@@ -130,7 +130,7 @@ TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 		sprintf( cCommonAdditionalPropertiesFilename, "TILESETS\\ADDITIONALPROPERTIES%s", cEndOfName );
 		if (FileExists( cCommonAdditionalPropertiesFilename ))
 		{	
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", cAdditionalPropertiesFilename));
 			SGP_THROW_IFFALSE(ReadInAdditionalTileProperties(cCommonAdditionalPropertiesFilename), cCommonAdditionalPropertiesFilename);
 		}
 	}

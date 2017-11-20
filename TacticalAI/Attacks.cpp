@@ -1570,6 +1570,10 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 		if ( pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle( pOpponent->bVehicleID ) == 0 )
 			continue;
 
+		// the_bob: don't stab the bird!
+		if (pOpponent->ubBodyType == CROW)
+			continue;		
+
 		// Special stuff for Carmen the bounty hunter
 		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
 			continue;	// next opponent
