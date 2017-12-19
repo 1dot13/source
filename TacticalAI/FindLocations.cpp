@@ -565,7 +565,7 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 		sTempGridNo = NewGridNo( sGridNo, DirectionInc( ubLoop ) );
 		if ( sTempGridNo != sGridNo )
 		{
-			ubWhoIsThere = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
+			ubWhoIsThere = WhoIsThere2( sTempGridNo, pSoldier->pathing.bLevel );
 			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID && MercPtrs[ ubWhoIsThere ]->bTeam == pSoldier->bTeam )
 			{
 				ubCount++;
