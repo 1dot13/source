@@ -163,6 +163,9 @@ public:
 typedef STR16( *cdp_string_func )(UINT32 aNum);
 STR16 cdp_string_func_dummy( UINT32 aNum );
 
+typedef UINT8( *cdp_textcolour_func )( UINT32 aNum );
+UINT8 cdp_textcolour_func_dummy( UINT32 aNum );
+
 typedef void( *cdp_image_func )(UINT32 aNum, UINT32& arImageLib, UINT16& arImage );
 void cdp_image_func_dummy( UINT32 aNum, UINT32& arImageLib, UINT16& arImage );
 
@@ -176,7 +179,7 @@ class ColumnDataProvider
 public:
 	ColumnDataProvider( STR16 aName ) : mName( aName ), mNumberOfEntries( 0 ), mRequiredLength(20), mRequiredHeigth( 20 ),
 		mType( CDP_STRING ), mCallbackType( CDP_DEFAULT ),
-		mFuncString( cdp_string_func_dummy ), mFuncImage( cdp_image_func_dummy )
+		mFuncString( cdp_string_func_dummy ), mFuncTextColour( cdp_textcolour_func_dummy ), mFuncImage( cdp_image_func_dummy ), mFuncStatusBar( cdp_statusbar_func_dummy )
 	{
 		for ( int i = 0; i < COLUMNDATAPROVIDER_MOUSEREGIONS; ++i )
 		{
@@ -216,6 +219,8 @@ public:
 	// functions for handling string contents
 	void				SetMethodString( cdp_string_func afunc )		{ mFuncString = afunc; SetProviderType( CDP_STRING ); CalcRequiredLength( ); }
 	STR16				GetString( UINT32 aNum )			{ return mFuncString( aNum ); }
+	void				SetMethodTextColour( cdp_textcolour_func afunc )	{ mFuncTextColour = afunc; }
+	UINT8				GetColour( UINT32 aNum )			{ return mFuncTextColour( aNum ); }
 
 	// functions for handling images
 	void				SetMethodImage( cdp_image_func afunc )	{ mFuncImage = afunc; SetProviderType( CDP_IMAGE ); CalcRequiredLength( ); }
@@ -252,6 +257,7 @@ private:
 	CDP_CALLBACKTYPE	mCallbackType;
 
 	cdp_string_func		mFuncString;
+	cdp_textcolour_func	mFuncTextColour;
 	cdp_image_func		mFuncImage;
 	cdp_statusbar_func	mFuncStatusBar;
 };

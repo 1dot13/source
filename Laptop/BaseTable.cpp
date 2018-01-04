@@ -15,6 +15,10 @@
 #include "input.h"		// for gfLeftButtonState
 #include "insurance.h"	// for DisplaySmallColouredLineWithShadow
 
+#define	TESTTABLE_FONT_MED					FONT12ARIAL
+#define TESTTABLE_OFFSET_ROW				20
+#define	TESTTABLE_FONT_COLOR_REGULAR		2
+
 BaseTable::BaseTable( )
 : WidgetBase( ),
 	mName(L""),
@@ -103,6 +107,11 @@ BaseTable::DestroyMouseRegions( )
 STR16 cdp_string_func_dummy( UINT32 aNum )
 { 
 	return L"nothing found";
+}
+
+UINT8 cdp_textcolour_func_dummy( UINT32 aNum )
+{ 
+	return TESTTABLE_FONT_COLOR_REGULAR;
 }
 
 void cdp_image_func_dummy( UINT32 aNum, UINT32& arImageLib, UINT16& arImage )
@@ -194,9 +203,6 @@ ColumnDataProvider::DestroyMouseRegions( )
 }
 
 // Flugente: this unused page will now be a testbed for the BaseTable development
-#define	TESTTABLE_FONT_MED					FONT12ARIAL
-#define TESTTABLE_OFFSET_ROW				20
-#define	TESTTABLE_FONT_COLOR_REGULAR		2
 
 ////////////// TestPanel///////////////////////////////////////
 TestPanel::TestPanel( )
@@ -575,7 +581,7 @@ TestTable::Display( )
 				{
 					swprintf( sText, (*it).GetString( i ) );
 
-					DrawTextToScreen( sText, usPosX, usPosY + 7, GetWidth( ), TESTTABLE_FONT_MED, TESTTABLE_FONT_COLOR_REGULAR, FONT_MCOLOR_BLACK, FALSE, 0 );
+					DrawTextToScreen( sText, usPosX, usPosY + 7, GetWidth( ), TESTTABLE_FONT_MED, (*it).GetColour( i ), FONT_MCOLOR_BLACK, FALSE, 0 );
 				}
 				else if ( it->GetProviderType( ) == ColumnDataProvider::CDP_IMAGE )
 				{

@@ -458,6 +458,31 @@ STR16 Profilenamegetter( UINT32 aNum )
 	return L"No entry found in database";
 }
 
+// a militia's name is written in a different colour, depending on their rank and whether they are dead
+UINT8 MilitiaNameTextColourGetter( UINT32 aNum )
+{
+	if ( aNum < gIndividualMilitiaFilteredIdsVector.size() )
+	{
+		UINT32 militiaid = gIndividualMilitiaFilteredIdsVector[aNum];
+
+		MILITIA militia;
+		if ( GetMilitia( militiaid, &militia ) )
+		{
+			if ( militia.flagmask & MILITIAFLAG_DEAD )
+				return 243;
+
+			switch ( militia.militiarank )
+			{
+			case GREEN_MILITIA:		return 184; break;
+			case REGULAR_MILITIA:	return 201; break;
+			case ELITE_MILITIA:		return 203; break;
+			}
+		}
+	}
+
+	return 2;
+}
+
 STR16 Sectornamegetter( UINT32 aNum )
 {
 	if ( aNum < gIndividualMilitiaFilteredIdsVector.size( ) )
@@ -728,13 +753,13 @@ template<>  void	TestTableTemplate<3>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End
 		ColumnDataProvider healthbarcol( L"" );
 		healthbarcol.SetMethodStatusBar( MilitiaHealthBar );
 		healthbarcol.SetNumberOfEntries( gIndividualMilitiaFilteredIdsVector.size( ) );
-		healthbarcol.SetRequiredHeigth( 29 );
+		//healthbarcol.SetRequiredHeigth( 29 );
 		healthbarcol.SetCallBackType( ColumnDataProvider::CDP_MILITIA_LIST );
 
 		AddColumnDataProvider( healthbarcol );
 	}
 
-	// face
+	/*// face
 	ColumnDataProvider imagecol( L"" );
 	imagecol.SetMethodImage( AutoResolveFaces );
 	imagecol.SetNumberOfEntries( gIndividualMilitiaFilteredIdsVector.size( ) );
@@ -742,11 +767,12 @@ template<>  void	TestTableTemplate<3>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End
 	imagecol.SetRequiredLength( 35 );
 	imagecol.SetCallBackType( ColumnDataProvider::CDP_MILITIA_LIST );
 
-	AddColumnDataProvider( imagecol );
+	AddColumnDataProvider( imagecol );*/
 
 	// name
 	ColumnDataProvider namcol( szIdividualMilitiaWebsiteText[12] );
 	namcol.SetMethodString( Profilenamegetter );
+	namcol.SetMethodTextColour( MilitiaNameTextColourGetter );
 	namcol.SetNumberOfEntries( gIndividualMilitiaFilteredIdsVector.size( ) );
 	namcol.SetCallBackType( ColumnDataProvider::CDP_MILITIA_LIST );
 
