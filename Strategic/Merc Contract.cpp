@@ -529,7 +529,7 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 			continue;
 
 		// is this buddy on the team?
-		if( IsMercOnTeamAndAlive( (UINT8) bMercID) )
+		if( IsMercOnTeam( (UINT8) bMercID, FALSE, FALSE ) )
 		{
 			fBuddyAround = TRUE;
 
@@ -565,7 +565,7 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 		if( bMercID < 0 )
 			continue;
 
-		if( IsMercOnTeamAndInOmertaAlreadyAndAlive( (UINT8) bMercID ) )
+		if( IsMercOnTeam( (UINT8) bMercID, TRUE, TRUE ) )
 		{
 			if ( gMercProfiles[ pSoldier->ubProfile ].bHatedCount[ i ] == 0 )
 			{
@@ -609,7 +609,7 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 
 		if ( bMercID >= 0 )
 		{
-			if ( IsMercOnTeamAndInOmertaAlreadyAndAlive( (UINT8) bMercID ) )
+			if ( IsMercOnTeam( (UINT8) bMercID, TRUE, TRUE ) )
 			{
 				if ( gMercProfiles[ pSoldier->ubProfile ].bLearnToHateCount == 0 )
 				{

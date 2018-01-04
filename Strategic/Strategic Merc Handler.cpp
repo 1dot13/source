@@ -412,7 +412,7 @@ void MercDailyUpdate()
 	// WANNE: Only send mails from the original 1.13 merc, and not from the wildfire merc,
 	// otherwise we get wrong mails cause of hardcoded Email.edt structure!!!!!	
 	UINT16 numOriginalProfiles = 255;
-	for( cnt = 0; cnt < numOriginalProfiles; cnt++)
+	for( cnt = 0; cnt < numOriginalProfiles; ++cnt)
 	{
 		pProfile = &(gMercProfiles[ cnt ]);
 
@@ -426,7 +426,7 @@ void MercDailyUpdate()
 		pProfile->uiPrecedentQuoteSaid = 0;
 
 		// skip anyone currently on the player's team
-		if ( IsMercOnTeam( (UINT8) cnt ))
+		if ( IsMercOnTeam( (UINT8) cnt, FALSE, FALSE ))
 		{
 			continue;
 		}

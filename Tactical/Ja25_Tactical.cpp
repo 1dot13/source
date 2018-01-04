@@ -889,7 +889,7 @@ void HandlePowerGenAlarm()
 
 				if( bID != -1 )
 				{
-					TacticalCharacterDialogue( &Menptr[ bID ], QUOTE_PERSONALITY_BIAS_WITH_HATED_2 );
+					TacticalCharacterDialogue( &Menptr[ bID ], QUOTE_HATED_2_ON_TEAM_LONGTIMETOHATE );
 				}
 			}
 			else
@@ -899,15 +899,15 @@ void HandlePowerGenAlarm()
 
 				if( bSoldierId1 != -1 && Menptr[ bSoldierId1 ].ubProfile != BIGGENS_UB ) //BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId1 ], QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
+					TacticalCharacterDialogue( &Menptr[ bSoldierId1 ], QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
 				}
 				else if( bSoldierId2 != -1 && Menptr[ bSoldierId2 ].ubProfile != BIGGENS_UB ) //BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId2 ], QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
+					TacticalCharacterDialogue( &Menptr[ bSoldierId2 ], QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
 				}
 				else if( bSoldierId3 != -1 && Menptr[ bSoldierId3 ].ubProfile != BIGGENS_UB ) // BIGGENS
 				{
-					TacticalCharacterDialogue( &Menptr[ bSoldierId3 ], QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
+					TacticalCharacterDialogue( &Menptr[ bSoldierId3 ], QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
 				}
 			}
 		}

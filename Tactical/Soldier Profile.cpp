@@ -2300,7 +2300,7 @@ BOOLEAN DoesMercHaveABuddyOnTheTeam( UINT8 ubMercID )
 		if( bBuddyID < 0 )
 			continue;
 
-		if( IsMercOnTeam( bBuddyID ) )
+		if( IsMercOnTeam( bBuddyID, FALSE, FALSE ) )
 		{
 			if( !IsMercDead( bBuddyID ) )
 			{

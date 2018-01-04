@@ -3217,7 +3217,7 @@ BOOLEAN CanMercBeHired()
 			continue;
 		}
 
-		if( IsMercOnTeamAndInOmertaAlready( bMercID ) )
+		if( IsMercOnTeam( bMercID, TRUE, FALSE ) )
 		{
 			//if the merc hates someone on the team, see if a buddy is on the team
 			for ( UINT8 j = 0; j< NUMBER_HATED_MERCS_ONTEAM; ++j )
@@ -3239,7 +3239,7 @@ BOOLEAN CanMercBeHired()
 				if( bMercID < 0 )
 					continue;
 
-				if( IsMercOnTeam( bMercID ) && !IsMercDead( bMercID ) )
+				if( IsMercOnTeam( bMercID, FALSE, FALSE ) && !IsMercDead( bMercID ) )
 				{
 					if ( j == 0 )
 					{
@@ -3282,7 +3282,7 @@ BOOLEAN CanMercBeHired()
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_1 );
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE );
 					fRetVal = TRUE;
 				}
 			}
@@ -3296,8 +3296,8 @@ BOOLEAN CanMercBeHired()
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_2 );
-//					DelayMercSpeech( gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_MERC_2, 750, TRUE, FALSE );
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_2_ON_TEAM_LONGTIMETOHATE );
+//					DelayMercSpeech( gbCurrentSoldier, QUOTE_HATED_2_ON_TEAM_LONGTIMETOHATE, 750, TRUE, FALSE );
 					fRetVal = TRUE;
 				}
 			}
@@ -3311,7 +3311,7 @@ BOOLEAN CanMercBeHired()
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_3 );
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_3_ON_TEAM_LONGTIMETOHATE );
 					fRetVal = TRUE;
 				}
 			}
@@ -3325,7 +3325,7 @@ BOOLEAN CanMercBeHired()
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_4 );
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_4_ON_TEAM_LONGTIMETOHATE );
 					fRetVal = TRUE;
 				}
 			}
@@ -3339,7 +3339,7 @@ BOOLEAN CanMercBeHired()
 				}
 				else
 				{
-					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_PERSONALITY_BIAS_WITH_HATED_5 );
+					InitVideoFaceTalking(gbCurrentSoldier, QUOTE_HATED_5_ON_TEAM_LONGTIMETOHATE );
 					fRetVal = TRUE;
 				}
 			}

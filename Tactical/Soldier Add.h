@@ -37,13 +37,7 @@ BOOLEAN AddSoldierToSectorNoCalculateDirection( UINT8 ubID );
 BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, UINT16 usAnimState, UINT16 usAnimCode );
 
 // IsMercOnTeam() checks to see if the passed in Merc Profile ID is currently on the player's team
-BOOLEAN IsMercOnTeam(UINT8 ubMercID);
-// requires non-intransit assignment, too
-BOOLEAN IsMercOnTeamAndInOmertaAlready(UINT8 ubMercID);
-// ATE: Added for contract renewals
-BOOLEAN IsMercOnTeamAndAlive(UINT8 ubMercID);
-// ATE: Added for contract renewals
-BOOLEAN IsMercOnTeamAndInOmertaAlreadyAndAlive(UINT8 ubMercID);
+BOOLEAN IsMercOnTeam( UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive );
 
 
 

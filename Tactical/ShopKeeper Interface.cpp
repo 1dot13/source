@@ -1186,7 +1186,7 @@ BOOLEAN ExitShopKeeperInterface()
 		bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 		if( bSoldierID != -1 )
 		{
-			TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_SPARE2 );
+			TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_JA2UB_LAPTOP_FIXED );
 		}
 
 		gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE;

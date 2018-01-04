@@ -204,7 +204,7 @@ INT32 GetNumberOfHiredMercs()
 		usMercID = GetMercIDFromMERCArray( i );
 
 		// Is the merc hired?
-		if( IsMercOnTeam( (UINT8)usMercID )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
+		if( IsMercOnTeam( (UINT8)usMercID, FALSE, FALSE )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
 		{
 		
 			#ifdef JA2UB
@@ -527,7 +527,7 @@ void DisplayHiredMercs()
 		usMercID = GetMercIDFromMERCArray( i );
 
 		//is the merc on the team, or is owed money
-		if( IsMercOnTeam( (UINT8)usMercID )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
+		if( IsMercOnTeam( (UINT8)usMercID, FALSE, FALSE )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
 		{
 			// count the number of mercs we really hired, but only display those that should be on this page
 			++merccounter;
@@ -616,7 +616,7 @@ void SettleMercAccounts()
 		ubMercID = GetMercIDFromMERCArray( (UINT8) i );
 
 		//if the merc is on the team, or does the player owe money for a fired merc
-		if( IsMercOnTeam( ubMercID ) || ( gMercProfiles[ ubMercID ].iMercMercContractLength != 0 ) )
+		if( IsMercOnTeam( ubMercID, FALSE, FALSE ) || ( gMercProfiles[ ubMercID ].iMercMercContractLength != 0 ) )
 		{
 			//Calc the contract charge
 			#ifdef JA2UB

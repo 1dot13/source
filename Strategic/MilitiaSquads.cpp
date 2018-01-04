@@ -2586,7 +2586,8 @@ void InitManualMobileRestrictions()
 }
 
 
-extern BOOLEAN IsMercOnTeam(UINT8 ubMercID);
+extern BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive );
+
 // @brief Calculates the contingent for mobile militia. 
 // Calculates current active mobile militia and compares to variable maximum limit which can be altered by external data.
 // @param printMessage Set to TRUE to get a screenmessage telling the player which maximum is reached. No message is generated when the maximum is not yet reached (<=100).
@@ -2650,7 +2651,7 @@ UINT8 GetMobileMilitiaQuota( BOOLEAN printMessage )
 				UINT16 rebelStructSize = sizeof ( gProfilesRPC );
 				for (UINT16 rebelPC = 0; rebelPC < rebelStructSize; rebelPC++)
 				{
-					if ( IsMercOnTeam ( gProfilesRPC[ rebelPC ].ProfilId ) ) iNumRebelsInPlayerTeam++;
+					if ( IsMercOnTeam ( gProfilesRPC[ rebelPC ].ProfilId, FALSE, FALSE ) ) iNumRebelsInPlayerTeam++;
 				}
 			}
 			//if ( IsMercOnTeam ( IRA ) ) iNumRebelsInPlayerTeam++;

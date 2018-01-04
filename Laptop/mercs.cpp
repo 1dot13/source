@@ -1001,10 +1001,10 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 	iNumDays = 0;
 
 	//loop through all of the hired mercs from M.E.R.C.
-	for(i=0; i<NUMBER_OF_MERCS; i++)
+	for(i=0; i<NUMBER_OF_MERCS; ++i )
 	{
 		ubMercID = GetMercIDFromMERCArray( (UINT8) i );
-		if( IsMercOnTeam( ubMercID ) )
+		if( IsMercOnTeam( ubMercID, FALSE, FALSE ) )
 		{
 			// WANNE: If we have drunken merc, then skip otherwise is will exist 2 times!
 			if (gConditionsForMercAvailability[ i ].Drunk)
@@ -2325,10 +2325,10 @@ BOOLEAN IsAnyMercMercsHired( )
 	UINT8	i;
 
 	//loop through all of the hired mercs from M.E.R.C.
-	for(i=0; i<NUMBER_OF_MERCS; i++)
+	for(i=0; i<NUMBER_OF_MERCS; ++i)
 	{
 		ubMercID = GetMercIDFromMERCArray( i );
-		if( IsMercOnTeam( ubMercID ) )
+		if( IsMercOnTeam( ubMercID, FALSE, FALSE ) )
 		{
 			return( TRUE );
 		}
@@ -2380,12 +2380,12 @@ UINT8	CountNumberOfMercMercsHired()
 	UINT8	ubCount=0;
 
 	//loop through all of the hired mercs from M.E.R.C.
-	for(i=0; i<NUMBER_OF_MERCS; i++)
+	for(i=0; i<NUMBER_OF_MERCS; ++i)
 	{
 		ubMercID = GetMercIDFromMERCArray( i );
-		if( IsMercOnTeam( ubMercID ) )
+		if( IsMercOnTeam( ubMercID, FALSE, FALSE ) )
 		{
-			ubCount++;
+			++ubCount;
 		}
 	}
 
@@ -2535,7 +2535,7 @@ void HandlePlayerHiringMerc( UINT8 ubHiredMercID )
 
 			// anv: Speck is hired
 			case SPECK_PLAYABLE:
-				if( IsMercOnTeam( VICKI ) )
+				if( IsMercOnTeam( VICKI, FALSE, FALSE ) )
 					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_SPECK_TOGETHER_WITH_VICKI );
 				else
 					StartSpeckTalking( SPECK_QUOTE_PLAYER_HIRES_SPECK );
@@ -2618,7 +2618,7 @@ BOOLEAN ShouldSpeckStartTalkingDueToActionOnSubPage()
 BOOLEAN IsSpeckComAvailable() // anv: Prevent Speck from talking if his playable version is out of reach
 {
 	//he's hired, travelling, dead or POW, he cant' talk
-	if( ( ( IsMercOnTeam( SPECK_PLAYABLE ) 
+	if( ( ( IsMercOnTeam( SPECK_PLAYABLE, FALSE, FALSE )
 		|| gMercProfiles[ SPECK_PLAYABLE ].bMercStatus == MERC_IS_DEAD  
 		|| gMercProfiles[ SPECK_PLAYABLE ].bMercStatus == MERC_RETURNING_HOME
 		|| gMercProfiles[ SPECK_PLAYABLE ].bMercStatus == MERC_FIRED_AS_A_POW ) )
