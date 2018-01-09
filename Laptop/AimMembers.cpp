@@ -3217,7 +3217,7 @@ BOOLEAN CanMercBeHired()
 			continue;
 		}
 
-		if( IsMercOnTeam( bMercID, TRUE, FALSE ) )
+		if( IsMercOnTeam( bMercID, FALSE, FALSE ) )
 		{
 			//if the merc hates someone on the team, see if a buddy is on the team
 			for ( UINT8 j = 0; j< NUMBER_HATED_MERCS_ONTEAM; ++j )
