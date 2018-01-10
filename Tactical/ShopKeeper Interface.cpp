@@ -2477,6 +2477,10 @@ void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
 		gfSKIScreenExit = TRUE;
 	}
 
+	// Flugente: additional dialogue
+	if ( gusSelectedSoldier != NOBODY )
+		AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_MERCHANT_CHAT );
+
 	LeaveTacticalScreen( SHOPKEEPER_SCREEN );
 }
 

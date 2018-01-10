@@ -32,6 +32,7 @@
 #include "environment.h"
 #include "GameSettings.h"
 #include "Buildings.h"
+#include "Dialogue Control.h"	// added by Flugente
 #endif
 
 #include "Campaign.h"
@@ -2708,6 +2709,13 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	else
 	{
 		fDoImpact = TRUE;
+	}
+
+	// Flugente: additional dialogue
+	// any merc nearby that can see this can warn us
+	if ( ( *pObj )[0]->data.misc.bDelay > 0 && pObject->ubOwner != NOBODY )//&& MercPtrs[pObject->ubOwner]->bTeam != gbPlayerNum )
+	{
+		AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( NO_PROFILE, ADE_GRENADEWARNING, 0, 0, 0, pObject->sGridNo, 5 );
 	}
 
 	if ( fDoImpact )

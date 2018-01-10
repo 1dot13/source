@@ -869,6 +869,9 @@ static int l_GetSamSiteHackStatus( lua_State *L );
 static int l_SetMiniGameType( lua_State *L );
 static int l_SoldierSpendMoney( lua_State *L );
 
+static int l_SetAdditionalDialogue( lua_State *L );
+static int l_PlaySound( lua_State *L );
+
 using namespace std;
 
 UINT16 idProfil;
@@ -1744,6 +1747,9 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 
 	lua_register( L, "SetMiniGameType", l_SetMiniGameType );
 	lua_register( L, "SoldierSpendMoney", l_SoldierSpendMoney );
+
+	lua_register( L, "SetAdditionalDialogue", l_SetAdditionalDialogue );
+	lua_register( L, "PlaySound", l_PlaySound );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -7208,6 +7214,9 @@ static int l_ACTION_ITEM_SEX (lua_State *L)
 							DoorCloser[0]->data.misc.bActionValue = ACTION_ITEM_CLOSE_DOOR;
 							PerformItemAction( sDoorSpot, &DoorCloser );
 
+							// Flugente: additional dialogue
+							AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[ubID], ADE_SEX );
+
 							// have sex
 							HandleNPCDoAction( 0, NPC_ACTION_SEX, 0 );
 
@@ -10574,7 +10583,6 @@ static int l_CheckCharacterSectorX (lua_State *L)
 	return 1;
 }
 
-//SetPendingNewScreen( SEX_SCREEN );
 static int l_SetPendingNewScreenSEXSCREEN (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -13359,4 +13367,68 @@ static int l_SoldierSpendMoney( lua_State *L )
 	}
 
 	return 1;
+}
+
+extern BOOLEAN LuaCallsToDoDialogueStuff( UINT8 ubProfile, INT32 iFaceIndex, const char* azSoundString );
+
+extern void SetQuoteStr( STR16 aStr );
+
+static int l_SetAdditionalDialogue( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 4 )
+	{
+		UINT8 profile = lua_tointeger( L, 1 );
+		INT32 faceindex = lua_tointeger( L, 2 );
+
+		size_t len = 0;
+		const char* str = lua_tolstring( L, 3, &len );
+
+		{
+			size_t len = 0;
+			const char* str = lua_tolstring( L, 4, &len );
+
+			CHAR16 quote_str[1000];
+
+			MultiByteToWideChar( CP_UTF8, 0, str, -1, quote_str, sizeof( quote_str ) / sizeof( quote_str[0] ) );
+			quote_str[sizeof( quote_str ) / sizeof( quote_str[0] ) - 1] = '\0';
+
+			SetQuoteStr( quote_str );
+		}
+		
+		LuaCallsToDoDialogueStuff( profile, faceindex, str );
+	}
+
+	return 0;
+}
+
+static int l_PlaySound( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 1 )
+	{
+		size_t len = 0;
+		const char* str = lua_tolstring( L, 1, &len );
+
+		UINT32 volume = min( lua_tointeger( L, 2 ), HIGHVOLUME );
+		if ( !volume )
+			volume = MIDVOLUME;
+		
+		PlayJA2SampleFromFile( (char*)str, RATE_11025, volume, 1, MIDDLEPAN );
+	}
+
+	return 0;
+}
+
+void LuaHandleAdditionalDialogue( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	lua_register( _LS.L(), "CheckFact", l_CheckFact );
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "HandleAdditionalDialogue" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( ubProfile ).Param<int>( iFaceIndex ).Param<int>( usEventNr ).Param<int>( aData1 ).Param<int>( aData2 ).Param<int>( aData3 ).Call( 9 );
 }

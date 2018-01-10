@@ -52,6 +52,7 @@
 	#include "Quests.h"
 	#include "GameSettings.h"
 	#include "DynamicDialogue.h"// added by Flugente
+	#include "Dialogue Control.h"	// added by Flugente
 #endif
 #include "connect.h"
 
@@ -689,12 +690,18 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 	// If we are approaching with helicopter, don't say any ( yet )
 	if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER )
 	{
-		// Player-generated characters issue a comment about arriving in Omerta.
-		if ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER)
+		// if we haven't met the rebels yet, characters issue some comments
+		if ( gubQuest[QUEST_DELIVER_LETTER] == QUESTINPROGRESS )
 		{
-			if ( gubQuest[ QUEST_DELIVER_LETTER ] == QUESTINPROGRESS )
+			// Player-generated characters issue a comment about arriving in Omerta.
+			if ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER )
 			{
 				TacticalCharacterDialogue( pSoldier, QUOTE_PC_DROPPED_OMERTA );
+			}
+			// Flugente: additional dialogue
+			else
+			{
+				AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_OMERTA_ENTRY );
 			}
 		}
 

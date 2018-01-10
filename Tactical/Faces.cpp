@@ -3148,7 +3148,10 @@ BOOLEAN SetFaceTalking( INT32 iFaceIndex, CHAR8 *zSoundFile, STR16 zTextString,
 	return( TRUE );
 }
 
-
+BOOLEAN IsFaceTalking( INT32 iFaceIndex )
+{
+	return gFacesData[iFaceIndex].fTalking;
+}
 
 BOOLEAN SetFaceTalkingMultipleSounds( INT32 iFaceIndex, CHAR8 zSoundFiles[][64], UINT8 ubMaxSoundsCount, 
 	STR16 zTextString, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )

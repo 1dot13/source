@@ -2217,6 +2217,14 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 					NPCConsiderTalking( ubNPC, ubMerc, bApproach, (UINT8)uiApproachData, pNPCQuoteInfoArray, &pQuotePtr, &ubRecordNum );
 					break;
 				default:
+
+					// Flugente: additional dialogue
+					if ( bApproach == APPROACH_FRIENDLY )		AdditionalTacticalCharacterDialogue_CallsLua( FindSoldierByProfileID( ubMerc, FALSE ), ADE_DIALOGUE_NPC_FRIENDLY, ubNPC );
+					else if ( bApproach == APPROACH_DIRECT )	AdditionalTacticalCharacterDialogue_CallsLua( FindSoldierByProfileID( ubMerc, FALSE ), ADE_DIALOGUE_NPC_DIRECT, ubNPC );
+					else if ( bApproach == APPROACH_THREATEN )	AdditionalTacticalCharacterDialogue_CallsLua( FindSoldierByProfileID( ubMerc, FALSE ), ADE_DIALOGUE_NPC_THREATEN, ubNPC );
+					else if ( bApproach == APPROACH_RECRUIT )	AdditionalTacticalCharacterDialogue_CallsLua( FindSoldierByProfileID( ubMerc, FALSE ), ADE_DIALOGUE_NPC_RECRUIT, ubNPC );
+					else if ( bApproach == APPROACH_REPEAT )	AdditionalTacticalCharacterDialogue_CallsLua( FindSoldierByProfileID( ubMerc, FALSE ), ADE_DIALOGUE_NPC_REPEAT, ubNPC );
+
 					NPCConsiderTalking( ubNPC, ubMerc, bApproach, 0, pNPCQuoteInfoArray, &pQuotePtr, &ubRecordNum );
 					break;
 			}

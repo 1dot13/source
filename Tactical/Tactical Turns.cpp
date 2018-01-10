@@ -27,6 +27,7 @@
 	#include "strategicmap.h"
 	#include "Random.h"
 	#include "Explosion Control.h"
+	#include "Dialogue Control.h"	// added by Flugente
 #endif
 
 #include "Reinforcement.h"
@@ -47,7 +48,7 @@ void HandleRPCDescription(	)
 	std::vector<UINT8>	ubMercsInSector (CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS, 0);
 //	UINT8	ubMercsInSector[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
 	UINT8	ubNumMercs = 0;
-	UINT8	ubChosenMerc;
+	UINT8	ubChosenMerc = 0;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32		cnt2;
 	BOOLEAN fSAMSite = FALSE;
@@ -91,8 +92,7 @@ void HandleRPCDescription(	)
 	{
 		return;
 	}
-
-
+	
 	gTacticalStatus.bGuideDescriptionCountDown--;
 
 	if ( gTacticalStatus.bGuideDescriptionCountDown == 0 )
@@ -102,36 +102,55 @@ void HandleRPCDescription(	)
 		// OK, count how many rpc guys we have....
 		// set up soldier ptr as first element in mercptrs list
 		cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-
-		// run through list
-		for ( pTeamSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt2++,pTeamSoldier++ )
+		
 		{
-			// Add guy if he's a candidate...
-			if ( RPC_RECRUITED( pTeamSoldier ) )
+			// run through list
+			for ( pTeamSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2, pTeamSoldier++ )
 			{
-				if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive &&
+				// Add guy if he's a candidate...
+				if ( RPC_RECRUITED( pTeamSoldier ) )
+				{
+					if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive &&
 						pTeamSoldier->sSectorX == gTacticalStatus.bGuideDescriptionSectorX && pTeamSoldier->sSectorY == gTacticalStatus.bGuideDescriptionSectorY &&
 						pTeamSoldier->bSectorZ == gbWorldSectorZ &&
-						!pTeamSoldier->flags.fBetweenSectors	)
-				{
-					if ( pTeamSoldier->ubProfile == IRA ||
+						!pTeamSoldier->flags.fBetweenSectors )
+					{
+						if ( pTeamSoldier->ubProfile == IRA ||
 							pTeamSoldier->ubProfile == MIGUEL ||
 							pTeamSoldier->ubProfile == CARLOS ||
 							pTeamSoldier->ubProfile == DIMITRI )
-					{
-						ubMercsInSector[ ubNumMercs ] = (UINT8)cnt2;
-						ubNumMercs++;
+						{
+							ubMercsInSector[ubNumMercs] = (UINT8)cnt2;
+							++ubNumMercs;
+						}
 					}
 				}
 			}
+
+			// If we are > 0
+			if ( ubNumMercs > 0 )
+			{
+				ubChosenMerc = (UINT8)Random( ubNumMercs );
+
+				TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ubMercsInSector[ubChosenMerc]], gTacticalStatus.ubGuideDescriptionToUse, DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES, 0, 0 );
+			}
 		}
 
-		// If we are > 0
-		if ( ubNumMercs > 0 )
+		// Flugente: special value signifies lua-based quotes
+		if ( !ubNumMercs || gTacticalStatus.ubGuideDescriptionToUse == 100 )
 		{
-			ubChosenMerc = (UINT8)Random( ubNumMercs );
-
-			TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], gTacticalStatus.ubGuideDescriptionToUse, DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES, 0, 0 );
+			// run through list
+			cnt2 = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( pTeamSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2, pTeamSoldier++ )
+			{
+				if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive &&
+					pTeamSoldier->sSectorX == gTacticalStatus.bGuideDescriptionSectorX && pTeamSoldier->sSectorY == gTacticalStatus.bGuideDescriptionSectorY &&
+					pTeamSoldier->bSectorZ == gbWorldSectorZ &&
+					!pTeamSoldier->flags.fBetweenSectors )
+				{
+					AdditionalTacticalCharacterDialogue_CallsLua( pTeamSoldier, ADE_SECTOR_COMMENTARY );
+				}
+			}
 		}
 	}
 }

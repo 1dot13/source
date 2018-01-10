@@ -1374,7 +1374,23 @@ void HandleDialogue( )
 				//ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, DIALOGUE_TACTICAL_UI, TRUE );
 				ExecuteSnitchCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->uiSpecialEventData2, QItem->uiSpecialEventData3, QItem->uiSpecialEventData4 );
 			}
-			
+			// Flugente: additional dialogue
+			else if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_ADDITIONAL_DIALOGUE )
+			{
+				// Flugente: only set up face if we can access correctly
+				if ( QItem->iFaceIndex >= 0 )
+				{
+					// Setup face pointer
+					gpCurrentTalkingFace = &gFacesData[QItem->iFaceIndex];
+				}
+
+				gubCurrentTalkingID = QItem->iFaceIndex;
+
+				extern BOOLEAN ExecuteAdditionalCharacterDialogue( UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 );
+
+				ExecuteAdditionalCharacterDialogue( QItem->ubCharacterNum, QItem->iFaceIndex, QItem->usQuoteNum, QItem->uiSpecialEventData2, QItem->uiSpecialEventData3, QItem->uiSpecialEventData4 );
+			}
+
 #ifdef JA2UB
 			//JA25 UB
 			if ( QItem->uiSpecialEventData & MULTIPURPOSE_SPECIAL_EVENT_TEAM_MEMBERS_DONE_TALKING )
@@ -1671,6 +1687,9 @@ BOOLEAN SnitchTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNu
 	if (pSoldier->stats.bLife < CONSCIOUSNESS )
 		return( FALSE );
 
+	if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		return FALSE;
+
 	if (pSoldier->stats.bLife < OKLIFE && usQuoteNum != QUOTE_SERIOUSLY_WOUNDED )
 		return( FALSE );
 
@@ -1701,6 +1720,81 @@ BOOLEAN SnitchTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNu
 		DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, MULTIPURPOSE_SPECIAL_EVENT_SNITCH_DIALOGUE,
 		ubTargetProfile, ubTargetProfile, ubSecondaryTargetProfile,
 		DIALOGUE_TACTICAL_UI, TRUE, FALSE ) );
+}
+
+
+
+
+// Flugente: additional dialogue
+// We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said
+// This allows us to call a lot of very specific dialogue for individual mercs without the need to define what exactly should be said in the code -
+// a modder can simply control in Lua what should happen
+BOOLEAN AdditionalTacticalCharacterDialogue_CallsLua( SOLDIERTYPE *pSoldier, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 )
+{
+	// Haydent
+	if ( is_client )
+		return( FALSE ); //somewhere amongst all this it causes a puase of merc movement while making the quote which throws out the movement sync between  clients... : hayden.
+
+	if ( pSoldier->ubProfile == NO_PROFILE )
+		return( FALSE );
+
+#if (defined JA2UB) 
+	//Ja25 no meanwhiles
+#else
+	if ( AreInMeanwhile() )
+		return( FALSE );
+#endif
+	
+	if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		return FALSE;
+
+	if ( pSoldier->stats.bLife < OKLIFE )
+		return( FALSE );
+
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_GASSED )
+		return( FALSE );
+
+	if ( ( AM_A_ROBOT( pSoldier ) ) )
+		return( FALSE );
+
+	if ( pSoldier->bAssignment == ASSIGNMENT_POW )
+		return( FALSE );
+	
+	if ( AM_AN_EPC( pSoldier ) && !( gMercProfiles[pSoldier->ubProfile].ubMiscFlags & PROFILE_MISC_FLAG_FORCENPCQUOTE ) )
+		return( FALSE );
+
+	// we actually use the snitch function here, and simply deviate later on due to marking this with MULTIPURPOSE_SPECIAL_EVENT_ADDITIONAL_DIALOGUE
+	return( SnitchCharacterDialogue( pSoldier->ubProfile, usEventNr, pSoldier->iFaceIndex,
+		DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, MULTIPURPOSE_SPECIAL_EVENT_ADDITIONAL_DIALOGUE,
+		aData1, aData2, aData3,
+		DIALOGUE_TACTICAL_UI, TRUE, FALSE ) );
+}
+
+// call event for all mercs in a sector
+void AdditionalTacticalCharacterDialogue_AllInSector(INT16 aSectorX, INT16 aSectorY, INT8 aSectorZ, UINT8 ausIgnoreProfile, 
+	UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3, INT32 aAroundGridno, INT32 aRadius )
+{
+	SOLDIERTYPE* pSoldier;
+	int cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, pSoldier++ )
+	{
+		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->bActive &&
+			pSoldier->ubProfile != ausIgnoreProfile &&
+			pSoldier->sSectorX == aSectorX && pSoldier->sSectorY == aSectorY && pSoldier->bSectorZ == aSectorZ &&
+			pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != IN_TRANSIT &&
+			(aAroundGridno == NOWHERE || PythSpacesAway( pSoldier->sGridNo, aAroundGridno ) <= aRadius ) &&
+			!pSoldier->flags.fBetweenSectors )
+		{
+			AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, usEventNr, aData1, aData2, aData3 );
+		}
+	}
+}
+
+void AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( UINT8 ausIgnoreProfile,
+	UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3, INT32 aAroundGridno, INT32 aRadius )
+{
+	return AdditionalTacticalCharacterDialogue_AllInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, ausIgnoreProfile,
+		usEventNr, aData1, aData2, aData3, aAroundGridno, aRadius );
 }
 
 // This function takes a profile num, quote num, faceindex and a UI hander ID.
@@ -1785,7 +1879,6 @@ BOOLEAN CharacterDialogueWithSpecialEventEx( UINT8 ubCharacterNum, UINT16 usQuot
 	return( TRUE );
 }
 
-
 BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier, BOOLEAN fDelayed )
 {
 	DIALOGUE_Q_STRUCT				*QItem;
@@ -1812,6 +1905,22 @@ BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceI
 
 	// Add to queue
 	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
+
+	// Flugente: additional dialogue
+	// in the dialogue screen, only the merc doing the talking may answer
+	if ( bUIHandlerID == DIALOGUE_NPC_UI )
+	{
+		if ( gusSelectedSoldier != NOBODY )
+		{
+			AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum );
+		}
+	}
+	// if teammembers talk, anyone may answer
+	else
+	{
+		// other teammembers might react to this line
+		AdditionalTacticalCharacterDialogue_AllInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, ubCharacterNum, ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum );
+	}
 
 	return( TRUE );
 }
@@ -2075,15 +2184,57 @@ BOOLEAN ExecuteSnitchCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum,
 		gbUIHandlerID = DIALOGUE_TACTICAL_UI;
 
 		guiScreenIDUsedWhenUICreated = guiCurrentScreen;
-
-		return( TRUE );
 	}
 
+	return( TRUE );
+}
+
+// Flugente: additional dialogue
+extern void LuaHandleAdditionalDialogue( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 );
+
+BOOLEAN ExecuteAdditionalCharacterDialogue( UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 )
+{
+	SOLDIERTYPE *pSoldier = FindSoldierByProfileID( ubProfile, TRUE );
+
+	if ( !pSoldier )
+		return FALSE;
+
+	// call Lua script on whether we can play something here, and get text and sound file
+	LuaHandleAdditionalDialogue( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3 );
+	
+	return( TRUE );
+}
+
+void SetQuoteStr( STR16 aStr )
+{
+	//Copy the original string over to the temp string
+	wcscpy( gzQuoteStr, aStr );
+}
+
+BOOLEAN LuaCallsToDoDialogueStuff( UINT8 ubProfile, INT32 iFaceIndex, const char* azSoundString )
+{
+	SOLDIERTYPE *pSoldier = FindSoldierByProfileID( ubProfile, TRUE );
+
+	if ( !pSoldier )
+		return FALSE;
+
+	// in order to stop modders from crashing the game by calling this function a million times, we can only say one thing at a time
+	if ( IsFaceTalking( iFaceIndex ) )
+		return FALSE;
+
+	SetFaceTalking( iFaceIndex, (char*)azSoundString, gzQuoteStr, RATE_11025, 30, 1, MIDDLEPAN );
+	CreateTalkingUI( DIALOGUE_TACTICAL_UI, iFaceIndex, ubProfile, pSoldier, gzQuoteStr );
+
+	// Set global handleer ID value, used when face desides it's done...
+	gbUIHandlerID = DIALOGUE_TACTICAL_UI;
+
+	guiScreenIDUsedWhenUICreated = guiCurrentScreen;
+
+	return TRUE;
 }
 
 void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum, SOLDIERTYPE *pSoldier, STR16 zQuoteStr )
 {
-
 	// Show text, if on
 	if ( gGameSettings.fOptions[ TOPTION_SUBTITLES ] || !gFacesData[ iFaceIndex ].fValidSpeech )
 	{

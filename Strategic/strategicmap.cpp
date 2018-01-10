@@ -2106,43 +2106,57 @@ void HandleRPCDescriptionOfSector( INT16 sSectorX, INT16 sSectorY, INT16 sSector
 
 	// Default to false
 	gTacticalStatus.fCountingDownForGuideDescription = FALSE;
-
-
+	
 	// OK, if the first time in...
 	if ( GetSectorFlagStatus( sSectorX, sSectorY, (UINT8)sSectorZ, SF_HAVE_USED_GUIDE_QUOTE ) != TRUE )
 	{
-		if ( sSectorZ != 0 )
+		// guide quotes only happen on the surface
+		if ( sSectorZ == 0 )
 		{
-			return;
+			// OK, check if we are in a good sector....
+			for ( cnt = 0; cnt < 33; ++cnt )
+			{
+				if ( sSectorX == ubSectorDescription[cnt][1] && sSectorY == ubSectorDescription[cnt][0] )
+				{
+					if ( cnt == 3 && ( gGameOptions.ubGameStyle == STYLE_REALISTIC || !gGameExternalOptions.fEnableCrepitus ) )
+						continue;
+
+					/*
+					// If we're not scifi, skip some
+					if ( !(gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus) && cnt == 3 )
+					{
+					continue;
+					}
+					*/
+
+					gTacticalStatus.fCountingDownForGuideDescription = TRUE;
+					gTacticalStatus.bGuideDescriptionCountDown = (INT8)( 4 + Random( 5 ) ); // 4 to 8 tactical turns...
+					gTacticalStatus.ubGuideDescriptionToUse = ubSectorDescription[cnt][2];
+					gTacticalStatus.bGuideDescriptionSectorX = (INT8)sSectorX;
+					gTacticalStatus.bGuideDescriptionSectorY = (INT8)sSectorY;
+
+					break;
+				}
+			}
 		}
 
-		// OK, check if we are in a good sector....
-		for ( cnt = 0; cnt < 33; cnt++ )
+		// Flugente: We abuse this mechanic to also set up lua-based comments. We only play those if there are no normal comments
+		if ( !gTacticalStatus.fCountingDownForGuideDescription )
 		{
-			if ( sSectorX == ubSectorDescription[cnt][1] && sSectorY == ubSectorDescription[cnt][0] )
-			{
-				if ( (gGameOptions.ubGameStyle == STYLE_REALISTIC || !gGameExternalOptions.fEnableCrepitus) && cnt == 3 )
-					continue;
+			gTacticalStatus.fCountingDownForGuideDescription = TRUE;
+			gTacticalStatus.bGuideDescriptionCountDown = (INT8)( 2 + Random( 3 ) );
 
-				/*
-				// If we're not scifi, skip some
-				if ( !(gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus) && cnt == 3 )
-				{
-				continue;
-				}
-				*/
-
-				SetSectorFlag( sSectorX, sSectorY, (UINT8)sSectorZ, SF_HAVE_USED_GUIDE_QUOTE );
-
-				gTacticalStatus.fCountingDownForGuideDescription = TRUE;
-				gTacticalStatus.bGuideDescriptionCountDown = (INT8)(4 + Random( 5 )); // 4 to 8 tactical turns...
-				gTacticalStatus.ubGuideDescriptionToUse = ubSectorDescription[cnt][2];
-				gTacticalStatus.bGuideDescriptionSectorX = (INT8)sSectorX;
-				gTacticalStatus.bGuideDescriptionSectorY = (INT8)sSectorY;
-			}
+			// this value isn't used for the normal guide quotes - this way we know this is meant for lua only
+			gTacticalStatus.ubGuideDescriptionToUse = 100;
+			
+			gTacticalStatus.bGuideDescriptionSectorX = (INT8)sSectorX;
+			gTacticalStatus.bGuideDescriptionSectorY = (INT8)sSectorY;
 		}
 	}
 
+	// Flugente: set this flag in any case
+	SetSectorFlag( sSectorX, sSectorY, (UINT8)sSectorZ, SF_HAVE_USED_GUIDE_QUOTE );
+		
 	// Handle guide description ( will be needed if a SAM one )
 #ifdef JA2UB
 	//UB

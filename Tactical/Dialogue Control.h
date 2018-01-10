@@ -276,6 +276,7 @@ enum DialogQuoteIDs
 #endif
 
 #define			MULTIPURPOSE_SPECIAL_EVENT_SNITCH_DIALOGUE				0x00000004
+#define			MULTIPURPOSE_SPECIAL_EVENT_ADDITIONAL_DIALOGUE			0x00000008
 
 #ifdef JA2UB
 enum{
@@ -340,6 +341,38 @@ BOOLEAN TacticalCharacterDialogueWithSpecialEventEx( SOLDIERTYPE *pSoldier, UINT
 BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum );
 
 BOOLEAN SnitchTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum, UINT8 ubEventType, UINT8 ubTargetProfile, UINT8 ubSecondaryTargetProfile );
+
+// Flugente: additional dialogue
+enum AdditionalDialogEvents
+{
+	ADE_DISCOVER_ROOM = 0,					// merc is the 1st one to explore this room
+	ADE_DIALOGUE_REACTION,					// someone else used a line, and we might answer to that
+	ADE_OMERTA_ENTRY,						// similar to an IMP, we can comment upon the initial Omerta landing
+	ADE_SECTOR_COMMENTARY,					// similar to the rebel's quotes, this is called upon visiting a sector for the first time
+	ADE_MERCHANT_CHAT,						// we greet a merchant (used with non-profile merchants, in order to be a bit more lively)
+	ADE_DIALOGUE_NPC_FRIENDLY,				// in a conversation, we can say something when clicking on a button
+	ADE_DIALOGUE_NPC_DIRECT,
+	ADE_DIALOGUE_NPC_THREATEN,
+	ADE_DIALOGUE_NPC_RECRUIT,
+	ADE_DIALOGUE_NPC_REPEAT,
+	ADE_DIALOGUE_RPC_RECRUIT_SUCCESS,		// we've successfully recruited an RPC, and might comment on that
+	ADE_SEX,								// does exactly what you think it does
+	ADE_WEATHERCHANGE,						// the weather has changed, and we can warn the player about that
+	ADE_SKILL_RESULT,						// we used a skill, and comment on the result
+	ADE_GRENADEWARNING,						// a delayed enemy grenade was dropped nearby
+};
+
+// We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said
+// This allows us to call a lot of very specific dialogue for individual mercs without the need to define what exactly should be said in the code -
+// a modder can simply control in Lua what should happen
+BOOLEAN AdditionalTacticalCharacterDialogue_CallsLua( SOLDIERTYPE *pSoldier, UINT16 usEventNr, UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0 );
+
+// call event for all mercs in a sector
+void AdditionalTacticalCharacterDialogue_AllInSector( INT16 aSectorX, INT16 aSectorY, INT8 aSectorZ, UINT8 ausIgnoreProfile, 
+	UINT16 usEventNr, UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0, INT32 aAroundGridno = -1, INT32 aRadius = 0 );
+
+void AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( UINT8 ausIgnoreProfile,	UINT16 usEventNr, 
+	UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0, INT32 aAroundGridno = -1, INT32 aRadius = 0 );
 
 // Flugente: replace text with other text
 BOOLEAN ReplaceTextWithOtherText( CHAR16 *pFinishedString, CHAR16 compare[32], CHAR16 replace[32] );

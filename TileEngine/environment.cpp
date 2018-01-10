@@ -28,6 +28,7 @@
 	#include "Strategic Movement.h"		// added by Flugente
 	#include "tiledef.h"				// added by Flugente
 	#include "worldman.h"				// added by Flugente
+	#include "Dialogue Control.h"		// added by Flugente
 #endif
 
 #include "Text.h"
@@ -906,7 +907,10 @@ void	ChangeWeather( UINT8 aSector, UINT8 aType )
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: Changed weather from %s to %s", pStrSectorName, szWeatherTypeText[SectorInfo[aSector].usWeather], szWeatherTypeText[aType] );
 		}
 
-		// First turn off whatever rain it is, then turn on the requested rain
+		// Flugente: additional dialogue
+		AdditionalTacticalCharacterDialogue_AllInSector( SECTORX( aSector ), SECTORY( aSector ), 0, NO_PROFILE, ADE_WEATHERCHANGE, aType );
+
+		// First turn off whatever weather it is, then turn on the requested weather
 		SectorInfo[aSector].usWeather = aType;
 	}
 }

@@ -2002,6 +2002,9 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 	HandlePlayingQuoteWhenHiringNpc( pNewSoldier->ubProfile );
 #endif
 
+	// Flugente: additional dialogue
+	AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( ubCharNum, ADE_DIALOGUE_RPC_RECRUIT_SUCCESS, ubCharNum );
+	
 	// Flugente: external scripts might have extra functionality on recruiting someone
 	LuaRecruitRPCAdditionalHandling( ubCharNum );
 

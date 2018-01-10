@@ -20,6 +20,7 @@
 	#include "dialogue control.h"
 	#include "Random.h"
 	#include "gamesettings.h"
+	#include "Dialogue Control.h"	// added by Flugente
 #endif
 
 // Room Information
@@ -278,11 +279,10 @@ void RemoveRoomRoof( INT32 sGridNo, UINT16 usRoomNum, SOLDIERTYPE *pSoldier )
 //	STRUCTURE					*pStructure;//, *pBase;
 
 	// LOOP THORUGH WORLD AND CHECK ROOM INFO
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	for ( cnt = 0; cnt < WORLD_MAX; ++cnt )
 	{
 		if ( gusWorldRoomInfo[ cnt ] == usRoomNum )
 		{
-
 			SetGridNoRevealedFlag( cnt );//dnl ch56 141009
 
 			//RemoveRoofIndexFlagsFromTypeRange( cnt, FIRSTROOF, SECONDSLANTROOF, LEVELNODE_REVEAL );
@@ -319,7 +319,6 @@ void RemoveRoomRoof( INT32 sGridNo, UINT16 usRoomNum, SOLDIERTYPE *pSoldier )
 			// Get XY
 			ConvertGridNoToXY( cnt, &sX, &sY );
 			SetRecalculateWireFrameFlagRadius( sX, sY, 2 );
-
 		}
 	}
 
@@ -331,15 +330,16 @@ void RemoveRoomRoof( INT32 sGridNo, UINT16 usRoomNum, SOLDIERTYPE *pSoldier )
 	//	}
 	//}
 
+	// Flugente: additional dialogue
+	if ( pSoldier )
+		AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_DISCOVER_ROOM, usRoomNum );
+
 	// DIRTY THE WORLD!
 	InvalidateWorldRedundency();
 	SetRenderFlags(RENDER_FLAG_FULL );
-
-
+	
 	CalculateWorldWireFrameTiles( FALSE );
-
 }
-
 
 
 BOOLEAN AddSpecialTileRange( SGPRect *pSelectRegion	)

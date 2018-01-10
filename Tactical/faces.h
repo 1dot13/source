@@ -236,6 +236,8 @@ BOOLEAN SetFaceTalking( INT32 iFaceIndex, CHAR8 *zSoundFile, STR16 zTextString, 
 // This function will setup appropriate face data and begin the speech process. It can fail if the sound 
 //cannot be played for any reason.
 
+BOOLEAN IsFaceTalking( INT32 iFaceIndex );
+
 BOOLEAN SetFaceTalkingMultipleSounds( INT32 iFaceIndex, CHAR8 zSoundFiles[][64], UINT8 ubMaxSoundsCount, STR16 zTextString, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan );
 
 // Set some face talking flags without need to play sound

@@ -2294,7 +2294,11 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			{
 				UINT8 ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
 
-				pSoldier->UseSkill(pSoldier->usAISkillUse, pSoldier->aiData.usActionData, ubID);
+				BOOLEAN result = pSoldier->UseSkill(pSoldier->usAISkillUse, pSoldier->aiData.usActionData, ubID);
+
+				// additional dialogue
+				AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, pSoldier->usAISkillUse, result );
+
 				ActionDone( pSoldier );
 			}
 			break;

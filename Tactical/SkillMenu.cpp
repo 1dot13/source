@@ -14,7 +14,7 @@
 #include "strategicmap.h"
 #include "Map Screen Interface.h"
 #include "Rotting Corpses.h"
-
+#include "Dialogue Control.h"
 
 extern void GetEquipmentTemplates( );
 
@@ -319,7 +319,10 @@ SkillSelection::Functions( UINT32 aVal )
 	
 	UINT8 ubID = WhoIsThere2(sTraitsMenuTargetGridNo, 0 );
 
-	pSoldier->UseSkill(aVal, sTraitsMenuTargetGridNo, ubID);
+	BOOLEAN result = pSoldier->UseSkill(aVal, sTraitsMenuTargetGridNo, ubID);
+
+	// additional dialogue
+	AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, aVal, result );
 		
 	Cancel();
 	gTraitSelection.Cancel();
@@ -472,7 +475,10 @@ ArtilleryTeam::Functions( UINT32 aVal )
 	if ( pSoldier == NULL || !pSoldier->CanUseSkill(SKILLS_RADIO_ARTILLERY) )
 		return;
 	
-	pSoldier->OrderArtilleryStrike(usSector, sTraitsMenuTargetGridNo, (UINT8)(aVal));
+	BOOLEAN result = pSoldier->OrderArtilleryStrike(usSector, sTraitsMenuTargetGridNo, (UINT8)(aVal));
+
+	// additional dialogue
+	AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, SKILLS_RADIO_ARTILLERY, result );
 
 	Cancel();
 	gArtillerySector.Cancel();
@@ -663,7 +669,10 @@ ReinforcementNumber::Functions( UINT32 aVal )
 	if ( pSoldier == NULL || !pSoldier->CanUseSkill(SKILLS_RADIO_CALLREINFORCEMENTS) )
 		return;
 	
-	pSoldier->RadioCallReinforcements(usSector, aVal);
+	BOOLEAN result = pSoldier->RadioCallReinforcements(usSector, aVal);
+
+	// additional dialogue
+	AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, SKILLS_RADIO_CALLREINFORCEMENTS, result );
 
 	Cancel();
 	gReinforcementSector.Cancel();
@@ -742,7 +751,10 @@ SoldierSelection::Functions( UINT32 aVal )
 	if ( pSoldier == NULL )
 		return;
 
-	pSoldier->UseSkill(usSkill, sTraitsMenuTargetGridNo, aVal);
+	BOOLEAN result = pSoldier->UseSkill(usSkill, sTraitsMenuTargetGridNo, aVal);
+
+	// additional dialogue
+	AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, usSkill, result );
 
 	Cancel();
 	gSkillSelection.Cancel();
@@ -821,7 +833,10 @@ DragSelection::Functions( UINT32 aVal )
 
 	if ( pSoldier )
 	{
-		pSoldier->UseSkill( usSkill, sTraitsMenuTargetGridNo, aVal );
+		BOOLEAN result = pSoldier->UseSkill( usSkill, sTraitsMenuTargetGridNo, aVal );
+
+		// additional dialogue
+		AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, usSkill, result );
 	}
 
 	Cancel( );
