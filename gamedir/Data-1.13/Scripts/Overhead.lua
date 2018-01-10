@@ -17,7 +17,7 @@ Facts =
 	FACT_KINGPIN_KNOWS_MONEY_GONE = 103,
 	FACT_PLAYER_REPAID_KINGPIN = 104,
 	FACT_KINGPIN_NOT_IN_OFFICE = 256,
-
+	FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR = 335,
 }
 
 Attitude = 
@@ -66,21 +66,99 @@ Quests =
 }
 
 Profil = 
-{	
+{
+	LYNX = 2,
+	GRUNTY = 6,
+	SIDNEY = 15,
+	BUNS = 17,
+	ICE = 18,
+	HITMAN = 22,
+	RAIDER = 24,
+	RAVEN = 25,
+	STEPHEN = 30,
+	THOR = 35,
+	SCOPE = 36,
+	GUMPY = 45,
 	MIGUEL = 57,
 	CARLOS = 58,
 	IRA = 59, 
-	DIMITRI = 60,	
+	DIMITRI = 60,
+	DEVIN = 61,
+	ROBOT = 62,
+	HAMOUS = 63,
 	SLAY = 64,
 	DYNAMO = 66,
 	SHANK = 67,
+	IGGY = 68,
+	VINCE = 69,
+	CONRAD = 70,
+	MADDOG = 72,
+	DARREL = 73,
+	PERKO = 74,
+	DEIDRANNA = 75,
+	AUNTIE = 76,
 	CARMEN = 78,
+	JOE = 79,
+	STEVE = 80,
+	RAT = 81,
+	ANNIE = 82,
+	CHRIS = 83,
+	BOB = 84,
+	BRENDA = 85,
+	KINGPIN = 86,
+	DARREN = 87,
 	MARIA = 88,
 	ANGEL = 89,
-	JOEY = 90,	
+	JOEY = 90,
+	TONY = 91,
+	FRANK = 92,
+	SPIKE = 93,
+	DAMON = 94,
+	KYLE = 95,
+	MICKY = 96,
 	SKYRIDER = 97,
+	PABLO = 98,
+	SAL = 99,
+	FATHER = 100,
+	FATIMA = 101,
+	WARDEN = 102,
+	GORDON = 103,
+	GABBY = 104,
+	ERNEST = 105,
+	FRED = 106,
+	MADAME = 107,
+	YANNI = 108,
+	MARTHA = 109,
+	JOE = 110,
+	JASMIN = 111,
+	CHARLIE = 112,
+	JAKE = 113,
+	PACOS = 114,
+	DAVE = 115,
+	SKIPPER = 116,
+	HANS = 117,
 	JOHN = 118,	
 	MARY = 119,
+	GENERAL = 120,
+	SERGEANT = 121,
+	ARMAND = 122,
+	LORA = 123,
+	FRANZ = 124,
+	HOWARD = 125,
+	SAM = 126,
+	ELDIN = 127,
+	ARNIE = 128,
+	TINA = 129,
+	FREDO = 130,
+	WALTER = 131,
+	JENNY = 132,
+	BILLY = 133,
+	BREWSTER = 134,
+	ELLIOT = 135,
+	DEREK = 136,
+	OLIVER = 137,
+	WALDO = 138,
+	DOREEN = 139,
 	JIM = 140,
 	JACK = 141,
 	OLAF = 142,
@@ -88,6 +166,23 @@ Profil =
 	OLGA = 144,
 	TYRONE = 145,
 	MADLAB = 146,
+	KEITH = 147,
+	MATT = 148,
+	MIKE = 149,
+	DARYL = 150,
+	HERVE = 151,
+	PETER = 152,
+	ALBERTO = 153,
+	CARLO = 154,
+	MANNY = 155,
+	OSWALD = 156,
+	CALVIN = 157,
+	CARL = 158,
+	LAURA = 175,
+	RUDOLF = 177,
+	NO_PROFILE = 200,
+	MOUSE = 245,
+	STELLA = 248,
 }
 
 What = 
@@ -1486,3 +1581,71 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 	end
 end
 
+-- tpyes of weather
+Weather = 
+{
+	WEATHER_FORECAST_NORMAL = 0,
+	WEATHER_FORECAST_RAIN = 1,
+	WEATHER_FORECAST_THUNDERSHOWERS = 2,
+	WEATHER_FORECAST_SANDSTORM = 3,
+	WEATHER_FORECAST_SNOW = 4,
+};
+
+-- skills
+Skill =
+{		
+	-- radio operator
+	SKILLS_RADIO_ARTILLERY = 0,
+	SKILLS_RADIO_JAM = 1,
+	SKILLS_RADIO_SCAN_FOR_JAM = 2,
+	SKILLS_RADIO_LISTEN = 3,
+	SKILLS_RADIO_CALLREINFORCEMENTS = 4,
+	SKILLS_RADIO_TURNOFF = 5,
+
+	-- various
+	SKILLS_SPOTTER = 6,
+	SKILLS_FOCUS = 7,
+	SKILLS_DRAG = 8,
+};
+
+-- different dialogue action events
+DialogueActionEvent = 
+{
+	ADE_DISCOVER_ROOM = 0,					-- merc is the 1st one to explore this room, aData1 indicates the room in this event
+	ADE_DIALOGUE_REACTION = 1,				-- someone else used a line, and we might answer to that, aData1 indicates the profile number in this event, aData2 indicates the specific voice line we react to
+	ADE_OMERTA_ENTRY = 2,					-- similar to an IMP, we can comment upon the initial Omerta landing
+	ADE_SECTOR_COMMENTARY = 3,				-- similar to the rebel's quotes, this is called upon visiting a sector for the first time (if no rebel does their quote first)
+	ADE_MERCHANT_CHAT = 4,					-- we greet a merchant (used with non-profile merchants, in order to be a bit more lively)
+	ADE_DIALOGUE_NPC_FRIENDLY = 5,			-- in a conversation, we can say something when clicking on a button
+	ADE_DIALOGUE_NPC_DIRECT = 6,
+	ADE_DIALOGUE_NPC_THREATEN = 7,
+	ADE_DIALOGUE_NPC_RECRUIT = 8,
+	ADE_DIALOGUE_NPC_REPEAT = 9,
+	ADE_DIALOGUE_RPC_RECRUIT_SUCCESS = 10,	-- we've successfully recruited an RPC, and might comment on that
+	ADE_SEX = 11,							-- does exactly what you think it does
+	ADE_WEATHERCHANGE = 12,					-- the weather has changed in the current sector, and we can warn the player about that, aData1 is of Weather
+	ADE_SKILL_RESULT = 13,					-- we used a skill, and comment on the result, aData1 is of Skill, aData2 indicates whether it was a success (1) or failure (0)
+	ADE_GRENADEWARNING = 14,				-- a delayed enemy grenade was dropped nearby, and we can shout a warning
+}
+
+-- functions used here:
+-- ubProfile: profile number of merc (don't change that unless you know what to do)
+-- iFaceIndex: index (don't change that unless you know what to do)
+-- path: path and name of soundfile we want to play (in .wav or .ogg format)
+-- text: "Text that should appear"
+-- SetAdditionalDialogue(ubProfile, iFaceIndex, path, text)
+-- Do not use this function in any lua calls outside of HandleAdditionalDialogue(..)!
+-- 
+-- path: path and name of soundfile we want to play (in .wav or .ogg format)
+-- volume: optional sound volume (65: medium volume, 127: loud), default 65
+-- PlaySound(path, volume)
+
+-- handle
+-- sSectorX, sSectorY and bSectorZ indicate the sector coordinates
+-- ubProfile is the merc for whom this is called
+-- iFaceIndex is the face of the merc. DON'T CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING!
+-- usEventNr indicates which event from DialogueActionEvent is used here
+-- aData1, aData2, aData3 are additional data, see event description on what they do in each event
+function HandleAdditionalDialogue(sSectorX, sSectorY, bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3 )
+	
+end
