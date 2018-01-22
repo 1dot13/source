@@ -9503,9 +9503,49 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 				{
 					UINT32 poolslot = 0;
 					UINT8 index = 0;
-					if ( GetBetterObject_InventoryPool( pObj->usItem, 0, poolslot, index ) )
+
+					// if this is ammo, we might still be able to create a mag from different-sized mags
+					if ( Item[pObj->usItem].usItemClass & IC_AMMO )
 					{
-						(pInventoryPoolList[poolslot].object).RemoveObjectAtIndex( index, &gItemPointer );
+						UINT16 usMagIndex = Item[pObj->usItem].ubClassIndex;
+
+						UINT16 neededammo = Magazine[usMagIndex].ubMagSize;
+
+						if ( neededammo > 0 )
+						{
+							if ( GetFittingAmmo_InventoryPool( Magazine[usMagIndex].ubCalibre, Magazine[usMagIndex].ubAmmoType, poolslot ) )
+							{
+								UINT32 takeammo = min( neededammo, pInventoryPoolList[poolslot].object[pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1]->data.ubShotsLeft );
+
+								pInventoryPoolList[poolslot].object[pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1]->data.ubShotsLeft -= takeammo;
+
+								if ( !pInventoryPoolList[poolslot].object[pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1]->data.ubShotsLeft )
+								{
+									pInventoryPoolList[poolslot].object.RemoveObjectAtIndex( pInventoryPoolList[poolslot].object.ubNumberOfObjects - 1 );
+								}
+
+								CreateAmmo( pObj->usItem, &gItemPointer, takeammo );
+
+								if ( !PlaceObject( pSoldier, slot, &gItemPointer ) )
+								{
+									ScreenMsg( color, MSG_INTERFACE, szGearTemplateText[4], pSoldier->GetName(), Item[pObj->usItem].szItemName );
+
+									AutoPlaceObjectInInventoryStash( &gItemPointer, pSoldier->sGridNo, pSoldier->pathing.bLevel );
+									DeleteObj( &gItemPointer );
+								}
+								else
+								{
+									// if we are succesful, we will get here, otherwise we break
+									continue;
+								}
+							}
+						}
+
+						break;
+					}
+					else if ( GetBetterObject_InventoryPool( pObj->usItem, 0, poolslot, index ) )
+					{
+						( pInventoryPoolList[poolslot].object ).RemoveObjectAtIndex( index, &gItemPointer );
 
 						if ( !TryToStackInSlot( pSoldier, &gItemPointer, slot ) )
 							break;
