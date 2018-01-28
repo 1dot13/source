@@ -75,10 +75,9 @@ enum
 #define		ARMS_DEALER_SMGCLASS				0x00000002	// 2
 #define		ARMS_DEALER_RIFLECLASS				0x00000004	// 4
 #define		ARMS_DEALER_MGCLASS					0x00000008	// 8
+
 #define		ARMS_DEALER_SHOTGUNCLASS			0x00000010	// 16
-
 #define		ARMS_DEALER_KNIFECLASS				0x00000020	// 32
-
 #define		ARMS_DEALER_BLADE					0x00000040	// 64
 #define		ARMS_DEALER_LAUNCHER				0x00000080	// 128
 
@@ -90,35 +89,26 @@ enum
 #define		ARMS_DEALER_GRENADE					0x00001000	// 4096
 #define		ARMS_DEALER_BOMB					0x00002000	// 8192
 #define		ARMS_DEALER_EXPLOSV					0x00004000	// 16384
-
 #define		ARMS_DEALER_KIT						0x00008000	// 32764
 
 #define		ARMS_DEALER_FACE					0x00010000	// 65536
-//#define		ARMS_DEALER_THROWN				0x00020000	// 131072
-//#define		ARMS_DEALER_KEY					0x00040000	// 262144
-
-//#define		ARMS_DEALER_VIDEO_CAMERA		0x00020000	// 131072
 
 #define		ARMS_DEALER_DETONATORS				0x00040000	// 262144
-
 #define		ARMS_DEALER_ATTACHMENTS				0x00080000	// 524288
-
 
 #define		ARMS_DEALER_ALCOHOL					0x00100000	// 1048576
 #define		ARMS_DEALER_ELECTRONICS				0x00200000	// 2097152
 #define		ARMS_DEALER_HARDWARE				0x00400000	| ARMS_DEALER_KIT
-
 #define		ARMS_DEALER_MEDICAL					0x00800000	| ARMS_DEALER_MEDKIT
 
-//#define		ARMS_DEALER_EMPTY_JAR			0x01000000	// 16777216
 #define		ARMS_DEALER_CREATURE_PARTS			0x02000000	// 33554432
 #define		ARMS_DEALER_ROCKET_RIFLE			0x04000000	// 67108864
-
 #define		ARMS_DEALER_ONLY_USED_ITEMS			0x08000000	// 134217728
-#define		ARMS_DEALER_GIVES_CHANGE			0x10000000	// 268435456	//The arms dealer will give the required change when doing a transaction
-#define		ARMS_DEALER_ACCEPTS_GIFTS			0x20000000	// 536870912	//The arms dealer is the kind of person who will accept gifts
-#define		ARMS_DEALER_SOME_USED_ITEMS			0x40000000	// 1073741824	//The arms dealer can have used items in his inventory
-#define		ARMS_DEALER_HAS_NO_INVENTORY		0x80000000	// 2147483648	//The arms dealer does not carry any inventory
+
+#define		ARMS_DEALER_GIVES_CHANGE			0x10000000	// 268435456	//The dealer will give the required change when doing a transaction
+#define		ARMS_DEALER_ACCEPTS_GIFTS			0x20000000	// 536870912	//The dealer is the kind of person who will accept gifts
+#define		ARMS_DEALER_SOME_USED_ITEMS			0x40000000	// 1073741824	//The dealer can have used items in his inventory
+#define		ARMS_DEALER_HAS_NO_INVENTORY		0x80000000	// 2147483648	//The dealer does not carry any inventory
 
 
 #define		ARMS_DEALER_BIG_GUNS				ARMS_DEALER_SMGCLASS | ARMS_DEALER_RIFLECLASS | ARMS_DEALER_MGCLASS | ARMS_DEALER_SHOTGUNCLASS
@@ -349,8 +339,7 @@ UINT32	GetArmsDealerItemTypeFromItemNumber( UINT16 usItem );
 //Count every single item the dealer has in stock
 //UINT32	CountTotalItemsInArmsDealersInventory( UINT8 ubArmsDealer );
 //Count only the # of "distinct" item types (for shopkeeper purposes)
-UINT16	CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer );
-UINT8		CountSpecificItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer, UINT16 usItemIndex );
+UINT16		CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer );
 
 void		AddObjectToArmsDealerInventory( UINT8 ubArmsDealer, OBJECTTYPE *pObject );
 

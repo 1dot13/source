@@ -17,14 +17,11 @@
 	#include "connect.h"
 #endif
 
-
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-
 extern INT8	gbSelectedArmsDealerID;
-
 
 // CHRISL: Updated this to include IC_LBEGEAR class
 // This table controls the order items appear in inventory at BR's and dealers, and which kinds of items are sold used
@@ -55,8 +52,6 @@ ITEM_SORT_ENTRY DealerItemSortInfo[ ] =
 	// marks end of list
 	{ IC_NONE,						NOGUNCLASS,		},
 };
-
-
 
 //
 // Setup the inventory arrays for each of the arms dealers
@@ -697,9 +692,23 @@ DEALER_POSSIBLE_INV gArmsDealerAdditional[ADDITIONAL_ARMS_DEALERS][MAXITEMS+1];
 
 // prototypes
 
-INT8	GetMaxItemAmount( DEALER_POSSIBLE_INV *pInv, UINT16 usItemIndex );
+INT8 GetMaxItemAmount( DEALER_POSSIBLE_INV *pInv, UINT16 usItemIndex )
+{
+	UINT16	usCnt = 0;
 
+	//loop through the array until a the LAST_DEALER_ITEM is hit
+	while ( pInv[usCnt].sItemIndex != LAST_DEALER_ITEM )
+	{
+		//if this item is the one we want
+		if ( pInv[usCnt].sItemIndex == usItemIndex )
+			return( pInv[usCnt].ubOptimalNumber );
 
+		// move to the next item
+		++usCnt;
+	}
+
+	return( NO_DEALER_ITEM );
+}
 
 INT8 GetDealersMaxItemAmount( UINT8 ubDealerID, UINT16 usItemIndex )
 {
@@ -812,26 +821,6 @@ INT8 GetDealersMaxItemAmount( UINT8 ubDealerID, UINT16 usItemIndex )
 	}
 }
 
-
-INT8 GetMaxItemAmount( DEALER_POSSIBLE_INV *pInv, UINT16 usItemIndex )
-{
-	UINT16	usCnt=0;
-
-	//loop through the array until a the LAST_DEALER_ITEM is hit
-	while( pInv[ usCnt ].sItemIndex != LAST_DEALER_ITEM )
-	{
-		//if this item is the one we want
-		if( pInv[ usCnt ].sItemIndex == usItemIndex )
-			return( pInv[ usCnt ].ubOptimalNumber );
-
-		// move to the next item
-		usCnt++;
-	}
-
-	return( NO_DEALER_ITEM );
-}
-
-
 DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT8 ubArmsDealerID )
 {
 	switch( ubArmsDealerID )
@@ -940,7 +929,6 @@ DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT8 ubArmsDealerID 
 	}
 }
 
-
 //Madd: added boolean fUsed
 UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fUsed )
 {
@@ -948,8 +936,7 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	unsigned ubMinCoolness, ubMaxCoolness;
 
 	const int bobbyRaysID = -1;
-
-
+	
 	// item suitability varies with the player's maximum progress through the game.  The farther he gets, the better items
 	// we make available.  Weak items become more and more infrequent later in the game, although they never quite vanish.
 
@@ -965,8 +952,7 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	{
 		return(ITEM_SUITABILITY_NONE);
 	}
-
-
+	
 	ubItemCoolness = Item[ usItemIndex ].ubCoolness;
 
 	if (ubItemCoolness == 0)
@@ -991,19 +977,16 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 		if ( Item[usItemIndex].medical || Item[usItemIndex].canteen || Item[usItemIndex].medicalkit || Item[usItemIndex].locksmithkit || Item[usItemIndex].toolkit || Item[usItemIndex].crowbar || Item[usItemIndex].jar )
 			return(ITEM_SUITABILITY_ALWAYS);
 	//}
-
-
+	
 	// If it's not BobbyRay, Tony, or Devin
 	if (bArmsDealer != bobbyRaysID && armsDealerInfo[bArmsDealer].allInventoryAlwaysAvailable)
 	{
 		// all the other dealers have very limited inventories, so their suitability remains constant at all times in game
 		return(ITEM_SUITABILITY_HIGH);
 	}
-
-
+	
 	// figure out the appropriate range of coolness based on player's maximum progress so far
-
-
+	
 	if ( bArmsDealer == bobbyRaysID ) {
 		ubMinCoolness = 1;
 	    ubMaxCoolness = HighestPlayerProgressPercentage() / 10 + 1;
@@ -1093,20 +1076,16 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	return(ITEM_SUITABILITY_LOW);
 }
 
-
-
 UINT8 ChanceOfItemTransaction( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fDealerIsSelling, BOOLEAN fUsed )
 {
 	UINT8 ubItemCoolness;
 	UINT8 ubChance = 0;
 	BOOLEAN fBobbyRay = FALSE;
-
-
+	
 	// make sure dealers don't carry used items that they shouldn't
 	if ( fUsed && !fDealerIsSelling && !CanDealerItemBeSoldUsed( usItemIndex ) )
 		return( 0 );
-
-
+	
 	if (bArmsDealer == -1)
 	{
 		// Bobby Ray has an easier time getting resupplied than the local dealers do
@@ -1185,20 +1164,14 @@ UINT8 ChanceOfItemTransaction( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fDe
 			ubChance /= 2;
 		}
 	}
-
-
+	
 	return(ubChance);
 }
 
-
-
 BOOLEAN ItemTransactionOccurs( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fDealerIsSelling, BOOLEAN fUsed )
 {
-	UINT8 ubChance;
-	INT16 sInventorySlot;
-
-
-	ubChance = ChanceOfItemTransaction( bArmsDealer, usItemIndex, fDealerIsSelling, fUsed );
+	INT16 sInventorySlot;	
+	UINT8 ubChance = ChanceOfItemTransaction( bArmsDealer, usItemIndex, fDealerIsSelling, fUsed );
 
 	// if the dealer is buying, and a chance exists (i.e. the item is "eligible")
 	if (!fDealerIsSelling && (ubChance > 0))
@@ -1224,65 +1197,43 @@ BOOLEAN ItemTransactionOccurs( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fDe
 	}
 
 	// roll to see if a transaction occurs
-	if (Random(100) < ubChance)
-	{
-		return(TRUE);
-	}
-	else
-	{
-		return(FALSE);
-	}
+	return Chance( ubChance );
 }
-
-
 
 UINT8 DetermineInitialInvItems( INT8 bArmsDealerID, UINT16 usItemIndex, UINT8 ubChances, BOOLEAN fUsed)
 {
-	UINT8 ubNumBought;
-	UINT8 ubCnt;
+	if ( is_networked )
+		return ubChances;
 
 	// initial inventory is now rolled for one item at a time, instead of one type at a time, to improve variety
-	ubNumBought = 0;
-	for (ubCnt = 0; ubCnt < ubChances; ubCnt++)
+	UINT8 ubNumBought = 0;
+
+	for ( UINT8 ubCnt = 0; ubCnt < ubChances; ++ubCnt)
 	{
-		if (!is_networked)
+		if ( ItemTransactionOccurs( bArmsDealerID, usItemIndex, DEALER_BUYING, fUsed ) )
 		{
-			if (ItemTransactionOccurs( bArmsDealerID, usItemIndex, DEALER_BUYING, fUsed))
-			{
-				ubNumBought++;
-			}
-		}
-		else
-		{
-			ubNumBought++;
+			++ubNumBought;
 		}
 	}
 
 	return( ubNumBought );
 }
 
-
-
 UINT8 HowManyItemsAreSold( INT8 bArmsDealerID, UINT16 usItemIndex, UINT8 ubNumInStock, BOOLEAN fUsed)
 {
-	UINT8 ubNumSold;
-	UINT8 ubCnt;
-
 	// items are now virtually "sold" one at a time
-	ubNumSold = 0;
+	UINT8 ubNumSold = 0;
 
-	for (ubCnt = 0; ubCnt < ubNumInStock; ubCnt++)
+	for ( UINT8 ubCnt = 0; ubCnt < ubNumInStock; ++ubCnt)
 	{
 		if (ItemTransactionOccurs( bArmsDealerID, usItemIndex, DEALER_SELLING, fUsed))
 		{
-			ubNumSold++;
+			++ubNumSold;
 		}
 	}
 
 	return( ubNumSold );
 }
-
-
 
 UINT8 HowManyItemsToReorder(UINT8 ubWanted, UINT8 ubStillHave)
 {
@@ -1312,36 +1263,21 @@ UINT8 HowManyItemsToReorder(UINT8 ubWanted, UINT8 ubStillHave)
 	return(ubNumReordered);
 }
 
-
-
 int BobbyRayItemQsortCompare(const void *pArg1, const void *pArg2)
 {
-	UINT16	usItem1Index;
-	UINT16	usItem2Index;
-	UINT8		ubItem1Quality;
-	UINT8		ubItem2Quality;
+	UINT16 usItem1Index = ( ( STORE_INVENTORY * ) pArg1 )->usItemIndex;
+	UINT16 usItem2Index = ( ( STORE_INVENTORY * ) pArg2 )->usItemIndex;
 
-	usItem1Index = ( ( STORE_INVENTORY * ) pArg1 )->usItemIndex;
-	usItem2Index = ( ( STORE_INVENTORY * ) pArg2 )->usItemIndex;
-
-	ubItem1Quality = ( ( STORE_INVENTORY * ) pArg1 )->ubItemQuality;
-	ubItem2Quality = ( ( STORE_INVENTORY * ) pArg2 )->ubItemQuality;
+	UINT8 ubItem1Quality = ( ( STORE_INVENTORY * ) pArg1 )->ubItemQuality;
+	UINT8 ubItem2Quality = ( ( STORE_INVENTORY * ) pArg2 )->ubItemQuality;
 
 	return( CompareItemsForSorting( usItem1Index, usItem2Index, ubItem1Quality, ubItem2Quality ) );
 }
 
-
 int CompareItemsForSorting( UINT16 usItem1Index, UINT16 usItem2Index, UINT16 ubItem1Quality, UINT16 ubItem2Quality )
 {
-	UINT8		ubItem1Category;
-	UINT8		ubItem2Category;
-	//UINT16	usItem1Price;
-	//UINT16	usItem2Price;
-	//UINT8		ubItem1Coolness;
-	//UINT8		ubItem2Coolness;
-
-	ubItem1Category = GetDealerItemCategoryNumber( usItem1Index );
-	ubItem2Category = GetDealerItemCategoryNumber( usItem2Index );
+	UINT8 ubItem1Category = GetDealerItemCategoryNumber( usItem1Index );
+	UINT8 ubItem2Category = GetDealerItemCategoryNumber( usItem2Index );
 
 	// lower category first
 	if ( ubItem1Category < ubItem2Category )
@@ -1470,15 +1406,11 @@ int CompareItemsForSorting( UINT16 usItem1Index, UINT16 usItem2Index, UINT16 ubI
 	return( 0 );
 }
 
-
-
 UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 {
-	UINT32		uiItemClass;
 	UINT8		ubWeaponClass;
-	UINT8		ubCategory = 0;
-
-	uiItemClass  = Item[ usItemIndex ].usItemClass;
+	UINT8		ubCategory	= 0;
+	UINT32		uiItemClass	= Item[ usItemIndex ].usItemClass;
 
 	if ( usItemIndex < gMAXITEMS_READ && IsWeapon( usItemIndex ) )
 	{
@@ -1523,8 +1455,6 @@ UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 	//Assert( FALSE );
 	return( 0 );
 }
-
-
 
 BOOLEAN CanDealerItemBeSoldUsed( UINT16 usItemIndex )
 {
