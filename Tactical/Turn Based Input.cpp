@@ -3420,6 +3420,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									}
 								}
 							}
+
+							extern BOOLEAN InARoom( INT32 sGridNo, UINT16 *pusRoomNo );
+
+							UINT16 usRoom;
+							if ( InARoom( usGridNo, &usRoom ) )
+							{
+								swprintf( zOutputString, L"Room number: %d", usRoom );
+								ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, zOutputString );
+							}
 						}
 					}
 				}
