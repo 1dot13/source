@@ -14304,7 +14304,10 @@ void TransformFromItemDescBox( TransformInfoStruct * Transform)
 	gpItemDescObject->TransformObject( gpItemDescSoldier, gubItemDescStatusIndex, Transform, gpItemDescPrevObject );
 
 	// Check to see if we need to manually erase the ammo button.
-	UINT32 uiNewClass = Item[gpItemDescObject->usItem].usItemClass;
+	UINT32 uiNewClass = 0;
+	if ( gpItemDescObject )
+		uiNewClass = Item[gpItemDescObject->usItem].usItemClass;
+
 	BOOLEAN fEraseAmmoButton = FALSE;
 	if (uiOrigClass & IC_GUN && !(uiNewClass & IC_GUN))
 	{
