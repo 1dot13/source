@@ -9,6 +9,7 @@ Facts =
 	FACT_JOEY_NEAR_MARTHA = 110,
 	FACT_JOHN_ALIVE = 190,
 	FACT_MARY_OR_JOHN_ARRIVED = 192,
+	FACT_CHALICE_STOLEN = 184,
 	FACT_MARY_ALIVE = 187,
 	FACT_FIRST_ROBOT_DESTROYED = 203,
     FACT_ROBOT_READY_SECOND_TIME = 205,
@@ -596,6 +597,47 @@ ModSpecificActions =
 	MINIGAME_TETRIS = 50,
 	MINIGAME_PONG = 51,
 	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
+	
+	-- |||||||||||||||||||||||||||||||||| photo data |||||||||||||||||||||||||||||||||||||
+	PHOTO_FLAGS_BEGIN = 60,
+	
+	PHOTO_FLAGS_GENERAL = 61,
+	PHOTO_FLAGS_WARDEN = 62,
+	PHOTO_FLAGS_ERNEST = 63,
+	PHOTO_FLAGS_ARMAND = 64,
+	PHOTO_FLAGS_KINGPIN = 65,
+	PHOTO_FLAGS_DARREN = 66,
+	PHOTO_FLAGS_TONY = 67,
+	PHOTO_FLAGS_JOE = 68,
+	PHOTO_FLAGS_MADLAB = 69,
+	PHOTO_FLAGS_MIKE = 70,
+	PHOTO_FLAGS_DEVIN = 71,
+	PHOTO_FLAGS_MICKY = 72,
+	PHOTO_FLAGS_CARMEN = 73,
+		
+	PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE = 80,
+	PHOTO_FLAGS_ALMA_HQ_CONTROLROOM = 81,
+	PHOTO_FLAGS_ALMA_STORAGE_ROCKETS = 82,
+	PHOTO_FLAGS_ALMA_PRISON_TORTURE = 83,
+	PHOTO_FLAGS_TIXA_TORTURE = 84,
+	PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS = 85,
+	PHOTO_FLAGS_CREATURE_LVL3 = 86,	
+	PHOTO_FLAGS_ORTA_LABS = 87,
+	PHOTO_FLAGS_ORTA_STORAGE = 88,
+	PHOTO_FLAGS_ORTA_MANUFACTURING = 89,
+	PHOTO_FLAGS_BALIME_MUSEUM = 90,	
+	PHOTO_FLAGS_GRUMM_RADIOACTIVE = 91,
+	PHOTO_FLAGS_MEDUNA_ARENA = 92,
+	PHOTO_FLAGS_MEDUNA_BUNKER = 93,
+	
+	PHOTO_FLAGS_SAM_DRASSEN = 94,
+	PHOTO_FLAGS_SAM_CHITZENA = 95,
+	PHOTO_FLAGS_SAM_CENTRAL = 96,
+	PHOTO_FLAGS_SAM_MEDUNA = 97,
+	
+	PHOTO_FLAGS_END = 100,
+	-- |||||||||||||||||||||||||||||||||| photo data |||||||||||||||||||||||||||||||||||||
+	
 }
 
 -- General defines for various states
@@ -808,7 +850,7 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			elseif ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_GAVEREWARD_OK ) then
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "You play a bit of solitaire.")
 			end
-		-- hint on Dr. Kairns missing
+		-- hint on MADLAB missing
 		elseif ( sLuaactionid == ModSpecificActions.COMPUTER_ORTA_BASEMENT_CONTROL_CONSOLE_1 ) then
 			if ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_OK ) then
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "TO: ORTA HEAD OF SECURITY")
@@ -914,16 +956,14 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Decrypting files")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Decryption complete")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Accessing database")
-				
-				-- give us info on troop movement
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				
-				-- if we are really good, more data
+								
+				-- give us intel
 				if ( successpts > 50 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 15 )
 				elseif ( successpts > 20 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 10 )
+				else
+					AddIntel( 5 )
 				end
 				
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We were able to learn of enemy movement thanks to the data!")
@@ -982,15 +1022,13 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Decryption complete")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Accessing database")
 				
-				-- give us info on troop movement
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				
-				-- if we are really good, more data
+				-- give us intel
 				if ( successpts > 50 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 15 )
 				elseif ( successpts > 20 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 10 )
+				else
+					AddIntel( 5 )
 				end
 				
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We were able to learn of enemy movement thanks to the data!")
@@ -1067,15 +1105,13 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Decryption complete")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Accessing database")
 				
-				-- give us info on troop movement
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				
-				-- if we are really good, more data
+				-- give us intel
 				if ( successpts > 50 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 15 )
 				elseif ( successpts > 20 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 10 )
+				else
+					AddIntel( 5 )
 				end
 				
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We were able to learn of enemy movement thanks to the data!")
@@ -1174,15 +1210,13 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Decryption complete")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Accessing database")
 				
-				-- give us info on troop movement
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				
-				-- if we are really good, more data
+				-- give us intel
 				if ( successpts > 50 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 15 )
 				elseif ( successpts > 20 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 10 )
+				else
+					AddIntel( 5 )
 				end
 				
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We were able to learn of enemy movement thanks to the data!")
@@ -1313,20 +1347,14 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The computer contains personnel files.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "The guard units seem to shift every few weeks.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "You are able to deduct several troop movements.")
-				
-				-- give us info on troop movement
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				
-				-- if we are really good, more data
+								
+				-- give us intel
 				if ( successpts > 40 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 40 )
 				elseif ( successpts > 10 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 20 )
+				else
+					AddIntel( 10 )
 				end
 				
 				SetModderLUAFact(sLuaactionid, ActionState.STATE_GAVEREWARD_OK)
@@ -1365,7 +1393,7 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "It seems to be about some kind of new infantry weapon.")
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "You are able to pinpoint the location of the military project lead!")
 				
-				AddInfo( InfoTypes.INFO_TYPE_VIP)
+				AddIntel( 50 )
 				
 				SetModderLUAFact(sLuaactionid, ActionState.STATE_GAVEREWARD_OK)
 			elseif ( GetModderLUAFact(sLuaactionid) == ActionState.STATE_GAVEREWARD_OK ) then
@@ -1468,18 +1496,13 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Decryption complete")
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "... Accessing database")
 				
-				-- give us info on troop movement
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-				
-				-- if we are really good, more data
+				-- give us intel
 				if ( successpts > 50 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 30 )
 				elseif ( successpts > 20 ) then
-					AddInfo( InfoTypes.INFO_TYPE_NORMAL)
+					AddIntel( 20 )
+				else
+					AddIntel( 15 )
 				end
 				
 				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "We were able to learn of enemy movement thanks to the data!")
@@ -1579,9 +1602,1137 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 		end
 				
 	end
+	
+	
 end
 
--- tpyes of weather
+-- states of a photo fact
+PhotoFlag = 
+{
+	NONE				= 0,
+	TAKEN 				= 1,
+	UPLOADED 			= 2,
+	VERIFIED 			= 3,	-- the code only has one value for verification, but we use several ones for different results
+	VERIFIED_RESULT_2 	= 4,
+}
+
+-- In this function we can define what and how many items a intel-based dealer should trade with, and how much an item is worth in intel
+-- AddArmsDealerAdditionalIntelData takes 4 arguments:
+-- usDealer: shopkeeper this is intended for
+-- usItem: number of item
+-- sIntelPrice: price of item in intel
+-- sOptimalNumber: how many items the trader should have at maximum
+function AddArmsDealerAdditionalIntelData()
+	
+	-- price is affected by player progress - on higher progress items get cheaper (as they are less useful at that point)
+	progress = CurrentPlayerProgressPercentage()
+	ratio = (200 - progress) / 100.0
+	
+	-- black market:
+	-- guns
+	AddArmsDealerAdditionalIntelDataItem(68, 337, 10 * ratio, 2)	-- Five-Seven
+	AddArmsDealerAdditionalIntelDataItem(68, 663, 15 * ratio, 1)	-- HK G11 PDW
+	AddArmsDealerAdditionalIntelDataItem(68, 1073, 10 * ratio, 2)	-- HK UCP
+	AddArmsDealerAdditionalIntelDataItem(68, 673, 13 * ratio, 2)	-- HK MP7A1
+	AddArmsDealerAdditionalIntelDataItem(68, 686, 20 * ratio, 1)	-- Metal Storm Surf Zone
+	AddArmsDealerAdditionalIntelDataItem(68, 1191, 25 * ratio, 1)	-- Magpul PDR-D
+	AddArmsDealerAdditionalIntelDataItem(68, 65, 40 * ratio, 1)		-- Auto Rocket Rifle
+	AddArmsDealerAdditionalIntelDataItem(68, 1334, 27 * ratio, 1)	-- AR57 6" Silenced
+	AddArmsDealerAdditionalIntelDataItem(68, 335, 40 * ratio, 1)	-- Barret M82A2
+	AddArmsDealerAdditionalIntelDataItem(68, 676, 35 * ratio, 1)	-- HL SL9SD
+	AddArmsDealerAdditionalIntelDataItem(68, 774, 50 * ratio, 1)	-- VSSK Vychlop
+	AddArmsDealerAdditionalIntelDataItem(68, 605, 22 * ratio, 1)	-- AICW
+	AddArmsDealerAdditionalIntelDataItem(68, 748, 22 * ratio, 2)	-- XM-29 OICW
+	AddArmsDealerAdditionalIntelDataItem(68, 752, 20 * ratio, 1)	-- XM-8 Sharpshooter
+	AddArmsDealerAdditionalIntelDataItem(68, 1065, 23 * ratio, 1)	-- Steyr AUG-A3
+	AddArmsDealerAdditionalIntelDataItem(68, 680, 16 * ratio, 1)	-- Jackhammer Mk3A1
+	
+	-- Ammo
+	AddArmsDealerAdditionalIntelDataItem(68, 1455, 8 * ratio, 2)	-- 5.7x28 100 AET
+	AddArmsDealerAdditionalIntelDataItem(68, 1450, 8 * ratio, 2)	-- 4.7x33 100 SAP
+	AddArmsDealerAdditionalIntelDataItem(68, 1460, 8 * ratio, 2)	-- 4.6x30 100 AET	
+	AddArmsDealerAdditionalIntelDataItem(68, 544, 5 * ratio, 2)		-- 9mm MS 72 SAP
+	AddArmsDealerAdditionalIntelDataItem(68, 1518, 10 * ratio, 2)	-- 6x35 100 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 113, 5 * ratio, 5)		-- Minirocket 5 HEAP
+	AddArmsDealerAdditionalIntelDataItem(68, 1738, 10 * ratio, 2)	-- Minirocket 5 Cryo
+	AddArmsDealerAdditionalIntelDataItem(68, 116, 5 * ratio, 4)		-- .50 BMG 10 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 540, 3 * ratio, 4)		-- 7.62x37 10 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 1512, 7 * ratio, 3)	-- 12.7x97 Subsonic 15 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 1520, 10 * ratio, 2)	-- 6.8x43 SPC 100 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 1423, 3 * ratio, 5)	-- 12 gauge 25 Flechette
+	AddArmsDealerAdditionalIntelDataItem(68, 1578, 1 * ratio, 10)	-- Darts 1 Neurotoxin
+	
+	-- Launchers
+	AddArmsDealerAdditionalIntelDataItem(68, 908, 20 * ratio, 1)	-- XM-25 Grenade Launcher
+	AddArmsDealerAdditionalIntelDataItem(68, 1736, 40 * ratio, 1)	-- Strela-2
+	
+	-- Grenades
+	AddArmsDealerAdditionalIntelDataItem(68, 957, 4 * ratio, 2)		-- 20mm Thermobaric Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 963, 4 * ratio, 2)		-- 25mm Thermobaric Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 970, 2 * ratio, 5)		-- 40mm Thermobaric Grenade
+	AddArmsDealerAdditionalIntelDataItem(68, 978, 4 * ratio, 5)		-- Thermobaric Rocket
+	AddArmsDealerAdditionalIntelDataItem(68, 987, 4 * ratio, 2)		-- 40mm MS Thermobaric Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 989, 4 * ratio, 2)		-- 20mm Napalm Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 990, 4 * ratio, 2)		-- 25mm Napalm Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 991, 1 * ratio, 5)		-- 40mm Napalm Grenade
+	AddArmsDealerAdditionalIntelDataItem(68, 993, 4 * ratio, 2)		-- 40mm MS Napalm Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 1737, 6 * ratio, 4)	-- Strela-2 Missile
+	
+	-- Explosives
+	AddArmsDealerAdditionalIntelDataItem(68, 951, 4 * ratio, 3)		-- 60mm Mustard Gas Shell
+	AddArmsDealerAdditionalIntelDataItem(68, 1523, 3 * ratio, 3)	-- M18 Claymore
+	AddArmsDealerAdditionalIntelDataItem(68, 1735, 3 * ratio, 4)	-- TM-62P2 anti-tank Mine
+	
+	-- Face items
+	AddArmsDealerAdditionalIntelDataItem(68, 1025, 20 * ratio, 2)	-- NVG Gen IV
+	
+	-- Misc
+	AddArmsDealerAdditionalIntelDataItem(68, 216, 10 * ratio, 3)	-- Compound 18
+	AddArmsDealerAdditionalIntelDataItem(68, 235, 2 * ratio, 4)		-- Regeneration Booster
+	AddArmsDealerAdditionalIntelDataItem(68, 324, 50 * ratio, 1)	-- X-Ray Detector
+	AddArmsDealerAdditionalIntelDataItem(68, 327, 11 * ratio, 2)	-- Tank of gas
+	AddArmsDealerAdditionalIntelDataItem(68, 592, 3 * ratio, 2)		-- Sniper Suppressor
+	AddArmsDealerAdditionalIntelDataItem(68, 1026, 2 * ratio, 2)	-- Trigger Group
+	AddArmsDealerAdditionalIntelDataItem(68, 1538, 1 * ratio, 5)	-- Stim
+	AddArmsDealerAdditionalIntelDataItem(68, 1744, 7 * ratio, 2)	-- Ballistic Shield
+	
+end
+
+function SetPhotoState( aIndex, aState )
+	
+	if ( (aIndex >= ModSpecificActions.PHOTO_FLAGS_BEGIN) and (aIndex <= ModSpecificActions.PHOTO_FLAGS_END) and (aState >= PhotoFlag.NONE) and (aState <= PhotoFlag.VERIFIED_RESULT_2) ) then
+		
+		SetModderLUAFact( aIndex, aState )
+		
+	end
+end
+
+function AddPhotoData( sSectorX, sSectorY, bSectorZ, sGridNo, bLevel, ubPhotographerProfile, room, usTargetProfile )
+	
+	if ( usTargetProfile ~= NO_PROFILE ) then
+	
+		if ( usTargetProfile == Profil.GENERAL ) then
+			
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GENERAL) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the general.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_GENERAL, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.WARDEN ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_WARDEN) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the head warden.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_WARDEN, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.ERNEST ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ERNEST) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the head researcher.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ERNEST, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.ARMAND ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ARMAND) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Armand.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ARMAND, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.KINGPIN ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_KINGPIN) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Kingpin.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_KINGPIN, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.DARREN ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DARREN) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Darren.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_DARREN, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.TONY ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TONY) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Tony.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_TONY, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.JOE ) then
+			
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_JOE) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Joe.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_JOE, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.MADLAB ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MADLAB) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Dr. Kairns.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_MADLAB, PhotoFlag.TAKEN )
+			end
+			
+		elseif ( usTargetProfile == Profil.MIKE ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MIKE) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Mike.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_MIKE, PhotoFlag.TAKEN )
+			end
+		
+		elseif ( usTargetProfile == Profil.DEVIN ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DEVIN) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Devin.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_DEVIN, PhotoFlag.TAKEN )
+			end
+		
+		elseif ( usTargetProfile == Profil.MICKY ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MICKY) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Micky.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_MICKY, PhotoFlag.TAKEN )
+			end
+		
+		elseif ( usTargetProfile == Profil.CARMEN ) then
+		
+			if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CARMEN) < PhotoFlag.TAKEN ) then
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of Carmen.")
+				SetPhotoState( ModSpecificActions.PHOTO_FLAGS_CARMEN, PhotoFlag.TAKEN )
+			end
+		
+		end
+		
+	elseif ( bSectorZ == 0 ) then
+	
+		-- Cambria hospital morgue				
+		if ( (sSectorY == SectorY.MAP_ROW_F) and (sSectorX == 8) ) then
+		
+			if ((room == 70) or (room == 71) or (room == 72)) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the morgue.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+		
+		-- Alma
+		elseif ( (sSectorY == SectorY.MAP_ROW_H) and (sSectorX == 13) ) then
+		
+			if ((room == 12) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the command center.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+			
+		elseif ( (sSectorY == SectorY.MAP_ROW_H) and (sSectorX == 14) ) then
+		
+			if ((room == 8) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the missile storage.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+			
+		elseif ( (sSectorY == SectorY.MAP_ROW_I) and (sSectorX == 13) ) then
+		
+			if ((room == 19) or (room == 20) or (room == 21)) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the torture room.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+		
+		-- Tixa
+		elseif ( (sSectorY == SectorY.MAP_ROW_J) and (sSectorX == 9) ) then
+		
+			if ((room == 19) or (room == 20) or (room == 21)) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the torture room.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+		
+		-- Balime
+		elseif ( (sSectorY == SectorY.MAP_ROW_L) and (sSectorX == 12) ) then
+		
+			if ((room == 37) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the museum's most prized exhibition.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+		
+		-- Grumm
+		elseif ( (sSectorY == SectorY.MAP_ROW_G) and (sSectorX == 2) ) then
+		
+			if ((room == 1) or (room == 7) or (room == 8)) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the dangerous materials handled here.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+		
+		-- Meduna
+		elseif ( (sSectorY == SectorY.MAP_ROW_N) and (sSectorX == 5) ) then
+		
+			if ((room == 17) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MEDUNA_ARENA) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the royal lodge.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_MEDUNA_ARENA, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+			
+		elseif ( (sSectorY == SectorY.MAP_ROW_N) and (sSectorX == 4) ) then
+		
+			if ((room == 1) or (room == 2) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the control room.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+		
+		-- Drassen SAM
+		elseif ( (sSectorY == SectorY.MAP_ROW_D) and (sSectorX == 15) ) then
+		
+			if ((room == 2) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the control room.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+			
+		-- Chitzena SAM
+		elseif ( (sSectorY == SectorY.MAP_ROW_D) and (sSectorX == 2) ) then
+		
+			if ((room == 7) or (room == 8) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the control room.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+			
+		-- central SAM
+		elseif ( (sSectorY == SectorY.MAP_ROW_I) and (sSectorX == 8) ) then
+		
+			if ((room == 16) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the control room.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL, PhotoFlag.TAKEN )
+				
+				end
+			
+			end
+			
+		end
+		
+	elseif ( bSectorZ == 1 ) then
+	
+		-- Tixa
+		if ( (sSectorY == SectorY.MAP_ROW_J) and (sSectorX == 9) ) then
+		
+			if ((room == 3) or (room == 9) or (room == 10) or (room == 12)) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the inhuman conditions here.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+			
+		-- Orta
+		elseif ( (sSectorY == SectorY.MAP_ROW_K) and (sSectorX == 4) ) then
+		
+			if ((room == 13) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the stored and packaged experimental weaponry.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE, PhotoFlag.TAKEN )
+				
+				end
+				
+			elseif ((room == 11) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the manufacturing process.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING, PhotoFlag.TAKEN )
+				
+				end
+				
+			elseif ((room == 16) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_LABS) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the experiments in the laboratories.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_ORTA_LABS, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+			
+		-- Meduna
+		elseif ( (sSectorY == SectorY.MAP_ROW_P) and (sSectorX == 3) ) then
+		
+			if ((room == 24) ) then
+			
+				if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER) < PhotoFlag.TAKEN ) then
+				
+					SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of the bunker control room.")
+					
+					SetPhotoState( ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER, PhotoFlag.TAKEN )
+				
+				end
+				
+			end
+		
+		end
+		
+	elseif ( bSectorZ == 3 ) then
+		
+		-- only lvl 3 sectors are creature sectors (apart from a secret sector most players will never know of :-) ). So any location will do.
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3) < PhotoFlag.TAKEN ) then
+			
+			SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Took a photo of... whatever THIS is.")
+			
+			SetPhotoState( ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3, PhotoFlag.TAKEN )
+		
+		end
+		
+	end
+	
+end
+
+function GetPhotoData( aType )
+
+	if ( aType == PhotoFlag.TAKEN ) then
+	
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GENERAL) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_GENERAL, "Positive identification of the commanding officer of the Alma military base.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_WARDEN) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_WARDEN, "We've identified the director of Tixa.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ERNEST) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ERNEST, "We've identified the current head of research in Orta.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ARMAND) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ARMAND, "We've come across a wealthy industrialist in Balime.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_KINGPIN) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_KINGPIN, "We've identified the unofficial leader of San Mona - some kind of crime syndicate leader?")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DARREN) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_DARREN, "A photo of the possible second in command of the 'Kingpin' crime syndicate.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TONY) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TONY, "Contact with an arms dealer in San Mona has been established.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_JOE) == PhotoFlag.TAKEN ) then		SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_JOE, "Visual identification of the queen's personal head of security.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MADLAB) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MADLAB, "We managed to contact the former head researcher of the Orta research lab.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MIKE) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MIKE, "Visual identification of a high-ranking mercenary in the queen's payroll.")	end		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DEVIN) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_DEVIN, "We took a photo of an arms dealer specialising in explosives.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MICKY) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MICKY, "A shady character in a bar mentioned an interest in animal parts.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CARMEN) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CARMEN, "We made the acquaintance of a head hunter.")	end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE, "Photos of a filled morgue.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM) == PhotoFlag.TAKEN ) then		SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM, "Visuals detailing the control room of the Alma command center.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS, "Images taken in a storage facility show a number of artillery missiles.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE) == PhotoFlag.TAKEN ) then		SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE, "Images show a secret torture room in a military prison.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE) == PhotoFlag.TAKEN ) then			SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE, "We've documented a dedicated interrogation room in Tixa.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS) == PhotoFlag.TAKEN ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS, "Pictures seem to indicate systematic torture and killings in Tixa.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3) == PhotoFlag.TAKEN ) then			SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3, "We've come across some sort of... unknown animals.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_LABS) == PhotoFlag.TAKEN ) then				SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_LABS, "Horrific experiments are undertaken in a secret government facility.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE) == PhotoFlag.TAKEN ) then			SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE, "Images show a storage room full of experimental weaponry.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING) == PhotoFlag.TAKEN ) then		SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING, "A remote facility is involved in the manufacturing of prototype weaponry.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM) == PhotoFlag.TAKEN ) then			SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM, "A museum showcases an important artifact.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE) == PhotoFlag.TAKEN ) then		SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE, "We have documented drastically unsafe working conditions in Grumm.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MEDUNA_ARENA) == PhotoFlag.TAKEN ) then			SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MEDUNA_ARENA, "It seems there is some sort of entertainment arena in Meduna.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER) == PhotoFlag.TAKEN ) then			SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER, "We managed to photograph the control room of the royal bunker.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN) == PhotoFlag.TAKEN ) then				SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN, "We documented the control center of a surface to air battery near Drassen.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA) == PhotoFlag.TAKEN ) then			SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA, "We documented the control center of a surface to air battery near Chitzena.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL) == PhotoFlag.TAKEN ) then				SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL, "We documented the control center of a surface to air battery near Cambria.")	end
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA) == PhotoFlag.TAKEN ) then				SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA, "We documented the control center of a surface to air battery in Meduna.")	end
+		
+	elseif ( aType == PhotoFlag.VERIFIED ) then
+	
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GENERAL) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_GENERAL, "General Theo Humphey is a former US officer. He is in charge of the Alma training facility. His intimate knowledge of the military could be valuable.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GENERAL) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_GENERAL, "General Theo Humphey was a former US officer. He was in charge of the Alma training facility. KIA.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_WARDEN) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_WARDEN, "Christine Woltz commands the Tixa correctional facility. Her knowledge of political prisoners could be a potential information goldmine.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_WARDEN) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_WARDEN, "Christine Woltz commanded the Tixa correctional facility. KIA.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ERNEST) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ERNEST, "Dr. Ernest Poppin is the current head researcher of Orta. He might have knowledge of important interna.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ERNEST) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ERNEST, "Dr. Ernest Poppin was Orta head of research before the lab fell. It is likely classified information was lost with his death.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ARMAND) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ARMAND, "Armand Ricci, board member of Ricci Mining Corp., was identified in Balime. Ricci mining is an important regional player, and rumoured to be heavily invested in Balime as well.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ARMAND) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ARMAND, "A board member of Ricci Mining Corp. was killed under unknwon circumstances. The company quickly issued a statement blaming the rebel uprising for this terrorist attack.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_KINGPIN) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_KINGPIN, "Peter Klauss commands the powerful San Mona crime syndicate. The relation of his ship to Deidranna is not fully understood and should be investigated further.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_KINGPIN) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_KINGPIN, "Peter Klauss led the San Mona syndicate. His death is likely to have shattered the syndicate.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DARREN) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_DARREN, "Darren Van Haussen is in charge of Kingpin's main club in San Mona. It is likely he is familiar with the syndicate's structure.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DARREN) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_DARREN, "Mr. Haussen was a high-level subordinate of Kinpin. KIA.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TONY) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TONY, "'Tony' is a well-stocked arms dealer operating in San Mona from behind a front shop. Though initially believed otherwise, he is not part of the 'Kingpin' syndicate. Whether he belongs to some other hitherto unknown organisation is unclear, but likely.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TONY) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TONY, "An international arms dealer operated in San Mona. His death will make it harder for irregular organisations to acquire weaponry.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_JOE) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_JOE, "Joseph Papanus commands the queen's personal forces. What sparse information remains paints the picture of a very violent man. Due to his gambling addiction, it is believed that he could be motivated to seek new employment if significant monetary rewards are offered.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_JOE) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_JOE, "Joseph Papanus was head of royal security. KIA.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MADLAB) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MADLAB, "Dr. Nathaniel Kairns was head researcher of Orta until he deserted. His motivation remains unclear, but he is likely to posess useful intel and skills.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MADLAB) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MADLAB, "Once the project lead of Orta, Dr. Nathaniel Kairns could have been a valuable source of intel.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MIKE) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MIKE, "The former AIM mercenary 'Mike' has been identified as part of an elite division. This is a clear indicator that the army has stepped employment of outside forces significantly. It will likely lead to some consternation among parts of the mercenary world, AIM in particular.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MIKE) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MIKE, "A veteran AIM member, 'Mike' was a high-ranking mercenary in royal services. His death will have deprived the army of one of their most competent officers.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DEVIN) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_DEVIN, "Devin Connell is more than just an arms dealer. Data reconciliation with MI5 revealed that he was linked to MI5 in some capacity. The exact details are disclosed, but his current business conduct might give some insight. It is possible he may also freelance as a mercenary from time to time.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_DEVIN) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_DEVIN, "Devin Connell was an arms dealer specialising in explosives. Rumours about a possible IRA connection could not be established or rejected.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MICKY) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MICKY, "The notorious arms dealer Micky O'Brien has been in the business for decades. He has switched to trading the rare animals parts of protected species for south-east asia buyers.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MICKY) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MICKY, "After decades of trading arms, Micky O'Brien finally ran out of luck in Arulco.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CARMEN) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CARMEN, "Carmen Dancio is a bounty hunter. He is currently in Arulco on the hunt for several targets on Interpol's 'Most Wanted' list. He is rather unscrupulous in achieving his targets.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CARMEN) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CARMEN, "A seasoned bounty hunter, Carmen Dancio, was killed before further contact could be established.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE, "Several images taken detail a morgue in a local hospital. The often borderline excessive wounds on the deceased concur with a widespread campaign of indiscriminate killings..")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE, "Several images taken detail a morgue in a local hospital. The often borderline excessive wounds on the deceased concur with a widespread campaign of indiscriminate killings. As the hospital was no longer under rebel control when the images were taken, goverment accountability is in question.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM, "High-definition photos of the army headquarter command center still have to be investigated painstakingly, but should deliver a wealth of information to analysts.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM, "High-definition pictures of the army headquarter command center in alma are available. The usefulness is put into question, however, as the rebels have already taken the facility.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS, "An army storage depot in Alma houses a number of rockets. This could possibly lead to identification of as-of-yet unknown artillery pieces the army might possess.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS, "An army storage depot in Alma houses a number of rockets. The regime denies responsibility and blames the rebels, who indeed control the depot, for subverting an arms embargo.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE, "Rebels obtained images of a dedicated torture room in a military prison. This gives further credence to claims of widespread human rights abuses in the country.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE, "Rebels claim images show a dedicated torture room in a military prison. As the facility is under their control, the culpability of the regime is put into question by outside parties.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE, "Dissidents claim that torture is so regular in a notorious prison that the regime has set up dedicated rooms for it. Images taken in secret paint a chilling picture indeed.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE, "Dissidents claim that torture is so regular in a notorious prison that the regime has set up dedicated rooms for it. The regime denies this and states that this 'is an obvious set-up by a terrorist gane no-one in their right mind would believe'.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS, "The images coming to us from a secret section of a remote prison are hard to stomach, even for veteran analysts. The limited material dissidents managed to smuggle outside reveals both malicious, wanton destruction and ignorance of even bare lip-service to human decency.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS, "Rebel photographers documented serious human rights abuses of staggering magnitude in a government prison. Regime sympathizers deny these allegations and point out that any loss of life is soley to blame on the rebels, who recently took the facility after fierce fighting.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3, "Scientists are baffled by images showing large, insect-like creatures from the caves of Arulco. Once the fighting has dies down, an expedition will want to research this.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3, "Scientists are baffled by images showing large, insect-like creatures from the caves of Arulco. As the rebels claim to have eradicated them, this is likely some kind of obscure hoax.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_LABS) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_LABS, "Images smuggled out of laboratory at an undisclosed location show bizarre images involving prisoners, giant cats and huge amounts of irradiated goo. Frankly, we're out of our depth here, but this is probably not good.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_LABS) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_LABS, "After taking a laboratory in fierce fighting, rebels leaked images, claiming there were experiments done involving live humans, large predatory cats and 'radioactive stuff'. We're honestly not sure how to proceed.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE, "Estimates of the regime's strength will likely have to be revised, as images clearly show huge numbers of some sort of missile-based assault rifle in storage.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE, "Dissidents claim a former government storage depot contained huge numbers of missile-based weaponry. As the facility is no longer under government control, this cannot be fully verfified.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING, "According to recent leaks, an underground facility is involved in the creation of experimental weapon systems. The exact nature of said systems has yet to be disclosed, but seems missile-based.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING, "A formerly regime-controlled facility was involved in weapons manufacturing, according to rebel sources. This is put into doubt by the fact that rebels might have altered the facility after taking it.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM, "Arulco's most important artifact, the Chalice of Chance, is on display in Balime. Dissidents protest against the sacrilege of removing it from the ruins of Chitzena in the first place.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM, "Arulco's most important artifact, the Chalice of Chance, was recently stolen from the Balime museum. The current whereabouts are unknown, this represents yet another loss for arulcan culture.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE, "Leaked images show clearly unsafe working conditions in the industrial city of Grumm. Irradiated equipment is used by workers without any sort of protection.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE, "Leaked images show clearly unsafe working conditions in the industrial city of Grumm. The regime denies any culpability and puts the blame soley on the rebels, who currently administer the region.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MEDUNA_ARENA) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MEDUNA_ARENA, "In a bizarre twist, leaked photography from Meduna shows a small arena, fit for roman-style entertainment, including a luxurious lodge for the queen herself. This lavish display is in stark contrast with the often impoverished population.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER, "In a daring operation, rebels were able to obtain images of the command room of the queen's personal bunker. The paranoid security system prominently includes an active mine field.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER, "Before it was taken by the rebels, the queen's personal bunker control room housed elaborate security systems, including a mine field.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN, "Images leaked to us show details of a surface to air missile battery near Drassen. It can only be controlled via a command console, making that an obvious weakpoint.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN, "Rebels detailed the control center of a recently occupied anti-air installation in the north-east. It can be presumed that other installations use similar hardware.")
+		end
+				
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA, "Images leaked to us show details of a surface to air missile battery near chitzena. The immediate placement at the coast is an obvious weakpoint, especially considering the lack of marine forces.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA, "Rebels detailed the control center of a recently occupied anti-air installation in the north-west. It can be presumed that other installations use similar hardware.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL, "Images leaked to us show details of a surface to air missile battery in the center of the country. While the placement of this installation yields overlapping air coverage on much of the country's airspace, this leaves the south-east of the country without any air coverage.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL, "The central anti-air installation was recently taken by rebels after fierce fighting. Apart from the sizeable garrison, it included mine-fields and internal gas deployment systems.")
+		end
+		
+		if ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA) == PhotoFlag.VERIFIED ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA, "Images leaked to us show details of a heavily guarded surface to air missile battery in Meduna. It can only be controlled via a command console, making that an obvious weakpoint. It is unknown whether the different batteries are somehow linked to each other.")
+		elseif ( GetModderLUAFact(ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA) == PhotoFlag.VERIFIED_RESULT_2 ) then	SetPhotoFactLaptopData(aType, ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA, "The anti-air battery in Meduna itself has fallen to the rebels. It is unknown whether there are any loyalist aircraft left against whom this could be used.")
+		end
+		
+	end
+	
+end
+
+function VerifyPhotoState(aIndex)
+	
+	if ( (aIndex >= ModSpecificActions.PHOTO_FLAGS_BEGIN) and (aIndex <= ModSpecificActions.PHOTO_FLAGS_END) and (GetModderLUAFact(aIndex) == PhotoFlag.UPLOADED) ) then
+		
+		if (aIndex == ModSpecificActions.PHOTO_FLAGS_GENERAL) then
+		
+			if ( MercIsDead(Profil.GENERAL) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )
+				AddIntel( 15 )
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying General Theo Humphey. Amount lowered due to death.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )
+				AddIntel( 30 )
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying General Theo Humphey.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_WARDEN) then
+		
+			if ( MercIsDead(Profil.WARDEN) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )
+				AddIntel( 7 )
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Christine Woltz. Amount lowered due to death.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )
+				AddIntel( 15 )
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Christine Woltz.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ERNEST) then
+		
+			if ( MercIsDead(Profil.ERNEST) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )
+				AddIntel( 15 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Dr. Ernest Poppin. Amount lowered due to death.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )
+				AddIntel( 30 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Dr. Ernest Poppin.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ARMAND) then
+		
+			if ( MercIsDead(Profil.ARMAND) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Armand Ricci. Amount lowered due to death.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Armand Ricci.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_KINGPIN) then
+		
+			if ( MercIsDead(Profil.KINGPIN) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Peter Klauss. Amount lowered, as his organisation is effectively destroyed.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 25 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Peter Klauss.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_DARREN) then
+		
+			if ( MercIsDead(Profil.DARREN) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )
+				AddIntel( 3 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Darren Van Haussen. Amount lowered as his death rendered the information obsolete.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Darren Van Haussen.")
+				
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_TONY) then
+		
+			if ( MercIsDead(Profil.TONY) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )
+				AddIntel( 12 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Tony. Amount lowered due to death.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Tony.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_JOE) then
+		
+			if ( MercIsDead(Profil.JOE) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 4 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Joseph Papanus. Amount lowered as his death rendered the information obsolete.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )
+				AddIntel( 15 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Joseph Papanus.")
+				
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_MADLAB) then
+		
+			if ( MercIsDead(Profil.MADLAB) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Dr. Nathaniel Kairns. Amount lowered as his death removed a valuable source of intel.")
+			
+			else
+								
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 35 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Dr. Nathaniel Kairns.")
+				
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_MIKE) then
+		
+			if ( MercIsDead(Profil.MIKE) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 5 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Mike. Amount lowered as his death rendered the information obsolete.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Mike.")
+				
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_DEVIN) then
+		
+			if ( MercIsDead(Profil.DEVIN) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 15 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Devin Connell. Amount lowered as his death lowers possible interest from disclosed organisations.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Devin.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_MICKY) then
+		
+			if ( MercIsDead(Profil.MICKY) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 4 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Micky O'Brien. Amount lowered as his death rendered the information obsolete.")
+				
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 15 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Micky O'Brien.")
+				
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_CARMEN) then
+		
+			if ( MercIsDead(Profil.CARMEN) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 4 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Carmen Dancio. Amount lowered as his death rendered the information obsolete.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for identifying Carmen Dancio.")
+				
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE) then
+		
+			if ( GetNumHostilesInSector(8, SectorY.MAP_ROW_F, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 14 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the conditions in Cambria hospital.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 7 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the conditions in Cambria hospital. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ALMA_HQ_CONTROLROOM) then
+		
+			if ( GetNumHostilesInSector(13, SectorY.MAP_ROW_H, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the Alma military headquarter.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the Alma military headquarter. Amount lowered as informatino is now outdated due to the ousting of regime troops.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ALMA_STORAGE_ROCKETS) then
+		
+			if ( GetNumHostilesInSector(14, SectorY.MAP_ROW_H, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the contents of a military depot in Alma.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the contents of a military depot in Alma. Amount lowered as information is now outdated due to the ousting of regime troops.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ALMA_PRISON_TORTURE) then
+		
+			if ( GetNumHostilesInSector(13, SectorY.MAP_ROW_I, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting torture in a military prison.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 8 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting torture in a military prison. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE) then
+		
+			if ( GetNumHostilesInSector(9, SectorY.MAP_ROW_J, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting torture in a prison.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 8 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting torture in a prison. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS) then
+		
+			if ( GetNumHostilesInSector(9, SectorY.MAP_ROW_J, 1) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 25 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting torture in a prison.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting torture in a prison. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_CREATURE_LVL3) then
+		
+			if ( CheckQuest(Quests.QUEST_CREATURES) == pQuest.QUESTDONE )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 15 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting a nest of unknown creatures. Amount lowered as they have all been eradicated, making research impossible.")
+				
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 40 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting a nest of unknown creatures.")
+				
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ORTA_LABS) then
+		
+			if ( GetNumHostilesInSector(9, SectorY.MAP_ROW_J, 1) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 15 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting bizarre experiments in secret lab.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting bizarre experiments in secret lab. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ORTA_STORAGE) then
+		
+			if ( GetNumHostilesInSector(9, SectorY.MAP_ROW_J, 1) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 12 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for recording huge amounts of weaponry in army storage.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 4 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for recording huge amounts of weaponry in army storage. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_ORTA_MANUFACTURING) then
+		
+			if ( GetNumHostilesInSector(9, SectorY.MAP_ROW_J, 1) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 14 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting a weapons manufacturing line.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 6 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting a weapons manufacturing line. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_BALIME_MUSEUM) then
+		
+			if ( CheckFact( Facts.FACT_CHALICE_STOLEN, 0 ) == true )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 7 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for confirming a valuable artifact was in Balime. Amount lowered as its whereabouts are no longer known.")
+				
+			else
+				
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 20 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for confirming a valuable artifact is in Balime.")
+				
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_GRUMM_RADIOACTIVE) then
+		
+			if ( GetNumHostilesInSector(2, SectorY.MAP_ROW_G, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 10 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting unsafe working conditions in Grumm.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 4 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting unsafe working conditions in Grumm. Amount lowered as sector is no longer government-controlled, culpability for any crimes no longer undeniable.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_MEDUNA_ARENA) then
+		
+			SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+			AddIntel( 9 )					
+			SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the existence of a private arena for the queen's entertainment.")
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_MEDUNA_BUNKER) then
+		
+			if ( GetNumHostilesInSector(3, SectorY.MAP_ROW_P, 1) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 30 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the layout of the royal bunker.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 8 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the layout of the royal bunker. Amount lowered as this is no longer relevant to the war effort.")
+			
+			end
+			
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_SAM_DRASSEN) then
+		
+			if ( GetNumHostilesInSector(15, SectorY.MAP_ROW_D, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 12 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation near Drassen.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 6 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation near Drassen. Amount lowered as sector is no longer government-controlled and thus the information is outdated.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_SAM_CHITZENA) then
+		
+			if ( GetNumHostilesInSector(2, SectorY.MAP_ROW_D, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 12 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation near Chitzena.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 6 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation near Chitzena. Amount lowered as sector is no longer government-controlled and thus the information is outdated.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_SAM_CENTRAL) then
+		
+			if ( GetNumHostilesInSector(2, SectorY.MAP_ROW_D, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 14 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation near Cambria.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 7 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation near Cambria. Amount lowered as sector is no longer government-controlled and thus the information is outdated.")
+			
+			end
+		
+		elseif (aIndex == ModSpecificActions.PHOTO_FLAGS_SAM_MEDUNA) then
+		
+			if ( GetNumHostilesInSector(4, SectorY.MAP_ROW_N, 0) )  then
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED )				
+				AddIntel( 16 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation in Meduna.")
+			
+			else
+			
+				SetPhotoState( aIndex, PhotoFlag.VERIFIED_RESULT_2 )				
+				AddIntel( 8 )					
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Received RIS compensation for documenting the hard- and software of an anti-air installation in Meduna. Amount lowered as sector is no longer government-controlled and thus the information is outdated.")
+			
+			end
+		
+		end		
+	
+	end
+	
+end
+
+-- types of weather
 Weather = 
 {
 	WEATHER_FORECAST_NORMAL = 0,
@@ -1602,10 +2753,13 @@ Skill =
 	SKILLS_RADIO_CALLREINFORCEMENTS = 4,
 	SKILLS_RADIO_TURNOFF = 5,
 
+	SKILLS_INTEL_CONCEAL = 6,
+	SKILLS_INTEL_GATHERINTEL = 7,
+	
 	-- various
-	SKILLS_SPOTTER = 6,
-	SKILLS_FOCUS = 7,
-	SKILLS_DRAG = 8,
+	SKILLS_SPOTTER = 8,
+	SKILLS_FOCUS = 9,
+	SKILLS_DRAG = 10,
 };
 
 -- different dialogue action events

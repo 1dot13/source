@@ -7767,6 +7767,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Electronic>1</Electronic>
+		<ItemFlag>8</ItemFlag>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -52030,6 +52031,34 @@
 			<PercentCounterForceAccuracy>-20</PercentCounterForceAccuracy>
 			<AimLevels>1</AimLevels>
 		</STAND_MODIFIERS>
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1751</uiIndex>
+		<szItemName>Camera</szItemName>
+		<szLongItemName>Camera</szLongItemName>
+		<szItemDesc>You can use this camera to document the highlights of your holidays. Or whatever else you want documented.</szItemDesc>
+		<szBRName>Camera</szBRName>
+		<szBRDesc>Use this simple to use camera to take pictures of all the funny shenanigans/gruesome atrocities you come across during your holidays/tour of duty. Whatever works.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ItemFlag>8</ItemFlag>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>903</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>200</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Sinks>1</Sinks>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Electronic>1</Electronic>
+		<BR_NewInventory>3</BR_NewInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>

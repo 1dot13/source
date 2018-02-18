@@ -160,7 +160,6 @@
     <szDetailedExploredName>Omerta</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
     <usCivilianPopulation>4</usCivilianPopulation>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -173,7 +172,6 @@
     <szDetailedExploredName>Omerta</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
     <usCivilianPopulation>30</usCivilianPopulation>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -1089,7 +1087,6 @@
     <szDetailedExploredName>Cambria</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>100</usCivilianPopulation>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -1192,7 +1189,7 @@
     <szDetailedExploredName>Grumm</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>150</usCivilianPopulation>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -1382,7 +1379,6 @@
     <szDetailedExploredName>Grumm</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>55</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -1395,7 +1391,6 @@
     <szDetailedExploredName>Grumm Mine</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -1456,7 +1451,6 @@
     <szDetailedExploredName>Cambria Mine</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>130</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>35</rainchance>
 	<sandstormchance>2</sandstormchance>
@@ -2341,7 +2335,7 @@
     <szDetailedExploredName>Coastal, road</szDetailedExploredName>
     <sWaterType>2</sWaterType>
     <usNaturalDirt>140</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR> 
@@ -2353,7 +2347,7 @@
     <szDetailedExploredName>Swamp, road</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>450</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>90</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<snakechance>50</snakechance>
@@ -2380,7 +2374,7 @@
     <szDetailedExploredName>Forest, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2392,7 +2386,7 @@
     <szDetailedExploredName>Forest, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2538,7 +2532,6 @@
     <szDetailedExploredName>Meduna Airport</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <sRadioScanModifier>2</sRadioScanModifier>
     <usCivilianPopulation>100</usCivilianPopulation>
  	<rainchance>60</rainchance>
@@ -2552,7 +2545,7 @@
     <szDetailedExploredName>Meduna, SAM Site</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
     <sRadioScanModifier>2</sRadioScanModifier>
     <usCivilianPopulation>50</usCivilianPopulation>
  	<rainchance>60</rainchance>
@@ -2566,7 +2559,7 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>100</usCivilianPopulation>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -2579,7 +2572,7 @@
     <szDetailedExploredName>Tropical, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>250</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2738,7 +2731,6 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>300</usCivilianPopulation>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <INVENTORYLIST>
+	<!-- the inventory of this merchant (black market, 68) is set exclusively in Overhead.lua in AddArmsDealerAdditionalIntelData() -->
 	<INVENTORY>
 		<uiIndex>0</uiIndex>
 		<sItemIndex>0</sItemIndex>

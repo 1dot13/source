@@ -1632,4 +1632,26 @@ uiFlags must be of
 		<allInventoryAlwaysAvailable>0</allInventoryAlwaysAvailable>
 		<nonprofile_loyaltyrequired>0</nonprofile_loyaltyrequired>		<!-- no loyalty required -->
 	</MERCHANT>
+	<MERCHANT>
+		<uiIndex>68</uiIndex>
+		<szName>Black Market dealer San Mona (C6)</szName>
+		<dBuyModifier>1.0</dBuyModifier>
+		<dSellModifier>1.0</dSellModifier>
+		<ubShopKeeperID>200</ubShopKeeperID>		<!-- Important: no profile -->
+		<ubTypeOfArmsDealer>1</ubTypeOfArmsDealer>
+		<iInitialCash>400</iInitialCash>
+		<uiFlags>16777216</uiFlags>					<!-- accepts only intel, no money -->
+		<dailyIncrement>400</dailyIncrement>
+		<dailyMaximum>800</dailyMaximum>
+		<dailyRetained>400</dailyRetained>
+		<minCoolness>1</minCoolness>
+		<maxCoolness>10</maxCoolness>
+		<addToCoolness>10</addToCoolness>
+		<coolnessProgressRate>100</coolnessProgressRate>
+		<daysDelayMin>1</daysDelayMin>
+		<daysDelayMax>2</daysDelayMax>
+		<useBRSetting>0</useBRSetting>
+		<allInventoryAlwaysAvailable>1</allInventoryAlwaysAvailable>	<!-- doesn't always have everything -->
+		<nonprofile_loyaltyrequired>0</nonprofile_loyaltyrequired>		<!-- needs to trust you somewhat before he trades with you -->
+	</MERCHANT>
 </MERCHANTSLIST>
