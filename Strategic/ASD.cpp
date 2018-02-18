@@ -74,7 +74,8 @@ UINT32 gASD_Flags = 0;
 // enemy heli constants
 #define	ENEMYHELI_DESTROYED					0x00000001
 #define	ENEMYHELI_ORDER_GOTODESTINATION		0x00000002
-#define	ENEMYHELI_KNOWNTOPLAYER				0x00000008			// the player knows about this heli (it will this be displayed on the map)
+#define	ENEMYHELI_KNOWNBYINTEL				0x00000004			// the player knows about this heli from intel (it will be displayed on the map)
+#define	ENEMYHELI_KNOWNTOPLAYER				0x00000008			// the player knows about this heli (it will be displayed on the map)
 
 #define	ENEMYHELI_ORDER_DROPTROOPS			0x00000010
 #define	ENEMYHELI_ORDER_PICKUPTROOPS		0x00000020
@@ -585,7 +586,7 @@ void ENEMY_HELI::Destroy( )
 	flagmask |= ENEMYHELI_DESTROYED;
 
 	// if the player knows about this heli, play a sound and leave a message
-	if ( flagmask & ENEMYHELI_KNOWNTOPLAYER )
+	if ( flagmask & (ENEMYHELI_KNOWNBYINTEL|ENEMYHELI_KNOWNTOPLAYER) )
 	{
 		CHAR16 pStr2[128];
 		GetSectorIDString( SECTORX( sector_current ), SECTORY( sector_current ), 0, pStr2, FALSE );
@@ -740,13 +741,46 @@ std::set<UINT8> GetEnemyHeliSectors( BOOLEAN afKnownToPlayer )
 			continue;
 
 		// if the player doesn't know about this heli, don't add this
-		if ( afKnownToPlayer && !((*it).flagmask & ENEMYHELI_KNOWNTOPLAYER) )
+		if ( afKnownToPlayer && !((*it).flagmask & (ENEMYHELI_KNOWNBYINTEL|ENEMYHELI_KNOWNTOPLAYER)) )
 			continue;
 
 		set.insert( (*it).sector_current );
 	}
 
 	return set;
+}
+
+std::vector<INT16> GetEnemyHeliIDKnowledgeStatus()
+{
+	INT16 id = -1;
+	std::vector<INT16> vec;
+
+	std::vector<ENEMY_HELI>::iterator itend = gEnemyHeliVector.end();
+	for ( std::vector<ENEMY_HELI>::iterator it = gEnemyHeliVector.begin(); it != itend; ++it )
+	{
+		++id;
+
+		if ( ( ( *it ).flagmask & ( ENEMYHELI_DESTROYED | ENEMYHELI_KNOWNBYINTEL | ENEMYHELI_KNOWNTOPLAYER ) ) )
+			vec.push_back( -1 );
+		else
+			vec.push_back( id );
+	}
+
+	return vec;
+}
+
+void BuyHeliInfoWithIntel( INT16 id )
+{
+	if ( id >= 0 && id < gEnemyHeliVector.size() )
+	{
+		ENEMY_HELI& heli = gEnemyHeliVector[id];
+
+		// if the heli is already destroyed, nothing to do here
+		if ( heli.flagmask & ENEMYHELI_DESTROYED )
+			return;
+
+		heli.flagmask |= ENEMYHELI_KNOWNBYINTEL;
+	}
 }
 
 void UpdateEnemyHeliRepair( INT16 id )
@@ -1094,7 +1128,7 @@ void EnemyHeliMANPADSCheck( INT16 id )
 			return;
 
 		// if the player doesn't know about this heli, he can't shoot it down
-		if ( !(heli.flagmask & ENEMYHELI_KNOWNTOPLAYER) )
+		if ( !(heli.flagmask & ( ENEMYHELI_KNOWNBYINTEL|ENEMYHELI_KNOWNTOPLAYER)) )
 			return;
 
 		INT8 heli_x = SECTORX( heli.sector_current );
@@ -1205,6 +1239,10 @@ void EnemyHeliCheckPlayerKnowledge( INT16 id )
 	if ( id >= 0 && id < gEnemyHeliVector.size( ) )
 	{
 		ENEMY_HELI& heli = gEnemyHeliVector[id];
+		
+		// if we already know about this from intel, nothing to do here
+		if ( heli.flagmask & ENEMYHELI_KNOWNBYINTEL )
+			return;
 
 		INT8 current_x = SECTORX( heli.sector_current );
 		INT8 current_y = SECTORY( heli.sector_current );

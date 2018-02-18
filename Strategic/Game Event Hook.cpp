@@ -49,6 +49,7 @@
 	#include "finances.h"		// added by Flugente
 	#include "ASD.h"			// added by Flugente
 	#include "Player Command.h"	// added by Flugente
+	#include "LuaInitNPCs.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -502,9 +503,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		// No PCM in UB
 #else
 		case EVENT_PMC_EMAIL:
-			// only send the email if we hven't already visited the site, otherwise continue to spam ;-)
-			if ( !IsBookMarkSet(PMC_BOOKMARK) )
-				AddEmail( PMC_INTRO, PMC_INTRO_LENGTH, PMC, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			AddEmail( PMC_INTRO, PMC_INTRO_LENGTH, PMC, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
 #endif
 		
@@ -613,9 +612,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			// No Kingpin Events in UB
 #else
 		case EVENT_MILITIAROSTER_EMAIL:
-			// only send the email if we haven't already visited the site, otherwise continue to spam ;-)
-			if ( !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
-				AddEmail( MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			AddEmail( MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
 #endif
 
@@ -638,6 +635,14 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 		case EVENT_WEATHER_SNOW:
 			ChangeWeather( (UINT8)pEvent->uiParam, WEATHER_FORECAST_SNOW );
+			break;
+
+		case EVENT_INTEL_ENRICO_EMAIL:
+			AddEmail( INTEL_ENRICO_INTRO, INTEL_ENRICO_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			break;
+
+		case EVENT_INTEL_PHOTOFACT_VERIFY:
+			LuaVerifyPhotoState( (INT16)pEvent->uiParam );
 			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;

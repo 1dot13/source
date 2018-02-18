@@ -92,6 +92,10 @@ void EnemyHeliTroopDrop( UINT8 aSector );
 
 std::set<UINT8> GetEnemyHeliSectors( BOOLEAN afKnownToPlayer );
 
+// returns vector of all helis, -1 if known to player, id otherwise
+std::vector<INT16> GetEnemyHeliIDKnowledgeStatus();
+
+void BuyHeliInfoWithIntel( INT16 id );
 void UpdateEnemyHeliRepair( INT16 id );
 void UpdateEnemyHeliRefuel( INT16 id );
 void UpdateEnemyHeli( INT16 id );

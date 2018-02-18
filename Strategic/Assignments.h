@@ -92,6 +92,8 @@ enum
 	FACILITY_REPAIR,
 	FORTIFICATION,					// Flugente: sectors can be fortified according to external layout plans
 	TRAIN_WORKERS,
+	CONCEALED,						// Flugente: spy hides among the population
+	GATHERINTEL,					// gathers information while disguised in enemy territory
 	NUM_ASSIGNMENTS,
 };
 
@@ -106,6 +108,8 @@ enum
 
 #define IS_REPAIR(assignment) ((assignment == REPAIR) || (assignment == FACILITY_REPAIR))
 #define CASE_REPAIR case REPAIR: case FACILITY_REPAIR
+
+#define SPY_LOCATION(assignment) ((assignment == CONCEALED) || (assignment == GATHERINTEL) )
 
 // strings for snitch exposition
 enum
@@ -175,6 +179,8 @@ BOOLEAN CanCharacterDiagnoseDisease( SOLDIERTYPE *pSoldier );
 BOOLEAN CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier );
 
 BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier );
+
+BOOLEAN CanCharacterSpyAssignment( SOLDIERTYPE *pSoldier );
 
 // can this character be assigned as a repairman?
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );
@@ -280,19 +286,12 @@ FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 
 INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier);
 
-// Flugente: via various means, the player can get info on the enemy - this can be enemy positions, movement, or the position of important targets
-enum
-{
-	INFO_TYPE_NORMAL,
-	INFO_TYPE_VIP,
-
-	INFO_TYPE_MAX,
-};
-
-// this function gives a random bit of information to the player. The type of info depends on aInfoType. 
-// If higher-order info cannot be given (for example if all info is already known to the player), lower-order info wil be given instead
-// returns TRUE if info was given, FALSE if not
-BOOLEAN GiveInfoToPlayer( UINT8 aInfoType );
+// Flugente: intel shenanigans
+void BuildIntelInfoArray();
+void CalcIntelInfoOfferings();
+void GetIntelInfoOfferings( int aInfo[] );
+void GetIntelInfoTextAndPrice( int aInfoNumber, STR16 aString, int& arIntelCost );
+void BuyIntelInfo( int aInfoNumber );
 
 // get bonus tarining pts due to an instructor for this student
 // HEADROCK HAM 3.5: Three functions below have lost an argument which is no longer required ("uiAtGunRange", which was "uiAtFacility" in HAM 3.4)
@@ -319,6 +318,7 @@ extern INT32 ghRepairBox;
 extern INT32 ghTrainingBox;
 extern INT32 ghMoveItemBox;
 extern INT32 ghDiseaseBox;
+extern INT32 ghSpyBox;
 extern INT32 ghAttributeBox;
 extern INT32 ghRemoveMercAssignBox;
 extern INT32 ghContractBox;
@@ -354,6 +354,7 @@ extern BOOLEAN fShownAssignmentMenu;
 extern BOOLEAN fShowRepairMenu;
 extern BOOLEAN fShowMoveItemMenu;
 extern BOOLEAN fShowDiseaseMenu;
+extern BOOLEAN fShowSpyMenu;
 
 extern BOOLEAN fFirstClickInAssignmentScreenMask;
 
@@ -400,6 +401,11 @@ void MoveItemMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionForDiseaseMenu( void );
 void DiseaseMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void DiseaseMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// Flugente: spy menu
+void CreateDestroyMouseRegionForSpyMenu( void );
+void SpyMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason );
+void SpyMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 // HEADROCK HAM 3.6: Facility Menu
 void CreateDestroyMouseRegionForFacilityMenu( void );

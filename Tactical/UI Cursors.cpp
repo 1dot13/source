@@ -51,6 +51,7 @@ UINT8 HandleWirecutterCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCur
 UINT8 HandleRepairCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleRefuelCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleRemoteCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
+UINT8 HandleCameraCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
 UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
 UINT8 HandleJarCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleTinCanCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
@@ -238,14 +239,14 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 
 			if ( fActivated )
 			{
-		if ( !gfUIHandlePhysicsTrajectory )
-		{
-				ubCursorID =	HandleNonActivatedTossCursor( pSoldier, sTargetGridNo, fRecalc, uiCursorFlags, ubItemCursor );
-		}
-		else
-		{
-				ubCursorID = HandleActivatedTossCursor( pSoldier, sTargetGridNo, ubItemCursor );
-		}
+				if ( !gfUIHandlePhysicsTrajectory )
+				{
+						ubCursorID =	HandleNonActivatedTossCursor( pSoldier, sTargetGridNo, fRecalc, uiCursorFlags, ubItemCursor );
+				}
+				else
+				{
+						ubCursorID = HandleActivatedTossCursor( pSoldier, sTargetGridNo, ubItemCursor );
+				}
 			}
 			else
 			{
@@ -276,6 +277,10 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 		case BOMBCURS:
 
 			ubCursorID = HandleBombCursor( pSoldier, sTargetGridNo, fActivated, uiCursorFlags );
+			break;
+
+		case CAMERACURS:
+			ubCursorID = HandleCameraCursor( pSoldier, sTargetGridNo, fActivated, uiCursorFlags );
 			break;
 
 		case REMOTECURS:
@@ -2184,6 +2189,19 @@ UINT8 HandleRemoteCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivat
 	}
 }
 
+UINT8 HandleCameraCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
+{
+	// DRAW PATH TO GUY
+	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_HANDCUFF );
+
+	// do we have handcuffs in our hand?
+	if ( HasItemFlag( ( &( pSoldier->inv[HANDPOS] ) )->usItem, CAMERA ) && SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, gsInterfaceLevel, 0, TRUE, CALC_FROM_WANTED_DIR, TRUE ) )
+	{
+		return CAMERA_GREY_UICURSOR;
+	}
+
+	return CAMERA_RED_UICURSOR;
+}
 
 UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
 {
@@ -2846,6 +2864,10 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	// Flugente: cursor for handcuffs
 	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usInHand, HANDCUFFS) )
 		ubCursor = HANDCUFFCURS;
+
+	// Flugente: camera cursor
+	if ( HasItemFlag( usInHand, CAMERA ) )
+		ubCursor = CAMERACURS;
 
 	// Flugente: interactive actions
 	// we only check whether an action is possible in principle, not whether this particular guy can do it. That way we know an action is possible here even if we can't perform it at the moment.

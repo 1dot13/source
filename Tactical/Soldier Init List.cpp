@@ -775,8 +775,8 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 		}
 
 		// Flugente: if this is an enemy, and we are using ambush code, place us somewhat away from the map center, where the player will be
-		if ( (tempDetailedPlacement.bTeam == ENEMY_TEAM && (gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE) ) ||
-			 (tempDetailedPlacement.bTeam == CREATURE_TEAM && gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE) )
+		if ( (tempDetailedPlacement.bTeam == ENEMY_TEAM && ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE) ) ||
+			 (tempDetailedPlacement.bTeam == CREATURE_TEAM && GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE) )
 		{
 			if ( (gGameExternalOptions.uAmbushEnemyEncircle == 1 && PythSpacesAway( tempDetailedPlacement.sInsertionGridNo, gMapInformation.sCenterGridNo ) <= gAmbushRadiusModifier * gGameExternalOptions.usAmbushEnemyEncircleRadius1) ||
 				 ( gGameExternalOptions.uAmbushEnemyEncircle == 2) )

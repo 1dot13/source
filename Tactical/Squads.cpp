@@ -397,6 +397,10 @@ BOOLEAN AddCharacterToSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue )
 				SetCurrentSquad( bSquadValue, TRUE );
 			}
 
+			if ( SPY_LOCATION( pCharacter->bOldAssignment ) )
+			{
+				pCharacter->usSoldierFlagMask2 |= SOLDIER_CONCEALINSERTION;
+			}
 
 			return ( TRUE );
 		}

@@ -150,11 +150,8 @@ INT32 MostImportantNoiseHeard( SOLDIERTYPE *pSoldier, INT32 *piRetValue, BOOLEAN
 	pbPublOL = gbPublicOpplist[pSoldier->bTeam];
 
 	// sevenfm: sector information
-	UINT8 sectordata = 0;
-	if ( gbWorldSectorZ > 0 )	// underground we are always suspicious		
-		sectordata = 2;
-	else
-		sectordata = SectorExternalData[SECTOR( gWorldSectorX, gWorldSectorY )][gbWorldSectorZ].usCurfewValue;
+	UINT8 ubSectorId = SECTOR( gWorldSectorX, gWorldSectorY );
+	UINT8 sectordata = SectorExternalData[ubSectorId][0].usCurfewValue;
 
 	// look through this man's personal & public opplists for opponents heard
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)

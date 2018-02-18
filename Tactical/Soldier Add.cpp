@@ -1228,7 +1228,7 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			}
 			else
 			{
-				if(is_client && (pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO)) 
+				if ( ( is_client && (pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO) ) || ( pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) )
 				{
 					sGridNo = pSoldier->sInsertionGridNo;
 					ubCalculatedDirection = pSoldier->ubDirection;
@@ -1625,14 +1625,15 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 		{
 			if ( pSoldier->bTeam == gbPlayerNum )
 			{
-				RevealRoofsAndItems( pSoldier, TRUE, FALSE, pSoldier->pathing.bLevel, TRUE );
+				if ( !( pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) )
+					RevealRoofsAndItems( pSoldier, TRUE, FALSE, pSoldier->pathing.bLevel, TRUE );
 
-		// ATE: Patch fix: If we are in an non-interruptable animation, stop!
-		if ( pSoldier->usAnimState == HOPFENCE )
-		{
-			pSoldier->flags.fInNonintAnim = FALSE;
-			pSoldier->SoldierGotoStationaryStance( );
-		}
+				// ATE: Patch fix: If we are in an non-interruptable animation, stop!
+				if ( pSoldier->usAnimState == HOPFENCE )
+				{
+					pSoldier->flags.fInNonintAnim = FALSE;
+					pSoldier->SoldierGotoStationaryStance( );
+				}
 
 				pSoldier->EVENT_StopMerc( sGridNo, ubDirection );
 			}

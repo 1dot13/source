@@ -347,6 +347,7 @@ void InitTacticalPlacementGUI()
 			CurrentBattleSectorIs( MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY, MercPtrs[i]->bSectorZ ) &&
 				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) && // ATE Ignore vehicles
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
+				!( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
 				MercPtrs[ i ]->bAssignment != IN_TRANSIT )
 		{
 			++giPlacements;
@@ -362,6 +363,7 @@ void InitTacticalPlacementGUI()
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !MercPtrs[ i ]->flags.fBetweenSectors &&
 			CurrentBattleSectorIs( MercPtrs[i]->sSectorX, MercPtrs[i]->sSectorY, MercPtrs[i]->bSectorZ ) &&
 				MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW &&
+				!( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
 				MercPtrs[ i ]->bAssignment != IN_TRANSIT &&
 				!( MercPtrs[ i ]->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) ) ) // ATE Ignore vehicles
 		{
@@ -375,7 +377,7 @@ void InitTacticalPlacementGUI()
 				gfCenter = TRUE;
 			}
 
-			if ( gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				gMercPlacement[giPlacements].ubStrategicInsertionCode	= INSERTION_CODE_CENTER;
 				MercPtrs[i]->ubStrategicInsertionCode					= INSERTION_CODE_CENTER;
@@ -431,8 +433,9 @@ void InitTacticalPlacementGUI()
 			++giPlacements;
 		}
 	}
+
 	//add all the faces now
-	for( i = 0; i < giPlacements; i++ )
+	for( i = 0; i < giPlacements; ++i )
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
@@ -488,7 +491,8 @@ void InitTacticalPlacementGUI()
 	if( gubDefaultButton == GROUP_BUTTON )
 	{
 		ButtonList[ iTPButtons[ GROUP_BUTTON ] ]->uiFlags |= BUTTON_CLICKED_ON;
-		for( i = 0; i < giPlacements; i++ )
+
+		for( i = 0; i < giPlacements; ++i )
 		{ //go from the currently selected soldier to the end
 			if( !gMercPlacement[ i ].fPlaced )
 			{ //Found an unplaced merc.	Select him.
@@ -768,7 +772,7 @@ void RenderTacticalPlacementGUI()
 	
 		if( gbCursorMercID == -1 )
 		{
-			if ( gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				INT16 sCellX = 0;
 				INT16 sCellY = 0;
@@ -940,7 +944,7 @@ void RenderTacticalPlacementGUI()
 				}
 			}
 
-			if ( gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				INT16 sCellX = 0;
 				INT16 sCellY = 0;
@@ -1256,10 +1260,10 @@ void TacticalPlacementHandle()
 
 		// WANNE - MP: Center
 		if ( gfCenter && (is_networked || 
-			gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
+			GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
 			( gGameExternalOptions.ubSkyriderHotLZ == 3 && gMercPlacement[gbSelectedMercID].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )) )
 		{
-			if ( gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				INT32 testgridno = NOWHERE;
 
@@ -1404,7 +1408,7 @@ void ChooseRandomEdgepoints()
 	{
 		if ( !( gMercPlacement[ i ].pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
-			if ( gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				UINT8 ubDirection;
 
@@ -1804,7 +1808,7 @@ void PutDownMercPiece( INT32 iPlacement )
 			pSoldier->EVENT_SetSoldierPosition( (FLOAT)sCellX, (FLOAT)sCellY );
 		}
 
-		if ( gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+		if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 		{
 			ubDirection = (UINT8)GetDirectionToGridNoFromGridNo( gMapInformation.sCenterGridNo, sGridNo ) + 100;
 		}

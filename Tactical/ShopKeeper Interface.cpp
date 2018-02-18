@@ -54,6 +54,7 @@
 	#include "InterfaceItemImages.h"
 	#include "Encyclopedia_new.h"
 	#include "Animation Control.h"	// added by Flugente
+	#include "Town Militia.h"		// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -555,7 +556,6 @@ BOOLEAN		RemoveRepairItemFromDealersOfferArea( INT16	bSlot );
 INT8			GetInvSlotOfUnfullMoneyInMercInventory( SOLDIERTYPE *pSoldier );
 void			ClearPlayersOfferSlot( INT32 ubSlotToClear );
 void			ClearArmsDealerOfferSlot( INT32 ubSlotToClear );
-void			ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue );
 
 BOOLEAN			DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 
@@ -1551,8 +1551,14 @@ BOOLEAN RenderShopKeeperInterface()
 	swprintf( zMoney, L"%d", gArmsDealerStatus[gbSelectedArmsDealerID].uiArmsDealersCash );
 
 	InsertCommasForDollarFigure( zMoney );
-	InsertDollarSignInToString( zMoney );
-	DrawTextToScreen( zMoney, SKI_BUDGET_X, SKI_BUDGET_OFFSET_TO_VALUE, SKI_BUDGET_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
+
+	CHAR16			zTemp2[64];
+	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+		swprintf( zTemp2, L"%s Intel", zMoney );
+	else
+		swprintf( zTemp2, L"$%s", zMoney );
+
+	DrawTextToScreen( zTemp2, SKI_BUDGET_X, SKI_BUDGET_OFFSET_TO_VALUE, SKI_BUDGET_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
 
 	//if the dealer repairs
 	if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
@@ -1570,11 +1576,20 @@ BOOLEAN RenderShopKeeperInterface()
 	DisplayWrappedString( SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_Y, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SkiMessageBoxText[ SKI_PLAYERS_CURRENT_BALANCE ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 	//Display the players current balance value
-	swprintf( zMoney, L"%d", LaptopSaveInfo.iCurrentBalance );
+	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+	{
+		swprintf( zMoney, L"%d", (int)(GetIntel()) );
+		InsertCommasForDollarFigure( zMoney );
+		swprintf( zTemp2, L"%s Intel", zMoney );
+	}
+	else
+	{
+		swprintf( zMoney, L"%d", LaptopSaveInfo.iCurrentBalance );
+		InsertCommasForDollarFigure( zMoney );
+		swprintf( zTemp2, L"$%s", zMoney );
+	}
 
-	InsertCommasForDollarFigure( zMoney );
-	InsertDollarSignInToString( zMoney );
-	DrawTextToScreen( zMoney, SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
+	DrawTextToScreen( zTemp2, SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
 
 	//Display the total value text
 	DisplayWrappedString( SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_Y, SKI_TOTAL_VALUE_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[SKI_TEXT_TOTAL_VALUE], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
@@ -1734,10 +1749,11 @@ void DisplayAllDealersCash()
 {
 	UINT16	usPosY=0;
 	CHAR16	zTemp[512];
+	CHAR16			zTemp2[64];
 	UINT8	ubForeColor;
 
 	//loop through all the shopkeeper's and display their money
-	for ( INT8 bArmsDealer = 0; bArmsDealer<NUM_ARMS_DEALERS; bArmsDealer++ )
+	for ( INT8 bArmsDealer = 0; bArmsDealer<NUM_ARMS_DEALERS; ++bArmsDealer )
 	{
 		//Display the shopkeeper's name
 		DrawTextToScreen( gMercProfiles[ armsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, SCREEN_X_OFFSET + 540, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
@@ -1746,9 +1762,14 @@ void DisplayAllDealersCash()
 		swprintf( zTemp, L"%d", gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash );
 
 		InsertCommasForDollarFigure( zTemp );
-		InsertDollarSignInToString( zTemp );
+		
+		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+			swprintf( zTemp2, L"%s Intel", zTemp );
+		else
+			swprintf( zTemp2, L"$%s", zTemp );
+
 		ubForeColor = ( UINT8 ) ( ( bArmsDealer == gbSelectedArmsDealerID ) ? SKI_BUTTON_COLOR : SKI_TITLE_COLOR );
-		DrawTextToScreen( zTemp, SCREEN_X_OFFSET + 590, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, ubForeColor, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
+		DrawTextToScreen( zTemp2, SCREEN_X_OFFSET + 590, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, ubForeColor, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
 		usPosY += 17;
 	}
 }
@@ -2376,7 +2397,7 @@ void SelectPlayersOfferSlotsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 				SetSkiCursor( EXTERN_CURSOR );
 
 				//if the item we are adding is money
-				if( Item[ PlayersOfferArea[ ubSelectedInvSlot ].sItemIndex ].usItemClass == IC_MONEY )
+				if( Item[ PlayersOfferArea[ ubSelectedInvSlot ].sItemIndex ].usItemClass == IC_MONEY && !( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL ) )
 				{
 					//Since money is always evaluated
 					PlayersOfferArea[ ubSelectedInvSlot ].uiFlags |= ARMS_INV_PLAYERS_ITEM_HAS_VALUE;
@@ -2491,6 +2512,8 @@ void InitializeShopKeeper( BOOLEAN fResetPage )
 	
 	gpTempDealersInventory.clear();
 
+	HandlePossibleArmsDealerIntelRefresh(FALSE);
+		
 	//Get the number of distinct items in the inventory
 	//Create the shopkeeper's temp inventory
 	DetermineArmsDealersSellingInventory( );
@@ -2794,8 +2817,14 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 	{
 		swprintf( zTemp, L"%d", uiItemCost );
 		InsertCommasForDollarFigure( zTemp );
-		InsertDollarSignInToString( zTemp );
-		DrawTextToScreen( zTemp, (UINT16)(usPosX+SKI_INV_PRICE_OFFSET_X), (UINT16)(usPosY+SKI_INV_PRICE_OFFSET_Y), SKI_INV_SLOT_WIDTH, SKI_ITEM_DESC_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+		CHAR16			zTemp2[64];
+		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+			swprintf( zTemp2, L"%s Intel", zTemp );
+		else
+			swprintf( zTemp2, L"$%s", zTemp );
+
+		DrawTextToScreen( zTemp2, (UINT16)(usPosX+SKI_INV_PRICE_OFFSET_X), (UINT16)(usPosY+SKI_INV_PRICE_OFFSET_Y), SKI_INV_SLOT_WIDTH, SKI_ITEM_DESC_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
 
 	//if the there is more then 1 or if the item is stackable and some of it has been bought and only 1 remains
@@ -3453,8 +3482,14 @@ void DisplayArmsDealerOfferArea()
 		//Display the total cost text
 		swprintf( zTemp, L"%d", uiTotalCost );
 		InsertCommasForDollarFigure( zTemp );
-		InsertDollarSignInToString( zTemp );
-		DrawTextToScreen( zTemp, SKI_ARMS_DEALER_TOTAL_COST_X, (UINT16)(SKI_ARMS_DEALER_TOTAL_COST_Y+5), SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+
+		CHAR16			zTemp2[64];
+		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+			swprintf( zTemp2, L"%s Intel", zTemp );
+		else
+			swprintf( zTemp2, L"$%s", zTemp );
+
+		DrawTextToScreen( zTemp2, SKI_ARMS_DEALER_TOTAL_COST_X, (UINT16)(SKI_ARMS_DEALER_TOTAL_COST_Y+5), SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
 }
 
@@ -3586,7 +3621,7 @@ INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, 
 			SetSkiFaceRegionHelpText( &PlayersOfferArea[bCnt], &gPlayersOfferSlotsSmallFaceMouseRegions[ bCnt ], PLAYERS_OFFER_AREA );
 
 			//if the item we are adding is money
-			if( Item[ PlayersOfferArea[ bCnt ].sItemIndex ].usItemClass == IC_MONEY )
+			if( Item[ PlayersOfferArea[ bCnt ].sItemIndex ].usItemClass == IC_MONEY && !( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL ) )
 			{
 				//Since money is always evaluated
 				PlayersOfferArea[ bCnt ].uiFlags |= ARMS_INV_PLAYERS_ITEM_HAS_VALUE;
@@ -3716,8 +3751,14 @@ void DisplayPlayersOfferArea()
 		//Display the total cost text
 		swprintf( zTemp, L"%d", uiTotalCost );
 		InsertCommasForDollarFigure( zTemp );
-		InsertDollarSignInToString( zTemp );
-		DrawTextToScreen( zTemp, SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_OFFSET_TO_VALUE, SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		
+		CHAR16			zTemp2[64];
+		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+			swprintf( zTemp2, L"%s Intel", zTemp );
+		else
+			swprintf( zTemp2, L"$%s", zTemp );
+
+		DrawTextToScreen( zTemp2, SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_OFFSET_TO_VALUE, SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
 }
 
@@ -3779,6 +3820,10 @@ UINT32 CalculateTotalArmsDealerCost()
 
 UINT32 CalculateTotalPlayersValue()
 {
+	// we can't substitute money for intel
+	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+		return 0;
+
 	UINT32 uiTotal = 0;
 
 	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
@@ -3850,13 +3895,17 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 		//if the player doesn't have enough money to pay for what he's buying
 		if( uiArmsDealersItemsCost > uiPlayersTotalMoneyValue )
 		{
+			INT32 balance = LaptopSaveInfo.iCurrentBalance;
+			if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+				balance = GetIntel();
+
 			//if the player doesn't have enough money in his account to pay the rest
-			if( uiArmsDealersItemsCost > uiPlayersTotalMoneyValue + LaptopSaveInfo.iCurrentBalance )
+			if( uiArmsDealersItemsCost > uiPlayersTotalMoneyValue + balance )
 			{
 				// tell player he can't possibly afford this
 				SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 6,0, 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
 				SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SKIP_A_FRAME, 0,0, 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
-				SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 0, ( uiArmsDealersItemsCost - ( LaptopSaveInfo.iCurrentBalance + uiPlayersTotalMoneyValue ) ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
+				SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 0, ( uiArmsDealersItemsCost - ( balance + uiPlayersTotalMoneyValue ) ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
 			}
 			else
 			{
@@ -3865,10 +3914,20 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 				SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SKIP_A_FRAME, 0,0, 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
 				SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 6,0, 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
 
-				if( uiPlayersTotalMoneyValue )
-					SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 1, ( uiArmsDealersItemsCost - uiPlayersTotalMoneyValue ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
+				if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+				{
+					if ( uiPlayersTotalMoneyValue )
+						SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 8, ( uiArmsDealersItemsCost - uiPlayersTotalMoneyValue ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
+					else
+						SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 9, ( uiArmsDealersItemsCost - uiPlayersTotalMoneyValue ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
+				}
 				else
-					SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 2, ( uiArmsDealersItemsCost - uiPlayersTotalMoneyValue ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
+				{
+					if ( uiPlayersTotalMoneyValue )
+						SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 1, ( uiArmsDealersItemsCost - uiPlayersTotalMoneyValue ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
+					else
+						SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 2, ( uiArmsDealersItemsCost - uiPlayersTotalMoneyValue ), 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
+				}
 			}
 
 			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_SHOPKEEPER, 7,0, 0, giShopKeeperFaceIndex, DIALOGUE_SHOPKEEPER_UI );
@@ -4649,7 +4708,7 @@ INT16 AddInventoryToSkiLocation( INVENTORY_IN_SLOT *pInv, UINT16 ubSpotLocation,
 				IfMercOwnedCopyItemToMercInv( pInv );
 
 				//if the item is money
-				if( Item[ PlayersOfferArea[ ubSpotLocation ].sItemIndex ].usItemClass == IC_MONEY )
+				if( Item[ PlayersOfferArea[ ubSpotLocation ].sItemIndex ].usItemClass == IC_MONEY && !(armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL) )
 				{
 					//Since money is always evaluated
 					PlayersOfferArea[ ubSpotLocation ].uiFlags |= ARMS_INV_PLAYERS_ITEM_HAS_VALUE;
@@ -5304,7 +5363,9 @@ void EnableDisableEvaluateAndTransactionButtons()
 					fItemEvaluated = TRUE;
 
 				//else if it is not a repair dealer, and the item is money
-				else if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS && Item[ PlayersOfferArea[ ubCnt ].sItemIndex ].usItemClass == IC_MONEY )
+				else if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS && 
+					Item[ PlayersOfferArea[ ubCnt ].sItemIndex ].usItemClass == IC_MONEY &&
+					!( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL ) )
 					fItemEvaluated = TRUE;
 			}
 		}
@@ -5354,8 +5415,12 @@ void EnableDisableEvaluateAndTransactionButtons()
 	{
 		DisableButton( guiSKI_TransactionButton );
 	}
-	
-	if( uiArmsDealerTotalCost > uiPlayersOfferAreaTotalCost + LaptopSaveInfo.iCurrentBalance )
+			
+	INT32 balance = LaptopSaveInfo.iCurrentBalance;
+	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+		balance = GetIntel();
+
+	if( uiArmsDealerTotalCost > uiPlayersOfferAreaTotalCost + balance )
 	{
 		DisableButton( guiSKI_TransactionButton );
 	}
@@ -5415,6 +5480,10 @@ void AddItemToPlayersOfferAreaAfterShopKeeperOpen( OBJECTTYPE *pItemObject)
 
 BOOLEAN IsMoneyTheOnlyItemInThePlayersOfferArea( )
 {
+	// we can't substitute money for intel
+	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+		return FALSE;
+
 	BOOLEAN fFoundMoney = FALSE;
 
 	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
@@ -5438,6 +5507,10 @@ BOOLEAN IsMoneyTheOnlyItemInThePlayersOfferArea( )
 
 UINT32 CalculateHowMuchMoneyIsInPlayersOfferArea( )
 {
+	// we can't substitute money for intel
+	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+		return 0;
+
 	UINT32	uiTotalMoneyValue=0;
 
 	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
@@ -5868,6 +5941,27 @@ void ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue 
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 }
 
+void ConfirmToDeductIntelFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue )
+{
+	// yes, deduct the money
+	if ( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		UINT32	uiPlayersOfferAreaValue = CalculateTotalPlayersValue();
+		UINT32	uiArmsDealersItemsCost = CalculateTotalArmsDealerCost();
+		INT32		iMoneyToDeduct = (INT32)( uiArmsDealersItemsCost - uiPlayersOfferAreaValue );
+
+		//Perform the transaction with the extra money from the players account
+		PerformTransaction( iMoneyToDeduct );
+
+		AddIntel( -iMoneyToDeduct, TRUE );
+	}
+
+	// done, re-enable calls to PerformTransaction()
+	gfPerformTransactionInProgress = FALSE;
+
+	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
+}
+
 // run through what the player has on the table and see if the shop keep will aceept it or not
 BOOLEAN WillShopKeeperRejectItemFromPlayer( INT8 bDealerId, UINT16 usItem )
 {
@@ -5875,13 +5969,16 @@ BOOLEAN WillShopKeeperRejectItemFromPlayer( INT8 bDealerId, UINT16 usItem )
 
 	if ( Item[usItem].usItemClass == IC_MONEY )
 	{
-		fRejected = FALSE;
+		// we can't substitute money for intel
+		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+			fRejected = TRUE;
+		else
+			fRejected = FALSE;
 	}
 	else if ( CanDealerTransactItem( gbSelectedArmsDealerID, usItem, TRUE ) )
 	{
 		fRejected = FALSE;
 	}
-
 	else
 	{
 		fRejected = TRUE;

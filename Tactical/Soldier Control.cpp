@@ -15725,15 +15725,11 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		// 0 - civilians are always ok
 		// 1 - civilians are suspicious at night
 		// 2 - civilians are always suspicious
+		// if underground, we still use the surface value
 
-		UINT8 sectordata = 0;
-		UINT8 ubSectorId = SECTOR( gWorldSectorX, gWorldSectorY );
-		if ( gbWorldSectorZ > 0 )
-			// underground we are always suspicious
-			sectordata = 2;
-		else if ( ubSectorId >= 0 && ubSectorId < 256 )
-			sectordata = SectorExternalData[ubSectorId][gbWorldSectorZ].usCurfewValue;
-
+		UINT8 ubSectorId = SECTOR( this->sSectorX, this->sSectorY );
+		UINT8 sectordata = SectorExternalData[ubSectorId][0].usCurfewValue;
+		
 		if ( sectordata > 1 )
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_CURFEW_BROKEN], this->GetName( ) );
@@ -15746,83 +15742,15 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 			return FALSE;
 		}
 
-		// check wether we are around a fresh corpse - this will make us much more suspicious
-		INT32				cnt;
-		ROTTING_CORPSE *	pCorpse;
-		for ( cnt = 0; cnt < giNumRottingCorpse; ++cnt )
-		{
-			pCorpse = &(gRottingCorpse[cnt]);
-
-			if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 && PythSpacesAway( this->sGridNo, pCorpse->def.sGridNo ) <= 5 )
-			{
-				// check: is this corpse that of an ally of the observing soldier?
-				BOOLEAN fCorpseOFAlly = FALSE;
-				if ( pSoldier->bTeam == ENEMY_TEAM )
-				{
-					// check wether corpse was one of soldier's allies
-					for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
-					{
-						if ( COMPARE_PALETTEREP_ID( pCorpse->def.VestPal, gUniformColors[i].vest ) && COMPARE_PALETTEREP_ID( pCorpse->def.PantsPal, gUniformColors[i].pants ) )
-						{
-							fCorpseOFAlly = TRUE;
-							break;
-						}
-					}
-				}
-				else if ( pSoldier->bTeam == OUR_TEAM || pSoldier->bTeam == MILITIA_TEAM )
-				{
-					// check wether corpse was one of soldier's allies					
-					for ( UINT8 i = UNIFORM_MILITIA_ROOKIE; i <= UNIFORM_MILITIA_ELITE; ++i )
-					{
-						if ( COMPARE_PALETTEREP_ID( pCorpse->def.VestPal, gUniformColors[i].vest ) && COMPARE_PALETTEREP_ID( pCorpse->def.PantsPal, gUniformColors[i].pants ) )
-						{
-							fCorpseOFAlly = TRUE;
-							break;
-						}
-					}
-				}
-
-				// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
-				if ( fCorpseOFAlly && SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->GetName( ) );
-					return FALSE;
-				}
-			}
-		}
-	}
-
-	if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
-	{
-		// if our equipment is too good, that is suspicious... not covert!
-		if ( this->EquipmentTooGood( (distance < discoverrange) ) )
-		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SUSPICIOUS_EQUIPMENT], this->GetName( ) );
-			return FALSE;
-		}
-
-		// are we targeting a buddy of our observer?
-		if ( this->ubTargetID != NOBODY && MercPtrs[this->ubTargetID] && MercPtrs[this->ubTargetID]->bTeam == pSoldier->bTeam )
-		{
-			// if we are aiming at a soldier, others will notice our intent... not covert!
-			if ( WeaponReady( this ) )
-			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->GetName( ), MercPtrs[this->ubTargetID]->GetName( ) );
-				return FALSE;
-			}
-		}
-
-		// even as a soldier, we will be caught around fresh corpses
-		// assassins will not be uncovered around corpses, as the AI cannot willingly evade them... one could 'ward' against assassins by surrounding yourself with fresh corpses
-		if ( distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !this->IsAssassin( ) )
+		// do this check only if we are in the currently loaded sector
+		if ( this->sSectorX == gWorldSectorX && this->sSectorY == gWorldSectorY && this->bSectorZ == gbWorldSectorZ )
 		{
 			// check wether we are around a fresh corpse - this will make us much more suspicious
-			// I deem this necessary, to avoid cheap exploits by nefarious players :-)
 			INT32				cnt;
 			ROTTING_CORPSE *	pCorpse;
 			for ( cnt = 0; cnt < giNumRottingCorpse; ++cnt )
 			{
-				pCorpse = &(gRottingCorpse[cnt]);
+				pCorpse = &( gRottingCorpse[cnt] );
 
 				if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 && PythSpacesAway( this->sGridNo, pCorpse->def.sGridNo ) <= 5 )
 				{
@@ -15856,8 +15784,84 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 					// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
 					if ( fCorpseOFAlly && SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
 					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->GetName( ) );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->GetName() );
 						return FALSE;
+					}
+				}
+			}
+		}
+	}
+
+	if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+	{
+		// if our equipment is too good, that is suspicious... not covert!
+		if ( this->EquipmentTooGood( (distance < discoverrange) ) )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_SUSPICIOUS_EQUIPMENT], this->GetName( ) );
+			return FALSE;
+		}
+
+		// do this check only if we are in the currently loaded sector
+		if ( this->sSectorX == gWorldSectorX && this->sSectorY == gWorldSectorY && this->bSectorZ == gbWorldSectorZ )
+		{
+			// are we targeting a buddy of our observer?
+			if ( this->ubTargetID != NOBODY && MercPtrs[this->ubTargetID] && MercPtrs[this->ubTargetID]->bTeam == pSoldier->bTeam )
+			{
+				// if we are aiming at a soldier, others will notice our intent... not covert!
+				if ( WeaponReady( this ) )
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_TARGETTING_SOLDIER], this->GetName(), MercPtrs[this->ubTargetID]->GetName() );
+					return FALSE;
+				}
+			}
+
+			// even as a soldier, we will be caught around fresh corpses
+			// assassins will not be uncovered around corpses, as the AI cannot willingly evade them... one could 'ward' against assassins by surrounding yourself with fresh corpses
+			if ( distance < gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse && !this->IsAssassin() )
+			{
+				// check wether we are around a fresh corpse - this will make us much more suspicious
+				// I deem this necessary, to avoid cheap exploits by nefarious players :-)
+				INT32				cnt;
+				ROTTING_CORPSE *	pCorpse;
+				for ( cnt = 0; cnt < giNumRottingCorpse; ++cnt )
+				{
+					pCorpse = &( gRottingCorpse[cnt] );
+
+					if ( pCorpse && pCorpse->fActivated && pCorpse->def.ubAIWarningValue > 0 && PythSpacesAway( this->sGridNo, pCorpse->def.sGridNo ) <= 5 )
+					{
+						// check: is this corpse that of an ally of the observing soldier?
+						BOOLEAN fCorpseOFAlly = FALSE;
+						if ( pSoldier->bTeam == ENEMY_TEAM )
+						{
+							// check wether corpse was one of soldier's allies
+							for ( UINT8 i = UNIFORM_ENEMY_ADMIN; i <= UNIFORM_ENEMY_ELITE; ++i )
+							{
+								if ( COMPARE_PALETTEREP_ID( pCorpse->def.VestPal, gUniformColors[i].vest ) && COMPARE_PALETTEREP_ID( pCorpse->def.PantsPal, gUniformColors[i].pants ) )
+								{
+									fCorpseOFAlly = TRUE;
+									break;
+								}
+							}
+						}
+						else if ( pSoldier->bTeam == OUR_TEAM || pSoldier->bTeam == MILITIA_TEAM )
+						{
+							// check wether corpse was one of soldier's allies					
+							for ( UINT8 i = UNIFORM_MILITIA_ROOKIE; i <= UNIFORM_MILITIA_ELITE; ++i )
+							{
+								if ( COMPARE_PALETTEREP_ID( pCorpse->def.VestPal, gUniformColors[i].vest ) && COMPARE_PALETTEREP_ID( pCorpse->def.PantsPal, gUniformColors[i].pants ) )
+								{
+									fCorpseOFAlly = TRUE;
+									break;
+								}
+							}
+						}
+
+						// a corpse was found near our position. If the soldier observing us can see it, he will be alarmed 
+						if ( fCorpseOFAlly && SoldierTo3DLocationLineOfSightTest( pSoldier, pCorpse->def.sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_WANTED_DIR ) )
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NEAR_CORPSE], this->GetName() );
+							return FALSE;
+						}
 					}
 				}
 			}
@@ -15867,10 +15871,10 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 	// uncover if merc is using flashlight and alert is raised
 	if ( pSoldier->bTeam == ENEMY_TEAM &&
 		 pSoldier->aiData.bAlertStatus >= STATUS_RED &&
-		 (NightTime( ) || gbWorldSectorZ > 0) &&
+		 (NightTime( ) || this->bSectorZ > 0) &&
 		 this->GetBestEquippedFlashLightRange( ) > 0 )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s has flashlight!", this->GetName( ) );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s has a flashlight!", this->GetName( ) );
 		return FALSE;
 	}
 
@@ -16045,7 +16049,7 @@ void	SOLDIERTYPE::ApplyCovert( BOOLEAN aWithMessage )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_DISGUISED_AS_CIVILIAN], this->GetName( ) );
 			}
 		}
-
+		
 		// reevaluate sight - otherwise we could hide by changing clothes in plain sight!
 		OtherTeamsLookForMan( this );
 	}
@@ -17458,7 +17462,22 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 {
 	// these effects last only one turn
 	this->usSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN | SOLDIER_ASSAULT_BONUS | SOLDIER_RAISED_REDALERT);
-	
+	this->usSoldierFlagMask2 &= ~SOLDIER_CONCEALINSERTION;
+
+	// this looks bizarre, but is required
+	if ( this->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION_DISCOVERED )
+	{
+		this->usSoldierFlagMask2 &= ~SOLDIER_CONCEALINSERTION_DISCOVERED;
+
+		// we loose our disguise
+		this->LooseDisguise();
+
+		if ( gSkillTraitValues.fCOStripIfUncovered )
+			this->Strip();
+
+		HandleInitialRedAlert( ENEMY_TEAM, FALSE );
+	}
+
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;
 	
@@ -17550,6 +17569,63 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 			canuse = TRUE;
 		break;
 
+	case SKILLS_INTEL_CONCEAL:
+	case SKILLS_INTEL_GATHERINTEL:
+		// in order to conceal, we need:
+		// - enemy team not aware of us (otherwise we could use this skill to instantly escape from combat)
+		// - an enemy presence (otherwise, why bother)
+		// - we must be alone (otherwise player could start combat again, at which point we'd need to appear from thin air)
+		// - no militia present (same reason)
+		// - no hostile civilians or creatures
+		// - valid disguise
+		{
+			canuse = TRUE;
+
+			// we might already be on assignment, so be careful here
+			INT8 sectorz = this->bSectorZ;
+			if ( SPY_LOCATION( this->bAssignment ) )
+				sectorz = max( 0, sectorz - 10 );
+
+			// if we are disguised as a civilian, but there is a curfew here, don't allow that
+			if ( ( this->usSoldierFlagMask & SOLDIER_COVERT_CIV ) )
+			{
+				// civilians are suspicious if they are found in certain sectors. Especially at night
+				// sector specific value:
+				// 0 - civilians are always ok
+				// 1 - civilians are suspicious at night
+				// 2 - civilians are always suspicious
+				// if underground, we still use the surface value
+
+				UINT8 ubSectorId = SECTOR( this->sSectorX, this->sSectorY );
+				UINT8 sectordata = SectorExternalData[ubSectorId][sectorz].usCurfewValue;
+
+				if ( sectordata > 1 )
+					canuse = FALSE;
+				// is it night?
+				else if ( sectordata == 1 && GetTimeOfDayAmbientLightLevel() < NORMAL_LIGHTLEVEL_DAY + 2 )
+					canuse = FALSE;
+			}
+
+			if ( canuse && NumEnemiesInAnySector( this->sSectorX, this->sSectorY, sectorz ) > 0 &&
+				NumPlayerTeamMembersInSector( this->sSectorX, this->sSectorY, this->bSectorZ ) == 1 &&
+				( sectorz || NumNonPlayerTeamMembersInSector( this->sSectorX, this->sSectorY, MILITIA_TEAM ) == 0 ) &&		
+				SeemsLegit( this->ubID ) )
+			{
+				// additional checks if we are in the currently loaded sector
+				if ( this->sSectorX == gWorldSectorX && this->sSectorY == gWorldSectorY && this->bSectorZ == gbWorldSectorZ )
+				{
+					if ( gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition ||
+						( gTacticalStatus.uiFlags & INCOMBAT ) ||
+						HostileCiviliansPresent() ||
+						HostileCreaturesPresent() )
+					{
+						canuse = FALSE;
+					}
+				}
+			}
+		}
+		break;
+
 	case SKILLS_SPOTTER:
 		if ( (!fAPCheck || EnoughPoints( this, APBPConstants[AP_SPOTTER], 0, FALSE )) && CanSpot( ) )
 			canuse = TRUE;
@@ -17621,6 +17697,33 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 
 	case SKILLS_RADIO_TURNOFF:
 		return SwitchOffRadio( );
+		break;
+
+	case SKILLS_INTEL_CONCEAL:
+	case SKILLS_INTEL_GATHERINTEL:
+		{
+			// ATE: Patch fix If in a vehicle, remove from vehicle...
+			TakeSoldierOutOfVehicle( this );
+
+			// we store our location and later retrieve it, as the gridno will be set to NOWHERE
+			this->sMTActionGridNo = this->sGridNo;
+
+			// remove from squad
+			RemoveCharacterFromSquads( this );
+
+			ChangeSoldiersAssignment( this, CONCEALED + iSkill - SKILLS_INTEL_CONCEAL );
+
+			// Remove soldier's graphic
+			this->RemoveSoldierFromGridNo();
+				
+			UpdateMercsInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+			
+			CheckForEndOfBattle( FALSE );
+
+			CheckAndHandleUnloadingOfCurrentWorld();
+
+			return TRUE;
+		}
 		break;
 
 	case SKILLS_SPOTTER:
@@ -17700,6 +17803,26 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 			wcscat( skilldescarray, atStr );
 
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[MSG113_WORKING_RADIO_SET] );
+			wcscat( skilldescarray, atStr );
+
+			break;
+
+		case SKILLS_INTEL_CONCEAL:
+		case SKILLS_INTEL_GATHERINTEL:
+
+			//swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_COVERTTRAIT] );
+			//wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_ENEMYSECTOR] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_SINGLEMERC] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_NOALARM] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_DISGUISE_CIV_OR_MIL] );
 			wcscat( skilldescarray, atStr );
 
 			break;
@@ -19732,6 +19855,117 @@ void	SOLDIERTYPE::CancelDrag()
 
 	this->usDragPersonID = NOBODY;
 	this->sDragCorpseID = -1;
+}
+
+// Flugente: spy assignments
+extern UINT32 gCoolnessBySector[256];
+
+UINT8		SOLDIERTYPE::GetUncoverRisk()
+{
+	if ( this->stats.bLife < OKLIFE || ( this->usSoldierFlagMask & SOLDIER_POW ) )
+		return 0;
+
+	if ( !SPY_LOCATION(this->bAssignment) )
+		return 100;
+
+	// base value:
+	// 15% level
+	// 15% stealth
+	// 70% covert trait
+	UINT32 val = 15 * EffectiveExpLevel ( this, FALSE )
+		+ 1.5f * GetWornStealth( this )
+		+ 350 * NUM_SKILL_TRAITS( this, COVERT_NT );
+
+	ReducePointsForFatigue( this, &val );
+
+	// personality/disability modifiers
+	FLOAT modifier = 1.0f;
+	if ( DoesMercHaveDisability( this, NERVOUS ) )					modifier -= 0.05f;
+
+	if ( DoesMercHavePersonality( this, CHAR_TRAIT_SOCIABLE ) )		modifier += 0.05f;
+	if ( DoesMercHavePersonality( this, CHAR_TRAIT_COWARD ) )		modifier -= 0.05f;
+
+	// personal value in [0; 100]
+	int personalvalue = (FLOAT)(val * modifier) / 10.0f;
+	personalvalue = min( 100, max( 0, personalvalue ) );
+	
+	// if we do this disguised as a soldier, risk will be much higer, as we are under much more scrutiny. This makes up for the increased gain in soldier disguise
+	// less risk if we are asleep, just hiding or forced to hide
+	UINT8 typemultiplier = ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER ) ? 5 : 2;
+	if ( ( this->bAssignment == CONCEALED ) || this->flags.fMercAsleep || this->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+		typemultiplier = 1;
+		
+	// we now take the sector coolness as a measurement of how important the sector is, and thus how intel we gain
+	// correct outliers - value in[0; 100]
+	UINT32 sectorvalue = typemultiplier * min( 20, gCoolnessBySector[SECTOR( this->sSectorX, this->sSectorY )] );
+	
+	UINT8 totalvalue = sectorvalue * ( 110 - personalvalue ) / 100;
+	totalvalue = min(100, max(0, totalvalue ) );
+
+	// A most awesome merc in Meduna palace, disguised as a soldier, would have a value of 1.05 * 4. 63 * 4 = 10.649 at this point.
+	// This would be the place where we modify our intel gain rate.
+
+	return totalvalue;
+}
+
+FLOAT		SOLDIERTYPE::GetIntelGain()
+{
+	if ( this->stats.bLife < OKLIFE || ( this->usSoldierFlagMask & SOLDIER_POW ) )
+		return 0.0f;
+
+	// if not on correct assignments, no gain
+	if ( this->bAssignment != GATHERINTEL )
+		return 0.0f;
+
+	// if we're asleep, or on a penalty, we accomplish nothing
+	if ( this->flags.fMercAsleep || this->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+		return 0.0f;
+
+	// the covert trait isn't that important in determining the intel gain. It is much more important in mitigating the risk of exposure, however
+	// base value:
+	// 50% wisdom
+	// 10% level
+	// 5% scout trait
+	// 15% covert trait
+	// 20% snitch trait
+	UINT32 val = 5 * EffectiveWisdom( this )
+		+ 10 * EffectiveExpLevel ( this, FALSE ) 
+		+ 50 * NUM_SKILL_TRAITS( this, SCOUTING_NT ) 
+		+ 75 * NUM_SKILL_TRAITS( this, COVERT_NT ) 
+		+ 200 * NUM_SKILL_TRAITS( this, SNITCH_NT );
+
+	ReducePointsForFatigue( this, &val );
+
+	// personality/disability modifiers
+	FLOAT modifier = 1.0f;
+	if ( DoesMercHaveDisability( this, FORGETFUL ) )	modifier -= 0.15f;
+	if ( DoesMercHaveDisability( this, PSYCHO ) )		modifier -= 0.05f;
+	
+	if ( DoesMercHavePersonality( this, CHAR_TRAIT_SOCIABLE ) )		modifier += 0.10f;
+	if ( DoesMercHavePersonality( this, CHAR_TRAIT_LONER ) )		modifier -= 0.10f;
+	if ( DoesMercHavePersonality( this, CHAR_TRAIT_ASSERTIVE ) )	modifier += 0.05f;
+	if ( DoesMercHavePersonality( this, CHAR_TRAIT_PRIMITIVE ) )	modifier -= 0.10f;
+		
+	FLOAT personalvalue = (FLOAT)(val * modifier) / 1000.0f;
+
+	// we now take the sector coolness as a measurement of how important the sector is, and thus how intel we gain
+	// correct outliers
+	UINT32 ubLocationModifier = 1 + max(2, min(20, gCoolnessBySector[SECTOR( this->sSectorX, this->sSectorY )] ) );
+
+	// in order not to make the differences to great, alter these values - will now be in [0.6; 4.63]
+	FLOAT sectorvalue = log( ubLocationModifier );
+	sectorvalue *= sectorvalue / 2.0f;
+
+	FLOAT totalvalue = personalvalue * sectorvalue;
+
+	// if we do this disguised as a soldier, we get more info
+	if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+		totalvalue *= 2;
+
+	// A most awesome merc in Meduna palace, disguised as a soldier, would have a value of 1.15 * 4.63 * 2 = 10.649 at this point.
+	// This would be the place where we modify our intel gain rate.
+
+	return totalvalue;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
@@ -21807,11 +22041,10 @@ void DebugValidateSoldierData( )
 
 	// reset frame counter
 	uiFrameCount = 0;
-
-
+	
 	// Loop through our team...
 	cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; cnt++, pSoldier++ )
+	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, pSoldier++ )
 	{
 		if ( pSoldier->bActive )
 		{
@@ -21820,7 +22053,11 @@ void DebugValidateSoldierData( )
 			if ( pSoldier->stats.bLife > 0 && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
 				// Alive -- now check for proper group IDs
-				if ( pSoldier->ubGroupID == 0 && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_POW && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
+				if ( pSoldier->ubGroupID == 0 && 
+					!SPY_LOCATION( pSoldier->bAssignment ) &&
+					pSoldier->bAssignment != IN_TRANSIT && 
+					pSoldier->bAssignment != ASSIGNMENT_POW && 
+					!(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 				{
 					// This is bad!
 					swprintf( sString, L"Soldier Data Error: Soldier %d is alive but has a zero group ID.", cnt );
@@ -21833,9 +22070,9 @@ void DebugValidateSoldierData( )
 					fProblemDetected = TRUE;
 				}
 			}
-			else
+			//else
 			{
-				if ( pSoldier->ubGroupID != 0 && (pSoldier->flags.uiStatusFlags & SOLDIER_DEAD) )
+				//if ( pSoldier->ubGroupID != 0 && (pSoldier->flags.uiStatusFlags & SOLDIER_DEAD) )
 				{
 					// Dead guys should have 0 group IDs
 					//swprintf( sString, L"GroupID Error: Soldier %d is dead but has a non-zero group ID.", cnt );
@@ -21847,7 +22084,7 @@ void DebugValidateSoldierData( )
 			if ( (pSoldier->bAssignment != IN_TRANSIT) &&
 				 ((pSoldier->sSectorX <= 0) || (pSoldier->sSectorX >= 17) ||
 				 (pSoldier->sSectorY <= 0) || (pSoldier->sSectorY >= 17) ||
-				 (pSoldier->bSectorZ  < 0) || (pSoldier->bSectorZ >   3)) )
+				 (pSoldier->bSectorZ  < 0) || (pSoldier->bSectorZ > (SPY_LOCATION( pSoldier->bAssignment ) ? 13 : 3) ) ) )
 			{
 				swprintf( sString, L"Soldier Data Error: Soldier %d is located at %d/%d/%d.", cnt, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 				fProblemDetected = TRUE;
@@ -22051,7 +22288,7 @@ BOOLEAN HAS_SKILL_TRAIT( SOLDIERTYPE * pSoldier, UINT8 uiSkillTraitNumber )
 		return FALSE;
 
 	// Flugente: compatibility with skills
-	if ( uiSkillTraitNumber == VARIOUSSKILLS )
+	if ( uiSkillTraitNumber == INTEL || uiSkillTraitNumber == VARIOUSSKILLS )
 		return TRUE;
 
 	INT8 bNumMajorTraitsCounted = 0;

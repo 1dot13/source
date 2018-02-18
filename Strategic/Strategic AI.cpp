@@ -3931,13 +3931,14 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 		InitBloodCatSectors();
 		//This info is used to clean up the two new codes inserted into the
 		//middle of the enumeration for battle codes.
-		if( gubEnemyEncounterCode > CREATURE_ATTACK_CODE )
+		if( GetEnemyEncounterCode() > CREATURE_ATTACK_CODE )
 		{
-			gubEnemyEncounterCode += 2;
+			SetEnemyEncounterCode( GetEnemyEncounterCode() + 2 );
 		}
-		if( gubExplicitEnemyEncounterCode > CREATURE_ATTACK_CODE )
+
+		if( GetExplicitEnemyEncounterCode() > CREATURE_ATTACK_CODE )
 		{
-			gubExplicitEnemyEncounterCode += 2;
+			SetExplicitEnemyEncounterCode( GetExplicitEnemyEncounterCode() + 2 );
 		}
 
 	}

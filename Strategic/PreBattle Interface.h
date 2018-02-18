@@ -42,6 +42,7 @@ enum
 
 	ENEMY_AMBUSH_DEPLOYMENT_CODE,	// Flugente: an ambush in which we can deploy our mercs (somewhat)
 	ENEMY_INVASION_AIRDROP_CODE,	// Flugente: enemy airdrop
+	CONCEALINSERTION_CODE,			// Flugente: a spy is no longer concealed, this causes us to drop into combat
 };
 
 extern BOOLEAN gfAutoAmbush;
@@ -64,14 +65,16 @@ extern BOOLEAN gfPersistantPBI;
 //Contains general information about the type of encounter the player is faced with.	This
 //determines whether or not you can autoresolve the battle or even retreat.	This code
 //dictates the header that is used at the top of the PBI.
-extern UINT8 gubEnemyEncounterCode;
+UINT8 GetEnemyEncounterCode();
+void SetEnemyEncounterCode( UINT8 aCode );
 
 //The autoresolve during tactical battle option needs more detailed information than the 
 //gubEnemyEncounterCode can provide.	The explicit version contains possibly unique codes
 //for reasons not normally used in the PBI.	For example, if we were fighting the enemy
 //in a normal situation, then shot at a civilian, the civilians associated with the victim
 //would turn hostile, which would disable the ability to autoresolve the battle.
-extern BOOLEAN gubExplicitEnemyEncounterCode;
+UINT8 GetExplicitEnemyEncounterCode();
+void SetExplicitEnemyEncounterCode( UINT8 aCode );
 
 //Location of the current battle (determines where the animated icon is blitted) and if the
 //icon is to be blitted.

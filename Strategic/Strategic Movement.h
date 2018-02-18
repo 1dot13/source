@@ -80,19 +80,25 @@ typedef struct ENEMYGROUP
 
 //NOTE:	ALL FLAGS ARE CLEARED WHENEVER A GROUP ARRIVES IN A SECTOR, OR ITS WAYPOINTS ARE
 //		DELETED!!!
-#define GROUPFLAG_SIMULTANEOUSARRIVAL_APPROVED	0x00000001
+#define GROUPFLAG_SIMULTANEOUSARRIVAL_APPROVED		0x00000001
 #define GROUPFLAG_SIMULTANEOUSARRIVAL_CHECKED		0x00000002
 //I use this flag when traversing through a list to determine which groups meet whatever conditions,
 //then add this marker flag.	The second time I traverse the list, I simply check for this flag,
 //apply my modifications to the group, and remove the flag.	If you decide to use it, make sure the 
 //flag is cleared.
-#define GROUPFLAG_MARKER												0x00000004
+#define GROUPFLAG_MARKER							0x00000004
 //Set whenever a group retreats from battle.	If the group arrives in the next sector and enemies are there
 //retreat will not be an option.
 #define GROUPFLAG_JUST_RETREATED_FROM_BATTLE		0x00000008
 #define GROUPFLAG_HIGH_POTENTIAL_FOR_AMBUSH			0x00000010
-#define GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY	0x00000020
+#define GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY		0x00000020
 
+#define GROUPFLAGS_TODELETE							0x0000003F
+
+// Flugente: these flags determine whether a group will always be visible on the map
+#define GROUPFLAG_KNOWN_POSITION					0x00000040
+#define GROUPFLAG_KNOWN_DIRECTION					0x00000080
+#define GROUPFLAG_KNOWN_NUMBER						0x00000100
 
 typedef struct GROUP
 {
@@ -320,6 +326,11 @@ BOOLEAN GroupHasInTransitDeadOrPOWMercs( GROUP *pGroup );
 
 BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY ); // added by SANDRO
 
+// Flugente: concealed mercs are in a different sector level, but we pretend they aren't... so we gain scout vision if a concealed merc is 'present'
+BOOLEAN ConcealedMercInSector( INT16 ubSectorNumX, INT16 ubSectorNumY, BOOLEAN aScoutsOnly );
+
 void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 sY, INT8 sZ );
+
+void GetInfoFromGroupsInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam, BOOLEAN& arDetection, BOOLEAN& arCount, BOOLEAN& arDirection );
 
 #endif

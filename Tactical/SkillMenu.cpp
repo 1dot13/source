@@ -139,10 +139,11 @@ TraitSelection::Setup( UINT32 aVal )
 	CHAR16 pStr[300];
 
 	// create entries for the sub-menus for each trait
-	const UINT8 num = 2;
+	const UINT8 num = 3;
 	UINT8 traitarray[num];
 	traitarray[0] = RADIO_OPERATOR_NT;
-	traitarray[1] = VARIOUSSKILLS;
+	traitarray[1] = INTEL;
+	traitarray[2] = VARIOUSSKILLS;
 	for ( int i = 0; i < num; ++i)
 	{
 		swprintf( pStr, gzMercSkillTextNew[traitarray[i]] );
@@ -239,6 +240,26 @@ SkillSelection::Setup( UINT32 aVal )
 			}
 			break;
 
+			case INTEL:
+			{
+				for ( UINT32 uiCounter = SKILLS_INTEL_FIRST; uiCounter <= SKILLS_INTEL_LAST; ++uiCounter )
+				{
+					swprintf( pStr, pTraitSkillsMenuStrings[uiCounter] );
+
+					pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_SkillSelection, uiCounter ) );
+
+					// if we cannot perform this skill, grey it out
+					if ( !( pSoldier->CanUseSkill( uiCounter, TRUE ) ) )
+					{
+						// Set this option off.
+						pOption->setAvail( new popupCallbackFunction<bool, void*>( &Popup_OptionOff, NULL ) );
+					}
+
+					GetPopup()->addOption( *pOption );
+				}
+			}
+			break;
+
 		case VARIOUSSKILLS:
 			{
 				for(UINT32 uiCounter = SKILLS_VARIOUS_FIRST; uiCounter <= SKILLS_VARIOUS_LAST; ++uiCounter)
@@ -289,6 +310,15 @@ SkillSelection::Setup( UINT32 aVal )
 				for(UINT32 uiCounter = SKILLS_RADIO_FIRST; uiCounter <= SKILLS_RADIO_LAST; ++uiCounter)
 				{
 					SetRegionFastHelpText( &(GetPopup()->MenuRegion[cnt++]), pSoldier->PrintSkillDesc(uiCounter) );
+				}
+			}
+			break;
+
+			case INTEL:
+			{
+				for ( UINT32 uiCounter = SKILLS_INTEL_FIRST; uiCounter <= SKILLS_INTEL_LAST; ++uiCounter )
+				{
+					SetRegionFastHelpText( &( GetPopup()->MenuRegion[cnt++] ), pSoldier->PrintSkillDesc( uiCounter ) );
 				}
 			}
 			break;

@@ -4660,6 +4660,14 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	if ( ubItemCursor == CAMERACURS )
+	{
+		if ( HasItemFlag( ( &( pSoldier->inv[HANDPOS] ) )->usItem, CAMERA ) && SoldierTo3DLocationLineOfSightTest( pSoldier, usMapPos, gsInterfaceLevel, 0, TRUE, CALC_FROM_WANTED_DIR, TRUE ) )
+			return TRUE;
+
+		return FALSE;
+	}
+
 	if ( ubItemCursor == APPLYITEMCURS )
 	{
 		if ( ItemCanBeAppliedToOthers( (&(pSoldier->inv[HANDPOS]))->usItem ) )

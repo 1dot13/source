@@ -177,6 +177,9 @@
     <ClInclude Include="insurance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="Intelmarket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Laptop All.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -443,7 +446,10 @@
     <ClCompile Include="insurance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="laptop.cpp">
+    <ClCompile Include="Intelmarket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="laptop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mercs Account.cpp">

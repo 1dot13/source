@@ -1222,10 +1222,11 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 
 		// given number of on duty members, find number of assigned chars
 		// start at beginning of list, look for people who are in sector and assigned
+		// Flugente: concealed mercs also show up here, to give the illusion they are present
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 				( pSoldier->sSectorX == sMapX) &&
 				( pSoldier->sSectorY == sMapY) &&
-				( pSoldier->bSectorZ == iCurrentMapSectorZ ) &&
+				( ( pSoldier->bSectorZ == iCurrentMapSectorZ ) || ( SPY_LOCATION( pSoldier->bAssignment) && ( pSoldier->bSectorZ - 10 == iCurrentMapSectorZ ) ) ) &&
 				( pSoldier->bAssignment >= ON_DUTY ) && ( pSoldier->bAssignment != VEHICLE ) &&
 				( pSoldier->bAssignment != IN_TRANSIT ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
@@ -6573,15 +6574,59 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	//		making it easier to detect or even count enemies in distant sectors.
 	//		This option can be combined with either of the two above.
 	
+	// Facilities can set a flag that allows detection in some sectors. We can read flags directly from the sector
+	// data to know whether we should show the enemies there. This overrides ANYTHING else.
+	if ( SectorInfo[SECTOR( sSectorX, sSectorY )].ubDetectionLevel & 1 )
+	{
+		fDetection = TRUE;
+		fDirection = TRUE;
+	}
+
+	if ( SectorInfo[SECTOR( sSectorX, sSectorY )].ubDetectionLevel & ( 1 << 2 ) )
+	{
+		fDetection = TRUE;
+		fCount	   = TRUE;
+		fDirection = TRUE;
+	}
+
+	// Flugente: check intel sector flags
+	int mapregion = ( (sSectorX - 1) / 4 ) + 4 * ( (sSectorY - 1) / 4 );
+
+	if ( LaptopSaveInfo.usMapIntelFlags & ( 1 << mapregion ) )
+	{
+		fDetection = TRUE;
+
+		if ( LaptopSaveInfo.usMapIntelFlags & ( 1 << (16 + mapregion) ) )
+		{
+			fCount		= TRUE;
+			fDirection	= TRUE;
+		}
+	}
+
+	if ( uiSectorFlags & ( SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_PERMAINFO_ENEMIES_HERE ) )
+	{
+		fDetection = TRUE;
+
+		// we know how many there are
+		if ( uiSectorFlags & ( SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER | SF_ASSIGN_PERMAINFO_ENEMIES_KNOW_NUMBER ) )
+		{
+			fCount = TRUE;
+		}
+	}
+
+	// Flugente: we can buy info on enemy groups with intel
+	GetInfoFromGroupsInSector( sSectorX, sSectorY, ENEMY_TEAM, fDetection, fCount, fDirection );
 
 	// Detection through active recon.
 	// Mercs provide recon in the same sector they're in.
 	// Militia provide recon in any adjacent sector (diagonals included)
 	// There's also a special case flag used when players encounter enemies in a sector, then retreat. You can only
 	// see the size of their force while the clock is paused. When unpaused, the flag is reset.
-	if ( CanMercsScoutThisSector( sSectorX, sSectorY, 0 ) ||
-			CanSomeoneNearbyScoutThisSector( sSectorX, sSectorY, FALSE ) || // merged militia check with scouting check - SANDRO
-			( uiSectorFlags & SF_PLAYER_KNOWS_ENEMIES_ARE_HERE ) )
+	// only do this check if we don't already know what's here
+	if ( !(fDetection && fCount) &&
+		( ( uiSectorFlags & (SF_PLAYER_KNOWS_ENEMIES_ARE_HERE| SF_ASSIGN_PERMAINFO_ENEMIES_HERE ) ) ||
+		CanMercsScoutThisSector( sSectorX, sSectorY, 0 ) ||
+		CanSomeoneNearbyScoutThisSector( sSectorX, sSectorY, FALSE ) ) )// merged militia check with scouting check - SANDRO
 	{
 		fDetection = TRUE;
 
@@ -6592,34 +6637,29 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 			fCount = TRUE;
 		}
 	}
+	
 	// SADNRO - Scouting trait check for detection of nearby enemies
-	if (CanSomeoneNearbyScoutThisSector( sSectorX, sSectorY, TRUE )) // scouting trait check
+	if ( !( fDetection && fCount ) && gSkillTraitValues.fSCCanDetectEnemyPresenseAround && CanSomeoneNearbyScoutThisSector( sSectorX, sSectorY, TRUE ) ) // scouting trait check
 	{
-		if (gSkillTraitValues.fSCCanDetectEnemyPresenseAround)
-		{
-			// show their presence
-			fDetection = TRUE;
-			// show their numbers
-			if (gSkillTraitValues.fSCCanDetermineEnemyNumbersAround)
-				fCount = TRUE;
-		}
+		// show their presence
+		fDetection = TRUE;
+
+		// show their numbers
+		if ( gSkillTraitValues.fSCCanDetermineEnemyNumbersAround )
+			fCount = TRUE;
 	}
 
 	// Explored Sector Detection
 	// Enemy can be detected in any previously-visited sector.
 	// This is also enabled by some facilities, provided a merc is present and available to do it.
-	if( GetSectorFlagStatus( sSectorX, sSectorY, 0, SF_ALREADY_VISITED ) == TRUE )
+	// HEADROCK HAM 3.2: When enabled, this INI setting disallows detection of enemy roamers beyond merc/militia recon range.
+	if( !fDetection && !gGameExternalOptions.fNoEnemyDetectionWithoutRecon && GetSectorFlagStatus( sSectorX, sSectorY, 0, SF_ALREADY_VISITED ) == TRUE )
 	{
-		// HEADROCK HAM 3.2: When enabled, this INI setting disallows detection of enemy roamers beyond merc/militia
-		// recon range.
-		if (!gGameExternalOptions.fNoEnemyDetectionWithoutRecon)
-		{
-			// then he always knows about any enemy presence for the remainder of the game, but not exact numbers
-			fDetection = TRUE;
-		}
+		// then he always knows about any enemy presence for the remainder of the game, but not exact numbers
+		fDetection = TRUE;
 	}
 
-	// if Skyrider noticed the enemis in the sector recently
+	// if Skyrider noticed the enemies in the sector recently
 	if ( uiSectorFlags & SF_SKYRIDER_NOTICED_ENEMIES_HERE )
 	{
 		// and Skyrider is still in this sector, flying
@@ -6634,38 +6674,7 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 			SectorInfo[ SECTOR( sSectorX, sSectorY ) ].uiFlags &= ~SF_SKYRIDER_NOTICED_ENEMIES_HERE;
 		}
 	}
-
-	// Flugente: we know that enemies are here
-	if ( uiSectorFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
-	{
-		fDetection = TRUE;
-
-		// we know how many there are
-		if ( uiSectorFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER )
-		{
-			fCount = TRUE;
-		}
-
-		// we know the direction they are moving in
-		if ( uiSectorFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION )
-		{
-			fDirection = TRUE;
-		}
-	}
-
-	// Facilities can set a flag that allows detection in some sectors. We can read flags directly from the sector
-	// data to know whether we should show the enemies there. This overrides ANYTHING else.
-	if (SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubDetectionLevel & 1)
-	{
-		fDetection = TRUE;
-		fDirection = TRUE;
-	}
-	if (SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubDetectionLevel & (1<<2) )
-	{
-		fCount = TRUE;
-		fDirection = TRUE;		
-	}
-
+	
 	// HEADROCK HAM 5: New cases below
 	if (!fDetection)
 	{
@@ -6685,11 +6694,11 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	else if (!fDirection)
 	{
 		// Accurate information
-		return KNOWS_HOW_MANY;
+		return KNOWS_THEYRE_THERE_AND_HOW_MANY;
 	}
 	
 	// Accurate information including direction of travel!
-	return KNOWS_HOW_MANY_AND_WHERE_GOING;
+	return KNOWS_THEYRE_THERE_AND_WHERE_GOING_AND_HOW_MANY;
 }
 
 
@@ -6836,7 +6845,7 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 				ShowNonPlayerGroupsInMotion( sSectorX, sSectorY, ENEMY_TEAM );
 				break;
 
-			case KNOWS_HOW_MANY:
+			case KNOWS_THEYRE_THERE_AND_HOW_MANY:
 				{
 					// Flugente: tanks get a special icon, so we need to count them separately
 					usNumEnemyArmedVehicles = NumEnemyArmedVehiclesInSector( sSectorX, sSectorY, ENEMY_TEAM );
@@ -6847,7 +6856,7 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 				break;
 
 			// HEADROCK HAM 5: New case for showing enemy groups AND where the are headed.
-			case KNOWS_HOW_MANY_AND_WHERE_GOING:
+			case KNOWS_THEYRE_THERE_AND_WHERE_GOING_AND_HOW_MANY:
 				{
 					// Flugente: tanks get a special icon, so we need to count them separately
 					usNumEnemyArmedVehicles = NumEnemyArmedVehiclesInSector( sSectorX, sSectorY, ENEMY_TEAM );
@@ -7986,6 +7995,21 @@ void DisplayMilitiaGroupBox()
 				SetFontForeground( FONT_FCOLOR_RED );
 
 			swprintf( sString, L"%5.2f", val_armour );
+			mprintf( x, y, sString );
+		}
+
+		y -= GetFontHeight( FONT12ARIAL ) + 2;
+
+		if ( gGameExternalOptions.fIntelResource )
+		{
+			x = MapScreenRect.iLeft + 20;
+
+			CHAR16 sString[200];
+
+			FLOAT intel = GetIntel();
+
+			SetFontForeground( FONT_FCOLOR_GREEN );
+			swprintf( sString, L"Intel: %5.2f", intel );
 			mprintf( x, y, sString );
 		}
 	}

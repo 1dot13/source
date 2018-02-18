@@ -1128,7 +1128,6 @@ void HandleDialogue( )
 
 		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_SHOPKEEPER )
 		{
-
 			if( QItem->uiSpecialEventData < 3 )
 			{
 				// post a notice if the player wants to withdraw money from thier account to cover the difference?
@@ -1136,8 +1135,14 @@ void HandleDialogue( )
 				InsertCommasForDollarFigure( zMoney );
 				InsertDollarSignInToString( zMoney );
 			}
+			else if ( QItem->uiSpecialEventData > 7 )
+			{
+				// post a notice if the player wants to withdraw money from thier account to cover the difference?
+				swprintf( zMoney, L"%d", QItem->uiSpecialEventData2 );
+				InsertCommasForDollarFigure( zMoney );
+			}
 
-			switch( QItem->uiSpecialEventData	)
+			switch( QItem->uiSpecialEventData )
 			{
 				case( 0 ):
 						swprintf( zText, SkiMessageBoxText[ SKI_SHORT_FUNDS_TEXT ], zMoney );
@@ -1184,6 +1189,22 @@ void HandleDialogue( )
 						EnableButton( guiSKI_TransactionButton );
 					}
 				break;
+
+				case8:
+					//if the player is trading items
+					swprintf( zText, SkiMessageBoxText[SKI_QUESTION_TO_DEDUCT_INTEL_FROM_PLAYERS_ACCOUNT_TO_COVER_DIFFERENCE], zMoney );
+
+					//ask them if we should deduct money out the players account to cover the difference
+					DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmToDeductIntelFromPlayersAccountMessageBoxCallBack );
+
+					break;
+
+				case 9:
+					swprintf( zText, SkiMessageBoxText[SKI_QUESTION_TO_DEDUCT_INTEL_FROM_PLAYERS_ACCOUNT_TO_COVER_COST], zMoney );
+
+					//ask them if we should deduct money out the players account to cover the difference
+					DoSkiMessageBox( MSG_BOX_BASIC_STYLE, zText, SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmToDeductIntelFromPlayersAccountMessageBoxCallBack );
+					break;
 			}
 
 		}

@@ -33,6 +33,7 @@
 	#include "Game Event Hook.h"				// added by Flugente
 	#include "MilitiaIndividual.h"				// added by Flugente
 	#include "Campaign.h"						// added by Flugente
+	#include "message.h"						// added by Flugente
 #endif
 
 // HEADROCK HAM 3: include these files so that a militia trainer's Effective Leadership can be determined. Used
@@ -432,10 +433,11 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	}
 
 	// Flugente: if we trained militia, the PMC notices us and offers their services
-	if ( gGameExternalOptions.fPMC )
+	if ( gGameExternalOptions.fPMC && !IsBookMarkSet( PMC_BOOKMARK ) )
 		AddStrategicEvent( EVENT_PMC_EMAIL, GetWorldTotalMin() + 60 * (1 + Random(6)), 0 );
 
-	AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
+	if ( !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
+		AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
 }
 
 
@@ -1382,6 +1384,9 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 	UINT8 ubScoutingRange = 1;
 	BOOLEAN bScout = FALSE;
 
+	if ( ConcealedMercInSector( sSectorX, sSectorY, FALSE ) )
+		return TRUE;
+
 	// get the sector value
 	sSector = sSectorX + sSectorY * MAP_WORLD_X;
 
@@ -1404,7 +1409,7 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 			}
 
 			// SANDRO - STOMP traits - Scouting check
-			if (fScoutTraitCheck && gGameOptions.fNewTraitSystem && ScoutIsPresentInSquad( sCounterA, sCounterB ))
+			if (fScoutTraitCheck && gGameOptions.fNewTraitSystem && ( ScoutIsPresentInSquad( sCounterA, sCounterB ) || ConcealedMercInSector( sCounterA, sCounterB, TRUE ) ) )
 			{
 				// if diagonal sector and not allowed
 				if (!gSkillTraitValues.fSCDetectionInDiagonalSectors && 
@@ -2808,4 +2813,26 @@ void DevalueResources( UINT8 aOldProgress, UINT8 aNewProgress )
 	LaptopSaveInfo.dMilitiaGunPool		*= modifier;
 	LaptopSaveInfo.dMilitiaArmourPool	*= modifier;
 	LaptopSaveInfo.dMilitiaMiscPool		*= modifier;
+}
+
+// Flugente: intel
+void AddIntel( FLOAT aValue, BOOLEAN aDoMessage )
+{
+	LaptopSaveInfo.dIntelPool = max( 0, LaptopSaveInfo.dIntelPool + aValue );
+
+	if ( aDoMessage )
+	{
+		if ( aValue >= 0.0f )
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Gained %.2f intel.", aValue );
+		else
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Spent %.2f intel.", -aValue );
+	}
+
+	if ( !IsBookMarkSet( INTELMARKET_BOOKMARK ) )
+		AddStrategicEvent( EVENT_INTEL_ENRICO_EMAIL, GetWorldTotalMin() + 60 * ( 1 + Random( 3 ) ), 0 );
+}
+
+FLOAT GetIntel()
+{
+	return LaptopSaveInfo.dIntelPool;
 }

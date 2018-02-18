@@ -6774,51 +6774,53 @@ BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT8>& arSectorIDVector )
     return ( !arSectorIDVector.empty() );
 }
 
-extern INT32 giReinforcementPool;
+extern void DoInterrogation( INT16 sMapX, INT16 sMapY, FLOAT aChanceModifier, INT16 aPrisoners[] );
 
 // we cannot simply move all prisoners of a sector. It might be a prison we are already using, so we would move all inmates, not just the new ones
 INT16 gsNumPrisoner[PRISONER_MAX] = {0};
 
 void PrisonerMessageBoxCallBack( UINT8 ubExitValue )
 {
-	UINT8 usSectorID = (UINT8)(DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).GetSelectedEntryKey( ));
-		
-	// if sector is still not set, then we did not select one - release prisoners
-	if ( usSectorID == 0 )
+	if ( DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance().GetSelectedEntryKey() < 0 )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RELEASED] );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[PRISONER_FIELDINTERROGATION_STR] );
+
+		DoInterrogation( gWorldSectorX, gWorldSectorY, 0.5f, gsNumPrisoner );
 	}
-
-	BOOLEAN success = FALSE;
-	INT16 prisonerstobemoved = 0;
-	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
-		prisonerstobemoved += gsNumPrisoner[i];
-
-	if ( usSectorID > 0 )
+	else
 	{
-		SECTORINFO *pPrisonSectorInfo = &(SectorInfo[usSectorID]);
+		UINT8 usSectorID = (UINT8)( DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance().GetSelectedEntryKey() );
 
-		if ( pPrisonSectorInfo )
+		// if sector is still not set, then we did not select one - release prisoners
+		if ( usSectorID == 0 )
 		{
-			success = TRUE;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RELEASED] );
+		}
 
-			ChangeNumberOfPrisoners( pPrisonSectorInfo, gsNumPrisoner );
+		BOOLEAN success = FALSE;
+		INT16 prisonerstobemoved = 0;
+		for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
+			prisonerstobemoved += gsNumPrisoner[i];
 
-			CHAR16 wString[128];
-			GetSectorIDString( SECTORX( usSectorID ), SECTORY( usSectorID ), 0, wString, TRUE );
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], prisonerstobemoved, wString );
+		if ( usSectorID > 0 )
+		{
+			SECTORINFO *pPrisonSectorInfo = &( SectorInfo[usSectorID] );
+
+			if ( pPrisonSectorInfo )
+			{
+				success = TRUE;
+
+				ChangeNumberOfPrisoners( pPrisonSectorInfo, gsNumPrisoner );
+
+				CHAR16 wString[128];
+				GetSectorIDString( SECTORX( usSectorID ), SECTORY( usSectorID ), 0, wString, TRUE );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_SENTTOSECTOR], prisonerstobemoved, wString );
+			}
 		}
 	}
 
 	for ( int i = PRISONER_ADMIN; i < PRISONER_MAX; ++i )
 		gsNumPrisoner[i] = 0;
-
-	if ( !success )
-	{
-		// send some prisoners back to queen's pool
-		// there is a chance that escaped prisoners may return to the queen...
-		giReinforcementPool += (prisonerstobemoved * gGameExternalOptions.ubPrisonerReturntoQueenChance) / 100;
-	}
 }
 
 
@@ -6960,7 +6962,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				gsNumPrisoner[i] = sNumPrisoner[i];
 
 			std::vector<std::pair<INT16, STR16> > dropdownvector_1;
-
+			
 			std::vector<UINT8>::iterator itend = prisonsectorvector.end( );
 			for ( std::vector<UINT8>::iterator it = prisonsectorvector.begin( ); it != itend; ++it )
 			{
@@ -6970,6 +6972,9 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 				dropdownvector_1.push_back( std::make_pair( (INT16)(usSectorID), gPrisonSectorNamesStr[usSectorID] ) );
 			}
+
+			// field interogation is always possible
+			dropdownvector_1.push_back( std::make_pair( -1, TacticalStr[PRISONER_FIELDINTERROGATION_SHORT_STR] ) );
 			
 			DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance( ).SetEntries( dropdownvector_1 );
 			
@@ -6978,22 +6983,12 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 			DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, sString, GAME_SCREEN, (MSG_BOX_FLAG_OK | MSG_BOX_FLAG_DROPDOWN_1), PrisonerMessageBoxCallBack, NULL );
 		}
-		// if we control no prison, we have to let them go...
+		// if we control no prison, do a field interrogation
 		else
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[PRISONER_NO_PRISONS_STR] );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[PRISONER_FIELDINTERROGATION_STR] );
 
-			// some prisoners volunteer to work for us
-			UINT16 volunteers = Random( ubNumPrisoners / 3 );
-
-			if ( volunteers )
-			{
-				AddVolunteers( volunteers );
-
-				// we add the volunteers anyway, but only show the message if this feature is on
-				if ( gGameExternalOptions.fMilitiaVolunteerPool )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_VOLUNTEER], volunteers );
-			}
+			DoInterrogation( sMapX, sMapY, 0.5f, sNumPrisoner );
 		}
 	}
 }
@@ -10087,6 +10082,28 @@ BOOLEAN HostileZombiesPresent( )
     }
 
     return( FALSE );
+}
+
+BOOLEAN HostileCreaturesPresent()
+{
+	SOLDIERTYPE* pSoldier;
+
+	if ( gTacticalStatus.Team[CREATURE_TEAM].bTeamActive == FALSE )
+	{
+		return( FALSE );
+	}
+
+	for ( INT32 iLoop = gTacticalStatus.Team[CREATURE_TEAM].bFirstID; iLoop <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; ++iLoop )
+	{
+		pSoldier = MercPtrs[iLoop];
+
+		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
+		{
+			return( TRUE );
+		}
+	}
+
+	return( FALSE );
 }
 
 void HandleCreatureTenseQuote( )

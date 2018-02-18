@@ -319,6 +319,7 @@ BOOLEAN HostileCiviliansWithGunsPresent( );
 BOOLEAN HostileCiviliansPresent( );
 BOOLEAN HostileBloodcatsPresent( );
 BOOLEAN HostileZombiesPresent( );
+BOOLEAN HostileCreaturesPresent();
 
 UINT8 NumPCsInSector( );
 void SetSoldierNonNeutral( SOLDIERTYPE * pSoldier );

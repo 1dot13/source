@@ -95,9 +95,11 @@ enum //strategic values for each sector
 #define	SF_HAVE_SAID_PLAYER_QUOTE_NEW_SECTOR		0x00001000
 #endif
 
-#define SF_ASSIGN_NOTICED_ENEMIES_HERE				0x00002000		// Flugente: info from assigment: enemies were found
-#define SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER		0x00004000		// Flugente: info from assigment: enemies were found, and we know their number
-#define SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION	0x00008000		// Flugente: info from assigment: enemies were found, and we know the direction they are moving in
+#define SF_ASSIGN_NOTICED_ENEMIES_HERE				0x00002000		// Flugente: flag deleted after 1 hour, info from assigment: enemies were found
+#define SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER		0x00004000		// Flugente: flag deleted after 1 hour, info from assigment: enemies were found, and we know their number
+
+#define SF_ASSIGN_PERMAINFO_ENEMIES_HERE			0x00008000		// Flugente: permanent flag, info from buying info: enemies were found
+#define SF_ASSIGN_PERMAINFO_ENEMIES_KNOW_NUMBER		0x00010000		// Flugente: permanent flag, info from buying info: enemies were found, and we know their number
 
 #define SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS			0x00100000		//Temp File starts with sm_
 #define SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS		0x00200000		//Temp File starts with l_

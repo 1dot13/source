@@ -842,7 +842,7 @@ static int l_ProfilesStrategicInsertionData (lua_State *L);
 static int l_ResetBoxers( lua_State *L );
 
 static int l_AddVolunteers( lua_State *L );
-static int l_AddInfo( lua_State *L );
+static int l_AddIntel( lua_State *L );
 
 static int l_CreateArmedCivilain( lua_State *L );
 static int l_CreateCivilian( lua_State *L );
@@ -871,6 +871,10 @@ static int l_SoldierSpendMoney( lua_State *L );
 
 static int l_SetAdditionalDialogue( lua_State *L );
 static int l_PlaySound( lua_State *L );
+static int l_AddArmsDealerAdditionalIntelDataItem( lua_State *L );
+
+static int l_SetPhotoFactLaptopData( lua_State *L );
+static int l_GetNumHostilesInSector( lua_State *L );
 
 using namespace std;
 
@@ -1721,7 +1725,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L,"StartDialogueMessageBox", l_StartDialogueMessageBox);
 	
 	lua_register( L, "AddVolunteers", l_AddVolunteers );
-	lua_register( L, "AddInfo", l_AddInfo );
+	lua_register( L, "AddIntel", l_AddIntel );
 
 	lua_register(L, "CreateArmedCivilain", l_CreateArmedCivilain );
 	lua_register( L, "CreateCivilian", l_CreateCivilian );
@@ -1750,6 +1754,10 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 
 	lua_register( L, "SetAdditionalDialogue", l_SetAdditionalDialogue );
 	lua_register( L, "PlaySound", l_PlaySound );
+	lua_register( L, "AddArmsDealerAdditionalIntelDataItem", l_AddArmsDealerAdditionalIntelDataItem );
+
+	lua_register( L, "SetPhotoFactLaptopData", l_SetPhotoFactLaptopData );
+	lua_register( L, "GetNumHostilesInSector", l_GetNumHostilesInSector );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -3620,15 +3628,13 @@ return 1;
 
 static int l_CurrentPlayerProgressPercentage(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-
-UINT8 val;
-
-	val = CurrentPlayerProgressPercentage( );
+	UINT8  n = lua_gettop(L);
+	
+	UINT8 val = CurrentPlayerProgressPercentage( );
 	
 	lua_pushinteger(L, val);
 	
-return 1;
+	return 1;
 }
 
 static int l_SetgMercProfilesbTown(lua_State *L)
@@ -13054,13 +13060,13 @@ static int l_AddVolunteers( lua_State *L )
 }
 
 // add info
-static int l_AddInfo( lua_State *L )
+static int l_AddIntel( lua_State *L )
 {
 	if ( lua_gettop( L ) )
 	{
-		UINT8 infotype = lua_tointeger( L, 1 );
+		int intel = lua_tointeger( L, 1 );
 
-		GiveInfoToPlayer( infotype );
+		AddIntel( intel, TRUE );
 	}
 
 	return 0;
@@ -13431,4 +13437,130 @@ void LuaHandleAdditionalDialogue( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ,
 	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
 
 	LuaFunction( _LS.L, "HandleAdditionalDialogue" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( ubProfile ).Param<int>( iFaceIndex ).Param<int>( usEventNr ).Param<int>( aData1 ).Param<int>( aData2 ).Param<int>( aData3 ).Call( 9 );
+}
+
+void LuaAddArmsDealerAdditionalIntelData()
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "AddArmsDealerAdditionalIntelData" ).Call( 0 );
+}
+
+extern  void AddArmsDealerAdditionalIntelData( UINT16 ausDealer, UINT16 usItem, INT16 sIntelPrice, INT16 sOptimalNumber );
+
+static int l_AddArmsDealerAdditionalIntelDataItem( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 4 )
+	{
+		UINT16 usDealer			= lua_tointeger( L, 1 );
+		UINT16 usItem			= lua_tointeger( L, 2 );
+		INT16 sIntelPrice		= lua_tointeger( L, 3 );
+		INT16 sOptimalNumber	= lua_tointeger( L, 4 );
+
+		AddArmsDealerAdditionalIntelData( usDealer, usItem, sIntelPrice, sOptimalNumber );
+	}
+
+	return 0;
+}
+
+void LuaAddPhotoData( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, INT32 sGridNo, INT8 bLevel, UINT8 ubPhotographerProfile, UINT16 room, UINT8 usTargetProfile )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "AddPhotoData" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( sGridNo ).Param<int>( bLevel ).Param<int>( ubPhotographerProfile ).Param<int>( room ).Param<int>( usTargetProfile ).Call( 6 );
+}
+
+void LuaGetPhotoData( UINT8 aType )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "GetPhotoData" ).Param<int>( aType ).Call( 1 );
+}
+
+void LuaSetPhotoState( INT16 asIndex, UINT8 aState )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "SetPhotoState" ).Param<int>( asIndex ).Param<int>( aState ).Call( 2 );
+}
+
+void LuaVerifyPhotoState( INT16 asIndex )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "VerifyPhotoState" ).Param<int>( asIndex ).Call( 1 );
+}
+
+extern void AddPhotoFactTaken( UINT8 aType, INT16 asIndex, STR16 aText );
+
+static int l_SetPhotoFactLaptopData( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		UINT8 type   = lua_tointeger( L, 1 );
+		INT16 sIndex = lua_tointeger( L, 2 );
+
+		size_t len = 0;
+		const char* str = lua_tolstring( L, 3, &len );
+
+		CHAR16 w_str[1000];
+
+		MultiByteToWideChar( CP_UTF8, 0, str, -1, w_str, sizeof( w_str ) / sizeof( w_str[0] ) );
+		w_str[sizeof( w_str ) / sizeof( w_str[0] ) - 1] = '\0';
+
+		AddPhotoFactTaken( type, sIndex, w_str );
+	}
+
+	return 0;
+}
+
+extern UINT8 NumHostilesInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ );
+
+static int l_GetNumHostilesInSector( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		INT16 sSectorX = lua_tointeger( L, 1 );
+		INT16 sSectorY = lua_tointeger( L, 2 );
+		INT16 sSectorZ = lua_tointeger( L, 3 );
+
+		lua_pushinteger( L, NumHostilesInSector( sSectorX, sSectorY, sSectorZ ) );
+	}
+
+	return 1;
 }

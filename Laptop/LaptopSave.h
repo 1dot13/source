@@ -67,6 +67,8 @@ enum
 	BOBBYR_ALREADY_SENT_EMAIL,
 };
 
+// Flugente: intel
+#define INTELINFO_MAXNUMBER		2
 
 typedef struct
 {
@@ -174,7 +176,12 @@ typedef struct
 	FLOAT							dMilitiaArmourPool;
 	FLOAT							dMilitiaMiscPool;
 
-	UINT8 bPadding[ 60 ];
+	// Flugente: intel
+	FLOAT							dIntelPool;
+	UINT32							usMapIntelFlags;
+	INT16							sIntelInfoForThisHour[INTELINFO_MAXNUMBER];
+
+	UINT8 bPadding[ 48 ];
 
 } LaptopSaveInfoStruct;
 

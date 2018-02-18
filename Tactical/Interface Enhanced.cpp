@@ -2720,6 +2720,15 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
 			++cnt;
 		}
+
+		//////////////////// CAMERA
+		if ( HasItemFlag( gpItemDescObject->usItem, CAMERA ) )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[41], szUDBGenSecondaryStatsExplanationsTooltipText[41] );
+			SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+			++cnt;
+		}
 	}
 
 	//////////////////////////////////////////////////////
@@ -6255,6 +6264,14 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 38, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		++cnt;
+	}
+
+	//////////////////// CAMERA
+	if ( ( HasItemFlag( gpItemDescObject->usItem, CAMERA ) && !fComparisonMode ) ||
+		( fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, CAMERA ) ) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 39, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		cnt++;
 	}
 }
 

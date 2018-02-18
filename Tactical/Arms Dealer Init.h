@@ -101,6 +101,7 @@ enum
 #define		ARMS_DEALER_HARDWARE				0x00400000	| ARMS_DEALER_KIT
 #define		ARMS_DEALER_MEDICAL					0x00800000	| ARMS_DEALER_MEDKIT
 
+#define		ARMS_DEALER_DEALWITHINTEL			0x01000000	// 16777216		// Flugente: this dealer does not accept money, only intel
 #define		ARMS_DEALER_CREATURE_PARTS			0x02000000	// 33554432
 #define		ARMS_DEALER_ROCKET_RIFLE			0x04000000	// 67108864
 #define		ARMS_DEALER_ONLY_USED_ITEMS			0x08000000	// 134217728
@@ -347,6 +348,9 @@ void		RemoveItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIndex,
 
 BOOLEAN IsMercADealer( UINT8 ubMercID );
 INT8		GetArmsDealerIDFromMercID( UINT8 ubMercID );
+
+// Flugente: update possible intel data
+void HandlePossibleArmsDealerIntelRefresh(BOOLEAN aForceReread);
 
 BOOLEAN SaveArmsDealerInventoryToSaveGameFile( HWFILE hFile );
 

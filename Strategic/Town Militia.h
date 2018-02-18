@@ -133,4 +133,8 @@ void GetResources( FLOAT& arValue_Gun, FLOAT& arValue_Armour, FLOAT& arValue_Mis
 FLOAT ResourceProgressModifier( UINT8 aProgress );
 void DevalueResources(UINT8 aOldProgress, UINT8 aNewProgress);
 
+// Flugente: intel
+void AddIntel( FLOAT aValue, BOOLEAN aDoMessage = FALSE );
+FLOAT GetIntel();
+
 #endif

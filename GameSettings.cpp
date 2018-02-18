@@ -1912,11 +1912,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fPlayerCanAsktoSurrender			= iniReader.ReadBoolean("Strategic Gameplay Settings","PLAYER_CAN_ASK_TO_SURRENDER", TRUE);
 	gGameExternalOptions.ubPrisonerReturntoQueenChance		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_RETURN_TO_ARMY_CHANCE", 50, 0, 100);
 	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_DEFECT]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_DEFECT_CHANCE", 25, 0, 100 );
-	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_INFO]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INFO_BASECHANCE", 25, 0, 100 );
-	gGameExternalOptions.ubPrisonerProcessInfoNumberChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_NUMBER_CHANCE", 30, 0, 100);
-	gGameExternalOptions.ubPrisonerProcessInfoDirectionChance	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INFO_DIRECTION_CHANCE", 40, 0, 100);
+	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_INTEL]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTEL_CHANCE", 25, 0, 100 );
 	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_RANSOM]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_RANSOM_CHANCE", 25, 0, 100 );
-	gGameExternalOptions.ubPrisonerProcessChance[PRISONER_INTERROGATION_NOTHING]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_NOTHING_CHANCE", 25, 0, 100 );
 
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN]		= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_ADMIN",	30, 10, 1000);
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_REGULAR]	= iniReader.ReadInteger("Strategic Gameplay Settings","PRISONER_INTERROGATION_POINTS_REGULAR",  50, gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_ADMIN], 1000);
@@ -1926,16 +1923,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_CIVILIAN]	= iniReader.ReadInteger("Strategic Gameplay Settings", "PRISONER_INTERROGATION_POINTS_CIVILIAN", 25, 10, 1000 );
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_SECRET1]	= 100;
 	gGameExternalOptions.ubPrisonerInterrogationPoints[PRISONER_SECRET2]	= 100;
-
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ADMIN",	0, 0, 100 );
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_REGULAR",  1, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ADMIN], 100 );
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE]		= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_ELITE",   10, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_REGULAR], 100 );
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_OFFICER", 60, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_ELITE], 100 );
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_GENERAL]	= iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_GENERAL", 80, gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_OFFICER], 100 );
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_CIVILIAN]   = iniReader.ReadInteger( "Strategic Gameplay Settings", "PRISONER_INTERROGATION_ENEMY_GENERAL_CHANCE_CIVILIAN", 0, 0, 100 );
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_SECRET1]	= 0;
-	gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[PRISONER_SECRET2]	= 0;
-						
+							
 	// CHRISL: Determine how Skyrider should handle landing in enemy occupied sectors
 	gGameExternalOptions.ubSkyriderHotLZ					= iniReader.ReadInteger("Strategic Gameplay Settings", "ALLOW_SKYRIDER_HOT_LZ", 0, 0, 3);
 
@@ -2337,6 +2325,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_SESSIONS_PER_DAY",24, 1, 96);
 	
 	gGameExternalOptions.fUseXMLSquadNames					= iniReader.ReadBoolean("Strategic Assignment Settings", "USE_XML_SQUADNAMES", FALSE);
+
+	//################# Intel Settings ##################
+	gGameExternalOptions.fIntelResource						= iniReader.ReadBoolean("Intel Settings", "RESOURCE_INTEL", TRUE );
 
 	//SaveGame slot by Jazz		
 	// WANNE: No need to make it external to switch between old/new. We always use the new save/load screen with more save slots
@@ -3347,7 +3338,8 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_READFILE]						= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_READFILE", 50 ), 50 );
 	APBPConstants[AP_WATERTAP]						= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_WATERTAP", 20 ), 20 );
 	APBPConstants[AP_SODAMACHINE]					= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_SODAMACHINE", 30 ), 30 );
-	
+	APBPConstants[AP_CAMERA]						= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_CAMERA", 30 ), 30 );
+		
 	APBPConstants[AP_ENTER_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_ENTER_VEHICLE",30),30);
 	APBPConstants[AP_EXIT_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EXIT_VEHICLE",30),30);
 	APBPConstants[AP_CHANGE_SEAT_VEHICLE]				= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CHANGE_SEAT_VEHICLE",20),20);

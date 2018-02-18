@@ -72,6 +72,8 @@
 	#include "PMC.h"				// added by Flugente
 	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
 	#include "MilitiaIndividual.h"	// added by Flugente
+	#include "Militia Control.h"	// added by Flugente
+	#include "ASD.h"				// added by Flugente
 #endif
 #include <vector>
 #include <queue>
@@ -146,6 +148,12 @@ enum {
 	DISEASE_MENU_CANCEL,
 };
 
+enum {
+	INTEL_MENU_CONCEAL,
+	INTEL_MENU_GETINTEL,
+	INTEL_MENU_CANCEL,
+};
+
 
 /* CHRISL: Adjusted enumerations to allow for seperation of the three different pocket types in the new 
 inventory system. */
@@ -193,6 +201,7 @@ INT32 ghVehicleBox = -1;
 INT32 ghRepairBox = -1;
 INT32 ghMoveItemBox = -1;
 INT32 ghDiseaseBox = -1;
+INT32 ghSpyBox = -1;
 INT32 ghTrainingBox = -1;
 INT32 ghAttributeBox = -1;
 INT32 ghRemoveMercAssignBox = -1;
@@ -225,6 +234,7 @@ MOUSE_REGION	gEpcMenuRegion[ MAX_EPC_MENU_STRING_COUNT ];
 MOUSE_REGION	gRepairMenuRegion[ 20 ];
 MOUSE_REGION	gMoveItem[MOVEITEM_MAX_SECTORS_WITH_MODIFIER + 1];
 MOUSE_REGION	gDisease[DISEASE_MENU_CANCEL + 1];
+MOUSE_REGION	gSpy[INTEL_MENU_CANCEL + 1];
 
 UINT16			usMoveItemSectors[MOVEITEM_MAX_SECTORS_WITH_MODIFIER];
 
@@ -250,6 +260,7 @@ BOOLEAN fShowVehicleMenu = FALSE;
 BOOLEAN fShowRepairMenu = FALSE;
 BOOLEAN fShowMoveItemMenu = FALSE;
 BOOLEAN fShowDiseaseMenu = FALSE;
+BOOLEAN fShowSpyMenu = FALSE;
 BOOLEAN fShownContractMenu = FALSE;
 // anv: snitch menus
 BOOLEAN fShowSnitchMenu = FALSE;
@@ -484,6 +495,9 @@ void HandleSpreadingPropagandaInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 // Flugente: handle militia command
 void HandleMilitiaCommand();
 
+// Flugente: handle spy assignments
+void HandleSpyAssignments();
+
 // is the character between secotrs in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
@@ -513,6 +527,7 @@ void HandleShadingOfLinesForVehicleMenu( void );
 void HandleShadingOfLinesForRepairMenu( void );
 void HandleShadingOfLinesForMoveItemMenu( void );
 void HandleShadingOfLinesForDiseaseMenu();
+void HandleShadingOfLinesForSpyMenu();
 void HandleShadingOfLinesForTrainingMenu( void );
 void HandleShadingOfLinesForAttributeMenus( void );
 // HEADROCK HAM 3.6: Shade Facility Box Lines
@@ -538,12 +553,10 @@ BOOLEAN DisplayRepairMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayFacilityMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType );
 
-// Flugente: move items menu
+// Flugente: menus
 BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier );
-
-// Flugente: disease menu
 BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier );
-
+BOOLEAN DisplaySpyMenu( SOLDIERTYPE *pSoldier );
 
 // create menus
 void CreateEPCBox( void );
@@ -552,6 +565,7 @@ void CreateVehicleBox();
 void CreateRepairBox( void );
 void CreateMoveItemBox( void );
 void CreateDiseaseBox();
+void CreateSpyBox();
 // HEADROCK HAM 3.6: Facility Box.
 void CreateFacilityBox( void );
 void CreateFacilityAssignmentBox( void );
@@ -715,6 +729,22 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 
 	AssertNotNIL(pSoldier);
 
+	// Flugente: SPY_LOCATION-assignments use a different Z-sector value (to avoid numerous conflicts with strategic AI etc.)
+	// This is exclusive, so make sure this is set correctly whenever we change assignments
+	if ( SPY_LOCATION(bAssignment) )
+	{
+		if ( pSoldier->bSectorZ < 10 )
+			pSoldier->bSectorZ += 10;
+	}
+	else if ( pSoldier->bSectorZ >= 10 )
+	{
+		pSoldier->bSectorZ -= 10;
+	}
+
+	// if we are no longer a POW, erase possible knowledge flag
+	if ( pSoldier->bAssignment == ASSIGNMENT_POW )
+		pSoldier->usSoldierFlagMask2 &= ~SOLDIER_MERC_POW_LOCATIONKNOWN;
+
 	pSoldier->bAssignment = bAssignment;
 /// don't kill iVehicleId, though, 'cause militia training tries to put guys back in their vehicles when it's done(!)
 
@@ -729,7 +759,7 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 	{
 		AddStrategicEvent( EVENT_BANDAGE_BLEEDING_MERCS, GetWorldTotalMin() + 1, 0 );
 	}
-
+	
 	// update character info, and the team panel
 	fCharacterInfoPanelDirty = TRUE;
 	fTeamPanelDirty = TRUE;
@@ -867,6 +897,10 @@ BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
+
 	if( CanCharacterDoctorButDoesntHaveMedKit( pSoldier ) == FALSE )
 	{
 		return( FALSE );
@@ -904,6 +938,10 @@ BOOLEAN CanCharacterDiagnoseDisease( SOLDIERTYPE *pSoldier )
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 		return(FALSE);
 
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
+
 	// all criteria fit, can doctor
 	return TRUE;
 }
@@ -921,6 +959,10 @@ BOOLEAN  CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier )
 
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 		return(FALSE);
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	if ( !CanCharacterDoctorButDoesntHaveMedKit( pSoldier ) )
 		return(FALSE);
@@ -940,6 +982,10 @@ BOOLEAN  CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier )
 
 BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier )
 {
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
+
 	if ( pSoldier->bSectorZ )
 	{
 		UNDERGROUND_SECTORINFO *pSectorInfo;
@@ -958,6 +1004,26 @@ BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier )
 	}
 
 	return FALSE;
+}
+
+BOOLEAN CanCharacterSpyAssignment( SOLDIERTYPE *pSoldier )
+{
+	if ( !gGameExternalOptions.fIntelResource )
+		return FALSE;
+
+	AssertNotNIL( pSoldier );
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+		return( FALSE );
+
+	// we can only give this assignment if we already are concealed (which means that we initially need to assign this from tactical)
+	if ( !SPY_LOCATION( pSoldier->bAssignment ) )
+		return FALSE;
+
+	if ( !pSoldier->CanUseSkill( SKILLS_INTEL_CONCEAL, FALSE ) )
+		return( FALSE );
+
+	return TRUE;
 }
 
 BOOLEAN IsAnythingAroundForSoldierToRepair( SOLDIERTYPE * pSoldier )
@@ -1273,6 +1339,10 @@ BOOLEAN CanCharacterRepair( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
+
 	if ( BasicCanCharacterRepair( pSoldier ) == FALSE )
 	{
 		return( FALSE );
@@ -1313,6 +1383,10 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 	{
 		return( FALSE );
 	}
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	// Robot must be REPAIRED to be "healed", not doctored
 	if( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) )
@@ -1396,6 +1470,10 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 	{
 		return( FALSE );
 	}
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	// make sure character is alive and conscious
 	if( pSoldier->stats.bLife < OKLIFE )
@@ -1763,6 +1841,10 @@ BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrain
 		return( FALSE );
 	}
 
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
+
 	// alive and conscious
 	if( pSoldier->stats.bLife < OKLIFE )
 	{
@@ -2015,6 +2097,10 @@ BOOLEAN CanCharacterPractise( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
+
 	// only need to be alive and well to do so right now
 	// alive and conscious
 	if( pSoldier->stats.bLife < OKLIFE )
@@ -2139,8 +2225,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 	{
 		return( FALSE );
 	}
-
-
+	
 	// traveling?
 	if ( pSoldier->flags.fBetweenSectors )
 	{
@@ -2264,6 +2349,10 @@ BOOLEAN CanCharacterVehicle( SOLDIERTYPE *pSoldier )
 	{
 		return( FALSE );
 	}
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	// only need to be alive and well to do so right now
 	// alive and conscious
@@ -2412,6 +2501,10 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 BOOLEAN CanCharacterSnitch( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	// has character a snitch trait
 	if( ProfileHasSkillTrait( pSoldier->ubProfile, SNITCH_NT ) )
@@ -2644,6 +2737,9 @@ void UpdateAssignments()
 
 	// Flugente: PMC recruits new personnel
 	HourlyUpdatePMC();
+
+	// Flugente: handle spy assignments
+	HandleSpyAssignments();
 
 	// handle fortification
 	HandleFortification();
@@ -5807,7 +5903,6 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	FLOAT detect_rangefactor = .0f;
 	FLOAT detect_sizefactor = .0f;
 	FLOAT detect_chance = .0f;
-	FLOAT scandirectionmalus = .2f;
 	FLOAT scanexactnumbermalus = .3f;
 	UINT8 patrolsize = 0;
 		
@@ -5846,15 +5941,6 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				{
 					// our scan was very good, we even got the exact enemy numbers
 					SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
-				}
-
-				// we roll again to decide wether we know the direction this patrol is moving in
-				scanresult = Random(100);
-
-				if ( scanresult < 100 * (detect_chance - scandirectionmalus) )
-				{
-					// we were succesful in deducting the direction they are moving in
-					SectorInfo[ SECTOR( sX, sY ) ].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
 				}
 			}
 		}
@@ -6029,6 +6115,113 @@ void HandleMilitiaCommand()
 	}
 }
 
+// Flugente: handle spy assignments
+void HandleSpyAssignments()
+{
+	if ( !gGameExternalOptions.fIntelResource )
+		return;
+
+	// we recalculate what info is available on the intel website every 8 hours
+	if ( ( GetWorldHour() % 8 ) == 0 )
+	{
+		BuildIntelInfoArray();
+		CalcIntelInfoOfferings();
+
+		LaptopSaveInfo.usMapIntelFlags = 0;
+	}
+
+	std::vector<UINT16> vector_uncoveredmercs;
+	FLOAT intelgained = 0.0f;
+
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier )
+		{
+			if ( SPY_LOCATION( pSoldier->bAssignment ) )
+			{
+				INT8 sectorz = max( 0, pSoldier->bSectorZ - 10 );
+				
+				// if this sector no longer has an enemy presence, we cannot conceal anymore
+				if ( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, sectorz ) == 0 )
+				{
+					// drop us into the sector on duty
+					INT8 bNewSquad = GetFirstEmptySquad();
+					if ( bNewSquad >= 0 )
+					{
+						pSoldier->usSoldierFlagMask2 |= SOLDIER_CONCEALINSERTION;
+
+						AddCharacterToSquad( pSoldier, bNewSquad );
+
+						UpdateMercsInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+
+						GroupArrivedAtSector( pSoldier->ubGroupID, TRUE, TRUE );
+
+						ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, szIntelText[0], pSoldier->GetName() );
+					}
+				}
+				else
+				{
+					// first, check whether we will be uncovered
+					UINT8 uncoverrisk = pSoldier->GetUncoverRisk();
+
+					// TODO: prerandom numbers to stop players from savescumming?
+					if ( Chance( uncoverrisk ) )
+					{
+						// if we are already in hiding, we will be uncovered
+						if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+							vector_uncoveredmercs.push_back( uiCnt );
+
+						// we get a penalty, and a chance to be uncovered
+						pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 2 + Random( 3 );
+
+						ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, szIntelText[1], pSoldier->GetName(), (pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] - 1) );
+
+						continue;
+					}
+
+					if ( EnoughTimeOnAssignment( pSoldier ) )
+						intelgained += pSoldier->GetIntelGain();
+				}
+			}
+
+			// penalty runs out for every soldier, regardless of whether they are on an intel assignment
+			if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+				pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY]--;
+		}
+	}
+
+	// give us intel and tell us about it
+	if ( intelgained > 0 )
+		AddIntel( intelgained, TRUE );
+
+	// We don't want to start a battle when there is already one going on...
+	if ( !( gTacticalStatus.uiFlags & INCOMBAT ) && !vector_uncoveredmercs.empty() )
+	{
+		UINT16 usIdOfUncoveredMerc = vector_uncoveredmercs[ Random( vector_uncoveredmercs.size() ) ];
+
+		// drop us into combat
+		INT8 bNewSquad = GetFirstEmptySquad();
+		if ( bNewSquad >= 0 )
+		{
+			SOLDIERTYPE* pSoldier = MercPtrs[usIdOfUncoveredMerc];
+
+			pSoldier->usSoldierFlagMask2 |= (SOLDIER_CONCEALINSERTION|SOLDIER_CONCEALINSERTION_DISCOVERED);
+
+			AddCharacterToSquad( pSoldier, bNewSquad );
+
+			UpdateMercsInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+
+			GroupArrivedAtSector( pSoldier->ubGroupID, TRUE, TRUE );
+
+			ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, szIntelText[2], pSoldier->GetName() );
+		}
+	}
+}
+
 // handle snitch spreading propaganda assignment
 // totally not a copy of HandleRadioScanInSector
 void HandleSpreadingPropagandaInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
@@ -6171,7 +6364,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 	{
 		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
 		{
-			if( SectorInfo[ SECTOR( sX, sY ) ].uiFlags & ( SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER | SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION ) )
+			if( SectorInfo[ SECTOR( sX, sY ) ].uiFlags & ( SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER ) )
 			{
 				// no point if we already know about enemies there
 				continue;
@@ -6903,6 +7096,209 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 
 extern INT32 giReinforcementPool;
 
+void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMilitiaType, UINT32& arRansom, FLOAT& arIntel )
+{
+	arMilitiaType = -1;
+
+	// determine chances
+	// get base chance
+	UINT8 chances[PRISONER_INTERROGATION_MAX] = { 0 };
+	for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
+		chances[j] = aChanceModifier * gGameExternalOptions.ubPrisonerProcessChance[j];
+
+	// depending on prisoner type, the chances for different results may differ
+	// for example, generals cannot be recruited
+	if ( aPrisonerType == PRISONER_GENERAL )
+		chances[PRISONER_INTERROGATION_DEFECT] = 0;
+
+	if ( !gGameExternalOptions.fIntelResource )
+		chances[PRISONER_INTERROGATION_INTEL] = 0;
+
+	// for normalisation, get sum of chances
+	UINT16 sumchance = 0;
+	for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
+		sumchance += chances[j];
+
+	// ic sum chances > 100, fix that
+	if ( sumchance > 100 )
+	{
+		for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
+			chances[j] = (chances[j] * 100) / sumchance;
+	}
+	
+	// we determine what happens to the prisoners
+	UINT8 result = Random( 100 );
+
+	// chance that prisoner will work on our side as militia
+	if ( result < chances[PRISONER_INTERROGATION_DEFECT] )
+	{
+		// troops are converted to militia, but there is a chance that they will be demoted in the process
+
+		if ( aPrisonerType >= PRISONER_OFFICER && Chance( 80 ) )
+			arMilitiaType = ELITE_MILITIA;
+		else if ( aPrisonerType >= PRISONER_ELITE && Chance( 80 ) )
+			arMilitiaType = ELITE_MILITIA;
+		else if ( aPrisonerType >= PRISONER_REGULAR && Chance( 80 ) )
+			arMilitiaType = REGULAR_MILITIA;
+		else if ( aPrisonerType >= PRISONER_ADMIN && Chance( 80 ) )
+			arMilitiaType = GREEN_MILITIA;
+		else
+			// some might even fail to qualify as admins, these are volunteers - we have to 'retrain' them
+			arMilitiaType = MAX_MILITIA_LEVELS;
+	}
+	// chance that prisoner will give us random info about enemy positions
+	else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INTEL] )
+	{
+		switch ( aPrisonerType )
+		{
+		case PRISONER_ADMIN:	arIntel += (FLOAT)(  100.0f + Random(  200 ) ) / 100.0f;
+		case PRISONER_REGULAR:	arIntel += (FLOAT)(  150.0f + Random(  250 ) ) / 100.0f;
+		case PRISONER_ELITE:	arIntel += (FLOAT)(  225.0f + Random(  250 ) ) / 100.0f;
+		case PRISONER_OFFICER:	arIntel += (FLOAT)(  400.0f + Random(  400 ) ) / 100.0f;
+		case PRISONER_GENERAL:	arIntel += (FLOAT)( 2500.0f + Random( 1500 ) ) / 100.0f;
+		case PRISONER_CIVILIAN:	arIntel += (FLOAT)(  100.0f + Random(  100 ) ) / 100.0f;
+		default:				arIntel += (FLOAT)(  100.0f + Random(  100 ) ) / 100.0f;
+		}
+	}
+	// chance prisoner will grant us ransom money
+	else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INTEL] + chances[PRISONER_INTERROGATION_RANSOM] )
+	{
+		UINT32 ransom = ( 1 + Random( 5 ) ) * 100;
+
+		// different prisoners give a different amount of ransom
+		if ( aPrisonerType == PRISONER_ADMIN || aPrisonerType == PRISONER_CIVILIAN )
+			ransom *= 0.5f;
+		else if ( aPrisonerType == PRISONER_OFFICER )
+			ransom *= 3;
+		else if ( aPrisonerType == PRISONER_GENERAL )
+			ransom *= 10;
+		else if ( aPrisonerType == PRISONER_ELITE )
+			ransom *= 1.5f;
+
+		arRansom += ransom;
+	}
+	// we have to let him go without any benefits
+	else
+	{
+
+	}
+
+	// there is a chance that freed prisoners may return to the queen...
+	if ( arMilitiaType < 0 && aPrisonerType != PRISONER_CIVILIAN && Chance( gGameExternalOptions.ubPrisonerReturntoQueenChance ) )
+	{
+		++giReinforcementPool;
+	}
+}
+
+void DoInterrogation( INT16 sMapX, INT16 sMapY, FLOAT aChanceModifier, INT16 aPrisoners[] )
+{
+	CHAR16 sText[256];
+	swprintf( sText, L"Interrogated" );
+
+	int numprisonersinterrogated = 0;
+	for ( int i = 0; i < PRISONER_MAX; ++i )
+	{
+		if ( aPrisoners[i] )
+		{
+			numprisonersinterrogated += aPrisoners[i];
+
+			CHAR16 wString[64];
+			swprintf( wString, L"" );
+			//AddMonoString( &hStringHandle, wString );
+			swprintf( wString, pwTownInfoStrings[15 + i], aPrisoners[i] );
+
+			//strcat( sText, wString );
+
+			swprintf( sText, L"%s %s", sText, wString );
+		}
+	}
+		
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, sText );
+
+	UINT16 turnedmilitia[PRISONER_MAX] = { 0 };
+	UINT16 volunteers = 0;
+	FLOAT intelgained = 0.0f;
+	UINT32 ransommoney = 0;
+	for ( UINT32 i = 0; i < numprisonersinterrogated; ++i )
+	{
+		// what kind of a prisoner is this?
+		UINT8 prisonertype = PRISONER_CIVILIAN;
+		if ( i < aPrisoners[PRISONER_ADMIN] )
+			prisonertype = PRISONER_ADMIN;
+		else if ( i < aPrisoners[PRISONER_ADMIN] + aPrisoners[PRISONER_REGULAR] )
+			prisonertype = PRISONER_REGULAR;
+		else if ( i < aPrisoners[PRISONER_ADMIN] + aPrisoners[PRISONER_REGULAR] + aPrisoners[PRISONER_ELITE] )
+			prisonertype = PRISONER_ELITE;
+		else if ( i < aPrisoners[PRISONER_ADMIN] + aPrisoners[PRISONER_REGULAR] + aPrisoners[PRISONER_ELITE] + aPrisoners[PRISONER_OFFICER] )
+			prisonertype = PRISONER_OFFICER;
+		else if ( i < aPrisoners[PRISONER_ADMIN] + aPrisoners[PRISONER_REGULAR] + aPrisoners[PRISONER_ELITE] + aPrisoners[PRISONER_OFFICER] + aPrisoners[PRISONER_GENERAL] )
+			prisonertype = PRISONER_GENERAL;
+
+		INT8 militiatype;
+
+		Interrogateprisoner( prisonertype, aChanceModifier, militiatype, ransommoney, intelgained );
+
+		if ( militiatype == MAX_MILITIA_LEVELS )
+			++volunteers;
+		else if ( militiatype > -1 )
+		{
+			turnedmilitia[militiatype]++;
+		}
+	}
+
+	if ( turnedmilitia[PRISONER_ADMIN] + turnedmilitia[PRISONER_REGULAR] + turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] )
+	{
+		// we need to remove resources for these guys
+		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			AddResources( -turnedmilitia[PRISONER_ADMIN] - turnedmilitia[PRISONER_REGULAR] - ( turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] ),
+				-turnedmilitia[PRISONER_REGULAR] - ( turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] ),
+				-( turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] ) );
+		}
+
+		// add these guys to the local garrison as green militias
+		StrategicAddMilitiaToSector( sMapX, sMapY, GREEN_MILITIA, turnedmilitia[PRISONER_ADMIN] );
+		StrategicAddMilitiaToSector( sMapX, sMapY, REGULAR_MILITIA, turnedmilitia[PRISONER_REGULAR] );
+		StrategicAddMilitiaToSector( sMapX, sMapY, ELITE_MILITIA, turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] );
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_MILITIA], turnedmilitia[PRISONER_OFFICER], turnedmilitia[PRISONER_ELITE], turnedmilitia[PRISONER_REGULAR], turnedmilitia[PRISONER_ADMIN] );
+
+		// Flugente: create individual militia
+		for ( int i = 0; i < turnedmilitia[PRISONER_ADMIN]; ++i )
+			CreateNewIndividualMilitia( GREEN_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
+
+		for ( int i = 0; i < turnedmilitia[PRISONER_REGULAR]; ++i )
+			CreateNewIndividualMilitia( REGULAR_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
+
+		for ( int i = 0; i < turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]; ++i )
+			CreateNewIndividualMilitia( ELITE_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
+
+		if ( !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
+			AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin() + 60 * ( 1 + Random( 4 ) ), 0 );
+		
+		HandleMilitiaPromotions();
+	}
+
+	if ( volunteers )
+	{
+		AddVolunteers( volunteers );
+
+		// we add the volunteers anyway, but only show the message if this feature is on
+		if ( gGameExternalOptions.fMilitiaVolunteerPool )
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_VOLUNTEER], volunteers );
+	}
+
+	if ( intelgained )
+		AddIntel( intelgained, TRUE );
+
+	if ( ransommoney )
+	{
+		AddTransactionToPlayersBook( PRISONER_RANSOM, 0, GetWorldTotalMin(), ransommoney );
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RANSOM], ransommoney );
+	}
+}
+
 // handle processing of prisoners
 void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
@@ -7074,180 +7470,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if ( !prisonersinterrogated )
 		return;
 
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_PROCESSED], 
-			   interrogatedprisoners[PRISONER_OFFICER], interrogatedprisoners[PRISONER_ELITE], interrogatedprisoners[PRISONER_REGULAR], 
-			   interrogatedprisoners[PRISONER_ADMIN], interrogatedprisoners[PRISONER_GENERAL], interrogatedprisoners[PRISONER_CIVILIAN] );
-		
-	UINT16 turnedmilitia[PRISONER_MAX] = { 0 };
-	UINT16 volunteers = 0;
-	UINT32 revealedpositions = 0;
-	UINT32 ransomscollected = 0;
-	UINT32 ransommoney = 0;
-	for ( UINT32 i = 0; i < prisonersinterrogated; ++i )
-	{
-		// what kind of a prisoner is this?
-		UINT8 prisonertype = PRISONER_CIVILIAN;
-		if ( i < interrogatedprisoners[PRISONER_ADMIN] )
-			prisonertype = PRISONER_ADMIN;
-		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] )
-			prisonertype = PRISONER_REGULAR;
-		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] )
-			prisonertype = PRISONER_ELITE;
-		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_OFFICER] )
-			prisonertype = PRISONER_OFFICER;
-		else if ( i < interrogatedprisoners[PRISONER_ADMIN] + interrogatedprisoners[PRISONER_REGULAR] + interrogatedprisoners[PRISONER_ELITE] + interrogatedprisoners[PRISONER_OFFICER] + interrogatedprisoners[PRISONER_GENERAL] )
-			prisonertype = PRISONER_GENERAL;
-
-		// get base chance
-		UINT8 chances[PRISONER_INTERROGATION_MAX] = {0};
-		for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
-			chances[j] = gGameExternalOptions.ubPrisonerProcessChance[j];
-
-		// depending on prisoner type, the chances for different results may differ
-		// for example, generals cannot be recruited
-		if ( prisonertype == PRISONER_GENERAL )
-			chances[PRISONER_INTERROGATION_DEFECT] = 0;
-
-		// civilians know nothing about army movement
-		if ( prisonertype == PRISONER_CIVILIAN )
-			chances[PRISONER_INTERROGATION_INFO] = 0;
-
-		// for normalisation, get sum of chances
-		UINT16 sumchance = 0;
-		for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
-			sumchance += chances[j];
-
-		// if nothing is set, 100% chance to get nothing
-		if ( !sumchance )
-		{
-			chances[PRISONER_INTERROGATION_NOTHING] = 100;
-			sumchance = 100;
-		}
-
-		// normalize to 100
-		for ( int j = PRISONER_INTERROGATION_DEFECT; j < PRISONER_INTERROGATION_MAX; ++j )
-			chances[j] = (chances[j] * 100) / sumchance;
-
-		// we determine what happens to the prisoners
-		UINT8 result = Random( 100 );
-
-		// chance that prisoner will work on our side as militia
-		if ( result < chances[PRISONER_INTERROGATION_DEFECT] )
-		{
-			// troops are converted to militia, but there is a chance that they will be demoted in the process
-
-			// civilians need to receive basic training - these are volunteers
-			if ( prisonertype == PRISONER_CIVILIAN )
-				++volunteers;
-			else if ( prisonertype >= PRISONER_OFFICER && Chance( 80 ) )
-				++turnedmilitia[PRISONER_OFFICER];
-			else if ( prisonertype >= PRISONER_ELITE && Chance( 80 ) )
-				++turnedmilitia[PRISONER_ELITE];
-			else if ( prisonertype >= PRISONER_REGULAR && Chance( 80 ) )
-				++turnedmilitia[PRISONER_REGULAR];
-			else if ( prisonertype >= PRISONER_ADMIN && Chance( 80 ) )
-				++turnedmilitia[PRISONER_ADMIN];
-			else
-				// some might even fail to qualify as admins, these are volunteers - we have to 'retrain' them
-				++volunteers;
-
-			// we continue so that this guy cannot also run back to the queen
-			continue;
-		}
-		// chance that prisoner will give us random info about enemy positions
-		else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INFO] )
-		{
-			UINT8 infotype = INFO_TYPE_NORMAL;
-
-			// there is a chance this guy might tell us about high-value targets!
-			if ( Chance( gGameExternalOptions.ubPrisonerInterrogationEnemyGeneralInfoChance[prisonertype] ) )
-				infotype = INFO_TYPE_VIP;
-
-			if ( GiveInfoToPlayer( infotype ) )
-				++revealedpositions;
-		}
-		// chance prisoner will grant us ransom money
-		else if ( result < chances[PRISONER_INTERROGATION_DEFECT] + chances[PRISONER_INTERROGATION_INFO] + chances[PRISONER_INTERROGATION_RANSOM] )
-		{
-			UINT32 ransom = (1 + Random( 5 )) * 100;
-
-			// different prisoners give a different amount of ransom
-			if ( prisonertype == PRISONER_ADMIN )
-				ransom *= 0.5f;
-			else if ( prisonertype == PRISONER_OFFICER )
-				ransom *= 3;
-			else if ( prisonertype == PRISONER_GENERAL )
-				ransom *= 10;
-			else if ( prisonertype == PRISONER_CIVILIAN )
-				ransom *= 0.5f;
-
-			ransommoney += ransom;
-						
-			++ransomscollected;
-		}
-		// we have to let him go without any benefits
-		else
-		{
-
-		}
-
-		// there is a chance that escaped prisoners may return to the queen...
-		if ( Random( 100 ) < gGameExternalOptions.ubPrisonerReturntoQueenChance )
-		{
-			// but not for civilians
-			if ( prisonertype != PRISONER_CIVILIAN )
-				++giReinforcementPool;
-		}
-	}
-		
-	if ( turnedmilitia[PRISONER_ADMIN] + turnedmilitia[PRISONER_REGULAR] + turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] )
-	{
-		// we need to remove resources for these guys
-		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
-		{
-			AddResources( -turnedmilitia[PRISONER_ADMIN] - turnedmilitia[PRISONER_REGULAR] - (turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]), 
-						  -turnedmilitia[PRISONER_REGULAR] - (turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]), 
-						  -(turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]) );
-		}
-
-		// add these guys to the local garrison as green militias
-		StrategicAddMilitiaToSector( sMapX, sMapY, GREEN_MILITIA,   turnedmilitia[PRISONER_ADMIN] );
-		StrategicAddMilitiaToSector( sMapX, sMapY, REGULAR_MILITIA, turnedmilitia[PRISONER_REGULAR] );
-		StrategicAddMilitiaToSector( sMapX, sMapY, ELITE_MILITIA,   turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER] );
-
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_MILITIA], turnedmilitia[PRISONER_OFFICER], turnedmilitia[PRISONER_ELITE], turnedmilitia[PRISONER_REGULAR], turnedmilitia[PRISONER_ADMIN] );
-
-		// Flugente: create individual militia
-		for ( int i = 0; i < turnedmilitia[PRISONER_ADMIN]; ++i )
-			CreateNewIndividualMilitia( GREEN_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
-
-		for ( int i = 0; i < turnedmilitia[PRISONER_REGULAR]; ++i )
-			CreateNewIndividualMilitia( REGULAR_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
-
-		for ( int i = 0; i < turnedmilitia[PRISONER_ELITE] + turnedmilitia[PRISONER_OFFICER]; ++i )
-			CreateNewIndividualMilitia( ELITE_MILITIA, MO_DEFECTOR, SECTOR( sMapX, sMapY ) );
-
-		AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
-	}
-
-	if ( volunteers )
-	{
-		AddVolunteers( volunteers );
-
-		// we add the volunteers anyway, but only show the message if this feature is on
-		if ( gGameExternalOptions.fMilitiaVolunteerPool )
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_TURN_VOLUNTEER], volunteers );
-	}
-
-	if ( revealedpositions )
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_DETECTION], revealedpositions  );
-
-	if ( ransomscollected )
-	{
-		AddTransactionToPlayersBook( PRISONER_RANSOM, 0, GetWorldTotalMin(), ransommoney );
-
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_RANSOM], ransomscollected  );
-	}
+	DoInterrogation( sMapX, sMapY, 1.0f, interrogatedprisoners );
 		
 	// give experience rewards to the interrogators
 	// exp gained depends on prisoner type
@@ -7300,94 +7523,185 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	ChangeNumberOfPrisoners( pSectorInfo, interrogatedprisoners );
 }
 
-// this function gives a random bit of information to the player. The type of info depends on aInfoType. 
-// If higher-order info cannot be given (for example if all info is already known to the player), lower-order info wil be given instead
-// returns TRUE if info was given, FALSE if not
-BOOLEAN GiveInfoToPlayer(UINT8 aInfoType)
+// In the intel market, the player can spend intel to buy information
+// possible informations are:
+// - position of enemy VIPs
+// - position of enemy helis
+// - position of POWs
+// - position of terrorists
+// - position of possible RPCs (Manuel, Maddog...)
+//
+// There are always up to INTELINFO_MAXNUMBER different informations available at a time. Every x hours these change.
+// It thus follows that we first need a huge array for numbering the info.
+// We then select up to INTELINFO_MAXNUMBER out of that array, depending on the hour and some number-crunching.
+// As a result, the player can only change what is offered by progressing time.
+#define INTEL_MAXINFO	128
+int intelarray[INTEL_MAXINFO];
+
+void BuildIntelInfoArray()
 {
-	// there is a chance this guy might tell us about high-value targets!
-	if ( aInfoType == INFO_TYPE_VIP )
+	int lastsectorofunknowngeneral = -1;
+
+	for ( int i = 0; i < INTEL_MAXINFO; ++i )
 	{
-		UINT16 unknownvipector = 0;
-		if ( GetRandomUnknownVIPSector( unknownvipector ) )
+		intelarray[i] = -1;
+
+		// next gStrategicStatus.usVIPsTotal: generals
+		if ( i < 0 + gStrategicStatus.usVIPsTotal )
 		{
-			// make this guy known to the player
-			StrategicMap[unknownvipector].usFlags |= ENEMY_VIP_PRESENT_KNOWN;
+			int general = i - 0;
 
-			CHAR16 str[128];
-			GetSectorIDString( SECTORX( unknownvipector ), SECTORY( unknownvipector ), 0, str, TRUE );
-
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[STR_PRISONER_DETECTION_VIP], str );
-
-			return TRUE;
-		}
-	}
-
-	// mobile tanks are a serious threat. Learning of their location would be genuinely useful
-	// loop over all mobile enemy groups that have tanks that we don't yet know of, and pick one of them at random
-	std::vector<UINT8> sectorswithunknowntanksvector;
-	for ( GROUP *pGroup = gpGroupList; pGroup; pGroup = pGroup->next )
-	{
-		if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->pEnemyGroup->ubNumTanks )
-		{
-			UINT8 tanksector = SECTOR( pGroup->ubSectorX, pGroup->ubSectorY );
-
-			// if we don't yet know that there are tanks here, this would be useful information
-			if ( !(SectorInfo[tanksector].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER) )
+			if ( general < gStrategicStatus.usVIPsLeft )
 			{
-				sectorswithunknowntanksvector.push_back( tanksector );
+				for ( int sector = lastsectorofunknowngeneral + 1; sector < MAP_WORLD_X*MAP_WORLD_Y; ++sector )
+				{
+					if ( ( StrategicMap[sector].usFlags & ENEMY_VIP_PRESENT ) && !( StrategicMap[sector].usFlags & ENEMY_VIP_PRESENT_KNOWN ) )
+					{
+						intelarray[i] = sector;
+
+						// we need to remember the last sector, otherwise we'd get the same guy again
+						lastsectorofunknowngeneral = sector;
+
+						break;
+					}
+				}
 			}
 		}
-	}
+		// next gEnemyHeliVector.size(): enemy helis
+		else if ( i < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() )
+		{
+			int cnt = i - ( 0 + gStrategicStatus.usVIPsTotal );
 
-	if ( !sectorswithunknowntanksvector.empty( ) )
+			std::vector<INT16> helivector = GetEnemyHeliIDKnowledgeStatus();
+			
+			if ( cnt < helivector.size() )
+				intelarray[i] = helivector[cnt];
+		}
+		// next size of our team: POWs
+		else if ( i < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID )
+		{
+			int ubID = i - ( 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() );
+
+			SOLDIERTYPE *pSoldier = MercPtrs[ubID];
+
+			// if this is a POW, and we don't know their location, we can use that
+			if ( pSoldier && pSoldier->bAssignment == ASSIGNMENT_POW && !( pSoldier->usSoldierFlagMask2 & SOLDIER_MERC_POW_LOCATIONKNOWN ) )
+				intelarray[i] = ubID;
+		}
+		// and so on...
+
+	}
+}
+
+void CalcIntelInfoOfferings()
+{
+	int hour = 24 * GetWorldDay() + 3 * (GetWorldHour() / 8);
+
+	int prime = 163;
+	int iteratornumber = 0;
+	int safetycounter = 0;
+	int maxchecks = min( 20, INTEL_MAXINFO );		// we only do this until a certain point - so it is possible to not get a result
+	int checkcounter = 0;
+
+	for ( int i = 0; i < INTELINFO_MAXNUMBER; ++i )
 	{
-		UINT8 tanksector = sectorswithunknowntanksvector[Random( sectorswithunknowntanksvector.size( ) )];
+		LaptopSaveInfo.sIntelInfoForThisHour[i] = -2;
+		checkcounter = 0;
 
-		SectorInfo[tanksector].uiFlags |= (SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER);
-
-		if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoDirectionChance ) )
+		while ( LaptopSaveInfo.sIntelInfoForThisHour[i] < 0 && checkcounter < maxchecks )
 		{
-			// we also learned the direction of the patrol
-			SectorInfo[tanksector].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
+			iteratornumber = ( hour + safetycounter * prime ) % INTEL_MAXINFO;
+
+			if ( intelarray[iteratornumber] > -1 )
+			{
+				BOOLEAN alreadyselected = FALSE;
+
+				for ( int j = 0; j < i; ++j )
+				{
+					if ( iteratornumber == LaptopSaveInfo.sIntelInfoForThisHour[j] )
+					{
+						alreadyselected = TRUE;
+						break;
+					}
+				}
+
+				if ( !alreadyselected )
+					LaptopSaveInfo.sIntelInfoForThisHour[i] = iteratornumber;
+			}
+
+			++safetycounter;
+			++checkcounter;
 		}
-
-		return TRUE;
 	}
+}
 
-	UINT8 maxtries = 20;
-	for ( UINT8 infotry = 0; infotry < maxtries; ++infotry )
+void GetIntelInfoOfferings( int aInfo[] )
+{
+	for ( int i = 0; i < INTELINFO_MAXNUMBER; ++i )
 	{
-		UINT8 usX = 1 + Random( MAP_WORLD_X - 2 );
-		UINT8 usY = 1 + Random( MAP_WORLD_Y - 2 );
-
-		// not if we already know about this sector
-		if ( SectorInfo[SECTOR( usX, usY )].uiFlags & SF_ASSIGN_NOTICED_ENEMIES_HERE )
-			continue;
-
-		// there need to be mobile enemies here - that the queen has troops in towns we do not own is hardly worthy information, and empty sectors aren't interesting
-		if ( NumMobileEnemiesInSector( usX, usY ) == 0 )
-			continue;
-				
-		// enemy patrol detected
-		SectorInfo[SECTOR( usX, usY )].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_HERE;
-
-		if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoNumberChance ) )
-		{
-			// we also learned the number of enemies
-			SectorInfo[SECTOR( usX, usY )].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER;
-		}
-
-		if ( Chance( gGameExternalOptions.ubPrisonerProcessInfoDirectionChance ) )
-		{
-			// we also learned the direction of the patrol
-			SectorInfo[SECTOR( usX, usY )].uiFlags |= SF_ASSIGN_NOTICED_ENEMIES_KNOW_DIRECTION;
-		}
-
-		return TRUE;
+		if ( LaptopSaveInfo.sIntelInfoForThisHour[i] >= 0 && intelarray[LaptopSaveInfo.sIntelInfoForThisHour[i]] > -1 )
+			aInfo[i] = LaptopSaveInfo.sIntelInfoForThisHour[i];
+		else if ( LaptopSaveInfo.sIntelInfoForThisHour[i] == -2 )
+			aInfo[i] = LaptopSaveInfo.sIntelInfoForThisHour[i];
+		else
+			aInfo[i] = -1;
 	}
+}
 
-	return FALSE;
+void GetIntelInfoTextAndPrice(int aInfoNumber, STR16 aString, int& arIntelCost )
+{
+	wcscpy( aString, L"No data found" );
+	arIntelCost = 0;
+
+	if ( aInfoNumber < 0 )
+	{
+		wcscpy( aString, L"Data no longer eligible." );
+		arIntelCost = 0;
+	}
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal )
+	{
+		wcscpy( aString, L"Whereabouts of a high-ranking officer of the royal army." );
+		arIntelCost = 50;
+	}
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() )
+	{
+		wcscpy( aString, L"Flight plans of a airforce helicopter." );
+		arIntelCost = 30;
+	}
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID )
+	{
+		wcscpy( aString, L"Coordinates of a recently imprisoned member of your force." );
+		arIntelCost = 30;
+	}
+}
+
+void BuyIntelInfo( int aInfoNumber )
+{
+	// next gStrategicStatus.usVIPsTotal: generals
+	if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal )
+	{
+		int sector = intelarray[aInfoNumber];
+
+		if ( ( StrategicMap[sector].usFlags & ENEMY_VIP_PRESENT ) )
+			StrategicMap[sector].usFlags |= ENEMY_VIP_PRESENT_KNOWN;
+	}
+	// next gEnemyHeliVector.size(): enemy helis
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() )
+	{
+		BuyHeliInfoWithIntel( aInfoNumber - ( 0 + gStrategicStatus.usVIPsTotal ) );
+	}
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID )
+	{
+		int ubID = aInfoNumber - ( 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() );
+
+		SOLDIERTYPE *pSoldier = MercPtrs[ubID];
+
+		if ( pSoldier && pSoldier->bAssignment == ASSIGNMENT_POW )
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_MERC_POW_LOCATIONKNOWN;
+	}
+	// and so on...
+
+	intelarray[aInfoNumber] = -1;
 }
 
 // Flugente: prisons can riot if there aren't enough guards around
@@ -9592,6 +9906,16 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 				// shade patient line
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_FORTIFY );
 			}
+
+			// spy
+			if ( CanCharacterSpyAssignment( pSoldier ) )
+			{
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_SPY );
+			}
+			else
+			{
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_SPY );
+			}
 		}
 	}
 
@@ -9609,6 +9933,7 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 
 	// disease menu
 	HandleShadingOfLinesForDiseaseMenu();
+	HandleShadingOfLinesForSpyMenu();
 
 	// training submenu
 	HandleShadingOfLinesForTrainingMenu( );
@@ -9677,6 +10002,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		fShowRepairMenu = FALSE;
 		fShowMoveItemMenu = FALSE;
 		fShowDiseaseMenu = FALSE;
+		fShowSpyMenu = FALSE;
 		// HEADROCK HAM 3.6: Reset Facility menu
 		fShowFacilityMenu = FALSE;
 		// anv: reset show snitch menu
@@ -9694,6 +10020,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		CreateDestroyMouseRegionForRepairMenu( );
 		CreateDestroyMouseRegionForMoveItemMenu();
 		CreateDestroyMouseRegionForDiseaseMenu();
+		CreateDestroyMouseRegionForSpyMenu();
 		// HEADROCK HAM 3.6: Facility Menu, Submenu
 		CreateDestroyMouseRegionForFacilityMenu( );
 		CreateDestroyMouseRegionsForFacilityAssignmentMenu( );
@@ -9739,6 +10066,12 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		if ( IsBoxShown( ghDiseaseBox ) )
 		{
 			HideBox( ghDiseaseBox );
+			fTeamPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+		if ( IsBoxShown( ghSpyBox ) )
+		{
+			HideBox( ghSpyBox );
 			fTeamPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
 		}
@@ -9828,6 +10161,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionForRepairMenu(	);
 	CreateDestroyMouseRegionForMoveItemMenu();
 	CreateDestroyMouseRegionForDiseaseMenu( );
+	CreateDestroyMouseRegionForSpyMenu();
 	CreateDestroyMouseRegionsForSnitchMenu( );
 	CreateDestroyMouseRegionsForSnitchToggleMenu( );
 	CreateDestroyMouseRegionsForSnitchSectorMenu( );
@@ -9920,6 +10254,24 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		if ( IsBoxShown( ghDiseaseBox ) )
 		{
 			HideBox( ghDiseaseBox );
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+	}
+
+	// spy menu
+	if ( fShowSpyMenu )
+	{
+		HandleShadingOfLinesForSpyMenu();
+		ShowBox( ghSpyBox );
+	}
+	else
+	{
+		// hide box
+		if ( IsBoxShown( ghSpyBox ) )
+		{
+			HideBox( ghSpyBox );
 			fTeamPanelDirty = TRUE;
 			fMapPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
@@ -10167,6 +10519,7 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionForRepairMenu(	);
 	CreateDestroyMouseRegionForMoveItemMenu();
 	CreateDestroyMouseRegionForDiseaseMenu( );
+	CreateDestroyMouseRegionForSpyMenu();
 	// HEADROCK HAM 3.6: Facility Menu
 	CreateDestroyMouseRegionForFacilityMenu( );
 	CreateDestroyMouseRegionsForSnitchMenu( );
@@ -11767,6 +12120,14 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 					AddCharacterToSquad( pSoldier, ( INT8 )iValue );
 
+					// Flugente: if we manually set a concealed merc to no longer be concealed, we have to check on whether they enter combat
+					if ( SPY_LOCATION( pSoldier->bOldAssignment ) )
+					{
+						UpdateMercsInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+
+						GroupArrivedAtSector( pSoldier->ubGroupID, TRUE, TRUE );
+					}
+
 					if( pSoldier->bOldAssignment == VEHICLE )
 					{
 						SetSoldierExitVehicleInsertionData( pSoldier, pSoldier->iVehicleId, pSoldier->ubGroupID );
@@ -12548,6 +12909,7 @@ void SetShowAllMenus( BOOLEAN fShowMenu )
 	fShowRepairMenu = fShowMenu;
 	fShowMoveItemMenu = fShowMenu;
 	fShowDiseaseMenu = fShowMenu;
+	fShowSpyMenu = fShowMenu;
 	fShowSnitchMenu = fShowMenu;
 }
 
@@ -12563,7 +12925,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
 		// HEADROCK HAM 3.6: Added facility menu.
-		if ( fShowAttributeMenu || fShowTrainingMenu || fShowRepairMenu || fShowMoveItemMenu || fShowDiseaseMenu || fShowVehicleMenu || fShowSquadMenu || fShowFacilityMenu || fShowFacilityAssignmentMenu || fShowSnitchMenu )
+		if ( fShowAttributeMenu || fShowTrainingMenu || fShowRepairMenu || fShowMoveItemMenu || fShowDiseaseMenu || fShowSpyMenu || fShowVehicleMenu || fShowSquadMenu || fShowFacilityMenu || fShowFacilityAssignmentMenu || fShowSnitchMenu )
 		{
 			return;
 		}
@@ -12732,6 +13094,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
 					}
 				break;
 				case( ASSIGN_MENU_DOCTOR ):
@@ -12804,6 +13167,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
 						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
 						fShowRepairMenu = FALSE;
 						fShownContractMenu = FALSE;
 						fTeamPanelDirty = TRUE;
@@ -12937,6 +13301,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowPrisonerMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 
@@ -13014,6 +13379,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowTrainingMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
 						fShowFacilityMenu = FALSE;
 						fShowPrisonerMenu = FALSE;
 
@@ -13031,6 +13397,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
 						fShowSnitchMenu = FALSE;
@@ -13049,6 +13416,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
 						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
 						//fShownAssignmentMenu = FALSE;
 						fShowRepairMenu = FALSE;
 						fShownContractMenu = FALSE;
@@ -13114,6 +13482,31 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 
+				case ASSIGN_MENU_SPY:
+					if ( CanCharacterSpyAssignment( pSoldier ) )
+					{
+						fShowSquadMenu = FALSE;
+						fShowTrainingMenu = FALSE;
+						fShowVehicleMenu = FALSE;
+						fShowFacilityMenu = FALSE;
+						fShowPrisonerMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
+						fShowRepairMenu = FALSE;
+						fShownContractMenu = FALSE;
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if ( DisplaySpyMenu( pSoldier ) )
+						{
+							fShowSpyMenu = TRUE;
+							DetermineBoxPositions();
+						}
+					}
+					break;
+
 				// HEADROCK HAM 3.6: New assignments for Facility operation.
 				case( ASSIGN_MENU_FACILITY ):
 					if ( BasicCanCharacterFacility( pSoldier ) )
@@ -13125,6 +13518,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						fShowRepairMenu = FALSE;
 						fShowMoveItemMenu = FALSE;
 						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
 						fShowFacilityMenu = TRUE; // HEADROCK HAM 3.6: Facility Menu
 						fShowPrisonerMenu = FALSE;
 						fTeamPanelDirty = TRUE;
@@ -13160,13 +13554,14 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	else if( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
 		// HEADROCK HAM 3.6: Added facility menu
-		if ( fShowAttributeMenu || fShowTrainingMenu || fShowRepairMenu || fShowMoveItemMenu || fShowDiseaseMenu || fShowVehicleMenu || fShowSquadMenu || fShowFacilityMenu || fShowFacilityAssignmentMenu || fShowSnitchMenu )
+		if ( fShowAttributeMenu || fShowTrainingMenu || fShowRepairMenu || fShowMoveItemMenu || fShowDiseaseMenu || fShowSpyMenu || fShowVehicleMenu || fShowSquadMenu || fShowFacilityMenu || fShowFacilityAssignmentMenu || fShowSnitchMenu )
 		{
 			fShowAttributeMenu = FALSE;
 			fShowTrainingMenu = FALSE;
 			fShowRepairMenu = FALSE;
 			fShowMoveItemMenu = FALSE;
 			fShowDiseaseMenu = FALSE;
+			fShowSpyMenu = FALSE;
 			fShowVehicleMenu = FALSE;
 			fShowSquadMenu = FALSE;
 			fShowFacilityMenu = FALSE; // Added facilities
@@ -13548,6 +13943,37 @@ void CreateDiseaseBox()
 	}
 
 	SetBoxPosition( ghDiseaseBox, pPoint );
+}
+
+void CreateSpyBox()
+{
+	SGPPoint pPoint;
+	SGPRect pDimensions;
+
+	CreatePopUpBox( &ghSpyBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, ( POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_CENTER_TEXT | POPUP_BOX_FLAG_RESIZE ) );
+	SetBoxBuffer( ghSpyBox, FRAME_BUFFER );
+	SetBorderType( ghSpyBox, guiPOPUPBORDERS );
+	SetBackGroundSurface( ghSpyBox, guiPOPUPTEX );
+	SetMargins( ghSpyBox, 6, 6, 4, 4 );
+	SetLineSpace( ghSpyBox, 2 );
+
+	// set current box to this one
+	SetCurrentBox( ghSpyBox );
+
+	// resize box to text
+	ResizeBoxToText( ghSpyBox );
+
+	DetermineBoxPositions();
+
+	GetBoxPosition( ghSpyBox, &pPoint );
+	GetBoxSize( ghSpyBox, &pDimensions );
+
+	if ( giBoxY + pDimensions.iBottom > 479 )
+	{
+		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
+	}
+
+	SetBoxPosition( ghSpyBox, pPoint );
 }
 
 void CreateSnitchBox()
@@ -14282,6 +14708,9 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		RemoveBox( ghDiseaseBox);
 		ghDiseaseBox = -1;
 
+		RemoveBox( ghSpyBox );
+		ghSpyBox = -1;
+
 		RemoveBox(ghTrainingBox);
 		ghTrainingBox = -1;
 
@@ -14367,7 +14796,6 @@ void DetermineBoxPositions( void )
 
 	if( ( fShowRepairMenu == TRUE ) && ( ghRepairBox != -1 ) )
 	{
-		//CreateDestroyMouseRegionForRepairMenu( );
 		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR );
 
 		SetBoxPosition( ghRepairBox, pNewPoint );
@@ -14376,7 +14804,6 @@ void DetermineBoxPositions( void )
 
 	if( ( fShowMoveItemMenu == TRUE ) && ( ghMoveItemBox != -1 ) )
 	{
-		//CreateDestroyMouseRegionForMoveItemMenu( );
 		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
 
 		SetBoxPosition( ghMoveItemBox, pNewPoint );
@@ -14385,11 +14812,18 @@ void DetermineBoxPositions( void )
 	
 	if ( (fShowDiseaseMenu == TRUE) && (ghDiseaseBox != -1) )
 	{
-		//CreateDestroyMouseRegionForMoveItemMenu( );
 		pNewPoint.iY += ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS);
 
 		SetBoxPosition( ghDiseaseBox, pNewPoint );
 		CreateDestroyMouseRegionForDiseaseMenu( );
+	}
+
+	if ( fShowSpyMenu && ( ghSpyBox != -1) )
+	{
+		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY );
+
+		SetBoxPosition( ghSpyBox, pNewPoint );
+		CreateDestroyMouseRegionForSpyMenu();
 	}
 
 	if( ( fShowTrainingMenu == TRUE ) && ( ghTrainingBox != -1 ) )
@@ -14661,8 +15095,7 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 	else if( fShowSquadMenu == TRUE )
 	{
 		GetBoxSize( ghSquadBox, &pDimensions );
-
-
+		
 		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
 		{
 			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight ) );
@@ -14718,8 +15151,6 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 		pPoint.iY += (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
 
 		SetBoxPosition( ghTrainingBox, pPoint );
-
-
 	}
 	else if( fShowTrainingMenu == TRUE )
 	{
@@ -14736,8 +15167,6 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( pDimensions2.iBottom ) - (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN ) );
 			SetRenderFlags( RENDER_FLAG_FULL );
 		}
-
-
 
 		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
 		pPoint.iY = gsAssignmentBoxesY;
@@ -14789,7 +15218,28 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 
 		SetBoxPosition( ghDiseaseBox, pPoint );
 	}
+	else if ( fShowSpyMenu )
+	{
+		GetBoxSize( ghSpyBox, &pDimensions );
 
+		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
+		{
+			gsAssignmentBoxesX = (INT16)( ( SCREEN_WIDTH - 1 ) - ( pDimensions2.iRight + pDimensions.iRight ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		if ( gsAssignmentBoxesY + pDimensions2.iBottom + ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY ) >= ( SCREEN_HEIGHT - 120 ) )
+		{
+			gsAssignmentBoxesY = (INT16)( ( SCREEN_HEIGHT - 121 ) - ( pDimensions2.iBottom ) - ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
+		pPoint.iY = gsAssignmentBoxesY;
+		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY );
+
+		SetBoxPosition( ghSpyBox, pPoint );
+	}
 	// HEADROCK HAM 3.6: Facility Sub-menu
 	else if( fShowFacilityAssignmentMenu == TRUE )
 	{
@@ -14820,8 +15270,6 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 		pPoint.iY += (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
 
 		SetBoxPosition( ghFacilityBox, pPoint );
-
-
 	}
 
 	// HEADROCK HAM 3.6: Facility Menu
@@ -16078,6 +16526,11 @@ BOOLEAN HandleAssignmentExpansionAndHighLightForAssignMenu( SOLDIERTYPE *pSoldie
 		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_DOCTOR_DIAGNOSIS );
 		return(TRUE);
 	}
+	else if ( fShowSpyMenu )
+	{
+		HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_SPY );
+		return( TRUE );
+	}
 	else if( fShowVehicleMenu )
 	{
 		// highlight vehicle line the previous menu
@@ -17209,6 +17662,11 @@ void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 					fNothingToDo = !CanCharacterFortify( pSoldier );
 					break;
 
+				case CONCEALED:
+				case GATHERINTEL:
+					fNothingToDo = !CanCharacterSpyAssignment( pSoldier );
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -17360,7 +17818,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if ( pSoldier->CanUseRadio() )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, RADIO_SCAN, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17368,7 +17826,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterTrainStat( pSoldier, bParam , TRUE, FALSE ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, TRAIN_SELF, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17376,7 +17834,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterTrainMilitia( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, TRAIN_TOWN, 0, 0, 0 );
+						SetSoldierAssignment( pSoldier, bAssignment, 0, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17384,7 +17842,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterTrainMobileMilitia( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, TRAIN_MOBILE, 0, 0, 0 );
+						SetSoldierAssignment( pSoldier, bAssignment, 0, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17392,7 +17850,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterTrainWorkers( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, TRAIN_WORKERS, 0, 0, 0 );
+						SetSoldierAssignment( pSoldier, bAssignment, 0, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17400,7 +17858,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterTrainStat( pSoldier, bParam, FALSE, TRUE ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, TRAIN_TEAMMATE, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17408,7 +17866,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterTrainStat( pSoldier, bParam, TRUE, FALSE ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, TRAIN_BY_OTHER, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17417,7 +17875,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					//if( CanCharacterTrainStat( pSoldier, bParam, TRUE, FALSE ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, MOVE_EQUIPMENT, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17426,7 +17884,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterSpreadPropaganda( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, SNITCH_SPREAD_PROPAGANDA, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17435,7 +17893,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterGatherInformation( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, SNITCH_GATHER_RUMOURS, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17457,7 +17915,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						MakeSoldierKnownAsMercInPrison( pSoldier, pSoldier->sSectorX, pSoldier->sSectorY );
-						ChangeSoldiersAssignment( pSoldier, FACILITY_INTERROGATE_PRISONERS );
+						ChangeSoldiersAssignment( pSoldier, bAssignment );
 						pSoldier->sFacilityTypeOperated = bParam;
 						fItWorked = TRUE;
 					}
@@ -17467,7 +17925,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterFacility( pSoldier, bParam, FAC_PRISON_SNITCH ) && CanCharacterSnitchInPrison( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, FACILITY_PRISON_SNITCH, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17476,7 +17934,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterFacility( pSoldier, bParam, FAC_SPREAD_PROPAGANDA ) && CanCharacterSpreadPropaganda( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, FACILITY_SPREAD_PROPAGANDA, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17484,7 +17942,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterFacility( pSoldier, bParam, FAC_SPREAD_PROPAGANDA_GLOBAL ) && CanCharacterSpreadPropaganda( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, FACILITY_SPREAD_PROPAGANDA_GLOBAL, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17492,7 +17950,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterFacility( pSoldier, bParam, FAC_GATHER_RUMOURS ) && CanCharacterGatherInformation( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, FACILITY_GATHER_RUMOURS, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17500,7 +17958,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if( CanCharacterFacility( pSoldier, bParam, FAC_STRATEGIC_MILITIA_MOVEMENT ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, FACILITY_STRATEGIC_MILITIA_MOVEMENT, bParam, 0,0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0,0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17508,7 +17966,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if ( CanCharacterDiagnoseDisease( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, DISEASE_DIAGNOSE, bParam, 0, 0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17516,7 +17974,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if ( CanCharacterTreatSectorDisease( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, DISEASE_DOCTOR_SECTOR, bParam, 0, 0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
@@ -17524,10 +17982,21 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 					if ( CanCharacterFortify( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
-						SetSoldierAssignment( pSoldier, FORTIFICATION, bParam, 0, 0 );
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
 						fItWorked = TRUE;
 					}
 					break;
+
+				case CONCEALED:
+				case GATHERINTEL:
+					if ( CanCharacterSpyAssignment( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+
 				case( SQUAD_1 ):
 				case( SQUAD_2 ):
 				case( SQUAD_3 ):
@@ -18022,11 +18491,12 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 	}
 
 	if ( ( pOtherSoldier->bAssignment == IN_TRANSIT ) ||
-			( pOtherSoldier->bAssignment == ASSIGNMENT_POW ) ||
-			( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ||
-			( AM_A_ROBOT( pSoldier ) ) ||
-			( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ||
-			( pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ) )
+		( pOtherSoldier->bAssignment == ASSIGNMENT_POW ) ||
+		( SPY_LOCATION( pOtherSoldier->bAssignment ) ) ||
+		( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ||
+		( AM_A_ROBOT( pSoldier ) ) ||
+		( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ||
+		( pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ) )
 	{
 		return( FALSE );
 	}
@@ -18908,6 +19378,10 @@ BOOLEAN CanCharacterTrainWorkers( SOLDIERTYPE *pSoldier )
 
 	if ( !gGameExternalOptions.fMineRequiresWorkers )
 		return FALSE;
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 	{
@@ -19919,6 +20393,10 @@ BOOLEAN CanCharacterFacility( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8
 		// Soldier/Sector have somehow failed the basic test. Character automatically fails this test as well.
 		return( FALSE );
 	}
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	if( NumEnemiesInAnySector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 	{
@@ -21958,13 +22436,6 @@ BOOLEAN MercStaffsMilitaryHQ()
 
 
 
-
-
-
-
-
-
-
 // Flugente: disease menu
 BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier )
 {
@@ -21997,7 +22468,6 @@ BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier )
 
 	return TRUE;
 }
-
 
 void HandleShadingOfLinesForDiseaseMenu( void )
 {
@@ -22202,5 +22672,239 @@ void DiseaseMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		// unhighlight all strings in box
 		UnHighLightBox( ghDiseaseBox );
+	}
+}
+
+// Flugente: spy menu
+BOOLEAN DisplaySpyMenu( SOLDIERTYPE *pSoldier )
+{
+	INT32 hStringHandle = 0;
+	INT32 iCount = 0;
+
+	// first, clear pop up box
+	RemoveBox( ghSpyBox );
+	ghSpyBox = -1;
+
+	CreateSpyBox();
+	SetCurrentBox( ghSpyBox );
+
+	AddMonoString( (UINT32 *)&hStringHandle, szSpyText[TEXT_SPY_CONCEAL] );
+	AddMonoString( (UINT32 *)&hStringHandle, szSpyText[TEXT_SPY_GETINTEL] );
+
+	// cancel
+	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_CANCEL] );
+
+	SetBoxFont( ghSpyBox, MAP_SCREEN_FONT );
+	SetBoxHighLight( ghSpyBox, FONT_WHITE );
+	SetBoxShade( ghSpyBox, FONT_GRAY7 );
+	SetBoxForeground( ghSpyBox, FONT_LTGREEN );
+	SetBoxBackground( ghSpyBox, FONT_BLACK );
+
+	// resize box to text
+	ResizeBoxToText( ghSpyBox );
+
+	CheckAndUpdateTacticalAssignmentPopUpPositions();
+
+	return TRUE;
+}
+
+void HandleShadingOfLinesForSpyMenu( void )
+{
+	if ( ( fShowSpyMenu == FALSE ) || ( ghSpyBox == -1 ) )
+		return;
+	
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	if ( !pSoldier )
+		return;
+
+	if ( pSoldier->CanUseSkill( SKILLS_INTEL_CONCEAL, FALSE) )
+		UnShadeStringInBox( ghSpyBox, INTEL_MENU_CONCEAL );
+	else
+		ShadeStringInBox( ghSpyBox, INTEL_MENU_CONCEAL );
+
+	if ( pSoldier->CanUseSkill( SKILLS_INTEL_GATHERINTEL, FALSE ) )
+		UnShadeStringInBox( ghSpyBox, INTEL_MENU_GETINTEL );
+	else
+		ShadeStringInBox( ghSpyBox, INTEL_MENU_GETINTEL );
+}
+
+
+void CreateDestroyMouseRegionForSpyMenu( void )
+{
+	static BOOLEAN fCreated = FALSE;
+
+	UINT32 uiCounter = 0;
+	INT32 iCount = 0;
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+	SOLDIERTYPE *pSoldier = NULL;
+
+	if ( fShowSpyMenu && !fCreated )
+	{
+		// grab height of font
+		iFontHeight = GetLineSpace( ghSpyBox ) + GetFontHeight( GetBoxFont( ghSpyBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghSpyBox, &pPosition );
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghSpyBox, &pDimensions );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghSpyBox );
+
+		pSoldier = GetSelectedAssignSoldier( FALSE );
+
+		// conceal assignment
+		MSYS_DefineRegion( &gSpy[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+			MSYS_NO_CURSOR, SpyMenuMvtCallback, SpyMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gSpy[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gSpy[iCount], 1, INTEL_MENU_CONCEAL );
+		++iCount;
+
+		// get intel assignment
+		MSYS_DefineRegion( &gSpy[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+			MSYS_NO_CURSOR, SpyMenuMvtCallback, SpyMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gSpy[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gSpy[iCount], 1, INTEL_MENU_GETINTEL );
+		++iCount;
+
+		// cancel
+		MSYS_DefineRegion( &gSpy[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+			MSYS_NO_CURSOR, SpyMenuMvtCallback, SpyMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gSpy[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gSpy[iCount], 1, INTEL_MENU_CANCEL );
+
+		PauseGame();
+
+		// unhighlight all strings in box
+		UnHighLightBox( ghSpyBox );
+
+		fCreated = TRUE;
+	}
+	else if ( ( !fShowSpyMenu || !fShowAssignmentMenu ) && fCreated )
+	{
+		fCreated = FALSE;
+
+		// remove these regions
+		for ( uiCounter = 0; uiCounter < GetNumberOfLinesOfTextInBox( ghSpyBox ); ++uiCounter )
+		{
+			MSYS_RemoveRegion( &gSpy[uiCounter] );
+		}
+
+		fShowSpyMenu = FALSE;
+
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		HideBox( ghSpyBox );
+		
+		fMapPanelDirty = TRUE;
+
+		if ( fShowAssignmentMenu )
+		{
+			// remove highlight on the parent menu
+			UnHighLightBox( ghAssignmentBox );
+		}
+	}
+}
+
+void SpyMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	// ignore clicks on disabled lines
+	if ( GetBoxShadeFlag( ghSpyBox, iValue ) )
+		return;
+
+	// WHAT is being repaired is stored in the second user data argument
+	INT32 iWhat = MSYS_GetRegionUserData( pRegion, 1 );
+
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	if ( pSoldier && pSoldier->bActive && ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP ) )
+	{
+		if ( iWhat < INTEL_MENU_CANCEL )
+		{
+			pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+			INT8 newassignment = CONCEALED + iWhat;
+
+			if ( pSoldier->bAssignment != newassignment )
+			{
+				SetTimeOfAssignmentChangeForMerc( pSoldier );
+			}
+
+			if ( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+
+			// remove from squad
+			//RemoveCharacterFromSquads( pSoldier );
+
+			ChangeSoldiersAssignment( pSoldier, newassignment );
+
+			// assign to a movement group
+			//AssignMercToAMovementGroup( pSoldier );
+
+			// set assignment for group
+			SetAssignmentForList( (INT8)newassignment, 0 );
+			fShowAssignmentMenu = FALSE;
+		}
+		else
+		{
+			// CANCEL
+			fShowSpyMenu = FALSE;
+		}
+
+		// update mapscreen
+		fCharacterInfoPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+
+		giAssignHighLine = -1;
+	}
+}
+
+
+void SpyMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// mvt callback handler for assignment region
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	if ( iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		if ( iValue < INTEL_MENU_CANCEL )
+		{
+			if ( GetBoxShadeFlag( ghSpyBox, iValue ) == FALSE )
+			{
+				// highlight choice
+				HighLightBoxLine( ghSpyBox, iValue );
+			}
+		}
+		else
+		{
+			// highlight cancel line
+			HighLightBoxLine( ghSpyBox, GetNumberOfLinesOfTextInBox( ghSpyBox ) - 1 );
+		}
+	}
+	else if ( iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghSpyBox );
 	}
 }

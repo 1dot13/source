@@ -6926,8 +6926,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 			{
 				case ESC:
 					gfDontStartTransitionFromLaptop = TRUE;
-
-
+					
 					if( gfPreBattleInterfaceActive && !gfPersistantPBI )
 					{ //Non persistant PBI.	Allow ESC to close it and return to mapscreen.
 						KillPreBattleInterface();
@@ -6977,47 +6976,17 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						fMapPanelDirty = TRUE;
 						fCharacterInfoPanelDirty = TRUE;
 
-						// stop showing current assignment box
-						if( fShowAttributeMenu == TRUE )
-						{
-							fShowAttributeMenu = FALSE;
-							fMapPanelDirty = TRUE;
-						}
-						// stop showing current assignment box
-						if( fShowFacilityAssignmentMenu == TRUE )
-						{
-							fShowFacilityAssignmentMenu = FALSE;
-							fMapPanelDirty = TRUE;
-						}
-						else if( fShowTrainingMenu == TRUE )
-						{
-							fShowTrainingMenu = FALSE;
-						}
-						else if( fShowSquadMenu == TRUE )
-						{
-							fShowSquadMenu = FALSE;
-						}
-						else if( fShowRepairMenu == TRUE )
-						{
-							fShowRepairMenu = FALSE;
-						}
-						else if( fShowMoveItemMenu == TRUE )
-						{
-							fShowMoveItemMenu = FALSE;
-						}
-						else if ( fShowDiseaseMenu == TRUE )
-						{
-							fShowDiseaseMenu = FALSE;
-						}
-						// HEADROCK HAM 3.6: Facility Menu
-						else if( fShowFacilityMenu == TRUE )
-						{
-							fShowFacilityMenu = FALSE;
-						}
-						else
-						{
-							fShowAssignmentMenu = FALSE;
-						}
+						fShowAttributeMenu = FALSE;
+						fShowFacilityAssignmentMenu = FALSE;
+						fShowTrainingMenu = FALSE;
+						fShowSquadMenu = FALSE;
+						fShowRepairMenu = FALSE;
+						fShowMoveItemMenu = FALSE;
+						fShowDiseaseMenu = FALSE;
+						fShowSpyMenu = FALSE;
+						fShowFacilityMenu = FALSE;
+						fShowAssignmentMenu = FALSE;
+
 						giAssignHighLine = -1;
 						// restore background to glow region
 						RestoreBackgroundForAssignmentGlowRegionList( );
@@ -10833,7 +10802,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			fPlotForMilitia = FALSE;
 
 			// if not dead or POW, select his sector
-			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
+			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )//&& !SPY_LOCATION( pSoldier->bAssignment ) )
 			{
 				ChangeSelectedMapSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 			}
@@ -10886,7 +10855,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			fPlotForMilitia = FALSE;
 
 			// if not dead or POW, select his sector
-			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
+			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) )
 			{
 				ChangeSelectedMapSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 			}
@@ -11075,7 +11044,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			// Select all characters in squad
 			INT16 iCounter;
 
-			for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+			for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 			{
 				if( gCharactersList[ iCounter ].fValid == TRUE )
 				{
@@ -14605,6 +14574,10 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	// disallow going underground while plotting (surface) movement
 	if ( ( bMapZ != 0 ) && ( ( bSelectedDestChar != -1 ) || fPlotForHelicopter ) )
 		return;
+
+	// make sure we don' try to display bad levels
+	if ( bMapZ >= 10 )
+		bMapZ -= 10;
 	
 	sSelMapX = sMapX;
 	sSelMapY = sMapY;
@@ -15364,9 +15337,10 @@ BOOLEAN AnyMovableCharsInOrBetweenThisSector( INT16 sSectorX, INT16 sSectorY, IN
 
 		// POWs, dead guys, guys in transit can't move
 		if ( ( pSoldier->bAssignment == IN_TRANSIT ) ||
-				( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
-				( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
-				( pSoldier->stats.bLife == 0 ) )
+			( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
+			SPY_LOCATION( pSoldier->bAssignment ) ||
+			( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
+			( pSoldier->stats.bLife == 0 ) )
 		{
 			continue;
 		}
@@ -15957,10 +15931,18 @@ void GetMapscreenMercLocationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 	}
 	else
 	{
-		if( pSoldier->bAssignment == ASSIGNMENT_POW )
+		// Flugente: if we have intel on a POW, DO show their location
+		if ( pSoldier->bAssignment == ASSIGNMENT_POW && !( pSoldier->usSoldierFlagMask2 & SOLDIER_MERC_POW_LOCATIONKNOWN ))
 		{
 			// POW - location unknown
 			swprintf( sString, L"%s", pPOWStrings[ 1 ] );
+		}
+		else if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		{
+			swprintf( pTempString, L"%s%s%s",
+				pMapVertIndex[pSoldier->sSectorY], pMapHortIndex[pSoldier->sSectorX], pMapDepthIndex[max(0, pSoldier->bSectorZ - 10)] );
+
+			swprintf( sString, L"%s*", pTempString );
 		}
 		else
 		{
@@ -15993,8 +15975,9 @@ void GetMapscreenMercDestinationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] 
 
 	// if dead or POW - has no destination (no longer part of a group, for that matter)
 	if( ( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
-			( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
-			( pSoldier->stats.bLife == 0 ) )
+		( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
+		SPY_LOCATION( pSoldier->bAssignment ) ||
+		( pSoldier->stats.bLife == 0 ) )
 	{
 		return;
 	}

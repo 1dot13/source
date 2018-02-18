@@ -2468,6 +2468,8 @@ STR16 pAssignmentStrings[] =
 	L"Repair", // repairing
 	L"Fortify",		// build structures according to external layout
 	L"Train W.",
+	L"Hide",
+	L"GetIntel",
 };
 
 
@@ -2571,6 +2573,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Repair",
 	L"Fortify sector",		// build structures according to external layout
 	L"Train workers",
+	L"Hide while disguised",
+	L"Get intel while disguised",
 };
 
 
@@ -2633,6 +2637,8 @@ STR16 pLongAssignmentStrings[] =
 	L"Repair",
 	L"Fortify sector",		// build structures according to external layout
 	L"Train workers",
+	L"Hide while disguised",
+	L"Get intel while disguised",
 };
 
 
@@ -2754,6 +2760,7 @@ STR16 pAssignMenuStrings[] =
 	L"Train", // the merc is training
 	L"Get Item",	// move items
 	L"Fortify",		// fortify sector
+	L"Intel", // covert assignments
 	L"Facility", // the merc is using/staffing a facility
 	L"Cancel", // cancel this menu
 };
@@ -2791,6 +2798,10 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"Call reinforcements",
 	L"Switch off radio set",
 
+	// spy
+	L"Hide assignment",
+	L"Get Intel assignment",
+
 	// various
 	L"Spotter",
 	L"Focus",
@@ -2807,6 +2818,10 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Use your radio equipment to continously listen for enemy movement.",
 	L"Call in reinforcements from neighbouring sectors.",
 	L"Turn off radio set.",
+
+	// spy
+	L"Assignment: hide among the population.",
+	L"Assignment: hide among the population and gather intel.",
 
 	// various
 	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",
@@ -2830,6 +2845,11 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - prone person or corpse next to merc\n",
 	L" - crouched position\n",
 	L" - free main hand\n",
+	L" - covert trait\n",
+	L" - enemy occupied sector\n",
+	L" - single merc\n",
+	L" - no alarm raised\n",
+	L" - civilian or soldier disguise\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -3184,6 +3204,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for snitch (minor trait)
 	L"Placeholder",		// for survival (minor trait)
 	L"More...",			// 47
+	L"Intel",			// for INTEL
 	L"various",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
@@ -3985,7 +4006,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s cleaned %s",
 
 	// added by Flugente: decide what to do with prisoners
-	L"You have no prison for these prisoners, you have to let them go",
+	L"As we have no prison, a field interrogation is performed.",
+	L"Field interrogation",
 	L"Where do you want to send the %d prisoners?",
 	L"Let them go",
 	L"What do you want to do?",
@@ -5013,6 +5035,7 @@ STR16 pBookMarkStrings[] =
 	L"WHO",
 	L"Kerberus",
 	L"Militia Overview",
+	L"R.I.S.",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5136,6 +5159,9 @@ STR16 pWebPagesTitles[] =
 	L"Kerberus - Hire a Team",
 	L"Kerberus - Individual Contracts",
 	L"Militia Overview",
+	L"Recon Intelligence Services - Information Requests",
+	L"Recon Intelligence Services - Information Verification",
+	L"Recon Intelligence Services - About us",
 	L"Bobby Ray's - Recent Shipments",
 	L"Encyclopedia",
 	L"Encyclopedia - Data",
@@ -6068,6 +6094,9 @@ STR16	SkiMessageBoxText[] =
 	L"Ask the dealer to repair the selected items",
 	L"End conversation",
 	L"Current Balance",
+
+	L"Do you want to transfer %s Intel to cover the difference?",
+	L"Do you want to transfer %s Intel to cover the cost?",
 };
 
 
@@ -6936,6 +6965,7 @@ STR16 gzLaptopHelpText[] =
 	L"World Health Organization",
 	L"Kerberus - Experience In Security",
 	L"Militia Overview",
+	L"Recon Intelligence Services",
 };
 
 
@@ -8394,6 +8424,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
 	L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	// 39
 	L"|S|h|i|e|l|d",
+	L"|C|a|m|e|r|a",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8439,6 +8470,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
 	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 	L"\n \nIf equipped in a hand, this will block incoming damage.",
+	L"\n \nYou can take photos with this.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8876,7 +8908,7 @@ STR16	szFoodTextStr[]=
 STR16	szPrisonerTextStr[]=
 {
 	L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
-	L"%d prisoners paid ransom money.",
+	L"Gained $%d as ransom money.",
 	L"%d prisoners revealed enemy positions.",
 	L"%d officers, %d elites, %d regulars and %d admins joined our cause.",
 	L"Prisoners start a massive riot in %s!",
@@ -10951,6 +10983,12 @@ STR16	szDiseaseText[] =
 	L"\n\n%s (undiagnosed) - %d / %d\n",
 };
 
+STR16	szSpyText[] =
+{	
+	L"Hide",
+	L"Get Intel",
+};
+
 STR16	szFoodText[] =
 {
 	L"\n\n|W|a|t|e|r: %d%%\n",
@@ -11257,6 +11295,71 @@ STR16	szGearTemplateText[] =
 	L"Selected mercenary is not in this sector.",
 	L"%s is not in that sector.",
 	L"%s could not equip %s.",
+	L"We cannot attach %s (item %d) as that might damage items.",
+};
+
+STR16	szIntelWebsiteText[] =
+{
+	L"Recon Intelligence Services",
+	L"Your need to know base",
+	L"Information Requests",
+	L"Information Verification",
+
+	L"About us",
+	L"You have %d Intel.",
+	L"We currently have information on the following items, available in exchange for intel as usual:",
+	L"There is currently no other information available.",
+
+	L"%d Intel - %s",
+	L"We can provide aerial reconnaissance of a map region. This will last until  %02d:00.",
+	L"Buy data - 50 intel",
+	L"Buy detailed data - 70 Intel",
+
+	L"Select map region on which you want info on:",
+
+	L"North-west",
+	L"North-north-west",
+	L"North-north-east",
+	L"North-east",
+
+	L"West-north-west",
+	L"Center-north-west",
+	L"Center-north-east",
+	L"East-north-east",
+
+	L"West-south-west",
+	L"Center-south-west",
+	L"Center-south-east",
+	L"East-south-east",
+
+	L"South-west",
+	L"South-south-west",
+	L"South-south-east",
+	L"South-east",
+
+	// about us
+	L"On the 'Information Requests' page, you can buy information on various enemy targets for intel.",
+	L"This includes information on enemy patrols & garrisons, noteworthy persons of interests, enemy aircraft etc..",
+	L"Some of that information may be of temporary nature.",
+	L"On the 'Information Verification' page, you can upload data you took of significant intelligence.",
+
+	L"We will verify the data (this process usually takes several hours) and compensate you accordingly.",
+	L"Note that you will reveive less intel if outside conditions have rendered the information less useful (e.g. the person in question having died since the data was acquired).",
+
+	// sell info
+	L"You can upload the following facts:",
+	L"Previous",
+	L"Next",
+	L"Upload",
+
+	L"You have already received compensation for the following:"
+};
+
+STR16	szIntelText[] =
+{
+	L"No more enemies present, %s is no longer in hiding!",
+	L"%s has been discovered and goes into hiding for %d hours.",
+	L"%s has been discovered, going to sector!",
 };
 
 #endif //ENGLISH

@@ -95,7 +95,8 @@
     <ClInclude Include="insurance Info.h" />
     <ClInclude Include="Insurance Text.h" />
     <ClInclude Include="insurance.h" />
-    <ClInclude Include="Laptop All.h" />
+    <ClInclude Include="Intelmarket.h" />
+	<ClInclude Include="Laptop All.h" />
     <ClInclude Include="laptop.h" />
     <ClInclude Include="LaptopSave.h" />
     <ClInclude Include="merccompare.h" />
@@ -184,7 +185,8 @@
     <ClCompile Include="insurance Contract.cpp" />
     <ClCompile Include="insurance Info.cpp" />
     <ClCompile Include="insurance.cpp" />
-    <ClCompile Include="laptop.cpp" />
+    <ClCompile Include="Intelmarket.cpp" />
+	<ClCompile Include="laptop.cpp" />
     <ClCompile Include="merccompare.cpp" />
     <ClCompile Include="mercs Account.cpp" />
     <ClCompile Include="mercs Files.cpp" />

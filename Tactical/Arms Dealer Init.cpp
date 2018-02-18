@@ -18,6 +18,7 @@
 	#include "Scheduling.h"
 	#include "GameSettings.h"
 	#include "Overhead.h"	// added by Flugente for MercPtrs[]
+	#include "LuaInitNPCs.h"	// added by Flugente
 #endif
 
 #ifdef JA2UB
@@ -41,6 +42,9 @@
 #define PRICE_CLASS_EXPENSIVE							2
 
 void ConvertCreatureBloodToElixir( void );
+
+// Flugente: if we are a lua-based merchant, stop selling items we didn't explicitly want to be sold
+void RemoveNonIntelItems();
 
 UINT8 gubLastSpecialItemAddedAtElement = 255;
 
@@ -237,6 +241,64 @@ void ShutDownArmsDealers()
 	gArmsDealersInventory.clear();
 }
 
+typedef struct
+{
+	UINT16		usItem;
+	INT16		sIntelPrice;
+	INT16		sOptimalNumber;
+
+} ARMS_DEALER_ITEM_INTEL;
+
+std::map<UINT16, std::vector<ARMS_DEALER_ITEM_INTEL> >	gArmsDealerAdditionalIntelData;
+
+void AddArmsDealerAdditionalIntelData( UINT16 ausDealer, UINT16 usItem, INT16 sIntelPrice, INT16 sOptimalNumber )
+{
+	ARMS_DEALER_ITEM_INTEL data;
+	data.usItem = usItem;
+	data.sIntelPrice = sIntelPrice;
+	data.sOptimalNumber = sOptimalNumber;
+	
+	gArmsDealerAdditionalIntelData[ausDealer].push_back( data );
+}
+
+void ArmsDealers_ReadIntelData()
+{
+	gArmsDealerAdditionalIntelData.clear();
+
+	// ask lua on what to use
+	LuaAddArmsDealerAdditionalIntelData();
+}
+
+void HandlePossibleArmsDealerIntelRefresh( BOOLEAN aForceReread )
+{
+	if ( gArmsDealerAdditionalIntelData.empty() || aForceReread )
+	{
+		ArmsDealers_ReadIntelData();
+
+		// replace xml-based possible inventory with what lua gave us
+		for ( std::map<UINT16, std::vector<ARMS_DEALER_ITEM_INTEL> >::iterator it = gArmsDealerAdditionalIntelData.begin(); it != gArmsDealerAdditionalIntelData.end(); ++it)
+		{
+			UINT16 dealerid = ( *it ).first;
+
+			DEALER_POSSIBLE_INV* pDealerInv = GetPointerToDealersPossibleInventory( dealerid );
+
+			memset( pDealerInv, 0, sizeof( DEALER_POSSIBLE_INV )*MAXITEMS );
+
+			int cnt = 0;
+			for ( std::vector<ARMS_DEALER_ITEM_INTEL>::iterator it2 = (*it).second.begin();  it2 != ( *it ).second.end(); ++it2 )
+			{
+				ARMS_DEALER_ITEM_INTEL data = ( *it2 );
+
+				pDealerInv[cnt].uiIndex = cnt;
+				pDealerInv[cnt].sItemIndex = data.usItem;
+				pDealerInv[cnt].ubOptimalNumber = data.sOptimalNumber;
+
+				++cnt;
+			}
+		}
+	}
+}
+
 BOOLEAN SaveArmsDealerInventoryToSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten;
@@ -313,7 +375,7 @@ void DailyUpdateOfArmsDealersInventory()
 {
 	// if Gabby has creature blood, start turning it into extra elixir
 	ConvertCreatureBloodToElixir();
-
+	
 	//Simulate other customers buying inventory from the dealer
 	SimulateArmsDealerCustomer();
 
@@ -323,6 +385,10 @@ void DailyUpdateOfArmsDealersInventory()
 #else
 	DailyCheckOnItemQuantities();
 #endif
+
+	// Flugente: if we are a lua-based merchant, stop selling items we didn't explicitly want to be sold
+	RemoveNonIntelItems();
+
 	//make sure certain items are in stock and certain limits are respected
 	AdjustCertainDealersInventory( );
 }
@@ -422,6 +488,8 @@ void DailyCheckOnItemQuantities()
 	UINT8		ubNumItems;
 	UINT32	uiArrivalDay;
 	UINT8		ubReorderDays;
+	
+	HandlePossibleArmsDealerIntelRefresh(TRUE);
 	
 	//loop through all the arms dealers
 	for( ubArmsDealer=0;ubArmsDealer<NUM_ARMS_DEALERS; ++ubArmsDealer )
@@ -600,6 +668,32 @@ void ConvertCreatureBloodToElixir( void )
 		RemoveItemFromArmsDealerInventory( ARMS_DEALER_GABBY, JAR_CREATURE_BLOOD, ubAmountToConvert );
 
 		ArmsDealerGetsFreshStock( ARMS_DEALER_GABBY, JAR_ELIXIR, ubAmountToConvert );
+	}
+}
+
+// Flugente: if we are a lua-based merchant, stop selling items we didn't explicitly want to be sold
+void RemoveNonIntelItems()
+{
+	for ( UINT8 ubArmsDealer = 0; ubArmsDealer<NUM_ARMS_DEALERS; ++ubArmsDealer )
+	{
+		if ( gArmsDealerStatus[ubArmsDealer].fOutOfBusiness )
+			continue;
+
+		if ( armsDealerInfo[ubArmsDealer].uiFlags & ARMS_DEALER_DEALWITHINTEL )
+		{
+			std::vector<UINT16> baditemsvector;
+
+			for ( DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin(); iter != gArmsDealersInventory[ubArmsDealer].end(); ++iter )
+			{
+				if ( iter->ItemIsInInventory() == true && CalcValueOfItemToDealer( ubArmsDealer, iter->object.usItem, TRUE ) < 1 )
+					baditemsvector.push_back( iter->object.usItem );
+			}
+
+			for ( std::vector<UINT16>::iterator it2 = baditemsvector.begin(); it2 != baditemsvector.end(); ++it2 )
+			{
+				RemoveItemFromArmsDealerInventory( ubArmsDealer, (*it2), 100 );
+			}
+		}
 	}
 }
 
@@ -2083,15 +2177,15 @@ UINT32 CalculateSimpleItemRepairCost( UINT8 ubArmsDealer, UINT16 usItemIndex, IN
 
 BOOLEAN DoesItemAppearInDealerInventoryList( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN fPurchaseFromPlayer )
 {
-	DEALER_POSSIBLE_INV *pDealerInv=NULL;
-	UINT16 usCnt;
+	// Flugente: a dealer's inventory is defined in lua if they deal in intel	
+	HandlePossibleArmsDealerIntelRefresh(FALSE);
 
 	// the others will buy only things that appear in their own "for sale" inventory lists
-	pDealerInv = GetPointerToDealersPossibleInventory( ubArmsDealer );
+	DEALER_POSSIBLE_INV* pDealerInv = GetPointerToDealersPossibleInventory( ubArmsDealer );
 	Assert( pDealerInv != NULL );
 
 	// loop through the dealers' possible inventory and see if the item exists there
-	usCnt = 0;
+	UINT16 usCnt = 0;
 	while( pDealerInv[ usCnt ].sItemIndex != LAST_DEALER_ITEM )
 	{
 		//if the initial dealer inv contains the required item, the dealer can sell the item
@@ -2118,6 +2212,22 @@ UINT16 CalcValueOfItemToDealer( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN 
 	UINT16 usValueToThisDealer;
 	
 	usBasePrice = Item[ usItemIndex ].usPrice;
+
+	// Flugente: if we deal with intel, get the price of an item straight from LUA
+	if ( ( armsDealerInfo[ubArmsDealer].uiFlags & ARMS_DEALER_DEALWITHINTEL ) )
+	{
+		if ( !gArmsDealerAdditionalIntelData[ubArmsDealer].empty() )
+		{
+			for ( std::vector<ARMS_DEALER_ITEM_INTEL>::iterator it = gArmsDealerAdditionalIntelData[ubArmsDealer].begin(); it != gArmsDealerAdditionalIntelData[ubArmsDealer].end(); ++it )
+			{
+				if ( ( *it ).usItem == usItemIndex )
+					return ( *it ).sIntelPrice;
+			}
+		}
+
+		return 0;
+	}
+
 
 	if ( usBasePrice == 0 )
 	{

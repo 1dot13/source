@@ -935,8 +935,8 @@ void AddCommonInfoToBox(void)
 			break;
 
 		// HEADROCK HAM 5: New case
-		case KNOWS_HOW_MANY:
-		case KNOWS_HOW_MANY_AND_WHERE_GOING:
+		case KNOWS_THEYRE_THERE_AND_HOW_MANY:
+		case KNOWS_THEYRE_THERE_AND_WHERE_GOING_AND_HOW_MANY:
 			// show exactly how many
 			if (numEnemiesOnMap != ubNumEnemies)
 				swprintf( wString, L"%d (%d)", numEnemiesOnMap, ubNumEnemies );

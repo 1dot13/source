@@ -1612,7 +1612,11 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 	//INT32 iCounter = 0;
 	INT32 sGridNo, sTempGridNo;
 
-	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
+	INT8 sectorz = Menptr[uiMercId].bSectorZ;
+	if ( SPY_LOCATION( Menptr[uiMercId].bAssignment ) )
+		sectorz = max( 0, sectorz - 10 ); 
+	
+	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || sectorz != gbWorldSectorZ )
 	{
 		// ATE: Use insertion gridno if not nowhere and insertion is gridno		
 		if ( Menptr[ uiMercId ].ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && !TileIsOutOfBounds(Menptr[ uiMercId ].usStrategicInsertionData) )
@@ -1649,7 +1653,7 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 	UINT32 uiFoundItems = 0;
 	Inventory invTemporaryBeforeDrop;
 
-	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
+	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || sectorz != gbWorldSectorZ )
 	{
 		for( UINT32 iCounter = 0; iCounter < invsize; ++iCounter )
 		{
@@ -1662,7 +1666,7 @@ void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 			}
 		}
 		// anv: add all items at once (less file operations = less lag)
-		AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,	Menptr[ uiMercId ].sSectorY, Menptr[ uiMercId ].bSectorZ , sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]) , Menptr[ uiMercId ].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+		AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,	Menptr[ uiMercId ].sSectorY, sectorz, sGridNo, uiFoundItems, &(invTemporaryBeforeDrop[0]) , Menptr[ uiMercId ].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
 	}
 	else
 	{
@@ -2297,6 +2301,14 @@ void UpdateMapScreenAssignmentPositions( void )
 		pPoint.iY = giBoxY + (GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS;
 
 		SetBoxPosition( ghDiseaseBox, pPoint );
+	}
+
+	if ( fShowSpyMenu )
+	{
+		GetBoxPosition( ghSpyBox, &pPoint );
+		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY;
+
+		SetBoxPosition( ghSpyBox, pPoint );
 	}
 
 	// HEADROCK HAM 3.6: Facility Menu
@@ -3743,7 +3755,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
 
 			if( ( pSoldier->bActive ) &&
-					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
+					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) &&
 					( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == sSectorZ ) )
 			{
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -5769,12 +5781,12 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	if ( NumNonPlayerTeamMembersInSector( gubPBSectorX, gubPBSectorY, ENEMY_TEAM ) > 0 )
 	{
 		gfBlitBattleSectorLocator = TRUE;
-		gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
+		SetEnemyEncounterCode(ENTERING_ENEMY_SECTOR_CODE);
 	}
 	else
 	{
 		gfBlitBattleSectorLocator = FALSE;
-		gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
+		SetEnemyEncounterCode(NO_ENCOUNTER_CODE);
 	}
 
 	InitHelicopterEntranceByMercs( );

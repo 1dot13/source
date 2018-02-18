@@ -120,7 +120,7 @@ UINT32 uniqueIDMask[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 UINT8 AddGroupToList( GROUP *pGroup );
 
-void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
+void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ, GROUP* pArrivingGroup = NULL );
 BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pGroup );
 
 void HandleNonCombatGroupArrival( GROUP *pGroup, BOOLEAN fMainGroup, BOOLEAN fNeverLeft );
@@ -241,6 +241,11 @@ BOOLEAN AddPlayerToGroup( UINT8 ubGroupID, SOLDIERTYPE *pSoldier )
 	if( !pGroup->pPlayerList )
 	{
 		pGroup->pPlayerList = pPlayer;
+
+		// Flugente: no groups in odd locations
+		if ( pSoldier->bSectorZ >= 10 )
+			pSoldier->bSectorZ -= 10;
+
 		pGroup->ubGroupSize = 1;
 		pGroup->ubPrevX = SECTORX( pSoldier->ubPrevSectorID );
 		pGroup->ubPrevY = SECTORY( pSoldier->ubPrevSectorID );
@@ -1193,10 +1198,10 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 
 	if( !DidGameJustStart() )
 	{
-		gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
+		SetEnemyEncounterCode( NO_ENCOUNTER_CODE );
 	}
 
-	HandleOtherGroupsArrivingSimultaneously( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ );
+	HandleOtherGroupsArrivingSimultaneously( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ, pGroup );
 
 	curr = gpGroupList;
 	while( curr )
@@ -1274,7 +1279,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 			StopTimeCompression();
 		}
 
-		if( fBattlePending && (!fBloodCatAmbush || gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE) )
+		if( fBattlePending && (!fBloodCatAmbush || GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE) )
 		{
 			if( PossibleToCoordinateSimultaneousGroupArrivals( pGroup ) )
 			{
@@ -1351,7 +1356,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 
 		gpInitPrebattleGroup = pGroup;
 
-		if( gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
+		if( GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE )
 		{
 			NotifyPlayerOfBloodcatBattle( pGroup->ubSectorX, pGroup->ubSectorY );
 			return TRUE;
@@ -2045,6 +2050,11 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			ubInsertionDirection = SOUTHEAST;
 			ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 		}
+		else if ( pGroup->usGroupTeam == OUR_TEAM && pGroup->pPlayerList->pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION )
+		{
+			ubInsertionDirection = DIRECTION_IRRELEVANT;
+			ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		}
 		else
 		{
 			Assert(0);
@@ -2260,7 +2270,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 		else
 		{
 			//Handle cases for pre battle conditions
-			pGroup->uiFlags = 0;
+			pGroup->uiFlags &= ~GROUPFLAGS_TODELETE;
 
 			if( gubNumAwareBattles )
 			{
@@ -2449,8 +2459,9 @@ void HandleNonCombatGroupArrival( GROUP *pGroup, BOOLEAN fMainGroup, BOOLEAN fNe
 			RemovePGroup( pGroup );
 		}
 	}
+	
 	//Clear the non-persistant flags.
-	pGroup->uiFlags = 0;
+	pGroup->uiFlags &= ~GROUPFLAGS_TODELETE;
 }
 
 
@@ -2459,7 +2470,7 @@ void HandleNonCombatGroupArrival( GROUP *pGroup, BOOLEAN fMainGroup, BOOLEAN fNe
 //groups that may arrive at the same time -- enemies or players, and blindly add them to the sector
 //without checking for battle conditions, as it has already determined that a new battle is about to
 //start.
-void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ )
+void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ, GROUP* pArrivingGroup )
 {
 	STRATEGICEVENT *pEvent;
 	UINT32 uiCurrTimeStamp;
@@ -2479,7 +2490,7 @@ void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, 
 				{
 					GroupArrivedAtSector( (UINT8)pEvent->uiParam, FALSE, FALSE );
 					pGroup->uiFlags |= GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY;
-					gubNumGroupsArrivedSimultaneously++;
+					++gubNumGroupsArrivedSimultaneously;
 					DeleteStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->ubGroupID );
 					pEvent = gpEventList;
 					continue;
@@ -2487,6 +2498,30 @@ void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, 
 			}
 		}
 		pEvent = pEvent->next;
+	}
+
+	// Flugente: concealed spies are added if a battle occurs
+	if ( !IsGroupTheHelicopterGroup( pArrivingGroup ) )
+	{
+		UINT16 uiCnt = 0;
+		SOLDIERTYPE* pSoldier = NULL;
+
+		for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pSoldier )
+		{
+			if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && SPY_LOCATION( pSoldier->bAssignment ) )
+			{
+				if ( ( pSoldier->sSectorX == ubSectorX ) && ( pSoldier->sSectorY == ubSectorY ) && ( pSoldier->bSectorZ - 10 == ubSectorZ ) )
+				{
+					INT8 bNewSquad = GetFirstEmptySquad();
+					if ( bNewSquad == -1 )
+						continue;
+
+					pSoldier->usSoldierFlagMask2 |= SOLDIER_CONCEALINSERTION;
+
+					AddCharacterToSquad( pSoldier, bNewSquad );
+				}
+			}
+		}
 	}
 }
 
@@ -2634,7 +2669,7 @@ BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pFirstGroup )
 		{
 			pStr = gpStrategicString[ STR_DETECTED_PLURAL ];
 		}
-		if( gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
+		if( GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE )
 		{
 			pEnemyType = gpStrategicString[ STR_PB_BLOODCATS ];
 		}
@@ -5361,7 +5396,7 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 			// We know about the lair
 			if( gubFact[ FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR ] )
 			{
-				gubEnemyEncounterCode = ENTERING_BLOODCAT_LAIR_CODE;				
+				SetEnemyEncounterCode( ENTERING_BLOODCAT_LAIR_CODE );
 			}
 			else
 			{
@@ -5373,12 +5408,12 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 
 					fBloodCatAmbushPrevented = TRUE;
 
-					gubEnemyEncounterCode = ENTERING_BLOODCAT_LAIR_CODE;
+					SetEnemyEncounterCode( ENTERING_BLOODCAT_LAIR_CODE );
 				}
 				else
 				{
 					// Ambush in the lair.
-					gubEnemyEncounterCode = BLOODCAT_AMBUSH_CODE;
+					SetEnemyEncounterCode( BLOODCAT_AMBUSH_CODE );
 				}
 			}
 		}
@@ -5392,12 +5427,12 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_BLOODCATS_AMBUSH_PREVENTED] );
 
 				fBloodCatAmbushPrevented = TRUE;
-				gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
+				SetEnemyEncounterCode( NO_ENCOUNTER_CODE );
 			}
 			else
 			{
 				// Ambush occurs.
-				gubEnemyEncounterCode = BLOODCAT_AMBUSH_CODE;
+				SetEnemyEncounterCode( BLOODCAT_AMBUSH_CODE );
 			}
 		}
 		// merc recoeds - get a point to scouts
@@ -5417,13 +5452,13 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 				}
 			}
 		}
-		return( ( gubEnemyEncounterCode == NO_ENCOUNTER_CODE ) ? FALSE : TRUE);
+		return( ( GetEnemyEncounterCode() == NO_ENCOUNTER_CODE ) ? FALSE : TRUE);
 		///////////////////////////////////////////////////////////////////////////////////////////
 	}
 	else
 	{
 		// No special bloodcat encounter. This ALWAYS happens in STATIC PLACEMENT sectors.
-		gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
+		SetEnemyEncounterCode( NO_ENCOUNTER_CODE );
 		return FALSE;
 	}
 #endif
@@ -5433,12 +5468,12 @@ void NotifyPlayerOfBloodcatBattle( UINT8 ubSectorX, UINT8 ubSectorY )
 {
 	CHAR16 str[ 256 ];
 	CHAR16 zTempString[ 128 ];
-	if( gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
+	if( GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE )
 	{
 		GetSectorIDString( ubSectorX, ubSectorY, 0, zTempString, TRUE );
 		swprintf( str, pMapErrorString[ 12 ], zTempString );
 	}
-	else if( gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
+	else if( GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE )
 	{
 		GetSectorIDString( ubSectorX, ubSectorY, 0, zTempString, FALSE );
 		swprintf( str, pMapErrorString[ 13 ], zTempString );
@@ -5815,8 +5850,9 @@ BOOLEAN GroupHasInTransitDeadOrPOWMercs( GROUP *pGroup )
 		if ( pPlayer->pSoldier )
 		{
 			if( ( pPlayer->pSoldier->bAssignment == IN_TRANSIT ) ||
-					( pPlayer->pSoldier->bAssignment == ASSIGNMENT_POW ) ||
-					( pPlayer->pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
+				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_POW ) ||
+				SPY_LOCATION( pPlayer->pSoldier->bAssignment ) ||
+				( pPlayer->pSoldier->bAssignment == ASSIGNMENT_DEAD ) )
 			{
 				// yup!
 				return( TRUE );
@@ -5923,6 +5959,29 @@ BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY )
 	return ( fScoutPresent );
 }
 
+// Flugente: concealed mercs are in a different sector level, but we pretend they aren't... so we gain scout vision if a concealed merc is 'present'
+BOOLEAN ConcealedMercInSector( INT16 ubSectorNumX, INT16 ubSectorNumY, BOOLEAN aScoutsOnly )
+{
+	if ( !gGameOptions.fNewTraitSystem )
+		return FALSE;
+
+	for ( int i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
+	{
+		if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife >= OKLIFE && SPY_LOCATION( MercPtrs[i]->bAssignment ) )
+		{
+			if ( MercPtrs[i]->sSectorX == ubSectorNumX && MercPtrs[i]->sSectorY == ubSectorNumY && MercPtrs[i]->bSectorZ == 10 )
+			{
+				if ( !aScoutsOnly || HAS_SKILL_TRAIT( MercPtrs[i], SCOUTING_NT ) )
+				{
+					return TRUE;
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
 #ifdef JA2UB
 GROUP* CreateNewEnemyGroupDepartingFromSectorUsingZLevel( UINT32 uiSector, UINT8 ubSectorZ, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks )
 {
@@ -5996,13 +6055,13 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 	BOOLEAN fCombatAbleMerc = FALSE;
 	BOOLEAN fBloodCatAmbush = FALSE;
 	
-	gubEnemyEncounterCode = ENEMY_INVASION_AIRDROP_CODE;
+	SetEnemyEncounterCode( ENEMY_INVASION_AIRDROP_CODE );
 
 	gubSectorIDOfCreatureAttack = SECTOR(sX, sY);
 
 	gubSpecialEncounterCodeForEnemyHeli = TRUE;
 
-	HandleOtherGroupsArrivingSimultaneously( sX, sY, sZ );
+	HandleOtherGroupsArrivingSimultaneously( sX, sY, sZ, NULL );
 
 	curr = gpGroupList;
 	while ( curr )
@@ -6125,7 +6184,7 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 
 		//gpInitPrebattleGroup = pGroup;
 
-		if ( gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
+		if ( GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE )
 		{
 			NotifyPlayerOfBloodcatBattle( sX, sY );
 
@@ -6173,5 +6232,20 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 
 			PrepareForPreBattleInterface( pPlayerDialogGroup, NULL );
 		}
+	}
+}
+
+void GetInfoFromGroupsInSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubTeam, BOOLEAN& arDetection, BOOLEAN& arCount, BOOLEAN& arDirection )
+{
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == ubTeam && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			if ( pGroup->uiFlags & GROUPFLAG_KNOWN_POSITION )	arDetection = TRUE;
+			if ( pGroup->uiFlags & GROUPFLAG_KNOWN_NUMBER )		arCount = TRUE;
+			if ( pGroup->uiFlags & GROUPFLAG_KNOWN_DIRECTION )	arDirection = TRUE;
+		}
+		pGroup = pGroup->next;
 	}
 }

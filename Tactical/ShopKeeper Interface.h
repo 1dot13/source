@@ -106,6 +106,7 @@ void			DrawHatchOnInventory_MilitiaAccess( UINT32 uiSurface, UINT16 usPosX, UINT
 BOOLEAN		ShouldSoldierDisplayHatchOnItem( UINT8	ubProfileID, INT16 sSlotNum );
 INT8			AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, INT16	bSlotIdInOtherLocation );
 void			ConfirmToDeductMoneyFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue );
+void			ConfirmToDeductIntelFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue );
 void			ConfirmDontHaveEnoughForTheDealerMessageBoxCallBack( UINT8 bExitValue );
 
 void			SkiHelpTextDoneCallBack( void );

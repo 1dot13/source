@@ -140,6 +140,9 @@ enum
 	EVENT_WEATHER_SANDSTORM,
 	EVENT_WEATHER_SNOW,
 
+	EVENT_INTEL_ENRICO_EMAIL,					// Flugente: Enrico sends us an email introduction to intel
+	EVENT_INTEL_PHOTOFACT_VERIFY,				// verification of a photo fact
+
 	NUMBER_OF_EVENT_TYPES_PLUS_ONE,
 	NUMBER_OF_EVENT_TYPES						= NUMBER_OF_EVENT_TYPES_PLUS_ONE - 1
 };

@@ -906,6 +906,9 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 		delete [] pOldArmsDealersInventory;
 	}
 
+	// we need to refresh our selection at this point, as lua data may depend on campaign specifics
+	HandlePossibleArmsDealerIntelRefresh( TRUE );
+
 	return( TRUE );
 }
 
@@ -8526,8 +8529,8 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 
 	//New stuff for the Prebattle interface / autoresolve
 	sGeneralInfo.fPersistantPBI									= gfPersistantPBI;
-	sGeneralInfo.ubEnemyEncounterCode						= gubEnemyEncounterCode;
-	sGeneralInfo.ubExplicitEnemyEncounterCode		= gubExplicitEnemyEncounterCode;
+	sGeneralInfo.ubEnemyEncounterCode					= GetEnemyEncounterCode();
+	sGeneralInfo.ubExplicitEnemyEncounterCode			= GetExplicitEnemyEncounterCode();
 	sGeneralInfo.fBlitBattleSectorLocator				= gfBlitBattleSectorLocator;
 	sGeneralInfo.ubPBSectorX										= gubPBSectorX;
 	sGeneralInfo.ubPBSectorY										= gubPBSectorY;
@@ -9101,8 +9104,8 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 	//New stuff for the Prebattle interface / autoresolve
 	gfPersistantPBI									= sGeneralInfo.fPersistantPBI;
-	gubEnemyEncounterCode						= sGeneralInfo.ubEnemyEncounterCode;
-	gubExplicitEnemyEncounterCode		= sGeneralInfo.ubExplicitEnemyEncounterCode;
+	SetEnemyEncounterCode( sGeneralInfo.ubEnemyEncounterCode );
+	SetExplicitEnemyEncounterCode( sGeneralInfo.ubExplicitEnemyEncounterCode );
 	gfBlitBattleSectorLocator				= sGeneralInfo.fBlitBattleSectorLocator;
 	gubPBSectorX										= sGeneralInfo.ubPBSectorX;
 	gubPBSectorY										= sGeneralInfo.ubPBSectorY;

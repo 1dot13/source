@@ -414,6 +414,10 @@ enum
 #define SOLDIER_COVERT_NOREDISGUISE			0x00001000					// this soldier does not want to be redisguised
 #define SOLDIER_TRAIT_FOCUS					0x00002000					// 'focus' skill is active
 #define SOLDIER_BAYONET_RUNBONUS			0x00004000					// we are performing a bayonet attack after transitioning from running, giving our attack extra force
+#define SOLDIER_CONCEALINSERTION			0x00008000					// we enteri a sector by transition from concealed state (which causes us to spawn at the location we left the sector in)
+
+#define SOLDIER_CONCEALINSERTION_DISCOVERED	0x00010000					// we enter a sector by transition from concealed state, but as we were 'discovered', set red alert
+#define SOLDIER_MERC_POW_LOCATIONKNOWN		0x00020000					// we are a POW, but the player has discovered our location 
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -584,6 +588,12 @@ enum{
 	SKILLS_RADIO_TURNOFF,
 	SKILLS_RADIO_LAST = SKILLS_RADIO_TURNOFF,
 
+	// spy
+	SKILLS_INTEL_FIRST,
+	SKILLS_INTEL_CONCEAL = SKILLS_INTEL_FIRST,	// assignment: spy hides among the population
+	SKILLS_INTEL_GATHERINTEL,					// assignment: spy gathers information while disguised
+	SKILLS_INTEL_LAST = SKILLS_INTEL_GATHERINTEL,
+
 	// various
 	SKILLS_VARIOUS_FIRST,
 	SKILLS_SPOTTER = SKILLS_VARIOUS_FIRST,
@@ -608,6 +618,7 @@ enum {
 	SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_SECONDS = 0,
 	SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS,
 	SOLDIER_COOLDOWN_CRYO,					// counts how many turns character will be frozen
+	SOLDIER_COOLDOWN_INTEL_PENALTY,			// after being discovered, we can't gain intel from the assignment for this many hours
 
 	SOLDIER_COOLDOWN_MAX = 20,				// enough space for fillers
 };
@@ -1964,6 +1975,10 @@ public:
 	void		SetDragOrderPerson( UINT16 usID );
 	void		SetDragOrderCorpse( UINT32 usID );
 	void		CancelDrag();
+
+	// Flugente: spy assignments
+	UINT8		GetUncoverRisk();
+	FLOAT		GetIntelGain();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

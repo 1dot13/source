@@ -2468,6 +2468,8 @@ STR16 pAssignmentStrings[] =
 	L"修理", // repairing
 	L"筑防",		//L"Fortify", build structures according to external layout
 	L"培训工人",//L"Train W.",
+	L"Hide",	// TODO.Translate
+	L"GetIntel",
 };
 
 
@@ -2571,6 +2573,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"修理",
 	L"筑防区域",		//L"Fortify sector", build structures according to external layout
 	L"培训工人",//L"Train workers",
+	L"Hide while disguised",	// TODO.Translate
+	L"Get intel while disguised",
 };
 
 
@@ -2633,6 +2637,8 @@ STR16 pLongAssignmentStrings[] =
 	L"修理",
 	L"筑防区域",		//	L"Fortify sector", build structures according to external layout
 	L"培训工人",//L"Train workers",
+	L"Hide while disguised",	// TODO.Translate
+	L"Get intel while disguised",
 };
 
 
@@ -2754,6 +2760,7 @@ STR16 pAssignMenuStrings[] =
 	L"训练",
 	L"搬运物品",	// get items
 	L"筑防",		//L"Fortify", fortify sector
+	L"Intel", // covert assignments	// TODO.Translate
 	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -2791,6 +2798,10 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"呼叫支援", //L"Call reinforcements",
 	L"关闭接收器", //L"Switch off radio set",
 
+	// spy
+	L"Hide assignment",		// TODO.Translate
+	L"Get Intel assignment",
+
 	// various
 	L"侦查员",
 	L"聚焦", //L"Focus",	
@@ -2807,6 +2818,10 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"使用无线电设备持续监听敌军动向。", //L"Use your radio equipment to continously listen for enemy movement",
 	L"从邻区呼叫支援。", //L"Call in reinforcements from neighbouring sectors.",
 	L"关闭无线电设备。", //L"Turn off radio set.",
+
+	// spy
+	L"Assignment: hide among the population.",		// TODO.Translate
+	L"Assignment: hide among the population and gather intel.",
 
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率值。",
@@ -2830,6 +2845,11 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 在佣兵旁边放下人或尸体\n", //L" - prone person or corpse next to merc\n",
 	L" - 下蹲姿势\n", //L" - crouched position\n",
 	L" - free main hand\n",	// TODO.Translate
+	L" - covert trait\n",
+	L" - enemy occupied sector\n",
+	L" - single merc\n",
+	L" - no alarm raised\n",
+	L" - civilian or soldier disguise\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -3184,6 +3204,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for snitch (minor trait)
 	L"生还者",			// for survival (minor trait)
 	L"更多...",			// 47
+	L"Intel",			// for INTEL	// TODO.Translate
 	L"多种技能",			// for VARIOUSSKILLS
 };
 //////////////////////////////////////////////////////////
@@ -3985,7 +4006,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s 清理了 %s",
 
 	// added by Flugente: decide what to do with prisoners
-	L"你现在没有可用的监狱关押这些俘虏，你不得不放他们走。", //L"You have no prison for these prisoners, you have to let them go",
+	L"As we have no prison, a field interrogation is performed.",		// TODO.Translate
+	L"Field interrogation",
 	L"你打算把 %d 俘虏送到哪里去？",//L"Where do you want to send the %d prisoners?",
 	L"放俘虏离开",//L"Let them go",
 	L"你想要做什么？",
@@ -5012,6 +5034,7 @@ STR16 pBookMarkStrings[] =
 	L"世界卫生组织", //L"WHO",　
 	L"Kerberus安保公司", //L"Kerberus",
 	L"民兵总览",//L"Militia Overview",
+	L"R.I.S.",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5135,6 +5158,9 @@ STR16 pWebPagesTitles[] =
 	L"Kerberus安保公司 - 雇佣队伍", //L"Kerberus - Hire a Team",
 	L"Kerberus安保公司 - 独立协议", //L"Kerberus - Individual Contracts",
 	L"民兵总览", //L"Militia Overview",
+	L"Recon Intelligence Services - Information Requests",		// TODO.Translate
+	L"Recon Intelligence Services - Information Verification",
+	L"Recon Intelligence Services - About us",
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -6067,6 +6093,9 @@ STR16	SkiMessageBoxText[] =
 	L"请求商人修理选定物品",
 	L"结束对话",
 	L"当前余额",
+
+	L"Do you want to transfer %s Intel to cover the difference?",	// TODO.Translate
+	L"Do you want to transfer %s Intel to cover the cost?",
 };
 
 
@@ -6935,6 +6964,7 @@ STR16 gzLaptopHelpText[] =
 	L"世界卫生组织", //L"World Health Organization",
 	L"Kerberus - 安保公司",//L"Kerberus - Experience In Security",
 	L"民兵总览",//L"Militia Overview",
+	L"Recon Intelligence Services",	// TODO.Translate
 };
 
 
@@ -8393,6 +8423,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|面|部|防|护", //L"|F|a|c|e |P|r|o|t|e|c|t|i|o|n",
 	L"|感|染|防|护", //L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	 // 39
 	L"|护|盾", //L"|S|h|i|e|l|d",
+	L"|C|a|m|e|r|a",		// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8438,6 +8469,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n如果你脸上带了这个，这就将降低\n传播给其他人的几率。", //L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
 	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 	L"\n \n拿在手里，就可以抵挡前方的伤害。", //L"\n \nIf equipped in a hand, this will block incoming damage.",
+	L"\n \nYou can take photos with this.",		// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8875,7 +8907,7 @@ STR16	szFoodTextStr[]=
 STR16	szPrisonerTextStr[]=
 {
 	L"%d 军官，%d 精英士兵，%d 普通士兵，%d 巡逻官，%d 平民 都被审问。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
-	L"%d 名俘虏已支付赎金", //L"%d prisoners paid ransom money.",
+	L"Gained $%d as ransom money.",		// TODO.Translate
 	L"%d 名俘虏已供出同伙位置", //L"%d prisoners revealed enemy positions.",
 	L"%d 军官，%d 精英士兵，%d 普通士兵，%d 巡逻官 加入了我方。", //L"%d officers, %d elites, %d regulars and %d admins joined our cause.",
 	L"俘虏掀起大规模暴动！在 %s 监狱！", //L"Prisoners start a massive riot in %s!",
@@ -10949,6 +10981,12 @@ STR16	szDiseaseText[] =
 	L"\n\n%s (未诊断的) - %d / %d\n",	//L"\n\n%s (undiagnosed) - %d / %d\n",
 };
 
+STR16	szSpyText[] =
+{
+	L"Hide",			// TODO.Translate
+	L"Get Intel",
+};
+
 STR16	szFoodText[] =
 {
 	L"\n\n|水: %d%%\n",  //L"\n\n|W|a|t|e|r: %d%%\n",
@@ -11255,6 +11293,71 @@ STR16	szGearTemplateText[] =
 	L"所选佣兵不在这个区域。", //L"Selected mercenary is not in this sector.",
 	L"%s 不在这个区域。", //L"%s is not in that sector.",
 	L"%s无法装备%s。", //L"%s could not equip %s.",
+	L"We cannot attach %s (item %d) as that might damage items.",	// TODO.Translate
+};
+
+STR16	szIntelWebsiteText[] =
+{
+	L"Recon Intelligence Services",
+	L"Your need to know base",
+	L"Information Requests",
+	L"Information Verification",
+
+	L"About us",
+	L"You have %d Intel.",
+	L"We currently have information on the following items, available in exchange for intel as usual:",
+	L"There is currently no other information available.",
+
+	L"%d Intel - %s",
+	L"We can provide aerial reconnaissance of a map region. This will last until  %02d:00.",
+	L"Buy data - 50 intel",
+	L"Buy detailed data - 70 Intel",
+
+	L"Select map region on which you want info on:",
+
+	L"North-west",
+	L"North-north-west",
+	L"North-north-east",
+	L"North-east",
+
+	L"West-north-west",
+	L"Center-north-west",
+	L"Center-north-east",
+	L"East-north-east",
+
+	L"West-south-west",
+	L"Center-south-west",
+	L"Center-south-east",
+	L"East-south-east",
+
+	L"South-west",
+	L"South-south-west",
+	L"South-south-east",
+	L"South-east",
+
+	// about us
+	L"On the 'Information Requests' page, you can buy information on various enemy targets for intel.",
+	L"This includes information on enemy patrols & garrisons, noteworthy persons of interests, enemy aircraft etc..",
+	L"Some of that information may be of temporary nature.",
+	L"On the 'Information Verification' page, you can upload data you took of significant intelligence.",
+
+	L"We will verify the data (this process usually takes several hours) and compensate you accordingly.",
+	L"Note that you will reveive less intel if outside conditions have rendered the information less useful (e.g. the person in question having died since the data was acquired).",
+
+	// sell info
+	L"You can upload the following facts:",
+	L"Previous",
+	L"Next",
+	L"Upload",
+
+	L"You have already received compensation for the following:"
+};
+
+STR16	szIntelText[] =
+{
+	L"No more enemies present, %s is no longer in hiding!",
+	L"%s has been discovered and goes into hiding for %d hours.",
+	L"%s has been discovered, going to sector!",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

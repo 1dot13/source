@@ -4170,7 +4170,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 //NOTE:	We don't want to add Mike or Iggy if this is being called from autoresolve!
 void OkayToUpgradeEliteToSpecialProfiledEnemy( SOLDIERCREATE_STRUCT *pp )
 {
-	if( !gfProfiledEnemyAdded && gubEnemyEncounterCode != ENEMY_ENCOUNTER_CODE && gubEnemyEncounterCode != ENEMY_INVASION_CODE )
+	if( !gfProfiledEnemyAdded && GetEnemyEncounterCode() != ENEMY_ENCOUNTER_CODE && GetEnemyEncounterCode() != ENEMY_INVASION_CODE )
 	{
 		if( gubFact[ FACT_MIKE_AVAILABLE_TO_ARMY ] == 1 && !pp->fOnRoof )
 		{

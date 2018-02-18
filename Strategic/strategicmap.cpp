@@ -2222,7 +2222,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			//	GridNo = NOWHERE, which causes this assertion to fail
 			//CHRISL: There's also an issue with vehicles.  Soldiers in any vehicle are considered to be in sGridNo = NOWHERE
 			//	This will result in an assertion error, so let's skip the assertion if the merc is assigned to a vehicle
-			if ( !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE )
+			if ( !(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE && !SPY_LOCATION( MercPtrs[i]->bAssignment ) )
 			{
 				//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
 				Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds( MercPtrs[i]->sGridNo ) || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
@@ -2729,7 +2729,7 @@ void PrepareLoadedSector( )
 		PostSchedules( );
 	}
 
-	if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+	if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 	{
 		if ( gMapInformation.sCenterGridNo != NOWHERE )
 		{
@@ -3221,37 +3221,44 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 
 			if ( pSoldier->bActive )
 			{
-				if ( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
-				{
-					if ( gMapInformation.sCenterGridNo != NOWHERE && gfBlitBattleSectorLocator &&
-						 (gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE) && pSoldier->bTeam != CIV_TEAM )
-					{
-						// Flugente: improved ambush
-						if ( gGameExternalOptions.fAmbushSpreadMercs )
-						{
-							UINT8 ubDirection;
-
-							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-							pSoldier->usStrategicInsertionData = FindRandomGridNoFromSweetSpotExcludingSweetSpot( pSoldier, gMapInformation.sCenterGridNo, gGameExternalOptions.usAmbushSpreadRadiusMercs, &ubDirection );
-
-							// have the merc look outward. We add + 100 because later on we use this to signify that we want really enforce this direction
-							pSoldier->ubInsertionDirection = (UINT8)GetDirectionToGridNoFromGridNo( gMapInformation.sCenterGridNo, pSoldier->usStrategicInsertionData ) + 100;
-						}
-						else
-						{
-							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-							pSoldier->usStrategicInsertionData = gMapInformation.sCenterGridNo;
-						}
-					}
-					else if ( gfOverrideInsertionWithExitGrid )
-					{
-						pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-						pSoldier->usStrategicInsertionData = gExitGrid.usGridNo;
-					}
-				}
-
 				if ( pSoldier->sSectorX == sSectorX && pSoldier->sSectorY == sSectorY && pSoldier->bSectorZ == bSectorZ && !pSoldier->flags.fBetweenSectors )
 				{
+					if ( !( gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+					{
+						if ( gMapInformation.sCenterGridNo != NOWHERE && gfBlitBattleSectorLocator &&
+							( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE ) && pSoldier->bTeam != CIV_TEAM )
+						{
+							// Flugente: improved ambush
+							if ( gGameExternalOptions.fAmbushSpreadMercs )
+							{
+								UINT8 ubDirection;
+
+								pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+								pSoldier->usStrategicInsertionData = FindRandomGridNoFromSweetSpotExcludingSweetSpot( pSoldier, gMapInformation.sCenterGridNo, gGameExternalOptions.usAmbushSpreadRadiusMercs, &ubDirection );
+
+								// have the merc look outward. We add + 100 because later on we use this to signify that we want really enforce this direction
+								pSoldier->ubInsertionDirection = (UINT8)GetDirectionToGridNoFromGridNo( gMapInformation.sCenterGridNo, pSoldier->usStrategicInsertionData ) + 100;
+							}
+							else
+							{
+								pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+								pSoldier->usStrategicInsertionData = gMapInformation.sCenterGridNo;
+							}
+						}
+						else if ( gfOverrideInsertionWithExitGrid )
+						{
+							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							pSoldier->usStrategicInsertionData = gExitGrid.usGridNo;
+						}
+
+						// Flugente: override if entering from concealment
+						if ( pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION )
+						{
+							pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+							pSoldier->usStrategicInsertionData = pSoldier->sMTActionGridNo;
+						}
+					}
+
 					gbMercIsNewInThisSector[pSoldier->ubID] = 1;
 
 					UpdateMercInSector( pSoldier, sSectorX, sSectorY, bSectorZ );
@@ -3297,10 +3304,10 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 						}
 					}
 				}
-				else
+				/*else
 				{
 					pSoldier->bInSector = FALSE;
-				}
+				}*/
 			}
 		}
 	}
@@ -6521,9 +6528,9 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 							gubPBSectorZ = (UINT8)pSectorZ;
 							gfBlitBattleSectorLocator = TRUE;
 							gfTransferTacticalOppositionToAutoResolve = TRUE;
-							if ( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+							if ( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
 							{
-								gubEnemyEncounterCode = ENEMY_INVASION_CODE; //has to be, if militia are here.
+								SetEnemyEncounterCode( ENEMY_INVASION_CODE ); //has to be, if militia are here.
 							}
 							else
 							{

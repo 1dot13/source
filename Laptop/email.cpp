@@ -3740,6 +3740,10 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 			fReDrawScreenFlag = TRUE;
 			break;
 
+		case INTEL_ENRICO_INTRO:
+			SetBookMark( INTELMARKET_BOOKMARK );
+			fReDrawScreenFlag = TRUE;
+			break;
 #endif
 	}
 

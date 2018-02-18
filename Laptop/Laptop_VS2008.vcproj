@@ -627,6 +627,10 @@
 				>
 			</File>
 			<File
+				RelativePath="Intelmarket.h"
+				>
+			</File>
+			<File
 				RelativePath="Laptop All.h"
 				>
 			</File>
@@ -976,6 +980,10 @@
 			</File>
 			<File
 				RelativePath="insurance.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Intelmarket.cpp"
 				>
 			</File>
 			<File

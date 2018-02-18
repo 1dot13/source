@@ -142,6 +142,9 @@ CursorFileData CursorFileDatabase[] =
 
 	{"CURSORS\\minigame.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},	// Flugente: minigames
 	{"CURSORS\\minigame_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL},
+
+	{ "CURSORS\\camera.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: camera
+	{ "CURSORS\\camera_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },
 	
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
@@ -1308,7 +1311,7 @@ CursorData CursorDatabase[] =
 		0, 0, 0, 0, 0,
 		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
 
-		// Flugente: minigames
+	// Flugente: minigames
 	{C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_MINIGAME, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0, 0, 0, 0, 0,
@@ -1322,6 +1325,21 @@ CursorData CursorDatabase[] =
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
 		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0},
+
+	// Flugente: camera
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_CAMERA, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0 },
+
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_CAMERA_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0 },
 		
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FUEL				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,

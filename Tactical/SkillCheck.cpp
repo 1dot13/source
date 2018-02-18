@@ -200,12 +200,18 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier, BOOLEAN fTactical )
 	if (pSoldier->ubProfile != NO_PROFILE)
 	{
 		// Flugente: drugs can temporarily cause a merc to be claustrophobic
-		if ( DoesMercHaveDisability( pSoldier, CLAUSTROPHOBIC ) && pSoldier->bActive && pSoldier->bInSector && gbWorldSectorZ > 0 )
+		if ( DoesMercHaveDisability( pSoldier, CLAUSTROPHOBIC ) && pSoldier->bActive && pSoldier->bInSector )
 		{
+			INT8 sectorz = pSoldier->bSectorZ;
+			if ( SPY_LOCATION( pSoldier->bAssignment ) )
+				sectorz -= 10;
+
 			// claustrophobic!
-			iEffExpLevel -= 2;
+			if ( sectorz > 0 )
+				iEffExpLevel -= 2;
 		}
-		else if ( DoesMercHaveDisability( pSoldier, FEAR_OF_INSECTS ) && MercIsInTropicalSector( pSoldier ) )
+		
+		if ( DoesMercHaveDisability( pSoldier, FEAR_OF_INSECTS ) && MercIsInTropicalSector( pSoldier ) )
 		{
 			// SANDRO - fear of insects, and we are in tropical sector
 			iEffExpLevel -= 1;

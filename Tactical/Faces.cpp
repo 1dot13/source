@@ -1647,9 +1647,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	FLOAT						bPtsAvailable = 0.0;	// Flugente: sometimes, we want to display float values...
 	UINT16 					usMaximumPts = 0;
 	CHAR16					sString[ 32 ];
-	UINT16					usTextWidth;
+	UINT16					usTextWidth = 0;
 	BOOLEAN					fShowNumber = FALSE;
 	BOOLEAN					fShowMaximum = FALSE;
+	BOOLEAN					fShowCustomText = FALSE;
 	SOLDIERTYPE			*pSoldier;
 	INT16						sFontX, sFontY;
 	INT16						sX1, sY1, sY2, sX2;
@@ -1670,9 +1671,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	UINT32 uiFaceTwo=0;
 
 	BOOLEAN drawOpponentCount = FALSE;
-
-	CHAR16 wShortText[ 8 ];	// added by Flugente to display sector names
-
+	
 	// If we are using an extern buffer...
 	if ( fUseExternBuffer )
 	{
@@ -2375,11 +2374,10 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					{
 						sIconIndex_Assignment		= 15;
 						fDoIcon_Assignment			= TRUE;
-					
-						GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), wShortText );
 
-						fShowNumber		= TRUE;
-						fShowMaximum	= TRUE;
+						fShowCustomText = TRUE;
+					
+						GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), sString );
 					}
 					break;
 									
@@ -2467,6 +2465,27 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 								usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
 						}
 					}
+					break;
+					
+				case CONCEALED:
+				case GATHERINTEL:
+					sIconIndex_Assignment = 34;
+					fDoIcon_Assignment = TRUE;
+					fShowCustomText = TRUE;
+
+					if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+					{
+						swprintf( sString, L"Hide %dh", pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] );
+					}
+					else
+					{
+						bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetIntelGain();
+						usMaximumPts = (UINT16)( MercPtrs[pFace->ubSoldierID]->GetUncoverRisk() );
+
+						swprintf( sString, L"%4.2f/%d%%%%", bPtsAvailable, usMaximumPts );
+
+						usTextWidth = StringPixLength( sString, FONT10ARIAL ) - 10;
+					}
 
 					break;
 			}
@@ -2494,30 +2513,32 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex_Assignment, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 				// ATE: Show numbers only in mapscreen
-				if( fShowNumber )
+				if ( fShowNumber || fShowCustomText )
 				{
+					if ( fShowNumber )
+					{
+						if ( fShowMaximum )
+						{
+							swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
+						}
+						else
+						{
+							swprintf( sString, L"%d", sPtsAvailable );
+						}
+					}
+
 					SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
-					if ( fShowMaximum )
-					{
-						if ( pSoldier->bAssignment == MOVE_EQUIPMENT )
-							swprintf( sString, L"%s", wShortText );
-						else
-							swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
-					}
-					else
-					{
-						swprintf( sString, L"%d", sPtsAvailable );
-					}
+					if ( !usTextWidth )
+						usTextWidth = StringPixLength( sString, FONT10ARIAL );
 
-					usTextWidth = StringPixLength( sString, FONT10ARIAL );
 					usTextWidth += 1;
 
 					SetFont( FONT10ARIAL );
 					SetFontForeground( FONT_YELLOW );
 					SetFontBackground( FONT_BLACK );
 
-					mprintf(	sFaceX + pFace->usFaceWidth - usTextWidth, ( INT16 )( sFaceY + 3 ), sString );
+					mprintf( sFaceX + pFace->usFaceWidth - usTextWidth, (INT16)( sFaceY + 3 ), sString );
 					SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 				}
 			}

@@ -1421,6 +1421,30 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
+	// Flugente: camera
+	if ( HasItemFlag( usHandItem, CAMERA ) )
+	{
+		sAPCost = APBPConstants[AP_CAMERA];
+
+		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+		{
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, gsInterfaceLevel, 0, TRUE, CALC_FROM_WANTED_DIR, TRUE ) )
+			{
+				TakePhoto( pSoldier, usMapPos, gsInterfaceLevel );
+
+				return( ITEM_HANDLE_OK );
+			}
+			else
+			{
+				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
+			}
+		}
+		else
+		{
+			return( ITEM_HANDLE_NOAPS );
+		}
+	}
+
 	// Flugente: apply misc items to other soldiers
 	if ( ItemCanBeAppliedToOthers( usHandItem ) )
 	{
@@ -9238,6 +9262,9 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 
 		// the temperature of the water in this sector (temperature reflects the quality)
 		FLOAT wateraddtemperature = OVERHEATING_MAX_TEMPERATURE;
+
+		// if we try to add an attachment that cannot be added by this function (we don't perform skill checks here), warn the player of the offending item
+		UINT16 attachmenttowarnabout = NOTHING;
 		
 		// 1. loop over the gear we should pick up and remove mismatching items if we can find a fitting one in the sector
 		for (std::vector<GEAR_NODE>::iterator it = vec.begin(); it != vec.end(); ++it)
@@ -9381,7 +9408,7 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 									UINT8 index = 0;
 									if ( GetBetterObject_InventoryPool( item_attachment, 0, poolslot, index ) )
 									{
-										(pInventoryPoolList[poolslot].object).RemoveObjectAtIndex( index, &gItemPointer );
+										( pInventoryPoolList[poolslot].object ).RemoveObjectAtIndex( index, &gItemPointer );
 
 										BOOLEAN isAttachedNow = pObj->AttachObject( pSoldier, &gItemPointer, FALSE, i ); //do the actual attaching
 
@@ -9395,6 +9422,10 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 											DeleteObj( &gItemPointer );
 										}
 									}
+								}
+								else
+								{
+									attachmenttowarnabout = item_attachment;
 								}
 							}
 						}
@@ -9657,7 +9688,11 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 									DeleteObj( &gItemPointer );
 								}
 							}
-						}						
+						}	
+						else
+						{
+							attachmenttowarnabout = item_attachment;
+						}
 					}
 				}
 			}
@@ -9809,6 +9844,12 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 		else if ( attachmentsound )
 			PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
+		// warn us if we tried to attach something we can't attach
+		if ( attachmenttowarnabout != NOTHING )
+		{
+			ScreenMsg( color, MSG_INTERFACE, szGearTemplateText[5], Item[attachmenttowarnabout].szItemName, attachmenttowarnabout );
+		}
+
 		// 6. redraw inventory
 		fTeamPanelDirty = TRUE;
 		fMapPanelDirty = TRUE;
@@ -9819,4 +9860,49 @@ void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name )
 		if ( giItemDescAmmoButton > -1 )
 			MarkAButtonDirty( giItemDescAmmoButton ); // Required for tactical screen
 	}
+}
+
+// Flugente: intel
+void TakePhoto(SOLDIERTYPE* pSoldier, INT32 sGridNo, INT8 bLevel )
+{
+	if ( !pSoldier || TileIsOutOfBounds( sGridNo ) )
+		return;
+
+	// if we take a photo, take note of all rooms & NPC we see. We then send that to LUA, where we store anything worthwhile
+	// later on, we can then sell worthwhile information 'gathered' this way for intel
+
+	// to make this simple, check only tiles in a radius around the gridno we targetted
+	INT16 sBaseX, sBaseY;
+	ConvertGridNoToXY( sGridNo, &sBaseX, &sBaseY );
+
+	int radius = 3;
+
+	for ( int x = -radius; x < radius; ++x )
+	{
+		int diff = sqrt( radius*radius - x*x );
+
+		for ( int y = -diff; y < diff; ++y )
+		{
+			INT32 newgridno = MAPROWCOLTOPOS( (sBaseY + y), ( sBaseX + x ));
+
+			// can we see this gridno?
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, newgridno, bLevel, 0, TRUE, CALC_FROM_WANTED_DIR, TRUE ) )
+			{
+				// check if this is a room
+				UINT16 room = NO_ROOM;
+				if ( !bLevel )
+					InARoom( newgridno, &room );
+
+				// check if there is someone here
+				UINT16 ubid = WhoIsThere2( newgridno, bLevel );
+
+				LuaAddPhotoData( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, newgridno, bLevel, pSoldier->ubProfile, room, ( ubid == NOBODY ) ? NO_PROFILE : MercPtrs[ubid]->ubProfile );
+			}
+		}
+	}
+
+	DeductPoints( pSoldier, APBPConstants[AP_CAMERA], 0, 0 );
+
+	// Play sound
+	PlayJA2SampleFromFile( "Sounds\\camera1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 }

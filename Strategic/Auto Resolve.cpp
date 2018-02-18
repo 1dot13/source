@@ -621,7 +621,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 	gpAR->uiPreRandomIndex = guiPreRandomIndex;
 
 	//Determine who gets the defensive advantage
-	switch( gubEnemyEncounterCode )
+	switch( GetEnemyEncounterCode() )
 	{
 		case ENEMY_ENCOUNTER_CODE:
 			gpAR->ubPlayerDefenceAdvantage = 21; //Skewed to the player's advantage for convenience purposes.
@@ -635,7 +635,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 		default:
 			//shouldn't happen
 			#ifdef JA2BETAVERSION
-				ScreenMsg( FONT_RED, MSG_ERROR, L"Autoresolving with entering enemy sector code %d -- illegal KM:1", gubEnemyEncounterCode );
+				ScreenMsg( FONT_RED, MSG_ERROR, L"Autoresolving with entering enemy sector code %d -- illegal KM:1", GetEnemyEncounterCode() );
 			#endif
 			break;
 	}
@@ -750,7 +750,7 @@ void AssociateEnemiesWithStrategicGroups()
 	UINT8 ubDirAmount;
 	UINT8 ubCurrSI;
 
-	if( gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
+	if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
 		return;
 
 	pSector = &SectorInfo[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ];
@@ -1100,7 +1100,7 @@ void CalculateSoldierCells( BOOLEAN fReset )
 			gpEnemies[ index ].xp = (UINT16)(gpAR->sCenterStartX + 141 + 55*x);
 			gpEnemies[ index ].yp = iStartY + y*47;
 
-			if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+			if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
 			{
 				if ( index < gpAR->ubElites )
 					gpEnemies[ index ].uiFlags = CELL_ELITE;
@@ -1671,7 +1671,7 @@ void RenderAutoResolve()
 	SetFontForeground( FONT_WHITE );
 	SetFontShadow( FONT_NEARBLACK );
 
-	switch( gubEnemyEncounterCode )
+	switch( GetEnemyEncounterCode() )
 	{
 		case NO_ENCOUNTER_CODE:
 			swprintf( str, gpStrategicString[STR_AR_ATTACK_HEADER] );
@@ -1807,7 +1807,7 @@ void RenderAutoResolve()
 				case BATTLE_DEFEAT:
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+					if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
 					{
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 					}
@@ -1833,7 +1833,7 @@ void RenderAutoResolve()
 					gpAR->uiTotalElapsedBattleTimeInMilliseconds += 300000;
 
 					if( ProcessLoyalty() )HandleLoyaltyImplicationsOfMercRetreat( RETREAT_AUTORESOLVE, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+					if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
 					{
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 					}
@@ -2148,7 +2148,7 @@ void CreateAutoResolveInterface()
 
 		ARCreateMilitiaSquad( &cnt, ubEliteMilitia, ubRegMilitia, ubGreenMilitia, sX, sY );
 	}
-	if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+	if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
 	{
 		for( i = 0, index = 0; i < gpAR->ubElites; ++i, ++index )
 		{
@@ -2620,7 +2620,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 
 	gpBattleGroup = NULL;
 
-	if( gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
+	if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
 	{
 		gubNumCreaturesAttackingTown = 0;
 		gubSectorIDOfCreatureAttack = 0;
@@ -2919,7 +2919,7 @@ void CalculateAutoResolveInfo()
 	Assert( gpAR->ubSectorX >= 1 && gpAR->ubSectorX <= 16 );
 	Assert( gpAR->ubSectorY >= 1 && gpAR->ubSectorY <= 16 );
 
-	if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+	if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
 	{
 //		GetNumberOfEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY,
 		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
@@ -5190,7 +5190,7 @@ BOOLEAN IsBattleOver()
 		{
 			if( gpEnemies[ i ].pSoldier->stats.bLife )
 			{
-				if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+				if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
 				{
 					gpEnemies[ i ].pSoldier->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
 				}
@@ -5477,7 +5477,7 @@ void ProcessBattleFrame()
 				return;
 			}
 			CONTINUE_BATTLE:
-			if( IsBattleOver() || gubEnemyEncounterCode != CREATURE_ATTACK_CODE && AttemptPlayerCapture() )
+			if( IsBattleOver() || GetEnemyEncounterCode() != CREATURE_ATTACK_CODE && AttemptPlayerCapture() )
 				return;
 
 			iRandom = PreRandom( iTotal );

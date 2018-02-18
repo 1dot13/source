@@ -2468,6 +2468,8 @@ STR16 pAssignmentStrings[] =
 	L"Ремонт",	// repairing
 	L"Укрепляет",		// build structures according to external layout
 	L"Учит рабочих",
+	L"Hide",	// TODO.Translate
+	L"GetIntel",
 };
 
 
@@ -2571,6 +2573,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Ремонт",
 	L"Укрепляет сектор",		// build structures according to external layout
 	L"Учит рабочих",
+	L"Hide while disguised",	// TODO.Translate
+	L"Get intel while disguised",
 };
 
 
@@ -2633,6 +2637,8 @@ STR16 pLongAssignmentStrings[] =
 	L"Ремонтирует",
 	L"Укрепляет сектор",		// build structures according to external layout
 	L"Учит рабочих",
+	L"Hide while disguised",	// TODO.Translate
+	L"Get intel while disguised",
 };
 
 
@@ -2754,6 +2760,7 @@ STR16 pAssignMenuStrings[] =
 	L"Обучение", // the merc is training
 	L"Носильщик",	// move items
 	L"Укреплять",		// fortify sector
+	L"Intel", // covert assignments	// TODO.Translate
 	L"Занятия", // the merc is using/staffing a facility
 	L"Отмена", // cancel this menu
 };
@@ -2791,6 +2798,10 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"Вызвать подкрепления",
 	L"Выключить радиостанцию",
 
+	// spy
+	L"Hide assignment",		// TODO.Translate
+	L"Get Intel assignment",
+
 	// various
 	L"Наблюдатель",
 	L"Focus",	// TODO.Translate
@@ -2807,6 +2818,10 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Использовать радиопрослушку для обнаружения противника.",
 	L"Вызвать подкрепления из соседних секторов.",
 	L"Turn off radio set.",	// TODO.Translate
+
+	// spy
+	L"Assignment: hide among the population.",		// TODO.Translate
+	L"Assignment: hide among the population and gather intel.",
 
 	// various
 	L"Наблюдать за местностью, чтобы обеспечить более меткую стрельбу своим снайперам.",
@@ -2830,6 +2845,11 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - prone person or corpse next to merc\n",	// TODO.Translate
 	L" - crouched position\n",
 	L" - free main hand\n",
+	L" - covert trait\n",
+	L" - enemy occupied sector\n",
+	L" - single merc\n",
+	L" - no alarm raised\n",
+	L" - civilian or soldier disguise\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -3184,6 +3204,7 @@ STR16 gzMercSkillTextNew[] =
 	L"Placeholder",		// for snitch (minor trait)
 	L"Placeholder",		// for survival (minor trait)
 	L"Ещё...",			// 47
+	L"Intel",			// for INTEL	// TODO.Translate
 	L"различные",		// for VARIOUSSKILLS	
 };
 //////////////////////////////////////////////////////////
@@ -3985,7 +4006,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s чистит %s",
 
 	// added by Flugente: decide what to do with prisoners
-	L"У вас нет тюрьмы для содержания заключённых, придётся отпустить их",
+	L"As we have no prison, a field interrogation is performed.",		// TODO.Translate
+	L"Field interrogation",
 	L"Куда отправить %d пленного(-иков)?",
 	L"Отпустить",
 	L"Что вы хотите сделать?",
@@ -5013,6 +5035,7 @@ STR16 pBookMarkStrings[] =
 	L"ВОЗ",
 	L"Цербер",
 	L"Ополчение",
+	L"R.I.S.",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5136,6 +5159,9 @@ STR16 pWebPagesTitles[] =
 	L"Цербер - Найм команды",
 	L"Цербер - Индивидуальные контракты",
 	L"Militia Overview",			// TODO.Translate
+	L"Recon Intelligence Services - Information Requests",		// TODO.Translate
+	L"Recon Intelligence Services - Information Verification",
+	L"Recon Intelligence Services - About us",
 	L"Бобби Рэй - последние поступления",
 	L"Энциклопедия",
 	L"Энциклопедия - данные",
@@ -6068,6 +6094,9 @@ STR16	SkiMessageBoxText[] =
 	L"Попросить торговца починить выбранные предметы",
 	L"Закончить беседу",
 	L"Текущий баланс",
+
+	L"Do you want to transfer %s Intel to cover the difference?",	// TODO.Translate
+	L"Do you want to transfer %s Intel to cover the cost?",
 };
 
 
@@ -6936,6 +6965,7 @@ STR16 gzLaptopHelpText[] =
 	L"Всемирная организация здравоохранения",
 	L"Цербер - Опыт в безопасности",
 	L"Ополчение",
+	L"Recon Intelligence Services",	// TODO.Translate
 };
 
 
@@ -8394,6 +8424,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|З|а|щ|и|т|а |д|л|я |л|и|ц|а",
 	L"|И|н|ф|е|к|ц|и|о|н|н|а|я |з|а|щ|и|т|а",	// 39
 	L"|S|h|i|e|l|d",	// TODO.Translate
+	L"|C|a|m|e|r|a",		// TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8439,6 +8470,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nЕсли одето на лицо, понижает шанс\nзаражения от других людей.",
 	L"\n \nЕсли хранить в своём кармане,\nпонижается шанс заражения\n от других людей.",
 	L"\n \nIf equipped in a hand, this will block incoming damage.",	// TODO.Translate
+	L"\n \nYou can take photos with this.",		// TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8876,7 +8908,7 @@ STR16	szFoodTextStr[]=
 STR16	szPrisonerTextStr[]=
 {
 	L"%d офицеров, %d спецназа, %d солдат, %d полиции, %d генералов и %d гражданских было допрошено",
-	L"%d пленных заплатили выкуп.",
+	L"Gained $%d as ransom money.",		// TODO.Translate
 	L"%d пленных выдали расположение отрядов армии.",
 	L"%d офицеров, %d спецназ, %d рядовых и %d полицейских решили присоединиться к нам.",
 	L"Пленные устроили бунт в %s!",
@@ -10951,6 +10983,12 @@ STR16	szDiseaseText[] =
 	L"\n\n%s (недиагностирована) - %d / %d\n",
 };
 
+STR16	szSpyText[] =
+{
+	L"Hide",			// TODO.Translate
+	L"Get Intel",
+};
+
 STR16	szFoodText[] =
 {
 	L"\n\n|В|о|д|а: %d%%\n",
@@ -11257,6 +11295,71 @@ STR16	szGearTemplateText[] =	// TODO.Translate
 	L"Selected mercenary is not in this sector.",
 	L"%s is not in that sector.",
 	L"%s could not equip %s.",
+	L"We cannot attach %s (item %d) as that might damage items.",	// TODO.Translate
+};
+
+STR16	szIntelWebsiteText[] =
+{
+	L"Recon Intelligence Services",
+	L"Your need to know base",
+	L"Information Requests",
+	L"Information Verification",
+
+	L"About us",
+	L"You have %d Intel.",
+	L"We currently have information on the following items, available in exchange for intel as usual:",
+	L"There is currently no other information available.",
+
+	L"%d Intel - %s",
+	L"We can provide aerial reconnaissance of a map region. This will last until  %02d:00.",
+	L"Buy data - 50 intel",
+	L"Buy detailed data - 70 Intel",
+
+	L"Select map region on which you want info on:",
+
+	L"North-west",
+	L"North-north-west",
+	L"North-north-east",
+	L"North-east",
+
+	L"West-north-west",
+	L"Center-north-west",
+	L"Center-north-east",
+	L"East-north-east",
+
+	L"West-south-west",
+	L"Center-south-west",
+	L"Center-south-east",
+	L"East-south-east",
+
+	L"South-west",
+	L"South-south-west",
+	L"South-south-east",
+	L"South-east",
+
+	// about us
+	L"On the 'Information Requests' page, you can buy information on various enemy targets for intel.",
+	L"This includes information on enemy patrols & garrisons, noteworthy persons of interests, enemy aircraft etc..",
+	L"Some of that information may be of temporary nature.",
+	L"On the 'Information Verification' page, you can upload data you took of significant intelligence.",
+
+	L"We will verify the data (this process usually takes several hours) and compensate you accordingly.",
+	L"Note that you will reveive less intel if outside conditions have rendered the information less useful (e.g. the person in question having died since the data was acquired).",
+
+	// sell info
+	L"You can upload the following facts:",
+	L"Previous",
+	L"Next",
+	L"Upload",
+
+	L"You have already received compensation for the following:"
+};
+
+STR16	szIntelText[] =
+{
+	L"No more enemies present, %s is no longer in hiding!",
+	L"%s has been discovered and goes into hiding for %d hours.",
+	L"%s has been discovered, going to sector!",
 };
 
 #endif //RUSSIAN

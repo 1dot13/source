@@ -205,9 +205,8 @@ enum
 enum
 {
 	PRISONER_INTERROGATION_DEFECT = 0,
-	PRISONER_INTERROGATION_INFO,
+	PRISONER_INTERROGATION_INTEL,
 	PRISONER_INTERROGATION_RANSOM,
-	PRISONER_INTERROGATION_NOTHING,
 
 	PRISONER_INTERROGATION_MAX
 };
@@ -752,6 +751,9 @@ typedef struct
 	INT32 ubRepairCostPerJam;
 	INT32 ubRepairRateDivisor;
 	INT32 ubCleaningRateDivisor;
+
+	// Flugente: intel
+	BOOLEAN fIntelResource;
 
 	//Misc settings
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
@@ -1424,10 +1426,7 @@ typedef struct
 	BOOLEAN	fPlayerCanAsktoSurrender;
 	UINT8	ubPrisonerReturntoQueenChance;
 	UINT8	ubPrisonerProcessChance[PRISONER_INTERROGATION_MAX];
-	UINT8	ubPrisonerProcessInfoNumberChance;
-	UINT8	ubPrisonerProcessInfoDirectionChance;
 	UINT16	ubPrisonerInterrogationPoints[8];		// points needed to interrogate a prisoner of a specific type
-	UINT8	ubPrisonerInterrogationEnemyGeneralInfoChance[8];		// chance that when getting info from interrogation, this prisoner will tell us about general we do not yet know about
 	
 	// Flugente: sexism/racism/etc.
 	INT8	sMoraleModAppearance;

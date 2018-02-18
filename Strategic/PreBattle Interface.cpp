@@ -175,12 +175,18 @@ BOOLEAN gfPersistantPBI = FALSE;
 //dictates the header that is used at the top of the PBI.
 UINT8 gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
 
+UINT8 GetEnemyEncounterCode() {	return gubEnemyEncounterCode;}
+void SetEnemyEncounterCode( UINT8 aCode ) { gubEnemyEncounterCode = aCode; }
+
 //The autoresolve during tactical battle option needs more detailed information than the
 //gubEnemyEncounterCode can provide.	The explicit version contains possibly unique codes
 //for reasons not normally used in the PBI.	For example, if we were fighting the enemy
 //in a normal situation, then shot at a civilian, the civilians associated with the victim
 //would turn hostile, which would disable the ability to autoresolve the battle.
 BOOLEAN gubExplicitEnemyEncounterCode = NO_ENCOUNTER_CODE;
+
+UINT8 GetExplicitEnemyEncounterCode() { return gubExplicitEnemyEncounterCode; }
+void SetExplicitEnemyEncounterCode( UINT8 aCode ) { gubExplicitEnemyEncounterCode = aCode; }
 
 BOOLEAN gubSpecialEncounterCodeForEnemyHeli = FALSE;
 
@@ -327,7 +333,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 		//	InitializeTacticalStatusAtBattleStart();
 		// CJC, Oct 5 98: this is all we should need from InitializeTacticalStatusAtBattleStart()
-		if( gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE && gubEnemyEncounterCode != ENTERING_BLOODCAT_LAIR_CODE )
+		if( GetEnemyEncounterCode() != BLOODCAT_AMBUSH_CODE && GetEnemyEncounterCode() != ENTERING_BLOODCAT_LAIR_CODE )
 		{
 			if ( !CheckFact( FACT_FIRST_BATTLE_FOUGHT, 0 ) )
 			{
@@ -406,40 +412,44 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		if( HostileCiviliansPresent() )
 		{
 			//There are hostile civilians, so no autoresolve allowed.
-			gubExplicitEnemyEncounterCode = HOSTILE_CIVILIANS_CODE;
+			SetExplicitEnemyEncounterCode( HOSTILE_CIVILIANS_CODE );
 		}
 		else if( HostileBloodcatsPresent() )
 		{
 			//There are bloodcats in the sector, so no autoresolve allowed
-			gubExplicitEnemyEncounterCode = HOSTILE_BLOODCATS_CODE;
+			SetExplicitEnemyEncounterCode( HOSTILE_BLOODCATS_CODE );
 		}
 		else if( gbWorldSectorZ > 0 )
 		{
+			UNDERGROUND_SECTORINFO *pUnderGroundSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+			Assert( pUnderGroundSector );
+
 			//We are underground, so no autoresolve allowed
-			if( pSector->ubCreaturesInBattle )
+			if( pUnderGroundSector->ubCreaturesInBattle )
 			{
-				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
+				SetExplicitEnemyEncounterCode( FIGHTING_CREATURES_CODE );
 			}
-			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle )
+			else if( pUnderGroundSector->ubAdminsInBattle || pUnderGroundSector->ubTroopsInBattle || pUnderGroundSector->ubElitesInBattle || pUnderGroundSector->ubTanksInBattle || pUnderGroundSector->ubJeepsInBattle )
 			{
-				gubExplicitEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
+				SetExplicitEnemyEncounterCode( ENTERING_ENEMY_SECTOR_CODE );
 			}
 		}
 		else if ( pBattleGroup && pBattleGroup->usGroupTeam != OUR_TEAM && NumNonPlayerTeamMembersInSector( pBattleGroup->ubSectorX, pBattleGroup->ubSectorY, MILITIA_TEAM ) > 0 )
 		{
-			gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
+			SetEnemyEncounterCode( ENEMY_ENCOUNTER_CODE );
 		}
-		else if( gubEnemyEncounterCode == ENTERING_ENEMY_SECTOR_CODE ||
-						gubEnemyEncounterCode == ENEMY_ENCOUNTER_CODE ||
-						gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
-						gubEnemyEncounterCode == ENEMY_INVASION_CODE ||
-						gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
-						gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
-						gubEnemyEncounterCode == CREATURE_ATTACK_CODE ||
-						gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
-						gubEnemyEncounterCode == ENEMY_INVASION_AIRDROP_CODE )
+		else if( GetEnemyEncounterCode() == ENTERING_ENEMY_SECTOR_CODE ||
+			GetEnemyEncounterCode() == ENEMY_ENCOUNTER_CODE ||
+			GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE ||
+			GetEnemyEncounterCode() == ENEMY_INVASION_CODE ||
+			GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE ||
+			GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE ||
+			GetEnemyEncounterCode() == CREATURE_ATTACK_CODE ||
+			GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
+			GetEnemyEncounterCode() == ENEMY_INVASION_AIRDROP_CODE ||
+			GetEnemyEncounterCode() == CONCEALINSERTION_CODE )
 		{ //use same code
-			gubExplicitEnemyEncounterCode = gubEnemyEncounterCode;
+			SetExplicitEnemyEncounterCode( GetEnemyEncounterCode() );
 		}
 		else
 		{
@@ -596,6 +606,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 				usDeploymentLeadership = max( usDeploymentLeadership, deploymentleadership );
 
 				gAmbushRadiusModifier = max( gAmbushRadiusModifier, ambushradiusmodifier / 100 );
+
+				// Flugente: if a merc is inserted from concealed state, retreat is forbidden, as at least this merc will have to extract manually
+				if ( MercPtrs[i]->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION )
+					fRetreatAnOption = FALSE;
 			}
 			else
 			{
@@ -616,26 +630,31 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		{
 			if ( gubSpecialEncounterCodeForEnemyHeli )
 			{
-				if ( gubEnemyEncounterCode != ENEMY_INVASION_AIRDROP_CODE )
-					gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+				if ( GetEnemyEncounterCode() != ENEMY_INVASION_AIRDROP_CODE )
+					SetEnemyEncounterCode( ENEMY_INVASION_CODE);
 			}
 			else
 			{
 				//creature's attacking!
-				gubEnemyEncounterCode = CREATURE_ATTACK_CODE;
+				SetEnemyEncounterCode( CREATURE_ATTACK_CODE);
 			}
 		}
 		else if ( gpBattleGroup->usGroupTeam == OUR_TEAM )
 		{
-			if( gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE && gubEnemyEncounterCode != ENTERING_BLOODCAT_LAIR_CODE )
+			if( GetEnemyEncounterCode() != BLOODCAT_AMBUSH_CODE && GetEnemyEncounterCode() != ENTERING_BLOODCAT_LAIR_CODE )
 			{
-				if( ubNumStationaryEnemies )
+				// Flugente: if the group that causes a battle is a result of a merc no longer being concealed, special code
+				if ( gpBattleGroup->pPlayerList->pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION )
 				{
-					gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
+					SetEnemyEncounterCode( CONCEALINSERTION_CODE );
+				}
+				else if( ubNumStationaryEnemies )
+				{
+					SetEnemyEncounterCode( ENTERING_ENEMY_SECTOR_CODE);
 				}
 				else
 				{
-					gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
+					SetEnemyEncounterCode( ENEMY_ENCOUNTER_CODE );
 
 					// Flugente: no ambushes on an airdrop
 					if ( !fAirDrop )
@@ -648,7 +667,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 								// SANDRO - Scout prevents ambushes no matter what
 								if ( !fScoutPresent )
 								{
-									gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+									SetEnemyEncounterCode( ENEMY_AMBUSH_CODE );
 								}
 								else 
 								{
@@ -663,7 +682,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 							// SANDRO - Scout prevents ambushes no matter what
 							if ( !fScoutPresent )
 							{
-								gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+								SetEnemyEncounterCode( ENEMY_AMBUSH_CODE );
 							}
 							else 
 							{
@@ -733,7 +752,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 							{
 								if ( !fScoutPresent )
 								{
-									gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
+									SetEnemyEncounterCode( ENEMY_AMBUSH_CODE );
 								}
 								else 
 								{
@@ -746,9 +765,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					}
 
 					// Flugente: improved ambush: if a real squadleader is present, we may deploy our mercs instead of having them being dropped into combat randomly
-					if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE && usDeploymentLeadership > 120 )
+					if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE && usDeploymentLeadership > 120 )
 					{
-						gubEnemyEncounterCode = ENEMY_AMBUSH_DEPLOYMENT_CODE;
+						SetEnemyEncounterCode( ENEMY_AMBUSH_DEPLOYMENT_CODE );
 					}
 					//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				}
@@ -757,12 +776,18 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		else
 		{ //Are enemies invading a town, or just encountered the player.
 			if( GetTownIdForSector( gubPBSectorX, gubPBSectorY ) )
-				gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+				SetEnemyEncounterCode( ENEMY_INVASION_CODE );
 			//SAM sites not in towns will also be considered to be important
 			else if( pSector->uiFlags & SF_SAM_SITE )
-				gubEnemyEncounterCode = ENEMY_INVASION_CODE;	
+				SetEnemyEncounterCode( ENEMY_INVASION_CODE );
 			else
-				gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
+				SetEnemyEncounterCode( ENEMY_ENCOUNTER_CODE );
+		}
+
+		// haxx
+		if ( pBattleGroup && pBattleGroup->usGroupTeam == OUR_TEAM && pBattleGroup->pPlayerList->pSoldier->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION )
+		{
+			//SetEnemyEncounterCode( CONCEALINSERTION_CODE );
 		}
 	}
 
@@ -770,7 +795,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - merc records - ambush experienced
-	if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE || fAmbushPrevented )
+	if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE || fAmbushPrevented )
 	{
 		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{
@@ -778,7 +803,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			{
 				if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
 				{
-					if ( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+					if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE || GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
 					else if ( fAmbushPrevented && HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) ) // Scouts actually get this as number of prevented ambushes
 						gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
@@ -818,7 +843,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	}
 	HideButton( giMapContractButton );
 
-	if( gubEnemyEncounterCode == ENEMY_ENCOUNTER_CODE )
+	if( GetEnemyEncounterCode() == ENEMY_ENCOUNTER_CODE )
 	{ //we know how many enemies are here, so until we leave the sector, we will continue to display the value.
 		//the flag will get cleared when time advances after the fEnemyInSector flag is clear.
 
@@ -831,19 +856,28 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	//when necessary.
 	if( gfPersistantPBI )
 	{
-		if( gubEnemyEncounterCode == ENTERING_ENEMY_SECTOR_CODE ||
-				gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
+		if( GetEnemyEncounterCode() == ENTERING_ENEMY_SECTOR_CODE ||
+			GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE )
 		{ //Don't allow autoresolve for player initiated invasion battle types
 			DisableButton( iPBButton[ 0 ] );
 			SetButtonFastHelpText( iPBButton[ 0 ], gpStrategicString[ STR_PB_DISABLED_AUTORESOLVE_FASTHELP ] );
 		}
-		else if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
-				 gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
-				 gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE )
+		else if( GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE ||
+			GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE ||
+			GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 		{
 			//Don't allow autoresolve for ambushes
 			DisableButton( iPBButton[ 0 ] );
 			SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 3 ] );
+		}
+		else if ( GetEnemyEncounterCode() == CONCEALINSERTION_CODE )
+		{
+			// Don't allow autoresolve
+			DisableButton( iPBButton[0] );
+			SetButtonFastHelpText( iPBButton[0], gpStrategicString[STR_PB_DISABLED_AUTORESOLVE_FASTHELP] );
+
+			// No retreat possible, we must go to tactical
+			fRetreatAnOption = FALSE;
 		}
 		else
 		{
@@ -863,10 +897,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		}
 
 		if( gfAutomaticallyStartAutoResolve || !fRetreatAnOption ||
-				gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
-				gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
-				gubEnemyEncounterCode == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
-				gubEnemyEncounterCode == CREATURE_ATTACK_CODE || 
+			GetEnemyEncounterCode() == ENEMY_AMBUSH_CODE ||
+			GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE ||
+			GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
+			GetEnemyEncounterCode() == CREATURE_ATTACK_CODE ||
 				is_client)
 		{
 			DisableButton( iPBButton[ 2 ] );
@@ -891,7 +925,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		DisableButton( iPBButton[ 2 ] );
 		SetButtonFastHelpText( iPBButton[ 2 ], gzNonPersistantPBIText[ 0 ] );
 		SetButtonFastHelpText( iPBButton[ 1 ], gzNonPersistantPBIText[ 1 ] );
-		switch( gubExplicitEnemyEncounterCode )
+		switch( GetExplicitEnemyEncounterCode() )
 		{
 			case CREATURE_ATTACK_CODE:
 			case ENEMY_ENCOUNTER_CODE:
@@ -921,6 +955,15 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			case ENTERING_BLOODCAT_LAIR_CODE:
 				DisableButton( iPBButton[ 0 ] );
 				SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 7 ] );
+				break;
+			case CONCEALINSERTION_CODE:
+				// Don't allow autoresolve
+				DisableButton( iPBButton[0] );
+				SetButtonFastHelpText( iPBButton[0], gpStrategicString[STR_PB_DISABLED_AUTORESOLVE_FASTHELP] );
+
+				// No retreat possible, we must go to tactical
+				DisableButton( iPBButton[2] );
+				SetButtonFastHelpText( iPBButton[2], gzNonPersistantPBIText[9] );
 				break;
 		}
 	}
@@ -1135,7 +1178,7 @@ void RenderPBHeader( INT32 *piX, INT32 *piWidth)
 	{
 		swprintf( str, gzNonPersistantPBIText[8] );
 	}
-	else switch( gubEnemyEncounterCode )
+	else switch( GetEnemyEncounterCode() )
 	{
 		case ENEMY_INVASION_CODE:
 			swprintf( str, gpStrategicString[ STR_PB_ENEMYINVASION_HEADER ] );
@@ -1164,6 +1207,9 @@ void RenderPBHeader( INT32 *piX, INT32 *piWidth)
 			break;
 		case ENEMY_INVASION_AIRDROP_CODE:
 			swprintf( str, gpStrategicString[STR_PB_ENEMYINVASION_AIRDROP_HEADER] );
+			break;
+		case CONCEALINSERTION_CODE:
+			swprintf( str, gpStrategicString[STR_PB_ENEMYENCOUNTER_HEADER] );
 			break;
 	}
 	width = StringPixLength( str, FONT10ARIALBOLD );
@@ -1257,18 +1303,19 @@ void RenderPreBattleInterface()
 		mprintf( 65 - width + xResOffset , 17 + yResOffset, str );
 
 		SetFont( BLOCKFONT );
-		if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
+		if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
 		{
-			swprintf( str, gpStrategicString[ STR_PB_ENEMIES ] );
+			swprintf( str, gpStrategicString[STR_PB_CREATURES ] );
 		}
-		else if( gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
+		else if( GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE )
 		{
 			swprintf( str, gpStrategicString[ STR_PB_BLOODCATS ] );
 		}
 		else
 		{
-			swprintf( str, gpStrategicString[ STR_PB_CREATURES ] );
+			swprintf( str, gpStrategicString[ STR_PB_ENEMIES ] );
 		}
+		
 		width = StringPixLength( str, BLOCKFONT );
 		if( width > 52 )
 		{
@@ -1321,10 +1368,10 @@ void RenderPreBattleInterface()
 
 		//enemy
 		SetFont( FONT14ARIAL );
-		if( gubEnemyEncounterCode == CREATURE_ATTACK_CODE ||
-			gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
-				gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
-				WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) < KNOWS_HOW_MANY ) // HEADROCK HAM 5: New case above this one...
+		if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE ||
+			GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE ||
+			GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE ||
+			WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) < KNOWS_THEYRE_THERE_AND_HOW_MANY ) // HEADROCK HAM 5: New case above this one...
 		{
 			// don't know how many
 			swprintf( str, L"?" );
@@ -1549,10 +1596,11 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 			}
 
 			if ( gfPersistantPBI && gpBattleGroup && gpBattleGroup->usGroupTeam == OUR_TEAM &&
-				gubEnemyEncounterCode != ENEMY_AMBUSH_CODE &&
-				gubEnemyEncounterCode != CREATURE_ATTACK_CODE &&
-				gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE &&
-				gubEnemyEncounterCode != ENEMY_INVASION_AIRDROP_CODE )
+				GetEnemyEncounterCode() != ENEMY_AMBUSH_CODE &&
+				GetEnemyEncounterCode() != CREATURE_ATTACK_CODE &&
+				GetEnemyEncounterCode() != BLOODCAT_AMBUSH_CODE &&
+				GetEnemyEncounterCode() != ENEMY_INVASION_AIRDROP_CODE &&
+				GetEnemyEncounterCode() != CONCEALINSERTION_CODE )
 			{
 				gfEnterTacticalPlacementGUI = TRUE;
 			}
@@ -1874,46 +1922,53 @@ void CalculateNonPersistantPBIInfo()
 	{ //Either the locator isn't on or the locator info is in a different sector
 
 		//Calculated the encounter type
-		gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
-		gubExplicitEnemyEncounterCode = NO_ENCOUNTER_CODE;
+		SetEnemyEncounterCode( NO_ENCOUNTER_CODE );
+		SetExplicitEnemyEncounterCode( NO_ENCOUNTER_CODE );
+
 		if( HostileCiviliansPresent() )
-		{ //There are hostile civilians, so no autoresolve allowed.
-			gubExplicitEnemyEncounterCode = HOSTILE_CIVILIANS_CODE;
+		{
+			//There are hostile civilians, so no autoresolve allowed.
+			SetExplicitEnemyEncounterCode( HOSTILE_CIVILIANS_CODE );
 		}
 		else if( HostileBloodcatsPresent() )
-		{ //There are bloodcats in the sector, so no autoresolve allowed
-			gubExplicitEnemyEncounterCode = HOSTILE_BLOODCATS_CODE;
+		{
+			//There are bloodcats in the sector, so no autoresolve allowed
+			SetExplicitEnemyEncounterCode( HOSTILE_BLOODCATS_CODE );
 		}
 		else if( gbWorldSectorZ > 0 )
 		{
 			UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 			Assert( pSector );
+
 			if( pSector->ubCreaturesInBattle )
 			{
-				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
+				SetExplicitEnemyEncounterCode( FIGHTING_CREATURES_CODE );
 			}
-			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle )
+			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle || pSector->ubTanksInBattle || pSector->ubJeepsInBattle )
 			{
-				gubExplicitEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
-				gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
+				SetExplicitEnemyEncounterCode( ENTERING_ENEMY_SECTOR_CODE );
+				SetEnemyEncounterCode( ENTERING_ENEMY_SECTOR_CODE );
 			}
 		}
 		else
 		{
 			SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 			Assert( pSector );
+
 			if( pSector->ubCreaturesInBattle )
 			{
-				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
+				SetExplicitEnemyEncounterCode( FIGHTING_CREATURES_CODE );
 			}
-			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle )
+			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle || pSector->ubTanksInBattle || pSector->ubJeepsInBattle )
 			{
-				gubExplicitEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
-				gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
+				SetExplicitEnemyEncounterCode( ENTERING_ENEMY_SECTOR_CODE );
+				SetEnemyEncounterCode( ENTERING_ENEMY_SECTOR_CODE );
 			}
 		}
-		if( gubExplicitEnemyEncounterCode != NO_ENCOUNTER_CODE )
-		{	//Set up the location as well as turning on the blit flag.
+
+		if ( GetExplicitEnemyEncounterCode() != NO_ENCOUNTER_CODE )
+		{
+			//Set up the location as well as turning on the blit flag.
 			gubPBSectorX = (UINT8)gWorldSectorX;
 			gubPBSectorY = (UINT8)gWorldSectorY;
 			gubPBSectorZ = (UINT8)gbWorldSectorZ;
@@ -2347,7 +2402,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 	GetCurrentBattleSectorXYZ( &sSectorX, &sSectorY, &sSectorZ );
 	if( ubVictoryCode == LOG_VICTORY )
 	{
-		switch( gubEnemyEncounterCode )
+		switch( GetEnemyEncounterCode() )
 		{
 			case ENEMY_INVASION_CODE:
 				AddHistoryToPlayersLog( HISTORY_DEFENDEDTOWNSECTOR, 0, GetWorldTotalMin(), sSectorX, sSectorY );
@@ -2370,6 +2425,8 @@ void LogBattleResults( UINT8 ubVictoryCode)
 			case ENTERING_BLOODCAT_LAIR_CODE:
 				AddHistoryToPlayersLog( HISTORY_SLAUGHTEREDBLOODCATS, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
+			case CONCEALINSERTION_CODE:
+				break;
 		}
 
 		// Flugente: campaign stats
@@ -2377,7 +2434,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 	}
 	else
 	{
-		switch( gubEnemyEncounterCode )
+		switch( GetEnemyEncounterCode() )
 		{
 			case ENEMY_INVASION_CODE:
 				AddHistoryToPlayersLog( HISTORY_LOSTTOWNSECTOR, 0, GetWorldTotalMin(), sSectorX, sSectorY );
@@ -2400,10 +2457,12 @@ void LogBattleResults( UINT8 ubVictoryCode)
 			case ENTERING_BLOODCAT_LAIR_CODE:
 				AddHistoryToPlayersLog( HISTORY_KILLEDBYBLOODCATS, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
+			case CONCEALINSERTION_CODE:
+				break;
 		}
 	}
 
-	switch( gubEnemyEncounterCode )
+	switch( GetEnemyEncounterCode() )
 	{
 		case ENEMY_INVASION_CODE:
 			gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACK_ENEMY;

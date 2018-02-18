@@ -91,6 +91,7 @@
 	#include "WHO.h"						// added by Flugente
 	#include "PMC.h"						// added by Flugente
 	#include "MilitiaWebsite.h"				// added by Flugente
+	#include "Intelmarket.h"				// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1071,6 +1072,9 @@ INT32 EnterLaptop()
 			SetBookMark( WHO_BOOKMARK );
 		else
 			RemoveBookmark( WHO_BOOKMARK );
+
+		if ( !gGameExternalOptions.fIntelResource )
+			RemoveBookmark( INTELMARKET_BOOKMARK );
 	}
 
 	LoadLoadPending( );
@@ -1504,6 +1508,18 @@ void RenderLaptop()
 
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
 			RenderMilitiaWebsiteMain( );
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_BUYINFO:
+			RenderIntelmarket();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_SELLINFO:
+			RenderIntelmarket_Sell();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_ABOUT:
+			RenderIntelmarket_About();
 			break;
 	}
 
@@ -1969,6 +1985,18 @@ void EnterNewLaptopMode()
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
 			EnterMilitiaWebsiteMain( );
 			break;
+
+		case LAPTOP_MODE_INTELMARKET_BUYINFO:
+			EnterIntelmarket();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_SELLINFO:
+			EnterIntelmarket_Sell();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_ABOUT:
+			EnterIntelmarket_About();
+			break;
 	}
 
 	// first time using webbrowser in this laptop session
@@ -2248,8 +2276,19 @@ void HandleLapTopHandles()
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
 			HandleMilitiaWebsiteMain( );
 			break;
-	}
 
+		case LAPTOP_MODE_INTELMARKET_BUYINFO:
+			HandleIntelmarket();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_SELLINFO:
+			HandleIntelmarket_Sell();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_ABOUT:
+			HandleIntelmarket_About();
+			break;
+	}
 }
 
 extern BOOLEAN gfPrintFrameBuffer;
@@ -2834,6 +2873,18 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_MILITIAROSTER_MAIN:
 			ExitMilitiaWebsiteMain();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_BUYINFO:
+			ExitIntelmarket();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_SELLINFO:
+			ExitIntelmarket_Sell();
+			break;
+
+		case LAPTOP_MODE_INTELMARKET_ABOUT:
+			ExitIntelmarket_About();
 			break;
 	}
 
@@ -4469,6 +4520,27 @@ void GoToWebPage(INT32 iPageId )
 			{
 				// reset flag and set load pending flag
 				LaptopSaveInfo.fVisitedBookmarkAlready[MILITIAROSTER_BOOKMARK] = TRUE;
+				fLoadPendingFlag = TRUE;
+			}
+			else
+			{
+				// fast reload
+				fLoadPendingFlag = TRUE;
+				fFastLoadFlag = TRUE;
+			}
+		}
+		break;
+
+		case INTELMARKET_BOOKMARK:
+		{
+			guiCurrentWWWMode = LAPTOP_MODE_INTELMARKET_BUYINFO;
+			guiCurrentLaptopMode = LAPTOP_MODE_INTELMARKET_BUYINFO;
+
+			// do we have to have a World Wide Wait
+			if ( LaptopSaveInfo.fVisitedBookmarkAlready[INTELMARKET_BOOKMARK] == FALSE )
+			{
+				// reset flag and set load pending flag
+				LaptopSaveInfo.fVisitedBookmarkAlready[INTELMARKET_BOOKMARK] = TRUE;
 				fLoadPendingFlag = TRUE;
 			}
 			else
@@ -6254,21 +6326,27 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 	}
 	else if ((usEvent == KEY_DOWN )&& ( usParam == 's' ))
 	{
-			if( ( usKeyState & ALT_DOWN ) )
-			{
-				SetBookMark( AIM_BOOKMARK );
-				SetBookMark( BOBBYR_BOOKMARK );
-				SetBookMark( IMP_BOOKMARK );
-				SetBookMark( MERC_BOOKMARK );
-				SetBookMark( FUNERAL_BOOKMARK );
-				SetBookMark( FLORIST_BOOKMARK );
+		if( ( usKeyState & ALT_DOWN ) )
+		{
+			SetBookMark( AIM_BOOKMARK );
+			SetBookMark( BOBBYR_BOOKMARK );
+			SetBookMark( IMP_BOOKMARK );
+			SetBookMark( MERC_BOOKMARK );
+			SetBookMark( FUNERAL_BOOKMARK );
+			SetBookMark( FLORIST_BOOKMARK );
 #ifdef JA2UB
-				if (gGameUBOptions.LaptopLinkInsurance == TRUE )
+			if (gGameUBOptions.LaptopLinkInsurance == TRUE )
 				SetBookMark( INSURANCE_BOOKMARK );
 #else
-				SetBookMark( INSURANCE_BOOKMARK );
+			SetBookMark( INSURANCE_BOOKMARK );
 #endif
-			}
+			SetBookMark( CAMPAIGNHISTORY_BOOKMARK );
+			SetBookMark( MERCCOMPARE_BOOKMARK );
+			SetBookMark( WHO_BOOKMARK );
+			SetBookMark( PMC_BOOKMARK );
+			SetBookMark( MILITIAROSTER_BOOKMARK );
+			SetBookMark( INTELMARKET_BOOKMARK );
+		}
 	}
 
 	//help screen stuff

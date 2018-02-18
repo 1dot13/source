@@ -305,4 +305,8 @@ extern ITEM_POOL *gpItemPool;//dnl ch26 210909
 void DoInteractiveAction( INT32 sGridNo, SOLDIERTYPE *pSoldier );
 void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSuccess );
 BOOLEAN SpendMoney( SOLDIERTYPE *pSoldier, UINT32 aAmount );			// character spends money - either from inventory or the account
+
+// Flugente: intel
+void TakePhoto( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT8 bLevel );
+
 #endif
