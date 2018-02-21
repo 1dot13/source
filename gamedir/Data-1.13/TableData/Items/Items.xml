@@ -52062,4 +52062,28 @@
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
 	</ITEM>
+	<ITEM>
+		<uiIndex>1752</uiIndex>
+		<szItemName>Painkiller</szItemName>
+		<szLongItemName>Painkiller medicine</szLongItemName>
+		<szItemDesc>These little pills can ease pain, but are no substitute for medical care.</szItemDesc>
+		<szBRName>Painkiller medicine</szBRName>
+		<szBRDesc>Very potent painkillers. Warning: Do not consume without medical advice.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>122</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>8</ubPerPocket>
+		<ItemSize>10</ItemSize>
+		<usPrice>400</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Medical>1</Medical>
+		<DrugType>19</DrugType>
+		<usPortionSize>5</usPortionSize>
+		<BR_NewInventory>3</BR_NewInventory>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
 </ITEMLIST>

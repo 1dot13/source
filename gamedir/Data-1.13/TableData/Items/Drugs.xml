@@ -773,4 +773,17 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 			<size>-35</size>
 		</DRUG_EFFECT>
 	</DRUG>
+	<DRUG>
+		<uiIndex>19</uiIndex>
+		<szName>Painkiller</szName>
+		<DRUG_EFFECT>
+			<effect>0</effect>
+			<duration>3</duration>
+			<size>40</size>
+		</DRUG_EFFECT>		
+		<DISEASE_EFFECT>
+			<disease>15</disease>
+			<size>3200</size>
+		</DISEASE_EFFECT>
+	</DRUG>
 </DRUGSLIST>
