@@ -836,11 +836,11 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		usColor = DIALOGUE_COLOR;
 	}
 
-	if ( ubPriority == MSG_INTERFACE )
+	// HEADROCK HAM 3.6: Why force yellow? Let's not.
+	/*if ( ubPriority == MSG_INTERFACE )
 	{
-		// HEADROCK HAM 3.6: Why force yellow? Let's not.
-		//usColor = INTERFACE_COLOR;
-	}
+		usColor = INTERFACE_COLOR;
+	}*/
 
 	// HEADROCK HAM 3.6: Allow for longer lines.
 	LINE_WIDTH = (SCREEN_WIDTH - 320);
@@ -1038,11 +1038,11 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		usColor = DIALOGUE_COLOR;
 	}
 
-	if ( ubPriority == MSG_INTERFACE )
-	{
-		// HEADROCK HAM 3.6: Why force yellow? Let's not.
-		//usColor = INTERFACE_COLOR;
-	}
+	// HEADROCK HAM 3.6: Why force yellow? Let's not.
+	/*if ( ubPriority == MSG_INTERFACE )
+	{		
+		usColor = INTERFACE_COLOR;
+	}*/
 
 	// HEADROCK HAM 3.6: Allow for longer lines.
 	// Lejardo ARSProject
