@@ -6396,6 +6396,27 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 		sYPos += 20;
 	}
 
+	// do we carry a key?
+	for ( int ubLoop = 0; ubLoop < NUM_KEYS; ++ubLoop )
+	{
+		if ( SoldierHasKey( pSoldier, ubLoop ) )
+		{
+			// Add bars
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 11, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+			sYPos += 20;
+
+			break;
+		}
+	}
+
 	return true;
 }
 

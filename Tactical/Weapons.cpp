@@ -3505,7 +3505,14 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			// Do we have the chance to steal more than 1 item?
 			// SANDRO - taking items from collapsed soldiers is treated differently
 			// Flugente: if we are on the same team, allow guaranteed full access
-			if ( AllowedToStealFromTeamMate(pSoldier->ubID, pTargetSoldier->ubID) || ( fSoldierCollapsed || (!gGameExternalOptions.fEnhancedCloseCombatSystem && iDiceRoll < (iHitChance * 2 / 3))) && pSoldier->bTeam == gbPlayerNum )
+			// otherwise, if we are the player, we can steal multiple items if the other guy is collapsed, or we are succesful, and
+			// if using fEnhancedCloseCombatSystem, only allow this if the other guy is not alerted
+			if ( AllowedToStealFromTeamMate(pSoldier->ubID, pTargetSoldier->ubID) || 
+				pSoldier->bTeam == gbPlayerNum && 
+				( fSoldierCollapsed || 
+				( iDiceRoll < ( iHitChance * 2 / 3 ) && 
+				!gGameExternalOptions.fEnhancedCloseCombatSystem ||
+				pSoldier->aiData.bAlertStatus < STATUS_RED  ) ) )
 			{
 				// first, charge extra Aps, because it's difficlut to pickup from other soldier
 				if (gGameExternalOptions.fEnhancedCloseCombatSystem)
