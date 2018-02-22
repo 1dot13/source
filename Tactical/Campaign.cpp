@@ -171,14 +171,18 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	INT8 bCurrentRating;
 	UINT16 *psStatGainPtr;
 	BOOLEAN fAffectedByWisdom = TRUE;
+	INT8 evolution = NORMAL_EVOLUTION;
 
 	Assert(pProfile != NULL);
 
-	if ( pProfile->bEvolution == NO_EVOLUTION )
+	if ( !gGameExternalOptions.bDisableEvolution )
+		evolution = pProfile->bEvolution;
+
+	if ( evolution == NO_EVOLUTION )
 		return;     // No change possible, quit right away
 
 	// if this is a Reverse-Evolving merc who attempting to train
-	if ( ( ubReason == FROM_TRAINING ) && ( pProfile->bEvolution == DEVOLVE ) )
+	if ( ( ubReason == FROM_TRAINING ) && ( evolution == DEVOLVE ) )
 		return;	// he doesn't get any benefit, but isn't penalized either
 
 	if (usNumChances == 0)
@@ -269,9 +273,9 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 	}
 
 	// loop once for each chance to improve
-	for (uiCnt = 0; uiCnt < usNumChances; uiCnt++)
+	for (uiCnt = 0; uiCnt < usNumChances; ++uiCnt)
 	{
-		if (pProfile->bEvolution != DEVOLVE)               // Evolves!
+		if ( evolution != DEVOLVE)               // Evolves!
 		{
 			// if this is improving from a failure, and a successful roll would give us enough to go up a point
 			if ((ubReason == FROM_FAILURE) && ((*psStatGainPtr + 1) >= usSubpointsPerPoint))
@@ -329,18 +333,17 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			}
 
 			// Buggler: more evolution rate choices
-			if (pProfile->bEvolution == THREEQUARTER_EVOLUTION)
+			if ( evolution == THREEQUARTER_EVOLUTION)
 				usChance = max(1, usChance * 0.75);
-			else if (pProfile->bEvolution == HALF_EVOLUTION)
+			else if ( evolution == HALF_EVOLUTION)
 				usChance =  max(1, usChance * 0.5);
-			else if (pProfile->bEvolution == ONEQUARTER_EVOLUTION)
+			else if ( evolution == ONEQUARTER_EVOLUTION)
 				usChance =  max(1, usChance * 0.25);
-
-
+			
 			// maximum possible usChance is 99%
 			if (usChance > 99)
 			{
-					usChance = 99;
+				usChance = 99;
 			}
 
 			if (PreRandom(100) < usChance )
