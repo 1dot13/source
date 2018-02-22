@@ -110,4 +110,9 @@
 		<sItemIndex>1714</sItemIndex>
 		<ubOptimalNumber>7</ubOptimalNumber>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>22</uiIndex>
+		<sItemIndex>1752</sItemIndex>
+		<ubOptimalNumber>4</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>
