@@ -2221,7 +2221,10 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			this->CancelDrag();
 		}
 
-		numBytesRead = ReadFieldByField(hFile, &this->bUnusedINT16_5, sizeof(bUnusedINT16_5), sizeof(INT16), numBytesRead );
+		numBytesRead = ReadFieldByField(hFile, &this->usChatPartnerID, sizeof( usChatPartnerID ), sizeof(INT16), numBytesRead );
+
+		if ( guiCurrentSaveGameVersion < CHAT_TO_DISTRACT )
+			this->usChatPartnerID = NOBODY;
 				
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraStrength, sizeof(bExtraStrength), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bExtraDexterity, sizeof(bExtraDexterity), sizeof(INT16), numBytesRead);

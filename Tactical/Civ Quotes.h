@@ -172,5 +172,8 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile );
 BOOLEAN ShutDownQuoteBoxIfActive( );
 
 void BeginCivQuote( SOLDIERTYPE *pCiv, UINT16 ubCivQuoteID, UINT16 ubEntryID, INT16 sX, INT16 sY );
+void BeginChatQuote( SOLDIERTYPE *pCiv, INT16 sX, INT16 sY );
+
+BOOLEAN CivQuoteActive();
 
 #endif

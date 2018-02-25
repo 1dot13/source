@@ -1506,7 +1506,7 @@ public:
 	//INT16	bUnusedINT16_4;
 	INT16	sDragCorpseID;			// Flugente: id of corpse we are dragging
 
-	INT16	bUnusedINT16_5;
+	UINT16	usChatPartnerID;		// Flugente: the id of another merc we are 'chatting' with
 	
 	// Flugente: new variables for extra stats	
 	INT16	bExtraStrength;			// additional strength gained via power armor
@@ -1979,6 +1979,8 @@ public:
 	// Flugente: spy assignments
 	UINT8		GetUncoverRisk();
 	FLOAT		GetIntelGain();
+
+	void		StopChatting();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

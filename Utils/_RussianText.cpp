@@ -4013,6 +4013,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Что вы хотите сделать?",
 	L"Требовать сдаться",
 	L"Предложить сдаться",
+	L"Distract",	// TODO.Translate
 	L"Переговоры",
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
@@ -4048,6 +4049,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Комплектовать",
 	L"%s скомплевтовал %s",
 	L"%s поднял %s",
+
+	L"%s has stopped chatting with %s", // TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

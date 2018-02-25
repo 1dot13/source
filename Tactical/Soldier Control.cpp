@@ -19968,6 +19968,17 @@ FLOAT		SOLDIERTYPE::GetIntelGain()
 	return totalvalue;
 }
 
+void		SOLDIERTYPE::StopChatting()
+{
+	if ( this->usChatPartnerID != NOBODY )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[DISTRACT_STOP_STR], this->GetName(), MercPtrs[this->usChatPartnerID]->GetName() );
+
+		MercPtrs[this->usChatPartnerID]->usChatPartnerID = NOBODY;
+		this->usChatPartnerID = NOBODY;
+	}
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;

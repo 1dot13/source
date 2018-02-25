@@ -1106,8 +1106,9 @@ enum
 	PRISONER_OFFER_SURRENDER,
 	PRISONER_DEMAND_SURRENDER_STR,
 	PRISONER_OFFER_SURRENDER_STR,
+	PRISONER_DISTRACT_STR, 
 	PRISONER_TALK_STR,
-
+	
     // sevenfm: new disarm trap dialog, new messages for wrong mines when arming
     DISARM_DIALOG_DISARM,
     DISARM_DIALOG_INSPECT,
@@ -1141,6 +1142,8 @@ enum
 	IMPROVEGEARBUTTON_STR,
 	IMPROVEGEARDESCRIBE_STR,
 	IMPROVEGEARPICKUPMAG_STR,
+
+	DISTRACT_STOP_STR,
 
 	TEXT_NUM_TACTICAL_STR
 };
@@ -3058,6 +3061,9 @@ enum
 extern STR16	szIntelWebsiteText[];
 
 extern STR16	szIntelText[];
+
+extern STR16	szChatTextSpy[];
+extern STR16	szChatTextEnemy[];
 
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16

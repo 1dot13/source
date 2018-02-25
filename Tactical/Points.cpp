@@ -923,6 +923,8 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 		// if we are temporarily overt
 		if ( pSoldier->usSoldierFlagMask & SOLDIER_COVERT_TEMPORARY_OVERT && pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] > 0 )
 			pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] = max( 0, (INT16)(pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS] - sAPCost) );
+
+		pSoldier->StopChatting();
 	}
 
 	// in real time, there IS no AP cost, (only breath cost)

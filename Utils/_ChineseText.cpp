@@ -4013,6 +4013,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"你想要做什么？",
 	L"劝说敌人投降",
 	L"缴械投降", //L"Offer surrender",
+	L"Distract",	// TODO.Translate
 	L"交谈",
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
@@ -4048,6 +4049,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"补充装备", //L"Improve gear",
 	L"%s 将 %s 进行了临时补给", //L"%s changed %s for superior version",
 	L"%s 捡起 %s",	//L"%s picked up %s",
+
+	L"%s has stopped chatting with %s", // TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

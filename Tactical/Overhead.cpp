@@ -10672,6 +10672,32 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ STR_PRISONER_REFUSE_TAKE_PRISONERS ]  );
         }
     }
+	// we distract the enemy by essentially talking them to death
+	else if ( ubExitValue == 3 )
+	{
+		// Flugente: if we are disguised and talk to a non-profile NPC, we will continue to 'chat' with the enemy as long as we aren't ordered to do something else.
+		// This way we can easily order our spies to 'distract 'enemies'
+		if ( GetSoldier( &pSoldier, gusSelectedSoldier ) &&
+			pSoldier->bTeam == gbPlayerNum &&
+			MercPtrs[prisonerdialoguetargetID] &&
+			MercPtrs[prisonerdialoguetargetID]->bTeam == ENEMY_TEAM &&
+			MercPtrs[prisonerdialoguetargetID]->ubProfile == NO_PROFILE &&
+			MercPtrs[prisonerdialoguetargetID]->aiData.bAlertStatus < STATUS_RED &&
+			!MercPtrs[prisonerdialoguetargetID]->RecognizeAsCombatant( gusSelectedSoldier ) )
+		{
+			// both soldiers face each other
+			pSoldier->EVENT_SetSoldierDesiredDirection( GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, MercPtrs[prisonerdialoguetargetID]->sGridNo ) );
+			MercPtrs[prisonerdialoguetargetID]->EVENT_SetSoldierDesiredDirection( GetDirectionToGridNoFromGridNo( MercPtrs[prisonerdialoguetargetID]->sGridNo, pSoldier->sGridNo ) );
+
+			MercPtrs[prisonerdialoguetargetID]->usChatPartnerID = gusSelectedSoldier;
+			pSoldier->usChatPartnerID = prisonerdialoguetargetID;
+		}
+		else
+		{
+			// normal dialog
+			StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
+		}
+	}
     else
     {
         // normal dialog
@@ -10679,6 +10705,50 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
     }
 
     ReduceAttackBusyCount( );
+}
+
+// Flugente: disguised mercs can distract enemies by talking to them. In order to display that, we sometimes display excerpts of their 'chats'
+void CheckChatPartners()
+{
+	if ( guiCurrentScreen == GAME_SCREEN )
+	{
+		if ( !CivQuoteActive() )
+		{
+			static BOOLEAN fMercQuoteThisTime = TRUE;
+
+			SOLDIERTYPE* pSoldier = NULL;
+
+			for ( int ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++ubLoop )
+			{
+				pSoldier = MercPtrs[ubLoop];
+
+				if ( pSoldier && pSoldier->bVisible && pSoldier->usChatPartnerID != NOBODY && MercPtrs[pSoldier->usChatPartnerID]->bVisible )
+				{
+					INT16 sScreenX, sScreenY;
+
+					if ( fMercQuoteThisTime )
+						GetSoldierScreenPos( pSoldier, &sScreenX, &sScreenY );
+					else
+						GetSoldierScreenPos( MercPtrs[pSoldier->usChatPartnerID], &sScreenX, &sScreenY );
+
+					if ( gsVIEWPORT_START_X <= sScreenX &&
+						gsVIEWPORT_END_X >= sScreenX &&
+						gsVIEWPORT_WINDOW_START_Y <= sScreenY &&
+						gsVIEWPORT_WINDOW_END_Y >= sScreenY )
+					{
+						if ( fMercQuoteThisTime )
+							BeginChatQuote( pSoldier, sScreenX, sScreenY );
+						else
+							BeginChatQuote( MercPtrs[pSoldier->usChatPartnerID], sScreenX, sScreenY );
+
+						fMercQuoteThisTime = !fMercQuoteThisTime;
+
+						break;
+					}
+				}
+			}
+		}
+	}
 }
 
 // Flugente: offer the enemy the chance to surrender
@@ -10694,7 +10764,21 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
     // open a dialogue box and see wether we really want to offer this, or just talk
     wcscpy( gzUserDefinedButton[0], TacticalStr[ PRISONER_DEMAND_SURRENDER_STR ] );
     wcscpy( gzUserDefinedButton[1], TacticalStr[ PRISONER_OFFER_SURRENDER_STR ] );
-    wcscpy( gzUserDefinedButton[2], TacticalStr[ PRISONER_TALK_STR ] );
+
+	SOLDIERTYPE* pTargetSoldier = NULL;
+	if ( GetSoldier( &pTargetSoldier, prisonerdialoguetargetID ) &&
+		pTargetSoldier->bTeam == ENEMY_TEAM &&
+		pTargetSoldier->ubProfile == NO_PROFILE &&
+		pTargetSoldier->aiData.bAlertStatus < STATUS_RED &&
+		!pTargetSoldier->RecognizeAsCombatant( gusSelectedSoldier ) )
+	{
+		wcscpy( gzUserDefinedButton[2], TacticalStr[PRISONER_DISTRACT_STR] );
+	}
+	else
+	{
+		wcscpy( gzUserDefinedButton[2], TacticalStr[PRISONER_TALK_STR] );
+	}
+
     wcscpy( gzUserDefinedButton[3], TacticalStr[ PRISONER_TALK_STR ] );
     DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, PrisonerSurrenderMessageBoxCallBack, NULL );
 }

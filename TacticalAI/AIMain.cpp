@@ -1318,6 +1318,20 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		EndAIGuysTurn( pSoldier);
 		return;
 	}
+	
+	// Flugente: if we are distracted by chatting and not alert, do nothing
+	if ( pSoldier->usChatPartnerID != NOBODY )
+	{
+		if ( pSoldier->aiData.bAlertStatus < STATUS_RED )
+		{
+			EndAIGuysTurn( pSoldier );
+			return;
+		}
+		else
+		{
+			pSoldier->StopChatting();
+		}
+	}
 
 	if ((pSoldier->aiData.bAction != AI_ACTION_NONE) && pSoldier->aiData.bActionInProgress)
 	{

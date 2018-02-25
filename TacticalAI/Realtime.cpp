@@ -76,6 +76,20 @@ void RTHandleAI( SOLDIERTYPE * pSoldier )
 	if ( pSoldier->usSoldierFlagMask & SOLDIER_POW || pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
 		return;
 
+	// Flugente: if we are distracted by chatting and not alert, do nothing
+	if ( pSoldier->usChatPartnerID != NOBODY )
+	{
+		if ( pSoldier->aiData.bAlertStatus < STATUS_RED )
+		{
+			EndAIGuysTurn( pSoldier );
+			return;
+		}
+		else
+		{
+			pSoldier->StopChatting();
+		}
+	}
+
 	// if man has nothing to do
 	if (pSoldier->aiData.bAction == AI_ACTION_NONE)
 	{

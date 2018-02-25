@@ -4013,6 +4013,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"What do you want to do?",
 	L"Demand surrender",
 	L"Offer surrender",
+	L"Distract",
 	L"Talk",
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
@@ -4048,6 +4049,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Improve gear",
 	L"%s changed %s for superior version",
 	L"%s picked up %s",
+
+	L"%s has stopped chatting with %s",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -11360,6 +11363,72 @@ STR16	szIntelText[] =
 	L"No more enemies present, %s is no longer in hiding!",
 	L"%s has been discovered and goes into hiding for %d hours.",
 	L"%s has been discovered, going to sector!",
+};
+
+STR16	szChatTextSpy[] =
+{
+	L"... so imagine my surprise when suddenly...",
+	L"... and did I ever tell you the story of that one time...",
+	L"... so, in conclusion, the colonel decided...",
+	L"... tell you, they did not see that coming...",
+
+	L"... so, without further consideration...",
+	L"... but then SHE said...",
+	L"... and, speaking of llamas...",
+	L"... there I was, in the middle of the dustbowl, when...",
+
+	L"... and let me tell, those things chafe...",
+	L"... you should have seen his face...",
+	L"... which wasn't the last of what we saw of them...",
+	L"... which reminds me, my grandmother used to say...",
+
+	L"... who, by the way, is a total berk...",
+	L"... also, the roots were off by a margin...",
+	L"... and I was like, 'Back off, heathen!'...",
+	L"... at that point the vicars were in oben rebellion...",
+
+	L"... not that I would've minded, you know, but...",
+	L"... if not for that ridiculous hat...",
+	L"... besides, it wasn't his favourite leg anyway...",
+	L"... even though the ships were still watertight...",
+
+	L"... aside from the fact that giraffes can't do that...",
+	L"... totally wasted that fork, mind you...",
+	L"... and no bakery in sight. After that...",
+	L"... even though regulations are clear in that regard...",
+};
+
+STR16	szChatTextEnemy[] =
+{
+	L"Whoa. I had no idea!",
+	L"Really?",
+	L"Uhhhh....",
+	L"Well... you see, uhh...",
+
+	L"I am not entirely sure that...",
+	L"I... well...",
+	L"If I could just...",
+	L"But...",
+
+	L"I don't mean to intrude, but...",
+	L"Really? I had no idea!",
+	L"What? All of it?",
+	L"No way!",
+
+	L"Haha!",
+	L"Whoa, the guys are not going to believe me!",
+	L"... yeah, just...",
+	L"That's just like the gypsy woman said!",
+
+	L"... yeah, is that why...",
+	L"... hehe, talk about refurbishing...",
+	L"... yeah, I guess...",
+	L"Wait. What?",
+
+	L"... wouldn't have minded seeing that...",
+	L"... now that you mention it...",
+	L"... but where did all the chalk go...",
+	L"... had never even considered that...",
 };
 
 #endif //ENGLISH

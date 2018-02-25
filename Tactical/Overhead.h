@@ -357,6 +357,9 @@ extern UINT8 NumZombiesInSector();
 // Flugente: offer the enemy the chance to surrender
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );
 
+// Flugente: disguised mercs can distract enemies by talking to them. In order to display that, we sometimes display excerpts of their 'chats'
+void CheckChatPartners();
+
 // Flugente: order a team to drop gear, or pick it up
 // setting fForce to TRUE allows dropping of gear in combat (used in auto-resolve instances)
 void TeamDropAll(UINT8 bTeam, BOOLEAN fForce = FALSE);

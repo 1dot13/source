@@ -30,6 +30,7 @@
 	#include "Tactical Placement GUI.h"//dnl ch45 071009
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "World Items.h"//dnl ch77 191113
+	#include "Overhead.h"	// added by Flugente
 #endif
 
 #include "SaveLoadScreen.h"
@@ -410,6 +411,9 @@ void GameLoop(void)
 
 	// Flugente: dynamic opinions: Dialogue Boxes need to be refreshed
 	RefreshBoxes( );
+	
+	// Flugente:disguised mercs can distract enemies by talking to them. In order to display that, we sometimes display excerpts of their 'chats'
+	CheckChatPartners();
 
 	//DEBUG MODE : DEBUG RENDER ENTRY : point to drop in debugging render code
 	if( (gGameSettings.fOptions[TOPTION_RETAIN_DEBUG_OPTIONS_IN_RELEASE]) || (JA2BETAVERSION_FLAG))

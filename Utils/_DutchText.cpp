@@ -4014,6 +4014,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"What do you want to do?",
 	L"Demand surrender",
 	L"Offer surrender",
+	L"Distract",	// TODO.Translate
 	L"Talk",
 
 	// TODO.Translate
@@ -4050,6 +4051,8 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Improve gear",
 	L"%s changed %s for superior version",
 	L"%s picked up %s",	// TODO.Translate
+
+	L"%s has stopped chatting with %s", // TODO.Translate
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
