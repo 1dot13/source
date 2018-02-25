@@ -3468,37 +3468,37 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 
 			fFailure=FALSE;
 
-			// Flugente: if we are disguised and try to steal from a conscious enemy, there is a chance that he notices us and we lose our disguise. If he can see us this always happens
-			if ( !fSoldierCollapsed && pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			// does the other guy notice us?
+			BOOLEAN fNoticed = FALSE;
+
+			if ( fSoldierCollapsed )
+				;
+			// if he sees us, he'l notice
+			else if ( pTargetSoldier->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY )
+				fNoticed = TRUE;
+			else
 			{
-				BOOLEAN fUncovered = FALSE;
+				UINT8 chance = 10;
 
-				// if he sees us, always loose disguise
-				if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
-					fUncovered = TRUE;
-				else
-				{
-					UINT8 chance = 10;
+				if ( pTargetSoldier->aiData.bOppList[pSoldier->ubID] == SEEN_LAST_TURN )
+					chance += 40;
 
-					if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_LAST_TURN )
-						chance += 40;
+				chance += pSoldier->aiData.bAlertStatus * 10;
 
-					chance += pSoldier->aiData.bAlertStatus * 10;
+				if ( Chance( chance ) )
+					fNoticed = TRUE;
+			}
 
-					if ( Chance(chance) )
-						fUncovered = TRUE;
-				}
+			// Flugente: if we are disguised and try to steal from a conscious enemy, there is a chance that he notices us and we lose our disguise. If he can see us this always happens
+			if ( fNoticed && pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			{
+				pSoldier->LooseDisguise();
+				
+				if ( gSkillTraitValues.fCOStripIfUncovered )
+					pSoldier->Strip( );
 
-				if ( fUncovered )
-				{
-					pSoldier->LooseDisguise();
-					
-					if ( gSkillTraitValues.fCOStripIfUncovered )
-						pSoldier->Strip( );
-
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_STEAL_FAIL], pSoldier->GetName()  );
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pTargetSoldier->GetName(), pSoldier->GetName()  );
-				}
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_STEAL_FAIL], pSoldier->GetName()  );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_UNCOVERED], pTargetSoldier->GetName(), pSoldier->GetName()  );
 			}
 
 						// WDS 07/19/2008 - Random number use fix
@@ -3687,7 +3687,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				{
 					// APs are reduced in Handle Items.cpp in "SoldierStealItemFromSoldier"
 				}
-				else if ( fStealAttempt || (fFailure == TRUE))
+				else if ( fStealAttempt || fFailure )
 				{
 					if (HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && ( gGameOptions.fNewTraitSystem ))
 					{
@@ -3780,7 +3780,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						StatChange( pSoldier, AGILAMT, 3, FALSE );
 					}
 
-					if ( !fStealAttempt || pTargetSoldier->aiData.bAlertStatus >= STATUS_RED )
+					if ( fNoticed )
 					{
 						// anv: enemy taunt on getting robbed
 						PossiblyStartEnemyTaunt( pTargetSoldier, TAUNT_GOT_ROBBED, pSoldier->ubID );
@@ -3807,7 +3807,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			}
 
 			// Flugente: no turning if the other guy doesn't notice us...
-			if ( fFailure || !fStealAttempt || pTargetSoldier->aiData.bAlertStatus >= STATUS_RED )
+			if ( fNoticed )
 			{
 				// SANDRO - Enhanced Close Combat System - Notice merc after stealing
 				// sevenfm: don't turn when lying prone
