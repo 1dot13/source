@@ -11353,7 +11353,8 @@ STR16	szIntelWebsiteText[] =
 	L"Next",
 	L"Upload",
 
-	L"You have already received compensation for the following:"
+	L"You have already received compensation for the following:",
+	L"You have nothing to upload.",
 };
 
 STR16	szIntelText[] =
