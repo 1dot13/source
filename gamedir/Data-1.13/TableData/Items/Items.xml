@@ -48819,13 +48819,13 @@
 		<uiIndex>1634</uiIndex>
 		<szItemName>M99</szItemName>
 		<szLongItemName>M99</szLongItemName>
-		<szItemDesc>A very strong animal tranquilizer. Lethal if overdosed and you're no elephant.</szItemDesc>
+		<szItemDesc>A very strong animal tranquilizer. Lethal if overdosed and you're not an elephant.</szItemDesc>
 		<szBRName>M99</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>70</ubGraphicNum>
+		<ubGraphicNum>904</ubGraphicNum>
 		<ubWeight>1</ubWeight>
 		<ubPerPocket>8</ubPerPocket>
 		<ItemSize>10</ItemSize>
