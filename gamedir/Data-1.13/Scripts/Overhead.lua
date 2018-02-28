@@ -1626,7 +1626,7 @@ function AddArmsDealerAdditionalIntelData()
 	
 	-- price is affected by player progress - on higher progress items get cheaper (as they are less useful at that point)
 	progress = CurrentPlayerProgressPercentage()
-	ratio = (200 - progress) / 100.0
+	ratio = (200.0 - progress) / 100.0
 	
 	-- black market:
 	-- guns
@@ -1687,7 +1687,7 @@ function AddArmsDealerAdditionalIntelData()
 	AddArmsDealerAdditionalIntelDataItem(68, 1025, 20 * ratio, 2)	-- NVG Gen IV
 	
 	-- Misc
-	AddArmsDealerAdditionalIntelDataItem(68, 216, 10 * ratio, 3)	-- Compound 18
+	AddArmsDealerAdditionalIntelDataItem(68, 216, 6 * ratio, 3)		-- Compound 18
 	AddArmsDealerAdditionalIntelDataItem(68, 235, 2 * ratio, 4)		-- Regeneration Booster
 	AddArmsDealerAdditionalIntelDataItem(68, 324, 50 * ratio, 1)	-- X-Ray Detector
 	AddArmsDealerAdditionalIntelDataItem(68, 327, 11 * ratio, 2)	-- Tank of gas
@@ -1707,6 +1707,12 @@ function SetPhotoState( aIndex, aState )
 	end
 end
 
+-- sSectorX, sSectorY, bSectorZ: sector coordinates
+-- sGridNo: tile that we photographed. When we take a photo this function is run on all tiles we see in a 2-tile radius around where we clicked
+-- bLevel: height level (floor or roof)
+-- ubPhotographerProfile: profile of the merc taking the photo
+-- room: if > 0, this tile is inside this room
+-- usTargetProfile: if we photographed a NPC, this will be their profile number, otherwise NO_PROFILE
 function AddPhotoData( sSectorX, sSectorY, bSectorZ, sGridNo, bLevel, ubPhotographerProfile, room, usTargetProfile )
 	
 	if ( usTargetProfile ~= NO_PROFILE ) then
@@ -2780,6 +2786,7 @@ DialogueActionEvent =
 	ADE_WEATHERCHANGE = 12,					-- the weather has changed in the current sector, and we can warn the player about that, aData1 is of Weather
 	ADE_SKILL_RESULT = 13,					-- we used a skill, and comment on the result, aData1 is of Skill, aData2 indicates whether it was a success (1) or failure (0)
 	ADE_GRENADEWARNING = 14,				-- a delayed enemy grenade was dropped nearby, and we can shout a warning
+	ADE_CONSUMEITEM = 15,					-- we applied an item to us, aData1 is the item index
 }
 
 -- functions used here:
