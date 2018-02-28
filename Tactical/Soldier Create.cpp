@@ -2094,6 +2094,7 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->bBulletsLeft						= 0;
 	pSoldier->bVehicleUnderRepairID		= -1;
 	pSoldier->sFacilityTypeOperated		= -1; // HEADROCK HAM 3.6: Facility Operated
+	pSoldier->usChatPartnerID			= NOBODY;
 }
 
 

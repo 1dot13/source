@@ -6804,7 +6804,7 @@ STR16 pMessageStrings[] =
 	L"Espace disque insuffisant. Il ne vous reste que %s Mo de libre et Jagged Alliance 2 nécessite %s Mo.",
 	L"%s embauché(e) sur le site AIM", 
 	L"%s prend %s.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s a pris la drogue.", //'Merc name' has taken the drug
+	L"%s a pris %s.", //'Merc name' has taken the drug
 	L"%s n'a aucune compétence médicale.",//'Merc name' has non medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)

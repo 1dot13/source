@@ -6804,7 +6804,7 @@ STR16 pMessageStrings[] =
 	L"Schijfruimte raakt op. Er is slects %s MB vrij en Jagged Alliance 2 v1.13 heeft %s MB nodig.",
 	L"%s ingehuurd van AIM",
 	L"%s heeft %s gevangen.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s heeft de drug genomen.",		//'Merc name' has taken the drug
+	L"%s heeft %s genomen.",		//'Merc name' has taken the drug
 	L"%s heeft geen medische kennis",	//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)

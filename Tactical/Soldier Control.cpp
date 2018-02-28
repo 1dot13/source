@@ -7796,6 +7796,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		// this has to happen before CalculateCarriedWeight(), otherwise strength modfiers will not be detected correctly
 		this->SoldierPropertyUpkeep( );
 
+		// Flugente: drug users might consume useful drugs on their own in combat
+		this->DrugAutoUse();
+
 		this->sWeightCarriedAtTurnStart = (INT16)CalculateCarriedWeight( this );
 
 		UnusedAPsToBreath( this );
@@ -17503,6 +17506,9 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
 		this->usSkillCooldown[SOLDIER_COOLDOWN_CRYO]--;
 
+	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT] )
+		this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT]--;
+
 	// if soldier was seen this turn, increase his observed counter
 	if ( this->usSoldierFlagMask & SOLDIER_ENEMY_OBSERVEDTHISTURN )
 	{
@@ -19976,6 +19982,61 @@ void		SOLDIERTYPE::StopChatting()
 
 		MercPtrs[this->usChatPartnerID]->usChatPartnerID = NOBODY;
 		this->usChatPartnerID = NOBODY;
+	}
+}
+
+void		SOLDIERTYPE::DrugAutoUse()
+{
+	if ( !this->HasBackgroundFlag( BACKGROUND_DRUGUSE ) )
+		return;
+	
+	if ( !( gTacticalStatus.uiFlags & (INCOMBAT| TURNBASED) ) )
+		return;
+
+	if ( this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT] )
+		return;
+
+	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists() && Item[inv[bLoop].usItem].drugtype )
+		{
+			// use portionsize, if none was entered, use full item
+			UINT8 portionsize = Item[inv[bLoop].usItem].usPortionSize;
+			if ( !portionsize )
+				portionsize = 100;
+
+			// how much of this item do we use up
+			UINT8 usable = min( portionsize, ( this->inv[bLoop] )[0]->data.objectStatus );
+			if ( !usable )
+				continue;
+
+			std::vector<DRUG_EFFECT> vec_drug = NewDrug[Item[inv[bLoop].usItem].drugtype].drug_effects;
+
+			std::vector<DRUG_EFFECT>::iterator drug_effects_itend = vec_drug.end();
+			for ( std::vector<DRUG_EFFECT>::iterator drug_effects_it = vec_drug.begin(); drug_effects_it != drug_effects_itend; ++drug_effects_it )
+			{
+				if ( ( *drug_effects_it ).size > 0 )
+				{
+					if ( ( *drug_effects_it ).effect == DRUG_EFFECT_HP && this->bBleeding > 1 && ( *drug_effects_it ).size * ( *drug_effects_it ).duration * usable / 100 < this->bBleeding * 2 )
+					{
+						ApplyConsumable( this, &( this->inv[bLoop] ), TRUE, FALSE );
+
+						this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT] += 6;
+
+						return;
+					}
+					else if ( ( *drug_effects_it ).effect == DRUG_EFFECT_BP && this->bBreath < 50 )
+					{
+						ApplyConsumable( this, &( this->inv[bLoop] ), TRUE, FALSE );
+
+						this->usSkillCooldown[SOLDIER_COOLDOWN_DRUGUSER_COMBAT] += 6;
+
+						return;
+					}
+				}
+			}
+		}
 	}
 }
 

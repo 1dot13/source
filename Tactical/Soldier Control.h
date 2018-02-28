@@ -619,6 +619,7 @@ enum {
 	SOLDIER_COOLDOWN_COVERTOPS_TEMPORARYOVERT_APS,
 	SOLDIER_COOLDOWN_CRYO,					// counts how many turns character will be frozen
 	SOLDIER_COOLDOWN_INTEL_PENALTY,			// after being discovered, we can't gain intel from the assignment for this many hours
+	SOLDIER_COOLDOWN_DRUGUSER_COMBAT,		// after a drug user deliberately took drugs, he will not do so on his own for a while
 
 	SOLDIER_COOLDOWN_MAX = 20,				// enough space for fillers
 };
@@ -1981,6 +1982,7 @@ public:
 	FLOAT		GetIntelGain();
 
 	void		StopChatting();
+	void		DrugAutoUse();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

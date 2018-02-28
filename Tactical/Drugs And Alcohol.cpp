@@ -196,7 +196,7 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 		}
 		else
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_MERC_TOOK_DRUG], pSoldier->GetName( ) );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_MERC_TOOK_DRUG], pSoldier->GetName( ), ShortItemNames[usItem] );
 		}
 	}
 

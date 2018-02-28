@@ -6791,7 +6791,7 @@ STR16 pMessageStrings[] =
 	L"磁盘空间不足。只有%sMB可用空间，《铁血联盟2》需要%sMB。",
 	L"从AIM雇佣了%s", 		//"Hired %s from AIM",
 	L"%s抓住了%s.",	//"%s has caught %s.",	//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s打了针剂。", 	//"%s has taken the drug.", //'Merc name' has taken the drug
+	L"%s has taken %s.",	// TODO.Translate
 	L"%s没有医疗技能",	//"%s has no medical skill",//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)

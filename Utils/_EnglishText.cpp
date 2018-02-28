@@ -6792,7 +6792,7 @@ STR16 pMessageStrings[] =
 	L"You are running low on disk space.  You only have %sMB free and Jagged Alliance 2 v1.13 requires %sMB.",
 	L"Hired %s from AIM", 
 	L"%s has caught %s.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s has taken the drug.", //'Merc name' has taken the drug
+	L"%s has taken %s.", //'Merc name' has taken 'item name'
 	L"%s has no medical skill",//40	'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)

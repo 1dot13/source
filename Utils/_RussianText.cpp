@@ -6792,7 +6792,7 @@ STR16 pMessageStrings[] =
 	L"У вас заканчивается свободное дисковое пространство. На диске есть всего %sMб свободного места, а для Jagged Alliance 2 требуется %s Mб.",
 	L"Из A.I.M. нанят боец %s.", 
 	L"%s ловит %s.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s принимает препарат.", //'Merc name' has taken the drug
+	L"%s has taken %s.",	// TODO.Translate
 	L"%s: отсутствуют навыки в медицине.",//40	'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)

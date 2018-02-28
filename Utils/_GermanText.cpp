@@ -6640,7 +6640,7 @@ STR16 pMessageStrings[] =
 	L"%s von AIM angeheuert", 
 	L"%s hat %s gefangen.",			//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 
-	L"%s hat die Droge genommen.",			//'Merc name' has taken the drug
+	L"%s hat %s eingenommen.",			//'Merc name' has taken 'item name'
 	L"%s hat keine medizinischen Fähigkeiten",//40	//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)

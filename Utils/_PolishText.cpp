@@ -6803,7 +6803,7 @@ STR16 pMessageStrings[] =
 	L"Brak miejsca na dysku twardym.  Na dysku wolne jest %s MB, a wymagane jest przynajmniej %s MB.",
 	L"Najęto - %s z A.I.M.", 
 	L"%s złapał(a) %s",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s zaaplikował(a) sobie lekarstwo", //'Merc name' has taken the drug
+	L"%s has taken %s.",	// TODO.Translate
 	L"%s nie posiada wiedzy medycznej",//40	'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
