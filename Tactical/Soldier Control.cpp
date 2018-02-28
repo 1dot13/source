@@ -24095,6 +24095,9 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 	
 	if ( fSuccess )
 	{
+		// Flugente: additional dialogue
+		AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_CONSUMEITEM, pObj->usItem );
+
 		// use up object
 		UseKitPoints( pObj, statusused, pSoldier );
 

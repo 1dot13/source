@@ -360,6 +360,7 @@ enum AdditionalDialogEvents
 	ADE_WEATHERCHANGE,						// the weather has changed, and we can warn the player about that
 	ADE_SKILL_RESULT,						// we used a skill, and comment on the result
 	ADE_GRENADEWARNING,						// a delayed enemy grenade was dropped nearby
+	ADE_CONSUMEITEM,						// we applied an item to us
 };
 
 // We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said
