@@ -19959,7 +19959,7 @@ FLOAT		SOLDIERTYPE::GetIntelGain()
 	UINT32 ubLocationModifier = 1 + max(2, min(20, gCoolnessBySector[SECTOR( this->sSectorX, this->sSectorY )] ) );
 
 	// in order not to make the differences to great, alter these values - will now be in [0.6; 4.63]
-	FLOAT sectorvalue = log( ubLocationModifier );
+	FLOAT sectorvalue = log( (FLOAT)ubLocationModifier );
 	sectorvalue *= sectorvalue / 2.0f;
 
 	FLOAT totalvalue = personalvalue * sectorvalue;

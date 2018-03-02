@@ -9879,7 +9879,7 @@ void TakePhoto(SOLDIERTYPE* pSoldier, INT32 sGridNo, INT8 bLevel )
 
 	for ( int x = -radius; x < radius; ++x )
 	{
-		int diff = sqrt( radius*radius - x*x );
+		int diff = sqrt( (FLOAT)(radius*radius - x*x) );
 
 		for ( int y = -diff; y < diff; ++y )
 		{
