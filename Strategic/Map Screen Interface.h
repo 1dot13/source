@@ -307,17 +307,13 @@ public:
 };
 
 extern BOOLEAN fShowAssignmentMenu;
-extern BOOLEAN fShowTrainingMenu ;
 extern BOOLEAN fShowAttributeMenu;
-extern BOOLEAN fShowSquadMenu ;
 extern BOOLEAN fShowContractMenu ;
 extern BOOLEAN fShowRemoveMenu ;
 extern BOOLEAN fShowMilitiaControlMenu ; //lal
 //extern BOOLEAN fShowTalkToAllMenu ;
-extern BOOLEAN fShowFacilityMenu; // HEADROCK HAM 3.6
 extern BOOLEAN fShowFacilityAssignmentMenu; // HEADROCK HAM 3.6
 // anv: snitch menus
-extern BOOLEAN fShowSnitchMenu;
 extern BOOLEAN fShowSnitchToggleMenu;
 extern BOOLEAN fShowSnitchSectorMenu;
 

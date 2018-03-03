@@ -1345,7 +1345,7 @@ BOOLEAN AllowedToTimeCompress( void )
 	}
 
 	// HEADROCK HAM 3.6: Added Facility Menus
-	if( fShowAssignmentMenu || fShowTrainingMenu || fShowAttributeMenu || fShowSquadMenu || fShowContractMenu || fShowRemoveMenu || fShowFacilityAssignmentMenu || fShowFacilityMenu )
+	if( fShowAssignmentMenu || gAssignMenuState > ASMENU_NONE || fShowAttributeMenu || fShowContractMenu || fShowRemoveMenu || fShowFacilityAssignmentMenu )
 	{
 		return( FALSE );
 	}

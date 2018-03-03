@@ -306,17 +306,12 @@ INT32 giDblClickTimersForMoveBoxMouseRegions[ MAX_POPUP_BOX_STRING_COUNT ];
 INT32 giExitToTactBaseTime = 0;
 UINT32 guiSectorLocatorBaseTime = 0;
 
-
 // which menus are we showing
 BOOLEAN fShowAssignmentMenu = FALSE;
-BOOLEAN fShowTrainingMenu = FALSE;
 BOOLEAN fShowAttributeMenu = FALSE;
-BOOLEAN fShowSquadMenu = FALSE;
 BOOLEAN fShowContractMenu = FALSE;
 BOOLEAN fShowRemoveMenu =	FALSE;
 BOOLEAN fShowMilitiaControlMenu =	FALSE; //lal
-//BOOLEAN fShowTalkToAllMenu =	FALSE;//lal
-BOOLEAN fShowFacilityMenu = FALSE; // HEADROCK HAM 3.6: Facility Menu
 BOOLEAN fShowFacilityAssignmentMenu = FALSE; // HEADROCK HAM 3.6: Facility Sub-menu
 
 BOOLEAN fRebuildMoveBox = FALSE;
@@ -922,17 +917,19 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 		ForceUpDateOfBox( ghAssignmentBox );
 		ForceUpDateOfBox( ghEpcBox );
 		ForceUpDateOfBox( ghRemoveMercAssignBox );
-		if( fShowSquadMenu == TRUE )
+
+		if( gAssignMenuState == ASMENU_SQUAD )
 		{
 			ForceUpDateOfBox( ghSquadBox );
 		}
-		else if( fShowTrainingMenu == TRUE )
+		else if( gAssignMenuState == ASMENU_TRAIN )
 		{
 			ForceUpDateOfBox( ghTrainingBox );
 		}
-		else if( fShowSnitchMenu == TRUE )
+		else if ( gAssignMenuState == ASMENU_SNITCH )
 		{
 			ForceUpDateOfBox( ghSnitchBox );
+
 			if( fShowSnitchToggleMenu == TRUE )
 			{
 				ForceUpDateOfBox( ghSnitchToggleBox );
@@ -2214,14 +2211,14 @@ void UpdateMapScreenAssignmentPositions( void )
 {
 	// set the position of the pop up boxes
 	SGPPoint pPoint;
-
-
+	SGPPoint pNewPoint;
+	SGPRect pDimensions;
+	
 	if( guiCurrentScreen != MAP_SCREEN )
 	{
 		return;
 	}
-
-
+	
 	if( bSelectedAssignChar == -1 )
 	{
 		if( gfPreBattleInterfaceActive == FALSE )
@@ -2257,17 +2254,81 @@ void UpdateMapScreenAssignmentPositions( void )
 	VehiclePosition.iY = AssignmentPosition.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_VEHICLE;
 	SquadPosition.iY = AssignmentPosition.iY;
 
+	pNewPoint.iX = AssignmentPosition.iX;
+	pNewPoint.iY = AssignmentPosition.iY;
+
 	if( fShowAssignmentMenu )
 	{
 		GetBoxPosition( ghAssignmentBox, &pPoint);
+		GetBoxSize( ghAssignmentBox, &pDimensions );
 		pPoint.iY = giBoxY;
 
 		SetBoxPosition( ghAssignmentBox, pPoint );
+
+		// hang it right beside the assignment/EPC box menu
+		pNewPoint.iX = pPoint.iX + pDimensions.iRight;
+		pNewPoint.iY = pPoint.iY;
 
 		GetBoxPosition( ghEpcBox, &pPoint);
 		pPoint.iY = giBoxY;
 
 		SetBoxPosition( ghEpcBox, pPoint );
+	}
+		
+	switch ( gAssignMenuState )
+	{
+		case ASMENU_REPAIR:
+		{
+			GetBoxPosition( ghRepairBox, &pPoint );
+			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR;
+
+			SetBoxPosition( ghRepairBox, pPoint );
+		}
+		break;
+
+		case ASMENU_VEHICLE:
+		{
+
+		}
+		break;
+
+		case ASMENU_DISEASE:
+		{
+			GetBoxPosition( ghDiseaseBox, &pPoint );
+			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_DOCTOR_DIAGNOSIS;
+
+			SetBoxPosition( ghDiseaseBox, pPoint );
+		}
+		break;
+
+		case ASMENU_SPY:
+		{
+			GetBoxPosition( ghSpyBox, &pPoint );
+			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY;
+
+			SetBoxPosition( ghSpyBox, pPoint );
+		}
+		break;
+
+		case ASMENU_MOVEITEM:
+		{
+			GetBoxPosition( ghMoveItemBox, &pPoint );
+			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS;
+
+			SetBoxPosition( ghMoveItemBox, pPoint );
+		}
+		break;
+
+		case ASMENU_FACILITY:
+		{
+			//GetBoxPosition( ghFacilityBox, &pPoint );
+
+			pPoint.iX = pNewPoint.iX;
+			pPoint.iY = pNewPoint.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY;
+						
+			SetBoxPosition( ghFacilityBox, pPoint );
+		}
+		break;
 	}
 
 	if( fShowAttributeMenu )
@@ -2278,48 +2339,7 @@ void UpdateMapScreenAssignmentPositions( void )
 
 		SetBoxPosition( ghAttributeBox, pPoint );
 	}
-
-	if( fShowRepairMenu )
-	{
-		GetBoxPosition( ghRepairBox, &pPoint);
-		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR;
-
-		SetBoxPosition( ghRepairBox, pPoint );
-	}
-
-	if( fShowMoveItemMenu )
-	{
-		GetBoxPosition( ghMoveItemBox, &pPoint);
-		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS;
-
-		SetBoxPosition( ghMoveItemBox, pPoint );
-	}
-
-	if ( fShowDiseaseMenu )
-	{
-		GetBoxPosition( ghDiseaseBox, &pPoint );
-		pPoint.iY = giBoxY + (GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS;
-
-		SetBoxPosition( ghDiseaseBox, pPoint );
-	}
-
-	if ( fShowSpyMenu )
-	{
-		GetBoxPosition( ghSpyBox, &pPoint );
-		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY;
-
-		SetBoxPosition( ghSpyBox, pPoint );
-	}
-
-	// HEADROCK HAM 3.6: Facility Menu
-	if( fShowFacilityMenu )
-	{
-		GetBoxPosition( ghFacilityBox, &pPoint);
-		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY;
-
-		SetBoxPosition( ghFacilityBox, pPoint );
-	}
-
+		
 	// HEADROCK HAM 3.6: Facility Sub-menu
 	if( fShowFacilityAssignmentMenu )
 	{

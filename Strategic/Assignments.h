@@ -349,12 +349,24 @@ extern MOUSE_REGION		gVehicleMenuRegion[];
 extern MOUSE_REGION gFacilityMenuRegion[];
 extern MOUSE_REGION gFacilityMenuRegion[];
 
+enum
+{
+	ASMENU_NONE = 0,
+	ASMENU_REPAIR,
+	ASMENU_VEHICLE,
+	ASMENU_DISEASE,
+	ASMENU_SPY,
+	ASMENU_MOVEITEM,
+	ASMENU_FACILITY,
+	ASMENU_TRAIN,
+	ASMENU_SQUAD,
+	ASMENU_SNITCH,
+};
+
+extern int gAssignMenuState;
+
 extern BOOLEAN fShownContractMenu;
 extern BOOLEAN fShownAssignmentMenu;
-extern BOOLEAN fShowRepairMenu;
-extern BOOLEAN fShowMoveItemMenu;
-extern BOOLEAN fShowDiseaseMenu;
-extern BOOLEAN fShowSpyMenu;
 
 extern BOOLEAN fFirstClickInAssignmentScreenMask;
 

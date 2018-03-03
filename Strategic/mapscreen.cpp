@@ -843,9 +843,6 @@ void CreateContractBox( SOLDIERTYPE *pCharacter );
 void CreateAssignmentsBox( void );
 void CreateTrainingBox( void );
 void CreateMercRemoveAssignBox( void );
-// HEADROCK HAM 3.6: Facility box, Sub-menu
-void CreateFacilityBox( void );
-void CreateFacilityAssignmentBox( void );
 
 void DetermineWhichAssignmentMenusCanBeShown( void );
 void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lal
@@ -6978,13 +6975,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 						fShowAttributeMenu = FALSE;
 						fShowFacilityAssignmentMenu = FALSE;
-						fShowTrainingMenu = FALSE;
-						fShowSquadMenu = FALSE;
-						fShowRepairMenu = FALSE;
-						fShowMoveItemMenu = FALSE;
-						fShowDiseaseMenu = FALSE;
-						fShowSpyMenu = FALSE;
-						fShowFacilityMenu = FALSE;
+						gAssignMenuState = ASMENU_NONE;
 						fShowAssignmentMenu = FALSE;
 
 						giAssignHighLine = -1;
