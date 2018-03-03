@@ -16398,24 +16398,21 @@ void HandleShadingOfLinesForAttributeMenus( void )
 {
 	// will do the same as updateassignments...but with training pop up box strings
 	SOLDIERTYPE *pSoldier;
-	INT8 bAttrib =0;
 	BOOLEAN fStatTrainable;
-
-
+	
 	if ( gAssignMenuState != ASMENU_TRAIN || ( ghTrainingBox == - 1 ) )
 	{
 		return;
 	}
 
-	if( ( fShowAttributeMenu == FALSE ) || ( ghAttributeBox == - 1 ) )
+	if ( !fShowAttributeMenu || ( ghAttributeBox == - 1 ) )
 	{
 		return;
 	}
 
-
 	pSoldier = GetSelectedAssignSoldier( FALSE );
 
-	for( bAttrib = 0; bAttrib < ATTRIB_MENU_CANCEL; ++bAttrib )
+	for( INT8 bAttrib = 0; bAttrib < ATTRIB_MENU_CANCEL; ++bAttrib )
 	{
 		switch ( gbTrainingMode )
 		{
@@ -16447,8 +16444,6 @@ void HandleShadingOfLinesForAttributeMenus( void )
 			ShadeStringInBox( ghAttributeBox, bAttrib );
 		}
 	}
-
-	return;
 }
 
 void HandleShadingOfLinesForSnitchMenu( void )
@@ -16485,21 +16480,17 @@ void HandleShadingOfLinesForSnitchMenu( void )
 		ShadeStringInBox( ghSnitchBox, SNITCH_MENU_TOGGLE );
 		ShadeStringInBox( ghSnitchBox, SNITCH_MENU_SECTOR );
 	}
-	//UnSecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
-	return;
 }
 
 void HandleShadingOfLinesForSnitchToggleMenu( void )
 {
-	SOLDIERTYPE *pSoldier = NULL;
-
 	// check if valid
 	if( ( fShowSnitchToggleMenu == FALSE ) || ( ghSnitchToggleBox == - 1 ) )
 	{
 		return;
 	}
 
-	pSoldier = GetSelectedAssignSoldier( FALSE );
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
 
 	if( pSoldier->usSoldierFlagMask2 & SOLDIER_SNITCHING_OFF )
 	{
@@ -16586,43 +16577,14 @@ void HandleShadingOfLinesForSnitchSectorMenu( void )
 	}
 }
 
-/*void ResetAssignmentsForAllSoldiersInSectorWhoAreTrainingTown( SOLDIERTYPE *pSoldier )
-{
-	INT32 iNumberOnTeam = 0, iCounter = 0;
-	SOLDIERTYPE *pCurSoldier = NULL;
-
-	iNumberOnTeam = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
-	{
-		pCurSoldier = &Menptr[ iCounter ];
-
-		if( ( pCurSoldier->bActive ) && ( pCurSoldier->stats.bLife >= OKLIFE ) )
-		{
-			if( pCurSoldier->bAssignment == TRAIN_TOWN )
-			{
-				if( ( pCurSoldier->sSectorX == pSoldier->sSectorX ) && ( pCurSoldier->sSectorY == pSoldier->sSectorY ) && ( pSoldier->bSectorZ == 0 ) )
-				{
-					AddCharacterToAnySquad( pCurSoldier );
-				}
-			}
-		}
-	}
-
-	return;
-}*/
-
-
 void ReportTrainersTraineesWithoutPartners( void )
 {
 	SOLDIERTYPE *pTeamSoldier = NULL;
-	INT32 iCounter = 0, iNumberOnTeam = 0;
-
-
-	iNumberOnTeam = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	INT32 iCounter = 0;	
+	INT32 iNumberOnTeam = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// check for each instructor
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 	{
 		pTeamSoldier = &Menptr[ iCounter ];
 
@@ -16648,10 +16610,7 @@ void ReportTrainersTraineesWithoutPartners( void )
 			}
 		}
 	}
-
-	return;
 }
-
 
 BOOLEAN SetMercAsleep( SOLDIERTYPE *pSoldier, BOOLEAN fGiveWarning )
 {
@@ -16669,8 +16628,6 @@ BOOLEAN SetMercAsleep( SOLDIERTYPE *pSoldier, BOOLEAN fGiveWarning )
 		return( FALSE );
 	}
 }
-
-
 
 BOOLEAN PutMercInAsleepState( SOLDIERTYPE *pSoldier )
 {
@@ -16699,7 +16656,6 @@ BOOLEAN PutMercInAsleepState( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-
 BOOLEAN SetMercAwake( SOLDIERTYPE *pSoldier, BOOLEAN fGiveWarning, BOOLEAN fForceHim )
 {
 	// forcing him skips all normal checks!
@@ -16712,9 +16668,9 @@ BOOLEAN SetMercAwake( SOLDIERTYPE *pSoldier, BOOLEAN fGiveWarning, BOOLEAN fForc
 	}
 
 	PutMercInAwakeState( pSoldier );
+
 	return( TRUE );
 }
-
 
 BOOLEAN PutMercInAwakeState( SOLDIERTYPE *pSoldier )
 {
@@ -16767,7 +16723,6 @@ BOOLEAN IsThereASoldierInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 	return( FALSE );
 }
 
-
 // set the time this soldier's assignment changed
 void SetTimeOfAssignmentChangeForMerc( SOLDIERTYPE *pSoldier )
 {
@@ -16785,8 +16740,6 @@ void SetTimeOfAssignmentChangeForMerc( SOLDIERTYPE *pSoldier )
 	// assigning new PATIENTs gives a DOCTOR something to do, etc., so set flag to recheck them all.
 	// CAN'T DO IT RIGHT AWAY IN HERE 'CAUSE WE TYPICALLY GET CALLED *BEFORE* bAssignment GETS SET TO NEW VALUE!!
 	gfReEvaluateEveryonesNothingToDo = TRUE;
-
-	return;
 }
 
 // have we spent enough time on assignment for it to count?
@@ -16799,7 +16752,6 @@ BOOLEAN EnoughTimeOnAssignment( SOLDIERTYPE *pSoldier )
 
 	return( FALSE );
 }
-
 
 BOOLEAN AnyMercInGroupCantContinueMoving( GROUP *pGroup )
 {
@@ -16850,8 +16802,6 @@ BOOLEAN AnyMercInGroupCantContinueMoving( GROUP *pGroup )
 	return( fGroupMustStop );
 }
 
-
-
 BOOLEAN PlayerSoldierTooTiredToTravel( SOLDIERTYPE *pSoldier )
 {
 	Assert( pSoldier );
@@ -16878,8 +16828,6 @@ BOOLEAN PlayerSoldierTooTiredToTravel( SOLDIERTYPE *pSoldier )
 
 	return( FALSE );
 }
-
-
 
 BOOLEAN AssignMercToAMovementGroup( SOLDIERTYPE *pSoldier )
 {
@@ -16925,7 +16873,6 @@ BOOLEAN AssignMercToAMovementGroup( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-
 void NotifyPlayerOfAssignmentAttemptFailure( INT8 bAssignment )
 {
 	// notify player
@@ -16945,7 +16892,6 @@ void NotifyPlayerOfAssignmentAttemptFailure( INT8 bAssignment )
 	}
 }
 
-
 BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarning )
 {
 	BOOLEAN fSuccess = TRUE;
@@ -16953,9 +16899,8 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT8 ubNumberOfSelectedSoldiers = 0;
 	CHAR16 sString[ 128 ];
-
-
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		pSoldier = NULL;
 
@@ -17036,11 +16981,9 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 
 BOOLEAN IsAnyOneOnPlayersTeamOnThisAssignment( INT8 bAssignment )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
-
-
-	for( iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	
+	for( INT32 iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++iCounter )
 	{
 		// get the current soldier
 		pSoldier = &Menptr[ iCounter ];
@@ -17060,7 +17003,6 @@ BOOLEAN IsAnyOneOnPlayersTeamOnThisAssignment( INT8 bAssignment )
 	return( FALSE );
 }
 
-
 void RebuildAssignmentsBox( void )
 {
 	// destroy and recreate assignments box
@@ -17073,8 +17015,6 @@ void RebuildAssignmentsBox( void )
 	CreateAssignmentsBox( );
 }
 
-
-
 void BandageBleedingDyingPatientsBeingTreated( )
 {
 	INT32 iCounter = 0;
@@ -17085,8 +17025,7 @@ void BandageBleedingDyingPatientsBeingTreated( )
 	UINT16 usKitPts;
 	UINT32 uiKitPtsUsed;
 	BOOLEAN fSomeoneStillBleedingDying = FALSE;
-
-
+	
 	for( iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
 	{
 		// get the soldier
@@ -17154,7 +17093,6 @@ void BandageBleedingDyingPatientsBeingTreated( )
 		}
 	}
 
-
 	// this event may be posted many times because of multiple assignment changes.	Handle it only once per minute!
 	DeleteAllStrategicEventsOfType( EVENT_BANDAGE_BLEEDING_MERCS );
 
@@ -17163,8 +17101,6 @@ void BandageBleedingDyingPatientsBeingTreated( )
 		AddStrategicEvent( EVENT_BANDAGE_BLEEDING_MERCS, GetWorldTotalMin() + 1, 0 );
 	}
 }
-
-
 
 void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 {
@@ -17337,8 +17273,6 @@ void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 	fMapPanelDirty = TRUE;
 }
 
-
-
 void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 {
 	INT32 iCounter = 0;
@@ -17365,10 +17299,9 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 	}
 
 	Assert( pSelectedSoldier && pSelectedSoldier->bActive );
-
-
+	
 	// sets assignment for the list
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		if( ( gCharactersList[ iCounter ].fValid ) &&
 				( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) &&
@@ -17763,14 +17696,10 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 			SortSquadByID(bAssignment);
 			break;
 	}*/
-
-
+	
 	// check if we should start/stop flashing any mercs' assignment strings after these changes
 	gfReEvaluateEveryonesNothingToDo = TRUE;
-
-	return;
 }
-
 
 BOOLEAN IsCharacterAliveAndConscious( SOLDIERTYPE *pCharacter )
 {
@@ -17783,20 +17712,17 @@ BOOLEAN IsCharacterAliveAndConscious( SOLDIERTYPE *pCharacter )
 	return ( TRUE );
 }
 
-
-
 BOOLEAN ValidTrainingPartnerInSameSectorOnAssignmentFound( SOLDIERTYPE *pTargetSoldier, INT8 bTargetAssignment, INT8 bTargetStat )
 {
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	INT16 sTrainingPts = 0;
 	UINT16 usMaxPts;
-
-
+	
 	// this function only makes sense for training teammates or by others, not for self training which doesn't require partners
 	Assert( ( bTargetAssignment == TRAIN_TEAMMATE ) || ( bTargetAssignment == TRAIN_BY_OTHER ) );
 
-	for( iCounter = 0; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	for( iCounter = 0; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++iCounter )
 	{
 		pSoldier = &Menptr[ iCounter ];
 
@@ -17925,7 +17851,6 @@ void UnEscortEPC( SOLDIERTYPE *pSoldier )
 	}
 }
 
-
 BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier )
 {
 	// actually asleep?
@@ -17986,21 +17911,16 @@ BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-
 	// on assignment, or walking/driving & unable to sleep
 	return( FALSE );
 }
 
-
-
 UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 {
-	UINT8 ubNeedForSleep;
 	UINT8 ubPercentHealth;
-
-
+	
 	// base comes from profile
-	ubNeedForSleep = gMercProfiles[ pSoldier->ubProfile ].ubNeedForSleep;
+	UINT8 ubNeedForSleep = gMercProfiles[ pSoldier->ubProfile ].ubNeedForSleep;
 
 	// Enforce a maximum of 12 hours before injury penalties.
 	if ( ubNeedForSleep > 12 )
@@ -18013,6 +17933,7 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	{
 		ubNeedForSleep = 3;
 	}
+
 	// HEADROCK HAM 3.5: WTF! This calculation is NOT correct!
 	//ubPercentHealth = pSoldier->stats.bLife / pSoldier->stats.bLifeMax;
 	ubPercentHealth = (pSoldier->stats.bLife*100) / pSoldier->stats.bLifeMax;
@@ -18020,7 +17941,7 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	// Increase need for sleep based on injuries.
 	if ( ubPercentHealth < 75 )
 	{
-		ubNeedForSleep++;
+		++ubNeedForSleep;
 
 		if ( ubPercentHealth < 50 )
 		{
@@ -18075,8 +17996,6 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	return( ubNeedForSleep );
 }
 
-
-
 UINT32 GetLastSquadListedInSquadMenu( void )
 {
 	UINT32 uiMaxSquad;
@@ -18094,8 +18013,6 @@ UINT32 GetLastSquadListedInSquadMenu( void )
 
 	return( uiMaxSquad );
 }
-
-
 
 BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOtherSoldier )
 {
@@ -18137,8 +18054,6 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 	return( TRUE );
 }
 
-
-
 SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
 {
 	SOLDIERTYPE *pSoldier = NULL;
@@ -18178,8 +18093,6 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK )
 	return( pSoldier );
 }
 
-
-
 void ResumeOldAssignment( SOLDIERTYPE *pSoldier )
 {
 	AddCharacterToAnySquad( pSoldier );
@@ -18192,8 +18105,6 @@ void ResumeOldAssignment( SOLDIERTYPE *pSoldier )
 	fCharacterInfoPanelDirty = TRUE;
 	fMapPanelDirty = TRUE;
 }
-
-
 
 void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 {
@@ -18223,8 +18134,7 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 				}
 			}
 		}
-
-
+		
 		while ( *pubRepairPtsLeft > 0 )
 		{
 			bBestPriority = -1;
@@ -18285,17 +18195,13 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 	}
 }
 
-
-
 BOOLEAN UnjamGunsOnSoldier( SOLDIERTYPE *pOwnerSoldier, SOLDIERTYPE *pRepairSoldier, UINT8 *pubRepairPtsLeft )
 {
 	BOOLEAN fAnyGunsWereUnjammed = FALSE;
-	INT8	bPocket;
-
-
+	
 	// try to unjam everything before beginning any actual repairs.. successful unjamming costs 2 points per weapon
 	// CHRISL: Changed to dynamically determine max inventory locations.
-	for (bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+	for ( INT8 bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
 		// the object a weapon? and jammed?
 		if ( ( Item[ pOwnerSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pOwnerSoldier->inv[ bPocket ][0]->data.gun.bGunAmmoStatus < 0 ) )
@@ -18357,7 +18263,7 @@ BOOLEAN SetTrainerSleepWhenTraineesSleep( SOLDIERTYPE *pThisTrainee)
 	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// Check to see if all other trainees of the same stat are also asleep
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 	{
 		pOtherTrainee = &Menptr[ iCounter ];
 		if (pOtherTrainee->bAssignment == TRAIN_BY_OTHER && pOtherTrainee->bTrainStat == pThisTrainee->bTrainStat && 
@@ -18368,11 +18274,12 @@ BOOLEAN SetTrainerSleepWhenTraineesSleep( SOLDIERTYPE *pThisTrainee)
 			fAllTraineesAsleep = FALSE;
 		}
 	}
+
 	// If they are all asleep
 	if (fAllTraineesAsleep)
 	{
 		// Look for trainers of that stat, in the same sector
-		for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+		for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 		{
 			pTrainer = &Menptr[ iCounter ];
 			if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pThisTrainee->bTrainStat && 
@@ -18430,7 +18337,7 @@ BOOLEAN SetTraineesSleepWhenTrainerSleeps( SOLDIERTYPE *pTrainer)
 
 	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 	{
 		pTrainee = &Menptr[ iCounter ];
 		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
@@ -18453,17 +18360,9 @@ BOOLEAN SetTraineesSleepWhenTrainerSleeps( SOLDIERTYPE *pTrainer)
 			}
 		}
 	}
-
-	if (fTraineesSentToSleep)
-	{
-		return(TRUE);
-	}
-	else
-	{
-		return(FALSE);
-	}
+	
+	return fTraineesSentToSleep;
 }
-
 
 BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
 {
@@ -18487,7 +18386,7 @@ BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
 	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// Check to see if all other trainees of the same stat are also asleep
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 	{
 		pOtherTrainee = &Menptr[ iCounter ];
 		if (pOtherTrainee->bAssignment == TRAIN_BY_OTHER && pOtherTrainee->bTrainStat == pThisTrainee->bTrainStat && 
@@ -18498,11 +18397,12 @@ BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
 			fAllTraineesAwake = FALSE;
 		}
 	}
+
 	// If they are all awake
 	if (fAllTraineesAwake)
 	{
 		// Look for trainers of that stat, in the same sector
-		for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+		for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 		{
 			pTrainer = &Menptr[ iCounter ];
 			if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pThisTrainee->bTrainStat && 
@@ -18525,19 +18425,11 @@ BOOLEAN SetTrainerWakeWhenTraineesWake( SOLDIERTYPE *pThisTrainee)
 				}
 			}
 		}
-		if (fTrainersWokenUp)
-		{
-			return(TRUE);
-		}
-		else
-		{
-			return(FALSE);
-		}
+
+		return fTrainersWokenUp;
 	}
-	else
-	{
-		return(FALSE);
-	}
+	
+	return FALSE;
 }
 
 BOOLEAN SetTraineesWakeWhenTrainerWakes( SOLDIERTYPE *pTrainer)
@@ -18559,7 +18451,7 @@ BOOLEAN SetTraineesWakeWhenTrainerWakes( SOLDIERTYPE *pTrainer)
 
 	iNumberOnTeam =gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
-	for( iCounter = 0; iCounter < iNumberOnTeam; iCounter++ )
+	for( iCounter = 0; iCounter < iNumberOnTeam; ++iCounter )
 	{
 		pTrainee = &Menptr[ iCounter ];
 		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
@@ -18583,14 +18475,7 @@ BOOLEAN SetTraineesWakeWhenTrainerWakes( SOLDIERTYPE *pTrainer)
 		}
 	}
 
-	if (fTraineesWokenUp)
-	{
-		return(TRUE);
-	}
-	else
-	{
-		return(FALSE);
-	}
+	return fTraineesWokenUp;
 }
 
 void HandleTrainingSleepSynchronize( SOLDIERTYPE *pSoldier )
@@ -18652,7 +18537,8 @@ BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee )
 			// Reset flag
 			fAllTrainersAsleep = FALSE;
 		}
-		ubCounter++;
+
+		++ubCounter;
 	}
 
 	return(!fAllTrainersAsleep);
@@ -18687,17 +18573,18 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
 			// Reset flag.
 			fAllTraineesAsleep = FALSE;
 		}
-		ubCounter++;
+
+		++ubCounter;
 	}
 
 	return(!fAllTraineesAsleep);
 }
+
 // HEADROCK HAM 3.6: A new set of functions (this & next) to determine whether a character can train Mobile Militia.
 // This function tests character statistics.
 
 BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 {
-
 	/////////////////////////////////////////////////////
 	// Tests whether character can do assignments at all!
 
@@ -18810,13 +18697,8 @@ BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
-	if (!fMobileMilitiaTrainingAllowed)
-	{
-		// Mobile Militia training NOT allowed here!
-		return ( FALSE );
-	}
 
-	return ( TRUE );
+	return fMobileMilitiaTrainingAllowed;
 }
 
 // HEADROCK HAM 3.6: A new set of functions (this & previous) to determine whether a character can train Mobile Militia.
@@ -18968,7 +18850,7 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 	// HEADROCK HAM 3.5: Only facilities allow militia training, and determine how many trainers can work here.
 	// Does sector have at least one facility that allows training?
 	UINT8 ubFacilityTrainersAllowed = 0;
-	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
 	{
 		// Is this facility here?
 		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
@@ -18995,14 +18877,12 @@ BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier )
 	//	// Also note that this takes care of Regulars as well, if Elite training is disabled.
 	//	return( FALSE );
 	//}
-
-
+	
 	if ( 100 <= GetMobileMilitiaQuota( FALSE ) )
 		return ( FALSE );
 
 	// If we've reached this, then all is well.
 	return( TRUE );
-
 }
 
 BOOLEAN CanCharacterTrainWorkers( SOLDIERTYPE *pSoldier )
@@ -19082,8 +18962,7 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 
 	if ( 100 <= GetMobileMilitiaQuota( TRUE ) )
 		return ( FALSE );
-
-
+	
 	///////////////////////////////
 	// Test for required Leadership
 
@@ -19104,7 +18983,7 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		else
 		{
 			// Modifier applied once for each TEACHING level.
-			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING_OT ); i++ )
+			for (UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING_OT ); ++i )
 			{
 				// This is a percentage modifier.
 				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
@@ -19197,7 +19076,7 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 	// defaults. This renders the INI setting "MAX_MILITIA_TRAINERS.." obsolete.
 
 	UINT8 ubFacilityTrainersAllowed = 0;
-	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
 	{
 		// Is this facility here?
 		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
@@ -19220,9 +19099,7 @@ BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 
 	// No errors to report. Character can perform this assignment.
 	return (TRUE);
-
 }
-
 
 BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 {
@@ -19240,8 +19117,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 
 	if ( 100 <= GetMobileMilitiaQuota( TRUE ) )
 		return ( FALSE );
-
-
+	
 	///////////////////////////////
 	// Test for required Leadership
 
@@ -19268,6 +19144,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 				usEffectiveLeadership = (usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership)/100;
 			}
 		}
+
 		usEffectiveLeadership = __min(100,usEffectiveLeadership);
 	}
 	
@@ -19395,7 +19272,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 					 NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
 				{
 					// skip the rest. This sector cannot generate militia anyway. 
-					iCounter++;
+					++iCounter;
 					continue;
 				}
 
@@ -19408,7 +19285,8 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 					break;
 				}
 			}
-			iCounter++;
+			
+			++iCounter;
 		}
 	}
 
@@ -19419,9 +19297,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 		DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 		return (FALSE);
 	}
-
-
-
+	
 	//////////////////////////////////////////////
 	// HEADROCK HAM 3.5: Militia Training Facility 
 	//
@@ -19431,7 +19307,7 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 	// defaults. This renders the INI setting "MAX_MILITIA_TRAINERS.." obsolete.
 
 	UINT8 ubFacilityTrainersAllowed = 0;
-	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
 	{
 		// Is this facility here?
 		if (gFacilityLocations[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)][cnt].fFacilityHere)
@@ -19452,8 +19328,8 @@ BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier )
 
 	// No errors to report. Character can perform this assignment.
 	return (TRUE);
-
 }
+
 // HEADROCK HAM 3.6: This function determines whether a character can use facilities at all, or whether the sector has
 // any "useable" facilities at all.
 BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier )
@@ -19526,7 +19402,7 @@ BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier )
 	UINT8 ubSector = SECTOR(pSoldier->sSectorX, pSoldier->sSectorY);
 	BOOLEAN fFoundUseableFacility = FALSE;
 	
-	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
 	{
 		if (gFacilityLocations[ubSector][cnt].fFacilityHere)
 		{
@@ -19536,13 +19412,8 @@ BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
-	if (!fFoundUseableFacility)
-	{
-		// No useable facilities in this sector.
-		return FALSE;
-	}
 
-	return ( TRUE );
+	return fFoundUseableFacility;
 }
 
 BOOLEAN DisplayFacilityMenu( SOLDIERTYPE *pSoldier )
@@ -19559,7 +19430,7 @@ BOOLEAN DisplayFacilityMenu( SOLDIERTYPE *pSoldier )
 	SetCurrentBox(ghFacilityBox);
 
 	// run through list of staff/use facilities in sector and add them to pop up box
-	for ( iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; iCounter++ )
+	for ( iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; ++iCounter )
 	{
 		if ( gFacilityLocations[ SECTOR(pSoldier->sSectorX,pSoldier->sSectorY) ][iCounter].fFacilityHere )
 		{
@@ -19615,14 +19486,14 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 
 	BOOLEAN fAssignmentsFound = FALSE;
 	// Create a list of possible assignments at this facility
-	for ( iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; iCounter++ )
+	for ( iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; ++iCounter )
 	{
 		if ( gFacilityTypes[ ubFacilityType ].AssignmentData[iCounter].ubStaffLimit )
 		{
 			if ( iCounter == FAC_REPAIR_VEHICLE )
 			{
 				// Test to see whether there are any.
-				for ( iCounterB = 0; iCounterB < ubNumberOfVehicles; iCounterB++ )
+				for ( iCounterB = 0; iCounterB < ubNumberOfVehicles; ++iCounterB )
 				{
 					if ( pVehicleList[iCounterB].fValid == TRUE )
 					{
@@ -19636,6 +19507,7 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 						}
 					}
 				}
+
 				if (fFoundVehicle == FALSE)
 				{
 					// Create line that says "Repair Vehicle", and will be shaded.
@@ -19665,6 +19537,7 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 			{
 				AddMonoString((UINT32 *)&hStringHandle, gzFacilityAssignmentStrings[ iCounter ]);
 			}
+
 			fAssignmentsFound = TRUE;
 		}
 	}
@@ -20520,22 +20393,20 @@ BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFaci
 
 void HandleShadingOfLinesForFacilityMenu( void )
 {
-	SOLDIERTYPE *pSoldier = NULL;
-	INT32 iCounter = 0;
-	INT32 iNumLine = 0;
-
 	if ( gAssignMenuState != ASMENU_FACILITY || ( ghFacilityBox == -1 ) )
 	{
 		return;
 	}
 
-	pSoldier = GetSelectedAssignSoldier( FALSE );
+	INT32 iNumLine = 0;	
+
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
 	
 	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
 	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
 
 	// run through list of staff/use facilities in sector and add them to pop up box
-	for ( iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; ++iCounter )
+	for ( INT32 iCounter = 0; iCounter < MAX_NUM_FACILITY_TYPES; ++iCounter )
 	{
 		if ( gFacilityLocations[ SECTOR(pSoldier->sSectorX,pSoldier->sSectorY) ][iCounter].fFacilityHere )
 		{
@@ -21220,32 +21091,29 @@ BOOLEAN HandleAssignmentExpansionAndHighLightForFacilityMenu( void )
 
 void HandleShadingOfLinesForFacilityAssignmentMenu( void )
 {
-	SOLDIERTYPE *pSoldier = NULL;
-	INT32 iCounter = 0;
-	INT32 iCounterB = 0;
-	INT32 iNumLine = 0;
-	UINT8 ubFacilityType = gubFacilityInSubmenu;
-	BOOLEAN fFoundVehicle = FALSE;
-
-	if( ( fShowFacilityAssignmentMenu == FALSE ) || ( ghFacilityAssignmentBox == -1 ) )
+	if ( !fShowFacilityAssignmentMenu || ( ghFacilityAssignmentBox == -1 ) )
 	{
 		return;
 	}
 
-	pSoldier = GetSelectedAssignSoldier( FALSE );
+	INT32 iNumLine = 0;
+	UINT8 ubFacilityType = gubFacilityInSubmenu;
+	BOOLEAN fFoundVehicle = FALSE;
+
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
 
 	// PLEASE NOTE: make sure any changes you do here are reflected in all 3 routines which must remain in synch:
 	// CreateDestroyMouseRegionForMoveItemMenu(), DisplayRepairMenu(), and HandleShadingOfLinesForMoveItemMenu().
 
 	// run through all possible assignments. Shade as necessary
-	for ( iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; ++iCounter )
+	for ( INT32 iCounter = 0; iCounter < NUM_FACILITY_ASSIGNMENTS; ++iCounter )
 	{
 		if ( gFacilityTypes[ubFacilityType].AssignmentData[iCounter].ubStaffLimit )
 		{
 			if ( iCounter == FAC_REPAIR_VEHICLE )
 			{
 				// Test to see whether there are any.
-				for ( iCounterB = 0; iCounterB < ubNumberOfVehicles; ++iCounterB )
+				for ( INT32 iCounterB = 0; iCounterB < ubNumberOfVehicles; ++iCounterB )
 				{
 					if ( pVehicleList[iCounterB].fValid == TRUE )
 					{
@@ -22003,7 +21871,6 @@ BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier )
 
 void HandleShadingOfLinesForDiseaseMenu( void )
 {
-	INT32 iVehicleIndex = 0;
 	INT32 iCount = 0;
 
 	if ( gAssignMenuState != ASMENU_DISEASE || (ghDiseaseBox == -1) )
@@ -22017,15 +21884,14 @@ void HandleShadingOfLinesForDiseaseMenu( void )
 	if ( 1 )
 	{
 		// unshade items line
-		UnShadeStringInBox( ghDiseaseBox, iCount );
+		UnShadeStringInBox( ghDiseaseBox, iCount++ );
 	}
 	else
 	{
 		// shade items line
-		ShadeStringInBox( ghDiseaseBox, iCount );
+		ShadeStringInBox( ghDiseaseBox, iCount++ );
 	}
 }
-
 
 void CreateDestroyMouseRegionForDiseaseMenu( void )
 {
