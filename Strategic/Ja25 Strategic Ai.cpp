@@ -2190,27 +2190,27 @@ if ( gGameUBOptions.pJA2UB == TRUE )
 }
 
 BOOLEAN HandleAddEnemiesToSectorPlayerIsntIn( INT16 sSaiSector, UINT8 ubNumEnemies )
-{
-	INT16 sSectorX = SECTORX( gJa25AiSectorStruct[ sSaiSector ].iSectorID );
-	INT16 sSectorY = SECTORY( gJa25AiSectorStruct[ sSaiSector ].iSectorID );
-	INT8	bSectorZ = gJa25AiSectorStruct[ sSaiSector ].bSectorZ;
-	
+{	
 	if ( gGameUBOptions.pJA2UB == TRUE )
 	{
+		INT16 sSectorX = SECTORX( gJa25AiSectorStruct[sSaiSector].iSectorID );
+		INT16 sSectorY = SECTORY( gJa25AiSectorStruct[sSaiSector].iSectorID );
+		INT8  bSectorZ = gJa25AiSectorStruct[sSaiSector].bSectorZ;
 
-	if( !( gTacticalStatus.uiFlags & INCOMBAT ) )
-	{
-		gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+		if( !( gTacticalStatus.uiFlags & INCOMBAT ) )
+		{
+			SetEnemyEncounterCode( ENEMY_INVASION_CODE );
+		}
+
+		SetNumberJa25EnemiesInSector( sSectorX, sSectorY, bSectorZ, 0, ubNumEnemies, 0, 0, 0 );
+
+		SetThisSectorAsEnemyControlled( sSectorX, sSectorY, bSectorZ, FALSE );
+
+		//Set up flag so enemies will go and find the player in that sector
+		gJa25SaveStruct.fEnemyShouldImmediatelySeekThePlayer = TRUE;
+		gJa25SaveStruct.bSectorTheEnemyWillSeekEnemy = (INT8)sSaiSector;
 	}
 
-	SetNumberJa25EnemiesInSector( sSectorX, sSectorY, bSectorZ, 0, ubNumEnemies, 0, 0, 0 );
-
-	SetThisSectorAsEnemyControlled( sSectorX, sSectorY, bSectorZ, FALSE );
-
-	//Set up flag so enemies will go and find the player in that sector
-	gJa25SaveStruct.fEnemyShouldImmediatelySeekThePlayer = TRUE;
-	gJa25SaveStruct.bSectorTheEnemyWillSeekEnemy = (INT8)sSaiSector;
-	}
 	return( TRUE );
 }
 
@@ -2296,7 +2296,7 @@ if ( gGameUBOptions.pJA2UB == TRUE )
 	SetGroupArrivalTime( pGroup, uiWorldMin + 1 );
 	pGroup->ubMoveType = ONE_WAY;
 
-	gubEnemyEncounterCode = ENEMY_INVASION_CODE;
+	SetEnemyEncounterCode( ENEMY_INVASION_CODE );
 
 	if( gJa25AiSectorStruct[ sSaiSector ].bSectorZ == 0 )
 	{
