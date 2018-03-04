@@ -3066,6 +3066,8 @@ extern STR16	szIntelText[];
 extern STR16	szChatTextSpy[];
 extern STR16	szChatTextEnemy[];
 
+extern STR16	szMilitiaText[];
+
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 

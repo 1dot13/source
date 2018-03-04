@@ -2470,6 +2470,8 @@ STR16 pAssignmentStrings[] =
 	L"Учит рабочих",
 	L"Hide",	// TODO.Translate
 	L"GetIntel",
+	L"DoctorM.",
+	L"DMilitia",
 };
 
 
@@ -2575,6 +2577,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Учит рабочих",
 	L"Hide while disguised",	// TODO.Translate
 	L"Get intel while disguised",
+	L"Doctor wounded militia",
+	L"Drill existing militia",
 };
 
 
@@ -2639,6 +2643,8 @@ STR16 pLongAssignmentStrings[] =
 	L"Учит рабочих",
 	L"Hide while disguised",	// TODO.Translate
 	L"Get intel while disguised",
+	L"Doctor wounded militia",
+	L"Drill existing militia",
 };
 
 
@@ -2758,6 +2764,7 @@ STR16 pAssignMenuStrings[] =
 	L"Радио", // Flugente: the merc is scanning for patrols in neighbouring sectors
 	L"Осведомитель", // anv: snitch actions
 	L"Обучение", // the merc is training
+	L"Militia",		// all things militia
 	L"Носильщик",	// move items
 	L"Укреплять",		// fortify sector
 	L"Intel", // covert assignments	// TODO.Translate
@@ -2982,13 +2989,12 @@ STR16 pAttributeMenuStrings[] =
 
 STR16 pTrainingMenuStrings[] =
 {
- L"Практика", // train yourself 
- L"Ополчение", // train the town 
- L"Патрульные",
- L"Рабочие",	// Train workers
- L"Тренер", // train your teammates 
- L"Ученик",  // be trained by an instructor 
- L"Отмена", // cancel this menu
+	L"Практика", // train yourself 
+	L"Патрульные",
+	L"Рабочие",	// Train workers
+	L"Тренер", // train your teammates 
+	L"Ученик",  // be trained by an instructor 
+	L"Отмена", // cancel this menu
 };
 
 
@@ -4588,6 +4594,7 @@ STR16 pTransactionText[] =
 	L"Оплата услуг Цербер",	// Flugente: PMC
 	L"Стоимость ремонта базы ПВО", // Flugente: SAM repair
 	L"Trained workers", // Flugente: train workers	// TODO.Translate
+	L"Drill militia in %s",	// Flugente: drill militia	// TODO.Translate
 };
 
 STR16 pTransactionAlternateText[] =
@@ -11364,6 +11371,80 @@ STR16	szIntelText[] =
 	L"No more enemies present, %s is no longer in hiding!",
 	L"%s has been discovered and goes into hiding for %d hours.",
 	L"%s has been discovered, going to sector!",
+};
+
+STR16	szChatTextSpy[] =
+{
+	L"... so imagine my surprise when suddenly...",
+	L"... and did I ever tell you the story of that one time...",
+	L"... so, in conclusion, the colonel decided...",
+	L"... tell you, they did not see that coming...",
+
+	L"... so, without further consideration...",
+	L"... but then SHE said...",
+	L"... and, speaking of llamas...",
+	L"... there I was, in the middle of the dustbowl, when...",
+
+	L"... and let me tell, those things chafe...",
+	L"... you should have seen his face...",
+	L"... which wasn't the last of what we saw of them...",
+	L"... which reminds me, my grandmother used to say...",
+
+	L"... who, by the way, is a total berk...",
+	L"... also, the roots were off by a margin...",
+	L"... and I was like, 'Back off, heathen!'...",
+	L"... at that point the vicars were in oben rebellion...",
+
+	L"... not that I would've minded, you know, but...",
+	L"... if not for that ridiculous hat...",
+	L"... besides, it wasn't his favourite leg anyway...",
+	L"... even though the ships were still watertight...",
+
+	L"... aside from the fact that giraffes can't do that...",
+	L"... totally wasted that fork, mind you...",
+	L"... and no bakery in sight. After that...",
+	L"... even though regulations are clear in that regard...",
+};
+
+STR16	szChatTextEnemy[] =
+{
+	L"Whoa. I had no idea!",
+	L"Really?",
+	L"Uhhhh....",
+	L"Well... you see, uhh...",
+
+	L"I am not entirely sure that...",
+	L"I... well...",
+	L"If I could just...",
+	L"But...",
+
+	L"I don't mean to intrude, but...",
+	L"Really? I had no idea!",
+	L"What? All of it?",
+	L"No way!",
+
+	L"Haha!",
+	L"Whoa, the guys are not going to believe me!",
+	L"... yeah, just...",
+	L"That's just like the gypsy woman said!",
+
+	L"... yeah, is that why...",
+	L"... hehe, talk about refurbishing...",
+	L"... yeah, I guess...",
+	L"Wait. What?",
+
+	L"... wouldn't have minded seeing that...",
+	L"... now that you mention it...",
+	L"... but where did all the chalk go...",
+	L"... had never even considered that...",
+};
+
+STR16	szMilitiaText[] =
+{
+	L"Train new militia",
+	L"Drill militia",
+	L"Doctor militia",
+	L"Cancel",
 };
 
 #endif //RUSSIAN

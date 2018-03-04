@@ -1557,14 +1557,15 @@ void LoadGameExternalOptions()
 
 	//################# Individual Militia Settings ##################
 	// Flugente: individual militia
-	gGameExternalOptions.fIndividualMilitia = iniReader.ReadBoolean( "Individual Militia Settings", "INDIVIDUAL_MILITIA", FALSE );
+	gGameExternalOptions.fIndividualMilitia								= iniReader.ReadBoolean( "Individual Militia Settings", "INDIVIDUAL_MILITIA", FALSE );
 
 	gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular = iniReader.ReadInteger( "Individual Militia Settings", "INDIVIDUAL_MILITIA_PROMOTIONPOINTS_TO_REGULAR", 4, 1, 100 );
-	gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Elite = iniReader.ReadInteger( "Individual Militia Settings", "INDIVIDUAL_MILITIA_PROMOTIONPOINTS_TO_ELITE", 10, 1, 100 );
+	gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Elite	= iniReader.ReadInteger( "Individual Militia Settings", "INDIVIDUAL_MILITIA_PROMOTIONPOINTS_TO_ELITE", 6, 1, 100 );
 
-	gGameExternalOptions.fIndividualMilitia_ManageHealth = iniReader.ReadBoolean( "Individual Militia Settings", "INDIVIDUAL_MILITIA_MANAGE_HEALTH", TRUE );
-	gGameExternalOptions.dIndividualMilitiaHourlyHealthPercentageGain = iniReader.ReadFloat( "Individual Militia Settings", "INDIVIDUAL_MILITIA_HOURLYHEALTHPERCENTAGEGAIN", 2.0f, 0.0f, 100.0f );
-
+	gGameExternalOptions.fIndividualMilitia_ManageHealth				= iniReader.ReadBoolean( "Individual Militia Settings", "INDIVIDUAL_MILITIA_MANAGE_HEALTH", TRUE );
+	gGameExternalOptions.dIndividualMilitiaHourlyHealthPercentageGain	= iniReader.ReadFloat( "Individual Militia Settings", "INDIVIDUAL_MILITIA_HOURLYHEALTHPERCENTAGEGAIN", 2.0f, 0.0f, 100.0f );
+	gGameExternalOptions.dIndividualMilitiaDoctorHealModifier			= iniReader.ReadFloat( "Individual Militia Settings", "INDIVIDUAL_MILITIA_DOCTORHEALMODIFIER", 0.01f, 0.01f, 1.0f );
+	
 	//################# Tactical Cover System Settings ##################
 
 	// CPT: Cover System Settings

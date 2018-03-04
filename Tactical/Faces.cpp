@@ -2277,15 +2277,26 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			switch( pSoldier->bAssignment )
 			{
 				CASE_DOCTOR:
+				case DOCTOR_MILITIA:
 					sIconIndex_Assignment = 1;
 					fDoIcon_Assignment		= TRUE;
 					sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
-					fShowNumber = TRUE;
-					fShowMaximum = TRUE;
 
-					// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
-					sPtsAvailable = ( sPtsAvailable + 5 ) / 10;
-					usMaximumPts	= ( usMaximumPts + 5 ) / 10;
+					fShowCustomText = TRUE;
+					
+					if ( pSoldier->bAssignment == DOCTOR_MILITIA )
+					{
+						// show percentage that we can heal
+						swprintf( sString, L"%3.1f/%3.1f", (FLOAT)( sPtsAvailable * gGameExternalOptions.dIndividualMilitiaDoctorHealModifier ), (FLOAT)( usMaximumPts * gGameExternalOptions.dIndividualMilitiaDoctorHealModifier ) );
+					}
+					else
+					{
+						// shos HP we can heal
+						swprintf( sString, L"%3.1f/%3.1f", (FLOAT)( sPtsAvailable ) / 100.0f, (FLOAT)( usMaximumPts ) / 100.0f );
+					}
+
+					usTextWidth = StringPixLength( sString, FONT10ARIAL );
+					
 					break;
 
 				CASE_PATIENT:
@@ -2305,6 +2316,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				case TRAIN_TEAMMATE:
 				case TRAIN_BY_OTHER:
 				case TRAIN_WORKERS:
+				case DRILL_MILITIA:
 					sIconIndex_Assignment = 3;
 					fDoIcon_Assignment		= TRUE;
 					fShowNumber = TRUE;
@@ -2320,6 +2332,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 							break;
 						case( TRAIN_TOWN ):
 						case( TRAIN_MOBILE ):
+						case DRILL_MILITIA:
 							sPtsAvailable = GetTownTrainPtsForCharacter( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
 							// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
 							sPtsAvailable = ( sPtsAvailable + 5 ) / 10;

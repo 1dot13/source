@@ -2329,6 +2329,15 @@ void UpdateMapScreenAssignmentPositions( void )
 			SetBoxPosition( ghFacilityBox, pPoint );
 		}
 		break;
+
+		case ASMENU_MILITIA:
+		{
+			GetBoxPosition( ghMilitiaBox, &pPoint );
+			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA;
+
+			SetBoxPosition( ghMilitiaBox, pPoint );
+		}
+		break;
 	}
 
 	if( fShowAttributeMenu )

@@ -73,8 +73,21 @@ MILITIA::Load( HWFILE hwFile )
 		numBytesRead = ReadFieldByField( hwFile, &healthratio, sizeof(healthratio), sizeof(FLOAT), numBytesRead );
 		numBytesRead = ReadFieldByField( hwFile, &kills, sizeof(kills), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField( hwFile, &assists, sizeof(assists), sizeof(UINT16), numBytesRead );
-		numBytesRead = ReadFieldByField( hwFile, &promotionpoints, sizeof(promotionpoints), sizeof(UINT16), numBytesRead );
-		numBytesRead = ReadFieldByField( hwFile, &filler1, sizeof(filler1), sizeof(UINT16), numBytesRead );
+
+		// promotionpoints has been changed from UINT16 to FLOAT, so we need changes here
+		if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA_EXP_FLOAT )
+		{
+			numBytesRead = ReadFieldByField( hwFile, &promotionpoints, sizeof( promotionpoints ), sizeof( FLOAT ), numBytesRead );
+		}
+		else
+		{
+			UINT16 tmp;
+			numBytesRead = ReadFieldByField( hwFile, &tmp, sizeof( tmp ), sizeof( UINT16 ), numBytesRead );
+
+			promotionpoints = tmp;
+
+			numBytesRead = ReadFieldByField( hwFile, &tmp, sizeof( tmp ), sizeof( UINT16 ), numBytesRead );
+		}
 		
 		if ( numBytesRead != SIZEOF_MILITIA_POD )
 			return(FALSE);
@@ -272,8 +285,8 @@ SOLDIERTYPE* GetUsedSoldierToIndividualMilitia( UINT32 aMilitiaId )
 	return NULL;
 }
 
-// update the health values of all militia in tactical
-void UpdateAllMilitiaHealthInTactical()
+// apply tactical life ratio to militia health ratio
+void ApplyTacticalLifeRatioToMilitia()
 {
 	if ( !gGameExternalOptions.fIndividualMilitia )
 		return;
@@ -299,52 +312,95 @@ void UpdateAllMilitiaHealthInTactical()
 	}
 }
 
-void HandleHourlyMilitiaHealing( )
+void ApplyMilitiaHealthRatioToTactical()
 {
 	if ( !gGameExternalOptions.fIndividualMilitia || !gGameExternalOptions.fIndividualMilitia_ManageHealth )
 		return;
 
-	INT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
+	SOLDIERTYPE* pSoldier;
+	UINT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
 	INT32 lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
-	SOLDIERTYPE* pSoldier = NULL;
-	
+	for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
+	{
+		MILITIA militia;
+		if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLifeMax && GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )
+		{
+			INT8 oldlife = pSoldier->stats.bLife;
+
+			FLOAT currenthealthratio = 100.0f * oldlife / pSoldier->stats.bLifeMax;
+
+			militia.healthratio = max( militia.healthratio, currenthealthratio );
+
+			pSoldier->stats.bLife = min( pSoldier->stats.bLifeMax, ( militia.healthratio / 100.0f ) * pSoldier->stats.bLifeMax );
+
+			// healing done will be displayed the next time the player sees this soldier
+			pSoldier->flags.fDisplayDamage = TRUE;
+			pSoldier->sDamage -= pSoldier->stats.bLife - oldlife;
+
+			// while we're here, update kills and assists too
+			militia.AddKills( pSoldier->ubMilitiaKills, pSoldier->ubMilitiaAssists );
+
+			pSoldier->ubMilitiaKills = 0;
+			pSoldier->ubMilitiaAssists = 0;
+
+			UpdateMilitia( militia );
+		}
+	}
+}
+
+void HandleHourlyMilitiaHealing( )
+{
+	if ( !gGameExternalOptions.fIndividualMilitia || !gGameExternalOptions.fIndividualMilitia_ManageHealth )
+		return;
+		
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end( );
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
 	{
 		if ( !((*it).flagmask & MILITIAFLAG_DEAD) )
 		{
 			(*it).healthratio = min( 100.0f, (*it).healthratio + gGameExternalOptions.dIndividualMilitiaHourlyHealthPercentageGain );
-
-			// if this guy is in the currently loaded sector, heal the soldier instead (and update health ratio while you're there)
-			if ( !gbWorldSectorZ && (*it).sector == SECTOR( gWorldSectorX, gWorldSectorY ) )
-			{
-				for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
-				{
-					if ( pSoldier && pSoldier->bActive && (*it).id == pSoldier->usIndividualMilitiaID && 
-						 gWorldSectorX == pSoldier->sSectorX && gWorldSectorY == pSoldier->sSectorY && !pSoldier->bSectorZ &&
-						 pSoldier->stats.bLifeMax > 0  )
-					{
-						INT8 oldlife = pSoldier->stats.bLife;
-
-						FLOAT currenthealthratio = 100.0f * oldlife / pSoldier->stats.bLifeMax;
-
-						currenthealthratio = min( 100.0f, currenthealthratio + gGameExternalOptions.dIndividualMilitiaHourlyHealthPercentageGain );
-						
-						pSoldier->stats.bLife = min( pSoldier->stats.bLifeMax, (currenthealthratio / 100.0f) * pSoldier->stats.bLifeMax );
-
-						// healing done will be displayed the next time the player sees this soldier
-						pSoldier->flags.fDisplayDamage = TRUE;
-						pSoldier->sDamage -= pSoldier->stats.bLife - oldlife;
-
-						// update new health ratio
-						(*it).healthratio = currenthealthratio;
-
-						break;
-					}
-				}
-			}
 		}
 	}
+
+	ApplyMilitiaHealthRatioToTactical();
+}
+
+UINT32 MilitiaIndividual_Heal( UINT32 points, UINT8 aSector )
+{
+	if ( !gGameExternalOptions.fIndividualMilitia || !gGameExternalOptions.fIndividualMilitia_ManageHealth )
+		return 0;
+	
+	FLOAT totalhealthmissing = 0.0f;
+
+	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
+	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
+	{
+		if ( !( ( *it ).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && (*it).sector == aSector && ( *it ).healthratio < 100.0f )
+		{
+			totalhealthmissing += ( 100.0f - ( *it ).healthratio );
+		}
+	}
+
+	if ( totalhealthmissing <= 0.0f )
+		return 0;
+
+	FLOAT pointstouse = min( (FLOAT)points, totalhealthmissing );
+
+	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
+	{
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).healthratio < 100.0f )
+		{
+			( *it ).healthratio += ( 100.0f - ( *it ).healthratio ) * pointstouse / totalhealthmissing;
+		}
+	}
+
+	// update militia in current sector
+	if ( !gbWorldSectorZ && SECTOR( gWorldSectorX, gWorldSectorY ) == aSector )
+	{
+		ApplyMilitiaHealthRatioToTactical();
+	}
+
+	return (UINT32)pointstouse;
 }
 
 UINT32 CreateRandomIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector )
@@ -490,7 +546,7 @@ UINT32 CreateNewIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSec
 
 	newmilitia.kills = 0;
 	newmilitia.assists = 0;
-	newmilitia.promotionpoints = 0;
+	newmilitia.promotionpoints = 0.0f;
 
 	// promotion points are based on kills and assists. For proper accounting, award points for current rank
 	newmilitia.AddKills( 0, 0 );
@@ -509,7 +565,7 @@ UINT32 CreateNewIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSec
 
 // search for a individual militia that is alive and not currently in use in this sector, and return its id
 // if none is found, create new and return that one
-UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
+UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 {
 	if ( !gGameExternalOptions.fIndividualMilitia )
 		return 0;
@@ -555,6 +611,123 @@ UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 
 	// nobody found. That shouldn't really happen, as we are supposed to create data whenever new militia is created. Create new data and use that
 	return CreateNewIndividualMilitia( militialevel, MO_ARULCO, aSector );
+}
+
+BOOLEAN GetIdOfIndividualMilitiaWithClassSector( UINT8 aSoldierClass, UINT8 aSector, UINT32& arId )
+{
+	arId = 0;
+
+	if ( !gGameExternalOptions.fIndividualMilitia )
+		return FALSE;
+
+	UINT8 militialevel = SoldierClassToMilitiaRank( aSoldierClass );
+
+	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
+	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
+	{
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).militiarank == militialevel )
+		{			
+			arId = ( *it ).id;
+
+			return TRUE;
+		}
+	}
+	
+	return FALSE;
+}
+
+extern void ResetMilitia();
+
+FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd )
+{
+	FLOAT pointsused = 0.0f;
+
+	if ( !gGameExternalOptions.fIndividualMilitia )
+		return pointsused;
+	
+	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
+	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
+	{
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).militiarank == GREEN_MILITIA )
+		{
+			MILITIA militia = ( *it );
+
+			FLOAT pointstoadd = min( aPointsToAdd - pointsused, max( 0, gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular - militia.promotionpoints ) );
+
+			pointsused += pointstoadd;
+			militia.promotionpoints += pointstoadd;
+
+			PossiblyPromoteIndividualMilitia( militia );
+
+			if ( militia.militiarank == REGULAR_MILITIA )
+				StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), GREEN_MILITIA, 1 );
+			else if ( militia.militiarank == ELITE_MILITIA )
+			{
+				StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), GREEN_MILITIA, 1 );
+				StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), REGULAR_MILITIA, 1 );
+			}
+			
+			UpdateMilitia( militia );
+		}
+
+		if ( pointsused >= aPointsToAdd )
+			break;
+	}
+
+	if ( gGameExternalOptions.gfTrainVeteranMilitia )
+	{
+		std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
+		for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
+		{
+			if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).militiarank == REGULAR_MILITIA )
+			{
+				MILITIA militia = ( *it );
+
+				FLOAT pointstoadd = min( aPointsToAdd - pointsused, max( 0, gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular + gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Elite - militia.promotionpoints ) );
+
+				pointsused += pointstoadd;
+				militia.promotionpoints += pointstoadd;
+
+				PossiblyPromoteIndividualMilitia( militia );
+
+				if ( militia.militiarank == ELITE_MILITIA )
+					StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), REGULAR_MILITIA, 1 );
+
+				UpdateMilitia( militia );
+			}
+
+			if ( pointsused >= aPointsToAdd )
+				break;
+		}
+	}
+
+	// do possible update in tactical
+	if ( !gbWorldSectorZ && SECTORX( aSector ) == gWorldSectorX && SECTORY( aSector ) == gWorldSectorY )
+	{
+		BOOLEAN changesnecessary = FALSE;
+
+		SOLDIERTYPE* pSoldier = NULL;
+		int cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
+		for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; ++cnt, ++pSoldier )
+		{
+			MILITIA militia;
+
+			if ( pSoldier && GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )
+			{
+				if ( SoldierClassToMilitiaRank( pSoldier->ubSoldierClass ) < militia.militiarank )
+				{
+					pSoldier->ubSoldierClass = MilitiaRankToSoldierClass( militia.militiarank );
+
+					changesnecessary = TRUE;
+				}
+			}
+		}
+
+		if ( changesnecessary )
+			ResetMilitia();
+	}
+
+	return pointsused;
 }
 
 // handle possible militia promotion and individual militia update
@@ -773,6 +946,60 @@ void PromoteIndividualMilitia( UINT8 aSector, UINT8 aSoldierClass )
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
 	if ( gGameExternalOptions.fIndividualMilitia )
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in PromoteIndividualMilitia" );
+}
+
+void PossiblyPromoteIndividualMilitia( MILITIA& aMilitia )
+{
+	if ( !( aMilitia.flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) )
+	{
+		// Flugente: check whether we have the resources to promote militia
+		BOOLEAN fCanPromoteToRegular = TRUE;
+		BOOLEAN fCanPromoteToElite = TRUE;
+		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
+		{
+			FLOAT val_gun, val_armour, val_misc;
+			GetResources( val_gun, val_armour, val_misc );
+
+			// regular militia require an additional gun and armour
+			if ( val_gun <= 1.0f || val_armour <= 1.0f )
+			{
+				fCanPromoteToRegular = FALSE;
+				fCanPromoteToElite = FALSE;
+			}
+			// elite also require misc resources
+			else if ( val_misc <= 1.0f )
+			{
+				fCanPromoteToElite = FALSE;
+			}
+		}
+
+		// if we have enough points, promote
+		if ( aMilitia.militiarank == GREEN_MILITIA )
+		{
+			if ( aMilitia.promotionpoints >= gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular )
+			{
+				if ( fCanPromoteToRegular )
+				{
+					aMilitia.militiarank = REGULAR_MILITIA;
+
+					AddResources( -1, -1, 0 );
+				}
+			}
+		}
+		
+		if ( aMilitia.militiarank == REGULAR_MILITIA )
+		{
+			if ( aMilitia.promotionpoints >= gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular + gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Elite )
+			{
+				if ( fCanPromoteToElite )
+				{
+					aMilitia.militiarank = ELITE_MILITIA;
+
+					AddResources( -1, -1, -1 );
+				}
+			}
+		}
+	}
 }
 
 // return the sum of daily wages, and the number of individual militia per class

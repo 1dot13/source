@@ -2306,7 +2306,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 				TeamDropAll( MILITIA_TEAM );
 
 			// Flugente: update individual militia data
-			UpdateAllMilitiaHealthInTactical( );
+			ApplyTacticalLifeRatioToMilitia( );
 
 			// we now force a resetting of militia - they will be removed and recreated
 			// as the group's coordinates have alreay 'moved' to the next sector, the group militia will now be gone

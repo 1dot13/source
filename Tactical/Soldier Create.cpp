@@ -635,7 +635,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	// do not do so during loading of a savegame
 	if ( tbTeam == MILITIA_TEAM && !pCreateStruct->fUseExistingSoldier )
 	{
-		Soldier.usIndividualMilitiaID = GetIdOfUnusedindividualMilitia( pCreateStruct->ubSoldierClass, SECTOR( pCreateStruct->sSectorX, pCreateStruct->sSectorY ) );
+		Soldier.usIndividualMilitiaID = GetIdOfUnusedIndividualMilitia( pCreateStruct->ubSoldierClass, SECTOR( pCreateStruct->sSectorX, pCreateStruct->sSectorY ) );
 	}
 
 	// OK, CHECK IF WE HAVE A VALID PROFILE ID!

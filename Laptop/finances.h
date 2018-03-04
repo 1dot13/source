@@ -58,6 +58,7 @@ enum
 	PMC_CONTRACT,			// Flugente: hired militia from a PMC
 	SAM_REPAIR,				// Flugente: repair SAM site
 	WORKERS_TRAINED,		// Flugente: train workers
+	PROMOTE_MILITIA,		// Flugente: drill militia
 	TEXT_NUM_FINCANCES
 };
 

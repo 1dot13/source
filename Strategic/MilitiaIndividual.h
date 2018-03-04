@@ -123,9 +123,7 @@ public:
 
 	// we don't store the experience level, we store the amount of points in regard to promotion. 
 	// While this is made up of kills and assists, we need this, as we have to account for militia initially starting at regular level
-	UINT16	promotionpoints;
-
-	UINT16	filler1;		// necessary for padding - fill up so that SIZEOF_MILITIA_POD is doubly even
+	FLOAT	promotionpoints;
 
 	char endOfPOD;	// marker for end of POD (plain old data)
 	
@@ -154,16 +152,24 @@ void UpdateMilitia( MILITIA aMilitia );
 
 SOLDIERTYPE* GetUsedSoldierToIndividualMilitia( UINT32 aMilitiaId );
 
-// update the health values of all militia in tactical
-void UpdateAllMilitiaHealthInTactical();
+// apply tactical life ratio to militia health ratio
+void ApplyTacticalLifeRatioToMilitia();
+
+// apply health ratios to militia in tactical
+void ApplyMilitiaHealthRatioToTactical();
 
 void HandleHourlyMilitiaHealing( );
+UINT32 MilitiaIndividual_Heal(UINT32 points, UINT8 aSector );
 
 UINT32 CreateRandomIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector );
 
 UINT32 CreateNewIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector );
 
-UINT32 GetIdOfUnusedindividualMilitia( UINT8 aSoldierClass, UINT8 aSector );
+UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector );
+
+BOOLEAN GetIdOfIndividualMilitiaWithClassSector( UINT8 aSoldierClass, UINT8 aSector, UINT32& arId );
+
+FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd );
 
 // handle possible militia promotion and individual militia update
 void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve );
@@ -174,6 +180,8 @@ void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UI
 void DisbandIndividualMilitia( UINT8 aSector, UINT8 usGreens, UINT8 usRegulars, UINT8 usElites );
 
 void PromoteIndividualMilitia( UINT8 aSector, UINT8 aSoldierClass );
+
+void PossiblyPromoteIndividualMilitia( MILITIA& aMilitia );
 
 // return the sum of daily wages, and the number of individual militia per class
 UINT32 GetDailyUpkeep_IndividualMilitia( UINT32& arNumGreen, UINT32& arNumRegular, UINT32& arNumElite );

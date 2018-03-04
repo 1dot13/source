@@ -129,6 +129,7 @@ enum {
 	ASSIGN_MENU_RADIO_SCAN,	// added by Flugente
 	ASSIGN_MENU_SNITCH,
 	ASSIGN_MENU_TRAIN,
+	ASSIGN_MENU_MILITIA,	// added by Flugente: all things militia
 	ASSIGN_MENU_MOVE_ITEMS, // added by Flugente
 	ASSIGN_MENU_FORTIFY, // added by Flugente
 	ASSIGN_MENU_SPY,	// added by Flugente
@@ -176,7 +177,6 @@ enum {
 // training assignment menu defines
 enum {
 	TRAIN_MENU_SELF,
-	TRAIN_MENU_TOWN,
 	TRAIN_MENU_MOBILE,
 	TRAIN_MENU_WORKERS,
 	TRAIN_MENU_TEAMMATES,

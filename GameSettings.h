@@ -1479,6 +1479,7 @@ typedef struct
 	UINT16 usIndividualMilitia_PromotionPoints_To_Elite;
 	BOOLEAN fIndividualMilitia_ManageHealth;
 	FLOAT dIndividualMilitiaHourlyHealthPercentageGain;
+	FLOAT dIndividualMilitiaDoctorHealModifier;
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

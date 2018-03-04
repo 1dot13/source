@@ -154,6 +154,15 @@ enum {
 	INTEL_MENU_CANCEL,
 };
 
+enum {
+	MILITIA_MENU_TRAIN,
+	MILITIA_MENU_DRILL,
+	MILITIA_MENU_DOCTOR,
+	MILITIA_MENU_CANCEL,
+
+	MILITIA_MENU_MAX,
+};
+
 
 /* CHRISL: Adjusted enumerations to allow for seperation of the three different pocket types in the new 
 inventory system. */
@@ -200,6 +209,7 @@ INT32 ghSquadBox = -1;
 INT32 ghVehicleBox = -1;
 INT32 ghRepairBox = -1;
 INT32 ghMoveItemBox = -1;
+INT32 ghMilitiaBox = -1;
 INT32 ghDiseaseBox = -1;
 INT32 ghSpyBox = -1;
 INT32 ghTrainingBox = -1;
@@ -222,7 +232,6 @@ INT32 ghPrisonerBox = -1;
 // the x,y position of assignment pop up in tactical
 INT16 gsAssignmentBoxesX, gsAssignmentBoxesY;
 
-
 // assignment menu mouse regions
 MOUSE_REGION	gAssignmentMenuRegion[ MAX_ASSIGN_STRING_COUNT ];
 MOUSE_REGION	gTrainingMenuRegion[ MAX_TRAIN_STRING_COUNT ];
@@ -235,6 +244,7 @@ MOUSE_REGION	gRepairMenuRegion[ 20 ];
 MOUSE_REGION	gMoveItem[MOVEITEM_MAX_SECTORS_WITH_MODIFIER + 1];
 MOUSE_REGION	gDisease[DISEASE_MENU_CANCEL + 1];
 MOUSE_REGION	gSpy[INTEL_MENU_CANCEL + 1];
+MOUSE_REGION	gMilitia[MILITIA_MENU_MAX];
 
 UINT16			usMoveItemSectors[MOVEITEM_MAX_SECTORS_WITH_MODIFIER];
 
@@ -403,6 +413,9 @@ UINT16 TotalMedicalKitPoints(SOLDIERTYPE *pSoldier);
 // handle doctor in this sector
 void HandleDoctorsInSector( INT16 sX, INT16 sY, INT8 bZ );
 
+// handle doctoring militia
+void HandleDoctorMilitia();
+
 // handle any repair man in sector
 void HandleRepairmenInSector( INT16 sX, INT16 sY, INT8 bZ );
 
@@ -523,6 +536,7 @@ void HandleShadingOfLinesForVehicleMenu( void );
 void HandleShadingOfLinesForRepairMenu( void );
 void HandleShadingOfLinesForDiseaseMenu();
 void HandleShadingOfLinesForSpyMenu();
+void HandleShadingOfLinesForMilitiaMenu();
 void HandleShadingOfLinesForTrainingMenu( void );
 void HandleShadingOfLinesForAttributeMenus( void );
 // HEADROCK HAM 3.6: Shade Facility Box Lines
@@ -549,6 +563,7 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplaySpyMenu( SOLDIERTYPE *pSoldier );
+BOOLEAN DisplayMilitiaMenu( SOLDIERTYPE *pSoldier );
 
 // create menus
 void CreateEPCBox( void );
@@ -558,6 +573,7 @@ void CreateRepairBox( void );
 void CreateMoveItemBox( void );
 void CreateDiseaseBox();
 void CreateSpyBox();
+void CreateMilitiaBox();
 // HEADROCK HAM 3.6: Facility Box.
 void CreateFacilityBox( void );
 void CreateFacilityAssignmentBox( void );
@@ -638,6 +654,7 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 
 // can this character EVER train militia?
 BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pCharacter );
+BOOLEAN BasicCanCharacterDrillMilitia( SOLDIERTYPE *pSoldier );
 BOOLEAN BasicCanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier );
 // Can this character EVER work in any facility?
 BOOLEAN BasicCanCharacterFacility( SOLDIERTYPE *pSoldier );
@@ -760,7 +777,6 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 	fMapPanelDirty = TRUE;
 }
 
-
 BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInCombat )
 {
 	AssertNotNIL(pSoldier);
@@ -777,8 +793,6 @@ BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInComba
 
 	return( TRUE );
 }
-
-
 
 /*
 BOOLEAN CanSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
@@ -900,7 +914,7 @@ BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pSoldier )
 
 	// find med kit
 	// CHRISL: Changed to dynamically determine max inventory locations.
-	for (bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; bPocket++)
+	for (bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
 		// doctoring is allowed using either type of med kit (but first aid kit halves doctoring effectiveness)
 		if( IsMedicalKitItem( &( pSoldier -> inv[ bPocket ] ) ) )
@@ -917,6 +931,30 @@ BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pSoldier )
 
 	// all criteria fit, can doctor
 	return ( TRUE );
+}
+
+// can this character doctor militia (assignmentwise)?
+BOOLEAN CanCharacterDoctorMilitia( SOLDIERTYPE *pSoldier )
+{
+	if ( !gGameExternalOptions.fIndividualMilitia || !gGameExternalOptions.fIndividualMilitia_ManageHealth )
+		return FALSE;
+
+	if ( !CanCharacterDoctor( pSoldier ) )
+		return FALSE;
+
+	UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+	
+	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
+	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
+	{
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == sector )
+		{
+			if ( ( *it ).healthratio < 100.0f )
+				return TRUE;
+		}
+	}
+
+	return FALSE;
 }
 
 // can this character diagnose diseases?
@@ -1560,6 +1598,176 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 	}
 
 	return ( TRUE );
+}
+
+BOOLEAN BasicCanCharacterDrillMilitia( SOLDIERTYPE *pSoldier )
+{
+	/////////////////////////////////////////////////////
+	// Tests whether character can do assignments at all!
+
+	AssertNotNIL( pSoldier );
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+	{
+		return( FALSE );
+	}
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
+
+	// make sure character is alive and conscious
+	if ( pSoldier->stats.bLife < OKLIFE )
+	{
+		// dead or unconscious...
+		return ( FALSE );
+	}
+
+	// underground training is not allowed (code doesn't support and it's a reasonable enough limitation)
+	if ( pSoldier->bSectorZ != 0 )
+	{
+		return( FALSE );
+	}
+
+	// Is character on the way into/out of Arulco?
+	if ( IsCharacterInTransit( pSoldier ) == TRUE )
+	{
+		return ( FALSE );
+	}
+
+	// Is character travelling between sectors?
+	if ( CharacterIsBetweenSectors( pSoldier ) )
+	{
+		return( FALSE );
+	}
+
+	// Is character an Escortee?
+	if ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
+	{
+		// epcs can't do this
+		return( FALSE );
+	}
+
+	// Is character a Vehicle or Robot?
+	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) )
+	{
+		return( FALSE );
+	}
+
+	// enemies in sector
+	if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
+	{
+		return( FALSE );
+	}
+
+	return ( TRUE );
+}
+
+BOOLEAN CanCharacterMilitiaAssignment( SOLDIERTYPE *pSoldier )
+{
+	if ( CanCharacterTrainMilitia( pSoldier ) )
+		return TRUE;
+
+	if ( CanCharacterDrillMilitia( pSoldier ) )
+		return TRUE;
+
+	if ( CanCharacterDoctorMilitia( pSoldier ) )
+		return TRUE;
+
+	return FALSE;
+}
+
+BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
+{
+	if ( !gGameExternalOptions.fIndividualMilitia )
+		return FALSE;
+
+	AssertNotNIL( pSoldier );
+
+	if ( LaptopSaveInfo.iCurrentBalance <= 0 )
+	{
+		if ( aErrorReport )
+			DoScreenIndependantMessageBox( sATMText[4], MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+
+	if ( !BasicCanCharacterDrillMilitia( pSoldier ) )
+	{
+		if ( aErrorReport )
+			DoScreenIndependantMessageBox( L"Assignment not possible at the moment", MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+	
+	// enemies in sector
+	if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
+	{
+		if ( aErrorReport )
+			DoScreenIndependantMessageBox( L"Assignment not possible while enemies are still around.", MSG_BOX_FLAG_OK, NULL );
+		return( FALSE );
+	}
+
+	// Has leadership skill?
+	if ( pSoldier->stats.bLeadership <= 0 )
+	{
+		if ( aErrorReport )
+			DoScreenIndependantMessageBox( L"Not enough leadership.", MSG_BOX_FLAG_OK, NULL );
+		return ( FALSE );
+	}
+	
+	// HEADROCK HAM 3: When "Minimum Leadership for Militia Training" is enforced, this value holds the
+	// merc's effective leadership, after the "TEACHER" trait is taken into account.
+	UINT16 usEffectiveLeadership;
+
+	// HEADROCK HAM 3: Determine whether the merc has enough leadership to train militia. The teacher trait may
+	// increase or decrease the effective skill.
+	if ( gGameExternalOptions.ubMinimumLeadershipToTrainMilitia > 0 )
+	{
+		// Read BASE leadership
+		usEffectiveLeadership = pSoldier->stats.bLeadership;
+
+		if ( gGameOptions.fNewTraitSystem ) // SANDRO - old/new traits
+		{
+			if ( HAS_SKILL_TRAIT( pSoldier, TEACHING_NT ) )
+			{
+				// bonus from Teaching trait
+				usEffectiveLeadership = ( usEffectiveLeadership * ( 100 + gSkillTraitValues.ubTGEffectiveLDRToTrainMilitia ) / 100 );
+			}
+		}
+		// Apply modifier for TEACHER trait, if that feature is activated
+		else if ( gGameExternalOptions.usTeacherTraitEffectOnLeadership > 0 && gGameExternalOptions.usTeacherTraitEffectOnLeadership != 100 )
+		{
+			// Modifier applied once for each TEACHING level.
+			for ( UINT8 i = 0; i < NUM_SKILL_TRAITS( pSoldier, TEACHING_OT ); i++ )
+			{
+				// This is a percentage modifier.
+				usEffectiveLeadership = ( usEffectiveLeadership * gGameExternalOptions.usTeacherTraitEffectOnLeadership ) / 100;
+			}
+		}
+
+		usEffectiveLeadership = __min( 100, usEffectiveLeadership );
+
+		// Is leadership too low to proceed?
+		if ( usEffectiveLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMilitia )
+		{
+			if ( aErrorReport )
+				DoScreenIndependantMessageBox( L"Not enough leadership.", MSG_BOX_FLAG_OK, NULL );
+			return ( FALSE );
+		}
+	}
+
+	// are any militia that could be promoted present?
+	UINT32 militiaid = 0;
+	MILITIA militia;
+	if ( GetIdOfIndividualMilitiaWithClassSector( SOLDIER_CLASS_GREEN_MILITIA, SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ), militiaid ) ||
+		( gGameExternalOptions.gfTrainVeteranMilitia && GetIdOfIndividualMilitiaWithClassSector( SOLDIER_CLASS_REG_MILITIA, SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ), militiaid ) ) )
+	{
+		if ( GetMilitia( militiaid, &militia ) )
+			return TRUE;
+	}
+	
+	if ( aErrorReport )
+		DoScreenIndependantMessageBox( L"No militia that can be trained present.", MSG_BOX_FLAG_OK, NULL );
+	return FALSE;
 }
 
 // Determines whether the character has the required condition to train Militia at this time.
@@ -2691,6 +2899,9 @@ void UpdateAssignments()
 	// Flugente: individual militia
 	HandleHourlyMilitiaHealing();
 
+	// Flugente: handle doctoring militia
+	HandleDoctorMilitia();
+
 	// Flugente: handle militia command
 	HandleMilitiaCommand();
 
@@ -3765,6 +3976,62 @@ void HandleDoctorsInSector( INT16 sX, INT16 sY, INT8 bZ )
 	}
 
 	// total healing pts for this sector, now heal people
+}
+
+// handle doctoring militia
+void HandleDoctorMilitia()
+{
+	INT32 cnt = 0;
+
+	// set psoldier as first in merc ptrs
+	SOLDIERTYPE* pSoldier = MercPtrs[0];
+
+	// will handle doctor/patient relationship in sector
+
+	// go through list of characters, find all doctors in sector
+	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pSoldier )
+	{
+		if ( pSoldier && pSoldier->bActive && !pSoldier->bSectorZ && pSoldier->bAssignment == DOCTOR_MILITIA && !( pSoldier->flags.fMercAsleep ) )
+		{
+			// character is in sector, check if can doctor, if so...heal people
+			if ( EnoughTimeOnAssignment( pSoldier ) && CanCharacterDoctorMilitia( pSoldier ) )
+			{
+				UINT16 max = 0;
+				UINT16 healpoints = CalculateHealingPointsForDoctor( pSoldier, &max, TRUE );
+
+				// how good is the doctor?
+				INT8	sDoctortraits = gGameOptions.fNewTraitSystem ? NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) : 0;
+
+				INT8	bMedFactor = 1;	// basic medical factor
+										// Added a penalty for not experienced mercs, they consume the bag faster
+										// if healing an repairing stat at the same time, this is increased again, but we wont recalculate for now
+				if ( gGameOptions.fNewTraitSystem && !sDoctortraits && ( pSoldier->stats.bMedical < 50 ) )
+					bMedFactor += 1;
+
+				// we are limited by our supplies
+				// calculate how much total points we have in all medical bags - this ultimately limits how much we can heal
+				UINT16 usTotalMedPoints = TotalMedicalKitPoints( pSoldier );
+
+				healpoints = min( healpoints, ( usTotalMedPoints * 100 ) / bMedFactor );
+
+				// militia less effort for healing (how would we reasistically treat 30 wounded militia otherwise?), so simply alter the points
+				// each healing point normally represents 1 hundreth of a HP
+				healpoints *= gGameExternalOptions.dIndividualMilitiaDoctorHealModifier;
+
+				UINT32 healpointsused = MilitiaIndividual_Heal( healpoints, SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) );
+
+				// Finally use all kit points (we are sure, we have that much)
+				if ( !UseTotalMedicalKitPoints( pSoldier, max( 1, ( (healpointsused / gGameExternalOptions.dIndividualMilitiaDoctorHealModifier ) * bMedFactor ) / 100 ) ) )
+				{
+					// throw message if this went wrong for feedback on debugging
+					ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalMedicalKitPoints returned false, not all points were probably used." );
+				}
+
+				if ( healpointsused < healpoints )
+					AssignmentDone( pSoldier, TRUE, TRUE );
+			}
+		}
+	}
 }
 
 void UpdatePatientsWhoAreDoneHealing( void )
@@ -5481,6 +5748,7 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 				CASE_REPAIR:
 				case TRAIN_TEAMMATE:
 				case TRAIN_TOWN:
+				case DRILL_MILITIA:
 					break;
 				case TRAIN_BY_OTHER:
 				case TRAIN_SELF:
@@ -5752,6 +6020,65 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 					break;
 				}
 			}
+		}
+	}
+
+	// Flugente: drill militia - promote existing militia without creating new ones
+	if ( gGameExternalOptions.fIndividualMilitia )
+	{
+		FLOAT drillpoints = 0;
+		for ( uiCnt = 0, pTrainer = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, pTrainer++ )
+		{
+			if ( pTrainer->bActive && ( pTrainer->sSectorX == sMapX ) && ( pTrainer->sSectorY == sMapY ) && ( pTrainer->bSectorZ == bZ ) )
+			{
+				// HEADROCK HAM 3.6: TRAIN_MOBILE also possible now. Handled the same way.
+				if ( pTrainer->bAssignment == DRILL_MILITIA && ( EnoughTimeOnAssignment( pTrainer ) ) && ( pTrainer->flags.fMercAsleep == FALSE ) )
+				{
+					drillpoints += GetTownTrainPtsForCharacter( pTrainer, &usMaxPts );
+				}
+			}
+		}
+
+		// a normal militia training session requires 10000 points.
+		// such a session would allow promoting gGameExternalOptions.iTrainingSquadSize
+		// a green militia requires gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular to promote
+		// it thus follows that one point of militia experience is worth (10000 / gGameExternalOptions.iTrainingSquadSize) / gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular training points
+
+		drillpoints *= ( gGameExternalOptions.iTrainingSquadSize * gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular / 10000.0 );
+
+		// we also need to pay for training we applied (otherwise promoting via normal training would
+		// a normal training session costs gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier
+		// it promotes gGameExternalOptions.iTrainingSquadSize militia with gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular points each
+		// thus a point costs gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier / ( gGameExternalOptions.iTrainingSquadSize * gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular) points
+		FLOAT costperpoint = ( FLOAT)(gGameExternalOptions.iMilitiaTrainingCost * gGameExternalOptions.iRegularCostModifier / ( gGameExternalOptions.iTrainingSquadSize * gGameExternalOptions.usIndividualMilitia_PromotionPoints_To_Regular ));
+
+		FLOAT totalcost = drillpoints * costperpoint;
+
+		if ( totalcost > 0 && LaptopSaveInfo.iCurrentBalance < totalcost )
+		{
+			drillpoints *= LaptopSaveInfo.iCurrentBalance / totalcost;
+		}
+
+		FLOAT drillpoints_used = PromoteIndividualMilitiaInSector( SECTOR( sMapX, sMapY ), drillpoints );
+
+		if ( drillpoints_used > 0 )
+		{
+			for ( uiCnt = 0, pTrainer = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pTrainer )
+			{
+				if ( pTrainer->bActive && ( pTrainer->sSectorX == sMapX ) && ( pTrainer->sSectorY == sMapY ) && ( pTrainer->bSectorZ == bZ ) )
+				{
+					if ( pTrainer->bAssignment == DRILL_MILITIA && ( EnoughTimeOnAssignment( pTrainer ) ) && ( pTrainer->flags.fMercAsleep == FALSE ) )
+					{
+						INT16 personaldrillpoints = GetTownTrainPtsForCharacter( pTrainer, &usMaxPts );
+
+						// trainer gains leadership - training argument is FALSE, because the trainer is not the one training!
+						StatChange( pTrainer, LDRAMT, (UINT16)( 1 + ( ( personaldrillpoints * drillpoints_used / drillpoints ) / 200 ) ), FALSE );
+						StatChange( pTrainer, WISDOMAMT, (UINT16)( 1 + ( ( personaldrillpoints * drillpoints_used / drillpoints ) / 400 ) ), FALSE );
+					}
+				}
+			}
+
+			AddTransactionToPlayersBook( PROMOTE_MILITIA, SECTOR( sMapX, sMapY ), GetWorldTotalMin(), -( drillpoints_used * costperpoint ) );
 		}
 	}
 }
@@ -8161,11 +8488,11 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	// HEADROCK HAM 3.5: Training bonus given by local facilities
 	if (pTrainer->bSectorZ == 0)
 	{
-		for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++)
+		for (UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt)
 		{
 			if (gFacilityLocations[SECTOR(pTrainer->sSectorX, pTrainer->sSectorY)][cnt].fFacilityHere)
 			{
-				if (pTrainer->bAssignment == TRAIN_TOWN)
+				if (pTrainer->bAssignment == TRAIN_TOWN || pTrainer->bAssignment == DRILL_MILITIA )
 				{
 					sTrainingBonus += (100 - gFacilityTypes[cnt].usMilitiaTraining);
 				}
@@ -8295,14 +8622,11 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 	if ( fSayQuote )
 	{
 		// HEADROCK HAM 3.6: Separated Militia Training
-		if ( ( fMeToo == FALSE ) && (pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE ) )
+		if ( ( fMeToo == FALSE ) && (pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE || pSoldier->bAssignment == DRILL_MILITIA ) )
 		{
 			TacticalCharacterDialogue( pSoldier, QUOTE_ASSIGNMENT_COMPLETE );
 
-			if( pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE )
-			{
-				AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( pSoldier );
-			}
+			AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( pSoldier );
 		}
 	}
 
@@ -9710,6 +10034,16 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 			{
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_SPY );
 			}
+
+			// militia
+			if ( CanCharacterMilitiaAssignment( pSoldier ) )
+			{
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_MILITIA );
+			}
+			else
+			{
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_MILITIA );
+			}
 		}
 	}
 
@@ -9725,6 +10059,7 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 	// disease menu
 	HandleShadingOfLinesForDiseaseMenu();
 	HandleShadingOfLinesForSpyMenu();
+	HandleShadingOfLinesForMilitiaMenu();
 
 	// training submenu
 	HandleShadingOfLinesForTrainingMenu( );
@@ -9803,6 +10138,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		CreateDestroyMouseRegionForMoveItemMenu();
 		CreateDestroyMouseRegionForDiseaseMenu();
 		CreateDestroyMouseRegionForSpyMenu();
+		CreateDestroyMouseRegionForMilitiaMenu();
 		// HEADROCK HAM 3.6: Facility Menu, Submenu
 		CreateDestroyMouseRegionForFacilityMenu( );
 		CreateDestroyMouseRegionsForFacilityAssignmentMenu( );
@@ -9854,6 +10190,12 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		if ( IsBoxShown( ghSpyBox ) )
 		{
 			HideBox( ghSpyBox );
+			fTeamPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+		if ( IsBoxShown( ghMilitiaBox ) )
+		{
+			HideBox( ghMilitiaBox );
 			fTeamPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
 		}
@@ -9944,6 +10286,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionForMoveItemMenu();
 	CreateDestroyMouseRegionForDiseaseMenu( );
 	CreateDestroyMouseRegionForSpyMenu();
+	CreateDestroyMouseRegionForMilitiaMenu();
 	CreateDestroyMouseRegionsForSnitchMenu( );
 	CreateDestroyMouseRegionsForSnitchToggleMenu( );
 	CreateDestroyMouseRegionsForSnitchSectorMenu( );
@@ -10056,6 +10399,24 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 		if ( IsBoxShown( ghSpyBox ) )
 		{
 			HideBox( ghSpyBox );
+			fTeamPanelDirty = TRUE;
+			fMapPanelDirty = TRUE;
+			gfRenderPBInterface = TRUE;
+		}
+	}
+
+	// militia menu
+	if ( gAssignMenuState == ASMENU_MILITIA )
+	{
+		HandleShadingOfLinesForMilitiaMenu();
+		ShowBox( ghMilitiaBox );
+	}
+	else
+	{
+		// hide box
+		if ( IsBoxShown( ghMilitiaBox ) )
+		{
+			HideBox( ghMilitiaBox );
 			fTeamPanelDirty = TRUE;
 			fMapPanelDirty = TRUE;
 			gfRenderPBInterface = TRUE;
@@ -10294,6 +10655,7 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionForMoveItemMenu();
 	CreateDestroyMouseRegionForDiseaseMenu( );
 	CreateDestroyMouseRegionForSpyMenu();
+	CreateDestroyMouseRegionForMilitiaMenu();
 	// HEADROCK HAM 3.6: Facility Menu
 	CreateDestroyMouseRegionForFacilityMenu( );
 	CreateDestroyMouseRegionsForSnitchMenu( );
@@ -12114,63 +12476,7 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				DetermineBoxPositions( );
 
 			break;
-			case( TRAIN_MENU_TOWN):
-
-				// Full test of Character and Sector to see if this training is possible at the moment.
-				if( !BasicCanCharacterTrainMilitia(pSoldier) )
-				{
-					// No feedback. The menu options should be greyed out, anyway.
-					break;
-				}
-				
-				// Check for specific errors why this merc should not be able to train, 
-				// and display a specific error message if one is encountered.
-				if( !CanCharacterTrainMilitiaWithErrorReport(pSoldier) )
-				{
-					// Error found. Breaking. Note that the above function DOES display feedback if an error is
-					// encountered at all.
-					break;
-				}
-
-					// PASSED ALL THE TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
-
-					pSoldier->bOldAssignment = pSoldier->bAssignment;
-
-					if( ( pSoldier->bAssignment != TRAIN_TOWN ) )
-					{
-						SetTimeOfAssignmentChangeForMerc( pSoldier );
-					}
-
-					MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
-
-					// stop showing menu
-				fShowAssignmentMenu = FALSE;
-					giAssignHighLine = -1;
-
-					// remove from squad
-
-					if( pSoldier->bOldAssignment == VEHICLE )
-					{
-						TakeSoldierOutOfVehicle( pSoldier );
-					}
-					RemoveCharacterFromSquads(	pSoldier );
-
-					ChangeSoldiersAssignment( pSoldier, TRAIN_TOWN );
-
-					// assign to a movement group
-					AssignMercToAMovementGroup( pSoldier );
-					if( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
-					{
-						// show a message to confirm player wants to charge cost
-						HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
-					}
-					else
-					{
-						SetAssignmentForList( TRAIN_TOWN, 0 );
-					}
-				gfRenderPBInterface = TRUE;
-				break;
-
+			
 			// HEADROCK HAM 3.6: New separate Mobile Militia training.
 			case( TRAIN_MENU_MOBILE ):
 
@@ -13193,6 +13499,26 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 
+				case ASSIGN_MENU_MILITIA:
+					if ( CanCharacterMilitiaAssignment( pSoldier ) )
+					{
+						gAssignMenuState = ASMENU_NONE;
+
+						fShowPrisonerMenu = FALSE;
+						fShownContractMenu = FALSE;
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if ( DisplayMilitiaMenu( pSoldier ) )
+						{
+							gAssignMenuState = ASMENU_MILITIA;
+							DetermineBoxPositions();
+						}
+					}
+					break;
+
 				// HEADROCK HAM 3.6: New assignments for Facility operation.
 				case( ASSIGN_MENU_FACILITY ):
 					if ( BasicCanCharacterFacility( pSoldier ) )
@@ -13621,6 +13947,38 @@ void CreateSpyBox()
 	}
 
 	SetBoxPosition( ghSpyBox, pPoint );
+}
+
+
+void CreateMilitiaBox()
+{
+	SGPPoint pPoint;
+	SGPRect pDimensions;
+
+	CreatePopUpBox( &ghMilitiaBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, ( POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_CENTER_TEXT | POPUP_BOX_FLAG_RESIZE ) );
+	SetBoxBuffer( ghMilitiaBox, FRAME_BUFFER );
+	SetBorderType( ghMilitiaBox, guiPOPUPBORDERS );
+	SetBackGroundSurface( ghMilitiaBox, guiPOPUPTEX );
+	SetMargins( ghMilitiaBox, 6, 6, 4, 4 );
+	SetLineSpace( ghMilitiaBox, 2 );
+
+	// set current box to this one
+	SetCurrentBox( ghMilitiaBox );
+
+	// resize box to text
+	ResizeBoxToText( ghMilitiaBox );
+
+	DetermineBoxPositions();
+
+	GetBoxPosition( ghMilitiaBox, &pPoint );
+	GetBoxSize( ghMilitiaBox, &pDimensions );
+
+	if ( giBoxY + pDimensions.iBottom > 479 )
+	{
+		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
+	}
+
+	SetBoxPosition( ghMilitiaBox, pPoint );
 }
 
 void CreateSnitchBox()
@@ -14110,7 +14468,7 @@ void CreateTrainingBox( void )
 
 
  // add strings for box
- for(uiCounter=0; uiCounter < MAX_TRAIN_STRING_COUNT; uiCounter++)
+ for(uiCounter=0; uiCounter < MAX_TRAIN_STRING_COUNT; ++uiCounter)
  {
 	AddMonoString(&hStringHandle, pTrainingMenuStrings[uiCounter]);
 
@@ -14358,6 +14716,9 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 		RemoveBox( ghSpyBox );
 		ghSpyBox = -1;
 
+		RemoveBox( ghMilitiaBox );
+		ghMilitiaBox = -1;
+
 		RemoveBox(ghTrainingBox);
 		ghTrainingBox = -1;
 
@@ -14542,6 +14903,13 @@ void DetermineBoxPositions( void )
 			pNewPoint.iY = pPoint.iY;
 			SetBoxPosition( ghSnitchSectorBox, pNewPoint );
 		}
+	}
+	else if ( gAssignMenuState == ASMENU_MILITIA && ( ghMilitiaBox != -1 ) )
+	{
+		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA );
+
+		SetBoxPosition( ghMilitiaBox, pNewPoint );
+		CreateDestroyMouseRegionForMilitiaMenu();
 	}
 
 	if ( fShowPrisonerMenu && (ghPrisonerBox != -1) )
@@ -14856,6 +15224,28 @@ void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
 		pPoint.iY = gsAssignmentBoxesY + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
 
 		SetBoxPosition( ghFacilityBox, pPoint );
+	}
+	else if ( gAssignMenuState == ASMENU_MILITIA )
+	{
+		GetBoxSize( ghMilitiaBox, &pDimensions );
+
+		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
+		{
+			gsAssignmentBoxesX = (INT16)( ( SCREEN_WIDTH - 1 ) - ( pDimensions2.iRight + pDimensions.iRight ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		if ( gsAssignmentBoxesY + pDimensions2.iBottom + ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA ) >= ( SCREEN_HEIGHT - 120 ) )
+		{
+			gsAssignmentBoxesY = (INT16)( ( SCREEN_HEIGHT - 121 ) - ( pDimensions2.iBottom ) - ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA ) );
+			SetRenderFlags( RENDER_FLAG_FULL );
+		}
+
+		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
+		pPoint.iY = gsAssignmentBoxesY;
+		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA );
+
+		SetBoxPosition( ghMilitiaBox, pPoint );
 	}
 
 	// HEADROCK HAM 3.6: Facility Sub-menu
@@ -15437,6 +15827,7 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				AssignMercToAMovementGroup( pSoldier );
 			}
 			break;
+
 		CASE_PATIENT:
 			if( CanCharacterPatient( pSoldier ) )
 			{
@@ -16008,6 +16399,11 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 
 				ChangeSoldiersAssignment( pSoldier, bAssignment );
 				AssignMercToAMovementGroup( pSoldier );
+
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+				gfRenderPBInterface = TRUE;
 			}
 			break;
 
@@ -16053,10 +16449,71 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[ 18 ], zVehicleName[ pVehicleList[ iParam1 ].ubVehicleType ] );
 				}
 			}
-		break;
-	}
+			break;
 
-	return;
+		case DOCTOR_MILITIA:
+			if ( CanCharacterDoctorMilitia( pSoldier ) )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if ( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != bAssignment )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
+				AssignMercToAMovementGroup( pSoldier );
+
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+				gfRenderPBInterface = TRUE;
+			}
+			break;
+
+		case DRILL_MILITIA:
+			if ( CanCharacterDrillMilitia( pSoldier ) )
+			{
+				// train militia
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if ( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( ( pSoldier->bAssignment != bAssignment ) )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );				
+				AssignMercToAMovementGroup( pSoldier );
+
+				// set dirty flag
+				fTeamPanelDirty = TRUE;
+				fMapScreenBottomDirty = TRUE;
+				gfRenderPBInterface = TRUE;
+			}
+			break;
+	}
 }
 
 
@@ -16181,6 +16638,13 @@ BOOLEAN HandleAssignmentExpansionAndHighLightForAssignMenu( SOLDIERTYPE *pSoldie
 		{
 			// highlight the snitch line in the previous menu
 			HighLightBoxLine( ghSnitchBox, ASSIGN_MENU_SNITCH );
+			return( TRUE );
+		}
+		break;
+
+		case ASMENU_MILITIA:
+		{
+			HighLightBoxLine( ghAssignmentBox, ASSIGN_MENU_MILITIA );
 			return( TRUE );
 		}
 		break;
@@ -16309,30 +16773,7 @@ void HandleShadingOfLinesForTrainingMenu( void )
 	{
 		UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_SELF );
 	}
-	
-	// can character EVER train militia?
-	if( BasicCanCharacterTrainMilitia( pSoldier ) )
-	{
-		// can he train here, now?
-		if( CanCharacterTrainMilitia( pSoldier ) )
-		{
-			// unshade train militia line
-			UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
-			UnSecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
-		}
-		else
-		{
-			UnShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
-			SecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
-		}
-	}
-	else
-	{
-		UnSecondaryShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
-		// shade train militia line
-		ShadeStringInBox( ghTrainingBox, TRAIN_MENU_TOWN );
-	}
-
+		
 	// HEADROCK HAM 3.6: Training Mobile Militia.
 	// can character EVER train Mobile Militia?
 	if( BasicCanCharacterTrainMobileMilitia( pSoldier ) )
@@ -17236,6 +17677,14 @@ void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 					fNothingToDo = !CanCharacterSpyAssignment( pSoldier );
 					break;
 
+				case DOCTOR_MILITIA:
+					fNothingToDo = !CanCharacterDoctorMilitia( pSoldier );
+					break;
+
+				case DRILL_MILITIA:
+					fNothingToDo = !CanCharacterDrillMilitia( pSoldier );
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -17556,6 +18005,24 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 				case CONCEALED:
 				case GATHERINTEL:
 					if ( CanCharacterSpyAssignment( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+
+				case DOCTOR_MILITIA:
+					if ( CanCharacterDoctorMilitia( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+
+				case DRILL_MILITIA:
+					if ( CanCharacterDrillMilitia( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
@@ -21922,6 +22389,7 @@ void CreateDestroyMouseRegionForDiseaseMenu( void )
 
 		// get dimensions..mostly for width
 		GetBoxSize( ghDiseaseBox, &pDimensions );
+		SetBoxSecondaryShade( ghDiseaseBox, FONT_YELLOW );
 
 		// get width
 		iBoxWidth = pDimensions.iRight;
@@ -22154,12 +22622,13 @@ void CreateDestroyMouseRegionForSpyMenu( void )
 
 		// get dimensions..mostly for width
 		GetBoxSize( ghSpyBox, &pDimensions );
+		SetBoxSecondaryShade( ghSpyBox, FONT_YELLOW );
 
 		// get width
 		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghSpyBox );
-
+		
 		pSoldier = GetSelectedAssignSoldier( FALSE );
 
 		// conceal assignment
@@ -22295,5 +22764,386 @@ void SpyMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		// unhighlight all strings in box
 		UnHighLightBox( ghSpyBox );
+	}
+}
+
+// Flugente: militia menu
+BOOLEAN DisplayMilitiaMenu( SOLDIERTYPE *pSoldier )
+{
+	INT32 hStringHandle = 0;
+	INT32 iCount = 0;
+
+	// first, clear pop up box
+	RemoveBox( ghMilitiaBox );
+	ghMilitiaBox = -1;
+
+	CreateMilitiaBox();
+	SetCurrentBox( ghMilitiaBox );
+
+	AddMonoString( (UINT32 *)&hStringHandle, szMilitiaText[MILITIA_MENU_TRAIN] );
+
+	if ( gGameExternalOptions.fIndividualMilitia )
+	{
+		AddMonoString( (UINT32 *)&hStringHandle, szMilitiaText[MILITIA_MENU_DRILL] );
+
+		if ( gGameExternalOptions.fIndividualMilitia_ManageHealth )
+		{
+			AddMonoString( (UINT32 *)&hStringHandle, szMilitiaText[MILITIA_MENU_DOCTOR] );
+		}
+	}
+
+	AddMonoString( (UINT32 *)&hStringHandle, szMilitiaText[MILITIA_MENU_CANCEL] );
+
+	SetBoxFont( ghMilitiaBox, MAP_SCREEN_FONT );
+	SetBoxHighLight( ghMilitiaBox, FONT_WHITE );
+	SetBoxShade( ghMilitiaBox, FONT_GRAY7 );
+	SetBoxForeground( ghMilitiaBox, FONT_LTGREEN );
+	SetBoxBackground( ghMilitiaBox, FONT_BLACK );
+
+	// resize box to text
+	ResizeBoxToText( ghMilitiaBox );
+
+	CheckAndUpdateTacticalAssignmentPopUpPositions();
+
+	return TRUE;
+}
+
+void HandleShadingOfLinesForMilitiaMenu( void )
+{
+	if ( gAssignMenuState != ASMENU_MILITIA || ( ghMilitiaBox == -1 ) )
+		return;
+
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	if ( !pSoldier )
+		return;
+	
+	// can character EVER train militia?
+	if ( BasicCanCharacterTrainMilitia( pSoldier ) )
+	{
+		// can he train here, now?
+		if ( CanCharacterTrainMilitia( pSoldier ) )
+		{
+			// unshade train militia line
+			UnShadeStringInBox( ghMilitiaBox, MILITIA_MENU_TRAIN );
+		}
+		else
+		{
+			SecondaryShadeStringInBox( ghMilitiaBox, MILITIA_MENU_TRAIN );
+		}
+	}
+	else
+	{
+		// shade train militia line
+		ShadeStringInBox( ghMilitiaBox, MILITIA_MENU_TRAIN );
+	}
+
+	if ( gGameExternalOptions.fIndividualMilitia )
+	{
+		if ( BasicCanCharacterDrillMilitia( pSoldier ) )
+		{
+			// can he train here, now?
+			if ( CanCharacterDrillMilitia( pSoldier ) )
+			{
+				UnShadeStringInBox( ghMilitiaBox, MILITIA_MENU_DRILL );
+			}
+			else
+			{
+				SecondaryShadeStringInBox( ghMilitiaBox, MILITIA_MENU_DRILL );
+			}
+		}
+		else
+		{
+			ShadeStringInBox( ghMilitiaBox, MILITIA_MENU_DRILL );
+		}
+
+		if ( gGameExternalOptions.fIndividualMilitia_ManageHealth )
+		{
+			if ( CanCharacterDoctorMilitia( pSoldier ) )
+				UnShadeStringInBox( ghMilitiaBox, MILITIA_MENU_DOCTOR );
+			else
+				ShadeStringInBox( ghMilitiaBox, MILITIA_MENU_DOCTOR );
+		}
+	}
+}
+
+void CreateDestroyMouseRegionForMilitiaMenu( void )
+{
+	static BOOLEAN fCreated = FALSE;
+
+	UINT32 uiCounter = 0;
+	INT32 iCount = 0;
+	INT32 iFontHeight = 0;
+	INT32 iBoxXPosition = 0;
+	INT32 iBoxYPosition = 0;
+	SGPPoint pPosition;
+	INT32 iBoxWidth = 0;
+	SGPRect pDimensions;
+	SOLDIERTYPE *pSoldier = NULL;
+
+	if ( gAssignMenuState == ASMENU_MILITIA && !fCreated )
+	{
+		// grab height of font
+		iFontHeight = GetLineSpace( ghMilitiaBox ) + GetFontHeight( GetBoxFont( ghMilitiaBox ) );
+
+		// get x.y position of box
+		GetBoxPosition( ghMilitiaBox, &pPosition );
+
+		// grab box x and y position
+		iBoxXPosition = pPosition.iX;
+		iBoxYPosition = pPosition.iY;
+
+		// get dimensions..mostly for width
+		GetBoxSize( ghMilitiaBox, &pDimensions );
+
+		SetBoxSecondaryShade( ghMilitiaBox, FONT_YELLOW );
+
+		// get width
+		iBoxWidth = pDimensions.iRight;
+
+		SetCurrentBox( ghMilitiaBox );
+				
+		pSoldier = GetSelectedAssignSoldier( FALSE );
+
+		// train assignment
+		MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+			MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_TRAIN );
+		++iCount;
+
+		if ( gGameExternalOptions.fIndividualMilitia )
+		{
+			// drill assignment
+			MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+				MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+
+			MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
+			MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_DRILL );
+			++iCount;
+
+			if ( gGameExternalOptions.fIndividualMilitia_ManageHealth )
+			{
+				// doctor militia assignment
+				MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+					MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+
+				MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
+				MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_DOCTOR );
+				++iCount;
+			}
+		}
+
+		// cancel
+		MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+			MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_CANCEL );
+
+		PauseGame();
+
+		// unhighlight all strings in box
+		UnHighLightBox( ghMilitiaBox );
+
+		fCreated = TRUE;
+	}
+	else if ( ( gAssignMenuState != ASMENU_MILITIA || !fShowAssignmentMenu ) && fCreated )
+	{
+		fCreated = FALSE;
+
+		// remove these regions
+		for ( uiCounter = 0; uiCounter < GetNumberOfLinesOfTextInBox( ghMilitiaBox ); ++uiCounter )
+		{
+			MSYS_RemoveRegion( &gMilitia[uiCounter] );
+		}
+
+		gAssignMenuState = ASMENU_NONE;
+
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		HideBox( ghMilitiaBox );
+
+		fMapPanelDirty = TRUE;
+
+		if ( fShowAssignmentMenu )
+		{
+			// remove highlight on the parent menu
+			UnHighLightBox( ghAssignmentBox );
+		}
+	}
+}
+
+void MilitiaMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	// ignore clicks on disabled lines
+	if ( GetBoxShadeFlag( ghMilitiaBox, iValue ) )
+		return;
+
+	// WHAT is being repaired is stored in the second user data argument
+	INT32 iWhat = MSYS_GetRegionUserData( pRegion, 1 );
+
+	SOLDIERTYPE* pSoldier = GetSelectedAssignSoldier( FALSE );
+
+	if ( pSoldier && pSoldier->bActive && ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP ) )
+	{
+		switch ( iWhat )
+		{
+		case MILITIA_MENU_TRAIN:
+			// Full test of Character and Sector to see if this training is possible at the moment.
+			if ( !BasicCanCharacterTrainMilitia( pSoldier ) )
+			{
+				// No feedback. The menu options should be greyed out, anyway.
+				break;
+			}
+
+			// Check for specific errors why this merc should not be able to train, 
+			// and display a specific error message if one is encountered.
+			if ( !CanCharacterTrainMilitiaWithErrorReport( pSoldier ) )
+			{
+				// Error found. Breaking. Note that the above function DOES display feedback if an error is
+				// encountered at all.
+				break;
+			}
+
+			// PASSED ALL THE TESTS - ALLOW SOLDIER TO TRAIN MILITIA HERE
+
+			pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+			if ( ( pSoldier->bAssignment != TRAIN_TOWN ) )
+			{
+				SetTimeOfAssignmentChangeForMerc( pSoldier );
+			}
+
+			MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+			// stop showing menu
+			fShowAssignmentMenu = FALSE;
+			giAssignHighLine = -1;
+
+			// remove from squad
+
+			if ( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+
+			RemoveCharacterFromSquads( pSoldier );
+
+			ChangeSoldiersAssignment( pSoldier, TRAIN_TOWN );
+
+			// assign to a movement group
+			AssignMercToAMovementGroup( pSoldier );
+			if ( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )].fMilitiaTrainingPaid == FALSE )
+			{
+				// show a message to confirm player wants to charge cost
+				HandleInterfaceMessageForCostOfTrainingMilitia( pSoldier );
+			}
+			else
+			{
+				SetAssignmentForList( TRAIN_TOWN, 0 );
+			}
+			gfRenderPBInterface = TRUE;
+			break;
+
+		case MILITIA_MENU_DRILL:
+			if ( !CanCharacterDrillMilitia( pSoldier, TRUE ) )
+			{
+				break;
+			}
+			
+			pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+			if ( pSoldier->bAssignment != DRILL_MILITIA )
+			{
+				SetTimeOfAssignmentChangeForMerc( pSoldier );
+			}
+
+			if ( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+
+			ChangeSoldiersAssignment( pSoldier, DRILL_MILITIA );
+
+			// set assignment for group
+			SetAssignmentForList( (INT8)DRILL_MILITIA, 0 );
+			fShowAssignmentMenu = FALSE;
+
+			break;
+
+		case MILITIA_MENU_DOCTOR:
+			pSoldier->bOldAssignment = pSoldier->bAssignment;
+			
+			if ( pSoldier->bAssignment != DOCTOR_MILITIA )
+			{
+				SetTimeOfAssignmentChangeForMerc( pSoldier );
+			}
+
+			if ( pSoldier->bOldAssignment == VEHICLE )
+			{
+				TakeSoldierOutOfVehicle( pSoldier );
+			}
+
+			ChangeSoldiersAssignment( pSoldier, DOCTOR_MILITIA );
+
+			// set assignment for group
+			SetAssignmentForList( (INT8)DOCTOR_MILITIA, 0 );
+			fShowAssignmentMenu = FALSE;
+			break;
+
+		case MILITIA_MENU_CANCEL:
+		default:
+			// CANCEL
+			gAssignMenuState = ASMENU_NONE;
+			break;
+		}
+		
+		// update mapscreen
+		fCharacterInfoPanelDirty = TRUE;
+		fTeamPanelDirty = TRUE;
+		fMapScreenBottomDirty = TRUE;
+
+		giAssignHighLine = -1;
+	}
+}
+
+void MilitiaMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason )
+{
+	// mvt callback handler for assignment region
+	//INT32 iValue = MSYS_GetRegionUserData( pRegion, 1 );
+
+	if ( iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
+	{
+		/*if ( iValue < MILITIA_MENU_CANCEL )
+		{
+			if ( GetBoxShadeFlag( ghMilitiaBox, iValue ) == FALSE )
+			{
+				// highlight choice
+				HighLightBoxLine( ghMilitiaBox, iValue );
+			}
+		}
+		else
+		{
+			// highlight cancel line
+			HighLightBoxLine( ghMilitiaBox, GetNumberOfLinesOfTextInBox( ghMilitiaBox ) - 1 );
+		}*/
+
+		// mvt callback handler for assignment region
+		INT32 iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+		if ( GetBoxShadeFlag( ghMilitiaBox, iValue ) == FALSE )
+		{
+			// highlight choice
+			HighLightBoxLine( ghMilitiaBox, iValue );
+		}
+	}
+	else if ( iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		// unhighlight all strings in box
+		UnHighLightBox( ghMilitiaBox );
 	}
 }

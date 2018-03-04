@@ -94,6 +94,8 @@ enum
 	TRAIN_WORKERS,
 	CONCEALED,						// Flugente: spy hides among the population
 	GATHERINTEL,					// gathers information while disguised in enemy territory
+	DOCTOR_MILITIA,					// heal militia
+	DRILL_MILITIA,					// train existing militia (does not create new ones)
 	NUM_ASSIGNMENTS,
 };
 
@@ -172,6 +174,9 @@ typedef struct TOWN_TRAINER_TYPE
 // can this character be assigned as a doctor?
 BOOLEAN CanCharacterDoctor( SOLDIERTYPE *pCharacter );
 
+// can this character doctor militia (assignmentwise)?
+BOOLEAN CanCharacterDoctorMilitia( SOLDIERTYPE *pSoldier );
+
 // can this character diagnose diseases?
 BOOLEAN CanCharacterDiagnoseDisease( SOLDIERTYPE *pSoldier );
 
@@ -189,6 +194,8 @@ BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );
 BOOLEAN CanCharacterPatient( SOLDIERTYPE *pCharacter );
 
 // can character train militia?
+BOOLEAN CanCharacterMilitiaAssignment( SOLDIERTYPE *pSoldier );
+BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport = FALSE );
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pCharacter );
 BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier );
 
@@ -319,6 +326,7 @@ extern INT32 ghTrainingBox;
 extern INT32 ghMoveItemBox;
 extern INT32 ghDiseaseBox;
 extern INT32 ghSpyBox;
+extern INT32 ghMilitiaBox;
 extern INT32 ghAttributeBox;
 extern INT32 ghRemoveMercAssignBox;
 extern INT32 ghContractBox;
@@ -361,6 +369,7 @@ enum
 	ASMENU_TRAIN,
 	ASMENU_SQUAD,
 	ASMENU_SNITCH,
+	ASMENU_MILITIA,
 };
 
 extern int gAssignMenuState;
@@ -418,6 +427,11 @@ void DiseaseMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void CreateDestroyMouseRegionForSpyMenu( void );
 void SpyMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason );
 void SpyMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
+
+// Flugente: militia menu
+void CreateDestroyMouseRegionForMilitiaMenu( void );
+void MilitiaMenuMvtCallback( MOUSE_REGION * pRegion, INT32 iReason );
+void MilitiaMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 // HEADROCK HAM 3.6: Facility Menu
 void CreateDestroyMouseRegionForFacilityMenu( void );

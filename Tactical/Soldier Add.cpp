@@ -1731,7 +1731,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 				{
 					InternalSoldierInSectorSleep( pSoldier, pSoldier->sInsertionGridNo, FALSE );
 				}
-				else if ( IS_DOCTOR(pSoldier->bAssignment) )
+				else if ( IS_DOCTOR(pSoldier->bAssignment) || pSoldier->bAssignment == DOCTOR_MILITIA )
 				{
 					SoldierInSectorDoctor( pSoldier, pSoldier->sInsertionGridNo );
 				}

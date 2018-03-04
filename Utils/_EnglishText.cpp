@@ -2470,6 +2470,8 @@ STR16 pAssignmentStrings[] =
 	L"Train W.",
 	L"Hide",
 	L"GetIntel",
+	L"DoctorM.",
+	L"DMilitia",
 };
 
 
@@ -2575,6 +2577,8 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Train workers",
 	L"Hide while disguised",
 	L"Get intel while disguised",
+	L"Doctor wounded militia",
+	L"Drill existing militia",
 };
 
 
@@ -2639,6 +2643,8 @@ STR16 pLongAssignmentStrings[] =
 	L"Train workers",
 	L"Hide while disguised",
 	L"Get intel while disguised",
+	L"Doctor wounded militia",
+	L"Drill existing militia",
 };
 
 
@@ -2755,9 +2761,10 @@ STR16 pAssignMenuStrings[] =
 	L"Patient", // the merc is receiving medical attention
 	L"Vehicle", // the merc is in a vehicle
 	L"Repair", // the merc is repairing items 
-	L"Radio Scan", // Flugente: the merc is scanning for patrols in neighbouring sectors
+	L"Radio Scan", // the merc is scanning for patrols in neighbouring sectors
 	L"Snitch", // anv: snitch actions
 	L"Train", // the merc is training
+	L"Militia",		// all things militia
 	L"Get Item",	// move items
 	L"Fortify",		// fortify sector
 	L"Intel", // covert assignments
@@ -2982,13 +2989,12 @@ STR16 pAttributeMenuStrings[] =
 
 STR16 pTrainingMenuStrings[] =
 {
- L"Practice", // train yourself 
- L"Militia", // train the town 
- L"Mobile Militia",
- L"Train workers",
- L"Trainer", // train your teammates 
- L"Student",  // be trained by an instructor 
- L"Cancel", // cancel this menu
+	L"Practice", // train yourself
+	L"Mobile Militia",
+	L"Train workers",
+	L"Trainer", // train your teammates 
+	L"Student",  // be trained by an instructor 
+	L"Cancel", // cancel this menu
 };
 
 
@@ -4588,6 +4594,7 @@ STR16 pTransactionText[] =
 	L"Payment to Kerberus",	// Flugente: PMC
 	L"SAM site repair", // Flugente: SAM repair
 	L"Trained workers", // Flugente: train workers
+	L"Drill militia in %s",	// Flugente: drill militia
 };
 
 STR16 pTransactionAlternateText[] =
@@ -11430,6 +11437,14 @@ STR16	szChatTextEnemy[] =
 	L"... now that you mention it...",
 	L"... but where did all the chalk go...",
 	L"... had never even considered that...",
+};
+
+STR16	szMilitiaText[] =
+{
+	L"Train new militia",
+	L"Drill militia",
+	L"Doctor militia",
+	L"Cancel",
 };
 
 #endif //ENGLISH

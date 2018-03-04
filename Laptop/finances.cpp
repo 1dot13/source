@@ -1585,6 +1585,18 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 		case WORKERS_TRAINED:
 			swprintf( pString, L"%s", pTransactionText[pFinance->ubCode] );
 			break;
+
+		case PROMOTE_MILITIA:
+			{
+				CHAR16 str[128];
+				UINT8 ubSectorX;
+				UINT8 ubSectorY;
+				ubSectorX = (UINT8)SECTORX( pFinance->ubSecondCode );
+				ubSectorY = (UINT8)SECTORY( pFinance->ubSecondCode );
+				GetSectorIDString( ubSectorX, ubSectorY, 0, str, TRUE );
+				swprintf( pString, pTransactionText[PROMOTE_MILITIA], str );
+			}
+			break;
 	}
 }
 

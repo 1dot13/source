@@ -641,7 +641,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
 			// Flugente: update individual militia data
-			UpdateAllMilitiaHealthInTactical( );
+			ApplyTacticalLifeRatioToMilitia( );
 			
 			// Flugente: disease
 			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
@@ -686,7 +686,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
 			// Flugente: update individual militia data
-			UpdateAllMilitiaHealthInTactical( );
+			ApplyTacticalLifeRatioToMilitia( );
 
 			// Flugente: disease
 			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
@@ -779,7 +779,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, elites, regulars, greens);
 
 			// Flugente: update individual militia data
-			UpdateAllMilitiaHealthInTactical( );
+			ApplyTacticalLifeRatioToMilitia( );
 
 			// Flugente: disease
 			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
@@ -809,7 +809,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			MoveMilitiaEquipment(sMapX, sMapY, sTMapX, sTMapY, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ], pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ], pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ]);
 
 			// Flugente: update individual militia data
-			UpdateAllMilitiaHealthInTactical( );
+			ApplyTacticalLifeRatioToMilitia( );
 
 			UINT8 greens = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
 			UINT8 regulars = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
