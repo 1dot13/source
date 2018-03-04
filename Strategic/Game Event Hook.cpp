@@ -608,9 +608,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			RepairSamSite( pEvent->uiParam );
 			break;
 
-#ifdef JA2UB
-			// No Kingpin Events in UB
-#else
+#ifndef JA2UB
 		case EVENT_MILITIAROSTER_EMAIL:
 			AddEmail( MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
@@ -637,9 +635,11 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			ChangeWeather( (UINT8)pEvent->uiParam, WEATHER_FORECAST_SNOW );
 			break;
 
+#ifndef JA2UB
 		case EVENT_INTEL_ENRICO_EMAIL:
 			AddEmail( INTEL_ENRICO_INTRO, INTEL_ENRICO_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
 			break;
+#endif
 
 		case EVENT_INTEL_PHOTOFACT_VERIFY:
 			LuaVerifyPhotoState( (INT16)pEvent->uiParam );
