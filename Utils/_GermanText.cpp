@@ -2377,6 +2377,9 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"%s hat %s gereinigt.",
 	L"%s hat %s's %s gereinigt.",
+
+	L"Assignment not possible at the moment",	// TODO.Translate
+	L"No militia that can be drilled present.",
 };
 
 // the country and its noun in the game

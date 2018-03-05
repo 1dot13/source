@@ -194,7 +194,6 @@ BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );
 BOOLEAN CanCharacterPatient( SOLDIERTYPE *pCharacter );
 
 // can character train militia?
-BOOLEAN CanCharacterMilitiaAssignment( SOLDIERTYPE *pSoldier );
 BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport = FALSE );
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pCharacter );
 BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier );

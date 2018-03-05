@@ -1663,26 +1663,15 @@ BOOLEAN BasicCanCharacterDrillMilitia( SOLDIERTYPE *pSoldier )
 	return ( TRUE );
 }
 
-BOOLEAN CanCharacterMilitiaAssignment( SOLDIERTYPE *pSoldier )
-{
-	if ( CanCharacterTrainMilitia( pSoldier ) )
-		return TRUE;
-
-	if ( CanCharacterDrillMilitia( pSoldier ) )
-		return TRUE;
-
-	if ( CanCharacterDoctorMilitia( pSoldier ) )
-		return TRUE;
-
-	return FALSE;
-}
-
 BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 {
 	if ( !gGameExternalOptions.fIndividualMilitia )
 		return FALSE;
 
 	AssertNotNIL( pSoldier );
+
+	// Temp string.
+	CHAR16 sString[128];
 
 	if ( LaptopSaveInfo.iCurrentBalance <= 0 )
 	{
@@ -1694,7 +1683,7 @@ BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 	if ( !BasicCanCharacterDrillMilitia( pSoldier ) )
 	{
 		if ( aErrorReport )
-			DoScreenIndependantMessageBox( L"Assignment not possible at the moment", MSG_BOX_FLAG_OK, NULL );
+			DoScreenIndependantMessageBox( Message[STR_ASSIGNMENT_NOTPOSSIBLE], MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 	
@@ -1702,7 +1691,7 @@ BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 	if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 	{
 		if ( aErrorReport )
-			DoScreenIndependantMessageBox( L"Assignment not possible while enemies are still around.", MSG_BOX_FLAG_OK, NULL );
+			DoScreenIndependantMessageBox( Message[STR_SECTOR_NOT_CLEARED], MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 
@@ -1710,7 +1699,11 @@ BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 	if ( pSoldier->stats.bLeadership <= 0 )
 	{
 		if ( aErrorReport )
-			DoScreenIndependantMessageBox( L"Not enough leadership.", MSG_BOX_FLAG_OK, NULL );
+		{
+			swprintf( sString, New113HAMMessage[6], pSoldier->GetName() );
+			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+		}
+
 		return ( FALSE );
 	}
 	
@@ -1750,7 +1743,11 @@ BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 		if ( usEffectiveLeadership < gGameExternalOptions.ubMinimumLeadershipToTrainMilitia )
 		{
 			if ( aErrorReport )
-				DoScreenIndependantMessageBox( L"Not enough leadership.", MSG_BOX_FLAG_OK, NULL );
+			{
+				swprintf( sString, New113HAMMessage[6], pSoldier->GetName() );
+				DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
+			}
+
 			return ( FALSE );
 		}
 	}
@@ -1766,7 +1763,7 @@ BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 	}
 	
 	if ( aErrorReport )
-		DoScreenIndependantMessageBox( L"No militia that can be trained present.", MSG_BOX_FLAG_OK, NULL );
+		DoScreenIndependantMessageBox( Message[STR_ASSIGNMENT_NOMILITIAPRESENT], MSG_BOX_FLAG_OK, NULL );
 	return FALSE;
 }
 
@@ -10036,7 +10033,7 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 			}
 
 			// militia
-			if ( CanCharacterMilitiaAssignment( pSoldier ) )
+			if ( CanCharacterOnDuty( pSoldier ) )
 			{
 				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_MILITIA );
 			}
@@ -13500,7 +13497,8 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					break;
 
 				case ASSIGN_MENU_MILITIA:
-					if ( CanCharacterMilitiaAssignment( pSoldier ) )
+					// just a very basic check
+					if ( CanCharacterOnDuty( pSoldier ) )
 					{
 						gAssignMenuState = ASMENU_NONE;
 

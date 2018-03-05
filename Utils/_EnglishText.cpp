@@ -2361,6 +2361,9 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"%s has cleaned the %s.",
 	L"%s has cleaned %s's %s.",
+
+	L"Assignment not possible at the moment",
+	L"No militia that can be drilled present.",
 };
 
 // the country and its noun in the game
