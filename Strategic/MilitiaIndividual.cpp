@@ -660,11 +660,23 @@ FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd )
 			PossiblyPromoteIndividualMilitia( militia );
 
 			if ( militia.militiarank == REGULAR_MILITIA )
+			{
 				StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), GREEN_MILITIA, 1 );
+
+				MILITIA_BATTLEREPORT report;
+				report.id = GetWorldTotalMin();
+				report.flagmask |= MILITIA_BATTLEREPORT_FLAG_PROMOTED;
+				militia.history.push_back( report );
+			}
 			else if ( militia.militiarank == ELITE_MILITIA )
 			{
 				StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), GREEN_MILITIA, 1 );
 				StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), REGULAR_MILITIA, 1 );
+
+				MILITIA_BATTLEREPORT report;
+				report.id = GetWorldTotalMin();
+				report.flagmask |= MILITIA_BATTLEREPORT_FLAG_PROMOTED;
+				militia.history.push_back( report );
 			}
 			
 			UpdateMilitia( militia );
@@ -691,7 +703,14 @@ FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd )
 				PossiblyPromoteIndividualMilitia( militia );
 
 				if ( militia.militiarank == ELITE_MILITIA )
+				{
 					StrategicPromoteMilitiaInSector( SECTORX( aSector ), SECTORY( aSector ), REGULAR_MILITIA, 1 );
+
+					MILITIA_BATTLEREPORT report;
+					report.id = GetWorldTotalMin();
+					report.flagmask |= MILITIA_BATTLEREPORT_FLAG_PROMOTED;
+					militia.history.push_back( report );
+				}
 
 				UpdateMilitia( militia );
 			}
