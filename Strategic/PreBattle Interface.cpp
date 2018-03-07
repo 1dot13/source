@@ -2336,8 +2336,7 @@ BOOLEAN MilitiaGroupInvolvedInThisCombat( GROUP *pGroup )
 
 	// player group, non-empty, not between sectors, in the right sector, isn't a group of in transit, dead, or POW mercs,
 	// and either not the helicopter group, or the heli is on the ground
-	if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubGroupSize &&
-		 !pGroup->fBetweenSectors )
+	if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubGroupSize )
 	{
 		if ( CurrentBattleSectorIs( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ ) )
 		{
