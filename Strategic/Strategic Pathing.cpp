@@ -911,17 +911,14 @@ PathStPtr ClearStrategicPathListAfterThisSector( PathStPtr pHeadOfPath, INT16 sX
 	PathStPtr pDeleteNode = pHeadOfPath;
 	INT16 sSector = 0;
 	INT16 sCurrentSector = -1;
-
-
-
+	
 	// is there in fact a path?
 	if( pNode == NULL )
 	{
 		// no path, leave
 		return ( pNode );
 	}
-
-
+	
 	// get sector value
 	sSector = sX + ( sY * MAP_WORLD_X );
 
@@ -934,7 +931,6 @@ PathStPtr ClearStrategicPathListAfterThisSector( PathStPtr pHeadOfPath, INT16 sX
 	// move through list
 	while( ( pNode )&&( sSector != sCurrentSector ) )
 	{
-
 		// next value
 		pNode = pNode->pPrev;
 
@@ -951,8 +947,7 @@ PathStPtr ClearStrategicPathListAfterThisSector( PathStPtr pHeadOfPath, INT16 sX
 		// nope, leave
 		return ( pHeadOfPath );
 	}
-
-
+	
 	// we want to KEEP the target sector, not delete it, so advance to the next sector
 	pNode = pNode->pNext;
 
@@ -962,7 +957,6 @@ PathStPtr ClearStrategicPathListAfterThisSector( PathStPtr pHeadOfPath, INT16 sX
 		// that's it, leave
 		return ( pHeadOfPath );
 	}
-
 
 	// if we're NOT about to clear the head (there's a previous entry)
 	if( pNode->pPrev )
@@ -997,7 +991,104 @@ PathStPtr ClearStrategicPathListAfterThisSector( PathStPtr pHeadOfPath, INT16 sX
 		// delete delete node
 		MemFree( pDeleteNode );
 	}
+	
+	// clear out last node
+	MemFree( pNode );
+	pNode = NULL;
+	pDeleteNode = NULL;
 
+	return( pHeadOfPath );
+}
+
+PathStPtr ClearStrategicPathListBeforeThisSector( PathStPtr pHeadOfPath, INT16 sX, INT16 sY, INT16 sMvtGroup )
+{
+	// will clear out a strategic path and return head of list as NULL
+	PathStPtr pNode = pHeadOfPath;
+	PathStPtr pDeleteNode = pHeadOfPath;
+	INT16 sSector = 0;
+	INT16 sCurrentSector = -1;
+
+	// is there in fact a path?
+	if ( pNode == NULL )
+	{
+		// no path, leave
+		return ( pNode );
+	}
+
+	// get sector value
+	sSector = sX + ( sY * MAP_WORLD_X );
+
+	// go to end of list
+	pNode = MoveToBeginningOfPathList( pNode );
+
+	// get current sector value
+	sCurrentSector = (INT16)pNode->uiSectorId;
+
+	// move through list
+	while ( ( pNode ) && ( sSector != sCurrentSector ) )
+	{
+		// next value
+		pNode = pNode->pNext;
+
+		// get current sector value
+		if ( pNode != NULL )
+		{
+			sCurrentSector = (INT16)pNode->uiSectorId;
+		}
+	}
+
+	// did we find the target sector?
+	if ( pNode == NULL )
+	{
+		// nope, leave
+		return ( pHeadOfPath );
+	}
+
+	// we want to KEEP the target sector, not delete it, so advance to the next sector
+	pNode = pNode->pPrev;
+
+	// is nothing left?
+	if ( pNode == NULL )
+	{
+		// that's it, leave
+		return ( pHeadOfPath );
+	}
+
+	// if we're NOT about to clear the head (there's a previous entry)
+	if ( pNode->pNext )
+	{
+		// set next for tail to NULL
+		pNode->pNext->pPrev = NULL;
+	}
+	else
+	{
+		// clear head, return NULL
+		pHeadOfPath = ClearStrategicPathList( pHeadOfPath, sMvtGroup );
+
+		return ( NULL );
+	}
+
+	pHeadOfPath = pNode->pNext;
+
+	// clear list
+	while ( pNode->pPrev )
+	{
+		// set up delete node
+		pDeleteNode = pNode;
+
+		// move to next node
+		pNode = pNode->pPrev;
+
+		// check if we are clearing the head of the list
+		if ( pDeleteNode == pHeadOfPath )
+		{
+			// null out head
+			pHeadOfPath = NULL;
+		}
+
+		// delete delete node
+		MemFree( pDeleteNode );
+	}
 
 	// clear out last node
 	MemFree( pNode );

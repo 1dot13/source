@@ -2442,8 +2442,6 @@ void HandleNonCombatGroupArrival( GROUP *pGroup, BOOLEAN fMainGroup, BOOLEAN fNe
 			}
 		}
 
-		//MilitiaFollowPlayer( pGroup->ubPrevX, pGroup->ubPrevY, pGroup->ubSectorX, pGroup->ubSectorY );
-
 		// look for NPCs to stop for, anyone is too tired to keep going, if all OK rebuild waypoints & continue movement
 		// NOTE: Only the main group (first group arriving) will stop for NPCs, it's just too much hassle to stop them all
 		PlayerGroupArrivedSafelyInSector( pGroup, fMainGroup );
@@ -2501,7 +2499,7 @@ void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, 
 	}
 
 	// Flugente: concealed spies are added if a battle occurs
-	if ( !IsGroupTheHelicopterGroup( pArrivingGroup ) )
+	if ( pArrivingGroup && !IsGroupTheHelicopterGroup( pArrivingGroup ) )
 	{
 		UINT16 uiCnt = 0;
 		SOLDIERTYPE* pSoldier = NULL;

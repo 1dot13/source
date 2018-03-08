@@ -8948,7 +8948,8 @@ void PollLeftButtonInMapView( UINT32 *puiNewEvent )
 					}
 					else	// clicked on a new sector
 					{
-						gfAllowSkyriderTooFarQuote = TRUE;
+						if ( fPlotForHelicopter )
+							gfAllowSkyriderTooFarQuote = TRUE;
 
 						// draw new map route
 						*puiNewEvent = MAP_EVENT_PLOT_PATH;
@@ -8980,8 +8981,7 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 {
 	static BOOLEAN	fRBBeenPressedInMapView = FALSE;
 	INT16 sMapX, sMapY;
-
-
+	
 	// if the mouse is currently over the MAP area
 	if ( gMapViewRegion.uiFlags & MSYS_MOUSE_IN_AREA )
 	{
@@ -12487,7 +12487,6 @@ BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone )
 	return ( FALSE );
 }
 
-
 void HandleSpontanousTalking(	)
 {
 	// simply polls if the talking guy is done, if so...send an end command to continue dialogue
@@ -12499,10 +12498,7 @@ void HandleSpontanousTalking(	)
 			ContinueDialogue( ( &Menptr[gCharactersList[bSelectedInfoChar].usSolID] ), TRUE );
 		}
 	}
-
-	return;
 }
-
 
 BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 {
@@ -12510,8 +12506,7 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 	BOOLEAN fLastSectorInPath = FALSE;
 	INT32 iVehicleId = -1;
 	PathStPtr pPreviousMercPath = NULL;
-
-
+	
 	// see if we have clicked on the last sector in the characters path
 
 	// check if helicopter
@@ -12545,23 +12540,24 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 		// helicopter route confirmed
 		if ( gMilitiaPath[gMilitiaGroupId].sGroupid > -1 && sX + (sY * MAP_WORLD_X) == GetLastSectorOfMilitiaPath( ) )
 		{
-			// if confirm moving to another sector
-			//if( ( CheckForClickOverHelicopterIcon( sX, sY ) == FALSE ) )
-			{
-				// take off
-				//TakeOffHelicopter( );
-			}
+			// rebuild waypoints
+			ppMovePath = &( gMilitiaPath[gMilitiaGroupId].path );
 
-			// rebuild waypoints - helicopter
-			ppMovePath = &(gMilitiaPath[gMilitiaGroupId].path);
+			// if our current sector is in our path, and we are not moving, we can obviously delete what came before it from the path
+			// (this was added as there were occasions where the previous path was not properly cleared even though the group was no longer travelling)
+			GROUP* pGroup = GetGroup( (UINT8)gMilitiaPath[gMilitiaGroupId].sGroupid );
+
+			if ( pGroup && pGroup->usGroupTeam == MILITIA_TEAM && !pGroup->fBetweenSectors )
+			{
+				*ppMovePath = ClearStrategicPathListBeforeThisSector( *ppMovePath, pGroup->ubSectorX, pGroup->ubSectorY, gMilitiaPath[gMilitiaGroupId].sGroupid );
+			}
+			
 			RebuildWayPointsForGroupPath( *ppMovePath, (UINT8)gMilitiaPath[gMilitiaGroupId].sGroupid );
 
-			// pointer to previous helicopter path
+			// pointer to previous path
 			pPreviousMercPath = gpMilitiaPreviousMercPath;
 
 			fLastSectorInPath = TRUE;
-
-			//gMilitiaPlotStartSector = (INT16)(sX + sY*(MAP_WORLD_X));//SECTOR(sX, sY);
 		}
 	}
 	else	// not doing helicopter movement

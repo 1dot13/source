@@ -67,6 +67,9 @@ PathStPtr RemoveSectorFromStrategicPathList( PathStPtr pList , INT16 sX, INT16 s
 // clear out path list after/including this sector sX, sY..will start at end of path and work it's way back till sector is found...removes most recent sectors first
 PathStPtr ClearStrategicPathListAfterThisSector( PathStPtr pHeadOfPath, INT16 sX, INT16 sY, INT16 sMvtGroup );
 
+// similar to above, clear out the path from the start until the sector is found
+PathStPtr ClearStrategicPathListBeforeThisSector( PathStPtr pHeadOfPath, INT16 sX, INT16 sY, INT16 sMvtGroup );
+
 // get id of last sector in mercs path list
 INT16 GetLastSectorIdInCharactersPath( SOLDIERTYPE *pCharacter );
 
