@@ -286,7 +286,6 @@
 		<szFacilityName>Legacy Militia Training Facility</szFacilityName>
 		<szFacilityShortName>Legacy</szFacilityShortName>
 		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
-		<ubMobileMilitiaTrainersAllowed>2</ubMobileMilitiaTrainersAllowed>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
