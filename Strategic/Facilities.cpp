@@ -397,17 +397,7 @@ void UpdateStrategicDetectionLevel( )
 
 				/////////////////////////////////////////////////////////
 				// Begin testing for facility detection bonuses.
-
-				// Does game allow Dynamic Roaming Militia?
-				if (gGameExternalOptions.fDynamicRestrictRoaming)
-				{
-					// Does facility allow Dynamic Detection?
-					if (GetFacilityModifier(FACILITY_DETECT_DYNAMIC, ubFacilityType, ubAssignmentType))
-					{
-						ubStrategicDetectionLevel |= (1 << DETECT_ENEMIES_DYNAMIC);
-					}
-				}
-
+								
 				// Does facility allow Long-Range Detection?
 				if (GetFacilityModifier(FACILITY_DETECT_LONGRANGE, ubFacilityType, ubAssignmentType))
 				{
@@ -461,24 +451,16 @@ void UpdateStrategicDetectionLevel( )
 				}
 			}
 		}
-		ubCounter++;
+		++ubCounter;
 	}
+
 	// Some flags have been set. Run through all sectors and apply this.
-	for (UINT16 X = 0; X < 256; X++)
+	for (UINT16 X = 0; X < 256; ++X)
 	{
 		// Reset detection level first
 		// sevenfm: this will disable enemy detection using facility, and detection levels are already zeroed in this function
 		//SectorInfo[X].ubDetectionLevel = 0;
-
-		if (ubStrategicDetectionLevel & (1<<DETECT_ENEMIES_DYNAMIC))
-		{
-			// Is sector allowed for militia roaming?
-			if (IsSectorRoamingAllowed( X ) )
-			{
-				// Enemy is in a militia-allowed area, and is always visible.
-				SectorInfo[X].ubDetectionLevel |= 1;
-			}
-		}
+				
 		if (ubStrategicDetectionLevel & (1<<DETECT_ENEMIES_LONGRANGE))
 		{
 			if( GetSectorFlagStatus( SECTORX(X), SECTORY(X), 0, SF_ALREADY_VISITED ) == TRUE )

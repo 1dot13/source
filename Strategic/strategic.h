@@ -65,6 +65,4 @@ void HandleSoldierDeadComments( SOLDIERTYPE *pSoldier );
 
 BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier );
 
-BOOLEAN SetMilitiaMovementOrder(INT16 sX, INT16 sY, INT8 sZ, UINT32 dir);
-
 #endif

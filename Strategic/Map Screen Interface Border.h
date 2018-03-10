@@ -6,9 +6,6 @@
 //#define	 MAP_BORDER_START_X	261
 //#define	 MAP_BORDER_START_Y	0
 
-
-
-
 // scroll directions
 enum{
 	ZOOM_MAP_SCROLL_UP =0,
@@ -30,12 +27,10 @@ enum{
 	MAP_BORDER_AIRSPACE_BTN,
 	MAP_BORDER_ITEM_BTN,
 	MAP_BORDER_MILITIA_BTN,
-	MAP_BORDER_MOBILE_BTN,		// HEADROCK HAM 4: Mobile Militia Restrictions button
 	MAP_BORDER_DISEASE_BTN,		// Flugente: toggle disease views
 	MAP_BORDER_WEATHER_BTN,		// Flugente: toggle weather display
 	NUM_MAP_BORDER_BTNS,		// end enumeration marker
 };
-
 
 // HEADROCK HAM 4: Turned these into EXTERNS to allow dynamic modification
 //#define MAP_LEVEL_MARKER_X			(MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114))	//MAP_BORDER_X + MAP_BORDER_X_OFFSET + 384		//(SCREEN_WIDTH - 75)			//565
@@ -43,7 +38,6 @@ extern UINT16 MAP_LEVEL_MARKER_X;
 extern UINT16 MAP_LEVEL_MARKER_Y;
 extern UINT16 MAP_LEVEL_MARKER_DELTA;
 extern UINT16 MAP_LEVEL_MARKER_WIDTH;
-
 
 extern BOOLEAN fShowTownFlag;
 extern BOOLEAN fShowMineFlag;
@@ -57,7 +51,6 @@ enum
 	MAP_DISPLAY_NORMAL,
 	MAP_DISPLAY_AIRSPACE,
 	MAP_DISPLAY_AIRSPACE_COLOURED_SAMS,
-	MAP_DISPLAY_MOBILEMILITIARESTRICTIONS,
 	MAP_DISPLAY_DISEASE,
 	MAP_DISPLAY_WEATHER,
 };
@@ -71,8 +64,6 @@ extern INT32 giScrollButtonState;
 BOOLEAN LoadMapBorderGraphics( void );
 void DeleteMapBorderGraphics( void );
 void RenderMapBorder( void );
-//void ShowDestinationOfPlottedPath( STR16 pLoc );
-//void ResetAircraftButton( void );
 
 void ToggleShowTownsMode( void );
 void ToggleShowMinesMode( void );
@@ -80,8 +71,6 @@ void ToggleShowMilitiaMode( void );
 void ToggleShowTeamsMode( void );
 void ToggleAirspaceMode( void );
 void ToggleItemsFilter( void );
-// HEADROCK HAM 4: Toggle Mobile Militia Restrictions Filter
-void ToggleMobileFilter( void );
 
 // Flugente: disease
 void ToggleDiseaseFilter( );
@@ -92,8 +81,6 @@ void ToggleWeatherFilter( );
 void TurnOnShowTeamsMode( void );
 void TurnOnAirSpaceMode( void );
 void TurnOnItemFilterMode( void );
-// HEADROCK HAM 4: Turn on Mobile Militia Restrictions Filter
-void TurnOnMobileFilterMode( void );
 
 // Flugente: disease
 void TurnOnDiseaseFilterMode();
@@ -108,8 +95,6 @@ BOOLEAN CreateButtonsForMapBorder( void );
 // render the pop up for eta	in path plotting in map screen
 void RenderMapBorderEtaPopUp( void );
 BOOLEAN DoesPlayerHaveAnyMilitia( void );
-// HEADROCK HAM 4: Same with Mobiles.
-UINT8 DoesPlayerHaveAnyMobileMilitia( void );
 
 // create mouse regions for level markers
 void CreateMouseRegionsForLevelMarkers( void );

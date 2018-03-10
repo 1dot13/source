@@ -131,12 +131,10 @@
     <ClCompile Include="XML_Bloodcats.cpp" />
     <ClCompile Include="XML_CoolnessBySector.cpp" />
     <ClCompile Include="XML_Creatures.cpp" />
-    <ClCompile Include="XML_DynamicRestrictions.cpp" />
     <ClCompile Include="XML_ExtraItems.cpp" />
     <ClCompile Include="XML_Facilities.cpp" />
     <ClCompile Include="XML_FacilityTypes.cpp" />
     <ClCompile Include="XML_Minerals.cpp" />
-    <ClCompile Include="XML_Roaming.cpp" />
     <ClCompile Include="XML_SectorNames.cpp" />
     <ClCompile Include="XML_SquadNames.cpp" />
     <ClCompile Include="XML_UniformColors.cpp" />

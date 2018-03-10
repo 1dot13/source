@@ -588,13 +588,7 @@ void MercDailyUpdate()
 #endif
 	// rebuild list for mapscreen
 	ReBuildCharactersList( );
-	// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions.
-	if (gGameExternalOptions.fDynamicRestrictRoaming)
-	{
-		// HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
-		AdjustRoamingRestrictions( FALSE );
-	}
-
+	
 	// Buggler: Pay income for operating Facilities today.
 	if (giTotalEarnedForFacilityOperationsToday)
 	{

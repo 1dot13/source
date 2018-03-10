@@ -468,9 +468,9 @@ void AddTextToTownBox( void )
 		}
 
 		// prisoners
-		swprintf( wString, L"%s:", pwTownInfoStrings[ 13 ] );
+		swprintf( wString, L"%s:", pwTownInfoStrings[ 12 ] );
 		AddMonoString( &hStringHandle, wString );
-		swprintf( wString, pwTownInfoStrings[14], numprisoners, capacity );
+		swprintf( wString, pwTownInfoStrings[13], numprisoners, capacity );
 		AddSecondColumnMonoString( &hStringHandle, wString );
 
 		for ( int i = 0; i < PRISONER_MAX; ++i )
@@ -479,7 +479,7 @@ void AddTextToTownBox( void )
 			{
 				swprintf( wString, L"" );
 				AddMonoString( &hStringHandle, wString );
-				swprintf( wString, pwTownInfoStrings[15 + i], aPrisoners[i] );
+				swprintf( wString, pwTownInfoStrings[14 + i], aPrisoners[i] );
 				AddSecondColumnMonoString( &hStringHandle, wString );
 			}
 		}
@@ -817,8 +817,7 @@ void AddCommonInfoToBox(void)
 		// No/Yes
 		swprintf( wString, L"%s", pwMiscSectorStrings[ ( StrategicMap[ CALCULATE_STRATEGIC_INDEX( bCurrentTownMineSectorX, bCurrentTownMineSectorY ) ].fEnemyControlled ) ? 6 : 5 ] );
 		AddSecondColumnMonoString( &hStringHandle, wString );
-
-
+		
 		// militia - is there any?
 		swprintf( wString, L"%s:", pwTownInfoStrings[ 11 ] );
 		AddMonoString( &hStringHandle, wString );
@@ -842,23 +841,25 @@ void AddCommonInfoToBox(void)
 
 		// HEADROCK HAM 3.6: Only show these for sectors that have a training facility
 		BOOLEAN fMilitiaTrainingAllowed = FALSE;
-		BOOLEAN fMobileTrainingAllowed = FALSE;
 
 		// percentage of current militia squad training completed
 		swprintf( wString, L"%s:", pwTownInfoStrings[ 10 ] );
 		AddMonoString( &hStringHandle, wString );
 
 		// Sector contains Militia training facility?
-		for (UINT8 ubCounter = 0; ubCounter < MAX_NUM_FACILITY_TYPES; ubCounter++)
+		for (UINT8 ubCounter = 0; ubCounter < MAX_NUM_FACILITY_TYPES; ++ubCounter)
 		{
 			if (gFacilityLocations[usSectorValue][ubCounter].fFacilityHere)
 			{
 				if (gFacilityTypes[ubCounter].ubMilitiaTrainersAllowed)
 				{
 					fMilitiaTrainingAllowed = TRUE;
+
+					break;
 				}
 			}
 		}
+
 		if (fMilitiaTrainingAllowed)
 		{
 			// Show percent completed
@@ -870,36 +871,7 @@ void AddCommonInfoToBox(void)
 			// Show N/A
 			AddSecondColumnMonoString( &hStringHandle, New113HAMMessage[19] );
 		}
-
-		// HEADROCK HAM 3.6: percentage of current Mobile Militia squad training completed
-		swprintf( wString, L"%s:", pwTownInfoStrings[ 12 ] );
-		AddMonoString( &hStringHandle, wString );
-
-		// Sector contains Mobile training facility?
-		for (UINT8 ubCounter = 0; ubCounter < MAX_NUM_FACILITY_TYPES; ubCounter++)
-		{
-			if (gFacilityLocations[usSectorValue][ubCounter].fFacilityHere)
-			{
-				if (gFacilityTypes[ubCounter].ubMobileMilitiaTrainersAllowed)
-				{
-					fMobileTrainingAllowed = TRUE;
-				}
-			}
-		}
-
-		if (fMobileTrainingAllowed)
-		{
-			// Show percentage completed
-			swprintf( wString, L"%d%%%%", SectorInfo[ usSectorValue ].ubMobileMilitiaTrainingPercentDone );
-			AddSecondColumnMonoString( &hStringHandle, wString );
-		}
-		else
-		{
-			// Show N/A
-			AddSecondColumnMonoString( &hStringHandle, New113HAMMessage[19] );
-		}
 	}
-
 
 	// enemy forces
 	swprintf( wString, L"%s:", pwMiscSectorStrings[ 0 ] );

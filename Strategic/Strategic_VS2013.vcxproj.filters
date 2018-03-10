@@ -308,9 +308,6 @@
     <ClCompile Include="XML_Bloodcats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XML_DynamicRestrictions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="XML_ExtraItems.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -318,9 +315,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_FacilityTypes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XML_Roaming.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XML_SectorNames.cpp">

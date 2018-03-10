@@ -744,13 +744,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIONDATAFILENAME);
 	SGP_THROW_IFFALSE(ReadInExplosionDataStats(fileName),EXPLOSIONDATAFILENAME);
-
-	// Kaiden: Read in Restricted Sectors for Mobile Militia
-	strcpy(fileName, directoryName);
-	strcat(fileName, ROAMINGMILITIAFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInRoamingInfo(fileName),ROAMINGMILITIAFILENAME);
-
+		
 	// Dealtar: Read in shipping destinations and delivery methods
 	strcpy(fileName, directoryName);
 	strcat(fileName, SHIPPINGDESTINATIONSFILENAME);
@@ -791,13 +785,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, SECTORFACILITIESFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	SGP_THROW_IFFALSE(ReadInSectorFacilities(fileName), SECTORFACILITIESFILENAME);
-
-	// HEADROCK HAM 3.4: Read in dynamic roaming restrictions
-	strcpy(fileName, directoryName);
-	strcat(fileName, DYNAMICROAMINGFILENAME);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInDynamicRoamingRestrictions(fileName), DYNAMICROAMINGFILENAME);
-	
+			
 	// HEADROCK HAM 3.6: Read in customized sector names
 	strcpy(fileName, directoryName);
 	strcat(fileName, SECTORNAMESFILENAME);

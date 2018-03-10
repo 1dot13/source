@@ -25,8 +25,6 @@
 	#include "Assignments.h"
 	// HEADROCK HAM 4: Now accepts INI settings
 	#include "GameSettings.h"
-	// Also include Town Militia for checks regarding Mobile Militia Restrictions
-	#include "Town Militia.h"
 	// Also include Quests, for checking whether a fact is true.
 	#include "Quests.h"	
 	// HEADROCK HAM 5: Required for inventory filter popup
@@ -54,8 +52,6 @@ UINT16	MAP_BORDER_ITEM_BTN_X;
 UINT16 MAP_BORDER_ITEM_BTN_Y;
 UINT16	MAP_BORDER_MILITIA_BTN_X;
 UINT16 MAP_BORDER_MILITIA_BTN_Y;
-UINT16 MAP_BORDER_MOBILE_BTN_X;
-UINT16 MAP_BORDER_MOBILE_BTN_Y;
 UINT16 MAP_BORDER_DISEASE_BTN_X;	// Flugente: disease
 UINT16 MAP_BORDER_DISEASE_BTN_Y;
 UINT16 MAP_BORDER_WEATHER_BTN_X;	// Flugente: weather
@@ -128,8 +124,6 @@ void BtnItemCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnAircraftCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnTeamCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnMilitiaCallback(GUI_BUTTON *btn,INT32 reason);
-// HEADROCK HAM 4: Mobile Restrictions Button callback
-void BtnMobileCallback(GUI_BUTTON *btn,INT32 reason);
 
 // Flugente: disease
 void BtnDiseaseCallback(GUI_BUTTON *btn,INT32 reason);
@@ -204,22 +198,14 @@ void RenderMapBorder( void )
 
 	// get and blt border
 	GetVideoObject(&hHandle, guiMapBorder );
-	// HEADROCK HAM 4: Load different map border depending on whether we want to display the mobile militia button or not.
-	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-	{
-		BltVideoObject( guiSAVEBUFFER , hHandle, 1, xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
-	}
-	else
-	{
-		BltVideoObject( guiSAVEBUFFER , hHandle, 0, xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
-	}
+	
+	BltVideoObject( guiSAVEBUFFER, hHandle, 0, xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 	RestoreExternBackgroundRect( xResOffset + MAP_BORDER_X, yResOffset + MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset, SCREEN_HEIGHT - 121 - 2 * yResOffset);
 
 	// show the level marker
 	DisplayCurrentLevelMarker( );
 }
-
 
 void RenderMapBorderEtaPopUp( void )
 {
@@ -299,17 +285,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	giMapBorderButtons[ MAP_BORDER_ITEM_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ], MAP_BORDER_ITEM_BTN_X, MAP_BORDER_ITEM_BTN_Y,
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnItemCallback);
-
-	// WANNE: Only display the buton when mobile militia is allowed!
-	// HEADROCK HAM 4: Mobile Restrictions Button
-	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-	{
-		giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,20,-1,21,-1 );
-		giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MOBILE_BTN ], MAP_BORDER_MOBILE_BTN_X, MAP_BORDER_MOBILE_BTN_Y,
-											BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
-											(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMobileCallback);
-	}
-			
+				
 	// set up fast help text
 	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_TOWN_BTN ] );
 	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MINE_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MINE_BTN ] );
@@ -317,9 +293,6 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_AIRSPACE_BTN ] );
 	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_ITEM_BTN ] );
 	SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MILITIA_BTN ] );
-		
-	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-		SetButtonFastHelpText( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ], pMapScreenBorderButtonHelpText[ MAP_BORDER_MOBILE_BTN ] ); // HEADROCK HAM 4: Mobile Militia button
 	
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_TOWN_BTN ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MINE_BTN ], MSYS_NO_CURSOR );
@@ -327,10 +300,7 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], MSYS_NO_CURSOR );
-
-	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-		SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ], MSYS_NO_CURSOR ); // HEADROCK HAM 4: Mobile Militia button
-	
+		
 	// Flugente: disease
 	if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic )
 	{
@@ -436,7 +406,6 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ]); 
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ]); 
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_ITEM_BTN ]); 
-	   DisableButton( giMapBorderButtons[ MAP_BORDER_MOBILE_BTN ]);
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_DISEASE_BTN ]); 
 	   DisableButton( giMapBorderButtons[ MAP_BORDER_WEATHER_BTN ]); 
 	   	   	   
@@ -447,7 +416,6 @@ BOOLEAN CreateButtonsForMapBorder( void )
 
 	return( TRUE );
 }
-
 
 void DeleteMapBorderButtons( void )
 {
@@ -576,22 +544,6 @@ void BtnWeatherCallback( GUI_BUTTON *btn, INT32 reason )
 	}
 }
 
-// HEADROCK HAM 4: Callback for Mobile Restrictions Button
-void BtnMobileCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		CommonBtnCallbackBtnDownChecks();
-
-		ToggleMobileFilter();
-	}
-	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
-	{
-		CommonBtnCallbackBtnDownChecks();
-	}
-}
-
-
 void ToggleShowTownsMode( void )
 {
 	if( fShowTownFlag == TRUE )
@@ -691,8 +643,7 @@ void ToggleShowMilitiaMode( void )
 
 			// if he's already training some
 			// HEADROCK HAM 3.6: Also for Mobile trainers.
-			if( IsAnyOneOnPlayersTeamOnThisAssignment( TRAIN_TOWN ) ||
-				IsAnyOneOnPlayersTeamOnThisAssignment( TRAIN_MOBILE ) )
+			if( IsAnyOneOnPlayersTeamOnThisAssignment( TRAIN_TOWN ) )
 			{
 				// say they'll show up when training is completed
 				pwString = pMapErrorString[ 28 ];
@@ -829,48 +780,6 @@ void ToggleWeatherFilter( void )
 	}
 }
 
-// HEADROCK HAM 4: Toggle Mobile Restrictions Button
-void ToggleMobileFilter( void )
-{
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_MOBILEMILITIARESTRICTIONS )
-	{
-		gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
-
-		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
-
-		// dirty regions
-		fMapPanelDirty = TRUE;
-		fTeamPanelDirty = TRUE;
-		fCharacterInfoPanelDirty = TRUE;
-		fMapScreenBottomDirty = TRUE;
-	}
-	else
-	{
-		// turn items ON
-		TurnOnMobileFilterMode();
-	}
-}
-
-/*
-void ShowDestinationOfPlottedPath( STR16 pLoc )
-{
-	INT16 sFontX, sFontY;
-
-	SetFontDestBuffer( FRAME_BUFFER, 0, 0, 640, 480, FALSE );
-
-	SetFont( COMPFONT );
-	SetFontForeground( 183 );
-	SetFontBackground( FONT_BLACK );
-
-	VarFindFontCenterCoordinates( 461, 344,	70, 12,	COMPFONT, &sFontX, &sFontY, pLoc );
-	gprintfdirty(sFontX, sFontY, pLoc );
-	mprintf(sFontX, sFontY, pLoc	);
-
-	return;
-}
-*/
-
-
 void DisplayCurrentLevelMarker( void )
 {
 	// display the current level marker on the map border
@@ -882,18 +791,14 @@ void DisplayCurrentLevelMarker( void )
 	BltVideoObject( guiSAVEBUFFER , hHandle, 0,	MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), VO_BLT_SRCTRANSPARENCY,NULL );
 
 	RestoreExternBackgroundRect(MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), 55, 9);
-
-
-	return;
 }
-
 
 void CreateMouseRegionsForLevelMarkers( void )
 {
 	INT16 sCounter = 0;
 	CHAR16 sString[ 64 ];
 
-	for( sCounter = 0; sCounter	< 4 ; sCounter++ )
+	for( sCounter = 0; sCounter	< 4 ; ++sCounter )
 	{
 		MSYS_DefineRegion(&LevelMouseRegions[ sCounter ], MAP_LEVEL_MARKER_X, ( INT16 )( MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * sCounter ) ),	MAP_LEVEL_MARKER_X + MAP_LEVEL_MARKER_WIDTH, ( INT16 )( MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( sCounter + 1 ) ) ), MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR,
 			MSYS_NO_CALLBACK, LevelMarkerBtnCallback );
@@ -962,8 +867,6 @@ void TurnOnShowTeamsMode( void )
 	}
 }
 
-
-
 void TurnOnAirSpaceMode( void )
 {
 	// if mode already on, leave, else set and redraw
@@ -976,7 +879,6 @@ void TurnOnAirSpaceMode( void )
 	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 	{
 		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 
@@ -1103,7 +1005,6 @@ void TurnOnDiseaseFilterMode( void )
 		gusMapDisplayColourMode = MAP_DISPLAY_DISEASE;
 
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
 		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 
@@ -1149,7 +1050,7 @@ void TurnOnDiseaseFilterMode( void )
 
 		if ( !gubFact[FACT_DISEASE_VIEWED] )
 		{
-			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, zMarksMapScreenText[27] );
+			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, zMarksMapScreenText[25] );
 
 			SetFactTrue( FACT_DISEASE_VIEWED );
 		}
@@ -1169,7 +1070,6 @@ void TurnOnWeatherFilterMode()
 		gusMapDisplayColourMode = MAP_DISPLAY_WEATHER;
 
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		MapBorderButtonOn( MAP_BORDER_WEATHER_BTN );
 
@@ -1217,7 +1117,7 @@ void TurnOnWeatherFilterMode()
 		static BOOLEAN sWeatherviewed = FALSE;
 		if ( !sWeatherviewed )
 		{
-			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, zMarksMapScreenText[28] );
+			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, zMarksMapScreenText[26] );
 
 			sWeatherviewed = TRUE;
 		}
@@ -1228,82 +1128,6 @@ void TurnOnWeatherFilterMode()
 		fCharacterInfoPanelDirty = TRUE;
 	}
 }
-
-// HEADROCK HAM 4: Activate "View Mobile Restrictions" mode.
-void TurnOnMobileFilterMode( void )
-{
-	// if mode already on, leave, else set and redraw
-
-	if ( gusMapDisplayColourMode != MAP_DISPLAY_MOBILEMILITIARESTRICTIONS )
-	{
-		gusMapDisplayColourMode = MAP_DISPLAY_MOBILEMILITIARESTRICTIONS;
-
-		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
-		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
-		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
-
-		// Also turn on Militia mode
-		fShowMilitia = FALSE; // Fool the function so that it always turns militia ON.
-		ToggleShowMilitiaMode();
-
-		if( fShowMineFlag == TRUE )
-		{
-			fShowMineFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_MINE_BTN );
-		}
-
-		if( fShowTeamFlag == TRUE )
-		{
-			fShowTeamFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_TEAMS_BTN );
-		}
-		
-		// Turn off items
-		if( fShowItemsFlag == TRUE )
-		{
-			fShowItemsFlag = FALSE;
-			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
-		}
-		
-		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
-		{
-			AbortMovementPlottingMode( );
-		}
-		else if ( gfInChangeArrivalSectorMode )
-		{
-			CancelChangeArrivalSectorMode( );
-		}
-
-		STR16 pwString = NULL;
-
-		// check if player has any Mobile militia
-		if ( DoesPlayerHaveAnyMobileMilitia( ) == 1 )
-		{
-			// say you need to train mobiles first
-			pwString = zMarksMapScreenText[ 25 ];
-
-			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pwString );
-		}
-
-		if ( !gubFact[ FACT_MOBILE_RESTRICTIONS_VIEWED ] )
-		{
-			// say you need to train mobiles first
-			pwString = zMarksMapScreenText[ 26 ];
-
-			MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pwString );
-
-			SetFactTrue( FACT_MOBILE_RESTRICTIONS_VIEWED );
-		}
-
-		// dirty regions
-		fMapPanelDirty = TRUE;
-		fTeamPanelDirty = TRUE;
-		fCharacterInfoPanelDirty = TRUE;
-		fMapScreenBottomDirty = TRUE;
-	}
-}
-
 
 void InitializeMapBorderButtonStates( void )
 {
@@ -1357,35 +1181,23 @@ void InitializeMapBorderButtonStates( void )
 	case MAP_DISPLAY_AIRSPACE:
 	case MAP_DISPLAY_AIRSPACE_COLOURED_SAMS:
 		MapBorderButtonOn( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 		break;
-
-	case MAP_DISPLAY_MOBILEMILITIARESTRICTIONS:
-		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOn( MAP_BORDER_MOBILE_BTN );
-		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
-		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
-		break;
-
+		
 	case MAP_DISPLAY_DISEASE:
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOn( MAP_BORDER_DISEASE_BTN );
 		MapBorderButtonOff( MAP_BORDER_WEATHER_BTN );
 		break;
 
 	case MAP_DISPLAY_WEATHER:
 		MapBorderButtonOff( MAP_BORDER_AIRSPACE_BTN );
-		MapBorderButtonOff( MAP_BORDER_MOBILE_BTN );
 		MapBorderButtonOff( MAP_BORDER_DISEASE_BTN );
 		MapBorderButtonOn( MAP_BORDER_WEATHER_BTN );
 		break;
 	}
 }
-
-
 
 BOOLEAN DoesPlayerHaveAnyMilitia( void )
 {
@@ -1406,38 +1218,6 @@ BOOLEAN DoesPlayerHaveAnyMilitia( void )
 	return( FALSE );
 }
 
-// HEADROCK HAM 4: Check for Mobile Militia
-UINT8 DoesPlayerHaveAnyMobileMilitia( void )
-{
-	if ( !gGameExternalOptions.gfAllowMilitiaGroups || gGameExternalOptions.fMilitiaStrategicCommand )
-	{
-		// Mobile Militia not allowed at all.
-		return (0);
-	}
-
-	// run through list of towns that might have militia..if any return TRUE..else return FALSE
-	for ( INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
-	{
-		for ( INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
-		{
-			// Look only in sectors where Militia Training is not allowed at all. If any militia are found there,
-			// it means that they had to MOVE there, hence mobile militia.
-			if (!MilitiaTrainingAllowedInSector( sX, sY, 0 ))
-			{
-				if ( NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) > 0 )
-				{
-					// found at least one
-					return( 2 );
-				}
-			}
-		}
-	}
-
-	// Militia are allowed, but none have been found.
-	return( 1 );
-}
-
-
 void CommonBtnCallbackBtnDownChecks( void )
 {
 	if( IsMapScreenHelpTextUp() )
@@ -1453,8 +1233,6 @@ void CommonBtnCallbackBtnDownChecks( void )
 	}
 }
 
-
-
 void InitMapScreenFlags( void )
 {
 	fShowTownFlag = TRUE;
@@ -1467,8 +1245,6 @@ void InitMapScreenFlags( void )
 
 	gusMapDisplayColourMode = MAP_DISPLAY_NORMAL;
 }
-
-
 
 void MapBorderButtonOff( UINT8 ubBorderButtonIndex )
 {
@@ -1489,7 +1265,6 @@ void MapBorderButtonOff( UINT8 ubBorderButtonIndex )
 
 	ButtonList[ giMapBorderButtons[ ubBorderButtonIndex ] ]->uiFlags &= ~(BUTTON_CLICKED_ON);
 }
-
 
 void MapBorderButtonOn( UINT8 ubBorderButtonIndex )
 {
@@ -1528,8 +1303,6 @@ void InitMapBorderButtonCoordinates()
 	MAP_BORDER_ITEM_BTN_Y 		= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_MILITIA_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) - 23;
 	MAP_BORDER_MILITIA_BTN_Y 	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_MOBILE_BTN_X 	= xResSize;
-	MAP_BORDER_MOBILE_BTN_Y 	= 0;
 	MAP_BORDER_DISEASE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 190;
 	MAP_BORDER_DISEASE_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_WEATHER_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 233;
@@ -1538,18 +1311,5 @@ void InitMapBorderButtonCoordinates()
 	MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 114;
 	MAP_LEVEL_MARKER_Y 			= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_LEVEL_MARKER_DELTA 		= 8;
-	MAP_LEVEL_MARKER_WIDTH 		= 55;
-
-	if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-	{
-		// Mobile button appears next to Militia button.
-		MAP_BORDER_MOBILE_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 16;
-		MAP_BORDER_MOBILE_BTN_Y 	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-
-		// Airspace, Items, ZLevel buttons all moved to the right (+22px, +22px, +10px).
-		MAP_BORDER_AIRSPACE_BTN_X 	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 42;
-		MAP_BORDER_ITEM_BTN_X 		= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 85;
-
-		MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 124;
-	}
+	MAP_LEVEL_MARKER_WIDTH 		= 55;	
 }

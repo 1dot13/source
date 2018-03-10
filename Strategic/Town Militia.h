@@ -6,7 +6,6 @@
 #include "Types.h"
 #include "Soldier Control.h"
 
-
 // how many militia of all ranks can be in any one sector at once
 //#define MAX_ALLOWABLE_MILITIA_PER_SECTOR 20
 
@@ -18,7 +17,6 @@
 
 // minimum loyalty rating before training is allowed in a town
 //#define MIN_RATING_TO_TRAIN_TOWN 20
-
 
 // handle promoting a militia during militia training. return TRUE if militia could be promoted
 BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY, UINT8& arusPromotedTo );
@@ -75,7 +73,6 @@ BOOLEAN IsTownFullMilitia( INT8 bTownId, INT8 iMilitiaType );
 // is the SAM site full of militia?
 BOOLEAN IsSAMSiteFullOfMilitia( INT16 sSectorX, INT16 sSectorY, INT8 iMilitiaType );
 
-
 // now that town training is complete, handle the continue boxes
 void HandleContinueOfTownTraining( void );
 
@@ -90,7 +87,7 @@ BOOLEAN MilitiaTrainingAllowedInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSe
 BOOLEAN MilitiaTrainingAllowedInTown( INT8 bTownId );
 
 // HEADROCK HAM 3.6: Function to calculate Militia and Mobile Militia training squad size.
-UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership, BOOLEAN fMobile);
+UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership);
 
 // HEADROCK HAM 3.6: Total upkeep costs for YESTERDAY at midnight. Saved to savegames.
 extern UINT32 guiTotalUpkeepForMilitia;
@@ -105,9 +102,6 @@ typedef struct MILITIA_LIST_TYPE
 	UINT8 ubNumTownGreens;
 	UINT8 ubNumTownRegulars;
 	UINT8 ubNumTownElites;
-	UINT8 ubNumMobileGreens;
-	UINT8 ubNumMobileRegulars;
-	UINT8 ubNumMobileElites;
 
 } MILITIA_LIST_TYPE;
 

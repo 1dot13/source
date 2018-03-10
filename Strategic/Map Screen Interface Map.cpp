@@ -842,33 +842,7 @@ UINT32 DrawMap( void )
 								mprintf( usXPos, usYPos, sString );
 							}	
 							break;
-
-						case MAP_DISPLAY_MOBILEMILITIARESTRICTIONS:
-							{
-								// HEADROCK HAM 4: Show Manual Mobile Militia Restrictions
-								UINT8 ubManualMobileMovementAllowed = ManualMobileMovementAllowed( SECTOR( cnt, cnt2 ) );
-								switch ( ubManualMobileMovementAllowed )
-								{
-								case 0:
-									// Mobiles not allowed here at all.
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREY );
-									break;
-								case 1:
-									// Mobiles forbidden by player
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MD_RED );
-									break;
-								case 2:
-									// Mobiles can enter but not leave
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_YELLOW );
-									break;
-								case 3:
-									// Mobiles can enter
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN );
-									break;
-								}
-							}
-							break;
-
+							
 						case MAP_DISPLAY_DISEASE:
 							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 0 ) );
 							break;
@@ -2335,7 +2309,7 @@ INT16 GetLastSectorOfHelicoptersPath( void )
 INT16 GetLastSectorOfMilitiaPath( void )
 {
 	// will return the last sector of the helicopter's current path
-	INT16 sLastSector = gMilitiaPlotStartSector;//pVehicleList[iHelicopterVehicleId].sSectorX + pVehicleList[iHelicopterVehicleId].sSectorY * MAP_WORLD_X;
+	INT16 sLastSector = gMilitiaPlotStartSector;
 	PathStPtr pNode = NULL;
 
 	pNode = gMilitiaPath[gMilitiaGroupId].path;

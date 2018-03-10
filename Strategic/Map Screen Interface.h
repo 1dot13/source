@@ -177,7 +177,6 @@ enum {
 // training assignment menu defines
 enum {
 	TRAIN_MENU_SELF,
-	TRAIN_MENU_MOBILE,
 	TRAIN_MENU_WORKERS,
 	TRAIN_MENU_TEAMMATES,
 	TRAIN_MENU_TRAIN_BY_OTHER,
@@ -261,10 +260,10 @@ enum{
 	STOP_YELLOW_SECTOR_LOCATOR,
 };
 
+// Flugente: somewhat pointless since mobile militia has been removed, but perhaps there will be other kinds of militia at some point, so keep this for now
 // HEADROCK HAM 3.6: Enums for Militia Training Types
 enum{
 	TOWN_MILITIA = 0,
-	MOBILE_MILITIA,
 	NUM_MILITIA_TRAINING_TYPES
 };
 

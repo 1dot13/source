@@ -2997,7 +2997,6 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
 	L"Üben", // train yourself 
-	L"Mobile Miliz",
 	L"Train workers",	// TODO.Translate
 	L"Trainer", // train your teammates 
 	L"Rekrut", // be trained by an instructor 
@@ -4240,7 +4239,6 @@ STR16 pwTownInfoStrings[] =
 	L"Level", 					// the training level of civilians in this town
 	L"Zivilistentraining",				// 10 // state of civilian training in town
 	L"Miliz", 					// the state of the trained civilians in the town
-	L"Mobile M. Training",				// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 	
 	// Flugente: prisoner texts
 	L"Gefangene",
@@ -4349,9 +4347,8 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Luftr|aum zeigen",
 	L"Gegenstände zeigen (|I)",
 	L"Mili|z & Feinde zeigen",
-	L"Zeige Mobile Miliz Begrenzungen (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Show Disease Data", // TODO.Translate
-	L"Show Weather",	// TODO.Translate
+	L"Zeige Wetter",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -6090,10 +6087,7 @@ STR16 zMarksMapScreenText[] =
 	L"Söldner hat begrenzten Vertrag.", 
 	L"Vertrag des Söldners beinhaltet keine Versicherung.",
 	L"Kartenübersicht",		// 24
-	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"Sie haben derzeit keine Mobile Miliz. Rekrutieren Sie einige Milizen und kehren Sie zurück zu dieser Ansicht.",
-	L"Diese Ansicht zeigt Ihnen, wo Ihre Mobile Miliz ins feindliche Gebiet vorrücken kann. GRAU = Mobile Miliz verweigern hier vorzurücken. ROT = Mobile Miliz kann hier vorrücken, aber Sie haben den Befehl nicht gegeben. GELB = Mobile Miliz kann in den Sektor vorrücken, aber nicht verlassen. GRÜN = Mobile Miliz kann sich hier frei bewegen. Rechtsklick auf einen GRÜNEN / GELBEN Bereich um das Verhalten der Miliz zu ändern.",
-
+	
 	// Flugente: disease texts describing what a map view does TODO.Translate
 	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 
@@ -6114,25 +6108,23 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Ausgabe genehmigen?", // asking player if they wish to pay the amount requested
 	L"Sie haben nicht genug Geld.", // telling the player they can't afford to train this town
 	L"Miliz in %s (%s %d) weitertrainieren?", // continue training this town?
+
 	L"Preis $", // the cost in dollars to train militia
 	L"( J/N )", // abbreviated yes/no
 	L"Miliz auf dem Raketenstützpunkt im Sektor %s (%s %d) weitertrainieren?", // continue trainign militia in SAM site sector
 	L"Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // cost to train sveral sectors at once
+
 	L"Sie können sich keine $%d für die Miliz hier leisten.",
 	L"%s benötigt eine Loyalität von %d Prozent, um mit dem Milizen-Training fortzufahren.",
 	L"Sie können die Miliz in %s nicht mehr trainieren.", 
-	L"Sie können sich keine $%d für mobile Miliz hier leisten.", // HEADROCK HAM 3.6: Mobile Militia
-	L"Mobile Milizen in %s (%s %d) weitertrainieren?", // HEADROCK HAM 3.6: Mobile Militia
-	L"Mobile Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
-	L"Eine mobile Milizeinheit für diese Stadt zu trainieren kostet $", // HEADROCK HAM 3.6: Mobile Militia
-	L"Sie können keine weiteren mobilen Milizen ausbilden, da das Maximum erreicht wurde (%d/%d). Sie müssen zunächst %s um weitere zu trainieren.",
 	L"weitere Stadtteile befreien",
+
 	L"neue Stadtteile befreien",
 	L"mehr Städte erobern",
 	L"den verlorenen Fortschritt wieder aufholen",
 	L"weiter fortschreiten",
+
 	L"mehr Rebellen rekrutieren",
-	L"Der Miliztruppführer muss Sie leider darüber informieren, dass %d Mitstreiter im Angesicht des Feindes desertierten im Sektor %s.",
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

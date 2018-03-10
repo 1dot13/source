@@ -2993,7 +2993,6 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
 	L"锻炼", // train yourself
-	L"游击队", // L"Mobile Militia", //ham3.6
 	L"培训工人",	//L"Train workers",
 	L"教练", // train your teammates
 	L"学员", // be trained by an instructor
@@ -4240,7 +4239,6 @@ STR16 pwTownInfoStrings[] =
 	L"等级",			// the training level of civilians in this town
 	L"民兵训练度",		// 10 // state of civilian training in town
 	L"民兵",			// the state of the trained civilians in the town
-	L"巡逻民兵",	// L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 
 	// Flugente: prisoner texts
 	L"囚犯", //L"Prisoners",
@@ -4356,7 +4354,6 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"显示领空 (|A)",
 	L"显示物品 (|I)",
 	L"显示民兵和敌人 (|Z)",
-	L"显示民兵移动 (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"显示疾病消息", //L"Show Disease Data",
 	L"显示天气",	//	L"Show Weather",
 };
@@ -6237,10 +6234,7 @@ STR16		zMarksMapScreenText[] =
 	L"佣兵有一份限时的合同。",	//"Merc has a finite contract.",
 	L"佣兵的合同没投保", //"Merc's contract is not insured",
 	L"地图概况",//"Map Overview",		// 24
-	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"你目前没有民兵。当你招募了一些后再返回这个显示模式。",
-	L"这个视图显示你的移动民兵能去和不能去哪里。 灰色 = 移动民兵拒绝来这里. 红色 = 移动民兵能来这里, 但是你告诉他们不要这样. 黄色 = 移动民兵能进入这个区域, 但是不能离开. 绿色 = 移动民兵可以自由的进入这里. 右击一个绿色/黄色区域循环它的行为.",
-
+	
 	// Flugente: disease texts describing what a map view does  //文本描述疾病查看地图并做翻译。
 	L"这个视图会展示出哪个地区爆发了瘟疫，这个数字表明，平均每个人的感染程度，颜色表示它的范围。 灰色=无病。 绿色到红色=不断升级的感染程度。",  //L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 
@@ -6262,25 +6256,23 @@ STR16 pMilitiaConfirmStrings[] =
 	L"同意支付吗？",
 	L"你无法支付。",
 	L"继续在%s (%s %d)训练民兵吗？",
+
 	L"花费$",
 	L"( Y/N )",   // abbreviated yes/no
 	L"",	// unused
 	L"在%d地区训练民兵将花费$%d。%s",
+
 	L"你无法支付$%d以供在这里训练民兵。",
 	L"%s的忠诚度必须达到%d以上方可训练民兵。",
 	L"你不能在%s训练民兵了。",
-	L"你无法支付$%d以供在这里训练巡逻民兵。", // L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia
-	L"继续在%s (%s %d)训练巡逻民兵吗？", // L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia
-	L"在%d地区训练巡逻民兵将花费$%d。%s", // L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
-	L"训练一队民兵要花费$", // L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia
-	L"你无法训练更多的游击队因为已经达到上限(%d/%d)。你必须先%s才能训练更多。", //L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.",
 	L"解放更多城镇分区", //L"liberate more town sectors",
+
 	L"解放新的城镇分区", //L"liberate new town sectors",
 	L"解放更多城镇", //L"liberate more towns",
 	L"恢复失去的进度", //L"regain your lost progress",
 	L"继续进度", //L"progress further",
+
 	L"雇佣更多反抗军", //L"recruit more rebels",
-	L"民兵队长通报你，有%d名民兵在%s分区遭遇敌军时逃跑了。", //L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.",
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

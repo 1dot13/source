@@ -156,14 +156,12 @@ typedef PARSE_STAGE;
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
 #define HELISITESFILENAME						"Map\\HeliSites.xml"
-#define ROAMINGMILITIAFILENAME					"Map\\RestrictedRoamingMilitia.xml"
 #define EXTRAITEMSFILENAME						"Map\\A9_0_ExtraItems"	// ".xml" will be added @runtime
 #define EXTRAITEMSFILENAME2						"Map\\A11_0_ExtraItems" // ".xml" will be added @runtime
 #define SHIPPINGDESTINATIONSFILENAME			"Map\\ShippingDestinations.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
 #define DELIVERYMETHODSFILENAME					"Map\\DeliveryMethods.xml"
 #define SECTORFACILITIESFILENAME				"Map\\Facilities.xml"
-#define DYNAMICROAMINGFILENAME					"Map\\DynamicRestrictions.xml"
 #define FACILITYTYPESFILENAME					"Map\\FacilityTypes.xml"
 #define SECTORNAMESFILENAME						"Map\\SectorNames.xml"
 #define COOLNESSBYSECTORFILENAME				"Map\\CoolnessBySector.xml"
@@ -427,9 +425,6 @@ extern BOOLEAN WriteInPatrolInfo(STR fileName);
 extern BOOLEAN ReadInArmyCompositionInfo(STR fileName);
 extern BOOLEAN WriteInArmyCompositionInfo(STR fileName);
 
-//Kaiden: Roaming Militia Restricted Sectors List
-extern BOOLEAN ReadInRoamingInfo(STR filename);
-
 // Dealtar: New shipping system XMLs
 extern BOOLEAN ReadInShippingDestinations(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInDeliveryMethods(STR fileName);
@@ -458,9 +453,6 @@ extern BOOLEAN ReadInFuneralLocations(STR fileName);
 
 // HEADROCK HAM 3.4: Sector Facility Locations
 extern BOOLEAN ReadInSectorFacilities(STR fileName);
-
-// HEADROCK HAM 3.4: Dynamic Roaming Restrictions
-extern BOOLEAN ReadInDynamicRoamingRestrictions(STR fileName);
 
 // HEADROCK HAM 3.5: Facility Types and bonuses
 extern BOOLEAN ReadInFacilityTypes(STR fileName, BOOLEAN localizedVersion);

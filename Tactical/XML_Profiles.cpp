@@ -1101,8 +1101,62 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 	pData->currentDepth--;
 }
 
+// Flugente hack: analyze profiles and print out the result
+#include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
+#include <fstream>
+#include <iostream>
 
+extern STR16 gzMercSkillTextNew[];
 
+void AnalyzeProfiles()
+{
+	INT32 relevantmerccntr = 0;
+	INT32 traitcntr[NUM_SKILLTRAITS_NT] = { 0 };
+	INT32 experttraitcntr[NUM_SKILLTRAITS_NT] = { 0 };
+
+	for ( int i = 0; i < NUM_PROFILES; ++i )
+	{
+		// we are only interested in AIM/MERC/RPCs
+		if ( i != NO_PROFILE && 
+			( tempProfiles[i].Type == 1 || tempProfiles[i].Type == 2 || tempProfiles[i].Type == 3 ) 
+			)
+		{
+			++relevantmerccntr;
+
+			INT32 perstraitcntr[NUM_SKILLTRAITS_NT] = { 0 };
+
+			perstraitcntr[tempProfiles[i].bNewSkillTrait1] += 1;
+			perstraitcntr[tempProfiles[i].bNewSkillTrait2] += 1;
+			perstraitcntr[tempProfiles[i].bNewSkillTrait3] += 1;
+
+			for ( int j = 0; j < NUM_SKILLTRAITS_NT; ++j )
+			{
+				traitcntr[j] += perstraitcntr[j];
+
+				if ( perstraitcntr[j] > 1 )
+					experttraitcntr[j] += 1;
+			}
+		}
+	}
+	
+	// write stuff
+	{		
+		std::stringstream settings;
+		const char endl[] = "\r\n";
+
+		settings << "AIM + MERC + RPC: " << relevantmerccntr << endl;
+		settings << endl;		
+		settings << "Trait Total Single Experts" << endl;
+
+		for ( int j = 0; j < NUM_SKILLTRAITS_NT; ++j )
+		{
+			settings << j << " " << traitcntr[j] << " " << traitcntr[j] - 2 * experttraitcntr[j] << " " << experttraitcntr[j] << endl;
+		}
+
+		vfs::COpenWriteFile wfile( "MercProfileAnalysis.txt", true, true );
+		wfile->write( settings.str().c_str(), settings.str().length() );
+	}
+}
 
 BOOLEAN ReadInMercProfiles(STR fileName, BOOLEAN localizedVersion)
 {
@@ -1163,6 +1217,9 @@ BOOLEAN ReadInMercProfiles(STR fileName, BOOLEAN localizedVersion)
 
 
 	XML_ParserFree(parser);
+
+	// Flugente hack: analyze profiles and print out the result
+	//AnalyzeProfiles();
 
 	return( TRUE );
 }

@@ -767,10 +767,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\XML_DynamicRestrictions.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\XML_ExtraItems.cpp"
 				>
 			</File>
@@ -784,10 +780,6 @@
 			</File>
 			<File
 				RelativePath=".\XML_Minerals.cpp"
-				>
-			</File>
-			<File
-				RelativePath="XML_Roaming.cpp"
 				>
 			</File>
 			<File

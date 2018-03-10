@@ -482,8 +482,8 @@ typedef struct
 	
 #endif
 
-	// HEADROCK HAM 4: Added manual restrictions
-	UINT8 ubManualRestrictMilitia[256];
+	// Flugente: was mobile restriction, now it's just a filler
+	UINT8		ubFiller1[256];
 
 	BOOLEAN HiddenNames[500]; //legion by Jazz
 
@@ -6622,13 +6622,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	// fix squads
 	CheckSquadMovementGroups();
-	// HEADROCK HAM B1: Re-Adjust Dynamic Roaming Militia restrictions
-	if (gGameExternalOptions.fDynamicRestrictRoaming)
-	{
-		// HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
-		AdjustRoamingRestrictions( TRUE );
-	}
-
+	
 	// HEADROCK HAM 3.5: Tells the rest of the program whether we've got mercs working on detecting enemy units.
 	UpdateStrategicDetectionLevel( );
 
@@ -8567,11 +8561,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	sGeneralInfo.fMorrisShouldSayHi					= gfMorrisShouldSayHi;
 	sGeneralInfo.fFirstTimeInGameHeliCrash			= gfFirstTimeInGameHeliCrash;
 #endif
-
-	// HEADROCK HAM 4: Save global array for Manual Mobile Militia Restrictions
-	// testing for loop
-	memcpy(sGeneralInfo.ubManualRestrictMilitia, gubManualRestrictMilitia, sizeof( UINT8 )*256);
-
+		
 	for (int i=0;i<500;++i)
 	{
 		sGeneralInfo.HiddenNames[i] = !zHiddenNames[i].Hidden; //legion2
@@ -8838,8 +8828,9 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubFiller4, sizeof(sGeneralInfo.ubFiller4), sizeof(INT8), numBytesRead);
 
 #endif	
-	if ( guiCurrentSaveGameVersion >= NEW_GENERAL_SAVE_INFO_DATA ){
-		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubManualRestrictMilitia, sizeof(sGeneralInfo.ubManualRestrictMilitia), sizeof(UINT8), numBytesRead);
+	if ( guiCurrentSaveGameVersion >= NEW_GENERAL_SAVE_INFO_DATA )
+	{
+		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubFiller1, sizeof( sGeneralInfo.ubFiller1 ), sizeof( UINT8 ), numBytesRead );
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.HiddenNames, sizeof(sGeneralInfo.HiddenNames), sizeof(BOOLEAN), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterHoursToRepair, sizeof(sGeneralInfo.ubHelicopterHoursToRepair), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubHelicopterBasicRepairsSoFar, sizeof(sGeneralInfo.ubHelicopterBasicRepairsSoFar), sizeof(UINT8), numBytesRead);
@@ -8851,7 +8842,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	} else {
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.HiddenNames, sizeof(sGeneralInfo.HiddenNames), sizeof(BOOLEAN), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &sGeneralInfo.ubFiller, sizeof(sGeneralInfo.ubFiller), sizeof(UINT8), numBytesRead);
-		for(UINT32 count = 0; count < sizeof(sGeneralInfo.ubManualRestrictMilitia); count++)
+		for(UINT32 count = 0; count < 256; ++count)
 			numBytesRead = ReadFieldByField(hFile, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
 	}
 	//CHRISL: GENERAL_SAVE_INFO is only 1586 but we have to read in DWORD lengths so we need to read additional filler bits from the save game file
@@ -9142,10 +9133,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	gfMorrisShouldSayHi					= sGeneralInfo.fMorrisShouldSayHi;
 	gfFirstTimeInGameHeliCrash			= sGeneralInfo.fFirstTimeInGameHeliCrash;
 #endif
-
-	// HEADROCK HAM 4: Load Manual Mobile Militia Restrictions
-	memcpy(gubManualRestrictMilitia, sGeneralInfo.ubManualRestrictMilitia, sizeof(UINT8) * 256);
-
+	
 	for (int i=0;i<500;++i)
 	{
 		zHiddenNames[i].Hidden = !sGeneralInfo.HiddenNames[i];

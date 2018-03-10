@@ -444,25 +444,18 @@ BOOLEAN ValidSelectableCharForNextOrPrev( INT32 iNewCharSlot );
 
 extern void ResumeOldAssignment( SOLDIERTYPE *pSoldier );
 
-
-
 void InitalizeVehicleAndCharacterList( void )
 {
 	// will init the vehicle and character lists to zero
 	memset(&gCharactersList, 0, sizeof( gCharactersList ));
-
-	return;
 }
-
 
 void SetEntryInSelectedCharacterList( INT8 bEntry )
 {
 	Assert( ( bEntry >= 0 ) && ( bEntry < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) );
 
 	// set this entry to selected
-	fSelectedListOfMercsForMapScreen[ bEntry ] = TRUE ;
-
-	return;
+	fSelectedListOfMercsForMapScreen[ bEntry ] = TRUE;
 }
 
 void ResetEntryForSelectedList( INT8 bEntry )
@@ -471,8 +464,6 @@ void ResetEntryForSelectedList( INT8 bEntry )
 
 	// set this entry to selected
 	fSelectedListOfMercsForMapScreen[ bEntry ] = FALSE;
-
-	return;
 }
 
 void ResetSelectedListForMapScreen( void )
@@ -487,10 +478,7 @@ void ResetSelectedListForMapScreen( void )
 		// then keep him selected
 		SetEntryInSelectedCharacterList( bSelectedInfoChar );
 	}
-
-	return;
 }
-
 
 BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
 {
@@ -499,9 +487,7 @@ BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
 	// is this entry in the selected list set?
 
 	return( fSelectedListOfMercsForMapScreen[ bEntry ] );
-
 }
-
 
 void ToggleEntryInSelectedList( INT8 bEntry )
 {
@@ -509,8 +495,6 @@ void ToggleEntryInSelectedList( INT8 bEntry )
 
 	// toggle the value in the selected list
 	fSelectedListOfMercsForMapScreen[ bEntry ] = !( fSelectedListOfMercsForMapScreen[ bEntry ] );
-
-	return;
 }
 
 void BuildSelectedListFromAToB( INT8 bA, INT8 bB )
@@ -532,47 +516,33 @@ void BuildSelectedListFromAToB( INT8 bA, INT8 bB )
 
 	// run through list and set all intermediaries to true
 
-	for( bStart; bStart <= bEnd; bStart++ )
+	for( bStart; bStart <= bEnd; ++bStart )
 	{
 		SetEntryInSelectedCharacterList( bStart );
 	}
-
-	return;
 }
-
 
 BOOLEAN MultipleCharacterListEntriesSelected( void )
 {
 	UINT8 ubSelectedCnt = 0;
-	INT32 iCounter = 0;
 
 	// check if more than one person is selected in the selected list
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++	)
+	for( INT32 iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		if( fSelectedListOfMercsForMapScreen[iCounter] == TRUE )
 		{
-			ubSelectedCnt++;
+			++ubSelectedCnt;
 		}
 	}
 
-	if( ubSelectedCnt > 1 )
-	{
-		return( TRUE );
-	}
-	else
-	{
-		return( FALSE );
-	}
+	return ( ubSelectedCnt > 1 );
 }
-
-
 
 void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( UINT8 ubMilitiaType )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
- 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+ 	for( INT32 iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -598,26 +568,15 @@ void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( UINT8 ubMiliti
 				}
 			}
 		}
-		else if (ubMilitiaType == MOBILE_MILITIA)
-		{
-			if( pSoldier->bAssignment == TRAIN_MOBILE )
-			{
-				if ( SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE )
-				{
-					ResumeOldAssignment( pSoldier );
-				}
-			}
-		}
 	}
 }
 
 // HEADROCK HAM 3.6: Added argument for Militia Type
 void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, INT16 sSectorY, UINT8 ubMilitiaType )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( INT32 iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		// valid character?
 		if( gCharactersList[ iCounter ].fValid == FALSE )
@@ -643,47 +602,16 @@ void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, 
 				}
 			}
 		}
-		else if (ubMilitiaType == MOBILE_MILITIA )
-		{
-			if( pSoldier->bAssignment == TRAIN_MOBILE )
-			{
-				if( ( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == 0 ) )
-				{
-					ResumeOldAssignment( pSoldier );
-				}
-			}
-		}
 	}
 }
-
-
-
-/*
-void PlotPathForSelectedCharacterList( INT16 sX, INT16 sY )
-{
-	INT32 iCounter = 0;
-	// run through list and build paths for each character
-	for( iCounter = 0; iCounter < CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
-	{
-		if( ( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE )&&( bSelectedDestChar != iCounter ) )
-		{
-			// character is valid.. do this for every one not the bSelectedDestChar
-			PlotPathForCharacter( &Menptr[ gCharactersList[ iCounter ].usSolID ], sX, sY, FALSE );
-		}
-	}
-}
-*/
-
 
 // check if the members of the selected list move with this guy... are they in the same mvt group?
 void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier2 = NULL;
-
-
+	
 	// deselect any other selected mercs that can't travel together with pSoldier
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( INT32 iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -696,8 +624,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 				{
 					continue;
 				}
-
-
+				
 				// NOTE ABOUT THE VEHICLE TESTS BELOW:
 				// Vehicles and foot squads can't plot movement together!
 				// The ETAs are different, and unlike squads, vehicles can't travel everywhere!
@@ -766,19 +693,13 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
-
-	return;
 }
-
-
 
 void SelectUnselectedMercsWhoMustMoveWithThisGuy( void )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
-
-
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	
+	for( INT32 iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{
@@ -802,15 +723,11 @@ void SelectUnselectedMercsWhoMustMoveWithThisGuy( void )
 	}
 }
 
-
-
 BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier2 = NULL;
-
-
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	
+	for( INT32 iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		if( gCharactersList[ iCounter ].fValid == TRUE )
 		{

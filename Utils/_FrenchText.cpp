@@ -3001,7 +3001,6 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
 	L"Formation", // train yourself 
-	L"Milice mobile",
 	L"Train workers",	// TODO.Translate
 	L"Entraîneur", // train your teammates 
 	L"Élève",  // be trained by an instructor 
@@ -4246,7 +4245,6 @@ STR16 pwTownInfoStrings[] =
 	L"Niveau ", 					// the training level of civilians in this town
 	L"Formation ",				// 10 // state of civilian training in town
 	L"Milice ", 					// the state of the trained civilians in the town
-	L"Formation mobile ",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 
 	// Flugente: prisoner texts	// TODO.Translate
 	L"Prisonnier ",
@@ -4363,7 +4361,6 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Espace aérien (|A)",
 	L"Objets (|I)",
 	L"Milice & Ennemis (|Z)",
-	L"Montrer la milice mobile |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Show Disease Data", // TODO.Translate
 	L"Show Weather",	// TODO.Translate
 };
@@ -6250,10 +6247,7 @@ STR16		zMarksMapScreenText[] =
 	L"Le mercenaire a un contrat déterminé.", 
 	L"Ce mercenaire n'est pas assuré.",
 	L"Écran carte",		// 24
-	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"Vous n'avez actuellement aucune milice mobile. Retournez à ce mode du vue quand vous en aurez recruté.",
-	L"Cette vue montre où votre milice mobile peut aller ou pas. Gris = La milice mobile refuse d'y aller. ROUGE = La milice mobile peut y aller, mais vous avez dit de ne pas y aller. JAUNE = La milice mobile peut entrer dans ce secteur, mais ne peut pas en sortir. VERT = la milice mobile peut y aller librement. Clic droit sur un secteur vert/jaune/rouge pour changer de couleur.",
-
+	
 	// Flugente: disease texts describing what a map view does TODO.Translate
 	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 
@@ -6275,25 +6269,23 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Êtes-vous d'accord ?", // asking player if they wish to pay the amount requested
 	L"Vous n'en avez pas les moyens.", // telling the player they can't afford to train this town
 	L"Voulez-vous poursuivre l'entraînement de la milice à %s (%s %d) ?", // continue training this town?
+
 	L"Coût $ ", // the cost in dollars to train militia
 	L"(O/N)",   // abbreviated oui/non
 	L"",	// unused
 	L"L'entraînement des milices dans %d secteurs vous coûtera %d $. %s", // cost to train sveral sectors at once
+
 	L"Vous ne pouvez pas payer les %d $ nécessaires à l'entraînement.",
 	L"Vous ne pouvez poursuivre l'entraînement de la milice à %s que si cette ville est à niveau de loyauté de %d pour cent.",
 	L"Vous ne pouvez plus entraîner de milice à %s.",
-	L"Yous ne pouvez pas payer les %d $ nécessaires à l'entraînement de la milice mobile.", // HEADROCK HAM 3.6: Mobile Militia
-	L"Voulez-vous poursuivre l'entraînement de la milice mobile à %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia	
-	L"L'entraînement des milices mobiles dans %d secteurs vous coûtera %d $. %s", // HEADROCK HAM 3.6: Mobile Militia
-	L"L'entraînement de la milice mobile vous coûtera $ ", // HEADROCK HAM 3.6: Mobile Militia
-	L"Vous ne pouvez plus former de milice mobile, car le maximum est atteint (%d/%d). Vous devez d'abord %s pour continuer.",
 	L"libérer plus de secteurs d'une ville",
+
 	L"libérer de nouveaux secteurs d'une ville",
 	L"libérer plus de villes",
 	L"reprendre vos secteurs perdus",
 	L"progresser dans votre avancée",
+
 	L"recruter plus de rebelles",
-	L"Le chef de la milice informe que %d compagnon(s) ont fui face à l'ennemi dans le secteur %s.",
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

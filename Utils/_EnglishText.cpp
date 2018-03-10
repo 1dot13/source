@@ -2993,7 +2993,6 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
 	L"Practice", // train yourself
-	L"Mobile Militia",
 	L"Train workers",
 	L"Trainer", // train your teammates 
 	L"Student",  // be trained by an instructor 
@@ -4240,7 +4239,6 @@ STR16 pwTownInfoStrings[] =
 	L"Level", 					// the training level of civilians in this town
 	L"Civilian Training",				// 10 // state of civilian training in town
 	L"Militia", 					// the state of the trained civilians in the town
-	L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town
 
 	// Flugente: prisoner texts
 	L"Prisoners",
@@ -4357,7 +4355,6 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Show |Airspace",
 	L"Show |Items",
 	L"Show Militia & Enemies (|Z)",
-	L"Show Mobile Militia |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Show Disease Data",
 	L"Show Weather",
 };
@@ -6238,9 +6235,6 @@ STR16		zMarksMapScreenText[] =
 	L"Merc has a finite contract.", 
 	L"Merc's contract is not insured",
 	L"Map Overview",		// 24
-	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"You currently have no Mobile Militia. Return to this view mode once you've recruited some.",
-	L"This view shows where your Mobile Militia can and cannot go. GREY = Mobile Militia refuse to go here. RED = Mobile Militia can go here, but you've told them not to. YELLOW = Mobile Militia can enter this sector, but not leave. GREEN = Mobile Militia can go here freely. Right click a Green/Yellow sector to cycle its behavior.",
 
 	// Flugente: disease texts describing what a map view does
 	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
@@ -6263,25 +6257,23 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Approve expenditure?", // asking player if they wish to pay the amount requested
 	L"You can't afford it.", // telling the player they can't afford to train this town
 	L"Continue training militia in %s (%s %d)?", // continue training this town?
+
 	L"Cost $", // the cost in dollars to train militia
 	L"( Y/N )",   // abbreviated yes/no
 	L"",	// unused
 	L"Training town militia in %d sectors will cost $ %d. %s", // cost to train sveral sectors at once
+
 	L"You cannot afford the $%d to train town militia here.",
 	L"%s needs a loyalty of %d percent for you to be able to continue training militia.",
-	L"You cannot train the militia in %s any further.",
-	L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia
-	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia
-	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia
-	L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia
-	L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.",	//Moa: maximum number mobile militia (15)
+	L"You cannot train the militia in %s any further.",	
 	L"liberate more town sectors",
+
 	L"liberate new town sectors",
 	L"liberate more towns",
 	L"regain your lost progress",
 	L"progress further",
+
 	L"recruit more rebels",
-	L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.",	//Moa: mobile deserted (22)
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

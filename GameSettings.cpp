@@ -899,15 +899,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iMilitiaTrainingCost			= iniReader.ReadInteger("Financial Settings","MILITIA_BASE_TRAINING_COST",750, 10, 10000);
 	gGameExternalOptions.iRegularCostModifier			= iniReader.ReadInteger("Financial Settings","MILITIA_COST_MULTIPLIER_REGULAR",1, 1, 10);
 	gGameExternalOptions.iVeteranCostModifier			= iniReader.ReadInteger("Financial Settings","MILITIA_COST_MULTIPLIER_ELITE",2, 1, 10);
-	gGameExternalOptions.iMilitiaCostModifier			= iniReader.ReadInteger("Financial Settings","MILITIA_COST_MULTIPLIER_MOBILE",3, 1, 10);
 
 	// HEADROCK HAM 3.6: Daily upkeep costs for militia
 	gGameExternalOptions.usDailyCostTown[GREEN_MILITIA]		= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_TOWN_GREEN", 0, 0, 10000 );
 	gGameExternalOptions.usDailyCostTown[REGULAR_MILITIA]	= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_TOWN_REGULAR", 0, 0, 10000 );
 	gGameExternalOptions.usDailyCostTown[ELITE_MILITIA]		= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_TOWN_ELITE", 0, 0, 10000 );
-	gGameExternalOptions.usDailyCostMobile[GREEN_MILITIA]	= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_MOBILE_GREEN", 0, 0, 10000 );
-	gGameExternalOptions.usDailyCostMobile[REGULAR_MILITIA] = iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_MOBILE_REGULAR", 0, 0, 10000 );
-	gGameExternalOptions.usDailyCostMobile[ELITE_MILITIA]	= iniReader.ReadInteger( "Financial Settings", "DAILY_MILITIA_UPKEEP_MOBILE_ELITE", 0, 0, 10000 );
 
 	// HEADROCK HAM 3.5: Helicopter - Base cost per sector. GREEN = Free airspace, RED = Enemy-controlled airspace.
 	gGameExternalOptions.usHelicopterBaseCostPerGreenTile				= iniReader.ReadInteger("Financial Settings","HELICOPTER_BASE_COST_PER_GREEN_TILE", 100, 0, 60000);
@@ -2126,75 +2122,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.dMilitiaVolunteerGainFactorHourly		= iniReader.ReadFloat( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL_GAINFACTOR_HOURLY", 0.001f, 0.0f, 1.0f );
 	gGameExternalOptions.dMilitiaVolunteerGainFactorLiberation	= iniReader.ReadFloat( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL_GAINFACTOR_LIBERATION", 0.2f, 0.0f, 1.0f );
 	gGameExternalOptions.dMilitiaVolunteerMultiplierFarm		= iniReader.ReadFloat( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL_MULTIPLIER_FARM", 0.05f, 0.0f, 1.0f );
-
-	//################# Mobile Militia Training Settings ##################
-
-	gGameExternalOptions.gfAllowMilitiaGroups						= iniReader.ReadBoolean("Mobile Militia Training Settings","ALLOW_MOBILE_MILITIA",FALSE);
-	gGameExternalOptions.guiAllowMilitiaGroupsDelay					= iniReader.ReadInteger("Mobile Militia Training Settings","MOBILE_MILITIA_TRAINING_DELAY",1, 0, 30);
-
-	gGameExternalOptions.guiNumMobileMilitiaTrained					= iniReader.ReadInteger("Mobile Militia Training Settings","NUM_MOBILE_MILITIA_TRAINED_PER_SESSION",4, 1, 100);
-
-	gGameExternalOptions.gfmusttrainroaming							= iniReader.ReadBoolean("Mobile Militia Training Settings","MUST_TRAIN_MOBILE_MILITIA",FALSE);
-
-	//Moa: Mode to determine maximum allowed mobile militia for training / deserting.
-	gGameExternalOptions.gbMobileMilitiaMaxActiveMode				= (UINT8) iniReader.ReadInteger("Mobile Militia Training Settings","MOBILE_MILITIA_MAX_ACTIVE_MODE",0,0,255);
 	
-	//Moa: modifier for the maximum (make sure this is read after iMaxMilitiaPerSector)
-	gGameExternalOptions.gfpMobileMilitiaMaxActiveModifier			= iniReader.ReadFloat("Mobile Militia Training Settings","MOBILE_MILITIA_MAX_ACTIVE_MODIFIER", 0.5, 0.01f, 10.0f) * gGameExternalOptions.iMaxMilitiaPerSector;
-
-	gGameExternalOptions.guiCreateEachNHours						= iniReader.ReadInteger("Mobile Militia Training Settings","CREATE_MOBILE_MILITIA_SQUAD_EACH_N_HOURS",24, 1, 96);
-
-	// HEADROCK HAM 3.3: New militia feature, Minimum Leadership required to train Roaming Militia
-	gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia	= iniReader.ReadInteger("Mobile Militia Training Settings","MIN_LEADERSHIP_TO_TRAIN_MOBILE_MILITIA", 0, 0, 100);
-
-	// HEADROCK HAM 3.3: If enabled, the trainer's "effective" leadership skill determines HOW MANY Mobile Militia he/she creates per session.
-	gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuantity	= iniReader.ReadBoolean("Mobile Militia Training Settings","LEADERSHIP_AFFECTS_MOBILE_MILITIA_QUANTITY", FALSE);
-
-	// HEADROCK HAM 3.3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 5) squad of Mobile Militia in one training session.
-	gGameExternalOptions.ubReqLeadershipForFullMobileTraining		= iniReader.ReadInteger("Mobile Militia Training Settings","REQ_LEADERSHIP_FOR_MAX_MOBILE_MILITIA", 1, 1, 100);
-
-	// HEADROCK HAM 3.5: Does leadership affect the Quality of new Mobile Militia groups?
-	gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuality		= iniReader.ReadBoolean("Mobile Militia Training Settings","LEADERSHIP_AFFECTS_MOBILE_MILITIA_QUALITY", FALSE);
-
-	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Elites? If >0, then at least one of every new group will be an Elite. 100 = All Elites.
-	gGameExternalOptions.ubPercentRoamingMilitiaElites				= iniReader.ReadInteger("Mobile Militia Training Settings","PERCENT_MOBILE_MILITIA_ELITES", 100, 0, 100);
-
-	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Regulars? If >0, then at least one of every new group will be a Regular. 100 = All Regulars.
-	gGameExternalOptions.ubPercentRoamingMilitiaRegulars			= iniReader.ReadInteger("Mobile Militia Training Settings","PERCENT_MOBILE_MILITIA_REGULARS", 0, 0, 100);
-
-
-	//################# Mobile Militia Movement Settings ##################
-
-	gGameExternalOptions.gflimitedRoaming						= iniReader.ReadBoolean("Mobile Militia Movement Settings","RESTRICT_ROAMING",FALSE);
-
-	// HEADROCK HAM B1: Allow restricted militia to move through visited sectors?
-	gGameExternalOptions.fUnrestrictVisited						= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_MOVEMENT_THROUGH_EXPLORED_SECTORS", FALSE);
-
-	// HEADROCK HAM B1: Allow dynamic restrictions?
-	gGameExternalOptions.fDynamicRestrictRoaming				= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_DYNAMIC_RESTRICTED_ROAMING", TRUE);
-
-	// HEADROCK HAM B2.7: Augmented Roaming Militia code - turn this to TRUE to allow militia free travel through San Mona, Tixa, Orta, Omerta, and Estoni.
-	gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities	= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_MOVEMENT_THROUGH_MINOR_CITIES", FALSE);	
-
-	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
-	gGameExternalOptions.fAllowMobileReinforceCities			= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MOBILE_MILITIA_REINFORCE_TOWN_GARRISONS", FALSE);
-
-	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
-	gGameExternalOptions.fAllowMobileReinforceSAM				= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MOBILE_MILITIA_REINFORCE_SAM_GARRISONS", FALSE);
-
-	// Moa: If enabled militia will follow player (default HAM behavier), set to FALSE if they should do what they want.
-	gGameExternalOptions.gfAllowMilitiaFollowPlayer				= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_FOLLOW_PLAYER", TRUE);
-
-	// Moa: If enabled militia will spread (default HAM behavier) or set to FALSE to fill up the destination group to maximum.
-	gGameExternalOptions.gfAllowMilitiaSpread					= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_SPREAD", TRUE);
-
-	// Moa: If enabled militia will spread when following or set to FALSE to fill up the destination group to maximum.
-	gGameExternalOptions.gfAllowMilitiaSpreadWhenFollowing		= iniReader.ReadBoolean("Mobile Militia Movement Settings","ALLOW_MILITIA_SPREAD_WHEN_FOLLOWING", FALSE);
-
 	//################# Militia Strategic Movement Settings ##################
 	gGameExternalOptions.fMilitiaStrategicCommand				= iniReader.ReadBoolean("Militia Strategic Movement Settings", "ALLOW_MILITIA_STRATEGIC_COMMAND", FALSE );
-
-
+	
 	// SANDRO - added several bonuses for militia 
 	//################# Militia Strength Settings ##################
 

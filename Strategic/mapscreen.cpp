@@ -2878,8 +2878,7 @@ void DrawCharacterInfo(INT16 sCharNumber)
 		wcscpy(sString, pAttributeMenuStrings[pSoldier->bTrainStat]);
 	}
 	// train town?
-	// HEADROCK HAM 3.6: Draw for Mobile Trainers as well.
-	else if( pSoldier->bAssignment == TRAIN_TOWN || pSoldier->bAssignment == TRAIN_MOBILE )
+	else if( pSoldier->bAssignment == TRAIN_TOWN )
 	{
 		wcscpy(sString,pTownNames[GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY ) ] );
 	}
@@ -6192,11 +6191,6 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 			ubProgress = SectorInfo[SECTOR(sMapX, sMapY)].ubMilitiaTrainingPercentDone;
 			usMaxProgress = 100;
 		}
-		else if ( pSoldier->bAssignment == TRAIN_MOBILE )
-		{
-			ubProgress = SectorInfo[SECTOR(sMapX, sMapY)].ubMobileMilitiaTrainingPercentDone;
-			usMaxProgress = 100;
-		}
 		else if ( pSoldier->bAssignment == TRAIN_SELF ||
 			pSoldier->bAssignment == TRAIN_BY_OTHER )
 		{
@@ -8024,16 +8018,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					{ //activate autoresolve in prebattle interface.
 						ActivatePreBattleRetreatAction();
 					}
-					// WANNE: Only allow when mobile militia is allowed!
-					else if ( gGameExternalOptions.gfAllowMilitiaGroups && !gGameExternalOptions.fMilitiaStrategicCommand )
-					{
-						// only handle border button keyboard equivalents if the button is visible!
-						if ( !fShowMapInventoryPool )
-						{
-							// toggle show mobile restrictions filter
-							ToggleMobileFilter();
-						}
-					}
 					break;
 				case 's':
 					if( fAlt )
@@ -9049,43 +9033,9 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 				else
 				{
 					if ( GetMouseMapXY( &sMapX, &sMapY ) )
-					{
-						// HEADROCK HAM 4: Toggle Militia Restrictions manually. This occurs when the Mobile Restrictions
-						// view is turned on. Each click advances the sector's classification by 1. If max is reached,
-						// loops back to start.
-						// HEADROCK HAM 5: Whoops, disallow changing restrictions for sectors that are
-						// not accessible to militia to begin with.
-						//Moa: we should be able to change restrictions where ever the militia is potentially allowed to move.
-						// Able to change restriction if:
-						// Potentially allowed:
-						//  - we are in mobile Restrictions view && we have RESTRICT_ROAMING = TRUE in ini &&
-						//		- ALLOW_MILITIA_MOVEMENT_THROUGH_EXPLORED_SECTORS = TRUE && we have liberated that sector at least once
-						//				note that ALLOW_MILITIA_MOVEMENT_THROUGH_EXPLORED_SECTORS = TRUE does not overwrites any restrictions anymore it extends the region where restrictions are allowed, just like DynamicRestriction does
-						//		- ALLOW_MILITIA_MOVEMENT_THROUGH_MINOR_CITIES = TRUE && it is a Minor Cities && we have liberated that citysector
-						//		- DynamicRestrictions if set in ini (does not matter if visited or not)
-						//if ( fShowMobileRestrictionsFlag == TRUE && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE)
-						if ( gusMapDisplayColourMode == MAP_DISPLAY_MOBILEMILITIARESTRICTIONS && gGameExternalOptions.gflimitedRoaming &&
-							( ( gGameExternalOptions.fUnrestrictVisited == TRUE && SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
-							|| ( gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities && GetTownIdForSector( sMapX, sMapY ) > BLANK_SECTOR && !gfMilitiaAllowedInTown[GetTownIdForSector( sMapX, sMapY )] && SectorInfo[ SECTOR( sMapX, sMapY ) ].fSurfaceWasEverPlayerControlled )
-							|| ( gGameExternalOptions.fDynamicRestrictRoaming && gDynamicRestrictMilitia[ SECTOR( sMapX, sMapY ) ] == TRUE )
-							) )
- 						{
-							// Restrict more.
-							if ( gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ] > MANUAL_MOBILE_NO_ENTER )
-							{
-								gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ]--;
-							}
-							else
-							{
-								// Wrap back to highest.
-								gubManualRestrictMilitia[ SECTOR( sMapX, sMapY ) ] = MANUAL_MOBILE_NO_RESTRICTION;
-							}
-							fMapPanelDirty = TRUE;
-							// Skip the rest of this function.
-							return;
-						}
+					{						
 						// don't change sectors if we've just done the militia restrictions thing.
-						else if( ( sSelMapX != sMapX ) || ( sSelMapY != sMapY ) )
+						if( ( sSelMapX != sMapX ) || ( sSelMapY != sMapY ) )
 						{
 							ChangeSelectedMapSector( sMapX, sMapY, ( INT8 )iCurrentMapSectorZ );
 						}

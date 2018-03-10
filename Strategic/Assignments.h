@@ -65,7 +65,7 @@ enum
 	RADIO_SCAN,						// added by Flugente: a radio operators scans for enemy patrols in nearby sectors
 	TRAIN_SELF,
 	TRAIN_TOWN,
-	TRAIN_MOBILE,					// HEADROCK HAM 3.6: Training mobile militia.
+	ASSIGNMENT_UNUSED,				// Flugente: this was formerly TRAIN_MOBILE
 	TRAIN_TEAMMATE,
 	TRAIN_BY_OTHER,
 	MOVE_EQUIPMENT,					// added by Flugente: move items from one city sector to another
@@ -196,7 +196,6 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pCharacter );
 // can character train militia?
 BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport = FALSE );
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pCharacter );
-BOOLEAN CanCharacterTrainMobileMilitia( SOLDIERTYPE *pSoldier );
 
 BOOLEAN CanCharacterTrainWorkers( SOLDIERTYPE *pSoldier );
 
@@ -534,7 +533,6 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer );
 
 // HEADROCK HAM 3.6: Functions for testing and reporting reasons why character can't train here.
 BOOLEAN CanCharacterTrainMilitiaWithErrorReport( SOLDIERTYPE *pSoldier );
-BOOLEAN CanCharacterTrainMobileMilitiaWithErrorReport( SOLDIERTYPE *pSoldier );
 // HEADROCK HAM 3.6: Function for testing and reporting reasons why character can't staff a facility.
 BOOLEAN CanCharacterFacilityWithErrorReport( SOLDIERTYPE *pSoldier, UINT8 ubFacilityType, UINT8 ubAssignmentType );
 void HandleInterfaceMessageForCostOfOperatingFacility( SOLDIERTYPE *pSoldier, UINT8 ubAssignmentType );
@@ -547,7 +545,7 @@ extern UINT8 gubFacilityLineForSubmenu;
 extern SOLDIERTYPE *gpFacilityStaffer;
 
 // SANDRO - function to award record points for militia training
-void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 sZ, UINT8 ubMilitiaTrained, BOOLEAN fMobile );
+void RecordNumMilitiaTrainedForMercs( INT16 sX, INT16 sY, INT8 sZ, UINT8 ubMilitiaTrained );
 
 // anv: decrease town loyalty hits
 UINT32 HandlePropagandaBlockingBadNewsInTown( INT8 bTownId, UINT32 uiLoyaltyDecrease );

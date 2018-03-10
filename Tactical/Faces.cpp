@@ -2311,8 +2311,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				case TRAIN_SELF:
 				case TRAIN_TOWN:
-				// HEADROCK HAM 3.6: New assignment.
-				case TRAIN_MOBILE:
 				case TRAIN_TEAMMATE:
 				case TRAIN_BY_OTHER:
 				case TRAIN_WORKERS:
@@ -2331,7 +2329,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 							sPtsAvailable = GetSoldierStudentPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
 							break;
 						case( TRAIN_TOWN ):
-						case( TRAIN_MOBILE ):
 						case DRILL_MILITIA:
 							sPtsAvailable = GetTownTrainPtsForCharacter( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
 							// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)

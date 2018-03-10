@@ -309,7 +309,6 @@ typedef struct
 	INT32 iMaxMilitiaPerSector;
 	INT32 iTrainingSquadSize;
 	INT32 iMilitiaTrainingCost;
-	INT32 iMilitiaCostModifier;
 	INT32 iRegularCostModifier;
 	INT32 iVeteranCostModifier;
 	INT32 iMinLoyaltyToTrain;
@@ -476,14 +475,6 @@ typedef struct
 	// Militia Settings	
 	BOOLEAN fAllowTacticalMilitiaCommand;
 	BOOLEAN gfTrainVeteranMilitia;
-	BOOLEAN gfAllowMilitiaGroups;
-	BOOLEAN gfmusttrainroaming;
-	BOOLEAN gflimitedRoaming;
-	BOOLEAN gfAllowMilitiaFollowPlayer;			//Moa: TRUE try to follow, FALSE do what they want
-	BOOLEAN gfAllowMilitiaSpreadWhenFollowing;	//Moa: TRUE spread normal, FALSE dont spread when following
-	BOOLEAN gfAllowMilitiaSpread;				//Moa: TRUE spread normal, FALSE fill up to max
-	UINT8	gbMobileMilitiaMaxActiveMode;		//Moa: Used to check if the maximum of mobile militia is reached (for training/deserting). THIS IS A MODE
-	FLOAT	gfpMobileMilitiaMaxActiveModifier;	//Moa: const multiplier for the mode used (precalculated with MOBILE_MILITIA_MAX_ACTIVE_MODIFIER * MAX_MILITIA_PER_SECTOR).
 
 	// Flugente: militia movement
 	BOOLEAN fMilitiaStrategicCommand;
@@ -491,14 +482,7 @@ typedef struct
 	BOOLEAN gfAllowReinforcements;
 	BOOLEAN gfAllowReinforcementsOnlyInCity;
 	
-	UINT32	guiAllowMilitiaGroupsDelay;
 	UINT32	guiTrainVeteranMilitiaDelay;
-	UINT32	guiCreateEachNHours;
-	UINT32	guiNumMobileMilitiaTrained;
-	// HEADROCK HAM 3.6: These settings are REDUNDANT.
-	//UINT32	guiMinMilitiaSquadSize;
-	//UINT32	guiMaxMilitiaSquadSize;
-	//UINT32	guiMaxMilitiaSquadSizeBattle;
 
 	// SANDRO - added some variables
 	INT16	sGreenMilitiaAutoresolveStrength;
@@ -971,13 +955,7 @@ typedef struct
 
 	// HEADROCK HAM B1: Allows reducing the chance of scoring a hit fractionally, if CTH = Minimum CTH
 	UINT16 usMinimumCTHDivisor;
-
-	// HEADROCK HAM B1: Allows Restricted Roaming Militia to move through previously visited sectors.
-	BOOLEAN fUnrestrictVisited;
-
-	// HEADROCK HAM B1: Allows the capture of towns to dynamically alter roaming restrictions
-	BOOLEAN fDynamicRestrictRoaming;
-
+	
 	// HEADROCK HAM B2.1: This controls how effective suppression is, by increasing the number of ubSuppressionPoints accumulated by combatants (percentage);
 	INT16 sSuppressionEffectiveness;
 
@@ -1072,9 +1050,6 @@ typedef struct
 
 	// HEADROCK HAM B2.7: When turned on, this will give a CTH approximation instead of an exact value, on CTH Bars and "F" key feedback.
 	BOOLEAN fApproximateCTH;
-
-	// HEADROCK HAM B2.7: Augmented Roaming Militia code - turn this to TRUE to allow militia free travel through San Mona, Tixa, Orta, Omerta, and Estoni.
-	BOOLEAN fAllowMilitiaMoveThroughMinorCities;
 
 	// HEADROCK HAM B2.8: These are new cowering penalty divisors that help us determine how effective cowering is in different stances and when the shooter is targetting different bodyparts
 	UINT8 ubCoweringPenaltyDivisorProne;
@@ -1175,37 +1150,13 @@ typedef struct
 
 	// HEADROCK HAM 3.3: Increases tolerance while moving.
 	UINT8 ubTilesMovedPerBonusTolerancePoint;
-
-	// HEADROCK HAM 3.3: New militia feature, Minimum Leadership required to train Roaming Militia
-	UINT8 ubMinimumLeadershipToTrainMobileMilitia;
-
-	// HEADROCK HAM 3.3: If enabled, the trainer's "effective" leadership skill determines HOW MANY militia he/she creates per session.
-	BOOLEAN fLeadershipAffectsMobileMilitiaQuantity;
-
-	// HEADROCK HAM 3.3: If "LEADERSHIP_AFFECTS_MILITIA_QUANTITY" is true, this value determines the lowest leadership required to train a full (default size 10) squad of town militia in one training session.
-	UINT8 ubReqLeadershipForFullMobileTraining;
-
+	
 	// HEADROCK HAM 3.3: Minimum distance (in METERS) at which character suffer from friendly suppression.
 	UINT16 usMinDistanceFriendlySuppression;
-
-	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
-	BOOLEAN fAllowMobileReinforceCities;
-
-	// HEADROCK HAM 3.3: If enabled, Roaming Militia can automatically reinforce city garrisons. 
-	BOOLEAN fAllowMobileReinforceSAM;
-
+	
 	// HEADROCK HAM 3.4: This controls the intensity of Hiding the Bullet Count during combat. The higher it is, the more intense the effect. Negative values reduce the effect.
 	UINT16 usBulletHideIntensity;
-
-	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Elites? If >0, then at least one of every group will be an Elite. 100 = All Elites.
-	UINT8 ubPercentRoamingMilitiaElites;
-
-	// HEADROCK HAM 3.4: What percentage of a new Mobile Militia group will be made of Elites? If >0, then at least one of every group will be an Elite. 100 = All Elites.
-	UINT8 ubPercentRoamingMilitiaRegulars;
-
-	// HEADROCK HAM 3.5: Does leadership affect the Quality of new Mobile Militia groups?
-	BOOLEAN fLeadershipAffectsMobileMilitiaQuality;
-
+		
 	// HEADROCK HAM 3.5: Explosive Suppression Effectiveness alters the amount of Suppression Points you get from nearby blasts.
 	UINT16 usExplosionSuppressionEffect;
 
@@ -1252,7 +1203,6 @@ typedef struct
 
 	// HEADROCK HAM 3.6: Daily upkeep costs for militia
 	UINT16 usDailyCostTown[MAX_MILITIA_LEVELS];
-	UINT16 usDailyCostMobile[MAX_MILITIA_LEVELS];
 
 	// HEADROCK HAM 3.6: Non-Combat Bodytypes can't become hostile
 	BOOLEAN fCanTrueCiviliansBecomeHostile;

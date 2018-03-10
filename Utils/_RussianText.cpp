@@ -2993,7 +2993,6 @@ STR16 pAttributeMenuStrings[] =
 STR16 pTrainingMenuStrings[] =
 {
 	L"Практика", // train yourself 
-	L"Патрульные",
 	L"Рабочие",	// Train workers
 	L"Тренер", // train your teammates 
 	L"Ученик",  // be trained by an instructor 
@@ -4240,7 +4239,6 @@ STR16 pwTownInfoStrings[] =
 	L"Уровень", 					// the training level of civilians in this town
 	L"Тренировка ополчения",		// 10 // state of civilian training in town
 	L"Ополчение", 					// the state of the trained civilians in the town
-	L"Тренировка патруля",		// HEADROCK HAM 3.6: The stat of Mobile militia training in town	//Mobile Training
 
 	// Flugente: prisoner texts
 	L"Заключенные",
@@ -4357,7 +4355,6 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Карта воздушного пространства (|A)",
 	L"Вещи (|I)",
 	L"Ополчение и враги (|Z)",
-	L"Патруль ополчения (|R)", // HEADROCK HAM 4: Mobile Restrictions Button
 	L"Очаги заболеваний",
 	L"Погода",
 };
@@ -6238,10 +6235,7 @@ STR16		zMarksMapScreenText[] =
 	L"У наёмника ограниченный контракт.", 
 	L"Контракт наёмника не застрахован",
 	L"Стратегическая карта",
-	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"Сейчас у вас нет патрульных групп. Включите этот режим в следующий раз, когда наберёте их.",
-	L"Здесь показано, куда может пройти патруль, и куда нет. СЕРЫЙ = не пойдут туда. КРАСНЫЙ = могут пойти туда, но вы запретили им. ЖЁЛТЫЙ = могут вступить в сектор, но не могут его покинуть. ЗЕЛЁНЫЙ = могут свободно передвигаться. Нажатием правой кнопки мыши можно менять цветовой статус сектора.",
-
+	
 	// Flugente: disease texts describing what a map view does
 	L"Здесь показаны вспышки заболеваний по секторам. Число указывает средний показатель инфекции на человека, цвет - насколько широко распространена инфекция. СЕРЫЙ= нет информации о заболеваемости. ЗЕЛЁНЫЙ - КРАСНЫЙ = уровень роста заболеваемости.",
 
@@ -6263,25 +6257,23 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Подтвердить платеж?", // asking player if they wish to pay the amount requested
 	L"Вы не можете себе этого позволить.", // telling the player they can't afford to train this town
 	L"Продолжить тренировку в %s (%s %d)?", // continue training this town?
+
 	L"Цена $", // the cost in dollars to train militia
 	L"( Д/Н )",   // abbreviated yes/no
 	L"",	// unused
 	L"Тренировка ополчения в секторе %d будет стоить $%d. %s", // cost to train sveral sectors at once
+
 	L"У вас нет $%d, чтобы приступить к тренировке ополчения.",
 	L"%s: Требуется не менее %d процентов лояльности, чтобы продолжить тренировку ополчения.",
 	L"Больше вы не можете тренировать ополчение в %s.",
-	L"У вас нет $%d чтобы тренировать здесь патрульные подразделение.",
-	L"Продолжить тренировку патруля в %s (%s %d)?",
-	L"Тренировка патрульного подразделения в секторе %d обойдётся в $ %d. %s",
-	L"Тренировка патрульного подразделения обойдётся в $",
-	L"Вы не можете больше тренировать патруль, так как достигнут максимум (%d/%d). Вам необходимо сначала %s для того, чтобы продложить тренировку.", 
 	L"освободить больше городских секторов", 
+
 	L"освободить новые городские сектора", 
 	L"освободить больше городов", 
 	L"восстановить потерянные прогресс",
 	L"продвинуться дальше", 
+
 	L"нанять больше повстанцев",
-	L"Лидер ополченцев сообщает вам, что %d человек дезертировали перед лицом противника %s.", 
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

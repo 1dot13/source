@@ -2988,8 +2988,7 @@ STR16 pAttributeMenuStrings[] =
 
 STR16 pTrainingMenuStrings[] =
 {
-	L"Allenati", // train yourself 
-	L"Mobile Militia",		// TODO.Translate
+	L"Allenati", // train yourself
 	L"Train workers",	// TODO.Translate
 	L"Allenatore", // train your teammates 
 	L"Studente",  // be trained by an instructor 
@@ -4236,7 +4235,6 @@ STR16 pwTownInfoStrings[] =
 	L"Livello", 					// the training level of civilians in this town
 	L"addestramento civili",				// 10 // state of civilian training in town
 	L"Esercito", 					// the state of the trained civilians in the town
-	L"Mobile Training",			// HEADROCK HAM 3.6: The stat of Mobile militia training in town	// TODO.Translate
 	
 	// Flugente: prisoner texts	// TODO.Translate
 	L"Prisoners",
@@ -4353,7 +4351,6 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Mostra spazio |aereo",
 	L"Mostra oggett|i",
 	L"Mostra esercito & nemici (|Z)",
-	L"Show Mobile Militia |Restrictions", // HEADROCK HAM 4: Mobile Restrictions Button // TODO.Translate
 	L"Show Disease Data", // TODO.Translate
 	L"Show Weather",	// TODO.Translate
 };
@@ -6228,10 +6225,7 @@ STR16		zMarksMapScreenText[] =
 	L"%s è pieno di soldati.",
 	L"Il mercenario ha un contratto a tempo determinato.", 
 	L"Il contratto del mercenario non è assicurato",
-	// HEADROCK HAM 4: Prompt messages when turning on Mobile Militia Restrictions view.
-	L"You currently have no Mobile Militia. Return to this view mode once you've recruited some.",
-	L"This view shows where your Mobile Militia can and cannot go. GREY = Mobile Militia refuse to go here. RED = Mobile Militia can go here, but you've told them not to. YELLOW = Mobile Militia can enter this sector, but not leave. GREEN = Mobile Militia can go here freely. Right click a Green/Yellow sector to cycle its behavior.",
-
+	
 	// Flugente: disease texts describing what a map view does TODO.Translate
 	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
 
@@ -6253,25 +6247,23 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Approvate la spesa?", // asking player if they wish to pay the amount requested
 	L"Non potete permettervelo.", // telling the player they can't afford to train this town
 	L"Continuate ad aeddestrare i soldati in %s (%s %d)?", // continue training this town?
+
 	L"Costo $", // the cost in dollars to train militia
 	L"(S/N)",   // abbreviated yes/no
 	L"",	// unused
 	L"Addestrare l'esrecito cittadino nei settori di %d costerà $ %d. %s", // cost to train sveral sectors at once
+
 	L"Non potete permettervi il $%d per addestrare l'esercito cittadino qui.",
 	L"%s ha bisogno di una percentuale di %d affinché possiate continuare ad addestrare i soldati.",
 	L"Non potete più addestrare i soldati a %s.",
-	L"You cannot afford the $%d to train mobile militia here.", // HEADROCK HAM 3.6: Mobile Militia		// TODO.Translate
-	L"Continue training mobile militia in %s (%s %d)?", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
-	L"Training mobile militia in %d sectors will cost $ %d. %s", // HEADROCK HAM 3.6: Mobile Militia	// TODO.Translate
-	L"Training a squad of mobile militia will cost $", // HEADROCK HAM 3.6: Mobile Militia				// TODO.Translate
-	L"You cannot train more mobile militia because the maximum is reached (%d/%d). You have to %s first in order to train more.", // TODO.Translate
 	L"liberate more town sectors", // TODO.Translate
+
 	L"liberate new town sectors", // TODO.Translate
 	L"liberate more towns", // TODO.Translate
 	L"regain your lost progress", // TODO.Translate
 	L"progress further", // TODO.Translate
+
 	L"recruit more rebels", // TODO.Translate
-	L"The militia team leader has to inform you that %d fellow have deserted facing enemy in sector %s.", // TODO.Translate
 };
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel

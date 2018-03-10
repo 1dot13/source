@@ -53,7 +53,6 @@ INT16	gsTownSectorServerSkipY = -1;
 UINT8 gubTownSectorServerIndex = 0;
 BOOLEAN gfYesNoPromptIsForContinue = FALSE;		// this flag remembers whether we're starting new training, or continuing
 INT32 giTotalCostOfTraining = 0;
-BOOLEAN gfAreWeTrainingMobile = FALSE;
 BOOLEAN gfAreWePromotingGreen = FALSE;
 BOOLEAN gfAreWePromotingRegular = FALSE;
 
@@ -88,10 +87,7 @@ BOOLEAN gfMilitiaAllowedInTown[MAX_TOWNS] =
 
 // private prototypes
 void PayMilitiaTrainingYesNoBoxCallback( UINT8 bExitValue );
-// HEADROCK HAM 3.6: Duplicate function for handling callback on Mobile Militia training
-void PayMobileMilitiaTrainingYesNoBoxCallback( UINT8 bExitValue );
 void CantTrainMilitiaOkBoxCallback( UINT8 bExitValue );
-void CantTrainMobileMilitiaOkBoxCallback( UINT8 bExitValue );
 
 void PayForTrainingInSector( UINT8 ubSector );
 
@@ -257,7 +253,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 
 	// HEADROCK HAM 3.6: Leadership may affect the resulting squad size.
 	UINT8 ubTrainerEffectiveLeadership = FindBestMilitiaTrainingLeadershipInSector ( sMapX, sMapY, pTrainer->bSectorZ, TOWN_MILITIA );
-	UINT8 iTrainingSquadSize = __min(iMaxMilitiaPerSector, CalcNumMilitiaTrained(ubTrainerEffectiveLeadership, FALSE));
+	UINT8 iTrainingSquadSize = __min(iMaxMilitiaPerSector, CalcNumMilitiaTrained(ubTrainerEffectiveLeadership));
 	UINT8 promotionstodo = 0;
 
 	// Flugente: our pool of volunteers limits how many militia can be created
@@ -298,19 +294,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	// Kaiden: Roaming Militia Training:
 	// If we're not training roaming militia,
 	// then we will handle everything as normal.
-
-	// HEADROCK HAM 3.6: This is now VOLUNTARY.
-	if( pTrainer->bAssignment == TRAIN_MOBILE )
-	{
-		CreateMilitiaSquads(sMapX, sMapY );
-		
-		// the trainer announces to player that he's finished his assignment.	Make his sector flash!
-		AssignmentDone( pTrainer, TRUE, FALSE );
-
-		// handle completion of town by training group
-		HandleCompletionOfTownTrainingByGroupWithTrainer( pTrainer, MOBILE_MILITIA );
-	}
-	else
+	
 	{
 		// we either create new militia or promote existing ones if no space is left
 		while ( ubMilitiaTrained + promotionstodo < iTrainingSquadSize )
@@ -416,7 +400,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 			}
 
 			// SANDRO - merc records (num militia trained)
-			RecordNumMilitiaTrainedForMercs( sMapX, sMapY, pTrainer->bSectorZ, ubMilitiaTrained, FALSE );
+			RecordNumMilitiaTrainedForMercs( sMapX, sMapY, pTrainer->bSectorZ, ubMilitiaTrained );
 		}
 
 		if ( gGameExternalOptions.fMilitiaResources && !gGameExternalOptions.fMilitiaUseSectorInventory )
@@ -440,7 +424,6 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 		AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
 }
 
-
 // feed this a SOLDIER_CLASS_, it will return you a _MITILIA rank, or -1 if the guy's not militia
 INT8 SoldierClassToMilitiaRank(UINT8 ubSoldierClass)
 {
@@ -461,7 +444,6 @@ INT8 SoldierClassToMilitiaRank(UINT8 ubSoldierClass)
 
 	return(bRank);
 }
-
 
 // feed this a _MITILIA rank, it will return you a SOLDIER_CLASS_, or -1 if the guy's not militia
 INT8 MilitiaRankToSoldierClass(UINT8 ubRank)
@@ -484,7 +466,6 @@ INT8 MilitiaRankToSoldierClass(UINT8 ubRank)
 	return(bSoldierClass);
 }
 
-
 void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 ubHowMany)
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
@@ -499,7 +480,6 @@ void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 u
 	// update the screen display
 	fMapPanelDirty = TRUE;
 }
-
 
 void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank, UINT8 ubHowMany)
 {
@@ -555,7 +535,6 @@ void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRa
 	// update the screen display
 	fMapPanelDirty = TRUE;
 }
-
 
 void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 ubHowMany)
 {
@@ -631,7 +610,6 @@ void StrategicRemoveAllStaticMilitiaFromSector( INT16 sMapX, INT16 sMapY, UINT8 
 	fMapPanelDirty = TRUE;
 }
 
-
 // kill pts are (2 * kills) + assists
 UINT8 CheckOneMilitiaForPromotion(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank, UINT8 ubRecentKillPts)
 {
@@ -683,7 +661,6 @@ UINT8 CheckOneMilitiaForPromotion(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRank,
 	return 0;
 }
 
-
 // call this if the player attacks his own militia
 void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY)
 {
@@ -722,7 +699,6 @@ void HandleMilitiaDefections(INT16 sMapX, INT16 sMapY)
 		}
 	}
 }
-
 
 UINT8 MilitiaInSectorOfRank(INT16 sMapX, INT16 sMapY, UINT8 ubRank)
 {
@@ -851,7 +827,6 @@ BOOLEAN ServeNextFriendlySectorInTown( INT16 *sNeighbourX, INT16 *sNeighbourY )
 	return(TRUE);
 }
 
-
 void HandleInterfaceMessageForCostOfTrainingMilitia( SOLDIERTYPE *pSoldier )
 {
 	INT32 iMilitiaTrainingCost = gGameExternalOptions.iMilitiaTrainingCost;
@@ -867,19 +842,14 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 	UINT8 ubMilitiaType = 0;
 	if (pSoldier->bAssignment == TRAIN_TOWN)
 		ubMilitiaType = TOWN_MILITIA;
-	else if (pSoldier->bAssignment == TRAIN_MOBILE)
-		ubMilitiaType = MOBILE_MILITIA;
 	else
 		return;
+
 	// grab total number of sectors
 	iNumberOfSectors = GetNumberOfUnpaidTrainableSectors( ubMilitiaType );
 	Assert( iNumberOfSectors > 0 );
-
-	// Kaiden: Roaming Militia Training:
-	// We want to charge more for Roaming
-
+	
 	// get total cost
-	// HEADROCK HAM 3.6: Mobile and Garrison Militia now separate
 	if (ubMilitiaType == TOWN_MILITIA) // Garrison
 	{
 		// If Regulars are maxed, and Elites are allowed, calculate cost to upgrade Regular->Elite
@@ -903,14 +873,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 			giTotalCostOfTraining = iMilitiaTrainingCost * iNumberOfSectors;
 			Assert( giTotalCostOfTraining > 0 );
 		}
-		gfAreWeTrainingMobile = FALSE;
-	}
-	// Mobile
-	else 
-	{
-		giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iMilitiaCostModifier) * iNumberOfSectors;
-		Assert( giTotalCostOfTraining > 0 );
-		gfAreWeTrainingMobile = TRUE;
 	}
 
 	gfYesNoPromptIsForContinue = FALSE;
@@ -923,66 +885,31 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 			swprintf( sString, pMilitiaConfirmStrings[ 8 ], giTotalCostOfTraining );
 			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, CantTrainMilitiaOkBoxCallback );
 		}
-		else
-		{
-			swprintf( sString, pMilitiaConfirmStrings[ 11 ], giTotalCostOfTraining );
-			DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, CantTrainMobileMilitiaOkBoxCallback );
-		}
 		return;
 	}
 
 	// ok to start training, ask player
-
-
-	if( iNumberOfSectors > 1 )
+	if ( ubMilitiaType == TOWN_MILITIA )
 	{
-		if (ubMilitiaType == TOWN_MILITIA)
+		if ( iNumberOfSectors > 1 )
 		{
-			swprintf( sString, pMilitiaConfirmStrings[ 7 ], iNumberOfSectors, giTotalCostOfTraining, pMilitiaConfirmStrings[ 1 ] );
+			swprintf( sString, pMilitiaConfirmStrings[7], iNumberOfSectors, giTotalCostOfTraining, pMilitiaConfirmStrings[1] );
 		}
 		else
 		{
-			swprintf( sString, pMilitiaConfirmStrings[ 13 ], iNumberOfSectors, giTotalCostOfTraining, pMilitiaConfirmStrings[ 1 ] );
+			swprintf( sString, L"%s%d. %s", pMilitiaConfirmStrings[0], giTotalCostOfTraining, pMilitiaConfirmStrings[1] );
 		}
-	}
-	else
-	{
-		if (ubMilitiaType == TOWN_MILITIA)
-		{
-			swprintf( sString, L"%s%d. %s", pMilitiaConfirmStrings[ 0 ], giTotalCostOfTraining, pMilitiaConfirmStrings[ 1 ] );
-		}
-		else
-		{
-			swprintf( sString, L"%s%d. %s", pMilitiaConfirmStrings[ 14 ], giTotalCostOfTraining, pMilitiaConfirmStrings[ 1 ] );
-		}
-	}
 
-	// if we are in mapscreen, make a pop up
-	if( guiCurrentScreen == MAP_SCREEN )
-	{
-		// HEADROCK HAM 3.6: Separate callbacks for Mobile and Garrison militia
-		if (ubMilitiaType == TOWN_MILITIA)
+		// if we are in mapscreen, make a pop up
+		if ( guiCurrentScreen == MAP_SCREEN )
 		{
 			DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
 		}
 		else
 		{
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMobileMilitiaTrainingYesNoBoxCallback );
-		}
-	}
-	else
-	{
-		if (ubMilitiaType == TOWN_MILITIA)
-		{
 			DoMessageBox( MSG_BOX_BASIC_STYLE, sString, GAME_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback, &pCenteringRect );
 		}
-		else
-		{
-			DoMessageBox( MSG_BOX_BASIC_STYLE, sString, GAME_SCREEN, MSG_BOX_FLAG_YESNO, PayMobileMilitiaTrainingYesNoBoxCallback, &pCenteringRect );
-		}
 	}
-
-	return;
 }
 
 void DoContinueMilitiaTrainingMessageBox( INT16 sSectorX, INT16 sSectorY, const STR16 str, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
@@ -1021,34 +948,16 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 	{
 		ubMilitiaType = TOWN_MILITIA;
 	}
-	else if (pSoldier->bAssignment == TRAIN_MOBILE )
-	{
-		ubMilitiaType = MOBILE_MILITIA;
-	}
 
 	if (ubMilitiaType == TOWN_MILITIA)
 	{
 		Assert( SectorInfo[ SECTOR( sSectorX, sSectorY ) ].fMilitiaTrainingPaid == FALSE );
 	}
-	else if (ubMilitiaType == MOBILE_MILITIA)
-	{
-		Assert( SectorInfo[ SECTOR( sSectorX, sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE );
-	}
 
 	pMilitiaTrainerSoldier = pSoldier;
 
 	gfYesNoPromptIsForContinue = TRUE;
-
-	//Moa: prevent continue training when at/above maximum
-	if ( ubMilitiaType == MOBILE_MILITIA )
-	{
-		if ( 100 <= GetMobileMilitiaQuota( TRUE ) )
-		{
-			MilitiaTrainingRejected( MOBILE_MILITIA );
-			return;
-		}
-	}
-
+	
 	// is there enough loyalty to continue training
 	if( DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) == FALSE )
 	{
@@ -1057,10 +966,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 		if (ubMilitiaType == TOWN_MILITIA)
 		{
 			DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMilitiaOkBoxCallback );
-		}
-		else if (ubMilitiaType == MOBILE_MILITIA)
-		{
-			DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMobileMilitiaOkBoxCallback );
 		}
 		return;
 	}
@@ -1084,132 +989,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 		DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMilitiaOkBoxCallback );
 		return;
 	}
-	else if (ubMilitiaType == MOBILE_MILITIA)
-	{
-		// Test to see if not enough Town Militia
-		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR(pSoldier->sSectorX, pSoldier->sSectorY) ] );
-		BOOLEAN fUnfullSectorFound = FALSE;
-
-		// Test to see if not enough Town Militia
-		// HEADROCK HAM 4: No need for this check anymore. Militia can now be trained separately thanks to being
-		// able to keep them out of cities.
-		/*
-
-		if ( CountMilitia( pSectorInfo ) < gGameExternalOptions.iMaxMilitiaPerSector )
-		{
-			fUnfullSectorFound = TRUE;
-		}
-		else
-		{
-			iCounter = 0;
-			while( pTownNamesList[ iCounter ] != 0 )
-			{
-				// Are we in this city?
-				if( pTownNamesList[ iCounter] == bTownId )
-				{
-					INT16 sCurrentX = GET_X_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
-					INT16 sCurrentY = GET_Y_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
-
-					pSectorInfo = &( SectorInfo[ SECTOR(sCurrentX, sCurrentY) ] );
-					// if sector has enemies or hasn't already been taken at least once, then
-					if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-						NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
-					{
-						// skip the rest. This sector cannot generate militia anyway. 
-						iCounter++;
-						continue;
-					}
-					else
-					{
-						if (CountMilitia(pSectorInfo) < gGameExternalOptions.iMaxMilitiaPerSector )
-						{
-							// Found a controlled city sector that does not yet have a full garrison
-							fUnfullSectorFound;
-						}
-					}
-				}
-				iCounter++;
-			}
-		}
-		if (fUnfullSectorFound)
-		{
-			// At least one city sector is controlled but not full of garrison militia. Can't train mobiles!
-			swprintf(sString, New113HAMMessage[9], gGameExternalOptions.iMaxMilitiaPerSector, pTownNames[bTownId]);
-			DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMobileMilitiaOkBoxCallback );
-			return;
-		}
-		*/
-
-		//////////////////////////////////////////
-		// Capacity check in nearby sectors
-		UINT16 pMoveDir[4][3];
-		UINT8 uiDirNumber = 0;
-		BOOLEAN fFoundValidSector = FALSE;
-
-		
-		INT8 bTownId = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
-		GenerateDirectionInfosForTraining( pSoldier->sSectorX, pSoldier->sSectorY, &uiDirNumber, pMoveDir );
-		// Found at least one suitable place to put Mobiles?
-		if (uiDirNumber)
-		{
-			fFoundValidSector = TRUE;
-		}
-		// Try entire city.
-		else
-		{
-			INT32 iCounter = 0;
 			
-			// Go through each city in the game
-			while( pTownNamesList[ iCounter ] != 0 )
-			{
-				// Are we in this city?
-				if( pTownNamesList[ iCounter] == bTownId )
-				{
-					INT16 sCurrentX = GET_X_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
-					INT16 sCurrentY = GET_Y_FROM_STRATEGIC_INDEX( pTownLocationsList[ iCounter ] );
-
-					// if sector has enemies or hasn't already been taken at least once, then
-					if ( !SectorInfo[ SECTOR(sCurrentX, sCurrentY) ].fSurfaceWasEverPlayerControlled || 
-						 NumNonPlayerTeamMembersInSector( sCurrentX, sCurrentY, ENEMY_TEAM ) > 0 )
-					{
-						// skip the rest. This sector cannot generate militia anyway. 
-						iCounter++;
-						continue;
-					}
-
-					// Find out if any adjacent sectors have room in them.
-					GenerateDirectionInfosForTraining( sCurrentX, sCurrentY, &uiDirNumber, pMoveDir );
-
-					if(uiDirNumber)
-					{
-						fFoundValidSector = TRUE;
-						break;
-					}
-				}
-				iCounter++;
-			}
-		}
-
-		// Couldn't find at least one sector to place Mobiles. Report "No room!"
-		if (!fFoundValidSector) 
-		{
-			swprintf( sString, New113HAMMessage[ 8 ], pTownNames[ bTownId ], iMinLoyaltyToTrain );
-			DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMobileMilitiaOkBoxCallback );
-			return;
-		}
-	}
-
-	// Kaiden: Roaming Militia Training:
-	// Charging more to train Roaming Militia
-	// Also Charging more for promotions over Training
-
-	if( ubMilitiaType == MOBILE_MILITIA )
-	{
-		giTotalCostOfTraining = (iMilitiaTrainingCost*gGameExternalOptions.iMilitiaCostModifier);
-		gfAreWeTrainingMobile = TRUE;
-	}
-
-	else
 	{
 		if (IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, REGULAR_MILITIA )
 			&& (gGameExternalOptions.gfTrainVeteranMilitia)
@@ -1227,7 +1007,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 		{
 			giTotalCostOfTraining = (iMilitiaTrainingCost);
 		}
-		gfAreWeTrainingMobile = FALSE;
 	}
 
 	// can player afford to continue training?
@@ -1239,10 +1018,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 		{
 			DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMilitiaOkBoxCallback );
 		}
-		else if (ubMilitiaType == MOBILE_MILITIA)
-		{
-			DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMobileMilitiaOkBoxCallback );
-		}
 		return;
 	}
 
@@ -1253,10 +1028,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 	{
 		swprintf( sString, pMilitiaConfirmStrings[ 3 ], sStringB, pMilitiaConfirmStrings[ 4 ], giTotalCostOfTraining );
 	}
-	else if (ubMilitiaType == MOBILE_MILITIA)
-	{
-		swprintf( sString, pMilitiaConfirmStrings[ 12 ], sStringB, pMilitiaConfirmStrings[ 4 ], giTotalCostOfTraining );
-	}
 
 	// ask player whether he'd like to continue training
 	//DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
@@ -1264,13 +1035,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 	{
 		DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
 	}
-	else if (ubMilitiaType == MOBILE_MILITIA)
-	{
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMobileMilitiaTrainingYesNoBoxCallback );
-	}
 }
-
-
 
 // IMPORTANT: This same callback is used both for initial training and for continue training prompt
 // use 'gfYesNoPromptIsForContinue' flag to tell them apart
@@ -1317,22 +1082,12 @@ void PayMilitiaTrainingYesNoBoxCallback( UINT8 bExitValue )
 
 		MilitiaTrainingRejected( TOWN_MILITIA );
 	}
-
-	return;
 }
 
 
 void CantTrainMilitiaOkBoxCallback( UINT8 bExitValue )
 {
 	MilitiaTrainingRejected( TOWN_MILITIA );
-	return;
-}
-
-// HEADROCK HAM 3.6: Duplicate of the above, for Mobile Militia purposes.
-void CantTrainMobileMilitiaOkBoxCallback( UINT8 bExitValue )
-{
-	MilitiaTrainingRejected( MOBILE_MILITIA );
-	return;
 }
 
 // IMPORTANT: This same callback is used both for initial training and for continue training prompt
@@ -1360,8 +1115,6 @@ void MilitiaTrainingRejected( UINT8 ubMilitiaType )
 	pMilitiaTrainerSoldier = NULL;
 }
 
-
-
 void HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap( void )
 {
 	if ( gTacticalStatus.Team[ MILITIA_TEAM ].bSide != 0 )
@@ -1375,7 +1128,6 @@ void HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap( void )
 		HandleMilitiaPromotions();
 	}
 }
-
 
 BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN fScoutTraitCheck ) // added argument  - SANDRO
 {
@@ -1788,16 +1540,6 @@ void BuildListOfUnpaidTrainableSectors( UINT8 ubMilitiaType )
 							}
 						}
 					}
-					else
-					{
-						if (CanCharacterTrainMobileMilitia( pSoldier ) == TRUE )
-						{
-							if (SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE)
-							{
-								gsUnpaidStrategicSector[ iCounter ] = CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY );
-							}
-						}
-					}
 				}
 			}
 		}
@@ -1813,16 +1555,6 @@ void BuildListOfUnpaidTrainableSectors( UINT8 ubMilitiaType )
 			if (CanCharacterTrainMilitia( pSoldier ) == TRUE )
 			{
 				if (SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMilitiaTrainingPaid == FALSE )
-				{
-					gsUnpaidStrategicSector[ iCounter ] = CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY );
-				}
-			}
-		}
-		else
-		{
-			if (CanCharacterTrainMobileMilitia( pSoldier ) == TRUE )
-			{
-				if (SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ].fMobileMilitiaTrainingPaid == FALSE )
 				{
 					gsUnpaidStrategicSector[ iCounter ] = CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY );
 				}
@@ -1869,7 +1601,6 @@ INT32 GetNumberOfUnpaidTrainableSectors( UINT8 ubMilitiaType )
 
 }
 
-
 void StartTrainingInAllUnpaidTrainableSectors( UINT8 ubMilitiaType )
 {
 	INT32 iCounter = 0;
@@ -1878,10 +1609,6 @@ void StartTrainingInAllUnpaidTrainableSectors( UINT8 ubMilitiaType )
 	if (ubMilitiaType == TOWN_MILITIA)
 	{
 		SetAssignmentForList( TRAIN_TOWN, 0 );
-	}
-	else if (ubMilitiaType == MOBILE_MILITIA)
-	{
-		SetAssignmentForList( TRAIN_MOBILE, 0 );
 	}
 
 	BuildListOfUnpaidTrainableSectors( ubMilitiaType );
@@ -1897,7 +1624,6 @@ void StartTrainingInAllUnpaidTrainableSectors( UINT8 ubMilitiaType )
 		}
 	}
 }
-
 
 void ContinueTrainingInThisSector( UINT8 ubMilitiaType )
 {
@@ -1920,20 +1646,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia6");
 	UINT8 ubMilitiaType = 0;
 
 	// spend the money
-	// Kaiden: Roaming Militia Training:
-	// Charging more to train Roaming Militia
-	// Or for promotions.
-
-	if ( gfAreWeTrainingMobile)
-	{
-		Assert( SectorInfo[ ubSector ].fMobileMilitiaTrainingPaid == FALSE );
-		// Mark sector as being paid up
-		SectorInfo[ ubSector ].fMobileMilitiaTrainingPaid = TRUE;
-		CostMultiplyer = gGameExternalOptions.iMilitiaCostModifier;
-		gfAreWeTrainingMobile = FALSE;
-		ubMilitiaType = MOBILE_MILITIA;
-	}
-	else 
+	
 	{
 		Assert( SectorInfo[ ubSector ].fMilitiaTrainingPaid == FALSE );
 		if ( gfAreWePromotingGreen)
@@ -1961,14 +1674,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia6");
 	ResetDoneFlagForAllMilitiaTrainersInSector( ubSector, ubMilitiaType );
 }
 
-
 void ResetDoneFlagForAllMilitiaTrainersInSector( UINT8 ubSector, UINT8 ubMilitiaType )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
-
-
-	for( iCounter = 0; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	
+	for( INT32 iCounter = 0; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++iCounter )
 	{
 		pSoldier = &Menptr[ iCounter ];
 
@@ -1985,21 +1695,9 @@ void ResetDoneFlagForAllMilitiaTrainersInSector( UINT8 ubSector, UINT8 ubMilitia
 					}
 				}
 			}
-			else if (ubMilitiaType == MOBILE_MILITIA)
-			{
-				if( pSoldier->bAssignment == TRAIN_MOBILE )
-				{
-					if( ( SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) == ubSector ) && ( pSoldier->bSectorZ == 0 ) )
-					{
-						pSoldier->flags.fDoneAssignmentAndNothingToDoFlag = FALSE;
-						pSoldier->usQuoteSaidExtFlags &= ~SOLDIER_QUOTE_SAID_DONE_ASSIGNMENT;
-					}
-				}
-			}
 		}
 	}
 }
-
 
 BOOLEAN MilitiaTrainingAllowedInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
@@ -2101,23 +1799,21 @@ void BuildMilitiaPromotionsString( STR16 str )
 	gbRegToElitePromotions = 0;
 	gbMilitiaPromotions = 0;
 }
+
 // HEADROCK HAM 3.3: This function finds the best Militia Trainer in the target sector. It may also take into account
 // mercs' TEACHING skill, if told to. The function returns the calculated "Effective Leadership" of the selected
 // trainer.
 UINT8 FindBestMilitiaTrainingLeadershipInSector ( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT8 ubMilitiaType )
 {
-
 	UINT16 cnt = 0;
 	SOLDIERTYPE * pCheckedTrainer;
 	UINT16 usTrainerEffectiveLeadership = 0;
 	UINT8 ubBestLeadership = 0;
 
 	// HEADROCK HAM 3.3: Add search for best trainer in sector
-	for ( pCheckedTrainer = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pCheckedTrainer++)
+	for ( pCheckedTrainer = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pCheckedTrainer )
 	{
-		if (pCheckedTrainer->bActive && pCheckedTrainer->stats.bLife >= OKLIFE && 
-			((ubMilitiaType == TOWN_MILITIA && pCheckedTrainer->bAssignment == TRAIN_TOWN) ||
-			(ubMilitiaType == MOBILE_MILITIA && pCheckedTrainer->bAssignment == TRAIN_MOBILE) ) )
+		if  (pCheckedTrainer->bActive && pCheckedTrainer->stats.bLife >= OKLIFE && (ubMilitiaType == TOWN_MILITIA && pCheckedTrainer->bAssignment == TRAIN_TOWN) )
 		{
 			if (pCheckedTrainer->sSectorX == sMapX && pCheckedTrainer->sSectorY == sMapY && pCheckedTrainer->bSectorZ == bMapZ )
 			{
@@ -2157,9 +1853,8 @@ UINT8 FindBestMilitiaTrainingLeadershipInSector ( INT16 sMapX, INT16 sMapY, INT8
 
 // HEADROCK HAM 3.6: Created a new function to make things easier. This calculates the target number of militia to
 // be created.
-UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership, BOOLEAN fMobile)
+UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership)
 {
-
 	UINT8 ubReqLeadershipForFull = 1;
 	UINT8 ubMinLeadershipForTraining = 0;
 	UINT8 ubLeadershipRange = 0;
@@ -2167,130 +1862,41 @@ UINT8 CalcNumMilitiaTrained(UINT8 ubBestLeadership, BOOLEAN fMobile)
 	// Result value
 	UINT8 ubMilitiaToTrain = 0;
 	
-
 	// Garrison Training
-	if (!fMobile)
+	
+	// Default Squad Size for Garrisons, read from INI.
+	ubMilitiaToTrain = gGameExternalOptions.iTrainingSquadSize;
+
+	// Is affected by Leadership?
+	if (gGameExternalOptions.fLeadershipAffectsMilitiaQuantity &&
+		gGameExternalOptions.ubReqLeadershipForFullTraining > gGameExternalOptions.ubMinimumLeadershipToTrainMilitia)
 	{
-		// Default Squad Size for Garrisons, read from INI.
-		ubMilitiaToTrain = gGameExternalOptions.iTrainingSquadSize;
+		// Set these variables to their INI values.
+		ubReqLeadershipForFull = gGameExternalOptions.ubReqLeadershipForFullTraining;
+		ubMinLeadershipForTraining = gGameExternalOptions.ubMinimumLeadershipToTrainMilitia;
 
-		// Is affected by Leadership?
-		if (gGameExternalOptions.fLeadershipAffectsMilitiaQuantity &&
-			gGameExternalOptions.ubReqLeadershipForFullTraining > gGameExternalOptions.ubMinimumLeadershipToTrainMilitia)
-		{
-			// Set these variables to their INI values.
-			ubReqLeadershipForFull = gGameExternalOptions.ubReqLeadershipForFullTraining;
-			ubMinLeadershipForTraining = gGameExternalOptions.ubMinimumLeadershipToTrainMilitia;
-
-			// We make sure our effective leadership isn't above or below the limits. If so, reset to limits.
-			// If there is a minimum required to train militia, we're ASSUMING that the character has enough leadership
-			// otherwise they wouldn't even be here. But just in case he's skipped the check somehow, this will raise 
-			// leadership to the minimum to avoid problems.
-			ubBestLeadership = __max(ubBestLeadership, ubMinLeadershipForTraining);
-			ubBestLeadership = __min(ubBestLeadership, ubReqLeadershipForFull);
+		// We make sure our effective leadership isn't above or below the limits. If so, reset to limits.
+		// If there is a minimum required to train militia, we're ASSUMING that the character has enough leadership
+		// otherwise they wouldn't even be here. But just in case he's skipped the check somehow, this will raise 
+		// leadership to the minimum to avoid problems.
+		ubBestLeadership = __max(ubBestLeadership, ubMinLeadershipForTraining);
+		ubBestLeadership = __min(ubBestLeadership, ubReqLeadershipForFull);
 			
-			// Find out by how much we've beaten the skill check
-			ubBestLeadership = ubBestLeadership - ubMinLeadershipForTraining;
+		// Find out by how much we've beaten the skill check
+		ubBestLeadership = ubBestLeadership - ubMinLeadershipForTraining;
 
-			// Find the range between the minimum and maximum.
-			ubLeadershipRange = ubReqLeadershipForFull - ubMinLeadershipForTraining;
+		// Find the range between the minimum and maximum.
+		ubLeadershipRange = ubReqLeadershipForFull - ubMinLeadershipForTraining;
 
-			// Squad Size is determined by the relative value of the leadership within the range. Anyone meeting or 
-			// exceeding the range (latter shouldn't happen) will train a full squad. Others will train less. If
-			// leadership was the minimum required, only 1 militia is trained.
-			ubMilitiaToTrain = ((ubBestLeadership * ubMilitiaToTrain) / ubLeadershipRange) + 1;
-			ubMilitiaToTrain = __min(ubMilitiaToTrain, gGameExternalOptions.iTrainingSquadSize);
-			ubMilitiaToTrain = __max(1, ubMilitiaToTrain);
-		}
-	}
-
-	// Mobile Militia
-	else
-	{
-		// Default Squad Size for Mobiles, read from INI.
-		ubMilitiaToTrain = gGameExternalOptions.guiNumMobileMilitiaTrained;
-
-		// Is affected by Leadership?
-		if (gGameExternalOptions.fLeadershipAffectsMobileMilitiaQuantity && 
-			gGameExternalOptions.ubReqLeadershipForFullMobileTraining > gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia )
-		{
-
-			// Set these variables to their INI values.
-			ubReqLeadershipForFull = gGameExternalOptions.ubReqLeadershipForFullMobileTraining;
-			ubMinLeadershipForTraining = gGameExternalOptions.ubMinimumLeadershipToTrainMobileMilitia;
-
-			// We make sure our effective leadership isn't above or below the limits. If so, reset to limits.
-			// If there is a minimum required to train militia, we're ASSUMING that the character has enough leadership
-			// otherwise they wouldn't even be here. But just in case he's skipped the check somehow, this will raise 
-			// leadership to the minimum to avoid problems.
-			ubBestLeadership = __max(ubBestLeadership, ubMinLeadershipForTraining);
-			ubBestLeadership = __min(ubBestLeadership, ubReqLeadershipForFull);
-			
-			// Find out by how much we've beaten the skill check
-			ubBestLeadership = ubBestLeadership - ubMinLeadershipForTraining;
-
-			// Find the range between the minimum and maximum.
-			ubLeadershipRange = ubReqLeadershipForFull - ubMinLeadershipForTraining;
-
-			// Squad Size is determined by the relative value of the leadership within the range. Anyone meeting or 
-			// exceeding the range (latter shouldn't happen) will train a full squad. Others will train less. If
-			// leadership was the minimum required, only 3 militia are trained.
-			ubMilitiaToTrain = ((ubBestLeadership * ubMilitiaToTrain) / ubLeadershipRange) + 1;
-			ubMilitiaToTrain = __min(ubMilitiaToTrain, gGameExternalOptions.guiNumMobileMilitiaTrained);
-			ubMilitiaToTrain = __max(3, ubMilitiaToTrain);
-		}
+		// Squad Size is determined by the relative value of the leadership within the range. Anyone meeting or 
+		// exceeding the range (latter shouldn't happen) will train a full squad. Others will train less. If
+		// leadership was the minimum required, only 1 militia is trained.
+		ubMilitiaToTrain = ((ubBestLeadership * ubMilitiaToTrain) / ubLeadershipRange) + 1;
+		ubMilitiaToTrain = __min(ubMilitiaToTrain, gGameExternalOptions.iTrainingSquadSize);
+		ubMilitiaToTrain = __max(1, ubMilitiaToTrain);
 	}
 	
 	return (ubMilitiaToTrain);
-}
-
-// HEADROCK HAM 3.6: Duplicate function for handling callback on Mobile Militia training
-void PayMobileMilitiaTrainingYesNoBoxCallback( UINT8 bExitValue )
-{
-	CHAR16 sString[ 128 ];
-
-	Assert( giTotalCostOfTraining > 0 );
-
-	// yes
-	if( bExitValue == MSG_BOX_RETURN_YES )
-	{
-		// does the player have enough
-		if( LaptopSaveInfo.iCurrentBalance >= giTotalCostOfTraining )
-		{
-			if( gfYesNoPromptIsForContinue )
-			{
-				ContinueTrainingInThisSector( MOBILE_MILITIA );
-			}
-			else
-			{
-				StartTrainingInAllUnpaidTrainableSectors( MOBILE_MILITIA );
-			}
-
-#ifdef JA2BETAVERSION
-			// put this BEFORE training gets handled to avoid detecting an error everytime a sector completes training
-			// Checks Town and Mobile militia
-			VerifyTownTrainingIsPaidFor();
-#endif
-
-			// this completes the training prompt sequence
-			pMilitiaTrainerSoldier = NULL;
-		}
-		else	// can't afford it
-		{
-			StopTimeCompression();
-
-			swprintf( sString, L"%s", pMilitiaConfirmStrings[ 2 ] );
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, CantTrainMobileMilitiaOkBoxCallback );
-		}
-	}
-	else if( bExitValue == MSG_BOX_RETURN_NO )
-	{
-		StopTimeCompression();
-
-		MilitiaTrainingRejected( MOBILE_MILITIA );
-	}
-
-	return;
 }
 
 // HEADROCK HAM 3.6: Daily check for upkeep of all militia
@@ -2329,26 +1935,9 @@ void HandleMilitiaUpkeepPayment( void )
 
 					MilitiaList[cnt].ubSectorId = (UINT8)cnt;
 
-					UINT8 ubTownId = GetTownIdForSector( sMapX, sMapY );
-					if ((ubTownId != BLANK_SECTOR && MilitiaTrainingAllowedInTown(ubTownId)) || // Major Town
-						IsThisSectorASAMSector( sMapX, sMapY, 0 ) ) // SAM Site
-					{
-						MilitiaList[cnt].ubNumTownGreens = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
-						MilitiaList[cnt].ubNumTownRegulars = MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
-						MilitiaList[cnt].ubNumTownElites = MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA );
-						MilitiaList[cnt].ubNumMobileGreens = 0;
-						MilitiaList[cnt].ubNumMobileRegulars = 0;
-						MilitiaList[cnt].ubNumMobileElites = 0;
-					}
-					else
-					{
-						MilitiaList[cnt].ubNumMobileGreens = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
-						MilitiaList[cnt].ubNumMobileRegulars = MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
-						MilitiaList[cnt].ubNumMobileElites = MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA );
-						MilitiaList[cnt].ubNumTownGreens = 0;
-						MilitiaList[cnt].ubNumTownRegulars = 0;
-						MilitiaList[cnt].ubNumTownElites = 0;
-					}
+					MilitiaList[cnt].ubNumTownGreens   = MilitiaInSectorOfRank( sMapX, sMapY, GREEN_MILITIA );
+					MilitiaList[cnt].ubNumTownRegulars = MilitiaInSectorOfRank( sMapX, sMapY, REGULAR_MILITIA );
+					MilitiaList[cnt].ubNumTownElites   = MilitiaInSectorOfRank( sMapX, sMapY, ELITE_MILITIA );
 				}
 
 				// Resort list so that sectors with more militia are at the top of the array. Higher weight
@@ -2359,10 +1948,7 @@ void HandleMilitiaUpkeepPayment( void )
 				{
 					if (MilitiaList[0].ubNumTownGreens +
 						MilitiaList[0].ubNumTownRegulars +
-						MilitiaList[0].ubNumTownElites +
-						MilitiaList[0].ubNumMobileGreens +
-						MilitiaList[0].ubNumMobileRegulars +
-						MilitiaList[0].ubNumMobileElites == 0)
+						MilitiaList[0].ubNumTownElites == 0)
 					{
 						//All sectors are empty? Default to 0 payment.
 						uiMoneyUnpaid = 0;
@@ -2371,42 +1957,7 @@ void HandleMilitiaUpkeepPayment( void )
 					INT16 sX = SECTORX( MilitiaList[0].ubSectorId );
 					INT16 sY = SECTORY( MilitiaList[0].ubSectorId );
 
-					if (MilitiaList[0].ubNumMobileElites > 0)
-					{
-						// Remove one militia from sector
-						StrategicRemoveMilitiaFromSector( sX, sY, ELITE_MILITIA, 1 );
-						// Adjust list entry
-						MilitiaList[0].ubNumMobileElites--;
-						// Reduce debt appropriately
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[ELITE_MILITIA];
-						// Increase tally of militia removed
-						++uiNumMilitiaDisbanded;
-						++usElitesDisbanded;
-
-						// Flugente: individual militia profiles need to be adjusted
-						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 0, 0, 1 );
-					}
-					else if (MilitiaList[0].ubNumMobileRegulars > 0)
-					{
-						StrategicRemoveMilitiaFromSector( sX, sY, REGULAR_MILITIA, 1 );
-						MilitiaList[0].ubNumMobileRegulars--;
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[REGULAR_MILITIA];
-						++uiNumMilitiaDisbanded;
-						++usRegularsDisbanded;
-
-						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 0, 1, 0 );
-					}
-					else if (MilitiaList[0].ubNumMobileGreens > 0)
-					{
-						StrategicRemoveMilitiaFromSector( sX, sY, GREEN_MILITIA, 1 );
-						MilitiaList[0].ubNumMobileGreens--;
-						uiMoneyUnpaid -= gGameExternalOptions.usDailyCostMobile[GREEN_MILITIA];
-						++uiNumMilitiaDisbanded;
-						++usGreenDisbanded;
-
-						DisbandIndividualMilitia( MilitiaList[0].ubSectorId, 1, 0, 0 );
-					}							
-					else if (MilitiaList[0].ubNumTownElites > 0)
+					if (MilitiaList[0].ubNumTownElites > 0)
 					{
 						StrategicRemoveMilitiaFromSector( sX, sY, ELITE_MILITIA, 1 );
 						MilitiaList[0].ubNumTownElites--;
@@ -2464,19 +2015,7 @@ void HandleMilitiaUpkeepPayment( void )
 
 int MilitiaListQsortCompare(const void *pArg1, const void *pArg2)
 {
-	if (((MILITIA_LIST_TYPE *)pArg1)->ubNumMobileElites > ((MILITIA_LIST_TYPE *)pArg2)->ubNumMobileElites)
-	{
-		return(-1);
-	}
-	else if (((MILITIA_LIST_TYPE *)pArg1)->ubNumMobileRegulars > ((MILITIA_LIST_TYPE *)pArg2)->ubNumMobileRegulars)
-	{
-		return(-1);
-	}
-	else if (((MILITIA_LIST_TYPE *)pArg1)->ubNumMobileGreens > ((MILITIA_LIST_TYPE *)pArg2)->ubNumMobileGreens)
-	{
-		return(-1);
-	}
-	else if (((MILITIA_LIST_TYPE *)pArg1)->ubNumTownElites > ((MILITIA_LIST_TYPE *)pArg2)->ubNumTownElites)
+	if (((MILITIA_LIST_TYPE *)pArg1)->ubNumTownElites > ((MILITIA_LIST_TYPE *)pArg2)->ubNumTownElites)
 	{
 		return(-1);
 	}
@@ -2501,19 +2040,7 @@ int MilitiaListQsortCompare(const void *pArg1, const void *pArg2)
 		else if (((MILITIA_LIST_TYPE *)pArg1)->ubNumTownElites < ((MILITIA_LIST_TYPE *)pArg2)->ubNumTownElites)
 		{
 			return(1);
-		}
-		else if (((MILITIA_LIST_TYPE *)pArg1)->ubNumMobileGreens < ((MILITIA_LIST_TYPE *)pArg2)->ubNumMobileGreens)
-		{
-			return(1);
-		}
-		else if (((MILITIA_LIST_TYPE *)pArg1)->ubNumMobileRegulars < ((MILITIA_LIST_TYPE *)pArg2)->ubNumMobileRegulars)
-		{
-			return(1);
-		}
-		else if (((MILITIA_LIST_TYPE *)pArg1)->ubNumMobileElites < ((MILITIA_LIST_TYPE *)pArg2)->ubNumMobileElites)
-		{
-			return(1);
-		}
+		}		
 		else
 		{
 			return(0);
@@ -2527,7 +2054,6 @@ UINT32 CalcMilitiaUpkeep( void )
 	UINT32 uiTotalPayment = 0;
 
 	UINT32 militia_static[MAX_MILITIA_LEVELS] = {0, 0, 0};
-	UINT32 militia_mobile[MAX_MILITIA_LEVELS] = {0, 0, 0};
 	UINT32 militia_individual[MAX_MILITIA_LEVELS] = {0, 0, 0};
 
 	for (UINT16 cnt = 0; cnt < 256; ++cnt)
@@ -2536,18 +2062,8 @@ UINT32 CalcMilitiaUpkeep( void )
 		UINT8 sMapX = SECTORX(cnt);
 		UINT8 sMapY = SECTORY(cnt);
 
-		UINT8 ubTownId = GetTownIdForSector( sMapX, sMapY );
-		if ((ubTownId != BLANK_SECTOR && MilitiaTrainingAllowedInTown(ubTownId)) || // Major Town
-			IsThisSectorASAMSector( sMapX, sMapY, 0 ) ) // SAM Site
-		{
-			for ( int i = GREEN_MILITIA; i < MAX_MILITIA_LEVELS; ++i )
-				militia_static[i] += MilitiaInSectorOfRank( sMapX, sMapY, i );
-		}
-		else
-		{
-			for ( int i = GREEN_MILITIA; i < MAX_MILITIA_LEVELS; ++i )
-				militia_mobile[i] += MilitiaInSectorOfRank( sMapX, sMapY, i );
-		}
+		for ( int i = GREEN_MILITIA; i < MAX_MILITIA_LEVELS; ++i )
+			militia_static[i] += MilitiaInSectorOfRank( sMapX, sMapY, i );
 	}
 
 	// Flugente: if indivídual militia is on, calculate costs there and use the above as a fallback option
@@ -2558,14 +2074,9 @@ UINT32 CalcMilitiaUpkeep( void )
 
 	for ( int i = GREEN_MILITIA; i < MAX_MILITIA_LEVELS; ++i )
 	{
-		if ( militia_static[i] + militia_mobile[i] > militia_individual[i] )
+		if ( militia_static[i] > militia_individual[i] )
 		{
-			UINT32 exceed = militia_static[i] + militia_mobile[i] - militia_individual[i];
-			UINT32 exceed_mobile = min( exceed, militia_mobile[i] );
-			UINT32 exced_static = exceed - exceed_mobile;
-
-			uiTotalPayment += exced_static * gGameExternalOptions.usDailyCostTown[i];
-			uiTotalPayment += exceed_mobile * gGameExternalOptions.usDailyCostMobile[i];
+			uiTotalPayment += ( militia_static[i] + -militia_individual[i] ) * gGameExternalOptions.usDailyCostTown[i];
 		}
 	}
 

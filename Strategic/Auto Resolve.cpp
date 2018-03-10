@@ -325,10 +325,6 @@ void RenderSoldierCellHealth( SOLDIERCELL *pCell );
 void RenderSoldierCell( SOLDIERCELL *pCell );
 void RenderSoldierCellBars( SOLDIERCELL *pCell );
 
-// HEADROCK HAM 3.4: New argument configuration to make use of revamped movement controls
-void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fForTraining, BOOLEAN fForBattle );
-
-
 //Dynamic globals -- to conserve memory, all global variables are allocated upon entry
 //and deleted before we leave.
 AUTORESOLVE_STRUCT *gpAR = NULL;

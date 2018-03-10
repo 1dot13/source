@@ -61,16 +61,14 @@ BOOLEAN FacilityTypes_TextOnly;
 
 void InitFacilityTypeEntry( facilitytypeParseData *pData )
 {
-
 	// This does base setup on a single type entry, making sure that all values are set to DEFAULT. This is run
 	// immediately before writing XML data into game memory.
 	// Default values set here are only those that differ from 0. Normally this means maximums and performace data
 	// which should equal 100 unless defined otherwise in the XML.
 
 	pData->curFacilityTypeData.usMilitiaTraining = 100;
-	pData->curFacilityTypeData.usMobileMilitiaTraining = 100;
 
-	for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; cnt++ )
+	for (UINT16 cnt = 0; cnt < NUM_FACILITY_ASSIGNMENTS; ++cnt )
 	{
 		pData->curFacilityTypeData.AssignmentData[ cnt ].ubMaximumBreath = 100;
 		pData->curFacilityTypeData.AssignmentData[ cnt ].ubMaximumMorale = 100;
@@ -177,9 +175,7 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 				strcmp(name, "ubTotalStaffLimit") == 0 ||
 
 				strcmp(name, "ubMilitiaTrainersAllowed") == 0 ||
-				strcmp(name, "ubMobileMilitiaTrainersAllowed") == 0 ||
 				strcmp(name, "usMilitiaTraining") == 0 ||
-				strcmp(name, "usMobileMilitiaTraining") == 0 ||
 
 				strcmp( name, "pmcentrypoint" ) == 0 ))
 		{
@@ -424,9 +420,7 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 						gFacilityTypes[pData->curIndex].ubTotalStaffLimit = pData->curFacilityTypeData.ubTotalStaffLimit;
 
 						gFacilityTypes[pData->curIndex].ubMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMilitiaTrainersAllowed;
-						gFacilityTypes[pData->curIndex].ubMobileMilitiaTrainersAllowed = pData->curFacilityTypeData.ubMobileMilitiaTrainersAllowed;
 						gFacilityTypes[pData->curIndex].usMilitiaTraining = pData->curFacilityTypeData.usMilitiaTraining;
-						gFacilityTypes[pData->curIndex].usMobileMilitiaTraining = pData->curFacilityTypeData.usMobileMilitiaTraining;
 
 						gFacilityTypes[pData->curIndex].usFacilityFlags = pData->curFacilityTypeData.usFacilityFlags;
 
@@ -504,14 +498,12 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 				SGP_THROW(L"FacilityTypes.XML Error: A </FACILITYTYPE> tag was encountered too early! Please make sure all tags are closed properly.");
 			}
 		}
-
 		// Set current Index. As long as it equals 0, the program is not writing any data to memory.
 		else if(strcmp(name, "ubIndex") == 0)
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curIndex = (UINT8) atol(pData->szCharData);
 		}
-		
 
 		//////////////////////////////////////////////
 		// General facility data and militia effects
@@ -523,7 +515,6 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curFacilityTypeData.szFacilityName, sizeof(pData->curFacilityTypeData.szFacilityName)/sizeof(pData->curFacilityTypeData.szFacilityName[0]) );
 			pData->curFacilityTypeData.szFacilityName[sizeof(pData->curFacilityTypeData.szFacilityName)/sizeof(pData->curFacilityTypeData.szFacilityName[0]) - 1] = '\0';
 		}
-
 		else if(strcmp(name, "szFacilityShortName") == 0)
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
@@ -531,34 +522,21 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curFacilityTypeData.szFacilityShortName, sizeof(pData->curFacilityTypeData.szFacilityShortName)/sizeof(pData->curFacilityTypeData.szFacilityShortName[0]) );
 			pData->curFacilityTypeData.szFacilityShortName[sizeof(pData->curFacilityTypeData.szFacilityShortName)/sizeof(pData->curFacilityTypeData.szFacilityShortName[0]) - 1] = '\0';
 		}
-
 		else if(strcmp(name, "ubTotalStaffLimit") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curFacilityTypeData.ubTotalStaffLimit = (UINT8) atol(pData->szCharData);
 		}
-
 		else if(strcmp(name, "ubMilitiaTrainersAllowed") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curFacilityTypeData.ubMilitiaTrainersAllowed = (UINT8) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "ubMobileMilitiaTrainersAllowed") == 0 )
-		{
-			pData->curElement = FACILITYTYPE_TYPE;
-			pData->curFacilityTypeData.ubMobileMilitiaTrainersAllowed = (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "usMilitiaTraining") == 0 )
 		{
 			pData->curElement = FACILITYTYPE_TYPE;
 			pData->curFacilityTypeData.usMilitiaTraining = (UINT8) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "usMobileMilitiaTraining") == 0 )
-		{
-			pData->curElement = FACILITYTYPE_TYPE;
-			pData->curFacilityTypeData.usMobileMilitiaTraining = (UINT8) atol(pData->szCharData);
-		}
-
 		else if ( strcmp( name, "pmcentrypoint" ) == 0 )
 		{
 			pData->curElement = FACILITYTYPE_TYPE;

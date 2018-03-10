@@ -60,10 +60,8 @@ INT32 ghMilitiaControlBox = -1;
 INT16 gsMilitiaControlBoxesX, gsMilitiaControlBoxesY;
 //INT16 gsTalkToAllBoxesX, gsTalkToAllBoxesY;
 
-
 // assignment menu mouse regions
 MOUSE_REGION    gMilitiaControlMenuRegion[ MAX_MILCON_STRING_COUNT ]; 
-//MOUSE_REGION    gTalkToAllMenuRegion[ MAX_TRAIN_STRING_COUNT ];
 
 MOUSE_REGION    gMilitiaControlScreenMaskRegion;
 

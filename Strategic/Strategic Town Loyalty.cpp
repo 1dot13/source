@@ -1880,13 +1880,7 @@ void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSec
 		{
 			UpdateLastDayOfPlayerActivity( ( UINT16 ) ( GetWorldDay() + 2 ) );
 		}
-		// HEADROCK HAM B1: Run a function to redefine Roaming Militia Restrictions on city capture.
-		if (gGameExternalOptions.fDynamicRestrictRoaming)
-		{
-			// HEADROCK HAM 5: New flag tells us to also recheck restriced sectors.
-			AdjustRoamingRestrictions( FALSE );
-		}
-
+		
 		// set flag even for towns where you can't train militia, useful for knowing Orta/Tixa were previously controlled
 		gTownLoyalty[ bTownId ].fLiberatedAlready = TRUE;
 	}

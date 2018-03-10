@@ -296,16 +296,13 @@ typedef struct FACILITYTYPE
 	UINT8 ubTotalStaffLimit;				// Total number of people who can work here simultaneously
 
 	UINT8 ubMilitiaTrainersAllowed;			// Number of Militia trainers allowed simultaneously
-	UINT8 ubMobileMilitiaTrainersAllowed;	// Number of Mobile Militia trainers allowed simultaneously
 	UINT16 usMilitiaTraining;				// Percentage effectiveness of Militia training (100 = normal)
-	UINT16 usMobileMilitiaTraining;			// Percentage effectiveness of Mobile Militia training (100 = normal)
 
 	UINT32 usFacilityFlags;					// flagmask for various facility properties
 
 	FACILITYASSIGNMENTTYPE AssignmentData[ NUM_FACILITY_ASSIGNMENTS ];		// Data about possible assignments that can be done here
 
 } FACILITYTYPE;
-
 
 // HEADROCK HAM 3.5: Maximum number of different facility types
 #define MAX_NUM_FACILITY_TYPES 255
@@ -487,9 +484,9 @@ typedef struct SECTORINFO
 										//a sector (nice theory, except it isn't being used that way.	Stealing is only in towns.	ARM)
 	UINT8	ubNumberOfCivsAtLevel[ MAX_MILITIA_LEVELS ]; // town militia per experience class, 0/1/2 is GREEN/REGULAR/ELITE
 	// HEADROCK HAM 3.6: Adding separate training percentage for MOBILES.
-	UINT8	ubMobileMilitiaTrainingPercentDone;
-	UINT8	ubMobileMilitiaTrainingHundredths;
-	BOOLEAN fMobileMilitiaTrainingPaid;
+	UINT8	usFiller3;
+	UINT8	usFiller1;
+	BOOLEAN fFiller2;
 	// Replacing these variables with the ones above. They really are unused.
 	//UINT16	usUNUSEDMilitiaLevels;					// unused (ARM)
 	//UINT8	ubUNUSEDNumberOfJoeBlowCivilians;		// unused (ARM)

@@ -541,8 +541,8 @@ enum Facts
 
 	FACT_CONRAD_SHOULD_GO =																		367,
 	FACT_PLAYER_KILLED_BOXERS =																368,
-	// HEADROCK HAM 4: Seen Mobile Militia screen after having at least one mobile unit?
-	FACT_MOBILE_RESTRICTIONS_VIEWED =														369,
+	
+	FACT_UNUSED =														369,
 
 	// anv: Waldo The Mechanic, facts for his dialogue
 	FACT_HELI_DAMAGED_CAN_START_REPAIR,
