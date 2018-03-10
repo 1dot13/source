@@ -930,18 +930,8 @@ BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 s
 		// Test for Wilderness/Minor -> Minor
 		else if (fTargetIsMinorTown)
 		{
-			// Is allowed by INI?
-			if (gGameExternalOptions.fAllowMilitiaMoveThroughMinorCities &&
-				pTargetSector->fSurfaceWasEverPlayerControlled ) // Have we visited this sector before?
-			{
-				// Fine then. Works the same as wilderness->wilderness.
-				fCanSimpleMove = TRUE;
-			}
-			else
-			{
-				// Movement through Minor Cities isn't allowed.
-				fCanSimpleMove = FALSE;
-			}
+			// Movement through Minor Cities isn't allowed.
+			fCanSimpleMove = FALSE;
 		}
 		// Wilderness/Minor -> Wilderness
 		else
