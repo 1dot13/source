@@ -949,23 +949,11 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>750</BR_ROF>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
-		<DefaultAttachment>1029</DefaultAttachment>
+		<DefaultAttachment>1322</DefaultAttachment>
+		<DefaultAttachment>1324</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>28.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>0</PercentHandling>
-			<PercentMaxCounterForce>0</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>21</uiIndex>
@@ -1100,19 +1088,10 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>1100</BR_ROF>
-		<Bipod>10</Bipod>
+		<DefaultAttachment>1325</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>33.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>25</uiIndex>
@@ -1535,19 +1514,10 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
-		<Bipod>10</Bipod>
+		<DefaultAttachment>209</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>23.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>100</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -19213,19 +19183,10 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
-		<Bipod>10</Bipod>
+		<DefaultAttachment>209</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>100</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
@@ -19329,6 +19290,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>750</BR_ROF>
+		<DefaultAttachment>1322</DefaultAttachment>
 		<DefaultAttachment>1746</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
@@ -20202,23 +20164,10 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>650</BR_ROF>
-		<Bipod>7</Bipod>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
+		<DefaultAttachment>1324</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>30.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>688</uiIndex>
@@ -21602,24 +21551,11 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>680</BR_ROF>
-		<Bipod>7</Bipod>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
-		<DefaultAttachment>1029</DefaultAttachment>
+		<DefaultAttachment>1322</DefaultAttachment>
+		<DefaultAttachment>1324</DefaultAttachment>	
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>727</uiIndex>
@@ -21649,23 +21585,11 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>750</BR_ROF>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
-		<DefaultAttachment>1029</DefaultAttachment>
+		<DefaultAttachment>1322</DefaultAttachment>
+		<DefaultAttachment>1323</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>-10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>0</PercentHandling>
-			<PercentMaxCounterForce>0</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>728</uiIndex>
@@ -21695,20 +21619,11 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
-		<Bipod>10</Bipod>
+		<DefaultAttachment>209</DefaultAttachment>
 		<DefaultAttachment>1007</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>60.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>729</uiIndex>
@@ -21910,20 +21825,11 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<Bipod>10</Bipod>
 		<DefaultAttachment>208</DefaultAttachment>
+		<DefaultAttachment>209</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>49.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>20</PercentHandling>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>734</uiIndex>
@@ -22175,23 +22081,10 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>540</BR_ROF>
-		<Bipod>7</Bipod>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
+		<DefaultAttachment>1325</DefaultAttachment>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>28.0</DirtIncreaseFactor>
-		<STAND_MODIFIERS>
-			<PercentHandling>10</PercentHandling>
-			<PercentMaxCounterForce>30</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</STAND_MODIFIERS>
-		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS>
-			<PercentHandling>-75</PercentHandling>
-			<PercentMaxCounterForce>70</PercentMaxCounterForce>
-			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
-		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>741</uiIndex>
@@ -40647,18 +40540,37 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1322</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<szItemName>Scope 2x</szItemName>
+		<szLongItemName>Small Scope, 2x (Built-In)</szLongItemName>
+		<szItemDesc>This type of scope is often found built-in on modern assault rifles, though it will fit a revolver, shotgun, or SMG as well.</szItemDesc>
+		<szBRName>Small Scope, Mag.2x (Built-In)</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>16</AttachmentClass>
+		<nasAttachmentClass>16</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>728</ubGraphicNum>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
+		<ubGraphicNum>525</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>12</ItemSize>
+		<usPrice>400</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
+		<NotInEditor>1</NotInEditor>
+		<Inseparable>1</Inseparable>
+		<ToHitBonus>-2</ToHitBonus>
+		<AimBonus>5</AimBonus>
+		<MinRangeForAimBonus>10</MinRangeForAimBonus>
+		<NightVisionRangeBonus>5</NightVisionRangeBonus>
+		<DayVisionRangeBonus>10</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>10</BrightLightVisionRangeBonus>
+		<PercentTunnelVision>10</PercentTunnelVision>
+		<ScopeMagFactor>2.0</ScopeMagFactor>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -40666,60 +40578,120 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1323</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<szItemName>Foregrip</szItemName>
+		<szLongItemName>Foregrip (Built-In)</szLongItemName>
+		<szItemDesc>A special hand grip that can be attached to most SMGs and rifles to enhance burst and selective fire accuracy.</szItemDesc>
+		<szBRName>Foregrip (Built-In)</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>4096</AttachmentClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>728</ubGraphicNum>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
+		<ubGraphicNum>228</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>300</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bRepairEase>5</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
+		<NotInEditor>1</NotInEditor>
+		<Inseparable>1</Inseparable>
+		<BurstToHitBonus>5</BurstToHitBonus>
+		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-10</PercentHandling>
+			<PercentMaxCounterForce>70</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>0</PercentHandling>
+			<PercentMaxCounterForce>0</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>0</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1324</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<szItemName>Grippod</szItemName>
+		<szLongItemName>Grippod (Built-In)</szLongItemName>
+		<szItemDesc>This Grippod fits on the lower Picatinny Rail of a lot of modern rifles. Its bipod is not as sturdy as a dedicated one, though.</szItemDesc>
+		<szBRName>Grippod (Built-In)</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>4097</AttachmentClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>729</ubGraphicNum>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
+		<ubGraphicNum>693</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>500</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
+		<NotInEditor>1</NotInEditor>
+		<Inseparable>1</Inseparable>
+		<Bipod>7</Bipod>
+		<BurstToHitBonus>4</BurstToHitBonus>
+		<AutoFireToHitBonus>4</AutoFireToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>-5</PercentHandling>
+			<PercentMaxCounterForce>50</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>30</PercentCounterForceAccuracy>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-25</PercentHandling>
+			<PercentMaxCounterForce>70</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1325</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<nasLayoutClass>1</nasLayoutClass>
+		<szItemName>Bipod</szItemName>
+		<szLongItemName>Bipod (Built-In)</szLongItemName>
+		<szItemDesc>The universal bipod fits most sniper and assault rifles, as well as light machine guns. Made from a die-cast aluminum, it has a coated matte finish. Its legs fold up when not in use for easy storage.</szItemDesc>
+		<szBRName>Bipod (Built-In)</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<AttachmentClass>1</AttachmentClass>
+		<nasAttachmentClass>512</nasAttachmentClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>731</ubGraphicNum>
-		<ItemSize>34</ItemSize>
-		<NotBuyable>1</NotBuyable>
-		<BigGunList>1</BigGunList>
+		<ubGraphicNum>69</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>24</ItemSize>
+		<usPrice>100</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>5</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Attachment>1</Attachment>
+		<NotInEditor>1</NotInEditor>
+		<Inseparable>1</Inseparable>
+		<Bipod>10</Bipod>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
-		<STAND_MODIFIERS />
+		<STAND_MODIFIERS>
+			<PercentHandling>20</PercentHandling>
+		</STAND_MODIFIERS>
 		<CROUCH_MODIFIERS />
-		<PRONE_MODIFIERS />
+		<PRONE_MODIFIERS>
+			<PercentHandling>-75</PercentHandling>
+			<PercentMaxCounterForce>100</PercentMaxCounterForce>
+			<PercentCounterForceAccuracy>35</PercentCounterForceAccuracy>
+		</PRONE_MODIFIERS>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1326</uiIndex>
