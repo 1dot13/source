@@ -1661,7 +1661,11 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 				if ( gGameSettings.fOptions[ TOPTION_TOGGLE_TURN_MODE ])
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_FTM_ENTER_COMBAT ] );
-					if( Random( 100 ) >= Random( 100 ) ) // give a chance for either to go first
+
+					// Flugente 2018-03-11: this part is problematic. If the enemy enters combat first, it is possible for enemie groups that are already present to be counted as pending
+					// reinfocements, causing them to spawn at the edges of a sector instead.
+					// I am thus changing this so that the player team always gets the first turn if combat has not yet been started
+					if ( !(gTacticalStatus.uiFlags & INCOMBAT) || Random( 100 ) >= Random( 100 ) )
 						EnterCombatMode( OUR_TEAM );
 					else
 						EnterCombatMode( ENEMY_TEAM );
