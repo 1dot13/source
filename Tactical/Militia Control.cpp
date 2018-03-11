@@ -212,27 +212,95 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 	// Do we have a loaded sector?
 	if ( gWorldSectorX == 0 && gWorldSectorY == 0 )
 		return;
-
-	//for (int i=0; i<TOTAL_SOLDIERS; i++)
-	{
-		//CHRISL: What's this assert for?
-		//Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || !TileIsOutOfBounds(MercPtrs[i]->sGridNo));
-	}
-
+	
 	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-	ubGreen = MilitiaInSectorOfRank( gWorldSectorX, gWorldSectorY, GREEN_MILITIA );
-	ubRegs = MilitiaInSectorOfRank( gWorldSectorX, gWorldSectorY, REGULAR_MILITIA );
-	ubElites = MilitiaInSectorOfRank( gWorldSectorX, gWorldSectorY, ELITE_MILITIA );
 
 	// Prevent militia from just waiting on the border
-	gTacticalStatus.Team[MILITIA_TEAM].bAwareOfOpposition = (pSector->uiFlags & SF_PLAYER_KNOWS_ENEMIES_ARE_HERE) != 0;
+	gTacticalStatus.Team[MILITIA_TEAM].bAwareOfOpposition = ( pSector->uiFlags & SF_PLAYER_KNOWS_ENEMIES_ARE_HERE ) != 0;
 
+	ubGreen  = MilitiaInSectorOfRankStationary( gWorldSectorX, gWorldSectorY, GREEN_MILITIA );
+	ubRegs	 = MilitiaInSectorOfRankStationary( gWorldSectorX, gWorldSectorY, REGULAR_MILITIA );
+	ubElites = MilitiaInSectorOfRankStationary( gWorldSectorX, gWorldSectorY, ELITE_MILITIA );
+
+	// Flugente: if we are entering combat, have militia groups that arrived from other sectors start at the edges.
+	// As the arrival time is no longer set, we try to deduct that from the previous sectors of the groups.
+	// If that isn't set, too bad, have them insert in the center then.
+	if ( fPrepareAll && !guiDirNumber && NumHostilesInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) > 0 )//(gTacticalStatus.uiFlags & INCOMBAT) )
+	{
+		guiDirNumber = 5;
+
+		ZeroMemory( gpAttackDirs, sizeof( gpAttackDirs ) );
+
+		gpAttackDirs[0][0] += ubGreen;
+		gpAttackDirs[0][1] += ubRegs;
+		gpAttackDirs[0][2] += ubElites;
+
+		GROUP *pGroup = gpGroupList;
+		while ( pGroup )
+		{
+			if ( pGroup->usGroupTeam == MILITIA_TEAM && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY )
+			{
+				if ( pGroup->ubPrevX > 0 && pGroup->ubPrevY > 0 )
+				{
+					if ( pGroup->ubPrevX < gWorldSectorX )
+					{
+						gpAttackDirs[4][0] += pGroup->pEnemyGroup->ubNumAdmins;
+						gpAttackDirs[4][1] += pGroup->pEnemyGroup->ubNumTroops;
+						gpAttackDirs[4][2] += pGroup->pEnemyGroup->ubNumElites;
+						gpAttackDirs[4][3] = INSERTION_CODE_WEST;
+					}
+					else if ( pGroup->ubPrevX > gWorldSectorX )
+					{
+						gpAttackDirs[2][0] += pGroup->pEnemyGroup->ubNumAdmins;
+						gpAttackDirs[2][1] += pGroup->pEnemyGroup->ubNumTroops;
+						gpAttackDirs[2][2] += pGroup->pEnemyGroup->ubNumElites;
+						gpAttackDirs[2][3] = INSERTION_CODE_EAST;
+					}
+					else if ( pGroup->ubPrevY < gWorldSectorY )
+					{
+						gpAttackDirs[1][0] += pGroup->pEnemyGroup->ubNumAdmins;
+						gpAttackDirs[1][1] += pGroup->pEnemyGroup->ubNumTroops;
+						gpAttackDirs[1][2] += pGroup->pEnemyGroup->ubNumElites;
+						gpAttackDirs[1][3] = INSERTION_CODE_NORTH;
+					}
+					else if ( pGroup->ubPrevY > gWorldSectorY )
+					{
+						gpAttackDirs[3][0] += pGroup->pEnemyGroup->ubNumAdmins;
+						gpAttackDirs[3][1] += pGroup->pEnemyGroup->ubNumTroops;
+						gpAttackDirs[3][2] += pGroup->pEnemyGroup->ubNumElites;
+						gpAttackDirs[3][3] = INSERTION_CODE_SOUTH;
+					}
+					else
+					{
+						gpAttackDirs[0][0] += pGroup->pEnemyGroup->ubNumAdmins;
+						gpAttackDirs[0][1] += pGroup->pEnemyGroup->ubNumTroops;
+						gpAttackDirs[0][2] += pGroup->pEnemyGroup->ubNumElites;
+					}
+				}
+				else
+				{
+					gpAttackDirs[0][0] += pGroup->pEnemyGroup->ubNumAdmins;
+					gpAttackDirs[0][1] += pGroup->pEnemyGroup->ubNumTroops;
+					gpAttackDirs[0][2] += pGroup->pEnemyGroup->ubNumElites;
+				}
+			}
+			pGroup = pGroup->next;
+		}
+	}
+	else
+	{
+		ubGreen  += MilitiaInSectorOfRankInGroups( gWorldSectorX, gWorldSectorY, GREEN_MILITIA );
+		ubRegs	 += MilitiaInSectorOfRankInGroups( gWorldSectorX, gWorldSectorY, REGULAR_MILITIA );
+		ubElites += MilitiaInSectorOfRankInGroups( gWorldSectorX, gWorldSectorY, ELITE_MILITIA );
+	}
+	
 	if(guiDirNumber)
 	{
 		if (fPrepareAll)
 		{
 			AddSoldierInitListMilitia( gpAttackDirs[ 0 ][0], gpAttackDirs[ 0 ][1], gpAttackDirs[ 0 ][2] );
 		}
+
 		// If the sector is already loaded, don't add the existing militia
 		for( x = 1; x < guiDirNumber ; ++x )
 		{
