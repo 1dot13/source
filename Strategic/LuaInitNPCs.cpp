@@ -8037,123 +8037,89 @@ return 1;
 
 static int l_CheckSoldierInSector (lua_State *L)
 {
-SOLDIERTYPE *pSoldier;
-BOOLEAN Bool;
-
 	if ( lua_gettop(L) >= 1 )
 	{
 		UINT8 UID = lua_tointeger(L,1);
 
-		pSoldier = FindSoldierByProfileID( UID, FALSE );
-	if (pSoldier)
-		{
-			if ( pSoldier->bInSector ) 
-				Bool = TRUE;
-			else
-				Bool = FALSE;
-		}
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID( UID, FALSE );
+
+		BOOLEAN Bool = FALSE;
+		if ( pSoldier && pSoldier->bInSector )
+			Bool = TRUE;
 		
 		lua_pushboolean(L, Bool);
-	}								
-return 1;
+	}
+
+	return 1;
 }
 
 static int l_CheckSoldierAssignment (lua_State *L)
 {
-SOLDIERTYPE *pSoldier;
-INT32 squad;
-
 	if ( lua_gettop(L) >= 1 )
 	{
 		UINT8 UID = lua_tointeger(L,1);
 
-		pSoldier = FindSoldierByProfileID( UID, FALSE );
-	if (pSoldier)
-		{
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID( UID, FALSE );
+
+		INT32 squad = -1;
+		if (pSoldier)
 			squad = pSoldier->bAssignment;
-				
-		}
 		
 		lua_pushinteger(L, squad);
-	}								
-return 1;
+	}				
+
+	return 1;
 }
 
 static int l_GetSoldierTeam (lua_State *L)
 {
-INT8 Side;
-SOLDIERTYPE *pSoldier;
-
 	if ( lua_gettop(L) >= 1 )
 	{
 		UINT8 UID = lua_tointeger(L,1);
+		
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID( UID, FALSE );
 
-
-		pSoldier = FindSoldierByProfileID( UID, FALSE );
-			if (pSoldier)
-				{
-					Side = pSoldier->bSide;
-				}	
+		INT8 Side = -1;
+		if (pSoldier)
+			Side = pSoldier->bSide;
 				
 		lua_pushinteger(L, Side);
 	}
 	
-return 1;
+	return 1;
 }
 
 static int l_ChangeSoldierTeam (lua_State *L)
 {
-SOLDIERTYPE *pSoldier;
-
 	if ( lua_gettop(L) >= 2 )
 	{
 		UINT8 UID = lua_tointeger(L,1);
 		INT8 Side = lua_tointeger(L,2);
 
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID( UID, FALSE );
 
-		pSoldier = FindSoldierByProfileID( UID, FALSE );
-	if (pSoldier)
-		{
-		
+		if (pSoldier)
 			ChangeSoldierTeam( pSoldier, Side );
-		}
 	}		
 							
-return 0;
+	return 0;
 }
 
 static int l_ChangeMercPtrsTeam (lua_State *L)
 {
-INT8 Side;
-SOLDIERTYPE *pSoldier;
-UINT8 UID;
-BOOLEAN Bool;
-
 	if ( lua_gettop(L) >= 2 )
 	{
-		UID = lua_tointeger(L,1);
-		Side = lua_tointeger(L,2);
-
-	
-		if ( MercPtrs[ UID ]->bInSector && MercPtrs[ UID ]->bActive )
-			Bool = TRUE;
-		else
-			Bool = FALSE;
-			
-		if ( Bool == TRUE )
-		{	pSoldier = MercPtrs[ UID ];
-			if (pSoldier)
-			{
-			pSoldier->bSide = Side;
-			}
+		UINT8 UID = lua_tointeger(L,1);
+		INT8 Side = lua_tointeger(L,2);
+		
+		if ( MercPtrs[UID] && MercPtrs[ UID ]->bInSector && MercPtrs[ UID ]->bActive )
+		{
+			MercPtrs[UID]->bSide = Side;
 		}
 	}	
 	
-return 0;
+	return 0;
 }
-
-//-------------------
-
 
 static int l_ExecuteStrategicAIAction (lua_State *L)
 {
@@ -8182,207 +8148,116 @@ return 0;
 //AddEmailXML
 static int l_AddEmailXML2 (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i;
-
-	//INT32 iMessageOffset;
-	//INT32 iMessageLength;
-	UINT8 ubSender;
-	UINT8 uiIndex;
-	//INT32 iCurrentIMPPosition;
-	
-	UINT8 pMerc = 0;
-	UINT8 iMerc = 0;
-	UINT8 oMerc = 0;
-	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 3 )
 	{
-		if (i == 1 ) uiIndex = lua_tointeger(L,i);
-		//if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
-		//if (i == 2 ) iMessageLength = lua_tointeger(L,i);
-		if (i == 2 ) ubSender = lua_tointeger(L,i);
-		//if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+		INT32 offset		= lua_tointeger( L, 1 );
+		INT32 messagelength = lua_tointeger( L, 2 );
+		UINT8 sender		= lua_tointeger( L, 3 );
+
+		AddEmailTypeXML( offset, messagelength, sender, GetWorldTotalMin(), -1, TYPE_EMAIL_OTHER );
 	}
-	
-		oMerc = uiIndex;
-		iMerc = oMerc * 1;
-						
-		if ( oMerc != 0 )
-			pMerc = oMerc + 1;
-		else
-			pMerc = 0;
-			
-		AddEmailTypeXML(pMerc,iMerc, ubSender, GetWorldTotalMin(), -1, TYPE_EMAIL_OTHER);
-	//AddEmailTypeXML(iMessageOffset,iMessageLength, ubSender, GetWorldTotalMin(), iCurrentIMPPosition, TYPE_EMAIL_AIM_AVAILABLE);
+
 	return 0;
 }
 
 //AddEmailXML
-static int l_AddEmailXML (lua_State *L)
+static int l_AddEmailXML ( lua_State *L )
 {
-	UINT8  n = lua_gettop(L);
-	int i;
-
-	//INT32 iMessageOffset;
-	//INT32 iMessageLength;
-	//UINT8 ubSender;
-	UINT8 uiIndex;
-	//INT32 iCurrentIMPPosition;
-	
-	UINT8 pMerc = 0;
-	UINT8 iMerc = 0;
-	UINT8 oMerc = 0;
-	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) uiIndex = lua_tointeger(L,i);
-		//if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
-		//if (i == 2 ) iMessageLength = lua_tointeger(L,i);
-		//if (i == 3 ) ubSender = lua_tointeger(L,i);
-		//if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+		UINT8 uiIndex = lua_tointeger( L, 1 );
+
+		UINT8 pMerc = 0;
+		if ( uiIndex != 0 )
+			pMerc = uiIndex + 1;
+
+		if ( gProfilesAIM[uiIndex].ProfilId == uiIndex )
+			AddEmailTypeXML( pMerc, uiIndex, uiIndex, GetWorldTotalMin(), -1, TYPE_EMAIL_AIM_AVAILABLE );
 	}
-	
-		oMerc = uiIndex;
-		iMerc = oMerc * 1;
-						
-		if ( oMerc != 0 )
-			pMerc = oMerc + 1;
-		else
-			pMerc = 0;
-			
-	if ( gProfilesAIM[uiIndex].ProfilId == uiIndex )
-		AddEmailTypeXML(pMerc,iMerc, iMerc, GetWorldTotalMin(), -1, TYPE_EMAIL_AIM_AVAILABLE);
-	//AddEmailTypeXML(iMessageOffset,iMessageLength, ubSender, GetWorldTotalMin(), iCurrentIMPPosition, TYPE_EMAIL_AIM_AVAILABLE);
+
 	return 0;
 }
 
 //AddEmailXML
 static int l_AddEmailLevelUpXML (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i;
-
-	//INT32 iMessageOffset;
-	//INT32 iMessageLength;
-	//UINT8 ubSender;
-	UINT8 uiIndex;
-	//INT32 iCurrentIMPPosition;
-	
-	UINT8 pMerc = 0;
-	UINT8 iMerc = 0;
-	UINT8 oMerc = 0;
-	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 1 )
 	{
-		if (i == 1 ) uiIndex = lua_tointeger(L,i);
-		//if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
-		//if (i == 2 ) iMessageLength = lua_tointeger(L,i);
-		//if (i == 3 ) ubSender = lua_tointeger(L,i);
-		//if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
+		UINT8 uiIndex = lua_tointeger( L, 1 );
+
+		UINT8 pMerc = 0;
+		if ( uiIndex != 0 )
+			pMerc = uiIndex + 1;
+
+		if ( gProfilesMERC[uiIndex].ProfilId == uiIndex )
+			AddEmailTypeXML( pMerc, uiIndex, uiIndex, GetWorldTotalMin(), -1, TYPE_EMAIL_MERC_LEVEL_UP );
 	}
-	
-		oMerc = uiIndex;
-		iMerc = oMerc * 1;
-						
-		if ( oMerc != 0 )
-			pMerc = oMerc + 1;
-		else
-			pMerc = 0;
-			
-	if ( gProfilesMERC[uiIndex].ProfilId == uiIndex )
-		AddEmailTypeXML(pMerc,iMerc, iMerc, GetWorldTotalMin(), -1, TYPE_EMAIL_MERC_LEVEL_UP);
-	//AddEmailTypeXML(iMessageOffset,iMessageLength, ubSender, GetWorldTotalMin(), iCurrentIMPPosition, TYPE_EMAIL_MERC_LEVEL_UP);
+
 	return 0;
 }
 
 //AddEmail
 static int l_AddEmail (lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i;
-
-	INT32 iMessageOffset;
-	INT32 iMessageLength;
-	UINT8 ubSender;
-	INT32 iCurrentIMPPosition;
-	INT16 iCurrentShipmentDestinationID = -1;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 5 )
 	{
-		if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
-		if (i == 2 ) iMessageLength = lua_tointeger(L,i);
-		if (i == 3 ) ubSender = lua_tointeger(L,i);
-		if (i == 4 ) iCurrentIMPPosition = lua_tointeger(L,i);
-		if (i == 5) iCurrentShipmentDestinationID = lua_tointeger(L,i);
+		INT32 iMessageOffset = lua_tointeger( L, 1 );
+		INT32 iMessageLength = lua_tointeger( L, 2 );
+		UINT8 ubSender = lua_tointeger( L, 3 );
+		INT32 iCurrentIMPPosition = lua_tointeger( L, 4 );
+		INT16 iCurrentShipmentDestinationID = lua_tointeger( L, 5 );
+		
+		AddEmail( iMessageOffset, iMessageLength, ubSender, GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT );
 	}
 
-	AddEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT);	
-	
 	return 0;
 }
 	
 //AddPreReadEmail	
-static int l_AddPreReadEmail (lua_State *L)
+static int l_AddPreReadEmail ( lua_State *L )
 {
-UINT8  n = lua_gettop(L);
-int i;
-
-
-INT32 iMessageOffset;
-INT32 iMessageLength;
-UINT8 ubSender;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 3 )
 	{
-		if (i == 1 ) iMessageOffset = lua_tointeger(L,i);
-		if (i == 2 ) iMessageLength = lua_tointeger(L,i);
-		if (i == 3 ) ubSender = lua_tointeger(L,i);
+		INT32 iMessageOffset	= lua_tointeger( L, 1 );
+		INT32 iMessageLength	= lua_tointeger( L, 2 );
+		UINT8 ubSender			= lua_tointeger( L, 3 );
+
+		AddPreReadEmail( iMessageOffset, iMessageLength, ubSender, GetWorldTotalMin(), TYPE_EMAIL_EMAIL_EDT );
 	}
 
-	AddPreReadEmail(iMessageOffset,iMessageLength,ubSender,	GetWorldTotalMin(), TYPE_EMAIL_EMAIL_EDT);	
-	
-return 0;
+	return 0;
 }
 	
 //gfBoxerFought
 static int l_SetgfBoxerFought (lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-UINT8 id;
-BOOLEAN Bool;
-int i;
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) id = lua_tointeger(L,i);
-		if (i == 2 ) Bool = lua_toboolean(L,i);
-	}
+		UINT8 id		= lua_tointeger( L, 1 );
+		BOOLEAN Bool	= lua_toboolean( L, 2 );
 
-gfBoxerFought[id] = Bool;
+		gfBoxerFought[id] = Bool;
+	}
 		
-return 0;
+	return 0;
 }
 
 static int l_GetWorldHour (lua_State *L)
 {
-UINT32 h2;
+	UINT32 h2 = GetWorldHour();
 
-h2 = GetWorldHour();
-
-lua_pushinteger(L, h2);
+	lua_pushinteger(L, h2);
 		
-return 1;
+	return 1;
 }
 
 static int l_GetWorldMinutesInDay (lua_State *L)
 {
-UINT32 uiTime;
+	UINT32 uiTime = GetWorldMinutesInDay();
 
-uiTime = GetWorldMinutesInDay();
-
-lua_pushinteger(L, uiTime);
+	lua_pushinteger(L, uiTime);
 		
-return 1;
+	return 1;
 }
 
 //---------------------------------------------------------------------------------------

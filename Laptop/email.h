@@ -702,7 +702,7 @@ extern EMAIL_OTHER_VALUES EmailOtherText[EMAIL_INDEX];
 extern BOOLEAN ReadXMLEmail;
 extern void AddEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, UINT8 EmailType );
 extern void AddPreReadEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, UINT8 EmailType );
-extern void AddEmailWithSpecialDataXML(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iFirstData, UINT32 uiSecondData, UINT8 EmailType );
+extern void AddEmailWithSpecialDataXML(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iFirstData, UINT32 uiSecondData, UINT8 EmailTyp, UINT32 EmailAIMe );
 extern BOOLEAN SaveNewEmailDataToSaveGameFile( HWFILE hFile );
 extern BOOLEAN LoadNewEmailDataFromLoadGameFile( HWFILE hFile );
 
