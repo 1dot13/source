@@ -21522,6 +21522,10 @@ void MoveItemMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 
 BOOLEAN MercStaffsMilitaryHQ()
 {
+	// if we don't need a HQ, this is easy
+	if ( !gGameExternalOptions.fMilitiaStrategicCommand_MercRequired )
+		return TRUE;
+
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT32 uiCnt = 0;
 	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;

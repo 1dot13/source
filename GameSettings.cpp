@@ -2124,7 +2124,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.dMilitiaVolunteerMultiplierFarm		= iniReader.ReadFloat( "Militia Volunteer Pool Settings", "MILITIA_VOLUNTEER_POOL_MULTIPLIER_FARM", 0.05f, 0.0f, 1.0f );
 	
 	//################# Militia Strategic Movement Settings ##################
-	gGameExternalOptions.fMilitiaStrategicCommand				= iniReader.ReadBoolean("Militia Strategic Movement Settings", "ALLOW_MILITIA_STRATEGIC_COMMAND", FALSE );
+	gGameExternalOptions.fMilitiaStrategicCommand				= iniReader.ReadBoolean( "Militia Strategic Movement Settings", "ALLOW_MILITIA_STRATEGIC_COMMAND", FALSE );
+	gGameExternalOptions.fMilitiaStrategicCommand_MercRequired	= iniReader.ReadBoolean( "Militia Strategic Movement Settings", "MILITIA_STRATEGIC_COMMAND_REQUIRES_MERC", TRUE );
 	
 	// SANDRO - added several bonuses for militia 
 	//################# Militia Strength Settings ##################

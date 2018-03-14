@@ -478,6 +478,7 @@ typedef struct
 
 	// Flugente: militia movement
 	BOOLEAN fMilitiaStrategicCommand;
+	BOOLEAN fMilitiaStrategicCommand_MercRequired;
 	
 	BOOLEAN gfAllowReinforcements;
 	BOOLEAN gfAllowReinforcementsOnlyInCity;
