@@ -78,6 +78,7 @@ extern MilitiaOriginData gMilitiaOriginData[MO_MAX];
 #define MILITIAFLAG_DEAD					0x00000001	// this guy is dead
 #define MILITIAFLAG_FIRED					0x00000002	// this guy no longer works for us - we fired him, or didn't have the money to keep them
 #define MILITIAFLAG_NEEDS_SECTOR			0x00000004	// as the player currently resets militia in a town's sector in the map, this militia's sector is not clear
+#define MILITIAFLAG_DESERTION				0x00000008	// this guy deserted
 
 class MILITIA
 {

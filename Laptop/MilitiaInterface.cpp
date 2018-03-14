@@ -131,7 +131,7 @@ MilitiaPersonalDataTableFireConfirmationCallback( UINT8 val )
 		MILITIA militia;
 		if ( GetMilitia( gusCurrentMilitia, &militia ) )
 		{
-			if ( !(militia.flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) )
+			if ( !(militia.flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) )
 			{
 				militia.Fire();
 
@@ -154,7 +154,7 @@ void MilitiaPersonalDataTableFireCallback( GUI_BUTTON *btn, INT32 reason )
 		MILITIA militia;
 		if ( GetMilitia( gusCurrentMilitia, &militia ) )
 		{
-			if ( !(militia.flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) )
+			if ( !(militia.flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) )
 			{
 				CHAR16 sString[256];
 				swprintf( sString, szIdividualMilitiaWebsiteText[1], militia.GetName( ) );
@@ -277,6 +277,12 @@ MilitiaPersonalDataTable::Display( )
 			DrawTextToScreen( sText, usPosX, usPosY + 5, GetWidth( ), FONT12ARIAL, FONT_MCOLOR_DKGRAY, FONT_MCOLOR_BLACK, FALSE, 0 );
 			usPosY += 20;
 		}
+		else if ( militia.flagmask & MILITIAFLAG_DESERTION )
+		{
+			swprintf( sText, szIdividualMilitiaWebsiteText[19] );
+			DrawTextToScreen( sText, usPosX, usPosY + 5, GetWidth(), FONT12ARIAL, FONT_MCOLOR_DKGRAY, FONT_MCOLOR_BLACK, FALSE, 0 );
+			usPosY += 20;
+		}
 		else
 		{
 			swprintf( sText, szIdividualMilitiaWebsiteText[7] );
@@ -311,7 +317,7 @@ MilitiaPersonalDataTable::Display( )
 		}
 
 		// if we can still fire this guy, set up the button
-		if ( !(militia.flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) )
+		if ( !(militia.flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) )
 		{
 			// we can't fire someone if they are in combat
 			if ( SectorOursAndPeaceful( SECTORX( militia.sector ), SECTORY( militia.sector ), 0 ) )

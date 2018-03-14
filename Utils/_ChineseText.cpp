@@ -11127,8 +11127,8 @@ STR16	szMilitiaWebSite[] =
 STR16 szIndividualMilitiaBattleReportText[] =
 {
 	L"参与行动 %s",//L"Took part in Operation %s",
-	L"招募日期 %d, %d:%2d in %s",//L"Recruited on Day %d, %d:%2d in %s",
-	L"加薪日期 %d, %d:%2d",//L"Promoted on Day %d, %d:%2d",
+	L"招募日期 %d, %d:%02d in %s",//L"Recruited on Day %d, %d:%02d in %s",
+	L"加薪日期 %d, %d:%02d",//L"Promoted on Day %d, %d:%02d",
 	L"KIA,行动 %s",//L"KIA, Operation %s",
 
 	L"在行动中受了轻伤 %s",//L"Lightly wounded during Operation %s",
@@ -11136,9 +11136,9 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"在行动中受了致命伤 %s",//L"Critically wounded during Operation %s",
 	L"在行动中勇敢地战斗 %s",//L"Valiantly fought in Operation %s",
 
-	L"从Kerberus安保公司雇佣的时间：%d, %d:%2d 在 %s",//L"Hired from Kerberus on Day %d, %d:%2d in %s",
-	L"反叛的时间：%d, %d:%2d 在 %s",//L"Defected to us on  Day %d, %d:%2d in %s",
-	L"合同终止的时间：%d, %d:%2d",//L"Contract terminated on Day %d, %d:%2d",
+	L"从Kerberus安保公司雇佣的时间：%d, %d:%02d 在 %s",//L"Hired from Kerberus on Day %d, %d:%02d in %s",
+	L"反叛的时间：%d, %d:%02d 在 %s",//L"Defected to us on  Day %d, %d:%02d in %s",
+	L"合同终止的时间：%d, %d:%02d",//L"Contract terminated on Day %d, %d:%02d",
 };
 
 STR16 szIndividualMilitiaTraitRequirements[] =
@@ -11191,6 +11191,7 @@ STR16	szIdividualMilitiaWebsiteText[] =
 	L"%s 在现在载入的区域尚未激活.",//L"%s is not active in the currently loaded sector.",
 	L"%s 已经被提升为熟练民兵",//L"%s has been promoted to regular militia",
 	L"%s 已经被提升为精英民兵",//L"%s has been promoted to elite militia",
+	L"Status: Deserted",	// TODO:Translate
 };
 
 STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =

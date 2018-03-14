@@ -946,7 +946,7 @@ BOOLEAN CanCharacterDoctorMilitia( SOLDIERTYPE *pSoldier )
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
 	{
-		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == sector )
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) && ( *it ).sector == sector )
 		{
 			if ( ( *it ).healthratio < 100.0f )
 				return TRUE;

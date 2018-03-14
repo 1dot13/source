@@ -11149,8 +11149,8 @@ STR16	szMilitiaWebSite[] =
 STR16 szIndividualMilitiaBattleReportText[] =
 {
 	L"Took part in Operation %s",
-	L"Recruited on Day %d, %d:%2d in %s",
-	L"Promoted on Day %d, %d:%2d",
+	L"Recruited on Day %d, %d:%02d in %s",
+	L"Promoted on Day %d, %d:%02d",
 	L"KIA, Operation %s",
 
 	L"Lightly wounded during Operation %s",
@@ -11158,9 +11158,9 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"Critically wounded during Operation %s",
 	L"Valiantly fought in Operation %s",
 
-	L"Hired from Kerberus on Day %d, %d:%2d in %s",
-	L"Defected to us on  Day %d, %d:%2d in %s",
-	L"Contract terminated on Day %d, %d:%2d",
+	L"Hired from Kerberus on Day %d, %d:%02d in %s",
+	L"Defected to us on  Day %d, %d:%02d in %s",
+	L"Contract terminated on Day %d, %d:%02d",
 };
 
 STR16 szIndividualMilitiaTraitRequirements[] =
@@ -11213,6 +11213,7 @@ STR16	szIdividualMilitiaWebsiteText[] =
 	L"%s is not active in the currently loaded sector.",
 	L"%s has been promoted to regular militia",
 	L"%s has been promoted to elite militia",
+	L"Status: Deserted",	// TODO:Translate
 };
 
 STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =

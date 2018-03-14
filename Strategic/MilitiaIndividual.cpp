@@ -375,7 +375,7 @@ UINT32 MilitiaIndividual_Heal( UINT32 points, UINT8 aSector )
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
 	{
-		if ( !( ( *it ).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && (*it).sector == aSector && ( *it ).healthratio < 100.0f )
+		if ( !( ( *it ).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) && (*it).sector == aSector && ( *it ).healthratio < 100.0f )
 		{
 			totalhealthmissing += ( 100.0f - ( *it ).healthratio );
 		}
@@ -388,7 +388,7 @@ UINT32 MilitiaIndividual_Heal( UINT32 points, UINT8 aSector )
 
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
 	{
-		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).healthratio < 100.0f )
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) && ( *it ).sector == aSector && ( *it ).healthratio < 100.0f )
 		{
 			( *it ).healthratio += ( 100.0f - ( *it ).healthratio ) * pointstouse / totalhealthmissing;
 		}
@@ -575,7 +575,7 @@ UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
 	{
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector && (*it).militiarank == militialevel )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) && (*it).sector == aSector && (*it).militiarank == militialevel )
 		{
 			// fitting data found - now we have to make sure this one isn't already in use
 			BOOLEAN found = FALSE;
@@ -625,7 +625,7 @@ BOOLEAN GetIdOfIndividualMilitiaWithClassSector( UINT8 aSoldierClass, UINT8 aSec
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
 	{
-		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).militiarank == militialevel )
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) && ( *it ).sector == aSector && ( *it ).militiarank == militialevel )
 		{			
 			arId = ( *it ).id;
 
@@ -648,7 +648,7 @@ FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd )
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
 	{
-		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).militiarank == GREEN_MILITIA )
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) && ( *it ).sector == aSector && ( *it ).militiarank == GREEN_MILITIA )
 		{
 			MILITIA militia = ( *it );
 
@@ -691,7 +691,7 @@ FLOAT PromoteIndividualMilitiaInSector( UINT8 aSector, FLOAT aPointsToAdd )
 		std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
 		for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
 		{
-			if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) && ( *it ).sector == aSector && ( *it ).militiarank == REGULAR_MILITIA )
+			if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) && ( *it ).sector == aSector && ( *it ).militiarank == REGULAR_MILITIA )
 			{
 				MILITIA militia = ( *it );
 
@@ -885,7 +885,7 @@ void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UI
 		if ( !usGreens && !usRegulars && !usElites )
 			return;
 
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSourceSector )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) && (*it).sector == aSourceSector )
 		{
 			if ( usGreens && ( *it ).militiarank == GREEN_MILITIA)
 			{
@@ -920,7 +920,7 @@ void DisbandIndividualMilitia( UINT8 aSector, UINT8 usGreens, UINT8 usRegulars, 
 		if ( !usGreens && !usRegulars && !usElites )
 			return;
 
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) && (*it).sector == aSector )
 		{
 			if ( usGreens && (*it).militiarank == GREEN_MILITIA)
 			{
@@ -951,7 +951,7 @@ void PromoteIndividualMilitia( UINT8 aSector, UINT8 aSoldierClass )
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end( );
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
 	{
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && (*it).sector == aSector && (*it).militiarank == militiarank )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) && (*it).sector == aSector && (*it).militiarank == militiarank )
 		{
 			(*it).militiarank++;
 
@@ -969,7 +969,7 @@ void PromoteIndividualMilitia( UINT8 aSector, UINT8 aSoldierClass )
 
 void PossiblyPromoteIndividualMilitia( MILITIA& aMilitia )
 {
-	if ( !( aMilitia.flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED ) ) )
+	if ( !( aMilitia.flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) )
 	{
 		// Flugente: check whether we have the resources to promote militia
 		BOOLEAN fCanPromoteToRegular = TRUE;
@@ -1029,7 +1029,7 @@ UINT32 GetDailyUpkeep_IndividualMilitia( UINT32& arNumGreen, UINT32& arNumRegula
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end( );
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
 	{
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) )
 		{
 			if ( (*it).militiarank == REGULAR_MILITIA )
 			{
@@ -1060,7 +1060,7 @@ void PickIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 		if ( !aNumber )
 			return;
 
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_NEEDS_SECTOR)) && (*it).sector == aSector )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION | MILITIAFLAG_NEEDS_SECTOR)) && (*it).sector == aSector )
 		{
 			if ( ubType == (*it).militiarank )
 			{
@@ -1084,7 +1084,7 @@ void DropIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 		if ( !aNumber )
 			return;
 
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED)) && ((*it).flagmask & MILITIAFLAG_NEEDS_SECTOR) )
+		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) && ((*it).flagmask & MILITIAFLAG_NEEDS_SECTOR) )
 		{
 			if ( ubType == (*it).militiarank )
 			{
