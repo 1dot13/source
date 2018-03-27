@@ -3283,6 +3283,11 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>209</attachmentIndex>
+		<itemIndex>24</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex>
 		<itemIndex>25</itemIndex>
 		<APCost>20</APCost>
 	</ATTACHMENT>
