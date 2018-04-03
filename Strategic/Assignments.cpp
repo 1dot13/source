@@ -4010,13 +4010,13 @@ void HandleDoctorMilitia()
 void UpdatePatientsWhoAreDoneHealing( void )
 {
 	INT32 cnt = 0;
-	SOLDIERTYPE *pSoldier = NULL, *pTeamSoldier = NULL;
+	SOLDIERTYPE *pTeamSoldier = NULL;
 	BOOLEAN fHasDamagedStat = FALSE; // added by SANDRO
 
 	// set as first in list
-	pSoldier = MercPtrs[0];
+	pTeamSoldier = MercPtrs[0];
 
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++cnt, pTeamSoldier++)
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt, pTeamSoldier++)
 	{
 		// active soldier?
 		if( pTeamSoldier->bActive )
@@ -4025,9 +4025,9 @@ void UpdatePatientsWhoAreDoneHealing( void )
 			if ( IS_PATIENT(pTeamSoldier->bAssignment) && !IS_DOCTOR(pTeamSoldier->bAssignment) && (pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax) && pTeamSoldier->HasDisease(TRUE, TRUE) )
 			{
 				// Flugente: stats can also be damaged
-				if ( !gGameOptions.fFoodSystem || (gGameOptions.fFoodSystem && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
+				if ( !gGameOptions.fFoodSystem || (gGameOptions.fFoodSystem && pTeamSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pTeamSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
 				{
-					if ( pSoldier->usStarveDamageHealth > 0 || pSoldier->usStarveDamageStrength > 0 )
+					if ( pTeamSoldier->usStarveDamageHealth > 0 || pTeamSoldier->usStarveDamageStrength > 0 )
 						fHasDamagedStat = TRUE;
 				}
 
