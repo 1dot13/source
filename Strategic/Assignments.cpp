@@ -7305,13 +7305,13 @@ void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMil
 	{
 		switch ( aPrisonerType )
 		{
-		case PRISONER_ADMIN:	arIntel += (FLOAT)(  100.0f + Random(  200 ) ) / 100.0f;
-		case PRISONER_REGULAR:	arIntel += (FLOAT)(  150.0f + Random(  250 ) ) / 100.0f;
-		case PRISONER_ELITE:	arIntel += (FLOAT)(  225.0f + Random(  250 ) ) / 100.0f;
-		case PRISONER_OFFICER:	arIntel += (FLOAT)(  400.0f + Random(  400 ) ) / 100.0f;
-		case PRISONER_GENERAL:	arIntel += (FLOAT)( 2500.0f + Random( 1500 ) ) / 100.0f;
-		case PRISONER_CIVILIAN:	arIntel += (FLOAT)(  100.0f + Random(  100 ) ) / 100.0f;
-		default:				arIntel += (FLOAT)(  100.0f + Random(  100 ) ) / 100.0f;
+		case PRISONER_ADMIN:	arIntel += (FLOAT)(  100.0f + Random(  200 ) ) / 100.0f;	break;
+		case PRISONER_REGULAR:	arIntel += (FLOAT)(  150.0f + Random(  250 ) ) / 100.0f;	break;
+		case PRISONER_ELITE:	arIntel += (FLOAT)(  225.0f + Random(  250 ) ) / 100.0f;	break;
+		case PRISONER_OFFICER:	arIntel += (FLOAT)(  400.0f + Random(  400 ) ) / 100.0f;	break;
+		case PRISONER_GENERAL:	arIntel += (FLOAT)( 2500.0f + Random( 1500 ) ) / 100.0f;	break;
+		case PRISONER_CIVILIAN:	arIntel += (FLOAT)(  100.0f + Random(  100 ) ) / 100.0f;	break;
+		default:				arIntel += (FLOAT)(  100.0f + Random(  100 ) ) / 100.0f;	break;
 		}
 	}
 	// chance prisoner will grant us ransom money
