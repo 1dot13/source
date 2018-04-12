@@ -604,7 +604,7 @@
 		<uiBodyTypeSubFlags>0</uiBodyTypeSubFlags>
 		<bAttitude>0</bAttitude>
 		<bCharacterTrait>3</bCharacterTrait>
-		<bDisability>11</bDisability>
+		<bDisability>3</bDisability>
 		<ubNeedForSleep>8</ubNeedForSleep>
 		<bReputationTolerance>33</bReputationTolerance>
 		<bDeathRate>18</bDeathRate>
