@@ -6803,6 +6803,9 @@ INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen, orders = %d",pSoldier->aiData.bOrders));
 
+	// it's a zombie, make sure they don't care about anything
+	pSoldier->aiData.bAIMorale = MORALE_FEARLESS;
+
 	gubNPCPathCount = 0;
 			
 	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )
@@ -7203,7 +7206,10 @@ INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
 #endif
-			
+
+	// it's a zombie, make sure they don't care about anything
+	pSoldier->aiData.bAIMorale = MORALE_FEARLESS;
+
 	// determine the most important noise heard, and its relative value
 	sNoiseGridNo = MostImportantNoiseHeard(pSoldier,&iNoiseValue, &fClimb, &fReachable);
 		
@@ -7443,6 +7449,9 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ZombieDecideActionRed: soldier orders = %d",pSoldier->aiData.bOrders));
 
+	// it's a zombie, make sure they don't care about anything
+	pSoldier->aiData.bAIMorale = MORALE_FEARLESS;
+
 	// if we have absolutely no action points, we can't do a thing under RED!
 	if (!pSoldier->bActionPoints)
 	{
@@ -7452,8 +7461,7 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 	// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
 	ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
-		
-
+	
 	// determine if we happen to be in water (in which case we're in BIG trouble!)
 	bInWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 	bInDeepWater = Water( pSoldier->sGridNo, pSoldier->pathing.bLevel );
@@ -7469,8 +7477,7 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		pSoldier->aiData.usActionData = NOWHERE;
 		return(AI_ACTION_NONE);
 	}
-			
-
+	
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 	////////////////////////////////////////////////////////////////////////////
 	// RADIO RED ALERT: determine %chance to call others and report contact
@@ -7594,7 +7601,7 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				// no watching
 				bWatchPts = -99;
 			}
-
+			
 			// modify RED movement tendencies according to morale
 			switch (pSoldier->aiData.bAIMorale)
 			{
@@ -8135,6 +8142,9 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 	BOOLEAN fAllowCoverCheck = FALSE;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
+
+	// it's a zombie, make sure they don't care about anything
+	pSoldier->aiData.bAIMorale = MORALE_FEARLESS;
 		
 	// if we have absolutely no action points, we can't do a thing under BLACK!
 	if (!pSoldier->bActionPoints)
