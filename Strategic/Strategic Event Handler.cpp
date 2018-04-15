@@ -1168,12 +1168,10 @@ void HandleRaidEventPlanning()
 			// attack random sector
 			if ( raidtype == 0 )
 				// bloodcats only attack at night (it is 7:00 now)
-				//AddStrategicEvent( EVENT_BLOODCAT_ATTACK, GetWorldTotalMin() + 14 * 60 +  Random(10 * 60), sector );
-				AddStrategicEvent( EVENT_BLOODCAT_ATTACK, GetWorldTotalMin() + 12 * 60 + 30, sector );
+				AddStrategicEvent( EVENT_BLOODCAT_ATTACK, GetWorldTotalMin() + 14 * 60 +  Random(10 * 60), sector );
 			else
 				// other attacks can happen all the time
-				//AddStrategicEvent( EVENT_BLOODCAT_ATTACK + raidtype, GetWorldTotalMin() + Random( 24 * 60 ), sector );
-				AddStrategicEvent( EVENT_BLOODCAT_ATTACK + raidtype, GetWorldTotalMin() + 13 * 60 + 15, sector );
+				AddStrategicEvent( EVENT_BLOODCAT_ATTACK + raidtype, GetWorldTotalMin() + Random( 24 * 60 ), sector );
 		}
 	}
 
