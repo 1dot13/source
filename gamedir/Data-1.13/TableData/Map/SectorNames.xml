@@ -54,6 +54,11 @@
 	
 	<maxworkers>
 	Maximum number of workers that can be employed in this sector.
+	
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>0</zombieraidpossible>
+	<banditraidpossible>0</banditraidpossible>
+	Bloodcats/zombies/bandits can attack this sector.
 -->
 <SECTOR_NAMES>
   <SECTOR>
@@ -70,6 +75,9 @@
 	<snowchance>0</snowchance>
 	<snakechance>0</snakechance>
 	<numsnakes>0</numsnakes>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>0</zombieraidpossible>
+	<banditraidpossible>0</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A2</SectorGrid>
@@ -82,6 +90,9 @@
     <usCivilianPopulation>70</usCivilianPopulation>
 	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A3</SectorGrid>
@@ -268,6 +279,9 @@
 	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>50</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B3</SectorGrid>
@@ -395,6 +409,9 @@
     <usCivilianPopulation>50</usCivilianPopulation>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B14</SectorGrid>
@@ -577,6 +594,9 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>C14</SectorGrid>
@@ -638,6 +658,9 @@
     <sRadioScanModifier>2</sRadioScanModifier>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>D3</SectorGrid>
@@ -768,6 +791,9 @@
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>100</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>D14</SectorGrid>
@@ -792,6 +818,9 @@
     <sRadioScanModifier>2</sRadioScanModifier>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>  
    <SECTOR>
     <SectorGrid>D16</SectorGrid>
@@ -1078,6 +1107,9 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>45</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>F9</SectorGrid>
@@ -1090,6 +1122,9 @@
     <usCivilianPopulation>100</usCivilianPopulation>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>F10</SectorGrid>
@@ -1263,6 +1298,9 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>G9</SectorGrid>
@@ -1279,6 +1317,9 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>G10</SectorGrid>
@@ -1395,6 +1436,9 @@
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>200</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H4</SectorGrid>
@@ -1455,6 +1499,9 @@
  	<rainchance>35</rainchance>
 	<sandstormchance>2</sandstormchance>
 	<maxworkers>160</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H9</SectorGrid>
@@ -1513,6 +1560,9 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H14</SectorGrid>
@@ -1526,6 +1576,9 @@
     <usCivilianPopulation>100</usCivilianPopulation>
  	<rainchance>45</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H15</SectorGrid>
@@ -1641,6 +1694,9 @@
     <sRadioScanModifier>2</sRadioScanModifier>
  	<rainchance>5</rainchance>
 	<sandstormchance>80</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>I9</SectorGrid>
@@ -1712,6 +1768,9 @@
     <usCivilianPopulation>200</usCivilianPopulation>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>0</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
     <SECTOR>
     <SectorGrid>I14</SectorGrid>
@@ -1725,6 +1784,9 @@
  	<rainchance>45</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>150</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>I15</SectorGrid>
@@ -2257,6 +2319,9 @@
     <usCivilianPopulation>150</usCivilianPopulation>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>L12</SectorGrid>
@@ -2269,6 +2334,9 @@
     <usCivilianPopulation>150</usCivilianPopulation>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>L13</SectorGrid>
@@ -2536,6 +2604,9 @@
     <usCivilianPopulation>100</usCivilianPopulation>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>N4</SectorGrid>
@@ -2550,6 +2621,9 @@
     <usCivilianPopulation>50</usCivilianPopulation>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>N5</SectorGrid>
