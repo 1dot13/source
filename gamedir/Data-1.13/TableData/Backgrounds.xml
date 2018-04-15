@@ -171,11 +171,9 @@
 		<uiIndex>4</uiIndex>
 		<szName>Mercenary/Car Mechanic</szName>
 		<szShortName>Mercenary/Mechanic</szShortName>
-		<szDescription>Working day and night in her car repair shop when she's&#10;not travelling around the world, Vicky is a very versed mechanic.&#10;But she never overcame her fear of heights.</szDescription>
+		<szDescription>Working day and night in her car repair shop when she's&#10;not travelling around the world, Vicky is a very versed mechanic.&#10;But she never overcame her fear of confined spaces.</szDescription>
 		<ap_assault>3</ap_assault>
-		<ap_height>-8</ap_height>
 		<ap_urban>3</ap_urban>
-		<ap_airdrop>-10</ap_airdrop>
 		<ap_fortify>-2</ap_fortify>
 		<travel_car>10</travel_car>
 		<resistance_suppression>7</resistance_suppression>
