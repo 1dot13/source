@@ -396,7 +396,6 @@ void HandleEnricoEmail(void)
 	gStrategicStatus.ubNumNewSectorsVisitedToday = __min( gStrategicStatus.ubNumNewSectorsVisitedToday, NEW_SECTORS_EQUAL_TO_ACTIVITY ) / 3;
 }
 
-
 void TrackEnemiesKilled( UINT8 ubKilledHow, UINT8 ubSoldierClass )
 {
 	INT8 bRankIndex;
@@ -418,7 +417,6 @@ void TrackEnemiesKilled( UINT8 ubKilledHow, UINT8 ubSoldierClass )
 	}
 }
 
-
 INT8 SoldierClassToRankIndex( UINT8 ubSoldierClass )
 {
 	INT8 bRankIndex = -1;
@@ -426,7 +424,8 @@ INT8 SoldierClassToRankIndex( UINT8 ubSoldierClass )
 	// the soldier class defines are not in natural ascending order, elite comes before army!
 	switch ( ubSoldierClass )
 	{
-		case SOLDIER_CLASS_ADMINISTRATOR:	bRankIndex = 0;	break;
+		case SOLDIER_CLASS_ADMINISTRATOR:	
+		case SOLDIER_CLASS_BANDIT:					bRankIndex = 0;	break;
 		case SOLDIER_CLASS_ELITE:					bRankIndex = 2;	break;
 		case SOLDIER_CLASS_ARMY:					bRankIndex = 1;	break;
 
@@ -437,8 +436,6 @@ INT8 SoldierClassToRankIndex( UINT8 ubSoldierClass )
 
 	return( bRankIndex );
 }
-
-
 
 UINT8 RankIndexToSoldierClass( UINT8 ubRankIndex )
 {

@@ -148,11 +148,11 @@ class SOLDIERTYPE;
 //Used by PickGridNoToWalkIn
 #define MAX_ATTEMPTS	200
 
-#define		QUEST_CHECK_EVENT_TIME							( 8 * 60 )
-#define		BOBBYRAY_UPDATE_TIME							  ( 9 * 60 )
-#define		INSURANCE_UPDATE_TIME								0
-#define		EARLY_MORNING_TIME									( 4 * 60 )
-#define   ENRICO_MAIL_TIME                    ( 7 * 60 )
+#define		QUEST_CHECK_EVENT_TIME				( 8 * 60 )
+#define		BOBBYRAY_UPDATE_TIME				( 9 * 60 )
+#define		INSURANCE_UPDATE_TIME				0
+#define		EARLY_MORNING_TIME					( 4 * 60 )
+#define		ENRICO_MAIL_TIME                    ( 7 * 60 )
 
 enum
 {
@@ -2242,6 +2242,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				PrepareCreaturesForBattle( );
 			}
 		}
+
 		if ( gfGotoSectorTransition )
 		{
 			BeginLoadScreen( );
@@ -5114,6 +5115,8 @@ void SetupNewStrategicGame( )
 	AddEveryDayStrategicEvent( EVENT_DAILY_UPDATE_BOBBY_RAY_INVENTORY, BOBBYRAY_UPDATE_TIME, 0 );
 	//Daily Update of the M.E.R.C. site.
 	AddEveryDayStrategicEvent( EVENT_DAILY_UPDATE_OF_MERC_SITE, 0, 0 );
+	// Flugente: plan when to conduct raids on player sectors
+	AddEveryDayStrategicEvent( EVENT_DAILY_RAID_EVENTS, ENRICO_MAIL_TIME, 0 );
 
 #ifdef JA2UB
 	//Ja25:  No insurance for mercs
@@ -6528,7 +6531,10 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 							gubPBSectorZ = (UINT8)pSectorZ;
 							gfBlitBattleSectorLocator = TRUE;
 							gfTransferTacticalOppositionToAutoResolve = TRUE;
-							if ( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
+							if ( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE && 
+								GetEnemyEncounterCode() != BLOODCAT_ATTACK_CODE && 
+								GetEnemyEncounterCode() != ZOMBIE_ATTACK_CODE &&
+								GetEnemyEncounterCode() != BANDIT_ATTACK_CODE )
 							{
 								SetEnemyEncounterCode( ENEMY_INVASION_CODE ); //has to be, if militia are here.
 							}

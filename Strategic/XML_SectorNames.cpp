@@ -99,7 +99,10 @@ SectorNameStartElementHandle(void *userData, const XML_Char *name, const char **
 				strcmp(name, "snowchance" ) == 0 ||
 				strcmp(name, "snakechance" ) == 0 ||
 				strcmp(name, "numsnakes" ) == 0 ||
-				strcmp(name, "maxworkers" ) == 0 ))
+				strcmp(name, "maxworkers" ) == 0 ||
+				strcmp(name, "bloodcatraidpossible" ) == 0 ||
+				strcmp(name, "zombieraidpossible" ) == 0 ||
+				strcmp(name, "banditraidpossible" ) == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -230,7 +233,12 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					SectorExternalData[ubSectorId][1].maxworkers = 0;
 					SectorExternalData[ubSectorId][2].maxworkers = 0;
 					SectorExternalData[ubSectorId][3].maxworkers = 0;
-																				
+
+					SectorExternalData[ubSectorId][0].usSectorFlagMask = pData->sectordata.usSectorFlagMask;
+					SectorExternalData[ubSectorId][1].usSectorFlagMask = 0;
+					SectorExternalData[ubSectorId][2].usSectorFlagMask = 0;
+					SectorExternalData[ubSectorId][3].usSectorFlagMask = 0;
+
 					if ( !prisonroomvector.empty( ) )
 					{
 						std::vector<UINT16>::iterator itend = prisonroomvector.end( );
@@ -255,6 +263,7 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 					pData->sectordata.snakechance = 0;
 					pData->sectordata.numsnakes = 0;
 					pData->sectordata.maxworkers = 0;
+					pData->sectordata.usSectorFlagMask = 0;
 				}
 				else
 				{
@@ -377,6 +386,24 @@ SectorNameEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->sectordata.maxworkers = (UINT8)atoi( pData->szCharData );
+		}
+		else if ( strcmp( name, "bloodcatraidpossible" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			if ( (UINT8)atoi( pData->szCharData ) )
+				pData->sectordata.usSectorFlagMask |= SECTORFLAG_RAIDPOSSIBLE_BLOODCAT;
+		}
+		else if ( strcmp( name, "zombieraidpossible" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			if ( (UINT8)atoi( pData->szCharData ) )
+				pData->sectordata.usSectorFlagMask |= SECTORFLAG_RAIDPOSSIBLE_ZOMBIE;
+		}
+		else if ( strcmp( name, "banditraidpossible" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			if ( (UINT8)atoi( pData->szCharData ) )
+				pData->sectordata.usSectorFlagMask |= SECTORFLAG_RAIDPOSSIBLE_BANDIT;
 		}
 
 		pData->maxReadDepth--;

@@ -64,6 +64,8 @@
 #include "CampaignStats.h"				// added by Flugente
 #include "DynamicDialogue.h"			// added by Flugente
 #include "MilitiaIndividual.h"			// added by Flugente
+#include "Town Militia.h"				// added by Flugente
+#include "PreBattle Interface.h"		// added by Flugente
 #endif
 
 // anv: for enemy taunts
@@ -3945,6 +3947,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 							case SOLDIER_CLASS_ZOMBIE :
 								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsZombies++;
 								break;
+							case SOLDIER_CLASS_BANDIT:
+								gMercProfiles[MercPtrs[ubAttacker]->ubProfile].records.usKillsOthers++;
+								break;
 							default :
 								if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsCreatures++;
@@ -4048,6 +4053,14 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 
 		// Flugente: campaign stats
 		gCurrentIncident.AddStat( pSoldier, CAMPAIGNHISTORY_TYPE_KILL );
+
+		// Flugente: for raids, we need to keep track of killed forces
+		if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+			GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+			GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+		{
+			AddRaidPersonnel( -( pSoldier->ubBodyType == BLOODCAT ), -( pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE ), -( pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT ) );
+		}
 
 		// Flugente: individual militia
 		MILITIA militia;

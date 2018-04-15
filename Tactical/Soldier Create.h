@@ -481,6 +481,9 @@ SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 
 
 // Flugente: assassins are elite soldiers of the civ team that go hostile on a certain event, otherwise they just blend in
 SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype);
+
+SOLDIERTYPE* TacticalCreateBandit();
+
 void CreateAssassin(UINT8 disguisetype);
 
 // create a prisoner (in a prison cell) in the current sector

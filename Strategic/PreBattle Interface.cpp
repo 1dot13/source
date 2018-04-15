@@ -414,7 +414,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			//There are hostile civilians, so no autoresolve allowed.
 			SetExplicitEnemyEncounterCode( HOSTILE_CIVILIANS_CODE );
 		}
-		else if( HostileBloodcatsPresent() )
+		else if ( GetEnemyEncounterCode() != BLOODCAT_ATTACK_CODE && HostileBloodcatsPresent() )
 		{
 			//There are bloodcats in the sector, so no autoresolve allowed
 			SetExplicitEnemyEncounterCode( HOSTILE_BLOODCATS_CODE );
@@ -447,8 +447,12 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			GetEnemyEncounterCode() == CREATURE_ATTACK_CODE ||
 			GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
 			GetEnemyEncounterCode() == ENEMY_INVASION_AIRDROP_CODE ||
-			GetEnemyEncounterCode() == CONCEALINSERTION_CODE )
-		{ //use same code
+			GetEnemyEncounterCode() == CONCEALINSERTION_CODE ||
+			GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+			GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+			GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+		{
+			//use same code
 			SetExplicitEnemyEncounterCode( GetEnemyEncounterCode() );
 		}
 		else
@@ -636,7 +640,24 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			else
 			{
 				//creature's attacking!
-				SetEnemyEncounterCode( CREATURE_ATTACK_CODE);
+				switch ( guCreatureAttackType )
+				{
+				case CREATURE_ATTACK_TYPE_BLOODCAT:	
+					SetEnemyEncounterCode( BLOODCAT_ATTACK_CODE );
+					break;
+
+				case CREATURE_ATTACK_TYPE_ZOMBIE:
+					SetEnemyEncounterCode( ZOMBIE_ATTACK_CODE );
+					break;
+
+				case CREATURE_ATTACK_TYPE_BANDIT:
+					SetEnemyEncounterCode( BANDIT_ATTACK_CODE );
+					break;
+
+				default:
+					SetEnemyEncounterCode( CREATURE_ATTACK_CODE );
+					break;
+				}
 			}
 		}
 		else if ( gpBattleGroup->usGroupTeam == OUR_TEAM )
@@ -901,7 +922,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE ||
 			GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE ||
 			GetEnemyEncounterCode() == CREATURE_ATTACK_CODE ||
-				is_client)
+			GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+			GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+			GetEnemyEncounterCode() == BANDIT_ATTACK_CODE ||
+			is_client)
 		{
 			DisableButton( iPBButton[ 2 ] );
 			SetButtonFastHelpText( iPBButton[ 2 ], gzNonPersistantPBIText[ 9 ] );
@@ -931,6 +955,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			case ENEMY_ENCOUNTER_CODE:
 			case ENEMY_INVASION_CODE:
 			case ENEMY_INVASION_AIRDROP_CODE:
+			case BLOODCAT_ATTACK_CODE:
+			case ZOMBIE_ATTACK_CODE:
+			case BANDIT_ATTACK_CODE:
 				SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 2 ] );
 				break;
 			case ENTERING_ENEMY_SECTOR_CODE:
@@ -1211,6 +1238,18 @@ void RenderPBHeader( INT32 *piX, INT32 *piWidth)
 		case CONCEALINSERTION_CODE:
 			swprintf( str, gpStrategicString[STR_PB_ENEMYENCOUNTER_HEADER] );
 			break;
+		case BLOODCAT_ATTACK_CODE:
+			swprintf( str, gpStrategicString[STR_PB_BLOODCATRAID_HEADER] );
+			gfBlinkHeader = TRUE;
+			break;
+		case ZOMBIE_ATTACK_CODE:
+			swprintf( str, gpStrategicString[STR_PB_ZOMBIERAID_HEADER] );
+			gfBlinkHeader = TRUE;
+			break;
+		case BANDIT_ATTACK_CODE:
+			swprintf( str, gpStrategicString[STR_PB_BANDITRAID_HEADER] );
+			gfBlinkHeader = TRUE;
+			break;
 	}
 	width = StringPixLength( str, FONT10ARIALBOLD );
 	x = 130 - width / 2;
@@ -1307,9 +1346,19 @@ void RenderPreBattleInterface()
 		{
 			swprintf( str, gpStrategicString[STR_PB_CREATURES ] );
 		}
-		else if( GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE )
+		else if( GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE || 
+			GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE || 
+			GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE )
 		{
 			swprintf( str, gpStrategicString[ STR_PB_BLOODCATS ] );
+		}
+		else if ( GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE )
+		{
+			swprintf( str, gpStrategicString[STR_PB_ZOMBIES] );
+		}
+		else if ( GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+		{
+			swprintf( str, gpStrategicString[STR_PB_BANDITS] );
 		}
 		else
 		{
@@ -1371,6 +1420,9 @@ void RenderPreBattleInterface()
 		if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE ||
 			GetEnemyEncounterCode() == BLOODCAT_AMBUSH_CODE ||
 			GetEnemyEncounterCode() == ENTERING_BLOODCAT_LAIR_CODE ||
+			GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+			GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+			GetEnemyEncounterCode() == BANDIT_ATTACK_CODE ||
 			WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) < KNOWS_THEYRE_THERE_AND_HOW_MANY ) // HEADROCK HAM 5: New case above this one...
 		{
 			// don't know how many
@@ -1600,7 +1652,10 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 				GetEnemyEncounterCode() != CREATURE_ATTACK_CODE &&
 				GetEnemyEncounterCode() != BLOODCAT_AMBUSH_CODE &&
 				GetEnemyEncounterCode() != ENEMY_INVASION_AIRDROP_CODE &&
-				GetEnemyEncounterCode() != CONCEALINSERTION_CODE )
+				GetEnemyEncounterCode() != CONCEALINSERTION_CODE &&
+				GetEnemyEncounterCode() != BLOODCAT_ATTACK_CODE &&
+				GetEnemyEncounterCode() != ZOMBIE_ATTACK_CODE &&
+				GetEnemyEncounterCode() != BANDIT_ATTACK_CODE )
 			{
 				gfEnterTacticalPlacementGUI = TRUE;
 			}
@@ -2404,6 +2459,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 		switch( GetEnemyEncounterCode() )
 		{
 			case ENEMY_INVASION_CODE:
+			case BANDIT_ATTACK_CODE:
 				AddHistoryToPlayersLog( HISTORY_DEFENDEDTOWNSECTOR, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENEMY_ENCOUNTER_CODE:
@@ -2418,10 +2474,12 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				AddHistoryToPlayersLog( HISTORY_SUCCESSFULATTACK, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case CREATURE_ATTACK_CODE:
+			case ZOMBIE_ATTACK_CODE:
 				AddHistoryToPlayersLog( HISTORY_CREATURESATTACKED, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case BLOODCAT_AMBUSH_CODE:
 			case ENTERING_BLOODCAT_LAIR_CODE:
+			case BLOODCAT_ATTACK_CODE:
 				AddHistoryToPlayersLog( HISTORY_SLAUGHTEREDBLOODCATS, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case CONCEALINSERTION_CODE:
@@ -2436,6 +2494,7 @@ void LogBattleResults( UINT8 ubVictoryCode)
 		switch( GetEnemyEncounterCode() )
 		{
 			case ENEMY_INVASION_CODE:
+			case BANDIT_ATTACK_CODE:
 				AddHistoryToPlayersLog( HISTORY_LOSTTOWNSECTOR, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case ENEMY_ENCOUNTER_CODE:
@@ -2450,10 +2509,12 @@ void LogBattleResults( UINT8 ubVictoryCode)
 				AddHistoryToPlayersLog( HISTORY_UNSUCCESSFULATTACK, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case CREATURE_ATTACK_CODE:
+			case ZOMBIE_ATTACK_CODE:
 				AddHistoryToPlayersLog( HISTORY_CREATURESATTACKED, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case BLOODCAT_AMBUSH_CODE:
 			case ENTERING_BLOODCAT_LAIR_CODE:
+			case BLOODCAT_ATTACK_CODE:
 				AddHistoryToPlayersLog( HISTORY_KILLEDBYBLOODCATS, 0, GetWorldTotalMin(), sSectorX, sSectorY );
 				break;
 			case CONCEALINSERTION_CODE:
@@ -2464,6 +2525,9 @@ void LogBattleResults( UINT8 ubVictoryCode)
 	switch( GetEnemyEncounterCode() )
 	{
 		case ENEMY_INVASION_CODE:
+		case BLOODCAT_ATTACK_CODE:
+		case ZOMBIE_ATTACK_CODE:
+		case BANDIT_ATTACK_CODE:
 			gCurrentIncident.usIncidentFlags |= INCIDENT_ATTACK_ENEMY;
 			break;
 		case ENEMY_ENCOUNTER_CODE:

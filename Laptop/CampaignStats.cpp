@@ -168,6 +168,8 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 	case CREATURE_TEAM:
 		if ( pSoldier->IsZombie() )
 			group = CAMPAIGNHISTORY_SD_ZOMBIE;
+		else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT )
+			group = CAMPAIGNHISTORY_SD_ENEMY_ADMIN;
 		else
 			group = CAMPAIGNHISTORY_SD_CREATURE;
 		break;

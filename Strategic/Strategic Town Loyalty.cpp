@@ -1592,14 +1592,13 @@ INT32 IsTownUnderCompleteControlByEnemy( INT8 bTownId )
 	return( FALSE );
 }
 
-void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 ubHowMany)
+void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 ubHowMany, BOOLEAN aBandits)
 {
 	INT8 bTownId = 0;
 	UINT32 uiLoyaltyChange = 0;
 	CHAR16 str[256];
 	CHAR16 pSectorString[128];
-
-
+	
 	// get town id
 	bTownId = GetTownIdForSector( sSectorX, sSectorY );
 
@@ -1611,12 +1610,19 @@ void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 
 
 	//Report this to player
 	GetSectorIDString( sSectorX, sSectorY, 0, pSectorString, TRUE );
+
+	if ( aBandits )
+		swprintf( str, gpStrategicString[STR_PB_BANDIT_KILLCIVS_IN_SECTOR], ubHowMany, pSectorString );
+	else
+	{
 #ifdef CHINESE
-	//diffrent order of words in Chinese
-	swprintf( str, gpStrategicString[ STR_DIALOG_CREATURES_KILL_CIVILIANS ], pSectorString, ubHowMany);
+		//diffrent order of words in Chinese
+		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], pSectorString, ubHowMany );
 #else
-	swprintf( str, gpStrategicString[ STR_DIALOG_CREATURES_KILL_CIVILIANS ], ubHowMany, pSectorString );
+		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], ubHowMany, pSectorString );
 #endif
+	}
+
 	DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 
 	// use same formula as if it were a civilian "murder" in tactical!!!

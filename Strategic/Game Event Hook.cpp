@@ -644,6 +644,22 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_INTEL_PHOTOFACT_VERIFY:
 			LuaVerifyPhotoState( (INT16)pEvent->uiParam );
 			break;
+
+		case EVENT_DAILY_RAID_EVENTS:
+			HandleRaidEventPlanning();
+			break;
+
+		case EVENT_BLOODCAT_ATTACK:
+			CreatureAttackTown_OtherCreatures( (UINT8)pEvent->uiParam, CREATURE_ATTACK_TYPE_BLOODCAT );
+			break;
+
+		case EVENT_ZOMBIE_ATTACK:
+			CreatureAttackTown_OtherCreatures( (UINT8)pEvent->uiParam, CREATURE_ATTACK_TYPE_ZOMBIE );
+			break;
+
+		case EVENT_BANDIT_ATTACK:
+			CreatureAttackTown_OtherCreatures( (UINT8)pEvent->uiParam, CREATURE_ATTACK_TYPE_BANDIT );
+			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;

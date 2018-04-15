@@ -131,4 +131,8 @@ void DevalueResources(UINT8 aOldProgress, UINT8 aNewProgress);
 void AddIntel( FLOAT aValue, BOOLEAN aDoMessage = FALSE );
 FLOAT GetIntel();
 
+// Flugente: raid 'personnel'
+void AddRaidPersonnel( INT32 aBloodcats, INT32 aZombie, INT32 aBandits );
+void GetRaidPersonnel( INT32& arBloodcats, INT32& arZombie, INT32& arBandits );
+
 #endif

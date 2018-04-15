@@ -143,6 +143,11 @@ enum
 	EVENT_INTEL_ENRICO_EMAIL,					// Flugente: Enrico sends us an email introduction to intel
 	EVENT_INTEL_PHOTOFACT_VERIFY,				// verification of a photo fact
 
+	EVENT_DAILY_RAID_EVENTS,					// Flugente: daily planning of raids on player sectors
+	EVENT_BLOODCAT_ATTACK,						// Flugente: like a creature attack, but with cats
+	EVENT_ZOMBIE_ATTACK,						// Flugente: like a creature attack, but with zombies
+	EVENT_BANDIT_ATTACK,						// Flugente: like a creature attack, but with bandits
+
 	NUMBER_OF_EVENT_TYPES_PLUS_ONE,
 	NUMBER_OF_EVENT_TYPES						= NUMBER_OF_EVENT_TYPES_PLUS_ONE - 1
 };

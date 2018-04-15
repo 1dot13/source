@@ -43,6 +43,10 @@ enum
 	ENEMY_AMBUSH_DEPLOYMENT_CODE,	// Flugente: an ambush in which we can deploy our mercs (somewhat)
 	ENEMY_INVASION_AIRDROP_CODE,	// Flugente: enemy airdrop
 	CONCEALINSERTION_CODE,			// Flugente: a spy is no longer concealed, this causes us to drop into combat
+
+	BLOODCAT_ATTACK_CODE,			// Flugente: like CREATURE_ATTACK_CODE, but with cats
+	ZOMBIE_ATTACK_CODE,				// Flugente: like CREATURE_ATTACK_CODE, but with zombies
+	BANDIT_ATTACK_CODE,				// Flugente: like CREATURE_ATTACK_CODE, but with bandits
 };
 
 extern BOOLEAN gfAutoAmbush;

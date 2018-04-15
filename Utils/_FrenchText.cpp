@@ -3522,6 +3522,15 @@ STR16 gpStrategicString[] =
 	L"Jeep",								//STR_AR_JEEP_NAME	// TODO.Translate
 
 	L"\nBreath regeneration per hour: %d",	// STR_BREATH_REGEN_SLEEP
+
+	L"Zombies",		// TODO.Translate
+	L"Bandits",
+	L"BLOODCAT ATTACK",
+	L"ZOMBIE ATTACK",
+	L"BANDIT ATTACK",
+	L"Zombie",
+	L"Bandit",
+	L"Bandits attack and kill %d civilians in sector %s.",
 };
 
 STR16 gpGameClockString[] = 

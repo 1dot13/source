@@ -2087,7 +2087,24 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gEnemyHeliSAMDamage_Var			= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_SAM_DAMAGE_VAR", 30, 10, 100 );
 	gGameExternalOptions.gEnemyHeliMANPADSDamage_Base		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_MANPADS_DAMAGE_BASE", 40, 10, 100 );
 	gGameExternalOptions.gEnemyHeliMANPADSDamage_Var		= iniReader.ReadInteger( "Enemy Helicopter Settings", "ENEMYHELI_MANPADS_DAMAGE_VAR", 80, 10, 100 );
-			
+	
+	// Flugente: raids
+	//################# Raid Settings ##################
+
+	gGameExternalOptions.gRaid_Bloodcats					= iniReader.ReadBoolean( "Raid Settings", "RAID_BLOODCATS", FALSE );
+	gGameExternalOptions.gRaid_Zombies						= iniReader.ReadBoolean( "Raid Settings", "RAID_ZOMBIES", FALSE );
+	gGameExternalOptions.gRaid_Bandits						= iniReader.ReadBoolean( "Raid Settings", "RAID_BANDITS", FALSE );
+	
+	gGameExternalOptions.gRaidReplenish_BaseValue			= iniReader.ReadInteger( "Raid Settings", "RAID_REPLENISH_BASEVALUE", 3, 1, 100 );
+
+	gGameExternalOptions.gRaidMaxSize_Bloodcats				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_BLOODCATS", 8, 1, 254 );
+	gGameExternalOptions.gRaidMaxSize_Zombies				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_ZOMBIES", 15, 1, 254 );
+	gGameExternalOptions.gRaidMaxSize_Bandits				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_BANDITS", 6, 1, 254 );
+	
+	gGameExternalOptions.gRaid_MaxAttackPerNight_Bloodcats	= iniReader.ReadInteger( "Raid Settings", "RAID_MAXATTACKSPERNIGHT_BLOODCATS", 3, 0, 100 );
+	gGameExternalOptions.gRaid_MaxAttackPerNight_Zombies	= iniReader.ReadInteger( "Raid Settings", "RAID_MAXATTACKSPERNIGHT_ZOMBIES", 3, 0, 100 );
+	gGameExternalOptions.gRaid_MaxAttackPerNight_Bandits	= iniReader.ReadInteger( "Raid Settings", "RAID_MAXATTACKSPERNIGHT_BANDITS", 3, 0, 100 );
+	
 	//################# Militia Training Settings ##################
 
 	gGameExternalOptions.iMaxMilitiaPerSector				= iniReader.ReadInteger("Militia Training Settings","MAX_MILITIA_PER_SECTOR",20, 1, CODE_MAXIMUM_NUMBER_OF_REBELS);

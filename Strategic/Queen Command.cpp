@@ -738,7 +738,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				{
 					switch( curr->pBasicPlacement->ubSoldierClass )
 					{
-						case SOLDIER_CLASS_ADMINISTRATOR:		ubTotalAdmins++;	break;
+						case SOLDIER_CLASS_ADMINISTRATOR:
+						case SOLDIER_CLASS_BANDIT:				ubTotalAdmins++;	break;
 						case SOLDIER_CLASS_ARMY:				ubTotalTroops++;	break;
 						case SOLDIER_CLASS_ELITE:				ubTotalElites++;	break;
 						case SOLDIER_CLASS_TANK:				ubTotalTanks++;		break;
@@ -1459,14 +1460,15 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 					}
 					break;
 				case SOLDIER_CLASS_CREATURE:
+				case SOLDIER_CLASS_BANDIT:
 					if( pSoldier->ubBodyType != BLOODCAT )
 					{
 						#ifdef JA2BETAVERSION
 							if( guiCurrentScreen == GAME_SCREEN )
 							{
 								if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumCreatures != pSector->ubCreaturesInBattle ||
-										!pSector->ubNumCreatures || !pSector->ubCreaturesInBattle ||
-										pSector->ubNumCreatures > 50 || pSector->ubCreaturesInBattle > 50 )
+									!pSector->ubNumCreatures || !pSector->ubCreaturesInBattle ||
+									pSector->ubNumCreatures > 50 || pSector->ubCreaturesInBattle > 50 )
 								{
 									DoScreenIndependantMessageBox( L"Sector creature counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 								}
@@ -1563,6 +1565,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 						}
 						break;
 					case SOLDIER_CLASS_CREATURE:
+					case SOLDIER_CLASS_BANDIT:
 						if (pSoldier->ubBodyType == BLOODCAT)
 						{
 							if( pSector->ubNumBloodcats > 0 )
@@ -1570,14 +1573,16 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 						}
 						else
 						{
-							#ifdef JA2BETAVERSION
+#ifdef JA2BETAVERSION
 							if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumCreatures != pSector->ubCreaturesInBattle ||
-									!pSector->ubNumCreatures || !pSector->ubCreaturesInBattle ||
-									pSector->ubNumCreatures > gGameExternalOptions.ubGameMaximumNumberOfCreatures || pSector->ubCreaturesInBattle > gGameExternalOptions.ubGameMaximumNumberOfCreatures )
+								!pSector->ubNumCreatures || 
+								!pSector->ubCreaturesInBattle ||
+								pSector->ubNumCreatures > gGameExternalOptions.ubGameMaximumNumberOfCreatures || 
+								pSector->ubCreaturesInBattle > gGameExternalOptions.ubGameMaximumNumberOfCreatures )
 							{
 								DoScreenIndependantMessageBox( L"Underground sector creature counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
 							}
-							#endif
+#endif
 							if( pSector->ubNumCreatures )
 							{
 								pSector->ubNumCreatures--;
@@ -1587,23 +1592,27 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 								pSector->ubCreaturesInBattle--;
 							}
 
-							if( !pSector->ubNumCreatures && gWorldSectorX != 9 && gWorldSectorY != 10 )
-							{ //If the player has successfully killed all creatures in ANY underground sector except J9
-								//then cancel any pending creature town attack.
-								DeleteAllStrategicEventsOfType( EVENT_CREATURE_ATTACK );
-							}
-
-							// a monster has died.  Post an event to immediately check whether a mine has been cleared.
-							AddStrategicEventUsingSeconds( EVENT_CHECK_IF_MINE_CLEARED, GetWorldTotalSeconds() + 15, 0);
-
-							if( pSoldier->ubBodyType == QUEENMONSTER )
+							if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_CREATURE )
 							{
-								//Need to call this, as the queen is really big, and killing her leaves a bunch
-								//of bad tiles in behind her.  Calling this function cleans it up.
-								InvalidateWorldRedundency();
-								//Now that the queen is dead, turn off the creature quest.
-								EndCreatureQuest();
-								EndQuest( QUEST_CREATURES, gWorldSectorX, gWorldSectorY );
+								if ( !pSector->ubNumCreatures && gWorldSectorX != 9 && gWorldSectorY != 10 )
+								{
+									//If the player has successfully killed all creatures in ANY underground sector except J9
+									//then cancel any pending creature town attack.
+									DeleteAllStrategicEventsOfType( EVENT_CREATURE_ATTACK );
+								}
+
+								// a monster has died.  Post an event to immediately check whether a mine has been cleared.
+								AddStrategicEventUsingSeconds( EVENT_CHECK_IF_MINE_CLEARED, GetWorldTotalSeconds() + 15, 0 );
+
+								if ( pSoldier->ubBodyType == QUEENMONSTER )
+								{
+									//Need to call this, as the queen is really big, and killing her leaves a bunch
+									//of bad tiles in behind her.  Calling this function cleans it up.
+									InvalidateWorldRedundency();
+									//Now that the queen is dead, turn off the creature quest.
+									EndCreatureQuest();
+									EndQuest( QUEST_CREATURES, gWorldSectorX, gWorldSectorY );
+								}
 							}
 						}
 						break;

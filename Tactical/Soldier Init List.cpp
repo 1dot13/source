@@ -59,6 +59,8 @@
 #include "PreBattle Interface.h"	// added by Flugente
 #include "LuaInitNPCs.h"		// added by Flugente
 #include "Soldier macros.h"		// added by Flugente
+#include "Creature Spreading.h"	// added by Flugente
+
 
 BOOLEAN gfOriginalList = TRUE;
 
@@ -1105,6 +1107,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 					ubEliteBSlots++;
 				break;
 			case SOLDIER_CLASS_ADMINISTRATOR:
+			case SOLDIER_CLASS_BANDIT:
 				if( curr->pBasicPlacement->fPriorityExistance && curr->pDetailedPlacement )
 					ubAdminPDSlots++;
 				else if( curr->pBasicPlacement->fPriorityExistance )
@@ -1163,6 +1166,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 		switch( ubCurrClass )
 		{
 		case SOLDIER_CLASS_ADMINISTRATOR:
+		case SOLDIER_CLASS_BANDIT:
 			pCurrSlots = &ubAdminPDSlots;
 			pCurrTotal = &ubTotalAdmin;
 			break;
@@ -1229,6 +1233,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 		switch( ubCurrClass )
 		{
 		case SOLDIER_CLASS_ADMINISTRATOR:
+		case SOLDIER_CLASS_BANDIT:
 			pCurrSlots = &ubAdminPSlots;
 			pCurrTotal = &ubTotalAdmin;
 			break;
@@ -1285,6 +1290,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 		switch( ubCurrClass )
 		{
 		case SOLDIER_CLASS_ADMINISTRATOR:
+		case SOLDIER_CLASS_BANDIT:
 			pCurrSlots = &ubAdminDSlots;
 			pCurrTotal = &ubTotalAdmin;
 			break;
@@ -1389,12 +1395,13 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//ADD REMAINING PLACEMENTS WITH BASIC PLACEMENT INFORMATION
 	//we now have the numbers of available slots for each soldier class, so loop through three times
 	//and randomly choose some (or all) of the matching slots to fill.	This is done randomly.
-	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY; ubCurrClass++ )
+	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY; ++ubCurrClass )
 	{
 		//First, prepare the counters.
 		switch( ubCurrClass )
 		{
 		case SOLDIER_CLASS_ADMINISTRATOR:
+		case SOLDIER_CLASS_BANDIT:
 			pCurrSlots = &ubAdminBSlots;
 			pCurrTotal = &ubTotalAdmin;
 			break;
@@ -1672,7 +1679,8 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 			switch( curr->pBasicPlacement->ubSoldierClass )
 			{
 			case SOLDIER_CLASS_ELITE:						ubEliteSlots++;	break;
-			case SOLDIER_CLASS_ADMINISTRATOR:		ubGreenSlots++; break;
+			case SOLDIER_CLASS_ADMINISTRATOR:
+			case SOLDIER_CLASS_BANDIT:						ubGreenSlots++; break;
 			case SOLDIER_CLASS_ARMY:						ubRegSlots++; break;
 			}
 		}
@@ -1693,6 +1701,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 		switch( reorder[i] )
 		{
 		case SOLDIER_CLASS_ADMINISTRATOR:
+		case SOLDIER_CLASS_BANDIT:
 			pCurrSlots = &ubGreenSlots;
 			pCurrTotal = &ubNumGreen;
 			break;
@@ -1721,6 +1730,7 @@ void AddSoldierInitListMilitia( UINT8 ubNumGreen, UINT8 ubNumRegs, UINT8 ubNumEl
 						switch( reorder[i] )
 						{
 						case SOLDIER_CLASS_ADMINISTRATOR:
+						case SOLDIER_CLASS_BANDIT:
 							curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_GREEN_MILITIA;
 							break;
 						case SOLDIER_CLASS_ARMY:
@@ -2059,7 +2069,125 @@ void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNum
 	}
 }
 
+void AddSoldierInitListOtherCreatures( UINT8 usNum )
+{
+	SOLDIERINITNODE *curr;
+	INT32 iRandom;
+	UINT8 ubFreeSlots;
+	BOOLEAN fDoPlacement;
+	UINT8 ubNumCreatures = usNum;
 
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "AddSoldierInitListBloodcats" ) );
+
+	SortSoldierInitList();	
+
+	//First fill up only the priority existance slots (as long as the availability and bodytypes match)
+	curr = gSoldierInitHead;
+	while ( curr && curr->pBasicPlacement->fPriorityExistance && ubNumCreatures )
+	{
+		fDoPlacement = TRUE;
+
+		if ( curr->pBasicPlacement->bTeam == CREATURE_TEAM )
+		{
+			//Matching team, now check the soldier class...
+			switch ( guCreatureAttackType )
+			{
+			case CREATURE_ATTACK_TYPE_ZOMBIE:
+				if ( curr->pBasicPlacement->ubBodyType > REGFEMALE )
+					fDoPlacement = FALSE;
+				break;
+
+			case CREATURE_ATTACK_TYPE_BANDIT:
+				if ( curr->pBasicPlacement->ubBodyType > REGFEMALE )
+					fDoPlacement = FALSE;
+				break;
+
+			case CREATURE_ATTACK_TYPE_BLOODCAT:
+				if ( curr->pBasicPlacement->ubBodyType != BLOODCAT )
+					fDoPlacement = FALSE;
+				break;
+			}
+			break;
+
+			if ( fDoPlacement )
+			{
+				if ( AddPlacementToWorld( curr ) )
+				{
+					--ubNumCreatures;
+				}
+				else
+					return;
+			}
+		}
+		curr = curr->next;
+	}
+
+	if ( !ubNumCreatures )
+		return;
+
+	//Count how many free creature slots are left.
+	curr = gSoldierInitHead;
+	ubFreeSlots = 0;
+	while ( curr )
+	{
+		if ( !curr->pSoldier && curr->pBasicPlacement->bTeam == CREATURE_TEAM )
+			++ubFreeSlots;
+
+		curr = curr->next;
+	}
+
+	//Now, if we still have creatures to place, do so completely randomly, overriding priority
+	//placements, etc.
+	curr = gSoldierInitHead;
+	while ( curr && ubFreeSlots && ubNumCreatures )
+	{
+		if ( !curr->pSoldier && curr->pBasicPlacement->bTeam == CREATURE_TEAM )
+		{
+			//Randomly determine if we will use this slot; the more available slots in proportion to
+			//the number of enemies, the lower the chance of accepting the slot.
+			if ( ubFreeSlots <= ubNumCreatures || Random( ubFreeSlots ) < ubNumCreatures )
+			{
+				switch ( guCreatureAttackType )
+				{
+				case CREATURE_ATTACK_TYPE_ZOMBIE:
+					curr->pBasicPlacement->ubBodyType = Random( ADULTFEMALEMONSTER );
+					break;
+
+				case CREATURE_ATTACK_TYPE_BANDIT:
+					curr->pBasicPlacement->ubBodyType = Random( ADULTFEMALEMONSTER );
+					break;
+
+				case CREATURE_ATTACK_TYPE_BLOODCAT:
+					curr->pBasicPlacement->ubBodyType = BLOODCAT;
+					break;
+				}
+				break;
+
+				if ( curr->pDetailedPlacement )
+				{
+					//delete the detailed placement information.
+					MemFree( curr->pDetailedPlacement );
+					curr->pDetailedPlacement = NULL;
+					curr->pBasicPlacement->fDetailedPlacement = FALSE;
+				}
+
+				if ( AddPlacementToWorld( curr ) )
+				{
+					--ubNumCreatures;
+				}
+				else
+				{
+					return;
+				}
+			}
+			
+			--ubFreeSlots;
+			//With the decrementing of the slot vars in this manner, the chances increase so that all slots
+			//will be full by the time the end of the list comes up.
+		}
+		curr = curr->next;
+	}
+}
 
 SOLDIERINITNODE* FindSoldierInitNodeWithProfileID( UINT16 usProfile );
 SOLDIERINITNODE* FindSoldierInitNodeWithProfileID( UINT16 usProfile )

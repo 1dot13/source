@@ -494,6 +494,10 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 
 BOOLEAN DeductBulletViaExternalFeeding(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);
 
+#define SECTORFLAG_RAIDPOSSIBLE_BLOODCAT		0x00000001				// bloodcats can attack this sector
+#define SECTORFLAG_RAIDPOSSIBLE_ZOMBIE			0x00000002				// zombies can attack this sector
+#define SECTORFLAG_RAIDPOSSIBLE_BANDIT			0x00000004				// bandits can attack this sector
+
 // Flugente: additional xml data for sectors
 typedef struct
 {
@@ -514,6 +518,8 @@ typedef struct
 	UINT8		numsnakes;				// how many snakes can be active at maximum
 
 	UINT8		maxworkers;				// maximum number of workers in this sector;
+
+	UINT32		usSectorFlagMask;		// various flags
 
 } SECTOR_EXT_DATA;
 

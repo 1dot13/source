@@ -15804,9 +15804,9 @@ void HandlePostAutoresolveMessages()
 	//are "virtually" murdered and loyalty hits will be processed.
 	if( gsCiviliansEatenByMonsters >= 1 )
 	{
-		AdjustLoyaltyForCivsEatenByMonsters( (UINT8)SECTORX( gsEnemyGainedControlOfSectorID ),
-																				(UINT8)SECTORY( gsEnemyGainedControlOfSectorID ),
-																				(UINT8)gsCiviliansEatenByMonsters );
+		AdjustLoyaltyForCivsEatenByMonsters( (UINT8)SECTORX( gsEnemyGainedControlOfSectorID ), (UINT8)SECTORY( gsEnemyGainedControlOfSectorID ),
+			(UINT8)gsCiviliansEatenByMonsters, ( guCreatureAttackType == CREATURE_ATTACK_TYPE_BANDIT ) );
+
 		gsCiviliansEatenByMonsters = -2;
 	}
 	else if( gsCiviliansEatenByMonsters == -2 )

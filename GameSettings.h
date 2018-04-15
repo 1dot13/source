@@ -689,6 +689,21 @@ typedef struct
 	UINT16 gEnemyHeliSAMDamage_Var;
 	UINT16 gEnemyHeliMANPADSDamage_Base;
 	UINT16 gEnemyHeliMANPADSDamage_Var;
+
+	// Flugente: raids
+	BOOLEAN gRaid_Bloodcats;
+	BOOLEAN gRaid_Zombies;
+	BOOLEAN gRaid_Bandits;
+
+	UINT8 gRaidReplenish_BaseValue;
+
+	UINT16 gRaidMaxSize_Bloodcats;
+	UINT16 gRaidMaxSize_Zombies;
+	UINT16 gRaidMaxSize_Bandits;
+
+	UINT8 gRaid_MaxAttackPerNight_Bloodcats;
+	UINT8 gRaid_MaxAttackPerNight_Zombies;
+	UINT8 gRaid_MaxAttackPerNight_Bandits;
 	
 	INT32 ubEnemiesItemDrop;
 

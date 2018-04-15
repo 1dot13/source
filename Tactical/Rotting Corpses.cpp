@@ -47,6 +47,8 @@
 	#include "Campaign Types.h"	
 	#include "text.h"		// added by Flugente
 	#include "Vehicles.h"	// added by silversurfer
+	#include "ai.h"			// added by Flugente
+	#include "PreBattle Interface.h"	// added by Flugente
 #endif
 
 #include "Animation Control.h"
@@ -2632,7 +2634,7 @@ void RaiseZombies( void )
 
 			for ( INT32 cnt = giNumRottingCorpse - 1; cnt >= 0; --cnt )
 			{
-				if ( pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )					// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
+				if ( pSector && pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )			// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
 				{
 					pCorpse = &(gRottingCorpse[ cnt ] );
 
@@ -2652,8 +2654,8 @@ void RaiseZombies( void )
 										zombieshaverisen = TRUE;
 										CreateZombiefromCorpse( pCorpse, recanimstate );
 
-										//++pSector->ubNumZombies;
-										//++pSector->ubZombiesInBattle;
+										pSector->ubNumCreatures++;
+										pSector->ubCreaturesInBattle++;
 
 										RemoveCorpse( cnt );
 									}
@@ -2680,13 +2682,32 @@ void RaiseZombies( void )
 				PlayJA2SampleFromFile( "Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
 				UseCreatureMusic(TRUE); // Madd: music when zombies rise
-				#ifdef NEWMUSIC
+#ifdef NEWMUSIC
 				GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
 				if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] != -1 )
 					SetMusicModeID( MUSIC_TACTICAL_ENEMYPRESENT, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ] );
 				else
-				#endif
+#endif
 				SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
+
+				// alert the creatures
+				HandleInitialRedAlert( CREATURE_TEAM, FALSE );
+
+				// we need this so that the battle is properly recognized in strategic
+				{
+					//Set up the location as well as turning on the blit flag.
+					gubPBSectorX = (UINT8)gWorldSectorX;
+					gubPBSectorY = (UINT8)gWorldSectorY;
+					gubPBSectorZ = (UINT8)gbWorldSectorZ;
+					gfBlitBattleSectorLocator = TRUE;
+				}
+
+				if ( GetEnemyEncounterCode() == NO_ENCOUNTER_CODE )
+					SetEnemyEncounterCode( ZOMBIE_ATTACK_CODE );
+
+				// idea... potentially scrap this part and use a simplified form of void CreatureAttackTown_OtherCreatures(...) ?
+
+				//gubSectorIDOfCreatureAttack = SECTOR( gWorldSectorX, gWorldSectorY );
 			}
 		}
 	}

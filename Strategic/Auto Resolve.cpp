@@ -170,6 +170,9 @@ typedef struct AUTORESOLVE_STRUCT
 	UINT8 ubMercs, ubCivs, ubEnemies;
 	UINT8 ubAdmins, ubTroops, ubElites, ubTanks, ubJeeps;
 	UINT8 ubYMCreatures, ubYFCreatures, ubAMCreatures, ubAFCreatures;
+	UINT8 ubBloodcats;
+	UINT8 ubZombies;
+	UINT8 ubBandits;
 	UINT8 ubAliveMercs, ubAliveCivs, ubAliveEnemies;
 	UINT8 ubMercCols, ubMercRows;
 	UINT8 ubEnemyCols, ubEnemyRows;
@@ -230,14 +233,18 @@ typedef struct AUTORESOLVE_STRUCT
 #define CELL_ROBOT						0x00200000
 #define CELL_TANK						0x00400000
 #define CELL_JEEP						0x00800000
+#define CELL_BLOODCAT					0x01000000
+#define CELL_ZOMBIE						0x02000000
+#define CELL_BANDIT						0x04000000
 
 //Combined flags
 #define CELL_PLAYER						( CELL_MERC | CELL_MILITIA )
-#define CELL_ENEMY						( CELL_ELITE | CELL_TROOP | CELL_ADMIN | CELL_TANK | CELL_JEEP )
-#define CELL_CREATURE					( CELL_AF_CREATURE | CELL_AM_CREATURE | CELL_YF_CREATURE | CELL_YM_CREATURE )
-#define CELL_FEMALECREATURE	( CELL_AF_CREATURE | CELL_YF_CREATURE )
-#define CELL_MALECREATURE			( CELL_AM_CREATURE | CELL_YM_CREATURE )
-#define CELL_YOUNGCREATURE		( CELL_YF_CREATURE | CELL_YM_CREATURE )
+#define CELL_ENEMY						( CELL_ELITE | CELL_TROOP | CELL_ADMIN | CELL_TANK | CELL_JEEP | CELL_BANDIT )
+#define CELL_FEMALECREATURE				( CELL_AF_CREATURE | CELL_YF_CREATURE )
+#define CELL_MALECREATURE				( CELL_AM_CREATURE | CELL_YM_CREATURE )
+#define CELL_BUG						( CELL_FEMALECREATURE | CELL_MALECREATURE )
+#define CELL_CREATURE					( CELL_BUG | CELL_BLOODCAT | CELL_ZOMBIE )
+
 #define CELL_INVOLVEDINCOMBAT ( CELL_FIREDATTARGET | CELL_DODGEDATTACK | CELL_HITBYATTACKER )
 
 enum
@@ -303,7 +310,6 @@ void CalculateSoldierCells( BOOLEAN fReset );
 void CalculateRowsAndColumns();
 void CreateAutoResolveInterface();
 void RemoveAutoResolveInterface( BOOLEAN fDeleteForGood );
-INT32 CalcIndexFromColRowsXY( INT32 iMaxCols, INT32 iMaxRows, INT32 iCol, INT32 iRow );
 
 //Battle system routines
 void DetermineTeamLeader( BOOLEAN fFriendlyTeam );
@@ -484,7 +490,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 
 	if( gpAR )
 	{
-		for( i = 0; i < gpAR->ubEnemies; i++ )
+		for( i = 0; i < gpAR->ubEnemies; ++i )
 		{
 			gpEnemies[ i ].pSoldier->stats.bLife = 0;
 		}
@@ -626,6 +632,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 			gpAR->ubPlayerDefenceAdvantage = 0;
 			break;
 		case CREATURE_ATTACK_CODE:
+		case BLOODCAT_ATTACK_CODE:
+		case ZOMBIE_ATTACK_CODE:
+		case BANDIT_ATTACK_CODE:
 			gpAR->ubPlayerDefenceAdvantage = 0;
 			break;
 		default:
@@ -746,7 +755,10 @@ void AssociateEnemiesWithStrategicGroups()
 	UINT8 ubDirAmount;
 	UINT8 ubCurrSI;
 
-	if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
+	if ( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE || 
+		GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+		GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE  ||
+		GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
 		return;
 
 	pSector = &SectorInfo[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ];
@@ -1007,8 +1019,7 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	// WDS TO BE FIXED -- Why is this 40 here? (18 April 2008)
 	//iMaxTeamSize = max( gpAR->ubMercs + gpAR->ubCivs, gpAR->ubEnemies );
 	iMaxTeamSize = max( min( 40,	gpAR->ubMercs + gpAR->ubCivs ), min( 40,	gpAR->ubEnemies ) );
-
-
+	
 	if( iMaxTeamSize > 12 )
 	{
 		gpAR->ubTimeModifierPercentage = (UINT8)(118 - iMaxTeamSize*1.5);
@@ -1017,6 +1028,7 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	{
 		gpAR->ubTimeModifierPercentage = 100;
 	}
+
 	gpAR->uiTimeSlice = gpAR->uiTimeSlice * gpAR->ubTimeModifierPercentage / 100;
 
 	iTop = iScreenHeightOffset + (240 - gpAR->sHeight/2);
@@ -1064,6 +1076,7 @@ void CalculateSoldierCells( BOOLEAN fReset )
 				gpAR->ubAliveMercs--;
 		}
 	}
+
 	if( gpAR->ubCivs )
 	{
 		iStartY = iTop + (gpAR->sHeight - (min(10,gpAR->ubMercRows+gpAR->ubCivRows)*47+7))/2 + gpAR->ubMercRows*47 + 5;
@@ -1081,6 +1094,7 @@ void CalculateSoldierCells( BOOLEAN fReset )
 			gpCivs[ index ].uiFlags |= CELL_MILITIA;
 		}
 	}
+
 	if( gpAR->ubEnemies )
 	{
 		iStartY = iTop + (gpAR->sHeight - (min(10,gpAR->ubEnemyRows)*47+7))/2 + 5;
@@ -1095,21 +1109,8 @@ void CalculateSoldierCells( BOOLEAN fReset )
 
 			gpEnemies[ index ].xp = (UINT16)(gpAR->sCenterStartX + 141 + 55*x);
 			gpEnemies[ index ].yp = iStartY + y*47;
-
-			if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
-			{
-				if ( index < gpAR->ubElites )
-					gpEnemies[ index ].uiFlags = CELL_ELITE;
-				else if ( index < gpAR->ubElites + gpAR->ubTroops )
-					gpEnemies[ index ].uiFlags = CELL_TROOP;
-				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins )
-					gpEnemies[index].uiFlags = CELL_ADMIN;
-				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins + gpAR->ubTanks )
-					gpEnemies[index].uiFlags = CELL_TANK;
-				else
-					gpEnemies[index].uiFlags = CELL_JEEP;
-			}
-			else
+			
+			if ( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
 			{
 				if( index < gpAR->ubAFCreatures )
 					gpEnemies[ index ].uiFlags = CELL_AF_CREATURE;
@@ -1119,6 +1120,30 @@ void CalculateSoldierCells( BOOLEAN fReset )
 					gpEnemies[ index ].uiFlags = CELL_YF_CREATURE;
 				else
 					gpEnemies[ index ].uiFlags = CELL_YM_CREATURE;
+			}
+			else if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+				GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+				GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+			{
+				if ( index < gpAR->ubBloodcats )
+					gpEnemies[index].uiFlags = CELL_BLOODCAT;
+				else if ( index < gpAR->ubBloodcats + gpAR->ubZombies )
+					gpEnemies[index].uiFlags = CELL_ZOMBIE;
+				else
+					gpEnemies[index].uiFlags = CELL_BANDIT;
+			}
+			else
+			{
+				if ( index < gpAR->ubElites )
+					gpEnemies[index].uiFlags = CELL_ELITE;
+				else if ( index < gpAR->ubElites + gpAR->ubTroops )
+					gpEnemies[index].uiFlags = CELL_TROOP;
+				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins )
+					gpEnemies[index].uiFlags = CELL_ADMIN;
+				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins + gpAR->ubTanks )
+					gpEnemies[index].uiFlags = CELL_TANK;
+				else
+					gpEnemies[index].uiFlags = CELL_JEEP;
 			}
 		}
 	}
@@ -1182,8 +1207,10 @@ void RenderSoldierCell( SOLDIERCELL *pCell )
 	if( !pCell->pSoldier->stats.bLife )
 	{
 		SetObjectHandleShade( pCell->uiVObjectID, 0 );
-
-		if ( (pCell->uiFlags & CELL_CREATURE) )
+		
+		if ( ( pCell->uiFlags & CELL_BLOODCAT ) )
+			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, BLOODCAT_SKULL, pCell->xp + 3 + x, pCell->yp + 3, VO_BLT_SRCTRANSPARENCY, NULL );
+		else if ( (pCell->uiFlags & CELL_BUG ) )
 			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, CREATURE_SKULL, pCell->xp + 3 + x, pCell->yp + 3, VO_BLT_SRCTRANSPARENCY, NULL );
 		else if ( (pCell->uiFlags & CELL_TANK) )
 			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iFaces, TANK_WRECK, pCell->xp + 3 + x, pCell->yp + 3, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -1677,6 +1704,9 @@ void RenderAutoResolve()
 			break;
 		case ENEMY_INVASION_CODE:
 		case CREATURE_ATTACK_CODE:
+		case BLOODCAT_ATTACK_CODE:
+		case ZOMBIE_ATTACK_CODE:
+		case BANDIT_ATTACK_CODE:
 			swprintf( str, gpStrategicString[STR_AR_DEFEND_HEADER] );
 			break;
 		default:
@@ -1802,8 +1832,14 @@ void RenderAutoResolve()
 					break;
 				case BATTLE_DEFEAT:
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
+
+					if( ProcessLoyalty() )
+						HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+
+					if ( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE &&
+						GetEnemyEncounterCode () != BLOODCAT_ATTACK_CODE &&
+						GetEnemyEncounterCode () != ZOMBIE_ATTACK_CODE &&
+						GetEnemyEncounterCode () != BANDIT_ATTACK_CODE )
 					{
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 					}
@@ -1828,8 +1864,13 @@ void RenderAutoResolve()
 					//Tack on 5 minutes for retreat.
 					gpAR->uiTotalElapsedBattleTimeInMilliseconds += 300000;
 
-					if( ProcessLoyalty() )HandleLoyaltyImplicationsOfMercRetreat( RETREAT_AUTORESOLVE, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
+					if( ProcessLoyalty() )
+						HandleLoyaltyImplicationsOfMercRetreat( RETREAT_AUTORESOLVE, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+
+					if ( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE && 
+						GetEnemyEncounterCode () != BLOODCAT_ATTACK_CODE &&
+						GetEnemyEncounterCode () != ZOMBIE_ATTACK_CODE &&
+						GetEnemyEncounterCode () != BANDIT_ATTACK_CODE )
 					{
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 					}
@@ -2133,7 +2174,7 @@ void CreateAutoResolveInterface()
 	// Add the militia in the surrounding sectors
 	// HEADROCK HAM 3.4: Changed argument configuration.
 	GenerateDirectionInfos( gpAR->ubSectorX, gpAR->ubSectorY, &uiDirNumber, pMoveDir, FALSE, TRUE );
-	for( i=0; i<uiDirNumber; i++)
+	for( i=0; i<uiDirNumber; ++i)
 	{
 		INT16 sX = SECTORX( pMoveDir[ i ][0] );
 		INT16 sY = SECTORY( pMoveDir[ i ][0] );
@@ -2144,13 +2185,98 @@ void CreateAutoResolveInterface()
 
 		ARCreateMilitiaSquad( &cnt, ubEliteMilitia, ubRegMilitia, ubGreenMilitia, sX, sY );
 	}
-	if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
+	
+	index = 0;
+
+	if ( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
 	{
-		for( i = 0, index = 0; i < gpAR->ubElites; ++i, ++index )
+		for ( i = 0; i < gpAR->ubAFCreatures; ++i, ++index )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateCreature( ADULTFEMALEMONSTER );
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+			gpEnemies[index].usIndex = AF_CREATURE_FACE;
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
+		}
+		for( i = 0; i < gpAR->ubAMCreatures; ++i, ++index )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateCreature( AM_MONSTER );
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+			gpEnemies[index].usIndex = AM_CREATURE_FACE;
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
+		}
+		for( i = 0; i < gpAR->ubYFCreatures; ++i, ++index )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateCreature( YAF_MONSTER );
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+			gpEnemies[index].usIndex = YF_CREATURE_FACE;
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
+		}
+		for( i = 0; i < gpAR->ubYMCreatures; ++i, ++index )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateCreature( YAM_MONSTER );
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+			gpEnemies[index].usIndex = YM_CREATURE_FACE;
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
+		}
+	}
+	else if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+		GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+		GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+	{
+		for ( i = 0; i < gpAR->ubBloodcats; ++i, ++index )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateCreature( BLOODCAT );
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+			gpEnemies[index].usIndex = BLOODCAT_FACE;
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, pDisplayBodyTypeInfoText[27] );
+		}
+
+		for ( i = 0; i < gpAR->ubZombies; ++i, ++index )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateZombie();
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+			gpEnemies[index].usIndex = ZOMBIE_FACE;
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[STR_PB_ZOMBIE] );
+		}
+
+		for ( i = 0; i < gpAR->ubBandits; ++i, ++index )
+		{
+			gpEnemies[index].pSoldier = TacticalCreateBandit();
+			gpEnemies[index].uiVObjectID = gpAR->iFaces;
+
+			if ( gpEnemies[index].pSoldier->ubBodyType == REGFEMALE )
+			{
+				gpEnemies[index].usIndex = BANDIT1_F_FACE + Random( BLOODCAT_FACE - BANDIT1_F_FACE );
+			}
+			else
+			{
+				gpEnemies[index].usIndex = BANDIT1_FACE + Random( BANDIT1_F_FACE - BANDIT1_FACE );
+			}
+
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[STR_PB_BANDIT] );
+		}
+	}
+	else
+	{
+		for ( i = 0; i < gpAR->ubElites; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateEliteEnemy();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			if( gpEnemies[i].pSoldier->ubBodyType == REGFEMALE )
+			if ( gpEnemies[index].pSoldier->ubBodyType == REGFEMALE )
 			{
 				gpEnemies[index].usIndex = ELITEF_FACE;
 			}
@@ -2160,39 +2286,39 @@ void CreateAutoResolveInterface()
 			}
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ELITE_NAME ] );
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[STR_AR_ELITE_NAME] );
 		}
-		for( i = 0; i < gpAR->ubTroops; ++i, ++index )
+		for ( i = 0; i < gpAR->ubTroops; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateArmyTroop();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			if ( gpEnemies[i].pSoldier->ubBodyType == REGFEMALE )
+			if ( gpEnemies[index].pSoldier->ubBodyType == REGFEMALE )
 			{
 				gpEnemies[index].usIndex = TROOPF_FACE;
 			}
 			else
 			{
-			gpEnemies[index].usIndex = TROOP_FACE;
+				gpEnemies[index].usIndex = TROOP_FACE;
 			}
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_TROOP_NAME ] );
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[STR_AR_TROOP_NAME] );
 		}
 		for ( i = 0; i < gpAR->ubAdmins; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateAdministrator();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			if ( gpEnemies[i].pSoldier->ubBodyType == REGFEMALE )
+			if ( gpEnemies[index].pSoldier->ubBodyType == REGFEMALE )
 			{
 				gpEnemies[index].usIndex = ADMINF_FACE;
 			}
 			else
 			{
-			gpEnemies[index].usIndex = ADMIN_FACE;
+				gpEnemies[index].usIndex = ADMIN_FACE;
 			}
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
 			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_ADMINISTRATOR_NAME ] );
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[STR_AR_ADMINISTRATOR_NAME] );
 		}
 
 		for ( i = 0; i < gpAR->ubTanks; ++i, ++index )
@@ -2207,7 +2333,7 @@ void CreateAutoResolveInterface()
 
 		for ( i = 0; i < gpAR->ubJeeps; ++i, ++index )
 		{
-			gpEnemies[index].pSoldier = TacticalCreateEnemyJeep( );
+			gpEnemies[index].pSoldier = TacticalCreateEnemyJeep();
 			gpEnemies[index].uiVObjectID = gpAR->iFaces;
 			gpEnemies[index].usIndex = JEEP_FACE;
 			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
@@ -2216,45 +2342,6 @@ void CreateAutoResolveInterface()
 		}
 
 		AssociateEnemiesWithStrategicGroups();
-	}
-	else
-	{
-		for ( i = 0, index = 0; i < gpAR->ubAFCreatures; ++i, ++index )
-		{
-			gpEnemies[index].pSoldier = TacticalCreateCreature( ADULTFEMALEMONSTER );
-			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			gpEnemies[index].usIndex = AF_CREATURE_FACE;
-			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
-			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
-		}
-		for( i = 0; i < gpAR->ubAMCreatures; i++, index++ )
-		{
-			gpEnemies[index].pSoldier = TacticalCreateCreature( AM_MONSTER );
-			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			gpEnemies[index].usIndex = AM_CREATURE_FACE;
-			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
-			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
-		}
-		for( i = 0; i < gpAR->ubYFCreatures; i++, index++ )
-		{
-			gpEnemies[index].pSoldier = TacticalCreateCreature( YAF_MONSTER );
-			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			gpEnemies[index].usIndex = YF_CREATURE_FACE;
-			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
-			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
-		}
-		for( i = 0; i < gpAR->ubYMCreatures; i++, index++ )
-		{
-			gpEnemies[index].pSoldier = TacticalCreateCreature( YAM_MONSTER );
-			gpEnemies[index].uiVObjectID = gpAR->iFaces;
-			gpEnemies[index].usIndex = YM_CREATURE_FACE;
-			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
-			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
-			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[ STR_AR_CREATURE_NAME ] );
-		}
 	}
 
 	if( gpAR->ubSectorX == gWorldSectorX && gpAR->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
@@ -2616,7 +2703,10 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 
 	gpBattleGroup = NULL;
 
-	if( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
+	if ( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE || 
+		GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+		GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+		GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
 	{
 		gubNumCreaturesAttackingTown = 0;
 		gubSectorIDOfCreatureAttack = 0;
@@ -2915,14 +3005,7 @@ void CalculateAutoResolveInfo()
 	Assert( gpAR->ubSectorX >= 1 && gpAR->ubSectorX <= 16 );
 	Assert( gpAR->ubSectorY >= 1 && gpAR->ubSectorY <= 16 );
 
-	if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
-	{
-//		GetNumberOfEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY,
-		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
-										 &gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubTanks, &gpAR->ubJeeps );
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps, MAX_AR_TEAM_SIZE );
-	}
-	else
+	if ( GetEnemyEncounterCode() == CREATURE_ATTACK_CODE )
 	{
 		if( gfTransferTacticalOppositionToAutoResolve )
 		{
@@ -2948,8 +3031,35 @@ void CalculateAutoResolveInfo()
 
 		gpAR->ubEnemies = (UINT8)min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
 	}
+	else if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+		GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+		GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+	{
+		if ( gfTransferTacticalOppositionToAutoResolve || gubNumCreaturesAttackingTown == 0 )
+		{
+			DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( &gubNumCreaturesAttackingTown, &gpAR->ubBloodcats, &gpAR->ubZombies, &gpAR->ubBandits );
+		}
+		else
+		{
+			if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE )
+				gpAR->ubBloodcats = gubNumCreaturesAttackingTown;
+			else if ( GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE )
+				gpAR->ubZombies = gubNumCreaturesAttackingTown;
+			else if ( GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+				gpAR->ubBandits = gubNumCreaturesAttackingTown;
+		}
+
+		gpAR->ubEnemies = (UINT8)min( gubNumCreaturesAttackingTown, MAX_AR_TEAM_SIZE );
+	}
+	else
+	{
+		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
+			&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubTanks, &gpAR->ubJeeps );
+
+		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps, MAX_AR_TEAM_SIZE );
+	}
+
 	gfTransferTacticalOppositionToAutoResolve = FALSE;
-//	gpAR->ubCivs = CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY );
 	gpAR->ubCivs = CountAllMilitiaInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY );
 	gpAR->ubMercs = 0;
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -3693,6 +3803,7 @@ FLOAT CalcClassBonusOrPenalty( SOLDIERTYPE *pSoldier )
 		return 1.0f;
 	case SOLDIER_CLASS_ADMINISTRATOR:
 	case SOLDIER_CLASS_GREEN_MILITIA:
+	case SOLDIER_CLASS_BANDIT:
 		return 0.7f;
 	}
 
@@ -3821,7 +3932,8 @@ void CalculateAttackValues()
 		gpAR->usPlayerDefence += pCell->usDefence;
 		ResetNextAttackCounter( pCell );
 		if( i > 6 )
-		{ //Too many militia, delay attack entry of extra mercs.
+		{
+			//Too many militia, delay attack entry of extra mercs.
 			pCell->usNextAttack += (UINT32)(( i - 4 ) * 2000 );
 		}
 
@@ -3832,10 +3944,10 @@ void CalculateAttackValues()
 			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * militiainsector;
 		}
 
-
 		if( pCell->usNextAttack < usBestAttack )
 			usBestAttack = pCell->usNextAttack;
 	}
+
 	//ENEMIES
 	gpAR->usEnemyAttack = 0;
 	gpAR->usEnemyDefence = 0;
@@ -3847,7 +3959,7 @@ void CalculateAttackValues()
 	//	sOutnumberBonus = (INT16)min( sOutnumberBonus, max( sMaxBonus, 0 ) );
 	//}
 
-	for( i = 0; i < gpAR->ubEnemies; i++ )
+	for( i = 0; i < gpAR->ubEnemies; ++i )
 	{
 		pCell = &gpEnemies[ i ];
 		pSoldier = pCell->pSoldier;
@@ -3886,19 +3998,21 @@ void CalculateAttackValues()
 		ResetNextAttackCounter( pCell );
 
 		if( i > 4 && !(pCell->uiFlags & CELL_CREATURE) )
-		{ //Too many enemies, delay attack entry of extra mercs.
+		{
+			//Too many enemies, delay attack entry of extra mercs.
 			pCell->usNextAttack += (UINT32)( ( i - 4 ) * 1000 );
 		}
 
 		if ( i >= NumNonPlayerTeamMembersInSector( gpAR->ubSectorX, gpAR->ubSectorY, ENEMY_TEAM ) && !(pCell->uiFlags & CELL_CREATURE) )
-		{ //Extra delay if it's a reinforcement
+		{
+			//Extra delay if it's a reinforcement
 			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * NumNonPlayerTeamMembersInSector( gpAR->ubSectorX, gpAR->ubSectorY, ENEMY_TEAM );
 		}
-
-
+		
 		if( pCell->usNextAttack < usBestAttack )
 			usBestAttack = pCell->usNextAttack;
 	}
+
 	//Now, because we are starting a new battle, we want to get the ball rolling a bit earlier.	So,
 	//we will take the usBestAttack value and subtract 60% of it from everybody's next attack.
 	usBestAttack = usBestAttack * 60 / 100;
@@ -3964,9 +4078,11 @@ SOLDIERCELL* ChooseTarget( SOLDIERCELL *pAttacker )
 	INT32 iRandom = -1;
 	SOLDIERCELL *pTarget = NULL;
 	UINT32 usSavedDefence;
+
 	//Determine what team we are attacking
 	if( pAttacker->uiFlags & (CELL_ENEMY | CELL_CREATURE) )
-	{ //enemy team attacking a player
+	{
+		//enemy team attacking a player
 		iAvailableTargets = gpAR->ubMercs + gpAR->ubCivs;
 		index = 0;
 		usSavedDefence = gpAR->usPlayerDefence;
@@ -4302,11 +4418,13 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 	usDefence = max(0, min(1000, usDefence ));
 	///////////////////////////////////////////////////////////////////////////////////////////
 
-	if( pAttacker->uiFlags & CELL_FEMALECREATURE )
+	if( pAttacker->uiFlags & (CELL_FEMALECREATURE | CELL_BLOODCAT | CELL_ZOMBIE) )
 	{
 		pAttacker->bWeaponSlot = HANDPOS;
 		fMelee = TRUE;
-		fClaw = TRUE;
+
+		if ( pAttacker->uiFlags & ( CELL_FEMALECREATURE | CELL_BLOODCAT ) )
+			fClaw = TRUE;
 	}
 	// Flugente: if we are a tank, we might fire the main cannon...
 	else if ( FireTankCannon( pAttacker ) )
@@ -4383,13 +4501,27 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 					PlayAutoResolveSample( MISS_KNIFE, RATE_11025, 50, 1, MIDDLEPAN );
 				else if( fClaw )
 				{
-					if( Chance( 50 ) )
+					if ( pAttacker->uiFlags & ( CELL_BLOODCAT ) )
 					{
-						PlayAutoResolveSample( ACR_SWIPE, RATE_11025, 50, 1, MIDDLEPAN );
+						if ( Chance( 50 ) )
+						{
+							PlayAutoResolveSample( BLOODCAT_ATTACK, RATE_11025, 50, 1, MIDDLEPAN );
+						}
+						else
+						{
+							PlayAutoResolveSample( BLOODCAT_ROAR, RATE_11025, 50, 1, MIDDLEPAN );
+						}
 					}
 					else
 					{
-						PlayAutoResolveSample( ACR_LUNGE, RATE_11025, 50, 1, MIDDLEPAN );
+						if ( Chance( 50 ) )
+						{
+							PlayAutoResolveSample( ACR_SWIPE, RATE_11025, 50, 1, MIDDLEPAN );
+						}
+						else
+						{
+							PlayAutoResolveSample( ACR_LUNGE, RATE_11025, 50, 1, MIDDLEPAN );
+						}
 					}
 				}
 				else
@@ -4657,6 +4789,14 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 				UpdateMilitia( militia );
 			}
 
+			// Flugente: for raids, we need to keep track of killed forces
+			if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+				GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+				GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+			{
+				AddRaidPersonnel( -( pTarget->pSoldier->ubBodyType == BLOODCAT ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT ) );
+			}
+
 			// Flugente: disease
 			HandleDeathDiseaseImplications( pTarget->pSoldier );
 
@@ -4680,6 +4820,9 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 						break;
 					case SOLDIER_CLASS_ZOMBIE :
 						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsZombies++;
+						break;
+					case SOLDIER_CLASS_BANDIT:
+						gMercProfiles[pAttacker->pSoldier->ubProfile].records.usKillsOthers++;
 						break;
 					default :
 						if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )
@@ -4875,6 +5018,14 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			UpdateMilitia( militia );
 		}
 
+		// Flugente: for raids, we need to keep track of killed forces
+		if ( GetEnemyEncounterCode() == BLOODCAT_ATTACK_CODE ||
+			GetEnemyEncounterCode() == ZOMBIE_ATTACK_CODE ||
+			GetEnemyEncounterCode() == BANDIT_ATTACK_CODE )
+		{
+			AddRaidPersonnel( -( pTarget->pSoldier->ubBodyType == BLOODCAT ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT ) );
+		}
+
 		// Flugente: disease
 		HandleDeathDiseaseImplications( pTarget->pSoldier );
 
@@ -4914,6 +5065,9 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 							break;
 						case SOLDIER_CLASS_ZOMBIE :
 							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsZombies++;
+							break;
+						case SOLDIER_CLASS_BANDIT:
+							gMercProfiles[pKiller->pSoldier->ubProfile].records.usKillsOthers++;
 							break;
 						default :
 							if ( CREATURE_OR_BLOODCAT( pTarget->pSoldier ) )
@@ -4993,7 +5147,8 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			PlayAutoResolveSample( (UINT8)DOORCR_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 			PlayAutoResolveSample( (UINT8)HEADCR_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 		}
-		if( iNewLife < -60 && !(pTarget->uiFlags & CELL_CREATURE) )
+
+		if( iNewLife < -60 && !(pTarget->uiFlags & CELL_BUG ) )
 		{ //High damage death
 			if( gpAR->fSound )
 			{
@@ -5186,7 +5341,9 @@ BOOLEAN IsBattleOver()
 		{
 			if( gpEnemies[ i ].pSoldier->stats.bLife )
 			{
-				if( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE )
+				if ( GetEnemyEncounterCode() != CREATURE_ATTACK_CODE && 
+					GetEnemyEncounterCode() != BLOODCAT_ATTACK_CODE &&
+					GetEnemyEncounterCode() != ZOMBIE_ATTACK_CODE )
 				{
 					gpEnemies[ i ].pSoldier->DoMercBattleSound( BATTLE_SOUND_LAUGH1 );
 				}
@@ -5473,7 +5630,9 @@ void ProcessBattleFrame()
 				return;
 			}
 			CONTINUE_BATTLE:
-			if( IsBattleOver() || GetEnemyEncounterCode() != CREATURE_ATTACK_CODE && AttemptPlayerCapture() )
+			if ( IsBattleOver() || 
+				(GetEnemyEncounterCode() != CREATURE_ATTACK_CODE && GetEnemyEncounterCode() != BLOODCAT_ATTACK_CODE && GetEnemyEncounterCode() != ZOMBIE_ATTACK_CODE && GetEnemyEncounterCode() != BANDIT_ATTACK_CODE )
+				&& AttemptPlayerCapture() )
 				return;
 
 			iRandom = PreRandom( iTotal );
@@ -5558,7 +5717,8 @@ void ProcessBattleFrame()
 			else
 			{
 				if( pAttacker->uiFlags & CELL_RETREATING )
-				{ //The merc has successfully retreated.	Remove the stats, and continue on.
+				{
+					//The merc has successfully retreated.	Remove the stats, and continue on.
 					if( pAttacker == gpAR->pRobotCell )
 					{
 						if( gpAR->pRobotCell->pSoldier->ubRobotRemoteHolderID == NOBODY )
@@ -5574,16 +5734,19 @@ void ProcessBattleFrame()
 					pAttacker->uiFlags |= CELL_RETREATED;
 					continue;
 				}
+
 				if( pAttacker->usAttack )
 				{
 					pTarget = ChooseTarget( pAttacker );
-					if( pAttacker->uiFlags & CELL_CREATURE && PreRandom( 100 ) < 7 )
+
+					if( pAttacker->uiFlags & CELL_BUG && PreRandom( 100 ) < 7 )
 						PlayAutoResolveSample( ACR_SMELL_THREAT + PreRandom( 2 ), RATE_11025, 50, 1, MIDDLEPAN );
 					else
 						AttackTarget( pAttacker, pTarget );
+
 					ResetNextAttackCounter( pAttacker );
 					pAttacker->usNextAttack += (UINT32)iTime; //tack on the remainder
-					iAttacksThisFrame++;
+					++iAttacksThisFrame;
 				}
 			}
 		}

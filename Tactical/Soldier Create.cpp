@@ -1799,7 +1799,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 	// Added by SANDRO - the enemy/militia has a decent chance to have some traits
-	if ( gGameExternalOptions.fAssignTraitsToEnemy && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
+	if ( gGameExternalOptions.fAssignTraitsToEnemy && (SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT) )
 		AssignTraitsToSoldier( pSoldier, pCreateStruct );
 	if ( gGameExternalOptions.fAssignTraitsToMilitia && SOLDIER_CLASS_MILITIA( pSoldier->ubSoldierClass ) )
 		AssignTraitsToSoldier( pSoldier, pCreateStruct );
@@ -2010,7 +2010,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			}
 			break;
 		case CREATURE_TEAM:
-			if( pSoldier->ubBodyType == BLOODCAT )
+			if ( pSoldier->ubBodyType == BLOODCAT )
 			{
 				swprintf( pSoldier->name, gzLateLocalizedString[ 36 ] );
 			}
@@ -2018,9 +2018,13 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			{
 				swprintf( pSoldier->name, TacticalStr[ ZOMBIE_TEAM_MERC_NAME ] );
 			}
+			else if ( pSoldier->ubBodyType >= ADULTFEMALEMONSTER && pSoldier->ubBodyType <= QUEENMONSTER )
+			{
+				swprintf( pSoldier->name, TacticalStr[CREATURE_TEAM_MERC_NAME] );	break;
+			}
 			else
 			{
-				swprintf( pSoldier->name, TacticalStr[ CREATURE_TEAM_MERC_NAME ] );	break;
+				swprintf( pSoldier->name, gpStrategicString[STR_PB_BANDIT] );	break;
 			}
 			break;
 	}
@@ -2296,7 +2300,6 @@ INT8 CalcDifficultyModifier( UINT8 ubSoldierClass )
 	return(bDiffModifier);
 }
 
-
 //When the editor modifies the soldier's relative attribute level,
 //this function is called to update that information.
 //Used to generate a detailed placement from a basic placement.	This assumes that the detailed placement
@@ -2397,8 +2400,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	pp->bOrders = bp->bOrders;
 	pp->bAttitude = bp->bAttitude;
 	pp->ubDirection = bp->ubDirection;
-
-
+	
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: determine soldier's class"));
 	// determine this soldier's soldier class
 	if( bp->bTeam == CREATURE_TEAM )
@@ -2411,8 +2413,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	}
 
 	ubDiffFactor = CalcDifficultyModifier( ubSoldierClass );
-
-
+	
 	// experience level is modified by game difficulty, player's progress, & proximity to Queen's Palace, etc.
 	// This formula gives the following results:
 	//	DIFFICULTY FACTOR			EXP. LEVEL	MODIFIER		LEVEL OF AVG REGULAR TROOP
@@ -2457,6 +2458,19 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			break;
 	}
 
+	UINT8 DiffLevel;
+	if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+		DiffLevel = 1;
+	else if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
+		DiffLevel = 2;
+	else if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
+		DiffLevel = 3;
+	else if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+		DiffLevel = 4;
+	else
+	{
+		DiffLevel = 1 + Random ( 4 );
+	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: set level based on soldier class"));
 	//Set the experience level based on the soldier class and exp level modifier or relative attribute level
@@ -2464,6 +2478,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	{
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_ZOMBIE:
+		case SOLDIER_CLASS_BANDIT:
 			pp->bExpLevel = (INT8) 2 + bExpLevelModifier;
 			break;
 		case SOLDIER_CLASS_ARMY:
@@ -2512,23 +2527,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 					UINT8 PlacementType = gBloodcatPlacements[ SECTOR(gWorldSectorX, gWorldSectorY) ][0].PlacementType;
 					if( PlacementType == BLOODCAT_PLACEMENT_LAIR )
 					{
-					
-					UINT8 DiffLevel;
-					if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-						DiffLevel = 1;
-					else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-						DiffLevel = 2;
-					else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-						DiffLevel = 3;
-					else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-						DiffLevel = 4;	
-					else
-					{
-						DiffLevel = Random (4);
-						if (DiffLevel == 0) DiffLevel = 1;
-					}	
 						pp->bExpLevel += DiffLevel;
-						//pp->bExpLevel += gGameOptions.ubDifficultyLevel;
 					}
 					break;
 			}
@@ -2546,8 +2545,8 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: set exp. level"));
-	pp->bExpLevel = max( gGameOptions.ubDifficultyLevel, pp->bExpLevel ); //minimum exp. level of 1 -- madd->= dif level
 
+	pp->bExpLevel = max( DiffLevel, pp->bExpLevel ); //minimum exp. level of 1 -- madd->= dif level
 	if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
 		pp->bExpLevel = max( 6, pp->bExpLevel ); //minimum exp. level of 6 in insane - madd
 
@@ -2555,23 +2554,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 
 	ubStatsLevel = pp->bExpLevel + bStatsModifier;
 	
-		UINT8 DiffLevel;
-		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-			DiffLevel = 1;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-			DiffLevel = 2;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-			DiffLevel = 3;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-			DiffLevel = 4;	
-		else
-		{
-			DiffLevel = Random (4);
-			if (DiffLevel == 0) DiffLevel = 1;
-		}	
-	ubStatsLevel = max( DiffLevel, ubStatsLevel );	//minimum stats level of 0 -- madd->= dif level
-	//ubStatsLevel = max( gGameOptions.ubDifficultyLevel, ubStatsLevel );	//minimum stats level of 0 -- madd->= dif level
-	
+	ubStatsLevel = max( DiffLevel, ubStatsLevel );	//minimum stats level of 0 -- madd->= dif level	
 	if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
 		ubStatsLevel = max( 6, ubStatsLevel );	//minimum stats level of 6 in insane
 
@@ -2618,7 +2601,11 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	//own equipment.
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: generate random equipment"));
 
-	if( !bp->fDetailedPlacement && ubSoldierClass != SOLDIER_CLASS_NONE && ubSoldierClass != SOLDIER_CLASS_CREATURE && ubSoldierClass != SOLDIER_CLASS_MINER && ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
+	if( !bp->fDetailedPlacement && 
+		ubSoldierClass != SOLDIER_CLASS_NONE && 
+		ubSoldierClass != SOLDIER_CLASS_CREATURE &&
+		ubSoldierClass != SOLDIER_CLASS_MINER &&
+		ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
 	{
 		GenerateRandomEquipment( pp, ubSoldierClass, bp->bRelativeEquipmentLevel);
 
@@ -2800,7 +2787,10 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 	//	ReplaceExtendedGuns( pp, bp->ubSoldierClass );
 	//}
 
-	if( bp->ubSoldierClass != SOLDIER_CLASS_NONE && bp->ubSoldierClass != SOLDIER_CLASS_CREATURE && bp->ubSoldierClass != SOLDIER_CLASS_MINER && bp->ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
+	if( bp->ubSoldierClass != SOLDIER_CLASS_NONE && 
+		bp->ubSoldierClass != SOLDIER_CLASS_CREATURE && 
+		bp->ubSoldierClass != SOLDIER_CLASS_MINER && 
+		bp->ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
 	{
 		GenerateRandomEquipment( pp, bp->ubSoldierClass, bp->bRelativeEquipmentLevel);
 
@@ -2841,6 +2831,7 @@ void UpdateSoldierWithStaticDetailedInformation( SOLDIERTYPE *s, SOLDIERCREATE_S
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_ARMY:
 		case SOLDIER_CLASS_ELITE:
+		case SOLDIER_CLASS_BANDIT:
 			GeneratePaletteForSoldier( s, spp->ubSoldierClass, spp->bTeam );
 			break;
 	}
@@ -3003,7 +2994,7 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 	//returns the pointer to that soldier.	This is used when copying the exact status of
 	//all remaining enemy troops (or creatures) to finish the battle in autoresolve.	To
 	//signify that the troop has already been reserved, we simply set their gridno to NOWHERE.
-	if( ubSoldierClass != SOLDIER_CLASS_CREATURE && ubSoldierClass != SOLDIER_CLASS_ZOMBIE )
+	if( ubSoldierClass != SOLDIER_CLASS_CREATURE && ubSoldierClass != SOLDIER_CLASS_ZOMBIE && ubSoldierClass != SOLDIER_CLASS_BANDIT )
 	{
 		//use the enemy team
 		iStart = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
@@ -3244,12 +3235,16 @@ SOLDIERTYPE* TacticalCreateZombie()
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
 	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ZOMBIE );
 	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ZOMBIE );
-	bp.bTeam = CREATURE_TEAM;//ZOMBIE_TEAM;
+	bp.bTeam = CREATURE_TEAM;
 	bp.bOrders	= SEEKENEMY;
 	bp.bAttitude = AGGRESSIVE;
-	bp.ubBodyType = -1;
+	bp.ubBodyType = Random( ADULTFEMALEMONSTER );
 	bp.ubSoldierClass = SOLDIER_CLASS_ZOMBIE;
 	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+
+	// need to properly set this here
+	pp.ubSoldierClass = SOLDIER_CLASS_ZOMBIE;
+
 	pSoldier = TacticalCreateSoldier( &pp, &ubID );
 	if ( pSoldier )
 	{
@@ -3398,10 +3393,13 @@ SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
 		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) * WORLD_COLS);
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 
-		// random clothes
-		SetClothes( pSoldier, Random( NUMSHIRTS ), Random( NUMPANTS ) );
+		if ( guiCurrentScreen != AUTORESOLVE_SCREEN )
+		{
+			// random clothes
+			SetClothes( pSoldier, Random( NUMSHIRTS ), Random( NUMPANTS ) );
 
-		pSoldier->CreateSoldierPalettes( );
+			pSoldier->CreateSoldierPalettes();
+		}
 	}
 
 	return(pSoldier);
@@ -3481,25 +3479,28 @@ SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 
 				pSoldier->aiData.bOrders = ONGUARD;
 		}
 
-		// make him wear administrator uniform
-		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
-
-		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+		if ( guiCurrentScreen != AUTORESOLVE_SCREEN )
 		{
-			SetClothes( pSoldier, aVest, aPants, aHair, aSkin );
+			// make him wear administrator uniform
+			UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
 
-			// Use palette from HVOBJECT, then use substitution for pants, etc
-			memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[usPaletteAnimSurface].hVideoObject->pPaletteEntry, sizeof(pSoldier->p8BPPPalette) * 256 );
+			if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+			{
+				SetClothes( pSoldier, aVest, aPants, aHair, aSkin );
 
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
+				// Use palette from HVOBJECT, then use substitution for pants, etc
+				memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[usPaletteAnimSurface].hVideoObject->pPaletteEntry, sizeof( pSoldier->p8BPPPalette ) * 256 );
 
-			pSoldier->CreateSoldierPalettes( );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
 
-			// Dirty
-			fInterfacePanelDirty = DIRTYLEVEL2;
+				pSoldier->CreateSoldierPalettes();
+
+				// Dirty
+				fInterfacePanelDirty = DIRTYLEVEL2;
+			}
 		}
 	}
 
@@ -3567,6 +3568,65 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 		// send soldier to centre of map, roughly
 		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
 		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+	}
+
+	return( pSoldier );
+}
+
+SOLDIERTYPE* TacticalCreateBandit()
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+
+	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	{
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_BANDIT );
+		if ( pSoldier ) return pSoldier;
+	}
+
+	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
+	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ADMINISTRATOR );
+	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ADMINISTRATOR );
+	bp.bTeam = ENEMY_TEAM;		// set wrong team here, otherwise no bodytype/equipment will be set
+	bp.bOrders = SEEKENEMY;
+	bp.bAttitude = (INT8)Random( MAXATTITUDES );
+	bp.ubBodyType = -1;
+	bp.ubSoldierClass = SOLDIER_CLASS_ADMINISTRATOR;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+
+	// need to properly set this here
+	pp.bTeam = CREATURE_TEAM;
+	pp.ubSoldierClass = SOLDIER_CLASS_BANDIT;
+
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+	if ( pSoldier )
+	{
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = ( CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS );
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+
+		if ( guiCurrentScreen != AUTORESOLVE_SCREEN )
+		{
+			UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
+
+			if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+			{
+				// random clothes
+				SetClothes( pSoldier, Random( NUMSHIRTS ), Random( NUMPANTS ) );
+
+				// Use palette from HVOBJECT, then use substitution for pants, etc
+				memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[usPaletteAnimSurface].hVideoObject->pPaletteEntry, sizeof( pSoldier->p8BPPPalette ) * 256 );
+
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
+
+				pSoldier->CreateSoldierPalettes();
+			}
+		}
 	}
 
 	return( pSoldier );
@@ -3742,26 +3802,29 @@ void CreatePrisonerOfWar()
 
 		swprintf( pSoldier->name, TacticalStr[ POW_TEAM_MERC_NAME ] );
 
-		// make him wear 'prisoner garb' (just what Shank and Dynamo are wearing)
-		UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
-
-		if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+		if ( guiCurrentScreen != AUTORESOLVE_SCREEN )
 		{
-			SET_PALETTEREP_ID( pSoldier->VestPal, "greyVEST" );
-			SET_PALETTEREP_ID( pSoldier->PantsPal, "BLACKPANTS" );
+			// make him wear 'prisoner garb' (just what Shank and Dynamo are wearing)
+			UINT16 usPaletteAnimSurface = LoadSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
 
-			// Use palette from HVOBJECT, then use substitution for pants, etc
-			memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[usPaletteAnimSurface].hVideoObject->pPaletteEntry, sizeof(pSoldier->p8BPPPalette) * 256 );
+			if ( usPaletteAnimSurface != INVALID_ANIMATION_SURFACE )
+			{
+				SET_PALETTEREP_ID( pSoldier->VestPal, "greyVEST" );
+				SET_PALETTEREP_ID( pSoldier->PantsPal, "BLACKPANTS" );
 
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
-			SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
+				// Use palette from HVOBJECT, then use substitution for pants, etc
+				memcpy( pSoldier->p8BPPPalette, gAnimSurfaceDatabase[usPaletteAnimSurface].hVideoObject->pPaletteEntry, sizeof( pSoldier->p8BPPPalette ) * 256 );
 
-			pSoldier->CreateSoldierPalettes( );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->HeadPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->VestPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->PantsPal );
+				SetPaletteReplacement( pSoldier->p8BPPPalette, pSoldier->SkinPal );
 
-			// Dirty
-			fInterfacePanelDirty = DIRTYLEVEL2;
+				pSoldier->CreateSoldierPalettes();
+
+				// Dirty
+				fInterfacePanelDirty = DIRTYLEVEL2;
+			}
 		}
 
 		// So we can see them!
@@ -4696,7 +4759,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			// 30-80%
 			iChance = 30 + ubProgress / 2;
 		}
-		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 		{
 			// 15-65%
 			iChance = 15 + ubProgress / 2;
@@ -4757,7 +4820,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			// 30-80%
 			iChance = 30 + ubProgress / 2;
 		}
-		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 		{
 			// 15-65%
 			iChance = 15 + ubProgress / 2;
@@ -4819,7 +4882,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			// 25-75%
 			iChance = 25 + ubProgress / 2;
 		}
-		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 		{
 			// 10-60%
 			iChance = 10 + ubProgress / 2;
@@ -4888,7 +4951,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			// 25-75%
 			iChance = 25 + ubProgress / 2;
 		}
-		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 		{
 			// 10-60%
 			iChance = 10 + ubProgress / 2;
@@ -4993,7 +5056,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			// 25-75%
 			iChance = 25 + ubProgress / 2;
 		}
-		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+		else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 		{
 			// 10-60%
 			iChance = 10 + ubProgress / 2;
@@ -5177,7 +5240,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 45 + ubProgress / 2; // 45-95% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 30 + ubProgress / 2; // 30-80% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = 15 + ubProgress / 2; // 15-65% chance
 
 			// adust the chance by the type of heavy weapon
@@ -5239,7 +5302,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 20 + ubProgress / 4; // 20-45% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 10 + ubProgress / 4; // 10-35% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = ubProgress / 4; // 0-25% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ZOMBIE )
 				iChance = 100; // 100% chance
@@ -5284,7 +5347,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 40 + ubProgress * 2 / 5; // 40-80% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 25 + ubProgress * 2 / 5; // 25-65% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = 10 + ubProgress * 2 / 5; // 10-50% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ZOMBIE )
 				iChance = 100; // 100% chance
@@ -5348,7 +5411,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 30 + ubProgress / 3 + 30; // 60-92% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 15 + ubProgress / 3 + 25; // 40-73% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = ubProgress / 3 + 20; // 20-53% chance
 
 			// modify the chance by preset ini setting
@@ -5411,7 +5474,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 20 + ubProgress / 3; // 20-53% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 10 + ubProgress / 3; // 10-43% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = ubProgress / 3; // 0-33% chance
 
 			// modify the chance by preset ini setting
@@ -5451,7 +5514,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 50 + ubProgress * 2 / 5; // 50-90% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 35 + ubProgress * 2 / 5; // 35-75% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = 15 + ubProgress * 2 / 5; // 15-55% chance
 
 			// modify the chance by preset ini setting
@@ -5514,7 +5577,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 40 + ubProgress * 2 / 5; // 40-80% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 25 + ubProgress * 2 / 5; // 25-65% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = 10 + ubProgress * 2 / 5; // 10-50% chance
 
 			// modify the chance by preset ini setting
@@ -5556,7 +5619,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 10 + ubProgress / 4; // 10-35% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = ubProgress / 5; // 0-20% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = 0; // 0% chance
 
 			// modify the chance by preset ini setting
@@ -5598,7 +5661,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				iChance = 30 + ubProgress / 2; // 30-90% chance
 			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
 				iChance = 10 + ubProgress / 2; // 10-60% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA )
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
 				iChance = ubProgress / 3; // 0-33% chance
 
 			// modify the chance by preset ini setting

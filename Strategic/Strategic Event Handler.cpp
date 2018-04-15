@@ -27,6 +27,8 @@
 	#include "strategic.h"
 	#include "GameSettings.h"
 	#include "history.h"
+	#include "Town Militia.h"	// added by Flugente
+	#include "Campaign.h"		// added by Flugente
 #endif
 
 #include "Luaglobal.h"
@@ -51,6 +53,8 @@ UINT32 guiPabloExtraDaysBribed = 0;
 UINT8		gubCambriaMedicalObjects;
 
 extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
+
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 // WANNE: No more used for the new airport code
 //void DropOffItemsInMeduna( UINT8 ubOrderNum );
@@ -1095,6 +1099,87 @@ void HandleEarlyMorningEvents( void )
 		CheckForMissingHospitalSupplies();
 	}
 #endif
+}
+
+// Flugente: creature raids
+void HandleRaidEventPlanning()
+{
+	INT32 personnelgain[3];
+
+	// the raid order is bloodcats/zombies/bandits
+	for ( int raidtype = 0; raidtype < 3; ++raidtype )
+	{
+		personnelgain[raidtype] = 0;
+
+		if ( raidtype == 0 )
+		{
+			if ( !gGameExternalOptions.gRaid_Bloodcats )
+				continue;
+			
+			// if the lair has been cleared, way less growth
+			if ( CheckFact(FACT_BLOODCAT_LAIR_CLEANED, NO_PROFILE) )
+				personnelgain[raidtype] += gGameExternalOptions.gRaidReplenish_BaseValue;
+			else
+				personnelgain[raidtype] += 3 * gGameExternalOptions.gRaidReplenish_BaseValue;
+		}
+		else if ( raidtype == 1 )
+		{
+			if ( !gGameExternalOptions.gRaid_Zombies || !gGameSettings.fOptions[TOPTION_ZOMBIES] )
+				continue;
+
+			// zombies grow very fast
+			personnelgain[raidtype] += 15 * gGameExternalOptions.gRaidReplenish_BaseValue;
+		}
+		else if ( raidtype == 2 )
+		{
+			if ( !gGameExternalOptions.gRaid_Bandits )
+				continue;
+
+			// bandit growth depends on progress
+			personnelgain[raidtype] += gGameExternalOptions.gRaidReplenish_BaseValue * (150 + HighestPlayerProgressPercentage()) / 100;
+		}
+
+		std::vector<INT16> attacksectors;
+
+		for ( INT16 sector = 0; sector <= 255; ++sector )
+		{
+			if ( !StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( sector )].fEnemyControlled )
+			{
+				if ( ( SectorExternalData[sector][0].usSectorFlagMask & (SECTORFLAG_RAIDPOSSIBLE_BLOODCAT << raidtype ) ) )
+				{
+					attacksectors.push_back( sector );
+				}
+			}
+		}
+
+		if ( attacksectors.empty() )
+			continue;
+
+		int numattacks = gGameExternalOptions.gRaid_MaxAttackPerNight_Bandits;
+		if ( raidtype == 0 )
+			numattacks = gGameExternalOptions.gRaid_MaxAttackPerNight_Bloodcats;
+		else if ( raidtype == 1 )
+			numattacks = gGameExternalOptions.gRaid_MaxAttackPerNight_Zombies;
+
+		for ( int attack = 0; attack < numattacks; ++attack )
+		{
+			UINT32 sector = attacksectors[Random(attacksectors.size())];
+
+			// attack random sector
+			if ( raidtype == 0 )
+				// bloodcats only attack at night (it is 7:00 now)
+				//AddStrategicEvent( EVENT_BLOODCAT_ATTACK, GetWorldTotalMin() + 14 * 60 +  Random(10 * 60), sector );
+				AddStrategicEvent( EVENT_BLOODCAT_ATTACK, GetWorldTotalMin() + 12 * 60 + 30, sector );
+			else
+				// other attacks can happen all the time
+				//AddStrategicEvent( EVENT_BLOODCAT_ATTACK + raidtype, GetWorldTotalMin() + Random( 24 * 60 ), sector );
+				AddStrategicEvent( EVENT_BLOODCAT_ATTACK + raidtype, GetWorldTotalMin() + 13 * 60 + 15, sector );
+		}
+	}
+
+	// every day we refill our available personnel
+	// this also means that at day 1 we have no personnel for raids, forces have to slowly be built up
+	AddRaidPersonnel( personnelgain[0], personnelgain[1], personnelgain[2] );
 }
 
 void MakeCivGroupHostileOnNextSectorEntrance( UINT8 ubCivGroup )

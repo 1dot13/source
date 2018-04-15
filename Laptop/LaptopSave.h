@@ -181,7 +181,12 @@ typedef struct
 	UINT32							usMapIntelFlags;
 	INT16							sIntelInfoForThisHour[INTELINFO_MAXNUMBER];
 
-	UINT8 bPadding[ 48 ];
+	// Flugente: raid
+	INT32							sRaidBloodcats;
+	INT32							sRaidZombies;
+	INT32							sRaidBandits;
+
+	UINT8 bPadding[ 36 ];
 
 } LaptopSaveInfoStruct;
 

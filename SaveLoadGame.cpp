@@ -6568,6 +6568,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		CalcAproximateAmountPaidToSpeck();
 	}
 
+	// Flugente: if we load an old savegame, this event has to be added
+	if ( guiCurrentSaveGameVersion < RAID_EVENTS )
+	{
+		AddEveryDayStrategicEvent( EVENT_DAILY_RAID_EVENTS, (7*60), 0 );
+	}
+
 	gfLoadedGame = TRUE;
 
 	uiRelEndPerc = 100;

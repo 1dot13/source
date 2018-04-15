@@ -21,6 +21,7 @@ void AddSecondAirportAttendant( void );
 void SetPabloToUnbribed( void );
 void HandleNPCSystemEvent( UINT32 uiEvent );
 void HandleEarlyMorningEvents( void );
+void HandleRaidEventPlanning();
 
 void MakeCivGroupHostileOnNextSectorEntrance( UINT8 ubCivGroup );
 

@@ -6856,7 +6856,8 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 					{
 						switch ( pTeamSoldier->ubSoldierClass )
 						{
-						case SOLDIER_CLASS_ADMINISTRATOR:   ++sNumPrisoner[PRISONER_ADMIN]; break;
+						case SOLDIER_CLASS_ADMINISTRATOR:
+						case SOLDIER_CLASS_BANDIT:			++sNumPrisoner[PRISONER_ADMIN]; break;
 						case SOLDIER_CLASS_ARMY:            ++sNumPrisoner[PRISONER_REGULAR]; break;
 						case SOLDIER_CLASS_ELITE:           ++sNumPrisoner[PRISONER_ELITE]; break;
 						default:
@@ -6865,7 +6866,11 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 							break;
 						}
 					}
-					else //if ( pTeamSoldier->bTeam == CIV_TEAM )
+					else if ( pTeamSoldier->bTeam == CREATURE_TEAM && pTeamSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT )
+					{
+						++sNumPrisoner[PRISONER_ADMIN];
+					}
+					else
 					{
 						++sNumPrisoner[PRISONER_CIVILIAN];
 					}
@@ -10508,9 +10513,9 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		// We justify this storywise by these soldiers being very determined leaders who don't allow surrender categorically.
 		BOOLEAN fNoSurrender = FALSE;
 		
-        // enemy team
+        // enemy team and creature team (bandits can be captured)
         firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-        lastid  = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+        lastid  = gTacticalStatus.Team[CREATURE_TEAM].bLastID;
         for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
         {
             if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
@@ -10558,7 +10563,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
         {
             // it is enough to simply set all soldiers to captured
             firstid = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-            lastid  = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+            lastid  = gTacticalStatus.Team[ CIV_TEAM ].bLastID;
             for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
             {
                 if( pSoldier->bActive && ( pSoldier->sSectorX == gWorldSectorX ) && ( pSoldier->sSectorY == gWorldSectorY ) && ( pSoldier->bSectorZ == gbWorldSectorZ) )
@@ -10577,28 +10582,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
                     }
                 }
             }
-
-			firstid = gTacticalStatus.Team[CIV_TEAM].bFirstID;
-			lastid  = gTacticalStatus.Team[CIV_TEAM].bLastID;
-			for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
-			{
-				if ( pSoldier->bActive && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
-				{
-					// can this guy be captured?
-					if ( !pSoldier->CanBeCaptured() )
-						continue;
-
-					// only if not dying
-					if ( pSoldier->stats.bLife >= OKLIFE )
-					{
-						pSoldier->usSoldierFlagMask |= SOLDIER_POW;
-
-						// Remove as target
-						RemoveManAsTarget( pSoldier );
-					}
-				}
-			}
-
+			
 			// dynamic opinion: a merc caused the remaining enemies to give up
 			if ( gusSelectedSoldier != NOBODY )
 				HandleDynamicOpinionChange( MercPtrs[gusSelectedSoldier], OPINIONEVENT_BATTLE_TOOK_PRISONER, TRUE, TRUE );
@@ -10626,6 +10610,14 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
     // we offered to surrender OURSELVES TO the enemy
     else if ( ubExitValue == 2 )
     {
+		// we cannot surrender to bandits, talk instead
+		if ( MercPtrs[prisonerdialoguetargetID]->bTeam != CREATURE_TEAM )
+		{
+			// normal dialog
+			StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
+			return;
+		}
+
         if ( !gGameExternalOptions.fPlayerCanAsktoSurrender )
         {
             ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ SRT_PRISONER_INI_SETTING_OFF ]  );
@@ -10763,14 +10755,16 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 
     // open a dialogue box and see wether we really want to offer this, or just talk
     wcscpy( gzUserDefinedButton[0], TacticalStr[ PRISONER_DEMAND_SURRENDER_STR ] );
-    wcscpy( gzUserDefinedButton[1], TacticalStr[ PRISONER_OFFER_SURRENDER_STR ] );
 
-	SOLDIERTYPE* pTargetSoldier = NULL;
-	if ( GetSoldier( &pTargetSoldier, prisonerdialoguetargetID ) &&
-		pTargetSoldier->bTeam == ENEMY_TEAM &&
-		pTargetSoldier->ubProfile == NO_PROFILE &&
-		pTargetSoldier->aiData.bAlertStatus < STATUS_RED &&
-		!pTargetSoldier->RecognizeAsCombatant( gusSelectedSoldier ) )
+	if ( pSoldier->bTeam != CREATURE_TEAM )
+		wcscpy( gzUserDefinedButton[1], TacticalStr[ PRISONER_OFFER_SURRENDER_STR ] );
+	else
+		wcscpy( gzUserDefinedButton[1], TacticalStr[PRISONER_TALK_STR] );
+
+	if ( pSoldier->bTeam == ENEMY_TEAM &&
+		pSoldier->ubProfile == NO_PROFILE &&
+		pSoldier->aiData.bAlertStatus < STATUS_RED &&
+		!pSoldier->RecognizeAsCombatant( gusSelectedSoldier ) )
 	{
 		wcscpy( gzUserDefinedButton[2], TacticalStr[PRISONER_DISTRACT_STR] );
 	}

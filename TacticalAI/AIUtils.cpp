@@ -2293,12 +2293,11 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 	case AGGRESSIVE:	bMoraleCategory++; break;
 	}
 
- // make idiot administrators much more aggressive
- if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
- {
-	bMoraleCategory += 2;
- }
-
+	// make idiot administrators much more aggressive
+	if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT )
+	{
+		bMoraleCategory += 2;
+	}
 
  // if still full of energy
  if (pSoldier->bBreath > 75)
@@ -2737,6 +2736,7 @@ UINT8 SoldierDifficultyLevel( SOLDIERTYPE * pSoldier )
 	switch( pSoldier->ubSoldierClass )
 	{
 		case SOLDIER_CLASS_ADMINISTRATOR:
+		case SOLDIER_CLASS_BANDIT:
 			bDifficulty = bDifficultyBase - 1;
 			break;
 
@@ -3543,7 +3543,7 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
 	}
 
 	// make idiot administrators more aggressive
-	if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
+	if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT )
 	{
 		bMoraleCategory += 2;
 	}

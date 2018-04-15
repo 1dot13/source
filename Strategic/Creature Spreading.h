@@ -15,6 +15,7 @@ UINT8 CreaturesInUndergroundSector( UINT8 ubSectorID, UINT8 ubSectorZ );
 BOOLEAN PrepareCreaturesForBattle();
 void CreatureNightPlanning();
 void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest );
+void CreatureAttackTown_OtherCreatures( UINT8 ubSectorID, UINT8 ubType );
 
 void CheckConditionsForTriggeringCreatureQuest( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
@@ -44,6 +45,14 @@ enum{
 };
 extern UINT8 gubCreatureBattleCode;
 
+enum {
+	CREATURE_ATTACK_TYPE_CREATURE,
+	CREATURE_ATTACK_TYPE_BLOODCAT,
+	CREATURE_ATTACK_TYPE_ZOMBIE,
+	CREATURE_ATTACK_TYPE_BANDIT,
+};
+extern UINT8 guCreatureAttackType;
+
 void DetermineCreatureTownComposition( UINT8 ubNumCreatures, 
 																			UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
 																			UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales );
@@ -51,6 +60,8 @@ void DetermineCreatureTownComposition( UINT8 ubNumCreatures,
 void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCreatures, 
 																			UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
 																			UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales );
+
+void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT8* pubNumCreatures, UINT8* pubNumBloodcats, UINT8* pubNumZombies, UINT8* pubNumBandits );
 
 
 BOOLEAN PlayerGroupIsInACreatureInfestedMine();

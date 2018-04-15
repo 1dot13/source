@@ -4051,22 +4051,18 @@ return 0;
 // used when monsters attack a town sector without going through tactical and they win
 static int l_AdjustLoyaltyForCivsEatenByMonsters(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT16 sSectorX;
-INT16 sSectorY;
-UINT8 ubHowMany;
-	
-	for (i= 1; i<=n; i++ )
+	UINT8  n = lua_gettop(L);
+
+	if ( n >= 3 )
 	{
-		if (i == 1 ) sSectorX = lua_tointeger(L,i);
-		if (i == 2 ) sSectorY = lua_tointeger(L,i);
-		if (i == 3 ) ubHowMany = lua_tointeger(L,i);
+		INT16 sSectorX = lua_tointeger( L, 1 );
+		INT16 sSectorY = lua_tointeger( L, 2 );
+		UINT8 ubHowMany = lua_tointeger( L, 3 );
+
+		AdjustLoyaltyForCivsEatenByMonsters( sSectorX, sSectorY, ubHowMany, ( guCreatureAttackType == CREATURE_ATTACK_TYPE_BANDIT ) );
 	}
 	
-	AdjustLoyaltyForCivsEatenByMonsters( sSectorX, sSectorY, ubHowMany);
-	
-return 0;
+	return 0;
 }
 
 static int l_IsTownUnderCompleteControlByPlayer(lua_State *L)

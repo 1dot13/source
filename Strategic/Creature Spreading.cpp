@@ -32,6 +32,10 @@
 	#include "MessageBoxScreen.h"
 	#include "Map Information.h"
 	#include "Queen Command.h"
+	#include "ai.h"					// added by Flugente
+	#include "Isometric Utils.h"	// added by Flugente
+	#include "Soldier Create.h"		// added by Flugente
+	#include "Player Command.h"		// added by Flugente
 #endif
 
 #include "Strategic Mines.h"
@@ -148,10 +152,15 @@ UINT8 gubAdultFemalesAttackingTown = 0;
 UINT8 gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
 UINT8 gubSectorIDOfCreatureAttack = 0;
 
+// Flugente: bloodcat raids are mostly similar to creature attacks, so use the same code and differ when necessary with this
+UINT8 guCreatureAttackType = CREATURE_ATTACK_TYPE_CREATURE;
+
 extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );
 extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
 extern void BuildUndergroundSectorInfoList();
 void DeleteCreatureDirectives();
+
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 //extern MINE_STATUS_TYPE gMineStatus[ MAX_NUMBER_OF_MINES ];
 
@@ -684,10 +693,10 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 	switch( gsCreatureInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
-		case INSERTION_CODE_EAST:		bDesiredDirection = SOUTHWEST;										break;
+		case INSERTION_CODE_EAST:	bDesiredDirection = SOUTHWEST;										break;
 		case INSERTION_CODE_SOUTH:	bDesiredDirection = NORTHWEST;										break;
-		case INSERTION_CODE_WEST:		bDesiredDirection = NORTHEAST;										break;
-		case INSERTION_CODE_GRIDNO:																										break;
+		case INSERTION_CODE_WEST:	bDesiredDirection = NORTHEAST;										break;
+		case INSERTION_CODE_GRIDNO:																		break;
 		default:	AssertMsg( 0, "Illegal direction passed to AddCreaturesToBattle()" );	break;
 	}
 
@@ -760,6 +769,101 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 		}
 		UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 	}
+	gsCreatureInsertionCode = 0;
+	gsCreatureInsertionGridNo = 0;
+	gubNumCreaturesAttackingTown = 0;
+	gubYoungMalesAttackingTown = 0;
+	gubYoungFemalesAttackingTown = 0;
+	gubAdultMalesAttackingTown = 0;
+	gubAdultFemalesAttackingTown = 0;
+	gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
+	gubSectorIDOfCreatureAttack = 0;
+	AllTeamsLookForAll( FALSE );
+}
+
+void AddCreaturesToBattle_Other( UINT8 ubNum )
+{
+	INT32 iRandom;
+	SOLDIERTYPE *pSoldier;
+	MAPEDGEPOINTINFO MapEdgepointInfo = {};
+	UINT8 bDesiredDirection = 0;
+	UINT8 ubCurrSlot = 0;
+
+	switch ( gsCreatureInsertionCode )
+	{
+	case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
+	case INSERTION_CODE_EAST:	bDesiredDirection = SOUTHWEST;										break;
+	case INSERTION_CODE_SOUTH:	bDesiredDirection = NORTHWEST;										break;
+	case INSERTION_CODE_WEST:	bDesiredDirection = NORTHEAST;										break;
+	case INSERTION_CODE_GRIDNO:																		break;
+	default:	AssertMsg( 0, "Illegal direction passed to AddCreaturesToBattle_Bloodcats()" );	break;
+	}
+
+#ifdef JA2TESTVERSION
+	ScreenMsg( FONT_RED, MSG_INTERFACE, L"Creature attackers have arrived!" );
+#endif
+
+	if ( gsCreatureInsertionCode != INSERTION_CODE_GRIDNO )
+	{
+		ChooseMapEdgepoints( &MapEdgepointInfo, (UINT8)gsCreatureInsertionCode, ubNum );
+		ubCurrSlot = 0;
+	}
+
+	while ( ubNum )
+	{
+		--ubNum;
+
+		switch ( guCreatureAttackType )
+		{
+			// this should not happen!
+		case CREATURE_ATTACK_TYPE_CREATURE:
+			pSoldier = TacticalCreateCreature( ADULTFEMALEMONSTER );
+			break;
+		case CREATURE_ATTACK_TYPE_ZOMBIE:
+			pSoldier = TacticalCreateZombie();
+			break;
+		case CREATURE_ATTACK_TYPE_BANDIT:
+			pSoldier = TacticalCreateBandit();
+			break;
+		case CREATURE_ATTACK_TYPE_BLOODCAT:
+			pSoldier = TacticalCreateCreature( BLOODCAT );
+			break;
+		}
+
+		pSoldier->ubInsertionDirection = bDesiredDirection;
+
+		//Setup the position
+		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+		pSoldier->aiData.bHunting = TRUE;
+
+		if ( gsCreatureInsertionCode != INSERTION_CODE_GRIDNO )
+		{
+			if ( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{
+				//using an edgepoint
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ubCurrSlot++];
+			}
+			else
+			{
+				//no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = (UINT8)gsCreatureInsertionCode;
+			}
+		}
+		else
+		{
+			pSoldier->usStrategicInsertionData = gsCreatureInsertionGridNo;
+		}
+
+		UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+
+		if ( pSoldier )
+		{
+			// send soldier to centre of map, roughly
+			pSoldier->aiData.sNoiseGridno = ( CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS );
+			pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+		}
+	}
+
 	gsCreatureInsertionCode = 0;
 	gsCreatureInsertionGridNo = 0;
 	gubNumCreaturesAttackingTown = 0;
@@ -1061,6 +1165,7 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 		return;
 	}
 
+	guCreatureAttackType = CREATURE_ATTACK_TYPE_CREATURE;
 	gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
 
 	ubSectorX = SECTORX( ubSectorID );
@@ -1098,22 +1203,18 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 
 	//Now that the sector has been chosen, attack it!
 	if( PlayerGroupsInSector( ubSectorX, ubSectorY, 0 ) )
-	{ //we have players in the sector
+	{
+		gubCreatureBattleCode = CREATURE_BATTLE_CODE_PREBATTLEINTERFACE;
+
+		//we have players in the sector
 		if( ubSectorX == gWorldSectorX && ubSectorY == gWorldSectorY && !gbWorldSectorZ )
-		{ //This is the currently loaded sector.	All we have to do is change the music and insert
+		{
+			//This is the currently loaded sector.	All we have to do is change the music and insert
 			//the creatures tactically.
 			if( guiCurrentScreen == GAME_SCREEN )
 			{
 				gubCreatureBattleCode = CREATURE_BATTLE_CODE_TACTICALLYADD;
 			}
-			else
-			{
-				gubCreatureBattleCode = CREATURE_BATTLE_CODE_PREBATTLEINTERFACE;
-			}
-		}
-		else
-		{
-			gubCreatureBattleCode = CREATURE_BATTLE_CODE_PREBATTLEINTERFACE;
 		}
 	}
 	else if ( NumNonPlayerTeamMembersInSector( ubSectorX, ubSectorY, MILITIA_TEAM ) )
@@ -1123,7 +1224,7 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 	}
 	else if( !StrategicMap[ ubSectorX + MAP_WORLD_X * ubSectorY ].fEnemyControlled )
 	{ //player controlled sector -- eat some civilians
-		AdjustLoyaltyForCivsEatenByMonsters( ubSectorX, ubSectorY, gubNumCreaturesAttackingTown );
+		AdjustLoyaltyForCivsEatenByMonsters( ubSectorX, ubSectorY, gubNumCreaturesAttackingTown, ( guCreatureAttackType == CREATURE_ATTACK_TYPE_BANDIT ) );
 		SectorInfo[ ubSectorID ].ubDayOfLastCreatureAttack = (UINT8)GetWorldDay();
 		return;
 	}
@@ -1152,6 +1253,223 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 				PrepareCreaturesForBattle();
 			break;
 	}
+	InterruptTime();
+	PauseGame();
+	LockPauseState( 2 );
+}
+
+void CreatureAttackTown_OtherCreatures( UINT8 ubSectorID, UINT8 ubType )
+{
+	if ( gfWorldLoaded && gTacticalStatus.fEnemyInSector )
+	{
+		//Battle currently in progress, repost the event
+		AddStrategicEvent( ubType, GetWorldTotalMin() + Random( 10 ), ubSectorID );
+		return;
+	}
+
+	// if this sector is not under player control, nothing to do
+	if ( StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX ( ubSectorID )].fEnemyControlled )
+		return;
+	
+	guCreatureAttackType = ubType;	
+	
+	UINT8 ubSectorX = SECTORX( ubSectorID );
+	UINT8 ubSectorY = SECTORY( ubSectorID );
+
+	// test whether the attack is possible in this sector according to xml settings
+	switch ( guCreatureAttackType )
+	{
+	case CREATURE_ATTACK_TYPE_BLOODCAT:
+		if ( !gGameExternalOptions.gRaid_Bloodcats || !( SectorExternalData[ubSectorID][0].usSectorFlagMask & SECTORFLAG_RAIDPOSSIBLE_BLOODCAT ) )
+			return;
+		break;
+
+	case CREATURE_ATTACK_TYPE_ZOMBIE:
+		if ( !gGameExternalOptions.gRaid_Zombies || !( SectorExternalData[ubSectorID][0].usSectorFlagMask & SECTORFLAG_RAIDPOSSIBLE_ZOMBIE ) )
+			return;
+		break;
+
+	case CREATURE_ATTACK_TYPE_BANDIT:
+		if ( !gGameExternalOptions.gRaid_Bandits || !( SectorExternalData[ubSectorID][0].usSectorFlagMask & SECTORFLAG_RAIDPOSSIBLE_BANDIT ) )
+			return;
+		break;
+
+	default:
+		return;
+		break;
+	}
+	
+	// choose an insertion direction. The intention is to make it seem as if the raids occur from wilderness sectors into the sector
+	// note that attacks against non-town sectors work, but if no player forces are present, nothing happens (as loyalty won't be affected)
+	std::vector<INT16> possibleinsertioncodes;
+	for ( INT16 i = 0; i < THROUGH_STRATEGIC_MOVE; ++i )
+	{
+		INT16 loopX = ubSectorX;
+		INT16 loopY = ubSectorY;
+
+		if ( i == NORTH_STRATEGIC_MOVE )		--loopY;
+		else if ( i == EAST_STRATEGIC_MOVE )	++loopX;
+		else if ( i == SOUTH_STRATEGIC_MOVE )	++loopY;
+		else if ( i == WEST_STRATEGIC_MOVE )	--loopX;
+
+		if ( loopX < 1 || loopX >= MAP_WORLD_X - 1 || loopY < 1 || loopY >= MAP_WORLD_Y - 1 )
+			continue;
+
+		UINT8 townid_B = GetTownIdForSector( loopX, loopY );
+
+		if ( townid_B != BLANK_SECTOR )
+			continue;
+
+		UINT8 originsector = SECTOR(loopX, loopY);
+
+		// valid entry
+		if ( SectorInfo[originsector].ubTraversability[i] != GROUNDBARRIER &&
+			SectorInfo[originsector].ubTraversability[i] != TOWN &&
+			SectorInfo[originsector].ubTraversability[i] != WATER &&
+			SectorInfo[originsector].ubTraversability[i] != EDGEOFWORLD )
+		{
+			possibleinsertioncodes.push_back( i );
+
+			gsCreatureInsertionCode = i;
+		}
+	}
+
+	if ( possibleinsertioncodes.empty() )
+		return;
+
+	gsCreatureInsertionCode = possibleinsertioncodes[Random( possibleinsertioncodes.size())];
+	
+	// determine how strong the player presence is, and then determine whether to attack, with how many dudes, or not to attack because the sector is defended to strongly
+	UINT16 militiapresent	= NumNonPlayerTeamMembersInSector( ubSectorX, ubSectorY, MILITIA_TEAM );
+	UINT16 mercspresent		= NumPlayerTeamMembersInSector( ubSectorX, ubSectorY, 0 );
+
+	// determine how many troops are available and stop the attack if we don't have enough
+	INT32 available_bloodcats;
+	INT32 available_zombies;
+	INT32 available_bandits;
+	GetRaidPersonnel( available_bloodcats, available_zombies, available_bandits );
+	
+	switch ( guCreatureAttackType )
+	{
+	case CREATURE_ATTACK_TYPE_BLOODCAT:		
+		gubNumCreaturesAttackingTown = min( gGameExternalOptions.gRaidMaxSize_Bloodcats, available_bloodcats );
+
+		// bloodcats won't attack if player forces are too numerous or not enough forces are available
+		if ( gubNumCreaturesAttackingTown < mercspresent + militiapresent )
+			return;
+		break;
+
+	case CREATURE_ATTACK_TYPE_ZOMBIE:		
+		gubNumCreaturesAttackingTown = min( gGameExternalOptions.gRaidMaxSize_Zombies, available_zombies );
+		break;
+
+	case CREATURE_ATTACK_TYPE_BANDIT:		
+		gubNumCreaturesAttackingTown = min( gGameExternalOptions.gRaidMaxSize_Bandits, available_bandits );
+
+		// bandits won't attack if player forces are too numerous or not enough forces are available
+		if ( gubNumCreaturesAttackingTown < mercspresent + militiapresent )
+			return;
+		break;
+
+	default:
+		return;
+		break;
+	}
+
+	// safety check - not too small
+	if ( gubNumCreaturesAttackingTown < 1 )
+		return;
+	
+	gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
+	gubSectorIDOfCreatureAttack = ubSectorID;
+	
+	//Now that the sector has been chosen, attack it!
+	if ( mercspresent )
+	{
+		gubCreatureBattleCode = CREATURE_BATTLE_CODE_PREBATTLEINTERFACE;
+
+		//we have players in the sector
+		if ( ubSectorX == gWorldSectorX && ubSectorY == gWorldSectorY && !gbWorldSectorZ )
+		{
+			//This is the currently loaded sector.	All we have to do is change the music and insert
+			//the creatures tactically.
+			if ( guiCurrentScreen == GAME_SCREEN )
+			{
+				gubCreatureBattleCode = CREATURE_BATTLE_CODE_TACTICALLYADD;
+			}
+		}
+	}
+	else if ( militiapresent )
+	{
+		//we have militia in the sector
+		gubCreatureBattleCode = CREATURE_BATTLE_CODE_AUTORESOLVE;
+	}
+	else
+	{
+		// player controlled sector -- eat some civilians
+		AdjustLoyaltyForCivsEatenByMonsters( ubSectorX, ubSectorY, min(1, gubNumCreaturesAttackingTown / 2), ( guCreatureAttackType == CREATURE_ATTACK_TYPE_BANDIT ) );
+
+		// do NOT change sector ownership. This would cause the AI to stop attacking, and we can't have that, no?
+		//SetThisSectorAsEnemyControlled( ubSectorX, ubSectorY, 0, TRUE );
+		SectorInfo[ubSectorID].ubDayOfLastCreatureAttack = GetWorldDay();
+
+		return;
+	}
+
+	switch ( guCreatureAttackType )
+	{
+	case CREATURE_ATTACK_TYPE_BLOODCAT:
+		SetEnemyEncounterCode( BLOODCAT_ATTACK_CODE );
+		break;
+
+	case CREATURE_ATTACK_TYPE_ZOMBIE:
+		SetEnemyEncounterCode( ZOMBIE_ATTACK_CODE );
+		break;
+
+	case CREATURE_ATTACK_TYPE_BANDIT:
+		SetEnemyEncounterCode( BANDIT_ATTACK_CODE );
+		break;
+
+	default:
+		SetEnemyEncounterCode( CREATURE_ATTACK_CODE );
+		break;
+	}
+
+	SectorInfo[ubSectorID].ubDayOfLastCreatureAttack = (UINT8)GetWorldDay();
+
+	switch ( gubCreatureBattleCode )
+	{
+	case CREATURE_BATTLE_CODE_PREBATTLEINTERFACE:
+		InitPreBattleInterface( NULL, TRUE );
+		break;
+	case CREATURE_BATTLE_CODE_AUTORESOLVE:
+		gfAutomaticallyStartAutoResolve = TRUE;
+		InitPreBattleInterface( NULL, TRUE );
+		break;
+	case CREATURE_BATTLE_CODE_TACTICALLYADD:
+		if ( is_networked )
+		{
+			if ( is_server && gCreatureEnabled == 1 )
+				PrepareCreaturesForBattle();
+		}
+		else
+			PrepareCreaturesForBattle();
+
+		// alert the creatures
+		HandleInitialRedAlert( CREATURE_TEAM, FALSE );
+
+		// we need this so that the battle is properly recognized in strategic
+		{
+			//Set up the location as well as turning on the blit flag.
+			gubPBSectorX = (UINT8)ubSectorX;
+			gubPBSectorY = (UINT8)ubSectorY;
+			gubPBSectorZ = (UINT8)0;
+			gfBlitBattleSectorLocator = TRUE;
+		}
+
+		break;
+	}
+
 	InterruptTime();
 	PauseGame();
 	LockPauseState( 2 );
@@ -1376,15 +1694,13 @@ void DetermineCreatureTownComposition( UINT8 ubNumCreatures, UINT8 *pubNumYoungM
 void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCreatures, UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
 																UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales )
 {
-	SECTORINFO *pSector;
-	INT32 i;
 	SOLDIERTYPE *pSoldier;
 
-	pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+	SECTORINFO* pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 	*pubNumCreatures = 0;
 	pSector->ubNumCreatures = 0;
 	pSector->ubCreaturesInBattle = 0;
-	for( i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; i++ )
+	for( INT32 i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++i )
 	{
 		pSoldier = MercPtrs[ i ];
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
@@ -1412,7 +1728,37 @@ void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCr
 	}
 }
 
+void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT8* pubNumCreatures, UINT8* pubNumBloodcats, UINT8* pubNumZombies, UINT8* pubNumBandits )
+{
+	SOLDIERTYPE *pSoldier;
 
+	SECTORINFO* pSector = &SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )];
+	*pubNumCreatures = 0;
+	pSector->ubNumCreatures = 0;
+	pSector->ubCreaturesInBattle = 0;
+	for ( INT32 i = gTacticalStatus.Team[CREATURE_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; ++i )
+	{
+		pSoldier = MercPtrs[i];
+		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
+		{
+			if ( pSoldier->IsZombie() )
+			{
+				( *pubNumCreatures )++;
+				( *pubNumZombies )++;
+			}
+			else if ( pSoldier->ubBodyType == BLOODCAT )
+			{
+				( *pubNumCreatures )++;
+				( *pubNumBloodcats )++;
+			}
+			else
+			{
+				( *pubNumCreatures )++;
+				( *pubNumBandits )++;
+			}
+		}
+	}
+}
 
 BOOLEAN PrepareCreaturesForBattle()
 {
@@ -1481,27 +1827,29 @@ BOOLEAN PrepareCreaturesForBattle()
 		{
 			return FALSE;
 		}
+
 		//gfUseCreatureMusic = TRUE; //creatures are here, so play creature music
 		ubCreatureHabitat = pSector->ubCreatureHabitat;
 		ubNumCreatures = pSector->ubNumCreatures;
 	}
 	else
-	{ //creatures are attacking a town sector
+	{
+		//creatures are attacking a town sector
 		//gfUseCreatureMusic = TRUE;
 		UseCreatureMusic(TRUE);
-		#ifdef NEWMUSIC
+#ifdef NEWMUSIC
 		GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ];
 		if ( MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] != -1 )
 			SetMusicModeID( MUSIC_TACTICAL_NOTHING, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalNothing[gbWorldSectorZ] );
 		else
-		#endif
+#endif
 		SetMusicMode( MUSIC_TACTICAL_NOTHING );
 					
 		// externalize to xml data
 		//ubCreatureHabitat = MINE_EXIT;
 		
 		//assign the B1 underground habitat composition to the attacking creatures
-		for (UINT8 i = 0; i < MAX_NUMBER_OF_CREATURE_SECTORS; i++)
+		for (UINT8 i = 0; i < MAX_NUMBER_OF_CREATURE_SECTORS; ++i)
 		{
 			INT16 sX = gCreaturePlacements[ giLairID ].sAttackSourceX;
 			INT16 sY = gCreaturePlacements[ giLairID ].sAttackSourceY;
@@ -1515,6 +1863,7 @@ BOOLEAN PrepareCreaturesForBattle()
 				break;
 			}
 		}
+
 		ubNumCreatures = gubNumCreaturesAttackingTown;
 	}
 
@@ -1576,90 +1925,132 @@ BOOLEAN PrepareCreaturesForBattle()
 	}
 	*/
 
-	//out-of-range habitat
-	if( ubCreatureHabitat >= NUMBER_OF_CREATURE_COMPOSITIONS )
+	if ( guCreatureAttackType == CREATURE_ATTACK_TYPE_CREATURE )
 	{
-		AssertMsg( 0, String( "Invalid creature habitat ID of %d for PrepareCreaturesForBattle.", ubCreatureHabitat ) );
-	}
-	
-	//queen sector
-	if( !ubCreatureHabitat )
-		fQueen = TRUE;
-	else
-		fQueen = FALSE;
+		//out-of-range habitat
+		if ( ubCreatureHabitat >= NUMBER_OF_CREATURE_COMPOSITIONS )
+		{
+			AssertMsg( 0, String( "Invalid creature habitat ID of %d for PrepareCreaturesForBattle.", ubCreatureHabitat ) );
+		}
 
-	ubLarvaePercentage = gCreatureComposition[ ubCreatureHabitat ].ubLarvaePercent;
-	ubInfantPercentage = gCreatureComposition[ ubCreatureHabitat ].ubInfantPercent;
-	ubYoungMalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubYoungMalePercent;
-	ubYoungFemalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubYoungFemalePercent;
-	ubAdultMalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubAdultMalePercent;
-	ubAdultFemalePercentage = gCreatureComposition[ ubCreatureHabitat ].ubAdultFemalePercent;
-
-	//First step is to convert the percentages into the numbers we will use.
-	if( fQueen )
-	{
-		ubNumCreatures--;
-	}
-	ubInfantPercentage += ubLarvaePercentage;
-	ubYoungMalePercentage += ubInfantPercentage;
-	ubYoungFemalePercentage += ubYoungMalePercentage;
-	ubAdultMalePercentage += ubYoungFemalePercentage;
-	ubAdultFemalePercentage += ubAdultMalePercentage;
-	if( ubAdultFemalePercentage != 100 )
-	{
-		AssertMsg( 0, "Percentage for adding creatures don't add up to 100." );
-	}
-	//Second step is to determine the breakdown of the creatures randomly.
-	i = ubNumCreatures;
-	while( i-- )
-	{
-		iRandom = Random( 100 );
-		if( iRandom < ubLarvaePercentage )
-			ubNumLarvae++;
-		else if( iRandom < ubInfantPercentage )
-			ubNumInfants++;
-		else if( iRandom < ubYoungMalePercentage )
-			ubNumYoungMales++;
-		else if( iRandom < ubYoungFemalePercentage )
-			ubNumYoungFemales++;
-		else if( iRandom < ubAdultMalePercentage )
-			ubNumAdultMales++;
+		//queen sector
+		if ( !ubCreatureHabitat )
+			fQueen = TRUE;
 		else
-			ubNumAdultFemales++;
+			fQueen = FALSE;
+
+		ubLarvaePercentage = gCreatureComposition[ubCreatureHabitat].ubLarvaePercent;
+		ubInfantPercentage = gCreatureComposition[ubCreatureHabitat].ubInfantPercent;
+		ubYoungMalePercentage = gCreatureComposition[ubCreatureHabitat].ubYoungMalePercent;
+		ubYoungFemalePercentage = gCreatureComposition[ubCreatureHabitat].ubYoungFemalePercent;
+		ubAdultMalePercentage = gCreatureComposition[ubCreatureHabitat].ubAdultMalePercent;
+		ubAdultFemalePercentage = gCreatureComposition[ubCreatureHabitat].ubAdultFemalePercent;
+
+		//First step is to convert the percentages into the numbers we will use.
+		if ( fQueen )
+		{
+			ubNumCreatures--;
+		}
+		ubInfantPercentage += ubLarvaePercentage;
+		ubYoungMalePercentage += ubInfantPercentage;
+		ubYoungFemalePercentage += ubYoungMalePercentage;
+		ubAdultMalePercentage += ubYoungFemalePercentage;
+		ubAdultFemalePercentage += ubAdultMalePercentage;
+		if ( ubAdultFemalePercentage != 100 )
+		{
+			AssertMsg( 0, "Percentage for adding creatures don't add up to 100." );
+		}
+		//Second step is to determine the breakdown of the creatures randomly.
+		i = ubNumCreatures;
+		while ( i-- )
+		{
+			iRandom = Random( 100 );
+			if ( iRandom < ubLarvaePercentage )
+				ubNumLarvae++;
+			else if ( iRandom < ubInfantPercentage )
+				ubNumInfants++;
+			else if ( iRandom < ubYoungMalePercentage )
+				ubNumYoungMales++;
+			else if ( iRandom < ubYoungFemalePercentage )
+				ubNumYoungFemales++;
+			else if ( iRandom < ubAdultMalePercentage )
+				ubNumAdultMales++;
+			else
+				ubNumAdultFemales++;
+		}
 	}
 
 	if( gbWorldSectorZ )
 	{
-		UNDERGROUND_SECTORINFO *pUndergroundSector;
-		pUndergroundSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		UNDERGROUND_SECTORINFO *pUndergroundSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
 		if( !pUndergroundSector )
-		{ //No info?!!!!!
+		{
+			//No info?!!!!!
 			AssertMsg( 0, "Please report underground sector you are in or going to and send save if possible.	KM : 0" );
 			return FALSE;
 		}
+
 		pUndergroundSector->ubCreaturesInBattle = pUndergroundSector->ubNumCreatures;
 	}
 	else
 	{
 		SECTORINFO *pSector;
 		pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-		pSector->ubNumCreatures = ubNumCreatures;
-		pSector->ubCreaturesInBattle = ubNumCreatures;
-	}
 
+		switch ( guCreatureAttackType )
+		{
+		case CREATURE_ATTACK_TYPE_CREATURE:
+		case CREATURE_ATTACK_TYPE_ZOMBIE:
+		case CREATURE_ATTACK_TYPE_BANDIT:
+			pSector->ubNumCreatures = ubNumCreatures;
+			pSector->ubCreaturesInBattle = ubNumCreatures;
+			break;
+
+		case CREATURE_ATTACK_TYPE_BLOODCAT:
+			pSector->bBloodCats = ubNumCreatures;
+			pSector->ubCreaturesInBattle = ubNumCreatures;
+			break;
+		}
+	}
+	
 	switch( gubCreatureBattleCode )
 	{
 		case CREATURE_BATTLE_CODE_NONE: //in the mines
-			AddSoldierInitListCreatures( fQueen, ubNumLarvae, ubNumInfants,
-				ubNumYoungMales, ubNumYoungFemales, ubNumAdultMales, ubNumAdultFemales );
+			switch ( guCreatureAttackType )
+			{
+			case CREATURE_ATTACK_TYPE_CREATURE:
+				AddSoldierInitListCreatures( fQueen, ubNumLarvae, ubNumInfants, ubNumYoungMales, ubNumYoungFemales, ubNumAdultMales, ubNumAdultFemales );
+				break;
+
+			case CREATURE_ATTACK_TYPE_ZOMBIE:
+			case CREATURE_ATTACK_TYPE_BANDIT:
+			case CREATURE_ATTACK_TYPE_BLOODCAT:
+				AddSoldierInitListOtherCreatures( ubNumCreatures );
+				break;
+			}
 			break;
+			
 		case CREATURE_BATTLE_CODE_TACTICALLYADD: //creature attacking a town sector
 		case CREATURE_BATTLE_CODE_PREBATTLEINTERFACE:
-			AddCreaturesToBattle( ubNumYoungMales, ubNumYoungFemales, ubNumAdultMales, ubNumAdultFemales );
+			switch ( guCreatureAttackType )
+			{
+			case CREATURE_ATTACK_TYPE_CREATURE:
+				AddCreaturesToBattle( ubNumYoungMales, ubNumYoungFemales, ubNumAdultMales, ubNumAdultFemales );
+				break;
+
+			case CREATURE_ATTACK_TYPE_ZOMBIE:
+			case CREATURE_ATTACK_TYPE_BANDIT:
+			case CREATURE_ATTACK_TYPE_BLOODCAT:
+				AddCreaturesToBattle_Other( ubNumCreatures );
+				break;
+			}
 			break;
+
 		case CREATURE_BATTLE_CODE_AUTORESOLVE:
 			return FALSE;
 	}
+
 	return TRUE;
 }
 

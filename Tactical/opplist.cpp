@@ -4870,18 +4870,19 @@ void DebugSoldierPage4( )
 		switch( pSoldier->ubSoldierClass )
 		{
 			case SOLDIER_CLASS_ADMINISTRATOR:		gprintf( 320, LINE_HEIGHT * ubLine, L"(Administrator)" );	break;
-			case SOLDIER_CLASS_ELITE:						gprintf( 320, LINE_HEIGHT * ubLine, L"(Army Elite)" );		break;
-			case SOLDIER_CLASS_ARMY:						gprintf( 320, LINE_HEIGHT * ubLine, L"(Army Troop)" );		break;
-			case SOLDIER_CLASS_CREATURE:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Creature)" );			break;
+			case SOLDIER_CLASS_ELITE:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Army Elite)" );		break;
+			case SOLDIER_CLASS_ARMY:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Army Troop)" );		break;
+			case SOLDIER_CLASS_CREATURE:			gprintf( 320, LINE_HEIGHT * ubLine, L"(Creature)" );		break;
 			case SOLDIER_CLASS_GREEN_MILITIA:		gprintf( 320, LINE_HEIGHT * ubLine, L"(Green Militia)" );	break;
 			case SOLDIER_CLASS_REG_MILITIA:			gprintf( 320, LINE_HEIGHT * ubLine, L"(Reg Militia)" );		break;
 			case SOLDIER_CLASS_ELITE_MILITIA:		gprintf( 320, LINE_HEIGHT * ubLine, L"(Elite Militia)" );	break;
-			case SOLDIER_CLASS_MINER:						gprintf( 320, LINE_HEIGHT * ubLine, L"(Miner)" );					break;
-			case SOLDIER_CLASS_ZOMBIE:						gprintf( 320, LINE_HEIGHT * ubLine, L"(Zombie)" );					break;
+			case SOLDIER_CLASS_MINER:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Miner)" );			break;
+			case SOLDIER_CLASS_ZOMBIE:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Zombie)" );			break;
+			case SOLDIER_CLASS_BANDIT:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Bandit)" );			break;
 
 			default:	break; //don't care (don't write anything)
 		}
-		ubLine++;
+		++ubLine;
 
 		if( pSoldier->bTeam != OUR_TEAM )
 		{
@@ -7785,19 +7786,19 @@ void MakeBloodcatsHostile( void )
 
 	iLoop = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID;
 
-	for (pSoldier = MercPtrs[iLoop]; iLoop <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; iLoop++,pSoldier++ )
+	for (pSoldier = MercPtrs[iLoop]; iLoop <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++iLoop, ++pSoldier )
 	{
 		if ( pSoldier->ubBodyType == BLOODCAT && pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
 		{
-		SetSoldierNonNeutral( pSoldier );
-		RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
-		if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
-		{
-			CheckForPotentialAddToBattleIncrement( pSoldier );
-		}
+			SetSoldierNonNeutral( pSoldier );
+			RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
+
+			if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
+			{
+				CheckForPotentialAddToBattleIncrement( pSoldier );
+			}
 		}
 	}
-
 }
 
 BOOLEAN SoldierHasLimitedVision(SOLDIERTYPE * pSoldier)

@@ -21,6 +21,7 @@ extern	CHAR16		zTrackingNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			RAID_EVENTS										178 // Flugente: added bloodcat/zombie/bandit raids
 #define			INDIVIDUAL_MILITIA_EXP_FLOAT					177 // Flugente: changed the way we store individual militia experience
 #define			CHAT_TO_DISTRACT								176	// Flugente: internal variable allows us to distract enemies by engrossing them in conversation
 #define			INDIVIDUAL_MILITIA_RANKFIX						175	// Flugente: internal individual militia change requires variable change
@@ -96,7 +97,7 @@ extern	CHAR16		zTrackingNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								INDIVIDUAL_MILITIA_EXP_FLOAT
+#define			SAVE_GAME_VERSION								RAID_EVENTS
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

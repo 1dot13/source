@@ -14723,7 +14723,7 @@ INT32 SOLDIERTYPE::GetDamageResistance( BOOLEAN fAutoResolve, BOOLEAN fCalcBreat
 		else if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.bVeteranMilitiaDamageResistance != 0 )
 			resistance += (INT32)(gGameExternalOptions.bVeteranMilitiaDamageResistance / breathmodifiermilitia);
 		// bonus for enemy too
-		else if ( this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminDamageResistance != 0 )
+		else if ( (this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || this->ubSoldierClass == SOLDIER_CLASS_BANDIT ) && gGameExternalOptions.sEnemyAdminDamageResistance != 0 )
 			resistance += gGameExternalOptions.sEnemyAdminDamageResistance;
 		else if ( this->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularDamageResistance != 0 )
 			resistance += gGameExternalOptions.sEnemyRegularDamageResistance;
@@ -16211,7 +16211,7 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength( )
 	// adjust for type of soldier
 	if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE || this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
 		value *= 1.5f;
-	else if ( this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
+	else if ( this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA || this->ubSoldierClass == SOLDIER_CLASS_BANDIT )
 		value *= 0.75f;
 
 	// tanks won't surrender that easy
@@ -16265,6 +16265,10 @@ BOOLEAN		SOLDIERTYPE::CanBeCaptured( )
 
 		// enemies can be captured
 		if ( this->bTeam == ENEMY_TEAM )
+			return TRUE;
+
+		// bandits can be captured
+		if ( this->bTeam == CREATURE_TEAM && this->ubSoldierClass == SOLDIER_CLASS_BANDIT )
 			return TRUE;
 
 		// civilians can be captured if their faction can, and if they are hostile

@@ -333,10 +333,11 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		// handled differently than for enemies.
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_GREEN_MILITIA:
+		case SOLDIER_CLASS_BANDIT:
 			bRating = BAD_ADMINISTRATOR_EQUIPMENT_RATING + bEquipmentModifier;
 
 			// Equipment quality modifier
-			if ( bSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
+			if ( bSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || bSoldierClass == SOLDIER_CLASS_BANDIT )
 			{
 				if ( gGameExternalOptions.sEnemyAdminEquipmentQualityModifier != 0 )
 					bRating += gGameExternalOptions.sEnemyAdminEquipmentQualityModifier;
@@ -360,7 +361,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			bHelmetClass = bRating;
 			// no leggings
 
-			if ( bSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
+			if ( bSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || bSoldierClass == SOLDIER_CLASS_BANDIT )
 			{
 				if ( Chance( 30 ) )
 					bKnifeClass = bRating;
@@ -919,6 +920,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 		case SOLDIER_CLASS_ARMY:
 		case SOLDIER_CLASS_GREEN_MILITIA:
 		case SOLDIER_CLASS_REG_MILITIA:
+		case SOLDIER_CLASS_BANDIT:
 			//Admins/Troops: 60-75% + 1% every 4% progress
 			bStatus = (INT8)(60 + Random( 16 ));
 			bStatus += (INT8)(HighestPlayerProgressPercentage() / 4);
@@ -1987,12 +1989,11 @@ void ChooseFaceGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp )
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_GREEN_MILITIA:
 		case SOLDIER_CLASS_ZOMBIE:
+		case SOLDIER_CLASS_BANDIT:
 			break;
 
 	}
 }
-
-
 
 void ChooseKitsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bKitClass )
 {

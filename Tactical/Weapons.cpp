@@ -6477,7 +6477,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sVeteranMilitiaCtHBonusPercent) /100);
 	// bonus for enemy
-	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+	else if ( (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT) && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sEnemyAdminCtHBonusPercent) /100);
 	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sEnemyRegularCtHBonusPercent) /100);
@@ -9069,6 +9069,8 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 
 	INT32 iImpact, iFluke, iBonus;
 
+	BOOLEAN autoresolve = IsAutoResolveActive();
+
 	// Flugente: check for underbarrel weapons and use that object if necessary (think of bayonets)
 	OBJECTTYPE* pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
 
@@ -9158,9 +9160,10 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 					if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) )
 					{
 						iBonus += ( gSkillTraitValues.ubMABonusDamageHandToHand * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) );
-					}			
+					}
+
 					// add bonus for focused punch
-					if (pSoldier->usAnimState == NINJA_SPINKICK || pSoldier->usAnimState == FOCUSED_PUNCH || pSoldier->usAnimState == FOCUSED_HTH_KICK )
+					if ( !autoresolve && (pSoldier->usAnimState == NINJA_SPINKICK || pSoldier->usAnimState == FOCUSED_PUNCH || pSoldier->usAnimState == FOCUSED_HTH_KICK) )
 					{
 						iBonus += 50;
 
@@ -9180,7 +9183,8 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 						iBonus += ( gSkillTraitValues.ubMABonusDamageHandToHand * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) );
 
 						// The Spinning kicks or aimed punch bonus - SANDRO
-						if (pSoldier->usAnimState == NINJA_SPINKICK || (pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6)))
+						if ( !autoresolve &&
+							(pSoldier->usAnimState == NINJA_SPINKICK || (pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6)) ))
 						{
 							//iImpact = (INT32)((iImpact * (100 + gSkillTraitValues.usMAAimedPunchDamageBonus * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) ) / 100) + 0.5); // +75% damage per trait
 							iBonus += ( (gSkillTraitValues.ubMABonusDamageHandToHand + 25 )* NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) );
@@ -9196,28 +9200,31 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 					iBonus += gSkillTraitValues.ubMEDamageBonusBlunt;
 
 					// bonus for aimed attack
-					if ( pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6) )
+					if ( !autoresolve && pSoldier->aiData.bAimTime >= (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6) )
 					{
-							iBonus += gSkillTraitValues.usMEAimedMeleeAttackDamageBonus;  // incresed damage if focused melee attack
+						iBonus += gSkillTraitValues.usMEAimedMeleeAttackDamageBonus;  // incresed damage if focused melee attack
 					}
 				}
 			}
 		}
 		else // original code
 		{
-			if ( gGameExternalOptions.fEnhancedCloseCombatSystem && (pSoldier->usAnimState == NINJA_SPINKICK || pSoldier->usAnimState == FOCUSED_PUNCH || pSoldier->usAnimState == FOCUSED_HTH_KICK ))
+			if ( !autoresolve && gGameExternalOptions.fEnhancedCloseCombatSystem && (pSoldier->usAnimState == NINJA_SPINKICK || pSoldier->usAnimState == FOCUSED_PUNCH || pSoldier->usAnimState == FOCUSED_HTH_KICK ))
 			{
 				iBonus += 50;
 			}
+
 			// add bonuses for hand-to-hand and martial arts
 			if ( HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) )
 			{
 				iBonus += gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT );
-				if (pSoldier->usAnimState == NINJA_SPINKICK)
+
+				if ( !autoresolve && pSoldier->usAnimState == NINJA_SPINKICK)
 				{
 					iBonus += 100;
 				}
 			}
+
 			if ( HAS_SKILL_TRAIT( pSoldier, HANDTOHAND_OT ) )
 			{
 				// SPECIAL  - give TRIPLE bonus for damage for hand-to-hand trait
@@ -9227,7 +9234,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 		}
 
 		// Enhanced Close Combat System - aiming at body parts makes difference
-		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+		if ( !autoresolve && gGameExternalOptions.fEnhancedCloseCombatSystem)
 		{
 			if ( pSoldier->bAimShotLocation == AIM_SHOT_HEAD )
 			{
@@ -9251,22 +9258,6 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 				iBonus += 50; // 50% incresed damage on suprising attacks
 			}						
 		}
-
-		// Flugente: power armour reduces damage taken
-		// SANDRO - huh?!
-		/*INT8 iSlot = VESTPOS;
-		switch( pSoldier->bAimShotLocation )
-		{
-			case AIM_SHOT_HEAD:
-				iSlot = HELMETPOS;
-				break;
-			case AIM_SHOT_LEGS:
-				iSlot = LEGPOS;
-				break;
-			default:
-				iSlot = VESTPOS;
-				break;
-		}*/
 	}
 	// DAMAGE BONUS TO KNIFE ATTACK WITH MELEE SKILL
 	else 
@@ -9277,42 +9268,27 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 			iBonus += gSkillTraitValues.ubMEDamageBonusBlades; // +30% damage
 
 			// if this attack happens directly after running, the attack is slightly more powerful due to extra force
-			if (pSoldier->usSoldierFlagMask2 & SOLDIER_BAYONET_RUNBONUS)
+			if ( !autoresolve && pSoldier->usSoldierFlagMask2 & SOLDIER_BAYONET_RUNBONUS)
 				iBonus += 20;
 		}
 		else if ( HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) && ( gGameOptions.fNewTraitSystem ))
 		{
 			iBonus += gSkillTraitValues.ubMEDamageBonusBlades; // +30% damage
 
-			if (pSoldier->usAnimState == FOCUSED_STAB)
+			if ( !autoresolve && pSoldier->usAnimState == FOCUSED_STAB)
 			{
 				iBonus += gSkillTraitValues.usMEAimedMeleeAttackDamageBonus;  // 50% increased damage if focused melee attack
 			}
 		}
+
 		// Enhanced Close Combat System
-		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
+		if ( !autoresolve && gGameExternalOptions.fEnhancedCloseCombatSystem)
 		{
 			if (gAnimControl[ pTarget->usAnimState ].ubEndHeight == ANIM_PRONE)
 			{
 				iBonus += 30;  // incresed damage to lying characters
 			}
 		}
-
-		// Flugente: power armour reduces damage taken
-		// SANDRO - huh?!
-		/*INT8 iSlot = VESTPOS;
-		switch( pSoldier->bAimShotLocation )
-		{
-			case AIM_SHOT_HEAD:
-				iSlot = HELMETPOS;
-				break;
-			case AIM_SHOT_LEGS:
-				iSlot = LEGPOS;
-				break;
-			default:
-				iSlot = VESTPOS;
-				break;
-		}*/
 	}
 
 	// remove flag, regardless of whether it was used
@@ -9326,7 +9302,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 
 	// Flugente: if we are using a garotte, there is a chance that we score an instakill
 	// our level in covert ops and wether the target is aware of us has a huge impact
-	if ( pObj && HasItemFlag(pObj->usItem, GAROTTE) )
+	if ( !autoresolve && pObj && HasItemFlag(pObj->usItem, GAROTTE) )
 	{
 		INT32 instakillchance = 0;
 		INT32 resistchance = 20;
@@ -9356,7 +9332,6 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 	iImpact = (iImpact * (100 + iBonus) + 50) / 100; // round it properly
 
 	// Flugente: moved the damage calculation into a separate function
-	BOOLEAN autoresolve = IsAutoResolveActive();		
 	iImpact = max( 1, (INT32)(iImpact * (100 - pTarget->GetDamageResistance(autoresolve, FALSE)) / 100 ) );
 
 	// Flugente: if the target is a zombie, any melee attack, regardless of hit location, will set the headshot flag. Thus any zombie killed in melee will stay dead (if you play with that option)
@@ -10068,7 +10043,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sVeteranMilitiaCtHBonusPercent) /100);
 	// bonus for enemy
-	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+	else if ( ( pAttacker->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || pAttacker->ubSoldierClass == SOLDIER_CLASS_BANDIT ) && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sEnemyAdminCtHBonusPercent) /100);
 	else if (pAttacker->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sEnemyRegularCtHBonusPercent) /100);
@@ -10746,7 +10721,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sVeteranMilitiaCtHBonusPercent) /100);
 	// bonus for enemy
-	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+	else if ( ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT ) && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sEnemyAdminCtHBonusPercent) /100);
 	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
 		iChance += ((iChance * gGameExternalOptions.sEnemyRegularCtHBonusPercent) /100);
@@ -11801,7 +11776,7 @@ FLOAT CalcNewChanceToHitBaseSpecialBonus(SOLDIERTYPE *pSoldier)
 	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA && gGameExternalOptions.sVeteranMilitiaCtHBonusPercent != 0)
 		fBaseModifier += gGameExternalOptions.sVeteranMilitiaCtHBonusPercent;
 	// bonus for enemy
-	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
+	else if ( ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT ) && gGameExternalOptions.sEnemyAdminCtHBonusPercent != 0)
 		fBaseModifier += gGameExternalOptions.sEnemyAdminCtHBonusPercent;
 	else if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY && gGameExternalOptions.sEnemyRegularCtHBonusPercent != 0)
 		fBaseModifier += gGameExternalOptions.sEnemyRegularCtHBonusPercent;

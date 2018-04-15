@@ -316,6 +316,11 @@ INT8 GetCivType( SOLDIERTYPE *pCiv )
 		return( CIV_TYPE_ENEMY );
 	}
 
+	if ( pCiv->bTeam == CREATURE_TEAM && pCiv->ubSoldierClass == SOLDIER_CLASS_BANDIT )
+	{
+		return( CIV_TYPE_ENEMY );
+	}
+
 	if ( pCiv->bTeam != CIV_TEAM && pCiv->bTeam != MILITIA_TEAM )
 	{
 		return( CIV_TYPE_NA );
@@ -1627,6 +1632,7 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		switch( pCiv->ubSoldierClass )
 		{
 			case SOLDIER_CLASS_ADMINISTRATOR:
+			case SOLDIER_CLASS_BANDIT:
 				if( !(zTaunt[ i ].uiFlags2 & TAUNT_C_ADMIN) )
 					continue;
 				if( (zTaunt[ i ].value[TAUNT_PROFILE_ADMIN] != -1 ) && !(zTaunt[ i ].value[TAUNT_PROFILE_ADMIN] == pCiv->usSoldierProfile ) )

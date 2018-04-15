@@ -2347,3 +2347,18 @@ FLOAT GetIntel()
 {
 	return LaptopSaveInfo.dIntelPool;
 }
+
+// Flugente: raid 'personnel'
+void AddRaidPersonnel( INT32 aBloodcats, INT32 aZombie, INT32 aBandits )
+{
+	LaptopSaveInfo.sRaidBloodcats	= max( 0, LaptopSaveInfo.sRaidBloodcats + aBloodcats );
+	LaptopSaveInfo.sRaidZombies		= max( 0, LaptopSaveInfo.sRaidZombies + aZombie );
+	LaptopSaveInfo.sRaidBandits		= max( 0, LaptopSaveInfo.sRaidBandits + aBandits );
+}
+
+void GetRaidPersonnel( INT32& arBloodcats, INT32& arZombie, INT32& arBandits )
+{
+	arBloodcats	= LaptopSaveInfo.sRaidBloodcats;
+	arZombie	= LaptopSaveInfo.sRaidZombies;
+	arBandits	= LaptopSaveInfo.sRaidBandits;
+}
