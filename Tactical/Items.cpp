@@ -9684,18 +9684,6 @@ BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16 usPointsToUs
 		return(FALSE);
 	}
 	
-	if ( pSoldier->bTeam == gbPlayerNum )
-	{
-		if ( gMercProfiles[pSoldier->ubProfile].bSex == MALE )
-		{
-			PlayJA2Sample( DRINK_CANTEEN_MALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
-		}
-		else
-		{
-			PlayJA2Sample( DRINK_CANTEEN_FEMALE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
-		}
-	}
-
 	// CJC Feb 9.  Canteens don't seem effective enough, so doubled return from them
 	DeductPoints( pSoldier, 0, (INT16)(2 * usPointsToUse * -(100 - pSoldier->bBreath)) );
 
