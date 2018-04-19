@@ -2288,8 +2288,15 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	{
 		// if they arrive in the sector we have currently loaded, let them join from the edge
 		// this will always remove them from the group - if you want them to continue moving, issue a new order
+		// RunAwayScientist fix on 4/10/2018: The below condition needs to have the other functions applied (MoveMilitiaEquipment, MoveMilitiaProfiles, reset)
+		// because the other if-else sections do NOT trigger if milita move into currently loaded sector.
+		// This should be done before dissolving the group.
+		// Currently only MoveMilitiaProfiles is needed, equipment is moved without being called from another func.
 		if ( pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && pGroup->ubSectorZ == gbWorldSectorZ )
 		{
+			// Flugente: move along individual militia data
+			MoveIndividualMilitiaProfiles( SECTOR( pGroup->ubPrevX, pGroup->ubPrevY ), SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ), pGroup->pEnemyGroup->ubNumAdmins, pGroup->pEnemyGroup->ubNumTroops, pGroup->pEnemyGroup->ubNumElites );
+
 			MilitiaGroupEntersCurrentSector( pGroup->ubGroupID, pGroup->ubSectorX, pGroup->ubSectorY );
 
 			if ( !fBattlePending && GroupAtFinalDestination( pGroup ) )

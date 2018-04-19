@@ -17,6 +17,9 @@
 #include "message.h"
 #include "Auto Resolve.h"		// added for IndividualMilitiaInUse_AutoResolve(...)
 
+// we use this to keep track of when we displayed a warning in order not to spam
+UINT32 gMIWarningTime = 0;
+
 MilitiaOriginData gMilitiaOriginData[MO_MAX];
 
 // later on, make this an array with a vector for each sector
@@ -231,6 +234,10 @@ BOOLEAN LoadIndividualMilitiaData( HWFILE hwFile )
 
 		gIndividualMilitiaVector.push_back(data);
 	}
+
+
+	// reset time tracker
+	gMIWarningTime = 0;
 
 	return TRUE;
 }
@@ -573,9 +580,9 @@ UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 	UINT8 militialevel = SoldierClassToMilitiaRank( aSoldierClass );
 
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end();
-	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
+	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin(); it != itend; ++it )
 	{
-		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) && (*it).sector == aSector && (*it).militiarank == militialevel )
+		if ( !( ( *it ).flagmask & ( MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION ) ) && ( *it ).sector == aSector && ( *it ).militiarank == militialevel )
 		{
 			// fitting data found - now we have to make sure this one isn't already in use
 			BOOLEAN found = FALSE;
@@ -584,30 +591,42 @@ UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector )
 
 			INT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID;
 			INT32 lastid = gTacticalStatus.Team[MILITIA_TEAM].bLastID;
-			for (pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier)
+			for ( pSoldier = MercPtrs[cnt]; cnt < lastid; ++cnt, ++pSoldier )
 			{
-				if (pSoldier && pSoldier->bActive && (*it).id == pSoldier->usIndividualMilitiaID && IsLegalMilitiaId(pSoldier->usIndividualMilitiaID) )
+				if ( pSoldier && pSoldier->bActive && ( *it ).id == pSoldier->usIndividualMilitiaID && IsLegalMilitiaId( pSoldier->usIndividualMilitiaID ) )
 				{
 					found = TRUE;
 					break;
 				}
 			}
 
-			if ( !found && IndividualMilitiaInUse_AutoResolve((*it).id))
+			if ( !found && IndividualMilitiaInUse_AutoResolve( ( *it ).id ) )
 			{
 				found = TRUE;
 			}
 
-			if (!found)
+			if ( !found )
 			{
-				return (*it).id;
+				return ( *it ).id;
 			}
 		}
 	}
 
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
 	if ( gGameExternalOptions.fIndividualMilitia )
+	{
+		// in debug mode, display messages all the time, otherwise only once per second
+#ifdef JA2BETAVERSION
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in GetIdOfUnusedindividualMilitia" );
+#else
+		if ( gMIWarningTime != GetWorldTotalSeconds() )
+		{
+			gMIWarningTime = GetWorldTotalSeconds();
+
+			ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in GetIdOfUnusedindividualMilitia" );
+		}
+#endif
+	}
 
 	// nobody found. That shouldn't really happen, as we are supposed to create data whenever new militia is created. Create new data and use that
 	return CreateNewIndividualMilitia( militialevel, MO_ARULCO, aSector );
@@ -879,12 +898,12 @@ void HandlePossibleMilitiaPromotion( SOLDIERTYPE* pSoldier, BOOLEAN aAutoResolve
 
 void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UINT8 usGreens, UINT8 usRegulars, UINT8 usElites )
 {
+	if ( !usGreens && !usRegulars && !usElites )
+		return;
+
 	std::vector<MILITIA>::iterator itend = gIndividualMilitiaVector.end( );
 	for ( std::vector<MILITIA>::iterator it = gIndividualMilitiaVector.begin( ); it != itend; ++it )
 	{
-		if ( !usGreens && !usRegulars && !usElites )
-			return;
-
 		if ( !((*it).flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) && (*it).sector == aSourceSector )
 		{
 			if ( usGreens && ( *it ).militiarank == GREEN_MILITIA)
@@ -902,6 +921,9 @@ void MoveIndividualMilitiaProfiles( UINT8 aSourceSector, UINT8 aTargetSector, UI
 				(*it).sector = aTargetSector;
 				--usElites;
 			}
+
+			if ( !usGreens && !usRegulars && !usElites )
+				return;
 		}
 	}
 
@@ -1072,8 +1094,20 @@ void PickIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 	}
 
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
-	if ( aNumber && gGameExternalOptions.fIndividualMilitia )
+	if ( gGameExternalOptions.fIndividualMilitia )
+	{
+		// in debug mode, display messages all the time, otherwise only once per second
+#ifdef JA2BETAVERSION
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in PickIndividualMilitia" );
+#else
+		if ( gMIWarningTime != GetWorldTotalSeconds() )
+		{
+			gMIWarningTime = GetWorldTotalSeconds();
+
+			ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in PickIndividualMilitia" );
+		}
+#endif
+	}
 }
 
 void DropIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
@@ -1097,6 +1131,18 @@ void DropIndividualMilitia( UINT8 aSector, UINT8 ubType, UINT16 aNumber )
 	}
 
 	// if this feature is on and we get to this point, then there aren't enough individual militia. This is odd, the player should be informed
-	if ( aNumber && gGameExternalOptions.fIndividualMilitia )
+	if ( gGameExternalOptions.fIndividualMilitia )
+	{
+		// in debug mode, display messages all the time, otherwise only once per second
+#ifdef JA2BETAVERSION
 		ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in DropIndividualMilitia" );
+#else
+		if ( gMIWarningTime != GetWorldTotalSeconds() )
+		{
+			gMIWarningTime = GetWorldTotalSeconds();
+
+			ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"Possible error: Not enough individual militia found in DropIndividualMilitia" );
+		}
+#endif
+	}
 }
