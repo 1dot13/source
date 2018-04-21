@@ -48,7 +48,7 @@
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
-			<szTooltipText>Have a drink at the... Yeah, you wish! Just buy drinks to others and immediately report any info they may spill.</szTooltipText>
+			<szTooltipText>Have a drink at the... Yeah, you wish! Just buy people a round and immediately report any info they may spill.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
 			<usPerformance>150</usPerformance>
 			<sCostPerHour>15</sCostPerHour>
@@ -79,7 +79,7 @@
 		<ubTotalStaffLimit>8</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+			<szTooltipText>Your mercs can interrogate prisoners of war here. Prisoners might join your cause or give you helpful information.</szTooltipText>
 			<ubStaffLimit>4</ubStaffLimit>
 			<usPerformance>120</usPerformance>
 			<usPrisonBaseLimit>60</usPrisonBaseLimit>
@@ -88,7 +88,7 @@
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-			<szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<szTooltipText>Masquerade as a prisoner and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
 			<ubStaffLimit>4</ubStaffLimit>
 			<usPerformance>120</usPerformance>
 			<CONDITIONS>
@@ -149,7 +149,7 @@
 		<ubTotalStaffLimit>2</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
-			<szTooltipText>The war room here has all sorts of digital equipment, designed for maintaining a good grasp on the strategic situation across the country. This will help you coordinate your defenses, and collect information about enemy movements in the wilderness.</szTooltipText>
+			<szTooltipText>The war room here has all sorts of digital equipment, designed for maintaining a good grasp on the strategic situation across the country. This will help you coordinate your defenses and collecting information about enemy movements in the wilderness.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
 			<fCountEnemiesInWild>1</fCountEnemiesInWild>
 			<CONDITIONS>
@@ -159,7 +159,7 @@
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
-			<szTooltipText>Take control of local information channels and control the flow of news in entire region.</szTooltipText>
+			<szTooltipText>Take control of local information channels and control the flow of news in the entire region.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
 			<CONDITIONS>
 				<ubMinimumWisdom>60</ubMinimumWisdom>
@@ -211,7 +211,7 @@
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
-			<szTooltipText>Turn this small local office into well-oiled propaganda machine, suppressing any bad news reaching town and showing our actions in the best possible light.</szTooltipText>
+			<szTooltipText>Turn this small local office into a well-oiled propaganda machine, suppressing any bad news that reaches town and showing our actions in the best possible light.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
 			<CONDITIONS>
 				<ubMinimumWisdom>60</ubMinimumWisdom>
@@ -386,7 +386,7 @@
 		<ubTotalStaffLimit>10</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>FACILITY_EAT</ubAssignmentType>
-			<szTooltipText>By taking over the armies barracks, you've also taken over the cantina inside. Your mercs can eat here.</szTooltipText>
+			<szTooltipText>By taking over the army's barracks, you've also taken over the cantina inside. Your mercs can eat here.</szTooltipText>
 			<ubStaffLimit>10</ubStaffLimit>
 			<sCostPerHour>10</sCostPerHour>
 			<sCantinaFoodModifier>500</sCantinaFoodModifier>
@@ -412,7 +412,7 @@
 		<ubTotalStaffLimit>3</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+			<szTooltipText>Your mercs can interrogate prisoners of war here. Prisoners might join your cause, or give you helpful information.</szTooltipText>
 			<ubStaffLimit>3</ubStaffLimit>
 			<usPerformance>100</usPerformance>
 			<usPrisonBaseLimit>20</usPrisonBaseLimit>
@@ -421,7 +421,7 @@
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-			<szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<szTooltipText>Masquerade as a prisoner and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
 			<ubStaffLimit>3</ubStaffLimit>
 			<usPerformance>90</usPerformance>
 			<CONDITIONS>
@@ -436,7 +436,7 @@
 		<ubTotalStaffLimit>2</ubTotalStaffLimit>
 		<ASSIGNMENT>
 			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
-			<szTooltipText>Your mercs can Interrogate prisoners of war here. Prisoners might join you cause, or give you helpful information.</szTooltipText>
+			<szTooltipText>Your mercs can interrogate prisoners of war here. Prisoners might join your cause, or give you helpful information.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
 			<usPerformance>90</usPerformance>
 			<usPrisonBaseLimit>5</usPrisonBaseLimit>
@@ -445,7 +445,7 @@
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
-			<szTooltipText>Masquerade as one of prisoners and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<szTooltipText>Masquerade as a prisoner and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
 			<ubStaffLimit>1</ubStaffLimit>
 			<usPerformance>70</usPerformance>
 			<CONDITIONS>

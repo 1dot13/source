@@ -46,7 +46,7 @@
 		<uiIndex>1</uiIndex>
 		<szName>Typhoid</szName>
 		<szFatName>|T|y|p|h|o|i|d</szFatName>
-		<szDescription>Typhoid fever is a common worldwide bacterial disease transmitted by the ingestion of food or water&#10;contaminated with the feces of an infected person. Symptoms include internal bleeding, dehydration and delirium.</szDescription>
+		<szDescription>Typhoid fever is a common worldwide bacterial disease transmitted by the ingestion of food or water&#10;contaminated with the feces of an infected person. Symptoms include internal bleeding, dehydration, and delirium.</szDescription>
 		<sInfectionPtsInitial>100</sInfectionPtsInitial>
 		<sInfectionPtsOutbreak>200</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>1000</sInfectionPtsFull>
@@ -175,7 +175,7 @@
 		<uiIndex>4</uiIndex>
 		<szName>Tubercolosis</szName>
 		<szFatName>|T|u|b|e|r|c|o|l|o|s|i|s</szFatName>
-		<szDescription>Tuberculosisis a common, and in many cases fatal, infectious disease. It is spread through the air. About one in ten latent&#10;infections eventually progresses to active disease which, if left untreated, kills more than 50% of those so infected.</szDescription>
+		<szDescription>Tuberculosis is a common, and in many cases fatal, infectious disease. It is spread through the air. About one in ten latent&#10;infections eventually progresses to active disease which, if left untreated, kills more than 50% of those so infected.</szDescription>
 		<sInfectionPtsInitial>100</sInfectionPtsInitial>
 		<sInfectionPtsOutbreak>200</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>800</sInfectionPtsFull>
@@ -262,7 +262,7 @@
 		<uiIndex>6</uiIndex>
 		<szName>Ebola</szName>
 		<szFatName>|E|b|o|l|a</szFatName>
-		<szDescription>A deadly virus with no known treatment, Ebola has a an unusually high lethality rate of over 50%%. Symptoms include nausea, vomiting,&#10;diarrhea and internal bleeding.</szDescription>
+		<szDescription>A deadly virus with no known treatment, Ebola has an unusually high lethality rate of over 50%. Symptoms include nausea, vomiting,&#10;diarrhea, and internal bleeding.</szDescription>
 		<sInfectionPtsInitial>150</sInfectionPtsInitial>
 		<sInfectionPtsOutbreak>300</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>360</sInfectionPtsFull>
@@ -606,7 +606,7 @@
 		<uiIndex>14</uiIndex>
 		<szName>Wounded biceps</szName>
 		<szFatName>|W|o|u|n|d|e|d |b|i|c|e|p|s</szFatName>
-		<szDescription>A painful shot to your torso has you gasping for air. You'll have to cut back in the next days. </szDescription>
+		<szDescription>A painful shot to your torso has you gasping for air. You'll have to cut back for the next days. </szDescription>
 		<sInfectionPtsInitial>200</sInfectionPtsInitial>
 		<sInfectionPtsOutbreak>100</sInfectionPtsOutbreak>
 		<sInfectionPtsFull>200</sInfectionPtsFull>

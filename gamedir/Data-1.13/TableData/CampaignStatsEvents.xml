@@ -126,8 +126,8 @@
   </EVENT>
   <EVENT>
     <uiIndex>8</uiIndex><!-- Tixa liberated -->
-    <szText0>(Ministry for Arulcan Information Distribution) One again, the so-called 'liberators' of Arulco have sunk to a new low.</szText0>
-    <szText1>Insurgents forces overran the Tixa High Security Facility, butchered the entire guard force along with civilian contractors, and freed a number of dangerous criminals.</szText1>
+    <szText0>(Ministry for Arulcan Information Distribution) Once again, the so-called 'liberators' of Arulco have sunk to a new low.</szText0>
+    <szText1>Insurgent forces overran the Tixa High Security Facility, butchered the entire guard force along with civilian contractors, and freed a number of dangerous criminals.</szText1>
     <szText2>Tixa has no strategic value, apart from the inmates themselves. Not content with pressing the entire country into open warfare, the insurgents were keen to broaden their ranks with other known terrorists, murderers and rapists.</szText2>
     <szText3>This once again proves, without a doubt, the malicious intent of those that conspire against Arulco. General Humphey, Army Chief of Staff, has vowed firm but measured responses to this unprovoked attack.</szText3>
     <szText4>"We will not rest until the perpetrators have been brought to justice. These men were sentenced to lengthy prison in due course of justice, and that's where we'll return them once we've recaptured them."</szText4>
@@ -198,9 +198,9 @@
     <uiIndex>13</uiIndex><!-- Balime liberated -->
     <szText0>(Balime/Arulco) In a particular painful blow to the Deidranna regime, rebel forces have seized the southern coastal town of Balime.</szText0>
     <szText1>Balime, heartland of Deidranna's followers, is one of the most developed cities in Arulco and had so far been spared of most of the violence of this conflict.</szText1>
-    <szText2>The city is home to the rich and influential elite of Arulco that forms the backbone of the regime's support. Consequently, loyalty to Deidranna is beleived to remain high.</szText2>
+    <szText2>The city is home to the rich and influential elite of Arulco that forms the backbone of the regime's support. Consequently, loyalty to Deidranna is believed to remain high.</szText2>
     <szText3>The strategic value, however, is smaller than that of other cities, as Balime had little economic activity beyond the import of luxury goods.</szText3>
-    <szText4>Given the local's unwillingness to to join the rebellion, it is unclear for how long the rebels can hold the city, especially as the army seems eager to retake it.</szText4>
+    <szText4>Given the locals' unwillingness to to join the rebellion, it is unclear for how long the rebels can hold the city, especially as the army seems eager to retake it.</szText4>
     <szText5>It is feared that elements of the rebellion will use this opportunity to retaliate against those they perceived as oppressors here. Tensions are running high, and many have fled the city seeking shelter in Meduna.</szText5>
     <szText6>Reports that the museum, which houses unique artifacts of Arulco's history, has already been looted are widespread but cannot be confirmed at this time.</szText6>
     <szText7></szText7>

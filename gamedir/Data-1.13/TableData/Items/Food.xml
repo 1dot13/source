@@ -36,7 +36,7 @@
 	</FOOD>
 	<FOOD>
 		<uiIndex>5</uiIndex>
-		<szName>Calory bars</szName>
+		<szName>Calorie bars</szName>
 		<bFoodPoints>150</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<usDecayRate>0</usDecayRate>
@@ -71,7 +71,7 @@
 	</FOOD>
 	<FOOD>
 		<uiIndex>10</uiIndex>
-		<szName>Hotdog</szName>
+		<szName>Hot Dog</szName>
 		<bFoodPoints>380</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<usDecayRate>1.8</usDecayRate>
@@ -204,7 +204,7 @@
 	</FOOD>
 	<FOOD>
 		<uiIndex>29</uiIndex>
-		<szName>Applepie</szName>
+		<szName>Apple pie</szName>
 		<bFoodPoints>600</bFoodPoints>
 		<bDrinkPoints>0</bDrinkPoints>
 		<usDecayRate>1.7</usDecayRate>
@@ -274,7 +274,7 @@
 	</FOOD>
 	<FOOD>
 		<uiIndex>39</uiIndex>
-		<szName>bladder</szName>
+		<szName>Bladder</szName>
 		<bFoodPoints>0</bFoodPoints>
 		<bDrinkPoints>4000</bDrinkPoints>
 		<bMoraleMod>1</bMoraleMod>

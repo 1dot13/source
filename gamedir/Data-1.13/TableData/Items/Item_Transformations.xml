@@ -541,8 +541,8 @@
 		<usResult10>0</usResult10>
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
-		<szMenuRowText>Seperate Stacks</szMenuRowText>
-		<szTooltipText>seperate into 2 small stacks</szTooltipText>
+		<szMenuRowText>Separate Stacks</szMenuRowText>
+		<szTooltipText>Separate into 2 small stacks.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1723</usItem>
@@ -558,8 +558,8 @@
 		<usResult10>0</usResult10>
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
-		<szMenuRowText>Seperate Stacks</szMenuRowText>
-		<szTooltipText>seperate into 2 medium stacks</szTooltipText>
+		<szMenuRowText>Separate Stacks</szMenuRowText>
+		<szTooltipText>Separate into 2 medium stacks.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1723</usItem>
@@ -575,8 +575,8 @@
 		<usResult10>0</usResult10>
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
-		<szMenuRowText>Seperate Stacks</szMenuRowText>
-		<szTooltipText>seperates into 1 medium and 2 small stacks</szTooltipText>
+		<szMenuRowText>Separate Stacks</szMenuRowText>
+		<szTooltipText>Separate into 1 medium and 2 small stacks.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1723</usItem>
@@ -592,8 +592,8 @@
 		<usResult10>0</usResult10>
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
-		<szMenuRowText>Seperate Stacks</szMenuRowText>
-		<szTooltipText>seperate into 4 small stacks</szTooltipText>
+		<szMenuRowText>Separate Stacks</szMenuRowText>
+		<szTooltipText>Separate into 4 small stacks.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1008</usItem>
@@ -610,7 +610,7 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Fold stock</szMenuRowText>
-		<szTooltipText>Fold stock</szTooltipText>
+		<szTooltipText>Fold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1745</usItem>
@@ -627,7 +627,7 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Unfold stock</szMenuRowText>
-		<szTooltipText>Unfold stock</szTooltipText>
+		<szTooltipText>Unfold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1746</usItem>
@@ -644,7 +644,7 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Fold stock</szMenuRowText>
-		<szTooltipText>Fold stock</szTooltipText>
+		<szTooltipText>Fold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1747</usItem>
@@ -661,7 +661,7 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Unfold stock</szMenuRowText>
-		<szTooltipText>Unfold stock</szTooltipText>
+		<szTooltipText>Unfold stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1009</usItem>
@@ -678,7 +678,7 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Retract stock</szMenuRowText>
-		<szTooltipText>Retract stock</szTooltipText>
+		<szTooltipText>Retract stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1748</usItem>
@@ -695,7 +695,7 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Extend stock</szMenuRowText>
-		<szTooltipText>Extend stock</szTooltipText>
+		<szTooltipText>Extend stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1749</usItem>
@@ -712,7 +712,7 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Retract stock</szMenuRowText>
-		<szTooltipText>Retract stock</szTooltipText>
+		<szTooltipText>Retract stock.</szTooltipText>
 	</TRANSFORM>
 	<TRANSFORM>
 		<usItem>1750</usItem>
@@ -729,6 +729,6 @@
 		<usAPCost>20</usAPCost>
 		<iBPCost>20</iBPCost>
 		<szMenuRowText>Extend stock</szMenuRowText>
-		<szTooltipText>Extend stock</szTooltipText>
+		<szTooltipText>Extend stock.</szTooltipText>
 	</TRANSFORM>
 </TRANSFORMATIONS_LIST>

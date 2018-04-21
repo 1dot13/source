@@ -42,12 +42,12 @@ Strings containing combinations of % characters are special format characters to
   <TEXT>
 	<!-- HISTORY_ACCEPTED_ASSIGNMENT_FROM_ENRICO -->
 	<uiIndex>5</uiIndex>
-    <sHistory>Accepted Assignment From Enrico Chivaldori</sHistory>
+    <sHistory>Accepted Assignment From Enrico Chivaldori.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_CHARACTER_GENERATED -->
 	<uiIndex>6</uiIndex>
-    <sHistory>IMP Profile Generated</sHistory>
+    <sHistory>IMP Profile Generated.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_PURCHASED_INSURANCE -->
@@ -92,37 +92,37 @@ Strings containing combinations of % characters are special format characters to
   <TEXT>
   	<!-- HISTORY_QUEST_STARTED - strings from BINARYDATA\quests.edt -->
 	<uiIndex>15</uiIndex>
-    <sHistory>quest started.</sHistory>
+    <sHistory>Quest started.</sHistory>
   </TEXT>
   <TEXT>
   	<!-- HISTORY_QUEST_FINISHED - strings from BINARYDATA\quests.edt -->
 	<uiIndex>16</uiIndex>
-    <sHistory>quest completed.</sHistory>
+    <sHistory>Quest completed.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_TALKED_TO_MINER -->
 	<uiIndex>17</uiIndex>
-    <sHistory>Talked to head miner of %s</sHistory>
+    <sHistory>Talked to head miner of %s.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_LIBERATED_TOWN -->
 	<uiIndex>18</uiIndex>
-    <sHistory>Liberated %s</sHistory>
+    <sHistory>Liberated %s.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_CHEAT_ENABLED -->
 	<uiIndex>19</uiIndex>
-    <sHistory>Cheat Used</sHistory>
+    <sHistory>Cheat used.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_TALKED_TO_FATHER_WALKER -->
 	<uiIndex>20</uiIndex>
-    <sHistory>Food should be in Omerta by tomorrow</sHistory>
+    <sHistory>Food should be in Omerta by tomorrow.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_MERC_MARRIED_OFF -->
 	<uiIndex>21</uiIndex>
-    <sHistory>%s left team to become Daryl Hick's wife</sHistory>
+    <sHistory>%s left team to become Daryl Hick's wife.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_MERC_CONTRACT_EXPIRED -->
@@ -137,32 +137,32 @@ Strings containing combinations of % characters are special format characters to
   <TEXT>
 	<!-- HISTORY_ENRICO_COMPLAINED -->
 	<uiIndex>24</uiIndex>
-    <sHistory>Enrico complained about lack of progress</sHistory>
+    <sHistory>Enrico complained about lack of progress.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_WONBATTLE -->
 	<uiIndex>25</uiIndex>
-    <sHistory>Battle won</sHistory>
+    <sHistory>Battle won.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_MINE_RUNNING_OUT -->
 	<uiIndex>26</uiIndex>
-    <sHistory>%s mine started running out of ore</sHistory>
+    <sHistory>%s mine started running out of ore.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_MINE_RAN_OUT -->
 	<uiIndex>27</uiIndex>
-    <sHistory>%s mine ran out of ore</sHistory>
+    <sHistory>%s mine ran out of ore.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_MINE_SHUTDOWN -->
 	<uiIndex>28</uiIndex>
-    <sHistory>%s mine was shut down</sHistory>
+    <sHistory>%s mine was shut down.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_MINE_REOPENED -->
 	<uiIndex>29</uiIndex>
-    <sHistory>%s mine was reopened</sHistory>
+    <sHistory>%s mine was reopened.</sHistory>
   </TEXT>
   <TEXT>
 	<!-- HISTORY_DISCOVERED_TIXA -->
@@ -247,7 +247,7 @@ Strings containing combinations of % characters are special format characters to
   <TEXT>
 	<!-- HISTORY_HOWARD -->
 	<uiIndex>46</uiIndex>
-    <sHistory>Met Howard - deals pharmaceuticals in Balime</sHistory>
+    <sHistory>Met Howard - deals pharmaceuticals in Balime.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_PERKO -->
@@ -312,17 +312,17 @@ Strings containing combinations of % characters are special format characters to
   <TEXT>
 	<!-- HISTORY_WON_BOXING -->
 	<uiIndex>59</uiIndex>
-    <sHistory>%s won Extreme Fighting match</sHistory>
+    <sHistory>%s won Extreme Fighting match.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_LOST_BOXING -->
 	<uiIndex>60</uiIndex>
-    <sHistory>%s lost Extreme Fighting match</sHistory>
+    <sHistory>%s lost Extreme Fighting match.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_DISQUALIFIED_BOXING -->
 	<uiIndex>61</uiIndex>
-    <sHistory>%s was disqualified in Extreme Fighting</sHistory>
+    <sHistory>%s was disqualified in Extreme Fighting.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_FOUND_MONEY -->
@@ -337,32 +337,32 @@ Strings containing combinations of % characters are special format characters to
   <TEXT>
 	<!-- HISTORY_LOSTTOWNSECTOR -->
 	<uiIndex>64</uiIndex>
-    <sHistory>Lost control of sector</sHistory>
+    <sHistory>Lost control of sector.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_DEFENDEDTOWNSECTOR -->
 	<uiIndex>65</uiIndex>
-    <sHistory>Defended sector</sHistory>
+    <sHistory>Defended sector.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_LOSTBATTLE -->
 	<uiIndex>66</uiIndex>
-    <sHistory>Lost battle</sHistory>
+    <sHistory>Lost battle.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_FATALAMBUSH -->
 	<uiIndex>67</uiIndex>
-    <sHistory>Fatal ambush</sHistory>
+    <sHistory>Fatal ambush.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_WIPEDOUTENEMYAMBUSH -->
 	<uiIndex>68</uiIndex>
-    <sHistory>Wiped out enemy ambush</sHistory>
+    <sHistory>Wiped out enemy ambush.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_UNSUCCESSFULATTACK -->
 	<uiIndex>69</uiIndex>
-    <sHistory>Unsuccessful attack</sHistory>
+    <sHistory>Unsuccessful attack.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_SUCCESSFULATTACK -->
@@ -372,37 +372,37 @@ Strings containing combinations of % characters are special format characters to
   <TEXT>
 	<!-- HISTORY_CREATURESATTACKED -->
 	<uiIndex>71</uiIndex>
-    <sHistory>Creatures attacked</sHistory>
+    <sHistory>Creatures attacked.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_KILLEDBYBLOODCATS -->
 	<uiIndex>72</uiIndex>
-    <sHistory>Killed by bloodcats</sHistory>
+    <sHistory>Killed by bloodcats.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_SLAUGHTEREDBLOODCATS -->
 	<uiIndex>73</uiIndex>
-    <sHistory>Slaughtered bloodcats</sHistory>
+    <sHistory>Slaughtered bloodcats.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_NPC_KILLED -->
 	<uiIndex>74</uiIndex>
-    <sHistory>%s was killed</sHistory>
+    <sHistory>%s was killed.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_GAVE_CARMEN_HEAD -->
 	<uiIndex>75</uiIndex>
-    <sHistory>Gave Carmen a terrorist's head</sHistory>
+    <sHistory>Gave Carmen a terrorist's head.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_SLAY_MYSTERIOUSLY_LEFT -->
 	<uiIndex>76</uiIndex>
-    <sHistory>Slay left</sHistory>
+    <sHistory>Slay left.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_MERC_KILLED_CHARACTER -->
 	<uiIndex>77</uiIndex>
-    <sHistory>Killed %s</sHistory>
+    <sHistory>Killed %s.</sHistory>
   </TEXT> 
   <TEXT>
 	<!-- HISTORY_WALDO -->

@@ -54,39 +54,39 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>7</uiIndex>
-    <szName>If a 'M' appears on your gun, that means it is currently mounted onto something, resulting in better stability.</szName>
+    <szName>If an 'M' appears on your gun, that means it is currently mounted onto something, resulting in better stability.</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
-    <szName>Press [CTRL]+[Z] to lock/release mouse cursor in windowed mode. Useful when exiting a sector in the tactical screen.</szName>
+    <szName>Press [CTRL]+[Z] to lock/release the mouse cursor in windowed mode. Useful when exiting a sector in the tactical screen.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
-    <szName>Doorway blocked? Press [X] when beside someone to swap places.</szName>
+    <szName>Doorway blocked? Press [X] when standing next to someone to swap places.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>10</uiIndex>
-    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helpful bears at www.bears-pit.com</szName>
+    <szName>Need help? Help yourself by pressing [H] in strategic screen. And visit the helpful bears at www.bears-pit.com.</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>11</uiIndex>
-    <szName>Turn the wheel to your fortune. Increase Chance To Hit (CtH) in all fire modes with the [MOUSE-WHEEL]. [ALT]+[MOUSE-WHEEL] sets size of auto-fire volley.</szName>
+    <szName>Turn the wheel to your fortune. Increase your Chance to Hit (CtH) in all fire modes with the [MOUSE-WHEEL]. [ALT]+[MOUSE-WHEEL] sets the size of auto-fire volleys.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>12</uiIndex>
-    <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in strategic screen. Tool tips hinting at facility's function appear when assigning a merc.</szName>
+    <szName>Some sectors offer facilities like bars or mines that you can assign mercs to in the strategic screen. Tool tips hinting at a facility's function appear when assigning a merc.</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>Guild of thieves. Steal opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If enemy is kissing the dust in a non-dying state you may strip off everything.</szName>
+    <szName>Guild of thieves. Steal an opponent's gun with the hand-cursor [CTRL]+[LEFT-MOUSE-BUTTON]. If an enemy is kissing the dust in a non-dying state you may strip off everything.</szName>
     <keybind>1</keybind>
     <lore>1</lore>
   </LOADSCREENHINT>
@@ -97,12 +97,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
-    <szName>Holding [END] in tactical screen shows currently selected merc's detailed field of vision, ranging from red (cannot spot anyone) to green (spot somebody lying prone).</szName>
+    <szName>Holding [END] in the tactical screen shows the currently selected merc's detailed field of vision, ranging from red (cannot spot anyone) to green (spot somebody lying prone).</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>16</uiIndex>
-    <szName>Red Alert! Holding [DEL] in tactical screen shows how well enemies you know of can see the selected merc, ranging from red (will be seen even if prone) to green (perfect concealment).</szName>
+    <szName>Red Alert! Holding [DEL] in the tactical screen shows how well enemies you know of can see the selected merc, ranging from red (will be seen even if prone) to green (perfect concealment).</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -122,7 +122,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>While in sector inventory, [CTRL]+[LEFT-MOUSE-BUTTON] on merc's empty inventory slots for a categorized list of items in that sector.</szName>
+    <szName>While in sector inventory, [CTRL]+[LEFT-MOUSE-BUTTON] on a merc's empty inventory slots for a categorized list of items in that sector.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -137,12 +137,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>23</uiIndex>
-    <szName>Press [CTRL]+[X] to enter turn-based mode while real-time sneaking is active. Only works when you see enemy soldiers.</szName>
+    <szName>Press [CTRL]+[X] to enter turn-based mode while real-time sneaking is active. This only works when you see enemy soldiers.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>24</uiIndex>
-    <szName>Illuminate night time enemies with flares to increase your chance of shooting them.</szName>
+    <szName>Illuminate nighttime enemies with flares to increase your chance of shooting them.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -162,7 +162,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>28</uiIndex>
-    <szName>Afraid enemy will interrupt you? Shoot their legs and hope they fall.</szName>
+    <szName>Afraid enemies will interrupt you? Shoot their legs and hope they'll fall.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -183,7 +183,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>32</uiIndex>
-    <szName>Merge alcohol with rag to create a molotov cocktail.</szName>
+    <szName>Merge alcohol with a rag to create a molotov cocktail.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -244,7 +244,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>44</uiIndex>
-    <szName>Pressing [SHIFT]+[R] in tactical screen orders your entire team to reload.</szName>
+    <szName>Pressing [SHIFT]+[R] in the tactical screen orders your entire team to reload.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -284,7 +284,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>52</uiIndex>
-    <szName>Doctors can instantly restore some life lost via surgery - but this will drain your medical supplies a lot.</szName>
+    <szName>Doctors can instantly restore some lost life via surgery - but this will drain your medical supplies.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -299,27 +299,27 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>55</uiIndex>
-    <szName>At the start of the combat use [SHIFT]+[B] shortcut to drop all backpacks your mercs carry. At the end of combat use [CTRL]+[SHIFT]+[F] shortcut to pick them all back up.</szName>
+    <szName>At the start of combat use [SHIFT]+[B] to drop all backpacks your mercs carry. At the end of combat use [CTRL]+[SHIFT]+[F] to pick them all back up.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>56</uiIndex>
-    <szName>You can destroy blue flags on mines by throwing grenades on them. Enemy may step on unflagged mine. Then again, you might too.</szName>
+    <szName>You can destroy blue flags on mines by throwing grenades on them. Enemies may step on unflagged mines. Then again, you might too.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>57</uiIndex>
-    <szName>Press [L] to look at direction. Press [L] again to ready weapon and look through a scope if your gun has any scope or iron sights.</szName>
+    <szName>Press [L] to look into a direction. Press [L] again to ready your weapon and look through a scope, if your gun has any scope or iron sights.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>58</uiIndex>
-    <szName>Always try to end turn with your mercs at least crouched. It protects you from unintentional friendly fire.</szName>
+    <szName>Always try to end a turn with your mercs at least crouched. It protects you from unintentional friendly fire.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>59</uiIndex>
-    <szName>You can spray an area with auto fire. Just select auto fire, chose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on first target and drag it around the desired area.</szName>
+    <szName>You can spray an area with auto fire. Just select auto fire, choose how many bullets you want to fire, press and hold [LEFT-MOUSE-BUTTON] on the first target, and drag it around the desired area.</szName>
     <weapons>1</weapons>
     <keybind>1</keybind>
   </LOADSCREENHINT>
@@ -330,7 +330,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>61</uiIndex>
-    <szName>Bipods only give bonuses if you are lying prone or when gun is mounted on something.</szName>
+    <szName>Bipods only give bonuses if you are lying prone or when the gun is mounted onto something.</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -350,7 +350,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>65</uiIndex>
-    <szName>Mobile militia can follow mercs while travelling on map as long as a merc group is one sector from them. Wait for them to arrive at your position.</szName>
+    <szName>Mobile militia can follow mercs while travelling on the map as long as a merc group is one sector away from them. Wait for them to arrive at your position.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -365,7 +365,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>68</uiIndex>
-    <szName>On top of the sector inventory screen, there are buttons that help sort and filter items. Hanging mouse over each button will show explanation for that button.</szName>
+    <szName>On top of the sector inventory screen, there are buttons that help sort and filter items. Hanging your mouse over each button will show an explanation for that button.</szName>
     <lore>1</lore>
     <items>1</items>
   </LOADSCREENHINT>
@@ -396,12 +396,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>74</uiIndex>
-    <szName>Press [O] opens up the options menu in game.</szName>
+    <szName>Press [O] to open up the options menu in-game.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>75</uiIndex>
-    <szName>Press [ALT]+[S] to quicksave the game in a quicksave slot. [ALT]+[L] will quickload game from quicksave slot.</szName>
+    <szName>Press [ALT]+[S] to quicksave the game in a quicksave slot. [ALT]+[L] will quickload from the quicksave slot.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -411,12 +411,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>77</uiIndex>
-    <szName>In the main menu holding [ALT] while clicking 'Continue saved game' option will instantly load the last saved game.</szName>
+    <szName>In the main menu, holding [ALT] while clicking the 'Continue saved game' option will instantly load the last saved game.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>78</uiIndex>
-    <szName>Yellow shirts are admin troops and police that have poor equipment and weapons and get replaced by regulars not long after you arrive in Arulco.</szName>
+    <szName>Yellow shirts are admin troops and police that have poor equipment and weapons, and get replaced by regulars not long after you arrive in Arulco.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -451,22 +451,22 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>85</uiIndex>
-    <szName>Stun grenades can help you render enemy helpless. You can steal equipment from helpless enemies.</szName>
+    <szName>Stun grenades can help you render enemies helpless. You can steal equipment from helpless enemies.</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>86</uiIndex>
-    <szName>Try to stun or suppress enemies before throwing tear gas grenade at them. That will prevent them from getting out of the gas cloud or using gas masks.</szName>
+    <szName>Try to stun or suppress enemies before throwing a tear gas grenade at them. That will prevent them from getting out of the gas cloud or using gas masks.</szName>
     <weapons>1</weapons>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>87</uiIndex>
-    <szName>Always check if an enemy has a gas mask before using tear gas. Hold [ALT] key while targeting enemy to see his details. The level of details depends on the distance from the selected merc.</szName>
+    <szName>Always check if an enemy has a gas mask before using tear gas. Hold [ALT] while targeting an enemy to see his details. The level of details depends on the distance from the selected merc.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>88</uiIndex>
-    <szName>Make sure you have your gun fully loaded at all times with [ALT]+[R].</szName>
+    <szName>Make sure you keep your gun fully loaded at all times with [ALT]+[R].</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -476,7 +476,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>90</uiIndex>
-    <szName>If trees get in your LOS (line of sight), press [T] to clear things up. You can press the [DELETE] key to get a better feel for your surroundings.</szName>
+    <szName>If trees get in your LoS (Line of Sight), press [T] to clear things up. You can press the [DELETE] key to get a better feel for your surroundings.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -496,7 +496,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>94</uiIndex>
-    <szName>Pay attention to what mercs hear, it can save you a whole lotta pain if you know where they're coming from!</szName>
+    <szName>Pay attention to what mercs hear, it can save you a whole lot of pain if you know where they're coming from!</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -516,27 +516,27 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>98</uiIndex>
-    <szName>Press [ALT]+[Z] to order all your mercs to stealth mode, and [=] to select them all.</szName>
+    <szName>Press [ALT]+[Z] to order all your mercs into stealth mode, and [=] to select them all.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>99</uiIndex>
-    <szName>Relying on sound is even more important at night. Without the proper equipment, you'll hear more than you can see.</szName>
+    <szName>Relying on sound is even more important at night. Without the proper equipment you'll hear more than you can see.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>100</uiIndex>
-    <szName>Night operations are probably your best bet early on, if you are relying on pistols and SMGs.</szName>
+    <szName>Night operations are probably your best bet early on, when you are relying on pistols and SMGs.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Press [CTRL]+[ALT]+[G] to toggle on/off the artificial light around the mercs.</szName>
+    <szName>Press [CTRL]+[ALT]+[G] to toggle the artificial light around mercs on and off.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>102</uiIndex>
-    <szName>If you get caught in a thunder storm, be on your toes, a flash of lightning can give away your position and the rain makes it harder to see.</szName>
+    <szName>If you get caught in a thunderstorm, be on your toes: A flash of lightning can give away your position and the rain makes it harder to see.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -546,7 +546,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>104</uiIndex>
-    <szName>Every move you make, determines how the battle unfolds.</szName>
+    <szName>Every move you make determines how the battle unfolds.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -556,7 +556,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>106</uiIndex>
-    <szName>When moving on a roof top, try to move in straight lines, moving diagonally can slow you down.</szName>
+    <szName>When moving around on a rooftop, try to move in straight lines; moving diagonally can slow you down.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -576,12 +576,12 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>110</uiIndex>
-    <szName>Each mercenary has different approach effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
+    <szName>Each mercenary has a different approach and effectiveness when talking to an NPC. Different backgrounds may have an effect on them too. Don't expect Biff to be effective at threatening people.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>111</uiIndex>
-    <szName>Each mercenary has different sleeping pattern ranging from 3 to 12 hours to fully restore energy. The "Night Ops" trait reduces this time.</szName>
+    <szName>Each mercenary has a different sleeping pattern, ranging from 3 to 12 hours to fully restore energy. The "Night Ops" trait reduces this time.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -601,32 +601,32 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>115</uiIndex>
-    <szName>Game manuals, hotkey list, map editor tutorial and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
+    <szName>Game manuals, a hotkey list, a map editor tutorial, and more useful documents can be found in the "Docs" folder in your JA2 installation directory.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
-    <szName>Game resolution and playing of intro movies can be tweaked in "Ja2.ini".</szName>
+    <szName>Game resolution and the playing of intro movies can be tweaked in "Ja2.ini".</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>
-    <szName>Do you want to fight against real players or cooperate teamwork with your friends? Try the 1.13 multiplayer mode.</szName>
+    <szName>Do you want to fight against real players or cooperate with your friends? Try the 1.13 multiplayer mode.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Press [G] to toggle mercenary formation move. When ON and you select more then one merc, they will keep their current formation.</szName>
+    <szName>Press [G] to toggle mercenary formation movement. When ON and you select more than one merc, they will keep their current formation.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>119</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in current sector inventory at once.</szName>
+    <szName>Press [CTRL]+[SHIFT]+[S] to sell all items in the current sector inventory at once.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>120</uiIndex>
-    <szName>Press [CTRL]+[SHIFT]+[E] to load vehicles with as many items as possible from the current sector. [SHIFT]+[E] will unload all items from vehicle to the current sector.</szName>
+    <szName>Press [CTRL]+[SHIFT]+[E] to load vehicles with as many items as possible from the current sector. [SHIFT]+[E] will unload all items from the vehicle to the current sector.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -636,57 +636,57 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>122</uiIndex>
-    <szName>Exploring the farms and city sectors can uncover lots of useful items, like gas for vehicle.</szName>
+    <szName>Exploring the farms and city sectors can uncover lots of useful items, like gas for vehicles.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>123</uiIndex>
-    <szName>In tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over a merc will open up a menu similar to the one on the strategic screen.</szName>
+    <szName>In the tactical screen, pressing and holding [RIGHT-MOUSE-BUTTON] over a merc will open up a menu similar to the one on the strategic screen.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>124</uiIndex>
-    <szName>Press [CTRL]+[C] to open Cover Display Menu.</szName>
+    <szName>Press [CTRL]+[C] to open the Cover Display Menu.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>125</uiIndex>
-    <szName>Press [CTRL]+[V] to open useful Inventory Manipulations Menu.</szName>
+    <szName>Press [CTRL]+[V] to open the useful Inventory Manipulations Menu.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>126</uiIndex>
-    <szName>Press [D] to enter turn-based mode immediately, if there is an enemy in sector.</szName>
+    <szName>Press [D] to enter turn-based mode immediately if there is an enemy in the sector.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>127</uiIndex>
-    <szName>Press [CTRL]+[D] to end your interrupt, and there will be no interrupts until next turn.</szName>
+    <szName>Press [CTRL]+[D] to end your interrupt and there will be no interrupts until next turn.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>128</uiIndex>
-    <szName>[ALT]+[RIGHTCLICK] opens Skills Menu, where reinforcements or artillery strikes can be called by a radio operator.</szName>
+    <szName>[ALT]+[RIGHTCLICK] opens the Skills Menu, where reinforcements or artillery strikes can be called by a radio operator.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>129</uiIndex>
-    <szName>Defensive minefields can be safely placed in captured towns and SAMs as mercs and militia will avoid them.</szName>
+    <szName>Defensive minefields can be safely placed in captured towns and SAMs, as mercs and militia will avoid them.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>130</uiIndex>
-    <szName>You can inspect traps before trying to disarm it. Recommended if you are happy with your current number of extremities.</szName>
+    <szName>You can inspect traps before trying to disarm them. Recommended if you are happy with your current number of extremities.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>131</uiIndex>
-    <szName>Click with hand cursor on a blue flag, and flag can be removed or trap inspected with the useful Disarm Menu.</szName>
+    <szName>Click with the hand-cursor on a blue flag, and the flag can be removed or the trap inspected with the useful Disarm Menu.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>132</uiIndex>
-    <szName>Placing mines, concertina or sandbags is more convenient with holding [SHIFT] key, relieving the need to manually take new item from merc's inventory.</szName>
+    <szName>Placing mines, concertina wire or sandbags is more convenient while holding [SHIFT], relieving the need to manually take a new item from a merc's inventory.</szName>
 	  <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
