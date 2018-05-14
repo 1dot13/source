@@ -74,6 +74,10 @@ Quests =
 }
 
 Facts = {
+	FACT_JOEY_ESCORTED = 108,
+	FACT_MARIA_ESCORTED = 116,
+	FACT_ANGEL_LEFT_DEED = 120,
+	FACT_CHALICE_STOLEN = 184,
 	FACT_MUSEUM_ALARM_WENT_OFF = 278,
 	FACT_KINGPIN_KNOWS_MONEY_GONE = 103,
 	FACT_KINGPIN_DEAD = 308,
@@ -167,20 +171,29 @@ History = {
 }
 
 Profil = 
-{                   
-    MARIA = 88,
-	ANGEL = 89,
-	ELLIOT = 135,
-	CONRAD = 70,
-	CARMEN = 78,
-	KINGPIN = 86,
-	MADLAB = 146,
-	ROBOT = 62,
+{
 	MIGUEL = 57,
 	CARLOS = 58,
 	IRA = 59,
 	DIMITRI = 60,
+	ROBOT = 62,
+	DYNAMO = 66,
+	SHANK = 67,
+	CONRAD = 70,
+	DARREL = 73,
+	QUEEN = 75,
+	CARMEN = 78,
+	KINGPIN = 86,
+	MARIA = 88,
+	ANGEL = 89,
 	KYLE = 95,
+	FATIMA = 101,
+	YANNI = 108,
+	MARTHA = 109,
+	JAKE = 113,
+	ELDIN = 127,
+	ELLIOT = 135,
+	MADLAB = 146,
 }
 
 SoldierClass = 
@@ -768,4 +781,264 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 	end
 	
 	
+end
+
+-- these colours can be used in the map
+-- if you want to know how they look, test them on the map
+-- if you want more colours, check whether you feel lucky and ask a coder
+MapColour = {
+	MAP_SHADE_BLACK = 0,
+	
+	MAP_SHADE_LT_GREEN = 1,
+	MAP_SHADE_MD_GREEN = 2,
+	MAP_SHADE_DK_GREEN = 3,
+	
+	MAP_SHADE_LT_RED = 4,
+	MAP_SHADE_MD_RED = 5,
+	MAP_SHADE_DK_RED = 6,
+	
+	MAP_SHADE_LT_YELLOW = 7,
+	MAP_SHADE_MD_YELLOW = 8,
+	MAP_SHADE_DK_YELLOW = 9,
+	
+	MAP_SHADE_LT_CYAN = 10,
+	MAP_SHADE_MD_CYAN = 11,
+	MAP_SHADE_DK_CYAN = 12,
+	
+	MAP_SHADE_LT_GREY = 13,
+	MAP_SHADE_MD_GREY = 14,
+	MAP_SHADE_DK_GREY = 15,
+	
+	MAP_SHADE_LT_BLUE = 16,
+	MAP_SHADE_MD_BLUE = 17,
+	MAP_SHADE_DK_BLUE = 18,
+	
+	MAP_SHADE_LT_PINK = 19,
+	MAP_SHADE_ORANGE = 20,
+	
+	MAP_SHADE_MIX_RED = 21,
+	MAP_SHADE_MIX_GREEN = 22,
+	MAP_SHADE_MIX_BLUE = 23,
+	MAP_SHADE_MIX_YELLOW = 24,
+	
+	MAP_SHADE_MIX_RED_GREEN = 25,
+	MAP_SHADE_MIX_RED_BLUE = 26,
+	MAP_SHADE_MIX_RED_YELLOW = 27,
+	MAP_SHADE_MIX_GREEN_BLUE = 28,
+	MAP_SHADE_MIX_GREEN_YELLOW = 29,
+	MAP_SHADE_MIX_BLUE_YELLOW = 30,
+	
+	MAP_SHADE_MIX_RED_GREEN_BLUE = 31,
+	MAP_SHADE_MIX_RED_GREEN_YELLOW = 32,
+	MAP_SHADE_MIX_RED_BLUE_YELLOW = 33,
+	
+	MAP_SHADE_MIX_GREEN_BLUE_YELLOW = 34,
+	MAP_SHADE_MIX_RED_GREEN_BLUE_YELLOW = 35,
+}
+
+
+-- These symbols are stored in Interface/IntelMapSymbols.sti
+-- if you want more symbols, add them
+MapSymbols = {
+	BLOODCAT_ATTACK = 0,
+	ZOMBIE_ATTACK = 1,
+	BANDIT_ATTACK = 2,
+	TERRORIST_LOCATION = 3,
+	CHALICE = 4,
+	ASSASSINATION_TARGET = 5,
+	HELI = 6,
+	PRISON = 7,
+	CHURCH = 8,	
+	RECRUITMENT = 9,
+	FLAG = 10,
+	QUESTIONMARK_BLUE = 11,		-- sector might be relevant for a quest
+	EXCLAMATIONMARK_BLUE = 12,	-- sector is definetely relevant for a quest	
+	QUESTIONMARK_GREEN = 13,	-- alternate colours for other uses?
+	EXCLAMATIONMARK_GREEN = 14,
+	QUESTIONMARK_RED = 15,
+	EXCLAMATIONMARK_RED = 16,
+	QUESTIONMARK_YELLOW = 17,
+	EXCLAMATIONMARK_YELLOW = 18,	
+}
+
+-- this function allows us to data for the intel/quest map
+-- aLevel is the world level (0: surface)
+-- set data by using SetIntelAndQuestMapDataForSector(sectorx, sextory, MapColour, symbol, text for description window, short text for map)
+function GetIntelAndQuestMapData( aLevel )
+
+	-- surface
+	if ( aLevel == 0 ) then
+		
+		-- mark sectors related to quests		
+		if ( gubQuest( Quests.QUEST_DELIVER_LETTER ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.FATIMA), GetCharacterSectorY(Profil.FATIMA), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Deliver letter to rebels", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_FOOD_ROUTE ) == qStatus.QUESTINPROGRESS ) then
+			
+			-- list possible locations of Father Walker
+			SetIntelAndQuestMapDataForSector(13, 3, -1, MapSymbols.CHURCH, "Find Father Walker", "")
+			SetIntelAndQuestMapDataForSector(13, 4, -1, MapSymbols.CHURCH, "Find Father Walker", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_KINGPIN_IDOL ) == qStatus.QUESTINPROGRESS ) then
+			
+			if ( (CheckFact( Facts.FACT_CHALICE_STOLEN, 0 ) == true) ) then
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.KINGPIN), GetCharacterSectorY(Profil.KINGPIN), -1, MapSymbols.CHALICE, "Return chalice to Kingpin", "")
+			else
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.ELDIN), GetCharacterSectorY(Profil.ELDIN), -1, MapSymbols.CHALICE, "Steal Chalice from museum", "")
+			end
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_KINGPIN_MONEY ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.KINGPIN), GetCharacterSectorY(Profil.KINGPIN), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Return money to Kingpin", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_RUNAWAY_JOEY ) == qStatus.QUESTINPROGRESS ) then
+			
+			if ( (CheckFact( Facts.FACT_JOEY_ESCORTED, 0 ) == true) ) then
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.MARTHA), GetCharacterSectorY(Profil.MARTHA), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Return Joey to Martha", "")
+			else
+				-- we list all locations Martha mentions... even though he will never be present at some of them. Misdirection!
+				SetIntelAndQuestMapDataForSector(6, 9, -1, MapSymbols.QUESTIONMARK_BLUE, "Find Joey", "")
+				SetIntelAndQuestMapDataForSector(2, 1, -1, MapSymbols.QUESTIONMARK_BLUE, "Find Joey", "")				
+				SetIntelAndQuestMapDataForSector(5, 3, -1, MapSymbols.QUESTIONMARK_BLUE, "Find Joey", "")
+				SetIntelAndQuestMapDataForSector(6, 3, -1, MapSymbols.QUESTIONMARK_BLUE, "Find Joey", "")
+				SetIntelAndQuestMapDataForSector(5, 4, -1, MapSymbols.QUESTIONMARK_BLUE, "Find Joey", "")
+				SetIntelAndQuestMapDataForSector(4, 4, -1, MapSymbols.QUESTIONMARK_BLUE, "Find Joey", "")
+			end
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_RESCUE_MARIA ) == qStatus.QUESTINPROGRESS ) then
+			
+			if ( (CheckFact( Facts.FACT_MARIA_ESCORTED, 0 ) == true) ) then
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.ANGEL), GetCharacterSectorY(Profil.ANGEL), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Return Maria to Angel", "")
+			else
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.MARIA), GetCharacterSectorY(Profil.MARIA), -1, MapSymbols.PRISON, "Free Maria", "")
+			end
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_CHITZENA_IDOL ) == qStatus.QUESTINPROGRESS ) then
+			
+			if ( (CheckFact( Facts.FACT_CHALICE_STOLEN, 0 ) == true) ) then
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.YANNI), GetCharacterSectorY(Profil.YANNI), -1, MapSymbols.CHALICE, "Return chalice to Yanni", "")
+			else
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.ELDIN), GetCharacterSectorY(Profil.ELDIN), -1, MapSymbols.CHALICE, "Steal Chalice from museum", "")
+			end
+			
+		end
+				
+		if ( gubQuest( Quests.QUEST_ARMY_FARM ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.DARREL), GetCharacterSectorY(Profil.DARREL), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Pacify the Hicks clan", "")
+			
+		end
+				
+		if ( gubQuest( Quests.QUEST_FIND_SCIENTIST ) == qStatus.QUESTINPROGRESS ) then
+			
+			-- list all possible sectors where Madlab might hide
+			SetIntelAndQuestMapDataForSector(7, 8, -1, MapSymbols.QUESTIONMARK_BLUE, "Find scientist", "")
+			SetIntelAndQuestMapDataForSector(16, 8, -1, MapSymbols.QUESTIONMARK_BLUE, "Find scientist", "")
+			SetIntelAndQuestMapDataForSector(11, 9, -1, MapSymbols.QUESTIONMARK_BLUE, "Find scientist", "")
+			SetIntelAndQuestMapDataForSector(4, 5, -1, MapSymbols.QUESTIONMARK_BLUE, "Find scientist", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_DELIVER_VIDEO_CAMERA ) == qStatus.QUESTINPROGRESS ) then
+			
+			-- list all possible sectors where Madlab might hide
+			SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.MADLAB), GetCharacterSectorY(Profil.MADLAB), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Give gun & camera to Madlab", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_BLOODCATS ) == qStatus.QUESTINPROGRESS ) then
+			
+			-- Annie only mentions that the bloodcat nest is 'east of her house', so we are rather liberal with hints here
+			SetIntelAndQuestMapDataForSector(15, 8, -1, MapSymbols.QUESTIONMARK_BLUE, "Destroy bloodcat nest", "")
+			SetIntelAndQuestMapDataForSector(16, 8, -1, MapSymbols.QUESTIONMARK_BLUE, "Destroy bloodcat nest", "")
+			SetIntelAndQuestMapDataForSector(15, 9, -1, MapSymbols.QUESTIONMARK_BLUE, "Destroy bloodcat nest", "")
+			SetIntelAndQuestMapDataForSector(16, 9, -1, MapSymbols.QUESTIONMARK_BLUE, "Destroy bloodcat nest", "")
+			SetIntelAndQuestMapDataForSector(15, 10, -1, MapSymbols.QUESTIONMARK_BLUE, "Destroy bloodcat nest", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_CHOPPER_PILOT ) == qStatus.QUESTINPROGRESS ) then
+			
+			-- list all possible sectors where Skyrider might hide
+			SetIntelAndQuestMapDataForSector(15, 2, -1, MapSymbols.QUESTIONMARK_BLUE, "Find chopper pilot", "")
+			SetIntelAndQuestMapDataForSector(14, 5, -1, MapSymbols.QUESTIONMARK_BLUE, "Find chopper pilot", "")
+			SetIntelAndQuestMapDataForSector(12, 4, -1, MapSymbols.QUESTIONMARK_BLUE, "Find chopper pilot", "")
+			SetIntelAndQuestMapDataForSector(16, 3, -1, MapSymbols.QUESTIONMARK_BLUE, "Find chopper pilot", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_ESCORT_SKYRIDER ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(13, 2, -1, MapSymbols.HELI, "Escort Skyrider here", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_FREE_DYNAMO ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.DYNAMO), GetCharacterSectorY(Profil.DYNAMO), -1, MapSymbols.PRISON, "Free Dynamo", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_ESCORT_TOURISTS ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(13, 2, -1, MapSymbols.HELI, "Escort John & Mary here", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_FREE_CHILDREN ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(13, 3, -1, MapSymbols.PRISON, "Free factory children", "")
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_LEATHER_SHOP_DREAM ) == qStatus.QUESTINPROGRESS ) then
+			
+			if ( (CheckFact( Facts.FACT_ANGEL_LEFT_DEED, 0 ) == true) ) then
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.KYLE), GetCharacterSectorY(Profil.KYLE), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Give deed to Kyle", "")
+			else
+				SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.ANGEL), GetCharacterSectorY(Profil.ANGEL), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Get deed from Angel", "")
+			end
+			
+		end
+		
+		if ( gubQuest( Quests.QUEST_ESCORT_SHANK ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.JAKE), GetCharacterSectorY(Profil.JAKE), -1, MapSymbols.EXCLAMATIONMARK_BLUE, "Escort Shank to Jake", "")
+			
+		end
+		
+		if ( not (gubQuest( Quests.QUEST_KILL_DEIDRANNA ) == qStatus.QUESTDONE) ) then
+			
+			SetIntelAndQuestMapDataForSector(GetCharacterSectorX(Profil.QUEEN), GetCharacterSectorY(Profil.QUEEN), -1, MapSymbols.ASSASSINATION_TARGET, "Kill Deidranna", "")
+			
+		end
+				
+		if ( gubQuest( Quests.QUEST_KINGPIN_ANGEL_MARIA ) == qStatus.QUESTINPROGRESS ) then
+			
+			-- list all possible sectors where Maria & Angel might hide
+			SetIntelAndQuestMapDataForSector(11, 1, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			SetIntelAndQuestMapDataForSector(5, 2, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			SetIntelAndQuestMapDataForSector(6, 2, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			SetIntelAndQuestMapDataForSector(8, 2, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			SetIntelAndQuestMapDataForSector(12, 2, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			SetIntelAndQuestMapDataForSector(14, 2, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			SetIntelAndQuestMapDataForSector(3, 3, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			SetIntelAndQuestMapDataForSector(7, 4, -1, MapSymbols.QUESTIONMARK_BLUE, "Kill or protect Angel & Maria", "")
+			
+		end
+		
+	end
 end
