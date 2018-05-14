@@ -113,6 +113,7 @@
 #include "CampaignStats.h"				// added by Flugente
 #include "DynamicDialogue.h"			// added by Flugente for HandleDynamicOpinions()
 #include "DropDown.h"					// added by Flugente
+#include "Creature Spreading.h"			// added by Flugente forResetCreatureAttackVariables()
 #endif
 #include "connect.h"
 
@@ -7213,18 +7214,20 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
         //Whenever returning TRUE, make sure you clear gfBlitBattleSectorLocator;
         LogBattleResults( LOG_DEFEAT );
         gfBlitBattleSectorLocator = FALSE;
+
+		// Flugente: in any case, reset creature attack variables
+		ResetCreatureAttackVariables();
+
 		// If we are the server, we escape this function at the top if we think the game should still be running
         // hence if we get here the game is over for all clients and we should report it
         if (is_networked && is_server)
             game_over();
         return( TRUE );
     }
-
-
+	
     // If battle won, do stuff right away!
     if ( fBattleWon )
     {
-
         if ( gTacticalStatus.bBoxingState == NOT_BOXING ) // if boxing don't do any of this stuff
         {
             gTacticalStatus.fLastBattleWon = TRUE;
@@ -7242,8 +7245,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
         // Kill all enemies. Sometime even after killing all the enemies, there appeares "in battle" enemies in sector info
         RemoveStaticEnemiesFromSectorInfo( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-
-
+		
         // If here, the battle has been won!
         // hurray! a glorious victory!
 
@@ -7484,13 +7486,15 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
         //Whenever returning TRUE, make sure you clear gfBlitBattleSectorLocator;
         gfBlitBattleSectorLocator = FALSE;
-
-
+		
         // Kaiden: More UB Reveal All Items after combat code.
         //When all the enemy gets killed, reveal the items they dropped
         //But only if the option is turned ON.
         if(gGameExternalOptions.gfRevealItems)
             RevealAllDroppedEnemyItems();
+
+		// Flugente: in any case, reset creature attack variables
+		ResetCreatureAttackVariables();
 		
         // If we are the server, we escape this function at the top if we think the game should still be running
         // hence if we get here the game is over for all clients and we should report it

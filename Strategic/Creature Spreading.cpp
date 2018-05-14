@@ -734,20 +734,14 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 		}
 		else
 		{
-			gsCreatureInsertionCode = 0;
-			gsCreatureInsertionGridNo = 0;
-			gubNumCreaturesAttackingTown = 0;
-			gubYoungMalesAttackingTown = 0;
-			gubYoungFemalesAttackingTown = 0;
-			gubAdultMalesAttackingTown = 0;
-			gubAdultFemalesAttackingTown = 0;
-			gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
-			gubSectorIDOfCreatureAttack = 0;
+			ResetCreatureAttackVariables();
+
 			AllTeamsLookForAll( FALSE );
 
 			Assert(0);
 			return;
 		}
+
 		pSoldier->ubInsertionDirection = bDesiredDirection;
 		//Setup the position
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
@@ -769,15 +763,9 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 		}
 		UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
 	}
-	gsCreatureInsertionCode = 0;
-	gsCreatureInsertionGridNo = 0;
-	gubNumCreaturesAttackingTown = 0;
-	gubYoungMalesAttackingTown = 0;
-	gubYoungFemalesAttackingTown = 0;
-	gubAdultMalesAttackingTown = 0;
-	gubAdultFemalesAttackingTown = 0;
-	gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
-	gubSectorIDOfCreatureAttack = 0;
+	
+	ResetCreatureAttackVariables();
+
 	AllTeamsLookForAll( FALSE );
 }
 
@@ -863,16 +851,9 @@ void AddCreaturesToBattle_Other( UINT8 ubNum )
 			pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
 		}
 	}
+	
+	ResetCreatureAttackVariables();
 
-	gsCreatureInsertionCode = 0;
-	gsCreatureInsertionGridNo = 0;
-	gubNumCreaturesAttackingTown = 0;
-	gubYoungMalesAttackingTown = 0;
-	gubYoungFemalesAttackingTown = 0;
-	gubAdultMalesAttackingTown = 0;
-	gubAdultFemalesAttackingTown = 0;
-	gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
-	gubSectorIDOfCreatureAttack = 0;
 	AllTeamsLookForAll( FALSE );
 }
 
@@ -1470,9 +1451,10 @@ void CreatureAttackTown_OtherCreatures( UINT8 ubSectorID, UINT8 ubType )
 		break;
 	}
 
+	// Flugente: the pause state isn't always removed properly. It seems we can also do without it... let's see whether this has unintentional consequences
 	InterruptTime();
 	PauseGame();
-	LockPauseState( 2 );
+	//LockPauseState( 2 );
 }
 
 //Called by campaign init.
@@ -2432,4 +2414,18 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 	}
 
 	return( FALSE );
+}
+
+// Flugente: reset code for creature attacks
+void ResetCreatureAttackVariables()
+{
+	gsCreatureInsertionCode = 0;
+	gsCreatureInsertionGridNo = 0;
+	gubNumCreaturesAttackingTown = 0;
+	gubYoungMalesAttackingTown = 0;
+	gubYoungFemalesAttackingTown = 0;
+	gubAdultMalesAttackingTown = 0;
+	gubAdultFemalesAttackingTown = 0;
+	gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
+	gubSectorIDOfCreatureAttack = 0;
 }

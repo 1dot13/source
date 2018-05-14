@@ -111,4 +111,7 @@ typedef struct CREATURECOMPOSITION
 extern CREATUREPLACEMENT gCreaturePlacements[ MAX_NUMBER_OF_INFECTIBLE_SITES + 1 ];
 extern CREATURECOMPOSITION gCreatureComposition[ MAX_NUMBER_OF_CREATURE_COMPOSITIONS ];
 
+// Flugente: reset code for creature attacks
+void ResetCreatureAttackVariables();
+
 #endif
