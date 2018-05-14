@@ -1607,6 +1607,10 @@ void AutoResolveBattleCallback( GUI_BUTTON *btn, INT32 reason )
 					KillPreBattleInterface();
 					StopTimeCompression();
 					SetMusicMode( MUSIC_TACTICAL_NOTHING );
+
+					// Flugente: in any case, reset creature attack variables
+					ResetCreatureAttackVariables();
+
 					return;
 				}
 			gfEnterAutoResolveMode = TRUE;
@@ -1644,6 +1648,10 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 				KillPreBattleInterface();
 				StopTimeCompression();
 				SetMusicMode( MUSIC_TACTICAL_NOTHING );
+
+				// Flugente: in any case, reset creature attack variables
+				ResetCreatureAttackVariables();
+
 				return;
 			}
 

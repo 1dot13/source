@@ -666,7 +666,23 @@ BOOLEAN DeleteStrategicEvent( UINT8 ubCallbackID, UINT32 uiParam )
 	return FALSE;
 }
 
+std::vector< std::pair<UINT32, UINT32> > GetAllStrategicEventsOfType( UINT8 ubCallbackID )
+{
+	std::vector< std::pair<UINT32, UINT32> > vec;
 
+	STRATEGICEVENT* curr = gpEventList;
+	while ( curr )
+	{
+		if ( curr->ubCallbackID == ubCallbackID )
+		{
+			vec.push_back( std::pair<UINT32, UINT32>( curr->uiTimeStamp, curr->uiParam ) );
+		}
+
+		curr = curr->next;
+	}
+
+	return vec;
+}
 
 //part of the game.sav files (not map files)
 BOOLEAN SaveStrategicEventsToSavedGame( HWFILE hFile )

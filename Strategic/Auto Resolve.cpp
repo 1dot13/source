@@ -1932,6 +1932,9 @@ void RenderAutoResolve()
 			yp = iScreenHeightOffset + 290 + gpAR->bVerticalOffset;
 			SetFontForeground( FONT_YELLOW );
 			mprintf( xp, yp, str );
+
+		// Flugente: in any case, reset creature attack variables
+		ResetCreatureAttackVariables();
 	}
 
 	MarkButtonsDirty();

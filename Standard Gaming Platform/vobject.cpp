@@ -1842,4 +1842,32 @@ void PerformVideoInfoDumpIntoFile( const STR8 filename, BOOLEAN fAppend )
 
 #endif
 
+// Flugente: retrieve width and height of video object
+void GetVideoObjectDimensions( HVOBJECT hSrcVObject, UINT16 usIndex, UINT16& rusWidth, UINT16& rusHeight )
+{
+	rusWidth = 0;
+	rusHeight = 0;
 
+	if ( hSrcVObject == NULL )
+		return;
+
+	switch ( hSrcVObject->ubBitDepth )
+	{
+	case 32:
+	case 16:
+		if ( usIndex < hSrcVObject->usNumberOf16BPPObjects )
+		{
+			rusWidth = hSrcVObject->p16BPPObject[usIndex].usWidth;
+			rusHeight = hSrcVObject->p16BPPObject[usIndex].usHeight;
+		}
+		break;
+
+	case 8:
+		if ( usIndex < hSrcVObject->usNumberOfObjects )
+		{
+			rusWidth = hSrcVObject->pETRLEObject[usIndex].usWidth;
+			rusHeight = hSrcVObject->pETRLEObject[usIndex].usHeight;
+		}
+		break;
+	}
+}

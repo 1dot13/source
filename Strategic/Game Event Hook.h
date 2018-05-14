@@ -208,4 +208,7 @@ BOOLEAN DeleteStrategicEvent( UINT8 ubCallbackID, UINT32 uiParam );
 void DeleteAllStrategicEventsOfType( UINT8 ubCallbackID );
 void DeleteAllStrategicEvents();
 
+// Flugente: return vector of all events of type ubCallbackID with time and param
+std::vector< std::pair<UINT32, UINT32> > GetAllStrategicEventsOfType( UINT8 ubCallbackID );
+
 #endif

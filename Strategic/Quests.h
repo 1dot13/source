@@ -566,7 +566,24 @@ enum Facts
 	FACT_BOUNTYHUNTER_SECTOR_2,
 	FACT_BOUNTYHUNTER_KILLED_1,
 	FACT_BOUNTYHUNTER_KILLED_2,
-	
+
+	// Flugente: for safety reasons, remember if we've already had an offensive
+	FACT_GLOBAL_OFFENSIVE_1_ORDERED,
+	FACT_GLOBAL_OFFENSIVE_2_ORDERED,
+
+	// Flugente: do we know of today's raids?
+	FACT_RAID_KNOWN_BLOODCATS,
+	FACT_RAID_KNOWN_ZOMBIES,
+	FACT_RAID_KNOWN_BANDITS,
+
+	// Flugente: do we know of the location of the terrorists?
+	FACT_TERRORIST_LOCATION_KNOWN_SLAY,
+	FACT_TERRORIST_LOCATION_KNOWN_ANNIE,
+	FACT_TERRORIST_LOCATION_KNOWN_CHRIS,
+	FACT_TERRORIST_LOCATION_KNOWN_TIFFANY,
+	FACT_TERRORIST_LOCATION_KNOWN_T_REX,
+	FACT_TERRORIST_LOCATION_KNOWN_DRUGGIST,
+
 #ifdef JA2UB	
 	//Ja25 UB
 	FACT_IMPORTED_SAVE_AND_MARY_WAS_DEAD	=										400,
@@ -595,10 +612,7 @@ enum Facts
 	FACT_BIGGENS_ON_TEAM_AND_FAN_STOPPED,//										423
 	FACT_PLAYER_KNOWS_ABOUT_FAN_STOPPING,//										424
 #endif
-
-	// Flugente: for safety reasons, remember if we've already had an offensive
-	FACT_GLOBAL_OFFENSIVE_1_ORDERED,
-	FACT_GLOBAL_OFFENSIVE_2_ORDERED,
+	
 } ;
 //**	END FACTS *************************
 
@@ -685,7 +699,6 @@ extern BOOLEAN CheckNPCCowering( UINT8 ubProfileID );
 extern BOOLEAN CheckNPCIsUnderFire( UINT8 ubProfileID );
 extern BOOLEAN NPCHeardShot( UINT8 ubProfileID );
 extern BOOLEAN InTownSectorWithTrainingLoyalty( INT16 sSectorX, INT16 sSectorY );
-extern BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID );
 extern BOOLEAN CheckNPCIsRPC( UINT8 ubProfileID );
 extern BOOLEAN CheckTalkerStrong( void );
 extern BOOLEAN CheckForNewShipment( void );

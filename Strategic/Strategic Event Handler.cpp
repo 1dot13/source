@@ -1109,6 +1109,9 @@ void HandleRaidEventPlanning()
 	// the raid order is bloodcats/zombies/bandits
 	for ( int raidtype = 0; raidtype < 3; ++raidtype )
 	{
+		// reset knowledge of these raids - if the player wants to know, they will have to buy anew
+		SetFactFalse( FACT_RAID_KNOWN_BLOODCATS + raidtype );
+
 		personnelgain[raidtype] = 0;
 
 		if ( raidtype == 0 )

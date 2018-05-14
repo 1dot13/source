@@ -29,6 +29,7 @@ enum{
 	MAP_BORDER_MILITIA_BTN,
 	MAP_BORDER_DISEASE_BTN,		// Flugente: toggle disease views
 	MAP_BORDER_WEATHER_BTN,		// Flugente: toggle weather display
+	MAP_BORDER_INTEL_BTN,		// Flugente: intel display
 	NUM_MAP_BORDER_BTNS,		// end enumeration marker
 };
 
@@ -53,6 +54,7 @@ enum
 	MAP_DISPLAY_AIRSPACE_COLOURED_SAMS,
 	MAP_DISPLAY_DISEASE,
 	MAP_DISPLAY_WEATHER,
+	MAP_DISPLAY_INTEL,
 };
 
 extern UINT8 gusMapDisplayColourMode;
@@ -72,21 +74,19 @@ void ToggleShowTeamsMode( void );
 void ToggleAirspaceMode( void );
 void ToggleItemsFilter( void );
 
-// Flugente: disease
+// Flugente: more filters
 void ToggleDiseaseFilter( );
-
-// Flugente: weather
 void ToggleWeatherFilter( );
+void ToggleIntelFilter();
 
 void TurnOnShowTeamsMode( void );
 void TurnOnAirSpaceMode( void );
 void TurnOnItemFilterMode( void );
 
-// Flugente: disease
+// Flugente: more modes
 void TurnOnDiseaseFilterMode();
-
-// Flugente: weather
 void TurnOnWeatherFilterMode( );
+void TurnOnIntelFilterMode();
 
 // create/destroy buttons for map border region
 void DeleteMapBorderButtons( void );

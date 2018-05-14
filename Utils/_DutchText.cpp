@@ -4297,6 +4297,8 @@ STR16 pwMiscSectorStrings[] =
 	L"Ja",
 	L"Nee",
 	L"Status/Software status:",	// TODO.Translate
+
+	L"Additional Intel", // TODO:Translate
 };
 
 // error strings for inventory
@@ -4366,8 +4368,9 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Toon Luchtruim (|A)",
 	L"Toon |Items",
 	L"Toon Milities & Vijanden (|Z)",
-	L"Show Disease Data", // TODO.Translate
-	L"Show Weather",	// TODO.Translate
+	L"Show |Disease Data",	// TODO.Translate
+	L"Show Weathe|r",
+	L"Show |Quests & Intel",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -6257,6 +6260,9 @@ STR16		zMarksMapScreenText[] =
 
 	// Flugente: weather texts describing what a map view does
 	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",	// TODO.Translate
+
+	// Flugente: describe what intel map view does
+	L"This view shows which sectors relevant what ongoing quests. Some data bought with intel is also shown here.", // TODO.Translate
 };
 
 
@@ -11392,6 +11398,21 @@ STR16	szIntelText[] =
 	L"No more enemies present, %s is no longer in hiding!",
 	L"%s has been discovered and goes into hiding for %d hours.",
 	L"%s has been discovered, going to sector!",
+	L"Enemy general present\n",
+
+	L"Terrorist present\n",
+	L"%s on %02d:%02d\n",
+	L"No data found",
+	L"Data no longer eligible.",
+
+	L"Whereabouts of a high-ranking officer of the royal army.",
+	L"Flight plans of an airforce helicopter.",
+	L"Coordinates of a recently imprisoned member of your force.",
+	L"Location of a high-value fugitive.",
+
+	L"Information on possible bloodcat attacks against settlements.",
+	L"Time and place of possible zombie attacks against settlements.",
+	L"Information on planned bandit raids.",
 };
 
 STR16	szChatTextSpy[] =

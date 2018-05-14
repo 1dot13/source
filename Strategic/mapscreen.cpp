@@ -4916,6 +4916,10 @@ UINT32 MapScreenHandle(void)
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\incross.sti", VObjectDesc.ImageFile);
 		CHECKF(AddVideoObject(&VObjectDesc, &guiCROSS));
+		
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP( "INTERFACE\\IntelMapSymbols.sti", VObjectDesc.ImageFile );
+		CHECKF( AddVideoObject( &VObjectDesc, &guiINTEL ) );
 
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		if (iResolution >= _640x480 && iResolution < _800x600)
@@ -5658,6 +5662,13 @@ UINT32 MapScreenHandle(void)
 	if ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) && (iCurrentMapSectorZ == 0) && !fShowMapInventoryPool )
 	{
 		DisplayPositionOfEnemyHelicopter();
+	}
+	// Flugente: intel
+	else if ( gusMapDisplayColourMode == MAP_DISPLAY_INTEL && !fShowMapInventoryPool )
+	{
+		extern void ShowIntelOnMap();
+
+		ShowIntelOnMap();
 	}
 
 	// display town info
@@ -7564,13 +7575,18 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case 'd':
-					#ifdef JA2TESTVERSION
+#ifdef JA2TESTVERSION
 						if( fAlt )
 						{
 							// prints out a text file in C:\TEMP telling you how many stat change chances/successes each profile merc got
 							TestDumpStatChanges();
 						}
-					#endif
+						else
+#endif
+						if ( !fShowMapInventoryPool )
+						{
+							ToggleDiseaseFilter();
+						}
 					break;
 
 				case 'D':
@@ -7985,7 +8001,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case 'q':
-					#ifdef JA2TESTVERSION
+#ifdef JA2TESTVERSION
 						if( fAlt )
 						{
 							// initialize miners if not already done so (fakes entering Drassen mine first)
@@ -7993,7 +8009,12 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							// test miner quote system
 							IssueHeadMinerQuote( (INT8) (1 + Random(MAX_NUMBER_OF_MINES - 1)), (UINT8) (1 + Random(2)));
 						}
-					#endif
+						else
+#endif
+						if ( !fShowMapInventoryPool )
+						{
+							ToggleIntelFilter();
+						}
 					break;
 				case 'Q'://dnl ch75 021113
 #ifdef _DEBUG
@@ -8017,6 +8038,10 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					if( gfPreBattleInterfaceActive )
 					{ //activate autoresolve in prebattle interface.
 						ActivatePreBattleRetreatAction();
+					}
+					else if ( !fShowMapInventoryPool )
+					{
+						ToggleWeatherFilter();
 					}
 					break;
 				case 's':
@@ -8615,6 +8640,7 @@ INT32 iCounter2 = 0;
 		//DeleteVideoObjectFromIndex(guiPOPUPBORDERS);
 		DeleteVideoObjectFromIndex(guiCHARINFO);
 		DeleteVideoObjectFromIndex(guiCHARICONS);
+		DeleteVideoObjectFromIndex( guiINTEL );
 		DeleteVideoObjectFromIndex(guiCROSS);
 		DeleteVideoSurfaceFromIndex(guiBIGMAP);
 	//	DeleteVideoSurfaceFromIndex(guiPOPUPTEX);
@@ -13448,6 +13474,7 @@ void HandleRemovalOfPreLoadedMapGraphics( void )
 	//	DeleteVideoObjectFromIndex(guiPOPUPBORDERS);
 		DeleteVideoObjectFromIndex(guiCHARINFO);
 		DeleteVideoObjectFromIndex(guiCHARICONS);
+		DeleteVideoObjectFromIndex( guiINTEL );
 		DeleteVideoObjectFromIndex(guiCROSS);
 		DeleteVideoSurfaceFromIndex(guiBIGMAP);
 		DeleteVideoObjectFromIndex(guiSubLevel1);

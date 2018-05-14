@@ -93,6 +93,18 @@ extern ICON_FILE gHiddenIcon[ 256 ];
 
 extern UINT32	guiIcon2[256];
 
+typedef struct InqMapInfo
+{
+	UINT8 mapcolour;		// map sector will get this colour
+
+	CHAR16 text[1024];		// texts to appear in the infobox, \n start a new line
+	CHAR16 shorttext[128];	// this text will appear on the map itself
+
+	std::vector<int> symbols;	// all the symbols we have to display
+} InqMapInfo;
+
+extern InqMapInfo gMapIntelData[256];
+
 extern BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile );
 extern BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
 
@@ -353,6 +365,9 @@ extern UINT32 guiCHARICONS;
 
 // the merc arrival sector landing zone icon
 extern UINT32 guiBULLSEYE;
+
+// Flugente: symbols indicating various things on the intel map
+extern UINT32 guiINTEL;
 
 // character between sector icons
 extern UINT32 guiCHARBETWEENSECTORICONS;

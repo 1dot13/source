@@ -84,6 +84,9 @@ void AddCommonInfoToBox(void);
 
 void AddItemsInSectorToBox(void);
 
+// Flugente: additional intel/lua-based text
+void AddIntelAndQuestTextToBox();
+
 // position town/mine info box on the screen
 void PositionTownMineInfoBox( void );
 
@@ -172,6 +175,9 @@ void CreateDestroyTownInfoBox( void )
 		}
 
 		AddItemsInSectorToBox();
+
+		// Flugente: quests, intel or a modder might add additional info on a sector
+		AddIntelAndQuestTextToBox();
 
 		// set font type
 		SetBoxFont(ghTownMineBox, BLOCKFONT2);
@@ -949,6 +955,38 @@ void AddItemsInSectorToBox(void)
 //	swprintf( wString, L"%d", GetSizeOfStashInSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, bCurrentTownMineSectorZ, FALSE ));
 	swprintf( wString, L"%d", GetNumberOfVisibleWorldItemsFromSectorStructureForSector( bCurrentTownMineSectorX, bCurrentTownMineSectorY, bCurrentTownMineSectorZ ));
 	AddSecondColumnMonoString( &hStringHandle, wString );
+}
+
+// Flugente: additional intel/lua-based text
+void AddIntelAndQuestTextToBox()
+{
+	CHAR16 wString[128];
+	UINT32 hStringHandle = 0;
+	
+	CHAR16 line[1024];  // copy of the input
+
+	wcscpy( line, gMapIntelData[SECTOR( bCurrentTownMineSectorX, bCurrentTownMineSectorY )].text );
+
+	BOOLEAN first = TRUE;
+
+	CHAR16* subString = wcstok ( line, L"\n\0" );
+
+	while ( subString != NULL )
+	{
+		if ( first )
+		{
+			swprintf( wString, L"%s:", pwMiscSectorStrings[8] );
+			AddMonoString( &hStringHandle, wString );
+		}
+		else
+			AddMonoString( &hStringHandle, L"" );
+
+		AddSecondColumnMonoString( &hStringHandle, subString );
+
+		subString = wcstok ( NULL, L"\n\0" );
+
+		first = FALSE;
+	}
 }
 
 

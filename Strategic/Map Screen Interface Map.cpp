@@ -47,6 +47,8 @@
 	#include "ASD.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
+	#include "LuaInitNPCs.h"	// added by Flugente
+	#include "Game Event Hook.h"	// added by Flugente
 #endif
 
 #include "Quests.h"
@@ -293,6 +295,9 @@ UINT32 guiCHARICONS;
 
 // the merc arrival sector landing zone icon
 UINT32 guiBULLSEYE;
+
+// Flugente: symbols indicating various things on the intel map
+UINT32 guiINTEL;
 
 UINT16 MAP_MILITIA_BOX_POS_X;
 UINT16 MAP_MILITIA_BOX_POS_Y;
@@ -572,6 +577,7 @@ BOOLEAN CanMilitiaAutoDistribute( void );
 
 void ShowItemsOnMap( void );
 void ShowDiseaseOnMap( );
+void ShowIntelOnMap();
 void DrawMapBoxIcon( HVOBJECT hIconHandle, UINT16 usVOIndex, INT16 sMapX, INT16 sMapY, UINT8 ubIconPosition );
 void DisplayDestinationOfHelicopter( void );
 void DrawOrta();
@@ -693,6 +699,88 @@ void HandleShowingOfEnemiesWithMilitiaOn( void )
 	}
 }
 
+// colour for a sector on the map
+// aType = 0: disease
+// aType = 1: weather
+// aType = 2: intel
+INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 aType )
+{
+	if ( aType == 0 )
+	{
+		UINT16 population = GetSectorPopulation( sX, sY );
+
+		if ( population )
+		{
+			UINT8 sector = SECTOR( sX, sY );
+
+			SECTORINFO *pSectorInfo = &( SectorInfo[sector] );
+
+			// display sector information only if we know about infection there
+			if ( pSectorInfo && ( ( pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER ) || ( gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO ) ) )
+			{
+				FLOAT infectedpercentage = (FLOAT)pSectorInfo->usInfected / (FLOAT)( population );
+
+				if ( infectedpercentage < 0.2f )
+					return MAP_SHADE_DK_GREEN;
+				else if ( infectedpercentage < 0.3f )
+					return MAP_SHADE_MD_GREEN;
+				else if ( infectedpercentage < 0.4f )
+					return MAP_SHADE_LT_GREEN;
+				else if ( infectedpercentage < 0.5f )
+					return MAP_SHADE_DK_YELLOW;
+				else if ( infectedpercentage < 0.6f )
+					return MAP_SHADE_MD_YELLOW;
+				else if ( infectedpercentage < 0.7f )
+					return MAP_SHADE_LT_YELLOW;
+				else if ( infectedpercentage < 0.8f )
+					return MAP_SHADE_DK_RED;
+				else if ( infectedpercentage < 0.9f )
+					return MAP_SHADE_MD_RED;
+				else
+					return MAP_SHADE_LT_RED;
+			}
+		}
+	}
+	else if ( aType == 1 )
+	{
+		UINT8 sector = SECTOR( sX, sY );
+
+		SECTORINFO *pSectorInfo = &( SectorInfo[sector] );
+
+		// display sector information only if we know about infection there
+		if ( pSectorInfo )
+		{
+			switch ( pSectorInfo->usWeather )
+			{
+			case WEATHER_FORECAST_RAIN:
+				return MAP_SHADE_LT_CYAN;
+				break;
+			case WEATHER_FORECAST_THUNDERSHOWERS:
+				return MAP_SHADE_LT_BLUE;
+				break;
+			case WEATHER_FORECAST_SANDSTORM:
+				return MAP_SHADE_ORANGE;
+				break;
+			case WEATHER_FORECAST_SNOW:
+				return MAP_SHADE_LT_GREY;
+				break;
+			case WEATHER_FORECAST_NORMAL:
+			default:
+				return MAP_SHADE_BLACK;
+				break;
+			}
+		}
+	}
+	else if ( aType == 2 )
+	{
+		UINT8 sector = SECTOR( sX, sY );
+
+		return gMapIntelData[sector].mapcolour;
+	}
+
+	return MAP_SHADE_DK_GREY;
+}
+
 UINT32 DrawMap( void )
 {
 	HVSURFACE hSrcVSurface;
@@ -714,6 +802,14 @@ UINT32 DrawMap( void )
 	MapScreenRect.iBottom = MAP_VIEW_START_Y + MAP_VIEW_HEIGHT - 10 + MAP_GRID_Y;
 
 	//MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),	( MAP_VIEW_START_Y+MAP_GRID_Y - 1), MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
+
+	if ( gusMapDisplayColourMode == MAP_DISPLAY_INTEL )
+	{
+		extern void DetermineMapIntelData(INT32 asSectorZ);
+
+		// This is the location where we should call lua and refill our intel data
+		DetermineMapIntelData( iCurrentMapSectorZ );
+	}
 
 	if( !iCurrentMapSectorZ )
 	{
@@ -849,6 +945,10 @@ UINT32 DrawMap( void )
 
 						case MAP_DISPLAY_WEATHER:
 							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 1 ) );
+							break;
+
+						case MAP_DISPLAY_INTEL:
+							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 2 ) );
 							break;
 
 						case MAP_DISPLAY_NORMAL:
@@ -1396,48 +1496,6 @@ void ShowUncertainNumberEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	BltVideoObject(guiSAVEBUFFER, hIconHandle, SMALL_QUESTION_MARK, sXPosition, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
 	InvalidateRegion( sXPosition ,sYPosition, sXPosition + DMAP_GRID_X, sYPosition + DMAP_GRID_Y );
 }
-
-void ShowVIPSymbol( INT16 sSectorX, INT16 sSectorY )
-{
-	INT16 sXPosition = 0, sYPosition = 0;
-	HVOBJECT hIconHandle;
-
-	UINT8 iconOffsetX = 0;
-	UINT8 iconOffsetY = 0;
-
-	if ( iResolution >= _640x480 && iResolution < _800x600 )
-	{
-		iconOffsetX = 2;
-		iconOffsetY = 9;
-	}
-	else if ( iResolution < _1024x768 )
-	{
-		iconOffsetX = 8;
-		iconOffsetY = 12;
-	}
-	else
-	{
-		iconOffsetX = 12;
-		iconOffsetY = 13;
-	}
-
-	// grab the x and y postions
-	sXPosition = sSectorX;
-	sYPosition = sSectorY;
-
-	// get the video object
-	GetVideoObject( &hIconHandle, guiCHARICONS );
-
-	// check if we are zoomed in...need to offset in case for scrolling purposes
-	sXPosition = (INT16)(iconOffsetX + ( MAP_VIEW_START_X + (sSectorX * MAP_GRID_X + 1)) - 1);
-	sYPosition = (INT16)(((iconOffsetY + ( yResOffset + sSectorY * MAP_GRID_Y ) + 1)));
-	sYPosition -= 2;
-
-	// small VIP symbol
-	BltVideoObject( guiSAVEBUFFER, hIconHandle, VIP_SYMBOL, sXPosition, sYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
-	InvalidateRegion( sXPosition, sYPosition, sXPosition + DMAP_GRID_X, sYPosition + DMAP_GRID_Y );
-}
-
 
 void ShowTeamAndVehicles(INT32 fShowFlags)
 {
@@ -6755,11 +6813,7 @@ void HandleShowingOfEnemyForcesInSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	{
 		return;
 	}
-
-	// Flugente: note if we have detected a VIP here
-	if ( PlayerKnowsAboutVIP( sSectorX, sSectorY ) )
-		ShowVIPSymbol( sSectorX, sSectorY );
-
+	
 	// Flugente: show militia in motion
 	if ( NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM ) )
 	{
@@ -8281,5 +8335,167 @@ void DisplayMilitiaGroupBox()
 			++groupcnt;
 		}
 		pGroup = pGroup->next;
+	}
+}
+
+// Flugente: intel display
+
+InqMapInfo gMapIntelData[256];
+
+void AddIntelAndQuestMapDataForSector( INT16 sSectorX, INT16 sSectorY, UINT8 ausMapColour, int asSymbol, STR16 aText, STR16 aText_Short )
+{
+	if ( sSectorX > 0 && sSectorX < 17 && sSectorY > 0 && sSectorY < 17 )
+	{
+		int sector = SECTOR( sSectorX, sSectorY );
+
+		if ( ausMapColour < MAP_SHADE_MAX )
+			gMapIntelData[sector].mapcolour = ausMapColour;
+
+		if ( asSymbol >= 0 )
+			gMapIntelData[sector].symbols.push_back( asSymbol );
+
+		if ( wcsnlen( aText, 1024 ) > 0 )
+			swprintf( gMapIntelData[sector].text, L"%s%s\n", gMapIntelData[sector].text, aText );
+
+		if ( wcsnlen( aText_Short, 128 ) > 0 )
+			swprintf( gMapIntelData[sector].shorttext, L"%s", aText_Short );
+	}
+}
+
+void DetermineMapIntelData( INT32 asSectorZ )
+{
+	// clear data
+	for ( int i = 0; i < 256; ++i )
+	{
+		gMapIntelData[i].mapcolour = MAP_SHADE_BLACK;
+		gMapIntelData[i].text[0] = '\0';
+		gMapIntelData[i].shorttext[0] = '\0';
+		gMapIntelData[i].symbols.clear();
+	}
+
+	// add data
+	if ( !asSectorZ )
+	{
+		// enemy VIPS we know of
+		for ( int sector = 0; sector < 256; ++sector )
+		{
+			if ( PlayerKnowsAboutVIP( SECTORX( sector ), SECTORY( sector ) ) )
+			{
+				AddIntelAndQuestMapDataForSector( SECTORX( sector ), SECTORY( sector ), MAP_SHADE_LT_RED, 5, szIntelText[3], L"" );
+			}
+		}
+
+		// uncovered terrorists we know of
+		for ( int cnt = 0; cnt < 6; ++cnt )
+		{
+			int profile = SLAY;
+			if		( cnt == 1 )	profile = ANNIE;
+			else if ( cnt == 2 )	profile = CHRIS;
+			else if ( cnt == 3 )	profile = TIFFANY;
+			else if ( cnt == 4 )	profile = T_REX;
+			else if ( cnt == 5 )	profile = DRUGGIST;
+			
+			if ( !(gMercProfiles[profile].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED) && 
+				gMercProfiles[profile].bMercStatus != MERC_IS_DEAD &&
+				gMercProfiles[profile].sSectorX > 0 &&
+				gMercProfiles[profile].sSectorY > 0 &&
+				CheckFact( FACT_TERRORIST_LOCATION_KNOWN_SLAY + cnt, 0 ) )
+			{
+				SECTOR( gMercProfiles[profile].sSectorX, gMercProfiles[profile].sSectorY );
+
+				AddIntelAndQuestMapDataForSector( gMercProfiles[profile].sSectorX, gMercProfiles[profile].sSectorY, -1, 3, szIntelText[4], L"" );
+			}
+		}
+		
+		// raids we know of
+		for ( int raidtype = 0; raidtype < 3; ++raidtype )
+		{
+			if ( CheckFact( FACT_RAID_KNOWN_BLOODCATS + raidtype, 0 ) )
+			{
+				std::vector< std::pair<UINT32, UINT32> > vec = GetAllStrategicEventsOfType( EVENT_BLOODCAT_ATTACK + raidtype );
+
+				for ( std::vector< std::pair<UINT32, UINT32> >::iterator it = vec.begin(); it != vec.end(); ++it )
+				{
+					if ( ( *it ).second < 256 )
+					{
+						UINT32 seconds = ( *it ).first;
+						UINT32 minutes = seconds / 60;
+						UINT32 hours = minutes / 60;
+
+						CHAR16 str[128];
+						swprintf( str, szIntelText[5], gpStrategicString[STR_PB_BLOODCATRAID_HEADER + raidtype], hours % 24, minutes % 60 );
+
+						AddIntelAndQuestMapDataForSector( SECTORX( ( *it ).second ), SECTORY( ( *it ).second ), MAP_SHADE_LT_PINK, raidtype, str, L"" );
+					}
+				}
+			}
+		}
+	}
+
+	// add lua data
+	LuaGetIntelAndQuestMapData( asSectorZ );
+}
+
+void ShowIntelOnMap()
+{
+	INT16 usXPos, usYPos;
+	CHAR16 sString[256];
+
+	INT32 MapItemsFont;
+	if ( iResolution <= _800x600 )
+	{
+		MapItemsFont = MAP_FONT;
+	}
+	else
+	{
+		MapItemsFont = FONT12ARIAL;
+	}
+
+	SetFont( MapItemsFont );
+	SetFontForeground( FONT_MCOLOR_WHITE );
+	SetFontBackground( FONT_MCOLOR_BLACK );
+
+	UINT32 x, y, x0, y0;
+	HVOBJECT hHandle;
+
+	GetVideoObject( &hHandle, guiINTEL );
+
+	for (int sector = 0; sector < 256; ++sector )
+	{
+		UINT8 sector_x = SECTORX( sector );
+		UINT8 sector_y = SECTORY( sector );
+
+		// grab min and max locations to interpolate sub sector position
+		x0 = MAP_VIEW_START_X + MAP_GRID_X * ( sector_x );
+		y0 = MAP_VIEW_START_Y + MAP_GRID_Y * ( sector_y );
+
+		AssertMsg( ( x0 >= 0 ) && ( x0 < SCREEN_WIDTH ), String( "ShowIntelOnMap: Invalid minX = %d", x0 ) );
+		AssertMsg( ( y0 >= 0 ) && ( y0 < SCREEN_HEIGHT ), String( "ShowIntelOnMap: Invalid minY = %d", y0 ) );
+
+		// clip blits to mapscreen region
+		ClipBlitsToMapViewRegion();
+
+		x = x0;
+		y = y0;
+
+		for ( std::vector<int>::iterator symbolit = gMapIntelData[sector].symbols.begin(); symbolit != gMapIntelData[sector].symbols.end(); ++symbolit )
+		{
+			BltVideoObject( FRAME_BUFFER, hHandle, (*symbolit), x, y, VO_BLT_SRCTRANSPARENCY, NULL );
+
+			// Flugente: retrieve width and height of video object
+			UINT16 width, height;
+			GetVideoObjectDimensions( hHandle, ( *symbolit ), width, height );
+
+			// symbols overlap a bit, so that there is a bit of space
+			x += width * 0.6;
+			y += height * 0.6;
+		}
+		
+		// restore clip blits
+		RestoreClipRegionToFullScreen();
+		
+		FindFontCenterCoordinates( x0, y0, MAP_GRID_X, MAP_GRID_Y, gMapIntelData[sector].shorttext, MapItemsFont, &usXPos, &usYPos );
+
+		mprintf( usXPos, usYPos, gMapIntelData[sector].shorttext );
 	}
 }

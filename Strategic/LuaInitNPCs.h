@@ -98,4 +98,5 @@ void LuaAddPhotoData( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, INT32 sGrid
 void LuaGetPhotoData( UINT8 aType );
 void LuaSetPhotoState( INT16 asIndex, UINT8 aState );
 void LuaVerifyPhotoState( INT16 asIndex );
+void LuaGetIntelAndQuestMapData( INT32 aLevel );
 #endif

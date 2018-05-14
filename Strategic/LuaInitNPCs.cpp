@@ -876,6 +876,8 @@ static int l_AddArmsDealerAdditionalIntelDataItem( lua_State *L );
 static int l_SetPhotoFactLaptopData( lua_State *L );
 static int l_GetNumHostilesInSector( lua_State *L );
 
+static int l_SetIntelAndQuestMapDataForSector( lua_State *L );
+
 using namespace std;
 
 UINT16 idProfil;
@@ -1758,6 +1760,8 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 
 	lua_register( L, "SetPhotoFactLaptopData", l_SetPhotoFactLaptopData );
 	lua_register( L, "GetNumHostilesInSector", l_GetNumHostilesInSector );
+
+	lua_register( L, "SetIntelAndQuestMapDataForSector", l_SetIntelAndQuestMapDataForSector );
 }
 #ifdef NEWMUSIC
 BOOLEAN LetLuaMusicControl(UINT8 Init)
@@ -13434,4 +13438,62 @@ static int l_GetNumHostilesInSector( lua_State *L )
 	}
 
 	return 1;
+}
+
+
+void LuaGetIntelAndQuestMapData( INT32 aLevel )
+{
+	const char* filename = "scripts\\strategicmap.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "GetIntelAndQuestMapData" ).Param<int>( aLevel ).Call( 1 );
+}
+
+extern void AddIntelAndQuestMapDataForSector( INT16 sSectorX, INT16 sSectorY, UINT8 ausMapColour, int asSymbol, STR16 aText, STR16 aText_Short );
+
+static int l_SetIntelAndQuestMapDataForSector( lua_State *L )
+{
+	int n = lua_gettop( L );
+
+	if ( n >= 4 )
+	{
+		INT16 sectorx = lua_tointeger( L, 1 );
+		INT16 sectory = lua_tointeger( L, 2 );
+		UINT8 mapcolour = lua_tointeger( L, 3 );
+		int symbol = lua_tointeger( L, 4 );
+
+		CHAR16 w_str[1024];
+		w_str[0] = '\0';
+
+		CHAR16 w_str_short[128];
+		w_str_short[0] = '\0';
+		
+		if ( n >= 5 )
+		{
+			size_t len = 0;
+			const char* str = lua_tolstring( L, 5, &len );
+						
+			MultiByteToWideChar( CP_UTF8, 0, str, -1, w_str, sizeof( w_str ) / sizeof( w_str[0] ) );
+			w_str[sizeof( w_str ) / sizeof( w_str[0] ) - 1] = '\0';
+
+			if ( n >= 6 )
+			{
+				size_t len_short = 0;
+				const char* str_short = lua_tolstring( L, 6, &len_short );
+
+				MultiByteToWideChar( CP_UTF8, 0, str_short, -1, w_str_short, sizeof( w_str_short ) / sizeof( w_str_short[0] ) );
+				w_str_short[sizeof( w_str_short ) / sizeof( w_str_short[0] ) - 1] = '\0';
+			}
+		}
+
+		AddIntelAndQuestMapDataForSector( sectorx, sectory, mapcolour, symbol, w_str, w_str_short );
+	}
+
+	return 0;
 }

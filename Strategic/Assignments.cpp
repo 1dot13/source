@@ -7683,6 +7683,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 // - position of enemy helis
 // - position of POWs
 // - position of terrorists
+// - position and time of raids (bloodcats/zombies/bandits)
 // - position of possible RPCs (Manuel, Maddog...)
 //
 // There are always up to INTELINFO_MAXNUMBER different informations available at a time. Every x hours these change.
@@ -7742,6 +7743,53 @@ void BuildIntelInfoArray()
 			if ( pSoldier && pSoldier->bAssignment == ASSIGNMENT_POW && !( pSoldier->usSoldierFlagMask2 & SOLDIER_MERC_POW_LOCATIONKNOWN ) )
 				intelarray[i] = ubID;
 		}
+		// next 6: terrorist locations
+		else if ( i < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 )
+		{
+			int cnt = i - ( 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID );
+			
+			int profile = SLAY;
+			if ( cnt == 1 )	profile = ANNIE;
+			else if ( cnt == 2 )	profile = CHRIS;
+			else if ( cnt == 3 )	profile = TIFFANY;
+			else if ( cnt == 4 )	profile = T_REX;
+			else if ( cnt == 5 )	profile = DRUGGIST;
+
+			if ( !( gMercProfiles[profile].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) &&
+				gMercProfiles[profile].bMercStatus != MERC_IS_DEAD &&
+				gMercProfiles[profile].sSectorX > 0 &&
+				gMercProfiles[profile].sSectorY > 0 &&
+				!CheckFact( FACT_TERRORIST_LOCATION_KNOWN_SLAY + cnt, 0 ) &&
+				CheckFact( FACT_CARMEN_EXPLAINED_DEAL, 0) &&
+				gubQuest[QUEST_KILL_TERRORISTS] == QUESTINPROGRESS )
+			{
+				intelarray[i] = cnt;
+			}
+		}
+		// next 3: raids
+		else if ( i < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 + 3 )
+		{
+			int raidtype = i - ( 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 );
+
+			if ( raidtype == 0 )
+			{
+				if ( !gGameExternalOptions.gRaid_Bloodcats )
+					continue;
+			}
+			else if ( raidtype == 1 )
+			{
+				if ( !gGameExternalOptions.gRaid_Zombies || !gGameSettings.fOptions[TOPTION_ZOMBIES] )
+					continue;
+			}
+			else if ( raidtype == 2 )
+			{
+				if ( !gGameExternalOptions.gRaid_Bandits )
+					continue;
+			}
+
+			if ( !CheckFact( FACT_RAID_KNOWN_BLOODCATS + raidtype, 0 ) )
+				intelarray[i] = raidtype;
+		}
 		// and so on...
 
 	}
@@ -7754,7 +7802,7 @@ void CalcIntelInfoOfferings()
 	int prime = 163;
 	int iteratornumber = 0;
 	int safetycounter = 0;
-	int maxchecks = min( 20, INTEL_MAXINFO );		// we only do this until a certain point - so it is possible to not get a result
+	int maxchecks = min( 45, INTEL_MAXINFO );		// we only do this until a certain point - so it is possible to not get a result
 	int checkcounter = 0;
 
 	for ( int i = 0; i < INTELINFO_MAXNUMBER; ++i )
@@ -7804,28 +7852,55 @@ void GetIntelInfoOfferings( int aInfo[] )
 
 void GetIntelInfoTextAndPrice(int aInfoNumber, STR16 aString, int& arIntelCost )
 {
-	wcscpy( aString, L"No data found" );
+	wcscpy( aString, szIntelText[6] );
 	arIntelCost = 0;
 
 	if ( aInfoNumber < 0 )
 	{
-		wcscpy( aString, L"Data no longer eligible." );
+		wcscpy( aString, szIntelText[7] );
 		arIntelCost = 0;
 	}
 	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal )
 	{
-		wcscpy( aString, L"Whereabouts of a high-ranking officer of the royal army." );
+		wcscpy( aString, szIntelText[8] );
 		arIntelCost = 50;
 	}
 	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() )
 	{
-		wcscpy( aString, L"Flight plans of a airforce helicopter." );
+		wcscpy( aString, szIntelText[9] );
 		arIntelCost = 30;
 	}
 	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID )
 	{
-		wcscpy( aString, L"Coordinates of a recently imprisoned member of your force." );
+		wcscpy( aString, szIntelText[10] );
 		arIntelCost = 30;
+	}
+	// next 6: terrorist locations
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 )
+	{
+		wcscpy( aString, szIntelText[11] );
+		arIntelCost = 20;
+	}
+	// next 3: raids
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 + 3 )
+	{
+		int raidtype = aInfoNumber - ( 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 );
+
+		if ( raidtype == 0 )
+		{
+			wcscpy( aString, szIntelText[12] );
+			arIntelCost = 15;
+		}
+		else if ( raidtype == 1 )
+		{
+			wcscpy( aString, szIntelText[13] );
+			arIntelCost = 15;
+		}
+		else if ( raidtype == 2 )
+		{
+			wcscpy( aString, szIntelText[14] );
+			arIntelCost = 15;
+		}
 	}
 }
 
@@ -7852,6 +7927,20 @@ void BuyIntelInfo( int aInfoNumber )
 
 		if ( pSoldier && pSoldier->bAssignment == ASSIGNMENT_POW )
 			pSoldier->usSoldierFlagMask2 |= SOLDIER_MERC_POW_LOCATIONKNOWN;
+	}
+	// next 6: terrorist locations
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 )
+	{
+		int cnt = aInfoNumber - ( 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID );
+
+		SetFactTrue( FACT_TERRORIST_LOCATION_KNOWN_SLAY + cnt );
+	}
+	// next 3: raids
+	else if ( aInfoNumber < 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 + 3 )
+	{
+		int raidtype = aInfoNumber - ( 0 + gStrategicStatus.usVIPsTotal + gEnemyHeliVector.size() + gTacticalStatus.Team[gbPlayerNum].bLastID - gTacticalStatus.Team[gbPlayerNum].bFirstID + 6 );
+
+		SetFactTrue( FACT_RAID_KNOWN_BLOODCATS + raidtype );
 	}
 	// and so on...
 
