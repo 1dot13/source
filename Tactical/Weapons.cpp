@@ -11018,11 +11018,9 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 			// modify by ini values
 			if ( Item[pObj->usItem].usItemClass == IC_GUN )
 				ubDamage *= gItemSettings.fDamageModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
-			// HEADROCK HAM 4: I've decided to remove this condition. It makes no friggin sense.
-			//if (FitsInSmallPocket(pObj) == true)
-			//{
-				ubDamage += GetDamageBonus(pObj);
-			//}
+			
+			ubDamage += GetDamageBonus( pObj );
+
 			ubDamage = (UINT8)GetModifiedGunDamage( ubDamage );
 		}
 		else
@@ -11032,11 +11030,7 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 			if ( Item[pObj->usItem].usItemClass == IC_GUN )
 				ubDamage *= gItemSettings.fDamageModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
 
-			// WTF? Why do only small weapons get their damage bonus?!
-			if (FitsInSmallPocket(pObj) == true)
-			{
-				ubDamage += GetDamageBonus(pObj);
-			}
+			ubDamage += GetDamageBonus( pObj );
 		}
 		return min(255, (UINT8)ubDamage );
 	}
