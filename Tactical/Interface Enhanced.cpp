@@ -6365,6 +6365,101 @@ void DrawPropertyValueInColour( INT16 iValue, UINT8 ubNumLine, UINT8 ubNumRegion
 	SetFontForeground( 6 );
 }
 
+void DrawPropertyValueInColour_X( INT16 iValue, UINT8 numBullets, UINT8 ubNumLine, UINT8 ubNumRegion, BOOLEAN fComparisonMode, BOOLEAN fModifier, BOOLEAN fHigherBetter, UINT16 uiOverwriteColour = 0, BOOLEAN fPercentSign = FALSE )
+{
+	static CHAR16	pStr[100];
+	INT16			usX, usY;
+
+	// Set Y coordinates
+	INT16 sTop = gItemDescGenRegions[ubNumLine][1].sTop;
+	INT16 sHeight = gItemDescGenRegions[ubNumLine][1].sBottom - sTop;
+
+	// Set X coordinates
+	INT16 sLeft = gItemDescGenRegions[ubNumLine][ubNumRegion].sLeft;
+	INT16 sWidth = gItemDescGenRegions[ubNumLine][ubNumRegion].sRight - sLeft;
+
+	SetFontForeground( 5 );
+	if ( !fComparisonMode && !fModifier )
+	{
+		if ( uiOverwriteColour )
+			SetFontForeground( uiOverwriteColour );
+		if ( iValue == 0 )
+			swprintf( pStr, L"--" );
+		else
+			swprintf( pStr, L"%d", iValue );
+	}
+	else
+	{
+		if ( iValue > 0 )
+		{
+			if ( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			if ( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"+%d", iValue );
+		}
+		else if ( iValue < 0 )
+		{
+			if ( fHigherBetter )
+				SetFontForeground( ITEMDESC_FONTNEGATIVE );
+			else
+				SetFontForeground( ITEMDESC_FONTPOSITIVE );
+			if ( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"%d", iValue );
+		}
+		else if ( fModifier && fComparisonMode )
+		{
+			SetFontForeground( 5 );
+			if ( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"=" );
+		}
+		else if ( fModifier )
+		{
+			SetFontForeground( 5 );
+			if ( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"--" );
+		}
+		else if ( fComparisonMode )
+		{
+			SetFontForeground( 5 );
+			if ( uiOverwriteColour )
+				SetFontForeground( uiOverwriteColour );
+			swprintf( pStr, L"=" );
+		}
+	}
+
+	if ( fPercentSign && wcscmp( pStr, L"--" ) != 0 && wcscmp( pStr, L"=" ) != 0 )
+	{
+		wcscat( pStr, L"%" );
+	}
+
+	if ( numBullets > 1)
+	{
+		swprintf( pStr, L"%sX%d", pStr, numBullets );
+	}
+
+	FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY );
+
+	if ( fPercentSign && wcscmp( pStr, L"--" ) != 0 && wcscmp( pStr, L"=" ) != 0 )
+	{
+#ifdef CHINESE
+		wcscat( pStr, ChineseSpecString1 );
+#else
+		wcscat( pStr, L"%" );
+#endif
+	}
+
+	mprintf( usX, usY, pStr );
+
+	// Reset font color
+	SetFontForeground( 6 );
+}
+
 void DrawPropertyTextInColour( CHAR16	pText[ 100 ], UINT8 ubNumLine, UINT8 ubNumRegion, UINT16 uiOverwriteColour = 0 )
 {
 	static CHAR16	pStr[ 100 ];
@@ -6688,12 +6783,31 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 			if( !fComparisonMode )
 			{
-				// Print base value
-				DrawPropertyValueInColour( iDamageValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
-				// Print modifier
-				DrawPropertyValueInColour( iDamageModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
-				// Print final value
-				DrawPropertyValueInColour( iFinalDamageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
+				// Flugente: if we use buckshot, display damage a bullet does times number of bullets
+				if ( Item[gpItemDescObject->usItem].usItemClass == IC_GUN && AmmoTypes[( *gpItemDescObject )[0]->data.gun.ubGunAmmoType].numberOfBullets > 1 )
+				{
+					UINT8 damage = (UINT8)( iDamageValue * AmmoTypes[( *gpItemDescObject )[0]->data.gun.ubGunAmmoType].multipleBulletDamageMultiplier / max( 1, AmmoTypes[( *gpItemDescObject )[0]->data.gun.ubGunAmmoType].multipleBulletDamageDivisor ) );
+					UINT8 finaldamage = (UINT8)( iFinalDamageValue * AmmoTypes[( *gpItemDescObject )[0]->data.gun.ubGunAmmoType].multipleBulletDamageMultiplier / max( 1, AmmoTypes[( *gpItemDescObject )[0]->data.gun.ubGunAmmoType].multipleBulletDamageDivisor ) );
+
+					// Print base value
+					DrawPropertyValueInColour_X( damage, AmmoTypes[( *gpItemDescObject )[0]->data.gun.ubGunAmmoType].numberOfBullets, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+
+					// Print modifier
+					DrawPropertyValueInColour( iDamageModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+
+					// Print final value
+					DrawPropertyValueInColour_X( finaldamage, AmmoTypes[( *gpItemDescObject )[0]->data.gun.ubGunAmmoType].numberOfBullets, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
+				}
+				else
+				{
+					DrawPropertyValueInColour( iDamageValue, ubNumLine, 1, fComparisonMode, FALSE, TRUE );
+
+					// Print modifier
+					DrawPropertyValueInColour( iDamageModifier, ubNumLine, 2, fComparisonMode, TRUE, TRUE );
+
+					// Print final value
+					DrawPropertyValueInColour( iFinalDamageValue, ubNumLine, 3, fComparisonMode, FALSE, TRUE, FONT_MCOLOR_WHITE );
+				}
 			}
 			else
 			{
