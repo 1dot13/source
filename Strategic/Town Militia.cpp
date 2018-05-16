@@ -2112,13 +2112,7 @@ FLOAT CalcHourlyVolunteerGain()
 			// not if the enemy controls this sector
 			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].fEnemyControlled )
 				continue;
-
-			UINT8 sector = SECTOR( sX, sY );
-
-			// modifier increase for every farm we control
-			if ( IsSectorFarm( sX, sY ) )
-				populationmodifier += gGameExternalOptions.dMilitiaVolunteerMultiplierFarm;
-
+			
 			UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].bNameId;
 			if ( ubTownID != BLANK_SECTOR )
 			{
@@ -2126,6 +2120,9 @@ FLOAT CalcHourlyVolunteerGain()
 
 				loyalpopulation += gTownLoyalty[ubTownID].ubRating * population / 100;
 			}
+			// modifier increase for every farm we control
+			else if ( IsSectorFarm( sX, sY ) )
+				populationmodifier += gGameExternalOptions.dMilitiaVolunteerMultiplierFarm;
 		}
 	}
 
