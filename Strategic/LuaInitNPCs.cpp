@@ -11175,67 +11175,20 @@ static int l_ubMiscFlags2Check (lua_State *L)
 //check character MiscFlags1 
 static int l_ubMiscFlags1Check (lua_State *L)
 {
-	UINT32 set = 0;
-	UINT8 Profile = 0;
 	UINT8 n = lua_gettop(L);
 
-	UINT8 Flag = 0;
-	int i = 0;
+	if ( n >= 2 )
+	{
+		UINT8 Profile = lua_tointeger( L, 1 );
+		UINT8 set = lua_tointeger( L, 2 );
 
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) Profile = lua_tointeger(L,i);
-		if (i == 2 ) set = lua_tointeger(L,i);
+		if ( gMercProfiles[Profile].ubMiscFlags & set )
+			lua_pushinteger( L, 1 );
+		else
+			lua_pushinteger( L, 0 );
 	}
-
-	if (set == 1)	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_RECRUITED)
-			Flag = 1;		
-	}
-	else  if (set == 2)	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_HAVESEENCREATURE)
-			Flag = 1;		
-	}
-	else  if (set == 4)	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_FORCENPCQUOTE)
-			Flag = 1;		
-	}
-	else  if (set == 8)	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_WOUNDEDBYPLAYER)
-			Flag = 1;
-	}
-	else  if (set == 16)	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_TEMP_NPC_QUOTE_DATA_EXISTS)
-			Flag = 1;
-	}
-	else  if (set == 32)	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_SAID_HOSTILE_QUOTE)
-			Flag = 1;
-	}
-	else  if (set == 64 )	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_EPCACTIVE)
-			Flag = 1;		
-	}
-	else  if (set == 128 )	
-	{
-		if (gMercProfiles[Profile].ubMiscFlags2 & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS)
-			Flag = 1;		
-	}
-
-	//Flag = (gMercProfiles[Profile].ubMiscFlags & set);
-
-
-	lua_pushinteger(L, Flag);
 			
 	return 1;
-
 }
 
 //set chracter MiscFlags1
