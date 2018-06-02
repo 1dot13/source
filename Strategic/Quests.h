@@ -613,6 +613,8 @@ enum Facts
 	FACT_PLAYER_KNOWS_ABOUT_FAN_STOPPING,//										424
 #endif
 	
+	// when talking to Manuel, we use this flag
+	FACT_MANUEL_DIALOGUE_STATE_1_REACHED = 430,
 } ;
 //**	END FACTS *************************
 
