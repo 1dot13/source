@@ -820,6 +820,24 @@ BOOLEAN LoadMercProfiles(void)
 			memset( &gMercProfiles[uiLoop].usDynamicOpinionFlagmask, 0, sizeof(gMercProfiles[uiLoop].usDynamicOpinionFlagmask) );
 
 			memset( &gMercProfiles[uiLoop].sDynamicOpinionLongTerm, 0, sizeof(gMercProfiles[uiLoop].sDynamicOpinionLongTerm) );
+
+			// Flugente: as this data is not in the xml, we set dummy values
+			if ( gMercProfiles[uiLoop].ubApproachVal[0] == 0 &&
+				gMercProfiles[uiLoop].ubApproachVal[1] == 0 &&
+				gMercProfiles[uiLoop].ubApproachVal[2] == 0 &&
+				gMercProfiles[uiLoop].ubApproachVal[3] == 0 )
+			{
+				for ( int i = 0; i < 4; ++i )
+				{
+					// with ubApproachVal of 50 and ubApproachMod of 100, approach value towards an NPC will be the merc's effective leadership, which seems like a reasonable default
+					gMercProfiles[uiLoop].ubApproachVal[i] = 50;
+
+					for ( int j = 0; j < 3; ++j )
+					{
+						gMercProfiles[uiLoop].ubApproachMod[j][i] = 100;
+					}
+				}
+			}
 		}
 
 		// WANNE - BMP: DONE!
