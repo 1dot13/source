@@ -24096,6 +24096,9 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 			fDoSound = TRUE;
 		}
 	}
+
+	if ( !gGameExternalOptions.fFoodEatingSounds )
+		fDoSound = FALSE;
 	
 	if ( fSuccess )
 	{
