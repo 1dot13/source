@@ -826,6 +826,9 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 		profileId = MercPtrs[iSlot]->ubProfile;
 	}
 
+	if ( profileId < 0 )
+		return;
+
 	char sTemp[100];
 	HVOBJECT hFaceHandle;
 	VOBJECT_DESC	VObjectDesc;
@@ -835,24 +838,15 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 	// special case?..player generated merc
 	if (fCurrentTeamMode) 
 	{
-		//if( ( 50 < 	profileId )&&( 57 > 	profileId ) ) 
-		if ( ( profileId >= 0 ) && ( profileId < 100 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
+		if ( gProfilesIMP[profileId].ProfilId == profileId )
 		{
 			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
-		} 
-		else if ( ( profileId > 99 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
-		{			
-			sprintf(sTemp, "%s%03d.sti", IMP_FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
 		}
-		else if ( ( profileId >= 0 ) && ( profileId < 100 ) )
-		{			
-			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
+		else
+		{
+			sprintf( sTemp, "%s%02d.sti", FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
 		}
-		else 
-		{			
-			sprintf(sTemp, "%s%03d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
-		}
-
+		
 		// TODO: Check if needed!
 		if( MercPtrs[iSlot]->flags.uiStatusFlags & SOLDIER_VEHICLE ) 
 		{
@@ -867,33 +861,15 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 		{
 			return;
 		}
-/*
-		if( ( 50 < profileId )&&( 57 > profileId ) ) 
-		{
-			sprintf( sTemp, "%s%03d.sti", FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
-		} 
-		else 
-		{
-			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex );			
-		}
-*/		
-		if ( ( profileId >= 0 ) && ( profileId < 100 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
+
+		if ( gProfilesIMP[profileId].ProfilId == profileId )
 		{
 			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
-		} 
-		else if ( ( profileId > 99 ) && ( gProfilesIMP[ profileId ].ProfilId == profileId ) )
-		{			
-			sprintf(sTemp, "%s%03d.sti", IMP_FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
 		}
-		else if ( ( profileId >= 0 ) && ( profileId < 100 ) )
-		{			
-			sprintf(sTemp, "%s%02d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
+		else
+		{
+			sprintf( sTemp, "%s%02d.sti", FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
 		}
-		else 
-		{			
-			sprintf(sTemp, "%s%03d.sti", FACES_DIR,	gMercProfiles[profileId].ubFaceIndex);			
-		}
-
 	}
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -2427,40 +2403,18 @@ void DisplayPicturesOfCurrentTeam( void )
 
 		SOLDIERTYPE *pSoldier = MercPtrs[currentTeamList[currentOnSreenIndex]];
 		
-		if ( ( pSoldier->ubProfile >= 0 ) && ( pSoldier->ubProfile < 100 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
+		if ( pSoldier->ubProfile >= 0 )
 		{
-			sprintf( sTemp, "%s%02d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[pSoldier->ubProfile].ubFaceIndex );
-		} 
-		else if ( ( pSoldier->ubProfile > 99 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
-		{			
-			sprintf(sTemp, "%s%03d.sti", IMP_SMALL_FACES_DIR,	gMercProfiles[pSoldier->ubProfile].ubFaceIndex);			
-		}
-		else if ( ( pSoldier->ubProfile >= 0 ) && ( pSoldier->ubProfile < 100 ))
-		{			
-			sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR,	gMercProfiles[pSoldier->ubProfile].ubFaceIndex);			
-		}
-		else 
-		{			
-			sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR,	gMercProfiles[pSoldier->ubProfile].ubFaceIndex);			
+			if ( gProfilesIMP[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
+			{
+				sprintf( sTemp, "%s%02d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[pSoldier->ubProfile].ubFaceIndex );
+			}
+			else
+			{
+				sprintf( sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[pSoldier->ubProfile].ubFaceIndex );
+			}
 		}
 		
-		/*
-		if ((50 < pSoldier->ubProfile) && (57 > pSoldier->ubProfile)) 
-		{
-			sprintf( sTemp, "%s%03d.sti", SMALL_FACES_DIR, 	gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex );
-		} 
-		else 
-		{
-			if ( pSoldier->ubProfile < 100 ) 
-			{
-				sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);				
-			} 
-			else 
-			{
-				sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, gMercProfiles[ pSoldier->ubProfile	].ubFaceIndex);				
-			} // else
-		} // else
-	*/
 		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP(sTemp, VObjectDesc.ImageFile);
 		CHECKV(AddVideoObject(&VObjectDesc, &guiFACE));
@@ -4987,15 +4941,14 @@ void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLE
 	HVOBJECT hFaceHandle;
 	VOBJECT_DESC	VObjectDesc;
 	
-	
-	if ( ( iId >= 0 ) && ( iId < 100 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )
+	if ( gProfilesIMP[iId].ProfilId == iId )
+	{
 		sprintf( sTemp, "%s%02d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex );
-	else if ( ( iId > 99 ) && ( gProfilesIMP[ iId ].ProfilId == iId ) )		
-		sprintf(sTemp, "%s%03d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex);
-	else if ( ( iId >= 0 ) && ( iId < 100 ))			
-		sprintf(sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex);
-	else			
-		sprintf(sTemp, "%s%03d.sti", SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex);
+	}
+	else
+	{
+		sprintf( sTemp, "%s%02d.sti", SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex );
+	}
 	
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP(sTemp, VObjectDesc.ImageFile);

@@ -2053,25 +2053,11 @@ BOOLEAN HandleSpecialTerroristFile( INT32 iFileNumber, STR sPictureName )
 				if (gGameExternalOptions.fReadProfileDataFromXML)
 				{
 					// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.
-					if( usProfileIdsForTerroristFiles[ iFileNumber + 1 ] < 100 )
-					{
-						sprintf(sTemp, "%s%02d.sti", "FACES\\BIGFACES\\",	gMercProfiles[ usProfileIdsForTerroristFiles[ iFileNumber + 1 ] ].ubFaceIndex);
-					}
-					else
-					{
-						sprintf(sTemp, "%s%03d.sti", "FACES\\BIGFACES\\",	gMercProfiles[ usProfileIdsForTerroristFiles[ iFileNumber + 1 ] ].ubFaceIndex);
-					}
+					sprintf( sTemp, "%s%02d.sti", "FACES\\BIGFACES\\", gMercProfiles[usProfileIdsForTerroristFiles[iFileNumber + 1]].ubFaceIndex );
 				}
 				else
 				{
-					if( usProfileIdsForTerroristFiles[ iFileNumber + 1 ] < 100 )
-					{
-						sprintf(sTemp, "%s%02d.sti", "FACES\\BIGFACES\\",	usProfileIdsForTerroristFiles[ iFileNumber + 1 ]);
-					}
-					else
-					{
-						sprintf(sTemp, "%s%03d.sti", "FACES\\BIGFACES\\",	usProfileIdsForTerroristFiles[ iFileNumber + 1 ]);
-					}
+					sprintf( sTemp, "%s%02d.sti", "FACES\\BIGFACES\\", usProfileIdsForTerroristFiles[iFileNumber + 1] );
 				}
 
 				VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
