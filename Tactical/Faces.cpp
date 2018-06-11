@@ -803,15 +803,13 @@ void InternalSetAutoFaceActive( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, 
 		pFace->fAutoDisplayBuffer	= FALSE;
 		pFace->uiAutoDisplayBuffer = uiDisplayBuffer;
 	}
-
-
+	
 	usMercProfileID = pFace->ubCharacterNum;
 
 	pFace->usFaceX				= usFaceX;
 	pFace->usFaceY				= usFaceY;
 	pFace->fCanHandleInactiveNow = FALSE;
-
-
+	
 	//Take eyes x,y from profile unless we are an RPC and we are small faced.....
 	pFace->usEyesX				= usEyesX + usFaceX;
 	pFace->usEyesY				= usEyesY + usFaceY;
@@ -824,8 +822,8 @@ void InternalSetAutoFaceActive( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, 
 	pFace->usMouthOffsetY				=	usMouthY;
 	pFace->usMouthOffsetX				= usMouthX;
 
-
-	if ( pFace->usEyesY == usFaceY || pFace->usMouthY == usFaceY )
+	// Flugente: the old check as silly. Play no animations if no offsets exist (that would mean eyes and mouth overlap, which is an indicator it wouldn't work)
+	if ( !usEyesX && !usEyesY && !usMouthY && !usMouthX )
 	{
 		pFace->fInvalidAnim = TRUE;
 	}
