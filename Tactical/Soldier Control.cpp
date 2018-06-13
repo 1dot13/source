@@ -17633,6 +17633,10 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 					}
 				}
 			}
+			else
+			{
+				canuse = FALSE;
+			}
 		}
 		break;
 
