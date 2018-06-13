@@ -2584,7 +2584,9 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.sCOCloseDetectionRangeSoldierCorpse	= iniReader.ReadInteger("Covert Ops","COVERT_CLOSE_DETECTION_RANGE_SOLDIER_CORPSE", 5, 0, 100);
 	gSkillTraitValues.usCOEliteUncoverRadius				= iniReader.ReadInteger("Covert Ops","COVERT_ELITES_UNCOVER_RADIUS", 6, 0, 20 );
 	gSkillTraitValues.fCODetectIfBleeding					= iniReader.ReadBoolean("Covert Ops","COVERT_DETECTEDIFBLEEDING", FALSE );
-	gSkillTraitValues.fCOStripIfUncovered					= iniReader.ReadBoolean("Covert Ops","COVERT_STRIPIFUNCOVERED", FALSE );
+
+	// Flugente: as the 'redisguise after x turns' part is missing the x turns part, this is now permanently set to TRUE until that changes
+	gSkillTraitValues.fCOStripIfUncovered					= TRUE;// iniReader.ReadBoolean( "Covert Ops", "COVERT_STRIPIFUNCOVERED", FALSE );
 	
 	// Flugente: RADIO OPERATOR
 	gSkillTraitValues.fROAllowArtillery					= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY", TRUE);
