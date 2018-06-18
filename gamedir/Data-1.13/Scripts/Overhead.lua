@@ -2809,4 +2809,64 @@ DialogueActionEvent =
 -- aData1, aData2, aData3 are additional data, see event description on what they do in each event
 function HandleAdditionalDialogue(sSectorX, sSectorY, bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3 )
 	
+	if ( ubProfile == Profil.BUNS ) then
+	
+		-- merc is the 1st one to explore this room, aData1 indicates the room in this event
+		if ( usEventNr == DialogueActionEvent.ADE_DISCOVER_ROOM ) then
+		
+			-- surface sectors
+			if ( bSectorZ == 0 ) then
+			
+				-- Omerta
+				if ( (sSectorY == SectorY.MAP_ROW_A) and ( (sSectorX == 9) or (sSectorX == 10) ) ) then
+				
+					-- We use a random comment on the derelict houses in Omerta whenever we enter a room. As there are quite a few of those, don't always do so, otherwise this can be annoying
+					choicenr = math.random(1, 25)
+				
+					if ( choicenr == 1 ) then     SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//emptyhouse.ogg", "Hello? Anyone there? Hmm. It seems that this place is as quiet as a tomb.")
+					end
+					
+				end
+				
+			end
+		
+		-- we can 'react' on what lines other people use
+		-- this happens when we are in the same sector, awake and concious
+		-- aData1 indicates the profile number in this event
+		-- aData2 indicates the specific voice line we react to
+		elseif ( usEventNr == DialogueActionEvent.ADE_DIALOGUE_REACTION ) then
+				
+			if ( aData1 == Profil.FRED ) then		
+
+				if ( aData2 == 12 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//fred0.ogg", "Pleasant fellow, I suppose, but too honest for his own good.")
+				end
+				
+			elseif ( aData1 == Profil.JOEY ) then				
+
+				if ( aData2 == 0 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//joey0.ogg", "Ah, clever little fellow. Do not turn your back on this one.")
+				end
+				
+			elseif ( aData1 == Profil.PABLO ) then
+
+				if ( aData2 == 2 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//pablo2.ogg", "Lying pig.")				
+				end
+				
+			elseif ( aData1 == Profil.ARMAND ) then		
+
+				if ( aData2 == 14 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//armand0.ogg", "A very distinguished gentleman. I only hope he's telling the truth.")
+				end
+				
+			end
+			
+		-- we applied an item to us, aData1 is the item index
+		elseif ( usEventNr == DialogueActionEvent.ADE_CONSUMEITEM ) then
+			
+			if ( aData1 == 1752 ) then 				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//painkillers.ogg", "Not so bad now.")
+			elseif ( aData1 == 235 ) then			SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//regenbooster.ogg", "I am better now.")
+			end
+			
+		end
+		
+	end
+	
 end
