@@ -159,101 +159,32 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 
 	if ( ubNPC == PETER || ubNPC == ALBERTO || ubNPC == CARLO )
 	{
-	
-		if ( ubNPC == PETER )
+		sprintf( zFileName, "NPCData\\%03d.npc", ubNPC );
+		if ( !FileExists( zFileName ) )
 		{
-			sprintf( zFileName, "NPCData\\%03d.npc", PETER );
-			if ( !FileExists( zFileName ) )
-			{
-				// use a copy of Herve's data file instead!
-				sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
-			}
-		}		
-		else if ( ubNPC == ALBERTO )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", ALBERTO );
-			if ( !FileExists( zFileName ) )
-			{
-				// use a copy of Herve's data file instead!
-				sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
-			}
-		}	
-		else if ( ubNPC == CARLO )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", CARLO );
-			if ( !FileExists( zFileName ) )
-			{
-				// use a copy of Herve's data file instead!
-				sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
-			}
-		}	
-
+			// use a copy of Herve's data file instead!
+			sprintf( zFileName, "NPCData\\%03d.npc", HERVE );
+		}
 	}
 	
-		#ifdef JA2UB
-		if ( ubNPC == MANUEL_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", MANUEL_UB );
-		}
+#ifdef JA2UB
+	if ( ubNPC == MANUEL_UB||
+		ubNPC == BIGGENS_UB ||
+		ubNPC == JOHN_K_UB ||
+		ubNPC == TEX_UB ||
+		ubNPC == GASTON_UB ||
+		ubNPC == STOGIE_UB ||
+		ubNPC == JERRY_MILO_UB ||
+		ubNPC == PGMALE4_UB ||
+		ubNPC == BETTY_UB ||
+		ubNPC == RAUL_UB ||
+		ubNPC == MORRIS_UB ||
+		ubNPC == RUDY_UB )
+	{
+		sprintf( zFileName, "NPCData\\%03d.npc", ubNPC );
+	}		
+#endif
 		
-		if ( ubNPC == BIGGENS_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", BIGGENS_UB );
-		}
-		
-		if ( ubNPC == JOHN_K_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", JOHN_K_UB );
-		}
-		
-		if ( ubNPC == TEX_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", TEX_UB );
-		}
-		
-		if ( ubNPC == GASTON_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", GASTON_UB );
-		}
-		
-		if ( ubNPC == STOGIE_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", STOGIE_UB );
-		}
-		
-		if ( ubNPC == JERRY_MILO_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", JERRY_MILO_UB );
-		}
-		
-		if ( ubNPC == PGMALE4_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", PGMALE4_UB );
-		}
-		
-		if ( ubNPC == BETTY_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", BETTY_UB );
-		}
-		
-		if ( ubNPC == RAUL_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", RAUL_UB );
-		}
-		
-		if ( ubNPC == MORRIS_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", MORRIS_UB );
-		}
-		
-		if ( ubNPC == RUDY_UB )
-		{
-			sprintf( zFileName, "NPCData\\%03d.npc", RUDY_UB );
-		}
-		
-		#endif
-	
-	
 	//else if ( ubNPC < FIRST_RPC || ubNPC >= GASTON || (ubNPC < FIRST_NPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )
 	//new profiles by Jazz
 	else if ( gProfilesIMP[ubNPC].ProfilId == ubNPC || gProfilesAIM[ubNPC].ProfilId == ubNPC || gProfilesMERC[ubNPC].ProfilId == ubNPC || ( gProfilesRPC[ubNPC].ProfilId == ubNPC && gMercProfiles[ ubNPC ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )	
@@ -267,8 +198,7 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 #ifdef JA2UB
 //Ja25:  No meanwhiles
 #else
-
-
+	
 	// ATE: Put some stuff i here to use a different NPC file if we are in a meanwhile.....
 	if ( AreInMeanwhile( ) )
 	{
@@ -277,13 +207,11 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 		{
 			sprintf( zFileName, "NPCData\\%03d.npc", gubAlternateNPCFileNumsForQueenMeanwhiles[ GetMeanwhileID( ) ] );
 		}
-
 		// If we are elliot....
-		if ( ubNPC == ELLIOT )
+		else if ( ubNPC == ELLIOT )
 		{
 			sprintf( zFileName, "NPCData\\%03d.npc", gubAlternateNPCFileNumsForElliotMeanwhiles[ GetMeanwhileID( ) ] );
 		}
-
 	}
 #endif
 	CHECKN( FileExists( zFileName ) );
@@ -1089,8 +1017,10 @@ UINT8 NPCConsiderTalking( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT8 ubRec
 	if (bApproach <= NUM_REAL_APPROACHES)
 	{
 		pNPCProfile = &(gMercProfiles[ubNPC]);
+
 		// What's our willingness to divulge?
 		ubTalkDesire = CalcDesireToTalk( ubNPC, ubMerc, bApproach );
+
 		if ( bApproach < NUM_REAL_APPROACHES && !(pNPCProfile->bApproached & gbFirstApproachFlags[bApproach - 1]) )
 		{
 			ApproachedForFirstTime( pNPCProfile, bApproach );
@@ -1099,8 +1029,10 @@ UINT8 NPCConsiderTalking( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT8 ubRec
 	else if ( ubNPC == PABLO && bApproach == APPROACH_SECTOR_NOT_SAFE ) // for Pablo, consider as threaten
 	{
 		pNPCProfile = &(gMercProfiles[ubNPC]);
+
 		// What's our willingness to divulge?
 		ubTalkDesire = CalcDesireToTalk( ubNPC, ubMerc, APPROACH_THREATEN );
+
 		if ( pNPCProfile->bApproached & gbFirstApproachFlags[APPROACH_THREATEN - 1] )
 		{
 			ApproachedForFirstTime( pNPCProfile, APPROACH_THREATEN );
