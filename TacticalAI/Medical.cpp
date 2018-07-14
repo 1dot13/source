@@ -421,11 +421,16 @@ INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier )
 		return( AI_ACTION_NONE );
 	}
 
-	bSlot = FindObjClass( pSoldier, IC_MEDKIT );
-	if (bSlot == NO_SLOT)
+	// Flugente: when bandaging, use first aid kits first (it's their only usage, medkits can be used for healing and surgery as well)
+	bSlot = FindFirstAidKit( pSoldier );
+	if ( bSlot == NO_SLOT )
 	{
-		// no medical kit!
-		return( AI_ACTION_NONE );
+		bSlot = FindMedKit( pSoldier );
+		if ( bSlot == NO_SLOT )
+		{
+			// no medical kit!
+			return( AI_ACTION_NONE );
+		}
 	}
 
 	if (pSoldier->bBleeding)
