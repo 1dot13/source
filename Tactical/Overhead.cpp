@@ -8857,7 +8857,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
     if ( gTacticalStatus.bBoxingState == BOXING )
     {
         // should have a check for "in boxing ring", no?
-        if ( ( pSoldier->usAttackingWeapon != NOTHING && !Item[pSoldier->usAttackingWeapon].brassknuckles ) || !( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) )
+        if ( ( pSoldier->usAttackingWeapon != NOTHING && !Item[pSoldier->usAttackingWeapon].brassknuckles ) || !( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) || pSoldier->IsRiotShieldEquipped() )
         {
             // someone's cheating!
             if ( (Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_BLADE || Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_PUNCH) && (pTarget->flags.uiStatusFlags & SOLDIER_BOXER) )
