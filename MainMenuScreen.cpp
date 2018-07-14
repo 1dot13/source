@@ -105,7 +105,7 @@ extern void InitSightRange(); //lal
 
 UINT32	MainMenuScreenInit( )
 {
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version Label: %S", zVersionLabel ));
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version Label: %S, %s", zVersionLabel, zRevisionNumber ));
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version #:	 %s", czVersionNumber ));
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Tracking #:	%S", zTrackingNumber ));
 

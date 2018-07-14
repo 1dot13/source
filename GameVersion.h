@@ -14,6 +14,7 @@ extern "C" {
 extern	CHAR16		zVersionLabel[256];
 extern	CHAR8		czVersionNumber[16];
 extern	CHAR16		zTrackingNumber[16];
+extern	CHAR16		zRevisionNumber[16];
 
 
 //ADB:	I needed these here so I moved them, and why put them in *.cpp anyways?
