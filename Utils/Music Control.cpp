@@ -151,57 +151,41 @@ BOOLEAN MusicPlay(UINT32 uiNum)
 	if ( NewSound == FALSE && MusicMode == MUSIC_OLD_TYPE )
 	{
 #endif
-	sprintf( zFileName, "%s.ogg", szMusicList[uiNum] );
+	sprintf( zFileName, "%s.mp3", szMusicList[uiNum] );
 	if ( !FileExists( zFileName ) )
-		sprintf( zFileName, "%s.wav", szMusicList[uiNum] );
+	{
+		sprintf( zFileName, "%s.ogg", szMusicList[uiNum] );
+		if ( !FileExists( zFileName ) )
+		{
+			sprintf( zFileName, "%s.wav", szMusicList[uiNum] );
+		}
+	}
 #ifdef NEWMUSIC
 	}
 	else if ( NewSound == TRUE )
 	{
-		//sprintf( zFileName, szMusicList[15] );
-		if ( MusicMode == MUSIC_TACTICAL_NOTHING ) 
+		CHAR8 modstr[32] = "";
+
+		switch ( MusicMode )
 		{
-			sprintf( zFileName, "%s\\NOTHING_%d.ogg", szMusicList[15], uiNum);
-			if ( !FileExists( zFileName ) )
-				sprintf( zFileName, "%s\\NOTHING_%d.wav", szMusicList[15], uiNum );
+		case MUSIC_TACTICAL_NOTHING:		sprintf( modstr, "NOTHING_" );	break;
+		case MUSIC_TACTICAL_ENEMYPRESENT:	sprintf( modstr, "TENSOR_" );	break;
+		case MUSIC_TACTICAL_BATTLE:			sprintf( modstr, "BATTLE_" );	break;
+		case MUSIC_TACTICAL_VICTORY:		sprintf( modstr, "TRIUMPH_" );	break;
+		case MUSIC_TACTICAL_BATTLE_MUSIC:	sprintf( modstr, "CREATURE_BATTLE_" );  break;
+		case MUSIC_TACTICAL_CREEPY_MUSIC:	sprintf( modstr, "CREEPY_" );	break;
+		default: break;
 		}
-		else if ( MusicMode == MUSIC_TACTICAL_ENEMYPRESENT ) 
-		{
-			sprintf( zFileName, "%s\\TENSOR_%d.ogg", szMusicList[15], uiNum);
-			if ( !FileExists( zFileName ) )
-				sprintf( zFileName, "%s\\TENSOR_%d.wav", szMusicList[15], uiNum );
-		}
-		else if ( MusicMode == MUSIC_TACTICAL_BATTLE ) 
-		{
-			sprintf( zFileName, "%s\\BATTLE_%d.ogg", szMusicList[15], uiNum);
-			if ( !FileExists( zFileName ) )
-				sprintf( zFileName, "%s\\BATTLE_%d.wav", szMusicList[15], uiNum );
-		}
-		else if ( MusicMode == MUSIC_TACTICAL_VICTORY ) 
-		{
-			sprintf( zFileName, "%s\\TRIUMPH_%d.ogg", szMusicList[15], uiNum);
+
+		sprintf( zFileName, "%s\\%s%d.ogg", szMusicList[15], modstr, uiNum );
 		if ( !FileExists( zFileName ) )
-				sprintf( zFileName, "%s\\TRIUMPH_%d.wav", szMusicList[15], uiNum );
-		}
-		else if ( MusicMode == MUSIC_TACTICAL_BATTLE_MUSIC ) 
 		{
-			sprintf( zFileName, "%s\\CREATURE_BATTLE_%d.ogg", szMusicList[15], uiNum);
+			sprintf( zFileName, "%s\\%s%d.wav", szMusicList[15], modstr, uiNum );
 			if ( !FileExists( zFileName ) )
-				sprintf( zFileName, "%s\\CREATURE_BATTLE_%d.wav", szMusicList[15], uiNum );
+			{
+				sprintf( zFileName, "%s\\%s%d.mp3", szMusicList[15], modstr, uiNum );
+			}
 		}
-		else if ( MusicMode == MUSIC_TACTICAL_CREEPY_MUSIC ) 
-		{
-			sprintf( zFileName, "%s\\CREEPY_%d.ogg", szMusicList[15], uiNum);
-			if ( !FileExists( zFileName ) )
-				sprintf( zFileName, "%s\\CREEPY_%d.wav", szMusicList[15], uiNum );
-		}
-		else if ( MusicMode == OTHER_MUSIC_TACTICAL ) 
-		{
-			sprintf( zFileName, "%s\\%d.ogg", szMusicList[15], uiNum);
-			if ( !FileExists( zFileName ) )
-				sprintf( zFileName, "%s\\%d.wav", szMusicList[15], uiNum );
-		}
-		
 	}
 #endif
 	uiMusicHandle = SoundPlayStreamedFile(zFileName, &spParms);

@@ -2342,7 +2342,11 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 				sprintf( zFileName, "NPC_SPEECH\\d_%03d_%03d.ogg", usVoiceSet, usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
-					sprintf( zFileName, "NPC_SPEECH\\d_%03d_%03d.wav", usVoiceSet, usQuoteNum );
+					sprintf( zFileName, "NPC_SPEECH\\d_%03d_%03d.mp3", usVoiceSet, usQuoteNum );
+					if ( !FileExists( zFileName ) )
+					{
+						sprintf( zFileName, "NPC_SPEECH\\d_%03d_%03d.wav", usVoiceSet, usQuoteNum );
+					}
 				}
 			}
 //			#endif
@@ -2484,19 +2488,31 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			{
 				// Lesh: patch to allow playback ogg speech files
 				sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.ogg",ubFileNumID,usQuoteNum );
+
+				if ( !FileExists( zFileName ) )
+				{
+					sprintf( zFileName, "NPC_SPEECH\\%03d_%03d.mp3", ubFileNumID, usQuoteNum );
+					if ( !FileExists( zFileName ) )
+					{
+						sprintf( zFileName, "NPC_SPEECH\\%03d_%03d.wav", ubFileNumID, usQuoteNum );
+					}
+				}
 				
 				// WANNE: We do not have any speech files for the other (!= HERVE) santos bartenders, take HERVE speech files
 				if (isBartenderSantos && HERVE != ubFileNumID && !FileExists(zFileName))
 				{
 					ubFileNumID = HERVE;
 					sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.ogg",ubFileNumID,usQuoteNum );
-				}
 
-				// We do not have *.ogg file, take *.WAV file
-				if ( !FileExists( zFileName ) )
-				{					
-					sprintf( zFileName,"NPC_SPEECH\\%03d_%03d.wav",ubFileNumID,usQuoteNum );
-				}				
+					if ( !FileExists( zFileName ) )
+					{
+						sprintf( zFileName, "NPC_SPEECH\\%03d_%03d.mp3", ubFileNumID, usQuoteNum );
+						if ( !FileExists( zFileName ) )
+						{
+							sprintf( zFileName, "NPC_SPEECH\\%03d_%03d.wav", ubFileNumID, usQuoteNum );
+						}
+					}
+				}
 			}
 		}
 		else
@@ -2523,28 +2539,33 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 					//inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 					if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
 					{			
-						#ifdef JA2UB
+#ifdef JA2UB
 						sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",usVoiceSet,usQuoteNum );
 						if ( !FileExists( zFileName ) )
 						{
 							sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",usVoiceSet,usQuoteNum );
 						}					
-						#else
+#else
 						sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",usVoiceSet,usQuoteNum );
-						#endif
+#endif
 						if ( !FileExists( zFileName ) )
 						{
 							//inshy: fix for UB-1.13 version only
-						#ifdef JA2UB
+#ifdef JA2UB
 							sprintf( zFileName,"SPEECH\\%03d_%03d.wav",usVoiceSet,usQuoteNum );
 						
 							if ( !FileExists( zFileName ) )
 							{
-								sprintf( zFileName,"SPEECH\\%03d_%03d.wav",usVoiceSet,usQuoteNum );
-							}	
-							#else
-								sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",usVoiceSet,usQuoteNum );
-						#endif
+								sprintf( zFileName,"SPEECH\\%03d_%03d.mp3",usVoiceSet,usQuoteNum );
+							}
+#else
+							sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",usVoiceSet,usQuoteNum );
+
+							if ( !FileExists( zFileName ) )
+							{
+								sprintf( zFileName, "SPEECH\\r_%03d_%03d.mp3", usVoiceSet, usQuoteNum );
+							}
+#endif
 
 							//<SB> Also check for Russian Gold sound files (identical to international ones)
 							if(! FileExists( zFileName ) )
@@ -2552,7 +2573,11 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 								sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",usVoiceSet,usQuoteNum );
 								if ( !FileExists( zFileName ) )
 								{
-									sprintf( zFileName,"SPEECH\\%03d_%03d.wav",usVoiceSet,usQuoteNum );
+									sprintf( zFileName,"SPEECH\\%03d_%03d.mp3",usVoiceSet,usQuoteNum );
+									if ( !FileExists( zFileName ) )
+									{
+										sprintf( zFileName, "SPEECH\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+									}
 								}
 							}
 //</SB>
@@ -2569,7 +2594,11 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 
 					if ( !FileExists( zFileName ) )
 					{
-						sprintf( zFileName, "SPEECH\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+						sprintf( zFileName, "SPEECH\\%03d_%03d.mp3", usVoiceSet, usQuoteNum );
+						if ( !FileExists( zFileName ) )
+						{
+							sprintf( zFileName, "SPEECH\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+						}
 					}
 				}
 			}
@@ -2602,7 +2631,11 @@ CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, B
 				sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d.ogg", usVoiceSet, usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
-					sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+					sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d.mp3", usVoiceSet, usQuoteNum );
+					if ( !FileExists( zFileName ) )
+					{
+						sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+					}
 				}
 			}
 			else
@@ -2610,7 +2643,11 @@ CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, B
 				sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d.ogg", usVoiceSet, usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
-					sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+					sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d.mp3", usVoiceSet, usQuoteNum );
+					if ( !FileExists( zFileName ) )
+					{
+						sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d.wav", usVoiceSet, usQuoteNum );
+					}
 				}
 			}
 		}

@@ -10900,7 +10900,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 
 			if ( !FileExists( zFilename ) )
 			{
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
+				if ( !FileExists( zFilename ) )
+				{
+					sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
+				}
 			}
 
 			if ( FileExists( zFilename ) )
@@ -10920,7 +10924,12 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 			sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
 
 			if ( !FileExists( zFilename ) )
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
+			{
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
+
+				if ( !FileExists( zFilename ) )
+					sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
+			}
 		}
 		else
 		{
@@ -10935,6 +10944,12 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 
 			if ( !FileExists( zFilename ) )
 				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
+
+			if ( !FileExists( zFilename ) )
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName );
+
+			if ( !FileExists( zFilename ) )
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
 		}
 
 		if ( !FileExists( zFilename ) )
@@ -10945,7 +10960,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\f_%s.ogg", gBattleSndsData[ubSoundID].zName );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\f_%s.wav", gBattleSndsData[ubSoundID].zName );
+					sprintf( zFilename, "BATTLESNDS\\f_%s.mp3", gBattleSndsData[ubSoundID].zName );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\f_%s.wav", gBattleSndsData[ubSoundID].zName );
+					}
 				}
 			}
 			else
@@ -10953,7 +10972,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\m_%s.ogg", gBattleSndsData[ubSoundID].zName );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\m_%s.wav", gBattleSndsData[ubSoundID].zName );
+					sprintf( zFilename, "BATTLESNDS\\m_%s.mp3", gBattleSndsData[ubSoundID].zName );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\m_%s.wav", gBattleSndsData[ubSoundID].zName );
+					}
 				}
 			}
 		}
@@ -10973,7 +10996,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\kid%d_dying.ogg", pSoldier->ubBattleSoundID );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\kid%d_dying.wav", pSoldier->ubBattleSoundID );
+					sprintf( zFilename, "BATTLESNDS\\kid%d_dying.mp3", pSoldier->ubBattleSoundID );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\kid%d_dying.wav", pSoldier->ubBattleSoundID );
+					}
 				}
 			}
 			else
@@ -10981,7 +11008,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\kid%d_%s.ogg", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\kid%d_%s.wav", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+					sprintf( zFilename, "BATTLESNDS\\kid%d_%s.mp3", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\kid%d_%s.wav", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+					}
 				}
 			}
 		}
@@ -10992,7 +11023,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\zombie_die.ogg" );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\zombie_die.wav" );
+					sprintf( zFilename, "BATTLESNDS\\zombie_die.mp3" );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\zombie_die.wav" );
+					}
 				}
 			}
 			else
@@ -11000,7 +11035,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\zombie_%s.ogg", gBattleSndsData[ubSoundID].zName );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\zombie_%s.wav", gBattleSndsData[ubSoundID].zName );
+					sprintf( zFilename, "BATTLESNDS\\zombie_%s.mp3", gBattleSndsData[ubSoundID].zName );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\zombie_%s.wav", gBattleSndsData[ubSoundID].zName );
+					}
 				}
 			}
 		}
@@ -11011,7 +11050,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\bad%d_die.ogg", pSoldier->ubBattleSoundID );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\bad%d_die.wav", pSoldier->ubBattleSoundID );
+					sprintf( zFilename, "BATTLESNDS\\bad%d_die.mp3", pSoldier->ubBattleSoundID );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\bad%d_die.wav", pSoldier->ubBattleSoundID );
+					}
 				}
 			}
 			else
@@ -11019,7 +11062,11 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 				sprintf( zFilename, "BATTLESNDS\\bad%d_%s.ogg", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
 				if ( !FileExists( zFilename ) )
 				{
-					sprintf( zFilename, "BATTLESNDS\\bad%d_%s.wav", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+					sprintf( zFilename, "BATTLESNDS\\bad%d_%s.mp3", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+					if ( !FileExists( zFilename ) )
+					{
+						sprintf( zFilename, "BATTLESNDS\\bad%d_%s.wav", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+					}
 				}
 			}
 		}

@@ -349,10 +349,14 @@ UINT32 PlayVoice( void )
 	UINT16 iSlot = gIMPVoice[iCurrentVoice].voiceset;
 	Assert( (iSlot >= 0) && (iSlot <= 999) );
 
-	sprintf( zFileName, "Speech\\%03d_001.ogg", iSlot );
+	sprintf( zFileName, "Speech\\%03d_001.mp3", iSlot );
 	if ( !FileExists( zFileName ) )
 	{
-		sprintf( zFileName, "Speech\\%03d_001.wav", iSlot );
+		sprintf( zFileName, "Speech\\%03d_001.ogg", iSlot );
+		if ( !FileExists( zFileName ) )
+		{
+			sprintf( zFileName, "Speech\\%03d_001.wav", iSlot );
+		}
 	}
 
 	return(PlayJA2SampleFromFile( zFileName, RATE_11025, MIDVOLUME, 1, MIDDLEPAN ));
