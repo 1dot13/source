@@ -325,62 +325,38 @@ void ShutdownDialogueControl()
 	//
 }
 
-
-
 void InitalizeStaticExternalNPCFaces( void )
 {
-	INT32 iCounter = 0;
 	// go and grab all external NPC faces that are needed for the game who won't exist as soldiertypes
 
-	if( fExternFacesLoaded == TRUE )
-	{
+	if( fExternFacesLoaded )
 		return;
-	}
-
-	fExternFacesLoaded = TRUE;
-
-
+	
 	//
 	// Code for loading miners' faces has been moved to LuaMines::InitMinerFaces ...
 	//
 #ifdef JA2UB
-	for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
+	for( INT32 iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; ++iCounter )
 	{
 		uiExternalStaticNPCFacesUB[ iCounter ] = ( UINT32 )InitFace( ( UINT8 )( uiExternalFaceProfileIdsUB[ iCounter ] ), NOBODY, FACE_FORCE_SMALL );
 	}
 #endif
 
-	//for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
-	//{
-	//	uiExternalStaticNPCFaces[ iCounter ] = ( UINT32 )InitFace( ( UINT8 )( uiExternalFaceProfileIds[ iCounter ] ), NOBODY, FACE_FORCE_SMALL );
-	//}
 	// ... put Skyrider's face at index 0
 	uiExternalStaticNPCFaces.push_back(( UINT32 )InitFace( ( UINT8 )( SKYRIDER ), NOBODY, FACE_FORCE_SMALL ));
 	// anv: and put Waldo too
 	uiExternalStaticNPCFaces.push_back(( UINT32 )InitFace( ( UINT8 )( WALDO ), NOBODY, FACE_FORCE_SMALL ));
 
-	return;
+	fExternFacesLoaded = TRUE;
 }
 
 void ShutdownStaticExternalNPCFaces( void )
 {
-	INT32 iCounter = 0;
-
-	if( fExternFacesLoaded == FALSE )
-	{
+	if ( !fExternFacesLoaded )
 		return;
-	}
-
-	fExternFacesLoaded = FALSE;
-
-	// remove all external npc faces
-	//for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
-	//{
-	//	DeleteFace( uiExternalStaticNPCFaces[ iCounter ] );
-	//}
 
 #ifdef JA2UB
-	for( iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; iCounter++ )
+	for( INT32 iCounter = 0; iCounter < NUMBER_OF_EXTERNAL_NPC_FACES; ++iCounter )
 	{
 		DeleteFace( uiExternalStaticNPCFacesUB[ iCounter ] );
 	}
@@ -391,7 +367,10 @@ void ShutdownStaticExternalNPCFaces( void )
 	{
 		DeleteFace(*face);
 	}
+
 	uiExternalStaticNPCFaces.clear();
+
+	fExternFacesLoaded = FALSE;
 }
 
 
@@ -430,11 +409,9 @@ DEF:	commented out because the Queue system ?? uses a contiguous memory block ??
 
 BOOLEAN DialogueQueueIsEmpty( )
 {
-	INT32										numDialogueItems;
-
 	if( ghDialogueQ != NULL )
 	{
-		numDialogueItems = QueueSize( ghDialogueQ );
+		INT32 numDialogueItems = QueueSize( ghDialogueQ );
 
 		if ( numDialogueItems == 0 )
 		{
