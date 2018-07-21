@@ -151,20 +151,13 @@ BOOLEAN MusicPlay(UINT32 uiNum)
 	if ( NewSound == FALSE && MusicMode == MUSIC_OLD_TYPE )
 	{
 #endif
-	sprintf( zFileName, "%s.mp3", szMusicList[uiNum] );
-	if ( !FileExists( zFileName ) )
-	{
-		sprintf( zFileName, "%s.ogg", szMusicList[uiNum] );
-		if ( !FileExists( zFileName ) )
-		{
-			sprintf( zFileName, "%s.wav", szMusicList[uiNum] );
-		}
-	}
+		SoundFileExists( szMusicList[uiNum], zFileName );
 #ifdef NEWMUSIC
 	}
 	else if ( NewSound == TRUE )
 	{
 		CHAR8 modstr[32] = "";
+		CHAR8 modstr2[164] = "";
 
 		switch ( MusicMode )
 		{
@@ -176,16 +169,10 @@ BOOLEAN MusicPlay(UINT32 uiNum)
 		case MUSIC_TACTICAL_CREEPY_MUSIC:	sprintf( modstr, "CREEPY_" );	break;
 		default: break;
 		}
+		
+		sprintf( modstr2, "%s\\%s%d", szMusicList[15], modstr, uiNum );
 
-		sprintf( zFileName, "%s\\%s%d.ogg", szMusicList[15], modstr, uiNum );
-		if ( !FileExists( zFileName ) )
-		{
-			sprintf( zFileName, "%s\\%s%d.wav", szMusicList[15], modstr, uiNum );
-			if ( !FileExists( zFileName ) )
-			{
-				sprintf( zFileName, "%s\\%s%d.mp3", szMusicList[15], modstr, uiNum );
-			}
-		}
+		SoundFileExists( modstr2, zFileName );
 	}
 #endif
 	uiMusicHandle = SoundPlayStreamedFile(zFileName, &spParms);

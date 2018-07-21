@@ -192,6 +192,9 @@ UINT32		GetFreeSpaceOnHardDriveWhereGameIsRunningFrom( );
 //Gets the free hard drive space from the drive letter passed in.	It has to be the root dir.	( eg. c:\ )
 UINT32		GetFreeSpaceOnHardDrive( STR pzDriveLetter );
 
+// Flugente: simple wrapper to check whether an audio file in mp3/ogg/wav format exists
+BOOLEAN	SoundFileExists( STR strFilename, STR zFoundFilename );
+
 /*
 #ifdef __cplusplus
 }

@@ -10626,6 +10626,7 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	//in this function, pSoldier stands in for the this pointer, since
 	//this soldier could be a vehicle, then the merc that makes the sound is inside
 	SGPFILENAME		zFilename;
+	SGPFILENAME		zFilename_Used;
 	SOUNDPARMS		spParms;
 	UINT8				ubSoundID = 0;
 	UINT32				uiSoundID;
@@ -10896,18 +10897,9 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 			UINT16 numsounds = QuoteExp[pSoldier->ubProfile].numBattleSounds[ubSoundID];
 
 			// check: is there a sound with a bigger number?
-			sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
+			sprintf( zFilename, "BATTLESNDS\\%03d_%s%d", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
 
-			if ( !FileExists( zFilename ) )
-			{
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
-				}
-			}
-
-			if ( FileExists( zFilename ) )
+			if ( SoundFileExists( zFilename, zFilename_Used ) )
 			{
 				QuoteExp[pSoldier->ubProfile].numBattleSounds[ubSoundID]++;
 			}
@@ -10921,63 +10913,27 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 
 		if ( soundtoplay > 1 )
 		{
-			sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
-
-			if ( !FileExists( zFilename ) )
-			{
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
-
-				if ( !FileExists( zFilename ) )
-					sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
-			}
+			sprintf( zFilename, "BATTLESNDS\\%03d_%s%d", usVoiceSet, gBattleSndsData[ubSoundID].zName, soundtoplay );
 		}
 		else
 		{
-			sprintf( zFilename, "BATTLESNDS\\%03d_%s.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName );
-
-			if ( !FileExists( zFilename ) )
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName );
+			sprintf( zFilename, "BATTLESNDS\\%03d_%s", usVoiceSet, gBattleSndsData[ubSoundID].zName );
 
 			// due to legacy reasons, we both have to check for versions with '1' and without a number here
-			if ( !FileExists( zFilename ) )
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.ogg", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
-
-			if ( !FileExists( zFilename ) )
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.wav", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
-
-			if ( !FileExists( zFilename ) )
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName );
-
-			if ( !FileExists( zFilename ) )
-				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d.mp3", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
+			if ( !SoundFileExists( zFilename, zFilename_Used ) )
+				sprintf( zFilename, "BATTLESNDS\\%03d_%s%d", usVoiceSet, gBattleSndsData[ubSoundID].zName, 1 );
 		}
 
-		if ( !FileExists( zFilename ) )
+		if ( !SoundFileExists( zFilename, zFilename_Used ) )
 		{
 			// OK, temp build file...
 			if ( pSoldier->ubBodyType == REGFEMALE )
 			{
-				sprintf( zFilename, "BATTLESNDS\\f_%s.ogg", gBattleSndsData[ubSoundID].zName );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\f_%s.mp3", gBattleSndsData[ubSoundID].zName );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\f_%s.wav", gBattleSndsData[ubSoundID].zName );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\f_%s", gBattleSndsData[ubSoundID].zName );
 			}
 			else
 			{
-				sprintf( zFilename, "BATTLESNDS\\m_%s.ogg", gBattleSndsData[ubSoundID].zName );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\m_%s.mp3", gBattleSndsData[ubSoundID].zName );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\m_%s.wav", gBattleSndsData[ubSoundID].zName );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\m_%s", gBattleSndsData[ubSoundID].zName );
 			}
 		}
 	}
@@ -10993,84 +10949,48 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 		{
 			if ( ubSoundID == BATTLE_SOUND_DIE1 )
 			{
-				sprintf( zFilename, "BATTLESNDS\\kid%d_dying.ogg", pSoldier->ubBattleSoundID );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\kid%d_dying.mp3", pSoldier->ubBattleSoundID );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\kid%d_dying.wav", pSoldier->ubBattleSoundID );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\kid%d_dying", pSoldier->ubBattleSoundID );
 			}
 			else
 			{
-				sprintf( zFilename, "BATTLESNDS\\kid%d_%s.ogg", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\kid%d_%s.mp3", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\kid%d_%s.wav", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\kid%d_%s1", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+
+				if ( !SoundFileExists( zFilename, zFilename_Used ) )
+					sprintf( zFilename, "BATTLESNDS\\kid%d_%s2", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
 			}
 		}
 		else if ( pSoldier->IsZombie( ) ) // Madd: add zombie sounds
 		{
 			if ( ubSoundID == BATTLE_SOUND_DIE1 )
 			{
-				sprintf( zFilename, "BATTLESNDS\\zombie_die.ogg" );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\zombie_die.mp3" );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\zombie_die.wav" );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\zombie_die" );
 			}
 			else
 			{
-				sprintf( zFilename, "BATTLESNDS\\zombie_%s.ogg", gBattleSndsData[ubSoundID].zName );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\zombie_%s.mp3", gBattleSndsData[ubSoundID].zName );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\zombie_%s.wav", gBattleSndsData[ubSoundID].zName );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\zombie_%s1", gBattleSndsData[ubSoundID].zName );
+
+				if ( !SoundFileExists( zFilename, zFilename_Used ) )
+					sprintf( zFilename, "BATTLESNDS\\zombie_%s2", gBattleSndsData[ubSoundID].zName );
 			}
 		}
 		else
 		{
 			if ( ubSoundID == BATTLE_SOUND_DIE1 )
 			{
-				sprintf( zFilename, "BATTLESNDS\\bad%d_die.ogg", pSoldier->ubBattleSoundID );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\bad%d_die.mp3", pSoldier->ubBattleSoundID );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\bad%d_die.wav", pSoldier->ubBattleSoundID );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\bad%d_die", pSoldier->ubBattleSoundID );
 			}
 			else
 			{
-				sprintf( zFilename, "BATTLESNDS\\bad%d_%s.ogg", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-				if ( !FileExists( zFilename ) )
-				{
-					sprintf( zFilename, "BATTLESNDS\\bad%d_%s.mp3", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-					if ( !FileExists( zFilename ) )
-					{
-						sprintf( zFilename, "BATTLESNDS\\bad%d_%s.wav", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-					}
-				}
+				sprintf( zFilename, "BATTLESNDS\\bad%d_%s1", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+
+				if ( !SoundFileExists( zFilename, zFilename_Used ) )
+					sprintf( zFilename, "BATTLESNDS\\bad%d_%s2", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
 			}
 		}
 	}
+
+	if ( !SoundFileExists( zFilename, zFilename_Used ) )
+		return FALSE;
 
 	// Play sound!
 	memset( &spParms, 0xff, sizeof(SOUNDPARMS) );
@@ -11102,7 +11022,7 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 
 	if ( gSoundProfileValue[pSoldier->ubProfile].EnabledSound == TRUE || pSoldier->ubProfile == NO_PROFILE )
 	{
-		if ( (uiSoundID = SoundPlay( zFilename, &spParms )) == SOUND_ERROR )
+		if ( (uiSoundID = SoundPlay( zFilename_Used, &spParms )) == SOUND_ERROR )
 		{
 			return(FALSE);
 		}

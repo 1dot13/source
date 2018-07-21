@@ -345,19 +345,14 @@ BOOLEAN CameBackToVoicePageButNotFinished( )
 UINT32 PlayVoice( void )
 {
 	CHAR8 zFileName[164];
+	CHAR8 zFileNameHelp[164];
 
 	UINT16 iSlot = gIMPVoice[iCurrentVoice].voiceset;
 	Assert( (iSlot >= 0) && (iSlot <= 999) );
 
-	sprintf( zFileName, "Speech\\%03d_001.mp3", iSlot );
-	if ( !FileExists( zFileName ) )
-	{
-		sprintf( zFileName, "Speech\\%03d_001.ogg", iSlot );
-		if ( !FileExists( zFileName ) )
-		{
-			sprintf( zFileName, "Speech\\%03d_001.wav", iSlot );
-		}
-	}
+	sprintf( zFileNameHelp, "Speech\\%03d_001", iSlot );
+
+	SoundFileExists( zFileNameHelp, zFileName );
 
 	return(PlayJA2SampleFromFile( zFileName, RATE_11025, MIDVOLUME, 1, MIDDLEPAN ));
 }
