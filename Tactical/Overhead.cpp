@@ -9237,9 +9237,9 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
         pTarget = MercPtrs[ pSoldier->ubTargetID ];
     }
 
-    if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))
+	// Flugente 18-07-22: commenting this out - it doesn't do harm in realtime, and is more realistic
+    //if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))
     {
-
         // Check to see if anyone was suppressed
         if (pTarget)
         {
@@ -9249,8 +9249,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
         {
             HandleSuppressionFire( NOBODY, ubID );
         }
-
-
+		
         //HandleAfterShootingGuy( pSoldier, pTarget );
 
         // suppression fire might cause the count to be increased, so check it again
