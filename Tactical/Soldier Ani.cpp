@@ -4096,6 +4096,13 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 			DeleteVIP( pSoldier->sSectorX, pSoldier->sSectorY );
 		}
 
+		// Flugente: additional dialogue
+		if ( pSoldier->ubProfile != NO_PROFILE )
+		{
+			AdditionalTacticalCharacterDialogue_AllInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, pSoldier->ubProfile, ADE_NPC_DEATH, 
+				pSoldier->ubProfile, pKillerSoldier ? pKillerSoldier->ubProfile : 0, pSoldier->ubBodyType );
+		}
+
 		// Remove mad as target, one he has died!
 		RemoveManAsTarget( pSoldier );
 

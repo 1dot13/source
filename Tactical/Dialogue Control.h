@@ -361,6 +361,7 @@ enum AdditionalDialogEvents
 	ADE_SKILL_RESULT,						// we used a skill, and comment on the result
 	ADE_GRENADEWARNING,						// a delayed enemy grenade was dropped nearby
 	ADE_CONSUMEITEM,						// we applied an item to us
+	ADE_NPC_DEATH,							// someone died
 };
 
 // We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said
@@ -374,6 +375,10 @@ void AdditionalTacticalCharacterDialogue_AllInSector( INT16 aSectorX, INT16 aSec
 
 void AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( UINT8 ausIgnoreProfile,	UINT16 usEventNr, 
 	UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0, INT32 aAroundGridno = -1, INT32 aRadius = 0 );
+
+void SetQuoteStr( STR16 aStr );
+
+BOOLEAN LuaCallsToDoDialogueStuff( UINT8 ubProfile, INT32 iFaceIndex, const char* azSoundString );
 
 // Flugente: replace text with other text
 BOOLEAN ReplaceTextWithOtherText( CHAR16 *pFinishedString, CHAR16 compare[32], CHAR16 replace[32] );
