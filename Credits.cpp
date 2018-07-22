@@ -1134,22 +1134,30 @@ BOOLEAN	GetNextCreditFromTextFile()
 			break;
 
 			case 70:
-				wcscpy(zOriginalString, pCreditsJA2113[6]);
+				wcscpy( zOriginalString, L"tais" );
 			break;
 
-			// Additonal lines for free space
 			case 71:
-				wcscpy(zOriginalString, L"@T,B40,C208,{; ");
+				wcscpy( zOriginalString, L"sevenfm" );
 			break;
 
 			case 72:
+				wcscpy(zOriginalString, pCreditsJA2113[6]);
+			break;
+
+			// Additional lines for free space
+			case 73:
+				wcscpy(zOriginalString, L"@T,B40,C208,{; ");
+			break;
+
+			case 74:
 				wcscpy(zOriginalString, L"@}; ");
 			break;
 
 			// 3.)	Sir-Tech Credits
 			default:
 				//Get the current Credit record
-				uiStartLoc = CREDITS_LINESIZE * (guiCurrentCreditRecord-(72+1));
+				uiStartLoc = CREDITS_LINESIZE * (guiCurrentCreditRecord-(74+1));
 				if( !LoadEncryptedDataFromFile( CRDT_NAME_OF_CREDIT_FILE, zOriginalString, uiStartLoc, CREDITS_LINESIZE ) )
 				{
 					//there are no more credits

@@ -1843,13 +1843,12 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	
 		//------------------------------------Legion 2 by jazz--------------------------------
 
-		UINT8 faceProfileId = MercPtrs[ pFace->ubSoldierID ]->ubProfile;
+		UINT8 faceProfileId = gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].ubFaceIndex;
 		BOOLEAN isIMP = FALSE;
 		
 		//IMP
 		if ( gProfilesIMP[ MercPtrs[ pFace->ubSoldierID ]->ubProfile ].ProfilId == MercPtrs[ pFace->ubSoldierID ]->ubProfile )
-		{
-			faceProfileId = gMercProfiles[MercPtrs[ pFace->ubSoldierID ]->ubProfile].ubFaceIndex;	
+		{	
 			isIMP = TRUE;
 		}
 
@@ -1969,8 +1968,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
     
 		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
 			( MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem > 0 ) )
-		{
-	
+		{	
 			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem;
 			
 			if ( uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1 ) //back
@@ -1988,7 +1986,6 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// silversurfer: don't overwrite icons if they shall be shown!
 			//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
 			{
-
 				uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
 				uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
 			
