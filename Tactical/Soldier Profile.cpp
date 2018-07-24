@@ -2369,11 +2369,20 @@ BOOLEAN MercIsInTropicalSector( SOLDIERTYPE * pSoldier )
 
 SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 {
-	MERCPROFILESTRUCT* pNewProfile;
-	UINT8 ubSrcProfile = pSoldier->ubProfile;
+	UINT8	ubSrcProfile;
+	UINT8	ubDestProfile;
+	MERCPROFILESTRUCT * pNewProfile;
 
-	// need a stop criteria...
-	if ( FALSE )
+	ubSrcProfile = pSoldier->ubProfile;
+	if ( ubSrcProfile == LARRY_NORMAL )
+	{
+		ubDestProfile = LARRY_DRUNK;
+	}
+	else if ( ubSrcProfile == LARRY_DRUNK )
+	{
+		ubDestProfile = LARRY_NORMAL;
+	}
+	else
 	{
 		// I don't think so!
 		return( pSoldier );
@@ -2449,7 +2458,7 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	pNewProfile->sTrueSalary = gMercProfiles[ ubSrcProfile ].sTrueSalary;
 
 	// the goodguy property is permanent and shouldn't carry over, so check for that
-	BOOLEAN goodguy = ( gMercProfiles[ubDestProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY ) ? TRUE : FALSE;
+	BOOLEAN goodguy = ( (gMercProfiles[ubDestProfile].ubMiscFlags3) & PROFILE_MISC_FLAG3_GOODGUY ) ? TRUE : FALSE;
 
 	pNewProfile->ubMiscFlags3 = gMercProfiles[ ubSrcProfile ].ubMiscFlags3;
 
