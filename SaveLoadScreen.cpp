@@ -1419,7 +1419,7 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 		return( TRUE );
 	}
 
-	if( bEntryID == -1 )
+	if( bEntryID < 0 )
 		return( TRUE );
 
 	//if we are currently fading out, leave
@@ -2178,10 +2178,9 @@ void SelectedSaveRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
-		UINT8	bTemp;
 		pRegion->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		bTemp = gbHighLightedLocation;
+		INT8 bTemp = gbHighLightedLocation;
 		gbHighLightedLocation = -1;
 		DisplaySaveGameEntry( bTemp );
 
