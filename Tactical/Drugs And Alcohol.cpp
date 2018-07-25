@@ -151,13 +151,21 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 	// do switch for Larry!!
 	if ( pSoldier->ubProfile == LARRY_NORMAL )
 	{
-		pSoldier = SwapLarrysProfiles( pSoldier );
+		SwapToProfile( pSoldier, LARRY_DRUNK );
+
+		gMercProfiles[LARRY_NORMAL].bNPCData = LARRY_FALLS_OFF_WAGON;
 	}
 	else if ( pSoldier->ubProfile == LARRY_DRUNK )
 	{
-		gMercProfiles[LARRY_DRUNK].bNPCData = 0;
-	}
+		// NB store all drunkenness info in LARRY_NORMAL profile (to use same values)
+		// so long as he keeps consuming, keep number above level at which he cracked						
+		gMercProfiles[LARRY_NORMAL].bNPCData += (INT8)Random( 5 );
 
+		// allow value to keep going up to 24 (about 2 days since we subtract Random( 2 ) when he has no access )
+		gMercProfiles[LARRY_NORMAL].bNPCData = __min( gMercProfiles[LARRY_NORMAL].bNPCData, 24 );
+		gMercProfiles[LARRY_NORMAL].bNPCData = __max( gMercProfiles[LARRY_NORMAL].bNPCData, LARRY_FALLS_OFF_WAGON );
+	}
+	
 	if ( NewDrug[drugused].opinionevent )
 	{
 		HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, TRUE );

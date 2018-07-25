@@ -2231,6 +2231,25 @@ BOOLEAN LuaCallsToDoDialogueStuff( UINT8 ubProfile, INT32 iFaceIndex, const char
 	return TRUE;
 }
 
+// Flugente: play sound file like normal dialogue or, if someone else is already talking, just play the sound
+void SpecialDialogue( SOLDIERTYPE* pSoldier, STR8 azSoundString, STR16 azTextString )
+{
+	// if possible, set up a proper dialogue. Otherwise just play the file
+	if ( !DialogueActive() && pSoldier->ubProfile != NO_PROFILE )
+	{
+		gpCurrentTalkingFace = &gFacesData[pSoldier->iFaceIndex];
+		gubCurrentTalkingID = pSoldier->ubID;
+
+		SetQuoteStr( azTextString );
+
+		LuaCallsToDoDialogueStuff( pSoldier->ubProfile, pSoldier->iFaceIndex, azSoundString );
+	}
+	else
+	{
+		PlayJA2SampleFromFile( azSoundString, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+	}
+}
+
 void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum, SOLDIERTYPE *pSoldier, STR16 zQuoteStr )
 {
 	// Show text, if on

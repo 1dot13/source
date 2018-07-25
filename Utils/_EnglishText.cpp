@@ -11001,6 +11001,8 @@ STR16	szDiseaseText[] =
 	L"Cancel",
 
 	L"\n\n%s (undiagnosed) - %d / %d\n",
+
+	L"High amount of distress can cause a personality split\n",
 };
 
 STR16	szSpyText[] =

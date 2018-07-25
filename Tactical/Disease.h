@@ -71,6 +71,7 @@ enum
 #define DISEASE_PROPERTY_HIDESYMBOL		0x00000008				// do not show a symbol for this disease on the merc's face, even if diagnosed
 
 #define DISEASE_PROPERTY_DISGUSTING		0x00000010				// other merc's will be disgusted by anyone with this disease if broken out
+#define DISEASE_PROPERTY_PTSD_BUNS		0x00000020				// if Buns has this disease, she can change personality
 
 typedef struct
 {

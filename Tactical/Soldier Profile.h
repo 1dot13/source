@@ -88,6 +88,7 @@ extern BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile );
 enum NPCIDs
 {
 	VICKI = 4,// anv: check when hiring Speck
+	BUNS = 17,
 	BIFF = 40,
 	HAYWIRE,
 	GASKET,
@@ -248,6 +249,8 @@ enum NPCIDs
 	ELIO = 196,
 	JUAN = 197,
 	WAHAN = 198,
+
+	BUNS_CHAOTIC = 215,
 } ;
 
 BOOLEAN LoadMercProfiles(void);
@@ -285,7 +288,7 @@ extern BOOLEAN gubNumTerrorists;
 
 void MakeRemainingTerroristsTougher( void );
 void MakeRemainingAssassinsTougher( void );
-SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier );
+SOLDIERTYPE* SwapToProfile( SOLDIERTYPE * pSoldier, UINT8 ubDestProfile );
 
 BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 

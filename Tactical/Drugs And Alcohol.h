@@ -57,6 +57,8 @@ enum {
 	HUNGOVER,
 };
 
+#define LARRY_FALLS_OFF_WAGON 8
+
 BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed );
 
 void HandleEndTurnDrugAdjustments_New( SOLDIERTYPE *pSoldier );

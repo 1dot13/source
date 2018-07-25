@@ -11008,6 +11008,8 @@ STR16	szDiseaseText[] =
 	L"Cancel",
 
 	L"\n\n%s (undiagnosed) - %d / %d\n",	// TODO.Translate
+
+	L"High amount of distress can cause a personality split\n",	// TODO.Translate
 };
 
 STR16	szSpyText[] =

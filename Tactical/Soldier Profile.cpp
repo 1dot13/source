@@ -2367,22 +2367,13 @@ BOOLEAN MercIsInTropicalSector( SOLDIERTYPE * pSoldier )
 		return( FALSE );
 }
 
-SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
+SOLDIERTYPE* SwapToProfile( SOLDIERTYPE * pSoldier, UINT8 ubDestProfile )
 {
-	UINT8	ubSrcProfile;
-	UINT8	ubDestProfile;
-	MERCPROFILESTRUCT * pNewProfile;
+	MERCPROFILESTRUCT* pNewProfile;
+	UINT8 ubSrcProfile = pSoldier->ubProfile;
 
-	ubSrcProfile = pSoldier->ubProfile;
-	if ( ubSrcProfile == LARRY_NORMAL )
-	{
-		ubDestProfile = LARRY_DRUNK;
-	}
-	else if ( ubSrcProfile == LARRY_DRUNK )
-	{
-		ubDestProfile = LARRY_NORMAL;
-	}
-	else
+	// need a stop criteria...
+	if ( FALSE )
 	{
 		// I don't think so!
 		return( pSoldier );

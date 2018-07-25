@@ -347,28 +347,30 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 	{	WINE,									3, 50	},
 	{ REGEN_BOOSTER,				3, 100 },
 	{	BEER,									2, 100 },
-};*/
+};
 
-#define LARRY_FALLS_OFF_WAGON 8
+#define LARRY_FALLS_OFF_WAGON 8*/
 
 void HourlyLarryUpdate()
 {
 	SOLDIERTYPE *				pSoldier = NULL;
 	SOLDIERTYPE *				pOtherSoldier = NULL;
 	INT8						bSlot = NO_SLOT, bBoozeSlot;
-	INT8						bLarryItemLoop;
 	UINT16						usTemptation = 0;
 	UINT16						usCashAmount;
 	BOOLEAN						fBar = FALSE;
 	OBJECTTYPE*					pObj = NULL;
+	BOOLEAN						fTookDrugs = FALSE;
 
 	for( UINT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
 		pSoldier = MercPtrs[ cnt ];
 
-		if ( pSoldier && pSoldier->bAssignment < ON_DUTY && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && pSoldier->bInSector && !(gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
+		if ( pSoldier && pSoldier->bActive && ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK || pSoldier->HasBackgroundFlag( BACKGROUND_DRUGUSE ) ) )
 		{
-			if ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK || pSoldier->HasBackgroundFlag( BACKGROUND_DRUGUSE ) )
+			fTookDrugs = FALSE;
+
+			if ( pSoldier->bAssignment < ON_DUTY && !pSoldier->flags.fBetweenSectors && pSoldier->bInSector && !( gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) )
 			{
 				// Flugente: reworked this for the new drug system. We now loop over our entire inventory
 				INT8 invsize = (INT8)pSoldier->inv.size();										// remember inventorysize, so we don't call size() repeatedly
@@ -447,73 +449,80 @@ void HourlyLarryUpdate()
 						}
 					}
 					
-					if ( fSnitchStoppedBehaviour )
-						continue;
+					if ( !fSnitchStoppedBehaviour )
+					{
+						fTookDrugs = TRUE;
 
-					if ( pSoldier->ubProfile == LARRY_DRUNK )
+						// Flugente: dynamic opinion
+						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, FALSE );
+
+						if ( fBar )
+						{
+							// take $ from player's account
+							// silversurfer: changed the price to reflect the changed amount of 25% below
+							//usCashAmount = Item[ ALCOHOL ].usPrice;
+							usCashAmount = (UINT16)( Item[ALCOHOL].usPrice / 4.0f );
+							AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin(), -( usCashAmount ) );
+							// give Larry some booze and set slot etc values appropriately
+							// CHRISL: Change final parameter to allow dynamic control of inventory slots
+							bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
+							if ( bBoozeSlot != NO_SLOT )
+							{
+								// give Larry booze here
+								// silversurfer: only give the merc a 25% bottle. This fixes the problem that the bottle of alcohol can go to any inventory slot even one that isn't available.
+								// Now the bottle will be fully consumed below and vanishes from inventory before the player even gets to see it. This simulates going to a bar to have a drink there.
+								//CreateItem( ALCOHOL, 100, &(pSoldier->inv[bBoozeSlot]) );
+								CreateItem( ALCOHOL, 25, &( pSoldier->inv[bBoozeSlot] ) );
+							}
+							bSlot = bBoozeSlot;
+							
+							if ( bSlot != NO_SLOT )
+							{
+								UseKitPoints( &( pSoldier->inv[bSlot] ), 25/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
+							}
+						}
+						else
+						{
+							if ( pObj )
+								UseKitPoints( pObj, 100/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
+						}
+					}
+				}
+			}
+
+			// special treatment for Larry, he switches personality if takes drugs
+			if ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK )
+			{
+				if ( fTookDrugs )
+				{
+					if ( pSoldier->ubProfile == LARRY_NORMAL )
+					{
+						SwapToProfile( pSoldier, LARRY_DRUNK );
+
+						gMercProfiles[LARRY_NORMAL].bNPCData = LARRY_FALLS_OFF_WAGON;
+					}
+					else
 					{
 						// NB store all drunkenness info in LARRY_NORMAL profile (to use same values)
 						// so long as he keeps consuming, keep number above level at which he cracked
-						gMercProfiles[ LARRY_NORMAL ].bNPCData = __max( gMercProfiles[ LARRY_NORMAL ].bNPCData, LARRY_FALLS_OFF_WAGON );
-						gMercProfiles[ LARRY_NORMAL ].bNPCData += (INT8) Random( usTemptation );
+						gMercProfiles[LARRY_NORMAL].bNPCData += (INT8)Random( usTemptation );
+
 						// allow value to keep going up to 24 (about 2 days since we subtract Random( 2 ) when he has no access )
-						gMercProfiles[ LARRY_NORMAL ].bNPCData = __min( gMercProfiles[ LARRY_NORMAL ].bNPCData, 24 );
-					}
-					else
-					{
-						gMercProfiles[ pSoldier->ubProfile ].bNPCData += (INT8) Random( usTemptation );
-
-						if ( gMercProfiles[ pSoldier->ubProfile ].bNPCData < LARRY_FALLS_OFF_WAGON )
-							continue;
-					}
-
-					// Flugente: dynamic opinion
-					HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, FALSE );
-
-					if ( fBar )
-					{
-						// take $ from player's account
-						// silversurfer: changed the price to reflect the changed amount of 25% below
-						//usCashAmount = Item[ ALCOHOL ].usPrice;
-						usCashAmount = (UINT16)(Item[ ALCOHOL ].usPrice / 4.0f );
-						AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin() , -( usCashAmount ) );
-						// give Larry some booze and set slot etc values appropriately
-						// CHRISL: Change final parameter to allow dynamic control of inventory slots
-						bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
-						if ( bBoozeSlot != NO_SLOT )
-						{
-							// give Larry booze here
-							// silversurfer: only give the merc a 25% bottle. This fixes the problem that the bottle of alcohol can go to any inventory slot even one that isn't available.
-							// Now the bottle will be fully consumed below and vanishes from inventory before the player even gets to see it. This simulates going to a bar to have a drink there.
-							//CreateItem( ALCOHOL, 100, &(pSoldier->inv[bBoozeSlot]) );
-							CreateItem( ALCOHOL, 25, &(pSoldier->inv[bBoozeSlot]) );
-						}
-						bSlot = bBoozeSlot;
-						bLarryItemLoop = 1;
-
-						if ( pSoldier->ubProfile == LARRY_DRUNK )
-						{
-							SwapLarrysProfiles( pSoldier );
-						}
-
-						if ( bSlot != NO_SLOT )
-						{
-							UseKitPoints( &(pSoldier->inv[ bSlot ]), 25/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
-						}
-					}
-					else
-					{
-						if ( pObj )
-							UseKitPoints( pObj, 100/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
+						gMercProfiles[LARRY_NORMAL].bNPCData = __min( gMercProfiles[LARRY_NORMAL].bNPCData, 24 );
+						gMercProfiles[LARRY_NORMAL].bNPCData = __max( gMercProfiles[LARRY_NORMAL].bNPCData, LARRY_FALLS_OFF_WAGON );
 					}
 				}
-				else if ( pSoldier->ubProfile == LARRY_DRUNK )
+				else
 				{
-					gMercProfiles[ LARRY_NORMAL ].bNPCData -= (INT8) Random( 2 );
-					if ( gMercProfiles[ LARRY_NORMAL ].bNPCData <= 0 )
+					if ( pSoldier->ubProfile == LARRY_DRUNK )
 					{
-						// goes sober!
-						SwapLarrysProfiles( pSoldier );
+						gMercProfiles[LARRY_NORMAL].bNPCData -= (INT8)Random( 2 );
+
+						if ( gMercProfiles[LARRY_NORMAL].bNPCData <= 0 )
+						{
+							// goes sober!
+							SwapToProfile( pSoldier, LARRY_NORMAL );
+						}
 					}
 				}
 			}
@@ -563,10 +572,10 @@ void HourlyDisabilityUpdate( )
 	{
 		pSoldier = MercPtrs[cnt];
 
-		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep )
+		if ( pSoldier && pSoldier->bActive )
 		{
-			// possibl self-harm
-			if ( Chance(20) && DoesMercHaveDisability( pSoldier, SELF_HARM ) )
+			// possible self-harm
+			if ( !pSoldier->flags.fMercAsleep && Chance(20) && DoesMercHaveDisability( pSoldier, SELF_HARM ) )
 			{
 				// don't do this if we are at low health, or in combat, or travelling, or a patient or doctor
 				// only do this if we are rather healed
@@ -631,6 +640,23 @@ void HourlyDisabilityUpdate( )
 						// say something (which might also alert the player to what we just did)
 						TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
 					}
+				}
+			}
+
+			// If Buns is in her alternate personality, she will eventually change back.
+			if ( pSoldier->ubProfile == BUNS_CHAOTIC )
+			{
+				gMercProfiles[BUNS].bNPCData = max(0, gMercProfiles[BUNS].bNPCData - 1 );
+
+				if ( gMercProfiles[BUNS].bNPCData <= 0 )
+				{
+					SwapToProfile( pSoldier, BUNS );
+
+					extern void SpecialDialogue( SOLDIERTYPE* pSoldier, STR8 azSoundString, STR16 azTextString );
+
+					SpecialDialogue( pSoldier, "Speech\\Special\\buns_ptsd_deactivation.MP3", L"I'm better now." );
+
+					//TacticalCharacterDialogue( pSoldier, QUOTE_WORK_UP_AND_RETURNING_TO_ASSIGNMENT );
 				}
 			}
 		}

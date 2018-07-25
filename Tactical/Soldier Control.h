@@ -1934,7 +1934,8 @@ public:
 	// fHealableOnly: check wether it can be healed
 	// fSymbolOnly: only show if symbol should be shown
 	BOOLEAN HasDisease(BOOLEAN fDiagnosedOnly, BOOLEAN fHealableOnly, BOOLEAN fSymbolOnly = FALSE);
-	FLOAT	GetDiseaseMagnitude( UINT8 aDisease );			// get the magnitude os a disease we might have, used to determine wether there are any effects
+	BOOLEAN HasDiseaseWithFlag(UINT32 aFlag);
+	FLOAT	GetDiseaseMagnitude( UINT8 aDisease );			// get the magnitude of a disease we might have, used to determine wether there are any effects
 	void	PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc = FALSE );
 	void	PrintFoodDesc( CHAR16* apStr, BOOLEAN fFullDesc = FALSE );
 	void	PrintSleepDesc( CHAR16* apStr );

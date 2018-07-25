@@ -11001,6 +11001,8 @@ STR16	szDiseaseText[] =
 	L"Отмена",
 
 	L"\n\n%s (недиагностирована) - %d / %d\n",
+
+	L"High amount of distress can cause a personality split\n",	// TODO.Translate
 };
 
 STR16	szSpyText[] =

@@ -376,9 +376,8 @@ void AdditionalTacticalCharacterDialogue_AllInSector( INT16 aSectorX, INT16 aSec
 void AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( UINT8 ausIgnoreProfile,	UINT16 usEventNr, 
 	UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0, INT32 aAroundGridno = -1, INT32 aRadius = 0 );
 
-void SetQuoteStr( STR16 aStr );
-
-BOOLEAN LuaCallsToDoDialogueStuff( UINT8 ubProfile, INT32 iFaceIndex, const char* azSoundString );
+// Flugente: play sound file like normal dialogue or, if someone else is already talking, just play the sound
+void SpecialDialogue( SOLDIERTYPE* pSoldier, STR8 azSoundString, STR16 azTextString );
 
 // Flugente: replace text with other text
 BOOLEAN ReplaceTextWithOtherText( CHAR16 *pFinishedString, CHAR16 compare[32], CHAR16 replace[32] );

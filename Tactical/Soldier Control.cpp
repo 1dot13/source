@@ -10279,7 +10279,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		}
 
 		// possibly get traumatized if damage gets close to killing us (not if we're slowly bleeding)
-		if ( this->stats.bLife < OKLIFE && ubReason != TAKE_DAMAGE_BLOODLOSS )
+		if ( this->stats.bLife < OKLIFE )//&& ubReason != TAKE_DAMAGE_BLOODLOSS )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_TRAUMATIC );
 	}
 
@@ -18937,7 +18937,25 @@ BOOLEAN SOLDIERTYPE::HasDisease( BOOLEAN fDiagnosedOnly, BOOLEAN fHealableOnly, 
 	return FALSE;
 }
 
-// get the magnitude os a disease we might have, used to determine wether there are any effects
+// Do we have an outbroken disease with a special property?
+BOOLEAN SOLDIERTYPE::HasDiseaseWithFlag( UINT32 aFlag )
+{
+	if ( !gGameExternalOptions.fDisease )
+		return FALSE;
+
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+	{
+		// disease is relevant if we are infected and are not looking for symbols only while the disease has no symbol
+		if ( ( Disease[i].usDiseaseProperties & aFlag ) && this->sDiseasePoints[i] > 0 && ( this->sDiseaseFlag[i] & SOLDIERDISEASE_OUTBREAK ) )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+// get the magnitude of a disease we might have, used to determine wether there are any effects
 FLOAT	SOLDIERTYPE::GetDiseaseMagnitude( UINT8 aDisease )
 {
 	if ( !gGameExternalOptions.fDisease )
@@ -19070,6 +19088,12 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 						swprintf( atStr, szDiseaseText[TEXT_DISEASE_FOOD], val > 0 ? L"+" : L"", val );
 						wcscat( apStr, atStr );
 					}
+				}
+
+				if ( (this->ubProfile == BUNS || this->ubProfile == BUNS_CHAOTIC) && ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_PTSD_BUNS ) )
+				{
+					swprintf( atStr, szDiseaseText[TEXT_DISEASE_PTSD_BUNS_SPECIAL] );
+					wcscat( apStr, atStr );
 				}
 			}
 		}

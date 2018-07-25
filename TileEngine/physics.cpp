@@ -2715,7 +2715,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	// any merc nearby that can see this can warn us
 	if ( ( *pObj )[0]->data.misc.bDelay > 0 && pObject->ubOwner != NOBODY )//&& MercPtrs[pObject->ubOwner]->bTeam != gbPlayerNum )
 	{
-		AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( NO_PROFILE, ADE_GRENADEWARNING, 0, 0, 0, pObject->sGridNo, 5 );
+		AdditionalTacticalCharacterDialogue_AllInSectorRadiusCall( NO_PROFILE, ADE_GRENADEWARNING, pObj->usItem, 0, 0, pObject->sGridNo, 5 );
 	}
 
 	if ( fDoImpact )

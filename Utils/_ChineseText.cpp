@@ -10999,6 +10999,8 @@ STR16	szDiseaseText[] =
 	L"取消", //L"Cancel",　
 
 	L"\n\n%s (未诊断的) - %d / %d\n",	//L"\n\n%s (undiagnosed) - %d / %d\n",
+
+	L"High amount of distress can cause a personality split\n",	// TODO.Translate
 };
 
 STR16	szSpyText[] =

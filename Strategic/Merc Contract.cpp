@@ -939,6 +939,15 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 		EndCurrentContractRenewal( );
 	}
 
+	// Flugente: if this is Buns alternate personality, change her back. 
+	// This way we don't have to deal with her transformation while she is absent (and we don't need additional laptop soundfiles).
+	if ( pSoldier->ubProfile == BUNS_CHAOTIC )
+	{
+		gMercProfiles[BUNS].bNPCData = 0;
+
+		SwapToProfile( pSoldier, BUNS );
+	}
+
 	// anv: let buddies react
 	HandleBuddiesReactionToFiringMerc(pSoldier, MORALE_BUDDY_FIRED);
 

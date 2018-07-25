@@ -3577,9 +3577,8 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
                 }
                 break;
         }
-
     }
-
+		
     //Make a call to handle the strategic things, such as Life Insurance, record it in history file etc.
     StrategicHandlePlayerTeamMercDeath( pSoldier );
 
@@ -8573,6 +8572,18 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                     // If soldier is visible on-screen, report to player that they are cowering.
                     if ( pSoldier->bVisible != -1 )
                         ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113HAMMessage[0], pSoldier->GetName() );             
+
+					// Flugente: if we are Buns, and we have PTSD, this shock causes us to switch to a different personality
+					if ( pSoldier->ubProfile == BUNS && pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_PTSD_BUNS ) )
+					{
+						SwapToProfile( pSoldier, BUNS_CHAOTIC );
+
+						gMercProfiles[BUNS].bNPCData += 3 + Random( 3 );
+
+						extern void SpecialDialogue( SOLDIERTYPE* pSoldier, STR8 azSoundString, STR16 azTextString );
+
+						SpecialDialogue( pSoldier, "Speech\\Special\\buns_ptsd_activation.MP3", L"Mustn't... get... angry... HOW COULD YOU LET THAT HAPPEN TO ME???" );
+					}
                 }
             }
 
