@@ -28,6 +28,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -71,6 +72,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -114,6 +116,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>-10</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -157,6 +160,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>-30</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -200,6 +204,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>-7</sEffStatSTR>
@@ -243,6 +248,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -287,6 +293,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -330,6 +337,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>-10</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -373,6 +381,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -416,6 +425,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>-5</sEffStatAGI>
 		<sEffStatDEX>-5</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -459,6 +469,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -494,7 +505,7 @@
 		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
 		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
 		<InfectionChance_WOUND_WIS>50</InfectionChance_WOUND_WIS>
-		<InfectionChance_WOUND_TRAUMATIC>10</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_WOUND_TRAUMATIC>40</InfectionChance_WOUND_TRAUMATIC>
 		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
 		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
@@ -502,6 +513,7 @@
 		<fCanReInfect>0</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>1</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -545,6 +557,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>-50</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -588,6 +601,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>-20</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -631,6 +645,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>-20</sEffStatSTR>
@@ -646,6 +661,7 @@
 		<moralemodifier>1.0</moralemodifier>
 	</DISEASE>
 	<DISEASE>
+		<!-- we receive this via drug consumption -->
 		<uiIndex>15</uiIndex>
 		<szName>Drug Addiction</szName>
 		<szFatName>|D|r|u|g |A|d|d|i|c|t|i|o|n</szFatName>
@@ -674,6 +690,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>-20</sEffStatAGI>
 		<sEffStatDEX>-40</sEffStatDEX>
 		<sEffStatSTR>-20</sEffStatSTR>
@@ -717,6 +734,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>-20</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -761,6 +779,7 @@
 		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>

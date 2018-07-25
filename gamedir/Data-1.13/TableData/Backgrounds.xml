@@ -416,24 +416,12 @@
 		<uiIndex>17</uiIndex>
 		<szName>Nurse/Soldier/Shooter</szName>
 		<szShortName>Nurse/Soldier/Shooter</szShortName>
-		<szDescription>That combination will definitely spice up your resume.</szDescription>
-		<wisdom>2</wisdom>
-		<agility>2</agility>
-		<dexterity>3</dexterity>
-		<marksmanship>8</marksmanship>
-		<medical>7</medical>
+		<szDescription>That combination definitely spices up your resume.</szDescription>
 		<ap_inventory>-10</ap_inventory>
-		<resistance_disease>5</resistance_disease>
-		<resistance_fear>8</resistance_fear>
-		<resistance_suppression>3</resistance_suppression>
-		<resistance_physical>3</resistance_physical>
 		<speed_bandaging>30</speed_bandaging>
-		<marksmanship>2</marksmanship>
+		<disease_diagnose>10</disease_diagnose>
+		<carrystrength>6</carrystrength>
 		<spotter>5</spotter>
-		<travel_foot>4</travel_foot>
-		<ap_fortify>-3</ap_fortify>
-		<carrystrength>3</carrystrength>
-		<prisonguard>10</prisonguard>
 		<increased_maxcth>3</increased_maxcth>
 		<smoker>2</smoker>
 		<no_male>1</no_male>
@@ -4102,11 +4090,20 @@
 		<no_female>1</no_female>
 	</BACKGROUND>
 	<!-- Empty -->
+	<!-- chaotic Buns -->
 	<BACKGROUND>
 		<uiIndex>215</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>Split personality</szName>
+		<szShortName>Split personality</szShortName>
+		<szDescription>Since contracting PTSD, Buns involuntarily switches to a second&#10;personality under high stress. Her alternate persona is highly aggressive.</szDescription>
+		<ap_assault>6</ap_assault>
+		<resistance_fear>20</resistance_fear>
+		<resistance_physical>10</resistance_physical>
+		<interrogation>20</interrogation>
+		<cth_blades>10</cth_blades>
+		<stealth>5</stealth>
+		<fortify_assignment>-25</fortify_assignment>
+		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>

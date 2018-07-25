@@ -2366,14 +2366,14 @@
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>215</uiIndex>
-		<Name></Name>
+		<Name>Buns</Name>
 		<QuoteExpHeadShotOnly>0</QuoteExpHeadShotOnly>
-		<QuoteExpTeamSpecific>0</QuoteExpTeamSpecific>
-		<QuoteExpGenderCode>0</QuoteExpGenderCode>
-		<QuoteExpGotGunOrUsedGun>0</QuoteExpGotGunOrUsedGun>
-		<QuoteExpPassingDislike>0</QuoteExpPassingDislike>
-		<QuoteExpWitnessQueenBugDeath>0</QuoteExpWitnessQueenBugDeath>
-		<QuoteExpWitnessDeidrannaDeath>0</QuoteExpWitnessDeidrannaDeath>
+		<QuoteExpTeamSpecific>1</QuoteExpTeamSpecific>
+		<QuoteExpGenderCode>2</QuoteExpGenderCode>
+		<QuoteExpGotGunOrUsedGun>62</QuoteExpGotGunOrUsedGun>
+		<QuoteExpPassingDislike>3</QuoteExpPassingDislike>
+		<QuoteExpWitnessQueenBugDeath>1</QuoteExpWitnessQueenBugDeath>
+		<QuoteExpWitnessDeidrannaDeath>1</QuoteExpWitnessDeidrannaDeath>
 	</PROFILE>
 	<PROFILE>
 		<uiIndex>216</uiIndex>

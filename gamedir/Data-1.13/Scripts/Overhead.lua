@@ -68,18 +68,57 @@ Quests =
 
 Profil = 
 {
+	BARRY = 0,
+	BLOOD = 1,
 	LYNX = 2,
+	GRIZZLY = 3,
+	VICKI = 4,
+	TREVOR = 5,
 	GRUNTY = 6,
+	IVAN = 7,
+	STEROID = 8,
+	IGOR = 9,
+	SHADOW = 10,
+	RED = 11,
+	REAPER = 12,
+	FIDEL = 13,
+	FOX = 14,
 	SIDNEY = 15,
+	GUS = 16,
 	BUNS = 17,
 	ICE = 18,
+	SPIDER = 19,
+	CLIFF = 20,
+	BULL = 21,
 	HITMAN = 22,
+	BUZZ = 23,
 	RAIDER = 24,
 	RAVEN = 25,
+	STATIC = 26,
+	LEN = 27,
+	DANNY = 28,
+	MAGIC = 29,
 	STEPHEN = 30,
+	SCULLY = 31,
+	MALICE = 32,
+	DRQ = 33,
+	NAILS = 34,
 	THOR = 35,
 	SCOPE = 36,
+	WOLF = 37,
+	MD = 38,
+	MELTDOWN = 39,
+	BIFF = 40,
+	HAYWIRE = 41,
+	GASKET = 42,
+	RAZOR = 43,
+	FLO = 44,
 	GUMPY = 45,
+	LARRY = 46,
+	LARRY_STONED = 47,
+	COUGAR = 48,
+	NUMB = 49,
+	BUBBA = 50,
 	MIGUEL = 57,
 	CARLOS = 58,
 	IRA = 59, 
@@ -181,7 +220,8 @@ Profil =
 	CARL = 158,
 	LAURA = 175,
 	RUDOLF = 177,
-	NO_PROFILE = 200,
+	SKITZ = 179,
+	BUNS_CHAOTIC = 215,
 	MOUSE = 245,
 	STELLA = 248,
 }
@@ -2785,8 +2825,9 @@ DialogueActionEvent =
 	ADE_SEX = 11,							-- does exactly what you think it does
 	ADE_WEATHERCHANGE = 12,					-- the weather has changed in the current sector, and we can warn the player about that, aData1 is of Weather
 	ADE_SKILL_RESULT = 13,					-- we used a skill, and comment on the result, aData1 is of Skill, aData2 indicates whether it was a success (1) or failure (0)
-	ADE_GRENADEWARNING = 14,				-- a delayed enemy grenade was dropped nearby, and we can shout a warning
+	ADE_GRENADEWARNING = 14,				-- a delayed enemy grenade was dropped nearby, and we can shout a warning, aData1 is the itemnumber of the grenade
 	ADE_CONSUMEITEM = 15,					-- we applied an item to us, aData1 is the item index
+	ADE_NPC_DEATH = 16,						-- someone died, aData1 is the profile of the dead NPC, aData2 the profile of the killer, aData3 the bodytype of the dead
 }
 
 -- functions used here:
@@ -2809,64 +2850,77 @@ DialogueActionEvent =
 -- aData1, aData2, aData3 are additional data, see event description on what they do in each event
 function HandleAdditionalDialogue(sSectorX, sSectorY, bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3 )
 	
-	if ( ubProfile == Profil.BUNS ) then
+	if ( ubProfile == Profil.BUNS_CHAOTIC ) then
 	
-		-- merc is the 1st one to explore this room, aData1 indicates the room in this event
-		if ( usEventNr == DialogueActionEvent.ADE_DISCOVER_ROOM ) then
-		
-			-- surface sectors
-			if ( bSectorZ == 0 ) then
-			
-				-- Omerta
-				if ( (sSectorY == SectorY.MAP_ROW_A) and ( (sSectorX == 9) or (sSectorX == 10) ) ) then
-				
-					-- We use a random comment on the derelict houses in Omerta whenever we enter a room. As there are quite a few of those, don't always do so, otherwise this can be annoying
-					choicenr = math.random(1, 25)
-				
-					if ( choicenr == 1 ) then     SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//emptyhouse.ogg", "Hello? Anyone there? Hmm. It seems that this place is as quiet as a tomb.")
-					end
-					
-				end
-				
-			end
-		
 		-- we can 'react' on what lines other people use
 		-- this happens when we are in the same sector, awake and concious
 		-- aData1 indicates the profile number in this event
 		-- aData2 indicates the specific voice line we react to
-		elseif ( usEventNr == DialogueActionEvent.ADE_DIALOGUE_REACTION ) then
+		if ( usEventNr == DialogueActionEvent.ADE_DIALOGUE_REACTION ) then
 				
 			if ( aData1 == Profil.FRED ) then		
 
-				if ( aData2 == 12 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//fred0.ogg", "Pleasant fellow, I suppose, but too honest for his own good.")
+				if ( aData2 == 12 ) then			SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//nicebutharmless.MP3", "Pleasant fellow, I suppose, but too honest for his own good.")
 				end
 				
-			elseif ( aData1 == Profil.JOEY ) then				
+			elseif ( aData1 == Profil.ELLIOT ) then
 
-				if ( aData2 == 0 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//joey0.ogg", "Ah, clever little fellow. Do not turn your back on this one.")
+				if ( aData2 == 0 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//elliot.mp3", "Death doesn't seem to have kept him from talking.")
 				end
+								
+			end
+			
+		elseif ( usEventNr == DialogueActionEvent.ADE_SECTOR_COMMENTARY ) then
+		
+			-- surface sectors
+			if ( bSectorZ == 0 ) then
+			
+				-- Alma base
+				if ( (sSectorX == 13) and (sSectorY == SectorY.MAP_ROW_H) ) then		SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//almabase.mp3", "This must be where the savant has set up shop. Very impressive.")
 				
-			elseif ( aData1 == Profil.PABLO ) then
-
-				if ( aData2 == 2 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//pablo2.ogg", "Lying pig.")				
-				end
-				
-			elseif ( aData1 == Profil.ARMAND ) then		
-
-				if ( aData2 == 14 ) then				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//armand0.ogg", "A very distinguished gentleman. I only hope he's telling the truth.")
+				-- Hicks farm
+				elseif ( (sSectorX == 10) and (sSectorY == SectorY.MAP_ROW_F) ) then	SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//hicksfarm.ogg", "Nothing but crude brutes. The savant would not ally with them... at least... I hope not.")
+		
 				end
 				
 			end
 			
-		-- we applied an item to us, aData1 is the item index
-		elseif ( usEventNr == DialogueActionEvent.ADE_CONSUMEITEM ) then
+		-- aData1 is the itemnumber of the grenade
+		elseif ( usEventNr == DialogueActionEvent.ADE_GRENADEWARNING ) then
 			
-			if ( aData1 == 1752 ) then 				SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//painkillers.ogg", "Not so bad now.")
-			elseif ( aData1 == 235 ) then			SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns//regenbooster.ogg", "I am better now.")
+			SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//grenadewarning.ogg", "Be careful, it would probably burn your legs right off!")
+			
+		-- someone died, aData1 is the profile of the dead NPC, aData2 the profile of the killer, aData3 the bodytype of the dead
+		elseif ( usEventNr == DialogueActionEvent.ADE_NPC_DEATH ) then
+			
+			if ( aData2 == Profil.BUNS_CHAOTIC ) then						SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//friendlyfire.MP3", "So sorry. I slipped.")
+			
+			elseif ( (aData1 == Profil.BUZZ) or
+					 (aData1 == Profil.MELTDOWN) or
+					 (aData1 == Profil.ANNIE) or
+					 (aData1 == Profil.MADAME) or
+					 (aData1 == Profil.DOREEN) ) then
+
+				 SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//likedfemaledeath.MP3", "Her blood will be avenged.")
+			
+			elseif ( (aData1 == Profil.REAPER) or
+					 (aData1 == Profil.HAYWIRE) or
+					 (aData1 == Profil.RAZOR) or
+					 (aData1 == Profil.SLAY) or
+					 (aData1 == Profil.CARMEN) or
+					 (aData1 == Profil.JOE) or
+					 (aData1 == Profil.CHRIS) or
+					 (aData1 == Profil.KINGPIN) or
+					 (aData1 == Profil.MIKE) or
+					 (aData1 == Profil.SKITZ) ) then
+
+					 SetAdditionalDialogue(ubProfile, iFaceIndex, "Speech//Additional//Buns_chaotic//likedmaledeath.MP3", "Very sad. But he was weak.")
+			
 			end
 			
 		end
 		
 	end
+
 	
 end

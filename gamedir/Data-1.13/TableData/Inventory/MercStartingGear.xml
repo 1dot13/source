@@ -23612,6 +23612,7 @@
 	</GEARKIT>
 	</MERCGEAR>
 	<MERCGEAR>
+		<!-- chaotic Buns, doesn't need dedicated starting gear as you can only hire normal Buns -->
 		<mIndex>215</mIndex>
 		<mName />
 		<GEARKIT>
