@@ -3356,9 +3356,18 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 				pSoldier->aiData.bOrders = STATIONARY;
 			}
 
+			if (pSoldier->ubStrategicInsertionCode == INSERTION_CODE_SECONDARY_EDGEINDEX && (
+				   (gubTacticalDirection == NORTH && gus2ndNorthEdgepointArraySize == 0)
+				|| (gubTacticalDirection == EAST && gus2ndEastEdgepointArraySize == 0)
+				|| (gubTacticalDirection == SOUTH && gus2ndSouthEdgepointArraySize == 0)
+				|| (gubTacticalDirection == WEST && gus2ndWestEdgepointArraySize == 0)
+				)) 
+			{
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_PRIMARY_EDGEINDEX;
+			}
 
 			// Use insertion direction from loaded map!
-			switch ( pSoldier->ubStrategicInsertionCode )
+			switch (pSoldier->ubStrategicInsertionCode)
 			{
 			case INSERTION_CODE_NORTH:
 				pSoldier->sInsertionGridNo = gMapInformation.sNorthGridNo;
