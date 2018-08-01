@@ -7412,9 +7412,9 @@ STR16 New113Message[] =
 	L"%s did not have enough action points to steal all selected items.", // MINTY - Changed "had not" to "did not": More natural English
 	L"Do you want to perform surgery on %s before bandaging? (You can heal about %i Health.)", // MINTY - Changed "make" to "perform": More natural English
 	L"Do you want to perform surgery on %s? (You can heal about %i Health.)",// MINTY - Changed "make" to "perform": More natural English
-	L"Do you wish to perform necessary surgeries first? (%i patient(s))",// MINTY - Changed "make" to "perform": More natural English
+	L"Do you wish to perform surgeries first? (%i patient(s))",// MINTY - Changed "make" to "perform": More natural English
 	L"Do you wish to perform the surgery on this patient first?",// MINTY - Changed "make" to "perform": More natural English
-	L"Apply first aid automatically with necessary surgeries or without them?",
+	L"Apply first aid automatically with surgeries or without them?",
 	L"Surgery on %s finished.",
 	L"%s is hit in the chest and loses a point of maximum health!",
 	L"%s is hit in the chest and loses %d points of maximum health!",

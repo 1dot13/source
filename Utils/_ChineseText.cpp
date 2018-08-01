@@ -7411,9 +7411,9 @@ STR16 New113Message[] =
 	L"%s没有足够的行动点来偷取所有所选物品。",// L"%s had not enough action points to steal all selected items.",
 	L"是否在包扎前对 %s 实施手术？（可回复 %i 生命。）",// L"Do you want to make surgery on %s before bandaging? (You can heal about %i Health.)",
 	L"是否对 %s 实施手术？（可回复 %i 生命。）",// L"Do you want to make surgery on %s? (You can heal about %i Health.)",
-	L"是否进行必要的手术？（%i 个伤者）",// L"Do you wish to make necessary surgeries first? (%i patient(s))",
+	L"Do you wish to make surgeries first? (%i patient(s))",	 // TODO.Translate
 	L"是否在该伤者身上进行手术？",// L"Do you wish to make the surgery on this patient first?",
-	L"在包扎前是否进行手术？",// L"Apply first aid automatically with necessary surgeries or without them?",
+	L"Apply first aid automatically with surgeries or without them?",
 	L"%s手术完毕。",// L"Surgery on %s finished.",
 	L"%s胸部中弹，失去1点生命上限！",// L"%s is hit in the chest and loses a point of maximum health!",
 	L"%s胸部中弹，失去 %d 点生命上限！",// L"%s is hit in the chest and loses %d points of maximum health!",

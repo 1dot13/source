@@ -7412,9 +7412,9 @@ STR16 New113Message[] =
 	L"%s: недостаточно очков действия, чтобы украсть все выбранные вещи.",	//%s did not have enough action points to steal all selected items.
 	L"Хотите провести хирургическую операцию %s перед перевязкой? (Вы сможете восстановить около %i здоровья).",	//Do you want to perform surgery on %s before bandaging? (You can heal about %i Health.)
 	L"Хотите провести хирургическую операцию %s? (Вы сможете восстановить около %i здоровья).",	//Do you want to perform surgery on %s? (You can heal about %i Health.)
-	L"Хотите сначала провести необходимую хирургическую операцию? (пациент(ы) - %i).",	//Do you wish to perform necessary surgeries first? (%i patient(s))
+	L"Do you wish to perform surgeries first? (%i patient(s))",	// TODO.Translate
 	L"Хотите провести операцию сначала этому пациенту?",	//Do you wish to perform the surgery on this patient first?
-	L"Оказывать первую помощь с хирургическим вмешательством или без него?",	//Apply first aid automatically with necessary surgeries or without them?
+	L"Apply first aid automatically with surgeries or without them?",
 	L"%s успешно прооперирован(а).",	//Surgery on %s finished.
 	L"%s пропустил(а) удар в грудную клетку и теряет единицу максимального значения здоровья!",	//%s is hit in the chest and loses a point of maximum health!
 	L"%s пропустил(а) удар в грудную клетку и теряет %d максимального значения здоровья!",	//%s is hit in the chest and loses %d points of maximum health!

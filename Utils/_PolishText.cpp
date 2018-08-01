@@ -7424,9 +7424,9 @@ STR16 New113Message[] =
 	L"%s nie posiada wystarczającej liczby PA by ukraść wszystkie zaznaczone przedmioty.",
 	L"Chcesz operować %s zanim użyjesz bandaży? (możesz przywrócić około %i punktów zdrowia.)",
 	L"Chcesz operować %s zanim użyjesz bandaży? (możesz przywrócić około %i punktów zdrowia.)",
-	L"Czy chcesz najpierw operować przed użyciem bandaży? (%i pacjent(ów))",
+	L"Do you wish to perform surgeries first? (%i patient(s))",	// TODO.Translate
 	L"Czy chcesz najpierw operować pacjenta?",
-	L"Czy podczas udzielania pierwszej pomocy wykonywać niezbędne operacje?",
+	L"Apply first aid automatically with surgeries or without them?",
 	L"operacja na %s zakończona.",
 	L"%s otrzymuje trafienie w korpus i traci punkt maksymalnego zdrowia!",
 	L"%s otrzymuje trafienie w korpus i traci %d punktów maksymalnego zdrowia!",
