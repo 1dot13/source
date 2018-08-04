@@ -71,7 +71,7 @@
 		
 		StrategicAiActionWakeQueen : When first fight finished, wake up queen ? 0- false 1 - true
 		UpdateLastDayOfPlayerActivity : How many days ago does the player check he was active in the captured sector ?
-		ChanceOfEnemyAmbushes : 0- false 1 - true
+		ChanceOfEnemyAmbushes : modifies the percentage chance of our mercs to be ambushed
 		AllowReinforcements : The enemy can send reinforcement to the sector. 0- false 1 - true
 		AllowReinforcementsOmerta : Can the enemy send reinforcement to Omerta. 0- false 1 - true
 		PopulationLevel2 : Additional troops 2 sectors away from Meduna? 0 - false, 1 - true
