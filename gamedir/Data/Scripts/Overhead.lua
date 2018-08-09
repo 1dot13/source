@@ -9,6 +9,7 @@ Facts =
 	FACT_JOEY_NEAR_MARTHA = 110,
 	FACT_JOHN_ALIVE = 190,
 	FACT_MARY_OR_JOHN_ARRIVED = 192,
+	FACT_CHALICE_STOLEN = 184,
 	FACT_MARY_ALIVE = 187,
 	FACT_FIRST_ROBOT_DESTROYED = 203,
     FACT_ROBOT_READY_SECOND_TIME = 205,
@@ -17,7 +18,7 @@ Facts =
 	FACT_KINGPIN_KNOWS_MONEY_GONE = 103,
 	FACT_PLAYER_REPAID_KINGPIN = 104,
 	FACT_KINGPIN_NOT_IN_OFFICE = 256,
-
+	FACT_PLAYER_KNOWS_ABOUT_BLOODCAT_LAIR = 335,
 }
 
 Attitude = 
@@ -66,21 +67,138 @@ Quests =
 }
 
 Profil = 
-{	
+{
+	BARRY = 0,
+	BLOOD = 1,
+	LYNX = 2,
+	GRIZZLY = 3,
+	VICKI = 4,
+	TREVOR = 5,
+	GRUNTY = 6,
+	IVAN = 7,
+	STEROID = 8,
+	IGOR = 9,
+	SHADOW = 10,
+	RED = 11,
+	REAPER = 12,
+	FIDEL = 13,
+	FOX = 14,
+	SIDNEY = 15,
+	GUS = 16,
+	BUNS = 17,
+	ICE = 18,
+	SPIDER = 19,
+	CLIFF = 20,
+	BULL = 21,
+	HITMAN = 22,
+	BUZZ = 23,
+	RAIDER = 24,
+	RAVEN = 25,
+	STATIC = 26,
+	LEN = 27,
+	DANNY = 28,
+	MAGIC = 29,
+	STEPHEN = 30,
+	SCULLY = 31,
+	MALICE = 32,
+	DRQ = 33,
+	NAILS = 34,
+	THOR = 35,
+	SCOPE = 36,
+	WOLF = 37,
+	MD = 38,
+	MELTDOWN = 39,
+	BIFF = 40,
+	HAYWIRE = 41,
+	GASKET = 42,
+	RAZOR = 43,
+	FLO = 44,
+	GUMPY = 45,
+	LARRY = 46,
+	LARRY_STONED = 47,
+	COUGAR = 48,
+	NUMB = 49,
+	BUBBA = 50,
 	MIGUEL = 57,
 	CARLOS = 58,
 	IRA = 59, 
-	DIMITRI = 60,	
+	DIMITRI = 60,
+	DEVIN = 61,
+	ROBOT = 62,
+	HAMOUS = 63,
 	SLAY = 64,
 	DYNAMO = 66,
 	SHANK = 67,
+	IGGY = 68,
+	VINCE = 69,
+	CONRAD = 70,
+	MADDOG = 72,
+	DARREL = 73,
+	PERKO = 74,
+	DEIDRANNA = 75,
+	AUNTIE = 76,
 	CARMEN = 78,
+	JOE = 79,
+	STEVE = 80,
+	RAT = 81,
+	ANNIE = 82,
+	CHRIS = 83,
+	BOB = 84,
+	BRENDA = 85,
+	KINGPIN = 86,
+	DARREN = 87,
 	MARIA = 88,
 	ANGEL = 89,
-	JOEY = 90,	
+	JOEY = 90,
+	TONY = 91,
+	FRANK = 92,
+	SPIKE = 93,
+	DAMON = 94,
+	KYLE = 95,
+	MICKY = 96,
 	SKYRIDER = 97,
+	PABLO = 98,
+	SAL = 99,
+	FATHER = 100,
+	FATIMA = 101,
+	WARDEN = 102,
+	GORDON = 103,
+	GABBY = 104,
+	ERNEST = 105,
+	FRED = 106,
+	MADAME = 107,
+	YANNI = 108,
+	MARTHA = 109,
+	JOE = 110,
+	JASMIN = 111,
+	CHARLIE = 112,
+	JAKE = 113,
+	PACOS = 114,
+	DAVE = 115,
+	SKIPPER = 116,
+	HANS = 117,
 	JOHN = 118,	
 	MARY = 119,
+	GENERAL = 120,
+	SERGEANT = 121,
+	ARMAND = 122,
+	LORA = 123,
+	FRANZ = 124,
+	HOWARD = 125,
+	SAM = 126,
+	ELDIN = 127,
+	ARNIE = 128,
+	TINA = 129,
+	FREDO = 130,
+	WALTER = 131,
+	JENNY = 132,
+	BILLY = 133,
+	BREWSTER = 134,
+	ELLIOT = 135,
+	DEREK = 136,
+	OLIVER = 137,
+	WALDO = 138,
+	DOREEN = 139,
 	JIM = 140,
 	JACK = 141,
 	OLAF = 142,
@@ -88,6 +206,18 @@ Profil =
 	OLGA = 144,
 	TYRONE = 145,
 	MADLAB = 146,
+	KEITH = 147,
+	MATT = 148,
+	MIKE = 149,
+	DARYL = 150,
+	HERVE = 151,
+	PETER = 152,
+	ALBERTO = 153,
+	CARLO = 154,
+	MANNY = 155,
+	OSWALD = 156,
+	CALVIN = 157,
+	CARL = 158,
 }
 
 What = 
@@ -387,6 +517,172 @@ function HandleAtNewGridNo( ProfileId )
 	end -- End team
 end
 	
+ActionTypes =
+{
+	ACTIONTYPE_INVALID = 0,
+	ACTIONTYPE_HACKING = 1,
+	ACTIONTYPE_READFILE = 2,
+	ACTIONTYPE_WATERTAP = 3,
+	ACTIONTYPE_SODAMACHINE = 4,
+	ACTIONTYPE_MINIGAME = 5,
+}
+
+InfoTypes = 
+{	
+	INFO_TYPE_NORMAL = 0,
+	INFO_TYPE_VIP = 1,
+}
+
+ScreenTypes = 
+{
+	MINIGAME = 30,
+}
+
+MiniGames =
+{
+	TETRIS = 0,
+	PONG = 1,
+}
+
+-- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
+-- We simply set up some enums here to make it easier for us to remember what is what
+ModSpecificActions =
+{
+	-- |||||||||||||||||||||||||||||||||| computers |||||||||||||||||||||||||||||||||||||
+	-- Orta sublevel 1
+	COMPUTER_ORTA_BASEMENT_LAB1_SERVER = 0,
+	COMPUTER_ORTA_BASEMENT_LAB2_SERVER = 1,
+	COMPUTER_ORTA_BASEMENT_HALLWAY_SERVER = 2,
+	COMPUTER_ORTA_BASEMENT_LAB1_PC = 3,
+	COMPUTER_ORTA_BASEMENT_LAB2_PC = 4,
+	COMPUTER_ORTA_BASEMENT_CONTROL_CONSOLE_1 = 5,
+	COMPUTER_ORTA_BASEMENT_CONTROL_CONSOLE_2 = 6,
+	COMPUTER_ORTA_BASEMENT_ENTRANCE_CONSOLE_1 = 7,
+	COMPUTER_ORTA_BASEMENT_ENTRANCE_CONSOLE_2 = 8,
+	
+	-- Orta
+	COMPUTER_ORTA_SERVER_1 = 9,
+	COMPUTER_ORTA_PC_1 = 10,
+	
+	-- Balime
+	COMPUTER_BALIME_L12_MUSEUM_CONSOLE_1 = 11,
+	COMPUTER_BALIME_L12_MUSEUM_CONSOLE_2 = 12,
+	
+	-- Drassen SAM
+	COMPUTER_DRASSENSAM_PC_1 = 13,
+	COMPUTER_DRASSENSAM_COMMANDCONSOLE = 14,
+	
+	-- Chitzena SAM
+	COMPUTER_CHITZENASAM_PC_1 = 15,
+	COMPUTER_CHITZENASAM_PC_2 = 16,
+	COMPUTER_CHITZENASAM_COMMANDCONSOLE = 17,
+	
+	-- central SAM
+	COMPUTER_CENTRALSAM_PC_1 = 18,
+	COMPUTER_CENTRALSAM_PC_2 = 19,
+	COMPUTER_CENTRALSAM_PC_3 = 20,
+	COMPUTER_CENTRALSAM_COMMANDCONSOLE = 21,
+	
+	-- Meduna SAM
+	COMPUTER_MEDUNASAM_PC_1 = 22,
+	COMPUTER_MEDUNASAM_COMPUTERBANK_1 = 23,
+	COMPUTER_MEDUNASAM_COMMANDCONSOLE = 24,
+	
+	-- Meduna palace
+	COMPUTER_MEDUNAPALACE_PC_1 = 25,
+	COMPUTER_MEDUNAPALACE_PC_2 = 26,
+	COMPUTER_MEDUNAPALACE_CONSOLE_1 = 27,
+	COMPUTER_MEDUNAPALACE_SERVER_1 = 28,
+	
+	-- Alma storage
+	COMPUTER_ALMASTORAGE_PC_1 = 29,
+	
+	-- Alma prison
+	COMPUTER_ALMAPRISON_PC_1 = 30,
+	COMPUTER_ALMAPRISON_PC_2 = 31,
+	COMPUTER_ALMAPRISON_PC_3 = 32,
+	
+	-- Alma base
+	COMPUTER_ALMABASE_PC_KROTT = 33,
+	COMPUTER_ALMABASE_PC_BUREAU = 34,
+	COMPUTER_ALMABASE_PC_FILEROOM = 35,
+	COMPUTER_ALMABASE_CONSOLE_1 = 36,
+	COMPUTER_ALMABASE_CONSOLE_2 = 37,
+	COMPUTER_ALMABASE_CONSOLE_3 = 38,
+	COMPUTER_ALMABASE_CONSOLE_4 = 39,
+	COMPUTER_ALMABASE_CONSOLE_5 = 40,
+	COMPUTER_ALMABASE_CONSOLE_6 = 41,	
+	-- |||||||||||||||||||||||||||||||||| computers |||||||||||||||||||||||||||||||||||||
+	
+	-- |||||||||||||||||||||||||||||||||| books |||||||||||||||||||||||||||||||||||||
+	-- Orta sublevel 1
+	READING_ORTA_BASEMENT_BOOKSHELF_1 = 45,
+	READING_ORTA_BASEMENT_BOOKSHELF_2 = 46,
+	READING_ORTA_BASEMENT_BOOKSHELF_3 = 47,
+	
+	-- Orta
+	READING_ORTA_BOOKSHELF_1 = 48,
+	
+	-- San Mona
+	READING_SANMONA_KINGPIN_BOOKSHELF_1 = 49,	
+	-- |||||||||||||||||||||||||||||||||| books |||||||||||||||||||||||||||||||||||||
+	
+	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
+	MINIGAME_TETRIS = 50,
+	MINIGAME_PONG = 51,
+	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
+	
+	-- |||||||||||||||||||||||||||||||||| photo data |||||||||||||||||||||||||||||||||||||
+	PHOTO_FLAGS_BEGIN = 60,
+	
+	PHOTO_FLAGS_GENERAL = 61,
+	PHOTO_FLAGS_WARDEN = 62,
+	PHOTO_FLAGS_ERNEST = 63,
+	PHOTO_FLAGS_ARMAND = 64,
+	PHOTO_FLAGS_KINGPIN = 65,
+	PHOTO_FLAGS_DARREN = 66,
+	PHOTO_FLAGS_TONY = 67,
+	PHOTO_FLAGS_JOE = 68,
+	PHOTO_FLAGS_MADLAB = 69,
+	PHOTO_FLAGS_MIKE = 70,
+	PHOTO_FLAGS_DEVIN = 71,
+	PHOTO_FLAGS_MICKY = 72,
+	PHOTO_FLAGS_CARMEN = 73,
+		
+	PHOTO_FLAGS_CAMBRIA_HOSPITAL_MORGUE = 80,
+	PHOTO_FLAGS_ALMA_HQ_CONTROLROOM = 81,
+	PHOTO_FLAGS_ALMA_STORAGE_ROCKETS = 82,
+	PHOTO_FLAGS_ALMA_PRISON_TORTURE = 83,
+	PHOTO_FLAGS_TIXA_TORTURE = 84,
+	PHOTO_FLAGS_TIXA_TORTURE_DOWNSTAIRS = 85,
+	PHOTO_FLAGS_CREATURE_LVL3 = 86,	
+	PHOTO_FLAGS_ORTA_LABS = 87,
+	PHOTO_FLAGS_ORTA_STORAGE = 88,
+	PHOTO_FLAGS_ORTA_MANUFACTURING = 89,
+	PHOTO_FLAGS_BALIME_MUSEUM = 90,	
+	PHOTO_FLAGS_GRUMM_RADIOACTIVE = 91,
+	PHOTO_FLAGS_MEDUNA_ARENA = 92,
+	PHOTO_FLAGS_MEDUNA_BUNKER = 93,
+	
+	PHOTO_FLAGS_SAM_DRASSEN = 94,
+	PHOTO_FLAGS_SAM_CHITZENA = 95,
+	PHOTO_FLAGS_SAM_CENTRAL = 96,
+	PHOTO_FLAGS_SAM_MEDUNA = 97,
+	
+	PHOTO_FLAGS_END = 100,
+	-- |||||||||||||||||||||||||||||||||| photo data |||||||||||||||||||||||||||||||||||||
+	
+}
+
+-- General defines for various states
+ActionState = 
+{
+	-- hacking
+	STATE_OK = 0,				-- starting state, we can hack this
+	STATE_END = 1,				-- computer is shut down and cannot be used
+	STATE_GAVEREWARD_OK = 2,	-- computer is still useable, we already got whatever reward there was
+	STATE_GAVEREWARD_END = 3,	-- computer is shut down and cannot be used, we already got whatever reward there was
+}
 
 -- handle the result of an interactive action that has a special id set for lua
 -- for more info, see InteractiveActions.xml
@@ -394,3 +690,130 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 		
 end
 
+-- states of a photo fact
+PhotoFlag = 
+{
+	NONE				= 0,
+	TAKEN 				= 1,
+	UPLOADED 			= 2,
+	VERIFIED 			= 3,	-- the code only has one value for verification, but we use several ones for different results
+	VERIFIED_RESULT_2 	= 4,
+}
+
+-- In this function we can define what and how many items a intel-based dealer should trade with, and how much an item is worth in intel
+-- AddArmsDealerAdditionalIntelData takes 4 arguments:
+-- usDealer: shopkeeper this is intended for
+-- usItem: number of item
+-- sIntelPrice: price of item in intel
+-- sOptimalNumber: how many items the trader should have at maximum
+function AddArmsDealerAdditionalIntelData()
+	
+	
+end
+
+function SetPhotoState( aIndex, aState )
+	
+	if ( (aIndex >= ModSpecificActions.PHOTO_FLAGS_BEGIN) and (aIndex <= ModSpecificActions.PHOTO_FLAGS_END) and (aState >= PhotoFlag.NONE) and (aState <= PhotoFlag.VERIFIED_RESULT_2) ) then
+		
+		SetModderLUAFact( aIndex, aState )
+		
+	end
+end
+
+-- sSectorX, sSectorY, bSectorZ: sector coordinates
+-- sGridNo: tile that we photographed. When we take a photo this function is run on all tiles we see in a 2-tile radius around where we clicked
+-- bLevel: height level (floor or roof)
+-- ubPhotographerProfile: profile of the merc taking the photo
+-- room: if > 0, this tile is inside this room
+-- usTargetProfile: if we photographed a NPC, this will be their profile number, otherwise NO_PROFILE
+function AddPhotoData( sSectorX, sSectorY, bSectorZ, sGridNo, bLevel, ubPhotographerProfile, room, usTargetProfile )
+	
+	
+	
+end
+
+function GetPhotoData( aType )
+
+	
+	
+end
+
+function VerifyPhotoState(aIndex)
+	
+	
+	
+end
+
+-- types of weather
+Weather = 
+{
+	WEATHER_FORECAST_NORMAL = 0,
+	WEATHER_FORECAST_RAIN = 1,
+	WEATHER_FORECAST_THUNDERSHOWERS = 2,
+	WEATHER_FORECAST_SANDSTORM = 3,
+	WEATHER_FORECAST_SNOW = 4,
+};
+
+-- skills
+Skill =
+{		
+	-- radio operator
+	SKILLS_RADIO_ARTILLERY = 0,
+	SKILLS_RADIO_JAM = 1,
+	SKILLS_RADIO_SCAN_FOR_JAM = 2,
+	SKILLS_RADIO_LISTEN = 3,
+	SKILLS_RADIO_CALLREINFORCEMENTS = 4,
+	SKILLS_RADIO_TURNOFF = 5,
+
+	SKILLS_INTEL_CONCEAL = 6,
+	SKILLS_INTEL_GATHERINTEL = 7,
+	
+	-- various
+	SKILLS_SPOTTER = 8,
+	SKILLS_FOCUS = 9,
+	SKILLS_DRAG = 10,
+};
+
+-- different dialogue action events
+DialogueActionEvent = 
+{
+	ADE_DISCOVER_ROOM = 0,					-- merc is the 1st one to explore this room, aData1 indicates the room in this event
+	ADE_DIALOGUE_REACTION = 1,				-- someone else used a line, and we might answer to that, aData1 indicates the profile number in this event, aData2 indicates the specific voice line we react to
+	ADE_OMERTA_ENTRY = 2,					-- similar to an IMP, we can comment upon the initial Omerta landing
+	ADE_SECTOR_COMMENTARY = 3,				-- similar to the rebel's quotes, this is called upon visiting a sector for the first time (if no rebel does their quote first)
+	ADE_MERCHANT_CHAT = 4,					-- we greet a merchant (used with non-profile merchants, in order to be a bit more lively)
+	ADE_DIALOGUE_NPC_FRIENDLY = 5,			-- in a conversation, we can say something when clicking on a button
+	ADE_DIALOGUE_NPC_DIRECT = 6,
+	ADE_DIALOGUE_NPC_THREATEN = 7,
+	ADE_DIALOGUE_NPC_RECRUIT = 8,
+	ADE_DIALOGUE_NPC_REPEAT = 9,
+	ADE_DIALOGUE_RPC_RECRUIT_SUCCESS = 10,	-- we've successfully recruited an RPC, and might comment on that
+	ADE_SEX = 11,							-- does exactly what you think it does
+	ADE_WEATHERCHANGE = 12,					-- the weather has changed in the current sector, and we can warn the player about that, aData1 is of Weather
+	ADE_SKILL_RESULT = 13,					-- we used a skill, and comment on the result, aData1 is of Skill, aData2 indicates whether it was a success (1) or failure (0)
+	ADE_GRENADEWARNING = 14,				-- a delayed enemy grenade was dropped nearby, and we can shout a warning, aData1 is the itemnumber of the grenade
+	ADE_CONSUMEITEM = 15,					-- we applied an item to us, aData1 is the item index
+	ADE_NPC_DEATH = 16,						-- someone died, aData1 is the profile of the dead NPC, aData2 the profile of the killer, aData3 the bodytype of the dead
+}
+
+-- functions used here:
+-- ubProfile: profile number of merc (don't change that unless you know what to do)
+-- iFaceIndex: index (don't change that unless you know what to do)
+-- path: path and name of soundfile we want to play (in .wav or .ogg format)
+-- text: "Text that should appear"
+-- SetAdditionalDialogue(ubProfile, iFaceIndex, path, text)
+-- Do not use this function in any lua calls outside of HandleAdditionalDialogue(..)!
+-- 
+-- path: path and name of soundfile we want to play (in .wav or .ogg format)
+-- volume: optional sound volume (65: medium volume, 127: loud), default 65
+-- PlaySound(path, volume)
+
+-- handle
+-- sSectorX, sSectorY and bSectorZ indicate the sector coordinates
+-- ubProfile is the merc for whom this is called
+-- iFaceIndex is the face of the merc. DON'T CHANGE THIS UNLESS YOU KNOW WHAT YOU ARE DOING!
+-- usEventNr indicates which event from DialogueActionEvent is used here
+-- aData1, aData2, aData3 are additional data, see event description on what they do in each event
+function HandleAdditionalDialogue(sSectorX, sSectorY, bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3 )
+	
+end
