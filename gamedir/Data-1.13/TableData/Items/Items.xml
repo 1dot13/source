@@ -31325,7 +31325,6 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<ToHitBonus>-5</ToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS/>
 		<CROUCH_MODIFIERS />
@@ -31357,7 +31356,6 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<ToHitBonus>-5</ToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS/>
 		<CROUCH_MODIFIERS />
@@ -51854,7 +51852,6 @@
 		<BigGunList>1</BigGunList>
 		<NotBuyable>1</NotBuyable>
 		<Inseparable>2</Inseparable>
-		<ToHitBonus>-5</ToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 		</STAND_MODIFIERS>
@@ -51962,7 +51959,6 @@
 		<BigGunList>1</BigGunList>
 		<NotBuyable>1</NotBuyable>
 		<Inseparable>2</Inseparable>
-		<ToHitBonus>-5</ToHitBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS/>
 		<CROUCH_MODIFIERS />
