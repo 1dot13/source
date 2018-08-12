@@ -94,7 +94,8 @@
 		<croucheddefense>0</croucheddefense>			  <!-- +- enemy cth if we are crouched against thick cover in their direction, -30 to 30-->
 		<fortify_assignment>0</fortify_assignment>		  <!-- +- % building speed, -50 to 200 -->
 		<snake_defense>0</snake_defense>				  <!-- +- % chance to evade snake attacks, -100 to 100 -->
-		<hackerskill>0</hackerskill>					  <!-- hacker skill, 0 to 100. Value > 0 means we can hack computers -->		
+		<hackerskill>0</hackerskill>					  <!-- hacker skill, 0 to 100. Value > 0 means we can hack computers -->
+		<burial_assignment>0</burial_assignment>		  <!-- effectiveness at burying corpses, -50 to 1000. Value > 0 means we bury corpses faster -->
 
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -3640,22 +3641,17 @@
 	<BACKGROUND>
 		<uiIndex>183</uiIndex>
 		<szName>Veteran Mercenary/Undertaker</szName>
-		<szShortName>Vet Merc/Undertaker</szShortName>
-		<szDescription>When you've seen it all, nothing can frighten you anymore.</szDescription>
-		<leadership>5</leadership>
+		<szShortName>Vet/Undertaker</szShortName>
+		<szDescription>Pops has seen it all. What's left to frighten him?</szDescription>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-25</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
-		<resistance_physical>3</resistance_physical>
 		<resistance_fear>20</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
-		<interrogation>5</interrogation>
-		<carrystrength>3</carrystrength>
 		<speed_run>-5</speed_run>
-		<spotter>5</spotter>
 		<capitulation>15</capitulation>
-		<approach_friendly>7</approach_friendly>
 		<insurance>100</insurance>
+		<burial_assignment>600</burial_assignment>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -5435,6 +5431,7 @@
 		<resistance_suppression>20</resistance_suppression>
 		<approach_friendly>7</approach_friendly>
 		<carrystrength>3</carrystrength>
+		<burial_assignment>500</burial_assignment>
   </BACKGROUND>
   <BACKGROUND>
 		<uiIndex>286</uiIndex>

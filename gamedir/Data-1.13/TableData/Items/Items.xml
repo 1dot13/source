@@ -175,6 +175,8 @@
 		<CrowbarModifier>0</CrowbarModifier>
 		<DisarmModifier>0</DisarmModifier>
 		<RepairModifier>0</RepairModifier>
+		<usHackingModifier>0</usHackingModifier>
+		<usBurialModifier>0</usBurialModifier>
 		<DamageChance>0</DamageChance>
 		<DirtIncreaseFactor>0.0</DirtIncreaseFactor>
 		<clothestype>0</clothestype>
@@ -31547,6 +31549,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Hardware>1</Hardware>
+		<usBurialModifier>50</usBurialModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -46374,6 +46377,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<Hardware>1</Hardware>
+		<usBurialModifier>50</usBurialModifier>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
