@@ -1932,13 +1932,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 
 		return;
 	}
-
-	// Flugente: disease
-	if ( pGroup->usGroupTeam != OUR_TEAM )
-	{
-		PopulationMove( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, pGroup->ubGroupSize );
-	}
-
+	
 	//Update the position of the group
 	pGroup->ubPrevX = pGroup->ubSectorX;
 	pGroup->ubPrevY = pGroup->ubSectorY;

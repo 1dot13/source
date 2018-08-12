@@ -2469,6 +2469,7 @@ STR16 pAssignmentStrings[] =
 	L"GetIntel",
 	L"DoctorM.",
 	L"DMilitia",
+	L"Burial",
 };
 
 
@@ -2576,6 +2577,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Get intel while disguised",
 	L"Doctor wounded militia",
 	L"Drill existing militia",
+	L"Bury corpses",
 };
 
 
@@ -2642,6 +2644,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Get intel while disguised",
 	L"Doctor wounded militia",
 	L"Drill existing militia",
+	L"Bury corpses",
 };
 
 
@@ -6239,7 +6242,7 @@ STR16		zMarksMapScreenText[] =
 	L"Il contratto del mercenario non è assicurato",
 	
 	// Flugente: disease texts describing what a map view does TODO.Translate
-	L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
+	L"This view shows how many rotting corpses are in a sector. The white number are corpses, the green number is accumulated disease, the sector colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of disease.",	// TODO.Translate
 
 	// Flugente: weather texts describing what a map view does
 	L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",	// TODO.Translate
@@ -8451,6 +8454,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	// 39
 	L"|S|h|i|e|l|d",	// TODO.Translate
 	L"|C|a|m|e|r|a",		// TODO.Translate
+	L"|B|u|r|i|a|l |M|o|d|i|f|i|e|r",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8497,6 +8501,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 	L"\n \nIf equipped in a hand, this will block incoming damage.",	// TODO.Translate
 	L"\n \nYou can take photos with this.",		// TODO.Translate
+	L"\n \nThis item makes you more effective at burying corpses.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -9074,6 +9079,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%% building speed\n",
 	L" hacking skill: %s%d ",	// TODO.Translate
+	L" %s%d%% burial speed\n",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =	// TODO.Translate
@@ -11005,6 +11011,7 @@ STR16	szDiseaseText[] =
 
 	L"Diagnosis",
 	L"Treatment",
+	L"Burial",	// TODO.Translate
 	L"Cancel",
 
 	L"\n\n%s (undiagnosed) - %d / %d\n",	// TODO.Translate

@@ -2131,6 +2131,24 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 	ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, ubTotalSoldiers );
 #endif	
 	
+	extern INT16 gsStrategicDiseaseOriginSector;
+
+	// Flugente: we need to set the sector of origin to determine from which sector to take the disease ratio that affects health
+	gsStrategicDiseaseOriginSector = -1;
+
+	if ( !gbWorldSectorZ )
+	{
+		switch ( ubStrategicInsertionCode )
+		{
+		case INSERTION_CODE_NORTH:	gsStrategicDiseaseOriginSector = SECTOR( gWorldSectorX, gWorldSectorY - 1 );	break;
+		case INSERTION_CODE_EAST:	gsStrategicDiseaseOriginSector = SECTOR( gWorldSectorX + 1, gWorldSectorY );	break;
+		case INSERTION_CODE_SOUTH:	gsStrategicDiseaseOriginSector = SECTOR( gWorldSectorX, gWorldSectorY + 1 );	break;
+		case INSERTION_CODE_WEST:	gsStrategicDiseaseOriginSector = SECTOR( gWorldSectorX - 1, gWorldSectorY );	break;
+		default:
+			break;
+		}
+	}
+	
 	ubCurrSlot = 0;
 	while( ubTotalSoldiers )
 	{
@@ -2265,6 +2283,9 @@ void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ub
 				gCurrentIncident.usIncidentFlags |= INCIDENT_REINFORCEMENTS_ENEMY;
 		}
 	}
+
+	// set this back so it doesn't affect others
+	gsStrategicDiseaseOriginSector = -1;
 	
 #ifdef JA2UB
 	gsGridNoForMapEdgePointInfo = -1;

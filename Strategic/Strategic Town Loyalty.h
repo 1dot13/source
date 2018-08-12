@@ -47,6 +47,9 @@
 //Madd:
 #define LOYALTY_PENALTY_INACTIVE											0		// (10 * GAIN_PTS_PER_LOYALTY_PT)
 
+// Flugente: a rotting corpse is so decayed that it disappeared (we're the ones making all those corpses, the last we could do is clean up afterwards)
+#define LOYALTY_PENALTY_ROTTED_CORPSE									(1 * GAIN_PTS_PER_LOYALTY_PT)
+
 typedef enum
 {
 	// There are only for distance-adjusted global loyalty effects.	Others go into list above instead!

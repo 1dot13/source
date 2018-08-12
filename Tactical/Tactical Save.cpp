@@ -108,7 +108,7 @@ BOOLEAN RetrieveTempFileFromSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX,
 BOOLEAN AddTempFileToSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 
-BOOLEAN SaveRottingCorpsesToTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
+BOOLEAN SaveRottingCorpsesToTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, std::vector<ROTTING_CORPSE_DEFINITION> aCorpseDefVector );
 BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 void LoadNPCInformationFromProfileStruct();
@@ -1021,8 +1021,17 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 		return( FALSE );
 	}
 
+	std::vector<ROTTING_CORPSE_DEFINITION> corpsedefvector;
+
+	//Determine how many rotting corpses there are
+	for ( INT32 iCount = 0; iCount < giNumRottingCorpse; ++iCount )
+	{
+		if ( gRottingCorpse[iCount].fActivated )
+			corpsedefvector.push_back( gRottingCorpse[iCount].def );
+	}
+
 	//Save the rotting corpse array to the temp rotting corpse file
-	if( !SaveRottingCorpsesToTempCorpseFile( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
+	if( !SaveRottingCorpsesToTempCorpseFile( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, corpsedefvector ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("SaveCurrentSectorsInformationToTempItemFile:  failed in SaveRottingCorpsesToTempCorpseFile()" ) );
 		EnableModifiedFileSetCache(cacheResetValue);
@@ -1706,27 +1715,22 @@ BOOLEAN InitTacticalSave( BOOLEAN fCreateTempDir )
 }
 
 
-
-BOOLEAN SaveRottingCorpsesToTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
+BOOLEAN SaveRottingCorpsesToTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, std::vector<ROTTING_CORPSE_DEFINITION> aCorpseDefVector )
 {
 	HWFILE	hFile;
 	UINT32	uiNumBytesWritten=0;
-//	CHAR8		zTempName[ 128 ];
-	CHAR8		zMapName[ 128 ];
-	UINT32	uiNumberOfCorpses=0;
-	INT32		iCount;
+	CHAR8	zMapName[ 128 ];
+	
+	// if we have no corpses at all, we have nothing to write - erase the 'corpse file exists flag', the next time we add a corpse, a new file will be created
+	if ( aCorpseDefVector.empty() )
+	{
+		ReSetSectorFlag( sMapX, sMapY, bMapZ, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS );
 
-/*
-	//Convert the current sector location into a file name
-	GetMapFileName( sMapX,sMapY, bMapZ, zTempName, FALSE );
-
-	//add the 'r' for 'Rotting Corpses' to the front of the map name
-	sprintf( zMapName, "%s\\r_%s", MAPS_DIR, zTempName);
-*/
+		return TRUE;
+	}
 
 	GetMapTempFileName( SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, zMapName, sMapX, sMapY, bMapZ );
-
-
+	
 	//Open the file for writing, Create it if it doesnt exist
 	hFile = FileOpen( zMapName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
 	if( hFile == 0 )
@@ -1734,16 +1738,9 @@ BOOLEAN SaveRottingCorpsesToTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ
 		//Error opening map modification file
 		return( FALSE );
 	}
-
-
-	//Determine how many rotting corpses there are
-	for(iCount=0; iCount < giNumRottingCorpse; iCount++)
-	{
-		if( gRottingCorpse[iCount].fActivated == TRUE )
-			uiNumberOfCorpses++;
-	}
-
-
+	
+	UINT32 uiNumberOfCorpses = aCorpseDefVector.size();
+	
 	//Save the number of the Rotting Corpses array table
 	FileWrite( hFile, &uiNumberOfCorpses, sizeof( UINT32 ), &uiNumBytesWritten );
 	if( uiNumBytesWritten != sizeof( UINT32 ) )
@@ -1754,30 +1751,25 @@ BOOLEAN SaveRottingCorpsesToTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ
 	}
 
 	//Loop through all the carcases in the array and save the active ones
-	for(iCount=0; iCount < giNumRottingCorpse; iCount++)
+	for( std::vector<ROTTING_CORPSE_DEFINITION>::iterator it = aCorpseDefVector.begin(); it != aCorpseDefVector.end(); ++it )
 	{
-		if( gRottingCorpse[iCount].fActivated == TRUE )
+		//Save the RottingCorpse info array
+		FileWrite( hFile, &(*it), sizeof( ROTTING_CORPSE_DEFINITION ), &uiNumBytesWritten );
+		if ( uiNumBytesWritten != sizeof( ROTTING_CORPSE_DEFINITION ) )
 		{
-			//Save the RottingCorpse info array
-			FileWrite( hFile, &gRottingCorpse[iCount].def, sizeof( ROTTING_CORPSE_DEFINITION ), &uiNumBytesWritten );
-			if( uiNumBytesWritten != sizeof( ROTTING_CORPSE_DEFINITION ) )
-			{
-				//Error Writing size of array to disk
-				FileClose( hFile );
-				return( FALSE );
-			}
+			//Error Writing size of array to disk
+			FileClose( hFile );
+			return( FALSE );
 		}
 	}
 
 	FileClose( hFile );
 
 	// Set the flag indicating that there is a rotting corpse Temp File
-//	SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags |= SF_ROTTING_CORPSE_TEMP_FILE_EXISTS;
 	SetSectorFlag( sMapX, sMapY, bMapZ, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS );
 
 	return( TRUE );
 }
-
 
 BOOLEAN DeleteTempItemMapFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
@@ -1813,26 +1805,18 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 {
 	HWFILE	hFile;
 	UINT32	uiNumBytesRead=0;
-//	CHAR8		zTempName[ 128 ];
 	CHAR8		zMapName[ 128 ];
 	UINT32	uiNumberOfCorpses=0;
 	UINT32		cnt;
 	ROTTING_CORPSE_DEFINITION		def;
-  BOOLEAN                     fDontAddCorpse = FALSE;
-  INT8                        bTownId;
-
-
+	BOOLEAN                     fDontAddCorpse = FALSE;
+	INT8                        bTownId;
+	
 	//Delete the existing rotting corpse array
 	RemoveCorpses( );
-/*
-	//Convert the current sector location into a file name
-	GetMapFileName( sMapX,sMapY, bMapZ, zTempName, FALSE );
 
-	sprintf( zMapName, "%s\\r_%s", MAPS_DIR, zTempName);
-*/
 	GetMapTempFileName( SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, zMapName, sMapX, sMapY, bMapZ );
-
-
+	
 	//Check to see if the file exists
 	if( !FileExists( zMapName ) )
 	{
@@ -1864,7 +1848,7 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
   // Get town ID for use later....
 	bTownId = GetTownIdForSector( gWorldSectorX, gWorldSectorY );
 
-	for( cnt=0; cnt<uiNumberOfCorpses; cnt++ )
+	for( cnt=0; cnt<uiNumberOfCorpses; ++cnt )
 	{
     fDontAddCorpse = FALSE;
 
@@ -1876,8 +1860,7 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 			FileClose( hFile );
 			return( FALSE );
 		}
-
-
+		
 		//Check the flags to see if we have to find a gridno to place the rotting corpses at
 		if( def.usFlags & ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO )
 		{

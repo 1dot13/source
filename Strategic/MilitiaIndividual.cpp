@@ -365,7 +365,17 @@ void HandleHourlyMilitiaHealing( )
 	{
 		if ( !((*it).flagmask & MILITIAFLAG_DEAD) )
 		{
-			(*it).healthratio = min( 100.0f, (*it).healthratio + gGameExternalOptions.dIndividualMilitiaHourlyHealthPercentageGain );
+			FLOAT healingmodifier = 1.0f;
+
+			if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic )
+			{
+				SECTORINFO *pSectorInfo = &( SectorInfo[(*it).sector] );
+
+				if ( pSectorInfo && pSectorInfo->fDiseasePoints )
+					healingmodifier -= 2.5f * pSectorInfo->fDiseasePoints / DISEASE_MAX_SECTOR;
+			}
+
+			(*it).healthratio = min( 100.0f, (*it).healthratio + healingmodifier * gGameExternalOptions.dIndividualMilitiaHourlyHealthPercentageGain );
 		}
 	}
 

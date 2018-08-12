@@ -49,6 +49,7 @@
 	#include "Vehicles.h"	// added by silversurfer
 	#include "ai.h"			// added by Flugente
 	#include "PreBattle Interface.h"	// added by Flugente
+	#include "Strategic Town Loyalty.h"	// added by Flugente
 #endif
 
 #include "Animation Control.h"
@@ -675,6 +676,15 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 			//Remove blood
 			RemoveBlood( sTileGridNo, pCorpseDef->bLevel );
 		}
+	}
+
+	// Flugente: update number of corpses in this sector
+	if ( !gbWorldSectorZ )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )] );
+
+		if ( pSectorInfo )
+			pSectorInfo->usNumCorpses = giNumRottingCorpse;
 	}
 
 	// OK, we're done!
@@ -1614,7 +1624,7 @@ void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 	{
 		// Add explosion
 		memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
-		AniParams.sGridNo							= sBaseGridNo;
+		AniParams.sGridNo = sBaseGridNo;
 
 		// Check if on roof or not...
 		if ( pCorpse->def.bLevel == 0 )
@@ -1622,12 +1632,12 @@ void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 		else
 			AniParams.ubLevelID = ANI_ONROOF_LEVEL;
 
-		AniParams.sDelay							= (INT16)( 80 );
-		AniParams.sStartFrame					= 0;
-		AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_FORWARD;
-		AniParams.sX									= CenterX( sBaseGridNo );
-		AniParams.sY									= CenterY( sBaseGridNo );
-		AniParams.sZ									= (INT16)pCorpse->def.sHeightAdjustment;
+		AniParams.sDelay = (INT16)( 80 );
+		AniParams.sStartFrame = 0;
+		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD;
+		AniParams.sX = CenterX( sBaseGridNo );
+		AniParams.sY = CenterY( sBaseGridNo );
+		AniParams.sZ = (INT16)pCorpse->def.sHeightAdjustment;
 
 		strcpy( AniParams.zCachedFile, "TILECACHE\\GEN_BLOW.STI" );
 		CreateAnimationTile( &AniParams );
@@ -1635,6 +1645,25 @@ void VaporizeCorpse( INT32 sGridNo, INT8 asLevel, UINT16 usStructureID )
 		// Remove....
 		RemoveCorpse( pCorpse->iID );
 		SetRenderFlags( RENDER_FLAG_FULL );
+
+		// add disease
+		if ( !gbWorldSectorZ )
+		{
+			SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )] );
+
+			if ( pSectorInfo )
+				pSectorInfo->fDiseasePoints = min( DISEASE_MAX_SECTOR, pSectorInfo->fDiseasePoints + DISEASE_PER_ROTTINGCORPSE );
+
+			// the population doesn't like it when we blow chunks of people all over the place
+			INT8 bTownId = GetTownIdForSector( gWorldSectorX, gWorldSectorY );
+
+			// if NOT in a town
+			if ( bTownId != BLANK_SECTOR )
+			{
+				UINT32 uiLoyaltyChange = LOYALTY_PENALTY_ROTTED_CORPSE;
+				DecrementTownLoyalty( bTownId, uiLoyaltyChange );
+			}
+		}
 
 		if ( pCorpse->def.bLevel == 0 )
 		{

@@ -226,9 +226,6 @@ UINT8 DoReinforcementAsPendingNonPlayer( INT16 sMapX, INT16 sMapY, UINT8 usTeam 
 	{
 		while ( (pGroup = GetNonPlayerGroupInSector( SECTORX( pusMoveDir[ubIndex][0] ), SECTORY( pusMoveDir[ubIndex][0] ), usTeam )) != NULL )
 		{
-			// Flugente: disease
-			PopulationMove( pGroup->ubSectorX, pGroup->ubSectorY, sMapX, sMapY, pGroup->ubGroupSize );
-
 			pGroup->ubPrevX = pGroup->ubSectorX;
 			pGroup->ubPrevY = pGroup->ubSectorY;
 

@@ -4081,10 +4081,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 
 			UpdateMilitia(militia);
 		}
-
-		// Flugente: disease
-		HandleDeathDiseaseImplications( pSoldier );
-
+		
 		if ( TurnSoldierIntoCorpse( pSoldier, TRUE, TRUE ) )
 		{
 			*pfMadeCorpse = TRUE;

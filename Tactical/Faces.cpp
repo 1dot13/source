@@ -2491,7 +2491,15 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 						usTextWidth = StringPixLength( sString, FONT10ARIAL ) - 10;
 					}
+					break;
 
+				case BURIAL:
+					sIconIndex_Assignment = 35;
+					fDoIcon_Assignment = TRUE;
+					fShowCustomText = TRUE;
+					bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetBurialPoints( &usMaximumPts );
+
+					swprintf( sString, L"%3.1f/%d", bPtsAvailable, usMaximumPts );
 					break;
 			}
 

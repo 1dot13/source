@@ -1146,6 +1146,9 @@ typedef struct
 	// Flugente: a modifier to hacking
 	UINT8	usHackingModifier;
 
+	// Flugente: a modifier for burial effectiveness
+	UINT8	usBurialModifier;
+
 	// Flugente: advanced repair/dirt system
 	UINT8	usDamageChance;							// chance that damage to the status will also damage the repair threshold
 	FLOAT	dirtIncreaseFactor;						// one shot causes this much dirt on a gun
@@ -1172,7 +1175,7 @@ typedef struct
 	// silversurfer: item provides breath regeneration bonus while resting
 	UINT8	ubSleepModifier;
 
-	// Flugente: spoting effectiveness
+	// Flugente: spotting effectiveness
 	INT16	usSpotting;
 
 	//JMich.BackpackClimb 

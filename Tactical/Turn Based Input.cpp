@@ -3367,19 +3367,23 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					//Get the gridno the cursor is at
 					GetMouseMapPos( &usGridNo );
 
-					//if there is a selected soldier, and the cursor location is valid					
-					if( gusSelectedSoldier != NOBODY && !TileIsOutOfBounds(usGridNo))
+					// if the cursor location is valid					
+					if ( !TileIsOutOfBounds(usGridNo) )
 					{
-						//if the cursor is over someone
-						if( gfUIFullTargetFound )
+						// if there is a selected soldier
+						if ( gusSelectedSoldier != NOBODY )
 						{
-							//Display the range to the target
-							DisplayRangeToTarget( MercPtrs[ gusSelectedSoldier ], MercPtrs[ gusUIFullTargetID ]->sGridNo );
-						}
-						else
-						{
-							//Display the range to the target
-							DisplayRangeToTarget( MercPtrs[ gusSelectedSoldier ], usGridNo );
+							//if the cursor is over someone
+							if ( gfUIFullTargetFound )
+							{
+								//Display the range to the target
+								DisplayRangeToTarget( MercPtrs[gusSelectedSoldier], MercPtrs[gusUIFullTargetID]->sGridNo );
+							}
+							else
+							{
+								//Display the range to the target
+								DisplayRangeToTarget( MercPtrs[gusSelectedSoldier], usGridNo );
+							}
 						}
 
 						CHAR16	zOutputString[512];
@@ -3389,7 +3393,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						// Flugente: print out structure tileset
 						if ( gGameExternalOptions.fPrintStructureTileset )
 						{
-							STRUCTURE * pStruct = FindStructure( usGridNo, (STRUCTURE_GENERIC) );
+							STRUCTURE * pStruct = FindStructure( usGridNo, ( STRUCTURE_TYPE_DEFINED ) );
 							if ( pStruct )
 							{
 								// if this is a multi-tile structure, be sure to use the base gridno
@@ -3420,16 +3424,20 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									}
 								}
 							}
-
-							extern BOOLEAN InARoom( INT32 sGridNo, UINT16 *pusRoomNo );
-
-							UINT16 usRoom;
-							if ( InARoom( usGridNo, &usRoom ) )
-							{
-								swprintf( zOutputString, L"Room number: %d", usRoom );
-								ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, zOutputString );
-							}
 						}
+
+						extern BOOLEAN InARoom( INT32 sGridNo, UINT16 *pusRoomNo );
+
+						UINT16 usRoom;
+						if ( InARoom( usGridNo, &usRoom ) )
+						{
+							swprintf( zOutputString, L"Room number: %d", usRoom );
+							ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, zOutputString );
+						}
+
+						// display height
+						swprintf( zOutputString, L"Floor height: %d", gpWorldLevelData[usGridNo].sHeight );
+						ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, zOutputString );
 					}
 				}
 				break;

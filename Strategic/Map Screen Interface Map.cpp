@@ -705,46 +705,43 @@ void HandleShowingOfEnemiesWithMilitiaOn( void )
 // aType = 2: intel
 INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 aType )
 {
+	UINT8 sector = SECTOR( sX, sY );
+
 	if ( aType == 0 )
-	{
-		UINT16 population = GetSectorPopulation( sX, sY );
+	{		
+		SECTORINFO *pSectorInfo = &( SectorInfo[sector] );
 
-		if ( population )
+		// display sector information only if we know about infection there
+		if ( pSectorInfo && ( ( pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER ) || gubFact[FACT_DISEASE_WHODATA_ACCESS] ) )
 		{
-			UINT8 sector = SECTOR( sX, sY );
+			FLOAT diseaseratio = pSectorInfo->fDiseasePoints / DISEASE_MAX_SECTOR;
 
-			SECTORINFO *pSectorInfo = &( SectorInfo[sector] );
-
-			// display sector information only if we know about infection there
-			if ( pSectorInfo && ( ( pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER ) || ( gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO ) ) )
-			{
-				FLOAT infectedpercentage = (FLOAT)pSectorInfo->usInfected / (FLOAT)( population );
-
-				if ( infectedpercentage < 0.2f )
-					return MAP_SHADE_DK_GREEN;
-				else if ( infectedpercentage < 0.3f )
-					return MAP_SHADE_MD_GREEN;
-				else if ( infectedpercentage < 0.4f )
-					return MAP_SHADE_LT_GREEN;
-				else if ( infectedpercentage < 0.5f )
-					return MAP_SHADE_DK_YELLOW;
-				else if ( infectedpercentage < 0.6f )
-					return MAP_SHADE_MD_YELLOW;
-				else if ( infectedpercentage < 0.7f )
-					return MAP_SHADE_LT_YELLOW;
-				else if ( infectedpercentage < 0.8f )
-					return MAP_SHADE_DK_RED;
-				else if ( infectedpercentage < 0.9f )
-					return MAP_SHADE_MD_RED;
-				else
-					return MAP_SHADE_LT_RED;
-			}
+			if ( pSectorInfo->fDiseasePoints < 0.1f )
+				return MAP_SHADE_BLACK;
+			else if ( diseaseratio < 0.05f )
+				return MAP_SHADE_DK_GREEN;
+			else if ( diseaseratio < 0.1f )
+				return MAP_SHADE_MD_GREEN;
+			else if ( diseaseratio < 0.2f )
+				return MAP_SHADE_LT_GREEN;
+			else if ( diseaseratio < 0.3f )
+				return MAP_SHADE_DK_YELLOW;
+			else if ( diseaseratio < 0.4f )
+				return MAP_SHADE_MD_YELLOW;
+			else if ( diseaseratio < 0.5f )
+				return MAP_SHADE_LT_YELLOW;
+			else if ( diseaseratio < 0.65f )
+				return MAP_SHADE_ORANGE;
+			else if ( diseaseratio < 0.8f )
+				return MAP_SHADE_DK_RED;
+			else if ( diseaseratio < 0.9f )
+				return MAP_SHADE_MD_RED;
+			else
+				return MAP_SHADE_LT_RED;
 		}
 	}
 	else if ( aType == 1 )
 	{
-		UINT8 sector = SECTOR( sX, sY );
-
 		SECTORINFO *pSectorInfo = &( SectorInfo[sector] );
 
 		// display sector information only if we know about infection there
@@ -773,8 +770,6 @@ INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 aType )
 	}
 	else if ( aType == 2 )
 	{
-		UINT8 sector = SECTOR( sX, sY );
-
 		return gMapIntelData[sector].mapcolour;
 	}
 
@@ -7248,7 +7243,6 @@ void ShowDiseaseOnMap()
 	}
 
 	SetFont(MapItemsFont);
-	SetFontForeground(FONT_MCOLOR_LTGREEN);
 	SetFontBackground(FONT_MCOLOR_BLACK);
 
 	// run through sectors
@@ -7260,42 +7254,34 @@ void ShowDiseaseOnMap()
 
 			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
 
-			if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) )
+			if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || gubFact[FACT_DISEASE_WHODATA_ACCESS] ) )
 			{
-				// hide this information, as it might allow the player to deduct enemy positions and numbers
-				/*{
-					UINT16 population = GetSectorPopulation( sMapX, sMapY );
+				sXCorner = (INT16)( MAP_VIEW_START_X + ( sMapX * MAP_GRID_X ) );
+				sYCorner = (INT16)( MAP_VIEW_START_Y + ( sMapY * MAP_GRID_Y ) );
 
-					if ( population )
-					{
-						sXCorner = (INT16)(MAP_VIEW_START_X + (sMapX * MAP_GRID_X));
-						sYCorner = (INT16)(MAP_VIEW_START_Y + (sMapY * MAP_GRID_Y));
-
-						SetFontForeground( FONT_MCOLOR_WHITE );
-						if ( pSectorInfo->usInfectionFlag & SECTORDISEASE_OUTBREAK )
-							swprintf( sString, L"%d/%d", pSectorInfo->usInfected, population );
-						else
-							swprintf( sString, L"%d", population );
-
-						FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
-
-						mprintf( usXPos, usYPos, sString );
-					}
-				}*/
-
+				if ( pSectorInfo->usNumCorpses > 0 )
 				{
-					if ( pSectorInfo->fInfectionSeverity > 0 )
-					{
-						sXCorner = (INT16)(MAP_VIEW_START_X + (sMapX * MAP_GRID_X));
-						sYCorner = (INT16)(MAP_VIEW_START_Y + (sMapY * MAP_GRID_Y));
+					SetFontForeground( FONT_MCOLOR_WHITE );
 
-						SetFontForeground( FONT_MCOLOR_WHITE );
-						swprintf( sString, L"%4.1f%%", 100 * pSectorInfo->fInfectionSeverity );
+					swprintf( sString, L"%d", pSectorInfo->usNumCorpses );
 
-						FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
+					FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
 
-						mprintf( usXPos, usYPos, sString );
-					}
+					mprintf( usXPos, usYPos, sString );
+				}
+
+				if ( pSectorInfo->fDiseasePoints > 0 )
+				{
+					SetFontForeground( FONT_MCOLOR_LTGREEN );
+					
+					// as the healing displayed is always divided by 10 (see in face display), we do the same thinh here to not confuse the player
+					swprintf( sString, L"%6.1f", pSectorInfo->fDiseasePoints / 10.0f );
+
+					sYCorner += GetFontHeight( MapItemsFont );
+
+					FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, MapItemsFont, &usXPos, &usYPos );
+
+					mprintf( usXPos, usYPos, sString );
 				}
 			}
 		}

@@ -18834,17 +18834,6 @@ void	SOLDIERTYPE::Infect( UINT8 aDisease )
 	// we are getting infected. Raise our disease points, but not over the level of an infection
 	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] < Disease[aDisease].sInfectionPtsInitial )
 	{
-		// if this guy is not of our team, note that a new infected person is in the sector
-		if ( this->bTeam != gbPlayerNum && aDisease == 0 && this->sDiseasePoints[0] <= 0 )
-		{
-			UINT8 sector = SECTOR( this->sSectorX, this->sSectorY );
-
-			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
-
-			if ( pSectorInfo )
-				++pSectorInfo->usInfected;
-		}
-
 		this->sDiseasePoints[aDisease] = min( this->sDiseasePoints[aDisease] + Disease[aDisease].sInfectionPtsInitial, Disease[aDisease].sInfectionPtsInitial );
 
 		if ( this->sDiseasePoints[aDisease] > Disease[aDisease].sInfectionPtsOutbreak )
@@ -19274,6 +19263,70 @@ INT16	SOLDIERTYPE::GetDiseaseResistance( )
 	return(val);
 }
 
+FLOAT		SOLDIERTYPE::GetBurialPoints( UINT16* apCorpses )
+{
+	if ( this->stats.bLife < OKLIFE || this->bSectorZ || ( this->usSoldierFlagMask & SOLDIER_POW ) )
+		return 0.0f;
+
+	if ( apCorpses )
+	{
+		SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( this->sSectorX, this->sSectorY )] );
+
+		if ( pSectorInfo )
+			*apCorpses = pSectorInfo->usNumCorpses;
+	}
+
+	// if not on correct assignment, no gain
+	if ( this->bAssignment != BURIAL )
+		return 0.0f;
+	
+	UINT32 val = 4 * EffectiveStrength( this, FALSE );
+	
+	ReducePointsForFatigue( this, &val );
+
+	// personality/disability modifiers
+	FLOAT persmodifier = 1.0f;
+	if ( DoesMercHaveDisability( this, HEAT_INTOLERANT ) )	persmodifier -= 0.01f;
+	if ( DoesMercHaveDisability( this, FEAR_OF_INSECTS ) )	persmodifier -= 0.03f;
+	
+	// background modifier
+	persmodifier += ( this->GetBackgroundValue( BG_BURIAL_ASSIGNMENT ) ) / 100.0f;
+
+	// equipment modifier
+	FLOAT bestequipmentmodifier = 1.0f;
+	
+	OBJECTTYPE* pObj = NULL;
+
+	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )						// ... for all items in our inventory ...
+	{
+		// ... if Item exists and is canteen (that can have drink points) ...
+		if ( inv[bLoop].exists() == true && Item[inv[bLoop].usItem].usBurialModifier )
+		{
+			OBJECTTYPE * pObj = &( this->inv[bLoop] );							// ... get pointer for this item ...
+
+			if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+			{
+				for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+				{
+					FLOAT modifier = 1.0f + ( Item[inv[bLoop].usItem].usBurialModifier * ( *pObj )[i]->data.objectStatus ) / 10000.0f;
+
+					if ( modifier > bestequipmentmodifier )
+						bestequipmentmodifier = modifier;
+				}
+			}
+		}
+	}
+
+	FLOAT totalvalue = val * persmodifier * bestequipmentmodifier * 0.01f;
+
+	// A most awesome merc in Meduna palace, disguised as a soldier, would have a value of 1.15 * 4.63 * 2 = 10.649 at this point.
+	// This would be the place where we modify our intel gain rate.
+
+	return totalvalue;
+}
+
 // Flugente: hourly breath regen calculation
 INT8	SOLDIERTYPE::GetSleepBreathRegeneration( )
 {
@@ -19558,16 +19611,13 @@ UINT16	SOLDIERTYPE::GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UIN
 				return 0;
 
 			FLOAT bestmodifier = 1.0f;
-
-			UINT8 bestequipmentbonus = 0;
-
+			
 			OBJECTTYPE* pObj = NULL;
 
 			INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
 
 			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )						// ... for all items in our inventory ...
 			{
-				// ... if Item exists and is canteen (that can have drink points) ...
 				if ( inv[bLoop].exists( ) == true && Item[inv[bLoop].usItem].usHackingModifier )
 				{
 					OBJECTTYPE * pObj = &(this->inv[bLoop]);							// ... get pointer for this item ...
@@ -19584,7 +19634,6 @@ UINT16	SOLDIERTYPE::GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UIN
 					}
 				}
 			}
-
 			
 			return (UINT16)(skill * bestmodifier);
 		}

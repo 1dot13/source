@@ -96,6 +96,7 @@ enum
 	GATHERINTEL,					// gathers information while disguised in enemy territory
 	DOCTOR_MILITIA,					// heal militia
 	DRILL_MILITIA,					// train existing militia (does not create new ones)
+	BURIAL,							// merc removes corpses in this sector
 	NUM_ASSIGNMENTS,
 };
 
@@ -186,6 +187,8 @@ BOOLEAN CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier );
 BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier );
 
 BOOLEAN CanCharacterSpyAssignment( SOLDIERTYPE *pSoldier );
+
+BOOLEAN CanCharacterBurial( SOLDIERTYPE *pSoldier );
 
 // can this character be assigned as a repairman?
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );

@@ -124,54 +124,14 @@ void HandleDisease()
 				}
 			}
 
-			// we can also be infected by the population
+			// we can also be infected by the disease left from corpses
 			if ( gGameExternalOptions.fDiseaseStrategic )
 			{
-				UINT16 population = GetSectorPopulation( pSoldier->sSectorX, pSoldier->sSectorY );
+				SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )] );
 
-				if ( population )
+				if ( pSectorInfo && pSectorInfo->fDiseasePoints )
 				{
-					UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
-
-					SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
-
-					if ( pSectorInfo )
-					{
-						// if there are infected people, we might get an infection (disease 0 only)
-						if ( pSectorInfo->usInfected )
-						{
-							// infection is also possible by human contact
-							FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN];
-
-							// if disease is known, mercs will avoid the infected, lowering the chance of them being infected
-							UINT16 max = min(20, pSectorInfo->usInfected);
-							if ( (pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO) )
-								max /= 4;
-
-							for ( UINT16 i = 0; i < max; ++i )
-							{
-								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
-								if ( Random( 10000 ) < dChance * 100 )
-									HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_CONTACT_HUMAN, 1.0f, TRUE );
-							}
-						}
-
-						// if we are infected, WE might infect other people
-						if ( pSoldier->sDiseasePoints[0] > 0 )
-						{
-							if ( pSectorInfo->usInfected < population )
-							{
-								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
-								if ( Random( 10000 ) < Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN] * 100 )
-								{
-									FLOAT infectedseverity = (FLOAT)Disease[0].sInfectionPtsInitial / (FLOAT)Disease[0].sInfectionPtsFull;
-
-									pSectorInfo->fInfectionSeverity = (pSectorInfo->fInfectionSeverity * pSectorInfo->usInfected + infectedseverity * 1) / (pSectorInfo->usInfected + 1);
-									++pSectorInfo->usInfected;
-								}																								
-							}
-						}
-					}
+					HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_CONTACT_CORPSE, ( pSectorInfo->fDiseasePoints / DISEASE_MAX_SECTOR ) );
 				}
 			}
 
@@ -215,191 +175,6 @@ void HandleDisease()
 			default:
 				break;
 			}
-		}
-	}
-
-	// now to handle strategic disease
-	if ( !gGameExternalOptions.fDiseaseStrategic )
-		return;
-
-	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
-	{
-		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
-		{
-			UINT8 sector = SECTOR( sX, sY );
-
-			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
-
-			if ( !pSectorInfo )
-				continue;
-
-			// first, existing infections get worse
-			if ( pSectorInfo->fInfectionSeverity > 0 )
-			{
-				pSectorInfo->fInfectionSeverity = min( 1.0f, pSectorInfo->fInfectionSeverity + ( FLOAT )(Disease[0].sInfectionPtsGainPerHour) / (FLOAT)(Disease[0].sInfectionPtsFull) );
-			}
-
-			UINT16 population = GetSectorPopulation( sX, sY );
-
-			if ( population )
-			{
-				// how many people are already infected?
-				if ( pSectorInfo->usInfected < population )
-				{
-					UINT16 lefttoinfect = population - pSectorInfo->usInfected;
-					UINT16 newinfected = 0;
-
-					// population might get infected if this a swamp or tropical sector
-					switch ( SectorInfo[sector].ubTraversability[THROUGH_STRATEGIC_MOVE] )
-					{
-						case TROPICS_SAM_SITE:
-						case TROPICS:
-						case TROPICS_ROAD:
-						{
-											 FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_TROPICS];
-							for ( UINT16 i = 0; i < lefttoinfect; ++i )
-							{
-								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
-								if ( Random( 10000 ) < dChance * 100 )
-									++newinfected;
-							}
-						}
-						break;
-						case SWAMP:
-						case SWAMP_ROAD:
-						{
-							FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_SWAMP];
-							for ( UINT16 i = 0; i < lefttoinfect; ++i )
-							{
-								// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
-								if ( Random( 10000 ) < dChance * 100 )
-									++newinfected;
-							}
-						}
-						break;
-					default:
-						break;
-					}
-
-					if ( lefttoinfect - newinfected > 1 && pSectorInfo->usInfected )
-					{
-						// infection is also possible by human contact
-						FLOAT dChance = Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN];
-						UINT16 max = sqrt( (FLOAT) min( lefttoinfect - newinfected, pSectorInfo->usInfected ) );
-						for ( UINT16 i = 0; i < max; ++i )
-						{
-							// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
-							if ( Random( 10000 ) < dChance * 100 )
-								++newinfected;
-						}
-					}
-					
-					if ( lefttoinfect - newinfected > 0 )
-					{
-						// there is also the chance to be infected by bad food, sex, contact with animals etc.
-						// For now, we assume this to be very rare events, so just add a small chance to be infected this way
-						FLOAT populationpercentage = (FLOAT)(lefttoinfect - newinfected) / (FLOAT)(population);
-						FLOAT basechance = sqrt( (FLOAT) min( lefttoinfect, pSectorInfo->usInfected + newinfected ) ) * 0.5f;
-
-						FLOAT chance_sex = Disease[0].dInfectionChance[INFECTION_TYPE_SEX] * basechance * populationpercentage;
-						FLOAT chance_corpse = 0;
-
-						// if there was a fight here in the last 48 hours, then corpses will still be here - increase chance of infection
-						if ( pSectorInfo->uiTimeLastPlayerLiberated && pSectorInfo->uiTimeLastPlayerLiberated + (48 * 3600) > GetWorldTotalSeconds( ) )
-							chance_corpse = Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_CORPSE] * populationpercentage;
-						
-						// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
-						if ( Random( 10000 ) < chance_sex * 100 )
-							++newinfected;
-
-						if ( Random( 10000 ) < chance_corpse * 100 )
-							++newinfected;
-					}
-
-					if ( lefttoinfect - newinfected > 0 )
-					{
-						// adjacent sectors can infect us too
-						for ( UINT8 dir = 0; dir < SP_DIR_MAX; ++dir )
-						{
-							INT16 othersector = GetAdjacentSector( sector, dir );
-
-							if ( othersector > -1 )
-							{
-								UINT16 population_other = GetSectorPopulation( SECTORX( othersector ), SECTORY( othersector ) );
-								SECTORINFO *pSectorInfo_Other = &(SectorInfo[othersector]);
-
-								if ( pSectorInfo_Other && pSectorInfo_Other->usInfected && population_other )
-								{
-									FLOAT infectedothersector = (FLOAT)pSectorInfo_Other->usInfected / (FLOAT)(population_other);
-
-									if ( infectedothersector > DISEASE_STRATEGIC_ADJACENTINFECTION )
-									{
-										FLOAT percentage = (FLOAT)((lefttoinfect - newinfected) * Disease[0].dInfectionChance[INFECTION_TYPE_CONTACT_HUMAN]) / (FLOAT)(100 * population);
-
-										// chances can be smaller than 1%, so we use a trick here by altering ou 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
-										if ( Random( 10000 ) < percentage * 100 * 100 )
-											++newinfected;
-									}
-								}
-							}
-						}
-					}
-					
-					if ( pSectorInfo->usInfected + newinfected > 0 && Disease[0].sInfectionPtsFull )
-					{
-						FLOAT infectedseverity = (FLOAT)Disease[0].sInfectionPtsInitial / (FLOAT)Disease[0].sInfectionPtsFull;
-
-						pSectorInfo->fInfectionSeverity = (pSectorInfo->fInfectionSeverity * pSectorInfo->usInfected + infectedseverity * newinfected) / (pSectorInfo->usInfected + newinfected);
-						pSectorInfo->usInfected += newinfected;
-
-						pSectorInfo->usInfected = min( pSectorInfo->usInfected , population);
-					}
-				}
-
-				// if infection is high enough, disease officially breaks out
-				FLOAT infectedpercentage = (FLOAT)pSectorInfo->usInfected / (FLOAT)(population);
-
-				if ( infectedpercentage >= GetSectorDiseaseOverFlowThreshold() || pSectorInfo->fInfectionSeverity > ((FLOAT)Disease[0].sInfectionPtsOutbreak / (FLOAT)Disease[0].sInfectionPtsFull) )
-				{
-					pSectorInfo->usInfectionFlag |= (SECTORDISEASE_OUTBREAK | SECTORDISEASE_DIAGNOSED_WHO);
-				}
-				
-				// if disease is known and doctoring isn't inhibited, use doctoring to remove disease
-				// doctors (civilian and military) can fight the disease
-				if ( (pSectorInfo->usInfectionFlag & (SECTORDISEASE_DIAGNOSED_WHO | SECTORDISEASE_DIAGNOSED_PLAYER)) && !pSectorInfo->usDiseaseDoctoringDelay)
-				{
-					// the country doesn't have many doctors...
-					UINT32 doctors = GetSectorPopulation( sX, sY, FALSE ) * GetCivPopulationDoctorRate();
-
-					// if this the hospital sector, the amount of doctoring is increased to marvellous levels
-					if ( sX == gModSettings.ubHospitalSectorX && sY == gModSettings.ubHospitalSectorY )
-					{
-						doctors += 200;
-					}
-
-					// the bulk of doctoring will come from the military
-					doctors += NumNonPlayerTeamMembersInSector( sX, sY, ENEMY_TEAM ) * GetMilitaryPopulationDoctorRate( );
-
-					UINT32 doctorpower = doctors * GetPopulationDoctorPoints( );
-
-					// if the disease escalates, increase doctor power!
-					if ( infectedpercentage > GetSectorDiseaseOverFlowThreshold( ) + 0.1f )
-						doctorpower += doctors * 0.3f * GetPopulationDoctorPoints();
-					
-					HealSectorPopulation( sX, sY, doctorpower );
-				}
-			}
-			else
-			{
-				// if nobody is there, be sure to set infection data to 0
-				pSectorInfo->usInfected = 0;
-				pSectorInfo->usInfectionFlag = 0;
-				pSectorInfo->fInfectionSeverity = 0;
-				pSectorInfo->usDiseaseDoctoringDelay = 0;
-			}
-
-			// in any case, one hour has passed, update possible doctor replacements
-			pSectorInfo->usDiseaseDoctoringDelay = max( 0, pSectorInfo->usDiseaseDoctoringDelay - 1);
 		}
 	}
 }
@@ -503,95 +278,6 @@ UINT16 GetSectorPopulation( INT16 sX, INT16 sY, BOOLEAN fWithMilitary )
 	return population;
 }
 
-// handle infection redistribution if people move from A to B (set sXB  and sYB to negative values to simply remove infected people in A)
-void PopulationMove( INT16 sXA, INT16 sYA, INT16 sXB, INT16 sYB, UINT16 usAmount )
-{
-	// we have to handle the impact on a sector's disease if people other than mercs move from A to B
-	if ( !gGameExternalOptions.fDiseaseStrategic )
-		return;
-
-	UINT8 sectorA = SECTOR( sXA, sYA );
-
-	SECTORINFO *pSectorInfoA = &(SectorInfo[sectorA]);
-
-	UINT16 populationA = GetSectorPopulation( sXA, sYA );
-
-	if ( populationA )
-	{
-		// how many people are already infected?
-		if ( pSectorInfoA )
-		{
-			FLOAT infectionrateA = (FLOAT)(pSectorInfoA->usInfected) / (FLOAT)(populationA);
-
-			UINT16 movinginfected = usAmount * infectionrateA;
-
-			// we have to add the infection of movinginfected new infected with an infection level of pSectorInfoA->usInfectionSeverity
-			if ( movinginfected )
-			{
-				// it is possible that there is no other sector
-				if ( sXB > -1 && sYB > -1 )
-				{
-					UINT8 sectorB = SECTOR( sXB, sYB );
-
-					SECTORINFO *pSectorInfoB = &(SectorInfo[sectorB]);
-
-					if ( pSectorInfoB )
-					{
-						// new infection severity is the mean of old and new infected times their infection ratios
-						pSectorInfoB->fInfectionSeverity = (pSectorInfoB->fInfectionSeverity * pSectorInfoB->usInfected + pSectorInfoA->fInfectionSeverity * movinginfected) / (pSectorInfoB->usInfected + movinginfected);
-						pSectorInfoB->usInfected += movinginfected;
-					
-						// disease moves before population moves, so we have to add those too
-						UINT16 populationB = GetSectorPopulation( sXB, sYB ) + movinginfected;
-
-						FLOAT infectedpercentage = 0;
-						if ( populationB )
-							infectedpercentage = (FLOAT)pSectorInfoB->usInfected / (FLOAT)(populationB);
-
-						if ( infectedpercentage >= GetSectorDiseaseOverFlowThreshold() || pSectorInfoB->fInfectionSeverity > ((FLOAT)Disease[0].sInfectionPtsOutbreak / (FLOAT)Disease[0].sInfectionPtsFull) )
-							pSectorInfoB->usInfectionFlag |= (SECTORDISEASE_OUTBREAK | SECTORDISEASE_DIAGNOSED_WHO);
-					}
-				}
-
-				// reduce the amount of infected in sector A
-				pSectorInfoA->usInfected -= movinginfected;
-
-				// if no infected remain, clean up data
-				if ( !pSectorInfoA->usInfected )
-				{
-					pSectorInfoA->fInfectionSeverity = 0;
-					pSectorInfoA->usInfectionFlag &= ~(SECTORDISEASE_OUTBREAK | SECTORDISEASE_DIAGNOSED_WHO | SECTORDISEASE_DIAGNOSED_PLAYER);
-				}
-			}
-		}
-	}
-}
-
-void HandleDeathDiseaseImplications( SOLDIERTYPE *pSoldier )
-{
-	if ( !gGameExternalOptions.fDisease || !gGameExternalOptions.fDiseaseStrategic || !pSoldier )
-		return;
-
-	UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
-
-	SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
-
-	if ( pSectorInfo )
-	{
-		// if the deceased was infected and not a merc, reduce sector number of infected
-		if ( pSoldier->sDiseasePoints[0] && pSoldier->bTeam != OUR_TEAM )
-		{
-			pSectorInfo->usInfected = max( 0, pSectorInfo->usInfected - 1 );
-		}
-
-		// if this guy was a medic, then medical personnel was killed - it will take a while before he will be replaced
-		if ( HAS_SKILL_TRAIT( pSoldier, DOCTOR_NT ) )
-		{
-			pSectorInfo->usDiseaseDoctoringDelay = min( 255, pSectorInfo->usDiseaseDoctoringDelay + 12 );
-		}
-	}
-}
-
 void HandleDiseaseDailyRefresh()
 {
 	if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && gubFact[FACT_DISEASE_WHODATA_SUBSCRIBED] && LaptopSaveInfo.iCurrentBalance > gGameExternalOptions.sDiseaseWHOSubscriptionCost )
@@ -619,31 +305,21 @@ UINT32 HealSectorPopulation( INT16 sX, INT16 sY, UINT32 uHealpts )
 
 	UINT32 ptsused = uHealpts;
 	
-	// the amount of points needed to cure a single patient
-	UINT32 ptsneededforcure = pSectorInfo->fInfectionSeverity * Disease[0].sInfectionPtsFull;
-
-	// if possible, cure people (we prioritise on this, as we want to lower the number os possible infection sources)
-	while ( pSectorInfo->usInfected && uHealpts >= ptsneededforcure )
+	if ( uHealpts >= pSectorInfo->fDiseasePoints )
 	{
-		uHealpts -= ptsneededforcure;
-		--pSectorInfo->usInfected;
+		uHealpts -= pSectorInfo->fDiseasePoints;
+		pSectorInfo->fDiseasePoints = 0;
 	}
-
-	// if there are still points let, but we cannot cure someone, at least lower their disease
-	if ( pSectorInfo->usInfected && uHealpts > 0 && Disease[0].sInfectionPtsFull )
+	else
 	{
-		UINT32 totaldiseasepoints = pSectorInfo->usInfected * ptsneededforcure;
-		totaldiseasepoints = max( 0, totaldiseasepoints - uHealpts );
-		
-		pSectorInfo->fInfectionSeverity = (FLOAT)totaldiseasepoints / (FLOAT)(pSectorInfo->usInfected * Disease[0].sInfectionPtsFull);
+		pSectorInfo->fDiseasePoints -= uHealpts;
+		uHealpts = 0;
 	}
-
+	
 	// if there are no more infected, or infection is at 0, remove all traces of disease
-	if ( !pSectorInfo->usInfected || !pSectorInfo->fInfectionSeverity )
+	if ( pSectorInfo->fDiseasePoints <= 0 )
 	{
-		pSectorInfo->usInfected = 0;
-		pSectorInfo->fInfectionSeverity = 0;
-		pSectorInfo->usInfectionFlag &= ~(SECTORDISEASE_OUTBREAK | SECTORDISEASE_DIAGNOSED_WHO | SECTORDISEASE_DIAGNOSED_PLAYER);
+		pSectorInfo->usInfectionFlag &= ~(SECTORDISEASE_DIAGNOSED_PLAYER);
 	}
 
 	ptsused -= uHealpts;
@@ -658,7 +334,8 @@ FLOAT GetWorkforceEffectivenessWithDisease( INT8 bTownId, UINT8 usTeam )
 		return 1.0f;
 
 	FLOAT val = 0.0f;
-	UINT8 sectors = 0;
+	UINT16 population_healthy = 0;
+	UINT16 population_total = 0;
 
 	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
@@ -675,33 +352,29 @@ FLOAT GetWorkforceEffectivenessWithDisease( INT8 bTownId, UINT8 usTeam )
 					continue;
 
 				UINT8 sector = SECTOR( sX, sY );
-				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+				SECTORINFO *pSector = &(SectorInfo[sector]);
 
-				if ( !pSectorInfo )
+				if ( !pSector )
 					continue;
 
-				UINT16 population = GetSectorPopulation( sX, sY, FALSE );
+				// at least 1 to be safe
+				UINT16 population = max(1, GetSectorPopulation( sX, sY, FALSE ) );
+
+				population_total += population;
 
 				// only civilian population is relevant here
 				if ( population )
 				{
-					// workforce effectivity in a sector is population minus cumulated effectivity loss of all infected, divided by entire population
-					val += (population - min( pSectorInfo->usInfected, population ) * pSectorInfo->fInfectionSeverity ) / population;
-				}
-				// if no population is here, then there is no part of te population that is not working, so retrun 1.0 here :-)
-				// this is basically a fix for players using this feature who have faulty xmls with population 0
-				else
-				{
-					val += 1.0f;
+					// workforce effectivity is linearly dependent on disease
+					population = max( 0, ( ( DISEASE_MAX_SECTOR - pSector->fDiseasePoints) / DISEASE_MAX_SECTOR ) *  population );
 				}
 
-				++sectors;
+				population_healthy += population;
 			}
 		}
 	}
 
-	if ( sectors )
-		val /= sectors;
+	val = (FLOAT)(population_healthy) / (FLOAT)(population_total);
 
 	return val;
 }

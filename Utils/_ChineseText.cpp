@@ -2475,6 +2475,7 @@ STR16 pAssignmentStrings[] =
 	L"GetIntel",
 	L"DoctorM.",
 	L"DMilitia",
+	L"Burial",
 };
 
 
@@ -2582,6 +2583,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Get intel while disguised",
 	L"Doctor wounded militia",
 	L"Drill existing militia",
+	L"Bury corpses",
 };
 
 
@@ -2648,6 +2650,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Get intel while disguised",
 	L"Doctor wounded militia",
 	L"Drill existing militia",
+	L"Bury corpses",
 };
 
 
@@ -6248,7 +6251,7 @@ STR16		zMarksMapScreenText[] =
 	L"地图概况",//"Map Overview",		// 24
 	
 	// Flugente: disease texts describing what a map view does  //文本描述疾病查看地图并做翻译。
-	L"这个视图会展示出哪个地区爆发了瘟疫，这个数字表明，平均每个人的感染程度，颜色表示它的范围。 灰色=无病。 绿色到红色=不断升级的感染程度。",  //L"This view shows in which sectors disease has broken out. The number indicates the mean magnitude of infection per person, the colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of infection.",
+	L"This view shows how many rotting corpses are in a sector. The white number are corpses, the green number is accumulated disease, the sector colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of disease.",	// TODO.Translate
 
 	// Flugente: weather texts describing what a map view does
 	L"这个视图显示了目前的天气。没有颜色=晴天。青色为雨天。蓝色为雷暴。橙色为沙尘暴。白色为下雪",//L"This view shows current weather. No colour=Sunny. CYAN=Rain. BLUE=Thunderstorm. ORANGE=Sandstorm. WHITE=Snow.",
@@ -8444,6 +8447,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|感|染|防|护", //L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	 // 39
 	L"|护|盾", //L"|S|h|i|e|l|d",
 	L"|C|a|m|e|r|a",		// TODO.Translate
+	L"|B|u|r|i|a|l |M|o|d|i|f|i|e|r",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8490,6 +8494,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 	L"\n \n拿在手里，就可以抵挡前方的伤害。", //L"\n \nIf equipped in a hand, this will block incoming damage.",
 	L"\n \nYou can take photos with this.",		// TODO.Translate
+	L"\n \nThis item makes you more effective at burying corpses.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -9063,6 +9068,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% 如果在蹲下状态，视野方向发现敌人，即可瞄准\n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%% 建设速度\n",//L" %s%d%% building speed\n",
 	L"黑客技能: %s%d ",//L" hacking skill: %s%d ",
+	L" %s%d%% burial speed\n",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =
@@ -10996,6 +11002,7 @@ STR16	szDiseaseText[] =
 
 	L"诊断", //	L"Diagnosis",
 	L"治疗", //L"Treatment",
+	L"Burial",	// TODO.Translate
 	L"取消", //L"Cancel",　
 
 	L"\n\n%s (未诊断的) - %d / %d\n",	//L"\n\n%s (undiagnosed) - %d / %d\n",

@@ -518,9 +518,9 @@ typedef struct SECTORINFO
 	UINT8	ubTanksInBattle;
 
 	// Flugente: disease
-	UINT16	usInfected;					// how many people (civilians + enemy + militia) are infected in this sector? Does NOT count our mercs
-	FLOAT	fInfectionSeverity;			// mean infection rate of those infected (percentage)
-	UINT8	usDiseaseDoctoringDelay;	// AI doctoring in this sector is delayed due to player interference
+	UINT16	usNumCorpses;				// number of corpses in this sector
+	FLOAT	fDiseasePoints;				// disease points
+	UINT8	bFiller4;
 	UINT8	usInfectionFlag;
 
 	// Flugente: fortification
@@ -537,7 +537,10 @@ typedef struct SECTORINFO
 	// Flugente: localized weather
 	UINT32	usWeather;
 
-	INT8	bPadding[ 16 ];
+	// Flugente: burial assignment
+	FLOAT	dBurial_UnappliedProgress;	// progress done via assignment work. This way no work gets lost
+
+	INT8	bPadding[ 12 ];
 
 }SECTORINFO;
 

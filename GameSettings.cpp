@@ -1731,8 +1731,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fZombieOnlyHeadShotsPermanentlyKill			= iniReader.ReadBoolean("Tactical Zombie Settings", "ZOMBIE_ONLY_HEADSHOTS_PERMANENTLY_KILL", TRUE);
 
 	//################# Corpse Settings ##################
-	gGameExternalOptions.usCorpseDelayUntilRotting						= iniReader.ReadInteger( "Corpse Settings", "CORPSE_DELAY_UNTIL_ROTTING", NUM_SEC_IN_DAY / 60, 720, 7 * NUM_SEC_IN_DAY / 60 );
-	gGameExternalOptions.usCorpseDelayUntilDoneRotting					= iniReader.ReadInteger( "Corpse Settings", "CORPSE_DELAY_UNTIL_DONE_ROTTING", 3 * NUM_SEC_IN_DAY / 60, NUM_SEC_IN_DAY / 60, 14 * NUM_SEC_IN_DAY / 60 );
+	gGameExternalOptions.usCorpseDelayUntilRotting						= iniReader.ReadInteger( "Corpse Settings", "CORPSE_DELAY_UNTIL_ROTTING", NUM_SEC_IN_DAY / 60, 0, 7 * NUM_SEC_IN_DAY / 60 );
+	gGameExternalOptions.usCorpseDelayUntilDoneRotting					= iniReader.ReadInteger( "Corpse Settings", "CORPSE_DELAY_UNTIL_DONE_ROTTING", 3 * NUM_SEC_IN_DAY / 60, 0, 14 * NUM_SEC_IN_DAY / 60 );
 		
 	//################# Tactical Fortification Settings ##################
 	gGameExternalOptions.fFortificationAllowInHostileSector				= iniReader.ReadBoolean("Tactical Fortification Settings", "FORTIFICATION_ALLOW_IN_HOSTILE_SECTOR", FALSE);

@@ -277,9 +277,6 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 			// Flugente: update individual militia data
 			ApplyTacticalLifeRatioToMilitia( );
 			
-			// Flugente: disease
-			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
-
 			// Erase ALL militia from both locations.
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
@@ -321,10 +318,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: update individual militia data
 			ApplyTacticalLifeRatioToMilitia( );
-
-			// Flugente: disease
-			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
-
+			
 			// Remove half team from source sector
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, bGreensDestTeam );
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, bRegularsDestTeam );
@@ -414,10 +408,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 			// Flugente: update individual militia data
 			ApplyTacticalLifeRatioToMilitia( );
-
-			// Flugente: disease
-			PopulationMove( sMapX, sMapY, sTMapX, sTMapY, elites + regulars + greens );
-
+			
 			// Erase ALL militia from both locations.
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 			StrategicRemoveMilitiaFromSector( sMapX, sMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );

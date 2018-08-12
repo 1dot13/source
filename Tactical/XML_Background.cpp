@@ -138,6 +138,7 @@ backgroundStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 				strcmp(name, "croucheddefense" ) == 0 ||
 				strcmp(name, "fortify_assignment" ) == 0 ||
 				strcmp(name, "hackerskill" ) == 0 ||
+				strcmp(name, "burial_assignment" ) == 0 ||
 				strcmp(name, "druguse") == 0 ||
 				strcmp(name, "xenophobic") == 0 ||				
 				strcmp(name, "corruptionspread") == 0 ||
@@ -596,6 +597,11 @@ backgroundEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curBackground.value[BG_HACKERSKILL] = min( 100, max( 0, (INT16)atol( pData->szCharData ) ) );
+		}
+		else if ( strcmp( name, "burial_assignment" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curBackground.value[BG_BURIAL_ASSIGNMENT] = min( 1000, max( -50, (INT16)atol( pData->szCharData ) ) );
 		}
 		else if(strcmp(name, "druguse") == 0)
 		{

@@ -568,6 +568,12 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 	}
 }
 
+
+// Flugente: disease in a sector affects the health of any NPC spawning there.
+// This causes an issue if someone enters a sector from an adjacent sector - they should be affected by their point of origin, not the current sector
+// For this reason, we add a little helper variable that stores such a sector.
+INT16 gsStrategicDiseaseOriginSector = -1;
+
 SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID )
 {
 	SOLDIERTYPE			Soldier;
@@ -810,50 +816,40 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		Soldier.bOldLife						= Soldier.stats.bLifeMax;
 
 		// Flugente: disease can affect a soldier's health
-		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && !ARMED_VEHICLE((&Soldier)) )
+		// not for us, and not for individual militia (their health is affected by their hourly healing instead)
+		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && !ARMED_VEHICLE((&Soldier)) &&
+			!( Soldier.bTeam == MILITIA_TEAM && gGameExternalOptions.fIndividualMilitia && gGameExternalOptions.fIndividualMilitia_ManageHealth )  )
 		{
 			UINT8 sector = SECTOR( Soldier.sSectorX, Soldier.sSectorY );
-			UINT16 population = GetSectorPopulation( Soldier.sSectorX, Soldier.sSectorY );
 			
 			// if this is autoresolve, we have to get the sector in a different way..
 			if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
-			{
 				sector = GetAutoResolveSectorID( );
 
-				population = GetSectorPopulation( SECTORX( sector ), SECTORY( sector ) );
-			}
+			if ( gsStrategicDiseaseOriginSector > 0 )
+				sector = (UINT8)gsStrategicDiseaseOriginSector;
 			
-			if ( population )
+			SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+
+			if ( pSectorInfo )
 			{
-				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
+				INT32 diseaseamount = (Disease[0].sInfectionPtsFull * pSectorInfo->fDiseasePoints) / DISEASE_MAX_SECTOR;
+				Soldier.AddDiseasePoints( 0, diseaseamount );
 
-				if ( pSectorInfo && pSectorInfo->usInfected )
+				// if disease has broken out, lower life points
+				if ( Soldier.sDiseaseFlag[0] & SOLDIERDISEASE_OUTBREAK )
 				{
-					UINT16 chanceofinfection = 100 * (FLOAT)(pSectorInfo->usInfected) / (FLOAT)(population);
+					// we only alter breath and life points here, stats effectivity will be handled automatically
+					FLOAT magnitude = Soldier.GetDiseaseMagnitude( 0 );
 
-					if ( Chance( chanceofinfection ) )
-					{
-						INT32 diseaseamount = Disease[0].sInfectionPtsFull * pSectorInfo->fInfectionSeverity;
-						Soldier.AddDiseasePoints( 0, diseaseamount );
+					UINT16 diseasemaxbreathreduction = Disease[0].usMaxBreath * magnitude;
 
-						// if disease has broken out, lower life points
-						if ( Soldier.sDiseaseFlag[0] & SOLDIERDISEASE_OUTBREAK )
-						{
-							// we only alter breath and life points here, stats effectivity will be handled automatically
-							FLOAT magnitude = Soldier.GetDiseaseMagnitude( 0 );
+					Soldier.bBreathMax = min( Soldier.bBreathMax, 100 - diseasemaxbreathreduction );
+					Soldier.bBreath = min( Soldier.bBreath, Soldier.bBreathMax );
 
-							UINT16 diseasemaxbreathreduction = Disease[0].usMaxBreath * magnitude;
+					INT8 lifereduction = (6 * Disease[0].sLifeRegenHundreds) * (magnitude / 100.0f);
 
-							Soldier.bBreathMax = min( Soldier.bBreathMax, 100 - diseasemaxbreathreduction );
-							Soldier.bBreath = min( Soldier.bBreath, Soldier.bBreathMax );
-
-							INT8 lifereduction = (6 * Disease[0].sLifeRegenHundreds) * (magnitude / 100);
-
-							Soldier.stats.bLifeMax = max( OKLIFE, Soldier.stats.bLifeMax + lifereduction );
-							Soldier.stats.bLifeMax = min( 100, Soldier.stats.bLifeMax );
-							Soldier.stats.bLife = min( Soldier.stats.bLife, Soldier.stats.bLifeMax );
-						}
-					}
+					Soldier.stats.bLife = max( OKLIFE, min(100, Soldier.stats.bLife + lifereduction) );
 				}
 			}
 		}

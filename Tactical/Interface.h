@@ -201,6 +201,7 @@ enum {
 	BG_CROUCHEDDEFENSE,		// lowers enemy cth if they fire at us while we are crouched against cover in the direction the shots come from
 	BG_FORTIFY_ASSIGNMENT,	// modifies effectivity of 'FORTIFICATION' assignment
 	BG_HACKERSKILL,			// hacking skill from 0 to 100, > 0 means hacking is possible
+	BG_BURIAL_ASSIGNMENT,	// modifies effectivity of 'BURIAL' assignment
 
 	BG_MAX,
 };

@@ -60,8 +60,6 @@ enum
 };
 
 // disase flags for a sector
-#define SECTORDISEASE_OUTBREAK			0x01	//1				// disease has officially broken out here - it can now be seen on the map, and the AI will try to remove it
-#define SECTORDISEASE_DIAGNOSED_WHO		0x02	//2				// disease has been diagnosed by the WHO. This information can only be seen if the player has a contract with the WHO
 #define SECTORDISEASE_DIAGNOSED_PLAYER	0x04	//4				// disease has been diagnosed by the player
 
 // properties of diseases
@@ -72,6 +70,10 @@ enum
 
 #define DISEASE_PROPERTY_DISGUSTING		0x00000010				// other merc's will be disgusted by anyone with this disease if broken out
 #define DISEASE_PROPERTY_PTSD_BUNS		0x00000020				// if Buns has this disease, she can change personality
+
+#define CORPSEREMOVALPOINTSPERCORPSE	1.0f					// number of corpse removal points required to, you guessed it, remove a corpse
+#define DISEASE_PER_ROTTINGCORPSE		100.0f					// if a corpse is removed by rotting, add this many disease points to the sector
+#define DISEASE_MAX_SECTOR				10000.0f				// max disease points in a sector
 
 typedef struct
 {
@@ -137,11 +139,6 @@ INT16 GetAdjacentSector( UINT8 sector, UINT8 spdir );
 
 // get a sector population (not the tactical one - we use an xml estimation + troops present)
 UINT16 GetSectorPopulation( INT16 sX, INT16 sY, BOOLEAN fWithMilitary = TRUE );
-
-// handle infection redistribution if people move from A to B (set sXB  and sYB to negative values to simply remove infected people in A)
-void PopulationMove( INT16 sXA, INT16 sYA, INT16 sXB, INT16 sYB, UINT16 usAmount );
-
-void HandleDeathDiseaseImplications( SOLDIERTYPE *pSoldier );
 
 void HandleDiseaseDailyRefresh();
 

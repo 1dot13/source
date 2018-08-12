@@ -145,6 +145,7 @@ enum{
 enum {
 	DISEASE_MENU_DIAGNOSE,
 	DISEASE_MENU_SECTOR_TREATMENT,
+	DISEASE_MENU_BURIAL,
 	DISEASE_MENU_CANCEL,
 };
 
@@ -491,7 +492,7 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
 // Flugente: disease
 void HandleDiseaseDiagnosis();
-void HandleDiseaseSectorTreatment( );
+void HandleStrategicDiseaseAndBurial( );
 
 // Flugente: fortification
 void HandleFortification();
@@ -1002,7 +1003,7 @@ BOOLEAN  CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier )
 	SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
 
 	// we can only treat disease if we have data on it - either our team diagnosed it, or the WHO did and we have access to their data
-	if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) )
+	if ( pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || gubFact[FACT_DISEASE_WHODATA_ACCESS] ) )
 		return TRUE;
 
 	// all criteria fit, can doctor
@@ -1051,6 +1052,27 @@ BOOLEAN CanCharacterSpyAssignment( SOLDIERTYPE *pSoldier )
 
 	if ( !pSoldier->CanUseSkill( SKILLS_INTEL_CONCEAL, FALSE ) )
 		return( FALSE );
+
+	return TRUE;
+}
+
+BOOLEAN CanCharacterBurial( SOLDIERTYPE *pSoldier )
+{
+	if ( !gGameExternalOptions.fDisease || !gGameExternalOptions.fDiseaseStrategic )
+		return FALSE;
+
+	AssertNotNIL( pSoldier );
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+		return( FALSE );
+
+	if ( pSoldier->bSectorZ )
+		return FALSE;
+
+	SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )] );
+
+	if ( !pSectorInfo || (!( pSectorInfo->uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS ) && !pSectorInfo->usNumCorpses ) )
+		return FALSE;
 
 	return TRUE;
 }
@@ -2895,7 +2917,7 @@ void UpdateAssignments()
 	// Flugente: disease
 	HandleDisease();
 	HandleDiseaseDiagnosis();	// this must come after HandleDisease() so we discover fresh infections
-	HandleDiseaseSectorTreatment();
+	HandleStrategicDiseaseAndBurial();
 
 	// Flugente: PMC recruits new personnel
 	HourlyUpdatePMC();
@@ -6228,8 +6250,8 @@ void HandleDiseaseDiagnosis()
 
 				SECTORINFO *pSectorInfo = &(SectorInfo[sector]);
 
-				if ( pSectorInfo && pSectorInfo->usInfected && 
-					 !((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || (gubFact[FACT_DISEASE_WHODATA_ACCESS] && pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_WHO)) &&
+				if ( pSectorInfo && pSectorInfo->fDiseasePoints &&
+					 !(pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) &&
 					 Chance( skill ) )
 				{
 					pSectorInfo->usInfectionFlag |= SECTORDISEASE_DIAGNOSED_PLAYER;
@@ -6242,57 +6264,236 @@ void HandleDiseaseDiagnosis()
 	}
 }
 
+extern BOOLEAN SaveRottingCorpsesToTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, std::vector<ROTTING_CORPSE_DEFINITION> aCorpseDefVector );
+
 // handle treating the population (NOT our mercs) against diseases
 // our mercs are healed via the regular doctoring procedure
-void HandleDiseaseSectorTreatment()
+void HandleStrategicDiseaseAndBurial()
 {
 	// requires dieases, duh
 	if ( !gGameExternalOptions.fDisease || !gGameExternalOptions.fDiseaseStrategic )
 		return;
 
-	// every merc on diagnosis examines every other merc in this sector for diseases that are currently now known
-	// depending on his skills how far an infection has gotten, the infection will be made public, giving us more time to cure it
+	UINT32 currenttime = GetWorldTotalMin();
+
+	// turn corpses into disease once they are old enough
+	for ( INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for ( INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		{
+			SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( sX, sY )] );
+			
+			if ( pSectorInfo )
+			{
+				if ( ( pSectorInfo->uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS ) || pSectorInfo->usNumCorpses )
+				{
+					// determine corpse removal points of all mercs on assignment here
+					FLOAT corpseremovalpoints = pSectorInfo->dBurial_UnappliedProgress;
+
+					SOLDIERTYPE *pSoldier = NULL;
+					UINT32 uiCnt = 0;
+					for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pSoldier )
+					{
+						if ( pSoldier->bActive && pSoldier->bAssignment == BURIAL && !pSoldier->flags.fMercAsleep &&
+							pSoldier->sSectorX == sX && pSoldier->sSectorY == sY && !pSoldier->bSectorZ && EnoughTimeOnAssignment( pSoldier ) )
+						{
+							corpseremovalpoints += pSoldier->GetBurialPoints( NULL );
+						}
+					}
+
+					INT32 corpsesremoved_burial = 0;
+					INT32 corpsesremoved_rot = 0;
+
+					// open corpse table, check them for age, remove those ones old enough and add disease and a loyalty penalty
+					if ( sX == gWorldSectorX && sY == gWorldSectorY )
+					{
+						INT32 corpsesleft = 0;
+
+						for ( INT32 iCount = 0; iCount < giNumRottingCorpse; ++iCount )
+						{
+							if ( ( gRottingCorpse[iCount].fActivated ) )
+							{
+								if ( corpseremovalpoints >= CORPSEREMOVALPOINTSPERCORPSE )
+								{
+									corpseremovalpoints -= CORPSEREMOVALPOINTSPERCORPSE;
+
+									RemoveCorpse( iCount );
+
+									++corpsesremoved_burial;
+								}
+								else if ( ( ( currenttime - gRottingCorpse[iCount].def.uiTimeOfDeath ) > gGameExternalOptions.usCorpseDelayUntilDoneRotting ) )
+								{
+									// add disease
+									pSectorInfo->fDiseasePoints = min( DISEASE_MAX_SECTOR, pSectorInfo->fDiseasePoints + DISEASE_PER_ROTTINGCORPSE );
+
+									RemoveCorpse( iCount );
+
+									++corpsesremoved_rot;
+								}
+								else
+								{
+									++corpsesleft;
+								}
+							}
+						}
+
+						pSectorInfo->usNumCorpses = corpsesleft;
+					}
+					else
+					{
+						HWFILE						hFile;
+						UINT32						uiNumBytesRead = 0;
+						CHAR8						zMapName[128];
+						UINT32						uiNumberOfCorpses = 0;
+						ROTTING_CORPSE_DEFINITION	def;
+						std::vector<ROTTING_CORPSE_DEFINITION> corpsedefvector;
+
+						GetMapTempFileName( SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, zMapName, sX, sY, 0 );
+
+						//Check to see if the file exists
+						if ( FileExists( zMapName ) )
+						{
+							//Open the file for reading
+							hFile = FileOpen( zMapName, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+							if ( hFile != 0 )
+							{
+								// Load the number of Rotting corpses
+								FileRead( hFile, &uiNumberOfCorpses, sizeof( UINT32 ), &uiNumBytesRead );
+								if ( uiNumBytesRead != sizeof( UINT32 ) )
+								{
+									// Error Writing size of array to disk
+									FileClose( hFile );
+								}
+								else
+								{
+									// we loop over all corpses and remove some of them, either by rotting or assignment
+									// if we chang anything, we save the now reduced array					
+									for ( UINT32 cnt = 0; cnt < uiNumberOfCorpses; ++cnt )
+									{
+										// Load the Rotting corpses info
+										FileRead( hFile, &def, sizeof( ROTTING_CORPSE_DEFINITION ), &uiNumBytesRead );
+										if ( uiNumBytesRead != sizeof( ROTTING_CORPSE_DEFINITION ) )
+										{
+											//Error Writing size of array to disk
+											continue;
+										}
+
+										if ( corpseremovalpoints >= CORPSEREMOVALPOINTSPERCORPSE )
+										{
+											corpseremovalpoints -= CORPSEREMOVALPOINTSPERCORPSE;
+
+											++corpsesremoved_burial;
+										}
+										else if ( ( ( currenttime - def.uiTimeOfDeath ) > gGameExternalOptions.usCorpseDelayUntilDoneRotting ) )
+										{
+											// add disease
+											pSectorInfo->fDiseasePoints = min( DISEASE_MAX_SECTOR, pSectorInfo->fDiseasePoints + DISEASE_PER_ROTTINGCORPSE);
+																																												
+											++corpsesremoved_rot;
+										}
+										else
+										{
+											corpsedefvector.push_back( def );
+										}
+									}
+
+									FileClose( hFile );
+
+									pSectorInfo->usNumCorpses = corpsedefvector.size();
+
+									// now save the corpses under the same filename
+									if ( corpsesremoved_burial + corpsesremoved_rot )
+										SaveRottingCorpsesToTempCorpseFile( sX, sY, 0, corpsedefvector );
+								}
+							}
+						}
+					}
+
+					// the population doesn't like it when their neighbourhood suffers from disease
+					if ( corpsesremoved_rot )
+					{
+						INT8 bTownId = GetTownIdForSector( sX, sY );
+
+						// if NOT in a town
+						if ( bTownId != BLANK_SECTOR )
+						{
+							UINT32 uiLoyaltyChange = corpsesremoved_rot * LOYALTY_PENALTY_ROTTED_CORPSE;
+							DecrementTownLoyalty( bTownId, uiLoyaltyChange );
+						}
+					}
+
+					// if we removed corpses, award experience to the undertakers
+					if ( corpsesremoved_burial )
+					{
+						for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pSoldier )
+						{
+							if ( pSoldier->bActive && pSoldier->bAssignment == BURIAL && !pSoldier->flags.fMercAsleep &&
+								pSoldier->sSectorX == sX && pSoldier->sSectorY == sY && !pSoldier->bSectorZ && EnoughTimeOnAssignment( pSoldier ) )
+							{
+								StatChange( pSoldier, STRAMT, 8, FALSE );
+							}
+						}
+					}
+
+					// store unapplied assignment progress
+					pSectorInfo->dBurial_UnappliedProgress = max( 0.0f, corpseremovalpoints );
+				}
+
+				// disease from corpses decays over time
+				// if this the hospital sector, the amount of doctoring is increased to marvellous levels
+				if ( sX == gModSettings.ubHospitalSectorX && sY == gModSettings.ubHospitalSectorY )
+					pSectorInfo->fDiseasePoints = max( 0.0f, min( pSectorInfo->fDiseasePoints * 0.9f, pSectorInfo->fDiseasePoints - 10.0f ) );
+				else
+					pSectorInfo->fDiseasePoints = max( 0.0f, min( pSectorInfo->fDiseasePoints * 0.98f, pSectorInfo->fDiseasePoints - 2.0f ) );	
+			}
+		}
+	}
+	
+	// mercs remove strategic disease
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT32 uiCnt = 0;
-	for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, pSoldier++ )
+	for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pSoldier )
 	{
-		if ( pSoldier->bActive && pSoldier->bAssignment == DISEASE_DOCTOR_SECTOR && CanCharacterTreatSectorDisease( pSoldier ) && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+		if ( pSoldier->bActive && pSoldier->bAssignment == DISEASE_DOCTOR_SECTOR && !pSoldier->bSectorZ &&
+			!pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) && CanCharacterTreatSectorDisease( pSoldier ) )
 		{
-			MakeSureMedKitIsInHand( pSoldier );
-
-			// get available healing pts
-			UINT16 max = 0;
-			UINT16 ptsavailable = CalculateHealingPointsForDoctor( pSoldier, &max, TRUE );
-
-			ptsavailable = (ptsavailable * (100 + pSoldier->GetBackgroundValue( BG_PERC_DISEASE_TREAT ))) / 100;
-			
-			// calculate how much total points we have in all medical bags
-			UINT16 usTotalMedPoints = TotalMedicalKitPoints( pSoldier );
-
-			// doctoring points are limited by medical supplies
-			ptsavailable = min( ptsavailable, usTotalMedPoints * 100 );
-
 			// if we are doctoring in a sector, then we know for sure that there is disease here
-			SECTORINFO *pSectorInfo = &(SectorInfo[ SECTOR( pSoldier->sSectorX, pSoldier->sSectorY ) ]);
+			SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )] );
 
-			if ( pSectorInfo && pSectorInfo->usInfected )
+			if ( pSectorInfo && pSectorInfo->fDiseasePoints )
+			{
 				pSectorInfo->usInfectionFlag |= SECTORDISEASE_DIAGNOSED_PLAYER;
 
-			UINT32 ptsused = HealSectorPopulation( pSoldier->sSectorX, pSoldier->sSectorY, ptsavailable );
-			
-			// Finaly use all kit points (we are sure, we have that much)
-			if ( !UseTotalMedicalKitPoints( pSoldier, ptsused / 100 ) )
-			{
-				// throw message if this went wrong for feedback on debugging
-#ifdef JA2TESTVERSION
-				ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalKitPOints returned false, not all points were probably used." );
-#endif
-			}
+				MakeSureMedKitIsInHand( pSoldier );
 
-			// increment skills based on healing pts used
-			StatChange( pSoldier, MEDICALAMT, (UINT16)(ptsused / 100), FALSE );
-			StatChange( pSoldier, DEXTAMT, (UINT16)(ptsused / 100), FALSE );
-			StatChange( pSoldier, WISDOMAMT, (UINT16)(ptsused / 100), FALSE );
+				// get available healing pts
+				UINT16 max = 0;
+				UINT16 ptsavailable = CalculateHealingPointsForDoctor( pSoldier, &max, TRUE );
+
+				ptsavailable = ( ptsavailable * ( 100 + pSoldier->GetBackgroundValue( BG_PERC_DISEASE_TREAT ) ) ) / 100;
+
+				// calculate how much total points we have in all medical bags
+				UINT16 usTotalMedPoints = TotalMedicalKitPoints( pSoldier );
+
+				// doctoring points are limited by medical supplies
+				ptsavailable = min( ptsavailable, usTotalMedPoints * 100 );
+
+				UINT32 ptsused = HealSectorPopulation( pSoldier->sSectorX, pSoldier->sSectorY, ptsavailable );
+
+				// Finaly use all kit points (we are sure, we have that much)
+				if ( !UseTotalMedicalKitPoints( pSoldier, ptsused / 100 ) )
+				{
+					// throw message if this went wrong for feedback on debugging
+#ifdef JA2TESTVERSION
+					ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"Warning! UseTotalMedicalKitPoints returned false, not all points were probably used." );
+#endif
+				}
+
+				// increment skills based on healing pts used
+				StatChange( pSoldier, MEDICALAMT, 3, FALSE );
+				StatChange( pSoldier, DEXTAMT, 1, FALSE );
+				StatChange( pSoldier, WISDOMAMT, 1, FALSE );
+			}
 		}
 	}
 }
@@ -17572,6 +17773,10 @@ void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 					fNothingToDo = !CanCharacterDrillMilitia( pSoldier );
 					break;
 
+				case BURIAL:
+					fNothingToDo = !CanCharacterBurial( pSoldier );
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -17902,6 +18107,15 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 				case DRILL_MILITIA:
 					if ( CanCharacterDrillMilitia( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+
+				case BURIAL:
+					if ( CanCharacterBurial( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
@@ -21645,6 +21859,7 @@ BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier )
 
 	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_DIAGNOSIS] );
 	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_TREATMENT] );
+	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_BURIAL] );
 
 	// cancel
 	AddMonoString( (UINT32 *)&hStringHandle, szDiseaseText[TEXT_DISEASE_CANCEL] );
@@ -21672,6 +21887,7 @@ void HandleShadingOfLinesForDiseaseMenu( void )
 		return;
 	}
 	
+	UnShadeStringInBox( ghDiseaseBox, iCount++ );
 	UnShadeStringInBox( ghDiseaseBox, iCount++ );
 	UnShadeStringInBox( ghDiseaseBox, iCount++ );
 
@@ -21740,7 +21956,15 @@ void CreateDestroyMouseRegionForDiseaseMenu( void )
 		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gDisease[iCount], 1, iCount );
 		++iCount;
-				
+
+		// burial assignment
+		MSYS_DefineRegion( &gDisease[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
+			MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+
+		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
+		MSYS_SetRegionUserData( &gDisease[iCount], 1, iCount );
+		++iCount;
+		
 		// cancel
 		MSYS_DefineRegion( &gDisease[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
 						   MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
@@ -21801,6 +22025,8 @@ void DiseaseMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			INT8 newassignment = DISEASE_DIAGNOSE;
 			if ( iWhat == DISEASE_MENU_SECTOR_TREATMENT )
 				newassignment = DISEASE_DOCTOR_SECTOR;
+			else if ( iWhat == DISEASE_MENU_BURIAL )
+				newassignment = BURIAL;
 
 			if ( pSoldier->bAssignment != newassignment )
 			{

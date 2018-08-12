@@ -4799,10 +4799,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			{
 				AddRaidPersonnel( -( pTarget->pSoldier->ubBodyType == BLOODCAT ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT ) );
 			}
-
-			// Flugente: disease
-			HandleDeathDiseaseImplications( pTarget->pSoldier );
-
+			
 			if( pAttacker->uiFlags & CELL_MERC )
 			{ //Player killed the enemy soldier -- update his stats as well as any assisters.
 				/////////////////////////////////////////////////////////////////////////////////////
@@ -5028,10 +5025,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 		{
 			AddRaidPersonnel( -( pTarget->pSoldier->ubBodyType == BLOODCAT ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_ZOMBIE ), -( pTarget->pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT ) );
 		}
-
-		// Flugente: disease
-		HandleDeathDiseaseImplications( pTarget->pSoldier );
-
+		
 		//soldier has been killed
 		if( pTarget->pAttacker[ index ]->uiFlags & CELL_PLAYER )
 		{ //Player killed the enemy soldier -- update his stats as well as any assisters.

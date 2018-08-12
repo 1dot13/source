@@ -5593,6 +5593,14 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 			SectorInfo[sectorID].usWorkers = SectorExternalData[sectorID][0].maxworkers * gGameExternalOptions.dInitialWorkerRate;
 			SectorInfo[sectorID].ubWorkerTrainingHundredths = 0;
 		}
+
+		if ( guiCurrentSaveGameVersion < CORPSE_DISPOSAL )
+		{
+			SectorInfo[sectorID].usNumCorpses = 0;		// this will get updated on the next full hour anyway
+			SectorInfo[sectorID].fDiseasePoints = 0.0f;
+			SectorInfo[sectorID].usInfectionFlag &= ~3;
+			SectorInfo[sectorID].dBurial_UnappliedProgress = 0.0f;
+		}
 	}
 
 	//	uiSize = sizeof( SECTORINFO ) * 256;

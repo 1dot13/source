@@ -1941,6 +1941,7 @@ public:
 	void	PrintSleepDesc( CHAR16* apStr );
 	FLOAT   GetDiseaseContactProtection();		// get percentage protection from infections via contact
 	INT16	GetDiseaseResistance();
+	FLOAT	GetBurialPoints( UINT16* apCorpses );
 
 	// Flugente: hourly breath regen calculation
 	INT8	GetSleepBreathRegeneration();
