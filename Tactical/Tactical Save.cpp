@@ -2588,26 +2588,22 @@ BOOLEAN AddRottingCorpseToUnloadedSectorsRottingCorpseFile( INT16 sMapX, INT16 s
 {
 	HWFILE	hFile;
 	UINT32	uiNumberOfCorpses;
-//	CHAR8		zTempName[ 128 ];
-	CHAR8		zMapName[ 128 ];
+	CHAR8	zMapName[ 128 ];
 	UINT32	uiNumBytesRead;
-	UINT32	uiNumBytesWritten;
 
-/*
-	//Convert the current sector location into a file name
-	GetMapFileName( sMapX,sMapY, bMapZ, zTempName, FALSE );
+	ROTTING_CORPSE_DEFINITION	def;
+	std::vector<ROTTING_CORPSE_DEFINITION> corpsedefvector;
 
-	//add the 'r' for 'Rotting Corpses' to the front of the map name
-	sprintf( zMapName, "%s\\r_%s", MAPS_DIR, zTempName);
-*/
+	// Flugente 2018-08-15: the old method of reading and writing in the same file at the same time is faulty.
+	// We instead open the existing file if it exists, take it's contents, and write them with the new corpse to a new file
+
 	GetMapTempFileName( SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, zMapName, sMapX, sMapY, bMapZ );
 
-	//CHECK TO SEE if the file exist
-	if( FileExists( zMapName ) )
+	if ( DoesTempFileExistsForMap( SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, sMapX, sMapY, bMapZ ) && FileExists( zMapName ) )
 	{
 		//Open the file for reading
-		hFile = FileOpen( zMapName, FILE_ACCESS_READWRITE | FILE_OPEN_EXISTING, FALSE );
-		if( hFile == 0 )
+		hFile = FileOpen( zMapName, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+		if ( hFile == 0 )
 		{
 			//Error opening map modification file,
 			return( FALSE );
@@ -2615,55 +2611,44 @@ BOOLEAN AddRottingCorpseToUnloadedSectorsRottingCorpseFile( INT16 sMapX, INT16 s
 
 		// Load the number of Rotting corpses
 		FileRead( hFile, &uiNumberOfCorpses, sizeof( UINT32 ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( UINT32 ) )
+		if ( uiNumBytesRead != sizeof( UINT32 ) )
 		{
 			//Error Writing size of array to disk
 			FileClose( hFile );
 			return( FALSE );
 		}
-	}
-	else
-	{
-		//the file doesnt exists, create a new one
-		hFile = FileOpen( zMapName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
-		if( hFile == 0 )
+
+		// load existing corpses
+		for ( UINT32 cnt = 0; cnt < uiNumberOfCorpses; ++cnt )
 		{
-			//Error opening map modification file
-			return( FALSE );
+			// Load the Rotting corpses info
+			FileRead( hFile, &def, sizeof( ROTTING_CORPSE_DEFINITION ), &uiNumBytesRead );
+			if ( uiNumBytesRead != sizeof( ROTTING_CORPSE_DEFINITION ) )
+			{
+				//Error Writing size of array to disk
+				continue;
+			}
+
+			corpsedefvector.push_back( def );
 		}
-		uiNumberOfCorpses = 0;
-	}
 
-	//Start at the begining of the file
-	FileSeek( hFile, 0, FILE_SEEK_FROM_START );
-
-	//Add on to the number and save it back to disk
-	uiNumberOfCorpses++;
-
-	FileWrite( hFile, &uiNumberOfCorpses, sizeof( UINT32 ), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( UINT32 ) )
-	{
-		//Error Writing size of array to disk
 		FileClose( hFile );
-		return( FALSE );
 	}
 
+	corpsedefvector.push_back( *pRottingCorpseDef );
 
-	//Go to the end of the file
-	FileSeek( hFile, 0, FILE_SEEK_FROM_END );
+	// create the file anew
+	SaveRottingCorpsesToTempCorpseFile( sMapX, sMapY, bMapZ, corpsedefvector );
 
-	//Append the new rotting corpse def to the end of the file
-	FileWrite( hFile, pRottingCorpseDef, sizeof( ROTTING_CORPSE_DEFINITION ), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( ROTTING_CORPSE_DEFINITION ) )
+	// Flugente: update number of corpses in this sector
+	if ( !bMapZ )
 	{
-		//Error Writing size of array to disk
-		FileClose( hFile );
-		return( FALSE );
+		SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( sMapX, sMapY )] );
+
+		if ( pSectorInfo )
+			pSectorInfo->usNumCorpses = corpsedefvector.size();
 	}
 
-
-	FileClose( hFile );
-	SetSectorFlag( sMapX, sMapY, bMapZ, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS );
 	return( TRUE );
 }
 
