@@ -1235,6 +1235,9 @@ typedef struct
 	// enables item drops for civilians
 	BOOLEAN fCiviliansDropAll;
 
+	// Flugente: can NPCs drop items in autoresolve?
+	BOOLEAN fNPCAutoresolveItemDrop;
+
 	// WANNE: Don't stop and talk when spotting a new item in turn based mode
 	BOOLEAN fItemSpottedNoTalk;
 

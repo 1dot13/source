@@ -1196,7 +1196,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubMilitiaDropEquipment			= iniReader.ReadInteger("Tactical Difficulty Settings","MILITIA_DROP_EQUIPMENT", 0, 0, 2 );
 	
 	// silversurfer: enable dropping of all items for civilians?
-	gGameExternalOptions.fCiviliansDropAll						= iniReader.ReadBoolean("Tactical Difficulty Settings","CIVILIANS_DROP_ALL", FALSE);
+	gGameExternalOptions.fCiviliansDropAll					= iniReader.ReadBoolean("Tactical Difficulty Settings","CIVILIANS_DROP_ALL", FALSE);
+
+	// Flugente: can NPCs drop items in autoresolve?
+	gGameExternalOptions.fNPCAutoresolveItemDrop			= iniReader.ReadBoolean("Tactical Difficulty Settings", "NPC_AUTORESOLVE_DROP_ALL", FALSE );
 
 	// HEADROCK HAM B2.7: Change the speed of skill progression. (defaults set to JA2 normal)
 	gGameExternalOptions.usHealthSubpointsToImprove			= iniReader.ReadInteger("Tactical Difficulty Settings","HEALTH_SUBPOINTS_TO_IMPROVE", 50, 1, 1000 );
@@ -1866,7 +1869,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.sMinEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "MIN_ENTER_MILITIA_REINFORCEMENTS", 6, 1, 64);
 	gGameExternalOptions.sRndEnterMilitiaReinforcements		= iniReader.ReadInteger("Strategic Gameplay Settings", "RND_ENTER_MILITIA_REINFORCEMENTS", 4, 1, 64);
 	//dnl ch68 090913 Don't allow permanent items removal from sector
-	gGameExternalOptions.fNoRemoveRandomSectorItems			= iniReader.ReadBoolean("Strategic GamePlay Settings", "NO_REMOVE_RANDOM_SECTOR_ITEMS", true, false);
+	gGameExternalOptions.fNoRemoveRandomSectorItems			= iniReader.ReadBoolean("Strategic GamePlay Settings", "NO_REMOVE_RANDOM_SECTOR_ITEMS", TRUE );
 
 	gGameExternalOptions.fArmyUsesTanksInAttacks			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_ATTACKS", FALSE);
 	gGameExternalOptions.fArmyUsesTanksInPatrols			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_PATROLS", FALSE);

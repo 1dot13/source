@@ -2434,8 +2434,9 @@ else
 
 	// only enemy soldiers use auto-drop system!
 	// don't use the auto-drop system in auto-resolve: player won't see what's being used & enemies will often win & keep'em
+	// Flugente: nah. We can decide to not drop later on if we want anyway.
 	// HEADROCK HAM B2.8: Militia now drop all their equipment... IF not killed by player (see TurnSoldierIntoCorpse() )
-	if ( (SOLDIER_CLASS_ENEMY( bSoldierClass ) || ( gGameExternalOptions.ubMilitiaDropEquipment > 0 && SOLDIER_CLASS_MILITIA( bSoldierClass ) )) && !IsAutoResolveActive() )
+	if ( SOLDIER_CLASS_ENEMY( bSoldierClass ) || ( gGameExternalOptions.ubMilitiaDropEquipment > 0 && SOLDIER_CLASS_MILITIA( bSoldierClass ) ) )
 	{
 		// SPECIAL handling for weapons: we'll always drop a weapon type that has never been dropped before
 		UINT32 invsize = pp->Inv.size();

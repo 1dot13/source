@@ -1970,7 +1970,7 @@ BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT
 	if( fOverWrite )
 	{
 		//first loop through and mark all entries that they dont exists
-		for( UINT32 cnt=0; cnt<uiNumberOfItems; cnt++)
+		for( UINT32 cnt=0; cnt<uiNumberOfItems; ++cnt)
 			pWorldItems[ cnt ].fExists = FALSE;
 
 		//Now delete the item temp file
@@ -1980,10 +1980,14 @@ BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT
 	uiLastItemPos = 0;
 
 	//loop through all the objects to add
-	for( uiLoop=0; uiLoop < uiNumberOfItemsToAdd; uiLoop++)
+	for( uiLoop=0; uiLoop < uiNumberOfItemsToAdd; ++uiLoop)
 	{
+		// Flugente: only add an item if it exists. Otherwise we will happily add items that are supposed to have been deleted
+		if ( !pWorldItem[uiLoop].fExists )
+			continue;
+
 		//Loop through the array to see if there is a free spot to add an item to it
-		for( ; uiLastItemPos < uiNumberOfItems; uiLastItemPos++)
+		for( ; uiLastItemPos < uiNumberOfItems; ++uiLastItemPos)
 		{
 			if( pWorldItems[ uiLastItemPos ].fExists == FALSE )
 			{
@@ -2022,8 +2026,7 @@ BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT
 		pWorldItems[ uiLastItemPos ].usFlags = pWorldItem[ uiLoop ].usFlags;
 		pWorldItems[ uiLastItemPos ].bVisible = pWorldItem[ uiLoop ].bVisible;
 		pWorldItems[ uiLastItemPos ].bRenderZHeightAboveLevel = pWorldItem[ uiLoop ].bRenderZHeightAboveLevel;
-
-
+		
 		//Check		
 		if(TileIsOutOfBounds(pWorldItem[ uiLoop ].sGridNo) && !( pWorldItems[ uiLastItemPos ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
 		{
@@ -2819,8 +2822,6 @@ BOOLEAN GetSectorFlagStatus( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFla
 		return( (GetUnderGroundSectorFlagStatus( sMapX, sMapY, bMapZ, uiFlagToSet ) ) ? 1 : 0  );
 }
 
-
-
 BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiFlags )
 {
 	UINT32			uiNumberOfItems;
@@ -2850,9 +2851,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 	}
 	else
 		AssertMsg( 0, "ERROR!!	Flag not is Switch statement");
-
-
-
+	
 	//
 	//Create an array of objects from the mercs inventory
 	//
@@ -2864,15 +2863,11 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 	{
 		if( pSoldier->inv[ i ].exists() == true )
 		{
-			// if not a player soldier
-			if ( pSoldier->bTeam != gbPlayerNum )
+			// Flugente: if we don't want items to drop in autoresolve, this is the place to set that
+			if ( pSoldier->bTeam != gbPlayerNum && !gGameExternalOptions.fNPCAutoresolveItemDrop )
 			{
-				// this percent of the time, they don't drop stuff they would've dropped in tactical...
-				if ( Random( 100 ) < 75 )
-				{
-					// mark it undroppable...
-					pSoldier->inv[ i ].fFlags |= OBJECT_UNDROPPABLE;
-				}
+				// mark it undroppable...
+				pSoldier->inv[i].fFlags |= OBJECT_UNDROPPABLE;
 			}
 
 			//if the item can be dropped
