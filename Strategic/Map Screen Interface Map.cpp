@@ -722,14 +722,10 @@ INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 aType )
 				return MAP_SHADE_DK_GREEN;
 			else if ( diseaseratio < 0.1f )
 				return MAP_SHADE_MD_GREEN;
-			else if ( diseaseratio < 0.2f )
+			else if ( diseaseratio < 0.25f )
 				return MAP_SHADE_LT_GREEN;
-			else if ( diseaseratio < 0.3f )
-				return MAP_SHADE_DK_YELLOW;
 			else if ( diseaseratio < 0.4f )
 				return MAP_SHADE_MD_YELLOW;
-			else if ( diseaseratio < 0.5f )
-				return MAP_SHADE_LT_YELLOW;
 			else if ( diseaseratio < 0.65f )
 				return MAP_SHADE_ORANGE;
 			else if ( diseaseratio < 0.8f )

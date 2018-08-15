@@ -1116,7 +1116,6 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 	// stealing should fail anyway 'cause there shouldn't be a temp file for unvisited sectors, but let's check anyway
 	Assert( GetSectorFlagStatus( sSectorX, sSectorY, ( UINT8 ) sSectorZ, SF_ALREADY_VISITED ) == TRUE );
 
-
 	// get sector name string
 	GetSectorIDString( sSectorX, sSectorY, ( INT8 ) sSectorZ, wSectorName, TRUE );
 
@@ -1140,15 +1139,15 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 		uiNewTotal = uiNumberOfItems;
 
 		// set up item list ptrs
-		for( iCounter = 0; iCounter < uiNumberOfItems ; iCounter++ )
+		for( iCounter = 0; iCounter < uiNumberOfItems ; ++iCounter )
 		{
 			//if the item exists, and is visible and reachable, see if it should be stolen
 			if ( pItemList[ iCounter ].fExists && pItemList[ iCounter ].bVisible == TRUE && pItemList[ iCounter ].usFlags & WORLD_ITEM_REACHABLE )
 			{
-				if( Random( 100 ) < ubChance )
+				if ( Chance( ubChance ) )
 				{
 					// remove
-					uiNewTotal--;
+					--uiNewTotal;
 					pItemList[ iCounter ].fExists = FALSE;
 
 					// debug message
@@ -1165,12 +1164,12 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 	}
 	else	// handle a loaded sector
 	{
-		for( iCounter = 0; iCounter < guiNumWorldItems; iCounter++ )
+		for( iCounter = 0; iCounter < guiNumWorldItems; ++iCounter )
 		{
 			// note, can't do reachable test here because we'd have to do a path call...
 			if ( gWorldItems[ iCounter ].fExists && gWorldItems[ iCounter ].bVisible == TRUE )
 			{
-				if( Random( 100 ) < ubChance )
+				if ( Chance( ubChance ) )
 				{
 					RemoveItemFromPool( gWorldItems[ iCounter ].sGridNo , iCounter, gWorldItems[ iCounter ].ubLevel );
 					// debug message
@@ -1179,10 +1178,7 @@ void RemoveRandomItemsInSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 			}
 		}
 	}
-
-	return;
 }
-
 
 /* ARM: Civilian theft of items was removed
 void HandleTheftByCiviliansInSector( INT16 sX, INT16 sY, INT32 iLoyalty )
@@ -1231,14 +1227,10 @@ void HandleTownTheft( void )
 			HandleTheftByCiviliansInSector( ( INT16 )( pTownLocationsList[ iCounter ] % MAP_WORLD_X ), ( INT16 )( pTownLocationsList[ iCounter ] / MAP_WORLD_X ), gTownLoyalty[ ubTown ].ubRating );
 		}
 
-		iCounter++;
+		++iCounter;
 	}
-
-	return;
 }
 */
-
-
 
 void BuildListOfTownSectors( void )
 {

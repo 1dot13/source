@@ -2659,8 +2659,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	{
 	return;
 	}
-
-
+	
   // If this is an EPC , just kill them...
   if ( AM_AN_EPC( pSoldier ) )
   {
@@ -2677,8 +2676,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 
   // ATE: Patch fix If in a vehicle, remove from vehicle...
   TakeSoldierOutOfVehicle( pSoldier );
-
-
+  
   // Are there enemies in ALMA? ( I13 )
   iNumEnemiesInSector = NumNonPlayerTeamMembersInSector( gModSettings.ubInitialPOWSectorX, gModSettings.ubInitialPOWSectorY, ENEMY_TEAM ); //(13, 9)
 
@@ -2708,74 +2706,54 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	RemoveCharacterFromSquads( pSoldier );
 
 	WORLDITEM			WorldItem;
-	std::vector<WORLDITEM> pWorldItem(1);//dnl ch75 271013
+	std::vector<WORLDITEM> pWorldItem;
 
-	// Is this the first one..?
-	if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED )
+	if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
 	{
-		//-teleport him to NE Alma sector (not Tixa as originally planned)
-		pSoldier->sSectorX = gModSettings.ubInitialPOWSectorX; //13
-		pSoldier->sSectorY = gModSettings.ubInitialPOWSectorY; //9
-		pSoldier->bSectorZ = 0;
+		INT32 itemdropoffgridno = -1;
 
-		// put him on the floor!!
-		pSoldier->pathing.bLevel = 0;
-
+		// Is this the first one..?
+		if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED )
+		{
+			//-teleport him to NE Alma sector (not Tixa as originally planned)
+			pSoldier->sSectorX = gModSettings.ubInitialPOWSectorX; //13
+			pSoldier->sSectorY = gModSettings.ubInitialPOWSectorY; //9
+			pSoldier->bSectorZ = 0;
+			pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
+			itemdropoffgridno = gModSettings.iInitialPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
+		}
+		else //if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
+		{
+			//-teleport him to N7
+			pSoldier->sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
+			pSoldier->sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
+			pSoldier->bSectorZ = 0;
+			pSoldier->usStrategicInsertionData = gModSettings.iMeanwhileInterrogatePOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
+			itemdropoffgridno = gModSettings.iMeanwhileInterrogatePOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];;
+		}
+		
 		// OK, drop all items!
 		UINT32 invsize = pSoldier->inv.size();
 		for ( i = 0; i < invsize; ++i )
 		{
-			if( pSoldier->inv[ i ].exists() == true )
+			if ( pSoldier->inv[i].exists() )
 			{
 				WorldItem.fExists = TRUE;
-				WorldItem.sGridNo = gModSettings.iInitialPOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
+				WorldItem.sGridNo = itemdropoffgridno;
 				WorldItem.ubLevel = 0;
 				WorldItem.usFlags = 0;
 				WorldItem.bVisible = FALSE;
 				WorldItem.bRenderZHeightAboveLevel = 0;
-				pSoldier->inv[ i ].MoveThisObjectTo(WorldItem.object);
-				//dnl ch75 271013
-				pWorldItem[0] = WorldItem;
-				AddWorldItemsToUnLoadedSector( gModSettings.ubInitialPOWSectorX, gModSettings.ubInitialPOWSectorY, 0, gModSettings.iInitialPOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, pWorldItem, FALSE );
+				pSoldier->inv[i].MoveThisObjectTo( WorldItem.object );
+				pWorldItem.push_back( WorldItem );
 			}
 		}
 
-		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
-
-		gStrategicStatus.ubNumCapturedForRescue++;
-	}
-	else if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE )
-	{
-		//-teleport him to N7
-		pSoldier->sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
-		pSoldier->sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
-		pSoldier->bSectorZ = 0;
+		AddWorldItemsToUnLoadedSector( pSoldier->sSectorX, pSoldier->sSectorY, 0, itemdropoffgridno, pWorldItem.size(), pWorldItem, FALSE );
 
 		// put him on the floor!!
 		pSoldier->pathing.bLevel = 0;
-
-		// OK, drop all items!
-		UINT32 invsize = pSoldier->inv.size();
-		for ( i = 0; i < invsize; ++i )
-		{
-			if( pSoldier->inv[ i ].exists() == true )
-			{
-				WorldItem.fExists = TRUE;
-				WorldItem.sGridNo = gModSettings.iMeanwhileInterrogatePOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
-				WorldItem.ubLevel = 0;
-				WorldItem.usFlags = 0;
-				WorldItem.bVisible = FALSE;
-				WorldItem.bRenderZHeightAboveLevel = 0;
-				pSoldier->inv[ i ].MoveThisObjectTo(WorldItem.object);
-				//dnl ch75 271013
-				pWorldItem[0] = WorldItem;
-				AddWorldItemsToUnLoadedSector( gModSettings.ubMeanwhileInterrogatePOWSectorX, gModSettings.ubMeanwhileInterrogatePOWSectorY, 0, gModSettings.iMeanwhileInterrogatePOWItemGridNo[ gStrategicStatus.ubNumCapturedForRescue ], 1, pWorldItem, FALSE );
-			}
-		}
-
 		pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-		pSoldier->usStrategicInsertionData = gModSettings.iMeanwhileInterrogatePOWGridNo[ gStrategicStatus.ubNumCapturedForRescue ];
 
 		gStrategicStatus.ubNumCapturedForRescue++;
 	}
@@ -2792,12 +2770,9 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 
 	//Set his life to 50% + or - 10 HP.
 	INT8 oldlife = pSoldier->stats.bLife;
-	pSoldier->stats.bLife = pSoldier->stats.bLifeMax / 2;
-	if ( pSoldier->stats.bLife <= 35 )
-	{
-		pSoldier->stats.bLife = 35;
-	}
-	else if ( pSoldier->stats.bLife >= 45 )
+	pSoldier->stats.bLife = max(35, pSoldier->stats.bLifeMax / 2);
+	
+	if ( pSoldier->stats.bLife >= 45 )
 	{
 		pSoldier->stats.bLife += (INT8)(10 - Random( 21 ) );
 	}
