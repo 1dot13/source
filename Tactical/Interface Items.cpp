@@ -4051,6 +4051,26 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				gprintfinvalidate( sNewX, sNewY, pStr );
 			}
 
+			// Flugente: if this object is contaminated and we know that, show it
+			if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseContaminatesItems &&
+				( *pObject )[0]->data.sObjectFlag & INFECTED && ( *pObject )[0]->data.sObjectFlag & INFECTION_DIAGNOSED )
+			{
+				if ( !guiASSIGNMENTICONS )
+				{
+					VOBJECT_DESC    VObjectDesc;
+					VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+					FilenameForBPP( "INTERFACE\\AssignmentIcons.sti", VObjectDesc.ImageFile );
+					AddVideoObject( &VObjectDesc, &guiASSIGNMENTICONS );
+				}
+
+				sNewX = sX + 5; // rather arbitrary
+				sNewY = sY;
+				
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiASSIGNMENTICONS, 28, sNewX, sNewY, VO_BLT_TRANSSHADOW, NULL );
+
+				RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
+			}
+
 			if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes
 				&& pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
 			{

@@ -6240,6 +6240,34 @@ void HandleDiseaseDiagnosis()
 							}
 						}
 					}
+
+					// loop over the inventory and check for contaminated items
+					BOOLEAN contaminationfound = FALSE;
+					INT8 invsize = (INT8)pTeamSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+					for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )							// ... for all items in our inventory ...
+					{
+						if ( pTeamSoldier->inv[bLoop].exists() )
+						{
+							OBJECTTYPE * pObj = &( pTeamSoldier->inv[bLoop] );							// ... get pointer for this item ...
+
+							if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+							{
+								for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )				// ... there might be multiple items here (item stack), so for each one ...
+								{
+									if ( ( *pObj )[i]->data.sObjectFlag & INFECTED && !( ( *pObj )[i]->data.sObjectFlag & INFECTION_DIAGNOSED ) && Chance( skill ) )
+									{
+										( *pObj )[i]->data.sObjectFlag |= INFECTION_DIAGNOSED;
+
+										contaminationfound = TRUE;
+									}
+								}
+							}
+						}
+					}
+
+					if ( contaminationfound )
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, szDiseaseText[TEXT_DISEASE_CONTAMINATION_FOUND], pTeamSoldier->GetName() );
 				}
 			}
 
