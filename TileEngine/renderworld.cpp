@@ -630,6 +630,10 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier )
 		INT16					sScreenX, sScreenY;
 		GetGridNoScreenXY(pSoldier->sGridNo, &sScreenX, &sScreenY);
 
+		// take height level into account
+		if ( pSoldier->pathing.bLevel == 1 )
+			sScreenY -= 50;
+
 		// redraw background to stop weird graphic remnants remaining
 		// but don*t do so while scrolling, because that looks weird
 		if ( !gfScrollPending && !gfScrollInertia)
