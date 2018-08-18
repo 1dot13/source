@@ -7199,10 +7199,10 @@ void MoveBullet( INT32 iBullet )
 
 												CorpseHit( pBullet->sGridNo, level, pStructure->usStructureID );
 												DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count..., CORPSE HIT") );
-
-												// Moved here to keep ABC >0 as long as possible
-												RemoveBullet( iBullet );
-												// ReduceAttackBusyCount( );
+												
+												// Flugente: we need to call BulletHitStructure, otherwise knives vanish
+												StopBullet( pBullet->iBullet );
+												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
 												return;
 											}
 											else if ( iRemainingImpact <= 0 )
