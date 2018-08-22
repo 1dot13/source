@@ -2348,6 +2348,8 @@ typedef struct
 	FLOAT fDamageBreathModifierExplosive;
 	FLOAT fDamageHealthMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
 	FLOAT fDamageBreathMoveModifierExplosive;	// applies when character moves through gas cloud without a gas mask
+	UINT8 usMissMaxRadiusGrenade;
+	UINT8 usMissMaxRadiusMortar;
 
 	// ------------ MISC MODIFIERS --------------
 	// Flugente

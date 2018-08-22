@@ -115,10 +115,6 @@ FLOAT						CalculateForceFromRange( UINT16 usItem, INT16 sRange, FLOAT dDegrees 
 
 INT32          RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius );
 
-// Parameters for item throwing
-#define MAX_MISS_BY			30
-#define MIN_MISS_BY			1
-#define MAX_MISS_RADIUS		5
 // Lesh: needed to fix item throwing through window
 extern INT16 DirIncrementer[8];
 
@@ -2206,7 +2202,7 @@ FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier, FLOAT dDegrees , OBJECTTY
 }
 
 
-void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubLevel, INT16 sEndZ, OBJECTTYPE *pItem, INT8 bMissBy, UINT8 ubActionCode, UINT32 uiActionData )
+void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubLevel, INT16 sEndZ, OBJECTTYPE *pItem, UINT32 uiHitChance, UINT8 ubActionCode, UINT32 uiActionData, UINT16 usItemNum )
 {
 	FLOAT				dForce, dDegrees;
 	INT16				sDestX, sDestY, sSrcX, sSrcY;
@@ -2216,7 +2212,6 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 	UINT16			usLauncher;
 	INT16				sStartZ;
 	INT8		bMinMissRadius, bMaxMissRadius, bMaxRadius;
-	FLOAT		fScale;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateLaunchItemParamsForThrow");
 
@@ -2228,74 +2223,31 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 		fArmed = TRUE;
 	}
 
-	if ( bMissBy < 0 )
+	// set the max miss radius
+	if ( Item[usItemNum].mortar )
 	{
-		// then we hit!
-		bMissBy = 0;
-
-		// SANDRO - new merc records
-		if( pSoldier->bTeam == 0 && pSoldier->ubProfile != NO_PROFILE )
-		{
-			gMercProfiles[ pSoldier->ubProfile ].records.usShotsHit++;
-		}
+		bMaxRadius = gItemSettings.usMissMaxRadiusMortar;
+	}
+	else
+	{
+		bMaxRadius = gItemSettings.usMissMaxRadiusGrenade;
 	}
 
-	//if ( 0 )
-	if ( bMissBy > 0 )
-	{
-		// Max the miss variance
-		if ( bMissBy > MAX_MISS_BY )
-		{
-			bMissBy = MAX_MISS_BY;
-		}
+	// calculate the actual min and max miss radius based on CtH
+	bMinMissRadius = ( (FLOAT)bMaxRadius * ( 10.0f - sqrt((FLOAT)uiHitChance) ) / 10.0f );
+	bMaxMissRadius = bMaxRadius * ( 100 - uiHitChance ) / 100;
 
-		// Min the miss varience...
-		if ( bMissBy < MIN_MISS_BY )
-		{
-			bMissBy = MIN_MISS_BY;
-		}
+	// modify by a bit of luck
+	bMinMissRadius = __max( (bMinMissRadius - Random(2)), 0);
+	bMinMissRadius = __min( (bMinMissRadius + Random(2)), bMaxRadius);
 
-		// Adjust position, force, angle
-#ifdef JA2TESTVERSION
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Throw miss by: %d", bMissBy );
-#endif
+	bMaxMissRadius = __max( (bMaxMissRadius - Random(2)), 0);
+	bMaxMissRadius = __min( (bMaxMissRadius + Random(2)), bMaxRadius);
 
-		// Default to max radius...
-		bMaxRadius = 5;
+	// min miss radius cannot be greater than max miss radius
+	bMinMissRadius = __min( bMinMissRadius, bMaxMissRadius);
 
-		// scale if pyth spaces away is too far
-		if ( PythSpacesAway( sGridNo, pSoldier->sGridNo ) < ( (float)bMaxRadius / (float)1.5 ) )
-		{
-			bMaxRadius = PythSpacesAway( sGridNo, pSoldier->sGridNo ) / 2;
-		}
-
-
-		// Get radius
-		fScale = ( (float)bMissBy / (float) MAX_MISS_BY );
-
-		bMaxMissRadius = (INT8)( bMaxRadius * fScale );
-
-		// Limit max radius...
-		if ( bMaxMissRadius > 4 )
-		{
-			bMaxMissRadius = 4;
-		}
-
-
-		bMinMissRadius = bMaxMissRadius - 1;
-
-		if ( bMinMissRadius < 2 )
-		{
-			bMinMissRadius = 2;
-		}
-
-		if ( bMaxMissRadius < bMinMissRadius )
-		{
-			bMaxMissRadius = bMinMissRadius;
-		}
-
-		sGridNo = RandomGridFromRadius( sGridNo, bMinMissRadius, bMaxMissRadius );
-	}
+	sGridNo = RandomGridFromRadius( sGridNo, bMinMissRadius, bMaxMissRadius );
 
 	// Get basic launch params...
 	CalculateLaunchItemBasicParams( pSoldier, pItem, sGridNo, ubLevel, sEndZ, &dForce, &dDegrees, &sFinalGridNo, fArmed );
@@ -2309,7 +2261,7 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 	vDirNormal.y = (float)(sDestY - sSrcY);
 	vDirNormal.z = 0;
 
-	// NOmralize
+	// Normalize
 	vDirNormal = VGetNormal( &vDirNormal );
 
 	// From degrees, calculate Z portion of normal
@@ -2845,15 +2797,19 @@ INT32 RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadi
 	BOOLEAN	fFound = FALSE;
 	UINT32		cnt = 0;
 
-	if ( ubMaxRadius == 0 || ubMinRadius == 0 )
+	// just a precaution...
+	ubMaxRadius = __max( ubMaxRadius, 0 );
+	ubMinRadius = __max( __min( ubMinRadius, ubMaxRadius ), 0 );
+
+	if ( ubMaxRadius == 0)
 	{
 		return( sSweetGridNo );
 	}
 
 	do
 	{
-		sX = (UINT16)PreRandom( ubMaxRadius );
-		sY = (UINT16)PreRandom( ubMaxRadius );
+		sX = (UINT16)PreRandom( ubMaxRadius + 1 );
+		sY = (UINT16)PreRandom( ubMaxRadius + 1 );
 
 		if ( ( sX < ubMinRadius || sY < ubMinRadius ) && ubMaxRadius != ubMinRadius )
 		{

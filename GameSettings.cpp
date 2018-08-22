@@ -3104,6 +3104,8 @@ void LoadItemSettings()
 	gItemSettings.fDamageBreathModifierExplosive					= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_BREATH_EXPLOSIVE_MODIFIER", 1.0f, 0.1f, 5.0f);
 	gItemSettings.fDamageHealthMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_HEALTH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
 	gItemSettings.fDamageBreathMoveModifierExplosive				= iniReader.ReadFloat  ("Explosives Settings","DAMAGE_BREATH_MOVE_EXPLOSIVE_MODIFIER", 0.1f, 0.0f, 1.0f);
+	gItemSettings.usMissMaxRadiusGrenade							= iniReader.ReadInteger("Explosives Settings","MISS_MAX_RADIUS_GRENADE", 5, 0, 30 );
+	gItemSettings.usMissMaxRadiusMortar								= iniReader.ReadInteger("Explosives Settings","MISS_MAX_RADIUS_MORTAR", 10, 0, 30 );
 
 	// ------------ MISC MODIFIERS --------------
 	gItemSettings.fShieldMovementAPCostModifier						= iniReader.ReadFloat  ("Misc Settings", "SHIELD_MOVEMENT_APCOST_MODIFIER", 1.7f, 1.0f, 10.0f );

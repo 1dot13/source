@@ -4061,7 +4061,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 
 BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {
-	UINT32			uiHitChance, uiDiceRoll;
+	UINT32			uiHitChance;
 	INT8			bLoop;
 	UINT8			ubTargetID;
 	SOLDIERTYPE	*	pTargetSoldier;
@@ -4069,12 +4069,10 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 	uiHitChance = CalcThrownChanceToHit( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, AIM_SHOT_TORSO );
 
-	uiDiceRoll = PreRandom( 100 );
-
 	#ifdef JA2BETAVERSION
 	if ( gfReportHitChances )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Hit chance was %ld, roll %ld (range %d)", uiHitChance, uiDiceRoll, PythSpacesAway( pSoldier->sGridNo, sTargetGridNo ) );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Hit chance was %ld, (range %d)", uiHitChance, PythSpacesAway( pSoldier->sGridNo, sTargetGridNo ) );
 	}
 	#endif
 
@@ -4132,7 +4130,8 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 			// Snap: calculate experience points for dexterity and marksmanship
 			usExpGain = 5     // For at least one target
 				+ 2*(usNumTargets-1);   // For every additional target
-			BOOLEAN fGonnaHit = uiDiceRoll < uiHitChance;
+			// how likely is it that we hit the target?
+			BOOLEAN fGonnaHit = PreRandom(100) < uiHitChance;
 			if ( fGonnaHit ) usExpGain *= 2;   // For actually hitting the target :)
 			usExpGain += (UINT16) (100 - uiHitChance) / 10; // Extra exp for a difficult target
 			StatChange( pSoldier, DEXTAMT, usExpGain / 2, ( fGonnaHit ? FALSE : FROM_FAILURE ) );
@@ -4162,7 +4161,7 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, (INT16)(pSoldier->bTargetLevel * 256 ), &(pSoldier->inv[ HANDPOS ] ), (INT8)(uiDiceRoll - uiHitChance), THROW_ARM_ITEM, 0 );
+	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, (INT16)(pSoldier->bTargetLevel * 256 ), &(pSoldier->inv[ HANDPOS ] ), uiHitChance, THROW_ARM_ITEM, 0, pSoldier->inv[HANDPOS].usItem );
 
 #if 0//dnl ch72 180913 bad idea to charge APs before stance and turn really occurs, this was not here in v1.12
 	//AXP 25.03.2007: Cleaned up throwing AP costs. Now only turning + stance change AP
@@ -4203,7 +4202,7 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {
-	UINT32			uiHitChance, uiDiceRoll;
+	UINT32			uiHitChance;
 	INT16				sAPCost = 0;
 	INT32				iBPCost = 0;
 	OBJECTTYPE	Launchable;
@@ -4323,12 +4322,10 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 	uiHitChance = CalcThrownChanceToHit( pSoldier, sTargetGridNo, pSoldier->aiData.bAimTime, AIM_SHOT_TORSO );
 
-	uiDiceRoll = PreRandom( 100 );
-
 	#ifdef JA2BETAVERSION
 	if ( gfReportHitChances )
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Hit chance was %ld, roll %ld (range %d)", uiHitChance, uiDiceRoll, PythSpacesAway( pSoldier->sGridNo, sTargetGridNo ) );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Hit chance was %ld, (range %d)", uiHitChance, PythSpacesAway( pSoldier->sGridNo, sTargetGridNo ) );
 	}
 	#endif
 	
@@ -4379,7 +4376,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	}
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, 0, &Launchable, (INT8)(uiDiceRoll - uiHitChance), THROW_ARM_ITEM, 0 );
+	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, 0, &Launchable, uiHitChance, THROW_ARM_ITEM, 0, usItemNum );
 
 	iID = CreatePhysicalObject( pSoldier->pTempObject, pSoldier->pThrowParams->dLifeSpan,  pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, FALSE );
 
@@ -10510,7 +10507,7 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	{
 
 		// MECHANICALLY FIRED arced projectile (ie. mortar), need brains & know-how
-		iChance = ( EffectiveDexterity( pSoldier, FALSE ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + pSoldier->stats.bExpLevel ) / 4;
+		iChance = ( EffectiveDexterity( pSoldier, FALSE ) + EffectiveMarksmanship( pSoldier ) + EffectiveWisdom( pSoldier ) + (pSoldier->stats.bExpLevel * 10) ) / 4;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - old/new traits

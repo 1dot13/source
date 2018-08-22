@@ -9528,7 +9528,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 
 
 			// Given our gridno, throw grenate!
-			CalculateLaunchItemParamsForThrow( gpItemPointerSoldier, sGridNo, gpItemPointerSoldier->pathing.bLevel, (INT16)( ( gsInterfaceLevel * 256 ) + sEndZ ), gpItemPointer, 0, ubThrowActionCode, uiThrowActionData );
+			CalculateLaunchItemParamsForThrow( gpItemPointerSoldier, sGridNo, gpItemPointerSoldier->pathing.bLevel, (INT16)( ( gsInterfaceLevel * 256 ) + sEndZ ), gpItemPointer, 100, ubThrowActionCode, uiThrowActionData, gpItemPointer->usItem );
 
 			// OK, goto throw animation
 			HandleSoldierThrowItem( gpItemPointerSoldier, usMapPos );
