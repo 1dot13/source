@@ -1478,7 +1478,7 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 
 	// added by Flugente
 	// HEADROCK HAM 4: Advanced Icons
-	if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes )
+	if ( gGameExternalOptions.fScopeModes )
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		GetMLGFilename( VObjectDesc.ImageFile, MLG_ITEMINFOADVANCEDICONS );	// WANNE: Now the icons are for multi-language
@@ -3839,7 +3839,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				sNewX = sX + 1;
 
 				// Flugente: If we display the thermometer for overheating, move the ammo counter a bit to the right
-				if ( gGameExternalOptions.fWeaponOverheating && gGameExternalOptions.fDisplayOverheatThermometer )
+				if ( gGameExternalOptions.fWeaponOverheating )
 					sNewX = sX + 2; //6;  // SANDRO - 6 ps too much, 2 are fine
 
 				// Flugente: check for underbarrel weapons and use that object if necessary
@@ -3994,7 +3994,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			}
 
 			// Flugente: overheating
-			if ( gGameExternalOptions.fWeaponOverheating && gGameExternalOptions.fDisplayOverheatThermometer && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel ) )
+			if ( gGameExternalOptions.fWeaponOverheating && ( pItem->usItemClass & (IC_GUN | IC_LAUNCHER) || Item[pObject->usItem].barrel ) )
 			{	
 				OBJECTTYPE*	pObjShown = pObject;
 
@@ -4031,7 +4031,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 			// display symbol if we are leaning our weapon on something
 			// display only if eapon resting is allowed, display is allowed, item is a gun/launcher, we are a person, we hold the gun in our hand, and we are resting the gun
-			if ( gGameExternalOptions.fWeaponResting && gGameExternalOptions.fDisplayWeaponRestingIndicator && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier &&  &(pSoldier->inv[pSoldier->ubAttackingHand]) == pObject && pSoldier->IsWeaponMounted() )
+			if ( gGameExternalOptions.fWeaponResting && pItem->usItemClass & (IC_GUN | IC_LAUNCHER) && pSoldier &&  &(pSoldier->inv[pSoldier->ubAttackingHand]) == pObject && pSoldier->IsWeaponMounted() )
 			{
 				SetRGBFontForeground( 95, 160, 154 );
 												
@@ -4071,8 +4071,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
 			}
 
-			if ( gGameExternalOptions.fScopeModes && gGameExternalOptions.fDisplayScopeModes
-				&& pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
 			{
 				sNewX = sX + 5; // rather arbitrary
 				sNewY = sY;

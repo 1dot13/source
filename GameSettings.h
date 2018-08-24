@@ -1363,19 +1363,16 @@ typedef struct
 
 	// Flugente: Weapon Overheating
 	BOOLEAN	fWeaponOverheating;						// Should weapons overheat, thus increasing the chance of malfunction?
-	BOOLEAN	fDisplayOverheatThermometer;			// Should a 'thermometer' for guns and replacable barrels be displayed?
 	BOOLEAN fDisplayOverheatJamPercentage;			// Should we display temperature/jam threshold (true) or temperature/damage threshold (false)?
 	UINT8	ubOverheatThermometerRedOffset;			// amount of red colour while temperature is below threshold
 	FLOAT   iCooldownModificatorLonelyBarrel;		// Cooldown modificator for barrels left alone in the landscape ;-)
 	
 	// Flugente: Weapon Mounting
 	BOOLEAN	fWeaponResting;							// Should it be possible to rest your weapon on structures in crouched position?
-	BOOLEAN fDisplayWeaponRestingIndicator;			// Should a little indicator show if the weapon is currently rested on something?
 	UINT8	ubProneModifierPercentage;				// for boni, use ubProneModifierPercentage*boni[PRONE] + (100 - ubProneModifierPercentage)*boni[CROUCHED]
 
 	// Flugente: Scope Modes
 	BOOLEAN fScopeModes;							// allow the player to toggle between existing scopes/sights
-	BOOLEAN fDisplayScopeModes;						// allow display of scope modes
 
 	// Flugente: Spotter skill
 	UINT8	usSpotterPreparationTurns;
