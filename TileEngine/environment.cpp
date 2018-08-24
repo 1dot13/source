@@ -558,11 +558,10 @@ void ForecastDayEvents( )
 				{
 					if ( Chance( gGameExternalOptions.gusRainChancePerDay ) )
 					{
-						uiStartTime = GetWorldTotalMin( ) + 9 * 60 ;//(UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusRainMaxLength ));
+						uiStartTime = GetWorldTotalMin( ) + (UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusRainMaxLength ));
 
-						UINT32 length = max( gGameExternalOptions.gusRainMinLength, Random( gGameExternalOptions.gusRainMaxLength ) );
+						UINT32 length = gGameExternalOptions.gusRainMinLength + Random( max(1, gGameExternalOptions.gusRainMaxLength - gGameExternalOptions.gusRainMinLength ) );
 
-						// Between 5 - 15 miniutes
 						uiEndTime = uiStartTime + length;
 
 						// We determine the 'start point' of the weather via xml chances. Weather can then spread to adjacent sectors according to chances
@@ -595,11 +594,10 @@ void ForecastDayEvents( )
 				{
 					if ( Chance( gGameExternalOptions.gusSandStormsChancePerDay ) )
 					{
-						uiStartTime = GetWorldTotalMin( ) + 9 * 60; //(UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusSandStormsMaxLength ));
+						uiStartTime = GetWorldTotalMin( ) + (UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusSandStormsMaxLength ));
+						
+						UINT32 length = gGameExternalOptions.gusSandStormsMinLength + Random( max( 1, gGameExternalOptions.gusSandStormsMaxLength - gGameExternalOptions.gusSandStormsMinLength ) );
 
-						UINT32 length = max( gGameExternalOptions.gusSandStormsMinLength, Random( gGameExternalOptions.gusSandStormsMaxLength ) );
-
-						// Between 5 - 15 miniutes
 						uiEndTime = uiStartTime + length;
 
 						// We determine the 'start point' of the weather via xml chances. Weather can then spread to adjacent sectors according to chances
@@ -629,11 +627,10 @@ void ForecastDayEvents( )
 				{
 					if ( Chance( gGameExternalOptions.gusSnowChancePerDay ) )
 					{
-						uiStartTime = GetWorldTotalMin( ) + 9 * 60; //(UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusSnowMaxLength ));
+						uiStartTime = GetWorldTotalMin( ) + (UINT32)(Random( 1440 - 1 - gGameExternalOptions.gusSnowMaxLength ));
+						
+						UINT32 length = gGameExternalOptions.gusSnowMinLength + Random( max( 1, gGameExternalOptions.gusSnowMaxLength - gGameExternalOptions.gusSnowMinLength ) );
 
-						UINT32 length = max( gGameExternalOptions.gusSnowMinLength, Random( gGameExternalOptions.gusSnowMaxLength ) );
-
-						// Between 5 - 15 miniutes
 						uiEndTime = uiStartTime + length;
 
 						// We determine the 'start point' of the weather via xml chances. Weather can then spread to adjacent sectors according to chances
