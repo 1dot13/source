@@ -73,7 +73,7 @@ extern void AdjustNoAPToFinishMove( SOLDIERTYPE *pSoldier, BOOLEAN fSet );
 void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier);
 void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier );
 
-extern void UpdateFastForwardMode( SOLDIERTYPE* pSoldier );
+extern void UpdateFastForwardMode(SOLDIERTYPE* pSoldier, INT8 bAction);
 
 extern UINT8 gubElementsOnExplosionQueue;
 
@@ -1559,6 +1559,22 @@ void AIDecideRadioAnimation( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
+	// sevenfm: no radio animation for invisible soldiers
+	if (pSoldier->bVisible == FALSE)
+	{
+		// don't play animation
+		ActionDone(pSoldier);
+		return;
+	}
+
+	// sevenfm: no radio animation in water
+	if (Water(pSoldier->sGridNo, pSoldier->pathing.bLevel))
+	{
+		// don't play animation
+		ActionDone(pSoldier);
+		return;
+	}
+
 	switch( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 	{
 	case ANIM_STAND:
@@ -1645,7 +1661,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	// relying on a stored path from there is a bad idea.
 	pSoldier->pathing.usPathDataSize = pSoldier->pathing.usPathIndex = pSoldier->pathing.bPathStored = 0;
 
-	UpdateFastForwardMode( pSoldier );
+	// sevenfm: update fast forward mode
+	UpdateFastForwardMode(pSoldier, pSoldier->aiData.bAction);
 
 	switch (pSoldier->aiData.bAction)
     {

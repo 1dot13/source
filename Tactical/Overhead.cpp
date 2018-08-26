@@ -154,7 +154,7 @@ class SOLDIERTYPE;
 
 extern void HandleBestSightingPositionInRealtime();
 
-void UpdateFastForwardMode( SOLDIERTYPE* pSoldier ); // sevenfm: to call in HandleAtNewGridNo
+void UpdateFastForwardMode(SOLDIERTYPE* pSoldier, INT8 bAction); // sevenfm: to call in HandleAtNewGridNo
 
 extern UINT8    gubAICounter;
 
@@ -2808,7 +2808,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
     }
 
 	// sevenfm: additional check for auto fast forwarding
-	UpdateFastForwardMode( pSoldier );
+	UpdateFastForwardMode(pSoldier, AI_ACTION_NONE);
 
     // ATE: Put some stuff in here to not handle certain things if we are
     // trversing...
@@ -11221,43 +11221,56 @@ BOOLEAN GetRandomUnknownVIPSector( UINT16& aSector )
 	return FALSE;
 }
 
-void UpdateFastForwardMode( SOLDIERTYPE* pSoldier )
+void UpdateFastForwardMode(SOLDIERTYPE* pSoldier, INT8 bAction)
 {
-	BOOLEAN action = FALSE;
-	BOOLEAN forward = FALSE;
+	BOOLEAN fAction = FALSE;
 
-	if( gGameExternalOptions.fImprovedAutoFastForward == FALSE ||
-		!gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE] ||
-		is_networked ||
-		!( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT ) ||
-		pSoldier->bTeam == OUR_TEAM )
+	// check if fast forward mode disabled - do nothing
+	if (!gGameSettings.fOptions[TOPTION_AUTO_FAST_FORWARD_MODE] || is_networked)
+	{
 		return;
+	}
 
-	switch ( pSoldier->aiData.bAction )
+	// check if improved auto fast forwarding enabled
+	if (!gGameExternalOptions.fImprovedAutoFastForward)
+	{
+		return;
+	}
+
+	// if [-] key is pressed - do nothing
+	if (IsFastForwardKeyPressed())
+	{
+		return;
+	}
+
+	switch (bAction)
 	{
 	case AI_ACTION_TOSS_PROJECTILE:
 	case AI_ACTION_KNIFE_MOVE:
 	case AI_ACTION_FIRE_GUN:
 	case AI_ACTION_THROW_KNIFE:
-	case AI_ACTION_PULL_TRIGGER:
-	case AI_ACTION_USE_DETONATOR:
-	case AI_ACTION_OPEN_OR_CLOSE_DOOR:
-	case AI_ACTION_LOWER_GUN:
-	case AI_ACTION_RAISE_GUN:
-	case AI_ACTION_CLIMB_ROOF:
 	case AI_ACTION_STEAL_MOVE:
-	case AI_ACTION_JUMP_WINDOW:
-	case AI_ACTION_USE_SKILL:
-		action = TRUE;
+		fAction = TRUE;
 		break;
 	}
 
-	// accelerate only invisible soldiers that are not doing specific actions like shooting
-	if( pSoldier->bVisible == -1 )
-		forward = !action;
+	// fast forward mode is only possible in turnbased combat only for invisible opponents
+	if (!(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) ||
+		pSoldier->flags.uiStatusFlags & SOLDIER_PC ||
+		pSoldier->bVisible == TRUE ||
+		gTacticalStatus.ubCurrentTeam == gbPlayerNum ||
+		fAction)
+	{
+		if (IsFastForwardMode())
+		{
+			SetFastForwardMode(FALSE);
+		}
 
-	if ( IsFastForwardMode() != forward )
-		SetFastForwardMode( forward );
+		return;
+	}
+
+	// invisible opponent in turnbased combat - enable fast forward mode
+	SetFastForwardMode(TRUE);
 }
 
 void DeleteVIP( INT16 sMapX, INT16 sMapY )
