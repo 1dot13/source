@@ -66,11 +66,11 @@ typedef struct
 	BOOLEAN		fEnemyShouldImmediatelySeekThePlayer;
 	INT8			bSectorTheEnemyWillSeekEnemy;
 
-	INT8			bNewMercProfileIDForSayingMorrisNote;
+	UINT8			usFiller1;
 
 	UINT8			ubDisplayCommanderMorrisNote;
 
-	UINT16		usFiller1;
+	INT16		bNewMercProfileIDForSayingMorrisNote;
 
 	UINT32		uiTurnLastSaidSeeEnemyQuote;
 

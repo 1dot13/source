@@ -1179,14 +1179,12 @@ BOOLEAN ExitShopKeeperInterface()
 
 	//if the laptop was just fixed
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE && !( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE ) )
-	{
-		INT8	bSoldierID=-1;
-		
+	{		
 		//Have a new merc say a quote
-		bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
-		if( bSoldierID != -1 )
+		INT16 bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+		if( bSoldierID > -1 )
 		{
-			TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_JA2UB_LAPTOP_FIXED );
+			TacticalCharacterDialogue( &Menptr[bSoldierID], QUOTE_JA2UB_LAPTOP_FIXED );
 		}
 
 		gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE;

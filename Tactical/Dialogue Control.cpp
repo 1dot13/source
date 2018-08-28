@@ -734,7 +734,7 @@ void HandleDialogue( )
 				if( ubNumQualifiedMercs != 0 )
 				{
 					//loop through all the mercs
-					for( ubCnt=0; ubCnt<ubNumQualifiedMercs; ubCnt++ )
+					for( ubCnt=0; ubCnt<ubNumQualifiedMercs; ++ubCnt )
 					{
 						pSoldier = MercPtrs[ ubQualifiedSoldierIDArray[ ubCnt ] ];
 
@@ -751,15 +751,13 @@ void HandleDialogue( )
 				gfMorrisShouldSayHi = FALSE;
 			}
 		}
-
-
+		
 		return;
 	}
 #else		//Ja25: no mike
 
 	if ( iQSize == 0 )
 	{
-
 		if ( gfMikeShouldSayHi == TRUE )
 		{
 			SOLDIERTYPE * pMike;
@@ -1039,7 +1037,6 @@ void HandleDialogue( )
 			gubCurrentTalkingID	= QItem->ubCharacterNum;
 
 			ExecuteCharacterDialogue( QItem->ubCharacterNum, QItem->usQuoteNum, QItem->iFaceIndex, QItem->bUIHandlerID, QItem->fFromSoldier );
-
 		}
 
 		if ( QItem->uiSpecialEventFlag & DIALOGUE_SPECIAL_EVENT_ENABLE_AI )
@@ -3911,7 +3908,7 @@ void HandlePlayerClosingMorrisNoteDisplayedOnScreen()
 	}
 	else
 	{
-		DelayedMercQuote( gJa25SaveStruct.bNewMercProfileIDForSayingMorrisNote, DQ__MORRIS_NOTE_DISPLAY_NOTE_1, GetWorldTotalSeconds() + 1 );
+		DelayedMercQuote( (UINT16)(gJa25SaveStruct.bNewMercProfileIDForSayingMorrisNote), DQ__MORRIS_NOTE_DISPLAY_NOTE_1, GetWorldTotalSeconds() + 1 );
 	}
 }
 #endif

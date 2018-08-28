@@ -414,7 +414,7 @@ UINT8   NumEnemyInSectorNotDeadOrDying( );
 UINT8   NumBloodcatsInSectorNotDeadOrDying( );
 
 UINT8   gubWaitingForAllMercsToExitCode = 0;
-INT8    gbNumMercsUntilWaitingOver = 0;
+UINT8   gusNumMercsUntilWaitingOver = 0;
 UINT32  guiWaitingForAllMercsToExitData[3];
 UINT32  guiWaitingForAllMercsToExitTimer = 0;
 BOOLEAN gfKillingGuysForLosingBattle = FALSE;
@@ -1359,7 +1359,7 @@ BOOLEAN ExecuteOverhead( )
                                     else if ( pSoldier->ubWaitActionToDo == 1 )
                                     {
                                         pSoldier->ubWaitActionToDo = 0;
-                                        gbNumMercsUntilWaitingOver--;
+										gusNumMercsUntilWaitingOver = max(0, gusNumMercsUntilWaitingOver - 1);
                                         pSoldier->SoldierGotoStationaryStance( );
                                         // If we are at an exit-grid, make disappear.....
                                         if ( gubWaitingForAllMercsToExitCode == WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO )
@@ -1915,7 +1915,7 @@ BOOLEAN ExecuteOverhead( )
 #ifdef JA2BETAVERSION
             ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_DEBUG, L"Waiting too long for Mercs to exit...forcing entry." );
 #endif
-            gbNumMercsUntilWaitingOver = 0;
+			gusNumMercsUntilWaitingOver = 0;
 
             // Reset all waitng codes
             for ( cnt = 0; cnt < guiNumMercSlots; cnt++ )
@@ -1929,11 +1929,10 @@ BOOLEAN ExecuteOverhead( )
         }
     }
 
-    if ( gbNumMercsUntilWaitingOver == 0 )
+    if ( gusNumMercsUntilWaitingOver == 0 )
     {
         // ATE: Unset flag to ignore sight...
         gTacticalStatus.uiFlags &= ( ~DISALLOW_SIGHT );
-
 
         // OK cheif, do something here....
         switch( gubWaitingForAllMercsToExitCode )
@@ -3807,28 +3806,24 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 #ifdef JA2UB
 		if ( pSoldierOld->ubProfile == MORRIS_UB )
 		{
-                {
-                    INT8 bSoldierID;
-					SOLDIERTYPE * pOther;
+			INT16 bSoldierID;
+			SOLDIERTYPE* pOther = FindSoldierByProfileID( MORRIS_UB, FALSE );
+			if ( pOther )
+			{
+				OBJECTTYPE	Object;
+				CreateItem( MORRIS_INSTRUCTION_NOTE, 100, &Object ); 
+				AutoPlaceObject( pOther, &Object, TRUE );		
+			}
 					
-					pOther = FindSoldierByProfileID( MORRIS_UB, FALSE );
-					if ( pOther )
-					{
-						OBJECTTYPE	Object;
-						CreateItem( MORRIS_INSTRUCTION_NOTE, 100, &Object ); 
-						AutoPlaceObject( pOther, &Object, TRUE );		
-					}
-					
-                    //Geta a random soldier ID
-                    bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+            //Geta a random soldier ID
+            bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 
-                    //if there is any
-                    if( bSoldierID != -1 )
-                    {
-                        //say the MORRIS dead quote
-                        TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW );
-                    }                   
-                }
+            //if there is any
+            if( bSoldierID != -1 )
+            {
+                //say the MORRIS dead quote
+                TacticalCharacterDialogue( &Menptr[ bSoldierID ], QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW );
+            }
         }
         // Ja25no queen
 #else
@@ -9682,10 +9677,10 @@ void ResetAllMercSpeeds( )
 
 }
 
-void SetActionToDoOnceMercsGetToLocation( UINT8 ubActionCode,   INT8 bNumMercsWaiting, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 )
+void SetActionToDoOnceMercsGetToLocation( UINT8 ubActionCode, UINT8 uiNumMercsWaiting, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 )
 {
-    gubWaitingForAllMercsToExitCode             = ubActionCode;
-    gbNumMercsUntilWaitingOver                      = bNumMercsWaiting;
+    gubWaitingForAllMercsToExitCode         = ubActionCode;
+	gusNumMercsUntilWaitingOver				= uiNumMercsWaiting;
     guiWaitingForAllMercsToExitData[ 0 ]    = uiData1;
     guiWaitingForAllMercsToExitData[ 1 ]    = uiData2;
     guiWaitingForAllMercsToExitData[ 2 ]    = uiData3;
@@ -9695,7 +9690,6 @@ void SetActionToDoOnceMercsGetToLocation( UINT8 ubActionCode,   INT8 bNumMercsWa
 
     // ATE: Set flag to ignore sight...
     gTacticalStatus.uiFlags |= ( DISALLOW_SIGHT );
-
 }
 
 void HandleBloodForNewGridNo( SOLDIERTYPE *pSoldier )

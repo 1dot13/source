@@ -6897,15 +6897,14 @@ typedef struct
 
 void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
-	UINT32	uiCnt;
-	INT8		bNumValidMercs = -1;
+	UINT32		uiCnt;
+	UINT8		usNumValidMercs = 0;
 	INT32		iSectorID = SECTOR( sSectorX, sSectorY );
 	UINT8		ubValidMercProfileIDArray[NUM_MERCS_WITH_NEW_QUOTES];
 	SOLDIERTYPE *pSoldier = NULL;
-
-
-	#define	NUM_VALID_SECTORS									6
-	#define	DELAY_FOR_PLAYER_DESC_OF_SECTOR		2
+	
+#define	NUM_VALID_SECTORS									6
+#define	DELAY_FOR_PLAYER_DESC_OF_SECTOR		2
 	
 	ENTER_SECTOR_PLAYER_QUOTE	PlayerSectorDescQuote[ NUM_VALID_SECTORS ] = 
 	{
@@ -6929,7 +6928,7 @@ void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, I
 	};
 
 	//loop through all the sectors that have the quotes
-	for ( uiCnt = 0; uiCnt<NUM_VALID_SECTORS; uiCnt++ )
+	for ( uiCnt = 0; uiCnt<NUM_VALID_SECTORS; ++uiCnt )
 	{
 		//if this sector is the right x & y
 		if ( PlayerSectorDescQuote[uiCnt].sSectorID == iSectorID )
@@ -6937,69 +6936,67 @@ void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, I
 			//if is the right level
 			if ( PlayerSectorDescQuote[uiCnt].bSectorZ == sSectorZ )
 			{
-
 				// If the player has never said the "enter sector" desc before
 				if ( GetSectorFlagStatus( sSectorX, sSectorY, (UINT8)sSectorZ, SF_HAVE_SAID_PLAYER_QUOTE_NEW_SECTOR ) != TRUE )
 				{
 					//Get # of valid mercs
-					bNumValidMercs = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( NULL, ubValidMercProfileIDArray );
+					usNumValidMercs = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( NULL, ubValidMercProfileIDArray );
 
 					//if there isnt any valid mercs
-					if ( bNumValidMercs == 0 )
+					if ( usNumValidMercs == 0 )
 					{
 						//exit
 						return;
 					}
 
 					//Switch on the town ID
-						//I10
-						if ( iSectorID == SECTOR( gGameUBOptions.FristSectorTownX, gGameUBOptions.FristSectorTownY ) )
-							{
-								UINT8	cnt;
+					//I10
+					if ( iSectorID == SECTOR( gGameUBOptions.FristSectorTownX, gGameUBOptions.FristSectorTownY ) )
+					{
+						UINT8	cnt;
 	
-								for( cnt=0; cnt<bNumValidMercs; cnt++ )
-								{
-									//Say the qoute in a couple of seconds
-									DelayedMercQuote( ubValidMercProfileIDArray[ cnt ], PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR + cnt );
-								}
-							}
-						//J13
-						else if ( iSectorID == SECTOR( gGameUBOptions.SectorFanX, gGameUBOptions.SectorFanY ) )
-						{	
-							
-							if( PlayerSectorDescQuote[ uiCnt ].bSectorZ == gGameUBOptions.SectorFanZ )
+						for( cnt=0; cnt<usNumValidMercs; ++cnt )
+						{
+							//Say the qoute in a couple of seconds
+							DelayedMercQuote( ubValidMercProfileIDArray[ cnt ], PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR + cnt );
+						}
+					}
+					//J13
+					else if ( iSectorID == SECTOR( gGameUBOptions.SectorFanX, gGameUBOptions.SectorFanY ) )
+					{
+						if( PlayerSectorDescQuote[ uiCnt ].bSectorZ == gGameUBOptions.SectorFanZ )
+						{
+							//See if Manuel is on the team
+							pSoldier = FindSoldierByProfileID( MANUEL_UB, TRUE );
+
+							//if he is ON the team
+							if( pSoldier != NULL )
 							{
-								//See if Manuel is on the team
-								pSoldier = FindSoldierByProfileID( MANUEL_UB, TRUE );
+								//get manuel to say the quote
+								DelayedMercQuote( MANUEL_UB, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+
+								//get manuel to say his additional quote
+								DelayedMercQuote( MANUEL_UB, QUOTE_ENTER_SECTOR_WITH_FAN_2, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+							}
+							else
+							{
+								//else if Biggens is not on the team, check for biggens
+								pSoldier = FindSoldierByProfileID( BIGGENS_UB, TRUE );
 
 								//if he is ON the team
 								if( pSoldier != NULL )
 								{
 									//get manuel to say the quote
-									DelayedMercQuote( MANUEL_UB, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+									DelayedMercQuote( BIGGENS_UB, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
 
-									//get manuel to say his additional quote
-									DelayedMercQuote( MANUEL_UB, QUOTE_ENTER_SECTOR_WITH_FAN_2, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+									//Remember he said
+									SetJa25GeneralFlag( JA_GF__BIGGENS_SAID_QUOTE_117 );
 								}
-								else
-								{
-									//else if Biggens is not on the team, check for biggens
-									pSoldier = FindSoldierByProfileID( BIGGENS_UB, TRUE );
+							}
 
-									//if he is ON the team
-									if( pSoldier != NULL )
-									{
-										//get manuel to say the quote
-										DelayedMercQuote( BIGGENS_UB, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
-
-										//Remember he said
-										SetJa25GeneralFlag( JA_GF__BIGGENS_SAID_QUOTE_117 );
-									}
-								}
-
-								//Remeber the quote was said
-								SetFactTrue( FACT_PLAYER_KNOWS_ABOUT_FAN_STOPPING );
-							}	
+							//Remeber the quote was said
+							SetFactTrue( FACT_PLAYER_KNOWS_ABOUT_FAN_STOPPING );
+						}	
 					}
 					//J14
 					else if ( iSectorID == SECTOR( gGameUBOptions.ExitForFanToPowerGenSectorX, gGameUBOptions.ExitForFanToPowerGenSectorY ) )
@@ -7009,12 +7006,12 @@ void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, I
 					}
 					else
 					{
-							//Get a random merc from the list
-							UINT8	ubMercToSayQuote = RandomProfileIdFromNewMercsOnPlayerTeam();
+						//Get a random merc from the list
+						INT16	sMercToSayQuote = RandomProfileIdFromNewMercsOnPlayerTeam();
 
-							//Say the qoute in a couple of seconds
-							DelayedMercQuote( ubMercToSayQuote, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
-							
+						//Say the qoute in a couple of seconds
+						if ( sMercToSayQuote > -1 )
+							DelayedMercQuote( (UINT16)sMercToSayQuote, PlayerSectorDescQuote[ uiCnt ].ubQuoteNum, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );							
 					}
 /*
 					switch ( iSectorID )
@@ -7112,8 +7109,6 @@ void HandlePlayerTeamQuotesWhenEnteringSector( INT16 sSectorX, INT16 sSectorY, I
 
 void HandlePlayerQuotesWhenEnteringFirstTunnelSector( )
 {
-	UINT8 ubID;
-
 	//if the player got through using the timed method
 	if ( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_STOPPED_FAN_TO_GET_THROUGH )
 	{
@@ -7121,38 +7116,34 @@ void HandlePlayerQuotesWhenEnteringFirstTunnelSector( )
 		UINT8 ubNumPlayersOnTeam = NumberOfMercsOnPlayerTeam( );
 
 		//Get a random qualified merc to say the quote
-		ubID = RandomSoldierIdFromNewMercsOnPlayerTeam( );
+		INT16 bID = RandomSoldierIdFromNewMercsOnPlayerTeam( );
 
 		//if there is no valid merc
-		if ( ubID == -1 )
+		if ( bID == -1 )
 			return;
 
 		//if not all the players made it through
 		if ( ubNumPlayersInSector < ubNumPlayersOnTeam )
 		{
 			//			TacticalCharacterDialogue( &Menptr[ ubID ], QUOTE_CONTRACTS_OVER );
-			DelayedMercQuote( Menptr[ubID].ubProfile, QUOTE_CONTRACTS_OVER, GetWorldTotalSeconds( ) + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+			DelayedMercQuote( Menptr[bID].ubProfile, QUOTE_CONTRACTS_OVER, GetWorldTotalSeconds( ) + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
 		}
 
 		//if ALL mercs made it through
 		else if ( ubNumPlayersInSector == ubNumPlayersOnTeam )
 		{
-			DelayedMercQuote( Menptr[ubID].ubProfile, QUOTE_CONTRACT_ACCEPTANCE, GetWorldTotalSeconds( ) + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
+			DelayedMercQuote( Menptr[bID].ubProfile, QUOTE_CONTRACT_ACCEPTANCE, GetWorldTotalSeconds( ) + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
 			//			TacticalCharacterDialogue( &Menptr[ ubID ], QUOTE_CONTRACT_ACCEPTANCE );
 		}
 	}
-
-	else if ( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_BLEW_UP_FAN_TO_GET_THROUGH )
+	/*else if ( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_BLEW_UP_FAN_TO_GET_THROUGH )
 	{
-		/*
 		Chnaged to be played when fan blows up
 		//Get a random qualified merc to say the quote
 		ubID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 
 		DelayedMercQuote( Menptr[ ubID ].ubProfile, QUOTE_ACCEPT_CONTRACT_RENEWAL, GetWorldTotalSeconds() + DELAY_FOR_PLAYER_DESC_OF_SECTOR );
-		*/
-	}
-
+	}*/
 	else
 	{
 		Assert( 0 );

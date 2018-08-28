@@ -5188,39 +5188,22 @@ void CarmenLeavesSectorCallback( void )
 #ifdef JA2UB
 //JA25 UB
 
-
 void PerformJerryMiloAction301()
 {
 	UINT8		ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
-	INT8		bNumMercsPresent=-1;
+	UINT8		usNumMercsPresent;
 	SOLDIERTYPE	*pSoldier=NULL;
-	INT32   cnt;
 	UINT8		ubId;
 
 	//Get the number and array of the new soldiers
-	bNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( ubMercsPresent, NULL );
+	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( ubMercsPresent, NULL );
 
-
-//Randomly choose one
-/*	//if there is at least 1 of the desired mercs found
-	if( bNumMercsPresent != -1 )
-	{
-		ubId = ubMercsPresent[ Random( bNumMercsPresent ) ];
-
-		pSoldier = MercPtrs[ ubId ];
-
-		TacticalCharacterDialogue( pSoldier, QUOTE_DEATH_RATE_REFUSAL );
-	}
-*/
 	//Have them all say their quote
-
-	for( cnt=0; cnt<bNumMercsPresent; cnt++ )
+	for( UINT8 cnt=0; cnt<usNumMercsPresent; ++cnt )
 	{
 		ubId = ubMercsPresent[ cnt ];
-
-		pSoldier = MercPtrs[ ubId ];
-
-		TacticalCharacterDialogue( pSoldier, QUOTE_DEATH_RATE_REFUSAL );
+		
+		TacticalCharacterDialogue( MercPtrs[ubId], QUOTE_DEATH_RATE_REFUSAL );
 	}
 
 	//Trigger Jerry Milo's script record 11 ( call action 302 )
@@ -5233,29 +5216,27 @@ void PerformJerryMiloAction301()
 void PerformJerryMiloAction302()
 {
 	UINT8	ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
-	INT8	bNumMercsPresent=-1;
-	SOLDIERTYPE	*pSoldier=NULL;
-	UINT8		ubId;
+	UINT8	usNumMercsPresent;
 	
 	//off jazz
 	//Get the number and array of the new soldiers
-	bNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( ubMercsPresent, NULL );
+	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( ubMercsPresent, NULL );
 
 	//Randomly choose one
 	//if there is at least 1 of the desired mercs found
-	if( bNumMercsPresent != 0 )
+	if( usNumMercsPresent > 0 )
 	{
 		UINT8 ubProfileID = NO_PROFILE;
 		UINT8	ubIdOfMercWhoSaidQuote;
 
-		ubIdOfMercWhoSaidQuote = Random( bNumMercsPresent );
-		ubId = ubMercsPresent[ ubIdOfMercWhoSaidQuote ];
+		ubIdOfMercWhoSaidQuote = Random( usNumMercsPresent );
+		UINT8 ubId = ubMercsPresent[ ubIdOfMercWhoSaidQuote ];
 
-		pSoldier = MercPtrs[ ubId ];
+		SOLDIERTYPE* pSoldier = MercPtrs[ ubId ];
 
 		TacticalCharacterDialogue( pSoldier, QUOTE_LAME_REFUSAL );
 
-		if( bNumMercsPresent == 1 )
+		if( usNumMercsPresent == 1 )
 			ubProfileID = MercPtrs[ ubId ]->ubProfile;
 		else
 		{
@@ -5263,7 +5244,7 @@ void PerformJerryMiloAction302()
 
 			while( !fDone )
 			{
-				ubProfileID = Random( bNumMercsPresent );
+				ubProfileID = Random( usNumMercsPresent );
 
 				if( ubProfileID != ubIdOfMercWhoSaidQuote )
 				{
@@ -5276,8 +5257,7 @@ void PerformJerryMiloAction302()
 		}
 
 		//Say the quote in 15 seconds
-		DelayedMercQuote( ubProfileID, QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE, GetWorldTotalSeconds( ) + 15 );
-		
+		DelayedMercQuote( ubProfileID, QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE, GetWorldTotalSeconds( ) + 15 );		
 	}
 
 	//handle the merc arrives quotes now
@@ -5388,7 +5368,7 @@ void HandleSpecificQuoteWhenLeavingNpcTalkMenu()
 
 void HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( UINT8 ubNpcProfileID, UINT32 uiQuoteNum )
 {
-	INT8	bNumMercsPresent=-1;
+	UINT8	usNumMercsPresent;
 	UINT8 SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
 	UINT8 ValidSoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES] = {0};
 	UINT8 ubNumValidSoldiers=0;
@@ -5403,17 +5383,16 @@ void HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( UINT8 ubNpcProfileI
 	}
 
 	//Get the number and array of the new soldiers
-	bNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierIdArray, NULL );
+	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierIdArray, NULL );
 
 	//if the player doesnt have any qualified players on the team
-	if( bNumMercsPresent == -1 )
+	if( !usNumMercsPresent )
 	{
 		return;
 	}
 
-
 	//loop through the mercs and see if there in range of the dealer
-	for( ubCnt=0; ubCnt<bNumMercsPresent; ubCnt++)
+	for( ubCnt=0; ubCnt<usNumMercsPresent; ++ubCnt )
 	{
 		pSoldier = &Menptr[ SoldierIdArray[ ubCnt ] ];
 
@@ -5422,7 +5401,7 @@ void HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( UINT8 ubNpcProfileI
 			SoldierTo3DLocationLineOfSightTest( pSoldier, pNPC->sGridNo, 0, 0, (UINT8)MaxDistanceVisible(), TRUE ) )
 		{
 			ValidSoldierIdArray[ ubNumValidSoldiers ] = pSoldier->ubID;
-			ubNumValidSoldiers++;
+			++ubNumValidSoldiers;
 		}
 	}
 

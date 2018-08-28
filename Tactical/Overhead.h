@@ -282,7 +282,7 @@ void CycleThroughKnownEnemies( BOOLEAN backward = FALSE );
 BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen );
 SOLDIERTYPE * FreeUpAttacker( );
 BOOLEAN PlayerTeamFull( );
-void SetActionToDoOnceMercsGetToLocation( UINT8 ubActionCode,   INT8 bNumMercsWaiting, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 );
+void SetActionToDoOnceMercsGetToLocation( UINT8 ubActionCode, UINT8 uiNumMercsWaiting, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 );
 void ResetAllMercSpeeds( );
 BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLEAN fInitialMove, UINT16 usAnimState );
 SOLDIERTYPE * ReduceAttackBusyCount( );

@@ -2464,13 +2464,13 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 		else if ( pSoldier->bTeam == gbPlayerNum )
 		{
 #ifdef JA2UB		
-		  if( (pOpponent->ubProfile == MORRIS_UB ) &&
-					( GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( NULL, NULL ) != 0 ) && 
-					!( pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_MORRIS ) && 
-					!( gMercProfiles[ MORRIS_UB ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
-		  {
+			if ( (pOpponent->ubProfile == MORRIS_UB ) &&
+				 ( GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( NULL, NULL ) > 0 ) && 
+				 !( pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_MORRIS ) && 
+				 !( gMercProfiles[ MORRIS_UB ].ubMiscFlags2 & PROFILE_MISC_FLAG2_SAID_FIRSTSEEN_QUOTE ) )
+			{
 				gfMorrisShouldSayHi = TRUE;
-		  }
+			}
 #else		  
 			if ( (pOpponent->ubProfile == MIKE) && ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC || pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__MERC ) && !(pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_MIKE) )
 			{

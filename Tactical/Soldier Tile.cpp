@@ -51,14 +51,11 @@
 	#include "Soldier macros.h"
 #endif
 
-extern INT8		gbNumMercsUntilWaitingOver;
 extern UINT8	gubWaitingForAllMercsToExitCode;
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
-
 
 #define NEXT_TILE_CHECK_DELAY		700
 

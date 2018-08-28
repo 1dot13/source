@@ -5483,7 +5483,6 @@ BOOLEAN IsFanGraphicInSectorAtThisGridNo( UINT32 sGridNo )
 void HandleDestructionOfPowerGenFan()
 {
 	UINT8 ubShadeLevel=0;
-	INT8	bID;
 
 	//if we have already destroyed the fan
 	if( gJa25SaveStruct.ubHowPlayerGotThroughFan == PG__PLAYER_BLEW_UP_FAN_TO_GET_THROUGH )
@@ -5523,13 +5522,12 @@ void HandleDestructionOfPowerGenFan()
 
 	//Stop the fan sound
 	HandleRemovingPowerGenFanSound();
-
-
+	
 	//
 	// Have a qualified merc say a quote
 	//
 	//Get a random qualified merc to say the quote
-	bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+	INT16 bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 	if( bID != -1 )
 	{
 		DelayedMercQuote( Menptr[ bID ].ubProfile, QUOTE_ACCEPT_CONTRACT_RENEWAL, GetWorldTotalSeconds() + 2 );
@@ -5552,8 +5550,6 @@ void HandleExplosionsInTunnelSector( UINT32 sGridNo )
 
 void HandleSeeingFortifiedDoor( UINT32 sGridNo )
 {
-	INT32 sID=0;
-
 	//if this isnt the First level of the complex K15-1
 	if( !( gWorldSectorX == gGameUBOptions.SectorDoorInTunnelX && gWorldSectorY == gGameUBOptions.SectorDoorInTunnelY && gbWorldSectorZ == gGameUBOptions.SectorDoorInTunnelZ ) )
 	{
@@ -5572,7 +5568,7 @@ void HandleSeeingFortifiedDoor( UINT32 sGridNo )
 	gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_HAS_SEEN_FORTIFIED_DOOR;
 
 	//find out whos is the one walking across the trap
-	sID = WhoIsThere2( sGridNo, 0 );
+	INT16 sID = WhoIsThere2( sGridNo, 0 );
 	if( sID != NOBODY && IsSoldierQualifiedMerc( &Menptr[ sID ] ) )
 	{
 	}
@@ -5591,8 +5587,6 @@ void HandleSeeingFortifiedDoor( UINT32 sGridNo )
 
 void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo )
 {
-	INT8 bID;
-
 	//if the door is already opened
 	if( gJa25SaveStruct.ubStatusOfFortifiedDoor == FD__OPEN )
 	{
@@ -5602,7 +5596,7 @@ void HandleSwitchToOpenFortifiedDoor( UINT32 sGridNo )
 	//remeber that the switch to open the forified door on level 1, has been pulled
 	gJa25SaveStruct.ubStatusOfFortifiedDoor = FD__OPEN;
 
-	bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+	INT16 bID = RandomSoldierIdFromNewMercsOnPlayerTeam();
 
 	if( bID != -1 )
 	{

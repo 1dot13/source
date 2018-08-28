@@ -36,9 +36,9 @@ typedef struct
 */
 extern	BOOLEAN		gfFirstTimeInGameHeliCrash;
 
-INT8		RandomProfileIdFromNewMercsOnPlayerTeam();
-INT8		RandomSoldierIdFromNewMercsOnPlayerTeam();
-INT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArray, UINT8 *pProfileIdArray );
+INT16		RandomProfileIdFromNewMercsOnPlayerTeam();
+INT16		RandomSoldierIdFromNewMercsOnPlayerTeam();
+UINT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArray, UINT8 *pProfileIdArray );
 BOOLEAN	IsSoldierQualifiedMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedInitialHireMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedMercForSeeingPowerGenFan( SOLDIERTYPE *pSoldier );
@@ -47,7 +47,7 @@ BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQu
 
 //Pass in an array of size NUM_MERCS_WITH_NEW_QUOTES, array will be filled with
 //random soldier IDs of the qualified mercs
-INT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray );
+UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray );
 
 
 extern UINT8 Get3RandomQualifiedMercs( UINT8 *pSoldierId1, UINT8 *pSoldierId2, UINT8 *pSoldierId3 );
