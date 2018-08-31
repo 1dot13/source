@@ -664,7 +664,7 @@ void InitGameOptions()
 	gGameOptions.ubIronManMode		= 0;
 
 	// following added by SANDRO
-	gGameOptions.ubMaxIMPCharacters	= (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount); 
+	gGameOptions.ubMaxIMPCharacters	= gGameExternalOptions.iMaxIMPCharacters;
 
 	if (gGameExternalOptions.fReadProfileDataFromXML)
 		gGameOptions.fNewTraitSystem	= TRUE;
@@ -688,9 +688,6 @@ void InitGameOptions()
 #define COUNT_STANDARD_FEMALE_SLOTS 3
 #define FIRST_STANDARD_FEMALE_SLOT 54
 
-
-extern INT32 CountFilledIMPSlots( INT8 iSex );
-extern INT32 CountEmptyIMPSlots( INT8 iSex );
 
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions()
@@ -743,16 +740,8 @@ void LoadGameExternalOptions()
 
 	// WDS: Allow flexible numbers of IMPs of each sex
 	// SANDRO - moved to the game itself
-	//gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("Recruitment Settings","MAX_IMP_CHARACTERS",1, 1, NUM_PROFILES);
-
-	gGameExternalOptions.iIMPMaleCharacterCount	= iniReader.ReadInteger("Recruitment Settings","IMP_MALE_CHARACTER_COUNT", COUNT_STANDARD_MALE_SLOTS, 1, NUM_PROFILES);
-	gGameExternalOptions.iIMPFemaleCharacterCount = iniReader.ReadInteger("Recruitment Settings","IMP_FEMALE_CHARACTER_COUNT", COUNT_STANDARD_FEMALE_SLOTS, 1, NUM_PROFILES);
-	if (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount > NUM_PROFILES)
-	{
-		gGameExternalOptions.iIMPMaleCharacterCount	= COUNT_STANDARD_MALE_SLOTS;
-		gGameExternalOptions.iIMPFemaleCharacterCount = COUNT_STANDARD_FEMALE_SLOTS;
-	}
-
+	gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("Recruitment Settings","MAX_IMP_CHARACTERS",1, 1, NUM_PROFILES);
+	
 	//
 	// Note: put -1 between male/female slots and -1 at end.	This allows everything to be
 	// counted dynamically quite easily.	Note that all the code assumes there is AT
@@ -761,15 +750,13 @@ void LoadGameExternalOptions()
 	// Because errors in these values can really goof things up we will try to fix up bad
 	// values and use the defaults instead.
 	//
-	int idx;
-	char caMaleCountStr [] = "IMP_MALE_%d";
-	char caFemaleCountStr [] = "IMP_FEMALE_%d";
+	char caIMPCountStr[] = "IMP_%d";
 	char caCountStr[20];
 
-	gGameExternalOptions.iaIMPSlots = (INT32*)MemAlloc( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount + 2) * sizeof( UINT32 ) );
-	for (idx = 0; idx < gGameExternalOptions.iIMPMaleCharacterCount; ++idx)
+	gGameExternalOptions.iaIMPSlots = (INT32*)MemAlloc( (gGameExternalOptions.iMaxIMPCharacters) * sizeof( UINT32 ) );
+	for (int idx = 0; idx < gGameExternalOptions.iMaxIMPCharacters; ++idx)
 	{
-		sprintf( caCountStr, caMaleCountStr, idx+1);
+		sprintf( caCountStr, caIMPCountStr, idx+1);
 		gGameExternalOptions.iaIMPSlots[idx] = iniReader.ReadInteger("Recruitment Settings",caCountStr, -1, -1, NUM_PROFILES-1);
 		if (gGameExternalOptions.iaIMPSlots[idx] < 0)
 		{
@@ -777,32 +764,13 @@ void LoadGameExternalOptions()
 			{
 				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_MALE_SLOT+idx;
 			}
-			else
+			else if ( idx < COUNT_STANDARD_FEMALE_SLOTS )
 			{
 				// This is bad so just use the last standard slot #
 				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_MALE_SLOT+COUNT_STANDARD_MALE_SLOTS-1;
 			}
 		}
 	}
-	gGameExternalOptions.iaIMPSlots[gGameExternalOptions.iIMPMaleCharacterCount] = -1;
-	for (idx = 0; idx < gGameExternalOptions.iIMPFemaleCharacterCount; ++idx)
-	{
-		sprintf( caCountStr, caFemaleCountStr, idx+1);
-		gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = iniReader.ReadInteger("Recruitment Settings",caCountStr, -1, -1, NUM_PROFILES-1);
-		if (gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] < 0)
-		{
-			if (idx < COUNT_STANDARD_FEMALE_SLOTS)
-			{
-				gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = FIRST_STANDARD_FEMALE_SLOT+idx;
-			}
-			else
-			{
-				// This is bad so just use the last standard slot #
-				gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = FIRST_STANDARD_FEMALE_SLOT+COUNT_STANDARD_FEMALE_SLOTS-1;
-			}
-		}
-	}
-	gGameExternalOptions.iaIMPSlots[gGameExternalOptions.iIMPFemaleCharacterCount+gGameExternalOptions.iIMPMaleCharacterCount+1] = -1;
 
 	// silversurfer: read early recruitment options 1=immediately (control Omerta), 2=early (control 1, 2, 3 towns including Omerta)
 	// 3=normal (control 3, 4, 5 towns including Omerta), 4=after liberating Omerta and solving the "Deliver Food Quest" for Miguel

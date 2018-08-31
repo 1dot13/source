@@ -1511,7 +1511,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	}
 
 	// Set the ID of the new IMP
-	iProfileId = GetFreeIMPSlot(iProfileId, iProfileId);
+	iProfileId = GetFreeIMPSlot(iProfileId);
 
 	// We can create the new imp, beacuse we found an empty slot
 	if (iProfileId != -1)
@@ -1718,8 +1718,7 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 		if ( usItem > 0 && (ItemIsLegal(usItem) || Item[usItem].usItemClass == IC_GUN))
 		{
 			MakeProfileInvItemAnySlot(pProfile,usItem,100,1);
-
-
+			
 			// give ammo for guns
 			if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
 			{
@@ -1740,8 +1739,6 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 		if (iChoice < 0)
 			iChoice = 0;
 	}
-
-
 }
 
 // SANDRO - Function to determine actual cost of profile
@@ -1753,7 +1750,7 @@ INT32 iGetProfileCost()
 	if (gGameExternalOptions.fDynamicIMPProfileCost)
 	{
 		// silversurfer: When we create an IMP he doesn't occupy a slot yet so we need to add 1 to get the correct price in advance.
-		INT32 iIMPProfileCost = gGameExternalOptions.iIMPProfileCost * (CountFilledIMPSlots( -1 ) + 1);
+		INT32 iIMPProfileCost = gGameExternalOptions.iIMPProfileCost * (CountFilledIMPSlots() + 1);
 
 		if ( iIMPProfileCost + impgearcost >= gGameExternalOptions.iIMPProfileCost )
 			return iIMPProfileCost + impgearcost;
@@ -1761,6 +1758,3 @@ INT32 iGetProfileCost()
 
 	return gGameExternalOptions.iIMPProfileCost + impgearcost;
 }
-
-
-

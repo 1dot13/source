@@ -379,23 +379,11 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 				// check to see if a name has been selected, if not, do not allow player to proceed with more char generation
 				if( ( pFullNameString[ 0 ] != 0) && ( pFullNameString[ 0 ] != L' ' ) && ( bGenderFlag != -1 ) )
 				{
-					if (bGenderFlag == IMP_MALE)
+					if ( CountEmptyIMPSlots() == 0 )
 					{
-						if (CountEmptyIMPSlots(MALE) == 0)
-						{
-							// You cannot have more than the male max I.M.P characters on your team.
-							DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-							bProceed = FALSE;
-						}
-					}
-					else if (bGenderFlag == IMP_FEMALE)
-					{
-						if (CountEmptyIMPSlots(FEMALE) == 0)
-						{
-							// You cannot have more than the female max I.M.P characters on your team.
-							DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-							bProceed = FALSE;
-						}
+						// You cannot have more than the max I.M.P characters on your team.
+						DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[9], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+						bProceed = FALSE;
 					}
 				}
 				else

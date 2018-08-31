@@ -285,11 +285,9 @@ typedef struct
 
 	BOOLEAN fSellAll;
 	INT16 iPriceModifier;
-
-	// WDS: Allow flexible numbers of IMPs of each sex
-	INT32 iIMPMaleCharacterCount;	// Count of how many there are
-	INT32 iIMPFemaleCharacterCount;
-	//INT32 iMaxIMPCharacters;		// Limit of how many to allow
+	
+	// Flugente: max number of IMPs, regardless of gender
+	INT32 iMaxIMPCharacters;		// Limit of how many to allow
 	//
 	// iaIMPSlots is an array of the slots (in prof.dat) to use for IMPs.
 	//

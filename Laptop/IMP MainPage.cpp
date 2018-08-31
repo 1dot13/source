@@ -29,7 +29,6 @@
 
 #define MAIN_PAGE_BUTTON_TEXT_WIDTH 95
 
-
 #define	MAIN_PAGE_SPACE_BTN_BUTTONS							120
 
 #define	MAIN_PAGE__FIRST_BUTTON_POS_X						( LAPTOP_SCREEN_UL_X + 15 )
@@ -37,11 +36,9 @@
 #define	MAIN_PAGE__THIRD_BUTTON_POS_X						( MAIN_PAGE__SECOND_BUTTON_POS_X + MAIN_PAGE_SPACE_BTN_BUTTONS )
 #define	MAIN_PAGE__FOURTH_BUTTON_POS_X					( MAIN_PAGE__THIRD_BUTTON_POS_X + MAIN_PAGE_SPACE_BTN_BUTTONS )
 
-
 // main page buttons
 INT32 giIMPMainPageButton[6];
 INT32 giIMPMainPageButtonImage[6];
-
 
 // mouse regions for not entablable warning
 MOUSE_REGION pIMPMainPageMouseRegions[ 4 ];
@@ -70,7 +67,6 @@ BOOLEAN IMP_CanWeDisplaySpecialtiesGraph( );
 BOOLEAN IMP_CanWeDisplayAttributeGraph( );
 BOOLEAN IMP_CanWeDisplayPortrait( );
 
-
 BOOLEAN CheckIfFinishedCharacterGeneration( void );
 
 // this is the current state of profiling the player is in.
@@ -85,171 +81,6 @@ BOOLEAN CheckIfFinishedCharacterGeneration( void );
 
 INT32 iCurrentProfileMode = IMP__REGISTRY;
 
-// Return a count of how many IMP slots there are in total
-INT32 CountIMPSlots()
-{
-	INT32 idx;
-	// Keep a static count so we only count once
-	static INT32 iMaxIMPs = -1;
-	if (iMaxIMPs != -1)
-		return iMaxIMPs;
-
-	iMaxIMPs = 0;
-	// Count the males
-	for (idx = GetFirstMaleSlot(); idx <= GetLastMaleSlot(); ++idx)
-	{
-		++iMaxIMPs;
-	}
-	// Count the females
-	for (idx = GetFirstFemaleSlot(); idx <= GetLastFemaleSlot(); ++idx)
-	{
-		++iMaxIMPs;
-	}
-	Assert(iMaxIMPs > 0);
-	return iMaxIMPs;
-}
-
-INT32 GetFirstSlot(INT8 iSex)
-{
-	if (iSex == MALE)
-		return GetFirstMaleSlot();
-	else if (iSex == FEMALE)
-		return GetFirstFemaleSlot();
-	else {
-		return GetFirstMaleSlot();
-	}
-}
-
-INT32 GetLastSlot(INT8 iSex)
-{
-	if (iSex == MALE)
-		return GetLastMaleSlot();
-	else if (iSex == FEMALE)
-		return GetLastFemaleSlot();
-	else {
-		return GetLastFemaleSlot();
-	}
-}
-
-INT32 GetFirstFreeSlot(INT8 iSex) {
-	INT32 iStart = GetFirstSlot(iSex);
-	INT32 iEnd = GetLastSlot(iSex);
-	INT32 idx;
-
-	for (idx = iStart; idx <= iEnd; ++idx)
-	{
-		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[idx]) == TRUE)
-			return idx;
-	}
-	return -1;
-}
-
-
-// Return a count of how many IMP slots there are for males
-INT32 CountMaleIMPSlots() {
-	INT32 idx;
-	// Keep a static count so we only count once
-	static INT32 iMaxMaleIMPS = -1;
-	if (iMaxMaleIMPS != -1)
-		return iMaxMaleIMPS;
-
-	iMaxMaleIMPS = 0;
-	for (idx = GetFirstMaleSlot(); idx <= GetLastMaleSlot(); ++idx)
-	// Count the males
-	{
-		++iMaxMaleIMPS;
-	}
-	Assert(iMaxMaleIMPS > 0);
-	return iMaxMaleIMPS;
-}
-INT32 GetFirstMaleSlot() {
-	Assert(gGameExternalOptions.iaIMPSlots[0] != -1);
-	return 0;
-}
-INT32 GetLastMaleSlot() {
-	// Keep a static count so we only count once
-	static INT32 idx = -1;
-	if (idx != -1)
-		return idx;
-
-	idx = 0;
-	// Skip the males
-	while (gGameExternalOptions.iaIMPSlots[idx] != -1)
-	{
-		++idx;
-	}
-	--idx;
-	Assert(idx >= 0);
-	Assert(gGameExternalOptions.iaIMPSlots[idx] != -1);
-	return idx;
-}
-
-// Return a count of how many IMP slots there are for females
-INT32 CountFemaleIMPSlots() {
-	INT32 idx;
-	// Keep a static count so we only count once
-	static INT32 iMaxFemaleIMPS = -1;
-	if (iMaxFemaleIMPS != -1)
-		return iMaxFemaleIMPS;
-
-	iMaxFemaleIMPS = 0;
-	for (idx = GetFirstFemaleSlot(); idx <= GetLastFemaleSlot(); ++idx)
-	// Count the males
-	{
-		++iMaxFemaleIMPS;
-	}
-	Assert(iMaxFemaleIMPS > 0);
-	return iMaxFemaleIMPS;
-}
-INT32 GetFirstFemaleSlot() {
-	// Keep a static count so we only count once
-	static INT32 idx = -1;
-	if (idx != -1)
-		return idx;
-
-	idx = 0;
-	// Skip the males
-	while (gGameExternalOptions.iaIMPSlots[idx] != -1)
-	{
-		++idx;
-	}
-	++idx;
-	Assert(idx >= 0);
-	Assert(gGameExternalOptions.iaIMPSlots[idx] != -1);
-	return idx;
-}
-INT32 GetLastFemaleSlot() {
-	// Keep a static count so we only count once
-	static INT32 idx = -1;
-	if (idx != -1)
-		return idx;
-
-	idx = 0;
-	// Skip the males
-	while (gGameExternalOptions.iaIMPSlots[idx] != -1)
-	{
-		++idx;
-	}
-	++idx;
-	// Skip the females
-	while (gGameExternalOptions.iaIMPSlots[idx] != -1)
-	{
-		++idx;
-	}
-	--idx;
-	Assert(idx >= 0);
-	Assert(gGameExternalOptions.iaIMPSlots[idx] != -1);
-	return idx;
-}
-
-INT32 GetVoiceCountFromVoiceSlot(INT32 iSlot) {
-	if (iSlot <= GetLastMaleSlot())
-		return iSlot - GetFirstMaleSlot() + 1;
-	else
-		return iSlot - GetFirstFemaleSlot() + 1;
-}
-
-
 BOOLEAN IsIMPSlotFree(INT32 iIMPId)
 {
 	if ((iIMPId >= 0) && (iIMPId < NUM_PROFILES) &&
@@ -263,7 +94,6 @@ BOOLEAN IsIMPSlotFree(INT32 iIMPId)
 		return FALSE;
 	}
 }
-
 
 void EnterIMPMainPage( void )
 {
@@ -286,7 +116,6 @@ void EnterIMPMainPage( void )
 	RenderIMPMainPage( );
 }
 
-
 void ExitIMPMainPage( void )
 {
 	// exit from IMP About us page
@@ -295,7 +124,6 @@ void ExitIMPMainPage( void )
 	DeleteIMPMainPageButtons( );
 	DestoryMouseRegionsForIMPMainPageBasedOnCharGenStatus( );
 }
-
 
 void RenderIMPMainPage( void )
 {
@@ -309,7 +137,6 @@ void RenderIMPMainPage( void )
 	// indent
 	RenderMainIndentFrame( 164, 74 );
 }
-
 
 void HandleIMPMainPage( void )
 {
@@ -855,8 +682,6 @@ void UpDateIMPMainPageButtons( void )
 */
 		break;
 	}
-
-	return;
 }
 
 void BeginMessageBoxCallBack( UINT8 bExitValue )
@@ -865,22 +690,20 @@ void BeginMessageBoxCallBack( UINT8 bExitValue )
 	if( bExitValue == MSG_BOX_RETURN_YES )
 	{
 		iCurrentImpPage = IMP_BEGIN;
-	iCurrentProfileMode = IMP__REGISTRY;
+		iCurrentProfileMode = IMP__REGISTRY;
 	}
-
 	else if( bExitValue == MSG_BOX_RETURN_OK )
 	{
 		// if ok, then we are coming from financial warning, allow continue
 	}
+
 	return;
 }
-
 
 void CreateMouseRegionsForIMPMainPageBasedOnCharGenStatus( void )
 {
 	// this procedure will create masks for the char generation main page
-
-
+	
 	// mask for personality page button
 	MSYS_DefineRegion( &pIMPMainPageMouseRegions[ 0 ],LAPTOP_SCREEN_UL_X + 13 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ),	LAPTOP_SCREEN_UL_X + 13 + 115 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ) + 93 , MSYS_PRIORITY_HIGH+5,
 						CURSOR_WWW, MSYS_NO_CALLBACK, IMPMainPageNotSelectableBtnCallback );
@@ -888,16 +711,11 @@ void CreateMouseRegionsForIMPMainPageBasedOnCharGenStatus( void )
 	// mask for attrib page button
 	MSYS_DefineRegion( &pIMPMainPageMouseRegions[ 1 ],LAPTOP_SCREEN_UL_X + 133 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ),	LAPTOP_SCREEN_UL_X + 133 + 115 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ) + 93 , MSYS_PRIORITY_HIGH+5,
 						CURSOR_WWW, MSYS_NO_CALLBACK, IMPMainPageNotSelectableBtnCallback );
-
-
-
+	
 	// mask for portrait page button
 	MSYS_DefineRegion( &pIMPMainPageMouseRegions[ 2 ],LAPTOP_SCREEN_UL_X + 253 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ),	LAPTOP_SCREEN_UL_X + 253 + 115 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ) + 93 , MSYS_PRIORITY_HIGH+5,
 						CURSOR_WWW, MSYS_NO_CALLBACK, IMPMainPageNotSelectableBtnCallback );
-
-
-
-
+	
 	// mask for voice page button
 	MSYS_DefineRegion( &pIMPMainPageMouseRegions[ 3 ],LAPTOP_SCREEN_UL_X + 373 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ),	LAPTOP_SCREEN_UL_X + 373	+ 115 , LAPTOP_SCREEN_WEB_UL_Y + ( 245 ) + 93 , MSYS_PRIORITY_HIGH+5,
 						CURSOR_WWW, MSYS_NO_CALLBACK, IMPMainPageNotSelectableBtnCallback );
@@ -908,11 +726,8 @@ void DestoryMouseRegionsForIMPMainPageBasedOnCharGenStatus( void )
 	// will destroy button masks for the char gen pages
 
 	MSYS_RemoveRegion( &pIMPMainPageMouseRegions[ 0 ]);
-
 	MSYS_RemoveRegion( &pIMPMainPageMouseRegions[ 1 ]);
-
 	MSYS_RemoveRegion( &pIMPMainPageMouseRegions[ 2 ]);
-
 	MSYS_RemoveRegion( &pIMPMainPageMouseRegions[ 3 ]);
 }
 
@@ -920,8 +735,7 @@ void IMPMainPageNotSelectableBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
-
-	return;
+		return;
 	}
 
 	if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
@@ -931,18 +745,12 @@ void IMPMainPageNotSelectableBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 }
 
 // WDS: Allow flexible numbers of IMPs of each sex
-INT32 CountFilledIMPSlots( INT8 iSex )
+INT32 CountFilledIMPSlots()
 {
-	INT32 i;
 	INT32 iCount = 0;
-	INT32 iStart;
-	INT32 iEnd;
-
-	iStart = GetFirstSlot(iSex);
-	iEnd = GetLastSlot(iSex);
-
+	
 	// Count the used slots
-	for (i = iStart; i <= iEnd; ++i)
+	for ( INT32 i = 0; i < gGameExternalOptions.iMaxIMPCharacters; ++i)
 	{
 		if ((gGameExternalOptions.iaIMPSlots[i] != -1) &&
 			(!IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[i])))
@@ -955,18 +763,12 @@ INT32 CountFilledIMPSlots( INT8 iSex )
 	return iCount;
 }
 
-INT32 CountEmptyIMPSlots( INT8 iSex )
+INT32 CountEmptyIMPSlots()
 {
-	INT32 i;
 	INT32 iCount = 0;
-	INT32 iStart;
-	INT32 iEnd;
-
-	iStart = GetFirstSlot(iSex);
-	iEnd = GetLastSlot(iSex);
-
+	
 	// Count the free slots
-	for (i = iStart; i <= iEnd; ++i)
+	for ( INT32 i = 0; i < gGameExternalOptions.iMaxIMPCharacters; ++i)
 	{
 		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[i]))
 		{
@@ -978,75 +780,26 @@ INT32 CountEmptyIMPSlots( INT8 iSex )
 	return iCount;
 }
 
-
-INT32 GetSexOfIMP(INT32 iIMPId)
+INT32 GetFreeIMPSlot(INT32 iDefaultIMPId)
 {
-	INT32 ui;
-	//CHRISL: There is "padding" build into the iaIMPSLots array.  The index after the last male and female entry are both set
-	//	to -1.  The following loop, however, does not take this into consideration.  A female IMP using iIMPId 56 will never
-	//	get setup correctly, resulting in the "Assert(FALSE)" the occurs after the loop.  Since the array is initially setup
-	//	by adding 2 to the male/female totals, do the same here.
-	//for (ui = 0; ui < CountIMPSlots(); ++ui)
-	for (ui = 0; ui < CountIMPSlots()+2; ++ui)
+	// We have a default imp id (90210 or nickname)
+	if (iDefaultIMPId != -1)
 	{
-		if (gGameExternalOptions.iaIMPSlots[ui] == iIMPId)
+		if (IsIMPSlotFree(iDefaultIMPId))
 		{
-			if (ui <= GetLastMaleSlot())
-				return MALE;
-			else
-				return FEMALE;
+			return iDefaultIMPId;
 		}
 	}
-	Assert(FALSE);
-	return MALE;
-}
 
+	// The default IMP id is already used, find next free imp id
 
-INT32 GetFreeIMPSlot(INT32 iIMPId, INT32 iDefaultIMPId)
-{
-	INT32 iStart;
-	INT32 iEnd;
-	INT32 i;
-
-	UINT32 iSex = GetSexOfIMP(iIMPId);
-
-	if (iIMPId != -1)
+	// Find a free imp slot
+	for (INT32 i = 0; i < gGameExternalOptions.iMaxIMPCharacters; ++i)
 	{
-		// We have a default imp id (90210 or nickname)
-		if (iDefaultIMPId != -1)
+		// Found a free imp slot
+		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[i]))
 		{
-			if (IsIMPSlotFree(iDefaultIMPId))
-			{
-				return iDefaultIMPId;
-			}
-		}
-
-		// The default IMP id is already used, find next free imp id
-		// Female
-		if (iSex == FEMALE)
-		{
-			iStart = GetFirstFemaleSlot();
-			iEnd = GetLastFemaleSlot();
-		}
-		else if (iSex == MALE)
-		{
-			iStart = GetFirstMaleSlot();
-			iEnd = GetLastMaleSlot();
-		}
-		else
-		{
-			AssertMsg( 0, "Merc neither male nor female");
-			return -1;
-		}
-
-		// Find a free imp slot
-		for (i = iStart; i <= iEnd; ++i)
-		{
-			// Found a free imp slot
-			if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[i]))
-			{
-				return gGameExternalOptions.iaIMPSlots[i];
-			}
+			return gGameExternalOptions.iaIMPSlots[i];
 		}
 	}
 

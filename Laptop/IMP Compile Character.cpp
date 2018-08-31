@@ -123,17 +123,8 @@ void CreateACharacterFromPlayerEnteredStats( void )
 		// ensure that these lists don't get overwritten or Nulled due to the amount
 		// of changes and revisions that have been made to personalities and attitudes.
 	CreatePlayersPersonalitySkillsAndAttitude();
-
-	// Flugente: as the profile is no longer identical to the voice set, we need to determine a free slot
-	INT32 impslot = 0;
-	if ( fCharacterIsMale )
-		impslot = GetFirstMaleSlot( );
-	else
-		impslot = GetFirstFemaleSlot( );
-
-	INT32 impid = gGameExternalOptions.iaIMPSlots[impslot];
-
-	LaptopSaveInfo.iIMPIndex = GetFreeIMPSlot( impid, -1 );
+	
+	LaptopSaveInfo.iIMPIndex = GetFreeIMPSlot( -1 );
 
 	// copy over full name
 	wcscpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].zName, pFullName );

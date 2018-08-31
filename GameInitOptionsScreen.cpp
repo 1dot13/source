@@ -633,7 +633,7 @@ UINT32	GameInitOptionsScreenInit( void )
 
 	// Max. IMP Characters
 	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
-	gGameOptions.ubMaxIMPCharacters = min( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount), ( max( 1, maxIMPCharacterCount) ));
+	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, maxIMPCharacterCount) ));
 
 	// Progress Speed of Item Choices (Default: Normal)
 	gGameOptions.ubProgressSpeedOfItemsChoices =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES, ITEM_PROGRESS_NORMAL);
@@ -1767,7 +1767,7 @@ void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
-		if ( iCurrentIMPNumberSetting < (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount) )
+		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
 		{
 			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
 
@@ -1783,7 +1783,7 @@ void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentIMPNumberSetting < (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount) )
+		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
 		{
 			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
 
@@ -3093,7 +3093,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 		gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs = gGameOptions.ubSquadSize;*/
 
 	// SANDRO - added following:
-	gGameOptions.ubMaxIMPCharacters = min( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount), ( max( 1, iCurrentIMPNumberSetting) ));
+	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, iCurrentIMPNumberSetting) ));
 	gGameOptions.fNewTraitSystem = GetCurrentTraitsOptionButtonSetting();
 		
 	gGameUBOptions.fTexAndJohn = GetCurrentTexAndJohnButtonSetting();
@@ -3706,7 +3706,7 @@ UINT32	GameInitOptionsScreenInit( void )
 
 	// Max. IMP Characters
 	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
-	gGameOptions.ubMaxIMPCharacters = min( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount), ( max( 1, maxIMPCharacterCount) ));
+	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, maxIMPCharacterCount) ));
 
 	// Progress Speed of Item Choices (Default: Normal)
 	gGameOptions.ubProgressSpeedOfItemsChoices =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES, ITEM_PROGRESS_NORMAL);
@@ -4832,7 +4832,7 @@ void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
-		if ( iCurrentIMPNumberSetting < (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount) )
+		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
 		{
 			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
 
@@ -4848,7 +4848,7 @@ void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentIMPNumberSetting < (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount) )
+		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
 		{
 			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
 
@@ -6104,10 +6104,9 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 			gGameOptions.ubSquadSize = 10;
 			break;
 	}
-
-	
+		
 	// SANDRO - added following:
-	gGameOptions.ubMaxIMPCharacters = min( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount), ( max( 1, iCurrentIMPNumberSetting) ));
+	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, iCurrentIMPNumberSetting) ));
 	gGameOptions.fNewTraitSystem = GetCurrentTraitsOptionButtonSetting();
 	gGameOptions.fEnemiesDropAllItems = GetCurrentDropAllButtonSetting();
 	gGameOptions.ubProgressSpeedOfItemsChoices = min( GIO_PROGRESS_VERY_FAST, iCurrentProgressSetting );
