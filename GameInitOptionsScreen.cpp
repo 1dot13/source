@@ -107,12 +107,8 @@
 #define		GIO_DIF_SETTING_Y						FIRST_COLUMN_Y
 #define		GIO_DIF_SETTING_WIDTH					COMBO_WIDTH
 
-#define		GIO_IMP_SETTING_X						FIRST_COLUMN_X + COMBO_X_OFFSET
-#define		GIO_IMP_SETTING_Y						GIO_DIF_SETTING_Y + COMBO_Y_OFFSET
-#define		GIO_IMP_SETTING_WIDTH					COMBO_WIDTH
-
 #define		GIO_TRAITS_SETTING_X					FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_TRAITS_SETTING_Y					GIO_IMP_SETTING_Y + CHECK_Y_OFFSET
+#define		GIO_TRAITS_SETTING_Y					GIO_DIF_SETTING_Y + CHECK_Y_OFFSET
 #define		GIO_TRAITS_SETTING_WIDTH				CHECK_WIDTH
 
 #define		GIO_GAME_SETTING_X						FIRST_COLUMN_X + CHECK_X_OFFSET
@@ -272,7 +268,6 @@
 #define		JA2SP_DIFFICULTY_LEVEL					"DIFFICULTY_LEVEL"
 #define		JA2SP_BOBBY_RAY_QUALITY					"BOBBY_RAY_QUALITY"
 #define		JA2SP_BOBBY_RAY_QUANTITY				"BOBBY_RAY_QUANTITY"
-#define		JA2SP_MAX_IMP_CHARACTERS				"MAX_IMP_CHARACTERS"
 #define		JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES	"PROGRESS_SPEED_OF_ITEM_CHOICES"
 #define		JA2SP_SKILL_TRAITS						"SKILL_TRAITS"
 #define		JA2SP_INVENTORY_ATTACHMENTS				"INVENTORY_ATTACHMENTS"
@@ -426,7 +421,6 @@ INT8 iCurrentDifficulty;
 INT8 iCurrentExtraDifficultySetting;
 INT8 iCurrentBRQualitySetting;
 INT8 iCurrentBRQuantitySetting;
-INT8 iCurrentIMPNumberSetting;
 INT8 iCurrentProgressSetting;
 INT8 iCurrentInventorySetting;
 INT8 iCurrentSquadSize;
@@ -453,11 +447,6 @@ UINT32 giGIODifficultyButton[ 2 ];
 INT32 giGIODifficultyButtonImage[ 2 ];
 void BtnGIODifficultySelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
-
-UINT32 giGIOIMPNumberButton[ 2 ];
-INT32 giGIOIMPNumberButtonImage[ 2 ];
-void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
-void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
 
 UINT32 giGIOExtraDifficultySettingButton[ 2 ];
 INT32 giGIOExtraDifficultySettingButtonImage[ 2 ];
@@ -630,10 +619,6 @@ UINT32	GameInitOptionsScreenInit( void )
 
 	// Bobby Ray Quantity (Default: Great = 2)
 	gGameOptions.ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 2);	 
-
-	// Max. IMP Characters
-	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
-	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, maxIMPCharacterCount) ));
 
 	// Progress Speed of Item Choices (Default: Normal)
 	gGameOptions.ubProgressSpeedOfItemsChoices =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES, ITEM_PROGRESS_NORMAL);
@@ -841,29 +826,7 @@ BOOLEAN		EnterGIOScreen()
 	MSYS_SetBtnUserData(giGIODifficultyButton[1],0, 1 );
 
 	iCurrentDifficulty = max( 0, gGameOptions.ubDifficultyLevel - 1);
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// MAX IMP NUMBER SETTING
-
-	giGIOIMPNumberButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ],-1,0,-1,1,-1 );
-	giGIOIMPNumberButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ],-1,2,-1,3,-1 );
-
-	// left button - decrement difficulty level
-	giGIOIMPNumberButton[ 0 ] = QuickCreateButton( giGIOIMPNumberButtonImage[ 0 ], GIO_IMP_SETTING_X + 39, GIO_IMP_SETTING_Y ,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOIMPNumberSelectionLeftCallback );
-
-	// right button - increment difficulty level
-	giGIOIMPNumberButton[ 1 ] = QuickCreateButton( giGIOIMPNumberButtonImage[ 1 ], GIO_IMP_SETTING_X + 158, GIO_IMP_SETTING_Y ,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOIMPNumberSelectionRightCallback );
 	
-	// set user data
-	MSYS_SetBtnUserData(giGIOIMPNumberButton[0],0, 0 );
-	MSYS_SetBtnUserData(giGIOIMPNumberButton[1],0, 1 );
-
-	iCurrentIMPNumberSetting = gGameOptions.ubMaxIMPCharacters;
-
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// OLD/NEW TARITS SETTING
 
@@ -1716,94 +1679,6 @@ void BtnGIOBRQuantitySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
-	{
-		if ( iCurrentIMPNumberSetting > 1 )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting--;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-
-		if ( iCurrentIMPNumberSetting > 1 )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting--;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		}
-	}
-}
-
-void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
-	{
-		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting++;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-
-		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting++;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		}
-	}
-}
-
 void BtnGIOInventorySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -1857,7 +1732,7 @@ void BtnGIOInventorySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		if ( iCurrentInventorySetting < GIO_INV_NEW_NAS )
 		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOInventorySettingButton[1], BUTTON_SOUND_CLICKED_ON );
 
 			iCurrentInventorySetting++;
 			gfReRenderGIOScreen =TRUE;
@@ -2458,13 +2333,7 @@ BOOLEAN		ExitGIOScreen()
 	RemoveButton( giGIODifficultyButton[1] );
 	UnloadButtonImage( giGIODifficultyButtonImage[0] );
 	UnloadButtonImage( giGIODifficultyButtonImage[1] );
-
-	// Destroy IMP Number setting buttons
-	RemoveButton( giGIOIMPNumberButton[0] );
-	RemoveButton( giGIOIMPNumberButton[1] );
-	UnloadButtonImage( giGIOIMPNumberButtonImage[0] );
-	UnloadButtonImage( giGIOIMPNumberButtonImage[1] );
-
+	
 	// Destroy BR setting buttons
 	RemoveButton( giGIOBRQualitySettingButton[0] );
 	RemoveButton( giGIOBRQualitySettingButton[1] );
@@ -2649,7 +2518,6 @@ BOOLEAN		RenderGIOScreen()
 	HVOBJECT	hPixHandle;
 
 	RestoreExternBackgroundRect( GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_DIF_SETTING_Y-3, 120, 20 );
-	RestoreExternBackgroundRect( GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_IMP_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUALITY_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUANTITY_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_PROGRESS_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_PROGRESS_SETTING_Y-3, 120, 20 );	
@@ -2674,20 +2542,6 @@ BOOLEAN		RenderGIOScreen()
 	
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDiffSetting[ iCurrentDifficulty + 1].szDiffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
-	//Display the IMP number Title Text
-	RenderGIOSmallSelectionFrame( (GIO_IMP_SETTING_X + 36), (GIO_IMP_SETTING_Y - 3) );
-	DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_IMP_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IMP_NUMBER_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	if ( iCurrentIMPNumberSetting <= 6 )
-	{
-		DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IMP_SETTING_Y+6), GIO_IMP_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentIMPNumberSetting + 32 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	}
-	else
-	{
-		CHAR16 sStartLevelString[16];
-		swprintf(sStartLevelString, L"%i", iCurrentIMPNumberSetting );
-		DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IMP_SETTING_Y+6), GIO_IMP_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, sStartLevelString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	}
-
 	// Display BR Setting texts
 	CHAR16 qualityText[256], quantityText[256];
 
@@ -3093,7 +2947,6 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 		gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs = gGameOptions.ubSquadSize;*/
 
 	// SANDRO - added following:
-	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, iCurrentIMPNumberSetting) ));
 	gGameOptions.fNewTraitSystem = GetCurrentTraitsOptionButtonSetting();
 		
 	gGameUBOptions.fTexAndJohn = GetCurrentTexAndJohnButtonSetting();
@@ -3284,12 +3137,8 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_DIF_SETTING_Y						FIRST_COLUMN_Y
 #define		GIO_DIF_SETTING_WIDTH					COMBO_WIDTH
 
-#define		GIO_IMP_SETTING_X						FIRST_COLUMN_X + COMBO_X_OFFSET
-#define		GIO_IMP_SETTING_Y						GIO_DIF_SETTING_Y + COMBO_Y_OFFSET
-#define		GIO_IMP_SETTING_WIDTH					COMBO_WIDTH
-
 #define		GIO_TRAITS_SETTING_X					FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_TRAITS_SETTING_Y					GIO_IMP_SETTING_Y + CHECK_Y_OFFSET
+#define		GIO_TRAITS_SETTING_Y					GIO_DIF_SETTING_Y + CHECK_Y_OFFSET
 #define		GIO_TRAITS_SETTING_WIDTH				CHECK_WIDTH
 
 #define		GIO_GAME_SETTING_X						FIRST_COLUMN_X + CHECK_X_OFFSET
@@ -3372,7 +3221,6 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		JA2SP_DIFFICULTY_LEVEL					"DIFFICULTY_LEVEL"
 #define		JA2SP_BOBBY_RAY_QUALITY					"BOBBY_RAY_QUALITY"
 #define		JA2SP_BOBBY_RAY_QUANTITY				"BOBBY_RAY_QUANTITY"
-#define		JA2SP_MAX_IMP_CHARACTERS				"MAX_IMP_CHARACTERS"
 #define		JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES	"PROGRESS_SPEED_OF_ITEM_CHOICES"
 #define		JA2SP_SKILL_TRAITS						"SKILL_TRAITS"
 #define		JA2SP_INVENTORY_ATTACHMENTS				"INVENTORY_ATTACHMENTS"
@@ -3511,7 +3359,6 @@ INT8 iCurrentDifficulty;
 INT8 iCurrentExtraDifficultySetting;
 INT8 iCurrentBRQualitySetting;
 INT8 iCurrentBRQuantitySetting;
-INT8 iCurrentIMPNumberSetting;
 INT8 iCurrentProgressSetting;
 INT8 iCurrentInventorySetting;
 INT8 iCurrentSquadSize;
@@ -3538,11 +3385,6 @@ UINT32 giGIODifficultyButton[ 2 ];
 INT32 giGIODifficultyButtonImage[ 2 ];
 void BtnGIODifficultySelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
-
-UINT32 giGIOIMPNumberButton[ 2 ];
-INT32 giGIOIMPNumberButtonImage[ 2 ];
-void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
-void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
 
 UINT32 giGIOExtraDifficultySettingButton[ 2 ];
 INT32 giGIOExtraDifficultySettingButtonImage[ 2 ];
@@ -3703,11 +3545,7 @@ UINT32	GameInitOptionsScreenInit( void )
 
 	// Bobby Ray Quantity (Default: Great = 2)
 	gGameOptions.ubBobbyRayQuantity = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_BOBBY_RAY_QUANTITY, 2);	 
-
-	// Max. IMP Characters
-	UINT8 maxIMPCharacterCount = (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_MAX_IMP_CHARACTERS, 1);
-	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, maxIMPCharacterCount) ));
-
+	
 	// Progress Speed of Item Choices (Default: Normal)
 	gGameOptions.ubProgressSpeedOfItemsChoices =  (UINT8)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_PROGRESS_SPEED_OF_ITEM_CHOICES, ITEM_PROGRESS_NORMAL);
 
@@ -3912,28 +3750,6 @@ BOOLEAN		EnterGIOScreen()
 	MSYS_SetBtnUserData(giGIODifficultyButton[1],0, 1 );
 
 	iCurrentDifficulty = max( 0, gGameOptions.ubDifficultyLevel - 1);
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// MAX IMP NUMBER SETTING
-
-	giGIOIMPNumberButtonImage[ 0 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 0 ],-1,0,-1,1,-1 );
-	giGIOIMPNumberButtonImage[ 1 ]=	UseLoadedButtonImage( giGIODifficultyButtonImage[ 1 ],-1,2,-1,3,-1 );
-
-	// left button - decrement difficulty level
-	giGIOIMPNumberButton[ 0 ] = QuickCreateButton( giGIOIMPNumberButtonImage[ 0 ], GIO_IMP_SETTING_X + 39, GIO_IMP_SETTING_Y ,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOIMPNumberSelectionLeftCallback );
-
-	// right button - increment difficulty level
-	giGIOIMPNumberButton[ 1 ] = QuickCreateButton( giGIOIMPNumberButtonImage[ 1 ], GIO_IMP_SETTING_X + 158, GIO_IMP_SETTING_Y ,
-										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnGIOIMPNumberSelectionRightCallback );
-	
-	// set user data
-	MSYS_SetBtnUserData(giGIOIMPNumberButton[0],0, 0 );
-	MSYS_SetBtnUserData(giGIOIMPNumberButton[1],0, 1 );
-
-	iCurrentIMPNumberSetting = gGameOptions.ubMaxIMPCharacters;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// OLD/NEW TARITS SETTING
@@ -4271,13 +4087,10 @@ BOOLEAN		EnterGIOScreen()
 		}
 	}
 
-	#ifdef JA113DEMO
+#ifdef JA113DEMO
 		DisableButton (giGIOSquadSizeButton[ 0 ]);
 		DisableButton (giGIOSquadSizeButton[ 1 ]);
-		
-		DisableButton (giGIOIMPNumberButton[ 0 ]);
-		DisableButton (giGIOIMPNumberButton[ 1 ]);
-		
+				
 		DisableButton (giGIOBRQualitySettingButton[ 0 ]);
 		DisableButton (giGIOBRQualitySettingButton[ 1 ]);
 		
@@ -4293,7 +4106,7 @@ BOOLEAN		EnterGIOScreen()
 		//DisableButton (guiTerroristsOptionToggles[ 0 ]);
 		//DisableButton (guiTerroristsOptionToggles[ 1 ]);
 	
-	#endif
+#endif
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	// NCTH ON/OFF SETTING
@@ -4781,94 +4594,6 @@ void BtnGIOBRQuantitySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIOIMPNumberSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason )
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
-	{
-		if ( iCurrentIMPNumberSetting > 1 )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting--;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-
-		if ( iCurrentIMPNumberSetting > 1 )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting--;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[0], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		}
-	}
-}
-
-void BtnGIOIMPNumberSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
-	{
-		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting++;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-
-		if ( iCurrentIMPNumberSetting < gGameExternalOptions.iMaxIMPCharacters )
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
-
-			iCurrentIMPNumberSetting++;
-			gfReRenderGIOScreen =TRUE;
-		}
-		else
-		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_DISABLED_CLICK );
-		}
-	}
-	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{
-		if (btn->uiFlags & BUTTON_CLICKED_ON)
-		{
-			btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		}
-	}
-}
-
 void BtnGIOInventorySettingLeftCallback( GUI_BUTTON *btn,INT32 reason )
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -4922,7 +4647,7 @@ void BtnGIOInventorySettingRightCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		if ( iCurrentInventorySetting < GIO_INV_NEW_NAS )
 		{
-			PlayButtonSound( giGIOIMPNumberButton[1], BUTTON_SOUND_CLICKED_ON );
+			PlayButtonSound( giGIOInventorySettingButton[1], BUTTON_SOUND_CLICKED_ON );
 
 			iCurrentInventorySetting++;
 			gfReRenderGIOScreen =TRUE;
@@ -5491,13 +5216,7 @@ BOOLEAN		ExitGIOScreen()
 	RemoveButton( giGIODifficultyButton[1] );
 	UnloadButtonImage( giGIODifficultyButtonImage[0] );
 	UnloadButtonImage( giGIODifficultyButtonImage[1] );
-
-	// Destroy IMP Number setting buttons
-	RemoveButton( giGIOIMPNumberButton[0] );
-	RemoveButton( giGIOIMPNumberButton[1] );
-	UnloadButtonImage( giGIOIMPNumberButtonImage[0] );
-	UnloadButtonImage( giGIOIMPNumberButtonImage[1] );
-
+	
 	// Destroy BR setting buttons
 	RemoveButton( giGIOBRQualitySettingButton[0] );
 	RemoveButton( giGIOBRQualitySettingButton[1] );
@@ -5682,7 +5401,6 @@ BOOLEAN		RenderGIOScreen()
 	HVOBJECT	hPixHandle;
 
 	RestoreExternBackgroundRect( GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_DIF_SETTING_Y-3, 120, 20 );
-	RestoreExternBackgroundRect( GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_IMP_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_BR_QUALITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUALITY_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_BR_QUANTITY_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_BR_QUANTITY_SETTING_Y-3, 120, 20 );
 	RestoreExternBackgroundRect( GIO_PROGRESS_SETTING_X+GIO_OFFSET_TO_TEXT + 20, GIO_PROGRESS_SETTING_Y-3, 120, 20 );	
@@ -5707,20 +5425,6 @@ BOOLEAN		RenderGIOScreen()
 	
 	DisplayWrappedString( (UINT16)(GIO_DIF_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_DIF_SETTING_Y+6), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, zDiffSetting[ iCurrentDifficulty + 1].szDiffName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
-	//Display the IMP number Title Text
-	RenderGIOSmallSelectionFrame( (GIO_IMP_SETTING_X + 36), (GIO_IMP_SETTING_Y - 3) );
-	DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_IMP_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_DIF_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_IMP_NUMBER_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	if ( iCurrentIMPNumberSetting <= 6 )
-	{
-		DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IMP_SETTING_Y+6), GIO_IMP_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentIMPNumberSetting + 32 ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	}
-	else
-	{
-		CHAR16 sStartLevelString[16];
-		swprintf(sStartLevelString, L"%i", iCurrentIMPNumberSetting );
-		DisplayWrappedString( (UINT16)(GIO_IMP_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_IMP_SETTING_Y+6), GIO_IMP_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, sStartLevelString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	}
-
 	// Display BR Setting texts
 	CHAR16 qualityText[256], quantityText[256];
 
@@ -6104,9 +5808,8 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 			gGameOptions.ubSquadSize = 10;
 			break;
 	}
-		
+	
 	// SANDRO - added following:
-	gGameOptions.ubMaxIMPCharacters = min( gGameExternalOptions.iMaxIMPCharacters, ( max( 1, iCurrentIMPNumberSetting) ));
 	gGameOptions.fNewTraitSystem = GetCurrentTraitsOptionButtonSetting();
 	gGameOptions.fEnemiesDropAllItems = GetCurrentDropAllButtonSetting();
 	gGameOptions.ubProgressSpeedOfItemsChoices = min( GIO_PROGRESS_VERY_FAST, iCurrentProgressSetting );

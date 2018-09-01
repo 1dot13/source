@@ -664,8 +664,6 @@ void InitGameOptions()
 	gGameOptions.ubIronManMode		= 0;
 
 	// following added by SANDRO
-	gGameOptions.ubMaxIMPCharacters	= gGameExternalOptions.iMaxIMPCharacters;
-
 	if (gGameExternalOptions.fReadProfileDataFromXML)
 		gGameOptions.fNewTraitSystem	= TRUE;
 	else

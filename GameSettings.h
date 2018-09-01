@@ -253,7 +253,7 @@ typedef struct
 	UINT8	ubAttachmentSystem;
 	UINT8	ubSquadSize;
 	// SANDRO - added variables
-	UINT8	ubMaxIMPCharacters;
+	UINT8	ubFiller1;		// Flugente: used to be UINT8 ubMaxIMPCharacters;
 	BOOLEAN	fNewTraitSystem;
 	BOOLEAN	fEnemiesDropAllItems;
 	UINT8   ubProgressSpeedOfItemsChoices;
