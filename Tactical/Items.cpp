@@ -1275,7 +1275,7 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 		return FALSE;
 
 	// silversurfer: no food items if the food system is off
-	if ( !gGameOptions.fFoodSystem && Item[ usItemIndex ].foodtype > 0 )
+	if ( !UsingFoodSystem() && Item[ usItemIndex ].foodtype > 0 )
 	{
 		// Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
 		if ( Food[Item[usItemIndex].foodtype].bFoodPoints > 0 )
@@ -3063,7 +3063,7 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 			}
 		}
 		// account for partially eaten food
-		if ( gGameOptions.fFoodSystem && Item[usItem].foodtype > 0 )
+		if ( UsingFoodSystem() && Item[usItem].foodtype > 0 )
 			weight *= (FLOAT)((*this)[index])->data.objectStatus/100.0f;
 	}
 	else if ( pItem->usItemClass == IC_AMMO && gGameExternalOptions.fAmmoDynamicWeight == TRUE )//Pulmu: added weight allowance for ammo not being full
@@ -15366,7 +15366,7 @@ BOOL AddToRandomListFromItem( UINT16 usItem )
 			if ( Item[usItem].ubCoolness <= rditemmaxcoolness )
 			{
 				// if item is food, not drug or canteen, and food system is off, don't add this
-				if ( !gGameOptions.fFoodSystem && Item[usItem].foodtype > 0 && Item[usItem].drugtype == 0 && Item[usItem].canteen == 0 )
+				if ( !UsingFoodSystem() && Item[usItem].foodtype > 0 && Item[usItem].drugtype == 0 && Item[usItem].canteen == 0 )
 					;
 				else
 					randomitemarray[itemcnt++] = usItem;

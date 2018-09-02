@@ -430,7 +430,7 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 	if ( ubStatus == DRAW_ITEM_TEMPERATURE )
 	{
 		// the food item bar always has full size
-		if ( gGameOptions.fFoodSystem == TRUE && Item[pObject->usItem].foodtype > 0 )
+		if ( UsingFoodSystem() && Item[pObject->usItem].foodtype > 0 )
 		{
 			sValue = 100;
 		}

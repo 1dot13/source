@@ -524,7 +524,7 @@ void BtnIMPMinorTraitFinishCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
 		// Flugente: setting determines whether we see the background page
-		if ( gGameOptions.fBackGround )
+		if ( UsingBackGroundSystem() )
 		{
 			iCurrentImpPage = IMP_BACKGROUND;
 

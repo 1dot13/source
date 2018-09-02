@@ -5009,7 +5009,7 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - hack! - an interrupt pending before shot
-	if ( gGameOptions.fImprovedInterruptSystem )
+	if ( UsingImprovedInterruptSystem() )
 	{
 		if ( ResolvePendingInterrupt( this, BEFORESHOT_INTERRUPT ) )
 		{
@@ -14451,7 +14451,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown( void )
 	// handle flashlight. This is necessary in this location, as we need to do this at least once per turn
 	this->HandleFlashLights( );
 
-	if ( !gGameExternalOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
+	if ( !gGameExternalOptions.fWeaponOverheating && !UsingFoodSystem() )
 		return;
 
 	INT8 numStacks = (INT8)this->inv.size( );											// remember inventorysize, so we don't call size() repeatedly
@@ -16811,7 +16811,7 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 	// execute swap 
 	if ( handCanMove == TRUE && searchitemCanMove == TRUE )
 	{
-		if ( gGameOptions.fInventoryCostsAP )
+		if ( UsingInventoryCostsAPSystem() )
 		{
 			UINT16 APTotalCost = 0;
 
@@ -17243,7 +17243,7 @@ INT8 SOLDIERTYPE::GetSoldierProfileType( UINT8 usTeam )
 // Flugente: do we have a specific background flag?
 BOOLEAN SOLDIERTYPE::HasBackgroundFlag( UINT64 aFlag )
 {
-	if ( gGameOptions.fBackGround && this->ubProfile != NO_PROFILE )
+	if ( UsingBackGroundSystem() && this->ubProfile != NO_PROFILE )
 	{
 		if ( zBackground[gMercProfiles[this->ubProfile].usBackground].uiFlags & aFlag )
 			return TRUE;
@@ -17254,7 +17254,7 @@ BOOLEAN SOLDIERTYPE::HasBackgroundFlag( UINT64 aFlag )
 
 INT16 SOLDIERTYPE::GetBackgroundValue( UINT16 aNr )
 {
-	if ( gGameOptions.fBackGround && this->ubProfile != NO_PROFILE )
+	if ( UsingBackGroundSystem() && this->ubProfile != NO_PROFILE )
 	{
 		return zBackground[gMercProfiles[this->ubProfile].usBackground].value[aNr];
 	}
@@ -19096,7 +19096,7 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 
 void SOLDIERTYPE::PrintFoodDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 {
-	if ( !gGameOptions.fFoodSystem )
+	if ( !UsingFoodSystem() )
 		return;
 
 	// only for living mercs with a profile
@@ -22735,7 +22735,7 @@ UINT8 RegainDamagedStats( SOLDIERTYPE * pSoldier, UINT16 usAmountRegainedHundred
 	}
 
 	// Flugente: Third, heal damage from starvation if possible
-	if ( !gGameOptions.fFoodSystem || (gGameOptions.fFoodSystem && ubAmountRegained > 0 && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
+	if ( !UsingFoodSystem() || ( ubAmountRegained > 0 && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
 	{
 		// if we have a damaged stat here
 		if ( pSoldier->usStarveDamageHealth > 0 )

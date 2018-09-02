@@ -3264,7 +3264,7 @@ UINT8		ubItemsNotCounted = 0; //ja25 UB
 			pricepercentage = max( 0, 100 + (fDealerSelling ? -1 : 1) * gpSMCurrentMerc->GetBackgroundValue( BG_PERC_PRICES_GUNS ) );
 
 			// Even without backgrounds, Flo gets a discount. Read her M.E.R.C. profile to understand why
-			if ( !gGameOptions.fBackGround && gpSMCurrentMerc->ubProfile == FLO )
+			if ( !UsingBackGroundSystem() && gpSMCurrentMerc->ubProfile == FLO )
 				pricepercentage = max( 0, 100 + (fDealerSelling ? -1 : 1) * FLO_DISCOUNT_PERCENTAGE );
 		}
 		else if ( Item [ usItemID ].usItemClass & (IC_MAPFILTER_MELEE|IC_MAPFILTER_KIT|IC_MAPFILTER_LBE|IC_MAPFILTER_ARMOR|IC_MAPFILTER_MISC) )

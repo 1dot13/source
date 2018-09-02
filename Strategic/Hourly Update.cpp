@@ -87,7 +87,7 @@ CHAR16	zString[128];
 	HandleTownLoyalty();
 
 	// Flugente: food update
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		HourlyFoodUpdate();
 
 	// hourly update of team assignments

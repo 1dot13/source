@@ -287,7 +287,7 @@ void SetNewLoadScreenHint()
 			// still unsure how to check for these...
 			if ( zLoadScreenHint[cnt].usFlags & (LOADSCREEN_LORE|LOADSCREEN_WEAPON|LOADSCREEN_ITEM|LOADSCREEN_KEYBIND)  )
 				fShow = TRUE;
-			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_FOOD && gGameOptions.fFoodSystem )
+			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_FOOD && UsingFoodSystem() )
 				fShow = TRUE;
 			else if ( zLoadScreenHint[cnt].usFlags & LOADSCREEN_ZOMBIE && gGameSettings.fOptions[TOPTION_ZOMBIES] )
 				fShow = TRUE;

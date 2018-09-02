@@ -8601,16 +8601,15 @@ void HandleTacticalStoreInvItem( void )
 	}
 	
 	// calculate needed APs
-	if (gGameOptions.fInventoryCostsAP)	
+	if ( UsingInventoryCostsAPSystem() )
 	{		
 		APTotalCost += GetInvMovementCost(&pSoldier->inv[HANDPOS], HANDPOS, ubStoreSlot  );
 		if( !EnoughPoints( pSoldier, APTotalCost, 0, TRUE ) )
-			return;		
-	}
+			return;
 
-	// move item from HANDPOS to found ubStoreSlot
-	if (gGameOptions.fInventoryCostsAP)
+		// move item from HANDPOS to found ubStoreSlot
 		DeductPoints( pSoldier, APTotalCost, 0 );
+	}
 
 	pSoldier->inv[HANDPOS].MoveThisObjectTo(pSoldier->inv[ubStoreSlot], 1, pSoldier);
 	
@@ -8687,7 +8686,7 @@ void HandleTacticalTakeInvItem( INT32 iType )
 	pSoldier->usQuickItemId = pSoldier->inv[ubItemSlot].usItem;
 	pSoldier->ubQuickItemSlot = ubItemSlot; 	
 
-	if (gGameOptions.fInventoryCostsAP)
+	if ( UsingInventoryCostsAPSystem() )
 	{		
 		APTotalCost += GetInvMovementCost(&pSoldier->inv[ubItemSlot], ubItemSlot, HANDPOS);
 		if( !EnoughPoints( pSoldier, APTotalCost, 0, TRUE ) )
@@ -8705,7 +8704,7 @@ void HandleTacticalTakeInvItem( INT32 iType )
 		HandleTBSwapHands();
 
 	// move item to handpos
-	if (gGameOptions.fInventoryCostsAP)
+	if ( UsingInventoryCostsAPSystem() )
 		DeductPoints( pSoldier, APTotalCost, 0 );
 	pSoldier->inv[ubItemSlot].MoveThisObjectTo(pSoldier->inv[HANDPOS], 1, pSoldier);
 
@@ -8753,7 +8752,7 @@ void HandleTacticalDropItem( UINT8 ubSlot )
 
 	if( pSoldier->inv[ ubSlot ].exists() )
 	{		
-		if (gGameOptions.fInventoryCostsAP)
+		if ( UsingInventoryCostsAPSystem() )
 		{		
 			APTotalCost += GetInvMovementCost(&pSoldier->inv[ubSlot], ubSlot, HANDPOS);
 			APTotalCost += GetBasicAPsToPickupItem( pSoldier );

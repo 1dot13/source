@@ -2169,7 +2169,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Flugente: food system - symbols used if hungry or thirsty
-			if ( gGameOptions.fFoodSystem )
+			if ( UsingFoodSystem() )
 			{
 				if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
 				{

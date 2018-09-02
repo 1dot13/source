@@ -625,11 +625,10 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->usAnimState == START_COWER || pSoldier->usAnimState == START_COWER_CROUCHED || pSoldier->usAnimState == START_COWER_PRONE )
 				{
 					UnSetUIBusy( pSoldier->ubID );
-				} 
-
+				}
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - if pending interrupt flag was set for after-attack type of interupt, try to resolve it now
-				else if ( gGameOptions.fImprovedInterruptSystem )
+				else if ( UsingImprovedInterruptSystem() )
 				{
 					if ( ResolvePendingInterrupt( pSoldier, AFTERACTION_INTERRUPT ) )
 					{
@@ -2286,7 +2285,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - if pending interrupt flag was set for before-attack type of interupt, try to resolve it now
-				if ( gGameOptions.fImprovedInterruptSystem )
+				if ( UsingImprovedInterruptSystem() )
 				{
 					if ( ResolvePendingInterrupt( pSoldier, BEFORESHOT_INTERRUPT ) )
 					{	
@@ -3021,7 +3020,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				
 				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// SANDRO - if pending interrupt flag was set for after-attack type of interupt, try to resolve it now
-				if ( gGameOptions.fImprovedInterruptSystem )
+				if ( UsingImprovedInterruptSystem() )
 				{
 					ResolvePendingInterrupt( pSoldier, AFTERACTION_INTERRUPT );
 				}

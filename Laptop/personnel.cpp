@@ -1664,7 +1664,7 @@ void DisplayCharStats( INT32 iId, INT32 iSlot )
 			// Background
 
 			// display background
-			if ( gGameOptions.fBackGround )
+			if ( UsingBackGroundSystem() )
 			{
 				UINT8 loc = 21;
 				UINT8 regionnr = 12;
@@ -7603,7 +7603,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 						wcscat( apStr, atStr );
 					}
 				}
-				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && gGameOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving != 0 && UsingImprovedInterruptSystem() )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsMartialArts[27], ( gSkillTraitValues.ubMAReducedAPsRegisteredWhenMoving * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
@@ -7641,7 +7641,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[2], ( gSkillTraitValues.ubSLEffectiveLevelAsStandby * (fExpertLevel ? 2 : 1)));
 					wcscat( apStr, atStr );
 				}
-				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && gGameOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubSLCollectiveInterruptsBonus != 0 && UsingImprovedInterruptSystem() )
 				{
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSquadleader[11], ( gSkillTraitValues.ubSLCollectiveInterruptsBonus * (fExpertLevel ? 2 : 1)), sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
@@ -8007,7 +8007,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[2], gSkillTraitValues.ubSTStealthBonus, sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
 				}
-				if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && gGameOptions.fImprovedInterruptSystem )
+				if( gSkillTraitValues.ubSTReducedAPsRegistered != 0 && UsingImprovedInterruptSystem() )
 				{
 					swprintf( atStr, gzIMPMinorTraitsHelpTextsStealthy[4], gSkillTraitValues.ubSTReducedAPsRegistered, sSpecialCharacters[0]);
 					wcscat( apStr, atStr );
@@ -8296,7 +8296,7 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					}
 				}
 
-				if ( gGameOptions.fFoodSystem )
+				if ( UsingFoodSystem() )
 				{
 					if ( gSkillTraitValues.sSVFoodConsumption != 0 )
 					{

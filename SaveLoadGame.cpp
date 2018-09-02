@@ -3594,13 +3594,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 
 	SaveGameHeader.sInitialGameOptions.ubSquadSize = gGameOptions.ubSquadSize;
 
-
-	//SaveGameHeader.sInitialGameOptions.fBobbyRayFastShipments = gGameOptions.fBobbyRayFastShipments;
-	SaveGameHeader.sInitialGameOptions.fInventoryCostsAP = gGameOptions.fInventoryCostsAP;
-
 	SaveGameHeader.sInitialGameOptions.fUseNCTH = gGameOptions.fUseNCTH;
-	SaveGameHeader.sInitialGameOptions.fImprovedInterruptSystem = gGameOptions.fImprovedInterruptSystem;
-	SaveGameHeader.sInitialGameOptions.fBackGround = gGameOptions.fBackGround;
 
 	//
 	// Save the Save Game header file
@@ -3615,9 +3609,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR in SaveCurrentSectorsInformationToTempItemFile()");
 		goto FAILED_TO_SAVE;
 	}
-
-
-
+	
 	//if we are saving the quick save,
 	if( ubSaveGameID == 0 )
 	{

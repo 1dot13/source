@@ -113,7 +113,8 @@ BOOLEAN GetCDromDriveLetter( STR8	pString );
 BOOLEAN	IsDriveLetterACDromDrive( STR pDriveLetter );
 void		CDromEjectionErrorMessageBoxCallBack( UINT8 bExitValue );
 
-
+// these wrappers have the benefit that changing the location of the variable (gameinitoptionscreen/ini/ingame options) doesn't require huge changes throughout the code
+// additionally, turning off a feature (for UB, for MP...) can be done here without additional checks in the code
 bool UsingNewInventorySystem()
 {
 	return (gGameOptions.ubInventorySystem == INVENTORY_NEW);
@@ -127,6 +128,40 @@ bool UsingNewAttachmentSystem()
 bool UsingNewCTHSystem()
 {
 	return (gGameOptions.fUseNCTH == TRUE);
+}
+
+BOOLEAN UsingFoodSystem()
+{
+	return gGameExternalOptions.fFoodSystem;
+}
+
+BOOLEAN UsingBackGroundSystem()
+{
+	return gGameExternalOptions.fBackGround;
+}
+
+BOOLEAN UsingImprovedInterruptSystem()
+{
+#ifdef JA2EDITOR
+	return FALSE;
+#endif
+
+	// this feature is off in multiplayer
+	return (!is_networked && gGameExternalOptions.fImprovedInterruptSystem);
+}
+
+BOOLEAN UsingEnemiesDropAllItemsSystem()
+{
+	return gGameExternalOptions.fEnemiesDropAllItems;
+}
+
+BOOLEAN UsingInventoryCostsAPSystem()
+{
+#ifdef JA2EDITOR
+	return FALSE;
+#endif
+
+	return ( gGameExternalOptions.fInventoryCostsAP );
 }
 
 std::string StringToLower(std::string strToConvert)
@@ -157,7 +192,6 @@ BOOLEAN IsNIVModeValid(bool checkRes)
 	
 	return isValid;
 }
-
 
 BOOLEAN LoadGameSettings()
 {	
@@ -636,16 +670,8 @@ void InitGameOptions()
 	gGameOptions.fAirStrikes		= FALSE;
 	gGameOptions.ubGameStyle		= STYLE_SCIFI;
 	gGameOptions.ubDifficultyLevel	= DIF_LEVEL_MEDIUM;
-
-	//Fast Bobby Ray Shipments (CHECK)
-	//gGameOptions.fBobbyRayFastShipments = FALSE;
-	//Inventory AP Costs (CHECK)
-	gGameOptions.fInventoryCostsAP = TRUE;
-
+	
 	gGameOptions.fUseNCTH = FALSE;
-	gGameOptions.fImprovedInterruptSystem = TRUE;
-	gGameOptions.fBackGround = FALSE;
-	gGameOptions.fFoodSystem = FALSE;
 
 	//CHRISL: override default inventory mode when in low res
 	if(IsNIVModeValid(true) == FALSE)
@@ -670,7 +696,6 @@ void InitGameOptions()
 		gGameOptions.fNewTraitSystem	= FALSE;
 
 	gGameOptions.ubProgressSpeedOfItemsChoices  = ITEM_PROGRESS_NORMAL;
-	gGameOptions.fEnemiesDropAllItems	= FALSE; 
 }
 
 
@@ -724,7 +749,7 @@ void LoadGameExternalOptions()
 
 	// HEADROCK PROFEX/3.6: Activate this to write Profile data to MercProfiles Out.XML and MercOpinions Out.XML. This can be used to convert PROF.DAT to XML format.
 	gGameExternalOptions.fWriteProfileDataToXML			= iniReader.ReadBoolean("Data File Settings","WRITE_PROFILE_DATA_TO_XML", FALSE);
-
+	
 	// Use "EnemyWeaponDrop.XML" etc. for determining which items are dropped?
 	gGameExternalOptions.ubEnemiesItemDrop				= iniReader.ReadInteger("Data File Settings","USE_EXTERNALIZED_ENEMY_ITEM_DROPS", 0, 0, 1);
 
@@ -734,6 +759,9 @@ void LoadGameExternalOptions()
 	//Madd: set number of pItem files to be used
 	gGameExternalOptions.ubNumPItems					= iniReader.ReadInteger("Data File Settings","NUM_P_ITEMS", 3, 3, MAX_PITEMS);
 
+	// Flugente: backgrounds
+	gGameExternalOptions.fBackGround					= iniReader.ReadBoolean("Data File Settings", "BACKGROUNDS", TRUE );
+	
 	//################# Merc Recruitment Settings #################
 
 	// WDS: Allow flexible numbers of IMPs of each sex
@@ -1119,6 +1147,9 @@ void LoadGameExternalOptions()
 		// WANNE: This makes problem for the AI soldiers on the pure client, so why is is set to false
 		gGameExternalOptions.fNoStandingAnimAdjustInCombat		= FALSE;
 
+	// manipulating the inventory in tactical costs AP
+	gGameExternalOptions.fInventoryCostsAP					= iniReader.ReadBoolean("Tactical Interface Settings", "INVENTORY_MANIPULATION_COSTS_AP", FALSE );
+	
 	//Inventory AP Weight Divisor
 	gGameExternalOptions.uWeightDivisor						= iniReader.ReadFloat("Tactical Interface Settings","INV_AP_WEIGHT_DIVISOR",5,1,100);		
 	
@@ -1157,6 +1188,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAssignTraitsToEnemy	= iniReader.ReadBoolean("Tactical Difficulty Settings", "ASSIGN_SKILL_TRAITS_TO_ENEMY", FALSE);
 	gGameExternalOptions.fAssignTraitsToMilitia	= iniReader.ReadBoolean("Tactical Difficulty Settings", "ASSIGN_SKILL_TRAITS_TO_MILITIA", FALSE);
 	gGameExternalOptions.bAssignedTraitsRarity = iniReader.ReadInteger("Tactical Difficulty Settings", "ASSIGNED_SKILL_TRAITS_RARITY ", 0, -100, 100);
+
+	// Flugente: drop all is now set in the ini instead of the starting screen
+	gGameExternalOptions.fEnemiesDropAllItems				= iniReader.ReadBoolean("Tactical Difficulty Settings", "DROP_ALL", FALSE );
 
 	// HEADROCK HAM B2.8: At "1", Militia will drop their equipment similar to enemies, IF killed by non-player character. At "2" they drop whenever killed.
 	gGameExternalOptions.ubMilitiaDropEquipment			= iniReader.ReadInteger("Tactical Difficulty Settings","MILITIA_DROP_EQUIPMENT", 0, 0, 2 );
@@ -1474,7 +1508,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fRobotNoReadytime					= iniReader.ReadBoolean("Tactical Gameplay Settings", "ROBOT_NO_READYTIME", FALSE); 
 	
 	// improved Interrupt System (info: multiplayer game ALWAYS use the old interrupt system, because the new one causes crashes, no problem so far)
-	//gGameOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);
+	gGameExternalOptions.fImprovedInterruptSystem			= iniReader.ReadBoolean("Tactical Gameplay Settings", "IMPROVED_INTERRUPT_SYSTEM", TRUE);
 	gGameExternalOptions.ubBasicPercentRegisterValueIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_PERCENTAGE_APS_REGISTERED", 60, 0, 250);
 	gGameExternalOptions.ubPercentRegisterValuePerLevelIIS	= iniReader.ReadInteger("Tactical Gameplay Settings", "PERCENTAGE_APS_REGISTERED_PER_EXP_LEVEL", 4, 0, 100);
 	gGameExternalOptions.ubBasicReactionTimeLengthIIS		= iniReader.ReadInteger("Tactical Gameplay Settings", "BASIC_REACTION_TIME_LENGTH", 25, 5, 100);
@@ -1706,6 +1740,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fPrintStructureTileset							= iniReader.ReadBoolean("Tactical Fortification Settings", "PRINTOUTTILESET", FALSE );
 
 	//################# Tactical Food Settings ##################
+	gGameExternalOptions.fFoodSystem									= iniReader.ReadBoolean("Tactical Food Settings", "FOOD", FALSE );
 	gGameExternalOptions.usFoodDigestionHourlyBaseFood					= iniReader.ReadInteger("Tactical Food Settings", "FOOD_DIGESTION_HOURLY_BASE_FOOD",  20, 0, 250);
 	gGameExternalOptions.usFoodDigestionHourlyBaseDrink					= iniReader.ReadInteger("Tactical Food Settings", "FOOD_DIGESTION_HOURLY_BASE_DRINK",	130, 0, 250);
 	gGameExternalOptions.sFoodDigestionSleep							= iniReader.ReadFloat("Tactical Food Settings", "FOOD_DIGESTION_SLEEP",				0.6f, 0.0f, 10.0f);

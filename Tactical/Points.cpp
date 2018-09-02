@@ -974,7 +974,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 	{
 		// Flugente: if we GAIN breath points, adjust them - if we are hungry, we get fewer points back
 		// Flugente: ubMaxMorale can now be influenced by our food situation
-		if ( iBPCost < 0 && gGameOptions.fFoodSystem )
+		if ( iBPCost < 0 && UsingFoodSystem() )
 			ReduceBPRegenForHunger(pSoldier, &iBPCost);
 
 		// Flugente: backgrounds
@@ -1059,7 +1059,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// SANDRO - Interrupt counter
-	if( gGameOptions.fImprovedInterruptSystem && sAPCost > 0 && ubInterruptType != DISABLED_INTERRUPT )
+	if( UsingImprovedInterruptSystem() && sAPCost > 0 && ubInterruptType != DISABLED_INTERRUPT )
 	{
 		UINT8 ubPointsRegistered = 0;
 		UINT16 uCnt = 0;

@@ -2360,7 +2360,7 @@ void DrawCharStats( INT16 sCharNum )
 	swprintf( sString, L"%d", pSoldier->stats.bStrength + pSoldier->bExtraStrength );
 
 	// SANDRO - if damaged stat we could regain, show in red until repaired
-	if ( ( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) || (gGameOptions.fFoodSystem && pSoldier->usStarveDamageStrength > 0) )
+	if ( ( gGameOptions.fNewTraitSystem && ( pSoldier->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0 )) || ( UsingFoodSystem() && pSoldier->usStarveDamageStrength > 0) )
 	{
 		SetFontForeground( FONT_RED );
 	}
@@ -9628,7 +9628,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		return;
 	}
 
-	if(gGameOptions.fInventoryCostsAP && (gTacticalStatus.uiFlags & INCOMBAT))//dnl ch66 070913 if fInventoryCostsAP is set and we are in combat then moving equipment in strategic screen is not allowed
+	if ( UsingInventoryCostsAPSystem() && (gTacticalStatus.uiFlags & INCOMBAT))//dnl ch66 070913 if fInventoryCostsAP is set and we are in combat then moving equipment in strategic screen is not allowed
 		return;
 
 	// make sure we're here legally

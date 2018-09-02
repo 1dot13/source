@@ -606,9 +606,7 @@ void IniGlobalGameSetting(lua_State *L)
 	
 	lua_pushboolean(L, gGameUBOptions.fRandomManuelText);
 	lua_setglobal(L, "UB_RandomManuelText");	
-#endif
-	
-#ifdef JA2UB
+
 	//Old
 	lua_pushinteger(L, BARRETT_UB);
 	lua_setglobal(L, "itemBARRETT_UB");	

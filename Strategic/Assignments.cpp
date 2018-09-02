@@ -1485,7 +1485,7 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 			return ( TRUE );
 
 		// Flugente: stats can also be damaged
-		if ( !gGameOptions.fFoodSystem || ( gGameOptions.fFoodSystem && pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
+		if ( !UsingFoodSystem() || ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
 		{
 			if ( pSoldier->usStarveDamageHealth > 0 || pSoldier->usStarveDamageStrength > 0 )
 				return ( TRUE );
@@ -3134,7 +3134,7 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	ReducePointsForFatigue( pDoctor, &usHealPts );
 
 	// Flugente: our food situation influences our effectiveness
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pDoctor, &usHealPts );
 
 	// count how much medical supplies we have
@@ -3228,7 +3228,7 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	ReducePointsForFatigue( pSoldier, &usRepairPts );
 
 	// Flugente: our food situation influences our effectiveness
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pSoldier, &usRepairPts );
 
 	// figure out what shape his "equipment" is in ("coming" in JA3: Viagra - improves the "shape" your "equipment" is in)
@@ -3313,7 +3313,7 @@ UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxP
 	ReducePointsForFatigue( pSoldier, &usCleaningPts );
 
 	// Flugente: our food situation influences our effectiveness
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pSoldier, &usCleaningPts );
 
 	// return current cleaning pts
@@ -4047,7 +4047,7 @@ void UpdatePatientsWhoAreDoneHealing( void )
 			if ( IS_PATIENT(pTeamSoldier->bAssignment) && !IS_DOCTOR(pTeamSoldier->bAssignment) && (pTeamSoldier->stats.bLife == pTeamSoldier->stats.bLifeMax) && pTeamSoldier->HasDisease(TRUE, TRUE) )
 			{
 				// Flugente: stats can also be damaged
-				if ( !gGameOptions.fFoodSystem || (gGameOptions.fFoodSystem && pTeamSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pTeamSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
+				if ( !UsingFoodSystem() || ( pTeamSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pTeamSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold) )
 				{
 					if ( pTeamSoldier->usStarveDamageHealth > 0 || pTeamSoldier->usStarveDamageStrength > 0 )
 						fHasDamagedStat = TRUE;
@@ -7068,7 +7068,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	ReducePointsForFatigue( pInstructor, &uiTrainingPts );
 
 	// Flugente: our food situation influences our effectiveness
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pInstructor, &uiTrainingPts );
 
 	sTrainingPts = (INT16)uiTrainingPts;
@@ -7187,7 +7187,7 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pus
 	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
 
 	// Flugente: our food situation influences our effectiveness
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pSoldier, &uiTrainingPts );
 
 	sTrainingPts = (INT16)uiTrainingPts;
@@ -7311,7 +7311,7 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusM
 	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
 
 	// Flugente: our food situation influences our effectiveness
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pSoldier, &uiTrainingPts );
 
 	sTrainingPts = (INT16)uiTrainingPts;
@@ -8763,7 +8763,7 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	ReducePointsForFatigue( pTrainer, &uiTrainingPts );
 
 	// Flugente: our food situation influences our effectiveness
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pTrainer, &uiTrainingPts );
 
 	sTotalTrainingPts = (INT16)uiTrainingPts;
@@ -18578,7 +18578,7 @@ UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier )
 	}
 
 	// Flugente: ubNeedForSleep can now be influenced by our food situation
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		FoodNeedForSleepModifiy(pSoldier, &ubNeedForSleep);
 
 	return( ubNeedForSleep );

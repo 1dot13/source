@@ -102,7 +102,7 @@ void AddFoodpoints( INT32& arCurrentFood, INT32 aVal )
 
 BOOLEAN DoesSoldierRefuseToEat( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj )
 {
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 	{
 		// static variables to remember the last food someone was forced to eat
 		static UINT8 lasteater = 0;
@@ -854,7 +854,7 @@ void SectorFillCanteens( void )
 
 				// it would be pretty pointless to fill our canteens and then not to drink from them even though we are hungry. If there is an unlimited water source in this sector, drink from our 
 				// freshly filled canteens. Thus calling this function repeatedly will cause us to drink till we're full, and restore our canteens to full level
-				if ( gGameOptions.fFoodSystem )
+				if ( UsingFoodSystem() )
 					EatFromInventory( pSoldier, TRUE );
 			}
 		}
@@ -1129,7 +1129,7 @@ void DrinkFromWaterTap( SOLDIERTYPE* pSoldier )
 	if ( pSoldier->ubProfile == ROBOT || IsVehicle( pSoldier ) )
 		return;
 
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 	{
 		INT32 watertoadd = max( 0, FoodMoraleMods[FOOD_NORMAL].bThreshold - pSoldier->bDrinkLevel );
 		

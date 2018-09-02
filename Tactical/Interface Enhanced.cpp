@@ -4069,9 +4069,10 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
  			}
 		}
 
-		if ( gGameOptions.fFoodSystem && Item[gpItemDescObject->usItem].foodtype > 0 )
+		if ( UsingFoodSystem() && Item[gpItemDescObject->usItem].foodtype > 0 )
 		{
-			if (!fDrawGenIndexes) fDrawGenIndexes = ++cnt;		// new index line here?
+			if (!fDrawGenIndexes)
+				fDrawGenIndexes = ++cnt;		// new index line here?
 
 			////////////////////// POISONED FOOD
 			if ( (*gpItemDescObject)[0]->data.bTemperature != 0 )
@@ -5739,7 +5740,7 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		}
 	}
 
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 	{
 		if ( ( Item[gpItemDescObject->usItem].foodtype > 0 ) ||
 			( fComparisonMode && Item[gpComparedItemDescObject->usItem].foodtype > 0 ) )
@@ -14027,8 +14028,9 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 			cnt++;
 		}
 	}
+
 	////////////////////// FOOD
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 	{
 		UINT32 fFoodtype = Item[gpItemDescObject->usItem].foodtype;
 		UINT32 fComparedFoodtype = 0;

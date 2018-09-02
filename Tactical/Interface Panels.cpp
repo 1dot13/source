@@ -2781,7 +2781,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			FindFontRightCoordinates(SM_DEX_X, SM_DEX_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, (BOOLEAN)(gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE ? TRUE : FALSE), (BOOLEAN)(((gGameOptions.fNewTraitSystem && (gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0)) || (gGameOptions.fFoodSystem && gpSMCurrentMerc->usStarveDamageStrength > 0)) ? TRUE : FALSE), gpSMCurrentMerc->bExtraStrength != 0 ); // SANDRO
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, (BOOLEAN)(gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE ? TRUE : FALSE), (BOOLEAN)(((gGameOptions.fNewTraitSystem && (gpSMCurrentMerc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] > 0)) || ( UsingFoodSystem() && gpSMCurrentMerc->usStarveDamageStrength > 0)) ? TRUE : FALSE), gpSMCurrentMerc->bExtraStrength != 0 ); // SANDRO
 
 			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bStrength + gpSMCurrentMerc->bExtraStrength );
 			FindFontRightCoordinates(SM_STR_X, SM_STR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
@@ -2980,14 +2980,12 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		{
 			GetMoraleString( gpSMCurrentMerc, pMoraleStr );
 			// Flugente: food info if food system is active
-			if ( gGameOptions.fFoodSystem && gpSMCurrentMerc->ubProfile != ROBOT && !IsVehicle(gpSMCurrentMerc) )
+			if ( UsingFoodSystem() && gpSMCurrentMerc->ubProfile != ROBOT && !IsVehicle(gpSMCurrentMerc) )
 			{
-				
 				swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_FOOD_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr, (INT32)(100*(gpSMCurrentMerc->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%", (INT32)(100*(gpSMCurrentMerc->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%" );
 			}
 			else
 			{
-				
 				swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
 			}
 
@@ -3609,7 +3607,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	BOOLEAN fNewItem = FALSE;
 	static BOOLEAN	fRightDown = FALSE;
 	static BOOLEAN	fLeftDown = FALSE;
-	BOOLEAN INV_AP_COST = gGameOptions.fInventoryCostsAP;
+	BOOLEAN INV_AP_COST = UsingInventoryCostsAPSystem();
 
 	uiHandPos = MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -5514,7 +5512,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 						{
 							GetMoraleString( pSoldier, pMoraleStr );
 			
-							if ( gGameOptions.fFoodSystem && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) )
+							if ( UsingFoodSystem() && pSoldier->ubProfile != ROBOT && !IsVehicle(pSoldier) )
 							{
 								swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_WITH_FOOD_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr, (INT32)(100*(pSoldier->bDrinkLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%", (INT32)(100*(pSoldier->bFoodLevel - FOOD_MIN) / FOOD_HALF_RANGE), L"%" );
 							}

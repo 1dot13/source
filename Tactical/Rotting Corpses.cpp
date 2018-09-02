@@ -2469,13 +2469,13 @@ void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE *
 	
 	//Not meant for use in OAS.
 	Assert(UsingNewAttachmentSystem()==true);
-	
-	//OBJECTTYPE * pObj = &(pSoldier->inv[ invSlot ]);
-	
+		
 	//If this item has any attachments, is not from a player, and is overwriteable. It's also only for guns.
-	if((*pObj)[0]->AttachmentListSize() > 0 && pSoldier->bTeam != gbPlayerNum && !((*pObj).fFlags & OBJECT_NO_OVERWRITE) && Item[pObj->usItem].usItemClass == IC_GUN && !gGameOptions.fEnemiesDropAllItems){
+	if((*pObj)[0]->AttachmentListSize() > 0 && pSoldier->bTeam != gbPlayerNum && !((*pObj).fFlags & OBJECT_NO_OVERWRITE) && Item[pObj->usItem].usItemClass == IC_GUN && !UsingEnemiesDropAllItemsSystem() )
+	{
 		UINT8 slotCount = 0;
-		for(std::list<OBJECTTYPE>::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter, ++slotCount){
+		for(std::list<OBJECTTYPE>::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter, ++slotCount)
+		{
 			//A few conditions under which we will not delete this attachment
 			if(!iter->exists())
 				continue;

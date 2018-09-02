@@ -4015,7 +4015,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			if ( OVERHEATING_MAX_TEMPERATURE > 0 )
 			{
 				// Flugente: display condition of food if it can decay
-				if ( gGameOptions.fFoodSystem && Item[pObject->usItem].foodtype > 0 )
+				if ( UsingFoodSystem() && Item[pObject->usItem].foodtype > 0 )
 				{
 					FLOAT condition = (*pObject)[0]->data.bTemperature / OVERHEATING_MAX_TEMPERATURE;
 
@@ -7318,7 +7318,7 @@ void RenderItemDescriptionBox( )
 						mprintf( usX, usY, pStr );
 					}
 					// Flugente: display condition of food if it can decay
-					else if ( gGameOptions.fFoodSystem == TRUE && Item[gpItemDescObject->usItem].foodtype > 0 )
+					else if ( UsingFoodSystem() && Item[gpItemDescObject->usItem].foodtype > 0 )
 					{
 						if ( OVERHEATING_MAX_TEMPERATURE > 0 )
 						{

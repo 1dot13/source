@@ -6137,7 +6137,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 	INT32 tickspassed = deltaSeconds / NUM_SEC_PER_TACTICAL_TURN;//1 tick is 5 seconds
 
 	if ( tickspassed == 0 || !itemStack->exists() || 
-		!( gGameExternalOptions.fWeaponOverheating || gGameOptions.fFoodSystem ) )
+		!( gGameExternalOptions.fWeaponOverheating || UsingFoodSystem() ) )
 		return;
 	
 
@@ -6188,7 +6188,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 	}//end overheating
 
 	// ... if it is food and the food system is active ...
-	if ( gGameOptions.fFoodSystem && Item[ itemStack->usItem ].foodtype > 0 )
+	if ( UsingFoodSystem() && Item[ itemStack->usItem ].foodtype > 0 )
 	{
 		if ( Food[ Item[ itemStack->usItem ].foodtype ].usDecayRate > 0.0f )		// ... if the food can decay...
 		{
@@ -6210,7 +6210,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 void HandleSectorCooldownFunctions( INT16 sMapX, INT16 sMapY, INT8 sMapZ, std::vector<WORLDITEM>& pWorldItem, UINT32 size, BOOLEAN fWithMinutes, BOOLEAN fUndo )//dnl ch75 271013
 {
 	// if not using overheating or food system, no point in all this
-	if ( !gGameExternalOptions.fWeaponOverheating && !gGameOptions.fFoodSystem )
+	if ( !gGameExternalOptions.fWeaponOverheating && !UsingFoodSystem() )
 		return;
 
 	UINT32 tickspassed = 1;

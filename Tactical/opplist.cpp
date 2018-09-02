@@ -879,7 +879,7 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 	if ((gTacticalStatus.uiFlags & TURNBASED) && 
 		(gTacticalStatus.uiFlags & INCOMBAT) && 
 		(ubSightFlags & SIGHT_INTERRUPT) && 
-		(!gGameOptions.fImprovedInterruptSystem || (gGameOptions.fImprovedInterruptSystem && gGameExternalOptions.fAllowInstantInterruptsOnSight) )	)
+		(!UsingImprovedInterruptSystem() || gGameExternalOptions.fAllowInstantInterruptsOnSight ) )
 	{
 		ResolveInterruptsVs( pSoldier, SIGHTINTERRUPT );
 	}
@@ -7389,7 +7389,7 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 		}
 	}
 
-	if ( !gGameOptions.fImprovedInterruptSystem || (gGameOptions.fImprovedInterruptSystem && gGameExternalOptions.fAllowInstantInterruptsOnSight) )
+	if ( !UsingImprovedInterruptSystem() || gGameExternalOptions.fAllowInstantInterruptsOnSight )
 	{
 		if ( StandardInterruptConditionsMet( pDefender, pAttacker->ubID, bOldOppList ) )
 		{

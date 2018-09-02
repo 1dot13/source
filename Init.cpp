@@ -1593,8 +1593,6 @@ UINT32 InitializeJA2(void)
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
-			//gGameOptions.fBobbyRayFastShipments = FALSE;
-			gGameOptions.fInventoryCostsAP = FALSE;
 			return( GAME_SCREEN );
 		}
 		if ( strcmp( gzCommandLine, "-EDITOR" ) == 0 )
@@ -1609,8 +1607,6 @@ UINT32 InitializeJA2(void)
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
-			//gGameOptions.fBobbyRayFastShipments = FALSE;
-			gGameOptions.fInventoryCostsAP = FALSE;
 			return( GAME_SCREEN );
 		}
 
@@ -1628,8 +1624,6 @@ UINT32 InitializeJA2(void)
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
-			//gGameOptions.fBobbyRayFastShipments = FALSE;
-			gGameOptions.fInventoryCostsAP = FALSE;
 			return( GAME_SCREEN );
 		#endif
 	#endif

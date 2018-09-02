@@ -421,7 +421,7 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 	iActualMorale = iActualMorale * pSoldier->GetMoraleModifier();
 
 	// Flugente: ubMaxMorale can now be influenced by our food situation
-	if ( gGameOptions.fFoodSystem )
+	if ( UsingFoodSystem() )
 		FoodMaxMoraleModifiy(pSoldier, &ubMaxMorale);
 
 	// Flugente: max morale can be lowered

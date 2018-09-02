@@ -1058,7 +1058,7 @@ void StartInterrupt( void )
 			{
 				// SANDRO - we don't use the "hidden interrupt" feature with IIS
 				// sevenfm: all interrupts in original interrupt system start as hidden and revealed later if soldier decides something
-				if ( !is_networked && pTempSoldier->bTeam != OUR_TEAM && !gGameOptions.fImprovedInterruptSystem )
+				if ( !is_networked && pTempSoldier->bTeam != OUR_TEAM && !UsingImprovedInterruptSystem() )
 				{
 					// we're being interrupted by the computer!
 					// we delay displaying any interrupt message until the computer does something...
@@ -2045,7 +2045,7 @@ BOOLEAN InterruptDuel( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent)
 	BOOLEAN fResult = FALSE;
 
 	// sevenfm: if Ctrl+D pressed - skip all player interrupts for this turn
-	if( !is_networked && !gGameOptions.fImprovedInterruptSystem && pSoldier->bTeam == OUR_TEAM && gTacticalStatus.ubDisablePlayerInterrupts )
+	if( !is_networked && !UsingImprovedInterruptSystem() && pSoldier->bTeam == OUR_TEAM && gTacticalStatus.ubDisablePlayerInterrupts )
 		return FALSE;
 
 	// if opponent can't currently see us and we can see them
@@ -2552,7 +2552,7 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 					// add this guy to everyone's interrupt queue
 					AddToIntList(ubIntList[ubSmallestSlot],TRUE,TRUE);
 					// SANDRO - for IIS, reset counter if we got here
-					if ( gGameOptions.fImprovedInterruptSystem )
+					if ( UsingImprovedInterruptSystem() )
 					{
 						// reset the counter
 						MercPtrs[ ubIntList[ubSmallestSlot] ]->aiData.ubInterruptCounter[pSoldier->ubID] = 0;						

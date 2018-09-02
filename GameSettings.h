@@ -253,17 +253,17 @@ typedef struct
 	UINT8	ubAttachmentSystem;
 	UINT8	ubSquadSize;
 	// SANDRO - added variables
-	UINT8	ubFiller1;		// Flugente: used to be UINT8 ubMaxIMPCharacters;
+	UINT8	ubFiller1;					// Flugente: used to be UINT8 ubMaxIMPCharacters;
 	BOOLEAN	fNewTraitSystem;
-	BOOLEAN	fEnemiesDropAllItems;
+	UINT8	ubFiller2;					// Flugente: used to be BOOLEAN	fEnemiesDropAllItems;
 	UINT8   ubProgressSpeedOfItemsChoices;
 
-	BOOLEAN fInventoryCostsAP;			// ubFiller:	From 500 to 499
+	UINT8	ubFiller3;					// Flugente: used to be BOOLEAN fInventoryCostsAP;			// ubFiller:	From 500 to 499
 
 	BOOLEAN fUseNCTH;					// ubFiller:	From 499 to 498
-	BOOLEAN fImprovedInterruptSystem;	// ubFiller:	From 498 to 497
-	BOOLEAN fBackGround;				// ubFiller:	From 497 to 496
-	BOOLEAN fFoodSystem;				// ubFiler:		From 496 to 495
+	UINT8	ubFiller4;					// Flugente: used to be BOOLEAN fImprovedInterruptSystem;	// ubFiller:	From 498 to 497
+	UINT8	ubFiller5;					// Flugente: used to be BOOLEAN fBackGround;				// ubFiller:	From 497 to 496
+	UINT8	ubFiller6;					// Flugente: used to be BOOLEAN fFoodSystem;				// ubFiler:		From 496 to 495
 
 	UINT8	ubIronManMode;				// ubFiler:		From 495 to 494
 	
@@ -275,6 +275,12 @@ typedef struct
 bool UsingNewInventorySystem();
 bool UsingNewAttachmentSystem();
 bool UsingNewCTHSystem();
+BOOLEAN UsingFoodSystem();
+BOOLEAN UsingBackGroundSystem();
+BOOLEAN UsingImprovedInterruptSystem();
+BOOLEAN UsingEnemiesDropAllItemsSystem();
+BOOLEAN UsingInventoryCostsAPSystem();
+
 BOOLEAN IsNIVModeValid(bool checkRes = true);
 
 // Snap: Options read from an INI file in the default of custom Data directory
@@ -351,7 +357,7 @@ typedef struct
 	INT8	bCamoKitArea;	// silversurfer added this. It defines how much of the body can be painted with camo kits (usually face and hands).
 	BOOLEAN fEnhancedCloseCombatSystem;
 
-	//BOOLEAN fImprovedInterruptSystem;
+	BOOLEAN fImprovedInterruptSystem;
 	UINT8 ubBasicPercentRegisterValueIIS;
 	UINT8 ubPercentRegisterValuePerLevelIIS;
 	UINT8 ubBasicReactionTimeLengthIIS;
@@ -432,6 +438,7 @@ typedef struct
 	BOOLEAN fPrintStructureTileset;
 
 	// Flugente: food settings
+	BOOLEAN fFoodSystem;
 	UINT16	usFoodDigestionHourlyBaseFood;
 	UINT16	usFoodDigestionHourlyBaseDrink;
 	FLOAT	sFoodDigestionSleep;
@@ -889,6 +896,8 @@ typedef struct
 	INT16 iPenaltyShootUnSeen;
 	BOOLEAN fNoStandingAnimAdjustInCombat;	// Flugente: in turnbased combat, do not adjust animation after arriving at target location
 
+	BOOLEAN fInventoryCostsAP;				// manipulating the inventory in tactical costs AP
+
 	//Inventory AP Weight Divisor
 	FLOAT uWeightDivisor;
 
@@ -1077,6 +1086,9 @@ typedef struct
 	// HEADROCK HAM B2.8: Absolute maximum CTH penalty from target/shooter cowering
 	UINT16 usMaxShooterCoweringPenalty;
 	UINT16 usMaxTargetCoweringPenalty;
+
+	// Flugente: drop all is now set in the ini instead of the starting screen
+	BOOLEAN fEnemiesDropAllItems;
 
 	// HEADROCK HAM B2.8: If this is turned on, Militia will drop their equipment similar to enemies, IF killed by non-player character.
 	UINT8 ubMilitiaDropEquipment;
@@ -1444,6 +1456,9 @@ typedef struct
 	BOOLEAN fIndividualMilitia_ManageHealth;
 	FLOAT dIndividualMilitiaHourlyHealthPercentageGain;
 	FLOAT dIndividualMilitiaDoctorHealModifier;
+	
+	// Flugente: backgrounds
+	BOOLEAN fBackGround;
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;
