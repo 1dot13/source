@@ -62,31 +62,33 @@
 	</NAME>
 	<NAME>
 	<uiIndex>15</uiIndex>
-		<szGroup>Empty Slot15</szGroup>
+		<szGroup>Joey, Martha</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>16</uiIndex>
-		<szGroup>Empty Slot16</szGroup>
+		<szGroup>Devin</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>17</uiIndex>
-		<szGroup>Empty Slot17</szGroup>
+		<szGroup>Hamous</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>18</uiIndex>
-		<szGroup>Empty Slot18</szGroup>
+		<szGroup>Terry</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>19</uiIndex>
-		<szGroup>Empty Slot19</szGroup>
+		<szGroup>Dynamo, Shank</szGroup>
 	</NAME>
 	<NAME>
+	 <!-- This is the group assassins use, thus the name -->
 	<uiIndex>20</uiIndex>
-		<szGroup>Empty Slot20</szGroup>
+		<szGroup>民兵</szGroup>
 	</NAME>
 	<NAME>
+    <!-- Prisoners of war the player keeps in his prison -->
 	<uiIndex>21</uiIndex>
-		<szGroup>Empty Slot21</szGroup>
+		<szGroup>俘虏</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>22</uiIndex>
@@ -97,48 +99,51 @@
 		<szGroup>Empty Slot23</szGroup>
 	</NAME>
 	<NAME>
+	<!-- Volunteers: civilians the player just recruited to one day be militia -->
 	<uiIndex>24</uiIndex>
-		<szGroup>Empty Slot24</szGroup>
+		<szGroup>志愿者</szGroup>
 	</NAME>
 	<NAME>
+	<!-- These guys are hostile bounty hunters on the same quest as we are -->
 	<uiIndex>25</uiIndex>
-		<szGroup>Empty Slot25</szGroup>
+		<szGroup>赏金杀手</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>26</uiIndex>
-		<szGroup>Empty Slot26</szGroup>
+		<szGroup>被击落的飞行员</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>27</uiIndex>
-		<szGroup>Empty Slot27</szGroup>
+		<szGroup>科学家</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>28</uiIndex>
-		<szGroup>Empty Slot28</szGroup>
+		<szGroup>无线电技术员</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>29</uiIndex>
-		<szGroup>Empty Slot29</szGroup>
+		<szGroup>机场工作人员</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>30</uiIndex>
-		<szGroup>Empty Slot30</szGroup>
+		<szGroup>军队工作人员</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>31</uiIndex>
-		<szGroup>Empty Slot31</szGroup>
+		<szGroup>工厂工人</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>32</uiIndex>
-		<szGroup>Empty Slot32</szGroup>
+		<szGroup>秘书</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>33</uiIndex>
-		<szGroup>Empty Slot33</szGroup>
+		<szGroup>支持者</szGroup>
 	</NAME>
+	<!-- black market dealer and bodyguards -->
 	<NAME>
 	<uiIndex>34</uiIndex>
-		<szGroup>Empty Slot34</szGroup>
+		<szGroup>黑市</szGroup>
 	</NAME>
 	<NAME>
 	<uiIndex>35</uiIndex>
@@ -564,7 +569,7 @@
 	<uiIndex>140</uiIndex>
 		<szGroup>Empty Slot140</szGroup>
 	</NAME>
- <NAME>
+	<NAME>
 	<uiIndex>141</uiIndex>
 		<szGroup>Empty Slot141</szGroup>
 	</NAME>
@@ -604,7 +609,7 @@
 	<uiIndex>150</uiIndex>
 		<szGroup>Empty Slot150</szGroup>
 	</NAME>
- <NAME>
+	<NAME>
 	<uiIndex>151</uiIndex>
 		<szGroup>Empty Slot151</szGroup>
 	</NAME>
@@ -644,7 +649,7 @@
 	<uiIndex>160</uiIndex>
 		<szGroup>Empty Slot160</szGroup>
 	</NAME>
- <NAME>
+	<NAME>
 	<uiIndex>161</uiIndex>
 		<szGroup>Empty Slot161</szGroup>
 	</NAME>
@@ -680,11 +685,11 @@
 	<uiIndex>169</uiIndex>
 		<szGroup>Empty Slot169</szGroup>
 	</NAME>
- <NAME>
+	<NAME>
 	<uiIndex>170</uiIndex>
 		<szGroup>Empty Slot170</szGroup>
 	</NAME>
- <NAME>
+	<NAME>
 	<uiIndex>171</uiIndex>
 		<szGroup>Empty Slot171</szGroup>
 	</NAME>
@@ -724,7 +729,7 @@
 	<uiIndex>180</uiIndex>
 		<szGroup>Empty Slot180</szGroup>
 	</NAME>
- <NAME>
+	<NAME>
 	<uiIndex>181</uiIndex>
 		<szGroup>Empty Slot181</szGroup>
 	</NAME>

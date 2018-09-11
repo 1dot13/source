@@ -30,7 +30,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>5</uiIndex>
-    <szName>食物放置时间太长会腐败且有害健康。当然对天朝臣民无效。</szName>
+    <szName>食物放置时间太长会腐败且有害健康。(当然对天朝臣民无效) </szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>6</uiIndex>
@@ -42,7 +42,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>8</uiIndex>
-    <szName>不要忘记时常去Kickstarter关注下 Jagged Alliance: Flashback!</szName>
+    <szName>在窗口模式下，按 [CTRL]+[Z] 可以锁定/解锁鼠标指针。此功能在战术界面离开战区时很有用。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>9</uiIndex>
@@ -62,11 +62,11 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>13</uiIndex>
-    <szName>时迁再世！[CTRL]+[鼠标左键] 点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你几乎扒光他所有的东西。可惜没内裤！</szName>
+    <szName>时迁再世！[CTRL]+[鼠标左键] 点目标就可以偷了。当然如果目标处于扑街且非垂死状态下，你可以扒光他所有的东西。可惜没内裤！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>14</uiIndex>
-    <szName>提醒你，当地上插了小蓝旗，那表示有地雷。这不仅对你有效，对敌人也一样。</szName>
+    <szName>提醒你，当地上插了小蓝旗，那表示有地雷。这不仅对你有效，对敌人也一样有效。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>15</uiIndex>
@@ -90,7 +90,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>20</uiIndex>
-    <szName>在区域仓库界面，在身上携行具空余的格子上左键 + [CTRL]，就能显示已经分类好的物品选项！</szName>
+    <szName>在区域仓库界面，在身上携行具空余的格子上按 [CTRL]+[鼠标左键] 就能显示已经分类好的物品选项！</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>21</uiIndex>
@@ -211,7 +211,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>50</uiIndex>
-    <szName>如果你想赖 M.E.R.C.的账，那么黎叔会生气，后果很严重 ...</szName>
+    <szName>如果你想赖 M.E.R.C 的账，那么黎叔会生气，后果很严重 ...</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>51</uiIndex>
@@ -375,7 +375,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>91</uiIndex>
-    <szName>其实 L.B.E. 就是携行具。</szName>
+    <szName>其实 L.B.E 就是携行具。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>92</uiIndex>
@@ -471,11 +471,11 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>115</uiIndex>
-    <szName>在游戏安装目录下的 "Docs"文件夹内可以发现很多有用的文档。 </szName>
+    <szName>在游戏安装目录下的 "Docs" 文件夹内可以发现很多有用的文档。 </szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>116</uiIndex>
-    <szName>在游戏安装目录下的 "Docs"文件夹内可以发现很多有用的文档。</szName>
+    <szName>在游戏安装目录下的 "Docs" 文件夹内可以发现很多有用的文档。</szName>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>117</uiIndex>

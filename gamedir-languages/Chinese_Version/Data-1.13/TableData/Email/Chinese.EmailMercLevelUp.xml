@@ -865,10 +865,10 @@ Message:		The email message body
 		<Message>请注意Tex的经验使他有资格获得更公平的待遇。他的费用已经增加以便更准确地反映他的价值。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
-		<!-- Biggens -->
+		<!-- Biggins -->
 		<uiIndex>168</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>请注意，由于各项能力的提高，Biggens的服务费用已经提高。 ± ± Speck T. Kline ± </Message>
+		<Message>请注意，由于各项能力的提高，Biggins的服务费用已经提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>169</uiIndex>
@@ -919,7 +919,7 @@ Message:		The email message body
 		<!-- Spooky -->
 		<uiIndex>178</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>请注意。由于Spooky优异的表现，他的收费服务已提高。 ± ± Speck T. Kline ± </Message>
+		<Message>请注意，由于Spooky优异的表现，他的收费服务已提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Skitz-->
@@ -931,13 +931,13 @@ Message:		The email message body
 	<!-- Weasel -->
 		<uiIndex>180</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>请注意。由于Weasel的优秀表现，他的工资和所提供的服务能力都得到了提高。  ± ± Speck T. Kline ± </Message>
+		<Message>请注意，由于Weasel的优秀表现，他的工资和所提供的服务能力都得到了提高。  ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- It -->
 		<uiIndex>181</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>请注意。由于综合能力的提升，It的服务费用已经提高。 ± ± Speck T. Kline ± </Message>
+		<Message>请注意，由于综合能力的提升，It的服务费用已经提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 	<!-- Bernie -->
@@ -1034,7 +1034,7 @@ Message:		The email message body
 		<!-- Wahan -->
 		<uiIndex>198</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>请注意。虽然Wahan的工资提高了，但他所能提供的服务都得到了提高。 ± ± Speck T. Kline ± </Message>
+		<Message>请注意，虽然Wahan的工资提高了，但他所能提供的服务都得到了提高。 ± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>199</uiIndex>
@@ -1144,7 +1144,7 @@ Message:		The email message body
 	<EMAIL>
 		<uiIndex>220</uiIndex>
 		<Subject>费用增加通知</Subject>
-		<Message>请注意。Postie的服务费用增加了，与他的能力同步提高。± ± Speck T. Kline ± </Message>
+		<Message>请注意，Postie的服务费用增加了，与他的能力同步提高。± ± Speck T. Kline ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>221</uiIndex>

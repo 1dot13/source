@@ -47,7 +47,7 @@
 		<!-- Ivan -->
 		<uiIndex>7</uiIndex>
 		<Subject>AIM服务器转发：来自Ivan Dolvich的消息</Subject>
-		<Message>哈喽 我在家了。 ±</Message>
+		<Message>哈喽，我在家了。 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Steroid -->
@@ -59,7 +59,7 @@
 		<!-- Igor -->
 		<uiIndex>9</uiIndex>
 		<Subject>AIM服务器转发：来自Igor Dolvich的消息</Subject>
-		<Message>哈喽 我是Igor Dolvich，是传奇人物Ivan Dolvich的侄子，在回复你的信息。现在可以和我讨论工作的事情。我在寻找一个酒厂的合作赞助，他们可以把商标贴在我的枪上，作为交换给我一些他们的产品就可以了。 ±</Message>
+		<Message>哈喽，我是Igor Dolvich，是传奇人物Ivan Dolvich的侄子，在回复你的信息。现在可以和我讨论工作的事情。我在寻找一个酒厂的合作赞助，他们可以把商标贴在我的枪上，作为交换给我一些他们的产品就可以了。 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Shadow -->
@@ -89,7 +89,7 @@
 		<!-- Fox -->
 		<uiIndex>14</uiIndex>
 		<Subject>AIM服务器转发：来自Cynthia Guzzman的消息</Subject>
-		<Message>Hello 你给我留了口信？让我们谈谈看能否一起做点什么。 ±</Message>
+		<Message>Hello，你给我留了口信？让我们谈谈看能否一起做点什么。 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<!-- Sidney -->

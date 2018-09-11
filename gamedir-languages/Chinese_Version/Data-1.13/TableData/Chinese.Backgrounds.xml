@@ -4,9 +4,9 @@
 		<uiIndex>0</uiIndex>
 		<szName>Background name (128 letters)</szName>
 		<szShortName>short name (20)</szShortName>
-		<szDescription>Enter a description here. This will show up in the laptop and can be up to 256 letters long.</szDescription>
+		<szDescription>在这里输入一个背景描述。最长可达256个字母。下面的“&#10;”作用是换行。</szDescription>
 	</BACKGROUND>
-	<!-- Note that Barry's background had to be moved to slot 255 due to index number 0 already being taken -->
+	<!-- 请注意，由于已经使用了索引号0,Barry的背景必须被移动到255。 -->
 	<!-- Blood -->
 	<BACKGROUND>
 		<uiIndex>1</uiIndex>
@@ -33,7 +33,7 @@
 		<uiIndex>4</uiIndex>
 		<szName>修车工</szName>
 		<szShortName>修车工</szShortName>
-		<szDescription>资深修车工Vicky不旅游的时候总是呆在车间日夜忙碌，从未克服恐高症。</szDescription>
+		<szDescription>不旅游的时候，资深修车工Vicky总是呆在车间日夜忙碌，她一直未克服幽闭恐惧症。</szDescription>
 	</BACKGROUND>
 	<!-- Trevor -->
 	<BACKGROUND>
@@ -131,7 +131,7 @@
 		<uiIndex>18</uiIndex>
 		<szName>军事辅助员</szName>
    		<szShortName>军事辅助员</szShortName>
-   		<szDescription>像童子军一样，只不过使用了暴力。所以...这还是是童子军呀。</szDescription>
+   		<szDescription>像童子军一样，只不过使用了暴力。所以...这还是童子军呀。</szDescription>
 	</BACKGROUND>
 	<!-- Spider -->
 	<BACKGROUND>
@@ -152,7 +152,7 @@
 		<uiIndex>21</uiIndex>
 		<szName>监狱看守</szName>
 		<szShortName>监狱看守</szShortName>
-		<szDescription>担心监狱的暴徒们举兵反攻么？监狱看守是你最好的选择。</szDescription>
+		<szDescription>要说管理战俘集中营，监狱看守干这个活最拿手了。</szDescription>
 	</BACKGROUND>
 	<!-- Hitman -->
 	<BACKGROUND>
@@ -166,7 +166,7 @@
 		<uiIndex>23</uiIndex>
 		<szName>伤情人</szName>
 		<szShortName>伤情人</szShortName>
-		<szDescription>情伤之后的Buzz内心充满仇恨，这时做佣兵正好。</szDescription>
+		<szDescription>情伤之后的Buzz内心充满仇恨，于是选择了佣兵这条路。</szDescription>
 	</BACKGROUND>
 	<!-- Raider -->
 	<BACKGROUND>
@@ -194,14 +194,14 @@
 		<uiIndex>27</uiIndex>
 		<szName>绿色贝雷帽</szName>
 		<szShortName>绿色贝雷帽</szShortName>
-		<szDescription>作为绿色贝雷帽一员，Len很善于处理非常规战事。</szDescription>
+		<szDescription>作为绿色贝雷帽特种部队的一员，Len很善于处理非常规战事。</szDescription>
 	</BACKGROUND>
 	<!-- Danny -->
 	<BACKGROUND>
 		<uiIndex>28</uiIndex>
 		<szName>极限爱好者</szName>
 		<szShortName>极限爱好者</szShortName>
-		<szDescription>惊险刺激还有钱赚，极限爱好者Danny太喜欢佣兵这行了！</szDescription>
+		<szDescription>同样是玩命但还有钱赚，极限爱好者Danny太喜欢佣兵这行了！</szDescription>
 	</BACKGROUND>
 	<!-- Magic -->
 	<BACKGROUND>
@@ -264,7 +264,7 @@
 		<uiIndex>37</uiIndex>
 		<szName>军事辅导员</szName>
 		<szShortName>军事辅导员</szShortName>
-		<szDescription>像童子军一样，只不过使用了暴力。所以...这还是是童子军呀。</szDescription>
+		<szDescription>像童子军一样，只不过使用了暴力。所以...这还是童子军呀。</szDescription>
 	</BACKGROUND>
 	<!-- MD -->
 	<BACKGROUND>
@@ -285,13 +285,13 @@
 		<uiIndex>40</uiIndex>
 		<szName>乖宝宝</szName>
 		<szShortName>乖宝宝</szShortName>
-		<szDescription>童年时代留下的人格印记，至今尚未完全消除。</szDescription>
+		<szDescription>童年时代留下的人格印记，至今还影响着你。</szDescription>
 	</BACKGROUND>
 	<!-- Haywire -->
 	<BACKGROUND>
 		<uiIndex>41</uiIndex>
-		<szName>雇佣兵粉丝</szName>
-		<szShortName>雇佣兵粉丝</szShortName>
+		<szName>业余雇佣兵</szName>
+		<szShortName>业余雇佣兵</szShortName>
 		<szDescription>雇佣兵总是能够见到新的人，然后干掉他们！这简直太帅了！</szDescription>
 	</BACKGROUND>
 	<!-- Gasket -->
@@ -430,8 +430,8 @@
 	<!-- Devin -->
 	<BACKGROUND>
 		<uiIndex>61</uiIndex>
-		<szName>IRA爆破专家</szName>
-		<szShortName>IRA爆破专家</szShortName>
+		<szName>爆破专家</szName>
+		<szShortName>爆破专家</szShortName>
 		<szDescription>给爱尔兰共和军制造炸弹之后，Devin觉得应该扩大他的生意了。</szDescription>
 	</BACKGROUND>
 	<!-- Robot -->
@@ -563,16 +563,16 @@
 	<!-- Steve -->
 	<BACKGROUND>
 		<uiIndex>80</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>医生</szName>
+		<szShortName>医生</szShortName>
+		<szDescription>护士、助手、护工们的领导，也是佣兵们的救星。</szDescription>
 	</BACKGROUND>
 	<!-- Rat -->
 	<BACKGROUND>
 		<uiIndex>81</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>虫子管理员</szName>
+		<szShortName>虫子管理员</szShortName>
+		<szDescription>你猜Rat为什么神经兮兮的？</szDescription>
 	</BACKGROUND>
 	<!-- MoM -->
 	<BACKGROUND>
@@ -598,9 +598,9 @@
 	<!-- Brenda -->
 	<BACKGROUND>
 		<uiIndex>85</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>朋克</szName>
+		<szShortName>朋克</szShortName>
+		<szDescription>在热带丛林摸爬滚打多年之后，他意外的迷上了朋克。</szDescription>
 	</BACKGROUND>
 	<!-- Kingpin -->
 	<BACKGROUND>
@@ -689,16 +689,16 @@
 	<!-- Pablo -->
 	<BACKGROUND>
 		<uiIndex>98</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>机场货运经理</szName>
+		<szShortName>机场货运经理</szShortName>
+		<szDescription>Pablo“妥善地”保管着Drassen机场的进出口货物。</szDescription>
 	</BACKGROUND>
 	<!-- Sal -->
 	<BACKGROUND>
 		<uiIndex>99</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>机场货运经理</szName>
+		<szShortName>机场货运经理</szShortName>
+		<szDescription>Sal正试着掌握货运经理的工作。</szDescription>
 	</BACKGROUND>
 	<!-- Father -->
 	<BACKGROUND>
@@ -752,23 +752,23 @@
 	<!-- Madame -->
 	<BACKGROUND>
 		<uiIndex>107</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>女士</szName>
+		<szShortName>女士</szShortName>
+		<szDescription>以令人反感的方式对待顾客，还不给找零钱。</szDescription>
 	</BACKGROUND> 
 	<!-- Yanni -->
 	<BACKGROUND>
 		<uiIndex>108</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>Arulcan老人</szName>
+		<szShortName>Arulcan老人</szShortName>
+		<szDescription>他因智慧和对Arulcan历史的了解而受到尊敬。</szDescription>
 	</BACKGROUND>
 	<!-- Martha -->
 	<BACKGROUND>
 		<uiIndex>109</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>Joey的妈妈</szName>
+		<szShortName>Joey的妈妈</szShortName>
+		<szDescription>对她儿子的事一无所知。</szDescription>
 	</BACKGROUND>
 	<!-- Tiffany -->
 	<BACKGROUND>
@@ -794,9 +794,9 @@
 	<!-- Jake -->
 	<BACKGROUND>
 		<uiIndex>113</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>垃圾佬/黑市商人</szName>
+		<szShortName>垃圾佬/黑市商人</szShortName>
+		<szDescription>专捡垃圾……还有一些别的。</szDescription>
 	</BACKGROUND>
 	<!-- Pacos -->
 	<BACKGROUND>
@@ -808,23 +808,23 @@
 	<!-- Dave -->
 	<BACKGROUND>
 		<uiIndex>115</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>修车工</szName>
+		<szShortName>修车工</szShortName>
+		<szDescription>Dave以前经营着一个加油站……那时还有油可以加。</szDescription>
 	</BACKGROUND>
 	<!-- Skipper -->
 	<BACKGROUND>
 		<uiIndex>116</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>流浪汉</szName>
+		<szShortName>流浪汉</szShortName>
+		<szDescription>女王杀害了Skipper的家人，又把他的家夷为平地。</szDescription>
 	</BACKGROUND>
 	<!-- Hans -->
 	<BACKGROUND>
 		<uiIndex>117</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>前台</szName>
+		<szShortName>前台</szShortName>
+		<szDescription>不可描述！</szDescription>
 	</BACKGROUND>
 	<!-- John -->
 	<BACKGROUND>
@@ -843,23 +843,23 @@
 	<!-- General -->
 	<BACKGROUND>
 		<uiIndex>120</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>将军</szName>
+		<szShortName>将军</szShortName>
+		<szDescription>这个佣兵领袖显然不是你这边的人！</szDescription>
 	</BACKGROUND>
 	<!-- Sergeant -->
 	<BACKGROUND>
 		<uiIndex>121</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>Krott中士</szName>
+		<szShortName>Krott中士</szShortName>
+		<szDescription>这名中士宁愿和他的亲人呆在家里，却被征召到Arulco军队。</szDescription>
 	</BACKGROUND>
 	<!-- Armand -->
 	<BACKGROUND>
 		<uiIndex>122</uiIndex>
-		<szName>Upperclass twit</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>既得利益者</szName>
+		<szShortName>既得利益者</szShortName>
+		<szDescription>资助女王的就是这些为了社会地位的富人。</szDescription>
 	</BACKGROUND>
 	<!-- Lora -->
 	<BACKGROUND>
@@ -871,16 +871,16 @@
 	<!-- Franz -->
 	<BACKGROUND>
 		<uiIndex>124</uiIndex>
-		<szName>Shopkeeper</szName>
-   		<szShortName>Shopkeeper</szShortName>
-   		<szDescription>For many people, their trade IS trade.</szDescription>
+		<szName>店主</szName>
+   		<szShortName>店主</szShortName>
+   		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
 	</BACKGROUND>
 	<!-- Howard -->
 	<BACKGROUND>
 		<uiIndex>125</uiIndex>
-		<szName>店主</szName>
-		<szShortName>店主</szShortName>
-		<szDescription>对很多来说，店主？就是一直流着口水数钱的那个？</szDescription>
+		<szName>药剂师</szName>
+		<szShortName>药剂师</szShortName>
+		<szDescription>对很多人来说，生意就是生意。</szDescription>
 	</BACKGROUND>
 	<!-- Sam -->
 	<BACKGROUND>
@@ -920,9 +920,9 @@
 	<!-- Walter -->
 	<BACKGROUND>
 		<uiIndex>131</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>科学家</szName>
+		<szShortName>科学家</szShortName>
+		<szDescription>一心工作的科学家。</szDescription>
 	</BACKGROUND>
 	<!-- Jenny -->
 	<BACKGROUND>
@@ -941,9 +941,9 @@
 	<!-- Brewster -->
 	<BACKGROUND>
 		<uiIndex>134</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>傻子</szName>
+		<szShortName>傻子</szShortName>
+		<szDescription>娶了Warden，两面派，懦弱，不忠并且间接造成了谋杀。</szDescription>
 	</BACKGROUND>
 	<!-- Elliot -->
 	<BACKGROUND>
@@ -1326,9 +1326,9 @@
 	<!-- Raffi -->
 	<BACKGROUND>
 		<uiIndex>189</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>冒牌货</szName>
+		<szShortName>冒牌货</szShortName>
+		<szDescription>假装会各种事，其实啥也干不好，谁也不知道他究竟能干啥。</szDescription>
 	</BACKGROUND>
 	<!-- Wink -->
 	<BACKGROUND>
@@ -1368,9 +1368,9 @@
 	<!-- John -->
 	<BACKGROUND>
 		<uiIndex>195</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>观光客</szName>
+		<szShortName>观光客</szShortName>
+		<szDescription>订阅《美国雇佣兵》杂志的佣兵，就和当年稚嫩的你一样。</szDescription>
 	</BACKGROUND>
 	<!-- Elio -->
 	<BACKGROUND>
@@ -1564,16 +1564,16 @@
 	<!-- Gary -->
 	<BACKGROUND>
 		<uiIndex>223</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>小鬼/小偷/爆破手</szName>
+		<szShortName>小鬼/小偷/爆破手</szShortName>
+		<szDescription>有Gary这个小兄弟，怪不得Larry天天老喝酒。</szDescription>
 	</BACKGROUND>
 	<!-- Sparky -->
 	<BACKGROUND>
 		<uiIndex>224</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>厂妹技师</szName>
+		<szShortName>厂妹技师</szShortName>
+		<szDescription>修修修，和Gary和Larry相比，她应该是家里的好孩子。</szDescription>
 	</BACKGROUND>
 	<!-- Beth -->
 	<BACKGROUND>
@@ -1718,16 +1718,16 @@
 	<!-- Mouse -->
 	<BACKGROUND>
 		<uiIndex>245</uiIndex>
-		<szName>Mime</szName>
-		<szShortName>Mime</szShortName>
+		<szName>哑剧演员</szName>
+		<szShortName>哑剧演员</szShortName>
 		<szDescription>...</szDescription>
 	</BACKGROUND>
 	<!-- Hector -->
 	<BACKGROUND>
 		<uiIndex>246</uiIndex>
-		<szName>South American</szName>
-		<szShortName>South American</szShortName>
-		<szDescription>...</szDescription>
+		<szName>委内瑞拉反抗军</szName>
+		<szShortName>委内瑞拉反抗军</szShortName>
+		<szDescription>他在他的国家成功地反抗了帝国主义，所以Hector后来成了一个专业的革命家。</szDescription>
 	</BACKGROUND>
 	<!-- Rev -->
 	<BACKGROUND>
@@ -2150,8 +2150,44 @@
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>315</uiIndex>
-		<szName>工兵</szName>
-		<szShortName>工兵</szShortName>
-		<szDescription>微小的失误就会导致失误，幸好你还没犯过错。</szDescription>
+		<szName>拆弹专家</szName>
+		<szShortName>拆弹专家</szShortName>
+		<szDescription>你精通于这门不容失败的技术，展现出钢铁般稳固的心态。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>316</uiIndex>
+		<szName>叛逆者</szName>
+		<szShortName>叛逆者</szShortName>
+		<szDescription>其他人可能不同意你的做法，并指责你的残忍，但你总是能把工作搞定——无论付出什么代价。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>317</uiIndex>
+		<szName>黑衣军团</szName>
+		<szShortName>黑衣军团</szShortName>
+		<szDescription>和平抗议并没能实现你的理想，所以你转向比较直接的暴力，当雇佣兵。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>318</uiIndex>
+		<szName>行骗高手</szName>
+		<szShortName>行骗高手</szShortName>
+		<szDescription>你没什么道德准绳可言，会欺骗任何人，骗走他们的一切再指责他们的不幸。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>319</uiIndex>
+		<szName>反抗军</szName>
+		<szShortName>反抗军</szShortName>
+		<szDescription>这是你的国家，你的土地，你的人民，而你承诺用自己的生命来解放他们。你比Miguel更激进，不遵从任何领袖。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>320</uiIndex>
+		<szName>运动员</szName>
+		<szShortName>运动员</szShortName>
+		<szDescription>多年以来的高强度运动和比赛经历显然提高了你的生存能力。</szDescription>
+	</BACKGROUND>
+	<BACKGROUND>
+		<uiIndex>321</uiIndex>
+		<szName>救援人员</szName>
+		<szShortName>救援人员</szShortName>
+		<szDescription>曾为多个著名援助组织工作过的你，经历过不少比现在更困难的情况。</szDescription>
 	</BACKGROUND>
 </BACKGROUNDS>

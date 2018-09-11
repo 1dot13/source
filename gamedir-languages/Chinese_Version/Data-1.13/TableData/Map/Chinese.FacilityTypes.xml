@@ -80,6 +80,10 @@
 			<ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
 			<szTooltipText>控制当地的信息渠道，掌控全部区域新闻的流通。</szTooltipText>
 		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
+			<szTooltipText>这个军事设施设有一个指挥室，可以用'W'、'S'、'A'、'D'键控制你的民兵在战略界面上移动。</szTooltipText>
+		</ASSIGNMENT>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
@@ -94,11 +98,11 @@
 
 	<FACILITYTYPE>
 		<ubIndex>9</ubIndex>
-		<szFacilityName>A.C.A 派出所</szFacilityName>
+		<szFacilityName>A.C.A派出所</szFacilityName>
 		<szFacilityShortName>A.C.A</szFacilityShortName>
 		<ASSIGNMENT>
 			<ubAssignmentType>STAFF</ubAssignmentType>
-			<szTooltipText>当地人可能会愿意帮你侦察周边地区的动向。你可以通过他们收集更多更细的有关这附近区域敌方的情报。</szTooltipText>
+			<szTooltipText>当地人可能会愿意帮你侦察周边地区的动向。你可以通过他们收集更多更详细的有关这附近区域敌方的情报。</szTooltipText>
 		</ASSIGNMENT>
 		<ASSIGNMENT>
 			<ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
@@ -108,8 +112,8 @@
 
 	<FACILITYTYPE>
 		<ubIndex>10</ubIndex>
-		<szFacilityName>SAM 导弹基地</szFacilityName>
-		<szFacilityShortName>SAM 基地</szFacilityShortName>
+		<szFacilityName>SAM导弹基地</szFacilityName>
+		<szFacilityShortName>SAM基地</szFacilityShortName>
 	</FACILITYTYPE>
 
 	<FACILITYTYPE>
@@ -184,7 +188,7 @@
 
 	<FACILITYTYPE>
 		<ubIndex>18</ubIndex>
-		<szFacilityName>军用训练场地遗迹</szFacilityName>
+		<szFacilityName>军用训练场遗迹</szFacilityName>
 		<szFacilityShortName>遗迹</szFacilityShortName>
 	</FACILITYTYPE>
 	

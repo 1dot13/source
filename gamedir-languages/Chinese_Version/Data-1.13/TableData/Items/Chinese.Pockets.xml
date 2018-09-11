@@ -78,11 +78,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>快速上弹器袋</pName>
+		<pName>快装器弹袋</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>20</pIndex>
-		<pName>医疗包</pName>
+		<pName>急救包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>21</pIndex>
@@ -90,7 +90,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>大形弹链包</pName>
+		<pName>大型弹链包</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>23</pIndex>
@@ -98,7 +98,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>24</pIndex>
-		<pName>霰弹</pName>
+		<pName>12发霰弹带</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>25</pIndex>
@@ -118,7 +118,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>29</pIndex>
-		<pName>短步枪弹夹x2</pName>
+		<pName>步枪弹匣x1</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>30</pIndex>
@@ -126,19 +126,19 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>31</pIndex>
-		<pName>战斗包步枪背带</pName>
+		<pName>战斗包枪背带</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>32</pIndex>
-		<pName>小战斗包</pName>
+		<pName>大型左轮枪套</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>33</pIndex>
-		<pName>炸药</pName>
+		<pName>炸药x2</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>34</pIndex>
-		<pName>狙击枪弹夹</pName>
+		<pName>狙击枪弹匣x2</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>35</pIndex>
@@ -150,11 +150,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>37</pIndex>
-		<pName>竖钩面</pName>
+		<pName>急救口袋x2</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>38</pIndex>
-		<pName>竖钩环</pName>
+		<pName>钩环</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>39</pIndex>
@@ -162,7 +162,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>40</pIndex>
-		<pName>手枪弹夹x2</pName>
+		<pName>手枪弹匣x2</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>41</pIndex>
@@ -170,11 +170,11 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>42</pIndex>
-		<pName>7发霰弹</pName>
+		<pName>7发霰弹带</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>43</pIndex>
-		<pName>冲锋枪弹夹x2</pName>
+		<pName>冲锋枪弹匣x2</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>44</pIndex>
@@ -182,23 +182,23 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>45</pIndex>
-		<pName>突击步枪弹夹x2</pName>
+		<pName>AR弹匣x2</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>46</pIndex>
-		<pName>突击步枪弹夹x1</pName>
+		<pName>AR弹匣x1</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>47</pIndex>
-		<pName>闪光弹</pName>
+		<pName>烟雾手雷x3</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>48</pIndex>
-		<pName>手枪弹夹x3</pName>
+		<pName>手枪弹匣x3</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>49</pIndex>
-		<pName>突击步枪弹夹x3</pName>
+		<pName>AR弹匣x3</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>50</pIndex>
@@ -206,19 +206,19 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>51</pIndex>
-		<pName>冲锋枪弹夹x3</pName>
+		<pName>冲锋枪弹匣x3</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>52</pIndex>
-		<pName>小刀</pName>
+		<pName>格斗刀套</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>53</pIndex>
-		<pName>狙击步枪背带</pName>
+		<pName>狙击枪背带</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>54</pIndex>
-		<pName>闪光弹</pName>
+		<pName>烟雾手雷x1</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>55</pIndex>
@@ -226,22 +226,22 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>56</pIndex>
-		<pName>左轮手枪皮套</pName>
+		<pName>小型左轮枪套</pName>
 	</POCKET>
 		<POCKET>
 		<pIndex>57</pIndex>
 		<pName>步枪弹匣x2</pName>
 	</POCKET>
-  <POCKET>
-    <pIndex>58</pIndex>
-    <pName>水袋</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>59</pIndex>
-    <pName>战术枪带</pName>
-  </POCKET>
-  <POCKET>
-    <pIndex>60</pIndex>
-    <pName>弹鼓</pName>
+	<POCKET>
+		<pIndex>58</pIndex>
+		<pName>水袋包</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>59</pIndex>
+		<pName>战术枪背带</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>60</pIndex>
+		<pName>弹鼓包</pName>
   </POCKET>
 </POCKETLIST>
