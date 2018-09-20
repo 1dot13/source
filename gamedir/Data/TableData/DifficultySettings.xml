@@ -114,8 +114,17 @@
 		
 		{CTHConstants Settings} 
 		
-		CthConstantsAimDifficulty : min -1000.0, max 1000.0
-		CthConstantsBaseDifficulty : These modifiers are applied based on game difficulty, and only affect the base CTH of ENEMY COMBATANTS. min -1000.0, max 1000.0
+		These modifiers affect the CTH of ENEMY combatants. They only have an effect in NCTH!
+		CthConstantsAimDifficulty : affects aim CTH that a shooter gets by spending aim clicks. min -100, max 100
+		CthConstantsBaseDifficulty : affects base CTH that a shooter gets from his attributes, condition and weapon handling. min -100, max 100
+		
+		These modfiers affect the CTH of MILITIA. They only have an effect in NCTH!
+		CthConstantsAimDifficultyMilitia : affects aim CTH that a shooter gets by spending aim clicks. min -100, max 100
+		CthConstantsBaseDifficultyMilitia : affects base CTH that a shooter gets from his attributes, condition and weapon handling. min -100, max 100
+		
+		These modifiers affect the CTH of PLAYER mercs. They only have an effect in NCTH and up to game progress 30 and go down linearly from progress 0 to 30.
+		CthConstantsAimDifficultyPlayer : affects aim CTH that a shooter gets by spending aim clicks. min -100, max 100
+		CthConstantsBaseDifficultyPlayer : affects base CTH that a shooter gets from his attributes, condition and weapon handling. min -100, max 100
 		
 -->
 <DIFFICULTY_SETTINGS>
@@ -190,6 +199,10 @@
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>-100.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>-100.0</CthConstantsBaseDifficulty>
+		<CthConstantsAimDifficultyMilitia>-100.0</CthConstantsAimDifficultyMilitia>
+		<CthConstantsBaseDifficultyMilitia>-100.0</CthConstantsBaseDifficultyMilitia>
+		<CthConstantsAimDifficultyPlayer>-100.0</CthConstantsAimDifficultyPlayer>
+		<CthConstantsBaseDifficultyPlayer>-100.0</CthConstantsBaseDifficultyPlayer>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>1</uiIndex>
@@ -262,6 +275,10 @@
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>-30.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>-30.0</CthConstantsBaseDifficulty>
+		<CthConstantsAimDifficultyMilitia>20.0</CthConstantsAimDifficultyMilitia>
+		<CthConstantsBaseDifficultyMilitia>20.0</CthConstantsBaseDifficultyMilitia>
+		<CthConstantsAimDifficultyPlayer>20.0</CthConstantsAimDifficultyPlayer>
+		<CthConstantsBaseDifficultyPlayer>20.0</CthConstantsBaseDifficultyPlayer>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>2</uiIndex>
@@ -334,6 +351,10 @@
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>0.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>0.0</CthConstantsBaseDifficulty>
+		<CthConstantsAimDifficultyMilitia>10.0</CthConstantsAimDifficultyMilitia>
+		<CthConstantsBaseDifficultyMilitia>10.0</CthConstantsBaseDifficultyMilitia>
+		<CthConstantsAimDifficultyPlayer>10.0</CthConstantsAimDifficultyPlayer>
+		<CthConstantsBaseDifficultyPlayer>10.0</CthConstantsBaseDifficultyPlayer>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>3</uiIndex>
@@ -406,6 +427,10 @@
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>20.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>20.0</CthConstantsBaseDifficulty>
+		<CthConstantsAimDifficultyMilitia>0.0</CthConstantsAimDifficultyMilitia>
+		<CthConstantsBaseDifficultyMilitia>0.0</CthConstantsBaseDifficultyMilitia>
+		<CthConstantsAimDifficultyPlayer>0.0</CthConstantsAimDifficultyPlayer>
+		<CthConstantsBaseDifficultyPlayer>0.0</CthConstantsBaseDifficultyPlayer>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>4</uiIndex>
@@ -478,5 +503,9 @@
 		<!-- CTHConstants Settings -->
 		<CthConstantsAimDifficulty>50.0</CthConstantsAimDifficulty>
 		<CthConstantsBaseDifficulty>50.0</CthConstantsBaseDifficulty>
+		<CthConstantsAimDifficultyMilitia>0.0</CthConstantsAimDifficultyMilitia>
+		<CthConstantsBaseDifficultyMilitia>0.0</CthConstantsBaseDifficultyMilitia>
+		<CthConstantsAimDifficultyPlayer>0.0</CthConstantsAimDifficultyPlayer>
+		<CthConstantsBaseDifficultyPlayer>0.0</CthConstantsBaseDifficultyPlayer>
 	</DIFFICULTY>
 </DIFFICULTY_SETTINGS>
