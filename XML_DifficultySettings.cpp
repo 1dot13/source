@@ -110,7 +110,11 @@ DifficultySettingsParseDataStartElementHandle(void *userData, const XML_Char *na
 				strcmp(name, "EnemyMoraleWorried") == 0 ||
 				strcmp(name, "MaxMortarsPerTeam" ) == 0 ||
 				strcmp(name, "CthConstantsAimDifficulty") == 0	||
-				strcmp(name, "CthConstantsBaseDifficulty") == 0	
+				strcmp(name, "CthConstantsBaseDifficulty") == 0	||
+				strcmp(name, "CthConstantsAimDifficultyMilitia") == 0	||
+				strcmp(name, "CthConstantsBaseDifficultyMilitia") == 0	||
+				strcmp(name, "CthConstantsAimDifficultyPlayer") == 0	||
+				strcmp(name, "CthConstantsBaseDifficultyPlayer") == 0	
 				))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -229,8 +233,12 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bRadioSightings = pData->curDifficultySettings.bRadioSightings;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bRadioSightings2 = pData->curDifficultySettings.bRadioSightings2;
 
-					zDiffSetting[pData->curDifficultySettings.uiIndex].NewDifficultySettingsAIM_DIFFICULTY = pData->curDifficultySettings.NewDifficultySettingsAIM_DIFFICULTY;
-					zDiffSetting[pData->curDifficultySettings.uiIndex].NewDifficultySettingsBASE_DIFFICULTY = pData->curDifficultySettings.NewDifficultySettingsBASE_DIFFICULTY;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].fCTHSettingsAimDifficultyEnemy = pData->curDifficultySettings.fCTHSettingsAimDifficultyEnemy;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].fCTHSettingsBaseDifficultyEnemy = pData->curDifficultySettings.fCTHSettingsBaseDifficultyEnemy;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].fCTHSettingsAimDifficultyMilitia = pData->curDifficultySettings.fCTHSettingsAimDifficultyMilitia;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].fCTHSettingsBaseDifficultyMilitia = pData->curDifficultySettings.fCTHSettingsBaseDifficultyMilitia;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].fCTHSettingsAimDifficultyPlayer = pData->curDifficultySettings.fCTHSettingsAimDifficultyPlayer;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].fCTHSettingsBaseDifficultyPlayer = pData->curDifficultySettings.fCTHSettingsBaseDifficultyPlayer;
 					
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bEnemyMoraleWorried = pData->curDifficultySettings.bEnemyMoraleWorried;
 					
@@ -567,12 +575,32 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "CthConstantsAimDifficulty") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDifficultySettings.NewDifficultySettingsAIM_DIFFICULTY	= (FLOAT) atol(pData->szCharData);
+			pData->curDifficultySettings.fCTHSettingsAimDifficultyEnemy	= (FLOAT) atol(pData->szCharData);
 		}	
 		else if(strcmp(name, "CthConstantsBaseDifficulty") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDifficultySettings.NewDifficultySettingsBASE_DIFFICULTY	= (FLOAT) atol(pData->szCharData);
+			pData->curDifficultySettings.fCTHSettingsBaseDifficultyEnemy	= (FLOAT) atol(pData->szCharData);
+		}			
+		else if(strcmp(name, "CthConstantsAimDifficultyMilitia") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.fCTHSettingsAimDifficultyMilitia	= (FLOAT) atol(pData->szCharData);
+		}	
+		else if(strcmp(name, "CthConstantsBaseDifficultyMilitia") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.fCTHSettingsBaseDifficultyMilitia	= (FLOAT) atol(pData->szCharData);
+		}			
+		else if(strcmp(name, "CthConstantsAimDifficultyPlayer") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.fCTHSettingsAimDifficultyPlayer	= (FLOAT) atol(pData->szCharData);
+		}	
+		else if(strcmp(name, "CthConstantsBaseDifficultyPlayer") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.fCTHSettingsBaseDifficultyPlayer	= (FLOAT) atol(pData->szCharData);
 		}			
 		pData->maxReadDepth--;
 	}

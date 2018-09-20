@@ -4588,7 +4588,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					if ( gGameOptions.ubDifficultyLevel > 0 )
 					{
 						groupelites[ubCounter] = grouptroops[ubCounter] - grouptroops[ubCounter] / gGameOptions.ubDifficultyLevel;
-						grouptroops[ubCounter] -= groupelites[ubCounter];
+						//grouptroops[ubCounter] -= groupelites[ubCounter];
 					}
 
 					totalusedsoldiers += grouptroops[ubCounter] + groupelites[ubCounter] + grouptanks[ubCounter] + groupjeeps[ubCounter];

@@ -11804,9 +11804,15 @@ FLOAT CalcNewChanceToHitBaseSpecialBonus(SOLDIERTYPE *pSoldier)
 	// GAME DIFFICULTY
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
-		fBaseModifier += zDiffSetting[gGameOptions.ubDifficultyLevel].NewDifficultySettingsBASE_DIFFICULTY;
+		fBaseModifier += zDiffSetting[gGameOptions.ubDifficultyLevel].fCTHSettingsBaseDifficultyEnemy;
 	}
-
+	else if ( pSoldier->bTeam == MILITIA_TEAM )
+	{
+		fBaseModifier += zDiffSetting[gGameOptions.ubDifficultyLevel].fCTHSettingsBaseDifficultyMilitia;
+	}
+	else
+		fBaseModifier += __max( 0, ( 30 - CurrentPlayerProgressPercentage() ) ) * zDiffSetting[gGameOptions.ubDifficultyLevel].fCTHSettingsBaseDifficultyPlayer / 30;
+	
 	return fBaseModifier;
 }
 
@@ -12122,8 +12128,14 @@ FLOAT CalcNewChanceToHitAimSpecialBonus(SOLDIERTYPE *pSoldier)
 	// GAME DIFFICULTY
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) && (pSoldier->bSide != gbPlayerNum) )
 	{
-		fAimModifier += zDiffSetting[gGameOptions.ubDifficultyLevel].NewDifficultySettingsAIM_DIFFICULTY;
+		fAimModifier += zDiffSetting[gGameOptions.ubDifficultyLevel].fCTHSettingsAimDifficultyEnemy;
 	}
+	else if ( pSoldier->bTeam == MILITIA_TEAM )
+	{
+		fAimModifier += zDiffSetting[gGameOptions.ubDifficultyLevel].fCTHSettingsAimDifficultyMilitia;
+	}
+	else
+		fAimModifier += __max( 0, ( 30 - CurrentPlayerProgressPercentage() ) ) * zDiffSetting[gGameOptions.ubDifficultyLevel].fCTHSettingsAimDifficultyPlayer / 30;
 	
 	return fAimModifier;
 }

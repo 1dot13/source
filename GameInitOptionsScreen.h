@@ -89,8 +89,12 @@ typedef struct
 	BOOLEAN bRadioSightings;
 	BOOLEAN bRadioSightings2;
 	
-	FLOAT NewDifficultySettingsBASE_DIFFICULTY;
-	FLOAT NewDifficultySettingsAIM_DIFFICULTY;
+	FLOAT fCTHSettingsBaseDifficultyEnemy;
+	FLOAT fCTHSettingsAimDifficultyEnemy;
+	FLOAT fCTHSettingsBaseDifficultyMilitia;
+	FLOAT fCTHSettingsAimDifficultyMilitia;
+	FLOAT fCTHSettingsBaseDifficultyPlayer;
+	FLOAT fCTHSettingsAimDifficultyPlayer;
 	
 	BOOLEAN bEnemyMoraleWorried;
 
