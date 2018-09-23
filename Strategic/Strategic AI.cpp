@@ -1199,7 +1199,6 @@ void InitStrategicAI()
 	memcpy( gArmyComp, gOrigArmyComp, sizeof( gArmyComp ) );
 
 	//Eliminate more perimeter defenses on the easier levels.
-	
 	if (zDiffSetting[gGameOptions.ubDifficultyLevel].iDesiredPopulationL2 == FALSE) 
 	{
 		gArmyComp[ LEVEL2_DEFENCE ].bDesiredPopulation = 0;
@@ -1212,19 +1211,22 @@ void InitStrategicAI()
 		gArmyComp[ LEVEL3_DEFENCE ].bStartPopulation = 0;
 	}
 	
-	if (zDiffSetting[gGameOptions.ubDifficultyLevel].iDesiredPopulationL2 == TRUE || zDiffSetting[gGameOptions.ubDifficultyLevel].iDesiredPopulationL3 == TRUE) 
-	{	
+	iPercentElitesBonus = zDiffSetting[gGameOptions.ubDifficultyLevel].iPercentElitesBonus;
+
+	// if we allow additional elites
+	if ( iPercentElitesBonus > 0 )
+	{
 		for( i = 0; i < NUM_ARMY_COMPOSITIONS; ++i )
 		{
 			if ( i != OMERTA_WELCOME_WAGON )
 			{
-				iPercentElitesBonus = zDiffSetting[gGameOptions.ubDifficultyLevel].iPercentElitesBonus;
 				gArmyComp[ i ].bElitePercentage = min(100,gArmyComp[ i ].bElitePercentage + iPercentElitesBonus);
 				gArmyComp[ i ].bTroopPercentage = max(0,gArmyComp[ i ].bTroopPercentage - iPercentElitesBonus);
-				gArmyComp[ i ].bAdminPercentage = 0;
+				gArmyComp[ i ].bAdminPercentage = max(0,gArmyComp[ i ].bAdminPercentage - iPercentElitesBonus);
 			}
 		}
 	}
+
 	/*
 	switch( gGameOptions.ubDifficultyLevel )
 	{
