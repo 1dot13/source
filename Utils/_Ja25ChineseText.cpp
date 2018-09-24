@@ -115,7 +115,7 @@ STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 	L"火箭命中率 +%d%s\n",// L"+%d%s chance to hit with rocket launchers\n",
 	L"发射迫击炮所需行动点 -%d%s\n",// L"-%d%s APs needed to fire mortar\n",
 	L"迫击炮命中率惩罚修正 -%d%s\n",// L"Reduce penalty for mortar CtH by %d%s\n",
-	L"爆炸物, 手榴弹和重武器对坦克的额外伤害 +%d%s\n",// L"+%d%s damage to tanks with heavy weapons, grenades and explosives\n",
+	L"爆破物, 手榴弹和重武器对坦克的额外伤害 +%d%s\n",// L"+%d%s damage to tanks with heavy weapons, grenades and explosives\n",
 	L"重武器对其他目标的伤害 +%d%s\n",// L"+%d%s damage to other targets with heavy weapons\n",
 };
 
@@ -140,7 +140,7 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"步枪精确瞄准次数增加%d次\n",// L"Adds %d more aim clicks for rifle-type guns\n",
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）1次\n",//L"Makes aiming faster with rifle-type guns by one aim click\n",
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）%d次\n",//L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
-	L"专注技能：在标记区域内中断率 +%d \n",	//L"Focus skill: +%d interrupt modifier in marked area\n", TODO.Translate
+	L"专注技能：在标记区域内中断率 +%d \n",	//L"Focus skill: +%d interrupt modifier in marked area\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
@@ -276,7 +276,7 @@ STR16 gzIMPMajorTraitsHelpTextsNone[]=
 
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
-	L"副手有装备时命中率惩罚 -%d%s \n",	//L"Reduced penalty to shoot if offhand item is equipped by %d%s\n", TODO.Translate
+	L"副手有装备时命中率惩罚 -%d%s \n",	//L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",
 	L"弹匣类武器装填速度 +%d%s\n",// L"+%d%s speed of reloading guns with magazines\n",
 	L"零散弹药装填速度 +%d%s\n",// L"+%d%s speed of reloading guns with loose rounds\n",
 	L"拾物品所需行动点 -%d%s\n",// L"-%d%s APs needed to pickup items\n",
@@ -401,7 +401,7 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"疾病抗性 %s%d%%\n",//L" %s%d%% disease resistance\n",
 	L"食物消耗 %s%d%%\n",//L" %s%d%% food consumption\n",
 	L"水 消 耗 %s%d%%\n",//L" %s%d%% water consumption\n",
-	L"回避几率 +%d%%\n",	//L"+%d%% snake evasion\n", TODO.Translate 
+	L"回避几率 +%d%%\n",	//L"+%d%% snake evasion\n", 
 };
 
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
@@ -464,7 +464,7 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"优点：进行非战斗任务时士气会提升（除了训练民兵）。\n缺点：杀人不增加士气。",// L"A: He gains morale when on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
 	L"优点：攻击有更高的几率能造成受害者属性值降低，和更严重的创伤，同时提高自己的士气。\n缺点：与其他人交流是个问题，脱离战斗后士气也会快速下沉。",// L"A: Has bigger chance for inflicting stat loss and can inflict special painful wounds when able to\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
 	L"优点：附近有异性雇佣兵时表现更佳。\n缺点：附近所有同性雇佣兵士气提升得慢。",// L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
-	L"优点：撤退时士气增加。\n缺点：敌众我寡时，会降低士气。", //L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", TODO.Translate
+	L"优点：撤退时士气增加。\n缺点：敌众我寡时，会降低士气。", //L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.",
 };
 
 STR16 gzIMPDisabilitiesHelpTexts[]=
@@ -480,7 +480,7 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"大大减少听力范围。",		// L"Drastically reduced hearing.",
 	L"减少视力范围。",				// L"Reduced sight range.",
 	L"大大增加的流血速度。",	//L"Drastically increased bleeding.",
-	L"在房顶上会降低战斗力。",	//L"Performance suffers while on a rooftop.", TODO.Translate
+	L"在房顶上会降低战斗力。",	//L"Performance suffers while on a rooftop.",
 	L"时不时自残。",	//L"Occasionally harms self.",
 };
 

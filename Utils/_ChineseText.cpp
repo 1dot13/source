@@ -2475,7 +2475,7 @@ STR16 pAssignmentStrings[] =
 	L"侦查",	//L"GetIntel",
 	L"医疗民兵",	//L"DoctorM.",
 	L"训练民兵",	//L"DMilitia",
-	L"Burial", // TODO.Translate
+	L"掩埋尸体", //L"Burial",
 };
 
 
@@ -2583,7 +2583,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"变装侦查",	//L"Get intel while disguised",
 	L"医疗受伤的民兵",	//L"Doctor wounded militia",
 	L"训练现有的民兵",	//L"Drill existing militia",
-	L"Bury corpses", // TODO.Translate
+	L"掩埋尸体", //L"Bury corpses",
 };
 
 
@@ -2650,7 +2650,7 @@ STR16 pLongAssignmentStrings[] =
 	L"变装侦查",	//L"Get intel while disguised",
 	L"医疗受伤的民兵",	//L"Doctor wounded militia",
 	L"训练现有的民兵",	//L"Drill existing militia",
-	L"Bury corpses", // TODO.Translate
+	L"掩埋尸体", //L"Bury corpses",
 };
 
 
@@ -3475,7 +3475,7 @@ STR16 gpStrategicString[] =
 	//Various strings (translate word for word)
 
 	L"分区",
-	L"选择进入的位置（大地图版本，可以按上下左右键来移动屏幕）",
+	L"选择进入的位置（大地图可以按“↑”“↓”“←”“→”键来移动屏幕）",
 
 	//Strings used for various popup message boxes.  Can be as long as desired.
 
@@ -8448,7 +8448,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|感|染|防|护", //L"|I|n|f|e|c|t|i|o|n |P|r|o|t|e|c|t|i|o|n",	 // 39
 	L"|护|盾", //L"|S|h|i|e|l|d",
 	L"|照|相|机",		//L"|C|a|m|e|r|a",
-	L"|B|u|r|i|a|l |M|o|d|i|f|i|e|r", // TODO.Translate
+	L"|掩|埋|工|具|", //L"|B|u|r|i|a|l |M|o|d|i|f|i|e|r",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8495,7 +8495,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 	L"\n \n拿在手里，就可以抵挡前方的伤害。", //L"\n \nIf equipped in a hand, this will block incoming damage.",
 	L"\n \n你可以使用它拍照。",		//L"\n \nYou can take photos with this.",
-	L"\n \nThis item makes you more effective at burying corpses.", // TODO.Translate
+	L"\n \n这个物品能让你更有效地掩埋尸体。", //L"\n \nThis item makes you more effective at burying corpses.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -9069,7 +9069,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％ 如果在蹲下状态，视野方向发现敌人，即可瞄准 \n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%％ 建设速度 \n",//L" %s%d%% building speed\n",
 	L" 黑客技能: %s%d ",//L" hacking skill: %s%d ",
-	L" %s%d%% burial speed\n",	// TODO.Translate
+	L" %s%d%% 掩埋尸体速度 \n",	//L" %s%d%% burial speed\n",
 };
 
 STR16		szBackgroundTitleText[] =
@@ -11004,13 +11004,13 @@ STR16	szDiseaseText[] =
 
 	L"诊断", //	L"Diagnosis",
 	L"治疗", //L"Treatment",
-	L"Burial",	// TODO.Translate
+	L"掩埋尸体",	//L"Burial",
 	L"取消", //L"Cancel",　
 
 	L"\n\n%s (未诊断的) - %d / %d\n",	//L"\n\n%s (undiagnosed) - %d / %d\n",
 
-	L"High amount of distress can cause a personality split\n",	// TODO.Translate
-	L"Contaminated items found in %s' inventory.",
+	L"高度的痛苦会导致人格分裂\n",	//L"High amount of distress can cause a personality split\n",
+	L"在%s'库存中发现污染物品。", //L"Contaminated items found in %s' inventory.",
 };
 
 STR16	szSpyText[] =
