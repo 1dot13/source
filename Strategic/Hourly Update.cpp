@@ -458,33 +458,36 @@ void HourlyLarryUpdate()
 
 						if ( fBar )
 						{
-							// take $ from player's account
-							// silversurfer: changed the price to reflect the changed amount of 25% below
-							//usCashAmount = Item[ ALCOHOL ].usPrice;
-							usCashAmount = (UINT16)( Item[ALCOHOL].usPrice / 4.0f );
-							AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin(), -( usCashAmount ) );
 							// give Larry some booze and set slot etc values appropriately
 							// CHRISL: Change final parameter to allow dynamic control of inventory slots
 							bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
 							if ( bBoozeSlot != NO_SLOT )
 							{
+								// take $ from player's account
+								// silversurfer: changed the price to reflect the changed amount of 25% below
+								//usCashAmount = Item[ ALCOHOL ].usPrice;
+								usCashAmount = (UINT16)( Item[ALCOHOL].usPrice / 4.0f );
+								AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin(), -( usCashAmount ) );
+
 								// give Larry booze here
 								// silversurfer: only give the merc a 25% bottle. This fixes the problem that the bottle of alcohol can go to any inventory slot even one that isn't available.
 								// Now the bottle will be fully consumed below and vanishes from inventory before the player even gets to see it. This simulates going to a bar to have a drink there.
-								//CreateItem( ALCOHOL, 100, &(pSoldier->inv[bBoozeSlot]) );
-								CreateItem( ALCOHOL, 25, &( pSoldier->inv[bBoozeSlot] ) );
-							}
-							bSlot = bBoozeSlot;
-							
-							if ( bSlot != NO_SLOT )
-							{
-								UseKitPoints( &( pSoldier->inv[bSlot] ), 25/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
+
+								UINT8 portionsize = 25;
+								if ( Item[ALCOHOL].usPortionSize > 0 && Item[ALCOHOL].usPortionSize < 25 )
+									portionsize = Item[ALCOHOL].usPortionSize;
+
+								CreateItem( ALCOHOL, portionsize, &( pSoldier->inv[bBoozeSlot] ) );
+
+								ApplyConsumable( pSoldier, &( pSoldier->inv[bBoozeSlot] ), TRUE, FALSE );
 							}
 						}
 						else
 						{
 							if ( pObj )
-								UseKitPoints( pObj, 100/*LarryItems[ bLarryItemLoop ][ 2 ]*/, pSoldier );
+							{
+								ApplyConsumable( pSoldier, pObj, TRUE, FALSE );
+							}
 						}
 					}
 				}
