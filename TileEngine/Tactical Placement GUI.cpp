@@ -443,11 +443,11 @@ void InitTacticalPlacementGUI()
 		{
 			ubFaceIndex = gMercProfiles[ gMercPlacement[ i ].pSoldier->ubProfile ].ubFaceIndex;
 			
-		if ( ( ubFaceIndex < 100 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
+		if ( ( ubFaceIndex < 100 ) && gMercProfiles[gMercPlacement[i].pSoldier->ubProfile].Type == PROFILETYPE_IMP )
 		{
 			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", ubFaceIndex );
 		} 
-		else if ( ( ubFaceIndex > 99 ) && ( gProfilesIMP[ gMercPlacement[ i ].pSoldier->ubProfile ].ProfilId == gMercPlacement[ i ].pSoldier->ubProfile ) )
+		else if ( ( ubFaceIndex > 99 ) && gMercProfiles[gMercPlacement[i].pSoldier->ubProfile].Type == PROFILETYPE_IMP )
 		{
 			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", ubFaceIndex );
 		}

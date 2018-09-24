@@ -5720,17 +5720,19 @@ BOOLEAN HandlePlayerGroupEnteringSectorToCheckForNPCsOfNote( GROUP *pGroup )
 
 BOOLEAN WildernessSectorWithAllProfiledNPCsNotSpokenWith( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	UINT8									ubProfile;
 	MERCPROFILESTRUCT *		pProfile;
 	BOOLEAN fFoundSomebody = FALSE;
 
-	
-	//for ( ubProfile = FIRST_RPC; ubProfile < GASTON; ubProfile++ )
-	//new profiles by Jazz
-	for ( ubProfile = 0; ubProfile < NUM_PROFILES; ubProfile++ )
-	{
-	
-		if ( gProfilesRPC[ubProfile].ProfilId == ubProfile || gProfilesNPC[ubProfile].ProfilId == ubProfile || gProfilesVehicle[ubProfile].ProfilId == ubProfile)	
+	for ( UINT32 ubProfile = 0; ubProfile < NUM_PROFILES; ++ubProfile )
+	{	
+		// skip vehicles
+		if ( gMercProfiles[ubProfile].Type == PROFILETYPE_VEHICLE )
+		{
+			continue;
+		}
+
+		if ( gMercProfiles[ubProfile].Type == PROFILETYPE_RPC ||
+			gMercProfiles[ubProfile].Type == PROFILETYPE_NPC )
 		{
 			pProfile = &gMercProfiles[ ubProfile ];
 
@@ -5739,14 +5741,7 @@ BOOLEAN WildernessSectorWithAllProfiledNPCsNotSpokenWith( INT16 sSectorX, INT16 
 			{
 				continue;
 			}
-
- 			// skip vehicles
-			//if ( ubProfile >= PROF_HUMMER && ubProfile <= PROF_HELICOPTER )
-			if ( gProfilesVehicle[ubProfile].ProfilId == ubProfile )
-			{
-				continue;
-			}
-
+			 			
 			// in this sector?
 			if ( pProfile->sSectorX == sSectorX && pProfile->sSectorY == sSectorY && pProfile->bSectorZ == bSectorZ )
 			{

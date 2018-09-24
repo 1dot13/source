@@ -120,7 +120,7 @@ DDBox::Display( )
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
 		// IMP faces are stored elsewhere
-		if ( gProfilesIMP[mEvent.usSpeaker].ProfilId == mEvent.usSpeaker )
+		if ( gMercProfiles[mEvent.usSpeaker].Type == PROFILETYPE_IMP )
 		{
 			sprintf( sTemp, "IMPFACES\\%02d.sti", gMercProfiles[mEvent.usSpeaker].ubFaceIndex );
 		}

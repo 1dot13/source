@@ -36,15 +36,16 @@
 
 void InitializeProfilesForTownReputation( void )
 {
-	UINT32 uiProfileId = 0;
-
 	// initialize the town opinion values in each recruitable merc's profile structure
 	//for( uiProfileId = 0; uiProfileId < FIRST_NPC; uiProfileId++ )
 	//new profiles by Jazz	
-	for( uiProfileId = 0; uiProfileId < NUM_PROFILES; uiProfileId++ )
+	for( UINT32 uiProfileId = 0; uiProfileId < NUM_PROFILES; ++uiProfileId )
 	{
-		if ( gProfilesIMP[uiProfileId].ProfilId == uiProfileId || gProfilesRPC[uiProfileId].ProfilId == uiProfileId || gProfilesAIM[uiProfileId].ProfilId == uiProfileId || gProfilesMERC[uiProfileId].ProfilId == uiProfileId) 
-		memset( &( gMercProfiles[ uiProfileId ].bMercTownReputation ), INITIAL_TOWN_REPUTATION, sizeof( gMercProfiles[ uiProfileId ].bMercTownReputation ) );
+		if ( gMercProfiles[uiProfileId].Type == PROFILETYPE_AIM ||
+			gMercProfiles[uiProfileId].Type == PROFILETYPE_MERC ||
+			gMercProfiles[uiProfileId].Type == PROFILETYPE_RPC ||
+			gMercProfiles[uiProfileId].Type == PROFILETYPE_IMP )
+			memset( &( gMercProfiles[ uiProfileId ].bMercTownReputation ), INITIAL_TOWN_REPUTATION, sizeof( gMercProfiles[ uiProfileId ].bMercTownReputation ) );
 	}
 }
 
@@ -131,21 +132,21 @@ void UpdateTownOpinionOfThisMercForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubTownI
 
 void HandleSpreadOfAllTownsOpinion( void )
 {
-	UINT8 ubProfileId;
-
 	// debug message
 	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"%s - Spreading town opinions about mercs", WORLDTIMESTR );
 
 	// run though all player-recruitable profiles and update towns opinion of mercs
 	//for( ubProfileId = 0; ubProfileId < FIRST_NPC; ubProfileId++ )
 	//new profiles by Jazz	
-	for( ubProfileId = 0; ubProfileId < NUM_PROFILES; ubProfileId++ )	
+	for( int ubProfileId = 0; ubProfileId < NUM_PROFILES; ++ubProfileId )	
 	{
-		if ( gProfilesIMP[ubProfileId].ProfilId == ubProfileId || gProfilesAIM[ubProfileId].ProfilId == ubProfileId || gProfilesMERC[ubProfileId].ProfilId == ubProfileId || gProfilesRPC[ubProfileId].ProfilId == ubProfileId)
-		HandleSpreadOfTownOpinionForMerc( ubProfileId );
+		if ( gMercProfiles[ubProfileId].Type == PROFILETYPE_AIM ||
+			gMercProfiles[ubProfileId].Type == PROFILETYPE_MERC ||
+			gMercProfiles[ubProfileId].Type == PROFILETYPE_RPC ||
+			gMercProfiles[ubProfileId].Type == PROFILETYPE_IMP )
+			HandleSpreadOfTownOpinionForMerc( ubProfileId );
 	}
 }
-
 
 void HandleSpreadOfTownOpinionForMerc( UINT8 ubProfileId )
 {

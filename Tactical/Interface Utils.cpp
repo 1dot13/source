@@ -71,24 +71,16 @@ STR pbCarPortraitFileNames[ ]={
 	"INTERFACE\\Jeep.sti",
 };
 
-
 // load int he portraits for the car faces that will be use in mapscreen
 BOOLEAN LoadCarPortraitValues( void )
 {
 	VOBJECT_DESC	 VObjectDesc;
 	
-	/*
-	if( giCarPortraits[ 0 ] != -1 )
-	{
-		return FALSE;
-	}
-	*/
-	
 	for ( INT32 iCounter = 0; iCounter < NUM_PROFILES; ++iCounter )
 	{
 		// silversurfer: fixed to make sure that we only create objects for vehicles that have a face defined
 		// otherwise CHECKF will fail and return FALSE breaking the for loop and ignoring any further vehicles
-		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter && gNewVehicle[ iCounter ].szIconFace[0] != 0 )
+		if ( gMercProfiles[iCounter].Type == PROFILETYPE_VEHICLE && gNewVehicle[ iCounter ].szIconFace[0] != 0 )
 		{
 			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 			strcpy( VObjectDesc.ImageFile, gNewVehicle[ iCounter ].szIconFace );
@@ -96,43 +88,20 @@ BOOLEAN LoadCarPortraitValues( void )
 		}
 	}
 	
-	/*
-	for( iCounter = 0; iCounter < NUMBER_CAR_PORTRAITS; iCounter++ )
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		sprintf( VObjectDesc.ImageFile, pbCarPortraitFileNames[ iCounter ] );
-		CHECKF( AddVideoObject( &VObjectDesc, (UINT32 *)&giCarPortraits[ iCounter ] ) );
-	}*/
 	return( TRUE );
 }
 
 // get rid of the images we loaded for the mapscreen car portraits
 void UnLoadCarPortraits( void )
 {
-	// car protraits loaded?
-	/*
-	if( giCarPortraits[ 0 ] == -1 )
-	{
-		return;
-	}
-	
-	for( iCounter = 0; iCounter < NUMBER_CAR_PORTRAITS; iCounter++ )
-	{
-		DeleteVideoObjectFromIndex( giCarPortraits[ iCounter ] );
-		giCarPortraits[ iCounter ] = -1;
-	}
-	*/
-	
 	for ( INT32 iCounter = 0; iCounter < NUM_PROFILES; ++iCounter )
 	{
-		if ( gProfilesVehicle[ iCounter ].ProfilId == iCounter )
+		if ( gMercProfiles[iCounter].Type == PROFILETYPE_VEHICLE )
 		{
 			DeleteVideoObjectFromIndex( giCarPortraits[ iCounter ] );
 		}
 	}
 }
-
-
 
 void DrawLifeUIBarEx( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight, BOOLEAN fErase, UINT32 uiBuffer )
 {

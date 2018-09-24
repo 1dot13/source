@@ -350,8 +350,6 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].bArmourAttractiveness = pData->curProfile.bArmourAttractiveness;
 					tempProfiles[pData->curIndex].bMainGunAttractiveness = pData->curProfile.bMainGunAttractiveness;
 					
-					tempProfiles[pData->curIndex].Type = pData->curProfile.Type;
-					
 					tempProfiles[pData->curIndex].sSectorX = pData->curProfile.sSectorX;
 					tempProfiles[pData->curIndex].sSectorY = pData->curProfile.sSectorY;
 					tempProfiles[pData->curIndex].bSectorZ = pData->curProfile.bSectorZ;
@@ -360,10 +358,10 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 					tempProfiles[pData->curIndex].bTownAttachment = pData->curProfile.bTownAttachment;
 					tempProfiles[pData->curIndex].usBackground = pData->curProfile.usBackground;
 					tempProfiles[pData->curIndex].usVoiceIndex = pData->curProfile.usVoiceIndex;
+					tempProfiles[pData->curIndex].Type = pData->curProfile.Type;
 					
 					tempProfiles[pData->curIndex].fGoodGuy = pData->curProfile.fGoodGuy;
-					memcpy( &(tempProfiles[pData->curIndex].usApproachFactor), &(pData->curProfile.usApproachFactor), 4 * sizeof (UINT16));
-					
+					memcpy( &(tempProfiles[pData->curIndex].usApproachFactor), &(pData->curProfile.usApproachFactor), 4 * sizeof (UINT16));					
 				}
 				else
 				{
@@ -1245,43 +1243,6 @@ BOOLEAN WriteMercProfiles()
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",						cnt);
 			
-			if (cnt >= 0 && cnt < 40 )
-			{	
-				FilePrintf(hFile,"\t\t<Type>1</Type>\r\n");
-			}
-			else if (cnt >= 40 && cnt < 51 )
-			{	
-				FilePrintf(hFile,"\t\t<Type>2</Type>\r\n");
-			}
-			else if ( cnt >= FIRST_RPC && cnt < FIRST_NPC )
-			{	
-				FilePrintf(hFile,"\t\t<Type>3</Type>\r\n");
-			}
-			else if ( cnt >= FIRST_NPC && cnt < 160 )
-			{	
-				FilePrintf(hFile,"\t\t<Type>4</Type>\r\n");
-			}
-			else if ( cnt == 169 )
-			{	
-				FilePrintf(hFile,"\t\t<Type>4</Type>\r\n");
-			}	
-			else if ( cnt == 165 || cnt == 166 || cnt == 167 || cnt == 168 )
-			{	
-				FilePrintf(hFile,"\t\t<Type>2</Type>\r\n");
-			}
-			else if ( cnt == 51 || cnt == 52 || cnt == 53 || cnt == 54 || cnt == 55 || cnt == 56 )
-			{	
-				FilePrintf(hFile,"\t\t<Type>6</Type>\r\n");
-			}
-			else if ( cnt == 160 || cnt == 161 || cnt == 162 || cnt == 163 || cnt == 164 )
-			{	
-				FilePrintf(hFile,"\t\t<Type>5</Type>\r\n");
-			}
-			else 
-			{
-				FilePrintf(hFile,"\t\t<Type>0</Type>\r\n");			
-			}
-			
 
 			//////////////////////////////
 			// Write Character Name
@@ -1391,6 +1352,7 @@ BOOLEAN WriteMercProfiles()
 			//
 
 			FilePrintf(hFile,"\t\t<ubFaceIndex>%d</ubFaceIndex>\r\n", gMercProfiles[ cnt ].ubFaceIndex);
+			FilePrintf(hFile,"\t\t<Type>%d</Type>\r\n", gMercProfiles[cnt].Type );
 			FilePrintf(hFile,"\t\t<usVoiceIndex>%d</usVoiceIndex>\r\n", gMercProfiles[cnt].usVoiceIndex );
 			FilePrintf(hFile,"\t\t<usEyesX>%d</usEyesX>\r\n", gMercProfiles[ cnt ].usEyesX);
 			FilePrintf(hFile,"\t\t<usEyesY>%d</usEyesY>\r\n", gMercProfiles[ cnt ].usEyesY);

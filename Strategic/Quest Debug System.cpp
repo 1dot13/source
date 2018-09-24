@@ -3297,24 +3297,23 @@ void AddNPCsInSectorToArray()
 
 	//Setup array of merc who are in the current sector
 	i=0;
-	for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; pSoldier++, cnt++ )
+	for ( pSoldier = Menptr, cnt = 0; cnt < TOTAL_SOLDIERS; ++pSoldier, ++cnt )
 	{
 		if ( ( pSoldier != NULL ) && pSoldier->bActive )
 		{
 			//if soldier is a NPC, add him to the local NPC array
-			//if( ( pSoldier->ubProfile >= FIRST_RPC ) && ( pSoldier->ubProfile < GASTON ) )
-			//new profiles by Jazz
-			if ( gProfilesRPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesNPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesVehicle[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
+			if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_RPC ||
+				gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_NPC ||
+				gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_VEHICLE )
 			{
 				gubCurrentNpcInSector[ i ] = pSoldier->ubProfile;
 				i++;
 			}
 		}
-
 	}
+
 	gubNumNPCinSector = (UINT8)i;
 }
-
 
 void ChangeQuestState( INT32 iNumber )
 {
@@ -3695,15 +3694,15 @@ void RefreshAllNPCInventory()
 	UINT16	usItemCnt;
 	UINT16	usItem;
 
-	for ( usCnt=0; usCnt < TOTAL_SOLDIERS; usCnt++ )
+	for ( usCnt=0; usCnt < TOTAL_SOLDIERS; ++usCnt )
 	{
 		//if the is active
 		if( Menptr[ usCnt ].bActive == 1 )
 		{
 			//is the merc a rpc or npc
-			//if( Menptr[ usCnt ].ubProfile >= FIRST_RPC && Menptr[ usCnt ].ubProfile < GASTON )
-			//new profiles by Jazz
-			if ( gProfilesRPC[Menptr[ usCnt ].ubProfile].ProfilId == Menptr[ usCnt ].ubProfile || gProfilesNPC[Menptr[ usCnt ].ubProfile].ProfilId == Menptr[ usCnt ].ubProfile || gProfilesVehicle[Menptr[ usCnt ].ubProfile].ProfilId == Menptr[ usCnt ].ubProfile )
+			if ( gMercProfiles[usCnt].Type == PROFILETYPE_RPC ||
+				gMercProfiles[usCnt].Type == PROFILETYPE_NPC ||
+				gMercProfiles[usCnt].Type == PROFILETYPE_VEHICLE )
 			{
 				//refresh the mercs inventory
 				UINT16 invsize = Menptr[ usCnt ].inv.size();
@@ -3988,9 +3987,9 @@ UINT8	WhichPanelShouldTalkingMercUse( )
 		return( QDS_NO_PANEL );
 	}
 
-	//if( gTalkingMercSoldier->ubProfile < FIRST_RPC || gTalkingMercSoldier->ubProfile >= GASTON )
-	//new profiles by Jazz
-	if ( gProfilesAIM[gTalkingMercSoldier->ubProfile].ProfilId == gTalkingMercSoldier->ubProfile || gProfilesMERC[gTalkingMercSoldier->ubProfile].ProfilId == gTalkingMercSoldier->ubProfile || gProfilesIMP[gTalkingMercSoldier->ubProfile].ProfilId == gTalkingMercSoldier->ubProfile )
+	if ( gMercProfiles[gTalkingMercSoldier->ubProfile].Type == PROFILETYPE_AIM ||
+		gMercProfiles[gTalkingMercSoldier->ubProfile].Type == PROFILETYPE_MERC ||
+		gMercProfiles[gTalkingMercSoldier->ubProfile].Type == PROFILETYPE_IMP )
 	{
 		return( QDS_REGULAR_PANEL );
 	}

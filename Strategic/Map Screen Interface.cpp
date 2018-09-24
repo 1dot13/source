@@ -4929,11 +4929,11 @@ void AddSoldierToUpdateBox( SOLDIERTYPE *pSoldier )
 			
 			
 			
-		if ( ( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex < 100 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
+		if ( ( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex < 100 ) && gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP )
 		{
 			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
 		} 
-		else if ( ( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex > 99 ) && ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile ) )
+		else if ( ( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex > 99 ) && gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP )
 		{			
 			sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );
 		}

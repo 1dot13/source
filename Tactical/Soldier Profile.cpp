@@ -81,14 +81,8 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-//new profiles by Jazz-------------------------------
-AIM_PROFIL  gProfilesAIM[ NUM_PROFILES ];
-MERC_PROFIL gProfilesMERC[ NUM_PROFILES ];
-NPC_PROFIL  gProfilesNPC[ NUM_PROFILES ];
-RPC_PROFIL  gProfilesRPC[ NUM_PROFILES ];
-VEHICLE_PROFIL  gProfilesVehicle[ NUM_PROFILES ];
-IMP_PROFIL gProfilesIMP[NUM_PROFILES];
-//---------------------------------------------------
+// Flugente: why do we require 6 different structures and arrays if all we keep track of is the profile type? A simple array is enough
+UINT8 gProfileType[NUM_PROFILES];
 
 BOOLEAN	gfPotentialTeamChangeDuringDeath = FALSE;
 
@@ -260,185 +254,36 @@ void DecideActiveTerrorists( void );
 extern SOLDIERTYPE			*gpSMCurrentMerc;
 extern BOOLEAN	gfRerenderInterfaceFromHelpText;
 
-BOOLEAN SaveNewSystemMercsToSaveGameFile( HWFILE hFile );
-BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile );
-void InitNewProfiles();
-
-
-// WANNE: This method is not needed anymore. All the stuff is done in the LoadMercProfiles() method.
-void InitNewProfiles()
-{
-	UINT32 uiProfileId = 0;
-	
-	UINT32 i = 0;
-	
-	UINT32 uiLoop;
-	
-	//new profiles by Jazz
-	for( uiProfileId = 0; uiProfileId < NUM_PROFILES; uiProfileId++ )
-	{	
-		gProfilesAIM[ uiProfileId ].ProfilId = -1;
-		gProfilesMERC[ uiProfileId ].ProfilId = -1;
-		gProfilesNPC[ uiProfileId ].ProfilId = -1;
-		gProfilesRPC[ uiProfileId ].ProfilId = -1;
-		gProfilesVehicle[ uiProfileId ].ProfilId = -1;
-		gProfilesIMP[ uiProfileId ].ProfilId = -1;
-	}
-	
-	for( uiProfileId = 0; uiProfileId < 40; uiProfileId++ )
-	{	
-		gProfilesAIM[ uiProfileId ].ProfilId = uiProfileId;
-	}
-	
-	for( uiProfileId = 40; uiProfileId < 51; uiProfileId++ )
-	{	
-		gProfilesMERC[ uiProfileId ].ProfilId = uiProfileId;
-	}
-	
-	for( uiProfileId = FIRST_RPC; uiProfileId < FIRST_NPC; uiProfileId++ )
-	{	
-		gProfilesRPC[ uiProfileId ].ProfilId = uiProfileId;
-	}
-	
-	for( uiProfileId = FIRST_NPC; uiProfileId < 160; uiProfileId++ )
-	{	
-		gProfilesNPC[ uiProfileId ].ProfilId = uiProfileId;
-	}
-	
-	//IMP
-	gProfilesIMP[ 51 ].ProfilId = 51; //IMP Male
-	gProfilesIMP[ 52 ].ProfilId = 52; //IMP Male
-	gProfilesIMP[ 53 ].ProfilId = 53; //IMP Male
-	gProfilesIMP[ 54 ].ProfilId = 54; //IMP Female
-	gProfilesIMP[ 55 ].ProfilId = 55; //IMP Female
-	gProfilesIMP[ 56 ].ProfilId = 56; //IMP Female
-	
-	//Vehicle
-	gProfilesVehicle[ 160 ].ProfilId = 160; //Hummer
-	gProfilesVehicle[ 161 ].ProfilId = 161; //El Dorado
-	gProfilesVehicle[ 162 ].ProfilId = 162; //Truck
-	gProfilesVehicle[ 163 ].ProfilId = 163; //HELICOPTER
-	gProfilesVehicle[ 164 ].ProfilId = 164; //TANK_CAR
-	
-	//NPC
-	gProfilesNPC[ 169 ].ProfilId = 169; //none
-	
-	//MERC
-	gProfilesMERC[ 165 ].ProfilId = 165; //Gaston
-	gProfilesMERC[ 166 ].ProfilId = 166; //Stogie
-	gProfilesMERC[ 167 ].ProfilId = 167; //Tex
-	gProfilesMERC[ 168 ].ProfilId = 168; //Beggins
-	
-	for(uiLoop=0; uiLoop < 40; uiLoop++)
-	{
-		if ( gProfilesAIM[uiLoop].ProfilId == uiLoop )
-		{
-			AimMercArray[ i ]  = uiLoop;
-		}
-		i++;
-	}	
-			
-	MAX_NUMBER_MERCS = 40;	
-	START_MERC = 0;
-	
-	if ( gGameExternalOptions.fReadProfileDataFromXML == TRUE )
-	{		
-		for( uiProfileId = 0; uiProfileId < NUM_PROFILES; uiProfileId++ )
-		{	
-			gProfilesAIM[ uiProfileId ].ProfilId = -1;
-			gProfilesMERC[ uiProfileId ].ProfilId = -1;
-			gProfilesNPC[ uiProfileId ].ProfilId = -1;
-			gProfilesRPC[ uiProfileId ].ProfilId = -1;
-			gProfilesVehicle[ uiProfileId ].ProfilId = -1;
-			gProfilesIMP[ uiProfileId ].ProfilId = -1;
-		}
-	}
-		
-	//------------------------------------------------------------------------
-}
-
-BOOLEAN SaveNewSystemMercsToSaveGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesWritten;
-
-	FileWrite( hFile, &gProfilesAIM, sizeof( gProfilesAIM), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( gProfilesAIM ) )
-	{
-		return( FALSE );
-	}
-	
-	FileWrite( hFile, &gProfilesMERC, sizeof( gProfilesMERC), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( gProfilesMERC ) )
-	{
-		return( FALSE );
-	}
-	
-	FileWrite( hFile, &gProfilesNPC, sizeof( gProfilesNPC), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( gProfilesNPC ) )
-	{
-		return( FALSE );
-	}
-	
-	FileWrite( hFile, &gProfilesRPC, sizeof( gProfilesRPC), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( gProfilesRPC ) )
-	{
-		return( FALSE );
-	}
-	
-	FileWrite( hFile, &gProfilesVehicle, sizeof( gProfilesVehicle), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( gProfilesVehicle ) )
-	{
-		return( FALSE );
-	}
-	
-	FileWrite( hFile, &gProfilesIMP, sizeof( gProfilesIMP), &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( gProfilesIMP ) )
-	{
-		return( FALSE );
-	}	
-	return( TRUE );
-}
-
 BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile )
 {
+	// read the old data from the save file and store it in the new array while you're at it
 	UINT32	uiNumBytesRead;
 
-	FileRead( hFile, &gProfilesAIM, sizeof( gProfilesAIM), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gProfilesAIM ) )
-	{
-		return( FALSE );
-	}
-	
-	FileRead( hFile, &gProfilesMERC, sizeof( gProfilesMERC), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gProfilesMERC ) )
-	{
-		return( FALSE );
-	}
-	
-	FileRead( hFile, &gProfilesNPC, sizeof( gProfilesNPC), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gProfilesNPC ) )
-	{
-		return( FALSE );
-	}
-	
-	FileRead( hFile, &gProfilesRPC, sizeof( gProfilesRPC), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gProfilesRPC ) )
-	{
-		return( FALSE );
-	}
-	
-	FileRead( hFile, &gProfilesVehicle, sizeof( gProfilesVehicle), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gProfilesVehicle ) )
-	{
-		return( FALSE );
-	}
-	
-	FileRead( hFile, &gProfilesIMP, sizeof( gProfilesIMP), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gProfilesIMP ) )
-	{
-		return( FALSE );
-	}	
+	for ( int i = 0; i < NUM_PROFILES; ++i )
+		gProfileType[i] = PROFILETYPE_NONE;
 
+	typedef struct
+	{
+		UINT8 ProfilId;
+	} TMP_PROFIL;
+
+	TMP_PROFIL  tmpprofilewedontreallyneed[NUM_PROFILES];
+
+	for ( int profiletype = PROFILETYPE_AIM; profiletype < PROFILETYPE_MAX; ++profiletype )
+	{
+		FileRead( hFile, &tmpprofilewedontreallyneed, sizeof( tmpprofilewedontreallyneed ), &uiNumBytesRead );
+		if ( uiNumBytesRead != sizeof( tmpprofilewedontreallyneed ) )
+		{
+			return( FALSE );
+		}
+
+		for ( int i = 0; i < NUM_PROFILES; ++i )
+		{
+			if ( tmpprofilewedontreallyneed[i].ProfilId == i )
+				gProfileType[i] = profiletype;
+		}
+	}
+	
 	return( TRUE );
 }
 
@@ -711,12 +556,7 @@ BOOLEAN LoadMercProfiles(void)
 
 	UINT32 uiLoop, uiLoop2;//, uiLoop3;
 	UINT16 usItem;//, usNewGun, usAmmo, usNewAmmo;
-	
-	// ----- WANNE.PROFILE: New Profile Loading - BEGIN
-	//InitNewProfiles();
-	// ----- WANNE.PROFILE: New Profile Loading - END
-
-
+		
 	if (gGameExternalOptions.fUseDifficultyBasedProfDat == TRUE)
 	{
 		switch ( gGameOptions.ubDifficultyLevel)
@@ -764,8 +604,7 @@ BOOLEAN LoadMercProfiles(void)
 #endif
 
 	}
-
-
+	
 	if( !fptr )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("FAILED to LoadMercProfiles from file %s", pFileName) );
@@ -773,21 +612,16 @@ BOOLEAN LoadMercProfiles(void)
 	}
 
 	// Reset
-	for( int uiProfileId = 0; uiProfileId < NUM_PROFILES; uiProfileId++ )
-	{	
-		gProfilesAIM[ uiProfileId ].ProfilId = -1;
-		gProfilesMERC[ uiProfileId ].ProfilId = -1;
-		gProfilesNPC[ uiProfileId ].ProfilId = -1;
-		gProfilesRPC[ uiProfileId ].ProfilId = -1;
-		gProfilesVehicle[ uiProfileId ].ProfilId = -1;
-		gProfilesIMP[ uiProfileId ].ProfilId = -1;
+	for( int uiProfileId = 0; uiProfileId < NUM_PROFILES; ++uiProfileId )
+	{
+		gProfileType[uiProfileId] = PROFILETYPE_NONE;
 	}
 
 	int profileIndex = -1;
 
-	for(uiLoop=0; uiLoop< NUM_PROFILES; uiLoop++)
+	for(uiLoop=0; uiLoop< NUM_PROFILES; ++uiLoop)
 	{
-		profileIndex++;
+		++profileIndex;
 
 		// Changed by ADB, rev 1513
 		//if( !gMercProfiles[uiLoop].Load(fptr, true))
@@ -816,6 +650,7 @@ BOOLEAN LoadMercProfiles(void)
 			gMercProfiles[uiLoop].iMercMercContractLength = 0;
 
 			gMercProfiles[uiLoop].usBackground = 0;
+			gMercProfiles[uiLoop].Type = PROFILETYPE_NONE;
 
 			memset( &gMercProfiles[uiLoop].usDynamicOpinionFlagmask, 0, sizeof(gMercProfiles[uiLoop].usDynamicOpinionFlagmask) );
 
@@ -1010,25 +845,25 @@ BOOLEAN LoadMercProfiles(void)
 					gMercProfiles[ uiLoop ].usApproachFactor[3] = 100;
 				}
 			}
-
+			
 			// AIM und MERC ( 0 - 51 )
 			if (uiLoop < 51)
 			{
 				// AIM
 				if (uiLoop < 40)
 				{
-					gProfilesAIM[uiLoop].ProfilId = uiLoop;
+					gProfileType[uiLoop] = PROFILETYPE_AIM;
 				}
 				// MERC
 				else
 				{
-					gProfilesMERC[uiLoop].ProfilId = uiLoop;
+					gProfileType[uiLoop] = PROFILETYPE_MERC;
 				}			
 			}
 			// IMP (51 - 56)
 			else if (uiLoop >= 51 && uiLoop < FIRST_RPC)
 			{
-				gProfilesIMP[uiLoop].ProfilId = uiLoop;
+				gProfileType[uiLoop] = PROFILETYPE_IMP;
 			}
 			else
 			{
@@ -1041,7 +876,7 @@ BOOLEAN LoadMercProfiles(void)
 						case REGMALE:
 						case BIGMALE:
 						case REGFEMALE:
-							gProfilesMERC[uiLoop].ProfilId = uiLoop;
+							gProfileType[uiLoop] = PROFILETYPE_MERC;
 							break;
 						// Vehicle
 						case HUMVEE:
@@ -1051,11 +886,11 @@ BOOLEAN LoadMercProfiles(void)
 						case ICECREAMTRUCK:
 						case JEEP:
 						case COMBAT_JEEP:
-							gProfilesVehicle[uiLoop].ProfilId = uiLoop;
+							gProfileType[uiLoop] = PROFILETYPE_VEHICLE;
 							break;
 						// Make it an RPC
 						default:
-							gProfilesRPC[uiLoop].ProfilId = uiLoop;
+							gProfileType[uiLoop] = PROFILETYPE_RPC;
 							break;
 					}
 				}
@@ -1064,7 +899,7 @@ BOOLEAN LoadMercProfiles(void)
 					// Last Index -> NPC
 					if (uiLoop == 169)
 					{
-						gProfilesNPC[uiLoop].ProfilId = uiLoop;
+						gProfileType[uiLoop] = PROFILETYPE_NPC;
 					}
 					// NPC, RPC or Vehicle
 					else
@@ -1079,19 +914,19 @@ BOOLEAN LoadMercProfiles(void)
 							case ICECREAMTRUCK:
 							case JEEP:
 							case COMBAT_JEEP:
-								gProfilesVehicle[uiLoop].ProfilId = uiLoop;
+								gProfileType[uiLoop] = PROFILETYPE_VEHICLE;
 								break;
 							// RPC or NPC
 							default:
 								// RPC
 								if (uiLoop >= FIRST_RPC && uiLoop < FIRST_NPC)
 								{
-									gProfilesRPC[uiLoop].ProfilId = uiLoop;
+									gProfileType[uiLoop] = PROFILETYPE_RPC;
 								}
 								// NPC
 								else
 								{
-									gProfilesNPC[uiLoop].ProfilId = uiLoop;
+									gProfileType[uiLoop] = PROFILETYPE_NPC;
 								}
 								break;
 						}
@@ -1553,21 +1388,14 @@ void MakeRemainingAssassinsTougher( void )
 
 void StartSomeMercsOnAssignment(void)
 {
-	UINT32 uiCnt;
 	MERCPROFILESTRUCT *pProfile;
 	UINT32 uiChance;
 
 	// some randomly picked A.I.M. mercs will start off "on assignment" at the beginning of each new game
-	for( uiCnt = 0; uiCnt < NUM_PROFILES; uiCnt++) // AIM_AND_MERC_MERCS
+	for( UINT32 uiCnt = 0; uiCnt < NUM_PROFILES; ++uiCnt) // AIM_AND_MERC_MERCS
 	{
-		//new profiles by Jazz
-		if ( gProfilesAIM[ uiCnt ].ProfilId == (UINT8)uiCnt || gProfilesMERC[ uiCnt ].ProfilId == (UINT8)uiCnt )
+		if ( IsProfileIdAnAimOrMERCMerc( (UINT8)uiCnt ) )
 		{
-		if( !IsProfileIdAnAimOrMERCMerc( (UINT8)uiCnt ) )
-		{
-			continue;
-		}
-
 		pProfile = &(gMercProfiles[ uiCnt ]);
 #ifdef JA2UB		
 		//Make sure stigie and Gaston are available at the start of the game
@@ -2234,12 +2062,11 @@ BOOLEAN IsProfileAHeadMiner( UINT8 ubProfile )
 
 void UpdateSoldierPointerDataIntoProfile( BOOLEAN fPlayerMercs )
 {
-	UINT32 uiCount;
 	SOLDIERTYPE *pSoldier = NULL;
 	MERCPROFILESTRUCT * pProfile;
 	BOOLEAN				fDoCopy = FALSE;
 
-	for( uiCount=0; uiCount < guiNumMercSlots; uiCount++)
+	for( UINT32 uiCount=0; uiCount < guiNumMercSlots; ++uiCount)
 	{
 		pSoldier = MercSlots[ uiCount ];
 
@@ -2252,18 +2079,18 @@ void UpdateSoldierPointerDataIntoProfile( BOOLEAN fPlayerMercs )
 				// If we are above player mercs
 				if ( fPlayerMercs )
 				{
-					//if ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON )
-					//new profiles by Jazz
-					if ( gProfilesIMP[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesAIM[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesMERC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile)
+					if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_AIM || 
+						gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_MERC ||
+						gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP )
 					{
 						fDoCopy = TRUE;
 					}
 				}
 				else
 				{
-					//if ( pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < GASTON )
-					//new profiles by Jazz
-					if ( gProfilesRPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesNPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesVehicle[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
+					if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_RPC ||
+						gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_NPC ||
+						gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_VEHICLE )
 					{
 						fDoCopy = TRUE;
 					}
@@ -2604,9 +2431,7 @@ BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 BOOLEAN IsProfileIdAnAimOrMERCMerc( UINT8 ubProfileID )
 {
-
-	//if( ubProfileID < BIFF || ( ubProfileID >= BIFF && ubProfileID <= BUBBA ) || ubProfileID >= GASTON )
-	if( gProfilesAIM[ ubProfileID ].ProfilId == ubProfileID || gProfilesMERC[ ubProfileID ].ProfilId == ubProfileID )
+	if ( gMercProfiles[ ubProfileID ].Type == PROFILETYPE_AIM || gMercProfiles[ubProfileID].Type == PROFILETYPE_MERC )
 	{
 		return( TRUE );
 	}
@@ -2801,82 +2626,35 @@ void OverwriteMercProfileWithXMLData( UINT32 uiLoop )
 		gMercProfiles[ uiLoop ].bTownAttachment = tempProfiles[uiLoop].bTownAttachment;
 		gMercProfiles[ uiLoop ].usBackground = tempProfiles[uiLoop].usBackground;
 		gMercProfiles[ uiLoop ].usVoiceIndex = tempProfiles[uiLoop].usVoiceIndex;
-		
-					//None
-					if ( tempProfiles[uiLoop].Type == 0 )
-					{
-						//Reset
-						gMercProfiles[ uiLoop ].sSectorX = 0;
-						gMercProfiles[ uiLoop ].sSectorY = 0;
-						gMercProfiles[ uiLoop ].bSectorZ = 0;
-						gMercProfiles[ uiLoop ].bTown = 0;
-						gMercProfiles[ uiLoop ].bTownAttachment = 0;
-					}
-					
-					//AIM
-					if ( tempProfiles[uiLoop].Type == 1 )
-					{
-						gProfilesAIM[ uiLoop ].ProfilId = uiLoop;
-						
-						//Reset
-						gMercProfiles[ uiLoop ].sSectorX = 0;
-						gMercProfiles[ uiLoop ].sSectorY = 0;
-						gMercProfiles[ uiLoop ].bSectorZ = 0;
-						gMercProfiles[ uiLoop ].bTown = 0;
-						gMercProfiles[ uiLoop ].bTownAttachment = 0;
-					}
-					
-					//MERC
-					if ( tempProfiles[uiLoop].Type == 2 )
-					{
-						gProfilesMERC[ uiLoop ].ProfilId = uiLoop;
-						
-						//Reset
-						gMercProfiles[ uiLoop ].sSectorX = 0;
-						gMercProfiles[ uiLoop ].sSectorY = 0;
-						gMercProfiles[ uiLoop ].bSectorZ = 0;
-						gMercProfiles[ uiLoop ].bTown = 0;
-						gMercProfiles[ uiLoop ].bTownAttachment = 0;
-					}
-					
-					//RPC
-					if ( tempProfiles[uiLoop].Type == 3 )
-					{
-						gProfilesRPC[ uiLoop ].ProfilId = uiLoop;
-					}
-					
-					//NPC
-					if ( tempProfiles[uiLoop].Type == 4 )
-					{
-						gProfilesNPC[ uiLoop ].ProfilId = uiLoop;
-					}
-					
-					//Vehicle
-					if ( tempProfiles[uiLoop].Type == 5 )
-					{
-						gProfilesVehicle[ uiLoop ].ProfilId = uiLoop;
-					}
-					
-					//IMP
-					if ( tempProfiles[uiLoop].Type == 6 )
-					{
-						gProfilesIMP[ uiLoop ].ProfilId = uiLoop;
-						
-						//Reset
-						gMercProfiles[ uiLoop ].sSectorX = 0;
-						gMercProfiles[ uiLoop ].sSectorY = 0;
-						gMercProfiles[ uiLoop ].bSectorZ = 0;
-						gMercProfiles[ uiLoop ].bTown = 0;
-						gMercProfiles[ uiLoop ].bTownAttachment = 0;
-					}
-		
+		gMercProfiles[ uiLoop ].Type = tempProfiles[uiLoop].Type;
+
+		gProfileType[uiLoop] = gMercProfiles[uiLoop].Type;
+				
+		switch ( tempProfiles[uiLoop].Type )
+		{
+		case PROFILETYPE_RPC:
+		case PROFILETYPE_NPC:
+		case PROFILETYPE_VEHICLE:
+			break;
+
+		case PROFILETYPE_NONE:
+		case PROFILETYPE_AIM:
+		case PROFILETYPE_MERC:		
+		case PROFILETYPE_IMP:
+		default:
+			//Reset
+			gMercProfiles[uiLoop].sSectorX = 0;
+			gMercProfiles[uiLoop].sSectorY = 0;
+			gMercProfiles[uiLoop].bSectorZ = 0;
+			gMercProfiles[uiLoop].bTown = 0;
+			gMercProfiles[uiLoop].bTownAttachment = 0;
+			break;
+		}
 }
 
 void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop )
 {
-	UINT8 cnt;
-
-	for (cnt=0; cnt< NUMBER_OF_OPINIONS; ++cnt )
+	for ( UINT8 cnt=0; cnt< NUMBER_OF_OPINIONS; ++cnt )
 	{
 		gMercProfiles[ uiLoop ].bMercOpinion[cnt] = tempProfiles[ uiLoop ].bMercOpinion[cnt] ;
 	}
@@ -2892,13 +2670,9 @@ INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 	BOOLEAN				fOnlyOneException = FALSE;
 
 	pSoldier = FindSoldierByProfileID( ubProfileID, FALSE );
-	if (!pSoldier)
+	if (!pSoldier || !( pSoldier->bActive ) || !( pSoldier->bInSector ) )
 	{
 		return( -1 );
-	}
-	if( !(pSoldier->bActive) || !(pSoldier->bInSector) )
-	{
-		return( -1 );	
 	}
 
 	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)

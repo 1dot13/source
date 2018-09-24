@@ -187,6 +187,7 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	// Flugente: voice set used
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].usVoiceIndex = iSelectedIMPVoiceSet;
 
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].Type = PROFILETYPE_IMP;
 		
 	// WDS: Advanced start 
 	//gMercProfiles[ LaptopSaveInfo.iIMPIndex ].bExpLevel = gGameExternalOptions.ubIMPStartingLevel;

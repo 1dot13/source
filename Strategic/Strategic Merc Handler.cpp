@@ -219,15 +219,12 @@ void MercDailyUpdate()
 	AddSameDayStrategicEvent( EVENT_BEGIN_CONTRACT_RENEWAL_SEQUENCE, MERC_ARRIVE_TIME_SLOT_1,	0 );
 	AddSameDayStrategicEvent( EVENT_BEGIN_CONTRACT_RENEWAL_SEQUENCE, MERC_ARRIVE_TIME_SLOT_2,	0 );
 	AddSameDayStrategicEvent( EVENT_BEGIN_CONTRACT_RENEWAL_SEQUENCE, MERC_ARRIVE_TIME_SLOT_3,	0 );
-
-
+	
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-
-
-
+	
 	//loop though all the mercs
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; ++cnt,++pSoldier)
 	{
 		//if the merc is active
 		if ( ( pSoldier->bActive )&&( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != IN_TRANSIT ) )
@@ -246,7 +243,7 @@ void MercDailyUpdate()
 
 			if ( pSoldier->bCorpseQuoteTolerance < 0 )
 			{
-			pSoldier->bCorpseQuoteTolerance = 0;
+				pSoldier->bCorpseQuoteTolerance = 0;
 			}
 
 			// CJC: For some personalities, reset personality quote said flag
@@ -266,8 +263,7 @@ void MercDailyUpdate()
 						break;
 				}
 			}
-
-
+			
 			//ATE: Try to see if our equipment sucks!
 			if ( SoldierHasWorseEquipmentThanUsedTo( pSoldier ) )
 			{
@@ -280,16 +276,13 @@ void MercDailyUpdate()
 
 			// player has hired him, so he'll eligible to get killed off on another job
 			gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 |= PROFILE_MISC_FLAG3_PLAYER_HAD_CHANCE_TO_HIRE;
-
-
+			
 			//handle Slay differently if SlayForever is enabled
 			if( pSoldier->ubProfile == SLAY && gGameExternalOptions.fEnableSlayForever == TRUE)
 			{
 			}
 			//if the character is an RPC
-			//else if( pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < FIRST_NPC )
-			//new profiles by Jazz
-			else if ( gProfilesRPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
+			else if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_RPC )
 			{
 				INT16	sSalary = gMercProfiles[ pSoldier->ubProfile ].sSalary;
 				INT32	iMoneyOwedToMerc = 0;
@@ -488,12 +481,13 @@ void MercDailyUpdate()
 					{
 						oMerc = cnt;
 						iMerc = oMerc * 1;
-						
+
 						if ( oMerc != 0 )
 							pMerc = oMerc + 1;
 						else
 							pMerc = 0;
-						if ( gProfilesAIM[cnt].ProfilId == cnt )
+
+						if ( gMercProfiles[cnt].Type == PROFILETYPE_AIM )
 							AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_AIM_AVAILABLE);
 					}	
 					else	 
@@ -541,8 +535,7 @@ void MercDailyUpdate()
 			if( IsProfileIdAnAimOrMERCMerc( (UINT8)cnt ) )
 			{
 				// check to see if he goes on another assignment
-				//if (cnt < MAX_NUMBER_MERCS)
-				if ( gProfilesAIM[ cnt ].ProfilId == cnt ) //new profiles by Jazz
+				if ( gMercProfiles[cnt].Type == PROFILETYPE_AIM )
 				{
 					// A.I.M. merc
 					uiChance = 2 * pProfile->bExpLevel;
@@ -550,7 +543,7 @@ void MercDailyUpdate()
 					// player has now had a chance to hire him, so he'll eligible to get killed off on another job
 					pProfile->ubMiscFlags3 |= PROFILE_MISC_FLAG3_PLAYER_HAD_CHANCE_TO_HIRE;
 				}
-				else if ( gProfilesMERC[ cnt ].ProfilId == cnt ) //new profiles by Jazz
+				else if ( gMercProfiles[cnt].Type == PROFILETYPE_MERC )
 				{
 					// M.E.R.C. merc - very rarely get other work
 					uiChance = 1 * pProfile->bExpLevel;
@@ -562,6 +555,7 @@ void MercDailyUpdate()
 						pProfile->ubMiscFlags3 |= PROFILE_MISC_FLAG3_PLAYER_HAD_CHANCE_TO_HIRE;
 					}
 				}
+
 				// tais: disable mercs being on assignment
 				if (Random(100) < uiChance && gGameExternalOptions.fMercsOnAssignment < 2)
 				{
@@ -577,8 +571,7 @@ void MercDailyUpdate()
 			pProfile->ubDaysOfMoraleHangover--;
 		}
 	}
-
-
+	
 	// build quit list
 	//BuildMercQuitList( pQuitList );
 #ifdef JA2UB
@@ -1506,8 +1499,7 @@ void HandleAddingAnyAimAwayEmailsWhenLaptopGoesOnline()
 	UINT32 cnt;
 	INT32	iOffset;
 	MERCPROFILESTRUCT *pProfile;
-
-
+	
 	//Loop through all the profiles
 	for( cnt = 0; cnt < NUM_PROFILES; cnt++)
 	{
@@ -1539,13 +1531,14 @@ void HandleAddingAnyAimAwayEmailsWhenLaptopGoesOnline()
 							pMerc = oMerc + 1;
 						else
 							pMerc = 0;
-						if ( gProfilesAIM[cnt].ProfilId == cnt )
+
+						if ( gMercProfiles[cnt].Type == PROFILETYPE_AIM )
 							AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_AIM_AVAILABLE);
 					}
 					else
 					{
-					// TO DO: send E-mail to player telling him the merc has returned from an assignment
-					AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(),-1 ,-1, TYPE_EMAIL_EMAIL_EDT_NAME_MERC);
+						// TO DO: send E-mail to player telling him the merc has returned from an assignment
+						AddEmail( ( UINT8 )( iOffset + ( cnt * AIM_REPLY_LENGTH_BARRY ) ), AIM_REPLY_LENGTH_BARRY, ( UINT8 )( 6 + cnt ), GetWorldTotalMin(),-1 ,-1, TYPE_EMAIL_EMAIL_EDT_NAME_MERC);
 					}
 				}
 			}

@@ -972,6 +972,9 @@ public:
 
 	// Flugente: voice set used
 	UINT32 usVoiceIndex;
+
+	// Flugente: type of profile
+	UINT32 Type;
 }; // MERCPROFILESTRUCT;
 
 // WANNE - BMP: DONE!

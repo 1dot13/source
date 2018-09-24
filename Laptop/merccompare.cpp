@@ -476,7 +476,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	// face 1
 	// IMP faces are stored elsewhere
-	if ( gProfilesIMP[usProfileA].ProfilId == usProfileA )
+	if ( gMercProfiles[usProfileA].Type == PROFILETYPE_IMP )
 	{
 		sprintf( sTemp, "IMPFACES\\%02d.sti", gMercProfiles[usProfileA].ubFaceIndex );
 		FilenameForBPP( sTemp, VObjectDesc.ImageFile );
@@ -510,7 +510,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 
 	// face 2
 	// IMP faces are stored elsewhere
-	if ( gProfilesIMP[usProfileB].ProfilId == usProfileB )
+	if ( gMercProfiles[usProfileB].Type == PROFILETYPE_IMP )
 	{
 		sprintf( sTemp, "IMPFACES\\%02d.sti", gMercProfiles[usProfileB].ubFaceIndex );
 		FilenameForBPP( sTemp, VObjectDesc.ImageFile );

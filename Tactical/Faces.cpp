@@ -182,17 +182,15 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 	{
 		iFaceFileID = 151;
 	}
-
-
+	
 	// Check if we are a big-face....
 	if ( uiInitFlags & FACE_BIGFACE )
-	{
-	
-		if ( ( iFaceFileID < 100 ) && ( gProfilesIMP[ usMercProfileID ].ProfilId == usMercProfileID ) )
+	{	
+		if ( ( iFaceFileID < 100 ) && ( gMercProfiles[usMercProfileID].Type == PROFILETYPE_IMP ) )
 		{
 			sprintf( VObjectDesc.ImageFile, "IMPFACES\\b%02d.sti", iFaceFileID );
 		} 
-		else if ( ( iFaceFileID > 99 ) && ( gProfilesIMP[ usMercProfileID ].ProfilId == usMercProfileID ) )
+		else if ( ( iFaceFileID > 99 ) && ( gMercProfiles[usMercProfileID].Type == PROFILETYPE_IMP ) )
 		{			
 			sprintf( VObjectDesc.ImageFile, "IMPFACES\\b%03d.sti", iFaceFileID );
 		}
@@ -204,18 +202,7 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 		{			
 			sprintf( VObjectDesc.ImageFile, "FACES\\b%03d.sti", iFaceFileID );
 		}
-	
-		/*
-		// The filename is the profile ID!
-		if( iFaceFileID < 100 )
-		{
-			sprintf( VObjectDesc.ImageFile, "FACES\\b%02d.sti", iFaceFileID );
-		}
-		else
-		{
-			sprintf( VObjectDesc.ImageFile, "FACES\\b%03d.sti", iFaceFileID );
-		}
-		*/
+
 	// ATE: Check for profile - if elliot , use special face :)
 	if ( usMercProfileID == ELLIOT )
 	{
@@ -283,14 +270,11 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 	}
 	else
 	{
-
 		if (gGameExternalOptions.fShowCamouflageFaces == TRUE )
 		{
-		
-		
-		if ( ( iFaceFileID < 100 ) && ( gProfilesIMP[ usMercProfileID ].ProfilId == usMercProfileID ) )
-		{
-					sprintf( VObjectDesc.ImageFile, "IMPFACES\\%02d.sti", iFaceFileID );	
+			if ( ( iFaceFileID < 100 ) && ( gMercProfiles[usMercProfileID].Type == PROFILETYPE_IMP ) )
+			{
+				sprintf( VObjectDesc.ImageFile, "IMPFACES\\%02d.sti", iFaceFileID );	
 				
 				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
 				{
@@ -309,12 +293,12 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 					sprintf( VObjectDesc.ImageFile, "IMPFACES\\SnowCamo\\%02d.sti", iFaceFileID );
 				}
 
-					if (!FileExists(VObjectDesc.ImageFile))
-						sprintf( VObjectDesc.ImageFile, "IMPFACES\\%02d.sti", iFaceFileID );	
-		} 
-		else if ( ( iFaceFileID > 99 ) && ( gProfilesIMP[ usMercProfileID ].ProfilId == usMercProfileID ) )
-		{			
-					sprintf( VObjectDesc.ImageFile, "IMPFACES\\%03d.sti", iFaceFileID );
+				if (!FileExists(VObjectDesc.ImageFile))
+					sprintf( VObjectDesc.ImageFile, "IMPFACES\\%02d.sti", iFaceFileID );	
+			} 
+			else if ( ( iFaceFileID > 99 ) && ( gMercProfiles[usMercProfileID].Type == PROFILETYPE_IMP ) )
+			{			
+				sprintf( VObjectDesc.ImageFile, "IMPFACES\\%03d.sti", iFaceFileID );
 					
 				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
 				{
@@ -333,12 +317,12 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 					sprintf( VObjectDesc.ImageFile, "IMPFACES\\SnowCamo\\%03d.sti", iFaceFileID );
 				}
 				
-					if (!FileExists(VObjectDesc.ImageFile))
-						sprintf( VObjectDesc.ImageFile, "IMPFACES\\%03d.sti", iFaceFileID );	
-		}
-		else if( iFaceFileID < 100 )
-		{			
-					sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );	
+				if (!FileExists(VObjectDesc.ImageFile))
+					sprintf( VObjectDesc.ImageFile, "IMPFACES\\%03d.sti", iFaceFileID );	
+			}
+			else if( iFaceFileID < 100 )
+			{			
+				sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );	
 				
 				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
 				{
@@ -357,64 +341,12 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 					sprintf( VObjectDesc.ImageFile, "FACES\\SnowCamo\\%02d.sti", iFaceFileID );
 				}
 
-					if (!FileExists(VObjectDesc.ImageFile))
-						sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );	
-		}
-		else if( iFaceFileID > 99 )
-		{			
-					sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
-					
-				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\Woodcamo\\%03d.sti", iFaceFileID );
-				}
-				else if ( gCamoFace[usMercProfileID].gUrbanCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\UrbanCamo\\%03d.sti", iFaceFileID );
-				}	
-				else if ( gCamoFace[usMercProfileID].gDesertCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\DesertCamo\\%03d.sti", iFaceFileID );
-				}
-				else if ( gCamoFace[usMercProfileID].gSnowCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\SnowCamo\\%03d.sti", iFaceFileID );
-				}
-				
-					if (!FileExists(VObjectDesc.ImageFile))
-						sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );		
-		}
-		
-		/*
-			if( iFaceFileID < 100 )
-			{
-				// The filename is the profile ID!
+				if (!FileExists(VObjectDesc.ImageFile))
 					sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );	
-				
-				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\WoodCamo\\%02d.sti", iFaceFileID );
-				}
-				else if ( gCamoFace[usMercProfileID].gUrbanCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\UrbanCamo\\%02d.sti", iFaceFileID );
-				}	
-				else if ( gCamoFace[usMercProfileID].gDesertCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\DesertCamo\\%02d.sti", iFaceFileID );
-				}
-				else if ( gCamoFace[usMercProfileID].gSnowCamoface == TRUE )
-				{
-					sprintf( VObjectDesc.ImageFile, "FACES\\SnowCamo\\%02d.sti", iFaceFileID );
-				}
-
-					if (!FileExists(VObjectDesc.ImageFile))
-						sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );								
 			}
-			else
+			else if( iFaceFileID > 99 )
 			{
-			
-					sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
+				sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
 					
 				if ( gCamoFace[usMercProfileID].gCamoface == TRUE )
 				{
@@ -433,43 +365,28 @@ INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitF
 					sprintf( VObjectDesc.ImageFile, "FACES\\SnowCamo\\%03d.sti", iFaceFileID );
 				}
 				
-					if (!FileExists(VObjectDesc.ImageFile))
-						sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );	
-				
+				if (!FileExists(VObjectDesc.ImageFile))
+					sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
 			}
-		*/
 		}
 		else if (gGameExternalOptions.fShowCamouflageFaces == FALSE )
 		{
-		
-		if ( ( iFaceFileID < 100 ) && ( gProfilesIMP[ usMercProfileID ].ProfilId == usMercProfileID ) )
-		{
-			sprintf( VObjectDesc.ImageFile, "IMPFACES\\%02d.sti", iFaceFileID );
-		} 
-		else if ( ( iFaceFileID > 99 ) && ( gProfilesIMP[ usMercProfileID ].ProfilId == usMercProfileID ) )
-		{			
-			sprintf( VObjectDesc.ImageFile, "IMPFACES\\%03d.sti", iFaceFileID );
-		}
-		else if( iFaceFileID < 100 )
-		{			
-			sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );
-		}
-		else if( iFaceFileID > 99 )
-		{			
-			sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
-		}
-		
-		/*
-			if( iFaceFileID < 100 )
+			if ( ( iFaceFileID < 100 ) && ( gMercProfiles[usMercProfileID].Type == PROFILETYPE_IMP ) )
 			{
-				// The filename is the profile ID!
+				sprintf( VObjectDesc.ImageFile, "IMPFACES\\%02d.sti", iFaceFileID );
+			} 
+			else if ( ( iFaceFileID > 99 ) && ( gMercProfiles[usMercProfileID].Type == PROFILETYPE_IMP ) )
+			{			
+				sprintf( VObjectDesc.ImageFile, "IMPFACES\\%03d.sti", iFaceFileID );
+			}
+			else if( iFaceFileID < 100 )
+			{			
 				sprintf( VObjectDesc.ImageFile, "FACES\\%02d.sti", iFaceFileID );
 			}
-			else
+			else if( iFaceFileID > 99 )
 			{
 				sprintf( VObjectDesc.ImageFile, "FACES\\%03d.sti", iFaceFileID );
 			}
-		*/
 		}
 	}
 
@@ -1847,7 +1764,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		BOOLEAN isIMP = FALSE;
 		
 		//IMP
-		if ( gProfilesIMP[ MercPtrs[ pFace->ubSoldierID ]->ubProfile ].ProfilId == MercPtrs[ pFace->ubSoldierID ]->ubProfile )
+		if ( gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].Type == PROFILETYPE_IMP )
 		{	
 			isIMP = TRUE;
 		}

@@ -904,7 +904,7 @@ BOOLEAN EnterShopKeeperInterface()
 			gubArrayOfEmployedMercs[ gubNumberMercsInArray ] = pSoldier->ubProfile;
 
 			//Create the string for the face file name						
-			if ( gProfilesIMP[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile )
+			if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP )
 			{
 				sprintf( zTemp, "IMPFACES\\33FACE\\%02d.sti", gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex );	
 			} 

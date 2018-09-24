@@ -1352,19 +1352,18 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 
 		// keep count of how many there have been
 		gStrategicStatus.ubUnhiredMercDeaths++;
-
+		
 		//send an email as long as the merc is from aim
 #ifdef JA2UB
 		//ja25 ub	
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
 	{
-		if ( gProfilesAIM[ iProfileID ].ProfilId == iProfileID && gGameUBOptions.fDeadMerc == TRUE )  //new profiles by Jazz
+		if ( gMercProfiles[iProfileID].Type == PROFILETYPE_AIM && gGameUBOptions.fDeadMerc == TRUE )  //new profiles by Jazz
 			//send an email to the player telling the player that a merc died
 			AddEmailWithSpecialData(206, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT, TYPE_E_AIM_L1 );
 	}
 #else
-	//	if( iProfileID < BIFF )
-		if ( gProfilesAIM[ iProfileID ].ProfilId == iProfileID )  //new profiles by Jazz
+		if ( gMercProfiles[iProfileID].Type == PROFILETYPE_AIM )
 		{
 			//send an email to the player telling the player that a merc died
 			AddEmailWithSpecialData(MERC_DIED_ON_OTHER_ASSIGNMENT, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
@@ -2021,7 +2020,8 @@ void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )
 		pMerc = oMerc + 1;
 	else
 		pMerc = 0;
-	if ( gProfilesMERC[ubMercMercIdValue].ProfilId == ubMercMercIdValue )
+
+	if ( gMercProfiles[ubMercMercIdValue].Type == PROFILETYPE_MERC )
 		if( IsSpeckComAvailable() )// anv: only send level up email if Speck is available at website
 			AddEmailTypeXML( pMerc, iMerc, iMerc, GetWorldTotalMin(), -1 , TYPE_EMAIL_MERC_LEVEL_UP);
 	}

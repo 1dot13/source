@@ -361,16 +361,10 @@ INT16 GetNextPreviousCharacter( INT16 curChar, BOOLEAN next, ENC_DATA_FILTER_CHA
 *|1b. Menptr[ NUM_PROFILES ]							|SOLDIERTYPE, huge struct				| YES								| On tactical those are the people / vehicles / monsters / EPCs. Can provide a reference to a profile. Most likely they are destroyed upon unloading the map, to be recreated with potentially different profiles. Therfore not usable here.
 *|2a. AimMercArray[ NUM_PROFILES ]						|UINT8, IDs for gMercProfiles			| YES								| Used for AIM website. Aim members are on beginning of array, empty spots have (UNIT8)-1.
 *|2b. gAimAvailability[ NUM_PROFILES ]					|AIM_AVAILABLE, stuct					| YES								| Used for AIM website to get bio text and profile ID.
-*|2c. gProfilesAIM[ NUM_PROFILES ]						|AIM_PROFIL, IDs for gMercProfiles		| YES								| In contrast to 2b Index of gMercProfiles == Index of gProfilesAIM and gProfilesAIM[i].profileId == i when it is an AIM member, otherwise gProfilesAIM[i].profileId == (UINT8)-1.
 *|3a. gubMercArray[ NUM_PROFILES ]						|UINT8, IDs for gMercProfiles			| YES								| Used for MERC website. MERC mebers are on beginning of array, empty spots have (UNIT8)-1.
 *|3b. gConditionsForMercAvailability[ NUM_PROFILES ]	|CONTITION_FOR_MERC_AVAILABLE, struct	| YES								| Used for MERC website to get bio text, profile ID and other data. MERC mebers are on beginning of array, empty spots have ProfilId = 0.
-*|3c. gProfilesMERC[ NUM_PROFILES ]						|MERC_PROFIL see 2c						| YES								| see 2c.
-*|4.  gProfilesNPC[ NUM_PROFILES ]						|NPC_PROFIL see 2c						| YES								| see 2c.
-*|5.  gProfilesRPC[ NUM_PROFILES ]						|RPC_PROFIL see 2c						| YES								| see 2c.
 *|6a. pVehicleList(variable Size)						|VEHICLETYPE, medium struct				| YES								| Same principle as 1b, but data valid regardless of game state.
 *|6b. gNewVehicle[ NUM_PROFILES ]						|NEW_CAR, medium struct					| NO								| Used to get vehicle 'face', Snds, name ec. Index is identical to gMercProfiles.
-*|6c. gProfilesVehicle[ NUM_PROFILES ]					|VEHICLE_PROFIL see 2c					| NO								| see 2c. Potentially more then one vehicle of a type can be created, but this is irrelevant as we are showing only the different types anyway.
-*|7.  gProfilesIMP[ NUM_PROFILES ]						|IMP_PROFILE see 2c						| YES								| see 2c.
 */
 		notFound = FALSE;
 		switch(filterClass)
@@ -379,8 +373,8 @@ INT16 GetNextPreviousCharacter( INT16 curChar, BOOLEAN next, ENC_DATA_FILTER_CHA
 			// no filter, found char
 			return i;
 		case ENC_DATA_FILTER_C_AIM :		// hireable characters from A.I.M.
-			if( gProfilesAIM[i].ProfilId != (UINT8)-1 )
-				return gProfilesAIM[i].ProfilId;
+			if ( gMercProfiles[i].Type == PROFILETYPE_AIM )
+				return i;
 			//if( gAimAvailability[ i ].ProfilId != (UINT8)-1 )
 			//	return gAimAvailability[ i ].ProfilId;
 			notFound = TRUE;//no AIM
@@ -388,15 +382,15 @@ INT16 GetNextPreviousCharacter( INT16 curChar, BOOLEAN next, ENC_DATA_FILTER_CHA
 		case ENC_DATA_FILTER_C_MERC :		// hireable characters from M.E.R.C.
 			//if( gubMercArray[ i ] != 0 )
 			//	return gubMercArray[ i ];
-			if( gProfilesMERC[i].ProfilId != (UINT8)-1 )
-				return gProfilesMERC[i].ProfilId;
+			if( gMercProfiles[i].Type == PROFILETYPE_MERC )
+				return i;
 			notFound = TRUE;//no AIM, no MERC
 			break;
 		case ENC_DATA_FILTER_C_OTHER :		// vehicles and electronic 'chars'
 			//if( notFound && IsMercHireable( i ) && i != 254 && Menptr[i].iVehicleId )
 			//	return i;
-			if( (filterSubClass == 0 || filterSubClass == 1) && gProfilesVehicle[i].ProfilId != (UINT8)-1 )
-				return gProfilesVehicle[i].ProfilId;
+			if( (filterSubClass == 0 || filterSubClass == 1) && gMercProfiles[i].Type == PROFILETYPE_VEHICLE )
+				return i;
 			if( (filterSubClass == 0 || filterSubClass == 2) && (gMercProfiles[i].ubMiscFlags & PROFILE_MISC_FLAG_EPCACTIVE) )
 				return i;
 			notFound = TRUE;
@@ -404,30 +398,24 @@ INT16 GetNextPreviousCharacter( INT16 curChar, BOOLEAN next, ENC_DATA_FILTER_CHA
 		case ENC_DATA_FILTER_C_RPC :		// Rebels
 			//if( gMercProfiles[ i ].ubCivilianGroup == REBEL_CIV_GROUP && IsMercHireable( i ) )
 			//	return i;//no
-			if( gProfilesRPC[i].ProfilId != (UINT8)-1 )
-				return gProfilesRPC[i].ProfilId;
+			if ( gMercProfiles[i].Type == PROFILETYPE_RPC )
+				return i;
 			notFound = TRUE;
 			break;
 		case ENC_DATA_FILTER_C_NPC :		// non hireable characters
 			//if( gMercProfiles[ i ].ubCivilianGroup > NON_CIV_GROUP && gMercProfiles[ i ].ubCivilianGroup != REBEL_CIV_GROUP && !IsMercHireable( i ) )
 			//	return i;
-			if( gProfilesNPC[i].ProfilId != (UINT8)-1 )
-				return gProfilesNPC[i].ProfilId;
+			if ( gMercProfiles[i].Type == PROFILETYPE_NPC )
+				return i;
 			notFound = TRUE;
 			break;
 		case ENC_DATA_FILTER_C_IMP :		// player created characters
-			//for(UINT impSlot = 0; impSlot < NUM_PROFILES; impSlot++)
-			//	if( gGameExternalOptions.iaIMPSlots[ impSlot ] == i )
-			//		return i;
-			if( gProfilesIMP[i].ProfilId != (UINT8)-1 )
-				return gProfilesIMP[i].ProfilId;
+			if ( gMercProfiles[i].Type == PROFILETYPE_IMP )
+				return i;
 			notFound = TRUE;
 			break;
 		}
 	}
-
-
-
 
 	return ENC_DATA_NO_DATA;
 }
@@ -805,15 +793,17 @@ BOOLEAN CreateData( INT16 newID )
 		}
 
 		// create image
-		if( gProfilesVehicle[newID].ProfilId == newID)
-		{//this is a vehicle
+		if ( gMercProfiles[newID].Type == PROFILETYPE_VEHICLE  )
+		{
+			//this is a vehicle
 			std::strcpy( vObjDesc.ImageFile, gNewVehicle[newID].szIconFace );
 			vObjDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 			if( !AddVideoObject(&vObjDesc, &gstEncyclopediaDataEntry.uiImageID) )
 				gstEncyclopediaDataEntry.uiImageID = 0;
 		}
 		else
-		{//not vehicle, process normal
+		{
+			//not vehicle, process normal
 			if(gGameExternalOptions.fReadProfileDataFromXML)
 			{
 				// HEADROCK PROFEX: Do not read direct profile number, instead, look inside the profile for a ubFaceIndex value.

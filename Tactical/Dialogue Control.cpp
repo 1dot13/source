@@ -2338,9 +2338,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 			sprintf( zFileName, "NPCDATA\\d_%03d.EDT", usVoiceSet );
 		}
 	}
-	//else if ( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON &&
-	//new profiles by Jazz
-	else if ( ( gProfilesRPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesNPC[ubCharacterNum].ProfilId == ubCharacterNum ) && //|| gProfilesVehicle[ubCharacterNum].ProfilId == ubCharacterNum ) &&	
+	else if ( ( gMercProfiles[ubCharacterNum].Type == PROFILETYPE_RPC || gMercProfiles[ubCharacterNum].Type == PROFILETYPE_NPC ) &&
 			( !( gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
 			|| ProfileCurrentlyTalkingInDialoguePanel( ubCharacterNum )
 			|| (gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_FORCENPCQUOTE) )
@@ -2420,9 +2418,9 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 		if ( fWavFile )
 		{
 #ifdef RUSSIAN
-			//	if( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
-				//new profiles by Jazz
-				if ( ( gProfilesRPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesNPC[ubCharacterNum].ProfilId == ubCharacterNum || gProfilesVehicle[ubCharacterNum].ProfilId == ubCharacterNum ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
+				if ( ( gMercProfiles[ubCharacterNum].Type == PROFILETYPE_RPC ||
+					gMercProfiles[ubCharacterNum].Type == PROFILETYPE_NPC ||
+					gMercProfiles[ubCharacterNum].Type == PROFILETYPE_VEHICLE ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
 				{
 					//inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 					if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )

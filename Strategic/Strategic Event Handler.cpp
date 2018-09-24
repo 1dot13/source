@@ -853,11 +853,11 @@ void HandleEarlyMorningEvents( void )
 	UINT32					uiAmount;
 
 	// loop through all *NPCs* and reset "default response used recently" flags
-	//for (cnt = FIRST_RPC; cnt < GASTON; cnt++)
-	for (cnt = 0; cnt < NUM_PROFILES; cnt++)
+	for (cnt = 0; cnt < NUM_PROFILES; ++cnt)
 	{
-		//new profiles by Jazz
-		if ( gProfilesRPC[cnt].ProfilId == cnt || gProfilesNPC[cnt].ProfilId == cnt || gProfilesVehicle[cnt].ProfilId == cnt )
+		if ( gMercProfiles[cnt].Type == PROFILETYPE_RPC ||
+			gMercProfiles[cnt].Type == PROFILETYPE_NPC ||
+			gMercProfiles[cnt].Type == PROFILETYPE_VEHICLE )
 		{
 			gMercProfiles[cnt].bFriendlyOrDirectDefaultResponseUsedRecently = FALSE;
 			gMercProfiles[cnt].bRecruitDefaultResponseUsedRecently = FALSE;
@@ -886,7 +886,6 @@ void HandleEarlyMorningEvents( void )
 		}
 	}
 
-
 	if( gMercProfiles[ TONY ].ubLastDateSpokenTo > 0 && !( gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_C && gbWorldSectorZ == 0 ) )
 	{
 		// San Mona C5 is not loaded so make Tony possibly not availableif 
@@ -905,7 +904,6 @@ void HandleEarlyMorningEvents( void )
 			gMercProfiles[ TONY ].sSectorY = 0;
 		}
 	}
-
 
 	if ( gMercProfiles[ DEVIN ].ubLastDateSpokenTo == 0 )
 	{

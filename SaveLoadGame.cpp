@@ -1638,6 +1638,15 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 					return(FALSE);
 				}
 			}
+
+			// Flugente: if this is a an case of older file, load from separate structure
+			if ( guiCurrentSaveGameVersion >= PROFILETYPE_STORED )
+			{
+				if ( !FileRead( hFile, &this->Type, sizeof( UINT32 ), &uiNumBytesRead ) )
+				{
+					return( FALSE );
+				}
+			}
 		}
 
 		if ( this->uiProfileChecksum != this->GetChecksum() )
@@ -1748,6 +1757,11 @@ BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 	if ( !FileWrite( hFile, &this->usVoiceIndex, sizeof(UINT32), &uiNumBytesWritten ) )
 	{
 		return(FALSE);
+	}
+
+	if ( !FileWrite( hFile, &this->Type, sizeof( UINT32 ), &uiNumBytesWritten ) )
+	{
+		return( FALSE );
 	}
 	
 	return TRUE;
@@ -4349,16 +4363,6 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	SaveGameFilePosition( FileGetPos( hFile ), "New Mercs Profiles" );
 	#endif
 	
-	//New system profiles by Jazz
-	if( !SaveNewSystemMercsToSaveGameFile( hFile ) )
-	{
-		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing new system mercs profiles");
-		goto FAILED_TO_SAVE;
-	}
-	#ifdef JA2BETAVERSION
-	SaveGameFilePosition( FileGetPos( hFile ), "New system Mercs Profiles" );
-	#endif	
-
 	//save lua global
 	if( !SaveLuaGlobalToSaveGameFile( hFile ) )
 	{
@@ -5981,7 +5985,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 	
-	if( guiCurrentSaveGameVersion >= 113 )
+	// Flugente: we don't need this data anymore, but need to account for older save files
+	if ( guiCurrentSaveGameVersion >= 113 && guiCurrentSaveGameVersion < PROFILETYPE_STORED )
 	{
 		if( !LoadNewSystemMercsToSaveGameFile( hFile ) )
 		{
@@ -6714,10 +6719,16 @@ BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 		if ( gMercProfiles[cnt].bLifeMax <= 0 )
 			gMercProfiles[cnt] = tempMercProfile;
 
-		/// Flugente: until the introduction of a separate varriable for the voiceset, the voice was identical with the slot
+		// Flugente: until the introduction of a separate varriable for the voiceset, the voice was identical with the slot
 		if ( guiCurrentSaveGameVersion < SEPARATE_VOICESETS )
 		{
 			gMercProfiles[cnt].usVoiceIndex = cnt;
+		}
+
+		// Flugente: if this is an older savefile, load from separate structure
+		if ( guiCurrentSaveGameVersion < PROFILETYPE_STORED )
+		{
+			gMercProfiles[cnt].Type = gProfileType[cnt];
 		}
 	}
 

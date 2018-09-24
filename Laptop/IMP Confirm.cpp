@@ -1542,6 +1542,12 @@ BOOLEAN LoadImpCharacter( STR nickName )
 			gMercProfiles[iProfileId].usVoiceIndex = iProfileId;
 		}
 
+		// Flugente: if this is an older savefile, load from separate structure
+		if ( guiCurrentSaveGameVersion < PROFILETYPE_STORED )
+		{
+			gMercProfiles[iProfileId].Type = gProfileType[iProfileId];
+		}
+
 		guiCurrentSaveGameVersion = SAVE_GAME_VERSION;
 
 		// close file

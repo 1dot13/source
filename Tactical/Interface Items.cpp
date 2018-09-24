@@ -9256,9 +9256,10 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 					EndItemPointer( );
 
 					// If we are giving it to somebody not on our team....
-					//if ( MercPtrs[ ubSoldierID ]->ubProfile < FIRST_RPC || MercPtrs[ubSoldierID]->ubProfile >= GASTON || RPC_RECRUITED( MercPtrs[ ubSoldierID ] ) )
-					//new profiles by Jazz	
-					if ( gProfilesIMP[MercPtrs[ ubSoldierID ]->ubProfile].ProfilId == MercPtrs[ ubSoldierID ]->ubProfile || gProfilesAIM[MercPtrs[ ubSoldierID ]->ubProfile].ProfilId == MercPtrs[ ubSoldierID ]->ubProfile || gProfilesMERC[MercPtrs[ ubSoldierID ]->ubProfile].ProfilId == MercPtrs[ ubSoldierID ]->ubProfile || RPC_RECRUITED( MercPtrs[ ubSoldierID ] ) )			
+					if ( gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_AIM ||
+						gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_MERC ||
+						gMercProfiles[MercPtrs[ubSoldierID]->ubProfile].Type == PROFILETYPE_IMP
+						|| RPC_RECRUITED( MercPtrs[ubSoldierID] ) )
 					{
 
 					}

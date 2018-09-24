@@ -182,26 +182,22 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 #ifdef JA2UB
 	//JA25 UB
 	//MErc mercs come with an umbrella
-	if ( gProfilesMERC[ubCurrentSoldier].ProfilId == ubCurrentSoldier )
-//	if( ( ubCurrentSoldier >= 40 && ubCurrentSoldier <= 50 ) || ubCurrentSoldier == 58 /*GASTON*/ || ubCurrentSoldier == 59 /*STOGIE*/ )
+	if ( gMercProfiles[ubCurrentSoldier].Type == PROFILETYPE_MERC )
 	{
 		AddItemToMerc( iNewIndex, MERC_UMBRELLA ); //Data-1.13\TableData\Items\items.xml, uiIndex = 1361 or Data\TableData\Items\items.xml, uiIndex = 336
 	}
-
+	
 	//if this is an AIM or MERC merc
 	if( gJa25SaveStruct.fHaveAimandMercOffferItems )
 	{
 		//if its an aim merc
-		//if( ubCurrentSoldier < 40 )
-		if ( gProfilesAIM[ubCurrentSoldier].ProfilId == ubCurrentSoldier )
+		if ( gMercProfiles[ubCurrentSoldier].Type == PROFILETYPE_AIM )
 		{
 			//give the mercs one of the promo items
 			AddItemToMerc( iNewIndex, SAM_GARVER_COMBAT_KNIFE ); //1353
 		}
-
 		// if its a merc merc
-		else 	if ( gProfilesMERC[ubCurrentSoldier].ProfilId == ubCurrentSoldier )
-		//else if( ubCurrentSoldier <= 50 || ubCurrentSoldier == 58 /*GASTON*/ || ubCurrentSoldier == 59 /*STOGIE*/ )
+		else if ( gMercProfiles[ubCurrentSoldier].Type == PROFILETYPE_MERC )
 		{
 			//give the mercs one of the promo items
 			AddItemToMerc( iNewIndex, CHE_GUEVARA_CANTEEN ); //1359
@@ -338,28 +334,24 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 	if (!is_client)
 	{
-	//if we are trying to hire a merc that should arrive later, put the merc in the queue
-	if( pHireMerc->uiTimeTillMercArrives	!= 0 )
-	{
-		AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,	pSoldier->ubID );
+		//if we are trying to hire a merc that should arrive later, put the merc in the queue
+		if( pHireMerc->uiTimeTillMercArrives	!= 0 )
+		{
+			AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,	pSoldier->ubID );
 				
-		//specify that the merc is hired but hasnt arrived yet
-		pMerc->bMercStatus = MERC_HIRED_BUT_NOT_ARRIVED_YET;
-
-	}
+			//specify that the merc is hired but hasnt arrived yet
+			pMerc->bMercStatus = MERC_HIRED_BUT_NOT_ARRIVED_YET;
+		}
 	}
 	else
 	{
-			if(is_client)send_hire( iNewIndex, ubCurrentSoldier, pHireMerc->iTotalContractLength, MercCreateStruct.fCopyProfileItemsOver  );
-			//send off hire info to network, also avail possibility for net-game exclusive hired pSoldier changes...
+		if(is_client)send_hire( iNewIndex, ubCurrentSoldier, pHireMerc->iTotalContractLength, MercCreateStruct.fCopyProfileItemsOver  );
+		//send off hire info to network, also avail possibility for net-game exclusive hired pSoldier changes...
 	}
 
-
 	//if the merc is an AIM merc
-	//if( ubCurrentSoldier < 40 )
-	if ( gProfilesAIM[ ubCurrentSoldier ].ProfilId == ubCurrentSoldier ) //new profiles by Jazz
+	if ( gMercProfiles[ubCurrentSoldier].Type == PROFILETYPE_AIM )
 	{
-
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__AIM_MERC;
 		//determine how much the contract is, and remember what type of contract he got
 		if( pHireMerc->iTotalContractLength == 1 )
@@ -386,8 +378,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		pSoldier->usMedicalDeposit = gMercProfiles[ pSoldier->ubProfile ].sMedicalDepositAmount;
 	}
 	//if the merc is from M.E.R.C.
-	//else if( ( ubCurrentSoldier >= BIFF && ubCurrentSoldier <= BUBBA ) || ubCurrentSoldier >= GASTON )
-	else if ( gProfilesMERC[ ubCurrentSoldier ].ProfilId == ubCurrentSoldier ) //new profiles by Jazz
+	else if ( gMercProfiles[ubCurrentSoldier].Type == PROFILETYPE_MERC )
 	{
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__MERC;
 		//pSoldier->iTotalContractCharge = -1;
@@ -400,8 +391,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		if(!is_client)AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_MERC, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
 	}
 	//If the merc is from IMP, (ie a player character)
-	//else if( ( ubCurrentSoldier >= 51 ) && ( ubCurrentSoldier < 57 ) )
-	else if ( gProfilesIMP[ ubCurrentSoldier ].ProfilId == ubCurrentSoldier ) //new profiles by Jazz
+	else if ( gMercProfiles[ubCurrentSoldier].Type == PROFILETYPE_IMP )
 	{
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__PLAYER_CHARACTER;
 		//pSoldier->iTotalContractCharge = -1;
@@ -423,6 +413,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	CheckForFriendsofHated( pSoldier );
 
 	gfAtLeastOneMercWasHired = TRUE;
+
 	return( MERC_HIRE_OK );
 }
 

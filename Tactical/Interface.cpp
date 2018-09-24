@@ -2042,9 +2042,10 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			mprintf( sX, sY, NameStr );
 		}
 
-//		if ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
-		//new profiles by Jazz	
-		if ( gProfilesIMP[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesAIM[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesMERC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ))			
+		if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_AIM ||
+			gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_MERC ||
+			gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP 
+			|| RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
 			if ( gGameExternalOptions.ubShowHealthBarsOnHead )
 			{

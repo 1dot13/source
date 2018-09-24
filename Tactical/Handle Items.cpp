@@ -4767,13 +4767,13 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 
 		// Switch on target...
 		// Are we a player dude.. ( target? )
-	//	if ( ubProfile < FIRST_RPC || RPC_RECRUITED( pTSoldier ) || ubProfile >= GASTON )
-		//new profiles by Jazz		
-		if ( ( gProfilesAIM[ubProfile].ProfilId == ubProfile || gProfilesMERC[ubProfile].ProfilId == ubProfile || gProfilesIMP[ubProfile].ProfilId == ubProfile ) || RPC_RECRUITED( pTSoldier ) )			
+		if ( gMercProfiles[ubProfile].Type == PROFILETYPE_AIM ||
+			gMercProfiles[ubProfile].Type == PROFILETYPE_MERC ||
+			gMercProfiles[ubProfile].Type == PROFILETYPE_IMP ||
+			RPC_RECRUITED( pTSoldier ) )		
 		{
 			fToTargetPlayer = TRUE;
 		}
-
 
 		if ( fToTargetPlayer )
 		{

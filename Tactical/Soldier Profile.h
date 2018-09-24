@@ -41,47 +41,24 @@ extern MERCPROFILEGEAR gMercProfileGear[ NUM_PROFILES ][ NUM_MERCSTARTINGGEAR_KI
 
 //use this to sort out the above define
 BOOLEAN IsProfileIdAnAimOrMERCMerc( UINT8 ubProfileID );
-//enums for the mercs 
 
-//new profiles by Jazz-------------------------------
-typedef struct
+//enums for the mercs
+enum ProfileType
 {
-	UINT8 ProfilId;
-} AIM_PROFIL;
+	PROFILETYPE_NONE = 0,
+	PROFILETYPE_AIM,
+	PROFILETYPE_MERC,
+	PROFILETYPE_RPC,
+	PROFILETYPE_NPC,
+	PROFILETYPE_VEHICLE,
+	PROFILETYPE_IMP,
 
-typedef struct
-{
-	UINT8 ProfilId;
-} MERC_PROFIL;
+	PROFILETYPE_MAX
+};
 
-typedef struct
-{
-	UINT8 ProfilId;
-} NPC_PROFIL;
+// Flugente: why do we require 6 different structures and arrays if all we keep track of is the profile type? A simple array is enough (and only needed during loading anyway)
+extern UINT8 gProfileType[NUM_PROFILES];
 
-typedef struct
-{
-	UINT8 ProfilId;
-} RPC_PROFIL;
-
-typedef struct
-{
-	UINT8 ProfilId;
-} VEHICLE_PROFIL;
-
-typedef struct
-{
-	UINT8 ProfilId;
-} IMP_PROFIL;
-
-extern AIM_PROFIL  gProfilesAIM[ NUM_PROFILES ];
-extern MERC_PROFIL gProfilesMERC[ NUM_PROFILES ];
-extern NPC_PROFIL  gProfilesNPC[ NUM_PROFILES ];
-extern RPC_PROFIL  gProfilesRPC[ NUM_PROFILES ];
-extern VEHICLE_PROFIL  gProfilesVehicle[ NUM_PROFILES ];
-extern IMP_PROFIL gProfilesIMP[NUM_PROFILES];
-
-extern BOOLEAN SaveNewSystemMercsToSaveGameFile( HWFILE hFile );
 extern BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile );
 //---------------------------------------------------
 

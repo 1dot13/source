@@ -4651,11 +4651,13 @@ void DebugSoldierPage3( )
 		SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
 		gprintf( 150, LINE_HEIGHT * ubLine, L"%d", pSoldier->flags.fRTInNonintAnim );
 		ubLine++;
-
+		
 		// OPIONION OF SELECTED MERC
-		//if ( gusSelectedSoldier != NOBODY && ( MercPtrs[ gusSelectedSoldier ]->ubProfile < FIRST_NPC ) && pSoldier->ubProfile != NO_PROFILE )
-		//new profiles by Jazz	
-		if ( gusSelectedSoldier != NOBODY && ( gProfilesIMP[MercPtrs[ gusSelectedSoldier ]->ubProfile].ProfilId == MercPtrs[ gusSelectedSoldier ]->ubProfile || gProfilesRPC[MercPtrs[ gusSelectedSoldier ]->ubProfile].ProfilId == MercPtrs[ gusSelectedSoldier ]->ubProfile || gProfilesAIM[MercPtrs[ gusSelectedSoldier ]->ubProfile].ProfilId == MercPtrs[ gusSelectedSoldier ]->ubProfile || gProfilesMERC[MercPtrs[ gusSelectedSoldier ]->ubProfile].ProfilId == MercPtrs[ gusSelectedSoldier ]->ubProfile ) && pSoldier->ubProfile != NO_PROFILE )
+		if ( gusSelectedSoldier != NOBODY && pSoldier->ubProfile != NO_PROFILE && (
+			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_AIM ||
+			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_MERC ||
+			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_RPC ||
+			gMercProfiles[MercPtrs[gusSelectedSoldier]->ubProfile].Type == PROFILETYPE_IMP ) )
 		{
 			SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
 			gprintf( 0, LINE_HEIGHT * ubLine, L"NPC Opinion:");
@@ -4664,7 +4666,6 @@ void DebugSoldierPage3( )
 				gprintf( 150, LINE_HEIGHT * ubLine, L"%d", gMercProfiles[ pSoldier->ubProfile ].bMercOpinion[ MercPtrs[ gusSelectedSoldier ]->ubProfile ] );
 			ubLine++;
 		}
-
 	}
 	else if ( GetMouseMapPos( &usMapPos ) )
 	{

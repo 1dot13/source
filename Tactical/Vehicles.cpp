@@ -1133,8 +1133,7 @@ BOOLEAN CopyVehiclePathToSoldier( SOLDIERTYPE *pSoldier )
 			return( FALSE );
 		}
 	}
-
-
+	
 	// reset mvt group for the grunt
 	// ATE: NOT if we are the vehicle
 	if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
@@ -1155,30 +1154,12 @@ BOOLEAN CopyVehiclePathToSoldier( SOLDIERTYPE *pSoldier )
 	pSoldier->pMercPath = CopyPaths(pVehicleList[ iId ].pMercPath, pSoldier->pMercPath );
 
 	return( TRUE );
-
 }
 
 BOOLEAN IsVehicle(SOLDIERTYPE *pSoldier)
 {
-
-	 if ( gProfilesVehicle[ pSoldier->ubProfile ].ProfilId == pSoldier->ubProfile )
-		return(TRUE);
-	else
-		return(FALSE);
-		
-	/*switch(pSoldier->ubProfile)
-	{
-		case PROF_HUMMER:
-		case PROF_ELDERODO:
-		case PROF_ICECREAM:
-			return(TRUE);
-		default:
-			return(FALSE);
-	}
-	return(FALSE);
-	*/
+	return ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_VEHICLE );
 }
-
 
 BOOLEAN SetUpMvtGroupForVehicle( SOLDIERTYPE *pSoldier )
 {

@@ -2595,12 +2595,11 @@ void AddProfilesUsingProfileInsertionData()
 
 	//for( i = FIRST_RPC; i < ( PROF_HUMMER ); i++ )
 	//new profiles by Jazz
-	for( i = 0; i < NUM_PROFILES; i++ )
+	for( i = 0; i < NUM_PROFILES; ++i )
 	{
-	
-	if ( gProfilesRPC[i].ProfilId == i || gProfilesNPC[i].ProfilId == i ) 
-	{
-	
+	if ( gMercProfiles[i].Type == PROFILETYPE_RPC || 
+		gMercProfiles[i].Type == PROFILETYPE_NPC )
+	{	
 		//Perform various checks to make sure the soldier is actually in the same sector, alive, and so on.
 		//More importantly, the flag to use profile insertion data must be set.
 		if( gMercProfiles[ i ].sSectorX != gWorldSectorX ||

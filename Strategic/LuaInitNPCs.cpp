@@ -2091,30 +2091,9 @@ static int l_WhoIs (lua_State *L)
 		UINT8 whois = lua_tointeger(L,1);
 		UINT8 Val = lua_tointeger(L,2);
 		UINT8 Prof = 0;
-
-		switch ( whois )
-		{
-		case 1:
-			Prof = gProfilesAIM[ Val ].ProfilId;
-			break;
-		case 2:
-			Prof = gProfilesMERC[ Val ].ProfilId;
-			break;
-		case 3:
-			Prof = gProfilesRPC[ Val ].ProfilId;
-			break;
-		case 4:
-			Prof = gProfilesNPC[ Val ].ProfilId;
-			break;
-		case 5:
-			Prof = gProfilesVehicle[ Val ].ProfilId;
-			break;
-		case 6:
-			Prof = gProfilesIMP[ Val ].ProfilId;
-			break;
-		default:
-			break;
-		}
+		
+		if ( gMercProfiles[Val].Type == whois )
+			Prof = Val;
 
 		lua_pushinteger(L, Prof);
 	}
@@ -2124,8 +2103,7 @@ static int l_WhoIs (lua_State *L)
 
 #ifdef JA2UB
 static int l_HandlePlayerHittingSwitchToLaunchMissles (lua_State *L)
-{	
-
+{
 	HandlePlayerHittingSwitchToLaunchMissles( );
 			
 	return 0;
@@ -8171,7 +8149,7 @@ static int l_AddEmailXML ( lua_State *L )
 		if ( uiIndex != 0 )
 			pMerc = uiIndex + 1;
 
-		if ( gProfilesAIM[uiIndex].ProfilId == uiIndex )
+		if ( gMercProfiles[uiIndex].Type == PROFILETYPE_AIM )
 			AddEmailTypeXML( pMerc, uiIndex, uiIndex, GetWorldTotalMin(), -1, TYPE_EMAIL_AIM_AVAILABLE );
 	}
 
@@ -8188,8 +8166,8 @@ static int l_AddEmailLevelUpXML (lua_State *L)
 		UINT8 pMerc = 0;
 		if ( uiIndex != 0 )
 			pMerc = uiIndex + 1;
-
-		if ( gProfilesMERC[uiIndex].ProfilId == uiIndex )
+		
+		if ( gMercProfiles[uiIndex].Type == PROFILETYPE_MERC )
 			AddEmailTypeXML( pMerc, uiIndex, uiIndex, GetWorldTotalMin(), -1, TYPE_EMAIL_MERC_LEVEL_UP );
 	}
 

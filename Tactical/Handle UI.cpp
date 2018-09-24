@@ -6149,15 +6149,14 @@ BOOLEAN IsValidTalkableNPC( UINT8 ubSoldierID, BOOLEAN fGive , BOOLEAN fAllowMer
 		}
 	}
 
-//	if ( pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < GASTON && !RPC_RECRUITED( pSoldier ) && !AM_AN_EPC( pSoldier ) )
-	//new profiles by Jazz	
-	if ( pSoldier->ubProfile != NO_PROFILE && ( gProfilesRPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile || gProfilesNPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile ) && !RPC_RECRUITED( pSoldier ) && !AM_AN_EPC( pSoldier ) )	
+	if ( pSoldier->ubProfile != NO_PROFILE && ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_RPC ||
+		gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_NPC ) && !RPC_RECRUITED( pSoldier ) && !AM_AN_EPC( pSoldier ) )
 	{
 		fValidGuy = TRUE;
 	}
 
 	// Check for EPC...
-	if ( pSoldier->ubProfile != NO_PROFILE && ( gCurrentUIMode == TALKCURSOR_MODE || fGive )	&& AM_AN_EPC( pSoldier ) )
+	if ( pSoldier->ubProfile != NO_PROFILE && ( gCurrentUIMode == TALKCURSOR_MODE || fGive ) && AM_AN_EPC( pSoldier ) )
 	{
 		fValidGuy = TRUE;
 	}

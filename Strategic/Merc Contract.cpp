@@ -1196,9 +1196,7 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 	}
 
 	//if the character is an RPC
-	//if( pSoldier->ubProfile >= FIRST_RPC && pSoldier->ubProfile < FIRST_NPC )
-	//new profiles by Jazz
-	if ( gProfilesRPC[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
+	if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_RPC )
 	{
 		if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
 		{
@@ -1210,7 +1208,6 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 		}
 		fInSector = TRUE;
 	}
-
 	// check if drassen controlled
 	else if( StrategicMap[	( AIRPORT_X + ( MAP_WORLD_X * AIRPORT_Y ) ) ].fEnemyControlled == FALSE )
 	{
@@ -1242,7 +1239,6 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 			{
 				swprintf( sString, pMercSheLeaveString[ 0 ], pSoldier->GetName(), zShortTownIDString, zDropOffString );
 			}
-
 		}
 	}
 	else

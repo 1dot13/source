@@ -838,7 +838,7 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 	// special case?..player generated merc
 	if (fCurrentTeamMode) 
 	{
-		if ( gProfilesIMP[profileId].ProfilId == profileId )
+		if ( gMercProfiles[profileId].Type == PROFILETYPE_IMP )
 		{
 			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
 		}
@@ -862,7 +862,7 @@ void RenderPersonnelFace(INT32 iId, INT32 iSlot, BOOLEAN fDead, BOOLEAN fFired, 
 			return;
 		}
 
-		if ( gProfilesIMP[profileId].ProfilId == profileId )
+		if ( gMercProfiles[profileId].Type == PROFILETYPE_IMP )
 		{
 			sprintf( sTemp, "%s%02d.sti", IMP_FACES_DIR, gMercProfiles[profileId].ubFaceIndex );
 		}
@@ -2405,7 +2405,7 @@ void DisplayPicturesOfCurrentTeam( void )
 		
 		if ( pSoldier->ubProfile >= 0 )
 		{
-			if ( gProfilesIMP[pSoldier->ubProfile].ProfilId == pSoldier->ubProfile )
+			if ( gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP )
 			{
 				sprintf( sTemp, "%s%02d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[pSoldier->ubProfile].ubFaceIndex );
 			}
@@ -4924,15 +4924,11 @@ INT32 GetIdOfPastMercInSlot( INT32 iSlot )
 	for( iCounterA = 0; ( ( ( iCounter ) < ( iSlot + giCurrentUpperLeftPortraitNumber ) ) ); iCounterA++ )
 	{
 		if( LaptopSaveInfo.ubOtherCharactersList[ iCounterA ] != -1 )
-			iCounter++;
+			++iCounter;
 	}
 
 	return( LaptopSaveInfo.ubOtherCharactersList[ iCounterA	- 1] );
-
 }
-
-
-
 
 
 void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLEAN fFired, BOOLEAN fOther )
@@ -4941,7 +4937,7 @@ void DisplayPortraitOfPastMerc( INT32 iId , INT32 iCounter, BOOLEAN fDead, BOOLE
 	HVOBJECT hFaceHandle;
 	VOBJECT_DESC	VObjectDesc;
 	
-	if ( gProfilesIMP[iId].ProfilId == iId )
+	if ( gMercProfiles[iId].Type == PROFILETYPE_IMP )
 	{
 		sprintf( sTemp, "%s%02d.sti", IMP_SMALL_FACES_DIR, gMercProfiles[iId].ubFaceIndex );
 	}
@@ -5324,10 +5320,9 @@ void DisplayDepartedCharName( INT32 iId, INT32 iSlot, INT32 iState )
 	{
 		swprintf( sString, L"%s", pPersonnelDepartedStateStrings[ DEPARTED_DEAD ] );
 	}
-
 	//if the merc is an AIM merc
 	//else if( iId < BIFF )
-	else if ( gProfilesAIM[ iId ].ProfilId == iId )
+	else if ( gMercProfiles[iId].Type == PROFILETYPE_AIM )
 	{
 		//if dismissed
 		if( iState == DEPARTED_FIRED )
@@ -5338,7 +5333,7 @@ void DisplayDepartedCharName( INT32 iId, INT32 iSlot, INT32 iState )
 
 	//else if its a MERC merc
 	//else if( iId >= BIFF && iId <= BUBBA )
-	else if ( gProfilesMERC[ iId ].ProfilId == iId )
+	else if ( gMercProfiles[iId].Type == PROFILETYPE_MERC )
 	{
 		if( iState == DEPARTED_FIRED )
 			swprintf( sString, L"%s", pPersonnelDepartedStateStrings[ DEPARTED_FIRED ] );
@@ -5347,7 +5342,7 @@ void DisplayDepartedCharName( INT32 iId, INT32 iSlot, INT32 iState )
 	}
 	//must be a RPC
 	//else
-	else if ( gProfilesRPC[ iId ].ProfilId == iId )
+	else if ( gMercProfiles[iId].Type == PROFILETYPE_RPC )
 	{
 		if( iState == DEPARTED_FIRED )
 			swprintf( sString, L"%s", pPersonnelDepartedStateStrings[ DEPARTED_FIRED ] );

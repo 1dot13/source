@@ -1550,6 +1550,7 @@ void MERCPROFILESTRUCT::initialize( )
 	memset( &sDynamicOpinionLongTerm, 0, sizeof(sDynamicOpinionLongTerm) );
 
 	memset( &usVoiceIndex, 0, sizeof(UINT32) );
+	memset( &Type, 0, sizeof( UINT32 ) );
 }
 
 // Initialize the soldier.
@@ -10542,10 +10543,9 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 			}
 		}
 	}
-
-	//	if ((ubAttacker != NOBODY) && (Menptr[ubAttacker].bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && (this->ubProfile >= FIRST_RPC && this->ubProfile < GASTON ))
-	//new profiles by Jazz	
-	if ( (ubAttacker != NOBODY) && (Menptr[ubAttacker].bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && gProfilesRPC[this->ubProfile].ProfilId == this->ubProfile || gProfilesNPC[this->ubProfile].ProfilId == this->ubProfile )
+	
+	if ( (ubAttacker != NOBODY) && (Menptr[ubAttacker].bTeam == OUR_TEAM) && (this->ubProfile != NO_PROFILE) && gMercProfiles[this->ubProfile].Type == PROFILETYPE_RPC ||
+		gMercProfiles[this->ubProfile].Type == PROFILETYPE_NPC )
 	{
 		gMercProfiles[this->ubProfile].ubMiscFlags |= PROFILE_MISC_FLAG_WOUNDEDBYPLAYER;
 		if ( this->ubProfile == 114 )
@@ -12955,9 +12955,8 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 		// OK, check if we should play quote...
 		if ( pTSoldier->bTeam != gbPlayerNum )
 		{
-			//			if ( pTSoldier->ubProfile != NO_PROFILE && pTSoldier->ubProfile >= FIRST_RPC && pTSoldier->ubProfile < GASTON && !RPC_RECRUITED( pTSoldier ) )
-			//new profiles by Jazz	
-			if ( pTSoldier->ubProfile != NO_PROFILE && (gProfilesRPC[pTSoldier->ubProfile].ProfilId == pTSoldier->ubProfile || gProfilesNPC[pTSoldier->ubProfile].ProfilId == pTSoldier->ubProfile) && !RPC_RECRUITED( pTSoldier ) )
+			if ( pTSoldier->ubProfile != NO_PROFILE && !RPC_RECRUITED( pTSoldier ) && ( gMercProfiles[pTSoldier->ubProfile].Type == PROFILETYPE_RPC ||
+				gMercProfiles[pTSoldier->ubProfile].Type == PROFILETYPE_NPC ) )
 			{
 				fRefused = PCDoesFirstAidOnNPC( pTSoldier->ubProfile );
 			}

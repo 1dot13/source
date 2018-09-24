@@ -3066,15 +3066,13 @@ void MakeBiffAwayForCoupleOfDays()
 BOOLEAN AreAnyOfTheNewMercsAvailable()
 {
 	UINT8	ubMercID;
-
-
+	
 	if( LaptopSaveInfo.fNewMercsAvailableAtMercSite )
 		return( FALSE );
 
-	//for(i=(LARRY_NORMAL-BIFF); i<=LaptopSaveInfo.gubLastMercIndex; i++)
-	for(UINT8 i=0; i<NUM_PROFILES; i++)
+	for(UINT8 i=0; i<NUM_PROFILES; ++i)
 	{
-		if ( gConditionsForMercAvailability[i].NewMercsAvailable == FALSE && gProfilesMERC[i].ProfilId != 0 )
+		if ( gConditionsForMercAvailability[i].NewMercsAvailable == FALSE && gMercProfiles[i].Type == PROFILETYPE_MERC )
 		{
 			ubMercID = GetMercIDFromMERCArray( i );
 			if( IsMercMercAvailable( ubMercID ) ) 
