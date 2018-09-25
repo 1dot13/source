@@ -1,608 +1,608 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ENEMYGUNCHOICESLIST>
-  <ENEMYGUNCHOICES>
-    <uiIndex>0</uiIndex>
-    <name>0%</name>
-    <ubChoices>6</ubChoices>
-    <bItemNo1>759</bItemNo1>
-    <bItemNo2>798</bItemNo2>
-    <bItemNo3>635</bItemNo3>
-    <bItemNo4>5</bItemNo4>
-    <bItemNo5>744</bItemNo5>
-    <bItemNo6>738</bItemNo6>
-    <bItemNo7>0</bItemNo7>
-    <bItemNo8>0</bItemNo8>
-    <bItemNo9>0</bItemNo9>
-    <bItemNo10>0</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>1</uiIndex>
-    <name>10%</name>
-    <ubChoices>9</ubChoices>
-    <bItemNo1>703</bItemNo1>
-    <bItemNo2>703</bItemNo2>
-    <bItemNo3>3</bItemNo3>
-    <bItemNo4>3</bItemNo4>
-    <bItemNo5>8</bItemNo5>
-    <bItemNo6>8</bItemNo6>
-    <bItemNo7>6</bItemNo7>
-    <bItemNo8>6</bItemNo8>
-    <bItemNo9>737</bItemNo9>
-    <bItemNo10>0</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>2</uiIndex>
-    <name>20%</name>
-    <ubChoices>11</ubChoices>
-    <bItemNo1>631</bItemNo1>
-    <bItemNo2>689</bItemNo2>
-    <bItemNo3>690</bItemNo3>
-    <bItemNo4>736</bItemNo4>
-    <bItemNo5>675</bItemNo5>
-    <bItemNo6>716</bItemNo6>
-    <bItemNo7>761</bItemNo7>
-    <bItemNo8>11</bItemNo8>
-    <bItemNo9>747</bItemNo9>
-    <bItemNo10>725</bItemNo10>
-    <bItemNo11>628</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>3</uiIndex>
-    <name>30%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>723</bItemNo1>
-    <bItemNo2>2</bItemNo2>
-    <bItemNo3>631</bItemNo3>
-    <bItemNo4>688</bItemNo4>
-    <bItemNo5>22</bItemNo5>
-    <bItemNo6>702</bItemNo6>
-    <bItemNo7>693</bItemNo7>
-    <bItemNo8>694</bItemNo8>
-    <bItemNo9>636</bItemNo9>
-    <bItemNo10>67</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>4</uiIndex>
-    <name>40%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>31</bItemNo1>
-    <bItemNo2>707</bItemNo2>
-    <bItemNo3>707</bItemNo3>
-    <bItemNo4>31</bItemNo4>
-    <bItemNo5>730</bItemNo5>
-    <bItemNo6>681</bItemNo6>
-    <bItemNo7>10</bItemNo7>
-    <bItemNo8>608</bItemNo8>
-    <bItemNo9>683</bItemNo9>
-    <bItemNo10>694</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>5</uiIndex>
-    <name>50%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>681</bItemNo1>
-    <bItemNo2>606</bItemNo2>
-    <bItemNo3>31</bItemNo3>
-    <bItemNo4>889</bItemNo4>
-    <bItemNo5>776</bItemNo5>
-    <bItemNo6>670</bItemNo6>
-    <bItemNo7>724</bItemNo7>
-    <bItemNo8>717</bItemNo8>
-    <bItemNo9>637</bItemNo9>
-    <bItemNo10>68</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>6</uiIndex>
-    <name>60%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>681</bItemNo1>
-    <bItemNo2>31</bItemNo2>
-    <bItemNo3>606</bItemNo3>
-    <bItemNo4>641</bItemNo4>
-    <bItemNo5>701</bItemNo5>
-    <bItemNo6>345</bItemNo6>
-    <bItemNo7>343</bItemNo7>
-    <bItemNo8>346</bItemNo8>
-    <bItemNo9>638</bItemNo9>
-    <bItemNo10>607</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>7</uiIndex>
-    <name>70%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>607</bItemNo1>
-    <bItemNo2>681</bItemNo2>
-    <bItemNo3>601</bItemNo3>
-    <bItemNo4>727</bItemNo4>
-    <bItemNo5>344</bItemNo5>
-    <bItemNo6>643</bItemNo6>
-    <bItemNo7>677</bItemNo7>
-    <bItemNo8>696</bItemNo8>
-    <bItemNo9>656</bItemNo9>
-    <bItemNo10>350</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>8</uiIndex>
-    <name>80%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>337</bItemNo1>
-    <bItemNo2>713</bItemNo2>
-    <bItemNo3>671</bItemNo3>
-    <bItemNo4>672</bItemNo4>
-    <bItemNo5>732</bItemNo5>
-    <bItemNo6>621</bItemNo6>
-    <bItemNo7>712</bItemNo7>
-    <bItemNo8>664</bItemNo8>
-    <bItemNo9>24</bItemNo9>
-    <bItemNo10>659</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>9</uiIndex>
-    <name>90%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>663</bItemNo1>
-    <bItemNo2>715</bItemNo2>
-    <bItemNo3>714</bItemNo3>
-    <bItemNo4>15</bItemNo4>
-    <bItemNo5>731</bItemNo5>
-    <bItemNo6>741</bItemNo6>
-    <bItemNo7>332</bItemNo7>
-    <bItemNo8>648</bItemNo8>
-    <bItemNo9>708</bItemNo9>
-    <bItemNo10>616</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
-  <ENEMYGUNCHOICES>
-    <uiIndex>10</uiIndex>
-    <name>100%</name>
-    <ubChoices>10</ubChoices>
-    <bItemNo1>680</bItemNo1>
-    <bItemNo2>750</bItemNo2>
-    <bItemNo3>662</bItemNo3>
-    <bItemNo4>666</bItemNo4>
-    <bItemNo5>665</bItemNo5>
-    <bItemNo6>673</bItemNo6>
-    <bItemNo7>333</bItemNo7>
-    <bItemNo8>749</bItemNo8>
-    <bItemNo9>673</bItemNo9>
-    <bItemNo10>333</bItemNo10>
-    <bItemNo11>0</bItemNo11>
-    <bItemNo12>0</bItemNo12>
-    <bItemNo13>0</bItemNo13>
-    <bItemNo14>0</bItemNo14>
-    <bItemNo15>0</bItemNo15>
-    <bItemNo16>0</bItemNo16>
-    <bItemNo17>0</bItemNo17>
-    <bItemNo18>0</bItemNo18>
-    <bItemNo19>0</bItemNo19>
-    <bItemNo20>0</bItemNo20>
-    <bItemNo21>0</bItemNo21>
-    <bItemNo22>0</bItemNo22>
-    <bItemNo23>0</bItemNo23>
-    <bItemNo24>0</bItemNo24>
-    <bItemNo25>0</bItemNo25>
-    <bItemNo26>0</bItemNo26>
-    <bItemNo27>0</bItemNo27>
-    <bItemNo28>0</bItemNo28>
-    <bItemNo29>0</bItemNo29>
-    <bItemNo30>0</bItemNo30>
-    <bItemNo31>0</bItemNo31>
-    <bItemNo32>0</bItemNo32>
-    <bItemNo33>0</bItemNo33>
-    <bItemNo34>0</bItemNo34>
-    <bItemNo35>0</bItemNo35>
-    <bItemNo36>0</bItemNo36>
-    <bItemNo37>0</bItemNo37>
-    <bItemNo38>0</bItemNo38>
-    <bItemNo39>0</bItemNo39>
-    <bItemNo40>0</bItemNo40>
-    <bItemNo41>0</bItemNo41>
-    <bItemNo42>0</bItemNo42>
-    <bItemNo43>0</bItemNo43>
-    <bItemNo44>0</bItemNo44>
-    <bItemNo45>0</bItemNo45>
-    <bItemNo46>0</bItemNo46>
-    <bItemNo47>0</bItemNo47>
-    <bItemNo48>0</bItemNo48>
-    <bItemNo49>0</bItemNo49>
-    <bItemNo50>0</bItemNo50>
-  </ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>0</uiIndex>
+		<name>0%</name>
+		<ubChoices>13</ubChoices>
+		<bItemNo1>5</bItemNo1>	<!--.38 Special [ 30.77% ] -->
+		<bItemNo2>8</bItemNo2>	<!--Colt M1911A1 [ 7.69% ] -->
+		<bItemNo3>397</bItemNo3>	<!--FN Browning HP-35 [ 7.69% ] -->
+		<bItemNo4>635</bItemNo4>	<!--CZ-52 [ 7.69% ] -->
+		<bItemNo5>689</bItemNo5>	<!--Makarov PM [ 15.38% ] -->
+		<bItemNo6>738</bItemNo6>	<!--Tokarev TT-33 [ 15.38% ] -->
+		<bItemNo7>744</bItemNo7>	<!--VIS-35 [ 7.69% ] -->
+		<bItemNo8>798</bItemNo8>	<!--P-08 Parabellum [ 7.69% ] -->
+		<bItemNo9>5</bItemNo9>	<!--.38 Special [ 30.77% ] -->
+		<bItemNo10>5</bItemNo10>	<!--.38 Special [ 30.77% ] -->
+		<bItemNo11>5</bItemNo11>	<!--.38 Special [ 30.77% ] -->
+		<bItemNo12>738</bItemNo12>	<!--Tokarev TT-33 [ 15.38% ] -->
+		<bItemNo13>689</bItemNo13>	<!--Makarov PM [ 15.38% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>1</uiIndex>
+		<name>10%</name>
+		<ubChoices>13</ubChoices>
+		<bItemNo1>5</bItemNo1>	<!--.38 Special [ 15.38% ] -->
+		<bItemNo2>8</bItemNo2>	<!--Colt M1911A1 [ 7.69% ] -->
+		<bItemNo3>397</bItemNo3>	<!--FN Browning HP-35 [ 7.69% ] -->
+		<bItemNo4>635</bItemNo4>	<!--CZ-52 [ 7.69% ] -->
+		<bItemNo5>689</bItemNo5>	<!--Makarov PM [ 15.38% ] -->
+		<bItemNo6>738</bItemNo6>	<!--Tokarev TT-33 [ 15.38% ] -->
+		<bItemNo7>744</bItemNo7>	<!--VIS-35 [ 7.69% ] -->
+		<bItemNo8>798</bItemNo8>	<!--P-08 Parabellum [ 7.69% ] -->
+		<bItemNo9>747</bItemNo9>	<!--Winchester 94 Trapper [ 7.69% ] -->
+		<bItemNo10>711</bItemNo10>	<!--Sawed-Off Shotgun [ 7.69% ] -->
+		<bItemNo11>5</bItemNo11>	<!--.38 Special [ 15.38% ] -->
+		<bItemNo12>738</bItemNo12>	<!--Tokarev TT-33 [ 15.38% ] -->
+		<bItemNo13>689</bItemNo13>	<!--Makarov PM [ 15.38% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>2</uiIndex>
+		<name>20%</name>
+		<ubChoices>9</ubChoices>
+		<bItemNo1>8</bItemNo1>	<!--Colt M1911A1 [ 11.11% ] -->
+		<bItemNo2>397</bItemNo2>	<!--FN Browning HP-35 [ 11.11% ] -->
+		<bItemNo3>635</bItemNo3>	<!--CZ-52 [ 11.11% ] -->
+		<bItemNo4>689</bItemNo4>	<!--Makarov PM [ 11.11% ] -->
+		<bItemNo5>738</bItemNo5>	<!--Tokarev TT-33 [ 11.11% ] -->
+		<bItemNo6>744</bItemNo6>	<!--VIS-35 [ 11.11% ] -->
+		<bItemNo7>747</bItemNo7>	<!--Winchester 94 Trapper [ 11.11% ] -->
+		<bItemNo8>711</bItemNo8>	<!--Sawed-Off Shotgun [ 11.11% ] -->
+		<bItemNo9>679</bItemNo9>	<!--Ithaca Model 37 [ 11.11% ] -->
+		<bItemNo10>0</bItemNo10>	<!-- [ 0.00% ] -->
+		<bItemNo11>0</bItemNo11>	<!-- [ 0.00% ] -->
+		<bItemNo12>0</bItemNo12>	<!-- [ 0.00% ] -->
+		<bItemNo13>0</bItemNo13>	<!-- [ 0.00% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>3</uiIndex>
+		<name>30%</name>
+		<ubChoices>20</ubChoices>
+		<bItemNo1>8</bItemNo1>	<!--Colt M1911A1 [ 10.00% ] -->
+		<bItemNo2>397</bItemNo2>	<!--FN Browning HP-35 [ 10.00% ] -->
+		<bItemNo3>635</bItemNo3>	<!--CZ-52 [ 10.00% ] -->
+		<bItemNo4>689</bItemNo4>	<!--Makarov PM [ 10.00% ] -->
+		<bItemNo5>738</bItemNo5>	<!--Tokarev TT-33 [ 10.00% ] -->
+		<bItemNo6>744</bItemNo6>	<!--VIS-35 [ 10.00% ] -->
+		<bItemNo7>747</bItemNo7>	<!--Winchester 94 Trapper [ 5.00% ] -->
+		<bItemNo8>711</bItemNo8>	<!--Sawed-Off Shotgun [ 5.00% ] -->
+		<bItemNo9>679</bItemNo9>	<!--Ithaca Model 37 [ 5.00% ] -->
+		<bItemNo10>628</bItemNo10>	<!--Carl Gustaf M/45B [ 5.00% ] -->
+		<bItemNo11>702</bItemNo11>	<!--PPsh-41 [ 5.00% ] -->
+		<bItemNo12>725</bItemNo12>	<!--Sterling L2A3 [ 5.00% ] -->
+		<bItemNo13>773</bItemNo13>	<!--KP M/31 Suomi [ 5.00% ] -->
+		<bItemNo14>724</bItemNo14>	<!--Stechkin APS [ 5.00% ] -->
+		<bItemNo15>8</bItemNo15>	<!--Colt M1911A1 [ 10.00% ] -->
+		<bItemNo16>397</bItemNo16>	<!--FN Browning HP-35 [ 10.00% ] -->
+		<bItemNo17>635</bItemNo17>	<!--CZ-52 [ 10.00% ] -->
+		<bItemNo18>689</bItemNo18>	<!--Makarov PM [ 10.00% ] -->
+		<bItemNo19>738</bItemNo19>	<!--Tokarev TT-33 [ 10.00% ] -->
+		<bItemNo20>744</bItemNo20>	<!--VIS-35 [ 10.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>4</uiIndex>
+		<name>40%</name>
+		<ubChoices>12</ubChoices>
+		<bItemNo1>8</bItemNo1>	<!--Colt M1911A1 [ 8.33% ] -->
+		<bItemNo2>689</bItemNo2>	<!--Makarov PM [ 8.33% ] -->
+		<bItemNo3>747</bItemNo3>	<!--Winchester 94 Trapper [ 16.67% ] -->
+		<bItemNo4>711</bItemNo4>	<!--Sawed-Off Shotgun [ 16.67% ] -->
+		<bItemNo5>628</bItemNo5>	<!--Carl Gustaf M/45B [ 8.33% ] -->
+		<bItemNo6>702</bItemNo6>	<!--PPsh-41 [ 8.33% ] -->
+		<bItemNo7>725</bItemNo7>	<!--Sterling L2A3 [ 8.33% ] -->
+		<bItemNo8>773</bItemNo8>	<!--KP M/31 Suomi [ 8.33% ] -->
+		<bItemNo9>724</bItemNo9>	<!--Stechkin APS [ 16.67% ] -->
+		<bItemNo10>747</bItemNo10>	<!--Winchester 94 Trapper [ 16.67% ] -->
+		<bItemNo11>711</bItemNo11>	<!--Sawed-Off Shotgun [ 16.67% ] -->
+		<bItemNo12>724</bItemNo12>	<!--Stechkin APS [ 16.67% ] -->
+		<bItemNo13>0</bItemNo13>	<!-- [ 0.00% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>5</uiIndex>
+		<name>50%</name>
+		<ubChoices>16</ubChoices>
+		<bItemNo1>8</bItemNo1>	<!--Colt M1911A1 [ 6.25% ] -->
+		<bItemNo2>689</bItemNo2>	<!--Makarov PM [ 6.25% ] -->
+		<bItemNo3>747</bItemNo3>	<!--Winchester 94 Trapper [ 12.50% ] -->
+		<bItemNo4>711</bItemNo4>	<!--Sawed-Off Shotgun [ 12.50% ] -->
+		<bItemNo5>628</bItemNo5>	<!--Carl Gustaf M/45B [ 12.50% ] -->
+		<bItemNo6>702</bItemNo6>	<!--PPsh-41 [ 12.50% ] -->
+		<bItemNo7>725</bItemNo7>	<!--Sterling L2A3 [ 12.50% ] -->
+		<bItemNo8>724</bItemNo8>	<!--Stechkin APS [ 18.75% ] -->
+		<bItemNo9>1193</bItemNo9>	<!--M1 Carbine [ 6.25% ] -->
+		<bItemNo10>711</bItemNo10>	<!--Winchester 94 Trapper [ 12.50% ] -->
+		<bItemNo11>628</bItemNo11>	<!--Sawed-Off Shotgun [ 12.50% ] -->
+		<bItemNo12>702</bItemNo12>	<!--Carl Gustaf M/45B [ 12.50% ] -->
+		<bItemNo13>725</bItemNo13>	<!--PPsh-41 [ 12.50% ] -->
+		<bItemNo14>773</bItemNo14>	<!--Sterling L2A3 [ 12.50% ] -->
+		<bItemNo15>724</bItemNo15>	<!--Stechkin APS [ 18.75% ] -->
+		<bItemNo16>724</bItemNo16>	<!--Stechkin APS [ 18.75% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>6</uiIndex>
+		<name>60%</name>
+		<ubChoices>11</ubChoices>
+		<bItemNo1>747</bItemNo1>	<!--Winchester 94 Trapper [ 9.09% ] -->
+		<bItemNo2>711</bItemNo2>	<!--Sawed-Off Shotgun [ 9.09% ] -->
+		<bItemNo3>628</bItemNo3>	<!--Carl Gustaf M/45B [ 18.18% ] -->
+		<bItemNo4>702</bItemNo4>	<!--PPsh-41 [ 9.09% ] -->
+		<bItemNo5>725</bItemNo5>	<!--Sterling L2A3 [ 18.18% ] -->
+		<bItemNo6>724</bItemNo6>	<!--Stechkin APS [ 9.09% ] -->
+		<bItemNo7>693</bItemNo7>	<!--Mosin-Nagant M1891/30 [ 9.09% ] -->
+		<bItemNo8>776</bItemNo8>	<!--Mauser Karabiner 98k [ 9.09% ] -->
+		<bItemNo9>1193</bItemNo9>	<!--M1 Carbine [ 9.09% ] -->
+		<bItemNo10>628</bItemNo10>	<!--Carl Gustaf M/45B [ 18.18% ] -->
+		<bItemNo11>725</bItemNo11>	<!--Sterling L2A3 [ 18.18% ] -->
+		<bItemNo12>0</bItemNo12>	<!-- [ 0.00% ] -->
+		<bItemNo13>0</bItemNo13>	<!-- [ 0.00% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>7</uiIndex>
+		<name>70%</name>
+		<ubChoices>10</ubChoices>
+		<bItemNo1>628</bItemNo1>	<!--Carl Gustaf M/45B [ 20.00% ] -->
+		<bItemNo2>702</bItemNo2>	<!--PPsh-41 [ 10.00% ] -->
+		<bItemNo3>725</bItemNo3>	<!--Sterling L2A3 [ 20.00% ] -->
+		<bItemNo4>724</bItemNo4>	<!--Stechkin APS [ 10.00% ] -->
+		<bItemNo5>693</bItemNo5>	<!--Mosin-Nagant M1891/30 [ 10.00% ] -->
+		<bItemNo6>776</bItemNo6>	<!--Mauser Karabiner 98k [ 10.00% ] -->
+		<bItemNo7>1193</bItemNo7>	<!--M1 Carbine [ 20.00% ] -->
+		<bItemNo8>1193</bItemNo8>	<!--M1 Carbine [ 20.00% ] -->
+		<bItemNo9>628</bItemNo9>	<!--Carl Gustaf M/45B [ 20.00% ] -->
+		<bItemNo10>725</bItemNo10>	<!--Sterling L2A3 [ 20.00% ] -->
+		<bItemNo11>0</bItemNo11>	<!-- [ 0.00% ] -->
+		<bItemNo12>0</bItemNo12>	<!-- [ 0.00% ] -->
+		<bItemNo13>0</bItemNo13>	<!-- [ 0.00% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>8</uiIndex>
+		<name>80%</name>
+		<ubChoices>9</ubChoices>
+		<bItemNo1>628</bItemNo1>	<!--Carl Gustaf M/45B [ 11.11% ] -->
+		<bItemNo2>702</bItemNo2>	<!--PPsh-41 [ 11.11% ] -->
+		<bItemNo3>725</bItemNo3>	<!--Sterling L2A3 [ 11.11% ] -->
+		<bItemNo4>693</bItemNo4>	<!--Mosin-Nagant M1891/30 [ 22.22% ] -->
+		<bItemNo5>776</bItemNo5>	<!--Mauser Karabiner 98k [ 22.22% ] -->
+		<bItemNo6>1193</bItemNo6>	<!--M1 Carbine [ 22.22% ] -->
+		<bItemNo7>693</bItemNo7>	<!--Mosin-Nagant M1891/30 [ 22.22% ] -->
+		<bItemNo8>776</bItemNo8>	<!--Mauser Karabiner 98k [ 22.22% ] -->
+		<bItemNo9>1193</bItemNo9>	<!--M1 Carbine [ 22.22% ] -->
+		<bItemNo10>0</bItemNo10>	<!-- [ 0.00% ] -->
+		<bItemNo11>0</bItemNo11>	<!-- [ 0.00% ] -->
+		<bItemNo12>0</bItemNo12>	<!-- [ 0.00% ] -->
+		<bItemNo13>0</bItemNo13>	<!-- [ 0.00% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>9</uiIndex>
+		<name>90%</name>
+		<ubChoices>8</ubChoices>
+		<bItemNo1>725</bItemNo1>	<!--Sterling L2A3 [ 12.50% ] -->
+		<bItemNo2>693</bItemNo2>	<!--Mosin-Nagant M1891/30 [ 25.00% ] -->
+		<bItemNo3>776</bItemNo3>	<!--Mauser Karabiner 98k [ 25.00% ] -->
+		<bItemNo4>1193</bItemNo4>	<!--M1 Carbine [ 25.00% ] -->
+		<bItemNo5>683</bItemNo5>	<!--M1 Garand [ 12.50% ] -->
+		<bItemNo6>693</bItemNo6>	<!--Mosin-Nagant M1891/30 [ 25.00% ] -->
+		<bItemNo7>776</bItemNo7>	<!--Mauser Karabiner 98k [ 25.00% ] -->
+		<bItemNo8>1193</bItemNo8>	<!--M1 Carbine [ 25.00% ] -->
+		<bItemNo9>0</bItemNo9>	<!-- [ 0.00% ] -->
+		<bItemNo10>0</bItemNo10>	<!-- [ 0.00% ] -->
+		<bItemNo11>0</bItemNo11>	<!-- [ 0.00% ] -->
+		<bItemNo12>0</bItemNo12>	<!-- [ 0.00% ] -->
+		<bItemNo13>0</bItemNo13>	<!-- [ 0.00% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>10</uiIndex>
+		<name>100%</name>
+		<ubChoices>4</ubChoices>
+		<bItemNo1>693</bItemNo1>	<!--Mosin-Nagant M1891/30 [ 25.00% ] -->
+		<bItemNo2>776</bItemNo2>	<!--Mauser Karabiner 98k [ 25.00% ] -->
+		<bItemNo3>1193</bItemNo3>	<!--M1 Carbine [ 25.00% ] -->
+		<bItemNo4>683</bItemNo4>	<!--M1 Garand [ 25.00% ] -->
+		<bItemNo5>0</bItemNo5>	<!-- [ 0.00% ] -->
+		<bItemNo6>0</bItemNo6>	<!-- [ 0.00% ] -->
+		<bItemNo7>0</bItemNo7>	<!-- [ 0.00% ] -->
+		<bItemNo8>0</bItemNo8>	<!-- [ 0.00% ] -->
+		<bItemNo9>0</bItemNo9>	<!-- [ 0.00% ] -->
+		<bItemNo10>0</bItemNo10>	<!-- [ 0.00% ] -->
+		<bItemNo11>0</bItemNo11>	<!-- [ 0.00% ] -->
+		<bItemNo12>0</bItemNo12>	<!-- [ 0.00% ] -->
+		<bItemNo13>0</bItemNo13>	<!-- [ 0.00% ] -->
+		<bItemNo14>0</bItemNo14>	<!-- [ 0.00% ] -->
+		<bItemNo15>0</bItemNo15>	<!-- [ 0.00% ] -->
+		<bItemNo16>0</bItemNo16>	<!-- [ 0.00% ] -->
+		<bItemNo17>0</bItemNo17>	<!-- [ 0.00% ] -->
+		<bItemNo18>0</bItemNo18>	<!-- [ 0.00% ] -->
+		<bItemNo19>0</bItemNo19>	<!-- [ 0.00% ] -->
+		<bItemNo20>0</bItemNo20>	<!-- [ 0.00% ] -->
+		<bItemNo21>0</bItemNo21>	<!-- [ 0.00% ] -->
+		<bItemNo22>0</bItemNo22>	<!-- [ 0.00% ] -->
+		<bItemNo23>0</bItemNo23>	<!-- [ 0.00% ] -->
+		<bItemNo24>0</bItemNo24>	<!-- [ 0.00% ] -->
+		<bItemNo25>0</bItemNo25>	<!-- [ 0.00% ] -->
+		<bItemNo26>0</bItemNo26>	<!-- [ 0.00% ] -->
+		<bItemNo27>0</bItemNo27>	<!-- [ 0.00% ] -->
+		<bItemNo28>0</bItemNo28>	<!-- [ 0.00% ] -->
+		<bItemNo29>0</bItemNo29>	<!-- [ 0.00% ] -->
+		<bItemNo30>0</bItemNo30>	<!-- [ 0.00% ] -->
+		<bItemNo31>0</bItemNo31>	<!-- [ 0.00% ] -->
+		<bItemNo32>0</bItemNo32>	<!-- [ 0.00% ] -->
+		<bItemNo33>0</bItemNo33>	<!-- [ 0.00% ] -->
+		<bItemNo34>0</bItemNo34>	<!-- [ 0.00% ] -->
+		<bItemNo35>0</bItemNo35>	<!-- [ 0.00% ] -->
+		<bItemNo36>0</bItemNo36>	<!-- [ 0.00% ] -->
+		<bItemNo37>0</bItemNo37>	<!-- [ 0.00% ] -->
+		<bItemNo38>0</bItemNo38>	<!-- [ 0.00% ] -->
+		<bItemNo39>0</bItemNo39>	<!-- [ 0.00% ] -->
+		<bItemNo40>0</bItemNo40>	<!-- [ 0.00% ] -->
+		<bItemNo41>0</bItemNo41>	<!-- [ 0.00% ] -->
+		<bItemNo42>0</bItemNo42>	<!-- [ 0.00% ] -->
+		<bItemNo43>0</bItemNo43>	<!-- [ 0.00% ] -->
+		<bItemNo44>0</bItemNo44>	<!-- [ 0.00% ] -->
+		<bItemNo45>0</bItemNo45>	<!-- [ 0.00% ] -->
+		<bItemNo46>0</bItemNo46>	<!-- [ 0.00% ] -->
+		<bItemNo47>0</bItemNo47>	<!-- [ 0.00% ] -->
+		<bItemNo48>0</bItemNo48>	<!-- [ 0.00% ] -->
+		<bItemNo49>0</bItemNo49>	<!-- [ 0.00% ] -->
+		<bItemNo50>0</bItemNo50>	<!-- [ 0.00% ] -->
+	</ENEMYGUNCHOICES>
 </ENEMYGUNCHOICESLIST>
