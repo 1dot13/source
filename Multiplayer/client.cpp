@@ -2618,8 +2618,6 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 
 		gGameOptions.ubSquadSize = 6;
 		
-		gGameOptions.fUseNCTH = FALSE;
-
 		// Server forces us to play with new Inventory, but NIV is not allowed on the client,
 		// because of wrong resolution or other stuff
 		if ( UsingNewInventorySystem() == true && !IsNIVModeValid(true) )
@@ -2825,8 +2823,6 @@ void reapplySETTINGS()
 
 	gGameOptions.ubSquadSize = 6;
 	
-	gGameOptions.fUseNCTH = FALSE;
-
 	// WANNE - MP: We have to re-initialize the correct interface
 	if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))
 	{

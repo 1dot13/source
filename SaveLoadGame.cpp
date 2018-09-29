@@ -3607,15 +3607,12 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	SaveGameHeader.sInitialGameOptions.ubAttachmentSystem = gGameOptions.ubAttachmentSystem;
 
 	SaveGameHeader.sInitialGameOptions.ubSquadSize = gGameOptions.ubSquadSize;
-
-	SaveGameHeader.sInitialGameOptions.fUseNCTH = gGameOptions.fUseNCTH;
-
+	
 	//
 	// Save the Save Game header file
 	//
 	guiJA2EncryptionSet = CalcJA2EncryptionSet( &SaveGameHeader );
-
-
+	
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("starting SaveCurrentSectorsInformationToTempItemFile" ) );
 	//Save the current sectors open temp files to the disk
 	if( !SaveCurrentSectorsInformationToTempItemFile() )

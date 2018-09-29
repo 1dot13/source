@@ -260,7 +260,7 @@ typedef struct
 
 	UINT8	ubFiller3;					// Flugente: used to be BOOLEAN fInventoryCostsAP;			// ubFiller:	From 500 to 499
 
-	BOOLEAN fUseNCTH;					// ubFiller:	From 499 to 498
+	UINT8	ubFiller7;					// Flugente: used to be BOOLEAN fUseNCTH;					// ubFiller:	From 499 to 498
 	UINT8	ubFiller4;					// Flugente: used to be BOOLEAN fImprovedInterruptSystem;	// ubFiller:	From 498 to 497
 	UINT8	ubFiller5;					// Flugente: used to be BOOLEAN fBackGround;				// ubFiller:	From 497 to 496
 	UINT8	ubFiller6;					// Flugente: used to be BOOLEAN fFoodSystem;				// ubFiler:		From 496 to 495
@@ -364,6 +364,9 @@ typedef struct
 	UINT16 usAwardSpecialExpForQuests;
 
 	BOOLEAN fAllowWalkingWithWeaponRaised;
+
+	// Flugente: moved this to the ini from the option screen, as players might want to change it later on
+	BOOLEAN fUseNCTH;
 	////////////////////////////////////
 
 	// Kaiden: Vehicle Inventory change - Added for INI Option

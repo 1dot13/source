@@ -165,10 +165,6 @@
 #define		GIO_BR_QUANTITY_SETTING_Y				GIO_BR_QUALITY_SETTING_Y + COMBO_Y_OFFSET
 #define		GIO_BR_QUANTITY_SETTING_WIDTH			COMBO_WIDTH
 
-#define		GIO_NCTH_SETTING_X						THIRD_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_NCTH_SETTING_Y						GIO_BR_QUANTITY_SETTING_Y + CHECK_Y_OFFSET
-#define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
-
 ////radio box locations
 //#define		GIO_GAP_BN_SETTINGS						35
 //#define		GIO_OFFSET_TO_TEXT						36
@@ -485,12 +481,6 @@ INT32 giGIOSquadSizeButtonImage[ 2 ];
 void BtnGIOSquadSizeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
 
-// NCTH
-UINT32	guiNCTHOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
-UINT32	guiNCTHOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
-void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason);
-
 UINT32	guiTimedTurnToggles[ GIO_NUM_TIMED_TURN_OPTIONS ];
 void BtnTimedTurnsTogglesCallback(GUI_BUTTON *btn,INT32 reason);
 
@@ -518,8 +508,6 @@ UINT8			GetCurrentTextStyleButtonSetting();
 // SANDRO - added following
 UINT8	GetCurrentTraitsOptionButtonSetting();
 UINT8	GetCurrentTexAndJohnButtonSetting();
-
-UINT8	GetCurrentNCTHButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
 void		DoneFadeInForExitGameInitOptionScreen( void );
@@ -618,9 +606,7 @@ UINT32	GameInitOptionsScreenInit( void )
 		ubSquadSize = 6;
 
 	gGameOptions.ubSquadSize = ubSquadSize;
-
-	gGameOptions.fUseNCTH = FALSE;
-
+	
 	gGameOptions.fAirStrikes =  FALSE;
 	gGameOptions.fTurnTimeLimit	= FALSE;
 
@@ -1063,35 +1049,6 @@ BOOLEAN		EnterGIOScreen()
 		}
 	}
 
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// NCTH ON/OFF SETTING
-
-	guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiNCTHOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOffCallback);
-
-	guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiNCTHOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_NCTH_SETTING_X + 74), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOnCallback );
-
-	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
-	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_ON ],0, 1 );
-
-	if( gGameOptions.fUseNCTH )
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
-	else
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
-	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//Reset the exit screen
@@ -1904,37 +1861,6 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-
 BOOLEAN		ExitGIOScreen()
 {
 	UINT16	cnt;
@@ -2033,14 +1959,7 @@ BOOLEAN		ExitGIOScreen()
 		UnloadButtonImage( giGIOSquadSizeButtonImage[0] );
 		UnloadButtonImage( giGIOSquadSizeButtonImage[1] );
 	}
-	
-	// Destroy NCTH Cost setting buttons
-	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
-	{
-		RemoveButton( guiNCTHOptionToggles[ cnt ] );
-		UnloadButtonImage( guiNCTHOptionTogglesImage[ cnt ] );
-	}
-			
+				
 	gfGIOButtonsAllocated = FALSE;
 
 	//If we are starting the game stop playing the music
@@ -2199,9 +2118,6 @@ BOOLEAN		RenderGIOScreen()
 	RenderGIOSmallSelectionFrame( (GIO_SQUAD_SIZE_SETTING_X + 36), (GIO_SQUAD_SIZE_SETTING_Y - 3) );
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_SQUAD_SIZE_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_SQUAD_SIZE_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_SQUAD_SIZE_SETTING_Y+6), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentSquadSize + (GIO_SQUAD_SIZE_TITLE_TEXT + 1) ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	
-	//Display the NCTH Settings Title Text
-	DisplayWrappedString( (GIO_NCTH_SETTING_X - 6), (UINT16)(GIO_NCTH_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_NCTH_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_NCTH_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	
 	return( TRUE );
 }
@@ -2381,20 +2297,6 @@ UINT8	GetCurrentTimedTurnsButtonSetting()
 	return( 0 );
 }
 
-UINT8	GetCurrentNCTHButtonSetting()
-{
-	UINT8	cnt;
-
-	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
-	{
-		if( ButtonList[ guiNCTHOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-		{
-			return( cnt );
-		}
-	}
-	return( 0 );
-}
-
 void DoneFadeOutForExitGameInitOptionScreen( void )
 {
 	// loop through and get the status of all the buttons
@@ -2459,8 +2361,6 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	
 	gGameOptions.ubProgressSpeedOfItemsChoices = min( GIO_PROGRESS_VERY_FAST, iCurrentProgressSetting );
 	
-	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
-
 	gubGIOExitScreen = INIT_SCREEN;
 	
 	//set the fact that we should do the intro videos
@@ -2650,10 +2550,6 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		GIO_IRON_MAN_SETTING_Y					GIO_GAME_SETTING_Y + COMBO_Y_OFFSET + CORRECTION_Y_OFFSET//GIO_GAME_SETTING_Y + CHECK_Y_OFFSET + CORRECTION_Y_OFFSET
 #define		GIO_IRON_MAN_SETTING_WIDTH				COMBO_WIDTH//CHECK_WIDTH
 
-#define		GIO_NCTH_SETTING_X						FIRST_COLUMN_X + CHECK_X_OFFSET
-#define		GIO_NCTH_SETTING_Y						GIO_IRON_MAN_SETTING_Y + CHECK_Y_OFFSET// + CORRECTION_Y_OFFSET
-#define		GIO_NCTH_SETTING_WIDTH					CHECK_WIDTH
-
 /*********************************
 	SECOND COLUMN
 **********************************/
@@ -2709,7 +2605,6 @@ void RenderGIOSmallSelectionFrame(INT16 sX, INT16 sY)
 #define		JA2SP_EXTRA_DIFFICULTY					"EXTRA_DIFFICULTY"
 #define		JA2SP_AVAILABLE_ARSENAL					"AVAILABLE_ARSENAL"
 #define		JA2SP_SQUAD_SIZE						"SQUAD_SIZE"
-#define		JA2SP_USE_NCTH							"USE_NCTH"
 
 DIFFICULTY_SETTINGS_VALUES zDiffSetting[MAX_DIF_LEVEL];
 UINT8 MaxDifficultySettingsValues; 
@@ -2913,12 +2808,6 @@ INT32 giGIOSquadSizeButtonImage[ 2 ];
 void BtnGIOSquadSizeSelectionLeftCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason );
 
-// NCTH
-UINT32	guiNCTHOptionTogglesImage[ GIO_NUM_ONOFF_BUTTONS ];
-UINT32	guiNCTHOptionToggles[ GIO_NUM_ONOFF_BUTTONS ];
-void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason);
-void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason);
-
 UINT32	guiTimedTurnToggles[ GIO_NUM_TIMED_TURN_OPTIONS ];
 void BtnTimedTurnsTogglesCallback(GUI_BUTTON *btn,INT32 reason);
 
@@ -2943,7 +2832,6 @@ UINT8			GetCurrentGameSaveButtonSetting();
 UINT8			GetCurrentGameStyleButtonSetting();
 
 UINT8	GetCurrentTraitsOptionButtonSetting();
-UINT8	GetCurrentNCTHButtonSetting();
 
 void		DoneFadeOutForExitGameInitOptionScreen( void );
 void		DoneFadeInForExitGameInitOptionScreen( void );
@@ -3037,9 +2925,7 @@ UINT32	GameInitOptionsScreenInit( void )
 		ubSquadSize = 6;
 
 	gGameOptions.ubSquadSize = ubSquadSize;
-
-	gGameOptions.fUseNCTH = (BOOLEAN)props.getIntProperty(JA2SP_INI_INITIAL_SECTION, JA2SP_USE_NCTH, 0);
-
+	
 	// Air strikes
 	gGameOptions.fAirStrikes =  FALSE;
 
@@ -3475,35 +3361,6 @@ BOOLEAN		EnterGIOScreen()
 	
 #endif
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////
-	// NCTH ON/OFF SETTING
-
-	guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ] = 	UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiNCTHOptionToggles[ GIO_BUTTON_OFF ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_OFF ], gzGIOScreenText[ GIO_DROPALL_OFF_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOffCallback);
-
-	guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ] = UseLoadedButtonImage( guiTraitsOptionTogglesImage[ GIO_TRAITS_OLD ], -1,1,-1,3,-1 );
-	guiNCTHOptionToggles[ GIO_BUTTON_ON ] =	CreateIconAndTextButton( guiNCTHOptionTogglesImage[ GIO_BUTTON_ON ],  gzGIOScreenText[ GIO_DROPALL_ON_TEXT ], GIO_TOGGLE_TEXT_FONT,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													GIO_TOGGLE_TEXT_COLOR, NO_SHADOW,
-													TEXT_CJUSTIFIED,
-													(GIO_NCTH_SETTING_X + 74), (GIO_NCTH_SETTING_Y + 10), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													DEFAULT_MOVE_CALLBACK, BtnGIONCTHOnCallback );
-
-	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	SpecifyButtonSoundScheme( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_SCHEME_BIGSWITCH3 );
-	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_OFF ],0, 0 );
-	MSYS_SetBtnUserData(guiNCTHOptionToggles[ GIO_BUTTON_ON ],0, 1 );
-
-	if( gGameOptions.fUseNCTH )
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags |= BUTTON_CLICKED_ON;
-	else
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags |= BUTTON_CLICKED_ON;	
-
 	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Reset the exit screen
@@ -4284,37 +4141,6 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	}
 }
 
-void BtnGIONCTHOffCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_ON ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_OFF ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-void BtnGIONCTHOnCallback(GUI_BUTTON *btn,INT32 reason)
-{
-	if (!(btn->uiFlags & BUTTON_ENABLED))
-		return;
-
-	if( reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
-	{
-		RestoreExternBackgroundRect( (GIO_NCTH_SETTING_X), (GIO_NCTH_SETTING_Y + 10), 230, 40 );
-
-		ButtonList[ guiNCTHOptionToggles[ GIO_BUTTON_OFF ] ]->uiFlags &= ~BUTTON_CLICKED_ON;
-		btn->uiFlags|=(BUTTON_CLICKED_ON);
-			
-		PlayButtonSound( guiNCTHOptionToggles[ GIO_BUTTON_ON ], BUTTON_SOUND_CLICKED_ON );
-	}
-}
-
 BOOLEAN		ExitGIOScreen()
 {
 	UINT16	cnt;
@@ -4406,14 +4232,7 @@ BOOLEAN		ExitGIOScreen()
 		UnloadButtonImage( giGIOSquadSizeButtonImage[0] );
 		UnloadButtonImage( giGIOSquadSizeButtonImage[1] );
 	}
-
-	// Destroy NCTH Cost setting buttons
-	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
-	{
-		RemoveButton( guiNCTHOptionToggles[ cnt ] );
-		UnloadButtonImage( guiNCTHOptionTogglesImage[ cnt ] );
-	}
-	
+		
 	gfGIOButtonsAllocated = FALSE;
 
 	//If we are starting the game stop playing the music
@@ -4571,9 +4390,6 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (UINT16)(GIO_SQUAD_SIZE_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE - 12), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_SQUAD_SIZE_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	DisplayWrappedString( (UINT16)(GIO_SQUAD_SIZE_SETTING_X+GIO_OFFSET_TO_TEXT + 1), (GIO_SQUAD_SIZE_SETTING_Y+6), GIO_SQUAD_SIZE_SETTING_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ iCurrentSquadSize + (GIO_SQUAD_SIZE_TITLE_TEXT + 1) ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
-	//Display the NCTH Settings Title Text
-	DisplayWrappedString( (GIO_NCTH_SETTING_X - 6), (UINT16)(GIO_NCTH_SETTING_Y-GIO_GAP_BN_SETTINGS + GIO_TITLE_DISTANCE), GIO_NCTH_SETTING_WIDTH + 14, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_NCTH_TITLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
-	
 	return( TRUE );
 }
 
@@ -4738,20 +4554,6 @@ UINT8	GetCurrentTimedTurnsButtonSetting()
 	return( 0 );
 }
 
-UINT8	GetCurrentNCTHButtonSetting()
-{
-	UINT8	cnt;
-
-	for( cnt=0; cnt<GIO_NUM_ONOFF_BUTTONS; cnt++)
-	{
-		if( ButtonList[ guiNCTHOptionToggles[ cnt ] ]->uiFlags & BUTTON_CLICKED_ON )
-		{
-			return( cnt );
-		}
-	}
-	return( 0 );
-}
-
 void DoneFadeOutForExitGameInitOptionScreen( void )
 {
 	// loop through and get the status of all the buttons
@@ -4805,9 +4607,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	// SANDRO - added following:
 	gGameOptions.fNewTraitSystem = GetCurrentTraitsOptionButtonSetting();
 	gGameOptions.ubProgressSpeedOfItemsChoices = min( GIO_PROGRESS_VERY_FAST, iCurrentProgressSetting );
-
-	gGameOptions.fUseNCTH = GetCurrentNCTHButtonSetting();
-
+	
 	gubGIOExitScreen = INTRO_SCREEN;
 
 #ifdef JA2TESTVERSION

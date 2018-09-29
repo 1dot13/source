@@ -55,8 +55,8 @@
 
 #endif
 										
-CHAR8		czVersionNumber[16]	= { "Build 18.23.09" };		//YY.MM.DD
+CHAR8		czVersionNumber[16]	= { "Build 18.29.09" };		//YY.MM.DD
 CHAR16		zTrackingNumber[16]	= { L"Z" };
-CHAR16		zRevisionNumber[16] = { L"Revision 8617" };
+CHAR16		zRevisionNumber[16] = { L"Revision 8625" };
 	
 // SAVE_GAME_VERSION is defined in header, change it there

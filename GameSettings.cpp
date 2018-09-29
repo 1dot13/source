@@ -127,7 +127,8 @@ bool UsingNewAttachmentSystem()
 
 bool UsingNewCTHSystem()
 {
-	return (gGameOptions.fUseNCTH == TRUE);
+	// this feature is off in multiplayer
+	return ( !is_networked && gGameExternalOptions.fUseNCTH);
 }
 
 BOOLEAN UsingFoodSystem()
@@ -270,12 +271,6 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
 		gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALT_MAP_COLOR"					   ,  FALSE ); // HEADROCK HAM 4: Strategic Map Colors
 		gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS]       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_ALTERNATE_BULLET_GRAPHICS"        ,  TRUE );
-		
-		//if (!is_networked)
-		//	gGameSettings.fOptions[TOPTION_USE_NCTH]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_USE_NCTH"						   ,  FALSE );
-		//else
-		//	gGameSettings.fOptions[TOPTION_USE_NCTH]					= FALSE;
-
 		gGameSettings.fOptions[TOPTION_SHOW_MERC_RANKS]					= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_MERC_RANKS"				   ,  FALSE );
 		gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR]		    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_TACTICAL_FACE_GEAR"		   ,  TRUE );
 		gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS]	    = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_TACTICAL_FACE_ICONS"		   ,  TRUE );
@@ -592,10 +587,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_ALT_MAP_COLOR ]						= FALSE;
 
 	gGameSettings.fOptions[ TOPTION_ALTERNATE_BULLET_GRAPHICS ]			= TRUE;
-
-	// CHRISL: HAM 4: Activate/Deactivate NCTH mode
-	//gGameSettings.fOptions[ TOPTION_USE_NCTH ]							= FALSE;
-
+	
 	gGameSettings.fOptions[ TOPTION_SHOW_MERC_RANKS ]					= TRUE;
  
 	// WANNE:
@@ -671,8 +663,6 @@ void InitGameOptions()
 	gGameOptions.ubGameStyle		= STYLE_SCIFI;
 	gGameOptions.ubDifficultyLevel	= DIF_LEVEL_MEDIUM;
 	
-	gGameOptions.fUseNCTH = FALSE;
-
 	//CHRISL: override default inventory mode when in low res
 	if(IsNIVModeValid(true) == FALSE)
 	{
@@ -1301,6 +1291,8 @@ void LoadGameExternalOptions()
 
 
 	//################# Tactical Gameplay Settings ##################
+
+	gGameExternalOptions.fUseNCTH							= iniReader.ReadBoolean("Tactical Gameplay Settings", "NCTH", FALSE );
 
 	gGameExternalOptions.fAllowWalkingWithWeaponRaised		= iniReader.ReadBoolean("Tactical Gameplay Settings","ALLOW_WALKING_WITH_WEAPON_RAISED", TRUE);
 
