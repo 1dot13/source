@@ -2983,13 +2983,13 @@ UINT16 CalculateObjectWeight( OBJECTTYPE *pObject )
 	}
 
 	UINT16 weight = 0;
-	INVTYPE * pItem;
-	pItem = &(Item[ pObject->usItem ]);
+	INVTYPE* pItem = &(Item[ pObject->usItem ]);
+
 	//ADB it is much easier and faster to calculate ammo in a lump rather than accumulate a stack's weight
 	if ( pItem->usItemClass == IC_AMMO)//Pulmu: added weight allowance for ammo not being full
 	{
 		if ( gGameExternalOptions.fAmmoDynamicWeight == TRUE ) {
-			for( int cnt = 0; cnt < pObject->ubNumberOfObjects; cnt++ )
+			for( int cnt = 0; cnt < pObject->ubNumberOfObjects; ++cnt )
 			{
 				weight += CalculateAmmoWeight(pObject->usItem, (*pObject)[cnt]->data.ubShotsLeft);
 			}
@@ -3022,30 +3022,33 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 
 	// Start with base weight
 	UINT16 weight = pItem->ubWeight;
-	if ( pItem->usItemClass != IC_AMMO )
+	
+	// Are we looking at an LBENODE item?  New inventory only.
+	if ( pItem->usItemClass == IC_LBEGEAR && IsActiveLBE( index ) && ( UsingNewInventorySystem() == true ) )
 	{
-		// Are we looking at an LBENODE item?  New inventory only.
-		if(pItem->usItemClass == IC_LBEGEAR && IsActiveLBE(index) && (UsingNewInventorySystem() == true))
+		LBENODE* pLBE = GetLBEPointer( index );
+		if ( pLBE )
 		{
-			LBENODE* pLBE = GetLBEPointer(index);
-			if (pLBE)
+			UINT16 invsize = pLBE->inv.size();
+			for ( UINT16 subObjects = 0; subObjects < invsize; ++subObjects )
 			{
-				UINT16 invsize = pLBE->inv.size();
-				for ( UINT16 subObjects = 0; subObjects < pLBE->inv.size(); ++subObjects)
+				if ( pLBE->inv[subObjects].exists() == true )
 				{
-					if (pLBE->inv[subObjects].exists() == true)
-					{
-						weight += CalculateObjectWeight(&(pLBE->inv[subObjects]));
-					}
+					weight += CalculateObjectWeight( &( pLBE->inv[subObjects] ) );
 				}
 			}
-			//do not search for attachments to an LBE
-			return weight;
 		}
 
+		//do not search for attachments to an LBE
+		return weight;
+	}
+	else if ( pItem->usItemClass != IC_AMMO )
+	{
 		// account for any attachments
-		for (attachmentList::iterator iter = (*this)[index]->attachments.begin(); iter != (*this)[index]->attachments.end(); ++iter) {
-			if(iter->exists()){
+		for (attachmentList::iterator iter = (*this)[index]->attachments.begin(); iter != (*this)[index]->attachments.end(); ++iter)
+		{
+			if(iter->exists())
+			{
 				weight += CalculateObjectWeight(&(*iter));
 			}
 		}
@@ -3062,14 +3065,17 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 				weight += Item[ (*this)[index]->data.gun.usGunAmmoItem ].ubWeight;
 			}
 		}
-		// account for partially eaten food
-		if ( UsingFoodSystem() && Item[usItem].foodtype > 0 )
-			weight *= (FLOAT)((*this)[index])->data.objectStatus/100.0f;
+
+		if ( gGameExternalOptions.fAmmoDynamicWeight && ( pItem->camouflagekit || pItem->canteen || pItem->drugtype || pItem->foodtype || usItem == JAR_ELIXIR ) )
+		{
+			weight *= (FLOAT)( ( *this )[index] )->data.objectStatus / 100.0f;
+		}
 	}
 	else if ( pItem->usItemClass == IC_AMMO && gGameExternalOptions.fAmmoDynamicWeight == TRUE )//Pulmu: added weight allowance for ammo not being full
 	{
-		weight = CalculateAmmoWeight(usItem, (*this)[index]->data.ubShotsLeft);
+		weight = CalculateAmmoWeight( usItem, ( *this )[index]->data.ubShotsLeft );
 	}
+
 	return weight;
 }
 
