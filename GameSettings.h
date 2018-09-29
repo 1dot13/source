@@ -291,14 +291,7 @@ typedef struct
 
 	BOOLEAN fSellAll;
 	INT16 iPriceModifier;
-	
-	// Flugente: max number of IMPs, regardless of gender
-	INT32 iMaxIMPCharacters;		// Limit of how many to allow
-	//
-	// iaIMPSlots is an array of the slots (in prof.dat) to use for IMPs.
-	//
-	INT32 *iaIMPSlots;
-
+		
 	// SANDRO was here - some changes done
 	INT32 iIMPProfileCost;
 	BOOLEAN fDynamicIMPProfileCost;

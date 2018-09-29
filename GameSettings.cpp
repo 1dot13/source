@@ -763,41 +763,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fBackGround					= iniReader.ReadBoolean("Data File Settings", "BACKGROUNDS", TRUE );
 	
 	//################# Merc Recruitment Settings #################
-
-	// WDS: Allow flexible numbers of IMPs of each sex
-	// SANDRO - moved to the game itself
-	gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("Recruitment Settings","MAX_IMP_CHARACTERS",1, 1, NUM_PROFILES);
 	
-	//
-	// Note: put -1 between male/female slots and -1 at end.	This allows everything to be
-	// counted dynamically quite easily.	Note that all the code assumes there is AT
-	// LEAST ONE slot for each sex.	If that changes the code will have to be updated.
-	//
-	// Because errors in these values can really goof things up we will try to fix up bad
-	// values and use the defaults instead.
-	//
-	char caIMPCountStr[] = "IMP_%d";
-	char caCountStr[20];
-
-	gGameExternalOptions.iaIMPSlots = (INT32*)MemAlloc( (gGameExternalOptions.iMaxIMPCharacters) * sizeof( UINT32 ) );
-	for (int idx = 0; idx < gGameExternalOptions.iMaxIMPCharacters; ++idx)
-	{
-		sprintf( caCountStr, caIMPCountStr, idx+1);
-		gGameExternalOptions.iaIMPSlots[idx] = iniReader.ReadInteger("Recruitment Settings",caCountStr, -1, -1, NUM_PROFILES-1);
-		if (gGameExternalOptions.iaIMPSlots[idx] < 0)
-		{
-			if (idx < COUNT_STANDARD_MALE_SLOTS)
-			{
-				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_MALE_SLOT+idx;
-			}
-			else if ( idx < COUNT_STANDARD_FEMALE_SLOTS )
-			{
-				// This is bad so just use the last standard slot #
-				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_MALE_SLOT+COUNT_STANDARD_MALE_SLOTS-1;
-			}
-		}
-	}
-
 	// silversurfer: read early recruitment options 1=immediately (control Omerta), 2=early (control 1, 2, 3 towns including Omerta)
 	// 3=normal (control 3, 4, 5 towns including Omerta), 4=after liberating Omerta and solving the "Deliver Food Quest" for Miguel
 	gGameExternalOptions.ubEarlyRebelsRecruitment[0]	= iniReader.ReadInteger("Recruitment Settings","EARLY_REBELS_RECRUITMENT", 3, 1, 4);
@@ -3777,8 +3743,6 @@ void LoadCreaturesSettings()
 
 void FreeGameExternalOptions()
 {
-	if (gGameExternalOptions.iaIMPSlots != NULL) // OJW - 20081129 - Fix memory leak when calling LoadGameExternalOptions twice
-	MemFree( gGameExternalOptions.iaIMPSlots);
 }
 
 BOOLEAN GetCDLocation( )

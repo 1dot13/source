@@ -83,7 +83,8 @@ INT32 iCurrentProfileMode = IMP__REGISTRY;
 
 BOOLEAN IsIMPSlotFree(INT32 iIMPId)
 {
-	if ((iIMPId >= 0) && (iIMPId < NUM_PROFILES) &&
+	if ((iIMPId >= 0) && (iIMPId < NUM_PROFILES) && (iIMPId != NO_PROFILE) &&
+		( gMercProfiles[iIMPId].Type == PROFILETYPE_IMP ) &&
 		((wcscmp(gMercProfiles[iIMPId].zName, L"") == 0) ||
 		(gMercProfiles[iIMPId].bMercStatus == MERC_IS_DEAD)))
 	{
@@ -750,10 +751,10 @@ INT32 CountFilledIMPSlots()
 	INT32 iCount = 0;
 	
 	// Count the used slots
-	for ( INT32 i = 0; i < gGameExternalOptions.iMaxIMPCharacters; ++i)
+	for ( int i = 0; i < NUM_PROFILES; ++i )
 	{
-		if ((gGameExternalOptions.iaIMPSlots[i] != -1) &&
-			(!IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[i])))
+		if ( (gMercProfiles[i].Type == PROFILETYPE_IMP ) && ( i != NO_PROFILE ) && 
+			!IsIMPSlotFree(i) )
 		{
 			++iCount;
 		}
@@ -768,9 +769,9 @@ INT32 CountEmptyIMPSlots()
 	INT32 iCount = 0;
 	
 	// Count the free slots
-	for ( INT32 i = 0; i < gGameExternalOptions.iMaxIMPCharacters; ++i)
+	for ( int i = 0; i < NUM_PROFILES; ++i )
 	{
-		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[i]))
+		if (IsIMPSlotFree(i))
 		{
 			++iCount;
 		}
@@ -794,12 +795,12 @@ INT32 GetFreeIMPSlot(INT32 iDefaultIMPId)
 	// The default IMP id is already used, find next free imp id
 
 	// Find a free imp slot
-	for (INT32 i = 0; i < gGameExternalOptions.iMaxIMPCharacters; ++i)
+	for (int i = 0; i < NUM_PROFILES; ++i)
 	{
 		// Found a free imp slot
-		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[i]))
+		if (IsIMPSlotFree(i))
 		{
-			return gGameExternalOptions.iaIMPSlots[i];
+			return i;
 		}
 	}
 

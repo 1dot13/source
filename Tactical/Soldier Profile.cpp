@@ -284,6 +284,12 @@ BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile )
 		}
 	}
 	
+	// for whatever bizarre reason, this function is called way after the profiles themselves are loaded - so we now have to overwrite the types in there
+	for ( int i = 0; i < NUM_PROFILES; ++i )
+	{
+		gMercProfiles[i].Type = gProfileType[i];
+	}
+	
 	return( TRUE );
 }
 
