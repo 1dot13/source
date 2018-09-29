@@ -1158,12 +1158,6 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 			num_found_soldier_profiles[5] = num_found_profiles;
 		}
 	}
-			
-	//Sound profile by jazz 
-	strcpy(fileName, directoryName);
-	strcat(fileName, SOUNDPROFILE);
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	SGP_THROW_IFFALSE(ReadInSoundProfile(fileName), SOUNDPROFILE);
 
 	//Random stats by jazz 
 	strcpy(fileName, directoryName);

@@ -6,15 +6,6 @@
 #include "soldier profile type.h"
 #include <vector>
 
-typedef struct
-{
-	UINT16		uiIndex; // add
-	BOOLEAN EnabledSound;
-
-} SOUND_PROFILE_VALUES;
-
-extern SOUND_PROFILE_VALUES gSoundProfileValue[NUM_PROFILES];
-
 // An enumeration for dialog quotes
 enum DialogQuoteIDs
 {

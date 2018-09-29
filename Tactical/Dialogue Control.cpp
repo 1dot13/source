@@ -94,8 +94,6 @@ class SOLDIERTYPE;
 #define		DIALOGUE_DEFAULT_SUBTITLE_WIDTH		200
 #define		TEXT_DELAY_MODIFIER			60
 
-SOUND_PROFILE_VALUES gSoundProfileValue[NUM_PROFILES];
-
 typedef struct
 {
 	UINT16	usQuoteNum;
@@ -2320,17 +2318,7 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 	{
 		if ( fWavFile )
 		{
-			// Lesh: patch to allow playback ogg speech files
-			// build name of wav file (characternum + quotenum)
-//SB: curiously, there are no g_%03d_%03d audio files in all russian versions
-//			#ifdef RUSSIAN
-//				sprintf( zFileNameHelper,"NPC_SPEECH\\g_%03d_%03d",ubCharacterNum,usQuoteNum );
-//			#else
-			if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
-			{
-				sprintf( zFileNameHelper, "NPC_SPEECH\\d_%03d_%03d", usVoiceSet, usQuoteNum );
-			}
-//			#endif
+			sprintf( zFileNameHelper, "NPC_SPEECH\\d_%03d_%03d", usVoiceSet, usQuoteNum );
 		}
 		else
 		{
@@ -2388,17 +2376,14 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 
 		if ( fWavFile )
 		{
-			if ( gSoundProfileValue[ubFileNumID].EnabledSound == TRUE )
+			// Lesh: patch to allow playback ogg speech files
+			sprintf( zFileNameHelper, "NPC_SPEECH\\%03d_%03d", ubFileNumID, usQuoteNum );
+
+			// WANNE: We do not have any speech files for the other (!= HERVE) santos bartenders, take HERVE speech files
+			if ( isBartenderSantos && HERVE != ubFileNumID && !SoundFileExists( zFileNameHelper, zFileName ) )
 			{
-				// Lesh: patch to allow playback ogg speech files
-				sprintf( zFileNameHelper,"NPC_SPEECH\\%03d_%03d",ubFileNumID,usQuoteNum );
-				
-				// WANNE: We do not have any speech files for the other (!= HERVE) santos bartenders, take HERVE speech files
-				if (isBartenderSantos && HERVE != ubFileNumID && !SoundFileExists( zFileNameHelper, zFileName ) )
-				{
-					ubFileNumID = HERVE;
-					sprintf( zFileNameHelper,"NPC_SPEECH\\%03d_%03d",ubFileNumID,usQuoteNum );
-				}
+				ubFileNumID = HERVE;
+				sprintf( zFileNameHelper, "NPC_SPEECH\\%03d_%03d", ubFileNumID, usQuoteNum );
 			}
 		}
 		else
@@ -2423,28 +2408,23 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 					gMercProfiles[ubCharacterNum].Type == PROFILETYPE_VEHICLE ) && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )	
 				{
 					//inshy: fix for UB-1.13 version only					sprintf( zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-					if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
-					{			
+					
 #ifdef JA2UB
-						//inshy: fix for UB-1.13 version only
-						sprintf( zFileNameHelper,"SPEECH\\%03d_%03d",usVoiceSet,usQuoteNum );
+					//inshy: fix for UB-1.13 version only
+					sprintf( zFileNameHelper,"SPEECH\\%03d_%03d",usVoiceSet,usQuoteNum );
 #else
-						sprintf( zFileNameHelper,"SPEECH\\r_%03d_%03d",usVoiceSet,usQuoteNum );
+					sprintf( zFileNameHelper,"SPEECH\\r_%03d_%03d",usVoiceSet,usQuoteNum );
 
-						//<SB> Also check for Russian Gold sound files (identical to international ones)
-						if ( !SoundFileExists( zFileNameHelper, zFileName ) )
-							sprintf( zFileNameHelper, "SPEECH\\%03d_%03d", usVoiceSet, usQuoteNum );
+					//<SB> Also check for Russian Gold sound files (identical to international ones)
+					if ( !SoundFileExists( zFileNameHelper, zFileName ) )
+						sprintf( zFileNameHelper, "SPEECH\\%03d_%03d", usVoiceSet, usQuoteNum );
 #endif
-					}
 				}
 				else
 #endif
 			{
-				if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
-				{
-					// build name of wav file (characternum + quotenum)
-					sprintf( zFileNameHelper, "SPEECH\\%03d_%03d", usVoiceSet, usQuoteNum );
-				}
+				// build name of wav file (characternum + quotenum)
+				sprintf( zFileNameHelper, "SPEECH\\%03d_%03d", usVoiceSet, usQuoteNum );
 			}
 		}
 		else
@@ -2470,20 +2450,17 @@ CHAR8 *GetSnitchDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, B
 
 	if ( fWavFile )
 	{
-		if ( gSoundProfileValue[ubCharacterNum].EnabledSound == TRUE )
+		// build name of wav file (characternum + quotenum)
+		if ( fName )
 		{
-			// build name of wav file (characternum + quotenum)
-			if(fName)
-			{
-				sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d", usVoiceSet, usQuoteNum );
-			}
-			else
-			{
-				sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d", usVoiceSet, usQuoteNum );
-			}
-
-			SoundFileExists( zFileName, zFilename_Used );
+			sprintf( zFileName, "SPEECH\\SNITCH\\NAMES\\%03d_%03d", usVoiceSet, usQuoteNum );
 		}
+		else
+		{
+			sprintf( zFileName, "SPEECH\\SNITCH\\%03d_%03d", usVoiceSet, usQuoteNum );
+		}
+
+		SoundFileExists( zFileName, zFilename_Used );
 	}
 	else
 	{

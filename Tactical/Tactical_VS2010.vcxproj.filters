@@ -620,9 +620,6 @@
     <ClCompile Include="XML_RandomStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XML_SoundProfile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="XML_Qarray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

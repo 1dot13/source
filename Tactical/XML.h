@@ -148,7 +148,6 @@ typedef PARSE_STAGE;
 
 #define SOUNDSFILENAME							"Sounds\\Sounds.xml"
 #define BURSTSOUNDSFILENAME						"Sounds\\BurstSounds.xml"
-#define SOUNDPROFILE							"Sounds\\SoundsProfiles.xml"
 
 #define SECTORLOADSCREENSFILENAME				"Map\\SectorLoadscreens.xml"
 #define CITYTABLEFILENAME						"Map\\Cities.xml"
@@ -524,10 +523,6 @@ extern BOOLEAN WriteLocks( STR fileName );
 
 extern BOOLEAN ReadInKeys( STR fileName );
 extern BOOLEAN WriteKeys( STR fileName );
-
-//Enabled\Disabled profile sound by Jazz
-extern BOOLEAN ReadInSoundProfile( STR fileName );
-extern BOOLEAN WriteSoundProfile( STR fileName );
 
 //Random stats by Jazz
 extern BOOLEAN WriteRandomStats( STR fileName );

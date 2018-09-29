@@ -1247,10 +1247,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\XML_SoundProfile.cpp"
-				>
-			</File>
-			<File
 				RelativePath="XML_Sounds.cpp"
 				>
 			</File>

@@ -11020,26 +11020,23 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 	spParms.uiPan = SoundDir( pSoldier->sGridNo );
 	spParms.uiPriority = GROUP_PLAYER;
 
-	if ( gSoundProfileValue[pSoldier->ubProfile].EnabledSound == TRUE || pSoldier->ubProfile == NO_PROFILE )
+	if ( (uiSoundID = SoundPlay( zFilename_Used, &spParms )) == SOUND_ERROR )
 	{
-		if ( (uiSoundID = SoundPlay( zFilename_Used, &spParms )) == SOUND_ERROR )
-		{
-			return(FALSE);
-		}
-		else
-		{
-			pSoldier->uiBattleSoundID = uiSoundID;
+		return(FALSE);
+	}
+	else
+	{
+		pSoldier->uiBattleSoundID = uiSoundID;
 
-			if ( pSoldier->ubProfile != NO_PROFILE )
+		if ( pSoldier->ubProfile != NO_PROFILE )
+		{
+			// Get soldier's face ID
+			iFaceIndex = pSoldier->iFaceIndex;
+
+			// Check face index
+			if ( iFaceIndex != -1 )
 			{
-				// Get soldier's face ID
-				iFaceIndex = pSoldier->iFaceIndex;
-
-				// Check face index
-				if ( iFaceIndex != -1 )
-				{
-					ExternSetFaceTalking( iFaceIndex, uiSoundID );
-				}
+				ExternSetFaceTalking( iFaceIndex, uiSoundID );
 			}
 		}
 	}
