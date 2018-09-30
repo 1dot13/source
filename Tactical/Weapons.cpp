@@ -917,42 +917,10 @@ BOOLEAN WriteWeaponStats()
 
 UINT16 GunRange( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier ) // SANDRO - added argument
 {
-	//INT8 bAttachPos;
 	UINT16 rng;
 
 	if ( Item[ pObj->usItem ].usItemClass & IC_WEAPON )
 	{
-
-
-		//bAttachPos = FindAttachment( pObj, GUN_BARREL_EXTENDER );
-
-		//if ( bAttachPos == ITEM_NOT_FOUND )
-		//{
-		//	rng = ( Weapon[ pObj->usItem ].usRange );
-		//	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("GunRange: base rng=%d",rng));
-		//}
-		//else
-		//{
-		//	rng = ( Weapon[ pObj->usItem ].usRange + (GUN_BARREL_RANGE_BONUS * WEAPON_STATUS_MOD(pObj->bAttachStatus[ bAttachPos ]) / 100 ) );
-		//	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("GunRange: Found extender rng=%d",rng));
-		//}
-
-		//if ( Weapon [ pObj->usItem ].ubWeaponType == GUN_SHOTGUN && (*pObj)[0]->data.gun.ubGunAmmoType != AMMO_BUCKSHOT )
-		//{
-		//	rng += SOLID_SLUG_RANGE_BONUS;
-		//	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("GunRange: Found solid slug rng=%d",rng));
-		//}
-		//else
-		//{
-		//	bAttachPos = FindAttachment( pObj, DUCKBILL );
-		//	if ( bAttachPos != ITEM_NOT_FOUND )
-		//	{
-		//		rng += DUCKBILL_RANGE_BONUS * (WEAPON_STATUS_MOD(pObj->bAttachStatus[ bAttachPos ]) / 100 );
-		//		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("GunRange: Found duckbill rng=%d",rng));
-		//	}
-		//}
-
-
 		UINT16 usRange = GetModifiedGunRange(pObj->usItem);
 
 		// Snap: attachment status is factored into the range bonus calculation
@@ -1634,12 +1602,21 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 	FLOAT								dTargetX;
 	FLOAT								dTargetY;
 	FLOAT								dTargetZ;
-	SOLDIERTYPE					*pTargetSoldier;
+	SOLDIERTYPE*						pTargetSoldier = NULL;
 	INT8								bStructHeight;
 	INT16								sXMapPos, sYMapPos;
 	UINT32							uiRoll;
+	INT8								bTargetCubeLevel = 0;
+	INT8								bTargetLevel = 0;
 
-	pTargetSoldier = SimpleFindSoldier( sTargetGridNo, pSoldier->bTargetLevel );
+	if ( pSoldier )
+	{
+		pTargetSoldier = SimpleFindSoldier( sTargetGridNo, pSoldier->bTargetLevel );
+
+		bTargetCubeLevel = pSoldier->bTargetCubeLevel;
+		bTargetLevel = pSoldier->bTargetLevel;
+	}
+
 	if ( pTargetSoldier )
 	{
 		// SAVE OPP ID
@@ -1716,21 +1693,20 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 	}
 	else
 	{
-
 		// GET TARGET XY VALUES
 		ConvertGridNoToCenterCellXY( sTargetGridNo, &sXMapPos, &sYMapPos );
 
 		// fire at centre of tile
 		dTargetX = (FLOAT) sXMapPos;
 		dTargetY = (FLOAT) sYMapPos;
-		if (pSoldier->bTargetCubeLevel)
+		if ( bTargetCubeLevel )
 		{
 			// fire at the centre of the cube specified
-			dTargetZ = ( (FLOAT) (pSoldier->bTargetCubeLevel + pSoldier->bTargetLevel * PROFILE_Z_SIZE) - 0.5f) * HEIGHT_UNITS_PER_INDEX;
+			dTargetZ = ( (FLOAT) (bTargetCubeLevel + bTargetLevel * PROFILE_Z_SIZE) - 0.5f) * HEIGHT_UNITS_PER_INDEX;
 		}
 		else
 		{
-			bStructHeight = GetStructureTargetHeight( sTargetGridNo, (BOOLEAN) (pSoldier->bTargetLevel == 1) );
+			bStructHeight = GetStructureTargetHeight( sTargetGridNo, (BOOLEAN) (bTargetLevel == 1) );
 			if (bStructHeight > 0)
 			{
 				// fire at the centre of the cube *one below* the tallest of the tallest structure
@@ -1739,14 +1715,15 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 					// reduce target level by 1
 					bStructHeight--;
 				}
-				dTargetZ = ((FLOAT) (bStructHeight + pSoldier->bTargetLevel * PROFILE_Z_SIZE) - 0.5f) * HEIGHT_UNITS_PER_INDEX;
+				dTargetZ = ((FLOAT) (bStructHeight + bTargetLevel * PROFILE_Z_SIZE) - 0.5f) * HEIGHT_UNITS_PER_INDEX;
 			}
 			else
 			{
 				// fire at 1 unit above the level of the ground
-				dTargetZ = (FLOAT) (pSoldier->bTargetLevel * PROFILE_Z_SIZE) * HEIGHT_UNITS_PER_INDEX + 1;
+				dTargetZ = (FLOAT) (bTargetLevel * PROFILE_Z_SIZE) * HEIGHT_UNITS_PER_INDEX + 1;
 			}
 		}
+
 		// adjust for terrain height
 		dTargetZ += CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[sTargetGridNo].sHeight );
 	}

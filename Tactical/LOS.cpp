@@ -5219,7 +5219,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	}
 
 	// Flugente: anti-materiel ammo
-	if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand][0]->data.gun.ubGunAmmoType ].ammoflag & AMMO_ANTIMATERIEL )
+	if ( AmmoTypes[(*pObjAttHand)[0]->data.gun.ubGunAmmoType ].ammoflag & AMMO_ANTIMATERIEL )
 		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
 
 	// Flugente: if object is infected, missile is too (intended for throwing knifes)
@@ -5280,7 +5280,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	//zilpin: End of new code block.
 
 	// GET BULLET
-	for (ubLoop = 0; ubLoop < ubShots; ubLoop++)
+	for (ubLoop = 0; ubLoop < ubShots; ++ubLoop)
 	{
 		iBullet = CreateBullet( pFirer->ubID, fFake, usBulletFlags,usHandItem );
 		if (iBullet == -1)
@@ -5782,9 +5782,6 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	if ( !pObj )
 		return 0;
 
-	if ( !pThrower )
-		return 0;
-
 	FLOAT	dStartX = 0;
 	FLOAT	dStartY = 0;
 	
@@ -5815,8 +5812,11 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	UINT16	usBulletFlags = 0;
 	int n=0;
 
+	UINT16 usItem = pObj->usItem;
+	UINT8 ammotype = ( *pObj )[0]->data.gun.ubGunAmmoType;
+
 	BOOLEAN fBuckshot = FALSE;
-	if ( AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].numberOfBullets > 1 )
+	if ( AmmoTypes[ammotype].numberOfBullets > 1 )
 		fBuckshot = TRUE;
 		
 	dStartX = (FLOAT) CenterX( gridno );
@@ -5851,34 +5851,34 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	fTracer = FALSE;
 
 	// Check if we have spit as a weapon!
-	if ( Weapon[ pObj->usItem ].ubWeaponClass == MONSTERCLASS )
+	if ( Weapon[usItem].ubWeaponClass == MONSTERCLASS )
 	{
 		usBulletFlags |= BULLET_FLAG_CREATURE_SPIT;
 	}
-	else if ( Item[ pObj->usItem ].usItemClass == IC_THROWING_KNIFE )
+	else if ( Item[usItem].usItemClass == IC_THROWING_KNIFE )
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if (	Item[pObj->usItem].rocketlauncher )
+	else if ( Item[usItem].rocketlauncher )
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[pObj->usItem].cannon )
+	else if ( Item[usItem].cannon )
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[pObj->usItem].rocketrifle )
+	else if ( Item[usItem].rocketrifle )
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
-	else if ( pObj->usItem == FLAMETHROWER )
+	else if ( usItem == FLAMETHROWER )
 	{
 		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
 
 	// Flugente: anti-materiel ammo
-	if ( AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_ANTIMATERIEL )
+	if ( AmmoTypes[ammotype].ammoflag & AMMO_ANTIMATERIEL )
 		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
 
 	// no option to use fire bursts or autofire yet
@@ -5900,36 +5900,34 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 			fTracer = FALSE;
 		}
 	}*/
-	else if ( AmmoTypes[ (*pObj)[0]->data.gun.ubGunAmmoType ].tracerEffect && gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ] )
+	else if ( AmmoTypes[ammotype].tracerEffect && gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ] )
 	{
 		//usBulletFlags |= BULLET_FLAG_TRACER;
 		fTracer = TRUE;
 	}
 
-	ubImpact =(UINT8) GetDamage( pObj );
+	ubImpact = (UINT8) GetDamage( pObj );
 
 	// we have to adjust the damage...
 	//ubImpact = min(255, 4 * ubImpact );
 
 	//zilpin: Begin new code block for spread patterns, number of projectiles, impact adjustment, etc.
 	{
-		ObjectData *weapon = &((*pObj)[0]->data);
-		ubShots = AmmoTypes[ weapon->gun.ubGunAmmoType].numberOfBullets;
+		ubShots = AmmoTypes[ammotype].numberOfBullets;
 		ubSpreadIndex = GetSpreadPattern(  pObj  );
 		if( ubShots>1  )
 		{
 			fBuckshot = true;
 			usBulletFlags |= BULLET_FLAG_BUCKSHOT;
-			ubImpact = (UINT8) (ubImpact * AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageMultiplier / max(1,AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageDivisor) );
+			ubImpact = (UINT8) (ubImpact * AmmoTypes[ammotype].multipleBulletDamageMultiplier / max(1,AmmoTypes[ammotype].multipleBulletDamageDivisor) );
 		}
-		weapon=NULL;
 	}
 	//zilpin: End of new code block.
 
 	// GET BULLET
-	for (ubLoop = 0; ubLoop < ubShots; ubLoop++)
+	for (ubLoop = 0; ubLoop < ubShots; ++ubLoop)
 	{
-		iBullet = CreateBullet( NOBODY, FALSE, usBulletFlags, pObj->usItem );
+		iBullet = CreateBullet( NOBODY, FALSE, usBulletFlags, usItem );
 		if (iBullet == -1)
 		{
 			//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Failed to create bullet") );
@@ -6226,30 +6224,32 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 			}
 		}*/
 				
-		if(is_client)send_bullet( pBullet, pObj->usItem );
-		FireBullet( pThrower->ubID, pBullet, FALSE );
+		if(is_client)
+			send_bullet( pBullet, usItem );
+
+		FireBullet( pThrower ? pThrower->ubID : NOBODY, pBullet, FALSE );
 	}
 
 	///////////////////////// SOUND ////////////////////////////
 	//PLAY SOUND
 	// ( For throwing knife.. it's earlier in the animation
-	if ( Weapon[ pObj->usItem ].sSound != 0 && Item[ pObj->usItem ].usItemClass != IC_THROWING_KNIFE )
+	if ( Weapon[usItem].sSound != 0 && Item[usItem].usItemClass != IC_THROWING_KNIFE )
 	{
 		// Switch on silencer...
 		UINT16 noisefactor = GetPercentNoiseVolume( pObj );
-		if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ pObj->usItem ].ubAttackVolume <= 10 )
+		if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[usItem].ubAttackVolume <= 10 )
 		{
-			INT32 uiSound;
-
-			uiSound = Weapon [ pObj->usItem ].silencedSound;
+			INT32 uiSound = Weapon [usItem].silencedSound;
 
 			PlayJA2Sample( uiSound, RATE_11025, SoundVolume( HIGHVOLUME, gridno ), 1, SoundDir( gridno ) );
 		}
 		else
 		{
 			INT8 volume = HIGHVOLUME;
-			if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
-			PlayJA2Sample( Weapon[ pObj->usItem ].sSound, RATE_11025, SoundVolume( volume, gridno ), 1, SoundDir( gridno ) );
+			if ( noisefactor < 100 )
+				volume = (volume * noisefactor) / 100;
+
+			PlayJA2Sample( Weapon[usItem].sSound, RATE_11025, SoundVolume( volume, gridno ), 1, SoundDir( gridno ) );
 		}
 	}
 	///////////////////////// SOUND ////////////////////////////
@@ -6260,7 +6260,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	//gTacticalStatus.ubAttackBusyCount++;
 
 	///////////////////////// SOUND ////////////////////////////
-	UINT8 ubVolume = Weapon[ pObj->usItem ].ubAttackVolume;
+	UINT8 ubVolume = Weapon[usItem].ubAttackVolume;
 
 	// Snap: get cumulative noise reduction from the weapon and its attachments
 	UINT16 noisefactor = GetPercentNoiseVolume( pObj );
@@ -6273,7 +6273,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 		ubVolume = __max( 1, ( ubVolume * GetPercentNoiseVolume( pObj ) ) / 100 );
 	}
 
-	MakeNoise( NOBODY, gridno, 0, pThrower->bOverTerrainType, ubVolume, NOISE_GUNFIRE );
+	MakeNoise( NOBODY, gridno, 0, pThrower ? pThrower->bOverTerrainType : FLAT_GROUND, ubVolume, NOISE_GUNFIRE );
 	///////////////////////// SOUND ////////////////////////////
 
 	///////////////////////// OVERHEATING AND STATUS REDUCTION ////////////////////////////
@@ -6310,7 +6310,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	{
 		(*pObj)[0]->data.objectStatus--;
 
-		if ( Random(100) < Item[pObj->usItem].usDamageChance )
+		if ( Random(100) < Item[usItem].usDamageChance )
 		{
 			(*pObj)[0]->data.sRepairThreshold--;
 		}
@@ -6360,10 +6360,397 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	///////////////////////// JAMMING ////////////////////////////
 
 	//<SB> manual recharge
-	if (Weapon[Item[pObj->usItem].ubClassIndex].APsToReloadManually > 0)
+	if (Weapon[Item[usItem].ubClassIndex].APsToReloadManually > 0)
 		(*pObj)[0]->data.gun.ubGunState &= ~GS_CARTRIDGE_IN_CHAMBER;
 	//<SB>
 
+	return( TRUE );
+}
+
+
+// Flugente: fire a shot without a soldier or an object
+INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UINT8 ubImpact, INT32 gridno, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, INT16 sHitBy )
+{
+	FLOAT	dStartX = 0;
+	FLOAT	dStartY = 0;
+
+	FLOAT	d2DDistance = 0;
+	FLOAT	dDeltaX = 0;
+	FLOAT	dDeltaY = 0;
+	FLOAT	dDeltaZ = 0;
+
+	DOUBLE	ddOrigHorizAngle = 0;
+	DOUBLE	ddOrigVerticAngle = 0;
+	DOUBLE	ddHorizAngle = 0;
+	DOUBLE	ddVerticAngle = 0;
+	DOUBLE	ddAdjustedHorizAngle = 0;
+	DOUBLE	ddAdjustedVerticAngle = 0;
+	DOUBLE	ddDummyHorizAngle = 0;
+	DOUBLE	ddDummyVerticAngle = 0;
+
+	BULLET*		pBullet = NULL;
+	INT32		iBullet = 0;
+
+	INT32		iDistance = 0;
+
+	UINT8		ubLoop = 0;
+	UINT8		ubShots = 0;
+	INT8		bCTGT = 0;
+	UINT8		ubSpreadIndex = 0;
+	UINT16	usBulletFlags = 0;
+	int n = 0;
+	
+	BOOLEAN fBuckshot = FALSE;
+	if ( AmmoTypes[ammotype].numberOfBullets > 1 )
+		fBuckshot = TRUE;
+
+	dStartX = (FLOAT)CenterX( gridno );
+	dStartY = (FLOAT)CenterY( gridno );
+
+	dDeltaX = dEndX - dStartX;
+	dDeltaY = dEndY - dStartY;
+	dDeltaZ = dEndZ - dStartZ;
+
+	d2DDistance = Distance2D( dDeltaX, dDeltaY );
+	iDistance = (INT32)d2DDistance;
+
+	if ( d2DDistance != iDistance )
+	{
+		iDistance += 1;
+		d2DDistance = (FLOAT)( iDistance );
+	}
+
+	ddOrigHorizAngle = atan2( dDeltaY, dDeltaX );
+	ddOrigVerticAngle = atan2( dDeltaZ, ( d2DDistance * HEIGHTUNITS_PER_CELL ) );//dnl ch60 010913
+	ddAdjustedHorizAngle = ddOrigHorizAngle;
+	ddAdjustedVerticAngle = ddOrigVerticAngle;
+
+	ubShots = 1;
+	fTracer = FALSE;
+
+	// Check if we have spit as a weapon!
+	if ( Weapon[usItem].ubWeaponClass == MONSTERCLASS )
+	{
+		usBulletFlags |= BULLET_FLAG_CREATURE_SPIT;
+	}
+	else if ( Item[usItem].usItemClass == IC_THROWING_KNIFE )
+	{
+		usBulletFlags |= BULLET_FLAG_KNIFE;
+	}
+	else if ( Item[usItem].rocketlauncher )
+	{
+		usBulletFlags |= BULLET_FLAG_MISSILE;
+	}
+	else if ( Item[usItem].cannon )
+	{
+		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
+	}
+	else if ( Item[usItem].rocketrifle )
+	{
+		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
+	}
+	else if ( usItem == FLAMETHROWER )
+	{
+		usBulletFlags |= BULLET_FLAG_FLAME;
+		ubSpreadIndex = 2;
+	}
+
+	// Flugente: anti-materiel ammo
+	if ( AmmoTypes[ammotype].ammoflag & AMMO_ANTIMATERIEL )
+		usBulletFlags |= BULLET_FLAG_ANTIMATERIEL;
+
+	if ( AmmoTypes[ammotype].tracerEffect && gGameSettings.fOptions[TOPTION_TRACERS_FOR_SINGLE_FIRE] )
+		fTracer = TRUE;
+	
+	//zilpin: Begin new code block for spread patterns, number of projectiles, impact adjustment, etc.
+	{
+		ubShots = AmmoTypes[ammotype].numberOfBullets;
+		ubSpreadIndex = GetSpreadPattern( NULL );
+		if ( ubShots>1 )
+		{
+			fBuckshot = true;
+			usBulletFlags |= BULLET_FLAG_BUCKSHOT;
+			ubImpact = (UINT8)( ubImpact * AmmoTypes[ammotype].multipleBulletDamageMultiplier / max( 1, AmmoTypes[ammotype].multipleBulletDamageDivisor ) );
+		}
+	}
+	//zilpin: End of new code block.
+
+	// GET BULLET
+	for ( ubLoop = 0; ubLoop < ubShots; ++ubLoop )
+	{
+		iBullet = CreateBullet( NOBODY, FALSE, usBulletFlags, usItem );
+		if ( iBullet == -1 )
+		{
+			//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Failed to create bullet") );
+
+			return( FALSE );
+		}
+		pBullet = GetBulletPtr( iBullet );
+
+		// HEADROCK HAM 4: The HitBy value now holds the ratio between the Distance Aperture and the Final Aperture.
+		// Basically, this represents by how much our shooter has managed to make the shot more accurate than it would
+		// be without any extra aiming or optical equipment. HitBy can now only be positive, and equals 100 when the
+		// shot is perfectly on-target, or 0 when it is as inaccurate as the shooting system can possibly allow.
+		// In this sense, sApertureRatio is the closest "relative" that the NCTH system has to the old system. it tells
+		// us, on a scale of 0-100, how accurate we are compared to "Best" and "Worst" accuracy.
+		// Note also that references to this value have been changed accordingly. Most imporantly, functions that alter
+		// the path of the bullet, or determine whether collisions are more likely thanks to low HitBy, have been
+		// altered to _not use this value at all_.
+		// At the moment, HitBy is used only for determining extra damage (0-50% extra), and for determining
+		// how much extra experience is gained by the shooter if the target is actually hit by the bullet.
+		pBullet->sHitBy = sHitBy;
+
+		// HEADROCK HAM 4: TODO: Determine whether this value is required anymore. Why ever let bullets
+		// pass through the roof at all??
+		if ( dStartZ < WALL_HEIGHT_UNITS )
+		{
+			if ( dEndZ > WALL_HEIGHT_UNITS )
+			{
+				pBullet->fCheckForRoof = TRUE;
+			}
+			else
+			{
+				pBullet->fCheckForRoof = FALSE;
+			}
+		}
+		else // dStartZ >= WALL_HEIGHT_UNITS; presumably >
+		{
+			if ( dEndZ < WALL_HEIGHT_UNITS )
+			{
+				pBullet->fCheckForRoof = TRUE;
+			}
+			else
+			{
+				pBullet->fCheckForRoof = FALSE;
+			}
+		}
+
+		// Flugente: we have to set this, otherwise the gun that fired this shot wont be found in WeaponHit()
+		pBullet->fFragment = true;
+
+		//zilpin: pellet spread patterns externalized in XML
+		//Now the first shot will use the pattern, as well.
+		//Single shot weapons will still be stuck with straight-ahead only, though.
+		if ( ubShots == 1 )
+		{
+			// CHRISL: If we don't set the ddHorizAngle, at the very least, shooting by corners is impossible.  Unfortunately, I don't know what other
+			//	impacts these two lines will have.  Headrock didn't include them when he originally wrote NCTH but they are in a similar location in the
+			//	OCTH code.  Hopefully no issues will result from this change.
+			ddHorizAngle = ddOrigHorizAngle;
+			ddVerticAngle = ddOrigVerticAngle;
+			// HEADROCK HAM 4: Firing increments no longer required here (NCTH)
+			// calculate by hand (well, without angles) to match LOS
+			pBullet->qIncrX = FloatToFixed( dDeltaX / (FLOAT)iDistance );
+			pBullet->qIncrY = FloatToFixed( dDeltaY / (FLOAT)iDistance );
+			pBullet->qIncrZ = FloatToFixed( dDeltaZ / (FLOAT)iDistance );
+		}
+		else if ( ubShots > 1 )
+		{
+			//Also prevent out-of-bounds overflows.
+			//Rotates through the array if more pellets than expected, and uses pattern index 0 if requested pattern does not exist.
+			if ( gpSpreadPattern == NULL || giSpreadPatternCount<1 ) {
+				//XML file missing, or empty, or error while loading.  Use hard-coded defaults.
+				//This is from the original code.
+				if ( ubSpreadIndex > 2 || ubSpreadIndex<0 ) ubSpreadIndex = 0;
+				n = ubLoop % BUCKSHOT_SHOTS;
+				ddHorizAngle = ddAdjustedHorizAngle + ddShotgunSpread[ubSpreadIndex][n][0];
+				ddVerticAngle = ddAdjustedVerticAngle + ddShotgunSpread[ubSpreadIndex][n][1];
+			}
+			else
+			{
+				double d = 0, r = 0, xspread = 0, yspread = 0;
+				int n = 0;
+
+				//Use spread patterns loaded from XML.
+				if ( ubSpreadIndex >= giSpreadPatternCount || ubSpreadIndex < 0 )
+					ubSpreadIndex = 0;
+
+				xspread = gpSpreadPattern[ubSpreadIndex].xspread;
+				yspread = gpSpreadPattern[ubSpreadIndex].yspread;
+
+				//Only use randomized spread pattern if the random spread is defined AND each static angle already fired once.
+				if ( ubLoop >= gpSpreadPattern[ubSpreadIndex].iCount && ( xspread + yspread ) ) {
+					//Create random angle within range, positive and negative.
+					switch ( gpSpreadPattern[ubSpreadIndex].method )
+					{
+					case SPREADPATTERNMETHOD_RECT:  //Rectangle Method. (Simple)
+													//Applying a new random number to each angle results in a rectangular spread pattern, rather than an oval one.
+						ddHorizAngle = (double)rand() * 2 * xspread / RAND_MAX - xspread;
+						ddVerticAngle = (double)rand() * 2 * yspread / RAND_MAX - yspread;
+						break;
+					case SPREADPATTERNMETHOD_DIAMOND:  //Diamond Method. (Kinda Simple)
+													   //Angles are generated within a diamond shaped region.
+													   //This is more natural than the rectangular pattern, but still not optimal.
+													   //The first random number is in a range of 0 to (x+y).
+						d = ( xspread + yspread ) * (double)rand() / (double)RAND_MAX;
+						//The second random number determines the percentage of that value to use on x.  The rest is spent on y.
+						r = (double)rand() / (double)RAND_MAX;
+						ddHorizAngle = r*d;
+						ddVerticAngle = ( 1 - r )*d;
+						//Positive and negative are then randomly determined.  Otherwise, everthing would always shoot to the high right (+,+).
+						n = rand() % 4;
+						if ( n & 1 ) ddHorizAngle *= -1;
+						if ( n & 2 ) ddVerticAngle *= -1;
+						break;
+					case SPREADPATTERNMETHOD_ELLIPSE:  //Ellipse Method.
+													   //Angles are generated within an ellipse.
+													   //This is getting close to true spread behaviour, and may be the preferred general purpose method.
+													   //However, due to the distribution of random numbers for r, the pattern generated tends to have
+													   //more pellets land along the axis, making the pattern look a bit like the Swiss cross sometimes.
+													   //(It only becomes noticable in simulations I do in an external program. In-game it looks fine.)
+													   //
+													   //First, get our random range of -pi to pi. This could be recalculated for every use, but doesn't need to be.
+						r = (double)rand() * 2 * PI / RAND_MAX - PI;
+						//Which axis is our major axis?
+						if ( xspread > yspread )
+						{
+							//The Ellipse.
+							//  Any point on an Ellipse border line = (x,y)
+							//  where x = m * cos(r) and y = n * sin(r)
+							//  where m = major axis radius and n = minor axis radius and r = all values -pi <= r <= pi
+							//We use any random value between -pi and pi, but vary the radius to get points inside the ellipse as well.
+							ddHorizAngle = ( (double)rand()*xspread / RAND_MAX ) * cos( r );
+							ddVerticAngle = ( (double)rand()*yspread / RAND_MAX ) * sin( r );
+						}
+						else {
+							//Reverse sine and cosine if our major axis is y.
+							ddHorizAngle = ( (double)rand()*xspread / RAND_MAX ) * sin( r );
+							ddVerticAngle = ( (double)rand()*yspread / RAND_MAX ) * cos( r );
+						}
+						break;
+					case -1:  //Optimal Method.  (Most realistic)
+							  //Not yet implemented.
+							  //Using the random distribution above, normal distrubution causes more pellets to end up toward the middle.
+							  //This is generally not noticable, and in fact feels more natural to some people (not zilpin),
+							  //but is not _even_ distribution.
+							  //In addition, since it is random, it is possible for all of the pellets to vear off center,
+							  //resulting in rare unnatural freak shots, which would never occur in a real shotgun.
+							  //This may add to gameplay, but it may bother some people (like zilpin).
+							  //Should anyone devise a way to adjust the ellipse distribution to account for this, here is where to put it.
+							  //This would probably be done by adjusting the random value of 'r' above.
+							  //Contact zilpin for real life shotgun spread pattern data, if you happen to be one of those mathematicians
+							  //who can extrapolate a succinct algorithm from raw data.  But keep in mind that there's not much data to go on.
+							  //
+							  //Also note that in the real world, shot spread tends to take the shape of a sagging funnel, rather than a cone.
+							  //That is to say, the path of each pellet follows a mild curve, not a straight line.
+							  //I'm really not going to worry about that here.  Ever.
+						break;
+					default:
+						//If an invalid method is set in the structure, no randomized pellets are shot.
+						//Note that there still may have been static angle pellets fired.
+						//This should never happen, since the XML loading function will set them to giSpreadPatternMethod_Default.
+						break;
+					}
+				}
+				else if ( gpSpreadPattern[ubSpreadIndex].iCount>0 )
+				{
+					//Use static angle, if they exist.
+					n = ubLoop % gpSpreadPattern[ubSpreadIndex].iCount;
+					ddHorizAngle = gpSpreadPattern[ubSpreadIndex].x[n];
+					ddVerticAngle = gpSpreadPattern[ubSpreadIndex].y[n];
+				}
+				else
+				{
+					//No angles defined, so just fire straight.
+					ddHorizAngle = ddVerticAngle = 0.0;
+				}
+				
+				DOUBLE ddRawHorizAngle = ddHorizAngle;
+				DOUBLE ddRawVerticAngle = ddVerticAngle;
+
+				//Adjust based on the to-hit deviation calculated when the first pellet was fired.
+				ddHorizAngle += ddAdjustedHorizAngle;
+				ddVerticAngle += ddAdjustedVerticAngle;
+
+				if ( TRUE )
+				{
+					FILE      *OutFile;
+					if ( ( OutFile = fopen( "SpreadPatternLog.txt", "a+t" ) ) != NULL )
+					{
+						//To easily cut-and-paste these values from the log into a C/C++ source file for later analysis
+						//Lots of reference debug info in a comment.
+						fprintf( OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
+							ddRawHorizAngle, ddRawVerticAngle,
+							ddHorizAngle, ddVerticAngle,
+							NOBODY, ubLoop, ubShots,
+							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
+							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
+							NULL
+						);
+						fclose( OutFile );
+					}
+				}
+			}
+
+			//Just calculate the increments the bullet will use, not any of the to-hit adjustments, because we already did.
+			CalculateFiringIncrementsSimple( ddHorizAngle, ddVerticAngle, pBullet );
+		}
+		
+		pBullet->ddHorizAngle = ddHorizAngle;
+				
+		// buckshot pellets after the first can hit friendlies even at close range
+		pBullet->fAimed = FALSE;
+
+		if ( pBullet->usFlags & BULLET_FLAG_KNIFE )
+		{
+			pBullet->ubItemStatus = 100;
+		}
+
+		// apply increments for first move
+
+		//zilpin: pellet spread patterns externalized in XML
+		//This is a bugfix for strange behavior when firing, such as the projectile hitting walls behind a merc.
+		//The bullet should start it's journey at the beginning, not down range.
+		//Commented out the qIncr adjustments.
+		pBullet->qCurrX = FloatToFixed( dStartX ); //+ pBullet->qIncrX;
+		pBullet->qCurrY = FloatToFixed( dStartY ); //+ pBullet->qIncrY;
+		pBullet->qCurrZ = FloatToFixed( dStartZ ); //+ pBullet->qIncrZ;
+		
+		pBullet->iImpact = ubImpact;
+
+		pBullet->iRange = GetModifiedGunRange( usItem );
+
+		// HEADROCK HAM 5.1: Define original point.
+		pBullet->sOrigGridNo = ( (INT32)dStartX ) / CELL_X_SIZE + ( (INT32)dStartY ) / CELL_Y_SIZE * WORLD_COLS;
+		pBullet->sTargetGridNo = ( (INT32)dEndX ) / CELL_X_SIZE + ( (INT32)dEndY ) / CELL_Y_SIZE * WORLD_COLS;
+
+		pBullet->bStartCubesAboveLevelZ = (INT8)CONVERT_HEIGHTUNITS_TO_INDEX( (INT32)dStartZ );
+		pBullet->bEndCubesAboveLevelZ = (INT8)CONVERT_HEIGHTUNITS_TO_INDEX( (INT32)dEndZ );
+
+		if ( is_client )
+			send_bullet( pBullet, usItem );
+
+		FireBullet( NOBODY, pBullet, FALSE );
+	}
+
+	///////////////////////// SOUND ////////////////////////////
+	//PLAY SOUND
+	// ( For throwing knife.. it's earlier in the animation
+	if ( Weapon[usItem].sSound != 0 && Item[usItem].usItemClass != IC_THROWING_KNIFE )
+	{
+		// Switch on silencer...
+		UINT16 noisefactor = 100;// GetPercentNoiseVolume( pObj );
+		if ( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[usItem].ubAttackVolume <= 10 )
+		{
+			INT32 uiSound = Weapon[usItem].silencedSound;
+
+			PlayJA2Sample( uiSound, RATE_11025, SoundVolume( HIGHVOLUME, gridno ), 1, SoundDir( gridno ) );
+		}
+		else
+		{
+			INT8 volume = HIGHVOLUME;
+			if ( noisefactor < 100 )
+				volume = ( volume * noisefactor ) / 100;
+
+			PlayJA2Sample( Weapon[usItem].sSound, RATE_11025, SoundVolume( volume, gridno ), 1, SoundDir( gridno ) );
+		}
+	}
+
+	UINT8 ubVolume = Weapon[usItem].ubAttackVolume;
+
+	MakeNoise( NOBODY, gridno, 0, FLAT_GROUND, ubVolume, NOISE_GUNFIRE );
+	///////////////////////// SOUND ////////////////////////////
+	
 	return( TRUE );
 }
 

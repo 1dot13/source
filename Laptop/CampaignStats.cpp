@@ -146,13 +146,15 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 {
 	UINT8 group = CAMPAIGNHISTORY_SD_MERC;
 
-	switch ( pSoldier->bTeam )
+	if ( pSoldier )
 	{
-	case OUR_TEAM:
-		group = CAMPAIGNHISTORY_SD_MERC;
-		break;
+		switch ( pSoldier->bTeam )
+		{
+		case OUR_TEAM:
+			group = CAMPAIGNHISTORY_SD_MERC;
+			break;
 
-	case ENEMY_TEAM:
+		case ENEMY_TEAM:
 		{
 			if ( ARMED_VEHICLE( pSoldier ) )
 				group = CAMPAIGNHISTORY_SD_ENEMY_TANK;
@@ -165,16 +167,16 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 		}
 		break;
 
-	case CREATURE_TEAM:
-		if ( pSoldier->IsZombie() )
-			group = CAMPAIGNHISTORY_SD_ZOMBIE;
-		else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT )
-			group = CAMPAIGNHISTORY_SD_ENEMY_ADMIN;
-		else
-			group = CAMPAIGNHISTORY_SD_CREATURE;
-		break;
+		case CREATURE_TEAM:
+			if ( pSoldier->IsZombie() )
+				group = CAMPAIGNHISTORY_SD_ZOMBIE;
+			else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_BANDIT )
+				group = CAMPAIGNHISTORY_SD_ENEMY_ADMIN;
+			else
+				group = CAMPAIGNHISTORY_SD_CREATURE;
+			break;
 
-	case MILITIA_TEAM:
+		case MILITIA_TEAM:
 		{
 			if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA )
 				group = CAMPAIGNHISTORY_SD_MILITIA_GREEN;
@@ -185,10 +187,19 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 		}
 		break;
 
-	case CIV_TEAM:
-	default:
-		group = CAMPAIGNHISTORY_SD_CIV;
-		break;
+		case CIV_TEAM:
+		default:
+			group = CAMPAIGNHISTORY_SD_CIV;
+			break;
+		}
+
+		if ( ARMED_VEHICLE( pSoldier ) )
+		{
+			if ( pSoldier->bSide == 0 )
+				usIncidentFlags |= INCIDENT_TANKS_PLAYERSIDE;
+			else
+				usIncidentFlags |= INCIDENT_TANKS_ENEMY;
+		}
 	}
 
 	switch ( aType )
@@ -197,10 +208,13 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 		{
 			usKills[group]++;
 
-			if ( pSoldier->ubProfile == KINGPIN )
-				usOneTimeEventFlags |= INCIDENT_ONETIMEEVENT_DEATH_KINGPIN;
-			else if ( pSoldier->ubProfile == DARREL )
-				usOneTimeEventFlags |= INCIDENT_ONETIMEEVENT_MASSACRE_HICKS;
+			if ( pSoldier )
+			{
+				if ( pSoldier->ubProfile == KINGPIN )
+					usOneTimeEventFlags |= INCIDENT_ONETIMEEVENT_DEATH_KINGPIN;
+				else if ( pSoldier->ubProfile == DARREL )
+					usOneTimeEventFlags |= INCIDENT_ONETIMEEVENT_MASSACRE_HICKS;
+			}
 		}
 		break;
 
@@ -224,14 +238,6 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 	default:
 		usPromotions[group]++;
 		break;
-	}
-
-	if ( ARMED_VEHICLE( pSoldier ) )
-	{
-		if ( pSoldier->bSide == 0 )
-			usIncidentFlags |= INCIDENT_TANKS_PLAYERSIDE;
-		else
-			usIncidentFlags |= INCIDENT_TANKS_ENEMY;
 	}
 }
 

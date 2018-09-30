@@ -8957,6 +8957,27 @@ void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSucce
 							aSuccess = TRUE;
 						}
 					}
+					else
+					{
+						aSuccess = FALSE;
+
+						// not enough money for a soda, hu? Too bad for you Flugente played the old Crusader Games, which teach you how to handle that particular issue!
+						ScreenMsg( FONT_MCOLOR_RED, MSG_INTERFACE, L"The World Economic Consortium does not condone moochers!" );
+
+						INT16 direction    = GetDirectionToGridNoFromGridNo( sGridNo, pSoldier->sGridNo );
+						INT32 startgridno  = NewGridNo( sGridNo, DirectionInc(direction) );
+						INT32 targetgridno = NewGridNo( startgridno, DirectionInc( direction ) );
+
+						FLOAT x, y, z;
+
+						GetTargetWorldPositions( NULL, targetgridno, &x, &y, &z );
+
+						// fire at torso height
+						z += 100.0f;
+
+						// fire a AP rocket with damage 40. The ammotype currently gets rerolled to Ball, but it's not like anyone will complain
+						FireBulletGivenTarget_NoObjectNoSoldier( 55, 2, 40, startgridno, z, x, y, z, 0 );
+					}
 				}
 			}	
 		}
