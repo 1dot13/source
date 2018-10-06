@@ -3,11 +3,11 @@
 	This xml defines the properties of different ammo types. 
 	
 	<uiIndex>			ammotype number. Referred to with <ubAmmoType> in Magazines.xml
-	<fontColour>		Colour used when displaying ammo count, taken from FONTS\\TINYFONT1.sti
 	
-	<grayed>			determines what picture to use for the ammo button (no, this doesn't make a lot of sense)
-	<offNormal>
-	<onNormal>
+	<red>				RGB colour values (0-255) when displaying ammo count
+	<green>
+	<blue>
+	
 	<structureImpactReductionMultiplier> / <structureImpactReductionDivisor>
 						modifies how much bullet damage is reduced when hitting a structure.
 						
@@ -56,10 +56,9 @@
 	<AMMOTYPE>
 		<uiIndex>0</uiIndex>
 		<name>Ball</name>
-		<fontColour>136</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>137</red>
+		<green>137</green>
+		<blue>137</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -97,10 +96,9 @@
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
 		<name>HP</name>
-		<fontColour>24</fontColour>
-		<grayed>12</grayed>
-		<offNormal>9</offNormal>
-		<onNormal>11</onNormal>
+		<red>57</red>
+		<green>79</green>
+		<blue>225</blue>
 		<structureImpactReductionMultiplier>2</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -138,10 +136,9 @@
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
 		<name>AP/FMJ</name>
-		<fontColour>218</fontColour>
-		<grayed>8</grayed>
-		<offNormal>5</offNormal>
-		<onNormal>7</onNormal>
+		<red>178</red>
+		<green>15</green>
+		<blue>15</blue>
 		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -179,10 +176,9 @@
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
 		<name>SAP</name>
-		<fontColour>163</fontColour>
-		<grayed>8</grayed>
-		<offNormal>5</offNormal>
-		<onNormal>7</onNormal>
+		<red>255</red>
+		<green>0</green>
+		<blue>0</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -220,10 +216,9 @@
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
 		<name>Buckshot</name>
-		<fontColour>125</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>190</red>
+		<green>157</green>
+		<blue>103</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -261,10 +256,9 @@
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
 		<name>Flechette</name>
-		<fontColour>218</fontColour>
-		<grayed>8</grayed>
-		<offNormal>5</offNormal>
-		<onNormal>7</onNormal>
+		<red>178</red>
+		<green>15</green>
+		<blue>15</blue>
 		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>5</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>4</armourImpactReductionMultiplier>
@@ -302,10 +296,9 @@
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
 		<name>Grenade</name>
-		<fontColour>75</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>255</red>
+		<green>206</green>
+		<blue>30</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -343,10 +336,9 @@
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
 		<name>Monster</name>
-		<fontColour>136</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>137</red>
+		<green>137</green>
+		<blue>137</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -384,10 +376,9 @@
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
 		<name>Knife</name>
-		<fontColour>136</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>137</red>
+		<green>137</green>
+		<blue>137</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -425,10 +416,9 @@
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
 		<name>HE</name>
-		<fontColour>75</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>255</red>
+		<green>206</green>
+		<blue>30</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -466,10 +456,9 @@
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
 		<name>HEAT</name>
-		<fontColour>76</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>240</red>
+		<green>116</green>
+		<blue>45</blue>
 		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -507,10 +496,9 @@
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
 		<name>Dart</name>
-		<fontColour>136</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>137</red>
+		<green>137</green>
+		<blue>137</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -548,10 +536,9 @@
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
 		<name>Flame</name>
-		<fontColour>136</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>137</red>
+		<green>137</green>
+		<blue>137</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -589,10 +576,9 @@
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
 		<name>AET</name>
-		<fontColour>160</fontColour>
-		<grayed>8</grayed>
-		<offNormal>25</offNormal>
-		<onNormal>27</onNormal>
+		<red>195</red>
+		<green>0</green>
+		<blue>193</blue>
 		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -630,10 +616,9 @@
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
 		<name>Glaser</name>
-		<fontColour>185</fontColour>
-		<grayed>12</grayed>
-		<offNormal>21</offNormal>
-		<onNormal>23</onNormal>
+		<red>0</red>
+		<green>121</green>
+		<blue>0</blue>
 		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -671,10 +656,9 @@
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
 		<name>Tracer Ball</name>
-		<fontColour>144</fontColour>
-		<grayed>4</grayed>
-		<offNormal>17</offNormal>
-		<onNormal>19</onNormal>
+		<red>255</red>
+		<green>215</green>
+		<blue>63</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -712,10 +696,9 @@
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
 		<name>Tracer FMJ</name>
-		<fontColour>144</fontColour>
-		<grayed>4</grayed>
-		<offNormal>17</offNormal>
-		<onNormal>19</onNormal>
+		<red>255</red>
+		<green>215</green>
+		<blue>63</blue>
 		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -753,10 +736,9 @@
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
 		<name>Match Ball</name>
-		<fontColour>133</fontColour>
-		<grayed>4</grayed>
-		<offNormal>13</offNormal>
-		<onNormal>15</onNormal>
+		<red>217</red>
+		<green>217</green>
+		<blue>217</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -794,10 +776,9 @@
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
 		<name>Match FMJ</name>
-		<fontColour>133</fontColour>
-		<grayed>4</grayed>
-		<offNormal>13</offNormal>
-		<onNormal>15</onNormal>
+		<red>217</red>
+		<green>217</green>
+		<blue>217</blue>
 		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -835,10 +816,9 @@
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
 		<name>Cold Ball</name>
-		<fontColour>135</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
+		<red>164</red>
+		<green>164</green>
+		<blue>164</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -876,10 +856,9 @@
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
 		<name>Cold HP</name>
-		<fontColour>71</fontColour>
-		<grayed>12</grayed>
-		<offNormal>9</offNormal>
-		<onNormal>11</onNormal>
+		<red>17</red>
+		<green>178</green>
+		<blue>216</blue>
 		<structureImpactReductionMultiplier>2</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -917,10 +896,9 @@
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
 		<name>Cold AP/FMJ</name>
-		<fontColour>161</fontColour>
-		<grayed>8</grayed>
-		<offNormal>5</offNormal>
-		<onNormal>7</onNormal>
+		<red>255</red>
+		<green>129</green>
+		<blue>129</blue>
 		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -958,10 +936,9 @@
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
 		<name>Cold SAP</name>
-		<fontColour>163</fontColour>
-		<grayed>8</grayed>
-		<offNormal>5</offNormal>
-		<onNormal>7</onNormal>
+		<red>255</red>
+		<green>0</green>
+		<blue>0</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -999,10 +976,9 @@
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
 		<name>Cold Glaser Ball</name>
-		<fontColour>184</fontColour>
-		<grayed>12</grayed>
-		<offNormal>21</offNormal>
-		<onNormal>23</onNormal>
+		<red>0</red>
+		<green>206</green>
+		<blue>0</blue>
 		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -1040,10 +1016,9 @@
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
 		<name>Cold Glaser FMJ</name>
-		<fontColour>184</fontColour>
-		<grayed>12</grayed>
-		<offNormal>21</offNormal>
-		<onNormal>23</onNormal>
+		<red>0</red>
+		<green>206</green>
+		<blue>0</blue>
 		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -1081,10 +1056,9 @@
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
 		<name>Lock Buster</name>
-		<fontColour>133</fontColour>
-		<grayed>4</grayed>
-		<offNormal>13</offNormal>
-		<onNormal>15</onNormal>
+		<red>217</red>
+		<green>217</green>
+		<blue>217</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -1122,10 +1096,9 @@
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
 		<name>Depleted Uranium</name>
-		<fontColour>186</fontColour>
-		<grayed>8</grayed>
-		<offNormal>21</offNormal>
-		<onNormal>23</onNormal>
+		<red>0</red>
+		<green>72</green>
+		<blue>0</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
