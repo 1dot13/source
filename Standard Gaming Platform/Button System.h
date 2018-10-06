@@ -70,6 +70,7 @@
 #define BUTTON_NEWTOGGLE								0x00002000
 #define BUTTON_FORCE_UNDIRTY						0x00004000 // no matter what happens this buttons does NOT get marked dirty
 #define BUTTON_IGNORE_CLICKS						0x00008000 // Ignore any clicks on this button
+#define BUTTON_16BPPCOLOURTEXT						0x00010000 // Use 16 bit colours for the text of this button
 #define BUTTON_DISABLED_CALLBACK				0x80000000
 
 #define BUTTON_SOUND_NONE										0x00

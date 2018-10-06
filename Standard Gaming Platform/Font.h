@@ -118,6 +118,10 @@ void SetRGBFontForeground( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue );
 void SetRGBFontBackground( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue );
 void SetRGBFontShadow( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue );
 
+// Flugente: set 16 bit colour directly
+void SetRGBFontForeground( UINT16 usFontForeground16 );
+void SetRGBFontShadow( UINT16 usFontShadow16 );
+
 BOOLEAN ResetFontObjectPalette(INT32 iFont);
 UINT16 *SetFontObjectPalette8BPP(INT32 iFont, SGPPaletteEntry *pPal8);
 UINT16 *SetFontObjectPalette16BPP(INT32 iFont, UINT16 *pPal16);

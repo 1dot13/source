@@ -2141,7 +2141,7 @@ INT32 CreateIconAndTextButton( INT32 Image, const STR16 string, UINT32 uiFont,
 	}
 
 	// Strip off any extraneous bits from button type
-	BType = Type & ( BUTTON_TYPE_MASK | BUTTON_NEWTOGGLE );
+	BType = Type & ( BUTTON_TYPE_MASK | BUTTON_NEWTOGGLE | BUTTON_16BPPCOLOURTEXT );
 
 	// Is there a QuickButton image in the given image slot?
 	if(ButtonPictures[Image].vobj == NULL)
@@ -3521,6 +3521,7 @@ void DrawTextOnButton(GUI_BUTTON *b)
 		SetFontBackground( FONT_MCOLOR_BLACK );
 		SetFontForeground( (UINT8)b->sForeColor );
 		sForeColor = b->sForeColor;
+		
 		if( b->sShadowColor != -1 )
 			SetFontShadow( (UINT8)b->sShadowColor );
 		//Override the colors if necessary.
@@ -3534,6 +3535,7 @@ void DrawTextOnButton(GUI_BUTTON *b)
 			SetFontForeground( (UINT8)b->sForeColorDown );
 			sForeColor = b->sForeColorDown;
 		}
+
 		if( b->uiFlags & BUTTON_ENABLED && b->Area.uiFlags & MSYS_MOUSE_IN_AREA && b->sShadowColorHilited != -1 )
 		{
 			SetFontShadow( (UINT8)b->sShadowColorHilited );
@@ -3542,6 +3544,14 @@ void DrawTextOnButton(GUI_BUTTON *b)
 		{
 			SetFontShadow( (UINT8)b->sShadowColorDown );
 		}
+		else if ( b->uiFlags & BUTTON_16BPPCOLOURTEXT )
+		{
+			SetRGBFontForeground( sForeColor );
+
+			if ( b->sShadowColor < 1 )
+				SetRGBFontShadow( 1 );
+		}
+
 		if( b->uiFlags & BUTTON_CLICKED_ON && b->fShiftText )
 		{	// Was the button clicked on? if so, move the text slightly for the illusion
 			// that the text moved into the screen.

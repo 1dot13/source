@@ -3891,7 +3891,9 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 				if ( pItemShown->usItemClass == IC_GUN && !Item[pObjShown->usItem].rocketlauncher )
 				{
-					SetFontForeground ( AmmoTypes[(*pObjShown)[iter]->data.gun.ubGunAmmoType].fontColour );
+					SetRGBFontForeground( AmmoTypes[( *pObjShown )[iter]->data.gun.ubGunAmmoType].red,
+						AmmoTypes[( *pObjShown )[iter]->data.gun.ubGunAmmoType].green,
+						AmmoTypes[( *pObjShown )[iter]->data.gun.ubGunAmmoType].blue );
 									
 					// HEADROCK HAM 3.4: Get estimate of bullets left.
 					if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
@@ -4358,8 +4360,10 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				UINT16 usMagIndex	  = Item[usAmmoItem].ubClassIndex;
 				UINT16 usAmmoMagSize  = Magazine[usMagIndex].ubMagSize;
 				UINT8  usAmmoAmmoType = Magazine[usMagIndex].ubAmmoType;
-
-				SetFontForeground ( AmmoTypes[usAmmoAmmoType].fontColour );
+				
+				SetRGBFontForeground( AmmoTypes[usAmmoAmmoType].red,
+					AmmoTypes[usAmmoAmmoType].green,
+					AmmoTypes[usAmmoAmmoType].blue );
 
 				// count the total ammo left
 				UINT16 totalammo = 0;
@@ -4593,9 +4597,11 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 
 		// Set font properties
 		SetFont( LARGEFONT1 );
+
 		// Get color from ammo details
-		UINT8 ubAmmoColor =	AmmoTypes[(*pObject)[0]->data.gun.ubGunAmmoType].fontColour;
-		SetFontForeground ( ubAmmoColor );
+		SetRGBFontForeground( AmmoTypes[( *pObject )[0]->data.gun.ubGunAmmoType].red,
+			AmmoTypes[( *pObject )[0]->data.gun.ubGunAmmoType].green,
+			AmmoTypes[( *pObject )[0]->data.gun.ubGunAmmoType].blue );
 
 		sNewX = sX + 5;
 		sNewY = ((sY + sHeight) - GetFontHeight( LARGEFONT1 )) - 2;
@@ -4675,9 +4681,11 @@ void MAPINVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pOb
 
 		// Set font properties
 		SetFont( LARGEFONT1 );
+
 		// Get color from ammo details
-		UINT8 ubAmmoColor =	AmmoTypes[Magazine[Item[ pObject->usItem ].ubClassIndex].ubAmmoType].fontColour;
-		SetFontForeground ( ubAmmoColor );
+		SetRGBFontForeground( AmmoTypes[Magazine[Item[pObject->usItem].ubClassIndex].ubAmmoType].red,
+			AmmoTypes[Magazine[Item[pObject->usItem].ubClassIndex].ubAmmoType].green,
+			AmmoTypes[Magazine[Item[pObject->usItem].ubClassIndex].ubAmmoType].blue );
 
 		sNewX = sX + 5;
 		sNewY = ((sY + sHeight) - GetFontHeight( LARGEFONT1 )) - 2;
@@ -5281,38 +5289,35 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		}
 
 		FilenameForBPP("INTERFACE\\infobox.sti", ubString);
-		 sForeColour = ITEMDESC_AMMO_FORE;
-
+		
+		// Flugente: the bullet icon has a very limited colour choice because its a .sti picture. So we change the display, always use the same default picture but use the colour for the text instead
+		//sForeColour = ITEMDESC_AMMO_FORE;
+		
+		sForeColour = (INT16)Get16BPPColor( FROMRGB( AmmoTypes[( *gpItemDescObject )[ubStatusIndex]->data.gun.ubGunAmmoType].red,
+			AmmoTypes[( *gpItemDescObject )[ubStatusIndex]->data.gun.ubGunAmmoType].green,
+			AmmoTypes[( *gpItemDescObject )[ubStatusIndex]->data.gun.ubGunAmmoType].blue ) );
+		
 		// silversurfer: This should never happen but some maps may contain items with invalid ammo types and this leads to graphical glitches
 		// because the game cannot find the right ammo icon in infobox.sti and then uses index 0. Index 0 is the info box itself.
 		// Better reset ammo type to 0 which is standard ball ammo.
-		if ( AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].grayed == 0 || AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal == 0 || AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal == 0 )
-			(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType = 0;
+		if ( ( *pObject )[ubStatusIndex]->data.gun.ubGunAmmoType >= gMAXAMMOTYPES_READ )
+			( *pObject )[ubStatusIndex]->data.gun.ubGunAmmoType = 0;
+			
+		// fixed pictures
+		giItemDescAmmoButtonImages = LoadButtonImage( ubString,
+			4,// AmmoTypes[( *pObject )[ubStatusIndex]->data.gun.ubGunAmmoType].grayed,
+			1,//AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal,
+			-1,
+			3,//AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal,
+			-1 );
+		
+		giItemDescAmmoButton = CreateIconAndTextButton( giItemDescAmmoButtonImages, pStr, BLOCKFONTNARROW,
+			sForeColour, FONT_MCOLOR_BLACK,
+			sForeColour, FONT_MCOLOR_BLACK,
+			TEXT_CJUSTIFIED,
+			(INT16)( ITEMDESC_AMMO_X ), (INT16)( ITEMDESC_AMMO_Y ), (BUTTON_TOGGLE| BUTTON_16BPPCOLOURTEXT ), MSYS_PRIORITY_HIGHEST,
+			DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)ItemDescAmmoCallback );
 
-		giItemDescAmmoButtonImages	= LoadButtonImage(ubString,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].grayed,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal,-1,AmmoTypes[(*pObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal,-1 );
-
-		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
-		{
-			// in mapscreen, move over a bit
-			giItemDescAmmoButton = CreateIconAndTextButton( giItemDescAmmoButtonImages, pStr, BLOCKFONTNARROW,
-															 sForeColour, FONT_MCOLOR_BLACK,
-															 sForeColour, FONT_MCOLOR_BLACK,
-															 TEXT_CJUSTIFIED,
-															 (INT16)(ITEMDESC_AMMO_X), (INT16)(ITEMDESC_AMMO_Y), BUTTON_TOGGLE ,MSYS_PRIORITY_HIGHEST,
-															 DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)ItemDescAmmoCallback );
-
-		}
-		else
-		{
-
-			// not in mapscreen
-			giItemDescAmmoButton = CreateIconAndTextButton( giItemDescAmmoButtonImages, pStr, BLOCKFONTNARROW,
-															 sForeColour, FONT_MCOLOR_BLACK,
-															 sForeColour, FONT_MCOLOR_BLACK,
-															 TEXT_CJUSTIFIED,
-															 (INT16)(ITEMDESC_AMMO_X), (INT16)(ITEMDESC_AMMO_Y), BUTTON_TOGGLE ,MSYS_PRIORITY_HIGHEST,
-															 DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)ItemDescAmmoCallback );
-		}
 		//if we are being init from the shop keeper screen and this is a dealer item we are getting info from
 		if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE && pShopKeeperItemDescObject != NULL )
 		{
@@ -5322,7 +5327,8 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 			DisableButton( giItemDescAmmoButton );
 			SetButtonFastHelpText( giItemDescAmmoButton, L"\0" );
 		}
-		else{
+		else
+		{
 			SetButtonFastHelpText( giItemDescAmmoButton, Message[ STR_EJECT_AMMO ] );
 			//CHRISL: Include the ubStatusIndex in the region information so we know which object in a stack we're looking at
 			MSYS_SetBtnUserData( giItemDescAmmoButton, 1, ubStatusIndex );
@@ -5333,7 +5339,6 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		SpecifyButtonTextOffsets( giItemDescAmmoButton, (UINT8) usX, (UINT8) usY, TRUE );
 
 		gfItemAmmoDown = FALSE;
-
 	}
 	else
 	{
@@ -5466,7 +5471,6 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 															 (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[cnt].x), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[cnt].y), BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 															 DEFAULT_MOVE_CALLBACK, BtnMoneyButtonCallback );
 			MSYS_SetBtnUserData( guiMoneyButtonBtn[cnt], 0, cnt);
-
 		}
 		else
 		{
@@ -5499,7 +5503,6 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 			MSYS_SetBtnUserData( guiMoneyButtonBtn[cnt], 0, cnt);
 		}
 	}
-
 
 	// HEADROCK HAM 4: Three UDB tab buttons
 	if (UsingEDBSystem() > 0)
@@ -5606,8 +5609,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 	}
 
 	fInterfacePanelDirty = DIRTYLEVEL2;
-
-
+	
 	gfInItemDescBox = TRUE;
 
 	CHECKF( ReloadItemDesc( ) );
@@ -5658,9 +5660,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		SetFactTrue( FACT_ATTACHED_ITEM_BEFORE );
 		gfItemDescHelpTextOffset = TRUE;
 	}
-
-
-
+	
 	return( TRUE );
 }
 
@@ -6046,6 +6046,13 @@ void RenderBulletIcon(OBJECTTYPE *pObject, UINT32 ubStatusIndex)
 		swprintf( pStr, L"%d", (*pObject)[ubStatusIndex]->data.gun.ubGunShotsLeft );
 
 	SpecifyButtonText( giItemDescAmmoButton, pStr );
+
+	// Flugente: redo the ammo colour, as it might have changed
+	INT16 sForeColour = (INT16)Get16BPPColor( FROMRGB( AmmoTypes[( *pObject )[ubStatusIndex]->data.gun.ubGunAmmoType].red,
+		AmmoTypes[( *pObject )[ubStatusIndex]->data.gun.ubGunAmmoType].green,
+		AmmoTypes[( *pObject )[ubStatusIndex]->data.gun.ubGunAmmoType].blue ) );
+
+	SpecifyButtonUpTextColors( giItemDescAmmoButton, sForeColour, -1 );
 }
 
 void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)

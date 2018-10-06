@@ -206,13 +206,11 @@ enum
 typedef struct
 {
 	UINT32 uiIndex;
-
-	// on interface
-	UINT8 fontColour;
-	// in detail screen (interface\infobox.sti)
-	INT32 grayed;
-	INT32 offNormal;
-	INT32 onNormal;
+	
+	// Flugente: fontColour takes RGB values from a sti library. Why not take RGB values directly?
+	UINT8 red;
+	UINT8 green;
+	UINT8 blue;
 
 	// bullet contact with structure
 	INT32 structureImpactReductionMultiplier;

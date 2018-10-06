@@ -241,6 +241,17 @@ void SetRGBFontShadow( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue )
 }
 //end Kris
 
+// Flugente: set 16 bit colour directly
+void SetRGBFontForeground( UINT16 usFontForeground16 )
+{
+	FontForeground16 = usFontForeground16;
+}
+
+void SetRGBFontShadow( UINT16 usFontShadow16 )
+{
+	FontShadow16 = usFontShadow16;
+}
+
 //*****************************************************************************
 // ResetFontObjectPalette
 //

@@ -1692,6 +1692,7 @@ typedef enum
 
 // Flugente: in order not to loop over MAXITEMS items if we only have a few thousand, remember the actual number of items in the xml
 extern UINT32 gMAXITEMS_READ;
+extern UINT32 gMAXAMMOTYPES_READ;
 
 /* CHRISL: Arrays to track ic group information.  These allow us to determine which LBE slots control which pockets and
 what LBE class the pockets are.*/

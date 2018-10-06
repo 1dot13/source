@@ -9,6 +9,8 @@
 	#include "XML.h"
 #endif
 
+// Flugente: remember how many ammotypes we read
+UINT32 gMAXAMMOTYPES_READ = 0;
 
 struct
 {
@@ -49,10 +51,9 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 		}
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "uiIndex") == 0 ||
-				strcmp(name, "fontColour") == 0 ||
-				strcmp(name, "grayed") == 0 ||
-				strcmp(name, "offNormal") == 0 ||
-				strcmp(name, "onNormal") == 0 ||
+				strcmp(name, "red" ) == 0 ||
+				strcmp(name, "green" ) == 0 ||
+				strcmp(name, "blue" ) == 0 ||
 				strcmp(name, "structureImpactReductionMultiplier") == 0 ||
 				strcmp(name, "armourImpactReductionMultiplier") == 0 ||
 				strcmp(name, "afterArmourDamageMultiplier") == 0 ||
@@ -132,31 +133,28 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			{
 				pData->curArray[pData->curAmmoType.uiIndex] = pData->curAmmoType; //write the ammotype into the table
 			}
+
+			gMAXAMMOTYPES_READ = pData->curAmmoType.uiIndex;
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.uiIndex	= (UINT32) strtoul(pData->szCharData, NULL, 0);
 		}
-		else if(strcmp(name, "fontColour") == 0)
+		else if ( strcmp( name, "red" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.fontColour	= (UINT8) atol(pData->szCharData);
+			pData->curAmmoType.red = (UINT8)atol( pData->szCharData );
 		}
-		else if(strcmp(name, "grayed") == 0)
+		else if ( strcmp( name, "green" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.grayed	= (INT32) atol(pData->szCharData);
+			pData->curAmmoType.green = (UINT8)atol( pData->szCharData );
 		}
-		else if(strcmp(name, "offNormal") == 0)
+		else if ( strcmp( name, "blue" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.offNormal	= (INT32) atol(pData->szCharData);
-		}
-		else if(strcmp(name, "onNormal") == 0)
-		{
-			pData->curElement = ELEMENT;
-			pData->curAmmoType.onNormal	= (INT32) atol(pData->szCharData);
+			pData->curAmmoType.blue = (UINT8)atol( pData->szCharData );
 		}
 		else if(strcmp(name, "structureImpactReductionMultiplier") == 0)
 		{
@@ -382,19 +380,16 @@ BOOLEAN ReadInAmmoTypeStats(STR fileName)
 	lpcBuffer[uiFSize] = 0; //add a null terminator
 
 	FileClose( hFile );
-
-
+	
 	XML_SetElementHandler(parser, ammotypeStartElementHandle, ammotypeEndElementHandle);
 	XML_SetCharacterDataHandler(parser, ammotypeCharacterDataHandle);
-
-
+	
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = AmmoTypes;
 	pData.maxArraySize = MAXITEMS;
 
 	XML_SetUserData(parser, &pData);
-
-
+	
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
@@ -406,14 +401,16 @@ BOOLEAN ReadInAmmoTypeStats(STR fileName)
 		return FALSE;
 	}
 
-	MemFree(lpcBuffer);
+	// entries read were x -> x+1 entries
+	++gMAXAMMOTYPES_READ;
 
+	MemFree(lpcBuffer);
 
 	XML_ParserFree(parser);
 
-
 	return( TRUE );
 }
+
 BOOLEAN WriteAmmoTypeStats()
 {
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writeammotypestats");
@@ -426,19 +423,15 @@ BOOLEAN WriteAmmoTypeStats()
 		return( FALSE );
 
 	{
-		UINT32 cnt;
-
 		FilePrintf(hFile,"<AMMOTYPELIST>\r\n");
-		for(cnt = 0;cnt < MAXITEMS;cnt++)
+		for ( UINT32 cnt = 0;cnt < gMAXAMMOTYPES_READ; ++cnt)
 		{
-
 			FilePrintf(hFile,"\t<AMMOTYPE>\r\n");
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",															cnt );
-			FilePrintf(hFile,"\t\t<fontColour>%d</fontColour>\r\n",														AmmoTypes[cnt].fontColour	);
-			FilePrintf(hFile,"\t\t<grayed>%d</grayed>\r\n",																AmmoTypes[cnt].grayed	);
-			FilePrintf(hFile,"\t\t<offNormal>%d</offNormal>\r\n",														AmmoTypes[cnt].offNormal	);
-			FilePrintf(hFile,"\t\t<onNormal>%d</onNormal>\r\n",															AmmoTypes[cnt].onNormal	);
+			FilePrintf(hFile,"\t\t<red>%d</red>\r\n",																	AmmoTypes[cnt].red );
+			FilePrintf(hFile,"\t\t<green>%d</green>\r\n",																AmmoTypes[cnt].green );
+			FilePrintf(hFile,"\t\t<blue>%d</blue>\r\n",																	AmmoTypes[cnt].blue );
 			FilePrintf(hFile,"\t\t<structureImpactReductionMultiplier>%d</structureImpactReductionMultiplier>\r\n",		AmmoTypes[cnt].structureImpactReductionMultiplier	);
 			FilePrintf(hFile,"\t\t<structureImpactReductionDivisor>%d</structureImpactReductionDivisor>\r\n",			AmmoTypes[cnt].structureImpactReductionDivisor	);
 			FilePrintf(hFile,"\t\t<armourImpactReductionMultiplier>%d</armourImpactReductionMultiplier>\r\n",			AmmoTypes[cnt].armourImpactReductionMultiplier	);
