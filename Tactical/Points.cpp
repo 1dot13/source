@@ -2068,6 +2068,9 @@ INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj, SOLD
 
 	//CHRISL: Resolves a problem with stackable weapons not using attachments like Reflex sight.  Found by Mugsy
 	//if (ItemSlotLimit(pObj, STACK_SIZE_LIMIT) == 1)//NOT STACKABLE!
+
+	// be sure to only check weapons
+	if ( Item[pObj->usItem].usItemClass & ( IC_WEAPON | IC_PUNCH ) )
 	{
 		rof += GetRateOfFireBonus(pObj);
 	}
