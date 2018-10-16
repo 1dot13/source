@@ -1171,7 +1171,7 @@ void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	{
 		sGridNo2 = gMapInformation.sIsolatedGridNo;
 
-		for( uiCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; uiCounter < gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCounter )
+		for( uiCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; uiCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCounter )
 		{
 			pSoldier = MercPtrs[ uiCounter ];
 			if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLife > 0 && pSoldier->sSectorX == sSectorX && pSoldier->sSectorY == sSectorY && pSoldier->bSectorZ == bSectorZ )

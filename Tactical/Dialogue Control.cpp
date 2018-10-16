@@ -3117,7 +3117,7 @@ void HandleDialogueEnd( FACETYPE *pFace )
 								break;
 							default:
 								// select random enemy, who we see, who sees us and isn't deaf
-								for(UINT8 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt < gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
+								for(UINT8 cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID ; cnt++ )
 								{
 									if( MercPtrs[cnt] != NULL && MercPtrs[cnt]->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY 
 										&& MercPtrs[pSoldier->ubID]->aiData.bOppList[cnt] == SEEN_CURRENTLY && !( MercPtrs[cnt]->bDeafenedCounter > 0 ) )

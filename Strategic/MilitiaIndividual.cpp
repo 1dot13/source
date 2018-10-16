@@ -281,7 +281,7 @@ void UpdateMilitia( MILITIA aMilitia )
 
 SOLDIERTYPE* GetUsedSoldierToIndividualMilitia( UINT32 aMilitiaId )
 {
-	for ( UINT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; cnt < gTacticalStatus.Team[MILITIA_TEAM].bLastID; ++cnt )
+	for ( UINT32 cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; ++cnt )
 	{
 		if ( MercPtrs[cnt] && MercPtrs[cnt]->bActive && MercPtrs[cnt]->usIndividualMilitiaID == aMilitiaId )
 		{

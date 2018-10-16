@@ -3148,7 +3148,7 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 	INT16				range = aRange;
 
 	// go through each soldier, looking for "friends" (soldiers on same team)
-	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
+	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
 	{
 		pFriend = MercPtrs[ uiLoop ];
 
@@ -3201,7 +3201,7 @@ UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 	INT16				range = aRange;
 
 	// go through each soldier, looking for "friends" (soldiers on same team)
-	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
+	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
 	{
 		pFriend = MercPtrs[ uiLoop ];
 
@@ -3250,7 +3250,7 @@ UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTe
 	INT16				range = aRange;
 
 	// go through each soldier, looking for "friends" (soldiers on same team)
-	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
+	for (uiLoop = gTacticalStatus.Team[ auTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ auTeam ].bLastID; ++uiLoop)
 	{
 		pFriend = MercPtrs[ uiLoop ];
 

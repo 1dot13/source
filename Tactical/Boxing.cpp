@@ -53,7 +53,7 @@ void ExitBoxing( void )
 	for( ubPass = 0; ubPass < 2; ++ubPass )
 	{
 		// because boxer could die, loop through all soldier ptrs
-		for ( uiLoop = 0; uiLoop < gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++uiLoop )
+		for ( uiLoop = 0; uiLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++uiLoop )
 		{
 			pSoldier = MercPtrs[ uiLoop ];
 

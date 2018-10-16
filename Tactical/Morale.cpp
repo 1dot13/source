@@ -1685,7 +1685,7 @@ BOOLEAN IsShowOffNearBy( SOLDIERTYPE * pSoldier )
 		return( FALSE );	
 	}
 
-	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop < gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)
+	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)
 	{
 		pTeammate = MercPtrs[ uiLoop ];
 		if ( pTeammate == NULL )

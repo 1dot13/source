@@ -11025,7 +11025,7 @@ UINT8 HighestEnemyOfficersInSector( UINT8& aType )
 	UINT8				num = 0;
     UINT8               type = OFFICER_NONE;
 
-    for ( cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID, pSoldier = MercPtrs[cnt]; cnt < gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; pSoldier++, ++cnt )
+    for ( cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID, pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; pSoldier++, ++cnt )
     {
         if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
         {
@@ -11050,7 +11050,7 @@ UINT16 NumSoldiersWithFlagInSector( UINT8 aTeam, UINT32 aFlag )
 	INT32               cnt = 0;
 	UINT8				num = 0;
 
-	for ( cnt = gTacticalStatus.Team[aTeam].bFirstID, pSoldier = MercPtrs[cnt]; cnt < gTacticalStatus.Team[aTeam].bLastID; pSoldier++, ++cnt )
+	for ( cnt = gTacticalStatus.Team[aTeam].bFirstID, pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[aTeam].bLastID; pSoldier++, ++cnt )
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
 		{

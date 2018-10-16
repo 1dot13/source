@@ -221,7 +221,7 @@ BOOLEAN BeginAirRaid( )
 
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("BeginAirRaid: check for mercs: first id = %d, last id = %d ",gTacticalStatus.Team[ gbPlayerNum ].bFirstID, gTacticalStatus.Team[ gbPlayerNum ].bLastID));
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt < gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
+		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("BeginAirRaid: soldier id = %d, active = %d",pSoldier->ubID,pSoldier->bActive));
 			if ( pSoldier->bActive	)
@@ -1067,7 +1067,7 @@ void HandleAirRaid( )
 		SOLDIERTYPE * pSoldier;
 		BOOLEAN fOK = FALSE;
 		int cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt < gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
+		for ( cnt = 0, pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleAirRaid: soldier id = %d, active = %d",pSoldier->ubID,pSoldier->bActive));
 			if ( pSoldier->bActive	)

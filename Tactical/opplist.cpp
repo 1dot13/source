@@ -7630,7 +7630,7 @@ void CommunicateWatchedLoc( UINT8 ubID, INT32 sGridNo, INT8 bLevel, UINT8 ubPoin
 
 	bTeam = MercPtrs[ ubID ]->bTeam;
 
-	for ( ubLoop = gTacticalStatus.Team[ bTeam ].bFirstID; ubLoop < gTacticalStatus.Team[ bTeam ].bLastID; ubLoop++ )
+	for ( ubLoop = gTacticalStatus.Team[ bTeam ].bFirstID; ubLoop <= gTacticalStatus.Team[ bTeam ].bLastID; ubLoop++ )
 	{
 		if ( ubLoop == ubID || MercPtrs[ ubLoop ]->bActive == FALSE || MercPtrs[ ubLoop ]->bInSector == FALSE || MercPtrs[ ubLoop ]->stats.bLife < OKLIFE )
 		{
