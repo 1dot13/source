@@ -6412,6 +6412,9 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 	}
 //	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "%d hears noise from %d (%d/%d) volume %d", pSoldier->ubID, ubNoiseMaker, sGridNo, bLevel, ubVolume ) );
 
+	// sevenfm: scale ubVolume to remember noise
+	UINT8 ubVolumeScaled = (UINT8)sqrt((float)ubVolume);
+
 	// "Turn head" towards the source of the noise and try to see what's there
 
 	// don't use DistanceVisible here, but use maximum visibility distance
@@ -6527,6 +6530,16 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 					}
 				}
 			}
+			// sevenfm: remember noise even for seen opponents
+			if( pSoldier->flags.uiStatusFlags & SOLDIER_PC && ubVolumeScaled > pSoldier->aiData.ubNoiseVolume )
+			{
+				// yes it is, so remember this noise INSTEAD (old noise is forgotten)
+				pSoldier->aiData.sNoiseGridno = sGridNo;
+				pSoldier->bNoiseLevel = bLevel;
+
+				// no matter how loud noise was, don't remember it for more than 12 turns!
+				pSoldier->aiData.ubNoiseVolume = min(ubVolumeScaled, MAX_MISC_NOISE_DURATION);
+			}
 
 		}
 		else		 // noise maker still can't be seen
@@ -6552,21 +6565,14 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 			// ubnoisemaker, leaving the 'seen' flag FALSE.	See ProcessNoise().
 
 			// CJC: set the noise gridno for the soldier, if appropriate - this is what is looked at by the AI!
-			if (ubVolume >= pSoldier->aiData.ubNoiseVolume)
+			if (ubVolumeScaled >= pSoldier->aiData.ubNoiseVolume)
 			{
 				// yes it is, so remember this noise INSTEAD (old noise is forgotten)
 				pSoldier->aiData.sNoiseGridno = sGridNo;
 				pSoldier->bNoiseLevel = bLevel;
 
-				// no matter how loud noise was, don't remember it for than 12 turns!
-				if (ubVolume < MAX_MISC_NOISE_DURATION)
-				{
-					pSoldier->aiData.ubNoiseVolume = ubVolume;
-				}
-				else
-				{
-					pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
-				}
+				// no matter how loud noise was, don't remember it for more than 12 turns!
+				pSoldier->aiData.ubNoiseVolume = min(ubVolumeScaled, MAX_MISC_NOISE_DURATION);
 
 				SetNewSituation( pSoldier );	// force a fresh AI decision to be made
 			}
@@ -6667,21 +6673,14 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 		{
 			// check if the effective volume of this new noise is greater than or at
 			// least equal to the volume of the currently noticed noise stored
-			if (ubVolume >= pSoldier->aiData.ubNoiseVolume)
+			if (ubVolumeScaled >= pSoldier->aiData.ubNoiseVolume)
 			{
 				// yes it is, so remember this noise INSTEAD (old noise is forgotten)
 				pSoldier->aiData.sNoiseGridno = sGridNo;
 				pSoldier->bNoiseLevel = bLevel;
 
-				// no matter how loud noise was, don't remember it for than 12 turns!
-				if (ubVolume < MAX_MISC_NOISE_DURATION)
-				{
-					pSoldier->aiData.ubNoiseVolume = ubVolume;
-				}
-				else
-				{
-					pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
-				}
+				// no matter how loud noise was, don't remember it for more than 12 turns!
+				pSoldier->aiData.ubNoiseVolume = min(ubVolumeScaled, MAX_MISC_NOISE_DURATION);
 
 				SetNewSituation( pSoldier );	// force a fresh AI decision to be made
 			}
@@ -6690,6 +6689,17 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 		// if listener sees the source of the noise, AND it's either a grenade,
 		//	or it's a rock that he watched land (didn't need to turn)
 		{
+			// sevenfm: allow player mercs to hear all noises
+			if ( pSoldier->flags.uiStatusFlags & SOLDIER_PC && ubVolumeScaled > pSoldier->aiData.ubNoiseVolume)
+			{
+				// yes it is, so remember this noise INSTEAD (old noise is forgotten)
+				pSoldier->aiData.sNoiseGridno = sGridNo;
+				pSoldier->bNoiseLevel = bLevel;
+
+				// no matter how loud noise was, don't remember it for more than 12 turns!
+				pSoldier->aiData.ubNoiseVolume = min(ubVolumeScaled, MAX_MISC_NOISE_DURATION);
+			}
+
 			SetNewSituation( pSoldier );	// re-evaluate situation
 
 			// if status is only GREEN or YELLOW

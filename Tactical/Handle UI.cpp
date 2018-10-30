@@ -97,6 +97,7 @@
 #include "Options Screen.h"
 #include "SaveLoadScreen.h"
 #include "Map Screen Interface.h"	// added by Flugente for SquadNames
+#include "Keys.h"	// added by silversurfer for door handling from the side
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
@@ -2181,8 +2182,50 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 						// Set dest gridno
 						sDestGridNo = sActionGridNo;
 
+						// silversurfer: we allow opening unlocked doors from the side so our mercs are not turned into Swiss cheese, hopefully...
+						bool bSideOpenDoor = false;
+
+						// sliding doors have only one action tile so if we want to be able to open them from both ends we need to allow 2 tiles max distance
+						if ( pStructure->fFlags & STRUCTURE_ANYDOOR && PythSpacesAway( pSoldier->sGridNo, sDestGridNo ) <= 2 )
+						{
+							DOOR *pDoor = FindDoorInfoAtGridNo( FindDoorAtGridNoOrAdjacent( sIntTileGridNo ) );
+
+							// Simple doors without properties will not be found by FindDoorInfoAtGridNo. We only allow those and unlocked doors to be opened from the side.
+							if ( !pDoor || (pDoor && !pDoor->fLocked) )
+							{
+								//make sure the merc is actually at the wall and next to the door
+								switch( pStructure->ubWallOrientation )
+								{
+									// orientation NW - SE
+									case INSIDE_TOP_LEFT:
+										if ( (sDestGridNo - pSoldier->sGridNo == 1) || (pSoldier->sGridNo - sDestGridNo == 1) ||
+											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == 2) )
+											bSideOpenDoor = true;
+										break;
+									// orientation SW - NE
+									case INSIDE_TOP_RIGHT:
+										if ( (sDestGridNo - pSoldier->sGridNo == WORLD_COLS) || (pSoldier->sGridNo - sDestGridNo == WORLD_COLS) ||
+											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == WORLD_COLS *2) )
+											bSideOpenDoor = true;
+										break;
+									// orientation NW - SE
+									case OUTSIDE_TOP_LEFT:
+										if ( (sDestGridNo - pSoldier->sGridNo == 1) || (pSoldier->sGridNo - sDestGridNo == 1) ||
+											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == 2) )
+											bSideOpenDoor = true;
+										break;
+									// orientation SW - NE
+									case OUTSIDE_TOP_RIGHT:
+										if ( (sDestGridNo - pSoldier->sGridNo == WORLD_COLS) || (pSoldier->sGridNo - sDestGridNo == WORLD_COLS) ||
+											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == WORLD_COLS *2) )
+											bSideOpenDoor = true;
+										break;
+								}
+							}
+						}
+
 						// check if we are at this location
-						if ( pSoldier->sGridNo == sDestGridNo )
+						if ( pSoldier->sGridNo == sDestGridNo || bSideOpenDoor )
 						{
 							StartInteractiveObject( sIntTileGridNo, pStructure->usStructureID, pSoldier, ubDirection );
 							InteractWithInteractiveObject( pSoldier, pStructure, ubDirection );
