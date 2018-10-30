@@ -11878,7 +11878,7 @@ FLOAT CalcNewChanceToHitBaseTargetBonus(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTar
 	if (iRange > 0 && iHeightDifference > 0)
 	{
 		FLOAT fTempPenalty = gGameCTHConstants.BASE_SHOOTING_UPWARDS * iHeightDifference;
-		fTempPenalty /= iRange;
+		fTempPenalty = fTempPenalty * CELL_X_SIZE / iRange;
 
 		fBaseModifier += fTempPenalty;
 	}
