@@ -2198,27 +2198,53 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 								{
 									// orientation NW - SE
 									case INSIDE_TOP_LEFT:
-										if ( (sDestGridNo - pSoldier->sGridNo == 1) || (pSoldier->sGridNo - sDestGridNo == 1) ||
-											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == 2) )
+									case OUTSIDE_TOP_LEFT:
+										// standing south, left of door
+										if ( ( (sDestGridNo - pSoldier->sGridNo) == 1 || (pStructure->fFlags & STRUCTURE_SLIDINGDOOR && (sDestGridNo - pSoldier->sGridNo) == 2) )&& ubDirection == NORTH )
+										{
+											ubDirection = NORTHEAST;
 											bSideOpenDoor = true;
+										} // standing south, right of door
+										else if ( (pSoldier->sGridNo - sDestGridNo) == 1 && ubDirection == NORTH )
+										{
+											ubDirection = NORTHWEST;
+											bSideOpenDoor = true;
+										} // standing north, left of door
+										else if ( (pSoldier->sGridNo - sDestGridNo) == 1 && ubDirection == SOUTH )
+										{
+											ubDirection = SOUTHWEST;
+											bSideOpenDoor = true;
+										} // standing north, right of door
+										else if ( ( (sDestGridNo - pSoldier->sGridNo) == 1 || (pStructure->fFlags & STRUCTURE_SLIDINGDOOR && (sDestGridNo - pSoldier->sGridNo) == 2) ) && ubDirection == SOUTH )
+										{
+											ubDirection = SOUTHEAST;
+											bSideOpenDoor = true;
+										}
 										break;
 									// orientation SW - NE
 									case INSIDE_TOP_RIGHT:
-										if ( (sDestGridNo - pSoldier->sGridNo == WORLD_COLS) || (pSoldier->sGridNo - sDestGridNo == WORLD_COLS) ||
-											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == WORLD_COLS *2) )
-											bSideOpenDoor = true;
-										break;
-									// orientation NW - SE
-									case OUTSIDE_TOP_LEFT:
-										if ( (sDestGridNo - pSoldier->sGridNo == 1) || (pSoldier->sGridNo - sDestGridNo == 1) ||
-											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == 2) )
-											bSideOpenDoor = true;
-										break;
-									// orientation SW - NE
 									case OUTSIDE_TOP_RIGHT:
-										if ( (sDestGridNo - pSoldier->sGridNo == WORLD_COLS) || (pSoldier->sGridNo - sDestGridNo == WORLD_COLS) ||
-											( pStructure->fFlags & STRUCTURE_SLIDINGDOOR  && sDestGridNo - pSoldier->sGridNo == WORLD_COLS *2) )
+										// standing east, left of door
+										if ( (pSoldier->sGridNo - sDestGridNo) == WORLD_COLS && ubDirection == WEST )
+										{
+											ubDirection = NORTHWEST;
 											bSideOpenDoor = true;
+										} // standing east, right of door
+										else if ( ( (sDestGridNo - pSoldier->sGridNo) == WORLD_COLS || (pStructure->fFlags & STRUCTURE_SLIDINGDOOR && (sDestGridNo - pSoldier->sGridNo) == (WORLD_COLS *2)) ) && ubDirection == WEST )
+										{
+											ubDirection = SOUTHWEST;
+											bSideOpenDoor = true;
+										} // standing west, left of door
+										else if ( ( (sDestGridNo - pSoldier->sGridNo) == WORLD_COLS || (pStructure->fFlags & STRUCTURE_SLIDINGDOOR && (sDestGridNo - pSoldier->sGridNo) == (WORLD_COLS *2)) ) && ubDirection == EAST )
+										{
+											ubDirection = SOUTHEAST;
+											bSideOpenDoor = true;
+										} // standing west, right of door
+										else if ( (pSoldier->sGridNo - sDestGridNo) == WORLD_COLS && ubDirection == EAST )
+										{
+											ubDirection = NORTHEAST;
+											bSideOpenDoor = true;
+										}
 										break;
 								}
 							}
