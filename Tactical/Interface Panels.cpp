@@ -4088,7 +4088,7 @@ BOOLEAN  ChangeZipperStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 	sAPCost = (newStatus) ? APBPConstants[AP_CLOSE_ZIPPER] : APBPConstants[AP_OPEN_ZIPPER];
 		// SANDRO - ambidextrous bonus to handle things faster
 	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
-		sAPCost = (INT16)((sAPCost * (100 - gSkillTraitValues.ubAMWorkBackpackAPsReduction) / 100) + 0.5);
+		sAPCost = (INT16)(sAPCost * (100 - gSkillTraitValues.ubAMWorkBackpackAPsReduction) / 100.0f + 0.5f);
 
 	//Are we currently in combat?
 	if(gTacticalStatus.uiFlags & INCOMBAT)

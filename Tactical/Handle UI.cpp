@@ -4453,7 +4453,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			}
 			else if ((HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT )) && ( gGameOptions.fNewTraitSystem ))
 			{
-				sAPCost += max( 1, (INT16)((APBPConstants[AP_STEAL_ITEM] *  (100 - gSkillTraitValues.ubMAReducedAPsToSteal * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ))/ 100) + 0.5));
+				sAPCost += max( 1, (INT16)(APBPConstants[AP_STEAL_ITEM] *  (100 - gSkillTraitValues.ubMAReducedAPsToSteal * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100.0f + 0.5f));
 			}
 			else
 			{

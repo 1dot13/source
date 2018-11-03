@@ -8986,7 +8986,7 @@ INT8 CalculateMercsAchievementPercentage( INT32 ubProfile )
 	// Calculate percentage
 	if( ulTotalMercPoints != 0 )
 	{
-		uiMercPercentage = (UINT32)(((100 * uiMercPoints)/ulTotalMercPoints)+ 0.5);
+		uiMercPercentage = (UINT32)(100.0f * (FLOAT)uiMercPoints / (FLOAT)ulTotalMercPoints + 0.5f);
 
 		uiMercPercentage = min( 100, uiMercPercentage );
 

@@ -8175,13 +8175,13 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 				else if( Weapon[ gpItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN && Weapon[gpItemDescObject->usItem].swapClips != 1 )
 					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost 
 										* max(0,(100 - gSkillTraitValues.ubRAReloadSpeedShotgunsManual * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ) 
-										- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0 + 0.5f );
+										- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0f + 0.5f );
 				// ambidextrous reload bullets
 				else if( Weapon[gpItemDescObject->usItem].swapClips != 1 )
-					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) ) / 100.0f + 0.5f);
 				// ambidextrous reload magazines
 				else
-					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) ) / 100.0f + 0.5f);
 			}
 
 			// Get base Reload Cost
@@ -8220,13 +8220,13 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 					else if( Weapon[ gpComparedItemDescObject->usItem ].ubWeaponType == GUN_SHOTGUN && Weapon[gpComparedItemDescObject->usItem].swapClips != 1 )
 						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost 
 											* max(0,(100 - gSkillTraitValues.ubRAReloadSpeedShotgunsManual * NUM_SKILL_TRAITS( gpItemDescSoldier, RANGER_NT ) 
-											- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0 + 0.5f );
+											- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0f + 0.5f );
 					// ambidextrous reload bullets
 					else if( Weapon[gpComparedItemDescObject->usItem].swapClips != 1 )
-						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) ) / 100.0f + 0.5f);
 					// ambidextrous reload magazines
 					else
-						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+						iComparedFinalReloadAPCost = (INT16)( (FLOAT)iComparedFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) ) / 100.0f + 0.5f);
 				}
 
 				// Get base Reload Cost
@@ -8272,10 +8272,10 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 										- gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT ) ) ) / 100.0 + 0.5f );
 				// ambidextrous reload bullets
 				else if( Weapon[gpComparedItemDescObject->usItem].swapClips != 1 )
-					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedLoose * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) ) / 100.0f + 0.5f);
 				// ambidextrous reload magazines
 				else
-					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) )/100 + 0.5);
+					iFinalReloadAPCost = (INT16)( (FLOAT)iFinalReloadAPCost * max( 0,(100 - gSkillTraitValues.ubAMReloadSpeedMagazines * NUM_SKILL_TRAITS( gpItemDescSoldier, AMBIDEXTROUS_NT )) ) / 100.0f + 0.5f);
 			}
 
 				// Get base Reload Cost

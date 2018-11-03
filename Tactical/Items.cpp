@@ -2271,7 +2271,7 @@ UINT8 AttachmentAPCost( UINT16 usAttachment, UINT16 usItem, SOLDIERTYPE * pSoldi
 	{
 		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
 		{
-			ubAPCost = (UINT8)((ubAPCost * (100 - gSkillTraitValues.ubAMAttachingItemsAPsReduction) / 100) + 0.5);
+			ubAPCost = (UINT8)(ubAPCost * (100 - gSkillTraitValues.ubAMAttachingItemsAPsReduction) / 100.0f + 0.5f);
 		}
 	}
 
@@ -2290,7 +2290,7 @@ UINT8 AttachmentAPCost( UINT16 usAttachment, OBJECTTYPE * pObj, SOLDIERTYPE * pS
 	{
 		if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, AMBIDEXTROUS_NT ) )
 		{
-			ubAPCost = (UINT8)((ubAPCost * (100 - gSkillTraitValues.ubAMAttachingItemsAPsReduction) / 100) + 0.5);
+			ubAPCost = (UINT8)(ubAPCost * (100 - gSkillTraitValues.ubAMAttachingItemsAPsReduction) / 100.0f + 0.5f);
 		}
 	}
 

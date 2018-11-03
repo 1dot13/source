@@ -1204,7 +1204,7 @@ INT32	CalculateInsuranceContractCost( INT32 iLength, UINT8 ubMercID )
 	}
 
 	// premium depend on merc's salary, the base insurance rate, and the individual's risk factor at this time
-	uiDailyInsurancePremium = (UINT32) (((pProfile->sSalary * INSURANCE_PREMIUM_RATE * flRiskFactor) / 100) + 0.5);
+	uiDailyInsurancePremium = (UINT32) (pProfile->sSalary * INSURANCE_PREMIUM_RATE * flRiskFactor / 100.0f + 0.5f);
 	// multiply by the insurance contract length
 	uiTotalInsurancePremium = uiDailyInsurancePremium * iLength;
 

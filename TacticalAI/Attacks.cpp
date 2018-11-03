@@ -2285,7 +2285,7 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 				if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) )
 				{
 					// also add breath damage bonus into consideration
-					iImpact = (INT32)((iImpact * ( 100 + (gSkillTraitValues.ubMABonusDamageHandToHand + gSkillTraitValues.ubMABonusBreathDamageHandToHand) * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) ) / 100) + 0.5);
+					iImpact = (INT32)(iImpact * ( 100 + (gSkillTraitValues.ubMABonusDamageHandToHand + gSkillTraitValues.ubMABonusBreathDamageHandToHand) * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) ) / 100.0f + 0.5f);
 
 
 					// The Spinning kicks or aimed punch bonus - SANDRO
@@ -2300,7 +2300,7 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 				// +30% damage of blunt weapons for melee character
 				if (HAS_SKILL_TRAIT( pSoldier, MELEE_NT ))
 				{
-					iImpact = (INT32)((iImpact * (100 + gSkillTraitValues.ubMEDamageBonusBlunt)/100) + 0.5);
+					iImpact = (INT32)(iImpact * (100 + gSkillTraitValues.ubMEDamageBonusBlunt) / 100.0f + 0.5f);
 
 					//if (pSoldier->aiData.bAimTime > 0)
 					//{
@@ -2313,11 +2313,11 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 		{
 			if ( HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) )
 			{
-				iImpact = (INT32)((iImpact * (100 + gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT ) ) / 100) + 0.5);
+				iImpact = (INT32)(iImpact * (100 + gbSkillTraitBonus[MARTIALARTS_OT] * NUM_SKILL_TRAITS( pSoldier, MARTIALARTS_OT ) ) / 100.0f + 0.5f);
 			}
 			if ( HAS_SKILL_TRAIT( pSoldier, HANDTOHAND_OT ) )
 			{
-				iImpact = (INT32)((iImpact * (100 + gbSkillTraitBonus[HANDTOHAND_OT] * NUM_SKILL_TRAITS( pSoldier, HANDTOHAND_OT ) ) / 100) + 0.5);
+				iImpact = (INT32)(iImpact * (100 + gbSkillTraitBonus[HANDTOHAND_OT] * NUM_SKILL_TRAITS( pSoldier, HANDTOHAND_OT ) ) / 100.0f + 0.5f);
 			}
 		}
 		// SANDRO - Enhanced Close Combat System - aiming at body parts makes difference
@@ -2404,10 +2404,10 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 		{
 			// Sniper trait makes chambering a round faster
 			if (( Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE || Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE ) && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ))
-				DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5), 0);
+				DeductPoints(pSoldier, (INT16)(sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) / 100.0f + 0.5f), 0);
 			// Ranger trait makes pumping shotguns faster
 			else if (( Weapon[Item[(pObj)->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN ) && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
-				DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5), 0);
+				DeductPoints(pSoldier, (INT16)(sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )) / 100.0f + 0.5f), 0);
 			else
 				DeductPoints(pSoldier, sModifiedReloadAP, 0);
 		}
@@ -2457,10 +2457,10 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 				{
 					// Sniper trait makes chambering a round faster
 					if (( Weapon[Item[(pObj2)->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE || Weapon[Item[(pObj2)->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE ) && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ))
-						DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5), 0);
+						DeductPoints(pSoldier, (INT16)(sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) / 100.0f + 0.5f), 0);
 					// Ranger trait makes pumping shotguns faster
 					else if (( Weapon[Item[(pObj2)->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN ) && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
-						DeductPoints(pSoldier, (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5), 0);
+						DeductPoints(pSoldier, (INT16)(sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )) / 100.0f + 0.5f), 0);
 					else
 						DeductPoints(pSoldier, sModifiedReloadAP, 0);
 				}

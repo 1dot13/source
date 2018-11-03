@@ -1632,13 +1632,13 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && Item[usItem].usItemClass == IC_BOMB &&
 				(!Item[usItem].attachment || Item[usItem].mine ))
 			{
-				sNewWoundAmt = (INT16)(((sNewWoundAmt * (100 + gSkillTraitValues.ubDEDamageOfBombsAndMines)) / 100) + 0.5);
+				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubDEDamageOfBombsAndMines) / 100.0f + 0.5f);
 			}
 			// Heavy Weapons trait bonus damage to tanks
 			if ( HAS_SKILL_TRAIT( MercPtrs[ubOwner], HEAVY_WEAPONS_NT ) && ARMED_VEHICLE( pSoldier ) &&
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL )
 			{
-				sNewWoundAmt = (INT16)(((sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageTanksBonusPercent * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ))) / 100) + 0.5); // +30%
+				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageTanksBonusPercent * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +30%
 			}
 			// Heavy Weapons trait bonus damage with rocket, grenade launchers and mortar
 			else if ( HAS_SKILL_TRAIT( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ) &&
@@ -1647,7 +1647,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 				(Item[usItem].usItemClass == IC_GRENADE && (Item[usItem].glgrenade || Item[usItem].electronic) ) || // rockets for rocketlaunchers (I haven't found any other way)
 				(Item[usItem].usItemClass == IC_LAUNCHER ) || Item[usItem].rocketlauncher || Item[usItem].singleshotrocketlauncher ) )
 			{
-				sNewWoundAmt = (INT16)(((sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageBonusPercentForHW * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT ))) / 100) + 0.5); // +15%
+				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageBonusPercentForHW * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +15%
 			}
 		}
 

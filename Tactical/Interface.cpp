@@ -6439,10 +6439,10 @@ void NCTHImprovedAPColor( SOLDIERTYPE* pSoldier, OBJECTTYPE* pWeapon )
 			{
 				// Sniper trait makes chambering a round faster
 				if (( Weapon[Item[pWeapon->usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE || Weapon[Item[pWeapon->usItem].ubClassIndex].ubWeaponType == GUN_RIFLE ) && HAS_SKILL_TRAIT( pSoldier, SNIPER_NT ))
-					sModifiedReloadAP = (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )))/100) + 0.5);
+					sModifiedReloadAP = (INT16)(sModifiedReloadAP * (100 - gSkillTraitValues.ubSNChamberRoundAPsReduction * NUM_SKILL_TRAITS( pSoldier, SNIPER_NT )) / 100.0f + 0.5f);
 				// Ranger trait makes pumping shotguns faster
 				else if (( Weapon[Item[pWeapon->usItem].ubClassIndex].ubWeaponType == GUN_SHOTGUN ) && HAS_SKILL_TRAIT( pSoldier, RANGER_NT ))
-					sModifiedReloadAP = (INT16)(((sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )))/100) + 0.5);
+					sModifiedReloadAP = (INT16)(sModifiedReloadAP * (100 - gSkillTraitValues.ubRAPumpShotgunsAPsReduction * NUM_SKILL_TRAITS( pSoldier, RANGER_NT )) / 100.0f + 0.5f);
 			}
 		}
 		INT16 sPointsToShoot = CalcTotalAPsToAttack( pSoldier, gCTHDisplay.iTargetGridNo, 0, pSoldier->aiData.bShownAimTime ) + sModifiedReloadAP;

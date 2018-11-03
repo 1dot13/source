@@ -7560,7 +7560,7 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 			}
 			// martial artists can turn faster
 			if ( HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) && gGameOptions.fNewTraitSystem )
-				sAPCost = max( 1, (INT16)((sAPCost * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100) + 0.5) );
+				sAPCost = max( 1, (INT16)(sAPCost * (100 - gSkillTraitValues.ubMAApsTurnAroundReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT )) / 100.0f + 0.5f) );
 
 			// SANDRO: get BP cost for weapon manipulating
 			if ( gGameExternalOptions.ubEnergyCostForWeaponWeight )
