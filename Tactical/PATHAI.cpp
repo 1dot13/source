@@ -3719,8 +3719,11 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 						case CRAWLING:
 
+							// Add cost to stand up before jump and go prone after jump
+							ubAPCost += GetAPsCrouch(s, TRUE) + ( 2 * GetAPsProne(s, TRUE) );
 							// Can't do it here.....
-							goto NEXTDIR;
+							//goto NEXTDIR;
+							break;
 					}
 				}
 				else if (nextCost == TRAVELCOST_NOT_STANDING)
@@ -4598,20 +4601,28 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						case WALKING_DUAL_RDY:
 						case WALKING_ALTERNATIVE_RDY :
 
-							// Add here cost to go from crouch to stand AFTER fence hop....
+							// silversurfer: It doesn't matter if we continue moving after the jump. If we were standing before we will stand up again.
+/*							// Add here cost to go from crouch to stand AFTER fence hop....
 							// Since it's AFTER.. make sure we will be moving after jump...
 							if ( ( iCnt + 2 ) < iLastGrid )
 							{
 								sExtraCostStand += GetAPsCrouch(pSold, TRUE);
 
-								// ATE: if running, charge extra point to srart again
-								if ( usMovementModeToUseForAPs== RUNNING )
+								// ATE: if running, charge extra point to start again
+								if ( usMovementModeToUseForAPs == RUNNING )
 								{
-									sExtraCostStand++;
+									sExtraCostStand += GetAPsStartRun(pSold);
 								}
 
 								sPoints = sPoints + sExtraCostStand;              
+							}*/
+							// Add cost to stand up after jump
+							sExtraCostStand += GetAPsCrouch(pSold, TRUE);
+							if ( ( iCnt + 2 ) < iLastGrid && usMovementModeToUseForAPs == RUNNING )
+							{
+								sExtraCostStand += GetAPsStartRun(pSold);
 							}
+							sPoints = sPoints + sExtraCostStand;              
 							break;
 
 						case SWATTING:
@@ -4619,12 +4630,16 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						case CROUCHEDMOVE_PISTOL_READY:
 						case CROUCHEDMOVE_DUAL_READY:
 
-							// Add cost to stand once there BEFORE....
+							// Add cost to stand up once BEFORE....
 							sExtraCostSwat += GetAPsCrouch(pSold, TRUE);
 							sPoints = sPoints + sExtraCostSwat;              
 							break;
 
 						case CRAWLING:
+
+							// Add cost to stand up before and go prone again after jumping
+							sExtraCostCrawl += GetAPsCrouch(pSold, TRUE) + ( 2 * GetAPsProne(pSold, TRUE) );
+							sPoints = sPoints + sExtraCostCrawl;              
 
 							// Can't do it here.....
 							break;

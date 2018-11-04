@@ -688,30 +688,20 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					return( TRUE );
 				}
 
-				// If we are at our final destination, goto stance of our movement stance...
-				// Only in realtime...
-				//if ( !( gTacticalStatus.uiFlags & INCOMBAT ) )
-				// This has to be here to make guys continue along fence path
-#if 0
-				if ( pSoldier->sGridNo == pSoldier->pathing.sFinalDestination )
+				// take the correct stance
+				if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != gAnimControl[ pSoldier->usUIMovementMode ].ubEndHeight )
 				{
-					if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != gAnimControl[ pSoldier->usUIMovementMode ].ubEndHeight )
-					{
-						// Goto Stance...
-						pSoldier->flags.fDontChargeAPsForStanceChange = TRUE;
-						pSoldier->ChangeSoldierStance( gAnimControl[ pSoldier->usUIMovementMode ].ubEndHeight );
-						return( TRUE );
-					}
-					else
-					{
-						//pSoldier->SoldierGotoStationaryStance( );
+					// Goto Stance...
+					pSoldier->ChangeSoldierStance( gAnimControl[ pSoldier->usUIMovementMode ].ubEndHeight );
 
+					if ( pSoldier->sGridNo == pSoldier->pathing.sFinalDestination )
+					{
 						// Set UI Busy
 						UnSetUIBusy( pSoldier->ubID );
-						//return( TRUE );
 					}
+
+					return( TRUE );
 				}
-#endif
 				break;
 
 			case 445:

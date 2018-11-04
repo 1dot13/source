@@ -271,16 +271,24 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 	switch( ubMovementCost )
 	{
 		case TRAVELCOST_DIRTROAD	:
-		case TRAVELCOST_FLAT			: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
-		//case TRAVELCOST_BUMPY			:
-		case TRAVELCOST_GRASS			: iPoints = APBPConstants[BP_MOVEMENT_GRASS];	break;
-		case TRAVELCOST_THICK			: iPoints = APBPConstants[BP_MOVEMENT_BUSH];		break;
+		case TRAVELCOST_FLAT		: iPoints = APBPConstants[BP_MOVEMENT_FLAT];	break;
+		//case TRAVELCOST_BUMPY		:
+		case TRAVELCOST_GRASS		: iPoints = APBPConstants[BP_MOVEMENT_GRASS];	break;
+		case TRAVELCOST_THICK		: iPoints = APBPConstants[BP_MOVEMENT_BUSH];	break;
 		case TRAVELCOST_DEBRIS		: iPoints = APBPConstants[BP_MOVEMENT_RUBBLE];	break;
-		case TRAVELCOST_SHORE			: iPoints = APBPConstants[BP_MOVEMENT_SHORE];	break;	// wading shallow water
-		case TRAVELCOST_KNEEDEEP	: iPoints = APBPConstants[BP_MOVEMENT_LAKE];		break;	// wading waist/chest deep - very slow
+		case TRAVELCOST_SHORE		: iPoints = APBPConstants[BP_MOVEMENT_SHORE];	break;	// wading shallow water
+		case TRAVELCOST_KNEEDEEP	: iPoints = APBPConstants[BP_MOVEMENT_LAKE];	break;	// wading waist/chest deep - very slow
 		case TRAVELCOST_DEEPWATER	: iPoints = APBPConstants[BP_MOVEMENT_OCEAN];	break;	// can swim, so it's faster than wading
 	//	case TRAVELCOST_VEINEND		:
 	//	case TRAVELCOST_VEINMID		: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
+		case TRAVELCOST_FENCE		:
+
+			if( FindBackpackOnSoldier( pSoldier ) != ITEM_NOT_FOUND )
+				iPoints = APBPConstants[BP_JUMPFENCEBPACK];
+			else
+				iPoints = APBPConstants[BP_JUMPFENCE];
+			break;
+
 		default:
 			if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
 			{
@@ -406,13 +414,13 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 	// Get switch value...
 	sSwitchValue = gubWorldMovementCosts[ sGridNo ][ bDir ][ pSoldier->pathing.bLevel ];
 
-	// Tile cost should not be reduced based on movement mode...
+	// silversurfer: modified handling below because we need to take stance change into account
+/*	// Tile cost should not be reduced based on movement mode...
 	if ( sSwitchValue == TRAVELCOST_FENCE )
 	{
 		return( sTileCost );
-	}
+	}*/
 
-	
 	// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
 	// This should fix "problems" for special modified maps
 	UINT8 ubTerrainID = gpWorldLevelData[ sGridNo ].ubTerrainID;
@@ -420,6 +428,45 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 	if ( TERRAIN_IS_WATER( ubTerrainID) && pSoldier->pathing.bLevel > 0 )
 		ubTerrainID = FLAT_GROUND;
 
+	// silversurfer: after we jump over a fence we end in crouched stance so we have to spend AP to get back to the original stance.
+	// Also we have to spend AP to get up before jumping.
+	if ( sSwitchValue == TRAVELCOST_FENCE )
+	{
+		switch( usMovementMode )
+		{
+			case RUNNING:
+			case WALKING:
+			case WALKING_WEAPON_RDY:
+			case WALKING_DUAL_RDY:
+			case WALKING_ALTERNATIVE_RDY:
+				// Add cost to stand up once after jump
+				sTileCost += GetAPsCrouch(pSoldier, TRUE);
+				break;
+
+			case SWATTING:
+			case START_SWAT:
+			case SWAT_BACKWARDS:
+			case SIDE_STEP_CROUCH_RIFLE:
+			case SIDE_STEP_CROUCH_PISTOL:
+			case SIDE_STEP_CROUCH_DUAL:
+			case CROUCHEDMOVE_RIFLE_READY:
+			case CROUCHEDMOVE_PISTOL_READY:
+			case CROUCHEDMOVE_DUAL_READY:
+				// Add cost to stand up once before jump
+				sTileCost += GetAPsCrouch(pSoldier, TRUE);
+				break;
+
+			case CRAWLING:
+				// Add cost twice to change stance
+				sTileCost += GetAPsCrouch(pSoldier, TRUE) + ( 2 * GetAPsProne(pSoldier, TRUE) );
+				break;
+
+			default:
+				break;
+		}
+
+		return( sTileCost );
+	}
 
 	// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
 	if ( TERRAIN_IS_WATER( ubTerrainID) )
@@ -639,11 +686,18 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 			case WALKING_ALTERNATIVE_RDY :
 			case SIDE_STEP_ALTERNATIVE_RDY:
 
-				// Add here cost to go from crouch to stand AFTER fence hop....
+				// silversurfer: this is now done in function "ActionPointCost"
+/*				// Add here cost to go from crouch to stand AFTER fence hop....
 				// Since it's AFTER.. make sure we will be moving after jump...
 				if ( ( bPathIndex + 2 ) < bPathLength )
 				{
 					sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
+				}*/
+
+				// if we were running we need to charge some APs to start running again
+				if ( ( bPathIndex + 2 ) < bPathLength && usMovementMode == RUNNING )
+				{
+					sPoints += GetAPsStartRun(pSoldier);
 				}
 				break;
 
@@ -657,8 +711,9 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 			case CROUCHEDMOVE_PISTOL_READY:
 			case CROUCHEDMOVE_DUAL_READY:
 
+				// silversurfer: this is now done in function "ActionPointCost"
 				// Add cost to stand once there BEFORE....
-				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
+//				sPoints += GetAPsCrouch(pSoldier, TRUE); // SANDRO changed..
 				break;
 
 			case CRAWLING:
@@ -2739,7 +2794,7 @@ INT8	PtsToMoveDirection(SOLDIERTYPE *pSoldier, INT8 bDirection )
 		usMoveModeToUse = WALKING;
 	}
 
-	 sCost = ActionPointCost( pSoldier, sGridNo, bDirection , usMoveModeToUse );
+	sCost = ActionPointCost( pSoldier, sGridNo, bDirection , usMoveModeToUse );
 
 	if ( gubWorldMovementCosts[ sGridNo ][ bDirection ][ pSoldier->pathing.bLevel ] != TRAVELCOST_FENCE )
 	{
@@ -2791,7 +2846,8 @@ INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode )
 			}
 			else if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH)
 			{
-				bAPs += GetAPsCrouch(pSoldier, TRUE);
+				//bAPs += GetAPsCrouch(pSoldier, TRUE);
+				bAPs += GetAPsProne(pSoldier, TRUE);
 			}
 			break;
 		default:

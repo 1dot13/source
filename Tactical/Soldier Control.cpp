@@ -3906,10 +3906,11 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// ATE: If we are NOT waiting for prone down...
 			if ( this->flags.bTurningFromPronePosition < TURNING_FROM_PRONE_START_UP_FROM_MOVE && !this->flags.fDontChargeAPsForStanceChange )
 			{
+				// silversurfer: of course we deduct points for stance changes!
 				// ATE: Don't do this if we are still 'moving'....
 				// SANDRO - APBPConstants[AP_PRONE] changed to GetAPsProne()
-				if ( this->sGridNo == this->pathing.sFinalDestination || this->pathing.usPathIndex == 0 )
-				{
+				//if ( this->sGridNo == this->pathing.sFinalDestination || this->pathing.usPathIndex == 0 )
+				//{
 					// CHRISL
 #if 0//dnl ch70 160913 this is wrong we cannot just add constants to sAPCost this must be done in GetAPsCrouch and GetAPsProne because all preactions calculation will show incorrect values under cursor
 					if ( (UsingNewInventorySystem( ) == true) && FindBackpackOnSoldier( this ) != ITEM_NOT_FOUND && !this->flags.ZipperFlag )
@@ -3951,7 +3952,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					}
 #endif
 					DeductPoints( this, sAPCost, sBPCost );
-				}
+				//}
 			}
 			this->flags.fDontChargeAPsForStanceChange = FALSE;
 			break;

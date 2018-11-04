@@ -2091,7 +2091,7 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
         // CHRISL: Added penalty for jumping a fence while wearing a backpack
         // Do we have APs?
         // SANDRO - changed the static values to precise calculation here
-		if ((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true
+/*		if ((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true
 			//JMich.BackpackClimb
 			&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)pSoldier->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[pSoldier->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
 			&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[pSoldier->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
@@ -2104,8 +2104,10 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
         {
             sAPCost = GetAPsToJumpFence( pSoldier, FALSE );
             sBPCost = GetBPsToJumpFence( pSoldier, FALSE );
-        }
+        }*/
 
+		sAPCost = ActionPointCost( pSoldier, usNewGridNo, (INT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], usAnimState );
+		sBPCost = TerrainBreathPoints( pSoldier, usNewGridNo, (INT8)pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], usAnimState );
 
         if ( EnoughPoints( pSoldier, sAPCost, sBPCost, FALSE )  )
         {
