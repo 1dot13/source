@@ -568,7 +568,7 @@ void BtnIMPGearFinishCallback( GUI_BUTTON *btn, INT32 reason )
 INT32	GetIMPGearCost( )
 {
 	if ( IsIMPGearUsed( ) )
-		return max( 0, gIMPGearCost - 3000 );
+		return max( 0, gIMPGearCost - gGameExternalOptions.iIMPProfileCost );
 
 	return 0;
 }

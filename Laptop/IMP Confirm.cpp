@@ -323,7 +323,7 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 
 			// silversurfer: We need to store the profile cost here because right now our new IMP doesn't occupy a slot yet.
 			// However function iGetProfileCost() will already calculate price including that slot. We would charge too much money after the IMP is created below.
-			INT32 iIMPCost = iGetProfileCost();
+			INT32 iIMPCost = GetProfileCost(TRUE);
 			if( LaptopSaveInfo.iCurrentBalance < iIMPCost ) 
 			{
 				// not enough
@@ -578,6 +578,21 @@ void DistributeInitialGear(MERCPROFILESTRUCT *pProfile)
 				iOrder[i] = -1;
 		}
 	}
+}
+
+INT32 GetEquippedGearCost( MERCPROFILESTRUCT *pProfile )
+{
+	INT32 cost = 0;
+
+	for ( int i = INV_START_POS; i<NUM_INV_SLOTS; ++i )
+	{
+		if ( pProfile->inv[i] != NOTHING )
+		{
+			cost += pProfile->bInvNumber[i] * Item[pProfile->inv[i]].usPrice;
+		}
+	}
+
+	return cost;
 }
 
 void GiveItemsToPC( UINT8 ubProfileId )
@@ -1517,14 +1532,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	if (iProfileId != -1)
 	{
 		LaptopSaveInfo.iIMPIndex = iProfileId;
-
-		// silversurfer: Store current IMP cost. Function iGetProfileCost() already takes the new slot into account.
-		// If we create the IMP first we would charge too much.
-		INT32 iIMPCost = iGetProfileCost();
-
-		// read in the profile
-		//if ( !gMercProfiles[ iProfileId ].Load(hFile, false) )
-
+		
 		// anv: before loading profile we need to set guiCurrentSaveGameVersion to profile's version
 		// and set it back to SAVE_GAME_VERSION right after or else new saves will be broken!
 		guiCurrentSaveGameVersion = version;
@@ -1554,6 +1562,13 @@ BOOLEAN LoadImpCharacter( STR nickName )
 		FileClose(hFile);
 		//CHRISL: At this point, we need to resort profile inventory so that NewInv items don't accidentally appear in OldInv
 		DistributeInitialGear(&gMercProfiles[iProfileId]);
+
+		// silversurfer: Store current IMP cost. Function iGetProfileCost() already takes the new slot into account.
+		// If we create the IMP first we would charge too much.
+		INT32 iIMPCost = GetProfileCost(FALSE);
+
+		// Flugente: as we do not store the cost of the gear in the IMP file, we have to determine the cost here
+		iIMPCost += max(0, GetEquippedGearCost( &gMercProfiles[iProfileId] ) - gGameExternalOptions.iIMPProfileCost );
 
 		// Changed to find actual IMP cost - SANDRO
 		if( LaptopSaveInfo.iCurrentBalance < iIMPCost )
@@ -1748,10 +1763,10 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 }
 
 // SANDRO - Function to determine actual cost of profile
-INT32 iGetProfileCost()
+INT32 GetProfileCost( BOOLEAN aWithGearCost )
 {
 	// Flugente: aditional imp gear cost
-	INT32 impgearcost = GetIMPGearCost();
+	INT32 impgearcost = aWithGearCost ? GetIMPGearCost() : 0;
 
 	if (gGameExternalOptions.fDynamicIMPProfileCost)
 	{
