@@ -5294,16 +5294,19 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
 		sAPCostToReady = sAPCost = 0;
 
+		// silversurfer: We can't charge AP_CHANGE_TARGET here without also setting pSoldier->sLastTarget to the new grid number.
+		// Otherwise we'll be charging AP_CHANGE_TARGET over and over because pSoldier->sLastTarget will always be -1. But
+		// we can't set pSoldier->sLastTarget without screwing up CtH calculation and creating an exploit for that.
 		//CHRISL: We should only charge AP_CHANGE_TARGET if we're actually pointing at a new target.  Don't charge just
 		//	to ready a weapon since we'll charge AP_CHANGE_TARGET when we actually fire.
-		SOLDIERTYPE * pTarget = SimpleFindSoldier( sXPos + (MAXCOL * sYPos ), pSoldier->bTargetLevel );
+		/*SOLDIERTYPE * pTarget = SimpleFindSoldier( sXPos + (MAXCOL * sYPos ), pSoldier->bTargetLevel );
 
 		// Lesh: raise weapon include APs to set weapon towards enemy and APs to aquire/change target
 		if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) && pTarget != NULL )
 			sAPCost = APBPConstants[AP_CHANGE_TARGET];
 
 		if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 ) 
-			sAPCost /= 2;
+			sAPCost /= 2;*/
 
 		if( usAnimState != INVALID_ANIMATION )
 		{
