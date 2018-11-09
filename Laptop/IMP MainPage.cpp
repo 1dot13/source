@@ -378,7 +378,6 @@ void BtnIMPMainPageBackCallback(GUI_BUTTON *btn,INT32 reason)
 void BtnIMPMainPageBeginCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	// btn callback for Main Page Begin Profiling
-
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
@@ -392,22 +391,19 @@ void BtnIMPMainPageBeginCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// are we going to change name, or do we have to start over from scratch
 			if( iCurrentProfileMode > IMP__ATTRIBUTES )
 			{
 				// too far along, restart
-		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 1 ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, BeginMessageBoxCallBack);
-
+				DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 1 ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, BeginMessageBoxCallBack);
 			}
 			else
 			{
-				//if( LaptopSaveInfo.iCurrentBalance < COST_OF_PROFILE )
-				if( LaptopSaveInfo.iCurrentBalance < GetProfileCost(TRUE) ) // SANDRO - changed to find actual profile cost in IMPConfirm
+				if( LaptopSaveInfo.iCurrentBalance < GetProfileCost(FALSE) ) // SANDRO - changed to find actual profile cost in IMPConfirm
 				{
 					DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 3 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, BeginMessageBoxCallBack);
-
 				}
 				else if( NumberOfMercsOnPlayerTeam() >= OUR_TEAM_SIZE_NO_VEHICLE )
 				{
@@ -415,16 +411,14 @@ void BtnIMPMainPageBeginCallback(GUI_BUTTON *btn,INT32 reason)
 				}
 				else
 				{
-				// change name
-			iCurrentImpPage = IMP_BEGIN;
-				fButtonPendingFlag = TRUE;
-		}
+					// change name
+					iCurrentImpPage = IMP_BEGIN;
+					fButtonPendingFlag = TRUE;
+				}
 			}
-
 		}
 	}
 }
-
 
 void BtnIMPMainPagePersonalityCallback(GUI_BUTTON *btn,INT32 reason)
 {
