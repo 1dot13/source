@@ -6754,45 +6754,71 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 	return( TRUE );
 }
 
-INT8 ChanceToGetThrough( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ )
+
+INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ)
 {
-	if ( Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[ pFirer->usAttackingWeapon ].usItemClass == IC_THROWING_KNIFE || Item[pFirer->usAttackingWeapon].rocketlauncher )
+	OBJECTTYPE* pObjHand = pFirer->GetUsedWeapon(&(pFirer->inv[pFirer->ubAttackingHand]));
+
+	// sevenfm: check that weapon exists!
+	if (pObjHand->exists() &&
+		pObjHand->usItem == pFirer->usAttackingWeapon &&
+		(Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[pFirer->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE || Item[pFirer->usAttackingWeapon].rocketlauncher))
 	{
 		BOOLEAN fBuckShot = FALSE;
 
-		OBJECTTYPE* pObjHand = pFirer->GetUsedWeapon( &pFirer->inv[HANDPOS] );
+		//OBJECTTYPE* pObjHand = pFirer->GetUsedWeapon(&pFirer->inv[HANDPOS]);
 
 		// if shotgun, shotgun would have to be in main hand
-		if ( pObjHand->usItem == pFirer->usAttackingWeapon )
+		if (pObjHand->usItem == pFirer->usAttackingWeapon)
 		{
-			if ( AmmoTypes[ (*pObjHand)[0]->data.gun.ubGunAmmoType].numberOfBullets > 1 )
+			if (AmmoTypes[(*pObjHand)[0]->data.gun.ubGunAmmoType].numberOfBullets > 1)
 			{
 				fBuckShot = TRUE;
 			}
 		}
 
 		// HEADROCK HAM 4: Changed argument from "hitBy"->"Aperture". Value 0->100.
-		return( FireBulletGivenTarget( pFirer, dEndX, dEndY, dEndZ, pFirer->usAttackingWeapon, (UsingNewCTHSystem()?100:0), fBuckShot, TRUE ) );
+		return(FireBulletGivenTarget(pFirer, dEndX, dEndY, dEndZ, pFirer->usAttackingWeapon, (UsingNewCTHSystem() ? 100 : 0), fBuckShot, TRUE));
 	}
 	else
 	{
 		// fake it
 
 		//store the current item then replace it with a Glock 17
-		OBJECTTYPE oldItemInHand (pFirer->inv[ HANDPOS ]);
+		OBJECTTYPE oldItemInHand(pFirer->inv[HANDPOS]);
+
+		// sevenfm: additionally initialize usAttackingWeapon, ubTargetID, bDoBurst and bDoAutofire which are used by FireBulletGivenTarget()
 		UINT16 oldAttackingWeapon = pFirer->usAttackingWeapon;
+		UINT8 oldAttackingHand = pFirer->ubAttackingHand;
+		UINT8 oldTargetID = pFirer->ubTargetID;
+		INT8 oldBurst = pFirer->bDoBurst;
+		INT8 oldAutofire = pFirer->bDoAutofire;
+
+		//UINT16 usItem = GLOCK_17;
+		UINT16 usItem = MINIMI;
 
 		//GLOCK_17_ForUseWithLOS is init in InitializeJA2()
-		if(GLOCK_17_ForUseWithLOS.usItem != GLOCK_17)//dnl ch86 120214
-			CreateItem(GLOCK_17, 100, &GLOCK_17_ForUseWithLOS);
-		pFirer->inv[ HANDPOS ] = GLOCK_17_ForUseWithLOS;
-		pFirer->usAttackingWeapon = GLOCK_17;
+		if (GLOCK_17_ForUseWithLOS.usItem != usItem)//dnl ch86 120214
+			CreateItem(usItem, 100, &GLOCK_17_ForUseWithLOS);
+
+		pFirer->inv[HANDPOS] = GLOCK_17_ForUseWithLOS;
+
+		pFirer->usAttackingWeapon = usItem;
+		pFirer->ubAttackingHand = HANDPOS;
+		pFirer->ubTargetID = NOBODY;
+		pFirer->bDoBurst = 0;
+		pFirer->bDoAutofire = 0;
 
 		// HEADROCK HAM 4: Changed argument from "Hitby"->"Aperture". Value 0->100.
-		INT8 retVal = FireBulletGivenTarget( pFirer, dEndX, dEndY, dEndZ, GLOCK_17, (UsingNewCTHSystem()?100:0), FALSE, TRUE );
+		INT8 retVal = FireBulletGivenTarget(pFirer, dEndX, dEndY, dEndZ, usItem, (UsingNewCTHSystem() ? 100 : 0), FALSE, TRUE);
 
-		pFirer->inv[ HANDPOS ] = oldItemInHand;
+		pFirer->inv[HANDPOS] = oldItemInHand;
 		pFirer->usAttackingWeapon = oldAttackingWeapon;
+		pFirer->ubAttackingHand = oldAttackingHand;
+		pFirer->ubTargetID = oldTargetID;
+		pFirer->bDoBurst = oldBurst;
+		pFirer->bDoAutofire = oldAutofire;
+
 		return retVal;
 	}
 }
