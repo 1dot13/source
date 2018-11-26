@@ -608,7 +608,10 @@ BUILDING * FindBuilding( INT32 sGridNo )
 
 BOOLEAN InBuilding( INT32 sGridNo )
 {
-	if ( FindBuilding( sGridNo ) == NULL )
+	// sevenfm: FindBuilding() only checks for buildings with flat roofs (those you can climb)
+	// since InBuilding() is used to determine flashbang effect, check also if tile is in a room and has any roof above
+	//if ( FindBuilding( sGridNo ) == NULL )
+	if (FindBuilding(sGridNo) || InARoom(sGridNo, NULL) && FindStructure(sGridNo, STRUCTURE_ROOF))
 	{
 		return( FALSE );
 	}
