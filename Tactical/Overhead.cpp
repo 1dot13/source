@@ -10274,7 +10274,7 @@ INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier )
     UINT16 usEffectiveRangeToLeader = 0;
     INT16 usBestLeader = 0;
     INT16 usFriendBonus = 0;
-    UINT8 ubLevelDifference = 0;
+    INT8 bLevelDifference = 0;
 
     // Run through each friendly.
     for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
@@ -10285,25 +10285,25 @@ INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier )
         if (pLeader != pSoldier && pLeader->bActive && pLeader->aiData.bShock < pLeader->stats.bLeadership/5 && 
                 pLeader->stats.bLife >= OKLIFE )
         {
-            ubLevelDifference = (pLeader->stats.bExpLevel - pSoldier->stats.bExpLevel );
+            bLevelDifference = pLeader->stats.bExpLevel - pSoldier->stats.bExpLevel;
             // Calculate character's leadership and range/3
-            usEffectiveLeadership = ((EffectiveLeadership( pLeader ) - 25) / 15);
+            usEffectiveLeadership = (EffectiveLeadership( pLeader ) - 25) / 15;
             usEffectiveRangeToLeader = PythSpacesAway( pSoldier->sGridNo, pLeader->sGridNo ) / 3;
 
             // SANDRO - add effective leadership and level to determine if we can help our friend to feel better :)
             if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pLeader, SQUADLEADER_NT ) ) 
             {
-                ubLevelDifference += (gSkillTraitValues.ubSLEffectiveLevelAsStandby * NUM_SKILL_TRAITS( pLeader, SQUADLEADER_NT ));
+                bLevelDifference += (gSkillTraitValues.ubSLEffectiveLevelAsStandby * NUM_SKILL_TRAITS( pLeader, SQUADLEADER_NT ));
                 usEffectiveLeadership += (gSkillTraitValues.ubSLEffectiveLevelAsStandby * NUM_SKILL_TRAITS( pLeader, SQUADLEADER_NT ));
             }
 
-            if ( ubLevelDifference >= 0 )
+            if ( bLevelDifference >= 0 )
             {
                 // If leader is within range of his leadership stat
                 if (usEffectiveRangeToLeader <= usEffectiveLeadership+1)
                 {
                     // The difference in experience level is important!
-                    usEffectiveLeadership += ubLevelDifference;
+                    usEffectiveLeadership += bLevelDifference;
                     // Reduce effective leadership with every 3 tiles of distance
                     usEffectiveLeadership -= usEffectiveRangeToLeader-1;
 

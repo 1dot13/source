@@ -2151,7 +2151,7 @@ BOOLEAN DoesMercHaveABuddyOnTheTeam( UINT8 ubMercID )
 		}
 
 		//If its not a valid 'buddy'
-		if( bBuddyID < 0 )
+		if( bBuddyID == NUM_PROFILES )
 			continue;
 
 		if( IsMercOnTeam( bBuddyID, FALSE, FALSE ) )

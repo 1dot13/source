@@ -3166,7 +3166,7 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 
 		// this is not for tanks
 		if ( ARMED_VEHICLE( pFriend ) )
-			return FALSE;
+			continue;
 		
 		// skip if this guy is dead
 		if ( pFriend->stats.bLife <= 0 )
@@ -3219,7 +3219,7 @@ UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 
 		// this is not for tanks
 		if ( ARMED_VEHICLE( pFriend ) )
-			return FALSE;
+			continue;
 		
 		// skip if this guy is dead, or not wounded (enough)
 		if ( pFriend->stats.bLife <= 0 || pFriend->iHealableInjury < gGameExternalOptions.sEnemyMedicsWoundMinAmount )
@@ -3268,7 +3268,7 @@ UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTe
 
 		// this is not for tanks
 		if ( ARMED_VEHICLE( pFriend ) )
-			return FALSE;
+			continue;
 
 		// skip this guy if he is dead or unconscious
 		if ( pFriend->stats.bLife < OKLIFE )
