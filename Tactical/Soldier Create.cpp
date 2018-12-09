@@ -2095,6 +2095,20 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->bVehicleUnderRepairID		= -1;
 	pSoldier->sFacilityTypeOperated		= -1; // HEADROCK HAM 3.6: Facility Operated
 	pSoldier->usChatPartnerID			= NOBODY;
+
+	// sevenfm: initialize additional data
+	pSoldier->ubLastShock = 0;
+	pSoldier->ubLastSuppression = 0;
+	pSoldier->ubLastAP = 0;
+	pSoldier->ubLastMorale = 0;
+	pSoldier->ubLastShockFromHit = 0;
+	pSoldier->ubLastMoraleFromHit = 0;
+	pSoldier->ubLastAPFromHit = 0;
+	pSoldier->iLastBulletImpact = 0;
+	pSoldier->iLastArmourProtection = 0;
+
+	pSoldier->usQuickItemId = 0;
+	pSoldier->ubQuickItemSlot = 0;
 }
 
 
