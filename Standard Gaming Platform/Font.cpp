@@ -224,6 +224,13 @@ void SetRGBFontForeground( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue )
 	if((FontDefault < 0) || (FontDefault > MAX_FONTS))
 		return;
 	FontForeground16 = Get16BPPColor( FROMRGB( uiRed, uiGreen, uiBlue ) );
+	if (iUseWinFonts) {
+		if (GET_WINFONT() != -1)
+		{
+			uiRed = FROMRGB(uiRed, uiGreen, uiBlue);
+			SetWinFontForeColor(GET_WINFONT(), &uiRed);
+		}
+	}
 }
 
 void SetRGBFontBackground( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue )
@@ -231,6 +238,13 @@ void SetRGBFontBackground( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue )
 	if((FontDefault < 0) || (FontDefault > MAX_FONTS))
 		return;
 	FontBackground16 = Get16BPPColor( FROMRGB( uiRed, uiGreen, uiBlue ) );
+	if (iUseWinFonts) {
+		if (GET_WINFONT() != -1)
+		{
+			uiRed = FROMRGB(uiRed, uiGreen, uiBlue);
+			SetWinFontBackColor(GET_WINFONT(), &uiRed);
+		}
+	}
 }
 
 void SetRGBFontShadow( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue )
@@ -245,6 +259,13 @@ void SetRGBFontShadow( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue )
 void SetRGBFontForeground( UINT16 usFontForeground16 )
 {
 	FontForeground16 = usFontForeground16;
+	if (iUseWinFonts) {
+		if (GET_WINFONT() != -1)
+		{
+			UINT32 uiRed = GetRGBColor(usFontForeground16);
+			SetWinFontForeColor(GET_WINFONT(), &uiRed);
+		}
+	}
 }
 
 void SetRGBFontShadow( UINT16 usFontShadow16 )

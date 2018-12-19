@@ -5090,10 +5090,10 @@ STR16 gsAtmSideButtonText[] =
 
 STR16 gsAtmStartButtonText[] =
 {
-	L"转帐 $",  	// transfer money to merc -- short form
-	L"状态",			// view stats of the merc
-	L"物品清单", 			// view the inventory of the merc
-	L"雇佣合同",
+	L"状态",	//L"Stats", 			// view stats of the merc
+	L"更多状态",	//L"More Stats",
+	L"雇佣合同",	//L"Employment",
+	L"物品清单",	//L"Inventory", 			// view the inventory of the merc
 };
 
 STR16 sATMText[ ]=
