@@ -488,14 +488,14 @@ UINT8 GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArr
 				if( pProfileIdArray != NULL )
 				{
 					//record the profile num of the merc
-					pProfileIdArray[ bNumMercsPresent ] = pSoldier->ubProfile;
+					pProfileIdArray[ usNumMercsPresent ] = pSoldier->ubProfile;
 				}
 
 				//if we are to return an array of the mercs
 				if( pSoldierIdArray != NULL )
 				{
 					//record the soldier num of the merc
-					pSoldierIdArray[ bNumMercsPresent ] = pSoldier->ubID;
+					pSoldierIdArray[ usNumMercsPresent ] = pSoldier->ubID;
 				}
 
 				++usNumMercsPresent;
@@ -562,7 +562,7 @@ UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray )
 	//Get the number and array of the new soldiers
 	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierIdArray, NULL );
 
-	Assert( bNumMercsPresent < NUM_MERCS_WITH_NEW_QUOTES );
+	Assert( usNumMercsPresent < NUM_MERCS_WITH_NEW_QUOTES );
 
 	if( usNumMercsPresent > 0 )
 	{
