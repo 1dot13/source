@@ -3455,21 +3455,27 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	SOLDIERTYPE *pTeamSoldier;
 	INT32 cnt;
 	UINT16	usQuoteNum;
+	BOOLEAN buddyquoteused = FALSE;
 
 	// Loop through all our guys and randomly say one from someone in our sector
+
+	// Flugente: as we only play a sound in 20% of all cases, pass that check first before going through all this stuff
+	if ( !Chance( 20 ) )
+		return;
 
 	// set up soldier ptr as first element in mercptrs list
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pTeamSoldier )
 	{
 		// Add guy if he's a candidate...		
-		if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) && !pTeamSoldier->flags.fMercAsleep && !TileIsOutOfBounds(pTeamSoldier->sGridNo))
+		if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !(AM_A_ROBOT( pTeamSoldier )) 
+			&& !pTeamSoldier->flags.fMercAsleep && !TileIsOutOfBounds(pTeamSoldier->sGridNo) && pTeamSoldier->ubProfile != pKillerSoldier->ubProfile )
 		{
 			// Are we a buddy of killer?
 			bTempBuddyIndex = WhichBuddy( pTeamSoldier->ubProfile, pKillerSoldier->ubProfile );
-
+			
 			if ( bTempBuddyIndex != -1 )
 			{
 				switch( bTempBuddyIndex )
@@ -3523,8 +3529,7 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 				{
 					continue;
 				}
-
-
+				
 				// Can we see location of killed?
 				if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) == 0 )
 				{
@@ -3534,7 +3539,7 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 				// OK, a good candidate...
 				ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
 				bBuddyIndex[ ubNumMercs ]	 = bTempBuddyIndex;
-				ubNumMercs++;
+				++ubNumMercs;
 			}
 		}
 	}
@@ -3542,53 +3547,86 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo,
 	// If we are > 0
 	if ( ubNumMercs > 0 )
 	{
-		// Do random check here...
-		if ( Random( 100 ) < 20 )
+		ubChosenMerc = (UINT8)Random( ubNumMercs );
+
+		switch( bBuddyIndex[ ubChosenMerc ] )
 		{
-			ubChosenMerc = (UINT8)Random( ubNumMercs );
+		case 0:
+			usQuoteNum = QUOTE_BUDDY_1_GOOD;
+			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_1_WITNESSED;
+			break;
 
-			switch( bBuddyIndex[ ubChosenMerc ] )
+		case 1:
+			usQuoteNum = QUOTE_BUDDY_2_GOOD;
+			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_2_WITNESSED;
+			break;
+
+		case 2:
+			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+				usQuoteNum = QUOTE_AIM_BUDDY_3_GOOD;
+			else
+				usQuoteNum = QUOTE_NON_AIM_BUDDY_3_GOOD;
+			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED;
+			break;
+
+		case 3:
+			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+				usQuoteNum = QUOTE_AIM_BUDDY_4_GOOD;
+			else
+				usQuoteNum = QUOTE_NON_AIM_BUDDY_4_GOOD;
+			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED;
+			break;
+
+		case 4:
+			if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+				usQuoteNum = QUOTE_AIM_BUDDY_5_GOOD;
+			else
+				usQuoteNum = QUOTE_NON_AIM_BUDDY_5_GOOD;
+			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED;
+			break;
+
+		case 5:
+			usQuoteNum = QUOTE_LEARNED_TO_LIKE_WITNESSED;
+			MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED;
+			break;
+		}
+
+		TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
+
+		buddyquoteused = TRUE;
+	}
+
+	// Flugente: if we want to play a sound, but have not found a fitting buddy, try additional dialogue
+	// this could be expensive, as we need quite a few sight tests here...
+	if ( !buddyquoteused && pKillerSoldier->bTeam == gbPlayerNum )
+	{
+		cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+
+		for ( pTeamSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pTeamSoldier )
+		{
+			// we do not exclude the buddies from above. If we get to this point, it might have been a buddy that already said his line. In that case additional dialogue might play other ones
+
+			// Add guy if he's a candidate...		
+			if ( OK_INSECTOR_MERC( pTeamSoldier ) && !AM_AN_EPC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !( AM_A_ROBOT( pTeamSoldier ) )
+				&& !pTeamSoldier->flags.fMercAsleep && !TileIsOutOfBounds( pTeamSoldier->sGridNo ) )//&& pTeamSoldier->ubProfile != pKillerSoldier->ubProfile )
 			{
-			case 0:
-				usQuoteNum = QUOTE_BUDDY_1_GOOD;
-				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_1_WITNESSED;
-				break;
+				// TO LOS check to killed
+				// Can we see location of killer?
+				// not if we're the killer
+				if ( pTeamSoldier->ubID != pKillerSoldier->ubID && 
+					SoldierTo3DLocationLineOfSightTest( pTeamSoldier, pKillerSoldier->sGridNo, pKillerSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) == 0 )
+				{
+					continue;
+				}
 
-			case 1:
-				usQuoteNum = QUOTE_BUDDY_2_GOOD;
-				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_2_WITNESSED;
-				break;
+				// Can we see location of killed?
+				if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo, bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) == 0 )
+				{
+					continue;
+				}
 
-			case 2:
-				if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-					usQuoteNum = QUOTE_AIM_BUDDY_3_GOOD;
-				else
-					usQuoteNum = QUOTE_NON_AIM_BUDDY_3_GOOD;
-				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_3_WITNESSED;
-				break;
-
-			case 3:
-				if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-					usQuoteNum = QUOTE_AIM_BUDDY_4_GOOD;
-				else
-					usQuoteNum = QUOTE_NON_AIM_BUDDY_4_GOOD;
-				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_4_WITNESSED;
-				break;
-
-			case 4:
-				if( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
-					usQuoteNum = QUOTE_AIM_BUDDY_5_GOOD;
-				else
-					usQuoteNum = QUOTE_NON_AIM_BUDDY_5_GOOD;
-				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_5_WITNESSED;
-				break;
-
-			case 5:
-				usQuoteNum = QUOTE_LEARNED_TO_LIKE_WITNESSED;
-				MercPtrs[ ubMercsInSector[ ubChosenMerc ] ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_BUDDY_6_WITNESSED;
-				break;
+				AdditionalTacticalCharacterDialogue_CallsLua( pTeamSoldier, ADE_WITNESS_GOOD, pKillerSoldier->ubProfile, 0 );
 			}
-			TacticalCharacterDialogue( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], usQuoteNum );
 		}
 	}
 }
@@ -4086,7 +4124,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		if ( pSoldier->ubProfile != NO_PROFILE )
 		{
 			AdditionalTacticalCharacterDialogue_AllInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, pSoldier->ubProfile, ADE_NPC_DEATH, 
-				pSoldier->ubProfile, pKillerSoldier ? pKillerSoldier->ubProfile : 0, pSoldier->ubBodyType );
+				pSoldier->ubProfile, pKillerSoldier ? pKillerSoldier->ubProfile : NO_PROFILE, pSoldier->ubBodyType );
 		}
 
 		// Remove mad as target, one he has died!

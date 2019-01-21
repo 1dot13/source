@@ -9880,7 +9880,7 @@ STR16	szMercCompareWebSite[] =
 
 STR16	szMercCompareEventText[]=
 {
-	L"%s朝我开枪！", //L"%s shot at me!",
+	L"%s朝我开枪！", //L"%s shot me!",
 	L"%s背着我耍阴招", //L"%s is scheming behind my back",
 	L"%s干扰我的工作", //L"%s interfered in my business",
 	L"%s和敌人是一伙的", //L"%s is friends with my enemy",

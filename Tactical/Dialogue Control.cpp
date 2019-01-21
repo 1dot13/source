@@ -1905,14 +1905,14 @@ BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceI
 	{
 		if ( gusSelectedSoldier != NOBODY )
 		{
-			AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum );
+			AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum, ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) ? 1 : 0 );
 		}
 	}
 	// if teammembers talk, anyone may answer
 	else
 	{
 		// other teammembers might react to this line
-		AdditionalTacticalCharacterDialogue_AllInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, ubCharacterNum, ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum );
+		AdditionalTacticalCharacterDialogue_AllInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, ubCharacterNum, ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum, ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) ? 1 : 0 );
 	}
 
 	return( TRUE );

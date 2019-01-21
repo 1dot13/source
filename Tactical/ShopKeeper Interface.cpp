@@ -2498,7 +2498,7 @@ void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
 
 	// Flugente: additional dialogue
 	if ( gusSelectedSoldier != NOBODY )
-		AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_MERCHANT_CHAT );
+		AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_MERCHANT_CHAT, ubArmsDealerID >= 0 ? (UINT32)ubArmsDealerID : 0 );
 
 	LeaveTacticalScreen( SHOPKEEPER_SCREEN );
 }

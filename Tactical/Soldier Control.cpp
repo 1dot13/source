@@ -13040,6 +13040,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 		{
 			pTSoldier->SoldierGotoStationaryStance( );
 		}
+
+		// Flugente: additional dialogue
+		AdditionalTacticalCharacterDialogue_CallsLua( this, ADE_BANDAGE_PERFORM_BEGIN, pTSoldier->ubProfile );
+		AdditionalTacticalCharacterDialogue_CallsLua( pTSoldier, ADE_BANDAGE_RECEIVE_BEGIN, this->ubProfile );
 	}
 }
 
@@ -13533,13 +13537,13 @@ void SOLDIERTYPE::InternalReceivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 						}
 					}
 
-
+					// Flugente: additional dialogue
+					AdditionalTacticalCharacterDialogue_CallsLua( pTSoldier, ADE_BANDAGE_PERFORM_END, this->ubProfile );
+					AdditionalTacticalCharacterDialogue_CallsLua( this, ADE_BANDAGE_RECEIVE_END, pTSoldier->ubProfile );
 				}
 			}
 		}
-
 	}
-
 }
 
 
@@ -13595,7 +13599,6 @@ void SOLDIERTYPE::InternalGivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 			}
 		}
 	}
-
 }
 
 void SOLDIERTYPE::GivingSoldierCancelServices( void )

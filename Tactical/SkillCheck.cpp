@@ -920,36 +920,38 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			{
 				if ( OK_INSECTOR_MERC( pTeamSoldier ) )
 				{
-					bBuddyIndex = WhichBuddy( pTeamSoldier->ubProfile, pSoldier->ubProfile );
-					if (bBuddyIndex >= 0 && SpacesAway( pSoldier->sGridNo, pTeamSoldier->sGridNo ) < 15)
+					if ( SpacesAway( pSoldier->sGridNo, pTeamSoldier->sGridNo ) < 15 )
 					{
-						switch( bBuddyIndex )
+						bBuddyIndex = WhichBuddy( pTeamSoldier->ubProfile, pSoldier->ubProfile );
+						if ( bBuddyIndex >= 0 )
 						{
+							switch ( bBuddyIndex )
+							{
 							case 0:
 								// buddy #1 did something good!
 								TacticalCharacterDialogue( pTeamSoldier, QUOTE_BUDDY_1_GOOD );
 								break;
 							case 1:
 								// buddy #2 did something good!
-								TacticalCharacterDialogue( pTeamSoldier, 	QUOTE_BUDDY_2_GOOD );
+								TacticalCharacterDialogue( pTeamSoldier, QUOTE_BUDDY_2_GOOD );
 								break;
 							case 2:
 								// buddy #3 did something good!
-								if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+								if ( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 									TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_3_GOOD );
 								else
 									TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_3_GOOD );
 								break;
 							case 3:
 								// buddy #4 did something good!
-								if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+								if ( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 									TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_4_GOOD );
 								else
 									TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_4_GOOD );
 								break;
 							case 4:
 								// buddy #5 did something good!
-								if( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+								if ( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 									TacticalCharacterDialogue( pTeamSoldier, QUOTE_AIM_BUDDY_5_GOOD );
 								else
 									TacticalCharacterDialogue( pTeamSoldier, QUOTE_NON_AIM_BUDDY_5_GOOD );
@@ -960,7 +962,11 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 								break;
 							default:
 								break;
+							}
 						}
+
+						// Flugente: additional dialogue
+						AdditionalTacticalCharacterDialogue_CallsLua( pTeamSoldier, ADE_WITNESS_GOOD, pSoldier->ubProfile, 1 );
 					}
 				}
 			}

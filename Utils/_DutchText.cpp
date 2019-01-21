@@ -9878,7 +9878,7 @@ STR16	szMercCompareWebSite[] =	// TODO.Translate
 	L"-Konrad C., Corrective law enforcement-",
 	L"I've always been a loner, so joining a team was hard for me. Your insight showed me how to become part of a team. You've been a big help!",
 	L"-Grant W., Snake charmer-",
-	L"In my line of work, you need to trust every member of your team 100%. That's why we went to the experts - we went to MeLoDY.",
+	L"In my line of work, you need to trust every member of your team 100%%. That's why we went to the experts - we went to MeLoDY.",
 	L"-Halle L., SPK-",
 	L"I'll be the first to admit our crew was a rather illustrious assortion of characters, and we ran into some scuffles. But we learned to respect each other, and now complement each other perfectly.",
 	L"-Michael C., NASA-",
@@ -9897,7 +9897,7 @@ STR16	szMercCompareWebSite[] =	// TODO.Translate
 
 STR16	szMercCompareEventText[]=
 {
-	L"%s shot at me!",
+	L"%s shot me!",
 	L"%s is scheming behind my back",
 	L"%s interfered in my business",
 	L"%s is friends with my enemy",

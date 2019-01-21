@@ -668,7 +668,8 @@ UINT8	NumberOfMercsOnPlayerTeam()
 
 void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 {
-	INT8										cnt, bHated, bLastTeamID;
+	UINT8								cnt, usLastTeamID;
+	INT8								bHated;
 	SOLDIERTYPE							*pTeamSoldier;
 #ifdef JA2UB
 	//if we are at the begining of the game going through the initial heli scequence
@@ -689,18 +690,13 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 			{
 				TacticalCharacterDialogue( pSoldier, QUOTE_PC_DROPPED_OMERTA );
 			}
-			// Flugente: additional dialogue
-			else
-			{
-				AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_OMERTA_ENTRY );
-			}
 		}
 
 		// Check to see if anyone hates this merc and will now complain
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+		usLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 		//loop though all the mercs
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pTeamSoldier++)
+		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= usLastTeamID; ++cnt, ++pTeamSoldier)
 		{
 			if ( pTeamSoldier->bActive )
 			{
@@ -732,6 +728,9 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 						}
 					}
 				}
+
+				// Flugente: additional dialogue
+				AdditionalTacticalCharacterDialogue_CallsLua( pTeamSoldier, ADE_MERC_ARRIVES, pSoldier->ubProfile, ( gubQuest[QUEST_DELIVER_LETTER] == QUESTINPROGRESS ) ? 1 : 0 );
 			}
 		}
 	}

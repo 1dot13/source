@@ -77,10 +77,11 @@ enum DialogQuoteIDs
 	QUOTE_BUDDY_1_GOOD,
 	QUOTE_BUDDY_2_GOOD,
 	QUOTE_LEARNED_TO_LIKE_WITNESSED,
-	QUOTE_DELAY_CONTRACT_RENEWAL,
+	QUOTE_DELAY_CONTRACT_RENEWAL,		// unused
 	QUOTE_NOT_GETTING_PAID = QUOTE_DELAY_CONTRACT_RENEWAL,
 	QUOTE_AIM_SEEN_MIKE,
 	QUOTE_PC_DROPPED_OMERTA = QUOTE_AIM_SEEN_MIKE,
+	QUOTE_NOT_GETTING_PAID_RPC = QUOTE_PC_DROPPED_OMERTA,
 	QUOTE_BLINDED,
 	QUOTE_DEFINITE_CANT_DO,
 	QUOTE_LISTEN_LIKABLE_PERSON,
@@ -338,7 +339,7 @@ enum AdditionalDialogEvents
 {
 	ADE_DISCOVER_ROOM = 0,					// merc is the 1st one to explore this room
 	ADE_DIALOGUE_REACTION,					// someone else used a line, and we might answer to that
-	ADE_OMERTA_ENTRY,						// similar to an IMP, we can comment upon the initial Omerta landing
+	ADE_MERC_ARRIVES,						// a mercenary arrives in Arulco. aData1 is the profile of the arriving merc, aData2 is 1 if the player hasn't made contact with the rebels yet
 	ADE_SECTOR_COMMENTARY,					// similar to the rebel's quotes, this is called upon visiting a sector for the first time
 	ADE_MERCHANT_CHAT,						// we greet a merchant (used with non-profile merchants, in order to be a bit more lively)
 	ADE_DIALOGUE_NPC_FRIENDLY,				// in a conversation, we can say something when clicking on a button
@@ -353,6 +354,11 @@ enum AdditionalDialogEvents
 	ADE_GRENADEWARNING,						// a delayed enemy grenade was dropped nearby
 	ADE_CONSUMEITEM,						// we applied an item to us
 	ADE_NPC_DEATH,							// someone died
+	ADE_WITNESS_GOOD,						// similar to comment upon buddy doing good.
+	ADE_BANDAGE_PERFORM_BEGIN,				// we bandage someone, aData1 is the profile of person
+	ADE_BANDAGE_PERFORM_END,				// we finished bandaging someone, aData1 is the profile of person
+	ADE_BANDAGE_RECEIVE_BEGIN,				// someone bandages us, aData1 is the profile of person
+	ADE_BANDAGE_RECEIVE_END,				// someone finished bandaging us, aData1 is the profile of person
 };
 
 // We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said

@@ -765,7 +765,7 @@ void MercsContractIsFinished( UINT8	ubID )
 		PauseGame();
 		LockPauseState( 10 );
 
-		TacticalCharacterDialogue( pSoldier, QUOTE_AIM_SEEN_MIKE );
+		TacticalCharacterDialogue( pSoldier, QUOTE_NOT_GETTING_PAID_RPC );
 
 		TacticalCharacterDialogueWithSpecialEvent( pSoldier, 0, DIALOGUE_SPECIAL_EVENT_CONTRACT_ENDING_NO_ASK_EQUIP, 0, 0 );
 
