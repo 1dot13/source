@@ -1811,6 +1811,7 @@ typedef enum
 	TRIPWIRE_ROLL,
 	USE_ITEM_NEW,
 	CANNIBALIZE,
+	LOSE_10_PERCENT,
 } MergeType;
 
 extern UINT16 Merge[MAXITEMS+1][6];

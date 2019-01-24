@@ -5094,36 +5094,41 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 		switch( ubType )
 		{
 			case USE_ITEM_NEW:
-				if( (*this)[subObject]->data.objectStatus >0 && usResult != NOTHING)
 				{
-					CreateItem( usResult, 100, &gTempObject );
-					if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-						AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
-					(*this)[subObject]->data.objectStatus--;
-				}
-				if( (*this)[subObject]->data.objectStatus >0 && usResult2 != NOTHING )
-				{
-					CreateItem( usResult2, 100, &gTempObject );
-					if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-						AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
-					(*this)[subObject]->data.objectStatus--;
-				}
-				if( (*this)[subObject]->data.objectStatus == 0 )
-				{
-					this->RemoveObjectsFromStack(1);
-					if ( pSoldier && pSoldier->bTeam == gbPlayerNum )
+					if ( ( *this )[subObject]->data.objectStatus > 0 && usResult != NOTHING )
 					{
-						pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+						CreateItem( usResult, 100, &gTempObject );
+						if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+						( *this )[subObject]->data.objectStatus--;
 					}
-				} else
-				{
-					if (pSoldier && pSoldier->bTeam == gbPlayerNum)
-						pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+					if ( ( *this )[subObject]->data.objectStatus > 0 && usResult2 != NOTHING )
+					{
+						CreateItem( usResult2, 100, &gTempObject );
+						if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+							AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, 0, 0, -1 );
+						( *this )[subObject]->data.objectStatus--;
+					}
+					if ( ( *this )[subObject]->data.objectStatus == 0 )
+					{
+						this->RemoveObjectsFromStack( 1 );
+						if ( pSoldier && pSoldier->bTeam == gbPlayerNum )
+						{
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
+						}
+					}
+					else
+					{
+						if ( pSoldier && pSoldier->bTeam == gbPlayerNum )
+							pSoldier->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+					}
+					ApplyEquipmentBonuses( pSoldier );
+					return TRUE;
 				}
-				ApplyEquipmentBonuses(pSoldier);
-				return TRUE;
+				break;
 			case USE_ITEM:
 			case USE_ITEM_HARD:
+			case LOSE_10_PERCENT:
 				// the merge will combine the two items
 				if ( pSoldier )
 				{
@@ -5142,6 +5147,11 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 						}
 						StatChange( pSoldier, MECHANAMT, 25, FALSE );
 						StatChange( pSoldier, WISDOMAMT, 5, FALSE );
+					}
+					else if ( ubType == LOSE_10_PERCENT )
+					{
+						// lose 10% status
+						( *pAttachment )[0]->data.objectStatus = max( 0, ( *pAttachment )[0]->data.objectStatus - 10 );
 					}
 
 
@@ -5335,10 +5345,9 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					//ReInitMergedItem(pSoldier, this, usOldItem, 0);
 				}
 				break;
-				// fall through
-
+				
 			case ELECTRONIC_MERGE:
-				if ( pSoldier )
+				if ( ubType == ELECTRONIC_MERGE && pSoldier )	// coulda fallen through
 				{
 					iCheckResult = SkillCheck( pSoldier, ATTACHING_SPECIAL_ELECTRONIC_ITEM_CHECK, -30 );
 					if ( iCheckResult < 0 )
