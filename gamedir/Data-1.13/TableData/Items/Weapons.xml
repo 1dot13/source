@@ -46,6 +46,7 @@
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
 		<HeavyGun>0</HeavyGun>
+		<fBurstOnlyByFanTheHammer>0</fBurstOnlyByFanTheHammer>	<!-- any one-handed gun with this tag can access its burst mode only if the user is a gunslinger holding it in alternate aim mode (eye symbol on gun) -->
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1</uiIndex>
@@ -212,7 +213,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -224,6 +224,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>13500</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>40</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>6</uiIndex>
@@ -247,7 +256,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -259,6 +267,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>7</uiIndex>
@@ -2057,7 +2074,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -2069,6 +2085,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>67</uiIndex>
@@ -7296,7 +7321,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>24</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -7308,6 +7332,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>708</uiIndex>
@@ -8383,7 +8416,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>24</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -8395,6 +8427,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18752</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>737</uiIndex>
@@ -9703,7 +9744,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -9715,6 +9755,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>8</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>772</uiIndex>
@@ -9737,7 +9786,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -9749,6 +9797,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>110</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>8</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>773</uiIndex>
@@ -10826,7 +10883,6 @@
 		<sReloadSound>99</sReloadSound>
 		<sLocknLoadSound>105</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -10838,6 +10894,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>888</uiIndex>
@@ -10861,7 +10926,6 @@
 		<sReloadSound>99</sReloadSound>
 		<sLocknLoadSound>105</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>18</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -10873,6 +10937,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>889</uiIndex>
@@ -11001,7 +11074,6 @@
 		<sReloadSound>99</sReloadSound>
 		<sLocknLoadSound>105</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -11013,6 +11085,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>893</uiIndex>
@@ -11036,7 +11117,6 @@
 		<sReloadSound>99</sReloadSound>
 		<sLocknLoadSound>105</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -11047,6 +11127,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18750</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>75</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>894</uiIndex>
@@ -11070,7 +11159,6 @@
 		<sReloadSound>99</sReloadSound>
 		<sLocknLoadSound>105</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -11082,6 +11170,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>896</uiIndex>
@@ -12786,7 +12883,6 @@
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>20</bBurstAP>
 		<APsToReload>20</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -12798,6 +12894,15 @@
 		<usOverheatingJamThreshold>20000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>18000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>65</usOverheatingSingleShotTemperature>
+		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<BurstAniDelay>27</BurstAniDelay>
+		<sBurstSound>54</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<bBurstAP>10</bBurstAP>
+		<bRecoilX>2</bRecoilX>
+		<bRecoilY>12</bRecoilY>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1195</uiIndex>

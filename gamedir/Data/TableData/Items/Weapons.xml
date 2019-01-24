@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <WEAPONLIST>
 	<WEAPON>
 		<uiIndex>0</uiIndex>
@@ -44,8 +44,9 @@
 		<Handling>0</Handling>
 		<usOverheatingJamThreshold>4000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
-		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>      
+		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
 		<HeavyGun>0</HeavyGun>
+		<fBurstOnlyByFanTheHammer>0</fBurstOnlyByFanTheHammer>	<!-- any one-handed gun with this tag can access its burst mode only if the user is a gunslinger holding it in alternate aim mode (eye symbol on gun) -->
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1</uiIndex>
