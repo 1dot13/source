@@ -786,4 +786,21 @@ If <chance> is set, this is the chance that this effect is applied when consumin
 			<size>3200</size>
 		</DISEASE_EFFECT>
 	</DRUG>
+	<DRUG>
+		<!-- using dirty bandages has a chance to inflict diseases tied to open wounds to the patient -->
+		<uiIndex>20</uiIndex>
+		<szName>Dirty Bandages</szName>
+		<!-- Tetanus -->
+		<DISEASE_EFFECT>
+			<disease>3</disease>
+			<size>100</size>
+			<chance>40</chance>
+		</DISEASE_EFFECT>
+		<!-- Tubercolosis -->
+		<DISEASE_EFFECT>
+			<disease>4</disease>
+			<size>100</size>
+			<chance>3</chance>
+		</DISEASE_EFFECT>
+	</DRUG>
 </DRUGSLIST>

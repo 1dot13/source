@@ -833,7 +833,7 @@
 		<ubGraphicNum>17</ubGraphicNum>
 		<ubWeight>39</ubWeight>
 		<ItemSize>8</ItemSize>
-		<usPrice>870</usPrice>
+		<usPrice>1870</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<bReliability>2</bReliability>
 		<bRepairEase>-1</bRepairEase>
@@ -1006,7 +1006,7 @@
 		<ubGraphicNum>22</ubGraphicNum>
 		<ubWeight>30</ubWeight>
 		<ItemSize>7</ItemSize>
-		<usPrice>718</usPrice>
+		<usPrice>1718</usPrice>
 		<ubCoolness>4</ubCoolness>
 		<bReliability>2</bReliability>
 		<bRepairEase>1</bRepairEase>
@@ -52058,6 +52058,65 @@
 		<DrugType>19</DrugType>
 		<usPortionSize>5</usPortionSize>
 		<BR_NewInventory>3</BR_NewInventory>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1753</uiIndex>
+		<szItemName>Bandages</szItemName>
+		<szLongItemName>Dirty Bandages</szLongItemName>
+		<szItemDesc>These simple bandages were made from rags. They might still bleeding, but are not up to sanitary standards...</szItemDesc>
+		<szBRName>Dirty Bandages</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>4096</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubCursor>5</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>905</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>3</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<Medical>1</Medical>
+		<FirstAidKit>1</FirstAidKit>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<PercentStatusDrainReduction>-300</PercentStatusDrainReduction>
+		<DrugType>20</DrugType>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1754</uiIndex>
+		<szItemName>Bandages</szItemName>
+		<szLongItemName>Primitive Bandages</szLongItemName>
+		<szItemDesc>These simple bandages were made from rags. They are clean and might still bleeding, but that's about it.</szItemDesc>
+		<szBRName>Primitive Bandages</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>4096</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubCursor>5</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>906</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>5</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<WaterDamages>1</WaterDamages>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<Medical>1</Medical>
+		<FirstAidKit>1</FirstAidKit>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<PercentStatusDrainReduction>-300</PercentStatusDrainReduction>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
