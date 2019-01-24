@@ -42,6 +42,9 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 
 	UINT32 drugused = Item[usItem].drugtype;
 
+	// to stop Larry from getting stoned via unsanitary bandages etc., note whether this is a 'real' drug
+	BOOL complainworthyeffects = FALSE;
+
 	// we might not use up the entire item, so reduce effects accordingly
 	FLOAT effectivepercentage = uStatusUsed / 100.0;
 
@@ -93,6 +96,8 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 				pSoldier->newdrugs.duration[(*drug_effects_it).effect]	= (*drug_effects_it).duration;
 				pSoldier->newdrugs.size[(*drug_effects_it).effect] = (*drug_effects_it).size * effectivepercentage;
 			}
+
+			complainworthyeffects = TRUE;
 		}
 	}
 
@@ -147,28 +152,31 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 			}
 		}
 	}
-		
-	// do switch for Larry!!
-	if ( pSoldier->ubProfile == LARRY_NORMAL )
-	{
-		SwapToProfile( pSoldier, LARRY_DRUNK );
-
-		gMercProfiles[LARRY_NORMAL].bNPCData = LARRY_FALLS_OFF_WAGON;
-	}
-	else if ( pSoldier->ubProfile == LARRY_DRUNK )
-	{
-		// NB store all drunkenness info in LARRY_NORMAL profile (to use same values)
-		// so long as he keeps consuming, keep number above level at which he cracked						
-		gMercProfiles[LARRY_NORMAL].bNPCData += (INT8)Random( 5 );
-
-		// allow value to keep going up to 24 (about 2 days since we subtract Random( 2 ) when he has no access )
-		gMercProfiles[LARRY_NORMAL].bNPCData = __min( gMercProfiles[LARRY_NORMAL].bNPCData, 24 );
-		gMercProfiles[LARRY_NORMAL].bNPCData = __max( gMercProfiles[LARRY_NORMAL].bNPCData, LARRY_FALLS_OFF_WAGON );
-	}
 	
-	if ( NewDrug[drugused].opinionevent )
+	if ( complainworthyeffects )
 	{
-		HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, TRUE );
+		// do switch for Larry!!
+		if ( pSoldier->ubProfile == LARRY_NORMAL )
+		{
+			SwapToProfile( pSoldier, LARRY_DRUNK );
+
+			gMercProfiles[LARRY_NORMAL].bNPCData = LARRY_FALLS_OFF_WAGON;
+		}
+		else if ( pSoldier->ubProfile == LARRY_DRUNK )
+		{
+			// NB store all drunkenness info in LARRY_NORMAL profile (to use same values)
+			// so long as he keeps consuming, keep number above level at which he cracked						
+			gMercProfiles[LARRY_NORMAL].bNPCData += (INT8)Random( 5 );
+
+			// allow value to keep going up to 24 (about 2 days since we subtract Random( 2 ) when he has no access )
+			gMercProfiles[LARRY_NORMAL].bNPCData = __min( gMercProfiles[LARRY_NORMAL].bNPCData, 24 );
+			gMercProfiles[LARRY_NORMAL].bNPCData = __max( gMercProfiles[LARRY_NORMAL].bNPCData, LARRY_FALLS_OFF_WAGON );
+		}
+
+		if ( NewDrug[drugused].opinionevent )
+		{
+			HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, TRUE );
+		}
 	}
 	
 	if ( Item[usItem].alcohol > 0.0f )
@@ -193,7 +201,7 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 		// set flag: we are on non-alcoholic drugs
 		pSoldier->usSoldierFlagMask |= SOLDIER_DRUGGED;
 
-		if ( gMercProfiles[pSoldier->ubProfile].ubNumTimesDrugUseInLifetime != 255 )
+		if ( complainworthyeffects && gMercProfiles[pSoldier->ubProfile].ubNumTimesDrugUseInLifetime != 255 )
 		{
 			gMercProfiles[pSoldier->ubProfile].ubNumTimesDrugUseInLifetime++;
 		}

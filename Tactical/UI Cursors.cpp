@@ -2884,7 +2884,8 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	}
 
 	// Flugente: apply misc items to other soldiers
-	if ( ItemCanBeAppliedToOthers( usInHand ) )
+	// exception: not for medical items (medkists can have drug effects that are applied during bandaging)
+	if ( ubCursor != AIDCURS && ItemCanBeAppliedToOthers( usInHand ) )
 	{
 		// if item is a bomb, only allow apply if hovering over a soldier (otherwise we cannot mine anymore)
 		if ( Item[ usInHand ].usItemClass & IC_BOMB )

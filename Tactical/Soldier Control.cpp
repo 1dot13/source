@@ -13044,6 +13044,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 		// Flugente: additional dialogue
 		AdditionalTacticalCharacterDialogue_CallsLua( this, ADE_BANDAGE_PERFORM_BEGIN, pTSoldier->ubProfile );
 		AdditionalTacticalCharacterDialogue_CallsLua( pTSoldier, ADE_BANDAGE_RECEIVE_BEGIN, this->ubProfile );
+
+		// Flugente: if the medkit we use has drug effects set, apply them
+		// as a kit is used up over time, applying it several times would screw with chance effects, so just apply once
+		ApplyDrugs_New( pTSoldier, this->inv[HANDPOS].usItem, ( ( this->inv[HANDPOS] ) )[0]->data.objectStatus );
 	}
 }
 
