@@ -8566,6 +8566,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|D|e|c|a|y |M|o|d|i|f|i|e|r",
 	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",
 	L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65
+	L"|F|a|n |t|h|e |H|a|m|m|e|r",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -8635,7 +8636,9 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",
 	L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",
 	L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",
-	L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
+	L"",
+	L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.", // 65
+	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

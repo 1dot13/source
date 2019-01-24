@@ -169,6 +169,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"-%d%s ОД на перезарядку пистолетов, автоматических пистолетов и револьверов\n",
 	L"+%d клик прицеливания для пистолетов, автоматических пистолетов и револьверов",
 	L"+%d кликов прицеливания для пистолетов, автоматических пистолетов и револьверов\n",
+	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=

@@ -169,6 +169,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"-%d%s APs to reload pistols, machine pistols and revolvers\n",
 	L"Adds %d more aim click for pistols, machine pistols and revolvers\n",
 	L"Adds %d more aim clicks for pistols, machine pistols and revolvers\n",
+	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=

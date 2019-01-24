@@ -7484,6 +7484,13 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 					swprintf( atStr, gzIMPMajorTraitsHelpTextsSniper[19], gSkillTraitValues.sSNFocusInterruptBonus );
 					wcscat( apStr, atStr );
 				}
+
+				// Flugente: can we fan the hammer on certain guns (it's effectively a hidden mode of revolvers)?
+				if ( gSkillTraitValues.fCanFanTheHammer )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsGunslinger[10] );
+					wcscat( apStr, atStr );
+				}
 				break;
 			}
 			case MARTIAL_ARTS_NT:

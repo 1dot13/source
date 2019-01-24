@@ -442,7 +442,8 @@ weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 				strcmp(name, "usOverheatingJamThreshold") == 0 || // Flugente
 				strcmp(name, "usOverheatingDamageThreshold") == 0 || // Flugente
 				strcmp(name, "usOverheatingSingleShotTemperature") == 0 || // Flugente
-				strcmp(name, "HeavyGun") == 0)) // SANDRO - cannot be shouldered while standing
+				strcmp(name, "HeavyGun") == 0 || // SANDRO - cannot be shouldered while standing
+				strcmp(name, "fBurstOnlyByFanTheHammer" ) == 0))
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
 
@@ -727,6 +728,11 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.HeavyGun = (BOOLEAN) atof(pData->szCharData);
 		}
+		else if ( strcmp( name, "fBurstOnlyByFanTheHammer" ) == 0 )
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.fBurstOnlyByFanTheHammer = (BOOLEAN)atof( pData->szCharData );
+		}
 		
 		pData->maxReadDepth--;
 	}
@@ -904,6 +910,7 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<usOverheatingDamageThreshold>%4.2f</usOverheatingDamageThreshold>\r\n",			Weapon[cnt].usOverheatingDamageThreshold);
 			FilePrintf(hFile,"\t\t<usOverheatingSingleShotTemperature>%4.2f</usOverheatingSingleShotTemperature>\r\n",			Weapon[cnt].usOverheatingSingleShotTemperature);
 			FilePrintf(hFile,"\t\t<HeavyGun>%d</HeavyGun>\r\n",									Weapon[cnt].HeavyGun);
+			FilePrintf(hFile,"\t\t<fBurstOnlyByFanTheHammer>%d</fBurstOnlyByFanTheHammer>\r\n",	Weapon[cnt].fBurstOnlyByFanTheHammer );
 
 
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
@@ -8914,6 +8921,20 @@ BOOLEAN IsGunBurstCapable(OBJECTTYPE* pObject, BOOLEAN fNotify, SOLDIERTYPE* pSo
 			if ( GetShotsPerBurst(pObject) > 0 )
 			{
 				fCapable = TRUE;
+
+				// Flugente: if we only get burst capability by fanning the hammer, check whether we can use that in the first place
+				if ( gGameOptions.fNewTraitSystem && gSkillTraitValues.fCanFanTheHammer && Weapon[pObject->usItem].fBurstOnlyByFanTheHammer )
+				{
+					fCapable = FALSE;
+
+					if ( pSoldier && 
+						pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && 
+						NUM_SKILL_TRAITS( pSoldier, GUNSLINGER_NT ) > 0 &&
+						!pSoldier->inv[SECONDHANDPOS].exists() )
+					{
+						fCapable = TRUE;
+					}
+				}
 			}
 		}
 	}
@@ -9563,6 +9584,15 @@ void ChangeScopeMode( SOLDIERTYPE * pSoldier, INT32 iTrgGridNo )
 	else // wtf, reset to zero just to be sure
 	{
 		pSoldier->aiData.bShownAimTime = 0;
+	}
+
+	// Flugente: test whether the change to scope mode invalidates our firing mode
+	if ( Weapon[pSoldier->inv[HANDPOS].usItem].fBurstOnlyByFanTheHammer && pSoldier->bWeaponMode == WM_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_UB_BURST )
+	{
+		if ( !IsGunWeaponModeCapable( &pSoldier->inv[HANDPOS], static_cast<WeaponMode>( pSoldier->bWeaponMode ), pSoldier ) )
+		{
+			ChangeWeaponMode( pSoldier  );
+		}
 	}
 
 	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );

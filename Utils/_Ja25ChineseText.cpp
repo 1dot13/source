@@ -169,6 +169,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"手枪、冲锋手枪和左轮装填弹药所需行动点 -%d%s \n",// L"-%d%s APs needed to reload pistols, machine pistols and revolvers\n",
 	L"手枪、左轮和冲锋手枪的精确瞄准次数增加%d次 \n",// L"Adds %d more aim click for pistols, machine pistols and revolvers\n",
 	L"手枪、左轮和冲锋手枪的精确瞄准次数增加%d次 \n",// L"Adds %d more aim clicks for pistols, machine pistols and revolvers\n",
+	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=

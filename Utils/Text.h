@@ -757,9 +757,9 @@ extern STR16		szUDBGenCommonStatsTooltipText[ 3 ];					// silversurfer new for i
 extern STR16		szUDBGenCommonStatsExplanationsTooltipText[ 3 ];		// silversurfer new for items that don't fit the other categories
 extern STR16		szUDBGenSecondaryStatsTooltipText[];				// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
 extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[];	// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
-extern STR16		szUDBAdvStatsTooltipText[ 66 ];							// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58 food:58->64 silversurfer Best Laser Range:64->65 silversurfer PercentRecoilModifier: 66
-extern STR16		szUDBAdvStatsExplanationsTooltipText[ 65 ];				// Flugente Overheating Weapons: 48->56 poison: 56->57 dirt: 57->58 food:58->64 silversurfer Best Laser Range:64->65 silversurfer PercentRecoilModifier: 65
-extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[ 53 ];	// Flugente Overheating Weapons: 48->52 silversurfer Best Laser Range:64->65 silversurfer PercentRecoilModifier: 53
+extern STR16		szUDBAdvStatsTooltipText[];
+extern STR16		szUDBAdvStatsExplanationsTooltipText[];
+extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[];
 
 // Headrock: End Externs
 extern STR16		sKeyDescriptionStrings[2];

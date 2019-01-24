@@ -8398,10 +8398,11 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|S|c|h|i|m|m|e|l |R|a|t|e",
 	L"|B|e|s|t|e |L|a|s|e|r |R|e|i|c|h|w|e|i|t|e",
 	L"|P|r|o|z|e|n|t|u|a|l|e|r |R|ü|c|k|s|t|o|ß |M|o|d|i|f|i|k|a|t|o|r",	// 65
+	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
-STR16 szUDBAdvStatsExplanationsTooltipText[]=
+STR16 szUDBAdvStatsExplanationsTooltipText[] =
 {
 	L"\n \nWenn befestigt an einer Fernwaffe dieser Gegenstand verändert den Genauigkeitswert.\n \nEine erhöhte Genauigkeit lässt die Schusswaffe Ziele auf eine größere Entfernung öfter treffen,\nangenommen es wird auch gut gezielt.\n \nMaßstab: -100 bis +100.\nHöher ist besser.",
 	L"\n \nDieser Gegenstand verändert die Genauigkeit\nfür jede Art von Feuermodus für diese Fernwaffe um den angegebenen Wert.\n \nMaßstab: -100 bis +100.\nHöher ist besser.",
@@ -8441,11 +8442,11 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nDieser Gegenstand beeinflusst die Tarnung\nin Schneegebieten, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst das Schleichen\n, wenn er getragen oder an einen\ngetragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
 	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Hörweite\num die angegebenen Prozent.\n \nEin positiver Bonus ermöglicht das Hören von Geräuschen\nauf größere Distanzen.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser generelle Sichtweitenmodifikator funktioniert bei allen Lichtverhältnissen.\nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Nacht-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung niedrig ist.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Tag-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung überdurchschnittlich hoch ist.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Helligkeits-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung extrem hoch und grell ist.\n \nHöher ist besser.",
-    L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Höhlen-Sichtweitenmodifikator funktioniert nur\nim Dunkeln und auch nur unter Tage.\n \nHöher ist besser.",
+	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser generelle Sichtweitenmodifikator funktioniert bei allen Lichtverhältnissen.\nHöher ist besser.",
+	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Nacht-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung niedrig ist.\n \nHöher ist besser.",
+	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Tag-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung überdurchschnittlich hoch ist.\n \nHöher ist besser.",
+	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Helligkeits-Sichtweitenmodifikator funktioniert nur\nwenn die Umgebungsbeleuchtung extrem hoch und grell ist.\n \nHöher ist besser.",
+	L"\n \nWenn dieser Gegenstand getragen, oder an einem getragenen\nGegenstand angebracht, verändert dies die Sichtweite\num die angegebenen Prozent.\n \nDieser Höhlen-Sichtweitenmodifikator funktioniert nur\nim Dunkeln und auch nur unter Tage.\n \nHöher ist besser.",
 	L"\n \nDieser Gegenstand beeinflusst die Sichtbreite,\nwenn er getragen oder\nan einen getragenen Gegenstand angebracht wird.\n \nHöher ist besser.",
 	L"\n \nDie Fähigkeit des Schützen Rückstoß\nwährend Feuerstoß-/Autofeuersalven zu bewältigen.\n \nHöher ist besser.",
 	L"\n \nDie Fähigkeit des Schützen einzuschätzen\nwieviel Kraft er während Feuerstoß-/Autofeuersalven\nbenötigt um den Rückstoß auszugleichen.\n \nNiedriger ist besser.",
@@ -8467,7 +8468,9 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nProzentsatz des Gegenstandes der mit einem\n Bissen aufgebraucht wird.\n \nWeniger ist besser.",
 	L"\n \nDie Moral wird um diese Zahl modifiziert.\n \nHöher ist besser.",
 	L"\n \nDer Gegenstand wird mit der Zeit schlecht.\nIst mehr als 50% verschimmelt wird er giftig.\nDies ist die Rate in der Schimmel entsteht.\n \nNiedriger ist besser.",
-	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den Rückstoß um den genannten Prozentwert.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.",
+	L"",
+	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den Rückstoß um den genannten Prozentwert.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.", // 65
+	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

@@ -8566,6 +8566,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|延|迟|修|正",//L"|D|e|c|a|y |M|o|d|i|f|i|e|r",
 	L"|最|佳|激|光|距|离",//L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",
 	L"|后|坐|修|正|比|例",//L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65
+	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -8635,7 +8636,9 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n每次会吃掉多少。\n百分比单位。\n \n该数值越低越好。",	// L"\n \nThe percentage of the item\nthat will be eaten at once.\n \nLower is better.",
 	L"\n \n可以改变相应量士气。\n \n该数值越高越好。",	// L"\n \nMorale is adjusted by this amount.\n \nHigher is better.",
 	L"\n \n这个物品随着时间推移而腐败。\n超过50％腐败会产生毒性。\n这是食物的霉变率。\n \n该数值越低越好。", // L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",
-	L"\n \n当该附件装配到可以点射及自动射击的远程武\n器上时，会按照所述比例修正武器的后座力。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
+	L"",
+	L"\n \n当该附件装配到可以点射及自动射击的远程武\n器上时，会按照所述比例修正武器的后座力。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.", // 65
+	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

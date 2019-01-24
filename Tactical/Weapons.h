@@ -382,12 +382,16 @@ typedef struct
 
  UINT8	ubHandling;			// CHRISL HAM 4: This value replaces ubReadyTime for determining a weapons base handling characteristics.
 
- // Flugente FTW 1
+ // Flugente
  FLOAT usOverheatingJamThreshold;				// if a gun's temperature is above this treshold, it is increasingly prone to jamming
  FLOAT usOverheatingDamageThreshold;			// if a gun is fired while its temperature is above this value, it degrades much faster
  FLOAT usOverheatingSingleShotTemperature;		// a single shot raises a gun's temperature by this amount
  
  BOOLEAN HeavyGun;	// SANDRO - a gun with this cannot be shouldered in standing position, part of shooting from hip feature
+
+ // Flugente: if the wielder possesses the 'GUNSLINGER_NT' trait, is using alternate hold scope mode, and has the second hand free, this gun can be used in burst mode
+ // this is intended for guns that normally don't possess burst mode, like revolvers
+ BOOLEAN fBurstOnlyByFanTheHammer;
 
 } WEAPONTYPE;
 typedef struct

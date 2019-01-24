@@ -169,6 +169,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"-%d%s APs benötigt um halb- und vollautomatische Pistolen sowie Revolver nachzuladen\n",
 	L"Gibt für halb- und vollautomatische Pistolen sowie Revolver einen weiteren Zielklick\n",
 	L"%d weiteren Zielklick für halb- und vollautomatische Pistolen sowie Revolver\n",
+	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=

@@ -85,7 +85,7 @@ UINT32		guiItemInfoAdvancedIcon;
 UINT32		guiItemInfoWH40KIcon;
 
 // HEADROCK HAM 4: New tooltip regions for UDB replace the old regions.
-#define NUM_UDB_FASTHELP_REGIONS 102
+#define NUM_UDB_FASTHELP_REGIONS 103
 MOUSE_REGION		gUDBFasthelpRegions[NUM_UDB_FASTHELP_REGIONS];
 
 extern INV_DESC_STATS gMoneyStats[];
@@ -1476,7 +1476,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 						// with the new Laser Performance Bonus we need to display a different text for laser on a weapons general tab
 						if ( cnt == 6
 							&& (gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
-							swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[64], szUDBGenWeaponsStatsExplanationsTooltipText[ cnt ]);
+							swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 64 ], szUDBGenWeaponsStatsExplanationsTooltipText[ cnt ]);
 						else if ( cnt == 10 && gGameExternalOptions.fAdvRepairSystem && !gSkillTraitValues.fTETraitsCanRestoreItemThreshold )
 							swprintf( pStr, L"%s%s", szUDBGenWeaponsStatsTooltipText[ cnt ], szUDBGenWeaponsStatsExplanationsTooltipText[ 22 ]);
 						else
@@ -3232,7 +3232,7 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 					}
 					else
 					{
-						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 65 ], szUDBAdvStatsExplanationsTooltipText[ 64 ]);
+						swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 65 ], szUDBAdvStatsExplanationsTooltipText[ 65 ]);
 					}
 					SetRegionFastHelpText( &(gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ]), pStr );
 					MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + (cnt-sFirstLine) ] );
@@ -4067,6 +4067,21 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				}
 				cnt++;
  			}
+		}
+
+		///////////////////// FANTHEHAMMER
+		if ( Item[gpItemDescObject->usItem].usItemClass & ( IC_GUN | IC_LAUNCHER ) && gGameOptions.fNewTraitSystem && gSkillTraitValues.fCanFanTheHammer )
+		{
+			if ( !fDrawGenIndexes )
+				fDrawGenIndexes = ++cnt;		// new index line here?
+
+			if ( cnt >= sFirstLine && cnt < sLastLine )
+			{
+				swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[ 66 ], szUDBAdvStatsExplanationsTooltipText[ 66 ] );
+				SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + ( cnt - sFirstLine )] ), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + ( cnt - sFirstLine )] );
+			}
+			++cnt;
 		}
 
 		if ( UsingFoodSystem() && Item[gpItemDescObject->usItem].foodtype > 0 )
@@ -5738,6 +5753,17 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 			}
 			cnt++;
 		}
+	}
+
+	///////////////////// FANTHEHAMMER
+	if ( gGameOptions.fNewTraitSystem && gSkillTraitValues.fCanFanTheHammer &&
+		( ( Item[gpItemDescObject->usItem].usItemClass & IC_BOBBY_GUN ) || ( fComparisonMode && ( Item[gpComparedItemDescObject->usItem].usItemClass & IC_BOBBY_GUN ) ) ) )
+	{
+		if ( cnt >= sFirstLine && cnt < sLastLine )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 65, gItemDescAdvRegions[cnt - sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt - sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		++cnt;
 	}
 
 	if ( UsingFoodSystem() )
@@ -14027,6 +14053,46 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 			}
 			cnt++;
 		}
+	}
+
+	///////////////////// FANTHEHAMMMER
+	if ( gGameOptions.fNewTraitSystem && gSkillTraitValues.fCanFanTheHammer &&
+		( ( Item[gpItemDescObject->usItem].usItemClass & ( IC_GUN | IC_LAUNCHER ) ) || ( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass & ( IC_GUN | IC_LAUNCHER ) ) ) )
+	{
+		if ( !fDrawGenIndexes )
+			fDrawGenIndexes = ++cnt; //insert Indexes here?
+
+		if ( cnt >= sFirstLine && cnt < sLastLine )
+		{
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[cnt - sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt - sFirstLine][1].sBottom - sTop;
+
+			BOOL a = Weapon[gpItemDescObject->usItem].fBurstOnlyByFanTheHammer;
+			BOOL b = ( fComparisonMode && Weapon[gpComparedItemDescObject->usItem].fBurstOnlyByFanTheHammer);
+			
+			SetFontForeground( 5 );
+			sLeft = gItemDescAdvRegions[cnt - sFirstLine][1].sLeft;
+			sWidth = gItemDescAdvRegions[cnt - sFirstLine][1].sRight - sLeft;
+
+			if ( fComparisonMode )
+			{
+				SetFontForeground( a ? ITEMDESC_FONTPOSITIVE : ITEMDESC_FONTNEGATIVE );
+
+				swprintf( pStr, L"%s/%s", a ? "Y" : "N", b ? "Y" : "N" );
+			}
+			else
+			{
+				SetFontForeground( 5 );
+
+				swprintf( pStr, L"%s", a ? "Y" : "N" );
+			}
+
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY );
+			mprintf( usX, usY, pStr );
+		}
+
+		++cnt;
 	}
 
 	////////////////////// FOOD

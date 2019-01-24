@@ -1731,6 +1731,7 @@ typedef struct
 	UINT8 ubGSPercentReadyPistolsReduction;
 	UINT8 ubGSRealoadSpeedHandgunsBonus;
 	UINT8 ubGSAimClicksAdded;
+	BOOLEAN fCanFanTheHammer;
 
 	// MARTIAL ARTS
 	UINT8 ubMABonusCtHBareHands;

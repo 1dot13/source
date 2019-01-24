@@ -170,6 +170,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"-%d%s du nombre de PA nécessaire pour recharger un pistolet, pistolet automatique ou un revolver\n",
 	L"Ajoute un niveau de visée pour les pistolets, les pistolets automatiques ou les revolvers\n",
 	L"Ajoute %d niveaux de visée pour les pistolets, les pistolets automatiques ou les revolvers\n",
+	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 
 };
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=

@@ -2383,6 +2383,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubGSPercentReadyPistolsReduction = iniReader.ReadInteger("Gunslinger","PERCENT_AP_READY_PISTOLS_REDUCTION", 15, 0, 50);
 	gSkillTraitValues.ubGSRealoadSpeedHandgunsBonus = iniReader.ReadInteger("Gunslinger","RELOAD_SPEED_HANDGUNS_BONUS", 25, 0, 45);
 	gSkillTraitValues.ubGSAimClicksAdded = iniReader.ReadInteger("Gunslinger","POSSIBLE_AIM_CLICK_ADDED_HANDGUNS", 1, 0, 3);
+	gSkillTraitValues.fCanFanTheHammer = iniReader.ReadBoolean( "Gunslinger", "CAN_FAN_THE_HAMMER", TRUE );
 
 	// MARTIAL ARTS
 	gSkillTraitValues.ubMAPunchAPsReduction = iniReader.ReadInteger("Martial Arts","PUNCH_APS_REDUCTION", 15, 0, 50);
