@@ -8583,6 +8583,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",// TODO.Translate
 	L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65
 	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
+	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -8655,6 +8656,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"",
 	L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.", // 65
 	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
+	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

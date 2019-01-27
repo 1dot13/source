@@ -4191,10 +4191,16 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 			}
 
-			if ( pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && pSoldier->bWeaponMode != WM_NORMAL && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN )
+			if ( pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_GUN|IC_LAUNCHER) )
 			{
 				sNewY = sY + 13; // rather arbitrary
-				if ( pSoldier->bWeaponMode == WM_BURST )
+
+				if ( pSoldier->bWeaponMode == WM_NORMAL )
+				{
+					swprintf( pStr, L"" );
+					SetFontForeground( FONT_RED );
+				}
+				else if ( pSoldier->bWeaponMode == WM_BURST )
 				{
 					swprintf( pStr, New113Message[MSG113_BRST] );
 					SetFontForeground( FONT_RED );
@@ -4239,9 +4245,15 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					swprintf( pStr, New113Message[MSG113_BAYONET] );
 					SetFontForeground( FONT_ORANGE );
 				}
+
+				// Flugente: display barrel mode if necessary
+				if ( pSoldier->usBarrelMode > 1 )
+					swprintf( pStr2, L"%s x%d", pStr, pSoldier->usBarrelMode );
+				else
+					swprintf( pStr2, L"%s", pStr );
 								
 				// Get length of string
-				uiStringLength=StringPixLength(pStr, ITEM_FONT );
+				uiStringLength=StringPixLength( pStr2, ITEM_FONT );
 
 				sNewX = sX + sWidth - uiStringLength - 4;
 
@@ -4249,10 +4261,11 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				{
 					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
 				}
-				mprintf( sNewX, sNewY, pStr );
-				gprintfinvalidate( sNewX, sNewY, pStr );
 
+				mprintf( sNewX, sNewY, pStr2 );
+				gprintfinvalidate( sNewX, sNewY, pStr2 );
 			}
+
 			// SANDRO - display BRST/AUTO on the second weapon too, if we are going to fire dual bursts
 			if ( pSoldier && pObject == &(pSoldier->inv[SECONDHANDPOS] ) && 
 				(pSoldier->bWeaponMode == WM_BURST || pSoldier->bWeaponMode == WM_AUTOFIRE) && 

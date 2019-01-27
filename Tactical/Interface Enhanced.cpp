@@ -4084,6 +4084,21 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			++cnt;
 		}
 
+		///////////////////// MULTIPLE BARRELS
+		if ( ( Item[gpItemDescObject->usItem].usItemClass & IC_BOBBY_GUN ) )
+		{
+			if ( !fDrawGenIndexes )
+				fDrawGenIndexes = ++cnt;		// new index line here?
+
+			if ( cnt >= sFirstLine && cnt < sLastLine )
+			{
+				swprintf( pStr, L"%s%s", szUDBAdvStatsTooltipText[67], szUDBAdvStatsExplanationsTooltipText[67] );
+				SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + ( cnt - sFirstLine )] ), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + ( cnt - sFirstLine )] );
+			}
+			++cnt;
+		}
+
 		if ( UsingFoodSystem() && Item[gpItemDescObject->usItem].foodtype > 0 )
 		{
 			if (!fDrawGenIndexes)
@@ -5762,6 +5777,16 @@ void DrawAdvancedStats( OBJECTTYPE * gpItemDescObject )
 		if ( cnt >= sFirstLine && cnt < sLastLine )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 65, gItemDescAdvRegions[cnt - sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt - sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
+		++cnt;
+	}
+
+	///////////////////// MULTIPLE BARRELS
+	if ( ( ( Item[gpItemDescObject->usItem].usItemClass & IC_BOBBY_GUN ) || ( fComparisonMode && ( Item[gpComparedItemDescObject->usItem].usItemClass & IC_BOBBY_GUN ) ) ) )
+	{
+		if ( cnt >= sFirstLine && cnt < sLastLine )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoAdvancedIcon, 66, gItemDescAdvRegions[cnt - sFirstLine][0].sLeft + sOffsetX, gItemDescAdvRegions[cnt - sFirstLine][0].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 		++cnt;
 	}
@@ -10075,7 +10100,7 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 	INT16 sLastLine = gubDescBoxLine + NUM_UDB_ADV_LINES;
 	INT16 cnt = 0;
 
-	static CHAR16		pStr[ 100 ];
+	static CHAR16		pStr[ 100 ], pStr2[100];
 	INT16				usY;
 	INT16				usX;
 	INT16				sLeft, sTop, sWidth, sHeight;
@@ -14088,6 +14113,55 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 				swprintf( pStr, L"%s", a ? "Y" : "N" );
 			}
 
+			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY );
+			mprintf( usX, usY, pStr );
+		}
+
+		++cnt;
+	}
+
+	///////////////////// MULTIPLE BARRELS
+	if ( ( ( Item[gpItemDescObject->usItem].usItemClass & ( IC_GUN | IC_LAUNCHER ) ) || ( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass & ( IC_GUN | IC_LAUNCHER ) ) ) )
+	{
+		if ( !fDrawGenIndexes )
+			fDrawGenIndexes = ++cnt; //insert Indexes here?
+
+		if ( cnt >= sFirstLine && cnt < sLastLine )
+		{
+			// Set Y coordinates
+			sTop = gItemDescAdvRegions[cnt - sFirstLine][1].sTop;
+			sHeight = gItemDescAdvRegions[cnt - sFirstLine][1].sBottom - sTop;
+
+			// list all modes
+			swprintf( pStr, L"" );
+			swprintf( pStr2, L"" );
+
+			std::vector<UINT8> tmp = Weapon[Item[gpItemDescObject->usItem].ubClassIndex].barrelconfigurations;
+
+			for ( std::vector<UINT8>::iterator it = tmp.begin(); it != tmp.end(); ++it )
+			{
+				UINT8 bla = ( *it );
+				swprintf( pStr2, L"%s x%d", pStr, bla );
+				swprintf( pStr, L"%s", pStr2 );
+			}
+
+			if ( ( fComparisonMode && Item[gpComparedItemDescObject->usItem].usItemClass & ( IC_GUN | IC_LAUNCHER ) ) )
+			{
+				wcscat( pStr, L" / " );
+
+				std::vector<UINT8> tmp2 = Weapon[Item[gpComparedItemDescObject->usItem].ubClassIndex].barrelconfigurations;
+
+				for ( std::vector<UINT8>::iterator it = tmp2.begin(); it != tmp2.end(); ++it )
+				{
+					swprintf( pStr2, L"%s x%d", pStr, ( *it ) );
+					swprintf( pStr, L"%s", pStr2 );
+				}
+			}
+			
+			SetFontForeground( 5 );
+			sLeft = gItemDescAdvRegions[cnt - sFirstLine][1].sLeft;
+			sWidth = gItemDescAdvRegions[cnt - sFirstLine][1].sRight - sLeft;
+			
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY );
 			mprintf( usX, usY, pStr );
 		}

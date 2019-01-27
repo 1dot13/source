@@ -8567,6 +8567,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|最|佳|激|光|距|离",//L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",
 	L"|后|坐|修|正|比|例",//L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65
 	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
+	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -8639,6 +8640,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"",
 	L"\n \n当该附件装配到可以点射及自动射击的远程武\n器上时，会按照所述比例修正武器的后座力。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.", // 65
 	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
+	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

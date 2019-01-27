@@ -8567,6 +8567,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|О|п|т|и|м|а|л|ь|н|а|я |д|а|л|ь|н|о|с|т|ь |л|а|з|е|р|а",
 	L"|М|о|д|и|ф|и|к|а|т|о|р |о|т|д|а|ч|и |в |%",
 	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
+	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -8639,6 +8640,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"",
 	L"\n \nПрисоединенный к огнестрельному оружию,\nспособному вести огонь очередями, этот\nпредмет изменяет отдачу оружия на\nуказанный процент.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.", // 65
 	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
+	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

@@ -8570,6 +8570,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|P|o|r|t|é|e |O|p|t|i|m|a|l|e |d|u |L|a|s|e|r",
 	L"|F|a|c|t|e|u|r |d|u |R|e|c|u|l |P|o|u|r |c|e|n|t",	// 65	
 	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
+	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -8641,6 +8642,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"",
 	L"\n \nLorsqu'il est attaché à une arme qui a le mode\nrafale ou auto, cet objet modifie le recul de\nl'arme par le pourcentage indiqué. Réduire le\nrecul permet de mieux garder la bouche de l'arme\npointée sur la cible lors d'une rafale.\n \nValeur faible recommandée.", // 65
 	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
+	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

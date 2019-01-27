@@ -8399,6 +8399,7 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|B|e|s|t|e |L|a|s|e|r |R|e|i|c|h|w|e|i|t|e",
 	L"|P|r|o|z|e|n|t|u|a|l|e|r |R|ü|c|k|s|t|o|ß |M|o|d|i|f|i|k|a|t|o|r",	// 65
 	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
+	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
@@ -8471,6 +8472,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[] =
 	L"",
 	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den Rückstoß um den genannten Prozentwert.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.", // 65
 	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
+	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=

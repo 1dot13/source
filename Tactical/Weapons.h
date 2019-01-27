@@ -393,6 +393,10 @@ typedef struct
  // this is intended for guns that normally don't possess burst mode, like revolvers
  BOOLEAN fBurstOnlyByFanTheHammer;
 
+ // Flugente: multi-barrel weapons can fire a variety of barrels at once in all firemodes.
+ // This vector stores the possible configurations
+ std::vector<UINT8>	barrelconfigurations;
+
 } WEAPONTYPE;
 typedef struct
 {
@@ -536,5 +540,9 @@ FLOAT GetOverheatDamageThresholdModifier( OBJECTTYPE *pObj );
 FLOAT GetOverheatDamageThreshold( OBJECTTYPE *pObj );
 
 BOOLEAN ArtilleryStrike( UINT16 usItem, UINT8 ubOwnerID, UINT32 usStartingGridNo, UINT32 usTargetMapPos );
+
+// Flugente: functions for using several barrels at once
+UINT8 GetNextBarrelMode( UINT16 usItem, UINT8 aBarrelMode );
+UINT8 GetFittingBarrelMode( UINT16 usItem, UINT8 aBarrelMode );	// return a number of barrels this gun can fire, equal or below aBarrelMode 
 
 #endif

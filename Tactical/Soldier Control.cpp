@@ -13842,6 +13842,10 @@ void SOLDIERTYPE::ReLoadSoldierAnimationDueToHandItemChange( UINT16 usOldItem, U
 	else
 		this->bScopeMode = USE_BEST_SCOPE;
 
+	// Flugente: use lowest valid barrel configuration
+	this->usBarrelMode = 1;
+	this->usBarrelMode = GetNextBarrelMode( usNewItem, this->usBarrelMode );
+
 	if ( gAnimControl[this->usAnimState].uiFlags & ANIM_FIREREADY )
 	{
 		// Stop aiming!

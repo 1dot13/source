@@ -103,10 +103,15 @@ extern BOOLEAN	gfNextFireJam;
 
 BOOLEAN WillExplosiveWeaponFail( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 
+// Flugente: this function calls UseGun and handles the firing of severeal shots at once
+BOOLEAN UseGunWrapper( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseThrown( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
+
+// Flugente: this function calls UseLauncher and handles the firing of severeal shots at once
+BOOLEAN UseLauncherWrapper( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 
 // new subroutines for NCTH calculation
@@ -374,6 +379,9 @@ struct
 }
 typedef weaponParseData;
 
+// for compliation reasons, this may not be a part of weaponParseData
+std::vector<UINT8> barrelconfigurationvector;
+
 static void XMLCALL
 weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -443,7 +451,8 @@ weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 				strcmp(name, "usOverheatingDamageThreshold") == 0 || // Flugente
 				strcmp(name, "usOverheatingSingleShotTemperature") == 0 || // Flugente
 				strcmp(name, "HeavyGun") == 0 || // SANDRO - cannot be shouldered while standing
-				strcmp(name, "fBurstOnlyByFanTheHammer" ) == 0))
+				strcmp(name, "fBurstOnlyByFanTheHammer" ) == 0 ||
+				strcmp(name, "BarrelConfiguration" ) == 0))
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
 
@@ -488,6 +497,21 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			if(pData->curWeapon.uiIndex < pData->maxWeapons)
 			{
 				pData->curWeaponList[pData->curWeapon.uiIndex] = pData->curWeapon; //write the weapon into the table
+
+				if ( !barrelconfigurationvector.empty() )
+				{
+					for ( std::vector<UINT8>::iterator it = barrelconfigurationvector.begin(), itend = barrelconfigurationvector.end(); it != itend; ++it )
+					{
+						pData->curWeaponList[pData->curWeapon.uiIndex].barrelconfigurations.push_back( (*it) );
+					}
+
+					barrelconfigurationvector.clear();
+				}
+				// if no configuration is set, assume one barrel is possible
+				else
+				{
+					pData->curWeaponList[pData->curWeapon.uiIndex].barrelconfigurations.push_back( 1 );
+				}
 			}
 		}
 		else if(strcmp(name, "uiIndex") == 0)
@@ -733,6 +757,14 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.fBurstOnlyByFanTheHammer = (BOOLEAN)atof( pData->szCharData );
 		}
+		else if ( strcmp( name, "BarrelConfiguration" ) == 0 )
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+
+			UINT8 barrelmode = (UINT8)atol( pData->szCharData );
+			if ( barrelmode )
+				barrelconfigurationvector.push_back( barrelmode );
+		}
 		
 		pData->maxReadDepth--;
 	}
@@ -906,13 +938,17 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<ubAimLevels>%d</ubAimLevels>\r\n",							Weapon[cnt].ubAimLevels );
 			FilePrintf(hFile,"\t\t<EasyUnjam>%d</EasyUnjam>\r\n",								Weapon[cnt].EasyUnjam);
 			FilePrintf(hFile,"\t\t<Handling>%d</Handling>\r\n",									Weapon[cnt].ubHandling);
-			FilePrintf(hFile,"\t\t<usOverheatingJamThreshold>%4.2f</usOverheatingJamThreshold>\r\n",			Weapon[cnt].usOverheatingJamThreshold); // Flugente FTW 1
+			FilePrintf(hFile,"\t\t<usOverheatingJamThreshold>%4.2f</usOverheatingJamThreshold>\r\n",			Weapon[cnt].usOverheatingJamThreshold);
 			FilePrintf(hFile,"\t\t<usOverheatingDamageThreshold>%4.2f</usOverheatingDamageThreshold>\r\n",			Weapon[cnt].usOverheatingDamageThreshold);
 			FilePrintf(hFile,"\t\t<usOverheatingSingleShotTemperature>%4.2f</usOverheatingSingleShotTemperature>\r\n",			Weapon[cnt].usOverheatingSingleShotTemperature);
 			FilePrintf(hFile,"\t\t<HeavyGun>%d</HeavyGun>\r\n",									Weapon[cnt].HeavyGun);
 			FilePrintf(hFile,"\t\t<fBurstOnlyByFanTheHammer>%d</fBurstOnlyByFanTheHammer>\r\n",	Weapon[cnt].fBurstOnlyByFanTheHammer );
 
-
+			for ( std::vector<UINT8>::iterator it = Weapon[cnt].barrelconfigurations.begin(), itend = Weapon[cnt].barrelconfigurations.end(); it != itend; ++it )
+			{
+				FilePrintf( hFile, "\t\t<BarrelConfiguration>%d</BarrelConfiguration>\r\n", (*it) );
+			}
+			
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
 		}
 		FilePrintf(hFile,"</WEAPONLIST>\r\n");
@@ -1496,7 +1532,7 @@ BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		case IC_GUN:
 
 			if ( pSoldier->bWeaponMode == WM_ATTACHED_GL )
-				UseLauncher ( pSoldier, sTargetGridNo );
+				UseLauncherWrapper ( pSoldier, sTargetGridNo );
 			else
 			{
 				// ATE: PAtch up - bookkeeping for spreading done out of whak
@@ -1530,15 +1566,14 @@ BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 					}
 				}
 
-
 				if ( pSoldier->flags.fDoSpread )
 				{
-					UseGun( pSoldier, pSoldier->sSpreadLocations[ pSoldier->flags.fDoSpread - 1 ] );
+					UseGunWrapper( pSoldier, pSoldier->sSpreadLocations[pSoldier->flags.fDoSpread - 1] );
 					pSoldier->flags.fDoSpread++;
 				}
 				else
 				{
-					UseGun( pSoldier, sTargetGridNo );
+					UseGunWrapper( pSoldier, sTargetGridNo );
 				}
 			}
 			break;
@@ -1552,7 +1587,7 @@ BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 		case IC_LAUNCHER:
 			if ( Item[pSoldier->usAttackingWeapon].rocketlauncher ){
-				UseGun( pSoldier, sTargetGridNo );
+				UseGunWrapper( pSoldier, sTargetGridNo );
 			} else {
 				// ATE: PAtch up - bookkeeping for spreading done out of whak
 				if ( pSoldier->flags.fDoSpread)
@@ -1584,12 +1619,12 @@ BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 				if ( pSoldier->flags.fDoSpread )
 				{
-					UseLauncher( pSoldier, pSoldier->sSpreadLocations[ pSoldier->flags.fDoSpread - 1 ] );
+					UseLauncherWrapper( pSoldier, pSoldier->sSpreadLocations[ pSoldier->flags.fDoSpread - 1 ] );
 					pSoldier->flags.fDoSpread++;
 				}
 				else
 				{
-					UseLauncher( pSoldier, sTargetGridNo );
+					UseLauncherWrapper( pSoldier, sTargetGridNo );
 				}
 			}
 
@@ -2304,7 +2339,8 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_GUNFIRE );
 
-	if ( pSoldier->bDoBurst )
+	// Flugente: if we fire multiple barrels, only do this on first one
+	if ( pSoldier->bDoBurst && !pSoldier->usBarrelCounter )
 	{
 		// done, if bursting, increment
 		pSoldier->bDoBurst++;
@@ -2420,6 +2456,77 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	return( TRUE );
 }
 
+// Flugente: functions for using several barrels at once
+UINT8 GetNextBarrelMode( UINT16 usItem, UINT8 aBarrelMode )
+{
+	if ( ( Item[usItem].usItemClass & IC_BOBBY_GUN ) )
+	{
+		std::vector<UINT8> tmp = Weapon[Item[usItem].ubClassIndex].barrelconfigurations;
+
+		for ( std::vector<UINT8>::iterator it = tmp.begin(); it != tmp.end(); ++it )
+		{
+			if ( ( *it ) > aBarrelMode )
+				return ( *it );
+		}
+
+		// if nothing was found, take the first result
+		if ( !tmp.empty() )
+			return tmp[0];
+	}
+
+	return 1;
+}
+
+// Flugente: return a number of barrels this gun can fire, equal or below aBarrelMode 
+UINT8 GetFittingBarrelMode( UINT16 usItem, UINT8 aBarrelMode )
+{
+	UINT8 bestfound = 1;
+
+	if ( ( Item[usItem].usItemClass & IC_BOBBY_GUN ) )
+	{
+		std::vector<UINT8> tmp = Weapon[Item[usItem].ubClassIndex].barrelconfigurations;
+
+		for ( std::vector<UINT8>::reverse_iterator it = tmp.rbegin(); it != tmp.rend(); ++it )
+		{
+			if ( ( *it ) == aBarrelMode )
+				return ( *it );
+
+			if ( ( *it ) < aBarrelMode )
+			{
+				if ( ( *it ) > bestfound )
+					bestfound = ( *it );
+			}
+		}
+	}
+
+	return bestfound;
+}
+
+// Flugente: this function calls UseGun and handles the firing of severeal shots at once
+BOOLEAN UseGunWrapper( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
+{
+	// determine how many barrels to fire - if we want more than 1, check whether the gun supports this, if not, adjust
+	UINT8 barrelstofire = 1;
+	pSoldier->usBarrelMode = max( 1, pSoldier->usBarrelMode );
+	if ( pSoldier->usBarrelMode > barrelstofire )
+	{
+		// determine how many barrels the gun can fire in the first place (we need this check in case the weapon changed in our hands or we firing a different weapon from the second hand)
+		OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+		
+		barrelstofire = GetFittingBarrelMode( pObjUsed->usItem, pSoldier->usBarrelMode );
+
+		// limit shots by ammo
+		barrelstofire = min( barrelstofire, ( *pObjUsed )[0]->data.gun.ubGunShotsLeft );
+	}
+	
+	for ( pSoldier->usBarrelCounter = 0; pSoldier->usBarrelCounter < barrelstofire; ++pSoldier->usBarrelCounter )
+	{
+		UseGun( pSoldier, sTargetGridNo );		
+	}
+
+	return TRUE;
+}
+
 BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 {
 	if(UsingNewCTHSystem() == true)
@@ -2504,7 +2611,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 				*/
 			}
 
-			DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+			// Flugente: if we fire multiple barrels, only deduct points APs on the first one
+			if ( !pSoldier->usBarrelCounter )
+				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
 		}
 
 	}
@@ -2516,12 +2625,16 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			// only deduct APs when the main gun fires
 			if ( pSoldier->ubAttackingHand == HANDPOS )
 			{
-				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+				// Flugente: if we fire multiple barrels, only deduct points APs on the first one
+				if ( !pSoldier->usBarrelCounter )
+					DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
 			}
 		}
 		else
 		{
-			DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+			// Flugente: if we fire multiple barrels, only deduct points APs on the first one
+			if ( !pSoldier->usBarrelCounter )
+				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
 		}
 
 		//PLAY SOUND
@@ -3003,7 +3116,8 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_GUNFIRE );
 
-	if ( pSoldier->bDoBurst )
+	// Flugente: if we fire multiple barrels, only do this on first one
+	if ( pSoldier->bDoBurst && !pSoldier->usBarrelCounter )
 	{
 		// done, if bursting, increment
 		pSoldier->bDoBurst++;
@@ -4183,6 +4297,30 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	return( TRUE );
 }
 
+// Flugente: this function calls UseLauncher and handles the firing of severeal shots at once
+BOOLEAN UseLauncherWrapper( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
+{
+	// determine how many barrels to fire - if we want more than 1, check whether the gun supports this, if not, adjust
+	UINT8 barrelstofire = 1;
+	pSoldier->usBarrelMode = max( 1, pSoldier->usBarrelMode );
+	if ( pSoldier->usBarrelMode > barrelstofire )
+	{
+		// determine how many barrels the gun can fire in the first place (we need this check in case the weapon changed in our hands or we firing a different weapon from the second hand)
+		OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
+
+		barrelstofire = GetFittingBarrelMode( pObjUsed->usItem, pSoldier->usBarrelMode );
+
+		// limit shots by ammo
+		//barrelstofire = min( barrelstofire, ( *pObjUsed )[0]->data.gun.ubGunShotsLeft );
+	}
+
+	for ( pSoldier->usBarrelCounter = 0; pSoldier->usBarrelCounter < barrelstofire; ++pSoldier->usBarrelCounter )
+	{
+		UseLauncher( pSoldier, sTargetGridNo );
+	}
+
+	return TRUE;
+}
 
 BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {
@@ -4338,17 +4476,20 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 			iBPCost = 0;
 	}
 
-	if ( pSoldier->bDoBurst )
+	if ( !pSoldier->usBarrelCounter )
 	{
-		// ONly deduct points once
-		if ( pSoldier->bDoBurst == 1 )
+		if ( pSoldier->bDoBurst )
+		{
+			// ONly deduct points once
+			if ( pSoldier->bDoBurst == 1 )
+			{
+				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+			}
+		}
+		else
 		{
 			DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
 		}
-	}
-	else
-	{
-		DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -4381,7 +4522,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	MemFree( pSoldier->pThrowParams );
 	pSoldier->pThrowParams = NULL;
 
-	if ( pSoldier->bDoBurst )
+	if ( pSoldier->bDoBurst && !pSoldier->usBarrelCounter )
 	{
 		// done, if bursting, increment
 		pSoldier->bDoBurst++;
@@ -9470,7 +9611,6 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 	return (iChance);
 }
 
-
 void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 {
 	// ATE: Don't do this if in a fire amimation.....
@@ -9479,30 +9619,45 @@ void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 		return;
 	}
 
-	do
+	// Flugente: if there is a higher barrel configuration, use that
+	// otherwise, go back to one barrel and try next mode
+	pSoldier->usBarrelMode = max( 1, pSoldier->usBarrelMode );
+	UINT8 nextbarrelmode = GetNextBarrelMode( pSoldier->inv[HANDPOS].usItem, pSoldier->usBarrelMode );
+	if ( nextbarrelmode > pSoldier->usBarrelMode )
 	{
-		pSoldier->bWeaponMode++;
-		if(pSoldier->bWeaponMode == NUM_WEAPON_MODES)
+		pSoldier->usBarrelMode = nextbarrelmode;
+	}
+	else
+	{
+		// start again with the first barrel configuration
+		pSoldier->usBarrelMode = nextbarrelmode;
+
+		do
 		{
-			if ( Weapon[pSoldier->inv[HANDPOS].usItem].NoSemiAuto )
-				pSoldier->bWeaponMode = WM_AUTOFIRE;
-			else
-				pSoldier->bWeaponMode = WM_NORMAL;
+			pSoldier->bWeaponMode++;
 
-			if ( HasAttachmentOfClass( &(pSoldier->inv[HANDPOS]), AC_RIFLEGRENADE) )
+			if ( pSoldier->bWeaponMode == NUM_WEAPON_MODES )
 			{
-				OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher( &(pSoldier->inv[HANDPOS]) );
+				if ( Weapon[pSoldier->inv[HANDPOS].usItem].NoSemiAuto )
+					pSoldier->bWeaponMode = WM_AUTOFIRE;
+				else
+					pSoldier->bWeaponMode = WM_NORMAL;
 
-				if ( pRifleGrenadeDeviceObj && FindLaunchableAttachment( &(pSoldier->inv[HANDPOS]), pRifleGrenadeDeviceObj->usItem) )
+				if ( HasAttachmentOfClass( &( pSoldier->inv[HANDPOS] ), AC_RIFLEGRENADE ) )
 				{
-					pSoldier->bWeaponMode = WM_ATTACHED_GL;
+					OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher( &( pSoldier->inv[HANDPOS] ) );
+
+					if ( pRifleGrenadeDeviceObj && FindLaunchableAttachment( &( pSoldier->inv[HANDPOS] ), pRifleGrenadeDeviceObj->usItem ) )
+					{
+						pSoldier->bWeaponMode = WM_ATTACHED_GL;
+					}
 				}
 			}
 		}
+		// Changed by ADB, rev 1513
+		//while(IsGunWeaponModeCapable( pSoldier, HANDPOS, pSoldier->bWeaponMode ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL);
+		while ( IsGunWeaponModeCapable( &pSoldier->inv[HANDPOS], static_cast<WeaponMode>( pSoldier->bWeaponMode ), pSoldier ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL );
 	}
-	// Changed by ADB, rev 1513
-	//while(IsGunWeaponModeCapable( pSoldier, HANDPOS, pSoldier->bWeaponMode ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL);
-	while(IsGunWeaponModeCapable( &pSoldier->inv[HANDPOS], static_cast<WeaponMode>(pSoldier->bWeaponMode), pSoldier ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL);
 	
 	if (pSoldier->bWeaponMode == WM_AUTOFIRE || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO)
 	{
