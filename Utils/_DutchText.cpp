@@ -7466,6 +7466,7 @@ STR16 New113Message[] =
 	L"a binocular",
 	L"patience",
 	L"%s's shield has been destroyed!",	// TODO.Translate
+	L" DELAY",	// TODO.Translate
 };
 
 // TODO.Translate

@@ -7454,6 +7454,7 @@ STR16 New113Message[] =
 	L"望远镜",
 	L"耐心",
 	L"%s 的防护盾毁坏了！", //L"%s's shield has been destroyed!",
+	L" DELAY",	// TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 

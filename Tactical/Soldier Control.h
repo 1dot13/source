@@ -1550,9 +1550,10 @@ public:
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
 	UINT8	ubFiller[12];
-	UINT8	ubFiller1[2];
-
-	// Flugente: keep track of data for multi-barrel guns
+	UINT8	ubFiller1;
+	
+	// Flugente: modifiers to fire modes
+	UINT8	usGLDelayMode;			// if > 0, delay GL grenade explosions
 	UINT8	usBarrelMode;			// states how many barrels we are currently using as modifier for our fire mode
 	UINT8	usBarrelCounter;		// states which barrel we are currently firing from (used during the firing process)
 

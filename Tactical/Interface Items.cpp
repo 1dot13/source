@@ -4246,6 +4246,13 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					SetFontForeground( FONT_ORANGE );
 				}
 
+				if ( ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO ) ||
+					( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_LAUNCHER && !Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher ) ) &&
+					pSoldier->usGLDelayMode )
+				{
+					wcscat( pStr, New113Message[MSG113_FIREMODE_GL_DELAYED] );
+				}
+
 				// Flugente: display barrel mode if necessary
 				if ( pSoldier->usBarrelMode > 1 )
 					swprintf( pStr2, L"%s x%d", pStr, pSoldier->usBarrelMode );

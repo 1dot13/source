@@ -4503,6 +4503,12 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, 0, &Launchable, uiHitChance, THROW_ARM_ITEM, 0, usItemNum );
 
+	// Flugente: depending on fire mode, delay explosion
+	if ( pSoldier->usGLDelayMode )
+	{
+		( *pSoldier->pTempObject )[0]->data.sObjectFlag |= DELAYED_GRENADE_EXPLOSION;
+	}
+
 	iID = CreatePhysicalObject( pSoldier->pTempObject, pSoldier->pThrowParams->dLifeSpan,  pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, FALSE );
 
 	// OJW - 20091002 - Explosives
@@ -9619,44 +9625,56 @@ void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 		return;
 	}
 
-	// Flugente: if there is a higher barrel configuration, use that
-	// otherwise, go back to one barrel and try next mode
-	pSoldier->usBarrelMode = max( 1, pSoldier->usBarrelMode );
-	UINT8 nextbarrelmode = GetNextBarrelMode( pSoldier->inv[HANDPOS].usItem, pSoldier->usBarrelMode );
-	if ( nextbarrelmode > pSoldier->usBarrelMode )
+	// Flugente: if we are in a GL fire mode, switch between impact/delayed mode
+	if ( ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO) ||
+		( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_LAUNCHER && !Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher) ) &&
+		!pSoldier->usGLDelayMode )
 	{
-		pSoldier->usBarrelMode = nextbarrelmode;
+		pSoldier->usGLDelayMode = 1;
 	}
 	else
 	{
-		// start again with the first barrel configuration
-		pSoldier->usBarrelMode = nextbarrelmode;
+		pSoldier->usGLDelayMode = 0;
 
-		do
+		// Flugente: if there is a higher barrel configuration, use that
+		// otherwise, go back to one barrel and try next mode
+		pSoldier->usBarrelMode = max( 1, pSoldier->usBarrelMode );
+		UINT8 nextbarrelmode = GetNextBarrelMode( pSoldier->inv[HANDPOS].usItem, pSoldier->usBarrelMode );
+		if ( nextbarrelmode > pSoldier->usBarrelMode )
 		{
-			pSoldier->bWeaponMode++;
+			pSoldier->usBarrelMode = nextbarrelmode;
+		}
+		else
+		{
+			// start again with the first barrel configuration
+			pSoldier->usBarrelMode = nextbarrelmode;
 
-			if ( pSoldier->bWeaponMode == NUM_WEAPON_MODES )
+			do
 			{
-				if ( Weapon[pSoldier->inv[HANDPOS].usItem].NoSemiAuto )
-					pSoldier->bWeaponMode = WM_AUTOFIRE;
-				else
-					pSoldier->bWeaponMode = WM_NORMAL;
+				pSoldier->bWeaponMode++;
 
-				if ( HasAttachmentOfClass( &( pSoldier->inv[HANDPOS] ), AC_RIFLEGRENADE ) )
+				if ( pSoldier->bWeaponMode == NUM_WEAPON_MODES )
 				{
-					OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher( &( pSoldier->inv[HANDPOS] ) );
+					if ( Weapon[pSoldier->inv[HANDPOS].usItem].NoSemiAuto )
+						pSoldier->bWeaponMode = WM_AUTOFIRE;
+					else
+						pSoldier->bWeaponMode = WM_NORMAL;
 
-					if ( pRifleGrenadeDeviceObj && FindLaunchableAttachment( &( pSoldier->inv[HANDPOS] ), pRifleGrenadeDeviceObj->usItem ) )
+					if ( HasAttachmentOfClass( &( pSoldier->inv[HANDPOS] ), AC_RIFLEGRENADE ) )
 					{
-						pSoldier->bWeaponMode = WM_ATTACHED_GL;
+						OBJECTTYPE* pRifleGrenadeDeviceObj = FindAttachment_GrenadeLauncher( &( pSoldier->inv[HANDPOS] ) );
+
+						if ( pRifleGrenadeDeviceObj && FindLaunchableAttachment( &( pSoldier->inv[HANDPOS] ), pRifleGrenadeDeviceObj->usItem ) )
+						{
+							pSoldier->bWeaponMode = WM_ATTACHED_GL;
+						}
 					}
 				}
 			}
+			// Changed by ADB, rev 1513
+			//while(IsGunWeaponModeCapable( pSoldier, HANDPOS, pSoldier->bWeaponMode ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL);
+			while ( IsGunWeaponModeCapable( &pSoldier->inv[HANDPOS], static_cast<WeaponMode>( pSoldier->bWeaponMode ), pSoldier ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL );
 		}
-		// Changed by ADB, rev 1513
-		//while(IsGunWeaponModeCapable( pSoldier, HANDPOS, pSoldier->bWeaponMode ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL);
-		while ( IsGunWeaponModeCapable( &pSoldier->inv[HANDPOS], static_cast<WeaponMode>( pSoldier->bWeaponMode ), pSoldier ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL );
 	}
 	
 	if (pSoldier->bWeaponMode == WM_AUTOFIRE || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO || pSoldier->bWeaponMode == WM_ATTACHED_UB_AUTO)

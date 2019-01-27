@@ -7454,6 +7454,7 @@ STR16 New113Message[] =
 	L"a binocular",
 	L"patience",
 	L"%s's shield has been destroyed!",
+	L" DELAY",
 };
 
 STR16 New113HAMMessage[] = 
