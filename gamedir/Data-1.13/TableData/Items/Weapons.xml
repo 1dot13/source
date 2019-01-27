@@ -46,7 +46,11 @@
 		<usOverheatingDamageThreshold>5000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>80</usOverheatingSingleShotTemperature>
 		<HeavyGun>0</HeavyGun>
-		<fBurstOnlyByFanTheHammer>0</fBurstOnlyByFanTheHammer>	<!-- any one-handed gun with this tag can access its burst mode only if the user is a gunslinger holding it in alternate aim mode (eye symbol on gun) -->
+		<fBurstOnlyByFanTheHammer>0</fBurstOnlyByFanTheHammer>	<!-- burst mode is accessible only if the user is a gunslinger holding it in hipfire (eye symbol on gun) -->
+		<!-- This tag allows setting how many bullets the gun can fire per shot -->
+		<!-- if no value is set, it is assumed the gun can fire from one barrel -->
+		<!-- this tag can be added multiple times -->
+		<BarrelConfiguration>0</BarrelConfiguration>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1</uiIndex>
@@ -6533,6 +6537,9 @@
 		<usOverheatingJamThreshold>60000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>60000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>45</usOverheatingSingleShotTemperature>
+		<BarrelConfiguration>4</BarrelConfiguration>
+		<BarrelConfiguration>6</BarrelConfiguration>
+		<BarrelConfiguration>8</BarrelConfiguration>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>687</uiIndex>
@@ -7464,7 +7471,6 @@
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>11.99</ubShotsPer4Turns>
-		<ubShotsPerBurst>2</ubShotsPerBurst>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>36</ubImpact>
 		<ubDeadliness>25</ubDeadliness>
@@ -7489,6 +7495,8 @@
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
+		<BarrelConfiguration>1</BarrelConfiguration>
+		<BarrelConfiguration>2</BarrelConfiguration>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>712</uiIndex>
@@ -9128,6 +9136,8 @@
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>15000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>150</usOverheatingSingleShotTemperature>
+		<BarrelConfiguration>1</BarrelConfiguration>
+		<BarrelConfiguration>2</BarrelConfiguration>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>755</uiIndex>
