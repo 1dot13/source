@@ -4073,7 +4073,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
 			}
 
-			if ( gGameExternalOptions.fScopeModes && pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
+			if ( gGameExternalOptions.fScopeModes && pSoldier && pObject == &(pSoldier->inv[HANDPOS] ) && ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_BOBBY_GUN ) )
 			{
 				sNewX = sX + 5; // rather arbitrary
 				sNewY = sY;
