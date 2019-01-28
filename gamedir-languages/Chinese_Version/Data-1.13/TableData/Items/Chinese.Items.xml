@@ -14025,4 +14025,20 @@
 		<szBRName>止痛片</szBRName>
 		<szBRDesc>非常有效的止痛药剂。注意：请在医师的指导下购买和使用。</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1753</uiIndex>
+		<szItemName>脏绷带</szItemName>
+		<szLongItemName>脏绷带</szLongItemName>
+		<szItemDesc>这些简单的绷带是用破布做的。还止不住血，也不符合卫生标准。。。</szItemDesc>
+		<szBRName>脏绷带</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1754</uiIndex>
+		<szItemName>绷带</szItemName>
+		<szLongItemName>绷带</szLongItemName>
+		<szItemDesc>这些简单的绷带是用破布做的。它们很干净，可还是止不住血，这就是问题所在。</szItemDesc>
+		<szBRName>绷带</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+	</ITEM>
 </ITEMLIST>
