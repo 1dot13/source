@@ -972,6 +972,18 @@ BOOLEAN CanCharacterDiagnoseDisease( SOLDIERTYPE *pSoldier )
 	if ( SPY_LOCATION( pSoldier->bAssignment ) )
 		return( FALSE );
 
+	// in transit?
+	if ( IsCharacterInTransit( pSoldier ) )
+	{
+		return FALSE;
+	}
+
+	// character on the move?
+	if ( CharacterIsBetweenSectors( pSoldier ) )
+	{
+		return FALSE;
+	}
+
 	// all criteria fit, can doctor
 	return TRUE;
 }
