@@ -231,7 +231,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -274,7 +274,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -2092,7 +2092,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -7342,7 +7342,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -8438,7 +8438,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -9768,7 +9768,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>5</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>8</bBurstAP>
@@ -9810,7 +9810,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>5</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>8</bBurstAP>
@@ -10907,7 +10907,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -10950,7 +10950,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -11098,7 +11098,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -11140,7 +11140,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -11183,7 +11183,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -12907,7 +12907,7 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>27</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
