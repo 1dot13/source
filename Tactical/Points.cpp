@@ -2910,7 +2910,7 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 					return ( TRUE );
 				}
 
-				if ( fDisplay )
+				if ( fDisplay && ( Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) || GetMagSize( pObjUsed, 0 ) > 4 ) )
 				{
 					TacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_AMMO );
 				}
@@ -2921,10 +2921,11 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 			{
 				if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft == 0 )
 				{
-					if ( fDisplay )
+					if ( fDisplay && ( Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) || GetMagSize( pObjUsed, 0 ) > 4 ) )
 					{
 						TacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_AMMO );
 					}
+
 					return( FALSE );
 				}
 
