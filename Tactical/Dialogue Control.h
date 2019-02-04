@@ -359,6 +359,7 @@ enum AdditionalDialogEvents
 	ADE_BANDAGE_PERFORM_END,				// we finished bandaging someone, aData1 is the profile of person
 	ADE_BANDAGE_RECEIVE_BEGIN,				// someone bandages us, aData1 is the profile of person
 	ADE_BANDAGE_RECEIVE_END,				// someone finished bandaging us, aData1 is the profile of person
+	ADE_ZOMBIESRISE,						// a new wave of zombies is spawned from corpses
 };
 
 // We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said

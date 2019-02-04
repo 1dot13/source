@@ -2744,6 +2744,9 @@ void RaiseZombies( void )
 #endif
 				SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
+				// Flugente: additional dialogue
+				AdditionalTacticalCharacterDialogue_AllInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, NO_PROFILE, ADE_ZOMBIESRISE );
+
 				// alert the creatures
 				HandleInitialRedAlert( CREATURE_TEAM, FALSE );
 
