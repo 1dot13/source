@@ -2029,6 +2029,9 @@ BOOLEAN IsValidStripCorpse( ROTTING_CORPSE *pCorpse )
 	if ( pCorpse->def.ubType == ROTTING_STAGE2 || ((pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST) && (pCorpse->def.usFlags & ROTTING_CORPSE_NO_PANTS)) )
 		return( FALSE );
 
+	if ( pCorpse->def.ubType == BLOODCAT_DEAD )
+		return TRUE;
+
 	return( CorpseOkToDress(pCorpse) );
 }
 
@@ -2043,31 +2046,53 @@ BOOLEAN StripCorpse( SOLDIERTYPE *pSoldier, INT32 sGridNo,  INT8 bLevel )
 	// can this thing be stripped?
 	if ( IsValidStripCorpse( pCorpse ) )
 	{
-		// determine which clothes to spawn
-		if ( !(pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST) )
+		if ( pCorpse->def.ubType == BLOODCAT_DEAD )
 		{
-			UINT16 vestitem = 0;
-			if ( GetFirstClothesItemWithSpecificData(&vestitem, pCorpse->def.VestPal, "blank")  )
-			{
-				CreateItem( vestitem, 100, &gTempObject );
-				if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-					AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, bLevel, 0, -1 );
-			}
-			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
-		}
+			UINT16 peltitem = 232;
+			if ( !HasItemFlag( peltitem, SKIN_BLOODCAT ) )
+				GetFirstItemWithFlag( &peltitem, SKIN_BLOODCAT );
 
-		if ( !(pCorpse->def.usFlags & ROTTING_CORPSE_NO_PANTS) )
+			// status depends on whether the cat pellet has holes in it, and whether we might have a bit of knowledge about skinning
+			INT16 status = 70;
+			if ( ( pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST ) )
+				status -= 40;
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, MELEE_NT ) )
+				status += 5;
+			if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, DOCTOR_NT ) )
+				status += 5;
+
+			CreateItem( peltitem, status + Random(20), &gTempObject );
+			if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+				AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, bLevel, 0, -1 );
+		}
+		else
 		{
-			UINT16 pantsitem = 0;
-			if ( GetFirstClothesItemWithSpecificData(&pantsitem, "blank", pCorpse->def.PantsPal)  )
+			// determine which clothes to spawn
+			if ( !( pCorpse->def.usFlags & ROTTING_CORPSE_NO_VEST ) )
 			{
-				CreateItem( pantsitem, 100, &gTempObject );
-				if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
-					AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, bLevel, 0, -1 );
+				UINT16 vestitem = 0;
+				if ( GetFirstClothesItemWithSpecificData( &vestitem, pCorpse->def.VestPal, "blank" ) )
+				{
+					CreateItem( vestitem, 100, &gTempObject );
+					if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+						AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, bLevel, 0, -1 );
+				}
+				else
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
 			}
-			else
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+
+			if ( !( pCorpse->def.usFlags & ROTTING_CORPSE_NO_PANTS ) )
+			{
+				UINT16 pantsitem = 0;
+				if ( GetFirstClothesItemWithSpecificData( &pantsitem, "blank", pCorpse->def.PantsPal ) )
+				{
+					CreateItem( pantsitem, 100, &gTempObject );
+					if ( !AutoPlaceObject( pSoldier, &gTempObject, FALSE ) )
+						AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, bLevel, 0, -1 );
+				}
+				else
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
+			}
 		}
 
 		// we took the clothes, mark this

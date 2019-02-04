@@ -6288,6 +6288,9 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 
 	case BLOODCAT:
 		this->EVENT_InitNewSoldierAnim( BLOODCAT_HIT, 0, FALSE );
+
+		if ( Item[usWeaponIndex].usItemClass & ( IC_EXPLOSV | IC_BOBBY_GUN ) )
+			this->usSoldierFlagMask |= SOLDIER_DAMAGED_VEST;
 		return;
 		break;
 
