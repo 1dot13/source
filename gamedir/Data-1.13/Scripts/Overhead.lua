@@ -2843,6 +2843,7 @@ DialogueActionEvent =
 	ADE_BANDAGE_PERFORM_END = 19,			-- we finished bandaging someone, aData1 is the profile of person
 	ADE_BANDAGE_RECEIVE_BEGIN = 20,			-- someone bandages us, aData1 is the profile of person
 	ADE_BANDAGE_RECEIVE_END = 21,			-- someone finished bandaging us, aData1 is the profile of person
+	ADE_ZOMBIESRISE = 22,					-- a new wave of zombies is spawned from corpses
 }
 
 -- functions used here:
