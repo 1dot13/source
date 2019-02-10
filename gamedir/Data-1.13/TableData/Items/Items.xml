@@ -197,6 +197,7 @@
 		<usRiotShieldGraphic>0</usRiotShieldGraphic>
 		<bloodbag>0</bloodbag>
 		<emptybloodbag>0</emptybloodbag>
+		<sFireResistance>0</sFireResistance>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -24432,6 +24433,7 @@
 		<FlakJacket>1</FlakJacket>
 		<PercentTunnelVision>7</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<sFireResistance>10</sFireResistance>
 		<STAND_MODIFIERS>
 			<PercentCap>-5</PercentCap>
 			<PercentCounterForceAccuracy>-10</PercentCounterForceAccuracy>
@@ -24475,6 +24477,7 @@
 		<APBonus>-10</APBonus>
 		<StealthBonus>-30</StealthBonus>
 		<FlakJacket>1</FlakJacket>
+		<sFireResistance>15</sFireResistance>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentHandling>-4</PercentHandling>
@@ -24516,6 +24519,7 @@
 		<APBonus>-8</APBonus>
 		<StealthBonus>-25</StealthBonus>
 		<FlakJacket>1</FlakJacket>
+		<sFireResistance>25</sFireResistance>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS>
 			<PercentBase>-40</PercentBase>
@@ -24919,6 +24923,7 @@
 		<StealthBonus>-23</StealthBonus>
 		<PercentTunnelVision>7</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<sFireResistance>10</sFireResistance>
 		<STAND_MODIFIERS>
 			<PercentCap>-6</PercentCap>
 			<PercentCounterForceAccuracy>-12</PercentCounterForceAccuracy>
@@ -24959,6 +24964,7 @@
 		<APBonus>-11</APBonus>
 		<StealthBonus>-33</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<sFireResistance>15</sFireResistance>
 		<STAND_MODIFIERS>
 			<PercentHandling>-5</PercentHandling>
 		</STAND_MODIFIERS>
@@ -24996,6 +25002,7 @@
 		<APBonus>-9</APBonus>
 		<StealthBonus>-28</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<sFireResistance>25</sFireResistance>
 		<STAND_MODIFIERS>
 			<PercentBase>-46</PercentBase>
 			<PercentCap>-17</PercentCap>
@@ -25398,6 +25405,7 @@
 		<StealthBonus>-17</StealthBonus>
 		<PercentTunnelVision>7</PercentTunnelVision>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<sFireResistance>10</sFireResistance>
 		<STAND_MODIFIERS>
 			<PercentCap>-4</PercentCap>
 			<PercentCounterForceAccuracy>-8</PercentCounterForceAccuracy>
@@ -25439,6 +25447,7 @@
 		<APBonus>-10</APBonus>
 		<StealthBonus>-27</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<sFireResistance>15</sFireResistance>
 		<STAND_MODIFIERS>
 			<PercentHandling>-3</PercentHandling>
 		</STAND_MODIFIERS>
@@ -25477,6 +25486,7 @@
 		<APBonus>-8</APBonus>
 		<StealthBonus>-22</StealthBonus>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<sFireResistance>25</sFireResistance>
 		<STAND_MODIFIERS>
 			<PercentBase>-36</PercentBase>
 			<PercentCap>-14</PercentCap>
