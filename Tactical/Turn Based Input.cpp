@@ -4222,15 +4222,15 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								switch( gGameOptions.ubIronManMode )
 								{
 									case 2:
-										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__SOFT_IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL );
+										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__SOFT_IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, MSG_BOX_FLAG_OK, NULL );
 										break;
 									case 3:
 										CHAR16 zTemp[320];
 										swprintf( zTemp, zNewTacticalMessages[ TCTL_MSG__EXTREME_IRON_MAN_CANT_SAVE_NOW ], gGameExternalOptions.ubExtremeIronManSavingHour);
-										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL );
+										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, MSG_BOX_FLAG_OK, NULL );
 										break;
 									default:
-										DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+										DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, MSG_BOX_FLAG_OK, NULL, NULL );
 										break;
 								}
 							}
@@ -8722,7 +8722,7 @@ INT32 InvItemType( UINT16 usItem )
 		return INV_ITEM_TYPE_FIRSTAID;
 	if( Item[ usItem ].usItemClass == IC_BLADE )
 		return INV_ITEM_TYPE_MELEE;
-	if( Item[ usItem ].usItemClass == IC_PUNCH && !(Item[ usItem ].usItemFlag & TASER) )
+	if( Item[ usItem ].usItemClass == IC_PUNCH && !HasItemFlag( usItem, TASER ) )
 		return INV_ITEM_TYPE_HTH;
 	if( HasItemFlag( usItem, HANDCUFFS ) )
 	//if( Item[ usItem ].usItemClass == IC_MISC && Item[ usItem ].usItemFlag & HANDCUFFS )
@@ -8730,7 +8730,7 @@ INT32 InvItemType( UINT16 usItem )
 	//Item[ uiItem ].usSpotting
 	if( Item[ usItem ].usItemClass == IC_MISC && Item[ usItem ].dayvisionrangebonus )
 		return INV_ITEM_TYPE_BINOCULARS;
-	if( Item[ usItem ].usItemFlag & TASER )
+	if( HasItemFlag( usItem, TASER ) )
 		return INV_ITEM_TYPE_TASER;
 	if( Item[ usItem ].usItemClass == IC_GUN && !Item[ usItem ].twohanded && Weapon[Item[ usItem ].ubClassIndex].ubWeaponType <= GUN_SMG )
 		return INV_ITEM_TYPE_SIDEARM;

@@ -550,7 +550,7 @@ void HandleShortCutExitState( void )
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN )
 	{
-		DoMessageBox(	MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ],	guiCurrentScreen, ( UINT8 ) ( MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT ),	EndGameMessageBoxCallBack,	&pCenteringRect );
+		DoMessageBox(	MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ],	guiCurrentScreen, ( MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT ),	EndGameMessageBoxCallBack,	&pCenteringRect );
 		return;
 	}
 

@@ -37,7 +37,7 @@ void			BlitTitleBarIcons( void );
 void			HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 usKeyState );
 BOOLEAN		RenderWWWProgramTitleBar( void );
 void			DisplayProgramBoundingBox( BOOLEAN fMarkButtons );
-BOOLEAN		DoLapTopSystemMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
+BOOLEAN		DoLapTopSystemMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback );
 BOOLEAN		RemoveBookMark( INT32 iBookId );
 void			CreateFileAndNewEmailIconFastHelpText( UINT32 uiHelpTextID, BOOLEAN fClearHelpText );
 BOOLEAN		InitLaptopAndLaptopScreens();

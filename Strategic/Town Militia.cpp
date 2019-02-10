@@ -912,7 +912,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 	}
 }
 
-void DoContinueMilitiaTrainingMessageBox( INT16 sSectorX, INT16 sSectorY, const STR16 str, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoContinueMilitiaTrainingMessageBox( INT16 sSectorX, INT16 sSectorY, const STR16 str, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	if( sSectorX <= 10 && sSectorY >= 6 && sSectorY <= 11 )
 	{

@@ -416,6 +416,9 @@ INT32 PrepareMercPopupBox(	INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorder
 	if( usWidth >= MERC_BACKGROUND_WIDTH )
 		usWidth = MERC_BACKGROUND_WIDTH-1;
 
+	if ( usHeight >= MERC_BACKGROUND_HEIGHT )
+		usHeight = MERC_BACKGROUND_HEIGHT - 1;
+
 	//make sure the area isnt bigger then the background texture
 	if( ( usWidth >= MERC_BACKGROUND_WIDTH ) || usHeight >= MERC_BACKGROUND_HEIGHT)
 	{

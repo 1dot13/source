@@ -465,12 +465,26 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 	// Create four numbered buttons
 	else if ( usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS )
 	{
-		sButtonX = (usTextBoxWidth - 115)/ 2;
 		sButtonY = usTextBoxHeight - MSGBOX_BUTTON_HEIGHT - 130 - MSGBOX_SMALL_BUTTON_WIDTH - MSGBOX_SMALL_BUTTON_X_SEP;
 
+		if ( usFlags & MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION )
+		{
+			sBlankSpace = usTextBoxWidth - (MSGBOX_BUTTON_WIDTH + MSGBOX_SMALL_BUTTON_X_SEP) * 4;
+			sButtonX = MSGBOX_SMALL_BUTTON_X_SEP;
+			sButtonY += 60;
+		}
+		else
+		{
+			sButtonX = ( usTextBoxWidth - 115 ) / 2;
+		}
+		
 		for ( INT8 j = 0; j < 4; ++j)
 		{
-			sButtonY += 35;
+			if ( usFlags & MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION )
+				sButtonX += 60;
+			else
+				sButtonY += 35;
+
 			gMsgBox.uiButton[j] = CreateIconAndTextButton( gMsgBox.iButtonImages, gzUserDefinedButton[j], FONT12ARIAL,
 													ubFontColor, ubFontShadowColor,
 													ubFontColor, ubFontShadowColor,
@@ -1703,28 +1717,28 @@ UINT32	MessageBoxScreenShutdown(	)
 
 
 // a basic box that don't care what screen we came from
-void DoScreenIndependantMessageBox( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoScreenIndependantMessageBox( const STR16 zString, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
 	DoScreenIndependantMessageBoxWithRect(	zString, usFlags, ReturnCallback, &CenteringRect );
 }
 
 // a basic box that don't care what screen we came from
-void DoUpperScreenIndependantMessageBox( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoUpperScreenIndependantMessageBox( const STR16 zString, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y / 2 };
 	DoScreenIndependantMessageBoxWithRect( zString, usFlags, ReturnCallback, &CenteringRect );
 }
 
 // a basic box that don't care what screen we came from
-void DoLowerScreenIndependantMessageBox( STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoLowerScreenIndependantMessageBox( STR16 zString, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {0, INV_INTERFACE_START_Y / 2, SCREEN_WIDTH, INV_INTERFACE_START_Y };
 	DoScreenIndependantMessageBoxWithRect( zString, usFlags, ReturnCallback, &CenteringRect );
 }
 
 
-void DoScreenIndependantMessageBoxWithRect( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+void DoScreenIndependantMessageBoxWithRect( const STR16 zString, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 
 	/// which screen are we in?

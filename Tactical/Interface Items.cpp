@@ -6362,7 +6362,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				{
 					iItemPosition = uiItemPos;
 					gbMessageBoxSubObject = (UINT8)ubStatusIndex;
-					DoScreenIndependantMessageBox( Message[ STR_PERMANENT_ATTACHMENT ], ( UINT8 )MSG_BOX_FLAG_YESNO, PermanantAttachmentMessageBoxCallBack );
+					DoScreenIndependantMessageBox( Message[ STR_PERMANENT_ATTACHMENT ], MSG_BOX_FLAG_YESNO, PermanantAttachmentMessageBoxCallBack );
 					return;
 				}
 

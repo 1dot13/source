@@ -5270,19 +5270,19 @@ BOOLEAN		DoLapTopMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitSc
 }
 
 
-BOOLEAN DoLapTopSystemMessageBoxWithRect( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+BOOLEAN DoLapTopSystemMessageBoxWithRect( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 	// reset exit mode
 	fExitDueToMessageBox = TRUE;
 
 	// do message box and return
-	iLaptopMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	pCenteringRect );
+	iLaptopMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	pCenteringRect );
 
 	// send back return state
 	return( ( iLaptopMessageBox != -1 ) );
 }
 
-BOOLEAN DoLapTopSystemMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+BOOLEAN DoLapTopSystemMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {iScreenWidthOffset, iScreenHeightOffset,
 		iScreenWidthOffset + 640, INV_INTERFACE_START_Y };
@@ -5292,7 +5292,7 @@ BOOLEAN DoLapTopSystemMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScr
 	fExitDueToMessageBox = TRUE;
 
 	// do message box and return
-	iLaptopMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback, &CenteringRect );
+	iLaptopMessageBox = DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback, &CenteringRect );
 
 	// send back return state
 	return( ( iLaptopMessageBox != -1 ) );
