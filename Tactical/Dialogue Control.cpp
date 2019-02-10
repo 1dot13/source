@@ -1162,7 +1162,7 @@ void HandleDialogue( )
 					}
 				break;
 
-				case8:
+				case 8:
 					//if the player is trading items
 					swprintf( zText, SkiMessageBoxText[SKI_QUESTION_TO_DEDUCT_INTEL_FROM_PLAYERS_ACCOUNT_TO_COVER_DIFFERENCE], zMoney );
 
