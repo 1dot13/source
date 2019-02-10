@@ -175,6 +175,8 @@
 		<CrowbarModifier>0</CrowbarModifier>
 		<DisarmModifier>0</DisarmModifier>
 		<RepairModifier>0</RepairModifier>
+		<usHackingModifier>0</usHackingModifier>
+		<usBurialModifier>0</usBurialModifier>
 		<DamageChance>0</DamageChance>
 		<DirtIncreaseFactor>0.0</DirtIncreaseFactor>
 		<clothestype>0</clothestype>
@@ -191,6 +193,10 @@
 		<usPortionSize>0</usPortionSize>
 		<diseaseprotectionface>0</diseaseprotectionface>
 		<diseaseprotectionhand>0</diseaseprotectionhand>
+		<usRiotShieldStrength>0</usRiotShieldStrength>
+		<usRiotShieldGraphic>0</usRiotShieldGraphic>
+		<bloodbag>0</bloodbag>
+		<emptybloodbag>0</emptybloodbag>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>

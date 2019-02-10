@@ -195,6 +195,8 @@
 		<diseaseprotectionhand>0</diseaseprotectionhand>
 		<usRiotShieldStrength>0</usRiotShieldStrength>
 		<usRiotShieldGraphic>0</usRiotShieldGraphic>
+		<bloodbag>0</bloodbag>
+		<emptybloodbag>0</emptybloodbag>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>
@@ -52142,6 +52144,53 @@
 		<NotBuyable>1</NotBuyable>
 		<Flare>1</Flare>
 		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1756</uiIndex>
+		<szItemName>E. Blood bag</szItemName>
+		<szLongItemName>Empty blood bag</szLongItemName>
+		<szItemDesc>This blood bag can be filled with the blood of a (hopefully willing) donor.</szItemDesc>
+		<szBRName>Blood bag</szBRName>
+		<szBRDesc>A simple blood bag, used to store blood for medical purposes.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>908</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>4</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<BR_NewInventory>6</BR_NewInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<emptybloodbag>1</emptybloodbag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1757</uiIndex>
+		<szItemName>Blood bag</szItemName>
+		<szLongItemName>Blood bag</szLongItemName>
+		<szItemDesc>This package of fresh blood can be used up to boost a surgery.</szItemDesc>
+		<szBRName>Blood bag</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubCursor>5</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>907</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
+		<ItemSize>18</ItemSize>
+		<usPrice>25</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Medical>1</Medical>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<bloodbag>1</bloodbag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
