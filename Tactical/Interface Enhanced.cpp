@@ -2345,6 +2345,18 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
 				cnt++;
 			}
+
+			//////////////////// FIRE RESISTANCE
+			if ( Item[gpItemDescObject->usItem].sFireResistance )
+			{
+				CHAR16 pStr2[256];
+				swprintf( pStr2, szUDBGenSecondaryStatsExplanationsTooltipText[45], Item[gpItemDescObject->usItem].sFireResistance );
+
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[45], pStr2 );
+				SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+				cnt++;
+			}
 		}
 
 		if (Item[ gpItemDescObject->usItem ].usItemClass & IC_AMMO)
@@ -6003,6 +6015,14 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 5, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			cnt++;
+		}
+
+		////////////////// FIRE RESISTANCE
+		if ( ( Item[gpItemDescObject->usItem].sFireResistance && !fComparisonMode ) ||
+			( fComparisonMode && Item[gpComparedItemDescObject->usItem].sFireResistance ) )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 43, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			++cnt;
 		}
 	}
 

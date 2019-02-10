@@ -1195,6 +1195,8 @@ typedef struct
 	UINT16	usRiotShieldStrength;	// strength of shield
 	UINT16	usRiotShieldGraphic;	// graphic of shield (when deployed in tactical, taken from Tilecache/riotshield.sti)
 
+	// Flugente: fire resistance
+	INT16	sFireResistance;
 } INVTYPE;
 
 

@@ -1255,6 +1255,43 @@ INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier )
 	return( (INT8) (iHelmet + iVest + iLeg + iVestPack) );
 }
 
+// Flugente: fire resistance
+INT16 FireEffectiveArmour( OBJECTTYPE * pObj )
+{
+	if ( pObj == NULL || Item[pObj->usItem].usItemClass != IC_ARMOUR )
+	{
+		return( 0 );
+	}
+
+	INT32 iValue = Item[pObj->usItem].sFireResistance * ( *pObj )[0]->data.objectStatus / 100;
+	
+	for ( attachmentList::iterator iter = ( *pObj )[0]->attachments.begin(); iter != ( *pObj )[0]->attachments.end(); ++iter )
+	{
+		if ( Item[iter->usItem].usItemClass == IC_ARMOUR && ( *iter )[0]->data.objectStatus > 0 && iter->exists() )
+		{
+			iValue += Item[iter->usItem].sFireResistance * ( *iter )[0]->data.objectStatus / 100;
+		}
+	}
+
+	return iValue;
+}
+
+INT16 ArmourVersusFirePercent( SOLDIERTYPE * pSoldier )
+{
+	INT16 val = 0;
+
+	for ( int i = BODYPOSSTART; i < BODYPOSFINAL; ++i )
+	{
+		if ( pSoldier->inv[i].exists() == true )
+		{
+			val += FireEffectiveArmour( &( pSoldier->inv[i] ) );
+		}
+	}
+
+	// resistance can't be higher than 100%. No, we don't allow healing by fire (yet?) ;-)
+	return min(100, val);
+}
+
 void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNewImpact, INT32 * piImpactForCrits )
 {
 	switch( ubHitLocation )

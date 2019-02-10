@@ -2138,6 +2138,15 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			}
 		}
 
+		// Flugente: check for fire resistance
+		if ( pExplosive->ubType == EXPLOSV_BURNABLEGAS )
+		{
+			INT16 fireresistance = ArmourVersusFirePercent( pSoldier );
+
+			sWoundAmt  = max( 0, sWoundAmt  * ( 100 - fireresistance ) / 100 );
+			sBreathAmt = max( 0, sBreathAmt * ( 100 - fireresistance ) / 100 );
+		}
+
 		// a gas effect, take damage directly...
 		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
 
