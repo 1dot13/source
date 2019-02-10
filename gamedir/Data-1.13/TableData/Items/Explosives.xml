@@ -2081,4 +2081,24 @@
 		<ubHorizontalDegree>0</ubHorizontalDegree>
 		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
+	<EXPLOSIVE><!-- Molotov light Internal -->
+		<uiIndex>104</uiIndex>
+		<ubType>4</ubType>
+		<ubDamage>0</ubDamage>
+		<ubStunDamage>0</ubStunDamage>
+		<ubRadius>3</ubRadius>
+		<ubVolume>0</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>1</ubAnimationID>
+		<ubDuration>8</ubDuration>
+		<ubStartRadius>4</ubStartRadius>
+		<ubMagSize>1</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
 </EXPLOSIVELIST>

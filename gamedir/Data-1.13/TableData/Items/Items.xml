@@ -30349,6 +30349,7 @@
 		<Damageable>1</Damageable>
 		<BigGunList>1</BigGunList>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<buddyitem>1755</buddyitem>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
@@ -52117,6 +52118,30 @@
 		<FirstAidKit>1</FirstAidKit>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<PercentStatusDrainReduction>-300</PercentStatusDrainReduction>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>	
+	<ITEM>
+		<uiIndex>1755</uiIndex>
+		<szItemName>Molotov light Internal</szItemName>
+		<szLongItemName>Molotov light Internal</szLongItemName>
+		<szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+		<szBRName>Flare Internal</szBRName>
+		<usItemClass>256</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>104</ubClassIndex>
+		<ubCursor>6</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>71</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>20</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<NotBuyable>1</NotBuyable>
+		<Flare>1</Flare>
+		<usOverheatingCooldownFactor>100</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />
