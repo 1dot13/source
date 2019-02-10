@@ -2439,6 +2439,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubDONumberTraitsNeededForSurgery = iniReader.ReadInteger("Doctor","NUMBER_OF_TRAITS_NEEDED_FOR_SURGERY", 1, 0, 2);
 	gSkillTraitValues.ubDOSurgeryHealPercentBase = iniReader.ReadInteger("Doctor","BASE_PERCENT_SURGERY_HEAL", 10, 0, 100);
 	gSkillTraitValues.ubDOSurgeryHealPercentOnTop = iniReader.ReadInteger("Doctor","ONTOP_PERCENT_SURGERY_HEAL_PER_TRAIT", 20, 0, 100);
+	gSkillTraitValues.ubDOSurgeryHealPercentBloodbag = iniReader.ReadInteger( "Doctor", "ONTOP_PERCENT_SURGERY_HEAL_BLOODBAG", 15, 0, 100 );
 	gSkillTraitValues.usDOSurgeryMedBagConsumption = iniReader.ReadInteger("Doctor","MEDICAL_BAG_CONSUMPTION_BY_SURGERY", 100, 0, 1000);
 	gSkillTraitValues.usDOSurgeryMaxBreathLoss = iniReader.ReadInteger("Doctor","MAX_ENERGY_LOSS_FOR_LIFE_HEALED", 100, 0, 500);
 	gSkillTraitValues.usDORepairStatsRateBasic = iniReader.ReadInteger("Doctor","REPAIR_STATS_RATE_BASIC", 20, 0, 1000);
@@ -3255,6 +3256,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_WATERTAP]						= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_WATERTAP", 20 ), 20 );
 	APBPConstants[AP_SODAMACHINE]					= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_SODAMACHINE", 30 ), 30 );
 	APBPConstants[AP_CAMERA]						= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_CAMERA", 30 ), 30 );
+	APBPConstants[AP_FILLBLOODBAG]					= DynamicAdjustAPConstants( iniReader.ReadInteger( "APConstants", "AP_FILLBLOODBAG", 100 ), 100 );
 		
 	APBPConstants[AP_ENTER_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_ENTER_VEHICLE",30),30);
 	APBPConstants[AP_EXIT_VEHICLE]						= DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EXIT_VEHICLE",30),30);
@@ -3321,6 +3323,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[BP_HANDCUFF]						= iniReader.ReadInteger("BPConstants","BP_HANDCUFF", 100);
 	APBPConstants[BP_APPLYITEM]						= iniReader.ReadInteger("BPConstants","BP_APPLYITEM", 5);	
 	APBPConstants[BP_INVENTORY_ARM]					= iniReader.ReadInteger("BPConstants","BP_INVENTORY_ARM", 0);
+	APBPConstants[BP_FILLBLOODBAG]					= iniReader.ReadInteger("BPConstants","BP_FILLBLOODBAG", 20 );
 			
 	SetupMaxActionPointsAnimation();
 #undef ReadInteger

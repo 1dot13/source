@@ -479,10 +479,10 @@ UINT64 GetAvailableAttachmentPoint ( OBJECTTYPE * pObject, UINT8 subObject );
 void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, INT8* defusefrequency );
 
 // Flugente: check for specific flags
-BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag );
+BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag );
 
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
-BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT32 aFlag );
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag );
 
 // Flugente: check if this object is currently fed from an external source (belts in inventory, other mercs)
 BOOLEAN ObjectIsBeingFedExternal(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject);

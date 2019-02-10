@@ -350,10 +350,10 @@ INT16 GetBPsToStealItem( SOLDIERTYPE *pSoldier );
 
 INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT32 usMapPos );
 INT16 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT32 usMapPos );
-INT16 GetBPsTouseJar( SOLDIERTYPE *pSoldier );
 
 INT16 GetAPsToHandcuff( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
 INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
+INT16 GetAPsToFillBloodbag( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
 INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType );	// added by Flugente
 
 INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT8 usActionType );	// added by Flugente

@@ -247,6 +247,7 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s bandaging speed\n",
 	L"+%d%s natural regeneration speed for all soldiers in the same sector",
 	L" (max %d of these bonuses per sector stack)",
+	L"Returned health can be boosted an additional %d%s by using blood bags.\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=

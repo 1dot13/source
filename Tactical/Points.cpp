@@ -4111,6 +4111,17 @@ INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 	return sAPCost;
 }
 
+INT16 GetAPsToFillBloodbag( SOLDIERTYPE *pSoldier, INT32 usMapPos )
+{
+	INT16 sAPCost = 0;
+
+	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+
+	sAPCost += APBPConstants[AP_FILLBLOODBAG];
+
+	return sAPCost;
+}
+
 // added by Flugente
 INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
 {

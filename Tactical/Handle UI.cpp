@@ -1157,10 +1157,10 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 			return( GAME_SCREEN );
 		}
 		
-		usRandom = (UINT16)Random( 20 );
+		usRandom = 12;// (UINT16)Random( 20 );
 		if( usRandom < 5 )
 			pSoldier = TacticalCreateAdministrator();
-		else if( usRandom < 10 )
+		else if( usRandom < 15 )
 			pSoldier = TacticalCreateArmyTroop();
 		else  if ( usRandom < 12 )
 			pSoldier = TacticalCreateEnemyTank( );
@@ -2838,14 +2838,35 @@ void AttackRequesterCallback( UINT8 bExitValue )
 // SANDRO - added function
 void SurgeryRequesterCallback( UINT8 bExitValue )
 {
-	if( bExitValue == MSG_BOX_RETURN_YES )
+	if ( bExitValue == 1 || bExitValue == MSG_BOX_RETURN_YES )
 	{
-		//gpRequesterMerc->ubSurgeryApprovalMerc = gpRequesterTargetMerc->ubID;
+		// Flugente: use up a blood bag if we've requested that and boost surgery
+		if ( bExitValue == 1 )
+		{
+			OBJECTTYPE* pObj = gpRequesterMerc->GetObjectWithItemFlag( BLOOD_BAG );
+
+			if ( pObj )
+			{
+				// if object is infected, infect the victim
+				if ( ( *pObj )[0]->data.sObjectFlag & INFECTED && gGameExternalOptions.fDiseaseContaminatesItems )
+					gpRequesterTargetMerc->Infect( 0 );
+				
+				pObj->RemoveObjectsFromStack( 1 );
+
+				if ( pObj->ubNumberOfObjects <= 0 )
+				{
+					DeleteObj( pObj );
+				}
+
+				gpRequesterMerc->usSoldierFlagMask2 |= SOLDIER_SURGERY_BOOSTED;
+			}
+		}
+
 		gTacticalStatus.ubLastRequesterSurgeryTargetID = gpRequesterTargetMerc->ubID;
 
 		UIHandleMercAttack( gpRequesterMerc , gpRequesterTargetMerc, gsRequesterGridNo );
 	}
-	else if( bExitValue == MSG_BOX_RETURN_NO )
+	else if( bExitValue == MSG_BOX_RETURN_NO || bExitValue == 4 )
 	{
 		gTacticalStatus.ubLastRequesterSurgeryTargetID = NOBODY;
 
@@ -2920,20 +2941,43 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 					gsRequesterGridNo = usMapPos;
 	
 					fDidRequester = TRUE;
+
+					INT32 healwithout_bloodbag = pTSoldier->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) ) / 10000;
 	
 					// Flugente: if we wouldn't really heal anything due to the wound being too small, tell us so
-					if ( !pTSoldier->bBleeding && ( pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000 ) <= 0 )
+					if ( !pTSoldier->bBleeding && healwithout_bloodbag <= 0 )
 					{
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[19], pTSoldier->GetName( ) );
 					}
 					else 
 					{
-						if (pTSoldier->bBleeding)
-							swprintf( zStr, New113Message[ MSG113_DO_WE_WANT_SURGERY_FIRST ], pTSoldier->GetName(), (pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000) );
-						else
-							swprintf( zStr, New113Message[ MSG113_DO_WE_WANT_SURGERY ], pTSoldier->GetName(), (pTSoldier->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 10000) );
+						// Flugente: check whether we have a bloodbag we can use
+						INT32 healwith_bloodbag = -1;
+						if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag > 0 && pSoldier->GetObjectWithItemFlag( BLOOD_BAG ) != NULL )
+							healwith_bloodbag = pTSoldier->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) ) / 10000;
 
-						DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurgeryRequesterCallback, NULL );
+						if ( healwith_bloodbag > healwithout_bloodbag )
+						{
+							if ( pTSoldier->bBleeding )
+								swprintf( zStr, New113Message[MSG113_DO_WE_WANT_SURGERY_FIRST_BLOODBAG], pTSoldier->GetName(), healwithout_bloodbag, healwith_bloodbag );
+							else
+								swprintf( zStr, New113Message[MSG113_DO_WE_WANT_SURGERY_BLOODBAG], pTSoldier->GetName(), healwithout_bloodbag, healwith_bloodbag );
+
+							wcscpy( gzUserDefinedButton[0], L"Yes*" );
+							wcscpy( gzUserDefinedButton[1], L"Yes" );
+							wcscpy( gzUserDefinedButton[2], L"No" );
+							wcscpy( gzUserDefinedButton[3], L"No" );
+							DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, zStr, GAME_SCREEN, (MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS| MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION), SurgeryRequesterCallback, NULL );
+						}
+						else
+						{
+							if ( pTSoldier->bBleeding )
+								swprintf( zStr, New113Message[MSG113_DO_WE_WANT_SURGERY_FIRST], pTSoldier->GetName(), healwithout_bloodbag );
+							else
+								swprintf( zStr, New113Message[MSG113_DO_WE_WANT_SURGERY], pTSoldier->GetName(), healwithout_bloodbag );
+
+							DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, GAME_SCREEN, (UINT8)MSG_BOX_FLAG_YESNO, SurgeryRequesterCallback, NULL );
+						}
 					}
 				}
 				////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4541,6 +4585,24 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			}
 		}
 	}
+	else if ( uiFlags == MOVEUI_TARGET_BLOODBAG )
+	{
+		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		if ( sActionGridNo == -1 )
+		{
+			sActionGridNo = usMapPos;
+		}
+
+		sAPCost = GetAPsToFillBloodbag( pSoldier, sActionGridNo );
+
+		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+
+		if ( sActionGridNo != pSoldier->sGridNo )
+		{
+			gfUIHandleShowMoveGrid = TRUE;
+			gsUIHandleShowMoveGridLocation = sActionGridNo;
+		}
+	}
 	else
 	{
 		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
@@ -4735,6 +4797,20 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 			return TRUE;
 
 		return FALSE;
+	}
+
+	if ( ubItemCursor == BLOODBAGCURS )
+	{
+		if ( HasItemFlag( ( &( pSoldier->inv[HANDPOS] ) )->usItem, EMPTY_BLOOD_BAG ) )
+		{
+			if ( gfUIFullTargetFound )
+			{
+				if ( pSoldier->ubID != gusUIFullTargetID && MercPtrs[gusUIFullTargetID]->IsValidBloodDonor() )
+					return( TRUE );
+			}
+		}
+
+		return( FALSE );
 	}
 
 	if ( ubItemCursor == APPLYITEMCURS )

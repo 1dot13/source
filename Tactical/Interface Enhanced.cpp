@@ -2729,11 +2729,29 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
 			++cnt;
 		}
-
+		
 		//////////////////// BURIAL MODIFIER
 		if ( Item[gpItemDescObject->usItem].usBurialModifier  )
 		{
 			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[42], szUDBGenSecondaryStatsExplanationsTooltipText[42] );
+			SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+			++cnt;
+		}
+
+		//////////////////// EMPTY BLOOD BAG
+		if ( HasItemFlag( gpItemDescObject->usItem, EMPTY_BLOOD_BAG ) )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[43], szUDBGenSecondaryStatsExplanationsTooltipText[43] );
+			SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+			++cnt;
+		}
+
+		//////////////////// BLOOD BAG
+		if ( HasItemFlag( gpItemDescObject->usItem, BLOOD_BAG ) )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[44], szUDBGenSecondaryStatsExplanationsTooltipText[44] );
 			SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
 			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
 			++cnt;
@@ -6334,13 +6352,29 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 39, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
 	}
-
+		
 	//////////////////// BURIAL MODIFIER
 	if ( ( Item[gpItemDescObject->usItem].usBurialModifier && !fComparisonMode ) ||
 		( fComparisonMode && Item[gpComparedItemDescObject->usItem].usBurialModifier ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 40, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		cnt++;
+	}
+
+	//////////////////// EMPTY BLOOD BAG
+	if ( ( HasItemFlag( gpItemDescObject->usItem, EMPTY_BLOOD_BAG ) && !fComparisonMode ) ||
+		( fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, EMPTY_BLOOD_BAG ) ) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 41, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		++cnt;
+	}
+
+	//////////////////// BLOOD BAG
+	if ( ( HasItemFlag( gpItemDescObject->usItem, BLOOD_BAG ) && !fComparisonMode ) ||
+		( fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, BLOOD_BAG ) ) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 42, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		++cnt;
 	}
 }
 

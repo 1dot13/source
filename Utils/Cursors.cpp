@@ -145,6 +145,9 @@ CursorFileData CursorFileDatabase[] =
 
 	{ "CURSORS\\camera.sti"											, FALSE, 0, ANIMATED_CURSOR, 3, NULL },	// Flugente: camera
 	{ "CURSORS\\camera_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 3, NULL },
+
+	{ "CURSORS\\bloodbag.sti"										, FALSE, 0, ANIMATED_CURSOR, 11, NULL },	// Flugente: bloodbag
+	{ "CURSORS\\bloodbag_r.sti"										, FALSE, 0, ANIMATED_CURSOR, 1, NULL },
 	
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
@@ -1340,7 +1343,22 @@ CursorData CursorDatabase[] =
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
 		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0 },
-		
+
+	// Flugente: blood bag
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_BLOODBAG, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0 },
+
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_BLOODBAG_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0 },
+	
 	{ C_TRINGS,				6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_FUEL				,	0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0,							0, 0, 0, 0,

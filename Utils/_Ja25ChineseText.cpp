@@ -247,6 +247,7 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"包扎速度 +%d%s\n",// L"+%d%s bandaging speed\n",
 	L"所在区域自然回复生命值速度 +%d%s",// L"+%d%s natural regeneration speed of all soldiers in the same sector",
 	L"(这种效果最多叠加%d次)",// L" (max %d these bonuses per sector)",
+	L"Returned health can be boosted an additional %d%s by using blood bags.\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=

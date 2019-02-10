@@ -232,6 +232,7 @@ enum
 	MERC_HANDCUFF_PERSON,
 	MERC_APPLYITEM,
 	MERC_INTERACTIVEACTION,
+	MERC_FILLBLOODBAG,
 };
 
 // ENUMERATIONS FOR THROW ACTIONS
@@ -418,7 +419,8 @@ enum
 #define SOLDIER_CONCEALINSERTION			0x00008000					// we enteri a sector by transition from concealed state (which causes us to spawn at the location we left the sector in)
 
 #define SOLDIER_CONCEALINSERTION_DISCOVERED	0x00010000					// we enter a sector by transition from concealed state, but as we were 'discovered', set red alert
-#define SOLDIER_MERC_POW_LOCATIONKNOWN		0x00020000					// we are a POW, but the player has discovered our location 
+#define SOLDIER_MERC_POW_LOCATIONKNOWN		0x00020000					// we are a POW, but the player has discovered our location
+#define SOLDIER_SURGERY_BOOSTED				0x00040000					// we are a boosted performing surgery (e.g. by using up a blood bag)
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -1658,6 +1660,7 @@ public:
 	void EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 	void EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 	void EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirection );	// added by Flugente
+	void EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirection );	// added by Flugente
 	void EVENT_SoldierInteractiveAction( INT32 sGridNo, UINT16 usActionType );					// added by Flugente
 
 	BOOLEAN EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestart );
@@ -1795,7 +1798,7 @@ public:
 	BOOLEAN		IsFeedingExternal(UINT8* pubId1, UINT16* pGunSlot1, UINT16* pAmmoSlot1, UINT8* pubId2, UINT16* pGunSlot2, UINT16* pAmmoSlot2);
 
 	// Flugente: return first found object with a specific flag from our inventory
-	OBJECTTYPE* GetObjectWithFlag( UINT32 aFlag );
+	OBJECTTYPE* GetObjectWithFlag( UINT64 aFlag );
 
 	// Flugente: functions for the covert ops trait
 
@@ -1992,6 +1995,12 @@ public:
 
 	void		StopChatting();
 	void		DrugAutoUse();
+
+	OBJECTTYPE*	GetObjectWithItemFlag( UINT64 aFlag );
+	void		DestroyOneObjectWithItemFlag( UINT64 aFlag );
+
+	// Flugente: can we fill a blood bag from this guy ?
+	BOOLEAN		IsValidBloodDonor();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

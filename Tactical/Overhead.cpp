@@ -1567,7 +1567,12 @@ BOOLEAN ExecuteOverhead( )
 										pSoldier->EVENT_SoldierInteractiveAction( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
 										pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
 									}
-
+									else if ( pSoldier->aiData.ubPendingAction == MERC_FILLBLOODBAG )
+									{
+										pSoldier->EVENT_SoldierTakeBloodFromPerson( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
+										pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
+									}
+									
                                     if ( fNoAPsForPendingAction )
                                     {
                                         // Change status of guy to waiting

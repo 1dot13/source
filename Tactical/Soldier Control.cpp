@@ -13315,7 +13315,10 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		// this means the rest of HPs will remain as "unhealable", the patient will miss X HPs but has no HealableInjury on self..
 		if ( ubPtsLeft >= (pVictim->iHealableInjury / 100) )
 		{
-			usLifeReturned = pVictim->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT )) / 100;
+			if ( this->usSoldierFlagMask2 & SOLDIER_SURGERY_BOOSTED )
+				usLifeReturned = pVictim->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT ) ) / 100;
+			else
+				usLifeReturned = pVictim->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT )) / 100;
 
 			pVictim->iHealableInjury = 0;
 			//CHRISL: Why would we arbitrarily use all ubPtsLeft when a victim isn't bleeding?  And why would the medical bag, which we have to use in order to 
@@ -13352,7 +13355,10 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		}
 		else
 		{
-			usLifeReturned = ubPtsLeft * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT ));
+			if ( this->usSoldierFlagMask2 & SOLDIER_SURGERY_BOOSTED )
+				usLifeReturned = ubPtsLeft * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT ) );
+			else
+				usLifeReturned = ubPtsLeft * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( this, DOCTOR_NT ));
 
 			pVictim->iHealableInjury -= (ubPtsLeft * 100);
 			ubPtsLeft = 0;
@@ -13547,6 +13553,8 @@ void SOLDIERTYPE::InternalReceivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 					// Flugente: additional dialogue
 					AdditionalTacticalCharacterDialogue_CallsLua( pTSoldier, ADE_BANDAGE_PERFORM_END, this->ubProfile );
 					AdditionalTacticalCharacterDialogue_CallsLua( this, ADE_BANDAGE_RECEIVE_END, pTSoldier->ubProfile );
+
+					pTSoldier->usSoldierFlagMask2 &= ~SOLDIER_SURGERY_BOOSTED;
 				}
 			}
 		}
@@ -15159,7 +15167,7 @@ BOOLEAN		SOLDIERTYPE::IsFeedingExternal( UINT8* pubId1, UINT16* pGunSlot1, UINT1
 }
 
 // Flugente: return first found object with a specific flag from our inventory
-OBJECTTYPE* SOLDIERTYPE::GetObjectWithFlag( UINT32 aFlag )
+OBJECTTYPE* SOLDIERTYPE::GetObjectWithFlag( UINT64 aFlag )
 {
 	OBJECTTYPE* pObj = NULL;
 
@@ -20099,6 +20107,87 @@ void		SOLDIERTYPE::DrugAutoUse()
 	}
 }
 
+OBJECTTYPE*		SOLDIERTYPE::GetObjectWithItemFlag( UINT64 aFlag )
+{
+	for ( INT8 bLoop = 0, invsize = (INT8)inv.size(); bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists() )
+		{
+			OBJECTTYPE* pObj = &( inv[bLoop] );
+
+			if ( pObj && HasItemFlag( pObj->usItem, aFlag ) )
+			{
+				return pObj;
+			}
+		}
+	}
+
+	return NULL;
+}
+
+void		SOLDIERTYPE::DestroyOneObjectWithItemFlag( UINT64 aFlag )
+{
+	for ( INT8 bLoop = 0, invsize = (INT8)inv.size(); bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists() )
+		{
+			OBJECTTYPE* pObj = &( inv[bLoop] );
+
+			if ( pObj && HasItemFlag( pObj->usItem, aFlag ) )
+			{
+				pObj->RemoveObjectsFromStack( 1 );
+
+				if ( pObj->ubNumberOfObjects <= 0 )
+				{
+					DeleteObj( pObj );
+				}
+			}
+		}
+	}
+}
+
+#define BLOODDONATION_AMOUNT	10
+
+// Flugente: can we fill a blood bag from this guy?
+BOOLEAN		SOLDIERTYPE::IsValidBloodDonor()
+{
+	// not during combat
+	if ( gTacticalStatus.uiFlags & INCOMBAT )
+		return FALSE;
+
+	//  must be player team
+	if ( this->bTeam != gbPlayerNum )
+		return FALSE;
+
+	// not if wounded
+	if ( this->stats.bLife < this->stats.bLifeMax )
+		return FALSE;
+
+	// not if doing so would drop us into coma
+	if ( this->stats.bLife - BLOODDONATION_AMOUNT < OKLIFE )
+		return FALSE;
+
+	// not if we have any KNOWN disease
+	if ( this->HasDisease( TRUE, FALSE ) )
+		return FALSE;
+
+	// not if we're drunk or drugged
+	if ( MercDruggedOrDrunk( this ) )
+		return FALSE;
+
+	// need to be properly fed and watered
+	if ( UsingFoodSystem() )
+	{
+		UINT8 foodsituation;
+		UINT8 watersituation;
+		GetFoodSituation( this, &foodsituation, &watersituation );
+		if ( foodsituation > FOOD_NORMAL || watersituation > FOOD_NORMAL )
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -21195,6 +21284,77 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 			if ( Item[usItem].usItemClass == IC_BOMB )
 			{
 				this->EVENT_SoldierBeginDropBomb( );
+			}
+		}
+	}
+}
+
+void SOLDIERTYPE::EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirection )
+{
+	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+
+	if ( ubPerson != NOBODY && ubPerson != this->ubID )
+	{
+		// we found someone
+		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
+
+		OBJECTTYPE* pObj = &( this->inv[HANDPOS] );
+
+		if ( pSoldier && pObj->exists() && HasItemFlag( pObj->usItem, EMPTY_BLOOD_BAG ) && pSoldier->IsValidBloodDonor() )
+		{
+			// delete empty blood bag
+			DeleteObj( pObj );
+				
+			// create full blood bag
+			static UINT16 bloodbagitem = 1757;
+
+			if ( HasItemFlag( bloodbagitem, BLOOD_BAG ) || GetFirstItemWithFlag( &bloodbagitem, BLOOD_BAG ) )
+			{
+				CreateItem( bloodbagitem, 100, &gTempObject );
+
+				// Flugente: if this guy has the disease, infect object
+				if ( pSoldier->sDiseasePoints[0] > 0 )
+					gTempObject[0]->data.sObjectFlag |= INFECTED;
+
+				if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
+					AddItemToPool( pSoldier->sGridNo, &gTempObject, VISIBLE, this->pathing.bLevel, 0, -1 );
+
+				// wound the donor
+				// we don't want the health loss taken to be healable by surgery (how would surgery restore that), so reset it afterwards
+				INT32 healableinjury_tmp = pSoldier->iHealableInjury;
+				INT8 bleeding_tmp = pSoldier->bBleeding;
+
+				// we need to set attacker as NOBODY, otherwise this calls dialogue events. This can be justified since they 'volunteered' for this
+				pSoldier->SoldierTakeDamage( 0, BLOODDONATION_AMOUNT, 0, TAKE_DAMAGE_BLOODLOSS, NOBODY, sGridNo, 0, TRUE );
+
+				pSoldier->iHealableInjury = healableinjury_tmp;
+				pSoldier->bBleeding = bleeding_tmp;
+
+				DeductPoints( this, GetAPsToFillBloodbag( this, sGridNo ), APBPConstants[BP_FILLBLOODBAG], AFTERACTION_INTERRUPT );
+
+				return;
+			}
+			else
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Error: no blood bag item found in Items.xml!" );
+			}
+		}
+
+		// Say NOTHING quote...
+		this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
+	}
+	else
+	{
+		// if this is  bomb, but nobody is there, plant the bomb instead
+		OBJECTTYPE* pObj = &( this->inv[HANDPOS] );
+
+		if ( pObj->exists() )
+		{
+			UINT16 usItem = pObj->usItem;
+
+			if ( Item[usItem].usItemClass == IC_BOMB )
+			{
+				this->EVENT_SoldierBeginDropBomb();
 			}
 		}
 	}
@@ -23782,7 +23942,10 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		// this means the rest of HPs will remain as "unhealable", the patient will miss X HPs but has no HealableInjury on self..
 		if ( bPtsLeft >= (pVictim->iHealableInjury / 100) )
 		{
-			iLifeReturned = pVictim->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT )) / 100;
+			if ( pSoldier->usSoldierFlagMask2 & SOLDIER_SURGERY_BOOSTED )
+				iLifeReturned = pVictim->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) ) / 100;
+			else
+				iLifeReturned = pVictim->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) ) / 100;
 
 			pVictim->iHealableInjury = 0;
 			// keep the rest of the points to bandaging if neccessary
@@ -23806,7 +23969,10 @@ UINT32 VirtualSoldierDressWound( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVictim, OB
 		}
 		else
 		{
-			iLifeReturned = bPtsLeft * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ));
+			if ( pSoldier->usSoldierFlagMask2 & SOLDIER_SURGERY_BOOSTED )
+				iLifeReturned = bPtsLeft * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ));
+			else
+				iLifeReturned = bPtsLeft * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) );
 
 			pVictim->iHealableInjury -= (bPtsLeft * 100);
 			bPtsLeft = 0;

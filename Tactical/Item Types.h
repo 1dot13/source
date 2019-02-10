@@ -178,6 +178,7 @@ typedef enum ATTACHMENT_SLOT{
 #define HANDCUFFCURS 25
 #define APPLYITEMCURS 26
 #define INTERACTIVEACTIONCURS 27
+#define BLOODBAGCURS 28
 
 #define CAMERARANGE 10
 
@@ -734,7 +735,7 @@ extern OBJECTTYPE gTempObject;
 // -------- added by Flugente: various item flags --------
 // flags used for various item properties (easier than adding 32 differently named variables). DO NOT CHANGE THEM, UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 // note that these should not be used to determine what kind of an attachment an item is, that is determined by attachmentclass and the AC_xxx flags above
-//#define EMPTY_SANDBAG			0x00000001	//1
+#define BLOOD_BAG				0x00000001	//1			// this item is a blood bag can can be used to boost surgery
 #define MANPAD					0x00000002	//2			// this item is a MAn-Portable Air-Defense System
 #define BEARTRAP				0x00000004	//4			// a mechanical trap that does no explosion, but causes leg damage to whoever activates it
 #define CAMERA					0x00000008	//8
@@ -773,6 +774,10 @@ extern OBJECTTYPE gTempObject;
 #define DISEASEPROTECTION_1		0x20000000	//536870912		// this item protects us from getting diseases by human contact if kept in inventory
 #define DISEASEPROTECTION_2		0x40000000	//1073741824	// this item protects us from getting diseases by human contact if kept in inventory
 #define LBE_EXPLOSIONPROOF		0x80000000	//2147483648	// any gear in LBE with this flag is protected from explosions
+
+// extended flagmask to UINT64
+#define EMPTY_BLOOD_BAG			0x0000000100000000		// this item is a empty blood bag
+
 // ----------------------------------------------------------------
 
 // -------- added by Flugente: flags for objects --------
@@ -1133,7 +1138,7 @@ typedef struct
 
 	BOOLEAN blockironsight;							// if a gun or any attachment have this property, the iron sight won't be usable (if there is at least one other usable sight)
 	
-	UINT32	usItemFlag;								// bitflags to store various item properties (better than introducing 32 BOOLEAN values). If I only had thought of this earlier....
+	UINT64	usItemFlag;								// bitflags to store various item properties (better than introducing 32 BOOLEAN values). If I only had thought of this earlier....
 
 	// Flugente: food type
 	UINT32	foodtype;

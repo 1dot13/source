@@ -5324,7 +5324,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			case TRIPWIRE_ROLL:
 				{
 					// check if this can work
-					if ( Item[ this->usItem ].tripwire && Item[pAttachment->usItem].tripwire && Item[ this->usItem ].usItemFlag == TRIPWIREROLL )
+					if ( Item[ this->usItem ].tripwire && Item[pAttachment->usItem].tripwire && HasItemFlag( this->usItem, TRIPWIREROLL ) )
 					{
 						if ( (*this)[subObject]->data.objectStatus < 100 )
 							(*this)[subObject]->data.objectStatus++;
@@ -5509,7 +5509,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					(*this)[subObject]->data.objectStatus = ((*this)[subObject]->data.objectStatus + (*pAttachment)[0]->data.objectStatus) / 2;
 
 					// Flugente: if the new item has the TRIPWIREROLL property, it only gets status 2 upon creation via merges
-					if ( Item[ this->usItem ].usItemFlag == TRIPWIREROLL )
+					if ( HasItemFlag( this->usItem, TRIPWIREROLL ) )
 					{
 						(*this)[subObject]->data.objectStatus = 2;
 					}
@@ -14927,13 +14927,13 @@ void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, 
 }
 
 // Flugente: check for specific flags
-BOOLEAN HasItemFlag( UINT16 usItem, UINT32 aFlag )
+BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag )
 {
 	return( (Item[usItem].usItemFlag & aFlag) != 0 );
 }
 
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
-BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT32 aFlag )
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag )
 {
 	register UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )

@@ -247,6 +247,7 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s к скорости перевязки\n",
 	L"+%d%s к природной скорости регенерации для всех солдат в том же квадрате",
 	L" (максимум %d бонуса на находящихся в квадрате)",
+	L"Returned health can be boosted an additional %d%s by using blood bags.\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=

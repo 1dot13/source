@@ -247,6 +247,7 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"+%d%s schnelleres Anlegen von Wundverbänden\n",
 	L"+%d%s natürliche Regenerationsrate aller Söldner im selben Sektor",
 	L" (maximal %d Instanzen dieses Bonus pro Sektor)",
+	L"Returned health can be boosted an additional %d%s by using blood bags.\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=

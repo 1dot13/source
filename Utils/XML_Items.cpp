@@ -294,7 +294,9 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "diseaseprotectionface" ) == 0 ||
 				strcmp(name, "diseaseprotectionhand" ) == 0||
 				strcmp(name, "usRiotShieldStrength" ) == 0 ||
-				strcmp(name, "usRiotShieldGraphic" ) == 0))
+				strcmp(name, "usRiotShieldGraphic" ) == 0 ||
+				strcmp(name, "bloodbag" ) == 0 ||
+				strcmp(name, "emptybloodbag" ) == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1372,7 +1374,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ItemFlag") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.usItemFlag = (UINT32) strtoul(pData->szCharData, NULL, 0);
+			pData->curItem.usItemFlag = (UINT64) strtoul(pData->szCharData, NULL, 0);
 		}
 		else if(strcmp(name, "FoodType") == 0)
 		{
@@ -1516,6 +1518,20 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.usRiotShieldGraphic = (UINT16)atol( pData->szCharData );
+		}
+		else if ( strcmp( name, "bloodbag" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= BLOOD_BAG;
+		}
+		else if ( strcmp( name, "emptybloodbag" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= EMPTY_BLOOD_BAG;
 		}
 										
 		--pData->maxReadDepth;
@@ -2150,11 +2166,11 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<cigarette>%d</cigarette>\r\n",										Item[cnt].cigarette );
 			FilePrintf(hFile,"\t\t<usPortionSize>%d</usPortionSize>\r\n",								Item[cnt].usPortionSize );
 
-			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_1 )
-				FilePrintf( hFile, "\t\t<diseaseprotectionface>%d</diseaseprotectionface>\r\n", 1 );
-			if ( Item[cnt].usItemFlag & DISEASEPROTECTION_2 )
-				FilePrintf( hFile, "\t\t<diseaseprotectionhand>%d</diseaseprotectionhand>\r\n", 1 );
-
+			if ( HasItemFlag( cnt, DISEASEPROTECTION_1 ) )	FilePrintf( hFile, "\t\t<diseaseprotectionface>%d</diseaseprotectionface>\r\n", 1 );
+			if ( HasItemFlag( cnt, DISEASEPROTECTION_2 ) )	FilePrintf( hFile, "\t\t<diseaseprotectionhand>%d</diseaseprotectionhand>\r\n", 1 );
+			if ( HasItemFlag( cnt, BLOOD_BAG) )				FilePrintf( hFile, "\t\t<bloodbag>%d</bloodbag>\r\n", 1 );
+			if ( HasItemFlag( cnt, EMPTY_BLOOD_BAG ) )		FilePrintf( hFile, "\t\t<emptybloodbag>%d</emptybloodbag>\r\n", 1 );
+						
 			FilePrintf(hFile,"\t\t<usRiotShieldStrength>%d</usRiotShieldStrength>\r\n",					Item[cnt].usRiotShieldStrength );
 			FilePrintf(hFile,"\t\t<usRiotShieldGraphic>%d</usRiotShieldGraphic>\r\n",					Item[cnt].usRiotShieldGraphic );
 

@@ -1785,6 +1785,7 @@ typedef struct
 	UINT8 ubDONumberTraitsNeededForSurgery;
 	UINT8 ubDOSurgeryHealPercentBase;
 	UINT8 ubDOSurgeryHealPercentOnTop;
+	UINT8 ubDOSurgeryHealPercentBloodbag;
 	UINT16 usDOSurgeryMedBagConsumption;
 	UINT16 usDOSurgeryMaxBreathLoss;
 	UINT16 usDORepairStatsRateBasic;

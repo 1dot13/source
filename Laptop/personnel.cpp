@@ -7773,6 +7773,12 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 							wcscat( apStr, gzIMPMajorTraitsHelpTextsDoctor[2] );
 
 						wcscat( apStr, L"\n" );
+
+						if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag )
+						{
+							swprintf( atStr, gzIMPMajorTraitsHelpTextsDoctor[10], gSkillTraitValues.ubDOSurgeryHealPercentBloodbag, sSpecialCharacters[0] );
+							wcscat( apStr, atStr );
+						}
 					}
 				}
 				if( (gSkillTraitValues.usDORepairStatsRateBasic + gSkillTraitValues.usDORepairStatsRateOnTop) > 0 )

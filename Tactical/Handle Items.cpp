@@ -319,8 +319,10 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 
 	if ( fFromUI && pSoldier->bTeam == gbPlayerNum && pTargetSoldier && 
 		 (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral) && pTargetSoldier->ubBodyType != CROW && 
-		 Item[usHandItem].usItemClass != IC_MEDKIT && !Item[usHandItem].gascan &&
-		 !ItemCanBeAppliedToOthers( usHandItem ) )
+		 Item[usHandItem].usItemClass != IC_MEDKIT && 
+		 !Item[usHandItem].gascan &&
+		 !ItemCanBeAppliedToOthers( usHandItem ) &&
+		 !HasItemFlag( usHandItem, EMPTY_BLOOD_BAG ) )
 	{
 		if ( pSoldier->ubProfile != NO_PROFILE	)
 		{
@@ -1508,6 +1510,86 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 			else
 			{
 				pSoldier->EVENT_SoldierApplyItemToPerson( sAdjustedGridNo, ubDirection );
+
+				UnSetUIBusy( pSoldier->ubID );
+			}
+
+			if ( fFromUI )
+			{
+				guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
+			}
+
+			return( ITEM_HANDLE_OK );
+		}
+		else
+		{
+			return( ITEM_HANDLE_NOAPS );
+		}
+	}
+
+	// Flugente: apply misc items to other soldiers
+	if ( HasItemFlag( usHandItem, EMPTY_BLOOD_BAG ) )
+	{
+		// ATE: AI CANNOT GO THROUGH HERE!
+		BOOLEAN	fHadToUseCursorPos = FALSE;
+
+		// See if we can get there to stab
+		sActionGridNo = FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+		if ( sActionGridNo == -1 )
+		{
+			// Try another location...
+			sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+
+			if ( sActionGridNo == -1 )
+			{
+				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
+			}
+		}
+
+		// Calculate AP costs...
+		sAPCost = GetAPsToFillBloodbag( pSoldier, sActionGridNo );
+		sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+
+		// if we are at the action gridno, the item is a bomb, but nobody is at the gridno, do not apply and do not return - we will plant the bomb instead (handlded later in this function)
+		if ( Item[usHandItem].usItemClass == IC_BOMB && pSoldier->sGridNo == sActionGridNo && WhoIsThere2( usMapPos, pSoldier->pathing.bLevel ) == NOBODY )
+		{
+			;
+		}
+		else if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+		{
+			// OK, set UI
+			SetUIBusy( pSoldier->ubID );
+
+			// CHECK IF WE ARE AT THIS GRIDNO NOW
+			if ( pSoldier->sGridNo != sActionGridNo )
+			{
+				// SEND PENDING ACTION
+				pSoldier->aiData.ubPendingAction = MERC_FILLBLOODBAG;
+
+				if ( fHadToUseCursorPos )
+				{
+					pSoldier->aiData.sPendingActionData2 = usMapPos;
+				}
+				else
+				{
+					if ( pTargetSoldier != NULL )
+					{
+						pSoldier->aiData.sPendingActionData2 = pTargetSoldier->sGridNo;
+					}
+					else
+					{
+						pSoldier->aiData.sPendingActionData2 = sGridNo;
+					}
+				}
+				pSoldier->aiData.bPendingActionData3 = ubDirection;
+				pSoldier->aiData.ubPendingActionAnimCount = 0;
+
+				// WALK UP TO DEST FIRST
+				pSoldier->EVENT_InternalGetNewSoldierPath( sActionGridNo, pSoldier->usUIMovementMode, FALSE, TRUE );
+			}
+			else
+			{
+				pSoldier->EVENT_SoldierTakeBloodFromPerson( sAdjustedGridNo, ubDirection );
 
 				UnSetUIBusy( pSoldier->ubID );
 			}
@@ -5431,7 +5513,7 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 
 			// Flugente: tripwire rolls are not planted - instead we spawn tripwire and plant that
 			OBJECTTYPE* pObj = &(gpTempSoldier->inv[HANDPOS]);
-			if ( Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].usItemFlag & TRIPWIREROLL && Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].usBuddyItem != NOTHING )
+			if ( HasItemFlag( gpTempSoldier->inv[HANDPOS].usItem, TRIPWIREROLL ) && Item[ gpTempSoldier->inv[ HANDPOS ].usItem ].usBuddyItem != NOTHING )
 			{
 				(*pObj)[0]->data.objectStatus--;
 
@@ -5794,11 +5876,11 @@ void BoobyTrapDialogueCallBack( void )
 	// now prompt the user...
 	if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 	{
-		DoScreenIndependantMessageBox( TacticalStr[ DISARM_BOOBYTRAP_PROMPT ],	( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapInMapScreenMessageBoxCallBack );
+		DoScreenIndependantMessageBox( TacticalStr[ DISARM_BOOBYTRAP_PROMPT ],	MSG_BOX_FLAG_YESNO, BoobyTrapInMapScreenMessageBoxCallBack );
 	}
 	else
 	{
-		DoScreenIndependantMessageBox( TacticalStr[ DISARM_BOOBYTRAP_PROMPT ],	( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack );
+		DoScreenIndependantMessageBox( TacticalStr[ DISARM_BOOBYTRAP_PROMPT ],	MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack );
 	}
 }
 
