@@ -297,7 +297,8 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "usRiotShieldGraphic" ) == 0 ||
 				strcmp(name, "bloodbag" ) == 0 ||
 				strcmp(name, "emptybloodbag" ) == 0 ||
-				strcmp(name, "sFireResistance" ) == 0))
+				strcmp(name, "sFireResistance" ) == 0 ||
+				strcmp(name, "usAdministrationModifier" ) == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("itemStartElementHandle: going into element, name = %s",name) );
@@ -1539,6 +1540,12 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.sFireResistance = min( 100, (INT16)atol( pData->szCharData ) );
 		}
+		else if ( strcmp( name, "usAdministrationModifier" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.usAdministrationModifier = (UINT8)atol( pData->szCharData );
+		}
+
 										
 		--pData->maxReadDepth;
 	}
@@ -2180,6 +2187,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<usRiotShieldStrength>%d</usRiotShieldStrength>\r\n",					Item[cnt].usRiotShieldStrength );
 			FilePrintf(hFile,"\t\t<usRiotShieldGraphic>%d</usRiotShieldGraphic>\r\n",					Item[cnt].usRiotShieldGraphic );
 			FilePrintf(hFile,"\t\t<sFireResistance>%d</sFireResistance>\r\n",							Item[cnt].sFireResistance );
+			FilePrintf(hFile,"\t\t<usAdministrationModifier>%d</usAdministrationModifier>\r\n",			Item[cnt].usAdministrationModifier );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

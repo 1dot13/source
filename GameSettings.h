@@ -723,6 +723,9 @@ typedef struct
 	INT32 ubMinutesForAssignmentToCount;
 	BOOLEAN fSleepDisplayFailNotification;
 
+	FLOAT fAdministrationPointsPerPercent;
+	UINT16 fAdministrationMaxPercent;
+
 	INT32 ubTrainingSkillMin;
 	INT32 ubTrainingSkillMax;
 	INT32 ubSelfTrainingDivisor;

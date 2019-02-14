@@ -2768,6 +2768,30 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
 			++cnt;
 		}
+
+		//////////////////// ADMINISTRATION MODIFIER
+		if ( Item[gpItemDescObject->usItem].usAdministrationModifier )
+		{
+			CHAR16 pStr2[256];
+			swprintf( pStr2, szUDBGenSecondaryStatsExplanationsTooltipText[46], Item[gpItemDescObject->usItem].usAdministrationModifier );
+
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[46], pStr2 );
+			SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+			++cnt;
+		}
+
+		//////////////////// HACKING MODIFIER
+		if ( Item[gpItemDescObject->usItem].usHackingModifier )
+		{
+			CHAR16 pStr2[256];
+			swprintf( pStr2, szUDBGenSecondaryStatsExplanationsTooltipText[47], Item[gpItemDescObject->usItem].usHackingModifier );
+
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[47], pStr2 );
+			SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+			++cnt;
+		}
 	}
 
 	//////////////////////////////////////////////////////
@@ -6394,6 +6418,22 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		( fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, BLOOD_BAG ) ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 42, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		++cnt;
+	}
+
+	//////////////////// ADMINISTRATION MODIFIER
+	if ( ( Item[gpItemDescObject->usItem].usAdministrationModifier && !fComparisonMode ) ||
+		( fComparisonMode && Item[gpComparedItemDescObject->usItem].usAdministrationModifier ) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 44, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		++cnt;
+	}
+
+	//////////////////// HACKING MODIFIER
+	if ( ( Item[gpItemDescObject->usItem].usHackingModifier && !fComparisonMode ) ||
+		( fComparisonMode && Item[gpComparedItemDescObject->usItem].usHackingModifier ) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 45, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		++cnt;
 	}
 }

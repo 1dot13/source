@@ -2963,10 +2963,10 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 							else
 								swprintf( zStr, New113Message[MSG113_DO_WE_WANT_SURGERY_BLOODBAG], pTSoldier->GetName(), healwithout_bloodbag, healwith_bloodbag );
 
-							wcscpy( gzUserDefinedButton[0], L"Yes*" );
-							wcscpy( gzUserDefinedButton[1], L"Yes" );
-							wcscpy( gzUserDefinedButton[2], L"No" );
-							wcscpy( gzUserDefinedButton[3], L"No" );
+							wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
+							wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
+							wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+							wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
 							DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, zStr, GAME_SCREEN, (MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS| MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION), SurgeryRequesterCallback, NULL );
 						}
 						else

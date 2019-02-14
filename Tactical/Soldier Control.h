@@ -1950,6 +1950,7 @@ public:
 	void	PrintSleepDesc( CHAR16* apStr );
 	FLOAT   GetDiseaseContactProtection();		// get percentage protection from infections via contact
 	INT16	GetDiseaseResistance();
+	UINT16	GetDiseaseDiagnosePoints();
 	FLOAT	GetBurialPoints( UINT16* apCorpses );
 
 	// Flugente: hourly breath regen calculation
@@ -2001,6 +2002,10 @@ public:
 
 	// Flugente: can we fill a blood bag from this guy ?
 	BOOLEAN		IsValidBloodDonor();
+
+	// Flugente: administration assignment
+	UINT32		GetAdministrationPoints();
+	FLOAT		GetAdministrationModifier();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

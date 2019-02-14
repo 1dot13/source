@@ -1197,6 +1197,9 @@ typedef struct
 
 	// Flugente: fire resistance
 	INT16	sFireResistance;
+
+	// Flugente: a modifier for administration effectiveness
+	UINT8	usAdministrationModifier;
 } INVTYPE;
 
 

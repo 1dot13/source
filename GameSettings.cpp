@@ -2235,6 +2235,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubCleaningRateDivisor				= iniReader.ReadInteger("Strategic Assignment Settings","CLEANING_RATE_DIVISOR",500, 100, 25000);
 	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("Strategic Assignment Settings","REPAIR_SESSIONS_PER_DAY",24, 1, 96);
 	
+	gGameExternalOptions.fAdministrationPointsPerPercent	= (FLOAT)iniReader.ReadDouble( "Strategic Assignment Settings", "ADMINISTRATION_POINTS_PER_PERCENT", 20.0f, 1.0f, 1000.0f );
+	gGameExternalOptions.fAdministrationMaxPercent			= iniReader.ReadInteger( "Strategic Assignment Settings", "ADMINISTRATION_MAX_PERCENTAGE", 15, 0, 100 );
+	
 	gGameExternalOptions.fUseXMLSquadNames					= iniReader.ReadBoolean("Strategic Assignment Settings", "USE_XML_SQUADNAMES", FALSE);
 
 	//################# Intel Settings ##################

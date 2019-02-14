@@ -2342,8 +2342,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 						sIconIndex_Assignment = 29;
 						fDoIcon_Assignment = TRUE;
 						// determine our skill at detecting disease
-						sPtsAvailable = pSoldier->stats.bMedical / 2 + NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) * 15;
-						sPtsAvailable = (sPtsAvailable * (100 + pSoldier->GetBackgroundValue( BG_PERC_DISEASE_DIAGNOSE ))) / 100;
+						sPtsAvailable = pSoldier->GetDiseaseDiagnosePoints();
 
 						fShowNumber = TRUE;
 						fShowMaximum = FALSE;
@@ -2417,6 +2416,16 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetBurialPoints( &usMaximumPts );
 
 					swprintf( sString, L"%3.1f/%d", bPtsAvailable, usMaximumPts );
+					break;
+
+				case ADMINISTRATION:
+					sIconIndex_Assignment = 36;
+					fDoIcon_Assignment = TRUE;
+					fShowCustomText = TRUE;
+					sPtsAvailable = (INT16)MercPtrs[pFace->ubSoldierID]->GetAdministrationPoints();
+					bPtsAvailable = GetAdministrationPercentage( MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY );
+
+					swprintf( sString, L"%d/%3.1f", sPtsAvailable, bPtsAvailable );
 					break;
 			}
 

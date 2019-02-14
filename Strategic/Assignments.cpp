@@ -508,6 +508,9 @@ void HandleMilitiaCommand();
 // Flugente: handle spy assignments
 void HandleSpyAssignments();
 
+// Flugente: handle administration assignment
+void HandleAdministrationAssignments();
+
 // is the character between secotrs in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
@@ -1085,6 +1088,23 @@ BOOLEAN CanCharacterBurial( SOLDIERTYPE *pSoldier )
 
 	if ( !pSectorInfo || (!( pSectorInfo->uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS ) && !pSectorInfo->usNumCorpses ) )
 		return FALSE;
+
+	return TRUE;
+}
+
+BOOLEAN CanCharacterAdministration( SOLDIERTYPE *pSoldier )
+{
+	AssertNotNIL( pSoldier );
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+		return( FALSE );
+
+	if ( pSoldier->bSectorZ )
+		return FALSE;
+
+	// Flugente: we can't perform most assignments while concealed
+	if ( SPY_LOCATION( pSoldier->bAssignment ) )
+		return( FALSE );
 
 	return TRUE;
 }
@@ -2942,6 +2962,9 @@ void UpdateAssignments()
 
 	HandleTrainWorkers();
 
+	// handle administration assignment
+	HandleAdministrationAssignments();
+
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );
 
@@ -3171,6 +3194,9 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pDoctor, &usHealPts );
 
+	FLOAT administrationmodifier = pDoctor->GetAdministrationModifier();
+	usHealPts *= administrationmodifier;
+
 	// count how much medical supplies we have
 	usKitPts = 100 * TotalMedicalKitPoints( pDoctor );
 
@@ -3261,6 +3287,9 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usRepairPts );
 
+	FLOAT administrationmodifier = pSoldier->GetAdministrationModifier();
+	usRepairPts *= administrationmodifier;
+
 	// Flugente: our food situation influences our effectiveness
 	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pSoldier, &usRepairPts );
@@ -3346,6 +3375,9 @@ UINT8 CalculateCleaningPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxP
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usCleaningPts );
 
+	FLOAT administrationmodifier = pSoldier->GetAdministrationModifier();
+	usCleaningPts *= administrationmodifier;
+
 	// Flugente: our food situation influences our effectiveness
 	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pSoldier, &usCleaningPts );
@@ -3414,7 +3446,9 @@ UINT32 CalculateInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts )
 
 	performancemodifier = min(1000,  max(10, performancemodifier) );
 
-	usInterrogationPoints = (usInterrogationPoints * performancemodifier) / (700000);
+	FLOAT administrationmodifier = pSoldier->GetAdministrationModifier();
+
+	usInterrogationPoints = (usInterrogationPoints * performancemodifier * administrationmodifier ) / (700000);
 	
 	// adjust for fatigue
 	ReducePointsForFatigue( pSoldier, &usInterrogationPoints );
@@ -3706,6 +3740,8 @@ INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier)
 		ReducePointsForFatigue( pSoldier, &tmp );
 
 		val = tmp;
+
+		val *= pSoldier->GetAdministrationModifier();
 
 		return val;
 	}
@@ -6244,9 +6280,7 @@ void HandleDiseaseDiagnosis()
 		if ( pSoldier->bActive && pSoldier->bAssignment == DISEASE_DIAGNOSE && CanCharacterDiagnoseDisease( pSoldier ) && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 		{
 			// determine our skill at detecting disease
-			UINT16 skill = pSoldier->stats.bMedical / 2 + NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) * 15;
-
-			skill = (skill * (100 + pSoldier->GetBackgroundValue( BG_PERC_DISEASE_DIAGNOSE ))) / 100;
+			UINT16 skill = pSoldier->GetDiseaseDiagnosePoints();
 
 			// loop over all other soldiers and determine the chance that they will infect us
 			SOLDIERTYPE *pTeamSoldier = NULL;
@@ -6685,6 +6719,181 @@ void HandleSpyAssignments()
 	}
 }
 
+// Flugente: administration assignment
+struct admintmpstruct
+{
+	UINT8 sector;
+	INT8 townid;
+	UINT32 val;
+	UINT16 mercs;
+	FLOAT percentage;
+};
+
+UINT16 GetNumberofAdministratableMercs( INT16 sX, INT16 sY )
+{
+	UINT16 num = 0;
+
+	UINT8 townid_origin = GetTownIdForSector( sX, sY );
+
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier 
+			&& !pSoldier->flags.fMercAsleep 
+			&& !pSoldier->bSectorZ
+			&& EnoughTimeOnAssignment( pSoldier )
+			)
+		{
+			UINT8 townid = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+
+			if ( ( pSoldier->sSectorX == sX && pSoldier->sSectorY == sY )
+				|| ( townid == townid_origin ) )
+			{
+				if ( ADMINISTRATION_BONUS( pSoldier->bAssignment ) )
+					++num;
+			}
+		}
+	}
+
+	return num;
+}
+
+FLOAT GetAdministrationPercentage( INT16 sX, INT16 sY )
+{
+	admintmpstruct data;
+	data.val = 0;
+	data.mercs = GetNumberofAdministratableMercs( sX, sY );
+	data.percentage = 0;
+
+	if ( data.mercs > 0 )
+	{
+		data.sector = SECTOR( sX, sY );
+		data.townid = GetTownIdForSector( sX, sY );
+
+		// loop over all soldiers with this assignment, determine percentage applied, determine how much of total that is, award exp points
+		SOLDIERTYPE *pSoldier = NULL;
+		UINT32 uiCnt = 0;
+		UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+		{
+			if ( pSoldier && pSoldier->bAssignment == ADMINISTRATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+			{
+				// sum up the points for towns, if not a town, for sectors
+				UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+				INT8 townid = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+
+				if ( (data.sector == sector) || (data.townid != BLANK_SECTOR && data.townid == townid) )
+				{
+					data.val += pSoldier->GetAdministrationPoints();
+				}
+			}
+		}
+
+		data.percentage = min( gGameExternalOptions.fAdministrationMaxPercent, ( (FLOAT)data.val / (FLOAT)data.mercs ) );
+	}
+
+	return data.percentage;
+}
+
+// this function only handles the awarding of exp, the assignment merely boosts others
+void HandleAdministrationAssignments()
+{
+	std::vector<admintmpstruct> helpervec;
+
+	// loop over all soldiers with this assignment, determine percentage applied, determine how much of total that is, award exp points
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier && pSoldier->bAssignment == ADMINISTRATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+		{
+			// sum up the points for towns, if not a town, for sectors
+			UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+			INT8 townid = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+			UINT32 val = pSoldier->GetAdministrationPoints();
+			UINT16 mercs = GetNumberofAdministratableMercs( pSoldier->sSectorX, pSoldier->sSectorY );
+
+			BOOLEAN found = FALSE;
+			for ( std::vector<admintmpstruct>::iterator it = helpervec.begin(), itend = helpervec.end(); it != itend; ++it )
+			{
+				if ( ( ( *it ).sector == sector ) || (( *it ).townid != BLANK_SECTOR && ( *it ).townid == townid) )
+				{
+					( *it ).val += val;
+
+					found = TRUE;
+					break;
+				}
+			}
+
+			if ( !found )
+			{
+				admintmpstruct data;
+				data.sector = sector;
+				data.townid = townid;
+				data.val	= val;
+				data.mercs	= mercs;
+				data.percentage = 0;
+
+				helpervec.push_back( data );
+			}
+		}
+	}
+
+	// loop over interesting towns/sectors, determine how many mercs that could be supported are present and set the percentage
+	for ( std::vector<admintmpstruct>::iterator it = helpervec.begin(), itend = helpervec.end(); it != itend; ++it )
+	{
+		if ( ( *it ).mercs > 0 )
+		{
+			( *it ).percentage = min( gGameExternalOptions.fAdministrationMaxPercent, ( (FLOAT)( *it ).val / (FLOAT)( *it ).mercs) );
+		}
+	}
+
+	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier && pSoldier->bAssignment == ADMINISTRATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+		{
+			UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+			INT8 townid = GetTownIdForSector( pSoldier->sSectorX, pSoldier->sSectorY );
+			UINT32 val = pSoldier->GetAdministrationPoints();
+
+			FLOAT percentage = 0;
+
+			BOOLEAN found = FALSE;
+			for ( std::vector<admintmpstruct>::iterator it = helpervec.begin(), itend = helpervec.end(); it != itend; ++it )
+			{
+				if ( ( ( *it ).sector == sector ) || (( *it ).townid != BLANK_SECTOR && ( *it ).townid == townid) )
+				{
+					if ( ( *it ).val > 0 )
+					{
+						// if not all points could be applied because the max threshold was reached, determine what percentage was used
+						if ( ( *it ).percentage >= gGameExternalOptions.fAdministrationMaxPercent )
+						{
+							percentage = gGameExternalOptions.fAdministrationMaxPercent * ( *it ).mercs / ( *it ).val;
+						}
+						else
+						{
+							percentage = 1.0f;
+						}
+					}
+
+					found = TRUE;
+					break;
+				}
+			}
+
+			StatChange( pSoldier, LDRAMT,    val * percentage * 0.03f, FROM_TRAINING );
+			StatChange( pSoldier, WISDOMAMT, val * percentage * 0.02f, FROM_TRAINING );
+			StatChange( pSoldier, EXPERAMT,  val * percentage * 0.01f, FROM_TRAINING );
+		}
+	}
+}
+
 // handle snitch spreading propaganda assignment
 // totally not a copy of HandleRadioScanInSector
 void HandleSpreadingPropagandaInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
@@ -6722,6 +6931,9 @@ void HandleSpreadingPropagandaInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 				UINT8 ubFacilityType = (UINT8)pSnitch->sFacilityTypeOperated;
 				UINT8 ubAssignmentType = (UINT8)GetSoldierFacilityAssignmentIndex( pSnitch );
 				uiPropagandaEffect *= ( GetFacilityModifier(FACILITY_PERFORMANCE_MOD, ubFacilityType, ubAssignmentType ) / 100.0 );
+
+				FLOAT administrationmodifier = pSnitch->GetAdministrationModifier();
+				uiPropagandaEffect *= administrationmodifier;
 			}
 		}
 	}
@@ -7101,6 +7313,9 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
 	ReducePointsForFatigue( pInstructor, &uiTrainingPts );
 
+	FLOAT administrationmodifier = pInstructor->GetAdministrationModifier();
+	uiTrainingPts *= administrationmodifier;
+
 	// Flugente: our food situation influences our effectiveness
 	if ( UsingFoodSystem() )
 		ReducePointsForHunger( pInstructor, &uiTrainingPts );
@@ -7219,6 +7434,9 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pus
 	// adjust for fatigue
 	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
 	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
+
+	FLOAT administrationmodifier = pSoldier->GetAdministrationModifier();
+	uiTrainingPts *= administrationmodifier;
 
 	// Flugente: our food situation influences our effectiveness
 	if ( UsingFoodSystem() )
@@ -7343,6 +7561,9 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, UINT16 *pusM
 	// adjust for fatigue
 	UINT32 uiTrainingPts = (UINT32) sTrainingPts;
 	ReducePointsForFatigue( pSoldier, &uiTrainingPts );
+
+	FLOAT administrationmodifier = pSoldier->GetAdministrationModifier();
+	uiTrainingPts *= administrationmodifier;
 
 	// Flugente: our food situation influences our effectiveness
 	if ( UsingFoodSystem() )
@@ -8427,13 +8648,15 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		if ( distance == 0 )
 			continue;
 
+		FLOAT administrationmodifier = 1.0f + GetAdministrationPercentage( sMapX, sMapY ) / 100.0f;
+
 		// each soldier can carry 40 items or 40 kg, and needs 10 minutes (two way walk) per sector distance, thereby 6 / distance runs possible per hour
-		UINT16 maxitems  = 40  * pair.first * 6 / distance;
-		UINT16 maxweight = 400 * pair.first * 6 / distance;
+		UINT16 maxitems					= administrationmodifier * 40  * pair.first * 6 / distance;
+		UINT16 maxweight				= administrationmodifier * 400 * pair.first * 6 / distance;
 
 		// we have to differentiate between items that the militia might use and all other items, as there is an option to only move non-militia gear
-		UINT16 maxitems_militiagear  = 40  * (pair.first - pair.second) * 6 / distance;
-		UINT16 maxweight_militiagear = 400 * (pair.first - pair.second) * 6 / distance;
+		UINT16 maxitems_militiagear		= administrationmodifier * 40  * (pair.first - pair.second) * 6 / distance;
+		UINT16 maxweight_militiagear	= administrationmodifier * 400 * (pair.first - pair.second) * 6 / distance;
 		
 		// open the inventory of the sector we are taking stuff from
 		SECTORINFO *pSectorInfo_Target = &( SectorInfo[ SECTOR(targetX, targetY) ] );
@@ -8617,7 +8840,7 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 
 void HandleTrainWorkers()
 {
-	UINT32 totalworkersadded = 0;
+	INT32 totalworkersadded = 0;
 
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT32 uiCnt = 0;
@@ -8650,7 +8873,7 @@ void HandleTrainWorkers()
 
 					trainpts += GetTrainWorkerPts(pSoldier);
 
-					UINT8 workersadded = trainpts / gGameExternalOptions.usWorkerTrainingPoints;
+					INT8 workersadded = trainpts / gGameExternalOptions.usWorkerTrainingPoints;
 
 					totalworkersadded += workersadded;
 
@@ -8794,6 +9017,9 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 	// adjust for fatigue of trainer
 	UINT32 uiTrainingPts = (UINT32) sTotalTrainingPts;
 	ReducePointsForFatigue( pTrainer, &uiTrainingPts );
+
+	FLOAT administrationmodifier = pTrainer->GetAdministrationModifier();
+	uiTrainingPts *= administrationmodifier;
 
 	// Flugente: our food situation influences our effectiveness
 	if ( UsingFoodSystem() )
@@ -10317,6 +10543,24 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_SPY );
 			}
 
+			// administration
+			if ( CanCharacterAdministration( pSoldier ) )
+			{
+				if ( GetNumberofAdministratableMercs( pSoldier->sSectorX, pSoldier->sSectorY ) )
+				{
+					UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_ADMINISTRATION );
+					UnSecondaryShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_ADMINISTRATION );
+				}
+				else
+				{
+					SecondaryShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_ADMINISTRATION );
+				}
+			}
+			else
+			{
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_ADMINISTRATION );
+			}
+			
 			// militia
 			if ( CanCharacterOnDuty( pSoldier ) )
 			{
@@ -13318,10 +13562,10 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								{
 									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
 
-									wcscpy( gzUserDefinedButton[0], L"Yes*" );
-									wcscpy( gzUserDefinedButton[1], L"Yes" );
-									wcscpy( gzUserDefinedButton[2], L"No" );
-									wcscpy( gzUserDefinedButton[3], L"" );
+									wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
+									wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
+									wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+									wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
 									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, ( MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION ), SurgeryBeforePatientingRequesterCallback );
 								}
 								else
@@ -13458,10 +13702,10 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 								if ( offerbloodbagoption )
 								{
-									wcscpy( gzUserDefinedButton[0], L"Yes*" );
-									wcscpy( gzUserDefinedButton[1], L"Yes" );
-									wcscpy( gzUserDefinedButton[2], L"No" );
-									wcscpy( gzUserDefinedButton[3], L"No" );
+									wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
+									wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
+									wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+									wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
 									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, ( MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION ), SurgeryBeforeDoctoringRequesterCallback );
 								}
 								else
@@ -13600,10 +13844,10 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								{
 									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
 									
-									wcscpy( gzUserDefinedButton[0], L"Yes*" );
-									wcscpy( gzUserDefinedButton[1], L"Yes" );
-									wcscpy( gzUserDefinedButton[2], L"No" );
-									wcscpy( gzUserDefinedButton[3], L"No" );
+									wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
+									wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
+									wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+									wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
 									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, ( MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION ), SurgeryBeforePatientingRequesterCallback );
 								}
 								else
@@ -13841,7 +14085,44 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							ShowBox( ghFacilityBox );
 						}
 					}
-				break;
+					break;
+
+				case ASSIGN_MENU_ADMINISTRATION:
+					if ( CanCharacterAdministration( pSoldier ) )
+					{
+						// stop showing menu
+						fShowAssignmentMenu = FALSE;
+						giAssignHighLine = -1;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if ( ( pSoldier->bAssignment != ADMINISTRATION ) )
+						{
+							SetTimeOfAssignmentChangeForMerc( pSoldier );
+						}
+
+						// remove from squad
+						if ( pSoldier->bOldAssignment == VEHICLE )
+						{
+							TakeSoldierOutOfVehicle( pSoldier );
+						}
+						RemoveCharacterFromSquads( pSoldier );
+
+						ChangeSoldiersAssignment( pSoldier, ADMINISTRATION );
+
+						AssignMercToAMovementGroup( pSoldier );
+
+						MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						// set assignment for group
+						SetAssignmentForList( (INT8)ADMINISTRATION, 0 );
+					}
+					break;
+
 				case( ASSIGN_MENU_CANCEL ):
 					fShowAssignmentMenu = FALSE;
 					giAssignHighLine = -1;
@@ -16456,12 +16737,12 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 					TakeSoldierOutOfVehicle( pSoldier );
 				}
 
-				if ( pSoldier->bAssignment != RADIO_SCAN )
+				if ( pSoldier->bAssignment != bAssignment )
 				{
 					SetTimeOfAssignmentChangeForMerc( pSoldier );
 				}
 
-				ChangeSoldiersAssignment( pSoldier, RADIO_SCAN );
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
 				AssignMercToAMovementGroup( pSoldier );
 			}
 			break;
@@ -16769,6 +17050,30 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				fTeamPanelDirty = TRUE;
 				fMapScreenBottomDirty = TRUE;
 				gfRenderPBInterface = TRUE;
+			}
+			break;
+
+		case ADMINISTRATION:
+			if ( CanCharacterAdministration( pSoldier ) )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if ( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != bAssignment )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
+				AssignMercToAMovementGroup( pSoldier );
 			}
 			break;
 	}
@@ -17918,6 +18223,10 @@ void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 					fNothingToDo = !CanCharacterBurial( pSoldier );
 					break;
 
+				case ADMINISTRATION:
+					fNothingToDo = !CanCharacterAdministration( pSoldier ) || !GetNumberofAdministratableMercs( pSoldier->sSectorX, pSoldier->sSectorY );
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -18257,6 +18566,15 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 				case BURIAL:
 					if ( CanCharacterBurial( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+
+				case ADMINISTRATION:
+					if ( CanCharacterAdministration( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
@@ -19750,7 +20068,7 @@ void CreateDestroyMouseRegionForFacilityMenu( void )
 	INT32 iFontHeight = 0;
 	INT32 iBoxXPosition = 0;
 	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition, pPoint;
+	SGPPoint pPosition;
 	INT32 iBoxWidth = 0;
 	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
@@ -21414,7 +21732,7 @@ void SurgeryBeforeDoctoringRequesterCallback( UINT8 bExitValue )
 		}
 
 		// Flugente: after surgery is done, remove the optional blood bag boosting
-		pAutomaticSurgeryDoctor->usSoldierFlagMask2 & ~SOLDIER_SURGERY_BOOSTED;
+		pAutomaticSurgeryDoctor->usSoldierFlagMask2 &= ~SOLDIER_SURGERY_BOOSTED;
 
 		pAutomaticSurgeryDoctor = NULL;
 	}
@@ -21458,7 +21776,7 @@ void SurgeryBeforePatientingRequesterCallback( UINT8 bExitValue )
 		}
 
 		// Flugente: after surgery is done, remove the optional blood bag boosting
-		pAutomaticSurgeryDoctor->usSoldierFlagMask2 & ~SOLDIER_SURGERY_BOOSTED;
+		pAutomaticSurgeryDoctor->usSoldierFlagMask2 &= ~SOLDIER_SURGERY_BOOSTED;
 
 		pAutomaticSurgeryDoctor = NULL;
 	}

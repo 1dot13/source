@@ -133,6 +133,7 @@ enum {
 	ASSIGN_MENU_MOVE_ITEMS, // added by Flugente
 	ASSIGN_MENU_FORTIFY, // added by Flugente
 	ASSIGN_MENU_SPY,	// added by Flugente
+	ASSIGN_MENU_ADMINISTRATION,	// added by Flugente
 	ASSIGN_MENU_FACILITY, // HEAROCK HAM 3.6: Facility List menu
 	ASSIGN_MENU_CANCEL,
 	MAX_ASSIGN_STRING_COUNT,

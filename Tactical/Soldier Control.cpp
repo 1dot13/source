@@ -19282,6 +19282,19 @@ INT16	SOLDIERTYPE::GetDiseaseResistance( )
 	return(val);
 }
 
+UINT16		SOLDIERTYPE::GetDiseaseDiagnosePoints()
+{
+	// determine our skill at detecting disease
+	UINT16 skill = this->stats.bMedical / 2 + NUM_SKILL_TRAITS( this, DOCTOR_NT ) * 15;
+
+	skill = ( skill * ( 100 + this->GetBackgroundValue( BG_PERC_DISEASE_DIAGNOSE ) ) ) / 100;
+
+	FLOAT administrationmodifier = GetAdministrationModifier();
+	skill *= administrationmodifier;
+
+	return skill;
+}
+
 FLOAT		SOLDIERTYPE::GetBurialPoints( UINT16* apCorpses )
 {
 	if ( this->stats.bLife < OKLIFE || this->bSectorZ || ( this->usSoldierFlagMask & SOLDIER_POW ) )
@@ -19338,7 +19351,9 @@ FLOAT		SOLDIERTYPE::GetBurialPoints( UINT16* apCorpses )
 		}
 	}
 
-	FLOAT totalvalue = val * persmodifier * bestequipmentmodifier * 0.01f;
+	FLOAT administrationmodifier = GetAdministrationModifier();
+
+	FLOAT totalvalue = val * persmodifier * bestequipmentmodifier * administrationmodifier * 0.01f;
 
 	// A most awesome merc in Meduna palace, disguised as a soldier, would have a value of 1.15 * 4.63 * 2 = 10.649 at this point.
 	// This would be the place where we modify our intel gain rate.
@@ -19536,6 +19551,8 @@ FLOAT	SOLDIERTYPE::GetConstructionPoints( )
 	dval = dval * (100 + this->GetBackgroundValue( BG_FORTIFY_ASSIGNMENT )) / 100.0f;
 
 	dval = (dval * this->stats.bLife / this->stats.bLifeMax);
+
+	dval *= GetAdministrationModifier();
 
 	return dval;
 }
@@ -20029,7 +20046,9 @@ FLOAT		SOLDIERTYPE::GetIntelGain()
 	FLOAT sectorvalue = log( (FLOAT)ubLocationModifier );
 	sectorvalue *= sectorvalue / 2.0f;
 
-	FLOAT totalvalue = personalvalue * sectorvalue;
+	FLOAT administrationmodifier = GetAdministrationModifier();
+
+	FLOAT totalvalue = personalvalue * sectorvalue * administrationmodifier;
 
 	// if we do this disguised as a soldier, we get more info
 	if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
@@ -20186,6 +20205,89 @@ BOOLEAN		SOLDIERTYPE::IsValidBloodDonor()
 	}
 
 	return TRUE;
+}
+
+UINT32		SOLDIERTYPE::GetAdministrationPoints()
+{
+	if ( this->stats.bLife < OKLIFE || this->bSectorZ || ( this->usSoldierFlagMask & SOLDIER_POW ) )
+		return 0;
+	
+	// if not on correct assignment, no gain
+	if ( this->bAssignment != ADMINISTRATION )
+		return 0;
+
+	UINT32 val = 250 + 4 * EffectiveWisdom( this ) + 3 * EffectiveLeadership( this ) + 5 * EffectiveExpLevel( this, FALSE );
+	
+	// personality/disability modifiers
+	FLOAT persmodifier = 1.0f;
+	if ( DoesMercHaveDisability( this, NERVOUS ) )		persmodifier -= 0.01f;
+	if ( DoesMercHaveDisability( this, FORGETFUL ) )	persmodifier -= 0.60f;
+	if ( DoesMercHaveDisability( this, PSYCHO ) )		persmodifier -= 0.03f;
+	if ( DoesMercHaveDisability( this, DEAF ) )			persmodifier -= 0.15f;
+	if ( DoesMercHaveDisability( this, SHORTSIGHTED ) )	persmodifier -= 0.10f;
+	
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_SOCIABLE ) )		persmodifier += 0.10f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_LONER ) )		persmodifier -= 0.10f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_OPTIMIST ) )		persmodifier += 0.02f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_ASSERTIVE ) )	persmodifier += 0.08f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_INTELLECTUAL ) )	persmodifier += 0.15f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_PRIMITIVE ) )	persmodifier -= 0.15f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_AGGRESSIVE ) )	persmodifier -= 0.04f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_PHLEGMATIC ) )	persmodifier -= 0.05f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_SHOWOFF ) )		persmodifier -= 0.03f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_COWARD ) )		persmodifier -= 0.07f;
+	}
+
+	// background modifier
+	persmodifier += ( this->GetBackgroundValue( BG_ADMINISTRATION_ASSIGNMENT ) ) / 100.0f;
+	
+	// equipment modifier
+	FLOAT bestequipmentmodifier = 1.0f;
+
+	OBJECTTYPE* pObj = NULL;
+
+	INT8 invsize = (INT8)inv.size();									// remember inventorysize, so we don't call size() repeatedly
+
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )						// ... for all items in our inventory ...
+	{
+		if ( inv[bLoop].exists() == true && Item[inv[bLoop].usItem].usAdministrationModifier )
+		{
+			OBJECTTYPE * pObj = &( this->inv[bLoop] );							// ... get pointer for this item ...
+
+			if ( pObj != NULL )													// ... if pointer is not obviously useless ...
+			{
+				for ( INT16 i = 0; i < pObj->ubNumberOfObjects; ++i )
+				{
+					FLOAT modifier = 1.0f + ( Item[inv[bLoop].usItem].usAdministrationModifier * ( *pObj )[i]->data.objectStatus ) / 10000.0f;
+
+					if ( modifier > bestequipmentmodifier )
+						bestequipmentmodifier = modifier;
+				}
+			}
+		}
+	}
+
+	// the best friendly/direct/recruit approach factor can alter the value up to 10%
+	FLOAT approachmax = max( gMercProfiles[this->ubProfile].usApproachFactor[0], max( gMercProfiles[this->ubProfile].usApproachFactor[1], gMercProfiles[this->ubProfile].usApproachFactor[2] ) );
+	FLOAT approachmodifier = 1.0f + max( -0.1f, min( 0.1f, (approachmax - 100.0f) / 100.0f ));
+
+	UINT32 totalvalue = val * persmodifier * bestequipmentmodifier * approachmodifier / gGameExternalOptions.fAdministrationPointsPerPercent;
+	
+	ReducePointsForFatigue( this, &totalvalue );
+
+	return totalvalue;
+}
+
+extern FLOAT GetAdministrationPercentage( INT16 sX, INT16 sY );
+
+FLOAT		SOLDIERTYPE::GetAdministrationModifier()
+{
+	if ( ADMINISTRATION_BONUS( this->bAssignment ) )
+		return 1.0f + GetAdministrationPercentage( this->sSectorX, this->sSectorY ) / 100.0f;
+
+	return 1.0f;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

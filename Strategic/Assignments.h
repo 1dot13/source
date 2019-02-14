@@ -97,6 +97,7 @@ enum
 	DOCTOR_MILITIA,					// heal militia
 	DRILL_MILITIA,					// train existing militia (does not create new ones)
 	BURIAL,							// merc removes corpses in this sector
+	ADMINISTRATION,					// merc boosts the effectiveness of other mercs
 	NUM_ASSIGNMENTS,
 };
 
@@ -113,6 +114,28 @@ enum
 #define CASE_REPAIR case REPAIR: case FACILITY_REPAIR
 
 #define SPY_LOCATION(assignment) ((assignment == CONCEALED) || (assignment == GATHERINTEL) )
+
+// Flugente: does this assignment benefit from other mercs being on administration assignment?
+#define ADMINISTRATION_BONUS(assignment)	(   IS_DOCTOR(assignment) || \
+											    IS_REPAIR(assignment) || \
+											    (assignment==TRAIN_SELF) || \
+											    (assignment==TRAIN_TOWN) || \
+												(assignment==TRAIN_TEAMMATE) || \
+												(assignment==TRAIN_BY_OTHER) || \
+												(assignment==MOVE_EQUIPMENT) || \
+												(assignment==FACILITY_STAFF) || \
+												(assignment==FACILITY_INTERROGATE_PRISONERS) || \
+												(assignment==FACILITY_SPREAD_PROPAGANDA) || \
+												(assignment==FACILITY_SPREAD_PROPAGANDA_GLOBAL) || \
+												(assignment==FACILITY_STRATEGIC_MILITIA_MOVEMENT) || \
+												(assignment==DISEASE_DIAGNOSE) || \
+												(assignment==DISEASE_DOCTOR_SECTOR) || \
+												(assignment==FORTIFICATION) || \
+												(assignment==TRAIN_WORKERS) || \
+												(assignment==DOCTOR_MILITIA) || \
+												(assignment==DRILL_MILITIA) || \
+												(assignment==BURIAL) \
+											)
 
 // strings for snitch exposition
 enum
@@ -189,6 +212,7 @@ BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier );
 BOOLEAN CanCharacterSpyAssignment( SOLDIERTYPE *pSoldier );
 
 BOOLEAN CanCharacterBurial( SOLDIERTYPE *pSoldier );
+BOOLEAN CanCharacterAdministration( SOLDIERTYPE *pSoldier );
 
 // can this character be assigned as a repairman?
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );
@@ -560,5 +584,8 @@ BOOLEAN MercStaffsMilitaryHQ();
 BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier );
 
 UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier );
+
+// Flugente: administration assignment
+FLOAT GetAdministrationPercentage( INT16 sX, INT16 sY );
 
 #endif
