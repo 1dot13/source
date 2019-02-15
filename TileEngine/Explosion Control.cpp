@@ -2384,8 +2384,8 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 		}
 
 		// Add burn marks to ground randomly....
-		if ( Random( 50 ) < 15 && uiDist == 1 )
-		{
+		//if ( Random( 50 ) < 15 && uiDist == 1 )
+		//{
 			//if ( !TypeRangeExistsInObjectLayer( sGridNo, FIRSTEXPLDEBRIS, SECONDEXPLDEBRIS, &usObjectIndex ) )
 			//{
 			// GetTileIndexFromTypeSubIndex( SECONDEXPLDEBRIS, (UINT16)( Random( 10 ) + 1 ), &usTileIndex );
@@ -2394,7 +2394,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 			// SetRenderFlags(RENDER_FLAG_FULL);
 
 			//}
-		}
+		//}
 
 		// NB radius can be 0 so cannot divide it by 2 here
 		if (!fStunEffect && (uiDist * 2 <= pExplosive->ubRadius)	)
@@ -2441,6 +2441,13 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 			// Remove any unburied items here!
 			RemoveAllUnburiedItems( sGridNo, bLevel );
 			*/
+		}
+		// Flugente: stun grenades remove smoke. Because... air pressure, or something
+		// the smoke comes back on the next update, though (the spread isn't dependent on adjacent tiles, so having it slowly return is not happening for now)
+		// still, this does allow us to remove gas effects for one turn
+		else if ( fStunEffect )
+		{
+			RemoveSmokeEffectFromTile( sGridNo, bLevel );
 		}
 	}
 	else if ( fSmokeEffect )
@@ -2505,7 +2512,8 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 
 			// silversurfer: Gas now only has an effect when the container had time to emit some. Initially it will do nothing.
 			// This prevents the problem that we have to suffer two times without a chance to react (1st when the grenade hits our position, 2nd when our turn starts)
-			if ( sSubsequent > 0 )
+			// Flugente: only deal damage when smoke exists
+			if ( sSubsequent > 0 && (gpWorldLevelData[sGridNo].ubExtFlags[bLevel] & ANY_SMOKE_EFFECT) )
 				fRecompileMovementCosts = DishOutGasDamage( pSoldier, pExplosive, sSubsequent, fRecompileMovementCosts, sWoundAmt, sBreathAmt, ubOwner );
 			/*
 			if (!pSoldier->bActive || !pSoldier->bInSector || !pSoldier->stats.bLife || AM_A_ROBOT( pSoldier ) )
