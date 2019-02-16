@@ -11344,6 +11344,14 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 	L"Прямо",
 	L"Threaten approach",
 	L"Recruit approach",
+
+	L"%s learns with normal speed.",	// TODO.Translate
+	L"%s does not learn at all.",
+	L"%s unlearns his skills.",
+	L"%s learns with 3/4 speed.",
+
+	L"%s learns with 1/2 speed.",
+	L"%s learns with 1/4 speed.",
 };
 
 STR16	szGearTemplateText[] =	// TODO.Translate
