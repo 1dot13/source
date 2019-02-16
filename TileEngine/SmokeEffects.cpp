@@ -25,6 +25,7 @@
 	#include "opplist.h"
 	#include "Campaign Types.h"
 	#include "Tactical Save.h"
+	#include "strategicmap.h"
 #endif
 
 #include "SaveLoadGame.h"
@@ -298,6 +299,16 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 	{
 		// Duration is increased by 2 turns...indoors
 		pSmoke->ubDuration += 3;
+	}
+	else
+	{
+		switch ( SectorInfo[SECTOR( gWorldSectorX, gWorldSectorY )].usWeather )
+		{
+		case WEATHER_FORECAST_RAIN:				pSmoke->ubDuration = max( 0, pSmoke->ubDuration - 2 ); break;
+		case WEATHER_FORECAST_THUNDERSHOWERS:	pSmoke->ubDuration = max( 0, pSmoke->ubDuration - 3 ); break;
+		case WEATHER_FORECAST_SANDSTORM:		pSmoke->ubDuration = max( 0, pSmoke->ubDuration - 1 ); break;
+		case WEATHER_FORECAST_SNOW:				pSmoke->ubDuration = max( 0, pSmoke->ubDuration - 1 ); break;
+		}
 	}
 
 	if ( bLevel )
