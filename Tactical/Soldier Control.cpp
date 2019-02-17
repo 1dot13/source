@@ -14808,6 +14808,18 @@ INT16	SOLDIERTYPE::GetSightRangeBonus( )
 	if ( DoesMercHaveDisability( this, SHORTSIGHTED ) )
 		bonus -= 10;
 
+	if ( (gGameExternalOptions.usLowerVisionWhileRunning == 1) || ( gGameExternalOptions.usLowerVisionWhileRunning == 2 && bTeam == gbPlayerNum ) )
+	{
+		// Flugente: We have to decide depending on the animation we have, otherwise we can cause bugs if we do this after being hit by an explosion etc.
+		switch ( this->usAnimState )
+		{
+		case RUNNING:
+		case RUNNING_W_PISTOL:
+			bonus -= 25;
+			break;
+		}
+	}
+
 	return bonus;
 }
 

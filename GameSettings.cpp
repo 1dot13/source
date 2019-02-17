@@ -1246,7 +1246,7 @@ void LoadGameExternalOptions()
 
 	// Tunnel Vision
 	gGameExternalOptions.gfAllowLimitedVision				= iniReader.ReadBoolean("Tactical Vision Settings","ALLOW_TUNNEL_VISION",0);
-
+	gGameExternalOptions.usLowerVisionWhileRunning			= iniReader.ReadInteger("Tactical Vision Settings", "LOWER_VISION_WHILE_RUNNING", 0, 0, 2 );
 
 	//################# Tactical Tooltip Settings #################
 

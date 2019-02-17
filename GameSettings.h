@@ -577,6 +577,7 @@ typedef struct
 	INT8 ubBrightnessVisionMod[16];
 
 	BOOLEAN gfAllowLimitedVision;
+	UINT8 usLowerVisionWhileRunning;
 
 	BOOLEAN gfShiftFUnloadWeapons;
 	BOOLEAN gfShiftFRemoveAttachments;
