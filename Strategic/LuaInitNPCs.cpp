@@ -12887,28 +12887,31 @@ static int l_CreateArmedCivilain( lua_State *L )
 		INT32 sGridNo			= lua_tointeger( L, 3 );
 		BOOLEAN fHostile		= lua_tointeger( L, 4 );
 
-		SOLDIERTYPE* pSoldier = TacticalCreateArmedCivilian( usSoldierClass );
-
-		if ( pSoldier )
+		if ( gGameExternalOptions.bExtraCivilians )
 		{
-			if ( sGridNo != NOWHERE )
+			SOLDIERTYPE* pSoldier = TacticalCreateArmedCivilian( usSoldierClass );
+
+			if ( pSoldier )
 			{
-				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-				pSoldier->sInsertionGridNo = sGridNo;
-			}
+				if ( sGridNo != NOWHERE )
+				{
+					pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+					pSoldier->sInsertionGridNo = sGridNo;
+				}
 
-			AddSoldierToSector( pSoldier->ubID );
+				AddSoldierToSector( pSoldier->ubID );
 
-			// So we can see them!
-			AllTeamsLookForAll( NO_INTERRUPTS );
+				// So we can see them!
+				AllTeamsLookForAll( NO_INTERRUPTS );
 
-			// set correct civ group
-			if ( usCivilianGroup )
-			{
-				pSoldier->ubCivilianGroup = usCivilianGroup;
+				// set correct civ group
+				if ( usCivilianGroup )
+				{
+					pSoldier->ubCivilianGroup = usCivilianGroup;
 
-				if ( fHostile )
-					gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] = CIV_GROUP_WILL_BECOME_HOSTILE;
+					if ( fHostile )
+						gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] = CIV_GROUP_WILL_BECOME_HOSTILE;
+				}
 			}
 		}
 	}
