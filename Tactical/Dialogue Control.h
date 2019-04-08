@@ -10,201 +10,201 @@
 enum DialogQuoteIDs
 {
 	// 0
-	QUOTE_SEE_ENEMY = 0,
-	QUOTE_SEE_ENEMY_VARIATION,
-	QUOTE_IN_TROUBLE_SLASH_IN_BATTLE,
-	QUOTE_SEE_CREATURE,
-	QUOTE_FIRSTTIME_GAME_SEE_CREATURE,
-	QUOTE_TRACES_OF_CREATURE_ATTACK,
-	QUOTE_HEARD_SOMETHING,
-	QUOTE_SMELLED_CREATURE,
-	QUOTE_WEARY_SLASH_SUSPUCIOUS,
-	QUOTE_WORRIED_ABOUT_CREATURE_PRESENCE,
+	QUOTE_SEE_ENEMY = 0,						// used when we spot an enemy
+	QUOTE_SEE_ENEMY_VARIATION,					// used when we spot an enemy in this sector for the first time
+	QUOTE_IN_TROUBLE_SLASH_IN_BATTLE,			// used when we spot an enemy and they significantly outnumber us
+	QUOTE_SEE_CREATURE,							// used when we spot a bug
+	QUOTE_FIRSTTIME_GAME_SEE_CREATURE,			// used when we spot a bug for the first time
+	QUOTE_TRACES_OF_CREATURE_ATTACK,			// randomly played during the bug quest in the tunnels
+	QUOTE_HEARD_SOMETHING,						// we heard a suspicious sound
+	QUOTE_SMELLED_CREATURE,						// randomly played during the bug quest in the tunnels
+	QUOTE_WEARY_SLASH_SUSPUCIOUS,				// we are weary, because some non-militia NPC has a rocketlauncher or cannon
+	QUOTE_WORRIED_ABOUT_CREATURE_PRESENCE,		// randomly played during the bug quest in the tunnels
 
 	//10
-	QUOTE_ATTACKED_BY_MULTIPLE_CREATURES,
-	QUOTE_SPOTTED_SOMETHING_ONE,
-	QUOTE_SPOTTED_SOMETHING_TWO,
-	QUOTE_OUT_OF_AMMO,
-	QUOTE_SERIOUSLY_WOUNDED,
-	QUOTE_BUDDY_1_KILLED,
-	QUOTE_BUDDY_2_KILLED,
-	QUOTE_LEARNED_TO_LIKE_MERC_KILLED,
-	QUOTE_FORGETFULL_SLASH_CONFUSED,
-	QUOTE_JAMMED_GUN,
+	QUOTE_ATTACKED_BY_MULTIPLE_CREATURES,		// used when we spot several bugs
+	QUOTE_SPOTTED_SOMETHING_ONE,				// spotted an item
+	QUOTE_SPOTTED_SOMETHING_TWO,				// spotted an item
+	QUOTE_OUT_OF_AMMO,							// gun is empty
+	QUOTE_SERIOUSLY_WOUNDED,					// lose life from bleeding below 15 HP
+	QUOTE_BUDDY_1_KILLED,						// buddy 1 died
+	QUOTE_BUDDY_2_KILLED,						// buddy 2 died
+	QUOTE_LEARNED_TO_LIKE_MERC_KILLED,			// learn to like died
+	QUOTE_FORGETFULL_SLASH_CONFUSED,			// currently not used
+	QUOTE_JAMMED_GUN,							// gun is jammed
 
 	//20
-	QUOTE_UNDER_HEAVY_FIRE,
-	QUOTE_TAKEN_A_BREATING,
-	QUOTE_CLOSE_CALL,
-	QUOTE_NO_LINE_OF_FIRE,
-	QUOTE_STARTING_TO_BLEED,
-	QUOTE_NEED_SLEEP,
-	QUOTE_OUT_OF_BREATH,
-	QUOTE_KILLED_AN_ENEMY,
-	QUOTE_KILLED_A_CREATURE,
-	QUOTE_HATED_1,
+	QUOTE_UNDER_HEAVY_FIRE,						// heavily suppressed
+	QUOTE_TAKEN_A_BREATING,						// took a lot of hits this turn
+	QUOTE_CLOSE_CALL,							// almost hit by a projectile
+	QUOTE_NO_LINE_OF_FIRE,						// really bad chance to hit target
+	QUOTE_STARTING_TO_BLEED,					// we are bleeding
+	QUOTE_NEED_SLEEP,							// going to sleep
+	QUOTE_OUT_OF_BREATH,						// very low on breath points
+	QUOTE_KILLED_AN_ENEMY,						// killed an enemy
+	QUOTE_KILLED_A_CREATURE,					// killed an bug
+	QUOTE_HATED_1,								// complain about hated 1
 
 	//30
-	QUOTE_HATED_2,
-	QUOTE_LEARNED_TO_HATE_MERC,
-	QUOTE_AIM_KILLED_MIKE,
-	QUOTE_MERC_QUIT_LEARN_TO_HATE = QUOTE_AIM_KILLED_MIKE,
-	QUOTE_HEADSHOT,
-	QUOTE_PERSONALITY_TRAIT,
-	QUOTE_ASSIGNMENT_COMPLETE,
-	QUOTE_REFUSING_ORDER,
-	QUOTE_KILLING_DEIDRANNA,
-	QUOTE_KILLING_QUEEN,
-	QUOTE_ANNOYING_PC,
+	QUOTE_HATED_2,								// complain about hated 2
+	QUOTE_LEARNED_TO_HATE_MERC,					// complain about learn to hate
+	QUOTE_AIM_KILLED_MIKE,						// AIM: killed Mike
+	QUOTE_MERC_QUIT_LEARN_TO_HATE = QUOTE_AIM_KILLED_MIKE,	// MERC: quit because of guy we learned to hate
+	QUOTE_HEADSHOT,								// complain about head explosion/corpse being disgusting
+	QUOTE_PERSONALITY_TRAIT,					// disability kicks in (forgetfulness, afraid of heights etc.)
+	QUOTE_ASSIGNMENT_COMPLETE,					// assignment is complete, so we tell the player
+	QUOTE_REFUSING_ORDER,						// refuse to do action to target
+	QUOTE_KILLING_DEIDRANNA,					// killed (or witnessed death of) Deidranna
+	QUOTE_KILLING_QUEEN,						// killed (or witnessed death of) bug queen
+	QUOTE_ANNOYING_PC,							// we dislike the NPC we just talked to
 
 	//40
-	QUOTE_STARTING_TO_WHINE,
-	QUOTE_NEGATIVE_COMPANY,
-	QUOTE_AIR_RAID,
-	QUOTE_WHINE_EQUIPMENT,
-	QUOTE_SOCIAL_TRAIT,
-	QUOTE_PASSING_DISLIKE,
-	QUOTE_EXPERIENCE_GAIN,
-	QUOTE_REFUSE_TO_EATFOOD,
-	QUOTE_REFUSE_TO_SMOKE,
-	QUOTE_HATED_1_ARRIVES,
-	QUOTE_MERC_QUIT_HATED_1 = QUOTE_HATED_1_ARRIVES,
+	QUOTE_STARTING_TO_WHINE,					// complain: low morale
+	QUOTE_NEGATIVE_COMPANY,						// randomly played when we talk to a merc
+	QUOTE_AIR_RAID,								// notify player of air raid / enemy helicopter spotted
+	QUOTE_WHINE_EQUIPMENT,						// complain about quality of equipment
+	QUOTE_SOCIAL_TRAIT,							// randomly played when we talk to a merc
+	QUOTE_PASSING_DISLIKE,						// randomly played when we talk to a merc
+	QUOTE_EXPERIENCE_GAIN,						// gained stats
+	QUOTE_REFUSE_TO_EATFOOD,					// refuse to eat food
+	QUOTE_REFUSE_TO_SMOKE,						// refuse to smoke
+	QUOTE_HATED_1_ARRIVES,						// AIM: hated 1 arrives
+	QUOTE_MERC_QUIT_HATED_1 = QUOTE_HATED_1_ARRIVES,	// MERC/NPC: quit because of hated 1
 
 	//50
-	QUOTE_HATED_2_ARRIVES,
-	QUOTE_MERC_QUIT_HATED_2 = QUOTE_HATED_2_ARRIVES,
-	QUOTE_BUDDY_1_GOOD,
-	QUOTE_BUDDY_2_GOOD,
-	QUOTE_LEARNED_TO_LIKE_WITNESSED,
-	QUOTE_DELAY_CONTRACT_RENEWAL,		// unused
-	QUOTE_NOT_GETTING_PAID = QUOTE_DELAY_CONTRACT_RENEWAL,
-	QUOTE_AIM_SEEN_MIKE,
-	QUOTE_PC_DROPPED_OMERTA = QUOTE_AIM_SEEN_MIKE,
-	QUOTE_NOT_GETTING_PAID_RPC = QUOTE_PC_DROPPED_OMERTA,
-	QUOTE_BLINDED,
-	QUOTE_DEFINITE_CANT_DO,
-	QUOTE_LISTEN_LIKABLE_PERSON,
-	QUOTE_ENEMY_PRESENCE,
+	QUOTE_HATED_2_ARRIVES,						// AIM: hated 2 arrives
+	QUOTE_MERC_QUIT_HATED_2 = QUOTE_HATED_2_ARRIVES,	// MERC/NPC: quit because of hated 2
+	QUOTE_BUDDY_1_GOOD,							// compliment buddy 1
+	QUOTE_BUDDY_2_GOOD,							// compliment buddy 2
+	QUOTE_LEARNED_TO_LIKE_WITNESSED,			// compliment learn to like
+	QUOTE_DELAY_CONTRACT_RENEWAL,				// currently unused
+	QUOTE_NOT_GETTING_PAID = QUOTE_DELAY_CONTRACT_RENEWAL,	// MERC: complain about not being paid
+	QUOTE_AIM_SEEN_MIKE,						// AIM/MERC: see Mike
+	QUOTE_PC_DROPPED_OMERTA = QUOTE_AIM_SEEN_MIKE,		// IMP: airdop in Omerta
+	QUOTE_NOT_GETTING_PAID_RPC = QUOTE_PC_DROPPED_OMERTA,	// RPC: complain about not being paid
+	QUOTE_BLINDED,								// an attack has blinded us
+	QUOTE_DEFINITE_CANT_DO,						// we are hopeless at this skill check
+	QUOTE_LISTEN_LIKABLE_PERSON,				// we like the NPC we just talked to
+	QUOTE_ENEMY_PRESENCE,						// prior to combat, notify us of enemy presence
 
 	//60
-	QUOTE_WARNING_OUTSTANDING_ENEMY_AFTER_RT,
-	QUOTE_FOUND_SOMETHING_SPECIAL,
-	QUOTE_SATISFACTION_WITH_GUN_AFTER_KILL,
-	QUOTE_SPOTTED_JOEY,
-	QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO,
-	QUOTE_SECTOR_SAFE,
-	QUOTE_STUFF_MISSING_DRASSEN,
-	QUOTE_KILLED_FACTORY_MANAGER,
-	QUOTE_SPOTTED_BLOODCAT,
-	QUOTE_END_GAME_COMMENT,
+	QUOTE_WARNING_OUTSTANDING_ENEMY_AFTER_RT,	// realtime has begun, but hostiles are still around
+	QUOTE_FOUND_SOMETHING_SPECIAL,				// we picked up an item we think is cool (once per day)
+	QUOTE_SATISFACTION_WITH_GUN_AFTER_KILL,		// we are happy with the gun we are currently using (once per day)
+	QUOTE_SPOTTED_JOEY,							// we spotted Joey during his quest
+	QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO,		// AIM: answer to Miguel speech, MERC/RPC: warn that contract is over soon
+	QUOTE_SECTOR_SAFE,							// we won the battle
+	QUOTE_STUFF_MISSING_DRASSEN,				// notice shipment in Drassen was stolen
+	QUOTE_KILLED_FACTORY_MANAGER,				// killed Deidranna
+	QUOTE_SPOTTED_BLOODCAT,						// used when we spot a bloodcat
+	QUOTE_END_GAME_COMMENT,						// end speech after game is won
 	
 	//70
-	QUOTE_ENEMY_RETREATED,
-	QUOTE_GOING_TO_AUTO_SLEEP,
-	QUOTE_WORK_UP_AND_RETURNING_TO_ASSIGNMENT, // woke up from auto sleep, going back to work
-	QUOTE_ME_TOO, // me too quote, in agreement with whatever the merc previous said
-	QUOTE_USELESS_ITEM,
-	QUOTE_BOOBYTRAP_ITEM,
-	QUOTE_SUSPICIOUS_GROUND,
-	QUOTE_DROWNING,
-	QUOTE_MERC_REACHED_DESTINATION,
-	QUOTE_JA2UB_LAPTOP_FIXED,			// JA2UB: played when the laptop is fixed
+	QUOTE_ENEMY_RETREATED,						// we won the battle due to enemy retreat
+	QUOTE_GOING_TO_AUTO_SLEEP,					// currently not used
+	QUOTE_WORK_UP_AND_RETURNING_TO_ASSIGNMENT,	// woke up from auto sleep, going back to work
+	QUOTE_ME_TOO,								// me too quote, in agreement with whatever the merc previous said
+	QUOTE_USELESS_ITEM,							// tried working the item in hand, and it's broken
+	QUOTE_BOOBYTRAP_ITEM,						// item/door/etc. is boobytrapped
+	QUOTE_SUSPICIOUS_GROUND,					// found mine etc. on floor tile
+	QUOTE_DROWNING,								// currently not used, intended upon drowning
+	QUOTE_MERC_REACHED_DESTINATION,				// strategic travel: arrived at destination
+	QUOTE_JA2UB_LAPTOP_FIXED,					// JA2UB: played when the laptop is fixed
 
 	//80
-	QUOTE_REPUTATION_REFUSAL, //80
-	QUOTE_NON_AIM_BUDDY_3_KILLED = QUOTE_REPUTATION_REFUSAL,
-	QUOTE_DEATH_RATE_REFUSAL, //= 81,
-	QUOTE_NON_AIM_BUDDY_4_KILLED = QUOTE_DEATH_RATE_REFUSAL,
-	QUOTE_LAME_REFUSAL, //= 82,
-	QUOTE_NON_AIM_BUDDY_5_KILLED = QUOTE_LAME_REFUSAL,	
-	QUOTE_WONT_RENEW_CONTRACT_LAME_REFUSAL,	//=83,
-	QUOTE_NON_AIM_HATED_3 = QUOTE_WONT_RENEW_CONTRACT_LAME_REFUSAL,
-	QUOTE_ANSWERING_MACHINE_MSG, //= 84,
-	QUOTE_NON_AIM_HATED_4 = QUOTE_ANSWERING_MACHINE_MSG,
-	QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE, //=85,
-	QUOTE_NON_AIM_HATED_5 = QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE,
-	QUOTE_HATED_1_ON_TEAM,// = 86,
-	QUOTE_NON_AIM_BUDDY_3_GOOD = QUOTE_HATED_1_ON_TEAM,
-	QUOTE_HATED_2_ON_TEAM,// = 87,
-	QUOTE_NON_AIM_BUDDY_4_GOOD = QUOTE_HATED_2_ON_TEAM,
-	QUOTE_LEARNED_TO_HATE_MERC_ON_TEAM,// = 88,
-	QUOTE_NON_AIM_BUDDY_5_GOOD = QUOTE_LEARNED_TO_HATE_MERC_ON_TEAM,
-	QUOTE_CONTRACTS_OVER,// = 89,
-	QUOTE_MERC_QUIT_HATED_3 = QUOTE_CONTRACTS_OVER,
+	QUOTE_REPUTATION_REFUSAL, //80								// AIM: refuse to be hired due to bad player reputation
+	QUOTE_NON_AIM_BUDDY_3_KILLED = QUOTE_REPUTATION_REFUSAL,	// not AIM: buddy 3 died
+	QUOTE_DEATH_RATE_REFUSAL, //= 81,							// AIM: refuse to be hired due to high death rate
+	QUOTE_NON_AIM_BUDDY_4_KILLED = QUOTE_DEATH_RATE_REFUSAL,	// not AIM: buddy 4 died
+	QUOTE_LAME_REFUSAL, //= 82,									// AIM: refuse to be hired due not being in the mood (hangover etc.)
+	QUOTE_NON_AIM_BUDDY_5_KILLED = QUOTE_LAME_REFUSAL,			// not AIM: buddy 5 died
+	QUOTE_WONT_RENEW_CONTRACT_LAME_REFUSAL,	//=83,				// AIM: refuse to be renew contract due to already having signed elsewhere
+	QUOTE_NON_AIM_HATED_3 = QUOTE_WONT_RENEW_CONTRACT_LAME_REFUSAL,		// not AIM: complain about hated 3
+	QUOTE_ANSWERING_MACHINE_MSG, //= 84,								// AIM: message that plays on the answering machine
+	QUOTE_NON_AIM_HATED_4 = QUOTE_ANSWERING_MACHINE_MSG,				// not AIM: complain about hated 4
+	QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE, //=85,	// AIM: warn that contract is >= 48 hours, would like to renew
+	QUOTE_NON_AIM_HATED_5 = QUOTE_DEPARTING_COMMENT_CONTRACT_NOT_RENEWED_OR_48_OR_MORE,		// not AIM: complain about hated 5
+	QUOTE_HATED_1_ON_TEAM,// = 86,								// AIM: played when we refuse to be hired because hated 1 is present and bHatedTime < 24 (else play QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE)
+	QUOTE_NON_AIM_BUDDY_3_GOOD = QUOTE_HATED_1_ON_TEAM,			// not AIM: compliment buddy 3
+	QUOTE_HATED_2_ON_TEAM,// = 87,								// AIM: played when we refuse to be hired because hated 2 is present and bHatedTime < 24 (else play QUOTE_HATED_2_ON_TEAM_LONGTIMETOHATE)
+	QUOTE_NON_AIM_BUDDY_4_GOOD = QUOTE_HATED_2_ON_TEAM,			// not AIM: compliment buddy 4
+	QUOTE_LEARNED_TO_HATE_MERC_ON_TEAM,// = 88,					// AIM: played when we refuse to be hired because learn to hate is present
+	QUOTE_NON_AIM_BUDDY_5_GOOD = QUOTE_LEARNED_TO_HATE_MERC_ON_TEAM,		// not AIM: compliment buddy 5
+	QUOTE_CONTRACTS_OVER,// = 89,								// tell player that contract is over
+	QUOTE_MERC_QUIT_HATED_3 = QUOTE_CONTRACTS_OVER,				// MERC/RPC: quit because of hated 3
 	
 	//90
-	QUOTE_ACCEPT_CONTRACT_RENEWAL, // =90,
-	QUOTE_MERC_QUIT_HATED_4 = QUOTE_ACCEPT_CONTRACT_RENEWAL,
-	QUOTE_CONTRACT_ACCEPTANCE,// =91,
-	QUOTE_MERC_QUIT_HATED_5 = QUOTE_CONTRACT_ACCEPTANCE,
-	QUOTE_JOINING_CAUSE_BUDDY_1_ON_TEAM,// = 92,
-	QUOTE_JOINING_CAUSE_BUDDY_2_ON_TEAM,// = 93,
-	QUOTE_JOINING_CAUSE_LEARNED_TO_LIKE_BUDDY_ON_TEAM,// = 94,
-	QUOTE_REFUSAL_RENEW_DUE_TO_MORALE,// = 95,
-	QUOTE_PRECEDENT_TO_REPEATING_ONESELF,// = 96,
-	QUOTE_REFUSAL_TO_JOIN_LACK_OF_FUNDS,// = 97,
-	QUOTE_DEPART_COMMET_CONTRACT_NOT_RENEWED_OR_TERMINATED_UNDER_48,// = 98,
-	QUOTE_DEATH_RATE_RENEWAL,
+	QUOTE_ACCEPT_CONTRACT_RENEWAL, // =90,						// AIM: renew contract
+	QUOTE_MERC_QUIT_HATED_4 = QUOTE_ACCEPT_CONTRACT_RENEWAL,	// MERC/RPC: quit because of hated 4
+	QUOTE_CONTRACT_ACCEPTANCE,// =91,							// AIM: agree to contract
+	QUOTE_MERC_QUIT_HATED_5 = QUOTE_CONTRACT_ACCEPTANCE,		// MERC/RPC: quit because of hated 5
+	QUOTE_JOINING_CAUSE_BUDDY_1_ON_TEAM,// = 92,				// agree to contract because buddy 1 is here
+	QUOTE_JOINING_CAUSE_BUDDY_2_ON_TEAM,// = 93,				// agree to contract because buddy 2 is here
+	QUOTE_JOINING_CAUSE_LEARNED_TO_LIKE_BUDDY_ON_TEAM,// = 94,	// agree to contract because learn to like is here
+	QUOTE_REFUSAL_RENEW_DUE_TO_MORALE,// = 95,					// AIM: refuse to be renew due to bad player reputation or morale
+	QUOTE_PRECEDENT_TO_REPEATING_ONESELF,// = 96,				// say that you're repeating yourself
+	QUOTE_REFUSAL_TO_JOIN_LACK_OF_FUNDS,// = 97,				// player can't afford hiring us
+	QUOTE_DEPART_COMMET_CONTRACT_NOT_RENEWED_OR_TERMINATED_UNDER_48,// = 98,	// AIM: warn that contract is < 48 hours, would like to renew
+	QUOTE_DEATH_RATE_RENEWAL,									// AIM: refuse to be renew due to high death rate
 
 	//100
-	QUOTE_HATED_1_ON_TEAM_WONT_RENEW,
-	QUOTE_HATED_2_ON_TEAM_WONT_RENEW,
-	QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW,
-	QUOTE_RENEWING_CAUSE_BUDDY_1_ON_TEAM,
-	QUOTE_RENEWING_CAUSE_BUDDY_2_ON_TEAM,
-	QUOTE_RENEWING_CAUSE_LEARNED_TO_LIKE_BUDDY_ON_TEAM,
-	QUOTE_PRECEDENT_TO_REPEATING_ONESELF_RENEW,
-	QUOTE_RENEW_REFUSAL_DUE_TO_LACK_OF_FUNDS,
-	QUOTE_GREETING,
-	QUOTE_SMALL_TALK,
+	QUOTE_HATED_1_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 1 is here
+	QUOTE_HATED_2_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 2 is here
+	QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW,	// refuse to renew contract because learn to hate is here
+	QUOTE_RENEWING_CAUSE_BUDDY_1_ON_TEAM,		// renew contract only because buddy 1 is around
+	QUOTE_RENEWING_CAUSE_BUDDY_2_ON_TEAM,		// renew contract only because buddy 2 is around
+	QUOTE_RENEWING_CAUSE_LEARNED_TO_LIKE_BUDDY_ON_TEAM,		// renew contract only because learn to like is around
+	QUOTE_PRECEDENT_TO_REPEATING_ONESELF_RENEW,	// repeat yourself during renewal process
+	QUOTE_RENEW_REFUSAL_DUE_TO_LACK_OF_FUNDS,	// JA2UB: kill bloodcat quest fulfilled
+	QUOTE_GREETING,								// AIM hiring screen: greet the player
+	QUOTE_SMALL_TALK,							// AIM hiring screen: player says nothing, so do a bit of small talk
 
 	//110
-	QUOTE_IMPATIENT_QUOTE,					
-	QUOTE_LENGTH_OF_CONTRACT,
-	QUOTE_COMMENT_BEFORE_HANG_UP,
-	QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE,		// played when we refuse to be hired because hated person is present and hatetime >= 24 (else play QUOTE_HATED_1_ON_TEAM)
-	QUOTE_HATED_2_ON_TEAM_LONGTIMETOHATE,
-	QUOTE_MERC_LEAVING_ALSUCO_SOON,
-	QUOTE_MERC_GONE_UP_IN_PRICE,
+	QUOTE_IMPATIENT_QUOTE,						// AIM hiring screen: player says nothing, so get impatient / easter egg: female mercs complain about player trying to abuse the 'strip' command
+	QUOTE_LENGTH_OF_CONTRACT,					// AIM hiring screen: ask player what contract terms they want
+	QUOTE_COMMENT_BEFORE_HANG_UP,				// AIM hiring screen: player says nothing, we are fed up so end the cal
+	QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE,		// AIM: played when we refuse to be hired because hated 1 is present and bHatedTime >= 24 (else play QUOTE_HATED_1_ON_TEAM)
+	QUOTE_HATED_2_ON_TEAM_LONGTIMETOHATE,		// AIM: played when we refuse to be hired because hated 2 is present and bHatedTime >= 24 (else play QUOTE_HATED_2_ON_TEAM)
+	QUOTE_MERC_LEAVING_ALSUCO_SOON,				// tell player that contract will be over soon
+	QUOTE_MERC_GONE_UP_IN_PRICE,				// during contract renegotiation, inform the player of increased salary
 #ifdef JA2UB
-	QUOTE_ENTER_SECTOR_WITH_FAN_1,
-	QUOTE_ENTER_SECTOR_WITH_FAN_2,
+	QUOTE_ENTER_SECTOR_WITH_FAN_1,				// special JA2UB dialogue about fan
+	QUOTE_ENTER_SECTOR_WITH_FAN_2,				// special JA2UB dialogue about fan
 #endif
 
-	QUOTE_AIM_BUDDY_3_KILLED = 119,
+	QUOTE_AIM_BUDDY_3_KILLED = 119,				// AIM: buddy 3 died
 
 	//120
-	QUOTE_AIM_BUDDY_4_KILLED,
-	QUOTE_AIM_BUDDY_5_KILLED,
-	QUOTE_AIM_HATED_3,
-	QUOTE_AIM_HATED_4,
-	QUOTE_AIM_HATED_5,
-	QUOTE_HATED_3_ARRIVES,
-	QUOTE_HATED_4_ARRIVES,
-	QUOTE_HATED_5_ARRIVES,
-	QUOTE_AIM_BUDDY_3_GOOD,
-	QUOTE_AIM_BUDDY_4_GOOD,
+	QUOTE_AIM_BUDDY_4_KILLED,					// AIM: buddy 4 died
+	QUOTE_AIM_BUDDY_5_KILLED,					// AIM: buddy 5 died
+	QUOTE_AIM_HATED_3,							// AIM: complain about hated 3
+	QUOTE_AIM_HATED_4,							// AIM: complain about hated 4
+	QUOTE_AIM_HATED_5,							// AIM: complain about hated 5
+	QUOTE_HATED_3_ARRIVES,						// AIM: hated 3 arrives
+	QUOTE_HATED_4_ARRIVES,						// AIM: hated 4 arrives
+	QUOTE_HATED_5_ARRIVES,						// AIM: hated 5 arrives
+	QUOTE_AIM_BUDDY_3_GOOD,						// AIM: compliment buddy 3
+	QUOTE_AIM_BUDDY_4_GOOD,						// AIM: compliment buddy 4
 	
 	//130
-	QUOTE_AIM_BUDDY_5_GOOD,
-	QUOTE_HATED_3_ON_TEAM,
-	QUOTE_HATED_4_ON_TEAM,
-	QUOTE_HATED_5_ON_TEAM,
-	QUOTE_JOINING_CAUSE_BUDDY_3_ON_TEAM,
-	QUOTE_JOINING_CAUSE_BUDDY_4_ON_TEAM,
-	QUOTE_JOINING_CAUSE_BUDDY_5_ON_TEAM,
-	QUOTE_HATED_3_ON_TEAM_WONT_RENEW,
-	QUOTE_HATED_4_ON_TEAM_WONT_RENEW,
-	QUOTE_HATED_5_ON_TEAM_WONT_RENEW,
+	QUOTE_AIM_BUDDY_5_GOOD,						// AIM: compliment buddy 5
+	QUOTE_HATED_3_ON_TEAM,						// AIM: played when we refuse to be hired because hated 3 is present and bHatedTime < 24 ( else play QUOTE_HATED_3_ON_TEAM_LONGTIMETOHATE )
+	QUOTE_HATED_4_ON_TEAM,						// AIM: played when we refuse to be hired because hated 4 is present and bHatedTime < 24 ( else play QUOTE_HATED_4_ON_TEAM_LONGTIMETOHATE )
+	QUOTE_HATED_5_ON_TEAM,						// AIM: played when we refuse to be hired because hated 5 is present and bHatedTime < 24 ( else play QUOTE_HATED_5_ON_TEAM_LONGTIMETOHATE )
+	QUOTE_JOINING_CAUSE_BUDDY_3_ON_TEAM,		// agree to contract because buddy 3 is here
+	QUOTE_JOINING_CAUSE_BUDDY_4_ON_TEAM,		// agree to contract because buddy 4 is here
+	QUOTE_JOINING_CAUSE_BUDDY_5_ON_TEAM,		// agree to contract because buddy 5 is here
+	QUOTE_HATED_3_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 3 is here
+	QUOTE_HATED_4_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 4 is here
+	QUOTE_HATED_5_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 5 is here
 
 	//140
-	QUOTE_RENEWING_CAUSE_BUDDY_3_ON_TEAM,
-	QUOTE_RENEWING_CAUSE_BUDDY_4_ON_TEAM,
-	QUOTE_RENEWING_CAUSE_BUDDY_5_ON_TEAM,
-	QUOTE_HATED_3_ON_TEAM_LONGTIMETOHATE,
-	QUOTE_HATED_4_ON_TEAM_LONGTIMETOHATE,
-	QUOTE_HATED_5_ON_TEAM_LONGTIMETOHATE,
+	QUOTE_RENEWING_CAUSE_BUDDY_3_ON_TEAM,		// renew contract only because buddy 3 is around
+	QUOTE_RENEWING_CAUSE_BUDDY_4_ON_TEAM,		// renew contract only because buddy 4 is around
+	QUOTE_RENEWING_CAUSE_BUDDY_5_ON_TEAM,		// renew contract only because buddy 5 is around
+	QUOTE_HATED_3_ON_TEAM_LONGTIMETOHATE,		// AIM: played when we refuse to be hired because hated 3 is present and bHatedTime >= 24 (else play QUOTE_HATED_3_ON_TEAM)
+	QUOTE_HATED_4_ON_TEAM_LONGTIMETOHATE,		// AIM: played when we refuse to be hired because hated 4 is present and bHatedTime >= 24 (else play QUOTE_HATED_4_ON_TEAM)
+	QUOTE_HATED_5_ON_TEAM_LONGTIMETOHATE,		// AIM: played when we refuse to be hired because hated 5 is present and bHatedTime >= 24 (else play QUOTE_HATED_5_ON_TEAM)
 };
 
 
