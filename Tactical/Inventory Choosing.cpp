@@ -2327,7 +2327,7 @@ void RandomlyChooseWhichItemsAreDroppable( SOLDIERCREATE_STRUCT *pp, INT8 bSoldi
 
 	//Madd
 //if ( gGameSettings.fOptions[TOPTION_DROP_ALL] ) // EXTERNILIZED TO THE INI INSTEAD - SANDRO
-if ( UsingEnemiesDropAllItemsSystem() )
+if ( gGameExternalOptions.fEnemiesDropAllItems == 1 )
 {
 	ENEMYAMMODROPRATE = 100;
 	ENEMYGRENADEDROPRATE = 100;
@@ -2446,7 +2446,7 @@ else
 //TODO: someday maybe 			pp->Inv[i].fFlags &= ~ITEM_REPAIRABLE;
 
 			//if ( gGameSettings.fOptions[TOPTION_DROP_ALL]  ) // EXTERNILIZED TO THE INI INSTEAD - SANDRO
-			if ( UsingEnemiesDropAllItemsSystem() )
+			if ( gGameExternalOptions.fEnemiesDropAllItems == 1 )
 			{
 				// WANNE: "Drop all" should mean "Drop all"
 				/*
@@ -2488,7 +2488,7 @@ else
 	}
 
 	//if ( gGameSettings.fOptions[TOPTION_DROP_ALL]  ) // EXTERNILIZED TO THE INI INSTEAD - SANDRO
-	if ( UsingEnemiesDropAllItemsSystem() )
+	if ( gGameExternalOptions.fEnemiesDropAllItems == 1 )
 		return;
 
 	// WANNE: Randomly choose which type of items should be dropped

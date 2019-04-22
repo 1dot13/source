@@ -6915,7 +6915,9 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 										if ( Item[pObj->usItem].damageable && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
 										{
-											(*pObj)[0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random( 20 );
+											// silversurfer: externalized this
+											//(*pObj)[0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random( 20 );
+											(*pObj)[0]->data.objectStatus -= Random( zDiffSetting[gGameOptions.ubDifficultyLevel].usLootStatusModifier );
 											(*pObj)[0]->data.objectStatus = min( max( (*pObj)[0]->data.objectStatus, 1 ), 100 ); // never below 1% or above 100%
 
 											(*pObj)[0]->data.sRepairThreshold = max( 1, min( 100, ((*pObj)[0]->data.objectStatus + 200) / 3 ) );

@@ -151,11 +151,6 @@ BOOLEAN UsingImprovedInterruptSystem()
 	return (!is_networked && gGameExternalOptions.fImprovedInterruptSystem);
 }
 
-BOOLEAN UsingEnemiesDropAllItemsSystem()
-{
-	return gGameExternalOptions.fEnemiesDropAllItems;
-}
-
 BOOLEAN UsingInventoryCostsAPSystem()
 {
 #ifdef JA2EDITOR
@@ -1146,7 +1141,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.bAssignedTraitsRarity = iniReader.ReadInteger("Tactical Difficulty Settings", "ASSIGNED_SKILL_TRAITS_RARITY ", 0, -100, 100);
 
 	// Flugente: drop all is now set in the ini instead of the starting screen
-	gGameExternalOptions.fEnemiesDropAllItems				= iniReader.ReadBoolean("Tactical Difficulty Settings", "DROP_ALL", FALSE );
+	gGameExternalOptions.fEnemiesDropAllItems				= iniReader.ReadInteger("Tactical Difficulty Settings", "DROP_ALL", 0, 0, 2 );
 
 	// HEADROCK HAM B2.8: At "1", Militia will drop their equipment similar to enemies, IF killed by non-player character. At "2" they drop whenever killed.
 	gGameExternalOptions.ubMilitiaDropEquipment			= iniReader.ReadInteger("Tactical Difficulty Settings","MILITIA_DROP_EQUIPMENT", 0, 0, 2 );

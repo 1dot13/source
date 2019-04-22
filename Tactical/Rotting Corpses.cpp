@@ -1020,8 +1020,10 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 			{
 				// Check if it's supposed to be dropped
 				// silversurfer: new option to drop items from CIV_TEAM regardless of "OBJECT_UNDROPPABLE" flag
+				// the same applies for enemy soldiers if mild drop all has been enabled
 				if ( !( (*pObj).fFlags & OBJECT_UNDROPPABLE ) || pSoldier->bTeam == gbPlayerNum 
-					|| ( gGameExternalOptions.fCiviliansDropAll && pSoldier->bTeam == CIV_TEAM && !IsVehicle(pSoldier) ))
+					|| ( gGameExternalOptions.fCiviliansDropAll && pSoldier->bTeam == CIV_TEAM && !IsVehicle(pSoldier) )
+					|| ( gGameExternalOptions.fEnemiesDropAllItems == 2 && pSoldier->bTeam == ENEMY_TEAM ) )
 				{
 					// and make sure that it really is a droppable item type
 					// if ( !(Item[ pObj->usItem ].fFlags & ITEM_DEFAULT_UNDROPPABLE) )
@@ -1042,10 +1044,19 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 							{
 								// silversurfer: externalized this
 								//(*pObj)[0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);
-								(*pObj)[0]->data.objectStatus -= Random( zDiffSetting[gGameOptions.ubDifficultyLevel].usLootStatusModifier );
-								(*pObj)[0]->data.objectStatus = min(max((*pObj)[0]->data.objectStatus,1),100); // never below 1% or above 100%
+								// if mild drop all is enabled and the item was usually not allowed to drop we will reduce its status considerably
+								if ( gGameExternalOptions.fEnemiesDropAllItems == 2 && pSoldier->bTeam == ENEMY_TEAM && (*pObj).fFlags & OBJECT_UNDROPPABLE )
+								{
+									(*pObj)[0]->data.objectStatus -= 60 + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].usLootStatusModifier );
+									(*pObj)[0]->data.objectStatus = min(max((*pObj)[0]->data.objectStatus,1),100); // never below 1% or above 100%
+								}
+								else
+								{
+									(*pObj)[0]->data.objectStatus -= Random( zDiffSetting[gGameOptions.ubDifficultyLevel].usLootStatusModifier );
+									(*pObj)[0]->data.objectStatus = min(max((*pObj)[0]->data.objectStatus,1),100); // never below 1% or above 100%
 
-								(*pObj)[0]->data.sRepairThreshold = max(1, min(100, ((*pObj)[0]->data.objectStatus + 200)/3 ));
+								}
+									(*pObj)[0]->data.sRepairThreshold = max(1, min(100, ((*pObj)[0]->data.objectStatus + 200)/3 ));
 							}
 						}
 
@@ -2496,7 +2507,7 @@ void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE *
 	Assert(UsingNewAttachmentSystem()==true);
 		
 	//If this item has any attachments, is not from a player, and is overwriteable. It's also only for guns.
-	if((*pObj)[0]->AttachmentListSize() > 0 && pSoldier->bTeam != gbPlayerNum && !((*pObj).fFlags & OBJECT_NO_OVERWRITE) && Item[pObj->usItem].usItemClass == IC_GUN && !UsingEnemiesDropAllItemsSystem() )
+	if((*pObj)[0]->AttachmentListSize() > 0 && pSoldier->bTeam != gbPlayerNum && !((*pObj).fFlags & OBJECT_NO_OVERWRITE) && Item[pObj->usItem].usItemClass == IC_GUN && !(gGameExternalOptions.fEnemiesDropAllItems == 1) )
 	{
 		UINT8 slotCount = 0;
 		for(std::list<OBJECTTYPE>::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter, ++slotCount)
@@ -2509,11 +2520,19 @@ void ReduceAttachmentsOnGunForNonPlayerChars(SOLDIERTYPE *pSoldier, OBJECTTYPE *
 			int i;
 			for(i = 0; i < MAX_DEFAULT_ATTACHMENTS && Item[pObj->usItem].defaultattachments[i] != iter->usItem; i++){}
 
+			// with mild drop all attachments of undropable items need to be damaged as well as the base item
+			if( gGameExternalOptions.fEnemiesDropAllItems == 2 && pSoldier->bTeam == ENEMY_TEAM && (*pObj).fFlags & OBJECT_UNDROPPABLE )
+			{
+				(*iter)[0]->data.objectStatus -= 60 + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].usLootStatusModifier );
+				(*iter)[0]->data.objectStatus = min(max((*iter)[0]->data.objectStatus,1),100); // never below 1% or above 100%
+			}
+
 			if(Item[pObj->usItem].defaultattachments[i] == iter->usItem)
 				continue;
 
 			//Erase this attachment or not?
-			if(!Chance(gGameExternalOptions.usAttachmentDropRate)){
+			if(!Chance(gGameExternalOptions.usAttachmentDropRate))
+			{
 				(*pObj).RemoveAttachment(&(*iter), 0, 0, pSoldier, 0, 1);
 				iter = (*pObj)[0]->attachments.begin();
 				advance(iter, slotCount);

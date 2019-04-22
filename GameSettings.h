@@ -278,7 +278,6 @@ bool UsingNewCTHSystem();
 BOOLEAN UsingFoodSystem();
 BOOLEAN UsingBackGroundSystem();
 BOOLEAN UsingImprovedInterruptSystem();
-BOOLEAN UsingEnemiesDropAllItemsSystem();
 BOOLEAN UsingInventoryCostsAPSystem();
 
 BOOLEAN IsNIVModeValid(bool checkRes = true);
@@ -1088,7 +1087,7 @@ typedef struct
 	UINT16 usMaxTargetCoweringPenalty;
 
 	// Flugente: drop all is now set in the ini instead of the starting screen
-	BOOLEAN fEnemiesDropAllItems;
+	UINT8 fEnemiesDropAllItems;
 
 	// HEADROCK HAM B2.8: If this is turned on, Militia will drop their equipment similar to enemies, IF killed by non-player character.
 	UINT8 ubMilitiaDropEquipment;
