@@ -582,7 +582,7 @@ BOOLEAN DisplayMercData( UINT8 usProfileA, UINT8 usProfileB )
 	{
 		if ( pProfileA->bRefinement * pProfileB->bRefinement == 2 )
 			val = -2 * gGameExternalOptions.sMoraleModRefinement;
-		else if ( pProfileA->bRefinement * pProfileB->bRefinement == 0 )
+		else if ( (pProfileA->bRefinement * pProfileB->bRefinement == 0) && (pProfileA->bRefinement != pProfileB->bRefinement) )
 			val = -gGameExternalOptions.sMoraleModRefinement;
 		else
 			val = gGameExternalOptions.sMoraleModRefinement;

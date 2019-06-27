@@ -166,7 +166,7 @@ INT8	SoldierRelation( SOLDIERTYPE* pSoldierA, SOLDIERTYPE* pSoldierB )
 	{
 		if ( pProfile->bRefinement * gMercProfiles[pSoldierB->ubProfile].bRefinement == 2 )
 			bOpinion -= 2 * gGameExternalOptions.sMoraleModRefinement;
-		else if ( pProfile->bRefinement * gMercProfiles[pSoldierB->ubProfile].bRefinement == 0 )
+		else if ( (pProfile->bRefinement * gMercProfiles[pSoldierB->ubProfile].bRefinement == 0) && (pProfile->bRefinement != gMercProfiles[pSoldierB->ubProfile].bRefinement) )
 			bOpinion -= gGameExternalOptions.sMoraleModRefinement;
 		else
 			bOpinion += gGameExternalOptions.sMoraleModRefinement;
