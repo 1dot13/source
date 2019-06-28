@@ -1266,7 +1266,7 @@ void InitVIPSectors()
 			StrategicMap[vipspawnsector].usFlags |= ENEMY_VIP_PRESENT;
 			
 			// increase troop count - VIP plus bodyguards
-			SectorInfo[vipspawnsector].ubNumElites += 5;
+			SectorInfo[vipspawnsector].ubNumElites += ( 1 + gGameExternalOptions.usEnemyGeneralsBodyGuardsNumber );
 
 			// VIP placed
 			++gStrategicStatus.usVIPsLeft;
@@ -1280,7 +1280,7 @@ void InitVIPSectors()
 				StrategicMap[vipspawnsector].usFlags |= ENEMY_VIP_PRESENT;
 
 				// increase troop count - VIP plus bodyguards
-				SectorInfo[vipspawnsector].ubNumElites += 5;
+				SectorInfo[vipspawnsector].ubNumElites += ( 1 + gGameExternalOptions.usEnemyGeneralsBodyGuardsNumber );
 
 				// VIP placed
 				++gStrategicStatus.usVIPsLeft;
