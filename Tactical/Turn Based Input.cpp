@@ -7936,7 +7936,7 @@ void HandleTBReloadAll( void )
 									UINT32 invsize = pTeamSoldier->inv.size();
 									for (UINT32 bLoop2 = 0; bLoop2 < invsize; ++bLoop2)
 									{
-										if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN<IC_LAUNCHER)) )
+										if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) )
 										{
 											pGun	= &(pTeamSoldier->inv[bLoop2]);
 
