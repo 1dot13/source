@@ -400,7 +400,7 @@
 		<UpdateLastDayOfPlayerActivity>2</UpdateLastDayOfPlayerActivity>
 		<ChanceOfEnemyAmbushes>12</ChanceOfEnemyAmbushes>
 		<AllowReinforcements>1</AllowReinforcements>
-		<AllowReinforcementsOmerta>0</AllowReinforcementsOmerta>
+		<AllowReinforcementsOmerta>1</AllowReinforcementsOmerta>
 		<PopulationLevel2>1</PopulationLevel2>
 		<PopulationLevel3>1</PopulationLevel3>
 		<!-- Weapon Cache Troops -->
