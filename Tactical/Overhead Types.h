@@ -374,7 +374,6 @@ enum
 	ADMINISTRATIVE_STAFF_GROUP,
 	LOYAL_CIV_GROUP,		// civil population deeply loyal to the queen
 	BLACKMARKET_GROUP,		// black market dealer and bodyguards
-	UNNAMED_CIV_GROUP_34,
 	UNNAMED_CIV_GROUP_35,
 	UNNAMED_CIV_GROUP_36,
 	UNNAMED_CIV_GROUP_37,

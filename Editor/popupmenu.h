@@ -84,7 +84,7 @@ typedef struct currentPopupMenuInformation{
 }CurrentPopupMenuInformation;
 
 //A global var that keeps the popup menu information.	
-extern CurrentPopupMenuInformation gPopup;
+extern CurrentPopupMenuInformation gPopupData;
 extern STR16 popupMenuStrings[5];
 
 //These are the two main functions that outside users would call.
