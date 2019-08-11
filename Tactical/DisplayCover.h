@@ -11,7 +11,6 @@ void SwitchViewOff();
 void ToggleMercView();
 void ToggleEnemyView();
 
-void	CalculateCoverForSoldier( SOLDIERTYPE* pForSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover );
 void	CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bCover, SOLDIERTYPE* pToSoldier = NULL );
 BOOLEAN CanSoldierSeeFloor( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT8 bLevel );
 
@@ -82,13 +81,6 @@ enum COVER_DRAW_MODE {
 
 	DRAW_MODE_WEAPONDATA,
 };
-
-void ChangeSizeOfDisplayCover( INT32 iNewSize );
-
-void ChangeSizeOfLOS( INT32 iNewSize );
-//ddd for optimize oppponent turn
-INT8	CalcCoverForGridNoBasedOnTeamKnownEnemies( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, INT8 bStance );
-//ddd for optimize oppponent turn
 
 
 // ----------------------------- Mines display after this ----------------------------------------

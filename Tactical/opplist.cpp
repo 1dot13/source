@@ -1182,13 +1182,13 @@ INT16 SOLDIERTYPE::GetMaxDistanceVisible(INT32 sGridNo, INT8 bLevel, int calcAsT
 
 	if (calcAsType == CALC_FROM_ALL_DIRS)
 	{
-		return DistanceVisible( this, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, bLevel );
+		return DistanceVisible( this, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, bLevel, CoweringShockLevel(this), GetPercentTunnelVision(this) );
 	}
 
-	return DistanceVisible( this, (SoldierHasLimitedVision(this) ? this->pathing.bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sGridNo, bLevel );
+	return DistanceVisible( this, (SoldierHasLimitedVision(this) ? this->pathing.bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sGridNo, bLevel, CoweringShockLevel(this), GetPercentTunnelVision(this));
 }
 
-INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT32 sSubjectGridNo, INT8 bLevel )
+INT16 DistanceVisible(SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT32 sSubjectGridNo, INT8 bLevel, const BOOLEAN& isCowering, const UINT8& tunnelVision)
 {
 	INT16	sDistVisible;
 	INT8	bLightLevel;
@@ -1284,7 +1284,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 
 			if ( sDistVisible != STRAIGHT || ( fLimitedVision && (bFacingDir != bSubjectDir) ) )
 			{
-				tunnelVisionInPercent = GetPercentTunnelVision( pSoldier );				
+				tunnelVisionInPercent = tunnelVision;
 			}
 
 			sDistVisible *= 2;
@@ -1355,7 +1355,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 			gGameExternalOptions.ubMaxSuppressionShock > 0 && sDistVisible > 0 )
 		{
 			// Make sure character is cowering.
-			if ( CoweringShockLevel(pSoldier) )
+			if (isCowering)
 			{
 				sDistVisible = __max(1,(sDistVisible * (gGameExternalOptions.ubMaxSuppressionShock - pSoldier->aiData.bShock)) / gGameExternalOptions.ubMaxSuppressionShock);
 			}
@@ -2097,7 +2097,7 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
 		// BIG NOTE: must use desdir instead of direction, since in a projected
 		// situation, the direction may still be changing if it's one of the first
 		// few animation steps when this guy's turn to do his stepped look comes up
-		sDistVisible = DistanceVisible(pSoldier,pSoldier->pathing.bDesiredDirection,bDir, pOpponent->sGridNo, pOpponent->pathing.bLevel );
+		sDistVisible = DistanceVisible(pSoldier, pSoldier->pathing.bDesiredDirection, bDir, pOpponent->sGridNo, pOpponent->pathing.bLevel, CoweringShockLevel(pSoldier), GetPercentTunnelVision(pSoldier));
 		//if (pSoldier->ubID == 0)
 		//sprintf(gDebugStr,"dist visible %d: my dir %d to him %d",sDistVisible,pSoldier->bDesiredDirection,bDir);
 	}
@@ -7464,7 +7464,7 @@ void CheckForAlertWhenEnemyDies( SOLDIERTYPE * pDyingSoldier )
 
 			// distance we "see" then depends on the direction he is located from us
 			bDir = atan8(pSoldier->sX,pSoldier->sY,pDyingSoldier->sX,pDyingSoldier->sY);
-			sDistVisible = DistanceVisible( pSoldier, pSoldier->pathing.bDesiredDirection, bDir, pDyingSoldier->sGridNo, pDyingSoldier->pathing.bLevel );
+			sDistVisible = DistanceVisible( pSoldier, pSoldier->pathing.bDesiredDirection, bDir, pDyingSoldier->sGridNo, pDyingSoldier->pathing.bLevel, CoweringShockLevel(pSoldier), GetPercentTunnelVision(pSoldier));
 			sDistAway = PythSpacesAway( pSoldier->sGridNo, pDyingSoldier->sGridNo );
 
 			// if we see close enough to see the soldier

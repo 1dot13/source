@@ -88,18 +88,23 @@ void	AddCoverObjectsToViewArea();
 void	RemoveCoverObjectsFromViewArea();
 
 void	CalculateCover();
+void	CalculateCoverFromEnemies();
 void	CalculateMines();
 void	CalculateTraitRange();
 void	CalculateTrackerRange();
 void	CalculateFortify();
 void	CalculateWeapondata();
 
+void CalculateCoverFromEnemySoldier(SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bOverlayType, SOLDIERTYPE* pToSoldier, const BOOLEAN& bFromSoldierCowering, const UINT8& tunnelVision, const INT8 ToSoldierStealth, const INT8 ToSoldierLBeSightAdjustment);
+
+
 void	GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo );
 
 BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius=2 );
 
 BOOLEAN IsTheRoofVisible( const INT32& sGridNo );
-BOOLEAN HasAdjTile( const INT32& ubX, const INT32& ubY );
+BOOLEAN HasAdjTile(const INT32& ubX, const INT32& ubY, const INT32& ubZ);
+
 
 TileDefines GetOverlayIndex( INT8 bOverlayType )
 {
@@ -491,8 +496,11 @@ void DisplayCover( BOOLEAN forceUpdate )
 		switch ( gubDrawMode )
 		{
 		case COVER_DRAW_MERC_VIEW:
-		case COVER_DRAW_ENEMY_VIEW:
 			CalculateCover();
+			break;
+
+		case COVER_DRAW_ENEMY_VIEW:
+			CalculateCoverFromEnemies();
 			break;
 
 		case MINES_DRAW_DETECT_ENEMY:
@@ -526,99 +534,40 @@ void DisplayCover( BOOLEAN forceUpdate )
 	}
 }
 
-void CalculateCover()
+
+
+static void CalculateCoverFromEnemies()
 {
-	register INT32 ubX, ubY;
-	register INT8 ubZ;
-	SOLDIERTYPE* pSoldier;
-
-	if( gusSelectedSoldier == NOBODY )
+	if (gusSelectedSoldier == NOBODY)
 		return;
-	
-	GetSoldier( &pSoldier, gusSelectedSoldier );
-	
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+
+	SOLDIERTYPE* pSoldier;
+	GetSoldier(&pSoldier, gusSelectedSoldier);
+	INT8 OurSoldierStealth = GetStealth(pSoldier);
+	INT8 OurSoldierLBESightAdjustment = GetSightAdjustmentBasedOnLBE(pSoldier);
+
+
+	// Loop through the grid and reset cover
+	for (INT32 ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for (INT32 ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY)
 		{
-			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			for (INT8 ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ)
 			{
-				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-
-				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
-					continue;
-								
-				if ( IsTheRoofVisible( sGridNo ) )
-				{
-					// do not show stuff on ground if roof is shown
-					if ( ubZ == I_GROUND_LEVEL )
-						continue;
-				}
-				else
-				{
-					// do not show stuff on roofs if ground is shown
-					if ( ubZ == I_ROOF_LEVEL )
-						continue;
-				}
-
-				if ( !NewOKDestination( pSoldier, sGridNo, false, ubZ ) )
-					continue;
-
 				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-				if ( gubDrawMode == COVER_DRAW_ENEMY_VIEW ) // view of enemies against your selected merc
-				{
-					// reset cover value
-					bOverlayType = MAX_COVER;
-					CalculateCoverForSoldier( pSoldier, sGridNo, ubZ, bOverlayType );
-				}
-				else if ( gubDrawMode == COVER_DRAW_MERC_VIEW )
-				{
-					// reset cover value
-					bOverlayType = MAX_COVER;
-					if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect ) // view of selected mercs
-					{
-						// OK, loop through all guys who are 'multi-selected' and
-						INT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-						for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pSoldier )
-						{
-							if ( pSoldier->bActive && pSoldier->bInSector )
-							{
-								if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
-								{
-									CalculateCoverFromSoldier( pSoldier, sGridNo, ubZ, bOverlayType );
-
-									// if the tile is already NO_COVER, there's no need to continue
-									if ( NO_COVER == bOverlayType )
-										break;
-								}
-							}
-						}
-					}
-					else // single view from your merc
-						CalculateCoverFromSoldier( pSoldier, sGridNo, ubZ, bOverlayType );
-
-					// we use different enums for our merc's sight to avoid confusing inverse sight
-					bOverlayType = MAX_SEE - bOverlayType;
-				}
+				bOverlayType = MAX_COVER;
 			}
 		}
 	}
 
-	AddCoverObjectsToViewArea();
-}
 
-void CalculateCoverForSoldier( SOLDIERTYPE* pSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bOverlayType )
-{
-	UINT32		uiLoop;
-	SOLDIERTYPE *pOpponent;
-	INT8		*pbPersOL;
-	INT8		*pbPublOL;
-
-	//loop through all the enemies and determine the cover
-	for (uiLoop = 0; uiLoop<guiNumMercSlots; ++uiLoop)
+	//loop through all the actors in the sector and save enemies' info for cover calculation
+	std::vector<SOLDIERTYPE*> pOpponents;
+	std::vector<BOOLEAN> bCowering;
+	std::vector<UINT8> tunnelVision;
+	for (UINT32 i = 0; i < guiNumMercSlots; ++i)
 	{
-		pOpponent = MercSlots[ uiLoop ];
+		SOLDIERTYPE *pOpponent = MercSlots[i];
 
 		// if this merc is inactive, at base, on assignment, dead, unconscious
 		if (!pOpponent || pOpponent->stats.bLife < OKLIFE)
@@ -627,29 +576,165 @@ void CalculateCoverForSoldier( SOLDIERTYPE* pSoldier, const INT32& sTargetGridNo
 		}
 
 		// if this man is neutral / on the same side, he's not an opponent
- 		if( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide))
+		if (CONSIDERED_NEUTRAL(pSoldier, pOpponent) || (pSoldier->bSide == pOpponent->bSide))
 		{
 			continue;			// next merc
 		}
 
-		pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
-		pbPublOL = gbPublicOpplist[ OUR_TEAM ] + pOpponent->ubID;
+		INT8 *pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
+		INT8 *pbPublOL = gbPublicOpplist[OUR_TEAM] + pOpponent->ubID;
 
 		// if this opponent is unknown personally and publicly
-		if( *pbPersOL != SEEN_CURRENTLY && *pbPublOL != SEEN_CURRENTLY )
+		if (*pbPersOL != SEEN_CURRENTLY && *pbPublOL != SEEN_CURRENTLY)
 		{
 			continue;			// next merc
 		}
 
-		CalculateCoverFromSoldier( pOpponent, sTargetGridNo, fRoof, bOverlayType, pSoldier );
+		pOpponents.push_back(pOpponent);
+		bCowering.push_back(CoweringShockLevel(pOpponent));
+		tunnelVision.push_back(GetPercentTunnelVision(pOpponent));
+	}
 
-		// if we got no cover, just return, can't get any worse than that. Helldorados lets you count
-		if ( bOverlayType == NO_COVER )
+
+	// Calculate cover for the whole grid, one opponent at a time.
+	for (UINT32 i = 0; i < pOpponents.size(); ++i)
+	{
+		SOLDIERTYPE *pOpponent = pOpponents[i];
+		BOOLEAN isCowering = bCowering[i];
+		UINT8 tunnelVisionPercentage = tunnelVision[i];
+
+
+		for (INT32 ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
 		{
-			return;
+			for (INT32 ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY)
+			{
+				for (INT8 ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ)
+				{
+					INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
+					if (!GridNoOnScreenAndAround(sGridNo, 2))
+						continue;
+
+
+					INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
+
+					if (IsTheRoofVisible(sGridNo))
+					{
+						// do not show stuff on ground if roof is shown
+						if (ubZ == I_GROUND_LEVEL) 
+						{
+							bOverlayType = INVALID_COVER;
+							continue;
+						}
+					}
+					else
+					{
+						// do not show stuff on roofs if ground is shown
+						if (ubZ == I_ROOF_LEVEL)
+						{
+							bOverlayType = INVALID_COVER;
+							continue;
+						}
+					}
+
+
+					if (!NewOKDestination(pSoldier, sGridNo, false, ubZ))
+						continue;
+
+
+					//Skip cover calculation if there already is no cover.
+					if (bOverlayType == NO_COVER)
+					{
+						continue;
+					}
+					else
+					{
+						CalculateCoverFromEnemySoldier(pOpponent, sGridNo, ubZ, bOverlayType, pSoldier, isCowering, tunnelVisionPercentage, OurSoldierStealth, OurSoldierLBESightAdjustment);
+					}
+				}
+			}
 		}
 	}
+
+
+	AddCoverObjectsToViewArea();
 }
+
+
+void CalculateCover()
+{
+	register INT32 ubX, ubY;
+	register INT8 ubZ;
+	SOLDIERTYPE* pSoldier;
+
+	if (gusSelectedSoldier == NOBODY)
+		return;
+
+	GetSoldier(&pSoldier, gusSelectedSoldier);
+
+	for (ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
+	{
+		for (ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY)
+		{
+			for (ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ)
+			{
+				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
+
+				if (!GridNoOnScreenAndAround(sGridNo, 2))
+					continue;
+
+				if (IsTheRoofVisible(sGridNo))
+				{
+					// do not show stuff on ground if roof is shown
+					if (ubZ == I_GROUND_LEVEL)
+						continue;
+				}
+				else
+				{
+					// do not show stuff on roofs if ground is shown
+					if (ubZ == I_ROOF_LEVEL)
+						continue;
+				}
+
+				if (!NewOKDestination(pSoldier, sGridNo, false, ubZ))
+					continue;
+
+				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
+
+				// reset cover value
+				bOverlayType = MAX_COVER;
+				if (gTacticalStatus.fAtLeastOneGuyOnMultiSelect) // view of selected mercs
+				{
+					// OK, loop through all guys who are 'multi-selected' and
+					INT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+					for (pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pSoldier)
+					{
+						if (pSoldier->bActive && pSoldier->bInSector)
+						{
+							if (pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED)
+							{
+								CalculateCoverFromSoldier(pSoldier, sGridNo, ubZ, bOverlayType);
+
+								// if the tile is already NO_COVER, there's no need to continue
+								if (NO_COVER == bOverlayType)
+									break;
+							}
+						}
+					}
+				}
+				else // single view from your merc
+				{
+					CalculateCoverFromSoldier(pSoldier, sGridNo, ubZ, bOverlayType);
+				}
+
+				// we use different enums for our merc's sight to avoid confusing inverse sight
+				bOverlayType = MAX_SEE - bOverlayType;
+			}
+		}
+	}
+
+	AddCoverObjectsToViewArea();
+}
+
 
 void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bOverlayType, SOLDIERTYPE* pToSoldier )
 {
@@ -664,12 +749,38 @@ void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetG
 		if (pToSoldier == NULL) {
 			usAdjustedSight = usSightLimit;
 		} else {
-			usAdjustedSight = usSightLimit + usSightLimit * GetSightAdjustment( pToSoldier, sTargetGridNo, (INT8) fRoof, ubStance ) /100;
+			usAdjustedSight = usSightLimit + usSightLimit * GetSightAdjustment( pToSoldier, GetStealth(pToSoldier), GetSightAdjustmentBasedOnLBE(pToSoldier), sTargetGridNo, (INT8) fRoof, ubStance ) /100;
 		}
 
 		if ( SoldierToVirtualSoldierLineOfSightTest( pFromSoldier, sTargetGridNo, (INT8) fRoof, ubStance, FALSE, usAdjustedSight ) != 0 )
 		{
 			if ( bOverlayType > i ) bOverlayType = i;
+			break; // we go from prone to stand, if soldier can see someone crouching, he can also see someone standing
+		}
+	}
+}
+
+static void CalculateCoverFromEnemySoldier(SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bOverlayType, SOLDIERTYPE* pToSoldier, const BOOLEAN& bFromSoldierCowering, const UINT8& tunnelVision, const INT8 ToSoldierStealth, const INT8 ToSoldierLBeSightAdjustment)
+{
+	// Had to extract this from SOLDIERTYPE::GetMaxDistanceVisible() function due to performance improvement from minimizing recalculating CoweringShockLevel(pSoldier) & GetPercentTunnelVision(pSoldier)
+	UINT16 usSightLimit = DistanceVisible(pFromSoldier, (SoldierHasLimitedVision(pFromSoldier) ? pFromSoldier->pathing.bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, (INT8)fRoof, bFromSoldierCowering, tunnelVision);
+
+	for (int i = 0; i < sizeof(animArr); ++i)
+	{
+		const UINT8& ubStance = animArr[i];
+
+		INT32 usAdjustedSight;
+
+		if (pToSoldier == nullptr) {
+			usAdjustedSight = usSightLimit;
+		}
+		else {
+			usAdjustedSight = usSightLimit + usSightLimit * GetSightAdjustment(pToSoldier, ToSoldierStealth, ToSoldierLBeSightAdjustment, sTargetGridNo, (INT8)fRoof, ubStance) / 100;
+		}
+
+		if (SoldierToVirtualSoldierLineOfSightTest(pFromSoldier, sTargetGridNo, (INT8)fRoof, ubStance, FALSE, usAdjustedSight) != 0)
+		{
+			if (bOverlayType > i) bOverlayType = i;
 			break; // we go from prone to stand, if soldier can see someone crouching, he can also see someone standing
 		}
 	}
@@ -717,7 +828,7 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 			ubTerrainType = GetTerrainTypeForGrid(sTargetGridNo, gsInterfaceLevel);
 		}
 
-		INT8 ubCover = - GetSightAdjustment(pSoldier, sTargetGridNo, gsInterfaceLevel);
+		INT8 ubCover = - GetSightAdjustment(pSoldier, GetStealth(pSoldier), GetSightAdjustmentBasedOnLBE(pSoldier), sTargetGridNo, gsInterfaceLevel);
 
 		//display a string with cover value of current selected merc and brightness
 		//swprintf( zOutputString, gzDisplayCoverText[DC_MSG__COVER_INFORMATION], ubCover, GetTerrainName(ubTerrainType), ubBrightness );

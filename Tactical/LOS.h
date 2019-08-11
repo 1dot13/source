@@ -199,7 +199,7 @@ ADDITIONAL_TILE_PROPERTIES_VALUES GetAllAdditonalTilePropertiesForGrid( const IN
 INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance );
 
 // quick way to get all. should be used for all sight line tests with target soldier known
-INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo = -1, INT16 bLevel = -1, INT8 bStance = -1 );
+INT16 GetSightAdjustment(SOLDIERTYPE* pSoldier, INT8 soldierStealth, INT8 soldierLBESightAdjustment, INT32 sGridNo = -1, INT16 bLevel = -1, INT8 bStance = -1);
 
 //zilpin: pellet spread patterns externalized in XML
 #define SPREADPATTERN_NAME_SIZE 32
@@ -253,5 +253,9 @@ FLOAT CalcCounterForceChange( SOLDIERTYPE * pShooter, UINT32 uiCounterForceAccur
 
 // Flugente: riot shields
 void DamageRiotShield( SOLDIERTYPE* pSoldier, INT32& rsDamage, INT32& rsSecondaryDamage );
+
+
+extern INT8 GetStealth(SOLDIERTYPE* pSoldier);
+extern INT8 GetSightAdjustmentBasedOnLBE(SOLDIERTYPE* pSoldier);
 
 #endif

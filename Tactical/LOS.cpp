@@ -461,7 +461,7 @@ inline UINT8 GetBrightness(const UINT8& ubLightLevel)
 * Calculates the total stealth value of a player.
 *
 * @param pSoldier
-* @return ANIM_STAND or ANIM_CROUCH or ANIM_PRONE
+* @return stealth percentage, capped to 100.
 */
 inline INT8 GetStealth( SOLDIERTYPE* pSoldier )
 {
@@ -700,26 +700,27 @@ INT8 GetDetailedSightAdjustmentCamouflageOnTerrain( SOLDIERTYPE* pSoldier, const
 * - this will be used to calculate the penalty (sight addition) which occurs on the soldier who is been spot-tested
 * - it also will be used to reduce the ability to find others if the spotter moves
 *
-* @param pSoldier the target
+* @param bTilesMoved amount of tiles the target has moved
+* @param ubLightLevel true light level at target location, given back by LightTrueLevel function
+* @param ibStealthInPercent the target's stealth value, given back by GetStealth function
+* @param hasStealthyTrait boolean value saying if target has the stealthy trait, given back by HAS_SKILL_TRAIT function
 * @return a negative value will indicate a reduction of sight, a positive one an addition to sight
 */
-INT8 GetSightAdjustmentThroughMovement( SOLDIERTYPE* pSoldier, const INT8& bTilesMoved, const UINT8& ubLightLevel  )
+INT8 GetSightAdjustmentThroughMovement(const INT8& bTilesMoved, const UINT8& ubLightLevel, const INT8& ibStealthInPercent, const BOOLEAN& hasStealthyTrait)
 {
 	if (gGameExternalOptions.ubMovementEffectiveness == 0) {
 		return 0;
 	}
 
-	INT8 stealth = GetStealth(pSoldier);
-
-	INT8 bMovementAdjustment = bTilesMoved * ( 100 - stealth ) / 100;
+	INT8 bMovementAdjustment = bTilesMoved * (100 - ibStealthInPercent) / 100;
 
 	// SANDRO - added reduction of penalty for moving for Stealthy trait with new traits
-	if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
-		bMovementAdjustment = max(0, (bMovementAdjustment * (100 - gSkillTraitValues.ubSTStealthPenaltyForMovingReduction) / 100) );
+	if (gGameOptions.fNewTraitSystem && hasStealthyTrait)
+		bMovementAdjustment = max(0, (bMovementAdjustment * (100 - gSkillTraitValues.ubSTStealthPenaltyForMovingReduction) / 100));
 
-	UINT8 ubBrightness = (100 - GetBrightness( ubLightLevel ));
+	UINT8 ubBrightness = (100 - GetBrightness(ubLightLevel));
 
-	return MINMAX100N( bMovementAdjustment * ubBrightness / 100 * gGameExternalOptions.ubMovementEffectiveness / 100 );
+	return MINMAX100N(bMovementAdjustment * ubBrightness / 100 * gGameExternalOptions.ubMovementEffectiveness / 100);
 }
 
 INT8 GetSightAdjustmentThroughStance( const UINT8& ubStance )
@@ -785,25 +786,23 @@ INT8 GetSightAdjustmentBasedOnLBE( SOLDIERTYPE* pSoldier )
 * Calculates a percentage value to be added (or substracted) from sight. it's based on the stealth value and the brightness.
 * - usually it should return something smaller than 0 but we might give a bonus if the target uses a lamp for better viewing (LAM-Lamp) which the spotter can see
 *
-* @param pSoldier the target
 * @param ubLightLevel light level given back by the LightTrueLevel function
+* @param ibStealthInPercent the target's stealth value, given back by the GetStealth function
 * @return a negative value will indicate a reduction of sight, a positive one an addition to sight
 */
-INT8 GetSightAdjustmentStealthAtLightLevel( SOLDIERTYPE* pSoldier, const UINT8& ubLightLevel )
+INT8 GetSightAdjustmentStealthAtLightLevel(const UINT8& ubLightLevel, const INT8& ibStealthInPercent)
 {
 	if (gGameExternalOptions.ubStealthEffectiveness == 0) {
 		return 0;
 	}
 
 	// set scaler to scale with light level (dark = 100%)
-	UINT8 ubScaler = GetBrightness( ubLightLevel );
+	UINT8 ubScaler = GetBrightness(ubLightLevel);
 
 	// last term corresponds to the maximum of ubScaler before
-	ubScaler = (UINT8)( ubScaler * gGameExternalOptions.ubStealthEffectiveness / 100.0f );
+	ubScaler = (UINT8)(ubScaler * gGameExternalOptions.ubStealthEffectiveness / 100.0f);
 
-	INT8 ibStealthInPercent = GetStealth( pSoldier );
-
-	return MINMAX100N( - ibStealthInPercent * ubScaler / 100);
+	return MINMAX100N(-ibStealthInPercent * ubScaler / 100);
 }
 
 /**
@@ -855,8 +854,11 @@ INT8 GetSightAdjustmentBehindStructure( const INT16& iRange, STRUCTURE* pStructu
 
 /*
 * Easy way to get all sight adjustments into one that affect a soldier
+*
+* Used by CalculateCoverFromEnemySoldier in DisplayCover.cpp
+* Hoisting out the GetStealth and GetSightAdjustmentBasedOnLBE out of the hot loop made considerable difference in performance.
 */
-INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT16 bLevel, INT8 bStance )
+INT16 GetSightAdjustment(SOLDIERTYPE* pSoldier, INT8 soldierStealth, INT8 soldierLBESightAdjustment, INT32 sGridNo, INT16 bLevel, INT8 bStance)
 {
 	if (sGridNo == -1) {
 		sGridNo = pSoldier->sGridNo;
@@ -867,50 +869,50 @@ INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT16 bLevel, IN
 	}
 
 	if (bStance == -1) {
-		bStance = GetCurrentHeightOfSoldier( pSoldier );
+		bStance = GetCurrentHeightOfSoldier(pSoldier);
 	}
 
 	UINT8 ubTerrainType = NO_TERRAIN;
 	// anv: additional tile properties
 	ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties;
-	memset(&zGivenTileProperties,0,sizeof(zGivenTileProperties));
-	if(gGameExternalOptions.fAdditionalTileProperties)
+	memset(&zGivenTileProperties, 0, sizeof(zGivenTileProperties));
+	if (gGameExternalOptions.fAdditionalTileProperties)
 	{
 		zGivenTileProperties = GetAllAdditonalTilePropertiesForGrid(sGridNo, bLevel);
 	}
 	else
 	{
-		ubTerrainType = GetTerrainTypeForGrid( sGridNo, bLevel );
+		ubTerrainType = GetTerrainTypeForGrid(sGridNo, bLevel);
 	}
 
-	UINT8 ubLightLevel = LightTrueLevel( sGridNo, bLevel );
 
 	INT16 iSightAdjustment = 0;
 
 	// general stuff (independant of soldier)
-	iSightAdjustment += GetSightAdjustmentThroughStance( bStance );
+	iSightAdjustment += GetSightAdjustmentThroughStance(bStance);
 
 	// context sensitive (needs soldier)
-	iSightAdjustment += GetSightAdjustmentBasedOnLBE( pSoldier );
+	iSightAdjustment += soldierLBESightAdjustment;
 
 	// context sensitive stuff with 2nd parameter (needs soldier for attributes but can be given a second parameter)
-	iSightAdjustment += GetSightAdjustmentThroughMovement( pSoldier, pSoldier->bTilesMoved, ubLightLevel );
-	iSightAdjustment += GetSightAdjustmentStealthAtLightLevel( pSoldier, ubLightLevel );
+	UINT8 ubLightLevel = LightTrueLevel(sGridNo, bLevel);
+	iSightAdjustment += GetSightAdjustmentThroughMovement(pSoldier->bTilesMoved, ubLightLevel, soldierStealth, HAS_SKILL_TRAIT(pSoldier, STEALTHY_NT));
+	iSightAdjustment += GetSightAdjustmentStealthAtLightLevel(ubLightLevel, soldierStealth);
 
-	if(gGameExternalOptions.fAdditionalTileProperties)
+	if (gGameExternalOptions.fAdditionalTileProperties)
 	{
-		iSightAdjustment += GetDetailedSightAdjustmentCamouflageOnTerrain( pSoldier, bStance, zGivenTileProperties );
+		iSightAdjustment += GetDetailedSightAdjustmentCamouflageOnTerrain(pSoldier, bStance, zGivenTileProperties);
 	}
 	else
 	{
-		iSightAdjustment += GetSightAdjustmentCamouflageOnTerrain( pSoldier, bStance, ubTerrainType );
+		iSightAdjustment += GetSightAdjustmentCamouflageOnTerrain(pSoldier, bStance, ubTerrainType);
 	}
 
 	// anv: some places in vehicle completely obscure passenger from outside
-	INT8 bSeatIndex = GetSeatIndexFromSoldier( pSoldier );
-	if( bSeatIndex != (-1) )
+	INT8 bSeatIndex = GetSeatIndexFromSoldier(pSoldier);
+	if (bSeatIndex != (-1))
 	{
-		if( gNewVehicle[ pVehicleList[ pSoldier->iVehicleId ].ubVehicleType ].VehicleSeats[ bSeatIndex ].fHidden )
+		if (gNewVehicle[pVehicleList[pSoldier->iVehicleId].ubVehicleType].VehicleSeats[bSeatIndex].fHidden)
 		{
 			iSightAdjustment = (-100);
 		}
@@ -918,6 +920,7 @@ INT16 GetSightAdjustment( SOLDIERTYPE* pSoldier, INT32 sGridNo, INT16 bLevel, IN
 
 	return MINMAX100N(iSightAdjustment);
 }
+
 
 BOOLEAN ResolveHitOnWall( STRUCTURE * pStructure, INT32 iGridNo, INT8 bLOSIndexX, INT8 bLOSIndexY, DOUBLE ddHorizAngle )
 {
@@ -2342,20 +2345,21 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	// needed for sight limit calculation
 	if (iTileSightLimit == CALC_FROM_ALL_DIRS || iTileSightLimit == CALC_FROM_WANTED_DIR) {
 		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->pathing.bLevel, iTileSightLimit );
-		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
+		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier, GetStealth(pEndSoldier), GetSightAdjustmentBasedOnLBE(pEndSoldier)) / 100;
+
 	}
 
 	// needed for gun hit calculation (can you even hit him)
 	else if (iTileSightLimit == NO_DISTANCE_LIMIT) {
 		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->pathing.bLevel, CALC_FROM_ALL_DIRS );
-		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
+		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier, GetStealth(pEndSoldier), GetSightAdjustmentBasedOnLBE(pEndSoldier)) / 100;
 		iTileSightLimit += 255; // this shifts the limit for something special (we don't know yet)
 	}
 
 	// we assume that if we are given a limit it doesn't include stealth or similar stuff
 	// for other function we assume the opposite but not this one, as we here are given the needed target soldier information to calculate sight adjustment
 	else {
-		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier) / 100;
+		iTileSightLimit += iTileSightLimit * GetSightAdjustment(pEndSoldier, GetStealth(pEndSoldier), GetSightAdjustmentBasedOnLBE(pEndSoldier)) / 100;
 	}
 
 	// anv: special check for vehicles - since they're no longer transparent, we need to check for visibility 
