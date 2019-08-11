@@ -945,6 +945,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	sNumSlots = min( mapMaximumNumberOfEnemies, NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) );
 
 	pGroup = gpGroupList;
+	unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+	unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
+	unsigned slotsAvailable = lastSlot-firstSlot+1;
 	while( pGroup && sNumSlots > 0 )
 	{
 		if ( pGroup->usGroupTeam != OUR_TEAM && !pGroup->fVehicle &&
@@ -953,18 +956,13 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			ubNumAdmins = pGroup->pEnemyGroup->ubAdminsInBattle;
 			ubNumTroops = pGroup->pEnemyGroup->ubTroopsInBattle;
 			ubNumElites = pGroup->pEnemyGroup->ubElitesInBattle;
-			ubNumTanks  = pGroup->pEnemyGroup->ubTanksInBattle;
+			ubNumTanks = pGroup->pEnemyGroup->ubTanksInBattle;
 			ubNumJeeps = pGroup->pEnemyGroup->ubJeepsInBattle;
 			unsigned num = ubNumAdmins + ubNumTroops + ubNumElites + ubNumTanks + ubNumJeeps;
 
-			unsigned firstSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-			unsigned lastSlot = gTacticalStatus.Team[ ENEMY_TEAM ].bLastID;
-			unsigned slotsAvailable = lastSlot-firstSlot+1;
 			AssertGE((int)slotsAvailable, sNumSlots);
 
-			for (unsigned slot = firstSlot;
-				  (slot <= lastSlot) && num && sNumSlots;
-				++slot)
+			for (unsigned slot = firstSlot;	(slot <= lastSlot) && num && sNumSlots;	++slot)
 			{
 				pSoldier = &Menptr[ slot ];
 
@@ -974,6 +972,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 					// if this guy already has an ID, reduce the number of people who still need one
 					--num;
 					--sNumSlots;
+					firstSlot = slot + 1;
 					
 					continue;
 				}
@@ -990,6 +989,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							sNumSlots--;
 							ubNumAdmins--;
 							pSoldier->ubGroupID = pGroup->ubGroupID;
+							firstSlot = slot + 1;
 						}
 						break;
 					case SOLDIER_CLASS_ARMY:
@@ -999,6 +999,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							sNumSlots--;
 							ubNumTroops--;
 							pSoldier->ubGroupID = pGroup->ubGroupID;
+							firstSlot = slot + 1;
 						}
 						break;
 					case SOLDIER_CLASS_ELITE:
@@ -1008,6 +1009,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							sNumSlots--;
 							ubNumElites--;
 							pSoldier->ubGroupID = pGroup->ubGroupID;
+							firstSlot = slot + 1;
 						}
 						break;
 					// silversurfer: bugfix for Jaggzilla bug #623
@@ -1022,6 +1024,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 								sNumSlots--;
 								ubNumElites--;
 								pSoldier->ubGroupID = pGroup->ubGroupID;
+								firstSlot = slot + 1;
 							}
 						}
 						break;
@@ -1032,6 +1035,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							sNumSlots--;
 							ubNumTanks--;
 							pSoldier->ubGroupID = pGroup->ubGroupID;
+							firstSlot = slot + 1;
 						}
 						break;
 					case SOLDIER_CLASS_JEEP:
@@ -1041,6 +1045,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 							sNumSlots--;
 							ubNumJeeps--;
 							pSoldier->ubGroupID = pGroup->ubGroupID;
+							firstSlot = slot + 1;
 						}
 						break;
 				}
@@ -1461,6 +1466,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 					break;
 				case SOLDIER_CLASS_CREATURE:
 				case SOLDIER_CLASS_BANDIT:
+				case SOLDIER_CLASS_ZOMBIE:
 					if( pSoldier->ubBodyType != BLOODCAT )
 					{
 						#ifdef JA2BETAVERSION
@@ -1566,6 +1572,7 @@ void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier )
 						break;
 					case SOLDIER_CLASS_CREATURE:
 					case SOLDIER_CLASS_BANDIT:
+					case SOLDIER_CLASS_ZOMBIE:
 						if (pSoldier->ubBodyType == BLOODCAT)
 						{
 							if( pSector->ubNumBloodcats > 0 )
