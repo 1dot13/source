@@ -1829,6 +1829,12 @@ BOOLEAN CharacterDialogueWithSpecialEvent( UINT8 ubCharacterNum, UINT16 usQuoteN
 	// Add to queue
 	ghDialogueQ = AddtoQueue( ghDialogueQ, &QItem );
 
+	// sevenfm: disable FF for dialogues
+	if (IsFastForwardMode())
+	{
+		SetFastForwardMode(FALSE);
+	}
+
 	if ( uiFlag & DIALOGUE_SPECIAL_EVENT_PCTRIGGERNPC )
 	{
 		// Increment refrence count...
@@ -1908,11 +1914,17 @@ BOOLEAN CharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceI
 			AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum, ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) ? 1 : 0 );
 		}
 	}
-	// if teammembers talk, anyone may answer
+	// if team members talk, anyone may answer
 	else
 	{
-		// other teammembers might react to this line
+		// other team members might react to this line
 		AdditionalTacticalCharacterDialogue_AllInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, ubCharacterNum, ADE_DIALOGUE_REACTION, ubCharacterNum, usQuoteNum, ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) ? 1 : 0 );
+	}
+
+	// sevenfm: disable FF for dialogues
+	if (IsFastForwardMode())
+	{
+		SetFastForwardMode(FALSE);
 	}
 
 	return( TRUE );
@@ -2131,6 +2143,12 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 		return( FALSE );
 	}
 
+	// sevenfm: stop high speed timer for any talking face
+	if (IsFastForwardMode())
+	{
+		SetFastForwardMode(FALSE);
+	}
+
 	if( bUIHandlerID == DIALOGUE_EXTERNAL_NPC_UI )
 	{
 		// external NPC
@@ -2144,7 +2162,7 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 	// pSoldier can be null here... ( if NOT from an alive soldier )
 	CreateTalkingUI( bUIHandlerID, iFaceIndex, ubCharacterNum, pSoldier, gzQuoteStr );
 
-	// Set global handleer ID value, used when face desides it's done...
+	// Set global handler ID value, used when face desides it's done...
 	gbUIHandlerID = bUIHandlerID;
 
 	guiScreenIDUsedWhenUICreated = guiCurrentScreen;

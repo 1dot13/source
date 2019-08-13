@@ -11224,6 +11224,8 @@ BOOLEAN GetRandomUnknownVIPSector( UINT16& aSector )
 	return FALSE;
 }
 
+extern FACETYPE	*gpCurrentTalkingFace;
+
 void UpdateFastForwardMode(SOLDIERTYPE* pSoldier, INT8 bAction)
 {
 	BOOLEAN fAction = FALSE;
@@ -11262,6 +11264,9 @@ void UpdateFastForwardMode(SOLDIERTYPE* pSoldier, INT8 bAction)
 		pSoldier->flags.uiStatusFlags & SOLDIER_PC ||
 		pSoldier->bVisible == TRUE ||
 		gTacticalStatus.ubCurrentTeam == gbPlayerNum ||
+		gTacticalStatus.bBoxingState != NOT_BOXING ||
+		gTacticalStatus.uiFlags & ENGAGED_IN_CONV ||
+		gpCurrentTalkingFace != NULL && gpCurrentTalkingFace->fTalking ||
 		fAction)
 	{
 		if (IsFastForwardMode())
