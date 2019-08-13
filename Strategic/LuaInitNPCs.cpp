@@ -372,6 +372,9 @@ static int l_TileIsOutOfBoundsClosestPC (lua_State *L);
 static int l_SetgfBoxerFought (lua_State *L);
 static int l_EVENT_StopMerc (lua_State *L);
 
+static int l_SetgfBoxersResting(lua_State *L);
+static int l_SetgubBoxersRests(lua_State *L);
+
 static int l_SetEnterCombatMode (lua_State *L);
 
 static int l_PlayerInARoom (lua_State *L);
@@ -3061,6 +3064,8 @@ BOOLEAN LetLuaHourlyQuestUpdate(UINT8 Init)
 
 	//-----boxer------ only hourly quest update 
 	lua_register(_LS.L(), "gfBoxerFought", l_SetgfBoxerFought);
+	lua_register(_LS.L(), "SetgfBoxersResting", l_SetgfBoxersResting);
+	lua_register(_LS.L(), "SetgubBoxersRests", l_SetgubBoxersRests);
 	lua_register(_LS.L(), "GetWorldHour", l_GetWorldHour);
 	
 	SGP_THROW_IFFALSE( _LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget );
@@ -8220,6 +8225,22 @@ static int l_SetgfBoxerFought (lua_State *L)
 	return 0;
 }
 
+static int l_SetgfBoxersResting(lua_State *L)
+{
+	if (lua_gettop(L))
+		gfBoxersResting = lua_toboolean(L, 1);
+
+	return 0;
+}
+
+static int l_SetgubBoxersRests(lua_State *L)
+{
+	if (lua_gettop(L))
+		gubBoxersRests = lua_tointeger(L, 1);
+
+	return 0;
+}
+
 static int l_GetWorldHour (lua_State *L)
 {
 	UINT32 h2 = GetWorldHour();
@@ -10464,7 +10485,7 @@ static int l_SetPendingNewScreen (lua_State *L)
 }
 //--------------
 
-//Set charcter to sector Z
+//Set character to sector Z
 static int l_GetCharacterSectorZ (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -10484,7 +10505,7 @@ static int l_GetCharacterSectorZ (lua_State *L)
 	return 1;
 }
 
-//Set charcter to sector Y
+//Set character to sector Y
 static int l_GetCharacterSectorY (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -10504,7 +10525,7 @@ static int l_GetCharacterSectorY (lua_State *L)
 	return 1;
 }
 
-//Set charcter to sector X
+//Set character to sector X
 static int l_GetCharacterSectorX (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -10525,7 +10546,7 @@ static int l_GetCharacterSectorX (lua_State *L)
 }
 
 //-----------
-//Set charcter to sector Z
+//Set character to sector Z
 static int l_SetCharacterSectorZ (lua_State *L)
 {
 	if ( lua_gettop( L ) >= 2 )
@@ -10545,13 +10566,14 @@ static int l_ResetBoxers( lua_State *L )
 	for ( UINT8 i = 0; i < NUM_BOXERS; ++i )
 	{
 		gubBoxerID[i] = NOBODY;
-		gfBoxerFought[i] = FALSE;
+		// sevenfm: keep gfBoxerFought[] unchanged as it will be reset every day at 16:00 by HourlyQuestUpdate(), HourlyUpdate.lua		
+		//gfBoxerFought[i] = FALSE;
 	}
 
 	return 0;
 }
 
-//Set charcter to sector Y
+//Set character to sector Y
 static int l_SetCharacterSectorY (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -10570,7 +10592,7 @@ static int l_SetCharacterSectorY (lua_State *L)
 	return 0;
 }
 
-//Set charcter to sector X
+//Set character to sector X
 static int l_SetCharacterSectorX (lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
@@ -10625,7 +10647,7 @@ static int l_TriggerNPCRecordImmediately(lua_State *L)
 	return 0;
 }
 
-//Add undern Ground Sector
+//Add underground Sector
 static int l_AddAltUnderGroundSectorNew(lua_State *L)
 {
 	UINT8 x = 0,y = 0,z = 0;

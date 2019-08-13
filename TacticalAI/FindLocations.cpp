@@ -2414,9 +2414,10 @@ INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 
 	INT32 sGridNo, sClosestSpot = NOWHERE;
 	INT32 iDistance, iClosestDistance = 9999;
-	//DBrot: More Rooms
-	//UINT8	ubRoom;
 	UINT16 usRoom;
+	SOLDIERTYPE *pDarren;
+	UINT8 ubLoop;
+	pDarren = FindSoldierByProfileID(DARREN, FALSE);
 
 	// set the distance limit of the square region
 	iSearchRange = 7;
@@ -2427,11 +2428,11 @@ INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
 
-	if ( (pSoldier->bTeam == gbPlayerNum) && (fInRing == FALSE) )
+	/*if ( (pSoldier->bTeam == gbPlayerNum) && (fInRing == FALSE) )
 	{
 		// have player not go to the left of the ring
 		sMaxLeft = 0;
-	}
+	}*/
 
 	// determine maximum vertical limits
 	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
@@ -2444,19 +2445,25 @@ INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 		{
 			// calculate the next potential gridno
 			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
-			if ( InARoom( sGridNo, &usRoom ))
+			if (!TileIsOutOfBounds(sGridNo) &&
+				InARoom(sGridNo, &usRoom))
 			{
-				if ( (fInRing && usRoom == BOXING_RING) || (!fInRing && usRoom != BOXING_RING ) && LegalNPCDestination(pSoldier,sGridNo,IGNORE_PATH,NOWATER,0) )
+				if ((fInRing && usRoom == BOXING_RING) || (!fInRing && usRoom != BOXING_RING) &&
+					LegalNPCDestination(pSoldier, sGridNo, IGNORE_PATH, NOWATER, 0))
 				{
-					iDistance = abs( sXOffset ) + abs( sYOffset );
-					if ( iDistance < iClosestDistance && WhoIsThere2( sGridNo, 0 ) == NOBODY )
+					// sevenfm: for player merc, find spot closest to Darren
+					if (pDarren && pSoldier->bTeam == gbPlayerNum)
+						iDistance = PythSpacesAway(pDarren->sGridNo, sGridNo) + PythSpacesAway(pSoldier->sGridNo, sGridNo);
+					else
+						iDistance = abs(sXOffset) + abs(sYOffset);
+
+					if (iDistance < iClosestDistance && WhoIsThere2(sGridNo, 0) == NOBODY)
 					{
 						sClosestSpot = sGridNo;
 						iClosestDistance = iDistance;
 					}
 				}
 			}
-
 		}
 	}
 
