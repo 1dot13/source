@@ -678,6 +678,9 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 			// Remove soldier's graphic
 			pSoldier->RemoveSoldierFromGridNo( );
 
+			// anyone entering a vehicle will be reset to ground level
+			pSoldier->SetSoldierHeight(FIRST_LEVEL);
+
 			if ( pVehicleSoldier )
 			{
 				// bInitialActionPoints - point in time where soldier and vehicle start sharing timeline
