@@ -7059,8 +7059,20 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 	if(pObj->exists() == false)
 		return FALSE;
 
-	INT32 sGridNo = pSoldier?pSoldier->sGridNo:0;
-	INT8 bLevel = pSoldier?pSoldier->pathing.bLevel:0;
+	// silversurfer: Bad idea. Our pSoldier always has sGridNo set but it could be from a previous sector so the tile is completely irrelevant if the sector isn't the current merc sector.
+	// The same applies to bLevel. So before we assign anything we need to check if the merc sector is loaded.
+	// INT32 sGridNo = pSoldier?pSoldier->sGridNo:0;
+	// INT8 bLevel = pSoldier?pSoldier->pathing.bLevel:0;
+
+	INT32 sGridNo = -1;
+	INT8 bLevel = 0;
+
+	// is this sector loaded?
+	if ( pSoldier && (pSoldier->sSectorX == gWorldSectorX) && (pSoldier->sSectorY == gWorldSectorY) && (pSoldier->bSectorZ == gbWorldSectorZ) )
+	{
+		sGridNo = pSoldier->sGridNo;
+		bLevel = pSoldier->pathing.bLevel;
+	}
 
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
@@ -7088,6 +7100,8 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 			CreateDestroyMapInventoryPoolButtons(FALSE);
 		}
 		
+		// silversurfer: No, let the game handle item placement by setting WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT in function AutoPlaceObjectInInventoryStash().
+		/*
 		// set a grid no for item from mercs with invalid grid no in sector inventory, e.g. merc arriving in sector with a different tactical map loaded
 		if(!GridNoOnVisibleWorldTile(sGridNo))
 		{
@@ -7105,7 +7119,7 @@ BOOLEAN AutoPlaceObjectToWorld(SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, INT8 b
 			// empty sector to use the center grid no of the loaded tactical sector, hope that it's accessible
 			if(!GridNoOnVisibleWorldTile(sGridNo))
 				sGridNo = gMapInformation.sCenterGridNo;
-		}
+		}*/
 		
 		fMapPanelDirty = TRUE;
 		return( AutoPlaceObjectInInventoryStash(pObj, sGridNo, bLevel) );

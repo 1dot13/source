@@ -2702,6 +2702,8 @@ BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo, IN
 				pInventoryPoolList[cnt].bVisible = 1;
 				pInventoryPoolList[cnt].fExists = TRUE;
 			}
+			if(sGridNo == -1)
+				pInventoryPoolList[cnt].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
 		}
 		else
 		{
