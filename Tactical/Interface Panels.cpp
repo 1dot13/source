@@ -6111,7 +6111,6 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		return;
 	}
 
-
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 		return;
@@ -6122,6 +6121,10 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		return;
 	}
 
+	if (!OK_INTERRUPT_MERC(MercPtrs[ubSoldierID]))
+	{
+		return;
+	}
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
