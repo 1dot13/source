@@ -2691,6 +2691,8 @@ std::vector<INT16> GetCorpseIDsNearGridNo( INT32 sGridNo, INT8 bLevel, INT8 sRad
 	return idvec;
 }
 
+extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );
+
 // Flugente Zombies: resurrect zombies
 void RaiseZombies( void )
 {
@@ -2703,44 +2705,92 @@ void RaiseZombies( void )
 			ROTTING_CORPSE *	pCorpse;
 			BOOLEAN				zombieshaverisen = FALSE;
 
-			SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-
-			for ( INT32 cnt = giNumRottingCorpse - 1; cnt >= 0; --cnt )
+			// silversurfer: We need to check if we are above or below ground or we will modify the wrong sector counters!
+			// above ground
+			if (!gbWorldSectorZ)
 			{
-				if ( pSector && pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )			// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
+				SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+
+				for ( INT32 cnt = giNumRottingCorpse - 1; cnt >= 0; --cnt )
 				{
-					pCorpse = &(gRottingCorpse[ cnt ] );
-
-					// if zombies should spawn individually, roll for every corpse individually
-					if ( gGameExternalOptions.fZombieSpawnWaves || ( !gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
+					if ( pSector && pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )			// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
 					{
-						if ( pCorpse->fActivated && !(pCorpse->def.usFlags & (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_NEVER_RISE_AGAIN) ) )	// ... if corpse is active, and still has a head and can rise again...
+						pCorpse = &(gRottingCorpse[ cnt ] );
+
+						// if zombies should spawn individually, roll for every corpse individually
+						if ( gGameExternalOptions.fZombieSpawnWaves || ( !gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
 						{
-							if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
-							{					
-								if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
-								{
-									UINT16 recanimstate = STANDING;
+							if ( pCorpse->fActivated && !(pCorpse->def.usFlags & (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_NEVER_RISE_AGAIN) ) )	// ... if corpse is active, and still has a head and can rise again...
+							{
+								if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
+								{					
+									if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
+									{
+										UINT16 recanimstate = STANDING;
 
-									if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
-									{								
-										zombieshaverisen = TRUE;
-										CreateZombiefromCorpse( pCorpse, recanimstate );
+										if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
+										{								
+											zombieshaverisen = TRUE;
+											CreateZombiefromCorpse( pCorpse, recanimstate );
 
-										pSector->ubNumCreatures++;
-										pSector->ubCreaturesInBattle++;
+											pSector->ubNumCreatures++;
+											pSector->ubCreaturesInBattle++;
 
-										RemoveCorpse( cnt );
+											RemoveCorpse( cnt );
+										}
 									}
 								}
 							}
 						}
 					}
+					else
+					{
+						// if there is no more room, we can skip this
+						break;
+					}
 				}
-				else
+			}
+			else // below ground
+			{
+				UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+				for ( INT32 cnt = giNumRottingCorpse - 1; cnt >= 0; --cnt )
 				{
-					// if there is no more room, we can skip this
-					break;
+					if ( pSector && pSector->ubNumCreatures < gGameExternalOptions.ubGameMaximumNumberOfCreatures )			// ... if there is still room for more zombies (zombies count as creatures until a separate ZOMBIE_TEAM is implemented)...
+					{
+						pCorpse = &(gRottingCorpse[ cnt ] );
+
+						// if zombies should spawn individually, roll for every corpse individually
+						if ( gGameExternalOptions.fZombieSpawnWaves || ( !gGameExternalOptions.fZombieSpawnWaves && (INT8) ( Random( 100 ) ) > 100 - gGameExternalOptions.sZombieRiseWaveFrequency ) )
+						{
+							if ( pCorpse->fActivated && !(pCorpse->def.usFlags & (ROTTING_CORPSE_HEAD_TAKEN|ROTTING_CORPSE_NEVER_RISE_AGAIN) ) )	// ... if corpse is active, and still has a head and can rise again...
+							{
+								if ( !TileIsOutOfBounds(pCorpse->def.sGridNo)  )											// ... if corpse is on existing coordinates ...
+								{					
+									if ( WhoIsThere2( pCorpse->def.sGridNo, pCorpse->def.bLevel ) == NOBODY )				// ... if nobody else is on that position ...
+									{
+										UINT16 recanimstate = STANDING;
+
+										if ( CorpseOkToSpawnZombie( pCorpse, &recanimstate ) )								// ... a zombie can be created from this corpse, in the corresponding animstate ...
+										{								
+											zombieshaverisen = TRUE;
+											CreateZombiefromCorpse( pCorpse, recanimstate );
+
+											pSector->ubNumCreatures++;
+											pSector->ubCreaturesInBattle++;
+
+											RemoveCorpse( cnt );
+										}
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						// if there is no more room, we can skip this
+						break;
+					}
 				}
 			}
 
