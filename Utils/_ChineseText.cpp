@@ -182,7 +182,7 @@ STR16	pEncyclopediaTypeText[] =
 	L"未知", //0 //L"Unknown",
 	L"城市", //1 //L"City",
 	L"SAM导弹基地", //2 //L"SAM Site",
-	L"其他位置", //3 //L"Other Location",
+	L"其它位置", //3 //L"Other Location",
 	L"矿场", //4 //L"Mine",
 	L"军事设施", //5 //L"Military Complex",
 	L"研究设施", //6 //L"Laboratory Complex",
@@ -223,7 +223,7 @@ STR16	pEncyclopediaHelpText[] =
 	L"全部显示", //L"Show All",
 	L"显示城市", //L"Show City",
 	L"显示SAM导弹基地", //L"Show SAM Site",
-	L"显示其他区域", //L"Show Other Location",
+	L"显示其它区域", //L"Show Other Location",
 	L"显示矿场", //L"Show Mine",
 	L"显示军事设施", //L"Show Military Complex",
 	L"显示研究设施", //L"Show Laboratory Complex",
@@ -238,7 +238,7 @@ STR16	pEncyclopediaSkrotyText[] =
 	L"全部", //L"All",
 	L"城市", //L"City",
 	L"SAM", //L"SAM",
-	L"其他", //L"Other",
+	L"其它", //L"Other",
 	L"矿场", //L"Mine",
 	L"军事", //L"Mil.",
 	L"研究所", //L"Lab.",
@@ -259,7 +259,7 @@ STR16	pEncyclopediaFilterLocationText[] =
 	L"荒野",
 	L"地下",
 	L"设施",
-	L"其他",//Other
+	L"其它",//Other
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
 	L"显示全部",//Show all
@@ -270,7 +270,7 @@ STR16	pEncyclopediaFilterLocationText[] =
 	L"显示荒野",
 	L"显示地下分区",
 	L"显示有设施的分区\n|左|键开启，|右|键关闭",
-	L"显示其他分区",
+	L"显示其它分区",
 };
 
 STR16 pEncyclopediaSubFilterLocationText[] =
@@ -295,7 +295,7 @@ STR16	pEncyclopediaFilterCharText[] =
 	L"RPC",
 	L"NPC",
 	L"IMP",
-	L"其他",//add new filter buttons before other
+	L"其它",//add new filter buttons before other
 //filter button tooltip
 //..L"---------------------------------------------------------------------v"
 	L"显示全部",//Show all
@@ -483,7 +483,7 @@ STR16			BoxFilter[] =
 	L"工具", //L"Kit",
 	L"面部设备", //L"Face",
 	L"携行具", //L"LBE",
-	L"其他", //34 //L"Misc",
+	L"其它", //34 //L"Misc",
 };
 
 STR16		QuestDescText[] = 
@@ -2211,7 +2211,7 @@ CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 
 CHAR16 WeaponType[MAXITEMS][30] =
 {
-	L"其他",
+	L"其它",
 	L"手枪",
 	L"自动手枪",
 	L"冲锋枪",
@@ -2476,7 +2476,7 @@ STR16 pAssignmentStrings[] =
 	L"医疗民兵",	//L"DoctorM.",
 	L"训练民兵",	//L"DMilitia",
 	L"掩埋尸体", //L"Burial",
-	L"Admin", // TODO.Translate
+	L"管理", //L"Admin",
 };
 
 
@@ -2585,7 +2585,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"医疗受伤的民兵",	//L"Doctor wounded militia",
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
-	L"Administration",	// TODO.Translate
+	L"管理人员",	//L"Administration",
 };
 
 
@@ -2653,7 +2653,7 @@ STR16 pLongAssignmentStrings[] =
 	L"医疗受伤的民兵",	//L"Doctor wounded militia",
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
-	L"Administration",	// TODO.Translate
+	L"管理人员",	//L"Administration",
 };
 
 
@@ -2738,7 +2738,7 @@ STR16 pGuardMenuStrings[] =
 	L" 主动射击", // the merc can be aggressive in their choice of fire rates
 	L" 节约弹药", // conserve ammo
 	L" 自卫射击", // fire only when the merc needs to
-	L"其他选择: ", // other options available to merc
+	L"其它选择: ", // other options available to merc
 	L" 允许撤退", // merc can retreat
 	L" 自动隐蔽",  // merc is allowed to seek cover
 	L" 自动掩护", // merc can assist teammates
@@ -2754,7 +2754,7 @@ STR16 pOtherGuardMenuStrings[] =
 	L" *主动射击*",
 	L" *节约弹药*",
 	L" *自卫射击*",
-	L"其他选择: ",
+	L"其它选择: ",
 	L" *允许撤退*",
 	L" *自动隐蔽*",
 	L" *自动掩护*",
@@ -2777,7 +2777,7 @@ STR16 pAssignMenuStrings[] =
 	L"搬运物品",	// get items
 	L"筑防",		//L"Fortify", fortify sector
 	L"情报", //L"Intel", covert assignments
-	L"Administer",	// TODO.Translate
+	L"管理",	//L"Administer",
 	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -4349,7 +4349,7 @@ STR16 pMovementMenuStrings[] =
 	L"调动佣兵", 	// title for movement box
 	L"安排行军路线",	// done with movement menu, start plotting movement
 	L"取消",		// cancel this menu
-	L"其他",		// title for group of mercs not on squads nor in vehicles
+	L"其它",		// title for group of mercs not on squads nor in vehicles
 };
 
 
@@ -4549,11 +4549,11 @@ STR16 pFinanceSummary[] =
 	L"收入: ", 				// credit (subtract from) to player's account
 	L"支出: ",				// debit (add to) to player's account
 	L"昨日实际收入: ",
-	L"昨日其他存款: ",
+	L"昨日其它存款: ",
 	L"昨日支出: ",
 	L"昨日日终余额: ",
 	L"今日实际收入: ",
-	L"今日其他存款: ",
+	L"今日其它存款: ",
 	L"今日支出: ",
 	L"今日当前余额: ",
 	L"预期收入: ",
@@ -4985,7 +4985,7 @@ STR16 pHistoryStrings[] =
 	L"遇到Howrd，一个在Balime的医药商。",
 	L"遇到Perko，他开了一家小修理档口。。",
 	L"遇到在Balime的Sam，他有一家五金店。",
-	L"Franz做电子产品和其他货物的生意。",
+	L"Franz做电子产品和其它货物的生意。",
 	L"Arnold在Grumm开了一家修理店。",
 	//51-55
 	L"Fredo在Grumm修理电子产品。",
@@ -5654,8 +5654,8 @@ STR16			BobbyRFilter[] =
 	L"消音类",
 	L"枪托",
 	L"弹匣/板机",
-	L"其他附件",
-	L"其他", //"Misc.",
+	L"其它附件",
+	L"其它", //"Misc.",
 };
 
 
@@ -6373,7 +6373,7 @@ STR16		zOptionsToggleText[] =
 	L"报告错误的偏移量",				// L"Report Miss Offsets",Screen messages showing amount and direction of shot deviation.
 	L"重置所有选项",					// failsafe show/hide option to reset all options
 	L"确定要重置？",					// a do once and reset self option (button like effect)
-	L"其他版本调试选项",	// L"Debug Options in other builds"allow debugging in release or mapeditor
+	L"其它版本调试选项",	// L"Debug Options in other builds"allow debugging in release or mapeditor
 	L"渲染选项组调试",		// L"DEBUG Render Option group"an example option that will show/hide other options
 	L"鼠标显示区域",			// L"Render Mouse Regions"an example of a DEBUG build option
 	L"-----------------",				// an example options screen options divider (pure text)
@@ -6418,7 +6418,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，会显示未击中目标的子弹落点。",
 	
 	//Real Time Confirmation
-	L"打开时，进入实时模式会有一个确认对话框。",
+	L"打开时，在即时模式中移动要单击两次。",
 
 	//Sleep/Wake notification
 	L"打开时，被分配任务的佣兵睡觉和醒来时会提示你。",
@@ -6469,7 +6469,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，在战略界面的佣兵名旁显示军衔。",
 	L"打开时，显示佣兵脸部装备图。",
 	L"打开时，佣兵肖像右下角显示脸部装备图标",
-	L"打开时，在交换位置和其他动作时光标不切换。键入 |x 可以快速切换。",
+	L"打开时，在交换位置和其它动作时光标不切换。键入 |x 可以快速切换。",
 	L"打开时，佣兵训练时不会随时汇报进程。",
 	L"打开时，佣兵修理时不会随时汇报进程。",
 	L"打开时，佣兵医疗时不会随时汇报进程。",
@@ -6815,8 +6815,8 @@ STR16 pMessageStrings[] =
 	L"关闭的",	//"Closed",
 	L"磁盘空间不足。只有%sMB可用空间，《铁血联盟2》需要%sMB。",
 	L"从AIM雇佣了%s。", 		//"Hired %s from AIM",
-	L"%s 抓住了 %s。",	//"%s has caught %s.",	//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
-	L"%s 拿走了 %s。",	//L"%s has taken %s。",
+	L"%s抓住了%s。",	//"%s has caught %s.",	//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
+	L"%s使用了%s。",	//L"%s has taken %s。",
 	L"%s没有医疗技能",	//"%s has no medical skill",//'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
@@ -7422,9 +7422,9 @@ STR16 New113Message[] =
 	L"是否进行必要的手术？（%i名病人）",// L"Do you wish to make necessary surgeries first? (%i patient(s))",
 	L"是否在该病人身上进行手术？",// L"Do you wish to make the surgery on this patient first?",
 	L"在包扎前是否进行手术？",// L"Apply first aid automatically with necessary surgeries or without them?",
-	L"Do you want to perform surgery on %s before bandaging? (You can heal about %i health, *: %i by blood bag use.)",	// TODO.Translate
-	L"Do you want to perform surgery on %s? (You can heal about %i Health, *: %i by blood bag use.)",
-	L"Do you wish to perform surgery on %s? (You can heal about %i Health, *: %i by blood bag use.)",
+	L"您不包扎%s直接进行手术吗？（可回复%i生命值，*: 使用%i血包输血）",	//L"Do you want to perform surgery on %s before bandaging? (You can heal about %i health, *: %i by blood bag use.)",
+	L"您要给%s进行手术吗？（可回复%i生命值，*: 使用%i血包输血）",	//L"Do you want to perform surgery on %s? (You can heal about %i Health, *: %i by blood bag use.)",
+	L"您希望给%s进行手术吗？（可回复%i生命值，*: 使用%i血包输血）",	//L"Do you wish to perform surgery on %s? (You can heal about %i Health, *: %i by blood bag use.)",
 	L"%s手术完毕。",// L"Surgery on %s finished.",
 	L"%s 胸部中弹，失去1点生命上限！",// L"%s is hit in the chest and loses a point of maximum health!",
 	L"%s 胸部中弹，失去%d点生命上限！",// L"%s is hit in the chest and loses %d points of maximum health!",
@@ -7460,11 +7460,11 @@ STR16 New113Message[] =
 	L"正在工作的无线电设备。",
 	L"望远镜",
 	L"耐心",
-	L"%s 的防护盾毁坏了！", //L"%s's shield has been destroyed!",
-	L" DELAY",	// TODO.Translate
-	L"Yes*",
-	L"Yes",
-	L"No",
+	L"%s的防护盾毁坏了！", //L"%s's shield has been destroyed!",
+	L" 延迟",	//L" DELAY",
+	L"是的*",	//L"Yes*",
+	L"是的",	//L"Yes",
+	L"不",	//L"No",
 };
 
 STR16 New113HAMMessage[] = 
@@ -8294,9 +8294,9 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n决定了修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有工兵和特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。",  //L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \n瞄准镜提供瞄准命中率加成的最短距离。\n（再近就无效了）",
 	L"\n \n激光瞄准器提供的命中率修正。",	
-	L"\n \n端枪准备开火所需的AP。\n \n举起该武器后，连续发射不会再消\n耗举枪AP。\n \n但是，除转向和开火之外的其他动作均会放\n下武器。\n \n该数值越低越好。",
+	L"\n \n端枪准备开火所需的AP。\n \n举起该武器后，连续发射不会再消\n耗举枪AP。\n \n但是，除转向和开火之外的其它动作均会放\n下武器。\n \n该数值越低越好。",
 	L"\n \n该武器射出单发子弹所需的AP。\n \n对于枪械而言，该数值显示了在不精瞄的情况下发射\n一发子弹的AP消耗。\n \n如果该图标为灰色，则该武器不可单发射击。\n \n该数值越低越好。",
-	L"\n \n一次点射所需的AP。\n \n每次点射的子弹数由枪支本身决定，\n并显示在该图标上。\n \n如果该图标发灰，则该武器不可点射。\n \n该数值越低越好。",
+	L"\n \n一次点射所需的AP。\n \n每次点射的子弹数由枪支本身决定，并\n显示在该图标上。\n \n如果该图标发灰，则该武器不可点射。\n \n该数值越低越好。",
 	L"\n \n连发模式下，该武器一次齐射三发子弹所需的AP。\n \n超过3发子弹，则需要额外的AP。\n \n如果该图标发灰，则该武器不可连发。\n \n该数值越低越好。",
 	L"\n \n重新装填榴弹/更换弹匣所需的AP。\n \n该数值越低越好。",
 	L"\n \n在射击间歇为该武器手动上弹的AP消耗。\n \n该数值越低越好。",
@@ -8316,9 +8316,9 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 {
-	L"\n \n这是护具最重要的属性，决定了其可以吸收多\n少伤害。然而，穿甲攻击以及其他的随机因素\n都可能对最终的伤害值产生影响。\n \n该数值越高越好。",
+	L"\n \n这是护具最重要的属性，决定了其可以吸收多\n少伤害。然而，穿甲攻击以及其它的随机因素\n都可能对最终的伤害值产生影响。\n \n该数值越高越好。",
 	L"\n \n决定该护具对身体的防护面积。\n \n如果该值低于100%，则攻击有可能\n对未被护具保护的部分身体造成最大伤害。\n该数值越高越好。",
-	L"\n \n显示护具被击中时的磨损速率，\n与其吸收的伤害成比例。\n该数值越低越好。",
+	L"\n \n显示护具被击中时的磨损速率，与其\n吸收的伤害成比例。\n该数值越低越好。",
 	L"\n \n决定了护甲修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有工兵和特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \n决定了护甲修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
@@ -8335,9 +8335,9 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
-	L"\n \n即子弹穿透目标护甲的能力。\n \n该值小于1时，被子弹命中的护甲的防护值会成比例减少。\n \n反之，当该值大于1时，\n则增加了目标护甲的防护值。\n \n该数值越低越好。",
+	L"\n \n即子弹穿透目标护甲的能力。\n \n该值小于1时，被子弹命中的护甲的防护值会成比例减少。\n \n反之，当该值大于1时，则增加\n目标护甲的防护值。\n \n该数值越低越好。",
 	L"\n \n该值决定子弹打穿护甲击中身体时的伤害力\n加成。\n \n该值大于1时，子弹在穿过护甲后会增加伤害。\n \n当该值小于1时，子弹穿过护甲后会减少伤害。\n \n该数值越高越好。",
-	L"\n \n该值是子弹在击中目标前已经造成的潜在伤害的倍率。\n \n大于1的数值可以增加伤害，\n反之则减少伤害。\n \n该数值越高越好。",
+	L"\n \n该值是子弹在击中目标前已经造成的潜在伤害的倍率。\n \n大于1的数值可以增加伤害，反之\n则减少伤害。\n \n该数值越高越好。",
 	L"\n \n子弹温度系数。\n \n该数值越低越好。",
 	L"\n \n该值决定子弹伤害中具有毒性的百分比。",
 	L"\n \n弹药造成的额外污垢。\n \n该数值越低越好。",
@@ -8374,22 +8374,22 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
-	L"\n \n本次爆炸造成的伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，\n而具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
-	L"\n \n爆破造成的非致命性眩晕伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，\n而具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
+	L"\n \n本次爆炸造成的伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，而\n具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
+	L"\n \n爆破造成的非致命性眩晕伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，而\n具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
 	L"\n \n该爆破品不会弹来弹去。\n \n它一碰到任何实物就会立刻爆炸！",
 	L"\n \n这是该爆破品的有效杀伤半径。\n \n目标距爆炸中心越远，受到的伤害越少。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品的眩晕伤害半径。\n \n目标距爆炸中心越远，受到的伤害越少。\n \n该数值越高越好。",
 	L"\n \n这是该陷阱所发出噪音的传播距离。\n \n在该距离之内的士兵可能听到这个噪音\n并有所警觉。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品释放出的催泪毒气的初始半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n \n下方则显示了该效果的作用半径与持续时间。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品释放出的芥子毒气的初始半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n \n下方则显示了该效果的作用半径与持续时间。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品释放出的催泪毒气的初始半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害。\n \n下方则显示了该效果的作用半径与持续时间。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品释放出的芥子毒气的初始半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害。\n \n下方则显示了该效果的作用半径与持续时间。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品发光的初始半径。\n \n距爆炸中心较近的格子会变得非常明亮，而接近\n边缘的格子只会比平常亮一点点。\n \n下方则显示了该效果的作用半径与持续时间。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品释放烟雾的初始半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n（如果有的话）。更重要的是，烟雾中的人\n极难被发现，同时他们也会失\n去很大一部分视距。\n \n请查看最大半径和有效时间（显示在下面）。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品释放烟雾的初始半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害。\n（如果有的话）更重要的是，烟雾中的人\n极难被发现，同时他们也会失\n去很大一部分视距。\n \n请查看最大半径和有效时间（显示在下面）。\n \n该数值越高越好。",
 	L"\n \n这是该爆破品释放出的火焰的初始半径。\n \n在该半径之内的敌人每回合都会受到所列出的\n物理伤害与眩晕伤害。\n \n下方则显示了该效果的作用半径与持续时间。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品释放出的催泪毒气消散前的最大\n半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品释放出的芥子毒气消散前的最大\n半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品发出的亮光消失前的半径。\n \n离爆炸中心较近的格子会变得非常亮，而接近\n边缘的格子只会比平常稍亮。\n \n留意初始半径和有效时间。\n \n也请记住，与其他爆破品不同的是照明效果会随\n着时间流逝越来越小直到消失。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品释放的烟雾消散前的最大半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害\n（如果有的话）。更重要的是，烟雾中的人\n极难被发现，同时他们也会失\n去很大一部分视距。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
-	L"\n \n这是该爆破品释放的火焰熄灭前的最大半径。\n \n在该半径之内的敌人每回合都会受到所列出的\n物理伤害与眩晕伤害\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品释放出的催泪毒气消散前的最大\n半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品释放出的芥子毒气消散前的最大\n半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品发出的亮光消失前的半径。\n \n离爆炸中心较近的格子会变得非常亮，而接近\n边缘的格子只会比平常稍亮。\n \n留意初始半径和有效时间。\n \n也请记住，与其它爆破品不同的是照明效果会随\n着时间流逝越来越小直到消失。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品释放的烟雾消散前的最大半径。\n \n除非佩戴了防毒面具，否则在该半径之内的敌\n人每回合都会受到所列出的物理伤害与眩晕伤害。\n（如果有的话）更重要的是，烟雾中的人\n极难被发现，同时他们也会失\n去很大一部分视距。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
+	L"\n \n这是该爆破品释放的火焰熄灭前的最大半径。\n \n在该半径之内的敌人每回合都会受到所列出的\n物理伤害与眩晕伤害。\n \n请同时查看初始半径和有效时间。\n \n该数值越高越好。",
 	L"\n \n这是爆炸效果的持续时间。\n \n爆炸效果的范围每回合都会向所有的方向增加一\n格，直到其半径达到所列出的最大值。\n \n一旦持续时间过去，爆炸效果就会完全消失。\n \n注意照明类的爆炸与众不同，会随着时间\n流逝越来越小。\n \n该数值越高越好。",
 	// HEADROCK HAM 5: Fragmentation
 	L"\n \n这是爆炸中溅射出碎片的数量。\n \n碎片和子弹类似，会击中任何距离太近的人。\n \n该数值越高越好。",
@@ -8397,7 +8397,7 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \n这是爆炸中溅射出碎片的平均散布范围。\n \n或近或远，这里是取平均值。\n \n该数值越高越好。",
 	// HEADROCK HAM 5: End Fragmentations
 	L"\n \n这是爆破品爆炸时发出的声音能够被佣兵和敌\n军听到的距离（格数）。\n \n听到爆炸声的敌人会察觉到你。\n \n该数值越低越好。",
-	L"\n \n这个数值代表该爆破品受到伤害时（如其他爆破品在\n近处爆炸）自身爆炸的几率（100以内）。\n \n因此携带高挥发性爆破品进入战斗极其危险，\n应当极力避免。\n \n数值范围：0~100，该数值越低越好。",
+	L"\n \n这个数值代表该爆破品受到伤害时（如其它爆破品在\n近处爆炸）自身爆炸的几率（100以内）。\n \n因此携带高挥发性爆破品进入战斗极其危险，应\n当极力避免。\n \n数值范围：0~100，该数值越低越好。",
 	L"\n \n决定了炸药的修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair these explosives.\n \ngreen = Anybody can repair them.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
@@ -8460,40 +8460,40 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|护|盾", //L"|S|h|i|e|l|d",
 	L"|照|相|机",		//L"|C|a|m|e|r|a",
 	L"|掩|埋|工|具|", //L"|B|u|r|i|a|l |M|o|d|i|f|i|e|r",
-	L"|E|m|p|t|y |B|l|o|o|d |B|a|g",	// TODO.Translate
-	L"|B|l|o|o|d |B|a|g",						// 44
-	L"|R|e|s|i|s|t|a|n|t |t|o |F|i|r|e",
-	L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |M|o|d|i|f|i|e|r",
-	L"|H|a|c|k|i|n|g |M|o|d|i|f|i|e|r",
+	L"|空|血|包",	//L"|E|m|p|t|y |B|l|o|o|d |B|a|g",
+	L"|血|包",						//L"|B|l|o|o|d |B|a|g", 44
+	L"|防|火|护|甲",	//L"|R|e|s|i|s|t|a|n|t |t|o |F|i|r|e",
+	L"|管|理|能|力|增|益|器",	//L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |M|o|d|i|f|i|e|r",
+	L"|间|谍|能|力|增|益|器",	//L"|H|a|c|k|i|n|g |M|o|d|i|f|i|e|r",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 {
 	L"\n \n在点射或者连射时，曳光弹会产生曳光效果。\n \n由于曳光能够帮助持枪者校准，所以即使考虑\n后座力，该子弹的杀伤仍是致命的；曳光弹\n也能在黑暗中照亮目标。\n \n然而，曳光弹也会暴露射手的位置！\n \n曳光弹会抵消枪口消焰器的效果。",
 	L"\n \n这种子弹能够对坦克装甲造成伤害。\n \n没有穿甲属性的子弹不能\n对坦克造成任何伤害。\n \n即使拥有穿甲属性，大部分枪械对于坦克的伤害仍然\n十分有限，所以不要抱有太大的期望。",
-	L"\n \n这种子弹完全无视防弹护甲。\n \n无论目标是否穿着防弹衣，被该子弹击中时，\n都将受到全额伤害！",
+	L"\n \n这种子弹完全无视防弹护甲。\n \n无论目标是否穿着防弹衣，被该子弹击中时，都\n将受到全额伤害！",
 	L"\n \n当这种子弹击中目标身上的护甲时会使\n护甲快速损坏。\n \n也可能完全破坏目标的护甲。",
-	L"\n \n这种子弹对于破锁十分有效。\n \n当门锁或者其他容器的锁被击中时，会被严重损坏。",
+	L"\n \n这种子弹对于破锁十分有效。\n \n当门锁或者其它容器的锁被击中时，会被严重损坏。",
 	L"\n \n这种防弹装甲对爆炸的防御力是其防护值的四倍。\n \n受到爆炸物伤害时，该护甲的防御数值按照\n装甲属性中列出数值的四倍计算。",
 	L"\n \n该物品防水。\n \n它不会因为浸没在水中而受损。没有该属性的\n物品会在持有者游泳时逐渐损坏。",
 	L"\n \n该物品是电子产品，含有复杂电路。\n \n电子产品在维修者没有电子技能时很难被修复。\n",
-	L"\n \n将该物品佩戴于面部时，使用者不受任何\n有毒气体的伤害。\n \n然而有些腐蚀性气体可以通过腐蚀\n作用穿过这个面罩。",
+	L"\n \n将该物品佩戴于面部时，使用者不受任何\n有毒气体的伤害。\n \n然而有些腐蚀性气体可以通过腐\n蚀作用穿过这个面罩。",
 	L"\n \n该物品需要电池。没有安装电池时使用者不\n能使用这个物品的主要功能。\n \n只要把所需电池安装于该物品的附件栏即可\n（步骤与将瞄准镜安装在步枪上一样）。",
 	L"\n \n该物品能够用于开锁。\n \n（用技巧）开锁不会发出声音，但是开稍微复\n杂一些的锁需要足够的机械能力。该物品提升了开锁几率。",
 	L"\n \n该物品能够绞断铁丝网。\n \n使用此物品，佣兵可以快速穿越用铁丝网封锁的地区，以便\n包围敌人！",
 	L"\n \n该物品能够用于破坏锁具。\n \n破坏锁具需要很大的力量，既会发出很大的\n噪音，也很耗费佣兵的体力。但是在没有出色\n的技巧和复杂的工具时，用力量破坏锁具也是明智\n之举。该物品提升了撬锁几率。",
 	L"\n \n该物品能够探测地下的金属物品。\n \n显然其主要用于在没有肉眼识别地雷的能力时探测地\n雷。但是你也可以用它发现埋在地下的宝藏。",
-	L"\n \n该物品能够用来引爆已经安装远程爆破引信的炸弹\n。\n \n先放置炸弹，时机一到再用它引爆。",
+	L"\n \n该物品能够用来引爆已经安装远程爆破引\n信的炸弹。 \n \n先放置炸弹，时机一到再用它引爆。",
 	L"\n \n安装该引信的爆破物设置完成后\n，可以被远程控制器引爆。\n \n远程引信是设置陷阱的不二选择，因为它只会在你需要\n它爆炸的时候被引爆，而且留给你足够的时间跑\n开！",
 	L"\n \n安装该引信的爆破物设置完成后\n，该引信会开始倒数计时，并在设置的时间后\n被引爆。\n \n计时引信便宜并且易于安装，但是你必须给它\n设定合适的时间以便你能够跑开！",
 	L"\n \n该物品承有汽油。\n \n在你需要加油时十分有用。",
-	L"\n \n工具箱内装有各种能用来修复其他物品的工具。\n \n安排佣兵进行修复工作时该佣兵必须持有工具\n箱。该物品提升了维修效能。",
-	L"\n \n将该物品佩戴于面部时，\n可以利用热成像原理，\n发现墙壁后方的敌人。",
+	L"\n \n工具箱内装有各种能用来修复其它物品的工具。\n \n安排佣兵进行修复工作时该佣兵必须持有工具\n箱。该物品提升了维修效能。",
+	L"\n \n将该物品佩戴于面部时，可以\n利用热成像原理，发现\n墙壁后方的敌人。",
 	L"\n \n这种功能强大的仪器利用X光搜索敌军。\n \n它可以在短时间内暴露一定范围中的敌人位置。\n请远离生殖器使用！",
 	L"\n \n该物品装有饮用水。\n \n口渴时饮用。",
-	L"\n \n该物品内含美酒、酒精饮料、洋酒，\n嘿嘿，你叫它什么都行。\n \n适量饮用，不要酒后驾驶，小心肝硬化！",
+	L"\n \n该物品内含美酒、酒精饮料、洋酒。\n嘿嘿，你叫它什么都行。\n \n适量饮用，不要酒后驾驶，小心肝硬化！",
 	L"\n \n这一战场的基础急救包提供了基本的医疗用品。\n \n可以被用来包扎受伤的角色以止血。\n \n如需要回复生命，使用名副其实的医药箱，并辅以大量的休息。",
-	L"\n \n这是名副其实的医药箱，可以用于外科手术或其他复杂的治疗。\n \n安排佣兵进行医疗工作时，该佣兵必须持有医\n药箱。",
+	L"\n \n这是名副其实的医药箱，可以用于外科手术或其它复杂的治疗。\n \n安排佣兵进行医疗工作时，该佣兵必须持有医\n药箱。",
 	L"\n \n该物品能够用于爆破锁具。\n \n使用它需要爆破技能以避免过早引爆。\n \n使用炸药是一个相对简单的破锁手段，但是会\n发出很大噪音，并且对于大部分佣兵来说过于\n危险。",
 	L"\n \n饮用该物品能让你止渴。", //L"\n \nThis item will still your thirst\nif you drink it.",
 	L"\n \n食用该物品能让你充饥。", //L"\n \nThis item will still your hunger\nif you eat it.",
@@ -8502,21 +8502,21 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n该物品提升你的陷阱解除几率。", //L"\n \nThis item improves your trap disarm chance by ",
 	L"\n \n该物品及附着其上的所有物品均让怀疑者无从觉察。", //L"\n \nThis item and everything attached/inside\nit is hidden from curious eyes.",
 	L"\n \n这个物品不会被损坏。", //L"\n \nThis item cannot be damaged.",
-	L"\n \n这个物品是金属制成的，它比其他物\n品更耐磨损。", //L"\n \nThis item is made of metal.\nIt takes less damage than other items.", 
+	L"\n \n这个物品是金属制成的，它比其它物\n品更耐磨损。", //L"\n \nThis item is made of metal.\nIt takes less damage than other items.", 
 	L"\n \n这个物品掉在水中会下沉消失。", //L"\n \nThis item sinks when put in water.",
 	L"\n \n这个物品需要两只手一起操作使用。", //L"\n \nThis item requires both hands to be used.",
 	L"\n \n这个物品会挡住准心，你无法再使\n用准心瞄准。", //L"\n \nThis item will block your iron sights\nso you cannot use them.",
-	L"\n \n这种弹药可以破坏发光的墙。\n或者其他不同种类的物品。", //L"\n \nThis ammo can destroy light walls\nand various other objects.",
+	L"\n \n这种弹药可以破坏发光的墙。\n或者其它不同种类的物品。", //L"\n \nThis ammo can destroy light walls\nand various other objects.",
 	L"\n \n如果你脸上带了这个，这就将降低\n传播给其他人的几率。", //L"\n \nIf worn on your face, this will lower\nthe chance to be infected by other people.",
 	L"\n \n如果保存在物品栏\n降低\n传染给其他人的几率。", //L"\n \nIf kept in your inventory, this will\nlower\nthe chance to be infected by other people.",
 	L"\n \n拿在手里，就可以抵挡前方的伤害。", //L"\n \nIf equipped in a hand, this will block incoming damage.",
 	L"\n \n你可以使用它拍照。",		//L"\n \nYou can take photos with this.",
 	L"\n \n这个物品能让你更有效地掩埋尸体。", //L"\n \nThis item makes you more effective at burying corpses.",
-	L"\n \nA paramedic can extract blood\nfrom a donor with this.",	// TODO.Translate
-	L"\n \nA paramedic can use up this item to increase\nthe amount of health regenerated by surgery.",	// 44
-	L"\n \nThis armor lowers fire damage by %i%%.",
-	L"\n \nThis item makes you more effective at\nadministrative work by %i%%.",
-	L"\n \nThis item improves your hacking skills by %i%%.",
+	L"\n \n医生可以从\n捐献者那里取血。",	//L"\n \nA paramedic can extract blood\nfrom a donor with this.",
+	L"\n \n医生可以用血包输血\n以增加手术回复的生命值。",	//L"\n \nA paramedic can use up this item to increase\nthe amount of health regenerated by surgery.",	// 44
+	L"\n \n可以降低%i%%的火焰伤害。",	//L"\n \nThis armor lowers fire damage by %i%%.",
+	L"\n \n这个工具可以\n提高%i%%的管理工作的效率。",	//L"\n \nThis item makes you more effective at\nadministrative work by %i%%.",
+	L"\n \n这个工具可以\n提高%i%%的间谍能力。",	//L"\n \nThis item improves your hacking skills by %i%%.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -8587,8 +8587,8 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|延|迟|修|正",//L"|D|e|c|a|y |M|o|d|i|f|i|e|r",
 	L"|最|佳|激|光|距|离",//L"|B|e|s|t |L|a|s|e|r |R|a|n|g|e",
 	L"|后|坐|修|正|比|例",//L"|P|e|r|c|e|n|t |R|e|c|o|i|l |M|o|d|i|f|i|e|r",	// 65
-	L"|掰|击|锤|开|左|轮|枪",	//L"|F|a|n |t|h|e |H|a|m|m|e|r",
-	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s", //TODO.Translate
+	L"|掰|击|锤|射|击",	//L"|F|a|n |t|h|e |H|a|m|m|e|r",
+	L"|配|置|结|构", //L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
@@ -8597,8 +8597,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n当安装于远程武器上时，该物品将修正武器的精\n度值。\n \n精度的提高能够使武器在精瞄时更容易命中远\n距离的目标。\n \n数值范围：-100~+100，该数值越高越好。",
 	L"\n \n该物品按照所列数值修正射手使用远程武器打出去\n的每颗子弹的精度。\n \n数值范围：-100~+100，该数值越高越好。",
 	L"\n \n在原本射击精度的基础上，该物品按照所列百分比修正射手使用远程武器射出\n的每颗子弹。\n \n数值范围：-100~+100，该数值越高越好。",
-	L"\n \n该物品按照所列数值修正射手使用远程武器瞄准时，\n每次精瞄所增加的精度。\n \n数值范围：-100~+100，该数值越高越好。",
-	L"\n \n该物品按照所列百分比修正射手使用远程武器瞄准\n时，每次精瞄所增加的精度。\n \n数值范围：-100~+100，该数值越高越好。",
+	L"\n \n该物品按照所列数值修正射手使用远程武器\n瞄准时，每次精瞄所增加的精度。\n \n数值范围：-100~+100，该数值越高越好。",
+	L"\n \n该物品按照所列百分比修正射手使用远程武器\n瞄准时，每次精瞄所增加的精度。\n \n数值范围：-100~+100，该数值越高越好。",
 	L"\n \n该物品修正该武器的精瞄等级。\n \n减少精瞄等级意味着每一次精瞄会增加更多的\n精度。因此，精瞄等级的减少，有助于这件武\n器在不损精度的情况下快速瞄准。\n \n该数值越低越好。",
 	L"\n \n在原本射击精度的基础上，该物品按照百分比修正射手使用远程武器时能\n达到的最大精度。\n \n该数值越高越好。",
 	L"\n \n当将该物品安装于远程武器上时，会修正武器的操\n控难度。\n \n易于操控的武器不论是否进行精瞄都更加\n准确。\n \n该修正基于武器的原始操控难度，步枪\n和重武器高而手枪和轻武器低。\n \n该数值越低越好。",
@@ -8611,8 +8611,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n当安装于远程武器上时，该物品在目标身上投\n影出一个红点，让其更容易被命中。\n \n红点效果只能在指定距离内使用，超过该距离\n光点就会暗淡直到最终消失。\n \n该数值越高越好。",
 	L"\n \n当安装于可点射或连发的远程武器上时，该\n物品按照百分比修正该武器的水平后座力。\n \n在连续射击时，降低后坐力可以帮助射手\n保持枪口指向目标。\n \n该数值越低越好。",
 	L"\n \n当安装于可点射或连发的远程武器上时，该\n物品按照百分比修正该武器的垂直后座力。\n \n在连续射击时，降低后坐力可以帮助射手\n保持枪口指向目标。\n \n该数值越低越好。",
-	L"\n \n该物品修正射手在点射或者连发时，应对制退后坐\n力的能力。\n \n高修正值能帮助射手控制后坐力较高的武器，\n即使射手自身力量较低。\n \n该数值越高越好。",
-	L"\n \n该物品修正射手在点射或者连发时，运用反作\n用力制退后坐力的精确度。\n \n高修正值能帮助射手维持枪口始终朝向目标，\n哪怕目标较远，也能提升精度。\n \n该数值越高越好。",
+	L"\n \n该物品修正射手在点射或者连发时，应对制退后坐\n力的能力。\n \n高修正值能帮助射手控制后坐力较高的武器，即使\n射手自身力量较低。\n \n该数值越高越好。",
+	L"\n \n该物品修正射手在点射或者连发时，运用反作\n用力制退后坐力的精确度。\n \n高修正值能帮助射手维持枪口始终朝向目标，哪怕\n目标较远，也能提升精度。\n \n该数值越高越好。",
 	L"\n \n在射手进行点射或者连发时，该物品修正其频繁评估\n制退力大小以应对后坐力的能力。\n \n低修正值使连发的总体精度更高，此外，由于射手能\n正确制退后坐力，其长点射也更\n加准确。\n \n该数值越高越好。",
 	L"\n \n该物品直接修正佣兵每回合的初始AP量。\n \n该数值越高越好。",
 	L"\n \n当安装于远程武器上时，该物品修正举枪AP。\n \n该数值越低越好。",
@@ -8630,12 +8630,12 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n当该物品戴在身上或附在穿戴品上时，会增加穿戴者在\n城市环境中的伪装值。\n \n该伪装需靠近沥青或混凝土材质才能发挥最大功效。\n \n该伪装数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，会增加穿戴者在\n沙漠环境中的伪装值。\n \n该伪装需靠近沙地、沙砾地或沙漠植被才能发挥最大功\n效。\n \n该伪装数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，会增加穿戴者在\n雪地环境中的伪装值。\n \n该伪装需靠近雪地才能发挥最大功效。\n \n该伪装数值越高越好。",
-	L"\n \n当该物品戴在身上或附在穿戴品上时，修正使用者的潜\n行能力，使其在潜行时更难被听到。\n \n注意该物品并不修正潜行者的可视特征，\n而只是改变潜行中动静的大小。\n \n该数值越高越好。",
+	L"\n \n当该物品戴在身上或附在穿戴品上时，修正使用者的潜\n行能力，使其在潜行时更难被听到。\n \n注意该物品并不修正潜行者的可视特征，而只是\n改变潜行中动静的大小。\n \n该数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，将按照所列\n百分比修正使用者的听觉感知范围。\n \n该值为正时可以从更远的距离听到噪音。\n \n与此同时，该值为负时会削减使用者的听力。\n \n该数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，将按照所列\n百分比修正使用者的视觉感知范围。\n \n这一修正值适用于所有情况。\n \n该数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，将按照所列\n百分比修正使用者的视觉感知范围。\n \n这一夜视修正只在光线明显不足时有效。\n \n该数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，将按照所列\n百分比修正使用者的视觉感知范围。\n \n这一白天视觉修正只在光照度为平均值或更高时有效。\n \n该数值越高越好。",
-	L"\n \n当该物品戴在身上或附在穿戴品上时，将按照所列\n百分比修正使用者的视觉感知范围。\n \n这一高光视觉修正只在光照度过高时有效，\n例如直视闪光弹照亮的格子或\n在正午时分。\n \n该数值越高越好。",
+	L"\n \n当该物品戴在身上或附在穿戴品上时，将按照所列\n百分比修正使用者的视觉感知范围。\n \n这一高光视觉修正只在光照度过高时有效，例如\n直视闪光弹照亮的格子或\n在正午时分。\n \n该数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，将按照所列\n百分比修正使用者的视觉感知范围。\n \n这一洞穴视觉修正只在昏暗且位于地下时有效。\n \n该数值越高越好。",
 	L"\n \n当该物品戴在身上或附在穿戴品上时，会改变视\n野范围，视野范围减少会导致可视角度变窄。\n \n该数值越低越好。",
 	L"\n \n这是射手在点射或者连发时，制退后坐力的能力。\n \n该数值越高越好。",
@@ -8644,8 +8644,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n当安装于远程武器上时，该物品修正武器的精\n瞄加成。\n \n精瞄加成的提高使该武器在精瞄时更容易命\n中远距离的目标。\n \n该数值越高越好。",
 	L"\n \n单发射击所造成的温度。\n所使用的子弹类型对本值有影响。",
 	L"\n \n每回合自动冷却所降低的温度值。",
-	L"\n \n当武器温度超过卡壳阈值时，\n卡壳将更容易发生。",
-	L"\n \n当武器温度超过损坏阈值时，\n武器将更容易损坏。",
+	L"\n \n当武器温度超过卡壳阈值时，卡壳\n将更容易发生。",
+	L"\n \n当武器温度超过损坏阈值时，武器\n将更容易损坏。",
 	L"\n \n武器的单发射击温度增加了(百分比)。\n \n该数值越低越好。",
 	L"\n \n武器的冷却系数数增加了(百分比)。\n \n该数值越高越好。",
 	L"\n \n武器的卡壳阈值增加了(百分比)。\n \n该数值越高越好。",
@@ -8660,8 +8660,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n这个物品随着时间推移而腐败。\n超过50％腐败会产生毒性。\n这是食物的霉变率。\n \n该数值越低越好。", // L"\n \nThis item becomes stale over time.\nIf more then 50% is molded it becomes poisoneous.\nThis is the rate at which mold is generated.\nLower is better.",
 	L"",
 	L"\n \n当该附件装配到可以点射及自动射击的远程武\n器上时，会按照所述比例修正武器的后座力。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nWhen attached to a ranged weapon capable\nof Burst or Autofire modes, this item modifies\nthe weapon's Recoil by the listed percentage.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.", // 65
-	L"\n \n如果枪手用双手使用这把枪，\n可以腰间连续连射。",	//L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",
-	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.", //TODO.Translate
+	L"\n \n如果枪手用双手使用这把枪，可\n以腰间连续连射。",	//L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",
+	L"\n \n切换射击模式，还可以\n同时切换发射多少发子弹。", //L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -8671,7 +8671,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \n这件武器按照所列百分比修正了射手打出去的每颗\n子弹的精度。\n \n该数值越高越好。",
 	L"\n \n这件武器按照所列数值修正了每次精瞄所增加的精\n度。\n \n数值范围：-100~+100，该数值越高越好。",
 	L"\n \n根据射手本身的射击精度，这件武器\n按照所列百分比修正每次精瞄所增加的\n精度。\n \n该数值越高越好。",
-	L"\n \n由于其所装的附件，弹药或由于其内置特性，\n这件武器的精瞄等级得到了修正。\n \n如果精瞄等级减少了，则这件武器可以在不损\n失精度的情况下快速瞄准。\n \n反之，若精瞄等级增加，则这件武器瞄准的\n更慢，却不会额外增加精度。\n \n该数值越低越好。",
+	L"\n \n由于其所装的附件，弹药或由于其内置特性，这件\n武器的精瞄等级得到了修正。\n \n如果精瞄等级减少了，则这件武器可以在不损\n失精度的情况下快速瞄准。\n \n反之，若精瞄等级增加，则这件武器瞄准的\n更慢，却不会额外增加精度。\n \n该数值越低越好。",
 	L"\n \n这件武器按照一定百分比\n修正射手能够达到的最大精度。\n(依据射手本来的精度）\n \n该数值越高越好。",
 	L"\n \n由于所装的附件或其固有特性，武器操\n控难度得到了修正。\n \n易于操控的武器不论是否进行精瞄都更加\n准确。\n \n该修正基于武器的原始操控难度，步枪\n和重武器高而手枪和轻武器低。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件或其固有特性，这件武\n器超射距命中的能力得到了修正。\n \n较高的修正值可以增加该武器的最大射程至少\n几个格。\n \n该数值越高越好。",
@@ -8684,13 +8684,13 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的水平后坐力得到了修正。\n \n如果武器缺少点射和连发功能，则此修正无效。\n \n在点射或连发时，降低后坐力可以帮助射手\n保持枪口持续对准目标。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的垂直后坐力得到了修正。\n \n如果武器缺少点射和连发功能，则此修正无效。\n \n在点射或连发时，降低后坐力可以帮助射手\n保持枪口持续对准目标。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器修正了射手在点射或者连发时，制退后坐力\n的能力。\n \n高修正数值能帮助射手控制后坐力较强的武器\n，即使射手自身力量较低。\n \n该数值越高越好。",
-	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器修正了射手运用反作用力制退后坐力的精确\n度。\n \n如果武器缺少点射和连发功能，则此修正无效。\n \n高修正值能帮助射手维持枪口始终朝向目标，\n哪怕目标较远，也能提升精度。\n \n该数值越高越好。",
+	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器修正了射手运用反作用力制退后坐力的精确\n度。\n \n如果武器缺少点射和连发功能，则此修正无效。\n \n高修正值能帮助射手维持枪口始终朝向目标，哪怕\n目标较远，也能提升精度。\n \n该数值越高越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器修正了射手频繁估量制退力大小的能力。\n \n如果点射和连发功能都没有，则此修正无效。\n \n高修正值能够提高子弹的总体精度，在射手能\n正确制退后坐力的前提下，远距离的连发也更\n能加准确。\n \n该数值越高越好。",
 	L"\n \n持有这件武器将修正佣兵每回合的初\n始AP量。\n \n该数值越高越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的举枪AP得到了修正。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的单发AP得到了修正。\n \n请注意对于可以点射或连发的武器来说，点射和\n连发AP也会被修正。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的点射AP得到了修正。\n \n如果武器没有点射功能，此修正自然无效。\n \n该数值越低越好。",
-	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的连发AP得到了修正。\n \n如果武器没有连发功能，此修正自然无效。\n \n注意，增加连发子弹时的AP消耗并不会改变，\n只影响连发时AP的初始消耗。\n \n该数值越低越好。",
+	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的连发AP得到了修正。\n \n如果武器没有连发功能，此修正自然无效。\n \n注意，增加连发子弹时的AP消耗并不会改变，只\n影响连发时AP的初始消耗。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器的上弹AP得到了修正。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，此武器\n的弹匣容量得到了修正。\n \n现在这件武器可以接受相同口径的更大（或更小）容量的\n弹匣。\n \n该数值越高越好。",
 	L"\n \n由于所装的附件，弹药或其固有特性，这件武\n器在点射时发射的子弹数得到了修正。\n \n如果此武器本不能点射而此修正值为正，将赋予武器\n点射能力。\n \n反之，如果此武器原本能够点射，而此修正值\n为负，则将使其失去点射能力。\n \n该数值一般越高越好。当然连发时也需要注意\n节省弹药。",
@@ -8702,22 +8702,22 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \n当手持这件武器时，使用者\n在城市环境中的伪装值改变了。\n \n该伪装需靠近沥青或水泥才能发挥最大功效。\n \n该伪装数值越高越好。",
 	L"\n \n当手持这件武器时，使用者\n在沙漠环境中的伪装值改变了。\n \n该伪装需靠近沙砾或沙漠植被才能发挥最大功\n效。\n \n该伪装数值越高越好。",
 	L"\n \n当手持这件武器时，使用者\n在雪地环境中的伪装值改变了。\n \n该伪装需靠近雪地才能发挥最大功效。\n \n该伪装数值越高越好。",
-	L"\n \n当手持这件武器时，将修正士兵的潜行能力，使潜行\n者更难或更容易被听到。\n \n注意该物品并不修正潜行者的可视特征，\n而只是改变潜行中动静的大小。\n \n该数值越高越好。",
+	L"\n \n当手持这件武器时，将修正士兵的潜行能力，使潜行\n者更难或更容易被听到。\n \n注意该物品并不修正潜行者的可视特征，而\n只是改变潜行中动静的大小。\n \n该数值越高越好。",
 	L"\n \n当手持这件武器时，将按照所列\n百分比修正使用者的听觉感知范围。\n \n该值为正时可以从更远的距离听到噪音。\n \n若该值为负，则会削减使用者的听力。\n \n该数值越高越好。",
-	L"\n \n当完成该武器的举枪动作时，\n由于附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一一般修正适用于所有情形。\n \n该数值越高越好。",
-	L"\n \n当完成该武器的举枪动作时，\n由于附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一夜视修正只在光线明显不足时有效。\n \n该数值越高越好。",
-	L"\n \n当完成该武器的举枪动作时，\n由于附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一白天视觉修正只在光照度为平均值或更高时有效。\n \n该数值越高越好。",
-	L"\n \n当完成该武器的举枪动作时，\n由于附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一高光视觉修正只在光照度过高时有效，\n例如直视闪光弹照亮的\n格子或在正午时分。\n \n该数值越高越好。",
-	L"\n \n当完成该武器的举枪动作时，\n由于附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一洞穴视觉修正只在昏暗且位于地下时有效。\n \n该数值越高越好。",
-	L"\n \n当完成该武器的举枪动作时，\n将改变使用者的视野范围，视野\n范围减少会导致可视角度变窄。\n \n该数值越高越好。",
+	L"\n \n当完成该武器的举枪动作时，由于\n附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一一般修正适用于所有情形。\n \n该数值越高越好。",
+	L"\n \n当完成该武器的举枪动作时，由于\n附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一夜视修正只在光线明显不足时有效。\n \n该数值越高越好。",
+	L"\n \n当完成该武器的举枪动作时，由于\n附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一白天视觉修正只在光照度为平均值或更高时有效。\n \n该数值越高越好。",
+	L"\n \n当完成该武器的举枪动作时，由于\n附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一高光视觉修正只在光照度过高时有效，例如\n直视闪光弹照亮的\n格子或在正午时分。\n \n该数值越高越好。",
+	L"\n \n当完成该武器的举枪动作时，由于\n附件或武器的本身特点，使用者的\n视觉范围将依照所列比例得到修正\n \n这一洞穴视觉修正只在昏暗且位于地下时有效。\n \n该数值越高越好。",
+	L"\n \n当完成该武器的举枪动作时，将\n改变使用者的视野范围，视野\n范围减少会导致可视角度变窄。\n \n该数值越高越好。",
 	L"\n \n这是射手在点射和连发时，制退后坐力的能力。\n \n该数值越高越好。",
 	L"\n \n这是射手频繁估量制退力大小以应对后坐力的能力。\n \n如果武器缺乏点射和连发功能，则此能力无\n效。\n \n低修正值能提高连发的总体精度，此外，由于射手能\n正确制退后坐力，其长点射也更\n加准确。\n \n该数值越低越好。",
 	L"\n \n由于所装的附件，弹药或其内置特性，这件武\n器的命中率得到了修正。\n \n命中率的提高使该武器在精瞄时\n更容易命中目标。\n \n该数值越高越好。",
 	L"\n \n由于所装的附件，弹药或其内置特性，这件武\n器的精瞄加成得到了修正。\n \n精瞄加成的提高能够使该武器在精瞄时更容易命\n中远距离的目标。\n \n该数值越高越好。",
 	L"\n \n单发射击所造成的温度。\n所使用的子弹类型对本值有影响。",
 	L"\n \n每回合自动冷却所降低的温度值。",
-	L"\n \n当武器温度超过卡壳阈值时，\n卡壳将更容易发生。",
-	L"\n \n当武器温度超过损坏阈值时，\n武器将更容易损坏。",
+	L"\n \n当武器温度超过卡壳阈值时，卡壳\n将更容易发生。",
+	L"\n \n当武器温度超过损坏阈值时，武器\n将更容易损坏。",
 	L"\n \n这个武器的后座力大小因为所使用的弹药，附\n件，或内部构造而获得该比例大小的修正。如\n果没有点射或自动模式，这个值无效。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nThis weapon's recoil strength is being\nmodified by this percentage value by its ammo,\nattachments, or inherent abilities.\n \nThis has no effect if the weapon lacks both\nBurst and Auto-Fire modes.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
 };
 
@@ -9038,7 +9038,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％ 行动点在筑垒时 \n", //L" %s%d%% APs needed for fortification actions\n",
 	L" %s%d%％ 行动点在发射迫击炮时 \n", //L" %s%d%% APs needed for mortars\n",
 	L" %s%d%％ 行动点在操作背包时 \n", //L" %s%d%% APs needed to access inventory\n",
-	L" 空降时观望其他方向\n %s%d%％ 行动点在空降后 \n", //L" looks in other direction on airdrops\n %s%d%% APs after airdrop\n",
+	L" 空降时观望其它方向\n %s%d%％ 行动点在空降后 \n", //L" looks in other direction on airdrops\n %s%d%% APs after airdrop\n",
 	L" %s%d%％ 行动点在进入战区的第一回合 \n", //L" %s%d%% APs on first turn when assaulting a sector\n",
 		
 	L" %s%d%％ 步走速度 \n", //L" %s%d%% travel speed on foot\n",
@@ -9094,9 +9094,9 @@ STR16	szBackgroundText_Value[]=
 	L" 非吸烟者", //L"Nonsmoker",
 	L" %s%d%％ 如果在蹲下状态，视野方向发现敌人，即可瞄准 \n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%％ 建设速度 \n",//L" %s%d%% building speed\n",
-	L" 黑客技能: %s%d ",//L" hacking skill: %s%d ",
+	L" 间谍技能: %s%d ",//L" hacking skill: %s%d ",
 	L" %s%d%% 掩埋尸体速度 \n",	//L" %s%d%% burial speed\n",
-	L" %s%d%% administration effectiveness\n",	// TODO.Translate
+	L" %s%d%% 管理效率 \n",	//L" %s%d%% administration effectiveness\n",
 };
 
 STR16		szBackgroundTitleText[] =
@@ -9416,7 +9416,7 @@ STR16	szCampaignHistoryMoneyTypeString[]=
 	L"初始资金",
 	L"矿场收入",
 	L"贸易",
-	L"其他来源",
+	L"其它来源",
 };
 
 STR16	szCampaignHistoryConsumptionTypeString[]=
@@ -10310,7 +10310,7 @@ STR16	szDynamicDialogueText[40][17] =
 	L"",
 	L"",
 	L"把你的肠子从屁眼里拉出来我才能飞，我的天啊....",  //"Taking the stick out of your butt would be a starter, jeez...",
-	L"我看到了未来，伙计。还有...其他的东西！",  //"I've seen things man. And some... stuff!",
+	L"我看到了未来，伙计。还有...其它的东西！",  //"I've seen things man. And some... stuff!",
 	L"",
 	L"",
 	L"$CAUSE$ 吸毒的时候被 $VICTIM$ 看见了。你怎么看？",  //"$CAUSE$ took drugs and $VICTIM$ saw it. What do you do?",
@@ -10374,7 +10374,7 @@ STR16	szDynamicDialogueText[40][17] =
 	L"别在钱上斤斤计较，你自己挣得够多的了！",   //"Quit whining about the money, you get more than enough yourself!",
 	L"说实在的，$VICTIM$, 我觉得你应该调整下报价！",   //"In all honesty, $VICTIM$, I think you should adjust your rate!",
 	L"你值那个价？你的所作所为根本就是在装腔作势！",   //"Worth it? All you do is pose!",
-	L"放松点，至少我们其他人明白你付出了多少，$CAUSE$。",   //"Relax. At least some of us appreciate your service, $CAUSE$.",
+	L"放松点，至少我们明白你付出了多少，$CAUSE$。",   //"Relax. At least some of us appreciate your service, $CAUSE$.",
 	L"也许 $CAUSE_GENDER$ 刚好擅长薪资谈判？",   //"Perhaps $CAUSE_GENDER$ is just good at salary negotiations?",
 	L"每个人都会得到自己应得的那一份儿。你越是抱怨，得到的越少。",   //"Everybody gets what the deserve. If you complain, you deserve less.",
 	L"",
@@ -10677,7 +10677,7 @@ STR16	szDynamicDialogueText[40][17] =
 	L"$VICTIM$ 害怕被 $CAUSE$ 的病传染了。你怎么看？",//L"$VICTIM$ is offended by $CAUSE$ diseases. What do you do?",
 	L"不要像个小学生一样，我们需要给 $CAUSE$ 找个医生！",//L"Stop behaving like a first grader. We need to get $CAUSE$ to a doctor!",
 	L"脸色看起来是不好，希望不是传染病！",//L"This does look unhealthy. That better not be contagious!",
-	L"别吵了！别在病以外给我添其他烦心的事情了！",//L"Stop it!  We don't need more of whatever it is you have!",
+	L"别吵了！别在病以外给我添其它烦心的事情了！",//L"Stop it!  We don't need more of whatever it is you have!",
 	L"是啊，你除了瞎逼逼外也没别的办法对抗病魔了吗，是吧？",//L"Yeah, there's nothing you can do against this stuff, right?",
 	L"重要的是把 $CAUSE$ 送到医生那里，再确保 $CAUSE_GENDER$ 不再传染其他人。",//L"The important thing is to get $CAUSE$ to a doctor, and to make sure $CAUSE_GENDER$ doesn't infect anybody else.",
 	L"不要吵了！$CAUSE$, 把病治好要紧，其他人都该干嘛干嘛去！",//L"Stop whining! $CAUSE$, get that treated, and the rest of you, back to business!",
@@ -10981,7 +10981,7 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 
 	L"你就从来没这么干过，$VICTIM$？",  //L"And I suppose you never did, $VICTIM$?",
 	L"嗯...不。",  //L"Hmmmm... no.",
-	L"很好。让我们吵一架吧，反正也没其他事情可做...",  //L"Great. Let's have an argument. It's not like we have other things to do...",
+	L"很好。让我们吵一架吧，反正也没其它事情可做...",  //L"Great. Let's have an argument. It's not like we have other things to do...",
 	L"你错了！",  //L"You are mistaken!",
 
 	L"你错了！",  //L"You are wrong!",
@@ -11134,13 +11134,13 @@ STR16 szMilitiaStrategicMovementText[] =
 {
 	L"无法对该地区下达命令，民兵的命令不可用。",  //	L"We cannot relay orders to this sector, militia command not possible.",
 	L"未被分配",  //L"Unassigned",
-	L"小组编号",  //L"Group No.", 
+	L"小队编号",  //L"Group No.", 
 	L"下一站 ",  //L"Next", 
 
-	L"  时间",  //L"ETA", 
+	L"_时间",  //L"ETA", 
 	L"第%d小队（新）",  //L"Group %d (new)",
 	L"第%d小队",  //L"Group %d",
-	L"  终点",  //L"Final",
+	L"_目的地",  //L"Final",
 
 	L"志愿者: %d (+%5.3f)",	//L"Volunteers: %d (+%5.3f)",
 };
@@ -11297,8 +11297,8 @@ STR16	szWeatherTypeText[] =
 
 STR16	szSnakeText[] =
 {
-	L"%s 遇到了蛇的袭击！",//L"%s evaded a snake attack!",
-	L"%s 被一只蛇攻击了！",//L"%s was attacked by a snake!",
+	L"%s遇到蛇的袭击！",//L"%s evaded a snake attack!",
+	L"%s被蛇攻击了！",//L"%s was attacked by a snake!",
 };
 
 STR16	szSMilitiaResourceText[] =
@@ -11314,17 +11314,17 @@ STR16	szSMilitiaResourceText[] =
 
 STR16	szInteractiveActionText[] =
 {
-	L"%s 开始黑客攻击。",//L"%s starts hacking.",
-	L"%s 进入电脑，但没找到感兴趣的内容。",//L"%s accesses the computer, but finds nothing of interest.",
-	L"%s 的技能不够，不足以攻入电脑。",//L"%s is not skilled enough to hack the computer.",
-	L"%s 阅读了文件，但没找到新的内容。",//L"%s reads the file, but learns nothing new.",
+	L"%s开始侵入。",//L"%s starts hacking.",
+	L"%s进入电脑，但没找到感兴趣的内容。",//L"%s accesses the computer, but finds nothing of interest.",
+	L"%s的技能不够，不足以攻入电脑。",//L"%s is not skilled enough to hack the computer.",
+	L"%s阅读了文件，但没找到新的内容。",//L"%s reads the file, but learns nothing new.",
 
-	L"%s 离开了这个，没有意义。",//L"%s can't make sense out of this.",
-	L"%s 不能使用水龙头。",//L"%s couldn't use the watertap.",
-	L"%s 买了一个 %s。",//L"%s has bought a %s.",
-	L"%s 没有足够的钱。那真让人难为情。",//L"%s doesn't have enough money. That's just embarassing.",
+	L"%s离开了这个，没有意义。",//L"%s can't make sense out of this.",
+	L"%s不能使用网络。",//L"%s couldn't use the watertap.",
+	L"%s买了一个%s。",//L"%s has bought a %s.",
+	L"%s没有足够的钱。那真让人难为情。",//L"%s doesn't have enough money. That's just embarassing.",
 
-	L"%s 从水龙头喝水",//L"%s drank from water tap",
+	L"%s在使用网络",//L"%s drank from water tap",
 	L"这台机器看起来无法工作。", //L"This machine doesn't seem to be working.",
 };
 
@@ -11345,13 +11345,13 @@ STR16	szLaptopStatText[] =
 	L"威胁对话", //L"Threaten approach",
 	L"招募对话", //L"Recruit approach",
 
-	L"%s learns with normal speed.",	// TODO.Translate
-	L"%s does not learn at all.",
-	L"%s unlearns his skills.",
-	L"%s learns with 3/4 speed.",
+	L"%s正以正常速度学习。",	//L"%s learns with normal speed.",
+	L"%s根本没有在学习。",	//L"%s does not learn at all.",
+	L"%s遗忘了技能。",	//L"%s unlearns his skills.",
+	L"%s正以3/4的速度学习。",	//L"%s learns with 3/4 speed.",
 
-	L"%s learns with 1/2 speed.",
-	L"%s learns with 1/4 speed.",
+	L"%s正以1/2的速度学习。",	//L"%s learns with 1/2 speed.",
+	L"%s正以1/4的速度学习。",	//L"%s learns with 1/4 speed.",
 };
 
 STR16	szGearTemplateText[] =
@@ -11360,7 +11360,7 @@ STR16	szGearTemplateText[] =
 	L"无法在战斗中进行。", //L"Not possible during combat.",
 	L"所选佣兵不在这个区域。", //L"Selected mercenary is not in this sector.",
 	L"%s不在这个区域。", //L"%s is not in that sector.",
-	L"%s 无法装备 %s。", //L"%s could not equip %s.",
+	L"%s无法装备%s。", //L"%s could not equip %s.",
 	L"由于会损坏物品，无法安装%s（物品%d）。",	//L"We cannot attach %s (item %d) as that might damage items.",
 };
 

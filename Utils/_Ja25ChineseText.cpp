@@ -169,7 +169,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"手枪、冲锋手枪和左轮装填弹药所需行动点 -%d%s \n",// L"-%d%s APs needed to reload pistols, machine pistols and revolvers\n",
 	L"手枪、左轮和冲锋手枪的精确瞄准次数增加%d次 \n",// L"Adds %d more aim click for pistols, machine pistols and revolvers\n",
 	L"手枪、左轮和冲锋手枪的精确瞄准次数增加%d次 \n",// L"Adds %d more aim clicks for pistols, machine pistols and revolvers\n",
-	L"可以掰击锤来开左轮枪\n",	//L"Can fan the hammer with revolvers\n",
+	L"可以掰击锤来发射左轮枪\n",	//L"Can fan the hammer with revolvers\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
@@ -224,13 +224,13 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
 	L"维修速度 +%d%s \n",// L"+%d%s to repairing speed\n",
 	L"开锁成功率 +%d%s(普通/电子锁)\n",// L"+%d%s to lockpicking (normal/electronic locks)\n",
-	L"几率解除电子陷阱 +%d%s\n",// L"+%d%s to disarming electronic traps\n",
+	L"电子陷阱解除几率 +%d%s\n",// L"+%d%s to disarming electronic traps\n",
 	L"组装物品和组合特殊物品成功率 +%d%s\n",// L"+%d%s to attaching special items and combining things\n",
 	L"战斗中排除枪械故障的成功率 +%d%s\n",// L"+%d%s to unjamming a gun in combat\n",
 	L"修理电子物品的惩罚 -%d%s\n",// L"Reduce penalty to repair electronic items by %d%s\n",
-	L"发现陷阱和地雷的几率即洞察等级 +%d\n",// L"Increased chance to detect traps and mines (+%d detect level)\n",
-	L"机器人命中率 +%d%s, (由%s控制时)\n",//(翻译注：程序参数问题只能用这个语序) L"+%d%s CtH of robot controlled by the %s\n",
-	L"只有 %s 可以修理机器人\n",// L"%s trait grants you the ability to repair the robot\n",
+	L"增加发现陷阱和地雷的几率(洞察等级 +%d) \n",// L"Increased chance to detect traps and mines (+%d detect level)\n",
+	L"机器人命中率 +%d%s(由%s控制时) \n",//(翻译注：程序参数问题只能用这个语序) L"+%d%s CtH of robot controlled by the %s\n",
+	L"只有%s可以修理机器人\n",// L"%s trait grants you the ability to repair the robot\n",
 	L"修理机器人的速度惩罚 -%d%s\n",// L"Reduced penalty to repair speed of the robot by %d%s\n",
 	L"可以将物品修复到100%%的状态\n", //L"Able to restore item threshold to 100%% during repair\n",
 };
@@ -242,12 +242,12 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"(同时大量消耗医疗包)",// L" (This drains the medical bag a lot.)",
 	L"可治疗致命一击造成损失的属性点, 通过",// L"Can heal lost stats (from critical hits) by the",
 	L"手术",// L" surgery or",
-	L"或指派其为医生 \n",// L" doctor assignment.\n",
+	L"或指派医生治疗 \n",// L" doctor assignment.\n",
 	L"疗伤效率 +%d%s\n",// L"+%d%s effectiveness on doctor-patient assignment\n",
 	L"包扎速度 +%d%s\n",// L"+%d%s bandaging speed\n",
 	L"所在区域自然回复生命值速度 +%d%s",// L"+%d%s natural regeneration speed of all soldiers in the same sector",
 	L"(这种效果最多叠加%d次)",// L" (max %d these bonuses per sector)",
-	L"Returned health can be boosted an additional %d%s by using blood bags.\n",	// TODO.Translate
+	L"使用血袋时，可以额外恢复%d%s的生命值。\n",	//L"Returned health can be boosted an additional %d%s by using blood bags.\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
@@ -365,7 +365,7 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"训练民兵速度 +%d%s\n",// L"+%d%s bonus to militia training speed\n",
 	L"训练民兵时领导值加成 +%d%s\n",// L"+%d%s bonus to effective leadership for determining militia training\n",
 	L"训练其他雇佣兵的效率 +%d%s\n",// L"+%d%s bonus to teaching other mercs\n",
-	L"训练其他人某项属性时, 教官自身的该项能力有效值 +%d \n",// L"Skill value counts to be +%d higher for being able to teach this skill to other mercs\n",
+	L"训练其他人属性时, 教官自身的该项能力有效值 +%d \n",// L"Skill value counts to be +%d higher for being able to teach this skill to other mercs\n",
 	L"自我锻炼效率 +%d%s\n",// L"+%d%s bonus to train stats through self-practising assignment\n",
 };
 
