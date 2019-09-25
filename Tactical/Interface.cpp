@@ -2515,13 +2515,13 @@ BOOLEAN DrawCTHIndicator()
 	// very fast the farther the target is away. Setting IRON_SIGHT_PERFORMANCE_BONUS too high makes them overly powerful at
 	// close range. This experimental formula implements a curve that lowers iBasicAperture the farther the target is away.
 	// At 1 tile distance iBasicAperture will be the same as before. That's the common start.
-	if ( gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT && gCTHDisplay.ScopeMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+	if (gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_USE_GRADIENT && gCTHDisplay.ScopeMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode(pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo))
 
 		iBasicAperture = iBasicAperture * ( 1 / sqrt( d2DDistance / FLOAT(CELL_X_SIZE) ) / gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER
 						+ (gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER - 1) / gGameCTHConstants.IRON_SIGHTS_MAX_APERTURE_MODIFIER );
 
 	// iron sights can get a percentage bonus to make them overall better but only when not shooting from hip
-	if ( gCTHDisplay.ScopeMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+	if (gCTHDisplay.ScopeMagFactor <= 1.0 && !pSoldier->IsValidAlternativeFireMode(pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo))
 
 		iBasicAperture = iBasicAperture * (FLOAT)( (100 - gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS) / 100);
 
@@ -2536,7 +2536,7 @@ BOOLEAN DrawCTHIndicator()
 		if ( iMaxLaserRange > d2DDistance )
 		{
 			// which bonus do we want to apply?
-			if ( pSoldier->IsValidAlternativeFireMode( pSoldier->aiData.bAimTime, gCTHDisplay.iTargetGridNo ) )
+			if (pSoldier->IsValidAlternativeFireMode(pSoldier->aiData.bShownAimTime, gCTHDisplay.iTargetGridNo))
 				// shooting from hip
 				fLaserBonus = gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP;
 			else if ( gCTHDisplay.ScopeMagFactor <= 1.0 )
@@ -2572,7 +2572,7 @@ BOOLEAN DrawCTHIndicator()
 	// is a divisor to the sway of the muzzle. It's about the same as multiplying CTH by a certain amount.
 	// Note that both optical magnification devices (like scopes) and dot-projection devices (like lasers and 
 	// reflex sights) provide this sort of bonus.
-	FLOAT iMagFactor = CalcMagFactor( pSoldier, pWeapon, d2DDistance, gCTHDisplay.iTargetGridNo, (UINT8)pSoldier->aiData.bAimTime );
+	FLOAT iMagFactor = CalcMagFactor(pSoldier, pWeapon, d2DDistance, gCTHDisplay.iTargetGridNo, (UINT8)pSoldier->aiData.bShownAimTime);
 
 	// Get effective mag factor for this shooter. This represents his ability to use scopes.
 	FLOAT fEffectiveMagFactor = CalcEffectiveMagFactor( pSoldier, iMagFactor );
