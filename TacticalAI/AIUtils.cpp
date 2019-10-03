@@ -2010,27 +2010,50 @@ INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 	return (INT16)InGas( pSoldier, sGridNo );
 }
 
-BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo )
+BOOLEAN InGasSpot(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel)
 {
+	CHECKF(pSoldier);
+
+	if (TileIsOutOfBounds(sGridNo))
+		return FALSE;
+
+	// tear gas
+	if ((gpWorldLevelData[sGridNo].ubExtFlags[bLevel] & MAPELEMENT_EXT_TEARGAS) &&
+		!DoesSoldierWearGasMask(pSoldier))
+	{
+		return(TRUE);
+	}
+	// fire/creature/mustard gas
+	// sevenfm: avoid mustard gas even when wearing gas mask
+	if (gpWorldLevelData[sGridNo].ubExtFlags[bLevel] & (MAPELEMENT_EXT_BURNABLEGAS | MAPELEMENT_EXT_CREATUREGAS | MAPELEMENT_EXT_MUSTARDGAS))
+	{
+		return(TRUE);
+	}
+	return FALSE;
+}
+
+BOOLEAN InGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
+{
+	CHECKF(pSoldier);
+
+	if (TileIsOutOfBounds(sGridNo))
+		return FALSE;
+
+	if (InGasSpot(pSoldier, sGridNo, pSoldier->pathing.bLevel))
+	{
+		return TRUE;
+	}
+
 	//WarmSteel - One square away from gas is still considered in gas, because it could expand any moment.
 	//Note: this only works for gas that expands with one tile, but hey it's better than nothing!
 	int iNeighbourGridNo;
-	for(int iDir = 0; iDir < NUM_WORLD_DIRECTIONS; ++iDir)
- 	{
+	for (int iDir = 0; iDir < NUM_WORLD_DIRECTIONS; ++iDir)
+	{
 		iNeighbourGridNo = sGridNo + DirectionInc(iDir);
-		if(!TileIsOutOfBounds(iNeighbourGridNo))
+
+		if (!TileIsOutOfBounds(iNeighbourGridNo) && InGasSpot(pSoldier, iNeighbourGridNo, pSoldier->pathing.bLevel))
 		{
-			// tear/mustard gas
-			if((gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS)) && !DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909
-			{
-				return(TRUE);
-			}
-			// sevenfm: avoid mustard gas even when wearing gas mask
-			// fire/creature gas
-			if(gpWorldLevelData[iNeighbourGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_MUSTARDGAS|MAPELEMENT_EXT_BURNABLEGAS|MAPELEMENT_EXT_CREATUREGAS))//dnl ch62 240813
-			{
-				return(TRUE);
-			}
+			return TRUE;
 		}
 	}
 

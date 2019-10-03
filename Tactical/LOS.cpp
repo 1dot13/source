@@ -9098,7 +9098,9 @@ void CalcTargetMovementOffset( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, OBJE
 	// Again, if the shooter is skilled, this will occur after fewer tiles have been moved. 
 	// If the target moves *more* tiles than this, the movement penalty will begin to diminish. That's our shooter
 	// beginning to compensate for the target's speed, pointing the gun ahead of the target ("Leading the target").
-	INT16 uiTilesForMaxPenalty = (INT16)((100-uiCombinedSkill) / (100 / gGameCTHConstants.MOVEMENT_TRACKING_DIFFICULTY));
+	// sevenfm: better integer calculation
+	//INT16 uiTilesForMaxPenalty = (INT16)((100-uiCombinedSkill) / (100 / gGameCTHConstants.MOVEMENT_TRACKING_DIFFICULTY));
+	INT16 uiTilesForMaxPenalty = (INT16)((100 - uiCombinedSkill) * gGameCTHConstants.MOVEMENT_TRACKING_DIFFICULTY / 100);
 	
 	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
 

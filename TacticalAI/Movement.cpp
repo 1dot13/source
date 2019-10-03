@@ -66,10 +66,10 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubPathMode, 
 	// AND the gridno hasn't been black-listed for us
 	
 	// Nov 28 98: skip people in destination tile if in turnbased
-	// sevenfm: also check for bomb nearby
+	// sevenfm: disabled additional checks to prevent AI deadlock
 	if (	NewOKDestination(pSoldier, sGridNo, fSkipTilesWithMercs, pSoldier->pathing.bLevel ) &&
-			!InGas( pSoldier, sGridNo ) &&
-			!FindBombNearby(pSoldier, sGridNo, DAY_VISION_RANGE/8 ) &&
+			//!InGas( pSoldier, sGridNo ) &&
+			//!FindBombNearby(pSoldier, sGridNo, DAY_VISION_RANGE/8 ) &&
 			sGridNo != pSoldier->sGridNo &&
 			sGridNo != pSoldier->pathing.sBlackList )
 	{
@@ -78,7 +78,7 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubPathMode, 
 			return(FALSE);
 
 		//Madd: added to prevent people from running into gas and fire
-		if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
+		/*if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
 			 !DoesSoldierWearGasMask( pSoldier ) )
 		{
 			return( FALSE );
@@ -87,7 +87,7 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubPathMode, 
 		if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
 		{
 			return( FALSE );
-		}
+		}*/
 
 		// passed all checks, now try to make sure we can get there!
 		switch (ubPathMode)

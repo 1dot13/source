@@ -1250,6 +1250,11 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 	pSoldier->aiData.bBypassToGreen = FALSE;
 
 	ActionDone(pSoldier);
+
+	// sevenfm: reset next action
+	pSoldier->aiData.bNextAction = AI_ACTION_NONE;
+	pSoldier->aiData.usNextActionData = 0;
+	pSoldier->aiData.bNextTargetLevel = 0;
 }
 
 

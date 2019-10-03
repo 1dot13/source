@@ -1114,6 +1114,19 @@ void SOLDIERTYPE::initialize( )
 	memset( &newdrugs, 0, sizeof(DRUGS) );
 	memset( &stats, 0, sizeof(STRUCT_Statistics) );
 	memset( &pathing, 0, sizeof(STRUCT_Pathing) );
+
+	// sevenfm:initialize additional data
+	this->ubLastShock = 0;
+	this->ubLastSuppression = 0;
+	this->ubLastAP = 0;
+	this->ubLastMorale = 0;
+	this->ubLastShockFromHit = 0;
+	this->ubLastMoraleFromHit = 0;
+	this->ubLastAPFromHit = 0;
+	this->iLastBulletImpact = 0;
+	this->iLastArmourProtection = 0;
+	this->usQuickItemId = 0;
+	this->ubQuickItemSlot = 0;
 }
 
 bool SOLDIERTYPE::exists( )
@@ -5084,12 +5097,21 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 				}
 				else
 				{
-					// Set flag indicating we are about to shoot once destination direction is hit
-					this->flags.fTurningToShoot = TRUE;
-
-					if ( this->bTeam != gbPlayerNum  && this->bVisible != -1 )
+					if (this->bTeam != gbPlayerNum)
 					{
-						LocateSoldier( this->ubID, DONTSETLOCATOR );
+						if (this->bVisible != -1)
+						{
+							LocateSoldier(this->ubID, DONTSETLOCATOR);
+						}
+						else if (!TileIsOutOfBounds(sTargetGridNo) && !GridNoOnScreen(sTargetGridNo))
+						{
+							INT16 sNewCenterWorldX = CenterX(sTargetGridNo);
+							INT16 sNewCenterWorldY = CenterY(sTargetGridNo);
+							SetRenderCenter(sNewCenterWorldX, sNewCenterWorldY);
+
+							// Plot new path!
+							gfPlotNewMovement = TRUE;
+						}
 					}
 				}
 			}

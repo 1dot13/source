@@ -62,6 +62,7 @@ extern UINT16 gubAnimSurfaceIndex[ TOTALBODYTYPES ][ NUMANIMATIONSTATES ];
 
 // sevenfm:
 extern BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo );
+extern BOOLEAN InGasSpot(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel);
 
 //extern UINT8 gubDiagCost[20];
 // skiplist has extra level of pointers every 4 elements, so a level 5is optimized for
@@ -3144,9 +3145,9 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			}
 
 			// sevenfm: skip gas if not in gas already
-			if( !(s->flags.uiStatusFlags & SOLDIER_PC) &&
-				InGas(s, newLoc) &&
-				!InGas(s, s->sGridNo) )
+			if (!(s->flags.uiStatusFlags & SOLDIER_PC) &&
+				InGasSpot(s, newLoc, ubLevel) &&
+				!InGasSpot(s, s->sGridNo, ubLevel))
 			{
 				goto NEXTDIR;
 			}
