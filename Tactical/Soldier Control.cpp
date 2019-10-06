@@ -5097,6 +5097,9 @@ void SOLDIERTYPE::EVENT_FireSoldierWeapon( INT32 sTargetGridNo )
 				}
 				else
 				{
+					// Set flag indicating we are about to shoot once destination direction is hit
+					this->flags.fTurningToShoot = TRUE;
+
 					if (this->bTeam != gbPlayerNum)
 					{
 						if (this->bVisible != -1)
