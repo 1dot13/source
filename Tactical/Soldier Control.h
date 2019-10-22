@@ -2006,6 +2006,10 @@ public:
 	// Flugente: administration assignment
 	UINT32		GetAdministrationPoints();
 	FLOAT		GetAdministrationModifier();
+
+	// Flugente: those with the <scrounging> background occasionally steal money from the locals
+	UINT8		GetThiefStealMoneyChance();
+	UINT8		GetThiefEvadeDetectionChance();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

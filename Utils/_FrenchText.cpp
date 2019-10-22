@@ -9000,7 +9000,7 @@ STR16		szBackgroundText_Flags[]=
 	L" peut consommer des drogues se trouvant dans son inventaire\n",
 	L" ne tient pas compte des autres passifs\n",
 	L" +1 Niveau dans les souterrains\n",
-	L" peut voler des objets\n",
+	L" steals money from the locals sometimes\n", // TODO.Translate
 
 	L" +1 Niveau pour poser des pièges\n",
 	L" répand la corruption aux mercenaires proches\n",

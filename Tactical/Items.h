@@ -517,7 +517,8 @@ typedef struct
 	UINT8		snakechance;			// if positive, snakes can attack in water, the higher the number, the more often it happens
 	UINT8		numsnakes;				// how many snakes can be active at maximum
 
-	UINT8		maxworkers;				// maximum number of workers in this sector;
+	UINT8		maxworkers;				// maximum number of workers in this sector
+	UINT16		wealth;					// rating of how rich the population in this sector is
 
 	UINT32		usSectorFlagMask;		// various flags
 

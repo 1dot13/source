@@ -20327,6 +20327,89 @@ FLOAT		SOLDIERTYPE::GetAdministrationModifier()
 	return 1.0f;
 }
 
+// Flugente:  those with the <scrounging> background occasionally steal money from the locals
+UINT8		SOLDIERTYPE::GetThiefStealMoneyChance()
+{
+	if ( this->stats.bLife < OKLIFE )
+		return 0;
+	
+	UINT32 val = 1 * EffectiveAgility( this, FALSE ) + 8 * EffectiveDexterity( this, FALSE ) + 10 * EffectiveExpLevel( this, FALSE );
+	
+	// personality/disability modifiers
+	FLOAT persmodifier = 1.0f;
+	//if ( DoesMercHaveDisability( this, HEAT_INTOLERANT ) )		persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, NERVOUS ) )				persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, CLAUSTROPHOBIC ) )		persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, NONSWIMMER ) )			persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, FEAR_OF_INSECTS ) )		persmodifier -= 0.20f;
+	if ( DoesMercHaveDisability( this, FORGETFUL ) )			persmodifier -= 0.12f;
+	//if ( DoesMercHaveDisability( this, PSYCHO ) )				persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, DEAF ) )					persmodifier -= 0.15f;
+	if ( DoesMercHaveDisability( this, SHORTSIGHTED ) )			persmodifier -= 0.30f;
+	//if ( DoesMercHaveDisability( this, HEMOPHILIAC ) )			persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, AFRAID_OF_HEIGHTS ) )	persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, SELF_HARM ) )			persmodifier -= 0.20f;
+		
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_SOCIABLE ) )		persmodifier += 0.25f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_LONER ) )		persmodifier -= 0.05f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_OPTIMIST ) )		persmodifier += 0.05f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_ASSERTIVE ) )	persmodifier += 0.15f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_INTELLECTUAL ) )	persmodifier += 0.15f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_PRIMITIVE ) )	persmodifier -= 0.15f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_AGGRESSIVE ) )	persmodifier -= 0.15f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_PHLEGMATIC ) )	persmodifier -= 0.05f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_DAUNTLESS ) )	persmodifier -= 0.13f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_PACIFIST ) )		persmodifier -= 0.03f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_MALICIOUS ) )	persmodifier -= 0.13f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_SHOWOFF ) )		persmodifier -= 0.08f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_COWARD ) )		persmodifier -= 0.25f;
+	}
+	
+	UINT32 totalvalue = val * persmodifier / 10.0f;
+
+	ReducePointsForFatigue( this, &totalvalue );
+
+	totalvalue = min( 100, max( 0, totalvalue ) );
+
+	return totalvalue;
+}
+
+UINT8		SOLDIERTYPE::GetThiefEvadeDetectionChance()
+{
+	if ( this->stats.bLife < OKLIFE )
+		return 0;
+	
+	// the theoretical unboosted maximum is 1100, yet we treat it like 1000 - effectively you can boost stealth gear to give you a serious edge
+	UINT32 val = 250 + 5 * EffectiveExpLevel( this, FALSE ) + 5 * EffectiveAgility( this, FALSE ) + 3 * GetWornStealth( this );
+
+	ReducePointsForFatigue( this, &val );
+
+	// personality/disability modifiers
+	FLOAT persmodifier = 1.0f;
+	//if ( DoesMercHaveDisability( this, HEAT_INTOLERANT ) )		persmodifier -= 0.20f;
+	if ( DoesMercHaveDisability( this, NERVOUS ) )				persmodifier -= 0.04f;
+	//if ( DoesMercHaveDisability( this, CLAUSTROPHOBIC ) )		persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, NONSWIMMER ) )			persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, FEAR_OF_INSECTS ) )		persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, FORGETFUL ) )			persmodifier -= 0.50f;
+	//if ( DoesMercHaveDisability( this, PSYCHO ) )				persmodifier -= 0.20f;
+	if ( DoesMercHaveDisability( this, DEAF ) )					persmodifier -= 0.06f;
+	//if ( DoesMercHaveDisability( this, SHORTSIGHTED ) )			persmodifier -= 0.40f;
+	//if ( DoesMercHaveDisability( this, HEMOPHILIAC ) )			persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, AFRAID_OF_HEIGHTS ) )	persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, SELF_HARM ) )			persmodifier -= 0.20f;
+	
+	UINT32 totalvalue = val * persmodifier / 10.0f;
+
+	ReducePointsForFatigue( this, &totalvalue );
+
+	totalvalue = min( 100, max( 0, totalvalue ) );
+
+	return totalvalue;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;

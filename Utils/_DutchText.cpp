@@ -9018,7 +9018,7 @@ STR16		szBackgroundText_Flags[]=
 	L" might consume drugs in inventory\n",
 	L" disregard for all other backgrounds\n",
 	L" +1 level in underground sectors\n",
-	L" might steal items\n",
+	L" steals money from the locals sometimes\n", // TODO.Translate
 
 	L" +1 traplevel to planted bombs\n",
 	L" spreads corruption to nearby mercs\n",

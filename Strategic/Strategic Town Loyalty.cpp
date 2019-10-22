@@ -1742,9 +1742,8 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 	INT32 iPercentAdjustment;
 	INT32 iDistanceAdjustedLoyalty;
 
-
 	// preset shortest distances to high values prior to searching for a minimum
-	for( bTownId = FIRST_TOWN; bTownId < NUM_TOWNS; bTownId++ )
+	for( bTownId = FIRST_TOWN; bTownId < NUM_TOWNS; ++bTownId )
 	{
 		iShortestDistance[ bTownId ] = 999999;
 	}
@@ -1760,6 +1759,14 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 	{
 		bTownId = (UINT8) pTownNamesList[ uiIndex ];
 
+		// Flugente: added to speed up function, remove if removed in loop below this one
+		// doesn't affect towns where player hasn't established a "presence" yet
+		if ( !gTownLoyalty[bTownId].fStarted )
+		{
+			++uiIndex;
+			continue;
+		}
+
 		// skip path test if distance is already known to be zero to speed this up a bit
 		if (iShortestDistance[ bTownId ] > 0 )
 		{
@@ -1772,14 +1779,13 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 			}
 		}
 
-		uiIndex++;
+		++uiIndex;
 	}
 
 	// must always remove that temporary group!
 	RemoveGroup( ubTempGroupId );
-
-
-	for( bTownId = FIRST_TOWN; bTownId < NUM_TOWNS; bTownId++ )
+	
+	for( bTownId = FIRST_TOWN; bTownId < NUM_TOWNS; ++bTownId )
 	{
 		// doesn't affect towns where player hasn't established a "presence" yet
 		if (!gTownLoyalty[ bTownId ].fStarted)
@@ -1799,8 +1805,7 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 			// add 25% per sector below the threshold
 			iPercentAdjustment = 25 * (LOYALTY_EVENT_DISTANCE_THRESHOLD - iShortestDistance[ bTownId ]);
 		}
-		else
-		if (iShortestDistance[ bTownId ] > LOYALTY_EVENT_DISTANCE_THRESHOLD)
+		else if (iShortestDistance[ bTownId ] > LOYALTY_EVENT_DISTANCE_THRESHOLD)
 		{
 			// subtract 10% per sector above the threshold
 			iPercentAdjustment = -10 * (iShortestDistance[ bTownId ] - LOYALTY_EVENT_DISTANCE_THRESHOLD);
@@ -1816,8 +1821,7 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 			// no distance adjustment necessary
 			iPercentAdjustment = 0;
 		}
-
-
+		
 		// calculate loyalty affects as adjusted for distance to this town
 		iDistanceAdjustedLoyalty = (iLoyaltyChange * (100 + iPercentAdjustment)) / 100;
 
@@ -1838,10 +1842,123 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 			DecrementTownLoyalty( bTownId, iDistanceAdjustedLoyalty );
 		}
 	}
-
 }
 
+void AffectClosestTownLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
+{
+	INT16 sEventSector;
+	UINT8 ubTempGroupId;
+	INT8 bTownId;
+	UINT32 uiIndex;
+	INT32 iThisDistance;
+	INT32 iShortestDistance[MAX_TOWNS];
+	INT32 iPercentAdjustment;
+	INT32 iDistanceAdjustedLoyalty;
 
+	INT32 sDistanceToClosestTown = 999999;
+	INT8 bClosestTown = NUM_TOWNS;
+
+	// preset shortest distances to high values prior to searching for a minimum
+	for ( bTownId = FIRST_TOWN; bTownId < NUM_TOWNS; ++bTownId )
+	{
+		iShortestDistance[bTownId] = 999999;
+	}
+
+	sEventSector = sSectorX + ( MAP_WORLD_X * sSectorY );
+
+	// need a temporary group create to use for laying down distance paths
+	ubTempGroupId = CreateNewPlayerGroupDepartingFromSector( (UINT8)sSectorX, (UINT8)sSectorY );
+
+	// calc distance to the event sector from EACH SECTOR of each town, keeping only the shortest one for every town
+	uiIndex = 0;
+	while ( pTownNamesList[uiIndex] != 0 )
+	{
+		bTownId = (UINT8)pTownNamesList[uiIndex];
+
+		// Flugente: added to speed up function, remove if removed in loop below this one
+		// doesn't affect towns where player hasn't established a "presence" yet
+		if ( !gTownLoyalty[bTownId].fStarted )
+		{
+			++uiIndex;
+			continue;
+		}
+
+		// skip path test if distance is already known to be zero to speed this up a bit
+		if ( iShortestDistance[bTownId] > 0 )
+		{
+			// calculate across how many sectors the fastest travel path from event to this town sector
+			iThisDistance = FindStratPath( sEventSector, (INT16)pTownLocationsList[uiIndex], ubTempGroupId, FALSE );
+
+			if ( iThisDistance < iShortestDistance[bTownId] )
+			{
+				iShortestDistance[bTownId] = iThisDistance;
+			}
+
+			if ( iThisDistance < sDistanceToClosestTown )
+			{
+				bClosestTown = bTownId;
+				sDistanceToClosestTown = iThisDistance;
+			}
+		}
+
+		++uiIndex;
+	}
+
+	// must always remove that temporary group!
+	RemoveGroup( ubTempGroupId );
+
+	if ( bClosestTown < NUM_TOWNS )
+	{
+		// if event was underground, double effective distance
+		if ( bSectorZ != 0 )
+		{
+			sDistanceToClosestTown *= 2;
+		}
+
+		// This number here controls how many sectors away is the "norm" for the unadjusted loyalty change value
+		if ( sDistanceToClosestTown < LOYALTY_EVENT_DISTANCE_THRESHOLD )
+		{
+			// add 25% per sector below the threshold
+			iPercentAdjustment = 25 * ( LOYALTY_EVENT_DISTANCE_THRESHOLD - sDistanceToClosestTown );
+		}
+		else if ( sDistanceToClosestTown > LOYALTY_EVENT_DISTANCE_THRESHOLD )
+		{
+			// subtract 10% per sector above the threshold
+			iPercentAdjustment = -10 * ( sDistanceToClosestTown - LOYALTY_EVENT_DISTANCE_THRESHOLD );
+
+			// don't allow it to go below -100, that would change the sign of the loyalty effect!
+			if ( iPercentAdjustment < -100 )
+			{
+				iPercentAdjustment = -100;
+			}
+		}
+		else
+		{
+			// no distance adjustment necessary
+			iPercentAdjustment = 0;
+		}
+
+		// calculate loyalty affects as adjusted for distance to this town
+		iDistanceAdjustedLoyalty = ( iLoyaltyChange * ( 100 + iPercentAdjustment ) ) / 100;
+
+		if ( iDistanceAdjustedLoyalty == 0 )
+		{
+			// no measurable effect, skip this town
+			return;
+		}
+
+		if ( iDistanceAdjustedLoyalty > 0 )
+		{
+			IncrementTownLoyalty( bClosestTown, iDistanceAdjustedLoyalty );
+		}
+		else
+		{
+			// the decrement amount MUST be positive
+			iDistanceAdjustedLoyalty *= -1;
+			DecrementTownLoyalty( bClosestTown, iDistanceAdjustedLoyalty );
+		}
+	}	
+}
 
 // to be called whenever player gains control of a sector in any way
 void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSectorY )

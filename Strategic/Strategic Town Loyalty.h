@@ -50,6 +50,9 @@
 // Flugente: a rotting corpse is so decayed that it disappeared (we're the ones making all those corpses, the last we could do is clean up afterwards)
 #define LOYALTY_PENALTY_ROTTED_CORPSE									(1 * GAIN_PTS_PER_LOYALTY_PT)
 
+// Flugente: one of our thieves was caught stealing
+#define LOYALTY_STOLE_MONEY_FROM_LOCALS									((4/7) * GAIN_PTS_PER_LOYALTY_PT)
+
 typedef enum
 {
 	// There are only for distance-adjusted global loyalty effects.	Others go into list above instead!
@@ -185,6 +188,9 @@ void IncrementTownLoyaltyEverywhere( UINT32 uiLoyaltyIncrease );
 void DecrementTownLoyaltyEverywhere( UINT32 uiLoyaltyDecrease );
 void HandleGlobalLoyaltyEvent( UINT8 ubEventType, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ);
 void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ);
+
+// Flugente: like AffectAllTownsLoyaltyByDistanceFrom(...) but only for the closest town
+void AffectClosestTownLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
 // handle a town being liberated for the first time
 void CheckIfEntireTownHasBeenLiberated( INT8 bTownId, INT16 sSectorX, INT16 sSectorY );

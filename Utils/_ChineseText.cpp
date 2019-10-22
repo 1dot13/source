@@ -9000,7 +9000,7 @@ STR16		szBackgroundText_Flags[]=
 	L" 会消耗掉背包中的药品 \n", //L" might consume drugs in inventory\n",
 	L" 蔑视其他背景的角色 \n", //L" disregard for other backgrounds\n",
 	L" +1 角色等级在地下分区时 \n", //L" +1 level in underground sectors\n",
-	L" 会盗窃物品 \n", //L" might steal items\n",
+	L" steals money from the locals sometimes\n", // TODO.Translate
 
 	L" +1 埋设炸弹等级 \n", //L" +1 traplevel to planted bombs\n",
 	L" 会导致附近的佣兵腐败 \n", //L" spreads corruption to nearby mercs\n",

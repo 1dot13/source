@@ -50,6 +50,8 @@ void HourlyDisabilityUpdate();
 void HourlyStealUpdate();	// Flugente: certain characters might steal equipment (backgrounds)
 void HourlySnitchUpdate();	// anv: decreasing cooldown after exposition
 
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
+
 extern INT32 GetCurrentBalance( void );
 extern void PayOffSkyriderDebtIfAny( );
 #ifdef JA2UB
@@ -680,161 +682,140 @@ void HourlyStealUpdate()
 {
 	SOLDIERTYPE *				pSoldier = NULL;
 	SOLDIERTYPE *				pOtherSoldier = NULL;
-	INT8						bSlot = NO_SLOT;
-	UINT16						usTemptation = 0;
-	BOOLEAN						fBar = FALSE;
-	OBJECTTYPE*					pObj = NULL;
-
+	
 	for( INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
 		pSoldier = MercPtrs[ cnt ];
 
 		// merc must be alive, not travelling and awake. If he is in the currently loaded sector, we may not be in tactical (we would see an item suddenly disappearing) and not in combat
-		if ( pSoldier && !pSoldier->flags.fBetweenSectors && pSoldier->bActive && !pSoldier->flags.fMercAsleep && pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_POW && !SPY_LOCATION( pSoldier->bAssignment ) &&
-			!( ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) ) && (gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ))  )
+		if ( pSoldier
+			&& Chance( 50 )			// we try to steal something in the first place only half the time
+			&& pSoldier->HasBackgroundFlag( BACKGROUND_SCROUNGING )
+			&& !pSoldier->flags.fBetweenSectors
+			&& pSoldier->bActive
+			&& !pSoldier->flags.fMercAsleep
+			&& pSoldier->bAssignment != IN_TRANSIT
+			&& pSoldier->bAssignment != ASSIGNMENT_POW
+			&& !( ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && ( gbWorldSectorZ == pSoldier->bSectorZ ) ) && ( gTacticalStatus.fEnemyInSector || guiCurrentScreen == GAME_SCREEN ) ) )
 		{
-			if ( pSoldier->HasBackgroundFlag( BACKGROUND_SCROUNGING ) )
+			UINT8 ubSectorId = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+			UINT16 wealth = SectorExternalData[ubSectorId][0].wealth;
+
+			// only try to steal if there's something worth stealing in the first place
+			if ( !wealth )
+				continue;
+
+			INT8 sectorz = pSoldier->bSectorZ;
+			if ( SPY_LOCATION( pSoldier->bAssignment ) )
+				sectorz = max( 0, sectorz - 10 );
+
+			// only works in surface sectors
+			if ( sectorz )
+				continue;
+
+			// anv: snitches prevent scrounging in the same sector
+			BOOLEAN fSnitchStoppedBehaviour = FALSE;
+			for ( UINT32 cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
 			{
-				// 50% chance that we'll steal something
-				if ( Chance(50) )
+				pOtherSoldier = MercPtrs[cnt2];
+
+				// note - snitches stop others, but can scrounge themselves (if they have scrounging specifically set in background...)
+				if ( pOtherSoldier
+					&& !pOtherSoldier->flags.fBetweenSectors
+					&& pOtherSoldier->bAssignment != IN_TRANSIT
+					&& pOtherSoldier->bAssignment != ASSIGNMENT_POW
+					&& !SPY_LOCATION( pOtherSoldier->bAssignment )
+					&& pOtherSoldier->bActive
+					&& !pOtherSoldier->flags.fMercAsleep
+					&& pSoldier->ubProfile != pOtherSoldier->ubProfile )
 				{
-					// anv: snitches prevent scrounging in the same sector
-					BOOLEAN fSnitchStoppedBehaviour = FALSE;
-					for( INT32 cnt2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt2 )
-					{					
-						pOtherSoldier = MercPtrs[ cnt2 ];
-						// note - snitches stop others, but can scrounge themselves (if they have scrounging specifically set in background...)
-						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bAssignment != IN_TRANSIT && pOtherSoldier->bAssignment != ASSIGNMENT_POW && SPY_LOCATION( pOtherSoldier->bAssignment ) &&
-							pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
+					if ( ProfileHasSkillTrait( pOtherSoldier->ubProfile, SNITCH_NT ) && !( pSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF ) )
+					{
+						if ( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && sectorz == pOtherSoldier->bSectorZ )
 						{
-							if ( ProfileHasSkillTrait( pOtherSoldier->ubProfile, SNITCH_NT ) && !( pSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF ) )
+							UINT16 bPreventChance = ( EffectiveLeadership( pOtherSoldier ) + EffectiveExpLevel( pOtherSoldier, FALSE ) / 2 );
+							if ( gGameOptions.fNewTraitSystem )
 							{
-								if( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
-								{
-									UINT16 bPreventChance = ( EffectiveLeadership( pOtherSoldier ) + EffectiveExpLevel( pOtherSoldier, FALSE) / 2);
-									if (gGameOptions.fNewTraitSystem)
-									{
-										bPreventChance += 25 * NUM_SKILL_TRAITS( pOtherSoldier, SQUADLEADER_NT );
-										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_NT );
-									}
-									else
-									{
-										bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
-									}
-									// keep 1% chance no matter what
-									bPreventChance = max( 0, min( 99, bPreventChance ) );
-									if( bPreventChance > PreRandom( 100 ) )
-									{
-										// merc is not amused by being prevented
-										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
-										// also here would be a place for dynamic relationship decrease between them
-										// Flugente: then lets do that, shall we?
-										AddOpinionEvent( pSoldier->ubProfile, pOtherSoldier->ubProfile, OPINIONEVENT_SNITCHINTERFERENCE );
-
-										fSnitchStoppedBehaviour = TRUE;
-
-										continue;
-									}
-								}
+								bPreventChance += 25 * NUM_SKILL_TRAITS( pOtherSoldier, SQUADLEADER_NT );
+								bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_NT );
 							}
-						}
-					}
+							else
+							{
+								bPreventChance -= 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
+							}
 
-					if ( fSnitchStoppedBehaviour )
-						continue;
+							// keep 1% chance no matter what
+							bPreventChance = max( 0, min( 99, bPreventChance ) );
+							if ( bPreventChance > PreRandom( 100 ) )
+							{
+								// merc is not amused by being prevented
+								HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
+								// also here would be a place for dynamic relationship decrease between them
+								// Flugente: then lets do that, shall we?
+								AddOpinionEvent( pSoldier->ubProfile, pOtherSoldier->ubProfile, OPINIONEVENT_SNITCHINTERFERENCE );
 
-					// we loop over this sector's inventory and look for something shiny. We will pick it up if we hae enough space in our inventory
-					// open sector inv
-					UINT32 uiTotalNumberOfRealItems = 0;
-					std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
-					BOOLEAN fReturn					= FALSE;
+								fSnitchStoppedBehaviour = TRUE;
 
-					if ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) )
-					{
-						uiTotalNumberOfRealItems = guiNumWorldItems;
-
-						if ( !uiTotalNumberOfRealItems )
-							continue;
-
-						pWorldItem = gWorldItems;
-					}
-					else
-					{
-						// not loaded, load
-						// get total number, visable and invisible
-						fReturn = GetNumberOfWorldItemsFromTempItemFile( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, &( uiTotalNumberOfRealItems ), FALSE );
-						Assert( fReturn );
-
-						if( uiTotalNumberOfRealItems > 0 )
-						{
-							// allocate space for the list
-							pWorldItem.resize(uiTotalNumberOfRealItems);//dnl ch75 271013
-
-							if ( !uiTotalNumberOfRealItems )
 								continue;
-
-							// now load into mem
-							LoadWorldItemsFromTempItemFile(  pSoldier->sSectorX,  pSoldier->sSectorY, pSoldier->bSectorZ, pWorldItem );
-						}
-					}
-
-					FLOAT bestpriceweightratio = 50.0f;		// must have a value of at least 50$/100 gram
-					OBJECTTYPE* pTargetObj = NULL;
-					for( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
-					{
-						if( pWorldItem[ uiCount ].fExists )										// ... if item exists ...
-						{
-							OBJECTTYPE* pObj = &(pWorldItem[ uiCount ].object);			// ... get pointer for this item ...
-
-							if ( pObj != NULL && pObj->exists() )						// ... if pointer is not obviously useless ...
-							{
-								// test wether item is reachable and useable by militia
-								if ( (pWorldItem[ uiCount ].usFlags & WORLD_ITEM_REACHABLE) )
-								{
-									// of course we prefer money above everything else
-									if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass == IC_MONEY )
-									{
-										// give it a high enough value
-										bestpriceweightratio = 1000.0f;
-										pTargetObj = &(pWorldItem[ uiCount ].object);
-									}
-									// ignore objects without weight (how does that happen anyway? careless modders...)
-									else if ( Item[pWorldItem[ uiCount ].object.usItem].ubWeight )
-									{
-										if ( (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].usPrice) / (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].ubWeight) > bestpriceweightratio )
-										{
-											bestpriceweightratio = (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].usPrice) / (FLOAT)(Item[pWorldItem[ uiCount ].object.usItem].ubWeight);
-											pTargetObj = &(pWorldItem[ uiCount ].object);
-										}
-									}
-								}
 							}
 						}
 					}
+				}
+			}
 
-					if ( pTargetObj )
-					{
-						if ( AutoPlaceObject( pSoldier, pTargetObj, TRUE ) )
-						{
-							// Flugente: dynamic opinion
-							HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE );
-						}
-					}
+			if ( fSnitchStoppedBehaviour )
+				continue;
 
-					// save the changed inventory
-					// open sector inv
-					if( ( gWorldSectorX == pSoldier->sSectorX )&&( gWorldSectorY == pSoldier->sSectorY ) && (gbWorldSectorZ == pSoldier->bSectorZ ) )
+			// The old behaviour was to steal items from the sector and put them into our inventory. However that is both very annoying (especially with EPCs) and not very logical (it's more like hoarding).
+			// So instead we'll now simply steal money from the population and put that into our inventory. That doesn't screw with our items and earns us cash, so players might even want this behaviour.
+			// The downside is that this angers the population, thus lowering loyalty.
+
+			// determine chance of success. If we fail, we get money
+			UINT8 chanceofsucess = pSoldier->GetThiefStealMoneyChance();
+
+			if ( Chance( chanceofsucess ) )
+			{
+				// we do train dexterity a tiny bit
+				StatChange( pSoldier, DEXTAMT, 1, FALSE );
+
+				// amount of money is a random value between 1 and 5 times wealth
+				UINT32 amountstolen = wealth + Random( 4 * wealth );
+
+				// set up money object
+				CreateMoney( amountstolen, &gTempObject );
+
+				// put money in inventory or on the floor
+				if ( !AutoPlaceObject( pSoldier, &( gTempObject ), TRUE ) )
+				{
+					// drop money in the sector itself
+					if ( ( gWorldSectorX == pSoldier->sSectorX ) && ( gWorldSectorY == pSoldier->sSectorY ) && ( gbWorldSectorZ == sectorz ) )
 					{
-						guiNumWorldItems = uiTotalNumberOfRealItems;
-						gWorldItems = pWorldItem;
+						AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, ( WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE ), 0 );
 					}
 					else
 					{
-						//Save the Items to the the file
-						SaveWorldItemsToTempItemFile( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ, uiTotalNumberOfRealItems, pWorldItem );
+						AddItemsToUnLoadedSector( pSoldier->sSectorX, pSoldier->sSectorY, sectorz, NOWHERE, 1, &gTempObject, 0, ( WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE ), 0, 1, FALSE );
 					}
-				}				
+				}
 			}
+
+			// determine chance of evading detection. If we fail, we are caught and receive a loyalty penalty
+			UINT8 chanceofevadingdetection = pSoldier->GetThiefEvadeDetectionChance();
+
+			if ( !Chance( chanceofevadingdetection ) )
+			{
+				// we were caught. Since we have guns and the locals don't, they can't do much apart from being pissed
+				// of course if we do that while covert, the locals won't 'know' it was us
+				if ( !SPY_LOCATION( pSoldier->bAssignment ) )
+				{
+					// we were caught. Since we have guns and the locals don't, they can't do much apart from being pissed
+					// lower loyalty in closest town the player has ever controlled (the penalty is lowered by distance)
+					AffectClosestTownLoyaltyByDistanceFrom( -LOYALTY_STOLE_MONEY_FROM_LOCALS, pSoldier->sSectorX, pSoldier->sSectorY, sectorz );
+				}
+			}
+			
+			// Flugente: dynamic opinion
+			HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE );
 		}
 	}
 }
