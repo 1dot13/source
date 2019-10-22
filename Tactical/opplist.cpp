@@ -3396,7 +3396,7 @@ void InitSoldierOppList(SOLDIERTYPE *pSoldier)
 	memset(pSoldier->aiData.bOppList,NOT_HEARD_OR_SEEN,sizeof(pSoldier->aiData.bOppList));
 	pSoldier->aiData.bOppCnt = 0;
 	ResetLastKnownLocs(pSoldier);
-	memset(gbSeenOpponents[pSoldier->ubID],0,MAXMERCS);
+	memset(gbSeenOpponents[pSoldier->ubID], 0, TOTAL_SOLDIERS);
 }
 
 
@@ -5340,84 +5340,78 @@ void DebugSoldierPage4( )
 #define VEHICLE_FAST_MOVEMENT_NOISE 25
 #define VEHICLE_NORMAL_MOVEMENT_NOISE 15
 
-UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
+UINT8 MovementNoise(SOLDIERTYPE *pSoldier)
 {
 	INT32	iStealthSkill, iRoll;
-	UINT8	ubMaxVolume, ubVolume, ubBandaged, ubEffLife;
-	INT8		bInWater = FALSE;
+	INT16	sMaxVolume, sVolume;
+	INT8	bBandaged, bEffLife;
 
 	// anv: vehicle and passengers
-	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	if (pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER))
 	{
-		return( 0 );
+		return(0);
 	}
-	else if( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE ) )
+	else if (pSoldier->flags.uiStatusFlags & (SOLDIER_VEHICLE))
 	{
-		if( pSoldier->usAnimState == RUNNING )
+		if (pSoldier->usAnimState == RUNNING)
 		{
 			// driving fast makes engine work louder
-			return( VEHICLE_FAST_MOVEMENT_NOISE );
+			return(VEHICLE_FAST_MOVEMENT_NOISE);
 		}
 		else
 		{
-			return( VEHICLE_NORMAL_MOVEMENT_NOISE );
+			return(VEHICLE_NORMAL_MOVEMENT_NOISE);
 		}
 	}
 
-
 	// anv: additional tile properties
 	// modify amount of noise and stealth difficulty depending on surface type
-	
+
 	INT8 bGroundVolumeModifier = 0;
 	INT8 bGroundStealthDifficultyModifier = 0;
 	ADDITIONAL_TILE_PROPERTIES_VALUES zGivenTileProperties;
-	memset(&zGivenTileProperties,0,sizeof(zGivenTileProperties));
-	if(gGameExternalOptions.fAdditionalTileProperties)
+	memset(&zGivenTileProperties, 0, sizeof(zGivenTileProperties));
+	if (gGameExternalOptions.fAdditionalTileProperties)
 	{
-		zGivenTileProperties = GetAllAdditonalTilePropertiesForGrid( pSoldier->sGridNo,  pSoldier->pathing.bLevel );
+		zGivenTileProperties = GetAllAdditonalTilePropertiesForGrid(pSoldier->sGridNo, pSoldier->pathing.bLevel);
 		bGroundVolumeModifier = zGivenTileProperties.bSoundModifier;
 		bGroundStealthDifficultyModifier = zGivenTileProperties.bStealthDifficultyModifer;
 	}
-	if ( pSoldier->bTeam == ENEMY_TEAM )
+	if (pSoldier->bTeam == ENEMY_TEAM)
 	{
-		return( (UINT8) (MAX_MOVEMENT_NOISE - PreRandom( 2 )) + bGroundVolumeModifier );
+		return((UINT8)(MAX_MOVEMENT_NOISE - PreRandom(2)) + bGroundVolumeModifier);
 	}
 
 	// CHANGED BY SANDRO - LET'S MAKE THE STEALTH BASED ON AGILITY LIKE IT SHOULD BE
-	//iStealthSkill = 20 + 4 * EffectiveExpLevel( pSoldier ) + ((EffectiveDexterity( pSoldier ) * 4) / 10); // 24-100
-	iStealthSkill = 20 + 4 * EffectiveExpLevel( pSoldier ) + ((EffectiveAgility( pSoldier, FALSE ) * 4) / 10); // 24-100
+	iStealthSkill = 20 + 4 * EffectiveExpLevel(pSoldier) + ((EffectiveAgility(pSoldier, FALSE) * 4) / 10); // 24-100
 
 	// big bonus for those "extra stealthy" mercs
-	if ( pSoldier->ubBodyType == BLOODCAT )
+	if (pSoldier->ubBodyType == BLOODCAT)
 	{
 		iStealthSkill += 50;
 	}
 	// SANDRO - new/old traits
-	else if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_NT ))
+	else if (gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT(pSoldier, STEALTHY_NT))
 	{
 		iStealthSkill += gSkillTraitValues.ubSTBonusToMoveQuietly;
 	}
-	else if ( !gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSoldier, STEALTHY_OT ))
+	else if (!gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT(pSoldier, STEALTHY_OT))
 	{
-		iStealthSkill += 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY_OT );
+		iStealthSkill += 25 * NUM_SKILL_TRAITS(pSoldier, STEALTHY_OT);
 	}
 
 	INT16 wornstealth = GetWornStealth(pSoldier);
-	if ( wornstealth > 0 )
+	if (wornstealth > 0)
 		iStealthSkill += wornstealth / 2;
 
+	bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
+	bEffLife = pSoldier->stats.bLife + (bBandaged / 2);
 
- //NumMessage("Base Stealth = ",stealthSkill);
-
-
-	ubBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
-	ubEffLife = pSoldier->stats.bLife + (ubBandaged / 2);
-
- // IF "SNEAKER'S" "EFFECTIVE LIFE" IS AT LESS THAN 50
-	if (ubEffLife < 50)
+	// IF "SNEAKER'S" "EFFECTIVE LIFE" IS AT LESS THAN 50
+	if (bEffLife < 50)
 	{
 		// reduce effective stealth skill by up to 50% for low life
-		iStealthSkill -= (iStealthSkill * (50 - ubEffLife)) / 100;
+		iStealthSkill -= (iStealthSkill * (50 - bEffLife)) / 100;
 	}
 
 	// if breath is below 50%
@@ -5428,109 +5422,85 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 	}
 
 	// if sneaker is moving through water
-	if (Water( pSoldier->sGridNo, pSoldier->pathing.bLevel ) )
+	if (Water(pSoldier->sGridNo, pSoldier->pathing.bLevel))
 	{
 		iStealthSkill -= 10; // 10% penalty
 	}
-	else if (DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel ) )
+	else if (DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel))
 	{
 		iStealthSkill -= 20; // 20% penalty
 	}
 
-	// Flugente: deleting this
-	/*if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] )
-	{
-		// minus 3 percent per bonus AP from adrenaline
-		iStealthSkill -= 3 * pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ];
-	}*/
-
-/*
-	// if sneaker is too eager and impatient to "do it right"
-	if ((pSoldier->bTrait == OVER_ENTHUS) || (pSoldier->aiData.bAttitude == AGGRESSIVE))
-	{
-		ubStealthSkill -= 10;	// 10% penalty
-	}
-*/
- //NumMessage("Modified Stealth = ",stealthSkill);
-
-	iStealthSkill = __max( iStealthSkill, 0 );
+	iStealthSkill = __max(iStealthSkill, 0);
 
 	if (!pSoldier->bStealthMode)	// REGULAR movement
 	{
 		//ubMaxVolume = MAX_MOVEMENT_NOISE - (iStealthSkill / 16);	// 9 - (0 to 6) => 3 to 9
-		ubMaxVolume = MAX_MOVEMENT_NOISE - (iStealthSkill / 16) + bGroundVolumeModifier;	// 9 - (0 to 6) => 3 to 9
+		sMaxVolume = MAX_MOVEMENT_NOISE - (iStealthSkill / 16) + bGroundVolumeModifier;	// 9 - (0 to 6) => 3 to 9
 
-		if (bInWater)
+		if (Water(pSoldier->sGridNo, pSoldier->pathing.bLevel))
 		{
-			ubMaxVolume++;		// in water, can be even louder
+			sMaxVolume++;		// in water, can be even louder
 		}
-		switch (pSoldier->usAnimState)
+		switch (pSoldier->usUIMovementMode)
 		{
-			case CRAWLING:
-				ubMaxVolume -= 2;
-				break;
-			case SWATTING:
-				ubMaxVolume -= 1;
-				break;
-			case RUNNING:
-				ubMaxVolume += 3;
-				break;
+		case CRAWLING:
+			sMaxVolume -= 2;
+			break;
+		case SWATTING:
+		case SWATTING_WK:
+			sMaxVolume -= 1;
+			break;
+		case RUNNING:
+			sMaxVolume += 3;
+			break;
 		}
 
-		if (ubMaxVolume < 2)
+		if (sMaxVolume < 2)
 		{
-			ubVolume = ubMaxVolume;
+			sVolume = sMaxVolume;
 		}
 		else
 		{
-			ubVolume = 1 + (UINT8) PreRandom(ubMaxVolume);	// actual volume is 1 to max volume
+			sVolume = 1 + (UINT8)PreRandom(sMaxVolume);	// actual volume is 1 to max volume
 		}
 	}
 	else			// in STEALTH mode
 	{
-		//iRoll = (INT32) PreRandom(100);	// roll them bones!
-		iRoll = (INT32) PreRandom(100) + bGroundStealthDifficultyModifier;	// roll them bones!
+		iRoll = (INT32)PreRandom(100) + bGroundStealthDifficultyModifier;	// roll them bones!
 
 		if (iRoll >= iStealthSkill)	// v1.13 modification: give a second chance!
 		{
-			//iRoll = (INT32) PreRandom(100);
-			iRoll = (INT32) PreRandom(100) + bGroundStealthDifficultyModifier;
+			iRoll = (INT32)PreRandom(100) + bGroundStealthDifficultyModifier;
 		}
 
 		if (iRoll < iStealthSkill)
 		{
-			ubVolume = 0;	// made it, stayed quiet moving through this tile
+			sVolume = 0;	// made it, stayed quiet moving through this tile
 		}
 		else	// OOPS!
 		{
-			ubVolume = 1 + ((iRoll - iStealthSkill + 1) / 16);	// volume is 1 - 7 ...
-			switch (pSoldier->usAnimState)
+			sVolume = 1 + ((iRoll - iStealthSkill + 1) / 16);	// volume is 1 - 7 ...
+			switch (pSoldier->usUIMovementMode)
 			{
-				case CRAWLING:
-					ubVolume -= 2;
-					break;
-				case SWATTING:
-					ubVolume -= 1;
-					break;
-				case RUNNING:
-					ubVolume += 3;
-					break;
+			case CRAWLING:
+				sVolume -= 2;
+				break;
+			case SWATTING:
+			case SWATTING_WK:
+				sVolume -= 1;
+				break;
+			case RUNNING:
+				sVolume += 3;
+				break;
 			}
-			if (ubVolume < 1)
-			{
-				ubVolume = 0;
-			}
-
-			// randomize at which movement step the sneaking failure will happen
-//			Status.stepsTilNoise = Random(MAXMOVESTEPS);	// 0 - 6
 		}
 	}
 
-	//NumMessage("Volume = ",volume);
+	sVolume = max(0, sVolume);
+	sVolume = min(255, sVolume);
 
-	// save noise volume where stepped HandleSteppedLook can back get at it later
-//	Status.moveNoiseVolume = ubVolume;
-	return( ubVolume );
+	return (UINT8)sVolume;
 }
 
 UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier )
@@ -6993,7 +6963,7 @@ void DecayIndividualOpplist(SOLDIERTYPE *pSoldier)
 	if (pSoldier->stats.bLife < OKLIFE)
 	{
 		// must make sure that public opplist is kept to match...
-		for ( uiLoop = 0; uiLoop < TOTAL_SOLDIERS; ++uiLoop )
+		for (uiLoop = 0; uiLoop < MAX_NUM_SOLDIERS; ++uiLoop)
 		{
 			if ( pSoldier->aiData.bOppList[ uiLoop ] == SEEN_CURRENTLY )
 			{
