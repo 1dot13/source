@@ -104,7 +104,7 @@
 		<druguse>0</druguse>			<!-- might use drugs from inventory (the 'Larry'-behaviour) -->
 		<xenophobic>0</xenophobic>		<!-- lower opinion of everybody without this background -->
 		<level_underground>0</level_underground>  <!-- +1 effective level if underground -->
-		<scrounging>0</scrounging>		<!-- might steal items (and put them in personal inventory) -->
+		<scrounging>0</scrounging>		<!-- might steal money from the locals (chance to anger locals) -->
 		<traplevel>0</traplevel>		<!-- +1 level on bombs planted -->
 		<corruptionspread>0</corruptionspread>	<!-- unused in the trunk -->
 		<no_male>0</no_male>			<!-- IMP creation: cannot be selected by males -->

@@ -37,6 +37,9 @@
 	<usCivilianPopulation>:
 	represents the amount of civilians dwelling in a sector, even if not physically present in a tactical map
 	
+	<wealth>
+	Rating of how rich the population in this sector is.
+	
 	<rainchance>
 	chance that, if it rains, it will also happen in this sector
 	
@@ -54,6 +57,11 @@
 	
 	<maxworkers>
 	Maximum number of workers that can be employed in this sector.
+	
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>0</zombieraidpossible>
+	<banditraidpossible>0</banditraidpossible>
+	Bloodcats/zombies/bandits can attack this sector.
 -->
 <SECTOR_NAMES>
   <SECTOR>
@@ -70,6 +78,9 @@
 	<snowchance>0</snowchance>
 	<snakechance>0</snakechance>
 	<numsnakes>0</numsnakes>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>0</zombieraidpossible>
+	<banditraidpossible>0</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A2</SectorGrid>
@@ -80,8 +91,12 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>250</usNaturalDirt>
     <usCivilianPopulation>70</usCivilianPopulation>
+	<wealth>4</wealth>
 	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>A3</SectorGrid>
@@ -160,8 +175,8 @@
     <szDetailedExploredName>Omerta</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
     <usCivilianPopulation>4</usCivilianPopulation>
+	<wealth>1</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -173,8 +188,8 @@
     <szDetailedExploredName>Omerta</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
     <usCivilianPopulation>30</usCivilianPopulation>
+	<wealth>1</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -187,6 +202,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>4</usCivilianPopulation>
+	<wealth>0</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -267,9 +283,13 @@
     <usNaturalDirt>250</usNaturalDirt>
     <usPrisonRoomNumber>3</usPrisonRoomNumber>
     <usCivilianPopulation>150</usCivilianPopulation>
+	<wealth>6</wealth>
 	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>50</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B3</SectorGrid>
@@ -302,6 +322,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -314,6 +335,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -337,6 +359,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>200</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
 	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -382,6 +405,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>210</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -395,8 +419,12 @@
     <usNaturalDirt>100</usNaturalDirt>
     <sRadioScanModifier>2</sRadioScanModifier>
     <usCivilianPopulation>50</usCivilianPopulation>
+	<wealth>7</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
   <SECTOR>
     <SectorGrid>B14</SectorGrid>
@@ -487,6 +515,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>8</wealth>
 	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -499,6 +528,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>150</usCivilianPopulation>
+	<wealth>4</wealth>
 	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -577,8 +607,12 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>4</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>C14</SectorGrid>
@@ -640,6 +674,9 @@
     <sRadioScanModifier>2</sRadioScanModifier>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>D3</SectorGrid>
@@ -675,6 +712,7 @@
     <usPrisonRoomNumber>9</usPrisonRoomNumber>
     <usPrisonRoomNumber>10</usPrisonRoomNumber>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>12</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -687,6 +725,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>180</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -767,9 +806,13 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>6</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>100</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>D14</SectorGrid>
@@ -794,6 +837,9 @@
     <sRadioScanModifier>2</sRadioScanModifier>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>  
    <SECTOR>
     <SectorGrid>D16</SectorGrid>
@@ -879,8 +925,10 @@
     <szDetailedUnexploredName>Farm, road</szDetailedUnexploredName>
     <szExploredName>Farm, road</szExploredName>
     <szDetailedExploredName>Farm, road</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+	<sWaterType>0</sWaterType>
     <usNaturalDirt>180</usNaturalDirt>
+	<usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -893,6 +941,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -905,6 +954,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -1078,8 +1128,12 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>7</wealth>
  	<rainchance>45</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>F9</SectorGrid>
@@ -1089,10 +1143,13 @@
     <szDetailedExploredName>Cambria</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>100</usCivilianPopulation>
+	<wealth>2</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>F10</SectorGrid>
@@ -1103,6 +1160,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>200</usNaturalDirt>
     <usCivilianPopulation>50</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>55</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -1181,6 +1239,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>7</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -1192,8 +1251,9 @@
     <szDetailedExploredName>Grumm</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>150</usCivilianPopulation>
+	<wealth>8</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -1252,6 +1312,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>175</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>35</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -1264,8 +1325,12 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>10</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>G9</SectorGrid>
@@ -1280,8 +1345,12 @@
     <usPrisonRoomNumber>44</usPrisonRoomNumber>
     <usPrisonRoomNumber>45</usPrisonRoomNumber>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>8</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>G10</SectorGrid>
@@ -1371,6 +1440,7 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>11</wealth>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -1382,8 +1452,8 @@
     <szDetailedExploredName>Grumm</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>10</wealth>
  	<rainchance>55</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -1395,11 +1465,14 @@
     <szDetailedExploredName>Grumm Mine</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>10</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>200</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H4</SectorGrid>
@@ -1456,11 +1529,14 @@
     <szDetailedExploredName>Cambria Mine</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>130</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>2</wealth>
  	<rainchance>35</rainchance>
 	<sandstormchance>2</sandstormchance>
 	<maxworkers>160</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H9</SectorGrid>
@@ -1517,8 +1593,12 @@
     <usCurfewValue>2</usCurfewValue>
     <sRadioScanModifier>1</sRadioScanModifier>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>12</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H14</SectorGrid>
@@ -1530,8 +1610,12 @@
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
     <usCivilianPopulation>100</usCivilianPopulation>
+	<wealth>11</wealth>
  	<rainchance>45</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>H15</SectorGrid>
@@ -1621,6 +1705,7 @@
     <sWaterType>3</sWaterType>
     <usNaturalDirt>135</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>35</rainchance>
 	<sandstormchance>20</sandstormchance>
   </SECTOR>
@@ -1647,6 +1732,9 @@
     <sRadioScanModifier>2</sRadioScanModifier>
  	<rainchance>5</rainchance>
 	<sandstormchance>80</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>I9</SectorGrid>
@@ -1716,8 +1804,12 @@
     <usPrisonRoomNumber>50</usPrisonRoomNumber>
     <usPrisonRoomNumber>51</usPrisonRoomNumber>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>7</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>0</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
     <SECTOR>
     <SectorGrid>I14</SectorGrid>
@@ -1728,9 +1820,13 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
+	<wealth>9</wealth>
  	<rainchance>45</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<maxworkers>150</maxworkers>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>I15</SectorGrid>
@@ -1929,6 +2025,7 @@
     <sWaterType>0</sWaterType>
     <usNaturalDirt>175</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>40</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2261,8 +2358,12 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>150</usCivilianPopulation>
+	<wealth>30</wealth>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>L12</SectorGrid>
@@ -2273,8 +2374,12 @@
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>150</usCivilianPopulation>
+	<wealth>30</wealth>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>1</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>L13</SectorGrid>
@@ -2341,7 +2446,7 @@
     <szDetailedExploredName>Coastal, road</szDetailedExploredName>
     <sWaterType>2</sWaterType>
     <usNaturalDirt>140</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>80</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR> 
@@ -2353,7 +2458,7 @@
     <szDetailedExploredName>Swamp, road</szDetailedExploredName>
     <sWaterType>3</sWaterType>
     <usNaturalDirt>450</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>90</rainchance>
 	<sandstormchance>0</sandstormchance>
 	<snakechance>50</snakechance>
@@ -2369,6 +2474,7 @@
     <usNaturalDirt>175</usNaturalDirt>
     <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>10</usCivilianPopulation>
+	<wealth>1</wealth>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2380,7 +2486,7 @@
     <szDetailedExploredName>Forest, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2392,7 +2498,7 @@
     <szDetailedExploredName>Forest, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2538,11 +2644,14 @@
     <szDetailedExploredName>Meduna Airport</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <sRadioScanModifier>2</sRadioScanModifier>
     <usCivilianPopulation>100</usCivilianPopulation>
+	<wealth>20</wealth>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>N4</SectorGrid>
@@ -2552,11 +2661,15 @@
     <szDetailedExploredName>Meduna, SAM Site</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
     <sRadioScanModifier>2</sRadioScanModifier>
     <usCivilianPopulation>50</usCivilianPopulation>
+	<wealth>12</wealth>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
+	<bloodcatraidpossible>0</bloodcatraidpossible>
+	<zombieraidpossible>1</zombieraidpossible>
+	<banditraidpossible>1</banditraidpossible>
   </SECTOR>
    <SECTOR>
     <SectorGrid>N5</SectorGrid>
@@ -2566,8 +2679,9 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>100</usCivilianPopulation>
+	<wealth>15</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2579,7 +2693,7 @@
     <szDetailedExploredName>Tropical, road</szDetailedExploredName>
     <sWaterType>0</sWaterType>
     <usNaturalDirt>250</usNaturalDirt>
-    <usCurfewValue>2</usCurfewValue>
+    <usCurfewValue>1</usCurfewValue>
  	<rainchance>70</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2727,6 +2841,7 @@
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
     <usCivilianPopulation>100</usCivilianPopulation>
+	<wealth>2</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2738,8 +2853,8 @@
     <szDetailedExploredName>Meduna</szDetailedExploredName>
     <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
-    <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>300</usCivilianPopulation>
+	<wealth>25</wealth>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
@@ -2907,6 +3022,7 @@
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
     <usCivilianPopulation>50</usCivilianPopulation>
+	<wealth>50</wealth>
  	<rainchance>55</rainchance>
 	<sandstormchance>0</sandstormchance>
   </SECTOR>
