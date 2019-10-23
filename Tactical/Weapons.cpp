@@ -2539,6 +2539,16 @@ UINT8 GetFittingBarrelMode( UINT16 usItem, UINT8 aBarrelMode )
 	return bestfound;
 }
 
+bool HasSeveralBarrelConfigurations( UINT16 usItem )
+{
+	if ( ( Item[usItem].usItemClass & IC_BOBBY_GUN ) )
+	{
+		return (Weapon[Item[usItem].ubClassIndex].barrelconfigurations.size() > 1);
+	}
+
+	return false;
+}
+
 // Flugente: this function calls UseGun and handles the firing of severeal shots at once
 BOOLEAN UseGunWrapper( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 {

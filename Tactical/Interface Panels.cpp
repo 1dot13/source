@@ -1090,7 +1090,8 @@ void UpdateSMPanel( )
 		if ( ( ( IsGunAutofireCapable( &gpSMCurrentMerc->inv[HANDPOS] ) || IsGunBurstCapable( &gpSMCurrentMerc->inv[HANDPOS], FALSE, gpSMCurrentMerc ) ) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) 
 			|| IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) 
 			|| IsWeaponAttached( &(gpSMCurrentMerc->inv[HANDPOS]), IC_GUN )
-			|| IsWeaponAttached( &( gpSMCurrentMerc->inv[HANDPOS] ), IC_BLADE ) )
+			|| IsWeaponAttached( &( gpSMCurrentMerc->inv[HANDPOS] ), IC_BLADE )
+			|| HasSeveralBarrelConfigurations( gpSMCurrentMerc->inv[HANDPOS].usItem ) )
 		{
 			EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 		}
