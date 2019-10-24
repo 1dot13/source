@@ -48516,7 +48516,7 @@
 		<szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
 		<szBRName>random NATO AR 1</szBRName>
 		<szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
+		<usItemClass>1073741824</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>1</ubGraphicNum>
@@ -48539,7 +48539,7 @@
 		<szItemDesc>If you can read this, Flugente propably didn't catch a certain way to create items. Go blame him!</szItemDesc>
 		<szBRName>random WP AR 1</szBRName>
 		<szBRDesc>NO DESCRIPTION NECESSARY.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
+		<usItemClass>1073741824</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>1</ubGraphicNum>
