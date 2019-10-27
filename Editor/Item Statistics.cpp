@@ -272,6 +272,7 @@ enum
 	EDITING_ACTIONITEMS,
 	EDITING_TRIGGERS,
 	EDITING_KEYS,
+	EDITING_RANDOMITEM,
 	EDITING_OWNERSHIP,
 };
 
@@ -332,6 +333,9 @@ void SetupKeysGUI();
 void ExtractAndUpdateKeysGUI();
 void RemoveKeysGUI();
 
+void SetupRandomItemGUI();
+void ExtractAndUpdateRandomItemGUI();
+void RemoveRandomItemGUI();
 
 void ReEvaluateAttachmentStatii();
 
@@ -387,6 +391,7 @@ void ExecuteItemStatsCmd( /*UINT8*/ UINT16  ubAction )
 				case EDITING_EXPLOSIVES:	ExtractAndUpdateExplosivesGUI();	break;
 				case EDITING_MONEY:				ExtractAndUpdateMoneyGUI();				break;
 				case EDITING_KEYS:				ExtractAndUpdateKeysGUI();				break;
+				case EDITING_RANDOMITEM:		ExtractAndUpdateRandomItemGUI();		break;
 			}
 			SetActiveField( 0 );
 			gfRenderTaskbar = TRUE;
@@ -439,6 +444,7 @@ void RemoveItemGUI()
 		case EDITING_EXPLOSIVES:	RemoveExplosivesGUI();	break;
 		case EDITING_MONEY:				RemoveMoneyGUI();				break;
 		case EDITING_KEYS:				RemoveKeysGUI();				break;
+		case EDITING_RANDOMITEM:		RemoveRandomItemGUI();			break;
 	}
 }
 
@@ -546,6 +552,10 @@ void SpecifyItemToEdit( OBJECTTYPE *pItem, INT32 iMapIndex )
 			gbEditingMode = EDITING_KEYS;
 			SetupKeysGUI();
 			break;
+		case IC_RANDOMITEM:
+			gbEditingMode = EDITING_RANDOMITEM;
+			SetupRandomItemGUI();
+			break;
 		case IC_PUNCH:
 			if ( gpItem->exists() == true)
 			{
@@ -618,6 +628,9 @@ void UpdateItemStatsPanel()
 				mprintf( iScreenWidthOffset + 500, 2 * iScreenHeightOffset + 400, pUpdateItemStatsPanelText[4] );
 				return;
 			}
+			break;
+		case EDITING_RANDOMITEM:
+			mprintf( iScreenWidthOffset + 512, 2 * iScreenHeightOffset + 384, pUpdateItemStatsPanelText[8] );
 			break;
 		case EDITING_OWNERSHIP:
 			mprintf( iScreenWidthOffset + 512, 2 * iScreenHeightOffset + 384, pUpdateItemStatsPanelText[5] );
@@ -1295,6 +1308,51 @@ void ExtractAndUpdateKeysGUI()
 }
 
 void RemoveKeysGUI()
+{
+
+}
+
+void SetupRandomItemGUI()
+{
+	CHAR16 str[20];
+	swprintf( str, L"%d", ( *gpItem )[0]->data.objectStatus );
+	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 380, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	swprintf( str, L"%d", ( *gpItem )[0]->data.bTrap );
+	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 400, 25, 15, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
+	if ( gpEditingItemPool )
+	{
+		swprintf( str, L"%d", 100 - gWorldItems[gpEditingItemPool->iItemIndex].ubNonExistChance );
+		AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 440, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	}
+}
+
+void ExtractAndUpdateRandomItemGUI()
+{
+	//Update the equipment status
+	INT32 i = GetNumericStrictValueFromField( 1 );
+	if ( i == -1 )
+		i = 20 + Random( 81 );
+	else
+		i = min( i, 100 );
+
+	( *gpItem )[0]->data.objectStatus = (INT8)i;
+	SetInputFieldStringWithNumericStrictValue( 1, i );
+
+	//Update the trap level
+	i = GetNumericStrictValueFromField( 2 );
+	i = ( i == -1 ) ? 0 : min( i, 20 );
+	( *gpItem )[0]->data.bTrap = (INT8)i;
+	SetInputFieldStringWithNumericStrictValue( 2, i );
+	if ( gpEditingItemPool )
+	{
+		giDefaultExistChance = GetNumericStrictValueFromField( 3 );
+		giDefaultExistChance = ( giDefaultExistChance == -1 ) ? 100 : max( 1, min( giDefaultExistChance, 100 ) );
+		gWorldItems[gpEditingItemPool->iItemIndex].ubNonExistChance = (UINT8)( 100 - giDefaultExistChance );
+		SetInputFieldStringWithNumericStrictValue( 3, giDefaultExistChance );
+	}
+}
+
+void RemoveRandomItemGUI()
 {
 
 }
