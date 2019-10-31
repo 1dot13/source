@@ -442,7 +442,7 @@ void SelectMercsFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		//else try to hire the merc
 		else
 		{
-			if( gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS )
+			if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
 			{	
 				//bought gear before
 				fMercBuyEquipment = 0;
@@ -724,7 +724,7 @@ void BtnMercHireButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			//else try to hire the merc
 			else
 			{
-				if( gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS )
+				if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
 				{	
 					//bought gear before
 					fMercBuyEquipment = 0;
@@ -1110,8 +1110,10 @@ void DisplayMercsStats( UINT8 ubMercID )
 		usPosY = usPosY + 145;
 		DrawTextToScreen( MercInfo[MERC_FILES_GEAR], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 		
-		if( (gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS ) && (!(gMercProfiles[ ubMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID)))
+		if ( (gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS ) 
+			&& ( !(gMercProfiles[ ubMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID) || gGameExternalOptions.fGearKitsAlwaysAvailable ) )
 			gMercProfiles[ ubMercID ].usOptionalGearCost = 0;
+
 		swprintf(NsString, L"+ ");
 		swprintf(sTemp, L"%d",gMercProfiles[ ubMercID ].usOptionalGearCost);
 		InsertCommasForDollarFigure( sTemp );
@@ -1408,7 +1410,7 @@ void HandleMercsFilesKeyBoardInput( )
 						else
 						{
 							//bought gear before
-							if( gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS )
+							if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
 							{	
 								fMercBuyEquipment = 0;
 								MercProcessHireAfterGear();
@@ -1446,7 +1448,7 @@ void HandleMercsFilesKeyBoardInput( )
 					{
 						UINT8 mercId = GetAvailableMercIDFromMERCArray( gubCurMercIndex );
 
-						if(!(gMercProfiles[mercId].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+						if ( !(gMercProfiles[mercId].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 						{
 							UINT8 kit = 0;
 							switch(InputEvent.usParam)
@@ -1610,7 +1612,7 @@ BOOLEAN DisplayMERCMercsInventory(UINT8 ubMercID)
 	UINT8			ubColumnCount=0;
 
 	//if the mercs inventory has already been purchased, dont display the inventory
-	if( gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS )
+	if ( (gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS && !gGameExternalOptions.fGearKitsAlwaysAvailable ) )
 		return( TRUE );
 
 		UINT16 wnameY = MERC_MEMBER_WEAPON_NAME_Y;
@@ -1728,7 +1730,8 @@ void EnableMercWeaponKitSelectionButtons()
 	BOOL buttonEnabled[NUM_MERCSTARTINGGEAR_KITS];
 	//tais: weaponbox gear selection buttons
 	if(UsingNewInventorySystem() == true) {
-		if(!(gMercProfiles[GetAvailableMercIDFromMERCArray( gubCurMercIndex )].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS)) {
+		if ( !(gMercProfiles[GetAvailableMercIDFromMERCArray( gubCurMercIndex )].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
+		{
 			for(i=0; i<NUM_MERCSTARTINGGEAR_KITS; i++)
 			{
 				buttonEnabled[i] = FALSE;
@@ -1778,7 +1781,7 @@ void MercWeaponKitSelectionUpdate(UINT8 selectedInventory)
 	UINT8 ubMercID = GetAvailableMercIDFromMERCArray( gubCurMercIndex );
 	UINT32 uiLoop;
 	INT16 usItem;
-	if(!( gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS ))
+	if ( !( gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS ) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 	{
 		if(UsingNewInventorySystem() == true){
 			// Start by resetting all profile inventory values to 0

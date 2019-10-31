@@ -812,6 +812,9 @@ void LoadGameExternalOptions()
 	// Bob: externalized Slay's chance to leave
 	gGameExternalOptions.ubHourlyChanceSlayWillLeave = iniReader.ReadInteger("Recruitment Settings", "SLAY_HOURLY_CHANCE_TO_LEAVE", 15, 0, 100);
 
+	// Flugente: gear kits are always available, even if they've been bought before
+	gGameExternalOptions.fGearKitsAlwaysAvailable		= iniReader.ReadBoolean("Recruitment Settings", "GEARKITS_ALWAYS_AVAILABLE", FALSE );
+	
 	// anv: playable Speck
 	gGameExternalOptions.fEnableRecruitableSpeck		= iniReader.ReadBoolean("Recruitment Settings", "RECRUITABLE_SPECK", TRUE);
 	// anv: John Kulba becomes recruitable as a merc after finishing escort quest

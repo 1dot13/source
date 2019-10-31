@@ -1553,7 +1553,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 	UINT8			ubColumnCount=0;
 
 	//if the mercs inventory has already been purchased, dont display the inventory
-	if( gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS )
+	if ( (gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
 		return( TRUE );
 
 	if(gGameExternalOptions.gfUseNewStartingGearInterface)
@@ -5106,7 +5106,7 @@ void HandleAimMemberKeyBoardInput()
 					{
 						gbCurrentSoldier = gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
 
-						if (!(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+						if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 						{
 							for ( UINT8 i = INV_START_POS; i<NUM_INV_SLOTS; ++i )
 							{
@@ -5608,7 +5608,7 @@ void EnableWeaponKitSelectionButtons()
 	//tais: weaponbox gear selection buttons
 	if ( UsingNewInventorySystem() )
 	{
-		if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS))
+		if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 		{
 			for(int i=0; i<NUM_MERCSTARTINGGEAR_KITS; ++i)
 			{

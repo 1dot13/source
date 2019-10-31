@@ -823,6 +823,9 @@ typedef struct
 	// Bob: % chance Slay will leave every hour if left alone in sector
 	UINT16  ubHourlyChanceSlayWillLeave;
 
+	// Flugente: gear kits are always available, even if they've been bought before
+	BOOLEAN fGearKitsAlwaysAvailable;
+
 	// anv: playable Speck
 	BOOLEAN fEnableRecruitableSpeck;
 	// anv: John Kulba becomes recruitable as a merc after finishing escort quest
