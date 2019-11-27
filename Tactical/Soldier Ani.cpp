@@ -2931,6 +2931,16 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					{
 						PlaySoldierJA2Sample( pSoldier->ubID, (UINT8)( SWOOSH_1 + Random( 6 ) ), RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 					}
+
+					// Flugente: play a little sound for melee attacks
+					if ( !usedWeapon || Item[usedWeapon].usItemClass & IC_PUNCH )
+					{
+						pSoldier->DoMercBattleSound( BATTLE_SOUND_PUNCH );
+					}
+					else if ( Item[usedWeapon].usItemClass & (IC_BLADE | IC_THROWING_KNIFE) )
+					{
+						pSoldier->DoMercBattleSound( BATTLE_SOUND_KNIFE );
+					}
 				}
 				break;
 

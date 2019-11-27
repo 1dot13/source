@@ -261,6 +261,8 @@ BATTLESNDS_STRUCT	 gBattleSndsData[] =
 	"lmattn", 1, 0, 1, 0,
 	"locked", 0, 0, 1, 0,
 	"enem", 1, 1, 1, 0,
+	"punch", 1, 0, 0, 0,
+	"knife", 1, 0, 0, 0,
 };
 
 extern void ReduceAttachmentsOnGunForNonPlayerChars( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj );
