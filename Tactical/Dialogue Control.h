@@ -92,10 +92,10 @@ enum DialogQuoteIDs
 	QUOTE_FOUND_SOMETHING_SPECIAL,				// we picked up an item we think is cool (once per day)
 	QUOTE_SATISFACTION_WITH_GUN_AFTER_KILL,		// we are happy with the gun we are currently using (once per day)
 	QUOTE_SPOTTED_JOEY,							// we spotted Joey during his quest
-	QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO,		// AIM: answer to Miguel speech, MERC/RPC: warn that contract is over soon
+	QUOTE_RESPONSE_TO_MIGUEL_SLASH_QUOTE_MERC_OR_RPC_LETGO,		// AIM: answer to Miguel speech, MERC/RPC: departing comment upon contract end
 	QUOTE_SECTOR_SAFE,							// we won the battle
 	QUOTE_STUFF_MISSING_DRASSEN,				// notice shipment in Drassen was stolen
-	QUOTE_KILLED_FACTORY_MANAGER,				// killed Deidranna
+	QUOTE_KILLED_FACTORY_MANAGER,				// killed Doreen
 	QUOTE_SPOTTED_BLOODCAT,						// used when we spot a bloodcat
 	QUOTE_END_GAME_COMMENT,						// end speech after game is won
 	
@@ -162,10 +162,10 @@ enum DialogQuoteIDs
 	//110
 	QUOTE_IMPATIENT_QUOTE,						// AIM hiring screen: player says nothing, so get impatient / easter egg: female mercs complain about player trying to abuse the 'strip' command
 	QUOTE_LENGTH_OF_CONTRACT,					// AIM hiring screen: ask player what contract terms they want
-	QUOTE_COMMENT_BEFORE_HANG_UP,				// AIM hiring screen: player says nothing, we are fed up so end the cal
+	QUOTE_COMMENT_BEFORE_HANG_UP,				// AIM hiring screen: player says nothing, we are fed up so end the call
 	QUOTE_HATED_1_ON_TEAM_LONGTIMETOHATE,		// AIM: played when we refuse to be hired because hated 1 is present and bHatedTime >= 24 (else play QUOTE_HATED_1_ON_TEAM)
 	QUOTE_HATED_2_ON_TEAM_LONGTIMETOHATE,		// AIM: played when we refuse to be hired because hated 2 is present and bHatedTime >= 24 (else play QUOTE_HATED_2_ON_TEAM)
-	QUOTE_MERC_LEAVING_ALSUCO_SOON,				// tell player that contract will be over soon
+	QUOTE_MERC_LEAVING_ALSUCO_SOON,				// tell player that contract will be over soon and we don't want to renew
 	QUOTE_MERC_GONE_UP_IN_PRICE,				// during contract renegotiation, inform the player of increased salary
 #ifdef JA2UB
 	QUOTE_ENTER_SECTOR_WITH_FAN_1,				// special JA2UB dialogue about fan
