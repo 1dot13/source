@@ -15243,12 +15243,12 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 		{
 			if ( this->inv[bLoop].exists( ) )
 			{
-				// if we have a back pack: not covert
+				/*// if we have a back pack: not covert
 				if ( bLoop == BPACKPOCKPOS )
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_BACKPACKFOUND], this->GetName( ) );
 					return FALSE;
-				}
+				}*/
 
 				// do not check the LBE itself (we already checked for camo above)
 				if ( bLoop >= VESTPOCKPOS && bLoop <= CPACKPOCKPOS )
@@ -15266,51 +15266,55 @@ BOOLEAN		SOLDIERTYPE::LooksLikeACivilian( void )
 				// guns/launchers in our hands will always be noticed, even if covert
 				if ( (Item[this->inv[bLoop].usItem].usItemClass & (IC_GUN | IC_LAUNCHER)) && (bLoop == HANDPOS || bLoop == SECONDHANDPOS) )
 					checkfurther = TRUE;
-				// visible slots are always checked if not covert
-				else if ( !HasItemFlag( this->inv[bLoop].usItem, COVERT ) && (bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS) )
-					checkfurther = TRUE;
-				// knife slot is checked if the knife is not covert
-				else if ( bLoop == KNIFEPOCKPOS && !HasItemFlag( this->inv[bLoop].usItem, COVERT ) )
-					checkfurther = TRUE;
 				// further checks it item is not covert. This means that a gun that has that tag will not be detected if its inside a pocket!
 				else if ( !HasItemFlag( this->inv[bLoop].usItem, COVERT ) )
 				{
 					checkfurther = TRUE;
 
-					// item will be detected if someone looks - check for the LBE item that gave us this slot. If that one is covert, this item is also covert
-					UINT8 checkslot = 0;
-					switch ( uiNIVSlotType[bLoop] )
+					// visible slots are always checked if not covert
+					if ( bLoop == HANDPOS || bLoop == SECONDHANDPOS || bLoop == GUNSLINGPOCKPOS || bLoop == KNIFEPOCKPOS || bLoop == HELMETPOS || bLoop == VESTPOS || bLoop == LEGPOS || bLoop == HEAD1POS || bLoop == HEAD2POS )
+						;
+					else
 					{
-					case 2:
-						// this is worn LBE gear itself
-						break;
-					case 3:
-						checkslot = VESTPOCKPOS;
-						break;
-					case 4:
-						if ( bLoop == MEDPOCK3POS || bLoop == SMALLPOCK11POS || bLoop == SMALLPOCK12POS || bLoop == SMALLPOCK13POS || bLoop == SMALLPOCK14POS )
-							checkslot = LTHIGHPOCKPOS;
-						else
-							checkslot = RTHIGHPOCKPOS;
-						break;
-					case 5:
-						checkslot = CPACKPOCKPOS;
-						break;
-					default:
-					{
-							   //ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
-							   //return FALSE;
-					}
-						break;
-					}
+						// check for the pocket the item is in
+						// item will be detected if someone looks - check for the LBE item that gave us this slot. If that one is covert, this item is also covert
+						UINT8 checkslot = 0;
+						switch ( uiNIVSlotType[bLoop] )
+						{
+						case 2:
+							// this is worn LBE gear itself
+							break;
+						case 3:
+							checkslot = VESTPOCKPOS;
+							break;
+						case 4:
+							if ( bLoop == MEDPOCK3POS || bLoop == SMALLPOCK11POS || bLoop == SMALLPOCK12POS || bLoop == SMALLPOCK13POS || bLoop == SMALLPOCK14POS )
+								checkslot = LTHIGHPOCKPOS;
+							else
+								checkslot = RTHIGHPOCKPOS;
+							break;
+						case 5:
+							checkslot = CPACKPOCKPOS;
+							break;
+						case 6:
+							checkslot = BPACKPOCKPOS;
+							break;
+						default:
+							{
+								//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_ITEM_SUSPICIOUS], this->GetName(), Item[this->inv[bLoop].usItem].szItemName );
+								//return FALSE;
+							}
+							break;
+						}
 
-					// found a slot to check for LBE
-					if ( checkslot > 0 )
-					{
-						// if LBE is covert
-						if ( this->inv[checkslot].exists( ) && HasItemFlag( this->inv[checkslot].usItem, COVERT ) )
-							// pass for this item
-							checkfurther = FALSE;
+						// found a slot to check for LBE
+						if ( checkslot > 0 )
+						{
+							// if LBE is covert
+							if ( this->inv[checkslot].exists() && HasItemFlag( this->inv[checkslot].usItem, COVERT ) )
+								// pass for this item
+								checkfurther = FALSE;
+						}
 					}
 				}
 
