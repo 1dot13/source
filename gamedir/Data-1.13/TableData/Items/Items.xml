@@ -7893,8 +7893,9 @@
 		<szItemDesc>This bag of woods and irons is a vintage set that has seen better days on the green. Although slightly beat up, you could still score under par with them.</szItemDesc>
 		<szBRName>Golf Clubs</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
-		<usItemClass>268435456</usItemClass>
+		<usItemClass>131072</usItemClass>
 		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>107</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>136</ubGraphicNum>
 		<ubWeight>100</ubWeight>
@@ -7905,6 +7906,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<ItemFlag>16384</ItemFlag>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

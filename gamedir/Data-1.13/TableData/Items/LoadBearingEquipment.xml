@@ -2140,4 +2140,24 @@
 		<lbePocketIndex11>0</lbePocketIndex11>
 		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>107</lbeIndex>
+		<lbeClass>4</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>34</lbeFilledSize>
+		<lbeAvailableVolume>0</lbeAvailableVolume>
+		<lbePocketsAvailable>0</lbePocketsAvailable>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>4</lbePocketIndex9>
+		<lbePocketIndex10>4</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
 </LOADBEARINGEQUIPMENTLIST>
