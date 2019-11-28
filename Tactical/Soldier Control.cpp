@@ -16168,12 +16168,9 @@ void	SOLDIERTYPE::Strip()
 	else
 	{
 		// if the player is an annoying little perv, tell them so, girls!
-		if ( this->ubBodyType == REGFEMALE )
-		{
-			// sigh. We were hired by an idiot.
-			TacticalCharacterDialogue( this, QUOTE_IMPATIENT_QUOTE );
-			this->aiData.bMorale = max( 0, this->aiData.bMorale - 1 );
-		}
+		// Flugente: additional dialogue
+		AdditionalTacticalCharacterDialogue_CallsLua(this, ADE_SEXUALHARASSMENT );
+		this->aiData.bMorale = max( 0, this->aiData.bMorale - 1 );
 	}
 }
 
