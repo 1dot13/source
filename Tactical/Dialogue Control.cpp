@@ -1764,6 +1764,13 @@ BOOLEAN AdditionalTacticalCharacterDialogue_CallsLua( SOLDIERTYPE *pSoldier, UIN
 }
 
 // call event for all mercs in a sector
+void AdditionalTacticalCharacterDialogue_AllInCurrentSector( UINT8 ausIgnoreProfile,
+	UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3, INT32 aAroundGridno, INT32 aRadius )
+{
+	return AdditionalTacticalCharacterDialogue_AllInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, ausIgnoreProfile,
+		usEventNr, aData1, aData2, aData3, aAroundGridno, aRadius );
+}
+
 void AdditionalTacticalCharacterDialogue_AllInSector(INT16 aSectorX, INT16 aSectorY, INT8 aSectorZ, UINT8 ausIgnoreProfile, 
 	UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3, INT32 aAroundGridno, INT32 aRadius )
 {

@@ -350,7 +350,7 @@ enum AdditionalDialogEvents
 	ADE_DIALOGUE_RPC_RECRUIT_SUCCESS,		// we've successfully recruited an RPC, and might comment on that
 	ADE_SEX,								// does exactly what you think it does
 	ADE_WEATHERCHANGE,						// the weather has changed, and we can warn the player about that
-	ADE_SKILL_RESULT,						// we used a skill, and comment on the result
+	ADE_SKILL_RESULT,						// we used a skill, and comment on the result, aData1 is of Skill, aData2 indicates whether it was a success (1) or failure (0)
 	ADE_GRENADEWARNING,						// a delayed enemy grenade was dropped nearby
 	ADE_CONSUMEITEM,						// we applied an item to us
 	ADE_NPC_DEATH,							// someone died
@@ -361,6 +361,8 @@ enum AdditionalDialogEvents
 	ADE_BANDAGE_RECEIVE_END,				// someone finished bandaging us, aData1 is the profile of person
 	ADE_ZOMBIESRISE,						// a new wave of zombies is spawned from corpses
 	ADE_SEXUALHARASSMENT,					// the player wants to take the 'strip' command further than we are comfortable with
+	ADE_LOCKBOMB,							// merc uses a shaped charge to blow the locks of a door, aData1 indicates whether it was a success (1) or failure (0)
+	ADE_SNIPERWARNING,						// merc warns of sniper presence in this sector
 };
 
 // We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said
@@ -369,6 +371,9 @@ enum AdditionalDialogEvents
 BOOLEAN AdditionalTacticalCharacterDialogue_CallsLua( SOLDIERTYPE *pSoldier, UINT16 usEventNr, UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0 );
 
 // call event for all mercs in a sector
+void AdditionalTacticalCharacterDialogue_AllInCurrentSector( UINT8 ausIgnoreProfile,
+	UINT16 usEventNr, UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0, INT32 aAroundGridno = -1, INT32 aRadius = 0 );
+
 void AdditionalTacticalCharacterDialogue_AllInSector( INT16 aSectorX, INT16 aSectorY, INT8 aSectorZ, UINT8 ausIgnoreProfile, 
 	UINT16 usEventNr, UINT32 aData1 = 0, UINT32 aData2 = 0, UINT32 aData3 = 0, INT32 aAroundGridno = -1, INT32 aRadius = 0 );
 

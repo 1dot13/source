@@ -59,6 +59,9 @@ namespace AI
                 {
                     ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_WATHCHOUTFORSNIPERS] );
                     sniperwarning = TRUE;
+
+					// Flugente: additional dialogue
+					AdditionalTacticalCharacterDialogue_AllInCurrentSector( NO_PROFILE, ADE_SNIPERWARNING );
                 }
 
                 if (!biggunwarning && FindRocketLauncherOrCannon(get_npc()) != NO_SLOT )

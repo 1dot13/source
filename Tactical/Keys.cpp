@@ -39,6 +39,7 @@
 	#include "handle doors.h"
 	#include "Map Screen Interface.h"
 	#include "GameSettings.h" // added by SANDRO
+	#include "Dialogue Control.h" // added by Flugente
 #endif
 
 #include "GameVersion.h"
@@ -806,8 +807,14 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 			// also add to records - door successfuly breached
 			gMercProfiles[ pSoldier->ubProfile ].records.usLocksBreached++;
 
+			// Flugente: additional dialogue
+			AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_LOCKBOMB, 1 );
+
 			return( TRUE );
 		}
+
+		// Flugente: additional dialogue
+		AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_LOCKBOMB, 0 );
 	}
 	else
 	{
