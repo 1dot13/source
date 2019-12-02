@@ -800,12 +800,15 @@ DialogueActionEvent =
 	ADE_BANDAGE_RECEIVE_BEGIN = 20,			-- someone bandages us, aData1 is the profile of person
 	ADE_BANDAGE_RECEIVE_END = 21,			-- someone finished bandaging us, aData1 is the profile of person
 	ADE_ZOMBIESRISE = 22,					-- a new wave of zombies is spawned from corpses
+	ADE_SEXUALHARASSMENT = 23,				-- the player wants to take the 'strip' command further than we are comfortable with
+	ADE_LOCKBOMB = 24,						-- merc uses a shaped charge to blow the locks of a door, aData1 indicates whether it was a success (1) or failure (0)
+	ADE_SNIPERWARNING = 25,					-- merc warns of sniper presence in this sector
 }
 
 -- functions used here:
 -- ubProfile: profile number of merc (don't change that unless you know what to do)
 -- iFaceIndex: index (don't change that unless you know what to do)
--- path: path and name of soundfile we want to play (in .wav or .ogg format)
+-- path: path and name of soundfile we want to play (in .wav, .ogg or .mp3 format)
 -- text: "Text that should appear"
 -- SetAdditionalDialogue(ubProfile, iFaceIndex, path, text)
 -- Do not use this function in any lua calls outside of HandleAdditionalDialogue(..)!
@@ -822,4 +825,38 @@ DialogueActionEvent =
 -- aData1, aData2, aData3 are additional data, see event description on what they do in each event
 function HandleAdditionalDialogue(sSectorX, sSectorY, bSectorZ, ubProfile, iFaceIndex, usEventNr, aData1, aData2, aData3 )
 	
+end
+
+-- Look up voicelines in Dialogue Control.h, only listing notable ones often used here
+Voiceline = 
+{
+	QUOTE_SEE_ENEMY = 0,
+	QUOTE_KILLED_AN_ENEMY = 27,
+	
+	-- these three lines are played at random when we talk to one of our mercs. Despite the name they don't have any special meaning
+	QUOTE_NEGATIVE_COMPANY = 41,
+	QUOTE_SOCIAL_TRAIT = 44,
+	QUOTE_PASSING_DISLIKE = 45,
+	
+	QUOTE_ENEMY_PRESENCE = 59,
+	QUOTE_WARNING_OUTSTANDING_ENEMY_AFTER_RT = 60,
+	QUOTE_SECTOR_SAFE = 65,
+}
+
+-- This function is used to replace dialogue quotes with new ones. This way we can have more variety - a merc doesn't always use the same lines when something happens.
+-- If a line isn't replaced, it plays normally, so it is a good idea to not always replace lines.
+--
+-- functions used here:
+-- path: path and name of soundfile we want to play (in .wav, .ogg or .mp3 format)
+-- text: "Text that should appear"
+-- SetReplaceDialogue(path, text)
+-- Do not use this function in any lua calls outside of HandleReplaceQuote(..)!
+--
+-- handle
+-- ubProfile is the merc for whom this is called
+-- usQuoteNum is the quote that the game wants to play
+function HandleReplaceQuote( ubProfile, usQuoteNum )
+
+	
+
 end
