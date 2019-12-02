@@ -93,6 +93,7 @@ extern BOOLEAN LuaIDScripts(UINT8 Init, UINT8 ubTargetNPC, UINT16 usActionCode, 
 extern BOOLEAN LetLuaMusicControl(UINT8 Init);
 
 void LuaHandleAdditionalDialogue( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3 );
+void LuaHandleReplaceQuote( UINT8 ubProfile, UINT16 usQuoteNum );
 void LuaAddArmsDealerAdditionalIntelData();
 void LuaAddPhotoData( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, INT32 sGridNo, INT8 bLevel, UINT8 ubPhotographerProfile, UINT16 room, UINT8 usTargetProfile );
 void LuaGetPhotoData( UINT8 aType );

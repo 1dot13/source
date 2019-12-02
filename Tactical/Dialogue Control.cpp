@@ -192,6 +192,7 @@ INT32				giTextBoxOverlay = -1;
 BOOLEAN			gfFacePanelActive = FALSE;
 UINT32			guiScreenIDUsedWhenUICreated;
 CHAR16					gzQuoteStr[ QUOTE_MESSAGE_SIZE ];
+CHAR8					gzSoundString[164];
 MOUSE_REGION	gTextBoxMouseRegion;
 MOUSE_REGION	gFacePopupMouseRegion;
 BOOLEAN				gfUseAlternateDialogueFile = FALSE;
@@ -2041,7 +2042,6 @@ BOOLEAN SpecialCharacterDialogueEventWithExtraParam( UINT32 uiSpecialEventFlag, 
 
 BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier )
 {
-	CHAR8		zSoundString[ 164 ];
 	UINT32	uiSoundID;
 	SOLDIERTYPE *pSoldier;
 
@@ -2144,11 +2144,15 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 	// Check face index
 	CHECKF( iFaceIndex != -1 );
 	
-	if ( !GetDialogue( ubCharacterNum,
-					usQuoteNum, DIALOGUESIZE, gzQuoteStr, &uiSoundID, zSoundString) )
+	if ( !GetDialogue( ubCharacterNum, usQuoteNum, DIALOGUESIZE, gzQuoteStr, &uiSoundID, gzSoundString ) )
 	{
 		return( FALSE );
 	}
+
+	// Flugente: hijack the quote for possible replacement by additional dialogue
+	extern void LuaHandleReplaceQuote( UINT8 ubProfile, UINT16 usQuoteNum );
+
+	LuaHandleReplaceQuote( ubCharacterNum, usQuoteNum );
 
 	// sevenfm: stop high speed timer for any talking face
 	if (IsFastForwardMode())
@@ -2156,16 +2160,9 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 		SetFastForwardMode(FALSE);
 	}
 
-	if( bUIHandlerID == DIALOGUE_EXTERNAL_NPC_UI )
-	{
-		// external NPC
-		SetFaceTalking(	iFaceIndex , zSoundString, gzQuoteStr, RATE_11025, 30, 1, MIDDLEPAN );
-	}
-	else
-	{
-		// start "talking" system (portrait animation and start wav sample)
-		SetFaceTalking( iFaceIndex, zSoundString, gzQuoteStr, RATE_11025, 30, 1, MIDDLEPAN );
-	}
+	// start "talking" system (portrait animation and start wav sample)
+	SetFaceTalking( iFaceIndex, gzSoundString, gzQuoteStr, RATE_11025, 30, 1, MIDDLEPAN );
+
 	// pSoldier can be null here... ( if NOT from an alive soldier )
 	CreateTalkingUI( bUIHandlerID, iFaceIndex, ubCharacterNum, pSoldier, gzQuoteStr );
 
@@ -2227,6 +2224,12 @@ void SetQuoteStr( STR16 aStr )
 {
 	//Copy the original string over to the temp string
 	wcscpy( gzQuoteStr, aStr );
+}
+
+void SetSoundString( const char* aStr )
+{
+	//Copy the original string over to the temp string
+	strcpy( gzSoundString, aStr );
 }
 
 BOOLEAN LuaCallsToDoDialogueStuff( UINT8 ubProfile, INT32 iFaceIndex, const char* azSoundString )

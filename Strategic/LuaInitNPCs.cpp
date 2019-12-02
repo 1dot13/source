@@ -873,6 +873,7 @@ static int l_SetMiniGameType( lua_State *L );
 static int l_SoldierSpendMoney( lua_State *L );
 
 static int l_SetAdditionalDialogue( lua_State *L );
+static int l_SetReplaceDialogue( lua_State *L );
 static int l_PlaySound( lua_State *L );
 static int l_AddArmsDealerAdditionalIntelDataItem( lua_State *L );
 
@@ -1758,6 +1759,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register( L, "SoldierSpendMoney", l_SoldierSpendMoney );
 
 	lua_register( L, "SetAdditionalDialogue", l_SetAdditionalDialogue );
+	lua_register( L, "SetReplaceDialogue", l_SetReplaceDialogue );
 	lua_register( L, "PlaySound", l_PlaySound );
 	lua_register( L, "AddArmsDealerAdditionalIntelDataItem", l_AddArmsDealerAdditionalIntelDataItem );
 
@@ -12879,7 +12881,7 @@ static int l_AddVolunteers( lua_State *L )
 {
 	if ( lua_gettop( L ) )
 	{
-		FLOAT num = lua_tointeger( L, 1 );
+		FLOAT num = lua_tonumber( L, 1 );
 
 		AddVolunteers( num );
 	}
@@ -13238,6 +13240,33 @@ static int l_SetAdditionalDialogue( lua_State *L )
 	return 0;
 }
 
+extern void SetSoundString( const char* aStr );
+
+static int l_SetReplaceDialogue( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		size_t len = 0;
+		const char* str = lua_tolstring( L, 1, &len );
+
+		{
+			size_t len = 0;
+			const char* str = lua_tolstring( L, 2, &len );
+
+			CHAR16 quote_str[1000];
+
+			MultiByteToWideChar( CP_UTF8, 0, str, -1, quote_str, sizeof( quote_str ) / sizeof( quote_str[0] ) );
+			quote_str[sizeof( quote_str ) / sizeof( quote_str[0] ) - 1] = '\0';
+
+			SetQuoteStr( quote_str );
+		}
+
+		SetSoundString( str );
+	}
+
+	return 0;
+}
+
 static int l_PlaySound( lua_State *L )
 {
 	if ( lua_gettop( L ) >= 1 )
@@ -13268,6 +13297,21 @@ void LuaHandleAdditionalDialogue( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ,
 	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
 
 	LuaFunction( _LS.L, "HandleAdditionalDialogue" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( ubProfile ).Param<int>( iFaceIndex ).Param<int>( usEventNr ).Param<int>( aData1 ).Param<int>( aData2 ).Param<int>( aData3 ).Call( 9 );
+}
+
+void LuaHandleReplaceQuote( UINT8 ubProfile, UINT16 usQuoteNum )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	lua_register( _LS.L(), "CheckFact", l_CheckFact );
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "HandleReplaceQuote" ).Param<int>( ubProfile ).Param<int>( usQuoteNum ).Call( 2 );
 }
 
 void LuaAddArmsDealerAdditionalIntelData()
