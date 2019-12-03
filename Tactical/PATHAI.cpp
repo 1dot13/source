@@ -41,6 +41,9 @@
 	#include "Buildings.h"
 	#include "soldier profile.h" // added by SANDRO
 	#include "Soldier macros.h"
+	#include "AIinternals.h"
+	#include "Rotting Corpses.h"
+	#include "Meanwhile.h"
 #endif
 #include "connect.h"
 
@@ -2480,7 +2483,7 @@ void ShutDownPathAI(void)
 ///////////////////////////////////////////////////////////////////////
 //	FINDBESTPATH													/
 ////////////////////////////////////////////////////////////////////////
-INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 ubLevel, INT16 usMovementMode, INT8 bCopy, UINT8 fFlags )
+INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMovementMode, INT8 bCopy, UINT8 fFlags )
 {
 	s->sPlotSrcGrid = s->sGridNo;
 
@@ -2489,7 +2492,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 ubLevel, INT16 usMo
 CHAR8 errorBuf[511]; UINT32 b,e;
 b=GetJA2Clock();//return s->sGridNo+6;
 	
-	int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, ubLevel, usMovementMode, bCopy, fFlags);
+	int retVal = ASTAR::AStarPathfinder::GetInstance().GetPath(s, sDestination, bLevel, usMovementMode, bCopy, fFlags);
 
 	e=GetJA2Clock();sprintf(errorBuf, "timefind bestpath= %d",e-b );LiveMessage(errorBuf);
 
@@ -2622,7 +2625,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		#endif
 		return( 0 );
 	}
-	else if (s->pathing.bLevel != ubLevel)
+	else if (s->pathing.bLevel != bLevel)
 	{
 		// pathing to a different level... bzzzt!
 		return( 0 );
@@ -2643,7 +2646,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 	if ( fNonSwimmer )
 	{
-		if ( Water( sDestination, ubLevel ) )
+		if ( Water( sDestination, bLevel ) )
 		{
 			return( 0 );
 		}
@@ -2725,7 +2728,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	else
 	{
 		// the very first thing to do is make sure the destination tile is reachable
-		if (!NewOKDestination( s, sDestination, fConsiderPersonAtDestAsObstacle, ubLevel ))
+		if (!NewOKDestination( s, sDestination, fConsiderPersonAtDestAsObstacle, bLevel ))
 		{
 			gubNPCAPBudget = 0;
 			gubNPCDistLimit = 0;
@@ -2864,7 +2867,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 	}
 	else
 	{
-		if (ISWATER(gubWorldMovementCosts[iOrigination][0][ubLevel]) && ISWATER(gubWorldMovementCosts[iDestination][0][ubLevel]))
+		if (ISWATER(gubWorldMovementCosts[iOrigination][0][bLevel]) && ISWATER(gubWorldMovementCosts[iDestination][0][bLevel]))
 			iWaterToWater = 1;
 		else
 			iWaterToWater = 0;
@@ -2916,7 +2919,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 		sCurPathNdx = pCurrPtr->sPathNdx;
 
 		// remember the cost used to get here...
-		prevCost = gubWorldMovementCosts[ trailTree[ sCurPathNdx ].sGridNo ][ trailTree[ sCurPathNdx ].stepDir ][ ubLevel ];
+		prevCost = gubWorldMovementCosts[ trailTree[ sCurPathNdx ].sGridNo ][ trailTree[ sCurPathNdx ].stepDir ][ bLevel ];
 
 #if defined( PATHAI_VISIBLE_DEBUG )
 		if (gfDisplayCoverValues && gfDrawPathPoints)
@@ -3050,7 +3053,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				{
 					if ( iCnt != iLastDir )
 					{
-						if ( !OkayToAddStructureToWorld( curLoc, ubLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID, FALSE, s->ubID ) )
+						if ( !OkayToAddStructureToWorld( curLoc, bLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID, FALSE, s->ubID ) )
 						{
 							// we have to abort this loop and possibly reset the loop conditions to
 							// search in the other direction (if we haven't already done the other dir)
@@ -3089,7 +3092,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				else if ( pStructureFileRef )
 				{
 					// check to make sure it's okay for us to turn to the new direction in our current tile
-					if (!OkayToAddStructureToWorld( curLoc, ubLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID ) )
+					if (!OkayToAddStructureToWorld( curLoc, bLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID ) )
 					{
 						goto NEXTDIR;
 					}
@@ -3146,8 +3149,8 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 			// sevenfm: skip gas if not in gas already
 			if (!(s->flags.uiStatusFlags & SOLDIER_PC) &&
-				InGasSpot(s, newLoc, ubLevel) &&
-				!InGasSpot(s, s->sGridNo, ubLevel))
+				InGasSpot(s, newLoc, bLevel) &&
+				!InGasSpot(s, s->sGridNo, bLevel))
 			{
 				goto NEXTDIR;
 			}
@@ -3180,7 +3183,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			//how much is admission to the next tile
 			if ( gfPathAroundObstacles && !fVehicleIgnoreObstacles )
 			{
-				nextCost = gubWorldMovementCosts[ newLoc ][ iCnt ][ ubLevel ];
+				nextCost = gubWorldMovementCosts[ newLoc ][ iCnt ][ bLevel ];
 
 				//ATE:	Check for differences from reality
 				// Is next cost an obstcale
@@ -3450,7 +3453,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				// then 0 1 2 3 4 5 6), we must subtract 1 from the direction
 				// ATE: Send in our existing structure ID so it's ignored!
 
-				if (!OkayToAddStructureToWorld( newLoc, ubLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID, FALSE, s->ubID ) )
+				if (!OkayToAddStructureToWorld( newLoc, bLevel, &(pStructureFileRef->pDBStructureRef[ iStructIndex ]), usOKToAddStructID, FALSE, s->ubID ) )
 				{
 					goto NEXTDIR;
 				}
@@ -3821,7 +3824,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 					nextCost = EASYWATERCOST;
 			}
 
-// NOTE: on September 24, 1997, Chris went back to a diagonal bias system
+			// NOTE: on September 24, 1997, Chris went back to a diagonal bias system
 			// SANDRO - you know this is here twice if gubNPCAPBudget is set
 			if (iCnt & 1 && !gubNPCAPBudget)
 			{
@@ -3838,6 +3841,19 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			}
 
 			newTotCost = curCost + nextCost;
+
+			// sevenfm: experimental path AI tweaks
+			if (s->bTeam != gbPlayerNum &&
+				!(s->flags.uiStatusFlags & SOLDIER_BOXER) &&
+				!AreInMeanwhile() &&
+				IS_MERC_BODY_TYPE(s) &&
+				(InGasSpot(s, newLoc, bLevel) ||
+				DeepWater(newLoc, bLevel) ||
+				(s->aiData.bAlertStatus >= STATUS_RED && (s->aiData.bAttitude == CUNNINGSOLO || s->aiData.bAttitude == CUNNINGAID || s->aiData.bAIMorale < MORALE_FEARLESS)) && 
+				(InLightAtNight(newLoc, bLevel) || GetNearestRottingCorpseAIWarning(newLoc) > 0)))
+			{
+				nextCost += 20;
+			}
 
 /*
 // no diagonal bias - straightforward costing regardless of direction
