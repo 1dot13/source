@@ -3849,7 +3849,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				IS_MERC_BODY_TYPE(s) &&
 				(InGasSpot(s, newLoc, bLevel) ||
 				DeepWater(newLoc, bLevel) && (s->numFlanks == 0 || s->numFlanks >= MAX_FLANKS_RED) ||
-				(s->aiData.bAlertStatus >= STATUS_RED && (s->aiData.bAttitude == CUNNINGSOLO || s->aiData.bAttitude == CUNNINGAID || s->aiData.bAIMorale < MORALE_FEARLESS)) && 
+				s->bTeam == ENEMY_TEAM && s->aiData.bAlertStatus >= STATUS_RED && (s->aiData.bAttitude == CUNNINGSOLO || s->aiData.bAttitude == CUNNINGAID || s->aiData.bAIMorale < MORALE_FEARLESS) &&
 				(InLightAtNight(newLoc, bLevel) || GetNearestRottingCorpseAIWarning(newLoc) > 0)))
 			{
 				nextCost += 20;

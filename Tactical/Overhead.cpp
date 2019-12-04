@@ -8785,11 +8785,11 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                     DebugAttackBusy( String("!!!!!!! Starting suppression, on %d\n", pSoldier->ubID ) );
                     //gTacticalStatus.ubAttackBusyCount++;
 
-                    // make sure supressor ID is the same!
+                    // make sure suppressor ID is the same!
                     pSoldier->ubSuppressorID = ubCausedAttacker;
                 }
 
-                // AI people will have to have their actions cancelled
+                // AI people will have to have their actions canceled
                 if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
                 {
                     CancelAIAction( pSoldier, TRUE );
@@ -8808,6 +8808,12 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                 pSoldier->flags.fRTInNonintAnim = FALSE;
                 gTacticalStatus.ubAttackBusyCount++;
                 DebugAttackBusy( String( "Attack busy %d due to suppression fire on %d\n", gTacticalStatus.ubAttackBusyCount, pSoldier->ubID ));
+
+				// sevenfm: switch scope mode as alt holding can only be used in standing stance
+				if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD)
+				{
+					pSoldier->bScopeMode = USE_BEST_SCOPE;
+				}
 
                 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: change stance"));
                 pSoldier->ChangeSoldierStance( ubNewStance );
