@@ -6944,12 +6944,12 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 			dBasicAperture = dBasicAperture * (FLOAT)( (100 - gGameCTHConstants.IRON_SIGHT_PERFORMANCE_BONUS) / 100);
 
 		// laser pointers can provide a percentage bonus to base aperture
-		INT32 iLaserRange = GetBestLaserRange( &(pSoldier->inv[pSoldier->ubAttackingHand]) );
-		if ( iLaserRange > 0 
-			&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0) )
+		INT16 sLaserRange = GetBestLaserRange( &(pSoldier->inv[pSoldier->ubAttackingHand]) );
+		if (sLaserRange > 0 
+			&& ( gGameCTHConstants.LASER_PERFORMANCE_BONUS_HIP + gGameCTHConstants.LASER_PERFORMANCE_BONUS_IRON + gGameCTHConstants.LASER_PERFORMANCE_BONUS_SCOPE != 0))
 		{
-			INT8 bLightLevel = LightTrueLevel(sGridNo, gsInterfaceLevel );
-			INT32 iMaxLaserRange = ( iLaserRange*( 2*bLightLevel + 3*NORMAL_LIGHTLEVEL_NIGHT - 5*NORMAL_LIGHTLEVEL_DAY ) ) / ( 2 * ( NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY ) );
+			INT8 bLightLevel = LightTrueLevel(sGridNo, bTargetLevel);
+			INT32 iMaxLaserRange = ( sLaserRange*( 2*bLightLevel + 3*NORMAL_LIGHTLEVEL_NIGHT - 5*NORMAL_LIGHTLEVEL_DAY ) ) / ( 2 * ( NORMAL_LIGHTLEVEL_NIGHT - NORMAL_LIGHTLEVEL_DAY ) );
 
 			// laser only has effect when in range
 			if ( iMaxLaserRange > d2DDistance )
@@ -6970,13 +6970,13 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 				FLOAT fBrightnessModifier = (FLOAT)(bLightLevel) / (FLOAT)(NORMAL_LIGHTLEVEL_NIGHT);
 
 				// laser fully efficient
-				if ( iLaserRange > d2DDistance )
+				if ( sLaserRange > d2DDistance )
 					// apply full bonus
 					dBasicAperture = dBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier)) / 100);
 				else
 				{
 					// beyond BestLaserRange laser bonus drops linearly to 0
-					FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - iLaserRange);
+					FLOAT fEffectiveLaserRatio = (FLOAT)(iMaxLaserRange - d2DDistance) / (FLOAT)(iMaxLaserRange - sLaserRange);
 					// apply partial bonus
 					dBasicAperture = dBasicAperture * (FLOAT)( (100 - (fLaserBonus * fBrightnessModifier * fEffectiveLaserRatio)) / 100);
 				}
