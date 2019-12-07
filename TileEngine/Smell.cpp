@@ -392,7 +392,9 @@ void InternalDropBlood( INT32 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 		if (ubOldStrength > 0)
 		{
 			// blood already there... we'll leave the decay time as it is
-			if (BLOOD_FLOOR_TYPE( pMapElement->ubBloodInfo ) == ubType)
+			// sevenfm: blood floor type stored in smell byte!
+			//if (BLOOD_FLOOR_TYPE( pMapElement->ubBloodInfo ) == ubType)
+			if (BLOOD_FLOOR_TYPE(pMapElement->ubSmellInfo) == ubType)
 			{
 				// combine blood strengths!
 				ubNewStrength = __min( ( ubOldStrength + ubStrength ), BLOOD_STRENGTH_MAX );
