@@ -9542,7 +9542,6 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 				}
 			}
 
-
 			// CHANGE DIRECTION AT LEAST
 			ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, gpItemPointerSoldier );
 			gpItemPointerSoldier->EVENT_SetSoldierDesiredDirection( ubDirection );
@@ -9554,8 +9553,8 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 			DebugAttackBusy( "Incrementing ABC: Throw item\n" );
 
 
-			// Given our gridno, throw grenate!
-			CalculateLaunchItemParamsForThrow( gpItemPointerSoldier, sGridNo, gpItemPointerSoldier->pathing.bLevel, (INT16)( ( gsInterfaceLevel * 256 ) + sEndZ ), gpItemPointer, 100, ubThrowActionCode, uiThrowActionData, gpItemPointer->usItem );
+			// Given our gridno, throw grenade!
+			CalculateLaunchItemParamsForThrow(gpItemPointerSoldier, sGridNo, gsInterfaceLevel, (INT16)(gsInterfaceLevel * 256 + sEndZ), gpItemPointer, 100, ubThrowActionCode, uiThrowActionData, gpItemPointer->usItem);
 
 			// OK, goto throw animation
 			HandleSoldierThrowItem( gpItemPointerSoldier, usMapPos );
@@ -9564,7 +9563,6 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 
 	gfDontChargeAPsToPickup = FALSE;
 	EndItemPointer( );
-
 
 	return( TRUE );
 }

@@ -9800,9 +9800,6 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 	// Calculate the Distance Ratio for later use.
 	FLOAT dDistanceRatio = (FLOAT)uiRange / (FLOAT)gGameCTHConstants.NORMAL_RECOIL_DISTANCE;
 
-	// Calculate the various counter-force related values for our shooter.
-	FLOAT dCounterForceMax = CalcCounterForceMax(pShooter, pWeapon);
-
 	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
 
 	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
@@ -9811,7 +9808,7 @@ void CalcPreRecoilOffset( SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, FLOAT *dMu
 
 	FLOAT moda = CalcCounterForceMax(pShooter, pWeapon, stance);
 	FLOAT modb = CalcCounterForceMax(pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight);
-	FLOAT iCounterForceMax = ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+	FLOAT dCounterForceMax = (gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb) / 100;
 	
 	UINT32 uiCounterForceAccuracy = CalcCounterForceAccuracy(pShooter, pWeapon, uiRange, FALSE, true);
 
@@ -10079,8 +10076,6 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 	// maximum counter-force that can be applied. By default, it is based primarily on the strength of the shooter,
 	// although agility is also helpful.
 
-	FLOAT dCounterForceMax = CalcCounterForceMax(pShooter, pWeapon);
-
 	UINT8 stance = gAnimControl[ pShooter->usAnimState ].ubEndHeight;
 
 	// Flugente: new feature: if the next tile in our sight direction has a height so that we could rest our weapon on it, we do that, thereby gaining the prone boni instead. This includes bipods
@@ -10089,7 +10084,7 @@ void CalcRecoilOffset( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuz
 
 	FLOAT moda = CalcCounterForceMax(pShooter, pWeapon, stance);
 	FLOAT modb = CalcCounterForceMax(pShooter, pWeapon, gAnimControl[ pShooter->usAnimState ].ubEndHeight);
-	FLOAT iCounterForceMax = ((gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb)/100);
+	FLOAT dCounterForceMax = (gGameExternalOptions.ubProneModifierPercentage * moda + (100 - gGameExternalOptions.ubProneModifierPercentage) * modb) / 100;
 		
 	// iCounterForceMax is now the absolute limit.
 

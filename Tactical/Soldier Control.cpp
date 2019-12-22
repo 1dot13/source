@@ -17361,7 +17361,7 @@ INT16	SOLDIERTYPE::GetAPBonus( )
 		bonus += this->GetBackgroundValue( BG_ASSAULT );
 
 	UINT8 ubSector = (UINT8)SECTOR( this->sSectorX, this->sSectorY );
-	UINT8 ubTraverseType = SectorInfo[ubSector].ubTraversability[ubDirection];
+	UINT8 ubTraverseType = SectorInfo[ubSector].ubTraversability[THROUGH_STRATEGIC_MOVE];
 
 	switch ( ubTraverseType )
 	{
