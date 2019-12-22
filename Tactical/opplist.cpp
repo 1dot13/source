@@ -7279,23 +7279,22 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 	INT8		bDirection;
 	BOOLEAN	fMuzzleFlash = FALSE;
 
-	if ( !(gTacticalStatus.uiFlags & INCOMBAT) )
+	if (!(gTacticalStatus.uiFlags & INCOMBAT))
 	{
 		return;
 	}
 
-	if ( pAttacker->usAttackingWeapon == DART_GUN )
+	if (AmmoTypes[pAttacker->inv[pAttacker->ubAttackingHand][0]->data.gun.ubGunAmmoType].dart)
 	{
 		// rarely noticed
-		if ( SkillCheck( pDefender, NOTICE_DART_CHECK, 0 ) < 0)
+		if (SkillCheck(pDefender, NOTICE_DART_CHECK, 0) < 0)
 		{
 			return;
 		}
 	}
 
 	// do we need to do checks for life/breath here?
-
-	if ( pDefender->ubBodyType == LARVAE_MONSTER || (pDefender->flags.uiStatusFlags & SOLDIER_VEHICLE && pDefender->bTeam == OUR_TEAM) )
+	if (pDefender->ubBodyType == LARVAE_MONSTER || (pDefender->flags.uiStatusFlags & SOLDIER_VEHICLE && pDefender->bTeam == OUR_TEAM))
 	{
 		return;
 	}

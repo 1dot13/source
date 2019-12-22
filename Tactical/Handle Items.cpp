@@ -1344,8 +1344,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	}
 
 	// Flugente: handcuffing people
-	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag( usHandItem, HANDCUFFS ) && pTargetSoldier && pTargetSoldier->CanBeCaptured( ) )
+	if (gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usHandItem, HANDCUFFS) && pTargetSoldier)
 	{
+		if (!pTargetSoldier->CanBeCaptured())
+			return ITEM_HANDLE_REFUSAL;
+
 		// ATE: AI CANNOT GO THROUGH HERE!
 		BOOLEAN	fHadToUseCursorPos = FALSE;
 

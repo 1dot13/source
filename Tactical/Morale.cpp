@@ -1469,18 +1469,21 @@ void HandleSnitchesReports( std::vector<SnitchEvent>& aVec )
 			bSnitchID = event.ubSnitchID;
 			pSnitch = FindSoldierByProfileID( bSnitchID, TRUE );
 
-			if ( pSnitch == NULL )
+			if (pSnitch == NULL)
 				continue;
 
-			if ( !(pSnitch->bActive) )
+			if (!pSnitch->bActive)
 				continue;
 
-			if ( pSnitch->flags.fMercAsleep )
+			if (pSnitch->flags.fMercAsleep)
 				fSleepingSnitch = TRUE;
 
+			if (pSnitch->usSoldierFlagMask2 & SOLDIER_SNITCHING_OFF)
+				continue;
+
 			// snitch introduction
-			if ( fSleepingSnitch )
-				TacticalCharacterDialogueWithSpecialEvent( pSnitch, 0, DIALOGUE_SPECIAL_EVENT_SLEEP, 0, 0 );
+			if (fSleepingSnitch)
+				TacticalCharacterDialogueWithSpecialEvent(pSnitch, 0, DIALOGUE_SPECIAL_EVENT_SLEEP, 0, 0);
 
 			SnitchTacticalCharacterDialogue( pSnitch, 0, SNITCH_INTRODUCTION, NO_PROFILE, NO_PROFILE );
 
