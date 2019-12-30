@@ -1245,15 +1245,15 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 {
-	INT32 sGridNo;
-	INT32 sBestSpot = NOWHERE;
-	UINT32 uiLoop;
-	INT32 iThreatRange,iClosestThreatRange = 1500, iSpotClosestThreatRange;
-	INT32 sThreatLoc, sThreatGridNo[MAXMERCS];
-	UINT32 uiThreatCnt = 0;
-	INT32 iSearchRange;
+	INT32	sGridNo;
+	INT32	sBestSpot = NOWHERE;
+	UINT32	uiLoop;
+	INT32	iThreatRange, iClosestThreatRange = 1500, iSpotClosestThreatRange;
+	INT32	sThreatLoc, sThreatGridNo[MAXMERCS];
+	UINT32	uiThreatCnt = 0;
+	INT32	iSearchRange;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	INT8 * pbPersOL,*pbPublOL, bEscapeDirection, bBestEscapeDirection = -1;
+	INT8	*pbPersOL, *pbPublOL, bEscapeDirection, bBestEscapeDirection = -1;
 	SOLDIERTYPE *pOpponent;
 	INT32	sOrigin;
 	INT32	iRoamRange;
@@ -1480,7 +1480,10 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 
 			iSpotClosestThreatRange = 1500;
 
-			if ( pSoldier->bTeam == ENEMY_TEAM && GridNoOnEdgeOfMap( sGridNo, &bEscapeDirection ) && EscapeDirectionIsValid( &bEscapeDirection ) )
+			if (gGameExternalOptions.fAITacticalRetreat &&
+				pSoldier->bTeam == ENEMY_TEAM &&
+				GridNoOnEdgeOfMap(sGridNo, &bEscapeDirection) &&
+				EscapeDirectionIsValid(&bEscapeDirection))
 			{
 				// We can escape!	This is better than anything else except a closer spot which we can
 				// cross over from.
@@ -1521,7 +1524,6 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				//NumMessage("New best grid = ",bestSpot);
 			}
 		}
-
 	}
 
 	gubNPCAPBudget = 0;

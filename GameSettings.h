@@ -1536,6 +1536,9 @@ typedef struct
 	UINT8 ubAPSharedAmongPassengersAndVehicleMode;
 	UINT8 ubAPSharedAmongPassengersAndVehicleScale;
 
+	// sevenfm: AI settings
+	BOOLEAN fAITacticalRetreat;
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct

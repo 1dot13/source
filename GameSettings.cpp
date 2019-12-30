@@ -1077,13 +1077,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iChanceSayAnnoyingPhrase			= iniReader.ReadInteger("Tactical Interface Settings","CHANCE_SAY_ANNOYING_PHRASE",100);	
 	 
 	// New enemy AI for night battles
-	gGameExternalOptions.bNewTacticalAIBehavior				= iniReader.ReadBoolean("Tactical Interface Settings","NEW_AI_TACTICAL",FALSE);	
-
-	// sevenfm: AI tweaks and improvements
-	gGameExternalOptions.fAIYellowFlanking					= iniReader.ReadBoolean("Tactical Interface Settings","AI_YELLOW_FLANKING",FALSE);
-	gGameExternalOptions.fAIExtraSuppression				= iniReader.ReadBoolean("Tactical Interface Settings","AI_EXTRA_SUPPRESSION",FALSE);
-	gGameExternalOptions.fAINewMorale						= iniReader.ReadBoolean("Tactical Interface Settings","AI_NEW_MORALE",FALSE);
-	gGameExternalOptions.fAIBetterCover						= iniReader.ReadBoolean("Tactical Interface Settings","AI_BETTER_COVER",FALSE);
+	gGameExternalOptions.bNewTacticalAIBehavior				= iniReader.ReadBoolean("Tactical Interface Settings","NEW_AI_TACTICAL",FALSE);		
 	
 	// Heahshot penalty
 	gGameExternalOptions.uShotHeadPenalty					= iniReader.ReadFloat("Tactical Interface Settings","SHOT_HEAD_PENALTY",3,0,100);	
@@ -2274,6 +2268,13 @@ void LoadGameExternalOptions()
 
 	// sevenfm: improved auto fast forwarding
 	gGameExternalOptions.fImprovedAutoFastForward		= iniReader.ReadBoolean("Clock Settings","IMPROVED_AUTO_FAST_FORWARD", TRUE);
+
+	// sevenfm: tactical AI
+	gGameExternalOptions.fAITacticalRetreat = iniReader.ReadBoolean("Tactical AI Settings", "AI_TACTICAL_RETREAT", FALSE);
+	gGameExternalOptions.fAIYellowFlanking = iniReader.ReadBoolean("Tactical AI Settings", "AI_YELLOW_FLANKING", FALSE);
+	gGameExternalOptions.fAIExtraSuppression = iniReader.ReadBoolean("Tactical AI Settings", "AI_EXTRA_SUPPRESSION", FALSE);
+	gGameExternalOptions.fAINewMorale = iniReader.ReadBoolean("Tactical AI Settings", "AI_NEW_MORALE", FALSE);
+	gGameExternalOptions.fAIBetterCover = iniReader.ReadBoolean("Tactical AI Settings", "AI_BETTER_COVER", FALSE);
 }
 
 

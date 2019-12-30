@@ -314,4 +314,7 @@ UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
 #define MIN_FLANK_DIST_RED (DAY_VISION_RANGE/2)
 #define MAX_FLANK_DIST_RED (VISION_RANGE + 20)
 
+// sevenfm: distance for tactical AI checks, roughly equal to normal day vision range
+#define TACTICAL_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 2)
+
 #endif
