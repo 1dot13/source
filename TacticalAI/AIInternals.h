@@ -269,7 +269,7 @@ UINT8 StanceChange( SOLDIERTYPE * pSoldier, INT16 ubAttackAPCost );
 INT32 TrackScent( SOLDIERTYPE * pSoldier );
 void RefreshAI(SOLDIERTYPE *pSoldier);
 BOOLEAN InLightAtNight( INT32 sGridNo, INT8 bLevel );
-INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier );
+INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier );
 
 BOOLEAN ArmySeesOpponents( void );
 

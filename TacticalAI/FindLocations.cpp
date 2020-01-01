@@ -1647,7 +1647,7 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 	return(sClosestLand);
 }
 
-INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
+INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 {
 	INT32 sGridNo, sClosestSpot = NOWHERE, sPathCost;
 	INT32	iSpotValue, iBestSpotValue = 1000;
