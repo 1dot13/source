@@ -4131,3 +4131,22 @@ UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE* pSoldier )
 
 	return cnt;
 }
+
+BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel)
+{
+	if (TileIsOutOfBounds(sSpot))
+		return FALSE;
+
+	if (bLevel > 0)
+		return FALSE;
+
+	INT32 sNextSpot = NewGridNo(sSpot, DirectionInc(NORTHWEST));
+
+	if (gubWorldMovementCosts[sSpot + DirectionInc(NORTHWEST)][NORTHWEST][0] == TRAVELCOST_OFF_MAP ||
+		gubWorldMovementCosts[sNextSpot + DirectionInc(NORTHWEST)][NORTHWEST][0] == TRAVELCOST_OFF_MAP)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}

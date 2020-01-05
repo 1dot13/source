@@ -786,6 +786,9 @@ UINT32	HandleTacticalUI( void )
 	return( ReturnVal );
 }
 
+bool bHideTopMessage = false;
+extern INT32 HEIGHT_PROGRESSBAR;
+
 void SetUIMouseCursor( )
 {
 	UINT32 uiCursorFlags;
@@ -794,6 +797,28 @@ void SetUIMouseCursor( )
 	BOOLEAN	fUpdateNewCursor = TRUE;
 	static INT32 sOldExitGridNo = NOWHERE;
 	static BOOLEAN	fOkForExit = FALSE;
+	INT32 usGridNo;
+
+	// sevenfm: hide top bar
+	if (gusMouseYPos <= HEIGHT_PROGRESSBAR &&
+		GetMouseMapPos(&usGridNo) &&
+		!TileIsOutOfBounds(usGridNo) &&
+		NorthSpot(usGridNo, gsInterfaceLevel) &&
+		!bHideTopMessage &&
+		gTacticalStatus.fInTopMessage)
+	{
+		bHideTopMessage = true;
+		EndTopMessage();
+	}
+
+	// sevenfm: reveal top bar
+	if (gusMouseYPos > HEIGHT_PROGRESSBAR &&
+		!gfUIFullTargetFound &&
+		bHideTopMessage)
+	{
+		gTacticalStatus.fInTopMessage = TRUE;
+		bHideTopMessage = false;
+	}
 
 	// Check if we moved from confirm mode on exit arrows
 	// If not in move mode, return!

@@ -418,7 +418,7 @@ BOOLEAN InitializeTacticalInterface(	)
 	}
 
 //*ddd{ 
-	if( gGameExternalOptions.fSmallSizeProgressbar )
+	if( gGameExternalOptions.fSmallSizeProgressBar )
 	{
 		HEIGHT_PROGRESSBAR	= 7;
 		PROG_BAR_START_Y	= 0;
@@ -4688,7 +4688,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		iProgBarLength = 640 - 13;
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\rect_Thin.sti";
 		else
 			fn = "INTERFACE\\rect.sti";		
@@ -4696,7 +4696,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	else if (iResolution < _1024x768)
 	{
 		iProgBarLength = 800 - 13;
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\rect_800x600Thin.sti";
 		else
 			fn = "INTERFACE\\rect_800x600.sti";			
@@ -4704,7 +4704,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	else
 	{
 		iProgBarLength = 1024 - 13;
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\rect_1024x768Thin.sti";
 		else
 			fn = "INTERFACE\\rect_1024x768.sti";
@@ -4720,21 +4720,21 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\timebargreen_Thin.sti";
 		else
 			fn = "INTERFACE\\timebargreen.sti";
 	}
 	else if (iResolution < _1024x768)
 	{
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\timebargreen_800x600Thin.sti";
 		else
 			fn = "INTERFACE\\timebargreen_800x600.sti";
 	}
 	else
 	{
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\timebargreen_1024x768Thin.sti";
 		else
 			fn = "INTERFACE\\timebargreen_1024x768.sti";
@@ -4749,21 +4749,21 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\timebaryellow_Thin.sti";
 		else
 			fn = "INTERFACE\\timebaryellow.sti";
 	}
 	else if (iResolution < _1024x768)
 	{
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\timebaryellow_800x600Thin.sti";
 		else
 			fn = "INTERFACE\\timebaryellow_800x600.sti";
 	}
 	else
 	{
-		if (gGameExternalOptions.fSmallSizeProgressbar)
+		if (gGameExternalOptions.fSmallSizeProgressBar)
 			fn = "INTERFACE\\timebaryellow_1024x768Thin.sti";
 		else
 			fn = "INTERFACE\\timebaryellow_1024x768.sti";
@@ -4878,7 +4878,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	DeleteVideoObjectFromIndex( uiPLAYERBAR );
 
 	// Draw text....
-	if(gGameExternalOptions.fSmallSizeProgressbar)
+	if(gGameExternalOptions.fSmallSizeProgressBar)
 		FindFontCenterCoordinates( SCREEN_WIDTH/2, 2, 1, 1, psString, TINYFONT1, &sX, &sY );
 	else
 		FindFontCenterCoordinates( SCREEN_WIDTH/2, 7, 1, 1, psString, TINYFONT1, &sX, &sY );
@@ -5047,7 +5047,7 @@ void HandleTopMessages( )
 			// Redner!
 			BltFx.SrcRect.iLeft = 0;
 			//* ddd BltFx.SrcRect.iTop	= 20 - gTopMessage.bYPos;
-			if(gGameExternalOptions.fSmallSizeProgressbar)
+			if(gGameExternalOptions.fSmallSizeProgressBar)
 				BltFx.SrcRect.iTop  = 0;
 			else
 				BltFx.SrcRect.iTop  = 20 - gTopMessage.bYPos;
@@ -5063,7 +5063,7 @@ void HandleTopMessages( )
 			// Save to save buffer....
 			BltFx.SrcRect.iLeft = 0;
 			//* ddd BltFx.SrcRect.iTop	= 0;
-			if(gGameExternalOptions.fSmallSizeProgressbar)
+			if(gGameExternalOptions.fSmallSizeProgressBar)
 				BltFx.SrcRect.iTop  = 0;
 			else
 				BltFx.SrcRect.iTop  = 20 - gTopMessage.bYPos;

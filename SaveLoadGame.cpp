@@ -3469,7 +3469,7 @@ BOOLEAN InitSaveDir()
 
 // WDS - Automatically try to save when an assertion failure occurs
 extern bool alreadySaving = false;
-
+extern bool bHideTopMessage;
 
 BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 {
@@ -3786,8 +3786,13 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	FileWrite( hFile, &gGameOptions, sizeof( GAME_OPTIONS ), &uiNumBytesWritten );
 
 	//
-	//Save the gTactical Status array, plus the curent secotr location
+	//Save the gTactical Status array, plus the current sector location
 	//
+
+	// sevenfm: enable fInTopMessage if top bar is hidden, to correctly show it after loading game 
+	if (bHideTopMessage)
+		gTacticalStatus.fInTopMessage = TRUE;
+
 	if( !SaveTacticalStatusToSavedGame( hFile ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing tactical status");

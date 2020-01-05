@@ -1032,6 +1032,12 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				continue;
 			}
 
+			// sevenfm: avoid staying at north edge
+			if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
+			{
+				continue;
+			}
+
 			iPathCost = gubAIPathCosts[AI_PATHCOST_RADIUS + sXOffset][AI_PATHCOST_RADIUS + sYOffset];
 			/*
 			// water is OK, if the only good hiding place requires us to get wet, OK
@@ -1475,6 +1481,13 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 			if ( InLightAtNight( sGridNo, pSoldier->pathing.bLevel ) )
 				continue;
 
+			// sevenfm: avoid staying at north edge
+			if (!gGameExternalOptions.fAITacticalRetreat &&
+				NorthSpot(sGridNo, pSoldier->pathing.bLevel))
+			{
+				continue;
+			}
+
 			// OK, this place shows potential.	How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
 
@@ -1615,6 +1628,12 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
+				// sevenfm: avoid staying at north edge
+				if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
+				{
+					continue;
+				}
+
 				// CJC: here, unfortunately, we must calculate a path so we have an AP cost
 
 				// obviously, we're looking for LAND, so water is out!
@@ -1724,6 +1743,12 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 
 				// ignore blacklisted spot
 				if ( sGridNo == pSoldier->pathing.sBlackList )
+				{
+					continue;
+				}
+
+				// sevenfm: avoid staying at north edge
+				if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
 				{
 					continue;
 				}
@@ -2659,6 +2684,12 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			if( Water( sGridNo, pSoldier->pathing.bLevel ) &&
 				pSoldier->aiData.bAttitude != CUNNINGSOLO && 
 				pSoldier->aiData.bAttitude != CUNNINGAID )
+			{
+				continue;
+			}
+
+			// sevenfm: avoid staying at north edge
+			if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
 			{
 				continue;
 			}

@@ -919,8 +919,11 @@ void LoadGameExternalOptions()
 	// Are enemy females restricted to Blackshirts only?
 	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite	= iniReader.ReadBoolean("Graphics Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
 
-	// New setting to allow thin progressbar
-	gGameExternalOptions.fSmallSizeProgressbar				= iniReader.ReadBoolean("Graphics Settings", "SMALL_SIZE_PB", FALSE);
+	// New setting to allow thin progress bar
+	gGameExternalOptions.fSmallSizeProgressBar				= iniReader.ReadBoolean("Graphics Settings", "SMALL_SIZE_PB", FALSE);
+
+	// New setting to allow auto hiding progress bar
+	gGameExternalOptions.fAutoHideProgressBar				= iniReader.ReadBoolean("Graphics Settings", "AUTO_HIDE_PB", TRUE);
 	
 	// anv: hide stuff on roof in explored rooms at ground level view (sandbags and other crap)
 	gGameExternalOptions.fHideExploredRoomRoofStructures	= iniReader.ReadBoolean("Graphics Settings", "HIDE_EXPLORED_ROOM_ROOF_STRUCTURES", TRUE);
