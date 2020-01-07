@@ -9246,6 +9246,35 @@ STR16		szNationalityText[]=
 	L"Belarusian",		// TODO.Translate
 	L"Serbian",			// 45
 	L"Pakistani",
+	L"Albanian",
+	L"Argentinian",
+	L"Armenian",
+	L"Azerbaijani", // 50
+	L"Bolivian",
+	L"Chilean",
+	L"Circassian",
+	L"Columbian",
+	L"Egyptian", // 55
+	L"Ethiopian",
+	L"Georgian",
+	L"Jordanian",
+	L"Kazakhstani",
+	L"Kenyan", // 60
+	L"Korean",
+	L"Kyrgyzstani",
+	L"Mongolian",
+	L"Palestinian",
+	L"Panamanian", // 65
+	L"Rhodesian",
+	L"Salvadoran",
+	L"Saudi",
+	L"Somali",
+	L"Thai", // 70
+	L"Ukrainian",
+	L"Uzbekistani",
+	L"Welsh",
+	L"Yazidi",
+	L"Zimbabwean", // 75
 };
 
 STR16		szNationalityTextAdjective[] = // TODO.Translate
@@ -9299,6 +9328,35 @@ STR16		szNationalityTextAdjective[] = // TODO.Translate
 	L"belarusian",
 	L"serbians",		// 45
 	L"pakistanis",
+	L"albanians",
+	L"argentinians",
+	L"armenians",
+	L"azerbaijani", // 50
+	L"bolivians",
+	L"chileans",
+	L"circassians",
+	L"columbians",
+	L"egyptians", // 55
+	L"ethiopians",
+	L"georgians",
+	L"jordanians",
+	L"kazakhstani",
+	L"kenyans", // 60
+	L"koreans",
+	L"kyrgyzstani",
+	L"mongolians",
+	L"palestinians",
+	L"panamanians", // 65
+	L"rhodesians",
+	L"salvadorans",
+	L"saudis",
+	L"somalis",
+	L"thais", // 70
+	L"ukrainians",
+	L"uzbekistani",
+	L"welshs",
+	L"yazidis",
+	L"zimbabweans", // 75
 };
 
 // special text used if we do not hate any nation (value of -1)
