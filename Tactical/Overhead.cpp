@@ -4863,10 +4863,11 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
     INT16        sDesiredLevel;
     BOOLEAN             fOKCheckStruct;
 
-    if ( !GridNoOnVisibleWorldTile( sGridNo ) )
-    {
-        return( FALSE );
-    }
+	// sevenfm: allow civilians and NPCs with profile to go off screen
+	if (!GridNoOnVisibleWorldTile(sGridNo) && (pCurrSoldier->bTeam != CIV_TEAM || pCurrSoldier->ubProfile == NO_PROFILE))
+	{
+		return(FALSE);
+	}
 
     if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NOBODY )
     {

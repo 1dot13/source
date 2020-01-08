@@ -5938,32 +5938,32 @@ static int l_usStrategicInsertionDataProfileID(lua_State *L)
 
 static int l_bNeutral(lua_State *L)
 {
-BOOLEAN Bool;
-SOLDIERTYPE * pSoldier;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
 
-	if ( lua_gettop(L) >= 1 )
+	if (lua_gettop(L) >= 1)
 	{
-		UINT8 ID = lua_tointeger(L,1);
+		UINT8 ID = lua_tointeger(L, 1);
 
-		pSoldier = FindSoldierByProfileID( ID, FALSE );
+		pSoldier = FindSoldierByProfileID(ID, FALSE);
 		if (pSoldier)
-			{
-				if ( pSoldier->aiData.bNeutral )
-					Bool = TRUE;
-				else
-					Bool = FALSE;
-			}
+		{
+			if (pSoldier->aiData.bNeutral)
+				Bool = TRUE;
+			else
+				Bool = FALSE;
+		}
 
 		lua_pushboolean(L, Bool);
-	}	
-		
-return 1;
+	}
+
+	return 1;
 }
 
 static int l_CheckSoldierAlertStatus(lua_State *L)
 {
-UINT8 Status_alert;
-SOLDIERTYPE * pSoldier;
+	UINT8 Status_alert = NUM_STATUS_STATES;
+	SOLDIERTYPE * pSoldier;
 
 	if ( lua_gettop(L) >= 1 )
 	{
@@ -5974,10 +5974,8 @@ SOLDIERTYPE * pSoldier;
 			Status_alert = pSoldier->aiData.bAlertStatus;		
 
 		lua_pushinteger(L, Status_alert);
-		
 	}		
-	
-return 1;
+	return 1;
 }
 
 static int l_InitFace(lua_State *L)
@@ -6081,8 +6079,8 @@ return 0;
 
 static int l_CheckSoldierNoiseVolume(lua_State *L)
 {
-UINT8 NoiseVolume;
-SOLDIERTYPE * pSoldier;
+	UINT8 NoiseVolume = NOWHERE;
+	SOLDIERTYPE * pSoldier;
 
 	if ( lua_gettop(L) >= 1 )
 	{
@@ -6090,14 +6088,13 @@ SOLDIERTYPE * pSoldier;
 
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
-			{
-
+		{
 			NoiseVolume = pSoldier->aiData.ubNoiseVolume;		
-			}
+		}
 
 		lua_pushinteger(L, NoiseVolume);	
 	}	
-return 1;
+	return 1;
 }
 
 
@@ -6246,9 +6243,8 @@ return 0;
 
 static int l_CheckAction(lua_State *L)
 {
-UINT32 Action;
-
-SOLDIERTYPE * pSoldier;
+	UINT32 Action = AI_ACTION_NONE;
+	SOLDIERTYPE * pSoldier;
 
 	if ( lua_gettop(L) >= 1 )
 	{
@@ -6259,7 +6255,6 @@ SOLDIERTYPE * pSoldier;
 		{
 			Action = pSoldier->aiData.bAction; 
 		}
-		
 		lua_pushinteger(L, Action);
 	}	
 	
@@ -6507,30 +6502,29 @@ return 0;
 
 static int l_SoldierTo3DLocationLineOfSightTest(lua_State *L)
 {
-BOOLEAN Bool;
-SOLDIERTYPE * pSoldier;
+	BOOLEAN Bool = FALSE;
+	SOLDIERTYPE * pSoldier;
 
-	if ( lua_gettop(L) >= 4 )
+	if (lua_gettop(L) >= 4)
 	{
-		UINT8 ID = lua_tointeger(L,1);
-		UINT32 sGridNo = lua_tointeger(L,2);
-		INT8 bLevel = lua_tointeger(L,3);
-		INT8 bCubeLevel = lua_tointeger(L,4);
+		UINT8 ID = lua_tointeger(L, 1);
+		UINT32 sGridNo = lua_tointeger(L, 2);
+		INT8 bLevel = lua_tointeger(L, 3);
+		INT8 bCubeLevel = lua_tointeger(L, 4);
 
-	
-		pSoldier = FindSoldierByProfileID( ID, FALSE );
+
+		pSoldier = FindSoldierByProfileID(ID, FALSE);
 		if (pSoldier)
 		{
-			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, bLevel, bCubeLevel, TRUE ) )
+			if (SoldierTo3DLocationLineOfSightTest(pSoldier, sGridNo, bLevel, bCubeLevel, TRUE))
 				Bool = TRUE;
 			else
-				Bool = FALSE;	
+				Bool = FALSE;
 		}
-		
-			lua_pushboolean(L, Bool);
-	}			
-			
-return 1;
+		lua_pushboolean(L, Bool);
+	}
+
+	return 1;
 }
 //------------
 
@@ -7998,15 +7992,15 @@ static int l_RecalculateOppCntsDueToNoLongerNeutral (lua_State *L)
 
 static int l_CheckSoldierActive (lua_State *L)
 {
-SOLDIERTYPE *pSoldier;
-BOOLEAN Bool;
+	SOLDIERTYPE *pSoldier;
+	BOOLEAN Bool = FALSE;
 
 	if ( lua_gettop(L) >= 1 )
 	{
 		UINT8 UID = lua_tointeger(L,1);
 
 		pSoldier = FindSoldierByProfileID( UID, FALSE );
-	if (pSoldier)
+		if (pSoldier)
 		{
 			if ( pSoldier->bActive )
 				Bool = TRUE;
@@ -8017,7 +8011,7 @@ BOOLEAN Bool;
 		lua_pushboolean(L, Bool);
 	}	
 	
-return 1;
+	return 1;
 }
 
 static int l_CheckSoldierInSector (lua_State *L)
@@ -12198,79 +12192,79 @@ UINT8 UID;
 return 1;
 }
 
-static int l_CheckSoldierSectorY (lua_State *L)
+static int l_CheckSoldierSectorY(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT16 SectorY;
-SOLDIERTYPE *pSoldier;
-UINT8 UID;
+	UINT8  n = lua_gettop(L);
+	int i;
+	INT16 SectorY = 0;
+	SOLDIERTYPE *pSoldier;
+	UINT8 UID;
 
-	for (i= 1; i<=n; i++ )
+	for (i = 1; i <= n; i++)
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
+		if (i == 1) UID = lua_tointeger(L, i);
 	}
 
-	pSoldier = FindSoldierByProfileID( UID, FALSE );
-	
+	pSoldier = FindSoldierByProfileID(UID, FALSE);
+
 	if (pSoldier)
 	{
-		SectorY = pSoldier->sSectorY;		
+		SectorY = pSoldier->sSectorY;
 	}
-		
+
 	lua_pushinteger(L, SectorY);
-										
-return 1;
+
+	return 1;
 }
 
-static int l_CheckSoldierSectorX (lua_State *L)
+static int l_CheckSoldierSectorX(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT16 SectorX;
-SOLDIERTYPE *pSoldier;
-UINT8 UID;
+	UINT8  n = lua_gettop(L);
+	int i;
+	INT16 SectorX = 0;
+	SOLDIERTYPE *pSoldier;
+	UINT8 UID;
 
-	for (i= 1; i<=n; i++ )
+	for (i = 1; i <= n; i++)
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
+		if (i == 1) UID = lua_tointeger(L, i);
 	}
 
-	pSoldier = FindSoldierByProfileID( UID, FALSE );
-	
+	pSoldier = FindSoldierByProfileID(UID, FALSE);
+
 	if (pSoldier)
 	{
-		SectorX = pSoldier->sSectorX;		
+		SectorX = pSoldier->sSectorX;
 	}
-		
+
 	lua_pushinteger(L, SectorX);
-										
-return 1;
+
+	return 1;
 }
 
-static int l_CheckSoldierSectorZ (lua_State *L)
+static int l_CheckSoldierSectorZ(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT8 SectorZ;
-SOLDIERTYPE *pSoldier;
-UINT8 UID;
+	UINT8  n = lua_gettop(L);
+	int i;
+	INT8 SectorZ = 0;
+	SOLDIERTYPE *pSoldier;
+	UINT8 UID;
 
-	for (i= 1; i<=n; i++ )
+	for (i = 1; i <= n; i++)
 	{
-		if (i == 1 ) UID = lua_tointeger(L,i);
+		if (i == 1) UID = lua_tointeger(L, i);
 	}
 
-	pSoldier = FindSoldierByProfileID( UID, FALSE );
-	
+	pSoldier = FindSoldierByProfileID(UID, FALSE);
+
 	if (pSoldier)
 	{
-		SectorZ = pSoldier->bSectorZ;		
+		SectorZ = pSoldier->bSectorZ;
 	}
-		
+
 	lua_pushinteger(L, SectorZ);
-										
-return 1;
+
+	return 1;
 }
 
 static int l_SetSoldierSectorY (lua_State *L)
