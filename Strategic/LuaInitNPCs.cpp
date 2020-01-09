@@ -2336,87 +2336,85 @@ static int l_WhoIsThere2 (lua_State *L)
 //set merc
 static int l_SetMercProfiles(lua_State *L)
 {
-MERCPROFILESTRUCT * pProfile;
-UINT8 idNPC = -1;
-UINT16 x = -1;
-UINT16 y = -1;
-UINT8 z = -1;
-UINT32 Orders = -1;
-UINT16 usEyesX = -1;
-UINT16 usEyesY = -1;
-UINT16 usMouthX = -1;
-UINT16 usMouthY = -1;
-UINT32 uiEyeDelay = -1;
-UINT32 uiMouthDelay = -1;
-UINT32 uiWeeklySalary = -1;
-UINT32 uiBiWeeklySalary = -1;
-INT16  sSalary = -1;
-UINT8  ubBodyType = -1;
+	MERCPROFILESTRUCT * pProfile;
+	UINT8 idNPC;
+	UINT16 x = 0;
+	UINT16 y = 0;
+	UINT8 z = 255;
+	UINT32 Orders = -1;
+	UINT16 usEyesX = -1;
+	UINT16 usEyesY = -1;
+	UINT16 usMouthX = -1;
+	UINT16 usMouthY = -1;
+	UINT32 uiEyeDelay = -1;
+	UINT32 uiMouthDelay = -1;
+	UINT32 uiWeeklySalary = -1;
+	UINT32 uiBiWeeklySalary = -1;
+	INT16  sSalary = -1;
+	UINT8  ubBodyType = -1;
 
-		idNPC = lh_getIntegerFromTable(L, "IDProfile");
+	idNPC = lh_getIntegerFromTable(L, "IDProfile");
 
-		if ( idNPC > -1 ) 
-		{
-		pProfile = &(gMercProfiles[ idNPC ]);
-		
-			x = lh_getIntegerFromTable(L, "SectorX");
-			y = lh_getIntegerFromTable(L, "SectorY");
-			z = lh_getIntegerFromTable(L, "SectorZ");
-			
-			usEyesX = lh_getIntegerFromTable(L, "EyesX");
-			usEyesY = lh_getIntegerFromTable(L, "EyesY");
-			usMouthX = lh_getIntegerFromTable(L, "MouthX");
-			usMouthY = lh_getIntegerFromTable(L, "MouthY");
-			uiEyeDelay = lh_getIntegerFromTable(L, "EyeDelay");
-			uiMouthDelay = lh_getIntegerFromTable(L, "MouthDelay");
-			
-			uiWeeklySalary = lh_getIntegerFromTable(L, "WeeklySalary");
-			uiBiWeeklySalary = lh_getIntegerFromTable(L, "BiWeeklySalary");
-			sSalary = lh_getIntegerFromTable(L, "Salary");	
-			ubBodyType = lh_getIntegerFromTable(L, "BodyType");	
+	if (idNPC < NUM_PROFILES)
+	{
+		pProfile = &(gMercProfiles[idNPC]);
 
-		
-			if ((x != -1 )&& (x >= 1 || x <= 16) )
-				pProfile->sSectorX = x;
-				
-			if((y != -1) && (y >= 1 || y <= 16) )
-				pProfile->sSectorY = y;
-			
-			if ((z != -1) && (z >= 0 || z <= 3) )
-				pProfile->bSectorZ = z;
-				
-			if ( usEyesX != -1 )
-				pProfile->usEyesX = usEyesX;
-				
-			if ( usEyesY != -1 )
-				pProfile->usEyesY = usEyesY;
-				
-			if ( usMouthX != -1 )
-				pProfile->usMouthX = usMouthX;
-				
-			if ( usMouthY != -1 )
-				pProfile->usMouthY = usMouthY;
-				
-			if ( uiEyeDelay != -1 )
-				pProfile->uiEyeDelay = uiEyeDelay;
-				
-			if ( uiMouthDelay != -1 )
-				pProfile->uiMouthDelay = uiMouthDelay;
-				
-			if ( uiWeeklySalary != -1 )
-				pProfile->uiWeeklySalary = uiWeeklySalary;
-		
-			if ( uiBiWeeklySalary != -1 )
-				pProfile->uiBiWeeklySalary = uiBiWeeklySalary;
-				
-			if ( sSalary != -1 )
-				pProfile->sSalary = sSalary;
+		x = lh_getIntegerFromTable(L, "SectorX");
+		y = lh_getIntegerFromTable(L, "SectorY");
+		z = lh_getIntegerFromTable(L, "SectorZ");
 
-			if ( ubBodyType != -1 )
-				pProfile->ubBodyType = ubBodyType;			
-		}
-	
-		
+		usEyesX = lh_getIntegerFromTable(L, "EyesX");
+		usEyesY = lh_getIntegerFromTable(L, "EyesY");
+		usMouthX = lh_getIntegerFromTable(L, "MouthX");
+		usMouthY = lh_getIntegerFromTable(L, "MouthY");
+		uiEyeDelay = lh_getIntegerFromTable(L, "EyeDelay");
+		uiMouthDelay = lh_getIntegerFromTable(L, "MouthDelay");
+
+		uiWeeklySalary = lh_getIntegerFromTable(L, "WeeklySalary");
+		uiBiWeeklySalary = lh_getIntegerFromTable(L, "BiWeeklySalary");
+		sSalary = lh_getIntegerFromTable(L, "Salary");
+		ubBodyType = lh_getIntegerFromTable(L, "BodyType");
+
+		if (x >= 1 && x <= 16)
+			pProfile->sSectorX = x;
+
+		if (y >= 1 && y <= 16)
+			pProfile->sSectorY = y;
+
+		if (z <= 3)
+			pProfile->bSectorZ = z;
+
+		if (usEyesX != -1)
+			pProfile->usEyesX = usEyesX;
+
+		if (usEyesY != -1)
+			pProfile->usEyesY = usEyesY;
+
+		if (usMouthX != -1)
+			pProfile->usMouthX = usMouthX;
+
+		if (usMouthY != -1)
+			pProfile->usMouthY = usMouthY;
+
+		if (uiEyeDelay != -1)
+			pProfile->uiEyeDelay = uiEyeDelay;
+
+		if (uiMouthDelay != -1)
+			pProfile->uiMouthDelay = uiMouthDelay;
+
+		if (uiWeeklySalary != -1)
+			pProfile->uiWeeklySalary = uiWeeklySalary;
+
+		if (uiBiWeeklySalary != -1)
+			pProfile->uiBiWeeklySalary = uiBiWeeklySalary;
+
+		if (sSalary != -1)
+			pProfile->sSalary = sSalary;
+
+		if (ubBodyType != -1)
+			pProfile->ubBodyType = ubBodyType;
+	}
+
 	return 0;
 }
 /*
@@ -6351,7 +6349,7 @@ static int l_ActivateSwitchInGridNo(lua_State *L)
 		UINT8 ubID = lua_tointeger(L, 1);
 		INT32 sGridNo = lua_tointeger(L, 2);
 
-		if (!TileIsOutOfBounds(sGridNo) > 0 && ubID < TOTAL_SOLDIERS)
+		if (!TileIsOutOfBounds(sGridNo) && ubID < TOTAL_SOLDIERS)
 			ActivateSwitchInGridNo(ubID, sGridNo);
 	}
 
