@@ -2924,25 +2924,23 @@ SOLDIERTYPE * FindSoldierByProfileID2( UINT8 ubProfileID, BOOLEAN fPlayerMercsOn
 	return( NULL );
 }
 
-BOOLEAN FindSoldier( SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex, BOOLEAN fPlayerMercsOnly)
+BOOLEAN FindSoldier(SOLDIERTYPE **ppSoldier, UINT16 usSoldierIndex, BOOLEAN fPlayerMercsOnly)
 {
-	//SOLDIERTYPE	 Menptr[ TOTAL_SOLDIERS ];
-
 	*ppSoldier = NULL;
 
-	if ( usSoldierIndex < 0 || usSoldierIndex > TOTAL_SOLDIERS-1 )
+	if (usSoldierIndex >= TOTAL_SOLDIERS)
 	{
-		return( FALSE );
+		return(FALSE);
 	}
 
-	if ( MercPtrs[ usSoldierIndex ]->bActive )
+	if (MercPtrs[usSoldierIndex]->bActive)
 	{
-		*ppSoldier = MercPtrs[ usSoldierIndex ];
-		return( TRUE);
+		*ppSoldier = MercPtrs[usSoldierIndex];
+		return(TRUE);
 	}
 	else
 	{
-		return( FALSE );
+		return(FALSE);
 	}
 }
 
@@ -3414,24 +3412,24 @@ static int l_ExecuteTacticalTextBox(lua_State *L)
 	UINT32 idText = 0;
 	UINT8  n = lua_gettop(L);
 	//wchar_t	sText[400];
-	UINT32	uiStartLoc=0;  
+	UINT32	uiStartLoc = 0;
 	CHAR16	zString[512];
 	int i;
 
 	//#define			LANGMESSAGEFILE		"BinaryData\\TacticalMessages.EDT"
 	//#define 		EDT_SIZE 400 * 2
 
-	for (i= 1; i<=n; i++ )
+	for (i = 1; i <= n; i++)
 	{
-		if (i == 1 ) sLeftPosition = lua_tointeger(L,i);
-		if (i == 2 ) idText = lua_tointeger(L,i);
-		
-	}	
-	/*	
+		if (i == 1) sLeftPosition = lua_tointeger(L, i);
+		if (i == 2) idText = lua_tointeger(L, i);
+
+	}
+	/*
 	if ( FileExists(LANGMESSAGEFILE) )
 	{
 		uiStartLoc = EDT_SIZE * idText;
-		LoadEncryptedDataFromFile(LANGMESSAGEFILE, sText, uiStartLoc, EDT_SIZE);	
+		LoadEncryptedDataFromFile(LANGMESSAGEFILE, sText, uiStartLoc, EDT_SIZE);
 		swprintf( zString, sText );
 	}
 	else
@@ -3440,67 +3438,53 @@ static int l_ExecuteTacticalTextBox(lua_State *L)
 		swprintf( zString, L"Empty Text" );
 	}
 	*/
-	if ( idText >= 0 && idText <= 1000 )
+	if (idText < 1000)
 	{
-		swprintf( zString, XMLTacticalMessages[idText] );
+		swprintf(zString, XMLTacticalMessages[idText]);
 
-		if ( sLeftPosition <= 0 ) sLeftPosition = 110;
+		if (sLeftPosition <= 0) sLeftPosition = 110;
 
-		ExecuteTacticalTextBox( sLeftPosition, zString );
+		ExecuteTacticalTextBox(sLeftPosition, zString);
 	}
-		
+
 	return 0;
 }
 
 static int l_SetMercArrivalLocation(lua_State *L)
 {
-UINT32 GridNo;
-UINT8  n = lua_gettop(L);
-int i;
+	UINT32 GridNo;
+	UINT8  n = lua_gettop(L);
+	int i;
 
-	for (i= 1; i<=n; i++ )
-		{
-			if (i == 1 ) GridNo = lua_tointeger(L,i);
-		}	
-	
-		gGameExternalOptions.iInitialMercArrivalLocation = GridNo;
-		
+	for (i = 1; i <= n; i++)
+	{
+		if (i == 1) GridNo = lua_tointeger(L, i);
+	}
+
+	gGameExternalOptions.iInitialMercArrivalLocation = GridNo;
+
 	return 0;
 }
 
-static int l_GetDefaultArrivalSectorY (lua_State *L)
+static int l_GetDefaultArrivalSectorY(lua_State *L)
 {
-INT16 sSectorY = 1;
+	lua_pushinteger(L, gsMercArriveSectorY);
 
-		sSectorY = gsMercArriveSectorY;
-		
-		lua_pushinteger(L, sSectorY);
-		
 	return 1;
 }
 
-static int l_GetDefaultArrivalSectorX (lua_State *L)
+static int l_GetDefaultArrivalSectorX(lua_State *L)
 {
-INT16 sSectorX = 9;
+	lua_pushinteger(L, gsMercArriveSectorX);
 
-		sSectorX = gsMercArriveSectorX;
-		
-		lua_pushinteger(L, sSectorX);
-		
 	return 1;
 }
 
-static int l_GetDefaultArrivalSector (lua_State *L)
+static int l_GetDefaultArrivalSector(lua_State *L)
 {
-INT16 sSectorX = 9;
-INT16 sSectorY = 1;
+	lua_pushinteger(L, gsMercArriveSectorX);
+	lua_pushinteger(L, gsMercArriveSectorY);
 
-		sSectorX = gsMercArriveSectorX;
-		sSectorY = gsMercArriveSectorY;
-		
-		lua_pushinteger(L, sSectorX);
-		lua_pushinteger(L, sSectorY);
-		
 	return 2;
 }
 
@@ -3569,20 +3553,19 @@ return 1;
 
 static int l_gubBoxerID(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-UINT8 val,val2;
+	UINT8  n = lua_gettop(L);
+	UINT8 val, val2;
 
-	for (i= 1; i<=n; i++ )
+	for (int i = 1; i <= n; i++)
 	{
-		if (i == 1 ) val = lua_tointeger(L,i);
-		if (i == 2 ) val2 = lua_tointeger(L,i);
+		if (i == 1) val = lua_tointeger(L, i);
+		if (i == 2) val2 = lua_tointeger(L, i);
 	}
-	
-	if ( val >= 0 && val <= 2 )
-		gubBoxerID[ val ] = val2;
-	
-return 0;
+
+	if (val <= 2)
+		gubBoxerID[val] = val2;
+
+	return 0;
 }
 
 static int l_CheckTalkerUnpropositionedFemale(lua_State *L)
@@ -4457,32 +4440,29 @@ INT16 sSectorY;
 
 static int l_SectorEnemy(lua_State *L)
 {
-UINT16 x = -1;
-UINT16 y = -1;
-UINT16 z = -1;
-UINT8 TROOPS_ILOSC = 0;
-UINT8 ELITA_ILOSC = 0;
-UINT8 CREATURE_ILOSC = 0;
-UINT8 TANKS_ILOSC = 0;
+	UINT16 x = 0;
+	UINT16 y = 0;
+	UINT8 TROOPS_ILOSC = 0;
+	UINT8 ELITA_ILOSC = 0;
+	UINT8 CREATURE_ILOSC = 0;
+	UINT8 TANKS_ILOSC = 0;
 
-	if ( ( x >= 1 || x <= 16 ) && ( y >= 1 || y <= 16 ) )
-		{
-			x = lh_getIntegerFromTable(L, "SectorX");
-			y = lh_getIntegerFromTable(L, "SectorY");
-			
-			TROOPS_ILOSC = lh_getIntegerFromTable(L, "Troops");
-			ELITA_ILOSC = lh_getIntegerFromTable(L, "Elite");
-			CREATURE_ILOSC = lh_getIntegerFromTable(L, "Creature");
-			TANKS_ILOSC = lh_getIntegerFromTable(L, "Tanks");
-				
-			//z = lh_getIntegerFromTable(L, "SectorZ");
-					
-			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumTroops = TROOPS_ILOSC;
-			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumElites = ELITA_ILOSC;
-			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumCreatures = CREATURE_ILOSC;	
-			SectorInfo[ (UINT8)SECTOR(  x,  y ) ].ubNumTanks = TANKS_ILOSC;
-		}
-		
+	x = lh_getIntegerFromTable(L, "SectorX");
+	y = lh_getIntegerFromTable(L, "SectorY");
+
+	TROOPS_ILOSC = lh_getIntegerFromTable(L, "Troops");
+	ELITA_ILOSC = lh_getIntegerFromTable(L, "Elite");
+	CREATURE_ILOSC = lh_getIntegerFromTable(L, "Creature");
+	TANKS_ILOSC = lh_getIntegerFromTable(L, "Tanks");
+
+	if (x >= 1 && x <= 16 && y >= 1 && y <= 16)
+	{
+		SectorInfo[(UINT8)SECTOR(x, y)].ubNumTroops = TROOPS_ILOSC;
+		SectorInfo[(UINT8)SECTOR(x, y)].ubNumElites = ELITA_ILOSC;
+		SectorInfo[(UINT8)SECTOR(x, y)].ubNumCreatures = CREATURE_ILOSC;
+		SectorInfo[(UINT8)SECTOR(x, y)].ubNumTanks = TANKS_ILOSC;
+	}
+
 	return 0;
 }
 
@@ -6006,42 +5986,36 @@ return 0;
 
 static int l_ActionInProgress(lua_State *L)
 {
-UINT8 cnt2;
-SOLDIERTYPE * pSoldier;
+	UINT8 cnt2;
+	SOLDIERTYPE * pSoldier;
 
-	if ( lua_gettop(L) >= 2 )
+	if (lua_gettop(L) >= 2)
 	{
-		UINT8 ID = lua_tointeger(L,1);
-		UINT8 cnt = lua_tointeger(L,2);
-	
-		if ( ID > -1 )
+		UINT8 ID = lua_tointeger(L, 1);
+		UINT8 cnt = lua_tointeger(L, 2);
+
+		if (ID < NUM_PROFILES)
 		{
-			pSoldier = FindSoldierByProfileID2( ID, TRUE );
+			pSoldier = FindSoldierByProfileID2(ID, TRUE);
 			if (pSoldier)
-				{
-					pSoldier->aiData.bActionInProgress = ExecuteAction( pSoldier);	
-				}
+			{
+				pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier);
+			}
 		}
 		else
 		{
-						
-			cnt2 = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
-					for ( pSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; cnt2++ ,pSoldier++)
-							{
-								if (pSoldier->bActive )
-									{
-										if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->ubProfile == NO_PROFILE  )
-											{
-												pSoldier->aiData.bActionInProgress = ExecuteAction( pSoldier);	
-											}
-									}
-							}
-			
-			
+			cnt2 = gTacticalStatus.Team[CIV_TEAM].bFirstID;
+			for (pSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[CIV_TEAM].bLastID; cnt2++, pSoldier++)
+			{
+				if (pSoldier->bActive && pSoldier->bInSector && pSoldier->ubProfile == NO_PROFILE)
+				{
+					pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier);
+				}
+			}
 		}
 	}
-	
-return 0;
+
+	return 0;
 }
 
 static int l_SetSoldierNonNeutral(lua_State *L)
@@ -6079,7 +6053,7 @@ return 0;
 
 static int l_CheckSoldierNoiseVolume(lua_State *L)
 {
-	UINT8 NoiseVolume = NOWHERE;
+	UINT8 NoiseVolume = 0;
 	SOLDIERTYPE * pSoldier;
 
 	if ( lua_gettop(L) >= 1 )
@@ -6372,51 +6346,49 @@ return 0;
 
 static int l_ActivateSwitchInGridNo(lua_State *L)
 {
-
-	if ( lua_gettop(L) >= 2 )
+	if (lua_gettop(L) >= 2)
 	{
-		UINT8 ubID = lua_tointeger(L,1);
-		INT32 sGridNo = lua_tointeger(L,2);
-	
-	if ( sGridNo > 0 && ubID > -1 )
-			ActivateSwitchInGridNo( ubID, sGridNo );
-			
+		UINT8 ubID = lua_tointeger(L, 1);
+		INT32 sGridNo = lua_tointeger(L, 2);
+
+		if (!TileIsOutOfBounds(sGridNo) > 0 && ubID < TOTAL_SOLDIERS)
+			ActivateSwitchInGridNo(ubID, sGridNo);
 	}
-	
-return 0;
+
+	return 0;
 }
 
 static int l_HandleNPCTriggerNPC(lua_State *L)
 {
-	if ( lua_gettop(L) >= 4 )
+	if (lua_gettop(L) >= 4)
 	{
-		UINT8 ubTargetNPC = lua_tointeger(L,1);
-		UINT8 ubTargetRecord = lua_tointeger(L,2);
-		BOOLEAN fShowDialogueMenu = lua_toboolean(L,3);
-		UINT8 ubTargetApproach = lua_tointeger(L,4);
+		UINT8 ubTargetNPC = lua_tointeger(L, 1);
+		UINT8 ubTargetRecord = lua_tointeger(L, 2);
+		BOOLEAN fShowDialogueMenu = lua_toboolean(L, 3);
+		UINT8 ubTargetApproach = lua_tointeger(L, 4);
 
-	if ( ubTargetNPC > -1 )
-			HandleNPCTriggerNPC ( ubTargetNPC, ubTargetRecord, fShowDialogueMenu, ubTargetApproach );
-	}			
-			
-return 0;
+		if (ubTargetNPC < NUM_PROFILES)
+			HandleNPCTriggerNPC(ubTargetNPC, ubTargetRecord, fShowDialogueMenu, ubTargetApproach);
+	}
+
+	return 0;
 }
 
 static int l_HandleNPCGotoGridNo(lua_State *L)
 {
 
-	if ( lua_gettop(L) >= 3 )
+	if (lua_gettop(L) >= 3)
 	{
-		UINT8 ubTargetNPC = lua_tointeger(L,1);
-		INT32 usGridNo = lua_tointeger(L,2);
-		UINT8 ubQuoteNum = lua_tointeger(L,3);
+		UINT8 ubTargetNPC = lua_tointeger(L, 1);
+		INT32 usGridNo = lua_tointeger(L, 2);
+		UINT8 ubQuoteNum = lua_tointeger(L, 3);
 
-	if ( ubTargetNPC > -1 )
-			HandleNPCGotoGridNo (ubTargetNPC , usGridNo, ubQuoteNum);
-			
-	}	
-	
-return 0;
+		if (ubTargetNPC < NUM_PROFILES)
+			HandleNPCGotoGridNo(ubTargetNPC, usGridNo, ubQuoteNum);
+
+	}
+
+	return 0;
 }
 
 static int l_HandleNPCClosePanel(lua_State *L)
@@ -6429,18 +6401,17 @@ return 0;
 
 static int l_HandleNPCDoAction(lua_State *L)
 {
-	if ( lua_gettop(L) >= 3 )
+	if (lua_gettop(L) >= 3)
 	{
-		UINT8 ID = lua_tointeger(L,1);
-		UINT16 usActionCode = lua_tointeger(L,2);
-		UINT8 ubQuoteNum = lua_tointeger(L,3);
+		UINT8 ID = lua_tointeger(L, 1);
+		UINT16 usActionCode = lua_tointeger(L, 2);
+		UINT8 ubQuoteNum = lua_tointeger(L, 3);
 
-	
-	if ( ID > -1 )
-			HandleNPCDoAction (ID , usActionCode, ubQuoteNum);
-	}		
+		if (ID < NUM_PROFILES)
+			HandleNPCDoAction(ID, usActionCode, ubQuoteNum);
+	}
 
-return 0;
+	return 0;
 }
 
 static int l_SetNextActionData(lua_State *L)
@@ -6528,40 +6499,39 @@ static int l_SoldierTo3DLocationLineOfSightTest(lua_State *L)
 }
 //------------
 
-static int l_NPCGotoGridNo (lua_State *L)
+static int l_NPCGotoGridNo(lua_State *L)
 {
-UINT32 sAdjustedGridNo;
-SOLDIERTYPE *		pSoldier;
+	UINT32 sAdjustedGridNo;
+	SOLDIERTYPE *		pSoldier;
 
-	if ( lua_gettop(L) >= 3 )
+	if (lua_gettop(L) >= 3)
 	{
-		UINT8 ID = lua_tointeger(L,1);
-		UINT32 Gridno = lua_tointeger(L,2);
-		UINT32 ubQuoteNum = lua_tointeger(L,3);
+		UINT8 ubID = lua_tointeger(L, 1);
+		INT32 sGridno = lua_tointeger(L, 2);
+		UINT32 ubQuoteNum = lua_tointeger(L, 3);
 
-
-	if ( ID  >= 0 && Gridno >= 1 )
-	{
-				pSoldier = FindSoldierByProfileID( ID, FALSE );
-				if (pSoldier)
+		if (ubID < NUM_PROFILES && !TileIsOutOfBounds(sGridno))
+		{
+			pSoldier = FindSoldierByProfileID(ubID, FALSE);
+			if (pSoldier)
+			{
+				if (NewOKDestination(pSoldier, sGridno, TRUE, 0))
 				{
-					if (NewOKDestination( pSoldier, Gridno, TRUE, 0 ) )
+					// go for it!
+					NPCGotoGridNo(ubID, sGridno, ubQuoteNum);
+				}
+				else
+				{
+					sAdjustedGridNo = FindAdjacentGridEx(pSoldier, sGridno, NULL, NULL, FALSE, FALSE);
+					if (sAdjustedGridNo != -1)
 					{
-						// go for it!
-						NPCGotoGridNo( ID, Gridno, ubQuoteNum );
-					}
-					else
-					{
-						sAdjustedGridNo = FindAdjacentGridEx( pSoldier, Gridno, NULL, NULL, FALSE, FALSE );
-						if (sAdjustedGridNo != -1)
-						{
-							NPCGotoGridNo( ID, sAdjustedGridNo, ubQuoteNum );
-						}
+						NPCGotoGridNo(ubID, sAdjustedGridNo, ubQuoteNum);
 					}
 				}
+			}
+		}
 	}
-	}
-return 0;
+	return 0;
 }
 
 //-------------------
@@ -7436,19 +7406,19 @@ static int l_SetOffBombsByFrequency (lua_State *L)
 
 
 //action
-static int l_TeleportSoldier (lua_State *L)
+static int l_TeleportSoldier(lua_State *L)
 {
-	if ( lua_gettop(L) >= 2 )
+	if (lua_gettop(L) >= 2)
 	{
-		UINT8 ID = lua_tointeger(L,1);
-		UINT32 sGridNo = lua_tointeger(L,2);
+		UINT8 ubID = lua_tointeger(L, 1);
+		INT32 sGridNo = lua_tointeger(L, 2);
 
-		if (ID >= 0 )
+		if (ubID < NUM_PROFILES && !TileIsOutOfBounds(sGridNo))
 		{
-			SOLDIERTYPE* pSoldier = FindSoldierByProfileID( ID, TRUE );
+			SOLDIERTYPE* pSoldier = FindSoldierByProfileID(ubID, TRUE);
 			if (pSoldier)
 			{
-				TeleportSoldier( pSoldier, sGridNo, TRUE );
+				TeleportSoldier(pSoldier, sGridNo, TRUE);
 			}
 		}
 	}
@@ -8014,18 +7984,17 @@ static int l_CheckSoldierActive (lua_State *L)
 	return 1;
 }
 
-static int l_CheckSoldierInSector (lua_State *L)
+static int l_CheckSoldierInSector(lua_State *L)
 {
-	if ( lua_gettop(L) >= 1 )
+	if (lua_gettop(L) >= 1)
 	{
-		UINT8 UID = lua_tointeger(L,1);
-
-		SOLDIERTYPE* pSoldier = FindSoldierByProfileID( UID, FALSE );
-
+		UINT8 ubID = lua_tointeger(L, 1);
+		SOLDIERTYPE* pSoldier = FindSoldierByProfileID(ubID, FALSE);
 		BOOLEAN Bool = FALSE;
-		if ( pSoldier && pSoldier->bInSector )
+
+		if (pSoldier && pSoldier->bInSector)
 			Bool = TRUE;
-		
+
 		lua_pushboolean(L, Bool);
 	}
 
@@ -8451,38 +8420,39 @@ static int l_CreateItem (lua_State *L)
 	return 0;
 }
 
-static int l_CreateItemInv (lua_State *L)
+static int l_CreateItemInv(lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-	int i;
-	OBJECTTYPE	Object;	
-	UINT8 UBID = 0;
-	SOLDIERTYPE *	pSoldier;
+	UINT8 n = lua_gettop(L);
+	OBJECTTYPE Object;
+	UINT8 ubID = NUM_PROFILES;
+	SOLDIERTYPE *pSoldier;
 	UINT16 BItemId = 0;
-	UINT8 slot = SMALLPOCK5POS;
+	UINT8 slot = NUM_INV_SLOTS;
 
-	for (i= 1; i<=n; i++ )
+	for (int i = 1; i <= n; i++)
 	{
-		if (i == 1 ) UBID = lua_tointeger(L,i);
-		if (i == 2 ) BItemId = lua_tointeger(L,i);
-		if (i == 3 ) slot = lua_tointeger(L,i);
+		if (i == 1) ubID = lua_tointeger(L, i);
+		if (i == 2) BItemId = lua_tointeger(L, i);
+		if (i == 3) slot = lua_tointeger(L, i);
 	}
 
-	pSoldier = FindSoldierByProfileID( UBID, FALSE );
-	if (pSoldier) 
+	if (ubID < NUM_PROFILES && slot <= SMALLPOCK30POS)
 	{
-		if (slot >= HELMETPOS || slot <= SMALLPOCK30POS )
-			CreateItem( (UINT16) (BItemId), 100, &( pSoldier->inv[ slot ] ) );
+		pSoldier = FindSoldierByProfileID(ubID, FALSE);
+		if (pSoldier)
+		{
+			CreateItem((UINT16)(BItemId), 100, &(pSoldier->inv[slot]));
+		}
 	}
-	
+
 	return 0;
 }
 
-static int l_CreateKeyProfInvAndAddItemToPool (lua_State *L)
+static int l_CreateKeyProfInvAndAddItemToPool(lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
 	int i;
-	OBJECTTYPE	Object;	
+	OBJECTTYPE	Object;
 	UINT8 ubNumberOfKeys;
 	UINT8 ubKeyIdValue;
 	UINT8 ubTargetNPC;
@@ -8490,25 +8460,25 @@ static int l_CreateKeyProfInvAndAddItemToPool (lua_State *L)
 	INT32	iWorldItem;
 	INT32 sGridNo;
 	UINT8 bLevel;
-	
-	for (i= 1; i<=n; i++ )
-	{
-		if (i == 1 ) ubTargetNPC = lua_tointeger(L,i);
-		if (i == 2 ) ubNumberOfKeys = lua_tointeger(L,i);
-		if (i == 3 ) ubKeyIdValue = lua_tointeger(L,i);
-		if (i == 4 ) sGridNo = lua_tointeger(L,i);
-		if (i == 5 ) bLevel = lua_tointeger(L,i);
-	}
-	
-		pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 
-		if ( pSoldier )
-			{
-				OBJECTTYPE Key;
-				CreateKeyObject( &Key , ubNumberOfKeys, ubKeyIdValue );
-				AutoPlaceObject( pSoldier, &Key, TRUE );
-				AddItemToPoolAndGetIndex( sGridNo, &Key, -1, bLevel, 0, 0, -1, &iWorldItem );
-			}	
+	for (i = 1; i <= n; i++)
+	{
+		if (i == 1) ubTargetNPC = lua_tointeger(L, i);
+		if (i == 2) ubNumberOfKeys = lua_tointeger(L, i);
+		if (i == 3) ubKeyIdValue = lua_tointeger(L, i);
+		if (i == 4) sGridNo = lua_tointeger(L, i);
+		if (i == 5) bLevel = lua_tointeger(L, i);
+	}
+
+	pSoldier = FindSoldierByProfileID(ubTargetNPC, FALSE);
+
+	if (pSoldier)
+	{
+		OBJECTTYPE Key;
+		CreateKeyObject(&Key, ubNumberOfKeys, ubKeyIdValue);
+		AutoPlaceObject(pSoldier, &Key, TRUE);
+		AddItemToPoolAndGetIndex(sGridNo, &Key, -1, bLevel, 0, 0, -1, &iWorldItem);
+	}
 
 	return 0;
 }
@@ -8629,7 +8599,7 @@ static int l_CreateItemToPool (lua_State *L)
 		if (i == 1 ) usItem = lua_tointeger(L,i);
 		if (i == 2 ) bStatus = lua_tointeger(L,i);
 		if (i == 3 ) sGridNo = lua_tointeger(L,i);
-		if (i == 5 ) bVisible = lua_tointeger(L,i);
+		if (i == 4 ) bVisible = lua_tointeger(L,i);
 		if (i == 5 ) ubLevel = lua_tointeger(L,i);
 		//if (i == 6 ) usFlags = lua_tointeger(L,i);
 		if (i == 6 ) bRenderZHeightAboveLevel = lua_tointeger(L,i);
@@ -10646,58 +10616,55 @@ static int l_TriggerNPCRecordImmediately(lua_State *L)
 //Add underground Sector
 static int l_AddAltUnderGroundSectorNew(lua_State *L)
 {
-	UINT8 x = 0,y = 0,z = 0;
-	UINT8  n = lua_gettop(L);
-	int i = 0;
+	UINT8 x = 0, y = 0, z = 255;
+	UINT8 n = lua_gettop(L);
 
-	for (i= 1; i<=n; i++ )
+	for (int i = 1; i <= n; i++)
 	{
-		if (i == 1 ) x = lua_tointeger(L,i);
-		if (i == 2 ) y = lua_tointeger(L,i);
-		if (i == 3 ) z = lua_tointeger(L,i);
+		if (i == 1) x = lua_tointeger(L, i);
+		if (i == 2) y = lua_tointeger(L, i);
+		if (i == 3) z = lua_tointeger(L, i);
 	}
-	
-	if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
-	{	
+
+	if (x >= 1 && x <= 16 && y >= 1 && y <= 16 && z >= 1 && z <= 3)
+	{
 		UNDERGROUND_SECTORINFO *pSector;
-		pSector = FindUnderGroundSector( x, y, z ); 
-		if( pSector )
+		pSector = FindUnderGroundSector(x, y, z);
+		if (pSector)
 		{
 			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 		}
 	}
-	
-	return 0;	
+
+	return 0;
 }
 
 static int l_UnderGroundSectorVisited(lua_State *L)
 {
-	UINT8 x = 0,y = 0,z = 0;
+	UINT8 x = 0, y = 0, z = 255;
 	UINT8  n = lua_gettop(L);
-	int i = 0;
 	BOOLEAN Bool = FALSE;
 
-	for (i= 1; i<=n; i++ )
+	for (int i = 1; i <= n; i++)
 	{
-		if (i == 1 ) x = lua_tointeger(L,i);
-		if (i == 2 ) y = lua_tointeger(L,i);
-		if (i == 3 ) z = lua_tointeger(L,i);
+		if (i == 1) x = lua_tointeger(L, i);
+		if (i == 2) y = lua_tointeger(L, i);
+		if (i == 3) z = lua_tointeger(L, i);
 	}
-	
-	if ((x>=1 || x<=16) && (y>=1 || y<=16) && (z>=0 || z<=3) )
-	{	
+
+	if (x >= 1 && x <= 16 && y >= 1 && y <= 16 && z >= 1 && z <= 3)
+	{
 		UNDERGROUND_SECTORINFO *pSector;
-		pSector = FindUnderGroundSector( x, y, z ); 
-		if( pSector )
+		pSector = FindUnderGroundSector(x, y, z);
+		if (pSector)
 		{
 			Bool = pSector->fVisited;
-			
 		}
 	}
-	
-	lua_pushboolean(L, Bool);	
-		
-	return 1;	
+
+	lua_pushboolean(L, Bool);
+
+	return 1;
 }
 
 //Add underGroundSector
@@ -10725,30 +10692,28 @@ static int l_AddAlternateSectorNew(lua_State *L)
 static int l_AddNPCTOSECTOR(lua_State *L)
 {
 	MERCPROFILESTRUCT * pProfile;
-	UINT8 x = 0,y = 0,z = 0,id = 0;
-	UINT8  n = lua_gettop(L);
-	int i = 0;
+	UINT8 x = 0, y = 0, z = 255, id = NUM_PROFILES;
+	UINT8 n = lua_gettop(L);
 
-	for (i= 1; i<=n; i++ )
+	for (int i = 1; i <= n; i++)
 	{
-		if (i == 1 ) id = lua_tointeger(L,i);
-		if (i == 2 ) x = lua_tointeger(L,i);
-		if (i == 3 ) y = lua_tointeger(L,i);
-		if (i == 4 ) z = lua_tointeger(L,i);
+		if (i == 1) id = lua_tointeger(L, i);
+		if (i == 2) x = lua_tointeger(L, i);
+		if (i == 3) y = lua_tointeger(L, i);
+		if (i == 4) z = lua_tointeger(L, i);
 	}
-	 
-	if ( (x>=0 || x<=16) && (y>=0 || y<=16) && (z>=0 || z<=3) )
+
+	if (id < NUM_PROFILES && x >= 1 && x <= 16 && y >= 1 && y <= 16 && z <= 3)
 	{
-		pProfile = &(gMercProfiles[ id ]);
+		pProfile = &(gMercProfiles[id]);
 
 		pProfile->sSectorX = x;
 		pProfile->sSectorY = y;
 		pProfile->bSectorZ = z;
 	}
-	
+
 	return 0;
 }
-
 
 //Check character Sector New
 static int l_CheckNPCSectorNew (lua_State *L)
@@ -11997,31 +11962,26 @@ static int l_VisibleTown (lua_State *L)
 
 //---------------
 
-static int l_HireMerc (lua_State *L)
+static int l_HireMerc(lua_State *L)
 {
 	MERC_HIRE_STRUCT HireMercStruct;
-	
-	INT16	sSoldierID=0;
+	INT16	sSoldierID = 0;
 	INT16	iTotalContract = 7;
 	UINT32  iTimeTillMercArrives = 0;
-	
 	UINT8 n = lua_gettop(L);
-	
-	int i = 0;
-	UINT8 ubCurrentSoldier = 0;
-	
-	
-	for (i= 1; i<=n; i++ )
+	UINT8 ubCurrentSoldier = NUM_PROFILES;
+
+	for (int i = 1; i <= n; i++)
 	{
-		if (i == 1 ) ubCurrentSoldier = lua_tointeger(L,i);
-		if (i == 2 ) iTotalContract = lua_tointeger(L,i);
-		if (i == 3 ) iTimeTillMercArrives = lua_tointeger(L,i);	
+		if (i == 1) ubCurrentSoldier = lua_tointeger(L, i);
+		if (i == 2) iTotalContract = lua_tointeger(L, i);
+		if (i == 3) iTimeTillMercArrives = lua_tointeger(L, i);
 	}
-		
-	if ( ubCurrentSoldier <= NUM_PROFILES && ubCurrentSoldier != -1 )
-	{		
+
+	if (ubCurrentSoldier < NUM_PROFILES)
+	{
 		memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
-		
+
 		//HireMercStruct.bMercStatus  = MERC_OK;
 
 		HireMercStruct.ubProfileID = ubCurrentSoldier;
@@ -12030,34 +11990,34 @@ static int l_HireMerc (lua_State *L)
 		HireMercStruct.sSectorY = gsMercArriveSectorY;
 		HireMercStruct.fUseLandingZoneForArrival = TRUE;
 
-		HireMercStruct.fCopyProfileItemsOver =	TRUE;
-		HireMercStruct.ubInsertionCode		= INSERTION_CODE_CHOPPER;
+		HireMercStruct.fCopyProfileItemsOver = TRUE;
+		HireMercStruct.ubInsertionCode = INSERTION_CODE_CHOPPER;
 
 		HireMercStruct.iTotalContractLength = iTotalContract;
 
 		//specify when the merc should arrive
 		HireMercStruct.uiTimeTillMercArrives = iTimeTillMercArrives;
 
-		//if we succesfully hired the merc
-		if( !HireMerc( &HireMercStruct ) )
+		//if we successfully hired the merc
+		if (!HireMerc(&HireMercStruct))
 		{
-			sSoldierID = GetSoldierIDFromMercID( ubCurrentSoldier );
-			if( sSoldierID > -1 )
-				Menptr[ sSoldierID ].bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
+			sSoldierID = GetSoldierIDFromMercID(ubCurrentSoldier);
+			if (sSoldierID > -1)
+				Menptr[sSoldierID].bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
 
-			gMercProfiles[ubCurrentSoldier].bMercStatus  = MERC_OK;
-		
-			//add an entry in the finacial page for the hiring of the merc
-			AddTransactionToPlayersBook(HIRED_MERC, ubCurrentSoldier, GetWorldTotalMin(), -(INT32) gMercProfiles[ubCurrentSoldier].uiWeeklySalary );
+			gMercProfiles[ubCurrentSoldier].bMercStatus = MERC_OK;
 
-			if( gMercProfiles[ ubCurrentSoldier ].bMedicalDeposit )
+			//add an entry in the financial page for the hiring of the merc
+			AddTransactionToPlayersBook(HIRED_MERC, ubCurrentSoldier, GetWorldTotalMin(), -(INT32)gMercProfiles[ubCurrentSoldier].uiWeeklySalary);
+
+			if (gMercProfiles[ubCurrentSoldier].bMedicalDeposit)
 			{
-				//add an entry in the finacial page for the medical deposit
-				AddTransactionToPlayersBook(MEDICAL_DEPOSIT, ubCurrentSoldier, GetWorldTotalMin(), -(gMercProfiles[ubCurrentSoldier].sMedicalDepositAmount) );
+				//add an entry in the financial page for the medical deposit
+				AddTransactionToPlayersBook(MEDICAL_DEPOSIT, ubCurrentSoldier, GetWorldTotalMin(), -(gMercProfiles[ubCurrentSoldier].sMedicalDepositAmount));
 			}
 
 			//add an entry in the history page for the hiring of the merc
-			AddHistoryToPlayersLog( HISTORY_HIRED_MERC_FROM_AIM, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
+			AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_AIM, ubCurrentSoldier, GetWorldTotalMin(), -1, -1);
 		}
 	}
 
