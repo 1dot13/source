@@ -2902,6 +2902,8 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 	this->usQuickItemId = 0;
 	this->ubQuickItemSlot = 0;
 
+	this->usGrenadeItem = 0;
+
 	return TRUE;
 }
 

@@ -1055,6 +1055,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		this->usQuickItemId = 0;
 		this->ubQuickItemSlot = 0;
 
+		this->usGrenadeItem = 0;
 	}
 	return *this;
 }
@@ -2979,6 +2980,85 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	///////////////////////////////////////////////////////////////////////
 	//			DO SOME CHECKS ON OUR NEW ANIMATION!
 	/////////////////////////////////////////////////////////////////////
+
+	if (usNewState == THROW_GRENADE_STANCE || usNewState == LOB_GRENADE_STANCE || usNewState == THROW_ITEM || usNewState == THROW_ITEM_CROUCHED)
+	{
+		UINT16 usItem = this->usGrenadeItem;
+		UINT8 ubVolume = Weapon[usItem].ubAttackVolume;
+
+		// play grenade pin sound
+		if (usItem && Item[usItem].usItemClass == IC_GRENADE)
+		{
+			CHAR8	zFilename[512];
+			sprintf(zFilename, "");
+
+			BOOLEAN fDelay = FALSE;
+
+			if (usNewState == THROW_GRENADE_STANCE && gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND && this->ubBodyType < REGFEMALE)
+			{
+				fDelay = TRUE;
+			}
+
+			// check if custom sound is set in Weapons.xml
+			if (Weapon[usItem].sSound)
+			{
+				PlayJA2Sample(Weapon[Item[usItem].ubClassIndex].sSound, RATE_11025, SoundVolume(MIDVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
+			}
+			else
+			{
+				if (Item[usItem].flare ||
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SIGNAL_SMOKE ||
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_FLARE)
+				{
+					if (usItem == BREAK_LIGHT)
+					{
+						if (fDelay)
+							sprintf(zFilename, "sounds\\grenade\\grenade_breaklight_delay.ogg");
+						else
+							sprintf(zFilename, "sounds\\grenade\\grenade_breaklight.ogg");
+					}
+					else
+					{
+						if (fDelay)
+							sprintf(zFilename, "sounds\\grenade\\grenade_flare_delay.ogg");
+						else
+							sprintf(zFilename, "sounds\\grenade\\grenade_flare.ogg");
+					}
+				}
+				else if (Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL ||
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_STUN ||
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_FLASHBANG)
+				{
+					if (fDelay)
+						sprintf(zFilename, "sounds\\grenade\\grenade_pin_delay.ogg");
+					else
+						sprintf(zFilename, "sounds\\grenade\\grenade_pin.ogg");
+				}
+				else if (Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SMOKE ||
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_TEARGAS ||
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_MUSTGAS ||
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SMOKE)
+				{
+					if (fDelay)
+						sprintf(zFilename, "sounds\\grenade\\grenade_gas_delay.ogg");
+					else
+						sprintf(zFilename, "sounds\\grenade\\grenade_gas.ogg");
+				}
+				else if (Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS)
+				{
+					if (fDelay)
+						sprintf(zFilename, "sounds\\grenade\\grenade_fire_delay.ogg");
+					else
+						sprintf(zFilename, "sounds\\grenade\\grenade_fire.ogg");
+				}
+
+				if (strlen(zFilename) > 0 && FileExists(zFilename))
+				{
+					PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
+				}
+			}
+		}
+	}
 
 	// If we are NOT loading a game, continue normally
 	if ( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )

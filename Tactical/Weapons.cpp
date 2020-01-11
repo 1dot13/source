@@ -3489,7 +3489,8 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	// anv: melee attack noise
 	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
 	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
-	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
+	// sevenfm: better make it NOISE_BULLET_IMPACT instead of NOISE_UNKNOWN so AI can associate it with enemy presence
+	MakeNoise(pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_BULLET_IMPACT);
 
 	// possibly reduce monster smell
 	if ( pSoldier->aiData.bMonsterSmell > 0 && Random( 5 ) == 0 )
@@ -4193,7 +4194,8 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 	// anv: hth (inluding blunt weapons) attack noise
 	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
 	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
-	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
+	// sevenfm: better make it NOISE_BULLET_IMPACT instead of NOISE_UNKNOWN so AI can associate it with enemy presence
+	MakeNoise(pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_BULLET_IMPACT);
 
 	// possibly reduce monster smell (gunpowder smell)
 	if ( pSoldier->aiData.bMonsterSmell > 0 && Random( 5 ) == 0 )
@@ -4308,38 +4310,27 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 
 	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, (INT16)(pSoldier->bTargetLevel * 256 ), &(pSoldier->inv[ HANDPOS ] ), uiHitChance, THROW_ARM_ITEM, 0, pSoldier->inv[HANDPOS].usItem );
 
-#if 0//dnl ch72 180913 bad idea to charge APs before stance and turn really occurs, this was not here in v1.12
-	//AXP 25.03.2007: Cleaned up throwing AP costs. Now only turning + stance change AP
-	//	costs are deducted. Final throw cost is deducted on creating the grenade object
-	if ( (UINT8)GetDirectionFromGridNo( sTargetGridNo, pSoldier ) != pSoldier->ubDirection )
-			sAPCost += (INT16)GetAPsToLook( pSoldier );
-	sAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+	// anv: knife throw attack noise
+	UINT16 usItem = pSoldier->GetUsedWeaponNumber(&pSoldier->inv[pSoldier->ubAttackingHand]);
+	UINT8 ubVolume = Weapon[usItem].ubAttackVolume;
 
-	HandleSoldierThrowItem( pSoldier, pSoldier->sTargetGridNo );
-	DeductPoints( pSoldier, sAPCost, 0, AFTERSHOT_INTERRUPT );
-	pSoldier->inv[ HANDPOS ].RemoveObjectsFromStack(1);
-#else
+	pSoldier->usGrenadeItem = 0;
+
+	// grenade pin sound
+	if (usItem && Item[usItem].usItemClass != IC_THROWING_KNIFE)
+	{
+		pSoldier->usGrenadeItem = usItem;
+		ubVolume = 10;
+	}
+
+	if (ubVolume > 0)
+	{
+		// sevenfm: better make it NOISE_GRENADE_IMPACT instead of NOISE_UNKNOWN so AI can associate it with enemy presence
+		MakeNoise(pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_GRENADE_IMPACT);
+	}
+
 	HandleSoldierThrowItem(pSoldier, pSoldier->sTargetGridNo);
 	pSoldier->inv[HANDPOS].RemoveObjectsFromStack(1);
-#endif
-	/*
-	// Madd: Next 2 lines added: Deduct points!
-
-	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->aiData.bAimTime );
-    // Kaiden: Deducting points too early, moving the line down
-	//DeductPoints( pSoldier, sAPCost, 0 );
-
-	// OK, goto throw animation
-	HandleSoldierThrowItem( pSoldier, pSoldier->sTargetGridNo );
-    // Kaiden: Deducting points too early, moving the line down
-	DeductPoints( pSoldier, sAPCost, 0 );
-	RemoveObjs( &(pSoldier->inv[ HANDPOS ] ), 1 );
-	*/
-
-	// anv: knife throw attack noise
-	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
-	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
-	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
 
 	return( TRUE );
 }
@@ -4584,7 +4575,8 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	// anv: launcher attack noise
 	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[ pSoldier->ubAttackingHand ] );
 	UINT8 ubVolume = Weapon[ usUBItem ].ubAttackVolume;
-	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_UNKNOWN );
+	// sevenfm: better make it NOISE_GUNFIRE instead of NOISE_UNKNOWN so AI can associate it with enemy presence
+	MakeNoise(pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_GUNFIRE);
 
 	return( TRUE );
 }

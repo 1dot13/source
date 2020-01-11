@@ -2109,6 +2109,8 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 
 	pSoldier->usQuickItemId = 0;
 	pSoldier->ubQuickItemSlot = 0;
+
+	pSoldier->usGrenadeItem = 0;
 }
 
 

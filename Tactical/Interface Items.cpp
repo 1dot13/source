@@ -9557,6 +9557,7 @@ BOOLEAN HandleItemPointerClick( INT32 usMapPos )
 			CalculateLaunchItemParamsForThrow(gpItemPointerSoldier, sGridNo, gsInterfaceLevel, (INT16)(gsInterfaceLevel * 256 + sEndZ), gpItemPointer, 100, ubThrowActionCode, uiThrowActionData, gpItemPointer->usItem);
 
 			// OK, goto throw animation
+			gpItemPointerSoldier->usGrenadeItem = 0;
 			HandleSoldierThrowItem( gpItemPointerSoldier, usMapPos );
 		}
 	}
