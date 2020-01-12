@@ -3842,14 +3842,17 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 			newTotCost = curCost + nextCost;
 
-			// sevenfm: experimental path AI tweaks
+			// sevenfm: experimental path tweaks for AI
 			if (s->bTeam != gbPlayerNum &&
 				!(s->flags.uiStatusFlags & SOLDIER_BOXER) &&
 				!AreInMeanwhile() &&
 				IS_MERC_BODY_TYPE(s))
 			{
-				if (InGasSpot(s, newLoc, bLevel) ||
-					DeepWater(newLoc, bLevel) && (s->numFlanks == 0 || s->numFlanks >= MAX_FLANKS_RED))
+				if (InGasSpot(s, newLoc, bLevel))
+				{
+					nextCost += 40;
+				}
+				else if (DeepWater(newLoc, bLevel) && (s->numFlanks == 0 || s->numFlanks >= MAX_FLANKS_RED))
 				{
 					nextCost += 20;
 				}
