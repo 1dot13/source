@@ -3846,13 +3846,22 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			if (s->bTeam != gbPlayerNum &&
 				!(s->flags.uiStatusFlags & SOLDIER_BOXER) &&
 				!AreInMeanwhile() &&
-				IS_MERC_BODY_TYPE(s) &&
-				(InGasSpot(s, newLoc, bLevel) ||
-				DeepWater(newLoc, bLevel) && (s->numFlanks == 0 || s->numFlanks >= MAX_FLANKS_RED) ||
-				s->bTeam == ENEMY_TEAM && s->aiData.bAlertStatus >= STATUS_RED && (s->aiData.bAttitude == CUNNINGSOLO || s->aiData.bAttitude == CUNNINGAID || s->aiData.bAIMorale < MORALE_FEARLESS) &&
-				(InLightAtNight(newLoc, bLevel) || GetNearestRottingCorpseAIWarning(newLoc) > 0)))
+				IS_MERC_BODY_TYPE(s))
 			{
-				nextCost += 20;
+				if (InGasSpot(s, newLoc, bLevel) ||
+					DeepWater(newLoc, bLevel) && (s->numFlanks == 0 || s->numFlanks >= MAX_FLANKS_RED))
+				{
+					nextCost += 20;
+				}
+				else if (s->bTeam == ENEMY_TEAM && 
+						s->aiData.bAlertStatus >= STATUS_RED &&
+						(InLightAtNight(newLoc, bLevel) || GetNearestRottingCorpseAIWarning(newLoc) > 0))
+				{
+					if (s->aiData.bAttitude == CUNNINGSOLO || s->aiData.bAttitude == CUNNINGAID || s->aiData.bAIMorale < MORALE_FEARLESS)
+						nextCost += 20;
+					else
+						nextCost += 10;
+				}
 			}
 
 /*

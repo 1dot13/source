@@ -1038,6 +1038,14 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				continue;
 			}
 
+			// sevenfm: avoid moving into light
+			if (InLightAtNight(sGridNo, pSoldier->pathing.bLevel) &&
+				!InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+				!pSoldier->aiData.bUnderFire)
+			{
+				continue;
+			}
+
 			iPathCost = gubAIPathCosts[AI_PATHCOST_RADIUS + sXOffset][AI_PATHCOST_RADIUS + sYOffset];
 			/*
 			// water is OK, if the only good hiding place requires us to get wet, OK
@@ -2443,7 +2451,6 @@ INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 	INT32 iDistance, iClosestDistance = 9999;
 	UINT16 usRoom;
 	SOLDIERTYPE *pDarren;
-	UINT8 ubLoop;
 	pDarren = FindSoldierByProfileID(DARREN, FALSE);
 
 	// set the distance limit of the square region
@@ -2454,12 +2461,6 @@ INT32 FindClosestBoxingRingSpot( SOLDIERTYPE * pSoldier, BOOLEAN fInRing )
 	//NumMessage("sMaxLeft = ",sMaxLeft);
 	sMaxRight = min( iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 	//NumMessage("sMaxRight = ",sMaxRight);
-
-	/*if ( (pSoldier->bTeam == gbPlayerNum) && (fInRing == FALSE) )
-	{
-		// have player not go to the left of the ring
-		sMaxLeft = 0;
-	}*/
 
 	// determine maximum vertical limits
 	sMaxUp   = min( iSearchRange, (pSoldier->sGridNo / MAXROW));
