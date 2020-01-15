@@ -317,41 +317,66 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		return( ITEM_HANDLE_BROKEN );
 	}
 
-	if ( fFromUI && pSoldier->bTeam == gbPlayerNum && pTargetSoldier && 
-		 (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral) && pTargetSoldier->ubBodyType != CROW && 
-		 Item[usHandItem].usItemClass != IC_MEDKIT && 
-		 !Item[usHandItem].gascan &&
-		 !ItemCanBeAppliedToOthers( usHandItem ) &&
-		 !HasItemFlag( usHandItem, EMPTY_BLOOD_BAG ) )
+	if (fFromUI &&
+		pSoldier->bTeam == gbPlayerNum &&
+		pSoldier->ubProfile != NO_PROFILE &&
+		pTargetSoldier &&		
+		Item[usHandItem].usItemClass != IC_MEDKIT &&
+		!Item[usHandItem].gascan &&
+		!ItemCanBeAppliedToOthers(usHandItem) &&
+		!HasItemFlag(usHandItem, EMPTY_BLOOD_BAG))
 	{
-		if ( pSoldier->ubProfile != NO_PROFILE	)
+		if (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral)
 		{
 			// nice mercs won't shoot other nice guys or neutral civilians
-			if ( (gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) && ( (pTargetSoldier->ubProfile == NO_PROFILE && pTargetSoldier->aiData.bNeutral) || gMercProfiles[ pTargetSoldier->ubProfile ].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) )
+			if ((gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) &&
+				((pTargetSoldier->ubProfile == NO_PROFILE && pTargetSoldier->aiData.bNeutral && pTargetSoldier->ubBodyType != CROW) ||
+				pTargetSoldier->ubProfile != NO_PROFILE && gMercProfiles[pTargetSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY))
 			{
-				TacticalCharacterDialogue( pSoldier, QUOTE_REFUSING_ORDER );
-				return( ITEM_HANDLE_REFUSAL );
+				TacticalCharacterDialogue(pSoldier, QUOTE_REFUSING_ORDER);
+				return(ITEM_HANDLE_REFUSAL);
 			}
 
-			if ( pTargetSoldier->ubProfile != NO_PROFILE )
+			if (pTargetSoldier->ubProfile != NO_PROFILE)
 			{
 				// Flugente: as relations are now dynamic, check that instead
 				// buddies won't shoot each other
-				INT8 bOpinion = SoldierRelation( pSoldier, pTargetSoldier );
+				INT8 bOpinion = SoldierRelation(pSoldier, pTargetSoldier);
 
-				if ( bOpinion > BUDDY_OPINION - 5 || ((gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) && bOpinion > HATED_OPINION + 5) )
+				if (bOpinion > BUDDY_OPINION - 5 || ((gMercProfiles[pSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) && bOpinion > HATED_OPINION + 5))
 				{
-					TacticalCharacterDialogue( pSoldier, QUOTE_REFUSING_ORDER );
+					TacticalCharacterDialogue(pSoldier, QUOTE_REFUSING_ORDER);
 					return(ITEM_HANDLE_REFUSAL);
 				}
 			}
 
 			// any recruited rebel will refuse to fire on another rebel or neutral nameless civ
-			if ( pSoldier->ubCivilianGroup == REBEL_CIV_GROUP && (pTargetSoldier->ubCivilianGroup == REBEL_CIV_GROUP || ( pTargetSoldier->aiData.bNeutral && pTargetSoldier->ubProfile == NO_PROFILE && pTargetSoldier->ubCivilianGroup == NON_CIV_GROUP && pTargetSoldier->ubBodyType != CROW ) ) )
+			if (pSoldier->ubCivilianGroup == REBEL_CIV_GROUP &&
+				(pTargetSoldier->ubCivilianGroup == REBEL_CIV_GROUP ||
+				(pTargetSoldier->aiData.bNeutral && pTargetSoldier->ubProfile == NO_PROFILE && pTargetSoldier->ubCivilianGroup == NON_CIV_GROUP && pTargetSoldier->ubBodyType != CROW)))
 			{
-				TacticalCharacterDialogue( pSoldier, QUOTE_REFUSING_ORDER );
-				return( ITEM_HANDLE_REFUSAL );
+				TacticalCharacterDialogue(pSoldier, QUOTE_REFUSING_ORDER);
+				return(ITEM_HANDLE_REFUSAL);
 			}
+
+			// civgroup loyal will attack members of the same group
+			if (pSoldier->ubCivilianGroup != NON_CIV_GROUP &&
+				pSoldier->HasBackgroundFlag(BACKGROUND_CIVGROUPLOYAL) &&
+				pTargetSoldier->ubCivilianGroup == pSoldier->ubCivilianGroup)
+			{
+				TacticalCharacterDialogue(pSoldier, QUOTE_REFUSING_ORDER);
+				return(ITEM_HANDLE_REFUSAL);
+			}
+		}
+
+		// animal friend will refuse to attack animals
+		if (pSoldier->HasBackgroundFlag(BACKGROUND_ANIMALFRIEND) &&
+			(pTargetSoldier->ubBodyType == CROW || pTargetSoldier->ubBodyType == COW || pTargetSoldier->ubBodyType == BLOODCAT) &&
+			pSoldier->ubPreviousAttackerID != pTargetSoldier->ubID &&
+			pSoldier->ubNextToPreviousAttackerID != pTargetSoldier->ubID)
+		{
+			TacticalCharacterDialogue(pSoldier, QUOTE_REFUSING_ORDER);
+			return(ITEM_HANDLE_REFUSAL);
 		}
 	}
 
@@ -7959,7 +7984,7 @@ std::vector<std::pair<INT16, STR16> > GetTileSetIndexVector( INT16 aKey )
 {
 	std::vector<std::pair<INT16, STR16> > vec;
 
-	if ( 0 <= aKey && aKey <= STRUCTURE_CONSTRUCT_MAX )
+	if ( 0 <= aKey && aKey < STRUCTURE_CONSTRUCT_MAX )
 	{
 		std::set<UINT8> indexset;
 

@@ -9008,6 +9008,9 @@ STR16		szBackgroundText_Flags[]=
 	L" male only", //L" male only",      won't show up, text exists for compatibility reasons
 
 	L"如果我们死了所有城镇都会受到巨大的忠诚惩罚\n", //L" huge loyality penalty in all towns if we die\n",
+
+	L" refuses to attack animals\n",	// TODO.Translate
+	L" refuses to attack members of the same group\n",	// TODO.Translate
 };
 
 STR16	szBackgroundText_Value[]=

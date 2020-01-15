@@ -9008,6 +9008,9 @@ STR16		szBackgroundText_Flags[]=
 	L" male only",								// won't show up, text exists for compatibility reasons
 
 	L" huge loyality penalty in all towns if we die\n",
+
+	L" refuses to attack animals\n",
+	L" refuses to attack members of the same group\n",
 };
 
 STR16	szBackgroundText_Value[]=
@@ -9096,7 +9099,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% building speed\n",
 	L" hacking skill: %s%d ",
 	L" %s%d%% burial speed\n",
-	L" %s%d%% administration effectiveness\n",
+	L" %s%d%% administration effectiveness\n",	
 };
 
 STR16		szBackgroundTitleText[] = 

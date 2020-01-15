@@ -9007,7 +9007,10 @@ STR16		szBackgroundText_Flags[]=
 	L" только женский",							// won't show up, text exists for compatibility reasons
 	L" только мужской",							// won't show up, text exists for compatibility reasons
 
-	L" значительный штраф к лояльности во всех городах, если мы умрём\n",
+	L" значительный штраф к лояльности во всех городах, если умирает\n",
+
+	L" отказывается атаковать животных\n",
+	L" отказывается атаковать тех, кто состоит в той же группе\n",
 };
 
 STR16	szBackgroundText_Value[]=

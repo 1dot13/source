@@ -452,7 +452,10 @@ enum
 
 #define BACKGROUND_GLOBALOYALITYLOSSONDEATH		0x0000000000000100	//256			// if character dies, huge loyalty loss in entire country
 
-#define BACKGROUND_FLAG_MAX	9					// number of flagged backgrounds - keep this updated, or properties will get lost!
+#define BACKGROUND_ANIMALFRIEND					0x0000000000000200	//512			// refuses to attack animals
+#define BACKGROUND_CIVGROUPLOYAL				0x0000000000000400	//1024			// refuses to attack members of the same civgroup
+
+#define BACKGROUND_FLAG_MAX	11					// number of flagged backgrounds - keep this updated, or properties will get lost!
 
 // some properties are hidden (forbid background in MP creation)
 // corruption property is not relevant in 1.13

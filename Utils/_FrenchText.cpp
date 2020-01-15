@@ -9008,6 +9008,9 @@ STR16		szBackgroundText_Flags[]=
 	L" homme seulement",								// won't show up, text exists for compatibility reasons
 
 	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
+
+	L" refuses to attack animals\n",	// TODO.Translate
+	L" refuses to attack members of the same group\n",	// TODO.Translate
 };
 
 
