@@ -110,6 +110,8 @@
 		<no_male>0</no_male>			<!-- IMP creation: cannot be selected by males -->
 		<no_female>0</no_female>		<!-- IMP creation: cannot be selected by females -->
 		<loyalitylossondeath>0</loyalitylossondeath>      <!-- huge loyality loss in entire country on death -->
+		<animal_friend>0</animal_friend>	<!-- refuses to attack animals-->
+		<civgroup_loyal>0</civgroup_loyal>	<!-- refuses to attack members of the same civilian group -->
 	</BACKGROUND>
 	<!-- Note that Barry's background had to be moved to slot 255 due to index number 0 already being taken -->
 	<!-- Blood -->

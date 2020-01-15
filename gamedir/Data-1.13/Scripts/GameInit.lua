@@ -286,7 +286,7 @@ local BOBBY_R_MEDUNA_SHIPMENT_LENGTH = 	4
 
 local iStartingCash = 0
 
-Fincances = 
+Finances = 
 {
 	ACCRUED_INTEREST = 0,
 	ANONYMOUS_DEPOSIT = 1,
@@ -530,6 +530,6 @@ function InitNewGame()
 	elseif ( newDIFFICULTY_LEVEL == DIF_LEVEL_INSANE ) then
 		iStartingCash = GetStartingCashInsane()
 	end
-	AddTransactionToPlayersBook( Fincances.ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash )
+	AddTransactionToPlayersBook( Finances.ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin(), iStartingCash )
 	]]
 end
