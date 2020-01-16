@@ -1664,7 +1664,7 @@ void DisplayCharStats( INT32 iId, INT32 iSlot )
 			// Background
 
 			// display background
-			if ( UsingBackGroundSystem() )
+			if (UsingBackGroundSystem())
 			{
 				UINT8 loc = 21;
 				UINT8 regionnr = 12;

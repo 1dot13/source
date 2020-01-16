@@ -1945,7 +1945,8 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fCampaignHistoryWebSite			= iniReader.ReadBoolean("Laptop Settings", "CAMPAIGN_HISTORY", TRUE);
 	gGameExternalOptions.usReportsToLoad					= iniReader.ReadInteger("Laptop Settings", "CAMPAIGN_HISTORY_MAX_REPORTS", -1, -1, 100);
-				
+
+	gGameExternalOptions.fBackgroundTooltipDetails			= iniReader.ReadBoolean("Laptop Settings", "BACKGROUND_TOOLTIP_DETAILS", TRUE);
 	//################# Bobby Ray Settings ##################
 
 

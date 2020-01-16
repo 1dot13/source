@@ -468,68 +468,69 @@ void AssignBackgroundHelpText( UINT16 ubNumber, MOUSE_REGION* pMouseregion )
 
 	swprintf( apStr, L"" );
 	
-	if ( ubNumber )
+	if (!ubNumber)
+		return;
+
+	swprintf(atStr, zBackground[ubNumber].szName);
+	wcscat(apStr, atStr);
+	wcscat(apStr, L"\n");
+
+	swprintf(atStr, zBackground[ubNumber].szDescription);
+	wcscat(apStr, atStr);
+	wcscat(apStr, L"\n");
+
+	// ability description
+	if (gGameExternalOptions.fBackgroundTooltipDetails)
 	{
-		swprintf(atStr, zBackground[ ubNumber ].szName );
-		wcscat( apStr, atStr );
-		wcscat( apStr, L"\n" );
-
-		swprintf(atStr, zBackground[ ubNumber ].szDescription );
-		wcscat( apStr, atStr );
-		wcscat( apStr, L"\n" );
-
-		// ability description
-		for ( UINT8 i = 0; i < BACKGROUND_FLAG_MAX; ++i)
+		for (UINT8 i = 0; i < BACKGROUND_FLAG_MAX; ++i)
 		{
 			// some properties are hidden
-			if ( ((UINT64)1 << i) & BACKGROUND_HIDDEN_FLAGS )
+			if (((UINT64)1 << i) & BACKGROUND_HIDDEN_FLAGS)
 				continue;
 
-			if ( zBackground[ ubNumber ].uiFlags & ((UINT64)1 << i) )
+			if (zBackground[ubNumber].uiFlags & ((UINT64)1 << i))
 			{
-				swprintf(atStr, szBackgroundText_Flags[ i ] );
-				wcscat( apStr, atStr );
+				swprintf(atStr, szBackgroundText_Flags[i]);
+				wcscat(apStr, atStr);
 			}
 		}
 
 		UINT8 strused = 0;
-		for ( UINT8 i = 0; i < BG_MAX; ++i)
+		for (UINT8 i = 0; i < BG_MAX; ++i)
 		{
 			if (BG_DISLIKEBG == i && zBackground[ubNumber].value[i])
 			{
-				swprintf( atStr, szBackgroundText_Value[strused] );
-				wcscat( apStr, atStr );
+				swprintf(atStr, szBackgroundText_Value[strused]);
+				wcscat(apStr, atStr);
 			}
-			else if ( BG_TRACKER_ABILITY == i && zBackground[ubNumber].value[i] )
+			else if (BG_TRACKER_ABILITY == i && zBackground[ubNumber].value[i])
 			{
-				swprintf( atStr, szBackgroundText_Value[strused], (UINT16)((gSkillTraitValues.usSVTrackerMaxRange * zBackground[ubNumber].value[i]) / 100) );
-				wcscat( apStr, atStr );
+				swprintf(atStr, szBackgroundText_Value[strused], (UINT16)((gSkillTraitValues.usSVTrackerMaxRange * zBackground[ubNumber].value[i]) / 100));
+				wcscat(apStr, atStr);
 			}
-			else if ( BG_SMOKERTYPE == i )
+			else if (BG_SMOKERTYPE == i)
 			{
-				if ( zBackground[ubNumber].value[i] == 1 )
-					swprintf( atStr, szBackgroundText_Value[strused] );
+				if (zBackground[ubNumber].value[i] == 1)
+					swprintf(atStr, szBackgroundText_Value[strused]);
 				else
-					swprintf( atStr, szBackgroundText_Value[strused + 1] );
+					swprintf(atStr, szBackgroundText_Value[strused + 1]);
 
-				wcscat( apStr, L" " );
-				wcscat( apStr, atStr );
-				wcscat( apStr, L"\n" );
+				wcscat(apStr, L" ");
+				wcscat(apStr, atStr);
+				wcscat(apStr, L"\n");
 
 				// smoke has 2 texts, so extra increase of counter is needed
 				++strused;
 			}
-			else if ( zBackground[ ubNumber ].value[i] )
+			else if (zBackground[ubNumber].value[i])
 			{
-				swprintf( atStr, szBackgroundText_Value[strused], zBackground[ubNumber].value[i] > 0 ? L"+" : L"", zBackground[ubNumber].value[i] );
-				wcscat( apStr, atStr );
+				swprintf(atStr, szBackgroundText_Value[strused], zBackground[ubNumber].value[i] > 0 ? L"+" : L"", zBackground[ubNumber].value[i]);
+				wcscat(apStr, atStr);
 			}
 
 			++strused;
 		}
 	}
-	else
-		return;
 
 	// Set region help text
 	SetRegionFastHelpText( pMouseregion, apStr );
