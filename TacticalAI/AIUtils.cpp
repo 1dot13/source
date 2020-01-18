@@ -347,13 +347,19 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 	else if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 	{
 		if (pSoldier->aiData.bAlertStatus == STATUS_GREEN)
-		{
 			return( WALKING );
-		}
 		else
-		{
 			return( RUNNING );
-		}
+	}
+	// zombies always run if they know enemy location
+	else if (gGameExternalOptions.fAIMovementMode &&
+			pSoldier->IsZombie() &&
+			IS_MERC_BODY_TYPE(pSoldier))
+	{
+		if (!TileIsOutOfBounds(ClosestKnownOpponent(pSoldier, NULL, NULL)))
+			return RUNNING;
+		else
+			return WALKING;
 	}
 	else if (pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CROW)
 	{
@@ -365,6 +371,20 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 		{
 			return( WALKING );
 		}
+
+		// if soldier is already crouched/prone, use SWATTING
+		if ((pSoldier->aiData.fAIFlags & AI_CAUTIOUS) && 
+			gGameExternalOptions.fAIMovementMode &&
+			IS_MERC_BODY_TYPE(pSoldier) &&
+			(pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM) &&
+			gAnimControl[pSoldier->usAnimState].ubEndHeight <= ANIM_CROUCH)
+		{
+			return SWATTING;
+		}
+		if ((pSoldier->aiData.fAIFlags & AI_CAUTIOUS) && (MovementMode[bAction][Urgency[pSoldier->aiData.bAlertStatus][pSoldier->aiData.bAIMorale]] == RUNNING))
+		{
+			return(WALKING);
+		}
 		else if ( bAction == AI_ACTION_SEEK_NOISE && pSoldier->bTeam == CIV_TEAM && !IS_MERC_BODY_TYPE( pSoldier ) )
 		{
 			return( WALKING );
@@ -375,6 +395,177 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 		}
 		else
 		{
+			// sevenfm: movement mode tweaks
+			if (gGameExternalOptions.fAIMovementMode)
+			{
+				INT32 sClosestThreat = ClosestKnownOpponent(pSoldier, NULL, NULL);				
+
+				// use walking mode if no enemy known
+				if (pSoldier->aiData.bAlertStatus < STATUS_RED &&
+					TileIsOutOfBounds(sClosestThreat) &&
+					!pSoldier->aiData.bUnderFire &&
+					(bAction == AI_ACTION_SEEK_FRIEND || bAction == AI_ACTION_SEEK_NOISE || bAction == AI_ACTION_TAKE_COVER))
+				{
+					return WALKING;
+				}
+
+				// use swatting when blinded
+				if (IS_MERC_BODY_TYPE(pSoldier) &&
+					pSoldier->bBlindedCounter > 0)
+				{
+					return SWATTING;
+				}
+
+				if (IS_MERC_BODY_TYPE(pSoldier) &&
+					pSoldier->aiData.bAlertStatus >= STATUS_YELLOW &&
+					!InWaterGasOrSmoke(pSoldier, pSoldier->sGridNo) &&
+					!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					!TileIsOutOfBounds(sClosestThreat) &&
+					(pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM))
+				{
+					INT16 sDistanceVisible = VISION_RANGE;
+					INT32 iRCD = RangeChangeDesire(pSoldier);
+
+					// use running when in light at night
+					if (NightTime() &&
+						InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+						(bAction == AI_ACTION_SEEK_OPPONENT ||
+						bAction == AI_ACTION_GET_CLOSER ||
+						bAction == AI_ACTION_SEEK_FRIEND ||
+						bAction == AI_ACTION_TAKE_COVER))
+					{
+						return RUNNING;
+					}
+
+					// use swatting for seeking at night or when soldier is already crouched
+					if (!InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+						pSoldier->aiData.bAlertStatus == STATUS_RED &&
+						iRCD < 4 &&
+						!pSoldier->aiData.bUnderFire &&
+						pSoldier->aiData.bShock == 0 &&
+						!GuySawEnemy(pSoldier) &&
+						(NightTime() || gAnimControl[pSoldier->usAnimState].ubEndHeight <= ANIM_CROUCH) &&
+						CountNearbyFriends(pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 4) < 3 &&
+						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) < 3 * sDistanceVisible / 2 &&
+						CountFriendsBlack(pSoldier) == 0 &&
+						bAction == AI_ACTION_SEEK_OPPONENT)
+					{
+						return SWATTING;
+					}
+
+					// use swatting for taking cover
+					if (pSoldier->aiData.bAlertStatus >= STATUS_RED &&
+						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8 &&
+						(pSoldier->aiData.bUnderFire && iRCD < 4 ||
+						pSoldier->aiData.bShock > 2 * iRCD ||
+						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE) &&
+						!pSoldier->aiData.bLastAttackHit &&
+						bAction == AI_ACTION_TAKE_COVER)
+					{
+						return SWATTING;
+					}
+
+					// use SWATTING when under fire 
+					if (pSoldier->aiData.bAlertStatus >= STATUS_RED &&
+						(pSoldier->aiData.bShock > iRCD && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 2 ||
+						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4) &&
+						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) < 3 * sDistanceVisible / 2 &&
+						gAnimControl[pSoldier->usAnimState].ubEndHeight <= ANIM_CROUCH &&
+						!pSoldier->aiData.bLastAttackHit &&
+						(bAction == AI_ACTION_SEEK_OPPONENT ||
+						bAction == AI_ACTION_GET_CLOSER ||
+						bAction == AI_ACTION_SEEK_FRIEND ||
+						bAction == AI_ACTION_TAKE_COVER))
+					{
+						return SWATTING;
+					}
+
+					// use SWATTING when in a room and seen enemy recently or under fire
+					if (InARoom(pSoldier->sGridNo, NULL) &&
+						pSoldier->aiData.bAlertStatus >= STATUS_YELLOW &&
+						(pSoldier->aiData.bOrders == SNIPER ||
+						pSoldier->aiData.bOrders == STATIONARY ||
+						(GuySawEnemy(pSoldier) || pSoldier->aiData.bShock > 0) && iRCD < 4) &&
+						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4 &&
+						(bAction == AI_ACTION_SEEK_OPPONENT ||
+						bAction == AI_ACTION_GET_CLOSER ||
+						bAction == AI_ACTION_SEEK_FRIEND ||
+						bAction == AI_ACTION_TAKE_COVER ||
+						bAction == AI_ACTION_SEEK_NOISE))
+					{
+						return SWATTING;
+					}
+
+					// use swatting/crawling for snipers on roof or when under fire
+					if (pSoldier->pathing.bLevel > 0 &&
+						pSoldier->aiData.bAlertStatus >= STATUS_YELLOW &&
+						(pSoldier->aiData.bOrders == SNIPER ||
+						pSoldier->aiData.bOrders == STATIONARY ||
+						pSoldier->aiData.bShock > 0 && iRCD < 4) &&
+						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4 &&
+						(bAction == AI_ACTION_SEEK_OPPONENT ||
+						bAction == AI_ACTION_GET_CLOSER ||
+						bAction == AI_ACTION_SEEK_FRIEND ||
+						bAction == AI_ACTION_TAKE_COVER ||
+						bAction == AI_ACTION_SEEK_NOISE))
+					{
+						return SWATTING;
+					}
+
+					// use running for taking cover when not under attack
+					if (!pSoldier->aiData.bUnderFire &&
+						bAction == AI_ACTION_TAKE_COVER &&
+						pSoldier->bInitialActionPoints > APBPConstants[AP_MINIMUM] &&
+						(!InARoom(pSoldier->sGridNo, NULL) || PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > sDistanceVisible * 2) &&
+						pSoldier->aiData.bAIMorale >= MORALE_NORMAL &&
+						pSoldier->bBreath > 25 &&
+						pSoldier->pathing.bLevel == 0 &&
+						pSoldier->aiData.bOrders != STATIONARY &&
+						pSoldier->aiData.bOrders != SNIPER &&
+						(gAnimControl[pSoldier->usAnimState].ubEndHeight > ANIM_PRONE || pSoldier->bActionPoints > APBPConstants[AP_MINIMUM]))
+					{
+						return RUNNING;
+					}
+
+					// decide movement mode when getting closer
+					if (bAction == AI_ACTION_GET_CLOSER)
+					{
+						if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
+						{
+							if (WeaponReady(pSoldier) && !pSoldier->aiData.bUnderFire && pSoldier->aiData.bAlertStatus == STATUS_BLACK)
+								return WALKING;
+							else
+								return RUNNING;
+						}
+						else if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH)
+						{
+							if (WeaponReady(pSoldier) && !pSoldier->aiData.bUnderFire && pSoldier->aiData.bAlertStatus == STATUS_BLACK ||
+								pSoldier->aiData.bUnderFire && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8)
+								return SWATTING;
+							else
+								return RUNNING;
+						}
+						else if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+						{
+							if (pSoldier->aiData.bUnderFire && !pSoldier->aiData.bLastAttackHit && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8)
+								return SWATTING;
+							else
+								return RUNNING;
+						}
+					}
+
+					// use walking/swatting when flanking in realtime
+					if (AICheckIsFlanking(pSoldier) && !gfTurnBasedAI)
+					{
+						if (NightTime())
+							return SWATTING;
+
+						if (pSoldier->bBreath < pSoldier->bBreathMax / 2)
+							return WALKING;
+					}
+				}
+			}
+
 			return( MovementMode[bAction][Urgency[pSoldier->aiData.bAlertStatus][pSoldier->aiData.bAIMorale]] );
 		}
 	}
@@ -382,83 +573,85 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 
 void NewDest(SOLDIERTYPE *pSoldier, INT32 usGridNo)
 {
-	// ATE: Setting sDestination? Tis does not make sense...
-	//pSoldier->pathing.sDestination = usGridNo;
-	BOOLEAN fSet = FALSE;
-
-	if ( IS_MERC_BODY_TYPE( pSoldier ) && pSoldier->aiData.bAction == AI_ACTION_TAKE_COVER && (pSoldier->aiData.bAttitude == DEFENSIVE || pSoldier->aiData.bAttitude == CUNNINGSOLO || pSoldier->aiData.bAttitude == CUNNINGAID ) && (SoldierDifficultyLevel( pSoldier ) >= 2) )
+	// sevenfm: always use DetermineMovementMode with new code
+	if (gGameExternalOptions.fAIMovementMode)
 	{
-		UINT16 usMovementMode;
-
-		// getting real movement anim for someone who is going to take cover, not just considering
-		usMovementMode = MovementMode[AI_ACTION_TAKE_COVER][Urgency[pSoldier->aiData.bAlertStatus][pSoldier->aiData.bAIMorale]];
-		if ( usMovementMode != SWATTING )
+		pSoldier->usUIMovementMode = DetermineMovementMode(pSoldier, pSoldier->aiData.bAction);
+		// check for non merc bodytypes
+		if ((pSoldier->usUIMovementMode == SWATTING || pSoldier->usUIMovementMode == SWATTING_WK) && !IS_MERC_BODY_TYPE(pSoldier))
 		{
-			// really want to look at path, see how far we could get on path while swatting
-			if ( EnoughPoints( pSoldier, RecalculatePathCost( pSoldier, SWATTING ), 0, FALSE ) || (pSoldier->aiData.bLastAction == AI_ACTION_TAKE_COVER && pSoldier->usUIMovementMode == SWATTING ) )
+			pSoldier->usUIMovementMode = WALKING;
+		}
+	}
+	else
+	{
+		// ATE: Setting sDestination? Tis does not make sense...
+		//pSoldier->pathing.sDestination = usGridNo;
+		BOOLEAN fSet = FALSE;
+
+		if (IS_MERC_BODY_TYPE(pSoldier) && pSoldier->aiData.bAction == AI_ACTION_TAKE_COVER && (pSoldier->aiData.bAttitude == DEFENSIVE || pSoldier->aiData.bAttitude == CUNNINGSOLO || pSoldier->aiData.bAttitude == CUNNINGAID) && (SoldierDifficultyLevel(pSoldier) >= 2))
+		{
+			UINT16 usMovementMode;
+
+			// getting real movement anim for someone who is going to take cover, not just considering
+			usMovementMode = MovementMode[AI_ACTION_TAKE_COVER][Urgency[pSoldier->aiData.bAlertStatus][pSoldier->aiData.bAIMorale]];
+			if (usMovementMode != SWATTING)
 			{
-				pSoldier->usUIMovementMode = SWATTING;
+				// really want to look at path, see how far we could get on path while swatting
+				if (EnoughPoints(pSoldier, RecalculatePathCost(pSoldier, SWATTING), 0, FALSE) || (pSoldier->aiData.bLastAction == AI_ACTION_TAKE_COVER && pSoldier->usUIMovementMode == SWATTING))
+				{
+					pSoldier->usUIMovementMode = SWATTING;
+				}
+				else
+				{
+					pSoldier->usUIMovementMode = usMovementMode;
+				}
 			}
 			else
 			{
 				pSoldier->usUIMovementMode = usMovementMode;
 			}
+			fSet = TRUE;
 		}
 		else
 		{
-			pSoldier->usUIMovementMode = usMovementMode;
-		}
-		fSet = TRUE;
-	}
-	else
-	{
-		if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->aiData.bAlertStatus == STATUS_RED )
-		{
-			switch( pSoldier->aiData.bAction )
+			if (pSoldier->bTeam == ENEMY_TEAM && pSoldier->aiData.bAlertStatus == STATUS_RED)
 			{
-
+				switch (pSoldier->aiData.bAction)
+				{
 				case AI_ACTION_MOVE_TO_CLIMB:
 				case AI_ACTION_RUN_AWAY:
-					pSoldier->usUIMovementMode = DetermineMovementMode( pSoldier, pSoldier->aiData.bAction );
+					pSoldier->usUIMovementMode = DetermineMovementMode(pSoldier, pSoldier->aiData.bAction);
 					fSet = TRUE;
 					break;
 				default:
-/*					if ( PreRandom( 5 - SoldierDifficultyLevel( pSoldier ) ) == 0 )
+					if (!fSet)
 					{
-						INT32 sClosestNoise = (INT16) MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );						
-						if ( !TileIsOutOfBounds(sClosestNoise) && PythSpacesAway( pSoldier->sGridNo, sClosestNoise ) < MaxDistanceVisible() + 10 )
-						{
-							pSoldier->usUIMovementMode = SWATTING;
-							fSet = TRUE;
-						}
-					}*/
-					if ( !fSet )
-					{
-						pSoldier->usUIMovementMode = DetermineMovementMode( pSoldier, pSoldier->aiData.bAction );
+						pSoldier->usUIMovementMode = DetermineMovementMode(pSoldier, pSoldier->aiData.bAction);
 						fSet = TRUE;
 					}
 					break;
+				}
+
+			}
+			else
+			{
+				pSoldier->usUIMovementMode = DetermineMovementMode(pSoldier, pSoldier->aiData.bAction);
+				fSet = TRUE;
 			}
 
-		}
-		else
-		{
-			pSoldier->usUIMovementMode = DetermineMovementMode( pSoldier, pSoldier->aiData.bAction );
-			fSet = TRUE;
-		}
-
-		if ( pSoldier->usUIMovementMode == SWATTING && !IS_MERC_BODY_TYPE( pSoldier ) )
-		{
-			pSoldier->usUIMovementMode = WALKING;
+			if (pSoldier->usUIMovementMode == SWATTING && !IS_MERC_BODY_TYPE(pSoldier))
+			{
+				pSoldier->usUIMovementMode = WALKING;
+			}
 		}
 	}
 
 	//pSoldier->EVENT_GetNewSoldierPath( pSoldier->pathing.sDestination, pSoldier->usUIMovementMode );
-	// ATE: Using this more versitile version
-	// Last paramater says whether to re-start the soldier's animation
+	// ATE: Using this more versatile version
+	// Last parameter says whether to re-start the soldier's animation
 	// This should be done if buddy was paused for fNoApstofinishMove...
 	pSoldier->EVENT_InternalGetNewSoldierPath( usGridNo, pSoldier->usUIMovementMode , FALSE, pSoldier->flags.fNoAPToFinishMove );
-
 }
 
 
@@ -3784,7 +3977,7 @@ UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent )
 			//sFriendClosestOpponent = ClosestKnownOpponent( pFriend, NULL, NULL );
 			sFriendClosestOpponent = ClosestSeenOpponent( pFriend, NULL, NULL );
 			if(!TileIsOutOfBounds(sFriendClosestOpponent) &&
-				PythSpacesAway( sClosestOpponent, sFriendClosestOpponent ) < DAY_VISION_RANGE / 4 &&
+				PythSpacesAway( sClosestOpponent, sFriendClosestOpponent ) < (INT16)DAY_VISION_RANGE / 4 &&
 				pFriend->aiData.bAlertStatus == STATUS_BLACK &&
 				pFriend->stats.bLife > pFriend->stats.bLifeMax / 2 &&
 				( GetNearestRottingCorpseAIWarning( pFriend->sGridNo ) == 0 && !InLightAtNight(pFriend->sGridNo, pFriend->pathing.bLevel) ||

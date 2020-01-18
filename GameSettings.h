@@ -889,11 +889,7 @@ typedef struct
 	BOOLEAN	bAllowSpecialExplosiveAttachments;
 	BOOLEAN fDelayedGrenadeExplosion;
 	INT16 iChanceSayAnnoyingPhrase;
-	BOOLEAN	bNewTacticalAIBehavior;
-	BOOLEAN fAIYellowFlanking;
-	BOOLEAN fAIExtraSuppression;
-	BOOLEAN fAINewMorale;
-	BOOLEAN fAIBetterCover;
+	BOOLEAN	bNewTacticalAIBehavior;	
 	FLOAT uShotHeadPenalty;
 	FLOAT fShotHeadMultiplier;
 	INT16 iPenaltyShootUnSeen;
@@ -1540,7 +1536,12 @@ typedef struct
 	UINT8 ubAPSharedAmongPassengersAndVehicleScale;
 
 	// sevenfm: AI settings
+	BOOLEAN fAIYellowFlanking;
+	BOOLEAN fAIExtraSuppression;
+	BOOLEAN fAINewMorale;
+	BOOLEAN fAIBetterCover;
 	BOOLEAN fAITacticalRetreat;
+	BOOLEAN fAIMovementMode;
 
 } GAME_EXTERNAL_OPTIONS;
 

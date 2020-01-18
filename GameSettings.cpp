@@ -2274,11 +2274,12 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fImprovedAutoFastForward		= iniReader.ReadBoolean("Clock Settings","IMPROVED_AUTO_FAST_FORWARD", TRUE);
 
 	// sevenfm: tactical AI
-	gGameExternalOptions.fAITacticalRetreat = iniReader.ReadBoolean("Tactical AI Settings", "AI_TACTICAL_RETREAT", FALSE);
 	gGameExternalOptions.fAIYellowFlanking = iniReader.ReadBoolean("Tactical AI Settings", "AI_YELLOW_FLANKING", FALSE);
 	gGameExternalOptions.fAIExtraSuppression = iniReader.ReadBoolean("Tactical AI Settings", "AI_EXTRA_SUPPRESSION", FALSE);
 	gGameExternalOptions.fAINewMorale = iniReader.ReadBoolean("Tactical AI Settings", "AI_NEW_MORALE", FALSE);
 	gGameExternalOptions.fAIBetterCover = iniReader.ReadBoolean("Tactical AI Settings", "AI_BETTER_COVER", FALSE);
+	gGameExternalOptions.fAITacticalRetreat = iniReader.ReadBoolean("Tactical AI Settings", "AI_TACTICAL_RETREAT", FALSE);
+	gGameExternalOptions.fAIMovementMode = iniReader.ReadBoolean("Tactical AI Settings", "AI_MOVEMENT_MODE", FALSE);
 }
 
 
