@@ -5602,6 +5602,59 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 		//}//
 	}
 
+	// weapon raising sound
+	if (fReturnVal &&
+		!fEndReady &&
+		this->bVisible >= 0 &&
+		!WeaponReady(this) &&
+		this->inv[HANDPOS].exists() &&
+		this->inv[HANDPOS].usItem &&
+		Item[this->inv[HANDPOS].usItem].usItemClass & IC_GUN)
+	{
+		CHAR8	zFilename[512];
+		sprintf(zFilename, "");
+
+		switch (Weapon[Item[this->inv[HANDPOS].usItem].ubClassIndex].ubWeaponType)
+		{
+		case GUN_PISTOL:
+			sprintf(zFilename, "sounds\\equip\\Draw_Pistol.ogg");
+			break;
+		case GUN_M_PISTOL:
+			sprintf(zFilename, "sounds\\equip\\Draw_MP.ogg");
+			break;
+		case GUN_SMG:
+			sprintf(zFilename, "sounds\\equip\\Draw_SMG.ogg");
+			break;
+		case GUN_RIFLE:
+			sprintf(zFilename, "sounds\\equip\\Draw_Rifle.ogg");
+			break;
+		case GUN_SN_RIFLE:
+			sprintf(zFilename, "sounds\\equip\\Draw_Sniper.ogg");
+			break;
+		case GUN_AS_RIFLE:
+			sprintf(zFilename, "sounds\\equip\\Draw_AR.ogg");
+			break;
+		case GUN_LMG:
+			sprintf(zFilename, "sounds\\equip\\Draw_LMG.ogg");
+			break;
+		case GUN_SHOTGUN:
+			sprintf(zFilename, "sounds\\equip\\Draw_Shotgun.ogg");
+			break;
+		default:
+			sprintf(zFilename, "sounds\\equip\\Draw.ogg");
+		}
+
+		if (!FileExists(zFilename))
+		{
+			sprintf(zFilename, "sounds\\equip\\Draw.ogg");
+		}
+
+		if (FileExists(zFilename))
+		{
+			PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(HIGHVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
+		}
+	}
+
 	return(fReturnVal);
 }
 
