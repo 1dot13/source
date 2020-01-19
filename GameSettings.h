@@ -769,6 +769,7 @@ typedef struct
 	BOOLEAN fEnableAllWeaponCaches;
 	BOOLEAN fEnableAllTerrorists;
 	BOOLEAN gfRevealItems;
+	BOOLEAN gfShowBackpackOwner;
 	BOOLEAN fEnableArmorCoverage; // ShadoWarrior for Captain J's armor coverage
 
 	// ShadoWarrior: Tooltip changes (start)

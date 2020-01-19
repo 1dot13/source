@@ -496,7 +496,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						return SWATTING;
 					}
 
-					// use swatting/crawling for snipers on roof or when under fire
+					// use swatting for snipers on roof or when under fire
 					if (pSoldier->pathing.bLevel > 0 &&
 						pSoldier->aiData.bAlertStatus >= STATUS_YELLOW &&
 						(pSoldier->aiData.bOrders == SNIPER ||

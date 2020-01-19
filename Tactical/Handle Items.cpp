@@ -4208,11 +4208,25 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 			// Set string
 			if ( gWorldItems[ pTempItemPool->iItemIndex ].object.ubNumberOfObjects > 1 )
 			{
-				swprintf( pStr, L"%s (%d)", ShortItemNames[ gWorldItems[ pTempItemPool->iItemIndex ].object.usItem ], gWorldItems[ pTempItemPool->iItemIndex ].object.ubNumberOfObjects );
+				if (gGameExternalOptions.gfShowBackpackOwner &&
+					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
+					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
+					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
+					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
+					swprintf(pStr, L"%s (%d) (%s)", ShortItemNames[gWorldItems[pTempItemPool->iItemIndex].object.usItem], gWorldItems[pTempItemPool->iItemIndex].object.ubNumberOfObjects, MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+				else
+					swprintf( pStr, L"%s (%d)", ShortItemNames[ gWorldItems[ pTempItemPool->iItemIndex ].object.usItem ], gWorldItems[ pTempItemPool->iItemIndex ].object.ubNumberOfObjects );
 			}
 			else
 			{
-				swprintf( pStr, L"%s", ShortItemNames[ gWorldItems[ pTempItemPool->iItemIndex ].object.usItem ] );
+				if (gGameExternalOptions.gfShowBackpackOwner &&
+					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
+					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
+					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
+					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
+					swprintf(pStr, L"%s (%s)", ShortItemNames[gWorldItems[pTempItemPool->iItemIndex].object.usItem], MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+				else
+					swprintf( pStr, L"%s", ShortItemNames[ gWorldItems[ pTempItemPool->iItemIndex ].object.usItem ] );
 			}
 
 			// Get Width
@@ -4315,11 +4329,25 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 
 			if ( gWorldItems[ pItemPool->iItemIndex ].object.ubNumberOfObjects > 1 )
 			{
-				swprintf( pStr, L"%s (%d)", ShortItemNames[ gWorldItems[ pItemPool->iItemIndex ].object.usItem ], gWorldItems[ pItemPool->iItemIndex ].object.ubNumberOfObjects );
+				if (gGameExternalOptions.gfShowBackpackOwner &&
+					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
+					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
+					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
+					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
+					swprintf(pStr, L"%s (%d) (%s)", ShortItemNames[gWorldItems[pItemPool->iItemIndex].object.usItem], gWorldItems[pItemPool->iItemIndex].object.ubNumberOfObjects, MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+				else
+					swprintf( pStr, L"%s (%d)", ShortItemNames[ gWorldItems[ pItemPool->iItemIndex ].object.usItem ], gWorldItems[ pItemPool->iItemIndex ].object.ubNumberOfObjects );
 			}
 			else
 			{
-				swprintf( pStr, L"%s", ShortItemNames[ gWorldItems[ pItemPool->iItemIndex ].object.usItem ] );
+				if (gGameExternalOptions.gfShowBackpackOwner &&
+					Item[gWorldItems[pItemPool->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
+					LoadBearingEquipment[Item[gWorldItems[pItemPool->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
+					gWorldItems[pItemPool->iItemIndex].soldierID != -1 &&
+					MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID])
+					swprintf(pStr, L"%s (%s)", ShortItemNames[gWorldItems[pItemPool->iItemIndex].object.usItem], MercPtrs[gWorldItems[pItemPool->iItemIndex].soldierID]->GetName());
+				else
+					swprintf( pStr, L"%s", ShortItemNames[ gWorldItems[ pItemPool->iItemIndex ].object.usItem ] );
 			}
 
 			gprintfdirty( sFontX, sY, pStr );
@@ -4330,7 +4358,6 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 		}
 		pItemPool = pItemPool->pNext;
 
-
 		if ( fDoBack )
 		{
 			if ( cnt == ( bNumItemsListed - 1) )
@@ -4338,7 +4365,6 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT32 sGridNo, UINT8 bCommand, I
 				break;
 			}
 		}
-
 	}
 	if ( fDoBack )
 	{

@@ -936,6 +936,7 @@ void LoadGameExternalOptions()
 	//################# Tactical Interface Settings #################
 
 	gGameExternalOptions.gfRevealItems						= iniReader.ReadBoolean("Tactical Interface Settings","REVEAL_DROPPED_ENEMY_ITEMS_AFTER_COMBAT",TRUE);
+	gGameExternalOptions.gfShowBackpackOwner				= iniReader.ReadBoolean("Tactical Interface Settings", "SHOW_BACKPACK_OWNER", TRUE);
 
 	// Unload weapons & remove attachments
 	gGameExternalOptions.gfShiftFUnloadWeapons				= iniReader.ReadBoolean("Tactical Interface Settings","SHIFT_F_UNLOAD_WEAPONS",1);

@@ -5776,7 +5776,6 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 
 				UINT16 usLoopSlotID = usAttachmentSlotIndexVector[slotCount];
 				attachList.clear();
-
 				//Print all attachments that fit on this item.
 				for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; ++usLoop)
 				{	//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
@@ -11473,7 +11472,16 @@ void RenderItemPickupMenu( )
 				}
 				else
 				{
-					swprintf( pStr, L"%s", ShortItemNames[ pObject->usItem ] );
+					if (gGameExternalOptions.gfShowBackpackOwner &&
+						!gfStealing &&
+						Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].usItemClass == IC_LBEGEAR &&
+						LoadBearingEquipment[Item[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].object.usItem].ubClassIndex].lbeClass == BACKPACK &&
+						gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID != -1 &&
+						MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID])
+						//swprintf(pStr, L"%s (%s)", ShortItemNames[pObject->usItem], MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());
+						swprintf(pStr, L"(%s)", MercPtrs[gWorldItems[gItemPickupMenu.ItemPoolSlots[cnt]->iItemIndex].soldierID]->GetName());
+					else
+						swprintf( pStr, L"%s", ShortItemNames[ pObject->usItem ] );
 				}
 				VarFindFontCenterCoordinates( sCenX, sCenY, ITEMPICK_TEXT_WIDTH, 1 , ITEMDESC_FONT, &sFontX, &sFontY, pStr );
 				mprintf_buffer( pDestBuf, uiDestPitchBYTES, ITEMDESC_FONT, sFontX, sFontY, pStr );
@@ -11483,14 +11491,9 @@ void RenderItemPickupMenu( )
 		}
 
 		SetFontShadow( DEFAULT_SHADOW );
-
-
 		UnLockVideoSurface( FRAME_BUFFER );
-
 		InvalidateRegion( gItemPickupMenu.sX, gItemPickupMenu.sY, gItemPickupMenu.sX + gItemPickupMenu.sWidth, gItemPickupMenu.sY + gItemPickupMenu.sHeight );
-
 		gItemPickupMenu.fDirtyLevel = 0;
-
 	}
 }
 
