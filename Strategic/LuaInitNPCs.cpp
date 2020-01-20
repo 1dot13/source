@@ -2338,9 +2338,9 @@ static int l_SetMercProfiles(lua_State *L)
 {
 	MERCPROFILESTRUCT * pProfile;
 	UINT8 idNPC;
-	UINT16 x = 0;
-	UINT16 y = 0;
-	UINT8 z = 255;
+	UINT16 x = -1;
+	UINT16 y = -1;
+	UINT8 z = -1;
 	UINT32 Orders = -1;
 	UINT16 usEyesX = -1;
 	UINT16 usEyesY = -1;
@@ -2375,13 +2375,13 @@ static int l_SetMercProfiles(lua_State *L)
 		sSalary = lh_getIntegerFromTable(L, "Salary");
 		ubBodyType = lh_getIntegerFromTable(L, "BodyType");
 
-		if (x >= 1 && x <= 16)
+		if (x != -1 && x >= 0 && x <= 16)
 			pProfile->sSectorX = x;
 
-		if (y >= 1 && y <= 16)
+		if (y != -1 && y >= 0 && y <= 16)
 			pProfile->sSectorY = y;
 
-		if (z <= 3)
+		if (z != -1 && z <= 3)
 			pProfile->bSectorZ = z;
 
 		if (usEyesX != -1)
