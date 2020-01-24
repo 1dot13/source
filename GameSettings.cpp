@@ -2276,11 +2276,12 @@ void LoadGameExternalOptions()
 
 	// sevenfm: tactical AI
 	gGameExternalOptions.fAIYellowFlanking = iniReader.ReadBoolean("Tactical AI Settings", "AI_YELLOW_FLANKING", FALSE);
-	gGameExternalOptions.fAIExtraSuppression = iniReader.ReadBoolean("Tactical AI Settings", "AI_EXTRA_SUPPRESSION", FALSE);
-	gGameExternalOptions.fAINewMorale = iniReader.ReadBoolean("Tactical AI Settings", "AI_NEW_MORALE", FALSE);
-	gGameExternalOptions.fAIBetterCover = iniReader.ReadBoolean("Tactical AI Settings", "AI_BETTER_COVER", FALSE);
+	gGameExternalOptions.fAIExtraSuppression = iniReader.ReadBoolean("Tactical AI Settings", "AI_EXTRA_SUPPRESSION", TRUE);
+	gGameExternalOptions.fAINewMorale = iniReader.ReadBoolean("Tactical AI Settings", "AI_NEW_MORALE", TRUE);
+	gGameExternalOptions.fAIBetterCover = iniReader.ReadBoolean("Tactical AI Settings", "AI_BETTER_COVER", TRUE);
 	gGameExternalOptions.fAITacticalRetreat = iniReader.ReadBoolean("Tactical AI Settings", "AI_TACTICAL_RETREAT", FALSE);
-	gGameExternalOptions.fAIMovementMode = iniReader.ReadBoolean("Tactical AI Settings", "AI_MOVEMENT_MODE", FALSE);
+	gGameExternalOptions.fAIMovementMode = iniReader.ReadBoolean("Tactical AI Settings", "AI_MOVEMENT_MODE", TRUE);
+	gGameExternalOptions.fAIPathTweaks = iniReader.ReadBoolean("Tactical AI Settings", "AI_PATH_TWEAKS", TRUE);
 }
 
 

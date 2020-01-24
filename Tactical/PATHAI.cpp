@@ -3832,18 +3832,25 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				//nextCost = gubDiagCost[nextCost];
 				nextCost = nextCost * 14 / 10;
 				//nextCost++;
-			}
+			}			
 
 			if ( bLoopState == LOOPING_REVERSE)
 			{
 				// penalize moving backwards to encourage turning sooner
 				nextCost += 50;
+			}			
+
+			// sevenfm: tanks prefer moving in straight directions to avoid sliding effect
+			if (gGameExternalOptions.fAIPathTweaks && 
+				TANK(s) &&
+				(iCnt & 1))
+			{
+				nextCost += 50;
 			}
 
-			newTotCost = curCost + nextCost;
-
 			// sevenfm: experimental path tweaks for AI
-			if (s->bTeam != gbPlayerNum &&
+			if (gGameExternalOptions.fAIPathTweaks &&
+				s->bTeam != gbPlayerNum &&
 				!(s->flags.uiStatusFlags & SOLDIER_BOXER) &&
 				!AreInMeanwhile() &&
 				IS_MERC_BODY_TYPE(s))
@@ -3867,24 +3874,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 			}
 
-/*
-// no diagonal bias - straightforward costing regardless of direction
 			newTotCost = curCost + nextCost;
-
-
-// NOTE: ON JAN 6TH, 1995, IAN COMMENTED OUT THE DIAGONAL BIAS AND
-//		UNCOMMENTED THE "NO DIAGONAL BIAS"
-//diagonal bias - this makes diagonal moves cost more
-
-
-	 if (iCnt & 1)
-			// diagonal move costs 70 percent
-					//newTotCost += (nextCost/PATHFACTOR);
-				newTotCost += 1;
-//				newTotCost = curCost + ((prevCost+nextCost)*7)/10;
-//			else	// non-diagonal costs only 50%
-//				newTotCost = curCost + (prevCost+nextCost)/2;
-*/
 
 			// have we found a path to the current location that
 			// costs less than the best so far to the same location?
