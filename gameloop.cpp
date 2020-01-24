@@ -30,7 +30,8 @@
 	#include "Tactical Placement GUI.h"//dnl ch45 071009
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "World Items.h"//dnl ch77 191113
-	#include "Overhead.h"	// added by Flugente
+	#include "Overhead.h"	// added by Flugente		
+	#include "Ambient Control.h"	// sevenfm
 #endif
 
 #include "SaveLoadScreen.h"
@@ -409,6 +410,12 @@ void GameLoop(void)
 	// rain
 	RenderRain();
 
+	// sevenfm: update tactical ambients
+	if (guiCurrentScreen == GAME_SCREEN)
+	{
+		UpdateFireAmbient();
+	}
+
 	// Flugente: dynamic opinions: Dialogue Boxes need to be refreshed
 	RefreshBoxes( );
 	
@@ -533,6 +540,12 @@ void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen )
 		}
 	}
 	// end rain
+
+	if (uiNewScreen != MSG_BOX_SCREEN)
+	{
+		// stop ambients
+		StopFireAmbient();
+	}
 }
 
 void HandleShortCutExitState( void )

@@ -12,12 +12,17 @@
 	#include "Game Events.h"
 	#include "Ambient Control.h"
 	#include "lighting.h"
-	#include "Random.h"
+	#include "Random.h"	
+	#include "SmokeEffects.h"	// sevenfm
 #endif
 
 AMBIENTDATA_STRUCT		gAmbData[ MAX_AMBIENT_SOUNDS ];
-INT16									gsNumAmbData = 0;
+INT16					gsNumAmbData = 0;
 
+// sevenfm
+UINT32					guiAmbientFire = NO_SAMPLE;
+UINT8					gubAmbientFutureFireVolume = 0;
+UINT32					guiFireAmbientLastUpdate = 0;
 
 UINT8					gubCurrentSteadyStateAmbience = SSA_NONE;
 UINT8					gubCurrentSteadyStateSound	= 0;
@@ -309,4 +314,108 @@ BOOLEAN SetSteadyStateAmbience( UINT8 ubAmbience )
 	guiCurrentSteadyStateSoundHandle =	StartSteadyStateAmbient( LOWVOLUME, 0 );
 
 	return( TRUE );
+}
+
+void UpdateFireAmbient(void)
+{
+	INT32	iVolume;
+	UINT32	uiClock;
+
+	if (!gGameExternalOptions.fEnableTA)
+	{
+		return;
+	}
+
+	if (guiCurrentScreen != GAME_SCREEN)
+	{
+		return;
+	}
+
+	uiClock = GetJA2Clock();
+
+	if (uiClock - guiFireAmbientLastUpdate < 50)
+	{
+		return;
+	}
+
+	guiFireAmbientLastUpdate = uiClock;
+
+	if (FindVisibleSmokeEffect(BURNABLEGAS_SMOKE_EFFECT))
+	{
+		gubAmbientFutureFireVolume = gGameExternalOptions.ubVolumeTA;
+
+		if (guiAmbientFire == NO_SAMPLE)
+		{
+			StartFireAmbient();
+		}
+
+		// check if successfully started
+		if (guiAmbientFire != NO_SAMPLE)
+		{
+			iVolume = SoundGetVolume(guiAmbientFire);
+
+			if (iVolume != gubAmbientFutureFireVolume)
+			{
+				// increase volume until it reaches desired level
+				iVolume = min((INT32)gubAmbientFutureFireVolume, iVolume + 4);
+				SoundSetVolume(guiAmbientFire, iVolume);
+			}
+		}
+	}
+	else
+	{
+		gubAmbientFutureFireVolume = 0;
+
+		// check if ambient sound is playing
+		if (guiAmbientFire != NO_SAMPLE)
+		{
+			iVolume = SoundGetVolume(guiAmbientFire);
+
+			if (iVolume != gubAmbientFutureFireVolume)
+			{
+				// increase volume until it reaches desired level
+				iVolume = max((INT32)gubAmbientFutureFireVolume, iVolume - 4);
+				SoundSetVolume(guiAmbientFire, iVolume);
+			}
+
+			if (iVolume == 0)
+			{
+				StopFireAmbient();
+			}
+		}
+	}
+}
+
+void StopFireAmbient(void)
+{
+	if (guiAmbientFire != NO_SAMPLE)
+	{
+		SoundStop(guiAmbientFire);
+		guiAmbientFire = NO_SAMPLE;
+	}
+}
+
+void StartFireAmbient(void)
+{
+	CHAR8	filename[1024];
+	SOUNDPARMS spParms;
+
+	// Stop ambient
+	if (guiAmbientFire != NO_SAMPLE)
+	{
+		return;
+	}
+
+	strcpy(filename, "Sounds\\ambient\\fire.ogg");
+	//gubAmbientFireVolume = LOWVOLUME;
+
+	// start sound
+	memset(&spParms, 0xff, sizeof(SOUNDPARMS));
+	//spParms.uiVolume = CalculateSoundEffectsVolume( LOWVOLUME );
+	spParms.uiVolume = 0;
+	spParms.uiLoop = 0;
+	spParms.uiPriority = GROUP_AMBIENT;
+
+	//guiAmbientFire = SoundPlay( zFileName, &spParms );
+	guiAmbientFire = SoundPlayStreamedFile(filename, &spParms);
 }

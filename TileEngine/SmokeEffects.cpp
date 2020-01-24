@@ -1063,3 +1063,30 @@ BOOL GetRandomSignalSmokeGridNo(INT32* psGridNo)
 
 	return TRUE;
 }
+
+BOOLEAN FindVisibleSmokeEffect(INT8 bType)
+{
+	UINT32	uiCnt;
+	INT8	bSmokeEffectLevel;
+
+	//loop through all smoke effects
+	for (uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++)
+	{
+		if (gSmokeEffectData[uiCnt].fAllocated &&
+			gSmokeEffectData[uiCnt].bType == bType)
+		{
+			if (gSmokeEffectData[uiCnt].bFlags & SMOKE_EFFECT_ON_ROOF)
+				bSmokeEffectLevel = 1;
+			else
+				bSmokeEffectLevel = 0;
+
+			if (!TileIsOutOfBounds(gSmokeEffectData[uiCnt].sGridNo) &&
+				GridNoOnScreen(gSmokeEffectData[uiCnt].sGridNo))
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}

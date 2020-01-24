@@ -18,6 +18,9 @@ extern INT16								gsNumAmbData;
 
 BOOLEAN SetSteadyStateAmbience( UINT8 ubAmbience );
 
+void UpdateFireAmbient(void);
+void StopFireAmbient(void);
+void StartFireAmbient(void);
 
 #define				SOUND_NAME_SIZE			256
 #define				NUM_SOUNDS_PER_TIMEFRAME	8
