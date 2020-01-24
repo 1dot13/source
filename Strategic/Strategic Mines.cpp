@@ -529,7 +529,7 @@ INT32 GetAvailableWorkForceForMineForPlayer( INT8 bMineIndex )
 */
 
 	// Flugente: if strategic disease is active, disease can affect out workforce, so the calculation gets slightly more complicated
-	iWorkForceSize *= GetWorkforceEffectivenessWithDisease( bTownId, OUR_TEAM );
+	iWorkForceSize = (INT32)(iWorkForceSize * GetWorkforceEffectivenessWithDisease(bTownId, OUR_TEAM));
 
 	// now adjust for town size.. the number of sectors you control
 	iWorkForceSize *= GetTownSectorsUnderControl( bTownId );
@@ -816,7 +816,7 @@ INT8 GetMineIndexForSector( INT16 sX, INT16 sY )
 
 void GetMineSector( UINT8 ubMineIndex, INT16 * psX, INT16 * psY )
 {
-	Assert( ( ubMineIndex >= 0 ) && ( ubMineIndex < MAX_NUMBER_OF_MINES ) );
+	Assert(ubMineIndex < MAX_NUMBER_OF_MINES);
 
 	//*psX = gMineLocation[ ubMineIndex ].sSectorX;
 	//*psY = gMineLocation[ ubMineIndex ].sSectorY;
@@ -1303,22 +1303,21 @@ BOOLEAN HasHisMineBeenProducingForPlayerForSomeTime( UINT8 ubMinerProfileId )
 	return( FALSE );
 }
 
-// gte the id of the mine for this sector x,y,z...-1 is invalid
+// get the id of the mine for this sector x,y,z...-1 is invalid
 INT8 GetIdOfMineForSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
 	INT8 bMineIndex = -1;
-	INT16 sSectorValue;
-
+	//INT16 sSectorValue;
 
 	// are we even on the right level?
-	if( ( bSectorZ < 0 ) && ( bSectorZ > 2 ) )
+	if (bSectorZ < MINIMUM_VALID_Z_COORDINATE || bSectorZ > MAXIMUM_VALID_Z_COORDINATE)
 	{
 		// nope
 		return( -1 );
 	}
 
 	// now get the sectorvalue
-	sSectorValue = SECTOR( sSectorX, sSectorY );
+	//sSectorValue = SECTOR( sSectorX, sSectorY );
 
 	// support surface
 	if( bSectorZ == 0 )
@@ -1423,8 +1422,7 @@ BOOLEAN AreThereMinersInsideThisMine( UINT8 ubMineIndex )
 {
 	MINE_STATUS_TYPE *pMineStatus;
 
-
-	Assert( ( ubMineIndex >= 0 ) && ( ubMineIndex < MAX_NUMBER_OF_MINES ) );
+	Assert(ubMineIndex < MAX_NUMBER_OF_MINES);
 
 	pMineStatus = &(gMineStatus[ ubMineIndex ]);
 
