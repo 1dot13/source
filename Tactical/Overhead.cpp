@@ -339,6 +339,15 @@ CHAR8 gzActionStr[][ 30 ] =
     "TRAVERSE DOWN",
     "OFFER SURRENDER",
     "RAISE GUN",
+	"STEAL MOVE",
+	"RELOAD GUN"
+	"JUMP WINDOW",
+	"FREE PRISONER",
+	"USE SKILL",
+	"DOCTOR",
+	"DOCTOR SELF",
+	"SELFDETONATE",
+	"STOP MEDIC",
 };
 
 CHAR8 gzDirectionStr[][ 30 ] =
@@ -6847,7 +6856,7 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			if ( (pTeamSoldier->usSoldierFlagMask & SOLDIER_POW) && !(pTeamSoldier->flags.uiStatusFlags & SOLDIER_DEAD) )
 			{
 				// if we arrive here and the guy has lifepoints < OKLIFE, something is very odd... better take him prisoner and remove him anyway
-				//if ( pTeamSoldier->stats.bLife > OKLIFE && pTeamSoldier->stats.bLife != 0 )
+				//if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->stats.bLife != 0 )
 				{
 					// officers and generals are 'special' prisoners...
 					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )

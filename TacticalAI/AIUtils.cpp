@@ -4343,3 +4343,19 @@ BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel)
 
 	return FALSE;
 }
+
+// use soldier AI - merc bodytype, no robots/tanks/boxers/etc
+BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier)
+{
+	CHECKF(pSoldier);
+
+	if (!IS_MERC_BODY_TYPE(pSoldier) || 
+		pSoldier->aiData.bNeutral || 
+		pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ||
+		ARMED_VEHICLE(pSoldier) ||
+		pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ||
+		AM_A_ROBOT(pSoldier))
+		return FALSE;
+
+	return TRUE;
+}

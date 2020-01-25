@@ -108,6 +108,7 @@ typedef enum
 	AI_ACTION_DOCTOR,				// added by Flugente: AI-ONLY! bandage/surgery on fellow AI. DO NOT USE THIS FOR MERCS!!!
 	AI_ACTION_DOCTOR_SELF,			// added by Flugente: AI-ONLY! bandage/surgery on self. DO NOT USE THIS FOR MERCS!!!
 	AI_ACTION_SELFDETONATE,			// added by Flugente: blow up an explosive in own inventory
+	AI_ACTION_STOP_MEDIC,			// sevenfm: stop giving aid animation
 } ActionType;
 
 
@@ -301,6 +302,7 @@ BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThre
 UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
 
 BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel);
+BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier);
 
 #define MAX_FLANKS_RED 25
 #define MAX_FLANKS_YELLOW 25

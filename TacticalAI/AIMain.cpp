@@ -2147,19 +2147,46 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             }
             break;
 
-        case AI_ACTION_STOP_COWERING:
-            // make sure action data is set right
-            if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
-            {
-                pSoldier->aiData.usActionData = ANIM_STAND;
-                pSoldier->SetSoldierCowerState( FALSE );
-            }
-            else
-            {
-                // nothing to do!
-                ActionDone( pSoldier );
-                return( FALSE );
-            }
+        case AI_ACTION_STOP_COWERING:			
+			if (SoldierAI(pSoldier))
+			{
+				// sevenfm: stop cowering for soldiers
+				if (pSoldier->usAnimState == COWERING)
+				{
+					if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND)
+					{
+						pSoldier->ubDesiredHeight = ANIM_STAND;
+						pSoldier->EVENT_InitNewSoldierAnim(END_COWER, 0, FALSE);
+					}
+					else if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH)
+					{
+						pSoldier->ubDesiredHeight = ANIM_CROUCH;
+						pSoldier->EVENT_InitNewSoldierAnim(END_COWER_CROUCHED, 0, FALSE);
+					}
+				}
+				else if (pSoldier->usAnimState == COWERING_PRONE)
+				{
+					if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+					{
+						pSoldier->ubDesiredHeight = ANIM_PRONE;
+						pSoldier->EVENT_InitNewSoldierAnim(END_COWER_PRONE, 0, FALSE);
+					}
+				}
+				// clear cowering flag
+				pSoldier->flags.uiStatusFlags &= (~SOLDIER_COWERING);
+			}
+			else if (pSoldier->flags.uiStatusFlags & SOLDIER_COWERING)
+				{
+					// stop cowering for civilians
+					pSoldier->aiData.usActionData = ANIM_STAND;
+					pSoldier->SetSoldierCowerState(FALSE);
+				}
+				else
+				{
+					// nothing to do!
+					ActionDone(pSoldier);
+					return(FALSE);
+				}
             break;
 
         case AI_ACTION_GIVE_AID:              // help injured/dying friend
@@ -2346,6 +2373,23 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 				pSoldier->AIDoctorSelf();
 				ActionDone( pSoldier );
 			}
+			break;
+
+		case AI_ACTION_STOP_MEDIC:
+			if (pSoldier->stats.bLife >= OKLIFE &&
+				pSoldier->bBreath > 0 &&
+				!pSoldier->bCollapsed &&
+				(pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN))
+			{
+				if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+					pSoldier->ChangeSoldierState(END_AID_PRN, 0, 0);
+				else
+					pSoldier->ChangeSoldierState(END_AID, 0, 0);
+			}
+			pSoldier->ubServiceCount = 0;
+			pSoldier->ubServicePartner = NOBODY;
+			pSoldier->fDoingSurgery = FALSE;
+			ActionDone(pSoldier);
 			break;
 
 		case AI_ACTION_SELFDETONATE:

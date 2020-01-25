@@ -5441,7 +5441,7 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 			{
 				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->stats.bLife > OKLIFE )
+					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->stats.bLife >= OKLIFE )
 					{
 						if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
 						{
@@ -5939,7 +5939,7 @@ BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY )
 	{
 		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{
-			if ( MercPtrs[ i ]->sSectorX == ubSectorNumX && MercPtrs[ i ]->sSectorY == ubSectorNumY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->stats.bLife > OKLIFE )
+			if ( MercPtrs[ i ]->sSectorX == ubSectorNumX && MercPtrs[ i ]->sSectorY == ubSectorNumY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->stats.bLife >= OKLIFE )
 			{
 				if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ))
 				{

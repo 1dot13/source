@@ -584,7 +584,7 @@ void HourlyDisabilityUpdate( )
 			{
 				// don't do this if we are at low health, or in combat, or travelling, or a patient or doctor
 				// only do this if we are rather healed
-				if ( pSoldier->stats.bLife > OKLIFE && pSoldier->stats.bLifeMax > 0 && (FLOAT)(pSoldier->stats.bLife) / (FLOAT)(pSoldier->stats.bLifeMax) > 0.9f 
+				if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->stats.bLifeMax > 0 && (FLOAT)(pSoldier->stats.bLife) / (FLOAT)(pSoldier->stats.bLifeMax) > 0.9f 
 					 && !pSoldier->flags.fBetweenSectors && !gTacticalStatus.fEnemyInSector
 					 && !IS_PATIENT( pSoldier->bAssignment ) && pSoldier->bAssignment != IN_TRANSIT )
 				{

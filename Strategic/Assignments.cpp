@@ -9282,7 +9282,7 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 			{
 				continue; // NEXT!!!
 			}
-			if (pMedic->stats.bLife > OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 
+			if (pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 
 				&& pMedic->ubID != pSoldier->ubID && HAS_SKILL_TRAIT( pMedic, DOCTOR_NT ))
 			{
 				bRegenerationBonus += NUM_SKILL_TRAITS( pMedic, DOCTOR_NT );
@@ -13531,7 +13531,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								if (bSlot == NO_SLOT)
 									continue;// no medical kit!
 
-								if (pMedic->stats.bLife > OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
+								if (pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
 								{
 									if (pBestMedic != NULL)
 									{
@@ -13813,7 +13813,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 								if (bSlot == NO_SLOT)
 									continue;// no medical kit!
 
-								if (pMedic->stats.bLife > OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
+								if (pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
 								{
 									if (pBestMedic != NULL)
 									{

@@ -1377,7 +1377,8 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise weapons, sniper = %d",pSoldier->sniper));
 	if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->sniper == 0 && ( pSoldier->pathing.bLevel == 1 || Random(100) < 40 ) && (pSoldier->bBreath > 30 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 20) )
 	{
-		if ( !(WeaponReady(pSoldier)) ) // SANDRO - only call this if we are not in readied position yet
+		if (!WeaponReady(pSoldier) && 
+			PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 		{
 			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 			{
@@ -1398,10 +1399,10 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	////////////////////////////////////////////////////////////////////////////
 	// SANDRO - occasionally, allow regular soldiers to scan around too
-	if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-		 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+	if (IsScoped(&pSoldier->inv[HANDPOS]))
 	{
-		if (!(WeaponReady(pSoldier)))
+		if (!WeaponReady(pSoldier) && 
+			PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 		{
 			if ((!gfTurnBasedAI || ((GetAPsToReadyWeapon( pSoldier, PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) ) ) <= pSoldier->bActionPoints)) &&
 				 (pSoldier->bBreath > 30 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 20) )
@@ -1809,7 +1810,10 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				sprintf(tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
 				AIPopMessage(tempstr);
 #endif
-				if ( pSoldier->aiData.bOrders == SNIPER && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30))
+				if ( pSoldier->aiData.bOrders == SNIPER && 
+					(pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30) &&
+					!WeaponReady(pSoldier) &&
+					PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 				{
 					if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 					{
@@ -1818,10 +1822,11 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				}
 				////////////////////////////////////////////////////////////////////////////
 				// SANDRO - allow regular soldiers to raise scoped weapons to see farther away too
-				if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-					 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+				if (IsScoped(&pSoldier->inv[HANDPOS]))
 				{
-					if (!(WeaponReady(pSoldier)) && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30))
+					if (!WeaponReady(pSoldier) && 
+						PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+						(pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30))
 					{
 						if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) ) <= pSoldier->bActionPoints)
 						{
@@ -2377,12 +2382,14 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		{
 			////////////////////////////////////////////////////////////////////////////
 			// SANDRO - raise weapon maybe
-			if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubNoiseDir && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30)) // if we are facing the direction of where the noise came from
+			if (!WeaponReady(pSoldier) && 
+				PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+				pSoldier->ubDirection == ubNoiseDir &&	// if we are facing the direction of where the noise came from
+				(pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30))
 			{
 				if (!gfTurnBasedAI || (((GetAPsToReadyWeapon( pSoldier, PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) ) ) + GetAPsToChangeStance( pSoldier, ANIM_CROUCH )) <= pSoldier->bActionPoints))
 				{
-					if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-						 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+					if (IsScoped(&pSoldier->inv[HANDPOS]))
 					{
 						pSoldier->aiData.bNextAction = AI_ACTION_RAISE_GUN;
 					}
@@ -2398,12 +2405,14 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	{
 		////////////////////////////////////////////////////////////////////////////
 		// SANDRO - raise weapon maybe
-		if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubNoiseDir && (pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30)) // if we are facing the direction of where the noise came from
+		if (!WeaponReady(pSoldier) && 
+			PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+			pSoldier->ubDirection == ubNoiseDir && // if we are facing the direction of where the noise came from
+			(pSoldier->bBreath > 25 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 30))
 		{
 			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints)
 			{
-				if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-					 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+				if (IsScoped(&pSoldier->inv[HANDPOS]))
 				{
 					if ( Random(100) < 35 ) 
 					{
@@ -2482,6 +2491,28 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 	// can this guy move to any of the neighbouring squares ? (sets TRUE/FALSE)
 	ubCanMove = (pSoldier->bActionPoints >= MinPtsToMove(pSoldier));
+
+	// sevenfm: before deciding anything, stop cowering
+	if (SoldierAI(pSoldier) &&
+		ubCanMove &&
+		pSoldier->stats.bLife >= OKLIFE &&
+		!pSoldier->bCollapsed &&
+		!pSoldier->bBreathCollapsed &&
+		(pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE))
+	{
+		return AI_ACTION_STOP_COWERING;
+	}
+
+	// sevenfm: stop giving aid
+	if (SoldierAI(pSoldier) &&
+		pSoldier->bActionPoints > 0 &&
+		pSoldier->stats.bLife >= OKLIFE &&
+		!pSoldier->bCollapsed &&
+		!pSoldier->bBreathCollapsed &&
+		(pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN))
+	{
+		return AI_ACTION_STOP_MEDIC;
+	}
 
 	// if we're an alerted enemy, and there are panic bombs or a trigger around
 	if ( (!PTR_CIVILIAN || pSoldier->ubProfile == WARDEN) && ( ( gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || (pSoldier->ubID == gTacticalStatus.ubTheChosenOne) || (pSoldier->ubProfile == WARDEN) ) &&
@@ -2566,75 +2597,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
-		gTacticalStatus.bBoxingState == NOT_BOXING)
-	{
-		if ( FindAIUsableObjClass( pSoldier, IC_WEAPON ) == ITEM_NOT_FOUND )
-		{
-			// cower in fear!!
-			if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
-			{
-				if ( gfTurnBasedAI || gTacticalStatus.fEnemyInSector ) // battle!
-				{
-					// in battle!
-					if ( pSoldier->aiData.bLastAction == AI_ACTION_COWER )
-					{
-						// do nothing
-						pSoldier->aiData.usActionData = NOWHERE;
-						return( AI_ACTION_NONE );
-					}
-					else
-					{
-						// set up next action to run away
-						pSoldier->aiData.usNextActionData = FindSpotMaxDistFromOpponents( pSoldier );						
-						if (!TileIsOutOfBounds(pSoldier->aiData.usNextActionData))
-						{
-							pSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
-							pSoldier->aiData.usActionData = ANIM_STAND;
-							return( AI_ACTION_STOP_COWERING );
-						}
-						else
-						{
-							return( AI_ACTION_NONE );
-						}
-					}
-				}
-				else
-				{
-					if ( pSoldier->aiData.bNewSituation == NOT_NEW_SITUATION )
-					{
-						// stop cowering, not in battle, timer expired
-						// we have to turn off whatever is necessary to stop status red...
-						pSoldier->aiData.bAlertStatus = STATUS_GREEN;
-						return( AI_ACTION_STOP_COWERING );
-					}
-					else
-					{
-						return( AI_ACTION_NONE );
-					}
-				}
-			}
-			else
-			{
-				if ( gfTurnBasedAI || gTacticalStatus.fEnemyInSector )
-				{
-					// battle - cower!!!
-					pSoldier->aiData.usActionData = ANIM_CROUCH;
-					return( AI_ACTION_COWER );
-				}
-				else // not in battle, cower for a certain length of time
-				{
-					pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
-					pSoldier->aiData.usNextActionData = (UINT16) REALTIME_CIV_AI_DELAY;
-					pSoldier->aiData.usActionData = ANIM_CROUCH;
-					return( AI_ACTION_COWER );
-				}
-			}
-		}
-	}
-
-
-	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+	//if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && gTacticalStatus.bBoxingState == NOT_BOXING)
+	if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
 		if ( FindAIUsableObjClass( pSoldier, IC_WEAPON ) == ITEM_NOT_FOUND )
 		{
@@ -2826,7 +2790,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		if (BestShot.bWeaponIn != NO_SLOT) {
 			OBJECTTYPE * gun = &pSoldier->inv[BestShot.bWeaponIn];
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: men in sector %d, ubspotters called by %d, nobody %d",gTacticalStatus.Team[pSoldier->bTeam].bMenInSector,gTacticalStatus.ubSpottersCalledForBy,NOBODY ));
-			//if ( ( ( IsScoped(gun) && GunRange(gun) > pSoldier->GetMaxDistanceVisible(BestShot.sTarget, BestShot.bTargetLevel) ) || pSoldier->aiData.bOrders == SNIPER ) &&
 			if ( ( ( IsScoped(gun) && GunRange(gun, pSoldier) > MaxNormalDistanceVisible() ) || pSoldier->aiData.bOrders == SNIPER ) && // SANDRO - added argument
 				(gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
 				(gTacticalStatus.ubSpottersCalledForBy == NOBODY))
@@ -3925,10 +3888,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 						}
 
 						// raise weapon if not raised
-						if( PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) != INVALID_ANIMATION &&
-							!WeaponReady(pSoldier) &&
-							(pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50) &&
-							pSoldier->bActionPoints >= GetAPsToReadyWeapon( pSoldier, PickSoldierReadyAnimation( pSoldier, FALSE, FALSE ) ) )
+						if (!WeaponReady(pSoldier) &&
+							PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+							(pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding(pSoldier, TRUE) < 50) &&
+							pSoldier->bActionPoints >= GetAPsToReadyWeapon(pSoldier, PickSoldierReadyAnimation(pSoldier, FALSE, FALSE)))
 						{
 							return AI_ACTION_RAISE_GUN;
 						}
@@ -4202,7 +4165,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->aiData.usActionData);
 					AIPopMessage(tempstr);
 #endif
-					if ( pSoldier->aiData.bOrders == SNIPER && !(WeaponReady(pSoldier)) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50) )
+					if ( pSoldier->aiData.bOrders == SNIPER && 
+						!WeaponReady(pSoldier) && 
+						PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+						(pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50) )
 					{
 						if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 						{
@@ -4211,10 +4177,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					}
 					////////////////////////////////////////////////////////////////////////////
 					// SANDRO - allow regular soldiers to raise scoped weapons to see rather away too
-					else if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-						 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+					else if (IsScoped(&pSoldier->inv[HANDPOS]))
 					{
-						if (!(WeaponReady(pSoldier)) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
+						if (!WeaponReady(pSoldier) && 
+							PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+							(pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 						{
 							if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 							{
@@ -4232,7 +4199,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			}
 			////////////////////////////////////////////////////////////////////////////
 			// SANDRO - allow regular soldiers to raise scoped weapons to see farther away too
-			else if ( pSoldier->ubDirection == ubOpponentDir && !(WeaponReady(pSoldier)))
+			else if ( pSoldier->ubDirection == ubOpponentDir && 
+					!WeaponReady(pSoldier) &&
+					PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 			{
 				if ((!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 				{
@@ -4240,8 +4209,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					{
 						return AI_ACTION_RAISE_GUN;
 					}
-					else if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-						 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+					else if (IsScoped(&pSoldier->inv[HANDPOS]))
 					{
 						if ( Random(100) < 40 ) 
 						{
@@ -4420,10 +4388,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 						// determine direction from this soldier to the closest opponent
 						ubOpponentDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 
-						if (!(WeaponReady(pSoldier)) && pSoldier->ubDirection == ubOpponentDir )
+						if (!WeaponReady(pSoldier) && 
+							pSoldier->ubDirection == ubOpponentDir &&
+							PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 						{
-							if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-									 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+							if (IsScoped(&pSoldier->inv[HANDPOS]))
 							{
 								if ( Random(100) < 40 ) 
 								{
@@ -4481,7 +4450,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: sniper raising gun..."));
 			if ((!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 			{
-				if (!(WeaponReady(pSoldier)))
+				if (!WeaponReady(pSoldier) &&
+					PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION)
 				{
 					pSoldier->sniper = 1;
 					return AI_ACTION_RAISE_GUN;
@@ -4498,12 +4468,13 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	{
 		////////////////////////////////////////////////////////////////////////////
 		// SANDRO - raise weapon maybe
-		if (!(WeaponReady(pSoldier)) && (pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50)) // if we are facing the direction of where the noise came from
+		if (!WeaponReady(pSoldier) && 
+			PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+			(pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) < 50))
 		{
 			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState ) <= pSoldier->bActionPoints)
 			{
-				if ( (UsingNewCTHSystem() == false && IsScoped(&pSoldier->inv[HANDPOS])) || 
-					 (UsingNewCTHSystem() == true && NCTHIsScoped(&pSoldier->inv[HANDPOS])) )
+				if (IsScoped(&pSoldier->inv[HANDPOS]))
 				{
 					if ( Random(100) < 35 ) 
 					{
@@ -4586,6 +4557,28 @@ INT16 ubMinAPCost;
 	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 	{
 		ubCanMove = 0;
+	}
+
+	// sevenfm: before deciding anything, stop cowering
+	if (SoldierAI(pSoldier) &&
+		ubCanMove &&
+		pSoldier->stats.bLife >= OKLIFE &&
+		!pSoldier->bCollapsed &&
+		!pSoldier->bBreathCollapsed &&
+		(pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE))
+	{
+		return AI_ACTION_STOP_COWERING;
+	}
+
+	// sevenfm: stop giving aid
+	if (SoldierAI(pSoldier) &&
+		pSoldier->bActionPoints > 0 &&
+		pSoldier->stats.bLife >= OKLIFE &&
+		!pSoldier->bCollapsed &&
+		!pSoldier->bBreathCollapsed &&
+		(pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN))
+	{
+		return AI_ACTION_STOP_MEDIC;
 	}
 
 	if ( (pSoldier->bTeam == ENEMY_TEAM || pSoldier->ubProfile == WARDEN) && (gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE) && (gTacticalStatus.ubTheChosenOne == NOBODY) )
@@ -8383,7 +8376,7 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 			
 		BestAttack.iAttackValue = 0;
 
-		if (BestStab.ubPossible && ((BestStab.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)))
+		if (BestStab.ubPossible && ((BestStab.iAttackValue > BestAttack.iAttackValue)))
 		{
 			// zombies are always punching...
 			BestAttack.iAttackValue = BestStab.iAttackValue;
@@ -9966,7 +9959,6 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK )
 			if ( BestShot.bWeaponIn != NO_SLOT ) {
 				OBJECTTYPE * gun = &pSoldier->inv[BestShot.bWeaponIn];
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "ArmedVehicleDecideActionRed: men in sector %d, ubspotters called by %d, nobody %d", gTacticalStatus.Team[pSoldier->bTeam].bMenInSector, gTacticalStatus.ubSpottersCalledForBy, NOBODY ) );
-				//if ( ( ( IsScoped(gun) && GunRange(gun) > pSoldier->GetMaxDistanceVisible(BestShot.sTarget, BestShot.bTargetLevel) ) || pSoldier->aiData.bOrders == SNIPER ) &&
 				if ( ((IsScoped( gun ) && GunRange( gun, pSoldier ) > MaxNormalDistanceVisible( )) || pSoldier->aiData.bOrders == SNIPER) && // SANDRO - added argument
 					 (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
 					 (gTacticalStatus.ubSpottersCalledForBy == NOBODY) )
