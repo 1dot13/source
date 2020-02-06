@@ -2147,8 +2147,14 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             }
             break;
 
-        case AI_ACTION_STOP_COWERING:			
-			if (SoldierAI(pSoldier))
+        case AI_ACTION_STOP_COWERING:
+			if (pSoldier->flags.uiStatusFlags & SOLDIER_COWERING)
+			{
+				// stop cowering for civilians
+				pSoldier->aiData.usActionData = ANIM_STAND;
+				pSoldier->SetSoldierCowerState(FALSE);
+			}
+			else if (SoldierAI(pSoldier) && (pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE))
 			{
 				// sevenfm: stop cowering for soldiers
 				if (pSoldier->usAnimState == COWERING)
@@ -2174,19 +2180,14 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 				}
 				// clear cowering flag
 				pSoldier->flags.uiStatusFlags &= (~SOLDIER_COWERING);
+				ActionDone(pSoldier);
 			}
-			else if (pSoldier->flags.uiStatusFlags & SOLDIER_COWERING)
-				{
-					// stop cowering for civilians
-					pSoldier->aiData.usActionData = ANIM_STAND;
-					pSoldier->SetSoldierCowerState(FALSE);
-				}
-				else
-				{
-					// nothing to do!
-					ActionDone(pSoldier);
-					return(FALSE);
-				}
+			else
+			{
+				// nothing to do!
+				ActionDone(pSoldier);
+				return(FALSE);
+			}
             break;
 
         case AI_ACTION_GIVE_AID:              // help injured/dying friend
