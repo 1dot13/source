@@ -2241,7 +2241,7 @@ BOOLEAN PlayVoiceTaunt(SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTa
 	}
 	else if (pCiv->bTeam == CIV_TEAM && pCiv->ubCivilianGroup != NON_CIV_GROUP)
 	{
-		sprintf(buf, "\\Civgroup%02d\\", pCiv->ubCivilianGroup);
+		sprintf(buf, "\\Civgroup%d\\", pCiv->ubCivilianGroup);
 		strcat(filename, buf);
 	}
 	else
