@@ -4949,7 +4949,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 				ddVerticAngle += ddAdjustedVerticAngle;
 
 				//Logging for debugging
-				//#ifdef JA2TESTVERSION
+				#ifdef JA2TESTVERSION
 				if(!fFake)
 				{
 					FILE      *OutFile;
@@ -4968,7 +4968,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 						fclose(OutFile);
 					}
 				}
-				//#endif
+				#endif
 			}
 
 			//Just calculate the increments the bullet will use, not any of the to-hit adjustments, because we already did.

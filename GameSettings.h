@@ -1560,6 +1560,8 @@ typedef struct
 	BOOLEAN fTauntShowInLogIfHeard;
 	BOOLEAN fTauntAlwaysShowPopupBox;
 	BOOLEAN fTauntAlwaysShowInLog;
+	BOOLEAN fTauntVoice;
+	BOOLEAN fTauntVoiceShowInfo;
 	UINT16 sVolume;
 	INT16 sModDelay;
 	UINT16 sMinDelay;

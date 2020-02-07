@@ -6007,7 +6007,9 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 						break;
 					case MILITIA_TEAM:
 						// if the noisemaker is militia and still on our side, ignore noise if we're listening
-						if ( pSoldier->bTeam == OUR_TEAM && MercPtrs[ ubNoiseMaker ]->bSide == 0 )
+						// sevenfm: allow taunts from militia
+						if (pSoldier->bTeam == OUR_TEAM && MercPtrs[ubNoiseMaker]->bSide == 0 && (ubNoiseType != NOISE_VOICE || !gTauntsSettings.fTauntVoice))
+						//if ( pSoldier->bTeam == OUR_TEAM && MercPtrs[ ubNoiseMaker ]->bSide == 0 )
 						{
 							continue;
 						}
@@ -6740,43 +6742,66 @@ void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGri
 	}
 
 	// anv: special treatment of NOISE_VOICE - also display taunt message
-	if( ubNoiseType == NOISE_VOICE )
+	if (ubNoiseType == NOISE_VOICE && ubNoiseMaker != NOBODY)
 	{
 		// information about direction etc. only displayed if we don't see noise maker
-		if( gbPublicOpplist[gbPlayerNum][ubNoiseMaker] != SEEN_CURRENTLY && pSoldier->aiData.bOppList[ubNoiseMaker] != SEEN_CURRENTLY )
+		// sevenfm: don't show noise messages from militia (if on our side)
+		if (gbPublicOpplist[gbPlayerNum][ubNoiseMaker] != SEEN_CURRENTLY &&	pSoldier->aiData.bOppList[ubNoiseMaker] != SEEN_CURRENTLY &&
+			!(MercPtrs[ubNoiseMaker]->bTeam == MILITIA_TEAM && MercPtrs[ubNoiseMaker]->bSide == 0))
+		//if( gbPublicOpplist[gbPlayerNum][ubNoiseMaker] != SEEN_CURRENTLY && pSoldier->aiData.bOppList[ubNoiseMaker] != SEEN_CURRENTLY )
 		{
-			if( bLevel == pSoldier->pathing.bLevel && ubNoiseType == NOISE_VOICE )
+			if (bLevel == pSoldier->pathing.bLevel)
 			{
-				ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], pDirectionStr[ubNoiseDir] );
+				ScreenMsg(MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], pDirectionStr[ubNoiseDir]);
 			}
-			else if ( bLevel > pSoldier->pathing.bLevel )
+			else if (bLevel > pSoldier->pathing.bLevel)
 			{
 				// from above!
-				ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], gzLateLocalizedString[6] );
+				ScreenMsg(MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], gzLateLocalizedString[6]);
 			}
 			else
 			{
 				// from below!
-				ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], gzLateLocalizedString[7] );
+				ScreenMsg(MSG_FONT_YELLOW, MSG_INTERFACE, pNewNoiseStr[ubNoiseType], pSoldier->name, pNoiseVolStr[ubVolumeIndex], gzLateLocalizedString[7]);
 			}
 		}
+
 		if( ubVolumeIndex > 0 ) // definite noise - we're able to recognize words
 		{
-			// do we know who said that?
-			if( gbPublicOpplist[gbPlayerNum][ubNoiseMaker] == SEEN_CURRENTLY || pSoldier->aiData.bOppList[ubNoiseMaker] == SEEN_CURRENTLY )
+			CHAR8 filename[1024];
+
+			if (gTauntsSettings.fTauntVoiceShowInfo)
+				ScreenMsg(FONT_ORANGE, MSG_INTERFACE, zNoiseMessage);
+
+			// convert wchar to char			
+			wcstombs(filename, zNoiseMessage, wcslen(zNoiseMessage) + 1);
+			// sevenfm: play voice taunt (check that noise string is a filename)
+			if (gTauntsSettings.fTauntVoice	 &&
+				strlen(filename) != 0 &&
+				strstr(filename, "VoiceTaunts\\") != NULL)
 			{
-				if(  gTauntsSettings.fTauntShowPopupBox == TRUE )
-					ShowTauntPopupBox( MercPtrs[ubNoiseMaker], zNoiseMessage );
-				if(  gTauntsSettings.fTauntShowInLog == TRUE )
-					ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s: %s", MercPtrs[ubNoiseMaker]->GetName(), zNoiseMessage );
+				UINT32 playResult = PlayJA2SampleFromFile(filename, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+				if (playResult == SOUND_ERROR && gTauntsSettings.fTauntVoiceShowInfo)
+					ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Noise: Failed to play taunt");
 			}
 			else
 			{
-				if( gTauntsSettings.fTauntShowPopupBox == TRUE && gTauntsSettings.fTauntShowPopupBoxIfHeard == TRUE )
-					ShowTauntPopupBox( MercPtrs[ubNoiseMaker], zNoiseMessage );
-				if( gTauntsSettings.fTauntShowInLog == TRUE && gTauntsSettings.fTauntShowInLogIfHeard == TRUE )
-					ScreenMsg( FONT_GRAY2, MSG_INTERFACE, L"%s: %s", pTauntUnknownVoice[0], zNoiseMessage );
-			}
+				// do we know who said that?
+				if (gbPublicOpplist[gbPlayerNum][ubNoiseMaker] == SEEN_CURRENTLY || pSoldier->aiData.bOppList[ubNoiseMaker] == SEEN_CURRENTLY)
+				{
+					if (gTauntsSettings.fTauntShowPopupBox == TRUE)
+						ShowTauntPopupBox(MercPtrs[ubNoiseMaker], zNoiseMessage);
+					if (gTauntsSettings.fTauntShowInLog == TRUE)
+						ScreenMsg(FONT_GRAY2, MSG_INTERFACE, L"%s: %s", MercPtrs[ubNoiseMaker]->GetName(), zNoiseMessage);
+				}
+				else
+				{
+					if (gTauntsSettings.fTauntShowPopupBox == TRUE && gTauntsSettings.fTauntShowPopupBoxIfHeard == TRUE)
+						ShowTauntPopupBox(MercPtrs[ubNoiseMaker], zNoiseMessage);
+					if (gTauntsSettings.fTauntShowInLog == TRUE && gTauntsSettings.fTauntShowInLogIfHeard == TRUE)
+						ScreenMsg(FONT_GRAY2, MSG_INTERFACE, L"%s: %s", pTauntUnknownVoice[0], zNoiseMessage);
+				}
+			}			
 		}
 	}
 	else if ( bLevel == pSoldier->pathing.bLevel || ubNoiseType == NOISE_EXPLOSION || ubNoiseType == NOISE_SCREAM || ubNoiseType == NOISE_ROCK_IMPACT || ubNoiseType == NOISE_GRENADE_IMPACT )
@@ -6817,20 +6842,14 @@ void TellPlayerAboutNoise( SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGri
 
 
 	//DIGICRAB: Loud Sound Locator
-	//show a locator for very loud noises if we are in PLATINUM mode and have an extended ear
-	//Madd: if(gGameOptions.ubGameStyle == STYLE_PLATINUM && ubVolumeIndex >= 2)
+	//show a locator for very loud noises if we have an extended ear
 	if(ubVolumeIndex >= 2)
 	{
-//		INT8 bSlot;
-
-		//bSlot = FindObj( pSoldier, EXTENDEDEAR );
-		//if ( bSlot == HEAD1POS || bSlot == HEAD2POS)
 		if ( FindHearingAid(pSoldier) )
 			BeginMultiPurposeLocator(sGridNo, bLevel, (INT8)((gTacticalStatus.uiFlags & TURNBASED) && ( gTacticalStatus.uiFlags & INCOMBAT )));
 	}
 
 	// flag soldier as having reported noise in a particular direction
-
 }
 
 void VerifyAndDecayOpplist(SOLDIERTYPE *pSoldier)

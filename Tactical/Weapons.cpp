@@ -5320,14 +5320,28 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			{
 				if( Item[ pBullet->pFirer->usAttackingWeapon ].usItemClass & IC_GUN )
 				{
-					if( MercPtrs[ pBullet->pFirer->ubOppNum ]->aiData.bOppList[  pBullet->pFirer->ubID ] == SEEN_CURRENTLY )
-						PossiblyStartEnemyTaunt( MercPtrs[ pBullet->pFirer->ubOppNum ], TAUNT_GOT_MISSED_GUNFIRE, pBullet->pFirer->ubID );
+					if (gTauntsSettings.fTauntVoice)
+					{
+						// say taunt only to inform others
+						if (gbPublicOpplist[MercPtrs[pBullet->pFirer->ubOppNum]->bTeam][pBullet->pFirer->ubID] != SEEN_CURRENTLY &&
+							gbPublicOpplist[MercPtrs[pBullet->pFirer->ubOppNum]->bTeam][pBullet->pFirer->ubID] != SEEN_THIS_TURN &&
+							gTacticalStatus.Team[MercPtrs[pBullet->pFirer->ubOppNum]->bTeam].bMenInSector > 1)
+						{
+							PossiblyStartEnemyTaunt(MercPtrs[pBullet->pFirer->ubOppNum], TAUNT_GOT_MISSED_GUNFIRE, pBullet->pFirer->ubID);
+						}
+					}
+					else if (MercPtrs[pBullet->pFirer->ubOppNum]->aiData.bOppList[pBullet->pFirer->ubID] == SEEN_CURRENTLY)
+					{
+						PossiblyStartEnemyTaunt(MercPtrs[pBullet->pFirer->ubOppNum], TAUNT_GOT_MISSED_GUNFIRE, pBullet->pFirer->ubID);
+					}
+
 					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_GUNFIRE, pBullet->pFirer->ubOppNum );
 				}
 				else if( Item[ pBullet->pFirer->usAttackingWeapon ].usItemClass & IC_THROWING_KNIFE )
 				{
 					if( MercPtrs[ pBullet->pFirer->ubOppNum ]->aiData.bOppList[  pBullet->pFirer->ubID ] == SEEN_CURRENTLY )
 						PossiblyStartEnemyTaunt( MercPtrs[ pBullet->pFirer->ubOppNum ], TAUNT_GOT_MISSED_THROWING_KNIFE, pBullet->pFirer->ubID );
+
 					PossiblyStartEnemyTaunt( pBullet->pFirer, TAUNT_MISS_THROWING_KNIFE, pBullet->pFirer->ubOppNum );
 				}
 			}

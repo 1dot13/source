@@ -39,6 +39,7 @@
 #include "Soldier Profile.h"
 #include "Campaign.h"
 #include "opplist.h"
+#include "Sound Control.h"	// sevenfm: voice taunts
 
 #define			DIALOGUE_DEFAULT_WIDTH			200
 #define			EXTREAMLY_LOW_TOWN_LOYALTY	20
@@ -1151,7 +1152,6 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 ui
 	// is enemy blocked from taunting at the moment?
 	if( uiTauntFinishTimes[pCiv->ubID] > GetJA2Clock() )
 	{
-		
 		return;
 	}
 	// check if generated person
@@ -1160,10 +1160,18 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 ui
 		return;
 	}
 	// only enemies and militia taunt
-	if ( pCiv->bTeam != ENEMY_TEAM && pCiv->bTeam != MILITIA_TEAM )
+	// sevenfm: allow voice taunts for hostile civilians with group
+	if (pCiv->bTeam != ENEMY_TEAM &&
+		pCiv->bTeam != MILITIA_TEAM &&
+		!(pCiv->bTeam == CIV_TEAM && pCiv->ubCivilianGroup != NON_CIV_GROUP && !pCiv->aiData.bNeutral && gTauntsSettings.fTauntVoice))
 	{
 		return;
 	}
+	/*if ( pCiv->bTeam != ENEMY_TEAM && pCiv->bTeam != MILITIA_TEAM )
+	{
+		return;
+	}*/
+
 	// only visible enemies taunt (unless set otherwise)
 	if ( ( pCiv->bVisible == -1 ) && ( gTauntsSettings.fTauntOnlyVisibleEnemies == TRUE ) )
 	{
@@ -1346,12 +1354,15 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 	if ( pCiv->IsZombie() )
 		return;
 
-	// gCivQuoteData.bActive is checked in ShowTauntPopupBox() instead, taunt can be shown in log though!
-	// if we have a different quote on, return, this one is not important
-	//if ( gCivQuoteData.bActive )
-	//{
-	//	return;
-	//}
+	// sevenfm: play audio taunt if possible
+	if (gTauntsSettings.fTauntVoice)
+	{
+		// try to play voice taunt, use noise if gTauntsSettings.fTauntMakeNoise is TRUE
+		PlayVoiceTaunt(pCiv, iTauntType, pTarget);
+		// block this enemy from taunting for a time being
+		uiTauntFinishTimes[pCiv->ubID] = GetJA2Clock() + min(gTauntsSettings.sMaxDelay, max(gTauntsSettings.sMinDelay, FindDelayForString(L"You're the disease and I'm the cure!") + gTauntsSettings.sModDelay));
+		return;
+	}
 
 	// anv: check all taunts, and remember those applicable
 	for(UINT16 i=0; i<num_found_taunt; ++i)
@@ -1989,7 +2000,7 @@ void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTar
 		uiTauntFinishTimes[pCiv->ubID] = GetJA2Clock() + min( gTauntsSettings.sMaxDelay , max( gTauntsSettings.sMinDelay, FindDelayForString( gzTauntQuote ) + gTauntsSettings.sModDelay ) ); 
 
 		if( gTauntsSettings.fTauntMakeNoise == TRUE )
-			MakeNoise( pCiv->ubID, pCiv->sGridNo, pCiv->pathing.bLevel, pCiv->bOverTerrainType, gTauntsSettings.sVolume, NOISE_VOICE, gzTauntQuote );
+			MakeNoise( pCiv->ubID, pCiv->sGridNo, pCiv->pathing.bLevel, pCiv->bOverTerrainType, (UINT8)gTauntsSettings.sVolume, NOISE_VOICE, gzTauntQuote );
 		else
 		{
 			if(gTauntsSettings.fTauntShowPopupBox == TRUE)
@@ -2098,4 +2109,282 @@ void ShowTauntPopupBox( SOLDIERTYPE *pCiv, STR16 gzTauntQuote )
 BOOLEAN CivQuoteActive()
 {
 	return gCivQuoteData.bActive;
+}
+
+STR VoiceTauntFileName[] =
+{
+	"FIRE_GUN",
+	"FIRE_LAUNCHER",
+	"ATTACK_BLADE",
+	"ATTACK_HTH",
+
+	"THROW_KNIFE",
+	"THROW_GRENADE",
+
+	"OUT_OF_AMMO",
+	"RELOAD",
+
+	"STEAL",
+
+	// AI routines
+	"CHARGE_BLADE",
+	"CHARGE_HTH",
+	"RUN_AWAY",
+	"SEEK_NOISE",
+	"ALERT",
+	"SUSPICIOUS",
+	"NOTICED_UNSEEN",
+	"SAY_HI",
+	"INFORM_ABOUT",
+
+	// got_hit_xxx
+	"GOT_HIT",
+	"GOT_HIT_GUNFIRE",
+	"GOT_HIT_BLADE",
+	"GOT_HIT_HTH",
+	"GOT_HIT_FALLROOF",
+	"GOT_HIT_BLOODLOSS",
+	"GOT_HIT_EXPLOSION",
+	"GOT_HIT_GAS",
+	"GOT_HIT_TENTACLES",
+	"GOT_HIT_STRUCTURE_EXPLOSION",
+	"GOT_HIT_OBJECT",
+	"GOT_HIT_THROWING_KNIFE",
+
+	"GOT_DEAFENED",
+	"GOT_BLINDED",
+
+	"GOT_ROBBED",
+
+	// got_missed_xxx
+	"GOT_MISSED",
+	"GOT_MISSED_GUNFIRE",
+	"GOT_MISSED_BLADE",
+	"GOT_MISSED_HTH",
+	"GOT_MISSED_THROWING_KNIFE",
+
+	// hit_xxx
+	"HIT",
+	"HIT_GUNFIRE",
+	"HIT_BLADE",
+	"HIT_HTH",
+	"HIT_EXPLOSION",
+	"HIT_THROWING_KNIFE",
+
+	// kill_xxx
+	"KILL",
+	"KILL_GUNFIRE",
+	"KILL_BLADE",
+	"KILL_HTH",
+	"KILL_THROWING_KNIFE",
+	"HEAD_POP",
+
+	// miss_xxx
+	"MISS",
+	"MISS_GUNFIRE",
+	"TAUNT_MISS_BLADE",
+	"MISS_HTH",
+	"MISS_THROWING_KNIFE",
+
+	// ripostes to merc quotes
+	"RIPOSTE"
+};
+
+// sevenfm: voice taunts
+BOOLEAN PlayVoiceTaunt(SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget)
+{
+	CHAR8 filename[1024];
+	CHAR8 filenameExtra[1024];
+	CHAR16 noise[1024];
+	CHAR8 buf[1024];
+	INT32 iRandomTaunt = 0;
+	UINT8 ubExtraTaunts = 0;
+
+	CHECKF(pCiv);
+
+	if (!gTauntsSettings.fTauntVoice)
+	{
+		return FALSE;
+	}
+
+	// show some information about taunts
+	if (gTauntsSettings.fTauntVoiceShowInfo)
+		ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Soldier [%d] TauntType %d", pCiv->ubID, iTauntType);
+
+	// cannot taunt when dead or collapsed
+	if (pCiv->stats.bLife < OKLIFE || pCiv->bCollapsed || pCiv->bBreathCollapsed)
+	{
+		if (gTauntsSettings.fTauntVoiceShowInfo)
+			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Bad soldier state (dying or collapsed)");
+
+		return FALSE;
+	}
+
+	if (iTauntType < TAUNT_FIRE_GUN || iTauntType > TAUNT_RIPOSTE)
+	{
+		if (gTauntsSettings.fTauntVoiceShowInfo)
+			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Bad taunt");
+
+		return FALSE;
+	}
+
+	strcpy(filename, "VoiceTaunts");
+
+	// prepare team
+	if (pCiv->bTeam == ENEMY_TEAM)
+	{
+		strcat(filename, "\\Army\\");
+	}
+	else if (pCiv->bTeam == MILITIA_TEAM)
+	{
+		strcat(filename, "\\Militia\\");
+	}
+	else if (pCiv->bTeam == CIV_TEAM && pCiv->ubCivilianGroup != NON_CIV_GROUP)
+	{
+		sprintf(buf, "\\Civgroup%02d\\", pCiv->ubCivilianGroup);
+		strcat(filename, buf);
+	}
+	else
+	{
+		if (gTauntsSettings.fTauntVoiceShowInfo)
+			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Bad soldier team");
+
+		return FALSE;
+	}
+
+	// prepare gender
+	if (pCiv->ubBodyType <= STOCKYMALE)
+	{
+		strcat(filename, "Male\\");
+	}
+	else if (pCiv->ubBodyType == REGFEMALE)
+	{
+		strcat(filename, "Female\\");
+	}
+	else
+	{
+		if (gTauntsSettings.fTauntVoiceShowInfo)
+			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Incorrect bodytype");
+
+		return FALSE;
+	}
+
+	// count possible voices
+	UINT8 ubVoiceCount;
+	for (ubVoiceCount = 1; ubVoiceCount <= 100; ubVoiceCount++)
+	{
+		sprintf(buf, "%s%02d", filename, ubVoiceCount);
+		strcat(buf, "\\alert.ogg");		
+
+		// check that folder exists
+		if (!FileExists(buf))
+		{
+			if (gTauntsSettings.fTauntVoiceShowInfo)
+			{
+				mbstowcs(noise, buf, strlen(buf) + 1);
+				ScreenMsg(FONT_GREEN, MSG_INTERFACE, noise);
+			}
+
+			break;
+		}
+	}
+	// find last good number
+	ubVoiceCount--;
+
+	if (ubVoiceCount < 1)
+	{
+		if (gTauntsSettings.fTauntVoiceShowInfo)
+			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Could not find any voice folder");
+
+		return FALSE;
+	}
+
+	if (gTauntsSettings.fTauntVoiceShowInfo)
+		ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"found %d voices", ubVoiceCount);
+
+	// prepare voice folder name
+	sprintf(buf, "%02d", 1 + pCiv->ubID % ubVoiceCount);
+	strcat(filename, buf);
+	strcat(filename, "\\");
+
+	// prepare base taunt filename
+	strcat(filename, VoiceTauntFileName[iTauntType]);
+
+	// count possible extra filenames
+	ubExtraTaunts = 0;
+	for (UINT8 ubCheck = 1; ubCheck <= 10; ubCheck++)
+	{
+		// check extra taunt file
+		strcpy(filenameExtra, filename);
+		sprintf(buf, " %d", ubExtraTaunts);
+		strcat(filenameExtra, buf);
+		strcat(filenameExtra, ".ogg");
+		if (!FileExists(filenameExtra))
+		{
+			break;
+		}
+		ubExtraTaunts = ubCheck;
+	}
+
+	// possibly use extra taunt
+	iRandomTaunt = Random(ubExtraTaunts + 1);
+	if (iRandomTaunt > 0)
+	{
+		sprintf(buf, " %d", iRandomTaunt);
+		strcat(filename, buf);
+	}
+
+	strcat(filename, ".ogg");
+
+	// log taunt file names
+	if (gTauntsSettings.fTauntVoiceShowInfo)
+	{
+		FILE	*OutFile;
+		if ((OutFile = fopen("VoiceTauntLog.txt", "a+t")) != NULL)
+		{
+			fprintf(OutFile, "Soldier [%d] TauntType %d %s\n",
+				pCiv->ubID,
+				iTauntType,
+				filename);
+			fclose(OutFile);
+		}
+
+		// show some information about taunts	
+		mbstowcs(noise, filename, strlen(filename) + 1);
+		ScreenMsg(FONT_GREEN, MSG_INTERFACE, noise);
+	}
+
+	// check that taunt file exists
+	if (!FileExists(filename))
+	{
+		if (gTauntsSettings.fTauntVoiceShowInfo)
+		{
+			mbstowcs(noise, filename, strlen(filename) + 1);
+			ScreenMsg(FONT_GREEN, MSG_INTERFACE, noise);
+			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Taunt: no file %s", noise);
+		}
+
+		return FALSE;
+	}
+
+	if (gTauntsSettings.fTauntMakeNoise == TRUE)
+	{
+		// convert char to char16
+		mbstowcs(noise, filename, strlen(filename) + 1);
+		// use filename as taunt text, play sound later
+		MakeNoise(pCiv->ubID, pCiv->sGridNo, pCiv->pathing.bLevel, pCiv->bOverTerrainType, (UINT8)gTauntsSettings.sVolume, NOISE_VOICE, noise);
+	}
+	else
+	{
+		// play voice taunt
+		if (PlayJA2SampleFromFile(filename, RATE_11025, SoundVolume(HIGHVOLUME, pCiv->sGridNo), 1, SoundDir(pCiv->sGridNo)) == SOUND_ERROR)
+		{
+			if (gTauntsSettings.fTauntVoiceShowInfo)
+				ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Failed to play taunt");
+
+			return FALSE;
+		}
+	}
+
+	return TRUE;
 }

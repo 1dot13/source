@@ -158,6 +158,9 @@ void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, UINT32 ui
 void StartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget = NULL ); //enemy taunts - SANDRO // anv: added pTarget argument
 void ShowTauntPopupBox( SOLDIERTYPE *pCiv, STR16 gzTauntQuote );
 
+// sevenfm: voice taunts
+BOOLEAN PlayVoiceTaunt(SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTarget);
+
 void InitCivQuoteSystem( );
 
 void StartCivQuote( SOLDIERTYPE *pCiv );

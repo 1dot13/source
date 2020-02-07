@@ -10342,7 +10342,7 @@ INT8 CheckStatusNearbyFriendlies( SOLDIERTYPE *pSoldier )
             }
         }
         // Incapacitated or heavily suppressed friends will not be good for our tolerance!
-        else if ( (pLeader->aiData.bShock > pSoldier->aiData.bShock || pLeader->stats.bLife <= OKLIFE) )
+        else if ( (pLeader->aiData.bShock > pSoldier->aiData.bShock || pLeader->stats.bLife < OKLIFE) )
         {
             usEffectiveRangeToLeader = PythSpacesAway( pSoldier->sGridNo, pLeader->sGridNo );
             // If they are no more than 5 tiles away,
