@@ -934,6 +934,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gubMaxPercentNoiseSilencedSound	= iniReader.ReadInteger("Sound Settings","MAX_PERCENT_NOISE_SILENCED_SOUND", 35, 0, 100 );
 	gGameExternalOptions.fEnableTA							= iniReader.ReadBoolean("Sound Settings", "ENABLE_TA", TRUE, false);
 	gGameExternalOptions.ubVolumeTA							= iniReader.ReadInteger("Sound Settings", "VOLUME_TA", 50, 1, 127);
+	gGameExternalOptions.fEnableSSA							= iniReader.ReadBoolean("Sound Settings", "ENABLE_SSA", false, false);
+	gGameExternalOptions.fDebugSSA							= iniReader.ReadBoolean("Sound Settings", "DEBUG_SSA", false, false);
+	gGameExternalOptions.ubVolumeSSA						= iniReader.ReadInteger("Sound Settings", "VOLUME_SSA", 50, 1, 127);
 
 	//################# Tactical Interface Settings #################
 

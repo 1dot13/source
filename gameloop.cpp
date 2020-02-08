@@ -520,6 +520,9 @@ void SetPendingNewScreen( UINT32 uiNewScreen )
 extern UINT32 guiRainLoop;
 // end rain
 
+// sevenfm
+extern UINT32 guiCurrentSteadyStateSoundHandle;
+
 // Gets called when the screen changes, place any needed in code in here
 void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen )
 {
@@ -541,8 +544,23 @@ void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen )
 	}
 	// end rain
 
-	if (uiNewScreen != MSG_BOX_SCREEN)
+	// sevenfm: start/stop SSA
+	if (uiNewScreen == GAME_SCREEN)
 	{
+		// check that no sound is playing currently
+		if (guiCurrentSteadyStateSoundHandle == NO_SAMPLE)
+		{
+			SetSSA();
+		}
+	}
+	else if (uiNewScreen != MSG_BOX_SCREEN)
+	{
+		// Stop SSA
+		if (guiCurrentSteadyStateSoundHandle != NO_SAMPLE)
+		{
+			SoundStop(guiCurrentSteadyStateSoundHandle);
+			guiCurrentSteadyStateSoundHandle = NO_SAMPLE;
+		}
 		// stop ambients
 		StopFireAmbient();
 	}

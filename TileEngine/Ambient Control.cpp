@@ -13,7 +13,16 @@
 	#include "Ambient Control.h"
 	#include "lighting.h"
 	#include "Random.h"	
-	#include "SmokeEffects.h"	// sevenfm
+	// sevenfm
+	#include "SmokeEffects.h"
+	#include "message.h"
+	#include "Overhead.h"
+	#include "strategicmap.h"
+	#include "Strategic Movement.h"
+	#include "Game Clock.h"
+	#include "Queen Command.h"
+	#include "undergroundinit.h"
+	#include "strategic mines.h"
 #endif
 
 AMBIENTDATA_STRUCT		gAmbData[ MAX_AMBIENT_SOUNDS ];
@@ -23,6 +32,10 @@ INT16					gsNumAmbData = 0;
 UINT32					guiAmbientFire = NO_SAMPLE;
 UINT8					gubAmbientFutureFireVolume = 0;
 UINT32					guiFireAmbientLastUpdate = 0;
+
+extern					STR8 pVertStrings[];
+extern					STR8 pHortStrings[];
+extern					CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];
 
 UINT8					gubCurrentSteadyStateAmbience = SSA_NONE;
 UINT8					gubCurrentSteadyStateSound	= 0;
@@ -255,7 +268,7 @@ UINT32 SetupNewAmbientSound( UINT32 uiAmbientID )
 
 UINT32 StartSteadyStateAmbient( UINT32 ubVolume, UINT32 ubLoops)
 {
-SOUNDPARMS spParms;
+	SOUNDPARMS spParms;
 
 	memset(&spParms, 0xff, sizeof(SOUNDPARMS));
 
@@ -263,12 +276,12 @@ SOUNDPARMS spParms;
 	spParms.uiLoop = ubLoops;
 	spParms.uiPriority=GROUP_AMBIENT;
 
-	return(SoundPlay( gSteadyStateAmbientTable[ gubCurrentSteadyStateAmbience ].zSoundNames[ gubCurrentSteadyStateSound ], &spParms ) );
+	return(SoundPlay(gSteadyStateAmbientTable[gubCurrentSteadyStateAmbience].zSoundNames[gubCurrentSteadyStateSound], &spParms));
 }
 
 
 
-BOOLEAN SetSteadyStateAmbience( UINT8 ubAmbience )
+BOOLEAN SetSteadyStateAmbience(UINT8 ubAmbience)
 {
 	BOOLEAN fInNight = FALSE;
 	INT32	 cnt;
@@ -276,44 +289,46 @@ BOOLEAN SetSteadyStateAmbience( UINT8 ubAmbience )
 	UINT8	 ubChosenSound;
 
 	// Stop all ambients...
-	if ( guiCurrentSteadyStateSoundHandle != NO_SAMPLE )
+	if (guiCurrentSteadyStateSoundHandle != NO_SAMPLE)
 	{
-		SoundStop( guiCurrentSteadyStateSoundHandle );
+		SoundStop(guiCurrentSteadyStateSoundHandle);
 		guiCurrentSteadyStateSoundHandle = NO_SAMPLE;
 	}
 
 	// Determine what time of day we are in ( day/night)
-	if( gubEnvLightValue >= LIGHT_DUSK_CUTOFF)
+	if (gubEnvLightValue >= LIGHT_DUSK_CUTOFF)
 	{
-	fInNight = TRUE;
+		fInNight = TRUE;
 	}
 
 	// loop through listing to get num sounds...
-	for ( cnt = ( fInNight * 4 ); cnt < ( NUM_SOUNDS_PER_TIMEFRAME / 2 ); cnt++ )
+	// sevenfm: bugfix for night ambients	
+	for (cnt = fInNight * 4; cnt < fInNight * 4 + NUM_SOUNDS_PER_TIMEFRAME / 2; cnt++)
+	//for (cnt = (fInNight * 4); cnt < (NUM_SOUNDS_PER_TIMEFRAME / 2); cnt++)
 	{
-	if ( gSteadyStateAmbientTable[ ubAmbience ].zSoundNames[ cnt ][ 0 ] == 0 )
-	{
-		break;
+		if (gSteadyStateAmbientTable[ubAmbience].zSoundNames[cnt][0] == 0)
+		{
+			break;
+		}
+
+		ubNumSounds++;
 	}
 
-	ubNumSounds++;
-	}
-
-	if ( ubNumSounds == 0 )
+	if (ubNumSounds == 0)
 	{
-	return( FALSE );
+		return(FALSE);
 	}
 
 	// Pick one
-	ubChosenSound = (UINT8) Random( ubNumSounds );
+	ubChosenSound = (UINT8)Random(ubNumSounds);
 
 	// Set!
 	gubCurrentSteadyStateAmbience = ubAmbience;
-	gubCurrentSteadyStateSound	= ubChosenSound;
+	gubCurrentSteadyStateSound = ubChosenSound;
 
-	guiCurrentSteadyStateSoundHandle =	StartSteadyStateAmbient( LOWVOLUME, 0 );
+	guiCurrentSteadyStateSoundHandle = StartSteadyStateAmbient(LOWVOLUME, 0);
 
-	return( TRUE );
+	return(TRUE);
 }
 
 void UpdateFireAmbient(void)
@@ -418,4 +433,298 @@ void StartFireAmbient(void)
 
 	//guiAmbientFire = SoundPlay( zFileName, &spParms );
 	guiAmbientFire = SoundPlayStreamedFile(filename, &spParms);
+}
+
+#define MAX_SSA_SOUNDS 10
+
+void SetSSA(void)
+{
+	BOOLEAN	fNight = FALSE;
+	BOOLEAN fCombat = FALSE;
+	UINT8	ubNumSounds = 0;
+	UINT8	ubChosenSound;
+	CHAR8	filename[1024];
+	CHAR16	name16[1024];
+	CHAR8	SectorName[1024];
+	CHAR8	TownName[1024];
+	CHAR8	GenericName[1024];
+	CHAR8	UnderGround[1024];
+	BOOLEAN fUnderground = FALSE;
+	SGPFILENAME		zFileName;
+	UINT8	ubSectorID;
+	SOUNDPARMS spParms;
+
+	SECTORINFO *pSector = NULL;
+	UNDERGROUND_SECTORINFO *pUnderground;
+	CHAR16	zString[1024];
+	UINT16 usTownSectorIndex;
+	BOOLEAN fFoundSAM = FALSE;
+	UINT8 ubMineIndex;
+	MINE_STATUS_TYPE *pMineStatus;
+
+	memset(TownName, 0, 1024 * sizeof(char));
+	memset(name16, 0, 1024 * sizeof(wchar_t));
+
+	// Stop all ambients...
+	if (guiCurrentSteadyStateSoundHandle != NO_SAMPLE)
+	{
+		SoundStop(guiCurrentSteadyStateSoundHandle);
+		guiCurrentSteadyStateSoundHandle = NO_SAMPLE;
+	}
+
+	if (!gGameExternalOptions.fEnableSSA)
+	{
+		return;
+	}
+
+	// no ambients in the rain
+	if (GetWeatherInCurrentSector() != WEATHER_FORECAST_NORMAL)
+	{
+		return;
+	}
+
+	// Determine what time of day we are in ( day/night)
+	if (gubEnvLightValue >= LIGHT_DUSK_CUTOFF)
+	{
+		fNight = TRUE;
+	}
+
+	// determine combat state
+	if( gTacticalStatus.uiFlags & INCOMBAT)// || NumCapableEnemyInSector( ) || HostileZombiesPresent() )
+	{
+		fCombat = TRUE;
+	}
+
+	// determine sector name
+	UINT8 ubTownID = GetTownIdForSector(gWorldSectorX, gWorldSectorY);
+
+	if (ubTownID != BLANK_SECTOR && gbWorldSectorZ == 0)
+	{
+		//wcstombs(TownName, pTownNames[ubTownID], wcslen(pTownNames[ubTownID])+1);
+		wcstombs(TownName, pTownNames[ubTownID], 1024 - 1);
+		//ScreenMsg(FONT_ORANGE, MSG_INTERFACE, L"%s", pTownNames[ubTownID]);
+	}
+
+	// check sector file
+	sprintf(SectorName, "%s%s", pVertStrings[gWorldSectorY], pHortStrings[gWorldSectorX]);
+
+	// determine underground
+	if (gbWorldSectorZ > 0)
+	{
+		fUnderground = TRUE;
+	}
+
+	// determine town name
+	// check town file
+
+	// determine generic name
+	// check generic file
+
+	// prepare name
+	strcpy(filename, "Sounds\\SSA\\");
+	strcat(filename, SectorName);
+	if (fUnderground)
+	{
+		sprintf(UnderGround, "u%d", gbWorldSectorZ + 1);
+		strcat(filename, UnderGround);
+	}
+	strcat(filename, "_");
+	if (!fUnderground)
+	{
+		if (fNight)
+			strcat(filename, "night_");
+		else
+			strcat(filename, "day_");
+	}
+
+	// find number of files
+	ubNumSounds = 0;
+	for (UINT8 i = 1; i <= MAX_SSA_SOUNDS; i++)
+	{
+		sprintf(zFileName, "%s%d.ogg", filename, i);
+
+		if (!FileExists(zFileName))
+			break;
+		else
+			ubNumSounds++;
+	}
+
+	// check town name
+	if (ubNumSounds == 0 && !fUnderground && ubTownID != BLANK_SECTOR)
+	{
+		// prepare name
+		strcpy(filename, "Sounds\\SSA\\");
+		strcat(filename, TownName);
+		strcat(filename, "_");
+		if (fNight)
+			strcat(filename, "night_");
+		else
+			strcat(filename, "day_");
+
+		// find number of files
+		ubNumSounds = 0;
+		for (UINT8 i = 1; i <= MAX_SSA_SOUNDS; i++)
+		{
+			sprintf(zFileName, "%s%d.ogg", filename, i);
+
+			if (!FileExists(zFileName))
+				break;
+			else
+				ubNumSounds++;
+		}
+	}
+
+	// check generic name
+	if (ubNumSounds == 0)
+	{
+		ubSectorID = SECTOR(gWorldSectorX, gWorldSectorY);
+
+		// underground sectors
+		if (fUnderground)
+		{
+			strcpy(GenericName, "");
+
+			for (ubMineIndex = 0; ubMineIndex < MAX_NUMBER_OF_MINES; ubMineIndex++)
+			{
+				//					pMineStatus = &(gMineStatus[ ubMineIndex ]);
+				if (gMineStatus[ubMineIndex].sSectorX == gWorldSectorX && gMineStatus[ubMineIndex].sSectorY == gWorldSectorY)
+				{
+					if (gMineStatus[ubMineIndex].fEmpty)
+					{
+						strcpy(GenericName, "EmptyMine");
+					}
+					else
+					{
+						strcpy(GenericName, "Mine");
+					}
+					break;
+				}
+			}
+		}
+		else if (ubTownID != BLANK_SECTOR)
+		{
+			// always use town if defined
+			strcpy(GenericName, "Town");
+		}
+		else
+		{
+			usTownSectorIndex = SECTOR(gWorldSectorX, gWorldSectorY);
+
+			// Test for known SAM Site at this location
+			for (UINT16 x = 0; x < MAX_NUMBER_OF_SAMS; x++)
+			{
+				if (pSamList[x] == usTownSectorIndex)	// && fSamSiteFound[ x ]
+				{
+					fFoundSAM = TRUE;
+					break;
+				}
+			}
+
+			if (fFoundSAM)
+			{
+				strcpy(GenericName, "SAM");
+			}
+			else
+			{
+				// make generic name from <Here> movement type in MovementCosts.xml
+				switch (SectorInfo[ubSectorID].ubTraversability[THROUGH_STRATEGIC_MOVE])
+				{
+				case TOWN:
+					strcpy(GenericName, "Town");
+					break;
+				case SAND:
+				case SAND_ROAD:
+					strcpy(GenericName, "Desert");
+					break;
+				case FARMLAND:
+				case FARMLAND_ROAD:
+					strcpy(GenericName, "Farmland");
+					break;
+				case PLAINS:
+				case PLAINS_ROAD:
+				case ROAD:
+					strcpy(GenericName, "Plains");
+					break;
+					break;
+				case HILLS:
+				case HILLS_ROAD:
+					strcpy(GenericName, "Hills");
+					break;
+				case SPARSE:
+				case SPARSE_ROAD:
+				case DENSE:
+				case DENSE_ROAD:
+					strcpy(GenericName, "Forest");
+					break;
+				case SWAMP:
+				case SWAMP_ROAD:
+					strcpy(GenericName, "Swamp");
+					break;
+				case TROPICS:
+				case TROPICS_ROAD:
+					strcpy(GenericName, "Tropical");
+					break;
+				case WATER:
+					strcpy(GenericName, "Water");
+					break;
+				case NS_RIVER:
+				case EW_RIVER:
+					strcpy(GenericName, "River");
+					break;
+				case COASTAL:
+				case COASTAL_ROAD:
+					strcpy(GenericName, "Coastal");
+					break;
+				default:
+					strcpy(GenericName, "");
+				}
+			}
+		}
+
+		// prepare name
+		strcpy(filename, "Sounds\\SSA\\");
+		strcat(filename, GenericName);
+		strcat(filename, "_");
+		if (!fUnderground)
+		{
+			if (fNight)
+				strcat(filename, "night_");
+			else
+				strcat(filename, "day_");
+		}
+
+		// find number of files
+		ubNumSounds = 0;
+		for (UINT8 i = 1; i <= MAX_SSA_SOUNDS; i++)
+		{
+			sprintf(zFileName, "%s%d.ogg", filename, i);
+
+			if (!FileExists(zFileName))
+				break;
+			else
+				ubNumSounds++;
+		}
+	}
+
+	if (ubNumSounds == 0)
+	{
+		return;
+	}
+
+	// pick random file	
+	ubChosenSound = (guiHour % ubNumSounds) + 1;
+	//ubChosenSound = Random(ubNumSounds) + 1;
+
+	// make a file name
+	sprintf(zFileName, "%s%d.ogg", filename, ubChosenSound);
+
+	// start sound
+	memset(&spParms, 0xff, sizeof(SOUNDPARMS));
+	//spParms.uiVolume = CalculateSoundEffectsVolume( LOWVOLUME );
+	spParms.uiVolume = gGameExternalOptions.ubVolumeSSA;	// default is LOWVOLUME
+	spParms.uiLoop = 0;
+	spParms.uiPriority = GROUP_AMBIENT;
+
+	//guiCurrentSteadyStateSoundHandle = SoundPlay( zFileName, &spParms );
+	guiCurrentSteadyStateSoundHandle = SoundPlayStreamedFile(zFileName, &spParms);
 }

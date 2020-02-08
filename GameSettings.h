@@ -467,6 +467,9 @@ typedef struct
 	UINT8  gubMaxPercentNoiseSilencedSound;
 	BOOLEAN fEnableTA;
 	UINT8	ubVolumeTA;
+	BOOLEAN fEnableSSA;
+	BOOLEAN fDebugSSA;
+	UINT8	ubVolumeSSA;
 
 	// WDS - Option to turn off stealing
 	BOOLEAN fStealingDisabled;

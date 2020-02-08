@@ -17,6 +17,7 @@ extern AMBIENTDATA_STRUCT		gAmbData[ MAX_AMBIENT_SOUNDS ];
 extern INT16								gsNumAmbData;
 
 BOOLEAN SetSteadyStateAmbience( UINT8 ubAmbience );
+void SetSSA(void);
 
 void UpdateFireAmbient(void);
 void StopFireAmbient(void);

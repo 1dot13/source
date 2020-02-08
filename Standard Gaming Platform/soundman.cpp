@@ -22,6 +22,9 @@
 	#include "fmod.h"
 	#include "fmod_errors.h"
 	#include "sgp_logger.h"
+	// sevenfm
+	#include "message.h"
+	#include "Sound Control.h"
 #endif
 
 // Uncomment this to disable the startup of sound hardware
@@ -30,11 +33,8 @@
 // global settings
 #define		SOUND_MAX_CACHED		128						// number of cache slots
 
-#ifdef JA2
-#define		SOUND_MAX_CHANNELS		16						// number of mixer channels
-#else
-#define		SOUND_MAX_CHANNELS		32						// number of mixer channels
-#endif
+// sevenfm: increased number of channels
+#define		SOUND_MAX_CHANNELS		64
 
 // default memory limit
 #define		SOUND_DEFAULT_MEMORY	(8048*1024)
@@ -292,23 +292,37 @@ UINT32 SoundPlay(STR pFilename, SOUNDPARMS *pParms)
 {
 	UINT32 uiSample, uiChannel;
 
-	if( fSoundSystemInit )
+	if (fSoundSystemInit)
 	{
-		if( !SoundPlayStreamed(pFilename) )
+		if (!SoundPlayStreamed(pFilename))
 		{
-			if((uiSample=SoundLoadSample(pFilename))!=NO_SAMPLE)
+			if ((uiSample = SoundLoadSample(pFilename)) != NO_SAMPLE)
 			{
-				if((uiChannel=SoundGetFreeChannel())!=SOUND_ERROR)
+				if ((uiChannel = SoundGetFreeChannel()) != SOUND_ERROR)
 				{
 					return(SoundStartSample(uiSample, uiChannel, pParms));
 				}
+				else
+				{
+					SoundLog((CHAR8 *)String("Could not get free channel, uiChannel = %d", uiChannel));
+				}
+			}
+			else
+			{
+				SoundLog((CHAR8 *)String("Could not load sample, uiSample = %d", uiSample));
 			}
 		}
 		else
 		{
 			//Trying to play a sound which is bigger then the 'guiSoundCacheThreshold'
-			FastDebugMsg(String("SoundPlay: ERROR: Trying to play %s sound is too lardge to load into cache, use SoundPlayStreamedFile() instead\n", pFilename ) );
+			FastDebugMsg(String("SoundPlay: ERROR: Trying to play %s sound is too large to load into cache, use SoundPlayStreamedFile() instead\n", pFilename));
+
+			SoundLog((CHAR8 *)String("SoundPlay: ERROR: Trying to play %s sound is too large to load into cache, use SoundPlayStreamedFile() instead\n", pFilename));
 		}
+	}
+	else
+	{
+		SoundLog((CHAR8 *)String("SoundSystemInit FALSE"));
 	}
 
 	return(SOUND_ERROR);
@@ -848,8 +862,10 @@ UINT32 uiChannel, uiSample;
 			uiSample=pSoundList[uiChannel].uiSample;
 
 			// if this was a random sample, decrease the iteration count
-			if ( (uiSample != -1) && (pSampleList[uiSample].uiFlags&SAMPLE_RANDOM) )
+			if (uiSample != -1 && (pSampleList[uiSample].uiFlags & SAMPLE_RANDOM))
+			{
 				SoundStopIndex(uiChannel);
+			}
 		}
 	}
 
@@ -1481,8 +1497,7 @@ UINT32 uiSoundID;
 	// Loop
 	if((pParms!=NULL) && (pParms->uiLoop!=SOUND_PARMS_DEFAULT))
 	{
-		// If looping infinately, lock the sample so it can't be unloaded
-		// and mark it as a looping sound
+		// If looping infinitely, lock the sample so it can't be unloaded and mark it as a looping sound
 		if(pParms->uiLoop==0)
 		{
 			pSampleList[uiSample].uiFlags|=SAMPLE_LOCKED;

@@ -2271,7 +2271,7 @@ BOOLEAN PlayVoiceTaunt(SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SOLDIERTYPE *pTa
 
 	// count possible voices
 	UINT8 ubVoiceCount;
-	for (ubVoiceCount = 1; ubVoiceCount <= 100; ubVoiceCount++)
+	for (ubVoiceCount = 1; ubVoiceCount < 100; ubVoiceCount++)
 	{
 		sprintf(buf, "%s%02d", filename, ubVoiceCount);
 		strcat(buf, "\\alert.ogg");		
