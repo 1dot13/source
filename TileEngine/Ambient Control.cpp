@@ -421,7 +421,7 @@ void StartFireAmbient(void)
 		return;
 	}
 
-	strcpy(filename, "Sounds\\ambient\\fire.ogg");
+	strcpy(filename, "Ambient\\fire.ogg");
 	//gubAmbientFireVolume = LOWVOLUME;
 
 	// start sound
@@ -455,12 +455,12 @@ void SetSSA(void)
 	SOUNDPARMS spParms;
 
 	SECTORINFO *pSector = NULL;
-	UNDERGROUND_SECTORINFO *pUnderground;
-	CHAR16	zString[1024];
+	//UNDERGROUND_SECTORINFO *pUnderground;
+	//CHAR16	zString[1024];
 	UINT16 usTownSectorIndex;
 	BOOLEAN fFoundSAM = FALSE;
 	UINT8 ubMineIndex;
-	MINE_STATUS_TYPE *pMineStatus;
+	//MINE_STATUS_TYPE *pMineStatus;
 
 	memset(TownName, 0, 1024 * sizeof(char));
 	memset(name16, 0, 1024 * sizeof(wchar_t));
@@ -521,7 +521,7 @@ void SetSSA(void)
 	// check generic file
 
 	// prepare name
-	strcpy(filename, "Sounds\\SSA\\");
+	strcpy(filename, "Ambient\\SSA\\");
 	strcat(filename, SectorName);
 	if (fUnderground)
 	{
@@ -553,7 +553,7 @@ void SetSSA(void)
 	if (ubNumSounds == 0 && !fUnderground && ubTownID != BLANK_SECTOR)
 	{
 		// prepare name
-		strcpy(filename, "Sounds\\SSA\\");
+		strcpy(filename, "Ambient\\SSA\\");
 		strcat(filename, TownName);
 		strcat(filename, "_");
 		if (fNight)
@@ -682,7 +682,7 @@ void SetSSA(void)
 		}
 
 		// prepare name
-		strcpy(filename, "Sounds\\SSA\\");
+		strcpy(filename, "Ambient\\SSA\\");
 		strcat(filename, GenericName);
 		strcat(filename, "_");
 		if (!fUnderground)
