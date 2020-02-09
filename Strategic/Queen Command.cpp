@@ -1910,7 +1910,9 @@ void AddPossiblePendingEnemiesToBattle()
 			else
 			{
 				// WANNE: Hack: If no valid insertion is found, get random insertion instead of Assert() error
-				UINT32 rndInsertionCode = GetRndNum(3);				
+				// sevenfm: use Random() instead
+				//UINT32 rndInsertionCode = GetRndNum(3);
+				UINT32 rndInsertionCode = Random(4);
 				ubInsertionCode = rndInsertionCode;
 
 				//Assert(0);
@@ -1929,9 +1931,11 @@ void AddPossiblePendingEnemiesToBattle()
 			else
 			{
 				// WANNE: Hack: If no valid insertion is found, get random insertion instead of Assert() error
-				UINT32 rndInsertionCode = GetRndNum(3);				
+				// sevenfm: use Random() instead
+				//UINT32 rndInsertionCode = GetRndNum(3);
+				UINT32 rndInsertionCode = Random(4);
 				ubInsertionCode = rndInsertionCode;
-				
+
 				//Assert(0);
 			}
 		}

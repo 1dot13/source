@@ -548,6 +548,8 @@ typedef struct
 
 	// sevenfm: enemy gun jams
 	BOOLEAN fEnemyJams;
+	// use new code for random
+	BOOLEAN fNewRandom;
 
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	// silversurfer: not used anymore, see "Tactical\XML_Merchants.cpp" for "useBRSetting"

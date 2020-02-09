@@ -5,6 +5,7 @@
 
 #include "Types.h"
 #include "Debug.h"
+#include "GameSettings.h"
 
 //IMPORTANT: Changing this define will invalidate the JA2 save.	If this is necessary, please ifdef your own value.
 #define MAX_PREGENERATED_NUMS 256		
@@ -18,15 +19,22 @@ extern void InitializeRandom(void);
 extern UINT32 GetRndNum(UINT32 maxnum);
 extern bool gfMPDebugOutputRandoms;
 
+UINT32 NewRandom(UINT32 max);
+
+extern GAME_EXTERNAL_OPTIONS gGameExternalOptions;
+
 inline UINT32 Random(UINT32 uiRange)
 {
-	return(GetRndNum(uiRange));
+	if (gGameExternalOptions.fNewRandom)
+		return NewRandom(uiRange);
+	else
+		return GetRndNum(uiRange);
 }
 
-inline INT32 iRandom(UINT32 uiRange)
+/*inline INT32 iRandom(UINT32 uiRange)
 {
 	return(GetRndNum(uiRange));
-}
+}*/
 
 inline BOOLEAN Chance( UINT32 uiChance )
 {
@@ -35,7 +43,8 @@ inline BOOLEAN Chance( UINT32 uiChance )
 
 inline UINT32 PreRandom(UINT32 uiRange)
 {
-	return(GetRndNum(uiRange));
+	return Random(uiRange);
+	//return(GetRndNum(uiRange));
 }
 
 inline BOOLEAN PreChance( UINT32 uiChance )
@@ -70,13 +79,13 @@ inline UINT32 Random(UINT32 uiRange)
 
 
 // Returns a pseudo-random integer between 0 and uiRange-1
-inline INT32 iRandom(UINT32 uiRange)
+/*inline INT32 iRandom(UINT32 uiRange)
 {
 	// Always return 0, if no range given (it's not an error)
 	if (uiRange == 0)
 		return(0);
 	return rand() * uiRange / RAND_MAX % uiRange;
-}
+}*/
 
 
 //Chance( 74 ) returns TRUE 74% of the time.	If uiChance >= 100, then it will always return TRUE.

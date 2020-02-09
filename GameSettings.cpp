@@ -1487,6 +1487,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fBackPackWeightLowersAP			= iniReader.ReadBoolean("Tactical Gameplay Settings","BACKPACKWEIGHT_LOWERS_AP", TRUE);
 
 	gGameExternalOptions.fEnemyJams							= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENEMY_JAMS", true, false);
+	gGameExternalOptions.fNewRandom							= iniReader.ReadBoolean("Tactical Gameplay Settings", "NEW_RANDOM", true, false);
 
 
 	//################# Tactical Enemy Role Settings ##################

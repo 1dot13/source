@@ -40,6 +40,27 @@ UINT32 MPPreRandom( UINT32 uiRange )
 UINT32 guiPreRandomIndex;
 UINT32 guiPreRandomNums[MAX_PREGENERATED_NUMS];
 
+#include <random>
+
+std::random_device gRandomDevice;     // only used once to initialize (seed) engine
+std::mt19937 gRandomNumberGenerator(gRandomDevice());    // random-number engine used (Mersenne-Twister in this case)
+
+UINT32 NewRandom(UINT32 max)
+{
+	if (is_networked && is_client)
+		return MPPreRandom(max);
+
+	if (max <= 1)
+		return 0;
+
+	UINT32 min = 0;
+
+	std::uniform_int_distribution<int> uni(min, max - 1); // guaranteed unbiased
+
+	auto random_integer = uni(gRandomNumberGenerator);
+	return random_integer;
+}
+
 UINT32 GetRndNum(UINT32 maxnum)
 {
 	if (is_networked && is_client)
@@ -52,8 +73,6 @@ UINT32 GetRndNum(UINT32 maxnum)
 	{
 		GetCursorPos(&pt);// Get cursor location
 		srand(maxnum ^ rnd ^ pt.x ^ pt.y ^ GetTickCount());
-//SendFmtMsg("Random Number Generator Reinitialized.");
-//for(int l=0;l<100;l++)SendFmtMsg("%2d", Random(100));
 	}
 	if(maxnum == 0)
 		return(0);

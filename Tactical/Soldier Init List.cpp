@@ -680,9 +680,10 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					if (tempDetailedPlacement.ubProfile == NO_PROFILE)
 					{//dnl!!!
 						// these guys should be guarding Tony!
+						// sevenfm: PreRandom(1) always returns 0, use PreRandom(2) instead
 						tempDetailedPlacement.sInsertionGridNo = gModSettings.iPornShopEntranceGridNo +
-							(INT16) ( PreRandom( 8 ) * ( PreRandom( 1 ) ? -1 : 1)
-							+ PreRandom( 8 ) * ( PreRandom( 1 ) ? -1 : 1) * WORLD_ROWS );
+							//(INT16)(PreRandom(8) * (PreRandom(1) ? -1 : 1) + PreRandom(8) * (PreRandom(1) ? -1 : 1) * WORLD_ROWS);
+							(INT16)(PreRandom(8) * (PreRandom(2) ? -1 : 1) + PreRandom(8) * (PreRandom(2) ? -1 : 1) * WORLD_ROWS);
 
 						switch( PreRandom( 3 ) )
 						{
@@ -701,9 +702,10 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					else if (tempDetailedPlacement.ubProfile == BILLY )
 					{//dnl!!!
 						// billy should now be able to roam around
+						// sevenfm: PreRandom(1) always returns 0, use PreRandom(2) instead
 						tempDetailedPlacement.sInsertionGridNo = gModSettings.iPornShopEntranceGridNo +
-							(INT16) ( PreRandom( 30 ) * ( PreRandom( 1 ) ? -1 : 1)
-							+ PreRandom( 30 ) * ( PreRandom( 1 ) ? -1 : 1) * WORLD_ROWS );
+							//(INT16)(PreRandom(30) * (PreRandom(1) ? -1 : 1) + PreRandom(30) * (PreRandom(1) ? -1 : 1) * WORLD_ROWS);
+							(INT16)(PreRandom(30) * (PreRandom(2) ? -1 : 1) + PreRandom(30) * (PreRandom(2) ? -1 : 1) * WORLD_ROWS);
 						tempDetailedPlacement.bOrders = SEEKENEMY;
 					}
 					else if ( tempDetailedPlacement.ubProfile == MADAME )
