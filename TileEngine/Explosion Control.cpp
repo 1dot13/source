@@ -401,13 +401,27 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	if( gGameExternalOptions.bAllowExplosiveAttachments )
 		HandleAttachedExplosions(ubOwner, sX, sY, sZ, sGridNo, usItem, fLocate, bLevel, ubDirection, pObj );
 	
-	// sevenfm: add smoke effect if not in room and not underground, only for normal explosions
-	if(!InARoom( sGridNo, &tmp ) && !gbWorldSectorZ && gGameExternalOptions.bAddSmokeAfterExplosion)
+	// sevenfm: add smoke effect, only for normal explosions
+	if (gGameExternalOptions.bAddSmokeAfterExplosion &&
+		!Water(sGridNo, bLevel))
 	{
-		if( Explosive[ Item[ usItem ].ubClassIndex ].ubType == 0 )
+		if (Explosive[Item[usItem].ubClassIndex].ubType == 0 &&
+			Item[usItem].usBuddyItem == 0 &&
+			Explosive[Item[usItem].ubClassIndex].ubDamage > 20)
 		{
-			NewSmokeEffect( sGridNo, SMALL_SMOKE, 0, NOBODY );
+			NewSmokeEffect(sGridNo, SMOKE_GRENADE, bLevel, ubOwner, 0, 2, 1);
 		}
+	}
+
+	// sevenfm: add light for fire and signal effects
+	if (gGameExternalOptions.bAddLightAfterExplosion &&
+		((gubEnvLightValue >= NORMAL_LIGHTLEVEL_NIGHT - 3) || gbWorldSectorZ) &&
+		(Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS || Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SIGNAL_SMOKE) &&
+		bLevel == 0 &&
+		!Water(sGridNo, bLevel))
+	{
+		// add light
+		NewLightEffect(sGridNo, (UINT8)Explosive[Item[usItem].ubClassIndex].ubDuration + 2, (UINT8)Explosive[Item[usItem].ubClassIndex].ubRadius + 1);
 	}
 }
 
@@ -1966,8 +1980,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			fGasDamageModifier = gItemSettings.fDamageHealthMoveModifierExplosive;
 			fGasBreathDamageModifier = gItemSettings.fDamageBreathMoveModifierExplosive;
 			// modify damage values
-			sWoundAmt *= fGasDamageModifier;
-			sBreathAmt *= fGasBreathDamageModifier;
+			sWoundAmt = (INT16)(sWoundAmt * fGasDamageModifier);
+			sBreathAmt = (INT16)(sBreathAmt * fGasBreathDamageModifier);
 			//return( fRecompileMovementCosts );
 		}
 	}
@@ -2027,8 +2041,8 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		}
 
 		// modify damage values
-		sWoundAmt *= fGasDamageModifier;
-		sBreathAmt *= fGasBreathDamageModifier;
+		sWoundAmt = (INT16)(sWoundAmt * fGasDamageModifier);
+		sBreathAmt = (INT16)(sBreathAmt * fGasBreathDamageModifier);
 
 		bPosOfMask = FindGasMask(pSoldier);
 		if(!DoesSoldierWearGasMask(pSoldier))//dnl ch40 200909

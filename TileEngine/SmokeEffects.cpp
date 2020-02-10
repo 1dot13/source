@@ -189,8 +189,8 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOL fFromRemoteClient )
 {
 	SMOKEEFFECT *pSmoke;
-	INT32				iSmokeIndex;
-	INT8				bSmokeEffectType=0;
+	INT32		iSmokeIndex;
+	INT8		bSmokeEffectType=0;
 
 	if( ( iSmokeIndex = GetFreeSmokeEffect() )==(-1) )
 		return(-1);
@@ -313,7 +313,7 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 
 	if ( bLevel )
 	{
-	pSmoke->bFlags |= SMOKE_EFFECT_ON_ROOF;
+		pSmoke->bFlags |= SMOKE_EFFECT_ON_ROOF;
 	}
 
 	// ATE: FALSE into subsequent-- it's the first one!
@@ -322,6 +322,130 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 	return( iSmokeIndex );
 }
 
+INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOLEAN fFromRemoteClient, UINT8 ubDuration, UINT8 ubRadius, UINT8 ubGeneration)
+{
+	SMOKEEFFECT *pSmoke;
+	INT32		iSmokeIndex;
+	INT8		bSmokeEffectType = 0;
+
+	iSmokeIndex = GetFreeSmokeEffect();
+
+	if (iSmokeIndex == -1)
+	{
+		return -1;
+	}	
+
+	// OJW - 20091027 - Synchronizing smoke effect start for multiplayer
+	if (is_networked && is_client)
+	{
+		SOLDIERTYPE* pSoldier = MercPtrs[ubOwner];
+		if (pSoldier != NULL)
+		{
+			if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
+			{
+				// let all the other clients know we are spawning this effect
+				// and align them with our random number generator
+				send_newsmokeeffect(sGridNo, usItem, ubOwner, bLevel, iSmokeIndex);
+			}
+			else if (!fFromRemoteClient)
+			{
+				// skip executing locally because we want the random number generator to be aligned
+				// with the client that spawns set off the smoke effect
+				return -1;
+			}
+		}
+#ifdef JA2BETAVERSION
+		CHAR tmpMPDbgString[512];
+		sprintf(tmpMPDbgString, "NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n", sGridNo, usItem, ubOwner, bLevel, iSmokeIndex);
+		MPDebugMsg(tmpMPDbgString);
+		gfMPDebugOutputRandoms = true;
+#endif
+	}
+
+	memset(&gSmokeEffectData[iSmokeIndex], 0, sizeof(SMOKEEFFECT));
+	pSmoke = &gSmokeEffectData[iSmokeIndex];
+
+	// Set some values...
+	pSmoke->sGridNo = sGridNo;
+	pSmoke->usItem = usItem;
+	pSmoke->uiTimeOfLastUpdate = GetWorldTotalSeconds();	
+
+	switch (Explosive[Item[usItem].ubClassIndex].ubType)
+	{
+	case EXPLOSV_MUSTGAS:
+		bSmokeEffectType = MUSTARDGAS_SMOKE_EFFECT;
+		break;
+	case EXPLOSV_BURNABLEGAS:
+		bSmokeEffectType = BURNABLEGAS_SMOKE_EFFECT;
+		break;
+	case EXPLOSV_TEARGAS:
+		bSmokeEffectType = TEARGAS_SMOKE_EFFECT;
+		break;
+	case EXPLOSV_SMOKE:
+		bSmokeEffectType = NORMAL_SMOKE_EFFECT;
+		break;
+	case EXPLOSV_CREATUREGAS:
+		bSmokeEffectType = CREATURE_SMOKE_EFFECT;
+		break;
+	case EXPLOSV_SIGNAL_SMOKE:
+		bSmokeEffectType = SIGNAL_SMOKE_EFFECT;
+		break;
+	case EXPLOSV_SMOKE_DEBRIS:
+		bSmokeEffectType = DEBRIS_SMOKE_EFFECT;
+		break;
+	}
+
+	// sevenfm: use custom duration/radius
+	if (ubDuration)
+		pSmoke->ubDuration = ubDuration;
+	else
+		pSmoke->ubDuration = (UINT8)Explosive[Item[usItem].ubClassIndex].ubDuration;
+
+	if (ubRadius)
+		pSmoke->ubRadius = ubRadius;
+	else
+		pSmoke->ubRadius = (UINT8)Explosive[Item[usItem].ubClassIndex].ubStartRadius;
+
+	pSmoke->bAge = 0;
+	pSmoke->fAllocated = TRUE;
+	pSmoke->bType = bSmokeEffectType;
+	pSmoke->ubOwner = ubOwner;
+	pSmoke->ubGeneration = ubGeneration;
+
+	// Are we indoors?
+	// sevenfm: check also roof above
+	if (GetTerrainType(sGridNo) == FLAT_FLOOR && bLevel == 0 && FindStructure(sGridNo, STRUCTURE_ROOF) != NULL)
+	{
+		pSmoke->bFlags |= SMOKE_EFFECT_INDOORS;
+	}
+
+	if (pSmoke->bFlags & SMOKE_EFFECT_INDOORS)
+	{
+		// Duration is increased by 2 turns...indoors
+		pSmoke->ubDuration += 2;
+	}
+	else
+	{
+		// limit smoke effects in the rain
+		switch (SectorInfo[SECTOR(gWorldSectorX, gWorldSectorY)].usWeather)
+		{
+		case WEATHER_FORECAST_RAIN:				pSmoke->ubDuration = max(0, pSmoke->ubDuration - 2); break;
+		case WEATHER_FORECAST_THUNDERSHOWERS:	pSmoke->ubDuration = max(0, pSmoke->ubDuration - 3); break;
+		case WEATHER_FORECAST_SANDSTORM:		pSmoke->ubDuration = max(0, pSmoke->ubDuration - 1); break;
+		case WEATHER_FORECAST_SNOW:				pSmoke->ubDuration = max(0, pSmoke->ubDuration - 1); break;
+		}
+	}
+
+	if (bLevel)
+	{
+		pSmoke->bFlags |= SMOKE_EFFECT_ON_ROOF;
+	}
+
+	// ATE: FALSE into subsequent-- it's the first one!
+	SpreadEffect(pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, FALSE, bLevel, iSmokeIndex, fFromRemoteClient, TRUE);
+
+	return(iSmokeIndex);
+}
 
 // Add smoke to gridno
 // ( Replacement algorithm uses distance away )

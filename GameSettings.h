@@ -893,6 +893,7 @@ typedef struct
 	BOOLEAN bExtraCivilians;						// Flugente: add civilians via LUA
 	BOOLEAN bExtraMerchants;						// Flugente: add non-profile-based merchants via LUA
 	BOOLEAN	bAddSmokeAfterExplosion;
+	BOOLEAN	bAddLightAfterExplosion;
 	BOOLEAN	bAllowExplosiveAttachments;
 	BOOLEAN	bAllowSpecialExplosiveAttachments;
 	BOOLEAN fDelayedGrenadeExplosion;

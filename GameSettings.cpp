@@ -1074,6 +1074,9 @@ void LoadGameExternalOptions()
 	// Add smoke after regular explosions
 	gGameExternalOptions.bAddSmokeAfterExplosion				= iniReader.ReadBoolean("Tactical Interface Settings","ADD_SMOKE_AFTER_EXPLOSION",FALSE);
 
+	// Add light after fire or signal explosions
+	gGameExternalOptions.bAddLightAfterExplosion				= iniReader.ReadBoolean("Tactical Interface Settings", "ADD_LIGHT_AFTER_EXPLOSION", FALSE);
+
 	// Attachments now can explode
 	gGameExternalOptions.bAllowExplosiveAttachments				= iniReader.ReadBoolean("Tactical Interface Settings","ALLOW_EXPLOSIVE_ATTACHMENTS",FALSE);
 
@@ -1488,7 +1491,6 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fEnemyJams							= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENEMY_JAMS", true, false);
 	gGameExternalOptions.fNewRandom							= iniReader.ReadBoolean("Tactical Gameplay Settings", "NEW_RANDOM", true, false);
-
 
 	//################# Tactical Enemy Role Settings ##################
 	// Flugente: enemy roles
