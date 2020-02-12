@@ -9299,9 +9299,22 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 	AdjustAniSpeed( pSoldier );
 
 	// SANDRO - make the spin kick animation a bit faster 
-	if ( pSoldier->usAnimState == NINJA_SPINKICK )
+	if (pSoldier->usAnimState == NINJA_SPINKICK || 
+		pSoldier->usAnimState == FOCUSED_PUNCH || pSoldier->usAnimState == FOCUSED_STAB || pSoldier->usAnimState == FOCUSED_HTH_KICK)
 	{
-		pSoldier->sAniDelay = (pSoldier->sAniDelay * 3 / 4);
+		pSoldier->sAniDelay = pSoldier->sAniDelay / 2;
+	}
+
+	// sevenfm: faster radio animation
+	if (pSoldier->usAnimState == AI_RADIO || pSoldier->usAnimState == AI_CR_RADIO)
+	{
+		pSoldier->sAniDelay = pSoldier->sAniDelay / 2;
+	}
+
+	// sevenfm: faster sidestepping
+	if (pSoldier->usAnimState == SIDE_STEP || pSoldier->usAnimState == SIDE_STEP_ALTERNATIVE_RDY || pSoldier->usAnimState == SIDE_STEP_WEAPON_RDY || pSoldier->usAnimState == SIDE_STEP_DUAL_RDY)
+	{
+		pSoldier->sAniDelay = pSoldier->sAniDelay / 4;
 	}
 
 	if ( _KeyDown( SPACE ) )
