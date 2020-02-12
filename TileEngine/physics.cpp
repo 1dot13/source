@@ -66,8 +66,7 @@ class SOLDIERTYPE;
 #define	GET_OBJECT_LEVEL( z )						( (INT8)( ( z + 10 ) / HEIGHT_UNITS ) )
 //#define	OBJECT_DETONATE_ON_IMPACT( object )	( ( object->Obj.usItem == MORTAR_SHELL ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
 // HEADROCK HAM 5: Enabled "Explode on Impact" flag for explosive items
-#define	OBJECT_DETONATE_ON_IMPACT( object )	( ( Item[object->Obj.usItem].usItemClass == IC_BOMB ) || ( Explosive[Item[object->Obj.usItem].ubClassIndex ].fExplodeOnImpact ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
-
+#define	OBJECT_DETONATE_ON_IMPACT( object )	((Item[object->Obj.usItem].usItemClass == IC_BOMB) || ((Item[object->Obj.usItem].usItemClass & IC_EXPLOSV) && Explosive[Item[object->Obj.usItem].ubClassIndex].fExplodeOnImpact))
 
 #define	MAX_INTEGRATIONS				8
 
@@ -2168,7 +2167,7 @@ FLOAT CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees )
 
 	// Buggler: impact explosives requiring larger force to reach desired range due to no bounce
 	// Please change the if conditions too when definition of OBJECT_DETONATE_ON_IMPACT( object ) changes
-	if ( ( Item[ usItem ].usItemClass == IC_BOMB ) || ( Explosive[ Item[ usItem ].ubClassIndex ].fExplodeOnImpact ) ) // && ( object->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
+	if ((Item[usItem].usItemClass == IC_BOMB) || ((Item[usItem].usItemClass & IC_EXPLOSV) && Explosive[Item[usItem].ubClassIndex].fExplodeOnImpact))
 		// Use a mortar shell objecttype to simulate impact explosives
 		CreateItem( MORTAR_SHELL, 100, &gTempObject );
 	else
