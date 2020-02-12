@@ -1617,6 +1617,7 @@
 		<ItemSize>14</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Rock>1</Rock>
+		<Sinks>1</Sinks>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
@@ -1708,6 +1709,7 @@
 		<ItemSize>14</ItemSize>
 		<NotBuyable>1</NotBuyable>
 		<Rock>1</Rock>
+		<Sinks>1</Sinks>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
