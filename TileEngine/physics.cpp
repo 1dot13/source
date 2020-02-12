@@ -1106,6 +1106,12 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 					pNode->pLevelNode->sRelativeX	= (INT16)pObject->Position.x;
 					pNode->pLevelNode->sRelativeY	= (INT16)pObject->Position.y;
 					pNode->pLevelNode->sRelativeZ	= (INT16)CONVERT_HEIGHTUNITS_TO_PIXELS( (INT16)pObject->Position.z );
+
+					// sevenfm: also play sound
+					CHAR8	zFilename[512];
+					sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", Random(3) + 1);
+					if (FileExists(zFilename))
+						PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(LOWVOLUME, pObject->sGridNo), 1, SoundDir(pObject->sGridNo));
 				}
 			}
 
