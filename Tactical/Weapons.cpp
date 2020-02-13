@@ -4857,17 +4857,18 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 
 void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UINT8 ubAttackerID, UINT16 sXPos, INT16 sYPos, INT16 sZPos, UINT16 usStructureID, INT32 iImpact, BOOLEAN fStopped )
 {
-	BOOLEAN						fDoMissForGun = FALSE;
-	ANITILE						*pNode;
-	INT32 sGridNo;
+	BOOLEAN			fDoMissForGun = FALSE;
+	ANITILE			*pNode;
+	INT32			sGridNo;
+	INT8			bLevel;
 	ANITILE_PARAMS	AniParams;
-	UINT16					usMissTileIndex, usMissTileType;
-	STRUCTURE				*pStructure = NULL;
-	UINT32					uiMissVolume = MIDVOLUME;
-	BOOLEAN					fHitSameStructureAsBefore;
-	BULLET *				pBullet;
-	SOLDIERTYPE *		pAttacker = NULL;
-	OBJECTTYPE * pObj	= NULL;
+	UINT16			usMissTileIndex, usMissTileType;
+	STRUCTURE		*pStructure = NULL;
+	UINT32			uiMissVolume = MIDVOLUME;
+	BOOLEAN			fHitSameStructureAsBefore;
+	BULLET			*pBullet;
+	SOLDIERTYPE		*pAttacker = NULL;
+	OBJECTTYPE		*pObj = NULL;
 
 	pBullet = GetBulletPtr( iBullet );
     Assert(pBullet);
@@ -4923,16 +4924,15 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	}
 
 	sGridNo = MAPROWCOLTOPOS( (sYPos/CELL_Y_SIZE), (sXPos/CELL_X_SIZE) );
+
+	if (sZPos >= WALL_HEIGHT)
+		bLevel = 1;
+	else
+		bLevel = 0;
+
 	if ( !fHitSameStructureAsBefore )
 	{
-		if (sZPos > WALL_HEIGHT)
-		{
-			MakeNoise( ubAttackerID, sGridNo, 1, gpWorldLevelData[sGridNo].ubTerrainID, ubHitVolume, NOISE_BULLET_IMPACT );
-		}
-		else
-		{
-			MakeNoise( ubAttackerID, sGridNo, 0, gpWorldLevelData[sGridNo].ubTerrainID, ubHitVolume, NOISE_BULLET_IMPACT );
-		}
+		MakeNoise(ubAttackerID, sGridNo, bLevel, gpWorldLevelData[sGridNo].ubTerrainID, ubHitVolume, NOISE_BULLET_IMPACT);
 	}
 
 	if (fStopped)
@@ -4961,11 +4961,11 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				{
 					if ( Item[usWeaponIndex].usBuddyItem != 0 && Item[Item[usWeaponIndex].usBuddyItem].usItemClass & IC_EXPLOSV )
 					{
-						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, Item[usWeaponIndex].usBuddyItem, (INT8)(sZPos >= WALL_HEIGHT), usDirection );
+						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, Item[usWeaponIndex].usBuddyItem, bLevel, usDirection );
 					}
 					else
 					{
-						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, C1, (INT8)(sZPos >= WALL_HEIGHT), usDirection );
+						IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, C1, bLevel, usDirection );
 					}
 				}
 				// changed too to use 2 flag to determine
@@ -4973,7 +4973,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 					//there shouldn't be a way to enter here with an UnderBarrel weapon, so retaining original code :JMich
 				{
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pAttacker->inv[HANDPOS].usItem , pAttacker->inv[HANDPOS][0]->data.gun.usGunAmmoItem ) );
-					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pAttacker->inv[pAttacker->ubAttackingHand][0]->data.gun.usGunAmmoItem, (INT8)(sZPos >= WALL_HEIGHT), usDirection );
+					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, pAttacker->inv[pAttacker->ubAttackingHand][0]->data.gun.usGunAmmoItem, bLevel, usDirection );
 					
 					//This is just to make multishot launchers work in semi auto. It's not really a permanent solution because it still doesn't allow autofire, but it will do for now.
 					OBJECTTYPE * pLaunchable = FindLaunchableAttachment( &(pAttacker->inv[pAttacker->ubAttackingHand ]), pAttacker->inv[pAttacker->ubAttackingHand ].usItem );
@@ -4989,7 +4989,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				else if ( AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].explosionSize > 1)
 				{
 					// re-routed the Highexplosive value to define exposion type
-					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].highExplosive, (INT8)(sZPos >= WALL_HEIGHT), usDirection );
+					IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].highExplosive, bLevel, usDirection );
 					// pSoldier->inv[pSoldier->ubAttackingHand ][0]->data.gun.usGunAmmoItem = NONE;
 				}
 			}
@@ -5007,7 +5007,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 			//FreeUpAttacker( ubAttackerID );
 
 			// HEADROCK HAM 5 TODO: Tank shell!!
-			IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, TANK_SHELL, (INT8)(sZPos >= WALL_HEIGHT), usDirection );
+			IgniteExplosion( ubAttackerID, CenterX( sGridNo ), CenterY( sGridNo ), 0, sGridNo, TANK_SHELL, bLevel, usDirection );
 			//FreeUpAttacker( (UINT8) ubAttackerID );
 
 			// Moved here to keep ABC >0 as long as possible
@@ -5251,7 +5251,9 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 				usMissTileType	= FIRSTMISS;
 
 				// Check if we are in water...
-				if ( TERRAIN_IS_WATER( gpWorldLevelData[ sGridNo ].ubTerrainID) )
+				// sevenfm: check level
+				if (Water(sGridNo, bLevel))
+				//if ( TERRAIN_IS_WATER( gpWorldLevelData[ sGridNo ].ubTerrainID) )
 				{
 					usMissTileIndex = SECONDMISS1;
 					usMissTileType	= SECONDMISS;
@@ -11280,7 +11282,7 @@ BOOLEAN ArtilleryStrike( UINT16 usItem, UINT8 ubOwnerID, UINT32 usStartingGridNo
 	CreateItem( usItem, 100, &shellobj );
 
 	// Get basic launch params...		
-	if ( !GetArtilleryLaunchParams(usStartingGridNo, sTargetGridNo, sStartZ, sEndZ, usItem, &shellobj, &dForce, &dDegrees) )
+	if (!GetArtilleryLaunchParams(usStartingGridNo, sTargetGridNo, ubLevel, sStartZ, sEndZ, usItem, &shellobj, &dForce, &dDegrees))
 		return FALSE;
 
 	// Get XY from gridno

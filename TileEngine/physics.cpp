@@ -107,10 +107,10 @@ BOOLEAN					PhysicsComputeForces( REAL_OBJECT *pObject );
 BOOLEAN					PhysicsIntegrate( REAL_OBJECT *pObject, real DeltaTime );
 BOOLEAN					PhysicsMoveObject( REAL_OBJECT *pObject );
 BOOLEAN					PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID );
-void						PhysicsResolveCollision( REAL_OBJECT *pObject, vector_3 *pVelocity, vector_3 *pNormal, real CoefficientOfRestitution );
-void						PhysicsDeleteObject( REAL_OBJECT *pObject );
+void					PhysicsResolveCollision( REAL_OBJECT *pObject, vector_3 *pVelocity, vector_3 *pNormal, real CoefficientOfRestitution );
+void					PhysicsDeleteObject( REAL_OBJECT *pObject );
 BOOLEAN					PhysicsHandleCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID, real DeltaTime );
-FLOAT						CalculateForceFromRange( UINT16 usItem, INT16 sRange, FLOAT dDegrees );
+FLOAT					CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees, INT32 sTargetSpot, UINT8 ubTargetLevel);
 
 INT32          RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius );
 
@@ -122,7 +122,7 @@ void ObjectHitWindow( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSo
 FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT32 *psFinalGridNo );
 vector_3 FindBestForceForTrajectory( INT32 sSrcGridNo, INT32 sGridNo,INT16 sStartZ, INT16 sEndZ, real dzDegrees, OBJECTTYPE *pItem, INT32 *psGridNo, FLOAT *pzMagForce );
 INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vPosition, vector_3 *vForce, INT32 *psFinalGridNo, INT8 *pbLevel, BOOLEAN fFromUI );
-FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier,	FLOAT dDegrees, OBJECTTYPE *pObject, BOOLEAN fArmed );
+FLOAT CalculateSoldierMaxForce(SOLDIERTYPE *pSoldier, FLOAT dDegrees, OBJECTTYPE *pObject, BOOLEAN fArmed, INT32 sTargetSpot, UINT8 ubTargetLevel);
 BOOLEAN AttemptToCatchObject( REAL_OBJECT *pObject );
 BOOLEAN CheckForCatchObject( REAL_OBJECT *pObject );
 BOOLEAN DoCatchObject( REAL_OBJECT *pObject );
@@ -1087,8 +1087,12 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 					AniParams.sStartFrame					= 0;
 					AniParams.uiFlags							= ANITILE_FORWARD;
 
-
-					if ( pObject->ubActionCode == THROW_ARM_ITEM )
+					// sevenfm: explosion animation only for normal, stun and flashbang type explosives
+					if (pObject->ubActionCode == THROW_ARM_ITEM &&
+						(Item[pObject->Obj.usItem].usItemClass & IC_EXPLOSV) &&
+						(Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubType == EXPLOSV_NORMAL ||
+						Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubType == EXPLOSV_STUN ||
+						Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubType == EXPLOSV_FLASHBANG))
 					{
 						gTacticalStatus.ubAttackBusyCount++;
 						DebugAttackBusy( String( "Incrementing attack busy because of delayed water explosion. Now %d\n", gTacticalStatus.ubAttackBusyCount ) );
@@ -1111,7 +1115,7 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 					CHAR8	zFilename[512];
 					sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", Random(3) + 1);
 					if (FileExists(zFilename))
-						PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(LOWVOLUME, pObject->sGridNo), 1, SoundDir(pObject->sGridNo));
+						PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, pObject->sGridNo), 1, SoundDir(pObject->sGridNo));
 				}
 			}
 
@@ -2022,7 +2026,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 		FindBestForceForTrajectory( pSoldier->sGridNo, sGridNo, sStartZ, sEndZ, dDegrees, pItem, psFinalGridNo, &dMagForce );
 
 		// Adjust due to max range....
-		dMaxForce	= CalculateSoldierMaxForce( pSoldier, dDegrees, pItem, fArmed );
+		dMaxForce = CalculateSoldierMaxForce(pSoldier, dDegrees, pItem, fArmed, sGridNo, ubLevel);
 
 		if ( fIndoors )
 		{
@@ -2038,7 +2042,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 		if ( fMortar || fGLauncher )
 		{
 			// find min force
-			dMinForce = CalculateForceFromRange( pItem->usItem, (INT16)( sMinRange / 10 ), (FLOAT)( PI / 4 ) );
+			dMinForce = CalculateForceFromRange(pItem->usItem, (INT16)(sMinRange / 10), (FLOAT)(PI / 4), sGridNo, ubLevel);
 
 			if ( dMagForce < dMinForce )
 			{
@@ -2055,7 +2059,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 	else
 	{
 		// Use MAX force, vary angle....
-		dMagForce	= CalculateSoldierMaxForce( pSoldier, dDegrees, pItem, fArmed );
+		dMagForce = CalculateSoldierMaxForce(pSoldier, dDegrees, pItem, fArmed, sGridNo, ubLevel);
 
 		if ( ubLevel == 0 )
 		{
@@ -2155,7 +2159,7 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 
 
 
-FLOAT CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees )
+FLOAT CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees, INT32 sTargetSpot, UINT8 ubTargetLevel)
 {
 	FLOAT				dMagForce;
 	INT32 sSrcGridNo, sDestGridNo;
@@ -2173,7 +2177,9 @@ FLOAT CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees )
 
 	// Buggler: impact explosives requiring larger force to reach desired range due to no bounce
 	// Please change the if conditions too when definition of OBJECT_DETONATE_ON_IMPACT( object ) changes
-	if ((Item[usItem].usItemClass == IC_BOMB) || ((Item[usItem].usItemClass & IC_EXPLOSV) && Explosive[Item[usItem].ubClassIndex].fExplodeOnImpact))
+	if ((Item[usItem].usItemClass == IC_BOMB) ||
+		((Item[usItem].usItemClass & IC_EXPLOSV) && Explosive[Item[usItem].ubClassIndex].fExplodeOnImpact) ||
+		Water(sTargetSpot, ubTargetLevel))
 		// Use a mortar shell objecttype to simulate impact explosives
 		CreateItem( MORTAR_SHELL, 100, &gTempObject );
 	else
@@ -2189,7 +2195,7 @@ FLOAT CalculateForceFromRange(UINT16 usItem, INT16 sRange, FLOAT dDegrees )
 }
 
 
-FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier, FLOAT dDegrees , OBJECTTYPE *pItem , BOOLEAN fArmed )
+FLOAT CalculateSoldierMaxForce(SOLDIERTYPE *pSoldier, FLOAT dDegrees, OBJECTTYPE *pItem, BOOLEAN fArmed, INT32 sTargetSpot, UINT8 ubTargetLevel)
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateSoldierMaxForce");
 
@@ -2200,7 +2206,7 @@ FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier, FLOAT dDegrees , OBJECTTY
 
 	uiMaxRange = CalcMaxTossRange( pSoldier, pItem->usItem, fArmed, pItem );
 
-	dMagForce = CalculateForceFromRange( pItem->usItem, (INT16) uiMaxRange, dDegrees );
+	dMagForce = CalculateForceFromRange(pItem->usItem, (INT16)uiMaxRange, dDegrees, sTargetSpot, ubTargetLevel);
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateSoldierMaxForce: done");
 	return( dMagForce );
@@ -2864,7 +2870,7 @@ UINT32 GetArtilleryTargetGridNo( UINT32 sTargetGridNo, INT8 bRadius )
 	return RandomGridFromRadius( sTargetGridNo, 1, bRadius );
 }
 
-BOOLEAN GetArtilleryLaunchParams( UINT32 sStartingGridNo, UINT32 sTargetGridNo, INT16 sStartZ, INT16 sEndZ, UINT16 usLauncher, OBJECTTYPE* pObj, FLOAT* pdForce, FLOAT* pdDegrees)
+BOOLEAN GetArtilleryLaunchParams(UINT32 sStartingGridNo, UINT32 sTargetGridNo, UINT8 ubTargetLevel, INT16 sStartZ, INT16 sEndZ, UINT16 usLauncher, OBJECTTYPE* pObj, FLOAT* pdForce, FLOAT* pdDegrees)
 {
 	FLOAT		dMagForce, dMaxForce, dMinForce;
 	FLOAT		dDegrees		= OUTDOORS_START_ANGLE;
@@ -2878,12 +2884,12 @@ BOOLEAN GetArtilleryLaunchParams( UINT32 sStartingGridNo, UINT32 sTargetGridNo, 
 
 	INT32 uiMaxRange = GetModifiedGunRange(usLauncher) / CELL_X_SIZE;
 
-	dMaxForce = CalculateForceFromRange( NULL, (INT16) uiMaxRange, (FLOAT)( PI/4 ) );
+	dMaxForce = CalculateForceFromRange(NULL, (INT16)uiMaxRange, (FLOAT)(PI / 4), sTargetGridNo, ubTargetLevel);
 			
 	if ( dMagForce > dMaxForce )
 		dMagForce = dMaxForce;
 
-	dMinForce = CalculateForceFromRange( NULL, (INT16)( sMinRange / 10 ), (FLOAT)( PI / 4 ) );
+	dMinForce = CalculateForceFromRange(NULL, (INT16)(sMinRange / 10), (FLOAT)(PI / 4), sTargetGridNo, ubTargetLevel);
 
 	if ( dMagForce < dMinForce )
 		dMagForce = dMinForce;

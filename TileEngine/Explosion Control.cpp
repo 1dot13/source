@@ -388,7 +388,8 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	}
 
 	// HEADROCK HAM 5.1: Launch fragments from the explosion.
-	if (Explosive[ Item[ usItem ].ubClassIndex ].usNumFragments > 0 )
+	// sevenfm: no fragments in water
+	if (Explosive[Item[usItem].ubClassIndex].usNumFragments > 0 && !Water(sGridNo, bLevel))
 	{
 		// HEADROCK HAM 5: Deactivated until the release of HAM 5.1.
 		FireFragments( ubOwner, sX, sY, sZ, usItem, ubDirection );
@@ -534,13 +535,14 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 	AniParams.sStartFrame = pExplosion->sCurrentFrame;
 	AniParams.uiFlags	= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_EXPLOSION;
 
-	if ( TERRAIN_IS_WATER(ubTerrainType) )
+	// sevenfm: check level
+	//if ( TERRAIN_IS_WATER(ubTerrainType) )
+	if (Water(sGridNo, bLevel))
 	{
 		// Change type to water explosion...
 		ubTypeID = WATER_BLAST;
 		AniParams.uiFlags |= ANITILE_ALWAYS_TRANSLUCENT;
 	}
-
 
 	if ( sZ < WALL_HEIGHT )
 	{
@@ -2215,6 +2217,13 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 
 	//Init the variables
 	sX = sY = -1;
+
+	// sevenfm: don't spread fire on water
+	if (Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS &&
+		Water(sGridNo, bLevel))
+	{
+		return FALSE;
+	}
 
 	if ( sSubsequent == BLOOD_SPREAD_EFFECT )
 	{
