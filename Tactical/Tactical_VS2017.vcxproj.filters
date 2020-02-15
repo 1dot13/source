@@ -7,6 +7,9 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{c1880088-a976-405e-919e-9f1e97ad6701}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logical Bodytypes">
+      <UniqueIdentifier>{7ccf82e9-8713-4351-af1f-218106a69555}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action Items.h">
@@ -278,6 +281,45 @@
     </ClInclude>
     <ClInclude Include="MiniGame.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\AbstractXMLLoader.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\BodyType.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\BodyTypeDB.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\EnumeratorDB.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\Filter.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\FilterDB.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\Layers.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\PaletteDB.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\PaletteTable.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\Singleton.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\SurfaceCache.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\SurfaceDB.h">
+      <Filter>Logical Bodytypes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogicalBodyTypes\XMLParseException.h">
+      <Filter>Logical Bodytypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -706,6 +748,42 @@
     </ClCompile>
     <ClCompile Include="Minigame.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\AbstractXMLLoader.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\BodyType.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\BodyTypeDB.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\EnumeratorDB.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\Filter.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\FilterDB.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\Layers.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\PaletteDB.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\PaletteTable.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\SurfaceCache.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\SurfaceDB.cpp">
+      <Filter>Logical Bodytypes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogicalBodyTypes\XMLParseException.cpp">
+      <Filter>Logical Bodytypes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

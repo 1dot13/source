@@ -6352,6 +6352,7 @@ STR16		zOptionsToggleText[] =
 	L"属性进度条", //L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
+	L"Use Logical Bodytypes",
 	L"显示佣兵军衔",	// shows mercs ranks
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
@@ -6466,6 +6467,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时，战略地图将会根据探索状态显示不同的着色。",
 	L"打开时，当你射击时会显示间隔子弹图像。",
+	L"When ON, mercenary body graphic can change along with equipped gear.",	// TODO.Translate
 	L"打开时，在战略界面的佣兵名旁显示军衔。",
 	L"打开时，显示佣兵脸部装备图。",
 	L"打开时，佣兵肖像右下角显示脸部装备图标",

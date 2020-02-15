@@ -438,6 +438,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, LBEPOCKETFILENAME);
 	SGP_THROW_IFFALSE(ReadInLBEPocketStats(fileName,FALSE),LBEPOCKETFILENAME);
+	{
+		using namespace LogicalBodyTypes;
+		SGP_THROW_IFFALSE(Layers::Instance().LoadFromFile(directoryName, LBT_LAYERSFILENAME), LBT_LAYERSFILENAME);
+		SGP_THROW_IFFALSE(PaletteDB::Instance().LoadFromFile(directoryName, LBT_PALETTESFILENAME), LBT_PALETTESFILENAME);
+		SGP_THROW_IFFALSE(SurfaceDB::Instance().LoadFromFile(directoryName, LBT_ANIMSURFACESFILENAME), LBT_ANIMSURFACESFILENAME);
+		SGP_THROW_IFFALSE(FilterDB::Instance().LoadFromFile(directoryName, LBT_FILTERSFILENAME), LBT_FILTERSFILENAME);
+		SGP_THROW_IFFALSE(BodyTypeDB::Instance().LoadFromFile(directoryName, LBT_BODYTYPESFILENAME), LBT_BODYTYPESFILENAME);
+	}
 
 #ifndef ENGLISH
 	AddLanguagePrefix(fileName);
@@ -1396,7 +1404,7 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 				MusicSoundValues[iloop].SoundTacticalBattleGroup[iloop] = -1;
 			}
 		}
-		
+
 		CHAR8 zFileName[255];
 		sprintf( zFileName, "scripts\\Music.lua" );
 		if (FileExists( zFileName ) )
@@ -1404,12 +1412,12 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 			LetLuaMusicControl(0);
 		}
 		#endif
-		
+
 		strcpy(fileName, directoryName);
 		strcat(fileName, DIFFICULTYFILENAME);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInDifficultySettings(fileName,FALSE), DIFFICULTYFILENAME);
-	
+
 			#ifndef ENGLISH
 				AddLanguagePrefix(fileName);
 				if ( FileExists(fileName) )
@@ -1417,8 +1425,8 @@ BackupBRandEncyclopedia ( gBriefingRoomData, gBriefingRoomDataBackup, 0);
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 					SGP_THROW_IFFALSE(ReadInDifficultySettings(fileName,TRUE), fileName);
 				}
-			#endif	
-		
+			#endif
+
 	LuaState::INIT(lua::LUA_STATE_STRATEGIC_MINES_AND_UNDERGROUND, true);
 	g_luaUnderground.LoadScript(GetLanguagePrefix());
 	// load Lua for Strategic Mines initialization
@@ -1438,7 +1446,7 @@ UINT32 InitializeJA2(void)
 	HandleJA2CDCheck( );
 
 	gfWorldLoaded = FALSE;
-	
+
 	//Load external game mechanic data
 	//if ( !LoadExternalGameplayData(TABLEDATA_DIRECTORY))
 	//{
@@ -1455,7 +1463,7 @@ UINT32 InitializeJA2(void)
 	//dnl ch54 111009
 	//gsRenderCenterX = 805;
 	//gsRenderCenterY = 805;
-	
+
 	// Init data
 	InitializeSystemVideoObjects( );
 
@@ -1530,7 +1538,7 @@ UINT32 InitializeJA2(void)
 	//ADB When a merc calcs CTGT for a thrown item he uses a GLOCK temp item
 	//but we don't want to recreate it every single time CTGT is called, so init the GLOCK here
 	//CreateItem(GLOCK_17, 100, &GLOCK_17_ForUseWithLOS);//dnl ch86 120214 move to LOS.cpp
-	
+
 
 #ifdef JA2BETAVERSION
 	#ifdef JA2EDITOR
@@ -1573,7 +1581,7 @@ UINT32 InitializeJA2(void)
 
 #ifdef JA2BETAVERSION
 	#ifdef JA2EDITOR
-	
+
 		// CHECK COMMANDLINE FOR SPECIAL UTILITY
 		if( !strcmp( gzCommandLine, "-EDITORAUTO" ) )
 		{

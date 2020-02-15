@@ -5,10 +5,10 @@
 
 #include "builddefines.h"
 
-#include <time.h> 
+#include <time.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include "sgp.h" 
+#include "sgp.h"
 #include "gameloop.h"
 #include "himage.h"
 #include "vobject.h"
@@ -108,7 +108,7 @@
 #include "tile cache.h"
 #include "Shade Table Util.h"
 #include "Exit Grids.h"
-#include "Summary Info.h" 
+#include "Summary Info.h"
 #include <time.h>
 #include "font.h"
 #include "timer.h"
@@ -160,5 +160,13 @@
 #include "Scheduling.h"
 #include "_JA25EnglishText.h"
 #include "XML.h"
+#include "LogicalBodyTypes/BodyTypeDB.h"
+#include "LogicalBodyTypes/Layers.h"
+#include "LogicalBodyTypes/AbstractXMLLoader.h"
+#include "LogicalBodyTypes/PaletteDB.h"
+#include "LogicalBodyTypes/SurfaceDB.h"
+#include "LogicalBodyTypes/FilterDB.h"
+#include "LogicalBodyTypes/EnumeratorDB.h"
+#include "LogicalBodyTypes/BodyTypeDB.h"
 
 #endif

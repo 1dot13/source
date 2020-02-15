@@ -75,6 +75,9 @@ enum
 	// WANNE: Moved alternate bullets graphics (tracers) to options
 	TOPTION_ALTERNATE_BULLET_GRAPHICS,
 
+	// BIO LOBOT:	
+	TOPTION_USE_LOGICAL_BODYTYPES,
+
 	// CHRISL: HAM 4: Activate/Deactivate NCTH mode
 	//TOPTION_USE_NCTH,
 	//Jenilee's Merc Ranks

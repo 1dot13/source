@@ -2249,20 +2249,20 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 	sNext				= sSTIStartIndex + sSTIStep;
 	fFirstTime	= TRUE;
 
-	for (uiLoop = (UINT8)sSTIStartIndex; uiLoop < hVObject->usNumberOfObjects; uiLoop++ )
+	for (uiLoop = (UINT8)sSTIStartIndex; uiLoop < hVObject->usNumberOfObjects; uiLoop++)
 	{
 		// Defualt to true
 		fCopyIntoVo = TRUE;
 
 		// Increment struct index....
-		if ( uiLoop == (UINT32)sNext )
+		if (uiLoop == (UINT32)sNext)
 		{
-			sNext					= (UINT16)( uiLoop + sSTIStep );
+			sNext = (UINT16)(uiLoop + sSTIStep);
 			sStructIndex++;
 		}
 		else
 		{
-			if ( fFirstTime )
+			if (fFirstTime)
 			{
 				fFirstTime = FALSE;
 			}
@@ -2272,7 +2272,7 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 			}
 		}
 
-		if ( fFromAnimation )
+		if (fFromAnimation)
 		{
 			uiDestVoIndex = sStructIndex;
 		}
@@ -2282,17 +2282,17 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 		}
 
 
-		if ( fCopyIntoVo && sStructIndex < pStructureFileRef->usNumberOfStructures )
+		if (fCopyIntoVo && sStructIndex < pStructureFileRef->usNumberOfStructures)
 		{
-			pDBStructure = pStructureFileRef->pDBStructureRef[ sStructIndex ].pDBStructure;
-			if (pDBStructure != NULL && ( pDBStructure->ubNumberOfTiles > 1 || ( pDBStructure->fFlags & STRUCTURE_CORPSE ) ) )
-			//if (pDBStructure != NULL && pDBStructure->ubNumberOfTiles > 1 )
+			pDBStructure = pStructureFileRef->pDBStructureRef[sStructIndex].pDBStructure;
+			if (pDBStructure != NULL && (pDBStructure->ubNumberOfTiles > 1 || (pDBStructure->fFlags & STRUCTURE_CORPSE)))
+				//if (pDBStructure != NULL && pDBStructure->ubNumberOfTiles > 1 )
 			{
 				// ATE: We allow SLIDING DOORS of 2 tile sizes...
-				if ( !(pDBStructure->fFlags & STRUCTURE_ANYDOOR) || ( (pDBStructure->fFlags & ( STRUCTURE_ANYDOOR ) ) && ( pDBStructure->fFlags & STRUCTURE_SLIDINGDOOR ) ) )
+				if (!(pDBStructure->fFlags & STRUCTURE_ANYDOOR) || ((pDBStructure->fFlags & (STRUCTURE_ANYDOOR)) && (pDBStructure->fFlags & STRUCTURE_SLIDINGDOOR)))
 				{
-					hVObject->ppZStripInfo[ uiDestVoIndex ] = (ZStripInfo *) MemAlloc( sizeof( ZStripInfo ) );
-					if (hVObject->ppZStripInfo[ uiDestVoIndex ] == NULL)
+					hVObject->ppZStripInfo[uiDestVoIndex] = (ZStripInfo *)MemAlloc(sizeof(ZStripInfo));
+					if (hVObject->ppZStripInfo[uiDestVoIndex] == NULL)
 					{
 						// augh!! out of memory!	free everything allocated and abort
 						for (ubLoop2 = 0; ubLoop2 < uiLoop; ubLoop2++)
@@ -2302,13 +2302,13 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 								MemFree(hVObject->ppZStripInfo[uiLoop]);
 							}
 						}
-						MemFree( hVObject->ppZStripInfo );
+						MemFree(hVObject->ppZStripInfo);
 						hVObject->ppZStripInfo = NULL;
-						return( FALSE );
+						return(FALSE);
 					}
 					else
 					{
-						pCurr = hVObject->ppZStripInfo[ uiDestVoIndex ];
+						pCurr = hVObject->ppZStripInfo[uiDestVoIndex];
 
 						ubNumIncreasing = 0;
 						ubNumStable = 0;
@@ -2319,7 +2319,7 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 						sOffsetY = hVObject->pETRLEObject[uiLoop].sOffsetY;
 						usWidth = hVObject->pETRLEObject[uiLoop].usWidth;
 						usHeight = hVObject->pETRLEObject[uiLoop].usHeight;
-						if (pDBStructure->fFlags & (STRUCTURE_MOBILE | STRUCTURE_CORPSE) )
+						if (pDBStructure->fFlags & (STRUCTURE_MOBILE | STRUCTURE_CORPSE))
 						{
 							// adjust for the difference between the animation and structure base tile
 
@@ -2427,44 +2427,58 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 
 						// now create the array!
 						pCurr->ubNumberOfZChanges = ubNumIncreasing + ubNumStable + ubNumDecreasing;
-						pCurr->pbZChange = (INT8 *) MemAlloc( pCurr->ubNumberOfZChanges );
-						if ( pCurr->pbZChange == NULL)
+						// BIO (LOBOT): had to add a conditional as otherwise function would report a failure
+						// which then would prompt LOBOT to issue an error when trying to load animation surfaces with
+						// frames with a certain geometry.
+						// Only allocate memory and stuff if ubNumberOfZChanges > 0. Otherwise
+						// MemAlloc returns a NULL pointer which the code would interpret as
+						// allocation failing because of no memory.
+						// I hope this is OK, I don't entirely understand what is done here...
+						if (pCurr->ubNumberOfZChanges > 0)
 						{
-							// augh!
-							for (ubLoop2 = 0; ubLoop2 < uiLoop; ubLoop2++)
+							pCurr->pbZChange = (INT8 *)MemAlloc(pCurr->ubNumberOfZChanges);
+							if (pCurr->pbZChange == NULL)
 							{
-								if (hVObject->ppZStripInfo[ubLoop2] != NULL)
+								// augh!
+								for (ubLoop2 = 0; ubLoop2 < uiLoop; ubLoop2++)
 								{
-									MemFree(hVObject->ppZStripInfo[uiLoop]);
+									if (hVObject->ppZStripInfo[ubLoop2] != NULL)
+									{
+										MemFree(hVObject->ppZStripInfo[uiLoop]);
+									}
 								}
+								MemFree(hVObject->ppZStripInfo);
+								hVObject->ppZStripInfo = NULL;
+								return(FALSE);
 							}
-							MemFree( hVObject->ppZStripInfo );
-							hVObject->ppZStripInfo = NULL;
-							return( FALSE );
-						}
-						for (ubLoop2 = 0; ubLoop2 < ubNumIncreasing; ubLoop2++)
-						{
-							pCurr->pbZChange[ubLoop2] = 1;
-						}
-						for (; ubLoop2 < ubNumIncreasing + ubNumStable; ubLoop2++)
-						{
-							pCurr->pbZChange[ubLoop2] = 0;
-						}
-						for (; ubLoop2 < pCurr->ubNumberOfZChanges; ubLoop2++)
-						{
-							pCurr->pbZChange[ubLoop2] = -1;
-						}
-						if (ubNumIncreasing > 0)
-						{
-							pCurr->bInitialZChange = -(ubNumIncreasing);
-						}
-						else if (ubNumStable > 0)
-						{
-							pCurr->bInitialZChange = 0;
+							for (ubLoop2 = 0; ubLoop2 < ubNumIncreasing; ubLoop2++)
+							{
+								pCurr->pbZChange[ubLoop2] = 1;
+							}
+							for (; ubLoop2 < ubNumIncreasing + ubNumStable; ubLoop2++)
+							{
+								pCurr->pbZChange[ubLoop2] = 0;
+							}
+							for (; ubLoop2 < pCurr->ubNumberOfZChanges; ubLoop2++)
+							{
+								pCurr->pbZChange[ubLoop2] = -1;
+							}
+							if (ubNumIncreasing > 0)
+							{
+								pCurr->bInitialZChange = -(ubNumIncreasing);
+							}
+							else if (ubNumStable > 0)
+							{
+								pCurr->bInitialZChange = 0;
+							}
+							else
+							{
+								pCurr->bInitialZChange = -(ubNumDecreasing);
+							}
 						}
 						else
 						{
-							pCurr->bInitialZChange = -(ubNumDecreasing);
+							pCurr->pbZChange = NULL;
 						}
 					}
 				}

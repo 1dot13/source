@@ -6361,6 +6361,7 @@ STR16		zOptionsToggleText[] =
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
 	L"Show Merc Ranks",						// shows mercs ranks		// TODO.Translate
+	L"Use Logical Bodytypes",
 	L"Show Face gear graphics",				// TODO.Translate
 	L"Show Face gear icons",
 	L"Disable Cursor Swap",		            // Disable Cursor Swap		// TODO.Translate
@@ -6475,6 +6476,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeśli WŁĄCZONE, pokazuje postęp w doświadczeniu postaci.",
 	L"When ON, the Strategic Map will be colored differently based on exploration.",
 	L"Jeśli WŁĄCZONE, zastępuje starą animację pocisku nową.",
+	L"When ON, mercenary body graphic can change along with equipped gear.",	// TODO.Translate
 	L"When ON, ranks will be displayed before merc names in the strategic view.",			// TODO.Translate
 	L"When ON, you will see the equipped face gear on the merc portraits.",	// TODO.Translate
 	L"When ON, you will see icons for the equipped face gear on the merc portraits in the lower right corner.",

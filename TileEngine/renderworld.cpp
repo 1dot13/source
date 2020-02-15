@@ -834,20 +834,156 @@ void RenderSetShadows(BOOLEAN fShadows)
 }
 }
 
+inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIERTYPE * pPaletteTable, UINT32 uiFlags, INT16 * gsForceSoldierZLevel)
+{
+	UINT16 * pShadeTable;
+	// Shade guy always lighter than sceane default!
+	{
+		UINT8 ubShadeLevel;
+		ubShadeLevel = (pNode->ubShadeLevel & 0x0f);
+		ubShadeLevel = __max(ubShadeLevel - 2, DEFAULT_SHADE_LEVEL);
+		ubShadeLevel |= (pNode->ubShadeLevel & 0x30);
+		if (pSoldier->flags.fBeginFade)
+		{
+			pShadeTable = pPaletteTable->pCurrentShade = pPaletteTable->pShades[pSoldier->ubFadeLevel];
+		}
+		else
+		{
+			pShadeTable = pPaletteTable->pCurrentShade = pPaletteTable->pShades[ubShadeLevel];
+		}
+	}
+	if (!pSoldier->flags.fBeginFade)
+	{
+		// Special effect - draw ghost if is seen by a guy in player's team but not current guy
+		// ATE: Todo: setup flag for 'bad-guy' - can releive some checks in renderer
+		if (!pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum))
+		{
+			SOLDIERTYPE * pSelSoldier;
+			if (gusSelectedSoldier != NOBODY)
+			{
+				pSelSoldier = MercPtrs[gusSelectedSoldier];
+			}
+			else
+			{
+				pSelSoldier = NULL;
+			}
+			INT8 bGlowShadeOffset;
+			bGlowShadeOffset = 0;
+			if (gTacticalStatus.ubCurrentTeam == gbPlayerNum)
+			{
+				// Shade differently depending on visiblity
+				if (pSoldier->bLastRenderVisibleValue == 0)
+				{
+					bGlowShadeOffset = 10;
+				}
+				if (pSelSoldier != NULL)
+				{
+					if (pSelSoldier->aiData.bOppList[pSoldier->ubID] != SEEN_CURRENTLY)
+					{
+						if (pSoldier->usAnimState != CHARIOTS_OF_FIRE && pSoldier->usAnimState != BODYEXPLODING)
+						{
+							bGlowShadeOffset = 10;
+						}
+					}
+				}
+			}
+			INT16 ** pShadeStart;
+			if (pSoldier->pathing.bLevel == 0)
+			{
+				pShadeStart = (INT16 **) & (pPaletteTable->pGlowShades[0]);
+			}
+			else
+			{
+				pShadeStart = (INT16 **) & (pPaletteTable->pShades[20]);
+			}
+			// Set shade
+			// If a bad guy is highlighted
+			if (gfUIHandleSelectionAboveGuy == TRUE && MercPtrs[gsSelectedGuy]->bSide != gbPlayerNum)
+			{
+				if (gsSelectedGuy == pSoldier->ubID)
+				{
+					pShadeTable = (UINT16 *)pShadeStart[gsGlowFrames[gsCurrentGlowFrame] + bGlowShadeOffset];
+					*gsForceSoldierZLevel = TOPMOST_Z_LEVEL;
+				}
+				else
+				{
+					// Are we dealing with a not-so visible merc?
+					if (bGlowShadeOffset == 10)
+					{
+						pShadeTable = pPaletteTable->pEffectShades[0];
+					}
+				}
+			}
+			else
+			{
+				// OK,not highlighted, but maybe we are in enemy's turn and they have the baton
+				// AI's turn?
+				if (gTacticalStatus.ubCurrentTeam != OUR_TEAM)
+				{
+					// Do he have baton?
+					if ((pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL))
+					{
+						pShadeTable = (UINT16 *)pShadeStart[gpGlowFramePointer[gsCurrentGlowFrame] + bGlowShadeOffset];
+						if (gpGlowFramePointer[gsCurrentGlowFrame] >= 7)
+						{
+							*gsForceSoldierZLevel = TOPMOST_Z_LEVEL;
+						}
+					}
+				}
+				else
+				{
+					pShadeTable = (UINT16 *)pShadeStart[gpGlowFramePointer[gsCurrentGlowFrame] + bGlowShadeOffset];
+					if (gpGlowFramePointer[gsCurrentGlowFrame] >= 7)
+					{
+						*gsForceSoldierZLevel = TOPMOST_Z_LEVEL;
+					}
+				}
+			}
+			//if ( gusSelectedSoldier != NOBODY )
+			//{
+			//  pSelSoldier = MercPtrs[ gusSelectedSoldier ];
+			// Shade differently depending on visiblity
+			//  if ( pSoldier->bVisible == 0 || ( pSelSoldier->aiData.bOppList[ pSoldier->ubID ] == 0  ) )
+			//  {
+			// Shade gray
+			//      pShadeTable = pSoldier->pGlowShades[ gpGlowFramePointer[ gsCurrentGlowFrame ] + 10 ];
+			//  }
+			//}
+		}
+	}
+	if (!(uiFlags & TILES_DIRTY))
+	{
+		if (pSoldier->flags.fForceShade)
+		{
+			pShadeTable = pPaletteTable->pForcedShade;
+		}
+	}
+	// check if we are a merc duplicate, if so, only do minimal stuff!
+	if (pSoldier->ubID >= MAX_NUM_SOLDIERS)
+	{
+		// Shade gray
+		pShadeTable = pPaletteTable->pEffectShades[1];
+	}
+	return pShadeTable;
+}
 
 
-void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32 *puiLevels, UINT16 *psLevelIDs )
+
+/* 
+MONSTERS BE HERE!
+*/
+void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT32 iStartPointX_S, INT32 iStartPointY_S, INT32 iEndXS, INT32 iEndYS, UINT8 ubNumLevels, UINT32 *puiLevels, UINT16 *psLevelIDs)
 {
 
-//#if 0
+	//#if 0
 
 	LEVELNODE		*pNode; //, *pLand, *pStruct; //*pObject, *pTopmost, *pMerc;
 	SOLDIERTYPE	*pSoldier, *pSelSoldier;
 	HVOBJECT		hVObject = NULL;
 	ETRLEObject *pTrav;
-	TILE_ELEMENT *TileElem=NULL;
+	TILE_ELEMENT *TileElem = NULL;
 	UINT32			uiDestPitchBYTES = 0;
-	UINT8				*pDestBuf=NULL;
+	UINT8				*pDestBuf = NULL;
 	UINT16			usAnimSurface;
 	INT8				bXOddFlag = 0;
 	INT32				iAnchorPosX_M, iAnchorPosY_M;
@@ -861,61 +997,59 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 	UINT32			uiBrushWidth, uiBrushHeight, uiDirtyFlags;
 	INT16				sTileHeight, sXPos, sYPos, sZLevel;
 	INT16				sMouseX_M, sMouseY_M;
-	BOOLEAN			fShadowBlitter=FALSE;
-	BOOLEAN			fZBlitter=FALSE;
-	BOOLEAN			fZWrite=FALSE;
-	BOOLEAN			fLinkedListDirection=TRUE;
-	BOOLEAN			fRenderTile=TRUE;
-	BOOLEAN			fMerc=FALSE;
-	BOOLEAN			fCheckForRedundency=FALSE;
+	BOOLEAN			fShadowBlitter = FALSE;
+	BOOLEAN			fZBlitter = FALSE;
+	BOOLEAN			fZWrite = FALSE;
+	BOOLEAN			fLinkedListDirection = TRUE;
+	BOOLEAN			fRenderTile = TRUE;
+	BOOLEAN			fMerc = FALSE;
+	BOOLEAN			fCheckForRedundency = FALSE;
 	UINT32			uiRowFlags;
-	BOOLEAN			fDynamic=TRUE;
+	BOOLEAN			fDynamic = TRUE;
 	BOOLEAN			fEndRenderRow = FALSE;
 	BOOLEAN			fEndRenderCol = FALSE;
-	BOOLEAN			fPixelate=FALSE;
+	BOOLEAN			fPixelate = FALSE;
 	BOOLEAN			fMultiZBlitter = FALSE;
 	BOOLEAN			fWallTile = FALSE;
 	BOOLEAN			fMultiTransShadowZBlitter = FALSE;
-	INT16				sMultiTransShadowZBlitterIndex=-1;
-	BOOLEAN			fTranslucencyType=FALSE;
+	INT16				sMultiTransShadowZBlitterIndex = -1;
+	BOOLEAN			fTranslucencyType = FALSE;
 	INT16				sX, sY;
 	BOOLEAN			fTileInvisible = FALSE;
-	BOOLEAN			fConvertTo16=FALSE;
+	BOOLEAN			fConvertTo16 = FALSE;
 	UINT32			cnt;
-	static			UINT8				ubLevelNodeStartIndex[ NUM_RENDER_FX_TYPES ];
+	static			UINT8				ubLevelNodeStartIndex[NUM_RENDER_FX_TYPES];
 	BOOLEAN			bItemOutline;
-	UINT16			usOutlineColor=0;
+	UINT16			usOutlineColor = 0;
 
-	static			INT32				iTileMapPos[ 500 ];
+	static			INT32				iTileMapPos[500];
 	INT32			uiMapPosIndex;
 	UINT8				bBlitClipVal;
 	INT8				bItemCount, bVisibleItemCount;
 	//UINT16			us16BPPIndex;
 	RenderFXType  RenderingFX;
 	BOOLEAN				fCheckForMouseDetections = FALSE;
-	static				RenderFXType  RenderFXList[ NUM_RENDER_FX_TYPES ];
+	static				RenderFXType  RenderFXList[NUM_RENDER_FX_TYPES];
 	BOOLEAN				fSaveZ;
 	INT16					sWorldY;
-	INT16					sZOffsetX=-1;
-	INT16					sZOffsetY=-1;
+	INT16					sZOffsetX = -1;
+	INT16					sZOffsetY = -1;
 	BOOLEAN				fIntensityBlitter;
 	INT16						gsForceSoldierZLevel;
-	ROTTING_CORPSE	*pCorpse=NULL;
+	ROTTING_CORPSE	*pCorpse = NULL;
 	BOOLEAN				fUseTileElem;
 	UINT32				uiLevelNodeFlags;
-	UINT32				uiTileElemFlags=0;
-	INT8					bGlowShadeOffset;
+	UINT32				uiTileElemFlags = 0;
 	BOOLEAN				fObscured;
 	BOOLEAN				fObscuredBlitter;
 	INT16					sModifiedTileHeight;
 	BOOLEAN				fDoRow;
-	INT16					**pShadeStart;
 
 	UINT32				uiSaveBufferPitchBYTES;
 	UINT8					*pSaveBuf;
 	ITEM_POOL			*pItemPool = NULL;
 	BOOLEAN				fHiddenTile = FALSE;
-  UINT32        uiAniTileFlags = 0;
+	UINT32        uiAniTileFlags = 0;
 	INT16					sZStripIndex;
 
 	//Init some variables
@@ -930,19 +1064,19 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 	iAnchorPosX_S = iStartPointX_S;
 	iAnchorPosY_S = iStartPointY_S;
 
-	if(!(uiFlags&TILES_DIRTY))
-		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+	if (!(uiFlags&TILES_DIRTY))
+		pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
 
 
-	if ( uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE )
+	if (uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE)
 	{
-		if ( ShouldCheckForMouseDetections( ) )
+		if (ShouldCheckForMouseDetections())
 		{
-			BeginCurInteractiveTileCheck( gubIntTileCheckFlags );
+			BeginCurInteractiveTileCheck(gubIntTileCheckFlags);
 			fCheckForMouseDetections = TRUE;
 
 			// If we are in edit mode, don't do this...
-			if ( gfEditMode )
+			if (gfEditMode)
 			{
 				fCheckForMouseDetections = FALSE;
 			}
@@ -950,17 +1084,17 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 	}
 
 	//if((uiFlags&TILES_TYPE_MASK)==TILES_STATIC_LAND)
-	GetMouseXY( &sMouseX_M, &sMouseY_M );
+	GetMouseXY(&sMouseX_M, &sMouseY_M);
 
-	pDirtyBackPtr=NULL;
+	pDirtyBackPtr = NULL;
 
-	if(gTacticalStatus.uiFlags&TRANSLUCENCY_TYPE)
-		fTranslucencyType=TRUE;
+	if (gTacticalStatus.uiFlags&TRANSLUCENCY_TYPE)
+		fTranslucencyType = TRUE;
 
-	for ( cnt = 0; cnt < ubNumLevels; cnt++ )
+	for (cnt = 0; cnt < ubNumLevels; cnt++)
 	{
-			ubLevelNodeStartIndex[ cnt ] = RenderFXStartIndex[ psLevelIDs[ cnt ] ];
-			RenderFXList[ cnt ]					 = RenderFX[ psLevelIDs[ cnt ] ];
+		ubLevelNodeStartIndex[cnt] = RenderFXStartIndex[psLevelIDs[cnt]];
+		RenderFXList[cnt] = RenderFX[psLevelIDs[cnt]];
 	}
 
 	do
@@ -976,47 +1110,47 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 		// Build tile index list
 		do
 		{
-				iTileMapPos[ uiMapPosIndex ] = FASTMAPROWCOLTOPOS( iTempPosY_M, iTempPosX_M );
+			iTileMapPos[uiMapPosIndex] = FASTMAPROWCOLTOPOS(iTempPosY_M, iTempPosX_M);
 
-				iTempPosX_S += 40;
-				iTempPosX_M ++;
-				iTempPosY_M --;
+			iTempPosX_S += 40;
+			iTempPosX_M++;
+			iTempPosY_M--;
 
-				uiMapPosIndex++;
+			uiMapPosIndex++;
 
-		} while( iTempPosX_S < iEndXS );
+		} while (iTempPosX_S < iEndXS);
 
 
 
-		for ( cnt = 0; cnt < ubNumLevels; cnt++ )
+		for (cnt = 0; cnt < ubNumLevels; cnt++)
 		{
 
-			uiRowFlags = puiLevels[ cnt ];
-			fDoRow		 = TRUE;
+			uiRowFlags = puiLevels[cnt];
+			fDoRow = TRUE;
 
-			if ( ( uiRowFlags & TILES_ALL_DYNAMICS ) && !( uiLayerUsedFlags & uiRowFlags ) && !( uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE ) )
+			if ((uiRowFlags & TILES_ALL_DYNAMICS) && !(uiLayerUsedFlags & uiRowFlags) && !(uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE))
 			{
 				fDoRow = FALSE;
 			}
 
-			if ( fDoRow )
+			if (fDoRow)
 			{
 				iTempPosX_M = iAnchorPosX_M;
 				iTempPosY_M = iAnchorPosY_M;
 				iTempPosX_S = iAnchorPosX_S;
 				iTempPosY_S = iAnchorPosY_S;
 
-				fEndRenderRow	= FALSE;
+				fEndRenderRow = FALSE;
 				uiMapPosIndex = 0;
 
 
-				if(bXOddFlag > 0)
+				if (bXOddFlag > 0)
 					iTempPosX_S += 20;
 
 				do
 				{
 
-					uiTileIndex = iTileMapPos[ uiMapPosIndex ];
+					uiTileIndex = iTileMapPos[uiMapPosIndex];
 					uiMapPosIndex++;
 
 					//if ( 0 )					
@@ -1025,66 +1159,66 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 						// OK, we're searching through this loop anyway, might as well check for mouse position
 						// over objects...
 						// Experimental!
-						if ( uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE )
+						if (uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE)
 						{
-							if ( fCheckForMouseDetections && gpWorldLevelData[uiTileIndex].pStructHead != NULL )
+							if (fCheckForMouseDetections && gpWorldLevelData[uiTileIndex].pStructHead != NULL)
 							{
-								LogMouseOverInteractiveTile( uiTileIndex );
+								LogMouseOverInteractiveTile(uiTileIndex);
 							}
 						}
 
-						if((uiFlags&TILES_MARKED) && !(gpWorldLevelData[uiTileIndex].uiFlags&MAPELEMENT_REDRAW))
+						if ((uiFlags&TILES_MARKED) && !(gpWorldLevelData[uiTileIndex].uiFlags&MAPELEMENT_REDRAW))
 						{
-							pNode=NULL;
+							pNode = NULL;
 						}
 						else
 						{
 							//pNode = gpWorldLevelData[ uiTileIndex ].pLevelNodes[ RenderFXStartIndex[ psLevelIDs[ cnt ] ] ];
 							//pNode = gpWorldLevelData[ uiTileIndex ].pLevelNodes[ 0 ];
 							//pNode=NULL;
-							pNode = gpWorldLevelData[ uiTileIndex ].pLevelNodes[ ubLevelNodeStartIndex[ cnt ] ];
+							pNode = gpWorldLevelData[uiTileIndex].pLevelNodes[ubLevelNodeStartIndex[cnt]];
 						}
 
 						bItemCount = 0;
 						bVisibleItemCount = 0;
-						pItemPool  = NULL;
+						pItemPool = NULL;
 
-						while(pNode!= NULL)
+						while (pNode != NULL)
 						{
 
-							RenderingFX						= RenderFXList[ cnt ];
+							RenderingFX = RenderFXList[cnt];
 
-							fObscured							= RenderingFX.fObscured;
-							fDynamic							= RenderingFX.fDynamic;
+							fObscured = RenderingFX.fObscured;
+							fDynamic = RenderingFX.fDynamic;
 
-							fMerc									= RenderingFX.fMerc;
-							fZWrite								= RenderingFX.fZWrite;
-							fZBlitter							= RenderingFX.fZBlitter;
-							fShadowBlitter				= RenderingFX.fShadowBlitter;
-							fLinkedListDirection	= RenderingFX.fLinkedListDirection;
-							fCheckForRedundency		= RenderingFX.fCheckForRedundency;
-							fMultiZBlitter				= RenderingFX.fMultiZBlitter;
-							fConvertTo16					= RenderingFX.fConvertTo16;
-							fIntensityBlitter			= FALSE;
-							fSaveZ								= FALSE;
-							fWallTile							= FALSE;
-							gsForceSoldierZLevel	= FALSE;
-							pSoldier							= NULL;
-							fUseTileElem								= FALSE;
-							fMultiTransShadowZBlitter		= FALSE;
-							fObscuredBlitter						= FALSE;
-							fTranslucencyType						= TRUE;
-              uiAniTileFlags        = 0;
-							sZStripIndex					= -1;
+							fMerc = RenderingFX.fMerc;
+							fZWrite = RenderingFX.fZWrite;
+							fZBlitter = RenderingFX.fZBlitter;
+							fShadowBlitter = RenderingFX.fShadowBlitter;
+							fLinkedListDirection = RenderingFX.fLinkedListDirection;
+							fCheckForRedundency = RenderingFX.fCheckForRedundency;
+							fMultiZBlitter = RenderingFX.fMultiZBlitter;
+							fConvertTo16 = RenderingFX.fConvertTo16;
+							fIntensityBlitter = FALSE;
+							fSaveZ = FALSE;
+							fWallTile = FALSE;
+							gsForceSoldierZLevel = FALSE;
+							pSoldier = NULL;
+							fUseTileElem = FALSE;
+							fMultiTransShadowZBlitter = FALSE;
+							fObscuredBlitter = FALSE;
+							fTranslucencyType = TRUE;
+							uiAniTileFlags = 0;
+							sZStripIndex = -1;
 
-							uiLevelNodeFlags			= pNode->uiFlags;
+							uiLevelNodeFlags = pNode->uiFlags;
 
-							if ( fCheckForRedundency )
+							if (fCheckForRedundency)
 							{
-								if ( ( gpWorldLevelData[ uiTileIndex ].uiFlags & MAPELEMENT_REDUNDENT) )
+								if ((gpWorldLevelData[uiTileIndex].uiFlags & MAPELEMENT_REDUNDENT))
 								{
 									// IF WE DONOT WANT TO RE-EVALUATE FIRST
-									if ( !( gpWorldLevelData[uiTileIndex].uiFlags & MAPELEMENT_REEVALUATE_REDUNDENCY ) && !(gTacticalStatus.uiFlags & NOHIDE_REDUNDENCY ) )
+									if (!(gpWorldLevelData[uiTileIndex].uiFlags & MAPELEMENT_REEVALUATE_REDUNDENCY) && !(gTacticalStatus.uiFlags & NOHIDE_REDUNDENCY))
 									{
 										pNode = NULL;
 										break;
@@ -1093,34 +1227,34 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 							}
 
 							// Force z-buffer blitting for marked tiles ( even ground!)
-							if ( (uiFlags&TILES_MARKED) )
+							if ((uiFlags&TILES_MARKED))
 							{
-								fZBlitter							= TRUE;
+								fZBlitter = TRUE;
 							}
 
 
 							//Looking up height every time here is alot better than doing it above!
-							sTileHeight=gpWorldLevelData[uiTileIndex].sHeight;
+							sTileHeight = gpWorldLevelData[uiTileIndex].sHeight;
 
-							sModifiedTileHeight = ( ( ( sTileHeight / 80 ) - 1 ) * 80 );
+							sModifiedTileHeight = (((sTileHeight / 80) - 1) * 80);
 
-							if ( sModifiedTileHeight < 0 )
+							if (sModifiedTileHeight < 0)
 							{
 								sModifiedTileHeight = 0;
 							}
 
 
-							fRenderTile=TRUE;
-							pDirtyBackPtr=NULL;
-							if(uiLevelNodeFlags&LEVELNODE_REVEAL)
+							fRenderTile = TRUE;
+							pDirtyBackPtr = NULL;
+							if (uiLevelNodeFlags&LEVELNODE_REVEAL)
 							{
-								if(!fDynamic)
-									fRenderTile=FALSE;
+								if (!fDynamic)
+									fRenderTile = FALSE;
 								else
-									fPixelate=TRUE;
+									fPixelate = TRUE;
 							}
 							else
-								fPixelate=FALSE;
+								fPixelate = FALSE;
 
 							// non-type specific setup
 							sXPos = (INT16)iTempPosX_S;
@@ -1128,194 +1262,145 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 
 
 							// setup for any tile type except mercs
-							if(!fMerc )
+							if (!fMerc)
 							{
-									if ( !( uiLevelNodeFlags & ( LEVELNODE_ROTTINGCORPSE | LEVELNODE_CACHEDANITILE ) ) )
+								if (!(uiLevelNodeFlags & (LEVELNODE_ROTTINGCORPSE | LEVELNODE_CACHEDANITILE)))
+								{
+									if ((uiLevelNodeFlags & LEVELNODE_REVEALTREES))
 									{
-										if( ( uiLevelNodeFlags & LEVELNODE_REVEALTREES ) )
-										{
-											TileElem = &(gTileDatabase[pNode->usIndex + 2]);
-										}
-										else
-										{
-											TileElem = &(gTileDatabase[pNode->usIndex]);
-										}
-
-										// HANDLE INDEPENDANT-PER-TILE ANIMATIONS ( IE: DOORS, EXPLODING THINGS, ETC )
-										if ( fDynamic )
-										{
-											if( ( uiLevelNodeFlags & LEVELNODE_ANIMATION ) )
-											{
-												if ( pNode->sCurrentFrame != -1 )
-												{
-														Assert( TileElem->pAnimData != NULL );
-														TileElem = &gTileDatabase[TileElem->pAnimData->pusFrames[pNode->sCurrentFrame]];
-												}
-											}
-										}
-									}
-
-									// Check for best translucency
-									if ( uiLevelNodeFlags & LEVELNODE_USEBESTTRANSTYPE )
-									{
-										fTranslucencyType = FALSE;
-									}
-
-									if ( ( uiLevelNodeFlags & ( LEVELNODE_ROTTINGCORPSE | LEVELNODE_CACHEDANITILE ) ) )
-									{
-										if ( fDynamic )
-										{
-											if( !(uiLevelNodeFlags & ( LEVELNODE_DYNAMIC ) ) && !(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC)  )
-												fRenderTile=FALSE;
-										}
-										else if( (uiLevelNodeFlags & ( LEVELNODE_DYNAMIC ) ) )
-											fRenderTile=FALSE;
+										TileElem = &(gTileDatabase[pNode->usIndex + 2]);
 									}
 									else
 									{
-										// Set Tile elem flags here!
-										uiTileElemFlags	= TileElem->uiFlags;
-										// Set valid tile elem!
-										fUseTileElem = TRUE;
+										TileElem = &(gTileDatabase[pNode->usIndex]);
+									}
 
-										if(fDynamic || fPixelate)
+									// HANDLE INDEPENDANT-PER-TILE ANIMATIONS ( IE: DOORS, EXPLODING THINGS, ETC )
+									if (fDynamic)
+									{
+										if ((uiLevelNodeFlags & LEVELNODE_ANIMATION))
 										{
-											if(!fPixelate)
+											if (pNode->sCurrentFrame != -1)
 											{
-													if(!( uiTileElemFlags & ANIMATED_TILE) && !(uiTileElemFlags & DYNAMIC_TILE) && !(uiLevelNodeFlags & LEVELNODE_DYNAMIC) && !(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC)  )
-														fRenderTile=FALSE;
-													else if(!(uiTileElemFlags&DYNAMIC_TILE) && !(uiLevelNodeFlags&LEVELNODE_DYNAMIC) && !(uiLevelNodeFlags&LEVELNODE_LASTDYNAMIC) )
-												//	else if((TileElem->uiFlags&ANIMATED_TILE) )
-													{
-														Assert( TileElem->pAnimData != NULL );
-														TileElem = &gTileDatabase[TileElem->pAnimData->pusFrames[TileElem->pAnimData->bCurrentFrame]];
-														uiTileElemFlags = TileElem->uiFlags;
-													}
-											}
-
-										}
-										else if((uiTileElemFlags & ANIMATED_TILE) || (uiTileElemFlags & DYNAMIC_TILE) || (uiLevelNodeFlags & LEVELNODE_DYNAMIC) )
-										{
-											if ( !( uiFlags & TILES_OBSCURED ) || ( uiTileElemFlags & ANIMATED_TILE ) )
-											{
-												fRenderTile=FALSE;
+												Assert(TileElem->pAnimData != NULL);
+												TileElem = &gTileDatabase[TileElem->pAnimData->pusFrames[pNode->sCurrentFrame]];
 											}
 										}
 									}
+								}
 
-									// OK, ATE, CHECK FOR AN OBSCURED TILE AND MAKE SURE IF LEVELNODE IS SET
-									// WE DON'T RENDER UNLESS WE HAVE THE RENDER FLAG SET!
-									if ( fObscured )
+								// Check for best translucency
+								if (uiLevelNodeFlags & LEVELNODE_USEBESTTRANSTYPE)
+								{
+									fTranslucencyType = FALSE;
+								}
+
+								if ((uiLevelNodeFlags & (LEVELNODE_ROTTINGCORPSE | LEVELNODE_CACHEDANITILE)))
+								{
+									if (fDynamic)
 									{
-										if ( ( uiFlags & TILES_OBSCURED ) )
-										{
-											  if ( uiLevelNodeFlags & LEVELNODE_SHOW_THROUGH )
-												{
-													fObscuredBlitter = TRUE;
+										if (!(uiLevelNodeFlags & (LEVELNODE_DYNAMIC)) && !(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC))
+											fRenderTile = FALSE;
+									}
+									else if ((uiLevelNodeFlags & (LEVELNODE_DYNAMIC)))
+										fRenderTile = FALSE;
+								}
+								else
+								{
+									// Set Tile elem flags here!
+									uiTileElemFlags = TileElem->uiFlags;
+									// Set valid tile elem!
+									fUseTileElem = TRUE;
 
-													// ATE: Check if this is a levelnode, and what frame we are on
-													// turn off......
-													//if ( ( uiLevelNodeFlags & LEVELNODE_ITEM ) && gsCurrentItemGlowFrame < 25 )
-													//{
-													//	fRenderTile = FALSE;
-													//}
-												}
-												else
-												{
-													// Don;t render if we are not on this render loop!
-													fRenderTile = FALSE;
-												}
+									if (fDynamic || fPixelate)
+									{
+										if (!fPixelate)
+										{
+											if (!(uiTileElemFlags & ANIMATED_TILE) && !(uiTileElemFlags & DYNAMIC_TILE) && !(uiLevelNodeFlags & LEVELNODE_DYNAMIC) && !(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC))
+												fRenderTile = FALSE;
+											else if (!(uiTileElemFlags&DYNAMIC_TILE) && !(uiLevelNodeFlags&LEVELNODE_DYNAMIC) && !(uiLevelNodeFlags&LEVELNODE_LASTDYNAMIC))
+												//	else if((TileElem->uiFlags&ANIMATED_TILE) )
+											{
+												Assert(TileElem->pAnimData != NULL);
+												TileElem = &gTileDatabase[TileElem->pAnimData->pusFrames[TileElem->pAnimData->bCurrentFrame]];
+												uiTileElemFlags = TileElem->uiFlags;
+											}
+										}
+
+									}
+									else if ((uiTileElemFlags & ANIMATED_TILE) || (uiTileElemFlags & DYNAMIC_TILE) || (uiLevelNodeFlags & LEVELNODE_DYNAMIC))
+									{
+										if (!(uiFlags & TILES_OBSCURED) || (uiTileElemFlags & ANIMATED_TILE))
+										{
+											fRenderTile = FALSE;
+										}
+									}
+								}
+
+								// OK, ATE, CHECK FOR AN OBSCURED TILE AND MAKE SURE IF LEVELNODE IS SET
+								// WE DON'T RENDER UNLESS WE HAVE THE RENDER FLAG SET!
+								if (fObscured)
+								{
+									if ((uiFlags & TILES_OBSCURED))
+									{
+										if (uiLevelNodeFlags & LEVELNODE_SHOW_THROUGH)
+										{
+											fObscuredBlitter = TRUE;
+
+											// ATE: Check if this is a levelnode, and what frame we are on
+											// turn off......
+											//if ( ( uiLevelNodeFlags & LEVELNODE_ITEM ) && gsCurrentItemGlowFrame < 25 )
+											//{
+											//	fRenderTile = FALSE;
+											//}
 										}
 										else
 										{
-											 if ( uiLevelNodeFlags & LEVELNODE_SHOW_THROUGH )
-											 {
-													fRenderTile = FALSE;
-
-													// ATE: Check if this is a levelnode, and what frame we are on
-													// turn off......
-													//if ( ( uiLevelNodeFlags & LEVELNODE_ITEM ) && gsCurrentItemGlowFrame < 25 )
-													//{
-													//	fRenderTile = TRUE;
-													//}
-											 }
+											// Don;t render if we are not on this render loop!
+											fRenderTile = FALSE;
 										}
 									}
-
-
-									// If flag says to do dynamic as well, render!
-									if ( ( uiFlags & TILES_DOALL ) )
+									else
 									{
-										fRenderTile = TRUE;
-									}
-
-									// If we are on the struct layer, check for if it's hidden!
-									if ( uiRowFlags & ( TILES_STATIC_STRUCTURES | TILES_DYNAMIC_STRUCTURES | TILES_STATIC_SHADOWS | TILES_DYNAMIC_SHADOWS ) )
-									{
-										if ( fUseTileElem )
+										if (uiLevelNodeFlags & LEVELNODE_SHOW_THROUGH)
 										{
+											fRenderTile = FALSE;
+
+											// ATE: Check if this is a levelnode, and what frame we are on
+											// turn off......
+											//if ( ( uiLevelNodeFlags & LEVELNODE_ITEM ) && gsCurrentItemGlowFrame < 25 )
+											//{
+											//	fRenderTile = TRUE;
+											//}
+										}
+									}
+								}
+
+
+								// If flag says to do dynamic as well, render!
+								if ((uiFlags & TILES_DOALL))
+								{
+									fRenderTile = TRUE;
+								}
+
+								// If we are on the struct layer, check for if it's hidden!
+								if (uiRowFlags & (TILES_STATIC_STRUCTURES | TILES_DYNAMIC_STRUCTURES | TILES_STATIC_SHADOWS | TILES_DYNAMIC_SHADOWS))
+								{
+									if (fUseTileElem)
+									{
 #if 0
-											// DONOT RENDER IF IT'S A HIDDEN STRUCT AND TILE IS NOT REVEALED
-											if ( uiTileElemFlags & HIDDEN_TILE )
-											{
-												// IF WORLD IS NOT REVEALED, QUIT
-												#ifdef JA2EDITOR
-												if ( !gfEditMode )
-												#endif
-												{
-													if ( !(gpWorldLevelData[ uiTileIndex ].uiFlags & MAPELEMENT_REVEALED ) && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
-													{
-														//CONTINUE, DONOT RENDER
-														if(!fLinkedListDirection)
-															pNode = pNode->pPrevNode;
-														else
-															pNode = pNode->pNext;
-
-														continue;
-													}
-												}
-											}
+										// DONOT RENDER IF IT'S A HIDDEN STRUCT AND TILE IS NOT REVEALED
+										if (uiTileElemFlags & HIDDEN_TILE)
+										{
+											// IF WORLD IS NOT REVEALED, QUIT
+#ifdef JA2EDITOR
+											if (!gfEditMode)
 #endif
-										}
-									}
-
-									if(fRenderTile)
-									{
-										// Set flag to set layer as used
-										if( fDynamic || fPixelate )
-										{
-											uiAdditiveLayerUsedFlags |= uiRowFlags;
-										}
-
-										if ( uiLevelNodeFlags & LEVELNODE_DYNAMICZ )
-										{
-											fSaveZ = TRUE;
-											fZWrite = TRUE;
-										}
-
-										if ( ( uiLevelNodeFlags & LEVELNODE_CACHEDANITILE ) )
-										{
-											hVObject		 = gpTileCache[ pNode->pAniTile->sCachedTileID ].pImagery->vo;
-											usImageIndex = pNode->pAniTile->sCurrentFrame;
-                      uiAniTileFlags = pNode->pAniTile->uiFlags;
-
-											// Position corpse based on its float position
-											if ( ( uiLevelNodeFlags & LEVELNODE_ROTTINGCORPSE ) )
 											{
-												pCorpse = &( gRottingCorpse[ pNode->pAniTile->uiUserData ] );
-
-												pShadeTable = pCorpse->pShades[ pNode->ubShadeLevel ];
-
-												//pShadeTable = pCorpse->p16BPPPalette;
-
-												dOffsetX = pCorpse->def.dXPos - gsRenderCenterX;
-												dOffsetY = pCorpse->def.dYPos - gsRenderCenterY;
-
-												// OK, if this is a corpse.... stop if not visible
-												if ( pCorpse->def.bVisible != 1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
+												if (!(gpWorldLevelData[uiTileIndex].uiFlags & MAPELEMENT_REVEALED) && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS))
 												{
 													//CONTINUE, DONOT RENDER
-													if(!fLinkedListDirection)
+													if (!fLinkedListDirection)
 														pNode = pNode->pPrevNode;
 													else
 														pNode = pNode->pNext;
@@ -1323,597 +1408,502 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 													continue;
 												}
 											}
-											else
-											{
-												dOffsetX = (FLOAT)( pNode->pAniTile->sRelativeX - gsRenderCenterX );
-												dOffsetY = (FLOAT)( pNode->pAniTile->sRelativeY - gsRenderCenterY );
-											}
-
-											// Calculate guy's position
-											FloatFromCellToScreenCoordinates( dOffsetX, dOffsetY, &dTempX_S, &dTempY_S );
-
-											sXPos = ( ( gsVIEWPORT_END_X - gsVIEWPORT_START_X ) /2 ) + (INT16)dTempX_S;
-											sYPos = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) + (INT16)dTempY_S - sTileHeight;
-
-											// Adjust for offset position on screen
-											sXPos -= gsRenderWorldOffsetX;
-											sYPos -= gsRenderWorldOffsetY;
-
 										}
-										else
-										{
-											hVObject = TileElem->hTileSurface;
-											usImageIndex=TileElem->usRegionIndex;
-
-											// ADJUST FOR WORLD MAPELEM HIEGHT
-											sYPos-=TileElem->sOffsetHeight;
-
-											if((TileElem->uiFlags&IGNORE_WORLD_HEIGHT) )
-											{
-												sYPos = sYPos - sModifiedTileHeight;
-												//sYPos -= sTileHeight;
-											}
-
-											if( !(uiLevelNodeFlags&LEVELNODE_IGNOREHEIGHT) && !(TileElem->uiFlags&IGNORE_WORLD_HEIGHT ))
-												sYPos-=sTileHeight;
-
-											if(!(uiFlags&TILES_DIRTY))
-											{
-												hVObject->pShadeCurrent=hVObject->pShades[pNode->ubShadeLevel];
-												hVObject->pShade8=ubColorTables[pNode->ubShadeLevel];
-											}
-
-										}
-
-
-										//ADJUST FOR RELATIVE OFFSETS
-										if ( uiLevelNodeFlags & LEVELNODE_USERELPOS )
-										{
-											sXPos += pNode->sRelativeX;
-											sYPos += pNode->sRelativeY;
-										}
-
-										if ( uiLevelNodeFlags& LEVELNODE_USEZ )
-										{
-											sYPos -= pNode->sRelativeZ;
-										}
-
-										//ADJUST FOR ABSOLUTE POSITIONING
-										if ( uiLevelNodeFlags& LEVELNODE_USEABSOLUTEPOS )
-										{
-											dOffsetX = (FLOAT)(pNode->sRelativeX - gsRenderCenterX);
-											dOffsetY = (FLOAT)(pNode->sRelativeY - gsRenderCenterY);
-
-											// OK, DONT'T ASK... CONVERSION TO PROPER Y NEEDS THIS...
-											dOffsetX -= CELL_Y_SIZE;
-
-											FloatFromCellToScreenCoordinates( dOffsetX, dOffsetY, &dTempX_S, &dTempY_S );
-
-											sXPos = ( ( gsVIEWPORT_END_X - gsVIEWPORT_START_X ) /2 ) + (INT16)SHORT_ROUND( dTempX_S );
-											sYPos = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) + (INT16)SHORT_ROUND( dTempY_S );
-
-											// Adjust for offset position on screen
-											sXPos -= gsRenderWorldOffsetX;
-											sYPos -= gsRenderWorldOffsetY;
-
-
-											sYPos -= pNode->sRelativeZ;
-
-										}
-
+#endif
 									}
+								}
 
-									// COUNT # OF ITEMS AT THIS LOCATION
-									if ( uiLevelNodeFlags & LEVELNODE_ITEM )
-									{
-										// OK set item pool for this location....
-										if ( bItemCount == 0 )
-										{
-											pItemPool = pNode->pItemPool;
-										}
-										else
-										{
-											pItemPool = pItemPool->pNext;
-										}
-
-										if ( bItemCount < MAX_RENDERED_ITEMS  )
-										{
-											bItemCount++;
-
-											if ( gWorldItems[ pItemPool->iItemIndex ].bVisible == VISIBLE )
-											{
-												bVisibleItemCount++;
-											}
-										}
-
-										// LIMIT RENDERING OF ITEMS TO ABOUT 7, DO NOT RENDER HIDDEN ITEMS TOO!
-										if ( bVisibleItemCount == MAX_RENDERED_ITEMS || ( gWorldItems[ pItemPool->iItemIndex ].bVisible != VISIBLE ) || ( pItemPool->usFlags & WORLD_ITEM_DONTRENDER ) )
-										{
-											if ( !(gTacticalStatus.uiFlags&SHOW_ALL_ITEMS) )
-											{
-												//CONTINUE, DONOT RENDER
-												if(!fLinkedListDirection)
-													pNode = pNode->pPrevNode;
-												else
-													pNode = pNode->pNext;
-												continue;
-											}
-										}
-
-										if ( guiCurrentScreen == EDIT_SCREEN )
-										{
-											// ATE: If in the editor, change this to a little higher value
-											if ( bItemCount == MAX_RENDERED_ITEMS )
-											{
-												//CONTINUE, DONOT RENDER
-												if(!fLinkedListDirection)
-													pNode = pNode->pPrevNode;
-												else
-													pNode = pNode->pNext;
-												continue;
-											}
-										}
-										if ( pItemPool->bRenderZHeightAboveLevel > 0 )
-										{
-											sYPos -= pItemPool->bRenderZHeightAboveLevel;
-										}
-
-									}
-
-									// If render tile is false...
-									if ( !fRenderTile )
-									{
-										if(!fLinkedListDirection)
-											pNode = pNode->pPrevNode;
-										else
-											pNode = pNode->pNext;
-
-										continue;
-									}
-							}
-
-							// specific code for node types on a per-tile basis
-							switch( uiRowFlags )
-							{
-								case TILES_STATIC_LAND:
-
-									sZLevel = LandZLevel( iTempPosX_M, iTempPosY_M );
-									break;
-
-								case TILES_STATIC_OBJECTS:
-
-									// ATE: Modified to use constant z level, as these are same level as land items
-									sZLevel = ObjectZLevel( TileElem, pNode, uiTileElemFlags, iTempPosX_M, iTempPosY_M, sWorldY );
-									break;
-
-								case TILES_STATIC_STRUCTURES:
-
-									StructZLevel( iTempPosX_M, iTempPosY_M );
-
-									if ( fUseTileElem && ( TileElem->uiFlags & MULTI_Z_TILE ) )
-									{
-										fMultiZBlitter = TRUE;
-									}
-
-									// ATE: if we are a wall, set flag
-									if ( fUseTileElem && ( TileElem->uiFlags & WALL_TILE ) )
-									{
-										fWallTile = TRUE;
-									}
-
-									break;
-
-								case TILES_STATIC_ROOF:
-
-									sZLevel = RoofZLevel( iTempPosX_M, iTempPosY_M, sWorldY );
-
-									// Automatically adjust height!
-									sYPos -= WALL_HEIGHT;
-
-									// ATE: Added for shadows on roofs
-									if ( fUseTileElem && ( TileElem->uiFlags & ROOFSHADOW_TILE ) )
-									{
-										fShadowBlitter=TRUE;
-									}
-									break;
-								case TILES_STATIC_ONROOF:
-
-									sZLevel = OnRoofZLevel( iTempPosX_M, iTempPosY_M, sWorldY, uiLevelNodeFlags );
-									// Automatically adjust height!
-									sYPos -= WALL_HEIGHT;
-									break;
-
-								case TILES_STATIC_TOPMOST:
-
-									sZLevel = TopmostZLevel( iTempPosX_M, iTempPosY_M, sWorldY );
-									break;
-
-								case TILES_STATIC_SHADOWS:
-
-									sZLevel = ShadowZLevel( iTempPosX_M, iTempPosY_M, sWorldY );
-
-									if ( uiLevelNodeFlags & LEVELNODE_EXITGRID )
-									{
-										fIntensityBlitter = TRUE;
-										fShadowBlitter		= FALSE;
-									}
-									break;
-
-								case TILES_DYNAMIC_LAND:
-
-									sZLevel = LandZLevel( iTempPosX_M, iTempPosY_M );
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED;
-									break;
-								case TILES_DYNAMIC_SHADOWS:
-
-									sZLevel = ShadowZLevel( iTempPosX_M, iTempPosY_M, sWorldY );
-									//sZLevel=SHADOW_Z_LEVEL;
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED;
-									break;
-								case TILES_DYNAMIC_OBJECTS:
-
-									sZLevel = ObjectZLevel( TileElem, pNode, uiTileElemFlags, iTempPosX_M, iTempPosY_M, sWorldY );
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED;
-									break;
-
-								case TILES_DYNAMIC_STRUCTURES:
-
-									StructZLevel( iTempPosX_M, iTempPosY_M );
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED;
-
-									if ( uiTileElemFlags & Z_AWARE_DYNAMIC_TILE )
-									{
-										fMultiZBlitter = TRUE;
-										fZBlitter = TRUE;
-										fWallTile = TRUE;
-										sZStripIndex = 0;
-									}
-									break;
-								case TILES_DYNAMIC_ROOF:
-
-									sYPos -= WALL_HEIGHT;
-
-									sZLevel = RoofZLevel( iTempPosX_M, iTempPosY_M, sWorldY );
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED;
-									// For now, adjust to hieght of a wall ( 50 temp, make define )
-									//if ( TileElem->fType > FOOTPRINTS )
-									//{
-									//	sYPos -= 58;
-									//}
-									break;
-
-								case TILES_DYNAMIC_ONROOF:
-
-									sZLevel = OnRoofZLevel( iTempPosX_M, iTempPosY_M, sWorldY, uiLevelNodeFlags );
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED;
-									// Automatically adjust height!
-									sYPos -= WALL_HEIGHT;
-									break;
-
-								case TILES_DYNAMIC_TOPMOST:
-									sZLevel = TopmostZLevel( iTempPosX_M, iTempPosY_M, sWorldY );
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED;
-									break;
-
-								case TILES_DYNAMIC_MERCS:
-								case TILES_DYNAMIC_HIGHMERCS:
-								case TILES_DYNAMIC_STRUCT_MERCS:
-
+								if (fRenderTile)
+								{
 									// Set flag to set layer as used
-									uiAdditiveLayerUsedFlags |= uiRowFlags;
-
-									pSoldier=pNode->pSoldier;
-
-									if ( uiRowFlags == TILES_DYNAMIC_MERCS  )
+									if (fDynamic || fPixelate)
 									{
-										// If we are multi-tiled, ignore here
-										if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_MULTITILE_Z | SOLDIER_Z ) )
-										{
-											pNode = pNode->pNext;
-											continue;
-										}
-
-										// If we are at a higher level, no not do anything unless we are at the highmerc stage
-										if ( pSoldier->pathing.bLevel > 0 )
-										{
-											pNode = pNode->pNext;
-											continue;
-										}
+										uiAdditiveLayerUsedFlags |= uiRowFlags;
 									}
 
-									if ( uiRowFlags == TILES_DYNAMIC_HIGHMERCS  )
+									if (uiLevelNodeFlags & LEVELNODE_DYNAMICZ)
 									{
-										// If we are multi-tiled, ignore here
-										if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE_Z )
-										{
-											pNode = pNode->pNext;
-											continue;
-										}
-
-										// If we are at a lower level, no not do anything unless we are at the highmerc stage
-										if ( pSoldier->pathing.bLevel == 0  )
-										{
-											pNode = pNode->pNext;
-											continue;
-										}
+										fSaveZ = TRUE;
+										fZWrite = TRUE;
 									}
 
-
-									if ( uiRowFlags == TILES_DYNAMIC_STRUCT_MERCS )
+									if ((uiLevelNodeFlags & LEVELNODE_CACHEDANITILE))
 									{
-										// If we are not multi-tiled, ignore here
-										if ( !( pSoldier->flags.uiStatusFlags & ( SOLDIER_MULTITILE_Z | SOLDIER_Z ) ) )
+										hVObject = gpTileCache[pNode->pAniTile->sCachedTileID].pImagery->vo;
+										usImageIndex = pNode->pAniTile->sCurrentFrame;
+										uiAniTileFlags = pNode->pAniTile->uiFlags;
+
+										// Position corpse based on its float position
+										if ((uiLevelNodeFlags & LEVELNODE_ROTTINGCORPSE))
 										{
-											// If we are at a low level, no not do anything unless we are at the merc stage
-											if ( pSoldier->pathing.bLevel == 0  )
+											pCorpse = &(gRottingCorpse[pNode->pAniTile->uiUserData]);
+
+											pShadeTable = pCorpse->pShades[pNode->ubShadeLevel];
+
+											//pShadeTable = pCorpse->p16BPPPalette;
+
+											dOffsetX = pCorpse->def.dXPos - gsRenderCenterX;
+											dOffsetY = pCorpse->def.dYPos - gsRenderCenterY;
+
+											// OK, if this is a corpse.... stop if not visible
+											if (pCorpse->def.bVisible != 1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS))
 											{
-												pNode = pNode->pNext;
+												//CONTINUE, DONOT RENDER
+												if (!fLinkedListDirection)
+													pNode = pNode->pPrevNode;
+												else
+													pNode = pNode->pNext;
+
 												continue;
 											}
 										}
-
-										if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_MULTITILE_Z | SOLDIER_Z ) )
-										{
-											fSaveZ													= TRUE;
-											fZBlitter												= TRUE;
-
-											if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE_Z )
-											{
-												fMultiTransShadowZBlitter				= TRUE;
-												// ATE: Use one direction for queen!
-												if ( pSoldier->ubBodyType == QUEENMONSTER )
-												{
-													sMultiTransShadowZBlitterIndex = 0;
-												}
-												else
-												{
-													sMultiTransShadowZBlitterIndex	= gOneCDirection[ pSoldier->ubDirection ];
-												}
-											}
-											else
-											{
-												fZWrite = TRUE;
-											}
-										}
-
-									}
-
-									// IF we are not active, or are a placeholder for multi-tile animations do nothing
-									//if ( !pSoldier->bActive  )
-									if ( !pSoldier->bActive  || (uiLevelNodeFlags & LEVELNODE_MERCPLACEHOLDER) )
-									{
-										pNode = pNode->pNext;
-										continue;
-									}
-
-									// Skip if we cannot see the guy!
-									if ( pSoldier->bLastRenderVisibleValue == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS)  )
-									{
-										pNode = pNode->pNext;
-										continue;
-									}
-
-
-									// Get animation surface....
-									usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
-
-									if ( usAnimSurface == INVALID_ANIMATION_SURFACE )
-									{
-										pNode = pNode->pNext;
-										continue;
-									}
-
-
-									// Shade guy always lighter than sceane default!
-									{
-										UINT8 ubShadeLevel;
-
-										ubShadeLevel = (pNode->ubShadeLevel&0x0f);
-										ubShadeLevel=__max(ubShadeLevel-2, DEFAULT_SHADE_LEVEL);
-										ubShadeLevel|=(pNode->ubShadeLevel&0x30);
-										
-										if ( pSoldier->flags.fBeginFade )
-										{
-											pShadeTable = pSoldier->pCurrentShade = pSoldier->pShades[ pSoldier->ubFadeLevel ];
-										}
 										else
 										{
-											pShadeTable = pSoldier->pCurrentShade = pSoldier->pShades[ ubShadeLevel];
+											dOffsetX = (FLOAT)(pNode->pAniTile->sRelativeX - gsRenderCenterX);
+											dOffsetY = (FLOAT)(pNode->pAniTile->sRelativeY - gsRenderCenterY);
 										}
 
-									}
+										// Calculate guy's position
+										FloatFromCellToScreenCoordinates(dOffsetX, dOffsetY, &dTempX_S, &dTempY_S);
 
+										sXPos = ((gsVIEWPORT_END_X - gsVIEWPORT_START_X) / 2) + (INT16)dTempX_S;
+										sYPos = ((gsVIEWPORT_END_Y - gsVIEWPORT_START_Y) / 2) + (INT16)dTempY_S - sTileHeight;
 
-									// Position guy based on guy's position
-									dOffsetX = pSoldier->dXPos - gsRenderCenterX;
-									dOffsetY = pSoldier->dYPos - gsRenderCenterY;
+										// Adjust for offset position on screen
+										sXPos -= gsRenderWorldOffsetX;
+										sYPos -= gsRenderWorldOffsetY;
 
-
-									// Calculate guy's position
-									FloatFromCellToScreenCoordinates( dOffsetX, dOffsetY, &dTempX_S, &dTempY_S );
-
-									sXPos = ( ( gsVIEWPORT_END_X - gsVIEWPORT_START_X ) /2 ) + (INT16)dTempX_S;
-									sYPos = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) + (INT16)dTempY_S - sTileHeight;
-
-									// Adjust for offset position on screen
-									sXPos -= gsRenderWorldOffsetX;
-									sYPos -= gsRenderWorldOffsetY;
-
-									// Adjust for soldier height
-									sYPos -= pSoldier->sHeightAdjustment;
-
-									// Handle shade stuff....
-									if ( !pSoldier->flags.fBeginFade )
-									{
-										// Special effect - draw ghost if is seen by a guy in player's team but not current guy
-										// ATE: Todo: setup flag for 'bad-guy' - can releive some checks in renderer
-										if ( !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum ) )
-										{
-											if ( gusSelectedSoldier != NOBODY )
-											{
-												pSelSoldier = MercPtrs[ gusSelectedSoldier ];
-											}
-											else
-											{
-												pSelSoldier = NULL;
-											}
-
-											bGlowShadeOffset = 0;
-
-											if ( gTacticalStatus.ubCurrentTeam == gbPlayerNum )
-											{
-												// Shade differently depending on visiblity
-												if ( pSoldier->bLastRenderVisibleValue == 0 )
-												{
-													bGlowShadeOffset = 10;
-												}
-
-												if ( pSelSoldier != NULL )
-												{
-													if ( pSelSoldier->aiData.bOppList[ pSoldier->ubID ] != SEEN_CURRENTLY  )
-													{
-														if ( pSoldier->usAnimState != CHARIOTS_OF_FIRE && pSoldier->usAnimState != BODYEXPLODING )
-														{
-															bGlowShadeOffset = 10;
-														}
-													}
-												}
-											}
-
-											if ( pSoldier->pathing.bLevel == 0 )
-											{
-												pShadeStart = (INT16 **)&(pSoldier->pGlowShades[0]);
-											}
-											else
-											{
-												pShadeStart = (INT16 **) &( pSoldier->pShades[ 20 ] );
-											}
-
-											// Set shade
-											// If a bad guy is highlighted
-											if ( gfUIHandleSelectionAboveGuy == TRUE && MercPtrs[ gsSelectedGuy ]->bSide != gbPlayerNum )
-											{
-												if ( gsSelectedGuy == pSoldier->ubID )
-												{
-													pShadeTable = (UINT16 *) pShadeStart[ gsGlowFrames[ gsCurrentGlowFrame ] + bGlowShadeOffset ];
-													gsForceSoldierZLevel = TOPMOST_Z_LEVEL;
-												}
-												else
-												{
-													// Are we dealing with a not-so visible merc?
-													if ( bGlowShadeOffset == 10 )
-													{
-														pShadeTable = pSoldier->pEffectShades[ 0 ];
-													}
-												}
-											}
-											else
-											{
-												// OK,not highlighted, but maybe we are in enemy's turn and they have the baton
-
-												// AI's turn?
-												if ( gTacticalStatus.ubCurrentTeam != OUR_TEAM )
-												{
-													// Does he have baton?
-													if ( (pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
-													{
-														pShadeTable = (UINT16 *) pShadeStart[ gpGlowFramePointer[ gsCurrentGlowFrame ] + bGlowShadeOffset ];
-
-														if ( gpGlowFramePointer[ gsCurrentGlowFrame ] >= 7 )
-														{
-															gsForceSoldierZLevel = TOPMOST_Z_LEVEL;
-														}
-													}
-												}
-												else
-												{
-													pShadeTable = (UINT16 *) pShadeStart[ gpGlowFramePointer[ gsCurrentGlowFrame ] + bGlowShadeOffset ];
-
-													if ( gpGlowFramePointer[ gsCurrentGlowFrame ] >= 7 )
-													{
-														gsForceSoldierZLevel = TOPMOST_Z_LEVEL;
-													}
-												}
-											}
-
-											//if ( gusSelectedSoldier != NOBODY )
-											//{
-											//	pSelSoldier = MercPtrs[ gusSelectedSoldier ];
-
-												// Shade differently depending on visiblity
-											//	if ( pSoldier->bVisible == 0 || ( pSelSoldier->aiData.bOppList[ pSoldier->ubID ] == 0  ) )
-											//	{
-													// Shade gray
-											//		pShadeTable = pSoldier->pGlowShades[ gpGlowFramePointer[ gsCurrentGlowFrame ] + 10 ];
-											//	}
-											//}
-										}
-									}
-
-									// Calculate Z level
-									SoldierZLevel( pSoldier, iTempPosX_M, iTempPosY_M );
-
-									if(!(uiFlags&TILES_DIRTY))
-									{
-										if ( pSoldier->flags.fForceShade )
-										{
-											pShadeTable = pSoldier->pForcedShade;
-										}
-									}
-
-									// check if we are a merc duplicate, if so, only do minimal stuff!
-									if ( pSoldier->ubID >= MAX_NUM_SOLDIERS )
-									{
-										// Shade gray
-										pShadeTable = pSoldier->pEffectShades[ 1 ];
-									}
-
-									// Flugente: frozen soldiers appear to be in ice, which we simulate by having the soldier be fully white
-									if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
-									{
-										pShadeTable = White16BPPPalette;
-									}
-
-									hVObject=gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject;
-
-									if ( hVObject == NULL )
-									{
-										pNode = pNode->pNext;
-										continue;
-									}
-
-									// ATE: If we are in a gridno that we should not use obscure blitter, set!
-									if ( !( gpWorldLevelData[ uiTileIndex ].ubExtFlags[0] & MAPELEMENT_EXT_NOBURN_STRUCT ) )
-									{
-										fObscuredBlitter = TRUE;
 									}
 									else
 									{
-										// ATE: Artificially increase z=level...
-										sZLevel += 2;
-									}
-									
-									usImageIndex = pSoldier->usAniFrame;
+										hVObject = TileElem->hTileSurface;
+										usImageIndex = TileElem->usRegionIndex;
 
-									// Flugente: frozen soldiers don't move
-									if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] && pSoldier->stats.bLife > 0 )
+										// ADJUST FOR WORLD MAPELEM HIEGHT
+										sYPos -= TileElem->sOffsetHeight;
+
+										if ((TileElem->uiFlags&IGNORE_WORLD_HEIGHT))
+										{
+											sYPos = sYPos - sModifiedTileHeight;
+											//sYPos -= sTileHeight;
+										}
+
+										if (!(uiLevelNodeFlags&LEVELNODE_IGNOREHEIGHT) && !(TileElem->uiFlags&IGNORE_WORLD_HEIGHT))
+											sYPos -= sTileHeight;
+
+										if (!(uiFlags&TILES_DIRTY))
+										{
+											hVObject->pShadeCurrent = hVObject->pShades[pNode->ubShadeLevel];
+											hVObject->pShade8 = ubColorTables[pNode->ubShadeLevel];
+										}
+
+									}
+
+
+									//ADJUST FOR RELATIVE OFFSETS
+									if (uiLevelNodeFlags & LEVELNODE_USERELPOS)
 									{
-										usImageIndex = pSoldier->CryoAniFrame( );
+										sXPos += pNode->sRelativeX;
+										sYPos += pNode->sRelativeY;
 									}
 
-									// Flugente: riot shields
-									if ( pSoldier &&
-										pSoldier->bVisible != -1 &&
-										(pSoldier->ubDirection == NORTH || 
-											pSoldier->ubDirection == NORTHWEST ||
-											pSoldier->ubDirection == WEST)
-										&& pSoldier->IsRiotShieldEquipped( ) )
+									if (uiLevelNodeFlags& LEVELNODE_USEZ)
 									{
-										ShowRiotShield( pSoldier );
+										sYPos -= pNode->sRelativeZ;
 									}
 
-									uiDirtyFlags=BGND_FLAG_SINGLE|BGND_FLAG_ANIMATED| BGND_FLAG_MERC;
-									break;
+									//ADJUST FOR ABSOLUTE POSITIONING
+									if (uiLevelNodeFlags& LEVELNODE_USEABSOLUTEPOS)
+									{
+										dOffsetX = (FLOAT)(pNode->sRelativeX - gsRenderCenterX);
+										dOffsetY = (FLOAT)(pNode->sRelativeY - gsRenderCenterY);
+
+										// OK, DONT'T ASK... CONVERSION TO PROPER Y NEEDS THIS...
+										dOffsetX -= CELL_Y_SIZE;
+
+										FloatFromCellToScreenCoordinates(dOffsetX, dOffsetY, &dTempX_S, &dTempY_S);
+
+										sXPos = ((gsVIEWPORT_END_X - gsVIEWPORT_START_X) / 2) + (INT16)SHORT_ROUND(dTempX_S);
+										sYPos = ((gsVIEWPORT_END_Y - gsVIEWPORT_START_Y) / 2) + (INT16)SHORT_ROUND(dTempY_S);
+
+										// Adjust for offset position on screen
+										sXPos -= gsRenderWorldOffsetX;
+										sYPos -= gsRenderWorldOffsetY;
+
+
+										sYPos -= pNode->sRelativeZ;
+
+									}
+
+								}
+
+								// COUNT # OF ITEMS AT THIS LOCATION
+								if (uiLevelNodeFlags & LEVELNODE_ITEM)
+								{
+									// OK set item pool for this location....
+									if (bItemCount == 0)
+									{
+										pItemPool = pNode->pItemPool;
+									}
+									else
+									{
+										pItemPool = pItemPool->pNext;
+									}
+
+									if (bItemCount < MAX_RENDERED_ITEMS)
+									{
+										bItemCount++;
+
+										if (gWorldItems[pItemPool->iItemIndex].bVisible == VISIBLE)
+										{
+											bVisibleItemCount++;
+										}
+									}
+
+									// LIMIT RENDERING OF ITEMS TO ABOUT 7, DO NOT RENDER HIDDEN ITEMS TOO!
+									if (bVisibleItemCount == MAX_RENDERED_ITEMS || (gWorldItems[pItemPool->iItemIndex].bVisible != VISIBLE) || (pItemPool->usFlags & WORLD_ITEM_DONTRENDER))
+									{
+										if (!(gTacticalStatus.uiFlags&SHOW_ALL_ITEMS))
+										{
+											//CONTINUE, DONOT RENDER
+											if (!fLinkedListDirection)
+												pNode = pNode->pPrevNode;
+											else
+												pNode = pNode->pNext;
+											continue;
+										}
+									}
+
+									if (guiCurrentScreen == EDIT_SCREEN)
+									{
+										// ATE: If in the editor, change this to a little higher value
+										if (bItemCount == MAX_RENDERED_ITEMS)
+										{
+											//CONTINUE, DONOT RENDER
+											if (!fLinkedListDirection)
+												pNode = pNode->pPrevNode;
+											else
+												pNode = pNode->pNext;
+											continue;
+										}
+									}
+									if (pItemPool->bRenderZHeightAboveLevel > 0)
+									{
+										sYPos -= pItemPool->bRenderZHeightAboveLevel;
+									}
+
+								}
+
+								// If render tile is false...
+								if (!fRenderTile)
+								{
+									if (!fLinkedListDirection)
+										pNode = pNode->pPrevNode;
+									else
+										pNode = pNode->pNext;
+
+									continue;
+								}
+							}
+
+							// specific code for node types on a per-tile basis
+							switch (uiRowFlags)
+							{
+							case TILES_STATIC_LAND:
+
+								sZLevel = LandZLevel(iTempPosX_M, iTempPosY_M);
+								break;
+
+							case TILES_STATIC_OBJECTS:
+
+								// ATE: Modified to use constant z level, as these are same level as land items
+								sZLevel = ObjectZLevel(TileElem, pNode, uiTileElemFlags, iTempPosX_M, iTempPosY_M, sWorldY);
+								break;
+
+							case TILES_STATIC_STRUCTURES:
+
+								StructZLevel(iTempPosX_M, iTempPosY_M);
+
+								if (fUseTileElem && (TileElem->uiFlags & MULTI_Z_TILE))
+								{
+									fMultiZBlitter = TRUE;
+								}
+
+								// ATE: if we are a wall, set flag
+								if (fUseTileElem && (TileElem->uiFlags & WALL_TILE))
+								{
+									fWallTile = TRUE;
+								}
+
+								break;
+
+							case TILES_STATIC_ROOF:
+
+								sZLevel = RoofZLevel(iTempPosX_M, iTempPosY_M, sWorldY);
+
+								// Automatically adjust height!
+								sYPos -= WALL_HEIGHT;
+
+								// ATE: Added for shadows on roofs
+								if (fUseTileElem && (TileElem->uiFlags & ROOFSHADOW_TILE))
+								{
+									fShadowBlitter = TRUE;
+								}
+								break;
+							case TILES_STATIC_ONROOF:
+
+								sZLevel = OnRoofZLevel(iTempPosX_M, iTempPosY_M, sWorldY, uiLevelNodeFlags);
+								// Automatically adjust height!
+								sYPos -= WALL_HEIGHT;
+								break;
+
+							case TILES_STATIC_TOPMOST:
+
+								sZLevel = TopmostZLevel(iTempPosX_M, iTempPosY_M, sWorldY);
+								break;
+
+							case TILES_STATIC_SHADOWS:
+
+								sZLevel = ShadowZLevel(iTempPosX_M, iTempPosY_M, sWorldY);
+
+								if (uiLevelNodeFlags & LEVELNODE_EXITGRID)
+								{
+									fIntensityBlitter = TRUE;
+									fShadowBlitter = FALSE;
+								}
+								break;
+
+							case TILES_DYNAMIC_LAND:
+
+								sZLevel = LandZLevel(iTempPosX_M, iTempPosY_M);
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
+								break;
+							case TILES_DYNAMIC_SHADOWS:
+
+								sZLevel = ShadowZLevel(iTempPosX_M, iTempPosY_M, sWorldY);
+								//sZLevel=SHADOW_Z_LEVEL;
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
+								break;
+							case TILES_DYNAMIC_OBJECTS:
+
+								sZLevel = ObjectZLevel(TileElem, pNode, uiTileElemFlags, iTempPosX_M, iTempPosY_M, sWorldY);
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
+								break;
+
+							case TILES_DYNAMIC_STRUCTURES:
+
+								StructZLevel(iTempPosX_M, iTempPosY_M);
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
+
+								if (uiTileElemFlags & Z_AWARE_DYNAMIC_TILE)
+								{
+									fMultiZBlitter = TRUE;
+									fZBlitter = TRUE;
+									fWallTile = TRUE;
+									sZStripIndex = 0;
+								}
+								break;
+							case TILES_DYNAMIC_ROOF:
+
+								sYPos -= WALL_HEIGHT;
+
+								sZLevel = RoofZLevel(iTempPosX_M, iTempPosY_M, sWorldY);
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
+								// For now, adjust to hieght of a wall ( 50 temp, make define )
+								//if ( TileElem->fType > FOOTPRINTS )
+								//{
+								//	sYPos -= 58;
+								//}
+								break;
+
+							case TILES_DYNAMIC_ONROOF:
+
+								sZLevel = OnRoofZLevel(iTempPosX_M, iTempPosY_M, sWorldY, uiLevelNodeFlags);
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
+								// Automatically adjust height!
+								sYPos -= WALL_HEIGHT;
+								break;
+
+							case TILES_DYNAMIC_TOPMOST:
+								sZLevel = TopmostZLevel(iTempPosX_M, iTempPosY_M, sWorldY);
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
+								break;
+
+							case TILES_DYNAMIC_MERCS:
+							case TILES_DYNAMIC_HIGHMERCS:
+							case TILES_DYNAMIC_STRUCT_MERCS:
+
+								// Set flag to set layer as used
+								uiAdditiveLayerUsedFlags |= uiRowFlags;
+
+								pSoldier = pNode->pSoldier;
+
+								if (uiRowFlags == TILES_DYNAMIC_MERCS)
+								{
+									// If we are multi-tiled, ignore here
+									if (pSoldier->flags.uiStatusFlags & (SOLDIER_MULTITILE_Z | SOLDIER_Z))
+									{
+										pNode = pNode->pNext;
+										continue;
+									}
+
+									// If we are at a higher level, no not do anything unless we are at the highmerc stage
+									if (pSoldier->pathing.bLevel > 0)
+									{
+										pNode = pNode->pNext;
+										continue;
+									}
+								}
+
+								if (uiRowFlags == TILES_DYNAMIC_HIGHMERCS)
+								{
+									// If we are multi-tiled, ignore here
+									if (pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE_Z)
+									{
+										pNode = pNode->pNext;
+										continue;
+									}
+
+									// If we are at a lower level, no not do anything unless we are at the highmerc stage
+									if (pSoldier->pathing.bLevel == 0)
+									{
+										pNode = pNode->pNext;
+										continue;
+									}
+								}
+
+
+								if (uiRowFlags == TILES_DYNAMIC_STRUCT_MERCS)
+								{
+									// If we are not multi-tiled, ignore here
+									if (!(pSoldier->flags.uiStatusFlags & (SOLDIER_MULTITILE_Z | SOLDIER_Z)))
+									{
+										// If we are at a low level, no not do anything unless we are at the merc stage
+										if (pSoldier->pathing.bLevel == 0)
+										{
+											pNode = pNode->pNext;
+											continue;
+										}
+									}
+
+									if (pSoldier->flags.uiStatusFlags & (SOLDIER_MULTITILE_Z | SOLDIER_Z))
+									{
+										fSaveZ = TRUE;
+										fZBlitter = TRUE;
+
+										if (pSoldier->flags.uiStatusFlags & SOLDIER_MULTITILE_Z)
+										{
+											fMultiTransShadowZBlitter = TRUE;
+											// ATE: Use one direction for queen!
+											if (pSoldier->ubBodyType == QUEENMONSTER)
+											{
+												sMultiTransShadowZBlitterIndex = 0;
+											}
+											else
+											{
+												sMultiTransShadowZBlitterIndex = gOneCDirection[pSoldier->ubDirection];
+											}
+										}
+										else
+										{
+											fZWrite = TRUE;
+										}
+									}
+
+								}
+
+								// IF we are not active, or are a placeholder for multi-tile animations do nothing
+								//if ( !pSoldier->bActive  )
+								if (!pSoldier->bActive || (uiLevelNodeFlags & LEVELNODE_MERCPLACEHOLDER))
+								{
+									pNode = pNode->pNext;
+									continue;
+								}
+
+								// Skip if we cannot see the guy!
+								if (pSoldier->bLastRenderVisibleValue == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS))
+								{
+									pNode = pNode->pNext;
+									continue;
+								}
+
+
+								// Get animation surface....
+								usAnimSurface = GetSoldierAnimationSurface(pSoldier, pSoldier->usAnimState);
+
+								if (usAnimSurface == INVALID_ANIMATION_SURFACE)
+								{
+									pNode = pNode->pNext;
+									continue;
+								}
+
+
+								// Position guy based on guy's position
+								dOffsetX = pSoldier->dXPos - gsRenderCenterX;
+								dOffsetY = pSoldier->dYPos - gsRenderCenterY;
+
+
+								// Calculate guy's position
+								FloatFromCellToScreenCoordinates(dOffsetX, dOffsetY, &dTempX_S, &dTempY_S);
+
+								sXPos = ((gsVIEWPORT_END_X - gsVIEWPORT_START_X) / 2) + (INT16)dTempX_S;
+								sYPos = ((gsVIEWPORT_END_Y - gsVIEWPORT_START_Y) / 2) + (INT16)dTempY_S - sTileHeight;
+
+								// Adjust for offset position on screen
+								sXPos -= gsRenderWorldOffsetX;
+								sYPos -= gsRenderWorldOffsetY;
+
+								// Adjust for soldier height
+								sYPos -= pSoldier->sHeightAdjustment;
+
+								// Handle shade stuff....
+								// bio: put the logic for determining the right shade table into inline fuction (called again for logical bodytype implementation)
+								// TODO: in case of a logical bodytype being used, the function does not have to be called here (if determining of log. bodytype is moved to the render entry fun.
+								pShadeTable = GetShadeTable(pNode, pSoldier, pSoldier, uiFlags, &gsForceSoldierZLevel);
+
+								// Calculate Z level
+								SoldierZLevel(pSoldier, iTempPosX_M, iTempPosY_M);
+
+								hVObject = gAnimSurfaceDatabase[usAnimSurface].hVideoObject;
+
+								if (hVObject == NULL)
+								{
+									pNode = pNode->pNext;
+									continue;
+								}
+
+								// ATE: If we are in a gridno that we should not use obscure blitter, set!
+								if (!(gpWorldLevelData[uiTileIndex].ubExtFlags[0] & MAPELEMENT_EXT_NOBURN_STRUCT))
+								{
+									fObscuredBlitter = TRUE;
+								}
+								else
+								{
+									// ATE: Artificially increase z=level...
+									sZLevel += 2;
+								}
+
+								usImageIndex = pSoldier->usAniFrame;
+
+								// Flugente: frozen soldiers don't move
+								if (pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] && pSoldier->stats.bLife > 0)
+								{
+									usImageIndex = pSoldier->CryoAniFrame();
+								}
+
+								// Flugente: riot shields
+								if (pSoldier &&
+									pSoldier->bVisible != -1 &&
+									(pSoldier->ubDirection == NORTH ||
+										pSoldier->ubDirection == NORTHWEST ||
+										pSoldier->ubDirection == WEST)
+									&& pSoldier->IsRiotShieldEquipped())
+								{
+									ShowRiotShield(pSoldier);
+								}
+
+								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED | BGND_FLAG_MERC;
+								break;
 							}
 
 							// Adjust for interface level
@@ -1922,18 +1912,18 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 							// OK, check for LEVELNODE HIDDEN...
 							fHiddenTile = FALSE;
 
-							if ( uiLevelNodeFlags & LEVELNODE_HIDDEN )
+							if (uiLevelNodeFlags & LEVELNODE_HIDDEN)
 							{
 								fHiddenTile = TRUE;
 
-								if ( TileElem != NULL )
+								if (TileElem != NULL)
 								{
 									// If we are a roof and have SHOW_ALL_ROOFS on, turn off hidden tile check!
 									//if ( ( TileElem->uiFlags & ROOF_TILE ) && ( gTacticalStatus.uiFlags&SHOW_ALL_ROOFS ) )
 									// anv: commented out TileElem->uiFlags & ROOF_TILE because:
 									// 1. only roof tiles get hidden in this manner anyway
 									// 2. we might want to his and reveal again other stuff (most importantly - on roof structures)
-									if ( ( gTacticalStatus.uiFlags&SHOW_ALL_ROOFS ) )
+									if ((gTacticalStatus.uiFlags&SHOW_ALL_ROOFS))
 									{
 										// Turn off
 										fHiddenTile = FALSE;
@@ -1942,11 +1932,11 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 							}
 
 
-							if( fRenderTile && !fHiddenTile )
+							if (fRenderTile && !fHiddenTile)
 							{
 								fTileInvisible = FALSE;
 
-								if ( ( uiLevelNodeFlags & LEVELNODE_ROTTINGCORPSE ) )
+								if ((uiLevelNodeFlags & LEVELNODE_ROTTINGCORPSE))
 								{
 									// Set fmerc flag!
 									fMerc = TRUE;
@@ -1954,119 +1944,184 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 
 									//if ( hVObject->ppZStripInfo != NULL )
 									{
-										sMultiTransShadowZBlitterIndex	= GetCorpseStructIndex( &( pCorpse->def ), TRUE );
+										sMultiTransShadowZBlitterIndex = GetCorpseStructIndex(&(pCorpse->def), TRUE);
 										fMultiTransShadowZBlitter = TRUE;
 									}
 								}
 
-								if ( (uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC ) && !(uiFlags&TILES_DIRTY) )
+								if ((uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC) && !(uiFlags&TILES_DIRTY))
 								{
 									// Remove flags!
-									pNode->uiFlags &= (~LEVELNODE_LASTDYNAMIC );
+									pNode->uiFlags &= (~LEVELNODE_LASTDYNAMIC);
 									fZWrite = TRUE;
 								}
 
-								if ( uiLevelNodeFlags & LEVELNODE_NOWRITEZ )
+								if (uiLevelNodeFlags & LEVELNODE_NOWRITEZ)
 								{
 									fZWrite = FALSE;
 								}
 
 
-								if(uiFlags&TILES_NOZWRITE)
-									fZWrite=FALSE;
+								if (uiFlags&TILES_NOZWRITE)
+									fZWrite = FALSE;
 
-								if ( uiFlags & TILES_NOZ )
+								if (uiFlags & TILES_NOZ)
 								{
-									fZBlitter							= FALSE;
+									fZBlitter = FALSE;
 								}
 
 
 
-								if ( ( uiLevelNodeFlags & LEVELNODE_WIREFRAME ) )
+								if ((uiLevelNodeFlags & LEVELNODE_WIREFRAME))
 								{
-									if ( !gGameSettings.fOptions[ TOPTION_TOGGLE_WIREFRAME ] )
+									if (!gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME])
 									{
-										 fTileInvisible = TRUE;
+										fTileInvisible = TRUE;
 									}
 								}
 
+								using namespace LogicalBodyTypes;
+								static BodyTypeDB * bodyTypeDB = &BodyTypeDB::Instance();
+								static Layers::LayerPropertiesVector::size_type numLayers = max(1, Layers::Instance().GetCount()); //defaults to 1 in case the layers.xml file could not be read
+								// TODO: should find a better place to determine the logical body type. This function gets called like a gazillion times
+								// every render cycle and the find provedure will get quite expensive at later stages (lots of logical body types, animations and filters!)
+								// Should only be done once every cycle, or better yet, only and directly after a SOLDIERTYPE object has been altered (if at all possible)!
+								BodyType * bt = NULL;
+								if ((gGameSettings.fOptions[TOPTION_USE_LOGICAL_BODYTYPES] == TRUE)
+									&& (uiRowFlags == TILES_DYNAMIC_MERCS || uiRowFlags == TILES_DYNAMIC_HIGHMERCS || uiRowFlags == TILES_DYNAMIC_STRUCT_MERCS))
+								{
+									bt = bodyTypeDB->Find(pSoldier);
+								}
+								UINT16 * pDefaultShadeTable = pShadeTable;
+								RECT backRect;
+								memset(&backRect, 0, sizeof(backRect)); // var actually only needed if uiFlags & TILES_DIRTY, but leaving stuff uninitialized...
+
+								Layers::LayerGraphIterator layerIter;
+								Layers::LayerGraphIterator layerEnd;
+								if (bt != NULL)
+								{
+									layerIter = Layers::Instance().GetIterator(pSoldier->bMovementDirection);
+									layerEnd = Layers::Instance().GetIterationEnd(pSoldier->bMovementDirection);
+								}
+
+								HVOBJECT hVObjectAlpha = NULL;
+								while ((bt == NULL) || (layerIter != layerEnd))
+								{
+									bool fIgnoreShadows = false;
+									if (bt != NULL)
+									{
+										BodyType::LogicalSurfaceType * logSurfaceType = bt->GetLogicalSurfaceType(layerIter->index, pSoldier);
+										if (logSurfaceType != NULL)
+										{
+											const Layers::LayerProperties * layerProperties = bt->GetLayerProperties(layerIter->index);
+											fIgnoreShadows = !layerProperties->renderShadows;
+											if (!layerProperties->render)
+											{
+												layerIter++;
+												continue;
+											}
+											hVObject = logSurfaceType->physicalSurfaceType->hVideoObject;
+											if (hVObject == NULL)
+											{
+												layerIter++;
+												continue;
+											}
+											if (logSurfaceType->alphaSurfaceType != NULL) {
+												hVObjectAlpha = logSurfaceType->alphaSurfaceType->hVideoObject;
+											}
+											if (logSurfaceType->paletteTable != NULL)
+											{
+												pShadeTable = GetShadeTable(pNode, pSoldier, (SOLDIERTYPE *)logSurfaceType->paletteTable, uiFlags, &gsForceSoldierZLevel);
+											}
+											else
+											{
+												pShadeTable = pDefaultShadeTable;
+											}
+										}
+										else
+										{
+											layerIter++;
+											continue;
+										}
+									}
+
 								// RENDER
-								if ( fTileInvisible )
+								if (fTileInvisible)
 								{
 
 								}
-								else if ( uiLevelNodeFlags & LEVELNODE_DISPLAY_AP && !( uiFlags&TILES_DIRTY ) )
+								else if (uiLevelNodeFlags & LEVELNODE_DISPLAY_AP && !(uiFlags&TILES_DIRTY))
 								{
 									pTrav = &(hVObject->pETRLEObject[usImageIndex]);
 									sXPos += pTrav->sOffsetX;
 									sYPos += pTrav->sOffsetY;
 
-									if ( gfUIDisplayActionPointsInvalid )
+									if (gfUIDisplayActionPointsInvalid)
 									{
-										SetFontBackground( FONT_MCOLOR_BLACK );
-										SetFontForeground( FONT_MCOLOR_WHITE );
+										SetFontBackground(FONT_MCOLOR_BLACK);
+										SetFontForeground(FONT_MCOLOR_WHITE);
 									}
 									else
 									{
-										SetFontBackground( FONT_MCOLOR_BLACK );
-										SetFontForeground( FONT_MCOLOR_WHITE );
+										SetFontBackground(FONT_MCOLOR_BLACK);
+										SetFontForeground(FONT_MCOLOR_WHITE);
 									}
 
-									if ( gfUIDisplayActionPointsBlack )
+									if (gfUIDisplayActionPointsBlack)
 									{
-										SetFontBackground( FONT_MCOLOR_BLACK );
-										SetFontForeground( FONT_MCOLOR_BLACK );
+										SetFontBackground(FONT_MCOLOR_BLACK);
+										SetFontForeground(FONT_MCOLOR_BLACK);
 									}
 
-									SetFont( TINYFONT1 );
-									SetFontDestBuffer( guiSAVEBUFFER , 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, gsVIEWPORT_WINDOW_END_Y, FALSE );
-									VarFindFontCenterCoordinates( sXPos, sYPos, 1, 1, TINYFONT1, &sX, &sY, L"%d", pNode->uiAPCost );
-									mprintf_buffer( pDestBuf, uiDestPitchBYTES, TINYFONT1, sX,  sY , L"%d", pNode->uiAPCost );
-									SetFontDestBuffer( FRAME_BUFFER , 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+									SetFont(TINYFONT1);
+									SetFontDestBuffer(guiSAVEBUFFER, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, gsVIEWPORT_WINDOW_END_Y, FALSE);
+									VarFindFontCenterCoordinates(sXPos, sYPos, 1, 1, TINYFONT1, &sX, &sY, L"%d", pNode->uiAPCost);
+									mprintf_buffer(pDestBuf, uiDestPitchBYTES, TINYFONT1, sX, sY, L"%d", pNode->uiAPCost);
+									SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 								}
-								else if ( ( uiLevelNodeFlags  & LEVELNODE_ERASEZ ) && !( uiFlags&TILES_DIRTY ) )
+								else if ((uiLevelNodeFlags  & LEVELNODE_ERASEZ) && !(uiFlags&TILES_DIRTY))
 								{
-									Zero8BPPDataTo16BPPBufferTransparent( (UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex );
+									Zero8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
 									//Zero8BPPDataTo16BPPBufferTransparent( (UINT16*)gpZBuffer, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex );
 								}
-								else if ( ( uiLevelNodeFlags  & LEVELNODE_ITEM ) && !( uiFlags&TILES_DIRTY ) )
+								else if ((uiLevelNodeFlags  & LEVELNODE_ITEM) && !(uiFlags&TILES_DIRTY))
 								{
-										BOOLEAN fZBlit = FALSE;
+									BOOLEAN fZBlit = FALSE;
 
-										if ( uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF )
+									if (uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF)
+									{
+										usOutlineColor = gusYellowItemOutlineColor;
+										bItemOutline = TRUE;
+										fZBlit = TRUE;
+									}
+									else
+									{
+										usOutlineColor = gusNormalItemOutlineColor;
+										bItemOutline = TRUE;
+										fZBlit = TRUE;
+									}
+
+									if (gGameSettings.fOptions[TOPTION_GLOW_ITEMS])
+									{
+										if (uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF)
 										{
-											usOutlineColor = gusYellowItemOutlineColor;
+											usOutlineColor = us16BPPItemCycleYellowColors[gsCurrentItemGlowFrame];
 											bItemOutline = TRUE;
-											fZBlit = TRUE;
 										}
 										else
 										{
-											usOutlineColor = gusNormalItemOutlineColor;
-											bItemOutline = TRUE;
-											fZBlit = TRUE;
+											if (gTacticalStatus.uiFlags & RED_ITEM_GLOW_ON)
+											{
+												usOutlineColor = us16BPPItemCycleRedColors[gsCurrentItemGlowFrame];
+												bItemOutline = TRUE;
+											}
+											else
+											{
+												usOutlineColor = us16BPPItemCycleWhiteColors[gsCurrentItemGlowFrame];
+												bItemOutline = TRUE;
+											}
 										}
-
-										if ( gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ] )
-										{
-												if ( uiRowFlags == TILES_STATIC_ONROOF || uiRowFlags == TILES_DYNAMIC_ONROOF )
-												{
-													usOutlineColor = us16BPPItemCycleYellowColors[ gsCurrentItemGlowFrame ];
-													bItemOutline = TRUE;
-												}
-												else
-												{
-													if ( gTacticalStatus.uiFlags & RED_ITEM_GLOW_ON  )
-													{
-														usOutlineColor = us16BPPItemCycleRedColors[ gsCurrentItemGlowFrame ];
-														bItemOutline = TRUE;
-													}
-													else
-													{
-														usOutlineColor = us16BPPItemCycleWhiteColors[ gsCurrentItemGlowFrame ];
-														bItemOutline = TRUE;
-													}
-												}
-										}
+									}
 
 									//else
 										//{
@@ -2074,102 +2129,107 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 										//	bItemOutline = TRUE;
 										//}
 
-										bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+									bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
-										if ( bBlitClipVal == FALSE )
+									if (bBlitClipVal == FALSE)
+									{
+										if (fZBlit)
 										{
-											if ( fZBlit )
+											if (fObscuredBlitter)
 											{
-												if ( fObscuredBlitter )
-												{
-													Blt8BPPDataTo16BPPBufferOutlineZPixelateObscured( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline );
-												}
-												else
-												{
-													Blt8BPPDataTo16BPPBufferOutlineZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline );
-												}
+												Blt8BPPDataTo16BPPBufferOutlineZPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
 											}
 											else
 											{
-												Blt8BPPDataTo16BPPBufferOutline((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline );
-											}
-										}
-										else if ( bBlitClipVal == TRUE )
-										{
-											if ( fZBlit )
-											{
-												if ( fObscuredBlitter )
-												{
-													Blt8BPPDataTo16BPPBufferOutlineZPixelateObscuredClip( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect );
-												}
-												else
-												{
-													Blt8BPPDataTo16BPPBufferOutlineZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect );
-												}
-											}
-											else
-											{
-												Blt8BPPDataTo16BPPBufferOutlineClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect );
-											}
-										}
-								}
-								// ATE: Check here for a lot of conditions!
-								else if ( ( ( uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT ) ) && !( uiFlags&TILES_DIRTY ) )
-								{
-										bItemOutline = TRUE;
-
-										if ( uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT )
-										{
-											bItemOutline = FALSE;
-										}
-
-										bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-
-										if ( fShadowBlitter )
-										{
-											if ( bBlitClipVal == FALSE )
-											{
-												Blt8BPPDataTo16BPPBufferShadowZNB( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex );
-											}
-											else
-											{
-												Blt8BPPDataTo16BPPBufferShadowZNBClip( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect );
+												Blt8BPPDataTo16BPPBufferOutlineZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
 											}
 										}
 										else
 										{
-											if ( bBlitClipVal == FALSE )
+											Blt8BPPDataTo16BPPBufferOutline((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
+										}
+									}
+									else if (bBlitClipVal == TRUE)
+									{
+										if (fZBlit)
+										{
+											if (fObscuredBlitter)
 											{
-												 Blt8BPPDataTo16BPPBufferOutlineZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline );
+												Blt8BPPDataTo16BPPBufferOutlineZPixelateObscuredClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
 											}
-											else if ( bBlitClipVal == TRUE )
+											else
 											{
-												 Blt8BPPDataTo16BPPBufferOutlineClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect );
+												Blt8BPPDataTo16BPPBufferOutlineZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
 											}
 										}
+										else
+										{
+											Blt8BPPDataTo16BPPBufferOutlineClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
+										}
+									}
 								}
-								else if(uiFlags&TILES_DIRTY)
+								// ATE: Check here for a lot of conditions!
+								else if (((uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT)) && !(uiFlags&TILES_DIRTY))
+								{
+									bItemOutline = TRUE;
+
+									if (uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT)
+									{
+										bItemOutline = FALSE;
+									}
+
+									bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+
+									if (fShadowBlitter)
+									{
+										if (bBlitClipVal == FALSE)
+										{
+											Blt8BPPDataTo16BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+										}
+										else
+										{
+											Blt8BPPDataTo16BPPBufferShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+										}
+									}
+									else
+									{
+										if (bBlitClipVal == FALSE)
+										{
+											Blt8BPPDataTo16BPPBufferOutlineZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline);
+										}
+										else if (bBlitClipVal == TRUE)
+										{
+											Blt8BPPDataTo16BPPBufferOutlineClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, usOutlineColor, bItemOutline, &gClippingRect);
+										}
+									}
+								}
+								else if (uiFlags&TILES_DIRTY)
 								{
 
-									if ( !(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC ) )
+									if (!(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC))
 									{
+										// changed the logic to determine the maximum dimensions of the needed back rect
+										// in case of multi layering. Actual registering of back rect done after layer loop
 										pTrav = &(hVObject->pETRLEObject[usImageIndex]);
-										uiBrushHeight	= (UINT32)pTrav->usHeight;
+										uiBrushHeight = (UINT32)pTrav->usHeight;
 										uiBrushWidth = (UINT32)pTrav->usWidth;
-										sXPos += pTrav->sOffsetX;
-										sYPos += pTrav->sOffsetY;
-
-										RegisterBackgroundRect(uiDirtyFlags, NULL, sXPos, sYPos, (INT16)(sXPos + uiBrushWidth), (INT16)(__min((INT16)(sYPos + uiBrushHeight), gsVIEWPORT_WINDOW_END_Y)));
-
-										if ( fSaveZ )
-										{
-											RegisterBackgroundRect(uiDirtyFlags | BGND_FLAG_SAVE_Z, NULL, sXPos, sYPos, (INT16)(sXPos + uiBrushWidth), (INT16)(__min((INT16)(sYPos + uiBrushHeight), gsVIEWPORT_WINDOW_END_Y)));
-										}
+										INT32 rLeft = sXPos + pTrav->sOffsetX;
+										INT32 rTop = sYPos + pTrav->sOffsetY;
+										/*
+										backRect.left = ( !layer ) ? rLeft : min ( backRect.left, rLeft );
+										backRect.top = ( !layer ) ? rTop : min ( backRect.top, rTop );
+										backRect.right = ( !layer ) ? rLeft + ( INT32 ) uiBrushWidth : max ( backRect.right, rLeft + ( INT32 ) uiBrushWidth );
+										backRect.bottom = ( !layer ) ? rTop + ( INT32 ) uiBrushHeight : max ( backRect.bottom, rTop + ( INT32 ) uiBrushHeight );
+										*/
+										backRect.left = min(backRect.left, rLeft);
+										backRect.top = min(backRect.top, rTop);
+										backRect.right = max(backRect.right, rLeft + (INT32)uiBrushWidth);
+										backRect.bottom = max(backRect.bottom, rTop + (INT32)uiBrushHeight);
 									}
 								}
 								else
 								{
-									if(gbPixelDepth==16)
+									if (gbPixelDepth == 16)
 									{
 										/*if(fConvertTo16)
 										{
@@ -2180,17 +2240,27 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 											}
 										}*/
 
-										if( fMultiTransShadowZBlitter )
+										if (fMultiTransShadowZBlitter)
 										{
-											if ( fZBlitter )
+											if (fZBlitter)
 											{
-												if ( fObscuredBlitter )
+												if (fObscuredBlitter)
 												{
-													Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable );
+													if (hVObjectAlpha == NULL) {
+														Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
+													}
+													else {
+														Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, hVObjectAlpha, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
+													}
 												}
 												else
 												{
-													Blt8BPPDataTo16BPPBufferTransZTransShadowIncClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable );
+													if (hVObjectAlpha == NULL) {
+														Blt8BPPDataTo16BPPBufferTransZTransShadowIncClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
+													}
+													else {
+														Blt8BPPDataTo16BPPBufferTransZTransShadowIncClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, hVObjectAlpha, sXPos, sYPos, usImageIndex, &gClippingRect, sMultiTransShadowZBlitterIndex, pShadeTable, fIgnoreShadows);
+													}
 												}
 											}
 											else
@@ -2198,25 +2268,25 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 												//Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect );
 											}
 										}
-										else if( fMultiZBlitter )
+										else if (fMultiZBlitter)
 										{
-											if ( fZBlitter )
+											if (fZBlitter)
 											{
-												if ( fObscuredBlitter )
+												if (fObscuredBlitter)
 												{
 													Blt8BPPDataTo16BPPBufferTransZIncObscureClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 												}
 												else
 												{
-													if ( fWallTile )
+													if (fWallTile)
 													{
-														if ( sZStripIndex == -1 )
+														if (sZStripIndex == -1)
 														{
 															Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, usImageIndex);
 														}
 														else
 														{
-															Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sZStripIndex );
+															Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect, sZStripIndex);
 														}
 													}
 													else
@@ -2227,130 +2297,204 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 											}
 											else
 											{
-												Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect );
+												Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 											}
 										}
 										else
 										{
 											bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
-											if ( bBlitClipVal == TRUE )
+											if (bBlitClipVal == TRUE)
 											{
-												if(fPixelate)
+												if (fPixelate)
 												{
-													if(fTranslucencyType)
+													if (fTranslucencyType)
 													{
 														//if(fZWrite)
 														//	Blt8BPPDataTo16BPPBufferTransZClipTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 														//else
-															Blt8BPPDataTo16BPPBufferTransZNBClipTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														Blt8BPPDataTo16BPPBufferTransZNBClipTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 													}
 													else
 													{
 														//if(fZWrite)
 														//	Blt8BPPDataTo16BPPBufferTransZClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 														//else
-															Blt8BPPDataTo16BPPBufferTransZNBClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														Blt8BPPDataTo16BPPBufferTransZNBClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 													}
 												}
-												else if(fMerc)
+												else if (fMerc)
 												{
-													if ( fZBlitter )
+													if (fZBlitter)
 													{
-														if ( fZWrite )
+														if (fZWrite)
 														{
-															Blt8BPPDataTo16BPPBufferTransShadowZClip( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																					hVObject,
-																																					sXPos, sYPos,
-																																					usImageIndex,
-																																					&gClippingRect,
-																																					pShadeTable);
-														}
-														else
-														{
-															if ( fObscuredBlitter )
+															if (hVObjectAlpha != NULL)
 															{
-
-																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClip( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																							hVObject,
-																																							sXPos, sYPos,
-																																							usImageIndex,
-																																							&gClippingRect,
-																																							pShadeTable);
+																Blt8BPPDataTo16BPPBufferTransShadowZClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
 															}
 															else
 															{
-																Blt8BPPDataTo16BPPBufferTransShadowZNBClip( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																						hVObject,
-																																						sXPos, sYPos,
-																																						usImageIndex,
-																																						&gClippingRect,
-																																						pShadeTable);
+																Blt8BPPDataTo16BPPBufferTransShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+														}
+														else
+														{
+															if (fObscuredBlitter)
+															{
+																if (hVObjectAlpha != NULL)
+																{
+																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		hVObjectAlpha,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		&gClippingRect,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
+																else
+																{
+																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		&gClippingRect,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
+															}
+															else
+															{
+																if (hVObjectAlpha != NULL)
+																{
+																	Blt8BPPDataTo16BPPBufferTransShadowZNBClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		hVObjectAlpha,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		&gClippingRect,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
+																else
+																{
+																	Blt8BPPDataTo16BPPBufferTransShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		&gClippingRect,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
 															}
 														}
 
-														if ( (uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE ) )
+														if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
 														{
-															pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES );
+															pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
 
 															// BLIT HERE
-															Blt8BPPDataTo16BPPBufferTransShadowClip( (UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
-																																				hVObject,
-																																				sXPos, sYPos,
-																																				usImageIndex,
-																																				&gClippingRect,
-																																				pShadeTable);
+															if (hVObjectAlpha != NULL)
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowClipAlpha((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+															else
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	&gClippingRect,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
 
 															UnLockVideoSurface(guiSAVEBUFFER);
 
 															// Turn it off!
-															pNode->uiFlags &= ( ~LEVELNODE_UPDATESAVEBUFFERONCE );
+															pNode->uiFlags &= (~LEVELNODE_UPDATESAVEBUFFERONCE);
 														}
 
 													}
 													else
 													{
-														Blt8BPPDataTo16BPPBufferTransShadowClip( (UINT16*)pDestBuf, uiDestPitchBYTES,
-																																				hVObject,
-																																				sXPos, sYPos,
-																																				usImageIndex,
-																																				&gClippingRect,
-																																				pShadeTable);
+														if (hVObjectAlpha != NULL)
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowClipAlpha((UINT16*)pDestBuf, uiDestPitchBYTES,
+																hVObject,
+																hVObjectAlpha,
+																sXPos, sYPos,
+																usImageIndex,
+																&gClippingRect,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+														else 
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES,
+																hVObject,
+																sXPos, sYPos,
+																usImageIndex,
+																&gClippingRect,
+																pShadeTable,
+																fIgnoreShadows);
+														}
 													}
 												}
-												else if(fShadowBlitter)
+												else if (fShadowBlitter)
 												{
-													if ( fZBlitter )
+													if (fZBlitter)
 													{
-														 if(fZWrite)
-																Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														 else
-																Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														if (fZWrite)
+															Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														else
+															Blt8BPPDataTo16BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 													}
 													else
 													{
-															Blt8BPPDataTo16BPPBufferShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														Blt8BPPDataTo16BPPBufferShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 													}
 												}
-												else if( fIntensityBlitter)
+												else if (fIntensityBlitter)
 												{
-													if ( fZBlitter )
+													if (fZBlitter)
 													{
-														 if(fZWrite)
-																Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-														 else
-																Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														if (fZWrite)
+															Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														else
+															Blt8BPPDataTo16BPPBufferIntensityZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 													}
 													else
 													{
 														Blt8BPPDataTo16BPPBufferIntensityClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 													}
 												}
-												else if(fZBlitter)
+												else if (fZBlitter)
 												{
-													if(fZWrite)
+													if (fZWrite)
 													{
-														if ( fObscuredBlitter )
+														if (fObscuredBlitter)
 														{
 															Blt8BPPDataTo16BPPBufferTransZClipPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 														}
@@ -2364,108 +2508,171 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 														Blt8BPPDataTo16BPPBufferTransZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 													}
 
-													if ( (uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE ) )
+													if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
 													{
-														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES );
+														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
 
 														// BLIT HERE
 														Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
 														UnLockVideoSurface(guiSAVEBUFFER);
-
-														// Turn it off!
-														pNode->uiFlags &= ( ~LEVELNODE_UPDATESAVEBUFFERONCE );
 													}
 
 												}
 												else
-														Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+													Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
 											}
-											else if ( bBlitClipVal == FALSE )
+											else if (bBlitClipVal == FALSE)
 											{
-												if(fPixelate)
+												if (fPixelate)
 												{
-													if(fTranslucencyType)
+													if (fTranslucencyType)
 													{
-														if(fZWrite)
+														if (fZWrite)
 															Blt8BPPDataTo16BPPBufferTransZTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 														else
 															Blt8BPPDataTo16BPPBufferTransZNBTranslucent((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 													}
 													else
 													{
-														if(fZWrite)
+														if (fZWrite)
 															Blt8BPPDataTo16BPPBufferTransZPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 														else
 															Blt8BPPDataTo16BPPBufferTransZNBPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 													}
 												}
-												else if(fMerc)
+												else if (fMerc)
 												{
-													if ( fZBlitter )
+													if (fZBlitter)
 													{
-														if ( fZWrite )
+														if (fZWrite)
 														{
-															Blt8BPPDataTo16BPPBufferTransShadowZ( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																					hVObject,
-																																					sXPos, sYPos,
-																																					usImageIndex,
-																																					pShadeTable);
-														}
-														else
-														{
-															if ( fObscuredBlitter )
+															if (hVObjectAlpha != NULL)
 															{
-																Blt8BPPDataTo16BPPBufferTransShadowZNBObscured( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																						hVObject,
-																																						sXPos, sYPos,
-																																						usImageIndex,
-																																						pShadeTable);
+																Blt8BPPDataTo16BPPBufferTransShadowZAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
 															}
 															else
 															{
-																Blt8BPPDataTo16BPPBufferTransShadowZNB( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																						hVObject,
-																																						sXPos, sYPos,
-																																						usImageIndex,
-																																						pShadeTable);
+																Blt8BPPDataTo16BPPBufferTransShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+														}
+														else
+														{
+															if (fObscuredBlitter)
+															{
+																if (hVObjectAlpha != NULL) {
+																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		hVObjectAlpha,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
+																else {
+																	Blt8BPPDataTo16BPPBufferTransShadowZNBObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
+															}
+															else
+															{
+																if (hVObjectAlpha != NULL)
+																{
+																	Blt8BPPDataTo16BPPBufferTransShadowZNBAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		hVObjectAlpha,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
+																else
+																{
+																	Blt8BPPDataTo16BPPBufferTransShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+																		hVObject,
+																		sXPos, sYPos,
+																		usImageIndex,
+																		pShadeTable,
+																		fIgnoreShadows);
+																}
 															}
 														}
 
-														if ( (uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE ) )
+														if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
 														{
-															pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES );
+															pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
 
 															// BLIT HERE
-															Blt8BPPDataTo16BPPBufferTransShadow( (UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
-																																					hVObject,
-																																					sXPos, sYPos,
-																																					usImageIndex,
-																																					pShadeTable);
+															if (hVObjectAlpha != NULL)
+															{
+																Blt8BPPDataTo16BPPBufferTransShadowAlpha((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																	hVObject,
+																	hVObjectAlpha,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
+															else
+															{
+																Blt8BPPDataTo16BPPBufferTransShadow((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES,
+																	hVObject,
+																	sXPos, sYPos,
+																	usImageIndex,
+																	pShadeTable,
+																	fIgnoreShadows);
+															}
 
 															UnLockVideoSurface(guiSAVEBUFFER);
 
-															// Turn it off!
-															pNode->uiFlags &= ( ~LEVELNODE_UPDATESAVEBUFFERONCE );
 														}
 
 													}
 													else
 													{
+														if (hVObjectAlpha != NULL)
+														{
+															Blt8BPPDataTo16BPPBufferTransShadowAlpha((UINT16*)pDestBuf, uiDestPitchBYTES,
+																hVObject,
+																hVObjectAlpha,
+																sXPos, sYPos,
+																usImageIndex,
+																pShadeTable,
+																fIgnoreShadows);
+														}
+														else
+														{
+															Blt8BPPDataTo16BPPBufferTransShadow((UINT16*)pDestBuf, uiDestPitchBYTES,
+																hVObject,
+																sXPos, sYPos,
+																usImageIndex,
+																pShadeTable,
+																fIgnoreShadows);
+														}
 
-														Blt8BPPDataTo16BPPBufferTransShadow( (UINT16*)pDestBuf, uiDestPitchBYTES,
-																																				hVObject,
-																																				sXPos, sYPos,
-																																				usImageIndex,
-																																				pShadeTable);
 													}
 												}
-												else if(fShadowBlitter)
+												else if (fShadowBlitter)
 												{
-													if ( fZBlitter )
+													if (fZBlitter)
 													{
-													 if(fZWrite)
+														if (fZWrite)
 															Blt8BPPDataTo16BPPBufferShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 														else
 															Blt8BPPDataTo16BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
@@ -2475,11 +2682,11 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 														Blt8BPPDataTo16BPPBufferShadow((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
 													}
 												}
-												else if( fIntensityBlitter )
+												else if (fIntensityBlitter)
 												{
-													if ( fZBlitter )
+													if (fZBlitter)
 													{
-													 if(fZWrite)
+														if (fZWrite)
 															Blt8BPPDataTo16BPPBufferIntensityZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 														else
 															Blt8BPPDataTo16BPPBufferIntensityZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
@@ -2489,16 +2696,16 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 														Blt8BPPDataTo16BPPBufferIntensity((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
 													}
 												}
-												else if(fZBlitter)
+												else if (fZBlitter)
 												{
-													if(fZWrite)
+													if (fZWrite)
 													{
 														// TEST
 														//Blt8BPPDataTo16BPPBufferTransZPixelate( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 
-														if ( fObscuredBlitter )
+														if (fObscuredBlitter)
 														{
-															Blt8BPPDataTo16BPPBufferTransZPixelateObscured( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+															Blt8BPPDataTo16BPPBufferTransZPixelateObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 														}
 														else
 														{
@@ -2509,118 +2716,155 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 														Blt8BPPDataTo16BPPBufferTransZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 
 
-													if ( (uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE ) )
+													if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
 													{
-														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES );
+														pSaveBuf = LockVideoSurface(guiSAVEBUFFER, &uiSaveBufferPitchBYTES);
 
 														// BLIT HERE
-														Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex );
+														Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 
 														UnLockVideoSurface(guiSAVEBUFFER);
-
-														// Turn it off!
-														pNode->uiFlags &= ( ~LEVELNODE_UPDATESAVEBUFFERONCE );
 													}
 
 												}
 												else
-														Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
+													Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
 											}
 										}
 									}
 									else // 8bpp section
 									{
-										if(fPixelate)
+										if (fPixelate)
 										{
-											if(fZWrite)
+											if (fZWrite)
 												Blt8BPPDataTo8BPPBufferTransZClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 											else
 												Blt8BPPDataTo8BPPBufferTransZNBClipPixelate((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 										}
-										else if(BltIsClipped(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect))
+										else if (BltIsClipped(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect))
 										{
-											if(fMerc)
+											if (fMerc)
 											{
-												Blt8BPPDataTo8BPPBufferTransShadowZNBClip( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																		hVObject,
-																																		sXPos, sYPos,
-																																		usImageIndex,
-																																		&gClippingRect,
-																																		pShadeTable);
+												Blt8BPPDataTo8BPPBufferTransShadowZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+													hVObject,
+													sXPos, sYPos,
+													usImageIndex,
+													&gClippingRect,
+													pShadeTable);
 											}
-											else if(fShadowBlitter)
-											 if(fZWrite)
+											else if (fShadowBlitter)
+												if (fZWrite)
 													Blt8BPPDataTo8BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-											 else
+												else
 													Blt8BPPDataTo8BPPBufferShadowZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
-											else if(fZBlitter)
+											else if (fZBlitter)
 											{
-												if(fZWrite)
+												if (fZWrite)
 													Blt8BPPDataTo8BPPBufferTransZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 												else
 													Blt8BPPDataTo8BPPBufferTransZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 											}
 											else
-													Blt8BPPDataTo8BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+												Blt8BPPDataTo8BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 										}
 										else
 										{
-											if(fMerc)
+											if (fMerc)
 											{
 
-												Blt8BPPDataTo16BPPBufferTransShadowZNBObscured( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-																																		hVObject,
-																																		sXPos, sYPos,
-																																		usImageIndex,
-																																		pShadeTable);
+												// why to 16BPP here??
+												if (hVObjectAlpha != NULL)
+												{
+													Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredAlpha((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+														hVObject,
+														hVObjectAlpha,
+														sXPos, sYPos,
+														usImageIndex,
+														pShadeTable,
+														fIgnoreShadows);
+												}
+												else
+												{
+													Blt8BPPDataTo16BPPBufferTransShadowZNBObscured((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+														hVObject,
+														sXPos, sYPos,
+														usImageIndex,
+														pShadeTable,
+														fIgnoreShadows);
+												}
 
-
-											//	Blt8BPPDataTo8BPPBufferTransShadowZNB( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
-											//																							hVObject,
-											//																							sXPos, sYPos,
-											//																							usImageIndex,
-											//																							pShadeTable);
+												//	Blt8BPPDataTo8BPPBufferTransShadowZNB( (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel,
+												//																							hVObject,
+												//																							sXPos, sYPos,
+												//																							usImageIndex,
+												//																							pShadeTable);
 											}
-											else if(fShadowBlitter)
+											else if (fShadowBlitter)
 											{
-											 if(fZWrite)
+												if (fZWrite)
 													Blt8BPPDataTo8BPPBufferShadowZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 												else
 													Blt8BPPDataTo8BPPBufferShadowZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 											}
-											else if(fZBlitter)
+											else if (fZBlitter)
 											{
-												if(fZWrite)
+												if (fZWrite)
 													Blt8BPPDataTo8BPPBufferTransZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 												else
 													Blt8BPPDataTo8BPPBufferTransZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 											}
 											else
-													Blt8BPPDataTo8BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
+												Blt8BPPDataTo8BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
 										}
 									}
 								}
 
-								// RENDR APS ONTOP OF PLANNED MERC GUY
-								if ( fRenderTile && !( uiFlags&TILES_DIRTY ) )
+
+								if (bt == NULL)
 								{
-									if ( fMerc )
+									break;    // no logical body type found, no layers to render
+								}
+								layerIter++;
+								}
+								// background rect registration. Have to do this here, can't do it in the loop
+								// as we don't know what the last rendered layer is upfront
+								if (uiFlags & TILES_DIRTY)
+								{
+									sXPos = (INT16)backRect.left;
+									sYPos = (INT16)backRect.top;
+									RegisterBackgroundRect(uiDirtyFlags, NULL, sXPos, sYPos, (INT16)backRect.right, (INT16)(__min((INT16)(backRect.bottom), gsVIEWPORT_WINDOW_END_Y)));
+									if (fSaveZ)
 									{
-										if ( pSoldier != NULL && pSoldier->ubID >= MAX_NUM_SOLDIERS )
+										RegisterBackgroundRect(uiDirtyFlags | BGND_FLAG_SAVE_Z, NULL, sXPos, sYPos, (INT16)backRect.right, (INT16)(__min((INT16)(backRect.bottom), gsVIEWPORT_WINDOW_END_Y)));
+									}
+								}
+								// unset save buffer once flag after all layers have been rendered          }
+								if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
+								{
+									pNode->uiFlags &= (~LEVELNODE_UPDATESAVEBUFFERONCE);
+								}
+
+
+								// RENDER APS ONTOP OF PLANNED MERC GUY
+								if (fRenderTile && !(uiFlags&TILES_DIRTY))
+								{
+									if (fMerc)
+									{
+										if (pSoldier != NULL && pSoldier->ubID >= MAX_NUM_SOLDIERS)
 										{
-											SetFont( TINYFONT1 );
-											SetFontDestBuffer( guiSAVEBUFFER , 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, gsVIEWPORT_WINDOW_END_Y, FALSE );
-											VarFindFontCenterCoordinates( sXPos, sYPos, 1, 1, TINYFONT1, &sX, &sY, L"%d", pSoldier->ubPlannedUIAPCost );
-											mprintf_buffer( pDestBuf, uiDestPitchBYTES, TINYFONT1, sX,  sY , L"%d", pSoldier->ubPlannedUIAPCost );
-											SetFontDestBuffer( FRAME_BUFFER , 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+											SetFont(TINYFONT1);
+											SetFontDestBuffer(guiSAVEBUFFER, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, gsVIEWPORT_WINDOW_END_Y, FALSE);
+											VarFindFontCenterCoordinates(sXPos, sYPos, 1, 1, TINYFONT1, &sX, &sY, L"%d", pSoldier->ubPlannedUIAPCost);
+											mprintf_buffer(pDestBuf, uiDestPitchBYTES, TINYFONT1, sX, sY, L"%d", pSoldier->ubPlannedUIAPCost);
+											SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 										}
 									}
 								}
 
 							}
 
-							if(!fLinkedListDirection)
+							if (!fLinkedListDirection)
 								pNode = pNode->pPrevNode;
 							else
 								pNode = pNode->pNext;
@@ -2630,7 +2874,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 					}
 					else
 					{
-						if( gfEditMode )
+						if (gfEditMode)
 						{
 							//ATE: Used here in the editor to denote then an area is not in the world
 
@@ -2643,64 +2887,63 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 							//	only crash on my computer and not Emmons, so this should work.  Also, I changed the color
 							//	from fluorescent green to black, which is easier on the eyes, and prevent the drawing of the
 							//	end of the world if it would be drawn on the editor's taskbar.
-							if( iTempPosY_S < INTERFACE_START_Y )
+							if (iTempPosY_S < INTERFACE_START_Y)
 							{
-								if(!(uiFlags&TILES_DIRTY))
-									UnLockVideoSurface( FRAME_BUFFER );
-								ColorFillVideoSurfaceArea( FRAME_BUFFER, iTempPosX_S, iTempPosY_S, (iTempPosX_S + 40), 
-									( min( iTempPosY_S + 20, INTERFACE_START_Y )), Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
-								if(!(uiFlags&TILES_DIRTY))
-									pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+								if (!(uiFlags&TILES_DIRTY))
+									UnLockVideoSurface(FRAME_BUFFER);
+								ColorFillVideoSurfaceArea(FRAME_BUFFER, iTempPosX_S, iTempPosY_S, (iTempPosX_S + 40),
+									(min(iTempPosY_S + 20, INTERFACE_START_Y)), Get16BPPColor(FROMRGB(0, 0, 0)));
+								if (!(uiFlags&TILES_DIRTY))
+									pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
 							}
 						}
 					}
 
 					iTempPosX_S += 40;
-					iTempPosX_M ++;
-					iTempPosY_M --;
+					iTempPosX_M++;
+					iTempPosY_M--;
 
-					if ( iTempPosX_S >= iEndXS )
+					if (iTempPosX_S >= iEndXS)
 					{
 						fEndRenderRow = TRUE;
 					}
 
-				} while( !fEndRenderRow );
+				} while (!fEndRenderRow);
 
 			}
 
 		}
 		//	} while( FALSE );
 
-		if ( bXOddFlag > 0 )
+		if (bXOddFlag > 0)
 		{
-			iAnchorPosY_M ++;
+			iAnchorPosY_M++;
 		}
 		else
 		{
-			iAnchorPosX_M ++;
+			iAnchorPosX_M++;
 		}
 
 		bXOddFlag = !bXOddFlag;
 		iAnchorPosY_S += 10;
 
-		if ( iAnchorPosY_S >= iEndYS )
+		if (iAnchorPosY_S >= iEndYS)
 		{
 			fEndRenderCol = TRUE;
 		}
 	}
-	while( !fEndRenderCol );
+	while (!fEndRenderCol);
 
-	if(!(uiFlags&TILES_DIRTY))
-		UnLockVideoSurface( FRAME_BUFFER );
+	if (!(uiFlags&TILES_DIRTY))
+		UnLockVideoSurface(FRAME_BUFFER);
 
-	if ( uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE )
+	if (uiFlags & TILES_DYNAMIC_CHECKFOR_INT_TILE)
 	{
-		EndCurInteractiveTileCheck( );
+		EndCurInteractiveTileCheck();
 	}
 
 
 }
-/// kONIE Renderowania klastra
 
 
 void DeleteFromWorld( UINT16 usTileIndex, UINT32 uiRenderTiles, UINT16 usIndex )
@@ -3002,7 +3245,7 @@ void RenderStaticWorldRect(INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom,
 	uiLevelFlags[0]		=	TILES_STATIC_LAND;
 	sLevelIDs	[0]		=	RENDER_STATIC_LAND;
 	RenderTiles( 0 , gsLStartPointX_M, gsLStartPointY_M, gsLStartPointX_S, gsLStartPointY_S, gsLEndXS, gsLEndYS, 1, uiLevelFlags, sLevelIDs );
-
+	
 	//rendering objects
 	uiLevelFlags[0]		=	TILES_STATIC_OBJECTS;
 	sLevelIDs	[0]		=	RENDER_STATIC_OBJECTS;
@@ -5682,7 +5925,7 @@ BlitDone:
 // 3 ) clipped
 // 4 ) trans shadow - if value is 254, makes a shadow
 //
-BOOLEAN Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClip( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion, INT16 sZIndex, UINT16 *p16BPPPalette )
+BOOLEAN Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClip(UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion, INT16 sZIndex, UINT16 *p16BPPPalette, BOOLEAN fIgnoreShadows) 
 {
 	UINT32 uiOffset, uiLineFlag;
 	UINT32 usHeight, usWidth, Unblitted;
@@ -5953,6 +6196,10 @@ BlitPixel1:
 		cmp		al, 254
 		jne		BlitNTL66
 
+		mov		al, fIgnoreShadows
+		cmp		al, 0
+		jne		BlitNTL2
+
 		mov		ax, [edi]
 		mov		ax, ShadeTable[eax*2]
 		mov		[edi], ax
@@ -6102,6 +6349,517 @@ BlitDone:
 }
 
 
+// Blitter Specs
+// 1 ) 8 to 16 bpp
+// 2 ) strip z-blitter
+// 3 ) clipped
+// 4 ) trans shadow - if value is 254, makes a shadow
+//
+BOOLEAN Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClipAlpha(UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, HVOBJECT hAlphaVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion, INT16 sZIndex, UINT16 *p16BPPPalette, BOOLEAN fIgnoreShadows)
+{
+	UINT32 uiOffset, uiLineFlag;
+	UINT32 usHeight, usWidth, Unblitted;
+	UINT8	 *SrcPtr, *DestPtr, *ZPtr, *AlphaPtr;
+	UINT32 LineSkip;
+	ETRLEObject *pTrav;
+	INT32	 iTempX, iTempY, LeftSkip, RightSkip, TopSkip, BottomSkip, BlitLength, BlitHeight, LSCount;
+	INT32  ClipX1, ClipY1, ClipX2, ClipY2;
+	UINT16 usZLevel, usZStartLevel, usZColsToGo, usZStartIndex, usCount, usZIndex, usZStartCols;
+	INT8 *pZArray;
+	ZStripInfo *pZInfo;
+
+	// Assertions
+	Assert(hSrcVObject != NULL);
+	Assert(hAlphaVObject != NULL);
+	Assert(pBuffer != NULL);
+
+	// Get Offsets from Index into structure
+	pTrav = &(hSrcVObject->pETRLEObject[usIndex]);
+	usHeight = (UINT32)pTrav->usHeight;
+	usWidth = (UINT32)pTrav->usWidth;
+	uiOffset = pTrav->uiDataOffset;
+
+	// Add to start position of dest buffer
+	iTempX = iX + pTrav->sOffsetX;
+	iTempY = iY + pTrav->sOffsetY;
+
+	if (clipregion == NULL)
+	{
+		ClipX1 = ClippingRect.iLeft;
+		ClipY1 = ClippingRect.iTop;
+		ClipX2 = ClippingRect.iRight;
+		ClipY2 = ClippingRect.iBottom;
+	}
+	else
+	{
+		ClipX1 = clipregion->iLeft;
+		ClipY1 = clipregion->iTop;
+		ClipX2 = clipregion->iRight;
+		ClipY2 = clipregion->iBottom;
+	}
+
+	// Calculate rows hanging off each side of the screen
+	LeftSkip = __min(ClipX1 - min(ClipX1, iTempX), (INT32)usWidth);
+	RightSkip = __min(max(ClipX2, (iTempX + (INT32)usWidth)) - ClipX2, (INT32)usWidth);
+	TopSkip = __min(ClipY1 - __min(ClipY1, iTempY), (INT32)usHeight);
+	BottomSkip = __min(__max(ClipY2, (iTempY + (INT32)usHeight)) - ClipY2, (INT32)usHeight);
+
+	uiLineFlag = (iTempY & 1);
+
+	// calculate the remaining rows and columns to blit
+	BlitLength = ((INT32)usWidth - LeftSkip - RightSkip);
+	BlitHeight = ((INT32)usHeight - TopSkip - BottomSkip);
+
+	// check if whole thing is clipped
+	if ((LeftSkip >= (INT32)usWidth) || (RightSkip >= (INT32)usWidth))
+		return(TRUE);
+
+	// check if whole thing is clipped
+	if ((TopSkip >= (INT32)usHeight) || (BottomSkip >= (INT32)usHeight))
+		return(TRUE);
+
+	SrcPtr = (UINT8 *)hSrcVObject->pPixData + uiOffset;
+	AlphaPtr = (UINT8 *)hAlphaVObject->pPixData + (hAlphaVObject->pETRLEObject[usIndex]).uiDataOffset;
+	DestPtr = (UINT8 *)pBuffer + (uiDestPitchBYTES*(iTempY + TopSkip)) + ((iTempX + LeftSkip) * 2);
+	ZPtr = (UINT8 *)pZBuffer + (uiDestPitchBYTES*(iTempY + TopSkip)) + ((iTempX + LeftSkip) * 2);
+	LineSkip = (uiDestPitchBYTES - (BlitLength * 2));
+
+	if (hSrcVObject->ppZStripInfo == NULL)
+	{
+		DebugMsg(TOPIC_VIDEOOBJECT, DBG_LEVEL_0, String("Missing Z-Strip info on multi-Z object"));
+		return(FALSE);
+	}
+	// setup for the z-column blitting stuff
+	pZInfo = hSrcVObject->ppZStripInfo[sZIndex];
+	if (pZInfo == NULL)
+	{
+		DebugMsg(TOPIC_VIDEOOBJECT, DBG_LEVEL_0, String("Missing Z-Strip info on multi-Z object"));
+		return(FALSE);
+	}
+
+	usZStartLevel = (UINT16)((INT16)usZValue + ((INT16)pZInfo->bInitialZChange*Z_SUBLAYERS * 10));
+
+	if (LeftSkip > pZInfo->ubFirstZStripWidth)
+	{
+		usZStartCols = (LeftSkip - pZInfo->ubFirstZStripWidth);
+		usZStartCols = 20 - (usZStartCols % 20);
+	}
+	else if (LeftSkip < pZInfo->ubFirstZStripWidth)
+		usZStartCols = (UINT16)(pZInfo->ubFirstZStripWidth - LeftSkip);
+	else
+		usZStartCols = 20;
+
+	// set to odd number of pixels for first column
+	usZColsToGo = usZStartCols;
+
+	pZArray = pZInfo->pbZChange;
+
+	if (LeftSkip >= usZColsToGo)
+	{
+		// Index into array after doing left clipping
+		usZStartIndex = 1 + ((LeftSkip - pZInfo->ubFirstZStripWidth) / 20);
+
+		//calculates the Z-value after left-side clipping
+		if (usZStartIndex)
+		{
+			for (usCount = 0; usCount < usZStartIndex; usCount++)
+			{
+				switch (pZArray[usCount])
+				{
+				case -1:	usZStartLevel -= Z_SUBLAYERS;
+					break;
+				case 0:		//no change
+					break;
+				case 1:		usZStartLevel += Z_SUBLAYERS;
+					break;
+				}
+			}
+		}
+	}
+	else
+		usZStartIndex = 0;
+
+	usZLevel = usZStartLevel;
+	usZIndex = usZStartIndex;
+
+	__asm {
+
+		mov		esi, SrcPtr
+		mov		edi, DestPtr
+		mov		edx, p16BPPPalette
+		xor		eax, eax
+		mov		ebx, ZPtr
+		xor		ecx, ecx
+
+		cmp		TopSkip, 0							// check for nothing clipped on top
+		je		LeftSkipSetup
+
+
+		// Skips the number of lines clipped at the top
+		TopSkipLoop :
+
+		mov		cl, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or cl, cl
+			js		TopSkipLoop
+			jz		TSEndLine
+
+			add		esi, ecx
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, ecx
+			mov		AlphaPtr, esi
+			pop		esi
+
+			jmp		TopSkipLoop
+
+			TSEndLine :
+
+		xor		uiLineFlag, 1
+			dec		TopSkip
+			jnz		TopSkipLoop
+
+
+			// Start of line loop
+
+			// Skips the pixels hanging outside the left-side boundry
+		LeftSkipSetup:
+
+		mov		Unblitted, 0					// Unblitted counts any pixels left from a run
+			mov		eax, LeftSkip					// after we have skipped enough left-side pixels
+			mov		LSCount, eax					// LSCount counts how many pixels skipped so far
+			or eax, eax
+			jz		BlitLineSetup					// check for nothing to skip
+
+			LeftSkipLoop :
+
+		mov		cl, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or cl, cl
+			js		LSTrans
+
+			cmp		ecx, LSCount
+			je		LSSkip2								// if equal, skip whole, and start blit with new run
+			jb		LSSkip1								// if less, skip whole thing
+
+			add		esi, LSCount					// skip partial run, jump into normal loop for rest
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, LSCount
+			mov		AlphaPtr, esi
+			pop		esi
+
+			sub		ecx, LSCount
+			mov		eax, BlitLength
+			mov		LSCount, eax
+			mov		Unblitted, 0
+			jmp		BlitNTL1							// *** jumps into non-transparent blit loop
+
+			LSSkip2 :
+		add		esi, ecx							// skip whole run, and start blit with new run
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, ecx
+			mov		AlphaPtr, esi
+			pop		esi
+
+			jmp		BlitLineSetup
+
+
+			LSSkip1 :
+		add		esi, ecx							// skip whole run, continue skipping
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, ecx
+			mov		AlphaPtr, esi
+			pop		esi
+
+			sub		LSCount, ecx
+			jmp		LeftSkipLoop
+
+
+			LSTrans :
+		and		ecx, 07fH
+			cmp		ecx, LSCount
+			je		BlitLineSetup					// if equal, skip whole, and start blit with new run
+			jb		LSTrans1							// if less, skip whole thing
+
+			sub		ecx, LSCount							// skip partial run, jump into normal loop for rest
+			mov		eax, BlitLength
+			mov		LSCount, eax
+
+			mov		Unblitted, 0
+			jmp		BlitTransparent				// *** jumps into transparent blit loop
+
+
+			LSTrans1 :
+		sub		LSCount, ecx					// skip whole run, continue skipping
+			jmp		LeftSkipLoop
+
+			//-------------------------------------------------
+			// setup for beginning of line
+
+			BlitLineSetup :
+		mov		eax, BlitLength
+			mov		LSCount, eax
+			mov		Unblitted, 0
+
+			BlitDispatch :
+
+			cmp		LSCount, 0							// Check to see if we're done blitting
+			je		RightSkipLoop
+
+			mov		cl, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or cl, cl
+			js		BlitTransparent
+			jz		RSLoop2
+
+			//--------------------------------
+			// blitting non-transparent pixels
+
+			and		ecx, 07fH
+
+			BlitNTL1 :
+		mov		ax, [ebx]								// check z-level of pixel
+			cmp		ax, usZLevel
+			jae		BlitPixellate1
+			jmp		BlitPixel1
+
+			BlitPixellate1 :
+
+		// OK, DO PIXELLATE SCHEME HERE!
+		test	uiLineFlag, 1
+			jz		BlitSkip1
+
+			test	edi, 2
+			jz		BlitNTL2
+			jmp		BlitPixel1
+
+			BlitSkip1 :
+		test	edi, 2
+			jnz		BlitNTL2
+
+			BlitPixel1 :
+
+		mov		ax, usZLevel						// update z-level of pixel
+			mov[ebx], ax
+
+			// Check for shadow...
+			xor		eax, eax
+			mov		al, [esi]
+			cmp		al, 254
+			jne		BlitNTL66
+
+			mov		al, fIgnoreShadows
+			cmp		al, 0
+			jne		BlitNTL2
+
+			mov		ax, [edi]
+			mov		ax, ShadeTable[eax * 2]
+			mov[edi], ax
+			jmp		BlitNTL2
+
+			BlitNTL66 :
+
+		mov		ax, [edx + eax * 2]					// Copy pixel
+
+			push	edx
+			push	ecx
+			push	ebx
+			push	esi
+			mov		esi, AlphaPtr
+			xor		ebx, ebx
+			mov		bl, [esi]
+			pop		esi
+			push	ebx
+			push[edi]
+			push	eax
+			call    blendWithAlpha
+			add     esp, 12
+			pop		ebx
+			pop		ecx
+			pop		edx
+
+			mov[edi], ax
+
+			BlitNTL2 :
+		inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			add		edi, 2
+			add		ebx, 2
+
+			dec		usZColsToGo
+			jnz		BlitNTL6
+
+			// update the z-level according to the z-table
+
+			push	edx
+			mov		edx, pZArray						// get pointer to array
+			xor		eax, eax
+			mov		ax, usZIndex						// pick up the current array index
+			add		edx, eax
+			inc		eax											// increment it
+			mov		usZIndex, ax						// store incremented value
+
+			mov		al, [edx]								// get direction instruction
+			mov		dx, usZLevel						// get current z-level
+
+			or al, al
+			jz		BlitNTL5								// dir = 0 no change
+			js		BlitNTL4								// dir < 0 z-level down
+																		// dir > 0 z-level up (default)
+			add		dx, Z_SUBLAYERS
+			jmp		BlitNTL5
+
+			BlitNTL4 :
+		sub		dx, Z_SUBLAYERS
+
+			BlitNTL5 :
+		mov		usZLevel, dx						// store the now-modified z-level
+			mov		usZColsToGo, 20					// reset the next z-level change to 20 cols
+			pop		edx
+
+			BlitNTL6 :
+		dec		LSCount									// decrement pixel length to blit
+			jz		RightSkipLoop						// done blitting the visible line
+
+			dec		ecx
+			jnz		BlitNTL1								// continue current run
+
+			jmp		BlitDispatch						// done current run, go for another
+
+
+	//----------------------------
+	// skipping transparent pixels
+
+		BlitTransparent:									// skip transparent pixels
+
+		and		ecx, 07fH
+
+			BlitTrans2 :
+
+		add		edi, 2									// move up the destination pointer
+			add		ebx, 2
+
+			dec		usZColsToGo
+			jnz		BlitTrans1
+
+			// update the z-level according to the z-table
+
+			push	edx
+			mov		edx, pZArray						// get pointer to array
+			xor		eax, eax
+			mov		ax, usZIndex						// pick up the current array index
+			add		edx, eax
+			inc		eax											// increment it
+			mov		usZIndex, ax						// store incremented value
+
+			mov		al, [edx]								// get direction instruction
+			mov		dx, usZLevel						// get current z-level
+
+			or al, al
+			jz		BlitTrans5							// dir = 0 no change
+			js		BlitTrans4							// dir < 0 z-level down
+																		// dir > 0 z-level up (default)
+			add		dx, Z_SUBLAYERS
+			jmp		BlitTrans5
+
+			BlitTrans4 :
+		sub		dx, Z_SUBLAYERS
+
+			BlitTrans5 :
+		mov		usZLevel, dx						// store the now-modified z-level
+			mov		usZColsToGo, 20					// reset the next z-level change to 20 cols
+			pop		edx
+
+			BlitTrans1 :
+
+		dec		LSCount									// decrement the pixels to blit
+			jz		RightSkipLoop						// done the line
+
+			dec		ecx
+			jnz		BlitTrans2
+
+			jmp		BlitDispatch
+
+			//---------------------------------------------
+			// Scans the ETRLE until it finds an EOL marker
+
+			RightSkipLoop :
+
+
+	RSLoop1:
+		mov		al, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or al, al
+			jnz		RSLoop1
+
+			RSLoop2 :
+
+		xor		uiLineFlag, 1
+			dec		BlitHeight
+			jz		BlitDone
+			add		edi, LineSkip
+			add		ebx, LineSkip
+
+			// reset all the z-level stuff for a new line
+
+			mov		ax, usZStartLevel
+			mov		usZLevel, ax
+			mov		ax, usZStartIndex
+			mov		usZIndex, ax
+			mov		ax, usZStartCols
+			mov		usZColsToGo, ax
+
+
+			jmp		LeftSkipSetup
+
+
+			BlitDone :
+	}
+
+	return(TRUE);
+}
+
 
 
 void CorrectRenderCenter( INT16 sRenderX, INT16 sRenderY, INT16 *pSNewX, INT16 *pSNewY )
@@ -6146,7 +6904,7 @@ void CorrectRenderCenter( INT16 sRenderX, INT16 sRenderY, INT16 *pSNewX, INT16 *
 // 3 ) clipped
 // 4 ) trans shadow - if value is 254, makes a shadow
 //
-BOOLEAN Blt8BPPDataTo16BPPBufferTransZTransShadowIncClip( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion, INT16 sZIndex, UINT16 *p16BPPPalette )
+BOOLEAN Blt8BPPDataTo16BPPBufferTransZTransShadowIncClip(UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion, INT16 sZIndex, UINT16 *p16BPPPalette, BOOLEAN fIgnoreShadows) 
 {
 	UINT32 uiOffset;
 	UINT32 usHeight, usWidth, Unblitted;
@@ -6396,6 +7154,10 @@ BlitNTL1:
 		cmp		al, 254
 		jne		BlitNTL66
 
+		mov		al, fIgnoreShadows
+		cmp		al, 0
+		jne		BlitNTL2
+
 		mov		ax, [edi]
 		mov		ax, ShadeTable[eax*2]
 		mov		[edi], ax
@@ -6543,6 +7305,495 @@ BlitDone:
 	return(TRUE);
 }
 
+
+// Blitter Specs
+// 1 ) 8 to 16 bpp
+// 2 ) strip z-blitter
+// 3 ) clipped
+// 4 ) trans shadow - if value is 254, makes a shadow
+//
+BOOLEAN Blt8BPPDataTo16BPPBufferTransZTransShadowIncClipAlpha(UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, HVOBJECT hAlphaVObject, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect *clipregion, INT16 sZIndex, UINT16 *p16BPPPalette, BOOLEAN fIgnoreShadows)
+{
+	UINT32 uiOffset;
+	UINT32 usHeight, usWidth, Unblitted;
+	UINT8	 *SrcPtr, *DestPtr, *ZPtr, *AlphaPtr;
+	UINT32 LineSkip;
+	ETRLEObject *pTrav;
+	INT32	 iTempX, iTempY, LeftSkip, RightSkip, TopSkip, BottomSkip, BlitLength, BlitHeight, LSCount;
+	INT32  ClipX1, ClipY1, ClipX2, ClipY2;
+	UINT16 usZLevel, usZStartLevel, usZColsToGo, usZStartIndex, usCount, usZIndex, usZStartCols;
+	INT8 *pZArray;
+	ZStripInfo *pZInfo;
+
+	// Assertions
+	Assert(hSrcVObject != NULL);
+	Assert(hAlphaVObject != NULL);
+	Assert(pBuffer != NULL);
+
+	// Get Offsets from Index into structure
+	pTrav = &(hSrcVObject->pETRLEObject[usIndex]);
+	usHeight = (UINT32)pTrav->usHeight;
+	usWidth = (UINT32)pTrav->usWidth;
+	uiOffset = pTrav->uiDataOffset;
+
+	// Add to start position of dest buffer
+	iTempX = iX + pTrav->sOffsetX;
+	iTempY = iY + pTrav->sOffsetY;
+
+	if (clipregion == NULL)
+	{
+		ClipX1 = ClippingRect.iLeft;
+		ClipY1 = ClippingRect.iTop;
+		ClipX2 = ClippingRect.iRight;
+		ClipY2 = ClippingRect.iBottom;
+	}
+	else
+	{
+		ClipX1 = clipregion->iLeft;
+		ClipY1 = clipregion->iTop;
+		ClipX2 = clipregion->iRight;
+		ClipY2 = clipregion->iBottom;
+	}
+
+	// Calculate rows hanging off each side of the screen
+	LeftSkip = __min(ClipX1 - min(ClipX1, iTempX), (INT32)usWidth);
+	RightSkip = __min(max(ClipX2, (iTempX + (INT32)usWidth)) - ClipX2, (INT32)usWidth);
+	TopSkip = __min(ClipY1 - __min(ClipY1, iTempY), (INT32)usHeight);
+	BottomSkip = __min(__max(ClipY2, (iTempY + (INT32)usHeight)) - ClipY2, (INT32)usHeight);
+
+	// calculate the remaining rows and columns to blit
+	BlitLength = ((INT32)usWidth - LeftSkip - RightSkip);
+	BlitHeight = ((INT32)usHeight - TopSkip - BottomSkip);
+
+	// check if whole thing is clipped
+	if ((LeftSkip >= (INT32)usWidth) || (RightSkip >= (INT32)usWidth))
+		return(TRUE);
+
+	// check if whole thing is clipped
+	if ((TopSkip >= (INT32)usHeight) || (BottomSkip >= (INT32)usHeight))
+		return(TRUE);
+
+	SrcPtr = (UINT8 *)hSrcVObject->pPixData + uiOffset;
+	AlphaPtr = (UINT8 *)hAlphaVObject->pPixData + (hAlphaVObject->pETRLEObject[usIndex]).uiDataOffset;
+	DestPtr = (UINT8 *)pBuffer + (uiDestPitchBYTES*(iTempY + TopSkip)) + ((iTempX + LeftSkip) * 2);
+	ZPtr = (UINT8 *)pZBuffer + (uiDestPitchBYTES*(iTempY + TopSkip)) + ((iTempX + LeftSkip) * 2);
+	LineSkip = (uiDestPitchBYTES - (BlitLength * 2));
+
+	if (hSrcVObject->ppZStripInfo == NULL)
+	{
+		DebugMsg(TOPIC_VIDEOOBJECT, DBG_LEVEL_0, String("Missing Z-Strip info on multi-Z object"));
+		return(FALSE);
+	}
+	// setup for the z-column blitting stuff
+	pZInfo = hSrcVObject->ppZStripInfo[sZIndex];
+	if (pZInfo == NULL)
+	{
+		DebugMsg(TOPIC_VIDEOOBJECT, DBG_LEVEL_0, String("Missing Z-Strip info on multi-Z object"));
+		return(FALSE);
+	}
+
+	usZStartLevel = (UINT16)((INT16)usZValue + ((INT16)pZInfo->bInitialZChange*Z_SUBLAYERS * 10));
+
+	if (LeftSkip > pZInfo->ubFirstZStripWidth)
+	{
+		usZStartCols = (LeftSkip - pZInfo->ubFirstZStripWidth);
+		usZStartCols = 20 - (usZStartCols % 20);
+	}
+	else if (LeftSkip < pZInfo->ubFirstZStripWidth)
+		usZStartCols = (UINT16)(pZInfo->ubFirstZStripWidth - LeftSkip);
+	else
+		usZStartCols = 20;
+
+	// set to odd number of pixels for first column
+	usZColsToGo = usZStartCols;
+
+	pZArray = pZInfo->pbZChange;
+
+	if (LeftSkip >= usZColsToGo)
+	{
+		// Index into array after doing left clipping
+		usZStartIndex = 1 + ((LeftSkip - pZInfo->ubFirstZStripWidth) / 20);
+
+		//calculates the Z-value after left-side clipping
+		if (usZStartIndex)
+		{
+			for (usCount = 0; usCount < usZStartIndex; usCount++)
+			{
+				switch (pZArray[usCount])
+				{
+				case -1:	usZStartLevel -= Z_SUBLAYERS;
+					break;
+				case 0:		//no change
+					break;
+				case 1:		usZStartLevel += Z_SUBLAYERS;
+					break;
+				}
+			}
+		}
+	}
+	else
+		usZStartIndex = 0;
+
+	usZLevel = usZStartLevel;
+	usZIndex = usZStartIndex;
+
+	__asm {
+
+		mov		esi, SrcPtr
+		mov		edi, DestPtr
+		mov		edx, p16BPPPalette
+		xor		eax, eax
+		mov		ebx, ZPtr
+		xor		ecx, ecx
+
+		cmp		TopSkip, 0							// check for nothing clipped on top
+		je		LeftSkipSetup
+
+
+		// Skips the number of lines clipped at the top
+		TopSkipLoop :
+
+		mov		cl, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or cl, cl
+			js		TopSkipLoop
+			jz		TSEndLine
+
+			add		esi, ecx
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, ecx
+			mov		AlphaPtr, esi
+			pop		esi
+
+			jmp		TopSkipLoop
+
+			TSEndLine :
+		dec		TopSkip
+			jnz		TopSkipLoop
+
+
+			// Start of line loop
+
+			// Skips the pixels hanging outside the left-side boundry
+		LeftSkipSetup:
+
+		mov		Unblitted, 0					// Unblitted counts any pixels left from a run
+			mov		eax, LeftSkip					// after we have skipped enough left-side pixels
+			mov		LSCount, eax					// LSCount counts how many pixels skipped so far
+			or eax, eax
+			jz		BlitLineSetup					// check for nothing to skip
+
+			LeftSkipLoop :
+
+		mov		cl, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or cl, cl
+			js		LSTrans
+
+			cmp		ecx, LSCount
+			je		LSSkip2								// if equal, skip whole, and start blit with new run
+			jb		LSSkip1								// if less, skip whole thing
+
+			add		esi, LSCount					// skip partial run, jump into normal loop for rest
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, LSCount
+			mov		AlphaPtr, esi
+			pop		esi
+
+			sub		ecx, LSCount
+			mov		eax, BlitLength
+			mov		LSCount, eax
+			mov		Unblitted, 0
+			jmp		BlitNTL1							// *** jumps into non-transparent blit loop
+
+			LSSkip2 :
+		add		esi, ecx							// skip whole run, and start blit with new run
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, ecx
+			mov		AlphaPtr, esi
+			pop		esi
+
+			jmp		BlitLineSetup
+
+
+			LSSkip1 :
+		add		esi, ecx							// skip whole run, continue skipping
+
+			push	esi
+			mov		esi, AlphaPtr
+			add		esi, ecx
+			mov		AlphaPtr, esi
+			pop		esi
+
+			sub		LSCount, ecx
+			jmp		LeftSkipLoop
+
+
+			LSTrans :
+		and		ecx, 07fH
+			cmp		ecx, LSCount
+			je		BlitLineSetup					// if equal, skip whole, and start blit with new run
+			jb		LSTrans1							// if less, skip whole thing
+
+			sub		ecx, LSCount							// skip partial run, jump into normal loop for rest
+			mov		eax, BlitLength
+			mov		LSCount, eax
+
+			mov		Unblitted, 0
+			jmp		BlitTransparent				// *** jumps into transparent blit loop
+
+
+			LSTrans1 :
+		sub		LSCount, ecx					// skip whole run, continue skipping
+			jmp		LeftSkipLoop
+
+			//-------------------------------------------------
+			// setup for beginning of line
+
+			BlitLineSetup :
+		mov		eax, BlitLength
+			mov		LSCount, eax
+			mov		Unblitted, 0
+
+			BlitDispatch :
+
+			cmp		LSCount, 0							// Check to see if we're done blitting
+			je		RightSkipLoop
+
+			mov		cl, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or cl, cl
+			js		BlitTransparent
+			jz		RSLoop2
+
+			//--------------------------------
+			// blitting non-transparent pixels
+
+			and		ecx, 07fH
+
+			BlitNTL1 :
+		mov		ax, [ebx]								// check z-level of pixel
+			cmp		ax, usZLevel
+			ja		BlitNTL2
+
+			mov		ax, usZLevel						// update z-level of pixel
+			mov[ebx], ax
+
+			// Check for shadow...
+			xor		eax, eax
+			mov		al, [esi]
+			cmp		al, 254
+			jne		BlitNTL66
+
+			mov		al, fIgnoreShadows
+			cmp		al, 0
+			jne		BlitNTL2
+
+			mov		ax, [edi]
+			mov		ax, ShadeTable[eax * 2]
+			mov[edi], ax
+			jmp		BlitNTL2
+
+			BlitNTL66 :
+
+		mov		ax, [edx + eax * 2]					// Copy pixel
+
+			push	edx
+			push	ecx
+			push	ebx
+			push	esi
+			mov		esi, AlphaPtr
+			xor		ebx, ebx
+			mov		bl, [esi]
+			pop		esi
+			push	ebx
+			push[edi]
+			push	eax
+			call    blendWithAlpha
+			add     esp, 12
+			pop		ebx
+			pop		ecx
+			pop		edx
+
+			mov[edi], ax
+
+			BlitNTL2 :
+		inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			add		edi, 2
+			add		ebx, 2
+
+			dec		usZColsToGo
+			jnz		BlitNTL6
+
+			// update the z-level according to the z-table
+
+			push	edx
+			mov		edx, pZArray						// get pointer to array
+			xor		eax, eax
+			mov		ax, usZIndex						// pick up the current array index
+			add		edx, eax
+			inc		eax											// increment it
+			mov		usZIndex, ax						// store incremented value
+
+			mov		al, [edx]								// get direction instruction
+			mov		dx, usZLevel						// get current z-level
+
+			or al, al
+			jz		BlitNTL5								// dir = 0 no change
+			js		BlitNTL4								// dir < 0 z-level down
+																		// dir > 0 z-level up (default)
+			add		dx, Z_SUBLAYERS
+			jmp		BlitNTL5
+
+			BlitNTL4 :
+		sub		dx, Z_SUBLAYERS
+
+			BlitNTL5 :
+		mov		usZLevel, dx						// store the now-modified z-level
+			mov		usZColsToGo, 20					// reset the next z-level change to 20 cols
+			pop		edx
+
+			BlitNTL6 :
+		dec		LSCount									// decrement pixel length to blit
+			jz		RightSkipLoop						// done blitting the visible line
+
+			dec		ecx
+			jnz		BlitNTL1								// continue current run
+
+			jmp		BlitDispatch						// done current run, go for another
+
+
+	//----------------------------
+	// skipping transparent pixels
+
+		BlitTransparent:									// skip transparent pixels
+
+		and		ecx, 07fH
+
+			BlitTrans2 :
+
+		add		edi, 2									// move up the destination pointer
+			add		ebx, 2
+
+			dec		usZColsToGo
+			jnz		BlitTrans1
+
+			// update the z-level according to the z-table
+
+			push	edx
+			mov		edx, pZArray						// get pointer to array
+			xor		eax, eax
+			mov		ax, usZIndex						// pick up the current array index
+			add		edx, eax
+			inc		eax											// increment it
+			mov		usZIndex, ax						// store incremented value
+
+			mov		al, [edx]								// get direction instruction
+			mov		dx, usZLevel						// get current z-level
+
+			or al, al
+			jz		BlitTrans5							// dir = 0 no change
+			js		BlitTrans4							// dir < 0 z-level down
+																		// dir > 0 z-level up (default)
+			add		dx, Z_SUBLAYERS
+			jmp		BlitTrans5
+
+			BlitTrans4 :
+		sub		dx, Z_SUBLAYERS
+
+			BlitTrans5 :
+		mov		usZLevel, dx						// store the now-modified z-level
+			mov		usZColsToGo, 20					// reset the next z-level change to 20 cols
+			pop		edx
+
+			BlitTrans1 :
+
+		dec		LSCount									// decrement the pixels to blit
+			jz		RightSkipLoop						// done the line
+
+			dec		ecx
+			jnz		BlitTrans2
+
+			jmp		BlitDispatch
+
+			//---------------------------------------------
+			// Scans the ETRLE until it finds an EOL marker
+
+			RightSkipLoop :
+
+
+	RSLoop1:
+		mov		al, [esi]
+			inc		esi
+
+			push	esi
+			mov		esi, AlphaPtr
+			inc		esi
+			mov		AlphaPtr, esi
+			pop		esi
+
+			or al, al
+			jnz		RSLoop1
+
+			RSLoop2 :
+
+		dec		BlitHeight
+			jz		BlitDone
+			add		edi, LineSkip
+			add		ebx, LineSkip
+
+			// reset all the z-level stuff for a new line
+
+			mov		ax, usZStartLevel
+			mov		usZLevel, ax
+			mov		ax, usZStartIndex
+			mov		usZIndex, ax
+			mov		ax, usZStartCols
+			mov		usZColsToGo, ax
+
+
+			jmp		LeftSkipSetup
+
+
+			BlitDone :
+	}
+
+	return(TRUE);
+}
 
 
 

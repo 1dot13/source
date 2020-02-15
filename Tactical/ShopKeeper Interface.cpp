@@ -1526,7 +1526,9 @@ BOOLEAN RenderShopKeeperInterface()
 														 sCenX, sCenY,
 														 pSoldier->usAniFrame,
 														 &rect,
-														 pSoldier->pShades[pSoldier->ubFadeLevel] );
+														 pSoldier->pShades[pSoldier->ubFadeLevel],
+														 TRUE
+					);
 				
 				UnLockVideoSurface( FRAME_BUFFER );
 			}

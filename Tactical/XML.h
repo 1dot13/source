@@ -256,6 +256,12 @@ typedef PARSE_STAGE;
 
 #define DIFFICULTYFILENAME							"DifficultySettings.xml"
 
+#define LBT_LAYERSFILENAME						"LogicalBodyTypes/Layers.xml"
+#define LBT_PALETTESFILENAME					"LogicalBodyTypes/Palettes.xml"
+#define LBT_ANIMSURFACESFILENAME				"LogicalBodyTypes/AnimationSurfaces.xml"
+#define LBT_FILTERSFILENAME						"LogicalBodyTypes/Filters.xml"
+#define LBT_BODYTYPESFILENAME					"LogicalBodyTypes/LogicalBodyTypes.xml"
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
