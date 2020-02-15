@@ -1516,6 +1516,12 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				continue;
 			}
 
+			// check that spot is allowed
+			if (!LegalNPCDestination(pSoldier, sGridNo, IGNORE_PATH, NOWATER, 0))
+			{
+				continue;		// skip on to the next potential grid
+			}
+
 			// OK, this place shows potential.	How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
 
@@ -2021,9 +2027,30 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 			}
 
 			// exclude locations with tear/mustard gas (at this point, smoke is cool!)
-			if ( InGasOrSmoke( pSoldier, sGridNo ) )
+			if (InGas(pSoldier, sGridNo))
 			{
 				continue;
+			}
+
+			if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
+			{
+				continue;
+			}
+
+			// sevenfm: avoid staying at north edge
+			/*if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
+			{
+			continue;
+			}*/
+
+			if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
+			{
+				continue;
+			}
+
+			if (!LegalNPCDestination(pSoldier, sGridNo, IGNORE_PATH, NOWATER, 0))
+			{
+				continue;		// skip on to the next potential grid
 			}
 
 			if ( (gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_ITEMPOOL_PRESENT)
@@ -2653,8 +2680,8 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: orig loc = %d, loc to flank = %d", pSoldier->sGridNo , sPos));
 
 	// hit the edge of the map
-	if ( FindNearestEdgePoint ( pSoldier->sGridNo ) == pSoldier->sGridNo	)
-		return NOWHERE;
+	/*if ( FindNearestEdgePoint ( pSoldier->sGridNo ) == pSoldier->sGridNo	)
+		return NOWHERE;*/
 
 	// sevenfm: use max AP at the start of new turn
 	//gubNPCAPBudget=(UINT8) (iSearchRange*3);
@@ -2783,6 +2810,11 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
 			{
 				continue;
+			}
+
+			if (!LegalNPCDestination(pSoldier, sGridNo, IGNORE_PATH, WATEROK, 0))
+			{
+				continue;		// skip on to the next potential grid
 			}
 
 			// sevenfm: skip buildings if not in building already, because soldiers often run into buildings and stop flanking

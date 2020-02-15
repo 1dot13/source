@@ -121,9 +121,6 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubPathMode, 
 	return(FALSE);			// illegal destination
 }
 
-
-
-
 int TryToResumeMovement(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
 	UINT8 ubGottaCancel = FALSE;
