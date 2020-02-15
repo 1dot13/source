@@ -48,13 +48,6 @@ enum
 	NUM_URGENCY_STATES
 };
 
-#define NOWATER		 0
-#define WATEROK		 1
-
-#define IGNORE_PATH			 0
-#define ENSURE_PATH			 1
-#define ENSURE_PATH_COST		2
-
 #define DONTFORCE		0
 #define FORCE			1
 
@@ -94,7 +87,6 @@ enum
 #define ACTION_TIMEOUT_CYCLES	50	// # failed cycles through AI
 #define MAX_THREAT_RANGE		400	// 30 tiles worth
 #define MIN_PERCENT_BETTER	5	// 5% improvement in cover is good
-
 
 #define TOSSES_PER_10TURNS		18		// max # of grenades tossable in 10 turns
 #define SHELLS_PER_10TURNS		13		// max # of shells	firable	in 10 turns

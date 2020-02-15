@@ -27,6 +27,7 @@
 	#include "Game Clock.h"			// sevenfm
 	#include "Rotting Corpses.h"	// sevenfm
 	#include "wcheck.h"				// sevenfm
+	#include "SmokeEffects.h"		// sevenfm
 #endif
 
 #include "GameInitOptionsScreen.h"
@@ -4253,6 +4254,266 @@ BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
 	}
 
 	return FALSE;
+}
+
+// danger percent based on distance to closest smoke effect
+UINT8 RedSmokeDanger(INT32 sGridNo, INT8 bLevel)
+{
+	UINT32	uiCnt;
+	INT32	sDist;
+	INT32	sClosestDist;
+	INT32	sMaxDist = min(gSkillTraitValues.usVOMortarRadius, DAY_VISION_RANGE);
+	INT32	sClosestSmoke = NOWHERE;
+	UINT8	ubDangerPercent = 0;
+
+	if (TileIsOutOfBounds(sGridNo))
+	{
+		return 0;
+	}
+
+	if (!gSkillTraitValues.fROAllowArtillery)
+	{
+		return 0;
+	}
+
+	// no artillery strike danger underground
+	if (gbWorldSectorZ > 0)
+	{
+		return 0;
+	}
+
+	// check if artillery strike was ordered by any team
+	if (!CheckArtilleryStrike())
+	{
+		return 0;
+	}
+
+	// no danger when in a building
+	if (bLevel == 0 && CheckRoof(sGridNo))
+	{
+		return 0;
+	}
+
+	// no danger when in dense terrain
+	if (bLevel == 0 && TerrainDensity(sGridNo, bLevel, 2, FALSE) >= 20)
+	{
+		return 0;
+	}
+
+	//loop through all red smoke effects and find closest
+	for (uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++)
+	{
+		if (gSmokeEffectData[uiCnt].fAllocated &&
+			gSmokeEffectData[uiCnt].bType == SIGNAL_SMOKE_EFFECT &&
+			!TileIsOutOfBounds(gSmokeEffectData[uiCnt].sGridNo))
+		{
+			sDist = PythSpacesAway(gSmokeEffectData[uiCnt].sGridNo, sGridNo);
+
+			if (sClosestSmoke == NOWHERE || sDist < sClosestDist)
+			{
+				sClosestDist = sDist;
+				sClosestSmoke = gSmokeEffectData[uiCnt].sGridNo;
+			}
+		}
+	}
+
+	// if we found red smoke, calculate danger percent based on distance
+	// 0% at DAY_VISION_RANGE/2, 100% at zero range
+	if (sClosestSmoke != NOWHERE)
+	{
+		ubDangerPercent = 100 * (sMaxDist - min(sMaxDist, sClosestDist)) / sMaxDist;
+	}
+
+	return ubDangerPercent;
+}
+
+// check if artillery strike was ordered by any team
+BOOLEAN CheckArtilleryStrike(void)
+{
+	UINT32	uiBombIndex;
+	OBJECTTYPE *pObj;
+
+	// search all bombs
+	for (uiBombIndex = 0; uiBombIndex < guiNumWorldBombs; uiBombIndex++)
+	{
+		if (gWorldBombs[uiBombIndex].fExists &&
+			gWorldItems[gWorldBombs[uiBombIndex].iItemIndex].usFlags & WORLD_ITEM_ARMED_BOMB)
+		{
+			pObj = &(gWorldItems[gWorldBombs[uiBombIndex].iItemIndex].object);
+
+			if (pObj && pObj->exists() && (*pObj)[0]->data.ubWireNetworkFlag & ANY_ARTILLERY_FLAG)
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN CheckRoof(INT32 sGridNo)
+{
+	if (FindStructure(sGridNo, STRUCTURE_ROOF) != NULL)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+UINT8 TerrainDensity(INT32 sSpot, INT8 bLevel, UINT8 ubDistance, BOOLEAN fGrass)
+{
+	if (TileIsOutOfBounds(sSpot))
+		return 0;
+
+	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
+	INT32	sCheckSpot = NOWHERE;
+	INT32	sCountSpots = 0;
+	INT32	sCountObstacles = 0;
+	UINT16	usRoom1, usRoom2;
+
+	STRUCTURE	*pCurrent;
+	INT16	sDesiredLevel;
+
+	// determine maximum horizontal limits
+	sMaxLeft = min(ubDistance, (sSpot % MAXCOL));
+	sMaxRight = min(ubDistance, MAXCOL - ((sSpot % MAXCOL) + 1));
+
+	// determine maximum vertical limits
+	sMaxUp = min(ubDistance, (sSpot / MAXROW));
+	sMaxDown = min(ubDistance, MAXROW - ((sSpot / MAXROW) + 1));
+
+	// count obstacles
+	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
+	{
+		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
+		{
+			sCheckSpot = sSpot + sXOffset + (MAXCOL * sYOffset);
+
+			if (TileIsOutOfBounds(sCheckSpot))
+			{
+				continue;
+			}
+
+			if (InARoom(sSpot, &usRoom1) != InARoom(sCheckSpot, &usRoom2) || usRoom1 != usRoom2)
+			{
+				continue;
+			}
+
+			sCountSpots++;
+
+			if (!IsLocationSittableExcludingPeople(sCheckSpot, bLevel))
+			{
+				sCountObstacles++;
+			}
+
+			if (fGrass && IsLocationSittableExcludingPeople(sCheckSpot, bLevel))
+			{
+				pCurrent = gpWorldLevelData[sCheckSpot].pStructureHead;
+
+				if (bLevel > 0)
+					sDesiredLevel = STRUCTURE_ON_ROOF;
+				else
+					sDesiredLevel = STRUCTURE_ON_GROUND;
+
+				if (pCurrent != NULL &&
+					pCurrent->sCubeOffset == sDesiredLevel &&
+					pCurrent->pDBStructureRef->pDBStructure->ubArmour == 4)	// light vegetation
+				{
+					sCountObstacles++;
+				}
+			}
+		}
+	}
+
+	if (sCountSpots > 0)
+		return 100 * sCountObstacles / sCountSpots;
+	else
+		return 0;
+}
+
+INT16 DistanceToClosestActiveOpponent(SOLDIERTYPE *pSoldier, INT32 sSpot)
+{
+	INT32		sGridNo;
+	UINT32		uiLoop;
+	INT8		bLevel;
+	SOLDIERTYPE *pOpponent;
+	INT16		sDistance, sClosestDistance = -1;
+
+	if (!pSoldier || TileIsOutOfBounds(sSpot))
+	{
+		return 0;
+	}
+
+	// look through this man's personal & public opplists for opponents known
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, or dead
+		if (!pOpponent)
+		{
+			continue;			// next merc
+		}
+
+		if (!ValidOpponent(pSoldier, pOpponent))
+		{
+			continue;
+		}
+
+		if (pOpponent->stats.bLife < OKLIFE)
+		{
+			continue;
+		}
+
+		// if this opponent is unknown personally and publicly
+		if (pSoldier->aiData.bOppList[pOpponent->ubID] == NOT_HEARD_OR_SEEN)
+		{
+			continue;
+		}
+
+		// obtain opponent's location and level
+		sGridNo = gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID];
+		bLevel = gbLastKnownOppLevel[pSoldier->ubID][pOpponent->ubID];
+
+		if (TileIsOutOfBounds(sGridNo))
+		{
+			continue;
+		}
+
+		sDistance = PythSpacesAway(sSpot, sGridNo);
+
+		if (sClosestDistance < 0 ||
+			sDistance < sClosestDistance)
+		{
+			sClosestDistance = sDistance;
+		}
+	}
+
+	return sClosestDistance;
+}
+
+BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent)
+{
+	if (!pSoldier || !pOpponent)
+	{
+		return FALSE;
+	}
+
+	if (!pOpponent->bActive ||
+		!pOpponent->bInSector ||
+		pOpponent->stats.bLife == 0 ||
+		CONSIDERED_NEUTRAL(pSoldier, pOpponent) ||
+		pSoldier->bSide == pOpponent->bSide ||
+		pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY ||
+		(pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle(pOpponent->bVehicleID) == 0) ||
+		gTacticalStatus.bBoxingState == BOXING && (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && !(pOpponent->flags.uiStatusFlags & SOLDIER_BOXER) ||
+		pOpponent->ubBodyType == CROW)
+	{
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel )

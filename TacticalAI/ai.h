@@ -297,6 +297,12 @@ BOOLEAN ProneSightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
 BOOLEAN SightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
 
 BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
+UINT8	RedSmokeDanger(INT32 sGridNo, INT8 bLevel);
+BOOLEAN CheckArtilleryStrike(void);
+BOOLEAN CheckRoof(INT32 sGridNo);
+UINT8	TerrainDensity(INT32 sSpot, INT8 bLevel, UINT8 ubDistance, BOOLEAN fGrass);
+INT16 DistanceToClosestActiveOpponent(SOLDIERTYPE *pSoldier, INT32 sSpot);
+BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent);
 
 BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel );
 UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
@@ -320,5 +326,6 @@ BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier);
 
 // sevenfm: distance for tactical AI checks, roughly equal to normal day vision range
 #define TACTICAL_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 2)
+#define BOMB_DETECTION_RANGE (TACTICAL_RANGE / 4)
 
 #endif

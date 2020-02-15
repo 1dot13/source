@@ -1084,7 +1084,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: get out of water and gas"));
 
-	if (bInWater || bInGas || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8))
+	if (bInWater || bInGas || FindBombNearby(pSoldier, pSoldier->sGridNo, BOMB_DETECTION_RANGE) || RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel))
 	{
 		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
 		
@@ -1607,7 +1607,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
 	////////////////////////////////////////////////////////////////////////////
 
-	if ( InGas(pSoldier, pSoldier->sGridNo) || DeepWater( pSoldier->sGridNo, pSoldier->pathing.bLevel ) || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8) )
+	if (InGas(pSoldier, pSoldier->sGridNo) || DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel) || FindBombNearby(pSoldier, pSoldier->sGridNo, BOMB_DETECTION_RANGE))
 	{
 		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
 
@@ -2582,7 +2582,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
 	////////////////////////////////////////////////////////////////////////////
 
-	if (ubCanMove && (bInGas || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8)))
+	if (ubCanMove && (bInGas || bInDeepWater || FindBombNearby(pSoldier, pSoldier->sGridNo, BOMB_DETECTION_RANGE) || RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel)))
 	{
 		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
 		
@@ -4719,7 +4719,7 @@ INT16 ubMinAPCost;
 	////////////////////////////////////////////////////////////////////////////
 
 	// if soldier in water/gas has enough APs left to move at least 1 square
-	if ( ( bInDeepWater || bInGas || FindBombNearby(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/8) ) && ubCanMove)
+	if (ubCanMove && (bInGas || bInDeepWater || FindBombNearby(pSoldier, pSoldier->sGridNo, BOMB_DETECTION_RANGE) || RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel)))
 	{
 		pSoldier->aiData.usActionData = FindNearestUngassedLand(pSoldier);
 		

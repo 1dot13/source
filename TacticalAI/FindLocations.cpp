@@ -423,7 +423,6 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 		pHim->dYPos = dHisY;					// and the 'y'
 	}
 
-
 	// these value should be < 1 million each
 	iHisPosValue = bHisCTGT * Threat[uiThreatIndex].iValue * Threat[uiThreatIndex].iAPs;
 	iMyPosValue =	bMyCTGT *	iMyThreat * iMyAPsLeft;
@@ -438,7 +437,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 
 			sDist = PythSpacesAway(sMyGridNo, sHisGridNo);
 
-			if( sDist < DAY_VISION_RANGE / 2 )
+			if (sDist < (INT32)(DAY_VISION_RANGE / 2))
 			{
 				ubCoverReduction = ubCoverReduction * 2 * sDist / DAY_VISION_RANGE;
 			}
@@ -888,6 +887,9 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		{
 			iCurrentCoverValue -= abs(iCurrentCoverValue) / (8-ubDiff);
 		}
+
+		// sevenfm: penalize locations near red smoke
+		iCurrentCoverValue -= abs(iCurrentCoverValue) * RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel) / 100;
 	}	
 
 #ifdef DEBUGCOVER
@@ -1027,7 +1029,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			}
 
 			// sevenfm: avoid tiles near bombs
-			if( FindBombNearby(pSoldier, sGridNo, DAY_VISION_RANGE / 8))
+			if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
 			{
 				continue;
 			}
@@ -1043,6 +1045,15 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				!InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
 				!pSoldier->aiData.bUnderFire)
 			{
+				continue;
+			}
+
+			// avoid moving into red smoke
+			if (gGameExternalOptions.fAIBetterCover &&
+				RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) && 
+				!RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel))
+			{
+				//DebugCover(pSoldier, String("moving into red smoke, skip"));
 				continue;
 			}
 
@@ -1134,6 +1145,9 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				{
 					iCoverValue -= abs(iCoverValue) / (8-ubDiff);
 				}
+
+				// sevenfm: penalize locations near red smoke			
+				iCoverValue -= abs(iCoverValue) * RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) / 100;
 			}			
 
 			if ( fNight && !( InARoom( sGridNo, NULL ) ) ) // ignore in buildings in case placed there
@@ -1496,6 +1510,12 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				continue;
 			}
 
+			// sevenfm: avoid red smoke
+			if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
+			{
+				continue;
+			}
+
 			// OK, this place shows potential.	How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
 
@@ -1561,35 +1581,34 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 
 INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 {
-	INT32 sGridNo,sClosestLand = NOWHERE,sPathCost,sShortestPath = 1000;
-	INT16 sMaxLeft,sMaxRight,sMaxUp,sMaxDown,sXOffset,sYOffset;
+	INT32 sGridNo, sClosestLand = NOWHERE, sPathCost, sShortestPath = 1000;
+	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 	INT32 iSearchRange;
+	INT16 sDistance, sOriginalDistance;
+	UINT16 usMovementMode = DetermineMovementMode(pSoldier, AI_ACTION_LEAVE_WATER_GAS);
 
-	//NameMessage(pSoldier,"looking for nearest reachable land");
+	sOriginalDistance = DistanceToClosestActiveOpponent(pSoldier, pSoldier->sGridNo);
 
 	// start with a small search area, and expand it if we're unsuccessful
 	// this should almost never need to search farther than 5 or 10 squares...
-	for (iSearchRange = 5; iSearchRange <= 25; iSearchRange += 5)
+	for (iSearchRange = 5; iSearchRange <= 25; iSearchRange += 10)
 	{
 		//NumMessage("Trying iSearchRange = ", iSearchRange);
 
 		// determine maximum horizontal limits
-		sMaxLeft  = min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
+		sMaxLeft = min(iSearchRange, (pSoldier->sGridNo % MAXCOL));
 		//NumMessage("sMaxLeft = ",sMaxLeft);
-		sMaxRight = min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+		sMaxRight = min(iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 		//NumMessage("sMaxRight = ",sMaxRight);
 
 		// determine maximum vertical limits
-		sMaxUp   = min(iSearchRange,(pSoldier->sGridNo / MAXROW));
+		sMaxUp = min(iSearchRange, (pSoldier->sGridNo / MAXROW));
 		//NumMessage("sMaxUp = ",sMaxUp);
-		sMaxDown = min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+		sMaxDown = min(iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 		//NumMessage("sMaxDown = ",sMaxDown);
 
 		// Call FindBestPath to set flags in all locations that we can
-		// walk into within range.	We have to set some things up first...
-
-		// set the distance limit of the square region
-		gubNPCDistLimit = (UINT8) iSearchRange;
+		// walk into within range.	We have to set some things up first...		
 
 		// reset the "reachable" flags in the region we're looking at
 		for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -1597,7 +1616,7 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 			for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 			{
 				sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
-				if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
+				if (!(sGridNo >= 0 && sGridNo < WORLD_MAX))
 				{
 					continue;
 				}
@@ -1606,7 +1625,11 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-		FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );//dnl ch50 071009
+		gubNPCAPBudget = pSoldier->bActionPoints;
+		gubNPCDistLimit = (UINT8)iSearchRange;
+		FindBestPath(pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, usMovementMode, COPYREACHABLE, 0);	//dnl ch50 071009
+		gubNPCAPBudget = 0;
+		gubNPCDistLimit = 0;
 
 		// Turn off the "reachable" flag for his current location
 		// so we don't consider it
@@ -1620,7 +1643,7 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 				// calculate the next potential gridno
 				sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
 				//NumMessage("Testing gridno #",gridno);
-				if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
+				if (!(sGridNo >= 0 && sGridNo < WORLD_MAX))
 				{
 					continue;
 				}
@@ -1631,7 +1654,31 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 				}
 
 				// ignore blacklisted spot
-				if ( sGridNo == pSoldier->pathing.sBlackList )
+				if (sGridNo == pSoldier->pathing.sBlackList)
+				{
+					continue;
+				}
+
+				// sevenfm: check for gas
+				if (InGas(pSoldier, sGridNo))
+				{
+					continue;
+				}
+
+				// check for deep water
+				if (DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel))
+				{
+					continue;
+				}
+
+				// check for bombs nearby
+				if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
+				{
+					continue;
+				}
+
+				// check for red smoke
+				if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) > 0)
 				{
 					continue;
 				}
@@ -1642,14 +1689,37 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
+				// check for red smoke
+				if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) > 0)
+				{
+					continue;
+				}
+
 				// CJC: here, unfortunately, we must calculate a path so we have an AP cost
 
 				// obviously, we're looking for LAND, so water is out!
-				sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
+				//sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
 
-				if (!sPathCost)
+				if (!LegalNPCDestination(pSoldier, sGridNo, IGNORE_PATH, NOWATER, 0))
 				{
 					continue;		// skip on to the next potential grid
+				}
+
+				sPathCost = PlotPath(pSoldier, sGridNo, FALSE, FALSE, FALSE, usMovementMode, pSoldier->bStealthMode, pSoldier->bReverse, 0);
+
+				// check if spot is reachable
+				if(sPathCost == 0)
+				{
+					continue;
+				}
+
+				sDistance = DistanceToClosestActiveOpponent(pSoldier, pSoldier->sGridNo);
+
+				// penalty if moving closer to enemy
+				if (sDistance >= 0 && sOriginalDistance >= 0 && sDistance < sOriginalDistance)
+				{
+					//sPathCost += APBPConstants[AP_MAXIMUM];
+					sPathCost += (sOriginalDistance - sDistance) * (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]);
 				}
 
 				// if this path is shorter than the one to the closest land found so far
@@ -1674,41 +1744,39 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 	return(sClosestLand);
 }
 
-INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
+INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 {
 	INT32 sGridNo, sClosestSpot = NOWHERE, sPathCost;
 	INT32	iSpotValue, iBestSpotValue = 1000;
-	INT16 sMaxLeft,sMaxRight,sMaxUp,sMaxDown,sXOffset,sYOffset;
+	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 	INT32 iSearchRange;
 	INT8 bLightLevel, bCurrLightLevel, bLightDiff;
 	INT32 iRoamRange;
 	INT32 sOrigin;
+	UINT16 usMovementMode = DetermineMovementMode(pSoldier, AI_ACTION_LEAVE_WATER_GAS);
 
-	bCurrLightLevel = LightTrueLevel( pSoldier->sGridNo, pSoldier->pathing.bLevel );
+	bCurrLightLevel = LightTrueLevel(pSoldier->sGridNo, pSoldier->pathing.bLevel);
 
-	iRoamRange = RoamingRange( pSoldier, &sOrigin );
+	iRoamRange = RoamingRange(pSoldier, &sOrigin);
 
 	// start with a small search area, and expand it if we're unsuccessful
 	// this should almost never need to search farther than 5 or 10 squares...
 	for (iSearchRange = 5; iSearchRange <= 15; iSearchRange += 5)
 	{
 		// determine maximum horizontal limits
-		sMaxLeft  = min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
+		sMaxLeft = min(iSearchRange, (pSoldier->sGridNo % MAXCOL));
 		//NumMessage("sMaxLeft = ",sMaxLeft);
-		sMaxRight = min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
+		sMaxRight = min(iSearchRange, MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
 		//NumMessage("sMaxRight = ",sMaxRight);
 
 		// determine maximum vertical limits
-		sMaxUp   = min(iSearchRange,(pSoldier->sGridNo / MAXROW));
+		sMaxUp = min(iSearchRange, (pSoldier->sGridNo / MAXROW));
 		//NumMessage("sMaxUp = ",sMaxUp);
-		sMaxDown = min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
+		sMaxDown = min(iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 		//NumMessage("sMaxDown = ",sMaxDown);
 
 		// Call FindBestPath to set flags in all locations that we can
 		// walk into within range.	We have to set some things up first...
-
-		// set the distance limit of the square region
-		gubNPCDistLimit = (UINT8) iSearchRange;
 
 		// reset the "reachable" flags in the region we're looking at
 		for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -1716,7 +1784,7 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 			for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 			{
 				sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
-				if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
+				if (!(sGridNo >= 0 && sGridNo < WORLD_MAX))
 				{
 					continue;
 				}
@@ -1725,7 +1793,11 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 			}
 		}
 
-		FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );//dnl ch50 071009
+		gubNPCAPBudget = pSoldier->bActionPoints;
+		gubNPCDistLimit = (UINT8)iSearchRange;
+		FindBestPath(pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, usMovementMode, COPYREACHABLE, 0);	//dnl ch50 071009
+		gubNPCAPBudget = 0;
+		gubNPCDistLimit = 0;
 
 		// Turn off the "reachable" flag for his current location
 		// so we don't consider it
@@ -1739,7 +1811,7 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 				// calculate the next potential gridno
 				sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
 				//NumMessage("Testing gridno #",gridno);
-				if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
+				if (!(sGridNo >= 0 && sGridNo < WORLD_MAX))
 				{
 					continue;
 				}
@@ -1750,7 +1822,18 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 				}
 
 				// ignore blacklisted spot
-				if ( sGridNo == pSoldier->pathing.sBlackList )
+				if (sGridNo == pSoldier->pathing.sBlackList)
+				{
+					continue;
+				}
+
+				// require this character to stay within their roam range
+				if (PythSpacesAway(sOrigin, sGridNo) > iRoamRange)
+				{
+					continue;
+				}
+
+				if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
 				{
 					continue;
 				}
@@ -1761,29 +1844,35 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 					continue;
 				}
 
-				// require this character to stay within their roam range
-				if ( PythSpacesAway( sOrigin, sGridNo ) > iRoamRange )
+				if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
 				{
 					continue;
 				}
 
 				// screen out anything brighter than our current best spot
-				bLightLevel = LightTrueLevel( sGridNo, pSoldier->pathing.bLevel );
+				bLightLevel = LightTrueLevel(sGridNo, pSoldier->pathing.bLevel);
 
 				//bLightDiff = gbLightSighting[0][ bCurrLightLevel ] - gbLightSighting[0][ bLightLevel ];
-				bLightDiff = gGameExternalOptions.ubBrightnessVisionMod[ bCurrLightLevel ] - gGameExternalOptions.ubBrightnessVisionMod[ bLightLevel ];
+				bLightDiff = gGameExternalOptions.ubBrightnessVisionMod[bCurrLightLevel] - gGameExternalOptions.ubBrightnessVisionMod[bLightLevel];
 				// if the spot is darker than our current location, then bLightDiff > 0
 				// plus ignore differences of just 1 light level
-				if ( bLightDiff <= 1 )
+				if (bLightDiff <= 1)
 				{
 					continue;
 				}
 
 				// CJC: here, unfortunately, we must calculate a path so we have an AP cost
+				//sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
 
-				sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
+				if (!LegalNPCDestination(pSoldier, sGridNo, IGNORE_PATH, NOWATER, 0))
+				{
+					continue;		// skip on to the next potential grid
+				}
 
-				if (!sPathCost)
+				sPathCost = PlotPath(pSoldier, sGridNo, FALSE, FALSE, FALSE, usMovementMode, pSoldier->bStealthMode, pSoldier->bReverse, 0);
+
+				// check if spot is reachable
+				if (sPathCost == 0)
 				{
 					continue;		// skip on to the next potential grid
 				}
@@ -1791,7 +1880,7 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 				// decrease the "cost" of the spot by the amount of light/darkness
 				iSpotValue = sPathCost * 2 - bLightDiff;
 
-				if ( iSpotValue < iBestSpotValue )
+				if (iSpotValue < iBestSpotValue)
 				{
 					// remember it instead
 					iBestSpotValue = iSpotValue;
@@ -2676,7 +2765,8 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			}
 
 			// sevenfm: don't go into deep water for flanking
-			if( DeepWater( sGridNo, pSoldier->pathing.bLevel ) )
+			if (DeepWater(sGridNo, pSoldier->pathing.bLevel) &&
+				!DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel))
 			{
 				continue;
 			}
@@ -2695,14 +2785,24 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 				continue;
 			}
 
+			// sevenfm: skip buildings if not in building already, because soldiers often run into buildings and stop flanking
+			if (InARoom(sGridNo, NULL) && !InARoom(pSoldier->sGridNo, NULL))
+			{
+				continue;
+			}
+
 			// sevenfm: penalize locations near fresh corpses
 			if( GetNearestRottingCorpseAIWarning( sGridNo ) > 0 )
 			{
 				sTempDist = sTempDist / 2;
+			}			
+
+			if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
+			{
+				continue;
 			}
 
-			// sevenfm: skip buildings if not in building already, because soldiers often run into buildings and stop flanking
-			if( InARoom( sGridNo, NULL ) && !InARoom(pSoldier->sGridNo, NULL) )
+			if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
 			{
 				continue;
 			}
