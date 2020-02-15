@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Palettes>
+	<!--<Palette name = "default" filename = "Palettes\default.act" />	-->
+	<Palette name = "hats" filename = "Palettes\Hats.stp" />
+	<Palette name = "guns_universal" filename = "Palettes\guns_universal.stp" />
+</Palettes>

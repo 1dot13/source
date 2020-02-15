@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LogicalAnimationSurfaces>
+	<Layer name="shadow">
+		<LayerProp filter="" >
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SHADOW" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="legs">
+		<LayerProp filter="" >
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_LEGS" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="body">
+		<LayerProp filter="" >
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_TORSO" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="hands">
+		<LayerProp filter="" >
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HANDS" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="head">
+		<LayerProp filter="" >
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HEAD" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="helmet">
+		<LayerProp filter="IsWearingHat" palette="hats">
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HAT" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+		<LayerProp filter="IsWearingHelmet">
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HELMET" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="gun">
+		<LayerProp filter="IsShotgun" palette="guns_universal">
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SHOTGUN" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+		<LayerProp filter="" >
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_AR" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="backpack">
+		<LayerProp filter="IsWearingBackpack" >
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_BP" animsurface="RGMCROUCH_R_RDY" />
+		</LayerProp>
+	</Layer>
+</LogicalAnimationSurfaces>

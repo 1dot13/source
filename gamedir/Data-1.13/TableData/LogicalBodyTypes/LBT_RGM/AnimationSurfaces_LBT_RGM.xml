@@ -1,0 +1,12 @@
+<!-- note that this is an external entity, so it is not a valid xml file by itself -->
+
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HEAD" file="Anims\LOBOT\RGM\crouched_walk_rifle_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HANDS" file="Anims\LOBOT\RGM\crouched_walk_rifle_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_TORSO" file="Anims\LOBOT\RGM\crouched_walk_rifle_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_LEGS" file="Anims\LOBOT\RGM\crouched_walk_rifle_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_SHADOW" file="Anims\LOBOT\RGM\crouched_walk_rifle_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_AR" file="Anims\LOBOT\RGM\crouched_walk_rifle_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_SHOTGUN" file="Anims\LOBOT\RGM\crouched_walk_shotgun.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_BP" file="Anims\LOBOT\RGM\crouched_walk_rifle_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HAT" file="Anims\LOBOT\RGM\crouched_walk_rifle_hat.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HELMET" file="Anims\LOBOT\RGM\crouched_walk_rifle_helmet.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />

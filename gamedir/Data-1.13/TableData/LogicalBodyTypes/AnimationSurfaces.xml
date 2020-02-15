@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE AnimSurfaces [
+	<!ENTITY AnimSurfaces_LobotRGM SYSTEM "LogicalBodyTypes\LBT_RGM\AnimationSurfaces_LBT_RGM.xml">
+]>
+<AnimSurfaces>
+	&AnimSurfaces_LobotRGM;
+</AnimSurfaces>
