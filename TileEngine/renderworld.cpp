@@ -964,6 +964,12 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 		// Shade gray
 		pShadeTable = pPaletteTable->pEffectShades[1];
 	}
+
+	// Flugente: frozen soldiers appear to be in ice, which we simulate by having the soldier be fully white
+	if (pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO])
+	{
+		pShadeTable = White16BPPPalette;
+	}
 	return pShadeTable;
 }
 
