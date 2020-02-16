@@ -1478,6 +1478,59 @@ BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex )
 	return( FALSE );
 }
 
+BOOLEAN FindStruct(INT32 sSpot, INT8 bLevel, UINT16 usIndex)
+{
+	if (TileIsOutOfBounds(sSpot))
+		return FALSE;
+
+	LEVELNODE	*pStruct = NULL;
+	LEVELNODE	*pOldStruct = NULL;
+
+	if (bLevel == 0)
+	{
+		pStruct = gpWorldLevelData[sSpot].pStructHead;
+	}
+	else
+	{
+		pStruct = gpWorldLevelData[sSpot].pOnRoofHead;
+	}
+
+	// Look through all structs
+	while (pStruct != NULL)
+	{
+		if (pStruct->usIndex == usIndex)
+		{
+			return(TRUE);
+		}
+
+		pOldStruct = pStruct;
+		pStruct = pStruct->pNext;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN FindStructFlag(INT32 sSpot, INT8 bLevel, UINT32 uiFlag)
+{
+	if (bLevel > 0)
+		return FALSE;
+
+	if (TileIsOutOfBounds(sSpot))
+		return FALSE;
+
+	STRUCTURE * pStructure;
+
+	pStructure = FindStructure(sSpot, uiFlag);
+
+	if (pStructure)
+	{
+		return TRUE;
+	}
+
+
+	return FALSE;
+}
+
 // same as RemoveStruct(...), except that this focuses on .pOnRoofHead instead of .pStructHead
 BOOLEAN RemoveOnRoofStruct( INT32 iMapIndex, UINT16 usIndex )
 {

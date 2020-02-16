@@ -296,16 +296,22 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier);
 BOOLEAN ProneSightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
 BOOLEAN SightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
 
+BOOLEAN CheckDoorAtGridno(UINT32 usGridNo);
+BOOLEAN CheckDoorNearGridno(UINT32 usGridNo);
 BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 UINT8	RedSmokeDanger(INT32 sGridNo, INT8 bLevel);
 BOOLEAN CheckArtilleryStrike(void);
 BOOLEAN CheckRoof(INT32 sGridNo);
 UINT8	TerrainDensity(INT32 sSpot, INT8 bLevel, UINT8 ubDistance, BOOLEAN fGrass);
+BOOLEAN	FindNearbyExplosiveStructure(INT32 sSpot, INT8 bLevel);
 INT16 DistanceToClosestActiveOpponent(SOLDIERTYPE *pSoldier, INT32 sSpot);
 BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent);
 
 BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel );
 UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
+
+BOOLEAN CheckNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fCheckWater, BOOLEAN fCheckLight);
+UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fCheckWater, BOOLEAN fCheckLight);
 
 BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel);
 BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier);

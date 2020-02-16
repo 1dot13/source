@@ -1499,19 +1499,7 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				continue;
 			}
 
-			//Madd: skip lighted spots
-			if ( InLightAtNight( sGridNo, pSoldier->pathing.bLevel ) )
-				continue;
-
-			// sevenfm: avoid staying at north edge
-			if (!gGameExternalOptions.fAITacticalRetreat &&
-				NorthSpot(sGridNo, pSoldier->pathing.bLevel))
-			{
-				continue;
-			}
-
-			// sevenfm: avoid red smoke
-			if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
+			if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, TRUE))
 			{
 				continue;
 			}
@@ -1665,38 +1653,7 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
-				// sevenfm: check for gas
-				if (InGas(pSoldier, sGridNo))
-				{
-					continue;
-				}
-
-				// check for deep water
-				if (DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel))
-				{
-					continue;
-				}
-
-				// check for bombs nearby
-				if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
-				{
-					continue;
-				}
-
-				// check for red smoke
-				if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) > 0)
-				{
-					continue;
-				}
-
-				// sevenfm: avoid staying at north edge
-				if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
-				{
-					continue;
-				}
-
-				// check for red smoke
-				if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) > 0)
+				if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, FALSE))
 				{
 					continue;
 				}
@@ -1839,18 +1796,12 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
-				if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
+				if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, TRUE))
 				{
 					continue;
 				}
 
-				// sevenfm: avoid staying at north edge
-				if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
-				{
-					continue;
-				}
-
-				if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
+				if (InLightAtNight(sGridNo, pSoldier->pathing.bLevel))
 				{
 					continue;
 				}
@@ -2026,24 +1977,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 				continue;
 			}
 
-			// exclude locations with tear/mustard gas (at this point, smoke is cool!)
-			if (InGas(pSoldier, sGridNo))
-			{
-				continue;
-			}
-
-			if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
-			{
-				continue;
-			}
-
-			// sevenfm: avoid staying at north edge
-			/*if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
-			{
-			continue;
-			}*/
-
-			if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
+			if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, FALSE))
 			{
 				continue;
 			}
@@ -2775,16 +2709,6 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 				continue;
 			}
 
-			// exclude locations with tear/mustard gas (at this point, smoke is cool!)
-			if ( InGas( pSoldier, sGridNo ) )
-			{
-				continue;
-			}
-
-			//Madd: skip lighted spots
-			if ( InLightAtNight( sGridNo, pSoldier->pathing.bLevel ) )
-				continue;
-
 			// sevenfm: skip tiles too close to edge
 			if ( PythSpacesAway( FindNearestEdgePoint ( sGridNo ), sGridNo ) <= 2 )
 			{
@@ -2806,8 +2730,13 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 				continue;
 			}
 
-			// sevenfm: avoid staying at north edge
-			if (NorthSpot(sGridNo, pSoldier->pathing.bLevel))
+			// avoid fresh corpses
+			if (GetNearestRottingCorpseAIWarning(sGridNo) > 0)
+			{
+				continue;
+			}
+
+			if (!CheckNPCDestination(pSoldier, sGridNo, FALSE, TRUE))
 			{
 				continue;
 			}
@@ -2823,20 +2752,16 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 				continue;
 			}
 
-			// sevenfm: penalize locations near fresh corpses
-			if( GetNearestRottingCorpseAIWarning( sGridNo ) > 0 )
+			// sevenfm: penalize locations too far from noise gridno
+			if (PythSpacesAway(sGridNo, sPos) > MAX_FLANK_DIST_RED)
 			{
 				sTempDist = sTempDist / 2;
-			}			
-
-			if (FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
-			{
-				continue;
 			}
 
-			if (RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
+			// sevenfm: try to flank closer to vision distance limit for faster flanking
+			if (PythSpacesAway(sGridNo, sPos) > sDistanceVisible + 10)
 			{
-				continue;
+				sTempDist = sTempDist / 2;
 			}
 
 			// sevenfm: penalize locations with no sight cover from noise gridno (supposed that we are sneaking)
@@ -2844,18 +2769,6 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 				LocationToLocationLineOfSightTest( sGridNo, pSoldier->pathing.bLevel, sPos, pSoldier->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS) )
 			{
 				//continue;
-				sTempDist = sTempDist / 2;
-			}
-
-			// sevenfm: penalize locations too far from noise gridno
-			if( PythSpacesAway( sGridNo, sPos) > MAX_FLANK_DIST_RED )
-			{
-				sTempDist = sTempDist / 2;
-			}
-
-			// sevenfm: try to flank closer to vision distance limit for faster flanking
-			if( PythSpacesAway( sGridNo, sPos) > sDistanceVisible + 10 )
-			{
 				sTempDist = sTempDist / 2;
 			}
 

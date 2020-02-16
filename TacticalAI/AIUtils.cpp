@@ -945,16 +945,22 @@ INT16 RandomFriendWithin(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
-				// if our movement range is NOT restricted
-				if (!fRangeRestricted || (SpacesAway(usOrigin,usDest) <= usMaxDist))
+				if (SpacesAway(usOrigin, usDest) > usMaxDist)
 				{
-					if (LegalNPCDestination(pSoldier,usDest,ENSURE_PATH,NOWATER, 0))
-					{
-						fFound = TRUE;			// found a spot
-						pSoldier->aiData.usActionData = usDest;	// store this->pathing.sDestination
-						pSoldier->pathing.bPathStored = TRUE;	// optimization - Ian
-						break;					// stop checking in other directions
-					}
+					continue;
+				}
+
+				if (!CheckNPCDestination(pSoldier, usDest, TRUE, TRUE))
+				{
+					continue;
+				}
+
+				if (LegalNPCDestination(pSoldier, usDest, ENSURE_PATH, NOWATER, 0))
+				{
+					fFound = TRUE;			// found a spot
+					pSoldier->aiData.usActionData = usDest;	// store this->pathing.sDestination
+					pSoldier->pathing.bPathStored = TRUE;	// optimization - Ian
+					break;					// stop checking in other directions
 				}
 			}
 		}
@@ -1105,6 +1111,12 @@ INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier)
 			if ( usRoom && InARoom( sRandDest, &usTempRoom ) && usTempRoom != usRoom )
 			{
 				// outside of room available for patrol!
+				sRandDest = NOWHERE;
+				continue;
+			}
+
+			if (!CheckNPCDestination(pSoldier, sRandDest, TRUE, TRUE))
+			{
 				sRandDest = NOWHERE;
 				continue;
 			}
@@ -4212,6 +4224,47 @@ UINT8 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier )
 	return ubFriends;
 }
 
+BOOLEAN CheckDoorAtGridno(UINT32 usGridNo)
+{
+	STRUCTURE *pStructure;
+
+	pStructure = FindStructure(usGridNo, STRUCTURE_ANYDOOR);
+	if (pStructure != NULL)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN CheckDoorNearGridno(UINT32 usGridNo)
+{
+	UINT8	ubMovementCost;
+	INT32	sTempGridNo;
+	UINT8	ubDirection;
+
+	if (CheckDoorAtGridno(usGridNo))
+	{
+		return TRUE;
+	}
+
+	for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+	{
+		sTempGridNo = NewGridNo(usGridNo, DirectionInc(ubDirection));
+
+		if (sTempGridNo != usGridNo)
+		{
+			ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][0];
+			if (IS_TRAVELCOST_DOOR(ubMovementCost))
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
 BOOLEAN FindBombNearby( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )
 {
 	UINT32	uiBombIndex;
@@ -4356,6 +4409,34 @@ BOOLEAN CheckRoof(INT32 sGridNo)
 	if (FindStructure(sGridNo, STRUCTURE_ROOF) != NULL)
 	{
 		return TRUE;
+	}
+
+	return FALSE;
+}
+
+
+BOOLEAN	FindNearbyExplosiveStructure(INT32 sSpot, INT8 bLevel)
+{
+	INT32	sTempGridNo;
+	UINT8	ubDirection;
+
+	if (TileIsOutOfBounds(sSpot))
+	{
+		return 0;
+	}
+
+	// check adjacent reachable tiles
+	for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+	{
+		sTempGridNo = NewGridNo(sSpot, DirectionInc(ubDirection));
+
+		if (sTempGridNo != sSpot)
+		{
+			if (FindStructFlag(sTempGridNo, bLevel, STRUCTURE_EXPLOSIVE))
+			{
+				return TRUE;
+			}
+		}
 	}
 
 	return FALSE;
@@ -4616,6 +4697,62 @@ BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier)
 		ARMED_VEHICLE(pSoldier) ||
 		pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ||
 		AM_A_ROBOT(pSoldier))
+		return FALSE;
+
+	return TRUE;
+}
+
+UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fCheckWater, BOOLEAN fCheckLight)
+{
+	if (!pSoldier)
+		return 0;
+
+	if (TileIsOutOfBounds(sGridNo))
+		return 0;
+
+	BOOLEAN fCautious = FALSE;
+	BOOLEAN fGreen = FALSE;
+	UINT8 ubLevel = 0;
+
+	if ((pSoldier->aiData.bAlertStatus >= STATUS_RED || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE))
+		fCautious = TRUE;
+
+	if (pSoldier->aiData.bAlertStatus < STATUS_YELLOW)
+		fGreen = TRUE;
+
+	if (!gGameExternalOptions.fAITacticalRetreat && NorthSpot(sGridNo, pSoldier->pathing.bLevel) ||
+		pSoldier->ubProfile == NO_PROFILE && fGreen && CheckDoorNearGridno(sGridNo))
+		ubLevel = 1;
+
+	if (fCautious && (fCheckLight && InLightAtNight(sGridNo, pSoldier->pathing.bLevel) || FindNearbyExplosiveStructure(sGridNo, pSoldier->pathing.bLevel)))
+		ubLevel = 2;
+
+	if (fCheckWater && DeepWater(sGridNo, pSoldier->pathing.bLevel) ||
+		RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
+		ubLevel = 3;
+
+	if (InGas(pSoldier, sGridNo) ||
+		FindBombNearby(pSoldier, sGridNo, BOMB_DETECTION_RANGE))
+		ubLevel = 4;
+
+	return ubLevel;
+}
+
+BOOLEAN CheckNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fCheckWater, BOOLEAN fCheckLight)
+{
+	if (!pSoldier)
+		return FALSE;
+
+	if (TileIsOutOfBounds(sGridNo))
+		return FALSE;
+
+	// find current danger level
+	UINT8 ubLevel = SpotDangerLevel(pSoldier, pSoldier->sGridNo, fCheckWater, fCheckLight);
+	// find danger level at target spot
+	UINT8 ubTargetLevel = SpotDangerLevel(pSoldier, sGridNo, fCheckWater, fCheckLight);
+
+	// avoid moving into dangerous spot
+	if (ubTargetLevel > 0 && ubTargetLevel >= ubLevel)
 		return FALSE;
 
 	return TRUE;

@@ -170,4 +170,8 @@ void		SetTreeTopStateForMap();
 BOOLEAN IsOknoLevel( INT32 sGridNo ); 
 BOOLEAN IsLegionLevel( INT32 sGridNo ); 
 
+// sevenfm
+BOOLEAN FindStruct(INT32 sSpot, INT8 bLevel, UINT16 usIndex);
+BOOLEAN FindStructFlag(INT32 sSpot, INT8 bLevel, UINT32 uiFlag);
+
 #endif
