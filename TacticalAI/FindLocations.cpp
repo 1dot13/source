@@ -1499,7 +1499,7 @@ INT32 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				continue;
 			}
 
-			if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, TRUE))
+			if (!CheckNPCDestination(pSoldier, sGridNo))
 			{
 				continue;
 			}
@@ -1578,14 +1578,12 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 	INT32 sGridNo, sClosestLand = NOWHERE, sPathCost, sShortestPath = 1000;
 	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 	INT32 iSearchRange;
-	INT16 sDistance, sOriginalDistance;
 	UINT16 usMovementMode = DetermineMovementMode(pSoldier, AI_ACTION_LEAVE_WATER_GAS);
-
-	sOriginalDistance = DistanceToClosestActiveOpponent(pSoldier, pSoldier->sGridNo);
+	BOOLEAN fFoundReachable = FALSE;
 
 	// start with a small search area, and expand it if we're unsuccessful
 	// this should almost never need to search farther than 5 or 10 squares...
-	for (iSearchRange = 5; iSearchRange <= 25; iSearchRange += 10)
+	for (iSearchRange = 5; iSearchRange <= 35 && (fFoundReachable || iSearchRange <= 5); iSearchRange += 10)
 	{
 		//NumMessage("Trying iSearchRange = ", iSearchRange);
 
@@ -1619,7 +1617,8 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-		gubNPCAPBudget = pSoldier->bActionPoints;
+		//gubNPCAPBudget = pSoldier->bActionPoints;
+		gubNPCAPBudget = 0;
 		gubNPCDistLimit = (UINT8)iSearchRange;
 		FindBestPath(pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, usMovementMode, COPYREACHABLE, 0);	//dnl ch50 071009
 		gubNPCAPBudget = 0;
@@ -1647,13 +1646,15 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
+				fFoundReachable = TRUE;
+
 				// ignore blacklisted spot
 				if (sGridNo == pSoldier->pathing.sBlackList)
 				{
 					continue;
 				}
 
-				if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, FALSE))
+				if (!CheckNPCDestination(pSoldier, sGridNo))
 				{
 					continue;
 				}
@@ -1674,15 +1675,6 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 				if(sPathCost == 0)
 				{
 					continue;
-				}
-
-				sDistance = DistanceToClosestActiveOpponent(pSoldier, pSoldier->sGridNo);
-
-				// penalty if moving closer to enemy
-				if (sDistance >= 0 && sOriginalDistance >= 0 && sDistance < sOriginalDistance)
-				{
-					//sPathCost += APBPConstants[AP_MAXIMUM];
-					sPathCost += (sOriginalDistance - sDistance) * (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]);
 				}
 
 				// if this path is shorter than the one to the closest land found so far
@@ -1717,6 +1709,7 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 	INT32 iRoamRange;
 	INT32 sOrigin;
 	UINT16 usMovementMode = DetermineMovementMode(pSoldier, AI_ACTION_LEAVE_WATER_GAS);
+	BOOLEAN fFoundReachable = FALSE;
 
 	bCurrLightLevel = LightTrueLevel(pSoldier->sGridNo, pSoldier->pathing.bLevel);
 
@@ -1724,7 +1717,7 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 
 	// start with a small search area, and expand it if we're unsuccessful
 	// this should almost never need to search farther than 5 or 10 squares...
-	for (iSearchRange = 5; iSearchRange <= 15; iSearchRange += 5)
+	for (iSearchRange = 5; iSearchRange <= 25 && (fFoundReachable || iSearchRange <= 5); iSearchRange += 5)
 	{
 		// determine maximum horizontal limits
 		sMaxLeft = min(iSearchRange, (pSoldier->sGridNo % MAXCOL));
@@ -1756,7 +1749,8 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-		gubNPCAPBudget = pSoldier->bActionPoints;
+		//gubNPCAPBudget = pSoldier->bActionPoints;
+		gubNPCAPBudget = 0;
 		gubNPCDistLimit = (UINT8)iSearchRange;
 		FindBestPath(pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, usMovementMode, COPYREACHABLE, 0);	//dnl ch50 071009
 		gubNPCAPBudget = 0;
@@ -1784,6 +1778,8 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
+				fFoundReachable = TRUE;
+
 				// ignore blacklisted spot
 				if (sGridNo == pSoldier->pathing.sBlackList)
 				{
@@ -1796,7 +1792,7 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 					continue;
 				}
 
-				if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, TRUE))
+				if (!CheckNPCDestination(pSoldier, sGridNo))
 				{
 					continue;
 				}
@@ -1977,7 +1973,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 				continue;
 			}
 
-			if (!CheckNPCDestination(pSoldier, sGridNo, TRUE, FALSE))
+			if (!CheckNPCDestination(pSoldier, sGridNo))
 			{
 				continue;
 			}
@@ -2716,7 +2712,8 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 			}
 
 			// sevenfm: don't go into deep water for flanking
-			if (DeepWater(sGridNo, pSoldier->pathing.bLevel) &&
+			if (!AllowDeepWaterFlanking(pSoldier) &&
+				DeepWater(sGridNo, pSoldier->pathing.bLevel) &&
 				!DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel))
 			{
 				continue;
@@ -2736,7 +2733,7 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 				continue;
 			}
 
-			if (!CheckNPCDestination(pSoldier, sGridNo, FALSE, TRUE))
+			if (!CheckNPCDestination(pSoldier, sGridNo))
 			{
 				continue;
 			}

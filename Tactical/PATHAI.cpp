@@ -3147,6 +3147,17 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				goto NEXTDIR;
 			}
 
+			// sevenfm: skip deep water if not in deep water already
+			if (!(s->flags.uiStatusFlags & SOLDIER_PC) &&
+				s->ubProfile == NO_PROFILE &&
+				s->aiData.bOrders != SEEKENEMY &&
+				DeepWater(newLoc, bLevel) &&
+				!DeepWater(s->sGridNo, bLevel) &&
+				!FindNotDeepWaterNearby(newLoc, bLevel))
+			{
+				goto NEXTDIR;
+			}
+
 			// sevenfm: skip gas if not in gas already
 			if (!(s->flags.uiStatusFlags & SOLDIER_PC) &&
 				InGasSpot(s, newLoc, bLevel) &&
@@ -3155,7 +3166,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				goto NEXTDIR;
 			}
 
-			// WANNE: Know mines (for enemy or player) do not explode - BEGIN
+			// WANNE: Known mines (for enemy or player) do not explode - BEGIN
 			if ( gpWorldLevelData[newLoc].uiFlags & (MAPELEMENT_ENEMY_MINE_PRESENT | MAPELEMENT_PLAYER_MINE_PRESENT) )
 			{
 				if (s->bSide == 0)

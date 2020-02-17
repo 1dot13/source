@@ -780,7 +780,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 
 		// get the location of the closest reachable opponent
-		sClosestDisturbance = ClosestReachableDisturbance(pSoldier,ubUnconsciousOK, &fChangeLevel);
+		sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fChangeLevel);
 		// if there is an opponent reachable		
 		if (!TileIsOutOfBounds(sClosestDisturbance))
 		{
@@ -1160,7 +1160,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 							if (pSoldier->aiData.bAttitude != AGGRESSIVE)
 							{
 								// get the location of the closest CONSCIOUS reachable opponent
-								sClosestDisturbance = ClosestReachableDisturbance(pSoldier,FALSE,&fChangeLevel);
+								sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fChangeLevel);
 
 								// if we found one								
 								if (!TileIsOutOfBounds(sClosestDisturbance))

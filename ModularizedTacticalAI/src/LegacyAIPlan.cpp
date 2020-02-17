@@ -93,7 +93,7 @@ namespace AI
                         get_npc()->aiData.bAction = DecideActionYellow(get_npc());
                         break;
                     case STATUS_RED:
-                        get_npc()->aiData.bAction = DecideActionRed(get_npc(),TRUE);
+                        get_npc()->aiData.bAction = DecideActionRed(get_npc());
                         break;
                     case STATUS_BLACK:
                         get_npc()->aiData.bAction = DecideActionBlack(get_npc());

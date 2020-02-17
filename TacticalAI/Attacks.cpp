@@ -655,6 +655,12 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			iAttackValue /= 4;
 		}
 
+		// sevenfm: dying, cowering or unconscious soldiers have very low priority
+		if( pOpponent->stats.bLife < OKLIFE || pOpponent->bCollapsed || pOpponent->bBreathCollapsed )
+		{
+			iAttackValue /= 4;
+		}
+
 #ifdef DEBUGATTACKS
 		DebugAI( String( "CalcBestShot: best AttackValue vs %d = %d\n",uiLoop,iAttackValue ) );
 #endif
@@ -670,14 +676,32 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				iPercentBetter = ((ubChanceToReallyHit * 100) / pBestShot->ubChanceToReallyHit) - 100;
 
 				//dnl ch62 180813 ignore firing into breathless targets if there are targets in better condition
-				if((Menptr[pBestShot->ubOpponent].bCollapsed || Menptr[pBestShot->ubOpponent].bBreathCollapsed) && Menptr[pBestShot->ubOpponent].bBreath < OKBREATH && Menptr[pBestShot->ubOpponent].bBreath < pOpponent->bBreath)
+				// sevenfm: check that best opponent exists
+				if (pBestShot->ubOpponent != NOBODY &&
+					(Menptr[pBestShot->ubOpponent].bCollapsed || Menptr[pBestShot->ubOpponent].bBreathCollapsed) &&
+					Menptr[pBestShot->ubOpponent].bBreath < OKBREATH
+					&& Menptr[pBestShot->ubOpponent].bBreath < pOpponent->bBreath)
+				{
 					iPercentBetter = PERCENT_TO_IGNORE_THREAT;
+				}
+
+				// sevenfm: if best opponent is dying and new opponent is ok, use new opponent
+				if (pBestShot->ubOpponent != NOBODY &&
+					Menptr[pBestShot->ubOpponent].stats.bLife < OKLIFE &&
+					pOpponent->stats.bLife >= OKLIFE)
+				{
+					iPercentBetter = PERCENT_TO_IGNORE_THREAT;
+				}
 
 				// if this chance to really hit is more than 50% worse, and the other
 				// guy is conscious at all
-				if ((iPercentBetter < -PERCENT_TO_IGNORE_THREAT) && (Menptr[pBestShot->ubOpponent].stats.bLife >= OKLIFE))
+				if (iPercentBetter < -PERCENT_TO_IGNORE_THREAT &&
+					pBestShot->ubOpponent != NOBODY &&
+					Menptr[pBestShot->ubOpponent].stats.bLife >= OKLIFE)
+				{
 					// then stick with the older guy as the better target
 					continue;
+				}
 
 				// if this chance to really hit between 50% worse to 50% better
 				if (iPercentBetter < PERCENT_TO_IGNORE_THREAT)
@@ -1805,17 +1829,23 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 
 				// if this chance to really hit is more than 50% worse, and the other
 				// guy is conscious at all
-				if ((iPercentBetter < -PERCENT_TO_IGNORE_THREAT) && (Menptr[pBestStab->ubOpponent].stats.bLife >= OKLIFE))
+				if (iPercentBetter < -PERCENT_TO_IGNORE_THREAT &&
+					pBestStab->ubOpponent != NOBODY &&
+					Menptr[pBestStab->ubOpponent].stats.bLife >= OKLIFE)
+				{
 					// then stick with the older guy as the better target
 					continue;
+				}
 
 				// if this chance to really hit between 50% worse to 50% better
 				if (iPercentBetter < PERCENT_TO_IGNORE_THREAT)
 				{
 					// then the one with the higher ATTACK VALUE is the better target
 					if (iAttackValue < pBestStab->iAttackValue)
+					{
 						// the previous guy is more important since he's more dangerous
 						continue;			// next opponent
+					}
 				}
 			}
 
@@ -2004,7 +2034,9 @@ UINT8 NumMercsCloseTo( INT32 sGridNo, UINT8 ubMaxDist )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife >= OKLIFE )
+		// sevenfm: count all teams except creatures
+		if (pSoldier && pSoldier->bTeam != CREATURE_TEAM && pSoldier->stats.bLife >= OKLIFE)
+		//if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife >= OKLIFE )
 		{
 			if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) <= ubMaxDist)
 			{

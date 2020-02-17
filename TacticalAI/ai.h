@@ -177,7 +177,7 @@ INT8	DecideAction(SOLDIERTYPE *pSoldier);
 INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);
 INT8 DecideActionEscort(SOLDIERTYPE *pSoldier);
 INT8 DecideActionGreen(SOLDIERTYPE *pSoldier);
-INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK);
+INT8 DecideActionRed(SOLDIERTYPE *pSoldier);
 INT8 DecideActionYellow(SOLDIERTYPE *pSoldier);
 
 INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier );
@@ -310,8 +310,9 @@ BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent);
 BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel );
 UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
 
-BOOLEAN CheckNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fCheckWater, BOOLEAN fCheckLight);
-UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fCheckWater, BOOLEAN fCheckLight);
+BOOLEAN CheckNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo);
+UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo);
+BOOLEAN AllowDeepWaterFlanking(SOLDIERTYPE *pSoldier);
 
 BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel);
 BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier);

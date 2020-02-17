@@ -22,6 +22,8 @@
 	#include "random.h"
 	#include "render fun.h"
 	#include "GameSettings.h"
+	// sevenfm
+	#include "PATHAI.H"
 #endif
 
 extern BOOLEAN	gfBasement;
@@ -4176,3 +4178,48 @@ BOOLEAN IsLegionLevel( INT32 sGridNo )
 
 }
 //-------------------------------------------------------------------
+
+// sevenfm: check adjacent tiles
+BOOLEAN FindNotDeepWaterNearby(INT32 sSpot, BOOLEAN bLevel)
+{
+	UINT8	ubMovementCost;
+	INT32	sTempGridNo;
+	UINT8	ubDirection;
+
+	// check adjacent reachable tiles
+	for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+	{
+		sTempGridNo = NewGridNo(sSpot, DirectionInc(ubDirection));
+		ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+		if (ubMovementCost < TRAVELCOST_BLOCKED &&
+			!DeepWater(sTempGridNo, bLevel))
+		{
+			return(TRUE);
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN FindNotWaterNearby(INT32 sSpot, BOOLEAN bLevel)
+{
+	UINT8	ubMovementCost;
+	INT32	sTempGridNo;
+	UINT8	ubDirection;
+
+	// check adjacent reachable tiles
+	for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+	{
+		sTempGridNo = NewGridNo(sSpot, DirectionInc(ubDirection));
+		ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+		if (ubMovementCost < TRAVELCOST_BLOCKED &&
+			!Water(sTempGridNo, bLevel))
+		{
+			return(TRUE);
+		}
+	}
+
+	return FALSE;
+}

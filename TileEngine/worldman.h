@@ -66,6 +66,9 @@ UINT8	GetTerrainType( INT32 sGridNo );
 BOOLEAN Water( INT32 sGridNo, BOOLEAN bLevel );
 BOOLEAN DeepWater( INT32 sGridNo, BOOLEAN bLevel );
 BOOLEAN WaterTooDeepForAttacks( INT32 sGridNo, BOOLEAN bLevel );
+// sevenfm
+BOOLEAN FindNotDeepWaterNearby(INT32 sSpot, BOOLEAN bLevel);
+BOOLEAN FindNotWaterNearby(INT32 sSpot, BOOLEAN bLevel);
 
 // Structure manipulation routines
 BOOLEAN RemoveStruct( INT32 iMapIndex, UINT16 usIndex );

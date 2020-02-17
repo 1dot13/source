@@ -660,9 +660,9 @@ extern CLOTHES_STRUCT Clothes[CLOTHES_MAX];
 // but they can't attack empty vehicles!!
 // the_bob: also, creatures won't attack crows, because it seems to confuse the AI and cause freezes
 #define CONSIDERED_NEUTRAL( me, them )  (\
-										( them->aiData.bNeutral || them->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER|SOLDIER_POW) || (them->flags.uiStatusFlags & SOLDIER_PC && them->stats.bLife < OKLIFE) ) \
-										&& ( me->bTeam != CREATURE_TEAM || ( (them->flags.uiStatusFlags & SOLDIER_VEHICLE) || (them->ubBodyType == CROW) ) ) \
-										&& !( me->flags.uiStatusFlags & SOLDIER_BOXER && them->flags.uiStatusFlags & SOLDIER_BOXER ) \
+										(them->aiData.bNeutral || them->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER|SOLDIER_POW)) \
+										&& (me->bTeam != CREATURE_TEAM || (them->flags.uiStatusFlags & SOLDIER_VEHICLE) || (them->ubBodyType == CROW)) \
+										&& !(me->flags.uiStatusFlags & SOLDIER_BOXER && them->flags.uiStatusFlags & SOLDIER_BOXER) \
 										)
 
 typedef struct
