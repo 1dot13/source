@@ -424,6 +424,8 @@ enum
 #define SOLDIER_MERC_POW_LOCATIONKNOWN		0x00020000					// we are a POW, but the player has discovered our location
 #define SOLDIER_SURGERY_BOOSTED				0x00040000					// we are a boosted performing surgery (e.g. by using up a blood bag)
 
+#define SOLDIER_DRAG_SOUND					0x00080000					// played sound when started dragging
+
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
 

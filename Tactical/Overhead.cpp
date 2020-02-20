@@ -2760,6 +2760,9 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
     PROFILLUA_ubDirectiono = pSoldier->ubDirection;
     PROFILLUA_bTeam = pSoldier->bTeam;
 
+	// sevenfm: reached new spot, enabled dragging sound
+	pSoldier->usSoldierFlagMask2 &= ~SOLDIER_DRAG_SOUND;
+
     // ATE; Handle bad guys, as they fade, to cancel it if
     // too long...
     // ONLY if fading IN!
@@ -8824,6 +8827,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 				{
 					pSoldier->bScopeMode = USE_BEST_SCOPE;
 				}
+
+				// sevenfm: stop dragging when changing stance/cowering under suppression
+				pSoldier->CancelDrag();
 
                 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: change stance"));
                 pSoldier->ChangeSoldierStance( ubNewStance );

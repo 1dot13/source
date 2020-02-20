@@ -5497,6 +5497,12 @@ UINT8 MovementNoise(SOLDIERTYPE *pSoldier)
 		}
 	}
 
+	// sevenfm: if dragging something, add dragging sound volume
+	if(pSoldier->IsDraggingSomeone())
+	{
+		sVolume = max(sVolume, MAX_MOVEMENT_NOISE / 2 + Random(MAX_MOVEMENT_NOISE) + bGroundVolumeModifier);
+	}
+
 	sVolume = max(0, sVolume);
 	sVolume = min(255, sVolume);
 

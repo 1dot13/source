@@ -712,10 +712,15 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 						continue;			// next opponent
 				}
 			}
-			//dnl ch62 180813 ignore firing into dying targets
-			// sevenfm: disabled because of problems with AI
-			//if((pOpponent->bCollapsed || pOpponent->bBreathCollapsed) && pOpponent->stats.bLife < OKLIFE/* && !(pSoldier->aiData.bAttitude == AGGRESSIVE && Random(100) < 20)*/)
-				//continue;
+
+			// sevenfm: if new opponent is dying and best opponent is ok, ignore new opponent
+			if (pBestShot->ubOpponent != NOBODY &&
+				Menptr[pBestShot->ubOpponent].stats.bLife >= OKLIFE &&
+				pOpponent->stats.bLife < OKLIFE)
+			{
+				//DebugShot(pSoldier, String("new opponent is dying, best opponent is ok - skip"));
+				continue;
+			}
 
 			// OOOF!	That was a lot of work!	But we've got a new best target!
 			pBestShot->ubPossible			= TRUE;

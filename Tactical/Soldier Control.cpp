@@ -3037,7 +3037,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				else if (Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SMOKE ||
 					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_TEARGAS ||
 					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_MUSTGAS ||
-					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SMOKE)
+					Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SIGNAL_SMOKE)
 				{
 					if (fDelay)
 						sprintf(zFilename, "sounds\\grenade\\grenade_gas_delay.ogg");
@@ -9967,6 +9967,17 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 		{
 			// get up you hoser!
 
+			// sevenfm: if someone is dragging this soldier, cancel drag
+			SOLDIERTYPE *pSoldier;
+			for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+			{
+				pSoldier = MercPtrs[uiLoop];
+				if (pSoldier && pSoldier->usDragPersonID == this->ubID)
+				{
+					pSoldier->CancelDrag();
+				}
+			}
+
 			this->bCollapsed = FALSE;
 			this->bTurnsCollapsed = 0;
 
@@ -11451,7 +11462,7 @@ InternalpSoldier->GivingSoldierCancelServices(, FALSE );
 }
 */
 
-
+INT16 gsDragSoundNum = -1;
 
 void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckRange )
 {
@@ -11577,6 +11588,33 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 	// Flugente: drag people	
 	if ( currentlydragging )
 	{
+		// sevenfm: play sound while dragging
+		if (!(this->usSoldierFlagMask2 & SOLDIER_DRAG_SOUND))
+		{
+			CHAR8	zFilename[512];
+			// prepare drag sound
+			if (gsDragSoundNum < 0)
+			{
+				gsDragSoundNum = 0;
+				do
+				{
+					gsDragSoundNum++;
+					sprintf(zFilename, "Sounds\\Misc\\DragBody%d.ogg", gsDragSoundNum);					
+				} while (FileExists(zFilename));
+				gsDragSoundNum--;
+			}
+			if (gsDragSoundNum > 0)
+			{
+				sprintf(zFilename, "Sounds\\Misc\\DragBody%d.ogg", Random(gsDragSoundNum) + 1);
+				if (FileExists(zFilename))
+				{
+					PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
+				}
+
+				this->usSoldierFlagMask2 |= SOLDIER_DRAG_SOUND;
+			}
+		}
+
 		if ( this->usDragPersonID != NOBODY )
 		{
 			SOLDIERTYPE* pSoldier = MercPtrs[this->usDragPersonID];
@@ -20096,6 +20134,17 @@ void	SOLDIERTYPE::SetDragOrderPerson( UINT16 usID )
 {
 	if ( CanDragPerson( usID ) )
 	{
+		// sevenfm: if someone is dragging this soldier, cancel drag
+		SOLDIERTYPE *pSoldier;
+		for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+		{
+			pSoldier = MercPtrs[uiLoop];
+			if (pSoldier && pSoldier->usDragPersonID == usID)
+			{
+				pSoldier->CancelDrag();
+			}
+		}
+
 		CancelDrag();
 
 		this->usDragPersonID = usID;
@@ -20106,6 +20155,17 @@ void	SOLDIERTYPE::SetDragOrderCorpse( UINT32 usID )
 {
 	if ( CanDragCorpse( usID ) )
 	{
+		// sevenfm: if someone is dragging this corpse, cancel drag
+		SOLDIERTYPE *pSoldier;
+		for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+		{
+			pSoldier = MercPtrs[uiLoop];
+			if (pSoldier && pSoldier->sDragCorpseID == usID)
+			{
+				pSoldier->CancelDrag();
+			}
+		}
+
 		CancelDrag();
 
 		this->sDragCorpseID = usID;
