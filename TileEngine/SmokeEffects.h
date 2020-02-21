@@ -71,6 +71,8 @@ void UpdateSmokeEffectGraphics( );
 // Flugente: get the gridno and blevel of a random smoke signal, if one exists
 BOOL GetRandomSignalSmokeGridNo(INT32* psGridNo);
 
+// sevenfm: check if smoke effect of certain type is present at gridno
+BOOLEAN CheckSmokeEffect(INT32 sGridNo, INT8 bLevel, INT8 bType);
 // find smoke effect on visible screen
 BOOLEAN FindVisibleSmokeEffect(INT8 bType);
 

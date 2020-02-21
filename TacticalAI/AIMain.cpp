@@ -134,6 +134,191 @@ void DebugAI( STR szOutput )
 #endif
 }
 
+STR szAction[] = {
+	"AI_ACTION_NONE",
+
+	"AI_ACTION_RANDOM_PATROL",
+	"AI_ACTION_SEEK_FRIEND",
+	"AI_ACTION_SEEK_OPPONENT",
+	"AI_ACTION_TAKE_COVER",
+	"AI_ACTION_GET_CLOSER",
+
+	"AI_ACTION_POINT_PATROL",
+	"AI_ACTION_LEAVE_WATER_GAS",
+	"AI_ACTION_SEEK_NOISE",
+	"AI_ACTION_ESCORTED_MOVE",
+	"AI_ACTION_RUN_AWAY",
+
+	"AI_ACTION_KNIFE_MOVE",
+	"AI_ACTION_APPROACH_MERC",
+	"AI_ACTION_TRACK",
+	"AI_ACTION_EAT",
+	"AI_ACTION_PICKUP_ITEM",
+
+	"AI_ACTION_SCHEDULE_MOVE",
+	"AI_ACTION_WALK",
+	"AI_ACTION_RUN",
+	"AI_ACTION_WITHDRAW",
+	"AI_ACTION_FLANK_LEFT",
+	"AI_ACTION_FLANK_RIGHT",
+	"AI_ACTION_MOVE_TO_CLIMB",
+
+	"AI_ACTION_CHANGE_FACING",
+
+	"AI_ACTION_CHANGE_STANCE",
+
+	"AI_ACTION_YELLOW_ALERT",
+	"AI_ACTION_RED_ALERT",
+	"AI_ACTION_CREATURE_CALL",
+	"AI_ACTION_PULL_TRIGGER",
+
+	"AI_ACTION_USE_DETONATOR",
+	"AI_ACTION_FIRE_GUN",
+	"AI_ACTION_TOSS_PROJECTILE",
+	"AI_ACTION_KNIFE_STAB",
+	"AI_ACTION_THROW_KNIFE",
+
+	"AI_ACTION_GIVE_AID",
+	"AI_ACTION_WAIT",
+	"AI_ACTION_PENDING_ACTION",
+	"AI_ACTION_DROP_ITEM",
+	"AI_ACTION_COWER",
+
+	"AI_ACTION_STOP_COWERING",
+	"AI_ACTION_OPEN_OR_CLOSE_DOOR",
+	"AI_ACTION_UNLOCK_DOOR",
+	"AI_ACTION_LOCK_DOOR",
+	"AI_ACTION_LOWER_GUN",
+
+	"AI_ACTION_ABSOLUTELY_NONE",
+	"AI_ACTION_CLIMB_ROOF",
+	"AI_ACTION_END_TURN",
+	"AI_ACTION_END_COWER_AND_MOVE",
+	"AI_ACTION_TRAVERSE_DOWN",
+	"AI_ACTION_OFFER_SURRENDER",
+	"AI_ACTION_RAISE_GUN",
+	"AI_ACTION_STEAL_MOVE",
+
+	"AI_ACTION_RELOAD_GUN",
+
+	"AI_ACTION_JUMP_WINDOW",
+	"AI_ACTION_FREE_PRISONER",
+	"AI_ACTION_USE_SKILL",
+	"AI_ACTION_DOCTOR",
+	"AI_ACTION_DOCTOR_SELF",
+	"AI_ACTION_SELFDETONATE",
+	"AI_ACTION_STOP_MEDIC"
+};
+
+// sevenfm
+UINT32 guiAIStartCounter = 0, guiAILastCounter = 0;
+//UINT8 gubAISelectedSoldier = NOBODY;
+
+void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction )
+{
+	FILE*	DebugFile;
+	CHAR8	msg[1024];
+	CHAR8	buf[1024];
+
+	if (!gGameExternalOptions.fAIDecisionInfo)
+	{
+		return;
+	}
+
+	memset(buf, 0, 1024 * sizeof(char));
+
+	/*if (bMsgType == AI_MSG_TOPIC && !gGameExternalOptions.fDecisionTopicInfo)
+	{
+		return;
+	}*/
+
+	if (bMsgType == AI_MSG_START)
+	{
+		guiAIStartCounter = GetJA2Clock();
+		guiAILastCounter = GetJA2Clock();
+	}
+
+	sprintf(msg, "");
+
+	if (pSoldier)
+	{
+		sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
+		strcat(msg, buf);
+
+		if (pSoldier->ubProfile != NO_PROFILE)
+		{
+			wcstombs(buf, pSoldier->GetName(), 1024 - 1);
+			strcat(msg, " ");
+			strcat(msg, buf);
+		}
+	}
+
+	strcat(msg, " ");
+
+	if (bAction >= 0)
+	{
+		sprintf(buf, " (total %d ms)", GetJA2Clock() - guiAIStartCounter);
+		strcat(msg, buf);
+	}
+	else
+	{
+		sprintf(buf, " (%d ms)", GetJA2Clock() - guiAILastCounter);
+		strcat(msg, buf);
+	}
+
+	if (bAction >= AI_ACTION_NONE && bAction <= AI_ACTION_LAST)
+	{
+		strcat(msg, " ");
+		strcat(msg, szAction[bAction]);
+
+		if (pSoldier)
+		{
+			sprintf(buf, " %d", pSoldier->aiData.usActionData);
+			strcat(msg, buf);
+		}
+
+		if (pSoldier && pSoldier->aiData.bNextAction != AI_ACTION_NONE)
+		{
+			strcat(msg, " ");
+			strcat(msg, szAction[pSoldier->aiData.bNextAction]);
+
+			sprintf(buf, " %d", pSoldier->aiData.usNextActionData);
+			strcat(msg, buf);
+		}
+	}
+
+	strcat(msg, " ");
+	strcat(msg, szOutput);
+
+	guiAILastCounter = GetJA2Clock();
+
+	DebugMsg(TOPIC_DECISIONS, DBG_LEVEL_3, szOutput);
+
+	if ((DebugFile = fopen("Logs\\AI_Decisions.txt", "a+t")) != NULL)
+	{
+		if (bMsgType == AI_MSG_START)
+		{
+			fputs("\n", DebugFile);
+		}
+		fputs(msg, DebugFile);
+		fputs("\n", DebugFile);
+		fclose(DebugFile);
+	}
+
+	// also log to individual file for selected soldier
+	sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
+	if ((DebugFile = fopen(buf, "a+t")) != NULL)
+	{
+		if (bMsgType == AI_MSG_START)
+		{
+			fputs("\n", DebugFile);
+		}
+		fputs(msg, DebugFile);
+		fputs("\n", DebugFile);
+		fclose(DebugFile);
+	}
+}
+
 
 BOOLEAN InitAI( void )
 {
@@ -163,6 +348,17 @@ BOOLEAN InitAI( void )
 		fclose( DebugFile );
 	}
 #endif
+
+	// sevenfm: Clear the AI debug txt file to prevent it from getting huge
+	remove("Logs\\AI_Decisions.txt");
+
+	// remove all individual files
+	CHAR8	buf[1024];
+	for (UINT8 cnt = 0; cnt < TOTAL_SOLDIERS; cnt++)
+	{
+		sprintf(buf, "Logs\\AI_Decisions [%d].txt", cnt);
+		remove(buf);
+	}
 
 	return( TRUE );
 }

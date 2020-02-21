@@ -793,6 +793,7 @@ void PhysicsDeleteObject( REAL_OBJECT *pObject )
 	}
 }
 
+INT16 gsWaterSplashSoundNum = -1;
 
 BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 {
@@ -1113,9 +1114,25 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 
 					// sevenfm: also play sound
 					CHAR8	zFilename[512];
-					sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", Random(3) + 1);
-					if (FileExists(zFilename))
-						PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, pObject->sGridNo), 1, SoundDir(pObject->sGridNo));
+					// prepare water splash sound
+					if (gsWaterSplashSoundNum < 0)
+					{
+						gsWaterSplashSoundNum = 0;
+						do
+						{
+							gsWaterSplashSoundNum++;
+							sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", gsWaterSplashSoundNum);
+						} while (FileExists(zFilename));
+						gsWaterSplashSoundNum--;
+					}
+					if (gsWaterSplashSoundNum > 0)
+					{
+						sprintf(zFilename, "sounds\\misc\\Splash%d.ogg", Random(gsWaterSplashSoundNum) + 1);
+						if (FileExists(zFilename))
+						{
+							PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, pObject->sGridNo), 1, SoundDir(pObject->sGridNo));
+						}
+					}
 				}
 			}
 

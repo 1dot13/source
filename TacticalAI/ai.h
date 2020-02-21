@@ -5,6 +5,7 @@
 #include "worlddef.h"
 #include "Soldier Control.h"
 #include "Isometric Utils.h"
+#include "Rotting Corpses.h"
 
 #define TESTAICONTROL
 
@@ -109,6 +110,7 @@ typedef enum
 	AI_ACTION_DOCTOR_SELF,			// added by Flugente: AI-ONLY! bandage/surgery on self. DO NOT USE THIS FOR MERCS!!!
 	AI_ACTION_SELFDETONATE,			// added by Flugente: blow up an explosive in own inventory
 	AI_ACTION_STOP_MEDIC,			// sevenfm: stop giving aid animation
+	AI_ACTION_LAST = AI_ACTION_STOP_MEDIC
 } ActionType;
 
 
@@ -153,6 +155,12 @@ enum QuoteActionType
 
 extern INT8 gbDiff[MAX_DIFF_PARMS][5];
 
+enum{
+	ADVANCE_SPOT_SIGHT_COVER,
+	ADVANCE_SPOT_PRONE_COVER,
+	ADVANCE_SPOT_ANY_COVER
+};
+
 void ActionDone(SOLDIERTYPE *pSoldier);
 INT16 ActionInProgress(SOLDIERTYPE *pSoldier);
 
@@ -173,7 +181,9 @@ INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );	// Flug
 BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
 
 void DebugAI( STR szOutput );
-INT8	DecideAction(SOLDIERTYPE *pSoldier);
+enum { AI_MSG_START, AI_MSG_DECIDE, AI_MSG_INFO, AI_MSG_TOPIC };
+void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction = -1);
+INT8 DecideAction(SOLDIERTYPE *pSoldier);
 INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);
 INT8 DecideActionEscort(SOLDIERTYPE *pSoldier);
 INT8 DecideActionGreen(SOLDIERTYPE *pSoldier);
@@ -293,8 +303,13 @@ BOOLEAN AICheckIsFlanking( SOLDIERTYPE *pSoldier );
 
 INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier);
 
-BOOLEAN ProneSightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
-BOOLEAN SightCoverAtSpot( SOLDIERTYPE *pSoldier, INT32 sSpot );
+BOOLEAN ProneSightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);
+BOOLEAN SightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);
+BOOLEAN AnyCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot);
+BOOLEAN AnyCoverFromSpot(INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel);
+
+INT32 FindAdvanceSpot(SOLDIERTYPE *pSoldier, INT32 sTargetSpot, INT8 bAction, UINT8 ubType, BOOLEAN fUnlimited);
+INT32 FindRetreatSpot(SOLDIERTYPE *pSoldier);
 
 BOOLEAN CheckDoorAtGridno(UINT32 usGridNo);
 BOOLEAN CheckDoorNearGridno(UINT32 usGridNo);
@@ -307,18 +322,52 @@ BOOLEAN	FindNearbyExplosiveStructure(INT32 sSpot, INT8 bLevel);
 INT16 DistanceToClosestActiveOpponent(SOLDIERTYPE *pSoldier, INT32 sSpot);
 BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent);
 
-BOOLEAN AnyCoverFromSpot( INT32 sSpot, INT8 bLevel, INT32 sThreatLoc, INT8 bThreatLevel );
 UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
+
+BOOLEAN FindObstacleNearSpot(INT32 sSpot, INT8 bLevel);
 
 BOOLEAN CheckNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo);
 UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo);
 BOOLEAN AllowDeepWaterFlanking(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckUnderground(void);
+
+BOOLEAN CorpseWarning(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel);
+BOOLEAN CorpseEnemyTeam(ROTTING_CORPSE *pCorpse);
+BOOLEAN CorpseMilitiaTeam(ROTTING_CORPSE *pCorpse);
 
 BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel);
 BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier);
 
+UINT8 AIDirection(INT32 sSpot1, INT32 sSpot2);
+
+BOOLEAN AIGunScoped(SOLDIERTYPE *pSoldier);
+BOOLEAN AIGunInHandScoped(SOLDIERTYPE *pSoldier);
+UINT16 AIGunRange(SOLDIERTYPE *pSoldier);				// gun range in tiles
+UINT16 AIGunClass(SOLDIERTYPE *pSoldier);
+UINT16 AIGunType(SOLDIERTYPE *pSoldier);
+UINT16 AIGunAmmo(SOLDIERTYPE *pSoldier);
+BOOLEAN AIGunAutofireCapable(SOLDIERTYPE *pSoldier);
+UINT8 AIGunDeadliness(SOLDIERTYPE *pSoldier);
+
+BOOLEAN AICheckNVG(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckHasWeaponOfType(SOLDIERTYPE *pSoldier, UINT8 ubWeaponType);
+BOOLEAN AICheckHasGun(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckShortWeaponRange(SOLDIERTYPE *pSoldier);
+
+BOOLEAN AICheckIsSniper(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsMarksman(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsMachinegunner(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsRadioOperator(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsMedic(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsMortarOperator(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsGLOperator(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsOfficer(SOLDIERTYPE *pSoldier);
+BOOLEAN AICheckIsCommander(SOLDIERTYPE *pSoldier);
+
 #define MAX_FLANKS_RED 25
 #define MAX_FLANKS_YELLOW 25
+
+#define MAX_TILES_MOVE_TURN (APBPConstants[AP_MAXIMUM] / (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_RUN]))
 
 // vision range defines
 #define DAY_VISION_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 2)

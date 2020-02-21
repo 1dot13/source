@@ -26,6 +26,9 @@
 	#include "Campaign Types.h"
 	#include "Tactical Save.h"
 	#include "strategicmap.h"
+	// sevenfm
+	#include "environment.h"
+	#include "Render Fun.h"
 #endif
 
 #include "SaveLoadGame.h"
@@ -1186,6 +1189,34 @@ BOOL GetRandomSignalSmokeGridNo(INT32* psGridNo)
 	(*psGridNo) = gSmokeEffectData[ smokearray[target] ].sGridNo;
 
 	return TRUE;
+}
+
+// sevenfm: check smoke effect of certain type at gridno
+BOOLEAN CheckSmokeEffect(INT32 sGridNo, INT8 bLevel, INT8 bType)
+{
+	UINT32	uiCnt;
+	INT8	bSmokeEffectLevel;
+
+	//loop through all smoke effects
+	for (uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++)
+	{
+		if (gSmokeEffectData[uiCnt].fAllocated &&
+			gSmokeEffectData[uiCnt].sGridNo == sGridNo &&
+			gSmokeEffectData[uiCnt].bType == bType)
+		{
+			if (gSmokeEffectData[uiCnt].bFlags & SMOKE_EFFECT_ON_ROOF)
+				bSmokeEffectLevel = 1;
+			else
+				bSmokeEffectLevel = 0;
+
+			if (bSmokeEffectLevel == bLevel)
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
 }
 
 BOOLEAN FindVisibleSmokeEffect(INT8 bType)

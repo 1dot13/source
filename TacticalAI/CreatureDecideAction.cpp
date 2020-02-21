@@ -15,6 +15,11 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+extern STR8 gStr8AlertStatus[];
+extern STR8 gStr8Attitude[];
+extern STR8 gStr8Orders[];
+extern STR8 gStr8Team[];
+extern STR8 gStr8Class[];
 
 extern INT8 STRAIGHT; //lal
 

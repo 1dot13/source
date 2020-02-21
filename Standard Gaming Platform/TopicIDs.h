@@ -3,6 +3,7 @@
 
 const unsigned INVALID_TOPIC = 0xffff;
 
+const unsigned TOPIC_DECISIONS = 25;
 const unsigned TOPIC_MEMORY_MANAGER = 24;
 const unsigned TOPIC_FILE_MANAGER = 23;
 const unsigned TOPIC_DATABASE_MANAGER = 22;

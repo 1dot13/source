@@ -4,6 +4,8 @@
 #include "tile animation.h"
 
 #define	NUM_CORPSE_SHADES		17
+#define CORPSE_WARNING_MAX 5
+#define CORPSE_WARNING_DIST 5
 
 enum RottingCorpseDefines
 {

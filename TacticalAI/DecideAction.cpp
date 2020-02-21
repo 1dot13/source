@@ -46,6 +46,8 @@
 extern BOOLEAN gfHiddenInterrupt;
 extern BOOLEAN gfUseAlternateQueenPosition;
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
+void LogDecideInfo(SOLDIERTYPE *pSoldier);
+void LogKnowledgeInfo(SOLDIERTYPE *pSoldier);
 
 // global status time counters to determine what takes the most time
 
@@ -67,6 +69,13 @@ INT8 ArmedVehicleDecideActionGreen(SOLDIERTYPE *pSoldier);
 INT8 ArmedVehicleDecideActionYellow(SOLDIERTYPE *pSoldier);
 INT8 ArmedVehicleDecideActionRed(SOLDIERTYPE *pSoldier);
 INT8 ArmedVehicleDecideActionBlack(SOLDIERTYPE *pSoldier);
+
+STR8 gStr8AlertStatus[] = { "Green", "Yellow", "Red", "Black" };
+STR8 gStr8Attitude[] = { "DEFENSIVE", "BRAVESOLO", "BRAVEAID", "CUNNINGSOLO", "CUNNINGAID", "AGGRESSIVE", "MAXATTITUDES", "ATTACKSLAYONLY" };
+STR8 gStr8Orders[] = { "STATIONARY", "ONGUARD", "CLOSEPATROL", "FARPATROL", "POINTPATROL", "ONCALL", "SEEKENEMY", "RNDPTPATROL", "SNIPER" };
+STR8 gStr8Team[] = { "OUR_TEAM", "ENEMY_TEAM", "CREATURE_TEAM", "MILITIA_TEAM", "CIV_TEAM", "LAST_TEAM", "PLAYER_PLAN", "LAN_TEAM_ONE", "LAN_TEAM_TWO", "LAN_TEAM_THREE", "LAN_TEAM_FOUR" };
+STR8 gStr8Class[] = { "SOLDIER_CLASS_NONE", "SOLDIER_CLASS_ADMINISTRATOR", "SOLDIER_CLASS_ELITE", "SOLDIER_CLASS_ARMY", "SOLDIER_CLASS_GREEN_MILITIA", "SOLDIER_CLASS_REG_MILITIA", "SOLDIER_CLASS_ELITE_MILITIA", "SOLDIER_CLASS_CREATURE", "SOLDIER_CLASS_MINER", "SOLDIER_CLASS_ZOMBIE", "SOLDIER_CLASS_TANK", "SOLDIER_CLASS_JEEP", "SOLDIER_CLASS_BANDIT" };
+STR8 gStr8Knowledge[] = { "HEARD_3_TURNS_AGO", "HEARD_2_TURNS_AGO", "HEARD_LAST_TURN", "HEARD_THIS_TURN", "NOT_HEARD_OR_SEEN", "SEEN_CURRENTLY", "SEEN_THIS_TURN", "SEEN_LAST_TURN", "SEEN_2_TURNS_AGO", "SEEN_3_TURNS_AGO" };
 
 void DoneScheduleAction( SOLDIERTYPE * pSoldier )
 {
@@ -694,10 +703,6 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
 #endif
-
-	// Flugente: to prevent an accidental call
-	if ( pSoldier->IsZombie() )
-		return( ZombieDecideActionGreen(pSoldier) );
 
 	if ( ARMED_VEHICLE( pSoldier ) )
 		return ArmedVehicleDecideActionGreen( pSoldier );
@@ -1546,10 +1551,6 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
 #endif	
-
-	// Flugente: to prevent an accidental call
-	if ( pSoldier->IsZombie() )
-		return( ZombieDecideActionYellow(pSoldier) );	
 
 	if (fCivilian || (gGameExternalOptions.fAllNamedNpcsDecideAction && pSoldier->ubProfile != NO_PROFILE))
 	{
@@ -2467,10 +2468,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		(pSoldier->aiData.bNeutral && gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] == CIV_GROUP_NEUTRAL) ||
 		(pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
 
-	// Flugente: to prevent an accidental call
-	if ( pSoldier->IsZombie() )
-		return ZombieDecideActionRed(pSoldier);
-
 	// WANNE: Headrock informed me that I should remove that because it needs a lot of CPU!
 	// HEADROCK HAM B2.7: Calculate the overall tactical situation
 	//INT16 ubOverallTacticalSituation = AssessTacticalSituation(pSoldier->bSide);
@@ -2484,7 +2481,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		return(AI_ACTION_NONE);
 	}
 
-	fProneSightCover = ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo);
+	fProneSightCover = ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE);
 	if( !fProneSightCover || pSoldier->aiData.bUnderFire )
 	{
 		fDangerousSpot = TRUE;
@@ -4533,10 +4530,6 @@ INT16 ubMinAPCost;
 	STR16 tempstr;
 #endif
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: soldier = %d, orders = %d, attitude = %d",pSoldier->ubID,pSoldier->aiData.bOrders,pSoldier->aiData.bAttitude));
-
-	// Flugente: to prevent an accidental call
-	if ( pSoldier->IsZombie() )
-		return( ZombieDecideActionBlack(pSoldier) );
 
 	ATTACKTYPE BestShot, BestThrow, BestStab ,BestAttack;//dnl ch69 150913
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->aiData.bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
@@ -6697,51 +6690,6 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-#if 0
-	else
-	{
-		if (pSoldier->bOppCnt > 0)
-		{
-			pSoldier->aiData.bAlertStatus = STATUS_BLACK; // opponent(s) in sight
-		}
-		else
-		{
-			pSoldier->aiData.bAlertStatus = STATUS_RED;         // enemy sector
-
-			/*
-			// wow, JA1 stuff...
-			// good guys all have a built-in, magic, "enemy detecting radar"...
-			if (Status.enemies)
-			pSoldier->aiData.bAlertStatus = STATUS_RED;         // enemy sector
-			else
-			{
-			pSoldier->aiData.bAlertStatus = STATUS_GREEN;       // secured sector
-
-			// if he just dropped back from alert status, and it's a GUARD
-			if ((oldStatus >= STATUS_RED) && (pSoldier->manCategory == MAN_GUARD))
-			{			
-			if (TileIsOutOfBounds(pSoldier->whereIWas))       // not assigned to any trees
-			// FUTURE ENHANCEMENT: Look for unguarded trees with tappers
-			pSoldier->orders = ONCALL;
-			else                                 // assigned to trees
-			// FUTURE ENHANCEMENT: If his tree is now tapperless, go ONCALL
-			pSoldier->orders = CLOSEPATROL;         // go back to his tree area
-
-			// turn off any existing bypass to Green and its "hyper-activity"
-			pSoldier->bypassToGreen = FALSE;
-
-			// turn off the "inTheWay" flag, may have been set during TurnBased
-			pSoldier->inTheWay = FALSE;
-
-			// make the guard put his gun away if he has it drawn
-			HandleNoMoreTarget(pSoldier);
-			}
-			}
-			*/
-		}
-	}
-#endif
-
 	if ( gTacticalStatus.bBoxingState == NOT_BOXING )
 	{
 
@@ -6806,7 +6754,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 
 
 // ------------------------------ ZOMBIE AI --------------------------
-INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
+/*INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
 {
 	DOUBLE iChance, iSneaky = 10;
 	INT8  bInWater;
@@ -7206,9 +7154,9 @@ INT8 ZombieDecideActionGreen(SOLDIERTYPE *pSoldier)
 	// for realtime, regular AI guys will use a standard wait set outside of here
 	pSoldier->aiData.usActionData = NOWHERE;
 	return(AI_ACTION_NONE);
-}
+}*/
 
-INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
+/*INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
 {
 	UINT8 ubNoiseDir;
 	INT32 sNoiseGridNo;
@@ -7440,10 +7388,10 @@ INT8 ZombieDecideActionYellow(SOLDIERTYPE *pSoldier)
 	// by default, if everything else fails, just stands in place without turning
 	pSoldier->aiData.usActionData = NOWHERE;
 	return(AI_ACTION_NONE);
-}
+}*/
 
 
-INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier)
+/*INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier)
 {
 	INT32 iDummy;
 	INT32 iChance,sClosestOpponent,sClosestFriend;
@@ -8072,14 +8020,6 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier)
 	// if not in combat or under fire, and we COULD have moved, just chose not to	
 	if ( (pSoldier->aiData.bAlertStatus != STATUS_BLACK) && !pSoldier->aiData.bUnderFire && ubCanMove && (!gfTurnBasedAI || pSoldier->bActionPoints >= pSoldier->bInitialActionPoints) && ( TileIsOutOfBounds(ClosestReachableDisturbance(pSoldier, &fClimb))) )
 	{
-		// addition:  if soldier is bleeding then reduce bleeding and do nothing
-		/*if ( pSoldier->bBleeding > MIN_BLEEDING_THRESHOLD )
-		{
-			// no! zombies don't bandage themselves!
-			// reduce bleeding by 1 point per AP (in RT, APs will get recalculated so it's okay)
-			// pSoldier->bBleeding = __max( 0, pSoldier->bBleeding - (pSoldier->bActionPoints/2) );
-			return( AI_ACTION_NONE ); // will end-turn/wait depending on whether we're in TB or realtime
-		}*/
 #ifdef RECORDNET
 		fprintf(NetDebugFile,"\tZombieDecideActionRed: guynum %d switching to GREEN AI...\n",pSoldier->ubID);
 #endif
@@ -8126,9 +8066,9 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier)
 
 	pSoldier->aiData.usActionData = NOWHERE;
 	return(AI_ACTION_NONE);
-}
+}*/
 
-INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
+/*INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 {
 	INT32		iCoverPercentBetter = 0;
 	INT32       iOffense, iDefense, iChance;
@@ -8685,12 +8625,12 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 	}
 					
 	// get the location of the closest reachable opponent
-	/*	Flugente 22.02.2012 - A few clarifications: I changed ClosestSeenOpponent so that for zombies, this function also returns an opponent if he is on the
-	*	roof of a building, we are not, but our GridNo belongs to that same building. 
-	*	If that is the case, it is clear that we have to get on that roof. However, we cannot do that in BlackState. If, by pure chance, we can still see our
-	*	enemy, we cannot climb (there is  no climbing option in BlackState sofar).
-	*	So, I changed the code so that now we will climb the roof.
-	*/
+	//	Flugente 22.02.2012 - A few clarifications: I changed ClosestSeenOpponent so that for zombies, this function also returns an opponent if he is on the
+	//	roof of a building, we are not, but our GridNo belongs to that same building. 
+	// If that is the case, it is clear that we have to get on that roof. However, we cannot do that in BlackState. If, by pure chance, we can still see our
+	// enemy, we cannot climb (there is  no climbing option in BlackState sofar).
+	// So, I changed the code so that now we will climb the roof.
+
 	INT32	targetGridNo = -1;
 	INT8	targetbLevel =  0;
 	sClosestOpponent = ClosestSeenOpponentWithRoof(pSoldier, &targetGridNo, &targetbLevel);
@@ -8838,9 +8778,9 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 	pSoldier->aiData.usActionData = NOWHERE;
 	return(AI_ACTION_NONE);
 
-}
+}*/
 
-INT8 ZombieDecideAction( SOLDIERTYPE *pSoldier )
+/*INT8 ZombieDecideAction( SOLDIERTYPE *pSoldier )
 {
 	INT8 bAction = AI_ACTION_NONE;
 			
@@ -8882,7 +8822,7 @@ INT8 ZombieDecideAction( SOLDIERTYPE *pSoldier )
 #endif
 
 	return(bAction);
-}
+}*/
 
 
 INT8 ArmedVehicleDecideAction( SOLDIERTYPE *pSoldier )
@@ -9845,7 +9785,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 		return(AI_ACTION_NONE);
 	}
 
-	fProneSightCover = ProneSightCoverAtSpot( pSoldier, pSoldier->sGridNo );
+	fProneSightCover = ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE);
 	if ( !fProneSightCover || pSoldier->aiData.bUnderFire )
 	{
 		fDangerousSpot = TRUE;
@@ -11900,4 +11840,74 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 	// by default, if everything else fails, just stand in place and wait
 	pSoldier->aiData.usActionData = NOWHERE;
 	return(AI_ACTION_NONE);
+}
+
+
+extern UINT32 guiTurnCnt;
+extern UINT32 guiReinforceTurn;
+extern UINT32 guiArrived;
+
+void LogDecideInfo(SOLDIERTYPE *pSoldier)
+{
+	DebugAI(AI_MSG_INFO, pSoldier, String("Turn num %d aware %d", guiTurnCnt, gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition));
+	DebugAI(AI_MSG_INFO, pSoldier, String("current team %d interrupt occurred %d", gTacticalStatus.ubCurrentTeam, gTacticalStatus.fInterruptOccurred));
+	DebugAI(AI_MSG_INFO, pSoldier, String("AP=%d/%d %s %s %s %s %s", pSoldier->bActionPoints, pSoldier->bInitialActionPoints, gStr8AlertStatus[pSoldier->aiData.bAlertStatus], gStr8Orders[pSoldier->aiData.bOrders], gStr8Attitude[pSoldier->aiData.bAttitude], gStr8Team[pSoldier->bTeam], gStr8Class[pSoldier->ubSoldierClass]));
+	DebugAI(AI_MSG_INFO, pSoldier, String("Health %d/%d Breath %d/%d Shock %d Tolerance %d AI Morale %d Morale %d", pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pSoldier->aiData.bShock, CalcSuppressionTolerance(pSoldier), pSoldier->aiData.bAIMorale, pSoldier->aiData.bMorale));
+	DebugAI(AI_MSG_INFO, pSoldier, String("Spot %d level %d opponents %d", pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->aiData.bOppCnt));
+	DebugAI(AI_MSG_INFO, pSoldier, String("ubServiceCount %d ubServicePartner %d fDoingSurgery %d", pSoldier->ubServiceCount, pSoldier->ubServicePartner, pSoldier->fDoingSurgery));
+	if (pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE)
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("Cowering"));
+	}
+	if (pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN)
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("Giving aid"));
+	}
+	//CHAR8 str8[1024];
+
+	// show watched locations
+	INT8	bLoop;
+	for (bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++)
+	{
+		if (!TileIsOutOfBounds(gsWatchedLoc[pSoldier->ubID][bLoop]))
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("Watched location %d level %d points %d", gsWatchedLoc[pSoldier->ubID][bLoop], gbWatchedLocLevel[pSoldier->ubID][bLoop], gubWatchedLocPoints[pSoldier->ubID][bLoop]));
+		}
+	}
+
+	LogKnowledgeInfo(pSoldier);
+
+	DebugAI(AI_MSG_INFO, pSoldier, String("What I know %d", WhatIKnowThatPublicDont(pSoldier, FALSE)));
+	DebugAI(AI_MSG_INFO, pSoldier, String("Has Gun %d, Short range weapon %d, Gun Range %d, Gun Ammo %d, Gun Scoped %d ", AICheckHasGun(pSoldier), AICheckShortWeaponRange(pSoldier), AIGunRange(pSoldier), AIGunAmmo(pSoldier), AIGunScoped(pSoldier)));
+}
+
+void LogKnowledgeInfo(SOLDIERTYPE *pSoldier)
+{
+	//CHAR8 str8[1024];
+	//memset(str8, 0, 1024 * sizeof(char));
+
+	// show public opponents
+	for (UINT16 oppID = 0; oppID < MAX_NUM_SOLDIERS; oppID++)
+	{
+		if (gbPublicOpplist[pSoldier->bTeam][oppID] != NOT_HEARD_OR_SEEN &&
+			!MercPtrs[oppID]->aiData.bNeutral)
+		{
+			//wcstombs(str8, MercPtrs[oppID]->GetName(), wcslen(MercPtrs[oppID]->GetName())+1);
+			//wcstombs(str8, MercPtrs[oppID]->GetName(), 1024 - 1);
+			DebugAI(AI_MSG_INFO, pSoldier, String("public opponent [%d] knowledge %s gridno %d level %d", oppID, gStr8Knowledge[gbPublicOpplist[pSoldier->bTeam][oppID] - OLDEST_HEARD_VALUE], gsPublicLastKnownOppLoc[pSoldier->bTeam][oppID], gbPublicLastKnownOppLevel[pSoldier->bTeam][oppID]));
+			//swprintf( pStrInfo, L"%s[%d] %s %s\n", pStrInfo, oppID, MercPtrs[oppID]->GetName(), SeenStr(gbPublicOpplist[pSoldier->bTeam][oppID]) );
+		}
+	}
+	// show personal opponents
+	for (UINT16 oppID = 0; oppID < MAX_NUM_SOLDIERS; oppID++)
+	{
+		if (pSoldier->aiData.bOppList[oppID] != NOT_HEARD_OR_SEEN &&
+			!MercPtrs[oppID]->aiData.bNeutral)
+		{
+			//wcstombs(str8, MercPtrs[oppID]->GetName(), wcslen(MercPtrs[oppID]->GetName())+1);
+			//wcstombs(str8, MercPtrs[oppID]->GetName(), 1024 - 1);
+			DebugAI(AI_MSG_INFO, pSoldier, String("personal opponent [%d] knowledge %s gridno %d level %d", oppID, gStr8Knowledge[pSoldier->aiData.bOppList[oppID] - OLDEST_HEARD_VALUE], gsLastKnownOppLoc[pSoldier->ubID][oppID], gbLastKnownOppLevel[pSoldier->ubID][oppID]));
+			//swprintf( pStrInfo, L"%s[%d] %s %s\n", pStrInfo, oppID, MercPtrs[oppID]->GetName(), SeenStr(pSoldier->aiData.bOppList[oppID]) );
+		}
+	}
 }

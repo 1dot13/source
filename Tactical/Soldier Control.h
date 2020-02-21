@@ -425,6 +425,7 @@ enum
 #define SOLDIER_SURGERY_BOOSTED				0x00040000					// we are a boosted performing surgery (e.g. by using up a blood bag)
 
 #define SOLDIER_DRAG_SOUND					0x00080000					// played sound when started dragging
+#define SOLDIER_SPENT_AP					0x00100000					// soldier has spent some AP this turn (including realtime)
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -1853,6 +1854,9 @@ public:
 
 	// Flugente: are we an assassin?
 	BOOLEAN		IsAssassin();
+
+	// sevenfm: service functions
+	BOOLEAN		CheckInitialAP(void);
 
 	// Flugente: multi-turn actions
 	UINT8		GetMultiTurnAction();

@@ -232,6 +232,7 @@ INT32 GoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, INT8 bActi
 
 INT8 HeadForTheStairCase( SOLDIERTYPE * pSoldier );
 
+BOOLEAN InSmoke(INT32 sGridNo, INT8 bLevel);
 BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo );

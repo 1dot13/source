@@ -71,5 +71,8 @@
     <ClCompile Include="Realtime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ZombieDecideAction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1555,6 +1555,7 @@ typedef struct
 	BOOLEAN fAITacticalRetreat;
 	BOOLEAN fAIMovementMode;
 	BOOLEAN fAIPathTweaks;
+	BOOLEAN fAIDecisionInfo;
 
 } GAME_EXTERNAL_OPTIONS;
 

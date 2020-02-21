@@ -16522,6 +16522,16 @@ BOOLEAN		SOLDIERTYPE::IsAssassin( )
 	return FALSE;
 }
 
+BOOLEAN SOLDIERTYPE::CheckInitialAP(void)
+{
+	if (this->bActionPoints < this->bInitialActionPoints || this->usSoldierFlagMask2 & SOLDIER_SPENT_AP)
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
 UINT8	SOLDIERTYPE::GetMultiTurnAction( )
 {
 	return usMultiTurnAction;
@@ -17679,7 +17689,7 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 {
 	// these effects last only one turn
 	this->usSoldierFlagMask &= ~(SOLDIER_AIRDROP_TURN | SOLDIER_ASSAULT_BONUS | SOLDIER_RAISED_REDALERT);
-	this->usSoldierFlagMask2 &= ~SOLDIER_CONCEALINSERTION;
+	this->usSoldierFlagMask2 &= ~(SOLDIER_CONCEALINSERTION | SOLDIER_SPENT_AP);
 
 	// this looks bizarre, but is required
 	if ( this->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION_DISCOVERED )

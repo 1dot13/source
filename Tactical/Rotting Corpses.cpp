@@ -60,10 +60,6 @@
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-
-#define CORPSE_WARNING_MAX 5
-#define CORPSE_WARNING_DIST 5
-
 #define		CORPSE_INDEX_OFFSET		10000
 
 // Flugente: these are ini values now
@@ -501,7 +497,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	
 	uiDirectionUseFlag = ANITILE_USE_DIRECTION_FOR_START_FRAME;
 
-	// If we are a soecial type...
+	// If we are a special type...
 	switch( pCorpseDef->ubType )
 	{
 		case SMERC_FALL:
@@ -527,7 +523,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
 		// OK, AS WE ADD, CHECK FOR TOD AND DECAY APPROPRIATELY
-		if ( ((GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) > gGameExternalOptions.usCorpseDelayUntilRotting) && (pCorpse->def.ubType < ROTTING_STAGE2) )
+		if ( ((GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) >= gGameExternalOptions.usCorpseDelayUntilRotting) && (pCorpse->def.ubType < ROTTING_STAGE2) )
 		{
 			if ( pCorpse->def.ubType <= FMERC_FALLF )
 			{
@@ -1693,17 +1689,17 @@ INT32 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 	INT16	sTop, sBottom;
 	INT16	sLeft, sRight;
 	INT16	cnt1, cnt2, cnt3;
-	INT32 sGridNo;
-	INT32		uiRange, uiLowestRange = 999999;
-	INT32 sLowestGridNo=0;
-	INT32					leftmost;
+	INT32	sGridNo;
+	INT32	uiRange, uiLowestRange = 999999;
+	INT32	sLowestGridNo=0;
+	INT32	leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	INT16 ubSaveNPCAPBudget;
-	UINT8 ubSaveNPCDistLimit;
+	INT16	ubSaveNPCAPBudget;
+	UINT8	ubSaveNPCDistLimit;
 	STRUCTURE_FILE_REF * pStructureFileRef = NULL;
-	CHAR8						zFilename[150];
-	UINT8						ubBestDirection=0;
+	CHAR8	zFilename[150];
+	UINT8	ubBestDirection=0;
 	BOOLEAN	fSetDirection	= FALSE;
 
 	cnt3 = 0;
@@ -1751,8 +1747,6 @@ INT32 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 	//Now, find out which of these gridnos are reachable
 	//(use the fake soldier and the pathing settings)
 	FindBestPath( &soldier, GRIDSIZE, 0, WALKING, COPYREACHABLE, 0 );//dnl ch50 071009
-
-	uiLowestRange = 999999;
 
 	for( cnt1 = sBottom; cnt1 <= sTop; cnt1++ )
 	{
@@ -1847,12 +1841,15 @@ ROTTING_CORPSE *GetCorpseAtGridNo( INT32 sGridNo, INT8 bLevel )
 		// Get base....
 		pBaseStructure = FindBaseStructure( pStructure );
 
-		// Find base gridno...
-		sBaseGridNo = pBaseStructure->sGridNo;
-
 		if ( pBaseStructure != NULL )
 		{
-			return(FindCorpseBasedOnStructure( sBaseGridNo, bLevel, pBaseStructure ));
+			// Find base gridno...
+			sBaseGridNo = pBaseStructure->sGridNo;
+
+			if (!TileIsOutOfBounds(sBaseGridNo))
+			{
+				return(FindCorpseBasedOnStructure(sBaseGridNo, bLevel, pBaseStructure));
+			}			
 		}
 	}
 
@@ -2692,6 +2689,7 @@ std::vector<INT16> GetCorpseIDsNearGridNo( INT32 sGridNo, INT8 bLevel, INT8 sRad
 }
 
 extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );
+INT16 gsZombieRaiseSoundNum = -1;
 
 // Flugente Zombies: resurrect zombies
 void RaiseZombies( void )
@@ -2801,8 +2799,32 @@ void RaiseZombies( void )
 #ifdef JA2TESTVERSION
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"A wave of zombies is created");
 #endif
-				// Play sound
-				PlayJA2SampleFromFile( "Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
+				CHAR8	zFilename[512];
+				// prepare zombie raise sound
+				if (gsZombieRaiseSoundNum < 0)
+				{
+					gsZombieRaiseSoundNum = 0;
+					do
+					{
+						gsZombieRaiseSoundNum++;
+						sprintf(zFilename, "Sounds\\Misc\\ZombieRaise%d.ogg", gsZombieRaiseSoundNum);
+					} while (FileExists(zFilename));
+					gsZombieRaiseSoundNum--;
+				}
+				if (gsZombieRaiseSoundNum > 0)
+				{
+					sprintf(zFilename, "Sounds\\Misc\\ZombieRaise%d.ogg", Random(gsZombieRaiseSoundNum) + 1);
+					if (FileExists(zFilename))
+					{
+						//PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
+						PlayJA2SampleFromFile(zFilename, RATE_11025, MIDVOLUME, 1, MIDDLEPAN);
+					}
+				}
+				else
+				{
+					// Play default sound
+					PlayJA2SampleFromFile("Sounds\\zombie1.wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN);
+				}
 
 				UseCreatureMusic(TRUE); // Madd: music when zombies rise
 #ifdef NEWMUSIC
@@ -3251,5 +3273,5 @@ FLOAT GetCorpseRotFactor( ROTTING_CORPSE* pCorpse )
 	if ( pCorpse->def.ubType == ROTTING_STAGE2 )
 		return 1.0f;
 
-	return (GetWorldTotalMin( ) - pCorpse->def.uiTimeOfDeath) / gGameExternalOptions.usCorpseDelayUntilRotting;
+	return (FLOAT)(min(gGameExternalOptions.usCorpseDelayUntilRotting, GetWorldTotalMin() - pCorpse->def.uiTimeOfDeath)) / gGameExternalOptions.usCorpseDelayUntilRotting;
 }

@@ -45,6 +45,7 @@
     <ClCompile Include="PanicButtons.cpp" />
     <ClCompile Include="QuestDebug.cpp" />
     <ClCompile Include="Realtime.cpp" />
+    <ClCompile Include="ZombieDecideAction.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B369A125-E62E-46AE-9285-58003D688301}</ProjectGuid>
