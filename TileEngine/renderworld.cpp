@@ -1999,9 +1999,12 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 									bt = bodyTypeDB->Find(pSoldier);
 								}
 								UINT16 * pDefaultShadeTable = pShadeTable;
-								RECT backRect;
-								memset(&backRect, 0, sizeof(backRect)); // var actually only needed if uiFlags & TILES_DIRTY, but leaving stuff uninitialized...
-
+								RECT backRect; // Actually only needed if uiFlags & TILES_DIRTY, but must be initialized with values that make sense for the comparisons.
+								backRect.left = SCREEN_WIDTH;
+								backRect.top = SCREEN_HEIGHT;
+								backRect.right = 0;
+								backRect.bottom = 0;
+								
 								Layers::LayerGraphIterator layerIter;
 								Layers::LayerGraphIterator layerEnd;
 								if (bt != NULL)
@@ -2221,12 +2224,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 										uiBrushWidth = (UINT32)pTrav->usWidth;
 										INT32 rLeft = sXPos + pTrav->sOffsetX;
 										INT32 rTop = sYPos + pTrav->sOffsetY;
-										/*
-										backRect.left = ( !layer ) ? rLeft : min ( backRect.left, rLeft );
-										backRect.top = ( !layer ) ? rTop : min ( backRect.top, rTop );
-										backRect.right = ( !layer ) ? rLeft + ( INT32 ) uiBrushWidth : max ( backRect.right, rLeft + ( INT32 ) uiBrushWidth );
-										backRect.bottom = ( !layer ) ? rTop + ( INT32 ) uiBrushHeight : max ( backRect.bottom, rTop + ( INT32 ) uiBrushHeight );
-										*/
+
 										backRect.left = min(backRect.left, rLeft);
 										backRect.top = min(backRect.top, rTop);
 										backRect.right = max(backRect.right, rLeft + (INT32)uiBrushWidth);
@@ -2837,12 +2835,15 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 								// as we don't know what the last rendered layer is upfront
 								if (uiFlags & TILES_DIRTY)
 								{
-									sXPos = (INT16)backRect.left;
-									sYPos = (INT16)backRect.top;
-									RegisterBackgroundRect(uiDirtyFlags, NULL, sXPos, sYPos, (INT16)backRect.right, (INT16)(__min((INT16)(backRect.bottom), gsVIEWPORT_WINDOW_END_Y)));
-									if (fSaveZ)
+									if (!(uiLevelNodeFlags & LEVELNODE_LASTDYNAMIC))
 									{
-										RegisterBackgroundRect(uiDirtyFlags | BGND_FLAG_SAVE_Z, NULL, sXPos, sYPos, (INT16)backRect.right, (INT16)(__min((INT16)(backRect.bottom), gsVIEWPORT_WINDOW_END_Y)));
+										sXPos = (INT16)backRect.left;
+										sYPos = (INT16)backRect.top;
+										RegisterBackgroundRect(uiDirtyFlags, NULL, sXPos, sYPos, (INT16)backRect.right, (INT16)(__min((INT16)(backRect.bottom), gsVIEWPORT_WINDOW_END_Y)));
+										if (fSaveZ)
+										{
+											RegisterBackgroundRect(uiDirtyFlags | BGND_FLAG_SAVE_Z, NULL, sXPos, sYPos, (INT16)backRect.right, (INT16)(__min((INT16)(backRect.bottom), gsVIEWPORT_WINDOW_END_Y)));
+										}
 									}
 								}
 								// unset save buffer once flag after all layers have been rendered          }
