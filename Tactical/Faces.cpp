@@ -1739,8 +1739,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 		}
 	
-		// sevenfm: only show for alive soldiers
-		if (MercPtrs[pFace->ubSoldierID]->stats.bLife > 0)
+		// sevenfm: only show for alive soldiers, no face icons for big faces
+		if (MercPtrs[pFace->ubSoldierID]->stats.bLife > 0 && !(pFace->uiFlags & FACE_BIGFACE))
 		{
 			// Check if a robot and is not controlled....
 			if (MercPtrs[pFace->ubSoldierID]->flags.uiStatusFlags & SOLDIER_ROBOT)
@@ -1885,8 +1885,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 			}
 
-			// sevenfm: no face gear for big faces
-			if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR] && !(pFace->uiFlags & FACE_BIGFACE))
+			if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR])
 			{
 				if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
 				{
@@ -2297,14 +2296,12 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				break;
 
 			case MOVE_EQUIPMENT:
-			{
-								   sIconIndex_Assignment = 15;
-								   fDoIcon_Assignment = TRUE;
+				sIconIndex_Assignment = 15;
+				fDoIcon_Assignment = TRUE;
 
-								   fShowCustomText = TRUE;
+				fShowCustomText = TRUE;
 
-								   GetShortSectorString(SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), sString);
-			}
+				GetShortSectorString(SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), sString);
 				break;
 
 			case FACILITY_INTERROGATE_PRISONERS:
@@ -2447,52 +2444,52 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				sIconIndex_Assignment = 2;
 				fDoIcon_Assignment = TRUE;
 			}
-		}
 
-		if (fDoIcon_Assignment)
-		{
-			// Find x, y for placement
-			GetXYForIconPlacement(pFace, sIconIndex_Assignment, sFaceX, sFaceY, &sIconX, &sIconY, guiASSIGNMENTICONS);
-			BltVideoObjectFromIndex(uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex_Assignment, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
-
-			// ATE: Show numbers only in mapscreen
-			if (fShowNumber || fShowCustomText)
+			if (fDoIcon_Assignment)
 			{
-				if (fShowNumber)
+				// Find x, y for placement
+				GetXYForIconPlacement(pFace, sIconIndex_Assignment, sFaceX, sFaceY, &sIconX, &sIconY, guiASSIGNMENTICONS);
+				BltVideoObjectFromIndex(uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex_Assignment, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
+
+				// ATE: Show numbers only in mapscreen
+				if (fShowNumber || fShowCustomText)
 				{
-					if (fShowMaximum)
+					if (fShowNumber)
 					{
-						swprintf(sString, L"%d/%d", sPtsAvailable, usMaximumPts);
+						if (fShowMaximum)
+						{
+							swprintf(sString, L"%d/%d", sPtsAvailable, usMaximumPts);
+						}
+						else
+						{
+							swprintf(sString, L"%d", sPtsAvailable);
+						}
 					}
-					else
-					{
-						swprintf(sString, L"%d", sPtsAvailable);
-					}
+
+					SetFontDestBuffer(uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+
+					if (!usTextWidth)
+						usTextWidth = StringPixLength(sString, FONT10ARIAL);
+
+					usTextWidth += 1;
+
+					SetFont(FONT10ARIAL);
+					SetFontForeground(FONT_YELLOW);
+					SetFontBackground(FONT_BLACK);
+
+					mprintf(sFaceX + pFace->usFaceWidth - usTextWidth, (INT16)(sFaceY + 3), sString);
+					SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 				}
-
-				SetFontDestBuffer(uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
-
-				if (!usTextWidth)
-					usTextWidth = StringPixLength(sString, FONT10ARIAL);
-
-				usTextWidth += 1;
-
-				SetFont(FONT10ARIAL);
-				SetFontForeground(FONT_YELLOW);
-				SetFontBackground(FONT_BLACK);
-
-				mprintf(sFaceX + pFace->usFaceWidth - usTextWidth, (INT16)(sFaceY + 3), sString);
-				SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 			}
-		}
-		else if (fDoIcon)
-		{
-			// Find X, y for placement
-			GetXYForIconPlacement(pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS);
-			BltVideoObjectFromIndex(uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
+			else if (fDoIcon)
+			{
+				// Find X, y for placement
+				GetXYForIconPlacement(pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS);
+				BltVideoObjectFromIndex(uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
 
-			fDoIcon = FALSE;
-			++bNumRightIcons;
+				fDoIcon = FALSE;
+				++bNumRightIcons;
+			}
 		}
 	}
 	else
