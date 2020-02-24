@@ -1735,210 +1735,83 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					}
 
 					SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-
 				}
 			}
 		}
-
-		// Check if a robot and is not controlled....
-		if ( MercPtrs[ pFace->ubSoldierID ]->flags.uiStatusFlags & SOLDIER_ROBOT )
+	
+		// sevenfm: only show for alive soldiers
+		if (MercPtrs[pFace->ubSoldierID]->stats.bLife > 0)
 		{
-			if ( !MercPtrs[ pFace->ubSoldierID ]->CanRobotBeControlled(	) )
+			// Check if a robot and is not controlled....
+			if (MercPtrs[pFace->ubSoldierID]->flags.uiStatusFlags & SOLDIER_ROBOT)
 			{
-			// Not controlled robot
-				sIconIndex = 5;
-				fDoIcon		= TRUE;
+				if (!MercPtrs[pFace->ubSoldierID]->CanRobotBeControlled())
+				{
+					// Not controlled robot
+					sIconIndex = 5;
+					fDoIcon = TRUE;
+				}
 			}
-		}
 
-		if ( MercPtrs[ pFace->ubSoldierID ]->ControllingRobot(	) )
-		{
-			// controlling robot
+			if (MercPtrs[pFace->ubSoldierID]->ControllingRobot())
+			{
+				// controlling robot
 				sIconIndex = 4;
-				fDoIcon		= TRUE;
-		}
-	
-		//------------------------------------Legion 2 by jazz--------------------------------
-
-		UINT8 faceProfileId = gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].ubFaceIndex;
-		BOOLEAN isIMP = FALSE;
-		
-		//IMP
-		if ( gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].Type == PROFILETYPE_IMP )
-		{	
-			isIMP = TRUE;
-		}
-
-		// rewritten by silversurfer
-		// this section chooses the icons for face gear if the ini setting "SHOW_TACTICAL_FACE_ICONS" is TRUE 
-		// and the merc actually wears something to be shown
-		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_ICONS ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
-			( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 ) 
-		{
-			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
-			uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
-	
-			//MM: fixing the hardcoded craziness here...
-			// check first face slot
-			if ( uiFaceItemOne != NONE )
-			{
-				if ( Item[uiFaceItemOne].gasmask )
-					uiFaceItemOne = 1;
-				else if ( Item[uiFaceItemOne].nightvisionrangebonus > 0 )
-					uiFaceItemOne = 2;
-				else if ( Item[uiFaceItemOne].dayvisionrangebonus > 0 || Item[uiFaceItemOne].brightlightvisionrangebonus > 0 )
-					uiFaceItemOne = 3;
-				else if ( Item[uiFaceItemOne].hearingrangebonus > 0 )
-					uiFaceItemOne = 4;
-				else
-					uiFaceItemOne = 0;
-			}
-		
-			// check second face slot
-			if ( uiFaceItemTwo != NONE )
-			{
-				if ( Item[uiFaceItemTwo].gasmask )
-					uiFaceItemTwo = 21;
-				else if ( Item[uiFaceItemTwo].nightvisionrangebonus > 0 )
-					uiFaceItemTwo = 42;
-				else if ( Item[uiFaceItemTwo].dayvisionrangebonus > 0 || Item[uiFaceItemTwo].brightlightvisionrangebonus > 0 )
-					uiFaceItemTwo = 63;
-				else if ( Item[uiFaceItemTwo].hearingrangebonus > 0 )
-					uiFaceItemTwo = 84;
-				else
-					uiFaceItemTwo = 0;
+				fDoIcon = TRUE;
 			}
 
-			// Now select the correct icon. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
-			// the numbers on the outer border are used if that is the only item worn in that slot
-			//
-			//								21			42			63				84	
-			//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
-			// 1	gas mask				--			43			64				85
-			// 2	NV goggles				23			--			--				86
-			// 3	sun goggles				24			--			--				87
-			// 4	extended ear			25			46			67				--
-			//
-			// this matrix leaves room for expansion
-			ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
-		
-			switch( ubFaceItemsCombined )
+			//------------------------------------Legion 2 by jazz--------------------------------
+
+			UINT8 faceProfileId = gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].ubFaceIndex;
+			BOOLEAN isIMP = FALSE;
+
+			//IMP
+			if (gMercProfiles[MercPtrs[pFace->ubSoldierID]->ubProfile].Type == PROFILETYPE_IMP)
 			{
-				// gas mask only
-				case 1:
-				case 21:
-					sIconIndex = 9;
-					fDoIcon		 = TRUE;
-					break;
-				// NV goggles only
-				case 2:
-				case 42:
-					sIconIndex = 10;
-					fDoIcon		 = TRUE;
-					break;
-				// sun goggles only
-				case 3:
-				case 63:
-					sIconIndex = 15;
-					fDoIcon		 = TRUE;
-					break;
-				// extended ear only
-				case 4:
-				case 84:
-					sIconIndex = 12;
-					fDoIcon		 = TRUE;
-					break;
-				// gas mask + NV goggles
-				case 23:
-				case 43:
-					sIconIndex = 11;
-					fDoIcon		 = TRUE;
-					break;
-				// gas mask + sun goggles
-				case 24:
-				case 64:
-					sIconIndex = 16;
-					fDoIcon		 = TRUE;
-					break;
-				// gas mask + extended ear
-				case 25:
-				case 85:
-					sIconIndex = 13;
-					fDoIcon		 = TRUE;
-					break;
-				// NV goggles + extended ear
-				case 46:
-				case 86:
-					sIconIndex = 14;
-					fDoIcon		 = TRUE;
-					break;
-				// sun goggles + extended ear
-				case 67:
-				case 87:
-					sIconIndex = 18;
-					fDoIcon		 = TRUE;
-					break;
-				default:
-					break;
+				isIMP = TRUE;
 			}
-		}
-    
-		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
-			( MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem > 0 ) )
-		{	
-			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem;
-			
-			if ( uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1 ) //back
+
+			// rewritten by silversurfer
+			// this section chooses the icons for face gear if the ini setting "SHOW_TACTICAL_FACE_ICONS" is TRUE 
+			// and the merc actually wears something to be shown
+			if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS] &&
+				(MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem + MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem) > 0)
 			{
-				DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceItemOne, isIMP);
-			}		
-		}
-    
-		// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
-		// and the merc actually wears something to be shown
-		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0 && 
-			( MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem + MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem ) > 0 )
-		{
-			// WANNE: Removed the limitation
-			// silversurfer: don't overwrite icons if they shall be shown!
-			//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
-			{
-				uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
-				uiFaceItemTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;
-			
-				uiFaceOne=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD1POS].usItem;
-				uiFaceTwo=MercPtrs[ pFace->ubSoldierID ]->inv[HEAD2POS].usItem;		
-			
+				uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
+				uiFaceItemTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+
+				//MM: fixing the hardcoded craziness here...
 				// check first face slot
-				if ( uiFaceItemOne != NONE )
+				if (uiFaceItemOne != NONE)
 				{
-					if ( zNewFaceGear[uiFaceOne].Type == 3 ) 
-						{
-							uiFaceItemOne = 1;
-						}
-					else if ( zNewFaceGear[uiFaceOne].Type == 4 ) 
-						{
-							uiFaceItemOne = 2;
-						}
-					else uiFaceItemOne = 0;	
+					if (Item[uiFaceItemOne].gasmask)
+						uiFaceItemOne = 1;
+					else if (Item[uiFaceItemOne].nightvisionrangebonus > 0)
+						uiFaceItemOne = 2;
+					else if (Item[uiFaceItemOne].dayvisionrangebonus > 0 || Item[uiFaceItemOne].brightlightvisionrangebonus > 0)
+						uiFaceItemOne = 3;
+					else if (Item[uiFaceItemOne].hearingrangebonus > 0)
+						uiFaceItemOne = 4;
+					else
+						uiFaceItemOne = 0;
 				}
-			
+
 				// check second face slot
-				if ( uiFaceItemTwo != NONE )
+				if (uiFaceItemTwo != NONE)
 				{
-					if ( zNewFaceGear[uiFaceTwo].Type == 3 ) 
-						{
-							uiFaceItemTwo = 21;
-						}
-					else if ( zNewFaceGear[uiFaceTwo].Type == 4 ) 
-						{
-							uiFaceItemTwo = 42;
-						}
-					else uiFaceItemTwo = 0;	
+					if (Item[uiFaceItemTwo].gasmask)
+						uiFaceItemTwo = 21;
+					else if (Item[uiFaceItemTwo].nightvisionrangebonus > 0)
+						uiFaceItemTwo = 42;
+					else if (Item[uiFaceItemTwo].dayvisionrangebonus > 0 || Item[uiFaceItemTwo].brightlightvisionrangebonus > 0)
+						uiFaceItemTwo = 63;
+					else if (Item[uiFaceItemTwo].hearingrangebonus > 0)
+						uiFaceItemTwo = 84;
+					else
+						uiFaceItemTwo = 0;
 				}
-			
-			
-				// Now select the correct picture. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
+
+				// Now select the correct icon. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
 				// the numbers on the outer border are used if that is the only item worn in that slot
 				//
 				//								21			42			63				84	
@@ -1949,159 +1822,289 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				// 4	extended ear			25			46			67				--
 				//
 				// this matrix leaves room for expansion
-				// we only need a few of the matrix' values this time because we only show gas mask or NV goggles pictures
 				ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
-			}
 
-			// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
-			// silversurfer: we don't want to display icons for gas mask or NV goggles because you can actually see the merc wearing the gear
-			// in case of gas mask together with NV we display the picture of the item in face slot 1 and the icon of the item
-			// in face slot 2 (if icons are allowed)
-		
-			//Type : 3 - gas mask ; 4 - NV googles
-			// gas mask only
-
-			if ( ubFaceItemsCombined == 1 || ubFaceItemsCombined == 21 )
-			{
-				if ( zNewFaceGear[uiFaceOne].Type == 3 ) 
+				switch (ubFaceItemsCombined)
 				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceOne, isIMP);
-				}	
-				else if ( zNewFaceGear[uiFaceTwo].Type == 3 ) 
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
-				}	
-			}
-			
-			// NV goggles only
-			if ( ubFaceItemsCombined == 2 || ubFaceItemsCombined == 42 )
-			{
-				if ( zNewFaceGear[uiFaceOne].Type == 4 )  
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceOne, isIMP);
-				}	
-				else if ( zNewFaceGear[uiFaceTwo].Type == 4 ) 
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
-				}	
-			}
-			
-			// NV goggles + gas mask
-			if ( ubFaceItemsCombined == 23 )
-			{
-				if ( zNewFaceGear[uiFaceOne].Type == 4 &&  zNewFaceGear[uiFaceTwo].Type == 3 ) 
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceOne, isIMP);	
-				}	
-			}
-			
-			// gas mask + NV goggles
-			if ( ubFaceItemsCombined == 43 )
-			{
-				if ( zNewFaceGear[uiFaceOne].Type == 3 && zNewFaceGear[uiFaceTwo].Type == 4 )   
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceOne, isIMP);
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
+					// gas mask only
+				case 1:
+				case 21:
+					sIconIndex = 9;
+					fDoIcon = TRUE;
+					break;
+					// NV goggles only
+				case 2:
+				case 42:
+					sIconIndex = 10;
+					fDoIcon = TRUE;
+					break;
+					// sun goggles only
+				case 3:
+				case 63:
+					sIconIndex = 15;
+					fDoIcon = TRUE;
+					break;
+					// extended ear only
+				case 4:
+				case 84:
+					sIconIndex = 12;
+					fDoIcon = TRUE;
+					break;
+					// gas mask + NV goggles
+				case 23:
+				case 43:
+					sIconIndex = 11;
+					fDoIcon = TRUE;
+					break;
+					// gas mask + sun goggles
+				case 24:
+				case 64:
+					sIconIndex = 16;
+					fDoIcon = TRUE;
+					break;
+					// gas mask + extended ear
+				case 25:
+				case 85:
+					sIconIndex = 13;
+					fDoIcon = TRUE;
+					break;
+					// NV goggles + extended ear
+				case 46:
+				case 86:
+					sIconIndex = 14;
+					fDoIcon = TRUE;
+					break;
+					// sun goggles + extended ear
+				case 67:
+				case 87:
+					sIconIndex = 18;
+					fDoIcon = TRUE;
+					break;
+				default:
+					break;
 				}
 			}
-			
-			// gas mask + extended ear
-			if ( ubFaceItemsCombined == 24 || ubFaceItemsCombined == 64 )
-			{
-				if ( zNewFaceGear[uiFaceOne].Type == 3 ) 
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceOne, isIMP);
-				}	
-				else if ( zNewFaceGear[uiFaceTwo].Type == 3 )  
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
-				}	
-			}	
-			
-			// gas mask + extended ear
-			if ( ubFaceItemsCombined == 25 || ubFaceItemsCombined == 85 )
-			{
-				if ( zNewFaceGear[uiFaceOne].Type == 3 )   
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceOne, isIMP);
-				}	
-				else if ( zNewFaceGear[uiFaceTwo].Type == 3 )    
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
-				}
-			}
-			
-			// NV goggles + extended ear
-			if ( ubFaceItemsCombined == 46 || ubFaceItemsCombined == 86 )
-			{
-				if ( zNewFaceGear[uiFaceOne].Type == 4 ) 
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceOne, isIMP);
-				}	
-				else if ( zNewFaceGear[uiFaceTwo].Type == 4 )  
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceTwo, isIMP);
-				}	
-			}
-		}
-		
-		if (gGameSettings.fOptions[ TOPTION_SHOW_TACTICAL_FACE_GEAR ] == TRUE && MercPtrs[ pFace->ubSoldierID ]->stats.bLife  > 0  &&
-			( MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem > 0 ) 
-			// dirty hack for IMPs because they don't have pictures for face gear
-			/* && ( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 ) */ ) 
-		{
-			uiFaceItemOne=MercPtrs[ pFace->ubSoldierID ]->inv[HELMETPOS].usItem;
-		
-			if ( uiFaceItemOne != NONE )
-			{
-				if ( uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 2 ) //front
-				{
-					DoRightIcon_FaceGear( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion,  faceProfileId ,uiFaceItemOne, isIMP);
-				}	
-			}
-		}
-				
-		//------------------------------------end of tactical face gear-----------------------------
 
-		{	
+			// sevenfm: no face gear for big faces
+			if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR] && !(pFace->uiFlags & FACE_BIGFACE))
+			{
+				if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
+				{
+					uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
+
+					if (uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1) //back
+					{
+						DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceItemOne, isIMP);
+					}
+				}
+
+				// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
+				// and the merc actually wears something to be shown
+				if (MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem + MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem > 0)
+				{
+					// WANNE: Removed the limitation
+					// silversurfer: don't overwrite icons if they shall be shown!
+					//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
+					{
+						uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
+						uiFaceItemTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+
+						uiFaceOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
+						uiFaceTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+
+						// check first face slot
+						if (uiFaceItemOne != NONE)
+						{
+							if (zNewFaceGear[uiFaceOne].Type == 3)
+							{
+								uiFaceItemOne = 1;
+							}
+							else if (zNewFaceGear[uiFaceOne].Type == 4)
+							{
+								uiFaceItemOne = 2;
+							}
+							else uiFaceItemOne = 0;
+						}
+
+						// check second face slot
+						if (uiFaceItemTwo != NONE)
+						{
+							if (zNewFaceGear[uiFaceTwo].Type == 3)
+							{
+								uiFaceItemTwo = 21;
+							}
+							else if (zNewFaceGear[uiFaceTwo].Type == 4)
+							{
+								uiFaceItemTwo = 42;
+							}
+							else uiFaceItemTwo = 0;
+						}
+
+
+						// Now select the correct picture. This uses a matrix from uiFaceOneItem and uiFaceTwoItem (simple addition)
+						// the numbers on the outer border are used if that is the only item worn in that slot
+						//
+						//								21			42			63				84	
+						//	 face slot 1 \ slot 2	gas mask | NV goggles | sun goggles | extended ear
+						// 1	gas mask				--			43			64				85
+						// 2	NV goggles				23			--			--				86
+						// 3	sun goggles				24			--			--				87
+						// 4	extended ear			25			46			67				--
+						//
+						// this matrix leaves room for expansion
+						// we only need a few of the matrix' values this time because we only show gas mask or NV goggles pictures
+						ubFaceItemsCombined = uiFaceItemOne + uiFaceItemTwo;
+					}
+
+					// WANNE: Removed silversurfers limitation, because it is too complex for the players :)
+					// silversurfer: we don't want to display icons for gas mask or NV goggles because you can actually see the merc wearing the gear
+					// in case of gas mask together with NV we display the picture of the item in face slot 1 and the icon of the item
+					// in face slot 2 (if icons are allowed)
+
+					//Type : 3 - gas mask ; 4 - NV googles
+					// gas mask only
+
+					if (ubFaceItemsCombined == 1 || ubFaceItemsCombined == 21)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 3)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP);
+						}
+						else if (zNewFaceGear[uiFaceTwo].Type == 3)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP);
+						}
+					}
+
+					// NV goggles only
+					if (ubFaceItemsCombined == 2 || ubFaceItemsCombined == 42)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 4)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP);
+						}
+						else if (zNewFaceGear[uiFaceTwo].Type == 4)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP);
+						}
+					}
+
+					// NV goggles + gas mask
+					if (ubFaceItemsCombined == 23)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 4 && zNewFaceGear[uiFaceTwo].Type == 3)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP);
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP);
+						}
+					}
+
+					// gas mask + NV goggles
+					if (ubFaceItemsCombined == 43)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 3 && zNewFaceGear[uiFaceTwo].Type == 4)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP);
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP);
+						}
+					}
+
+					// gas mask + extended ear
+					if (ubFaceItemsCombined == 24 || ubFaceItemsCombined == 64)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 3)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP);
+						}
+						else if (zNewFaceGear[uiFaceTwo].Type == 3)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP);
+						}
+					}
+
+					// gas mask + extended ear
+					if (ubFaceItemsCombined == 25 || ubFaceItemsCombined == 85)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 3)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP);
+						}
+						else if (zNewFaceGear[uiFaceTwo].Type == 3)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP);
+						}
+					}
+
+					// NV goggles + extended ear
+					if (ubFaceItemsCombined == 46 || ubFaceItemsCombined == 86)
+					{
+						if (zNewFaceGear[uiFaceOne].Type == 4)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceOne, isIMP);
+						}
+						else if (zNewFaceGear[uiFaceTwo].Type == 4)
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceTwo, isIMP);
+						}
+					}
+				}
+
+				if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
+					// dirty hack for IMPs because they don't have pictures for face gear
+					// && ( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 )
+				{
+					uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
+
+					if (uiFaceItemOne != NONE)
+					{
+						if (uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 2) //front
+						{
+							DoRightIcon_FaceGear(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons_legion, faceProfileId, uiFaceItemOne, isIMP);
+						}
+					}
+				}
+
+				//------------------------------------end of tactical face gear-----------------------------
+			}
+
 			// If blind...
-			if ( MercPtrs[ pFace->ubSoldierID ]->bBlindedCounter > 0 )
+			if (MercPtrs[pFace->ubSoldierID]->bBlindedCounter > 0)
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 6 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 6);
 				bNumRightIcons++;
 			}
 
 			// Flugente: add drug symbol if drugged (without alcohol)
-			if ( MercDrugged( MercPtrs[pFace->ubSoldierID] ) )
+			if (MercDrugged(MercPtrs[pFace->ubSoldierID]))
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7);
 				bNumRightIcons++;
 			}
 
-			if ( GetDrunkLevel( MercPtrs[ pFace->ubSoldierID ] ) != SOBER )
+			if (GetDrunkLevel(MercPtrs[pFace->ubSoldierID]) != SOBER)
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 8 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 8);
 				bNumRightIcons++;
 			}
 
 			// Flugente: food system - symbols used if hungry or thirsty
-			if ( UsingFoodSystem() )
+			if (UsingFoodSystem())
 			{
-				if ( MercPtrs[ pFace->ubSoldierID ]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
+				if (MercPtrs[pFace->ubSoldierID]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold)
 				{
-					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 9 );
-					bNumRightIcons++;	
+					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 9);
+					bNumRightIcons++;
 				}
-		
-				if ( MercPtrs[ pFace->ubSoldierID ]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold )
+
+				if (MercPtrs[pFace->ubSoldierID]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold)
 				{
-					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 10 );
+					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 10);
 					bNumRightIcons++;
 				}
 			}
+
 			// Flugente: are we supplying ammo to someone else?
-			if ( gGameExternalOptions.ubExternalFeeding > 0 )
+			if (gGameExternalOptions.ubExternalFeeding > 0)
 			{
 				UINT8 ubID1 = 0;
 				UINT16 ubGunSlot1 = 0;
@@ -2109,387 +2112,387 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				UINT8 ubID2 = 0;
 				UINT16 ubGunSlot2 = 0;
 				UINT16 ubFaceSlot2 = 0;
-				if ( MercPtrs[ pFace->ubSoldierID ]->IsFeedingExternal( &ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2 ) )
+				if (MercPtrs[pFace->ubSoldierID]->IsFeedingExternal(&ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2))
 				{
-					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 11 );
+					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 11);
 					bNumRightIcons++;
 				}
 			}
 
 			// Flugente: add an icon if we are currently in disguise
-			if ( MercPtrs[ pFace->ubSoldierID ]->usSoldierFlagMask & (SOLDIER_COVERT_CIV|SOLDIER_COVERT_SOLDIER) )
+			if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER))
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 12 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 12);
 				bNumRightIcons++;
 			}
 
 			// Flugente: add an icon if we are performing a multi-turn action
-			if ( MercPtrs[pFace->ubSoldierID]->GetMultiTurnAction( ) == MTA_HACK )
+			if (MercPtrs[pFace->ubSoldierID]->GetMultiTurnAction() == MTA_HACK)
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 30 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 30);
 				bNumRightIcons++;
 			}
-			else if ( MercPtrs[ pFace->ubSoldierID ]->GetMultiTurnAction() > MTA_NONE )
+			else if (MercPtrs[pFace->ubSoldierID]->GetMultiTurnAction() > MTA_NONE)
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 14 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 14);
 				bNumRightIcons++;
 			}
 
 			// Flugente: icons for radio operator actions (not the assignment)
-			if ( MercPtrs[ pFace->ubSoldierID ]->bAssignment != RADIO_SCAN )
+			if (MercPtrs[pFace->ubSoldierID]->bAssignment != RADIO_SCAN)
 			{
-				if ( MercPtrs[ pFace->ubSoldierID ]->usSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING|SOLDIER_RADIO_OPERATOR_LISTENING) )
+				if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING | SOLDIER_RADIO_OPERATOR_LISTENING))
 				{
-					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19 );
+					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19);
 					bNumRightIcons++;
 				}
-				else if ( MercPtrs[ pFace->ubSoldierID ]->usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING )
+				else if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING)
 				{
-					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20 );
+					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20);
 					bNumRightIcons++;
 				}
 			}
 
 			// Flugente: spotter
-			if ( MercPtrs[ pFace->ubSoldierID ]->usSkillCounter[SOLDIER_COUNTER_SPOTTER] > 0 )
+			if (MercPtrs[pFace->ubSoldierID]->usSkillCounter[SOLDIER_COUNTER_SPOTTER] > 0)
 			{
-				if (  MercPtrs[ pFace->ubSoldierID ]->IsSpotting() )
+				if (MercPtrs[pFace->ubSoldierID]->IsSpotting())
 				{
-					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 24 );
+					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 24);
 					bNumRightIcons++;
 				}
 				else
 				{
-					DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 23 );
+					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 23);
 					bNumRightIcons++;
 				}
 			}
 
 			// Flugente: focus trait
-			if ( MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS )
+			if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS)
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 17 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 17);
 				bNumRightIcons++;
 			}
 
 			// Flugente: disease
-			if ( MercPtrs[pFace->ubSoldierID]->HasDisease(TRUE, FALSE, TRUE) )
+			if (MercPtrs[pFace->ubSoldierID]->HasDisease(TRUE, FALSE, TRUE))
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 28 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 28);
 				bNumRightIcons++;
 			}
 
 			// Flugente: drag stuff
-			if ( MercPtrs[pFace->ubSoldierID]->IsDraggingSomeone() )
+			if (MercPtrs[pFace->ubSoldierID]->IsDraggingSomeone())
 			{
-				DoRightIcon( uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 31 );
+				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 31);
 				++bNumRightIcons;
 			}
 
-			switch( pSoldier->bAssignment )
+			// Assignments
+			switch (pSoldier->bAssignment)
 			{
-				CASE_DOCTOR:
-				case DOCTOR_MILITIA:
-					sIconIndex_Assignment = 1;
-					fDoIcon_Assignment		= TRUE;
-					sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
+			CASE_DOCTOR:
+			case DOCTOR_MILITIA:
+				sIconIndex_Assignment = 1;
+				fDoIcon_Assignment = TRUE;
+				sPtsAvailable = CalculateHealingPointsForDoctor(MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE);
 
-					fShowCustomText = TRUE;
-					
-					if ( pSoldier->bAssignment == DOCTOR_MILITIA )
-					{
-						// show percentage that we can heal
-						swprintf( sString, L"%3.1f/%3.1f", (FLOAT)( sPtsAvailable * gGameExternalOptions.dIndividualMilitiaDoctorHealModifier ), (FLOAT)( usMaximumPts * gGameExternalOptions.dIndividualMilitiaDoctorHealModifier ) );
-					}
-					else
-					{
-						// shos HP we can heal
-						swprintf( sString, L"%3.1f/%3.1f", (FLOAT)( sPtsAvailable ) / 100.0f, (FLOAT)( usMaximumPts ) / 100.0f );
-					}
+				fShowCustomText = TRUE;
 
-					usTextWidth = StringPixLength( sString, FONT10ARIAL );
-					
+				if (pSoldier->bAssignment == DOCTOR_MILITIA)
+				{
+					// show percentage that we can heal
+					swprintf(sString, L"%3.1f/%3.1f", (FLOAT)(sPtsAvailable * gGameExternalOptions.dIndividualMilitiaDoctorHealModifier), (FLOAT)(usMaximumPts * gGameExternalOptions.dIndividualMilitiaDoctorHealModifier));
+				}
+				else
+				{
+					// shos HP we can heal
+					swprintf(sString, L"%3.1f/%3.1f", (FLOAT)(sPtsAvailable) / 100.0f, (FLOAT)(usMaximumPts) / 100.0f);
+				}
+
+				usTextWidth = StringPixLength(sString, FONT10ARIAL);
+
+				break;
+
+			CASE_PATIENT:
+				sIconIndex_Assignment = 2;
+				fDoIcon_Assignment = TRUE;
+				// show current health / maximum health
+				sPtsAvailable = MercPtrs[pFace->ubSoldierID]->stats.bLife;
+				usMaximumPts = MercPtrs[pFace->ubSoldierID]->stats.bLifeMax;
+				fShowNumber = TRUE;
+				fShowMaximum = TRUE;
+				break;
+
+			case TRAIN_SELF:
+			case TRAIN_TOWN:
+			case TRAIN_TEAMMATE:
+			case TRAIN_BY_OTHER:
+			case TRAIN_WORKERS:
+			case DRILL_MILITIA:
+				sIconIndex_Assignment = 3;
+				fDoIcon_Assignment = TRUE;
+				fShowNumber = TRUE;
+				fShowMaximum = TRUE;
+
+				switch (MercPtrs[pFace->ubSoldierID]->bAssignment)
+				{
+				case(TRAIN_SELF) :
+					sPtsAvailable = GetSoldierTrainingPts(MercPtrs[pFace->ubSoldierID], MercPtrs[pFace->ubSoldierID]->bTrainStat, &usMaximumPts);
 					break;
-
-				CASE_PATIENT:
-					sIconIndex_Assignment = 2;
-					fDoIcon_Assignment		= TRUE;
-					// show current health / maximum health
-					sPtsAvailable = MercPtrs[ pFace->ubSoldierID ]->stats.bLife;
-					usMaximumPts	= MercPtrs[ pFace->ubSoldierID ]->stats.bLifeMax;
-					fShowNumber = TRUE;
-					fShowMaximum = TRUE;
+				case(TRAIN_BY_OTHER) :
+					sPtsAvailable = GetSoldierStudentPts(MercPtrs[pFace->ubSoldierID], MercPtrs[pFace->ubSoldierID]->bTrainStat, &usMaximumPts);
 					break;
-
-				case TRAIN_SELF:
-				case TRAIN_TOWN:
-				case TRAIN_TEAMMATE:
-				case TRAIN_BY_OTHER:
-				case TRAIN_WORKERS:
+				case(TRAIN_TOWN) :
 				case DRILL_MILITIA:
-					sIconIndex_Assignment = 3;
-					fDoIcon_Assignment		= TRUE;
-					fShowNumber = TRUE;
-					fShowMaximum = TRUE;
-
-					switch( MercPtrs[ pFace->ubSoldierID ]->bAssignment )
-					{
-						case( TRAIN_SELF ):
-							sPtsAvailable = GetSoldierTrainingPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
-							break;
-						case( TRAIN_BY_OTHER ):
-							sPtsAvailable = GetSoldierStudentPts( MercPtrs[ pFace->ubSoldierID ], MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
-							break;
-						case( TRAIN_TOWN ):
-						case DRILL_MILITIA:
-							sPtsAvailable = GetTownTrainPtsForCharacter( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
-							// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
-							sPtsAvailable = ( sPtsAvailable + 5 ) / 10;
-							usMaximumPts	= ( usMaximumPts + 5 ) / 10;
-							break;
-						case( TRAIN_TEAMMATE ):
-							sPtsAvailable = GetBonusTrainingPtsDueToInstructor( MercPtrs[ pFace->ubSoldierID ], NULL , MercPtrs[ pFace->ubSoldierID ]->bTrainStat, &usMaximumPts );
-							break;
-						case TRAIN_WORKERS:
-							fShowMaximum = FALSE;
-							sPtsAvailable = GetTrainWorkerPts(MercPtrs[ pFace->ubSoldierID ]);
-							break;
-					}
-					break;
-
-				CASE_REPAIR:
-
-					sIconIndex_Assignment = 0;
-					fDoIcon_Assignment		= TRUE;
-					// Show repair points if merc has a toolkit in his hand. Otherwise show cleaning points.
-					if ( Item[pSoldier->inv[HANDPOS].usItem].toolkit )
-						sPtsAvailable = CalculateRepairPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts, FALSE );
-					else
-						sPtsAvailable = CalculateCleaningPointsForRepairman( MercPtrs[ pFace->ubSoldierID ], &usMaximumPts );
-					fShowNumber = TRUE;
-					fShowMaximum = TRUE;
-
-					// check if we are repairing a vehicle
-					if ( Menptr[ pFace->ubSoldierID ].bVehicleUnderRepairID != -1 )
-					{
-						// reduce to a multiple of VEHICLE_REPAIR_POINTS_DIVISOR.	This way skill too low will show up as 0 repair pts.
-						sPtsAvailable -= ( sPtsAvailable % VEHICLE_REPAIR_POINTS_DIVISOR );
-						usMaximumPts	-= ( usMaximumPts	% VEHICLE_REPAIR_POINTS_DIVISOR );
-					}
-					else if ( Menptr[pFace->ubSoldierID].flags.fFixingSAMSite  )
-					{
-						sPtsAvailable = (sPtsAvailable / SAM_SITE_REPAIR_DIVISOR);
-
-						INT16 sector = CALCULATE_STRATEGIC_INDEX( Menptr[pFace->ubSoldierID].sSectorX, Menptr[pFace->ubSoldierID].sSectorY );
-						
-						usMaximumPts = 100 - StrategicMap[sector].bSAMCondition;
-					}
-
-					break;
-
-				case RADIO_SCAN:
-					sIconIndex_Assignment  = 19;
-					fDoIcon_Assignment		= TRUE;
-					break;
-
-				case MOVE_EQUIPMENT:
-					{
-						sIconIndex_Assignment		= 15;
-						fDoIcon_Assignment			= TRUE;
-
-						fShowCustomText = TRUE;
-					
-						GetShortSectorString( SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), sString );
-					}
-					break;
-									
-				case FACILITY_INTERROGATE_PRISONERS:
-					sIconIndex_Assignment		= 13;
-					fDoIcon_Assignment			= TRUE;
-					sPtsAvailable	= (INT16)( CalculateInterrogationValue(pSoldier, &usMaximumPts ) );
-					fShowNumber		= TRUE;
-					fShowMaximum	= TRUE;
-					break;
-
-				case FACILITY_PRISON_SNITCH:
-					sIconIndex_Assignment		= 27;
-					fDoIcon_Assignment			= TRUE;
-					sPtsAvailable	= (INT16)( CalculateSnitchInterrogationValue(pSoldier, &usMaximumPts ) );
-					fShowNumber		= TRUE;
-					fShowMaximum	= TRUE;
-					break;
-
-				case SNITCH_SPREAD_PROPAGANDA:
-				case FACILITY_SPREAD_PROPAGANDA:
-				case FACILITY_SPREAD_PROPAGANDA_GLOBAL:
-					sIconIndex_Assignment  = 25;
-					fDoIcon_Assignment		= TRUE;
-					break;
-
-				case SNITCH_GATHER_RUMOURS:
-				case FACILITY_GATHER_RUMOURS:
-					sIconIndex_Assignment  = 26;
-					fDoIcon_Assignment		= TRUE;
-					break;
-
-				case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
-					sIconIndex_Assignment	= 16;
-					fDoIcon_Assignment		= TRUE;
-					break;
-
-				case DISEASE_DIAGNOSE:
-					{
-						sIconIndex_Assignment = 29;
-						fDoIcon_Assignment = TRUE;
-						// determine our skill at detecting disease
-						sPtsAvailable = pSoldier->GetDiseaseDiagnosePoints();
-
-						fShowNumber = TRUE;
-						fShowMaximum = FALSE;
-					}
-					break;
-
-				case DISEASE_DOCTOR_SECTOR:
-					sIconIndex_Assignment = 1;
-					fDoIcon_Assignment = TRUE;
-					sPtsAvailable = CalculateHealingPointsForDoctor( MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE );
-					fShowNumber = TRUE;
-					fShowMaximum = TRUE;
-
+					sPtsAvailable = GetTownTrainPtsForCharacter(MercPtrs[pFace->ubSoldierID], &usMaximumPts);
 					// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
 					sPtsAvailable = (sPtsAvailable + 5) / 10;
 					usMaximumPts = (usMaximumPts + 5) / 10;
 					break;
-
-				case FORTIFICATION:
-					sIconIndex_Assignment = 14;
-					fDoIcon_Assignment = TRUE;
-					sPtsAvailable = (INT16)(MercPtrs[pFace->ubSoldierID]->GetConstructionPoints( ));
-					fShowNumber = TRUE;
-					fShowMaximum = TRUE;
-
-					{
-						if ( MercPtrs[pFace->ubSoldierID]->bSectorZ )
-						{
-							UNDERGROUND_SECTORINFO *pSectorInfo;
-							pSectorInfo = FindUnderGroundSector( MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY, MercPtrs[pFace->ubSoldierID]->bSectorZ );
-
-							if ( pSectorInfo )
-								usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
-						}
-						else
-						{
-							SECTORINFO *pSectorInfo;
-							pSectorInfo = &SectorInfo[SECTOR( MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY )];
-
-							if ( pSectorInfo )
-								usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
-						}
-					}
+				case(TRAIN_TEAMMATE) :
+					sPtsAvailable = GetBonusTrainingPtsDueToInstructor(MercPtrs[pFace->ubSoldierID], NULL, MercPtrs[pFace->ubSoldierID]->bTrainStat, &usMaximumPts);
 					break;
-					
-				case CONCEALED:
-				case GATHERINTEL:
-					sIconIndex_Assignment = 34;
-					fDoIcon_Assignment = TRUE;
-					fShowCustomText = TRUE;
+				case TRAIN_WORKERS:
+					fShowMaximum = FALSE;
+					sPtsAvailable = GetTrainWorkerPts(MercPtrs[pFace->ubSoldierID]);
+					break;
+				}
+				break;
 
-					if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+			CASE_REPAIR:
+
+				sIconIndex_Assignment = 0;
+				fDoIcon_Assignment = TRUE;
+				// Show repair points if merc has a toolkit in his hand. Otherwise show cleaning points.
+				if (Item[pSoldier->inv[HANDPOS].usItem].toolkit)
+					sPtsAvailable = CalculateRepairPointsForRepairman(MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE);
+				else
+					sPtsAvailable = CalculateCleaningPointsForRepairman(MercPtrs[pFace->ubSoldierID], &usMaximumPts);
+				fShowNumber = TRUE;
+				fShowMaximum = TRUE;
+
+				// check if we are repairing a vehicle
+				if (Menptr[pFace->ubSoldierID].bVehicleUnderRepairID != -1)
+				{
+					// reduce to a multiple of VEHICLE_REPAIR_POINTS_DIVISOR.	This way skill too low will show up as 0 repair pts.
+					sPtsAvailable -= (sPtsAvailable % VEHICLE_REPAIR_POINTS_DIVISOR);
+					usMaximumPts -= (usMaximumPts	% VEHICLE_REPAIR_POINTS_DIVISOR);
+				}
+				else if (Menptr[pFace->ubSoldierID].flags.fFixingSAMSite)
+				{
+					sPtsAvailable = (sPtsAvailable / SAM_SITE_REPAIR_DIVISOR);
+
+					INT16 sector = CALCULATE_STRATEGIC_INDEX(Menptr[pFace->ubSoldierID].sSectorX, Menptr[pFace->ubSoldierID].sSectorY);
+
+					usMaximumPts = 100 - StrategicMap[sector].bSAMCondition;
+				}
+
+				break;
+
+			case RADIO_SCAN:
+				sIconIndex_Assignment = 19;
+				fDoIcon_Assignment = TRUE;
+				break;
+
+			case MOVE_EQUIPMENT:
+			{
+								   sIconIndex_Assignment = 15;
+								   fDoIcon_Assignment = TRUE;
+
+								   fShowCustomText = TRUE;
+
+								   GetShortSectorString(SECTORX(pSoldier->usItemMoveSectorID), SECTORY(pSoldier->usItemMoveSectorID), sString);
+			}
+				break;
+
+			case FACILITY_INTERROGATE_PRISONERS:
+				sIconIndex_Assignment = 13;
+				fDoIcon_Assignment = TRUE;
+				sPtsAvailable = (INT16)(CalculateInterrogationValue(pSoldier, &usMaximumPts));
+				fShowNumber = TRUE;
+				fShowMaximum = TRUE;
+				break;
+
+			case FACILITY_PRISON_SNITCH:
+				sIconIndex_Assignment = 27;
+				fDoIcon_Assignment = TRUE;
+				sPtsAvailable = (INT16)(CalculateSnitchInterrogationValue(pSoldier, &usMaximumPts));
+				fShowNumber = TRUE;
+				fShowMaximum = TRUE;
+				break;
+
+			case SNITCH_SPREAD_PROPAGANDA:
+			case FACILITY_SPREAD_PROPAGANDA:
+			case FACILITY_SPREAD_PROPAGANDA_GLOBAL:
+				sIconIndex_Assignment = 25;
+				fDoIcon_Assignment = TRUE;
+				break;
+
+			case SNITCH_GATHER_RUMOURS:
+			case FACILITY_GATHER_RUMOURS:
+				sIconIndex_Assignment = 26;
+				fDoIcon_Assignment = TRUE;
+				break;
+
+			case FACILITY_STRATEGIC_MILITIA_MOVEMENT:
+				sIconIndex_Assignment = 16;
+				fDoIcon_Assignment = TRUE;
+				break;
+
+			case DISEASE_DIAGNOSE:
+			{
+									 sIconIndex_Assignment = 29;
+									 fDoIcon_Assignment = TRUE;
+									 // determine our skill at detecting disease
+									 sPtsAvailable = pSoldier->GetDiseaseDiagnosePoints();
+
+									 fShowNumber = TRUE;
+									 fShowMaximum = FALSE;
+			}
+				break;
+
+			case DISEASE_DOCTOR_SECTOR:
+				sIconIndex_Assignment = 1;
+				fDoIcon_Assignment = TRUE;
+				sPtsAvailable = CalculateHealingPointsForDoctor(MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE);
+				fShowNumber = TRUE;
+				fShowMaximum = TRUE;
+
+				// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
+				sPtsAvailable = (sPtsAvailable + 5) / 10;
+				usMaximumPts = (usMaximumPts + 5) / 10;
+				break;
+
+			case FORTIFICATION:
+				sIconIndex_Assignment = 14;
+				fDoIcon_Assignment = TRUE;
+				sPtsAvailable = (INT16)(MercPtrs[pFace->ubSoldierID]->GetConstructionPoints());
+				fShowNumber = TRUE;
+				fShowMaximum = TRUE;
+
+				{
+					if (MercPtrs[pFace->ubSoldierID]->bSectorZ)
 					{
-						swprintf( sString, L"Hide %dh", pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] );
+						UNDERGROUND_SECTORINFO *pSectorInfo;
+						pSectorInfo = FindUnderGroundSector(MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY, MercPtrs[pFace->ubSoldierID]->bSectorZ);
+
+						if (pSectorInfo)
+							usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
 					}
 					else
 					{
-						bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetIntelGain();
-						usMaximumPts = (UINT16)( MercPtrs[pFace->ubSoldierID]->GetUncoverRisk() );
+						SECTORINFO *pSectorInfo;
+						pSectorInfo = &SectorInfo[SECTOR(MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY)];
 
-						swprintf( sString, L"%4.2f/%d%%%%", bPtsAvailable, usMaximumPts );
-
-						usTextWidth = StringPixLength( sString, FONT10ARIAL ) - 10;
+						if (pSectorInfo)
+							usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
 					}
-					break;
+				}
+				break;
 
-				case BURIAL:
-					sIconIndex_Assignment = 35;
-					fDoIcon_Assignment = TRUE;
-					fShowCustomText = TRUE;
-					bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetBurialPoints( &usMaximumPts );
+			case CONCEALED:
+			case GATHERINTEL:
+				sIconIndex_Assignment = 34;
+				fDoIcon_Assignment = TRUE;
+				fShowCustomText = TRUE;
 
-					swprintf( sString, L"%3.1f/%d", bPtsAvailable, usMaximumPts );
-					break;
+				if (pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY])
+				{
+					swprintf(sString, L"Hide %dh", pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY]);
+				}
+				else
+				{
+					bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetIntelGain();
+					usMaximumPts = (UINT16)(MercPtrs[pFace->ubSoldierID]->GetUncoverRisk());
 
-				case ADMINISTRATION:
-					sIconIndex_Assignment = 36;
-					fDoIcon_Assignment = TRUE;
-					fShowCustomText = TRUE;
-					sPtsAvailable = (INT16)MercPtrs[pFace->ubSoldierID]->GetAdministrationPoints();
-					bPtsAvailable = GetAdministrationPercentage( MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY );
+					swprintf(sString, L"%4.2f/%d%%%%", bPtsAvailable, usMaximumPts);
 
-					swprintf( sString, L"%d/%3.1f", sPtsAvailable, bPtsAvailable );
-					break;
+					usTextWidth = StringPixLength(sString, FONT10ARIAL) - 10;
+				}
+				break;
+
+			case BURIAL:
+				sIconIndex_Assignment = 35;
+				fDoIcon_Assignment = TRUE;
+				fShowCustomText = TRUE;
+				bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetBurialPoints(&usMaximumPts);
+
+				swprintf(sString, L"%3.1f/%d", bPtsAvailable, usMaximumPts);
+				break;
+
+			case ADMINISTRATION:
+				sIconIndex_Assignment = 36;
+				fDoIcon_Assignment = TRUE;
+				fShowCustomText = TRUE;
+				sPtsAvailable = (INT16)MercPtrs[pFace->ubSoldierID]->GetAdministrationPoints();
+				bPtsAvailable = GetAdministrationPercentage(MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY);
+
+				swprintf(sString, L"%d/%3.1f", sPtsAvailable, bPtsAvailable);
+				break;
 			}
 
 			// Check for being serviced...
-			if ( MercPtrs[ pFace->ubSoldierID ]->ubServicePartner != NOBODY )
+			if (MercPtrs[pFace->ubSoldierID]->ubServicePartner != NOBODY)
 			{
 				// Doctor...
 				sIconIndex_Assignment = 1;
-				fDoIcon_Assignment		= TRUE;
+				fDoIcon_Assignment = TRUE;
 			}
 
-			if ( MercPtrs[ pFace->ubSoldierID ]->ubServiceCount != 0 )
+			if (MercPtrs[pFace->ubSoldierID]->ubServiceCount != 0)
 			{
 				// Patient
 				sIconIndex_Assignment = 2;
-				fDoIcon_Assignment		= TRUE;
+				fDoIcon_Assignment = TRUE;
 			}
+		}
 
+		if (fDoIcon_Assignment)
+		{
+			// Find x, y for placement
+			GetXYForIconPlacement(pFace, sIconIndex_Assignment, sFaceX, sFaceY, &sIconX, &sIconY, guiASSIGNMENTICONS);
+			BltVideoObjectFromIndex(uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex_Assignment, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
 
-			if ( fDoIcon_Assignment )
+			// ATE: Show numbers only in mapscreen
+			if (fShowNumber || fShowCustomText)
 			{
-				// Find X, y for placement
-				GetXYForIconPlacement( pFace, sIconIndex_Assignment, sFaceX, sFaceY, &sIconX, &sIconY, guiASSIGNMENTICONS );
-				BltVideoObjectFromIndex( uiRenderBuffer, guiASSIGNMENTICONS, sIconIndex_Assignment, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
-
-				// ATE: Show numbers only in mapscreen
-				if ( fShowNumber || fShowCustomText )
+				if (fShowNumber)
 				{
-					if ( fShowNumber )
+					if (fShowMaximum)
 					{
-						if ( fShowMaximum )
-						{
-							swprintf( sString, L"%d/%d", sPtsAvailable, usMaximumPts );
-						}
-						else
-						{
-							swprintf( sString, L"%d", sPtsAvailable );
-						}
+						swprintf(sString, L"%d/%d", sPtsAvailable, usMaximumPts);
 					}
-
-					SetFontDestBuffer( uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-
-					if ( !usTextWidth )
-						usTextWidth = StringPixLength( sString, FONT10ARIAL );
-
-					usTextWidth += 1;
-
-					SetFont( FONT10ARIAL );
-					SetFontForeground( FONT_YELLOW );
-					SetFontBackground( FONT_BLACK );
-
-					mprintf( sFaceX + pFace->usFaceWidth - usTextWidth, (INT16)( sFaceY + 3 ), sString );
-					SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+					else
+					{
+						swprintf(sString, L"%d", sPtsAvailable);
+					}
 				}
-			}
-			else if ( fDoIcon )
-			{
-				// Find X, y for placement
-				GetXYForIconPlacement( pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS );
-				BltVideoObjectFromIndex( uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-				fDoIcon = FALSE;
-				++bNumRightIcons;
+				SetFontDestBuffer(uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+
+				if (!usTextWidth)
+					usTextWidth = StringPixLength(sString, FONT10ARIAL);
+
+				usTextWidth += 1;
+
+				SetFont(FONT10ARIAL);
+				SetFontForeground(FONT_YELLOW);
+				SetFontBackground(FONT_BLACK);
+
+				mprintf(sFaceX + pFace->usFaceWidth - usTextWidth, (INT16)(sFaceY + 3), sString);
+				SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 			}
+		}
+		else if (fDoIcon)
+		{
+			// Find X, y for placement
+			GetXYForIconPlacement(pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS);
+			BltVideoObjectFromIndex(uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
+
+			fDoIcon = FALSE;
+			++bNumRightIcons;
 		}
 	}
 	else
