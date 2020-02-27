@@ -2129,7 +2129,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				}
 				else
 				{
-					//MakeCivHostile( pSoldier, 2 );
+					//MakeCivHostile(pSoldier);
 				}
 				if ( ( pSoldier->ubProfile != NO_PROFILE || pSoldier->IsAssassin() ) && pSoldier->stats.bLife >= OKLIFE )
 				{
@@ -2936,7 +2936,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					else
 					{
 						// make hostile
-						MakeCivHostile( pSoldier, 2 );
+						MakeCivHostile(pSoldier);
 					}
 					DeleteTalkingMenu();
 					if ( ! ( gTacticalStatus.uiFlags & INCOMBAT ) )

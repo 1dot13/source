@@ -2638,80 +2638,70 @@ BOOLEAN ExternRenderFace( UINT32 uiBuffer, INT32 iFaceIndex, INT16 sX, INT16 sY 
 
 void NewEye( FACETYPE *pFace )
 {
-
- switch(pFace->sEyeFrame)
- {
-	case 0 : //pFace->sEyeFrame = (INT16)Random(2);	// normal - can blink or frown
-			if ( pFace->ubExpression == ANGRY )
-			{
-				pFace->ubEyeWait = 0;
-				pFace->sEyeFrame = 3;
-			}
-			else if ( pFace->ubExpression == SURPRISED )
-			{
-				pFace->ubEyeWait = 0;
-				pFace->sEyeFrame = 4;
-			}
-			else
-	//if (pFace->sEyeFrame && Talk.talking && Talk.expression != DYING)
-	///	pFace->sEyeFrame = 3;
-	//else
-		pFace->sEyeFrame = 1;
-	break;
-	case 1 : // starting to blink	- has to finish unless dying
-	//if (Talk.expression == DYING)
-	//	pFace->sEyeFrame = 1;
-	//else
+	switch (pFace->sEyeFrame)
+	{
+	case 0: //pFace->sEyeFrame = (INT16)Random(2);	// normal - can blink or frown
+		if (pFace->ubExpression == ANGRY)
+		{
+			pFace->ubEyeWait = 0;
+			pFace->sEyeFrame = 3;
+		}
+		else if (pFace->ubExpression == SURPRISED)
+		{
+			pFace->ubEyeWait = 0;
+			pFace->sEyeFrame = 4;
+		}
+		else
+			pFace->sEyeFrame = 1;
+		//if (pFace->sEyeFrame && Talk.talking && Talk.expression != DYING)
+		///	pFace->sEyeFrame = 3;
+		//else		
+		break;
+	case 1: // starting to blink	- has to finish unless dying
+		//if (Talk.expression == DYING)
+		//	pFace->sEyeFrame = 1;
+		//else
 		pFace->sEyeFrame = 2;
-	break;
-	case 2 : //pFace->sEyeFrame = (INT16)Random(2);	// finishing blink - can go normal or frown
-	//if (pFace->sEyeFrame && Talk.talking)
-	//	pFace->sEyeFrame = 3;
-	//else
-	//	if (Talk.expression == ANGRY)
+		break;
+	case 2: //pFace->sEyeFrame = (INT16)Random(2);	// finishing blink - can go normal or frown
+		//if (pFace->sEyeFrame && Talk.talking)
+		//	pFace->sEyeFrame = 3;
+		//else
+		//	if (Talk.expression == ANGRY)
 		// pFace->sEyeFrame = 3;
-	//	else
+		//	else
 		pFace->sEyeFrame = 0;
-	break;
-
-	case 3 : //pFace->sEyeFrame = 4; break;	// frown
-
-			pFace->ubEyeWait++;
-
-			if ( pFace->ubEyeWait > 6 )
-			{
-				pFace->sEyeFrame = 0;
-			}
-			break;
-
-	case 4 :
-
-			pFace->ubEyeWait++;
-
-			if ( pFace->ubEyeWait > 6 )
-			{
-				pFace->sEyeFrame = 0;
-			}
-			break;
-
-	case 5 : pFace->sEyeFrame = 6;
-
+		break;
+	case 3: //pFace->sEyeFrame = 4; break;	// frown
+		pFace->ubEyeWait++;
+		if (pFace->ubEyeWait > 6)
+		{
+			pFace->sEyeFrame = 0;
+		}
+		break;
+	case 4:
+		pFace->ubEyeWait++;
+		if (pFace->ubEyeWait > 6)
+		{
+			pFace->sEyeFrame = 0;
+		}
+		break;
+	case 5: pFace->sEyeFrame = 6;
 		pFace->sEyeFrame = 0;
-	break;
-
-	case 6 : pFace->sEyeFrame = 7; break;
-	case 7 : pFace->sEyeFrame = (INT16)Random(2);	// can stop frowning or continue
-	//if (pFace->sEyeFrame && Talk.expression != DYING)
-	 //	pFace->sEyeFrame = 8;
-	//else
-	//	pFace->sEyeFrame = 0;
-	//break;
-	case 8 : pFace->sEyeFrame =	9; break;
-	case 9 : pFace->sEyeFrame = 10; break;
+		break;
+	case 6: pFace->sEyeFrame = 7; break;
+	case 7: pFace->sEyeFrame = (INT16)Random(2);	// can stop frowning or continue
+		//if (pFace->sEyeFrame && Talk.expression != DYING)
+		//	pFace->sEyeFrame = 8;
+		//else
+		//	pFace->sEyeFrame = 0;
+		break;
+	case 8: pFace->sEyeFrame = 9; break;
+	case 9: pFace->sEyeFrame = 10; break;
 	case 10: pFace->sEyeFrame = 11; break;
 	case 11: pFace->sEyeFrame = 12; break;
-	case 12: pFace->sEyeFrame =	0; break;
- }
+	case 12: pFace->sEyeFrame = 0; break;
+	}
 }
 
 

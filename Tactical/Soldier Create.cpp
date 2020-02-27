@@ -815,6 +815,15 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		Soldier.sInsertionGridNo				= pCreateStruct->sInsertionGridNo;
 		Soldier.bOldLife						= Soldier.stats.bLifeMax;
 
+		// set custom side for civilian group
+		if (Soldier.bTeam == CIV_TEAM &&
+			Soldier.ubCivilianGroup != NON_CIV_GROUP &&
+			zCivGroupName[Soldier.ubCivilianGroup].fCustomSide &&
+			zCivGroupName[Soldier.ubCivilianGroup].bSide >= 0)
+		{
+			Soldier.bSide = zCivGroupName[Soldier.ubCivilianGroup].bSide;
+		}
+
 		// Flugente: disease can affect a soldier's health
 		// not for us, and not for individual militia (their health is affected by their hourly healing instead)
 		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && !ARMED_VEHICLE((&Soldier)) &&

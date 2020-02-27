@@ -80,10 +80,12 @@ typedef struct
 {
 	UINT16		uiIndex; // add
 	BOOLEAN		Enabled; //add
-	BOOLEAN Loyalty;
-	BOOLEAN AddToBattle;
+	BOOLEAN		Loyalty;
+	BOOLEAN		AddToBattle;
 	BOOLEAN		fCanBeCaptured;		// Flugente: if TRUE, members of this faction can be captured
-	CHAR16	szCurGroup[MAX_ENEMY_NAMES_CHARS];
+	INT8		bSide;				// sevenfm: custom side for civ group
+	BOOLEAN		fCustomSide;		// sevenfm: use custom side
+	CHAR16		szCurGroup[MAX_ENEMY_NAMES_CHARS];
 
 } CIV_NAMES_VALUES;
 

@@ -3086,7 +3086,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
                 CancelAIAction( pSoldier, TRUE );
                 // aaaaaaaaaaaaaaaaaaaaatttaaaack!!!!
                 AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
-                //MakeCivHostile( pSoldier, 2 );
+                //MakeCivHostile(pSoldier);
                 //TriggerNPCWithIHateYouQuote( pSoldier->ubProfile );
             }
         }
@@ -4211,14 +4211,16 @@ void SetSoldierNeutral( SOLDIERTYPE * pSoldier )
         }
     }
 }
-void MakeCivHostile( SOLDIERTYPE *pSoldier, INT8 bNewSide )
+void MakeCivHostile(SOLDIERTYPE *pSoldier)
 {
+	INT8 bNewSide;
+
     if ( pSoldier->ubBodyType == COW )
     {
         return;
     }
 
-    // override passed-in value; default is hostile to player, allied to army
+	// default is hostile to player, allied to army
     bNewSide = 1;
 
     switch( pSoldier->ubProfile )
@@ -4256,6 +4258,15 @@ void MakeCivHostile( SOLDIERTYPE *pSoldier, INT8 bNewSide )
             break;
     }
 
+	// sevenfm: if side is set in CivGroupNames.xml, use it instead of default value
+	if (pSoldier->bTeam == CIV_TEAM &&
+		pSoldier->ubCivilianGroup != NON_CIV_GROUP &&
+		zCivGroupName[pSoldier->ubCivilianGroup].fCustomSide &&
+		zCivGroupName[pSoldier->ubCivilianGroup].bSide >= 0)
+	{
+		bNewSide = zCivGroupName[pSoldier->ubCivilianGroup].bSide;
+	}
+
     if ( !pSoldier->aiData.bNeutral && bNewSide == pSoldier->bSide )
     {
         // already hostile!
@@ -4289,15 +4300,13 @@ void MakeCivHostile( SOLDIERTYPE *pSoldier, INT8 bNewSide )
             // change orders
             pSoldier->aiData.bOrders = FARPATROL;
         }
-        if (bNewSide != -1)
-        {
-            pSoldier->bSide = bNewSide;
-        }
+
+		pSoldier->bSide = bNewSide;
+
         if ( pSoldier->aiData.bNeutral )
         {
             // HEADROCK HAM 3.6: INI Setting decides whether non-combat civs can become hostile
-            if (gGameExternalOptions.fCanTrueCiviliansBecomeHostile ||
-                    !IS_CIV_BODY_TYPE(pSoldier))
+            if (gGameExternalOptions.fCanTrueCiviliansBecomeHostile || !IS_CIV_BODY_TYPE(pSoldier))
             {
                 SetSoldierNonNeutral( pSoldier );
             }
@@ -4305,13 +4314,11 @@ void MakeCivHostile( SOLDIERTYPE *pSoldier, INT8 bNewSide )
         }
     }
 
-
     // If we are already in combat...
     if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
     {
         CheckForPotentialAddToBattleIncrement( pSoldier );
     }
-
 
     //uses Lua
     PROFILLUA2_ubProfile = pSoldier->ubProfile;
@@ -4346,7 +4353,7 @@ UINT8 CivilianGroupMembersChangeSidesWithinProximity( SOLDIERTYPE * pAttacked )
                         || ( PythSpacesAway( pSoldier->sGridNo, pAttacked->sGridNo ) < pAttacked->GetMaxDistanceVisible(pSoldier->sGridNo, pSoldier->pathing.bLevel) )
                         || ( pAttacked->ubAttackerID != NOBODY && PythSpacesAway( pSoldier->sGridNo, MercPtrs[ pAttacked->ubAttackerID ]->sGridNo ) < pAttacked->GetMaxDistanceVisible(MercPtrs[ pAttacked->ubAttackerID ]->sGridNo, MercPtrs[ pAttacked->ubAttackerID ]->pathing.bLevel) ) )
                 {
-                    MakeCivHostile( pSoldier, 2 );
+                    MakeCivHostile(pSoldier);
                     if ( pSoldier->aiData.bOppCnt > 0 )
                     {
                         AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
@@ -4476,7 +4483,7 @@ void CivilianGroupChangesSides( UINT8 ubCivilianGroup )
         {
             if ( pSoldier->ubCivilianGroup == ubCivilianGroup && pSoldier->ubBodyType != COW )
             {
-                MakeCivHostile( pSoldier, 2 );
+                MakeCivHostile(pSoldier);
                 if ( pSoldier->aiData.bOppCnt > 0 )
                 {
                     AddToShouldBecomeHostileOrSayQuoteList( pSoldier->ubID );
@@ -4538,7 +4545,7 @@ void MilitiaChangesSides( )
         if (pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife)
         {
 			if ( (gWorldSectorX == 0 && gWorldSectorY == 0) || !NumNonPlayerTeamMembersInSector( gWorldSectorX, gWorldSectorY, ENEMY_TEAM ) )
-                MakeCivHostile( pSoldier, 2 );
+                MakeCivHostile(pSoldier);
             RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
         }
     }
@@ -9363,7 +9370,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
                                 {
                                     //ZEROTIMECOUNTER( pTeamSoldier->timeCounters.AICounter );
 
-                                    //MakeCivHostile( pTeamSoldier, 2 );
+                                    //MakeCivHostile(pTeamSoldier);
 
                                     HandleCrowFlyAway( pTeamSoldier );
 

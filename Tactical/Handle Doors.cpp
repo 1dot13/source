@@ -451,7 +451,7 @@ void ProcessImplicationsOfPCMessingWithDoor( SOLDIERTYPE * pSoldier )
 			pGoon = MercPtrs[ ubLoop ];
 			if ( pGoon->ubCivilianGroup == KINGPIN_CIV_GROUP && pGoon->bActive && pGoon->bInSector && pGoon->stats.bLife >= OKLIFE && pGoon->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 			{
-				MakeCivHostile( pGoon, 2 );
+				MakeCivHostile(pGoon);
 				if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 				{
 					EnterCombatMode( pGoon->bTeam );

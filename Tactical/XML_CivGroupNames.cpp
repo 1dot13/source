@@ -50,6 +50,8 @@ civGroupNamesStartElementHandle(void *userData, const XML_Char *name, const XML_
 				strcmp(name, "Loyalty") == 0 ||
 				strcmp(name, "AddToBattle") == 0 ||
 				strcmp(name, "fCanBeCaptured" ) == 0 ||
+				strcmp(name, "Side") == 0 ||
+				strcmp(name, "CustomSide") == 0 ||
 				strcmp(name, "szGroup") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -100,6 +102,8 @@ civGroupNamesEndElementHandle(void *userData, const XML_Char *name)
 					zCivGroupName[pData->curCivGroupNames.uiIndex].AddToBattle = pData->curCivGroupNames.AddToBattle;
 					zCivGroupName[pData->curCivGroupNames.uiIndex].Loyalty = pData->curCivGroupNames.Loyalty;
 					zCivGroupName[pData->curCivGroupNames.uiIndex].fCanBeCaptured = pData->curCivGroupNames.fCanBeCaptured;
+					zCivGroupName[pData->curCivGroupNames.uiIndex].bSide = pData->curCivGroupNames.bSide;
+					zCivGroupName[pData->curCivGroupNames.uiIndex].fCustomSide = pData->curCivGroupNames.fCustomSide;
 				}
 				else
 				{
@@ -131,6 +135,16 @@ civGroupNamesEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curCivGroupNames.fCanBeCaptured = (BOOLEAN)atol( pData->szCharData );
+		}
+		else if (strcmp(name, "Side") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curCivGroupNames.bSide = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "CustomSide") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curCivGroupNames.fCustomSide = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if(strcmp(name, "szGroup") == 0 )
 		{

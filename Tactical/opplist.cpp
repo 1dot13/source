@@ -761,7 +761,7 @@ void CheckHostileOrSayQuoteList( void )
 				pSoldier = MercPtrs[ gubShouldBecomeHostileOrSayQuote[ ubLoop ] ];
 				if ( pSoldier->aiData.bNeutral )
 				{
-					MakeCivHostile( pSoldier, 2 );
+					MakeCivHostile(pSoldier);
 					// make civ group, if any, hostile
 					if ( pSoldier->bTeam == CIV_TEAM && pSoldier->ubCivilianGroup != NON_CIV_GROUP && gTacticalStatus.fCivGroupHostile[ pSoldier->ubCivilianGroup ] == CIV_GROUP_WILL_BECOME_HOSTILE )
 					{
@@ -2410,7 +2410,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 						// check to see if we are looking at Maria or unauthorized personnel in the brothel
 						if (pOpponent->ubProfile == MARIA)
 						{
-							MakeCivHostile( pSoldier, 2 );
+							MakeCivHostile(pSoldier);
 							if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 							{
 								EnterCombatMode( pSoldier->bTeam );
@@ -2428,7 +2428,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 							if ( InARoom( pOpponent->sGridNo, &usRoom ) && IN_BROTHEL_GUARD_ROOM( usRoom ) )
 							{
 								// unauthorized!
-								MakeCivHostile( pSoldier, 2 );
+								MakeCivHostile(pSoldier);
 								if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 								{
 									EnterCombatMode( pSoldier->bTeam );
@@ -2446,7 +2446,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 						if ( uiTime < 365 || uiTime > 1320 )
 						{
 							// get off our farm!
-							MakeCivHostile( pSoldier, 2 );
+							MakeCivHostile(pSoldier);
 							if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 							{
 								EnterCombatMode( pSoldier->bTeam );

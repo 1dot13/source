@@ -5038,7 +5038,7 @@ BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 void			InitShopKeeperSubTitledText( STR16 pString )
 {
 	//Clear the contents of the subtitle text
-	memset( gsShopKeeperTalkingText, 0, SKI_SUBTITLE_TEXT_SIZE );
+	memset(gsShopKeeperTalkingText, 0, sizeof(CHAR16)* SKI_SUBTITLE_TEXT_SIZE);
 
 	swprintf( gsShopKeeperTalkingText, L"\"%s\"", pString );
 

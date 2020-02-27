@@ -7635,7 +7635,7 @@ static int l_SetEnterCombatMode (lua_State *L)
 			pGoon = MercPtrs[ ubLoop ];
 			if ( pGoon->ubCivilianGroup == group && pGoon->bActive && pGoon->bInSector && pGoon->stats.bLife >= OKLIFE && pGoon->aiData.bOppList[ ubID ] == SEEN_CURRENTLY )
 			{
-				MakeCivHostile( pGoon, 2 );
+				MakeCivHostile(pGoon);
 				if ( ! (gTacticalStatus.uiFlags & INCOMBAT) )
 				{
 					EnterCombatMode( pGoon->bTeam );
@@ -7665,7 +7665,7 @@ static int l_MakeMercPtrsHostile (lua_State *L)
 	{
 		UINT8 ubID = lua_tointeger(L,1);
 
-		MakeCivHostile( MercPtrs[ ubID ], 2 );
+		MakeCivHostile(MercPtrs[ ubID ]);
 	}
 	
 	return 0;
@@ -9805,7 +9805,7 @@ static int l_MakeHostile (lua_State *L)
 		else
 		{
 			// make hostile
-			MakeCivHostile( pSoldier, 2 );
+			MakeCivHostile(pSoldier);
 		}
 		DeleteTalkingMenu();
 		if ( ! ( gTacticalStatus.uiFlags & INCOMBAT ) )
