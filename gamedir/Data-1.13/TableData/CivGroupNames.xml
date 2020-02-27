@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Enabled: if set to 1, civilians of that group will use szGroup as their name in tactical
      AddToBattle: If a battle with that group occurs, all members are counted (no, this doesn't make a lot of sense)
-	 Loyalty: if set to 0, no loyalty/morale penalty if a civilian of that group is killed
-	 fCanBeCaptured: if set to 1 we can capture and interrogate hostile members of this group
+     Loyalty: if set to 0, no loyalty/morale penalty if a civilian of that group is killed
+     fCanBeCaptured: if set to 1 we can capture and interrogate hostile members of this group
+     CustomSide: use Side to set custom side for civilian group (by default civilians have side = 1 when created)
+     Side: custom side for civilian group
 -->
 <CIV_GROUP_NAMES>
 	<NAME>
