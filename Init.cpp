@@ -195,7 +195,7 @@ void ResetEmptyRPCFaceSlots()
 	}
 }
 
-BOOLEAN LoadExternalGameplayData(STR directoryName)
+BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 {
 	char fileName[MAX_PATH];
 
@@ -439,12 +439,15 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, LBEPOCKETFILENAME);
 	SGP_THROW_IFFALSE(ReadInLBEPocketStats(fileName,FALSE),LBEPOCKETFILENAME);
 	{
-		using namespace LogicalBodyTypes;
-		SGP_THROW_IFFALSE(Layers::Instance().LoadFromFile(directoryName, LBT_LAYERSFILENAME), LBT_LAYERSFILENAME);
-		SGP_THROW_IFFALSE(PaletteDB::Instance().LoadFromFile(directoryName, LBT_PALETTESFILENAME), LBT_PALETTESFILENAME);
-		SGP_THROW_IFFALSE(SurfaceDB::Instance().LoadFromFile(directoryName, LBT_ANIMSURFACESFILENAME), LBT_ANIMSURFACESFILENAME);
-		SGP_THROW_IFFALSE(FilterDB::Instance().LoadFromFile(directoryName, LBT_FILTERSFILENAME), LBT_FILTERSFILENAME);
-		SGP_THROW_IFFALSE(BodyTypeDB::Instance().LoadFromFile(directoryName, LBT_BODYTYPESFILENAME), LBT_BODYTYPESFILENAME);
+		if (isMultiplayer == false)
+		{
+			using namespace LogicalBodyTypes;
+			SGP_THROW_IFFALSE(Layers::Instance().LoadFromFile(directoryName, LBT_LAYERSFILENAME), LBT_LAYERSFILENAME);
+			SGP_THROW_IFFALSE(PaletteDB::Instance().LoadFromFile(directoryName, LBT_PALETTESFILENAME), LBT_PALETTESFILENAME);
+			SGP_THROW_IFFALSE(SurfaceDB::Instance().LoadFromFile(directoryName, LBT_ANIMSURFACESFILENAME), LBT_ANIMSURFACESFILENAME);
+			SGP_THROW_IFFALSE(FilterDB::Instance().LoadFromFile(directoryName, LBT_FILTERSFILENAME), LBT_FILTERSFILENAME);
+			SGP_THROW_IFFALSE(BodyTypeDB::Instance().LoadFromFile(directoryName, LBT_BODYTYPESFILENAME), LBT_BODYTYPESFILENAME);
+		}
 	}
 
 #ifndef ENGLISH
@@ -1452,7 +1455,7 @@ UINT32 InitializeJA2(void)
 	//{
 	//	return( ERROR_SCREEN );
 	//}
-	SGP_TRYCATCH_RETHROW(LoadExternalGameplayData(TABLEDATA_DIRECTORY),L"Loading external data failed");
+	SGP_TRYCATCH_RETHROW(LoadExternalGameplayData(TABLEDATA_DIRECTORY, false),L"Loading external data failed");
 
 	// Load external text
 	LoadAllExternalText();

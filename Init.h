@@ -18,7 +18,7 @@
 UINT32 InitializeJA2( );
 void ShutdownJA2( );
 
-BOOLEAN LoadExternalGameplayData(STR directoryName);
+BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer);
 void SetupMaxActionPointsAnimation();
  
 //This is an enum to reference to array of ints that holds the values for all these constants.  Gotthard 1/18/07

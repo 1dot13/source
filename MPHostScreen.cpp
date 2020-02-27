@@ -2794,7 +2794,7 @@ void BtnMPHStartCallback(GUI_BUTTON *btn,INT32 reason)
 			gGameOptions.ubDifficultyLevel = iMPHDifficulty + 1;
 
 			// WANNE - MP: Reinit TableData folder and INIs
-			LoadExternalGameplayData(TABLEDATA_DIRECTORY);
+			LoadExternalGameplayData(TABLEDATA_DIRECTORY, true);
 			InitDependingGameStyleOptions();
 		}
 
