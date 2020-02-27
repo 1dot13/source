@@ -534,7 +534,7 @@ void ja2::mp::InitializeMultiplayerProfile(vfs::Path const& profileRoot)
 	}
 
 	// create and initialize a new Multiplayer profile
-	std::auto_ptr<vfs::CVirtualProfile> pProf( new vfs::CVirtualProfile("_MULTIPLAYER",profileRoot,true) );
+	std::unique_ptr<vfs::CVirtualProfile> pProf( new vfs::CVirtualProfile("_MULTIPLAYER",profileRoot,true) );
 
 	if(!vfs_init::initWriteProfile(*pProf))
 	{
