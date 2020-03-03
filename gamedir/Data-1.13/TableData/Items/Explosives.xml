@@ -305,7 +305,7 @@
 		<ubType>4</ubType>
 		<ubDamage>0</ubDamage>
 		<ubStunDamage>0</ubStunDamage>
-		<ubRadius>5</ubRadius>
+		<ubRadius>3</ubRadius>
 		<ubVolume>0</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>1</ubAnimationID>
@@ -1205,7 +1205,7 @@
 		<ubType>8</ubType>
 		<ubDamage>20</ubDamage>
 		<ubStunDamage>15</ubStunDamage>
-		<ubRadius>4</ubRadius>
+		<ubRadius>3</ubRadius>
 		<ubVolume>15</ubVolume>
 		<ubVolatility>1</ubVolatility>
 		<ubAnimationID>10</ubAnimationID>
