@@ -415,15 +415,15 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	}
 
 	// sevenfm: add light for fire and signal effects
-	if (gGameExternalOptions.bAddLightAfterExplosion &&
+	/*if (gGameExternalOptions.bAddLightAfterExplosion &&
 		((gubEnvLightValue >= NORMAL_LIGHTLEVEL_NIGHT - 3) || gbWorldSectorZ) &&
 		(Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS || Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SIGNAL_SMOKE) &&
 		bLevel == 0 &&
 		!Water(sGridNo, bLevel))
 	{
 		// add light
-		NewLightEffect(sGridNo, (UINT8)Explosive[Item[usItem].ubClassIndex].ubDuration + 2, (UINT8)Explosive[Item[usItem].ubClassIndex].ubRadius + 1);
-	}
+		NewLightEffect(sGridNo, (UINT8)Explosive[Item[usItem].ubClassIndex].ubDuration + Explosive[Item[usItem].ubClassIndex].ubRadius - Explosive[Item[usItem].ubClassIndex].ubStartRadius, (UINT8)Explosive[Item[usItem].ubClassIndex].ubRadius + 1);
+	}*/
 }
 
 
@@ -2980,6 +2980,17 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 		fSmokeEffect = TRUE;
 		break;
 	}
+
+	// sevenfm: create light effect for fire and signal smoke
+	if (gGameExternalOptions.bAddLightAfterExplosion &&
+		fSubsequent != ERASE_SPREAD_EFFECT &&
+		((gubEnvLightValue >= NORMAL_LIGHTLEVEL_NIGHT - 3) || gbWorldSectorZ) &&
+		(Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS || Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SIGNAL_SMOKE) &&
+		bLevel == 0 &&
+		!Water(sGridNo, bLevel))
+	{
+		NewLightEffect(sGridNo, 1, ubRadius);
+	}
 /*if(is_networked)
 {
 	ScreenMsg( FONT_LTBLUE, MSG_MPSYSTEM, L"explosives not coded in MP");
@@ -2999,7 +3010,6 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 	{
 		fRecompileMovement = TRUE;
 	}
-
 
 	for (ubDir = NORTH; ubDir <= NORTHWEST; ubDir++ )
 	{
@@ -3176,7 +3186,6 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 	if ( fSubsequent != BLOOD_SPREAD_EFFECT )
 	{
 		MakeNoise( NOBODY, sGridNo, bLevel, gpWorldLevelData[sGridNo].ubTerrainID, (UINT8)Explosive[ Item [ usItem ].ubClassIndex ].ubVolume, NOISE_EXPLOSION );
-
 	}
 
 	gfMPDebugOutputRandoms = false;
