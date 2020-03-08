@@ -3510,6 +3510,7 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
         {
             if ( pSoldier->ubAutoBandagingMedic != NOBODY )
             {
+				DebugAI(AI_MSG_INFO, MercPtrs[pSoldier->ubAutoBandagingMedic], String("CancelAIAction: stop autobandaging in HandlePlayerTeamMemberDeath"));
                 CancelAIAction( MercPtrs[ pSoldier->ubAutoBandagingMedic ], TRUE );
             }
         }
@@ -6073,6 +6074,7 @@ void CommonEnterCombatModeCode( )
                 pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 
                 // END AI actions
+				DebugAI(AI_MSG_INFO, MercPtrs[pSoldier->ubAutoBandagingMedic], String("CancelAIAction: enter combat mode"));
                 CancelAIAction( pSoldier, TRUE );
 
                 // turn off AI controlled flag
@@ -8812,6 +8814,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                 // AI people will have to have their actions canceled
                 if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
                 {
+					DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: suppression: change stance/cower"));
                     CancelAIAction( pSoldier, TRUE );
 #if 0
                     pSoldier->aiData.bAction = AI_ACTION_CHANGE_STANCE;
@@ -9768,6 +9771,7 @@ void CencelAllActionsForTimeCompression( )
             if ( pSoldier->bInSector )
             {
                 // Hault!
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: time compression"));
                 pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
 
                 // END AI actions

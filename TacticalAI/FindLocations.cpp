@@ -1897,6 +1897,7 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("SearchForItems"));
+	DebugAI(AI_MSG_INFO, pSoldier, String("SearchForItems [%d] bReason %d usItem %d", pSoldier->ubID, bReason, usItem));
 
 	INT32					iSearchRange;
 	INT16					sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
@@ -1915,20 +1916,24 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	// No fair picking up weapons while boxing!
 	if (gTacticalStatus.bBoxingState == BOXING)
 	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("no picking up items for boxers!"));
 		return AI_ACTION_NONE;
 	}
 
 	if (pSoldier->bActionPoints < GetBasicAPsToPickupItem( pSoldier ))
 	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("not enough AP!"));
 		return( AI_ACTION_NONE );
 	}
 
 	if ( !IS_MERC_BODY_TYPE( pSoldier ) )
 	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("not merc bodytype!"));
 		return( AI_ACTION_NONE );
 	}
 
 	iSearchRange = gbDiff[DIFF_MAX_COVER_RANGE][ SoldierDifficultyLevel( pSoldier ) ];
+	DebugAI(AI_MSG_INFO, pSoldier, String("use search range %d", iSearchRange));
 
 	switch (pSoldier->aiData.bAttitude)
 	{
@@ -1995,8 +2000,11 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_PICKUP_ITEM ), COPYREACHABLE, 0 );//dnl ch50 071009
 
 	// Flugente: if the soldier is 'dumb enough', he may pick up certain items... which can be used to lure the AI into traps
-	if ( pSoldier->stats.bWisdom < 70 )
+	if (pSoldier->stats.bWisdom < 70)
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("dumb enough to pick up items"));
 		fDumbEnoughtoPickup = TRUE;
+	}
 
 	// SET UP DOUBLE-LOOP TO STEP THROUGH POTENTIAL GRID #s
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -2030,16 +2038,21 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 					continue;
 				}
 
+				DebugAI(AI_MSG_INFO, pSoldier, String("check spot %d, found items", sGridNo));
+
 				iValue = 0;
 				GetItemPool( sGridNo, &pItemPool, pSoldier->pathing.bLevel );
 				switch( bReason )
 				{
 					case SEARCH_AMMO:
 						// we are looking for ammo to match the gun in usItem
+						DebugAI(AI_MSG_INFO, pSoldier, String("SEARCH_AMMO"));
 						while( pItemPool )
 						{
 							pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
 							pItem = &(Item[pObj->usItem]);
+							DebugAI(AI_MSG_INFO, pSoldier, String("check item %d at %d status %d", pObj->usItem, sGridNo, (*pObj)[0]->data.objectStatus));
+
 							if ( pItem->usItemClass == IC_GUN && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
 								// maybe this gun has ammo (adjust for whether it is better than ours!)
@@ -2054,14 +2067,19 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							}
 							else if (ValidAmmoType( usItem, pObj->usItem ) )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("good ammo"));
 								iTempValue = TotalPoints( pObj );
 							}
 							else
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("not gun, not ammo - skip"));
 								iTempValue = 0;
 							}
+							DebugAI(AI_MSG_INFO, pSoldier, String("iTempValue %d", iTempValue));
+
 							if (iTempValue > iValue )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("select this ammo"));
 								iValue = iTempValue;
 								iItemIndex = pItemPool->iItemIndex;
 							}
@@ -2069,19 +2087,25 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 						}
 						break;
 					case SEARCH_WEAPONS:
+						DebugAI(AI_MSG_INFO, pSoldier, String("SEARCH_WEAPONS"));
 						while( pItemPool )
 						{
 							pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
 							pItem = &(Item[pObj->usItem]);
+							DebugAI(AI_MSG_INFO, pSoldier, String("check item %d at %d status %d", pObj->usItem, sGridNo, (*pObj)[0]->data.objectStatus));
+
 							if (pItem->usItemClass & IC_WEAPON && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("weapon has good status"));
 								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (( Item[pObj->usItem].fingerprintid ) && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) ) )
 								{
 									// jammed or out of ammo, skip it!
+									DebugAI(AI_MSG_INFO, pSoldier, String("jammed or out of ammo, skip it!"));
 									iTempValue = 0;
 								}
 								else if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON )
 								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("compare with gun in hand"));
 									if (Weapon[pObj->usItem].ubDeadliness > Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness)
 									{
 										iTempValue = 100 * Weapon[pObj->usItem].ubDeadliness / Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness;
@@ -2098,10 +2122,14 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							}
 							else
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("not weapon or bad status"));
 								iTempValue = 0;
 							}
+							DebugAI(AI_MSG_INFO, pSoldier, String("iTempValue %d", iTempValue));
+
 							if (iTempValue > iValue )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("select this weapon"));
 								iValue = iTempValue;
 								iItemIndex = pItemPool->iItemIndex;
 							}
@@ -2109,19 +2137,26 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 						}
 						break;
 					default:
+						DebugAI(AI_MSG_INFO, pSoldier, String("search items"));
+
 						while( pItemPool )
 						{
 							pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
 							pItem = &(Item[pObj->usItem]);
+							DebugAI(AI_MSG_INFO, pSoldier, String("check item %d at %d status %d", pObj->usItem, sGridNo, (*pObj)[0]->data.objectStatus));
+
 							if ( pItem->usItemClass & IC_WEAPON && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("gun has good status"));
 								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (( Item[pObj->usItem].fingerprintid ) && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) ) )
 								{
 									// jammed or out of ammo, skip it!
+									DebugAI(AI_MSG_INFO, pSoldier, String("jammed or out of ammo, skip it!"));
 									iTempValue = 0;
 								}
-								else if ( (Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)	)
+								else if (pSoldier->inv[HANDPOS].exists() && (Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON))
 								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("compare with weapon in hand"));
 									if (Weapon[pObj->usItem].ubDeadliness > Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness)
 									{
 										if ((Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness != NULL) && (Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness > 0))
@@ -2142,14 +2177,17 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 								{
 									iTempValue = 200 + Weapon[pObj->usItem].ubDeadliness;
 								}
+								DebugAI(AI_MSG_INFO, pSoldier, String("iTempValue %d", iTempValue));
 							}
 							else if	(pItem->usItemClass == IC_ARMOUR && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("armour has good status"));
 								iTempValue = 0;
 
 								switch( Armour[pItem->ubClassIndex].ubArmourClass )
 								{
 									case ARMOURCLASS_HELMET:
+										DebugAI(AI_MSG_INFO, pSoldier, String("ARMOURCLASS_HELMET"));
 										if (pSoldier->inv[HELMETPOS].exists() == false)
 										{
 											iTempValue = 200 + EffectiveArmour( pObj );
@@ -2158,8 +2196,10 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										{
 											iTempValue = 100 * EffectiveArmour( pObj ) / (EffectiveArmour( &(pSoldier->inv[HELMETPOS]) ) + 1);
 										}
+										DebugAI(AI_MSG_INFO, pSoldier, String("iTempValue %d", iTempValue));
 										break;
 									case ARMOURCLASS_VEST:
+										DebugAI(AI_MSG_INFO, pSoldier, String("ARMOURCLASS_VEST"));
 										if (pSoldier->inv[VESTPOS].exists() == false)
 										{
 											iTempValue = 200 + EffectiveArmour( pObj );
@@ -2168,8 +2208,10 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										{
 											iTempValue = 100 * EffectiveArmour( pObj ) / (EffectiveArmour( &(pSoldier->inv[VESTPOS]) ) + 1);
 										}
+										DebugAI(AI_MSG_INFO, pSoldier, String("iTempValue %d", iTempValue));
 										break;
 									case ARMOURCLASS_LEGGINGS:
+										DebugAI(AI_MSG_INFO, pSoldier, String("ARMOURCLASS_LEGGINGS"));
 										if (pSoldier->inv[LEGPOS].exists() == false)
 										{
 											iTempValue = 200 + EffectiveArmour( pObj );
@@ -2178,6 +2220,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										{
 											iTempValue = 100 * EffectiveArmour( pObj ) / (EffectiveArmour( &(pSoldier->inv[LEGPOS]) ) + 1);
 										}
+										DebugAI(AI_MSG_INFO, pSoldier, String("iTempValue %d", iTempValue));
 										break;
 									default:
 										{
@@ -2188,6 +2231,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							// Flugente: if the soldier is 'dumb enough', he may pick up 'interesting items'. This can be used to lure him into traps (a certain scene in FMJ comes to mind)
 							else if ( fDumbEnoughtoPickup && pItem->usItemClass == IC_MISC && HasItemFlag(pObj->usItem, ATTENTION_ITEM) )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("dumb soldier picks up item!"));
 								// oooh... shiny!
 								iTempValue = 1000;
 							}
@@ -2195,9 +2239,11 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							{
 								iTempValue = 0;
 							}
+							DebugAI(AI_MSG_INFO, pSoldier, String("iTempValue %d", iTempValue));
 
 							if (iTempValue > iValue )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("select item"));
 								iValue = iTempValue;
 								iItemIndex = pItemPool->iItemIndex;
 							}
@@ -2206,8 +2252,12 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 						break;
 				}
 				iValue = (3 * iValue) / (3 + PythSpacesAway( sGridNo, pSoldier->sGridNo ));
+				DebugAI(AI_MSG_INFO, pSoldier, String("iBestValue %d", iBestValue));
+				DebugAI(AI_MSG_INFO, pSoldier, String("value modified by distance %d", iValue));
+
 				if (iValue > iBestValue )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("select item at %d", sGridNo));
 					sBestSpot = sGridNo;
 					iBestValue = iValue;
 					iBestItemIndex = iItemIndex;
@@ -2218,7 +2268,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	
 	if (!TileIsOutOfBounds(sBestSpot))
 	{
-		DebugAI( String( "%d decides to pick up %S", pSoldier->ubID, ItemNames[ gWorldItems[ iBestItemIndex ].object.usItem ] ) );
+		DebugAI(AI_MSG_INFO, pSoldier, String("%d decides to pick up %S", pSoldier->ubID, ItemNames[gWorldItems[iBestItemIndex].object.usItem]));
 		if (Item[gWorldItems[ iBestItemIndex ].object.usItem].usItemClass == IC_GUN)
 		{
 			//CHRISL: This is the line from ADB's code but I removed it, for now, to match what 0verhaul has been working on
@@ -2232,14 +2282,14 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 				if (pSoldier->inv[HANDPOS].fFlags & OBJECT_UNDROPPABLE)
 				{
 					// destroy this item!
-					DebugAI( String( "%d decides he must drop %S first so destroys it", pSoldier->ubID, ItemNames[ pSoldier->inv[HANDPOS].usItem ] ) );
+					DebugAI(AI_MSG_INFO, pSoldier, String("%d decides he must drop %S first so destroys it", pSoldier->ubID, ItemNames[pSoldier->inv[HANDPOS].usItem]));
 					DeleteObj( &(pSoldier->inv[HANDPOS]) );
 					DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0, AFTERACTION_INTERRUPT );
 				}
 				else
 				{
 					// we want to drop this item!
-					DebugAI( String( "%d decides he must drop %S first", pSoldier->ubID, ItemNames[ pSoldier->inv[HANDPOS].usItem ] ) );
+					DebugAI(AI_MSG_INFO, pSoldier, String("%d decides he must drop %S first", pSoldier->ubID, ItemNames[pSoldier->inv[HANDPOS].usItem]));
 
 					pSoldier->aiData.bNextAction = AI_ACTION_PICKUP_ITEM;
 					pSoldier->aiData.usNextActionData = sBestSpot;

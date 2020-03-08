@@ -81,6 +81,9 @@ extern BOOLEAN gfWaitingForTriggerTimer;
 
 UINT8 gubAICounter;
 
+extern STR16 gStrAction[];
+extern STR szAction[];
+
 //
 // Commented out/ to fix:
 // lots of other stuff, I think
@@ -572,6 +575,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 #endif
 
 		// stunned/collapsed!
+		DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: collapsed"));
 		CancelAIAction( pSoldier, FORCE );
 		EndAIGuysTurn( pSoldier );
 		return;
@@ -612,6 +616,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 			{
 				// don't force, don't want escorted mercs reacting to new opponents, etc.
 				// now we don't have AI controlled escorted mercs though - CJC
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: escorted merc"));
 				CancelAIAction( pSoldier, FORCE );
 				// zap any next action too
 				if ( pSoldier->aiData.bAction != AI_ACTION_END_COWER_AND_MOVE )
@@ -645,14 +650,15 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 	Start of new overall AI system
 	********/
 
-
-
 	if (gfTurnBasedAI)
 	{
 		if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( (UINT32)gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
 		{
 			// ATE: Display message that deadlock occured...
 			LiveMessage( "Breaking Deadlock" );
+
+			//ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, gStrAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData);
+			DebugAI(String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
 
 #ifdef JA2TESTVERSION
 			// display deadlock message
@@ -923,6 +929,12 @@ void EndAIDeadlock(void)
 					DebugAI( String("Ending turn for %d because breaking deadlock", pSoldier->ubID ) );
 				}
 #endif
+				// sevenfm: abort flanking
+				if (pSoldier->IsFlanking())
+				{
+					pSoldier->numFlanks = MAX_FLANKS_RED + 1;
+					DebugAI(AI_MSG_INFO, pSoldier, String("abort flanking, numFlanks = %d", pSoldier->numFlanks));
+				}
 
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Number of bullets in the air is %ld", guiNumBullets ) );
 
@@ -935,7 +947,6 @@ void EndAIDeadlock(void)
 			}
 		}
 	}
-
 
 	if (!bFound)
 	{
@@ -1428,6 +1439,8 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 	}
 #endif
 
+	DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction"));
+
 	// re-enable cover checking, something is new or something strange happened
 	if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier ) )//dnl ch64 290813
 		SkipCoverCheck = FALSE;
@@ -1708,9 +1721,15 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 	DecideAlertStatus(pSoldier);
 
 	if (pSoldier->aiData.bAlertStatus == STATUS_YELLOW)
+	{
 		SkipCoverCheck = FALSE;
-	if ( !gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE( pSoldier ) )//dnl ch64 290813 tanks don't have move animations
+		DebugAI(AI_MSG_INFO, pSoldier, String("RefreshAI: disable SkipCoverCheck in yellow AI"));
+	}
+	if (!gGameExternalOptions.fEnemyTanksCanMoveInTactical && ARMED_VEHICLE(pSoldier))//dnl ch64 290813 tanks don't have move animations
+	{
 		SkipCoverCheck = TRUE;
+		DebugAI(AI_MSG_INFO, pSoldier, String("RefreshAI: enable SkipCoverCheck for armed vehicle"));
+	}
 
 	// if he's in battle or knows opponents are here
 	if (gfTurnBasedAI)
@@ -2064,12 +2083,14 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
                         if (!pSoldier->pathing.bPathStored)
                         {
+							DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: no path stored, could not find path"));
                             CancelAIAction(pSoldier,FORCE);
                             return(FALSE);         // nothing is in progress
                         }
                     }
                     else
                     {
+						DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: no path stored"));
                         CancelAIAction(pSoldier,FORCE);
                         return(FALSE);         // nothing is in progress
                     }
@@ -2124,6 +2145,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
                 pSoldier->pathing.sBlackList = (INT16) pSoldier->aiData.usActionData;
 
                 DebugAI( String( "Setting blacklist for %d to %d", pSoldier->ubID, pSoldier->pathing.sBlackList ) );
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: sFinalDestination != usActionData"));
 
                 CancelAIAction(pSoldier,FORCE);
                 return(FALSE);         // nothing is in progress
@@ -2214,6 +2236,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
                     DebugAI( String( "AI %d got error code %ld from HandleItem, doing action %d, has %d APs... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction, pSoldier->bActionPoints ) );
                     ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d got error code %ld from HandleItem, doing action %d... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction );
                 }
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: !ITEM_HANDLE_OK"));
                 CancelAIAction( pSoldier, FORCE);
 #ifdef TESTAICONTROL
                 if (gfTurnBasedAI)
@@ -2391,6 +2414,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             iRetCode = HandleItem( pSoldier, pSoldier->aiData.usActionData, 0, pSoldier->inv[HANDPOS].usItem, FALSE );
             if ( iRetCode != ITEM_HANDLE_OK)
             {
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: AI_ACTION_GIVE_AID: !ITEM_HANDLE_OK"));
 #ifdef JA2BETAVERSION
                 ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"AI %d got error code %ld from HandleItem, doing action %d... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction );
 #endif
@@ -2429,6 +2453,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 #ifdef JA2TESTVERSION
                     ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"AI %d tried to open door it could not then find in %d", pSoldier->ubID, sDoorGridNo );
 #endif
+					DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: door: cannot find structure"));
                     CancelAIAction( pSoldier, FORCE);
 #ifdef TESTAICONTROL
                     if (gfTurnBasedAI)
@@ -2459,6 +2484,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             //if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN)
             if ( pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN)
             {
+				DebugAI(AI_MSG_INFO, pSoldier, String("sniper deadlock fix !!! repeated AI_ACTION_RAISE_GUN, set next action to AI_ACTION_END_TURN"));
                 pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
             }
 

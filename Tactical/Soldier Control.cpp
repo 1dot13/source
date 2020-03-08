@@ -12649,6 +12649,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 
 						if ( pTSoldier->bTeam != gbPlayerNum )
 						{
+							DebugAI(AI_MSG_INFO, pTSoldier, String("CancelAIAction: begin blade attack"));
 							CancelAIAction( pTSoldier, TRUE );
 						}
 
@@ -12984,6 +12985,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 
 						if ( pTSoldier->bTeam != gbPlayerNum )
 						{
+							DebugAI(AI_MSG_INFO, pTSoldier, String("CancelAIAction: begin blade attack"));
 							CancelAIAction( pTSoldier, TRUE );
 						}
 
@@ -16520,16 +16522,6 @@ BOOLEAN		SOLDIERTYPE::IsAssassin( )
 		return TRUE;
 
 	return FALSE;
-}
-
-BOOLEAN SOLDIERTYPE::CheckInitialAP(void)
-{
-	if (this->bActionPoints < this->bInitialActionPoints || this->usSoldierFlagMask2 & SOLDIER_SPENT_AP)
-	{
-		return FALSE;
-	}
-
-	return TRUE;
 }
 
 UINT8	SOLDIERTYPE::GetMultiTurnAction( )
@@ -22171,6 +22163,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 		{
 			// Start combat etc
 			DeleteTalkingMenu( );
+			DebugAI(AI_MSG_INFO, pTSoldier, String("CancelAIAction: assasin: start talking"));
 			CancelAIAction( pTSoldier, TRUE );
 			AddToShouldBecomeHostileOrSayQuoteList( pTSoldier->ubID );
 		}
@@ -24788,4 +24781,27 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 	}
 
 	return FALSE;
+}
+
+// sevenfm: service functions
+BOOLEAN SOLDIERTYPE::CheckInitialAP(void)
+{
+	if (this->bActionPoints < this->bInitialActionPoints || this->usSoldierFlagMask2 & SOLDIER_SPENT_AP)
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+BOOLEAN SOLDIERTYPE::IsFlanking(void)
+{
+	if (this->aiData.bAlertStatus < STATUS_YELLOW ||
+		this->numFlanks == 0 ||
+		this->numFlanks >= MAX_FLANKS_RED)
+	{
+		return FALSE;
+	}
+
+	return TRUE;
 }

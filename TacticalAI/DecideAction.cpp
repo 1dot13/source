@@ -3729,7 +3729,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							}
 							
 							// sevenfm: possibly start RED flanking
-							if ( ( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ||
+							if (( pSoldier->aiData.bAttitude == CUNNINGAID || pSoldier->aiData.bAttitude == CUNNINGSOLO ||
 								( pSoldier->aiData.bAttitude == BRAVESOLO || pSoldier->aiData.bAttitude == BRAVEAID ) && fOvercrowded ) &&
 								pSoldier->bTeam == ENEMY_TEAM &&
 								gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE &&

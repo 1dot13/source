@@ -82,6 +82,7 @@ void ExitBoxing( void )
 						SetSoldierNeutral( pSoldier );
 						RecalculateOppCntsDueToBecomingNeutral( pSoldier );
 					}
+					DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: exit boxing"));
 					CancelAIAction( pSoldier, TRUE );
 					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
 					pSoldier->aiData.bUnderFire = 0;
@@ -396,6 +397,7 @@ BOOLEAN PickABoxer( void )
 					pBoxer->flags.uiStatusFlags |= SOLDIER_BOXER;
 					SetSoldierNonNeutral( pBoxer );
 					RecalculateOppCntsDueToNoLongerNeutral( pBoxer );
+					DebugAI(AI_MSG_INFO, pBoxer, String("CancelAIAction: pick a boxer"));
 					CancelAIAction( pBoxer, TRUE );
 					RESETTIMECOUNTER( pBoxer->timeCounters.AICounter, 0 );
 					gfBoxerFought[ uiLoop ] = TRUE;

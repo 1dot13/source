@@ -1840,8 +1840,11 @@ public:
 	// lose disguise or take off any clothes item and switch back to original clothes
 	void		Strip();
 
-	// check wether our disguise is any good
+	// check whether our disguise is any good
 	void		SpySelfTest();
+
+	// sevenfm: service functions
+	BOOLEAN		IsFlanking(void);
 
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();

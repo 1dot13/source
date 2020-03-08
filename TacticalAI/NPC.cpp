@@ -2240,6 +2240,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
 							case OLGA:
 							case TYRONE:
 								// Start combat etc
+								DebugAI(AI_MSG_INFO, pNPC, String("CancelAIAction: NPC coverse"));
 								CancelAIAction( pNPC, TRUE );
 								AddToShouldBecomeHostileOrSayQuoteList( pNPC->ubID );
 							default:

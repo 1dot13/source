@@ -1843,7 +1843,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 		{
 			// unauthorized!
 			// make guard run to block guard room
-			CancelAIAction( pSoldier, TRUE );
+			DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: make guard run to block guard room"));			CancelAIAction( pSoldier, TRUE );
 			RESETTIMECOUNTER( pSoldier->timeCounters.AICounter, 0 );
 			pSoldier->aiData.bNextAction = AI_ACTION_RUN;
 			pSoldier->aiData.usNextActionData = 13250;
@@ -2298,6 +2298,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 								if ( pSoldier->aiData.bOppCnt == 0 )
 								{
 									// didn't see anyone before!
+									DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: NPC with profile: change orders, reset action"));
 									CancelAIAction( pSoldier, TRUE );
 									SetNewSituation( pSoldier );
 								}
@@ -2314,6 +2315,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 							}
 							else if ( ( CheckFact( FACT_ANGEL_LEFT_DEED, ANGEL ) == TRUE ) && ( CheckFact( FACT_ANGEL_MENTIONED_DEED, ANGEL ) == FALSE ) )
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: NPC: Angel code"));
 								CancelAIAction( pSoldier, TRUE );
 								pSoldier->sAbsoluteFinalDestination = NOWHERE;
 								pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
@@ -2389,6 +2391,7 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 						if ( pSoldier->aiData.bOppCnt == 0 )
 						{
 							// didn't see anyone before!
+							DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: assasin: didn't see anyone before!"));
 							CancelAIAction( pSoldier, TRUE );
 							SetNewSituation( pSoldier );
 						}

@@ -6463,6 +6463,7 @@ SOLDIERTYPE * pSoldier;
 		pSoldier = FindSoldierByProfileID( ID, FALSE );
 		if (pSoldier)
 		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: lua cancel action"));
 			CancelAIAction( pSoldier, TRUE );
 		}	
 	}		

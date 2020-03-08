@@ -2722,6 +2722,7 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 		if ( NPCFirstDraw( pSoldier, pTargetSoldier ) )
 		{
 			// go into turnbased for that person
+			DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: UIHandleMercAttack"));
 			CancelAIAction( pTargetSoldier, TRUE );
 			AddToShouldBecomeHostileOrSayQuoteList( pTargetSoldier->ubID );
 			//MakeCivHostile( pTargetSoldier, 2 );

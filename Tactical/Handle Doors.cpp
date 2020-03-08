@@ -468,6 +468,7 @@ void ProcessImplicationsOfPCMessingWithDoor( SOLDIERTYPE * pSoldier )
 			// alert her if she hasn't been alerted
 			pGoon->aiData.bAlertStatus = STATUS_RED;
 			CheckForChangingOrders( pGoon );
+			DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: tixa door"));
 			CancelAIAction( pGoon, TRUE );
 		}
 	}

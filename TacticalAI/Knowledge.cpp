@@ -108,6 +108,7 @@ void CallEldinTo( INT32 sGridNo )
 				pSoldier->aiData.bAlertStatus = STATUS_RED;
 				if ( (pSoldier->aiData.bAction != AI_ACTION_GET_CLOSER) || CheckFact( FACT_MUSEUM_ALARM_WENT_OFF, 0 ) == FALSE )
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction: CallEldinTo"));
 					CancelAIAction( pSoldier, TRUE );
 					pSoldier->aiData.bNextAction = AI_ACTION_GET_CLOSER;
 					pSoldier->aiData.usNextActionData = sGridNo;

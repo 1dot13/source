@@ -382,6 +382,7 @@ INT8 FindBestPatient( SOLDIERTYPE * pSoldier, BOOLEAN * pfDoClimb )
 		if (pBestPatient->ubAutoBandagingMedic != NOBODY)
 		{
 			// cancel that medic
+			DebugAI(AI_MSG_INFO, MercPtrs[pBestPatient->ubAutoBandagingMedic], String("CancelAIAction: medic: find patient"));
 			CancelAIAction( MercPtrs[ pBestPatient->ubAutoBandagingMedic ], TRUE );
 		}
 		pBestPatient->ubAutoBandagingMedic = pSoldier->ubID;
