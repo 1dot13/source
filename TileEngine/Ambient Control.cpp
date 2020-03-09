@@ -357,7 +357,7 @@ void UpdateFireAmbient(void)
 
 	if (FindVisibleSmokeEffect(BURNABLEGAS_SMOKE_EFFECT))
 	{
-		gubAmbientFutureFireVolume = gGameExternalOptions.ubVolumeTA;
+		gubAmbientFutureFireVolume = CalculateSoundEffectsVolume(gGameExternalOptions.ubVolumeTA);
 
 		if (guiAmbientFire == NO_SAMPLE)
 		{
@@ -721,7 +721,7 @@ void SetSSA(void)
 	// start sound
 	memset(&spParms, 0xff, sizeof(SOUNDPARMS));
 	//spParms.uiVolume = CalculateSoundEffectsVolume( LOWVOLUME );
-	spParms.uiVolume = gGameExternalOptions.ubVolumeSSA;	// default is LOWVOLUME
+	spParms.uiVolume = CalculateSoundEffectsVolume(gGameExternalOptions.ubVolumeSSA);
 	spParms.uiLoop = 0;
 	spParms.uiPriority = GROUP_AMBIENT;
 
