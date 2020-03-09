@@ -3851,39 +3851,46 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				nextCost += 50;
 			}			
 
-			// sevenfm: tanks prefer moving in straight directions to avoid sliding effect
-			if (gGameExternalOptions.fAIPathTweaks && 
-				TANK(s) &&
-				(iCnt & 1))
+			if (gGameExternalOptions.fAIPathTweaks && s->bTeam != gbPlayerNum)
 			{
-				nextCost += 50;
-			}
-
-			// sevenfm: experimental path tweaks for AI
-			if (gGameExternalOptions.fAIPathTweaks &&
-				s->bTeam != gbPlayerNum &&
-				!(s->flags.uiStatusFlags & SOLDIER_BOXER) &&
-				!AreInMeanwhile() &&
-				IS_MERC_BODY_TYPE(s))
-			{
-				if (InGasSpot(s, newLoc, bLevel))
+				// tanks prefer moving in straight directions to avoid sliding effect
+				if (TANK(s) && (iCnt & 1))
 				{
-					nextCost += 40;
+					nextCost += 50;
 				}
-				else if (DeepWater(newLoc, bLevel) && (s->numFlanks == 0 || s->numFlanks >= MAX_FLANKS_RED))
+
+				// combat jeeps prefer moving on roads
+				UINT8 ubTerrainType = GetTerrainTypeForGrid(newLoc, bLevel);				
+				if (COMBAT_JEEP(s) && ubTerrainType != PAVED_ROAD && ubTerrainType != DIRT_ROAD)
 				{
 					nextCost += 20;
 				}
-				else if (s->bTeam == ENEMY_TEAM && 
+
+				// armed vehicles avoid moving into buildings
+				if (ARMED_VEHICLE(s) && ubTerrainType == FLAT_FLOOR)
+				{
+					nextCost += 20;
+				}
+
+				// experimental path tweaks for AI
+				if (IS_MERC_BODY_TYPE(s))
+				{
+					if (InGasSpot(s, newLoc, bLevel))
+					{
+						nextCost += 40;
+					}
+					else if (DeepWater(newLoc, bLevel) && (s->numFlanks == 0 || s->numFlanks >= MAX_FLANKS_RED))
+					{
+						nextCost += 20;
+					}
+					else if (s->bTeam == ENEMY_TEAM &&
 						s->aiData.bAlertStatus >= STATUS_RED &&
 						(InLightAtNight(newLoc, bLevel) || GetNearestRottingCorpseAIWarning(newLoc) > 0))
-				{
-					if (s->aiData.bAttitude == CUNNINGSOLO || s->aiData.bAttitude == CUNNINGAID || s->aiData.bAIMorale < MORALE_FEARLESS)
+					{
 						nextCost += 20;
-					else
-						nextCost += 10;
+					}
 				}
-			}
+			}			
 
 			newTotCost = curCost + nextCost;
 
@@ -4769,12 +4776,12 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 						sMovementAPsCost += GetAPsToOpenDoor( pSold ) + GetAPsToOpenDoor( pSold ); // Include open and close costs!
 					}
 					// Check for stealth mode
-					if ( pSold->bStealthMode || bStealth )
+					if (pSold->bStealthMode || bStealth)
 					{
 						// STOMP traits - Stealthy trait decreases stealth AP modifier
-						if ( gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT( pSold, STEALTHY_NT ))
+						if (gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT(pSold, STEALTHY_NT))
 						{
-							 sMovementAPsCost += max(0, (APBPConstants[AP_STEALTH_MODIFIER] * (100 - gSkillTraitValues.ubSTStealthModeSpeedBonus) / 100.0f) );
+							sMovementAPsCost += max(0.0f, (APBPConstants[AP_STEALTH_MODIFIER] * (100.0f - gSkillTraitValues.ubSTStealthModeSpeedBonus) / 100.0f));
 						}
 						else
 						{
