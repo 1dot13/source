@@ -9674,16 +9674,17 @@ UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTi
 
 void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 {
-	// ATE: Don't do this if in a fire amimation.....
+	// ATE: Don't do this if in a fire animation.....
 	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE )
 	{
 		return;
 	}
 
 	// Flugente: if we are in a GL fire mode, switch between impact/delayed mode
-	if ( ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO) ||
-		( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_LAUNCHER && !Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher) ) &&
-		!pSoldier->usGLDelayMode )
+	if (((pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO) ||
+		(Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_LAUNCHER && !Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher)) &&
+		!pSoldier->usGLDelayMode &&
+		!gGameExternalOptions.fDelayedGrenadeExplosion)
 	{
 		pSoldier->usGLDelayMode = 1;
 	}

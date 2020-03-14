@@ -2262,15 +2262,15 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 	}
 
 	// calculate the actual min and max miss radius based on CtH
-	bMinMissRadius = ( (FLOAT)bMaxRadius * ( 10.0f - sqrt((FLOAT)uiHitChance) ) / 10.0f );
+	bMinMissRadius = (INT8)((FLOAT)bMaxRadius * (10.0f - sqrt((FLOAT)uiHitChance)) / 10.0f);
 	bMaxMissRadius = bMaxRadius * ( 100 - uiHitChance ) / 100;
 
 	// modify by a bit of luck
-	bMinMissRadius = __max( (bMinMissRadius - Random(2)), 0);
-	bMinMissRadius = __min( (bMinMissRadius + Random(2)), bMaxRadius);
+	bMinMissRadius = __max( (bMinMissRadius - (INT8)Random(2)), 0);
+	bMinMissRadius = __min( (bMinMissRadius + (INT8)Random(2)), bMaxRadius);
 
-	bMaxMissRadius = __max( (bMaxMissRadius - Random(2)), 0);
-	bMaxMissRadius = __min( (bMaxMissRadius + Random(2)), bMaxRadius);
+	bMaxMissRadius = __max( (bMaxMissRadius - (INT8)Random(2)), 0);
+	bMaxMissRadius = __min( (bMaxMissRadius + (INT8)Random(2)), bMaxRadius);
 
 	// min miss radius cannot be greater than max miss radius
 	bMinMissRadius = __min( bMinMissRadius, bMaxMissRadius);
@@ -2581,16 +2581,16 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	// ATE: Make sure number of objects is 1...
 	pObj->ubNumberOfObjects = 1;
 
-	if ( Item[ pObj->usItem ].usItemClass & IC_GRENADE )
+	if (Item[pObj->usItem].usItemClass & IC_GRENADE)
 	{
 		fCheckForDuds = TRUE;
 
-		if( CanDelayGrenadeExplosion(pObj->usItem) && ( Item[pObj->usItem].ubCursor == TOSSCURS || Item[pObj->usItem].glgrenade ))
+		if (CanDelayGrenadeExplosion(pObj->usItem) && (Item[pObj->usItem].ubCursor == TOSSCURS || Item[pObj->usItem].glgrenade))
 		{
 			fCanDelayExplosion = TRUE;
 		}
 
-		if( (*pObj)[0]->data.sObjectFlag & DELAYED_GRENADE_EXPLOSION )
+		if ((*pObj)[0]->data.sObjectFlag & DELAYED_GRENADE_EXPLOSION)
 		{
 			fDelayedExplosion = TRUE;
 		}
@@ -2630,9 +2630,8 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 			// Flugente: explosion does not happen instantly if grenade
 			// is not in water and
 			// either has a bad status or is a delayed grenade
-			if ( !pObject->fInWater &&
-				( !fGoodStatus ||
-				( fCanDelayExplosion &&	gGameExternalOptions.fDelayedGrenadeExplosion && fDelayedExplosion) ) )
+			if (!pObject->fInWater &&
+				(!fGoodStatus || fCanDelayExplosion && (gGameExternalOptions.fDelayedGrenadeExplosion || fDelayedExplosion)))
 			{
 				// didn't go off!
 				fDoImpact = FALSE;
