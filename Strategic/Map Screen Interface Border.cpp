@@ -54,9 +54,10 @@ UINT16	MAP_BORDER_MILITIA_BTN_X;
 UINT16 MAP_BORDER_MILITIA_BTN_Y;
 UINT16 MAP_BORDER_DISEASE_BTN_X;	// Flugente: disease
 UINT16 MAP_BORDER_DISEASE_BTN_Y;
-UINT16 MAP_BORDER_WEATHER_BTN_X;	// Flugente: weather
+
+//UINT16 MAP_BORDER_WEATHER_BTN_X;	// Flugente: weather		// WANNE: Dynamic X position
 UINT16 MAP_BORDER_WEATHER_BTN_Y;
-UINT16 MAP_BORDER_INTEL_BTN_X;	// Flugente: intel
+//UINT16 MAP_BORDER_INTEL_BTN_X;	// Flugente: intel			// WANNE: Dynamic X position
 UINT16 MAP_BORDER_INTEL_BTN_Y;
 
 UINT16 MAP_LEVEL_MARKER_X;
@@ -300,17 +301,21 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_ITEM_BTN ], MSYS_NO_CURSOR );
 	SetButtonCursor(giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ], MSYS_NO_CURSOR );
+
+	UINT16 nextButtonX = MAP_BORDER_DISEASE_BTN_X - 43;
 		
 	// Flugente: disease
 	if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic )
 	{
+		nextButtonX += 43;
+
 		giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 31, -1, 32, -1 );
 
 		// if the button image cannot be created, this is likely to a custom sti replacement that isn't up to date to this feature - just use some other images then
 		if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] < 0 )
 			giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 2, -1, 11, -1 );
 
-		giMapBorderButtons[MAP_BORDER_DISEASE_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN], MAP_BORDER_DISEASE_BTN_X, MAP_BORDER_DISEASE_BTN_Y,
+		giMapBorderButtons[MAP_BORDER_DISEASE_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN], nextButtonX, MAP_BORDER_DISEASE_BTN_Y,
 																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnDiseaseCallback );
 
@@ -322,17 +327,21 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	// Flugente: weather
 	if ( gGameExternalOptions.gfAllowRain || gGameExternalOptions.gfAllowSandStorms || gGameExternalOptions.gfAllowSnow )
 	{
+		nextButtonX += 43;
+
 		giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 37, -1, 38, -1 );
 
 		// if the button image cannot be created, this is likely to a custom sti replacement that isn't up to date to this feature - just use some other images then
 		if ( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] < 0 )
 			giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 2, -1, 11, -1 );
 
+		/*
 		INT16 x = MAP_BORDER_WEATHER_BTN_X;
 		if ( giMapBorderButtonsImage[MAP_BORDER_DISEASE_BTN] < 0 )
 			x = MAP_BORDER_DISEASE_BTN_X;
+		*/
 
-		giMapBorderButtons[MAP_BORDER_WEATHER_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN], x, MAP_BORDER_WEATHER_BTN_Y,
+		giMapBorderButtons[MAP_BORDER_WEATHER_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN], nextButtonX, MAP_BORDER_WEATHER_BTN_Y,
 																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnWeatherCallback );
 
@@ -344,17 +353,21 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	// Flugente: intel
 	if ( TRUE )
 	{
+		nextButtonX += 43;
+
 		giMapBorderButtonsImage[MAP_BORDER_INTEL_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 39, -1, 40, -1 );
 
 		// if the button image cannot be created, this is likely to a custom sti replacement that isn't up to date to this feature - just use some other images then
 		if ( giMapBorderButtonsImage[MAP_BORDER_INTEL_BTN] < 0 )
 			giMapBorderButtonsImage[MAP_BORDER_INTEL_BTN] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti", -1, 2, -1, 11, -1 );
 
+		/*
 		INT16 x = MAP_BORDER_INTEL_BTN_X;
 		if ( giMapBorderButtonsImage[MAP_BORDER_WEATHER_BTN] < 0 )
 			x = MAP_BORDER_WEATHER_BTN_X;
+		*/
 
-		giMapBorderButtons[MAP_BORDER_INTEL_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_INTEL_BTN], x, MAP_BORDER_INTEL_BTN_Y,
+		giMapBorderButtons[MAP_BORDER_INTEL_BTN] = QuickCreateButton( giMapBorderButtonsImage[MAP_BORDER_INTEL_BTN], nextButtonX, MAP_BORDER_INTEL_BTN_Y,
 																		BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 																		(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnIntelCallback );
 
@@ -1445,9 +1458,9 @@ void InitMapBorderButtonCoordinates()
 	MAP_BORDER_MILITIA_BTN_Y 	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
 	MAP_BORDER_DISEASE_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 190;
 	MAP_BORDER_DISEASE_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_WEATHER_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 233;
+	//MAP_BORDER_WEATHER_BTN_X	= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 233;			// WANNE: Dynamic X position
 	MAP_BORDER_WEATHER_BTN_Y	= (SCREEN_HEIGHT - yResOffset - buttonOffset);
-	MAP_BORDER_INTEL_BTN_X		= xResOffset + MAP_BORDER_X + ( ( SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset ) / 2 ) + 276;
+	//MAP_BORDER_INTEL_BTN_X		= xResOffset + MAP_BORDER_X + ( ( SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset ) / 2 ) + 276;	// WANNE: Dynamic X position
 	MAP_BORDER_INTEL_BTN_Y		= ( SCREEN_HEIGHT - yResOffset - buttonOffset );
 
 	MAP_LEVEL_MARKER_X 			= xResOffset + MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X - 2 * xResOffset) / 2) + 114;
