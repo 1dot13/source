@@ -6352,7 +6352,7 @@ STR16		zOptionsToggleText[] =
 	L"属性进度条", //L"Stat Progress Bars", // Show progress towards stat increase //ham3.6
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
-	L"Use Logical Bodytypes",
+	L"佣兵造型", //L"Use Logical Bodytypes",
 	L"显示佣兵军衔",	// shows mercs ranks
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
@@ -6467,7 +6467,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，显示各属性的增长进度。", // L"When ON, shows character progress towards gaining levels.", //ham3.6
 	L"打开时，战略地图将会根据探索状态显示不同的着色。",
 	L"打开时，当你射击时会显示间隔子弹图像。",
-	L"When ON, mercenary body graphic can change along with equipped gear.",	// TODO.Translate
+	L"打开时，可设置佣兵造型", //L"When ON, mercenary body graphic can change along with equipped gear.",
 	L"打开时，在战略界面的佣兵名旁显示军衔。",
 	L"打开时，显示佣兵脸部装备图。",
 	L"打开时，佣兵肖像右下角显示脸部装备图标",
@@ -9002,7 +9002,7 @@ STR16		szBackgroundText_Flags[]=
 	L" 会消耗掉背包中的药品 \n", //L" might consume drugs in inventory\n",
 	L" 蔑视其他背景的角色 \n", //L" disregard for other backgrounds\n",
 	L" +1 角色等级在地下分区时 \n", //L" +1 level in underground sectors\n",
-	L" steals money from the locals sometimes\n", // TODO.Translate
+	L" 有时候会偷窃平民的钱 \n", //L" steals money from the locals sometimes\n",
 
 	L" +1 埋设炸弹等级 \n", //L" +1 traplevel to planted bombs\n",
 	L" 会导致附近的佣兵腐败 \n", //L" spreads corruption to nearby mercs\n",
@@ -9011,8 +9011,8 @@ STR16		szBackgroundText_Flags[]=
 
 	L"如果我们死了所有城镇都会受到巨大的忠诚惩罚\n", //L" huge loyality penalty in all towns if we die\n",
 
-	L" refuses to attack animals\n",	// TODO.Translate
-	L" refuses to attack members of the same group\n",	// TODO.Translate
+	L" 拒绝伤害动物\n",	//L" refuses to attack animals\n",
+	L" 拒绝伤害在同一小队的成员\n",	//L" refuses to attack members of the same group\n",
 };
 
 STR16	szBackgroundText_Value[]=
