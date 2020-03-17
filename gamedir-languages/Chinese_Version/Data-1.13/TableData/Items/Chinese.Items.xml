@@ -14041,4 +14041,28 @@
 		<szBRName>绷带</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1755</uiIndex>
+		<szItemName>燃烧弹内部</szItemName>
+		<szLongItemName>燃烧弹内部</szLongItemName>
+		<szItemDesc>内部物品，请勿使用！！！</szItemDesc>
+		<szBRName>燃烧内部</szBRName>
+		<szBRDesc>不卖这个,如果你看到了说明游戏快要笑了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1756</uiIndex>
+		<szItemName>空血袋</szItemName>
+		<szLongItemName>空血袋</szLongItemName>
+		<szItemDesc>这个血袋可以装满（希望愿意）捐献者的血。</szItemDesc>
+		<szBRName>空血袋</szBRName>
+		<szBRDesc>一种简单的血袋，用于储存用于医疗目的的血。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1757</uiIndex>
+		<szItemName>血袋</szItemName>
+		<szLongItemName>血袋</szLongItemName>
+		<szItemDesc>这包新鲜血液袋可以用来进行手术。</szItemDesc>
+		<szBRName>血袋</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+	</ITEM>
 </ITEMLIST>
