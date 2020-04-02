@@ -3471,7 +3471,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'g':
 				if( fCtrl && fAlt )
 				{
-					HandlePlayerTogglingLightEffects( TRUE );
+					HandleTBToggleFormation();
 				}
 				else if( fCtrl )
 				{
@@ -3497,7 +3497,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				else
 				{
-					HandleTBToggleFormation();
+					HandlePlayerTogglingLightEffects(TRUE);
 				}
 				break;
 

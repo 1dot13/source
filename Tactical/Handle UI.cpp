@@ -85,12 +85,7 @@
 #include "Map Information.h"
 #include "Soldier Control.h"
 #include "DisplayCover.h"
-	//ddd optimization of enemy turn
-	#include "aiinternals.h"
-	//#include "los.h"
-	//#include "structure wrap.h"
-	//#include "DisplayCover.h"
-	//ddd optimization of enemy turn
+#include "english.h"		// sevenfm: this is needed for _keydown(SHIFT) to work
 #endif
 
 #include "teamturns.h"
@@ -5945,7 +5940,8 @@ BOOLEAN HandleMultiSelectionMove( INT32 sDestGridNo )
 
 				INT32 sIndividualDestGridNo = sDestGridNo;
 				// Flugente: determine offset to current center gridno
-				if ( gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS] )
+				// sevenfm: use SHIFT key to move in formation
+				if (_KeyDown(SHIFT) || gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS])
 				{
 					INT32 currentX = pSoldier->sGridNo % MAXCOL;
 					INT32 currentY = pSoldier->sGridNo / MAXCOL;

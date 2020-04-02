@@ -6435,7 +6435,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wanneer INGESCHAKELD wordt het metrieke stelsel gebruikt, anders het Imperiale stelsel.",
 
 	//Merc Lighted movement
-	L"Wanneer INGESCHAKELD, de huurling verlicht de grond tijdens het lopen. Schakel UIT voor sneller spelen.\nToggle artificial merc light. (|C|t|r|l+|A|l|t+|G)",	// TODO.Translate
+	L"Wanneer INGESCHAKELD, de huurling verlicht de grond tijdens het lopen. Schakel UIT voor sneller spelen.\nToggle artificial merc light. (|G)",	// TODO.Translate
 
 	//Smart cursor
 	L"Wanneer INGESCHAKELD zullen huurlingen dichtbij de cursor automatisch oplichten.",
@@ -6489,7 +6489,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  // TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", // TODO.Translate
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
-	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|G)",	// TODO.Translate
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|A|l|t+|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

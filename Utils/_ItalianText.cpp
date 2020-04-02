@@ -6418,7 +6418,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Se attivata, utilizza il sistema metrico di misurazione; altrimenti ricorre al sistema britannico.",
 
 	//Merc Lighted movement
-	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce.\nToggle artificial merc light. (|C|t|r|l+|A|l|t+|G)",	// TODO.Translate
+	L"Se attivata, il mercenario mostrerà il terreno su cui cammina. Disattivatela per un aggiornamento più veloce.\nToggle artificial merc light. (|G)",	// TODO.Translate
 
 	//Smart cursor
 	L"Se attivata, muovendo il cursore vicino ai vostri mercenari li evidenzierà automaticamente.",
@@ -6472,7 +6472,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, approximate locations of the last enemies in the sector are highlighted.",  // TODO.Translate
 	L"When ON, show the contents of an LBE item, otherwise show the regular NAS interface.", // TODO.Translate
 	L"When ON, inverts mouse wheel directions.",		// TODO.Translate
-	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|G)",	// TODO.Translate
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|A|l|t+|G)",	// TODO.Translate
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

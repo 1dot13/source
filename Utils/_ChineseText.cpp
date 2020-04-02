@@ -6428,7 +6428,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，使用公制系统，否则使用英制系统。",
 
 	//Merc Lighted movement
-	L"打开时，佣兵移动时会照亮地表（关闭这个选项会使游戏的显示速度变快）。\n切换虚拟佣兵光照。 (|C|t|r|l+|A|l|t+|G)",
+	L"打开时，佣兵移动时会照亮地表（关闭这个选项会使游戏的显示速度变快）。\n切换虚拟佣兵光照。 (|G)",
 
 	//Smart cursor
 	L"打开时，光标移动到佣兵身上时会高亮显示佣兵。",
@@ -6482,7 +6482,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，会直接显示该区域最后一个敌人的大致位置。",
 	L"打开时，在区域物品栏界面，右键点击装有物品的携行具时可直接显示包含的物品。",
 	L"打开时，反转鼠标滚轮方向。",
-	L"当选择了多个佣兵，他们在前进时会保持彼此的间距。(|G)",	// L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
+	L"当选择了多个佣兵，他们在前进时会保持彼此的间距。(|C|t|r|l+|A|l|t+|G)",	// L"When multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|S|h|i|f|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

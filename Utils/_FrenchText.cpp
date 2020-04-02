@@ -6440,7 +6440,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour que le jeu utilise le système métrique.",
 
 	//Merc Lighted movement
-	L"Activez cette option pour éclairer les environs des mercenaires.Désactivez-la, si votre machine n'est pas suffisamment puissante.\nBasculera éclairage du mercenaire. (|C|T|R|L+|A|L|T+|G)",
+	L"Activez cette option pour éclairer les environs des mercenaires.Désactivez-la, si votre machine n'est pas suffisamment puissante.\nBasculera éclairage du mercenaire. (|G)",
 
 	//Smart cursor
 	L"Activez cette option pour que le curseur se positionne directement sur un mercenaire quand il est à proximité.",
@@ -6493,7 +6493,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, la zone où se trouve le reste des ennemis dans le secteur, est mis en évidence.",
 	L"Si activé, montre le contenu d'un élément LBE quand la fenêtre de description est ouverte.",
 	L"Si activé, inverse le sens de la molette de la souris.",
-	L"Lorsque plusieurs mercenaires sont sélectionnés, ils vont garder leurs distances en se déplaçant. (|G)",
+	L"Lorsque plusieurs mercenaires sont sélectionnés, ils vont garder leurs distances en se déplaçant. (|C|t|r|l+|A|l|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Forcer tous les envois en attente de Bobby Ray",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

@@ -6428,7 +6428,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, uses the metric system for measurements; otherwise it uses the Imperial system.",
 
 	//Merc Lighted movement
-	L"When ON, the merc will light the ground while walking. Turn OFF for faster frame rate.\nToggle artificial merc light. (|C|t|r|l+|A|l|t+|G)",
+	L"When ON, the merc will light the ground while walking. Turn OFF for faster frame rate.\nToggle artificial merc light. (|G)",
 
 	//Smart cursor
 	L"When ON, moving the cursor near your mercs will automatically highlight them.",
@@ -6482,7 +6482,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, approximate locations of the last enemies in the sector will be highlighted.",
 	L"When ON, will show the contents of an LBE item; otherwise, regular NAS interface will be shown.",
 	L"When ON, inverts mouse wheel directions.",
-	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|G)",
+	L"When ON and multiple mercs are selected, they will try to keep their relative distances while moving. (|C|t|r|l+|A|l|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Force all pending Bobby Ray shipments",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
