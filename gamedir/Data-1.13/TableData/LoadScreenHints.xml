@@ -531,7 +531,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>101</uiIndex>
-    <szName>Press [CTRL]+[ALT]+[G] to toggle the artificial light around mercs on and off.</szName>
+    <szName>Press [G] to toggle the artificial light around mercs on and off.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -616,7 +616,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>118</uiIndex>
-    <szName>Press [G] to toggle mercenary formation movement. When ON and you select more than one merc, they will keep their current formation.</szName>
+    <szName>Press [CTRL]+[ALT]+[G] to toggle mercenary formation movement. When ON and you select more than one merc, they will keep their current formation.</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -687,6 +687,11 @@ The other tags determine in what category this hint falls, and will be displayed
   <LOADSCREENHINT>
     <uiIndex>132</uiIndex>
     <szName>Placing mines, concertina wire or sandbags is more convenient while holding [SHIFT], relieving the need to manually take a new item from a merc's inventory.</szName>
-	  <keybind>1</keybind>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>133</uiIndex>
+    <szName>If you select several mercs and order movement with [SHIFT] pressed, they will move in formation, trying to keep their relative positions.</szName>
+    <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
