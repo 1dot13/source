@@ -59,7 +59,8 @@
 #include "worlddat.h" //for gtileset
 #include "Debug Control.h" //for livelog
 
-#include "SkillMenu.h"						// sevenfm: need this for TraitsMenu
+#include "SkillMenu.h"			// sevenfm: need this for TraitsMenu
+#include "DisplayCover.h"		// added by Sevenfm
 
 #include "Vehicles.h"	// anv: for switching from soldier to vehicle
 #include "VehicleMenu.h"
@@ -133,6 +134,10 @@ void HandleRTLook( UINT32 *puiNewEvent );
 void HandleRTLocateSoldier( void );
 
 extern void SetScopeMode( INT32 usMapPos );
+
+extern void HandleTacticalReload(void);
+extern void HandleTacticalTransformItem(void);
+extern void HandleTBSelectAllMercs(void);
 
 extern void HandleStealthChangeFromUIKeys( );
 extern void HandleTBReloadAll( void );
@@ -1897,147 +1902,148 @@ void QueryRTX2Button( UINT32 *puiNewEvent )
 }
 
 // sevenfm: new mouse commands
-void HandleAltMouseRTWheel( void )
+void HandleAltMouseRTWheel(void)
 {
-	if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
-		( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+	if (!(gTacticalStatus.uiFlags & ENGAGED_IN_CONV) &&
+		((gsCurInterfacePanel != SM_PANEL) || (ButtonList[iSMPanelButtons[NEXTMERC_BUTTON]]->uiFlags & BUTTON_ENABLED)))
 	{
-		if ( gViewportRegion.WheelState > 0 )	// wheel up
+		if (gViewportRegion.WheelState > 0)	// wheel up
 		{
-			if ( _KeyDown( ALT ) )				
-				if( _KeyDown( SHIFT ) )	
-				{
-					if( _KeyDown( CTRL ) )			// SHIFT+CTRL+ALT
-						HandleTBPickUpBackpacks();
-					else							// SHIFT+ALT
-						CycleThroughKnownEnemies(); 
-				}
-				else if ( _KeyDown( CTRL ) )		// CTRL+ALT
-					HandleTBSwapGoogles();
-				else								// ALT
-					HandleTBGotoHigherStance();
-			else if( _KeyDown( CTRL ) )
+			if (_KeyDown(ALT))
+			if (_KeyDown(SHIFT))
 			{
-				if( _KeyDown( SHIFT ) )				// SHIFT+CTRL
-					HandleTBSwapGunsling();
-				else								// CTRL
-					HandleTBSoldierRun();
+				if (_KeyDown(CTRL))			// SHIFT+CTRL+ALT
+					;
+				else							// SHIFT+ALT
+					;
 			}
-			else if( _KeyDown( SHIFT ) )			// SHIFT
-				HandleTBCycleThroughVisibleEnemies();
-			else									
-				HandleTBLocatePrevMerc();
+			else if (_KeyDown(CTRL))		// CTRL+ALT
+				HandleTBPickUpBackpacks();
+			else								// ALT
+				HandleTBGotoHigherStance();
+			else if (_KeyDown(CTRL))
+			{
+				if (_KeyDown(SHIFT))				// SHIFT+CTRL
+					;
+				else								// CTRL
+					HandleTBLocatePrevMerc();
+			}
+			else if (_KeyDown(SHIFT))			// SHIFT
+				HandleTBCycleThroughVisibleEnemiesBackward();
+			else
+				;
 		}
 		else										// wheel down
 		{
-			if ( _KeyDown( ALT ) )				
-				if( _KeyDown( SHIFT ) )	
-				{
-					if( _KeyDown( CTRL ) )			// SHIFT+CTRL+ALT
-						HandleTBDropBackpacks();
-					else							// SHIFT+ALT
-						CycleThroughKnownEnemies( TRUE );
-				}
-				else if ( _KeyDown( CTRL ) )		// CTRL+ALT
-					HandleTBSwapSidearm();
-				else								// ALT
-					HandleTBGotoLowerStance();
-			else if( _KeyDown( CTRL ) )
+			if (_KeyDown(ALT))
+			if (_KeyDown(SHIFT))
 			{
-				if( _KeyDown( SHIFT ) )				// SHIFT+CTRL
-					HandleTBSwapKnife();
-				else								// CTRL
-					HandleTBSwapHands();
+				if (_KeyDown(CTRL))			// SHIFT+CTRL+ALT
+					;
+				else							// SHIFT+ALT
+					;
 			}
-			else if( _KeyDown( SHIFT ) )			// SHIFT
-				HandleTBCycleThroughVisibleEnemiesBackward();
-			else									
-				HandleTBLocateNextMerc();
+			else if (_KeyDown(CTRL))		// CTRL+ALT
+				HandleTBDropBackpacks();
+			else								// ALT
+				HandleTBGotoLowerStance();
+			else if (_KeyDown(CTRL))
+			{
+				if (_KeyDown(SHIFT))				// SHIFT+CTRL
+					;
+				else								// CTRL
+					HandleTBLocateNextMerc();
+			}
+			else if (_KeyDown(SHIFT))			// SHIFT
+				HandleTBCycleThroughVisibleEnemies();
+			else
+				;
 		}
 	}
 }
-void HandleAltMouseRTMButton( UINT32 *puiNewEvent )
+
+void HandleAltMouseRTMButton(UINT32 *puiNewEvent)
 {
 	INT32 usMapPos;
-	GetMouseMapPos( &usMapPos );
+	GetMouseMapPos(&usMapPos);
 
-	if ( _KeyDown( ALT ) )				
-		if( _KeyDown( SHIFT ) )	
-		{
-			if( _KeyDown( CTRL ) )			// SHIFT+CTRL+ALT
-				HandleRTJumpThroughWindow();
-			else							// SHIFT+ALT
-				;// reserved
-		}
-		else if ( _KeyDown( CTRL ) )		// CTRL+ALT
-			HandleTBChangeLevel();
-		else								// ALT
-			HandleRTToggleFireMode();
-	else if( _KeyDown( CTRL ) )
+	if (_KeyDown(ALT))
+	if (_KeyDown(SHIFT))
 	{
-		if( _KeyDown( SHIFT ) )				// SHIFT+CTRL
-			HandleRTJump();
+		if (_KeyDown(CTRL))			// SHIFT+CTRL+ALT
+			;
+		else							// SHIFT+ALT
+			;// reserved
+	}
+	else if (_KeyDown(CTRL))		// CTRL+ALT
+		HandleTacticalReload();
+	else								// ALT
+		HandleRTToggleFireMode();
+	else if (_KeyDown(CTRL))
+	{
+		if (_KeyDown(SHIFT))				// SHIFT+CTRL
+			;
 		else								// CTRL
-			SetScopeMode( usMapPos );
+			SetScopeMode(usMapPos);
 	}
-	else if( _KeyDown( SHIFT ) )			// SHIFT
-		HandleTBLocateSoldier();
+	else if (_KeyDown(SHIFT))			// SHIFT
+		HandleTacticalTransformItem();
 	else									// Button
-		HandleRTLook( puiNewEvent );
-	
+		HandleRTLook(puiNewEvent);
 }
-void HandleAltMouseRTX1Button( UINT32 *puiNewEvent )
+
+void HandleAltMouseRTX1Button(UINT32 *puiNewEvent)
 {
-	if ( _KeyDown( ALT ) )				
-		if( _KeyDown( SHIFT ) )	
-		{
-			if( _KeyDown( CTRL ) )		// SHIFT+CTRL+ALT
-				HandleTBToggleSneak();
-			else						// SHIFT+ALT
-				HandleTBToggleFormation();
-		}
-		else if ( _KeyDown( CTRL ) )	// CTRL+ALT
-			HandleTBSwapGoogles();
-		else							// ALT
-			HandleTBSwapKnife();
-	else if( _KeyDown( CTRL ) )
+	if (_KeyDown(ALT))
+	if (_KeyDown(SHIFT))
 	{
-		if( _KeyDown( SHIFT ) )			// SHIFT+CTRL
-			HandleTBEnterTurnbased();
-		else							// CTRL
-			HandleTBSwapSidearm();
+		if (_KeyDown(CTRL))		// SHIFT+CTRL+ALT
+			;
+		else						// SHIFT+ALT
+			;
 	}
-	else if( _KeyDown( SHIFT ) )		// SHIFT
+	else if (_KeyDown(CTRL))	// CTRL+ALT
+		ToggleTrapNetworkView();
+	else							// ALT
 		HandleTBSwapGunsling();
-	else								// Button
-		HandleTBSwapHands();
-	
-}
-void HandleAltMouseRTX2Button( UINT32 *puiNewEvent )
-{
-	if ( _KeyDown( ALT ) )				
-		if( _KeyDown( SHIFT ) )	
-		{
-			if( _KeyDown( CTRL ) )		// SHIFT+CTRL+ALT
-				HandleTBToggleTrapNetworkView();
-			else						// SHIFT+ALT
-				HandleTBReloadAll();
-		}
-		else if ( _KeyDown( CTRL ) )	// CTRL+ALT
-			HandleTBShowMines();
-		else							// ALT
-			HandleTBToggleStealthAll();
-	else if( _KeyDown( CTRL ) )
+	else if (_KeyDown(CTRL))
 	{
-		if( _KeyDown( SHIFT ) )			// SHIFT+CTRL
-			HandleTBShowLOS();
+		if (_KeyDown(SHIFT))			// SHIFT+CTRL
+			;
 		else							// CTRL
-			HandleTBShowCover();
+			HandleTBSwapHands();
 	}
-	else if( _KeyDown( SHIFT ) )		// SHIFT
-		HandleTBReload();
+	else if (_KeyDown(SHIFT))		// SHIFT
+		HandleTBSelectAllMercs();
 	else								// Button
-		HandleTBToggleStealth();	
+		HandleTBShowLOS();
+}
+
+void HandleAltMouseRTX2Button(UINT32 *puiNewEvent)
+{
+	if (_KeyDown(ALT))
+	if (_KeyDown(SHIFT))
+	{
+		if (_KeyDown(CTRL))		// SHIFT+CTRL+ALT
+			;
+		else						// SHIFT+ALT
+			;
+	}
+	else if (_KeyDown(CTRL))	// CTRL+ALT
+		ToggleHostileTrapsView();
+	else							// ALT
+		HandleTBToggleFormation();
+	else if (_KeyDown(CTRL))
+	{
+		if (_KeyDown(SHIFT))			// SHIFT+CTRL
+			;
+		else							// CTRL
+			HandleRTJump();
+	}
+	else if (_KeyDown(SHIFT))		// SHIFT
+		HandleRTJumpThroughWindow();
+	else								// Button
+		HandleTBShowCover();
 }
 
 // sevenfm: original mouse commands functionality
