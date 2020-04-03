@@ -351,7 +351,12 @@ void TacticalCoverMessageBoxCallBack( UINT8 ubExitValue );
 void ActivateCheatsMessageBoxCallBack( UINT8 ubExitValue );
 void HandleTacticalAmmoCrates( UINT8 magType );
 void HandleTacticalTransformItem( void );
+void HandleTacticalTransformFlashlight(void);
+void HandleTacticalTransformLaser(void);
+void HandleTacticalTransformScope(void);
 BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation );
+BOOLEAN FindLaserTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
+BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransformation);
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 {
@@ -3819,21 +3824,22 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
-#ifdef JA2BETAVERSION
-			case 'L':
-				gfDisplayStrategicAILogs ^= TRUE;
-				if( gfDisplayStrategicAILogs )
+			case 'l':
+				if(fCtrl && fAlt)
 				{
-					ScreenMsg( FONT_LTKHAKI, MSG_INTERFACE, L"Strategic AI Log visually enabled." );
+#ifdef JA2BETAVERSION
+				gfDisplayStrategicAILogs ^= TRUE;
+				if (gfDisplayStrategicAILogs)
+				{
+					ScreenMsg(FONT_LTKHAKI, MSG_INTERFACE, L"Strategic AI Log visually enabled.");
 				}
 				else
 				{
-					ScreenMsg( FONT_LTKHAKI, MSG_INTERFACE, L"Strategic AI Log visually disabled." );
+					ScreenMsg(FONT_LTKHAKI, MSG_INTERFACE, L"Strategic AI Log visually disabled.");
 				}
 				break;
 #endif
-
-			case 'l':
+				}
 				if (fAlt )
 				{
 					// used for quickloading
@@ -3882,6 +3888,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						*puiNewEvent = LC_CHANGE_TO_LOOK;
 					}
 				}
+				break;
+
+			case 'L':
+				HandleTacticalTransformFlashlight();
 				break;
 
 			case 'm':
@@ -4070,6 +4080,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'O':
+				HandleTacticalTransformScope();
 				break;
 
 			case 'p':
@@ -4530,6 +4541,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'Y':
+				HandleTacticalTransformLaser();
 				break;
 
 			case 'z':
@@ -8167,7 +8179,7 @@ void HandleTacticalAmmoCrates( UINT8 magType )
 
 				//we have a valid, ammo item.  Look through Items.xml and see if we have an ammo crate for
 				//	this ammo type
-				for ( int iLoop = 0; iLoop < gMAXITEMS_READ; ++iLoop )
+				for (UINT32 iLoop = 0; iLoop < gMAXITEMS_READ; ++iLoop)
 				{
 					//if ammo crate && calibers match && Ammo Types match
 					if(Item[iLoop].usItemClass == IC_AMMO && Magazine[Item[iLoop].ubClassIndex].ubMagType == magType && Magazine[Item[iLoop].ubClassIndex].ubCalibre == Magazine[Item[worldItem].ubClassIndex].ubCalibre && Magazine[Item[iLoop].ubClassIndex].ubAmmoType == Magazine[Item[worldItem].ubClassIndex].ubAmmoType)
@@ -8460,67 +8472,52 @@ void ActivateCheatsMessageBoxCallBack( UINT8 ubExitValue )
 	}
 }
 
-void HandleTacticalTransformItem( void )
+void HandleTacticalTransformItem(void)
 {
 	UINT16 usItem;
 	TransformInfoStruct *pTransformation;
-	//OBJECTTYPE* pObj;
 
 	SOLDIERTYPE* pSoldier;
-	if( !GetSoldier( &pSoldier, gusSelectedSoldier ) )
-		return;
-	if( !pSoldier->inv[ HANDPOS ].exists() )
+	if (!GetSoldier(&pSoldier, gusSelectedSoldier))
 		return;
 
-	usItem = pSoldier->inv[ HANDPOS ].usItem;
+	if (!pSoldier->inv[HANDPOS].exists())
+		return;
 
-	if( FindTransformation( usItem, &pTransformation ) )
+	// ATE: Don't do this if in a fire animation.....
+	if (gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_FIRE)
+		return;
+
+	// don't do this when EDB is active
+	if (gpItemDescObject)
+		return;
+
+	usItem = pSoldier->inv[HANDPOS].usItem;
+
+	if (FindTransformation(usItem, &pTransformation))
 	{
-
-		if ( pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost );
+		if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
 		else
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
 
-			pSoldier->inv[ HANDPOS ].TransformObject( pSoldier, 0, pTransformation, NULL );
+		// let's pretend we are calling this from EDB
+		gpItemDescObject = &pSoldier->inv[HANDPOS];
+
+		gpItemDescObject->TransformObject(pSoldier, 0, pTransformation, NULL);
+
+		// cleanup
+		gpItemDescObject = NULL;
+
+		DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+		gfUIForceReExamineCursorData = TRUE;
 	}
-	// sevenfm: failed to make attachment transformation to work correctly
-	/*
-	else	// not found transformation for the item - search transformations for attachments
-	{
-		attachmentList::iterator iterend;
-		attachmentList::iterator iter;
-		pObj = &(pSoldier->inv[ HANDPOS ]);
-
-		// check all attachments, search for available transformations
-		iterend = (*pObj)[0]->attachments.end();
-		for (iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
-		{
-			if ( iter->exists() && Item[iter->usItem].usItemClass == IC_MISC )
-			{
-				usItem = Item[iter->usItem].uiIndex;
-
-				if( FindTransformation( usItem, &pTransformation ) )
-				{
-					if ( pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED )
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost );
-					else
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
-
-					// RENDER_ITEM_NOSTATUS = 20
-					// RENDER_ITEM_ATTACHMENT1 = 200
-					iter->TransformObject( pSoldier, 0, pTransformation, pObj );
-				}
-			}
-		}
-	}
-	*/
 }
 
 BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation )
 {
 	// find transformation
-	for ( INT32 x = 0; x < gMAXITEMS_READ; ++x )
+	for ( UINT32 x = 0; x < gMAXITEMS_READ; ++x )
 	{
 		if ( Transform[x].usItem == (UINT16)-1 )
 		{
@@ -8834,4 +8831,321 @@ void HandleTacticalReload()
 		// ATE: Re-examine cursor info!
 		gfUIForceReExamineCursorData = TRUE;
 	}
+}
+
+extern OBJECTTYPE	*gpItemDescOrigAttachmentObject;
+
+void HandleTacticalTransformScope(void)
+{
+	UINT16 usItem;
+	TransformInfoStruct *pTransformation;
+	OBJECTTYPE* pObj;
+
+	SOLDIERTYPE* pSoldier;
+	if (!GetSoldier(&pSoldier, gusSelectedSoldier))
+		return;
+
+	if (!pSoldier->inv[HANDPOS].exists())
+		return;
+
+	// ATE: Don't do this if in a fire animation.....
+	if (gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_FIRE)
+		return;
+
+	// don't do this when EDB is active
+	if (gpItemDescObject)
+		return;
+
+	usItem = pSoldier->inv[HANDPOS].usItem;
+	//GetMouseMapPos(&usGridNo);
+
+	// check attachments
+	attachmentList::iterator iter;
+	pObj = &(pSoldier->inv[HANDPOS]);
+
+	// check all attachments, search for available transformations
+	for (iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		if (iter->exists() && Item[iter->usItem].usItemClass == IC_MISC && Item[iter->usItem].attachmentclass & AC_SCOPE)
+		{
+			usItem = Item[iter->usItem].uiIndex;
+
+			// check flashlight transformation
+			if (FindScopeTransformation(usItem, &pTransformation) &&
+				pTransformation->usResult[0] != 0 &&
+				Item[usItem].scopemagfactor != Item[pTransformation->usResult[0]].scopemagfactor)
+			{
+				if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
+				else
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+				// let's pretend we are calling this from EDB
+				gpItemDescObject = pObj;
+				gpItemDescOrigAttachmentObject = &(*iter);
+
+				gpItemDescOrigAttachmentObject->TransformObject(pSoldier, 0, pTransformation, gpItemDescObject);
+
+				// cleanup
+				gpItemDescObject = NULL;
+				gpItemDescOrigAttachmentObject = NULL;
+
+				pSoldier->aiData.bShownAimTime = 0;
+				DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+				gfUIForceReExamineCursorData = TRUE;
+
+				break;
+			}
+		}
+	}
+}
+
+void HandleTacticalTransformLaser(void)
+{
+	UINT16 usItem;
+	TransformInfoStruct *pTransformation;
+	OBJECTTYPE* pObj;
+
+	SOLDIERTYPE* pSoldier;
+	if (!GetSoldier(&pSoldier, gusSelectedSoldier))
+		return;
+
+	if (!pSoldier->inv[HANDPOS].exists())
+		return;
+
+	// ATE: Don't do this if in a fire animation.....
+	if (gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_FIRE)
+		return;
+
+	// don't do this when EDB is active
+	if (gpItemDescObject)
+		return;
+
+	usItem = pSoldier->inv[HANDPOS].usItem;
+
+	// check attachments
+	attachmentList::iterator iter;
+	pObj = &(pSoldier->inv[HANDPOS]);
+
+	// check all attachments, search for available transformations
+	for (iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		if (iter->exists() && Item[iter->usItem].usItemClass == IC_MISC && Item[iter->usItem].attachmentclass & AC_LASER)
+		{
+			usItem = Item[iter->usItem].uiIndex;
+
+			// check flashlight transformation
+			if (FindLaserTransformation(usItem, &pTransformation) &&
+				pTransformation->usResult[0] != 0 &&
+				Item[usItem].bestlaserrange != Item[pTransformation->usResult[0]].bestlaserrange)
+			{
+				if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
+				else
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+				// let's pretend we are calling this from EDB
+				gpItemDescObject = pObj;
+				gpItemDescOrigAttachmentObject = &(*iter);
+
+				gpItemDescOrigAttachmentObject->TransformObject(pSoldier, 0, pTransformation, gpItemDescObject);
+
+				// cleanup
+				gpItemDescObject = NULL;
+				gpItemDescOrigAttachmentObject = NULL;
+
+				DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+				gfUIForceReExamineCursorData = TRUE;
+
+				break;
+			}
+		}
+	}
+}
+
+void HandleTacticalTransformFlashlight(void)
+{
+	UINT16 usItem;
+	TransformInfoStruct *pTransformation;
+	OBJECTTYPE* pObj;
+
+	SOLDIERTYPE* pSoldier;
+	if (!GetSoldier(&pSoldier, gusSelectedSoldier))
+		return;
+
+	if (!pSoldier->inv[HANDPOS].exists())
+		return;
+
+	// ATE: Don't do this if in a fire animation.....
+	if (gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_FIRE)
+		return;
+
+	// don't do this when EDB is active
+	if (gpItemDescObject)
+		return;
+
+	usItem = pSoldier->inv[HANDPOS].usItem;
+
+	// first try a transformation of item
+	if (FindTransformation(usItem, &pTransformation) &&
+		pTransformation->usResult[0] != 0 &&
+		Item[usItem].usFlashLightRange != Item[pTransformation->usResult[0]].usFlashLightRange)
+	{
+		if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
+		else
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+		// let's pretend we are calling this from EDB
+		gpItemDescObject = &pSoldier->inv[HANDPOS];
+
+		gpItemDescObject->TransformObject(pSoldier, 0, pTransformation, NULL);
+
+		// cleanup
+		gpItemDescObject = NULL;
+
+		DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+		gfUIForceReExamineCursorData = TRUE;
+
+		return;
+	}
+
+	// check attachments
+	attachmentList::iterator iter;
+	pObj = &(pSoldier->inv[HANDPOS]);
+
+	// check all attachments, search for available transformations
+	for (iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		if (iter->exists() && Item[iter->usItem].usItemClass == IC_MISC)
+		{
+			usItem = Item[iter->usItem].uiIndex;
+
+			// check flashlight transformation
+			if (FindTransformation(usItem, &pTransformation) &&
+				pTransformation->usResult[0] != 0 &&
+				Item[usItem].usFlashLightRange != Item[pTransformation->usResult[0]].usFlashLightRange)
+			{
+				if (pTransformation->usAPCost > 0 && gTacticalStatus.uiFlags & INCOMBAT && gTacticalStatus.uiFlags & TURNBASED)
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s (%d AP)", pTransformation->szMenuRowText, pTransformation->usAPCost);
+				else
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pTransformation->szMenuRowText);
+
+				// let's pretend we are calling this from EDB
+				gpItemDescObject = pObj;
+				gpItemDescOrigAttachmentObject = &(*iter);
+
+				gpItemDescOrigAttachmentObject->TransformObject(pSoldier, 0, pTransformation, gpItemDescObject);
+
+				// cleanup
+				gpItemDescObject = NULL;
+				gpItemDescOrigAttachmentObject = NULL;
+
+				DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
+				gfUIForceReExamineCursorData = TRUE;
+
+				break;
+			}
+		}
+	}
+}
+
+BOOLEAN FindLaserTransformation(UINT16 usItem, TransformInfoStruct **pTransformation)
+{
+	// find transformation
+	for (INT32 x = 0; x < MAXITEMS; x++)
+	{
+		if (Transform[x].usItem == (UINT16)-1)
+		{
+			break;
+		}
+		if (Transform[x].usItem == usItem &&
+			Transform[x].usResult[0] != 0 &&
+			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&
+			Item[Transform[x].usResult[0]].attachmentclass & AC_LASER)
+		{
+			*pTransformation = &Transform[x];
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransformation)
+{
+	INT32 iFoundIndex;
+	FLOAT scope;
+
+	// search for higher magnification first
+	iFoundIndex = MAXITEMS;
+	scope = Item[usItem].scopemagfactor;
+	for (INT32 x = 0; x < MAXITEMS; x++)
+	{
+		if (Transform[x].usItem == (UINT16)-1)
+		{
+			break;
+		}
+
+		if (Transform[x].usItem == usItem &&
+			Transform[x].usResult[0] != 0 &&
+			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&
+			Item[Transform[x].usResult[0]].attachmentclass & AC_SCOPE &&
+			Item[Transform[x].usResult[0]].scopemagfactor > Item[usItem].scopemagfactor &&
+			(iFoundIndex == MAXITEMS || Item[Transform[x].usResult[0]].scopemagfactor < scope))
+		{
+			scope = Item[Transform[x].usResult[0]].scopemagfactor;
+			iFoundIndex = x;
+		}
+	}
+	if (iFoundIndex != MAXITEMS)
+	{
+		*pTransformation = &Transform[iFoundIndex];
+		return TRUE;
+	}
+
+	// search for lowest magnification
+	iFoundIndex = MAXITEMS;
+	scope = Item[usItem].scopemagfactor;
+	for (INT32 x = 0; x < MAXITEMS; x++)
+	{
+		if (Transform[x].usItem == (UINT16)-1)
+		{
+			break;
+		}
+
+		if (Transform[x].usItem == usItem &&
+			Transform[x].usResult[0] != 0 &&
+			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&
+			Item[Transform[x].usResult[0]].attachmentclass & AC_SCOPE &&
+			Item[Transform[x].usResult[0]].scopemagfactor < scope)
+		{
+			scope = Item[Transform[x].usResult[0]].scopemagfactor;
+			iFoundIndex = x;
+		}
+	}
+	if (iFoundIndex != MAXITEMS)
+	{
+		*pTransformation = &Transform[iFoundIndex];
+		return TRUE;
+	}
+
+	// search for any transformation
+	for (INT32 x = 0; x < MAXITEMS; x++)
+	{
+		if (Transform[x].usItem == (UINT16)-1)
+		{
+			break;
+		}
+
+		if (Transform[x].usItem == usItem &&
+			Transform[x].usResult[0] != 0 &&
+			Item[Transform[x].usResult[0]].usItemClass & IC_MISC &&
+			Item[Transform[x].usResult[0]].attachmentclass & AC_SCOPE)
+		{
+			*pTransformation = &Transform[x];
+			return TRUE;
+		}
+	}
+
+	return FALSE;
 }
