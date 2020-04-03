@@ -693,5 +693,25 @@ The other tags determine in what category this hint falls, and will be displayed
     <uiIndex>133</uiIndex>
     <szName>If you select several mercs and order movement with [SHIFT] pressed, they will move in formation, trying to keep their relative positions.</szName>
     <keybind>1</keybind>
+  </LOADSCREENHINT>  
+  <LOADSCREENHINT>
+    <uiIndex>134</uiIndex>
+    <szName>Press [SHIFT]+[T] to quickly transform object in hand.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>135</uiIndex>
+    <szName>Press [SHIFT]+[O] to quickly transform scope on weapon.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>136</uiIndex>
+    <szName>Press [SHIFT]+[Y] to quickly transform laser on weapon.</szName>
+    <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>137</uiIndex>
+    <szName>Press [SHIFT]+[L] to quickly transform flashlight in the hand.</szName>
+    <keybind>1</keybind>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
