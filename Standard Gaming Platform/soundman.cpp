@@ -34,7 +34,7 @@
 #define		SOUND_MAX_CACHED		128						// number of cache slots
 
 // sevenfm: increased number of channels
-#define		SOUND_MAX_CHANNELS		64
+#define		SOUND_MAX_CHANNELS		128
 
 // default memory limit
 #define		SOUND_DEFAULT_MEMORY	(8048*1024)

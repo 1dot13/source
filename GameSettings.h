@@ -473,6 +473,7 @@ typedef struct
 	BOOLEAN fEnableSSA;
 	BOOLEAN fDebugSSA;
 	UINT8	ubVolumeSSA;
+	BOOLEAN fNWSS;
 
 	// WDS - Option to turn off stealing
 	BOOLEAN fStealingDisabled;

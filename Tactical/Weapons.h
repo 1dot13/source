@@ -397,6 +397,11 @@ typedef struct
  // This vector stores the possible configurations
  std::vector<UINT8>	barrelconfigurations;
 
+ // sevenfm: NWSS data
+ UINT8 ubNWSSCase;
+ UINT8 ubNWSSLast;
+ CHAR8 szNWSSSound[MAX_WEAPON_NAME_LENGTH + 1];
+
 } WEAPONTYPE;
 typedef struct
 {

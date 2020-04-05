@@ -486,6 +486,19 @@ UINT32 PlayJA2StreamingSample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UIN
 	return(SoundPlayStreamedFile(szSoundEffects[usNum], &spParms));
 }
 
+UINT32 PlayWeaponSound(STR8 szFileName, UINT32 ubVolume, UINT32 uiPan)
+{
+	SOUNDPARMS spParms;
+
+	memset(&spParms, 0xff, sizeof(SOUNDPARMS));
+	spParms.uiSpeed = RATE_11025;
+	spParms.uiVolume = CalculateSoundEffectsVolume(ubVolume);
+	spParms.uiLoop = 1;
+	spParms.uiPan = uiPan;
+	spParms.uiPriority = GROUP_PLAYER;
+
+	return(SoundPlay((STR)szFileName, &spParms));
+}
 
 UINT32 PlayJA2SampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
 {

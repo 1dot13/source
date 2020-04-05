@@ -52,6 +52,8 @@
 	#include "Campaign Types.h"	// added by Flugente
 	#include "CampaignStats.h"	// added by Flugente
 	#include "environment.h"	// added by silversurfer
+	// sevenfm
+	#include "buildings.h"		// SameBuilding
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -103,14 +105,17 @@ extern BOOLEAN	gfNextFireJam;
 
 BOOLEAN WillExplosiveWeaponFail( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj );
 
-// Flugente: this function calls UseGun and handles the firing of severeal shots at once
+// sevenfm NWSS names for calibers
+char NWSSCaliber[MAXITEMS][255];
+
+// Flugente: this function calls UseGun and handles the firing of several shots at once
 BOOLEAN UseGunWrapper( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 BOOLEAN UseThrown( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 
-// Flugente: this function calls UseLauncher and handles the firing of severeal shots at once
+// Flugente: this function calls UseLauncher and handles the firing of several shots at once
 BOOLEAN UseLauncherWrapper( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 
@@ -452,7 +457,10 @@ weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **
 				strcmp(name, "usOverheatingSingleShotTemperature") == 0 || // Flugente
 				strcmp(name, "HeavyGun") == 0 || // SANDRO - cannot be shouldered while standing
 				strcmp(name, "fBurstOnlyByFanTheHammer" ) == 0 ||
-				strcmp(name, "BarrelConfiguration" ) == 0))
+				strcmp(name, "BarrelConfiguration" ) == 0 ||
+				strcmp(name, "ubNWSSCase") == 0 ||
+				strcmp(name, "ubNWSSLast") == 0 ||
+				strcmp(name, "szNWSSSound") == 0))
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
 
@@ -765,6 +773,30 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 			if ( barrelmode )
 				barrelconfigurationvector.push_back( barrelmode );
 		}
+		else if (strcmp(name, "ubNWSSCase") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.ubNWSSCase = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "ubNWSSLast") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.ubNWSSLast = (INT8)atol(pData->szCharData);
+		}
+		else if (strcmp(name, "szNWSSSound") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+
+			if (MAX_WEAPON_NAME_LENGTH >= strlen(pData->szCharData))
+			{
+				strcpy(pData->curWeapon.szNWSSSound, pData->szCharData);
+			}
+			else
+			{
+				strncpy(pData->curWeapon.szNWSSSound, pData->szCharData, MAX_WEAPON_NAME_LENGTH);
+				pData->curWeapon.szNWSSSound[MAX_WEAPON_NAME_LENGTH] = '\0';
+			}
+		}
 		
 		pData->maxReadDepth--;
 	}
@@ -943,6 +975,9 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<usOverheatingSingleShotTemperature>%4.2f</usOverheatingSingleShotTemperature>\r\n",			Weapon[cnt].usOverheatingSingleShotTemperature);
 			FilePrintf(hFile,"\t\t<HeavyGun>%d</HeavyGun>\r\n",									Weapon[cnt].HeavyGun);
 			FilePrintf(hFile,"\t\t<fBurstOnlyByFanTheHammer>%d</fBurstOnlyByFanTheHammer>\r\n",	Weapon[cnt].fBurstOnlyByFanTheHammer );
+			FilePrintf(hFile, "\t\t<ubNWSSCase>%d</ubNWSSCase>\r\n", Weapon[cnt].ubNWSSCase);
+			FilePrintf(hFile, "\t\t<ubNWSSLast>%d</ubNWSSLast>\r\n", Weapon[cnt].ubNWSSLast);
+			FilePrintf(hFile, "\t\t<szNWSSSound>%s</szNWSSSound>\r\n", Weapon[cnt].szNWSSSound);
 
 			for ( std::vector<UINT8>::iterator it = Weapon[cnt].barrelconfigurations.begin(), itend = Weapon[cnt].barrelconfigurations.end(); it != itend; ++it )
 			{
@@ -1812,6 +1847,567 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 	*pdZPos = dTargetZ;
 }
 
+// -1 means "needs initialization"
+INT32 gCommonEcho = -1;
+INT32 gCommonEchoDense = -1;
+INT32 gCommonEchoHills = -1;
+INT32 gCommonEchoTown = -1;
+INT32 gCommonEchoBuilding = -1;
+INT32 gCommonEchoUnderground = -1;
+INT32 gCommonCase = -1;
+
+void PrepareCommonWeaponSoundData(void)
+{
+	CHAR8	zFilename[512];
+	INT32	cnt;
+	CHAR8	zCommonName[512];
+
+	sprintf(zCommonName, "AltSounds\\Common");
+
+	// initialize echo sounds
+	if (gCommonEcho < 0)
+	{
+		gCommonEcho = 0;
+		for (cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\%s%d.ogg", zCommonName, "echo", cnt);
+			if (FileExists(zFilename))
+			{
+				gCommonEcho = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	if (gCommonEchoDense < 0)
+	{
+		gCommonEchoDense = 0;
+		for (cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\%s%d.ogg", zCommonName, "echo_dense", cnt);
+			if (FileExists(zFilename))
+			{
+				gCommonEchoDense = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	if (gCommonEchoHills < 0)
+	{
+		gCommonEchoHills = 0;
+		for (cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\%s%d.ogg", zCommonName, "echo_hills", cnt);
+			if (FileExists(zFilename))
+			{
+				gCommonEchoHills = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	if (gCommonEchoTown < 0)
+	{
+		gCommonEchoTown = 0;
+		for (cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\%s%d.ogg", zCommonName, "echo_town", cnt);
+			if (FileExists(zFilename))
+			{
+				gCommonEchoTown = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	if (gCommonEchoBuilding < 0)
+	{
+		gCommonEchoBuilding = 0;
+		for (cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\%s%d.ogg", zCommonName, "echo_building", cnt);
+			if (FileExists(zFilename))
+			{
+				gCommonEchoBuilding = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	if (gCommonEchoUnderground < 0)
+	{
+		gCommonEchoUnderground = 0;
+		for (cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\%s%d.ogg", zCommonName, "echo_underground", cnt);
+			if (FileExists(zFilename))
+			{
+				gCommonEchoUnderground = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	if (gCommonCase < 0)
+	{
+		gCommonCase = 0;
+		for (cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\case%d.ogg", zCommonName, cnt);
+			if (FileExists(zFilename))
+			{
+				gCommonCase = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+}
+
+void PlayWeaponSound(SOLDIERTYPE *pSoldier, OBJECTTYPE *pObjHand, OBJECTTYPE *pObjAttHand, UINT16 usUBItem)
+{
+	CHAR8	zFilename[512];
+	BOOLEAN fSilenced = FALSE;
+	BOOLEAN fSuppressed = FALSE;
+	UINT16	usShotsLeft = (*pObjAttHand)[0]->data.gun.ubGunShotsLeft;
+	UINT16	usNoisefactor = GetPercentNoiseVolume(pObjAttHand);
+	INT8	bVolume = HIGHVOLUME;
+	INT8	bShotsToFire = pSoldier->bDoAutofire ? pSoldier->bDoAutofire : GetShotsPerBurst(pObjHand);
+	UINT32	uiResult = SOUND_ERROR;
+	BOOLEAN fSkipSound = FALSE;
+
+	if (usNoisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[usUBItem].ubAttackVolume <= 10)
+	{
+		fSilenced = TRUE;
+		bVolume = HIGHVOLUME;
+	}
+	else if (usNoisefactor < 100)
+	{
+		fSuppressed = TRUE;
+		// for suppressed, play at 80% volume
+		//bVolume = (INT8)((bVolume * usNoisefactor) / 100);
+		bVolume = bVolume * 80 / 100;
+	}
+
+	// for throwing knives, use original system
+	if (gGameExternalOptions.fNWSS && Item[usUBItem].usItemClass != IC_THROWING_KNIFE)
+	{
+		UINT8	ubSectorID = SECTOR(gWorldSectorX, gWorldSectorY);
+		SECTORINFO *pSector = &SectorInfo[ubSectorID];
+		UINT8	ubSectorType = PLAINS;
+		BOOLEAN fRoom = FALSE;
+		BOOLEAN fUnderground = FALSE;
+		BOOLEAN fMainHand = FALSE;
+		INT8	bTerrainType = GetTerrainType(pSoldier->sGridNo);
+		BOOLEAN fGround = FALSE;
+		BOOLEAN fEasyUnjam = FALSE;
+		BOOLEAN fManual = FALSE;
+		BOOLEAN fSingle = FALSE;
+		BOOLEAN fNoEcho = FALSE;
+		BOOLEAN fNoRoom = FALSE;
+		UINT16 Room1 = NO_ROOM, Room2 = NO_ROOM;
+
+		// roof check
+		if (pSoldier->pathing.bLevel > 0)
+			bTerrainType = FLAT_FLOOR;
+		if (pSector)
+			ubSectorType = pSector->ubTraversability[THROUGH_STRATEGIC_MOVE];
+		if (InARoom(pSoldier->sGridNo, NULL) && pSoldier->pathing.bLevel == 0 && bTerrainType == FLAT_FLOOR && CheckRoof(pSoldier->sGridNo))
+			fRoom = TRUE;
+		if (pSoldier->ubAttackingHand == HANDPOS)
+			fMainHand = TRUE;
+		if (bTerrainType == FLAT_FLOOR || bTerrainType == PAVED_ROAD)
+			fGround = TRUE;
+		if (Weapon[usUBItem].EasyUnjam)
+			fEasyUnjam = TRUE;
+		if (Weapon[usUBItem].APsToReloadManually > 0)
+			fManual = TRUE;
+		if (gbWorldSectorZ > 0)
+		{
+			fUnderground = TRUE;
+		}
+
+		CHAR8 zEcho[256];
+		CHAR8 zCaliber[512];
+		CHAR8 zCaliberName[512];
+		CHAR8 zCommonName[512];
+		CHAR8 zWeaponType[512];
+		CHAR8 zLoop[512];
+		CHAR8 zSingle[512];
+		CHAR8 zRoom[512];
+		CHAR8 zUnderground[512];
+
+		INT32 iCommonEcho = 0;
+		INT32 iCaliberCase = 0;
+
+		memset(zCaliber, 0, 512 * sizeof(char));
+
+		strcpy(zCaliber, NWSSCaliber[Weapon[usUBItem].ubCalibre]);
+		sprintf(zCaliberName, "AltSounds\\Caliber\\%s", zCaliber);
+		sprintf(zCommonName, "AltSounds\\Common");
+
+		PrepareCommonWeaponSoundData();		
+
+		// find number of case sounds for selected caliber
+		iCaliberCase = 0;
+		for (INT32 cnt = 1; cnt <= 10; cnt++)
+		{
+			sprintf(zFilename, "%s\\case%d.ogg", zCaliberName, cnt);
+			if (FileExists(zFilename))
+			{
+				iCaliberCase = cnt;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		// prepare echo name
+		if (gbWorldSectorZ > 0)
+		{
+			strcpy(zEcho, "echo_underground");
+			iCommonEcho = gCommonEchoUnderground;
+		}
+		else if (InARoom(pSoldier->sGridNo, &Room1) &&
+			pSoldier->pathing.bLevel == 0 &&
+			!TileIsOutOfBounds(pSoldier->sTargetGridNo) &&
+			InARoom(pSoldier->sTargetGridNo, &Room2) &&
+			(SameBuilding(pSoldier->sGridNo, pSoldier->sTargetGridNo) || Room1 == Room2))
+		{
+			strcpy(zEcho, "echo_building");
+			iCommonEcho = gCommonEchoBuilding;
+		}
+		else if (GetTownIdForSector(gWorldSectorX, gWorldSectorY) != BLANK_SECTOR)
+		{
+			strcpy(zEcho, "echo_town");
+			iCommonEcho = gCommonEchoTown;
+		}
+		else if (ubSectorType == HILLS || ubSectorType == HILLS_ROAD)
+		{
+			strcpy(zEcho, "echo_hills");
+			iCommonEcho = gCommonEchoHills;
+		}
+		else if (ubSectorType == DENSE || ubSectorType == DENSE_ROAD || ubSectorType == SWAMP || ubSectorType == SWAMP_ROAD)
+		{
+			strcpy(zEcho, "echo_dense");
+			iCommonEcho = gCommonEchoDense;
+		}
+		else
+		{
+			strcpy(zEcho, "echo");
+			iCommonEcho = gCommonEcho;
+		}
+
+		// decide weapon type
+		switch (Weapon[Item[usUBItem].ubClassIndex].ubWeaponType)
+		{
+		case GUN_PISTOL:
+			strcpy(zWeaponType, "pistol");
+			break;
+		case GUN_M_PISTOL:
+			strcpy(zWeaponType, "MP");
+			break;
+		case GUN_SMG:
+			strcpy(zWeaponType, "SMG");
+			break;
+		case GUN_RIFLE:
+			strcpy(zWeaponType, "rifle");
+			break;
+		case GUN_SN_RIFLE:
+			strcpy(zWeaponType, "sniper");
+			break;
+		case GUN_AS_RIFLE:
+			strcpy(zWeaponType, "AR");
+			break;
+		case GUN_LMG:
+			strcpy(zWeaponType, "LMG");
+			break;
+		case GUN_SHOTGUN:
+			strcpy(zWeaponType, "shotgun");
+			break;
+		default:
+			strcpy(zWeaponType, "default");
+		}
+
+		// prepare base sound name
+		if (fSilenced)
+		{
+			strcpy(zLoop, "loop_s");
+			strcpy(zSingle, "single_s");
+		}
+		else
+		{
+			strcpy(zLoop, "loop");
+			strcpy(zSingle, "single");
+		}
+
+		strcpy(zRoom, "room");
+		strcpy(zUnderground, "underground");
+
+		if (pSoldier->bDoBurst)
+		{
+			// auto fire
+			if (pSoldier->ubAttackingHand == SECONDHANDPOS)
+			{
+				sprintf(zFilename, "%s\\dummy.ogg", zCommonName);
+				fSkipSound = TRUE;
+			}
+			else
+			{
+				sprintf(zFilename, "%s\\%s_%s.ogg", zCaliberName, Weapon[usUBItem].szNWSSSound, zLoop);
+				if (strlen(Weapon[usUBItem].szNWSSSound) == 0 || !FileExists(zFilename))
+				{
+					sprintf(zFilename, "%s\\%s_%s.ogg", zCaliberName, zWeaponType, zLoop);
+				}				
+				if (!FileExists(zFilename))
+				{
+					sprintf(zFilename, "%s\\%s.ogg", zCaliberName, zLoop);
+				}
+			}
+		}
+		else
+		{
+			// single shot
+			if (Weapon[Item[usUBItem].ubClassIndex].bAutofireShotsPerFiveAP == 0 && Weapon[Item[usUBItem].ubClassIndex].ubShotsPerBurst == 0)
+			{				
+				if (!fSilenced)
+				{
+					// check for noecho
+					sprintf(zFilename, "%s\\%s_%s_noecho.ogg", zCaliberName, Weapon[usUBItem].szNWSSSound, zSingle);
+					if (strlen(Weapon[usUBItem].szNWSSSound) == 0 || !FileExists(zFilename))
+					{
+						sprintf(zFilename, "%s\\%s_%s_noecho.ogg", zCaliberName, zWeaponType, zSingle);
+					}					
+					if (!FileExists(zFilename))
+					{
+						sprintf(zFilename, "%s\\%s_noecho.ogg", zCaliberName, zSingle);
+
+						if (FileExists(zFilename))
+						{
+							fNoEcho = TRUE;
+							fSingle = TRUE;
+						}
+					}
+
+					// check for noroom
+					sprintf(zFilename, "%s\\%s_%s_noroom.ogg", zCaliberName, Weapon[usUBItem].szNWSSSound, zSingle);
+					if (strlen(Weapon[usUBItem].szNWSSSound) == 0 || !FileExists(zFilename))
+					{
+						sprintf(zFilename, "%s\\%s_%s_noroom.ogg", zCaliberName, zWeaponType, zSingle);
+					}
+					if (!FileExists(zFilename))
+					{
+						sprintf(zFilename, "%s\\%s_noroom.ogg", zCaliberName, zSingle);
+
+						if (FileExists(zFilename))
+						{
+							fNoRoom = TRUE;
+							fSingle = TRUE;
+						}
+					}
+				}
+
+				// use default single
+				if (!fSingle)
+				{
+					sprintf(zFilename, "%s\\%s_%s.ogg", zCaliberName, Weapon[usUBItem].szNWSSSound, zSingle);
+					if (strlen(Weapon[usUBItem].szNWSSSound) == 0 || !FileExists(zFilename))
+					{
+						sprintf(zFilename, "%s\\%s_%s.ogg", zCaliberName, zWeaponType, zSingle);
+					}					
+					if (!FileExists(zFilename))
+					{
+						sprintf(zFilename, "%s\\%s.ogg", zCaliberName, zSingle);
+					}
+					if (FileExists(zFilename))
+					{
+						fSingle = TRUE;
+					}
+				}
+			}
+
+			// try to play loop as first sound
+			if (!fSingle)
+			{
+				sprintf(zFilename, "%s\\%s_%s.ogg", zCaliberName, Weapon[usUBItem].szNWSSSound, zLoop);
+				if (strlen(Weapon[usUBItem].szNWSSSound) == 0 || !FileExists(zFilename))
+				{
+					sprintf(zFilename, "%s\\%s_%s.ogg", zCaliberName, zWeaponType, zLoop);
+				}				
+				if (!FileExists(zFilename))
+				{
+					sprintf(zFilename, "%s\\%s.ogg", zCaliberName, zLoop);
+				}
+			}
+		}
+
+		// Try playing sound...
+		if (FileExists(zFilename) && !fSkipSound)
+		{
+			uiResult = PlayWeaponSound(zFilename, SoundVolume(bVolume, pSoldier->sGridNo), SoundDir(pSoldier->sGridNo));
+
+			if (uiResult != SOUND_ERROR)
+			{
+				// room echo
+				if (!fNoEcho && !fNoRoom && !fSilenced)
+				{
+					if (fRoom)
+					{
+						sprintf(zFilename, "%s\\%s.ogg", zCaliberName, zRoom);
+						// use common effect
+						if (!FileExists(zFilename))
+						{
+							sprintf(zFilename, "%s\\%s.ogg", zCommonName, zRoom);
+						}
+						if (FileExists(zFilename))
+						{
+							PlayWeaponSound(zFilename, SoundVolume(bVolume, pSoldier->sGridNo), SoundDir(pSoldier->sGridNo));
+						}
+					}
+					else if (fUnderground)
+					{
+						sprintf(zFilename, "%s\\%s.ogg", zCaliberName, zUnderground);
+						// use common effect
+						if (!FileExists(zFilename))
+						{
+							sprintf(zFilename, "%s\\%s.ogg", zCommonName, zUnderground);
+						}
+						if (FileExists(zFilename))
+						{
+							PlayWeaponSound(zFilename, SoundVolume(bVolume, pSoldier->sGridNo), SoundDir(pSoldier->sGridNo));
+						}
+					}
+				}
+
+				// sector echo (single or last shot)
+				if (!fNoEcho && !fSilenced && (!pSoldier->bDoBurst || pSoldier->bDoBurst == bShotsToFire))
+				{
+					if (iCommonEcho > 0)
+					{
+						sprintf(zFilename, "%s\\%s%d.ogg", zCommonName, zEcho, Random(iCommonEcho) + 1);
+					}
+					else if (gCommonEcho > 0)
+					{
+						sprintf(zFilename, "%s\\echo%d.ogg", zCommonName, Random(gCommonEcho) + 1);
+					}
+					else
+					{
+						sprintf(zFilename, "%s\\echo.ogg", zCommonName);
+					}
+					if (FileExists(zFilename))
+					{
+
+						PlayWeaponSound(zFilename, SoundVolume(bVolume, pSoldier->sGridNo), SoundDir(pSoldier->sGridNo));
+					}
+				}
+
+				// randomly play case sound
+				if (fGround && 
+					Weapon[usUBItem].ubNWSSCase != 2 &&
+					(Weapon[usUBItem].ubNWSSCase == 1 || !fEasyUnjam && !fManual) && 
+					Random(50))
+				{
+					if (iCaliberCase > 0)
+					{
+						sprintf(zFilename, "%s\\case%d.ogg", zCaliberName, Random(iCaliberCase) + 1);
+					}
+					else if (gCommonCase > 0)
+					{
+						printf(zFilename, "%s\\case%d.ogg", zCommonName, Random(gCommonCase) + 1);
+					}
+					else
+					{
+						sprintf(zFilename, "%s\\case.ogg", zCommonName);
+					}
+					if (FileExists(zFilename))
+					{
+						PlayWeaponSound(zFilename, SoundVolume(Random(3) == 0 ? MIDVOLUME : LOWVOLUME, pSoldier->sGridNo), SoundDir(pSoldier->sGridNo));
+					}
+				}
+
+				// play custom sound for empty magazine
+				if (usShotsLeft == 1 && 
+					Weapon[usUBItem].ubNWSSLast != 2 &&
+					(Weapon[usUBItem].ubNWSSLast == 1 || !fManual))
+				{
+					sprintf(zFilename, "%s\\empty.ogg", zCaliberName);
+					if (!FileExists(zFilename))
+					{
+						sprintf(zFilename, "%s\\empty.ogg", zCommonName);
+					}
+					if (FileExists(zFilename))
+					{
+						PlayWeaponSound(zFilename, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), SoundDir(pSoldier->sGridNo));
+					}
+				}
+			}
+		}
+	}
+
+	// if using original system or could not play caliber based sound or playing knife throwing sound
+	if (!gGameExternalOptions.fNWSS || uiResult == SOUND_ERROR && !fSkipSound)
+	{
+		// original sound system
+		if (pSoldier->bDoBurst)
+		{
+			if (Weapon[usUBItem].sBurstSound != NO_WEAPON_SOUND)
+			{
+				if (pSoldier->bDoBurst == 1)
+				{
+					// playing first sound
+					if (fSilenced)
+					{
+						// Pick sound file based on how many bullets we are going to fire...
+						sprintf(zFilename, gzBurstSndStrings[Weapon[usUBItem].sSilencedBurstSound], bShotsToFire);
+
+						// Try playing sound...
+						pSoldier->iBurstSoundID = PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+					}
+					else
+					{
+						// Pick sound file based on how many bullets we are going to fire...
+						sprintf(zFilename, gzBurstSndStrings[Weapon[usUBItem].sBurstSound], bShotsToFire);
+
+						// Try playing sound...
+						pSoldier->iBurstSoundID = PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume((INT8)bVolume, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+					}
+				}
+			}
+		}
+		else
+		{
+			// For throwing knife.. it's earlier in the animation
+			if (Weapon[usUBItem].sSound != NO_WEAPON_SOUND && Item[usUBItem].usItemClass != IC_THROWING_KNIFE)
+			{
+				if (fSilenced)
+				{
+					PlayJA2Sample(Weapon[usUBItem].silencedSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+				}
+				else
+				{
+					PlayJA2Sample(Weapon[usUBItem].sSound, RATE_11025, SoundVolume(bVolume, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+				}
+			}
+		}
+	}
+}
+
 // HEADROCK HAM 4: The CTH formula has been radically altered, and the value it returns is used very differently.
 // This function now no longer rolls any random variables - that is relegated to other functions. However, this
 // function is now responsible for altering the "center point" for the attack, given target movement and previous
@@ -1820,23 +2416,23 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 {
 	// CTH is now used as a Muzzle Sway value. That is, it determines how wide our shot can go off the "center point"
 	// of the attack. Later on, we'll randomize just how far the shot actually goes within that sway radius.
-	UINT32							uiMuzzleSway;
-	INT16								sXMapPos, sYMapPos;
-	INT16								sAPCost;
-	INT32								iBPCost;
-	FLOAT								dTargetX;
-	FLOAT								dTargetY;
-	FLOAT								dTargetZ;
-	UINT16							usItemNum;
-	BOOLEAN							fBuckshot = 0;
-	UINT8								ubVolume;
-	CHAR8								zBurstString[512];
-	UINT8								ubDirection;
-	INT32 sNewGridNo;
-	UINT8								ubMerc;
-	BOOLEAN							fGonnaHit = FALSE;
-	FLOAT							dExpGain = 0;
-	UINT32							uiDepreciateTest;
+	UINT32		uiMuzzleSway;
+	INT16		sXMapPos, sYMapPos;
+	INT16		sAPCost;
+	INT32		iBPCost;
+	FLOAT		dTargetX;
+	FLOAT		dTargetY;
+	FLOAT		dTargetZ;
+	UINT16		usItemNum;
+	BOOLEAN		fBuckshot = FALSE;
+	UINT8		ubVolume;
+	//CHAR8		zBurstString[512];
+	UINT8		ubDirection;
+	INT32		sNewGridNo;
+	UINT8		ubMerc;
+	BOOLEAN		fGonnaHit = FALSE;
+	FLOAT		dExpGain = 0;
+	UINT32		uiDepreciateTest;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("UseGun") );
 	
@@ -1879,101 +2475,36 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 	#endif
 
-	if ( pSoldier->bDoBurst )
+	if (pSoldier->bDoBurst)
 	{
+		// auto fire
+		INT8 bShotsToFire = pSoldier->bDoAutofire ? pSoldier->bDoAutofire : GetShotsPerBurst(pObjHand);
+
+		PlayWeaponSound(pSoldier, pObjHand, pObjAttHand, usUBItem);
+
 		// Only deduct points once for Burst and Autofire (on firing the first bullet).
-		if ( pSoldier->bDoBurst == 1 )
+		if (pSoldier->bDoBurst == 1)
 		{
-			INT8 bShotsToFire = pSoldier->bDoAutofire ?	pSoldier->bDoAutofire :  GetShotsPerBurst(pObjHand);
-			//if (pSoldier->IsValidSecondHandBurst())
-			//	bShotsToFire = bShotsToFire*2;
-			
-			if ( Weapon[ usUBItem ].sBurstSound != NO_WEAPON_SOUND )
-			{
-				UINT16 noisefactor;
-				// IF we are silenced?
-				noisefactor = GetPercentNoiseVolume( pObjAttHand );
-
-				if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
-				{
-					// Pick sound file baed on how many bullets we are going to fire...
-					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usUBItem ].sSilencedBurstSound ], bShotsToFire );
-
-					// Try playing sound...
-					pSoldier->iBurstSoundID = PlayJA2SampleFromFile( zBurstString, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-				}
-				else
-				{
-					// Pick sound file baed on how many bullets we are going to fire...
-                    // Lesh: changed next line
-					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usUBItem ].sBurstSound ], bShotsToFire );
-
-					INT8 volume = HIGHVOLUME;
-					if ( noisefactor < 100 ) volume = (INT8) ((volume * noisefactor) / 100);
-					// Try playing sound...
-					pSoldier->iBurstSoundID = PlayJA2SampleFromFile(  zBurstString, RATE_11025, SoundVolume( (INT8) volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-				}
-
-				/*
-				//DIGICRAB: We don't need this anymore, because of the burst sound modification
-				//	If we don't have the burst sound, a normal shot will be played for each shot
-				if ( pSoldier->iBurstSoundID == NO_SAMPLE )
-				{
-					// If failed, play normal default....
-					pSoldier->iBurstSoundID = PlayJA2Sample( Weapon[ usItemNum ].sBurstSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-				}
-				*/
-			}
-
-			DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+			DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
 		}
-
 	}
 	else
 	{
+		// single shot
+		PlayWeaponSound(pSoldier, pObjHand, pObjAttHand, usUBItem);
+
 		// ONLY DEDUCT FOR THE FIRST HAND when doing two-pistol attacks
-		if ( pSoldier->IsValidSecondHandShot( ) && (*pObjHand)[0]->data.gun.bGunStatus >= USABLE && (*pObjHand)[0]->data.gun.bGunAmmoStatus > 0 )
+		if (pSoldier->IsValidSecondHandShot() && (*pObjHand)[0]->data.gun.bGunStatus >= USABLE && (*pObjHand)[0]->data.gun.bGunAmmoStatus > 0)
 		{
 			// only deduct APs when the main gun fires
-			if ( pSoldier->ubAttackingHand == HANDPOS )
+			if (pSoldier->ubAttackingHand == HANDPOS)
 			{
-				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+				DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
 			}
 		}
 		else
 		{
-			DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
-		}
-
-		//PLAY SOUND
-		// ( For throwing knife.. it's earlier in the animation
-		if ( Weapon[ usUBItem ].sSound != NO_WEAPON_SOUND && Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE )
-		{
-			// Switch on silencer...
-			UINT16 noisefactor = GetPercentNoiseVolume( pObjAttHand );
-			if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
-			{
-				INT32 uiSound;
-
-				uiSound = Weapon [ usUBItem ].silencedSound ;
-				//if ( Weapon[ usItemNum ].ubCalibre == AMMO9 || Weapon[ usItemNum ].ubCalibre == AMMO38 || Weapon[ usItemNum ].ubCalibre == AMMO57 )
-				//{
-				//	uiSound = S_SILENCER_1;
-				//}
-				//else
-				//{
-				//	uiSound = S_SILENCER_2;
-				//}
-
-				PlayJA2Sample( uiSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-
-			}
-			else
-			{
-				INT8 volume = HIGHVOLUME;
-				if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
-				PlayJA2Sample( Weapon[ usUBItem ].sSound, RATE_11025, SoundVolume( volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-			}
+			DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
 		}
 	}
 
@@ -2255,7 +2786,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			// Extra marksmanship/dexterity bonus for aiming.
 			if (pSoldier->aiData.bAimTime)
 			{
-				dExpGain += (3 * sApertureRatio) / 100; // At this point, usExpGain could equal up to 5.
+				dExpGain += 3.0f * (FLOAT)sApertureRatio / 100.0f; // At this point, usExpGain could equal up to 5.
 				usDextGain += (UINT16)(dExpGain / 3);
 				usMrksGain += (UINT16)((dExpGain * 2) / 3);
 			}
@@ -2293,7 +2824,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			// Extra marksmanship/dexterity bonus for aiming.
 			if (pSoldier->aiData.bAimTime)
 			{
-				dExpGain += (5 * sApertureRatio) / 100; // At this point, usExpGain could equal up to 10.
+				dExpGain += 5.0f * (FLOAT)sApertureRatio / 100.0f; // At this point, usExpGain could equal up to 10.
 				usDextGain += (UINT16)(dExpGain / 3);
 				usMrksGain += (UINT16)((dExpGain * 2) / 3);
 			}
@@ -2579,23 +3110,23 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	if(UsingNewCTHSystem() == true)
 		return UseGunNCTH(pSoldier, sTargetGridNo);
 
-	UINT32							uiHitChance, uiDiceRoll;
-	INT16								sXMapPos, sYMapPos;
-	INT16								sAPCost;
-	INT32								iBPCost;
-	FLOAT								dTargetX;
-	FLOAT								dTargetY;
-	FLOAT								dTargetZ;
-	UINT16							usItemNum;
-	BOOLEAN							fBuckshot;
-	UINT8								ubVolume;
-	CHAR8								zBurstString[512];
-	UINT8								ubDirection;
-	INT32 sNewGridNo;
-	UINT8								ubMerc;
-	BOOLEAN							fGonnaHit = FALSE;
-	UINT16							usExpGain = 0;
-	UINT32							uiDepreciateTest;
+	UINT32		uiHitChance, uiDiceRoll;
+	INT16		sXMapPos, sYMapPos;
+	INT16		sAPCost;
+	INT32		iBPCost;
+	FLOAT		dTargetX;
+	FLOAT		dTargetY;
+	FLOAT		dTargetZ;
+	UINT16		usItemNum;
+	BOOLEAN		fBuckshot;
+	UINT8		ubVolume;
+//	CHAR8		zBurstString[512];
+	UINT8		ubDirection;
+	INT32		sNewGridNo;
+	UINT8		ubMerc;
+	BOOLEAN		fGonnaHit = FALSE;
+	UINT16		usExpGain = 0;
+	UINT32		uiDepreciateTest;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("UseGun") );
 	// Deduct points!
@@ -2610,109 +3141,45 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] );
 	UINT16 usUBItem = pSoldier->GetUsedWeaponNumber( &pSoldier->inv[pSoldier->ubAttackingHand] );
 
+	// sevenfm:for PlayWeaponSound
+	OBJECTTYPE* pObjHand = pSoldier->GetUsedWeapon(&(pSoldier->inv[HANDPOS]));
+	OBJECTTYPE* pObjAttHand = pSoldier->GetUsedWeapon(&pSoldier->inv[pSoldier->ubAttackingHand]);
+
 	usItemNum = pSoldier->usAttackingWeapon;
 
 	// DEDUCT APs
-	if ( pSoldier->bDoBurst )
+	if (pSoldier->bDoBurst)
 	{
+		// auto fire
+		INT8 bShotsToFire = pSoldier->bDoAutofire ? pSoldier->bDoAutofire : GetShotsPerBurst(pObjUsed);
+
+		PlayWeaponSound(pSoldier, pObjHand, pObjAttHand, usUBItem);
+
 		// ONly deduct points once
-		if ( pSoldier->bDoBurst == 1 )
+		if (pSoldier->bDoBurst == 1)
 		{
-			INT8 bShotsToFire = pSoldier->bDoAutofire ?	pSoldier->bDoAutofire : GetShotsPerBurst(pObjUsed);
-			//if (pSoldier->IsValidSecondHandBurst())
-			//	bShotsToFire = bShotsToFire*2;
-						
-			if ( Weapon[ usUBItem ].sBurstSound != NO_WEAPON_SOUND )
-			{
-				// IF we are silenced?
-				UINT16 noisefactor = GetPercentNoiseVolume( pObjUsed );
-
-				if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
-				{
-					// Pick sound file baed on how many bullets we are going to fire...
-					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usUBItem ].sSilencedBurstSound ], bShotsToFire );
-
-					// Try playing sound...
-					pSoldier->iBurstSoundID = PlayJA2SampleFromFile( zBurstString, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-				}
-				else
-				{
-					// Pick sound file baed on how many bullets we are going to fire...
-                    // Lesh: changed next line
-					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usUBItem ].sBurstSound ], bShotsToFire );
-
-					INT8 volume = HIGHVOLUME;
-					if ( noisefactor < 100 ) volume = (INT8) ((volume * noisefactor) / 100);
-					// Try playing sound...
-					pSoldier->iBurstSoundID = PlayJA2SampleFromFile(  zBurstString, RATE_11025, SoundVolume( (INT8) volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-				}
-
-				/*
-				//DIGICRAB: We don't need this anymore, because of the burst sound modification
-				//	If we don't have the burst sound, a normal shot will be played for each shot
-				if ( pSoldier->iBurstSoundID == NO_SAMPLE )
-				{
-					// If failed, play normal default....
-					pSoldier->iBurstSoundID = PlayJA2Sample( Weapon[ usItemNum ].sBurstSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-				}
-				*/
-			}
-
-			// Flugente: if we fire multiple barrels, only deduct points APs on the first one
-			if ( !pSoldier->usBarrelCounter )
-				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+			DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
 		}
 
 	}
 	else
 	{
+		// single shot
+
+		PlayWeaponSound(pSoldier, pObjHand, pObjAttHand, usUBItem);
+
 		// ONLY DEDUCT FOR THE FIRST HAND when doing two-pistol attacks
-		if ( pSoldier->IsValidSecondHandShot( ) && (*pObjUsed)[0]->data.gun.bGunStatus >= USABLE && (*pObjUsed)[0]->data.gun.bGunAmmoStatus > 0 )
+		if (pSoldier->IsValidSecondHandShot() && (*pObjUsed)[0]->data.gun.bGunStatus >= USABLE && (*pObjUsed)[0]->data.gun.bGunAmmoStatus > 0)
 		{
 			// only deduct APs when the main gun fires
-			if ( pSoldier->ubAttackingHand == HANDPOS )
+			if (pSoldier->ubAttackingHand == HANDPOS)
 			{
-				// Flugente: if we fire multiple barrels, only deduct points APs on the first one
-				if ( !pSoldier->usBarrelCounter )
-					DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+				DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
 			}
 		}
 		else
 		{
-			// Flugente: if we fire multiple barrels, only deduct points APs on the first one
-			if ( !pSoldier->usBarrelCounter )
-				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
-		}
-
-		//PLAY SOUND
-		// ( For throwing knife.. it's earlier in the animation
-		if ( Weapon[ usUBItem ].sSound != NO_WEAPON_SOUND && Item[ usUBItem ].usItemClass != IC_THROWING_KNIFE )
-		{
-			// Switch on silencer...
-			UINT16 noisefactor = GetPercentNoiseVolume( pObjUsed );
-			if( noisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[ usUBItem ].ubAttackVolume <= 10 )
-			{
-				INT32 uiSound;
-
-				uiSound = Weapon [ usUBItem ].silencedSound ;
-				//if ( Weapon[ usItemNum ].ubCalibre == AMMO9 || Weapon[ usItemNum ].ubCalibre == AMMO38 || Weapon[ usItemNum ].ubCalibre == AMMO57 )
-				//{
-				//	uiSound = S_SILENCER_1;
-				//}
-				//else
-				//{
-				//	uiSound = S_SILENCER_2;
-				//}
-
-				PlayJA2Sample( uiSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-
-			}
-			else
-			{
-				INT8 volume = HIGHVOLUME;
-				if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
-				PlayJA2Sample( Weapon[ usUBItem ].sSound, RATE_11025, SoundVolume( volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
-			}
+			DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
 		}
 	}
 
@@ -6616,9 +7083,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		else 
 		{			
 			if(gGameExternalOptions.bAltAimEnabled) 
-				maxBonus = (20*(iMarksmanship/100))+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+				maxBonus = (FLOAT)(20 * iMarksmanship / 100) + ((FLOAT)iMarksmanship / 20 * pSoldier->stats.bExpLevel) + (accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy * 2) + (NUM_SKILL_TRAITS(pSoldier, PROF_SNIPER_OT) * 10);
 			else 
-				maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER_OT )*10);
+				maxBonus = 20 + ((FLOAT)iMarksmanship / 20 * pSoldier->stats.bExpLevel) + (accuracyheatmultiplicator * Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy * 2) + (NUM_SKILL_TRAITS(pSoldier, PROF_SNIPER_OT) * 10);
 		}
 		iAimBonus = (float)GetAimBonus( pSoldier, pInHand, 100, 1 );
 
@@ -10168,7 +10635,7 @@ INT16 GetAPsToReload( OBJECTTYPE *pObj )
 	else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
 		fModifier = gItemSettings.fAPtoReloadModifierLauncher;
 
-	return ( Weapon[ pObj->usItem ].APsToReload * fModifier * ( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
+	return (INT16)(Weapon[pObj->usItem].APsToReload * fModifier * (100 - GetPercentReloadTimeAPReduction(pObj)) / 100);
 }
 
 // HEADROCK HAM 3.4: Estimates the number of bullets left in the gun. For use during combat.
@@ -10993,7 +11460,7 @@ FLOAT CalcNewChanceToHitAimWeaponBonus(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT
 	if ( pSoldier->IsValidAlternativeFireMode( ubAimTime, sGridNo ))
 	{
 		//due to the way aiming levels are handled in NCTH, this penalty is increased here by 1/3 (it is harmonized by reduced aiming clicks)
-		fAimModifier -= gGameExternalOptions.ubAltWeaponHoldingAimingPenaly * 4 / 3;
+		fAimModifier -= (FLOAT)gGameExternalOptions.ubAltWeaponHoldingAimingPenaly * 4 / 3;
 	}
 		
 	// WEAPON CONDITION
