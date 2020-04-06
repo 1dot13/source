@@ -550,6 +550,7 @@
 		<bRecoilY>8</bRecoilY>
 		<ubAimLevels>4</ubAimLevels>
 		<Handling>8</Handling>
+		<szNWSSSound>HK53</szNWSSSound>
 		<usOverheatingJamThreshold>40000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>12600</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>113</usOverheatingSingleShotTemperature>
