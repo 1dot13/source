@@ -1744,32 +1744,48 @@ INT8 FindObjClass( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass )
 	return( NO_SLOT );
 }
 
-INT8 FindAIUsableObjClass( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass )
+INT8 FindAIUsableObjClass(SOLDIERTYPE * pSoldier, UINT32 usItemClass, BOOLEAN fSidearm)
 {
 	// finds the first object of the specified class which does NOT have
 	// the "unusable by AI" flag set.
-
 	// uses & rather than == so that this function can search for any weapon
 
-	// This is for the AI only so:
+	INT8 bBestSlot = NO_SLOT;
+	INT8 bInvSize = (INT8)pSoldier->inv.size();
 
-	// Do not consider tank cannons or rocket launchers to be "guns"
-
-	INT8 invsize = (INT8)pSoldier->inv.size();
-	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
+	for (INT8 bLoop = 0; bLoop < bInvSize; ++bLoop)
 	{
-		if (pSoldier->inv[bLoop].exists() == true) {
-			if ( (Item[pSoldier->inv[bLoop].usItem].usItemClass & usItemClass) && !(pSoldier->inv[bLoop].fFlags & OBJECT_AI_UNUSABLE) && (pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE ) )
+		if (pSoldier->inv[bLoop].exists())
+		{
+			if ((Item[pSoldier->inv[bLoop].usItem].usItemClass & usItemClass) &&
+				!(pSoldier->inv[bLoop].fFlags & OBJECT_AI_UNUSABLE) &&
+				(pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE))
 			{
-				if ( usItemClass == IC_GUN && EXPLOSIVE_GUN( pSoldier->inv[bLoop].usItem ) )
+				// Do not consider tank cannons or rocket launchers to be "guns" for AI
+				if (usItemClass == IC_GUN && EXPLOSIVE_GUN(pSoldier->inv[bLoop].usItem))
 				{
 					continue;
 				}
-				return( bLoop );
+				// if not searching for gun, return first usable of required type
+				if (usItemClass != IC_GUN)
+				{
+					bBestSlot = bLoop;
+					break;
+				}
+				// we are searching for gun
+				if (bBestSlot == NO_SLOT ||		// haven't found any gun yet
+					// by default, search for weapon with longest range
+					!fSidearm && Weapon[pSoldier->inv[bLoop].usItem].usRange > Weapon[pSoldier->inv[bBestSlot].usItem].usRange ||
+					// when searching for sidearm, find fastest weapon
+					fSidearm && Weapon[Item[pSoldier->inv[bLoop].usItem].ubClassIndex].ubReadyTime + BaseAPsToShootOrStab(APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pSoldier->inv[bLoop], pSoldier) <
+					Weapon[Item[pSoldier->inv[bBestSlot].usItem].ubClassIndex].ubReadyTime + BaseAPsToShootOrStab(APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pSoldier->inv[bBestSlot], pSoldier))
+				{
+					bBestSlot = bLoop;
+				}
 			}
 		}
 	}
-	return( NO_SLOT );
+	return bBestSlot;
 }
 
 INT8 FindAIUsableObjClassWithin( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass, INT8 bLower, INT8 bUpper )

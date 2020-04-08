@@ -16,29 +16,23 @@ class SOLDIERTYPE;
 #define NIGHTSIGHTGOGGLES_BONUS 2 * STRAIGHT_RATIO
 #define UVGOGGLES_BONUS 4 * STRAIGHT_RATIO
 
-
-
-
-
 extern UINT8 SlotToPocket[7];
-
 extern BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier );
 
 INT8 FindAmmo( SOLDIERTYPE * pSoldier, UINT8 ubCalibre, UINT16 ubMagSize, UINT8 ubAmmoType, INT8 bExcludeSlot );
-
 INT8 FindBestWeaponIfCurrentIsOutOfRange(SOLDIERTYPE * pSoldier, INT8 bCurrentWeaponIndex, UINT16 bWantedRange);
 
-INT16 FindAttachmentSlot( OBJECTTYPE* pObj, UINT16 usItem, UINT8 subObject = 0);
-OBJECTTYPE* FindAttachment( OBJECTTYPE * pObj, UINT16 usItem, UINT8 subObject = 0 );
-extern INT8 FindObjClass( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass );
-extern INT8 FindAIUsableObjClass( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass );
-extern INT8 FindAIUsableObjClassWithin( SOLDIERTYPE * pSoldier, 	UINT32 usItemClass, INT8 bLower, INT8 bUpper );
-extern INT8 FindEmptySlotWithin( SOLDIERTYPE * pSoldier, INT8 bLower, INT8 bUpper );
-extern INT8 FindObjInObjRange( SOLDIERTYPE * pSoldier, UINT16 usItem1, UINT16 usItem2 );
-extern INT8 FindLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon );
-extern INT8 FindGLGrenade( SOLDIERTYPE * pSoldier );
-extern INT8 FindThrowableGrenade( SOLDIERTYPE * pSoldier );
-extern INT8 FindUsableObj( SOLDIERTYPE * pSoldier, UINT16 usItem );
+INT16 FindAttachmentSlot(OBJECTTYPE* pObj, UINT16 usItem, UINT8 subObject = 0);
+OBJECTTYPE* FindAttachment(OBJECTTYPE * pObj, UINT16 usItem, UINT8 subObject = 0);
+extern INT8 FindObjClass(SOLDIERTYPE * pSoldier, UINT32 usItemClass);
+extern INT8 FindAIUsableObjClass(SOLDIERTYPE * pSoldier, UINT32 usItemClass, BOOLEAN fSidearm = FALSE);
+extern INT8 FindAIUsableObjClassWithin(SOLDIERTYPE * pSoldier, UINT32 usItemClass, INT8 bLower, INT8 bUpper);
+extern INT8 FindEmptySlotWithin(SOLDIERTYPE * pSoldier, INT8 bLower, INT8 bUpper);
+extern INT8 FindObjInObjRange(SOLDIERTYPE * pSoldier, UINT16 usItem1, UINT16 usItem2);
+extern INT8 FindLaunchable(SOLDIERTYPE * pSoldier, UINT16 usWeapon);
+extern INT8 FindGLGrenade(SOLDIERTYPE * pSoldier);
+extern INT8 FindThrowableGrenade(SOLDIERTYPE * pSoldier);
+extern INT8 FindUsableObj(SOLDIERTYPE * pSoldier, UINT16 usItem);
 
 void DeleteObj(OBJECTTYPE * pObj );
 void SwapObjs( OBJECTTYPE * pObj1, OBJECTTYPE * pObj2 );

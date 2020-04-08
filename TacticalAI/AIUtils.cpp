@@ -3104,21 +3104,38 @@ INT32 RangeChangeDesire( SOLDIERTYPE * pSoldier )
 	INT32 iRangeFactorMultiplier;
 
 	iRangeFactorMultiplier = pSoldier->aiData.bAIMorale - 1;
+
+	// civilians only run away
+	if (pSoldier->aiData.bNeutral)
+	{
+		return 0;
+	}
+
 	switch (pSoldier->aiData.bAttitude)
 	{
-		case DEFENSIVE:		iRangeFactorMultiplier += -1; break;
-		case BRAVESOLO:		iRangeFactorMultiplier +=	2; break;
-		case BRAVEAID:		iRangeFactorMultiplier +=	2; break;
-		case CUNNINGSOLO:	iRangeFactorMultiplier +=	0; break;
-		case CUNNINGAID:	iRangeFactorMultiplier +=	0; break;
-		case ATTACKSLAYONLY:
-		case AGGRESSIVE:	iRangeFactorMultiplier +=	1; break;
+	case DEFENSIVE:		iRangeFactorMultiplier += -1; break;
+	case BRAVESOLO:		iRangeFactorMultiplier += 2; break;
+	case BRAVEAID:		iRangeFactorMultiplier += 2; break;
+	case CUNNINGSOLO:	iRangeFactorMultiplier += 0; break;
+	case CUNNINGAID:	iRangeFactorMultiplier += 0; break;
+	case ATTACKSLAYONLY:
+	case AGGRESSIVE:	iRangeFactorMultiplier += 1; break;
 	}
+	
+	if(IS_MERC_BODY_TYPE(pSoldier))
+	{
+		if (!AICheckHasGun(pSoldier))
+			iRangeFactorMultiplier += 2;	// if we have no weapons, try to get closer to enemy
+		else if (GuySawEnemy(pSoldier, SEEN_LAST_TURN) && AICheckShortWeaponRange(pSoldier))
+			iRangeFactorMultiplier += 1;	// bonus if weapon range is short
+	}
+
 	if ( gTacticalStatus.bConsNumTurnsWeHaventSeenButEnemyDoes > 0 )
 	{
 		iRangeFactorMultiplier += gTacticalStatus.bConsNumTurnsWeHaventSeenButEnemyDoes;
 	}
-	return( iRangeFactorMultiplier );
+
+	return iRangeFactorMultiplier;
 }
 
 BOOLEAN ArmySeesOpponents( void )

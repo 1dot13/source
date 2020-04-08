@@ -1621,14 +1621,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	if (TileIsOutOfBounds(sNoiseGridNo))
 	{
 		// then we have no business being under YELLOW status any more!
-#ifdef RECORDNET
-		fprintf(NetDebugFile,"\nDecideActionYellow: ERROR - No important noise known by guynum %d\n\n",pSoldier->ubID);
-#endif
-
 #ifdef BETAVERSION
 		NumMessage("DecideActionYellow: ERROR - No important noise known by guynum ",pSoldier->ubID);
 #endif
-
 		return(AI_ACTION_NONE);
 	}
 
@@ -2349,14 +2344,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	////////////////////////////////////////////////////////////////////////////
 	if ((INT16)PreRandom(100) < 50 )
 	{
-#ifdef RECORDNET
-		fprintf(NetDebugFile,"\tDecideActionYellow: guynum %d ignores noise, switching to GREEN AI...\n",pSoldier->ubID);
-#endif
-
 #ifdef DEBUGDECISIONS
 		AINameMessage(pSoldier,"ignores noise completely and BYPASSES to GREEN!",1000);
 #endif
-
 		// Skip YELLOW until new situation, 15% extra chance to do GREEN actions
 		pSoldier->aiData.bBypassToGreen = 15;
 		return(DecideActionGreen(pSoldier));
@@ -2757,13 +2747,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-	//}//hayden
-
-
-
-
 		// SNIPER!
-		CheckIfShotPossible(pSoldier,&BestShot,FALSE);
+		CheckIfShotPossible(pSoldier, &BestShot);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: is sniper shot possible? = %d, CTH = %d",BestShot.ubPossible,BestShot.ubChanceToReallyHit));
 
 		if (BestShot.ubPossible && BestShot.ubChanceToReallyHit > 50 )
@@ -2875,7 +2860,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 
 		//SUPPRESSION FIRE
-		CheckIfShotPossible(pSoldier,&BestShot,TRUE); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
+		CheckIfShotPossible(pSoldier,&BestShot); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
 
 		// sevenfm: check that we have a clip to reload
 		BOOLEAN fExtraClip = FALSE;
@@ -4352,14 +4337,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			pSoldier->bBleeding = __max( 0, pSoldier->bBleeding - (pSoldier->bActionPoints/2) );
 			return( AI_ACTION_NONE ); // will end-turn/wait depending on whether we're in TB or realtime
 		}
-#ifdef RECORDNET
-		fprintf(NetDebugFile,"\tDecideActionRed: guynum %d switching to GREEN AI...\n",pSoldier->ubID);
-#endif
-
 #ifdef DEBUGDECISIONS
 		AINameMessage(pSoldier,"- chose to SKIP all RED actions, BYPASSES to GREEN!",1000);
 #endif
-
 		// Skip RED until new situation/next turn, 30% extra chance to do GREEN actions
 		pSoldier->aiData.bBypassToGreen = 30;
 		return(DecideActionGreen(pSoldier));
@@ -5004,7 +4984,6 @@ INT16 ubMinAPCost;
 
 	BestAttack.ubChanceToReallyHit = 0;
 
-
 	// if we are able attack
 	if (bCanAttack)
 	{
@@ -5015,111 +4994,49 @@ INT16 ubMinAPCost;
 		//////////////////////////////////////////////////////////////////////////
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"FIRE A GUN AT AN OPPONENT");
 
-		bWeaponIn = FindAIUsableObjClass( pSoldier, IC_GUN );
+		CheckIfShotPossible(pSoldier, &BestShot);
 
-		if (bWeaponIn != NO_SLOT)
+		if (BestShot.ubFriendlyFireChance)	//dnl ch61 180813
 		{
-			BestShot.bWeaponIn = bWeaponIn;
-			// if it's in another pocket, swap it into his hand temporarily
-			if (bWeaponIn != HANDPOS)
+			// determine chance to shoot
+			INT32 iChanceToShoot;
+
+			iChanceToShoot = 100 - BestShot.ubFriendlyFireChance;
+			iChanceToShoot = iChanceToShoot * iChanceToShoot / 100;
+
+			DebugAI(AI_MSG_INFO, pSoldier, String("Friendly fire chance %d, chance to shoot %d", BestShot.ubFriendlyFireChance, iChanceToShoot));
+
+			if (Chance(100 - iChanceToShoot))
 			{
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: swap gun into hand");
-				RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
+				DebugAI(AI_MSG_INFO, pSoldier, String("Friendly fire check failed, skip shooting!"));
+				BestShot.ubPossible = FALSE;
+			}
+		}
+
+		if (BestShot.ubPossible)
+		{
+			// if the selected opponent is not a threat (unconscious & !serviced)
+			// (usually, this means all the guys we see are unconscious, but, on
+			//  rare occasions, we may not be able to shoot a healthy guy, too)
+			if ((Menptr[BestShot.ubOpponent].stats.bLife < OKLIFE) &&
+				!Menptr[BestShot.ubOpponent].bService &&
+				(pSoldier->aiData.bAttitude != AGGRESSIVE || Chance((100 - BestShot.ubChanceToReallyHit) / 2)))
+			{
+				// get the location of the closest CONSCIOUS reachable opponent
+				sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimb);
+
+				// if we found one								
+				if (!TileIsOutOfBounds(sClosestDisturbance))
+				{
+					// then make decision as if at alert status RED
+					return DecideActionRed(pSoldier);
+				}
+				// else kill the guy, he could be the last opponent alive in this sector
 			}
 
-			// now it better be a gun, or the guy can't shoot (but has other attack(s))
-			if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN && pSoldier->inv[HANDPOS][0]->data.gun.bGunStatus >= USABLE)
-			{
-				// get the minimum cost to attack the same target with this gun
-				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,ADDTURNCOST,0);
-
-				// if we have enough action points to shoot with this gun
-				if (pSoldier->bActionPoints >= ubMinAPCost)
-				{
-					// look around for a worthy target (which sets BestShot.ubPossible)
-					BOOLEAN shootUnseen = FALSE;
-					///ddd
-					//if (gGameOptions.ubDifficultyLevel > DIF_LEVEL_MEDIUM ) //comm by ddd
-					if (gGameOptions.ubDifficultyLevel > DIF_LEVEL_MEDIUM || gGameExternalOptions.bNewTacticalAIBehavior)
-						shootUnseen = TRUE;
-
-					CalcBestShot(pSoldier,&BestShot,shootUnseen);
-
-					if (pSoldier->bTeam == gbPlayerNum && pSoldier->aiData.bRTPCombat == RTP_COMBAT_CONSERVE)
-					{
-						if (BestShot.ubChanceToReallyHit < 30)
-						{
-							// skip firing, our chance isn't good enough
-							BestShot.ubPossible = FALSE;
-						}
-					}
-
-					if(BestShot.ubFriendlyFireChance)//dnl ch61 180813
-					{
-						iChance = 0;
-						if(BestShot.ubFriendlyFireChance == 100)
-						{
-							if(pSoldier->aiData.bAttitude == AGGRESSIVE)
-								iChance = 5;
-						}
-						else
-						{
-							switch(pSoldier->aiData.bAttitude)
-							{
-							case DEFENSIVE:iChance = 15;break;
-							case BRAVESOLO:iChance = 25;break;
-							case BRAVEAID:iChance = 20;break;
-							case CUNNINGSOLO:iChance = 35;break;
-							case CUNNINGAID:iChance = 30;break;
-							case AGGRESSIVE:iChance = 45;break;
-							case ATTACKSLAYONLY:iChance = 40;break;
-							default:iChance = 10;break;
-							}
-						}
-						if(!((INT32)Random(100) < iChance))
-							BestShot.ubPossible = FALSE;
-					}
-
-					if (BestShot.ubPossible)
-					{
-						// if the selected opponent is not a threat (unconscious & !serviced)
-						// (usually, this means all the guys we see are unconscious, but, on
-						//  rare occasions, we may not be able to shoot a healthy guy, too)
-						if ((Menptr[BestShot.ubOpponent].stats.bLife < OKLIFE) &&
-							!Menptr[BestShot.ubOpponent].bService &&
-							(pSoldier->aiData.bAttitude != AGGRESSIVE || Chance((100 - BestShot.ubChanceToReallyHit) / 2)))
-						{
-							// get the location of the closest CONSCIOUS reachable opponent
-							sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimb);
-
-							// if we found one								
-							if (!TileIsOutOfBounds(sClosestDisturbance))
-							{
-								// don't bother checking GRENADES/KNIVES, he can't have conscious targets
-#ifdef RECORDNET
-								fprintf(NetDebugFile,"\tDecideActionBlack: all visible opponents unconscious, switching to RED AI...\n");
-#endif
-								// then make decision as if at alert status RED
-								return DecideActionRed(pSoldier);
-							}
-							// else kill the guy, he could be the last opponent alive in this sector
-						}
-
-						// now we KNOW FOR SURE that we will do something (shoot, at least)
-						NPCDoesAct(pSoldier);
-						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPC decided to shoot (or something)");
-
-					}
-				}
-
-				// if it was in his holster, swap it back into his holster for now
-				if (bWeaponIn != HANDPOS)
-				{
-					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionblack: swap gun into holster");
-					RearrangePocket(pSoldier,HANDPOS,bWeaponIn,TEMPORARILY);
-				}
-
-			}
+			// now we KNOW FOR SURE that we will do something (shoot, at least)
+			NPCDoesAct(pSoldier);
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "NPC decided to shoot (or something)");
 		}
 
 		//////////////////////////////////////////////////////////////////////////
@@ -5207,7 +5124,7 @@ INT16 ubMinAPCost;
 					// throwing knife code works like shooting
 
 					// look around for a worthy target (which sets BestStab.ubPossible)
-					CalcBestShot(pSoldier,&BestStab,FALSE);
+					CalcBestShot(pSoldier,&BestStab);
 
 					if (BestStab.ubPossible)
 					{
@@ -5631,83 +5548,6 @@ INT16 ubMinAPCost;
 
 		if (ubBestAttackAction == AI_ACTION_FIRE_GUN)
 		{
-#ifndef dnlCALCBESTSHOT//dnl ch69 140913
-			// Do we need to change stance?  NB We'll have to ready our gun again
-			if ( !ARMED_VEHICLE( pSoldier ) && ( pSoldier->bActionPoints >= BestAttack.ubAPCost + GetAPsCrouch( pSoldier, TRUE) + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST,0, 1 ) ) )
-			{
-				// since the AI considers shooting chance from standing primarily, if we are not
-				// standing we should always consider a stance change
-				if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_STAND )
-				{
-					iChance = 100;
-				}
-				else
-				{
-					iChance = 50;
-					switch (pSoldier->aiData.bAttitude)
-					{
-					case DEFENSIVE:		iChance += 20; break;
-					case BRAVESOLO:		iChance -= 10; break;
-					case BRAVEAID:			iChance -= 10; break;
-					case CUNNINGSOLO:	iChance += 10; break;
-					case CUNNINGAID:		iChance += 10; break;
-					case AGGRESSIVE:		iChance -= 20; break;
-					case ATTACKSLAYONLY: iChance -= 30; break;
-					}
-				}
-
-				if ( (INT32)PreRandom( 100 ) < iChance || GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, BestAttack.sTarget ) <= MIN_PRONE_RANGE )
-				{
-
-					// first get the direction, as we will need to pass that in to ShootingStanceChange
-					bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(BestAttack.sTarget),CenterY(BestAttack.sTarget));
-
-					ubBestStance = ShootingStanceChange( pSoldier, &BestAttack, bDirection );
-					if (ubBestStance != 0)
-					{
-						// change stance first!
-						if ( pSoldier->ubDirection != bDirection && pSoldier->InternalIsValidStance( bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
-						{
-							// we're not facing towards him, so turn first!
-							pSoldier->aiData.usActionData = bDirection;
-
-#ifdef DEBUGDECISIONS
-							sprintf(tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->aiData.usActionData);
-							AIPopMessage(tempstr);
-#endif
-
-							return(AI_ACTION_CHANGE_FACING);
-						}
-
-						//						pSoldier->aiData.usActionData = ubBestStance;
-
-						// attack after we change stance
-						// we don't just return here because we want to check whether to
-						// burst first
-						fChangeStanceFirst = TRUE;
-
-						// account for increased AP cost and having to re-ready weapon
-						ubStanceCost = (UINT8) GetAPsToChangeStance( pSoldier, ubBestStance );
-						BestAttack.ubAPCost = MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 0, 1) + ubStanceCost;
-
-						// Clip the aim time if necessary
-						// HEADROCK HAM 3.6: Use Actual Aiming Costs, without assuming that each aim level = 1 AP.
-						if ( BestAttack.ubAPCost + sActualAimTime > pSoldier->bActionPoints )
-						{
-							// AP cost would balance (plus X, minus X) but aim time is reduced
-							// HEADROCK HAM 3.6: Use actual Aiming Costs.
-							BestAttack.ubAimTime = CalcAimingLevelsAvailableWithAP( pSoldier, BestAttack.sTarget, (pSoldier->bActionPoints - BestAttack.ubAPCost - ubStanceCost) );
-							if (BestAttack.ubAimTime < 0 )
-							{
-								// This is actually a logic error situation.  The ChangeStance section is supposed
-								// to not make a shot impossible after changing stance.
-								BestAttack.ubPossible = 0;
-							}
-						}
-					}
-				}
-			}
-#else
 			if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier ) )
 			{
 				// first get the direction, as we will need to pass that in to ShootingStanceChange
@@ -5744,7 +5584,6 @@ INT16 ubMinAPCost;
 					}
 				}
 			}
-#endif
 
 			//////////////////////////////////////////////////////////////////////////
 			// IF ENOUGH APs TO BURST, RANDOM CHANCE OF DOING SO
@@ -7191,14 +7030,9 @@ INT8 ArmedVehicleDecideActionYellow( SOLDIERTYPE *pSoldier )
 	if ( TileIsOutOfBounds( sNoiseGridNo ) )
 	{
 		// then we have no business being under YELLOW status any more!
-#ifdef RECORDNET
-		fprintf( NetDebugFile, "\ArmedVehicleDecideActionYellow: ERROR - No important noise known by guynum %d\n\n", pSoldier->ubID );
-#endif
-
 #ifdef BETAVERSION
 		NumMessage( "ArmedVehicleDecideActionYellow: ERROR - No important noise known by guynum ", pSoldier->ubID );
 #endif
-
 		return(AI_ACTION_NONE);
 	}
 
@@ -7644,14 +7478,9 @@ INT8 ArmedVehicleDecideActionYellow( SOLDIERTYPE *pSoldier )
 	////////////////////////////////////////////////////////////////////////////
 	if ( (INT16)PreRandom( 100 ) < 50 )
 	{
-#ifdef RECORDNET
-		fprintf( NetDebugFile, "\tDecideActionYellow: guynum %d ignores noise, switching to GREEN AI...\n", pSoldier->ubID );
-#endif
-
 #ifdef DEBUGDECISIONS
 		AINameMessage( pSoldier, "ignores noise completely and BYPASSES to GREEN!", 1000 );
 #endif
-
 		// Skip YELLOW until new situation, 15% extra chance to do GREEN actions
 		pSoldier->aiData.bBypassToGreen = 15;
 		return(ArmedVehicleDecideActionGreen( pSoldier ));
@@ -7808,7 +7637,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 		//}//hayden
 
 		// SNIPER!
-		CheckIfShotPossible( pSoldier, &BestShot, FALSE );
+		CheckIfShotPossible(pSoldier, &BestShot);
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "ArmedVehicleDecideActionRed: is sniper shot possible? = %d, CTH = %d", BestShot.ubPossible, BestShot.ubChanceToReallyHit ) );
 
 		if ( BestShot.ubPossible && BestShot.ubChanceToReallyHit > 50 )
@@ -7882,7 +7711,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 		}
 
 		//SUPPRESSION FIRE
-		CheckIfShotPossible( pSoldier, &BestShot, TRUE ); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
+		CheckIfShotPossible(pSoldier, &BestShot); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
 
 		// sevenfm: check that we have a clip to reload
 		BOOLEAN fExtraClip = FALSE;
@@ -8795,14 +8624,9 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 	// if not in combat or under fire, and we COULD have moved, just chose not to	
 	if ( (pSoldier->aiData.bAlertStatus != STATUS_BLACK) && !pSoldier->aiData.bUnderFire && ubCanMove && (!gfTurnBasedAI || pSoldier->bActionPoints >= pSoldier->bInitialActionPoints) && (TileIsOutOfBounds( ClosestReachableDisturbance( pSoldier, &fClimb ) )) )
 	{
-#ifdef RECORDNET
-		fprintf( NetDebugFile, "\tArmedVehicleDecideActionRed: guynum %d switching to GREEN AI...\n", pSoldier->ubID );
-#endif
-
 #ifdef DEBUGDECISIONS
 		AINameMessage( pSoldier, "- chose to SKIP all RED actions, BYPASSES to GREEN!", 1000 );
 #endif
-
 		// Skip RED until new situation/next turn, 30% extra chance to do GREEN actions
 		pSoldier->aiData.bBypassToGreen = 30;
 		return(ArmedVehicleDecideActionGreen( pSoldier ));
@@ -9045,13 +8869,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 				if ( pSoldier->bActionPoints >= ubMinAPCost )
 				{
 					// look around for a worthy target (which sets BestShot.ubPossible)
-					BOOLEAN shootUnseen = FALSE;
-					///ddd
-					//if (gGameOptions.ubDifficultyLevel > DIF_LEVEL_MEDIUM ) //comm by ddd
-					if ( gGameOptions.ubDifficultyLevel > DIF_LEVEL_MEDIUM || gGameExternalOptions.bNewTacticalAIBehavior )
-						shootUnseen = TRUE;
-
-					CalcBestShot( pSoldier, &BestShot, shootUnseen );
+					CalcBestShot(pSoldier, &BestShot);
 
 					if ( pSoldier->bTeam == gbPlayerNum && pSoldier->aiData.bRTPCombat == RTP_COMBAT_CONSERVE )
 					{
@@ -9105,10 +8923,6 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 								// if we found one								
 								if ( !TileIsOutOfBounds( sClosestDisturbance ) )
 								{
-									// don't bother checking GRENADES/KNIVES, he can't have conscious targets
-#ifdef RECORDNET
-									fprintf( NetDebugFile, "\ArmedVehicleDecideActionBlack: all visible opponents unconscious, switching to RED AI...\n" );
-#endif
 									// then make decision as if at alert status RED, but make sure
 									// we don't try to SEEK OPPONENT the unconscious guy!
 									return DecideActionRed(pSoldier);
@@ -9363,83 +9177,6 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 
 		if ( ubBestAttackAction == AI_ACTION_FIRE_GUN )
 		{
-#ifndef dnlCALCBESTSHOT//dnl ch69 140913
-			// Do we need to change stance?  NB We'll have to ready our gun again
-			if ( !ARMED_VEHICLE( pSoldier ) && (pSoldier->bActionPoints >= BestAttack.ubAPCost + GetAPsCrouch( pSoldier, TRUE ) + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 0, 1 )) )
-			{
-				// since the AI considers shooting chance from standing primarily, if we are not
-				// standing we should always consider a stance change
-				if ( gAnimControl[pSoldier->usAnimState].ubEndHeight != ANIM_STAND )
-				{
-					iChance = 100;
-				}
-				else
-				{
-					iChance = 50;
-					switch ( pSoldier->aiData.bAttitude )
-					{
-					case DEFENSIVE:		iChance += 20; break;
-					case BRAVESOLO:		iChance -= 10; break;
-					case BRAVEAID:			iChance -= 10; break;
-					case CUNNINGSOLO:	iChance += 10; break;
-					case CUNNINGAID:		iChance += 10; break;
-					case AGGRESSIVE:		iChance -= 20; break;
-					case ATTACKSLAYONLY: iChance -= 30; break;
-					}
-				}
-
-				if ( (INT32)PreRandom( 100 ) < iChance || GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, BestAttack.sTarget ) <= MIN_PRONE_RANGE )
-				{
-
-					// first get the direction, as we will need to pass that in to ShootingStanceChange
-					bDirection = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( BestAttack.sTarget ), CenterY( BestAttack.sTarget ) );
-
-					ubBestStance = ShootingStanceChange( pSoldier, &BestAttack, bDirection );
-					if ( ubBestStance != 0 )
-					{
-						// change stance first!
-						if ( pSoldier->ubDirection != bDirection && pSoldier->InternalIsValidStance( bDirection, gAnimControl[pSoldier->usAnimState].ubEndHeight ) )
-						{
-							// we're not facing towards him, so turn first!
-							pSoldier->aiData.usActionData = bDirection;
-
-#ifdef DEBUGDECISIONS
-							sprintf( tempstr, "%s - TURNS to face CLOSEST OPPONENT in direction %d", pSoldier->name, pSoldier->aiData.usActionData );
-							AIPopMessage( tempstr );
-#endif
-
-							return(AI_ACTION_CHANGE_FACING);
-						}
-
-						//						pSoldier->aiData.usActionData = ubBestStance;
-
-						// attack after we change stance
-						// we don't just return here because we want to check whether to
-						// burst first
-						fChangeStanceFirst = TRUE;
-
-						// account for increased AP cost and having to re-ready weapon
-						ubStanceCost = (UINT8)GetAPsToChangeStance( pSoldier, ubBestStance );
-						BestAttack.ubAPCost = MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 0, 1 ) + ubStanceCost;
-
-						// Clip the aim time if necessary
-						// HEADROCK HAM 3.6: Use Actual Aiming Costs, without assuming that each aim level = 1 AP.
-						if ( BestAttack.ubAPCost + sActualAimTime > pSoldier->bActionPoints )
-						{
-							// AP cost would balance (plus X, minus X) but aim time is reduced
-							// HEADROCK HAM 3.6: Use actual Aiming Costs.
-							BestAttack.ubAimTime = CalcAimingLevelsAvailableWithAP( pSoldier, BestAttack.sTarget, (pSoldier->bActionPoints - BestAttack.ubAPCost - ubStanceCost) );
-							if ( BestAttack.ubAimTime < 0 )
-							{
-								// This is actually a logic error situation.  The ChangeStance section is supposed
-								// to not make a shot impossible after changing stance.
-								BestAttack.ubPossible = 0;
-							}
-						}
-					}
-				}
-			}
-#else
 			if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical )
 			{
 				// first get the direction, as we will need to pass that in to ShootingStanceChange
@@ -9453,7 +9190,6 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 					return(AI_ACTION_CHANGE_FACING);
 				}
 			}
-#endif
 
 			//////////////////////////////////////////////////////////////////////////
 			// IF ENOUGH APs TO BURST, RANDOM CHANCE OF DOING SO

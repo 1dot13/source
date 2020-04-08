@@ -187,7 +187,7 @@ typedef enum
 INT16 AdvanceToFiringRange( SOLDIERTYPE * pSoldier, INT16 sClosestOpponent );
 
 BOOLEAN AimingGun(SOLDIERTYPE *pSoldier);
-void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUnseen);
+void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot);
 void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAttack);
 void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
 void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab );
@@ -266,7 +266,7 @@ INT32 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier );
 
 BOOLEAN ArmySeesOpponents( void );
 
-void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN suppressionFire);
+void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot);
 
 INT32 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubSearchRadius );
 

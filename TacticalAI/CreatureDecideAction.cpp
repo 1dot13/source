@@ -1149,7 +1149,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 				if (pSoldier->bActionPoints >= ubMinAPCost)
 				{
 					// look around for a worthy target (which sets BestShot.ubPossible)
-					CalcBestShot(pSoldier,&BestShot,FALSE);
+					CalcBestShot(pSoldier,&BestShot);
 
 					if (BestShot.ubPossible)
 					{

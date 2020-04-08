@@ -7364,6 +7364,7 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 	// same as CCTHG but fakes the attacker always standing
 	usTrueState = pSoldier->usAnimState;
 	bTrueLevel = pSoldier->bTargetLevel;
+
 	pSoldier->bTargetLevel = bTargetLevel;
 	pSoldier->usAnimState = usAnimState;
 	if(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE)//dnl ch70 160913
@@ -7373,18 +7374,11 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 	else
 	{
 		uiChance = CalcChanceToHitGun(pSoldier, sGridNo, ubAimTime, ubAimPos);
-
-		// sevenfm: allow small CTH for AI for suppression fire
-		if( gGameExternalOptions.fAIExtraSuppression &&
-			pSoldier->aiData.bAlertStatus == STATUS_RED && 
-			Weapon[ pSoldier->usAttackingWeapon ].bAutofireShotsPerFiveAP > 0 )
-		{
-			uiChance = __max(1, uiChance);
-		}
 	}
 	pSoldier->usAnimState = usTrueState;
 	pSoldier->bTargetLevel = bTrueLevel;
-	if(UsingNewCTHSystem() == true && !(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE))//dnl ch70 160913
+
+	if(UsingNewCTHSystem() && !(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE))//dnl ch70 160913
 	{
 		////////////////////////////////////////////////////////////////////////////////////
 		// HEADROCK HAM 4: NCTH calculation
@@ -7468,11 +7462,7 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 		// real aperture for shooter based on CTH calculation
 		dAperture = dAperture * ( 100 - uiChance ) / 100.0f;
 
-		if (dAperture == 0)
-		{
-			return 100;
-		}
-		else
+		if(dAperture > 0)
 		{
 			// silversurfer: This cannot be correct. An aperture of 10 already gives a very good chance to hit. If we take this value and
 			// calculate the target area it's PI * 10 * 10 which results in ~300 (rounded down) and not 28.26. This low number was the reason why AI
@@ -7488,18 +7478,19 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 
 			uiChance = (UINT32)__min(100, (dTargetArea / dApertureArea) * 100);
 		}
-		FLOAT dGunRange;
+		else
+		{
+			uiChance = 100;
+		}
 
 		// Flugente: check for underbarrel weapons and use that object if necessary
 		OBJECTTYPE* pObjAttHand = pSoldier->GetUsedWeapon( &(pSoldier->inv[pSoldier->ubAttackingHand]) );
-
-		dGunRange = (FLOAT)(GunRange( pObjAttHand, pSoldier ) );
+		FLOAT dGunRange = (FLOAT)(GunRange(pObjAttHand, pSoldier));
 
 		FLOAT dMaxGunRange = dGunRange * gGameCTHConstants.MAX_EFFECTIVE_RANGE_MULTIPLIER;
 		if ( dMaxGunRange < d2DDistance)
 		{
-			// Weapon out of conceivable hit range. Reduce chance to hit to 0!
-			return (0);
+			uiChance = 1;	// sevenfm: set min CTH to 1% for AI
 		}
 		else if ( dGunRange < d2DDistance)
 		{
@@ -7508,15 +7499,24 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 			if (gGameCTHConstants.MAX_EFFECTIVE_USE_GRADIENT)
 			{
 				// Just outside range. Reduce considerably!
-				return min(uiChance, (UINT)(dChance - (dMaxChanceReduction * ((d2DDistance - dGunRange) / (dMaxGunRange - dGunRange)))));
+				uiChance = min(uiChance, (UINT32)(dChance - (dMaxChanceReduction * ((d2DDistance - dGunRange) / (dMaxGunRange - dGunRange)))));
 			}
 			else
 			{
-				return (UINT)(dChance - dMaxChanceReduction);
+				uiChance = (UINT32)(dChance - dMaxChanceReduction);
 			}
 		}
 	}
-	return( uiChance );
+
+	if (gGameExternalOptions.fAIExtraSuppression)
+	{
+		// sevenfm: always min 1% for AI to shoot
+		return max(1, uiChance);
+	}
+	else
+	{
+		return uiChance;
+	}
 }
 
 INT32 CalcBodyImpactReduction( UINT8 ubAmmoType, UINT8 ubHitLocation )

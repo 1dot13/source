@@ -161,7 +161,7 @@ void ResetWeaponMode( SOLDIERTYPE * pSoldier )
 }
 //</SB>
 
-void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUnseen)
+void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 {
 	UINT32 uiLoop;
 	INT32 iAttackValue, iThreatValue, iHitRate, iBestHitRate, iPercentBetter, iEstDamage, iTrueLastTarget;
@@ -176,23 +176,25 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 
 	ubBestChanceToHit = ubBestAimTime = ubChanceToHit = ubChanceToReallyHit = 0;
 
+	// sevenfm: initialize
+	pBestShot->ubPossible = FALSE;
+	pBestShot->ubChanceToReallyHit = 0;
+	pBestShot->iAttackValue = 0;
+	pBestShot->ubOpponent = NOBODY;
+	pBestShot->ubFriendlyFireChance = 0;
+
+	// sevenfm: set attacking hand and target
+	pSoldier->ubAttackingHand = HANDPOS;
+	pSoldier->ubTargetID = NOBODY;
+
 	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
 	pSoldier->bWeaponMode = WM_NORMAL;
-#ifdef dnlCALCBESTSHOT//dnl ch69 130913 rather setup available scopes here then in later inside loop
+
 	std::map<INT8, OBJECTTYPE*> ObjList;
 	GetScopeLists(pSoldier, &pSoldier->inv[HANDPOS], ObjList);
 	pSoldier->bScopeMode = USE_BEST_SCOPE;
 	pSoldier->bDoBurst = 0;
 	pSoldier->bDoAutofire = 0;
-#else
-	INT16 ubBurstAPs, ubChanceToHit2;
-#endif
-	//ubBurstAPs = CalcAPsToBurst( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), pSoldier );//dnl ch64 270813
-
-	//InitAttackType(pBestShot);		// set all structure fields to defaults//dnl ch69 150913 already initialize from class constructor
-
-	// hang a pointer into active soldier's personal opponent list
-	//pbPersOL = &(pSoldier->aiData.bOppList[0]);
 
 	// determine which attack against which target has the greatest attack value
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
@@ -208,14 +210,14 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			continue;			// next merc
 
 		// if this opponent is not currently in sight (ignore known but unseen!)
-		if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_CURRENTLY && !shootUnseen)) //guys we can't see
+		/*if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_CURRENTLY && !shootUnseen)) //guys we can't see
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CalcBestShot: soldier = %d, target = %d, skip guys we can't see, shootUnseen = %d, personal opplist = %d",pSoldier->ubID, pOpponent->ubID, shootUnseen, pSoldier->aiData.bOppList[pOpponent->ubID]));
 			continue;	// next opponent
-		}
+		}*/
 		if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_CURRENTLY && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY)) // guys nobody sees
 		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CalcBestShot: soldier = %d, target = %d, skip guys nobody sees, shootUnseen = %d, public opplist = %d",pSoldier->ubID, pOpponent->ubID, shootUnseen,gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID]));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("CalcBestShot: soldier = %d, target = %d, skip guys nobody sees, public opplist = %d", pSoldier->ubID, pOpponent->ubID, gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID]));
 			continue;	// next opponent
 		}
 
@@ -231,26 +233,8 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 #ifdef DEBUGATTACKS
 		DebugAI( String( "%s sees %s at gridno %d\n",pSoldier->GetName(),ExtMen[pOpponent->ubID].GetName(),pOpponent->sGridNo ) );
 #endif
-#ifndef dnlCALCBESTSHOT//dnl ch69 140913
-		// calculate minimum action points required to shoot at this opponent
-		//	if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
-		// SANDRO - calculate this with the alternative mode, as it is faster, decide the actual bScopeMode later
-		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
-		{
-			if (!WeaponReady( pSoldier )) // but only if we are not already in raised weapon stance
-				pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
-			else 
-				pSoldier->bScopeMode = USE_BEST_SCOPE; 
-		}
-		ubMinAPcost = MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST,0);
-		// What the.... The APs to attack on the HandleItem side does not make a test like this.	It always uses the MinAPs as a base.
-		//	else
-		//		ubMinAPcost = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &(pSoldier->inv[HANDPOS]), 3 );
-
-		//NumMessage("MinAPcost to shoot this opponent = ",ubMinAPcost);
-#else
 		ubMinAPcost = MinAPsToAttack(pSoldier, pOpponent->sGridNo, DONTADDTURNCOST, 0);// later will be decide if shoot is possible this here is just best guess so ignore turnover
-#endif
+
 		// if we don't have enough APs left to shoot even a snap-shot at this guy
 		if (ubMinAPcost > pSoldier->bActionPoints)
 			continue;			// next opponent
@@ -313,150 +297,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		//}
 
 		iBestHitRate = 0;					 // reset best hit rate to minimum
-#ifndef dnlCALCBESTSHOT//dnl ch69 130913 although there is nothing wrong with code unfortunately below and later in DecideAction is not use properly with missing conditions so AI get invalid action handling due to improper APs calculation, also try to optimize a bit to get less AICalcChanceToHitGun calls and to use with different stance decisions
-		// SANDRO: decide here, whether to use the alternative holding or normal holding
-		bScopeMode = USE_BEST_SCOPE; 
-		if ( gGameExternalOptions.ubAllowAlternativeWeaponHolding )
-		{
-			pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
-			ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, 0, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813 get CtH from alternative hold, without aiming
-			pSoldier->bScopeMode = USE_BEST_SCOPE; 
-			// CASE #1 - Enemy very close, or we have very good chance to hit from hip with no aiming
-			if (( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) < 5 || ubChanceToHit > 80 ) && !WeaponReady(pSoldier) )
-				bScopeMode = USE_ALT_WEAPON_HOLD; 
-			// CASE #2 - HeavyGun tag, or heavy LMG in hand
-			if (Weapon[pSoldier->usAttackingWeapon].HeavyGun || (Weapon[pSoldier->usAttackingWeapon].ubWeaponType == GUN_LMG && GetBPCostPer10APsForGunHolding( pSoldier, TRUE ) > 50))
-				bScopeMode = USE_ALT_WEAPON_HOLD; 
-			// reset the mode back
-			// CASE #3 - We don't have enough APs for shot from regular stance, and there is at least some reasonable chance we hit target from alternative mode
-			if ( (MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST,0) > pSoldier->bActionPoints) && (ubChanceToHit > 30) ) 
-				bScopeMode = USE_ALT_WEAPON_HOLD; 
-			// CASE #4 - CtH with alternative hold is simply better than with normal hold (probably due to scope giving penalty on short range)
-			else if ( !WeaponReady(pSoldier) ) // ... and we are not in ready weapon stance yet
-			{
-				pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD; 
-				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
-				pSoldier->bScopeMode = USE_BEST_SCOPE; 
-				ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
-				if ( ubChanceToHit > ubChanceToHit2 && ubChanceToHit > 30 && (ubChanceToHit-ubChanceToHit2) >= 15 )
-					bScopeMode = USE_ALT_WEAPON_HOLD; 
-			}
-		}
-		if ( gGameExternalOptions.fScopeModes )
-		{
-			// Now try to decide which scope mode is better
-			// we simply compare the chance to hit with various scopes at full aiming, sometimes, we get penalty for using a scope at close range
-			// in case the best scope is not actually the "best" (at this distance), we will use the other one
-			if ( bScopeMode == USE_BEST_SCOPE )
-			{
-				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
-				std::map<INT8, OBJECTTYPE*> ObjList;
-				GetScopeLists(pSoldier, &pSoldier->inv[HANDPOS], ObjList);
-				do
-				{
-					pSoldier->bScopeMode++;
-					if ( ObjList[pSoldier->bScopeMode] != NULL )
-					{
-						ubChanceToHit2 = (INT16) AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, AllowedAimingLevels( pSoldier, pOpponent->sGridNo ), AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);//dnl ch59 130813
-						if ( ubChanceToHit2 > ubChanceToHit )
-						{
-							bScopeMode = pSoldier->bScopeMode;
-							ubChanceToHit = ubChanceToHit2;
-						}
-					}
-				}
-				while( ObjList[pSoldier->bScopeMode] == NULL && pSoldier->bScopeMode != NUM_SCOPE_MODES);
 
-			}
-		}
-		pSoldier->bScopeMode = bScopeMode; // just for later calculations
-		// recalculate MinAPsToAttack with our selected scope mode
-		ubMinAPcost = MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST,0);
-		// calc next attack's minimum shooting cost (excludes readying & turning)
-		ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo,0,FALSE);
-
-		// calculate the maximum possible aiming time
-#if 0//dnl ch64 270813 maybe I'm wrong but don't see purpose of this
-		if ( ARMED_VEHICLE( pSoldier ) )
-		{
-			ubMaxPossibleAimTime = pSoldier->bActionPoints - ubMinAPcost;
-
-			// always burst
-			if ( ubMaxPossibleAimTime < ubBurstAPs )
-			{
-				// should this be a return instead?
-				continue;
-			}
-			// bursts aren't aimed
-			ubMaxPossibleAimTime = 0;
-
-		}
-		else
-#endif
-		{
-			// HEADROCK HAM 3.6: Calculation must take into account APBP constants and other aiming modifications!
-			INT8 bAPsLeft = pSoldier->bActionPoints - ubMinAPcost;
-			ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP( pSoldier, pOpponent->sGridNo, bAPsLeft );
-		}
-
-		// consider the various aiming times
-		if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
-		{
-			for (ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
-			{
-				//HandleMyMouseCursor(KEYBOARDALSO);
-
-				//NumMessage("ubAimTime = ",ubAimTime);
-				//dnl ch59 180813 Find true best chance to hit depending of stance so AI would be more eager to attack
-				ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
-				if(!ARMED_VEHICLE(pSoldier))//dnl ch64 270813
-				{
-					if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
-						ubChanceToHit = ubChanceToHit2;
-					if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
-						ubChanceToHit = ubChanceToHit2;
-				}
-				// ExtMen[pOpponent->ubID].haveStats = TRUE;
-				//NumMessage("chance to Hit = ",ubChanceToHit);
-
-				//sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].GetName(),ubAimTime,ubChanceToHit);
-				//PopMessage(tempstr);
-
-				// sevenfm: 100 AP system
-				iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-				//iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
-				//NumMessage("hitRate = ",iHitRate);
-
-				// if aiming for this amount of time produces a better hit rate
-				if (iHitRate > iBestHitRate)
-				{
-					iBestHitRate = iHitRate;
-					ubBestAimTime = ubAimTime;
-					ubBestChanceToHit = ubChanceToHit;
-				}
-			}
-		}
-		else
-		{
-			ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK];
-			//dnl ch59 180813 Find true best chance to hit depending of stance for autofire
-			ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
-			if(!ARMED_VEHICLE(pSoldier))//dnl ch64 270813
-			{
-				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING)) > ubChanceToHit)
-					ubChanceToHit = ubChanceToHit2;
-				if((ubChanceToHit2=AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE)) > ubChanceToHit)
-					ubChanceToHit = ubChanceToHit2;
-			}
-			Assert( ubRawAPCost > 0);
-			// sevenfm: 100AP system
-			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-			//iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
-			iBestHitRate = iHitRate;
-			ubBestAimTime = ubAimTime;
-			ubBestChanceToHit = ubChanceToHit;
-		}
-#else
 		//dnl ch69 130913 Hoping to optimize
 		// consider alternate holding mode and different scopes
 		for(pSoldier->bScopeMode=(gGameExternalOptions.ubAllowAlternativeWeaponHolding?USE_ALT_WEAPON_HOLD:USE_BEST_SCOPE); pSoldier->bScopeMode<=(gGameExternalOptions.fScopeModes?NUM_SCOPE_MODES-1:USE_BEST_SCOPE); pSoldier->bScopeMode++)
@@ -505,7 +346,6 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 						{
 							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
 							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-//SendFmtMsg("CalcBestShot_S=%d hr=%d at=%d sm=%d op=%d/%d aps=%d,%d,%d,%d,%d", ubChanceToHit, iHitRate, ubAimTime, pSoldier->bScopeMode, pOpponent->ubID, pOpponent->sGridNo, ubMinAPcost, ubRawAPCost, sStanceAPcost, usTurningCost, usRaiseGunCost);
 							if(iHitRate > iBestHitRate || (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) && ubChanceToHit > ubBestChanceToHit)// rather take best chance for throwing knives
 							{
 								iBestHitRate = iHitRate;
@@ -560,7 +400,6 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 						{
 							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING);
 							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-//SendFmtMsg("CalcBestShot_C=%d hr=%d at=%d sm=%d op=%d/%d aps=%d,%d,%d,%d,%d", ubChanceToHit, iHitRate, ubAimTime, pSoldier->bScopeMode, pOpponent->ubID, pOpponent->sGridNo, ubMinAPcost, ubRawAPCost, sStanceAPcost, usTurningCost, usRaiseGunCost);
 							if(iHitRate > iBestHitRate)
 							{
 								iBestHitRate = iHitRate;
@@ -597,7 +436,6 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 						{
 							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE);
 							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-//SendFmtMsg("CalcBestShot_P=%d hr=%d at=%d sm=%d op=%d/%d aps=%d,%d,%d,%d,%d", ubChanceToHit, iHitRate, ubAimTime, pSoldier->bScopeMode, pOpponent->ubID, pOpponent->sGridNo, ubMinAPcost, ubRawAPCost, sStanceAPcost, usTurningCost, usRaiseGunCost);
 							if(iHitRate > iBestHitRate)
 							{
 								iBestHitRate = iHitRate;
@@ -614,7 +452,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				}
 			}
 		}
-#endif
+
 		// if we can't get any kind of hit rate at all
 		if (iBestHitRate == 0)
 			continue;			// next opponent
@@ -730,12 +568,8 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 			pBestShot->sTarget				= pOpponent->sGridNo;
 			pBestShot->bTargetLevel			= pOpponent->pathing.bLevel;
 			pBestShot->iAttackValue			= iAttackValue;
-#ifndef dnlCALCBESTSHOT//dnl ch69 140913
-			pBestShot->ubAPCost				= ubMinAPcost;
-#else
 			pBestShot->ubAPCost				= sBestAPcost;
 			pBestShot->ubStance				= ubBestStance;
-#endif
 			pBestShot->bScopeMode			= bScopeMode;
 			if(gUnderFire.Count(pSoldier->bTeam))//dnl ch61 180813
 				pBestShot->ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam);
@@ -743,7 +577,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 				pBestShot->ubFriendlyFireChance = 0;
 		}
 	}
-//if(pBestShot->ubPossible)SendFmtMsg("CalcBestShot;\r\n  ID=%d Loc=%d APs=%d Ac=%d AcData=%d Al=%d, SM=%d, LAc=%d, NAc=%d AT=%d\r\n  AP?=%d,%d,%d/%d BS=%d", pSoldier->ubID, pSoldier->sGridNo, pSoldier->bActionPoints, pSoldier->aiData.bAction, pSoldier->aiData.usActionData, pSoldier->aiData.bAlertStatus, pBestShot->bScopeMode, pSoldier->aiData.bLastAction, pSoldier->aiData.bNextAction, pBestShot->ubAimTime, pBestShot->ubAPCost, CalcAPCostForAiming(pSoldier, pBestShot->sTarget, (INT8)pBestShot->ubAimTime), CalcTotalAPsToAttack(pSoldier, pBestShot->sTarget, TRUE, pBestShot->ubAimTime), CalcTotalAPsToAttack(pSoldier, pBestShot->sTarget, FALSE, pBestShot->ubAimTime), pBestShot->ubStance);
+
 	pSoldier->bScopeMode = USE_BEST_SCOPE; // better reset this back
 }
 
@@ -847,8 +681,15 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	usInHand = pSoldier->inv[HANDPOS].usItem;
 	usGrenade = NOTHING;
 
-	if ( IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]) )
+	// sevenfm: initialize
+	pBestThrow->ubPossible = FALSE;
+	pBestThrow->ubChanceToReallyHit = 0;
+	pBestThrow->iAttackValue = 0;
+
+	if (IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]))
+	{
 		usInHand = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
+	}
 
 	if ( EXPLOSIVE_GUN( usInHand ) )
 	{
@@ -1651,6 +1492,12 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 	//InitAttackType(pBestStab);		// set all structure fields to defaults//dnl ch69 150913
 
 	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
+
+	// sevenfm: initialize
+	pBestStab->ubPossible = FALSE;
+	pBestStab->iAttackValue = 0;
+	pBestStab->ubChanceToReallyHit = 0;
+	pBestStab->ubOpponent = NOBODY;
 
 	// temporarily make this guy run so we get a proper AP cost value
 	// from CalcTotalAPsToAttack
@@ -2515,9 +2362,9 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 
 		// modify by ini values
 		if ( Item[ pObj->usItem ].usItemClass == IC_GUN )
-			sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ pObj->usItem ].ubWeaponType ];
+			sModifiedReloadAP = (INT16)(sModifiedReloadAP * gItemSettings.fAPtoReloadManuallyModifierGun[Weapon[pObj->usItem].ubWeaponType]);
 		else if ( Item[ pObj->usItem ].usItemClass == IC_LAUNCHER )
-			sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+			sModifiedReloadAP = (INT16)(sModifiedReloadAP * gItemSettings.fAPtoReloadManuallyModifierLauncher);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// STOMP traits - SANDRO
@@ -2568,9 +2415,9 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 
 				// modify by ini values
 				if ( Item[ pObj2->usItem ].usItemClass == IC_GUN )
-					sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierGun[ Weapon[ pObj2->usItem ].ubWeaponType ];
+					sModifiedReloadAP = (INT16)(sModifiedReloadAP * gItemSettings.fAPtoReloadManuallyModifierGun[Weapon[pObj2->usItem].ubWeaponType]);
 				else if ( Item[ pObj2->usItem ].usItemClass == IC_LAUNCHER )
-					sModifiedReloadAP *= gItemSettings.fAPtoReloadManuallyModifierLauncher;
+					sModifiedReloadAP = (INT16)(sModifiedReloadAP * gItemSettings.fAPtoReloadManuallyModifierLauncher);
 
 				////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// STOMP traits - SANDRO (well, I don't know any one-handed sniper rifle, but what the hell...)
@@ -3109,75 +2956,67 @@ INT16 AdvanceToFiringRange( SOLDIERTYPE * pSoldier, INT16 sClosestOpponent )
 
 }
 
-
-
-void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN suppressionFire)
+void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 {
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible");
 	INT16 ubMinAPcost;
 	pBestShot->ubPossible = FALSE;
 	pBestShot->bWeaponIn = NO_SLOT;
 
-	if ( !ARMED_VEHICLE( pSoldier ) )
-	{
-		// AIs never have more than one gun anyway
-		pBestShot->bWeaponIn = FindAIUsableObjClass( pSoldier, IC_GUN );
-	}
+	pBestShot->bWeaponIn = FindAIUsableObjClass(pSoldier, IC_GUN);
 
-	// if the soldier does have a long range rifle
+	// if the soldier does have a gun
 	if (pBestShot->bWeaponIn != NO_SLOT)
 	{
-		OBJECTTYPE * pObj = &pSoldier->inv[pBestShot->bWeaponIn];
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: found a gun item # %d",pObj->usItem ));
-
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: weapon type %d",Weapon [pObj->usItem ].ubWeaponType ));
-
 		// if it's in his holster, swap it into his hand temporarily
 		if (pBestShot->bWeaponIn != HANDPOS)
 		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: Rearranging pocket");
 			RearrangePocket(pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY);
 		}
 
-		BOOLEAN fEnableAISuppression = FALSE;
+		// get the minimum cost to attack with this item
+		ubMinAPcost = MinAPsToAttack(pSoldier, pSoldier->sLastTarget, ADDTURNCOST, 0);
 
-		// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
-		if( suppressionFire &&
-			IsGunAutofireCapable(&pSoldier->inv[pBestShot->bWeaponIn]) &&
-			GetMagSize(pObj) >= gGameExternalOptions.ubAISuppressionMinimumMagSize &&
-			(*pObj)[0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo )
+		// if we can afford the minimum AP cost
+		if (pSoldier->bActionPoints >= ubMinAPcost)
 		{
-			fEnableAISuppression = TRUE;
+			// then look around for a worthy target (which sets bestThrow.ubPossible)
+			CalcBestShot(pSoldier, pBestShot);
 		}
 
-		// sevenfm: allow any soldier with long range weapon to shoot in RED state (if he can hit)
-		if( !suppressionFire &&
-			GunRange(pObj, pSoldier) > DAY_VISION_RANGE )
-		{
-			fEnableAISuppression = TRUE;
-		}
-
-		if (fEnableAISuppression)
-		{
-			// get the minimum cost to attack with this item
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: getting min aps");
-			ubMinAPcost = MinAPsToAttack( pSoldier, pSoldier->sLastTarget, ADDTURNCOST,pBestShot->ubAimTime);
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: min AP cost: %d", ubMinAPcost));
-
-			// if we can afford the minimum AP cost
-			if (pSoldier->bActionPoints >= ubMinAPcost)
-			{
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: CalcBestShot"));
-				// then look around for a worthy target (which sets bestThrow.ubPossible)
-				CalcBestShot( pSoldier, pBestShot,TRUE);
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: CalcBestShot done"));
-			}
-		}
 		// if it was in his holster, swap it back into his holster for now
 		if (pBestShot->bWeaponIn != HANDPOS)
 		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: Rearranging pocket");
 			RearrangePocket( pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY );
+		}
+
+		// try to use sidearm
+		if (pSoldier->bActionPoints < ubMinAPcost && IS_MERC_BODY_TYPE(pSoldier))
+		{
+			pBestShot->bWeaponIn = FindAIUsableObjClass(pSoldier, IC_GUN, TRUE);
+
+			if (pBestShot->bWeaponIn != NO_SLOT)
+			{
+				// if it's in his holster, swap it into his hand temporarily
+				if (pBestShot->bWeaponIn != HANDPOS)
+				{
+					RearrangePocket(pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY);
+				}
+
+				// get the minimum cost to attack with this item
+				ubMinAPcost = MinAPsToAttack(pSoldier, pSoldier->sLastTarget, ADDTURNCOST, 0);
+
+				if (pSoldier->bActionPoints >= ubMinAPcost)
+				{
+					// then look around for a worthy target (which sets bestThrow.ubPossible)
+					CalcBestShot(pSoldier, pBestShot);
+				}
+
+				// if it was in his holster, swap it back into his holster for now
+				if (pBestShot->bWeaponIn != HANDPOS)
+				{
+					RearrangePocket(pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY);
+				}
+			}
 		}
 	}
 }
