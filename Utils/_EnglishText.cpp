@@ -6352,7 +6352,7 @@ STR16		zOptionsToggleText[] =
 	L"Stat Progress Bars",					// Show progress towards stat increase
 	L"Alternate Strategy Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate Bullet Graphics",			// Show alternate bullet graphics (tracers)
-	L"Use Logical Bodytypes",
+	L"Logical Bodytypes (WIP)",
 	L"Show Merc Ranks",						// shows mercs ranks
 	L"Show Face Gear Graphics",
 	L"Show Face Gear Icons",
@@ -6467,7 +6467,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, shows character progress towards gaining levels.",
 	L"When ON, the strategic map will be colored differently based on exploration.",
 	L"When ON, alternate bullet graphics will be shown when you shoot.",
-	L"When ON, mercenary body graphic can change along with equipped gear.",
+	L"When ON, mercenary body graphic can change along with equipped gear.\n(not fully implemented yet, will make mercs invisible if activated)",
 	L"When ON, ranks will be displayed before merc names in the strategic view.",
 	L"When ON, equipped face gear will be shown on the merc portraits.",
 	L"When ON, icons for the equipped face gear will be shown on the merc portraits in the lower right corner.",

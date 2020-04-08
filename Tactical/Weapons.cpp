@@ -2312,7 +2312,6 @@ void PlayWeaponSound(SOLDIERTYPE *pSoldier, OBJECTTYPE *pObjHand, OBJECTTYPE *pO
 					}
 					if (FileExists(zFilename))
 					{
-
 						PlayWeaponSound(zFilename, SoundVolume(bVolume, pSoldier->sGridNo), SoundDir(pSoldier->sGridNo));
 					}
 				}
