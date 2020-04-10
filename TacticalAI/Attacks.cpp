@@ -2960,8 +2960,6 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 {
 	INT16 ubMinAPcost;
 	pBestShot->ubPossible = FALSE;
-	pBestShot->bWeaponIn = NO_SLOT;
-
 	pBestShot->bWeaponIn = FindAIUsableObjClass(pSoldier, IC_GUN);
 
 	// if the soldier does have a gun

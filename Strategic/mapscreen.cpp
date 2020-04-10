@@ -9881,6 +9881,9 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				}
 			}
 		}
+
+		// sevenfm: update morale, as we could add/remove walkman
+		RefreshSoldierMorale(pSoldier);
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN)
 	{

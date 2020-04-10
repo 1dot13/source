@@ -12254,19 +12254,17 @@ INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier )
 	return( FoundKit );
 }
 
-INT8 FindWalkman( SOLDIERTYPE * pSoldier )
+INT8 FindWalkman(SOLDIERTYPE * pSoldier)
 {
-	for (INT8 bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; ++bLoop)
+	// sevenfm: walkman only works from head slot
+	for (INT8 bLoop = HEAD1POS; bLoop <= HEAD2POS; bLoop++)
 	{
-		if (pSoldier->inv[bLoop].exists() )
+		if (pSoldier->inv[bLoop].exists() && Item[pSoldier->inv[bLoop].usItem].walkman)
 		{
-			if (Item[pSoldier->inv[bLoop].usItem].walkman  )
-			{
-				return( bLoop );
-			}
+			return(bLoop);
 		}
 	}
-	return( NO_SLOT );
+	return(NO_SLOT);
 }
 
 INT8 FindTrigger( SOLDIERTYPE * pSoldier )

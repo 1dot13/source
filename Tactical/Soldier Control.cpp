@@ -7875,6 +7875,9 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 		HandleEndTurnDrugAdjustments_New( this );
 	}
 
+	// sevenfm: update morale
+	RefreshSoldierMorale(this);
+
 	// ATE: Don't bleed if in AUTO BANDAGE!
 	if ( !gTacticalStatus.fAutoBandageMode )
 	{

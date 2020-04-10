@@ -391,6 +391,15 @@ void RefreshSoldierMorale( SOLDIERTYPE * pSoldier )
 	// Flugente: drug system has been redone
 	iActualMorale += pSoldier->newdrugs.size[DRUG_EFFECT_MORALE];
 
+	// sevenfm: bonus 20% to morale when using walkman
+	if (FindWalkman(pSoldier) != NO_SLOT && pSoldier->bDeafenedCounter == 0)
+	{
+		if (pSoldier->ubProfile != NO_PROFILE && gMercProfiles[pSoldier->ubProfile].bDisability == DEAF)
+			iActualMorale += iActualMorale / 10;
+		else
+			iActualMorale += iActualMorale / 5;
+	}
+
 	iActualMorale = __min( 100, iActualMorale );
 	iActualMorale = __max( 0, iActualMorale );
 

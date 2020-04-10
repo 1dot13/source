@@ -3840,7 +3840,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 #endif
 				}
-				if (fAlt )
+				else if (fAlt )
 				{
 					// used for quickloading
 				}
@@ -3849,37 +3849,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					// used for loading game
 				}
 				else
-				/*
-				if( fAlt )
-				{
-				if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
-				{
-				LeaveTacticalScreen( GAME_SCREEN );
-
-				DoQuickLoad();
-				}
-				}
-
-				else if( fCtrl )
-				{
-				if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
-				{
-
-				gfSaveGame = FALSE;
-				gfCameDirectlyFromGame = TRUE;
-
-				guiPreviousOptionScreen = GAME_SCREEN;
-				LeaveTacticalScreen( SAVE_LOAD_SCREEN );
-				}
-				*//*
-				if ( INFORMATION_CHEAT_LEVEL( ) )
-				{
-				*puiNewEvent = I_LEVELNODEDEBUG;
-				CountLevelNodes();
-				}
-				*//*
-				}
-				else*/
 				{
 					// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
 					if ( ( gpItemPointer == NULL ) &&
