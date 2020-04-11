@@ -1299,6 +1299,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubUDTModifier						= (UINT8) iniReader.ReadInteger("Tactical Tooltip Settings", "DYNAMIC_TOOLTIP_RANGE_MODIFIER", 50, 0, 100);
 	gGameExternalOptions.gfAllowUDTDetail					= iniReader.ReadBoolean("Tactical Tooltip Settings","ALLOW_DYNAMIC_TOOLTIP_DETAIL_LEVEL",0);
 
+	gGameExternalOptions.fEnableSoldierTooltipDebugAI = iniReader.ReadBoolean("Tactical Tooltip Settings", "SOLDIER_TOOLTIP_DEBUG_AI", false, false);
+
 
 	//################# Tactical Gameplay Settings ##################
 

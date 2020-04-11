@@ -820,6 +820,8 @@ typedef struct
 	BOOLEAN gfAllowUDTRange;
 	BOOLEAN gfAllowUDTDetail;
 	INT8	ubUDTModifier;
+	// sevenfm: debug tooltip for AI
+	BOOLEAN fEnableSoldierTooltipDebugAI;
 
 	//Kaiden MERC Deaths Externalized:
 	BOOLEAN gfMercsDieOnAssignment;

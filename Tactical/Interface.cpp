@@ -117,16 +117,11 @@ TAUNT_VALUES zTaunt[NUM_TAUNT];	// anv: externalised taunts
 BOOLEAN	gfInMovementMenu = FALSE;
 INT32		giMenuAnchorX, giMenuAnchorY;
 
-//*ddd
-//#define PROG_BAR_START_Y			2
-
-//**ddd{ 
-//assign 0 to define if using large progress bar
-//#define fSmallSizeProgressbar 1
 INT32 HEIGHT_PROGRESSBAR, PROG_BAR_START_Y;
-//ddd}
 
-extern BOOLEAN gfCannotGetThrough;	// sevenfm: will use it when showing red laser dot
+// sevenfm
+extern BOOLEAN gfCannotGetThrough;			// will use it when showing red laser dot
+extern void SoldierTooltip(SOLDIERTYPE*);
 
 BOOLEAN	gfProgBarActive		= FALSE;
 UINT8		gubProgNumEnemies		= 0;
@@ -2231,8 +2226,11 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 					}
 				}
 			//------------
-			}
+			}			
 		}
+		// sevenfm: additionally show tooltip
+		if (gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS])
+			SoldierTooltip(pSoldier);
 	}
 	else //pSoldier->ubProfile != NO_PROFILE || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
@@ -2255,9 +2253,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 		pStr = GetSoldierHealthString( pSoldier );
 
-		//jones
-		extern void SoldierTooltip(SOLDIERTYPE*);
-		//if ( gGameExternalOptions.gfAllowSoldierToolTips ) // changed by SANDRO
+		//jones		
 		if ( gGameSettings.fOptions[TOPTION_ALLOW_SOLDIER_TOOLTIPS] )
 			SoldierTooltip(pSoldier);
 

@@ -26,20 +26,53 @@
 #include "soldier profile type.h"
 #include "Soldier macros.h"
 #include "Encyclopedia_new.h"	///< Encyclopedia item visibility
+// sevenfm
+#include "ai.h"
+#include "AIInternals.h"
+#include "opplist.h"
+#include "Map Screen Interface.h"
+#include "cheats.h"
+#include "Drugs and Alcohol.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
+#define TOOLTIP_TEXT_SIZE 4096
 
 struct MOUSETT
 {
-	CHAR16 FastHelpText[ 1024 ];
+	CHAR16 FastHelpText[TOOLTIP_TEXT_SIZE];
 	INT32 iX;
 	INT32 iY;
 	INT32 iW;
 };
+
+// sevenfm: display various AI debug information in tooltip
+STR16 gStrAlertStatus[] = { L"Green", L"Yellow", L"Red", L"Black" };
+STR16 gStrAttitude[] = { L"DEFENSIVE", L"BRAVESOLO", L"BRAVEAID", L"CUNNINGSOLO", L"CUNNINGAID", L"AGGRESSIVE", L"MAXATTITUDES", L"ATTACKSLAYONLY" };
+STR16 gStrOrders[] = { L"STATIONARY", L"ONGUARD", L"CLOSEPATROL", L"FARPATROL", L"POINTPATROL", L"ONCALL", L"SEEKENEMY", L"RNDPTPATROL", L"SNIPER" };
+STR16 gStrTeam[] = { L"OUR_TEAM", L"ENEMY_TEAM", L"CREATURE_TEAM", L"MILITIA_TEAM", L"CIV_TEAM", L"LAST_TEAM", L"PLAYER_PLAN", L"LAN_TEAM_ONE", L"LAN_TEAM_TWO", L"LAN_TEAM_THREE", L"LAN_TEAM_FOUR" };
+STR16 gStrClass[] = { L"SOLDIER_CLASS_NONE", L"SOLDIER_CLASS_ADMINISTRATOR", L"SOLDIER_CLASS_ELITE", L"SOLDIER_CLASS_ARMY", L"SOLDIER_CLASS_GREEN_MILITIA", L"SOLDIER_CLASS_REG_MILITIA", L"SOLDIER_CLASS_ELITE_MILITIA", L"SOLDIER_CLASS_CREATURE", L"SOLDIER_CLASS_MINER", L"SOLDIER_CLASS_ZOMBIE", L"SOLDIER_CLASS_TANK", L"SOLDIER_CLASS_JEEP", L"SOLDIER_CLASS_BANDIT"};
+
+STR16 SeenStr(INT32 value)
+{
+	switch (value)
+	{
+	case -4: return L"HEARD 3";
+	case -3: return L"HEARD 2";
+	case -2: return L"HEARD LAST";
+	case -1: return L"HEARD THIS";
+	case 0: return L"NOT HEARD OR SEEN";
+	case 1: return L"SEEN CURR";
+	case 2: return L"SEEN THIS";
+	case 3: return L"SEEN LAST";
+	case 4: return L"SEEN 2";
+	case 5: return L"SEEN 3";
+	}
+	return L"unknown";
+}
 
 extern struct MOUSETT mouseTT;
 extern BOOL mouseTTrender,mouseTTdone;
@@ -59,9 +92,10 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 	if(!pSoldier)
 		return;
 
-	// WANNE: No tooltips on bloodcats, bugs, tanks, roboter
-	if ( CREATURE_OR_BLOODCAT( pSoldier ) || ARMED_VEHICLE( pSoldier ) ||
-		 AM_A_ROBOT( pSoldier))
+	// WANNE: No tooltips on bloodcats, bugs, tanks, robots
+	// sevenfm: allow tooltip in debug mode
+	if (gGameExternalOptions.ubSoldierTooltipDetailLevel < 4 &&
+		(CREATURE_OR_BLOODCAT( pSoldier ) || ARMED_VEHICLE( pSoldier ) || AM_A_ROBOT( pSoldier)))
 	{
 		return;
 	}
@@ -201,12 +235,91 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 						return;
 				}
 		}
-		//} // fMercIsUsingScope is false
-		// gGameExternalOptions.fEnableDynamicSoldierTooltips
 		
+		swprintf(pStrInfo, L"");
 
+		// sevenfm: AI tooltip
+		if (gGameExternalOptions.fEnableSoldierTooltipDebugAI)
+		{
+			swprintf(pStrInfo, L"%s|[ |A|I |Info |]\n", pStrInfo);
+			swprintf(pStrInfo, L"%s|Alert |Status: %s\n", pStrInfo, gStrAlertStatus[pSoldier->aiData.bAlertStatus]);
+			swprintf(pStrInfo, L"%s|Orders: %s\n", pStrInfo, gStrOrders[pSoldier->aiData.bOrders]);
+			swprintf(pStrInfo, L"%s|Attitude: %s\n", pStrInfo, gStrAttitude[pSoldier->aiData.bAttitude]);
+			swprintf(pStrInfo, L"%s|Class: %s\n", pStrInfo, gStrClass[pSoldier->ubSoldierClass]);
+			swprintf(pStrInfo, L"%s|Team: %s |Side: %d\n", pStrInfo, gStrTeam[pSoldier->bTeam], pSoldier->bSide);
+			if (pSoldier->bTeam == CIV_TEAM && pSoldier->ubCivilianGroup > 0)
+			{
+				swprintf(pStrInfo, L"%s|Civ |Group: %s\n", pStrInfo, zCivGroupName[pSoldier->ubCivilianGroup].szCurGroup);
+			}
+			if (pSoldier->aiData.bNeutral)
+			{
+				swprintf(pStrInfo, L"%s|Neutral\n", pStrInfo);
+			}
+			swprintf(pStrInfo, L"%s|A|I |Morale/|R|C|D: %d/%d\n", pStrInfo, pSoldier->aiData.bAIMorale, RangeChangeDesire(pSoldier));
+			swprintf(pStrInfo, L"%s|Last |Action: %d\n", pStrInfo, pSoldier->aiData.bLastAction);
+			swprintf(pStrInfo, L"%s|OpponentsSeen: %d |LastTurn: %d, |Public %d\n", pStrInfo, pSoldier->aiData.bOppCnt, CountSeenEnemiesLastTurn(pSoldier), CountSeenEnemiesLastTurn(pSoldier));
+			swprintf(pStrInfo, L"%s|Friends|Black: %d\n", pStrInfo, CountFriendsBlack(pSoldier));
+			swprintf(pStrInfo, L"%s|Soldier Level: %d |Diff: %d\n", pStrInfo, pSoldier->stats.bExpLevel, SoldierDifficultyLevel(pSoldier));
+			INT32 usOrigin;
+			swprintf(pStrInfo, L"%s|Roaming |Range: %d\n", pStrInfo, RoamingRange(pSoldier, &usOrigin));
+			swprintf(pStrInfo, L"%s|Aware |of |Opposition: %d\n", pStrInfo, gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition);
+			swprintf(pStrInfo, L"%s|Collapsed %d |BreathCollapsed %d\n", pStrInfo, pSoldier->bCollapsed, pSoldier->bBreathCollapsed);
+			if (pSoldier->ubPreviousAttackerID != NOBODY && MercPtrs[pSoldier->ubPreviousAttackerID])
+			{
+				swprintf(pStrInfo, L"%s|Under |Fire %d AttackerID %d AttackerTarget %d\n", pStrInfo, pSoldier->aiData.bUnderFire, pSoldier->ubPreviousAttackerID, MercPtrs[pSoldier->ubPreviousAttackerID]->sLastTarget);
+			}
+			else
+			{
+				swprintf(pStrInfo, L"%s|Under |Fire %d AttackerID %d\n", pStrInfo, pSoldier->aiData.bUnderFire, pSoldier->ubPreviousAttackerID);
+			}
 
-		// WANNE: Check if enemy soldier is in line of sight but only if player has not choosen debug details
+			swprintf(pStrInfo, L"%s|Visible %d |Moved %d\n", pStrInfo, pSoldier->bVisible, pSoldier->aiData.bMoved);
+			swprintf(pStrInfo, L"%s|Noise %d %d %d |Public |Noise %d %d %d\n", pStrInfo, pSoldier->aiData.sNoiseGridno, pSoldier->bNoiseLevel, pSoldier->aiData.ubNoiseVolume, gsPublicNoiseGridNo[pSoldier->bTeam], gbPublicNoiseLevel[pSoldier->bTeam], gubPublicNoiseVolume[pSoldier->bTeam]);
+
+			// show watched locations:
+			INT8	bLoop;
+			swprintf(pStrInfo, L"%s---Watched Locations---\n", pStrInfo);
+			for (bLoop = 0; bLoop < NUM_WATCHED_LOCS; bLoop++)
+			{
+				if (!TileIsOutOfBounds(gsWatchedLoc[pSoldier->ubID][bLoop]))
+				{
+					swprintf(pStrInfo, L"%sGridNo %d Points %d\n", pStrInfo, gsWatchedLoc[pSoldier->ubID][bLoop], gubWatchedLocPoints[pSoldier->ubID][bLoop]);
+				}
+			}
+
+			// sevenfm: show flank info
+			if (pSoldier->IsFlanking())
+			{
+				swprintf(pStrInfo, L"%s|Flank %s\n", pStrInfo, pSoldier->flags.lastFlankLeft ? L"left" : L"right");
+				swprintf(pStrInfo, L"%s|Flank Num %d\n", pStrInfo, pSoldier->numFlanks);
+				swprintf(pStrInfo, L"%s|Last Flank spot %d\n", pStrInfo, pSoldier->lastFlankSpot);
+			}
+
+			//sevenfm: show opponents info
+			swprintf(pStrInfo, L"%s---Public list (not neutral)---\n", pStrInfo);
+			for (UINT16 oppID = 0; oppID < MAX_NUM_SOLDIERS; oppID++)
+			{
+				if (gbPublicOpplist[pSoldier->bTeam][oppID] != NOT_HEARD_OR_SEEN &&
+					!MercPtrs[oppID]->aiData.bNeutral)
+				{
+					swprintf(pStrInfo, L"%s[%d] %s %s\n", pStrInfo, oppID, MercPtrs[oppID]->GetName(), SeenStr(gbPublicOpplist[pSoldier->bTeam][oppID]));
+				}
+			}
+			swprintf(pStrInfo, L"%s---Soldier list (not neutral)---\n", pStrInfo);
+			for (UINT16 oppID = 0; oppID < MAX_NUM_SOLDIERS; oppID++)
+			{
+				if (pSoldier->aiData.bOppList[oppID] != NOT_HEARD_OR_SEEN &&
+					!MercPtrs[oppID]->aiData.bNeutral)
+				{
+					swprintf(pStrInfo, L"%s[%d] %s %s\n", pStrInfo, oppID, MercPtrs[oppID]->GetName(), SeenStr(pSoldier->aiData.bOppList[oppID]));
+				}
+			}
+			swprintf(pStrInfo, L"%s|What I know %d\n", pStrInfo, WhatIKnowThatPublicDont(pSoldier, FALSE));
+
+			swprintf(pStrInfo, L"%s \n", pStrInfo);
+		}
+
+		// WANNE: Check if enemy soldier is in line of sight but only if player has not chosen debug details
 		if ( ubTooltipDetailLevel < DL_Full)
 		{
 			// Get the current selected merc
@@ -218,8 +331,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				return;
 			}
 		}
-
-		swprintf( pStrInfo, L"" );
+		
 		if ( ubTooltipDetailLevel == DL_Debug )
 		{
 			// display "debug" info
