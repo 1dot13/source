@@ -257,12 +257,13 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			}
 			swprintf(pStrInfo, L"%s|A|I |Morale/|R|C|D: %d/%d\n", pStrInfo, pSoldier->aiData.bAIMorale, RangeChangeDesire(pSoldier));
 			swprintf(pStrInfo, L"%s|Last |Action: %d\n", pStrInfo, pSoldier->aiData.bLastAction);
-			swprintf(pStrInfo, L"%s|OpponentsSeen: %d |LastTurn: %d, |Public %d\n", pStrInfo, pSoldier->aiData.bOppCnt, CountSeenEnemiesLastTurn(pSoldier), CountSeenEnemiesLastTurn(pSoldier));
+			swprintf(pStrInfo, L"%s|OpponentsSeen: %d\n", pStrInfo, pSoldier->aiData.bOppCnt);
+			swprintf(pStrInfo, L"%s|SeenLastTurn: %d, |Public %d\n", pStrInfo, CountSeenEnemiesLastTurn(pSoldier), CountSeenEnemiesLastTurn(pSoldier));
 			swprintf(pStrInfo, L"%s|Friends|Black: %d\n", pStrInfo, CountFriendsBlack(pSoldier));
 			swprintf(pStrInfo, L"%s|Soldier Level: %d |Diff: %d\n", pStrInfo, pSoldier->stats.bExpLevel, SoldierDifficultyLevel(pSoldier));
 			INT32 usOrigin;
 			swprintf(pStrInfo, L"%s|Roaming |Range: %d\n", pStrInfo, RoamingRange(pSoldier, &usOrigin));
-			swprintf(pStrInfo, L"%s|Aware |of |Opposition: %d\n", pStrInfo, gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition);
+			swprintf(pStrInfo, L"%s|Team |Aware: %d\n", pStrInfo, gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition);
 			swprintf(pStrInfo, L"%s|Collapsed %d |BreathCollapsed %d\n", pStrInfo, pSoldier->bCollapsed, pSoldier->bBreathCollapsed);
 			if (pSoldier->ubPreviousAttackerID != NOBODY && MercPtrs[pSoldier->ubPreviousAttackerID])
 			{
@@ -274,7 +275,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			}
 
 			swprintf(pStrInfo, L"%s|Visible %d |Moved %d\n", pStrInfo, pSoldier->bVisible, pSoldier->aiData.bMoved);
-			swprintf(pStrInfo, L"%s|Noise %d %d %d |Public |Noise %d %d %d\n", pStrInfo, pSoldier->aiData.sNoiseGridno, pSoldier->bNoiseLevel, pSoldier->aiData.ubNoiseVolume, gsPublicNoiseGridNo[pSoldier->bTeam], gbPublicNoiseLevel[pSoldier->bTeam], gubPublicNoiseVolume[pSoldier->bTeam]);
+			swprintf(pStrInfo, L"%s|Noise %d %d %d\n", pStrInfo, pSoldier->aiData.sNoiseGridno, pSoldier->bNoiseLevel, pSoldier->aiData.ubNoiseVolume);
+			swprintf(pStrInfo, L"%s|Public |Noise %d %d %d\n", pStrInfo, gsPublicNoiseGridNo[pSoldier->bTeam], gbPublicNoiseLevel[pSoldier->bTeam], gubPublicNoiseVolume[pSoldier->bTeam]);
 
 			// show watched locations:
 			INT8	bLoop;

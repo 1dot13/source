@@ -3111,24 +3111,25 @@ INT32 RangeChangeDesire( SOLDIERTYPE * pSoldier )
 		return 0;
 	}
 
-	switch (pSoldier->aiData.bAttitude)
-	{
-	case DEFENSIVE:		iRangeFactorMultiplier += -1; break;
-	case BRAVESOLO:		iRangeFactorMultiplier += 2; break;
-	case BRAVEAID:		iRangeFactorMultiplier += 2; break;
-	case CUNNINGSOLO:	iRangeFactorMultiplier += 0; break;
-	case CUNNINGAID:	iRangeFactorMultiplier += 0; break;
-	case ATTACKSLAYONLY:
-	case AGGRESSIVE:	iRangeFactorMultiplier += 1; break;
-	}
-	
-	if(IS_MERC_BODY_TYPE(pSoldier))
+	INT8 bBonus = -1;
+	if (IS_MERC_BODY_TYPE(pSoldier))
 	{
 		if (!AICheckHasGun(pSoldier))
-			iRangeFactorMultiplier += 2;	// if we have no weapons, try to get closer to enemy
+			bBonus = 2;	// if we have no weapons, try to get closer to enemy
 		else if (GuySawEnemy(pSoldier, SEEN_LAST_TURN) && AICheckShortWeaponRange(pSoldier))
-			iRangeFactorMultiplier += 1;	// bonus if weapon range is short
+			bBonus = 1;	// bonus if weapon range is short
 	}
+
+	switch (pSoldier->aiData.bAttitude)
+	{
+	case DEFENSIVE:		iRangeFactorMultiplier += max(-1, bBonus); break;
+	case BRAVESOLO:		iRangeFactorMultiplier += max(2, bBonus); break;
+	case BRAVEAID:		iRangeFactorMultiplier += max(2, bBonus); break;
+	case CUNNINGSOLO:	iRangeFactorMultiplier += max(0, bBonus); break;
+	case CUNNINGAID:	iRangeFactorMultiplier += max(0, bBonus); break;
+	case ATTACKSLAYONLY:
+	case AGGRESSIVE:	iRangeFactorMultiplier += max(1, bBonus); break;
+	}	
 
 	if ( gTacticalStatus.bConsNumTurnsWeHaventSeenButEnemyDoes > 0 )
 	{
