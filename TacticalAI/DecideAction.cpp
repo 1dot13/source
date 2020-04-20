@@ -3604,7 +3604,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					CountFriendsBlack(pSoldier) > 0 )
 				{
 					// prefer hiding when in dangerous place
-					bWatchPts -= 10;
+					if (bHidePts > -90)
+						bWatchPts = min(bWatchPts, bHidePts - 1);
+					else
+						bWatchPts--;
 				}
 
 				// sevenfm: don't watch when overcrowded and not in a building

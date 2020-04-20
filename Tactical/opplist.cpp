@@ -6549,10 +6549,13 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 				!pSoldier->aiData.bNeutral &&
 				MercPtrs[ubNoiseMaker] &&
 				!MercPtrs[ubNoiseMaker]->aiData.bNeutral &&
-				!pSoldier->IsFlanking() &&
-				SoldierToVirtualSoldierLineOfSightTest(pSoldier, sGridNo, bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS))
+				!pSoldier->IsFlanking())
 			{
-				IncrementWatchedLoc(pSoldier->ubID, sGridNo, bLevel);
+				// check that we can see enemy if we raise weapon
+				gbForceWeaponReady = TRUE;
+				if (SoldierToVirtualSoldierLineOfSightTest(pSoldier, sGridNo, bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS))
+					IncrementWatchedLoc(pSoldier->ubID, sGridNo, bLevel);
+				gbForceWeaponReady = FALSE;
 			}
 
 			// Public info is not set unless EVERYONE on the team fails to see the
