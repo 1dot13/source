@@ -765,7 +765,11 @@ bool LoadJPCFileToImage(HIMAGE hImage, UINT16 fContents)
 	{
 		try
 		{
-			LoadPngFile lpng( vfs::tReadableFile::cast(vFiles[0]) );
+			// VR r2348 fix - loading .jpc.7z with a single image would cause exception as file was not considered open (by anv)
+			//LoadPngFile lpng(vfs::tReadableFile::cast(vFiles[0]));
+			vfs::CBufferFile oTempFile("");
+			oTempFile.copyToBuffer(*vfs::tReadableFile::cast(vFiles[0]));
+			LoadPngFile lpng(vfs::tReadableFile::cast(&oTempFile));
 
 			bool bLoadS = lpng.Load();
 	

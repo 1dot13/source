@@ -3890,7 +3890,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						nextCost += 20;
 					}
 				}
-			}			
+			}
 
 			newTotCost = curCost + nextCost;
 
