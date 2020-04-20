@@ -56,8 +56,8 @@
 
 
 extern INT32 giReinforcementPool;
-
 extern BOOLEAN gfTacticalDoHeliRun;
+extern BOOLEAN gfUnlimitedTroops;
 
 // Arulco special division decision code
 
@@ -488,11 +488,13 @@ void ASDDecideHeliOperations()
 				{
 					// attack this sector!
 					heli.SetHeliFlightPath( (*it).first );
-
 					heli.troopcount = gEnemyHeliMaxTroops;
-					giReinforcementPool -= gEnemyHeliMaxTroops;
-					heli.flagmask |= ENEMYHELI_ORDER_DROPTROOPS;
 
+					// sevenfm: don't change reinforcement pool when unlimited reinforcements enabled
+					if (!gfUnlimitedTroops)
+						giReinforcementPool -= gEnemyHeliMaxTroops;
+
+					heli.flagmask |= ENEMYHELI_ORDER_DROPTROOPS;
 					AddStrategicEvent( EVENT_ENEMY_HELI_UPDATE, GetWorldTotalMin( ) + gEnemyHeliTravelTimePerSector, id );
 
 					break;

@@ -3431,7 +3431,7 @@ void EvaluateQueenSituation()
 	uiOffset = max( 100 - giRequestPoints, 0);
 	uiOffset = uiOffset + Random( uiOffset * 4 );
 
-	// Flugente: enemy generals can speed up the AI decision process (justification: the generals are the ones planning the military operations, so if theay are around, the army is more efficient)
+	// Flugente: enemy generals can speed up the AI decision process (justification: the generals are the ones planning the military operations, so if they are around, the army is more efficient)
 	FLOAT dEnemyGeneralsSpeedupFactor = 1.0f;
 	if ( gGameExternalOptions.fEnemyRoles && gGameExternalOptions.fEnemyGenerals )
 	{
@@ -3440,14 +3440,13 @@ void EvaluateQueenSituation()
 	
 	uiOffset += dEnemyGeneralsSpeedupFactor * (zDiffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
 	
-	if( !giReinforcementPool )
+	// sevenfm: allow recruiting when pool size drops below iQueenPoolIncrementPerDifficultyLevel, this should result in more stable strategic AI behavior
+	if (giReinforcementPool <= 0 || !gfUnlimitedTroops && giReinforcementPool < zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel)
 	{
-		//Queen has run out of reinforcements.	Simulate recruiting and training new troops
-		uiOffset *= 10;
-		//Madd: don't need an unlimited troops check here, since they can never run out like this
-		
-		giReinforcementPool += ( zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;	
-		
+		//Queen has run out of reinforcements. Simulate recruiting and training new troops
+		// sevenfm: with default values, it can be up to 8 days of doing nothing, I think that skipping once cycle of decisions should be enough
+		//uiOffset *= 10;
+		giReinforcementPool += ( zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;			
 		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, GetWorldTotalMin() + uiOffset, 0 );
 		return;
 	}

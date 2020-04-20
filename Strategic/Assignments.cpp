@@ -105,6 +105,8 @@ class SOLDIERTYPE;
 
 // Flugente: external sector data
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
+// sevenfm
+extern BOOLEAN gfUnlimitedTroops;
 
 // various reason an assignment can be aborted before completion
 enum{
@@ -7824,7 +7826,9 @@ void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMil
 	// there is a chance that freed prisoners may return to the queen...
 	if ( arMilitiaType < 0 && aPrisonerType != PRISONER_CIVILIAN && Chance( gGameExternalOptions.ubPrisonerReturntoQueenChance ) )
 	{
-		++giReinforcementPool;
+		// sevenfm: don't change reinforcement pool when unlimited reinforcements enabled
+		if (!gfUnlimitedTroops)
+			++giReinforcementPool;
 	}
 }
 
