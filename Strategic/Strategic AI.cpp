@@ -3444,8 +3444,7 @@ void EvaluateQueenSituation()
 	if (giReinforcementPool <= 0 || !gfUnlimitedTroops && giReinforcementPool < zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel)
 	{
 		//Queen has run out of reinforcements. Simulate recruiting and training new troops
-		// sevenfm: with default values, it can be up to 8 days of doing nothing, I think that skipping once cycle of decisions should be enough
-		//uiOffset *= 10;
+		uiOffset *= 10;
 		giReinforcementPool += ( zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;			
 		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, GetWorldTotalMin() + uiOffset, 0 );
 		return;
