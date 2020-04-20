@@ -8342,6 +8342,8 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
     return( bTolerance );
 }
 
+extern void IncrementWatchedLoc(UINT8 ubID, INT32 sGridNo, INT8 bLevel);
+
 void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 {
     ///////////////////////////////////////////////////////////////////////////////
@@ -8357,16 +8359,14 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
     // The most important result of this function is AP loss.
 
     //INT8 SUPPRESSION_AP_LIMIT = gGameExternalOptions.iMinAPLimitFromSuppression;
-
-    INT8                                    bTolerance;
-    INT32                                   sClosestOpponent, sClosestOppLoc;
-    UINT8                                   ubPointsLost, ubNewStance;
-    UINT32                              uiLoop;
-    UINT8 ubLoop2;
-    // Flag to determine if the target is cowering (if allowed)
-    BOOLEAN                             fCower=FALSE;
-    SOLDIERTYPE *                   pSoldier;
-    // External options
+    INT8		bTolerance;
+    INT32		sClosestOpponent, sClosestOppLoc;
+    UINT8		ubPointsLost, ubNewStance;
+    UINT32		uiLoop;
+    UINT8		ubLoop2;
+    BOOLEAN		fCower=FALSE;
+    SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pAttacker = NULL;
 
     // JA2_OPTIONS.INI
     INT8 MAXIMUM_SUPPRESSION_SHOCK = gGameExternalOptions.ubMaxSuppressionShock;
@@ -8380,10 +8380,19 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     // SANDRO - modify suppression effectiveness based on weapon caliber (i.e. damage)
     INT16 sFinalSuppressionEffectiveness = gGameExternalOptions.sSuppressionEffectiveness;
-    pSoldier = MercPtrs[ubCausedAttacker];
-    if ( Item[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].usItemClass == IC_GUN )
+	pAttacker = MercPtrs[ubCausedAttacker];
+	if (pAttacker && pAttacker->inv[pAttacker->ubAttackingHand].exists() && Item[pAttacker->inv[pAttacker->ubAttackingHand].usItem].usItemClass == IC_GUN)
     {
-		UINT8 ubDamage = GetBasicDamage(&pSoldier->inv[pSoldier->ubAttackingHand]);
+		OBJECTTYPE *pWeapon = &pAttacker->inv[pAttacker->ubAttackingHand];
+		UINT8 ubDamage = GetBasicDamage(pWeapon);
+		UINT8 ubAmmoType = (*pWeapon)[0]->data.gun.ubGunAmmoType;
+		UINT8 ubBullets = AmmoTypes[ubAmmoType].numberOfBullets;
+
+		// sevenfm: for shotgun, modify damage for pellets
+		if (ubBullets > 1)
+		{
+			ubDamage = ubDamage * AmmoTypes[ubAmmoType].multipleBulletDamageMultiplier / max(1, AmmoTypes[ubAmmoType].multipleBulletDamageDivisor);
+		}
 
         // +1% per point above 20 impact
         if ( ubDamage > 20 )
@@ -8410,8 +8419,8 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
         }
 
         // add a small bonus to effectiveness based on weapon loudness
-        UINT8 ubGunVolume  = Weapon[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].ubAttackVolume;
-        ubGunVolume = __max( 1, ( ubGunVolume * GetPercentNoiseVolume( pSoldier->GetUsedWeapon( &pSoldier->inv[pSoldier->ubAttackingHand] ) ) ) / 100 );
+		UINT8 ubGunVolume = Weapon[pAttacker->inv[pAttacker->ubAttackingHand].usItem].ubAttackVolume;
+		ubGunVolume = __max(1, (ubGunVolume * GetPercentNoiseVolume(pAttacker->GetUsedWeapon(&pAttacker->inv[pAttacker->ubAttackingHand]))) / 100);
         if ( ubGunVolume >= 50 )
         {
             if ( ubGunVolume < 70 ) // up to 5%
@@ -8423,7 +8432,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
         }
     }
 
-	// remember effectiveness at this point before modyfing it depending on target's team
+	// remember effectiveness at this point before modifying it depending on target's team
 	INT16 sFinalShooterDependentEffectiveness = sFinalSuppressionEffectiveness;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -8447,6 +8456,19 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
         {
             DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: soldier id = %d, life = %d, suppression points = %d",pSoldier->ubID,pSoldier->stats.bLife, pSoldier->ubSuppressionPoints));
             DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: calc suppression tolerance"));
+
+			// sevenfm: set attack spot as watched location
+			if (pAttacker && pSoldier->bTeam == ENEMY_TEAM && !TileIsOutOfBounds(pAttacker->sGridNo))
+			{
+				IncrementWatchedLoc(pSoldier->ubID, pAttacker->sGridNo, pAttacker->pathing.bLevel);
+			}
+
+			// sevenfm: alert enemy team
+			if (pSoldier->bTeam == ENEMY_TEAM)
+			{
+				pSoldier->aiData.bAlertStatus = max(pSoldier->aiData.bAlertStatus, STATUS_RED);
+				//CheckForChangingOrders(pSoldier);
+			}
 
             // Calculate the character's tolerance to suppression. Helps reduce the severity of the penalties inflicted
             // during this function.

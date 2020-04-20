@@ -6542,6 +6542,19 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bL
 			// remember that the soldier has been heard and his new location
 			UpdatePersonal(pSoldier,ubNoiseMaker,HEARD_THIS_TURN,sGridNo, bLevel);
 
+			// sevenfm: increment watched location when soldier hears enemy
+			if ((ubNoiseType == NOISE_GUNFIRE || ubNoiseType == NOISE_MOVEMENT || ubNoiseType == NOISE_SCREAM || ubNoiseType == NOISE_VOICE) &&
+				!TileIsOutOfBounds(sGridNo) &&
+				!(pSoldier->flags.uiStatusFlags & SOLDIER_PC) &&
+				!pSoldier->aiData.bNeutral &&
+				MercPtrs[ubNoiseMaker] &&
+				!MercPtrs[ubNoiseMaker]->aiData.bNeutral &&
+				!pSoldier->IsFlanking() &&
+				SoldierToVirtualSoldierLineOfSightTest(pSoldier, sGridNo, bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS))
+			{
+				IncrementWatchedLoc(pSoldier->ubID, sGridNo, bLevel);
+			}
+
 			// Public info is not set unless EVERYONE on the team fails to see the
 			// ubnoisemaker, leaving the 'seen' flag FALSE.	See ProcessNoise().
 

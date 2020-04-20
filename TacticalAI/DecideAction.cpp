@@ -46,6 +46,7 @@
 extern BOOLEAN gfHiddenInterrupt;
 extern BOOLEAN gfUseAlternateQueenPosition;
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
+extern void IncrementWatchedLoc(UINT8 ubID, INT32 sGridNo, INT8 bLevel);
 void LogDecideInfo(SOLDIERTYPE *pSoldier);
 void LogKnowledgeInfo(SOLDIERTYPE *pSoldier);
 
@@ -698,9 +699,6 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
 #endif
-
-	if ( ARMED_VEHICLE( pSoldier ) )
-		return ArmedVehicleDecideActionGreen( pSoldier );
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen, orders = %d",pSoldier->aiData.bOrders));
 
@@ -3325,8 +3323,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	//if ( !TANK( pSoldier ) )
-	if ( (gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier )) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
+	// sevenfm: no Main Red AI for civilians
+	if ( (gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier )) && 
+		!(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) &&
+		!fCivilian)
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: main red ai");
 
@@ -3478,37 +3478,56 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				pSoldier->numFlanks++;
 			}
 		}
-		/*if ( pSoldier->numFlanks == MAX_FLANKS_RED )
-		{
-			pSoldier->numFlanks += 1;
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: stop flanking");
-			if (PythSpacesAway ( pSoldier->sGridNo, sFlankGridNo ) > MIN_FLANK_DIST_RED * 2 )
-			{
-				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sFlankGridNo,GetAPsProne( pSoldier, TRUE),AI_ACTION_SEEK_OPPONENT,0);
 
-				if ( LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sFlankGridNo, pSoldier->pathing.bLevel, TRUE) )
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Set watched location]"));
+		if (pSoldier->CheckInitialAP() &&
+			pSoldier->bActionPoints >= APBPConstants[AP_MINIMUM] &&
+			gfTurnBasedAI &&
+			pSoldier->pathing.bLevel == 0 &&
+			!pSoldier->aiData.bUnderFire &&
+			!InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+			SightCoverAtSpot(pSoldier, pSoldier->sGridNo, TRUE) &&
+			!GuySawEnemy(pSoldier) &&
+			!TileIsOutOfBounds(sClosestDisturbance) &&
+			//!fSeekClimb &&
+			PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) < DAY_VISION_RANGE &&
+			(pSoldier->aiData.bOrders == STATIONARY || pSoldier->aiData.bOrders == SNIPER || RangeChangeDesire(pSoldier) < 4) &&
+			!SoldierToVirtualSoldierLineOfSightTest(pSoldier, sClosestDisturbance, pSoldier->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS) &&
+			CountFriendsBlack(pSoldier, sClosestDisturbance) == 0)
+		{
+			gubNPCAPBudget = 0;
+			gubNPCDistLimit = 0;
+
+			// check path to closest disturbance and find the point where enemy will appear in sight						
+			if (FindBestPath(pSoldier, sClosestDisturbance, pSoldier->pathing.bLevel, RUNNING, COPYROUTE, PATH_IGNORE_PERSON_AT_DEST | PATH_THROUGH_PEOPLE))
+			{
+				INT16 sLoop;
+				INT32 sLastSeenSpot = NOWHERE;
+
+				DebugAI(AI_MSG_INFO, pSoldier, String("found path to %d, path size %d ", sClosestDisturbance, pSoldier->pathing.usPathDataSize));
+				DebugAI(AI_MSG_INFO, pSoldier, String("check path for seen spots"));
+
+				sCheckGridNo = pSoldier->sGridNo;
+
+				for (sLoop = pSoldier->pathing.usPathIndex; sLoop < pSoldier->pathing.usPathDataSize; sLoop++)
 				{
-					// reserve APs for a possible crouch plus a shot
-					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sFlankGridNo, (INT8) (MinAPsToAttack( pSoldier, sFlankGridNo, ADDTURNCOST,0) + GetAPsCrouch( pSoldier, TRUE)), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
-					
-					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					sCheckGridNo = NewGridNo(sCheckGridNo, DirectionInc((UINT8)(pSoldier->pathing.usPathingData[sLoop])));
+
+					if (SoldierToVirtualSoldierLineOfSightTest(pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS))
 					{
-						pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
-						pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
-						return(AI_ACTION_SEEK_OPPONENT);
+						sLastSeenSpot = sCheckGridNo;
 					}
 				}
-				else
+
+				// if found last seen spot
+				if (!TileIsOutOfBounds(sLastSeenSpot))
 				{
-					return(AI_ACTION_SEEK_OPPONENT);
+					DebugAI(AI_MSG_INFO, pSoldier, String("last seen spot %d level %d", sLastSeenSpot, pSoldier->pathing.bLevel));
+					IncrementWatchedLoc(pSoldier->ubID, sLastSeenSpot, pSoldier->pathing.bLevel);
 				}
 			}
-			else
-			{
-				pSoldier->aiData.usActionData = FindBestNearbyCover(pSoldier,pSoldier->aiData.bAIMorale,&iDummy);
-				return AI_ACTION_TAKE_COVER ;
-			}
-		}*/
+			gubNPCAPBudget = 0;
+		}
 
 		// if we can move at least 1 square's worth
 		// and have more APs than we want to reserve
@@ -3572,18 +3591,19 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				case ATTACKSLAYONLY:bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts +=  0; break;
 				}
 
-				//Madd: make militia less likely to go running headlong into trouble
-				if ( pSoldier->bTeam == MILITIA_TEAM )
+				// sevenfm: snipers and soldiers with scoped guns should decide watch more often
+				if (AIGunScoped(pSoldier) || AICheckIsSniper(pSoldier))
 				{
-					bSeekPts += -1; bHelpPts +=  0; bHidePts += +1; bWatchPts += +0;
+					bWatchPts++;
 				}
 
 				// sevenfm: disable watching if soldier is under fire or in dangerous place
 				// don't watch if some friends can see my closest opponent
-				if( fDangerousSpot ||
+				if (fDangerousSpot ||
 					InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) ||
 					CountFriendsBlack(pSoldier) > 0 )
 				{
+					// prefer hiding when in dangerous place
 					bWatchPts -= 10;
 				}
 
@@ -3834,61 +3854,64 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// if WATCHING is possible and at least as desirable as anything else
 				if ((bWatchPts > -90) && (bWatchPts >= bSeekPts) && (bWatchPts >= bHelpPts) && (bWatchPts >= bHidePts ))
 				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("[watch]"));
 					// take a look at our highest watch point... if it's still visible, turn to face it and then wait
 					bHighestWatchLoc = GetHighestVisibleWatchedLoc( pSoldier->ubID );
-					//sDistVisible =  DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] );
 
 					if ( bHighestWatchLoc != -1 )
 					{
 						// see if we need turn to face that location
-						ubOpponentDir = atan8( CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX( gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] ),CenterY( gsWatchedLoc[ pSoldier->ubID ][ bHighestWatchLoc ] ) );
-
-						// if soldier is not already facing in that direction,
-						// and the opponent is close enough that he could possibly be seen
-						if( pSoldier->ubDirection != ubOpponentDir &&
-							pSoldier->InternalIsValidStance( ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) &&
-							pSoldier->bActionPoints >= GetAPsToLook(pSoldier)  )
-						{
-							// turn
-							pSoldier->aiData.usActionData = ubOpponentDir;
-
-							return(AI_ACTION_CHANGE_FACING);
-						}
+						ubOpponentDir = AIDirection(pSoldier->sGridNo, gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc]);
+						DebugAI(AI_MSG_INFO, pSoldier, String("Highest watch location: [%d] %d %d watch dir: %d", bHighestWatchLoc, gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc], gbWatchedLocLevel[pSoldier->ubID][bHighestWatchLoc], ubOpponentDir));
 
 						// consider at least crouching
-						if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND &&
-							IsValidStance( pSoldier, ANIM_CROUCH ) &&
-							pSoldier->bActionPoints >= GetAPsCrouch(pSoldier, TRUE) )
+						if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND &&
+							IsValidStance(pSoldier, ANIM_CROUCH) &&
+							pSoldier->bActionPoints >= GetAPsCrouch(pSoldier, TRUE))
 						{
 							pSoldier->aiData.usActionData = ANIM_CROUCH;
 
-							return(AI_ACTION_CHANGE_STANCE);
-						}
-
-						// possibly go prone, check that we'll have line of sight to standing enemy at watched location
-						if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH &&
-							IsValidStance( pSoldier, ANIM_PRONE ) &&
-							pSoldier->bActionPoints >= GetAPsProne(pSoldier, TRUE) &&
-							!InARoom(pSoldier->sGridNo, NULL) &&
-							LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc], gbWatchedLocLevel[pSoldier->ubID][bHighestWatchLoc], TRUE, CALC_FROM_ALL_DIRS, PRONE_LOS_POS, STANDING_LOS_POS))
-						{
-							pSoldier->aiData.usActionData = ANIM_PRONE;
-
+							DebugAI(AI_MSG_INFO, pSoldier, String("crouch to watch"));
 							return(AI_ACTION_CHANGE_STANCE);
 						}
 
 						// raise weapon if not raised
-						if (!WeaponReady(pSoldier) &&
-							PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
-							(pSoldier->bBreath > 15 || GetBPCostPer10APsForGunHolding(pSoldier, TRUE) < 50) &&
+						if (PickSoldierReadyAnimation(pSoldier, FALSE, FALSE) != INVALID_ANIMATION &&
+							!WeaponReady(pSoldier) &&
+							(pSoldier->bBreath > OKBREATH * 2 || GetBPCostPer10APsForGunHolding(pSoldier, TRUE) < 50) &&
 							pSoldier->bActionPoints >= GetAPsToReadyWeapon(pSoldier, PickSoldierReadyAnimation(pSoldier, FALSE, FALSE)))
 						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("raise weapon"));
 							return AI_ACTION_RAISE_GUN;
 						}
 
-						//return(AI_ACTION_END_TURN);
+						// if soldier is not already facing in that direction
+						if (pSoldier->ubDirection != ubOpponentDir &&
+							pSoldier->InternalIsValidStance(ubOpponentDir, gAnimControl[pSoldier->usAnimState].ubEndHeight) &&
+							pSoldier->bActionPoints >= GetAPsToLook(pSoldier))
+						{
+							// turn
+							pSoldier->aiData.usActionData = ubOpponentDir;
+							DebugAI(AI_MSG_INFO, pSoldier, String("turn to watched location"));
+							return(AI_ACTION_CHANGE_FACING);
+						}
+
+						// possibly go prone, check that we'll have line of sight to standing enemy at watched location
+						if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH &&
+							IsValidStance(pSoldier, ANIM_PRONE) &&
+							pSoldier->bActionPoints >= GetAPsProne(pSoldier, TRUE) &&
+							(!InARoom(pSoldier->sGridNo, NULL) || pSoldier->pathing.bLevel > 0 || pSoldier->aiData.bUnderFire) &&
+							gfTurnBasedAI &&
+							LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc], gbWatchedLocLevel[pSoldier->ubID][bHighestWatchLoc], TRUE, pSoldier->GetMaxDistanceVisible(gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc], gbWatchedLocLevel[pSoldier->ubID][bHighestWatchLoc], CALC_FROM_ALL_DIRS), PRONE_LOS_POS, STANDING_LOS_POS))
+						{
+							pSoldier->aiData.usActionData = ANIM_PRONE;
+							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+							DebugAI(AI_MSG_INFO, pSoldier, String("go prone, end turn"));
+							return(AI_ACTION_CHANGE_STANCE);
+						}
+
+						DebugAI(AI_MSG_INFO, pSoldier, String("watch at %d level %d", gsWatchedLoc[pSoldier->ubID][bHighestWatchLoc], gbWatchedLocLevel[pSoldier->ubID][bHighestWatchLoc]));
 						return(AI_ACTION_NONE);
-						//return(AI_ACTION_END_TURN);
 					}
 
 					bWatchPts = -99;
