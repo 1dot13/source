@@ -45,7 +45,9 @@
 // InWaterOrGas - gas stuff
 // RoamingRange - point patrol stuff
 
-extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
+// sevenfm
+extern UINT16 PickSoldierReadyAnimation(SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance);
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 UINT8 Urgency[NUM_STATUS_STATES][NUM_MORALE_STATES] =
 {
@@ -4067,6 +4069,34 @@ UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent )
 	return ubFriendCount;
 }
 
+// count friends under fire or with shock
+UINT8 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance)
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubFriendCount = 0;
+
+	// safety check
+	if (bTeam >= MAXTEAMS)
+		return 0;
+
+	// Run through each friendly.
+	for (UINT8 iCounter = gTacticalStatus.Team[bTeam].bFirstID; iCounter <= gTacticalStatus.Team[bTeam].bLastID; iCounter++)
+	{
+		pFriend = MercPtrs[iCounter];
+
+		if (pFriend &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			PythSpacesAway(sGridNo, pFriend->sGridNo) <= sDistance &&
+			(pFriend->aiData.bUnderFire || pFriend->aiData.bShock > 0))
+		{
+			ubFriendCount++;
+		}
+	}
+
+	return ubFriendCount;
+}
+
 // check if we have a prone sight cover from known enemies at spot
 BOOLEAN ProneSightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited)
 {
@@ -5310,6 +5340,41 @@ BOOLEAN InSmoke(INT32 sGridNo, INT8 bLevel)
 	return FALSE;
 }
 
+BOOLEAN InSmokeNearby(INT32 sGridNo, INT8 bLevel)
+{
+	if (TileIsOutOfBounds(sGridNo))
+	{
+		return FALSE;
+	}
+
+	if (gpWorldLevelData[sGridNo].ubExtFlags[bLevel] & (MAPELEMENT_EXT_SMOKE))
+	{
+		return TRUE;
+	}
+
+	UINT8 ubDirection;
+	INT32 sTempGridNo;
+	UINT8 ubMovementCost;
+
+	// check adjacent reachable tiles
+	for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+	{
+		sTempGridNo = NewGridNo(sGridNo, DirectionInc(ubDirection));
+
+		if (sTempGridNo != sGridNo)
+		{
+			ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+			if (ubMovementCost < TRAVELCOST_BLOCKED &&
+				gpWorldLevelData[sTempGridNo].ubExtFlags[bLevel] & (MAPELEMENT_EXT_SMOKE))
+			{
+				return(TRUE);
+			}
+		}
+	}
+	return FALSE;
+}
+
 BOOLEAN CorpseWarning(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel)
 {
 	CHECKF(pSoldier);
@@ -5504,4 +5569,215 @@ BOOLEAN AICheckShortWeaponRange(SOLDIERTYPE *pSoldier)
 	}
 
 	return FALSE;
+}
+
+BOOLEAN NightLight(void)
+{
+	//if( GetTimeOfDayAmbientLightLevel() >= NORMAL_LIGHTLEVEL_DAY + 2 )
+	if (gubEnvLightValue >= NORMAL_LIGHTLEVEL_NIGHT - 3)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN DuskLight(void)
+{
+	// average between day and night
+	if (gubEnvLightValue >= (NORMAL_LIGHTLEVEL_NIGHT + NORMAL_LIGHTLEVEL_DAY) / 2)
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+{
+	INT8		bPersonalKnowledge;
+	INT8		bPublicKnowledge;
+
+	if (!pSoldier || ubOpponentID == NOBODY)
+	{
+		return FALSE;
+	}
+
+	bPersonalKnowledge = PersonalKnowledge(pSoldier, ubOpponentID);
+	bPublicKnowledge = PublicKnowledge(pSoldier->bTeam, ubOpponentID);
+
+	if (gubKnowledgeValue[bPublicKnowledge - OLDEST_HEARD_VALUE][bPersonalKnowledge - OLDEST_HEARD_VALUE] > 0 ||
+		bPersonalKnowledge != NOT_HEARD_OR_SEEN &&
+		TileIsOutOfBounds(KnownPublicLocation(pSoldier->bTeam, ubOpponentID)) &&
+		!TileIsOutOfBounds(KnownPersonalLocation(pSoldier, ubOpponentID)))
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+{
+	if (!pSoldier || ubOpponentID == NOBODY)
+	{
+		return NOT_HEARD_OR_SEEN;
+	}
+
+	if (UsePersonalKnowledge(pSoldier, ubOpponentID))
+	{
+		return PersonalKnowledge(pSoldier, ubOpponentID);
+	}
+
+	return PublicKnowledge(pSoldier->bTeam, ubOpponentID);
+}
+
+INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+{
+	if (!pSoldier || ubOpponentID == NOBODY)
+	{
+		return NOWHERE;
+	}
+
+	if (UsePersonalKnowledge(pSoldier, ubOpponentID))
+	{
+		return KnownPersonalLocation(pSoldier, ubOpponentID);
+	}
+
+	return KnownPublicLocation(pSoldier->bTeam, ubOpponentID);
+}
+
+INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+{
+	if (!pSoldier || ubOpponentID == NOBODY)
+	{
+		return 0;
+	}
+
+	if (UsePersonalKnowledge(pSoldier, ubOpponentID))
+	{
+		return KnownPersonalLevel(pSoldier, ubOpponentID);
+	}
+
+	return KnownPublicLevel(pSoldier->bTeam, ubOpponentID);
+}
+
+INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+{
+	if (!pSoldier || ubOpponentID == NOBODY)
+	{
+		return NOT_HEARD_OR_SEEN;
+	}
+
+	return pSoldier->aiData.bOppList[ubOpponentID];
+}
+
+INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+{
+	if (!pSoldier || ubOpponentID == NOBODY)
+	{
+		return NOWHERE;
+	}
+	/*if(PersonalKnowledge(pSoldier, ubOpponentID) == NOT_HEARD_OR_SEEN)
+	{
+	return NOWHERE;
+	}*/
+
+	return gsLastKnownOppLoc[pSoldier->ubID][ubOpponentID];
+}
+
+INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID)
+{
+	if (!pSoldier || ubOpponentID == NOBODY)
+	{
+		return 0;
+	}
+
+	return gbLastKnownOppLevel[pSoldier->ubID][ubOpponentID];
+}
+
+INT8 PublicKnowledge(UINT8 bTeam, UINT8 ubOpponentID)
+{
+	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
+	{
+		return NOT_HEARD_OR_SEEN;
+	}
+
+	return gbPublicOpplist[bTeam][ubOpponentID];
+}
+
+INT32 KnownPublicLocation(UINT8 bTeam, UINT8 ubOpponentID)
+{
+	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
+	{
+		return NOWHERE;
+	}
+	/*if (PublicKnowledge(bTeam, ubOpponentID) == NOT_HEARD_OR_SEEN)
+	{
+		return NOWHERE;
+	}*/
+
+	return gsPublicLastKnownOppLoc[bTeam][ubOpponentID];
+}
+
+INT8 KnownPublicLevel(UINT8 bTeam, UINT8 ubOpponentID)
+{
+	if (bTeam >= MAXTEAMS || ubOpponentID == NOBODY)
+	{
+		return 0;
+	}
+
+	return gbPublicLastKnownOppLevel[bTeam][ubOpponentID];
+}
+
+UINT8 ArmyPercentKilled(void)
+{
+	if (gTacticalStatus.Team[ENEMY_TEAM].bMenInSector + gTacticalStatus.ubArmyGuysKilled == 0)
+	{
+		return 0;
+	}
+
+	return 100 * gTacticalStatus.ubArmyGuysKilled / (gTacticalStatus.Team[ENEMY_TEAM].bMenInSector + gTacticalStatus.ubArmyGuysKilled);
+}
+
+UINT8 TeamPercentKilled(INT8 bTeam)
+{
+	if (bTeam == ENEMY_TEAM)
+	{
+		return ArmyPercentKilled();
+	}
+	return 0;
+}
+
+BOOLEAN TeamHighPercentKilled(INT8 bTeam)
+{
+	if (bTeam == ENEMY_TEAM && ArmyPercentKilled() > ArmyPercentKilledTolerance())
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+// decide how many soldiers can be killed before alarm will be raised
+UINT8 ArmyPercentKilledTolerance(void)
+{
+	// 50% at day, 25% at night, 25-33% for restricted sectors
+	return 100 / (2 + SectorCurfew(TRUE));
+}
+
+UINT8 SectorCurfew(BOOLEAN fNight)
+{
+	UINT8	ubSectorId = SECTOR(gWorldSectorX, gWorldSectorY);
+	UINT8	ubSectorData = 0;
+
+	ubSectorData = SectorExternalData[ubSectorId][gbWorldSectorZ].usCurfewValue;
+
+	if (fNight && NightLight())			// suspicious at night
+		ubSectorData = max(ubSectorData, 1);
+
+	if (gbWorldSectorZ > 0)	// underground we are always suspicious				
+		ubSectorData = max(ubSectorData, 2);
+
+	return ubSectorData;
 }

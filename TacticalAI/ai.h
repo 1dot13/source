@@ -285,7 +285,9 @@ UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTeam );
 
 // sevenfm:
-
+BOOLEAN NightLight(void);
+BOOLEAN DuskLight(void);
+BOOLEAN InSmokeNearby(INT32 sGridNo, INT8 bLevel);
 INT16 MaxNormalVisionDistance( void );
 UINT8 MinFlankDirections( SOLDIERTYPE *pSoldier );
 UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
@@ -294,6 +296,13 @@ UINT8 CountNearbyFriends( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance
 UINT8 CountNearbyFriendsLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 UINT8 CountFriendsFlankSameSpot( SOLDIERTYPE *pSoldier );
 UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent = NOWHERE );
+UINT8 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance);
+
+UINT8 SectorCurfew(BOOLEAN fNight);
+UINT8 TeamPercentKilled(INT8 bTeam);
+BOOLEAN TeamHighPercentKilled(INT8 bTeam);
+UINT8 ArmyPercentKilled(void);
+UINT8 ArmyPercentKilledTolerance(void);
 
 BOOLEAN EnemySeenSoldierRecently( SOLDIERTYPE *pSoldier, UINT8 ubMax = SEEN_3_TURNS_AGO );
 UINT8 CountTeamSeeSoldier( INT8 bTeam, SOLDIERTYPE *pSoldier );
@@ -363,6 +372,24 @@ BOOLEAN AICheckIsMortarOperator(SOLDIERTYPE *pSoldier);
 BOOLEAN AICheckIsGLOperator(SOLDIERTYPE *pSoldier);
 BOOLEAN AICheckIsOfficer(SOLDIERTYPE *pSoldier);
 BOOLEAN AICheckIsCommander(SOLDIERTYPE *pSoldier);
+
+// *************************************************************
+// Knowledge functions
+// *************************************************************
+
+INT8 Knowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+INT32 KnownLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+INT8 KnownLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+
+BOOLEAN UsePersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+
+INT8 PersonalKnowledge(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+INT32 KnownPersonalLocation(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+INT8 KnownPersonalLevel(SOLDIERTYPE *pSoldier, UINT8 ubOpponentID);
+
+INT8 PublicKnowledge(UINT8 bTeam, UINT8 ubOpponentID);
+INT32 KnownPublicLocation(UINT8 bTeam, UINT8 ubOpponentID);
+INT8 KnownPublicLevel(UINT8 bTeam, UINT8 ubOpponentID);
 
 #define MAX_FLANKS_RED 25
 #define MAX_FLANKS_YELLOW 25
