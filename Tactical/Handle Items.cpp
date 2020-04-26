@@ -2098,9 +2098,15 @@ void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 					if ( gfShiftBombPlant && pSoldier->inv[ pSoldier->ubAttackingHand ].exists() )
 						guiPendingOverrideEvent = M_CHANGE_TO_ACTION;
 				}
+
+				// Flugente: additional dialogue
+				AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_BOMB_HAS_BEEN_PLANTED, pSoldier->inv[HANDPOS].usItem, 1 );
 			}
 			else
 			{
+				// Flugente: additional dialogue
+				AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_BOMB_HAS_BEEN_PLANTED, pSoldier->inv[HANDPOS].usItem, 0 );
+
 				// beartraps don't explode...
 				if ( HasItemFlag( (pSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
 					return;
@@ -5527,9 +5533,15 @@ void BombMessageBoxCallBack( UINT8 ubExitValue )
 				else
 					// EXPLOSIVES GAIN (25):	Place a bomb, or buried and armed a mine
 					StatChange( gpTempSoldier, EXPLODEAMT, 25, FALSE );
+
+				// Flugente: additional dialogue
+				AdditionalTacticalCharacterDialogue_CallsLua( gpTempSoldier, ADE_BOMB_HAS_BEEN_PLANTED, gpTempSoldier->inv[HANDPOS].usItem, 1 );
 			}
 			else
 			{
+				// Flugente: additional dialogue
+				AdditionalTacticalCharacterDialogue_CallsLua( gpTempSoldier, ADE_BOMB_HAS_BEEN_PLANTED, gpTempSoldier->inv[HANDPOS].usItem, 0 );
+
 				// beartraps don't explode...
 				if ( HasItemFlag( (gpTempSoldier->inv[HANDPOS]).usItem, BEARTRAP ) )
 					return;

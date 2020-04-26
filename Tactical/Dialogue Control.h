@@ -352,7 +352,7 @@ enum AdditionalDialogEvents
 	ADE_WEATHERCHANGE,						// the weather has changed, and we can warn the player about that
 	ADE_SKILL_RESULT,						// we used a skill, and comment on the result, aData1 is of Skill, aData2 indicates whether it was a success (1) or failure (0)
 	ADE_GRENADEWARNING,						// a delayed enemy grenade was dropped nearby
-	ADE_CONSUMEITEM,						// we applied an item to us
+	ADE_CONSUMEITEM,						// we consumed an item, aData1 is the item index
 	ADE_NPC_DEATH,							// someone died
 	ADE_WITNESS_GOOD,						// similar to comment upon buddy doing good.
 	ADE_BANDAGE_PERFORM_BEGIN,				// we bandage someone, aData1 is the profile of person
@@ -363,6 +363,7 @@ enum AdditionalDialogEvents
 	ADE_SEXUALHARASSMENT,					// the player wants to take the 'strip' command further than we are comfortable with
 	ADE_LOCKBOMB,							// merc uses a shaped charge to blow the locks of a door, aData1 indicates whether it was a success (1) or failure (0)
 	ADE_SNIPERWARNING,						// merc warns of sniper presence in this sector
+	ADE_BOMB_HAS_BEEN_PLANTED,				// we planted a bomb/mine/etc., aData1 is the item index, aData2 indicates whether it was a success (1) or failure (0)
 };
 
 // We call this function from several places. It uses the dialogue functions, but calls a Lua script to know whether something, and what, should be said
