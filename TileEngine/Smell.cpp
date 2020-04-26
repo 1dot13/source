@@ -143,7 +143,11 @@ UINT8 ubBloodGraphicLUT [ ] = {	3, 3,	2,	2,	1,	1,	0, 0 };
 
 void RemoveBlood( INT32 sGridNo, INT8 bLevel )
 {
-	gpWorldLevelData[ sGridNo ].ubBloodInfo = 0;
+	//gpWorldLevelData[ sGridNo ].ubBloodInfo = 0;
+	if (bLevel > 0)
+		(gpWorldLevelData[sGridNo].ubBloodInfo) &= ~(0xE0);
+	else
+		(gpWorldLevelData[sGridNo].ubBloodInfo) &= ~(0x1C);
 
 	gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_REEVALUATEBLOOD;
 
@@ -527,6 +531,10 @@ void UpdateBloodGraphics( INT32 sGridNo, INT8 bLevel )
 				RemoveObject( sGridNo, usIndex );
 
 				//ApplyMapChangesToMapTempFile( FALSE );
+
+				// sevenfm: update rendering
+				pMapElement->uiFlags |= MAPELEMENT_REDRAW;
+				SetRenderFlags(RENDER_FLAG_FULL);
 			}
 
 			// OK, pick new one. based on strength and randomness

@@ -1220,6 +1220,15 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 				}
 			}
 
+			// sevenfm
+			if(IS_MERC_BODY_TYPE(pSoldier))
+			{
+				if (gsInterfaceLevel)
+					pSoldier->SetSoldierHeight(WALL_HEIGHT);
+				else
+					pSoldier->SetSoldierHeight(0);
+			}			
+
 			pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 			pSoldier->usStrategicInsertionData = usMapPos;
 			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
