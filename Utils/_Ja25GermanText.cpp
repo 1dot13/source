@@ -393,8 +393,8 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 
 STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 {
-	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren zu Fuß\n",
-	L"+%d%s Marschgeschwindigkeit der Gruppe zwischen Sektoren bei Benutzung von Fahrzeugen (außer dem Helikopter)\n",
+	L"-%d%s Reisezeit der Gruppe zwischen Sektoren zu Fuß\n",
+	L"-%d%s Reisezeit der Gruppe zwischen Sektoren bei Benutzung von Fahrzeugen (außer dem Helikopter)\n",
 	L"-%d%s weniger Energieverlust beim Reisen zwischen Sektoren\n",
 	L"-%d%s Einfluss durch schlechtes Wetter\n",
 	//L"+%d%s Tarnungs-Effektivität\n",

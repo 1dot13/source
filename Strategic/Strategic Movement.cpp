@@ -3549,57 +3549,63 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 
 	///////////////////////////////////////////////////////////////////////////////
 	// SANDRO - STOMP traits - ranger reduces time needed for travelling around
-	if ( pGroup->usGroupTeam == OUR_TEAM && !fAir && gGameOptions.fNewTraitSystem )
+	if ( pGroup->usGroupTeam == OUR_TEAM && gGameOptions.fNewTraitSystem )
 	{
-		// see if we have any ranger here
-		UINT8 ubSurvivalistHere = 0;
-		UINT8 ustravelbackground_foot = 0;
-		UINT8 ustravelbackground_car = 0;
-		UINT8 ustravelbackground_air = 0;
+		// see if we have any survivalist here
+		float fSurvivalistHere = 0;
+		// background bonuses
+		INT8 stravelbackground_foot = 20;
+		INT8 stravelbackground_car = -20;
+		INT8 stravelbackground_air = -20;
 
 		curr = pGroup->pPlayerList;
 		while( curr )
 		{
 			pSoldier = curr->pSoldier;
 			
-			ubSurvivalistHere += NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT );
+			fSurvivalistHere += NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT );
 			
 			// Flugente: backgrounds
-			ustravelbackground_foot = max(ustravelbackground_foot, pSoldier->GetBackgroundValue(BG_TRAVEL_FOOT));
-			ustravelbackground_car  = max(ustravelbackground_car,  pSoldier->GetBackgroundValue(BG_TRAVEL_CAR));
-			ustravelbackground_air  = max(ustravelbackground_air,  pSoldier->GetBackgroundValue(BG_TRAVEL_AIR));
+			// silversurfer: Why the different calculations and defaults?
+			// Well, a slow soldier on foot can slow the whole team down, but one fast soldier won't make the whole team quicker. He is no survivalist after all.
+			// A good driver on the other hand will drive faster and since the team is on the same vehicle, they all will be faster.
+			// A merc with flight experience can pose as co-pilot and provide some assistance to the pilot, so again the whole team profits.
+			stravelbackground_foot = min(stravelbackground_foot, pSoldier->GetBackgroundValue(BG_TRAVEL_FOOT));
+			stravelbackground_car  = max(stravelbackground_car, pSoldier->GetBackgroundValue(BG_TRAVEL_CAR));
+			stravelbackground_air  = max(stravelbackground_air,  pSoldier->GetBackgroundValue(BG_TRAVEL_AIR));
 
 			curr = curr->next;
 		}
 		// yes, we have...
-		if ( ubSurvivalistHere || ustravelbackground_foot || ustravelbackground_car || ustravelbackground_air )
+		if ( (fSurvivalistHere && !fAir) || (stravelbackground_foot && fFoot) || (stravelbackground_car && (fCar || fTruck || fTracked)) || (stravelbackground_air && fAir) )
 		{
-			// no more than certain number of simultaneous bonuses
-			ubSurvivalistHere = min( gSkillTraitValues.ubSVMaxBonusesToTravelSpeed, ubSurvivalistHere );
+			// no more than certain number of simultaneous bonuses with diminishing returns
+			fSurvivalistHere = (min(gSkillTraitValues.ubSVMaxBonusesToTravelSpeed, fSurvivalistHere) * 2.5) / (1.0 + min(gSkillTraitValues.ubSVMaxBonusesToTravelSpeed, fSurvivalistHere) * 1.5);
 
 			// on foot, the bonus should be higher
 			if( fFoot )
 			{
 				// however, we cannot be quicker than the helicopter
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (ubSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot)) / 100) );
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (fSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingFoot)) / 100) );
 
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ustravelbackground_foot) / 100));
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - stravelbackground_foot) / 100));
 			}
 			// all other types (except air)
 			else if ( fAir )
 			{
 				// however, we cannot be quicker than the helicopter
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (ubSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle)) / 100) );
+				// silversurfer: removed because survivalist has nothing to do with flying
+//				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (fSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle)) / 100) );
 
 				// yes, this background allows us to fly faster :-)
-				iBestTraverseTime = max( 9,  (iBestTraverseTime * (100 - ustravelbackground_air) / 100));
+				iBestTraverseTime = max( 9,  (iBestTraverseTime * (100 - stravelbackground_air) / 100));
 			}
 			else
 			{
 				// however, we cannot be quicker than the helicopter
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (ubSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle)) / 100) );
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - (fSurvivalistHere * gSkillTraitValues.ubSVGroupTimeSpentForTravellingVehicle)) / 100) );
 
-				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - ustravelbackground_car) / 100));
+				iBestTraverseTime = max( 10, (iBestTraverseTime * (100 - stravelbackground_car) / 100));
 			}
 		}
 	}

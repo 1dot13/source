@@ -390,8 +390,8 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 
 STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 {
-	L"+%d%s group traveling speed between sectors if traveling by foot\n",
-	L"+%d%s group traveling speed between sectors if traveling in vehicle (except helicopter)\n",
+	L"-%d%s travel time needed between sectors if traveling by foot\n",
+	L"-%d%s travel time needed between sectors if traveling in vehicle (except helicopter)\n",
 	L"-%d%s less energy spent for travelling between sectors\n",
 	L"-%d%s weather penalties\n",
 	L"-%d%s worn out speed of camouflage by water or time\n",
