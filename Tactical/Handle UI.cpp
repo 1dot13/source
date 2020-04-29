@@ -3868,9 +3868,14 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 				pSoldier->usDontUpdateNewGridNoOnMoveAnimChange = 1;
 			}
 
-
 			pSoldier->ChangeSoldierState( pSoldier->usUIMovementMode, 0, FALSE );
+		}
 
+		// sevenfm: switch from alt weapon holding when changing stance in realtime
+		if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && bNewStance != ANIM_STAND)
+		{
+			ChangeScopeMode(pSoldier, NOWHERE);
+			ManLooksForOtherTeams(pSoldier);
 		}
 	}
 
