@@ -10269,7 +10269,7 @@ void ChangeScopeMode( SOLDIERTYPE * pSoldier, INT32 iTrgGridNo )
 	// changing scope mode can change number of aiming levels, we should reset the aiming variable here
 	// for the luxury of the payer, I've made it so if he had aiming set to a higher value, we give him the maximum value for the new scope mode,
 	// assuming he wants to go for the most accurate shot
-	if ( iTrgGridNo != 0 )
+	if ( iTrgGridNo != NOWHERE )
 	{
 		if ( bOldAimTime > AllowedAimingLevels(pSoldier, iTrgGridNo) )
 		{

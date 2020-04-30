@@ -3828,14 +3828,21 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 			pSoldier->bGoodContPath			= FALSE;
 
 			//dnl ch71 180913 when we go to crouch or prone for now there is no alternative fire mode option
-			if(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && bNewStance != ANIM_STAND)
+			if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && bNewStance != ANIM_STAND ||
+				gGameExternalOptions.ubAllowAlternativeWeaponHolding &&
+				pSoldier->inv[HANDPOS].exists() &&
+				Weapon[pSoldier->inv[HANDPOS].usItem].HeavyGun &&
+				Item[pSoldier->inv[HANDPOS].usItem].twohanded &&
+				bNewStance == ANIM_STAND)
 			{
-				ChangeScopeMode(pSoldier, 0);
+				ChangeScopeMode(pSoldier, NOWHERE);
 				ManLooksForOtherTeams(pSoldier);
 			}
 		}
 		else
+		{
 			return;
+		}
 	}
 
 	// If realtime- change walking animation!
@@ -3872,7 +3879,12 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 		}
 
 		// sevenfm: switch from alt weapon holding when changing stance in realtime
-		if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && bNewStance != ANIM_STAND)
+		if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD && bNewStance != ANIM_STAND ||
+			gGameExternalOptions.ubAllowAlternativeWeaponHolding &&
+			pSoldier->inv[HANDPOS].exists() &&
+			Weapon[pSoldier->inv[HANDPOS].usItem].HeavyGun &&
+			Item[pSoldier->inv[HANDPOS].usItem].twohanded &&
+			bNewStance == ANIM_STAND)
 		{
 			ChangeScopeMode(pSoldier, NOWHERE);
 			ManLooksForOtherTeams(pSoldier);

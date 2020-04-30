@@ -6519,7 +6519,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					// Flugente: if we altered a gun's attachments, re-evaluate the scope mode and sight
 					if ( gGameExternalOptions.fScopeModes && gpItemPointerSoldier && Item[gpItemDescObject->usItem].usItemClass == IC_GUN )
 					{
-						ChangeScopeMode( gpItemPointerSoldier, 0 );
+						ChangeScopeMode(gpItemPointerSoldier, NOWHERE);
 
 						// reevaluate sight
 						ManLooksForOtherTeams( gpItemPointerSoldier );

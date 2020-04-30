@@ -5160,7 +5160,7 @@ void SetScopeMode( INT32 usMapPos )
 		if ( GetMouseMapPos( &usMapPos ))
 			ChangeScopeMode( MercPtrs[ gusSelectedSoldier ], usMapPos );
 		else
-			ChangeScopeMode( MercPtrs[ gusSelectedSoldier ], 0 );
+			ChangeScopeMode( MercPtrs[ gusSelectedSoldier ], NOWHERE );
 
 		// reevaluate sight
 		ManLooksForOtherTeams( MercPtrs[ gusSelectedSoldier ] );
