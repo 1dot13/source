@@ -405,7 +405,9 @@ void DrawItemUIBarEx( OBJECTTYPE *pObject, UINT8 ubStatus, INT16 sXPos, INT16 sY
 		}
 		else
 		{
-			sValue = (INT16) (100 * GetGunOverheatJamPercentage( pObject) );
+			// sevenfm: use GetGunOverheatDisplayPercentage so that OVERHEATING_DISPLAY_JAMPERCENTAGE option can have effect
+			//sValue = (INT16)(100 * GetGunOverheatJamPercentage(pObject));
+			sValue = (INT16)(100 * GetGunOverheatDisplayPercentage(pObject));
 
 			// if temperature is 0 or below, do not display anything
 			if ( sValue < 1)
