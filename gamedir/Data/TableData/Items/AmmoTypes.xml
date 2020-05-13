@@ -51,6 +51,7 @@
 	<dDamageModifierArmouredVehicle>		additional multiplier for damage to health if target is not a tank but armed vehicle or robot
 	<dDamageModifierCivilianVehicle>		additional multiplier for damage to health if target is unarmed vehicle
 	<dDamageModifierZombie>					additional multiplier for damage to health if target is zombie
+	<shotAnimation> 	allows defining custom shot animation, for example add <shotAnimation>TILECACHE\MINIBOOM.sti</shotAnimation>
 -->	
 <AMMOTYPELIST>
 	<AMMOTYPE>
