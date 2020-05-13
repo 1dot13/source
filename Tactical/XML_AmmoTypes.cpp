@@ -87,7 +87,8 @@ ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char 
 				strcmp(name, "dDamageModifierTank" ) == 0 ||
 				strcmp(name, "dDamageModifierArmouredVehicle" ) == 0 ||
 				strcmp(name, "dDamageModifierCivilianVehicle" ) == 0 ||
-				strcmp(name, "dDamageModifierZombie") == 0 ))
+				strcmp(name, "dDamageModifierZombie") == 0 ||
+				strcmp(name, "shotAnimation") == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -340,14 +341,17 @@ ammotypeEndElementHandle(void *userData, const XML_Char *name)
 			// reasonable values only
 			pData->curAmmoType.dDamageModifierZombie = min( 100.0f, max( 0.0f, pData->curAmmoType.dDamageModifierZombie ) );
 		}
+		else if (strcmp(name, "shotAnimation") == 0)
+		{
+			pData->curElement = ELEMENT;
+			strncpy(pData->curAmmoType.shotAnimation, pData->szCharData, MAX_ANIMATION_FILENAME_LEN);
+		}
 		
 		pData->maxReadDepth--;
 	}
 
 	pData->currentDepth--;
 }
-
-
 
 
 BOOLEAN ReadInAmmoTypeStats(STR fileName)
@@ -464,6 +468,7 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<dDamageModifierArmouredVehicle>%4.2f</dDamageModifierArmouredVehicle>\r\n",			AmmoTypes[cnt].dDamageModifierArmouredVehicle );
 			FilePrintf(hFile,"\t\t<dDamageModifierCivilianVehicle>%4.2f</dDamageModifierCivilianVehicle>\r\n",			AmmoTypes[cnt].dDamageModifierCivilianVehicle );
 			FilePrintf(hFile,"\t\t<dDamageModifierZombie>%4.2f</dDamageModifierZombie>\r\n",							AmmoTypes[cnt].dDamageModifierZombie );
+			FilePrintf(hFile, "\t\t<shotAnimation>%s</shotAnimation>\r\n", AmmoTypes[cnt].shotAnimation);
 									
 			FilePrintf(hFile,"\t</AMMOTYPE>\r\n");
 		}

@@ -203,6 +203,8 @@ enum
 #define PLAYER_NET_4_LVL_4		0x80000000	//2147483648*/
 // ----------------------------------------------------------------
 
+#define MAX_ANIMATION_FILENAME_LEN 100
+
 typedef struct
 {
 	UINT32 uiIndex;
@@ -259,6 +261,8 @@ typedef struct
 	FLOAT dDamageModifierCivilianVehicle;
 	FLOAT dDamageModifierZombie;
 
+	// sevenfm: shot animation
+	CHAR8	shotAnimation[MAX_ANIMATION_FILENAME_LEN];
 } AMMOTYPE;
 
 enum

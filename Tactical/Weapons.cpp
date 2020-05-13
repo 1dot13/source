@@ -2833,6 +2833,39 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			StatChange( pSoldier, DEXTAMT, usDextGain, FROM_FAILURE );
 			StatChange( pSoldier, MARKAMT, usMrksGain, FROM_FAILURE );
 		}
+	}	
+
+	//ScreenMsg(FONT_ORANGE, MSG_INTERFACE, L"ammotype %d", Magazine[Item[(*pObjAttHand)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType);	
+	if (IS_MERC_BODY_TYPE(pSoldier) &&
+		pSoldier->bVisible == TRUE &&
+		Item[usUBItem].usItemClass == IC_GUN &&
+		!Item[usUBItem].rocketlauncher &&
+		strlen(AmmoTypes[Magazine[Item[(*pObjAttHand)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType].shotAnimation) > 0)
+	{
+		ANITILE_PARAMS	AniParams;
+
+		FLOAT dStartZ;
+		CalculateSoldierZPos(pSoldier, FIRING_POS, &dStartZ);
+
+		INT32 sTempGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(pSoldier->ubDirection));
+		if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && pSoldier->ubDirection % 2 == 0)
+		{
+			sTempGridNo = NewGridNo(sTempGridNo, DirectionInc(pSoldier->ubDirection));
+		}
+		INT16 sX = CenterX(sTempGridNo);
+		INT16 sY = CenterY(sTempGridNo);
+
+		AniParams.sGridNo = pSoldier->sGridNo;
+		AniParams.ubLevelID = ANI_TOPMOST_LEVEL;
+		AniParams.sDelay = (INT16)(100);
+		AniParams.sStartFrame = 0;
+		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
+		AniParams.sX = sX + Random(3) - 1;
+		AniParams.sY = sY + Random(3) - 1;
+		AniParams.sZ = CONVERT_HEIGHTUNITS_TO_PIXELS(dStartZ);
+
+		strncpy(AniParams.zCachedFile, AmmoTypes[Magazine[Item[(*pObjAttHand)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType].shotAnimation, MAX_ANIMATION_FILENAME_LEN);
+		CreateAnimationTile(&AniParams);
 	}
 
 	/////////////////////////////// Fire bullet at the target coordinates.
@@ -3559,6 +3592,40 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		  return( FALSE );
 		}
 	}
+
+	//ScreenMsg(FONT_ORANGE, MSG_INTERFACE, L"ammotype %d", Magazine[Item[(*pObjAttHand)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType);
+	if (IS_MERC_BODY_TYPE(pSoldier) &&
+		pSoldier->bVisible == TRUE &&
+		Item[usUBItem].usItemClass == IC_GUN &&
+		!Item[usUBItem].rocketlauncher &&
+		strlen(AmmoTypes[Magazine[Item[(*pObjAttHand)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType].shotAnimation) > 0)
+	{
+		ANITILE_PARAMS	AniParams;
+
+		FLOAT dStartZ;
+		CalculateSoldierZPos(pSoldier, FIRING_POS, &dStartZ);
+
+		INT32 sTempGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(pSoldier->ubDirection));
+		if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && pSoldier->ubDirection % 2 == 0)
+		{
+			sTempGridNo = NewGridNo(sTempGridNo, DirectionInc(pSoldier->ubDirection));
+		}
+		INT16 sX = CenterX(sTempGridNo);
+		INT16 sY = CenterY(sTempGridNo);
+
+		AniParams.sGridNo = pSoldier->sGridNo;
+		AniParams.ubLevelID = ANI_TOPMOST_LEVEL;
+		AniParams.sDelay = (INT16)(100);
+		AniParams.sStartFrame = 0;
+		AniParams.uiFlags = ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_ALWAYS_TRANSLUCENT;
+		AniParams.sX = sX + Random(3) - 1;
+		AniParams.sY = sY + Random(3) - 1;
+		AniParams.sZ = CONVERT_HEIGHTUNITS_TO_PIXELS(dStartZ);
+
+		strncpy(AniParams.zCachedFile, AmmoTypes[Magazine[Item[(*pObjAttHand)[0]->data.gun.usGunAmmoItem].ubClassIndex].ubAmmoType].shotAnimation, MAX_ANIMATION_FILENAME_LEN);
+		CreateAnimationTile(&AniParams);
+	}
+
 	//hayden
 	if((is_server && pSoldier->ubID<120) || (!is_server && is_client && pSoldier->ubID<20) || (!is_server && !is_client) )
 	{
