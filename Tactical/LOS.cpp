@@ -55,7 +55,7 @@
 #include "CampaignStats.h"		// added by Flugente
 #include "AIInternals.h"//dnl ch61 180813
 #include "SkillCheck.h"			// added by Flugente
-
+#include "ai.h"					// sevenfm
 #include "GameInitOptionsScreen.h"
 
 //forward declarations of common classes to eliminate includes
@@ -8768,8 +8768,25 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 	// affects accuracy of ALL shots in the game, and is enforced here a second time.
 	
 	LimitImpactPointByFacing( pShooter, pTarget, &dShotOffsetX, &dShotOffsetY, dEndX, dEndY );
-	LimitImpactPointToMaxAperture( &dShotOffsetX, &dShotOffsetY, iDistanceAperture );				
+	
+	UINT32 uiEffWeaponRange = uiRange;
 
+	if (gGameCTHConstants.LIMIT_MAX_DEVIATION)
+	{		
+		// limit effective suppression range when using alt weapon holding
+		if (pShooter->bScopeMode == USE_ALT_WEAPON_HOLD && uiRange > TACTICAL_RANGE / 2)
+		{
+			uiEffWeaponRange = (uiRange + TACTICAL_RANGE / 2) / 2;
+		}
+		// modify effective suppression range depending on weapon recoil
+		FLOAT bGunRecoilX;
+		FLOAT bGunRecoilY;
+		GetRecoil(pShooter, pWeapon, &bGunRecoilX, &bGunRecoilY, 3);
+		FLOAT bGunRecoil = sqrt(bGunRecoilX * bGunRecoilX + bGunRecoilY * bGunRecoilY);
+		uiEffWeaponRange = uiEffWeaponRange / max(0.5f, min(2.0f, bGunRecoil / 10.0f));
+	}
+
+	LimitImpactPointToMaxAperture(&dShotOffsetX, &dShotOffsetY, iDistanceAperture, (UINT32)d2DDistance, uiRange);
 
 	// DEBUGGING: Remove this!
 	if (gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN])
@@ -9340,14 +9357,41 @@ void CalcMuzzleSway( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuzzl
 
 	// Trigonometry!
 	FLOAT dDeltaX = (sin(dRandomAngleRadians) * RandomMuzzleSway) * iAperture;
-	FLOAT dDeltaY = (cos(dRandomAngleRadians) * RandomMuzzleSway) * iAperture;
+	FLOAT dDeltaY = (cos(dRandomAngleRadians) * RandomMuzzleSway) * iAperture;	
+	FLOAT dVerticalBias;
 
-	// The new Vertical Bias constant turns circular deviation into an ellipse. This can be used to reduce the distance
-	// of up/down deviation. To balance things out, lateral (left/right) deviation is increased by the same proportion.
-	// Vertical bias is applied based on stance. You get a flatter ellipse when prone, and no ellipse (a circle) when standing.
-	FLOAT dVerticalBias = gGameCTHConstants.VERTICAL_BIAS;
-	switch (gAnimControl[ pShooter->usAnimState ].ubEndHeight)
+	// sevenfm: possibly limit ground shots
+	if(gGameCTHConstants.LIMIT_GROUND_SHOTS)
 	{
+		FLOAT dStartZ;
+		FLOAT dMaxBias = 20.0f;		
+		FLOAT dMaxDown;
+
+		dVerticalBias = 1.0f;
+		CalculateSoldierZPos(pShooter, FIRING_POS, &dStartZ);
+		dMaxDown = -dStartZ;
+
+		// reduced chance of ground shot
+		if (dDeltaY < dMaxDown)
+		{
+			dDeltaY *= -1.0f;
+
+			if (dDeltaX >= 0)
+				dDeltaX += dDeltaY;
+			else
+				dDeltaX -= dDeltaY;
+		}
+		// limit vertical distribution
+		dVerticalBias = dMaxBias / (dMaxBias + min(dMaxBias, iAperture));
+	}
+	else
+	{
+		// The new Vertical Bias constant turns circular deviation into an ellipse. This can be used to reduce the distance
+		// of up/down deviation. To balance things out, lateral (left/right) deviation is increased by the same proportion.
+		// Vertical bias is applied based on stance. You get a flatter ellipse when prone, and no ellipse (a circle) when standing.
+		dVerticalBias = gGameCTHConstants.VERTICAL_BIAS;
+		switch (gAnimControl[pShooter->usAnimState].ubEndHeight)
+		{
 		case ANIM_STAND:
 			dVerticalBias = 1.0;
 			break;
@@ -9357,11 +9401,11 @@ void CalcMuzzleSway( SOLDIERTYPE *pShooter, FLOAT *dMuzzleOffsetX, FLOAT *dMuzzl
 		case ANIM_CROUCH:
 			dVerticalBias = 1.0f + ((dVerticalBias - 1.0f) * 0.66f);
 			break;
+		}
 	}
 
 	// Now that we have the distance on both axes, we can apply it to the Muzzle Offset value which we were fed
 	// from the calling function.
-
 	*dMuzzleOffsetX += dDeltaX;
 	*dMuzzleOffsetY += dDeltaY * dVerticalBias;
 }
@@ -9553,7 +9597,7 @@ void LimitImpactPointByFacing( SOLDIERTYPE *pShooter, SOLDIERTYPE *pTarget, FLOA
 	}
 }
 
-void LimitImpactPointToMaxAperture( FLOAT *dShotOffsetX, FLOAT *dShotOffsetY, FLOAT dDistanceAperture )
+void LimitImpactPointToMaxAperture(FLOAT *dShotOffsetX, FLOAT *dShotOffsetY, FLOAT dDistanceAperture, UINT32 uiDistance, UINT32 uiWeaponRange)
 {
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// 
@@ -9581,17 +9625,43 @@ void LimitImpactPointToMaxAperture( FLOAT *dShotOffsetX, FLOAT *dShotOffsetY, FL
 	// Calculate how far from the target center will our shot impact. This is done by simple pythagorean formula.
 	FLOAT dTotalShotOffset = sqrt((*dShotOffsetX * *dShotOffsetX)+(*dShotOffsetY * *dShotOffsetY));
 
-	// If our shot deviates more than the aperture allows, at the target's distance...
-	if (dTotalShotOffset > dDistanceAperture )
+	// sevenfm: possibly limit max deviation to improve suppression effect
+	if (gGameCTHConstants.LIMIT_MAX_DEVIATION)
 	{
-		// Find out the ratio between the deviation and the limit.
-		dReductionRatio = dDistanceAperture / dTotalShotOffset;
+		// sevenfm: find max offset
+		FLOAT dMaxOffset = 10.0f;
 
-		// Multiply both offsets by this ratio. This will effectively move them back into the aperture radius
-		// without altering the ratio between vertical and horizontal offsets.
-		*dShotOffsetX *= dReductionRatio;
-		*dShotOffsetY *= dReductionRatio;
+		// scale with weapon range
+		if (uiDistance > uiWeaponRange && uiWeaponRange > 0)
+			dMaxOffset = dMaxOffset * uiDistance * uiDistance / (uiWeaponRange * uiWeaponRange);
+
+		// limit to normal distance aperture
+		dMaxOffset = min(dMaxOffset, dDistanceAperture / 2);
+
+		// sevenfm: limit max distance
+		if (dTotalShotOffset > dMaxOffset)
+		{
+			FLOAT dNewOffset = (2 * dMaxOffset) * dTotalShotOffset / (dMaxOffset + dTotalShotOffset);
+			dReductionRatio = dNewOffset / dTotalShotOffset;
+
+			*dShotOffsetX *= dReductionRatio;
+			*dShotOffsetY *= dReductionRatio;
+		}
 	}
+	else
+	{
+		// If our shot deviates more than the aperture allows, at the target's distance...
+		if (dTotalShotOffset > dDistanceAperture)
+		{
+			// Find out the ratio between the deviation and the limit.
+			dReductionRatio = dDistanceAperture / dTotalShotOffset;
+
+			// Multiply both offsets by this ratio. This will effectively move them back into the aperture radius
+			// without altering the ratio between vertical and horizontal offsets.
+			*dShotOffsetX *= dReductionRatio;
+			*dShotOffsetY *= dReductionRatio;
+		}
+	}	
 }
 
 FLOAT CalcCounterForceMax(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT8 uiStance)

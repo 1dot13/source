@@ -3501,6 +3501,8 @@ void LoadCTHConstants()
 	gGameCTHConstants.MAX_EFFECTIVE_RANGE_MULTIPLIER	 				= iniReader.ReadFloat("Shooting Mechanism","MAX_EFFECTIVE_RANGE_MULTIPLIER",1.1f, 0.5f, 10.0f);
 	gGameCTHConstants.MAX_EFFECTIVE_RANGE_REDUCTION	 					= iniReader.ReadFloat("Shooting Mechanism","MAX_EFFECTIVE_RANGE_REDUCTION",0.5f, 0.0f, 1.0f);
 	gGameCTHConstants.MAX_EFFECTIVE_USE_GRADIENT						= iniReader.ReadBoolean("Shooting Mechanism","MAX_EFFECTIVE_USE_GRADIENT",  FALSE );
+	gGameCTHConstants.LIMIT_MAX_DEVIATION								= iniReader.ReadBoolean("Shooting Mechanism", "LIMIT_MAX_DEVIATION", false, false);
+	gGameCTHConstants.LIMIT_GROUND_SHOTS								= iniReader.ReadBoolean("Shooting Mechanism", "LIMIT_GROUND_SHOTS", false, false);
 }
 
 void LoadTauntsSettings()
