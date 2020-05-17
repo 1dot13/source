@@ -2193,8 +2193,11 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 				break;
 
 			case OPINIONEVENT_CIVKILLER:
-				// only continue if this is a good guy
-				if ( !(gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY) )
+			case OPINIONEVENT_CIV_ATTACKER:
+				// only continue if this is a good guy, not malicious and not a psacho
+				if ( !(gMercProfiles[pTeamSoldier->ubProfile].ubMiscFlags3 & PROFILE_MISC_FLAG3_GOODGUY)
+					|| DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_MALICIOUS ) ||
+					DoesMercHaveDisability( pTeamSoldier, PSYCHO ) )
 					continue;
 				break;
 
@@ -2324,14 +2327,7 @@ void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN f
 					DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_PACIFIST ) ) )
 					continue;
 				break;
-
-			case OPINIONEVENT_CIV_ATTACKER:
-				// psychos or malicious characters dont care
-				if ( DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_MALICIOUS ) ||
-					 DoesMercHaveDisability( pTeamSoldier, PSYCHO ) )
-					continue;
-				break;
-
+				
 			default:
 				// either unknown event, or event is handled elsewhere - exit
 				return;
