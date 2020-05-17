@@ -78,6 +78,7 @@ Facts = {
 	FACT_MARIA_ESCORTED = 116,
 	FACT_ANGEL_LEFT_DEED = 120,
 	FACT_CHALICE_STOLEN = 184,
+	FACT_CONVO_ERNEST = 215,
 	FACT_MUSEUM_ALARM_WENT_OFF = 278,
 	FACT_KINGPIN_KNOWS_MONEY_GONE = 103,
 	FACT_KINGPIN_DEAD = 308,
@@ -194,6 +195,19 @@ Profil =
 	ELDIN = 127,
 	ELLIOT = 135,
 	MADLAB = 146,
+	DARYL = 150,
+}
+
+Flags1 = 
+{
+	PROFILE_MISC_FLAG_RECRUITED = 1,
+	PROFILE_MISC_FLAG_HAVESEENCREATURE = 2,
+	PROFILE_MISC_FLAG_FORCENPCQUOTE = 4,
+	PROFILE_MISC_FLAG_WOUNDEDBYPLAYER = 8,
+	PROFILE_MISC_FLAG_TEMP_NPC_QUOTE_DATA_EXISTS = 16,
+	PROFILE_MISC_FLAG_SAID_HOSTILE_QUOTE = 32,
+	PROFILE_MISC_FLAG_EPCACTIVE = 64,
+	PROFILE_MISC_FLAG_ALREADY_USED_ITEMS = 128,
 }
 
 SoldierClass = 
@@ -378,7 +392,155 @@ ModSpecificFacts =
 	TIXA_PRISON_VOLUNTEERSGAINED = 123,
 	TIXA_PRISON_SUBLEVEL_VOLUNTEERSGAINED = 124,
 	ALMA_PRISON_VOLUNTEERSGAINED = 125,
+	
+	-- |||||||||||||||||||||||||||||||||| factories |||||||||||||||||||||||||||||||||||||
+	FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_1 = 159,		-- 9 products
+	FACTORY_PROGRESS_CAMBRIA_HICKSFARM_1 = 168,			-- 4 products
+	FACTORY_PROGRESS_GRUMM_MUNITIONSFACTORY_1 = 172,	-- 6 products
+	FACTORY_PROGRESS_GRUMM_BOMBWORKSHOP_1 = 178,		-- 5 products
+	FACTORY_PROGRESS_GRUMM_ORTAFACTORY = 183,			-- 6 products
+	-- |||||||||||||||||||||||||||||||||| factories |||||||||||||||||||||||||||||||||||||
 }
+
+FactorySpecialValues =
+{
+	FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_UPGRADE = 6,
+}
+
+-- sSectorX, sSectorY and bSectorZ indicate the sector coordinates
+-- usFacilityType is facility number from FacilitTypes.xml
+-- usProductionNumber denotes which FACTORY of the facility this is for
+-- sProgressLeft is the progress to be saved. 
+--
+-- As factories can be added or removed in the xml at will, we can't hardcode their progress in the savegame.
+-- Therefore we let the modder store their progress in here via LUAFacts into the modder-administered part of the savefile.
+-- We also want factories to be deactivated initially (so the player doesn't suddenly lose money if he takes their sector). Initially all values are 0.
+-- In the code, values < 0 indicate a factory is offline, >= 0 online.
+-- We thus add '1' to every value, so we store the progress as 1 + sProgressLeft, this means a luafact value of <= 0 is offline, > 0 is online
+--
+-- We also use the Getter to check for other conditions, like quest progress. For example, even if we control Drassen, we can only use the T-Shirt factory once Doreen is gone.
+-- We achieve that by returning a value < -10 if these extra conditions are not satisfied.
+-- The code checks that too and won't allow us to even turn a factory on in this case, so the player knows he has something else to do first.
+function SetFactoryLeftoverProgress(sSectorX, sSectorY, bSectorZ, usFacilityType, usProductionNumber, sProgressLeft)
+	
+	if ( bSectorZ == 0 ) then
+	
+		if ( sSectorX == 13 and sSectorY == SectorY.MAP_ROW_C and usFacilityType == 23 ) then
+	
+			SetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_1 + usProductionNumber, 1 + sProgressLeft)
+			
+			-- if we 'finished' the upgrade (see comment in GetFactoryLeftoverProgress(...), notify us of that fact
+			if ( usProductionNumber == FactorySpecialValues.FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_UPGRADE and sProgressLeft > 170 ) then
+			
+				SetScreenMsg(FontColour.FONT_MCOLOR_LTGREEN, "Upgrade in T-Shirt Factory is finished.")
+			
+			end
+	
+		elseif ( sSectorX == 10 and sSectorY == SectorY.MAP_ROW_F and usFacilityType == 24 ) then
+		
+			SetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_CAMBRIA_HICKSFARM_1 + usProductionNumber, 1 + sProgressLeft)
+			
+		elseif ( sSectorX == 2 and sSectorY == SectorY.MAP_ROW_H and usFacilityType == 5 ) then
+		
+			SetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_GRUMM_MUNITIONSFACTORY_1 + usProductionNumber, 1 + sProgressLeft)
+			
+		elseif ( sSectorX == 2 and sSectorY == SectorY.MAP_ROW_G and usFacilityType == 25 ) then
+		
+			SetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_GRUMM_BOMBWORKSHOP_1 + usProductionNumber, 1 + sProgressLeft)
+			
+		elseif ( sSectorX == 4 and sSectorY == SectorY.MAP_ROW_K and usFacilityType == 15 ) then
+		
+			SetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_GRUMM_ORTAFACTORY + usProductionNumber, 1 + sProgressLeft)
+		
+		end
+		
+	end
+	
+end
+
+function GetFactoryLeftoverProgress(sSectorX, sSectorY, bSectorZ, usFacilityType, usProductionNumber, sProgressLeft)
+	
+	CANT_ACTIVATE_FACTORY = -20
+	
+	val = -1
+	
+	if ( bSectorZ == 0 ) then
+	
+		if ( sSectorX == 13 and sSectorY == SectorY.MAP_ROW_C and usFacilityType == 23 ) then
+	
+			-- The T-Shirt factory can only be used once Doreen is gone, one way or the other
+			if ( gubQuest( Quests.QUEST_FREE_CHILDREN ) == qStatus.QUESTDONE ) then
+				
+				val = GetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_1 + usProductionNumber) - 1
+				
+				-- The T-Shirt factory can be 'upgraded' to also produce uniforms
+				-- The upgrade is not an item, it exists purely in the lua values
+				-- We've set the upgrade time to be 03:01. As we set the progress on each full hour, there will be a point in time where the value is 180
+				-- We use that value as 'upgrade has been done'. The upgrade cannot be built anymore -> val = CANT_ACTIVATE_FACTORY.
+				-- The uniform production lines always return CANT_ACTIVATE_FACTORY if the upgrade is not there yet.
+				if ( usProductionNumber == FactorySpecialValues.FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_UPGRADE and val > 170 ) then
+				
+					val = CANT_ACTIVATE_FACTORY
+					
+				elseif ( usProductionNumber > FactorySpecialValues.FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_UPGRADE ) then
+				
+					tmp = GetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_1 + FactorySpecialValues.FACTORY_PROGRESS_DRASSEN_TSHIRTFACTORY_UPGRADE) - 1
+					
+					if ( tmp < 170 ) then
+					
+						val = CANT_ACTIVATE_FACTORY
+						
+					end
+				
+				end
+				
+			else
+			
+				val = CANT_ACTIVATE_FACTORY
+				
+			end
+			
+		elseif ( sSectorX == 10 and sSectorY == SectorY.MAP_ROW_F and usFacilityType == 24 ) then
+		
+			-- the Hicks farm can only be used if the quest was solved by killing the Hicks family
+			if ( MercIsDead(Profil.DARREL) and MercIsDead(Profil.DARYL) ) then
+
+				val = GetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_CAMBRIA_HICKSFARM_1 + usProductionNumber) - 1
+				
+			else
+			
+				val = CANT_ACTIVATE_FACTORY
+				
+			end
+			
+		elseif ( sSectorX == 2 and sSectorY == SectorY.MAP_ROW_H and usFacilityType == 5 ) then
+			
+			val = GetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_GRUMM_MUNITIONSFACTORY_1 + usProductionNumber) - 1
+		
+		elseif ( sSectorX == 2 and sSectorY == SectorY.MAP_ROW_G and usFacilityType == 25 ) then
+			
+			val = GetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_GRUMM_BOMBWORKSHOP_1 + usProductionNumber) - 1
+			
+		elseif ( sSectorX == 4 and sSectorY == SectorY.MAP_ROW_K and usFacilityType == 15 ) then
+		
+			-- the Orta factory can only be used once Ernest gave us the rifles (and presumably control over the assembly lines)
+			if ( (CheckFact( Facts.FACT_CONVO_ERNEST, 0 ) == true) ) then
+
+				val = GetModderLUAFact(ModSpecificFacts.FACTORY_PROGRESS_GRUMM_ORTAFACTORY + usProductionNumber) - 1
+				
+			else
+			
+				val = CANT_ACTIVATE_FACTORY
+				
+			end
+			
+		end
+		
+	end
+	
+	return val
+
+end
 
 -- this function is called whenever we liberate a sector. If fFirstTime is true, this is the first time we liberate this sector
 function HandleSectorLiberation( sNewSectorX, sNewSectorY, bNewSectorZ, fFirstTime )
@@ -853,12 +1015,16 @@ MapSymbols = {
 	FLAG = 10,
 	QUESTIONMARK_BLUE = 11,		-- sector might be relevant for a quest
 	EXCLAMATIONMARK_BLUE = 12,	-- sector is definetely relevant for a quest	
-	QUESTIONMARK_GREEN = 13,	-- alternate colours for other uses?
+	QUESTIONMARK_GREEN = 13,	-- alternate colours for other uses
 	EXCLAMATIONMARK_GREEN = 14,
 	QUESTIONMARK_RED = 15,
 	EXCLAMATIONMARK_RED = 16,
 	QUESTIONMARK_YELLOW = 17,
-	EXCLAMATIONMARK_YELLOW = 18,	
+	EXCLAMATIONMARK_YELLOW = 18,
+	FACTORY_YELLOW = 19,
+	FACTORY_GREEN = 20,
+	FACTORY_RED = 21,
+	FACTORY_NOCONTROL = 22,
 }
 
 -- this function allows us to data for the intel/quest map

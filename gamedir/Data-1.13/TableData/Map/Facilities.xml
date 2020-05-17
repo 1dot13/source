@@ -40,6 +40,11 @@
 		<FacilityType>19</FacilityType>  
 		<ubHidden>1</ubHidden>  
 	</FACILITY>
+	<FACILITY> 
+		<SectorGrid>C13</SectorGrid>   
+		<FacilityType>23</FacilityType>  
+		<ubHidden>1</ubHidden>  
+	</FACILITY>
 	<FACILITY>
 		<SectorGrid>D13</SectorGrid>
 		<FacilityType>18</FacilityType>
@@ -238,6 +243,13 @@
 		<FacilityType>10</FacilityType>
 		<ubHidden>1</ubHidden>
 	</FACILITY>
+	
+	<!-- Hicks farm -->
+	<FACILITY>
+		<SectorGrid>F10</SectorGrid>
+		<FacilityType>24</FacilityType>
+		<ubHidden>1</ubHidden>
+	</FACILITY>
 
 	<!-- ESTONI -->
 	<FACILITY>
@@ -256,6 +268,11 @@
 		<SectorGrid>G2</SectorGrid>
 		<FacilityType>18</FacilityType>
 		<ubHidden>2</ubHidden>
+	</FACILITY>
+	<FACILITY>
+		<SectorGrid>G2</SectorGrid>
+		<FacilityType>25</FacilityType>
+		<ubHidden>1</ubHidden>
 	</FACILITY>
 	<FACILITY>
 		<SectorGrid>H1</SectorGrid>
