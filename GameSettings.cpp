@@ -1864,6 +1864,9 @@ void LoadGameExternalOptions()
 	// HEADROCK HAM 3.6: Controls how important the character's stats are, in insuring he/she gets better results (or smaller damage) from using facilities. The higher this is, the more dangerous all facilities are.
 	gGameExternalOptions.ubFacilityDangerRate				= iniReader.ReadInteger("Strategic Gameplay Settings","FACILITY_DANGER_RATE", 50, 0, 100);
 
+	// Flugente: factories
+	gGameExternalOptions.fFactories							= iniReader.ReadBoolean("Strategic Gameplay Settings", "FACTORIES", FALSE );
+
 	// 2Points: Use new repair algorithm (Items are priorized based on type and damage to item, starting from equipped weapons, going to armor, then inventory)
 	gGameExternalOptions.fAdditionalRepairMode				= iniReader.ReadBoolean("Strategic Gameplay Settings", "ADDITIONAL_REPAIR_MODE", FALSE);
 

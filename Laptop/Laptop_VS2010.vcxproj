@@ -54,6 +54,7 @@
     <ClInclude Include="email.h" />
     <ClInclude Include="Encyclopedia_Data_new.h" />
     <ClInclude Include="Encyclopedia_new.h" />
+	<ClInclude Include="FacilityProduction.h" />
     <ClInclude Include="files.h" />
     <ClInclude Include="finances.h" />
     <ClInclude Include="florist Cards.h" />
@@ -145,6 +146,7 @@
     <ClCompile Include="email.cpp" />
     <ClCompile Include="Encyclopedia_Data_new.cpp" />
     <ClCompile Include="Encyclopedia_new.cpp" />
+	<ClCompile Include="FacilityProduction.cpp" />
     <ClCompile Include="files.cpp" />
     <ClCompile Include="finances.cpp" />
     <ClCompile Include="florist Cards.cpp" />

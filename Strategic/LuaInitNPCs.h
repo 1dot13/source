@@ -100,4 +100,6 @@ void LuaGetPhotoData( UINT8 aType );
 void LuaSetPhotoState( INT16 asIndex, UINT8 aState );
 void LuaVerifyPhotoState( INT16 asIndex );
 void LuaGetIntelAndQuestMapData( INT32 aLevel );
+void SetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, INT32 sProgressLeft );
+INT32 GetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber );
 #endif

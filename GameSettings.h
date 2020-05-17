@@ -1507,6 +1507,9 @@ typedef struct
 	// Flugente: externalised squad names
 	BOOLEAN fUseXMLSquadNames;
 
+	// Flugente: factories
+	BOOLEAN fFactories;
+
 	//dnl ch68 090913 Reinforcements Setttings
 	UINT16 sMinDelayEnemyReinforcements;
 	UINT16 sRndDelayEnemyReinforcements;

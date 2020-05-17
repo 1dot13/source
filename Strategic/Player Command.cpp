@@ -39,6 +39,8 @@
 extern BOOLEAN fMapScreenBottomDirty;
 extern CPostalService gPostalService;
 
+// Flugente: external sector data
+extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCityInfoBox )
 {
@@ -46,15 +48,15 @@ void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCi
 
 	// HEADROCK HAM 3.5: Facilities are now read from XMLs, including their names.
 
-	UINT32 cnt = 0;
 	UINT32 uiNumFacilities = 0;
 	BOOLEAN fHeaderAdded = FALSE;
 
 	CHAR16 szFacilityString[30];
+	CHAR16 szTmpString[80];
 
 	Assert(sMapX > 0 && sMapY > 0 && sMapX < 17 && sMapY < 17);
 
-	for ( cnt = 0; cnt < NUM_FACILITY_TYPES; cnt++ )
+	for ( UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt )
 	{
 		if (fCityInfoBox && uiNumFacilities == 0 && !fHeaderAdded )
 		{
@@ -66,6 +68,7 @@ void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCi
 				fHeaderAdded = TRUE;
 			}
 		}
+
 		// Facility type exists at this location?
 		if (gFacilityLocations[SECTOR(sMapX,sMapY)][cnt].fFacilityHere)
 		{
@@ -85,7 +88,24 @@ void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCi
 				}
 
 				AddSecondColumnMonoString( uiHandle, gFacilityTypes[cnt].szFacilityName );
-				uiNumFacilities++;
+				++uiNumFacilities;
+				
+				// Flugente: factories
+				if ( gGameExternalOptions.fFactories )
+				{
+					for ( std::vector<PRODUCTION_LINE>::iterator prodit = gFacilityTypes[cnt].ProductionData.begin(), proditend = gFacilityTypes[cnt].ProductionData.end(); prodit != proditend; ++prodit )
+					{
+						if ( wcslen( ( *prodit ).szAdditionalRequirementTips ) > 0 )
+						{
+							// Add empty line on the left size to make room for text on the right.
+							AddMonoString( uiHandle, L"" );
+
+							swprintf( szTmpString, L"%s", ( *prodit ).szAdditionalRequirementTips );
+							AddSecondColumnMonoString( uiHandle, szTmpString );
+							++uiNumFacilities;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -177,9 +197,6 @@ void AddFacilitiesToBox( INT16 sMapX, INT16 sMapY, UINT32 *uiHandle, BOOLEAN fCi
 
 	return;
 }
-
-// Flugente: external sector data
-extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
 // ALL changes of control to player must be funneled through here!
 BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BOOLEAN fContested )

@@ -283,6 +283,34 @@ typedef struct FACILITYASSIGNMENTTYPE
 
 } FACILITYASSIGNMENTTYPE;
 
+// struct needed during production and laptop display
+typedef struct PRODUCTION_LINE_PREPRODUCT
+{
+	UINT16 item;
+	UINT32 requiredforonecreation;
+} PRODUCTION_LINE_PREPRODUCT;
+
+// -------- added by Flugente: various flags for factories --------
+#define REQUIRES_STAFFING		0x00000001	//1			// the factory can only be activated if the facility is staffed
+
+typedef struct PRODUCTION_LINE
+{
+	// determines which items can be produced here with what requirement
+	CHAR16 szProductionName[30];
+	CHAR16 szAdditionalRequirementTips[80];
+	UINT16 usItemToCreate;		// item that shall be created
+	INT32 sMinutesRequired;		// time required to create one item
+	INT32 sGridNo_Creation;		// the location where the item is dropped at
+
+	UINT32 usProductionFlags;	// flagmask for various properties
+
+	INT32 sHourlyCost;			// cost for every hour of work (NOT per item). Negative values mean we gain money.
+	UINT8 usOptional_LoyaltyRequired;	// loyalty in the sector must be at least this value. Only applicable in town sectors.
+
+	// this vector contains all the items we need to create what we want in what quantity
+	std::vector<PRODUCTION_LINE_PREPRODUCT> usOptional_PreProducts;
+} PRODUCTION_LINE;
+
 // Flugente: facilitytype properties
 #define FACILITYTYPE_PMCENTRYPOINT		0x00000001				// militia hired from the PMC can only enter Arulco in sectors with facilites with this property
 
@@ -301,6 +329,8 @@ typedef struct FACILITYTYPE
 	UINT32 usFacilityFlags;					// flagmask for various facility properties
 
 	FACILITYASSIGNMENTTYPE AssignmentData[ NUM_FACILITY_ASSIGNMENTS ];		// Data about possible assignments that can be done here
+
+	std::vector<PRODUCTION_LINE> ProductionData;
 
 } FACILITYTYPE;
 

@@ -8344,6 +8344,8 @@ void AddIntelAndQuestMapDataForSector( INT16 sSectorX, INT16 sSectorY, UINT8 aus
 	}
 }
 
+extern BOOLEAN GetFacilityProductionState( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber );
+
 void DetermineMapIntelData( INT32 asSectorZ )
 {
 	// clear data
@@ -8412,6 +8414,58 @@ void DetermineMapIntelData( INT32 asSectorZ )
 				}
 			}
 		}
+
+		// Flugente: factories
+		if ( gGameExternalOptions.fFactories )
+		{
+			for ( UINT16 sector = 0; sector < 256; ++sector )
+			{
+				BOOLEAN productionfound = FALSE;
+				BOOLEAN activeproductionfound = FALSE;
+				BOOLEAN inactiveproductionfound = FALSE;
+				BOOLEAN productionunderenemycontrol = FALSE;
+
+				for ( UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt )
+				{
+					// Is this facility here?
+					if ( gFacilityLocations[sector][cnt].fFacilityHere )
+					{
+						if ( gFacilityLocations[sector][cnt].ubHidden == 0 ||
+							( gFacilityLocations[sector][cnt].ubHidden == 1 && SectorInfo[sector].fSurfaceWasEverPlayerControlled ) )
+						{
+							if ( StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( sector )].fEnemyControlled )
+							{
+								// if it's an enemy controlled sector, just check whether there are production lines at all
+								if ( !gFacilityTypes[cnt].ProductionData.empty() )
+								{
+									productionfound = TRUE;
+									productionunderenemycontrol = TRUE;
+								}
+							}
+							else
+							{
+								UINT16 productioncnt = 0;
+								for ( std::vector<PRODUCTION_LINE>::iterator prodit = gFacilityTypes[cnt].ProductionData.begin(), proditend = gFacilityTypes[cnt].ProductionData.end(); prodit != proditend;
+									++prodit, ++productioncnt )
+								{
+									if ( GetFacilityProductionState( SECTORX( sector ), SECTORY( sector ), 0, cnt, productioncnt ) )
+										activeproductionfound = TRUE;
+									else
+										inactiveproductionfound = TRUE;
+
+									productionfound = TRUE;
+								}
+							}
+						}
+					}
+				}
+
+				if ( productionfound )
+				{
+					AddIntelAndQuestMapDataForSector( SECTORX( sector ), SECTORY( sector ), -1, productionunderenemycontrol ? 22 : activeproductionfound ? inactiveproductionfound ? 19 : 20 : 21, L"", L"" );
+				}
+			}
+		}
 	}
 
 	// add lua data
@@ -8421,7 +8475,6 @@ void DetermineMapIntelData( INT32 asSectorZ )
 void ShowIntelOnMap()
 {
 	INT16 usXPos, usYPos;
-	CHAR16 sString[256];
 
 	INT32 MapItemsFont;
 	if ( iResolution <= _800x600 )

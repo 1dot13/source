@@ -92,6 +92,7 @@
 	#include "PMC.h"						// added by Flugente
 	#include "MilitiaWebsite.h"				// added by Flugente
 	#include "Intelmarket.h"				// added by Flugente
+	#include "FacilityProduction.h"			// added by Flugente
 #endif
 
 #include "connect.h"
@@ -1075,6 +1076,11 @@ INT32 EnterLaptop()
 
 		if ( !gGameExternalOptions.fIntelResource )
 			RemoveBookmark( INTELMARKET_BOOKMARK );
+
+		if ( gGameExternalOptions.fFactories )
+			SetBookMark( PRODUCTION_BOOKMARK );
+		else
+			RemoveBookmark( PRODUCTION_BOOKMARK );
 	}
 
 	LoadLoadPending( );
@@ -1520,6 +1526,10 @@ void RenderLaptop()
 
 		case LAPTOP_MODE_INTELMARKET_ABOUT:
 			RenderIntelmarket_About();
+			break;
+
+		case LAPTOP_MODE_FACILITY_PRODUCTION:
+			RenderFacilityProduction();
 			break;
 	}
 
@@ -1997,6 +2007,10 @@ void EnterNewLaptopMode()
 		case LAPTOP_MODE_INTELMARKET_ABOUT:
 			EnterIntelmarket_About();
 			break;
+
+		case LAPTOP_MODE_FACILITY_PRODUCTION:
+			EnterFacilityProduction();
+			break;
 	}
 
 	// first time using webbrowser in this laptop session
@@ -2287,6 +2301,10 @@ void HandleLapTopHandles()
 
 		case LAPTOP_MODE_INTELMARKET_ABOUT:
 			HandleIntelmarket_About();
+			break;
+
+		case LAPTOP_MODE_FACILITY_PRODUCTION:
+			HandleFacilityProduction();
 			break;
 	}
 }
@@ -2885,6 +2903,10 @@ UINT32 ExitLaptopMode(UINT32 uiMode)
 
 		case LAPTOP_MODE_INTELMARKET_ABOUT:
 			ExitIntelmarket_About();
+			break;
+
+		case LAPTOP_MODE_FACILITY_PRODUCTION:
+			ExitFacilityProduction();
 			break;
 	}
 
@@ -4541,6 +4563,27 @@ void GoToWebPage(INT32 iPageId )
 			{
 				// reset flag and set load pending flag
 				LaptopSaveInfo.fVisitedBookmarkAlready[INTELMARKET_BOOKMARK] = TRUE;
+				fLoadPendingFlag = TRUE;
+			}
+			else
+			{
+				// fast reload
+				fLoadPendingFlag = TRUE;
+				fFastLoadFlag = TRUE;
+			}
+		}
+		break;
+
+		case PRODUCTION_BOOKMARK:
+		{
+			guiCurrentWWWMode = LAPTOP_MODE_FACILITY_PRODUCTION;
+			guiCurrentLaptopMode = LAPTOP_MODE_FACILITY_PRODUCTION;
+
+			// do we have to have a World Wide Wait
+			if ( LaptopSaveInfo.fVisitedBookmarkAlready[PRODUCTION_BOOKMARK] == FALSE )
+			{
+				// reset flag and set load pending flag
+				LaptopSaveInfo.fVisitedBookmarkAlready[PRODUCTION_BOOKMARK] = TRUE;
 				fLoadPendingFlag = TRUE;
 			}
 			else
@@ -6346,6 +6389,7 @@ void HandleKeyBoardShortCutsForLapTop( UINT16 usEvent, UINT32 usParam, UINT16 us
 			SetBookMark( PMC_BOOKMARK );
 			SetBookMark( MILITIAROSTER_BOOKMARK );
 			SetBookMark( INTELMARKET_BOOKMARK );
+			SetBookMark( PRODUCTION_BOOKMARK );
 		}
 	}
 

@@ -24,6 +24,8 @@
 	#include "Interface.h"			// added by Flugente
 	#include "SkillCheck.h"			// added by Flugente
 	#include "Isometric Utils.h"	// added by Flugente for NOWHERE
+	#include "strategic.h"			// added by Flugente
+	#include "message.h"			// added by Flugente for ScreenMsg(...)
 #endif
 
 #include "Luaglobal.h"
@@ -48,6 +50,7 @@ void HourlyLarryUpdate();
 void HourlySmokerUpdate();
 void HourlyDisabilityUpdate();
 void HourlyStealUpdate();	// Flugente: certain characters might steal equipment (backgrounds)
+void HourlyFactoryUpdate();	// Flugente: update factories
 void HourlySnitchUpdate();	// anv: decreasing cooldown after exposition
 
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
@@ -132,6 +135,8 @@ CHAR16	zString[128];
 	HourlySnitchUpdate();
 
 	HourlyGatheringInformation();
+
+	HourlyFactoryUpdate();
 
 #ifdef JA2UB
 // no UB
@@ -818,6 +823,335 @@ void HourlyStealUpdate()
 			HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE );
 		}
 	}
+}
+
+BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem, UINT32 usNumToRemove )
+{
+	// open sector inv
+	UINT32 uiTotalNumberOfRealItems = 0;
+	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
+	BOOLEAN fReturn = FALSE;
+
+	if ( ( gWorldSectorX == sSectorX ) && ( gWorldSectorY == sSectorY ) && ( gbWorldSectorZ == bSectorZ ) )
+	{
+		uiTotalNumberOfRealItems = guiNumWorldItems;
+
+		pWorldItem = gWorldItems;
+	}
+	else
+	{
+		// not loaded, load
+		// get total number, visable and invisible
+		fReturn = GetNumberOfWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, &( uiTotalNumberOfRealItems ), FALSE );
+		Assert( fReturn );
+
+		if ( uiTotalNumberOfRealItems > 0 )
+		{
+			// allocate space for the list
+			pWorldItem.resize( uiTotalNumberOfRealItems );//dnl ch75 271013
+
+														  // now load into mem
+			LoadWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, pWorldItem );
+		}
+	}
+
+	if ( !uiTotalNumberOfRealItems )
+		return FALSE;
+
+	BOOLEAN removedsth = FALSE;
+	OBJECTTYPE* pObj = NULL;
+	for ( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems && usNumToRemove > 0; ++uiCount )				// ... for all items in the world ...
+	{
+		if ( pWorldItem[uiCount].fExists
+			&& pWorldItem[uiCount].usFlags & WORLD_ITEM_REACHABLE
+			&& pWorldItem[uiCount].bVisible == VISIBLE )
+		{
+			OBJECTTYPE* pObj = &( pWorldItem[uiCount].object );			// ... get pointer for this item ...
+
+			if ( pObj != NULL && pObj->exists() )						// ... if pointer is not obviously useless ...
+			{
+				if ( pObj->usItem == usItem )
+				{
+					if ( usNumToRemove < pObj->ubNumberOfObjects )
+					{
+						pObj->RemoveObjectsFromStack( usNumToRemove );
+						usNumToRemove = 0;
+					}
+					else
+					{
+						usNumToRemove -= pObj->ubNumberOfObjects;
+						pObj->RemoveObjectsFromStack( pObj->ubNumberOfObjects );
+					}
+
+					removedsth = TRUE;
+				}
+			}
+		}
+	}
+
+	if ( removedsth )
+	{
+		// save the changed inventory
+		// open sector inv
+		if ( ( gWorldSectorX == sSectorX ) && ( gWorldSectorY == sSectorY ) && ( gbWorldSectorZ == bSectorZ ) )
+		{
+			guiNumWorldItems = uiTotalNumberOfRealItems;
+			gWorldItems = pWorldItem;
+		}
+		else
+		{
+			//Save the Items to the the file
+			SaveWorldItemsToTempItemFile( sSectorX, sSectorY, bSectorZ, uiTotalNumberOfRealItems, pWorldItem );
+		}
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+UINT32 CountAccessibleItemsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem )
+{
+	UINT32 numfound = 0;
+
+	// open sector inv
+	UINT32 uiTotalNumberOfRealItems = 0;
+	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
+	BOOLEAN fReturn = FALSE;
+
+	if ( ( gWorldSectorX == sSectorX ) && ( gWorldSectorY == sSectorY ) && ( gbWorldSectorZ == bSectorZ ) )
+	{
+		uiTotalNumberOfRealItems = guiNumWorldItems;
+
+		pWorldItem = gWorldItems;
+	}
+	else
+	{
+		// not loaded, load
+		// get total number, visable and invisible
+		fReturn = GetNumberOfWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, &( uiTotalNumberOfRealItems ), FALSE );
+		Assert( fReturn );
+
+		if ( uiTotalNumberOfRealItems > 0 )
+		{
+			// allocate space for the list
+			pWorldItem.resize( uiTotalNumberOfRealItems );//dnl ch75 271013
+
+														  // now load into mem
+			LoadWorldItemsFromTempItemFile( sSectorX, sSectorY, bSectorZ, pWorldItem );
+		}
+	}
+
+	OBJECTTYPE* pObj = NULL;
+	for ( UINT32 uiCount = 0; uiCount < uiTotalNumberOfRealItems; ++uiCount )				// ... for all items in the world ...
+	{
+		if ( pWorldItem[uiCount].fExists
+			&& pWorldItem[uiCount].usFlags & WORLD_ITEM_REACHABLE
+			&& pWorldItem[uiCount].bVisible == VISIBLE )
+		{
+			OBJECTTYPE* pObj = &( pWorldItem[uiCount].object );			// ... get pointer for this item ...
+
+			if ( pObj != NULL && pObj->exists() && pObj->usItem == usItem )
+			{
+				numfound += pObj->ubNumberOfObjects;
+			}
+		}
+	}
+
+	return numfound;
+}
+
+extern void SetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, INT32 sProgressLeft );
+extern INT32 GetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber );
+
+BOOLEAN GetFacilityProductionState( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber )
+{
+	return GetFactoryLeftoverProgress( sSectorX, sSectorY, bSectorZ, usFacilityType, usProductionNumber ) > -1;
+}
+
+void SetFacilityProductionState( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, BOOLEAN aOn )
+{
+	return SetFactoryLeftoverProgress( sSectorX, sSectorY, bSectorZ, usFacilityType, usProductionNumber, aOn ? 0 : -1 );
+}
+
+void HourlyFactoryUpdate()
+{
+	if ( !gGameExternalOptions.fFactories )
+		return;
+
+	// how much money do we currently have?
+	INT32 balance = GetCurrentBalance();
+	INT32 moneyspentonproduction = 0;
+
+	for ( UINT16 sector = 0; sector < 256; ++sector )
+	{
+		if ( !StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( sector )].fEnemyControlled )
+		{
+			UINT8 ubTownID = GetTownIdForSector( SECTORX( sector ), SECTORY( sector ) );
+
+			CHAR16 wSectorName[64];
+			GetSectorIDString( SECTORX( sector ), SECTORY( sector ), 0, wSectorName, FALSE );
+
+			for ( UINT16 cnt = 0; cnt < NUM_FACILITY_TYPES; ++cnt )
+			{
+				// Is this facility here?
+				if ( gFacilityLocations[sector][cnt].fFacilityHere )
+				{
+					UINT16 productioncnt = 0;
+					for ( std::vector<PRODUCTION_LINE>::iterator prodit = gFacilityTypes[cnt].ProductionData.begin(), proditend = gFacilityTypes[cnt].ProductionData.end(); prodit != proditend; ++prodit, ++productioncnt )
+					{
+						// get production progress from the previous hour
+						INT32 productiontime = GetFactoryLeftoverProgress( SECTORX( sector ), SECTORY( sector ), 0, cnt, productioncnt );
+
+						// negative value means factory is not active
+						if ( productiontime < 0 )
+							continue;
+
+						CHAR16 productionname[64];
+						swprintf( productionname, L"%s", wcslen((*prodit ).szProductionName ) > 0 ? ( *prodit ).szProductionName : ( *prodit ).usItemToCreate != NOTHING ? Item[( *prodit ).usItemToCreate].szItemName : L"--" );
+						
+						// check for sufficient loyalty
+						if ( ubTownID != BLANK_SECTOR
+							&& gTownLoyalty[ubTownID].ubRating < ( *prodit ).usOptional_LoyaltyRequired )
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFactoryText[0], wSectorName, productionname );
+							SetFacilityProductionState( SECTORX( sector ), SECTORY( sector ), 0, cnt, productioncnt, FALSE );
+							continue;
+						}
+
+						// check for funds
+						if ( moneyspentonproduction + ( *prodit ).sHourlyCost > balance )
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFactoryText[1], wSectorName, productionname );
+							SetFacilityProductionState( SECTORX( sector ), SECTORY( sector ), 0, cnt, productioncnt, FALSE );
+							continue;
+						}
+
+						// check whether facility is staffed if required
+						if ( ( *prodit ).usProductionFlags & REQUIRES_STAFFING )
+						{
+							bool isstaffed = false;
+							bool isstaffed_andawake = false;
+							SOLDIERTYPE *pSoldier = NULL;
+							UINT32 uiCnt = 0;
+							for ( uiCnt = 0, pSoldier = MercPtrs[uiCnt]; uiCnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++uiCnt, ++pSoldier )
+							{
+								if ( pSoldier->bActive && ( pSoldier->sSectorX == SECTORX( sector ) ) && ( pSoldier->sSectorY == SECTORY( sector ) ) && ( pSoldier->bSectorZ == 0 ) )
+								{
+									if ( pSoldier->sFacilityTypeOperated == cnt )
+									{
+										isstaffed = true;
+
+										// check whether the staffing merc is asleep or has spent enough time on this
+										if ( !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+										{
+											isstaffed_andawake = true;
+											break;
+										}
+									}
+								}
+							}
+
+							// if not staffed at all, shut down
+							if ( !isstaffed )
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFactoryText[2], wSectorName, productionname );
+								SetFacilityProductionState( SECTORX( sector ), SECTORY( sector ), 0, cnt, productioncnt, FALSE );
+								continue;
+							}
+							// if staffed but the staffing mercs are not active, skip this cycle
+							else if ( !isstaffed_andawake )
+							{
+								continue;
+							}
+						}
+
+						// add one hour of progress
+						productiontime += 60;
+
+						// it's possible we might require several preproducts. Get an overview of all that is needed
+						// struct needed during production and laptop display
+						typedef struct FACTORY_PREPRODUCT_AVAILABLE
+						{
+							PRODUCTION_LINE_PREPRODUCT xml;
+							UINT32 available;
+						} FACTORY_PREPRODUCT_AVAILABLE;
+
+						std::vector<FACTORY_PREPRODUCT_AVAILABLE> productionstoragedata;
+
+						for ( std::vector<PRODUCTION_LINE_PREPRODUCT>::iterator useitemit = ( *prodit ).usOptional_PreProducts.begin(), useitemitend = ( *prodit ).usOptional_PreProducts.end(); useitemit != useitemitend; ++useitemit )
+						{
+							FACTORY_PREPRODUCT_AVAILABLE data;
+							data.xml = ( *useitemit );
+							data.available = CountAccessibleItemsInSector( SECTORX( sector ), SECTORY( sector ), 0, data.xml.item );
+							productionstoragedata.push_back( data );
+						}
+
+						UINT32 itemstocreate = 0;
+						bool insufficientitems = false;
+						while ( productiontime >= ( *prodit ).sMinutesRequired )
+						{
+							// check whether all items required are available
+							for ( std::vector<FACTORY_PREPRODUCT_AVAILABLE>::iterator tmpit = productionstoragedata.begin(), tmpitend = productionstoragedata.end(); tmpit != tmpitend; ++tmpit )
+							{
+								if ( ( itemstocreate + 1 ) * ( *tmpit ).xml.requiredforonecreation > ( *tmpit ).available )
+								{
+									insufficientitems = true;
+									break;
+								}
+							}
+
+							if ( insufficientitems )
+								break;
+
+							++itemstocreate;
+							productiontime -= ( *prodit ).sMinutesRequired;
+						}
+
+						if ( itemstocreate )
+						{
+							// remove required preproducts
+							for ( std::vector<FACTORY_PREPRODUCT_AVAILABLE>::iterator tmpit = productionstoragedata.begin(), tmpitend = productionstoragedata.end(); tmpit != tmpitend; ++tmpit )
+							{
+								RemoveItemInSector( SECTORX( sector ), SECTORY( sector ), 0, ( *tmpit ).xml.item, ( *tmpit ).xml.requiredforonecreation * itemstocreate );
+							}
+
+							// create produced items and place them
+							if ( CreateItems( ( *prodit ).usItemToCreate, 100, itemstocreate, &gTempObject ) )
+							{
+								if ( ( gWorldSectorX == SECTORX( sector ) ) && ( gWorldSectorY == SECTORY( sector ) ) && ( gbWorldSectorZ == 0 ) )
+								{
+									AddItemToPool( ( *prodit ).sGridNo_Creation, &gTempObject, 1, 0, ( WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE ), 0 );
+								}
+								else
+								{
+									AddItemsToUnLoadedSector( SECTORX( sector ), SECTORY( sector ), 0,
+										( *prodit ).sGridNo_Creation, 1, &gTempObject, 0, ( WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE ), 0, 1, FALSE );
+								}
+							}
+						}
+						
+						// if we can no longer produce anything because we don't have the items, shut off
+						if ( insufficientitems )
+						{
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szFactoryText[3], wSectorName, productionname );
+							SetFacilityProductionState( SECTORX( sector ), SECTORY( sector ), 0, cnt, productioncnt, FALSE );
+						}
+						// otherwise set new partial progress
+						else
+						{
+							SetFactoryLeftoverProgress( SECTORX( sector ), SECTORY( sector ), 0, cnt, productioncnt, productiontime );
+						}
+
+						moneyspentonproduction += ( *prodit ).sHourlyCost;
+					}
+				}
+			}
+		}
+	}
+
+	// substract money spent
+	AddTransactionToPlayersBook ( FACILITY_OPERATIONS, NO_PROFILE, GetWorldTotalMin(), -moneyspentonproduction );
 }
 
 #ifdef JA2UB

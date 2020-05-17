@@ -13408,6 +13408,41 @@ void LuaGetIntelAndQuestMapData( INT32 aLevel )
 	LuaFunction( _LS.L, "GetIntelAndQuestMapData" ).Param<int>( aLevel ).Call( 1 );
 }
 
+void SetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, INT32 sProgressLeft )
+{
+	const char* filename = "scripts\\strategicmap.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "SetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Param<int>( sProgressLeft ).Call( 6 );
+}
+
+INT32 GetFactoryLeftoverProgress( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber )
+{
+	const char* filename = "scripts\\strategicmap.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "GetFactoryLeftoverProgress" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( usFacilityType ).Param<int>( usProductionNumber ).Call( 5 );
+	
+	if ( lua_gettop( _LS.L() ) >= 0 )
+	{
+		return lua_tointeger( _LS.L(), 1 );
+	}
+
+	return 0;
+}
+
 extern void AddIntelAndQuestMapDataForSector( INT16 sSectorX, INT16 sSectorY, UINT8 ausMapColour, int asSymbol, STR16 aText, STR16 aText_Short );
 
 static int l_SetIntelAndQuestMapDataForSector( lua_State *L )

@@ -4233,6 +4233,7 @@ STR16 pMapPopUpInventoryText[] =
 	L"Inventario",
 	L"Uscita",
 	L"Repair",	// TODO.Translate
+	L"Factories",	// TODO.Translate
 };
 
 // town strings
@@ -5059,6 +5060,7 @@ STR16 pBookMarkStrings[] =
 	L"Kerberus",
 	L"Militia Overview",	// TODO.Translate
 	L"R.I.S.",
+	L"Factories",	// TODO.Translate
 };
 
 STR16 pBookmarkTitle[] =
@@ -5185,6 +5187,7 @@ STR16 pWebPagesTitles[] =
 	L"Recon Intelligence Services - Information Requests",		// TODO.Translate
 	L"Recon Intelligence Services - Information Verification",
 	L"Recon Intelligence Services - About us",
+	L"Factory Overview",	// TODO.Translate
 	L"Bobby Ray's - Recent Shipments",
 	L"Encyclopedia",
 	L"Encyclopedia - Data",
@@ -6995,6 +6998,7 @@ STR16 gzLaptopHelpText[] =
 	L"Kerberus - Experience In Security",
 	L"Militia Overview",	// TODO.Translate
 	L"Recon Intelligence Services",	// TODO.Translate
+	L"Controlled factories",	// TODO.Translate
 };
 
 
@@ -11586,6 +11590,18 @@ STR16	szMilitiaText[] =
 	L"Drill militia",
 	L"Doctor militia",
 	L"Cancel",
+};
+
+STR16	szFactoryText[] =	// TODO.Translate
+{
+	L"%s: Production of %s switched off as loyalty is too low.",
+	L"%s: Production of %s switched off due to insufficient funds.",
+	L"%s: Production of %s switched off as it requires a merc to staff the facility.",
+	L"%s: Production of %s switched off due to required items missing.",
+	L"Item to build",
+
+	L"Preproducts",	// 5
+	L"h/item",
 };
 
 #endif //ITALIAN

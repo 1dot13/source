@@ -237,6 +237,9 @@
     <ClInclude Include="Encyclopedia_Data_new.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="FacilityProduction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>	
     <ClInclude Include="BriefingRoom_Data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -522,6 +525,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Encyclopedia_Data_new.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="FacilityProduction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BriefingRoom_Data.cpp">

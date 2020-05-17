@@ -37,6 +37,8 @@ typedef enum
 	FACILITYTYPE_CONDITIONS_ELEMENT,
 	FACILITYTYPE_RISK,
 	FACILITYTYPE_RISK_ELEMENT,
+	FACILITYTYPE_PRODUCTION,
+	FACILITYTYPE_PRODUCTION_ELEMENT,
 
 } FACILITYTYPE_PARSE_STAGE;
 
@@ -48,8 +50,10 @@ struct
 
 	FACILITYTYPE	curFacilityTypeData;
 	FACILITYASSIGNMENTTYPE curAssignmentData;
+	PRODUCTION_LINE curProductionData;
 	INT16			curAssignmentType;
 	INT16			curRisk;
+	INT16			curProduction;
 	UINT32			maxArraySize;
 	UINT32			curIndex;
 	UINT32			currentDepth;
@@ -125,15 +129,29 @@ void InitAssignmentDataArray( facilitytypeParseData *pData )
 	pData->curAssignmentData.ubMinimumWisdom = 0;
 
 	// Set RISK data
-	for (UINT16 cnt = 0; cnt < NUM_RISKS; cnt++)
+	for (UINT16 cnt = 0; cnt < NUM_RISKS; ++cnt)
 	{
 		pData->curAssignmentData.Risk[cnt].usChance = 0;
 		pData->curAssignmentData.Risk[cnt].bBaseEffect = 0;
 		pData->curAssignmentData.Risk[cnt].ubRange = 0;
 	}
-
 }
 
+void InitProductionDataArray( facilitytypeParseData *pData )
+{
+	// Set assignment data from memory
+	swprintf( pData->curProductionData.szProductionName, L"" );
+	swprintf( pData->curProductionData.szAdditionalRequirementTips, L"" );
+	pData->curProductionData.usItemToCreate = NOTHING;
+	pData->curProductionData.sMinutesRequired = 60;
+	pData->curProductionData.sGridNo_Creation = -1;
+
+	pData->curProductionData.usProductionFlags = 0;
+
+	pData->curProductionData.sHourlyCost = 0;
+	pData->curProductionData.usOptional_LoyaltyRequired = 0;
+	pData->curProductionData.usOptional_PreProducts.clear();
+}
 
 static void XMLCALL
 facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
@@ -163,6 +181,8 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 			//DebugMsg(TOPIC_JA2, DBG_LEVEL_3,"MergeStartElementHandle: setting memory for curMerge");
 
 			pData->maxReadDepth++; //we are not skipping this element
+
+			pData->curProduction = -1;
 
 			//pData->curIndex++;
 		}
@@ -195,6 +215,35 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 
 			pData->curElement = FACILITYTYPE_ASSIGNMENT;
 
+			pData->maxReadDepth++;
+		}
+		// Encountered Production entry
+		else if ( pData->curElement == FACILITYTYPE_TYPE &&
+			strcmp( name, "PRODUCTIONLINE" ) == 0 )
+		{
+			// Set value to -1, denoting that we have not yet read which production is being described.
+			pData->curProduction++;
+
+			// Reset the array
+			InitProductionDataArray ( pData );
+
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+
+			pData->maxReadDepth++;
+		}
+		// Encountered production data
+		else if ( pData->curElement == FACILITYTYPE_PRODUCTION &&
+			( strcmp( name, "szProductionName" ) == 0 ||
+				strcmp( name, "szAdditionalRequirementTips" ) == 0 ||
+				strcmp( name, "usItemToCreate" ) == 0 ||
+				strcmp( name, "sMinutesRequired" ) == 0 ||
+				strcmp( name, "sGridNo_Creation" ) == 0 ||
+				strcmp( name, "requires_staff" ) == 0 ||
+				strcmp( name, "sHourlyCost" ) == 0 ||
+				strcmp( name, "usOptional_LoyaltyRequired" ) == 0 ||
+				strcmp( name, "usOptional_ItemUsedUp" ) == 0  ) )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION_ELEMENT;
 			pData->maxReadDepth++;
 		}
 
@@ -354,7 +403,6 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 
 			pData->maxReadDepth++;
 		}
-
 		else if(pData->curElement == FACILITYTYPE_RISK &&
 				(strcmp(name, "ubChance") == 0 ||
 				strcmp(name, "bBaseEffect") == 0 ||
@@ -362,6 +410,20 @@ facilitytypeStartElementHandle(void *userData, const XML_Char *name, const XML_C
 		{
 			pData->curElement = FACILITYTYPE_RISK_ELEMENT;
 
+			pData->maxReadDepth++;
+		}
+		else if ( pData->curElement == FACILITYTYPE_PRODUCTION &&
+			( strcmp( name, "szProductionName" ) == 0 ||
+			strcmp( name, "szAdditionalRequirementTips" ) == 0 ||
+			strcmp( name, "usItemToCreate" ) == 0 ||
+			strcmp( name, "sMinutesRequired" ) == 0 ||
+			strcmp( name, "sGridNo_Creation" ) == 0 ||
+			strcmp( name, "requires_staff" ) == 0 ||
+			strcmp( name, "sHourlyCost" ) == 0 ||
+			strcmp( name, "usOptional_LoyaltyRequired" ) == 0 ||
+			strcmp( name, "usOptional_ItemUsedUp" ) == 0 ) )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION_ELEMENT;
 			pData->maxReadDepth++;
 		}
 
@@ -477,6 +539,9 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 								gFacilityTypes[pData->curIndex].AssignmentData[cnt].Risk[cntB].ubRange = pData->curFacilityTypeData.AssignmentData[cnt].Risk[cntB].ubRange;
 							}
 						}
+
+						// Set production-specific data
+						gFacilityTypes[pData->curIndex].ProductionData = pData->curFacilityTypeData.ProductionData;
 					}
 					else
 					{
@@ -624,6 +689,23 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			
 			}
 			
+		}
+		else if ( strcmp( name, "PRODUCTIONLINE" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_TYPE;
+
+			// Make sure an production is selected for data dump
+			if ( pData->curProduction == -1 )
+			{
+				CHAR16 sErrorString[256];
+				swprintf( sErrorString, L"FacilityTypes.XML Error: Production data for facility type %d is missing a <ubAssignmentType> tag", pData->curIndex );
+				SGP_THROW( sErrorString );
+			}
+			else
+			{
+				// Set data from memory
+				pData->curFacilityTypeData.ProductionData.push_back( pData->curProductionData );
+			}
 		}
 
 		////////////////////////////////////////////////
@@ -1107,7 +1189,76 @@ facilitytypeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = FACILITYTYPE_RISK;
 			pData->curAssignmentData.Risk[pData->curRisk].ubRange = (UINT8) atol(pData->szCharData);
 		}
+		
+		else if ( strcmp( name, "szProductionName" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
 
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curProductionData.szProductionName, sizeof( pData->curProductionData.szProductionName ) / sizeof( pData->curProductionData.szProductionName[0] ) );
+			pData->curProductionData.szProductionName[sizeof( pData->curProductionData.szProductionName ) / sizeof( pData->curProductionData.szProductionName[0] ) - 1] = '\0';
+		}
+		else if ( strcmp( name, "szAdditionalRequirementTips" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curProductionData.szAdditionalRequirementTips, sizeof( pData->curProductionData.szAdditionalRequirementTips ) / sizeof( pData->curProductionData.szAdditionalRequirementTips[0] ) );
+			pData->curProductionData.szAdditionalRequirementTips[sizeof( pData->curProductionData.szAdditionalRequirementTips ) / sizeof( pData->curProductionData.szAdditionalRequirementTips[0] ) - 1] = '\0';
+		}
+		else if ( strcmp( name, "usItemToCreate" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+			pData->curProductionData.usItemToCreate = (UINT16)atol( pData->szCharData );
+		}
+		else if ( strcmp( name, "sMinutesRequired" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+			pData->curProductionData.sMinutesRequired = max(1, (INT32)atol( pData->szCharData ) );
+		}
+		else if ( strcmp( name, "sGridNo_Creation" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+			pData->curProductionData.sGridNo_Creation = (INT32)atol( pData->szCharData );
+		}
+		else if ( strcmp( name, "requires_staff" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+			if ( (UINT32)atol( pData->szCharData ) )
+				pData->curProductionData.usProductionFlags |= REQUIRES_STAFFING;
+		}
+		else if ( strcmp( name, "sHourlyCost" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+			pData->curProductionData.sHourlyCost = (INT32)atol( pData->szCharData );
+		}
+		else if ( strcmp( name, "usOptional_LoyaltyRequired" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+			pData->curProductionData.usOptional_LoyaltyRequired = (UINT8)atol( pData->szCharData );
+		}
+		else if ( strcmp( name, "usOptional_ItemUsedUp" ) == 0 )
+		{
+			pData->curElement = FACILITYTYPE_PRODUCTION;
+			UINT16 requireditem = (UINT16)atol( pData->szCharData );
+
+			bool found = false;
+			for ( std::vector<PRODUCTION_LINE_PREPRODUCT>::size_type i = 0; i < pData->curProductionData.usOptional_PreProducts.size(); ++i )
+			{
+				if ( pData->curProductionData.usOptional_PreProducts[i].item == requireditem )
+				{
+					pData->curProductionData.usOptional_PreProducts[i].requiredforonecreation++;
+					found = true;
+					break;
+				}
+			}
+
+			if ( !found )
+			{
+				PRODUCTION_LINE_PREPRODUCT data;
+				data.item = requireditem;
+				data.requiredforonecreation = 1;
+				pData->curProductionData.usOptional_PreProducts.push_back( data );
+			}
+		}
 
 		pData->maxReadDepth--;
 	}

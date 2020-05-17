@@ -4237,6 +4237,7 @@ STR16 pMapPopUpInventoryText[] =
 	L"Inventory",
 	L"Exit",
 	L"Repair",
+	L"Factories",
 };
 
 // town strings
@@ -5065,6 +5066,7 @@ STR16 pBookMarkStrings[] =
 	L"Kerberus",
 	L"Militia Overview",
 	L"R.I.S.",
+	L"Factories",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5191,6 +5193,7 @@ STR16 pWebPagesTitles[] =
 	L"Recon Intelligence Services - Information Requests",
 	L"Recon Intelligence Services - Information Verification",
 	L"Recon Intelligence Services - About us",
+	L"Factory Overview",
 	L"Bobby Ray's - Recent Shipments",
 	L"Encyclopedia",
 	L"Encyclopedia - Data",
@@ -6995,6 +6998,7 @@ STR16 gzLaptopHelpText[] =
 	L"Kerberus - Experience In Security",
 	L"Militia Overview",
 	L"Recon Intelligence Services",
+	L"Controlled factories",
 };
 
 
@@ -11579,6 +11583,18 @@ STR16	szMilitiaText[] =
 	L"Drill militia",
 	L"Doctor militia",
 	L"Cancel",
+};
+
+STR16	szFactoryText[] =
+{
+	L"%s: Production of %s switched off as loyalty is too low.",
+	L"%s: Production of %s switched off due to insufficient funds.",
+	L"%s: Production of %s switched off as it requires a merc to staff the facility.",
+	L"%s: Production of %s switched off due to required items missing.",
+	L"Item to build",
+
+	L"Preproducts",	// 5
+	L"h/item",
 };
 
 #endif //ENGLISH

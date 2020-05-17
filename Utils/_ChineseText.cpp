@@ -4237,6 +4237,7 @@ STR16 pMapPopUpInventoryText[] =
 	L"存货",
 	L"离开",
 	L"修理",	//L"Repair",
+	L"Factories",	// TODO.Translate
 };
 
 // town strings
@@ -5065,6 +5066,7 @@ STR16 pBookMarkStrings[] =
 	L"安保公司", //L"Kerberus",
 	L"民兵总览",//L"Militia Overview",
 	L"R.I.S",
+	L"Factories",	// TODO.Translate
 };
 
 STR16 pBookmarkTitle[] =
@@ -5191,6 +5193,7 @@ STR16 pWebPagesTitles[] =
 	L"Recon情报服务 - 情报需求",		//L"Recon Intelligence Services - Information Requests",
 	L"Recon情报服务 - 情报验证",	//L"Recon Intelligence Services - Information Verification",
 	L"Recon情报服务 - 关于我们",	//L"Recon Intelligence Services - About us",
+	L"Factory Overview",	// TODO.Translate
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -6995,6 +6998,7 @@ STR16 gzLaptopHelpText[] =
 	L"Kerberus - 安保公司",//L"Kerberus - Experience In Security",
 	L"民兵总览",//L"Militia Overview",
 	L"Recon情报服务",	//L"Recon Intelligence Services",
+	L"Controlled factories",	// TODO.Translate
 };
 
 
@@ -11579,6 +11583,18 @@ STR16	szMilitiaText[] =
 	L"训练民兵",	//L"Drill militia",
 	L"医疗民兵",	//L"Doctor militia",
 	L"取消",	//L"Cancel",
+};
+
+STR16	szFactoryText[] =	// TODO.Translate
+{
+	L"%s: Production of %s switched off as loyalty is too low.",
+	L"%s: Production of %s switched off due to insufficient funds.",
+	L"%s: Production of %s switched off as it requires a merc to staff the facility.",
+	L"%s: Production of %s switched off due to required items missing.",
+	L"Item to build",
+
+	L"Preproducts",	// 5
+	L"h/item",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

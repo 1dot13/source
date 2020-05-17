@@ -463,6 +463,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FacilityProduction.h"
+				>
+			</File>
+			<File
 				RelativePath=".\files.h"
 				>
 			</File>
@@ -822,6 +826,10 @@
 			</File>
 			<File
 				RelativePath=".\Encyclopedia_new.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FacilityProduction.cpp"
 				>
 			</File>
 			<File
