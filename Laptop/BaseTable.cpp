@@ -14,6 +14,7 @@
 #include "WordWrap.h"
 #include "input.h"		// for gfLeftButtonState
 #include "insurance.h"	// for DisplaySmallColouredLineWithShadow
+#include "Sound Control.h"
 
 #define	TESTTABLE_FONT_MED					FONT12ARIAL
 #define TESTTABLE_OFFSET_ROW				20
@@ -29,6 +30,8 @@ BaseTable::BaseTable( )
 	mActive(TRUE),
 	mMouseRegionActive(TRUE)
 {
+	SetColorLine( Get16BPPColor( FROMRGB( 128, 128, 128 ) ) );
+	SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 255, 255 ) ) );
 }
 
 void
@@ -127,31 +130,33 @@ void cdp_statusbar_func_dummy( UINT32 aId, UINT16& arCol1, UINT16& arVal1, UINT1
 void
 ColumnDataProvider::CalcRequiredLength( )
 {
-	mRequiredLength = 0;
+	mRequiredLength = max( mRequiredLength, 6 * wcslen( mName ) );
 
-	if ( CDP_STRING == GetProviderType() )
+	switch ( GetProviderType() )
 	{
+	case CDP_STRING:
 		for ( UINT32 i = 0; i < mNumberOfEntries; ++i )
 		{
-			mRequiredLength = max( mRequiredLength, 7 * wcslen( GetString( i ) ) );
+			mRequiredLength = max( mRequiredLength, 6 * wcslen( GetString( i ) ) );
 		}
-	}
-	else if ( CDP_IMAGE == GetProviderType() )
-	{
-		for ( UINT32 i = 0; i < mNumberOfEntries; ++i )
+		break;
+		
+	case CDP_IMAGE:
+		/*for ( UINT32 i = 0; i < mNumberOfEntries; ++i )
 		{
 			// TODO...
-			mRequiredLength = max( mRequiredLength, 40 );
-		}
-	}
-	else if ( CDP_STATUSBAR == GetProviderType( ) )
-	{
-		mRequiredLength = 4;
+		}*/
+		break;
+
+	case CDP_STATUSBAR:
+		mRequiredLength = max( mRequiredLength, 4);
+		break;
 	}
 }
 
 extern void callbackmilitialist( INT32 usId );
 extern void callbackmilitiadetail( INT32 usId );
+extern void callbacktoggle( INT32 usId );
 
 void
 ColumnDataProvider::RegionClickCallBack( MOUSE_REGION * pRegion, INT32 iReason )
@@ -161,8 +166,6 @@ ColumnDataProvider::RegionClickCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		//gfScrollBoxIsScrolling = FALSE;
-		//gHelpScreen.iLastMouseClickY = -1;
 	}
 	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
@@ -177,6 +180,14 @@ ColumnDataProvider::RegionClickCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 		case CDP_MILITIADETAIL:
 			callbackmilitiadetail( pRegion->UserData[1] );
+			break;
+
+		case CDP_TOGGLE:
+			callbacktoggle( pRegion->UserData[1] );
+
+			// we pretend to be a button, thus we make a sound
+			PlayJA2Sample( BIG_SWITCH3_IN, RATE_11025, BTNVOLUME, 1, MIDDLEPAN );
+
 			break;
 
 		case CDP_DEFAULT:
@@ -216,12 +227,7 @@ TestPanel::Display( )
 {
 	if ( !IsInit( ) )
 		return;
-
-	SetColorLine( Get16BPPColor( FROMRGB( 128, 128, 128 ) ) );
-	SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 255, 255 ) ) );
-	SetColorMarked(Get16BPPColor( FROMRGB( 200, 169, 87 ) ));
-	SetColorHighLight(Get16BPPColor( FROMRGB( 235, 222, 171 )) );
-
+	
 	//Display the background 
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, GetX( ), GetY( ), GetX( ) + GetWidth( ), GetY( ) + GetHeight( ), GetColorMarked( ) );
 
@@ -437,8 +443,6 @@ TabBox::RegionClickCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		//gfScrollBoxIsScrolling = FALSE;
-		//gHelpScreen.iLastMouseClickY = -1;
 	}
 	else if ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
@@ -451,15 +455,11 @@ TabBox::RegionClickCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 		}
 
 		SetRefresh( );
-
-		//gfScrollBoxIsScrolling = TRUE;
-		//HelpScreenMouseMoveScrollBox( pRegion->MouseYPos );
 	}
 	else if ( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
 	}
 }
-
 
 ////////////////////////// TabBox /////////////////////////////////////
 
@@ -471,7 +471,8 @@ TestTable::TestTable( )
 : BaseTable( ),
 mScrollBarDefined( FALSE ),
 mFirstEntryShown(0),
-mLastEntryShown( 0 )
+mLastEntryShown( 0 ),
+mColorSeparator( FROMRGB( 0, 255, 0 ) )
 {
 }
 
@@ -524,8 +525,7 @@ TestTable::Destroy( )
 		mScrollBarDefined = FALSE;
 	}
 
-	std::vector<ColumnDataProvider>::iterator itend = mColumnDataProviderVector.end( );
-	for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ); it != itend; ++it )
+	for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ), itend = mColumnDataProviderVector.end(); it != itend; ++it )
 	{
 		(*it).DestroyMouseRegions();
 	}
@@ -572,18 +572,17 @@ TestTable::Display( )
 		{
 			usPosX = GetX( );
 
-			DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, usPosX + GetWidth( ) - SCROLLARROW_WIDTH, usPosY - 2, FROMRGB( 0, 255, 0 ) );
+			DisplaySmallColouredLineWithShadow( usPosX, usPosY - 2, usPosX + GetWidth( ) - SCROLLARROW_WIDTH, usPosY - 2, GetColorSeparator() );
 			
-			std::vector<ColumnDataProvider>::iterator itend = mColumnDataProviderVector.end( );
-			for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ); it != itend; ++it )
+			for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ), itend = mColumnDataProviderVector.end(); it != itend; ++it )
 			{
-				if ( it->GetProviderType( ) == ColumnDataProvider::CDP_STRING )
+				if ( it->GetProviderType() == ColumnDataProvider::CDP_STRING )
 				{
-					swprintf( sText, (*it).GetString( i ) );
+					swprintf( sText, ( *it ).GetString( i ) );
 
-					DrawTextToScreen( sText, usPosX, usPosY + 7, GetWidth( ), TESTTABLE_FONT_MED, (*it).GetColour( i ), FONT_MCOLOR_BLACK, FALSE, 0 );
+					DrawTextToScreen( sText, usPosX, usPosY + 7, GetWidth(), TESTTABLE_FONT_MED, ( *it ).GetColour( i ), FONT_MCOLOR_BLACK, FALSE, 0 );
 				}
-				else if ( it->GetProviderType( ) == ColumnDataProvider::CDP_IMAGE )
+				else if ( it->GetProviderType() == ColumnDataProvider::CDP_IMAGE )
 				{
 					UINT32 imagelib = 0;
 					UINT16 imageid = 0;
@@ -592,23 +591,16 @@ TestTable::Display( )
 
 					BltVideoObjectFromIndex( FRAME_BUFFER, imagelib, imageid, usPosX, usPosY, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
-				else if ( it->GetProviderType( ) == ColumnDataProvider::CDP_STATUSBAR )
+				else if ( it->GetProviderType() == ColumnDataProvider::CDP_STATUSBAR )
 				{
-					UINT16 col1 = 0;
-					UINT16 col2 = 0;
-					UINT16 col3 = 0;
-					UINT16 col4 = 0;
-					UINT16 val1 = 0;
-					UINT16 val2 = 0;
-					UINT16 val3 = 0;
-					UINT16 val4 = 0;
+					UINT16 col1 = 0, col2 = 0, col3 = 0, col4 = 0, val1 = 0, val2 = 0, val3 = 0, val4 = 0;
 
 					it->GetStatusBarData( i, col1, val1, col2, val2, col3, val3, col4, val4 );
 
-					UINT16 height1 = (heightperrow * val1) / 100;
-					UINT16 height2 = (heightperrow * val2) / 100;
-					UINT16 height3 = (heightperrow * val3) / 100;
-					UINT16 height4 = (heightperrow * val4) / 100;
+					UINT16 height1 = ( heightperrow * val1 ) / 100;
+					UINT16 height2 = ( heightperrow * val2 ) / 100;
+					UINT16 height3 = ( heightperrow * val3 ) / 100;
+					UINT16 height4 = ( heightperrow * val4 ) / 100;
 
 					UINT16 endY = usPosY + heightperrow - 1;
 
@@ -629,12 +621,12 @@ TestTable::Display( )
 					DisplaySmallLine( usPosX + 2, endY - height4, usPosX + 2, endY, col4 );
 				}
 
-				if ( i - mFirstEntryShown < COLUMNDATAPROVIDER_MOUSEREGIONS && IsMouseRegionActive( ) )
-				{				
+				if ( i - mFirstEntryShown < COLUMNDATAPROVIDER_MOUSEREGIONS && IsMouseRegionActive() )
+				{
 					MSYS_DefineRegion( &it->mMouseRegion[i - mFirstEntryShown],
-									   usPosX, usPosY, usPosX + it->GetRequiredLength( ), usPosY + heightperrow,
-									   MSYS_PRIORITY_HIGHEST, CURSOR_WWW, 
-									   MSYS_NO_CALLBACK, (*it).RegionClickCallBack );
+						usPosX, usPosY, usPosX + it->GetRequiredLength(), usPosY + heightperrow,
+						MSYS_PRIORITY_HIGHEST, CURSOR_WWW,
+						MSYS_NO_CALLBACK, ( *it ).RegionClickCallBack );
 					MSYS_AddRegion( &it->mMouseRegion[i - mFirstEntryShown] );
 
 					// first entry of userdata is the callback type - we need to know what kind of callback function should be called
@@ -902,8 +894,7 @@ TestTable::GetNumberOfDataRows( )
 {
 	BOOLEAN fFound = FALSE;
 	UINT32 minrowsinproviders = 1000;
-	std::vector<ColumnDataProvider>::iterator itend = mColumnDataProviderVector.end( );
-	for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ); it != itend; ++it )
+	for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ), itend = mColumnDataProviderVector.end(); it != itend; ++it )
 	{
 		minrowsinproviders = min( minrowsinproviders, (*it).GetNumberOfEntries( ) );
 
@@ -945,8 +936,7 @@ UINT32
 TestTable::GetRequiredHeigthPerRow( )
 {
 	UINT32 heigth = 0;
-	std::vector<ColumnDataProvider>::iterator itend = mColumnDataProviderVector.end( );
-	for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ); it != itend; ++it )
+	for ( std::vector<ColumnDataProvider>::iterator it = mColumnDataProviderVector.begin( ), itend = mColumnDataProviderVector.end(); it != itend; ++it )
 	{
 		heigth = max( heigth, (*it).GetRequiredHeigth( ) );
 	}

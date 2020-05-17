@@ -352,6 +352,10 @@ BOOLEAN EnterMilitiaWebsiteMain( )
 	FilterIndividualMilitia( (InidivualMilitiaLifeState)key_dead, (InidivualMilitiaRankState)key_rank, (InidivualMilitiaOriginState)key_origin, key_sector );
 			
 	gTestPanel3.Create( LAPTOP_SCREEN_UL_X, MCA_START_CONTENT_Y, LAPTOP_SCREEN_LR_X, LAPTOP_SCREEN_WEB_LR_Y );
+	gTestPanel3.SetColorLine( Get16BPPColor( FROMRGB( 128, 128, 128 ) ) );
+	gTestPanel3.SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 255, 255 ) ) );
+	gTestPanel3.SetColorMarked( Get16BPPColor( FROMRGB( 200, 169, 87 ) ) );
+	gTestPanel3.SetColorHighLight( Get16BPPColor( FROMRGB( 235, 222, 171 ) ) );
 
 	TestTableTemplate<3>::getInstance( ).Create( LAPTOP_SCREEN_UL_X + 4, MCA_START_CONTENT_Y + 44, LAPTOP_SCREEN_LR_X - 4, LAPTOP_SCREEN_WEB_LR_Y - 4 );
 
@@ -714,9 +718,10 @@ template<>  void	TestTableTemplate<1>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End
 	ClearColumnDataProvider( );
 
 	ColumnDataProvider imagecol( L"" );
+	imagecol.SetRequiredHeigth( 27 );
+	imagecol.SetRequiredLength( 40 );
 	imagecol.SetMethodImage( AutoResolveFaces );
 	imagecol.SetNumberOfEntries( gIndividualMilitiaFilteredIdsVector.size( ) );
-	imagecol.SetRequiredHeigth( 27 );
 	imagecol.SetCallBackType( ColumnDataProvider::CDP_MILITIADETAIL );
 
 	AddColumnDataProvider( imagecol );

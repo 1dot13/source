@@ -204,6 +204,7 @@ public:
 		CDP_DEFAULT = 0,
 		CDP_MILITIA_LIST,
 		CDP_MILITIADETAIL,
+		CDP_TOGGLE,
 	} CDP_CALLBACKTYPE;
 
 	typedef enum
@@ -355,6 +356,12 @@ public:
 
 	void CalcRows();
 
+	/*
+	* Color of separating line element
+	*/
+	void SetColorSeparator( UINT16 aCol )	{ mColorSeparator = aCol; }
+	UINT16 GetColorSeparator()				{ return mColorSeparator; }
+
 private:
 	void	CreateScrollAreaButtons( );
 
@@ -374,6 +381,8 @@ private:
 
 	UINT32				mFirstEntryShown;
 	UINT32				mLastEntryShown;
+
+	UINT16				mColorSeparator;
 
 	std::vector<ColumnDataProvider>		mColumnDataProviderVector;
 };
