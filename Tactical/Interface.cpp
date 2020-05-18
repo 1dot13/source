@@ -1520,7 +1520,7 @@ void GetArrowsBackground( )
 }
 
 
-void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY, BOOLEAN fRadio )
+void GetSoldierAboveGuyPositions(SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY, BOOLEAN fRadio)
 {
 	INT16 sMercScreenX, sMercScreenY;
 	INT16 sOffsetX, sOffsetY;
@@ -1529,53 +1529,55 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 	INT16		sTextBodyTypeYOffset = 62;
 
 	// Find XY, dims, offsets
-	GetSoldierScreenPos( pSoldier, &sMercScreenX, &sMercScreenY );
-	GetSoldierAnimOffsets( pSoldier, &sOffsetX, &sOffsetY );
+	GetSoldierScreenPos(pSoldier, &sMercScreenX, &sMercScreenY);
+	GetSoldierAnimOffsets(pSoldier, &sOffsetX, &sOffsetY);
 
 	// OK, first thing to do is subtract offsets ( because GetSoldierScreenPos adds them... )
 	sMercScreenX -= sOffsetX;
 	sMercScreenY -= sOffsetY;
 
 	// Adjust based on stance
-	if ( ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_NOMOVE_MARKER) )
+	/*if ((gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_NOMOVE_MARKER))
 	{
-		ubAnimUseHeight = gAnimControl[ pSoldier->usAnimState ].ubHeight;
+		ubAnimUseHeight = gAnimControl[pSoldier->usAnimState].ubHeight;
 	}
 	else
 	{
-		ubAnimUseHeight = gAnimControl[ pSoldier->usAnimState ].ubEndHeight;
-	}
-	switch ( ubAnimUseHeight )
+		ubAnimUseHeight = gAnimControl[pSoldier->usAnimState].ubEndHeight;
+	}*/
+
+	// sevenfm: use max value so that animation and health string do not overlap
+	ubAnimUseHeight = max(gAnimControl[pSoldier->usAnimState].ubEndHeight, gAnimControl[pSoldier->usAnimState].ubHeight);
+
+	switch (ubAnimUseHeight)
 	{
-		case ANIM_STAND:
-			break;
+	case ANIM_STAND:
+		break;
 
-		case ANIM_PRONE:
-			sStanceOffset = 25;
-			break;
+	case ANIM_PRONE:
+		sStanceOffset = 25;
+		break;
 
-		case ANIM_CROUCH:
-			sStanceOffset = 10;
-			break;
+	case ANIM_CROUCH:
+		//sStanceOffset = 10;
+		// sevenfm: reduce gap between animation and text
+		sStanceOffset = 15;
+		break;
 	}
 
 	// Adjust based on body type...
-	switch( pSoldier->ubBodyType )
+	switch (pSoldier->ubBodyType)
 	{
-		case CROW:
-
-			sStanceOffset = 30;
-			break;
-
-		case ROBOTNOWEAPON:
-
-			sStanceOffset = 30;
-			break;
-
+	case CROW:
+		sStanceOffset = 30;
+		break;
+	case ROBOTNOWEAPON:
+		sStanceOffset = 30;
+		break;
 	}
 
 	// anv: passengers sit, but we want to display their names above vehicle
-	if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+	if (pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER))
 	{
 		sStanceOffset = 0;
 	}
@@ -1583,44 +1585,43 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 	//sStanceOffset -= gpWorldLevelData[ pSoldier->sGridNo ].sHeight;
 
 	// Adjust based on level
-	if ( pSoldier->pathing.bLevel == 1 && gsInterfaceLevel == 0 )
+	if (pSoldier->pathing.bLevel == 1 && gsInterfaceLevel == 0)
 	{
 		//sStanceOffset -= ROOF_LEVEL_HEIGHT;
 	}
-	if ( pSoldier->pathing.bLevel == 0 && gsInterfaceLevel == 1 )
+	if (pSoldier->pathing.bLevel == 0 && gsInterfaceLevel == 1)
 	{
 		//sStanceOffset += ROOF_LEVEL_HEIGHT;
 	}
 
-	if ( pSoldier->ubProfile != NO_PROFILE )
+	if (pSoldier->ubProfile != NO_PROFILE)
 	{
-		if ( fRadio )
+		if (fRadio)
 		{
-			*psX = sMercScreenX - ( 80 / 2 ) - pSoldier->sLocatorOffX;
+			*psX = sMercScreenX - (80 / 2) - pSoldier->sLocatorOffX;
 			*psY = sMercScreenY - sTextBodyTypeYOffset + sStanceOffset;
 		}
 		else
 		{
-			*psX = sMercScreenX - ( 80 / 2 ) - pSoldier->sLocatorOffX;
+			*psX = sMercScreenX - (80 / 2) - pSoldier->sLocatorOffX;
 			*psY = sMercScreenY - sTextBodyTypeYOffset + sStanceOffset;
 
 			// OK, Check if we need to go below....
-			// Can do this 1) if displaying damge or 2 ) above screen
+			// Can do this 1) if displaying damage or 2 ) above screen
 
 			// If not a radio position, adjust if we are getting hit, to be lower!
 			// If we are getting hit, lower them!
-			if ( pSoldier->flags.fDisplayDamage || *psY < gsVIEWPORT_WINDOW_START_Y )
+			if (pSoldier->flags.fDisplayDamage || *psY < gsVIEWPORT_WINDOW_START_Y)
 			{
-				*psX = sMercScreenX - ( 80 / 2 ) - pSoldier->sLocatorOffX;
+				*psX = sMercScreenX - (80 / 2) - pSoldier->sLocatorOffX;
 				*psY = sMercScreenY;
 			}
 		}
-
 	}
 	else
 	{
 		//Display Text!
-		*psX = sMercScreenX - ( 80 / 2 ) - pSoldier->sLocatorOffX;
+		*psX = sMercScreenX - (80 / 2) - pSoldier->sLocatorOffX;
 		*psY = sMercScreenY - sTextBodyTypeYOffset + sStanceOffset;
 	}
 }
@@ -1882,7 +1883,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		return;
 	}
 
-	// Donot show if we are dead
+	// Do not show if we are dead
 	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 	{
 		return;
@@ -1897,6 +1898,12 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	{
 		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
 		GetSoldierAboveGuyPositions( pVehicle, &sXPos, &sYPos, FALSE );
+	}
+
+	// sevenfm: reduce gap if not showing health bars
+	if (!gGameExternalOptions.ubShowHealthBarsOnHead)
+	{
+		sYPos += 10;
 	}
 	
 	// Display name
@@ -3534,7 +3541,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	// Draw new size
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 
-	// region rysowania barow nad najemnikiem
+	// bar over merc drawing region
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, ( gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y ) );
 
 	// sevenfm: draw background for alt bar
