@@ -503,16 +503,28 @@ MilitiaInidividualMainWidget::Create( UINT16 sX, UINT16 sY, UINT16 sX_End, UINT1
 	
 	mPersonalDataPanel.Create( sX, sY + 50, sX_End, sY_End );
 	mPersonalDataPanel.SetName( szIdividualMilitiaWebsiteText[9] );
+	mPersonalDataPanel.SetColorLine( Get16BPPColor( FROMRGB( 128, 128, 128 ) ) );
+	mPersonalDataPanel.SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 255, 255 ) ) );
+	mPersonalDataPanel.SetColorMarked( Get16BPPColor( FROMRGB( 200, 169, 87 ) ) );
+	mPersonalDataPanel.SetColorHighLight( Get16BPPColor( FROMRGB( 235, 222, 171 ) ) );
 	mPersonalData.Create( sX, sY + 50, sX_End, sY_End );
 	mPersonalDataPanel.RegisterMemberThingy( &mPersonalData );
 	
 	mServiceRecordPanel.Create( sX, sY + 50, sX_End, sY_End );
 	mServiceRecordPanel.SetName( szIdividualMilitiaWebsiteText[10] );
+	mServiceRecordPanel.SetColorLine( Get16BPPColor( FROMRGB( 128, 128, 128 ) ) );
+	mServiceRecordPanel.SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 255, 255 ) ) );
+	mServiceRecordPanel.SetColorMarked( Get16BPPColor( FROMRGB( 200, 169, 87 ) ) );
+	mServiceRecordPanel.SetColorHighLight( Get16BPPColor( FROMRGB( 235, 222, 171 ) ) );
 	mServiceRecord.Create( sX, sY + 50, sX_End, sY_End );
 	mServiceRecordPanel.RegisterMemberThingy( &mServiceRecord );
 
 	mItemPanel.Create( sX, sY + 50, sX_End, sY_End );
 	mItemPanel.SetName( szIdividualMilitiaWebsiteText[11] );
+	mItemPanel.SetColorLine( Get16BPPColor( FROMRGB( 128, 128, 128 ) ) );
+	mItemPanel.SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 255, 255 ) ) );
+	mItemPanel.SetColorMarked( Get16BPPColor( FROMRGB( 200, 169, 87 ) ) );
+	mItemPanel.SetColorHighLight( Get16BPPColor( FROMRGB( 235, 222, 171 ) ) );
 	mItemsTable.Create( sX, sY + 50, sX_End, sY_End );
 	mItemPanel.RegisterMemberThingy( &mItemsTable );
 	

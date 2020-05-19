@@ -31,7 +31,9 @@ BaseTable::BaseTable( )
 	mMouseRegionActive(TRUE)
 {
 	SetColorLine( Get16BPPColor( FROMRGB( 128, 128, 128 ) ) );
-	SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 255, 255 ) ) );
+	SetColorLineShadow( Get16BPPColor( FROMRGB( 255, 78, 255 ) ) );
+	SetColorMarked( Get16BPPColor( FROMRGB( 200, 169, 87 ) ) );
+	SetColorHighLight( Get16BPPColor( FROMRGB( 235, 222, 171 ) ) );
 }
 
 void
