@@ -620,9 +620,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		HandleArrivalOfReinforcements( gpBattleGroup );
 
 		// Reinforcement groups?  Bring it on!
-		// only if not Omerta on a non-insane difficulty level
-		if( gGameExternalOptions.gfAllowReinforcements &&
-			!( ( GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA) && (gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE) ) )				
+		// Omerta has a special setting
+		if ( gGameExternalOptions.gfAllowReinforcements &&
+			( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) != OMERTA) || zDiffSetting[gGameOptions.ubDifficultyLevel].bAllowReinforcementsOmerta ) )
 		{
 			UINT16 pusMoveDir[4][3];
 			UINT8 ubDirNumber = 0;
