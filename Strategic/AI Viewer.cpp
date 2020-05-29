@@ -492,11 +492,11 @@ void RenderStationaryGroups()
 				ubIconColor = ICON_COLOR_BLUE;
 				ubGroupSize = nummilitia;
 			}
-			else if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks )
+			else if( pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumJeeps + pSector->ubNumTanks )
 			{
 				// show enemies
 				ubIconColor = ChooseEnemyIconColor( pSector->ubNumAdmins, pSector->ubNumTroops, pSector->ubNumElites, pSector->ubNumTanks, pSector->ubNumJeeps );
-				ubGroupSize = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumTanks;
+				ubGroupSize = pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites + pSector->ubNumJeeps + pSector->ubNumTanks;
 
 				if( pSector->ubGarrisonID != NO_GARRISON )
 				{
