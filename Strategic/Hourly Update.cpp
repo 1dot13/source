@@ -1151,7 +1151,8 @@ void HourlyFactoryUpdate()
 	}
 
 	// substract money spent
-	AddTransactionToPlayersBook ( FACILITY_OPERATIONS, NO_PROFILE, GetWorldTotalMin(), -moneyspentonproduction );
+	if ( moneyspentonproduction )
+		AddTransactionToPlayersBook ( FACILITY_OPERATIONS, NO_PROFILE, GetWorldTotalMin(), -moneyspentonproduction );
 }
 
 #ifdef JA2UB
