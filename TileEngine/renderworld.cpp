@@ -2178,14 +2178,9 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 									}
 								}
 								// ATE: Check here for a lot of conditions!
-								else if (((uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT)) && !(uiFlags&TILES_DIRTY))
+								else if ( (uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT) && !(uiFlags&TILES_DIRTY) )
 								{
-									bItemOutline = TRUE;
-
-									if (uiLevelNodeFlags & LEVELNODE_PHYSICSOBJECT)
-									{
-										bItemOutline = FALSE;
-									}
+									bItemOutline = FALSE;
 
 									bBlitClipVal = BltIsClippedOrOffScreen(hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 

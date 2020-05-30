@@ -2110,7 +2110,7 @@ FLOAT CalcHourlyVolunteerGain()
 
 	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		for ( UINT8 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			// not if the enemy controls this sector
 			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].fEnemyControlled )

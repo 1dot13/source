@@ -866,25 +866,19 @@ UINT32 DrawMap( void )
 
 						case MAP_DISPLAY_AIRSPACE_COLOURED_SAMS:
 							{
-								CHAR16 sString[20];
-								swprintf( sString, L"%d", ubSAMControlledSectors[cnt2][cnt] );
-								
 								BOOLEAN a = FALSE;
 								BOOLEAN b = FALSE;
 								BOOLEAN c = FALSE;
 								BOOLEAN d = FALSE;
-																
+								BOOLEAN samworking = FALSE;
+								for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
 								{
-									for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
+									if ( DoesSamCoverSector( i, SECTOR( cnt, cnt2 ), &samworking ) && samworking )
 									{
-										BOOLEAN samworking = FALSE;
-										if ( DoesSamCoverSector( i, SECTOR( cnt, cnt2 ), &samworking ) && samworking )
-										{
-											if ( i == 0 )	a = TRUE;
-											if ( i == 1 )	b = TRUE;
-											if ( i == 2 )	c = TRUE;
-											if ( i == 3 )	d = TRUE;
-										}
+										if ( i == 0 )	a = TRUE;
+										if ( i == 1 )	b = TRUE;
+										if ( i == 2 )	c = TRUE;
+										if ( i == 3 )	d = TRUE;
 									}
 								}
 
@@ -918,15 +912,6 @@ UINT32 DrawMap( void )
 									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN_BLUE_YELLOW );
 								else if ( a && b && c && d )
 									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN_BLUE_YELLOW );
-								
-								INT16 sXCorner = (INT16)(MAP_VIEW_START_X + (cnt * MAP_GRID_X));
-								INT16 sYCorner = (INT16)(MAP_VIEW_START_Y + (cnt2 * MAP_GRID_Y));
-								
-								INT16 usXPos, usYPos;
-								FindFontCenterCoordinates( sXCorner, sYCorner, MAP_GRID_X, MAP_GRID_Y, sString, FONT14ARIAL, &usXPos, &usYPos );
-
-								gprintfdirty( usXPos, usYPos, sString );
-								mprintf( usXPos, usYPos, sString );
 							}	
 							break;
 							
