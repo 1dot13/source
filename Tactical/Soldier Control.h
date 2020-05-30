@@ -2004,7 +2004,7 @@ public:
 
 	// Flugente: drag people
 	BOOLEAN		CanDragInPrinciple();
-	BOOLEAN		CanDragPerson( UINT8 usID );
+	BOOLEAN		CanDragPerson( UINT16 usID );
 	BOOLEAN		CanDragCorpse( UINT16 usCorpseNum );
 	BOOLEAN		IsDraggingSomeone();
 	void		SetDragOrderPerson( UINT16 usID );
@@ -2034,7 +2034,7 @@ public:
 
 	// Flugente: turncoats
 	BOOLEAN		InPositionForTurncoatAttempt( UINT16 usID );
-	UINT8		GetTurncoatConvinctionChance( UINT16 usID, UINT8 usApproach );
+	UINT8		GetTurncoatConvinctionChance( UINT16 usID, INT16 usApproach );
 	void		AttemptToCreateTurncoat( UINT16 usID );
 	BOOLEAN		OrderTurnCoatToSwitchSides( UINT16 usID );
 	void		OrderAllTurnCoatToSwitchSides();

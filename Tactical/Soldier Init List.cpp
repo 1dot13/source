@@ -2074,7 +2074,6 @@ void AddSoldierInitListCreatures( BOOLEAN fQueen, UINT8 ubNumLarvae, UINT8 ubNum
 void AddSoldierInitListOtherCreatures( UINT8 usNum )
 {
 	SOLDIERINITNODE *curr;
-	INT32 iRandom;
 	UINT8 ubFreeSlots;
 	BOOLEAN fDoPlacement;
 	UINT8 ubNumCreatures = usNum;

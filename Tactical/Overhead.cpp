@@ -10678,11 +10678,10 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 		// remember the target's ID
 		prisonerdialoguetargetID = pSoldier->ubID;
 
-		CHAR16 buf[256];
 		UINT8 ubCurrentProgress = CurrentPlayerProgressPercentage();
 
 		std::vector<std::pair<INT16, STR16> > dropdownvector_1;
-		int cnt = 1;
+		INT16 cnt = 1;
 
 		UINT8 chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
 		swprintf( gTurncoatDropdownText[cnt-1], szTurncoatText[3], chance );

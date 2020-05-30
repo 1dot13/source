@@ -19921,10 +19921,8 @@ FLOAT	SOLDIERTYPE::GetConstructionPoints( )
 	UINT32 val = EffectiveStrength( this, FALSE );
 
 	ReducePointsForFatigue( this, &val );
-
-	FLOAT dval = val;
-
-	dval = dval * (100 + this->GetBackgroundValue( BG_FORTIFY_ASSIGNMENT )) / 100.0f;
+	
+	FLOAT dval = val * (100 + this->GetBackgroundValue( BG_FORTIFY_ASSIGNMENT )) / 100.0f;
 
 	dval = (dval * this->stats.bLife / this->stats.bLifeMax);
 
@@ -19935,8 +19933,7 @@ FLOAT	SOLDIERTYPE::GetConstructionPoints( )
 
 BOOLEAN SOLDIERTYPE::HasItem(UINT16 usItem)
 {
-	INT8 invsize = (INT8)inv.size( );
-	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	for ( size_t bLoop = 0, invsize = inv.size(); bLoop < invsize; ++bLoop )
 	{
 		if ( inv[bLoop].exists( ) == true && inv[bLoop].usItem == usItem )
 			return TRUE;
@@ -19951,8 +19948,7 @@ BOOLEAN		SOLDIERTYPE::SelfDetonate( )
 	if ( !(this->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
 		return FALSE;
 
-	INT8 invsize = (INT8)inv.size( );
-	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	for ( size_t bLoop = 0, invsize = inv.size(); bLoop < invsize; ++bLoop )
 	{
 		if ( inv[bLoop].exists( ) == true && inv[bLoop].usItem == this->aiData.usActionData )
 		{
@@ -19980,8 +19976,7 @@ UINT8	SOLDIERTYPE::GetWaterSnakeDefenseChance()
 	val += this->GetBackgroundValue( BG_SNAKEDEFENSE );
 
 	// bonus if we have a knife, extra if it is in our hands
-	INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
-	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	for ( size_t bLoop = 0, invsize = inv.size(); bLoop < invsize; ++bLoop )
 	{
 		if ( inv[bLoop].exists( ) )
 		{
@@ -20026,9 +20021,7 @@ UINT16	SOLDIERTYPE::GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UIN
 			
 			OBJECTTYPE* pObj = NULL;
 
-			INT8 invsize = (INT8)inv.size( );									// remember inventorysize, so we don't call size() repeatedly
-
-			for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )						// ... for all items in our inventory ...
+			for ( size_t bLoop = 0, invsize = inv.size(); bLoop < invsize; ++bLoop )
 			{
 				if ( inv[bLoop].exists( ) == true && Item[inv[bLoop].usItem].usHackingModifier )
 				{
@@ -20191,7 +20184,7 @@ BOOLEAN		SOLDIERTYPE::CanDragInPrinciple()
 	return TRUE;
 }
 
-BOOLEAN		SOLDIERTYPE::CanDragPerson( UINT8 usID )
+BOOLEAN		SOLDIERTYPE::CanDragPerson( UINT16 usID )
 {
 	if ( !CanDragInPrinciple() )
 		return FALSE;
@@ -20288,7 +20281,7 @@ void	SOLDIERTYPE::SetDragOrderPerson( UINT16 usID )
 	{
 		// sevenfm: if someone is dragging this soldier, cancel drag
 		SOLDIERTYPE *pSoldier;
-		for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+		for (UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
 		{
 			pSoldier = MercPtrs[uiLoop];
 			if (pSoldier && pSoldier->usDragPersonID == usID)
@@ -20813,7 +20806,7 @@ BOOLEAN	SOLDIERTYPE::InPositionForTurncoatAttempt( UINT16 usID )
 	return FALSE;
 }
 
-UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( UINT16 usID, UINT8 usApproach )
+UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( UINT16 usID, INT16 sApproach )
 {
 	if ( usID >= NOBODY )
 		return 0;
@@ -20875,7 +20868,7 @@ UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( UINT16 usID, UINT8 usApproach 
 
 	ReducePointsForFatigue( pSoldier, &enemyresistancerating );
 	
-	switch ( usApproach )
+	switch ( sApproach )
 	{
 		// base approach
 	case 1:

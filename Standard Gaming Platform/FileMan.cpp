@@ -2555,8 +2555,6 @@ UINT32 GetFreeSpaceOnHardDrive( STR pzDriveLetter )
 // Flugente: simple wrapper to check whether an audio file in mp3/ogg/wav format exists
 BOOLEAN	SoundFileExists( STR strFilename, STR zFoundFilename )
 {
-	SGPFILENAME		zFilename;
-
 	sprintf( zFoundFilename, "%s.mp3", strFilename );
 	if ( !FileExists( zFoundFilename ) )
 	{

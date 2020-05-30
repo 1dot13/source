@@ -2079,7 +2079,7 @@ UINT32 CalcMilitiaUpkeep( void )
 	{
 		if ( militia_static[i] > militia_individual[i] )
 		{
-			uiTotalPayment += ( militia_static[i] + -militia_individual[i] ) * gGameExternalOptions.usDailyCostTown[i];
+			uiTotalPayment += ( militia_static[i] - militia_individual[i] ) * gGameExternalOptions.usDailyCostTown[i];
 		}
 	}
 

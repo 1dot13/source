@@ -771,7 +771,6 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 
 void AddCreaturesToBattle_Other( UINT8 ubNum )
 {
-	INT32 iRandom;
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo = {};
 	UINT8 bDesiredDirection = 0;

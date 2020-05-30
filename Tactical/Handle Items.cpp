@@ -4563,7 +4563,7 @@ void HandleFlashingItems( )
 {
 	UINT32 cnt;
 	ITEM_POOL		*pItemPool;
-	LEVELNODE		*pObject;
+	//LEVELNODE		*pObject;
 	ITEM_POOL_LOCATOR	*pLocator;
 	BOOLEAN			fDoLocator = FALSE;
 

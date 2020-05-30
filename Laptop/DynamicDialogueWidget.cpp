@@ -439,8 +439,7 @@ IMPDialogueChooseBox::Init( UINT16 sX, UINT16 sY )
 
 	musWidth = 0;
 
-	UINT16 size = mEntryVector.size( );
-	for ( UINT16 i = 0; i < size; ++i )
+	for ( size_t i = 0, size = mEntryVector.size(); i < size; ++i )
 	{
 		musWidth = max( musWidth, StringPixLength( mEntryVector[i].second, MYBOX_FONT_DEF ) );
 	}
@@ -463,8 +462,7 @@ IMPDialogueChooseBox::Create( UINT16 sX, UINT16 sY )
 	
 	sY += IMPDIALOGUECHOOSEBOX_BAR_Y_OFFSET;
 
-	UINT16 size = mEntryVector.size( );
-	for ( UINT16 i = 0; i < size; ++i )
+	for ( size_t i = 0, size = mEntryVector.size(); i < size; ++i )
 	{
 		if ( !mChoiceRegionDefined[i] )
 		{

@@ -132,11 +132,7 @@ void DisplayDefaults_IM()
 	GetVideoObject( &hPixHandle, guiMercCompareLogoImage );
 
 	SetFontShadow( MERCOMP_FONT_SHADOW );
-
-	CHAR16 sText[800];
-	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
-	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
-
+	
 	WebPageTileBackground( 4, 4, BACKGROUND_WIDTH, CAMPAIGN_HISTORY_BACKGROUND_HEIGHT, guiInsuranceBackGround );
 
 	//Display the title slogan
@@ -145,8 +141,8 @@ void DisplayDefaults_IM()
 	//Display the subtitle slogan
 	DrawTextToScreen( szIntelWebsiteText[TEXT_INTEL_SUBTITLE], CAMPAIGN_HISTORY_SUBTITLE_X, CAMPAIGN_HISTORY_SUBTITLE_Y, 0, CAMPHIS_FONT_BIG, MERCOMP_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, 0 );
 
-	usPosX = CAMPAIGN_HISTORY_LINK_START_X;
-	usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
+	UINT16 usPosX = CAMPAIGN_HISTORY_LINK_START_X;
+	UINT16 usPosY = CAMPAIGN_HISTORY_LINK_START_Y;
 	for ( int i = 0; i<NUM_LINKS; ++i )
 	{
 		DisplayWrappedString( usPosX, usPosY, CAMPAIGN_HISTORY_LINK_TEXT_WIDTH, 2, CAMPHIS_FONT_MED, MERCOMP_FONT_COLOR, szIntelWebsiteText[TEXT_INTEL_LINK_1 + i], FONT_MCOLOR_BLACK, FALSE, 0 );

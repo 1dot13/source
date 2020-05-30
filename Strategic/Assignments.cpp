@@ -8894,8 +8894,9 @@ void HandleTrainWorkers()
 		}
 	}
 
-	if ( totalworkersadded * gGameExternalOptions.usWorkerTrainingCost > 0 )
-		AddTransactionToPlayersBook( WORKERS_TRAINED, 0, GetWorldTotalMin( ), -(totalworkersadded * gGameExternalOptions.usWorkerTrainingCost) );
+	INT32 totalcost = totalworkersadded * gGameExternalOptions.usWorkerTrainingCost;
+	if ( totalcost > 0 )
+		AddTransactionToPlayersBook( WORKERS_TRAINED, 0, GetWorldTotalMin( ), -totalcost );
 }
 
 // Flugente: fortification

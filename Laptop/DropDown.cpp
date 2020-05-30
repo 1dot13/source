@@ -95,8 +95,8 @@ DropDownBase::Init( UINT16 sX, UINT16 sY )
 	mFirstShownEntry = max( 0, min( mFirstShownEntry, mEntryVector.size( ) - 1 - mNumDisplayedEntries ) );
 
 	musWidth = 0;
-	UINT16 size = mEntryVector.size( );
-	for ( UINT16 i = 0; i < size; ++i )
+	size_t size = mEntryVector.size();
+	for ( size_t i = 0; i < size; ++i )
 	{
 		musWidth = max( musWidth, StringPixLength( mEntryVector[i].second, DEF_DROPDOWN_FONT ) );
 	}

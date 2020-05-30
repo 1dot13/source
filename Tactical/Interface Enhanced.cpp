@@ -14198,13 +14198,13 @@ void DrawAdvancedValues( OBJECTTYPE *gpItemDescObject )
 			{
 				SetFontForeground( a ? ITEMDESC_FONTPOSITIVE : ITEMDESC_FONTNEGATIVE );
 
-				swprintf( pStr, L"%s/%s", a ? "Y" : "N", b ? "Y" : "N" );
+				swprintf( pStr, L"%s/%s", a ? L"Y" : L"N", b ? L"Y" : L"N" );
 			}
 			else
 			{
 				SetFontForeground( 5 );
 
-				swprintf( pStr, L"%s", a ? "Y" : "N" );
+				swprintf( pStr, L"%s", a ? L"Y" : L"N" );
 			}
 
 			FindFontCenterCoordinates( sLeft, sTop, sWidth, sHeight, pStr, BLOCKFONT2, &usX, &usY );

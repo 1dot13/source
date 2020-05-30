@@ -876,9 +876,9 @@ UINT32 DrawMap( void )
 									if ( DoesSamCoverSector( i, SECTOR( cnt, cnt2 ), &samworking ) && samworking )
 									{
 										if ( i == 0 )	a = TRUE;
-										if ( i == 1 )	b = TRUE;
-										if ( i == 2 )	c = TRUE;
-										if ( i == 3 )	d = TRUE;
+										else if ( i == 1 )	b = TRUE;
+										else if ( i == 2 )	c = TRUE;
+										else if ( i == 3 )	d = TRUE;
 									}
 								}
 
@@ -1016,13 +1016,10 @@ UINT32 DrawMap( void )
 			DrawTownMilitiaForcesOnMap( );
 		}
 		
-		if ( ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS ) && !gfInChangeArrivalSectorMode )
+		if ( is_networked	//haydent (allow client to see map deployment bullseye)
+		|| (( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS ) && !gfInChangeArrivalSectorMode ) )
 		{
 			DrawBullseye();
-		}
-		else if(is_networked)
-		{
-			DrawBullseye();//haydent (allow client to see map deployment bullseye)
 		}
 	}
 	else
@@ -5924,8 +5921,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 	INT32 iCounter = 0, iNumberUnderControl = 0, iNumberOfGreens = 0, iNumberOfRegulars = 0, iNumberOfElites = 0, iTotalNumberOfTroops = 0;
 	INT32 iNumberLeftOverGreen = 0, iNumberLeftOverRegular = 0, iNumberLeftOverElite = 0;
 	INT16 sBaseSectorValue = 0, sCurrentSectorValue = 0;
-	INT16 sSectorX = 0, sSectorY = 0, sSector = 0;
+	INT16 sSectorX = 0, sSectorY = 0;
 	INT16 sTotalSoFar = 0;
+	UINT8 usSector = 0;
 
 	// how many sectors in the selected town do we control?
 	iNumberUnderControl = GetTownSectorsUnderControl( ( INT8 ) sSelectedMilitiaTown );
@@ -6007,17 +6005,17 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 
 			if( !StrategicMap[ pTownLocationsList[ iCounter ] ].fEnemyControlled && !NumHostilesInSector( sSectorX, sSectorY, 0 ) )
 			{
-				sSector = SECTOR( sSectorX, sSectorY );
+				usSector = SECTOR( sSectorX, sSectorY );
 
 				// distribute here
-				SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT8 )( iNumberOfGreens / iNumberUnderControl );
-				SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT8 )( iNumberOfRegulars / iNumberUnderControl );
-				SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT8 )( iNumberOfElites / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT8 )( iNumberOfGreens / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT8 )( iNumberOfRegulars / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT8 )( iNumberOfElites / iNumberUnderControl );
 
 				// Flugente: indivdual militia
-				DropIndividualMilitia( sSector, GREEN_MILITIA, (UINT8)(iNumberOfGreens / iNumberUnderControl) );
-				DropIndividualMilitia( sSector, REGULAR_MILITIA, (UINT8)(iNumberOfRegulars / iNumberUnderControl) );
-				DropIndividualMilitia( sSector, ELITE_MILITIA, (UINT8)(iNumberOfElites / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, GREEN_MILITIA, (UINT8)(iNumberOfGreens / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, REGULAR_MILITIA, (UINT8)(iNumberOfRegulars / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, ELITE_MILITIA, (UINT8)(iNumberOfElites / iNumberUnderControl) );
 
 				// Flugente: as we do not move the group militia, we have to make sure we don't accidentally overfill a sector
 				sTotalSoFar = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM );
@@ -6025,38 +6023,38 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 				// add leftovers that weren't included in the div operation
 				if( ( iNumberLeftOverGreen ) && ( sTotalSoFar < iMaxMilitiaPerSector ) )
 				{
-					SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ]++;
+					SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ]++;
 					++sTotalSoFar;
 					--iNumberLeftOverGreen;
 
 					// Flugente: indivdual militia
-					DropIndividualMilitia( sSector, GREEN_MILITIA, 1 );
+					DropIndividualMilitia( usSector, GREEN_MILITIA, 1 );
 				}
 
 				if( ( iNumberLeftOverRegular )&&( sTotalSoFar < iMaxMilitiaPerSector ) )
 				{
-					SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]++;
+					SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ]++;
 					++sTotalSoFar;
 					--iNumberLeftOverRegular;
 
 					// Flugente: indivdual militia
-					DropIndividualMilitia( sSector, REGULAR_MILITIA, 1 );
+					DropIndividualMilitia( usSector, REGULAR_MILITIA, 1 );
 				}
 
 				if( ( iNumberLeftOverElite )&&( sTotalSoFar < iMaxMilitiaPerSector ) )
 				{
-					SectorInfo[ sSector ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ]++;
+					SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ]++;
 					++sTotalSoFar;
 					--iNumberLeftOverElite;
 
 					// Flugente: indivdual militia
-					DropIndividualMilitia( sSector, ELITE_MILITIA, 1 );
+					DropIndividualMilitia( usSector, ELITE_MILITIA, 1 );
 				}
 
 				// if this sector is currently loaded
 				if( (gWorldSectorX != 0) &&
 					(gWorldSectorY != 0) && 
-					(sSector == SECTOR( gWorldSectorX, gWorldSectorY )) )
+					( usSector == SECTOR( gWorldSectorX, gWorldSectorY )) )
 				{
 					gfStrategicMilitiaChangesMade = TRUE;
 				}
