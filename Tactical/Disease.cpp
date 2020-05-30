@@ -339,7 +339,7 @@ FLOAT GetWorkforceEffectivenessWithDisease( INT8 bTownId, UINT8 usTeam )
 
 	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		for ( UINT8 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			UINT16 strategicsector = CALCULATE_STRATEGIC_INDEX( sX, sY );
 

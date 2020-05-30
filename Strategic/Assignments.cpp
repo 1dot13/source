@@ -2904,7 +2904,7 @@ void UpdateAssignments()
 	// run through sectors and handle each type in sector
 	for(sX = 0 ; sX < MAP_WORLD_X; ++sX )
 	{
-		for( sY =0; sY < MAP_WORLD_X; ++sY )
+		for( sY =0; sY < MAP_WORLD_Y; ++sY )
 		{
 			for( bZ = 0; bZ < 4; ++bZ )
 			{
@@ -6203,7 +6203,7 @@ void HandleRadioScanInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	// run through sectors and handle each type in sector
 	for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		for(INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			// is this sector within range?
 			FLOAT euklid_dist = (sX - sMapX)*(sX - sMapX) + (sY - sMapY)*(sY - sMapY);
@@ -6259,7 +6259,7 @@ void ClearSectorScanResults()
 {
 	for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		for(INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			SectorInfo[ SECTOR( sX, sY ) ].uiFlags &= ~(SF_ASSIGN_NOTICED_ENEMIES_HERE|SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER);
 		}
@@ -6377,7 +6377,7 @@ void HandleStrategicDiseaseAndBurial()
 	// turn corpses into disease once they are old enough
 	for ( INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for ( INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		for ( INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( sX, sY )] );
 			
@@ -7039,7 +7039,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier )
 	// run through sectors and handle each type in sector
 	for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		for(INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			if( SectorInfo[ SECTOR( sX, sY ) ].uiFlags & ( SF_ASSIGN_NOTICED_ENEMIES_HERE | SF_ASSIGN_NOTICED_ENEMIES_KNOW_NUMBER ) )
 			{

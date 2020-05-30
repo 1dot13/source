@@ -6829,7 +6829,7 @@ BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT8>& arSectorIDVector )
 
     for(INT16 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
     {
-        for(INT16 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+        for(INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
         {
 			// if sector is controlled by enemies, it's not ours (duh!)
 			if ( StrategicMap[sX + sY * MAP_WORLD_X].fEnemyControlled )

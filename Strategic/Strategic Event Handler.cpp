@@ -831,7 +831,7 @@ void HandleEarlyMorningEvents( void )
 	// Flugente: no reason to put this into LUA
 	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
 	{
-		for ( UINT8 sY = 1; sY < MAP_WORLD_X - 1; ++sY )
+		for ( UINT8 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
 		{
 			UINT8 sector = SECTOR( sX, sY );
 
