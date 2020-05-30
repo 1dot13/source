@@ -2814,10 +2814,14 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"Eavesdrop",
 	L"Call reinforcements",
 	L"Switch off radio set",
+	L"Radio: Activate all turncoats",
 
 	// spy
 	L"Hide assignment",
 	L"Get Intel assignment",
+	L"Recruit turncoat",
+	L"Activate turncoat",
+	L"Activate all turncoats",
 
 	// various
 	L"Spotter",
@@ -2835,10 +2839,14 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Use your radio equipment to continously listen for enemy movement.",
 	L"Call in reinforcements from neighbouring sectors.",
 	L"Turn off radio set.",
+	L"Order all previously turned soldiers in the sector to betray their comrades and join you.",
 
 	// spy
 	L"Assignment: hide among the population.",
 	L"Assignment: hide among the population and gather intel.",
+	L"Try to turn an enemy into a turncoat.",
+	L"Order previously turned soldier to betray their comrades and join you.",
+	L"Order all previously turned soldiers in the sector to betray their comrades and join you.",
 
 	// various
 	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",
@@ -2867,6 +2875,11 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - single merc\n",
 	L" - no alarm raised\n",
 	L" - civilian or soldier disguise\n",
+	L" - being our turn\n",
+	L" - turned enemy soldier\n",
+	L" - enemy soldier\n",
+	L" - surface sector\n",
+	L" - not being under suspicion\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -4075,6 +4088,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s picked up %s",
 
 	L"%s has stopped chatting with %s",
+	L"Attempt to turn",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -11260,6 +11274,7 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"Hired from Kerberus on Day %d, %d:%02d in %s",
 	L"Defected to us on  Day %d, %d:%02d in %s",
 	L"Contract terminated on Day %d, %d:%02d",
+	L"Defected to us on Day %d, %d:%02d in %s",
 };
 
 STR16 szIndividualMilitiaTraitRequirements[] =
@@ -11595,6 +11610,21 @@ STR16	szFactoryText[] =
 
 	L"Preproducts",	// 5
 	L"h/item",
+};
+
+STR16	szTurncoatText[] =
+{
+	L"%s now secretly works for us!",
+	L"%s is not swayed by our offer. Suspicion against us rises...",
+	L"Suspicion against us is high. We should stop trying to turn more soldiers to our side and lay low for a while.",
+	L"Recruit approach (%d)",
+	L"Use seduction (%d)",
+
+	L"Bribe ($%d) (%d)",	// 5
+	L"Offer %d intel (%d)",
+	L"How to convince the soldier to join your forces?",
+	L"Do it",
+	L"%d turncoats present",
 };
 
 #endif //ENGLISH

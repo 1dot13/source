@@ -2577,6 +2577,10 @@ void LoadSkillTraitsExternalSettings()
 
 	// Flugente: as the 'redisguise after x turns' part is missing the x turns part, this is now permanently set to TRUE until that changes
 	gSkillTraitValues.fCOStripIfUncovered					= TRUE;// iniReader.ReadBoolean( "Covert Ops", "COVERT_STRIPIFUNCOVERED", FALSE );
+
+	gSkillTraitValues.fCOTurncoats							= iniReader.ReadBoolean( "Covert Ops", "COVERT_TURNCOATS", TRUE );
+	gSkillTraitValues.fCOTurncoats_SectorActivationRequiresRadioOperator = iniReader.ReadBoolean( "Covert Ops", "COVERT_TURNCOATS_SECTOR_ACTIVATION_REQUIRES_RADIOOPERATOR", FALSE );
+	gSkillTraitValues.sCOTurncoats_PlayerConvinctionBonus	= iniReader.ReadInteger( "Covert Ops", "COVERT_TURNCOATS_PLAYER_CONVINCTION_BONUS", 0, -100, 100 );
 	
 	// Flugente: RADIO OPERATOR
 	gSkillTraitValues.fROAllowArtillery					= iniReader.ReadBoolean("Radio Operator","RADIO_OPERATOR_ARTILLERY", TRUE);

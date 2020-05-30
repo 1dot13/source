@@ -75,7 +75,14 @@ typedef struct ENEMYGROUP
 	UINT8 ubTanksInBattle;
 	UINT8 ubNumJeeps;
 	UINT8 ubJeepsInBattle;
-	INT8	bPadding[16];
+
+	// Flugente: number of turncoats
+	UINT8	ubNumAdmins_Turncoat;
+	UINT8	ubNumTroops_Turncoat;
+	UINT8	ubNumElites_Turncoat;
+	UINT8	bPadding_1;
+
+	INT8	bPadding[12];
 }ENEMYGROUP;
 
 //NOTE:	ALL FLAGS ARE CLEARED WHENEVER A GROUP ARRIVES IN A SECTOR, OR ITS WAYPOINTS ARE

@@ -357,6 +357,9 @@ extern UINT8 NumZombiesInSector();
 // Flugente: offer the enemy the chance to surrender
 void HandleSurrenderOffer( SOLDIERTYPE* pSoldier );
 
+// Flugente: attempt to convince a soldier to become a turncoat
+void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier );
+
 // Flugente: disguised mercs can distract enemies by talking to them. In order to display that, we sometimes display excerpts of their 'chats'
 void CheckChatPartners();
 
@@ -401,6 +404,7 @@ UINT8 HighestEnemyOfficersInSector(UINT8& aType);
 
 // count all soldiers in the current sector that have a specific flag set
 UINT16 NumSoldiersWithFlagInSector(UINT8 aTeam, UINT32 aFlag);
+UINT16 NumSoldiersofClassWithFlag2InSector( UINT8 aTeam, UINT8 aSoldierClass, UINT32 aFlag );
 INT32 GetClosestSoldierWithFlag( UINT8 aTeam, UINT32 aFlag );
 
 // Flugente: VIP targets
@@ -425,6 +429,8 @@ void VIPFleesToMeduna();
 
 // Flugente: is any member of a specific civilian faction still alive in the current sector?
 BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup );
+
+BOOLEAN IsFreeSlotAvailable( int aTeam );
 
 #endif
 

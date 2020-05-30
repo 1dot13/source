@@ -259,6 +259,7 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"+%d%s de chance de toucher avec une arme d'espion\n",
 	L"+%d%s de chance de tuer un ennemi instantanément avec une arme d'espion\n",
 	L"Le nombre de PA pour se déguiser, est réduit de %d%s\n",
+	L"Can convince enemy soldiers to secretly change sides.\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]= 

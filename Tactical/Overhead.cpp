@@ -114,6 +114,8 @@
 #include "DynamicDialogue.h"			// added by Flugente for HandleDynamicOpinions()
 #include "DropDown.h"					// added by Flugente
 #include "Creature Spreading.h"			// added by Flugente forResetCreatureAttackVariables()
+#include "finances.h"					// added by Flugente
+#include "MilitiaIndividual.h"			// added by Flugente
 #endif
 #include "connect.h"
 
@@ -153,6 +155,10 @@ class OBJECTTYPE;
 class SOLDIERTYPE;
 
 extern void HandleBestSightingPositionInRealtime();
+extern INT32 GetCurrentBalance( void );
+
+extern CHAR16		gzUserDefinedButton1[128];
+extern CHAR16		gzUserDefinedButton2[128];
 
 void UpdateFastForwardMode(SOLDIERTYPE* pSoldier, INT8 bAction); // sevenfm: to call in HandleAtNewGridNo
 
@@ -4214,15 +4220,13 @@ void SetSoldierNeutral( SOLDIERTYPE * pSoldier )
 }
 void MakeCivHostile(SOLDIERTYPE *pSoldier)
 {
-	INT8 bNewSide;
-
     if ( pSoldier->ubBodyType == COW )
     {
         return;
     }
 
 	// default is hostile to player, allied to army
-    bNewSide = 1;
+	INT8 bNewSide = 1;
 
     switch( pSoldier->ubProfile )
     {
@@ -4267,6 +4271,11 @@ void MakeCivHostile(SOLDIERTYPE *pSoldier)
 	{
 		bNewSide = zCivGroupName[pSoldier->ubCivilianGroup].bSide;
 	}
+	// Flugente: enemies are already hostile, let's assume we want to make them friendly instead
+	else if ( pSoldier->bTeam == ENEMY_TEAM )
+	{
+		bNewSide = 0;
+	}
 
     if ( !pSoldier->aiData.bNeutral && bNewSide == pSoldier->bSide )
     {
@@ -4301,6 +4310,63 @@ void MakeCivHostile(SOLDIERTYPE *pSoldier)
             // change orders
             pSoldier->aiData.bOrders = FARPATROL;
         }
+
+		// Flugente: turncoats
+		if ( pSoldier->bTeam == ENEMY_TEAM )
+		{
+			// change to enemy team
+			SetSoldierNonNeutral( pSoldier );
+			pSoldier->bSide = bNewSide;
+
+			// remember old class and switch to its equivalent
+			UINT8 oldclass = pSoldier->ubSoldierClass;
+			UINT16 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+
+			// extract militia profile from pSoldier, so that a fitting profile is ready to be taken during creation
+			CreateNewIndividualMilitiaFromSoldier( pSoldier, MO_DEFECTOR );
+
+			pSoldier = ChangeSoldierTeam( pSoldier, MILITIA_TEAM );
+
+			// it doesn't make sense to force a militia reset when all changes are in the sector, so set this back to original value afterwards
+			//BOOLEAN tmp = gfStrategicMilitiaChangesMade;
+						
+			//gfStrategicMilitiaChangesMade = tmp;
+			
+			if ( oldclass == SOLDIER_CLASS_ARMY )
+			{
+				pSoldier->ubSoldierClass = SOLDIER_CLASS_REG_MILITIA;
+
+				SectorInfo[sector].ubNumTroops = max( 0, SectorInfo[sector].ubNumTroops - 1 );
+				SectorInfo[sector].ubTroopsInBattle = max( 0, SectorInfo[sector].ubTroopsInBattle - 1 );
+			}
+			else if ( oldclass == SOLDIER_CLASS_ELITE )
+			{
+				pSoldier->ubSoldierClass = SOLDIER_CLASS_ELITE_MILITIA;
+
+				SectorInfo[sector].ubNumElites = max( 0, SectorInfo[sector].ubNumElites - 1 );
+				SectorInfo[sector].ubElitesInBattle = max( 0, SectorInfo[sector].ubElitesInBattle - 1 );
+			}
+			else
+			{
+				pSoldier->ubSoldierClass = SOLDIER_CLASS_GREEN_MILITIA;
+
+				SectorInfo[sector].ubNumAdmins = max( 0, SectorInfo[sector].ubNumAdmins - 1 );
+				SectorInfo[sector].ubAdminsInBattle = max( 0, SectorInfo[sector].ubAdminsInBattle - 1 );
+			}
+
+			StrategicAddMilitiaToSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass - 4, 1 );
+
+			// rehandle sight for everybody
+			SOLDIERTYPE*		pTeamSoldier;
+			UINT16 iLoop = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+			for ( pTeamSoldier = MercPtrs[iLoop]; iLoop <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++iLoop, ++pTeamSoldier )
+			{
+				if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
+				{
+					RecalculateOppCntsDueToNoLongerNeutral( pTeamSoldier );
+				}
+			}
+		}
 
 		pSoldier->bSide = bNewSide;
 
@@ -6902,6 +6968,10 @@ void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 					// Flugente: VIPs
 					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
 						DeleteVIP( pTeamSoldier->sSectorX, pTeamSoldier->sSectorY );
+
+					// Flugente: turncoats
+					if ( pTeamSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
+						RemoveOneTurncoat( sMapX, sMapY, pTeamSoldier->ubSoldierClass );
 
 					// Flugente: campaign stats
 					gCurrentIncident.AddStat( pTeamSoldier, CAMPAIGNHISTORY_TYPE_PRISONER );
@@ -10520,7 +10590,138 @@ void HandleDisplayingOfPlayerLostDialogue( )
 }
 #endif
 
-static UINT8 prisonerdialoguetargetID = 0;
+static UINT8 prisonerdialoguetargetID = NOBODY;
+
+void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
+{
+	// check ubExitValue to see whether we actually want to go through (2)
+	if ( ubExitValue != 2
+		|| prisonerdialoguetargetID == NOBODY 
+		|| gusSelectedSoldier == NOBODY )
+		return;
+
+	SOLDIERTYPE* pSoldier = MercPtrs[prisonerdialoguetargetID];
+
+	if ( !pSoldier )
+		return;
+
+	INT16 approachselected = DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance().GetSelectedEntryKey();
+
+	UINT8 approachchance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, approachselected );
+
+	// you can never turn a VIP (though we don't tell the player if someone is a VIP, lest they have an exploit to find out)
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP )
+		approachchance = 0;
+
+	// as using random numbers to pass the check would result in players savescumming, use a number based on the soldier's stats
+	UINT32 soldierconsistentnumber = ( 23 * EffectiveAgility( pSoldier, FALSE ) + 83 * EffectiveExplosive( pSoldier ) + 19 * EffectiveMarksmanship( pSoldier ) + 92 * pSoldier->stats.bLifeMax ) % 100;
+
+	if ( soldierconsistentnumber < approachchance )
+	{
+		pSoldier->usSoldierFlagMask2 |= SOLDIER_TURNCOAT;
+
+		AddOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass );
+
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTurncoatText[0], pSoldier->GetName() );
+
+		// increase intel penalty. We can only try to convert enemies if the penalty is low, and having a high penalty means we can't mine intel for a few hours but have to hide
+		MercPtrs[gusSelectedSoldier]->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 1;
+		
+		StatChange( MercPtrs[gusSelectedSoldier], EXPERAMT, 2, FROM_SUCCESS );
+		StatChange( MercPtrs[gusSelectedSoldier], LDRAMT, 4, FROM_SUCCESS );
+	}
+	else
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTurncoatText[1], pSoldier->GetName() );
+
+		// increase intel penalty. We can only try to convert enemies if the penalty is low, and having a high penalty means we can't mine intel for a few hours but have to hide
+		MercPtrs[gusSelectedSoldier]->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 4;
+
+		StatChange( MercPtrs[gusSelectedSoldier], EXPERAMT, 1, FROM_FAILURE );
+		StatChange( MercPtrs[gusSelectedSoldier], LDRAMT, 1, FROM_FAILURE );
+	}
+
+	// explain that suspicion is so high that we have to stop
+	if ( MercPtrs[gusSelectedSoldier]->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] >= 20 )
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szTurncoatText[2] );
+
+	// use up resources spent, regardless of whether or not we were successful
+	if ( approachselected == 3 )
+	{
+		INT32 bribeamount = 10 * min( 10, CurrentPlayerProgressPercentage() );
+
+		// substract money spent
+		AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, MercPtrs[gusSelectedSoldier]->ubProfile, GetWorldTotalMin(), -bribeamount );
+	}
+	else if ( approachselected == 4 )
+	{
+		int intelbribeneeded = max( 2, ( CurrentPlayerProgressPercentage() + 5 ) / 10 );
+
+		AddIntel( -intelbribeneeded, TRUE );
+	}
+
+	//ReduceAttackBusyCount();
+}
+
+CHAR16 gTurncoatDropdownText[4][256];
+
+void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
+{
+	// abort if bad pointer, or not an enemy and not a capturable civilian
+	if ( pSoldier
+		&& pSoldier->bTeam == ENEMY_TEAM
+		&& pSoldier->ubProfile == NO_PROFILE
+		&& !( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
+		&& !gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition
+		&& !pSoldier->RecognizeAsCombatant( gusSelectedSoldier ) )
+	{
+		// remember the target's ID
+		prisonerdialoguetargetID = pSoldier->ubID;
+
+		CHAR16 buf[256];
+		UINT8 ubCurrentProgress = CurrentPlayerProgressPercentage();
+
+		std::vector<std::pair<INT16, STR16> > dropdownvector_1;
+		int cnt = 1;
+
+		UINT8 chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+		swprintf( gTurncoatDropdownText[cnt-1], szTurncoatText[3], chance );
+		dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
+
+		++cnt;
+		chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+		swprintf( gTurncoatDropdownText[cnt - 1], szTurncoatText[4], chance );
+		dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
+
+		++cnt;
+		INT32 balance = GetCurrentBalance();
+		INT32 bribeamount = 10 * min( 10, ubCurrentProgress );
+		if ( bribeamount <= balance )
+		{
+			chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+			swprintf( gTurncoatDropdownText[cnt - 1], szTurncoatText[5], bribeamount, chance );
+			dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
+		}
+
+		++cnt;
+		FLOAT intelreserve = GetIntel();
+		int intelbribeneeded = max( 2, ( ubCurrentProgress + 5 ) / 10 );
+		if ( intelbribeneeded <= intelreserve )
+		{
+			chance = MercPtrs[gusSelectedSoldier]->GetTurncoatConvinctionChance( prisonerdialoguetargetID, cnt );
+			swprintf( gTurncoatDropdownText[cnt - 1], szTurncoatText[6], intelbribeneeded, chance );
+			dropdownvector_1.push_back( std::make_pair( cnt, gTurncoatDropdownText[cnt - 1] ) );
+		}
+
+		DropDownTemplate<DROPDOWNNR_MSGBOX_1>::getInstance().SetEntries( dropdownvector_1 );
+
+		wcscpy( gzUserDefinedButton1, szTurncoatText[8] );
+		wcscpy( gzUserDefinedButton2, pEpcMenuStrings[4] );
+
+		DoMessageBox( MSG_BOX_BASIC_STYLE, szTurncoatText[7], guiCurrentScreen, ( MSG_BOX_FLAG_GENERIC_TWO_BUTTONS | MSG_BOX_FLAG_DROPDOWN_1 ),
+			TurnCoatAttemptMessageBoxCallBack, NULL );
+	}
+}
 
 void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 {
@@ -10679,11 +10880,11 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             }
         }
     }
-    // we offered to surrender OURSELVES TO the enemy
+    // we offered to surrender OURSELVES TO the enemy, or are attempting to turn a soldier into a turncoat
     else if ( ubExitValue == 2 )
     {
 		// we cannot surrender to bandits, talk instead
-		if ( MercPtrs[prisonerdialoguetargetID]->bTeam != CREATURE_TEAM )
+		if ( MercPtrs[prisonerdialoguetargetID]->bTeam == CREATURE_TEAM )
 		{
 			// normal dialog
 			StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
@@ -10740,7 +10941,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 	else if ( ubExitValue == 3 )
 	{
 		// Flugente: if we are disguised and talk to a non-profile NPC, we will continue to 'chat' with the enemy as long as we aren't ordered to do something else.
-		// This way we can easily order our spies to 'distract 'enemies'
+		// This way we can easily order our spies to 'distract' enemies
 		if ( GetSoldier( &pSoldier, gusSelectedSoldier ) &&
 			pSoldier->bTeam == gbPlayerNum &&
 			MercPtrs[prisonerdialoguetargetID] &&
@@ -11128,6 +11329,27 @@ UINT16 NumSoldiersWithFlagInSector( UINT8 aTeam, UINT32 aFlag )
 	return num;
 }
 
+UINT16 NumSoldiersofClassWithFlag2InSector( UINT8 aTeam, UINT8 aSoldierClass, UINT32 aFlag )
+{
+	SOLDIERTYPE*		pSoldier;
+	INT32               cnt = 0;
+	UINT16				num = 0;
+
+	for ( cnt = gTacticalStatus.Team[aTeam].bFirstID, pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[aTeam].bLastID; pSoldier++, ++cnt )
+	{
+		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
+		{
+			if ( (pSoldier->usSoldierFlagMask2 & aFlag)
+				&& pSoldier->ubSoldierClass == aSoldierClass )
+			{
+				++num;
+			}
+		}
+	}
+
+	return num;
+}
+
 INT32 GetClosestSoldierWithFlag( UINT8 aTeam, UINT32 aFlag )
 {
 	INT32 sBestGridNo = NOWHERE;
@@ -11409,6 +11631,23 @@ BOOLEAN IsCivFactionMemberAliveInSector( UINT8 usCivilianGroup )
 		{
 			if ( pSoldier->ubCivilianGroup == usCivilianGroup && pSoldier->stats.bLife > 0 )
 				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN		IsFreeSlotAvailable( int aTeam )
+{
+	SOLDIERTYPE *pSoldier;
+	INT32 cnt = gTacticalStatus.Team[aTeam].bFirstID;
+
+	// run through list
+	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[aTeam].bLastID; ++cnt, ++pSoldier )
+	{
+		if ( !pSoldier->bActive )
+		{
+			return TRUE;
 		}
 	}
 

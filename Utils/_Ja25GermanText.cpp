@@ -259,6 +259,7 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"+%d%s Trefferwahrscheinlichkeit mit verdeckten Nahkampfwaffen (z.B. Garotte)\n",
 	L"+%d%s Wahrscheinlichkeit für einen tödlichen Angriff mit verdeckten Nahkampfwaffen (z.B. Garotte)\n",
 	L"Um %d%s verringerte AP-Kosten zum Verkleiden\n",
+	L"Kann feindliche Soldaten zum Überlaufen überreden.\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=

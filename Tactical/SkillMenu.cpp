@@ -249,7 +249,7 @@ SkillSelection::Setup( UINT32 aVal )
 					pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_SkillSelection, uiCounter ) );
 
 					// if we cannot perform this skill, grey it out
-					if ( !( pSoldier->CanUseSkill( uiCounter, TRUE ) ) )
+					if ( !( pSoldier->CanUseSkill( uiCounter, TRUE, sTraitsMenuTargetGridNo ) ) )
 					{
 						// Set this option off.
 						pOption->setAvail( new popupCallbackFunction<bool, void*>( &Popup_OptionOff, NULL ) );
@@ -309,7 +309,7 @@ SkillSelection::Setup( UINT32 aVal )
 			{
 				for(UINT32 uiCounter = SKILLS_RADIO_FIRST; uiCounter <= SKILLS_RADIO_LAST; ++uiCounter)
 				{
-					SetRegionFastHelpText( &(GetPopup()->MenuRegion[cnt++]), pSoldier->PrintSkillDesc(uiCounter) );
+					SetRegionFastHelpText( &(GetPopup()->MenuRegion[cnt++]), pSoldier->PrintSkillDesc( uiCounter, sTraitsMenuTargetGridNo ) );
 				}
 			}
 			break;
@@ -318,7 +318,7 @@ SkillSelection::Setup( UINT32 aVal )
 			{
 				for ( UINT32 uiCounter = SKILLS_INTEL_FIRST; uiCounter <= SKILLS_INTEL_LAST; ++uiCounter )
 				{
-					SetRegionFastHelpText( &( GetPopup()->MenuRegion[cnt++] ), pSoldier->PrintSkillDesc( uiCounter ) );
+					SetRegionFastHelpText( &( GetPopup()->MenuRegion[cnt++] ), pSoldier->PrintSkillDesc( uiCounter, sTraitsMenuTargetGridNo ) );
 				}
 			}
 			break;
@@ -327,7 +327,7 @@ SkillSelection::Setup( UINT32 aVal )
 			{
 				for(UINT32 uiCounter = SKILLS_VARIOUS_FIRST; uiCounter <= SKILLS_VARIOUS_LAST; ++uiCounter)
 				{
-					SetRegionFastHelpText( &(GetPopup()->MenuRegion[cnt++]), pSoldier->PrintSkillDesc(uiCounter) );
+					SetRegionFastHelpText( &(GetPopup()->MenuRegion[cnt++]), pSoldier->PrintSkillDesc(uiCounter, sTraitsMenuTargetGridNo ) );
 				}
 			}
 			break;

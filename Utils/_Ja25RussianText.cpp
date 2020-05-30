@@ -259,6 +259,7 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"+%d%s к шансу попадания скрытным оружием ближнего боя.\n",
 	L"+%d%s к шансу на смертельный удар скрытным оружием ближнего боя.\n",
 	L"ОД на переодевание снижены на %d%s.\n",
+	L"Can convince enemy soldiers to secretly change sides.\n",	// TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=

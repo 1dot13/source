@@ -2395,9 +2395,9 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				fDoIcon_Assignment = TRUE;
 				fShowCustomText = TRUE;
 
-				if (pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY])
+				if (pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] > 10)
 				{
-					swprintf(sString, L"Hide %dh", pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY]);
+					swprintf(sString, L"Hide %dh", pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] / 10);
 				}
 				else
 				{

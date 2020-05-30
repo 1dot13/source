@@ -10168,6 +10168,14 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 			if ( this->ubBodyType != CROW && this->ubBodyType != COW )
 				HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIV_ATTACKER, TRUE, TRUE );
 		}
+
+		// if we are a turncoat, lose the flag if we were attacked by player forces
+		if ( (this->usSoldierFlagMask2 & SOLDIER_TURNCOAT) && MercPtrs[ubAttacker]->bSide == 0 )
+		{
+			this->usSoldierFlagMask2 &= ~SOLDIER_TURNCOAT;
+
+			RemoveOneTurncoat( this->sSectorX, this->sSectorY, this->ubSoldierClass );
+		}
 	}
 
 	// CJC Jan 21 99: add check to see if we are hurting an enemy in an enemy-controlled
@@ -16200,7 +16208,7 @@ void	SOLDIERTYPE::LooseDisguise( void )
 	// rehandle sight for everybody
 	SOLDIERTYPE*		pSoldier;
 	UINT8 iLoop = gTacticalStatus.Team[OUR_TEAM].bFirstID;
-	for ( pSoldier = MercPtrs[iLoop]; iLoop <= gTacticalStatus.Team[LAST_TEAM].bLastID; ++iLoop, ++pSoldier )
+	for ( pSoldier = MercPtrs[iLoop]; iLoop <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++iLoop, ++pSoldier )
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
 		{
@@ -17794,6 +17802,16 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 			canuse = TRUE;
 		break;
 
+	case SKILLS_RADIO_ACTIVATE_TURNCOATS_ALL:
+		if ( ( !fAPCheck || EnoughPoints( this, APBPConstants[AP_RADIO], APBPConstants[BP_RADIO], FALSE ) )
+			&& CanUseRadio()
+			&& gSkillTraitValues.fCOTurncoats
+			&& !gbWorldSectorZ
+			&& gTacticalStatus.ubInterruptPending == DISABLED_INTERRUPT
+			&& IsFreeSlotAvailable( MILITIA_TEAM ) )
+			canuse = TRUE;
+		break;
+
 	case SKILLS_INTEL_CONCEAL:
 	case SKILLS_INTEL_GATHERINTEL:
 		// in order to conceal, we need:
@@ -17852,6 +17870,52 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 			{
 				canuse = FALSE;
 			}
+		}
+		break;
+
+	case SKILLS_CREATE_TURNCOAT:
+		// in order to try to create a turncoat, we need:
+		// - a non-profile, not-already-turncoat enemy soldier
+		// - enemy team not aware of us
+		// - valid disguise
+		{
+			SOLDIERTYPE* pSoldier = SimpleFindSoldier( sGridNo, gsInterfaceLevel );
+			if ( pSoldier
+				&& InPositionForTurncoatAttempt( pSoldier->ubID ) )
+			{
+				canuse = TRUE;
+			}
+		}
+		break;
+
+	case SKILLS_ACTIVATE_TURNCOATS:
+		// not during an interrupt
+		if ( gSkillTraitValues.fCOTurncoats
+			&& !gbWorldSectorZ
+			&& gTacticalStatus.ubInterruptPending == DISABLED_INTERRUPT
+			&& IsFreeSlotAvailable( MILITIA_TEAM ) )
+		{
+			SOLDIERTYPE* pSoldier = SimpleFindSoldier( sGridNo, gsInterfaceLevel );
+			if ( pSoldier
+				&& pSoldier->bTeam == ENEMY_TEAM
+				&& pSoldier->ubProfile == NO_PROFILE
+				&& ( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
+				&& SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
+			{
+				canuse = TRUE;
+			}
+		}
+		break;
+
+	case SKILLS_ACTIVATE_TURNCOATS_ALL:
+		// not during an interrupt
+		if ( gSkillTraitValues.fCOTurncoats
+			&& !gbWorldSectorZ
+			&& gTacticalStatus.ubInterruptPending == DISABLED_INTERRUPT
+			&& !gSkillTraitValues.fCOTurncoats_SectorActivationRequiresRadioOperator
+			&& IsFreeSlotAvailable( MILITIA_TEAM ) )
+		{
+			canuse = TRUE;
 		}
 		break;
 
@@ -17928,6 +17992,10 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 		return SwitchOffRadio( );
 		break;
 
+	case SKILLS_RADIO_ACTIVATE_TURNCOATS_ALL:
+		return RadioOrderAllTurnCoatToSwitchSides();
+		break;
+
 	case SKILLS_INTEL_CONCEAL:
 	case SKILLS_INTEL_GATHERINTEL:
 		{
@@ -17953,6 +18021,18 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 
 			return TRUE;
 		}
+		break;
+
+	case SKILLS_CREATE_TURNCOAT:
+		AttemptToCreateTurncoat ( ID );
+		break;
+
+	case SKILLS_ACTIVATE_TURNCOATS:
+		OrderTurnCoatToSwitchSides( ID );
+		break;
+
+	case SKILLS_ACTIVATE_TURNCOATS_ALL:
+		OrderAllTurnCoatToSwitchSides();
 		break;
 
 	case SKILLS_SPOTTER:
@@ -18001,9 +18081,9 @@ BOOLEAN SOLDIERTYPE::IsAIAllowedtoUseSkill( INT8 iSkill )
 static CHAR16 skilldescarray[500];
 
 // print a small description of the skill if we can use it, or its requirements if we cannot
-STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
+STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill, INT32 sGridNo )
 {
-	if ( CanUseSkill( iSkill, TRUE ) )
+	if ( CanUseSkill( iSkill, TRUE, sGridNo ) )
 	{
 		return pTraitSkillsMenuDescStrings[iSkill];
 	}
@@ -18036,6 +18116,25 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 
 			break;
 
+		case SKILLS_RADIO_ACTIVATE_TURNCOATS_ALL:
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], gzMercSkillTextNew[RADIO_OPERATOR_NT] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_TXT], New113Message[MSG113_WORKING_RADIO_SET] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_NOT_DURING_INTERRUPT] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_TURNED_ENEMY] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_SURFACELEVEL] );
+			wcscat( skilldescarray, atStr );
+
+			break;
+
 		case SKILLS_INTEL_CONCEAL:
 		case SKILLS_INTEL_GATHERINTEL:
 
@@ -18052,6 +18151,39 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill )
 			wcscat( skilldescarray, atStr );
 
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_DISGUISE_CIV_OR_MIL] );
+			wcscat( skilldescarray, atStr );
+
+			break;
+
+		case SKILLS_CREATE_TURNCOAT:
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_ENEMY] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_NOALARM] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_DISGUISE_CIV_OR_MIL] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_SURFACELEVEL] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_STRATEGIC_SUSPICION] );
+			wcscat( skilldescarray, atStr );
+
+			break;
+
+		case SKILLS_ACTIVATE_TURNCOATS:
+		case SKILLS_ACTIVATE_TURNCOATS_ALL:
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_NOT_DURING_INTERRUPT] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_TURNED_ENEMY] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_SURFACELEVEL] );
 			wcscat( skilldescarray, atStr );
 
 			break;
@@ -18832,6 +18964,21 @@ BOOLEAN SOLDIERTYPE::SwitchOffRadio( )
 {
 	// erasing the flags is enough
 	usSoldierFlagMask &= ~(SOLDIER_RADIO_OPERATOR_JAMMING | SOLDIER_RADIO_OPERATOR_SCANNING | SOLDIER_RADIO_OPERATOR_LISTENING);
+
+	return TRUE;
+}
+
+BOOLEAN SOLDIERTYPE::RadioOrderAllTurnCoatToSwitchSides()
+{
+	// not possible if already scanning
+	if ( !gSkillTraitValues.fCOTurncoats )
+		return FALSE;
+
+	// use the radio, this handles animation, batteries etc.
+	if ( !UseRadio() )
+		return FALSE;
+
+	OrderAllTurnCoatToSwitchSides();
 
 	return TRUE;
 }
@@ -20233,7 +20380,7 @@ UINT8		SOLDIERTYPE::GetUncoverRisk()
 	// if we do this disguised as a soldier, risk will be much higer, as we are under much more scrutiny. This makes up for the increased gain in soldier disguise
 	// less risk if we are asleep, just hiding or forced to hide
 	UINT8 typemultiplier = ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER ) ? 5 : 2;
-	if ( ( this->bAssignment == CONCEALED ) || this->flags.fMercAsleep || this->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+	if ( ( this->bAssignment == CONCEALED ) || this->flags.fMercAsleep || this->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] > 10 )
 		typemultiplier = 1;
 		
 	// we now take the sector coolness as a measurement of how important the sector is, and thus how intel we gain
@@ -20259,7 +20406,7 @@ FLOAT		SOLDIERTYPE::GetIntelGain()
 		return 0.0f;
 
 	// if we're asleep, or on a penalty, we accomplish nothing
-	if ( this->flags.fMercAsleep || this->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] )
+	if ( this->flags.fMercAsleep || this->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] > 10 )
 		return 0.0f;
 
 	// the covert trait isn't that important in determining the intel gain. It is much more important in mitigating the risk of exposure, however
@@ -20622,6 +20769,243 @@ UINT8		SOLDIERTYPE::GetThiefEvadeDetectionChance()
 	totalvalue = min( 100, max( 0, totalvalue ) );
 
 	return totalvalue;
+}
+
+BOOLEAN	SOLDIERTYPE::InPositionForTurncoatAttempt( UINT16 usID )
+{
+	if ( !gSkillTraitValues.fCOTurncoats
+		|| gbWorldSectorZ
+		|| gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition )
+		return FALSE;
+
+	if ( this->stats.bLife < OKLIFE
+		|| this->flags.fMercAsleep
+		|| this->bCollapsed
+		|| ( this->usSoldierFlagMask & SOLDIER_POW )
+		|| this->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] > 20
+		|| usID == NOBODY )
+		return FALSE;
+
+	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+
+	if ( !pSoldier
+		|| pSoldier->bTeam != ENEMY_TEAM
+		|| pSoldier->ubProfile != NO_PROFILE
+		|| pSoldier->stats.bLife != pSoldier->stats.bLifeMax
+		|| pSoldier->bCollapsed
+		|| ( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
+		|| !SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass )
+		|| !SeemsLegit( pSoldier->ubID ) )
+		return FALSE;
+
+	// additional checks if we want to know wether we can target a specific location
+	if ( PythSpacesAway( this->sGridNo, pSoldier->sGridNo ) < 10 )
+	{
+		INT32 val = SoldierToVirtualSoldierLineOfSightTest( this, pSoldier->sGridNo, this->pathing.bLevel, gAnimControl[this->usAnimState].ubEndHeight, FALSE, 10 );
+
+		// error if we cannot see the target
+		if ( !val )
+			return FALSE;
+		else
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( UINT16 usID, UINT8 usApproach )
+{
+	if ( usID >= NOBODY )
+		return 0;
+
+	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+
+	if ( !pSoldier
+		|| pSoldier->bTeam != ENEMY_TEAM )
+		return 0;
+
+	if ( this->stats.bLife < OKLIFE )
+		return 0;
+
+	// determine effectiveness of merc	
+	// nominally in [0; 1000]
+	INT32 basestatrating = 6 * EffectiveLeadership( this ) + 40 * EffectiveExpLevel( this, FALSE );
+
+	FLOAT recruitmodifier = ( 100 + this->GetBackgroundValue( BG_PERC_APPROACH_RECRUIT ) ) / 100.0f;
+
+	// personality/disability modifiers
+	FLOAT persmodifier = 1.0f;
+	if ( DoesMercHaveDisability( this, NERVOUS ) )				persmodifier -= 0.10f;
+
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_SOCIABLE ) )		persmodifier += 0.08f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_LONER ) )		persmodifier -= 0.04f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_ASSERTIVE ) )	persmodifier += 0.05f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_AGGRESSIVE ) )	persmodifier -= 0.05f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_PHLEGMATIC ) )	persmodifier -= 0.02f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_DAUNTLESS ) )	persmodifier += 0.03f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_SHOWOFF ) )		persmodifier += 0.04f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_COWARD ) )		persmodifier -= 0.07f;
+	}
+
+	// nominally in [0; 100]
+	INT32 recruitrating = basestatrating * recruitmodifier * persmodifier * gMercProfiles[this->ubProfile].usApproachFactor[3] / 1000;
+
+	// optional ini bonus
+	recruitrating += gSkillTraitValues.sCOTurncoats_PlayerConvinctionBonus;
+
+	ReducePointsForFatigue( this, &recruitrating );
+
+	// determine resistance of soldier to our subversion
+	INT32 ubLocationModifier = 2 * max( 1, min( 20, gCoolnessBySector[SECTOR( this->sSectorX, this->sSectorY )] ) );
+
+	// enemy resistance is dependent on their level, class and the sector rating
+	INT32 enemyresistancerating = ubLocationModifier + 8 * EffectiveExpLevel( pSoldier, FALSE );
+
+	switch ( pSoldier->ubSoldierClass )
+	{
+	case SOLDIER_CLASS_ADMINISTRATOR:	enemyresistancerating -= 30;	break;
+	case SOLDIER_CLASS_ELITE:			enemyresistancerating += 30;	break;
+	default:	break;
+	}
+
+	if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
+		enemyresistancerating += 30;
+
+	ReducePointsForFatigue( pSoldier, &enemyresistancerating );
+	
+	switch ( usApproach )
+	{
+		// base approach
+	case 1:
+		break;
+
+		// we use our looks for seduction
+		// thus looking attractive lowers enemy resistance, while being ugly can increase it
+		// however this fails if the soldier is not attracted to us
+	case 2:
+	{
+		// determine whether the soldier is attracted to us in the first place (don't display this, otherwise people will want to set sexual orientation and whatnot)
+		INT32 stat_dependant_roll = ( 37 * EffectiveStrength( pSoldier, FALSE ) + 92 * EffectiveMedical( pSoldier ) + 51 * EffectiveDexterity( pSoldier, FALSE ) + 61 * pSoldier->stats.bLife ) % 100;
+		bool samesexattraction = ( stat_dependant_roll < 8 );
+
+		bool female_player = ( this->ubBodyType == REGFEMALE );
+		bool female_soldier = ( pSoldier->ubBodyType == REGFEMALE );
+
+		bool fittingattraction = false;
+		if ( female_player != female_soldier && !samesexattraction )
+			fittingattraction = true;
+		else if ( female_player == female_soldier && samesexattraction )
+			fittingattraction = true;
+
+		if ( gMercProfiles[this->ubProfile].bAppearance == APPEARANCE_UGLY )			enemyresistancerating += 50 - ( fittingattraction ?  5 : 0 );
+		else if ( gMercProfiles[this->ubProfile].bAppearance == APPEARANCE_HOMELY )		enemyresistancerating += 40 - ( fittingattraction ? 15 : 0 );
+		else if ( gMercProfiles[this->ubProfile].bAppearance == APPEARANCE_AVERAGE )	enemyresistancerating += 30 - ( fittingattraction ? 30 : 0 );
+		else if ( gMercProfiles[this->ubProfile].bAppearance == APPEARANCE_ATTRACTIVE )	enemyresistancerating += 20 - ( fittingattraction ? 45 : 0 );
+		else if ( gMercProfiles[this->ubProfile].bAppearance == APPEARANCE_BABE )		enemyresistancerating += 10 - ( fittingattraction ? 60 : 0 );
+
+		// seduction works better in civilian clothing
+		if ( this->usSoldierFlagMask & SOLDIER_COVERT_CIV )
+			enemyresistancerating -= 5;
+	}
+	break;
+
+	// we try to bribe the soldier with money
+	case 3:
+	{
+		// the amount of money depends on progress and unimportant in this case
+		// the worse the location, the poorer the soldier, thus the more effective money is
+		enemyresistancerating -= 30 + (40 - ubLocationModifier);
+	}
+	break;
+
+	// we try to bribe the soldier with intel
+	case 4:
+	{
+		// the amount of intel depends on progress and unimportant in this case
+		enemyresistancerating -= 80;
+	}
+	break;
+
+	default:
+		break;
+	}
+	
+	if ( enemyresistancerating > recruitrating )
+		return 0;
+
+	return max( 0, min( 100, recruitrating - enemyresistancerating ) );
+}
+
+void		SOLDIERTYPE::AttemptToCreateTurncoat( UINT16 usID )
+{
+	if ( usID >= NOBODY )
+		return;
+
+	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+
+	if ( !pSoldier
+		|| pSoldier->bTeam != ENEMY_TEAM
+		|| ( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT ) )
+		return;
+
+	HandleTurncoatAttempt( pSoldier );
+}
+
+BOOLEAN		SOLDIERTYPE::OrderTurnCoatToSwitchSides( UINT16 usID )
+{
+	if ( usID >= NOBODY )
+		return FALSE;
+
+	SOLDIERTYPE* pSoldier = MercPtrs[usID];
+
+	if (!pSoldier 
+		|| pSoldier->bTeam != ENEMY_TEAM
+		|| !( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT ) )
+		return FALSE;
+
+	if ( IsFreeSlotAvailable( MILITIA_TEAM ) )
+	{
+		// remove turncoat property
+		pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TURNCOAT;
+		RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass );
+
+		MakeCivHostile( pSoldier );
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+void		SOLDIERTYPE::OrderAllTurnCoatToSwitchSides()
+{
+	SOLDIERTYPE *pSoldier;
+	INT32 cnt = gTacticalStatus.Team[ENEMY_TEAM].bFirstID;
+
+	// run through list
+	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[ENEMY_TEAM].bLastID; ++cnt, ++pSoldier )
+	{
+		if ( pSoldier->bActive && pSoldier->bInSector )
+		{
+			if ( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
+			{
+				if ( IsFreeSlotAvailable( MILITIA_TEAM ) )
+				{
+					// remove turncoat property
+					pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TURNCOAT;
+					RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass );
+
+					MakeCivHostile( pSoldier );
+				}
+				else
+				{
+					return;
+				}
+			}
+		}
+	}
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

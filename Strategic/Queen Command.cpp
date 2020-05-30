@@ -3039,3 +3039,408 @@ void HandleBloodCatDeaths( SECTORINFO *pSector )
 	}
 }
 #endif
+
+
+UINT16 NumTurncoatsOfClassInSector( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
+{
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+	// probably isn't. But I need this bit to work.
+	if ( sSectorX < MINIMUM_VALID_X_COORDINATE ||
+		sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		sSectorY > MAXIMUM_VALID_Y_COORDINATE )
+	{
+		return ( 0 );
+	}
+
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE );
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE );
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+
+	SECTORINFO* pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
+
+	UINT16 num = 0;
+
+	switch ( aSoldierClass )
+	{
+	case SOLDIER_CLASS_ADMINISTRATOR:	num += pSector->ubNumAdmins_Turncoat;	break;
+	case SOLDIER_CLASS_ARMY:            num += pSector->ubNumTroops_Turncoat; 	break;
+	case SOLDIER_CLASS_ELITE:           num += pSector->ubNumElites_Turncoat;	break;
+	default:							break;
+	}
+
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			switch ( aSoldierClass )
+			{
+			case SOLDIER_CLASS_ADMINISTRATOR:	num += pGroup->pEnemyGroup->ubNumAdmins_Turncoat;	break;
+			case SOLDIER_CLASS_ARMY:            num += pGroup->pEnemyGroup->ubNumTroops_Turncoat; 	break;
+			case SOLDIER_CLASS_ELITE:           num += pGroup->pEnemyGroup->ubNumElites_Turncoat;	break;
+			default:							break;
+			}
+		}
+		pGroup = pGroup->next;
+	}
+
+	return num;
+}
+
+BOOLEAN TurncoatsInSector( INT16 sSectorX, INT16 sSectorY )
+{
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+	// probably isn't. But I need this bit to work.
+	if ( sSectorX < MINIMUM_VALID_X_COORDINATE ||
+		sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		sSectorY > MAXIMUM_VALID_Y_COORDINATE )
+	{
+		return ( 0 );
+	}
+
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE );
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE );
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+
+	SECTORINFO* pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
+	
+	if ( pSector->ubNumAdmins_Turncoat
+		|| pSector->ubNumTroops_Turncoat
+		|| pSector->ubNumElites_Turncoat )
+		return TRUE;
+	
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat
+				|| pGroup->pEnemyGroup->ubNumTroops_Turncoat
+				|| pGroup->pEnemyGroup->ubNumElites_Turncoat )
+				return TRUE;
+		}
+		pGroup = pGroup->next;
+	}
+
+	return FALSE;
+}
+
+bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
+{
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+	// probably isn't. But I need this bit to work.
+	if ( sSectorX < MINIMUM_VALID_X_COORDINATE ||
+		sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		sSectorY > MAXIMUM_VALID_Y_COORDINATE )
+	{
+		return false;
+	}
+
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE );
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE );
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+
+	SECTORINFO* pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
+
+	// count how many turncoats we have
+	UINT16 num_static = 0;
+	UINT16 num_groups = 0;
+
+	switch ( aSoldierClass )
+	{
+	case SOLDIER_CLASS_ADMINISTRATOR:
+		num_static = pSector->ubNumAdmins_Turncoat;
+		break;
+	case SOLDIER_CLASS_ARMY:
+		num_static = pSector->ubNumTroops_Turncoat;
+		break;
+	case SOLDIER_CLASS_ELITE:
+		num_static = pSector->ubNumElites_Turncoat;
+		break;
+	default:
+		break;
+	}
+
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			switch ( aSoldierClass )
+			{
+			case SOLDIER_CLASS_ADMINISTRATOR:
+				num_groups += pGroup->pEnemyGroup->ubNumAdmins_Turncoat;
+				break;
+			case SOLDIER_CLASS_ARMY:
+				num_groups += pGroup->pEnemyGroup->ubNumTroops_Turncoat;
+				break;
+			case SOLDIER_CLASS_ELITE:
+				num_groups += pGroup->pEnemyGroup->ubNumElites_Turncoat;
+				break;
+			default:
+				break;
+			}
+		}
+		pGroup = pGroup->next;
+	}
+
+	if ( num_static + num_groups )
+	{
+		if ( Chance( 100 * num_static / ( num_static + num_groups ) ) )
+		{
+			// add to garrison
+			switch ( aSoldierClass )
+			{
+			case SOLDIER_CLASS_ADMINISTRATOR:
+				pSector->ubNumAdmins_Turncoat--;
+				return true;
+				break;
+			case SOLDIER_CLASS_ARMY:
+				pSector->ubNumTroops_Turncoat--;
+				return true;
+				break;
+			case SOLDIER_CLASS_ELITE:
+				pSector->ubNumElites_Turncoat--;
+				return true;
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			GROUP* pGroup = gpGroupList;
+			while ( pGroup )
+			{
+				if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+				{
+					switch ( aSoldierClass )
+					{
+					case SOLDIER_CLASS_ADMINISTRATOR:
+						if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat )
+						{
+							pGroup->pEnemyGroup->ubNumAdmins_Turncoat--;
+							return true;
+						}
+						break;
+					case SOLDIER_CLASS_ARMY:
+						if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat )
+						{
+							pGroup->pEnemyGroup->ubNumTroops_Turncoat--;
+							return true;
+						}
+						break;
+					case SOLDIER_CLASS_ELITE:
+						if ( pGroup->pEnemyGroup->ubNumElites_Turncoat )
+						{
+							pGroup->pEnemyGroup->ubNumElites_Turncoat--;
+							return true;
+						}
+						break;
+					default:
+						break;
+					}
+				}
+				pGroup = pGroup->next;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool AddOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
+{
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+	// probably isn't. But I need this bit to work.
+	if ( sSectorX < MINIMUM_VALID_X_COORDINATE ||
+		sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		sSectorY > MAXIMUM_VALID_Y_COORDINATE )
+	{
+		return false;
+	}
+
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE );
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE );
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+
+	SECTORINFO* pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
+
+	// count how many 'slots' we have for more turncoats, then add one at a random position
+	UINT16 freeslots_static = 0;
+	UINT16 freeslots_groups = 0;
+
+	switch ( aSoldierClass )
+	{
+	case SOLDIER_CLASS_ADMINISTRATOR:
+		if ( pSector->ubNumAdmins_Turncoat < pSector->ubNumAdmins )
+			freeslots_static = pSector->ubNumAdmins - pSector->ubNumAdmins_Turncoat;
+		break;
+	case SOLDIER_CLASS_ARMY:
+		if ( pSector->ubNumTroops_Turncoat < pSector->ubNumTroops )
+			freeslots_static = pSector->ubNumTroops - pSector->ubNumTroops_Turncoat;
+		break;
+	case SOLDIER_CLASS_ELITE:
+		if ( pSector->ubNumElites_Turncoat < pSector->ubNumElites )
+			freeslots_static = pSector->ubNumElites - pSector->ubNumElites_Turncoat;
+		break;
+	default:
+		break;
+	}
+
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			switch ( aSoldierClass )
+			{
+			case SOLDIER_CLASS_ADMINISTRATOR:
+				if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat < pGroup->pEnemyGroup->ubNumAdmins )
+					freeslots_groups += pGroup->pEnemyGroup->ubNumAdmins - pGroup->pEnemyGroup->ubNumAdmins_Turncoat;
+				break;
+			case SOLDIER_CLASS_ARMY:
+				if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat < pGroup->pEnemyGroup->ubNumTroops )
+					freeslots_groups += pGroup->pEnemyGroup->ubNumTroops - pGroup->pEnemyGroup->ubNumTroops_Turncoat;
+				break;
+			case SOLDIER_CLASS_ELITE:
+				if ( pGroup->pEnemyGroup->ubNumElites_Turncoat < pGroup->pEnemyGroup->ubNumElites )
+					freeslots_groups += pGroup->pEnemyGroup->ubNumElites - pGroup->pEnemyGroup->ubNumElites_Turncoat;
+				break;
+			default:
+				break;
+			}
+		}
+		pGroup = pGroup->next;
+	}
+
+	if ( freeslots_static + freeslots_groups )
+	{
+		if ( Chance( 100 * freeslots_static / ( freeslots_static + freeslots_groups ) ) )
+		{
+			// add to garrison
+			switch ( aSoldierClass )
+			{
+			case SOLDIER_CLASS_ADMINISTRATOR:
+				pSector->ubNumAdmins_Turncoat++;
+				return true;
+				break;
+			case SOLDIER_CLASS_ARMY:
+				pSector->ubNumTroops_Turncoat++;
+				return true;
+				break;
+			case SOLDIER_CLASS_ELITE:
+				pSector->ubNumElites_Turncoat++;
+				return true;
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			GROUP* pGroup = gpGroupList;
+			while ( pGroup )
+			{
+				if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+				{
+					switch ( aSoldierClass )
+					{
+					case SOLDIER_CLASS_ADMINISTRATOR:
+						if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat < pGroup->pEnemyGroup->ubNumAdmins )
+						{
+							pGroup->pEnemyGroup->ubNumAdmins_Turncoat++;
+							return true;
+						}
+						break;
+					case SOLDIER_CLASS_ARMY:
+						if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat < pGroup->pEnemyGroup->ubNumTroops )
+						{
+							pGroup->pEnemyGroup->ubNumTroops_Turncoat++;
+							return true;
+						}
+						break;
+					case SOLDIER_CLASS_ELITE:
+						if ( pGroup->pEnemyGroup->ubNumElites_Turncoat < pGroup->pEnemyGroup->ubNumElites )
+						{
+							pGroup->pEnemyGroup->ubNumElites_Turncoat++;
+							return true;
+						}
+						break;
+					default:
+						break;
+					}
+				}
+				pGroup = pGroup->next;
+			}
+		}
+	}
+
+	return false;
+}
+
+void CorrectTurncoatCount( INT16 sSectorX, INT16 sSectorY )
+{
+	// HEADROCK: This is a TEMPORARY fix to avoid the assertion error. Not sure this is the best solution,
+	// probably isn't. But I need this bit to work.
+	if ( sSectorX < MINIMUM_VALID_X_COORDINATE ||
+		sSectorX > MAXIMUM_VALID_X_COORDINATE ||
+		sSectorY < MINIMUM_VALID_Y_COORDINATE ||
+		sSectorY > MAXIMUM_VALID_Y_COORDINATE )
+	{
+		return;
+	}
+
+	AssertGE( sSectorX, MINIMUM_VALID_X_COORDINATE );
+	AssertLE( sSectorX, MAXIMUM_VALID_X_COORDINATE );
+	AssertGE( sSectorY, MINIMUM_VALID_Y_COORDINATE );
+	AssertLE( sSectorY, MAXIMUM_VALID_Y_COORDINATE );
+
+	SECTORINFO* pSector = &SectorInfo[SECTOR( sSectorX, sSectorY )];
+
+	if ( pSector->ubNumAdmins_Turncoat > pSector->ubNumAdmins )
+	{
+		pSector->ubNumTroops_Turncoat += pSector->ubNumAdmins_Turncoat - pSector->ubNumAdmins;
+		pSector->ubNumAdmins_Turncoat = pSector->ubNumAdmins;
+	}
+	if ( pSector->ubNumTroops_Turncoat > pSector->ubNumTroops )
+	{
+		pSector->ubNumElites_Turncoat += pSector->ubNumTroops_Turncoat - pSector->ubNumTroops;
+		pSector->ubNumTroops_Turncoat = pSector->ubNumTroops;
+	}
+	if ( pSector->ubNumElites_Turncoat > pSector->ubNumElites )
+	{
+		pSector->ubNumElites_Turncoat = pSector->ubNumElites;
+	}
+
+	GROUP* pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == ENEMY_TEAM && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat > pGroup->pEnemyGroup->ubNumAdmins )
+			{
+				pGroup->pEnemyGroup->ubNumTroops_Turncoat += pGroup->pEnemyGroup->ubNumAdmins_Turncoat - pGroup->pEnemyGroup->ubNumAdmins;
+				pGroup->pEnemyGroup->ubNumAdmins_Turncoat = pGroup->pEnemyGroup->ubNumAdmins;
+			}
+			if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat > pGroup->pEnemyGroup->ubNumTroops )
+			{
+				pGroup->pEnemyGroup->ubNumElites_Turncoat += pGroup->pEnemyGroup->ubNumTroops_Turncoat - pGroup->pEnemyGroup->ubNumTroops;
+				pGroup->pEnemyGroup->ubNumTroops_Turncoat = pGroup->pEnemyGroup->ubNumTroops;
+			}
+			if ( pGroup->pEnemyGroup->ubNumElites_Turncoat > pGroup->pEnemyGroup->ubNumElites )
+			{
+				pGroup->pEnemyGroup->ubNumElites_Turncoat = pGroup->pEnemyGroup->ubNumElites;
+			}
+		}
+		pGroup = pGroup->next;
+	}
+}

@@ -6636,6 +6636,15 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 			fCount = TRUE;
 		}
 	}
+	
+	// Flugente: turncoats allow vision as well
+	if ( gSkillTraitValues.fCOTurncoats
+		&& TurncoatsInSector( sSectorX, sSectorY ) )
+	{
+		fDetection = TRUE;
+		fCount = TRUE;
+		fDirection = TRUE;
+	}
 
 	// Flugente: we can buy info on enemy groups with intel
 	GetInfoFromGroupsInSector( sSectorX, sSectorY, ENEMY_TEAM, fDetection, fCount, fDirection );
@@ -8463,6 +8472,27 @@ void DetermineMapIntelData( INT32 asSectorZ )
 				if ( productionfound )
 				{
 					AddIntelAndQuestMapDataForSector( SECTORX( sector ), SECTORY( sector ), -1, productionunderenemycontrol ? 22 : activeproductionfound ? inactiveproductionfound ? 19 : 20 : 21, L"", L"" );
+				}
+			}
+		}
+
+		// Flugente: turncoats
+		if ( gSkillTraitValues.fCOTurncoats )
+		{
+			for ( UINT16 sector = 0; sector < 256; ++sector )
+			{
+				CorrectTurncoatCount( SECTORX( sector ), SECTORY( sector ) );
+
+				UINT16 numturncoats = NumTurncoatsOfClassInSector( SECTORX( sector ), SECTORY( sector ), SOLDIER_CLASS_ADMINISTRATOR )
+					+ NumTurncoatsOfClassInSector( SECTORX( sector ), SECTORY( sector ), SOLDIER_CLASS_ARMY )
+					+ NumTurncoatsOfClassInSector( SECTORX( sector ), SECTORY( sector ), SOLDIER_CLASS_ELITE );
+
+				if ( numturncoats )
+				{
+					CHAR16 str[128];
+					swprintf( str, szTurncoatText[9], numturncoats );
+
+					AddIntelAndQuestMapDataForSector( SECTORX( sector ), SECTORY( sector ), -1, 23, str, L"" );
 				}
 			}
 		}

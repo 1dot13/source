@@ -570,7 +570,13 @@ typedef struct SECTORINFO
 	// Flugente: burial assignment
 	FLOAT	dBurial_UnappliedProgress;	// progress done via assignment work. This way no work gets lost
 
-	INT8	bPadding[ 12 ];
+	// Flugente: number of turncoats
+	UINT8	ubNumAdmins_Turncoat;
+	UINT8	ubNumTroops_Turncoat;
+	UINT8	ubNumElites_Turncoat;	
+	UINT8	bPadding_1;
+
+	INT8	bPadding[ 8 ];
 
 }SECTORINFO;
 

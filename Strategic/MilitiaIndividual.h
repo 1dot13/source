@@ -38,6 +38,8 @@ NUM_TOTAL_STATS
 #define MILITIA_BATTLEREPORT_FLAG_KILLEDENEMY			0x00000040	// killed an enemy
 #define	MILITIA_BATTLEREPORT_FLAG_FIRED					0x00000080	// militia was fired
 
+#define MILITIA_BATTLEREPORT_FLAG_RECRUITED_TURNCOAT	0x00000100	// defected to our side
+
 struct MILITIA_BATTLEREPORT
 {
 	MILITIA_BATTLEREPORT( ) : id( 0 ), flagmask( 0 )	{}
@@ -165,6 +167,8 @@ UINT32 MilitiaIndividual_Heal(UINT32 points, UINT8 aSector );
 UINT32 CreateRandomIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector );
 
 UINT32 CreateNewIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSector );
+
+UINT32 CreateNewIndividualMilitiaFromSoldier( SOLDIERTYPE* pSoldier, UINT8 aOrigin );
 
 UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector );
 

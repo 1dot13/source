@@ -114,6 +114,8 @@ extern UINT8 gubInterruptProvoker;
 
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );
 
+extern bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
+
 // Animation code explanations!
 //
 //	0-399:	Actual animation frame indices
@@ -4131,6 +4133,10 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		{
 			DeleteVIP( pSoldier->sSectorX, pSoldier->sSectorY );
 		}
+		
+		// Flugente: turncoats
+		if ( pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
+			RemoveOneTurncoat( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->ubSoldierClass );
 
 		// Flugente: additional dialogue
 		if ( pSoldier->ubProfile != NO_PROFILE )

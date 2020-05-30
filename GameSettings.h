@@ -1927,6 +1927,9 @@ typedef struct
 	UINT16	usCOEliteUncoverRadius;
 	BOOLEAN fCODetectIfBleeding;					// will we be discovered if we are bleeding?
 	BOOLEAN fCOStripIfUncovered;
+	BOOLEAN fCOTurncoats;							// can we create enemy turncoats that can be ordered to betray their comrades?
+	BOOLEAN	fCOTurncoats_SectorActivationRequiresRadioOperator;	// activating turncoats sector-wide requires a radio operator
+	INT32	sCOTurncoats_PlayerConvinctionBonus;
 
 	// RADIO OPERATOR
 	BOOLEAN fROAllowArtillery;						// artillery can be forbidden for all teams with this setting

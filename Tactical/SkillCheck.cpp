@@ -300,6 +300,11 @@ void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, UINT32 *pusPoints )
 	*pusPoints -= (*pusPoints * GetPenaltyForFatigue( pSoldier )) / 100;
 }
 
+void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, INT32 *psPoints )
+{
+	*psPoints -= ( *psPoints * GetPenaltyForFatigue( pSoldier ) ) / 100;
+}
+
 INT32 GetSkillCheckPenaltyForFatigue( SOLDIERTYPE *pSoldier, INT32 iSkill )
 {
 	// use only half the full effect of fatigue for skill checks

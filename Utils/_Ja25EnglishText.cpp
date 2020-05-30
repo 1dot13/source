@@ -259,6 +259,7 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"+%d%s CtH with covert melee weapons\n",
 	L"+%d%s chance of instakill with covert melee weapons\n",
 	L"Disguise AP cost lowered by %d%s.\n",
+	L"Can convince enemy soldiers to secretly change sides.\n",
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=

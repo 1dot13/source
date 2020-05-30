@@ -6283,10 +6283,7 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 	// this only works on enemy soldiers
 	if ( pSoldier->bTeam != ENEMY_TEAM && pSoldier->bTeam != CIV_TEAM )
 		return false;
-
-	if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] < gGameExternalOptions.usTurnsToUncover )
-		return false;
-
+	
 	INT16 sXPos = 0;
 	INT16 sYPos = 0;
 	INT32 iBack = 0;
@@ -6297,113 +6294,29 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 	sXPos += 50;
 	sYPos += 25;
 
-	// are we a VIP? show that only when the player knows a VIP is in this sector. otherwise, don't even show our officer property
-	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && !pSoldier->bSectorZ )
+	if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] >= gGameExternalOptions.usTurnsToUncover )
 	{
-		if ( PlayerKnowsAboutVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )
+		// are we a VIP? show that only when the player knows a VIP is in this sector. otherwise, don't even show our officer property
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP && !pSoldier->bSectorZ )
 		{
-			// Add bars
-			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20), (INT16)(sYPos + 20) );
-
-			if ( iBack != -1 )
+			if ( PlayerKnowsAboutVIP( pSoldier->sSectorX, pSoldier->sSectorY ) )
 			{
-				SetBackgroundRectFilled( iBack );
+				// Add bars
+				iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+				if ( iBack != -1 )
+				{
+					SetBackgroundRectFilled( iBack );
+				}
+
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 6, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+				sYPos += 20;
 			}
-
-			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 6, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
-
-			sYPos += 20;
-		}
-	}
-
-	// is this guy an officer?
-	if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
-	{
-		// Add bars
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
-
-		if ( iBack != -1 )
-		{
-			SetBackgroundRectFilled( iBack );
 		}
 
-		// if we look at this guy long enough, we might even learn that he is an advanced officer
-		if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] > 1.5 * gGameExternalOptions.usTurnsToUncover && NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT ) > 1 )
-			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 5, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
-		else
-			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 0, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
-
-		sYPos += 20;
-	}
-
-	// is this guy radio operator with a radio?
-	if ( pSoldier->CanUseRadio(false) )
-	{
-		// Add bars
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
-
-		if ( iBack != -1 )
-		{
-			SetBackgroundRectFilled( iBack );
-		}
-
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 3, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
-
-		sYPos += 20;
-	}
-
-	// is this guy a doctor? we do not check for medical gear, as we would not have that information from a glance
-	if ( HAS_SKILL_TRAIT( pSoldier, DOCTOR_NT) )
-	{
-		// Add bars
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
-
-		if ( iBack != -1 )
-		{
-			SetBackgroundRectFilled( iBack );
-		}
-
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 1, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
-
-		sYPos += 20;
-	}
-
-	// is this guy a sniper? Just check for the gun, trait is not necessary
-	if ( pSoldier->HasSniper() )
-	{
-		// Add bars
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
-
-		if ( iBack != -1 )
-		{
-			SetBackgroundRectFilled( iBack );
-		}
-
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 2, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
-
-		sYPos += 20;
-	}
-
-	// is this guy a mortar guy? Just check for the gun, trait is not necessary
-	if ( pSoldier->HasMortar() )
-	{
-		// Add bars
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 20 ), (INT16)(sYPos + 20 ) );
-
-		if ( iBack != -1 )
-		{
-			SetBackgroundRectFilled( iBack );
-		}
-
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 4, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
-
-		sYPos += 20;
-	}
-
-	// do we carry a key?
-	for ( int ubLoop = 0; ubLoop < NUM_KEYS; ++ubLoop )
-	{
-		if ( SoldierHasKey( pSoldier, ubLoop ) )
+		// is this guy an officer?
+		if ( pSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER )
 		{
 			// Add bars
 			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
@@ -6413,12 +6326,115 @@ BOOLEAN ShowSoldierRoleSymbol(SOLDIERTYPE* pSoldier)
 				SetBackgroundRectFilled( iBack );
 			}
 
-			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 11, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+			// if we look at this guy long enough, we might even learn that he is an advanced officer
+			if ( pSoldier->usSkillCounter[SOLDIER_COUNTER_ROLE_OBSERVED] > 1.5 * gGameExternalOptions.usTurnsToUncover && NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT ) > 1 )
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 5, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+			else
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 0, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
 
 			sYPos += 20;
-
-			break;
 		}
+
+		// is this guy radio operator with a radio?
+		if ( pSoldier->CanUseRadio( false ) )
+		{
+			// Add bars
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 3, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+			sYPos += 20;
+		}
+
+		// is this guy a doctor? we do not check for medical gear, as we would not have that information from a glance
+		if ( HAS_SKILL_TRAIT( pSoldier, DOCTOR_NT ) )
+		{
+			// Add bars
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 1, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+			sYPos += 20;
+		}
+
+		// is this guy a sniper? Just check for the gun, trait is not necessary
+		if ( pSoldier->HasSniper() )
+		{
+			// Add bars
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 2, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+			sYPos += 20;
+		}
+
+		// is this guy a mortar guy? Just check for the gun, trait is not necessary
+		if ( pSoldier->HasMortar() )
+		{
+			// Add bars
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+			if ( iBack != -1 )
+			{
+				SetBackgroundRectFilled( iBack );
+			}
+
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 4, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+			sYPos += 20;
+		}
+
+		// do we carry a key?
+		for ( int ubLoop = 0; ubLoop < NUM_KEYS; ++ubLoop )
+		{
+			if ( SoldierHasKey( pSoldier, ubLoop ) )
+			{
+				// Add bars
+				iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+				if ( iBack != -1 )
+				{
+					SetBackgroundRectFilled( iBack );
+				}
+
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 11, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+				sYPos += 20;
+
+				break;
+			}
+		}
+	}
+
+	// turncoats are instantly visible
+	if ( gSkillTraitValues.fCOTurncoats && pSoldier->usSoldierFlagMask2 & SOLDIER_TURNCOAT )
+	{
+		// Add bars
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)( sXPos + 20 ), (INT16)( sYPos + 20 ) );
+
+		if ( iBack != -1 )
+		{
+			SetBackgroundRectFilled( iBack );
+		}
+
+		BltVideoObjectFromIndex( FRAME_BUFFER, guiENEMYROLES, 12, sXPos, sYPos, VO_BLT_TRANSSHADOW, NULL );
+
+		sYPos += 20;
 	}
 
 	return true;

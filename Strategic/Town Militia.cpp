@@ -431,12 +431,15 @@ INT8 SoldierClassToMilitiaRank(UINT8 ubSoldierClass)
 
 	switch( ubSoldierClass )
 	{
+		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_GREEN_MILITIA:
 			bRank = GREEN_MILITIA;
 			break;
+		case SOLDIER_CLASS_ARMY:
 		case SOLDIER_CLASS_REG_MILITIA:
 			bRank = REGULAR_MILITIA;
 			break;
+		case SOLDIER_CLASS_ELITE:
 		case SOLDIER_CLASS_ELITE_MILITIA:
 			bRank = ELITE_MILITIA;
 			break;

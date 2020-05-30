@@ -11597,6 +11597,21 @@ STR16	szFactoryText[] =	// TODO.Translate
 	L"h/item",
 };
 
+STR16	szTurncoatText[] =
+{
+	L"%s now secretly works for us!",
+	L"%s is not swayed by our offer. Suspicion against us rises...",
+	L"Suspicion against us is high. We should stop trying to turn more soldiers to our side and lay low for a while.",
+	L"Recruit approach (%d)",
+	L"Use seduction (%d)",
+
+	L"Bribe ($%d) (%d)",	// 5
+	L"Offer %d intel (%d)",
+	L"How to convince the soldier to join your forces?",
+	L"Do it",
+	L"%d turncoats present",
+};
+
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
 STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode

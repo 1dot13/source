@@ -426,6 +426,7 @@ enum
 
 #define SOLDIER_DRAG_SOUND					0x00080000					// played sound when started dragging
 #define SOLDIER_SPENT_AP					0x00100000					// soldier has spent some AP this turn (including realtime)
+#define SOLDIER_TURNCOAT					0x00200000					// this enemy soldier will switch to the militia team if ordered to
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------
@@ -597,13 +598,17 @@ enum{
 	SKILLS_RADIO_LISTEN,
 	SKILLS_RADIO_CALLREINFORCEMENTS,
 	SKILLS_RADIO_TURNOFF,
-	SKILLS_RADIO_LAST = SKILLS_RADIO_TURNOFF,
+	SKILLS_RADIO_ACTIVATE_TURNCOATS_ALL,		// order all enemy turncoats to turn into militia right now (in case this requires a radio)
+	SKILLS_RADIO_LAST = SKILLS_RADIO_ACTIVATE_TURNCOATS_ALL,
 
 	// spy
 	SKILLS_INTEL_FIRST,
 	SKILLS_INTEL_CONCEAL = SKILLS_INTEL_FIRST,	// assignment: spy hides among the population
 	SKILLS_INTEL_GATHERINTEL,					// assignment: spy gathers information while disguised
-	SKILLS_INTEL_LAST = SKILLS_INTEL_GATHERINTEL,
+	SKILLS_CREATE_TURNCOAT,
+	SKILLS_ACTIVATE_TURNCOATS,					// order enemy turncoat to turn into militia right now
+	SKILLS_ACTIVATE_TURNCOATS_ALL,				// order all enemy turncoats to turn into militia right now
+	SKILLS_INTEL_LAST = SKILLS_ACTIVATE_TURNCOATS_ALL,
 
 	// various
 	SKILLS_VARIOUS_FIRST,
@@ -1915,7 +1920,7 @@ public:
 	BOOLEAN IsAIAllowedtoUseSkill( INT8 iSkill );
 
 	// print a small description of the skill if we can use it, or its requirements if we cannot
-	STR16	PrintSkillDesc( INT8 iSkill);
+	STR16	PrintSkillDesc( INT8 iSkill, INT32 sGridNo = -1 );
 
 	// Flugente: functions for the radio operator trait
 	BOOLEAN CanUseRadio(BOOLEAN fCheckForAP = TRUE);							// can we use radio, if we even have one?
@@ -1932,6 +1937,7 @@ public:
 	BOOLEAN RadioListen();
 	BOOLEAN RadioCallReinforcements( UINT32 usSector, UINT16 sNumber );
 	BOOLEAN SwitchOffRadio();
+	BOOLEAN RadioOrderAllTurnCoatToSwitchSides();
 	void	RadioFail();							// display and error sound used either when the radio set fails or the sector is jammed - the player knows of the error, but cannot be sure of the cause
 
 	// Flugente: spotter
@@ -2025,6 +2031,13 @@ public:
 	// Flugente: those with the <scrounging> background occasionally steal money from the locals
 	UINT8		GetThiefStealMoneyChance();
 	UINT8		GetThiefEvadeDetectionChance();
+
+	// Flugente: turncoats
+	BOOLEAN		InPositionForTurncoatAttempt( UINT16 usID );
+	UINT8		GetTurncoatConvinctionChance( UINT16 usID, UINT8 usApproach );
+	void		AttemptToCreateTurncoat( UINT16 usID );
+	BOOLEAN		OrderTurnCoatToSwitchSides( UINT16 usID );
+	void		OrderAllTurnCoatToSwitchSides();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

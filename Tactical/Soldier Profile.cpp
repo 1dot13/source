@@ -1587,6 +1587,11 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 		MercCreateStruct.fPlayerMerc = TRUE;
 	}
 
+	if ( ubTeam == MILITIA_TEAM )
+	{
+		MercCreateStruct.ubSoldierClass = pSoldier->ubSoldierClass;
+	}
+
 	if ( TacticalCreateSoldier( &MercCreateStruct, &ubID ) )
 	{
 		pNewSoldier = MercPtrs[ ubID ];

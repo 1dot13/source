@@ -580,6 +580,103 @@ UINT32 CreateNewIndividualMilitia( UINT8 aMilitiaRank, UINT8 aOrigin, UINT8 aSec
 	return newmilitia.id;
 }
 
+UINT32 CreateNewIndividualMilitiaFromSoldier( SOLDIERTYPE* pSoldier, UINT8 aOrigin )
+{
+	if ( !gGameExternalOptions.fIndividualMilitia || !pSoldier )
+		return 0;
+
+	MILITIA newmilitia;
+
+	newmilitia.id = GetFreeIndividualMilitiaId();
+
+	switch ( pSoldier->ubSoldierClass )
+	{
+	case SOLDIER_CLASS_ADMINISTRATOR:
+	case SOLDIER_CLASS_GREEN_MILITIA:
+	case SOLDIER_CLASS_BANDIT:
+		newmilitia.militiarank = GREEN_MILITIA;
+		break;
+
+	case SOLDIER_CLASS_ELITE:
+	case SOLDIER_CLASS_ELITE_MILITIA:
+		newmilitia.militiarank = ELITE_MILITIA;
+		break;
+
+	case SOLDIER_CLASS_ARMY:	
+	case SOLDIER_CLASS_REG_MILITIA:
+		newmilitia.militiarank = REGULAR_MILITIA;
+		break;
+
+	default:
+		return 0;
+		break;
+	}
+	
+	// according to origin, we choose bodytype, skin, hair, fore- and surname
+	newmilitia.origin = aOrigin;
+
+	newmilitia.originsector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
+	newmilitia.sector = newmilitia.originsector;
+
+	newmilitia.bodytype = pSoldier->ubBodyType;
+
+	if ( COMPARE_PALETTEREP_ID( pSoldier->SkinPal, "PINKSKIN" ) )	newmilitia.skin = PINKSKIN;
+	else if ( COMPARE_PALETTEREP_ID( pSoldier->SkinPal, "TANSKIN" ) )	newmilitia.skin = TANSKIN;
+	else if ( COMPARE_PALETTEREP_ID( pSoldier->SkinPal, "DARKSKIN" ) )	newmilitia.skin = DARKSKIN;
+	else if ( COMPARE_PALETTEREP_ID( pSoldier->SkinPal, "BLACKSKIN" ) )	newmilitia.skin = BLACKSKIN;
+
+	if ( COMPARE_PALETTEREP_ID( pSoldier->HeadPal, "BROWNHEAD" ) )	newmilitia.hair = BROWNHEAD;
+	if ( COMPARE_PALETTEREP_ID( pSoldier->HeadPal, "BLACKHEAD" ) )	newmilitia.hair = BLACKHEAD;
+	if ( COMPARE_PALETTEREP_ID( pSoldier->HeadPal, "WHITEHEAD" ) )	newmilitia.hair = WHITEHEAD;
+	if ( COMPARE_PALETTEREP_ID( pSoldier->HeadPal, "BLONDHEAD" ) )	newmilitia.hair = BLONDEHEAD;
+	if ( COMPARE_PALETTEREP_ID( pSoldier->HeadPal, "REDHEAD" ) )	newmilitia.hair = REDHEAD;
+	
+	// age is random
+	newmilitia.age = 16 + Random( 2 ) * ( 1 + Random( 8 ) )
+		+ Random( 2 ) * ( 1 + Random( 8 ) )
+		+ Random( 2 ) * ( 1 + Random( 8 ) )
+		+ Random( 2 ) * ( 1 + Random( 8 ) )
+		+ Random( 2 ) * ( 1 + Random( 8 ) )
+		+ Random( 2 ) * ( 1 + Random( 8 ) );
+
+	if ( newmilitia.hair == WHITEHEAD )
+		newmilitia.age = max( newmilitia.age, 38 + Random( 2 ) * ( 1 + Random( 8 ) ) );
+
+	// we have to choose a new name, as we cannot take the soldiers name, as those are set in separate arrays
+	if ( newmilitia.bodytype == REGFEMALE )
+	{
+		newmilitia.forename = Random( gMilitiaOriginData[newmilitia.origin].szFemale_Forename.size() );
+		newmilitia.surname = Random( gMilitiaOriginData[newmilitia.origin].szFemale_Surname.size() );
+	}
+	else
+	{
+		newmilitia.forename = Random( gMilitiaOriginData[newmilitia.origin].szMale_Forename.size() );
+		newmilitia.surname = Random( gMilitiaOriginData[newmilitia.origin].szMale_Surname.size() );
+	}
+
+	newmilitia.flagmask = 0;
+
+	newmilitia.healthratio = 100.0f * pSoldier->stats.bLife / pSoldier->stats.bLifeMax;
+
+	newmilitia.kills = 0;
+	newmilitia.assists = 0;
+	newmilitia.promotionpoints = 0.0f;
+
+	// promotion points are based on kills and assists. For proper accounting, award points for current rank
+	newmilitia.AddKills( 0, 0 );
+
+	// make up some history
+	MILITIA_BATTLEREPORT report;
+	report.flagmask |= MILITIA_BATTLEREPORT_FLAG_RECRUITED_TURNCOAT;
+	report.id = GetWorldTotalMin();
+
+	newmilitia.history.push_back( report );
+
+	gIndividualMilitiaVector.push_back( newmilitia );
+
+	return newmilitia.id;
+}
+
 // search for a individual militia that is alive and not currently in use in this sector, and return its id
 // if none is found, create new and return that one
 UINT32 GetIdOfUnusedIndividualMilitia( UINT8 aSoldierClass, UINT8 aSector )

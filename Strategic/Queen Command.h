@@ -73,6 +73,13 @@ extern	INT32		gsGridNoForMapEdgePointInfo;
 // This currently does not exist for MILITIA_TEAM, making such a check relatively useless
 BOOLEAN CheckPendingNonPlayerTeam(UINT8 usTeam);
 
+// Flugente: turncoats
+UINT16 NumTurncoatsOfClassInSector( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
+BOOLEAN TurncoatsInSector( INT16 sSectorX, INT16 sSectorY );
+bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
+bool AddOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass );
+void CorrectTurncoatCount( INT16 sSectorX, INT16 sSectorY );
+
 extern UINT32 guiTurnCnt, guiReinforceTurn, guiMilitiaReinforceTurn;//dnl ch68 080913
 
 #endif

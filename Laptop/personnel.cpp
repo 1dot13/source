@@ -8223,6 +8223,13 @@ void AssignPersonnelSkillTraitHelpText( UINT8 ubTraitNumber, BOOLEAN fExpertLeve
 				INT16 apreduction =  ( gSkillTraitValues.sCODisguiseAPReduction * (fExpertLevel ? 2 : 1));
 				swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[6], apreduction, sSpecialCharacters[0]);
 				wcscat( apStr, atStr );
+
+				if ( gSkillTraitValues.fCOTurncoats )
+				{
+					swprintf( atStr, gzIMPMajorTraitsHelpTextsCovertOps[7] );
+					wcscat( apStr, atStr );
+				}
+
 				break;
 			}
 

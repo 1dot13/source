@@ -5815,6 +5815,13 @@ void InvestigateSector( UINT8 ubSectorID )
 						ubNumToSend--;
 						ubAdmins[i]++;
 						ubTotal++;
+
+						// Flugente: turncoats might move as well
+						if ( pSector->ubNumAdmins_Turncoat > pSector->ubNumAdmins )
+						{
+							SectorInfo[ubSectorID].ubNumAdmins_Turncoat += pSector->ubNumAdmins_Turncoat - pSector->ubNumAdmins;
+							pSector->ubNumAdmins_Turncoat = pSector->ubNumAdmins;
+						}
 					}
 					else if( pSector->ubNumTroops )
 					{
@@ -5822,6 +5829,13 @@ void InvestigateSector( UINT8 ubSectorID )
 						ubNumToSend--;
 						ubTroops[i]++;
 						ubTotal++;
+
+						// Flugente: turncoats might move as well
+						if ( pSector->ubNumTroops_Turncoat > pSector->ubNumTroops )
+						{
+							SectorInfo[ubSectorID].ubNumTroops_Turncoat += pSector->ubNumTroops_Turncoat - pSector->ubNumTroops;
+							pSector->ubNumTroops_Turncoat = pSector->ubNumTroops;
+						}
 					}
 					else if( pSector->ubNumElites )
 					{
@@ -5829,6 +5843,13 @@ void InvestigateSector( UINT8 ubSectorID )
 						ubNumToSend--;
 						ubElites[i]++;
 						ubTotal++;
+
+						// Flugente: turncoats might move as well
+						if ( pSector->ubNumElites_Turncoat > pSector->ubNumElites )
+						{
+							SectorInfo[ubSectorID].ubNumElites_Turncoat += pSector->ubNumElites_Turncoat - pSector->ubNumElites;
+							pSector->ubNumElites_Turncoat = pSector->ubNumElites;
+						}
 					}
 					else
 					{
@@ -6571,6 +6592,13 @@ void UpgradeAdminsToTroops()
 
 						--ubAdminsToCheck;
 					}
+
+					// Flugente: make sure turncoat numbers are plausible
+					if ( pSector->ubNumAdmins_Turncoat > pSector->ubNumAdmins )
+					{
+						pSector->ubNumTroops_Turncoat += pSector->ubNumAdmins_Turncoat - pSector->ubNumAdmins;
+						pSector->ubNumAdmins_Turncoat = pSector->ubNumAdmins;
+					}
 				}
 			}
 		}
@@ -6627,6 +6655,13 @@ void UpgradeAdminsToTroops()
 							}
 
 							ubAdminsToCheck--;
+						}
+
+						// Flugente: make sure turncoat numbers are plausible
+						if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat > pGroup->pEnemyGroup->ubNumAdmins )
+						{
+							pGroup->pEnemyGroup->ubNumTroops_Turncoat += pGroup->pEnemyGroup->ubNumAdmins_Turncoat - pGroup->pEnemyGroup->ubNumAdmins;
+							pGroup->pEnemyGroup->ubNumAdmins_Turncoat = pGroup->pEnemyGroup->ubNumAdmins;
 						}
 					}
 				}

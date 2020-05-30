@@ -1864,6 +1864,15 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 			}
 		}
 	}
+
+	// Flugente: turncoats
+	if ( gSkillTraitValues.fCOTurncoats && pCreateStruct->bTeam == ENEMY_TEAM && SOLDIER_CLASS_ENEMY( pSoldier->ubSoldierClass ) )
+	{
+		if ( NumSoldiersofClassWithFlag2InSector( pCreateStruct->bTeam, pSoldier->ubSoldierClass, SOLDIER_TURNCOAT ) < NumTurncoatsOfClassInSector( gWorldSectorX, gWorldSectorY, pSoldier->ubSoldierClass ) )
+		{
+			pSoldier->usSoldierFlagMask2 |= SOLDIER_TURNCOAT;
+		}
+	}
 	
 	// SANDRO - If neither of these two options are activated, use the original code
 	// however, "no traits" means no traits at all, so commented out

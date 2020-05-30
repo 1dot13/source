@@ -516,11 +516,13 @@ STR16 OperationText( UINT32 aNum )
 
 		STR16 operationame = GetIncidentName( battlereport.id );
 
-		if ( battlereport.flagmask & MILITIA_BATTLEREPORT_FLAG_RECRUITED )
+		if ( battlereport.flagmask & (MILITIA_BATTLEREPORT_FLAG_RECRUITED| MILITIA_BATTLEREPORT_FLAG_RECRUITED_TURNCOAT) )
 		{
 			STR16 originsectorstr = militia.GetOriginSector( );
 
-			if ( militia.origin == MO_PMC )
+			if ( battlereport.flagmask & MILITIA_BATTLEREPORT_FLAG_RECRUITED_TURNCOAT )
+				swprintf( gMilitiaOperationText, szIndividualMilitiaBattleReportText[11], day, hours, minutes, originsectorstr );
+			else if ( militia.origin == MO_PMC )
 				swprintf( gMilitiaOperationText, szIndividualMilitiaBattleReportText[8], day, hours, minutes, originsectorstr );
 			else if ( militia.origin == MO_DEFECTOR )
 				swprintf( gMilitiaOperationText, szIndividualMilitiaBattleReportText[9], day, hours, minutes, originsectorstr );

@@ -5,6 +5,7 @@
 #include "Soldier Control.h"
 
 void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, UINT32 *pusPoints );
+void ReducePointsForFatigue( SOLDIERTYPE *pSoldier, INT32 *psPoints );
 INT32 GetSkillCheckPenaltyForFatigue( SOLDIERTYPE *pSoldier, INT32 iSkill );
 INT32 SkillCheck( SOLDIERTYPE *pSoldier, INT8 bReason, INT8 bDifficulty );
 INT16 CalcTrapDetectLevel( SOLDIERTYPE *pSoldier, BOOLEAN fExamining );
