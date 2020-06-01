@@ -619,6 +619,8 @@ void DrawExplosionWarning( INT32 sGridno, INT8 sLevel, INT8 sDelay )
 	// make sure to check for these boundaries later on, and only draw inside them
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, gsVIEWPORT_START_X, gsVIEWPORT_WINDOW_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y );
 
+	UINT16 red = Get16BPPColor( FROMRGB( 255, 0, 0 ) );
+
 	INT16 numcircles = max( 1, 4 - sDelay);
 
 	// we determine the biggest rectangle we have to reserve
@@ -658,7 +660,7 @@ void DrawExplosionWarning( INT32 sGridno, INT8 sLevel, INT8 sDelay )
 				if ( radius_inner <= diff && diff <= radius_outer )
 				{
 					// we alter the colour of existing pixels instead of fully replacing the colour. As a result, one can still see the map regions we draw over, which looks a lot better
-					PixelAlterColour( FALSE, x, y, 0x00, 0x88, pDestBuf );
+					PixelAlterColour( FALSE, x, y, red, pDestBuf );
 
 					sthdrawn = TRUE;
 				}
@@ -733,6 +735,8 @@ void DrawTraitRadius( INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThicknes
 	best_yl = min( best_yl, yl );
 	best_yr = max( best_yr, yr );
 
+	UINT16 blue = Get16BPPColor( FROMRGB( 0, 0, 255 ) );
+
 	for ( INT32 x = xl; x <= xr; ++x )
 	{
 		FLOAT xdiffsquared = (FLOAT)((sScreenX - x) * (sScreenX - x));
@@ -744,7 +748,7 @@ void DrawTraitRadius( INT32 sGridno, INT8 sLevel, INT32 sRadius, INT16 sThicknes
 			if ( radius_inner <= diff && diff <= radius_outer )
 			{
 				// we alter the colour of existing pixels instead of fully replacing the colour. As a result, one can still see the map regions we draw over, which looks a lot better
-				PixelAlterColour( FALSE, x, y, 0xFF, 0x00, pDestBuf );
+				PixelAlterColour( FALSE, x, y, blue, pDestBuf );
 
 				sthdrawn = TRUE;
 			}

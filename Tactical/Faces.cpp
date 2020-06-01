@@ -2428,6 +2428,16 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 				swprintf(sString, L"%d/%3.1f", sPtsAvailable, bPtsAvailable);
 				break;
+
+			case EXPLORATION:
+				sIconIndex_Assignment = 34;
+				fDoIcon_Assignment = TRUE;
+				fShowCustomText = TRUE;
+				sPtsAvailable = (INT16)MercPtrs[pFace->ubSoldierID]->GetExplorationPoints();
+
+				// we only show our points, not how far we are with the task, lest the player deduct how many items there are to find in the first place
+				swprintf( sString, L"%d", sPtsAvailable );
+				break;
 			}
 
 			// Check for being serviced...

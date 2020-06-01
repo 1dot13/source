@@ -574,7 +574,7 @@ typedef struct SECTORINFO
 	UINT8	ubNumAdmins_Turncoat;
 	UINT8	ubNumTroops_Turncoat;
 	UINT8	ubNumElites_Turncoat;	
-	UINT8	bPadding_1;
+	UINT8	usExplorationProgress;
 
 	INT8	bPadding[ 8 ];
 
@@ -624,8 +624,9 @@ typedef struct UNDERGROUND_SECTORINFO
 
 	UINT8	ubNumJeeps;
 	UINT8	ubJeepsInBattle;
+	UINT8	usExplorationProgress;
 
-	INT8	bPadding[14];
+	INT8	bPadding[12];
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 

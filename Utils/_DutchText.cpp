@@ -2363,6 +2363,8 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"Assignment not possible at the moment",	// TODO.Translate
 	L"No militia that can be drilled present.",
+
+	L"%s has fully explored %s.",	// TODO.Translate
 };
 
 // the country and its noun in the game
@@ -2476,6 +2478,7 @@ STR16 pAssignmentStrings[] =
 	L"DMilitia",
 	L"Burial",
 	L"Admin", // TODO.Translate
+	L"Explore",	// TODO.Translate
 };
 
 
@@ -2585,6 +2588,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"Drill existing militia",
 	L"Bury corpses",
 	L"Administration",	// TODO.Translate
+	L"Exploration",	// TODO.Translate
 };
 
 
@@ -2653,6 +2657,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Drill existing militia",
 	L"Bury corpses",
 	L"Administration",	// TODO.Translate
+	L"Exploration",	// TODO.Translate
 };
 
 
@@ -2777,6 +2782,7 @@ STR16 pAssignMenuStrings[] =
 	L"Fortify",		// fortify sector	// TODO.Translate
 	L"Intel", // covert assignments	// TODO.Translate
 	L"Administer",	// TODO.Translate
+	L"Explore",	// TODO.Translate
 	L"Facility", // the merc is using/staffing a facility	// TODO.Translate
 	L"Stop", // cancel this menu
 };
@@ -9125,6 +9131,7 @@ STR16	szBackgroundText_Value[]=
 	L" hacking skill: %s%d ",	// TODO.Translate
 	L" %s%d%% burial speed\n",	// TODO.Translate
 	L" %s%d%% administration effectiveness\n",	// TODO.Translate
+	L" %s%d%% exploration effectiveness\n",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =	// TODO.Translate

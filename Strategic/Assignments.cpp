@@ -513,6 +513,9 @@ void HandleSpyAssignments();
 // Flugente: handle administration assignment
 void HandleAdministrationAssignments();
 
+// Flugente: handle exploration assignements
+void HandleExplorationAssignments();
+
 // is the character between secotrs in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
@@ -1107,6 +1110,29 @@ BOOLEAN CanCharacterAdministration( SOLDIERTYPE *pSoldier )
 	// Flugente: we can't perform most assignments while concealed
 	if ( SPY_LOCATION( pSoldier->bAssignment ) )
 		return( FALSE );
+
+	return TRUE;
+}
+
+BOOLEAN CanCharacterExplore( SOLDIERTYPE *pSoldier )
+{
+	AssertNotNIL( pSoldier );
+
+	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
+		return FALSE;
+
+	if ( pSoldier->bSectorZ )
+	{
+		UNDERGROUND_SECTORINFO* pSector = FindUnderGroundSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+		if ( !pSector || pSector->usExplorationProgress >= 250 )
+			return FALSE;
+	}
+	else
+	{
+		SECTORINFO* pSector = &( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )] );
+		if ( !pSector || pSector->usExplorationProgress >= 250 )
+			return FALSE;
+	}
 
 	return TRUE;
 }
@@ -2966,6 +2992,9 @@ void UpdateAssignments()
 
 	// handle administration assignment
 	HandleAdministrationAssignments();
+
+	// handle exploration
+	HandleExplorationAssignments();
 
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );
@@ -6898,6 +6927,96 @@ void HandleAdministrationAssignments()
 	}
 }
 
+// Flugente: handle exploration assignments
+void HandleExplorationAssignments()
+{	
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier && pSoldier->bAssignment == EXPLORATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
+		{
+			UINT32 pts = pSoldier->GetExplorationPoints();
+
+			bool awardpts = false;
+
+			if ( pSoldier->bSectorZ )
+			{
+				UNDERGROUND_SECTORINFO *pSector;
+				pSector = FindUnderGroundSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+				if ( pSector && pSector->usExplorationProgress < 250 )
+				{
+					awardpts = true;
+					
+					UINT32 oldprogress = pSector->usExplorationProgress;
+					UINT32 newprogress = min( 255, oldprogress + pts );
+
+					if ( newprogress > 250 )
+					{
+						pSector->usExplorationProgress = 255;
+
+						CHAR16 wSectorName[64];
+						GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, wSectorName );
+
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_ASSIGNMENT_EXPLORATION_DONE], pSoldier->GetName(), wSectorName );
+
+						AssignmentDone( pSoldier, TRUE, TRUE );
+					}
+					else
+					{
+						pSector->usExplorationProgress = (UINT8)newprogress;
+					}
+				}
+				else
+				{
+					AssignmentDone( pSoldier, TRUE, TRUE );
+				}
+			}
+			else
+			{
+				SECTORINFO* pSector = &( SectorInfo[SECTOR( pSoldier->sSectorX, pSoldier->sSectorY )] );
+
+				if ( pSector && pSector->usExplorationProgress < 250 )
+				{
+					awardpts = true;
+					
+					UINT32 oldprogress = pSector->usExplorationProgress;
+					UINT32 newprogress = min( 255, oldprogress + pts );
+
+					if ( newprogress > 250 )
+					{
+						pSector->usExplorationProgress = 255;
+
+						CHAR16 wSectorName[64];
+						GetShortSectorString( pSoldier->sSectorX, pSoldier->sSectorY, wSectorName );
+
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_ASSIGNMENT_EXPLORATION_DONE], pSoldier->GetName(), wSectorName );
+
+						AssignmentDone( pSoldier, TRUE, TRUE );
+					}
+					else
+					{
+						pSector->usExplorationProgress = (UINT8)newprogress;
+					}
+				}
+				else
+				{
+					AssignmentDone( pSoldier, TRUE, TRUE );
+				}
+			}
+
+			if ( awardpts )
+			{
+				StatChange( pSoldier, AGILAMT, 1, FROM_TRAINING );
+				StatChange( pSoldier, WISDOMAMT, 1, FROM_TRAINING );
+				StatChange( pSoldier, EXPERAMT, 1, FROM_TRAINING );
+			}
+		}
+	}
+}
+
 // handle snitch spreading propaganda assignment
 // totally not a copy of HandleRadioScanInSector
 void HandleSpreadingPropagandaInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
@@ -10567,7 +10686,19 @@ void HandleShadingOfLinesForAssignmentMenus( void )
 			{
 				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_ADMINISTRATION );
 			}
-			
+
+			// exploration
+			if ( CanCharacterExplore( pSoldier ) )
+			{
+				// unshade line
+				UnShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_EXPLORATION );
+			}
+			else
+			{
+				// shade line
+				ShadeStringInBox( ghAssignmentBox, ASSIGN_MENU_EXPLORATION );
+			}
+						
 			// militia
 			if ( CanCharacterOnDuty( pSoldier ) )
 			{
@@ -14130,6 +14261,42 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 
+				case ASSIGN_MENU_EXPLORATION:
+					if ( CanCharacterExplore( pSoldier ) )
+					{
+						// stop showing menu
+						fShowAssignmentMenu = FALSE;
+						giAssignHighLine = -1;
+
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+						if ( ( pSoldier->bAssignment != EXPLORATION ) )
+						{
+							SetTimeOfAssignmentChangeForMerc( pSoldier );
+						}
+
+						// remove from squad
+						if ( pSoldier->bOldAssignment == VEHICLE )
+						{
+							TakeSoldierOutOfVehicle( pSoldier );
+						}
+						RemoveCharacterFromSquads( pSoldier );
+
+						ChangeSoldiersAssignment( pSoldier, EXPLORATION );
+
+						AssignMercToAMovementGroup( pSoldier );
+
+						MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						// set assignment for group
+						SetAssignmentForList( (INT8)EXPLORATION, 0 );
+					}
+					break;
+
 				case( ASSIGN_MENU_CANCEL ):
 					fShowAssignmentMenu = FALSE;
 					giAssignHighLine = -1;
@@ -17083,6 +17250,30 @@ void SetSoldierAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment, INT32 iParam
 				AssignMercToAMovementGroup( pSoldier );
 			}
 			break;
+
+		case EXPLORATION:
+			if ( CanCharacterExplore( pSoldier ) )
+			{
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
+				// remove from squad
+				RemoveCharacterFromSquads( pSoldier );
+
+				// remove from any vehicle
+				if ( pSoldier->bOldAssignment == VEHICLE )
+				{
+					TakeSoldierOutOfVehicle( pSoldier );
+				}
+
+				if ( pSoldier->bAssignment != bAssignment )
+				{
+					SetTimeOfAssignmentChangeForMerc( pSoldier );
+				}
+
+				ChangeSoldiersAssignment( pSoldier, bAssignment );
+				AssignMercToAMovementGroup( pSoldier );
+			}
+			break;
 	}
 }
 
@@ -18234,6 +18425,10 @@ void ReEvaluateEveryonesNothingToDo( BOOLEAN aDoExtensiveCheck )
 					fNothingToDo = !CanCharacterAdministration( pSoldier ) || !GetNumberofAdministratableMercs( pSoldier->sSectorX, pSoldier->sSectorY );
 					break;
 
+				case EXPLORATION:
+					fNothingToDo = !CanCharacterExplore( pSoldier );
+					break;
+
 				case VEHICLE:
 				default:	// squads
 					fNothingToDo = FALSE;
@@ -18582,6 +18777,15 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 
 				case ADMINISTRATION:
 					if ( CanCharacterAdministration( pSoldier ) )
+					{
+						pSoldier->bOldAssignment = pSoldier->bAssignment;
+						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );
+						fItWorked = TRUE;
+					}
+					break;
+
+				case EXPLORATION:
+					if ( CanCharacterExplore( pSoldier ) )
 					{
 						pSoldier->bOldAssignment = pSoldier->bAssignment;
 						SetSoldierAssignment( pSoldier, bAssignment, bParam, 0, 0 );

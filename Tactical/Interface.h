@@ -205,6 +205,7 @@ enum {
 	BG_HACKERSKILL,			// hacking skill from 0 to 100, > 0 means hacking is possible
 	BG_BURIAL_ASSIGNMENT,	// modifies effectivity of 'BURIAL' assignment
 	BG_ADMINISTRATION_ASSIGNMENT,	// modifies effectivity of 'ADMINISTRATION' assignment
+	BG_EXPLORATION_ASSIGNMENT,	// modifies effectivity of 'EXPLORATION' assignment
 
 	BG_MAX,
 };

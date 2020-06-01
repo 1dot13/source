@@ -366,13 +366,16 @@ void PixelDraw( BOOLEAN fClip, INT32 xp, INT32 yp, INT16 sColor, UINT8 *pScreen 
 }
 
 // Flugente: alter the colour of existing pixels instead of fully replacing the colour
-void PixelAlterColour(BOOLEAN fClip, INT32 xp, INT32 yp, UINT8 col1, UINT8 col2, UINT8 *pScreen)
+void PixelAlterColour(BOOLEAN fClip, INT32 xp, INT32 yp, INT16 sColor, UINT8 *pScreen)
 {
 	if ( fClip && !ClipPoint( xp, yp ) )
 		return;
 	
 	// point to the bitmap address first pixel to draw
 	pScreen += yp * giImageWidth + xp * 2;
+	
+	INT8 col2 = sColor >> 8;
+	INT8 col1 = sColor & 0x00ff;
 	
 	pScreen[0] |= col1;
 	pScreen[1] |= col2;

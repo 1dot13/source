@@ -737,6 +737,8 @@ typedef struct
 	FLOAT fAdministrationPointsPerPercent;
 	UINT16 fAdministrationMaxPercent;
 
+	FLOAT fExplorationPointsModifier;
+
 	INT32 ubTrainingSkillMin;
 	INT32 ubTrainingSkillMax;
 	INT32 ubSelfTrainingDivisor;

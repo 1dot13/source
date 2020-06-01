@@ -39,6 +39,7 @@
 	#include "tile surface.h"
 	#include "GameSettings.h"
 	#include <vector>
+	#include "Action Items.h"	// added by Flugente
 #endif
 
 #include "connect.h"
@@ -110,6 +111,7 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo );
 extern BOOLEAN AnyItemsVisibleOnLevel( ITEM_POOL *pItemPool, INT8 bZLevel );
 extern void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject, BOOLEAN fReset );
 
+extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );
 
 //Isometric utilities (for overhead stuff only)
 BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo );
@@ -1664,66 +1666,169 @@ void RenderOverheadOverlays()
 		UINT16 blue		= Get16BPPColor(FROMRGB(0, 0, 255));
 		UINT16 green	= Get16BPPColor(FROMRGB(0, 255, 0));
 		UINT16 white	= Get16BPPColor(FROMRGB(255, 255, 255));
+		UINT16 red_dull = Get16BPPColor( FROMRGB( 142, 0, 0 ) );
+		UINT16 blue_dull = Get16BPPColor( FROMRGB( 0, 0, 248 ) );
+		UINT16 green_dull = Get16BPPColor( FROMRGB( 0, 127, 0 ) );
+		
+		// Flugente: exploration assignment
+		bool explored = false;
+		if ( gbWorldSectorZ )
+		{
+			UNDERGROUND_SECTORINFO *pSector;
+			pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+			if ( pSector && pSector->usExplorationProgress >= 250 )
+				explored = true;
+		}
+		else
+		{
+			UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
+
+			if ( SectorInfo[sector].usExplorationProgress >= 250 )
+				explored = true;
+		}
+
+		INT32 radiusingridnos = 5;
+		FLOAT thickness = 4;
+
+		// determine radius
+		// x-diff is 4 per unit, y-diff 2 per unit
+		FLOAT xdiffsquared = (FLOAT)( 16 * radiusingridnos * radiusingridnos );
+		FLOAT radius = sqrt( (FLOAT)( xdiffsquared + 4 * 4 * radiusingridnos * radiusingridnos ) );
+
+		FLOAT radius_inner = radius - thickness / 2;
+		FLOAT radius_outer = radius + thickness / 2;
 		
 		for( i = 0 ; i < guiNumWorldItems; ++i	)
 		{
 			pWorldItem = &gWorldItems[ i ];
-			if( !pWorldItem || !pWorldItem->fExists || pWorldItem->bVisible != VISIBLE && !(gTacticalStatus.uiFlags & SHOW_ALL_ITEMS) )
+			if( !pWorldItem	|| !pWorldItem->fExists )
 				continue;
 
-			if(!GetOverheadScreenXYFromGridNo(pWorldItem->sGridNo, &sX, &sY))//dnl ch45 041009
-				continue;
+			// display item
+			if ( pWorldItem->bVisible == VISIBLE
+				|| ( gTacticalStatus.uiFlags & SHOW_ALL_ITEMS ) )
+			{
+				if ( !GetOverheadScreenXYFromGridNo( pWorldItem->sGridNo, &sX, &sY ) )//dnl ch45 041009
+					continue;
 
-			//adjust for position.
-			//sX += 2;
-			sY += 6;
-			sY -= ( GetOffsetLandHeight( pWorldItem->sGridNo ) /5);
+				//adjust for position.
 
-			sY += ( gsRenderHeight / 5 );
+				// Smaller maps
+				if ( gsStartRestrictedX > 0 )
+				{
+					sX += gsStartRestrictedX;
+				}
+				// Full size maps
+				else
+				{
+					sX += iOffsetHorizontal;
+				}
 
-			// Smaller maps
-			if (gsStartRestrictedX > 0)
-			{
-				sX += gsStartRestrictedX;
-			}
-			// Full size maps
-			else
-			{
-				sX += iOffsetHorizontal;
+				INT16 offsetlandheight = GetOffsetLandHeight( pWorldItem->sGridNo ) / 5;
+				sY += 6 - offsetlandheight;
+				sY += ( gsRenderHeight / 5 );
+
+				// Smaller maps
+				if ( gsStartRestrictedY > 0 )
+				{
+					sY += gsStartRestrictedY;
+				}
+				// Full size maps
+				else
+				{
+					sY += iOffsetVertical;
+				}
+
+				/*sX += iOffsetHorizontal + gsStartRestrictedX;
+				sY += iOffsetVertical + gsStartRestrictedY;*/
+
+				if ( gfOverItemPool && gsOveritemPoolGridNo == pWorldItem->sGridNo )
+				{
+					usLineColor = red;
+				}
+				else if ( gfRadarCurrentGuyFlash )
+				{
+					usLineColor = black;
+				}
+				else switch ( pWorldItem->bVisible )
+				{
+				case HIDDEN_ITEM:		usLineColor = blue;	break;
+				case BURIED:			usLineColor = red;	break;
+				case HIDDEN_IN_OBJECT:	usLineColor = blue;	break;
+				case INVISIBLE:			usLineColor = green;	break;
+				case VISIBLE:			usLineColor = white;	break;
+				}
+
+				PixelDraw( FALSE, sX, sY, usLineColor, pDestBuf );
 			}
 
-			// Smaller maps
-			if (gsStartRestrictedY > 0)
+			// Flugente: exploration
+			// draw a circle around items the player does not yet know of if the player has been fully explored
+			// exclude most action items, except for explosive ones
+			if ( explored
+				&& pWorldItem->bVisible != VISIBLE
+				&& ( pWorldItem->object.usItem != ACTION_ITEM || pWorldItem->object[0]->data.misc.bActionValue == ACTION_ITEM_BLOW_UP ) )
 			{
-				sY += gsStartRestrictedY;
-			}
-			// Full size maps
-			else
-			{
-				sY += iOffsetVertical;
-			}
+				// in order not go give away the precise location of the item, have the center of the circles vary, but with the item being inside
+				// we can't use random numbers as the circles shouldn't move upon repeated calls, so use modulo magic
+				INT16 totalvariationsquared = ( 4 + pWorldItem->sGridNo * 37 ) % radiusingridnos*radiusingridnos;
+				INT16 variation_x = sqrt(( ( pWorldItem->sGridNo * 13 ) % 100 ) * totalvariationsquared / 100);
+				INT16 variation_y = sqrt( totalvariationsquared - variation_x * variation_x );
 
-			/*sX += iOffsetHorizontal + gsStartRestrictedX;
-			sY += iOffsetVertical + gsStartRestrictedY;*/
-						
-			if ( gfOverItemPool && gsOveritemPoolGridNo == pWorldItem->sGridNo )
-			{
-				usLineColor = red;
-			}
-			else if (gfRadarCurrentGuyFlash)
-			{
-				usLineColor = black;
-			}
-			else switch (pWorldItem->bVisible)
-			{
-			case HIDDEN_ITEM:		usLineColor = blue;	break;
-			case BURIED:			usLineColor = red;	break;
-			case HIDDEN_IN_OBJECT:	usLineColor = blue;	break;
-			case INVISIBLE:			usLineColor = green;	break;
-			case VISIBLE:			usLineColor = white;	break;
-			}
+				if ( pWorldItem->sGridNo % 8 < 4 )			variation_x *= -1;
+				if ( (2 + pWorldItem->sGridNo) % 8 < 4 )	variation_y *= -1;
 
-			PixelDraw( FALSE, sX, sY, usLineColor, pDestBuf );
+				INT32 centergridno = pWorldItem->sGridNo + variation_y * WORLD_COLS + variation_x;
+				INT16 sX_Center, sY_Center;
+				if ( GetOverheadScreenXYFromGridNo( centergridno, &sX_Center, &sY_Center ) )
+				{
+					//adjust for position.
+
+					// Smaller maps
+					if ( gsStartRestrictedX > 0 )
+						sX_Center += gsStartRestrictedX;
+					// Full size maps
+					else
+						sX_Center += iOffsetHorizontal;
+
+					sY_Center += 6 - GetOffsetLandHeight( pWorldItem->sGridNo ) / 5;
+					sY_Center += ( gsRenderHeight / 5 );
+
+					// Smaller maps
+					if ( gsStartRestrictedY > 0 )
+						sY_Center += gsStartRestrictedY;
+					// Full size maps
+					else
+						sY_Center += iOffsetVertical;
+					
+					// determine area of where the circle will be drawn in, take into account what part of the sector we actually see
+					INT32 xr = sX_Center + radius;
+					INT32 yr = sY_Center + radius;
+
+					for ( INT32 x = sX_Center - radius; x <= xr; ++x )
+					{
+						FLOAT xdiffsquared = (FLOAT)( ( sX_Center - x ) * ( sX_Center - x ) );
+
+						for ( INT32 y = sY_Center - radius; y <= yr; ++y )
+						{
+							FLOAT diff = sqrt( (FLOAT)( xdiffsquared + 4 * ( sY_Center - y ) * ( sY_Center - y ) ) );
+
+							if ( radius_inner <= diff && diff <= radius_outer )
+							{
+								// we alter the colour of existing pixels instead of fully replacing the colour. As a result, one can still see the map regions we draw over, which looks a lot better
+								switch ( pWorldItem->bVisible )
+								{
+								case HIDDEN_ITEM:		PixelAlterColour( FALSE, x, y, blue_dull, pDestBuf );	break;
+								case BURIED:			PixelAlterColour( FALSE, x, y, red_dull, pDestBuf );	break;
+								case HIDDEN_IN_OBJECT:	PixelAlterColour( FALSE, x, y, blue_dull, pDestBuf );	break;
+								case INVISIBLE:			PixelAlterColour( FALSE, x, y, green_dull, pDestBuf );	break;
+								case VISIBLE:			PixelAlterColour( FALSE, x, y, white, pDestBuf );	break;
+								}
+							}
+						}
+					}
+				}
+			}
 
 			InvalidateRegion( sX, sY, (INT16)( sX + 1 ), (INT16)( sY + 1 ) );
 		}

@@ -20684,7 +20684,7 @@ FLOAT		SOLDIERTYPE::GetAdministrationModifier()
 // Flugente:  those with the <scrounging> background occasionally steal money from the locals
 UINT8		SOLDIERTYPE::GetThiefStealMoneyChance()
 {
-	if ( this->stats.bLife < OKLIFE )
+	if ( this->stats.bLife < OKLIFE || ( this->usSoldierFlagMask & SOLDIER_POW ) )
 		return 0;
 	
 	UINT32 val = 1 * EffectiveAgility( this, FALSE ) + 8 * EffectiveDexterity( this, FALSE ) + 10 * EffectiveExpLevel( this, FALSE );
@@ -20999,6 +20999,60 @@ void		SOLDIERTYPE::OrderAllTurnCoatToSwitchSides()
 			}
 		}
 	}
+}
+
+UINT32		SOLDIERTYPE::GetExplorationPoints()
+{
+	if ( this->stats.bLife < OKLIFE || ( this->usSoldierFlagMask & SOLDIER_POW ) )
+		return 0;
+
+	// if not on correct assignment, no gain
+	if ( this->bAssignment != EXPLORATION )
+		return 0;
+
+	UINT32 val = 400 + 1 * EffectiveWisdom( this ) + 1 * EffectiveAgility( this, FALSE ) + 5 * EffectiveExpLevel( this, FALSE )
+		+ 150 * NUM_SKILL_TRAITS( this, SCOUTING_NT ) + 50 * NUM_SKILL_TRAITS( this, SURVIVAL_NT ) + (this->HasBackgroundFlag( BACKGROUND_SCROUNGING ) ? 150 : 0);
+
+	// personality/disability modifiers
+	FLOAT persmodifier = 1.0f;
+	//if ( DoesMercHaveDisability( this, HEAT_INTOLERANT ) )		persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, NERVOUS ) )				persmodifier -= 0.20f;
+	if ( DoesMercHaveDisability( this, CLAUSTROPHOBIC ) )		persmodifier -= 0.03f;
+	//if ( DoesMercHaveDisability( this, NONSWIMMER ) )			persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, FEAR_OF_INSECTS ) )		persmodifier -= 0.20f;
+	if ( DoesMercHaveDisability( this, FORGETFUL ) )			persmodifier -= 0.30f;
+	//if ( DoesMercHaveDisability( this, PSYCHO ) )				persmodifier -= 0.20f;
+	//if ( DoesMercHaveDisability( this, DEAF ) )					persmodifier -= 0.15f;
+	if ( DoesMercHaveDisability( this, SHORTSIGHTED ) )			persmodifier -= 0.30f;
+	//if ( DoesMercHaveDisability( this, HEMOPHILIAC ) )			persmodifier -= 0.20f;
+	if ( DoesMercHaveDisability( this, AFRAID_OF_HEIGHTS ) )	persmodifier -= 0.02f;
+	//if ( DoesMercHaveDisability( this, SELF_HARM ) )			persmodifier -= 0.20f;
+
+	if ( gGameOptions.fNewTraitSystem )
+	{
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_SOCIABLE ) )		persmodifier += 0.25f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_LONER ) )		persmodifier -= 0.05f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_OPTIMIST ) )		persmodifier += 0.05f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_ASSERTIVE ) )	persmodifier += 0.15f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_INTELLECTUAL ) )	persmodifier += 0.15f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_PRIMITIVE ) )	persmodifier -= 0.15f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_AGGRESSIVE ) )	persmodifier -= 0.15f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_PHLEGMATIC ) )	persmodifier -= 0.05f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_DAUNTLESS ) )	persmodifier -= 0.13f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_PACIFIST ) )		persmodifier -= 0.03f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_MALICIOUS ) )	persmodifier -= 0.13f;
+		//if ( DoesMercHavePersonality( this, CHAR_TRAIT_SHOWOFF ) )		persmodifier -= 0.08f;
+		if ( DoesMercHavePersonality( this, CHAR_TRAIT_COWARD ) )		persmodifier -= 0.02f;
+	}
+
+	// background modifier
+	persmodifier += ( this->GetBackgroundValue( BG_EXPLORATION_ASSIGNMENT ) ) / 100.0f;
+	
+	UINT32 totalvalue = val * persmodifier * gGameExternalOptions.fExplorationPointsModifier / 10;
+
+	ReducePointsForFatigue( this, &totalvalue );
+
+	return totalvalue;
 }
 
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )

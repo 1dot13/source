@@ -98,6 +98,7 @@ enum
 	DRILL_MILITIA,					// train existing militia (does not create new ones)
 	BURIAL,							// merc removes corpses in this sector
 	ADMINISTRATION,					// merc boosts the effectiveness of other mercs
+	EXPLORATION,					// merc searches the sector for undiscovered items
 	NUM_ASSIGNMENTS,
 };
 
@@ -213,6 +214,7 @@ BOOLEAN CanCharacterSpyAssignment( SOLDIERTYPE *pSoldier );
 
 BOOLEAN CanCharacterBurial( SOLDIERTYPE *pSoldier );
 BOOLEAN CanCharacterAdministration( SOLDIERTYPE *pSoldier );
+BOOLEAN CanCharacterExplore( SOLDIERTYPE *pSoldier );
 
 // can this character be assigned as a repairman?
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pCharacter );

@@ -2364,6 +2364,8 @@ CHAR16 Message[][STRING_LENGTH] =
 
 	L"此时无法分配任务",	//L"Assignment not possible at the moment",
 	L"没有能够训练的民兵。",	//L"No militia that can be drilled present.",
+
+	L"%s has fully explored %s.",	// TODO.Translate
 };
 
 // the country and its noun in the game
@@ -2477,6 +2479,7 @@ STR16 pAssignmentStrings[] =
 	L"训练民兵",	//L"DMilitia",
 	L"掩埋尸体", //L"Burial",
 	L"管理", //L"Admin",
+	L"Explore",	// TODO.Translate
 };
 
 
@@ -2586,6 +2589,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
 	L"管理人员",	//L"Administration",
+	L"Exploration",	// TODO.Translate
 };
 
 
@@ -2654,6 +2658,7 @@ STR16 pLongAssignmentStrings[] =
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
 	L"管理人员",	//L"Administration",
+	L"Exploration",	// TODO.Translate
 };
 
 
@@ -2778,6 +2783,7 @@ STR16 pAssignMenuStrings[] =
 	L"筑防",		//L"Fortify", fortify sector
 	L"情报", //L"Intel", covert assignments
 	L"管理",	//L"Administer",
+	L"Explore",	// TODO.Translate
 	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -9106,6 +9112,7 @@ STR16	szBackgroundText_Value[]=
 	L" 间谍技能: %s%d ",//L" hacking skill: %s%d ",
 	L" %s%d%% 掩埋尸体速度 \n",	//L" %s%d%% burial speed\n",
 	L" %s%d%% 管理效率 \n",	//L" %s%d%% administration effectiveness\n",
+	L" %s%d%% exploration effectiveness\n",	// TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =

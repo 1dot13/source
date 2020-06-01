@@ -2038,6 +2038,9 @@ public:
 	void		AttemptToCreateTurncoat( UINT16 usID );
 	BOOLEAN		OrderTurnCoatToSwitchSides( UINT16 usID );
 	void		OrderAllTurnCoatToSwitchSides();
+
+	// Flugente: exploration assignment
+	UINT32		GetExplorationPoints();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

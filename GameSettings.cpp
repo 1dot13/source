@@ -2253,6 +2253,8 @@ void LoadGameExternalOptions()
 	
 	gGameExternalOptions.fAdministrationPointsPerPercent	= (FLOAT)iniReader.ReadDouble( "Strategic Assignment Settings", "ADMINISTRATION_POINTS_PER_PERCENT", 20.0f, 1.0f, 1000.0f );
 	gGameExternalOptions.fAdministrationMaxPercent			= iniReader.ReadInteger( "Strategic Assignment Settings", "ADMINISTRATION_MAX_PERCENTAGE", 15, 0, 100 );
+
+	gGameExternalOptions.fExplorationPointsModifier			= (FLOAT)iniReader.ReadDouble("Strategic Assignment Settings", "EXPLORATION_POINTS_MODIFIER", 1.0f, 0.01f, 10.0f );
 	
 	gGameExternalOptions.fUseXMLSquadNames					= iniReader.ReadBoolean("Strategic Assignment Settings", "USE_XML_SQUADNAMES", FALSE);
 
