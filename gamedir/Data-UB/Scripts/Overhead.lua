@@ -335,6 +335,78 @@ PhotoFlag =
 -- sIntelPrice: price of item in intel
 -- sOptimalNumber: how many items the trader should have at maximum
 function AddArmsDealerAdditionalIntelData()
+
+	-- price is affected by player progress - on higher progress items get cheaper (as they are less useful at that point)
+	progress = CurrentPlayerProgressPercentage()
+	ratio = (200.0 - progress) / 100.0
+	
+	-- black market:
+	-- guns
+	AddArmsDealerAdditionalIntelDataItem(68, 337, 10 * ratio, 2)	-- Five-Seven
+	AddArmsDealerAdditionalIntelDataItem(68, 663, 15 * ratio, 1)	-- HK G11 PDW
+	AddArmsDealerAdditionalIntelDataItem(68, 1073, 10 * ratio, 2)	-- HK UCP
+	AddArmsDealerAdditionalIntelDataItem(68, 673, 13 * ratio, 2)	-- HK MP7A1
+	AddArmsDealerAdditionalIntelDataItem(68, 686, 20 * ratio, 1)	-- Metal Storm Surf Zone
+	AddArmsDealerAdditionalIntelDataItem(68, 1191, 25 * ratio, 1)	-- Magpul PDR-D
+	AddArmsDealerAdditionalIntelDataItem(68, 65, 40 * ratio, 1)		-- Auto Rocket Rifle
+	AddArmsDealerAdditionalIntelDataItem(68, 1334, 27 * ratio, 1)	-- AR57 6" Silenced
+	AddArmsDealerAdditionalIntelDataItem(68, 335, 40 * ratio, 1)	-- Barret M82A2
+	AddArmsDealerAdditionalIntelDataItem(68, 676, 35 * ratio, 1)	-- HL SL9SD
+	AddArmsDealerAdditionalIntelDataItem(68, 774, 50 * ratio, 1)	-- VSSK Vychlop
+	AddArmsDealerAdditionalIntelDataItem(68, 605, 22 * ratio, 1)	-- AICW
+	AddArmsDealerAdditionalIntelDataItem(68, 748, 22 * ratio, 2)	-- XM-29 OICW
+	AddArmsDealerAdditionalIntelDataItem(68, 752, 20 * ratio, 1)	-- XM-8 Sharpshooter
+	AddArmsDealerAdditionalIntelDataItem(68, 1065, 23 * ratio, 1)	-- Steyr AUG-A3
+	AddArmsDealerAdditionalIntelDataItem(68, 680, 16 * ratio, 1)	-- Jackhammer Mk3A1
+	
+	-- Ammo
+	AddArmsDealerAdditionalIntelDataItem(68, 1455, 8 * ratio, 2)	-- 5.7x28 100 AET
+	AddArmsDealerAdditionalIntelDataItem(68, 1450, 8 * ratio, 2)	-- 4.7x33 100 SAP
+	AddArmsDealerAdditionalIntelDataItem(68, 1460, 8 * ratio, 2)	-- 4.6x30 100 AET	
+	AddArmsDealerAdditionalIntelDataItem(68, 544, 5 * ratio, 2)		-- 9mm MS 72 SAP
+	AddArmsDealerAdditionalIntelDataItem(68, 1518, 10 * ratio, 2)	-- 6x35 100 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 113, 5 * ratio, 5)		-- Minirocket 5 HEAP
+	AddArmsDealerAdditionalIntelDataItem(68, 1738, 10 * ratio, 2)	-- Minirocket 5 Cryo
+	AddArmsDealerAdditionalIntelDataItem(68, 116, 5 * ratio, 4)		-- .50 BMG 10 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 540, 3 * ratio, 4)		-- 7.62x37 10 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 1512, 7 * ratio, 3)	-- 12.7x97 Subsonic 15 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 1520, 10 * ratio, 2)	-- 6.8x43 SPC 100 AP
+	AddArmsDealerAdditionalIntelDataItem(68, 1423, 3 * ratio, 5)	-- 12 gauge 25 Flechette
+	AddArmsDealerAdditionalIntelDataItem(68, 1578, 1 * ratio, 10)	-- Darts 1 Neurotoxin
+	
+	-- Launchers
+	AddArmsDealerAdditionalIntelDataItem(68, 908, 20 * ratio, 1)	-- XM-25 Grenade Launcher
+	AddArmsDealerAdditionalIntelDataItem(68, 1736, 40 * ratio, 1)	-- Strela-2
+	
+	-- Grenades
+	AddArmsDealerAdditionalIntelDataItem(68, 957, 4 * ratio, 2)		-- 20mm Thermobaric Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 963, 4 * ratio, 2)		-- 25mm Thermobaric Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 970, 2 * ratio, 5)		-- 40mm Thermobaric Grenade
+	AddArmsDealerAdditionalIntelDataItem(68, 978, 4 * ratio, 5)		-- Thermobaric Rocket
+	AddArmsDealerAdditionalIntelDataItem(68, 987, 4 * ratio, 2)		-- 40mm MS Thermobaric Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 989, 4 * ratio, 2)		-- 20mm Napalm Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 990, 4 * ratio, 2)		-- 25mm Napalm Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 991, 1 * ratio, 5)		-- 40mm Napalm Grenade
+	AddArmsDealerAdditionalIntelDataItem(68, 993, 4 * ratio, 2)		-- 40mm MS Napalm Clip
+	AddArmsDealerAdditionalIntelDataItem(68, 1737, 6 * ratio, 4)	-- Strela-2 Missile
+	
+	-- Explosives
+	AddArmsDealerAdditionalIntelDataItem(68, 951, 4 * ratio, 3)		-- 60mm Mustard Gas Shell
+	AddArmsDealerAdditionalIntelDataItem(68, 1523, 3 * ratio, 3)	-- M18 Claymore
+	AddArmsDealerAdditionalIntelDataItem(68, 1735, 3 * ratio, 4)	-- TM-62P2 anti-tank Mine
+	
+	-- Face items
+	AddArmsDealerAdditionalIntelDataItem(68, 1025, 20 * ratio, 2)	-- NVG Gen IV
+	
+	-- Misc
+	AddArmsDealerAdditionalIntelDataItem(68, 216, 6 * ratio, 3)		-- Compound 18
+	AddArmsDealerAdditionalIntelDataItem(68, 235, 2 * ratio, 4)		-- Regeneration Booster
+	AddArmsDealerAdditionalIntelDataItem(68, 324, 50 * ratio, 1)	-- X-Ray Detector
+	AddArmsDealerAdditionalIntelDataItem(68, 327, 11 * ratio, 2)	-- Tank of gas
+	AddArmsDealerAdditionalIntelDataItem(68, 592, 3 * ratio, 2)		-- Sniper Suppressor
+	AddArmsDealerAdditionalIntelDataItem(68, 1026, 2 * ratio, 2)	-- Trigger Group
+	AddArmsDealerAdditionalIntelDataItem(68, 1538, 1 * ratio, 5)	-- Stim
+	AddArmsDealerAdditionalIntelDataItem(68, 1744, 7 * ratio, 2)	-- Ballistic Shield
 	
 end
 
