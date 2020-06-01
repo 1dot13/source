@@ -463,7 +463,7 @@ void InitStrategicLayer( void )
 	
 #ifdef JA2UB
 	////if ( gGameUBOptions.InitTownLoyalty_UB == TRUE )
-		InitTownLoyalty(); //Ja25 no loyalty
+		//InitTownLoyalty(); //Ja25 no loyalty
 #else
 		// init town loyalty
 		InitTownLoyalty(); //Ja25 no loyalty

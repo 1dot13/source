@@ -1396,34 +1396,38 @@ void HandleDialogue( )
 				// grab soldier ptr from profile ID
 				pSoldier = FindSoldierByProfileID( (UINT8)QItem->uiSpecialEventData, FALSE );
 
-				// Now, wake these sluts up and have them say quote...
-				pSoldier->fIgnoreGetupFromCollapseCheck = FALSE;
-
-				//Get the soldier up
-				pSoldier->bCollapsed = FALSE;
-				pSoldier->ChangeSoldierStance( ANIM_STAND );
-
-				//if the soldier is Jerry
-				if( FindSoldierByProfileID( JERRY_MILO_UB, FALSE ) == pSoldier ) //JERRY
+				// FindSoldier was returning a lot of nullptrs which would crash the game very quickly after Jerry gets up. This check is here to circumvent that.
+				if (pSoldier != nullptr)
 				{
-					//Play the sound of the Antena breaking
-					PlayJA2SampleFromFile( "SOUNDS\\Metal Antenna Crunch.wav", RATE_11025, HIGHVOLUME, 1, MIDDLE );
-				}
+					// Now, wake these sluts up and have them say quote...
+					pSoldier->fIgnoreGetupFromCollapseCheck = FALSE;
 
-				//Turn off the flag saying we are doing the initial heli crash
-				gfFirstTimeInGameHeliCrash = FALSE;
+					//Get the soldier up
+					pSoldier->bCollapsed = FALSE;
+					pSoldier->ChangeSoldierStance( ANIM_STAND );
 
-				//if all the mercs are done their talk
-				if( AreAllTheMercsFinishedSayingThereInitialHeliCrashQuotes() )
-				{
-					//Trigger Jerry Milo's script record 10 ( call action 301 )
-					//AA 
-					//if ( gGameUBOptions.InGameHeliCrash == TRUE )
-					if ( gGameUBOptions.JerryQuotes == TRUE )
-					DelayedMercQuote( JERRY_MILO_UB , 0xffff, 4 ); //JERRY
+					//if the soldier is Jerry
+					if (FindSoldierByProfileID( JERRY_MILO_UB, FALSE ) == pSoldier) //JERRY
+					{
+						//Play the sound of the Antena breaking
+						PlayJA2SampleFromFile( "SOUNDS\\Metal Antenna Crunch.wav", RATE_11025, HIGHVOLUME, 1, MIDDLE );
+					}
 
-					//End the ui Lock
-					guiPendingOverrideEvent = LU_ENDUILOCK;
+					//Turn off the flag saying we are doing the initial heli crash
+					gfFirstTimeInGameHeliCrash = FALSE;
+
+					//if all the mercs are done their talk
+					if (AreAllTheMercsFinishedSayingThereInitialHeliCrashQuotes())
+					{
+						//Trigger Jerry Milo's script record 10 ( call action 301 )
+						//AA 
+						//if ( gGameUBOptions.InGameHeliCrash == TRUE )
+						if (gGameUBOptions.JerryQuotes == TRUE)
+							DelayedMercQuote( JERRY_MILO_UB, 0xffff, 4 ); //JERRY
+
+						//End the ui Lock
+						guiPendingOverrideEvent = LU_ENDUILOCK;
+					}
 				}
 			}
 		}
