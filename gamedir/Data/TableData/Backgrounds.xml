@@ -97,6 +97,7 @@
 		<hackerskill>0</hackerskill>					  <!-- hacker skill, 0 to 100. Value > 0 means we can hack computers -->
 		<burial_assignment>0</burial_assignment>		  <!-- effectiveness at burying corpses, -50 to 1000. Value > 0 means we bury corpses faster -->
 		<administration_assignment>0</administration_assignment>	<!-- +- % effectiveness at administration assignment, -50 to 1000. Value > 0 means we work better -->
+		<exploration_assignment>0</exploration_assignment>	<!-- +- % effectiveness at exploration assignment, -100 to 1000. Value > 0 means we work better -->
 
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 

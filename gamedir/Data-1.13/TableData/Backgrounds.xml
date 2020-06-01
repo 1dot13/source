@@ -97,6 +97,7 @@
 		<hackerskill>0</hackerskill>					  <!-- hacker skill, 0 to 100. Value > 0 means we can hack computers -->
 		<burial_assignment>0</burial_assignment>		  <!-- effectiveness at burying corpses, -50 to 1000. Value > 0 means we bury corpses faster -->
 		<administration_assignment>0</administration_assignment>	<!-- +- % effectiveness at administration assignment, -50 to 1000. Value > 0 means we work better -->
+		<exploration_assignment>0</exploration_assignment>	<!-- +- % effectiveness at exploration assignment, -100 to 1000. Value > 0 means we work better -->
 
 		<dislikebackground>0</dislikebackground>          <!-- dislike everybody with a background that has the negative of this value -->
 
@@ -1530,9 +1531,6 @@
 		<szName>Crazy Redneck</szName>
 		<szShortName>Crazy Redneck</szShortName>
 		<szDescription>Not entirely sane, not entirely crazy, not entirely anything, &#10;your life is at a crossroads.</szDescription>
-		<leadership>-3</leadership>
-		<strength>5</strength>
-		<mechanical>5</mechanical>
 		<stealth>-5</stealth>
 		<ap_urban>-5</ap_urban>
 		<ap_swamp>5</ap_swamp>
@@ -1563,9 +1561,6 @@
 		<szName>Redneck</szName>
 		<szShortName>Redneck</szShortName>
 		<szDescription>When the Confederacy lost the war, your family moved further south . . . &#10;and is still fighting . . . everybody.</szDescription>
-		<mechanical>3</mechanical>
-		<medical>3</medical>
-		<wisdom>-7</wisdom>
 		<ap_urban>-5</ap_urban>
 		<ap_swamp>5</ap_swamp>
 		<ap_river>5</ap_river>
@@ -1573,7 +1568,6 @@
 		<ap_fortify>-5</ap_fortify>
 		<meleedamage>5</meleedamage>
 		<speed_run>5</speed_run>
-		<approach_recruit>-5</approach_recruit>
 		<carrystrength>10</carrystrength>
 		<resistance_fear>7</resistance_fear>
 		<resistance_alcohol>10</resistance_alcohol>
@@ -1590,8 +1584,6 @@
 		<szName>Expert Handyman</szName>
 		<szShortName>Expert Handyman</szShortName>
 		<szDescription>In a warzone without the usual comforts, it is very useful to &#10;have people who can maintain your gear.</szDescription>
-		<dexterity>8</dexterity>
-		<mechanical>8</mechanical>
 		<ap_urban>3</ap_urban>
 		<betterprices_guns>3</betterprices_guns>
 		<betterprices>10</betterprices>
@@ -1605,17 +1597,12 @@
 		<szName>Evil Queen</szName>
 		<szShortName>Evil Queen</szShortName>
 		<szDescription>Living the life of an evil ruler of a small country certainly leads to astonishing survival talents.</szDescription>
-		<leadership>10</leadership>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>20</resistance_fear>
 		<interrogation>300</interrogation>
 		<betterprices_guns>10</betterprices_guns>
 		<betterprices>20</betterprices>
 		<capitulation>100</capitulation>
-		<approach_friendly>20</approach_friendly>
-		<approach_direct>20</approach_direct>
-		<approach_threaten>20</approach_threaten>
-		<approach_recruit>20</approach_recruit>
 		<hearing_night>1</hearing_night>
 		<hearing_day>1</hearing_day>
 		<carrystrength>-10</carrystrength>
@@ -1800,15 +1787,12 @@
 		<szName>The Mob</szName>
 		<szShortName>Mobster</szShortName>
 		<szDescription>Organized crime is found anywhere. No exceptions.</szDescription>
-		<leadership>10</leadership>
 		<ap_assault>2</ap_assault>
 		<cth_blades>3</cth_blades>
 		<meleedamage>3</meleedamage>
 		<betterprices_guns>5</betterprices_guns>
 		<betterprices>10</betterprices>
 		<capitulation>50</capitulation>
-		<approach_threaten>5</approach_threaten>
-		<approach_recruit>8</approach_recruit>
 		<scrounging>1</scrounging>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -1824,8 +1808,6 @@
 		<meleedamage>3</meleedamage>
 		<betterprices_guns>3</betterprices_guns>
 		<capitulation>4</capitulation>
-		<approach_threaten>5</approach_threaten>
-		<approach_recruit>8</approach_recruit>
 		<scrounging>1</scrounging> 
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -1836,7 +1818,6 @@
 		<szName>Sex slave</szName>
 		<szShortName>Sex slave</szShortName>
 		<szDescription>You don't want to know.</szDescription>
-		<leadership>-2</leadership>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-10</ap_inventory>
 		<ap_assault>-5</ap_assault>
@@ -1851,7 +1832,6 @@
 		<szName>Shopkeeper/Craftsman</szName>
 		<szShortName>Shopkeeper/Craftsman</szShortName>
 		<szDescription>For many people, their trade IS trade.</szDescription>
-		<dexterity>5</dexterity>
 		<ap_polar>-2</ap_polar>
 		<ap_desert>-2</ap_desert>
 		<ap_swamp>-2</ap_swamp>
@@ -1865,7 +1845,6 @@
 		<ap_assault>-5</ap_assault>
 		<betterprices_guns>5</betterprices_guns>
 		<betterprices>15</betterprices>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -1875,7 +1854,6 @@
 		<szName>Teenager</szName>
 		<szShortName>Teenager</szShortName>
 		<szDescription>So much angst.</szDescription>
-		<leadership>-8</leadership>
 		<ap_urban>2</ap_urban>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
@@ -1898,12 +1876,8 @@
 		<szName>Arms Dealer</szName>
 		<szShortName>Arms Dealer</szShortName>
 		<szDescription>You know the risk selling weapons to both sides, but the profit margin is just that good.</szDescription>
-		<wisdom>1</wisdom>
-		<dexterity>1</dexterity>
-		<marksmanship>5</marksmanship>
 		<resistance_fear>10</resistance_fear>
 		<approach_direct>10</approach_direct>
-		<approach_threaten>10</approach_threaten>
 		<betterprices_guns>10</betterprices_guns>
 		<betterprices>10</betterprices>
 		<no_male>1</no_male>
@@ -1917,8 +1891,6 @@
 		<szDescription>A friendly face can make violence unnecessary...</szDescription>
 		<resistance_alcohol>10</resistance_alcohol>
 		<betterprices>4</betterprices>
-		<approach_friendly>15</approach_friendly>
-		<approach_recruit>5</approach_recruit>
 		<meleedamage>3</meleedamage>
 		<cth_blades>5</cth_blades> 
 		<no_male>1</no_male>
@@ -1931,7 +1903,6 @@
 		<szShortName>Bouncer</szShortName>
 		<szDescription>Doormen make good soldiers in close combat, though the &#10;killing part is a change (hopefully).</szDescription>
 		<meleedamage>4</meleedamage>
-		<dexterity>2</dexterity>
 		<resistance_fear>10</resistance_fear>
 		<spotter>3</spotter>
 		<no_male>1</no_male>
@@ -1943,7 +1914,6 @@
 		<szName>Bodyguard</szName>
 		<szShortName>Bodyguard</szShortName>
 		<szDescription>Superbly trained, utterly loyal, and willing to pay the &#10;ultimate price. What more could a potential employer want?</szDescription>
-		<strength>4</strength>
 		<resistance_physical>10</resistance_physical>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
@@ -1959,7 +1929,6 @@
 		<szName>Shopkeeper/Craftsman</szName>
 		<szShortName>Shopkeeper/Craftsman</szShortName>
 		<szDescription>For many people, their trade IS trade.</szDescription>
-		<dexterity>5</dexterity>
 		<ap_polar>-2</ap_polar>
 		<ap_desert>-2</ap_desert>
 		<ap_swamp>-2</ap_swamp>
@@ -2008,7 +1977,6 @@
 		<szName>Pilot</szName>
 		<szShortName>Pilot</szShortName>
 		<szDescription>Flying helicopters is second nature to him, as is getting the heck &#10;out of trouble!</szDescription>
-		<mechanical>3</mechanical>
 		<ap_airdrop>1</ap_airdrop>
 		<travel_air>10</travel_air>
 		<resistance_suppression>10</resistance_suppression>
@@ -2024,8 +1992,6 @@
 		<szName>Airport Cargo Manager/Thief</szName>
 		<szShortName>Cargo Manager/Thief</szShortName>
 		<szDescription>Pablo 'takes care of' the cargo coming in and going out of the Drassen airport.</szDescription>
-		<agility>5</agility>
-		<dexterity>5</dexterity>
 		<ap_urban>1</ap_urban>
 		<ap_inventory>-15</ap_inventory>
 		<resistance_fear>3</resistance_fear>
@@ -2044,7 +2010,6 @@
 		<szName>Airport Cargo Manager</szName>
 		<szShortName>Cargo Manager</szShortName>
 		<szDescription>Sal tries to handle the cargo manager job.</szDescription>
-		<strength>3</strength>
 		<ap_artillery>10</ap_artillery>
 		<ap_assault>-5</ap_assault>
 		<no_male>1</no_male>
@@ -2056,9 +2021,6 @@
 		<szName>Priest</szName>
 		<szShortName>Priest</szShortName>
 		<szDescription>Many devout followers of any religion or cult are surprisingly &#10;violent and zealous if pushed into the right (or wrong) direction.</szDescription>
-		<medical>3</medical>
-		<leadership>10</leadership>
-		<wisdom>5</wisdom>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
@@ -2072,9 +2034,6 @@
 		<cth_blades>-5</cth_blades>
 		<betterprices_guns>-5</betterprices_guns>
 		<betterprices>10</betterprices>
-		<approach_friendly>10</approach_friendly>
-		<approach_threaten>-10</approach_threaten>
-		<approach_recruit>10</approach_recruit>
 		<scrounging>1</scrounging>
 		<druguse>1</druguse>
 		<no_male>1</no_male>
@@ -2113,7 +2072,6 @@
 		<szName>Warden</szName>
 		<szShortName>Warden</szShortName>
 		<szDescription>Former law enforcement personnel often seek work in the mercenary world, and are the logical choice for handling captives.</szDescription>
-		<leadership>5</leadership>
 		<resistance_fear>10</resistance_fear>
 		<capitulation>25</capitulation>
 		<interrogation>175</interrogation>
@@ -2132,7 +2090,6 @@
 		<resistance_physical>10</resistance_physical>
 		<food>-10</food>
 		<water>-10</water>
-		<sleep>-1</sleep> 
 		<hearing_night>2</hearing_night>
 		<level_underground>1</level_underground>
 		<no_male>1</no_male>
@@ -2163,9 +2120,7 @@
 		<szShortName>Miner</szShortName>
 		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
 		<ap_fortify>-20</ap_fortify>
-		<strength>5</strength>
 		<level_underground>1</level_underground>
-		<explosives>5</explosives>
 		<carrystrength>3</carrystrength>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -2176,16 +2131,11 @@
 		<szName>Madame</szName>
 		<szShortName>Madame</szShortName>
 		<szDescription>Pleasing customers in a most unsavory way while keeping her charges captive.</szDescription>
-		<leadership>5</leadership>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-3</ap_assault>
 		<hearing_night>1</hearing_night>
-		<approach_friendly>10</approach_friendly>
-		<approach_direct>10</approach_direct>
-		<approach_threaten>5</approach_threaten>
-		<approach_recruit>10</approach_recruit>
 		<betterprices>10</betterprices>
 		<interrogation>100</interrogation>
 		<no_male>1</no_male>
@@ -2204,8 +2154,6 @@
 		<ap_tropical>3</ap_tropical>
 		<leadership>5</leadership>
 		<wisdom>10</wisdom>
-		<approach_friendly>10</approach_friendly>
-		<approach_recruit>10</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2238,8 +2186,6 @@
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
 		<resistance_physical>10</resistance_physical>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>8</approach_recruit>
 		<scrounging>1</scrounging> 
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -2250,7 +2196,6 @@
 		<szName>Insurgent American Terrorist</szName>
 		<szShortName>Insurgent Terrorist</szShortName>
 		<szDescription>Paranoid, ignorant, fascist - yep, that's you.</szDescription>
-		<leadership>6</leadership>
 		<ap_assault>3</ap_assault>
 		<betterprices_guns>3</betterprices_guns>
 		<capitulation>4</capitulation>
@@ -2258,8 +2203,6 @@
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
 		<resistance_physical>10</resistance_physical>
-		<approach_threaten>5</approach_threaten>
-		<approach_recruit>8</approach_recruit>
 		<scrounging>1</scrounging> 
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -2270,7 +2213,6 @@
 		<szName>Terrorist Poisoner</szName>
 		<szShortName>Terrorist Poisoner</szShortName>
 		<szDescription>Wanted by Interpol, terrorists know how to live undercover unnoticed.</szDescription>
-		<medical>5</medical>
 		<stealth>5</stealth>
 		<ap_inventory>-10</ap_inventory>
 		<resistance_disease>10</resistance_disease>
@@ -2286,9 +2228,6 @@
 		<szName>Junk Dealer/Black Marketeer</szName>
 		<szShortName>Junk Dealer</szShortName>
 		<szDescription>Jake deals in junk . . . and other stuff.</szDescription>
-		<mechanical>5</mechanical>
-		<dexterity>5</dexterity>
-		<explosives>5</explosives>
 		<ap_fortify>10</ap_fortify>
 		<ap_inventory>-1</ap_inventory>
 		<ap_airdrop>-5</ap_airdrop>
@@ -2305,7 +2244,6 @@
 		<szName>Child</szName>
 		<szShortName>Child</szShortName>
 		<szDescription>And there goes the Geneva convention...</szDescription>
-		<leadership>-10</leadership>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-10</ap_airdrop>
@@ -2328,8 +2266,6 @@
 		<szName>Car Mechanic</szName>
 		<szShortName>Car Mechanic</szShortName>
 		<szDescription>Dave used to run a service station . . . when there was fuel for vehicles.</szDescription>
-		<dexterity>3</dexterity>
-		<mechanical>6</mechanical>
 		<ap_urban>3</ap_urban>
 		<ap_fortify>-2</ap_fortify>
 		<ap_airdrop>-3</ap_airdrop>
@@ -2360,7 +2296,6 @@
 		<szShortName>Frontman</szShortName>
 		<szDescription>Not needed!</szDescription>
 		<meleedamage>4</meleedamage>
-		<dexterity>2</dexterity>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>3</resistance_fear>
 		<betterprices>10</betterprices>
@@ -2406,7 +2341,6 @@
 		<szName>General</szName>
 		<szShortName>General</szShortName>
 		<szDescription>This mercenary General is definitely not in your squad!</szDescription>
-		<leadership>10</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -2415,9 +2349,6 @@
 		<resistance_suppression>10</resistance_suppression>
 		<carrystrength>3</carrystrength>
 		<interrogation>200</interrogation>
-		<approach_direct>20</approach_direct>
-		<approach_threaten>20</approach_threaten>
-		<approach_recruit>20</approach_recruit>
 		<drink_energyregen>15</drink_energyregen>
 		<capitulation>20</capitulation>
 		<spotter>5</spotter>
@@ -2431,7 +2362,6 @@
 		<szName>Sergeant Krott</szName>
 		<szShortName>Sergeant</szShortName>
 		<szDescription>Drafted into the Arulcan Army, this sergeant would rather be at &#10;home with his family.</szDescription>
-		<leadership>3</leadership>
 		<ap_assault>3</ap_assault>
 		<ap_fortify>-3</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -2463,7 +2393,6 @@
 		<resistance_suppression>-10</resistance_suppression>
 		<betterprices_guns>10</betterprices_guns>
 		<betterprices>20</betterprices>
-		<approach_recruit>10</approach_recruit>
 		<spotter>-15</spotter>
 		<xenophobic>1</xenophobic> 
 		<no_male>1</no_male>
@@ -2477,7 +2406,6 @@
 		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
-		<approach_friendly>20</approach_friendly>
 		<capitulation>5</capitulation>
 		<betterprices>20</betterprices>
 		<xenophobic>1</xenophobic> 
@@ -2504,7 +2432,6 @@
 		<ap_assault>-5</ap_assault>
 		<betterprices_guns>5</betterprices_guns>
 		<betterprices>15</betterprices>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2514,8 +2441,6 @@
 		<szName>Apothecary</szName>
 		<szShortName>Apothecary</szShortName>
 		<szDescription>For many people, their trade IS trade.</szDescription>
-		<medical>10</medical>
-		<dexterity>2</dexterity>
 		<ap_polar>-2</ap_polar>
 		<ap_desert>-2</ap_desert>
 		<ap_swamp>-2</ap_swamp>
@@ -2528,7 +2453,6 @@
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
 		<betterprices>15</betterprices>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2538,7 +2462,6 @@
 		<szName>Shopkeeper/Craftsman</szName>
 		<szShortName>Shopkeeper/Craftsman</szShortName>
 		<szDescription>For many people, their trade IS trade.</szDescription>
-		<dexterity>5</dexterity>
 		<ap_polar>-2</ap_polar>
 		<ap_desert>-2</ap_desert>
 		<ap_swamp>-2</ap_swamp>
@@ -2551,7 +2474,6 @@
 		<ap_assault>-5</ap_assault>
 		<betterprices_guns>5</betterprices_guns>
 		<betterprices>15</betterprices>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2561,7 +2483,6 @@
 		<szName>WWII Veteran</szName>
 		<szShortName>Veteran</szShortName>
 		<szDescription>In his prime, he'd have put all you youngsters to shame.</szDescription>
-		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -2615,7 +2536,6 @@
 		<ap_assault>-10</ap_assault>
 		<betterprices_guns>5</betterprices_guns>
 		<betterprices>15</betterprices>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2641,8 +2561,6 @@
 		<szName>Scientist</szName>
 		<szShortName>Scientist</szShortName>
 		<szDescription>Single-minded scientist working for the Queen . . .</szDescription>
-		<leadership>-5</leadership>
-		<wisdom>10</wisdom>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-6</ap_airdrop>
@@ -2661,8 +2579,6 @@
 		<szName>Nurse</szName>
 		<szShortName>Nurse</szShortName>
 		<szDescription>While not full-blown doctors, nurses are still in high demand &#10;in warzones, due to that grim business.</szDescription>
-		<dexterity>3</dexterity>
-		<medical>7</medical>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-10</ap_inventory>
@@ -2670,7 +2586,6 @@
 		<ap_assault>-5</ap_assault>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
-		<approach_friendly>10</approach_friendly>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2681,7 +2596,6 @@
 		<szShortName>Bouncer</szShortName>
 		<szDescription>Doormen make good soldiers in close combat, though the &#10;killing part is a change (hopefully).</szDescription>
 		<meleedamage>4</meleedamage>
-		<dexterity>2</dexterity>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>3</resistance_fear>
 		<spotter>3</spotter>
@@ -2694,7 +2608,6 @@
 		<szName>Twit</szName>
 		<szShortName>Twit</szShortName>
 		<szDescription>Married to The Warden, two-faced, cowardly, unfaithful to the &#10;point of facilitating murder.</szDescription>
-		<leadership>-5</leadership>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-9</ap_airdrop>
@@ -2713,16 +2626,12 @@
 		<szName>Butt Monkey</szName>
 		<szShortName>Butt Monkey</szShortName>
 		<szDescription>One would expect the constant abuse and ridicule you withstand to eventually &#10;lead you to reconsider your life choices. Nope.</szDescription>
-		<leadership>-5</leadership>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
 		<resistance_physical>20</resistance_physical>
 		<resistance_fear>10</resistance_fear>
-		<leadership>-10</leadership>
-		<approach_threaten>-50</approach_threaten>
-		<approach_recruit>-50</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -2750,8 +2659,6 @@
 		<szName>Helicopter Mechanic</szName>
 		<szShortName>Heli Mechanic</szShortName>
 		<szDescription>The best (and likely only) heli mechanic in Arulco.</szDescription>
-		<dexterity>3</dexterity>
-		<mechanical>8</mechanical>
 		<ap_fortify>-2</ap_fortify>
 		<ap_airdrop>1</ap_airdrop>
 		<ap_assault>-5</ap_assault>
@@ -2791,10 +2698,6 @@
 		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
 		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
@@ -2808,7 +2711,6 @@
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
 		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
-		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2818,10 +2720,6 @@
 		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
 		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
@@ -2835,7 +2733,6 @@
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
 		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
-		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2845,10 +2742,6 @@
 		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
 		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
@@ -2862,7 +2755,6 @@
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
 		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
-		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2872,10 +2764,6 @@
 		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
 		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
@@ -2889,7 +2777,6 @@
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
 		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
-		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2899,10 +2786,6 @@
 		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
 		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
@@ -2916,7 +2799,6 @@
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
 		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
-		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -2926,10 +2808,6 @@
 		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
 		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
@@ -2943,7 +2821,6 @@
 		<szName>Scientist</szName>
 		<szShortName>Scientist</szShortName>
 		<szDescription>Pursuing your insatiable appetite for knowledge led you into &#10;committing atrocities for The Queen, which you now seek to rectify.</szDescription>
-		<wisdom>10</wisdom>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-5</ap_airdrop>
@@ -2985,7 +2862,6 @@
 		<szName>Head Miner</szName>
 		<szShortName>Miner</szShortName>
 		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
-		<strength>5</strength>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -3000,7 +2876,6 @@
 		<szName>Veteran Mercenary</szName>
 		<szShortName>Veteran Merc</szShortName>
 		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
-		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -3023,9 +2898,6 @@
 		<szName>Redneck</szName>
 		<szShortName>Redneck</szShortName>
 		<szDescription>When the Confederacy lost the war, your family moved further south . . . &#10;and is still fighting . . . everybody.</szDescription>
-		<mechanical>3</mechanical>
-		<medical>3</medical>
-		<wisdom>-7</wisdom>
 		<ap_urban>-5</ap_urban>
 		<ap_swamp>5</ap_swamp>
 		<ap_river>5</ap_river>
@@ -3051,8 +2923,6 @@
 		<szShortName>Barkeeper</szShortName>
 		<szDescription>A friendly face can make violence unnecessary...</szDescription>
 		<betterprices>4</betterprices>
-		<approach_friendly>15</approach_friendly>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3063,8 +2933,6 @@
 		<szShortName>Barkeeper</szShortName>
 		<szDescription>A friendly face can make violence unnecessary...</szDescription>
 		<betterprices>4</betterprices>
-		<approach_friendly>15</approach_friendly>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3075,8 +2943,6 @@
 		<szShortName>Barkeeper</szShortName>
 		<szDescription>A friendly face can make violence unnecessary...</szDescription>
 		<betterprices>4</betterprices>
-		<approach_friendly>15</approach_friendly>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3087,8 +2953,6 @@
 		<szShortName>Barkeeper</szShortName>
 		<szDescription>A friendly face can make violence unnecessary...</szDescription>
 		<betterprices>4</betterprices>
-		<approach_friendly>15</approach_friendly>
-		<approach_recruit>5</approach_recruit>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND> 
@@ -3098,14 +2962,12 @@
 		<szName>Mentally Challenged</szName>
 		<szShortName>Mentally Challenged</szShortName>
 		<szDescription>Poor Manny...</szDescription>
-		<leadership>-9</leadership>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>10</ap_inventory>
 		<ap_airdrop>-6</ap_airdrop>
 		<ap_assault>-6</ap_assault>
 		<betterprices>-10</betterprices>
-		<approach_recruit>-20</approach_recruit>
 		<spotter>-20</spotter>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -3116,7 +2978,6 @@
 		<szName>Head Miner</szName>
 		<szShortName>Miner</szShortName>
 		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
-		<strength>5</strength>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -3131,7 +2992,6 @@
 		<szName>Head Miner</szName>
 		<szShortName>Miner</szShortName>
 		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
-		<strength>5</strength>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -3146,7 +3006,6 @@
 		<szName>Head Miner</szName>
 		<szShortName>Miner</szShortName>
 		<szDescription>Working in a mine is hard, punishing work. No wonder some start &#10;to look for easier cash.</szDescription>
-		<strength>5</strength>
 		<ap_fortify>-20</ap_fortify>
 		<ap_airdrop>-5</ap_airdrop>
 		<level_underground>1</level_underground>
@@ -3222,16 +3081,11 @@
 		<szName>UN Peacekeeper</szName>
 		<szShortName>UN</szShortName>
 		<szDescription>Nations of the entire world provide these troops to solve all &#10;conflicts without any violence. Sadly, this statement is false.</szDescription>
-		<medical>2</medical>
-		<mechanical>2</mechanical>
-		<wisdom>2</wisdom>
-		<leadership>1</leadership>
 		<ap_fortify>-5</ap_fortify>
 		<resistance_fear>14</resistance_fear>
 		<resistance_suppression>14</resistance_suppression>
 		<capitulation>14</capitulation>
 		<speed_bandaging>10</speed_bandaging>
-		<approach_friendly>4</approach_friendly>
 		<spotter>2</spotter>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
@@ -3243,7 +3097,6 @@
 		<szName>Veteran Mercenary</szName>
 		<szShortName>Veteran Merc</szShortName>
 		<szDescription>While most may prefer an easy, safe life, you've chosen &#10;the life of a gun for hire - and embraced it. This is who you really are.</szDescription>
-		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -3267,7 +3120,6 @@
 		<szName>B-Movie Star/Veteran Mercenary</szName>
 		<szShortName>Movie Star/Vet Merc</szShortName>
 		<szDescription>Target of thrown popcorn in cinemas around the world, scoffed by critics &#10;yet adored by loyal fans.</szDescription>
-		<leadership>5</leadership>
 		<ap_fortify>5</ap_fortify>
 		<ap_artillery>5</ap_artillery>
 		<ap_airdrop>-3</ap_airdrop>
@@ -3275,7 +3127,6 @@
 		<resistance_physical>3</resistance_physical>
 		<resistance_fear>10</resistance_fear>
 		<resistance_suppression>10</resistance_suppression>
-		<approach_friendly>20</approach_friendly>
 		<camo>10</camo>
 		<interrogation>5</interrogation>
 		<carrystrength>3</carrystrength>
@@ -3293,7 +3144,6 @@
 		<szName>Veteran Mercenary/Bomber</szName>
 		<szShortName>Veteran Merc/Bomber</szShortName>
 		<szDescription>You were already famous in this business before those youngsters were &#10;even born. After years of battle, there's hardly anything that can shake you up.</szDescription>
-		<leadership>5</leadership>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-3</ap_artillery> 
@@ -3332,8 +3182,6 @@
 		<szName>Red Army</szName>
 		<szShortName>Red Army</szShortName>
 		<szDescription>With Russian stoicism, the Red Army prevailed against Hitler, &#10;Father Frost, and chronic shortages.</szDescription>
-		<mechanical>4</mechanical>
-		<leadership>2</leadership>
 		<ap_polar>8</ap_polar>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
@@ -3356,8 +3204,6 @@
 		<szName>Red Army</szName>
 		<szShortName>Red Army</szShortName>
 		<szDescription>The Red Army prevailed against Hitler, Father Frost, &#10;and chronic shortages.</szDescription>
-		<mechanical>4</mechanical>
-		<leadership>2</leadership>
 		<ap_polar>8</ap_polar>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
@@ -3379,8 +3225,6 @@
 		<szName>Red Army</szName>
 		<szShortName>Red Army</szShortName>
 		<szDescription>The Red Army prevailed against Hitler, Father Frost, &#10;and chronic shortages</szDescription>
-		<mechanical>4</mechanical>
-		<leadership>2</leadership>
 		<ap_polar>8</ap_polar>
 		<ap_assault>5</ap_assault>
 		<ap_fortify>-3</ap_fortify>
@@ -3402,14 +3246,11 @@
 		<szName>Military Advisor</szName>
 		<szShortName>Military Advisor</szShortName>
 		<szDescription>Pointing the gun in the right direction is a start, but someone needs &#10;to teach these people how to teach other people where to point.</szDescription>
-		<leadership>5</leadership>
 		<ap_assault>3</ap_assault>
 		<resistance_fear>3</resistance_fear>
 		<resistance_suppression>3</resistance_suppression>
 		<interrogation>5</interrogation>
 		<carrystrength>2</carrystrength>
-		<approach_direct>10</approach_direct>
-		<approach_recruit>5</approach_recruit>
 		<spotter>3</spotter>
 		<capitulation>10</capitulation>
 		<smoker>1</smoker>
@@ -3423,7 +3264,6 @@
 		<szShortName>Bouncer</szShortName>
 		<szDescription>Doormen make good soldiers in close combat, though the &#10;killing part is a change (hopefully).</szDescription>
 		<meleedamage>4</meleedamage>
-		<dexterity>2</dexterity>
 		<resistance_physical>7</resistance_physical>
 		<resistance_fear>3</resistance_fear>
 		<spotter>3</spotter>
@@ -3437,9 +3277,6 @@
 		<szName>Surgeon/Refugee</szName>
 		<szShortName>Surgeon/Refugee</szShortName>
 		<szDescription>Leaving your homeland has left you bitter. Learning to cut human &#10;flesh relieved your pain.</szDescription>
-		<wisdom>3</wisdom>
-		<medical>10</medical>
-		<dexterity>8</dexterity>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3522,11 +3359,6 @@
 		<szName>Mad Bomber</szName>
 		<szShortName>Mad Bomber</szShortName>
 		<szDescription>Explosives experts are hard to find . . . but everyone wishes &#10;they hadn't found this one!</szDescription>
-		<dexterity>3</dexterity>
-		<mechanical>3</mechanical>
-		<wisdom>-6</wisdom>
-		<leadership>-9</leadership>
-		<explosives>9</explosives>
 		<disarm_trap>33</disarm_trap>
 		<breachingcharge>66</breachingcharge>
 		<traplevel>1</traplevel>
@@ -3535,9 +3367,6 @@
 		<resistance_suppression>20</resistance_suppression>
 		<interrogation>100</interrogation>
 		<capitulation>-50</capitulation>
-		<approach_direct>-50</approach_direct>
-		<approach_threaten>50</approach_threaten>
-		<approach_recruit>-50</approach_recruit>
 		<insurance>100</insurance>
 		<druguse>1</druguse>
 		<smoker>1</smoker>
@@ -3566,9 +3395,6 @@
 		<szName>Wrestler</szName>
 		<szShortName>Wrestler</szShortName>
 		<szDescription>It might be more of a spectacle than actual fighting, but getting thrown &#10;around a ring without breaking a neck still takes a lot of skill.</szDescription>
-		<agility>3</agility>
-		<strength>5</strength>
-		<dexterity>2</dexterity>
 		<ap_assault>5</ap_assault>
 		<meleedamage>5</meleedamage>
 		<resistance_fear>10</resistance_fear>
@@ -3579,8 +3405,6 @@
 		<carrystrength>75</carrystrength> 
 		<speed_run>5</speed_run>
 		<stealth>-5</stealth>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3590,8 +3414,6 @@
 		<szName>Veteran Physician</szName>
 		<szShortName>Veteran Physician</szShortName>
 		<szDescription>Several years of evaluating human lives ironically left your own &#10;health in disrepair - cheap cigarrettes flushed down with strong coffee took their toll. &#10;The object-like way you started to treat your patients also doesn't make you very popular.</szDescription>
-		<agility>-7</agility>
-		<medical>10</medical>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3599,8 +3421,6 @@
 		<ap_assault>-5</ap_assault>
 		<speed_bandaging>10</speed_bandaging>
 		<speed_run>-10</speed_run>
-		<approach_friendly>-5</approach_friendly>
-		<approach_threaten>10</approach_threaten>
 		<resistance_disease>-20</resistance_disease>
 		<smoker>1</smoker>
 		<no_male>1</no_male>
@@ -3631,12 +3451,9 @@
 		<szName>Smith/Poor Shot</szName>
 		<szShortName>Smith/Poor Shot</szShortName>
 		<szDescription>Due to extreme short-sightedness Wally is a poor shot with next to no chance of improvement.</szDescription>
-		<dexterity>8</dexterity>
-		<mechanical>10</mechanical>
 		<betterprices_guns>10</betterprices_guns>
 		<betterprices>8</betterprices>
-		<ap_inventory>-10</ap_inventory> 
-		<marksmanship>-10</marksmanship>
+		<ap_inventory>-10</ap_inventory>
 		<increased_maxcth>-5</increased_maxcth>
 		<spotter>-10</spotter>
 		<no_male>1</no_male>
@@ -3648,8 +3465,6 @@
 		<szName>Surgeon</szName>
 		<szShortName>Surgeon</szShortName>
 		<szDescription>Everyone can cut human flesh - but sewing it back is a quest for &#10;the best!</szDescription>
-		<medical>10</medical>
-		<dexterity>8</dexterity>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3665,9 +3480,6 @@
 		<szName>General Practitioner</szName>
 		<szShortName>GP</szShortName>
 		<szDescription>A versatile and educated doctor can save a human life, no matter what &#10;his patient caught - a virus or a bullet.</szDescription>
-		<wisdom>1</wisdom>
-		<dexterity>5</dexterity>
-		<medical>10</medical>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-5</ap_inventory>
@@ -3675,7 +3487,6 @@
 		<ap_assault>-2</ap_assault>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>20</speed_bandaging>
-		<approach_friendly>10</approach_friendly>
 		<smoker>2</smoker>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -3707,8 +3518,6 @@
 		<szName>Coward/Teacher/Snitch</szName>
 		<szShortName>Coward/Snitch</szShortName>
 		<szDescription>When they said "those who can, do; those who can't, teach" - they &#10;were talking about Lance.</szDescription>
-		<wisdom>3</wisdom>
-		<leadership>-6</leadership>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-9</ap_airdrop>
 		<ap_assault>-9</ap_assault>
@@ -3729,7 +3538,6 @@
 		<szName>Pretender</szName>
 		<szShortName>Pretender</szShortName>
 		<szDescription>Pretending to be anything and everything he is not, nobody knows &#10;who he actually is.</szDescription>
-		<leadership>-5</leadership>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_airdrop>-6</ap_airdrop>
@@ -3739,9 +3547,6 @@
 		<resistance_physical>-10</resistance_physical>
 		<interrogation>3</interrogation>
 		<betterprices>3</betterprices>
-		<approach_friendly>6</approach_friendly>
-		<approach_threaten>-3</approach_threaten>
-		<approach_recruit>3</approach_recruit>
 		<meleedamage>-3</meleedamage>
 		<xenophobic>1</xenophobic>
 		<smoker>1</smoker>
@@ -3754,9 +3559,6 @@
 		<szName>Baseball player</szName>
 		<szShortName>Athlete</szShortName>
 		<szDescription>If your team ever needs someone to throw grenades on an even field, you'll be the man.</szDescription>
-		<agility>6</agility>
-		<strength>3</strength>
-		<dexterity>3</dexterity>
 		<ap_fortify>-3</ap_fortify>
 		<ap_airdrop>3</ap_airdrop>
 		<ap_assault>3</ap_assault>
@@ -4210,16 +4012,12 @@
 		<szName>Valley Girl Technician</szName>
 		<szShortName>Valley Girl/Tech</szShortName>
 		<szDescription>Valley girl wrench wench, and perhaps the best of the Roachburn siblings!</szDescription>
-		<dexterity>5</dexterity>
-		<mechanical>5</mechanical>
 		<ap_artillery>10</ap_artillery>
 		<resistance_fear>-5</resistance_fear>
 		<resistance_suppression>-5</resistance_suppression>
 		<resistance_physical>-5</resistance_physical>
 		<ap_inventory>-10</ap_inventory>
 		<betterprices>10</betterprices>
-		<approach_friendly>20</approach_friendly>
-		<approach_threaten>-20</approach_threaten>
 		<disarm_trap>10</disarm_trap>
 		<hackerskill>20</hackerskill>
 		<smoker>1</smoker>
@@ -4232,8 +4030,6 @@
 		<szName>Nurse/Snitch</szName>
 		<szShortName>Nurse/Snitch</szShortName>
 		<szDescription>While not full-blown doctors, nurses are still in high demand &#10;in warzones, due to that grim business.</szDescription>
-		<dexterity>3</dexterity>
-		<medical>7</medical>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-10</ap_inventory>
@@ -4241,7 +4037,6 @@
 		<ap_assault>-5</ap_assault>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
-		<approach_friendly>10</approach_friendly>
 		<interrogation>50</interrogation>
 		<stealth>10</stealth>
 		<hearing_night>1</hearing_night>
@@ -4257,8 +4052,6 @@
 		<szName>Veteran Mercenary</szName>
 		<szShortName>Veteran Merc</szShortName>
 		<szDescription>You were already famous in this business before those youngsters were &#10;even born. After years of battle, there's hardly anything that can shake you up.</szDescription>
-		<leadership>5</leadership>
-		<ap_assault>5</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
 		<resistance_physical>3</resistance_physical>
@@ -4280,8 +4073,6 @@
 		<szName>Hypochondriac</szName>
 		<szShortName>Hypochondriac</szShortName>
 		<szDescription>When you enter a ward, all medical personnel tries to look overly &#10;busy or hides around corners in a futile attempt to avoid you. The List of your possible afflictions just keeps getting bigger and bigger!</szDescription>
-		<wisdom>-3</wisdom>
-		<medical>3</medical>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>10</ap_artillery>
 		<ap_height>-8</ap_height>
@@ -4309,8 +4100,6 @@
 		<szName>Battlefield Medic</szName>
 		<szShortName>Battlefield Medic</szShortName>
 		<szDescription>Everyone can cut human flesh - but sewing it back while under fire is a quest for &#10;the best!</szDescription>
-		<medical>5</medical>
-		<dexterity>5</dexterity>
 		<stealth>1</stealth>
 		<resistance_physical>7</resistance_physical>
 		<resistance_fear>7</resistance_fear>
@@ -4337,7 +4126,6 @@
 		<speed_bandaging>7</speed_bandaging>
 		<food>-10</food>
 		<water>-10</water>
-		<approach_direct>5</approach_direct>
 		<spotter>6</spotter>
 		<ambush_radius>5</ambush_radius>
 		<no_male>1</no_male>
@@ -4349,9 +4137,6 @@
 		<szName>Veteran Mercenary/Car Mechanic</szName>
 		<szShortName>Vet Merc/Mechanic</szShortName>
 		<szDescription>A car mechanic is very useful, as long as you actually have a car.</szDescription>
-		<dexterity>3</dexterity>
-		<mechanical>6</mechanical>
-		<leadership>5</leadership>
 		<ap_fortify>-5</ap_fortify>
 		<ap_assault>8</ap_assault>
 		<ap_urban>3</ap_urban>
@@ -4360,7 +4145,6 @@
 		<resistance_physical>6</resistance_physical>
 		<resistance_fear>12</resistance_fear>
 		<resistance_suppression>12</resistance_suppression>
-		<approach_threaten>10</approach_threaten>
 		<disarm_trap>5</disarm_trap>
 		<interrogation>5</interrogation>
 		<carrystrength>3</carrystrength>
@@ -4378,7 +4162,6 @@
 		<szName>Hitman</szName>
 		<szShortName>Hitman</szShortName>
 		<szDescription>Professional assassins are obviously used to killing, &#10;though might come in conflict with more idealistic team members.</szDescription>
-		<marksmanship>3</marksmanship>
 		<stealth>5</stealth>
 		<ap_urban>3</ap_urban>
 		<ap_assault>5</ap_assault>
@@ -4388,10 +4171,6 @@
 		<resistance_physical>5</resistance_physical>
 		<increased_maxcth>3</increased_maxcth>
 		<cth_blades>3</cth_blades>
-		<approach_friendly>-10</approach_friendly>
-		<approach_direct>5</approach_direct>
-		<approach_threaten>10</approach_threaten>
-		<approach_recruit>-10</approach_recruit>
 		<interrogation>10</interrogation>
 		<capitulation>10</capitulation>
 		<insurance>20</insurance>
@@ -4406,16 +4185,11 @@
 		<szName>UN Peacekeeper</szName>
 		<szShortName>UN</szShortName>
 		<szDescription>Spam was frustrated by the lack of a strong mandate that forced &#10;him to do nothing. On the plus side, he is used to being fired at.</szDescription>
-		<medical>2</medical>
-		<mechanical>2</mechanical>
-		<wisdom>2</wisdom>
-		<leadership>1</leadership>
 		<ap_fortify>-5</ap_fortify>
 		<resistance_fear>14</resistance_fear>
 		<resistance_suppression>14</resistance_suppression>
 		<capitulation>14</capitulation>
 		<speed_bandaging>10</speed_bandaging>
-		<approach_friendly>4</approach_friendly>
 		<spotter>2</spotter>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -4426,8 +4200,6 @@
 		<szName>Veteran Ranger/Mercenary</szName>
 		<szShortName>Veteran Ranger/Merc</szShortName>
 		<szDescription>The Rangers form the elite of the US Army infantry.</szDescription>
-		<leadership>8</leadership>
-		<marksmanship>2</marksmanship>
 		<ap_assault>6</ap_assault>
 		<ap_fortify>-5</ap_fortify>
 		<ap_artillery>-2</ap_artillery> 
@@ -4451,9 +4223,6 @@
 		<szName>Professional Thief/Convict</szName>
 		<szShortName>Thief/Convict</szShortName>
 		<szDescription>Prison is college for criminals . . . if they survive &#10;the course load. Jimmy passed with honors.</szDescription>
-		<agility>5</agility>
-		<dexterity>5</dexterity>
-		<approach_threaten>10</approach_threaten>
 		<resistance_physical>5</resistance_physical>
 		<resistance_fear>8</resistance_fear>
 		<meleedamage>2</meleedamage>
