@@ -2156,7 +2156,8 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 
 	// Flugente: hijack the quote for possible replacement by additional dialogue
 	// only do so if recruited (npc dialogue is already unique)
-	if ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
+	if ( ( gMercProfiles[ubCharacterNum].Type != PROFILETYPE_RPC && gMercProfiles[ubCharacterNum].Type != PROFILETYPE_NPC )
+		|| ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ) )
 		LuaHandleReplaceQuote( ubCharacterNum, usQuoteNum );
 
 	// sevenfm: stop high speed timer for any talking face
