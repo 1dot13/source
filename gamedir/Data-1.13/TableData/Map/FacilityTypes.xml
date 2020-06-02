@@ -549,7 +549,7 @@
 		<ubIndex>23</ubIndex>
 		<szFacilityName>T-Shirt Factory</szFacilityName>
 		<szFacilityShortName>Factory</szFacilityShortName>
-		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
 		<PRODUCTIONLINE>
 			<!-- create string -->
 			<szAdditionalRequirementTips> - Requires: Doreen quest</szAdditionalRequirementTips>
@@ -652,7 +652,7 @@
 		<ubIndex>24</ubIndex>
 		<szFacilityName>Hicks Farm</szFacilityName>
 		<szFacilityShortName>Farm</szFacilityShortName>
-		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
 		<PRODUCTIONLINE>
 			<!-- cow meat -->
 			<szAdditionalRequirementTips> - Requires: Hicks dead</szAdditionalRequirementTips>
