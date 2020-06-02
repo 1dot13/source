@@ -708,6 +708,24 @@ PhotoFlag =
 -- sOptimalNumber: how many items the trader should have at maximum
 function AddArmsDealerAdditionalIntelData()
 	
+	-- price is affected by player progress - on higher progress items get cheaper (as they are less useful at that point)
+	progress = CurrentPlayerProgressPercentage()
+	ratio = (200.0 - progress) / 100.0
+	
+	-- black market:
+	-- guns
+	AddArmsDealerAdditionalIntelDataItem(68, 65, 40 * ratio, 1)		-- Auto Rocket Rifle
+	AddArmsDealerAdditionalIntelDataItem(68, 335, 40 * ratio, 1)	-- Barret M82A2
+	
+	-- Ammo
+	AddArmsDealerAdditionalIntelDataItem(68, 113, 5 * ratio, 5)		-- Minirocket 5 HEAP
+	AddArmsDealerAdditionalIntelDataItem(68, 116, 5 * ratio, 4)		-- .50 BMG 10 AP	
+		
+	-- Misc
+	AddArmsDealerAdditionalIntelDataItem(68, 216, 6 * ratio, 3)		-- Compound 18
+	AddArmsDealerAdditionalIntelDataItem(68, 235, 2 * ratio, 4)		-- Regeneration Booster
+	AddArmsDealerAdditionalIntelDataItem(68, 324, 50 * ratio, 1)	-- X-Ray Detector
+	AddArmsDealerAdditionalIntelDataItem(68, 327, 11 * ratio, 2)	-- Tank of gas
 	
 end
 
