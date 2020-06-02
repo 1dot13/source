@@ -210,6 +210,7 @@ extern BOOLEAN ContinueDialogue(SOLDIERTYPE *pSoldier, BOOLEAN fDone );
 extern void HandlePendingInitConv( );
 extern BOOLEAN WillMercRenew( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote );
 extern void DrawFace( INT16 sCharNumber );
+extern void LuaHandleReplaceQuote( UINT8 ubProfile, UINT16 usQuoteNum );
 
 // the next said quote will pause time
 BOOLEAN fPausedTimeDuringQuote = FALSE;
@@ -2154,9 +2155,9 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 	}
 
 	// Flugente: hijack the quote for possible replacement by additional dialogue
-	extern void LuaHandleReplaceQuote( UINT8 ubProfile, UINT16 usQuoteNum );
-
-	LuaHandleReplaceQuote( ubCharacterNum, usQuoteNum );
+	// only do so if recruited (npc dialogue is already unique)
+	if ( gMercProfiles[ubCharacterNum].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
+		LuaHandleReplaceQuote( ubCharacterNum, usQuoteNum );
 
 	// sevenfm: stop high speed timer for any talking face
 	if (IsFastForwardMode())
