@@ -845,7 +845,15 @@ static int l_ProfilesStrategicInsertionData (lua_State *L);
 static int l_ResetBoxers( lua_State *L );
 
 static int l_AddVolunteers( lua_State *L );
+static int l_GetVolunteers( lua_State *L );
 static int l_AddIntel( lua_State *L );
+static int l_GetIntel( lua_State *L );
+static int l_AddMilitiaResources( lua_State *L );
+static int l_GetMilitiaResources_Gun( lua_State *L );
+static int l_GetMilitiaResources_Armour( lua_State *L );
+static int l_GetMilitiaResources_Misc( lua_State *L );
+static int l_AddTownWorkers( lua_State *L );
+static int l_GetTownWorkers( lua_State *L );
 
 static int l_CreateArmedCivilain( lua_State *L );
 static int l_CreateCivilian( lua_State *L );
@@ -1731,8 +1739,16 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L,"StartDialogueMessageBox", l_StartDialogueMessageBox);
 	
 	lua_register( L, "AddVolunteers", l_AddVolunteers );
+	lua_register( L, "GetVolunteers", l_GetVolunteers );
 	lua_register( L, "AddIntel", l_AddIntel );
-
+	lua_register( L, "GetIntel", l_GetIntel );
+	lua_register( L, "AddMilitiaResources", l_AddMilitiaResources );
+	lua_register( L, "GetMilitiaResources_Gun", l_GetMilitiaResources_Gun );
+	lua_register( L, "GetMilitiaResources_Armour", l_GetMilitiaResources_Armour );
+	lua_register( L, "GetMilitiaResources_Misc", l_GetMilitiaResources_Misc );
+	lua_register( L, "AddTownWorkers", l_AddTownWorkers );
+	lua_register( L, "GetTownWorkers", l_GetTownWorkers );
+	
 	lua_register(L, "CreateArmedCivilain", l_CreateArmedCivilain );
 	lua_register( L, "CreateCivilian", l_CreateCivilian );
 
@@ -3901,45 +3917,31 @@ return 1;
 
 static int l_GetTownIdForSector(lua_State *L)
 {
-UINT8  n = lua_gettop(L);
-int i;
-INT16 sMapX;
-INT16 sMapY;
-UINT8 val;
-	
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 2 )
 	{
-		if (i == 1 ) sMapX = lua_tointeger(L,i);
-		if (i == 2 ) sMapY = lua_tointeger(L,i);
+		INT16 sMapX = lua_tointeger( L, 1 );
+		INT16 sMapY = lua_tointeger( L, 2 );
+
+		UINT8 val = GetTownIdForSector( sMapX, sMapY );
+
+		lua_pushinteger( L, val );
 	}
 	
-	val = GetTownIdForSector( sMapX, sMapY );
-	
-	lua_pushinteger(L, val);
-	
-return 1;
+	return 1;
 }
 
 static int l_UpdateMercsInSector(lua_State *L)
 {
-	UINT8  n = lua_gettop(L);
-
-INT16 sSectorX;
-INT16 sSectorY;
-INT8 bSectorZ;
-int i;
-
-
-	for (i= 1; i<=n; i++ )
+	if ( lua_gettop( L ) >= 3 )
 	{
-		if (i == 1 ) sSectorX = lua_tointeger(L,i);
-		if (i == 2 ) sSectorY = lua_tointeger(L,i);
-		if (i == 3 ) bSectorZ = lua_tointeger(L,i);
-	}
+		INT16 sSectorX = lua_tointeger( L, 1 );
+		INT16 sSectorY = lua_tointeger( L, 2 );
+		INT8  bSectorZ = lua_tointeger( L, 3 );
 
-	UpdateMercsInSector( sSectorX, sSectorY, bSectorZ );
+		UpdateMercsInSector( sSectorX, sSectorY, bSectorZ );
+	}
 	
-return 0;
+	return 0;
 }
 
 static int l_CheckIfEntireTownHasBeenLiberated(lua_State *L)
@@ -12832,7 +12834,7 @@ static int l_SetStartingCashDifLevel (lua_State *L)
 // add volunteers
 static int l_AddVolunteers( lua_State *L )
 {
-	if ( lua_gettop( L ) )
+	if ( lua_gettop( L ) >= 1 )
 	{
 		FLOAT num = lua_tonumber( L, 1 );
 
@@ -12842,10 +12844,19 @@ static int l_AddVolunteers( lua_State *L )
 	return 0;
 }
 
+static int l_GetVolunteers( lua_State *L )
+{
+	UINT8 n = lua_gettop( L );
+
+	lua_pushinteger( L, GetVolunteerPool() );
+
+	return 1;
+}
+
 // add info
 static int l_AddIntel( lua_State *L )
 {
-	if ( lua_gettop( L ) )
+	if ( lua_gettop( L ) >= 1 )
 	{
 		int intel = lua_tointeger( L, 1 );
 
@@ -12853,6 +12864,93 @@ static int l_AddIntel( lua_State *L )
 	}
 
 	return 0;
+}
+
+static int l_GetIntel( lua_State *L )
+{
+	UINT8 n = lua_gettop( L );
+
+	lua_pushnumber( L, GetIntel() );
+
+	return 1;
+}
+
+static int l_AddMilitiaResources( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		FLOAT gun    = lua_tonumber( L, 1 );
+		FLOAT armour = lua_tonumber( L, 2 );
+		FLOAT misc   = lua_tonumber( L, 3 );
+
+		AddResources( gun, armour, misc );
+	}
+
+	return 0;
+}
+
+static int l_GetMilitiaResources_Gun( lua_State *L )
+{
+	UINT8 n = lua_gettop( L );
+
+	FLOAT val_gun, val_armour, val_misc;
+	GetResources( val_gun, val_armour, val_misc );
+
+	lua_pushnumber( L, val_gun );
+
+	return 1;
+}
+
+static int l_GetMilitiaResources_Armour( lua_State *L )
+{
+	UINT8 n = lua_gettop( L );
+
+	FLOAT val_gun, val_armour, val_misc;
+	GetResources( val_gun, val_armour, val_misc );
+
+	lua_pushnumber( L, val_armour );
+	
+	return 1;
+}
+
+static int l_GetMilitiaResources_Misc( lua_State *L )
+{
+	UINT8 n = lua_gettop( L );
+
+	FLOAT val_gun, val_armour, val_misc;
+	GetResources( val_gun, val_armour, val_misc );
+
+	lua_pushnumber( L, val_misc );
+
+	return 1;
+}
+
+static int l_AddTownWorkers( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		INT8 bTownId = lua_tointeger( L, 1 );
+		INT16 asAdd = lua_tointeger( L, 2 );
+
+		AddTownWorkers( bTownId, asAdd );
+	}
+
+	return 0;
+}
+
+static int l_GetTownWorkers( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 1 )
+	{
+		INT8 bTownId = lua_tointeger( L, 1 );
+
+		UINT16 max;
+		UINT16 val = GetTownWorkers( bTownId, max );
+
+		lua_pushinteger( L, val );
+	}
+
+	return 1;
 }
 
 static int l_CreateArmedCivilain( lua_State *L )
