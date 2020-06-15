@@ -2979,6 +2979,7 @@ void LoadItemSettings()
 	gItemSettings.fShotsPer4TurnsModifierPunch						= iniReader.ReadFloat  ("Weapon Settings","SP4T_PUNCH_MODIFIER", 1.0f, 0.1f, 5.0f);
 	gItemSettings.fShotsPer4TurnsModifierTentacle					= iniReader.ReadFloat  ("Weapon Settings","SP4T_TENTACLE_MODIFIER", 1.0f, 0.1f, 5.0f);
 	gItemSettings.fShotsPer4TurnsModifierThrowKnife					= iniReader.ReadFloat  ("Weapon Settings","SP4T_THROWKNIFE_MODIFIER", 1.0f, 0.1f, 5.0f);
+	gItemSettings.fShotsPer10TurnsModifierThrowGrenade				= iniReader.ReadFloat  ("Weapon Settings","SP10T_THROWGRENADE_MODIFIER", 1.0f, 0.1f, 5.0f );
 
 	// Burst AP modifiers
 	gItemSettings.fBurstAPModifierGun[NOT_GUN]						= iniReader.ReadFloat  ("Weapon Settings","BURST_AP_NOT_GUN_MODIFIER", 1.0f, 0.1f, 5.0f);

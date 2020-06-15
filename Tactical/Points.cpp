@@ -3880,7 +3880,7 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 			sGridNo = MercPtrs[ usTargID ]->sGridNo;
 		}
 
-		// OK, get a direction and see if we need to turn...
+		/*// OK, get a direction and see if we need to turn...
 		if (ubAddTurningCost)
 		{
 			ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
@@ -3892,13 +3892,13 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 				//AXP 25.03.2007: Reenabled look cost
 				//iAPCost += GetAPsToLook( pSoldier );
 			}
-		}
+		}*/
 	}
-	else
+	/*else
 	{
 		// Assume we need to add cost!
 		//iAPCost += GetAPsToLook( pSoldier );
-	}
+	}*/
 
 	// if attacking a new target (or if the specific target is uncertain)
 	//AXP 25.03.2007: Aim-at-same-tile AP cost/bonus doesn't make any sense for thrown objects
@@ -3912,6 +3912,21 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 
 	// Calculate default top & bottom of the magic "aiming" formula)
 
+	bool grenadAPreductionpossible = false;
+
+	FLOAT tossesper10turns = TOSSES_PER_10TURNS;
+
+	// if grenade, or  if we've thrown the object for real, it disapears from our hands and is converted to TempObject
+	if ( Item[usInHand].usItemClass & IC_GRENADE
+		|| ( pSoldier->pTempObject != NULL && pSoldier->pThrowParams != NULL &&
+			pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM && ( Item[pSoldier->pTempObject->usItem].usItemClass & IC_GRENADE ) ) )
+	{
+		grenadAPreductionpossible = true;
+
+		// modify by ini values
+		tossesper10turns *= gItemSettings.fShotsPer10TurnsModifierThrowGrenade;
+	}
+
 	// get this man's maximum possible action points (ignoring carryovers)
 	iFullAPs = pSoldier->CalcActionPoints( );
 
@@ -3923,23 +3938,17 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 	// tosses per turn is for max dexterity, drops down to 1/2 at dexterity = 0
 	// bottom = (TOSSES_PER_10TURNS * (50 + (ptr->dexterity / 2)) / 10);
 	//else
-	iBottom = ( TOSSES_PER_10TURNS * (50 + ( pSoldier->stats.bDexterity / 2 ) ) / 10 );
+	iBottom = ( tossesper10turns * (50 + ( pSoldier->stats.bDexterity / 2 ) ) / 10 );
 
 	// add minimum aiming time to the overall minimum AP_cost
 	//	 This here ROUNDS UP fractions of 0.5 or higher using integer math
 	//	 This works because 'top' is 2x what it really should be throughout
 	iAPCost += ( ( ( 100 * iTop ) / iBottom) + 1) / 2;
-
+	
 	// SANDRO - STOMP traits - reduce APs needed to throw grenades if having Demolitions skill
 	if( HAS_SKILL_TRAIT( pSoldier, DEMOLITIONS_NT ) && gGameOptions.fNewTraitSystem )
 	{
-		if ( Item[ usInHand ].usItemClass & IC_GRENADE ) 
-		{
-			iAPCost = max( 1, (INT32)(iAPCost * (100 - gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction) / 100));
-		}
-		// if we've thrown the object for real, it disapears from our hands and is converted to TempObject
-		else if ( pSoldier->pTempObject != NULL && pSoldier->pThrowParams != NULL &&
-			pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM && (Item[ pSoldier->pTempObject->usItem ].usItemClass & IC_GRENADE) )
+		if ( grenadAPreductionpossible )
 		{
 			iAPCost = max( 1, (INT32)(iAPCost * (100 - gSkillTraitValues.ubDEAPsNeededToThrowGrenadesReduction) / 100));
 		}
@@ -3951,6 +3960,7 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCos
 		ubAddTurningCost = TRUE;
 	else
 		ubAddTurningCost = FALSE;
+
 	if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
 	{
 		iAPCost += GetAPsToChangeStance(pSoldier, ANIM_CROUCH);

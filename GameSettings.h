@@ -2367,6 +2367,8 @@ typedef struct
 	FLOAT fShotsPer4TurnsModifierPunch;
 	FLOAT fShotsPer4TurnsModifierTentacle;
 	FLOAT fShotsPer4TurnsModifierThrowKnife;
+	FLOAT fShotsPer10TurnsModifierThrowGrenade;
+
 	// Burst AP modifiers
 	FLOAT fBurstAPModifierGun[GUN_TYPES_MAX];
 	// AP modifiers for Auto Fire Shots per 5 AP (bAutofireShotsPerFiveAP)
