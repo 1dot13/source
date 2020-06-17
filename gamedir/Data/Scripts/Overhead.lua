@@ -342,6 +342,22 @@ Teams =
 	CIV_TEAM = 4,
 }
 
+-- (relevant) bodytypes
+Bodytype = 
+{
+	REGMALE = 0,
+	BIGMALE = 1,
+	STOCKYMALE = 2,
+	REGFEMALE = 3,
+	FATCIV = 11,
+	MANCIV = 12,
+	MINICIV = 13,
+	DRESSCIV = 14,
+	HATKIDCIV = 15,
+	KIDCIV = 16,
+	CRIPPLECIV = 17,
+}
+
 local iLoop
 local aimLoop
 
@@ -782,14 +798,18 @@ Skill =
 	SKILLS_RADIO_LISTEN = 3,
 	SKILLS_RADIO_CALLREINFORCEMENTS = 4,
 	SKILLS_RADIO_TURNOFF = 5,
+	SKILLS_RADIO_ACTIVATE_TURNCOATS_ALL = 6,
 
-	SKILLS_INTEL_CONCEAL = 6,
-	SKILLS_INTEL_GATHERINTEL = 7,
+	SKILLS_INTEL_CONCEAL = 7,
+	SKILLS_INTEL_GATHERINTEL = 8,
+	SKILLS_CREATE_TURNCOAT = 9,
+	SKILLS_ACTIVATE_TURNCOATS = 10,
+	SKILLS_ACTIVATE_TURNCOATS_ALL = 11,	
 	
 	-- various
-	SKILLS_SPOTTER = 8,
-	SKILLS_FOCUS = 9,
-	SKILLS_DRAG = 10,
+	SKILLS_SPOTTER = 12,
+	SKILLS_FOCUS = 13,
+	SKILLS_DRAG = 14,
 };
 
 -- different dialogue action events
@@ -821,6 +841,7 @@ DialogueActionEvent =
 	ADE_SEXUALHARASSMENT = 23,				-- the player wants to take the 'strip' command further than we are comfortable with
 	ADE_LOCKBOMB = 24,						-- merc uses a shaped charge to blow the locks of a door, aData1 indicates whether it was a success (1) or failure (0)
 	ADE_SNIPERWARNING = 25,					-- merc warns of sniper presence in this sector
+	ADE_BOMB_HAS_BEEN_PLANTED = 26,			-- we planted a bomb/mine/etc., aData1 is the item index, aData2 indicates whether it was a success (1) or failure (0)
 }
 
 -- functions used here:
@@ -874,6 +895,47 @@ Voiceline =
 -- ubProfile is the merc for whom this is called
 -- usQuoteNum is the quote that the game wants to play
 function HandleReplaceQuote( ubProfile, usQuoteNum )
+
+	
+
+end
+
+
+-- shopkeeper quotes while in the shop interface
+Shopkeeperquote = 
+{
+	SK_QUOTES_DEALER_OFFERED_MONEY_AS_A_GIFT = 10,
+	SK_QUOTES_PLAYER_FIRST_ENTERS_SKI = 11,
+	SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_1 = 12,
+	SK_QUOTES_RANDOM_QUOTE_WHILE_PLAYER_DECIDING_2 = 13,
+	SK_QUOTES_RANDOM_QUOTE_WHILE_ITEMS_CHOSEN_TO_TRADE = 14,
+	SK_QUOTES_RANDOM_QUOTE_WHILE_ITEMS_CHOSEN_TO_SELL_OR_REPAIR = 15,
+	SK_QUOTES_PLAYER_REQUESTED_EVALUATION = 16,
+	SK_QUOTES_DURING_EVALUATION_STUFF_REJECTED = 17,
+	SK_QUOTES_EVALUATION_RESULT_VALUE_OF_ZERO = 18,
+	SK_QUOTES_EVALUATION_RESULT_SOME_REALLY_DAMAGED_ITEMS = 19,
+	SK_QUOTES_EVALUATION_RESULT_NORMAL = 20,
+	SK_QUOTES_EVAULATION_PLAYER_DOESNT_HAVE_ENOUGH_VALUE = 21,
+	SK_QUOTES_PLAYER_HAS_EXACTLY_ENOUGH_MONEY_FOR_TRANSACTION = 22,
+	SK_QUOTES_PLAYER_HAS_TOO_MUCH_MONEY_FOR_TRANSACTION = 23,
+	SK_QUOTES_PRESSES_DONE_HAS_AT_LEAST_1_TRANSACTION = 24,
+	SK_QUOTES_PRESSED_DONE_HASNT_MADE_TRANSACTION = 25,
+	SK_QUOTES_PRESSED_DONE_STILL_HAS_STUFF_IN_OFFER_AREA = 26,
+	SK_QUOTES_CANT_AFFORD_TO_BUY_OR_TOO_MUCH_TO_REPAIR = 27,
+}
+
+-- functions used here:
+-- 
+-- path: path and name of soundfile we want to play (in .wav, .ogg or .mp3 format)
+-- volume: optional sound volume (65: medium volume, 127: loud), default 65
+-- PlaySound(path, volume)
+
+-- handle
+-- sSectorX, sSectorY and bSectorZ indicate the sector coordinates
+-- ubMerchantID is the ID of the merchant for whom this is called
+-- ubBodyType is the character model the merchant uses
+-- usQuoteNum is the event of the dialogue that is supposed to be called 
+function HandleNPCMerchantQuote(sSectorX, sSectorY, bSectorZ, ubMerchantID, ubBodyType, usQuoteNum )
 
 	
 

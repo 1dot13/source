@@ -357,6 +357,22 @@ Teams =
 	CIV_TEAM = 4,
 }
 
+-- (relevant) bodytypes
+Bodytype = 
+{
+	REGMALE = 0,
+	BIGMALE = 1,
+	STOCKYMALE = 2,
+	REGFEMALE = 3,
+	FATCIV = 11,
+	MANCIV = 12,
+	MINICIV = 13,
+	DRESSCIV = 14,
+	HATKIDCIV = 15,
+	KIDCIV = 16,
+	CRIPPLECIV = 17,
+}
+
 local iLoop
 local aimLoop
 
@@ -2807,15 +2823,44 @@ Skill =
 	SKILLS_RADIO_LISTEN = 3,
 	SKILLS_RADIO_CALLREINFORCEMENTS = 4,
 	SKILLS_RADIO_TURNOFF = 5,
+	SKILLS_RADIO_ACTIVATE_TURNCOATS_ALL = 6,
 
-	SKILLS_INTEL_CONCEAL = 6,
-	SKILLS_INTEL_GATHERINTEL = 7,
+	SKILLS_INTEL_CONCEAL = 7,
+	SKILLS_INTEL_GATHERINTEL = 8,
+	SKILLS_CREATE_TURNCOAT = 9,
+	SKILLS_ACTIVATE_TURNCOATS = 10,
+	SKILLS_ACTIVATE_TURNCOATS_ALL = 11,	
 	
 	-- various
-	SKILLS_SPOTTER = 8,
-	SKILLS_FOCUS = 9,
-	SKILLS_DRAG = 10,
+	SKILLS_SPOTTER = 12,
+	SKILLS_FOCUS = 13,
+	SKILLS_DRAG = 14,
 };
+
+-- Look up voicelines in Dialogue Control.h, only listing notable ones often used here
+Voiceline = 
+{
+	QUOTE_SEE_ENEMY = 0,
+	QUOTE_HEARD_SOMETHING = 6,
+	QUOTE_SPOTTED_SOMETHING_ONE = 11,
+	QUOTE_SPOTTED_SOMETHING_TWO = 12,
+	QUOTE_OUT_OF_AMMO = 13,
+	QUOTE_TAKEN_A_BREATING = 21,							-- took a lot of hits this turn
+	QUOTE_CLOSE_CALL = 22,									-- almost hit by a projectile
+	QUOTE_NO_LINE_OF_FIRE = 23,								-- really bad chance to hit target
+	QUOTE_KILLED_AN_ENEMY = 27,
+	QUOTE_HEADSHOT = 33,
+	QUOTE_STARTING_TO_WHINE = 40,							-- complain: low morale
+	
+	-- these three lines are played at random when we talk to one of our mercs. Despite the name they don't have any special meaning
+	QUOTE_NEGATIVE_COMPANY = 41,
+	QUOTE_SOCIAL_TRAIT = 44,
+	QUOTE_PASSING_DISLIKE = 45,
+	
+	QUOTE_ENEMY_PRESENCE = 59,
+	QUOTE_WARNING_OUTSTANDING_ENEMY_AFTER_RT = 60,
+	QUOTE_SECTOR_SAFE = 65,
+}
 
 -- different dialogue action events
 DialogueActionEvent = 
@@ -2846,6 +2891,7 @@ DialogueActionEvent =
 	ADE_SEXUALHARASSMENT = 23,				-- the player wants to take the 'strip' command further than we are comfortable with
 	ADE_LOCKBOMB = 24,						-- merc uses a shaped charge to blow the locks of a door, aData1 indicates whether it was a success (1) or failure (0)
 	ADE_SNIPERWARNING = 25,					-- merc warns of sniper presence in this sector
+	ADE_BOMB_HAS_BEEN_PLANTED = 26,			-- we planted a bomb/mine/etc., aData1 is the item index, aData2 indicates whether it was a success (1) or failure (0)
 }
 
 -- functions used here:
@@ -2888,7 +2934,8 @@ function HandleAdditionalDialogue(sSectorX, sSectorY, bSectorZ, ubProfile, iFace
 				end
 				
 			end
-			
+		
+		-- similar to the rebel's quotes, this is called upon visiting a sector for the first time (if no rebel does their quote first)
 		elseif ( usEventNr == DialogueActionEvent.ADE_SECTOR_COMMENTARY ) then
 		
 			-- surface sectors
@@ -2972,6 +3019,23 @@ Voiceline =
 -- ubProfile is the merc for whom this is called
 -- usQuoteNum is the quote that the game wants to play
 function HandleReplaceQuote( ubProfile, usQuoteNum )
+
+	
+
+end
+
+-- functions used here:
+-- 
+-- path: path and name of soundfile we want to play (in .wav, .ogg or .mp3 format)
+-- volume: optional sound volume (65: medium volume, 127: loud), default 65
+-- PlaySound(path, volume)
+
+-- handle
+-- sSectorX, sSectorY and bSectorZ indicate the sector coordinates
+-- ubMerchantID is the ID of the merchant for whom this is called
+-- ubBodyType is the character model the merchant uses
+-- usQuoteNum is the event of the dialogue that is supposed to be called 
+function HandleNPCMerchantQuote(sSectorX, sSectorY, bSectorZ, ubMerchantID, ubBodyType, usQuoteNum )
 
 	
 
