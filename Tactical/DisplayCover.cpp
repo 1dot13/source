@@ -423,6 +423,12 @@ void RemoveCoverObjectsFromViewArea()
 	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY );
 	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY );
 
+	// Flugente: hey, wouldn't it be cool if we DIDN'T access an array with implausible values?
+	gsMinCellX = max( 0, gsMinCellX );
+	gsMaxCellX = min( COVER_X_CELLS, gsMaxCellX );
+	gsMinCellY = max( 0, gsMinCellY );
+	gsMaxCellY = min( COVER_Y_CELLS, gsMaxCellY );
+
 	register INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
