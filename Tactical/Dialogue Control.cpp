@@ -211,6 +211,7 @@ extern void HandlePendingInitConv( );
 extern BOOLEAN WillMercRenew( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote );
 extern void DrawFace( INT16 sCharNumber );
 extern void LuaHandleReplaceQuote( UINT8 ubProfile, UINT16 usQuoteNum );
+extern void LuaHandleNPCMerchantQuote( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 ubMerchantID, UINT8 ubBodyType, UINT16 usQuoteNum );
 
 // the next said quote will pause time
 BOOLEAN fPausedTimeDuringQuote = FALSE;
@@ -2045,6 +2046,9 @@ BOOLEAN SpecialCharacterDialogueEventWithExtraParam( UINT32 uiSpecialEventFlag, 
 	return( TRUE );
 }
 
+extern INT8 gbSelectedArmsDealerID;
+extern UINT8 gusIDOfCivTrader;
+
 BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32 iFaceIndex, UINT8 bUIHandlerID, BOOLEAN fFromSoldier )
 {
 	UINT32	uiSoundID;
@@ -2145,6 +2149,22 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 
 	// anv: have to do it now for single sounds
 	subsequentsounds.ubMaxSndCounter = 0;
+
+	// Flugente: if this an NPC merchant we don't say anything normally. So instead we call lua so that modders can add dislogue of their own
+	if ( bUIHandlerID == DIALOGUE_SHOPKEEPER_UI
+		&& ubCharacterNum == NO_PROFILE
+		&& iFaceIndex == -1
+		&& gusIDOfCivTrader != NOBODY )
+	{
+		SOLDIERTYPE* pShopkeeper = MercPtrs[gusIDOfCivTrader];
+
+		if ( pShopkeeper )
+		{
+			LuaHandleNPCMerchantQuote( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, gbSelectedArmsDealerID, pShopkeeper->ubBodyType, usQuoteNum );
+
+			return TRUE;
+		}
+	}
 
 	// Check face index
 	CHECKF( iFaceIndex != -1 );

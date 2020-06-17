@@ -13365,6 +13365,20 @@ void LuaHandleReplaceQuote( UINT8 ubProfile, UINT16 usQuoteNum )
 	LuaFunction( _LS.L, "HandleReplaceQuote" ).Param<int>( ubProfile ).Param<int>( usQuoteNum ).Call( 2 );
 }
 
+void LuaHandleNPCMerchantQuote( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 ubMerchantID, UINT8 ubBodyType, UINT16 usQuoteNum )
+{
+	const char* filename = "scripts\\Overhead.lua";
+
+	LuaScopeState _LS( true );
+
+	IniFunction( _LS.L(), TRUE );
+	IniGlobalGameSetting( _LS.L() );
+
+	SGP_THROW_IFFALSE( _LS.L.EvalFile( filename ), _BS( "Cannot open file: " ) << filename << _BS::cget );
+
+	LuaFunction( _LS.L, "HandleNPCMerchantQuote" ).Param<int>( sSectorX ).Param<int>( sSectorY ).Param<int>( bSectorZ ).Param<int>( ubMerchantID ).Param<int>( ubBodyType ).Param<int>( usQuoteNum ).Call( 6 );
+}
+
 void LuaAddArmsDealerAdditionalIntelData()
 {
 	const char* filename = "scripts\\Overhead.lua";
