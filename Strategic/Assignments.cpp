@@ -9272,7 +9272,7 @@ void AssignmentDone( SOLDIERTYPE *pSoldier, BOOLEAN fSayQuote, BOOLEAN fMeToo )
 		if ( fSayQuote )
 		{
 			if (IS_DOCTOR( pSoldier->bAssignment ) || IS_REPAIR( pSoldier->bAssignment ) ||
-				 IS_PATIENT( pSoldier->bAssignment ) || pSoldier->bAssignment == ASSIGNMENT_HOSPITAL || pSoldier->bAssignment == FORTIFICATION )
+				 IS_PATIENT( pSoldier->bAssignment ) || pSoldier->bAssignment == ASSIGNMENT_HOSPITAL || pSoldier->bAssignment == FORTIFICATION || pSoldier->bAssignment == EXPLORATION )
 			{
 				TacticalCharacterDialogue( pSoldier, QUOTE_ASSIGNMENT_COMPLETE );
 			}

@@ -148,14 +148,14 @@ enum DialogQuoteIDs
 	QUOTE_DEATH_RATE_RENEWAL,									// AIM: refuse to be renew due to high death rate
 
 	//100
-	QUOTE_HATED_1_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 1 is here
-	QUOTE_HATED_2_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 2 is here
-	QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW,	// refuse to renew contract because learn to hate is here
+	QUOTE_HATED_1_ON_TEAM_WONT_RENEW,			// AIM: refuse to renew contract because hated 1 is here
+	QUOTE_HATED_2_ON_TEAM_WONT_RENEW,			// AIM: refuse to renew contract because hated 2 is here
+	QUOTE_LEARNED_TO_HATE_ON_TEAM_WONT_RENEW,	// AIM: refuse to renew contract because learn to hate is here
 	QUOTE_RENEWING_CAUSE_BUDDY_1_ON_TEAM,		// renew contract only because buddy 1 is around
 	QUOTE_RENEWING_CAUSE_BUDDY_2_ON_TEAM,		// renew contract only because buddy 2 is around
 	QUOTE_RENEWING_CAUSE_LEARNED_TO_LIKE_BUDDY_ON_TEAM,		// renew contract only because learn to like is around
 	QUOTE_PRECEDENT_TO_REPEATING_ONESELF_RENEW,	// repeat yourself during renewal process
-	QUOTE_RENEW_REFUSAL_DUE_TO_LACK_OF_FUNDS,	// JA2UB: kill bloodcat quest fulfilled
+	QUOTE_UB_HANDLE_BLOODCATDEATHS,				// JA2UB: kill bloodcat quest fulfilled
 	QUOTE_GREETING,								// AIM hiring screen: greet the player
 	QUOTE_SMALL_TALK,							// AIM hiring screen: player says nothing, so do a bit of small talk
 
@@ -194,9 +194,9 @@ enum DialogQuoteIDs
 	QUOTE_JOINING_CAUSE_BUDDY_3_ON_TEAM,		// agree to contract because buddy 3 is here
 	QUOTE_JOINING_CAUSE_BUDDY_4_ON_TEAM,		// agree to contract because buddy 4 is here
 	QUOTE_JOINING_CAUSE_BUDDY_5_ON_TEAM,		// agree to contract because buddy 5 is here
-	QUOTE_HATED_3_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 3 is here
-	QUOTE_HATED_4_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 4 is here
-	QUOTE_HATED_5_ON_TEAM_WONT_RENEW,			// refuse to renew contract because hated 5 is here
+	QUOTE_HATED_3_ON_TEAM_WONT_RENEW,			// AIM: refuse to renew contract because hated 3 is here
+	QUOTE_HATED_4_ON_TEAM_WONT_RENEW,			// AIM: refuse to renew contract because hated 4 is here
+	QUOTE_HATED_5_ON_TEAM_WONT_RENEW,			// AIM: refuse to renew contract because hated 5 is here
 
 	//140
 	QUOTE_RENEWING_CAUSE_BUDDY_3_ON_TEAM,		// renew contract only because buddy 3 is around

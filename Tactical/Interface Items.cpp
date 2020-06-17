@@ -3761,7 +3761,8 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 	if ( fDirtyLevel == DIRTYLEVEL2 )
 	{
 		// TAKE A LOOK AT THE VIDEO OBJECT SIZE ( ONE OF TWO SIZES ) AND CENTER!
-		GetVideoObject( &hVObject, GetInterfaceGraphicForItem( pItem ) );
+		UINT32 interfacegraphic = GetInterfaceGraphicForItem( pItem );
+		GetVideoObject( &hVObject, interfacegraphic );
 		UINT16 usGraphicNum = g_bUsePngItemImages ? 0 : pItem->ubGraphicNum;
 		pTrav = &(hVObject->pETRLEObject[ usGraphicNum ] );
 		usHeight				= (UINT32)pTrav->usHeight;
@@ -3774,9 +3775,9 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 		// Shadow area
 		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ])
-			BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX - 2, sCenY + 2 );
+			BltVideoObjectOutlineShadowFromIndex( uiBuffer, interfacegraphic, usGraphicNum, sCenX - 2, sCenY + 2 );
 
-		BltVideoObjectOutlineFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), usGraphicNum, sCenX, sCenY, sOutlineColor, fOutline );
+		BltVideoObjectOutlineFromIndex( uiBuffer, interfacegraphic, usGraphicNum, sCenX, sCenY, sOutlineColor, fOutline );
 
 		if ( uiBuffer == FRAME_BUFFER )
 		{
