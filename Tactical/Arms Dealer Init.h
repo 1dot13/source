@@ -340,7 +340,7 @@ UINT32	GetArmsDealerItemTypeFromItemNumber( UINT16 usItem );
 //Count every single item the dealer has in stock
 //UINT32	CountTotalItemsInArmsDealersInventory( UINT8 ubArmsDealer );
 //Count only the # of "distinct" item types (for shopkeeper purposes)
-UINT16		CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer );
+int			CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer );
 
 void		AddObjectToArmsDealerInventory( UINT8 ubArmsDealer, OBJECTTYPE *pObject );
 

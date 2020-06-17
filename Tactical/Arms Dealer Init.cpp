@@ -1515,23 +1515,23 @@ bool ItemIsSpecial(DEALER_SPECIAL_ITEM& item)
 	return false;
 }
 
-UINT16 CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer )
+int CountTotalItemsRepairDealerHasInForRepairs( UINT8 ubArmsDealer )
 {
 	//if the dealer is not a repair dealer, no need to count, return 0
 	if ( !DoesDealerDoRepairs( ubArmsDealer ) )
 		return 0;
 
-	UINT16	usHowManyInForRepairs = 0;
+	int	count = 0;
 
 	for ( DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin(); iter != gArmsDealersInventory[ubArmsDealer].end(); ++iter )
 	{
 		if ( iter->object.exists() && iter->IsUnderRepair() )
 		{
-			++usHowManyInForRepairs;
+			++count;
 		}
 	}
 
-	return( usHowManyInForRepairs );
+	return( count );
 }
 
 void AddObjectToArmsDealerInventory( UINT8 ubArmsDealer, OBJECTTYPE *pObject )

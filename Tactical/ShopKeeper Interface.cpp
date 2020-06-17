@@ -539,10 +539,9 @@ void			RemoveShopKeeperSubTitledText();
 BOOLEAN		AreThereItemsInTheArmsDealersOfferArea( );
 BOOLEAN		AreThereItemsInThePlayersOfferArea( );
 void			ShutUpShopKeeper();
-UINT8			CountNumberOfValuelessItemsInThePlayersOfferArea( );
-UINT8			CountNumberOfItemsOfValueInThePlayersOfferArea( );
-UINT8			CountNumberOfItemsInThePlayersOfferArea( );
-UINT8			CountNumberOfItemsInTheArmsDealersOfferArea( );
+int				CountNumberOfValuelessItemsInThePlayersOfferArea( );
+int				CountNumberOfItemsInThePlayersOfferArea( );
+int				CountNumberOfItemsInTheArmsDealersOfferArea( );
 INT8			GetSlotNumberForMerc( UINT8 ubProfile );
 void			HandleCurrentModeText( UINT8 ubMode );
 void			EnableDisableDealersInventoryPageButtons();
@@ -766,8 +765,8 @@ UINT32	ShopKeeperScreenShutdown()
 BOOLEAN EnterShopKeeperInterface()
 {
 	VOBJECT_DESC		VObjectDesc;
-	UINT8						ubCnt;
-	CHAR8						zTemp[32];
+	UINT16				ubCnt;
+	CHAR8				zTemp[32];
 	VSURFACE_DESC		vs_desc;
 
 	//ADB if we are here, we must be able to talk with an extended ear (CheckIfRadioIsEquipped())
@@ -893,7 +892,7 @@ BOOLEAN EnterShopKeeperInterface()
 	//Create an array of all mercs (anywhere!) currently in the player's employ, and load their small faces
 	// This is to support showing of repair item owner's faces even when they're not in the sector, as long as they still work for player
 	gubNumberMercsInArray = 0;
-	for( ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ubCnt++ )
+	for( ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++ubCnt )
 	{
 		pSoldier = MercPtrs[ ubCnt ];
 
@@ -3591,8 +3590,6 @@ void SkiHelpTextDoneCallBack( void )
 
 INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, INT16 bSlotIdInOtherLocation )
 {
-	INT8	bCnt;
-
 	//if we are to check for a previous slot
 	if( bSlotIdInOtherLocation != -1 )
 	{
@@ -3602,7 +3599,7 @@ INT8 AddItemToPlayersOfferArea( UINT8 ubProfileID, INVENTORY_IN_SLOT* pInvSlot, 
 	}
 
 	//look for the first free slot
-	for ( bCnt = 0; bCnt<gPlayersOfferActiveRegions; ++bCnt )
+	for ( int bCnt = 0; bCnt<gPlayersOfferActiveRegions; ++bCnt )
 	{
 		//if there are no items here, copy the data in
 		if( PlayersOfferArea[bCnt].fActive == FALSE )
@@ -3846,8 +3843,8 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 	UINT32	uiPlayersTotalMoneyValue = CalculateTotalPlayersValue() + uiMoneyFromPlayersAccount;
 	UINT32	uiArmsDealersItemsCost = CalculateTotalArmsDealerCost();
 	UINT32	uiMoneyInPlayersOfferArea = CalculateHowMuchMoneyIsInPlayersOfferArea( );
-	INT32		iChangeToGiveToPlayer = 0;
-	UINT32	uiAvailablePlayerOfferSlots;
+	INT32	iChangeToGiveToPlayer = 0;
+	int		iAvailablePlayerOfferSlots;
 	
 	//if the player has already requested to leave, get out
 	if( gfUserHasRequestedToLeave )
@@ -3873,17 +3870,17 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 		//if the dealer is not a repairman
 		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer != ARMS_DEALER_REPAIRS )
 		{
-			uiAvailablePlayerOfferSlots = (gPlayersOfferActiveRegions - CountNumberOfValuelessItemsInThePlayersOfferArea( ));
+			iAvailablePlayerOfferSlots = (gPlayersOfferActiveRegions - CountNumberOfValuelessItemsInThePlayersOfferArea( ));
 
 			// always reserve an empty slot for change.  We can't tell for sure whether player is getting change because that
 			// could depend on how many items he's trying to buy won't fit - he could only be getting change because of that!
-			if ( uiAvailablePlayerOfferSlots > 0 )
+			if ( iAvailablePlayerOfferSlots > 0 )
 			{
-				--uiAvailablePlayerOfferSlots;
+				--iAvailablePlayerOfferSlots;
 			}
 
 			//if there is NOT enough room in the players offer area
-			if( CountNumberOfItemsInTheArmsDealersOfferArea( ) > uiAvailablePlayerOfferSlots )
+			if( CountNumberOfItemsInTheArmsDealersOfferArea( ) > iAvailablePlayerOfferSlots )
 			{
 				// tell player there's not enough room in the player's offer area
 				DoSkiMessageBox( MSG_BOX_BASIC_STYLE, SKI_Text[ SKI_TEXT_NO_MORE_ROOM_IN_PLAYER_OFFER_AREA ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_OK, NULL );
@@ -4539,7 +4536,7 @@ void RestrictSkiMouseCursor()
 
 void SetSkiCursor( UINT16	usCursor )
 {
-	UINT8	ubCnt;
+	int	ubCnt;
 
 	//if we are setting up an item as a cursor
 	if( usCursor == EXTERN_CURSOR )
@@ -4639,7 +4636,7 @@ void SetSkiCursor( UINT16	usCursor )
 		if( gInvDesc.uiFlags & MSYS_REGION_EXISTS )
 			MSYS_ChangeRegionCursor( &gInvDesc, usCursor );
 
-		for( ubCnt = 0; ubCnt < gMoveingItem.ItemObject[0]->attachments.size(); ubCnt++)
+		for( ubCnt = 0; ubCnt < gMoveingItem.ItemObject[0]->attachments.size(); ++ubCnt)
 		{
 			if( gItemDescAttachmentRegions[ubCnt].uiFlags & MSYS_REGION_EXISTS )
 				MSYS_ChangeRegionCursor( &gItemDescAttachmentRegions[ubCnt], usCursor );
@@ -5151,9 +5148,9 @@ void ShutUpShopKeeper()
 	gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 }
 
-UINT8 CountNumberOfValuelessItemsInThePlayersOfferArea( )
+int CountNumberOfValuelessItemsInThePlayersOfferArea( )
 {
-	UINT8	ubCount=0;
+	int	count = 0;
 
 	//loop through the players offer area and see if there are any items there
 	for ( int ubCnt = 0; ubCnt<gPlayersOfferActiveRegions; ++ubCnt )
@@ -5164,38 +5161,17 @@ UINT8 CountNumberOfValuelessItemsInThePlayersOfferArea( )
 			//and if it has no value
 			if( !( PlayersOfferArea[ubCnt].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE ) )
 			{
-				++ubCount;
+				++count;
 			}
 		}
 	}
 
-	return( ubCount );
+	return( count );
 }
 
-UINT8 CountNumberOfItemsOfValueInThePlayersOfferArea( )
+int CountNumberOfItemsInThePlayersOfferArea( )
 {
-	UINT8	ubCount=0;
-
-	//loop through the players offer area and see if there are any items there
-	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
-	{
-		//if is an item here
-		if( PlayersOfferArea[ubCnt].fActive )
-		{
-			//and if it has not been evaluated
-			if( PlayersOfferArea[ubCnt].uiFlags & ARMS_INV_PLAYERS_ITEM_HAS_VALUE )
-			{
-				ubCount++;
-			}
-		}
-	}
-
-	return( ubCount );
-}
-
-UINT8 CountNumberOfItemsInThePlayersOfferArea( )
-{
-	UINT8	ubItemCount=0;
+	int	count = 0;
 
 	//loop through the player's offer area and see if there are any items there
 	for ( int ubCnt = 0; ubCnt < gPlayersOfferActiveRegions; ++ubCnt )
@@ -5203,15 +5179,16 @@ UINT8 CountNumberOfItemsInThePlayersOfferArea( )
 		//if is an item here
 		if( PlayersOfferArea[ubCnt].fActive )
 		{
-			++ubItemCount;
+			++count;
 		}
 	}
-	return( ubItemCount );
+
+	return( count );
 }
 
-UINT8 CountNumberOfItemsInTheArmsDealersOfferArea( )
+int CountNumberOfItemsInTheArmsDealersOfferArea( )
 {
-	UINT8	ubItemCount=0;
+	int	count = 0;
 
 	//loop through the dealer's offer area and see if there are any items there
 	for ( int ubCnt = 0; ubCnt < gDealersOfferActiveRegions; ++ubCnt )
@@ -5219,11 +5196,11 @@ UINT8 CountNumberOfItemsInTheArmsDealersOfferArea( )
 		//if is an item here
 		if( ArmsDealerOfferArea[ubCnt].fActive )
 		{
-			++ubItemCount;
+			++count;
 		}
 	}
 
-	return( ubItemCount );
+	return( count );
 }
 
 INT8 GetSlotNumberForMerc( UINT8 ubProfile )
@@ -5659,8 +5636,8 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 		//if the dealer repairs
 		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
-			UINT32	uiNumberOfItemsInForRepairs = CountTotalItemsRepairDealerHasInForRepairs( gbSelectedArmsDealerID );
-			UINT32	uiNumberOfItemsAlreadyEvaluated = CountNumberOfItemsInTheArmsDealersOfferArea();
+			int	uiNumberOfItemsInForRepairs = CountTotalItemsRepairDealerHasInForRepairs( gbSelectedArmsDealerID );
+			int	uiNumberOfItemsAlreadyEvaluated = CountNumberOfItemsInTheArmsDealersOfferArea();
 
 			//Get the number of items being evaluated
 			ubNumberOfItemsAddedToRepairDuringThisEvaluation = PlayersOfferArea[ bSlotID ].ItemObject.ubNumberOfObjects;
@@ -5687,10 +5664,8 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 			//if the item is damaged, or is a rocket rifle (which always "need repairing" even at 100%, to reset imprinting)
 			if( ( PlayersOfferArea[ bSlotID ].ItemObject[0]->data.objectStatus < 100 ) || fRocketRifleWasEvaluated )
 			{
-				INT16	bSlotAddedTo;
-
 				// Move the item to the Dealer's Offer Area
-				bSlotAddedTo = AddItemToArmsDealerOfferArea( &PlayersOfferArea[ bSlotID ], PlayersOfferArea[ bSlotID ].bSlotIdInOtherLocation );
+				INT16 bSlotAddedTo = AddItemToArmsDealerOfferArea( &PlayersOfferArea[ bSlotID ], PlayersOfferArea[ bSlotID ].bSlotIdInOtherLocation );
 
 				if( bSlotAddedTo != -1 )
 				{
@@ -5706,7 +5681,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 					ArmsDealerOfferArea[ bSlotAddedTo ].uiFlags &= ~ARMS_INV_ITEM_SELECTED;
 
 					//increment the number of items being added
-					ubNumberOfItemsAddedToRepairDuringThisEvaluation++;
+					++ubNumberOfItemsAddedToRepairDuringThisEvaluation;
 
 					// check if the item is really badly damaged
 					if( Item[ ArmsDealerOfferArea[ bSlotAddedTo ].sItemIndex ].usItemClass != IC_AMMO )
@@ -6010,16 +5985,17 @@ BOOLEAN WillShopKeeperRejectObjectsFromPlayer( INT8 bDealerId, INT8 bSlotId )
 
 void CheckAndHandleClearingOfPlayerOfferArea( void )
 {
-	INT32 iCounter = 0;
 	BOOLEAN fActiveSlot = FALSE;
 
 	// find out if all the player trade slots/offer area is empty
-	for ( iCounter = 0; iCounter<gPlayersOfferActiveRegions; ++iCounter )
+	for ( int iCounter = 0; iCounter<gPlayersOfferActiveRegions; ++iCounter )
 	{
 		if( PlayersOfferArea[ iCounter ].fActive == TRUE )
 		{
 			// nope, there is an active slot
 			fActiveSlot = TRUE;
+
+			break;
 		}
 	}
 
@@ -6055,10 +6031,9 @@ BOOLEAN CanShopkeeperOverrideDialogue( void )
 INT16 GetNumberOfItemsInPlayerOfferArea( void )
 {
 	INT16 sCounter = 0;
-	INT32 iCounter = 0;
 
 	// find number of active slot in player offer area
-	for ( iCounter = 0; iCounter < gPlayersOfferActiveRegions; ++iCounter )
+	for ( int iCounter = 0; iCounter < gPlayersOfferActiveRegions; ++iCounter )
 	{
 		if( PlayersOfferArea[ iCounter ].fActive )
 		{
@@ -6245,7 +6220,7 @@ void DeleteShopKeeperItemDescBox()
 	EnableAllDealersInventorySlots();
 	EnableAllDealersOfferSlots();
 
-	for ( INT32 iCnt = 0; iCnt < gPlayersOfferActiveRegions; ++iCnt )
+	for ( int iCnt = 0; iCnt < gPlayersOfferActiveRegions; ++iCnt )
 	{
 		MSYS_EnableRegion( &gPlayersOfferSlotsMouseRegions[ iCnt ] );
 		MSYS_EnableRegion( &gPlayersOfferSlotsSmallFaceMouseRegions[ iCnt ] );
@@ -6261,11 +6236,10 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 {
 	UINT8		ubRepairableSubObjects;
 	UINT8		ubNonRepairableSubObjects;
-	UINT8		ubDealerOfferAreaSlotsNeeded;
-	UINT8		ubPlayerOfferAreaSlotsNeeded;
-	UINT8		ubDiff;
-	UINT8		ubHowManyMoreItemsCanDealerTake;
-	UINT8		ubSubObject;
+	int			ubDealerOfferAreaSlotsNeeded;
+	int			ubPlayerOfferAreaSlotsNeeded;
+	int			ubDiff;
+	int			ubHowManyMoreItemsCanDealerTake;
 	BOOLEAN	fFirstOne = TRUE;
 	BOOLEAN fSuccess = FALSE;
 
@@ -6307,7 +6281,7 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 		if ( ubDealerOfferAreaSlotsNeeded > 0 )
 		{
 			// we need at least one EXTRA empty slot in player's area to pass repairable objects through for their evaluation
-			ubPlayerOfferAreaSlotsNeeded++;
+			++ubPlayerOfferAreaSlotsNeeded;
 		}
 
 		//this is a silly assert, was it meant to be something else?
@@ -6332,7 +6306,7 @@ BOOLEAN OfferObjectToDealer( OBJECTTYPE *pComplexObject, UINT8 ubOwnerProfileId,
 		}
 
 		// we have room, so move them all to the appropriate slots
-		for ( ubSubObject = 0; ubSubObject < subObjects.size(); ubSubObject++ )
+		for ( size_t ubSubObject = 0; ubSubObject < subObjects.size(); ++ubSubObject )
 		{
 			// if it's the main item itself (always in the very first subobject), and it has no other subobjects
 			if ( ( ubSubObject == 0 ) && ( subObjects.size() == 1) )
