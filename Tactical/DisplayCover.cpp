@@ -416,6 +416,7 @@ void RemoveCoverObjectsFromViewArea()
 	if ( gubDrawMode == DRAW_MODE_OFF && gNoRedraw )
 		return;
 
+	// Not needed for removing cover objects anymore, but this is the only place where we update the global gsMin & gsMaxCell variables and they're needed for adding cover objects.
 	INT16 usTmp;
 	GetScreenXYWorldCell( gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp );
 	GetScreenXYWorldCell( gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp );
@@ -429,14 +430,16 @@ void RemoveCoverObjectsFromViewArea()
 	gsMinCellY = max( 0, gsMinCellY );
 	gsMaxCellY = min( COVER_Y_CELLS, gsMaxCellY );
 
+
+	// Go through the whole gCoverViewArea when removing cover objects. Otherwise we don't clean up tiles that are not in the viewport which results in an annoying visual bug.
 	register INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( ubX = 0; ubX < COVER_X_CELLS; ++ubX )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		for ( ubY = 0; ubY < COVER_Y_CELLS; ++ubY )
 		{
-			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			for ( ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ )
 			{
 				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
 
