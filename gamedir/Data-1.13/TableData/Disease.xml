@@ -29,6 +29,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -73,6 +74,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -117,6 +119,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>-10</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -161,6 +164,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>-30</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -205,6 +209,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>-7</sEffStatSTR>
@@ -249,6 +254,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -294,6 +300,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -338,6 +345,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>-10</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -382,6 +390,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -426,6 +435,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>-5</sEffStatAGI>
 		<sEffStatDEX>-5</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -470,6 +480,7 @@
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -510,20 +521,21 @@
 		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
 		<fCanBeCured>0</fCanBeCured>
 		<fReverseOnFull>0</fReverseOnFull>
-		<fCanReInfect>0</fCanReInfect>
+		<fCanReInfect>1</fCanReInfect>
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>1</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>1</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
-		<sEffStatWIS>-5</sEffStatWIS>
+		<sEffStatWIS>0</sEffStatWIS>
 		<sEffStatEXP>0</sEffStatEXP>
-		<sEffAP>-2</sEffAP>
+		<sEffAP>0</sEffAP>
 		<usMaxBreath>0</usMaxBreath>
 		<sEffCarryStrength>0</sEffCarryStrength>
 		<sLifeRegenHundreds>0</sLifeRegenHundreds>
-		<sNeedToSleep>1</sNeedToSleep>
+		<sNeedToSleep>0</sNeedToSleep>
 		<sDrinkModifier>0</sDrinkModifier>
 		<sFoodModifier>0</sFoodModifier>
 		<moralemodifier>0.9</moralemodifier>
@@ -558,6 +570,7 @@
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>-50</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -602,6 +615,7 @@
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>-20</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -646,6 +660,7 @@
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>-20</sEffStatSTR>
@@ -691,6 +706,7 @@
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>1</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>-20</sEffStatAGI>
 		<sEffStatDEX>-40</sEffStatDEX>
 		<sEffStatSTR>-20</sEffStatSTR>
@@ -735,6 +751,7 @@
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>-20</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
@@ -780,6 +797,7 @@
 		<fHideSymbol>1</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>

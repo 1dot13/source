@@ -29,6 +29,7 @@
 		<fHideSymbol>0</fHideSymbol>
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
