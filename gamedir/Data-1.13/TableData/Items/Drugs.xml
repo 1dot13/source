@@ -36,6 +36,9 @@ Note: Currently only one such effect per time is allowed, additional effects ove
 		PSYCHO					7
 		DEAF					8
 		SHORTSIGHTED			9
+		HEMOPHILIAC				10
+		AFRAID_OF_HEIGHTS		11
+		SELF_HARM				12
 		
 <duration> 				is how many turns this lasts
 If <chance> is set, this is the chance that this effect is applied when consuming drug
