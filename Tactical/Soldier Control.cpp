@@ -19316,7 +19316,7 @@ void	SOLDIERTYPE::AnnounceDisease( UINT8 aDisease )
 
 void	SOLDIERTYPE::AddDisability( UINT8 aDisability )
 {
-	this->usDisabilityFlagMask |= ( 1 << aDisability );
+	this->usDisabilityFlagMask |= ( 1 << (aDisability - 1 ) );
 }
 
 // do we have any disease? fDiagnosedOnly: check for wether we know of this infection fHealableOnly: check wether it can be healed
