@@ -1579,6 +1579,8 @@ public:
 
 	UINT32	usIndividualMilitiaID;	// Flugente: if this is a militia, this is the ID of the militia data
 
+	// Flugente: store disabilities as a flagmask, so we can have multiple ones
+	UINT32	usDisabilityFlagMask;
 	
 #ifdef JA2UB
 	//ja25
@@ -1958,6 +1960,7 @@ public:
 	void	Infect( UINT8 aDisease );
 	void	AddDiseasePoints( UINT8 aDisease, INT32 aVal  );
 	void	AnnounceDisease( UINT8 aDisease );
+	void	AddDisability( UINT8 aDisability );
 
 	// do we have any disease?
 	// fDiagnosedOnly: check for wether we know of this infection

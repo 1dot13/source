@@ -83,6 +83,7 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 				  strcmp( name, "fHideSymbol" ) == 0 ||
 				  strcmp( name, "fDisgusting" ) == 0 ||
 				  strcmp( name, "fSpecialFlagPTSDBuns" ) == 0 ||
+				  strcmp( name, "fSpecialFlagContractDisability" ) == 0 ||
 				  strcmp( name, "sEffStatAGI" ) == 0 ||
 				  strcmp( name, "sEffStatDEX" ) == 0 ||
 				  strcmp( name, "sEffStatSTR" ) == 0 ||
@@ -309,6 +310,12 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 			if ( atol( pData->szCharData ) )
 				pData->curItem.usDiseaseProperties |= DISEASE_PROPERTY_PTSD_BUNS;
 		}
+		else if ( strcmp( name, "fSpecialFlagContractDisability" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			if ( atol( pData->szCharData ) )
+				pData->curItem.usDiseaseProperties |= DISEASE_PROPERTY_ADD_DISABILITY;
+		}
 		else if ( strcmp( name, "sEffStatAGI" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
@@ -488,6 +495,7 @@ BOOLEAN WriteDiseaseStats( )
 			FilePrintf( hFile, "\t\t<fHideSymbol>%d</fHideSymbol>\r\n", (Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_HIDESYMBOL) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<fDisgusting>%d</fDisgusting>\r\n", (Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_DISGUSTING) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<fSpecialFlagPTSDBuns>%d</fSpecialFlagPTSDBuns>\r\n", ( Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_PTSD_BUNS ) ? 1 : 0 );
+			FilePrintf( hFile, "\t\t<fSpecialFlagContractDisability>%d</fSpecialFlagContractDisability>\r\n", ( Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_ADD_DISABILITY ) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<sEffStatAGI>%d</sEffStatAGI>\r\n", Disease[cnt].sEffStat[INFST_AGI] );
 			FilePrintf( hFile, "\t\t<sEffStatDEX>%d</sEffStatDEX>\r\n", Disease[cnt].sEffStat[INFST_DEX] );
 			FilePrintf( hFile, "\t\t<sEffStatSTR>%d</sEffStatSTR>\r\n", Disease[cnt].sEffStat[INFST_STR] );

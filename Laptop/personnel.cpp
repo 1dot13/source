@@ -40,6 +40,7 @@
 #include "Interface.h"				// added by Flugente
 #include "IMP Background.h"			// added by Flugente for AssignBackgroundHelpText()
 #include "NPC.h"					// added by Flugente for GetEffectiveApproachValue(...)
+#include "Drugs And Alcohol.h"		// added by Flugente for DoesMercHaveDisability(...)
 
 
 // WDS - make number of mercenaries, etc. be configurable
@@ -447,6 +448,7 @@ BOOLEAN fAddedTraitRegion[13] = { FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS
 
 void AssignPersonnelCharacterTraitHelpText( UINT8 ubCharacterNumber );
 void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber );
+void AssignPersonnelMultipleDisabilityHelpText( SOLDIERTYPE* pSoldier );
 void AssignPersonnelKillsHelpText( INT32 ubProfile );
 void AssignPersonnelAssistsHelpText( INT32 ubProfile );
 void AssignPersonnelHitPercentageHelpText( INT32 ubProfile );
@@ -1774,30 +1776,49 @@ void DisplayCharStats( INT32 iId, INT32 iSlot )
 
 		case 18:
 			// Disability
-			mprintf( (INT16)(pPersonnelScreenPoints[25].x + (iSlot*TEXT_BOX_WIDTH)), (pPersonnelScreenPoints[25].y + 10), pPersonnelRecordsHelpTexts[44] ); //L"Disability:"
-			swprintf( sString, gzIMPDisabilityTraitText[gMercProfiles[Menptr[iId].ubProfile].bDisability] );
-
-			FindFontRightCoordinates( (INT16)(pPersonnelScreenPoints[25].x + (iSlot*TEXT_BOX_WIDTH)), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
-			mprintf( sX, (pPersonnelScreenPoints[25].y + 10), sString );
-
-			//GetVideoObject(&hHandle, guiQMark);
-			//BltVideoObject( FRAME_BUFFER, hHandle, 0,(pPersonnelScreenPoints[25].x + 148), ( pPersonnelScreenPoints[25].y ), VO_BLT_SRCTRANSPARENCY,NULL );
-
-			// Add specific region for fast help window
-			if ( fAddedTraitRegion[6] )
 			{
-				MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[6] );
+				UINT8 loc = 25;
+				UINT8 regionnr = 6;
+
+				mprintf( (INT16)( pPersonnelScreenPoints[loc].x + ( iSlot*TEXT_BOX_WIDTH ) ), ( pPersonnelScreenPoints[loc].y + 10 ), pPersonnelRecordsHelpTexts[44] ); //L"Disability:"
+
+				int numdisabilities = 0;
+				UINT8 disabilityfound = 0;
+				for ( UINT8 i = NO_DISABILITY + 1; i < NUM_DISABILITIES; ++i )
+				{
+					if ( DoesMercHaveDisability( pSoldier, i ) )
+					{
+						disabilityfound = i;
+						++numdisabilities;
+					}
+				}
+
+				if ( numdisabilities <= 1 )
+					swprintf( sString, gzIMPDisabilityTraitText[disabilityfound] );
+				else
+					swprintf( sString, L"%s, ...", gzIMPDisabilityTraitText[disabilityfound] );
+				
+				FindFontRightCoordinates( (INT16)( pPersonnelScreenPoints[loc].x + ( iSlot*TEXT_BOX_WIDTH ) ), 0, TEXT_BOX_WIDTH - 20, 0, sString, PERS_FONT, &sX, &sY );
+				mprintf( sX, ( pPersonnelScreenPoints[loc].y + 10 ), sString );
+
+				// Add specific region for fast help window
+				if ( fAddedTraitRegion[regionnr] )
+				{
+					MSYS_RemoveRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				}
+				MSYS_DefineRegion( &gSkillTraitHelpTextRegion[regionnr], ( sX - 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 10 ),
+					( sX + StringPixLength( sString, PERS_FONT ) + 3 ), (UINT16)( pPersonnelScreenPoints[loc].y + 17 ), MSYS_PRIORITY_HIGH,
+					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
+
+				MSYS_AddRegion( &gSkillTraitHelpTextRegion[regionnr] );
+				fAddedTraitRegion[regionnr] = TRUE;
+
+				// Assign the text
+				if ( numdisabilities <= 1 )
+					AssignPersonnelDisabilityHelpText( gMercProfiles[Menptr[iId].ubProfile].bDisability );
+				else
+					AssignPersonnelMultipleDisabilityHelpText( pSoldier );
 			}
-			MSYS_DefineRegion( &gSkillTraitHelpTextRegion[6], (sX - 3), (UINT16)(pPersonnelScreenPoints[25].y + 10),
-							   (sX + StringPixLength( sString, PERS_FONT ) + 3), (UINT16)(pPersonnelScreenPoints[25].y + 17), MSYS_PRIORITY_HIGH,
-							   MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-			//MSYS_DefineRegion( &gSkillTraitHelpTextRegion[6], (UINT16)( pPersonnelScreenPoints[25].x + 147 ), (UINT16)( pPersonnelScreenPoints[25].y - 1),
-			//				(UINT16)( pPersonnelScreenPoints[25].x + 166 ), (UINT16)(pPersonnelScreenPoints[25].y + 10), MSYS_PRIORITY_HIGH,
-			//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, NULL );
-			MSYS_AddRegion( &gSkillTraitHelpTextRegion[6] );
-			fAddedTraitRegion[6] = TRUE;
-			// Assign the text
-			AssignPersonnelDisabilityHelpText( gMercProfiles[Menptr[iId].ubProfile].bDisability );
 			break;
 			/////////////////////////////////////////////////////////////////////////
 
@@ -8566,6 +8587,27 @@ void AssignPersonnelDisabilityHelpText( UINT8 ubDisabilityNumber )
 
 	// Set region help text
 	SetRegionFastHelpText( &(gSkillTraitHelpTextRegion[6]), apStr );
+	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[6], MSYS_NO_CALLBACK );
+}
+
+void AssignPersonnelMultipleDisabilityHelpText( SOLDIERTYPE* pSoldier )
+{
+	CHAR16	apStr[1000];
+
+	int numdisabilities = 0;
+	UINT8 disabilityfound = 0;
+	swprintf( apStr, L"" );
+	for ( UINT8 i = NO_DISABILITY + 1; i < NUM_DISABILITIES; ++i )
+	{
+		if ( DoesMercHaveDisability( pSoldier, i ) )
+		{
+			swprintf( apStr, L"%s%s\n", apStr, gzIMPDisabilityTraitText[i] );
+			swprintf( apStr, L"%s%s\n\n", apStr, gzIMPDisabilitiesHelpTexts[i] );
+		}
+	}
+
+	// Set region help text
+	SetRegionFastHelpText( &( gSkillTraitHelpTextRegion[6] ), apStr );
 	SetRegionHelpEndCallback( &gSkillTraitHelpTextRegion[6], MSYS_NO_CALLBACK );
 }
 

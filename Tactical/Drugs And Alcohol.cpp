@@ -328,6 +328,9 @@ BOOLEAN DoesMercHaveDisability( SOLDIERTYPE *pSoldier, UINT8 aVal )
 		
 		if ( pSoldier->newdrugs.drugdisability == aVal )
 			return TRUE;
+
+		if ( pSoldier->usDisabilityFlagMask & ( 1 << aVal ) )
+			return TRUE;
 	}
 
 	return FALSE;

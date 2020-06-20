@@ -11125,7 +11125,8 @@ STR16	szDiseaseText[] =
 	L"\n\n%s (undiagnosed) - %d / %d\n",
 
 	L"High amount of distress can cause a personality split\n",
-	L"Contaminated items found in %s' inventory.",
+	L"Contaminated items found in %s' inventory.\n",
+	L"Whenever we get this, a new disability is added.\n",
 };
 
 STR16	szSpyText[] =

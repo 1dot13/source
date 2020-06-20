@@ -1130,6 +1130,7 @@ void SOLDIERTYPE::initialize( )
 	this->iLastArmourProtection = 0;
 	this->usQuickItemId = 0;
 	this->ubQuickItemSlot = 0;
+	this->usDisabilityFlagMask = 0;
 }
 
 bool SOLDIERTYPE::exists( )
@@ -19227,9 +19228,27 @@ void	SOLDIERTYPE::Infect( UINT8 aDisease )
 		return;
 
 	// we are getting infected. Raise our disease points, but not over the level of an infection
-	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] < Disease[aDisease].sInfectionPtsInitial )
+	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] <= Disease[aDisease].sInfectionPtsInitial )
 	{
 		this->sDiseasePoints[aDisease] = min( this->sDiseasePoints[aDisease] + Disease[aDisease].sInfectionPtsInitial, Disease[aDisease].sInfectionPtsInitial );
+
+		// possibly add a new disability
+		if ( Disease[aDisease].usDiseaseProperties & DISEASE_PROPERTY_ADD_DISABILITY )
+		{
+			// take a random disability we don't yet have and give it to us
+			std::vector<UINT8> disabilitieswedonthaveset;
+			for ( UINT8 i = NO_DISABILITY + 1; i < min( 31, NUM_DISABILITIES ); ++i )
+			{
+				if ( !DoesMercHaveDisability( this, i ) )
+					disabilitieswedonthaveset.push_back(i);
+			}
+
+			if ( !disabilitieswedonthaveset.empty() )
+			{
+				UINT8 newdisability = disabilitieswedonthaveset[Random( disabilitieswedonthaveset.size() )];
+				this->AddDisability( newdisability );
+			}
+		}
 
 		if ( this->sDiseasePoints[aDisease] > Disease[aDisease].sInfectionPtsOutbreak )
 		{
@@ -19293,6 +19312,11 @@ void	SOLDIERTYPE::AnnounceDisease( UINT8 aDisease )
 	// add to our records.
 	if ( this->ubProfile != NO_PROFILE )
 		gMercProfiles[this->ubProfile].records.usTimesInfected += 1;
+}
+
+void	SOLDIERTYPE::AddDisability( UINT8 aDisability )
+{
+	this->usDisabilityFlagMask |= ( 1 << aDisability );
 }
 
 // do we have any disease? fDiagnosedOnly: check for wether we know of this infection fHealableOnly: check wether it can be healed
@@ -19368,7 +19392,8 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 		fShowExactPoints = TRUE;
 
 	CHAR16	atStr[500];
-	swprintf( atStr, L"" );
+	swprintf( atStr, L"\n  \n" );
+	wcscat( apStr, atStr );
 
 	for ( int i = 0; i < NUM_DISEASES; ++i )
 	{
@@ -19477,6 +19502,12 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 				if ( (this->ubProfile == BUNS || this->ubProfile == BUNS_CHAOTIC) && ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_PTSD_BUNS ) )
 				{
 					swprintf( atStr, szDiseaseText[TEXT_DISEASE_PTSD_BUNS_SPECIAL] );
+					wcscat( apStr, atStr );
+				}
+
+				if ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_ADD_DISABILITY )
+				{
+					swprintf( atStr, szDiseaseText[TEXT_DISEASE_ADD_DISABILITY] );
 					wcscat( apStr, atStr );
 				}
 			}
@@ -19600,7 +19631,8 @@ void SOLDIERTYPE::PrintSleepDesc( CHAR16* apStr )
 		return;
 
 	CHAR16	atStr[100];
-	swprintf( atStr, L"" );
+	swprintf( atStr, L"\n  \n" );
+	wcscat( apStr, atStr );
 
 	swprintf( atStr, gpStrategicString[STR_BREATH_REGEN_SLEEP], this->GetSleepBreathRegeneration( ) );
 	wcscat( apStr, atStr );

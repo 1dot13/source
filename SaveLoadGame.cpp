@@ -2457,6 +2457,18 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				buffer++;			
 		}
 
+		if ( guiCurrentSaveGameVersion >= DISABILITYFLAGMASK )
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->usDisabilityFlagMask, sizeof( usDisabilityFlagMask ), sizeof( UINT32 ), numBytesRead );
+		}
+		else
+		{
+			this->usDisabilityFlagMask = 0;
+
+			for ( int i = 0; i < sizeof( usDisabilityFlagMask ); ++i )
+				buffer++;
+		}
+
 		/*if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
 		{
 			numBytesRead = ReadFieldByField(hFile, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);

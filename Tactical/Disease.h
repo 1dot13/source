@@ -70,6 +70,7 @@ enum
 
 #define DISEASE_PROPERTY_DISGUSTING		0x00000010				// other merc's will be disgusted by anyone with this disease if broken out
 #define DISEASE_PROPERTY_PTSD_BUNS		0x00000020				// if Buns has this disease, she can change personality
+#define DISEASE_PROPERTY_ADD_DISABILITY	0x00000040				// whenever we contract this disease, we gain a new disability
 
 #define CORPSEREMOVALPOINTSPERCORPSE	1.0f					// number of corpse removal points required to, you guessed it, remove a corpse
 #define DISEASE_PER_ROTTINGCORPSE		100.0f					// if a corpse is removed by rotting, add this many disease points to the sector

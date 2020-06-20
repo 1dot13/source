@@ -11111,7 +11111,8 @@ STR16	szDiseaseText[] =
 	L"\n\n%s (未诊断的) - %d / %d\n",	//L"\n\n%s (undiagnosed) - %d / %d\n",
 
 	L"高度的痛苦会导致人格分裂\n",	//L"High amount of distress can cause a personality split\n",
-	L"在%s'库存中发现污染物品。", //L"Contaminated items found in %s' inventory.",
+	L"在%s'库存中发现污染物品。\n", //L"Contaminated items found in %s' inventory.\n",
+	L"Whenever we get this, a new disability is added.\n",	// TODO.Translate
 };
 
 STR16	szSpyText[] =

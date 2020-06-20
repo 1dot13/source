@@ -11118,7 +11118,8 @@ STR16	szDiseaseText[] =
 	L"\n\n%s (undiagnosed) - %d / %d\n",	// TODO.Translate
 
 	L"High amount of distress can cause a personality split\n",	// TODO.Translate
-	L"Contaminated items found in %s' inventory.",
+	L"Contaminated items found in %s' inventory.\n",
+	L"Whenever we get this, a new disability is added.\n",	// TODO.Translate
 };
 
 STR16	szSpyText[] =
