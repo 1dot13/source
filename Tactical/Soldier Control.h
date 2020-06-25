@@ -55,11 +55,12 @@ extern UINT16 CivLastNames[MAXCIVLASTNAMES][10];
 #define TAKE_DAMAGE_BLOODLOSS			5
 #define TAKE_DAMAGE_EXPLOSION			6
 #define TAKE_DAMAGE_ELECTRICITY		7
-#define TAKE_DAMAGE_GAS						8
+#define TAKE_DAMAGE_GAS_FIRE			8
 #define TAKE_DAMAGE_TENTACLES			9
 #define TAKE_DAMAGE_STRUCTURE_EXPLOSION 10
 #define TAKE_DAMAGE_OBJECT		11
 #define TAKE_DAMAGE_VEHICLE_TRAUMA		12
+#define TAKE_DAMAGE_GAS_NOTFIRE			13
 
 
 #define SOLDIER_UNBLIT_SIZE			(75*75*2)
@@ -233,6 +234,7 @@ enum
 	MERC_APPLYITEM,
 	MERC_INTERACTIVEACTION,
 	MERC_FILLBLOODBAG,
+	MERC_MEDICALSPLINT,
 };
 
 // ENUMERATIONS FOR THROW ACTIONS
@@ -437,7 +439,9 @@ enum
 #define SOLDIERDISEASE_DIAGNOSED			0x00000001	//1				// it is now known that we have this disease - either a doctor diagnosed it, or it broke out an we are currently suffering
 #define SOLDIERDISEASE_OUTBREAK				0x00000002	//2				// disease has broken out - we suffer the effects now. Without this flag, it is active but does not do any damage to us
 #define SOLDIERDISEASE_REVERSEAL			0x00000004	//4				// disease is reversing - every hour we receive negative points. This is used to simulate a disease healing itself
+#define SOLDIERDISEASE_SPLINTAPPLIED_LEG	0x00000008					// a spling has been applied to the leg. Diseases with the corresponding tag will heal faster
 
+#define SOLDIERDISEASE_SPLINTAPPLIED_ARM	0x00000010					// a spling has been applied to the arm. Diseases with the corresponding tag will heal faster
 
 
 // -------- added by Flugente: background property flags --------
@@ -1677,6 +1681,7 @@ public:
 	void EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection );		// added by Flugente
 	void EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirection );	// added by Flugente
 	void EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirection );	// added by Flugente
+	void EVENT_SoldierApplySplintToPerson( INT32 sGridNo, UINT8 ubDirection );	// added by Flugente
 	void EVENT_SoldierInteractiveAction( INT32 sGridNo, UINT16 usActionType );					// added by Flugente
 
 	BOOLEAN EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 usMovementAnim, BOOLEAN fFromUI, BOOLEAN fForceRestart );
@@ -1961,6 +1966,7 @@ public:
 	void	AddDiseasePoints( UINT8 aDisease, INT32 aVal  );
 	void	AnnounceDisease( UINT8 aDisease );
 	void	AddDisability( UINT8 aDisability );
+	bool	CanReceiveSplint();
 
 	// do we have any disease?
 	// fDiagnosedOnly: check for wether we know of this infection
@@ -2044,6 +2050,8 @@ public:
 
 	// Flugente: exploration assignment
 	UINT32		GetExplorationPoints();
+
+	bool		IsFastMovement();
 	//////////////////////////////////////////////////////////////////////////////
 
 }; // SOLDIERTYPE;	

@@ -70,6 +70,8 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 				  strcmp( name, "InfectionChance_WOUND_ANIMAL" ) == 0 ||
 				  strcmp( name, "InfectionChance_WOUND_OPEN" ) == 0 ||
 				  strcmp( name, "InfectionChance_WOUND_GUNSHOT" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_FIRE" ) == 0 ||
+				  strcmp( name, "InfectionChance_WOUND_GAS" ) == 0 ||
 				  strcmp( name, "InfectionChance_WOUND_AGI" ) == 0 ||
 				  strcmp( name, "InfectionChance_WOUND_DEX" ) == 0 ||
 				  strcmp( name, "InfectionChance_WOUND_STR" ) == 0 ||
@@ -84,6 +86,8 @@ diseaseStartElementHandle( void *userData, const XML_Char *name, const XML_Char 
 				  strcmp( name, "fDisgusting" ) == 0 ||
 				  strcmp( name, "fSpecialFlagPTSDBuns" ) == 0 ||
 				  strcmp( name, "fSpecialFlagContractDisability" ) == 0 ||
+				  strcmp( name, "fSpecialFlagLimitedUseArms" ) == 0 ||
+				  strcmp( name, "fSpecialFlagLimitedUseLegs" ) == 0 ||
 				  strcmp( name, "sEffStatAGI" ) == 0 ||
 				  strcmp( name, "sEffStatDEX" ) == 0 ||
 				  strcmp( name, "sEffStatSTR" ) == 0 ||
@@ -239,6 +243,16 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 			pData->curElement = ELEMENT;
 			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_GUNSHOT] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
 		}
+		else if ( strcmp( name, "InfectionChance_WOUND_FIRE" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_FIRE] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
+		}
+		else if ( strcmp( name, "InfectionChance_WOUND_GAS" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.dInfectionChance[INFECTION_TYPE_WOUND_GAS] = max( 0.0f, min( 100.0f, atof( pData->szCharData ) ) );
+		}
 		else if ( strcmp( name, "InfectionChance_WOUND_AGI" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
@@ -315,6 +329,18 @@ diseaseEndElementHandle( void *userData, const XML_Char *name )
 			pData->curElement = ELEMENT;
 			if ( atol( pData->szCharData ) )
 				pData->curItem.usDiseaseProperties |= DISEASE_PROPERTY_ADD_DISABILITY;
+		}
+		else if ( strcmp( name, "fSpecialFlagLimitedUseArms" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			if ( atol( pData->szCharData ) )
+				pData->curItem.usDiseaseProperties |= DISEASE_PROPERTY_LIMITED_USE_ARMS;
+		}
+		else if ( strcmp( name, "fSpecialFlagLimitedUseLegs" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			if ( atol( pData->szCharData ) )
+				pData->curItem.usDiseaseProperties |= DISEASE_PROPERTY_LIMITED_USE_LEGS;
 		}
 		else if ( strcmp( name, "sEffStatAGI" ) == 0 )
 		{
@@ -482,6 +508,8 @@ BOOLEAN WriteDiseaseStats( )
 			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_ANIMAL>%3.2f</InfectionChance_WOUND_ANIMAL>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_ANIMAL] );
 			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_OPEN>%3.2f</InfectionChance_WOUND_OPEN>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_OPEN] );
 			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_GUNSHOT>%3.2f</InfectionChance_WOUND_GUNSHOT>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_GUNSHOT] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_FIRE>%3.2f</InfectionChance_WOUND_FIRE>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_FIRE] );
+			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_GAS>%3.2f</InfectionChance_WOUND_GAS>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_GAS] );
 			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_AGI>%3.2f</InfectionChance_WOUND_AGI>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_AGI] );
 			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_DEX>%3.2f</InfectionChance_WOUND_DEX>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_DEX] );
 			FilePrintf( hFile, "\t\t<InfectionChance_WOUND_STR>%3.2f</InfectionChance_WOUND_STR>\r\n", Disease[cnt].dInfectionChance[INFECTION_TYPE_WOUND_STR] );
@@ -496,6 +524,8 @@ BOOLEAN WriteDiseaseStats( )
 			FilePrintf( hFile, "\t\t<fDisgusting>%d</fDisgusting>\r\n", (Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_DISGUSTING) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<fSpecialFlagPTSDBuns>%d</fSpecialFlagPTSDBuns>\r\n", ( Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_PTSD_BUNS ) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<fSpecialFlagContractDisability>%d</fSpecialFlagContractDisability>\r\n", ( Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_ADD_DISABILITY ) ? 1 : 0 );
+			FilePrintf( hFile, "\t\t<fSpecialFlagLimitedUseArms>%d</fSpecialFlagLimitedUseArms>\r\n", ( Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_ARMS ) ? 1 : 0 );
+			FilePrintf( hFile, "\t\t<fSpecialFlagLimitedUseLegs>%d</fSpecialFlagLimitedUseLegs>\r\n", ( Disease[cnt].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_LEGS ) ? 1 : 0 );
 			FilePrintf( hFile, "\t\t<sEffStatAGI>%d</sEffStatAGI>\r\n", Disease[cnt].sEffStat[INFST_AGI] );
 			FilePrintf( hFile, "\t\t<sEffStatDEX>%d</sEffStatDEX>\r\n", Disease[cnt].sEffStat[INFST_DEX] );
 			FilePrintf( hFile, "\t\t<sEffStatSTR>%d</sEffStatSTR>\r\n", Disease[cnt].sEffStat[INFST_STR] );

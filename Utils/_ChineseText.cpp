@@ -7477,6 +7477,7 @@ STR16 New113Message[] =
 	L"是的*",	//L"Yes*",
 	L"是的",	//L"Yes",
 	L"不",	//L"No",
+	L"%s applied %s to %s.", // TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 
@@ -8477,6 +8478,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|防|火|护|甲",	//L"|R|e|s|i|s|t|a|n|t |t|o |F|i|r|e",
 	L"|管|理|能|力|增|益|器",	//L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |M|o|d|i|f|i|e|r",
 	L"|间|谍|能|力|增|益|器",	//L"|H|a|c|k|i|n|g |M|o|d|i|f|i|e|r",
+	L"|M|e|d|i|c|a|l |S|p|l|i|n|t", // TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8529,6 +8531,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n可以降低%i%%的火焰伤害。",	//L"\n \nThis armor lowers fire damage by %i%%.",
 	L"\n \n这个工具可以\n提高%i%%的管理工作的效率。",	//L"\n \nThis item makes you more effective at\nadministrative work by %i%%.",
 	L"\n \n这个工具可以\n提高%i%%的间谍能力。",	//L"\n \nThis item improves your hacking skills by %i%%.",
+	L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.", // TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -11113,6 +11116,11 @@ STR16	szDiseaseText[] =
 	L"高度的痛苦会导致人格分裂\n",	//L"High amount of distress can cause a personality split\n",
 	L"在%s'库存中发现污染物品。\n", //L"Contaminated items found in %s' inventory.\n",
 	L"Whenever we get this, a new disability is added.\n",	// TODO.Translate
+
+	L"Only one hand can be used.\n",
+	L"Only one hand can be used.\nA medical splint was applied to speed up the healing process.\n",
+	L"Leg functionality severely limited.\n",
+	L"Leg functionality severely limited.\nA medical splint was applied to speed up the healing process.\n",
 };
 
 STR16	szSpyText[] =

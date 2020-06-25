@@ -2164,7 +2164,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		}
 
 		// a gas effect, take damage directly...
-		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+		pSoldier->SoldierTakeDamage( ANIM_STAND, sWoundAmt, sBreathAmt, pExplosive->ubType == EXPLOSV_BURNABLEGAS ? TAKE_DAMAGE_GAS_FIRE : TAKE_DAMAGE_GAS_NOTFIRE, NOBODY, NOWHERE, 0, TRUE );
 
 		if (is_networked && is_client)
 		{

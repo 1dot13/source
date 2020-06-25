@@ -31,6 +31,8 @@ enum
 	INFECTION_TYPE_WOUND_ANIMAL,			// wounded by an animal (bloodcat)
 	INFECTION_TYPE_WOUND_OPEN,				// we have a new non-bandaged wound
 	INFECTION_TYPE_WOUND_GUNSHOT,			// we were wounded by gunshot
+	INFECTION_TYPE_WOUND_FIRE,				// we were wounded by fire
+	INFECTION_TYPE_WOUND_GAS,				// we were wounded by gas (that isn't fire)
 
 	// wound caused statloss
 	INFECTION_TYPE_WOUND_AGI,
@@ -63,14 +65,17 @@ enum
 #define SECTORDISEASE_DIAGNOSED_PLAYER	0x04	//4				// disease has been diagnosed by the player
 
 // properties of diseases
-#define DISEASE_PROPERTY_CANBECURED		0x00000001				// this disease can be healed by doctoring
-#define DISEASE_PROPERTY_REVERSEONFULL	0x00000002				// once sInfectionPtsFull are reached, the infection reverses - negative sInfectionPtsGainPerHour is used
-#define DISEASE_PROPERTY_CANREINFECT	0x00000004				// infection can be reapplied if already infected
-#define DISEASE_PROPERTY_HIDESYMBOL		0x00000008				// do not show a symbol for this disease on the merc's face, even if diagnosed
+#define DISEASE_PROPERTY_CANBECURED			0x00000001			// this disease can be healed by doctoring
+#define DISEASE_PROPERTY_REVERSEONFULL		0x00000002			// once sInfectionPtsFull are reached, the infection reverses - negative sInfectionPtsGainPerHour is used
+#define DISEASE_PROPERTY_CANREINFECT		0x00000004			// infection can be reapplied if already infected
+#define DISEASE_PROPERTY_HIDESYMBOL			0x00000008			// do not show a symbol for this disease on the merc's face, even if diagnosed
 
-#define DISEASE_PROPERTY_DISGUSTING		0x00000010				// other merc's will be disgusted by anyone with this disease if broken out
-#define DISEASE_PROPERTY_PTSD_BUNS		0x00000020				// if Buns has this disease, she can change personality
-#define DISEASE_PROPERTY_ADD_DISABILITY	0x00000040				// whenever we contract this disease, we gain a new disability
+#define DISEASE_PROPERTY_DISGUSTING			0x00000010			// other merc's will be disgusted by anyone with this disease if broken out
+#define DISEASE_PROPERTY_PTSD_BUNS			0x00000020			// if Buns has this disease, she can change personality
+#define DISEASE_PROPERTY_ADD_DISABILITY		0x00000040			// whenever we contract this disease, we gain a new disability
+#define DISEASE_PROPERTY_LIMITED_USE_ARMS	0x00000080			// our arms have limited functionality
+
+#define DISEASE_PROPERTY_LIMITED_USE_LEGS	0x00000100			// our legs have limited functionality
 
 #define CORPSEREMOVALPOINTSPERCORPSE	1.0f					// number of corpse removal points required to, you guessed it, remove a corpse
 #define DISEASE_PER_ROTTINGCORPSE		100.0f					// if a corpse is removed by rotting, add this many disease points to the sector

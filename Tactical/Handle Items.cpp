@@ -324,7 +324,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		Item[usHandItem].usItemClass != IC_MEDKIT &&
 		!Item[usHandItem].gascan &&
 		!ItemCanBeAppliedToOthers(usHandItem) &&
-		!HasItemFlag(usHandItem, EMPTY_BLOOD_BAG))
+		!HasItemFlag(usHandItem, EMPTY_BLOOD_BAG) &&
+		!HasItemFlag( usHandItem, MEDICAL_SPLINT ) )
 	{
 		if (pTargetSoldier->bTeam == gbPlayerNum || pTargetSoldier->aiData.bNeutral)
 		{
@@ -1555,7 +1556,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
-	// Flugente: apply misc items to other soldiers
+	// Flugente: take blood from a donor
 	if ( HasItemFlag( usHandItem, EMPTY_BLOOD_BAG ) )
 	{
 		// ATE: AI CANNOT GO THROUGH HERE!
@@ -1618,6 +1619,86 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 			else
 			{
 				pSoldier->EVENT_SoldierTakeBloodFromPerson( sAdjustedGridNo, ubDirection );
+
+				UnSetUIBusy( pSoldier->ubID );
+			}
+
+			if ( fFromUI )
+			{
+				guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
+			}
+
+			return( ITEM_HANDLE_OK );
+		}
+		else
+		{
+			return( ITEM_HANDLE_NOAPS );
+		}
+	}
+
+	// Flugente: apply medical splint
+	if ( HasItemFlag( usHandItem, MEDICAL_SPLINT ) )
+	{
+		// ATE: AI CANNOT GO THROUGH HERE!
+		BOOLEAN	fHadToUseCursorPos = FALSE;
+
+		// See if we can get there to stab
+		sActionGridNo = FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+		if ( sActionGridNo == -1 )
+		{
+			// Try another location...
+			sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
+
+			if ( sActionGridNo == -1 )
+			{
+				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
+			}
+		}
+
+		// Calculate AP costs...
+		sAPCost = GetAPsToApplyItem( pSoldier, sActionGridNo );
+		sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+
+		// if we are at the action gridno, the item is a bomb, but nobody is at the gridno, do not apply and do not return - we will plant the bomb instead (handlded later in this function)
+		if ( Item[usHandItem].usItemClass == IC_BOMB && pSoldier->sGridNo == sActionGridNo && WhoIsThere2( usMapPos, pSoldier->pathing.bLevel ) == NOBODY )
+		{
+			;
+		}
+		else if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+		{
+			// OK, set UI
+			SetUIBusy( pSoldier->ubID );
+
+			// CHECK IF WE ARE AT THIS GRIDNO NOW
+			if ( pSoldier->sGridNo != sActionGridNo )
+			{
+				// SEND PENDING ACTION
+				pSoldier->aiData.ubPendingAction = MERC_MEDICALSPLINT;
+
+				if ( fHadToUseCursorPos )
+				{
+					pSoldier->aiData.sPendingActionData2 = usMapPos;
+				}
+				else
+				{
+					if ( pTargetSoldier != NULL )
+					{
+						pSoldier->aiData.sPendingActionData2 = pTargetSoldier->sGridNo;
+					}
+					else
+					{
+						pSoldier->aiData.sPendingActionData2 = sGridNo;
+					}
+				}
+				pSoldier->aiData.bPendingActionData3 = ubDirection;
+				pSoldier->aiData.ubPendingActionAnimCount = 0;
+
+				// WALK UP TO DEST FIRST
+				pSoldier->EVENT_InternalGetNewSoldierPath( sActionGridNo, pSoldier->usUIMovementMode, FALSE, TRUE );
+			}
+			else
+			{
+				pSoldier->EVENT_SoldierApplySplintToPerson( sAdjustedGridNo, ubDirection );
 
 				UnSetUIBusy( pSoldier->ubID );
 			}

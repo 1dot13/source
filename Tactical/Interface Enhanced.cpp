@@ -2792,6 +2792,15 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
 			++cnt;
 		}
+
+		//////////////////// MEDICAL_SPLINT
+		if ( HasItemFlag( gpItemDescObject->usItem, MEDICAL_SPLINT ) )
+		{
+			swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[48], szUDBGenSecondaryStatsExplanationsTooltipText[48] );
+			SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+			MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+			++cnt;
+		}
 	}
 
 	//////////////////////////////////////////////////////
@@ -6434,6 +6443,14 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 		( fComparisonMode && Item[gpComparedItemDescObject->usItem].usHackingModifier ) )
 	{
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 45, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+		++cnt;
+	}
+
+	//////////////////// MEDICAL_SPLINT
+	if ( ( HasItemFlag( gpItemDescObject->usItem, MEDICAL_SPLINT ) && !fComparisonMode ) ||
+		( fComparisonMode && HasItemFlag( gpComparedItemDescObject->usItem, MEDICAL_SPLINT ) ) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 23, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 		++cnt;
 	}
 }

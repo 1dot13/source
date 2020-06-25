@@ -329,7 +329,10 @@ BOOLEAN DoesMercHaveDisability( SOLDIERTYPE *pSoldier, UINT8 aVal )
 		if ( pSoldier->newdrugs.drugdisability == aVal )
 			return TRUE;
 
-		if ( pSoldier->usDisabilityFlagMask & ( 1 << (aVal - 1) ) )
+		// Flugente: if disease with severe limitations is active, we can have multiple disabilities
+		if ( gGameExternalOptions.fDisease
+			&& gGameExternalOptions.fDiseaseSevereLimitations
+			&& pSoldier->usDisabilityFlagMask & ( 1 << (aVal - 1) ) )
 			return TRUE;
 	}
 

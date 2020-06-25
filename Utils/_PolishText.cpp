@@ -7489,6 +7489,7 @@ STR16 New113Message[] =
 	L"Yes*",
 	L"Yes",
 	L"No",
+	L"%s applied %s to %s.", // TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 
@@ -8495,6 +8496,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|R|e|s|i|s|t|a|n|t |t|o |F|i|r|e",
 	L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |M|o|d|i|f|i|e|r",
 	L"|H|a|c|k|i|n|g |M|o|d|i|f|i|e|r",
+	L"|M|e|d|i|c|a|l |S|p|l|i|n|t", // TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8547,6 +8549,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis armor lowers fire damage by %i%%.",
 	L"\n \nThis item makes you more effective at\nadministrative work by %i%%.",
 	L"\n \nThis item improves your hacking skills by %i%%.",
+	L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.", // TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -11133,6 +11136,11 @@ STR16	szDiseaseText[] =
 	L"High amount of distress can cause a personality split\n",	// TODO.Translate
 	L"Contaminated items found in %s' inventory.\n",
 	L"Whenever we get this, a new disability is added.\n",	// TODO.Translate
+
+	L"Only one hand can be used.\n",
+	L"Only one hand can be used.\nA medical splint was applied to speed up the healing process.\n",
+	L"Leg functionality severely limited.\n",
+	L"Leg functionality severely limited.\nA medical splint was applied to speed up the healing process.\n",
 };
 
 STR16	szSpyText[] =

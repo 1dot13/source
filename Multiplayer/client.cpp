@@ -3691,7 +3691,7 @@ void recieveEXPLOSIONDAMAGE (RPCParameters *rpcParameters)
 
 				// can use DishOutGasDamage() as it is dependant on the local state of the gas cloud which is not always in sync
 				// but we have the definite results of damage on a merc, so :
-				pSoldier->SoldierTakeDamage( ANIM_STAND, exp->sWoundAmt, exp->sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+				pSoldier->SoldierTakeDamage( ANIM_STAND, exp->sWoundAmt, exp->sBreathAmt, Explosive[Item[exp->usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS ? TAKE_DAMAGE_GAS_FIRE : TAKE_DAMAGE_GAS_NOTFIRE, NOBODY, NOWHERE, 0, TRUE );
 			}
 			else if (exp->ubDamageFunc == 2)
 			{

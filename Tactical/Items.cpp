@@ -6175,6 +6175,12 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 	switch( bPos )
 	{
 		case SECONDHANDPOS:
+			// Flugente: disease can stop us from using our arms normally
+			if ( gGameExternalOptions.fDisease
+				&& gGameExternalOptions.fDiseaseSevereLimitations
+				&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_ARMS ) )
+				return FALSE;
+
 			if (Item[pSoldier->inv[HANDPOS].usItem].twohanded )
 			{
 				return( FALSE );
@@ -6183,6 +6189,12 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 		case HANDPOS:
 			if (Item[ pObj->usItem ].twohanded )
 			{
+				// Flugente: disease can stop us from using our arms normally
+				if ( gGameExternalOptions.fDisease
+					&& gGameExternalOptions.fDiseaseSevereLimitations
+					&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_ARMS ) )
+					return FALSE;
+
 				if ( pSoldier->inv[HANDPOS].exists() && pSoldier->inv[SECONDHANDPOS].exists() )
 				{
 					// two items in hands; try moving the second one so we can swap
@@ -9173,7 +9185,40 @@ void SwapHandItems( SOLDIERTYPE * pSoldier )
 	BOOLEAN		fOk;
 
 	CHECKV( pSoldier );
-	if (pSoldier->inv[HANDPOS].exists() == false || pSoldier->inv[SECONDHANDPOS].exists() == false)
+
+	// Flugente: disease can stop us from using our arms normally
+	if ( gGameExternalOptions.fDisease
+		&& gGameExternalOptions.fDiseaseSevereLimitations
+		&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_ARMS ) )
+	{
+		// if we only have one usable hand, drop item in main hand to inventory
+		if ( pSoldier->inv[HANDPOS].exists() )
+		{
+			// must move the item in the main hand elsewhere in the inventory
+			fOk = AutoPlaceObject( pSoldier, &( pSoldier->inv[HANDPOS] ), FALSE, HANDPOS );
+			if ( !fOk )
+			{
+				return;
+			}
+		}
+
+		// if we somehow had an item in our second hand (which shouldn't be possible to begin with), drop it to inventory if twohanded
+		if ( TwoHandedItem( pSoldier->inv[SECONDHANDPOS].usItem ) )
+		{
+			// must move the item in the main hand elsewhere in the inventory
+			fOk = AutoPlaceObject( pSoldier, &( pSoldier->inv[SECONDHANDPOS] ), FALSE, SECONDHANDPOS );
+			if ( !fOk )
+			{
+				return;
+			}
+			// the main hand is now empty so a swap is going to work...
+		}
+
+		// whatever is in the second hand can be swapped to the main hand!
+		SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
+		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+	}	
+	else if (pSoldier->inv[HANDPOS].exists() == false || pSoldier->inv[SECONDHANDPOS].exists() == false)
 	{
 		// whatever is in the second hand can be swapped to the main hand!
 		SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );

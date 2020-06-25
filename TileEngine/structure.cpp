@@ -753,7 +753,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 								{
 									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
-								else if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && MercPtrs[ sSoldierID ]->flags.fUIMovementFast )
+								else if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && MercPtrs[ sSoldierID ]->IsFastMovement() )
 								{
 									pSoldier->EVENT_SoldierGotHit( 0, Random(5), Random(100)+Random(100), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}

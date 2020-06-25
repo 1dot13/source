@@ -77,11 +77,22 @@ void HandleDisease()
 			{
 				if ( pSoldier->sDiseasePoints[i] > 0 )
 				{
-					// add disease points - some diseases can reverse on certain states
+					INT32 pointgain = Disease[i].sInfectionPtsGainPerHour;
+
+					// if the arm/leg is severely wounded, a splint increases the healing speed (assuming the gain is negative to begin with and doesn't reverse)
+					if ( gGameExternalOptions.fDiseaseSevereLimitations
+						&& Disease[i].usDiseaseProperties & (DISEASE_PROPERTY_LIMITED_USE_ARMS| DISEASE_PROPERTY_LIMITED_USE_LEGS)
+						&& ( pSoldier->sDiseaseFlag[i] & (SOLDIERDISEASE_SPLINTAPPLIED_ARM| SOLDIERDISEASE_SPLINTAPPLIED_LEG) ) )
+					{
+						pointgain *= 2;
+					}
+
+					// some diseases can reverse on certain states
 					if ( pSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_REVERSEAL )
-						pSoldier->AddDiseasePoints( i, -Disease[i].sInfectionPtsGainPerHour );
-					else
-						pSoldier->AddDiseasePoints( i, Disease[i].sInfectionPtsGainPerHour );
+						pointgain *= -1;
+
+					// add disease points - some diseases can reverse on certain states
+					pSoldier->AddDiseasePoints( i, pointgain );
 				}
 			}
 		}
@@ -192,10 +203,6 @@ void HandlePossibleInfection( SOLDIERTYPE *pSoldier, SOLDIERTYPE* pOtherSoldier,
 	int max = fStrategicOnly ? 1 : NUM_DISEASES;
 	for ( int i = 0; i < max; ++i )
 	{
-		// do not infect us if we are already infected
-		if ( !(Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANREINFECT) && pSoldier->sDiseasePoints[i] > 0 )
-			continue;
-
 		// chance of infection by insects
 		FLOAT dChance = Disease[i].dInfectionChance[aInfectionType];
 
@@ -223,7 +230,7 @@ void HandlePossibleInfection( SOLDIERTYPE *pSoldier, SOLDIERTYPE* pOtherSoldier,
 			dChance *= (1.0f - pSoldier->GetDiseaseContactProtection( ));
 		}
 
-		// chances ca be smaller than 1%, so we use a trick here by altering ou 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
+		// chances can be smaller than 1%, so we use a trick here by altering our 'chance function'. This allows to have much smaller chances, as for diseases, 1% can be way too high.
 		if ( Random( 10000 ) < dChance * 100 )
 		{
 			// infect us

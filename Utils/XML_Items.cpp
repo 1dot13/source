@@ -297,6 +297,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "usRiotShieldGraphic" ) == 0 ||
 				strcmp(name, "bloodbag" ) == 0 ||
 				strcmp(name, "emptybloodbag" ) == 0 ||
+				strcmp(name, "medicalsplint" ) == 0 ||
 				strcmp(name, "sFireResistance" ) == 0 ||
 				strcmp(name, "usAdministrationModifier" ) == 0))
 		{
@@ -1535,6 +1536,13 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			if ( (BOOLEAN)atol( pData->szCharData ) )
 				pData->curItem.usItemFlag |= EMPTY_BLOOD_BAG;
 		}
+		else if ( strcmp( name, "medicalsplint" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+
+			if ( (BOOLEAN)atol( pData->szCharData ) )
+				pData->curItem.usItemFlag |= MEDICAL_SPLINT;
+		}
 		else if ( strcmp( name, "sFireResistance" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
@@ -2183,6 +2191,7 @@ BOOLEAN WriteItemStats()
 			if ( HasItemFlag( cnt, DISEASEPROTECTION_2 ) )	FilePrintf( hFile, "\t\t<diseaseprotectionhand>%d</diseaseprotectionhand>\r\n", 1 );
 			if ( HasItemFlag( cnt, BLOOD_BAG) )				FilePrintf( hFile, "\t\t<bloodbag>%d</bloodbag>\r\n", 1 );
 			if ( HasItemFlag( cnt, EMPTY_BLOOD_BAG ) )		FilePrintf( hFile, "\t\t<emptybloodbag>%d</emptybloodbag>\r\n", 1 );
+			if ( HasItemFlag( cnt, MEDICAL_SPLINT ) )		FilePrintf( hFile, "\t\t<medicalsplint>%d</medicalsplint>\r\n", 1 );
 						
 			FilePrintf(hFile,"\t\t<usRiotShieldStrength>%d</usRiotShieldStrength>\r\n",					Item[cnt].usRiotShieldStrength );
 			FilePrintf(hFile,"\t\t<usRiotShieldGraphic>%d</usRiotShieldGraphic>\r\n",					Item[cnt].usRiotShieldGraphic );

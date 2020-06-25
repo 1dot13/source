@@ -179,6 +179,7 @@ typedef enum ATTACHMENT_SLOT{
 #define APPLYITEMCURS 26
 #define INTERACTIVEACTIONCURS 27
 #define BLOODBAGCURS 28
+#define SPLINTCURS 29
 
 #define CAMERARANGE 10
 
@@ -777,6 +778,7 @@ extern OBJECTTYPE gTempObject;
 
 // extended flagmask to UINT64
 #define EMPTY_BLOOD_BAG			0x0000000100000000		// this item is a empty blood bag
+#define MEDICAL_SPLINT			0x0000000200000000		// this item is a medical splint that can be applied to some diseases
 
 // ----------------------------------------------------------------
 

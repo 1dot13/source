@@ -3472,8 +3472,16 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			{
 				pSoldier = curr->pSoldier;
 				if( pSoldier->bAssignment != VEHICLE )
-				{ //Soldier is on foot and travelling. Factor encumbrance into movement rate.
+				{
+					//Soldier is on foot and travelling. Factor encumbrance into movement rate.
 					iEncumbrance = CalculateCarriedWeight( pSoldier );
+
+					// Flugente: we are a lot slower if our leg is severely damaged, even if we can handle the weight
+					if ( gGameExternalOptions.fDisease
+						&& gGameExternalOptions.fDiseaseSevereLimitations
+						&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+						iEncumbrance = max( iEncumbrance * 2, 200);
+
 					if( iEncumbrance > iHighestEncumbrance )
 					{
 						iHighestEncumbrance = iEncumbrance;

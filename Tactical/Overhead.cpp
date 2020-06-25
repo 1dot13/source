@@ -1587,6 +1587,11 @@ BOOLEAN ExecuteOverhead( )
 										pSoldier->EVENT_SoldierTakeBloodFromPerson( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
 										pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
 									}
+									else if ( pSoldier->aiData.ubPendingAction == MERC_MEDICALSPLINT )
+									{
+										pSoldier->EVENT_SoldierApplySplintToPerson( pSoldier->aiData.sPendingActionData2, pSoldier->aiData.bPendingActionData3 );
+										pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
+									}
 									
                                     if ( fNoAPsForPendingAction )
                                     {

@@ -343,7 +343,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 
 UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 {
-	if ( pSoldier->flags.fUIMovementFast )
+	if ( pSoldier->IsFastMovement() )
 	{
 		return( RUNNING );
 	}

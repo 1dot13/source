@@ -1987,13 +1987,13 @@ void AddPassangersToTeamPanel( INT32 iId )
 
 void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, UINT8 ubAttackerID )
 {
-	if ( ubReason != TAKE_DAMAGE_GAS )
+	if ( ubReason != TAKE_DAMAGE_GAS_FIRE && ubReason != TAKE_DAMAGE_GAS_NOTFIRE )
 	{
 		PlayJA2Sample( (UINT32)( S_METAL_IMPACT3 ), RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 	}
 
 	// check if there was in fact damage done to the vehicle
-	if( ( ubReason == TAKE_DAMAGE_HANDTOHAND ) || ( ubReason == TAKE_DAMAGE_GAS ) )
+	if( ( ubReason == TAKE_DAMAGE_HANDTOHAND ) || ( ubReason == TAKE_DAMAGE_GAS_FIRE ) || ( ubReason == TAKE_DAMAGE_GAS_NOTFIRE ) )
 	{
 		// nope
 		return;

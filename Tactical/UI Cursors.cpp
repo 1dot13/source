@@ -53,6 +53,7 @@ UINT8 HandleRefuelCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorF
 UINT8 HandleRemoteCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
 UINT8 HandleCameraCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
 UINT8 HandleBloodbagCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
+UINT8 HandleSplintCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
 UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags );
 UINT8 HandleJarCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
 UINT8 HandleTinCanCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags );
@@ -286,6 +287,10 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 
 		case BLOODBAGCURS:
 			ubCursorID = HandleBloodbagCursor( pSoldier, sTargetGridNo, fActivated, uiCursorFlags );
+			break;
+
+		case SPLINTCURS:
+			ubCursorID = HandleSplintCursor( pSoldier, sTargetGridNo, fActivated, uiCursorFlags );
 			break;
 
 		case REMOTECURS:
@@ -2227,6 +2232,37 @@ UINT8 HandleBloodbagCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActiv
 	return BLOODBAG_RED_UICURSOR;
 }
 
+UINT8 HandleSplintCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
+{
+	// DRAW PATH TO GUY
+	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_APPLYITEM );
+
+	if ( HasItemFlag( ( &( pSoldier->inv[HANDPOS] ) )->usItem, MEDICAL_SPLINT ) )
+	{
+		// are we actually qualified to use this?
+		if ( gGameOptions.fNewTraitSystem )
+		{
+			if ( NUM_SKILL_TRAITS( pSoldier, DOCTOR_NT ) == 0 )
+				return SPLINT_RED_UICURSOR;
+		}
+		else
+		{
+			if ( EffectiveMedical( pSoldier ) < 50 )
+				return SPLINT_RED_UICURSOR;
+		}
+
+		// is there a person here?
+		UINT8 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
+		if ( usSoldierIndex != NOBODY )
+		{
+			if ( usSoldierIndex != pSoldier->ubID && MercPtrs[usSoldierIndex]->CanReceiveSplint() )
+				return SPLINT_GREY_UICURSOR;
+		}
+	}
+
+	return SPLINT_RED_UICURSOR;
+}
+
 UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
 {
 
@@ -2896,6 +2932,10 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	// Flugente: blood bag cursor
 	if ( HasItemFlag( usInHand, EMPTY_BLOOD_BAG ) )
 		ubCursor = BLOODBAGCURS;
+
+	// Flugente: disease
+	if ( HasItemFlag( usInHand, MEDICAL_SPLINT ) )
+		ubCursor = SPLINTCURS;
 
 	// Flugente: interactive actions
 	// we only check whether an action is possible in principle, not whether this particular guy can do it. That way we know an action is possible here even if we can't perform it at the moment.

@@ -4860,6 +4860,20 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
+	if ( ubItemCursor == SPLINTCURS )
+	{
+		if ( HasItemFlag( ( &( pSoldier->inv[HANDPOS] ) )->usItem, MEDICAL_SPLINT ) )
+		{
+			if ( gfUIFullTargetFound )
+			{
+				if ( pSoldier->ubID != gusUIFullTargetID && MercPtrs[gusUIFullTargetID]->CanReceiveSplint() )
+					return( TRUE );
+			}
+		}
+
+		return( FALSE );
+	}
+
 	if ( ubItemCursor == APPLYITEMCURS )
 	{
 		if ( ItemCanBeAppliedToOthers( (&(pSoldier->inv[HANDPOS]))->usItem ) )
@@ -5247,7 +5261,7 @@ void SetConfirmMovementModeCursor( SOLDIERTYPE *pSoldier, BOOLEAN fFromMove )
 		}
 		else
 		{
-			if ( pSoldier->flags.fUIMovementFast && pSoldier->usAnimState == RUNNING && fFromMove )
+			if ( pSoldier->IsFastMovement() && pSoldier->usAnimState == RUNNING && fFromMove )
 			{
 				BeginDisplayTimedCursor( MOVE_RUN_REALTIME_UICURSOR, 300 );
 			}

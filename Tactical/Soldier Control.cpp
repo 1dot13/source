@@ -5446,7 +5446,7 @@ UINT16 SOLDIERTYPE::GetMoveStateBasedOnStance( UINT8 ubStanceHeight )
 	{
 	case ANIM_STAND:
 		//if ( this->flags.fUIMovementFast && !( this->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
-		if ( this->flags.fUIMovementFast )
+		if ( this->IsFastMovement() )
 		{
 			return(RUNNING);
 		}
@@ -5457,7 +5457,7 @@ UINT16 SOLDIERTYPE::GetMoveStateBasedOnStance( UINT8 ubStanceHeight )
 		break;
 
 	case ANIM_PRONE:
-		if ( this->flags.fUIMovementFast )
+		if ( this->IsFastMovement() )
 		{
 			return(CRAWLING);
 		}
@@ -5468,7 +5468,7 @@ UINT16 SOLDIERTYPE::GetMoveStateBasedOnStance( UINT8 ubStanceHeight )
 		break;
 
 	case ANIM_CROUCH:
-		if ( this->flags.fUIMovementFast )
+		if ( this->IsFastMovement() )
 		{
 			return(SWATTING);
 		}
@@ -5930,6 +5930,16 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	{
 		ubReason = TAKE_DAMAGE_VEHICLE_TRAUMA;
 	}
+	// Flugente: it would be more reasonable to check for the ammo or gun details, but that's what is used in other locations
+	else if ( usWeaponIndex == FLAMETHROWER )
+	{
+		ubReason = TAKE_DAMAGE_GAS_FIRE;
+
+		INT16 fireresistance = ArmourVersusFirePercent( this );
+
+		sDamage = max( 0, sDamage  * ( 100 - fireresistance ) / 100 );
+	}
+
 	// marke take out gunfire if ammotype is explosive
 
 	// callahan update start
@@ -8993,12 +9003,12 @@ void AdjustAniSpeed( SOLDIERTYPE *pSoldier )
 void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier )
 {
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "CalculateSoldierAniSpeed" );
-	UINT32 uiTerrainDelay;
-	UINT32 uiSpeed = 0;
+	INT16 sTerrainDelay;
 
 	INT8 bBreathDef = 0, bLifeDef = 0;
 	INT16 bAgilDef = 0;
-	INT8 bAdditional = 0;
+	INT16 bAdditional = 0;
+	INT16 legbrokenpenalty = 60;
 
 	// for those animations which have a speed of zero, we have to calculate it
 	// here. Some animation, such as water-movement, have an ADDITIONAL speed
@@ -9055,7 +9065,14 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	case WALKING_ALTERNATIVE_RDY:
 
 		// Adjust based on body type
-		bAdditional = (UINT8)(gubAnimWalkSpeeds[pStatsSoldier->ubBodyType].sSpeed);
+		bAdditional = gubAnimWalkSpeeds[pStatsSoldier->ubBodyType].sSpeed;
+
+		// Flugente: disease can stop us from using our arms normally
+		if ( gGameExternalOptions.fDisease
+			&& gGameExternalOptions.fDiseaseSevereLimitations
+			&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+			bAdditional += legbrokenpenalty;
+
 		if ( bAdditional < 0 )
 			bAdditional = 0;
 		break;
@@ -9063,7 +9080,14 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	case RUNNING:
 
 		// Adjust based on body type
-		bAdditional = (UINT8)gubAnimRunSpeeds[pStatsSoldier->ubBodyType].sSpeed;
+		bAdditional = gubAnimWalkSpeeds[pStatsSoldier->ubBodyType].sSpeed;
+
+		// Flugente: disease can stop us from using our arms normally
+		if ( gGameExternalOptions.fDisease
+			&& gGameExternalOptions.fDiseaseSevereLimitations
+			&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+			bAdditional += legbrokenpenalty;
+
 		if ( bAdditional < 0 )
 			bAdditional = 0;
 		break;
@@ -9082,7 +9106,14 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		// Adjust based on body type
 		if ( pStatsSoldier->ubBodyType <= REGFEMALE )
 		{
-			bAdditional = (UINT8)gubAnimSwatSpeeds[pStatsSoldier->ubBodyType].sSpeed;
+			bAdditional = gubAnimWalkSpeeds[pStatsSoldier->ubBodyType].sSpeed;
+
+			// Flugente: disease can stop us from using our arms normally
+			if ( gGameExternalOptions.fDisease
+				&& gGameExternalOptions.fDiseaseSevereLimitations
+				&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+				bAdditional += legbrokenpenalty;
+
 			if ( bAdditional < 0 )
 				bAdditional = 0;
 		}
@@ -9093,7 +9124,14 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		// Adjust based on body type
 		if ( pStatsSoldier->ubBodyType <= REGFEMALE )
 		{
-			bAdditional = (UINT8)gubAnimCrawlSpeeds[pStatsSoldier->ubBodyType].sSpeed;
+			bAdditional = gubAnimWalkSpeeds[pStatsSoldier->ubBodyType].sSpeed;
+
+			// Flugente: disease can stop us from using our arms normally
+			if ( gGameExternalOptions.fDisease
+				&& gGameExternalOptions.fDiseaseSevereLimitations
+				&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+				bAdditional += legbrokenpenalty;
+
 			if ( bAdditional < 0 )
 				bAdditional = 0;
 		}
@@ -9115,17 +9153,14 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 		return;
 	}
 
-
 	// figure out movement speed (terrspeed)
 	if ( gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_MOVING )
 	{
-		uiSpeed = gsTerrainTypeSpeedModifiers[pStatsSoldier->bOverTerrainType];
-
-		uiTerrainDelay = uiSpeed;
+		sTerrainDelay = gsTerrainTypeSpeedModifiers[pStatsSoldier->bOverTerrainType];
 	}
 	else
 	{
-		uiTerrainDelay = 40;			// standing still
+		sTerrainDelay = 40;			// standing still
 	}
 
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
@@ -9151,8 +9186,8 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 			bAgilDef = 30;
 		}
 	}
-
-	uiTerrainDelay += (bLifeDef + bBreathDef + bAgilDef + bAdditional);
+	
+	sTerrainDelay += (bLifeDef + bBreathDef + bAgilDef + bAdditional);
 
 	// Flugente: backgrounds
 	switch ( pSoldier->usAnimState )
@@ -9172,14 +9207,14 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	case SIDE_STEP_CROUCH_DUAL:
 	case SWAT_BACKWARDS_WK:
 		// Flugente: background running speed reduces time needed: + is good, - is bad
-		uiTerrainDelay = (uiTerrainDelay * (100 - pSoldier->GetBackgroundValue( BG_PERC_SPEED_RUNNING ))) / 100;
+		sTerrainDelay = ( sTerrainDelay * (100 - pSoldier->GetBackgroundValue( BG_PERC_SPEED_RUNNING ))) / 100;
 		break;
 
 	default:
 		break;
 	}
 
-	pSoldier->sAniDelay = (INT16)uiTerrainDelay;
+	pSoldier->sAniDelay = sTerrainDelay;
 
 	// If a moving animation and we're on drugs, increase speed....
 	if ( gAnimControl[pSoldier->usAnimState].uiFlags & ANIM_MOVING )
@@ -10058,7 +10093,8 @@ void HandleTakeDamageDeath( SOLDIERTYPE *pSoldier, UINT8 bOldLife, UINT8 ubReaso
 	{
 	case TAKE_DAMAGE_BLOODLOSS:
 	case TAKE_DAMAGE_ELECTRICITY:
-	case TAKE_DAMAGE_GAS:
+	case TAKE_DAMAGE_GAS_FIRE:
+	case TAKE_DAMAGE_GAS_NOTFIRE:
 
 		if ( pSoldier->bInSector )
 		{
@@ -10470,6 +10506,11 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		if ( ubReason == TAKE_DAMAGE_TENTACLES )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_ANIMAL );
 
+		if ( ubReason == TAKE_DAMAGE_GAS_FIRE )
+			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_FIRE );
+		else if ( ubReason == TAKE_DAMAGE_GAS_NOTFIRE )
+			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_GAS );
+
 		if ( ubReason == TAKE_DAMAGE_GUNFIRE && sLifeDeduct > 20 )
 			HandlePossibleInfection( this, NULL, INFECTION_TYPE_WOUND_GUNSHOT );
 		else if ( ubReason == TAKE_DAMAGE_BLADE || ubReason == TAKE_DAMAGE_HANDTOHAND
@@ -10497,7 +10538,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	}
 	
 	// Calculate bleeding
-	if ( ubReason != TAKE_DAMAGE_GAS && !AM_A_ROBOT( this ) )
+	if ( ubReason != TAKE_DAMAGE_GAS_FIRE && ubReason != TAKE_DAMAGE_GAS_NOTFIRE && !AM_A_ROBOT( this ) )
 	{
 		if ( ubReason == TAKE_DAMAGE_HANDTOHAND )
 		{
@@ -10584,17 +10625,52 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 			//this->iLastArmourProtection = 0;
 		}
 	}
+	
+	// it is possible we have to drop the items in our hands
+	bool dropiteminmainhand = false;
+
+	// Flugente: disease can stop us from using our arms normally
+	if ( gGameExternalOptions.fDisease
+		&& gGameExternalOptions.fDiseaseSevereLimitations
+		&& this->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_ARMS ) )
+	{
+		// drop item in main hand if twohanded
+		if ( this->inv[HANDPOS].exists() == true && TwoHandedItem( this->inv[HANDPOS].usItem ) )
+			dropiteminmainhand = true;
+
+		// we can only use one hand, so drop items in second hand
+		if ( this->inv[SECONDHANDPOS].exists() == true )
+		{
+			// ATE: if our guy, make visible....
+			if ( this->bTeam == gbPlayerNum )
+			{
+				bVisible = 1;
+			}
+			//if this soldier was an enemy
+			// Kaiden Added for UB reveal All items after combat feature!
+			else if ( this->bTeam == ENEMY_TEAM )
+			{
+				//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
+				usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
+			}
+
+			if ( UsingNewAttachmentSystem() == true )
+				ReduceAttachmentsOnGunForNonPlayerChars( this, &( this->inv[SECONDHANDPOS] ) );
+
+			AddItemToPool( this->sGridNo, &( this->inv[SECONDHANDPOS] ), bVisible, this->pathing.bLevel, usItemFlags, -1 ); //Madd: added usItemFlags to function arguments
+			DeleteObj( &( this->inv[SECONDHANDPOS] ) );
+		}
+	}
 
 	// OK, if here, let's see if we should drop our weapon....
-	if ( ubReason != TAKE_DAMAGE_BLOODLOSS && !(AM_A_ROBOT( this )) )
+	if ( !dropiteminmainhand && ubReason != TAKE_DAMAGE_BLOODLOSS && !(AM_A_ROBOT( this )) )
 	{
 		INT16 sTestOne, sTestTwo, sChanceToDrop;
 		INT8	bVisible = -1;
 
 		sTestOne = EffectiveStrength( this, FALSE );
 		sTestTwo = (2 * (__max( sLifeDeduct, (sBreathLoss / 100) )));
-
-
+		
 		if ( this->ubAttackerID != NOBODY && MercPtrs[this->ubAttackerID]->ubBodyType == BLOODCAT )
 		{
 			// bloodcat boost, let them make people drop items more
@@ -10616,35 +10692,41 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 		if ( Random( 100 ) < (UINT16)sChanceToDrop )
 		{
-			// OK, drop item in main hand...
-			if ( this->inv[HANDPOS].exists( ) == true )
+			dropiteminmainhand = true;			
+		}
+	}
+
+	if ( dropiteminmainhand )
+	{
+		// OK, drop item in main hand...
+		if ( this->inv[HANDPOS].exists() == true )
+		{
+			// Flugente: If item has an attached rifle sling, place it the sling position instead
+			int bSlot = GUNSLINGPOCKPOS;
+			if ( HasAttachmentOfClass( &( this->inv[HANDPOS] ), AC_SLING ) && TryToPlaceInSlot( this, &( this->inv[HANDPOS] ), FALSE, bSlot, GUNSLINGPOCKPOS ) )
 			{
-				// Flugente: If item has an attached rifle sling, place it the sling position instead
-				int bSlot = GUNSLINGPOCKPOS;
-				if ( HasAttachmentOfClass( &(this->inv[HANDPOS]), AC_SLING ) && TryToPlaceInSlot( this, &(this->inv[HANDPOS]), FALSE, bSlot, GUNSLINGPOCKPOS ) )
+				;
+			}
+			else if ( !( this->inv[HANDPOS].fFlags & OBJECT_UNDROPPABLE ) )
+			{
+				// ATE: if our guy, make visible....
+				if ( this->bTeam == gbPlayerNum )
 				{
-					;
+					bVisible = 1;
 				}
-				else if ( !(this->inv[HANDPOS].fFlags & OBJECT_UNDROPPABLE) )
+				//if this soldier was an enemy
+				// Kaiden Added for UB reveal All items after combat feature!
+				else if ( this->bTeam == ENEMY_TEAM )
 				{
-					// ATE: if our guy, make visible....
-					if ( this->bTeam == gbPlayerNum )
-					{
-						bVisible = 1;
-					}
-					//if this soldier was an enemy
-					// Kaiden Added for UB reveal All items after combat feature!
-					else if ( this->bTeam == ENEMY_TEAM )
-					{
-						//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
-						usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
-					}
-					if ( UsingNewAttachmentSystem( ) == true ){
-						ReduceAttachmentsOnGunForNonPlayerChars( this, &(this->inv[HANDPOS]) );
-					}
-					AddItemToPool( this->sGridNo, &(this->inv[HANDPOS]), bVisible, this->pathing.bLevel, usItemFlags, -1 ); //Madd: added usItemFlags to function arguments
-					DeleteObj( &(this->inv[HANDPOS]) );
+					//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
+					usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
 				}
+
+				if ( UsingNewAttachmentSystem() == true )
+					ReduceAttachmentsOnGunForNonPlayerChars( this, &( this->inv[HANDPOS] ) );
+
+				AddItemToPool( this->sGridNo, &( this->inv[HANDPOS] ), bVisible, this->pathing.bLevel, usItemFlags, -1 ); //Madd: added usItemFlags to function arguments
+				DeleteObj( &( this->inv[HANDPOS] ) );
 			}
 		}
 	}
@@ -10807,7 +10889,8 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	case TAKE_DAMAGE_BLOODLOSS:
 		PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_BLOODLOSS );
 		break;
-	case TAKE_DAMAGE_GAS:
+	case TAKE_DAMAGE_GAS_FIRE:
+	case TAKE_DAMAGE_GAS_NOTFIRE:
 		PossiblyStartEnemyTaunt( this, TAUNT_GOT_HIT_GAS );
 		break;
 	default:
@@ -12797,7 +12880,8 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 #ifdef JA2UB
 	if ( fMartialArtist && !Item[usItem].crowbar && this->ubBodyType == REGMALE )
 #else
-	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE && !IsZombie( ) ) // SANDRO - added check for body type
+	if ( fMartialArtist && !AreInMeanwhile( ) && !Item[usItem].crowbar && this->ubBodyType == REGMALE && !IsZombie( )
+		&& !( gGameExternalOptions.fDiseaseSevereLimitations && this->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ))  ) // SANDRO - added check for body type
 #endif
 	{
 		// Are we in attack mode yet?
@@ -12888,6 +12972,13 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 			{
 				nokick = TRUE;
 			}
+
+			// Flugente: disease can stop us from using our arms normally
+			if ( !nokick
+				&& gGameExternalOptions.fDisease
+				&& gGameExternalOptions.fDiseaseSevereLimitations
+				&& this->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+				nokick = TRUE;
 
 			// Look at stance of target
 			switch ( gAnimControl[pTSoldier->usAnimState].ubEndHeight )
@@ -19220,17 +19311,22 @@ void	SOLDIERTYPE::DeleteBoxingFlag( )
 // Flugente: disease
 void	SOLDIERTYPE::Infect( UINT8 aDisease )
 {
-	if ( !gGameExternalOptions.fDisease )
+	if ( !gGameExternalOptions.fDisease 
+		|| aDisease >= NUM_DISEASES )
 		return;
 
 	// diseases should not affect machines
 	if ( (this->flags.uiStatusFlags & SOLDIER_VEHICLE) || AM_A_ROBOT( this ) )
 		return;
 
+	// do not infect us if we are already infected
+	if ( !( Disease[aDisease].usDiseaseProperties & DISEASE_PROPERTY_CANREINFECT ) && this->sDiseasePoints[aDisease] > 0 )
+		return;
+
 	// we are getting infected. Raise our disease points, but not over the level of an infection
-	if ( aDisease < NUM_DISEASES && this->sDiseasePoints[aDisease] <= Disease[aDisease].sInfectionPtsInitial )
+	if ( this->sDiseasePoints[aDisease] <= Disease[aDisease].sInfectionPtsFull )
 	{
-		this->sDiseasePoints[aDisease] = min( this->sDiseasePoints[aDisease] + Disease[aDisease].sInfectionPtsInitial, Disease[aDisease].sInfectionPtsInitial );
+		this->sDiseasePoints[aDisease] = min( this->sDiseasePoints[aDisease] + Disease[aDisease].sInfectionPtsInitial, Disease[aDisease].sInfectionPtsFull );
 
 		// possibly add a new disability
 		if ( Disease[aDisease].usDiseaseProperties & DISEASE_PROPERTY_ADD_DISABILITY )
@@ -19250,7 +19346,7 @@ void	SOLDIERTYPE::Infect( UINT8 aDisease )
 			}
 		}
 
-		if ( this->sDiseasePoints[aDisease] > Disease[aDisease].sInfectionPtsOutbreak )
+		if ( !( this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_OUTBREAK ) && this->sDiseasePoints[aDisease] > Disease[aDisease].sInfectionPtsOutbreak )
 		{
 			this->sDiseaseFlag[aDisease] |= SOLDIERDISEASE_OUTBREAK;
 
@@ -19297,7 +19393,7 @@ void	SOLDIERTYPE::AddDiseasePoints( UINT8 aDisease, INT32 aVal )
 			if ( this->sDiseaseFlag[aDisease] & SOLDIERDISEASE_DIAGNOSED && this->bTeam == gbPlayerNum )
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szDiseaseText[TEXT_DISEASE_CURED], this->GetName( ), Disease[aDisease].szName );
 
-			this->sDiseaseFlag[aDisease] &= ~(SOLDIERDISEASE_DIAGNOSED | SOLDIERDISEASE_OUTBREAK);
+			this->sDiseaseFlag[aDisease] &= ~(SOLDIERDISEASE_DIAGNOSED | SOLDIERDISEASE_OUTBREAK | SOLDIERDISEASE_SPLINTAPPLIED_LEG  | SOLDIERDISEASE_SPLINTAPPLIED_ARM );
 		}
 	}
 }
@@ -19317,6 +19413,37 @@ void	SOLDIERTYPE::AnnounceDisease( UINT8 aDisease )
 void	SOLDIERTYPE::AddDisability( UINT8 aDisability )
 {
 	this->usDisabilityFlagMask |= ( 1 << (aDisability - 1 ) );
+}
+
+// Flugente: can we apply a medical splint to this guy?
+bool	SOLDIERTYPE::CanReceiveSplint()
+{
+	// not during combat
+	if ( gTacticalStatus.uiFlags & INCOMBAT )
+		return FALSE;
+
+	//  must be player team
+	if ( this->bTeam != gbPlayerNum )
+		return FALSE;
+
+	if ( !gGameExternalOptions.fDisease
+		|| !gGameExternalOptions.fDiseaseSevereLimitations )
+		return FALSE;
+
+	// check whether we have a disease that limits arm/leg use without having a splint 
+	for ( int i = 0; i < NUM_DISEASES; ++i )
+	{
+		if ( this->sDiseasePoints[i] > 0 && this->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED )
+		{ 
+			if ( (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_ARMS && !( this->sDiseaseFlag[i] & SOLDIERDISEASE_SPLINTAPPLIED_ARM ) ) 
+				|| ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_LEGS && !( this->sDiseaseFlag[i] & SOLDIERDISEASE_SPLINTAPPLIED_LEG ) ) )
+			{
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
 }
 
 // do we have any disease? fDiagnosedOnly: check for wether we know of this infection fHealableOnly: check wether it can be healed
@@ -19505,10 +19632,35 @@ void SOLDIERTYPE::PrintDiseaseDesc( CHAR16* apStr, BOOLEAN fFullDesc )
 					wcscat( apStr, atStr );
 				}
 
-				if ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_ADD_DISABILITY )
+				if ( gGameExternalOptions.fDiseaseSevereLimitations )
 				{
-					swprintf( atStr, szDiseaseText[TEXT_DISEASE_ADD_DISABILITY] );
-					wcscat( apStr, atStr );
+					if ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_ADD_DISABILITY )
+					{
+						swprintf( atStr, szDiseaseText[TEXT_DISEASE_ADD_DISABILITY] );
+						wcscat( apStr, atStr );
+					}
+
+					bool splintapplied = ( this->sDiseaseFlag[i] & ( SOLDIERDISEASE_SPLINTAPPLIED_ARM | SOLDIERDISEASE_SPLINTAPPLIED_LEG ) );
+
+					if ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_ARMS )
+					{
+						if ( splintapplied )
+							swprintf( atStr, szDiseaseText[TEXT_DISEASE_LIMITED_ARMS_SPLINT] );
+						else
+							swprintf( atStr, szDiseaseText[TEXT_DISEASE_LIMITED_ARMS] );
+
+						wcscat( apStr, atStr );
+					}
+
+					if ( Disease[i].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_LEGS )
+					{
+						if ( splintapplied )
+							swprintf( atStr, szDiseaseText[TEXT_DISEASE_LIMITED_LEGS_SPLINT] );
+						else
+							swprintf( atStr, szDiseaseText[TEXT_DISEASE_LIMITED_LEGS] );
+
+						wcscat( apStr, atStr );
+					}
 				}
 			}
 		}
@@ -21087,6 +21239,20 @@ UINT32		SOLDIERTYPE::GetExplorationPoints()
 	return totalvalue;
 }
 
+bool	SOLDIERTYPE::IsFastMovement()
+{
+	if ( this->flags.fUIMovementFast )
+	{
+		// Flugente: disease can stop us from using our legs normally
+		if ( gGameExternalOptions.fDisease
+			&& gGameExternalOptions.fDiseaseSevereLimitations
+			&& this->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+			this->flags.fUIMovementFast = false;
+	}
+
+	return this->flags.fUIMovementFast;
+}
+
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier )
 {
 	INT8		bBandaged; //,savedOurTurn;
@@ -22257,6 +22423,70 @@ void SOLDIERTYPE::EVENT_SoldierTakeBloodFromPerson( INT32 sGridNo, UINT8 ubDirec
 			}
 		}
 	}
+}
+
+void SOLDIERTYPE::EVENT_SoldierApplySplintToPerson( INT32 sGridNo, UINT8 ubDirection )
+{
+	UINT8 ubPerson = WhoIsThere2( sGridNo, this->pathing.bLevel );
+
+	if ( ubPerson != NOBODY && ubPerson != this->ubID )
+	{
+		// we found someone
+		SOLDIERTYPE* pSoldier = MercPtrs[ubPerson];
+
+		OBJECTTYPE* pObj = &( this->inv[HANDPOS] );
+		
+		if ( pSoldier
+			&& pObj->exists()
+			&& HasItemFlag( pObj->usItem, MEDICAL_SPLINT )
+			&& pSoldier->CanReceiveSplint()
+			&& ( (gGameOptions.fNewTraitSystem && NUM_SKILL_TRAITS( this, DOCTOR_NT ) > 0) || (!gGameOptions.fNewTraitSystem && EffectiveMedical( this ) >= 50) ) )
+		{
+			UINT16 usItem = pObj->usItem;
+
+			// delete object
+			DeleteObj( pObj );
+
+			// add flag to arm or leg (we'll find out which while we're doing it)
+			bool addtoarm = true;
+			bool addtoleg = true;
+			for ( int i = 0; i < NUM_DISEASES; ++i )
+			{
+				if ( pSoldier->sDiseasePoints[i] > 0 )
+				{
+					if ( addtoarm
+						&& Disease[i].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_ARMS
+						&& !( pSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_SPLINTAPPLIED_ARM ) )
+					{
+						pSoldier->sDiseaseFlag[i] |= SOLDIERDISEASE_SPLINTAPPLIED_ARM;
+						addtoleg = false;
+					}
+
+					if ( addtoleg
+						&& Disease[i].usDiseaseProperties & DISEASE_PROPERTY_LIMITED_USE_LEGS
+						&& !( pSoldier->sDiseaseFlag[i] & SOLDIERDISEASE_SPLINTAPPLIED_LEG ) )
+					{
+						pSoldier->sDiseaseFlag[i] |= SOLDIERDISEASE_SPLINTAPPLIED_LEG;
+						addtoarm = false;
+					}
+				}
+			}
+
+			DeductPoints( this, GetAPsToApplyItem( this, sGridNo ), APBPConstants[BP_APPLYITEM], AFTERACTION_INTERRUPT );
+
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_X_APPLY_Y_TO_Z], this->GetName(), Item[usItem].szItemName, pSoldier->GetName() );
+
+			if ( !is_networked )
+				this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0, FALSE );
+			else
+				this->ChangeSoldierState( CUTTING_FENCE, 0, 0 );
+
+			return;
+		}
+	}
+
+	// If this didn't work, say NOTHING quote...
+	this->DoMercBattleSound( BATTLE_SOUND_NOTHING );
 }
 
 void SOLDIERTYPE::EVENT_SoldierInteractiveAction( INT32 sGridNo, UINT16 usActionType )
