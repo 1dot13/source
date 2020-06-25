@@ -197,6 +197,8 @@
 		<usRiotShieldGraphic>0</usRiotShieldGraphic>
 		<bloodbag>0</bloodbag>
 		<emptybloodbag>0</emptybloodbag>
+		<medicalsplint>0</medicalsplint>
+		<sFireResistance>0</sFireResistance>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
 			<PercentBase>0</PercentBase>

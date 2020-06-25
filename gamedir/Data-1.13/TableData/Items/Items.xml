@@ -197,6 +197,7 @@
 		<usRiotShieldGraphic>0</usRiotShieldGraphic>
 		<bloodbag>0</bloodbag>
 		<emptybloodbag>0</emptybloodbag>
+		<medicalsplint>0</medicalsplint>
 		<sFireResistance>0</sFireResistance>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
@@ -52176,6 +52177,7 @@
 		<ItemSize>16</ItemSize>
 		<usPrice>4</usPrice>
 		<ubCoolness>1</ubCoolness>
+		<Medical>1</Medical>
 		<BR_NewInventory>6</BR_NewInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<emptybloodbag>1</emptybloodbag>
@@ -52203,6 +52205,30 @@
 		<Medical>1</Medical>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<bloodbag>1</bloodbag>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1758</uiIndex>
+		<szItemName>Splint</szItemName>
+		<szLongItemName>Medical splint</szLongItemName>
+		<szItemDesc>This splint can be used to stabilize strained extremities, which can fasten the healing process.</szItemDesc>
+		<szBRName>Medical splint</szBRName>
+		<szBRDesc>This universal medical splint fits any arm and leg, and will help you heal that much faster.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>611</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>16</ItemSize>
+		<usPrice>80</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Medical>1</Medical>
+		<BR_NewInventory>6</BR_NewInventory>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<medicalsplint>1</medicalsplint>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

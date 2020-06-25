@@ -1,4 +1,12 @@
-﻿<DISEASESLIST>
+﻿<!--
+	The diseases described here only affect your mercs if DISEASE in JA2_Options.ini is TRUE.
+
+	Note that some tags are only considered if the additional setting DISEASE_SEVERE_LIMITATIONS is TRUE, these are:
+	- <fSpecialFlagContractDisability>
+	- <fSpecialFlagLimitedUseArms>
+	- <fSpecialFlagLimitedUseLegs>
+-->
+<DISEASESLIST>
 	<DISEASE>
 		<uiIndex>0</uiIndex>
 		<szName>Disease</szName>
@@ -16,6 +24,8 @@
 		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
 		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
 		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_FIRE>0</InfectionChance_WOUND_FIRE>
+		<InfectionChance_WOUND_GAS>0</InfectionChance_WOUND_GAS>
 		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
 		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
 		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
@@ -30,6 +40,8 @@
 		<fDisgusting>0</fDisgusting>
 		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
 		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
+		<fSpecialFlagLimitedUseArms>0</fSpecialFlagLimitedUseArms>
+		<fSpecialFlagLimitedUseLegs>0</fSpecialFlagLimitedUseLegs>
 		<sEffStatAGI>0</sEffStatAGI>
 		<sEffStatDEX>0</sEffStatDEX>
 		<sEffStatSTR>0</sEffStatSTR>
