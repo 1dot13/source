@@ -938,13 +938,6 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			} // otherwise (creatures) false
 		}
 
-		// OK, If not given a profile num, set a randomized defualt battle sound set
-		// and then adjust it according to body type!
-		if ( Soldier.ubProfile == NO_PROFILE )
-		{
-			Soldier.ubBattleSoundID = (UINT8)Random( 3 );
-		}
-
 		// WANNE: Extnernalized!
 		// ATE: TEMP : No enemy women mercs (unless elite)!
 		if (gGameExternalOptions.fRestrictFemaleEnemiesExceptElite == TRUE)
@@ -1021,6 +1014,15 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			}
 		}
 
+
+		// OK, If not given a profile num, set a randomized default battle sound set
+		// and then adjust it according to body type!
+		if ( Soldier.ubProfile == NO_PROFILE )
+		{
+			// default (men) badguy battlesound sets 0-5
+			Soldier.ubBattleSoundID = (UINT8)Random( 6 );
+		}
+
 		//Set some flags, actions based on what body type we are
 		//NOTE:	BE VERY CAREFUL WHAT YOU DO IN THIS SECTION!
 		//	It is very possible to override editor settings, especially orders and attitude.
@@ -1029,7 +1031,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		{
 			case HATKIDCIV:
 			case KIDCIV:
-
+				// kids have 2 battlesound sets
 				Soldier.ubBattleSoundID = (UINT8)Random( 2 );
 				break;
 
@@ -1037,7 +1039,8 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			case MINICIV:
 			case DRESSCIV:
 
-				Soldier.ubBattleSoundID = 7 + (UINT8) Random( 2 );
+				// women get badguy battlesound sets 6-11
+				Soldier.ubBattleSoundID = 6 + (UINT8) Random( 6 );
 				Soldier.aiData.bNormalSmell = NORMAL_HUMAN_SMELL_STRENGTH;
 				break;
 

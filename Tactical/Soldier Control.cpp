@@ -265,6 +265,19 @@ BATTLESNDS_STRUCT	 gBattleSndsData[] =
 	"knife", 1, 0, 0, 0,
 };
 
+// Flugente: a little helper struct for npc sounds
+typedef struct
+{
+	CHAR8			zName[20];
+} BATTLESNDS_NPC_HELPER_STRUCT;
+
+BATTLESNDS_NPC_HELPER_STRUCT	 gBattleSndsNpcHelperData[] =
+{
+	"bad",
+	"kid",
+	"zombie",
+};
+
 extern void ReduceAttachmentsOnGunForNonPlayerChars( SOLDIERTYPE *pSoldier, OBJECTTYPE * pObj );
 
 // CHRISL:
@@ -10904,6 +10917,12 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 extern BOOLEAN IsMercSayingDialogue( UINT8 ubProfileID );
 
+// Flugente: store how many sounds we've found for each npc type
+#define BATTLESOUND_NPC_TYPES		3
+#define BATTLESOUND_NPC_SOUNDSETS	8
+UINT32 numBattleSounds_Npc[BATTLESOUND_NPC_TYPES][BATTLESOUND_NPC_SOUNDSETS][NUM_MERC_BATTLE_SOUNDS];
+bool BattleSoundSearchDone_Npc[BATTLESOUND_NPC_TYPES][BATTLESOUND_NPC_SOUNDSETS][NUM_MERC_BATTLE_SOUNDS];
+
 BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpecialCode )
 {
 	//in this function, pSoldier stands in for the this pointer, since
@@ -11227,48 +11246,51 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 		{
 			return(FALSE);
 		}
-
-		if ( pSoldier->ubBodyType == HATKIDCIV || pSoldier->ubBodyType == KIDCIV )
+		
+		int entrynum = 0;
+		if ( pSoldier->IsZombie() ) // Madd: add zombie sounds
 		{
-			if ( ubSoundID == BATTLE_SOUND_DIE1 )
+			entrynum = 2;
+			pSoldier->ubBattleSoundID = 0;		// atm only one soundset for zombies
+		}
+		else if ( pSoldier->ubBodyType == HATKIDCIV || pSoldier->ubBodyType == KIDCIV )
+			entrynum = 1;
+
+		// Flugente: check if perhaps a sound with a higher number is present, if so, increase number of found sounds
+		// if not, mark that this search is finished (no need to constantly check for sounds)
+		// This way we don't have to add new xml data, but can still use any soundfile we add (provided we numbered it correctly)
+		// Soundfiles are named just like before, with increasing numbers
+		// There are three categories for npc sound files here: bad (for ordinary humans), kid for kids and zombie
+		// Due to legacy reasons, the first sound can either have a '1' at the end (212_OK1.xx) or no number at all (212_HUMM.xxx)
+		// Otherwise we'd have to rename quite a lot of vanilla files
+		while ( !BattleSoundSearchDone_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID] )
+		{
+			// at least one sound exists (if not, we use a fallback solution anyway)
+			numBattleSounds_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID] = max( 1, numBattleSounds_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID] );
+
+			UINT32 numsounds = numBattleSounds_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID];
+
+			// check: is there a sound with a bigger number?			
+			sprintf( zFilename, "BATTLESNDS\\%s%d_%s%d", gBattleSndsNpcHelperData[entrynum].zName, pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName, numsounds + 1 );
+
+			if ( SoundFileExists( zFilename, zFilename_Used ) )
 			{
-				sprintf( zFilename, "BATTLESNDS\\kid%d_dying", pSoldier->ubBattleSoundID );
+				numBattleSounds_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID]++;
 			}
 			else
 			{
-				sprintf( zFilename, "BATTLESNDS\\kid%d_%s1", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-
-				if ( !SoundFileExists( zFilename, zFilename_Used ) )
-					sprintf( zFilename, "BATTLESNDS\\kid%d_%s2", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+				BattleSoundSearchDone_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID] = true;
 			}
 		}
-		else if ( pSoldier->IsZombie( ) ) // Madd: add zombie sounds
-		{
-			if ( ubSoundID == BATTLE_SOUND_DIE1 )
-			{
-				sprintf( zFilename, "BATTLESNDS\\zombie_die" );
-			}
-			else
-			{
-				sprintf( zFilename, "BATTLESNDS\\zombie_%s1", gBattleSndsData[ubSoundID].zName );
 
-				if ( !SoundFileExists( zFilename, zFilename_Used ) )
-					sprintf( zFilename, "BATTLESNDS\\zombie_%s2", gBattleSndsData[ubSoundID].zName );
-			}
-		}
-		else
-		{
-			if ( ubSoundID == BATTLE_SOUND_DIE1 )
-			{
-				sprintf( zFilename, "BATTLESNDS\\bad%d_die", pSoldier->ubBattleSoundID );
-			}
-			else
-			{
-				sprintf( zFilename, "BATTLESNDS\\bad%d_%s1", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
+		UINT16 soundtoplay = 1 + Random( numBattleSounds_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID] );
 
-				if ( !SoundFileExists( zFilename, zFilename_Used ) )
-					sprintf( zFilename, "BATTLESNDS\\bad%d_%s2", pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
-			}
+		sprintf( zFilename, "BATTLESNDS\\%s%d_%s%d", gBattleSndsNpcHelperData[entrynum].zName, pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName, soundtoplay );
+
+		// due to legacy reasons, we both have to check for versions with '1' and without a number here
+		if ( !SoundFileExists( zFilename, zFilename_Used ) )
+		{
+			sprintf( zFilename, "BATTLESNDS\\%s%d_%s", gBattleSndsNpcHelperData[entrynum].zName, pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName );
 		}
 	}
 
