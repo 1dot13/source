@@ -58,7 +58,10 @@ DifficultySettingsParseDataStartElementHandle(void *userData, const XML_Char *na
 				strcmp(name, "CounterAttackGroupSize") == 0 ||
 				strcmp(name, "UnlimitedPoolOfTroops") == 0 ||
 				strcmp(name, "QueensInitialPoolOfTroops") == 0 ||
-				strcmp(name, "QueenPoolIncrementPerDifficultyLevel") == 0 ||
+				strcmp(name, "QueenPoolMaxSizePerDifficultyLevel" ) == 0 ||
+				strcmp(name, "QueenPoolIncrementDaysPerDifficultyLevel" ) == 0 ||
+				strcmp(name, "QueenPoolBaseIncrementSizePerDifficultyLevel" ) == 0 ||
+				strcmp(name, "QueenPoolRecruitPercentPerDifficultyLevel" ) == 0 ||
 				strcmp(name, "EnemyStartingAlertLevel") == 0 ||
 				strcmp(name, "EnemyAlertDecay") == 0 ||
 				strcmp(name, "NumAwareBattles") == 0 ||
@@ -169,7 +172,10 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iCounterAttackGroupSize = pData->curDifficultySettings.iCounterAttackGroupSize;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].bUnlimitedPoolOfTroops = pData->curDifficultySettings.bUnlimitedPoolOfTroops;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueensInitialPoolOfTroops = pData->curDifficultySettings.iQueensInitialPoolOfTroops;
-					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueenPoolIncrementPerDifficultyLevel = pData->curDifficultySettings.iQueenPoolIncrementPerDifficultyLevel;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueenPoolMaxSizePerDifficultyLevel = pData->curDifficultySettings.iQueenPoolMaxSizePerDifficultyLevel;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueenPoolIncrementDaysPerDifficultyLevel = pData->curDifficultySettings.iQueenPoolIncrementDaysPerDifficultyLevel;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueenPoolBaseIncrementSizePerDifficultyLevel = pData->curDifficultySettings.iQueenPoolBaseIncrementSizePerDifficultyLevel;
+					zDiffSetting[pData->curDifficultySettings.uiIndex].iQueenPoolRecruitPercentPerDifficultyLevel = pData->curDifficultySettings.iQueenPoolRecruitPercentPerDifficultyLevel;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iEnemyStartingAlertLevel = pData->curDifficultySettings.iEnemyStartingAlertLevel;				
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iEnemyAlertDecay = pData->curDifficultySettings.iEnemyAlertDecay;
 					zDiffSetting[pData->curDifficultySettings.uiIndex].iNumAwareBattles = pData->curDifficultySettings.iNumAwareBattles;
@@ -314,13 +320,31 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "QueensInitialPoolOfTroops") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curDifficultySettings.iQueensInitialPoolOfTroops	= (INT32) atol(pData->szCharData);
+			pData->curDifficultySettings.iQueensInitialPoolOfTroops = max( 0, (INT32)atol( pData->szCharData ) );
 		}
-		else if(strcmp(name, "QueenPoolIncrementPerDifficultyLevel") == 0)
+		else if ( strcmp( name, "QueenPoolIncrementDaysPerDifficultyLevel" ) == 0 )
 		{
 			pData->curElement = ELEMENT;
-			pData->curDifficultySettings.iQueenPoolIncrementPerDifficultyLevel	= (UINT32) atol(pData->szCharData);
-		}		
+			pData->curDifficultySettings.iQueenPoolIncrementDaysPerDifficultyLevel = (UINT16)atol( pData->szCharData );
+		}
+		else if ( strcmp( name, "QueenPoolBaseIncrementSizePerDifficultyLevel" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.iQueenPoolBaseIncrementSizePerDifficultyLevel = (INT32)atol( pData->szCharData );
+			pData->curDifficultySettings.iQueenPoolBaseIncrementSizePerDifficultyLevel = max( 0, pData->curDifficultySettings.iQueenPoolBaseIncrementSizePerDifficultyLevel );
+		}
+		else if ( strcmp( name, "QueenPoolRecruitPercentPerDifficultyLevel" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.iQueenPoolRecruitPercentPerDifficultyLevel = (UINT8)atol( pData->szCharData );
+			pData->curDifficultySettings.iQueenPoolRecruitPercentPerDifficultyLevel = min( 100, pData->curDifficultySettings.iQueenPoolRecruitPercentPerDifficultyLevel );
+		}
+		else if ( strcmp( name, "QueenPoolMaxSizePerDifficultyLevel" ) == 0 )
+		{
+			pData->curElement = ELEMENT;
+			pData->curDifficultySettings.iQueenPoolMaxSizePerDifficultyLevel = (INT32)atol( pData->szCharData );
+			pData->curDifficultySettings.iQueenPoolMaxSizePerDifficultyLevel = max( 0, pData->curDifficultySettings.iQueenPoolMaxSizePerDifficultyLevel );
+		}
 		else if(strcmp(name, "EnemyStartingAlertLevel") == 0)
 		{
 			pData->curElement = ELEMENT;

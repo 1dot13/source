@@ -55,9 +55,7 @@
 #endif
 
 
-extern INT32 giReinforcementPool;
 extern BOOLEAN gfTacticalDoHeliRun;
-extern BOOLEAN gfUnlimitedTroops;
 
 // Arulco special division decision code
 

@@ -660,6 +660,11 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_BANDIT_ATTACK:
 			CreatureAttackTown_OtherCreatures( (UINT8)pEvent->uiParam, CREATURE_ATTACK_TYPE_BANDIT );
 			break;
+
+		case EVENT_ARMY_FINISH_TRAINING:
+			giReinforcementPool += (INT32)pEvent->uiParam;
+			giTotalRecruitsInTraining -= (INT32)pEvent->uiParam;
+			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 	return TRUE;

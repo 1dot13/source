@@ -217,9 +217,10 @@ UINT8		gubMinEnemyGroupSize			= 0;
 UINT8		gubHoursGracePeriod		= 0;
 UINT16	gusPlayerBattleVictories = 0;
 BOOLEAN gfUseAlternateQueenPosition = FALSE;
+INT32 giTotalRecruitsInTraining = 0;
 
 //padding for generic globals
-#define SAI_PADDING_BYTES				97
+#define SAI_PADDING_BYTES				93
 INT8		gbPadding[SAI_PADDING_BYTES];
 //patrol group info plus padding
 #define SAVED_PATROL_GROUPS			MAX_PATROL_GROUPS
@@ -3440,14 +3441,18 @@ void EvaluateQueenSituation()
 	
 	uiOffset += dEnemyGeneralsSpeedupFactor * (zDiffSetting[gGameOptions.ubDifficultyLevel].iBaseDelayInMinutesBetweenEvaluations + Random( zDiffSetting[gGameOptions.ubDifficultyLevel].iEvaluationDelayVariance ));
 	
-	// sevenfm: allow recruiting when pool size drops below iQueenPoolIncrementPerDifficultyLevel, this should result in more stable strategic AI behavior
-	if (giReinforcementPool <= 0 || !gfUnlimitedTroops && giReinforcementPool < zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel)
+	// Check/update reinforcements pool if old behavior is enabled
+	if ( !gfUnlimitedTroops && zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementDaysPerDifficultyLevel == 0 )
 	{
-		//Queen has run out of reinforcements. Simulate recruiting and training new troops
-		uiOffset *= 10;
-		giReinforcementPool += ( zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementPerDifficultyLevel * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;			
-		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, GetWorldTotalMin() + uiOffset, 0 );
-		return;
+		// sevenfm: allow recruiting when pool size drops below iQueenPoolBaseIncrementSizePerDifficultyLevel, this should result in more stable strategic AI behavior
+		if ( giReinforcementPool < zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolBaseIncrementSizePerDifficultyLevel )
+		{
+			//Queen has run out of reinforcements. Simulate recruiting and training new troops
+			uiOffset *= 10;
+			giReinforcementPool += ( zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolBaseIncrementSizePerDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100;
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, GetWorldTotalMin() + uiOffset, 0 );
+			return;
+		}
 	}
 
 	//Re-post the event
@@ -3624,9 +3629,14 @@ BOOLEAN SaveStrategicAI( HWFILE hFile )
 	FileWrite( hFile, &gfUseAlternateQueenPosition, 1, &uiNumBytesWritten );
 	if( uiNumBytesWritten != 1 )
 		return FALSE;
+	FileWrite( hFile, &giTotalRecruitsInTraining, sizeof( giTotalRecruitsInTraining ), &uiNumBytesWritten );
+	if ( uiNumBytesWritten != sizeof( giTotalRecruitsInTraining ) )
+		return FALSE; 
 	FileWrite( hFile, gbPadding, SAI_PADDING_BYTES, &uiNumBytesWritten );
 	if( uiNumBytesWritten != SAI_PADDING_BYTES )
 		return FALSE;
+	
+
 	//Save the army composition (which does get modified)
 	FileWrite( hFile, gArmyComp, NUM_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ), &uiNumBytesWritten );
 	if( uiNumBytesWritten != NUM_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ) )
@@ -3769,10 +3779,13 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	FileRead( hFile, &gfUseAlternateQueenPosition, 1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
 		return FALSE;
-	FileRead( hFile, gbPadding,								SAI_PADDING_BYTES, &uiNumBytesRead );
+	FileRead( hFile, &giTotalRecruitsInTraining, sizeof( giTotalRecruitsInTraining ), &uiNumBytesRead );
+	if ( uiNumBytesRead != sizeof( giTotalRecruitsInTraining ) )
+		return FALSE;
+	FileRead( hFile, gbPadding, SAI_PADDING_BYTES, &uiNumBytesRead );
 	if( uiNumBytesRead != SAI_PADDING_BYTES )
 		return FALSE;
-
+	
 	//Restore the army composition
 	FileRead( hFile, gArmyComp,	NUM_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ), &uiNumBytesRead );
 	if( uiNumBytesRead != NUM_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ) )

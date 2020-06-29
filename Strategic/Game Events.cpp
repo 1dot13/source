@@ -130,6 +130,13 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"Weather Thunderstorm",
 	L"Weather Sandstorm",
 	L"Weather Snow",
+	L"Intel Enrico Email",
+	L"Intel Photofact verify",
+	L"Daily raid events",
+	L"bloodcat attack",
+	L"zombie attack",
+	L"bandit attack",
+	L"ArmyFinishTraining",
 };
 
 #endif

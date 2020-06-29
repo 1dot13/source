@@ -81,7 +81,9 @@ extern BOOLEAN gfDisplayStrategicAILogs;
 extern BOOLEAN gfFirstBattleMeanwhileScenePending;
 
 extern UINT8 gubSAIVersion;
-
+extern BOOLEAN gfUnlimitedTroops;
+extern INT32 giReinforcementPool;
+extern INT32 giTotalRecruitsInTraining;
 
 
 //These enumerations define all of the various types of stationary garrison

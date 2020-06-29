@@ -34,7 +34,10 @@ typedef struct
 	UINT8 iCounterAttackGroupSize;
 	BOOLEAN bUnlimitedPoolOfTroops;
 	INT32 iQueensInitialPoolOfTroops;
-	UINT32 iQueenPoolIncrementPerDifficultyLevel;
+	INT32 iQueenPoolMaxSizePerDifficultyLevel;
+	UINT16 iQueenPoolIncrementDaysPerDifficultyLevel;
+	INT32 iQueenPoolBaseIncrementSizePerDifficultyLevel;
+	UINT8 iQueenPoolRecruitPercentPerDifficultyLevel;
 	UINT32 iEnemyStartingAlertLevel;
 	UINT32 iEnemyAlertDecay;
 	UINT32 iNumAwareBattles;

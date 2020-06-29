@@ -5,6 +5,8 @@
 #include "mapscreen.h"
 #include "Soldier Control.h"
 
+// the max loyalty rating for any given town
+#define MAX_LOYALTY_VALUE 100
 
 // gain pts per real loyalty pt
 #define GAIN_PTS_PER_LOYALTY_PT 500
@@ -90,6 +92,7 @@ typedef struct TOWN_LOYALTY
 
 // the loyalty variables for each town
 extern TOWN_LOYALTY gTownLoyalty[ MAX_TOWNS ];
+extern UINT8 gubTownRebelSentiment[MAX_TOWNS];
 
 // town names list
 extern INT32 pTownNamesList[];

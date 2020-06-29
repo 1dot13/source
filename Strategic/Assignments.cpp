@@ -74,6 +74,7 @@
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Militia Control.h"	// added by Flugente
 	#include "ASD.h"				// added by Flugente
+	#include "Strategic AI.h"
 #endif
 #include <vector>
 #include <queue>
@@ -105,8 +106,6 @@ class SOLDIERTYPE;
 
 // Flugente: external sector data
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
-// sevenfm
-extern BOOLEAN gfUnlimitedTroops;
 
 // various reason an assignment can be aborted before completion
 enum{
@@ -7854,8 +7853,6 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 	
 	return ( FALSE );
 }
-
-extern INT32 giReinforcementPool;
 
 void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMilitiaType, UINT32& arRansom, FLOAT& arIntel )
 {

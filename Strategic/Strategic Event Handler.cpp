@@ -29,6 +29,7 @@
 	#include "history.h"
 	#include "Town Militia.h"	// added by Flugente
 	#include "Campaign.h"		// added by Flugente
+	#include "Strategic AI.h"
 #endif
 
 #include "Luaglobal.h"
@@ -826,6 +827,74 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 //#endif
 }
 
+static INT32 TakeVolunteers( UINT8 poolRecruitPerc )
+{
+	INT32 loyalPopulation = 0;
+
+	for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+	{
+		for ( UINT8 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
+		{
+			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].fEnemyControlled )  // if owned by the Army
+			{
+				UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].bNameId;
+				if ( ubTownID != BLANK_SECTOR )
+				{
+					// Supposing rebel sentiment population will never be volunteers, Queen's or neutral rating % should be greater
+					// than sentiment %. Otherwise there is no volunteer people for sure.
+					// So if there are Queen loyal population, take sector population into account.
+					INT32 loyalPercent = MAX_LOYALTY_VALUE - gTownLoyalty[ubTownID].ubRating - gubTownRebelSentiment[ubTownID];
+					if ( loyalPercent > 0 )
+					{
+						loyalPopulation += GetSectorPopulation( sX, sY, FALSE ) * loyalPercent / 100;
+					}
+				}
+			}
+		}
+	}
+
+	return loyalPopulation * poolRecruitPerc / 100;
+}
+
+static INT32 TakeRecruitsByForce( UINT8 poolRecruitPerc, INT32 maxToTake )
+{
+	INT32 recruits = 0;
+
+	if ( poolRecruitPerc != 0 )
+	{
+		for ( UINT8 sX = 1; sX < MAP_WORLD_X - 1; ++sX )
+		{
+			if ( recruits >= maxToTake )
+				break;
+
+			for ( UINT8 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
+			{
+				if ( recruits >= maxToTake )
+					break;
+
+				SECTORINFO *pSectorInfo = &( SectorInfo[SECTOR( sX, sY )] );
+				if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].fEnemyControlled && pSectorInfo->ubGarrisonID != NO_GARRISON )
+				{
+					UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( sX, sY )].bNameId;
+					if ( ubTownID != BLANK_SECTOR )
+					{
+						recruits += max( 1, GetSectorPopulation( sX, sY, FALSE ) * poolRecruitPerc / 100 );
+
+						// A possible drawback of forced recruiting is percent of unresting people increases.
+						// So increase Player's loyalty on 'poolRecruitPerc' value, but only if Player is known in this town.
+						if ( gTownLoyalty[ubTownID].ubRating > 0 )
+						{
+							gTownLoyalty[ubTownID].ubRating = min( MAX_LOYALTY_VALUE, gTownLoyalty[ubTownID].ubRating + poolRecruitPerc );
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return min( recruits, maxToTake );
+}
+
 void HandleEarlyMorningEvents( void )
 {
 	// Flugente: no reason to put this into LUA
@@ -841,6 +910,49 @@ void HandleEarlyMorningEvents( void )
 			if ( pSectorInfo )
 			{
 				pSectorInfo->usSectorInfoFlag &= ~SECTORINFO_VOLUNTEERS_RECENTLY_RECRUITED;
+			}
+		}
+	}
+
+	UINT16 poolIncDays = zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolIncrementDaysPerDifficultyLevel;
+	if ( !gfUnlimitedTroops && poolIncDays != 0 )
+	{
+		INT32 poolMaxSize = zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolMaxSizePerDifficultyLevel;
+		INT32 poolIncSize = zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolBaseIncrementSizePerDifficultyLevel;
+		UINT8 poolRecruitPerc = zDiffSetting[gGameOptions.ubDifficultyLevel].iQueenPoolRecruitPercentPerDifficultyLevel;
+
+		if ( giReinforcementPool < poolMaxSize )
+		{
+			INT32 newRecruitsTaken = 0;
+			INT32 trainingCapacity = 0;  // as first, count up training camps, then multiply it on QueenPoolBaseIncrementSizePerDifficultyLevel
+
+			if ( IsTownUnderCompleteControlByPlayer( ALMA ) == FALSE )
+			{
+				++trainingCapacity;
+			}
+			if ( IsTownUnderCompleteControlByPlayer( MEDUNA ) == FALSE )
+			{
+				++trainingCapacity;
+			}
+
+			trainingCapacity *= poolIncSize;
+
+			if ( giTotalRecruitsInTraining < trainingCapacity )
+			{
+				newRecruitsTaken += min( TakeVolunteers( poolRecruitPerc ), trainingCapacity - giTotalRecruitsInTraining );
+
+				if ( giTotalRecruitsInTraining + newRecruitsTaken < trainingCapacity )
+				{
+					INT32 maxRecruitsToTake = trainingCapacity - giTotalRecruitsInTraining - newRecruitsTaken;
+					newRecruitsTaken += TakeRecruitsByForce( poolRecruitPerc, maxRecruitsToTake );
+				}
+
+				if ( newRecruitsTaken > 0 )
+				{
+					UINT32 endTimeMin = GetWorldTotalMin() + poolIncDays * NUM_MIN_IN_DAY - 1;  // -1 minute: training should end right before a new recruiting session, otherwise we may ignore some training space at moment of EarlyMorningEvent
+					AddStrategicEvent( EVENT_ARMY_FINISH_TRAINING, endTimeMin, (UINT32)newRecruitsTaken );
+					giTotalRecruitsInTraining += newRecruitsTaken;
+				}
 			}
 		}
 	}
