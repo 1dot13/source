@@ -20,9 +20,18 @@
 		MinEnemyGroupSize : Minimum enemy group size. Enemy groups will never be smaller than this!
 		CounterAttackGroupSize : Counter attacks on cities consist of 4 groups of this size.
 		PercentElitesBonus : Percent of troops converted to extra elites in enemy groups
-		UnlimitedPoolOfTroops : 0 - false, 1 - true. Determines whether or not the queen has unlimited troops. If she does, most of the settings below are completely ignored.
-		QueensInitialPoolOfTroops : Amount of troops available to the queen at game start
-		QueenPoolIncrementPerDifficultyLevel : Amount of troops that will be added to queens army when the troops pool is empty
+		UnlimitedPoolOfTroops : 0 - false, 1 - true. Determines whether or not the queen has unlimited troops. If she does, the following settings are ignored: QueenPoolMaxSizePerDifficultyLevel, 
+		                        QueenPoolIncrementDaysPerDifficultyLevel, QueenPoolBaseIncrementSizePerDifficultyLevel, QueenPoolRecruitPercentPerDifficultyLevel.
+		QueensInitialPoolOfTroops : Amount of troops available to the queen at game start; part of troops is issued for garrisons and patrols, the rest is in Reserve. Valid range is 0 .. ~2 billion.
+		QueenPoolMaxSizePerDifficultyLevel : Amount of troops in Reserve may increase during the game as Queen train more soldiers continuously, this value is the max size of Reserve the Queen can have.
+                                     		 Valid range is 0 .. ~2 billion.
+		QueenPoolIncrementDaysPerDifficultyLevel : Interval in days for training of a new recruit group. Valid values are:
+				0 - use old simple schema (increment by QueenPoolBaseIncrementSizePerDifficultyLevel value if reserves are dropped below this value; Strategic AI goes sleep for a while in case of increment 
+				    happened); QueenPoolMaxSizePerDifficultyLevel, QueenPoolRecruitPercentPerDifficultyLevel are ignored.
+				1 .. 65535.
+		QueenPoolBaseIncrementSizePerDifficultyLevel : It is amount of recruits which can be trained on training camp at a time. Basically, it is capacity of one training camp (Meduna), the same capacity
+                                                       provides the second camp (Alma). AI tries to fulfill all available training capacity each day. Valid range is 0 .. ~2 billion; don't play with big numbers here, or you may face overflow problems otherwise.
+		QueenPoolRecruitPercentPerDifficultyLevel: Percent of a sector population the Army takes as recruits each day.
 		EnemyStartingAlertLevel : Sets the starting alert chances.
 		EnemyAlertDecay : When an enemy spots and chases a player group, the alertness value decrements by this value. Ranges from 1-100 (but recommend 20-60).
 		NumAwareBattles : Certain conditions can cause the queen to go into a "full alert" mode. 
@@ -141,7 +150,10 @@
 		<PercentElitesBonus>0</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>0</QueensInitialPoolOfTroops>
-		<QueenPoolIncrementPerDifficultyLevel>0</QueenPoolIncrementPerDifficultyLevel>
+		<QueenPoolMaxSizePerDifficultyLevel>0</QueenPoolMaxSizePerDifficultyLevel>
+		<QueenPoolIncrementDaysPerDifficultyLevel>0</QueenPoolIncrementDaysPerDifficultyLevel>
+		<QueenPoolBaseIncrementSizePerDifficultyLevel>0</QueenPoolBaseIncrementSizePerDifficultyLevel>
+		<QueenPoolRecruitPercentPerDifficultyLevel>0</QueenPoolRecruitPercentPerDifficultyLevel>
 		<EnemyStartingAlertLevel>0</EnemyStartingAlertLevel>
 		<EnemyAlertDecay>0</EnemyAlertDecay>
 		<NumAwareBattles>0</NumAwareBattles>
@@ -217,7 +229,10 @@
 		<PercentElitesBonus>0</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>150</QueensInitialPoolOfTroops>
-		<QueenPoolIncrementPerDifficultyLevel>60</QueenPoolIncrementPerDifficultyLevel>
+		<QueenPoolMaxSizePerDifficultyLevel>150</QueenPoolMaxSizePerDifficultyLevel>
+		<QueenPoolIncrementDaysPerDifficultyLevel>0</QueenPoolIncrementDaysPerDifficultyLevel>
+		<QueenPoolBaseIncrementSizePerDifficultyLevel>60</QueenPoolBaseIncrementSizePerDifficultyLevel>
+		<QueenPoolRecruitPercentPerDifficultyLevel>1</QueenPoolRecruitPercentPerDifficultyLevel>
 		<EnemyStartingAlertLevel>5</EnemyStartingAlertLevel>
 		<EnemyAlertDecay>75</EnemyAlertDecay>
 		<NumAwareBattles>1</NumAwareBattles>
@@ -293,7 +308,10 @@
 		<PercentElitesBonus>0</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>200</QueensInitialPoolOfTroops>
-		<QueenPoolIncrementPerDifficultyLevel>60</QueenPoolIncrementPerDifficultyLevel>
+		<QueenPoolMaxSizePerDifficultyLevel>200</QueenPoolMaxSizePerDifficultyLevel>
+		<QueenPoolIncrementDaysPerDifficultyLevel>0</QueenPoolIncrementDaysPerDifficultyLevel>
+		<QueenPoolBaseIncrementSizePerDifficultyLevel>120</QueenPoolBaseIncrementSizePerDifficultyLevel>
+		<QueenPoolRecruitPercentPerDifficultyLevel>2</QueenPoolRecruitPercentPerDifficultyLevel>
 		<EnemyStartingAlertLevel>20</EnemyStartingAlertLevel>
 		<EnemyAlertDecay>50</EnemyAlertDecay>
 		<NumAwareBattles>2</NumAwareBattles>
@@ -369,7 +387,10 @@
 		<PercentElitesBonus>25</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>0</UnlimitedPoolOfTroops>
 		<QueensInitialPoolOfTroops>400</QueensInitialPoolOfTroops>
-		<QueenPoolIncrementPerDifficultyLevel>60</QueenPoolIncrementPerDifficultyLevel>
+		<QueenPoolMaxSizePerDifficultyLevel>400</QueenPoolMaxSizePerDifficultyLevel>
+		<QueenPoolIncrementDaysPerDifficultyLevel>0</QueenPoolIncrementDaysPerDifficultyLevel>
+		<QueenPoolBaseIncrementSizePerDifficultyLevel>180</QueenPoolBaseIncrementSizePerDifficultyLevel>
+		<QueenPoolRecruitPercentPerDifficultyLevel>3</QueenPoolRecruitPercentPerDifficultyLevel>
 		<EnemyStartingAlertLevel>60</EnemyStartingAlertLevel>
 		<EnemyAlertDecay>25</EnemyAlertDecay>
 		<NumAwareBattles>3</NumAwareBattles>
@@ -444,8 +465,11 @@
 		<CounterAttackGroupSize>24</CounterAttackGroupSize>
 		<PercentElitesBonus>50</PercentElitesBonus>
 		<UnlimitedPoolOfTroops>1</UnlimitedPoolOfTroops>
-		<QueensInitialPoolOfTroops>8000</QueensInitialPoolOfTroops>
-		<QueenPoolIncrementPerDifficultyLevel>60</QueenPoolIncrementPerDifficultyLevel>
+		<QueensInitialPoolOfTroops>8000</QueensInitialPoolOfTroops>>
+		<QueenPoolMaxSizePerDifficultyLevel>8000</QueenPoolMaxSizePerDifficultyLevel>
+		<QueenPoolIncrementDaysPerDifficultyLevel>0</QueenPoolIncrementDaysPerDifficultyLevel>
+		<QueenPoolBaseIncrementSizePerDifficultyLevel>240</QueenPoolBaseIncrementSizePerDifficultyLevel>
+		<QueenPoolRecruitPercentPerDifficultyLevel>4</QueenPoolRecruitPercentPerDifficultyLevel>
 		<EnemyStartingAlertLevel>80</EnemyStartingAlertLevel>
 		<EnemyAlertDecay>10</EnemyAlertDecay>
 		<NumAwareBattles>4</NumAwareBattles>
