@@ -351,7 +351,7 @@ void PrintImpText( void )
 			//LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 160, LAPTOP_SCREEN_WEB_UL_Y + 145, ( 200	), IMP_CON_3 , FONT12ARIAL, FONT_WHITE, TRUE, 0);
 			// SANDRO - changed to show exact cost of profile
 			CHAR16 chPayCost[1000];
-			swprintf( chPayCost, gzIMPProfileCostText[ 0 ], GetProfileCost(TRUE) );
+			swprintf( chPayCost, gzIMPProfileCostText[ 0 ], GetProfileCost(TRUE, FALSE) );
 			DisplayWrappedString( LAPTOP_SCREEN_UL_X + 160, LAPTOP_SCREEN_WEB_UL_Y + 145,  ( 200 ), 2, FONT12ARIAL, FONT_WHITE, chPayCost,FONT_BLACK,FALSE,LEFT_JUSTIFIED);
 
 		break;

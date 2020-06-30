@@ -323,7 +323,7 @@ void	BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 
 			// silversurfer: We need to store the profile cost here because right now our new IMP doesn't occupy a slot yet.
 			// However function iGetProfileCost() will already calculate price including that slot. We would charge too much money after the IMP is created below.
-			INT32 iIMPCost = GetProfileCost(TRUE);
+			INT32 iIMPCost = GetProfileCost(TRUE, FALSE);
 			if( LaptopSaveInfo.iCurrentBalance < iIMPCost ) 
 			{
 				// not enough
@@ -1565,7 +1565,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 
 		// silversurfer: Store current IMP cost. Function iGetProfileCost() already takes the new slot into account.
 		// If we create the IMP first we would charge too much.
-		INT32 iIMPCost = GetProfileCost(FALSE);
+		INT32 iIMPCost = GetProfileCost(FALSE, TRUE);
 
 		// Flugente: as we do not store the cost of the gear in the IMP file, we have to determine the cost here
 		iIMPCost += max(0, GetEquippedGearCost( &gMercProfiles[iProfileId] ) - gGameExternalOptions.iIMPProfileCost );
@@ -1763,19 +1763,18 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 }
 
 // SANDRO - Function to determine actual cost of profile
-INT32 GetProfileCost( BOOLEAN aWithGearCost )
+INT32 GetProfileCost( BOOLEAN aWithGearCost, BOOLEAN profileSlotAllocated )
 {
 	// Flugente: aditional imp gear cost
 	INT32 impgearcost = aWithGearCost ? GetIMPGearCost() : 0;
+	INT32 impProfileCost = gGameExternalOptions.iIMPProfileCost;
 
 	if (gGameExternalOptions.fDynamicIMPProfileCost)
 	{
-		// silversurfer: When we create an IMP he doesn't occupy a slot yet so we need to add 1 to get the correct price in advance.
-		INT32 iIMPProfileCost = gGameExternalOptions.iIMPProfileCost * (CountFilledIMPSlots() + 1);
-
-		if ( iIMPProfileCost + impgearcost >= gGameExternalOptions.iIMPProfileCost )
-			return iIMPProfileCost + impgearcost;
+		// sun_alf: if the IMP profile already occupies a slot, CountFilledIMPSlots() return the number we want to multiply on,
+		// but if a slot is not allocated still, we need to add 1 to get the correct price in advance.
+		impProfileCost *= profileSlotAllocated ? CountFilledIMPSlots() : CountFilledIMPSlots() + 1;
 	}
 
-	return gGameExternalOptions.iIMPProfileCost + impgearcost;
+	return impProfileCost + impgearcost;
 }

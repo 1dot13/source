@@ -71,7 +71,7 @@ void ResetIMPCharactersEyesAndMouthOffsets( UINT8 ubMercProfileID );
 
 BOOLEAN ImpExists ( STR fileName );
 
-INT32 GetProfileCost( BOOLEAN aWithGearCost ); // added by SANDRO
+INT32 GetProfileCost( BOOLEAN aWithGearCost, BOOLEAN profileSlotAllocated ); // added by SANDRO
 
 void MakeProfileInvItemAnySlot( MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8 ubStatus, UINT8 ubHowMany );
 
