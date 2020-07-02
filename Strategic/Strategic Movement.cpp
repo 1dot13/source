@@ -3410,34 +3410,42 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 {
 	INT32 iTraverseTime;
 	INT32 iBestTraverseTime = 1000000;
-	INT32 iEncumbrance, iHighestEncumbrance = 0;
+	INT32 iEncumbrance = 0;
+	static INT32 iHighestEncumbrance = 0;
 	SOLDIERTYPE *pSoldier;
 	PLAYERGROUP *curr;
 	BOOLEAN fFoot, fCar, fTruck, fTracked, fAir;
 	UINT8 ubTraverseType;
 	UINT8 ubTraverseMod;
 
+	// see if we have any survivalist here
+	static float fSurvivalistHere = 0;
+	// background bonuses
+	static INT8 stravelbackground_foot = 20;
+	static INT8 stravelbackground_car = -20;
+	static INT8 stravelbackground_air = -20;
+
 	// THIS FUNCTION WAS WRITTEN TO HANDLE MOVEMENT TYPES WHERE MORE THAN ONE TRANSPORTAION TYPE IS AVAILABLE.
-
-	//Determine the group's method(s) of tranportation. If more than one,
-	//we will always use the highest time.
-	// WANNE: If we have an old savegame (from the dev. trunk, where the skyrider can only move on roads), just change the "pGroup->ubTransportationMask" to 16 for the heli to fix it in the savegame
-	fFoot = (UINT8)(pGroup->ubTransportationMask & FOOT);
-	fCar = (UINT8)(pGroup->ubTransportationMask & CAR);
-	fTruck = (UINT8)(pGroup->ubTransportationMask & TRUCK);
-	fTracked = (UINT8)(pGroup->ubTransportationMask & TRACKED);
-	fAir = (UINT8)(pGroup->ubTransportationMask & AIR);
-
+		
 	ubTraverseType = SectorInfo[ ubSector ].ubTraversability[ ubDirection ];
 
 	if( ubTraverseType == EDGEOFWORLD )
 		return 0xffffffff; //can't travel here!
 
+	//Determine the group's method(s) of tranportation. If more than one,
+	//we will always use the highest time.
+	// WANNE: If we have an old savegame (from the dev. trunk, where the skyrider can only move on roads), just change the "pGroup->ubTransportationMask" to 16 for the heli to fix it in the savegame
+	fFoot = pGroup->ubTransportationMask & FOOT;
+	fCar = pGroup->ubTransportationMask & CAR;
+	fTruck = pGroup->ubTransportationMask & TRUCK;
+	fTracked = pGroup->ubTransportationMask & TRACKED;
+	fAir = pGroup->ubTransportationMask & AIR;
+
 	// ARM: Made air-only travel take its normal time per sector even through towns. Because Skyrider charges by the sector,
 	// not by flying time, it's annoying when his default route detours through a town to save time, but costs extra money.
 	// This isn't exactly unrealistic, since the chopper shouldn't be faster flying over a town anyway... Not that other
 	// kinds of travel should be either - but the towns represents a kind of warping of our space-time scale as it is...
-	if( ( ubTraverseType == TOWN ) && ( pGroup->ubTransportationMask != AIR ) )
+	if( ( ubTraverseType == TOWN ) && !fAir )
 		return 5; //very fast, and vehicle types don't matter.
 
 	if( fFoot )
@@ -3468,27 +3476,57 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 		if ( pGroup->usGroupTeam == OUR_TEAM )
 		{
 			curr = pGroup->pPlayerList;
-			while( curr )
+
+			// Flugente: this function gets called a lot during pathing, so much that it can lead to lag. As weight remains the same while plotting a path, only do this if something has changed
+			if ( gSquadEncumbranceCheckNecessary )
 			{
-				pSoldier = curr->pSoldier;
-				if( pSoldier->bAssignment != VEHICLE )
+				// reset values
+				iHighestEncumbrance = 0;
+				fSurvivalistHere = 0;
+				stravelbackground_foot = 20;
+				stravelbackground_car = -20;
+				stravelbackground_air = -20;
+
+				while ( curr )
 				{
-					//Soldier is on foot and travelling. Factor encumbrance into movement rate.
-					iEncumbrance = CalculateCarriedWeight( pSoldier );
-
-					// Flugente: we are a lot slower if our leg is severely damaged, even if we can handle the weight
-					if ( gGameExternalOptions.fDisease
-						&& gGameExternalOptions.fDiseaseSevereLimitations
-						&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
-						iEncumbrance = max( iEncumbrance * 2, 200);
-
-					if( iEncumbrance > iHighestEncumbrance )
+					pSoldier = curr->pSoldier;
+					if ( pSoldier->bAssignment != VEHICLE )
 					{
-						iHighestEncumbrance = iEncumbrance;
+						//Soldier is on foot and travelling. Factor encumbrance into movement rate.
+						iEncumbrance = CalculateCarriedWeight( pSoldier );
+
+						// Flugente: we are a lot slower if our leg is severely damaged, even if we can handle the weight
+						if ( gGameExternalOptions.fDisease
+							&& gGameExternalOptions.fDiseaseSevereLimitations
+							&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_LEGS ) )
+							iEncumbrance = max( iEncumbrance * 2, 200 );
+
+						if ( iEncumbrance > iHighestEncumbrance )
+						{
+							iHighestEncumbrance = iEncumbrance;
+						}
 					}
+
+					if ( gGameOptions.fNewTraitSystem )
+					{
+						fSurvivalistHere += NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT );
+
+						// Flugente: backgrounds
+						// silversurfer: Why the different calculations and defaults?
+						// Well, a slow soldier on foot can slow the whole team down, but one fast soldier won't make the whole team quicker. He is no survivalist after all.
+						// A good driver on the other hand will drive faster and since the team is on the same vehicle, they all will be faster.
+						// A merc with flight experience can pose as co-pilot and provide some assistance to the pilot, so again the whole team profits.
+						stravelbackground_foot = min( stravelbackground_foot, pSoldier->GetBackgroundValue( BG_TRAVEL_FOOT ) );
+						stravelbackground_car = max( stravelbackground_car, pSoldier->GetBackgroundValue( BG_TRAVEL_CAR ) );
+						stravelbackground_air = max( stravelbackground_air, pSoldier->GetBackgroundValue( BG_TRAVEL_AIR ) );
+					}
+
+					curr = curr->next;
 				}
-				curr = curr->next;
+
+				gSquadEncumbranceCheckNecessary = false;
 			}
+
 			if( iHighestEncumbrance > 100 )
 			{
 				iBestTraverseTime = iBestTraverseTime * iHighestEncumbrance / 100;
@@ -3559,31 +3597,6 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 	// SANDRO - STOMP traits - ranger reduces time needed for travelling around
 	if ( pGroup->usGroupTeam == OUR_TEAM && gGameOptions.fNewTraitSystem )
 	{
-		// see if we have any survivalist here
-		float fSurvivalistHere = 0;
-		// background bonuses
-		INT8 stravelbackground_foot = 20;
-		INT8 stravelbackground_car = -20;
-		INT8 stravelbackground_air = -20;
-
-		curr = pGroup->pPlayerList;
-		while( curr )
-		{
-			pSoldier = curr->pSoldier;
-			
-			fSurvivalistHere += NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT );
-			
-			// Flugente: backgrounds
-			// silversurfer: Why the different calculations and defaults?
-			// Well, a slow soldier on foot can slow the whole team down, but one fast soldier won't make the whole team quicker. He is no survivalist after all.
-			// A good driver on the other hand will drive faster and since the team is on the same vehicle, they all will be faster.
-			// A merc with flight experience can pose as co-pilot and provide some assistance to the pilot, so again the whole team profits.
-			stravelbackground_foot = min(stravelbackground_foot, pSoldier->GetBackgroundValue(BG_TRAVEL_FOOT));
-			stravelbackground_car  = max(stravelbackground_car, pSoldier->GetBackgroundValue(BG_TRAVEL_CAR));
-			stravelbackground_air  = max(stravelbackground_air,  pSoldier->GetBackgroundValue(BG_TRAVEL_AIR));
-
-			curr = curr->next;
-		}
 		// yes, we have...
 		if ( (fSurvivalistHere && !fAir) || (stravelbackground_foot && fFoot) || (stravelbackground_car && (fCar || fTruck || fTracked)) || (stravelbackground_air && fAir) )
 		{

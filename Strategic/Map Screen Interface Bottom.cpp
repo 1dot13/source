@@ -1341,7 +1341,7 @@ BOOLEAN AllowedToTimeCompress( void )
 	}
 
 	// moving / confirming movement
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia || gfInConfirmMapMoveMode || fShowMapScreenMovementList )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia || gfInConfirmMapMoveMode || fShowMapScreenMovementList )
 	{
 		return( FALSE );
 	}
@@ -1682,7 +1682,7 @@ BOOLEAN CommonTimeCompressionChecks( void )
 		return( TRUE );
 	}
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		// abort plotting movement
 		AbortMovementPlottingMode( );

@@ -478,9 +478,6 @@ UINT32 guiMAPCURSORS;
 // HEADROCK HAM 5: New pathing arrows may replace the above eventually, but for now a separate variable will do.
 UINT32 guiMapPathingArrows;
 
-// destination plotting character
-INT8 bSelectedDestChar = -1;
-
 // assignment selection character
 INT8 bSelectedAssignChar=-1;
 
@@ -604,6 +601,19 @@ void SetUpValidCampaignSectors( void );
 BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile );
 BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
 
+// Flugente: added getter/setter so that we can easily check when a new char is set
+// we also set a marker determining when we should update the squads data, so that we only check that when required
+// destination plotting character
+INT8 bSelectedDestChar = -1;
+bool gSquadEncumbranceCheckNecessary = true;
+
+INT8 GetSelectedDestChar() { return bSelectedDestChar; }
+void SetSelectedDestChar( INT8 aVal )
+{
+	bSelectedDestChar = aVal;
+	gSquadEncumbranceCheckNecessary = true;
+}
+
 //--------------Legion 2----Jazz-----------
 
 void DrawIconL(INT32 MAP_GRID_X2, INT32 MAP_GRID_Y2, INT32 i )
@@ -640,7 +650,7 @@ void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow )
 
 	for(iCount=1; iCount <= MAX_VIEW_SECTORS; ++iCount)
 	{
-		if ( fDrawCursors && (iCount == sSelMapX) && (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+		if ( fDrawCursors && (iCount == sSelMapX) && ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 			SetFontForeground( ( UINT8 ) ( fSelectedCursorIsYellow ? FONT_YELLOW : FONT_WHITE ) );
 		else if( fDrawCursors && ( iCount == gsHighlightSectorX ) )
 			SetFontForeground(FONT_WHITE);
@@ -650,7 +660,7 @@ void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow )
 		FindFontCenterCoordinates(((INT16)(MAP_HORT_INDEX_X+( iCount - 1) *MAP_GRID_X)), MAP_HORT_INDEX_Y, MAP_GRID_X, MAP_HORT_HEIGHT, pMapHortIndex[iCount], MAP_FONT, &usX, &usY);
 		mprintf(usX,usY,pMapHortIndex[iCount]);
 
-		if ( fDrawCursors && (iCount == sSelMapY) && (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+		if ( fDrawCursors && (iCount == sSelMapY) && ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 			SetFontForeground( ( UINT8 ) ( fSelectedCursorIsYellow ? FONT_YELLOW : FONT_WHITE ) );
 		else if( fDrawCursors && ( iCount == gsHighlightSectorY ) )
 			SetFontForeground(FONT_WHITE);
@@ -2810,7 +2820,7 @@ BOOLEAN TraceCharAnimatedRoute( PathStPtr pPath, BOOLEAN fCheckFlag, BOOLEAN fFo
 	PathStPtr pNextNode=NULL;
 
 	// must be plotting movement
-	if ( (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+	if ( ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 	{
 		return FALSE;
 	}

@@ -2284,7 +2284,7 @@ void DrawCharBars( void )
 
 	// will draw the heath, morale and breath bars for a character being displayed in the upper left hand corner
 
-	if( ( bSelectedInfoChar == -1 )&&( bSelectedDestChar == -1 ) )
+	if ( ( bSelectedInfoChar == -1 ) && ( GetSelectedDestChar() == -1 ) )
 	{
 		// error, no character to display right now
 		return;
@@ -2298,7 +2298,7 @@ void DrawCharBars( void )
 		}
 		else
 		{
-			usSoldierID=gCharactersList[ bSelectedDestChar ].usSolID;
+			usSoldierID=gCharactersList[GetSelectedDestChar()].usSolID;
 		}
 
 		// grab soldier's id number
@@ -3325,7 +3325,7 @@ INT32 GetPathTravelTimeDuringPlotting( PathStPtr pPath )
 	UINT8 ubGroupId = 0;
 	BOOLEAN fSkipFirstNode = FALSE;
 
-	if ( (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+	if ( ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 	{
 		return( 0 );
 	}
@@ -3361,39 +3361,39 @@ INT32 GetPathTravelTimeDuringPlotting( PathStPtr pPath )
 	else
 	{
 		// plotting for a character...
-		if( Menptr[gCharactersList[bSelectedDestChar].usSolID].bAssignment == VEHICLE )
+		if( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].bAssignment == VEHICLE )
 		{
-			ubGroupId = pVehicleList[ Menptr[gCharactersList[bSelectedDestChar].usSolID].iVehicleId ].ubMovementGroup;
+			ubGroupId = pVehicleList[ Menptr[gCharactersList[GetSelectedDestChar()].usSolID].iVehicleId ].ubMovementGroup;
 			pGroup = GetGroup( ubGroupId );
 
 			if( pGroup == NULL )
 			{
-				SetUpMvtGroupForVehicle( &( Menptr[gCharactersList[bSelectedDestChar].usSolID] ) );
+				SetUpMvtGroupForVehicle( &( Menptr[gCharactersList[GetSelectedDestChar()].usSolID] ) );
 
 				// get vehicle id
-				ubGroupId = pVehicleList[ Menptr[gCharactersList[bSelectedDestChar].usSolID].iVehicleId ].ubMovementGroup;
+				ubGroupId = pVehicleList[ Menptr[gCharactersList[GetSelectedDestChar()].usSolID].iVehicleId ].ubMovementGroup;
 				pGroup = GetGroup( ubGroupId );
 				AssertNotNIL(pGroup);
 			}
 		}
-		else if( Menptr[gCharactersList[bSelectedDestChar].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE )
+		else if( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
-			ubGroupId = pVehicleList[ Menptr[gCharactersList[bSelectedDestChar].usSolID].bVehicleID ].ubMovementGroup;
+			ubGroupId = pVehicleList[ Menptr[gCharactersList[GetSelectedDestChar()].usSolID].bVehicleID ].ubMovementGroup;
 			pGroup = GetGroup( ubGroupId );
 
 			if( pGroup == NULL )
 			{
-				SetUpMvtGroupForVehicle( &( Menptr[gCharactersList[bSelectedDestChar].usSolID] ) );
+				SetUpMvtGroupForVehicle( &( Menptr[gCharactersList[GetSelectedDestChar()].usSolID] ) );
 
 				// get vehicle id
-				ubGroupId = pVehicleList[ Menptr[gCharactersList[bSelectedDestChar].usSolID].bVehicleID ].ubMovementGroup;
+				ubGroupId = pVehicleList[ Menptr[gCharactersList[GetSelectedDestChar()].usSolID].bVehicleID ].ubMovementGroup;
 				pGroup = GetGroup( ubGroupId );
 				AssertNotNIL(pGroup);
 			}
 		}
 		else
 		{
-			ubGroupId = Menptr[gCharactersList[bSelectedDestChar].usSolID].ubGroupID;
+			ubGroupId = Menptr[gCharactersList[GetSelectedDestChar()].usSolID].ubGroupID;
 			pGroup = GetGroup( ( UINT8 )( ubGroupId ) );
 			AssertNotNIL(pGroup);
 		}
@@ -3454,13 +3454,13 @@ void DisplayGroundEta( void )
 	}
 	else
 	{
-		if( bSelectedDestChar == -1 )
+		if( GetSelectedDestChar() == -1 )
 			return;
 
-		if( !gCharactersList[bSelectedDestChar].fValid )
+		if( !gCharactersList[GetSelectedDestChar()].fValid )
 			return;
 
-		iTotalTime = GetGroundTravelTimeOfCharacter( bSelectedDestChar );
+		iTotalTime = GetGroundTravelTimeOfCharacter( GetSelectedDestChar() );
 	}
 
 	// now display it
@@ -3826,7 +3826,7 @@ void LoadCharacters( void )
 	{
 		// no one to show
 		ChangeSelectedInfoChar( -1, TRUE );
-		bSelectedDestChar = -1;
+		SetSelectedDestChar( -1 );
 		bSelectedAssignChar = -1;
 		bSelectedContractChar = -1;
 		fPlotForHelicopter = FALSE;
@@ -5691,7 +5691,7 @@ UINT32 MapScreenHandle(void)
 	}
 
 	// if plotting path
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		// plot out paths
 		PlotPermanentPaths( );
@@ -6382,7 +6382,7 @@ void RenderMapCursorsIndexesAnims( )
 
 
 	// handle highlighting of selected sector ( YELLOW ) - don't show it while plotting movement
-	if ( fDrawCursors && (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+	if ( fDrawCursors && ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 	{
 		// if mouse cursor is over the currently selected sector
 		if( ( gsHighlightSectorX == sSelMapX ) && ( gsHighlightSectorY == sSelMapY ) )
@@ -6512,15 +6512,15 @@ UINT32 HandleMapUI( )
 				// plot for character
 
 				// check for valid character
-				Assert ( bSelectedDestChar != -1 );
-				if ( bSelectedDestChar == -1 )
+				Assert ( GetSelectedDestChar() != -1 );
+				if ( GetSelectedDestChar() == -1 )
 					break;
 
 				// check if last sector in character's path is same as where mouse is
-				if( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID] ) != ( sMapX + ( sMapY * MAP_WORLD_X ) ) )
+				if( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID] ) != ( sMapX + ( sMapY * MAP_WORLD_X ) ) )
 				{
-					sX = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]	) % MAP_WORLD_X );
-					sY = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]	) / MAP_WORLD_X );
+					sX = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID]	) % MAP_WORLD_X );
+					sY = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID]	) / MAP_WORLD_X );
 					GetCursorPos(&MousePos);
 					ScreenToClient(ghWindow, &MousePos); // In window coords!
 					RestoreBackgroundForMapGrid( sX, sY );
@@ -6535,10 +6535,10 @@ UINT32 HandleMapUI( )
 					// Can we get go there?	(NULL temp character path)
 					if ( GetLengthOfPath( pTempCharacterPath ) > 0 )
 					{
-						PlotPathForCharacter( &Menptr[gCharactersList[bSelectedDestChar].usSolID], sMapX, sMapY, FALSE );
+						PlotPathForCharacter( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID], sMapX, sMapY, FALSE );
 
 						// copy the path to every other selected character
-						CopyPathToAllSelectedCharacters( GetSoldierMercPathPtr( MercPtrs[ gCharactersList[ bSelectedDestChar ].usSolID ] ) );
+						CopyPathToAllSelectedCharacters( GetSoldierMercPathPtr( MercPtrs[ gCharactersList[GetSelectedDestChar()].usSolID ] ) );
 
 						StartConfirmMapMoveMode( sMapY );
 						fMapPanelDirty = TRUE;
@@ -6746,7 +6746,7 @@ UINT32 HandleMapUI( )
 				if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 				{
 					// if not moving soldiers, and not yet plotting the helicopter
-					if ( (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+					if ( ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 					{
 						// if we're on the surface level, and the click is over the helicopter icon
 						// NOTE: The helicopter icon is NOT necessarily directly over the helicopter's current sector!!!
@@ -6761,7 +6761,7 @@ UINT32 HandleMapUI( )
 				else if ( fShowMilitia )
 				{
 					// if not moving soldiers, and not yet plotting the helicopter
-					if ( (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+					if ( ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 					{
 						if ( !iCurrentMapSectorZ && NumNonPlayerTeamMembersInSector( sMapX, sMapY , MILITIA_TEAM) > 0 )
 						{
@@ -6967,7 +6967,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						DeleteItemDescriptionBox( );
 					}
 					// plotting movement?
-					else if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+					else if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 					{
 						AbortMovementPlottingMode( );
 					}
@@ -7794,7 +7794,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					#endif
 						{
 							// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if Help subscreen is coming up
-							if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+							if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 							{
 								AbortMovementPlottingMode( );
 							}
@@ -8115,11 +8115,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					if( ( fCtrl )&&( CHEATER_CHEAT_LEVEL( ) ) )
 					{
 						// check if selected dest char,
-						if ( (bSelectedDestChar != -1) && !fPlotForHelicopter && !fPlotForMilitia && (iCurrentMapSectorZ == 0) && (GetMouseMapXY( &sMapX, &sMapY )) )
+						if ( ( GetSelectedDestChar() != -1) && !fPlotForHelicopter && !fPlotForMilitia && (iCurrentMapSectorZ == 0) && (GetMouseMapXY( &sMapX, &sMapY )) )
 						{
 							INT16 sDeltaX, sDeltaY;
 							INT16 sPrevX, sPrevY;
-							SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedDestChar ].usSolID ];
+							SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[GetSelectedDestChar()].usSolID ];
 
 							// can't teleport to where we already are
 							if ( ( sMapX == pSoldier->sSectorX ) && ( sMapY == pSoldier->sSectorY ) )
@@ -8219,7 +8219,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					// if not already in sector inventory
 					if ( !fShowMapInventoryPool )
 					{
-						if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+						if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 						{
 							AbortMovementPlottingMode( );
 						}
@@ -8512,7 +8512,7 @@ INT32 iCounter2 = 0;
 
 
 	// still plotting movement?
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -8945,7 +8945,7 @@ void PollLeftButtonInMapView( UINT32 *puiNewEvent )
 
 
 				// if in "plot route" mode
-				if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+				if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 				{
 					fEndPlotting = FALSE;
 
@@ -9051,7 +9051,7 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 				}
 
 
-				if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+				if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 				{
 					// cancel/shorten the path
 					*puiNewEvent = MAP_EVENT_CANCEL_PATH;
@@ -10168,9 +10168,9 @@ void DisplayThePotentialPathForCurrentDestinationCharacterForMapScreenInterface(
 	INT32 iDifference = 0;
 
 
-	if( bOldDestChar != bSelectedDestChar )
+	if( bOldDestChar != GetSelectedDestChar() )
 	{
-		bOldDestChar = bSelectedDestChar;
+		bOldDestChar = GetSelectedDestChar();
 	giPotCharPathBaseTime = GetJA2Clock( );
 
 		sPrevMapX = sMapX;
@@ -10197,12 +10197,12 @@ void DisplayThePotentialPathForCurrentDestinationCharacterForMapScreenInterface(
 		fDrawTempPath = FALSE;
 	}
 
-	iDifference = GetJA2Clock( ) - giPotCharPathBaseTime ;
-
-	if( fTempPathAlreadyDrawn == TRUE )
+	if ( fTempPathAlreadyDrawn == TRUE )
 	{
 		return;
 	}
+	
+	iDifference = GetJA2Clock( ) - giPotCharPathBaseTime;
 
 	if( iDifference > MIN_WAIT_TIME_FOR_TEMP_PATH )
 	{
@@ -10210,8 +10210,6 @@ void DisplayThePotentialPathForCurrentDestinationCharacterForMapScreenInterface(
 		giPotCharPathBaseTime = GetJA2Clock( );
 		fTempPathAlreadyDrawn = TRUE;
 	}
-
-	return;
 }
 
 
@@ -10233,7 +10231,7 @@ void SetUpCursorForStrategicMap( void )
 		}
 		else
 		{
-			if( bSelectedDestChar == -1 )
+			if( GetSelectedDestChar() == -1 )
 			{
 				// no plot mode, reset cursor to normal
 				ChangeMapScreenMaskCursor( CURSOR_NORMAL );
@@ -10241,7 +10239,7 @@ void SetUpCursorForStrategicMap( void )
 			else	// yes - by character
 			{
 				// set cursor based on foot or vehicle
-				if( ( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].bAssignment != VEHICLE ) && !( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+				if( ( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].bAssignment != VEHICLE ) && !( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 				{
 					ChangeMapScreenMaskCursor( CURSOR_STRATEGIC_FOOT );
 				}
@@ -10275,7 +10273,7 @@ void HandleAnimatedCursorsForMapScreen( )
 void AbortMovementPlottingMode( void )
 {
 	// invalid if we're not plotting movement
-	Assert( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia );
+	Assert( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia );
 
 	// make everybody go back to where they were going before this plotting session started
 	RestorePreviousPaths();
@@ -10312,7 +10310,7 @@ void AbortMovementPlottingMode( void )
 	giDestHighLine = -1;
 
 	// cancel movement mode
-	bSelectedDestChar = -1;
+	SetSelectedDestChar( -1 );
 	fPlotForHelicopter = FALSE;
 	
 	if ( fPlotForMilitia )
@@ -10359,7 +10357,7 @@ void CheckToSeeIfMouseHasLeftMapRegionDuringPathPlotting(	)
 			fInArea = FALSE;
 
 			// plotting path, clean up
-			if ( ((bSelectedDestChar != -1) || fPlotForHelicopter || fDrawTempHeliPath || fPlotForMilitia || fDrawTempMilitiaPath ) && fTempPathAlreadyDrawn )
+			if ( (( GetSelectedDestChar() != -1) || fPlotForHelicopter || fDrawTempHeliPath || fPlotForMilitia || fDrawTempMilitiaPath ) && fTempPathAlreadyDrawn )
 			{
 				fDrawTempHeliPath = FALSE;
 				fDrawTempMilitiaPath = FALSE;
@@ -10766,7 +10764,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 			// reset character
 			bSelectedAssignChar = -1;
-			bSelectedDestChar = -1;
+			SetSelectedDestChar( -1 );
 			bSelectedContractChar = -1;
 			fPlotForHelicopter = FALSE;
 			fPlotForMilitia = FALSE;
@@ -10819,7 +10817,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 			// reset character
 			bSelectedAssignChar = -1;
-			bSelectedDestChar = -1;
+			SetSelectedDestChar( -1 );
 			bSelectedContractChar = -1;
 			fPlotForHelicopter = FALSE;
 			fPlotForMilitia = FALSE;
@@ -10927,7 +10925,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			RebuildAssignmentsBox( );
 
 			// reset dest character
-			bSelectedDestChar = -1;
+			SetSelectedDestChar( -1 );
 			fPlotForHelicopter = FALSE;
 			fPlotForMilitia = FALSE;
 
@@ -11000,7 +10998,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 			// reset character
 			bSelectedAssignChar = -1;
-			bSelectedDestChar = -1;
+			SetSelectedDestChar( -1 );
 			bSelectedContractChar = -1;
 			fPlotForHelicopter = FALSE;
 			fPlotForMilitia = FALSE;
@@ -11179,7 +11177,7 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 
 
 				// select this character as the one plotting strategic movement
-				bSelectedDestChar = ( INT8 )iValue + FIRSTmercTOdisplay;
+				SetSelectedDestChar( (INT8)iValue + FIRSTmercTOdisplay );
 
 				// remember the current paths for all selected characters so we can restore them if need be
 				RememberPreviousPathForAllSelectedChars();
@@ -11271,9 +11269,9 @@ void TeamListDestinationRegionMvtCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	{
 		giHighLine = -1;
 
-		if( bSelectedDestChar == -1 )
+		if( GetSelectedDestChar() == -1 )
 		{
-		giDestHighLine = -1;
+			giDestHighLine = -1;
 		}
 
 		// restore background
@@ -11458,7 +11456,7 @@ void TeamListContractRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			// reset character
 			giDestHighLine = -1;
 			bSelectedAssignChar = -1;
-			bSelectedDestChar = -1;
+			SetSelectedDestChar( -1 );
 			bSelectedContractChar = -1;
 			fPlotForHelicopter = FALSE;
 			fPlotForMilitia = FALSE;
@@ -11620,9 +11618,9 @@ void PlotPermanentPaths( void )
 	{
 		DisplayMilitiaPath();
 	}
-	else if( bSelectedDestChar != -1 )
+	else if( GetSelectedDestChar() != -1 )
 	{
-		DisplaySoldierPath( &Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ] );
+		DisplaySoldierPath( &Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ] );
 	}
 }
 
@@ -11675,9 +11673,9 @@ void PlotTemporaryPaths( void )
 			}
 		}
 		// dest char has been selected,
-		else if( bSelectedDestChar != -1 )
+		else if( GetSelectedDestChar() != -1 )
 		{
-			PlotATemporaryPathForCharacter( &Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ], sMapX, sMapY );
+			PlotATemporaryPathForCharacter( &Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ], sMapX, sMapY );
 
 			// check to see if we are drawing path
 			DisplayThePotentialPathForCurrentDestinationCharacterForMapScreenInterface( sMapX, sMapY );
@@ -11688,7 +11686,7 @@ void PlotTemporaryPaths( void )
 				// clip region
 				ClipBlitsToMapViewRegion( );
 				// blit
-				DisplaySoldierTempPath( &Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ] );
+				DisplaySoldierTempPath( &Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ] );
 				// restore
 				RestoreClipRegionToFullScreen( );
 			}
@@ -11917,7 +11915,7 @@ void CheckIfPlottingForCharacterWhileAirCraft( void )
 
 	if ( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS )
 	{
-		if ( (bSelectedDestChar != -1 || fPlotForMilitia) && !fPlotForHelicopter )
+		if ( ( GetSelectedDestChar() != -1 || fPlotForMilitia) && !fPlotForHelicopter )
 			fAbort = TRUE;
 	}
 	else
@@ -11928,7 +11926,7 @@ void CheckIfPlottingForCharacterWhileAirCraft( void )
 
 	if ( fShowMilitia )
 	{
-		if ( (bSelectedDestChar != -1 || fPlotForHelicopter) && !fPlotForMilitia )
+		if ( ( GetSelectedDestChar() != -1 || fPlotForHelicopter) && !fPlotForMilitia )
 			fAbort = TRUE;
 	}
 	else
@@ -12357,7 +12355,7 @@ void ResetAllSelectedCharacterModes( void )
 	giContractHighLine = -1;
 	
 	// if we were plotting movement
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode();
 	}
@@ -12542,34 +12540,34 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 	else	// not doing helicopter movement
 	{
 		// if not doing a soldier either, we shouldn't be here!
-		if( bSelectedDestChar == -1 )
+		if( GetSelectedDestChar() == -1 )
 		{
 			return( FALSE );
 		}
 
 		// invalid soldier?	we shouldn't be here!
-		if( gCharactersList[ bSelectedDestChar ].fValid == FALSE )
+		if( gCharactersList[GetSelectedDestChar()].fValid == FALSE )
 		{
-			bSelectedDestChar = -1;
+			SetSelectedDestChar( -1 );
 			return( FALSE );
 		}
 
-		if( sX + ( sY * MAP_WORLD_X ) == GetLastSectorIdInCharactersPath( ( &Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ] ) ) )
+		if( sX + ( sY * MAP_WORLD_X ) == GetLastSectorIdInCharactersPath( ( &Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ] ) ) )
 		{
 			// clicked on last sector, reset plotting mode
 
 			// if he's IN a vehicle or IS a vehicle
-			if( ( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].bAssignment == VEHICLE ) || ( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+			if( ( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].bAssignment == VEHICLE ) || ( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 			{
-				if( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].bAssignment == VEHICLE )
+				if( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].bAssignment == VEHICLE )
 				{
 					// IN a vehicle
-					iVehicleId = Menptr[gCharactersList[ bSelectedDestChar ].usSolID].iVehicleId;
+					iVehicleId = Menptr[gCharactersList[GetSelectedDestChar()].usSolID].iVehicleId;
 				}
 				else
 				{
 					// IS a vehicle
-					iVehicleId = Menptr[gCharactersList[ bSelectedDestChar ].usSolID].bVehicleID;
+					iVehicleId = Menptr[gCharactersList[GetSelectedDestChar()].usSolID].bVehicleID;
 				}
 
 				// rebuild waypoints - vehicles
@@ -12578,13 +12576,13 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 			else
 			{
 				// rebuild waypoints - mercs on foot
-				ppMovePath = &( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].pMercPath );
+				ppMovePath = &( Menptr[gCharactersList[GetSelectedDestChar()].usSolID].pMercPath );
 			}
 
 			RebuildWayPointsForAllSelectedCharsGroups( );
 
 			// pointer to previous character path
-			pPreviousMercPath = gpCharacterPreviousMercPath[ bSelectedDestChar ];
+			pPreviousMercPath = gpCharacterPreviousMercPath[GetSelectedDestChar()];
 
 			fLastSectorInPath = TRUE;
 		}
@@ -12690,7 +12688,7 @@ void UpdateCursorIfInLastSector( void )
 	INT16 sMapX = 0, sMapY = 0;
 
 	// check to see if we are plotting a path, if so, see if we are highlighting the last sector int he path, if so, change the cursor
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		GetMouseMapXY(&sMapX, &sMapY);
 
@@ -12740,10 +12738,10 @@ void UpdateCursorIfInLastSector( void )
 		}
 		else
 		{
-			if ( bSelectedDestChar != -1 )
+			if ( GetSelectedDestChar() != -1 )
 			{
 				//c heck if we are in the last sector of the characters path?
-				if ( sMapX + (sMapY * MAP_WORLD_X) == GetLastSectorIdInCharactersPath( (&Menptr[gCharactersList[bSelectedDestChar].usSolID]) ) )
+				if ( sMapX + (sMapY * MAP_WORLD_X) == GetLastSectorIdInCharactersPath( (&Menptr[gCharactersList[GetSelectedDestChar()].usSolID]) ) )
 				{
 					// set cursor to checkmark
 					ChangeMapScreenMaskCursor( CURSOR_CHECKMARK );
@@ -12874,7 +12872,7 @@ void HandleChangeOfHighLightedLine( void )
 			giSleepHighLine = -1;
 
 			// don't do during plotting, allowing selected character to remain highlighted and their destination column to glow!
-			if ( (bSelectedDestChar == -1) && !fPlotForHelicopter && !fPlotForMilitia )
+			if ( ( GetSelectedDestChar() == -1) && !fPlotForHelicopter && !fPlotForMilitia )
 			{
 				giDestHighLine = -1;
 			}
@@ -14539,7 +14537,7 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 		return;
 
 	// disallow going underground while plotting (surface) movement
-	if ( ( bMapZ != 0 ) && ( ( bSelectedDestChar != -1 ) || fPlotForHelicopter ) )
+	if ( ( bMapZ != 0 ) && ( ( GetSelectedDestChar() != -1 ) || fPlotForHelicopter ) )
 		return;
 
 	// make sure we don' try to display bad levels
@@ -14756,11 +14754,11 @@ void CancelOrShortenPlottedPath( void )
 	else
 	{
 		// check for character path being plotted
-		if( bSelectedDestChar == -1 )
+		if( GetSelectedDestChar() == -1 )
 			return;
 
 		// try to delete portion of path AFTER the current sector for the helicopter
-		uiReturnValue = ClearPathAfterThisSectorForCharacter( &Menptr[gCharactersList[bSelectedDestChar].usSolID], sMapX, sMapY );
+		uiReturnValue = ClearPathAfterThisSectorForCharacter( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID], sMapX, sMapY );
 	}
 
 	switch ( uiReturnValue )
@@ -15576,7 +15574,7 @@ void DestinationPlottingCompleted( void )
 	ClearPreviousPaths();
 
 	fPlotForHelicopter = FALSE;	
-	bSelectedDestChar = - 1;
+	SetSelectedDestChar( -1 );
 	giDestHighLine = -1;
 	
 	// Flugente: add militia from the starting sector to the group
@@ -15723,7 +15721,7 @@ void StartChangeSectorArrivalMode( void )
 BOOLEAN CanMoveBullseyeAndClickedOnIt( INT16 sMapX, INT16 sMapY )
 {
 	// if in airspace mode, and not plotting paths
-	if ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) && (bSelectedDestChar == -1) && (fPlotForHelicopter == FALSE) )
+	if ( (gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) && ( GetSelectedDestChar() == -1) && (fPlotForHelicopter == FALSE) )
 	{
 		if (is_networked)
 		{
@@ -16102,7 +16100,7 @@ void RestorePreviousPaths( void )
 	BOOLEAN fPathChanged = FALSE;
 
 	// invalid if we're not plotting movement
-	Assert( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia );
+	Assert( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia );
 
 	if ( fPlotForHelicopter )
 	{
@@ -16368,7 +16366,7 @@ void RequestToggleMercInventoryPanel( void )
 		return;
 	}
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -16421,7 +16419,7 @@ void RequestContractMenu( void )
 		return;
 	}
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -16484,7 +16482,7 @@ void ChangeCharacterListSortMethod( INT32 iValue )
 		return;
 	}
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}

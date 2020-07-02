@@ -1017,7 +1017,7 @@ INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 
 	// if the highlighted line character is also selected
 	if ( ( ( giDestHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giDestHighLine + FIRSTmercTOdisplay ) ) ||
-			( ( bSelectedDestChar != -1 ) && IsEntryInSelectedListSet ( bSelectedDestChar ) ) )
+			( ( GetSelectedDestChar() != -1 ) && IsEntryInSelectedListSet ( GetSelectedDestChar() ) ) )
 	{
 		// then ALL selected lines will be affected
 		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber + FIRSTmercTOdisplay ) )
@@ -1028,7 +1028,7 @@ INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 	else
 	{
 		// if he is *the* selected dude
-		if( bSelectedDestChar == sCharNumber + FIRSTmercTOdisplay )
+		if( GetSelectedDestChar() == sCharNumber + FIRSTmercTOdisplay )
 		{
 			return ( TRUE );
 		}
@@ -1263,7 +1263,7 @@ void JumpToLevel( INT32 iLevel )
 		return;
 
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -1393,7 +1393,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 		if( gCharactersList[ ubCount + FIRSTmercTOdisplay ].fValid == TRUE )
 		{
 			// are they in the selected list or int he same mvt group as this guy
-			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( bSelectedDestChar != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
+			if( ( IsEntryInSelectedListSet( ubCount + FIRSTmercTOdisplay ) == TRUE ) || ( ( GetSelectedDestChar() != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount + FIRSTmercTOdisplay ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
 			{
 				sYPosition = Y_START+( ubCount * ( Y_SIZE + 2) ) - 1;
 
@@ -2564,7 +2564,7 @@ void GoToNextCharacterInList( void )
 		return;
 	}
 
-	if( ( bSelectedDestChar != -1 ) || fPlotForHelicopter || fPlotForMilitia )
+	if( ( GetSelectedDestChar() != -1 ) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -2608,7 +2608,7 @@ void GoToFirstCharacterInList( void )
 		return;
 	}
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -2634,7 +2634,7 @@ void GoToLastCharacterInList( void )
 		return;
 	}
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
@@ -2652,31 +2652,25 @@ void GoToLastCharacterInList( void )
 
 void GoToPrevCharacterInList( void )
 {
-	INT32 iCounter = 0, iCount = 0;
-
-
 	if( fShowDescriptionFlag == TRUE )
 	{
 		return;
 	}
 
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}
 
 	// is the current guy invalid or the first one?
+	INT32 iCount = bSelectedInfoChar - 1;
 	if( ( bSelectedInfoChar == -1 ) || ( bSelectedInfoChar == 0 ) )
 	{
 		iCount = giMAXIMUM_NUMBER_OF_PLAYER_SLOTS;
 	}
-	else
-	{
-		iCount = bSelectedInfoChar - 1;
-	}
 
 	// now run through the list and find first prev guy
-	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
+	for( INT32 iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
 		if ( ( gCharactersList[ iCount ].fValid ) && ( iCount < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) && ValidSelectableCharForNextOrPrev( iCount ) )
 		{
@@ -2790,14 +2784,11 @@ void ShutDownUserDefineHelpTextRegions( void )
 // user is to pass in the x,y position of the box, the width to wrap the strings and the string itself
 BOOLEAN SetUpFastHelpListRegions( INT32 iXPosition[], INT32 iYPosition[], INT32 iWidth[], STR16 sString[], INT32 iSize )
 {
-	INT32 iCounter = 0;
-
 	// reset the size
 	giSizeOfInterfaceFastHelpTextList = 0;
 
-	for( iCounter = 0; iCounter < iSize; iCounter++ )
+	for( INT32 iCounter = 0; iCounter < iSize; ++iCounter )
 	{
-
 		// forgiving way of making sure we don't go too far
 		CHECKF( iCounter < MAX_MAPSCREEN_FAST_HELP );
 
@@ -4561,7 +4552,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 	BOOLEAN fSelected;
 
 	// reset the selected character
-	bSelectedDestChar = -1;
+	SetSelectedDestChar( -1 );
 
 	// run through the list of grunts
 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; iCounter++ )
@@ -4589,7 +4580,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 					// yes, then set them as the destination plotting character for movement arrow purposes
 					fFirstOne = FALSE;
 
-					bSelectedDestChar = ( INT8 )iCounter;
+					SetSelectedDestChar(( INT8 )iCounter );
 					// make DEST column glow
 					giDestHighLine = iCounter;
 
@@ -4602,7 +4593,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 		}
 	}
 
-	if( bSelectedDestChar != -1 )
+	if( GetSelectedDestChar() != -1 )
 	{
 		// set cursor
 		SetUpCursorForStrategicMap( );
@@ -4610,7 +4601,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 		fMapPanelDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
 
-		DeselectSelectedListMercsWhoCantMoveWithThisGuy( &( Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ] ) );
+		DeselectSelectedListMercsWhoCantMoveWithThisGuy( &( Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ] ) );
 
 		// remember the current paths for all selected characters so we can restore them if need be
 		RememberPreviousPathForAllSelectedChars();

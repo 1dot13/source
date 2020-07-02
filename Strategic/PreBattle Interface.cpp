@@ -298,7 +298,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	gAmbushRadiusModifier = 0.0f;
 
 	// ARM: Feb01/98 - Cancel out of mapscreen movement plotting if PBI subscreen is coming up
-	if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+	if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 	{
 		AbortMovementPlottingMode( );
 	}

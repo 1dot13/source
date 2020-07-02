@@ -10751,7 +10751,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	{
 		if( fShowMapScreenMovementList == TRUE )
 		{
-			if( bSelectedDestChar == -1 )
+			if( GetSelectedDestChar() == -1 )
 			{
 				fCharacterNoLongerValid = TRUE;
 				HandleShowingOfMovementBox( );

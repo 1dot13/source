@@ -990,7 +990,7 @@ void TurnOnAirSpaceMode( void )
 			MapBorderButtonOff( MAP_BORDER_ITEM_BTN );
 		}
 
-		if ( bSelectedDestChar != -1 )
+		if ( GetSelectedDestChar() != -1 )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1053,7 +1053,7 @@ void TurnOnItemFilterMode( void )
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
 		
-		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+		if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1113,7 +1113,7 @@ void TurnOnDiseaseFilterMode( void )
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
 		
-		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+		if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1179,7 +1179,7 @@ void TurnOnWeatherFilterMode()
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
 
-		if ( (bSelectedDestChar != -1) || fPlotForHelicopter || fPlotForMilitia )
+		if ( ( GetSelectedDestChar() != -1) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode( );
 		}
@@ -1247,7 +1247,7 @@ void TurnOnIntelFilterMode()
 			MapBorderButtonOff( MAP_BORDER_MILITIA_BTN );
 		}
 
-		if ( ( bSelectedDestChar != -1 ) || fPlotForHelicopter || fPlotForMilitia )
+		if ( ( GetSelectedDestChar() != -1 ) || fPlotForHelicopter || fPlotForMilitia )
 		{
 			AbortMovementPlottingMode();
 		}

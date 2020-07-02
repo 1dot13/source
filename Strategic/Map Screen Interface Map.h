@@ -383,7 +383,10 @@ extern BOOLEAN fDrawTempHeliPath;
 extern BOOLEAN fDrawTempMilitiaPath;
 
 // selected destination char
-extern INT8 bSelectedDestChar;
+INT8 GetSelectedDestChar();
+void SetSelectedDestChar( INT8 aVal );
+
+extern bool gSquadEncumbranceCheckNecessary;
 
 // current assignment character
 extern INT8 bSelectedAssignChar;
