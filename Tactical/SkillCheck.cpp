@@ -52,8 +52,11 @@ INT16 EffectiveStrength( SOLDIERTYPE *pSoldier, BOOLEAN fTrainer )
 
 	// Flugente: diseases can affect stat effectivity
 	INT16 diseaseeffect = 0;
-	for ( int i = 0; i < NUM_DISEASES; ++i )
-		diseaseeffect += Disease[i].sEffStat[INFST_STR] * pSoldier->GetDiseaseMagnitude( i );
+	if ( gGameExternalOptions.fDisease )
+	{
+		for ( int i = 0; i < NUM_DISEASES; ++i )
+			diseaseeffect += Disease[i].sEffStat[INFST_STR] * pSoldier->GetDiseaseMagnitude( i );
+	}
 
 	iEffStrength = (iEffStrength * (100 + diseaseeffect + pSoldier->GetBackgroundValue( BG_STRENGTH ))) / 100;
 

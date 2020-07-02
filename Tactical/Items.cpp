@@ -2972,7 +2972,7 @@ UINT16 CalculateAmmoWeight( UINT16 usGunAmmoItem, UINT16 ubShotsLeft )
 		uiMinWeight = 1;
 	}
 
-	double weight = 0.0;
+	double weight = 0.5; //Pulmu:To round correctly
 
 	if(ubShotsLeft > 0)
 	{
@@ -2985,7 +2985,7 @@ UINT16 CalculateAmmoWeight( UINT16 usGunAmmoItem, UINT16 ubShotsLeft )
 			weight += (double)uiMinWeight + (( (double)ubShotsLeft / (double)Magazine[ Item[usGunAmmoItem].ubClassIndex ].ubMagSize) * ( (double)Item[usGunAmmoItem].ubWeight - (double)uiMinWeight ));
 		}
 	}
-	weight += 0.5; //Pulmu:To round correctly
+
 	return (UINT16)weight;
 	//Pulmu end
 }
@@ -3010,11 +3010,10 @@ UINT16 CalculateObjectWeight( OBJECTTYPE *pObject )
 				weight += CalculateAmmoWeight(pObject->usItem, (*pObject)[cnt]->data.ubShotsLeft);
 			}
 		}
-		else {
-			// Start with base weight
-			weight = pItem->ubWeight;
-			//multiply by the number of objects, can be 0
-			weight *= pObject->ubNumberOfObjects;
+		else
+		{
+			// Start with base weight, multiply by the number of objects, can be 0
+			weight = pItem->ubWeight * pObject->ubNumberOfObjects;
 		}
 	}
 	else {
@@ -3040,7 +3039,7 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 	UINT16 weight = pItem->ubWeight;
 	
 	// Are we looking at an LBENODE item?  New inventory only.
-	if ( pItem->usItemClass == IC_LBEGEAR && IsActiveLBE( index ) && ( UsingNewInventorySystem() == true ) )
+	if ( UsingNewInventorySystem() && IsActiveLBE( index ) )
 	{
 		LBENODE* pLBE = GetLBEPointer( index );
 		if ( pLBE )
@@ -3081,8 +3080,7 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 				weight += Item[ (*this)[index]->data.gun.usGunAmmoItem ].ubWeight;
 			}
 		}
-
-		if ( gGameExternalOptions.fAmmoDynamicWeight && ( pItem->camouflagekit || pItem->canteen || pItem->drugtype || pItem->foodtype || usItem == JAR_ELIXIR ) )
+		else if ( gGameExternalOptions.fAmmoDynamicWeight && ( pItem->camouflagekit || pItem->canteen || pItem->drugtype || pItem->foodtype || usItem == JAR_ELIXIR ) )
 		{
 			weight *= (FLOAT)( ( *this )[index] )->data.objectStatus / 100.0f;
 		}
@@ -3150,8 +3148,11 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier, BOOLEAN fConsiderDragging
 
 	// Flugente: diseases can affect stat effectivity
 	INT16 diseaseeffect = 0;
-	for ( int i = 0; i < NUM_DISEASES; ++i )
-		diseaseeffect += Disease[i].sEffCarryStrength * pSoldier->GetDiseaseMagnitude( i );
+	if ( gGameExternalOptions.fDisease )
+	{
+		for ( int i = 0; i < NUM_DISEASES; ++i )
+			diseaseeffect += Disease[i].sEffCarryStrength * pSoldier->GetDiseaseMagnitude( i );
+	}
 
 	ubStrengthForCarrying = (ubStrengthForCarrying * (100 + diseaseeffect + pSoldier->GetBackgroundValue( BG_PERC_CARRYSTRENGTH )) / 100);
 

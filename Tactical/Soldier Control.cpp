@@ -11283,7 +11283,7 @@ BOOLEAN SOLDIERTYPE::InternalDoMercBattleSound( UINT8 ubBattleSoundID, INT8 bSpe
 			}
 		}
 
-		UINT16 soundtoplay = 1 + Random( numBattleSounds_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID] );
+		UINT32 soundtoplay = 1 + Random( numBattleSounds_Npc[entrynum][pSoldier->ubBattleSoundID][ubSoundID] );
 
 		sprintf( zFilename, "BATTLESNDS\\%s%d_%s%d", gBattleSndsNpcHelperData[entrynum].zName, pSoldier->ubBattleSoundID, gBattleSndsData[ubSoundID].zName, soundtoplay );
 
