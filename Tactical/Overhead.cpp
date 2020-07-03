@@ -3811,9 +3811,16 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
                 // Doreen's dead
                 if ( CheckFact( FACT_DOREEN_HAD_CHANGE_OF_HEART, 0 ) )
                 {
+					// Flugente: if we want to remove the previous bonus, we have to take the town sentiment into account, which is accounted differently when decrementing or incrementing
+					UINT32 loyaltychange = LOYALTY_BONUS_CHILDREN_FREED_DOREEN_SPARED;
+					loyaltychange *= ( 5 * gubTownRebelSentiment[DRASSEN] ) * ( 5 * gubTownRebelSentiment[DRASSEN] );
+					loyaltychange /= 100 * 100;
+
                     // tsk tsk, player killed her after getting her to reconsider, lose the bonus for sparing her
-                    DecrementTownLoyalty( DRASSEN, LOYALTY_BONUS_CHILDREN_FREED_DOREEN_SPARED );
-                }   // then get the points for freeing the kids though killing her
+                    DecrementTownLoyalty( DRASSEN, loyaltychange );
+                }
+				
+				// then get the points for freeing the kids though killing her
                 IncrementTownLoyalty( DRASSEN, LOYALTY_BONUS_CHILDREN_FREED_DOREEN_KILLED );
                 // set the fact true so we have a universal check for whether the kids can go
                 SetFactTrue( FACT_DOREEN_HAD_CHANGE_OF_HEART );
