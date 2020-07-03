@@ -3478,7 +3478,8 @@ INT32 GetSectorMvtTimeForGroup( UINT8 ubSector, UINT8 ubDirection, GROUP *pGroup
 			curr = pGroup->pPlayerList;
 
 			// Flugente: this function gets called a lot during pathing, so much that it can lead to lag. As weight remains the same while plotting a path, only do this if something has changed
-			if ( gSquadEncumbranceCheckNecessary )
+			// always perform this check if called outside of the path plot function
+			if ( GetSelectedDestChar() == -1 || gSquadEncumbranceCheckNecessary )
 			{
 				// reset values
 				iHighestEncumbrance = 0;
