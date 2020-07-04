@@ -7434,7 +7434,9 @@ void MoveBullet( INT32 iBullet )
 							// Flugente: a riot shield would cover the entire front of a tile. We thus cannot check whether the person would be hit, as the bullet might miss a soldier
 							// Instead, we check whether the structure is indeed a person, whether that person has a riot shield equipped, and whether that shield faces the bullet before it would hit the soldier
 							// the same bullet cannot hit a shield multiple times
-							if ( lastriotshieldholder != pStructure->usStructureID && pStructure->fFlags & STRUCTURE_PERSON )
+							if ( lastriotshieldholder != pStructure->usStructureID
+								&& pStructure->fFlags & STRUCTURE_PERSON
+								&& pStructure->usStructureID < TOTAL_SOLDIERS )
 							{
 								SOLDIERTYPE* pTarget = MercPtrs[pStructure->usStructureID];
 
@@ -7651,7 +7653,9 @@ void MoveBullet( INT32 iBullet )
 
 							// Flugente: a riot shield would cover the entire front of a tile. We thus cannot check whether the person would be hit, as the bullet might miss a soldier
 							// Instead, we check whether the structure is indeed a person, whether that person has a riot shield equipped, and whether that shield faces the bullet before it would hit the soldier
-							if ( lastriotshieldholder != pStructure->usStructureID && pStructure->fFlags & STRUCTURE_PERSON )
+							if ( lastriotshieldholder != pStructure->usStructureID
+								&& pStructure->fFlags & STRUCTURE_PERSON
+								&& pStructure->usStructureID < TOTAL_SOLDIERS )
 							{
 								SOLDIERTYPE* pTarget = MercPtrs[pStructure->usStructureID];
 
