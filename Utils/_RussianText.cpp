@@ -11152,7 +11152,7 @@ STR16 szIMPGearWebSiteText[] =
 
 	// IMP Gear Entrance
 	L"I.M.P. Экипировка",
-	L"Цена снаряжения: %d$",
+	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
 };
 
 STR16 szIMPGearDropDownText[] =

@@ -10980,7 +10980,7 @@ STR16 szIMPGearWebSiteText[] =	// TODO.Translate
 
 	// IMP Gear Entrance
 	L"I.M.P. Equipment",
-	L"Equipment cost: %d$",
+	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
 };
 
 STR16 szIMPGearDropDownText[] =

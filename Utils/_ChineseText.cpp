@@ -11152,7 +11152,7 @@ STR16 szIMPGearWebSiteText[] =
 
 	// IMP Gear Entrance
 	L"I.M.P 装备",  //	L"I.M.P. Equipment", 
-	L"装备价格: %d美金",  //L"Equipment cost: %d$", 
+	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
 };
 
 STR16 szIMPGearDropDownText[] =

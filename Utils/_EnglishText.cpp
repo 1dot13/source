@@ -11166,7 +11166,7 @@ STR16 szIMPGearWebSiteText[] =
 
 	// IMP Gear Entrance
 	L"I.M.P. Equipment",
-	L"Equipment cost: %d$",
+	L"Additional Cost: %d$ (%d$ prepaid)",
 };
 
 STR16 szIMPGearDropDownText[] =

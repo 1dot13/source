@@ -494,9 +494,12 @@ void IMPGearDisplay( )
 		}
 	}
 	
-	CHAR16 wTemp[50];
-	swprintf( wTemp, szIMPGearWebSiteText[6], GetIMPGearCost( ) );
-	DrawTextToScreen( wTemp, LAPTOP_SCREEN_UL_X + 180, LAPTOP_SCREEN_WEB_UL_Y + 360, LAPTOP_TEXT_WIDTH, FONT14ARIAL, IMP_GEAR__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	if ( gIMPGearCost > gGameExternalOptions.iIMPProfileCost )
+	{
+		CHAR16 wTemp[50];
+		swprintf( wTemp, szIMPGearWebSiteText[6], GetIMPGearCost(), gGameExternalOptions.iIMPProfileCost );
+		DrawTextToScreen( wTemp, LAPTOP_SCREEN_UL_X + 100, LAPTOP_SCREEN_WEB_UL_Y + 360, LAPTOP_TEXT_WIDTH, FONT12ARIAL, IMP_GEAR__COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	}
 }
 
 void DisplayGear( UINT16 usItem, UINT16 usPosX, UINT16 usPosY, BOOLEAN fWithBackGround, UINT8 aNumber, BOOLEAN fDisplayNumber )
