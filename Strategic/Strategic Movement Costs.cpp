@@ -694,11 +694,11 @@ UINT8 GetTraversability( INT16 sStartSector, INT16 sEndSector )
 	return( SectorInfo[ sStartSector ].ubTraversability[ ubDirection ] );
 }
 
-BOOLEAN SectorIsImpassable( INT16 sSector )
+BOOLEAN SectorIsImpassable( INT16 sSector, UINT8 aDirection )
 {
-	// returns true if the sector is impassable in all directions
-	return( SectorInfo[ sSector ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == GROUNDBARRIER ||
-		SectorInfo[ sSector ].ubTraversability[ THROUGH_STRATEGIC_MOVE ] == EDGEOFWORLD );
+	// returns true if the sector is impassable in direction
+	return( SectorInfo[ sSector ].ubTraversability[aDirection] == GROUNDBARRIER ||
+		SectorInfo[ sSector ].ubTraversability[aDirection] == EDGEOFWORLD );
 }
 
 UINT8 gubEncryptionArray3[ BASE_NUMBER_OF_ROTATION_ARRAYS * 3 ][ NEW_ROTATION_ARRAY_SIZE ] =

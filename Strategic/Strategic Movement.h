@@ -319,7 +319,7 @@ void RandomizePatrolGroupLocation( GROUP *pGroup );
 
 BOOLEAN InitStrategicMovementCosts();
 
-BOOLEAN SectorIsImpassable( INT16 sSector );
+BOOLEAN SectorIsImpassable( INT16 sSector, UINT8 aDirection = THROUGH_STRATEGIC_MOVE );
 
 void PlaceGroupInSector( UINT8 ubGroupID, INT16 sPrevX, INT16 sPrevY, INT16 sNextX, INT16 sNextY, INT8 bZ, BOOLEAN fCheckForBattle );
 

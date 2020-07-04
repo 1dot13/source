@@ -632,8 +632,6 @@ BOOLEAN ValidTrainingPartnerInSameSectorOnAssignmentFound( SOLDIERTYPE *pSoldier
 
 extern void AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( SOLDIERTYPE *pSoldier );
 
-extern BOOLEAN SectorIsImpassable( INT16 sSector );
-
 extern BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
 
 // only 2 trainers are allowed per sector, so this function counts the # in a guy's sector

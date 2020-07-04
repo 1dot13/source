@@ -2285,7 +2285,7 @@ void RetreatAllInvolvedMilitiaGroups()
 	// if we haven't found a good direction yet, we have to pick the best adjacent sector we can find
 	if ( !found )
 	{
-		INT32 besttime = 1000000;
+		INT32 besttime = 0xffffffff;
 		UINT8 usDirection = NORTH_STRATEGIC_MOVE;
 		for ( UINT8 i = 0; i < 4; ++i )
 		{
@@ -2314,6 +2314,9 @@ void RetreatAllInvolvedMilitiaGroups()
 			}
 
 			if ( loopX < 1 || loopX >= MAP_WORLD_X - 1 || loopY < 1 || loopY >= MAP_WORLD_Y - 1 )
+				continue;
+
+			if ( SectorIsImpassable( SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ), usDirection ) )
 				continue;
 
 			// don't retreat into an occupied sector!
