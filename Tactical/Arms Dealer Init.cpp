@@ -2177,9 +2177,6 @@ UINT32 CalculateSimpleItemRepairCost( UINT8 ubArmsDealer, UINT16 usItemIndex, IN
 
 BOOLEAN DoesItemAppearInDealerInventoryList( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN fPurchaseFromPlayer )
 {
-	// Flugente: a dealer's inventory is defined in lua if they deal in intel	
-	HandlePossibleArmsDealerIntelRefresh(FALSE);
-
 	// the others will buy only things that appear in their own "for sale" inventory lists
 	DEALER_POSSIBLE_INV* pDealerInv = GetPointerToDealersPossibleInventory( ubArmsDealer );
 	Assert( pDealerInv != NULL );
