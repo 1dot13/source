@@ -319,8 +319,10 @@ MilitiaPersonalDataTable::Display( )
 		// if we can still fire this guy, set up the button
 		if ( !(militia.flagmask & (MILITIAFLAG_DEAD | MILITIAFLAG_FIRED | MILITIAFLAG_DESERTION )) )
 		{
-			// we can't fire someone if they are in combat
-			if ( SectorOursAndPeaceful( SECTORX( militia.sector ), SECTORY( militia.sector ), 0 ) )
+			// we can only fire someone in sectors we control that are not in combat
+			// if we've managed to misplace a militia into an impassable sector (HOW???), we can at least fire them, too
+			if ( SectorOursAndPeaceful( SECTORX( militia.sector ), SECTORY( militia.sector ), 0 )
+				|| SectorIsImpassable( militia.sector ) )
 			{
 				mButtonFire = CreateTextButton( szIdividualMilitiaWebsiteText[8], FONT12ARIAL, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
 												usPosX, usPosY, 120, 20, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, MilitiaPersonalDataTableFireCallback );
