@@ -5166,6 +5166,10 @@ void HandleBuldingDestruction( INT32 sGridNo, UINT8 ubOwner )
 		return;
 	}
 
+	// no point doing this if this is not part of a room
+	if ( sGridNo == NOWHERE || !InARoom( sGridNo, NULL ) )
+		return;
+
 	cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; cnt++ ,pSoldier++ )
 	{
@@ -5190,14 +5194,12 @@ void HandleBuldingDestruction( INT32 sGridNo, UINT8 ubOwner )
 
 INT32 FindActiveTimedBomb( void )
 {
-	UINT32	uiWorldBombIndex;
-	UINT32	uiTimeStamp;
 	OBJECTTYPE * pObj;
 
-	uiTimeStamp = GetJA2Clock();
+	//UINT32 uiTimeStamp = GetJA2Clock();
 
 	// Go through all the bombs in the world, and look for timed ones
-	for (uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; uiWorldBombIndex++)
+	for ( UINT32 uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; ++uiWorldBombIndex)
 	{
 		if (gWorldBombs[uiWorldBombIndex].fExists)
 		{
@@ -5218,10 +5220,8 @@ BOOLEAN ActiveTimedBombExists( void )
 	{
 		return( FindActiveTimedBomb() != -1 );
 	}
-	else
-	{
-		return( FALSE );
-	}
+	
+	return( FALSE );
 }
 
 void RemoveAllActiveTimedBombs( void )
