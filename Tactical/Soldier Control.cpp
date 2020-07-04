@@ -22327,6 +22327,10 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 								success = PlaceObject( pSoldier, HEAD2POS, pObj );
 							}
 						}
+						else
+						{
+							success = FALSE;
+						}
 					}
 					else if ( Item[usItem].usItemClass == IC_BOMB )
 					{
@@ -22343,7 +22347,11 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 				if ( !success )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_COULD_NOT_APPLY ], this->GetName(), Item[usItem].szLongItemName, pSoldier->GetName() );
 				else
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_X_APPLY_Y_TO_Z], this->GetName(), Item[usItem].szLongItemName, pSoldier->GetName() );
+
 					this->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+				}
 			}
 			else
 			{
@@ -22496,7 +22504,7 @@ void SOLDIERTYPE::EVENT_SoldierApplySplintToPerson( INT32 sGridNo, UINT8 ubDirec
 
 			DeductPoints( this, GetAPsToApplyItem( this, sGridNo ), APBPConstants[BP_APPLYITEM], AFTERACTION_INTERRUPT );
 
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_X_APPLY_Y_TO_Z], this->GetName(), Item[usItem].szItemName, pSoldier->GetName() );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_X_APPLY_Y_TO_Z], this->GetName(), Item[usItem].szLongItemName, pSoldier->GetName() );
 
 			if ( !is_networked )
 				this->EVENT_InitNewSoldierAnim( CUTTING_FENCE, 0, FALSE );
