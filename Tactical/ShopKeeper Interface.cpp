@@ -102,11 +102,11 @@
 
 //Inventory Slots size and offsets
 #define		SKI_INV_SLOT_WIDTH								67
-#define		SKI_INV_SLOT_HEIGHT								31
+#define		SKI_INV_SLOT_HEIGHT								35		// bfant: increased from 31 to fit item name text
 #define		SKI_INV_HEIGHT									(SKI_INV_SLOT_HEIGHT - 7)
 #define		SKI_INV_WIDTH									60
 #define		SKI_INV_OFFSET_X								74
-#define		SKI_INV_OFFSET_Y								36
+#define		SKI_INV_OFFSET_Y								40		// bfant: increased from 36
 
 #define		SKI_INV_PRICE_OFFSET_X							1
 #define		SKI_INV_PRICE_OFFSET_Y							24
@@ -129,7 +129,7 @@
 #define		SKI_DEALER_OFFER_AREA_Y								(SCREEN_Y_OFFSET + 148)
 
 #define		SKI_ITEM_NUMBER_TEXT_OFFSET_X					50
-#define		SKI_ITEM_NUMBER_TEXT_OFFSET_Y					15
+#define		SKI_ITEM_NUMBER_TEXT_OFFSET_Y					19		// bfant: increased from 15 to fit item name text
 #define		SKI_ITEM_NUMBER_TEXT_WIDTH						15
 
 #define		SKI_SUBTITLE_TEXT_SIZE								512
@@ -220,7 +220,7 @@
 #define		SKI_TRADER_OFFER_BEGIN_X			SKI_TOTAL_BEGIN_X
 #define		SKI_TRADER_OFFER_BEGIN_Y			SKI_TRADER_INVENTORY_END_Y
 #define		SKI_TRADER_OFFER_END_X				SKI_TOTAL_END_X
-#define		SKI_TRADER_OFFER_END_Y				(82 + SKI_TRADER_INVENTORY_END_Y)
+#define		SKI_TRADER_OFFER_END_Y				(90 + SKI_TRADER_INVENTORY_END_Y)	// bfant: adjusted so 2 rows fit again after item text modification
 
 // trader offer area item boxes
 #define		SKI_TRADER_OFFER_BOXES_BEGIN_X		(SKI_TRADER_OFFER_BEGIN_X + 91)
@@ -1309,6 +1309,23 @@ void HandleShopKeeperInterface()
 #endif
 }
 
+// Internal function to draw shop keeper inventory boxes
+void DrawShopKeeperInventoryBox( INT32 usPosX, INT32 usPosY )
+{
+	static const UINT16 col_itembox = Get16BPPColor( FROMRGB( 74, 65, 49 ) );
+	static const UINT16 col_itemdescription = Get16BPPColor( FROMRGB( 181, 150, 74 ) );
+	static const UINT16 col_itemstatusbar = Get16BPPColor( FROMRGB( 57, 56, 41 ) );
+
+	// draw background for status bar
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY, usPosX + 4, usPosY + 28, col_itemstatusbar );
+
+	// draw background for picture of item, etc.
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX + 4, usPosY, usPosX + SKI_INV_SLOT_WIDTH, usPosY + 28, col_itembox );
+
+	// draw background for money area
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY + 28, usPosX + SKI_INV_SLOT_WIDTH, usPosY + SKI_INV_SLOT_HEIGHT, col_itemdescription );
+}
+
 BOOLEAN RenderShopKeeperInterface()
 {
 	CHAR16	zMoney[128];
@@ -1331,9 +1348,6 @@ BOOLEAN RenderShopKeeperInterface()
 		
 	UINT16 col_tradescreenmargin	= Get16BPPColor( FROMRGB( 64, 64, 64 ) );
 	UINT16 col_tradescreen			= Get16BPPColor( FROMRGB( 255, 0, 255 ) );
-	UINT16 col_itembox				= Get16BPPColor( FROMRGB( 74, 65, 49 ) );
-	UINT16 col_itemdescription		= Get16BPPColor( FROMRGB( 181, 150, 74 ) );
-	UINT16 col_itemstatusbar		= Get16BPPColor( FROMRGB( 57, 56, 41 ) );
 
 	// we need to do the colouring twice to colour the margin differently
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, SKI_TOTAL_BEGIN_X, SKI_TOTAL_BEGIN_Y,
@@ -1419,17 +1433,7 @@ BOOLEAN RenderShopKeeperInterface()
 
 			for ( int x = 0; x<SKI_TRADER_INVENTORY_BOXES_PER_ROW; ++x )
 			{
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY,
-										   (INT16)(usPosX + 4), (INT16)(usPosY + 24),
-										   col_itemstatusbar );
-
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, (INT16)(usPosX + 4), usPosY,
-										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + 24),
-										   col_itembox );
-
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, (INT16)(usPosY + 24),
-										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT),
-										   col_itemdescription );
+				DrawShopKeeperInventoryBox( usPosX, usPosY );
 
 				usPosX += SKI_INV_OFFSET_X;
 			}
@@ -1445,17 +1449,7 @@ BOOLEAN RenderShopKeeperInterface()
 
 			for ( int x = 0; x<SKI_TRADER_OFFER_BOXES_PER_ROW; ++x )
 			{
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY,
-										   (INT16)(usPosX + 4), (INT16)(usPosY + 24),
-										   col_itemstatusbar );
-
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, (INT16)(usPosX + 4), usPosY,
-										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + 24),
-										   col_itembox );
-
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, (INT16)(usPosY + 24),
-										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT),
-										   col_itemdescription );
+				DrawShopKeeperInventoryBox( usPosX, usPosY );
 
 				usPosX += SKI_INV_OFFSET_X;
 			}
@@ -1471,17 +1465,7 @@ BOOLEAN RenderShopKeeperInterface()
 
 			for ( int x = 0; x<SKI_PLAYER_OFFER_BOXES_PER_ROW; ++x )
 			{
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, usPosY,
-										   (INT16)(usPosX + 4), (INT16)(usPosY + 24),
-										   col_itemstatusbar );
-
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, (INT16)(usPosX + 4), usPosY,
-										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + 24),
-										   col_itembox );
-
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, (INT16)(usPosY + 24),
-										   (INT16)(usPosX + SKI_INV_SLOT_WIDTH), (INT16)(usPosY + SKI_INV_SLOT_HEIGHT),
-										   col_itemdescription );
+				DrawShopKeeperInventoryBox( usPosX, usPosY );
 
 				usPosX += SKI_INV_OFFSET_X;
 			}
@@ -2740,7 +2724,8 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 #endif
 
 	//Display the status of the item
-	DrawItemUIBarEx( pItemObject, 0, (INT16)(usPosX+2), (INT16)(usPosY+2+20), 2, 20, 	Get16BPPColor( FROMRGB( 140, 136, 119 ) ), Get16BPPColor( FROMRGB( 140, 136, 119 ) ), TRUE, guiRENDERBUFFER );//guiSAVEBUFFER
+	//bfant: adjusted size of status bar for item text
+	DrawItemUIBarEx( pItemObject, 0, (INT16)(usPosX+2), (INT16)(usPosY+2+24), 2, 24,	Get16BPPColor( FROMRGB( 140, 136, 119 ) ), Get16BPPColor( FROMRGB( 140, 136, 119 ) ), TRUE, guiRENDERBUFFER );//guiSAVEBUFFER
 	
 	//Display the Items Cost
 	if( ubItemArea == PLAYERS_OFFER_AREA )
@@ -2823,7 +2808,16 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 		else
 			swprintf( zTemp2, L"$%s", zTemp );
 
-		DrawTextToScreen( zTemp2, (UINT16)(usPosX+SKI_INV_PRICE_OFFSET_X), (UINT16)(usPosY+SKI_INV_PRICE_OFFSET_Y), SKI_INV_SLOT_WIDTH, SKI_ITEM_DESC_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+		DrawTextToScreen( zTemp2, (UINT16)(usPosX+SKI_INV_PRICE_OFFSET_X), (UINT16)(usPosY+SKI_INV_PRICE_OFFSET_Y+4), SKI_INV_SLOT_WIDTH, SKI_ITEM_DESC_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	}
+
+	// bfant: Display item name, limited to displayable characters (space constraints)
+	if ( pItem->szItemName != 0 )
+	{
+		wcsncpy( zTemp, pItem->szItemName, sizeof( zTemp ) / 2 );
+		zTemp[63] = '\0';  // make sure it is null-terminated
+		ReduceStringLength( zTemp, SKI_INV_SLOT_WIDTH - 2, BLOCKFONTNARROW );
+		DrawTextToScreen( zTemp, usPosX, usPosY + 1, SKI_INV_SLOT_WIDTH, BLOCKFONTNARROW, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
 
 	//if the there is more then 1 or if the item is stackable and some of it has been bought and only 1 remains
@@ -3894,7 +3888,7 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 		{
 			INT32 balance = LaptopSaveInfo.iCurrentBalance;
 			if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
-				balance = GetIntel();
+				balance = (INT32)GetIntel();
 
 			//if the player doesn't have enough money in his account to pay the rest
 			if( uiArmsDealersItemsCost > uiPlayersTotalMoneyValue + balance )
@@ -5395,7 +5389,7 @@ void EnableDisableEvaluateAndTransactionButtons()
 			
 	INT32 balance = LaptopSaveInfo.iCurrentBalance;
 	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
-		balance = GetIntel();
+		balance = (INT32)GetIntel();
 
 	if( uiArmsDealerTotalCost > uiPlayersOfferAreaTotalCost + balance )
 	{
@@ -5928,7 +5922,7 @@ void ConfirmToDeductIntelFromPlayersAccountMessageBoxCallBack( UINT8 bExitValue 
 		//Perform the transaction with the extra money from the players account
 		PerformTransaction( iMoneyToDeduct );
 
-		AddIntel( -iMoneyToDeduct, TRUE );
+		AddIntel( (FLOAT)-iMoneyToDeduct, TRUE );
 	}
 
 	// done, re-enable calls to PerformTransaction()
