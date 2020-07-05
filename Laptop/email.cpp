@@ -3422,7 +3422,7 @@ BOOLEAN HandleNewUBMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, Ema
 		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
 			ModifyInsuranceEmails( usMessageId, iResults, pMail, INSUR_PAYMENT_LENGTH );
 	}
-	else if ( pMail->EmailType == TYPE_E_INSURANCE_L2 && pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT && usMessageId == 211 )
+	else if ( pMail->EmailType == TYPE_E_INSURANCE_L2 && pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT && usMessageId == INSUR_1HOUR_FRAUD )
 	{
 		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
 			ModifyInsuranceEmails( usMessageId, iResults, pMail, INSUR_1HOUR_FRAUD_LENGTH );
@@ -3505,6 +3505,7 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 		case INSUR_SUSPIC:
 		case INSUR_SUSPIC_2:
 		case INSUR_INVEST_OVER:
+		case INSUR_CHEAT_FRAUD:
 			ModifyInsuranceEmails( usMessageId, iResults, pMail, INSUR_PAYMENT_LENGTH );
 			break;
 

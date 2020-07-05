@@ -512,10 +512,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 	CHAR16		sText[800];
 	BOOLEAN		fDisplayMercContractStateTextColorInRed = FALSE;
 
-	SOLDIERTYPE	*pSoldier;
-
-
-	pSoldier = &Menptr[ GetSoldierIDFromMercID( ubMercID ) ];
+	SOLDIERTYPE	*pSoldier = &Menptr[ GetSoldierIDFromMercID( ubMercID ) ];
 
 
 	usPosX=usPosY=0;
@@ -553,7 +550,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 
 	// load the mercs face graphic and add it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	sprintf(sTemp, "FACES\\%02d.sti", ubMercID);
+	sprintf(sTemp, "FACES\\%02d.sti", gMercProfiles[pSoldier->ubProfile].ubFaceIndex );
 	FilenameForBPP( sTemp, VObjectDesc.ImageFile);
 	CHECKF(AddVideoObject(&VObjectDesc, &uiInsMercFaceImage));
 
@@ -561,7 +558,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 	GetVideoObject(&hPixHandle, uiInsMercFaceImage );
 
 	//if the merc is dead, shade the face red
-	if( IsMercDead( ubMercID ) )
+	if( IsMercDead( pSoldier->ubProfile ) )
 	{
 		//if the merc is dead
 		//shade the face red, (to signify that he is dead)
@@ -648,7 +645,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 
 
 	//display the amount of time the merc has left on their Regular contract
-	if( IsMercDead( ubMercID ) )
+	if( IsMercDead( pSoldier->ubProfile ) )
 		swprintf( sText, L"%s", pMessageStrings[ MSG_LOWERCASE_NA ] );
 	else
 		swprintf( sText, L"%d", GetTimeRemainingOnSoldiersContract( pSoldier ) );
@@ -674,7 +671,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 	//
 
 	//if the soldier has insurance, disply the length of time the merc has left
-	if( IsMercDead( ubMercID ) )
+	if( IsMercDead( pSoldier->ubProfile ) )
 		swprintf( sText, L"%s", pMessageStrings[ MSG_LOWERCASE_NA ] );
 
 	else if( pSoldier->usLifeInsurance != 0 )
@@ -1426,11 +1423,17 @@ void EndInsuranceInvestigation( UINT8	ubPayoutID )
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
 	{
 		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
-			AddEmailWithSpecialData( 211, INSUR_1HOUR_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L2 );
+			AddEmailWithSpecialData( INSUR_1HOUR_FRAUD, INSUR_1HOUR_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L2 );
 	}		
 #else
 		AddEmailWithSpecialData( INSUR_1HOUR_FRAUD, INSUR_1HOUR_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
 #endif
+	}
+	// Flugente: also don't pay out if the death was suspicious. I mean, we get this if there were no enemies of the player straight up shot the guy...
+	else if ( gMercProfiles[LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID].ubSuspiciousDeath == SUSPICIOUS_DEATH )
+	{
+		// fraud, no payout!
+		AddEmailWithSpecialData( INSUR_CHEAT_FRAUD, INSUR_CHEAT_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
 	}
 	else
 	{
