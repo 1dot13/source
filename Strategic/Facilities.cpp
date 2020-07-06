@@ -908,7 +908,7 @@ INT8 GetSoldierFacilityAssignmentIndex( SOLDIERTYPE *pSoldier )
 			bAssignmentIndex = FAC_SPREAD_PROPAGANDA;
 			break;
 		case FACILITY_SPREAD_PROPAGANDA_GLOBAL:
-			bAssignmentIndex = FAC_SPREAD_PROPAGANDA;
+			bAssignmentIndex = FAC_SPREAD_PROPAGANDA_GLOBAL;
 			break;
 		case FACILITY_GATHER_RUMOURS:
 			bAssignmentIndex = FAC_GATHER_RUMOURS;
