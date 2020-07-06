@@ -16900,10 +16900,10 @@ BOOLEAN CanGiveStrategicMilitiaMoveOrder( INT16 sMapX, INT16 sMapY )
 			if ( fRadioOperator && townid == BLANK_SECTOR && soldiertownid != BLANK_SECTOR )
 			{
 				// check whether adjacent sectors belong to the town we search for
-				if ( GetTownIdForSector( min( sMapX + 1, MAP_WORLD_X - 2 ), sMapY ) == townid )								return TRUE;
-				if ( GetTownIdForSector( max( sMapX - 1, 1 ),				sMapY ) == townid )								return TRUE;
-				if ( GetTownIdForSector( sMapX,								min( sMapY + 1, MAP_WORLD_Y - 2 ) ) == townid )	return TRUE;
-				if ( GetTownIdForSector( sMapX,								max( sMapY - 1, 1 ) ) == townid )				return TRUE;
+				if ( GetTownIdForSector( min( sMapX + 1, MAP_WORLD_X - 2 ), sMapY ) == soldiertownid )								return TRUE;
+				if ( GetTownIdForSector( max( sMapX - 1, 1 ),				sMapY ) == soldiertownid )								return TRUE;
+				if ( GetTownIdForSector( sMapX,								min( sMapY + 1, MAP_WORLD_Y - 2 ) ) == soldiertownid )	return TRUE;
+				if ( GetTownIdForSector( sMapX,								max( sMapY - 1, 1 ) ) == soldiertownid )				return TRUE;
 			}
 		}
 	}
