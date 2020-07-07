@@ -2136,7 +2136,7 @@ void PlotPathForHelicopter( INT16 sX, INT16 sY )
 
 	// will plot a path from current position to sX, sY
 	// get last sector in helicopters list, build new path, remove tail section, move to beginning of list, and append onto old list
-	pVehicleList[ iHelicopterVehicleId ].pMercPath = AppendStrategicPath( MoveToBeginningOfPathList( BuildAStrategicPath( NULL, GetLastSectorOfHelicoptersPath( ), ( INT16 )( sX + sY*( MAP_WORLD_X ) ), pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE /*, FALSE */ ) ), pVehicleList[ iHelicopterVehicleId ].pMercPath );
+	pVehicleList[ iHelicopterVehicleId ].pMercPath = AppendStrategicPath( MoveToBeginningOfPathList( BuildAStrategicPath( NULL, GetLastSectorOfHelicoptersPath( ), ( INT16 )( CALCULATE_STRATEGIC_INDEX(sX, sY) ), pVehicleList[ iHelicopterVehicleId ].ubMovementGroup, FALSE /*, FALSE */ ) ), pVehicleList[ iHelicopterVehicleId ].pMercPath );
 
 	// move to beginning of list
 	pVehicleList[ iHelicopterVehicleId ].pMercPath = MoveToBeginningOfPathList( pVehicleList[ iHelicopterVehicleId ].pMercPath );
@@ -2220,7 +2220,7 @@ void PlotATemporaryPathForMilitia( INT16 sX, INT16 sY )
 		return;
 
 	// build path
-	pTempMilitiaPath = BuildAStrategicPath( NULL, GetLastSectorOfMilitiaPath( ), (INT16)(sX + sY*(MAP_WORLD_X)), gMilitiaPath[gMilitiaGroupId].sGroupid, TRUE /*, TRUE */ );
+	pTempMilitiaPath = BuildAStrategicPath( NULL, GetLastSectorOfMilitiaPath( ), (INT16)( CALCULATE_STRATEGIC_INDEX(sX, sY )), gMilitiaPath[gMilitiaGroupId].sGroupid, TRUE /*, TRUE */ );
 }
 
 
@@ -2333,10 +2333,8 @@ UINT32 ClearPathAfterThisSectorForMilitia( INT16 sX, INT16 sY )
 INT16 GetLastSectorOfHelicoptersPath( void )
 {
 	// will return the last sector of the helicopter's current path
-	INT16 sLastSector = pVehicleList[ iHelicopterVehicleId ].sSectorX + pVehicleList[ iHelicopterVehicleId ].sSectorY * MAP_WORLD_X ;
-	PathStPtr pNode = NULL;
-
-	pNode = pVehicleList[ iHelicopterVehicleId ].pMercPath;
+	INT16 sLastSector = CALCULATE_STRATEGIC_INDEX(pVehicleList[ iHelicopterVehicleId ].sSectorX, pVehicleList[ iHelicopterVehicleId ].sSectorY);
+	PathStPtr pNode = pVehicleList[ iHelicopterVehicleId ].pMercPath;
 
 	while( pNode )
 	{
@@ -2351,9 +2349,7 @@ INT16 GetLastSectorOfMilitiaPath( void )
 {
 	// will return the last sector of the helicopter's current path
 	INT16 sLastSector = gMilitiaPlotStartSector;
-	PathStPtr pNode = NULL;
-
-	pNode = gMilitiaPath[gMilitiaGroupId].path;
+	PathStPtr pNode = gMilitiaPath[gMilitiaGroupId].path;
 
 	while ( pNode )
 	{
@@ -3966,7 +3962,9 @@ void ShowMilitiaInMotion( INT16 sX, INT16 sY )
 	if ( !NumNonPlayerTeamMembersInSector( sX, sY, MILITIA_TEAM ) )
 		return;
 
-	if ( ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_ALLDIRS ) == 0 )
+	int sector = CALCULATE_STRATEGIC_INDEX( sX, sY );
+
+	if ( ( StrategicMap[sector].usFlags & MILITIA_MOVE_ALLDIRS ) == 0 )
 		return;
 
 	// show the icons for people in motion from this sector to the next guy over
@@ -3979,7 +3977,7 @@ void ShowMilitiaInMotion( INT16 sX, INT16 sY )
 	INT16 iconOffsetX = 0;
 	INT16 iconOffsetY = 0;
 
-	if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_NORTH )
+	if ( StrategicMap[sector].usFlags & MILITIA_MOVE_NORTH )
 	{
 		ubDirection = 4;
 		sOffsetX = (MAP_GRID_X / 2);
@@ -3987,21 +3985,21 @@ void ShowMilitiaInMotion( INT16 sX, INT16 sY )
 		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
 		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight);
 	}
-	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_EAST )
+	else if ( StrategicMap[sector].usFlags & MILITIA_MOVE_EAST )
 	{
 		ubDirection = 5;
 		sOffsetX = MAP_GRID_X;
 		sOffsetY = (MAP_GRID_Y / 2);
 		iconOffsetY = -(hIconHandle->pETRLEObject[ubDirection].usHeight / 2);
 	}
-	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_SOUTH )
+	else if ( StrategicMap[sector].usFlags & MILITIA_MOVE_SOUTH )
 	{
 		ubDirection = 6;
 		sOffsetX = (MAP_GRID_X / 2);
 		sOffsetY = MAP_GRID_Y;
 		iconOffsetX = -(hIconHandle->pETRLEObject[ubDirection].usWidth / 2);
 	}
-	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_WEST )
+	else if ( StrategicMap[sector].usFlags & MILITIA_MOVE_WEST )
 	{
 		ubDirection = 7;
 		sOffsetX = 0;

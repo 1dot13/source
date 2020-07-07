@@ -730,7 +730,7 @@ void BuildSectorsWithSoldiersList( void )
 	{
 		if(pTeamSoldier->bActive)
 		{
-		fSectorsWithSoldiers[ pTeamSoldier->sSectorX + pTeamSoldier->sSectorY * MAP_WORLD_X ][ pTeamSoldier->bSectorZ ] = TRUE;
+			fSectorsWithSoldiers[ CALCULATE_STRATEGIC_INDEX(pTeamSoldier->sSectorX, pTeamSoldier->sSectorY ) ][ pTeamSoldier->bSectorZ ] = TRUE;
 		}
 	}
 }
@@ -2932,7 +2932,7 @@ void UpdateAssignments()
 			for( bZ = 0; bZ < 4; ++bZ )
 			{
 				// is there anyone in this sector?
-				if( fSectorsWithSoldiers[ sX + sY * MAP_WORLD_X ][ bZ ]	== TRUE )
+				if( fSectorsWithSoldiers[CALCULATE_STRATEGIC_INDEX(sX, sY) ][ bZ ]	== TRUE )
 				{
 					// handle any doctors
 					HandleDoctorsInSector( sX, sY, bZ );
@@ -4672,7 +4672,7 @@ void CheckForAndHandleHospitalPatients( void )
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
 	INT32 cnt=0;
 
-	if ( fSectorsWithSoldiers[gModSettings.ubHospitalSectorX + gModSettings.ubHospitalSectorY * MAP_WORLD_X][0] == FALSE )
+	if ( fSectorsWithSoldiers[CALCULATE_STRATEGIC_INDEX(gModSettings.ubHospitalSectorX, gModSettings.ubHospitalSectorY )][0] == FALSE )
 	{
 		// nobody in the hospital sector... leave
 		return;
@@ -6060,7 +6060,7 @@ void HandleTrainingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 
 	// check if we're doing a sector where militia can be trained
-	if( ( (StrategicMap[ sMapX + ( sMapY * MAP_WORLD_X ) ].bNameId != BLANK_SECTOR ) || ( fSamSiteInSector == TRUE ) ) && (bZ == 0) )
+	if( ( (StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY) ].bNameId != BLANK_SECTOR ) || ( fSamSiteInSector == TRUE ) ) && (bZ == 0) )
 	{
 		// init town trainer list
 	    memset( TownTrainer, 0, sizeof( TownTrainer ) );
@@ -7798,7 +7798,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 	BOOLEAN fSamSiteInSector = IsThisSectorASAMSector( sMapX, sMapY, 0 );
 
 	// get town index
-	ubTownId = StrategicMap[ pTrainer->sSectorX + pTrainer->sSectorY * MAP_WORLD_X ].bNameId;
+	ubTownId = StrategicMap[CALCULATE_STRATEGIC_INDEX(pTrainer->sSectorX, pTrainer->sSectorY ) ].bNameId;
 	if( fSamSiteInSector == FALSE )
 	{
 		AssertNE(ubTownId, BLANK_SECTOR);
@@ -8595,7 +8595,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	GetShortSectorString( sMapX, sMapY, wSectorName );
 
 	// if sector is not under our control, the prisoners are added to the local garrison
-	if( StrategicMap[ sMapX + sMapY * MAP_WORLD_X ].fEnemyControlled == TRUE )
+	if( StrategicMap[ CALCULATE_STRATEGIC_INDEX(sMapX, sMapY) ].fEnemyControlled == TRUE )
 	{
 		// add enemies
 		pSectorInfo->ubNumTroops = min( 255, pSectorInfo->ubNumTroops + aPrisoners[PRISONER_REGULAR] );
@@ -8975,7 +8975,7 @@ void HandleTrainWorkers()
 				if ( !SectorOursAndPeaceful( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 					continue;
 
-				UINT8 ubTownId = StrategicMap[ pSoldier->sSectorX + pSoldier->sSectorY * MAP_WORLD_X ].bNameId;
+				UINT8 ubTownId = StrategicMap[ CALCULATE_STRATEGIC_INDEX(pSoldier->sSectorX, pSoldier->sSectorY) ].bNameId;
 
 				// Flugente: adjust for workforce
 				UINT16 maxworkforce = 0;
@@ -17888,7 +17888,7 @@ BOOLEAN PutMercInAwakeState( SOLDIERTYPE *pSoldier )
 
 BOOLEAN IsThereASoldierInThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	if( fSectorsWithSoldiers[	sSectorX + sSectorY * MAP_WORLD_X ][ bSectorZ ] == TRUE )
+	if( fSectorsWithSoldiers[CALCULATE_STRATEGIC_INDEX(sSectorX, sSectorY)][ bSectorZ ] == TRUE )
 	{
 		return( TRUE );
 	}

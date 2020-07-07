@@ -5691,7 +5691,7 @@ BOOLEAN HandlePlayerGroupEnteringSectorToCheckForNPCsOfNote( GROUP *pGroup )
 	}
 
 	// get the strategic sector value
-	sStrategicSector = sSectorX + MAP_WORLD_X * sSectorY;
+	sStrategicSector = CALCULATE_STRATEGIC_INDEX(sSectorX, sSectorY);
 #ifdef JA2UB	
 	// ATE: if this is a custom map, return Ja25 UB
 	if ( SectorInfo[ SECTOR( sSectorY, sSectorX ) ].fCustomSector )

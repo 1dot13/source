@@ -749,7 +749,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 			{
 				// Tixa prison, once liberated, should not have any civs without profiles unless
 				// they are kids
-				if( !StrategicMap[ TIXA_SECTOR_X + TIXA_SECTOR_Y * MAP_WORLD_X ].fEnemyControlled && tempDetailedPlacement.ubProfile == NO_PROFILE && tempDetailedPlacement.ubBodyType != HATKIDCIV && tempDetailedPlacement.ubBodyType != KIDCIV )
+				if( !StrategicMap[CALCULATE_STRATEGIC_INDEX(TIXA_SECTOR_X, TIXA_SECTOR_Y)].fEnemyControlled && tempDetailedPlacement.ubProfile == NO_PROFILE && tempDetailedPlacement.ubBodyType != HATKIDCIV && tempDetailedPlacement.ubBodyType != KIDCIV )
 				{
 					// not there
 					return( TRUE );

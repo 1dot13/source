@@ -1332,7 +1332,7 @@ void HandleFirstBattleEndingWhileInTown( INT16 sSectorX, INT16 sSectorY, INT16 b
 	// means player is leaving sector
 
 	// grab sector value
-	sSector = sSectorX + sSectorY * MAP_WORLD_X;
+	sSector = CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY );
 
 	// get town name id
 	bTownId = StrategicMap[ sSector ].bNameId;

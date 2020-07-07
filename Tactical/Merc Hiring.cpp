@@ -842,7 +842,7 @@ void CheckForValidArrivalSector( )
 	CHAR16 zShortTownIDString1[ 50 ];
 	CHAR16 zShortTownIDString2[ 50 ];
 
-	sSectorGridNo = gsMercArriveSectorX + ( MAP_WORLD_X * gsMercArriveSectorY );
+	sSectorGridNo = CALCULATE_STRATEGIC_INDEX( gsMercArriveSectorX, gsMercArriveSectorY );
 
 	// Check if valid...
 	if ( !StrategicMap[ sSectorGridNo ].fEnemyControlled )

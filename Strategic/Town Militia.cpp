@@ -117,7 +117,7 @@ void VerifyTownTrainingIsPaidFor( void );
 BOOLEAN TownMilitiaTrainingPromotion( INT16 sMapX, INT16 sMapY, UINT8& arusPromotedTo )
 {
 	INT16 sNeighbourX, sNeighbourY;
-	UINT8 ubTownId = StrategicMap[sMapX + sMapY * MAP_WORLD_X].bNameId;
+	UINT8 ubTownId = StrategicMap[CALCULATE_STRATEGIC_INDEX( sMapX, sMapY )].bNameId;
 
 	// alrighty, then.	We'll have to *promote* guys instead.
 
@@ -274,7 +274,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia1");
 
 	// get town index
-	ubTownId = StrategicMap[ sMapX + sMapY * MAP_WORLD_X ].bNameId;
+	ubTownId = StrategicMap[CALCULATE_STRATEGIC_INDEX( sMapX, sMapY )].bNameId;
 
 	if( ubTownId == BLANK_SECTOR )
 	{
@@ -752,7 +752,7 @@ BOOLEAN SectorOursAndPeaceful( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	}
 
 	// if sector is controlled by enemies, it's not ours (duh!)
-	if( !bMapZ && StrategicMap[ sMapX + sMapY * MAP_WORLD_X ].fEnemyControlled == TRUE )
+	if( !bMapZ && StrategicMap[CALCULATE_STRATEGIC_INDEX( sMapX, sMapY )].fEnemyControlled == TRUE )
 	{
 		return FALSE;
 	}
@@ -1143,7 +1143,7 @@ BOOLEAN CanSomeoneNearbyScoutThisSector( INT16 sSectorX, INT16 sSectorY, BOOLEAN
 		return TRUE;
 
 	// get the sector value
-	sSector = sSectorX + sSectorY * MAP_WORLD_X;
+	sSector = CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY );
 
 	for( sCounterA = sSectorX - ubScoutingRange; (sCounterA <= sSectorX + ubScoutingRange && !bScout); ++sCounterA )
 	{
@@ -1425,7 +1425,7 @@ void AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( SOLDIERTYPE
 		pCurrentSoldier = &Menptr[ giListOfMercsInSectorsCompletedMilitiaTraining[ iCounter ] ];
 
 		// get the current sector value
-		sCurrentSector = pCurrentSoldier->sSectorX + pCurrentSoldier->sSectorY * MAP_WORLD_X;
+		sCurrentSector = CALCULATE_STRATEGIC_INDEX( pCurrentSoldier->sSectorX, pCurrentSoldier->sSectorY );
 
 		// is the merc's sector already in the list?
 		// silversurfer: Doesn't matter if it's the same sector. We can have different assignments in the same sector so add the soldier to the list if he's on a different assignment.

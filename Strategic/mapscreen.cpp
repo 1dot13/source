@@ -6517,7 +6517,7 @@ UINT32 HandleMapUI( )
 					break;
 
 				// check if last sector in character's path is same as where mouse is
-				if( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID] ) != ( sMapX + ( sMapY * MAP_WORLD_X ) ) )
+				if( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID] ) != CALCULATE_STRATEGIC_INDEX( sMapX, sMapY ) )
 				{
 					sX = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID]	) % MAP_WORLD_X );
 					sY = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[GetSelectedDestChar()].usSolID]	) / MAP_WORLD_X );
@@ -12490,7 +12490,7 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 	if( fPlotForHelicopter )
 	{
 		// helicopter route confirmed
-		if( sX + ( sY * MAP_WORLD_X ) == GetLastSectorOfHelicoptersPath( ) )
+		if ( CALCULATE_STRATEGIC_INDEX( sX, sY ) == GetLastSectorOfHelicoptersPath( ) )
 		{
 			// WANNE: This check was added in revision 4724, to prevent the loophole for helicopter hovering forever
 			// But is seems, it also causes the bug, that skyrider is stuck in the sector forever (bugzilla #562)
@@ -12515,7 +12515,7 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 	else if ( fPlotForMilitia )
 	{
 		// helicopter route confirmed
-		if ( gMilitiaPath[gMilitiaGroupId].sGroupid > -1 && sX + (sY * MAP_WORLD_X) == GetLastSectorOfMilitiaPath( ) )
+		if ( gMilitiaPath[gMilitiaGroupId].sGroupid > -1 && CALCULATE_STRATEGIC_INDEX(sX, sY) == GetLastSectorOfMilitiaPath( ) )
 		{
 			// rebuild waypoints
 			ppMovePath = &( gMilitiaPath[gMilitiaGroupId].path );
@@ -12552,7 +12552,7 @@ BOOLEAN CheckIfClickOnLastSectorInPath( INT16 sX, INT16 sY )
 			return( FALSE );
 		}
 
-		if( sX + ( sY * MAP_WORLD_X ) == GetLastSectorIdInCharactersPath( ( &Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ] ) ) )
+		if ( CALCULATE_STRATEGIC_INDEX( sX, sY ) == GetLastSectorIdInCharactersPath( ( &Menptr[ gCharactersList[GetSelectedDestChar()].usSolID ] ) ) )
 		{
 			// clicked on last sector, reset plotting mode
 
@@ -12697,7 +12697,7 @@ void UpdateCursorIfInLastSector( void )
 			// check for helicopter
 			if ( fPlotForHelicopter )
 			{
-				if ( sMapX + (sMapY * MAP_WORLD_X) == GetLastSectorOfHelicoptersPath( ) )
+				if ( CALCULATE_STRATEGIC_INDEX( sMapX, sMapY ) == GetLastSectorOfHelicoptersPath( ) )
 				{
 					// set cursor to checkmark
 					ChangeMapScreenMaskCursor( CURSOR_CHECKMARK );
@@ -12719,7 +12719,7 @@ void UpdateCursorIfInLastSector( void )
 			// check for militia
 			if ( fPlotForMilitia )
 			{
-				if ( sMapX + (sMapY * MAP_WORLD_X) == GetLastSectorOfMilitiaPath( ) )
+				if ( CALCULATE_STRATEGIC_INDEX( sMapX, sMapY ) == GetLastSectorOfMilitiaPath( ) )
 				{
 					// set cursor to checkmark
 					ChangeMapScreenMaskCursor( CURSOR_CHECKMARK );
@@ -12741,7 +12741,7 @@ void UpdateCursorIfInLastSector( void )
 			if ( GetSelectedDestChar() != -1 )
 			{
 				//c heck if we are in the last sector of the characters path?
-				if ( sMapX + (sMapY * MAP_WORLD_X) == GetLastSectorIdInCharactersPath( (&Menptr[gCharactersList[GetSelectedDestChar()].usSolID]) ) )
+				if ( CALCULATE_STRATEGIC_INDEX( sMapX, sMapY ) == GetLastSectorIdInCharactersPath( (&Menptr[gCharactersList[GetSelectedDestChar()].usSolID]) ) )
 				{
 					// set cursor to checkmark
 					ChangeMapScreenMaskCursor( CURSOR_CHECKMARK );
@@ -16615,7 +16615,7 @@ BOOLEAN RequestGiveMilitiaNewDestination( void )
 				gNewMilitiaGroupId = gMilitiaPath[gMilitiaGroupId].sGroupid;
 				
 				// yes, we intentionally use a different sector number here
-				gMilitiaPlotStartSector = (INT16)(sSelMapX + sSelMapY*(MAP_WORLD_X));
+				gMilitiaPlotStartSector = CALCULATE_STRATEGIC_INDEX( sSelMapX, sSelMapY );
 			}
 		}
 	}
@@ -16753,7 +16753,7 @@ BOOLEAN MilitiaPlotStart( )
 	gNewMilitiaGroupId = pGroup->ubGroupID;
 
 	// yes, we intentionally use a different sector number here
-	gMilitiaPlotStartSector = (INT16)(sSelMapX + sSelMapY*(MAP_WORLD_X));
+	gMilitiaPlotStartSector = CALCULATE_STRATEGIC_INDEX( sSelMapX, sSelMapY );
 
 	gMilitiaPath[gMilitiaGroupId].path->uiSectorId = gMilitiaPlotStartSector;
 

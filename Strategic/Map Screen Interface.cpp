@@ -5866,7 +5866,7 @@ BOOLEAN NotifyPlayerWhenEnemyTakesControlOfImportantSector( INT16 sSectorX, INT1
 	}
 
 	// get the strategic sector value
-	sSector = sSectorX + MAP_WORLD_X * sSectorY;
+	sSector = CALCULATE_STRATEGIC_INDEX(sSectorX, sSectorY);
 
 	if( StrategicMap[ sSector ].bNameId == BLANK_SECTOR )
 	{
@@ -5900,7 +5900,7 @@ void NotifyPlayerOfInvasionByEnemyForces( INT16 sSectorX, INT16 sSectorY, INT8 b
 	}
 
 	// grab sector value
-	sSector = sSectorX + MAP_WORLD_X * sSectorY;
+	sSector = CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY );
 
 	if( StrategicMap[ sSector ].fEnemyControlled == TRUE )
 	{

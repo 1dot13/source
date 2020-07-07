@@ -857,7 +857,7 @@ INT16 GetMineSectorForTown( INT8 bTownId )
 		if( gMineStatus[ ubMineIndex ].bAssociatedTown == bTownId )
 		{
 			//sMineSector = gMineLocation[ ubMineIndex ].sSectorX + ( gMineLocation[ ubMineIndex ].sSectorY * MAP_WORLD_X );
-			sMineSector = gMineStatus[ ubMineIndex ].sSectorX + ( gMineStatus[ ubMineIndex ].sSectorY * MAP_WORLD_X );
+			sMineSector = CALCULATE_STRATEGIC_INDEX(gMineStatus[ ubMineIndex ].sSectorX, gMineStatus[ ubMineIndex ].sSectorY );
 			break;
 		}
 	}
@@ -888,7 +888,7 @@ BOOLEAN PlayerControlsMine(INT8 bMineIndex)
 {
 	// a value of TRUE is from the enemy's point of view
 	//if (StrategicMap[( gMineLocation[ bMineIndex ].sSectorX ) + ( MAP_WORLD_X * ( gMineLocation[ bMineIndex ].sSectorY ) )].fEnemyControlled == TRUE )
-	if (StrategicMap[( gMineStatus[ bMineIndex ].sSectorX ) + ( MAP_WORLD_X * ( gMineStatus[ bMineIndex ].sSectorY ) )].fEnemyControlled == TRUE )
+	if (StrategicMap[CALCULATE_STRATEGIC_INDEX( gMineStatus[bMineIndex].sSectorX, gMineStatus[bMineIndex].sSectorY )].fEnemyControlled == TRUE )
 		return(FALSE);
 	else
 	{

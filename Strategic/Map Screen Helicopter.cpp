@@ -2409,7 +2409,7 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY )
 {
 	UINT8 ubChance;
 
-	if ( !StrategicMap[(AIRPORT_X + (MAP_WORLD_X * AIRPORT_Y))].fEnemyControlled && !StrategicMap[(AIRPORT2_X + (MAP_WORLD_X * AIRPORT2_Y))].fEnemyControlled )
+	if ( !StrategicMap[CALCULATE_STRATEGIC_INDEX(AIRPORT_X, AIRPORT_Y)].fEnemyControlled && !StrategicMap[CALCULATE_STRATEGIC_INDEX(AIRPORT2_X, AIRPORT2_Y)].fEnemyControlled )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "WillAirRaidBeStopped: enemy has no more airports" ) );
 		return(TRUE);

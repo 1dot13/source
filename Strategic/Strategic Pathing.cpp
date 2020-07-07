@@ -920,7 +920,7 @@ PathStPtr ClearStrategicPathListAfterThisSector( PathStPtr pHeadOfPath, INT16 sX
 	}
 	
 	// get sector value
-	sSector = sX + ( sY * MAP_WORLD_X );
+	sSector = CALCULATE_STRATEGIC_INDEX(sX, sY );
 
 	// go to end of list
 	pNode = MoveToEndOfPathList( pNode );
@@ -1016,7 +1016,7 @@ PathStPtr ClearStrategicPathListBeforeThisSector( PathStPtr pHeadOfPath, INT16 s
 	}
 
 	// get sector value
-	sSector = sX + ( sY * MAP_WORLD_X );
+	sSector = CALCULATE_STRATEGIC_INDEX(sX, sY);
 
 	// go to end of list
 	pNode = MoveToBeginningOfPathList( pNode );
@@ -1219,7 +1219,7 @@ PathStPtr RemoveSectorFromStrategicPathList( PathStPtr pList , INT16 sX, INT16 s
 	PathStPtr pPastNode = pList;
 
 	// get sector value
-	sSector = sX + ( sY * MAP_WORLD_X );
+	sSector = CALCULATE_STRATEGIC_INDEX( sX, sY );
 
 	// check if there is a valid list
 	if( pNode == NULL )
@@ -1270,10 +1270,8 @@ PathStPtr RemoveSectorFromStrategicPathList( PathStPtr pList , INT16 sX, INT16 s
 INT16 GetLastSectorIdInCharactersPath( SOLDIERTYPE *pCharacter )
 {
 	// will return the last sector of the current path, or the current sector if there's no path
-	INT16 sLastSector = ( pCharacter->sSectorX ) + ( pCharacter->sSectorY ) * ( MAP_WORLD_X );
-	PathStPtr pNode = NULL;
-
-	pNode = GetSoldierMercPathPtr( pCharacter );
+	INT16 sLastSector = CALCULATE_STRATEGIC_INDEX( pCharacter->sSectorX, pCharacter->sSectorY );
+	PathStPtr pNode = GetSoldierMercPathPtr( pCharacter );
 
 	while( pNode )
 	{
@@ -1301,7 +1299,7 @@ INT16 GetLastSectorIdInVehiclePath( INT32 iId )
 	}
 
 	// get current last sector
-	sLastSector = ( pVehicleList[ iId ].sSectorX ) + ( pVehicleList[ iId ].sSectorY * MAP_WORLD_X );
+	sLastSector = CALCULATE_STRATEGIC_INDEX( pVehicleList[ iId ].sSectorX, pVehicleList[ iId ].sSectorY );
 
 	pNode = pVehicleList[ iId ].pMercPath;
 

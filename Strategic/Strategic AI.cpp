@@ -2253,9 +2253,10 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 
 					if( IsThisSectorASAMSector( pGroup->ubSectorX, pGroup->ubSectorY, 0 ) )
 					{
-						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].bSAMCondition = 100;
-						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].sSamHackStatus = 100;
-						StrategicMap[ pGroup->ubSectorX + pGroup->ubSectorY * MAP_WORLD_X ].usFlags &= ~SAMSITE_REPAIR_ORDERED;
+						int stratsector = CALCULATE_STRATEGIC_INDEX( pGroup->ubSectorX, pGroup->ubSectorY );
+						StrategicMap[stratsector].bSAMCondition = 100;
+						StrategicMap[stratsector].sSamHackStatus = 100;
+						StrategicMap[stratsector].usFlags &= ~SAMSITE_REPAIR_ORDERED;
 
 						UpdateSAMDoneRepair( pGroup->ubSectorX, pGroup->ubSectorY, 0 );
 					}
@@ -5918,7 +5919,7 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 
 	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 
-	if( StrategicMap[ sSectorX + sSectorY * MAP_WORLD_X ].fEnemyControlled )
+	if( StrategicMap[CALCULATE_STRATEGIC_INDEX(sSectorX, sSectorY)].fEnemyControlled )
 	{
 		//If the sector doesn't belong to the player, then we shouldn't be calling this function!
 		SAIReportError( L"StrategicHandleQueenLosingControlOfSector() was called for a sector that is internally considered to be enemy controlled." );

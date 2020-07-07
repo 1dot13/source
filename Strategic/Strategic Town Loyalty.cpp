@@ -911,7 +911,7 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 				iLoyaltyChange *= MULTIPLIER_FOR_MURDER_BY_MONSTER;
 
 				// check whose sector this is
-				if( StrategicMap[( pSoldier->sSectorX ) + ( MAP_WORLD_X * ( pSoldier->sSectorY ) )].fEnemyControlled == TRUE )
+				if( StrategicMap[CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY )].fEnemyControlled == TRUE )
 				{
 					// enemy controlled sector - gain loyalty
 					fIncrement = TRUE;
@@ -1084,7 +1084,7 @@ void HandleLoyaltyForDemolitionOfBuilding( SOLDIERTYPE *pSoldier, INT16 sPointsD
 
 
 	// penalize the side that should have stopped it
-	if( StrategicMap[ pSoldier->sSectorX + pSoldier->sSectorY * MAP_WORLD_X ].fEnemyControlled == TRUE )
+	if( StrategicMap[CALCULATE_STRATEGIC_INDEX( pSoldier->sSectorX, pSoldier->sSectorY )].fEnemyControlled == TRUE )
 	{
 		// enemy should have prevented it, let them suffer a little
 		IncrementTownLoyalty( bTownId, sPolicingLoyalty );
@@ -1243,7 +1243,7 @@ void BuildListOfTownSectors( void )
 	{
 		for( iCounterY = 0; iCounterY < MAP_WORLD_Y; iCounterY++ )
 		{
-			usSector = iCounterX + iCounterY * MAP_WORLD_X;
+			usSector = CALCULATE_STRATEGIC_INDEX( iCounterX, iCounterY );
 
 			if( ( StrategicMap[ usSector ].bNameId >= FIRST_TOWN ) && ( StrategicMap[ usSector ].bNameId < NUM_TOWNS ) )
 			{
@@ -1745,7 +1745,7 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 		iShortestDistance[ bTownId ] = 999999;
 	}
 
-	sEventSector = sSectorX + ( MAP_WORLD_X * sSectorY );
+	sEventSector = CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY );
 
 	// need a temporary group create to use for laying down distance paths
 	ubTempGroupId = CreateNewPlayerGroupDepartingFromSector( (UINT8) sSectorX, (UINT8) sSectorY );
@@ -1861,7 +1861,7 @@ void AffectClosestTownLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSector
 		iShortestDistance[bTownId] = 999999;
 	}
 
-	sEventSector = sSectorX + ( MAP_WORLD_X * sSectorY );
+	sEventSector = CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY );
 
 	// need a temporary group create to use for laying down distance paths
 	ubTempGroupId = CreateNewPlayerGroupDepartingFromSector( (UINT8)sSectorX, (UINT8)sSectorY );

@@ -6844,7 +6844,7 @@ BOOLEAN GetPlayerControlledPrisonList( std::vector<UINT8>& arSectorIDVector )
         for(INT16 sY = 1; sY < MAP_WORLD_Y - 1; ++sY )
         {
 			// if sector is controlled by enemies, it's not ours (duh!)
-			if ( StrategicMap[sX + sY * MAP_WORLD_X].fEnemyControlled )
+			if ( StrategicMap[CALCULATE_STRATEGIC_INDEX(sX, sY)].fEnemyControlled )
 				continue;
 
 			// only sectors where there are no ongoing battles or even enemy garrisons are valid for our cause

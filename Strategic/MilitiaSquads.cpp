@@ -1053,11 +1053,13 @@ void MilitiaMovementOrder(UINT8 sector)
 	INT16 sX = SECTORX(sector);
 	INT16 sY = SECTORY(sector);
 
+	int strategicsector = CALCULATE_STRATEGIC_INDEX( sX, sY );
+
 	// if we are in gamescreen and a battle is going on, and this is the sector that militia moves from, don't move them. Suddenly disappearing would be... awkward
 	if ( guiCurrentScreen == GAME_SCREEN && gTacticalStatus.uiFlags & INCOMBAT && gWorldSectorX == sX && gWorldSectorY == sY && !gbWorldSectorZ )
 	{
 		// remove all movement flags
-		StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
+		StrategicMap[strategicsector].usFlags &= ~MILITIA_MOVE_ALLDIRS;
 		return;
 	}
 
@@ -1067,24 +1069,24 @@ void MilitiaMovementOrder(UINT8 sector)
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gpStrategicString[STR_MILITIAMOVEMENT_NO_STAFF_ABORT] );
 
 		// remove all movement flags
-		StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
+		StrategicMap[strategicsector].usFlags &= ~MILITIA_MOVE_ALLDIRS;
 		return;
 	}
 	
 	INT16 targetX = sX;
 	INT16 targetY = sY;
 
-	if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_NORTH )
+	if ( StrategicMap[strategicsector].usFlags & MILITIA_MOVE_NORTH )
 		--targetY;
-	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_WEST )
+	else if ( StrategicMap[strategicsector].usFlags & MILITIA_MOVE_WEST )
 		--targetX;
-	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_EAST )
+	else if ( StrategicMap[strategicsector].usFlags & MILITIA_MOVE_EAST )
 		++targetX;
-	else if ( StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags & MILITIA_MOVE_SOUTH )
+	else if ( StrategicMap[strategicsector].usFlags & MILITIA_MOVE_SOUTH )
 		++targetY;
 
 	// remove all movement flags
-	StrategicMap[ sX + ( sY * MAP_WORLD_X ) ].usFlags &= ~MILITIA_MOVE_ALLDIRS;
+	StrategicMap[strategicsector].usFlags &= ~MILITIA_MOVE_ALLDIRS;
 
 	UINT8 targetsector = SECTOR(targetX, targetY);
 	

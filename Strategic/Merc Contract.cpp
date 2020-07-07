@@ -1209,7 +1209,7 @@ void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldi
 		fInSector = TRUE;
 	}
 	// check if drassen controlled
-	else if( StrategicMap[	( AIRPORT_X + ( MAP_WORLD_X * AIRPORT_Y ) ) ].fEnemyControlled == FALSE )
+	else if( StrategicMap[CALCULATE_STRATEGIC_INDEX( AIRPORT_X, AIRPORT_Y )].fEnemyControlled == FALSE )
 	{
 		GetSectorIDString( AIRPORT_X, AIRPORT_Y, 0, zDropOffString, FALSE );
 
@@ -1348,7 +1348,7 @@ void MercDepartEquipmentBoxCallBack( UINT8 bExitValue )
 	else
 	{
 		// no
-		if( StrategicMap[ AIRPORT_X + ( AIRPORT_Y * MAP_WORLD_X ) ].fEnemyControlled == FALSE )
+		if( StrategicMap[CALCULATE_STRATEGIC_INDEX( AIRPORT_X, AIRPORT_Y )].fEnemyControlled == FALSE )
 		{
 			HandleMercLeavingEquipmentInDrassen( pLeaveSoldier->ubID );
 		}

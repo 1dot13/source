@@ -1972,8 +1972,8 @@ void InitializeSAMSites( void )
 	// all SAM sites start game in perfect working condition
 	for ( UINT32 cnt = 0; cnt < NUMBER_OF_SAMS; ++cnt )
 	{
-		StrategicMap[gpSamSectorX[cnt] + (MAP_WORLD_X * gpSamSectorY[cnt])].bSAMCondition = 100;
-		StrategicMap[gpSamSectorX[cnt] + (MAP_WORLD_X * gpSamSectorY[cnt])].sSamHackStatus = 100;
+		StrategicMap[CALCULATE_STRATEGIC_INDEX( gpSamSectorX[cnt], gpSamSectorY[cnt] )].bSAMCondition = 100;
+		StrategicMap[CALCULATE_STRATEGIC_INDEX( gpSamSectorX[cnt], gpSamSectorY[cnt] )].sSamHackStatus = 100;
 	}
 
 	// Flugente, bizarrely enough, this structure is not NULLED when starting a new campaign. For now, we NULL the flagmask to clear at least that
@@ -5560,7 +5560,7 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 		// all SAM sites start game in perfect working condition
 		for ( UINT32 cnt = 0; cnt < NUMBER_OF_SAMS; ++cnt )
 		{
-			StrategicMap[gpSamSectorX[cnt] + (MAP_WORLD_X * gpSamSectorY[cnt])].sSamHackStatus = 100;
+			StrategicMap[CALCULATE_STRATEGIC_INDEX( gpSamSectorX[cnt], gpSamSectorY[cnt] )].sSamHackStatus = 100;
 		}
 	}
 	
