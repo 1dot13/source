@@ -6366,7 +6366,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, können Tote als Zombies wieder auferstehen. Seien Sie auf der Hut!",
 	L"Wenn diese Funktion aktiviert ist, und Sie mit der linken Maustaste auf einen freien Söldner-Inventarplatz klicken (während das Sektor-Inventar angezeigt wird), wird ein hilfreiches Popup-Menü eingeblendet.",
 	L"Wenn diese Funktion aktiviert ist, wird die ungefähre Postion der verbleibenden Feinde auf der Übersichtskarte schraffiert",
-	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Tashen statt den Anbauteilen deren Inhalt angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, wird in der erweiterten Beschreibung von Taschen statt den Anbauteilen deren Inhalt angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird die Mausradrichtung umgekehrt",
 	L"Wenn diese Funktion aktiviert ist und mehrere Sölnder ausgewählt sind, werden sich diese in Formation (in relativen Abständen zueinander) bewegen. (|C|t|r|l+|A|l|t+|G)",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
@@ -6409,9 +6409,9 @@ STR16 gzGIOScreenText[] =
 	L"WAHNSINNIG",
 	L"Starten",
 	L"Abbrechen",
-	L"Extraschwer (Speichern erlauben)",
-	L"Jederzeit",
-	L"Nicht im Kampf",
+	L"Extra schwer",
+	L"Jederzeit speichern",
+	L"IRONMAN",
 	L"Option nicht verfügbar", 
 	L"Bobby Ray Qualität",
 	L"Normal",
@@ -6473,8 +6473,8 @@ STR16 gzGIOScreenText[] =
 	L"Bobby Ray Auswahl",
 
 	// anv: extra iron man modes
-	L"Soft Iron Man",	// TODO.Translate
-	L"Extreme Iron Man",	// TODO.Translate
+	L"SOFT IRONMAN",
+	L"EXTREME IRONMAN",
 };
 
 STR16	gzMPJScreenText[] =
@@ -8733,7 +8733,7 @@ STR16	zNewTacticalMessages[]=
 	L"%s hört das Geräusch knirschenden Metalls unter Jerry hervordringen. Es klingt grässlich - die Antenne ihres Laptop-Computers ist  zerstört.",  //the %s is the name of a merc.  @@@  Modified
 	L"Nach Ansehen des Hinweises, den Commander Morris hinterließ, erkennt %s eine einmalige Gelegenheit. Der Hinweis enthält Koordinaten für den Start von Raketen gegen verschiedene Städte in Arulco. Aber er enthält auch die Koordinaten des Startpunktes - der Raketenanlage.",
 	L"Das Kontroll-Board studierend, entdeckt %s, dass die Zahlen umgedreht werden könnten, so dass die Raketen diese Anlage selbst zerstören. %s muss nun einen Fluchtweg finden. Der Aufzug scheint die schnellstmögliche Route zu bieten...",         //!!! The original reads:	L"Noticing the control panel %s, figures the numbers can be reversed..." That sounds odd for me, but I think the comma is placed one word too late... (correct?)
-	L"Dies ist ein IRON MAN-Spiel und es kann nicht gespeichert werden, wenn sich Gegner in der Nähe befinden.",		
+	L"Dies ist der IRONMAN-Modus und es kann nicht gespeichert werden, wenn sich Gegner in der Nähe befinden.",		
 	L"(Kann während Kampf nicht speichern)", 
 	L"Der Name der aktuellen Kampagne enthält mehr als 30 Buchstaben.",						
 	L"Die aktuelle Kampagne kann nicht gefunden werden.",																	
@@ -8742,8 +8742,8 @@ STR16	zNewTacticalMessages[]=
 	L"Sie haben die Kampagne %S gewählt. Diese ist eine vom Spieler modifizierte Version der Originalkampagne von JA2UB. Möchten Sie die Kampagne %S spielen?",			
 	L"Um den Editor zu benutzen, müssen Sie eine andere als die Standardkampgane auswählen.",		
 	// anv: extra iron man modes
-	L"Das ist ein LEICHTES IRON MAN-Spiel und es kann während des Rundenkampfes nicht gespeichert werden.",	
-	L"Das ist ein EXTREMES IRON MAN-Spiel und es kann nur 1 mal pro Tag gespeichert werden, um %02d:00.",
+	L"Das ist der SOFT IRONMAN-Modus und es kann während des taktischen Rundenkampfes nicht gespeichert werden.",	
+	L"Das ist der EXTREME IRONMAN-Modus und es kann nur einmal am Tag gespeichert werden, um %02d:00.",
 };
 
 // The_bob : pocket popup text defs
