@@ -1432,8 +1432,12 @@ void EndInsuranceInvestigation( UINT8	ubPayoutID )
 	// Flugente: also don't pay out if the death was suspicious. I mean, we get this if there were no enemies of the player straight up shot the guy...
 	else if ( gMercProfiles[LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID].ubSuspiciousDeath == SUSPICIOUS_DEATH )
 	{
+#ifdef JA2UB
+		// WANNE: I really don't know if we should call something here. At least it fixed the compilation error when compiling UB version.
+#else
 		// fraud, no payout!
 		AddEmailWithSpecialData( INSUR_CHEAT_FRAUD, INSUR_CHEAT_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+#endif 
 	}
 	else
 	{
