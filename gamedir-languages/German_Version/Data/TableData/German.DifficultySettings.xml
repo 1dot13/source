@@ -12,22 +12,22 @@
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>1</uiIndex>
-		<Name>Novice</Name>
-		<ConfirmText>You have chosen NOVICE mode. This setting is appropriate for those new to Jagged Alliance, those new to strategy games in general, or those wishing shorter battles in the game. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Novice mode?</ConfirmText>
+		<Name>Einsteiger</Name>
+		<ConfirmText>Sie haben sich für den Einsteiger-Modus entschieden. Dies ist die passende Einstellung für Spieler, die noch nie zuvor Jagged Alliance oder ähnliche Spiele gespielt haben oder für Spieler, die sich ganz einfach kürzere Schlachten wünschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Einsteiger-Modus spielen wollen?</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>2</uiIndex>
-		<Name>Experienced</Name>
-		<ConfirmText>You have chosen EXPERIENCED mode. This setting is suitable for those already familiar with Jagged Alliance or similar games. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Experienced mode?</ConfirmText>
+		<Name>Profi</Name>
+		<ConfirmText>Sie haben sich für den Profi-Modus entschieden. Dies ist die passende Einstellung für Spieler, die bereits Erfahrung mit Jagged Alliance oder ähnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Profi-Modus spielen wollen?</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>3</uiIndex>
-		<Name>Expert</Name>
-		<ConfirmText>You have chosen EXPERT mode. We warned you. Don't blame us if you get shipped back in a body bag. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Expert mode?</ConfirmText>
+		<Name>Alter Hase</Name>
+		<ConfirmText>Sie haben sich für den Alter Hase-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloß nicht uns dafür verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Alter Hase-Modus spielen wollen?</ConfirmText>
 	</DIFFICULTY>
 	<DIFFICULTY>
 		<uiIndex>4</uiIndex>
-		<Name>Insane</Name>
-		<ConfirmText>You have chosen INSANE mode. WARNING: Don't blame us if you get shipped back in little pieces... Deidranna WILL kick your ass.  Hard.  Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in INSANE mode?</ConfirmText>	
+		<Name>WAHNSINNIG</Name>
+		<ConfirmText>Sie haben sich für den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen Stücken zurückkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im WAHNSINNIG-Modus spielen wollen?</ConfirmText>	
 	</DIFFICULTY>
 </DIFFICULTY_SETTINGS>
