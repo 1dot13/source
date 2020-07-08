@@ -551,19 +551,19 @@ STR16		QuestDescText[] =
 // TODO.Translate
 STR16		FactDescText[] = 
 {
-	L"Omerta Liberated",
-	L"Drassen Liberated",
-	L"Sanmona Liberated",
-	L"Cambria Liberated",
-	L"Alma Liberated",
-	L"Grumm Liberated",
-	L"Tixa Liberated",
-	L"Chitzena Liberated",
-	L"Estoni Liberated",
-	L"Balime Liberated",
+	L"Omerta befreit",
+	L"Drassen befreit",
+	L"Sanmona befreit",
+	L"Cambria befreit",
+	L"Alma befreit",
+	L"Grumm befreit",
+	L"Tixa befreit",
+	L"Chitzena befreit",
+	L"Estoni befreit",
+	L"Balime befreit",
 
-	L"Orta Liberated",					//10
-	L"Meduna Liberated",
+	L"Orta befreit",					//10
+	L"Meduna befreit",
 	L"Pacos approched",
 	L"Fatima Read note",
 	L"Fatima Walked away from player",
@@ -1539,6 +1539,7 @@ STR16 pCreateEditMercWindowText[] =
 	L"Increase merc stat",
 };
 
+// TODO.Translate
 STR16 pDisplayBodyTypeInfoText[] =
 {
 	L"Random", //0
@@ -1569,9 +1570,10 @@ STR16 pDisplayBodyTypeInfoText[] =
 	L"Adt M Monster", //25
 	L"Queen Monster",
 	L"Bloodcat",
-	L"Humvee",		// TODO.Translate
+	L"Humvee",		
 };
 
+// TODO.Translate
 STR16 pUpdateMercsInfoText[] = 
 {
 	L" --=ORDERS=-- ", //0
@@ -1654,6 +1656,7 @@ STR16 pUpdateMercsInfoText[] =
 	L" Hit ESC to abort entering this line in the schedule.",
 };
 
+// TODO.Translate
 CHAR16 pRenderMercStringsText[][100] =
 {
 	L"Slot #%d",
@@ -1663,28 +1666,29 @@ CHAR16 pRenderMercStringsText[][100] =
 
 STR16 pClearCurrentScheduleText[] =
 {
-	L"No action",
+	L"Keine Aktion",
 };
 
 STR16 pCopyMercPlacementText[] =
 {
-	L"Placement not copied because no placement selected.",
-	L"Placement copied.",
+	L"Platzierung wurde nicht kopiert, weil keine Platzierung ausgewählt wurde.",
+	L"Platzierung kopiert.",
 };
 
 STR16 pPasteMercPlacementText[] = 
 {
-	L"Placement not pasted as no placement is saved in buffer.",
-	L"Placement pasted.",
-	L"Placement not pasted as the maximum number of placements for this team has been reached.",
+	L"Platzierung wurde nicht eingefügt, weil keine Platzierung in den Speicher kopiert wurde.",
+	L"Platzierung eingefügt.",
+	L"Platzierung wurde nicht eingefügt, weil die Maximalanzahl für die Platzierungen des Teams erreicht wurde.",
 };
 
 //editscreen.cpp
 STR16 pEditModeShutdownText[] = 
 {
-	L"Exit editor?",
+	L"Editor beenden?",
 };
 
+// TODO.Translate
 STR16 pHandleKeyboardShortcutsText[] = 
 {
 	L"Are you sure you wish to remove all lights?", //0
@@ -1711,6 +1715,7 @@ STR16 pHandleKeyboardShortcutsText[] =
 	L"World Raise Set",
 };
 
+// TODO.Translate
 STR16 pPerformSelectedActionText[] = 
 {
 	L"Creating radar map for %S", //0
@@ -1722,6 +1727,7 @@ STR16 pPerformSelectedActionText[] =
 	L" Wipe out ground textures? ",
 };
 
+// TODO.Translate
 STR16 pWaitForHelpScreenResponseText[] = 
 {
 	L"HOME", //0
@@ -1788,12 +1794,14 @@ STR16 pWaitForHelpScreenResponseText[] =
 	L"Toggle roofs ON/OFF",
 };
 
+// TODO.Translate
 STR16 pAutoLoadMapText[] =
 {
 	L"Map data has just been corrupted.  Don't save, don't quit, get Kris!  If he's not here, save the map using a temp filename and document everything you just did, especially your last action!",
 	L"Schedule data has just been corrupted.  Don't save, don't quit, get Kris!  If he's not here, save the map using a temp filename and document everything you just did, especially your last action!",
 };
 
+// TODO.Translate
 STR16 pShowHighGroundText[] =
 {
 	L"Showing High Ground Markers",
@@ -1839,6 +1847,8 @@ STR16 pShowHighGroundText[] =
 	L"Big teargas",
 };
 */
+
+// TODO.Translate
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Toggle hide flag", //0
@@ -1871,6 +1881,7 @@ STR16 pUpdateItemStatsPanelText[] =
 	L"S",
 };
 
+// TODO.Translate
 STR16 pSetupGameTypeFlagsText[] =
 {
 	L"Item appears in both Sci-Fi and Realistic modes", //0
@@ -1878,6 +1889,7 @@ STR16 pSetupGameTypeFlagsText[] =
 	L"Item appears in Sci-Fi mode only",
 };
 
+// TODO.Translate
 STR16 pSetupGunGUIText[] =
 {
 	L"SILENCER", //0
@@ -1888,23 +1900,26 @@ STR16 pSetupGunGUIText[] =
 	L"G-LAUNCHER", //5
 };
 
+// TODO.Translate
 STR16 pSetupArmourGUIText[] =
 {
 	L"CERAMIC PLATES", //0
 };
 
+// TODO.Translate
 STR16 pSetupExplosivesGUIText[] =
 {
 	L"DETONATOR",
 };
 
+// TODO.Translate
 STR16 pSetupTriggersGUIText[] =
 {
 	L"If the panic trigger is an alarm trigger,\nenemies won't attempt to use it if they\nare already aware of your presence.",
 };
 
 //Sector Summary.cpp
-
+// TODO.Translate
 STR16 pCreateSummaryWindowText[]=
 {
 	L"Okay", //0
@@ -1918,6 +1933,7 @@ STR16 pCreateSummaryWindowText[]=
 	L"Update",
 };
 
+// TODO.Translate
 STR16 pRenderSectorInformationText[] =
 {
 	L"Tileset:  %s", //0
@@ -1980,6 +1996,7 @@ STR16 pRenderSectorInformationText[] =
 	
 };
 
+// TODO.Translate
 STR16 pRenderItemDetailsText[] =
 {
 	L"R",  //0
@@ -2010,6 +2027,7 @@ STR16 pRenderItemDetailsText[] =
 	L"ERROR:  Can't load the items for this map.  Reason unknown.", //20	
 };
 
+// TODO.Translate
 STR16 pRenderSummaryWindowText[] =
 {
 	L"CAMPAIGN EDITOR -- %s Version 1.%02d", //0
@@ -2075,31 +2093,37 @@ STR16 pRenderSummaryWindowText[] =
 	L"Items",
 };
 
+// TODO.Translate
 STR16 pUpdateSectorSummaryText[] =
 {
 	L"Analyzing map:  %s...",
 };
 
+// TODO.Translate
 STR16 pSummaryLoadMapCallbackText[] =
 {
 	L"Loading map:  %s",
 };
 
+// TODO.Translate
 STR16 pReportErrorText[] =
 {
 	L"Skipping update for %s.  Probably due to tileset conflicts...",
 };
 
+// TODO.Translate
 STR16 pRegenerateSummaryInfoForAllOutdatedMapsText[] =
 {
 	L"Generating map information",
 };
 
+// TODO.Translate
 STR16 pSummaryUpdateCallbackText[] =
 {
 	L"Generating map summary",
 };
 
+// TODO.Translate
 STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 {
 	L"MAJOR VERSION UPDATE",
@@ -2107,6 +2131,7 @@ STR16 pApologizeOverrideAndForceUpdateEverythingText[] =
 	L"Updating all outdated maps",
 };
 
+// TODO.Translate
 //selectwin.cpp
 STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 {
@@ -2115,6 +2140,7 @@ STR16 pDisplaySelectionWindowGraphicalInformationText[] =
 	L"Tileset:  %s",
 };
 
+// TODO.Translate
 STR16 pDisplaySelectionWindowButtonText[] =
 {
 	L"Accept selections (|E|n|t|e|r)",
@@ -2123,6 +2149,7 @@ STR16 pDisplaySelectionWindowButtonText[] =
 	L"Scroll window down (|D|o|w|n)",
 };
 
+// TODO.Translate
 //Cursor Modes.cpp
 STR16 wszSelType[6] = {
  L"Small", 
@@ -2134,7 +2161,6 @@ STR16 wszSelType[6] = {
  };
 
 //---
-
 CHAR16  gszAimPages[ 6 ][ 20 ] =
 {
 	L"Seite 1/2", //0
@@ -4372,9 +4398,9 @@ STR16 pMapScreenBorderButtonHelpText[] =
 	L"Luftr|aum zeigen",
 	L"Gegenstände zeigen (|I)",
 	L"Mili|z & Feinde zeigen",
-	L"Show |Disease Data",	// TODO.Translate
-	L"Show Weathe|r",
-	L"Show |Quests & Intel",
+	L"Krankheitsdaten zeigen (|D)",
+	L"Wette|r zeigen",
+	L"Aufträge & Intel zeigen (|Q)",
 };
 
 STR16 pMapScreenInvenButtonHelpText[] =
@@ -4401,8 +4427,8 @@ STR16 pMapScreenInvenButtonHelpText[] =
 	// 16 - 20
 	L"|L|i|n|k|e|r |K|l|i|c|k: Ein-/Ausblenden von anderen Gegenständen\n|R|e|c|h|t|e|r |K|l|i|c|k: Nur andere Gegenstände anzeigen", // HEADROCK HAM 5: Filter Button
 	L"Ein-/Ausblenden von zu bewegenden Gegenständen", // Flugente: move item display
-	L"Save Gear Template",	// TODO.Translate
-	L"Load Gear Template...",
+	L"Speichere Ausrüstungsvorlage",
+	L"Lade Ausrüstungsvorlage...",
 };
 
 STR16 pMapScreenBottomFastHelp[] =
@@ -4596,11 +4622,11 @@ STR16 pTransactionText[] =
 	L"Betriebskosten",			// HEADROCK HAM 3.6
 	L"Unterhaltskosten für Miliz",		// HEADROCK HAM 3.6
 	L"Lösegeld erpresst",	// Flugente: prisoner system
-	L"WHO data subscription",	// Flugente: disease TODO.Translate
-	L"Payment to Kerberus",	// Flugente: PMC
-	L"SAM site repair", // Flugente: SAM repair // TODO.Translate
-	L"Trained workers", // Flugente: train workers
-	L"Drill militia in %s",	// Flugente: drill militia	// TODO.Translate
+	L"WHO Daten abonnieren",	// Flugente: disease
+	L"Zahlung an Kerberus",	// Flugente: PMC
+	L"SAM reparieren", // Flugente: SAM repair
+	L"Arbeiter trainiert", // Flugente: train workers
+	L"Miliz in %s ausbilden",	// Flugente: drill militia
 };
 
 STR16 pTransactionAlternateText[] =
@@ -6795,9 +6821,9 @@ STR16 pDoctorWarningString[] =
 
 STR16 pMilitiaButtonsHelpText[] =
 {
-	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\Zuordnen (|L|i|n|k|s |K|l|i|c|k)\nGrüne Miliz", // button help text informing player they can pick up or drop militia with this button
-	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\Zuordnen (|L|i|n|k|s |K|l|i|c|k)\nReguläre Miliz",
-	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\Zuordnen (|L|i|n|k|s |K|l|i|c|k)\nElite Miliz",
+	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\nZuordnen (|L|i|n|k|s |K|l|i|c|k)\nGrüne Miliz", // button help text informing player they can pick up or drop militia with this button
+	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\nZuordnen (|L|i|n|k|s |K|l|i|c|k)\nReguläre Miliz",
+	L"Zuordnung auflösen (|R|e|c|h|t|s |K|l|i|c|k)\nZuordnen (|L|i|n|k|s |K|l|i|c|k)\nElite Miliz",
 	L"Verteile Miliz gleichwertig über alle Sektoren",
 };
 
@@ -8434,8 +8460,8 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|S|c|h|i|m|m|e|l |R|a|t|e",
 	L"|B|e|s|t|e |L|a|s|e|r |R|e|i|c|h|w|e|i|t|e",
 	L"|P|r|o|z|e|n|t|u|a|l|e|r |R|ü|c|k|s|t|o|ß |M|o|d|i|f|i|k|a|t|o|r",	// 65
-	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
-	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
+	L"|F|a|n |t|h|e |H|a|m|m|e|r",							// TODO.Translate
+	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",			// TODO.Translate
 };
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular. 
@@ -8507,8 +8533,8 @@ STR16 szUDBAdvStatsExplanationsTooltipText[] =
 	L"\n \nDer Gegenstand wird mit der Zeit schlecht.\nIst mehr als 50% verschimmelt wird er giftig.\nDies ist die Rate in der Schimmel entsteht.\n \nNiedriger ist besser.",
 	L"",
 	L"\n \nWenn befestigt an Feuerstoß oder Dauerfeuer fähigen Fernwaffen\nverändert dieser Gegenstand den Rückstoß um den genannten Prozentwert.\n\n Ein geringerer Rückstoß macht es einfacher, die Waffe im Dauerfeuer auf das Ziel gerichtet zu halten.\n \nNiedriger ist besser.", // 65
-	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
-	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
+	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",				// TODO.Translate
+	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",		// TODO.Translate
 };
 
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
@@ -8579,6 +8605,7 @@ STR16 gzNCTHlabels[]=
 //////////////////////////////////////////////////////
 
 // HEADROCK HAM 5: Screen messages for sector inventory sorting reports.
+// TODO.Translate
 STR16 gzMapInventorySortingMessage[] =
 {
 	L"Das Sortieren der Munition in Kisten im Sektor %c%d wurde fertiggestellt.",
@@ -8608,6 +8635,7 @@ STR16 gzMapInventoryFilterOptions[] =
 	L"Alle ausblenden",
 };
 
+// TODO.Translate
 STR16 gzMercCompare[] =
 {
 	L"???",
@@ -8680,6 +8708,7 @@ CHAR16* ranks[] =
 	L"Gen. "		//ExpLevel 10
 };
 
+// TODO.Translate
 STR16	gzNewLaptopMessages[]=
 {
 	L"Ask about our special offer!",
@@ -8704,7 +8733,7 @@ STR16	zNewTacticalMessages[]=
 	L"%s hört das Geräusch knirschenden Metalls unter Jerry hervordringen. Es klingt grässlich - die Antenne ihres Laptop-Computers ist  zerstört.",  //the %s is the name of a merc.  @@@  Modified
 	L"Nach Ansehen des Hinweises, den Commander Morris hinterließ, erkennt %s eine einmalige Gelegenheit. Der Hinweis enthält Koordinaten für den Start von Raketen gegen verschiedene Städte in Arulco. Aber er enthält auch die Koordinaten des Startpunktes - der Raketenanlage.",
 	L"Das Kontroll-Board studierend, entdeckt %s, dass die Zahlen umgedreht werden könnten, so dass die Raketen diese Anlage selbst zerstören. %s muss nun einen Fluchtweg finden. Der Aufzug scheint die schnellstmögliche Route zu bieten...",         //!!! The original reads:	L"Noticing the control panel %s, figures the numbers can be reversed..." That sounds odd for me, but I think the comma is placed one word too late... (correct?)
-	L"Dies ist ein IRON MAN-Spiel, und es kann nicht gespeichert werden, wenn sich Gegner in der Nähe befinden.",		
+	L"Dies ist ein IRON MAN-Spiel und es kann nicht gespeichert werden, wenn sich Gegner in der Nähe befinden.",		
 	L"(Kann während Kampf nicht speichern)", 
 	L"Der Name der aktuellen Kampagne enthält mehr als 30 Buchstaben.",						
 	L"Die aktuelle Kampagne kann nicht gefunden werden.",																	
@@ -8713,8 +8742,8 @@ STR16	zNewTacticalMessages[]=
 	L"Sie haben die Kampagne %S gewählt. Diese ist eine vom Spieler modifizierte Version der Originalkampagne von JA2UB. Möchten Sie die Kampagne %S spielen?",			
 	L"Um den Editor zu benutzen, müssen Sie eine andere als die Standardkampgane auswählen.",		
 	// anv: extra iron man modes
-	L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",	// TODO.Translate	
-	L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",	// TODO.Translate
+	L"Das ist ein LEICHTES IRON MAN-Spiel und es kann während des Rundenkampfes nicht gespeichert werden.",	
+	L"Das ist ein EXTREMES IRON MAN-Spiel und es kann nur 1 mal pro Tag gespeichert werden, um %02d:00.",
 };
 
 // The_bob : pocket popup text defs
@@ -8803,7 +8832,7 @@ STR16	szFoodTextStr[]=
 STR16	szPrisonerTextStr[]=
 {
 	L"%d Offiziere, %d Elite-, %d Reguläre, %d Hilfssoldaten, %d Generäle und %d Zivilisten wurden verhört.",
-	L"Gained $%d as ransom money.",		// TODO.Translate
+	L"$%d als Lösegeld erhalten.",
 	L"%d Gefangene haben uns Truppenstandorte verraten.",
 	L"%d Offiziere, %d Elite-, %d Reguläre und %d Hilfssoldaten laufen zu uns über.",
 	L"Gefangenenaufstand in %s!",
@@ -8814,7 +8843,7 @@ STR16	szPrisonerTextStr[]=
 	L"Der Feind weigert sich, Sie als Gefangenen zu nehmen - Er möchte Sie tod sehen!",
 	L"Dieses Verhalten ist ausgeschaltet in der ja2_options.ini Datei.",
 	L"%s hat %s befreit!",
-	L"A high-ranking army officer in %s has been revealed!",	// TODO.Translate
+	L"Ein ranghoher Offizier in %s wurde enttarnt!",
 	L"Der feindliche Anführer denkt nicht mal an Kapitulation!",
 	L"%d Gefangene sind uns als Freiwillige beigetreten.",
 };
@@ -8824,9 +8853,9 @@ STR16	szMTATextStr[]=
 	L"nichts",
 	L"baue eine Befestigung",
 	L"entferne eine Befestigung",
-	L"hacking",	// TODO.Translate
+	L"hacking",
 	L"%s musste %s stoppen.",
-	L"The selected barricade cannot be built in this sector",	// TODO.Translate
+	L"Die gewählte Barrikade kann in diesem Sektor nicht gebaut werden",
 };
 
 STR16	szInventoryArmTextStr[]=
@@ -8845,17 +8874,17 @@ STR16		szBackgroundText_Flags[]=
 	L" might consume drugs in inventory\n",
 	L" disregard for all other backgrounds\n",
 	L" +1 level in underground sectors\n",
-	L" steals money from the locals sometimes\n", // TODO.Translate
+	L" steals money from the locals sometimes\n",
 
 	L" +1 traplevel to planted bombs\n",
 	L" spreads corruption to nearby mercs\n",
 	L" female only",							// won't show up, text exists for compatibility reasons
 	L" male only",								// won't show up, text exists for compatibility reasons
 
-	L" huge loyality penalty in all towns if we die\n",		// TODO.Translate
+	L" huge loyality penalty in all towns if we die\n",
 
-	L" refuses to attack animals\n",	// TODO.Translate
-	L" refuses to attack members of the same group\n",	// TODO.Translate
+	L" refuses to attack animals\n",
+	L" refuses to attack members of the same group\n",
 };
 
 // TODO.Translate
@@ -8899,7 +8928,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% suppression resistance\n",
 	L" %s%d%% physical resistance\n",
 	L" %s%d%% alcohol resistance\n",
-	L" %s%d%% disease resistance\n",	// TODO.Translate
+	L" %s%d%% disease resistance\n",
 
 	L" %s%d%% interrogation effectiveness\n",
 	L" %s%d%% prison guard strength\n",
@@ -8908,7 +8937,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% team capitulation strength if we lead negotiations\n",
 	L" %s%d%% faster running\n",
 	L" %s%d%% bandaging speed\n",
-	L" %s%d%% breath regeneration\n",	// TODO.Translate
+	L" %s%d%% breath regeneration\n",
 	L" %s%d%% strength to carry items\n",
 	L" %s%d%% food consumption\n",
 	L" %s%d%% water consumption\n",
@@ -8920,8 +8949,8 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% max CTH\n",
 	L" %s%d hearing range during the night\n",
 	L" %s%d hearing range during the day\n",
-	L" %s%d effectivity at disarming traps\n",	// TODO.Translate
-	L" %s%d%% CTH with SAMs\n",	// TODO.Translate
+	L" %s%d effectivity at disarming traps\n",
+	L" %s%d%% CTH with SAMs\n",
 
 	L" %s%d%% effectiveness to friendly approach\n",
 	L" %s%d%% effectiveness to direct approach\n",
@@ -8931,36 +8960,39 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% chance of success with door breaching charges\n",
 	L" %s%d%% cth with firearms against creatures\n",
 	L" %s%d%% insurance cost\n",
-	L" %s%d%% effectiveness as spotter for fellow snipers\n",	// TODO.Translate
-	L" %s%d%% effectiveness at diagnosing diseases\n",	// TODO.Translate
+	L" %s%d%% effectiveness as spotter for fellow snipers\n",
+	L" %s%d%% effectiveness at diagnosing diseases\n",
 	L" %s%d%% effectiveness at treating population against diseases\n",
 	L"Can spot tracks up to %d tiles away\n",
 	L" %s%d%% initial distance to enemy in ambush\n",
-	L" %s%d%% chance to evade snake attacks\n",	// TODO.Translate
+	L" %s%d%% chance to evade snake attacks\n",
 
-	L" dislikes some other backgrounds\n",	// TODO.Translate
+	L" dislikes some other backgrounds\n",
 	L"Smoker",
 	L"Nonsmoker",
 	L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%% building speed\n",
-	L" hacking skill: %s%d ",	// TODO.Translate
-	L" %s%d%% burial speed\n",	// TODO.Translate
-	L" %s%d%% administration effectiveness\n",	// TODO.Translate
-	L" %s%d%% exploration effectiveness\n",	// TODO.Translate
+	L" hacking skill: %s%d ",
+	L" %s%d%% burial speed\n",
+	L" %s%d%% administration effectiveness\n",
+	L" %s%d%% exploration effectiveness\n",
 };
 
-STR16		szBackgroundTitleText[] =	// TODO.Translate
+// TODO.Translate
+STR16		szBackgroundTitleText[] =
 {
 	L"I.M.P. Background",
 };
 
 // Flugente: personality
-STR16		szPersonalityTitleText[] =	// TODO.Translate
+// TODO.Translate
+STR16		szPersonalityTitleText[] =
 {
 	L"I.M.P. Prejudices",
 };
 
-STR16		szPersonalityDisplayText[]=	// TODO.Translate
+// TODO.Translate
+STR16		szPersonalityDisplayText[]=
 {
 	L"You look",
 	L"and appearance is",
@@ -8976,6 +9008,7 @@ STR16		szPersonalityDisplayText[]=	// TODO.Translate
 };
 
 // texts showing up when hovering over the box, used to explain what a selection does. Do not use more than 200 characters!
+// TODO.Translate
 STR16		szPersonalityHelpText[]=
 {
 	L"How do you look?",
@@ -8990,6 +9023,7 @@ STR16		szPersonalityHelpText[]=
 	L"How sexist are you against the other gender?",
 };
 
+// TODO.Translate
 STR16		szRaceText[]=
 {
 	L"white",
@@ -8999,6 +9033,7 @@ STR16		szRaceText[]=
 	L"hispanic",
 };
 
+// TODO.Translate
 STR16		szAppearanceText[]=
 {
 	L"average",
@@ -9008,6 +9043,7 @@ STR16		szAppearanceText[]=
 	L"like a babe",
 };
 
+// TODO.Translate
 STR16		szRefinementText[]=
 {
 	L"average manners",
@@ -9015,13 +9051,15 @@ STR16		szRefinementText[]=
 	L"manners of a snob",
 };
 
-STR16		szRefinementTextTypes[] =	// TODO.Translate
+// TODO.Translate
+STR16		szRefinementTextTypes[] =
 {
 	L"normal people",
 	L"slobs",
 	L"snobs",
 };
 
+// TODO.Translate
 STR16		szNationalityText[]=
 {
 	L"American",		// 0
@@ -9104,7 +9142,8 @@ STR16		szNationalityText[]=
 	L"Zimbabwean", // 75
 };
 
-STR16		szNationalityTextAdjective[] = // TODO.Translate
+// TODO.Translate
+STR16		szNationalityTextAdjective[] =
 {
 	L"americans",		// 0
 	L"arabs",
@@ -9187,12 +9226,14 @@ STR16		szNationalityTextAdjective[] = // TODO.Translate
 };
 
 // special text used if we do not hate any nation (value of -1)
+// TODO.Translate
 STR16		szNationalityText_Special[]=
 {
 	L"and do not hate any other nationality.",		// used in personnel.cpp
 	L"of no origin",		// used in IMP generation
 };
 
+// TODO.Translate
 STR16		szCareLevelText[]=
 {
 	L"not",
@@ -9200,6 +9241,7 @@ STR16		szCareLevelText[]=
 	L"extremely",
 };
 
+// TODO.Translate
 STR16		szRacistText[]=
 {
 	L"not",
@@ -9207,6 +9249,7 @@ STR16		szRacistText[]=
 	L"very",
 };
 
+// TODO.Translate
 STR16		szSexistText[]=
 {
 	L"no sexist",
@@ -9216,6 +9259,7 @@ STR16		szSexistText[]=
 };
 
 // Flugente: power pack texts
+// TODO.Translate
 STR16 gPowerPackDesc[] =
 {
 	L"Batteries are ",
@@ -9234,7 +9278,8 @@ STR16 sSpecialCharacters[] =
 	L"%",		// Percentage character
 };
 
-STR16	szSoldierClassName[]=	// TODO.Translate
+// TODO.Translate
+STR16	szSoldierClassName[]=
 {
 	L"Mercenary",
 	L"Green militia",
@@ -9252,6 +9297,7 @@ STR16	szSoldierClassName[]=	// TODO.Translate
 	L"Zombie",
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryWebSite[]=
 {
 	L"%s Press Council",
@@ -9270,6 +9316,7 @@ STR16	szCampaignHistoryWebSite[]=
 	L"About us",
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryDetail[]=
 {
 	L"%s, %s %s %s in %s.",
@@ -9306,6 +9353,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"The royalists position seems more precarious than previously thought. Reports of a split surfaced, with army personnel opening fire on each other.",
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryTimeString[]=
 {
 	L"Deep in the night",		// 23 - 3
@@ -9318,6 +9366,7 @@ STR16	szCampaignHistoryTimeString[]=
 	L"During the night",		// 21 - 23
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryMoneyTypeString[]=
 {
 	L"Initial funding",
@@ -9326,6 +9375,7 @@ STR16	szCampaignHistoryMoneyTypeString[]=
 	L"Other sources",
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryConsumptionTypeString[]=
 {
 	L"Ammunition",
@@ -9335,6 +9385,7 @@ STR16	szCampaignHistoryConsumptionTypeString[]=
 	L"Item maintenance",
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryResultString[]=
 {
 	L"In an extremely one-sided battle, the army force was wiped out without much resistance.",
@@ -9359,6 +9410,7 @@ STR16	szCampaignHistoryResultString[]=
 	L"Neither side was willing to yield. While the army ultimately removed the rebel threat in the area, the staggering losses have resulted in the army unit continuing to exist in name only. But it is clear the rebels will soon be out of men and women if the army can keep on this rate of attrition.",
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryImportanceString[]=
 {
 	L"Irrelevant",
@@ -9374,6 +9426,7 @@ STR16	szCampaignHistoryImportanceString[]=
 	L"Momentous",
 };
 
+// TODO.Translate
 STR16	szCampaignHistoryWebpageString[]=
 {
 	L"Killed",
@@ -9396,7 +9449,8 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"Day",
 };
 
-STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
+// TODO.Translate
+STR16	szCampaignStatsOperationPrefix[] =
 {
 	L"Glorious %s",
 	L"Mighty %s",
@@ -9528,7 +9582,7 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 	L"Steadfast %s",
 
 	// 100
-	L"Narcoleptic %s",		// TODO.Translate
+	L"Narcoleptic %s",
 	L"Bleached %s",
 	L"Nail-biting %s",
 	L"Smite the %s",
@@ -9582,6 +9636,7 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 	// 140
 };
 
+// TODO.Translate
 STR16	szCampaignStatsOperationSuffix[] =
 {
 	L"Dragon",
@@ -9714,7 +9769,7 @@ STR16	szCampaignStatsOperationSuffix[] =
 	L"Mutual Fund",
 
 	// 100
-	L"Uniform",			// TODO.Translate
+	L"Uniform",
 	L"Saber",
 	L"Snow Leopard",
 	L"Panther",
@@ -9768,7 +9823,8 @@ STR16	szCampaignStatsOperationSuffix[] =
 	// 140
 };
 
-STR16	szMercCompareWebSite[] =	// TODO.Translate
+// TODO.Translate
+STR16	szMercCompareWebSite[] =
 {
 	// main page
 	L"Mercs Love or Dislike You",
@@ -9811,6 +9867,7 @@ STR16	szMercCompareWebSite[] =	// TODO.Translate
 	L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
 };
 
+// TODO.Translate
 STR16	szMercCompareEventText[]=
 {
 	L"%s shot me!",
@@ -9900,16 +9957,17 @@ STR16	szWHOWebSite[] =
 	L"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
 };
 
+// TODO.Translate
 STR16	szPMCWebSite[] =
 {
 	// main page
 	L"Kerberus",
-	L"Experience In Security",
+	L"Erfahrung in Sicherheit",
 
 	// links to other pages
-	L"What is Kerberus?",
-	L"Team Contracts",
-	L"Individual Contracts",
+	L"Was ist Kerberus?",
+	L"Team Verträge",
+	L"Individuelle Verträge",
 
 	// text on the main page
 	L"Kerberus is a well known international private military contractor. Founded in 1983, we provide security and armed forces training around the world.",
@@ -9943,6 +10001,7 @@ STR16	szPMCWebSite[] =
 	// individual contract page
 };
 
+// TODO.Translate
 STR16   szTacticalInventoryDialogString[]=
 {
         L"Inventory Manipulations",
@@ -9968,6 +10027,7 @@ STR16   szTacticalInventoryDialogString[]=
         L"",
 };
 
+// TODO.Translate
 STR16   szTacticalCoverDialogString[]=
 {
         L"Cover Display Mode",
@@ -9977,8 +10037,8 @@ STR16   szTacticalCoverDialogString[]=
         L"Merc",
         L"",
 
-        L"Roles",	// TODO.Translate
-		L"Fortification",	// TODO.Translate
+        L"Roles",
+		L"Fortification",
 		L"Tracker",
 		L"CTH mode",
 
@@ -9993,6 +10053,7 @@ STR16   szTacticalCoverDialogString[]=
         L"Net D",
 };
 
+// TODO.Translate
 STR16   szTacticalCoverDialogPrintString[]=
 {
         
@@ -10001,7 +10062,7 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Showing merc view",
         L"",
 
-		L"Display enemy role symbols",	// TODO.Translate
+		L"Display enemy role symbols",
 		L"Display planned fortifications",
 		L"Display enemy tracks",
         L"",
@@ -10018,7 +10079,7 @@ STR16   szTacticalCoverDialogPrintString[]=
 };
 
 // TODO.Translate
-STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
+STR16	szDynamicDialogueText[40][17] =
 {
 	// OPINIONEVENT_FRIENDLYFIRE
 	L"What the hell! $CAUSE$ attacked me!",
@@ -10781,7 +10842,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"",
 };
 
-
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 {
 	L"What?!",
@@ -10820,6 +10881,7 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 	L"You are mistaken.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 {
 	L"I knew you'd back me, $INTERJECTOR$",
@@ -10845,6 +10907,7 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 	L"Exactly!",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 {
 	L"That's right!",
@@ -10872,6 +10935,7 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 	L"Bingo.",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 {
 	L"Now wait a minute...",
@@ -10898,6 +10962,7 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 	L"Really, $VICTIM$? Is this necessary?",
 };
 
+// TODO.Translate
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
 	L"Keep silent",
@@ -10909,12 +10974,13 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 
 STR16	szDynamicDialogueText_GenderText[] =
 {
-	L"he",
-	L"she",
-	L"him",
-	L"her",
+	L"er",
+	L"sie",
+	L"seine",
+	L"ihre",
 };
 
+// TODO.Translate
 STR16	szDiseaseText[] =
 {
 	L" %s%d%% agility stat\n",
@@ -10936,14 +11002,14 @@ STR16	szDiseaseText[] =
 
 	L"Diagnosis",
 	L"Treatment",
-	L"Burial",	// TODO.Translate
+	L"Burial",
 	L"Cancel",
 
-	L"\n\n%s (undiagnosed) - %d / %d\n",	// TODO.Translate
+	L"\n\n%s (undiagnosed) - %d / %d\n",
 
-	L"High amount of distress can cause a personality split\n",	// TODO.Translate
+	L"High amount of distress can cause a personality split\n",
 	L"Contaminated items found in %s' inventory.\n",
-	L"Whenever we get this, a new disability is added.\n",	// TODO.Translate
+	L"Whenever we get this, a new disability is added.\n",
 
 	L"Only one hand can be used.\n",
 	L"Only one hand can be used.\nA medical splint was applied to speed up the healing process.\n",
@@ -10951,12 +11017,14 @@ STR16	szDiseaseText[] =
 	L"Leg functionality severely limited.\nA medical splint was applied to speed up the healing process.\n",
 };
 
+// TODO.Translate
 STR16	szSpyText[] =
 {
-	L"Hide",			// TODO.Translate
+	L"Hide",
 	L"Get Intel",
 };
 
+// TODO.Translate
 STR16	szFoodText[] =
 {
 	L"\n\n|W|a|t|e|r: %d%%\n",
@@ -10969,7 +11037,8 @@ STR16	szFoodText[] =
 	L" %s%d%% chance to lose stats\n",
 };
 
-STR16 szIMPGearWebSiteText[] =	// TODO.Translate
+// TODO.Translate
+STR16 szIMPGearWebSiteText[] =
 {
 	// IMP Gear Entrance
 	L"How should gear be selected?",
@@ -10980,9 +11049,10 @@ STR16 szIMPGearWebSiteText[] =	// TODO.Translate
 
 	// IMP Gear Entrance
 	L"I.M.P. Equipment",
-	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
+	L"Additional Cost: %d$ (%d$ prepaid)",
 };
 
+// TODO.Translate
 STR16 szIMPGearDropDownText[] =
 {
 	L"Select LBE vest",
@@ -11012,6 +11082,7 @@ STR16 szIMPGearDropDownText[] =
 	L"Select additional items",
 };
 
+// TODO.Translate
 STR16 szIMPGearDropDownNoneText[] =
 {
 	L"No LBE vest",
@@ -11041,6 +11112,7 @@ STR16 szIMPGearDropDownNoneText[] =
 	L"No additional items",
 };
 
+// TODO.Translate
 STR16 szMilitiaStrategicMovementText[] =
 {
 	L"We cannot relay orders to this sector, militia command not possible.",
@@ -11056,7 +11128,8 @@ STR16 szMilitiaStrategicMovementText[] =
 	L"Volunteers: %d (+%5.3f)",
 };
 
-STR16 szEnemyHeliText[] =	// TODO.Translate
+// TODO.Translate
+STR16 szEnemyHeliText[] =
 {
 	L"Enemy helicopter shot down in %s!",
 	L"We... uhm... currently don't control that site, commander...",
@@ -11071,6 +11144,7 @@ STR16 szEnemyHeliText[] =	// TODO.Translate
 	L"SAM in %s fires at enemy helicopter in %s.",
 };
 
+// TODO.Translate
 STR16 szFortificationText[] =
 {
 	L"No valid structure selected, nothing added to build plan.",
@@ -11082,6 +11156,7 @@ STR16 szFortificationText[] =
 	L"Tileset %d: %s",
 };
 
+// TODO.Translate
 STR16	szMilitiaWebSite[] =
 {
 	// main page
@@ -11089,6 +11164,7 @@ STR16	szMilitiaWebSite[] =
 	L"Militia Forces Overview",
 };
 
+// TODO.Translate
 STR16 szIndividualMilitiaBattleReportText[] =
 {
 	L"Took part in Operation %s",
@@ -11106,6 +11182,7 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"Contract terminated on Day %d, %d:%02d",
 };
 
+// TODO.Translate
 STR16 szIndividualMilitiaTraitRequirements[] =
 {
 	L"HP",
@@ -11131,6 +11208,7 @@ STR16 szIndividualMilitiaTraitRequirements[] =
 	L" (Expert)"
 };
 
+// TODO.Translate
 STR16	szIdividualMilitiaWebsiteText[] =
 {
 	L"Operations",
@@ -11159,6 +11237,7 @@ STR16	szIdividualMilitiaWebsiteText[] =
 	L"Status: Deserted",	// TODO:Translate
 };
 
+// TODO.Translate
 STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
 {
 	L"All statuses",
@@ -11167,6 +11246,7 @@ STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
 	L"Fired",
 };
 
+// TODO.Translate
 STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
 {
 	L"All ranks",
@@ -11175,6 +11255,7 @@ STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
 	L"Elite",
 };
 
+// TODO.Translate
 STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 {
 	L"All origins",
@@ -11185,9 +11266,10 @@ STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 
 STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
 {
-	L"All sectors",
+	L"Alle Sektoren",
 };
 
+// TODO.Translate
 STR16	szNonProfileMerchantText[] =
 {
 	L"Merchant is hostile and does not want to trade.",
@@ -11196,14 +11278,13 @@ STR16	szNonProfileMerchantText[] =
 	L"Merchant refuses to interact with you.",
 };
 
-STR16	szWeatherTypeText[] =	// TODO.Translate
+STR16	szWeatherTypeText[] =
 {
-	L"normal",
-	L"rain",
-	L"thunderstorm",
-	L"sandstorm",
-
-	L"snow",
+	L"Normal",
+	L"Regen",
+	L"Gewitter",
+	L"Sandsturm",
+	L"Schnee",
 };
 
 STR16	szSnakeText[] =
@@ -11212,6 +11293,7 @@ STR16	szSnakeText[] =
 	L"%s wurde von Schlange angegriffen!",
 };
 
+// TODO.Translate
 STR16	szSMilitiaResourceText[] =
 {
 	L"Converted %s into resources",
@@ -11223,6 +11305,7 @@ STR16	szSMilitiaResourceText[] =
 	L"Not enough resources to train militia!",
 };
 
+// TODO.Translate
 STR16	szInteractiveActionText[] =
 {
 	L"%s starts hacking.",
@@ -11236,10 +11319,11 @@ STR16	szInteractiveActionText[] =
 	L"%s doesn't have enough money. That's just embarassing.",
 
 	L"%s drank from water tap",
-	L"This machine doesn't seem to be working.",	// TODO.Translate
+	L"This machine doesn't seem to be working.",
 };
 
-STR16	szLaptopStatText[] =	// TODO.Translate
+// TODO.Translate
+STR16	szLaptopStatText[] =
 {
 	L"threaten effectiveness %d\n",
 	L"leadership %d\n",
@@ -11265,6 +11349,7 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 	L"%s learns with 1/4 speed.",
 };
 
+// TODO.Translate
 STR16	szGearTemplateText[] =	// TODO.Translate
 {
 	L"Enter Template Name",
@@ -11275,6 +11360,7 @@ STR16	szGearTemplateText[] =	// TODO.Translate
 	L"We cannot attach %s (item %d) as that might damage items.",	// TODO.Translate
 };
 
+// TODO.Translate
 STR16	szIntelWebsiteText[] =
 {
 	L"Recon Intelligence Services",
@@ -11333,6 +11419,7 @@ STR16	szIntelWebsiteText[] =
 	L"You have nothing to upload.",
 };
 
+// TODO.Translate
 STR16	szIntelText[] =
 {
 	L"No more enemies present, %s is no longer in hiding!",
@@ -11355,6 +11442,7 @@ STR16	szIntelText[] =
 	L"Information on planned bandit raids.",
 };
 
+// TODO.Translate
 STR16	szChatTextSpy[] =
 {
 	L"... so imagine my surprise when suddenly...",
@@ -11388,6 +11476,7 @@ STR16	szChatTextSpy[] =
 	L"... even though regulations are clear in that regard...",
 };
 
+// TODO.Translate
 STR16	szChatTextEnemy[] =
 {
 	L"Whoa. I had no idea!",
@@ -11421,6 +11510,7 @@ STR16	szChatTextEnemy[] =
 	L"... had never even considered that...",
 };
 
+// TODO.Translate
 STR16	szMilitiaText[] =
 {
 	L"Train new militia",
@@ -11429,7 +11519,8 @@ STR16	szMilitiaText[] =
 	L"Cancel",
 };
 
-STR16	szFactoryText[] =	// TODO.Translate
+// TODO.Translate
+STR16	szFactoryText[] =
 {
 	L"%s: Production of %s switched off as loyalty is too low.",
 	L"%s: Production of %s switched off due to insufficient funds.",
@@ -11441,6 +11532,7 @@ STR16	szFactoryText[] =	// TODO.Translate
 	L"h/item",
 };
 
+// TODO.Translate
 STR16	szTurncoatText[] =
 {
 	L"%s now secretly works for us!",
