@@ -1772,8 +1772,8 @@ void RenderOverheadOverlays()
 				// in order not go give away the precise location of the item, have the center of the circles vary, but with the item being inside
 				// we can't use random numbers as the circles shouldn't move upon repeated calls, so use modulo magic
 				INT16 totalvariationsquared = ( 4 + pWorldItem->sGridNo * 37 ) % radiusingridnos*radiusingridnos;
-				INT16 variation_x = sqrt(( ( pWorldItem->sGridNo * 13 ) % 100 ) * totalvariationsquared / 100);
-				INT16 variation_y = sqrt( totalvariationsquared - variation_x * variation_x );
+				INT16 variation_x = sqrt(DOUBLE(( ( pWorldItem->sGridNo * 13 ) % 100 ) * totalvariationsquared / 100));
+				INT16 variation_y = sqrt(DOUBLE(totalvariationsquared - variation_x * variation_x ));
 
 				if ( pWorldItem->sGridNo % 8 < 4 )			variation_x *= -1;
 				if ( (2 + pWorldItem->sGridNo) % 8 < 4 )	variation_y *= -1;
