@@ -11708,6 +11708,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 		// sevenfm: play sound while dragging
 		if (!(this->usSoldierFlagMask2 & SOLDIER_DRAG_SOUND))
 		{
+			SGPFILENAME		zFilename_Used;
 			CHAR8	zFilename[512];
 			// prepare drag sound
 			if (gsDragSoundNum < 0)
@@ -11716,16 +11717,17 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 				do
 				{
 					gsDragSoundNum++;
-					sprintf(zFilename, "Sounds\\Misc\\DragBody%d.ogg", gsDragSoundNum);					
-				} while (FileExists(zFilename));
+					sprintf(zFilename, "Sounds\\Misc\\DragBody%d", gsDragSoundNum);					
+				} while ( SoundFileExists( zFilename, zFilename_Used ) );
 				gsDragSoundNum--;
 			}
+
 			if (gsDragSoundNum > 0)
 			{
-				sprintf(zFilename, "Sounds\\Misc\\DragBody%d.ogg", Random(gsDragSoundNum) + 1);
-				if (FileExists(zFilename))
+				sprintf(zFilename, "Sounds\\Misc\\DragBody%d", Random(gsDragSoundNum) + 1);
+				if ( SoundFileExists( zFilename, zFilename_Used ) )
 				{
-					PlayJA2SampleFromFile(zFilename, RATE_11025, SoundVolume(MIDVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
+					PlayJA2SampleFromFile( zFilename_Used, RATE_11025, SoundVolume(MIDVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
 				}
 
 				this->usSoldierFlagMask2 |= SOLDIER_DRAG_SOUND;
