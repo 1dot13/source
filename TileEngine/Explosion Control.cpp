@@ -5278,6 +5278,10 @@ UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOL
 // fired at completely random trajectories.
 void FireFragments( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, UINT16 usItem, UINT8 ubDirection )
 {
+	// WANNE: Disable Fragments in a multiplayer game, because this can lead to crashes when stepping on mines, ...
+	if (is_networked)
+		return;
+
 	UINT16 usNumFragments = Explosive[Item[usItem].ubClassIndex].usNumFragments;
 	UINT16 ubFragRange = Explosive[Item[usItem].ubClassIndex].ubFragRange;
 
