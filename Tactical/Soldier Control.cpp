@@ -9281,7 +9281,7 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	}
 
 	// Flugente: drag people
-	if (pSoldier->IsDraggingSomeone())
+	if ( pSoldier->IsDraggingSomeone( false ) )
 	{
 		pSoldier->sAniDelay = gItemSettings.fDragAPCostModifier * pSoldier->sAniDelay;
 	}
@@ -11740,34 +11740,37 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 		{
 			SOLDIERTYPE* pSoldier = MercPtrs[this->usDragPersonID];
 			
-			// while it would be neat to take the opposite direction (which would make it look like we drag the other person by the legs),
-			// this causes problems, as a prone person needs additional space for the legs. So just take the same direction
-			//pSoldier->ubDirection = (this->ubDirection + 4 ) % NUM_WORLD_DIRECTIONS;
-			pSoldier->ubDirection = this->ubDirection;
-						
-			FLOAT dx = 0;
-			FLOAT dy = 0;
-
-			INT32 gridnotouse = pSoldier->sGridNo;
-			if ( sOldGridNo != this->sGridNo )
+			if ( pSoldier )
 			{
-				gridnotouse = sOldGridNo;
+				// while it would be neat to take the opposite direction (which would make it look like we drag the other person by the legs),
+				// this causes problems, as a prone person needs additional space for the legs. So just take the same direction
+				//pSoldier->ubDirection = (this->ubDirection + 4 ) % NUM_WORLD_DIRECTIONS;
+				pSoldier->ubDirection = this->ubDirection;
+
+				FLOAT dx = 0;
+				FLOAT dy = 0;
+
+				INT32 gridnotouse = pSoldier->sGridNo;
+				if ( sOldGridNo != this->sGridNo )
+				{
+					gridnotouse = sOldGridNo;
+				}
+				else
+				{
+					INT16 this_base_x = 0;
+					INT16 this_base_y = 0;
+					ConvertMapPosToWorldTileCenter( this->sGridNo, &this_base_x, &this_base_y );
+
+					dx = this->dXPos - this_base_x;
+					dy = this->dYPos - this_base_y;
+				}
+
+				INT16 base_x = 0;
+				INT16 base_y = 0;
+				ConvertMapPosToWorldTileCenter( gridnotouse, &base_x, &base_y );
+
+				pSoldier->EVENT_InternalSetSoldierPosition( base_x + dx, base_y + dy, FALSE, FALSE, FALSE );
 			}
-			else
-			{
-				INT16 this_base_x = 0;
-				INT16 this_base_y = 0;
-				ConvertMapPosToWorldTileCenter(this->sGridNo, &this_base_x, &this_base_y);
-
-				dx = this->dXPos - this_base_x;
-				dy = this->dYPos - this_base_y;
-			}
-
-			INT16 base_x = 0;
-			INT16 base_y = 0;
-			ConvertMapPosToWorldTileCenter( gridnotouse, &base_x, &base_y );
-
-			pSoldier->EVENT_InternalSetSoldierPosition( base_x + dx, base_y + dy, FALSE, FALSE, FALSE );
 		}
 		else if ( this->sDragCorpseID >= 0 )
 		{
@@ -20465,20 +20468,20 @@ BOOLEAN		SOLDIERTYPE::CanDragCorpse( UINT16 usCorpseNum )
 	return FALSE;
 }
 
-BOOLEAN		SOLDIERTYPE::IsDraggingSomeone( )
+BOOLEAN		SOLDIERTYPE::IsDraggingSomeone( bool aStopIfConditionNotSatisfied )
 {
 	if ( this->sDragCorpseID >= 0 )
 	{
 		if ( this->CanDragCorpse(this->sDragCorpseID) )
 			return TRUE;
-		else
+		else if ( aStopIfConditionNotSatisfied )
 			CancelDrag();
 	}
 	else if ( this->usDragPersonID != NOBODY )
 	{
 		if ( this->CanDragPerson(this->usDragPersonID) )
 			return TRUE;
-		else
+		else if ( aStopIfConditionNotSatisfied )
 			CancelDrag();
 	}
 

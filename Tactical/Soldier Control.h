@@ -2015,7 +2015,7 @@ public:
 	BOOLEAN		CanDragInPrinciple();
 	BOOLEAN		CanDragPerson( UINT16 usID );
 	BOOLEAN		CanDragCorpse( UINT16 usCorpseNum );
-	BOOLEAN		IsDraggingSomeone();
+	BOOLEAN		IsDraggingSomeone(bool aStopIfConditionNotSatisfied = true);
 	void		SetDragOrderPerson( UINT16 usID );
 	void		SetDragOrderCorpse( UINT32 usID );
 	void		CancelDrag();
