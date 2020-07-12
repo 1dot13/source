@@ -1285,14 +1285,12 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 	}
 
 	//Display the mercs name
-	if ( Menptr[iId].bAssignment < ON_DUTY && gGameExternalOptions.fUseXMLSquadNames )
-	{		
-		swprintf( sString, L"%s", SquadNames[ Menptr[iId].bAssignment ].squadname);
-	}
-	else
-		mprintf(sX+iSlot*IMAGE_BOX_WIDTH, CHAR_NAME_Y, sString );
+	mprintf( sX + iSlot*IMAGE_BOX_WIDTH, CHAR_NAME_Y, sString );
 
-	swprintf( sString, L"%s", pPersonnelAssignmentStrings[Menptr[iId].bAssignment]);
+	if ( Menptr[iId].bAssignment < ON_DUTY && gGameExternalOptions.fUseXMLSquadNames )
+		swprintf( sString, L"%s", SquadNames[ Menptr[iId].bAssignment ].squadname);
+	else
+		swprintf( sString, L"%s", pPersonnelAssignmentStrings[Menptr[iId].bAssignment]);
 
 	// nick name - assignment
 	FindFontCenterCoordinates(IMAGE_BOX_X-5,0,IMAGE_BOX_WIDTH + 90 , 0,sString,CHAR_NAME_FONT, &sX, &sY );

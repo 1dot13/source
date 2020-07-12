@@ -1787,20 +1787,18 @@ INT32	CalcStartDayOfInsurance( SOLDIERTYPE *pSoldier )
 
 BOOLEAN AreAnyAimMercsOnTeam( )
 {
-	INT16	sNextMercID = 0;
-	BOOLEAN fIsThereAnyAimMercs = FALSE;
 	SOLDIERTYPE *pSoldier = NULL;
 
-	for( sNextMercID = 0; sNextMercID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; sNextMercID++ )
+	for( int cnt = 0; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
-		pSoldier = &Menptr[ GetSoldierIDFromMercID( (UINT8) sNextMercID ) ];
+		pSoldier = MercPtrs[cnt];
 
 		//check to see if any of the mercs are AIM mercs
 		if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 		{
-			fIsThereAnyAimMercs = TRUE;
+			return TRUE;
 		}
 	}
 
-	return( fIsThereAnyAimMercs );
+	return FALSE;
 }
