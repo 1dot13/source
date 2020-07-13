@@ -9679,13 +9679,11 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 		return;
 	}
 
-	/*
 	if ( is_client )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[43] );
 		return;//hayden disable climbing roof
 	}
-	*/
 
 	INT8							bNewDirection;
 	UINT8							ubWhoIsThere;	
