@@ -5553,21 +5553,21 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 							if (gGameOptions.fNewTraitSystem) // SANDRO - old/new traits check
 							{
 								UINT8 ubTempSkillArray[30];
-								INT8 bNumSkillTraits = 0;
+								int bNumSkillTraits = 0;
 			
 								// lets rearrange our skills to a temp array
 								// we also get the number of lines (skills) to be displayed 
-								for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ubCnt++ )
+								for ( UINT8 ubCnt = 1; ubCnt < NUM_SKILLTRAITS_NT; ++ubCnt )
 								{
 									if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 2 )
 									{
 										ubTempSkillArray[bNumSkillTraits] = (ubCnt + NEWTRAIT_MERCSKILL_EXPERTOFFSET);
-										bNumSkillTraits++;
+										++bNumSkillTraits;
 									}
 									else if ( ProfileHasSkillTrait( pSoldier->ubProfile, ubCnt ) == 1 )
 									{
 										ubTempSkillArray[bNumSkillTraits] = ubCnt;
-										bNumSkillTraits++;
+										++bNumSkillTraits;
 									}
 								}
 			
@@ -5578,7 +5578,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 								}
 								else
 								{
-									for ( UINT8 ubCnt = 0; ubCnt < bNumSkillTraits; ubCnt++ )
+									for ( int ubCnt = 0; ubCnt < bNumSkillTraits; ++ubCnt )
 									{
 										swprintf( sTemp, L"%s\n", gzMercSkillTextNew[ ubTempSkillArray[ubCnt] ] );
 										wcscat( pStr, sTemp );
@@ -7157,8 +7157,8 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 
 			if ( pNewSoldier->bAssignment != iCurrentSquad )
 			{
-				if ( gGameExternalOptions.fUseXMLSquadNames && pNewSoldier->bAssignment < ON_DUTY )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], SquadNames[pNewSoldier->bAssignment].squadname );
+				if ( gGameExternalOptions.fUseXMLSquadNames && pNewSoldier->bAssignment < min(ON_DUTY, gSquadNameVector.size()) )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], gSquadNameVector[pNewSoldier->bAssignment].c_str() );
 				else
 					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( pNewSoldier->bAssignment + 1 ) );

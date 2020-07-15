@@ -2102,8 +2102,8 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 					{
 						// squad
 						// HEADROCK HAM 3.6: Messages are no longer yellow by default.
-						if ( gGameExternalOptions.fUseXMLSquadNames )
-							ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], SquadNames[ pGroup->pPlayerList->pSoldier->bAssignment ].squadname, pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
+						if ( gGameExternalOptions.fUseXMLSquadNames && pGroup->pPlayerList->pSoldier->bAssignment < gSquadNameVector.size() )
+							ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], gSquadNameVector[pGroup->pPlayerList->pSoldier->bAssignment].c_str(), pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
 						else
 							ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, pMessageStrings[ MSG_ARRIVE ], pAssignmentStrings[ pGroup->pPlayerList->pSoldier->bAssignment ], pMapVertIndex[ pGroup->pPlayerList->pSoldier->sSectorY ], pMapHortIndex[ pGroup->pPlayerList->pSoldier->sSectorX ]);
 					}
@@ -5725,8 +5725,8 @@ BOOLEAN HandlePlayerGroupEnteringSectorToCheckForNPCsOfNote( GROUP *pGroup )
 	// build string for squad
 	GetSectorIDString( sSectorX, sSectorY, bSectorZ, wSectorName, FALSE );
 
-	if ( gGameExternalOptions.fUseXMLSquadNames && pGroup->pPlayerList->pSoldier->bAssignment < ON_DUTY )
-		swprintf( sString, pLandMarkInSectorString[ 1 ], SquadNames[ pGroup->pPlayerList->pSoldier->bAssignment ].squadname, wSectorName );
+	if ( gGameExternalOptions.fUseXMLSquadNames && pGroup->pPlayerList->pSoldier->bAssignment < min(ON_DUTY, gSquadNameVector .size()) )
+		swprintf( sString, pLandMarkInSectorString[ 1 ], gSquadNameVector[pGroup->pPlayerList->pSoldier->bAssignment].c_str(), wSectorName );
 	else
 		swprintf( sString, pLandMarkInSectorString[ 0 ], pGroup->pPlayerList->pSoldier->bAssignment + 1, wSectorName );
 

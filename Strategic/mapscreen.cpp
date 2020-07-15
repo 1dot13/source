@@ -2849,8 +2849,8 @@ void DrawCharacterInfo(INT16 sCharNumber)
 	}
 	else
 	{
-		if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < ON_DUTY )
-			swprintf( sString, L"%s", SquadNames[ pSoldier->bAssignment ].squadname );
+		if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < min(ON_DUTY, gSquadNameVector.size()) )
+			swprintf( sString, L"%s", gSquadNameVector[pSoldier->bAssignment].c_str() );
 		else
 			wcscpy( sString, pAssignmentStrings[ pSoldier->bAssignment ] );
 	}
@@ -15871,8 +15871,8 @@ void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 	}
 	else
 	{
-		if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < ON_DUTY )
-			swprintf( sString, L" %s", SquadNames[ pSoldier->bAssignment ].squadname );
+		if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < min(ON_DUTY, gSquadNameVector.size() ) )
+			swprintf( sString, L" %s", gSquadNameVector[pSoldier->bAssignment].c_str() );
 		else
 			wcscpy(sString, pAssignmentStrings[ pSoldier->bAssignment ] );
 	}

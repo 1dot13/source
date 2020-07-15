@@ -1720,8 +1720,8 @@ void PlotPathForCharacter( SOLDIERTYPE *pCharacter, INT16 sX, INT16 sY, BOOLEAN 
 		}
 		else	// squad
 		{
-			if ( gGameExternalOptions.fUseXMLSquadNames )
-				MapScreenMessage( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"%s %s", SquadNames[ pCharacter->bAssignment ].squadname, gsUndergroundString[0] );
+			if ( gGameExternalOptions.fUseXMLSquadNames && pCharacter->bAssignment < gSquadNameVector.size() )
+				MapScreenMessage( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"%s %s", gSquadNameVector[pCharacter->bAssignment].c_str(), gsUndergroundString[0] );
 			else
 				MapScreenMessage( FONT_MCOLOR_DKRED, MSG_INTERFACE, L"%s %s", pLongAssignmentStrings[ pCharacter->bAssignment ], gsUndergroundString[0] );
 		}

@@ -375,8 +375,6 @@ SGPPoint OrigSnitchSectorPosition={320,150};
 
 SGPPoint OrigPrisonerPosition = {320, 150};
 
-SQUAD_NAMES	SquadNames[20];
-
 //extern BOOLEAN fMapExitDueToMessageBox;
 
 // at least one merc was hired at some time
@@ -3845,15 +3843,15 @@ void AddStringsToMoveBox( void )
 		// add this squad, now add all the grunts in it
 		if( fSquadIsMoving[ iCount ] )
 		{
-			if ( gGameExternalOptions.fUseXMLSquadNames )
-				swprintf( sString, L"*%s*", SquadNames[ iSquadMovingList[ iCount ] ].squadname );
+			if ( gGameExternalOptions.fUseXMLSquadNames && iSquadMovingList[iCount] < gSquadNameVector.size() )
+				swprintf( sString, L"*%s*", gSquadNameVector[iSquadMovingList[iCount]].c_str() );
 			else
 				swprintf( sString, L"*%s*", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}
 		else
 		{
-			if ( gGameExternalOptions.fUseXMLSquadNames )
-				swprintf( sString, L"%s", SquadNames[ iSquadMovingList[ iCount ] ].squadname );
+			if ( gGameExternalOptions.fUseXMLSquadNames && iSquadMovingList[iCount] < gSquadNameVector.size() )
+				swprintf( sString, L"%s", gSquadNameVector[iSquadMovingList[iCount]].c_str() );
 			else
 				swprintf( sString, L"%s", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}

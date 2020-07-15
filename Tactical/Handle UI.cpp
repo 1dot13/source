@@ -1549,8 +1549,8 @@ UINT32 UIHandleSelectMerc( UI_EVENT *pUIEvent )
 		// If different, display message
 		if ( CurrentSquad( ) != iCurrentSquad )
 		{
-			if ( gGameExternalOptions.fUseXMLSquadNames && CurrentSquad( ) + 1 < ON_DUTY )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], SquadNames[CurrentSquad( ) + 1].squadname );
+			if ( gGameExternalOptions.fUseXMLSquadNames && CurrentSquad( ) + 1 < min( ON_DUTY, gSquadNameVector.size() ) )
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], gSquadNameVector[CurrentSquad() + 1].c_str() );
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
 		}

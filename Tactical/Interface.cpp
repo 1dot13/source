@@ -1987,8 +1987,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		}
 		else if ( pSoldier->bTeam == gbPlayerNum &&	pSoldier->bAssignment < ON_DUTY && pSoldier->bAssignment != CurrentSquad() && !( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
 		{
-			if ( gGameExternalOptions.fUseXMLSquadNames )
-				swprintf( NameStr, SquadNames[ pSoldier->bAssignment ].squadname );
+			if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < gSquadNameVector.size() )
+				swprintf( NameStr, gSquadNameVector[pSoldier->bAssignment].c_str() );
 			else
 				swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
 

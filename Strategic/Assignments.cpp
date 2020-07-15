@@ -12957,8 +12957,8 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			switch( bCanJoinSquad )
 			{
 				case CHARACTER_CANT_JOIN_SQUAD_SQUAD_MOVING:
-					if ( gGameExternalOptions.fUseXMLSquadNames )
-						swprintf( sString, pMapErrorString[ 36 ], pSoldier->GetName(), SquadNames[ iValue ].squadname );
+					if ( gGameExternalOptions.fUseXMLSquadNames && iValue < gSquadNameVector.size() )
+						swprintf( sString, pMapErrorString[ 36 ], pSoldier->GetName(), gSquadNameVector[iValue].c_str() );
 					else
 						swprintf( sString, pMapErrorString[ 36 ], pSoldier->GetName(), pLongAssignmentStrings[ iValue ] );
 					break;
@@ -12966,14 +12966,14 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					swprintf( sString, pMapErrorString[ 37 ], pSoldier->GetName() );
 					break;
 				case CHARACTER_CANT_JOIN_SQUAD_TOO_FAR:
-					if ( gGameExternalOptions.fUseXMLSquadNames )
-						swprintf( sString, pMapErrorString[ 20 ], pSoldier->GetName(), SquadNames[ iValue ].squadname );
+					if ( gGameExternalOptions.fUseXMLSquadNames && iValue < gSquadNameVector.size() )
+						swprintf( sString, pMapErrorString[ 20 ], pSoldier->GetName(), gSquadNameVector[iValue].c_str() );
 					else
 						swprintf( sString, pMapErrorString[ 20 ], pSoldier->GetName(), pLongAssignmentStrings[ iValue ] );
 					break;
 				case CHARACTER_CANT_JOIN_SQUAD_FULL:
-					if ( gGameExternalOptions.fUseXMLSquadNames )
-						swprintf( sString, pMapErrorString[ 19 ], pSoldier->GetName(), SquadNames[ iValue ].squadname );
+					if ( gGameExternalOptions.fUseXMLSquadNames && iValue < gSquadNameVector.size() )
+						swprintf( sString, pMapErrorString[ 19 ], pSoldier->GetName(), gSquadNameVector[iValue].c_str() );
 					else
 						swprintf( sString, pMapErrorString[ 19 ], pSoldier->GetName(), pLongAssignmentStrings[ iValue ] );
 					break;
@@ -14382,8 +14382,8 @@ void CreateSquadBox( void )
  {
 	 // get info about current squad and put in	string
 	 //SQUAD10 FIX
-	 if ( gGameExternalOptions.fUseXMLSquadNames )
-		swprintf( sString, L"%s ( %d/%d )", SquadNames[ uiCounter ].squadname, NumberOfPeopleInSquad( ( INT8 )uiCounter ), gGameOptions.ubSquadSize );
+	 if ( gGameExternalOptions.fUseXMLSquadNames && uiCounter < gSquadNameVector.size() )
+		swprintf( sString, L"%s ( %d/%d )", gSquadNameVector[uiCounter].c_str(), NumberOfPeopleInSquad( ( INT8 )uiCounter ), gGameOptions.ubSquadSize );
 	 else
 		swprintf( sString, L"%s ( %d/%d )", pSquadMenuStrings[uiCounter], NumberOfPeopleInSquad( ( INT8 )uiCounter ), gGameOptions.ubSquadSize );
 
@@ -15303,8 +15303,8 @@ void CreateAssignmentsBox( void )
 		if( ( uiCounter == ASSIGN_MENU_ON_DUTY ) && ( pSoldier != NULL ) && ( pSoldier->bAssignment < ON_DUTY ) )
 		{
 			// show his squad # in brackets
-			if ( gGameExternalOptions.fUseXMLSquadNames )
-				swprintf( sString, L"%s(%s)", pAssignMenuStrings[uiCounter], SquadNames[ pSoldier->bAssignment ].squadname );
+			if ( gGameExternalOptions.fUseXMLSquadNames && pSoldier->bAssignment < gSquadNameVector.size() )
+				swprintf( sString, L"%s(%s)", pAssignMenuStrings[uiCounter], gSquadNameVector[uiCounter].c_str() );
 			else
 				swprintf( sString, L"%s(%d)", pAssignMenuStrings[uiCounter], pSoldier->bAssignment + 1 );
 		}

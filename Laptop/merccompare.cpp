@@ -968,6 +968,8 @@ template<>	void	DropDownTemplate<DROPDOWNNR_MERCCOMPARE_SQUADSELECTION>::SetRefr
 	fMercCompareMatrixRedraw = TRUE;
 }
 
+CHAR16 sSquadString[NUMBER_OF_SQUADS][80];
+
 BOOLEAN EnterMercCompareMatrix( )
 {
 	InitDefaults( );
@@ -976,7 +978,7 @@ BOOLEAN EnterMercCompareMatrix( )
 	std::vector<std::pair<INT16, STR16> > dropdownvector;
 
 	// create a map of all current squads  with at least 2 members
-	std::map<UINT8, UINT8>	squadmap;
+	std::map<INT16, INT16>	squadmap;
 
 	SOLDIERTYPE* pSoldier = NULL;
 	UINT16 id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
@@ -991,17 +993,23 @@ BOOLEAN EnterMercCompareMatrix( )
 				++squadmap[pSoldier->bAssignment];
 		}
 	}
-
-	std::map<UINT8, UINT8>::iterator itend = squadmap.end();
-	for ( std::map<UINT8, UINT8>::iterator it = squadmap.begin(); it != itend; ++it )
+		
+	int squadcnt = 0;
+	for ( std::map<INT16, INT16>::iterator it = squadmap.begin(), itend = squadmap.end(); it != itend; ++it )
 	{
 		if ( (*it).second > 1 )
 		{
-			if ( gGameExternalOptions.fUseXMLSquadNames )
-				dropdownvector.push_back( std::make_pair( (*it).first, SquadNames[(*it).first].squadname ) );
+			if ( gGameExternalOptions.fUseXMLSquadNames && ( *it ).first < gSquadNameVector.size() )
+			{
+				swprintf( sSquadString[squadcnt], L"%s", gSquadNameVector[( *it ).first].c_str() );
+
+				dropdownvector.push_back( std::make_pair( ( *it ).first, sSquadString[squadcnt] ) );
+			}
 			else
 				dropdownvector.push_back( std::make_pair( (*it).first, pSquadMenuStrings[(*it).first] ) );
 		}
+
+		++squadcnt;
 	}
 
 	if ( !dropdownvector.empty() )

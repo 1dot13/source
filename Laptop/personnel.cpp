@@ -1287,8 +1287,8 @@ void DisplayCharName( INT32 iId, INT32 iSlot )
 	//Display the mercs name
 	mprintf( sX + iSlot*IMAGE_BOX_WIDTH, CHAR_NAME_Y, sString );
 
-	if ( Menptr[iId].bAssignment < ON_DUTY && gGameExternalOptions.fUseXMLSquadNames )
-		swprintf( sString, L"%s", SquadNames[ Menptr[iId].bAssignment ].squadname);
+	if ( gGameExternalOptions.fUseXMLSquadNames && Menptr[iId].bAssignment < min(ON_DUTY, gSquadNameVector.size() ) )
+		swprintf( sString, L"%s", gSquadNameVector[Menptr[iId].bAssignment].c_str() );
 	else
 		swprintf( sString, L"%s", pPersonnelAssignmentStrings[Menptr[iId].bAssignment]);
 

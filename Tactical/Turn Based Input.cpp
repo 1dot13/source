@@ -2242,8 +2242,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									{
 										HandleLocateSelectMerc( pNewSoldier->ubID, LOCATEANDSELECT_MERC );
 
-										if ( gGameExternalOptions.fUseXMLSquadNames && pNewSoldier->bAssignment < ON_DUTY )
-											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE_STRING ], SquadNames[pNewSoldier->bAssignment].squadname );
+										if ( gGameExternalOptions.fUseXMLSquadNames && pNewSoldier->bAssignment < min(ON_DUTY, gSquadNameVector.size() ) )
+											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE_STRING ], gSquadNameVector[pNewSoldier->bAssignment].c_str() );
 										else
 											//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
 											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( pNewSoldier->bAssignment + 1 ) );
@@ -5961,8 +5961,8 @@ void ChangeCurrentSquad( INT32 iSquad )
 				//set active squad
 				SetCurrentSquad( cnt, FALSE );
 
-				if ( gGameExternalOptions.fUseXMLSquadNames && cnt < ON_DUTY )
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE_STRING ], SquadNames[cnt].squadname );
+				if ( gGameExternalOptions.fUseXMLSquadNames && cnt < min(ON_DUTY, gSquadNameVector.size()) )
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE_STRING ], gSquadNameVector[cnt].c_str() );
 				else
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( cnt + 1 ) );
 				

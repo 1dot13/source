@@ -9,20 +9,18 @@
 	#include "XML.h"
 #endif
 
-
 struct
 {
 	PARSE_STAGE	curElement;
 
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
-	SQUAD_NAMES		curSquadNames;
-	SQUAD_NAMES *	curArray;
-	UINT32			maxArraySize;
 
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef squadnamesParseData;
+
+std::vector<std::wstring> gSquadNameVector;
 
 static void XMLCALL
 squadnamesStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
@@ -34,17 +32,13 @@ squadnamesStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 		if(strcmp(name, "SQUAD_NAMES") == 0 && pData->curElement == ELEMENT_NONE)
 		{
 			pData->curElement = ELEMENT_LIST;
-
-			memset(pData->curArray,0,sizeof(SQUAD_NAMES)*pData->maxArraySize);
-
+			
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "SQUADNAME") == 0 && pData->curElement == ELEMENT_LIST)
 		{
 			pData->curElement = ELEMENT;
-
-			memset(&pData->curSquadNames,0,sizeof(SQUAD_NAMES));
-
+			
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(pData->curElement == ELEMENT &&
@@ -58,9 +52,8 @@ squadnamesStartElementHandle(void *userData, const XML_Char *name, const XML_Cha
 
 		pData->szCharData[0] = '\0';
 	}
-
+	
 	pData->currentDepth++;
-
 }
 
 static void XMLCALL
@@ -74,7 +67,6 @@ squadnamesCharacterDataHandle(void *userData, const XML_Char *str, int len)
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
 	}
 }
-
 
 static void XMLCALL
 squadnamesEndElementHandle(void *userData, const XML_Char *name)
@@ -90,34 +82,28 @@ squadnamesEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "SQUADNAME") == 0)
 		{
 			pData->curElement = ELEMENT_LIST;
-
-			if(pData->curSquadNames.uiIndex < pData->maxArraySize)
-			{
-				pData->curArray[pData->curSquadNames.uiIndex] = pData->curSquadNames; //write the squadnames into the table
-			}
 		}
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curSquadNames.uiIndex	= (UINT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "Squad") == 0)
 		{
 			pData->curElement = ELEMENT;
 
-			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curSquadNames.squadname, sizeof(pData->curSquadNames.squadname)/sizeof(pData->curSquadNames.squadname[0]) );
-			pData->curSquadNames.squadname[sizeof(pData->curSquadNames.squadname)/sizeof(pData->curSquadNames.squadname[0]) - 1] = '\0';
+			CHAR16 bla[30];
+
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, bla, sizeof( bla ) / sizeof( bla[0] ) );
+			bla[sizeof( bla ) / sizeof( bla[0] ) - 1] = '\0';
+
+			gSquadNameVector.push_back( bla );
 		}
-		
 
 		pData->maxReadDepth--;
 	}
 
 	pData->currentDepth--;
 }
-
-
-
 
 BOOLEAN ReadInSquadNamesStats(STR fileName)
 {
@@ -149,19 +135,14 @@ BOOLEAN ReadInSquadNamesStats(STR fileName)
 	lpcBuffer[uiFSize] = 0; //add a null terminator
 
 	FileClose( hFile );
-
-
+	
 	XML_SetElementHandler(parser, squadnamesStartElementHandle, squadnamesEndElementHandle);
 	XML_SetCharacterDataHandler(parser, squadnamesCharacterDataHandle);
-
-
+	
 	memset(&pData,0,sizeof(pData));
-	pData.curArray = SquadNames;
-	pData.maxArraySize = 20;
 
 	XML_SetUserData(parser, &pData);
-
-
+	
 	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
@@ -174,16 +155,13 @@ BOOLEAN ReadInSquadNamesStats(STR fileName)
 	}
 
 	MemFree(lpcBuffer);
-
-
+	
 	XML_ParserFree(parser);
-
-
+	
 	return( TRUE );
 }
 
 BOOLEAN WriteSquadNamesStats()
-{
-	
+{	
 	return( TRUE );
 }
