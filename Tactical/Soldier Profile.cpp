@@ -687,11 +687,12 @@ BOOLEAN LoadMercProfiles(void)
 		gMercProfiles[uiLoop].sPreCombatGridNo = gMercProfiles[uiLoop]._old_sGridNo;
 		//</SB>
 
-		/* CHRISL: For now, we should only overwrite prof.dat in the new inventory system.  Old system should still use
+		/* silversurfer: READ_PROFILE_DATA_FROM_XML from JA2.Options.ini should always take precedence.
+		CHRISL: For now, we should only overwrite prof.dat in the new inventory system.  Old system should still use
 		prof.dat until we're sure we want to replace it with the xml file.
 			Because the new WF mercs don't have entries in the prof*.dat files, we need to always load their equipment from
 			MercStaringGear.xml, regardless of the inventory system we're going to use.*/
-		if(UsingNewInventorySystem() == true || uiLoop >= 170 )
+		if( gGameExternalOptions.fReadProfileDataFromXML || UsingNewInventorySystem() == true || uiLoop >= 170 )
 		{
 			// Start by resetting all profile inventory values to 0
 			gMercProfiles[uiLoop].clearInventory();

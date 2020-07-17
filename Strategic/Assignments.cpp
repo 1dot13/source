@@ -14422,10 +14422,12 @@ void CreateSquadBox( void )
  GetBoxPosition( ghSquadBox, &pPoint);
  GetBoxSize( ghSquadBox, &pDimensions );
 
- if( giBoxY + pDimensions.iBottom > 479 )
+	// silversurfer: This doesn't make sense. Even at 800x600 the squad box can be displayed without this adjustment.
+	// The adjustment causes issues when USE_XML_SQUADNAMES is TRUE, because it will move the squad box up over the column header, which looks bad and causes clipping issues. Disabled.
+ /*if( giBoxY + pDimensions.iBottom > 479 )
  {
 		pPoint.iY = SquadPosition.iY = 479 - pDimensions.iBottom;
-	}
+	}*/
 
 	SetBoxPosition( ghSquadBox, pPoint );
 }
