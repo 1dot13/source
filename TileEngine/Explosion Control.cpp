@@ -1404,11 +1404,7 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 		if ( pBaseStructure )
 		{
 			sBaseGridNo = pBaseStructure->sGridNo;
-			ubNumberOfTiles = pBaseStructure->pDBStructureRef->pDBStructure->ubNumberOfTiles;
 			fMultiStructure = ( ( pBaseStructure->fFlags & STRUCTURE_MULTI ) != 0 );
-			ppTile = (DB_STRUCTURE_TILE **) MemAlloc( sizeof( DB_STRUCTURE_TILE* ) * ubNumberOfTiles );
-
-			memcpy( ppTile, pBaseStructure->pDBStructureRef->ppTile, sizeof( DB_STRUCTURE_TILE* ) * ubNumberOfTiles );
 
 			if ( bMultiStructSpecialFlag == -1 )
 			{
@@ -1420,6 +1416,19 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 			{
 				// ATE: Set hit points to zero....
 				pBaseStructure->ubHitPoints = 0;
+			}
+			
+			if ( pBaseStructure->pDBStructureRef )
+			{
+				ubNumberOfTiles = pBaseStructure->pDBStructureRef->pDBStructure->ubNumberOfTiles;
+				ppTile = (DB_STRUCTURE_TILE **)MemAlloc( sizeof( DB_STRUCTURE_TILE* ) * ubNumberOfTiles );
+
+				memcpy( ppTile, pBaseStructure->pDBStructureRef->ppTile, sizeof( DB_STRUCTURE_TILE* ) * ubNumberOfTiles );
+			}
+			else
+			{
+				ubNumberOfTiles = 0;
+				ppTile = 0;
 			}
 		}
 		else
