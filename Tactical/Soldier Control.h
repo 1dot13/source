@@ -1585,6 +1585,9 @@ public:
 
 	// Flugente: store disabilities as a flagmask, so we can have multiple ones
 	UINT32	usDisabilityFlagMask;
+
+	// Flugente: drag structures
+	INT32	sDragGridNo;
 	
 #ifdef JA2UB
 	//ja25
@@ -2015,9 +2018,11 @@ public:
 	BOOLEAN		CanDragInPrinciple();
 	BOOLEAN		CanDragPerson( UINT16 usID );
 	BOOLEAN		CanDragCorpse( UINT16 usCorpseNum );
+	BOOLEAN		CanDragStructure( INT32 sGridNo );
 	BOOLEAN		IsDraggingSomeone(bool aStopIfConditionNotSatisfied = true);
 	void		SetDragOrderPerson( UINT16 usID );
 	void		SetDragOrderCorpse( UINT32 usID );
+	void		SetDragOrderStructure( INT32 sGridNo );
 	void		CancelDrag();
 
 	// Flugente: spy assignments

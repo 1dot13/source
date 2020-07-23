@@ -1263,6 +1263,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\XML_Structure_Move.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\XML_Taunts.cpp"
 				>
 			</File>

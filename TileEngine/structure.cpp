@@ -633,6 +633,8 @@ STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubT
 	return( pStructure );
 }
 
+extern UINT16 gusTempDragBuildSoldierID;
+
 BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, INT16 sSoldierID = NOBODY )
 {
 	// Verifies whether a structure is blocked from being added to the map at a particular point
@@ -953,7 +955,9 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 
 			if ((pDBStructure->fFlags & STRUCTURE_OPENABLE))
 			{
-				if (pExistingStructure->fFlags & STRUCTURE_OPENABLE)
+				// Flugente: we allow this if this structure is being dragged by a soldier, otherwise we can't move containers our of rooms (and are likely to unintenionally bar rooms)
+				if (pExistingStructure->fFlags & STRUCTURE_OPENABLE
+					&& !( gusTempDragBuildSoldierID != NOBODY && MercPtrs[gusTempDragBuildSoldierID]->sDragGridNo ) )
 				{
 					// don't allow two openable structures in the same tile or things will screw
 					// up on an interface level
@@ -2502,7 +2506,6 @@ BOOLEAN FiniStructureDB( void )
 
 STRUCTURE* GetTallestStructureOnGridno( INT32 sGridNo, INT8 bLevel )
 {
-	STRUCTURE*		pCurrent	= NULL;
 	STRUCTURE*		pStruct		= NULL;
 	INT8			bestheight = -1;
 	INT16			sDesiredLevel = STRUCTURE_ON_GROUND;
@@ -2510,7 +2513,7 @@ STRUCTURE* GetTallestStructureOnGridno( INT32 sGridNo, INT8 bLevel )
 	if ( bLevel )
 		sDesiredLevel = STRUCTURE_ON_ROOF;
 
-	pCurrent = gpWorldLevelData[sGridNo].pStructureHead;
+	STRUCTURE* pCurrent = gpWorldLevelData[sGridNo].pStructureHead;
 
 	while ( pCurrent != NULL )
 	{
@@ -2520,6 +2523,42 @@ STRUCTURE* GetTallestStructureOnGridno( INT32 sGridNo, INT8 bLevel )
 			if ( pCurrent->fFlags & (STRUCTURE_CORPSE | STRUCTURE_PERSON | STRUCTURE_ROOF) )
 			{
 				// we are interested in building tiles, not people
+				pCurrent = pCurrent->pNext;
+				continue;
+			}
+
+			INT8 height = StructureHeight( pCurrent );
+			if ( height > bestheight )
+			{
+				bestheight = height;
+				pStruct = pCurrent;
+			}
+		}
+
+		pCurrent = pCurrent->pNext;
+	}
+
+	return pStruct;
+}
+
+STRUCTURE* GetTallestStructureOnGridnoDrag( INT32 sGridNo, INT8 bLevel )
+{
+	STRUCTURE*		pStruct = NULL;
+	INT8			bestheight = -1;
+	INT16			sDesiredLevel = STRUCTURE_ON_GROUND;
+
+	if ( bLevel )
+		sDesiredLevel = STRUCTURE_ON_ROOF;
+
+	STRUCTURE* pCurrent = gpWorldLevelData[sGridNo].pStructureHead;
+
+	while ( pCurrent != NULL )
+	{
+		// Check level!
+		if ( pCurrent->sCubeOffset == sDesiredLevel )
+		{
+			if ( pCurrent->fFlags & ( STRUCTURE_CORPSE | STRUCTURE_PERSON | STRUCTURE_ROOF | STRUCTURE_SWITCH | STRUCTURE_WALLSTUFF | STRUCTURE_MULTI | STRUCTURE_CAVEWALL | STRUCTURE_LIGHTSOURCE | STRUCTURE_VEHICLE | STRUCTURE_ANYFENCE | STRUCTURE_TREE ) )
+			{
 				pCurrent = pCurrent->pNext;
 				continue;
 			}

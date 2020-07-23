@@ -2865,7 +2865,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产\n", //L" - posession by a demon"
 	L" - 与枪有关的技能（如自动武器）\n", //L" - a gun-related trait\n",
 	L" - 举起枪（瞄准状态）\n", //L" - aimed gun\n",
-	L" - 在佣兵旁边放下人或尸体\n", //L" - prone person or corpse next to merc\n",
+	L" - prone person, corpse or structure next to merc\n",	// TODO.Translate
 	L" - 下蹲姿势\n", //L" - crouched position\n",
 	L" - 清空主手装备\n",	//L" - free main hand\n",
 	L" - 潜伏技能\n",	//L" - covert trait\n",

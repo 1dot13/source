@@ -2873,7 +2873,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - possession par un démon",
 	L" - a gun-related trait\n",	// TODO.Translate
 	L" - aimed gun\n",
-	L" - prone person or corpse next to merc\n",	// TODO.Translate
+	L" - prone person, corpse or structure next to merc\n",
 	L" - crouched position\n",
 	L" - free main hand\n",
 	L" - covert trait\n",

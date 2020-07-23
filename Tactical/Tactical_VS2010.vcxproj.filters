@@ -743,6 +743,9 @@
     <ClCompile Include="XML_StructureDeconstruct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+	 <ClCompile Include="XML_Structure_Move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="XML_StructureConstruct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

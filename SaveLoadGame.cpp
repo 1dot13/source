@@ -2436,18 +2436,6 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		if ( guiCurrentSaveGameVersion >=  SNITCH_TRAIT_EXTENDED )
 		{
 			numBytesRead = ReadFieldByField(hFile, &this->usSoldierFlagMask2, sizeof(usSoldierFlagMask2), sizeof(UINT32), numBytesRead);
-
-			if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
-			{
-				numBytesRead = ReadFieldByField( hFile, &this->usIndividualMilitiaID, sizeof(usIndividualMilitiaID), sizeof(UINT32), numBytesRead );
-			}
-			else
-			{
-				this->usIndividualMilitiaID = 0;
-
-				for ( int i = 0; i < sizeof(usIndividualMilitiaID); ++i )
-					buffer++;
-			}
 		}
 		else
 		{
@@ -2455,6 +2443,18 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			
 			for(int i = 0; i < sizeof(usSoldierFlagMask2); ++i)
 				buffer++;			
+		}
+
+		if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->usIndividualMilitiaID, sizeof( usIndividualMilitiaID ), sizeof( UINT32 ), numBytesRead );
+		}
+		else
+		{
+			this->usIndividualMilitiaID = 0;
+
+			for ( int i = 0; i < sizeof( usIndividualMilitiaID ); ++i )
+				buffer++;
 		}
 
 		if ( guiCurrentSaveGameVersion >= DISABILITYFLAGMASK )
@@ -2466,6 +2466,18 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			this->usDisabilityFlagMask = 0;
 
 			for ( int i = 0; i < sizeof( usDisabilityFlagMask ); ++i )
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >= DRAGSTRUCTURE )
+		{
+			numBytesRead = ReadFieldByField( hFile, &this->sDragGridNo, sizeof( sDragGridNo ), sizeof( INT32 ), numBytesRead );
+		}
+		else
+		{
+			this->sDragGridNo = NOWHERE;
+
+			for ( int i = 0; i < sizeof( sDragGridNo ); ++i )
 				buffer++;
 		}
 

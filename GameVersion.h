@@ -22,6 +22,7 @@ extern	CHAR16		zRevisionNumber[16];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			DRAGSTRUCTURE									182 // Flugente: we can drag structures behind us
 #define			DISABILITYFLAGMASK								181 // Flugente: disabilities get a flagmask
 #define			PROFILETYPE_STORED								180 // Flugente: the type of each profile is stored in the savegame
 #define			CORPSE_DISPOSAL									179 // Flugente: corpses can be removed by assignment
@@ -101,7 +102,7 @@ extern	CHAR16		zRevisionNumber[16];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								DISABILITYFLAGMASK
+#define			SAVE_GAME_VERSION								DRAGSTRUCTURE
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

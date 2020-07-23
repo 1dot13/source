@@ -85,6 +85,9 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 // Flugente: return the highest structure (no person, roof or corpse) on a gridno and level
 STRUCTURE* GetTallestStructureOnGridno( INT32 sGridNo, INT8 bLevel );
 
+// Flugente: return the highest structure (no person, roof or corpse) on a gridno and level that we could possibly drag
+STRUCTURE* GetTallestStructureOnGridnoDrag( INT32 sGridNo, INT8 bLevel );
+
 // FUNCTIONS FOR DETERMINING STUFF THAT BLOCKS VIEW FOR TILE_bASED LOS
 INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLevel, INT8 *pStructHeight, STRUCTURE ** ppTallestStructure, BOOLEAN fWallsBlock );
 

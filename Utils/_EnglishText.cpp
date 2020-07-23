@@ -2873,7 +2873,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - possession by a demon\n",
 	L" - a gun-related trait\n",
 	L" - aimed gun\n",
-	L" - prone person or corpse next to merc\n",
+	L" - prone person, corpse or structure next to merc\n",
 	L" - crouched position\n",
 	L" - free main hand\n",
 	L" - covert trait\n",

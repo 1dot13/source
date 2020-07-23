@@ -15,6 +15,7 @@
 #include "Map Screen Interface.h"
 #include "Rotting Corpses.h"
 #include "Dialogue Control.h"
+#include "Handle Items.h"
 
 extern void GetEquipmentTemplates( );
 
@@ -115,6 +116,7 @@ void Wrapper_Cancel_SoldierSelection( UINT32 aVal )		{	gSoldierSelection.Cancel(
 DragSelection	gDragSelection;
 
 void Wrapper_Function_DragSelection( UINT32 aVal)		{ gDragSelection.Functions(aVal);	}
+void Wrapper_Function_DragSelection_GridNo( INT32 aVal ){ gDragSelection.FunctionsGridNo( aVal ); }
 void Wrapper_Setup_DragSelection( UINT32 aVal )			{ gDragSelection.Setup( aVal ); }
 void Wrapper_Cancel_DragSelection( UINT32 aVal )		{ gDragSelection.Cancel( ); }
 /////////////////////////////// Drag Selection ////////////////////////////////////////////
@@ -844,9 +846,34 @@ DragSelection::Setup( UINT32 aVal )
 			GetPopup( )->addOption( *pOption );
 		}
 
+		// gridno
+		for ( int ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ++ubDirection )
+		{
+			INT32 sTempGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( ubDirection ) );
+
+			UINT32 tiletype;
+			UINT16 structurenumber;
+			if ( pSoldier->CanDragStructure( sTempGridNo )
+				&& IsDragStructurePresent( sTempGridNo, pSoldier->pathing.bLevel, tiletype, structurenumber ) )
+			{
+				int xmlentry;
+				GetDragStructureXmlEntry( tiletype, structurenumber, xmlentry );
+
+				if ( xmlentry >= 0 )
+				{
+					swprintf( pStr, L"%hs %s", gStructureMovePossible[xmlentry].szTileSetDisplayName, FaceDirs[gOneCDirection[ubDirection]] );
+
+					// we have to use an offset of NOBODY in order to differentiate between person and corpse
+					pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_DragSelection_GridNo, sTempGridNo ) );
+
+					GetPopup()->addOption( *pOption );
+				}
+			}
+		}
+
 		// cancel option
 		swprintf( pStr, pSkillMenuStrings[SKILLMENU_CANCEL] );
-		pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Cancel_SoldierSelection, 0 ) );
+		pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Cancel_DragSelection, 0 ) );
 		GetPopup( )->addOption( *pOption );
 	}
 
@@ -863,7 +890,7 @@ DragSelection::Functions( UINT32 aVal )
 
 	if ( pSoldier )
 	{
-		BOOLEAN result = pSoldier->UseSkill( usSkill, sTraitsMenuTargetGridNo, aVal );
+		BOOLEAN result = pSoldier->UseSkill( usSkill, NOWHERE, aVal );
 
 		// additional dialogue
 		AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, usSkill, result );
@@ -872,6 +899,26 @@ DragSelection::Functions( UINT32 aVal )
 	Cancel( );
 	gSkillSelection.Cancel();
 	gTraitSelection.Cancel( );
+}
+
+void
+DragSelection::FunctionsGridNo( INT32 aVal )
+{
+	SOLDIERTYPE * pSoldier = NULL;
+
+	GetSoldier( &pSoldier, gusSelectedSoldier );
+
+	if ( pSoldier )
+	{
+		BOOLEAN result = pSoldier->UseSkill( usSkill, aVal, 0 );
+
+		// additional dialogue
+		AdditionalTacticalCharacterDialogue_CallsLua( pSoldier, ADE_SKILL_RESULT, usSkill, result );
+	}
+
+	Cancel();
+	gSkillSelection.Cancel();
+	gTraitSelection.Cancel();
 }
 /////////////////////////////// Drag Selection ////////////////////////////////////////////
 

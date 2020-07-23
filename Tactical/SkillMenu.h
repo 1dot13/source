@@ -162,6 +162,7 @@ public:
 
 	void Setup( UINT32 aVal );
 	void Functions( UINT32 aVal );
+	void FunctionsGridNo( INT32 aVal );
 
 private:
 	UINT32 usSkill;

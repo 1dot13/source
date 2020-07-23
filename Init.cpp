@@ -395,6 +395,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName, BOOLEAN isMultiplayer)
 	strcat( fileName, INTERACTIVEACTIONSFILENAME );
 	SGP_THROW_IFFALSE( ReadInInteractiveActionsStats( fileName ), INTERACTIVEACTIONSFILENAME );
 
+	strcpy( fileName, directoryName );
+	strcat( fileName, STRUCTUREMOVEFILENAME );
+	SGP_THROW_IFFALSE( ReadInStructureMoveStats( fileName ), STRUCTUREMOVEFILENAME );
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, MERCHANTSFILENAME);
 	SGP_THROW_IFFALSE(ReadInMerchantStats(fileName),MERCHANTSFILENAME);

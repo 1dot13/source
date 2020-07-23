@@ -1144,6 +1144,7 @@ void SOLDIERTYPE::initialize( )
 	this->usQuickItemId = 0;
 	this->ubQuickItemSlot = 0;
 	this->usDisabilityFlagMask = 0;
+	this->sDragGridNo = NOWHERE;
 }
 
 bool SOLDIERTYPE::exists( )
@@ -11705,34 +11706,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 	// Flugente: drag people	
 	if ( currentlydragging )
 	{
-		// sevenfm: play sound while dragging
-		if (!(this->usSoldierFlagMask2 & SOLDIER_DRAG_SOUND))
-		{
-			SGPFILENAME		zFilename_Used;
-			CHAR8	zFilename[512];
-			// prepare drag sound
-			if (gsDragSoundNum < 0)
-			{
-				gsDragSoundNum = 0;
-				do
-				{
-					gsDragSoundNum++;
-					sprintf(zFilename, "Sounds\\Misc\\DragBody%d", gsDragSoundNum);					
-				} while ( SoundFileExists( zFilename, zFilename_Used ) );
-				gsDragSoundNum--;
-			}
-
-			if (gsDragSoundNum > 0)
-			{
-				sprintf(zFilename, "Sounds\\Misc\\DragBody%d", Random(gsDragSoundNum) + 1);
-				if ( SoundFileExists( zFilename, zFilename_Used ) )
-				{
-					PlayJA2SampleFromFile( zFilename_Used, RATE_11025, SoundVolume(MIDVOLUME, this->sGridNo), 1, SoundDir(this->sGridNo));
-				}
-
-				this->usSoldierFlagMask2 |= SOLDIER_DRAG_SOUND;
-			}
-		}
+		bool dragaborted = false;
 
 		if ( this->usDragPersonID != NOBODY )
 		{
@@ -11742,7 +11716,6 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 			{
 				// while it would be neat to take the opposite direction (which would make it look like we drag the other person by the legs),
 				// this causes problems, as a prone person needs additional space for the legs. So just take the same direction
-				//pSoldier->ubDirection = (this->ubDirection + 4 ) % NUM_WORLD_DIRECTIONS;
 				pSoldier->ubDirection = this->ubDirection;
 
 				FLOAT dx = 0;
@@ -11769,6 +11742,10 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 				pSoldier->EVENT_InternalSetSoldierPosition( base_x + dx, base_y + dy, FALSE, FALSE, FALSE );
 			}
+			else
+			{
+				dragaborted = true;
+			}
 		}
 		else if ( this->sDragCorpseID >= 0 )
 		{
@@ -11776,6 +11753,10 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 			if ( pCorpse )
 			{
+				// move all enemy-dropped items along with the corpse, to make it look as if the items are still 'on' the body
+				if ( sOldGridNo != this->sGridNo )
+					MoveItemPools_ForDragging( pCorpse->def.sGridNo, sOldGridNo, this->pathing.bLevel, this->pathing.bLevel );
+
 				// move corpse to new location. We have to actually delete and recreate the corpse, otherwise direction changes will only be visible after saving the game
 				ROTTING_CORPSE_DEFINITION CorpseDef;
 
@@ -11820,6 +11801,82 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 				this->sDragCorpseID = AddRottingCorpse(&CorpseDef);
 			}
+			else
+			{
+				dragaborted = true;
+			}
+		}
+		else if ( sOldGridNo != this->sGridNo && this->sDragGridNo != NOWHERE )
+		{
+			bool success = false;
+			UINT32 arusTileType;
+			UINT16 arusStructureNumber;
+			if ( IsDragStructurePresent( this->sDragGridNo, this->pathing.bLevel, arusTileType, arusStructureNumber ) )
+			{
+				// add
+				if ( BuildStructDrag( sOldGridNo, gsInterfaceLevel, arusTileType, arusStructureNumber, this->ubID ) )
+				{
+					// remove
+					RemoveStructDrag( this->sDragGridNo, gsInterfaceLevel, arusTileType );
+
+					// also move doors, this includes moving locks and traps
+					DOOR* pDoor = FindDoorInfoAtGridNo( this->sDragGridNo );
+					if ( pDoor )
+						pDoor->sGridNo = sOldGridNo;
+
+					success = true;
+				}
+			}
+
+			if ( success )
+			{
+				// move all items in/on the structure along
+				MoveItemPools_ForDragging( this->sDragGridNo, sOldGridNo, this->pathing.bLevel, this->pathing.bLevel );
+
+				this->sDragGridNo = sOldGridNo;
+			}
+			else
+			{
+				this->CancelDrag();
+
+				dragaborted = true;
+			}
+		}
+
+		if ( !dragaborted )
+		{
+			// sevenfm: play sound while dragging
+			if ( !( this->usSoldierFlagMask2 & SOLDIER_DRAG_SOUND ) )
+			{
+				SGPFILENAME		zFilename_Used;
+				CHAR8	zFilename[512];
+				// prepare drag sound
+				if ( gsDragSoundNum < 0 )
+				{
+					gsDragSoundNum = 0;
+					do
+					{
+						gsDragSoundNum++;
+						sprintf( zFilename, "Sounds\\Misc\\DragBody%d", gsDragSoundNum );
+					} while ( SoundFileExists( zFilename, zFilename_Used ) );
+					gsDragSoundNum--;
+				}
+
+				if ( gsDragSoundNum > 0 )
+				{
+					sprintf( zFilename, "Sounds\\Misc\\DragBody%d", Random( gsDragSoundNum ) + 1 );
+					if ( SoundFileExists( zFilename, zFilename_Used ) )
+					{
+						PlayJA2SampleFromFile( zFilename_Used, RATE_11025, SoundVolume( MIDVOLUME, this->sGridNo ), 1, SoundDir( this->sGridNo ) );
+					}
+
+					this->usSoldierFlagMask2 |= SOLDIER_DRAG_SOUND;
+				}
+			}
+		}
+		else
+		{
+			this->CancelDrag();
 		}
 	}
 	
@@ -18144,14 +18201,16 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 
 	case SKILLS_CREATE_TURNCOAT:
 		AttemptToCreateTurncoat ( ID );
+		return TRUE;
 		break;
 
 	case SKILLS_ACTIVATE_TURNCOATS:
-		OrderTurnCoatToSwitchSides( ID );
+		return OrderTurnCoatToSwitchSides( ID );
 		break;
 
 	case SKILLS_ACTIVATE_TURNCOATS_ALL:
 		OrderAllTurnCoatToSwitchSides();
+		return TRUE;
 		break;
 
 	case SKILLS_SPOTTER:
@@ -18164,19 +18223,27 @@ BOOLEAN SOLDIERTYPE::UseSkill( UINT8 iSkill, INT32 usMapPos, UINT32 ID )
 		{
 			usSoldierFlagMask2 &= ~SOLDIER_TRAIT_FOCUS;
 			sFocusGridNo = NOWHERE;
+
+			return FALSE;
 		}
 		else
 		{
 			usSoldierFlagMask2 |= SOLDIER_TRAIT_FOCUS;
 			sFocusGridNo = usMapPos;
+
+			return TRUE;
 		}
 		break;
 
 	case SKILLS_DRAG:
-		if ( ID < NOBODY )
+		if ( usMapPos != NOWHERE )
+			SetDragOrderStructure( usMapPos );
+		else if ( ID < NOBODY )
 			SetDragOrderPerson( ID );
 		else
 			SetDragOrderCorpse( ID - NOBODY );
+
+		return TRUE;
 		break;
 
 	default:
@@ -20466,6 +20533,191 @@ BOOLEAN		SOLDIERTYPE::CanDragCorpse( UINT16 usCorpseNum )
 	return FALSE;
 }
 
+BOOLEAN		SOLDIERTYPE::CanDragStructure( INT32 sGridNo )
+{
+	if ( !CanDragInPrinciple() )
+		return FALSE;
+	
+	if ( sGridNo == NOWHERE )
+		return FALSE;
+
+	// not on the same tile
+	if ( sGridNo == this->sGridNo )
+		return FALSE;
+
+	// not in water
+	if ( TERRAIN_IS_HIGH_WATER( sGridNo ) )
+		return FALSE;
+		
+	// must be near us 
+	if ( PythSpacesAway( sGridNo, this->sGridNo ) > 1 )
+		return FALSE;
+
+	UINT32 tiletype;
+	UINT16 structurenumber;
+	if ( !IsDragStructurePresent( sGridNo, this->pathing.bLevel, tiletype, structurenumber ) )
+		return FALSE;
+
+	// Now we need to check if there is not a wall between the two middle tiles
+	UINT8 ubDragDirection = GetDirectionToGridNoFromGridNo( this->sGridNo, sGridNo );
+	
+	{
+		switch ( ubDragDirection )
+		{
+		case NORTH:
+			if ( WallOrClosedDoorExistsOfTopLeftOrientation( sGridNo ) )
+				return FALSE;
+			break;
+		case EAST:
+			if ( WallOrClosedDoorExistsOfTopRightOrientation( this->sGridNo ) )
+				return FALSE;
+			break;
+		case SOUTH:
+			if ( WallOrClosedDoorExistsOfTopLeftOrientation( this->sGridNo ) )
+				return FALSE;
+			break;
+		case WEST:
+			if ( WallOrClosedDoorExistsOfTopRightOrientation( sGridNo ) )
+				return FALSE;
+			break;
+
+		case NORTHEAST:
+			{
+				bool successA = true;
+				bool successB = true;
+
+				// two possibilities:
+				// A) check whether there is no wall to our north, and no wall from there to the east	
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( NORTH ) );
+
+					if ( WallOrClosedDoorExistsOfTopLeftOrientation( midpointgridno )
+						|| WallOrClosedDoorExistsOfTopRightOrientation( midpointgridno ) )
+					{
+						successA = false;
+					}
+				}
+
+				// B) check whether there is no wall to our east, and no wall from there to the north
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( EAST ) );
+
+					if ( WallOrClosedDoorExistsOfTopRightOrientation( this->sGridNo )
+						|| WallOrClosedDoorExistsOfTopLeftOrientation( sGridNo ) )
+					{
+						successB = false;
+					}
+				}
+
+				if ( !successA && !successB )
+					return FALSE;
+			}
+			break;
+		case SOUTHEAST:
+			{
+				bool successA = true;
+				bool successB = true;
+
+				// two possibilities:
+				// A) check whether there is no wall to our south, and no wall from there to the east	
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( SOUTH ) );
+
+					if ( WallOrClosedDoorExistsOfTopLeftOrientation( this->sGridNo )
+						|| WallOrClosedDoorExistsOfTopRightOrientation( midpointgridno ) )
+					{
+						successA = false;
+					}
+				}
+
+				// B) check whether there is no wall to our east, and no wall from there to the south
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( EAST ) );
+
+					if ( WallOrClosedDoorExistsOfTopRightOrientation( this->sGridNo )
+						|| WallOrClosedDoorExistsOfTopLeftOrientation( midpointgridno ) )
+					{
+						successB = false;
+					}
+				}
+
+				if ( !successA && !successB )
+					return FALSE;
+			}
+			break;
+		case SOUTHWEST:
+			{
+				bool successA = true;
+				bool successB = true;
+			
+				// two possibilities:
+				// A) check whether there is no wall to our south, and no wall from there to the west	
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( SOUTH ) );
+
+					if ( WallOrClosedDoorExistsOfTopLeftOrientation( this->sGridNo )
+						|| WallOrClosedDoorExistsOfTopRightOrientation( sGridNo ) )
+					{
+						successA = false;
+					}
+				}
+
+				// B) check whether there is no wall to our west, and no wall from there to the south
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( WEST ) );
+
+					if ( WallOrClosedDoorExistsOfTopRightOrientation( midpointgridno )
+						|| WallOrClosedDoorExistsOfTopLeftOrientation( midpointgridno ) )
+					{
+						successB = false;
+					}
+				}
+
+				if ( !successA && !successB )
+					return FALSE;
+			}
+			break;
+		case NORTHWEST:
+			{
+				bool successA = true;
+				bool successB = true;
+
+				// two possibilities:
+				// A) check whether there is no wall to our north, and no wall from there to the west	
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( NORTH ) );
+
+					if ( WallOrClosedDoorExistsOfTopLeftOrientation( midpointgridno )
+						|| WallOrClosedDoorExistsOfTopRightOrientation( sGridNo ) )
+					{
+						successA = false;
+					}
+				}
+
+				// B) check whether there is no wall to our west, and no wall from there to the north
+				{
+					INT32 midpointgridno = NewGridNo( this->sGridNo, DirectionInc( WEST ) );
+
+					if ( WallOrClosedDoorExistsOfTopRightOrientation( midpointgridno )
+						|| WallOrClosedDoorExistsOfTopLeftOrientation( sGridNo ) )
+					{
+						successB = false;
+					}
+				}
+
+				if ( !successA && !successB )
+					return FALSE;
+			}
+			break;
+		default:
+			return FALSE;
+			break;
+		}
+	}
+	
+	return TRUE;
+}
+
 BOOLEAN		SOLDIERTYPE::IsDraggingSomeone( bool aStopIfConditionNotSatisfied )
 {
 	if ( this->sDragCorpseID >= 0 )
@@ -20478,6 +20730,13 @@ BOOLEAN		SOLDIERTYPE::IsDraggingSomeone( bool aStopIfConditionNotSatisfied )
 	else if ( this->usDragPersonID != NOBODY )
 	{
 		if ( this->CanDragPerson(this->usDragPersonID) )
+			return TRUE;
+		else if ( aStopIfConditionNotSatisfied )
+			CancelDrag();
+	}
+	else if ( this->sDragGridNo != NOWHERE )
+	{
+		if ( this->CanDragStructure( this->sDragGridNo ) )
 			return TRUE;
 		else if ( aStopIfConditionNotSatisfied )
 			CancelDrag();
@@ -20528,6 +20787,27 @@ void	SOLDIERTYPE::SetDragOrderCorpse( UINT32 usID )
 	}
 }
 
+void	SOLDIERTYPE::SetDragOrderStructure( INT32 sGridNo )
+{
+	if ( CanDragStructure( sGridNo ) )
+	{
+		// sevenfm: if someone is dragging this corpse, cancel drag
+		SOLDIERTYPE *pSoldier;
+		for ( UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
+		{
+			pSoldier = MercPtrs[uiLoop];
+			if ( pSoldier && pSoldier->sDragGridNo == sGridNo )
+			{
+				pSoldier->CancelDrag();
+			}
+		}
+
+		CancelDrag();
+
+		this->sDragGridNo = sGridNo;
+	}
+}
+
 void	SOLDIERTYPE::CancelDrag()
 {
 	// if we are dragging a person, set them to the center of their gridno, otherwise their position might be off
@@ -20547,6 +20827,7 @@ void	SOLDIERTYPE::CancelDrag()
 
 	this->usDragPersonID = NOBODY;
 	this->sDragCorpseID = -1;
+	this->sDragGridNo = NOWHERE;
 }
 
 // Flugente: spy assignments

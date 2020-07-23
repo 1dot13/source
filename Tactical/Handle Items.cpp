@@ -3997,6 +3997,46 @@ BOOLEAN MoveItemPools( INT32 sStartPos, INT32 sEndPos, INT8 bStartLevel, INT8 bE
 	return( TRUE );
 }
 
+BOOLEAN MoveItemPools_ForDragging( INT32 sStartPos, INT32 sEndPos, INT8 bStartLevel, INT8 bEndLevel )
+{
+	// note, only works between locations on the ground
+	ITEM_POOL*		pItemPool;
+	WORLDITEM		TempWorldItem;
+	
+	// loop over all items and note the ones we have to move. Move them afterwards, if we do it during the operation we risk pointer issues
+	std::vector<INT32> itemindexestomove_vector;
+
+	if ( bStartLevel )
+		GetItemPoolFromRoof( sStartPos, &pItemPool );
+	else
+		GetItemPoolFromGround( sStartPos, &pItemPool );
+	
+	while ( pItemPool )
+	{
+		TempWorldItem = gWorldItems[pItemPool->iItemIndex];
+
+		// don't move an item if it's an armed bomb, an action item or if it isn't a fresh drop
+		if ( TempWorldItem.object.usItem != ACTION_ITEM
+			&& !( TempWorldItem.usFlags & WORLD_ITEM_ARMED_BOMB ) )
+		{
+			itemindexestomove_vector.push_back( pItemPool->iItemIndex );
+		}
+
+		pItemPool = pItemPool->pNext;
+	}
+
+	// now move the stuff
+	for ( std::vector<INT32>::iterator it = itemindexestomove_vector.begin(), itend = itemindexestomove_vector.end(); it != itend; ++it )
+	{
+		TempWorldItem = gWorldItems[(*it)];
+		
+		RemoveItemFromPool( sStartPos, ( *it ), bStartLevel );
+		AddItemToPool( sEndPos, &( TempWorldItem.object ), 1, bEndLevel, TempWorldItem.usFlags, TempWorldItem.bRenderZHeightAboveLevel );
+	}
+
+	return( TRUE );
+}
+
 BOOLEAN	GetItemPool( INT32 usMapPos, ITEM_POOL **ppItemPool, UINT8 ubLevel )
 {
 	LEVELNODE *pObject;
@@ -4054,6 +4094,33 @@ BOOLEAN	GetItemPoolFromGround( INT32 sMapPos, ITEM_POOL **ppItemPool )
 
 			//DEF added the check because pObject->pItemPool was NULL which was causing problems
 			if( *ppItemPool )
+				return( TRUE );
+			else
+				return( FALSE );
+		}
+
+		pObject = pObject->pNext;
+	}
+
+	return( FALSE );
+}
+
+BOOLEAN	GetItemPoolFromRoof( INT32 sMapPos, ITEM_POOL **ppItemPool )
+{
+	// Flugente: apparently the ...Ground version is called a lot, otherwise it would be smarter to just add an extra argument for level
+	LEVELNODE *pObject = gpWorldLevelData[sMapPos].pOnRoofHead;
+
+	( *ppItemPool ) = NULL;
+
+	// LOOP THORUGH OBJECT LAYER
+	while ( pObject != NULL )
+	{
+		if ( pObject->uiFlags & LEVELNODE_ITEM )
+		{
+			( *ppItemPool ) = pObject->pItemPool;
+
+			//DEF added the check because pObject->pItemPool was NULL which was causing problems
+			if ( *ppItemPool )
 				return( TRUE );
 			else
 				return( FALSE );
@@ -7731,6 +7798,72 @@ UINT8	CheckBuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32
 	return 1;
 }
 
+UINT16 gusTempDragBuildSoldierID = NOBODY;
+
+BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, UINT16 usSoldierID )
+{
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	// if we want to build on a roof, a roof is required
+	if ( sLevel && !FlatRoofAboveGridNo( sGridNo ) )
+		return FALSE;
+
+	// don't build in water
+	if ( TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
+		return FALSE;
+
+	// do not build into people
+	if ( NOBODY != WhoIsThere2( sGridNo, sLevel ) )
+		return FALSE;
+	
+	if ( uiTileType < 0 )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szMTATextStr[STR_MTA_CANNOT_BUILD] );
+		return FALSE;
+	}
+
+	gusTempDragBuildSoldierID = usSoldierID;
+
+	// Check with Structure Database (aka ODB) if we can put the object here!
+	BOOLEAN fOkayToAdd = OkayToAddStructureToWorld( sGridNo, sLevel, gTileDatabase[( gTileTypeStartIndex[uiTileType] + usIndex )].pDBStructureRef, INVALID_STRUCTURE_ID );
+	if ( fOkayToAdd || ( gTileDatabase[( gTileTypeStartIndex[uiTileType] + usIndex )].pDBStructureRef == NULL ) )
+	{
+		// Remove old graphic
+		ApplyMapChangesToMapTempFile( TRUE );
+
+		//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
+		// Actual structure info is added by the functions below
+		if ( sLevel )
+		{
+			RemoveOnRoofStruct( sGridNo, (UINT16)( gTileTypeStartIndex[uiTileType] + usIndex ) );
+
+			AddOnRoofToTail( sGridNo, (UINT16)( gTileTypeStartIndex[uiTileType] + usIndex ) );
+		}
+		else
+		{
+			RemoveStruct( sGridNo, (UINT16)( gTileTypeStartIndex[uiTileType] + usIndex ) );
+
+			AddStructToHead( sGridNo, (UINT16)( gTileTypeStartIndex[uiTileType] + usIndex ) );
+		}
+
+		RecompileLocalMovementCosts( sGridNo );
+
+		// Turn off permanent changes....
+		ApplyMapChangesToMapTempFile( FALSE );
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		gusTempDragBuildSoldierID = NOBODY;
+
+		return TRUE;
+	}
+
+	gusTempDragBuildSoldierID = NOBODY;
+
+	return FALSE;
+}
+
 BOOLEAN	BuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 usStructureconstructindex )
 {
 	INT16				sUseObjIndex = -1;
@@ -7865,6 +7998,149 @@ BOOLEAN	CanRemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureco
 					}
 				}
 			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN	IsDragStructurePresent( INT32 sGridNo, INT8 sLevel, UINT32& arusTileType, UINT16& arusStructureNumber )
+{
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	STRUCTURE* pStruct = GetTallestStructureOnGridnoDrag( sGridNo, sLevel );
+
+	if ( pStruct != NULL )
+	{
+		// Get LEVELNODE for struct and remove!
+		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+		if ( pNode )
+		{
+			if ( GetTileType( pNode->usIndex, &arusTileType ) )
+			{
+				arusStructureNumber = pStruct->pDBStructureRef->pDBStructure->usStructureNumber;
+
+				// if tileset is from the current tileset, check that
+				for ( int i = 0; i < STRUCTURE_MOVEPOSSIBLE_MAX; ++i )
+				{
+					// if tileset is from the current tileset, check that
+					bool found = FALSE;
+					if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[arusTileType][0] )
+					{
+						if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[arusTileType], gStructureMovePossible[i].szTileSetName, 11 ) )
+							found = true;
+					}
+					// otherwise, check first tileset (GENERIC 1)
+					else if ( gTilesets[0].TileSurfaceFilenames[arusTileType][0] )
+					{
+						if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[arusTileType], gStructureMovePossible[i].szTileSetName, 11 ) )
+							found = true;
+					}
+
+					if ( found )
+					{
+						for ( size_t j = 0, size = gStructureMovePossible[i].tilevector.size(); j < size; ++j )
+						{
+							if ( gStructureMovePossible[i].tilevector[j] == arusStructureNumber )
+							{
+								return TRUE;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+void	GetDragStructureXmlEntry( UINT32 ausTileType, UINT16 ausStructureNumber, int& arXmlVectorEntry )
+{
+	arXmlVectorEntry = -1;
+
+	// if tileset is from the current tileset, check that
+	for ( int i = 0; i < STRUCTURE_MOVEPOSSIBLE_MAX; ++i )
+	{
+		// if tileset is from the current tileset, check that
+		bool found = FALSE;
+		if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[ausTileType][0] )
+		{
+			if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[ausTileType], gStructureMovePossible[i].szTileSetName, 11 ) )
+				found = true;
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[ausTileType][0] )
+		{
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[ausTileType], gStructureMovePossible[i].szTileSetName, 11 ) )
+				found = true;
+		}
+
+		if ( found )
+		{
+			for ( size_t j = 0, size = gStructureMovePossible[i].tilevector.size(); j < size; ++j )
+			{
+				if ( gStructureMovePossible[i].tilevector[j] == ausStructureNumber )
+				{
+					arXmlVectorEntry = i;
+
+					return;
+				}
+			}
+		}
+	}
+}
+
+BOOLEAN	RemoveStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType )
+{
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	STRUCTURE* pStruct = GetTallestStructureOnGridnoDrag( sGridNo, sLevel );
+
+	if ( pStruct != NULL )
+	{
+		// Get LEVELNODE for struct and remove!
+		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
+
+		if ( pNode )
+		{
+			UINT16 usIndex = pNode->usIndex;
+
+			// Remove old graphic
+			ApplyMapChangesToMapTempFile( TRUE );
+
+			if ( sLevel )
+			{
+				RemoveOnRoofStruct( sGridNo, usIndex );
+			}
+
+			// if this is a wall, check wether the roof will collapse.
+			// Yes, the player can damage himself by collapsing the roof of the house he is currently in. Such stupidity has to be punished.
+			if ( pStruct->fFlags & STRUCTURE_WALL )
+			{
+				// this isn't an explosion, so the structural damage is moderate
+				HandleRoofDestruction( sGridNo, 50 );
+			}
+
+			RemoveStruct( sGridNo, pNode->usIndex );
+
+			if ( !GridNoIndoors( sGridNo ) && gTileDatabase[usIndex].uiFlags & HAS_SHADOW_BUDDY && gTileDatabase[usIndex].sBuddyNum != -1 )
+			{
+				RemoveShadow( sGridNo, gTileDatabase[usIndex].sBuddyNum );
+			}
+
+			RecompileLocalMovementCosts( sGridNo );
+
+			// Turn off permanent changes....
+			ApplyMapChangesToMapTempFile( FALSE );
+			SetRenderFlags( RENDER_FLAG_FULL );
+
+			return TRUE;
 		}
 	}
 

@@ -278,6 +278,7 @@
     <ClCompile Include="XML_SpreadPatterns.cpp" />
     <ClCompile Include="XML_StructureConstruct.cpp" />
     <ClCompile Include="XML_StructureDeconstruct.cpp" />
+	<ClCompile Include="XML_Structure_Move.cpp" />
     <ClCompile Include="XML_Taunts.cpp" />
     <ClCompile Include="XML_AdditionalTileProperties.cpp" />
     <ClCompile Include="XML_TonyInventory.cpp" />
