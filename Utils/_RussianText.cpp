@@ -2849,7 +2849,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	// various
 	L"Наблюдать за местностью, чтобы обеспечить более меткую стрельбу своим снайперам.",
 	L"Increase interrupt modifier (penalty outside of area).",	// TODO.Translate
-	L"Drag a person or corpse while you move.",
+	L"Drag a person, corpse or structure while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =

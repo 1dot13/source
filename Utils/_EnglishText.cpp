@@ -2857,7 +2857,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	// various
 	L"Observe an area, granting allied snipers a bonus to cth on anything you see.",
 	L"Increase interrupt modifier (penalty outside of area).",
-	L"Drag a person or corpse while you move.",
+	L"Drag a person, corpse or structure while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =

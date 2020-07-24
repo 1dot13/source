@@ -2857,7 +2857,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	// various
 	L"Observer une zone avec un tireur d'élite donne un bonus de CDT sur tout ce que vous voyez.",
 	L"Increase interrupt modifier (penalty outside of area).",	// TODO.Translate
-	L"Drag a person or corpse while you move.",
+	L"Drag a person, corpse or structure while you move.",
 };
 
 STR16 pTraitSkillsDenialStrings[] =

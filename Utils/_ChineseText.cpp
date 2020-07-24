@@ -2849,7 +2849,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率。",
 	L"增加中断几率(标记区域以外)。", //L"Increase interrupt modifier (malus outside of area)",
-	L"移动时拖人或尸体。", //L"Drag a person or corpse while you move.",
+	L"Drag a person, corpse or structure while you move.",	// TODO.Translate
 };
 
 STR16 pTraitSkillsDenialStrings[] =

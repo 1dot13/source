@@ -1401,6 +1401,10 @@ BOOLEAN ExecuteOverhead( )
 #ifdef JA2BETAVERSION
                                             ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Told to open struct at %d and none was found", sGridNo );
 #endif
+											// Flugente: if there is no structure for us to interact with, stop
+											pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
+											pSoldier->aiData.ubPendingAction = NO_PENDING_ACTION;
+
                                             fKeepMoving = FALSE;
                                         }
                                         else

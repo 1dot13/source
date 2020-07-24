@@ -861,7 +861,7 @@ DragSelection::Setup( UINT32 aVal )
 
 				if ( xmlentry >= 0 )
 				{
-					swprintf( pStr, L"%hs %s", gStructureMovePossible[xmlentry].szTileSetDisplayName, FaceDirs[gOneCDirection[ubDirection]] );
+					swprintf( pStr, L"%hs (%s)", gStructureMovePossible[xmlentry].szTileSetDisplayName, FaceDirs[gOneCDirection[ubDirection]] );
 
 					// we have to use an offset of NOBODY in order to differentiate between person and corpse
 					pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_DragSelection_GridNo, sTempGridNo ) );
