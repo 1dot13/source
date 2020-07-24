@@ -162,8 +162,7 @@ bool DestroyLBEIfEmpty(OBJECTTYPE* pObj, int stackIndex)
 		LBENODE* pLBE = pObj->GetLBEPointer(stackIndex);
 		if (pLBE)
 		{
-			UINT16 plbesize = pLBE->inv.size();
-			for (UINT16 x = 0; x < plbesize; ++x)
+			for ( size_t x = 0, plbesize = pLBE->inv.size(); x < plbesize; ++x)
 			{
 				if (pLBE->inv[x].exists() == true)
 					return false;
@@ -189,8 +188,7 @@ void DestroyLBE(OBJECTTYPE* pObj, int stackIndex)
 		LBENODE* pLBE = pObj->GetLBEPointer(stackIndex);
 		if(pLBE)
 		{
-			UINT16 plbesize = pLBE->inv.size();
-			for(UINT16 x = 0; x < plbesize; ++x)
+			for(size_t x = 0, plbesize = pLBE->inv.size(); x < plbesize; ++x)
 			{
 				if(pLBE->inv[x].exists() == true)
 				{
@@ -217,16 +215,15 @@ void DestroyLBE(OBJECTTYPE* pObj, int stackIndex)
 
 void MoveItemsInSlotsToLBE( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBESlots, LBENODE* pLBE, OBJECTTYPE* pObj)
 {
-	UINT16 plbesize = pLBE->inv.size();
-	UINT16 lbesize = LBESlots.size();
-	for(UINT16 i=0; i<lbesize; ++i)	// Go through default pockets one by one
+	size_t plbesize = pLBE->inv.size();
+	for( size_t i=0, lbesize = LBESlots.size(); i<lbesize; ++i)	// Go through default pockets one by one
 	{
 		if(pSoldier->inv[LBESlots[i]].exists() == false)	// No item in this pocket
 			continue;
 
 		// Found an item in a default pocket so get it's ItemSize
 		UINT16 dSize = CalculateItemSize(&pSoldier->inv[LBESlots[i]]);
-		for(unsigned int j=0; j<plbesize; ++j)	// Search through LBE and see if item fits anywhere
+		for( size_t j=0; j<plbesize; ++j)	// Search through LBE and see if item fits anywhere
 		{
 			if(pLBE->inv[j].exists() == true)	// Item already stored in LBENODE pocket
 				continue;
@@ -464,13 +461,12 @@ BOOLEAN MoveItemFromLBEItem( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, OBJECTTYPE
 		//we should have copied all the items from the LBE to the soldier
 		//which means the LBE should be empty and destroyed.  However, if it's not empty, we need to force place
 		//some items so that we can empty the LBE without losing anything.
-		UINT16 invsize = pSoldier->inv.size();
-		UINT16 lbesize = LBESlots.size();
-		for(UINT16 i = 0; i < lbesize; ++i)
+		size_t invsize = pSoldier->inv.size();
+		for(size_t i = 0, lbesize = LBESlots.size(); i < lbesize; ++i)
 		{
 			if(pLBE->inv[i].exists() == true)
 			{
-				for(UINT16 j = BIGPOCKSTART; j < invsize; ++j)
+				for( size_t j = BIGPOCKSTART; j < invsize; ++j)
 				{
 					if(pSoldier->inv[j].exists() == false)
 					{

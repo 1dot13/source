@@ -821,7 +821,7 @@ INT8 GetDealersMaxItemAmount( UINT8 ubDealerID, UINT16 usItemIndex )
 	}
 }
 
-DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT8 ubArmsDealerID )
+DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT16 ubArmsDealerID )
 {
 	switch( ubArmsDealerID )
 	{
@@ -921,7 +921,7 @@ DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT8 ubArmsDealerID 
 			{
 				if ( ubArmsDealerID < NUM_ARMS_DEALERS )
 				{
-					UINT8 additionaldealernumber = ubArmsDealerID - ARMS_DEALER_ADDITIONAL_1;
+					UINT16 additionaldealernumber = ubArmsDealerID - ARMS_DEALER_ADDITIONAL_1;
 					return( gArmsDealerAdditional[additionaldealernumber] );
 				}
 			}

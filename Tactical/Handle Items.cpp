@@ -7679,8 +7679,7 @@ BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *p
 							// We only want to do this on the earth piles, of course - flattening crates via a shovel would be odd :-)
 							UINT8 numbertofind = (UINT8)(pStruct->pDBStructureRef->pDBStructure->usStructureNumber);
 
-							UINT8 size = gStructureDeconstruct[i].tilevector.size();
-							for ( UINT8 j = 0; j < size; ++j)
+							for ( size_t j = 0, size = gStructureDeconstruct[i].tilevector.size(); j < size; ++j)
 							{
 								if ( gStructureDeconstruct[i].tilevector[j] == numbertofind )
 								{
@@ -7988,8 +7987,7 @@ BOOLEAN	CanRemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureco
 					// We only want to do this on the earth piles, of course - flattening crates via a shovel would be odd :-)
 					UINT8 numbertofind = (UINT8)(pStruct->pDBStructureRef->pDBStructure->usStructureNumber);
 
-					UINT8 size = gStructureDeconstruct[usStructureconstructindex].tilevector.size( );
-					for ( UINT8 j = 0; j < size; ++j )
+					for ( size_t j = 0, size = gStructureDeconstruct[usStructureconstructindex].tilevector.size(); j < size; ++j )
 					{
 						if ( gStructureDeconstruct[usStructureconstructindex].tilevector[j] == numbertofind )
 						{
@@ -8187,8 +8185,7 @@ BOOLEAN	RemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconst
 					// We only want to do this on the earth piles, of course - flattening crates via a shovel would be odd :-)
 					UINT8 numbertofind = (UINT8)(pStruct->pDBStructureRef->pDBStructure->usStructureNumber);
 
-					UINT8 size = gStructureDeconstruct[usStructureconstructindex].tilevector.size( );
-					for ( UINT8 j = 0; j < size; ++j )
+					for ( size_t j = 0, size = gStructureDeconstruct[usStructureconstructindex].tilevector.size(); j < size; ++j )
 					{
 						if ( gStructureDeconstruct[usStructureconstructindex].tilevector[j] == numbertofind )
 						{

@@ -4161,7 +4161,7 @@ INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
 	return sAPCost;
 }
 
-INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT8 usActionType )
+INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT16 usActionType )
 {
 	INT16 sAPCost = 0;
 

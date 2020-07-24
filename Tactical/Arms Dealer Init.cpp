@@ -291,7 +291,7 @@ void HandlePossibleArmsDealerIntelRefresh( BOOLEAN aForceReread )
 
 				pDealerInv[cnt].uiIndex = cnt;
 				pDealerInv[cnt].sItemIndex = data.usItem;
-				pDealerInv[cnt].ubOptimalNumber = data.sOptimalNumber;
+				pDealerInv[cnt].ubOptimalNumber = (UINT8)data.sOptimalNumber;
 
 				++cnt;
 			}

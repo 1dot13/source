@@ -6678,8 +6678,7 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 							ddHorizAngle, ddVerticAngle,
 							NOBODY, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
-							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
-							NULL
+							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
 						fclose( OutFile );
 					}

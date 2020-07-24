@@ -480,7 +480,7 @@ void HandleDynamicOpinionTeaching( SOLDIERTYPE* pSoldier, UINT8 ubStat );
 // some events require a 'leader' -  merc the team will regard as the one being in charge, and subsequently being praised or damned for the way things develop
 UINT32 GetSoldierLeaderRating( SOLDIERTYPE* pSoldier );
 
-UINT8 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ );
+UINT16 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ );
 
 // get id of a random merc in a sector, provided one exists
 UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<UINT8> aTaboo, BOOLEAN fImpOnly );

@@ -1468,8 +1468,8 @@ void HandleSnitchesReports( std::vector<SnitchEvent>& aVec )
 	SOLDIERTYPE *pSnitch;
 	BOOLEAN fSleepingSnitch = FALSE;
 
-	UINT16 size = aVec.size( );
-	for ( UINT16 bCounter = 0; bCounter < size; ++bCounter )
+	size_t size = aVec.size( );
+	for ( size_t bCounter = 0; bCounter < size; ++bCounter )
 	{
 		SnitchEvent& event = aVec[bCounter];
 
@@ -1497,7 +1497,7 @@ void HandleSnitchesReports( std::vector<SnitchEvent>& aVec )
 			SnitchTacticalCharacterDialogue( pSnitch, 0, SNITCH_INTRODUCTION, NO_PROFILE, NO_PROFILE );
 
 			// process all reports by the same snitch in row
-			for ( UINT16 bCounter2 = bCounter; bCounter2 < size; ++bCounter2 )
+			for ( size_t bCounter2 = bCounter; bCounter2 < size; ++bCounter2 )
 			{
 				SnitchEvent& event2 = aVec[bCounter2];
 

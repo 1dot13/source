@@ -356,7 +356,7 @@ INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Fl
 INT16 GetAPsToFillBloodbag( SOLDIERTYPE *pSoldier, INT32 usMapPos );	// added by Flugente
 INT16 GetAPsForMultiTurnAction( SOLDIERTYPE *pSoldier, UINT8 usActionType );	// added by Flugente
 
-INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT8 usActionType );	// added by Flugente
+INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT16 usActionType );	// added by Flugente
 
 INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier );
 

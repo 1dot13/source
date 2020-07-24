@@ -777,8 +777,7 @@ void HandleDynamicOpinionSpeechEvents( )
 
 			// award any opinion events that have happened...
 			// these better not start dialogues themselves, or we might cause a loop here
-			UINT16 opinioneentscollectedsize = gOpionionEventsDuringDialogue.size( );
-			for ( UINT16 i = 0; i < opinioneentscollectedsize; ++i )
+			for ( size_t i = 0, opinioneentscollectedsize = gOpionionEventsDuringDialogue.size(); i < opinioneentscollectedsize; ++i )
 			{
 				OpinionEvent event = gOpionionEventsDuringDialogue[i];
 
@@ -1080,8 +1079,7 @@ INT8 GetSidePosition( UINT8 aDostPosition )
 {
 	INT8 bestpos = -1;
 
-	UINT8 size = gDynamicOpinionSpeechInCurrentDialogue.size( );
-	for ( UINT8 i = 0; i < size; ++i )
+	for ( size_t i = 0, size = gDynamicOpinionSpeechInCurrentDialogue.size(); i < size; ++i )
 	{
 		if ( gDynamicOpinionSpeechInCurrentDialogue[i].usSide == aDostPosition )
 		{
@@ -1779,7 +1777,7 @@ void HandleDynamicOpinionBattleFinished( BOOLEAN fBattleWon )
 	UINT32 enemysidesize = 0;
 	
 	// pick the 'leader' who gets all the praise (or blame, depending on how this went)
-	UINT8 leaderid = GetBestMercLeaderInSector( SECTORX( gCurrentIncident.usSector ), SECTORY( gCurrentIncident.usSector ), (INT8)gCurrentIncident.usLevel );
+	UINT16 leaderid = GetBestMercLeaderInSector( SECTORX( gCurrentIncident.usSector ), SECTORY( gCurrentIncident.usSector ), (INT8)gCurrentIncident.usLevel );
 
 	if ( leaderid != NOBODY )
 	{
@@ -1825,7 +1823,7 @@ void HandleDynamicOpinionRetreat( )
 {
 	// This was a disaster (Ignoring of how high the enemies losses were to create drama :-) )! Let's blame the player -> blame an IMP!
 	std::vector<UINT8> aTaboo;
-	UINT8 impid = GetBestMercLeaderInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	UINT16 impid = GetBestMercLeaderInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 	// we've found someone competent. Let's all blame him for this disaster!
 	if ( impid != NOBODY )
@@ -1936,10 +1934,10 @@ UINT32 GetSoldierLeaderRating( SOLDIERTYPE* pSoldier )
 }
 
 
-UINT8 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ )
+UINT16 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ )
 {
 	UINT32				highestrating = 0;
-	UINT8				bestid = NOBODY;
+	UINT16				bestid = NOBODY;
 
 	SOLDIERTYPE*		pSoldier = NULL;
 	UINT16				bMercID = gTacticalStatus.Team[gbPlayerNum].bFirstID;

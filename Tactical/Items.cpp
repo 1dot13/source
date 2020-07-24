@@ -2874,8 +2874,8 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 				UINT16	pIndex, testSize, maxSize;
 				UINT8	pocketCapacity, numberOfSizeIncrements;
 				FLOAT	currentPocketPercent, currentPocketPartOfTotal;
-				UINT16 invsize = pLBE->inv.size();
-				for(UINT16 x = 0; x < invsize; ++x)
+				size_t invsize = pLBE->inv.size();
+				for( size_t x = 0; x < invsize; ++x)
 				{
 					if(LoadBearingEquipment[Item[pObject->usItem].ubClassIndex].lbePocketIndex[x] != 0)
 					{
@@ -2884,7 +2884,7 @@ UINT16 CalculateItemSize( OBJECTTYPE *pObject )
 					}
 				}
 				//Now, look through each active pocket
-				for(UINT16 x = 0; x < invsize; ++x)
+				for( size_t x = 0; x < invsize; ++x)
 				{
 					if ( pLBE->inv[x].exists() )
 					{
@@ -3044,8 +3044,7 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 		LBENODE* pLBE = GetLBEPointer( index );
 		if ( pLBE )
 		{
-			UINT16 invsize = pLBE->inv.size();
-			for ( UINT16 subObjects = 0; subObjects < invsize; ++subObjects )
+			for ( size_t subObjects = 0, invsize = pLBE->inv.size(); subObjects < invsize; ++subObjects )
 			{
 				if ( pLBE->inv[subObjects].exists() == true )
 				{
@@ -8723,8 +8722,7 @@ BOOLEAN RemoveObjectFromSoldierProfile( UINT8 ubProfile, UINT16 usItem )
 		return( TRUE );
 	}
 	MERCPROFILESTRUCT* pProfile = &gMercProfiles[ ubProfile ];
-	UINT8 invsize = pProfile->inv.size();
-	for (UINT8 bLoop = 0; bLoop < invsize; ++bLoop)
+	for (size_t bLoop = 0, invsize = pProfile->inv.size(); bLoop < invsize; ++bLoop)
 	{
 		if ( pProfile->inv[ bLoop ] == usItem )
 		{

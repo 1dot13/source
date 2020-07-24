@@ -2687,7 +2687,7 @@ void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, B
 
 void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, 
 									   INT32 sGridNo, UINT8 bLevel, UINT8 ubId,
-									   UINT8 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill )
+									   UINT16 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill )
 {
 	const char* filename = "scripts\\Overhead.lua";
 

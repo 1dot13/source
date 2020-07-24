@@ -62,7 +62,7 @@ extern BOOLEAN LuaHandleQuestCodeOnSector( INT16 sSectorX, INT16 sSectorY, INT8 
 void LuaHandleSectorLiberation( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fFirstTime );
 void LuaHandleInteractiveActionResult( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ,
 									   INT32 sGridNo, UINT8 bLevel, UINT8 ubId,
-									   UINT8 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill );
+									   UINT16 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill );
 void LuaRecruitRPCAdditionalHandling( UINT8 usProfile );
 void LuaHandleSectorTacticalEntry( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fHasEverBeenPlayerControlled );
 
