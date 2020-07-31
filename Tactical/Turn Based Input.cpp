@@ -122,11 +122,11 @@
 #include "InterfaceItemImages.h"		// added by Sevenfm
 #include "DynamicDialogueWidget.h"		// added by Flugente for DelayBoxDestructionBy(...)
 #include "Utilities.h"					// added by Flugente
+#include "AIInternals.h"				// sevenfm
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
 
 extern UIKEYBOARD_HOOK					gUIKeyboardHook;
 extern BOOLEAN	fRightButtonDown;
@@ -3372,6 +3372,25 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 					//Get the gridno the cursor is at
 					GetMouseMapPos( &usGridNo );
+
+					// code to test friendly fire detection
+					//if there is a selected soldier, and the cursor location is valid
+					/*if (gusSelectedSoldier != NOBODY && !TileIsOutOfBounds(usGridNo) && gfUIFullTargetFound)
+					{
+						SOLDIERTYPE *pSoldier = MercPtrs[gusSelectedSoldier];
+						SOLDIERTYPE *pOpponent = MercPtrs[gusUIFullTargetID];
+						UINT8 ubChanceToGetThrough;
+
+						if (pSoldier && pOpponent)
+						{
+							gUnderFire.Clear();
+							gUnderFire.Enable();
+							ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
+							gUnderFire.Disable();
+
+							ScreenMsg(FONT_ORANGE, MSG_INTERFACE, L"friendly fire chance %d count %d", gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE), gUnderFire.Count(pSoldier->bTeam));
+						}						
+					}*/
 
 					// if the cursor location is valid					
 					if ( !TileIsOutOfBounds(usGridNo) )

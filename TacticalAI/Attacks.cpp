@@ -170,7 +170,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 	UINT32 uiLoop;
 	INT32 iAttackValue, iThreatValue, iHitRate, iBestHitRate, iPercentBetter, iEstDamage, iTrueLastTarget;
 	UINT16 usTrueState, usTurningCost, usRaiseGunCost;
-	INT16 ubAimTime, ubMinAPcost, ubRawAPCost, sBestAPcost, ubChanceToHit, ubBestAimTime, ubChanceToGetThrough, ubBestChanceToHit, sStanceAPcost;
+	INT16 ubAimTime, ubMinAPcost, ubRawAPCost, sBestAPcost, ubChanceToHit, ubBestAimTime, ubChanceToGetThrough, ubBestChanceToGetThrough, ubFriendlyFireChance, ubBestFriendlyFireChance, ubBestChanceToHit, sStanceAPcost;
 	BOOLEAN fAddingTurningCost, fAddingRaiseGunCost;
 	UINT8 ubMaxPossibleAimTime, ubStance, ubBestStance, ubChanceToReallyHit;
 	INT8 bScopeMode;
@@ -178,7 +178,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalcBestShot");
 
-	ubBestChanceToHit = ubBestAimTime = ubChanceToHit = ubChanceToReallyHit = 0;
+	ubBestChanceToHit = ubBestAimTime = ubChanceToHit = ubBestChanceToGetThrough = ubBestFriendlyFireChance = ubChanceToReallyHit = 0;
 
 	// sevenfm: initialize
 	pBestShot->ubPossible = FALSE;
@@ -243,21 +243,22 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 		if (ubMinAPcost > pSoldier->bActionPoints)
 			continue;			// next opponent
 
-		//KeepInterfaceGoing();
-
+		// sevenfm: check CTGT and friendly fire for each stance instead since they can be different
 		// calculate chance to get through the opponent's cover (if any)
 		//dnl ch61 180813
-		gUnderFire.Clear();
+		/*gUnderFire.Clear();
 		gUnderFire.Enable();
 		ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough( pSoldier, pOpponent );
+		ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
 		gUnderFire.Disable();
-		//	ubChanceToGetThrough = ChanceToGetThrough(pSoldier,pOpponent->sGridNo,NOTFAKE,ACTUAL,TESTWALLS,9999,M9PISTOL,NOT_FOR_LOS);
-
-		//NumMessage("Chance to get through = ",ubChanceToGetThrough);
 
 		// if we can't possibly get through all the cover
 		if (ubChanceToGetThrough == 0)
 			continue;			// next opponent
+
+		// sevenfm: ignore opponent if we can hit friend
+		if (ubFriendlyFireChance > MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
+			continue;*/
 
 		if ( (pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && (pSoldier->ubBodyType != QUEENMONSTER ) )
 		{
@@ -345,24 +346,40 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 					}
 					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
 					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
-					if(pSoldier->bActionPoints-ubMinAPcost >= 0)
+					if(pSoldier->bActionPoints - ubMinAPcost >= 0)
 					{
 						// calc next attack's minimum shooting cost (excludes readying & turning & raise gun)
 						ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, pOpponent->sGridNo, pSoldier->bActionPoints-ubMinAPcost);
-						for(ubAimTime=APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime<=ubMaxPossibleAimTime; ubAimTime++)
+
+						// sevenfm: check CTGT and friendly fire chance for every stance
+						gUnderFire.Clear();
+						gUnderFire.Enable();
+						ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
+						ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+						gUnderFire.Disable();
+
+						// sevenfm: only use this stance if we can hit target and cannot hit friends
+						if (ubChanceToGetThrough > 0 && ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
 						{
-							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
-							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-							if(iHitRate > iBestHitRate || (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) && ubChanceToHit > ubBestChanceToHit)// rather take best chance for throwing knives
+							for (ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 							{
-								iBestHitRate = iHitRate;
-								ubBestAimTime = ubAimTime;
-								ubBestChanceToHit = ubChanceToHit;
-								bScopeMode = pSoldier->bScopeMode;
-								sBestAPcost = ubMinAPcost;
-								ubBestStance = ubStance;
+								ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, STANDING);
+								iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+								// sevenfm: take into account CTGT for every stance
+								if (iHitRate * ubChanceToGetThrough > iBestHitRate * ubBestChanceToGetThrough ||
+									(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) && ubChanceToHit > ubBestChanceToHit)// rather take best chance for throwing knives
+								{
+									iBestHitRate = iHitRate;
+									ubBestAimTime = ubAimTime;
+									ubBestChanceToHit = ubChanceToHit;
+									ubBestChanceToGetThrough = ubChanceToGetThrough;
+									ubBestFriendlyFireChance = ubFriendlyFireChance;
+									bScopeMode = pSoldier->bScopeMode;
+									sBestAPcost = ubMinAPcost;
+									ubBestStance = ubStance;
+								}
 							}
-						}
+						}						
 					}
 					pSoldier->usAnimState = usTrueState;
 					pSoldier->sLastTarget = iTrueLastTarget;
@@ -395,23 +412,38 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
 					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
 
-					if(pSoldier->bActionPoints-ubMinAPcost >= 0)
+					if(pSoldier->bActionPoints - ubMinAPcost >= 0)
 					{
 						ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, pOpponent->sGridNo, pSoldier->bActionPoints-ubMinAPcost);
-						for(ubAimTime=APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime<=ubMaxPossibleAimTime; ubAimTime++)
+
+						// sevenfm: check CTGT and friendly fire chance for every stance
+						gUnderFire.Clear();
+						gUnderFire.Enable();
+						ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
+						ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+						gUnderFire.Disable();
+
+						// sevenfm: only use this stance if we can hit target and cannot hit friends
+						if (ubChanceToGetThrough > 0 && ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
 						{
-							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING);
-							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-							if(iHitRate > iBestHitRate)
+							for (ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 							{
-								iBestHitRate = iHitRate;
-								ubBestAimTime = ubAimTime;
-								ubBestChanceToHit = ubChanceToHit;
-								bScopeMode = pSoldier->bScopeMode;
-								sBestAPcost = ubMinAPcost;
-								ubBestStance = ubStance;
+								ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, CROUCHING);
+								iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+								// sevenfm: take into account CTGT for every stance
+								if (iHitRate * ubChanceToGetThrough > iBestHitRate * ubBestChanceToGetThrough)
+								{
+									iBestHitRate = iHitRate;
+									ubBestAimTime = ubAimTime;
+									ubBestChanceToHit = ubChanceToHit;
+									ubBestChanceToGetThrough = ubChanceToGetThrough;
+									ubBestFriendlyFireChance = ubFriendlyFireChance;
+									bScopeMode = pSoldier->bScopeMode;
+									sBestAPcost = ubMinAPcost;
+									ubBestStance = ubStance;
+								}
 							}
-						}
+						}						
 					}
 					pSoldier->usAnimState = usTrueState;
 					pSoldier->sLastTarget = iTrueLastTarget;
@@ -441,21 +473,36 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 					ubRawAPCost = MinAPsToShootOrStab(pSoldier, pOpponent->sGridNo, 0, FALSE, 2);
 					ubMinAPcost = ubRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
 
-					if(pSoldier->bActionPoints-ubMinAPcost >= 0)
+					if(pSoldier->bActionPoints - ubMinAPcost >= 0)
 					{
 						ubMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, pOpponent->sGridNo, pSoldier->bActionPoints-ubMinAPcost);
-						for(ubAimTime=APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime<=ubMaxPossibleAimTime; ubAimTime++)
+
+						// sevenfm: check CTGT and friendly fire chance for every stance
+						gUnderFire.Clear();
+						gUnderFire.Enable();
+						ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
+						ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+						gUnderFire.Disable();
+
+						// sevenfm: only use this stance if we can hit target and cannot hit friends
+						if (ubChanceToGetThrough > 0 && ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
 						{
-							ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE);
-							iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
-							if(iHitRate > iBestHitRate)
+							for (ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 							{
-								iBestHitRate = iHitRate;
-								ubBestAimTime = ubAimTime;
-								ubBestChanceToHit = ubChanceToHit;
-								bScopeMode = pSoldier->bScopeMode;
-								sBestAPcost = ubMinAPcost;
-								ubBestStance = ubStance;
+								ubChanceToHit = AICalcChanceToHitGun(pSoldier, pOpponent->sGridNo, ubAimTime, AIM_SHOT_TORSO, pOpponent->pathing.bLevel, PRONE);
+								iHitRate = ((pSoldier->bActionPoints - (ubMinAPcost - ubRawAPCost)) * ubChanceToHit) / (ubRawAPCost + ubAimTime * APBPConstants[AP_CLICK_AIM]);
+								// sevenfm: take into account CTGT for every stance
+								if (iHitRate * ubChanceToGetThrough > iBestHitRate * ubBestChanceToGetThrough)
+								{
+									iBestHitRate = iHitRate;
+									ubBestAimTime = ubAimTime;
+									ubBestChanceToHit = ubChanceToHit;
+									ubBestChanceToGetThrough = ubChanceToGetThrough;
+									ubBestFriendlyFireChance = ubFriendlyFireChance;
+									bScopeMode = pSoldier->bScopeMode;
+									sBestAPcost = ubMinAPcost;
+									ubBestStance = ubStance;
+								}
 							}
 						}
 					}
@@ -470,7 +517,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 			continue;			// next opponent
 
 		// calculate chance to REALLY hit: shoot accurately AND get past cover
-		ubChanceToReallyHit = (UINT8)ceil((ubBestChanceToHit * ubChanceToGetThrough) / 100.0f);
+		ubChanceToReallyHit = (UINT8)ceil((ubBestChanceToHit * ubBestChanceToGetThrough) / 100.0f);
 
 		// if we can't REALLY hit at all
 		if (ubChanceToReallyHit == 0)
@@ -583,10 +630,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 			pBestShot->ubAPCost				= sBestAPcost;
 			pBestShot->ubStance				= ubBestStance;
 			pBestShot->bScopeMode			= bScopeMode;
-			if(gUnderFire.Count(pSoldier->bTeam))//dnl ch61 180813
-				pBestShot->ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam);
-			else
-				pBestShot->ubFriendlyFireChance = 0;
+			pBestShot->ubFriendlyFireChance = ubBestFriendlyFireChance;
 		}
 	}
 
@@ -3199,39 +3243,47 @@ void UnderFire::Clear(void)
 
 void UnderFire::Add(UINT16 usID, UINT8 ubCTH)
 {
-	if(!fEnable)
+	if (!fEnable)
 		return;
-	if(usUnderFireCnt < MAXUNDERFIRE)
+
+	if (usUnderFireCnt < MAXUNDERFIRE)
 	{
-		for(int i=0; i<usUnderFireCnt; i++)
-			if(usUnderFireID[i] == usID)
+		for (int i = 0; i < usUnderFireCnt; i++)
+		{
+			if (usUnderFireID[i] == usID)
 			{
-				if(ubUnderFireCTH[i] != ubCTH)
+				if (ubUnderFireCTH[i] < ubCTH)		// sevenfm: use max value
 					ubUnderFireCTH[i] = ubCTH;
 				return;
 			}
-		usUnderFireID[usUnderFireCnt++] = usID;
+		}
+		ubUnderFireCTH[usUnderFireCnt] = ubCTH;		// sevenfm: store CTH too!
+		usUnderFireID[usUnderFireCnt] = usID;
+		usUnderFireCnt++;
 	}
 }
 
 UINT16 UnderFire::Count(INT8 bTeam)
 {
 	UINT16 cnt = 0;
-	for(int i=0; i<usUnderFireCnt; i++)
+	for (UINT16 i = 0; i < usUnderFireCnt; i++)
 	{
-		if(MercPtrs[usUnderFireID[i]]->bTeam == bTeam)
+		if (MercPtrs[usUnderFireID[i]]->bTeam == bTeam)
 			++cnt;
 	}
 	return(cnt);
 }
 
-UINT8 UnderFire::Chance(INT8 bTeam)
+UINT8 UnderFire::Chance(INT8 bTeam, INT8 bSide, BOOLEAN fCheckNeutral)
 {
 	UINT8 cth = 0;
-	for(int i=0; i<usUnderFireCnt; i++)
+	for (UINT16 i = 0; i < usUnderFireCnt; i++)
 	{
-		if(MercPtrs[usUnderFireID[i]]->bTeam == bTeam && ubUnderFireCTH[i] > cth)
+		if ((MercPtrs[usUnderFireID[i]]->bTeam == bTeam || MercPtrs[usUnderFireID[i]]->bSide == bSide || fCheckNeutral && MercPtrs[usUnderFireID[i]]->aiData.bNeutral) &&
+			ubUnderFireCTH[i] > cth)
+		{
 			cth = ubUnderFireCTH[i];
+		}
 	}
 	return(cth);
 }

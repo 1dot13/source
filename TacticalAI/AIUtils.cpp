@@ -3874,9 +3874,9 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
 	}
 
 	// count friends that flank around the same spot
-	if( CountFriendsFlankSameSpot( pSoldier ) > 0 )
+	if( CountFriendsFlankSameSpot( pSoldier ) == 0 )
 	{
-		bMoraleCategory --;	
+		bMoraleCategory ++;
 	}
 
 	INT32 sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);

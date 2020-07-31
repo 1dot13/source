@@ -26,6 +26,7 @@ typedef INT64 FIXEDPT;
 // fixed-point arithmetic definitions end here
 
 #define	OK_CHANCE_TO_GET_THROUGH		10
+#define MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE 3
 
 enum CollisionEnums
 {

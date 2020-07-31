@@ -306,6 +306,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 	// sevenfm
 	bHisLevel = pHim->pathing.bLevel;
 	bMyLevel = pMe->pathing.bLevel;
+	UINT8 ubFriendlyFireChance = 0;
 
 	// THE FOLLOWING STUFF IS *VEERRRY SCAARRRY*, BUT SHOULD WORK.	IF YOU REALLY
 	// HATE IT, THEN CHANGE ChanceToGetThrough() TO WORK FROM A GRIDNO TO GRIDNO
@@ -394,9 +395,20 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT32 sMyGridNo, INT32 iMyThreat, INT32 i
 			pHim->dYPos = (FLOAT) sTempY;
 		}
 
+		// sevenfm: also check friendly fire chance for each position
+		gUnderFire.Clear();
+		gUnderFire.Enable();
 		// let's not assume anything about the stance the enemy might take, so take an average
 		// value... no cover give a higher value than partial cover
 		bMyCTGT = CalcAverageCTGTForPosition( pMe, pHim->ubID, sHisGridNo, pHim->pathing.bLevel, iMyAPsLeft );
+		gUnderFire.Disable();		
+
+		// sevenfm: penalize position if friendly fire chance is high
+		if (gGameExternalOptions.fAIBetterCover  && ubFriendlyFireChance > MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
+		{
+			ubFriendlyFireChance = gUnderFire.Chance(pMe->bTeam, pMe->bSide, TRUE);
+			bMyCTGT = 1;
+		}
 
 		// since NPCs are too dumb to shoot "blind", ie. at opponents that they
 		// themselves can't see (mercs can, using another as a spotter!), if the

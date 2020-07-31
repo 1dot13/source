@@ -146,7 +146,7 @@ public:
 };
 
 //dnl ch61 180813
-#define MAXUNDERFIRE 100
+#define MAXUNDERFIRE 256
 class UnderFire
 {
 private:
@@ -155,14 +155,14 @@ private:
 	UINT16 usUnderFireID[MAXUNDERFIRE];
 	UINT8 ubUnderFireCTH[MAXUNDERFIRE];
 public:
-	UnderFire(void){ Clear(); }
+	UnderFire(void){ Clear(); fEnable = FALSE; }
 	void Clear(void);
 	void Add(UINT16 usID, UINT8 ubCTH);
 	void Enable(void){ fEnable=TRUE; }
 	void Disable(void){ fEnable=FALSE; }
 	UINT16 GetUnderFireCnt(void){ return(usUnderFireCnt); }
 	UINT16 Count(INT8 bTeam);
-	UINT8 Chance(INT8 bTeam);
+	UINT8 Chance(INT8 bTeam, INT8 bSide, BOOLEAN fCheckNeutral);
 };
 extern UnderFire gUnderFire;
 
