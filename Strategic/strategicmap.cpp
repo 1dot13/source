@@ -5200,8 +5200,8 @@ void SetSamHackStatus( INT16 sSectorX, INT16 sSectorY, INT8 sStatus )
 
 BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ )
 {
-	//INT32 cnt;
-	//SOLDIERTYPE *pSoldier;
+	INT32 cnt;
+	SOLDIERTYPE *pSoldier;
 
 	// if not a valid sector
 	if ( (sX < 1) || (sX > 16) || (sY < 1) || (sY > 16) || (ubZ > 3) )
@@ -5210,21 +5210,21 @@ BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ )
 	}
 
 
-	//cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all living, fighting mercs on player's team.  Robot and EPCs qualify!
-	//for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++)
 	{
 		// ARM: now allows loading of sector with all mercs below OKLIFE as long as they're alive
-		//if( ( pSoldier->bActive && pSoldier->stats.bLife ) && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
-		//	( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
-		//	( pSoldier->bAssignment != ASSIGNMENT_DEAD ) && !SoldierAboardAirborneHeli( pSoldier )
-		//	)
+		if( ( pSoldier->bActive && pSoldier->stats.bLife ) && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
+			( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
+			( pSoldier->bAssignment != ASSIGNMENT_DEAD ) && !SoldierAboardAirborneHeli( pSoldier )
+			)
 
 		//if( (SectorInfo[ SECTOR( gWorldSectorX,gWorldSectorY) ].uiFlags & SF_ALREADY_VISITED) )
 		if ( GetSectorFlagStatus( sSelMapX, sSelMapY, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED ) == TRUE )
 		{
-			//if ( !pSoldier->flags.fBetweenSectors && pSoldier->sSectorX == sX && pSoldier->sSectorY == sY && pSoldier->bSectorZ == ubZ )
+			if ( !pSoldier->flags.fBetweenSectors && pSoldier->sSectorX == sX && pSoldier->sSectorY == sY && pSoldier->bSectorZ == ubZ )
 			{
 				return(TRUE);
 			}
