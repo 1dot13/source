@@ -9418,7 +9418,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		}
 		else
 		{
-			// SANDRO - this is so idiotic, it actiually means, that martial artists and HtH 
+			// SANDRO - this is so idiotic, it actually means, that martial artists and HtH 
 			// soldiers do not get their dodging bonus if they have a knife in hands, but do
 			// have it if having anything else! I just had to change it, for it is a bug more
 			// than an intended feature
@@ -9486,9 +9486,14 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	// sevenfm: reduce chance if defender is blind
+	if ((IS_MERC_BODY_TYPE(pDefender) || IS_CIV_BODY_TYPE(pDefender)) && (pDefender->bBlindedCounter || !SoldierToSoldierLineOfSightTest(pDefender, pAttacker, TRUE, CALC_FROM_ALL_DIRS)))
+	{
+		iDefRating = iDefRating / 4;
+	}
+
 	if (iDefRating < 1)
 		iDefRating = 1;
-
 
 	//NumMessage("CalcChanceToStab - Attacker's Rating = ",iAttRating);
 	//NumMessage("CalcChanceToStab - Defender's Rating = ",iDefRating);
@@ -9506,7 +9511,9 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	else
 	{
 		// Changed from DG by CJC to give higher chances of hitting with a stab or punch
-		iChance = 67 + (iAttRating - iDefRating) / 3;
+		// sevenfm: lowered base chance
+		iChance = 50 + (iAttRating - iDefRating) / 3;
+		//iChance = 67 + (iAttRating - iDefRating) / 3;
 
 		// SANDRO - Enhanced Close Combat System - chances to hit for punches aimed at body parts
 		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
@@ -9556,25 +9563,35 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		iChance += ((iChance * gGameExternalOptions.sEnemyEliteCtHBonusPercent) /100);
 	//////////////////////////////////////////////////////////////////////////////////////
 
-  // MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
-  // HEADROCK: I urinate on your Defined Limits! Power Rangers, Externalize!
-  // Disclaimer: No offense meant, all in good fun ;)
-  if (iChance < gGameExternalOptions.ubMinimumCTH)
+	// sevenfm: bonus for boxers for attacking from the back
+	if (ubMode == HTH_MODE_PUNCH &&
+		(pAttacker->flags.uiStatusFlags & SOLDIER_BOXER) &&
+		(pDefender->flags.uiStatusFlags & SOLDIER_BOXER) &&
+		iChance < 100 &&
+		!pAttacker->bBlindedCounter &&
+		gAnimControl[pDefender->usAnimState].ubEndHeight > ANIM_PRONE &&
+		(AIDirection(pAttacker->sGridNo, pDefender->sGridNo) == pDefender->ubDirection ||
+		AIDirection(pAttacker->sGridNo, pDefender->sGridNo) == gOneCDirection[pDefender->ubDirection] ||
+		AIDirection(pAttacker->sGridNo, pDefender->sGridNo) == gOneCCDirection[pDefender->ubDirection]))
 	{
-    iChance = gGameExternalOptions.ubMinimumCTH;
-	}
-  else
-	{
-		// HEADROCK (HAM): Externalized maximum to JA2_OPTIONS.INI
-		//if (iChance > MAXCHANCETOHIT)
-		//	iChance = MAXCHANCETOHIT;
-		if (iChance > gGameExternalOptions.ubMaximumCTH)
-			iChance = gGameExternalOptions.ubMaximumCTH;
+		iChance += (100 - iChance) / 2;
 	}
 
-  //NumMessage("ChanceToStab = ",chance);
+	// sevenfm: reduce chance if attacker is blind
+	if (IS_MERC_BODY_TYPE(pDefender) && (pAttacker->bBlindedCounter || !SoldierToSoldierLineOfSightTest(pAttacker, pDefender, TRUE, CALC_FROM_ALL_DIRS)))
+	{
+		iChance = iChance / 4;
+	}
 
-  return (iChance);
+	// MAKE SURE CHANCE TO HIT IS WITHIN DEFINED LIMITS
+	// HEADROCK: I urinate on your Defined Limits! Power Rangers, Externalize!
+	// Disclaimer: No offense meant, all in good fun ;)
+	iChance = max(iChance, gGameExternalOptions.ubMinimumCTH);
+	iChance = min(iChance, gGameExternalOptions.ubMaximumCTH);
+
+	//NumMessage("ChanceToStab = ",chance);
+
+	return (iChance);
 }
 
 UINT32 CalcChanceToStab(SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime)
