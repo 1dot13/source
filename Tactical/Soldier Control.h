@@ -429,6 +429,8 @@ enum
 #define SOLDIER_DRAG_SOUND					0x00080000					// played sound when started dragging
 #define SOLDIER_SPENT_AP					0x00100000					// soldier has spent some AP this turn (including realtime)
 #define SOLDIER_TURNCOAT					0x00200000					// this enemy soldier will switch to the militia team if ordered to
+#define SOLDIER_BACK_ATTACK					0x00400000					// soldier was attacked from the back
+#define SOLDIER_SNEAK_ATTACK				0x00800000					// soldier was attacked by unseen enemy
 
 #define SOLDIER_INTERROGATE_ALL				0x000001F8					// all interrogation flags
 // ----------------------------------------------------------------

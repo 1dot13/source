@@ -7891,6 +7891,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 			this->usSoldierFlagMask2 &= ~SOLDIER_TAKEN_LARGE_HIT;
 	}
 
+	// sevenfm: reset AI flags
+	this->usSoldierFlagMask2 &= ~SOLDIER_BACK_ATTACK;
+	this->usSoldierFlagMask2 &= ~SOLDIER_SNEAK_ATTACK;
+
 	// Flugente: reset extra stats. Currently they only depend on drug effects, and those are reset every turn
 	this->ResetExtraStats( );
 
@@ -12780,13 +12784,32 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 		{
 			GetSoldier( &pTSoldier, usSoldierIndex );
 
+			// sevenfm: set flag indicating back attack and sneak attack
+			if (pTSoldier)
+			{
+				pTSoldier->usSoldierFlagMask2 &= ~SOLDIER_BACK_ATTACK;
+				pTSoldier->usSoldierFlagMask2 &= ~SOLDIER_SNEAK_ATTACK;
+
+				UINT8 ubAttackDirection = AIDirection(this->sGridNo, pTSoldier->sGridNo);
+				if (ubAttackDirection == pTSoldier->ubDirection ||
+					ubAttackDirection == gOneCDirection[pTSoldier->ubDirection] ||
+					ubAttackDirection == gOneCCDirection[pTSoldier->ubDirection])
+				{
+					pTSoldier->usSoldierFlagMask2 |= SOLDIER_BACK_ATTACK;
+				}
+
+				if (pTSoldier->aiData.bOppList[this->ubID] != SEEN_CURRENTLY &&
+					pTSoldier->aiData.bOppList[this->ubID] != SEEN_THIS_TURN &&
+					pTSoldier->aiData.bOppList[this->ubID] != HEARD_THIS_TURN)
+				{
+					pTSoldier->usSoldierFlagMask2 |= SOLDIER_SNEAK_ATTACK;
+				}
+			}
+
 			// Flugente: if we attack with a bayonet, we don't need to change stance if even if we are standing and the target is prone...
 			// so we simulate here that the target is still standing
 			UINT8 targetheight = gAnimControl[pTSoldier->usAnimState].ubEndHeight;
-#if 0//dnl ch73 031013 several reasons why disabling this; 1. no animation for bayonet, 2. if target is prone it look ridicules to swing through air instead stub target, 3. incorrect APs calculation
-			if ( this->bWeaponMode == WM_ATTACHED_BAYONET )
-				targetheight = ANIM_STAND;
-#endif
+
 			// Look at stance of target
 			switch ( targetheight )
 			{
@@ -12927,8 +12950,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 
 	//}
 
-	// get target.....
-	usSoldierIndex = WhoIsThere2( this->sTargetGridNo, this->pathing.bLevel );
+	// sevenfm: use supplied gridno as sTargetGridNo may not be set yet
+	//usSoldierIndex = WhoIsThere2( this->sTargetGridNo, this->pathing.bLevel );
+	usSoldierIndex = WhoIsThere2(sGridNo, this->pathing.bLevel);
+
 	if ( usSoldierIndex != NOBODY )
 	{
 		GetSoldier( &pTSoldier, usSoldierIndex );
@@ -12938,6 +12963,28 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	else
 	{
 		return;
+	}
+
+	// sevenfm: set flag indicating back attack and sneak attack
+	if (pTSoldier)
+	{
+		pTSoldier->usSoldierFlagMask2 &= ~SOLDIER_BACK_ATTACK;
+		pTSoldier->usSoldierFlagMask2 &= ~SOLDIER_SNEAK_ATTACK;
+
+		UINT8 ubAttackDirection = AIDirection(this->sGridNo, pTSoldier->sGridNo);
+		if (ubAttackDirection == pTSoldier->ubDirection ||
+			ubAttackDirection == gOneCDirection[pTSoldier->ubDirection] ||
+			ubAttackDirection == gOneCCDirection[pTSoldier->ubDirection])
+		{
+			pTSoldier->usSoldierFlagMask2 |= SOLDIER_BACK_ATTACK;
+		}
+
+		if (pTSoldier->aiData.bOppList[this->ubID] != SEEN_CURRENTLY &&
+			pTSoldier->aiData.bOppList[this->ubID] != SEEN_THIS_TURN &&
+			pTSoldier->aiData.bOppList[this->ubID] != HEARD_THIS_TURN)
+		{
+			pTSoldier->usSoldierFlagMask2 |= SOLDIER_SNEAK_ATTACK;
+		}
 	}
 
 	if ( fChangeDirection )

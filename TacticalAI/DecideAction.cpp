@@ -37,6 +37,7 @@
 #include "Text.h"
 #include "Exit Grids.h"		// added by Flugente
 #include "Game Clock.h"		// sevenfm
+#include "SkillCheck.h"		// sevenfm
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
@@ -701,6 +702,11 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 #endif
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen, orders = %d",pSoldier->aiData.bOrders));
+
+	// sevenfm: disable stealth mode
+	pSoldier->bStealthMode = FALSE;
+	// disable reverse movement mode
+	pSoldier->bReverse = FALSE;
 
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->aiData.bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
 	BOOLEAN fCivilianOrMilitia = PTR_CIV_OR_MILITIA;
@@ -1544,6 +1550,11 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
 #endif	
+
+	// sevenfm: disable stealth mode
+	pSoldier->bStealthMode = FALSE;
+	// disable reverse movement mode
+	pSoldier->bReverse = FALSE;
 
 	if (fCivilian || (gGameExternalOptions.fAllNamedNpcsDecideAction && pSoldier->ubProfile != NO_PROFILE))
 	{
@@ -2457,6 +2468,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: soldier orders = %d",pSoldier->aiData.bOrders));
 
+	// sevenfm: disable stealth mode
+	pSoldier->bStealthMode = FALSE;
+	// disable reverse movement mode
+	pSoldier->bReverse = FALSE;
+
 	// if we have absolutely no action points, we can't do a thing under RED!
 	if ( pSoldier->bActionPoints <= 0 ) //Action points can be negative
 	{
@@ -2593,7 +2609,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	//if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && gTacticalStatus.bBoxingState == NOT_BOXING)
 	if (fCivilian && !(pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
-		if ( FindAIUsableObjClass( pSoldier, IC_WEAPON ) == ITEM_NOT_FOUND )
+		if (FindAIUsableObjClass(pSoldier, IC_WEAPON) == NO_SLOT)
 		{
 			// cower in fear!!
 			if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
@@ -4579,6 +4595,11 @@ INT16 ubMinAPCost;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
 
+	// sevenfm: disable stealth mode
+	pSoldier->bStealthMode = FALSE;
+	// disable reverse movement mode
+	pSoldier->bReverse = FALSE;
+
 	// sevenfm: stop flanking when we see enemy
 	if( AICheckIsFlanking(pSoldier) )
 	{
@@ -4674,7 +4695,9 @@ INT16 ubMinAPCost;
 			bInGas = FALSE;
 
 			// calculate our morale
-			pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
+			// sevenfm: for boxer, always use high morale
+			//pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
+			pSoldier->aiData.bAIMorale = MORALE_FEARLESS;
 			// and continue on...
 		}
 		else //????
@@ -4835,7 +4858,6 @@ INT16 ubMinAPCost;
 	// SOLDIER CAN ATTACK IF NOT IN WATER/GAS AND NOT DOING SOMETHING TOO FUNKY
 	////////////////////////////////////////////////////////////////////////////
 
-
 	// NPCs in water/tear gas without masks are not permitted to shoot/stab/throw
 	if ((pSoldier->bActionPoints < 2) || bInDeepWater || bInGas || pSoldier->aiData.bRTPCombat == RTP_COMBAT_REFRAIN)
 	{
@@ -4850,7 +4872,6 @@ INT16 ubMinAPCost;
 	{
 		do
 		{
-
 			bCanAttack = CanNPCAttack(pSoldier);
 			if (bCanAttack != TRUE)
 			{
@@ -5322,16 +5343,81 @@ INT16 ubMinAPCost;
 		// CHOOSE THE BEST TYPE OF ATTACK OUT OF THOSE FOUND TO BE POSSIBLE
 		//////////////////////////////////////////////////////////////////////////
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CHOOSE THE BEST TYPE OF ATTACK OUT OF THOSE FOUND TO BE POSSIBLE");
+		BestAttack.iAttackValue = 0;
+
 		if (BestShot.ubPossible)
 		{
 			BestAttack.iAttackValue = BestShot.iAttackValue;
 			ubBestAttackAction = AI_ACTION_FIRE_GUN;
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"best action = fire gun");
 		}
-		else
+
+		// cautious boxer approach, reserve AP for two attacks (only if not attacking from the back)
+		if (BestStab.ubPossible &&
+			(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+			SpacesAway(pSoldier->sGridNo, BestStab.sTarget) > 2 &&
+			BestStab.ubOpponent != NOBODY &&
+			MercPtrs[BestStab.ubOpponent] &&
+			AIDirection(pSoldier->sGridNo, MercPtrs[BestStab.ubOpponent]->sGridNo) != MercPtrs[BestStab.ubOpponent]->ubDirection &&
+			AIDirection(pSoldier->sGridNo, MercPtrs[BestStab.ubOpponent]->sGridNo) != gOneCDirection[MercPtrs[BestStab.ubOpponent]->ubDirection] &&
+			AIDirection(pSoldier->sGridNo, MercPtrs[BestStab.ubOpponent]->sGridNo) != gOneCCDirection[MercPtrs[BestStab.ubOpponent]->ubDirection] &&
+			pSoldier->bInitialActionPoints >= 2 * MinAPsToAttack(pSoldier, pSoldier->sLastTarget, FALSE, 0, 0) + APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK] &&
+			pSoldier->bActionPoints < BestStab.ubAPCost + MinAPsToAttack(pSoldier, pSoldier->sLastTarget, FALSE, 0, 0))
 		{
-			BestAttack.iAttackValue = 0;
+			BestStab.ubPossible = FALSE;
+			fTryPunching = FALSE;
+			DebugAI(AI_MSG_INFO, pSoldier, String("boxer cannot reserve APs for second attack - disable stab attack"));
 		}
+
+		// try to avoid frontal attack
+		if (BestStab.ubPossible &&
+			(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+			SpacesAway(pSoldier->sGridNo, BestStab.sTarget) > 1 &&
+			BestStab.ubOpponent != NOBODY &&
+			MercPtrs[BestStab.ubOpponent] &&
+			gAnimControl[MercPtrs[BestStab.ubOpponent]->usAnimState].ubEndHeight == ANIM_STAND &&
+			MercPtrs[BestStab.ubOpponent]->bActionPoints > 0 &&
+			Chance(EffectiveAgility(MercPtrs[BestStab.ubOpponent], FALSE) * (100 + MercPtrs[BestStab.ubOpponent]->bBreath) * EffectiveWisdom(pSoldier) / (100 * 200)))
+		{
+			// find closest spot around opponent, avoid front direction
+			UINT8	ubMovementCost;
+			INT32	sTempGridNo;
+			UINT8	ubDirection;
+			INT32	sPathCost;
+			INT32	sBestSpot = NOWHERE;
+			INT32	sBestPathCost = 0;
+
+			for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+			{
+				sTempGridNo = NewGridNo(BestStab.sTarget, DirectionInc(ubDirection));
+
+				if (sTempGridNo != BestStab.sTarget)
+				{
+					ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][pSoldier->pathing.bLevel];
+
+					if (ubMovementCost < TRAVELCOST_BLOCKED &&
+						NewOKDestination(pSoldier, sTempGridNo, FALSE, pSoldier->pathing.bLevel) &&
+						AIDirection(BestStab.sTarget, sTempGridNo) != MercPtrs[BestStab.ubOpponent]->ubDirection)
+					{
+						sPathCost = PlotPath(pSoldier, sTempGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), pSoldier->bStealthMode, pSoldier->bReverse, 0);
+						if (TileIsOutOfBounds(sBestSpot) || sPathCost < sBestPathCost)
+						{
+							sBestSpot = sTempGridNo;
+							sBestPathCost = sPathCost;
+						}
+					}
+				}
+			}
+
+			if (!TileIsOutOfBounds(sBestSpot) &&
+				pSoldier->bActionPoints >= sPathCost + GetAPsToLook(pSoldier) + MinAPsToAttack(pSoldier, pSoldier->sLastTarget, FALSE, 0, 0))
+			{
+				pSoldier->aiData.usActionData = sBestSpot;
+				DebugAI(AI_MSG_INFO, pSoldier, String("boxer: get closer to opponent, avoid front direction"));
+				return(AI_ACTION_GET_CLOSER);
+			}
+		}
+
 		if (BestStab.ubPossible && ((BestStab.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)))
 		{
 			BestAttack.iAttackValue = BestStab.iAttackValue;
@@ -6100,34 +6186,147 @@ L_NEWAIM:
 	// try to make boxer close if possible
 	if (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER )
 	{
-		if ( ubCanMove )
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[Make boxer close if possible]"));
+
+		UINT8 ubOpponentID;
+		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL, &ubOpponentID);
+		DebugAI(AI_MSG_INFO, pSoldier, String("boxer: found closest opponent [%d] at %d", ubOpponentID, sClosestOpponent));
+
+		if (!TileIsOutOfBounds(sClosestOpponent) &&
+			ubOpponentID != NOBODY &&
+			MercPtrs[ubOpponentID])
 		{
-			sClosestOpponent = ClosestSeenOpponent(pSoldier, NULL, NULL);
-			
-			if (!TileIsOutOfBounds(sClosestOpponent))
+			if (pSoldier->bActionPoints > 0)
 			{
-				// temporarily make boxer have orders of CLOSEPATROL rather than STATIONARY
-				// And make him patrol the ring, not his usual place
-				// so he has a good roaming range
-				USHORT tgrd = pSoldier->aiData.sPatrolGrid[0];
-				pSoldier->aiData.sPatrolGrid[0] = pSoldier->sGridNo;
-				pSoldier->aiData.bOrders = CLOSEPATROL;
-				pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards( pSoldier, sClosestOpponent, AI_ACTION_GET_CLOSER );
-				pSoldier->aiData.sPatrolGrid[0] = tgrd;
-				pSoldier->aiData.bOrders = STATIONARY;
-				
-				if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+				if (SpacesAway(pSoldier->sGridNo, sClosestOpponent) > 1)
 				{
-					// truncate path to 1 step
-					pSoldier->aiData.usActionData = pSoldier->sGridNo + DirectionInc( (UINT8) pSoldier->pathing.usPathingData[0] );
-					pSoldier->pathing.sFinalDestination = pSoldier->aiData.usActionData;
-					pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
-					return( AI_ACTION_GET_CLOSER );
+					INT16 sReserveAP = GetAPsToLook(pSoldier) + 2 * MinAPsToAttack(pSoldier, pSoldier->sLastTarget, FALSE, 0, 0);
+					BOOLEAN fLimitOneStep = FALSE;
+
+					if (pSoldier->bInitialActionPoints < sReserveAP + APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK])
+					{
+						sReserveAP = GetAPsToLook(pSoldier) + MinAPsToAttack(pSoldier, pSoldier->sLastTarget, FALSE, 0, 0);
+					}
+
+					if (pSoldier->bInitialActionPoints < sReserveAP + APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK] &&
+						pSoldier->bInitialActionPoints >= GetAPsToLook(pSoldier) + MinAPsToAttack(pSoldier, pSoldier->sLastTarget, FALSE, 0, 0) &&
+						SpacesAway(pSoldier->sGridNo, sClosestOpponent) > 2)
+					{
+						sReserveAP = GetAPsToLook(pSoldier) + 1;
+						fLimitOneStep = TRUE;
+					}
+
+					// temporarily make boxer have orders of CLOSEPATROL rather than STATIONARY
+					// And make him patrol the ring, not his usual place
+					// so he has a good roaming range
+					INT32 tgrd = pSoldier->aiData.sPatrolGrid[0];
+					pSoldier->aiData.sPatrolGrid[0] = pSoldier->sGridNo;
+					pSoldier->aiData.bOrders = CLOSEPATROL;
+					//pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards( pSoldier, sClosestOpponent, AI_ACTION_GET_CLOSER );
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestOpponent, sReserveAP, AI_ACTION_GET_CLOSER, 0);
+					pSoldier->aiData.sPatrolGrid[0] = tgrd;
+					pSoldier->aiData.bOrders = STATIONARY;
+
+					// decide to restore breath
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData) &&
+						(pSoldier->bBreath < OKBREATH ||
+						pSoldier->bBreath < pSoldier->bBreathMax &&
+						pSoldier->bBreath < MercPtrs[ubOpponentID]->bBreath &&
+						Chance((100 - pSoldier->bBreath) * (100 - pSoldier->bBreath) / (2 * 100 * 100))))
+					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("boxer: restore breath"));
+						pSoldier->aiData.usActionData = NOWHERE;
+					}
+
+					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+					{
+						// truncate path to 1 step
+						if (fLimitOneStep)
+						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("boxer: limit movement to one step"));
+							pSoldier->aiData.usActionData = pSoldier->sGridNo + DirectionInc((UINT8)pSoldier->pathing.usPathingData[0]);
+							pSoldier->pathing.sFinalDestination = pSoldier->aiData.usActionData;
+						}
+
+						//pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+						DebugAI(AI_MSG_INFO, pSoldier, String("boxer: get closer to opponent"));
+						return(AI_ACTION_GET_CLOSER);
+					}
+				}
+				else if (pSoldier->bBreath < OKBREATH ||
+					pSoldier->bBreath < pSoldier->bBreathMax &&
+					(pSoldier->bBreath < MercPtrs[ubOpponentID]->bBreath || !pSoldier->aiData.bLastAttackHit && (pSoldier->usSoldierFlagMask2 & SOLDIER_TAKEN_LARGE_HIT)))
+				{
+					// maybe move away from opponent
+					UINT8 ubOpponentDir = AIDirection(pSoldier->sGridNo, sClosestOpponent);
+					INT32 sCheckGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(gOppositeDirection[ubOpponentDir]));
+
+					// only use reverse movement if we are facing opponent
+					if (pSoldier->ubDirection == ubOpponentDir ||
+						pSoldier->ubDirection == gOneCDirection[ubOpponentDir] ||
+						pSoldier->ubDirection == gOneCCDirection[ubOpponentDir])
+					{
+						pSoldier->bReverse = TRUE;
+					}
+
+					if (!NewOKDestination(pSoldier, sCheckGridNo, FALSE, pSoldier->pathing.bLevel) ||
+						PlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_TAKE_COVER), pSoldier->bStealthMode, pSoldier->bReverse, 0) > pSoldier->bActionPoints - 1)
+					{
+						//if (sPathcost > pSoldier->bActionPoints - (GetAPsToLook(pSoldier) + 1))
+						DebugAI(AI_MSG_INFO, pSoldier, String("boxer: bad destination or high path cost, cannot move away"));
+						sCheckGridNo = NOWHERE;
+					}
+
+					// maybe try diagonal movement
+					if (TileIsOutOfBounds(sCheckGridNo) && Chance(50))
+					{
+						sCheckGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(gOneCDirection[gOppositeDirection[ubOpponentDir]]));
+						if (!NewOKDestination(pSoldier, sCheckGridNo, FALSE, pSoldier->pathing.bLevel) ||
+							PlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_TAKE_COVER), pSoldier->bStealthMode, pSoldier->bReverse, 0) > pSoldier->bActionPoints - 1)
+						{
+							//if (sPathcost > pSoldier->bActionPoints - (GetAPsToLook(pSoldier) + 1))
+							DebugAI(AI_MSG_INFO, pSoldier, String("boxer: bad destination or high path cost, cannot move away"));
+							sCheckGridNo = NOWHERE;
+						}
+					}
+					if (TileIsOutOfBounds(sCheckGridNo) && Chance(50))
+					{
+						sCheckGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(gOneCCDirection[gOppositeDirection[ubOpponentDir]]));
+						if (!NewOKDestination(pSoldier, sCheckGridNo, FALSE, pSoldier->pathing.bLevel) ||
+							PlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_TAKE_COVER), pSoldier->bStealthMode, pSoldier->bReverse, 0) > pSoldier->bActionPoints - 1)
+						{
+							//if (sPathcost > pSoldier->bActionPoints - (GetAPsToLook(pSoldier) + 1))
+							DebugAI(AI_MSG_INFO, pSoldier, String("boxer: bad destination or high path cost, cannot move away"));
+							sCheckGridNo = NOWHERE;
+						}
+					}
+
+					if (!TileIsOutOfBounds(sCheckGridNo))
+					{
+						pSoldier->aiData.usActionData = sCheckGridNo;
+						DebugAI(AI_MSG_INFO, pSoldier, String("boxer: get away from opponent"));
+						return(AI_ACTION_TAKE_COVER);
+					}
+					pSoldier->bReverse = FALSE;
 				}
 			}
+
+			UINT8 ubOpponentDir = AIDirection(pSoldier->sGridNo, sClosestOpponent);
+
+			// possibly turn to closest opponent
+			if (pSoldier->ubDirection != ubOpponentDir &&
+				pSoldier->InternalIsValidStance(ubOpponentDir, gAnimControl[pSoldier->usAnimState].ubEndHeight) &&
+				pSoldier->bActionPoints >= GetAPsToLook(pSoldier))
+			{
+				pSoldier->aiData.usActionData = ubOpponentDir;
+				DebugAI(AI_MSG_INFO, pSoldier, String("boxer: turn to closest opponent"));
+				return(AI_ACTION_CHANGE_FACING);
+			}
 		}
+
 		// otherwise do nothing
-		return( AI_ACTION_NONE );
+		DebugAI(AI_MSG_INFO, pSoldier, String("boxer: nothing to do"));
+		return(AI_ACTION_NONE);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

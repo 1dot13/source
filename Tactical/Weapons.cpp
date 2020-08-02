@@ -4091,7 +4091,9 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			{
 				iHitChance = 0;
 			}
-			else if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == NOT_HEARD_OR_SEEN )
+			// sevenfm: use sneak attack code
+			//else if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == NOT_HEARD_OR_SEEN )
+			else if (pTargetSoldier->usSoldierFlagMask2 & SOLDIER_SNEAK_ATTACK)
 			{
 				// give bonus for surprise, but not so much as struggle would still occur
 				iHitChance = CalcChanceToSteal( pSoldier, pTargetSoldier, pSoldier->aiData.bAimTime ) + 20;
@@ -4108,13 +4110,26 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 		}
 		else
 		{
-			if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == NOT_HEARD_OR_SEEN || pTargetSoldier->stats.bLife < OKLIFE || pTargetSoldier->bCollapsed )
+			// sevenfm: use sneak attack code
+			//if ( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == NOT_HEARD_OR_SEEN || pTargetSoldier->stats.bLife < OKLIFE || pTargetSoldier->bCollapsed )
+			if (pTargetSoldier->usSoldierFlagMask2 & SOLDIER_SNEAK_ATTACK || pTargetSoldier->stats.bLife < OKLIFE || pTargetSoldier->bCollapsed)
 			{
 				iHitChance = 100;
 			}
 			else
 			{
 				iHitChance = CalcChanceToPunch( pSoldier, pTargetSoldier, pSoldier->aiData.bAimTime );
+
+				// sevenfm: bonus for boxers for attack from the back
+				if (iHitChance < 100 &&
+					(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					!pSoldier->bBlindedCounter &&
+					gAnimControl[pTargetSoldier->usAnimState].ubEndHeight > ANIM_PRONE &&
+					(pTargetSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					pTargetSoldier->usSoldierFlagMask2 & SOLDIER_BACK_ATTACK)
+				{
+					iHitChance += (100 - iHitChance) / 2;
+				}
 			}
 		}
 
@@ -4714,13 +4729,59 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				PossiblyStartEnemyTaunt( pSoldier, TAUNT_MISS_HTH, pTargetSoldier->ubID );
 				if( pTargetSoldier->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 					PossiblyStartEnemyTaunt( pTargetSoldier, TAUNT_GOT_MISSED_HTH, pSoldier->ubID );
+
+				//INT16 sMinAPCost = MinAPsToAttack(pTargetSoldier, pSoldier->sGridNo, TRUE, 0, 0);
+				UINT8 ubCounterattackChance = EffectiveDexterity(pTargetSoldier, FALSE) * (100 + pTargetSoldier->bBreath) / 200;
+
+				// halve chance for counterattack if boxer was hit recently
+				if (pTargetSoldier->usSoldierFlagMask2 & SOLDIER_TAKEN_LARGE_HIT)
+					ubCounterattackChance /= 2;
+
+				// sevenfm: possibly counterattack when boxing
+				if (pTargetSoldier->bActionPoints > 0 &&
+					gGameOptions.fNewTraitSystem &&
+					gTacticalStatus.bBoxingState == BOXING &&
+					(pTargetSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					Chance(ubCounterattackChance) &&
+					IS_MERC_BODY_TYPE(pSoldier) &&
+					IS_MERC_BODY_TYPE(pTargetSoldier) &&
+					gAnimControl[pTargetSoldier->usAnimState].ubEndHeight == ANIM_STAND &&
+					!(pTargetSoldier->usSoldierFlagMask2 & SOLDIER_BACK_ATTACK) &&
+					(!pTargetSoldier->inv[HANDPOS].exists() || Item[pTargetSoldier->inv[HANDPOS].usItem].usItemClass & (IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH) || !pTargetSoldier->inv[SECONDHANDPOS].exists()))
+				{
+					if (!(Item[pTargetSoldier->inv[HANDPOS].usItem].usItemClass & (IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH)) &&
+						!pTargetSoldier->inv[SECONDHANDPOS].exists())
+					{
+						UINT16 usOldHandItem = pTargetSoldier->inv[HANDPOS].usItem;
+						SwapHandItems(pTargetSoldier);
+						pTargetSoldier->ReLoadSoldierAnimationDueToHandItemChange(usOldHandItem, pTargetSoldier->inv[HANDPOS].usItem);
+						HandleSight(pTargetSoldier, SIGHT_LOOK);
+
+						if (pTargetSoldier->bTeam == gbPlayerNum)
+						{
+							fCharacterInfoPanelDirty = TRUE;
+							fInterfacePanelDirty = DIRTYLEVEL2;
+						}
+					}
+
+					pTargetSoldier->aiData.bAimTime = 0;
+					if (pTargetSoldier->bActionPoints >= MinAPsToAttack(pTargetSoldier, pSoldier->sGridNo, TRUE, 1, 0) && Chance(EffectiveStrength(pTargetSoldier, FALSE) / 4))
+						pTargetSoldier->aiData.bAimTime = 1;
+
+					pTargetSoldier->bAimShotLocation = AIM_SHOT_RANDOM;
+					if (gAnimControl[pSoldier->usAnimState].ubEndHeight > ANIM_PRONE)
+					{
+						if (Chance((6 + EffectiveDexterity(pTargetSoldier, FALSE) / 10 + 5 * NUM_SKILL_TRAITS(pTargetSoldier, MARTIAL_ARTS_NT)) * 100 / (100 + pSoldier->bBreath)))
+							pTargetSoldier->bAimShotLocation = AIM_SHOT_HEAD;
+						else if (Chance(pSoldier->bBreath * EffectiveWisdom(pTargetSoldier) / (100 + EffectiveDexterity(pTargetSoldier, FALSE))))
+							pTargetSoldier->bAimShotLocation = AIM_SHOT_LEGS;
+						else
+							pTargetSoldier->bAimShotLocation = AIM_SHOT_TORSO;
+					}
+
+					HandleItem(pTargetSoldier, pSoldier->sGridNo, pTargetSoldier->pathing.bLevel, pTargetSoldier->inv[HANDPOS].usItem, FALSE);
+				}
 			}
-			// 0verhaul:  And this too
-			// else
-			// {
-			//	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - missed in HTH attack") );
-			//	FreeUpAttacker( (UINT8) pSoldier->ubID );
-			// }
 		}
 	}
 

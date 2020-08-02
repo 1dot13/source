@@ -3012,6 +3012,96 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
         }
     }
 
+	// sevenfm: check all nearby enemy boxers for opportunity attack
+	if (IS_MERC_BODY_TYPE(pSoldier) &&
+		(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+		gTacticalStatus.bBoxingState == BOXING &&
+		pSoldier->aiData.bAlertStatus >= STATUS_RED)
+	{
+		UINT32 uiLoop;
+		UINT8 ubChance;
+		SOLDIERTYPE *pOpponent;
+		UINT8 ubDirection;
+
+		//loop through all the enemies
+		for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
+		{
+			pOpponent = MercSlots[uiLoop];
+
+			if (!pOpponent ||
+				SpacesAway(pSoldier->sGridNo, pOpponent->sGridNo) > 1 ||
+				pOpponent->stats.bLife < OKLIFE ||
+				!ValidOpponent(pSoldier, pOpponent) ||
+				pOpponent->bCollapsed ||
+				pOpponent->bBreathCollapsed ||
+				!IS_MERC_BODY_TYPE(pOpponent) ||
+				!(pOpponent->flags.uiStatusFlags & SOLDIER_BOXER) ||
+				gAnimControl[pOpponent->usAnimState].ubEndHeight < ANIM_STAND ||
+				pOpponent->pathing.bLevel != pSoldier->pathing.bLevel ||
+				!SoldierToSoldierLineOfSightTest(pOpponent, pSoldier, TRUE, CALC_FROM_WANTED_DIR) ||
+				pOpponent->bActionPoints <= 0 ||
+				pOpponent->inv[HANDPOS].exists() && pOpponent->inv[SECONDHANDPOS].exists() && !(Item[pOpponent->inv[HANDPOS].usItem].usItemClass & (IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH)))
+			{
+				continue;			// next merc
+			}
+
+			ubChance = EffectiveAgility(pSoldier, FALSE) * (100 + pSoldier->bBreath) / 200;
+			ubDirection = AIDirection(pOpponent->sGridNo, pSoldier->sGridNo);
+			if (pOpponent->ubDirection == ubDirection)
+				ubChance = ubChance * 3 / 4;
+			else if (pOpponent->ubDirection == gOneCDirection[ubDirection] || pOpponent->ubDirection == gOneCCDirection[ubDirection])
+				ubChance = ubChance / 2;
+			else if (pOpponent->ubDirection == gTwoCDirection[ubDirection] || pOpponent->ubDirection == gTwoCCDirection[ubDirection])
+				ubChance = ubChance / 4;
+			else
+				ubChance = 0;
+
+			if (!Chance(ubChance))
+			{
+				continue;
+			}
+
+			if (!(Item[pOpponent->inv[HANDPOS].usItem].usItemClass & (IC_BLADE | IC_THROWING_KNIFE | IC_PUNCH)) &&
+				!pOpponent->inv[SECONDHANDPOS].exists())
+			{
+				UINT16 usOldHandItem = pOpponent->inv[HANDPOS].usItem;
+				SwapHandItems(pOpponent);
+				pOpponent->ReLoadSoldierAnimationDueToHandItemChange(usOldHandItem, pOpponent->inv[HANDPOS].usItem);
+				HandleSight(pOpponent, SIGHT_LOOK);
+
+				if (pOpponent->bTeam == gbPlayerNum)
+				{
+					fCharacterInfoPanelDirty = TRUE;
+					fInterfacePanelDirty = DIRTYLEVEL2;
+				}
+			}
+
+			// stop soldier
+			(*pfKeepMoving) = FALSE;
+			pSoldier->EVENT_StopMerc(pSoldier->sGridNo, pSoldier->ubDirection);
+			SetNewSituation(pSoldier);
+			ActionDone(pSoldier);
+
+			// prepare attack
+			pOpponent->aiData.bAimTime = 0;
+			if (pOpponent->bActionPoints >= MinAPsToAttack(pOpponent, pSoldier->sGridNo, TRUE, 1, 0) && Chance(pOpponent->stats.bLife))
+				pOpponent->aiData.bAimTime = 1;
+
+			pOpponent->bAimShotLocation = AIM_SHOT_RANDOM;
+			if (gAnimControl[pSoldier->usAnimState].ubEndHeight > ANIM_PRONE)
+			{
+				if (Chance((6 + EffectiveDexterity(pOpponent, FALSE) / 10 + 5 * NUM_SKILL_TRAITS(pOpponent, MARTIAL_ARTS_NT)) * 100 / (100 + pSoldier->bBreath)))
+					pOpponent->bAimShotLocation = AIM_SHOT_HEAD;
+				else if (Chance(pSoldier->bBreath * EffectiveWisdom(pOpponent) / (100 + EffectiveDexterity(pOpponent, FALSE))))
+					pOpponent->bAimShotLocation = AIM_SHOT_LEGS;
+				else
+					pOpponent->bAimShotLocation = AIM_SHOT_TORSO;
+			}
+
+			HandleItem(pOpponent, pSoldier->sGridNo, pOpponent->pathing.bLevel, pOpponent->inv[HANDPOS].usItem, FALSE);
+		}
+	}
+
     HandleSystemNewAISituation( pSoldier, FALSE );
 
 	// Flugente: tracker...

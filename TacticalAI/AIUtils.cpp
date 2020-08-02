@@ -1385,7 +1385,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, BOOLEAN * pfChangeLevel
 }
 
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel)
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, UINT8 *pubOpponentID)
 {
 	INT32 *psLastLoc,sGridNo, sClosestOpponent = NOWHERE;
 	UINT32 uiLoop;
@@ -1396,6 +1396,11 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 	SOLDIERTYPE *pClosestOpponent = NULL;
 
 	bClosestLevel = -1;
+
+	if (pubOpponentID)
+	{
+		*pubOpponentID = NOBODY;
+	}
 
 	// NOTE: THIS FUNCTION ALLOWS RETURN OF UNCONSCIOUS AND UNREACHABLE OPPONENTS
 	psLastLoc = &(gsLastKnownOppLoc[pSoldier->ubID][0]);
@@ -1499,6 +1504,10 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 	if (pbLevel)
 	{
 		*pbLevel = bClosestLevel;
+	}
+	if (pubOpponentID && pClosestOpponent)
+	{
+		*pubOpponentID = pClosestOpponent->ubID;
 	}
 	return( sClosestOpponent );
 }
