@@ -5790,3 +5790,81 @@ UINT8 SectorCurfew(BOOLEAN fNight)
 
 	return ubSectorData;
 }
+
+INT32	RandomizeLocation(INT32 sSpot, INT8 bLevel, UINT8 ubTimes, SOLDIERTYPE *pSightSoldier)
+{
+	if (TileIsOutOfBounds(sSpot))
+	{
+		return NOWHERE;
+	}
+
+	UINT8 ubDirection;
+	UINT8 ubMovementCost;
+	INT32 sTempSpot;
+	INT32 sSpotArray[NUM_WORLD_DIRECTIONS + 1];
+	UINT8 ubSpots;
+
+	for (UINT8 ubCnt = 0; ubCnt < ubTimes; ubCnt++)
+	{
+		// store original location
+		ubSpots = 1;
+		sSpotArray[0] = sSpot;
+
+		// find adjacent locations
+		for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+		{
+			sTempSpot = NewGridNo(sSpot, DirectionInc(ubDirection));
+
+			if (sTempSpot != sSpot)
+			{
+				ubMovementCost = gubWorldMovementCosts[sTempSpot][ubDirection][bLevel];
+
+				if (ubMovementCost < TRAVELCOST_BLOCKED &&
+					IsLocationSittableExcludingPeople(sTempSpot, bLevel) &&
+					(!pSightSoldier || SoldierToVirtualSoldierLineOfSightTest(pSightSoldier, sTempSpot, bLevel, ANIM_STAND, TRUE, NO_DISTANCE_LIMIT)))
+				{
+					sSpotArray[ubSpots] = sTempSpot;
+					ubSpots++;
+				}
+			}
+		}
+		// find random location
+		sSpot = sSpotArray[Random(ubSpots)];
+		// stop if could not find any adjacent spot
+		if (ubSpots < 2)
+		{
+			break;
+		}
+	}
+
+	return sSpot;
+}
+
+INT32	RandomizeOpponentLocation(INT32 sSpot, SOLDIERTYPE *pOpponent, INT16 sMaxDistance)
+{
+	if (TileIsOutOfBounds(sSpot))
+	{
+		return NOWHERE;
+	}
+
+	INT8 bXOffset, bYOffset;
+	INT32 sRandomSpot;
+
+	if (sMaxDistance > 0)
+	{
+		for (INT cnt = 0; cnt < min(sMaxDistance * 2, 100); cnt++)
+		{
+			bXOffset = Random(sMaxDistance * 2 + 1) - sMaxDistance;
+			bYOffset = Random(sMaxDistance * 2 + 1) - sMaxDistance;
+
+			sRandomSpot = sSpot + bXOffset + (MAXCOL * bYOffset);
+
+			if (!TileIsOutOfBounds(sRandomSpot) && NewOKDestination(pOpponent, sRandomSpot, FALSE, pOpponent->pathing.bLevel))
+			{
+				return sRandomSpot;
+			}
+		}
+	}
+
+	return sSpot;
+}

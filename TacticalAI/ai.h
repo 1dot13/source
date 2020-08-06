@@ -330,15 +330,14 @@ UINT8	TerrainDensity(INT32 sSpot, INT8 bLevel, UINT8 ubDistance, BOOLEAN fGrass)
 BOOLEAN	FindNearbyExplosiveStructure(INT32 sSpot, INT8 bLevel);
 INT16 DistanceToClosestActiveOpponent(SOLDIERTYPE *pSoldier, INT32 sSpot);
 BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent);
-
 UINT8 CountSeenEnemiesLastTurn( SOLDIERTYPE *pSoldier );
-
 BOOLEAN FindObstacleNearSpot(INT32 sSpot, INT8 bLevel);
-
 BOOLEAN CheckNPCDestination(SOLDIERTYPE *pSoldier, INT32 sGridNo);
 UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo);
 BOOLEAN AllowDeepWaterFlanking(SOLDIERTYPE *pSoldier);
 BOOLEAN AICheckUnderground(void);
+INT32	RandomizeLocation(INT32 sSpot, INT8 bLevel, UINT8 ubTimes, SOLDIERTYPE *pSightSoldier);
+INT32	RandomizeOpponentLocation(INT32 sSpot, SOLDIERTYPE *pOpponent, INT16 sMaxDistance);
 
 BOOLEAN CorpseWarning(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel);
 BOOLEAN CorpseEnemyTeam(ROTTING_CORPSE *pCorpse);

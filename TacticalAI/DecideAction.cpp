@@ -2910,7 +2910,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 
 		//SUPPRESSION FIRE
-		CheckIfShotPossible(pSoldier,&BestShot); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
+		CheckIfShotPossible(pSoldier, &BestShot); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
 
 		// sevenfm: check that we have a clip to reload
 		BOOLEAN fExtraClip = FALSE;
@@ -2929,77 +2929,131 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 		// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
 		// WarmSteel - Don't *always* try to suppress when under 50 CTH
-		if( BestShot.bWeaponIn != -1  
-			&& BestShot.ubPossible 
-			&& GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize
-			&& pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo 
-			//&& BestShot.ubChanceToReallyHit < (INT16)(PreRandom(50))  
-			//&& Menptr[BestShot.ubOpponent].pathing.bLevel == 0 
-			&& pSoldier->aiData.bOrders != SNIPER &&
-			BestShot.ubFriendlyFireChance < 5 &&
-			!CoweringShockLevel(MercPtrs[BestShot.ubOpponent]) &&
+		if (BestShot.ubPossible &&
+			BestShot.bWeaponIn != -1 &&
+			// check valid target
+			!TileIsOutOfBounds(BestShot.sTarget) &&
+			BestShot.ubOpponent != NOBODY &&
+			MercPtrs[BestShot.ubOpponent] &&
+			// check weapon/ammo requirements
+			IsGunAutofireCapable(&pSoldier->inv[BestShot.bWeaponIn]) &&
+			GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize &&
+			pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumAmmo &&
+			// check soldier and weapon
+			pSoldier->aiData.bOrders != SNIPER &&
+			BestShot.ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE &&			
 			!AICheckIsFlanking(pSoldier) &&
-			LocationToLocationLineOfSightTest( pSoldier->sGridNo, pSoldier->pathing.bLevel, MercPtrs[BestShot.ubOpponent]->sGridNo, MercPtrs[BestShot.ubOpponent]->pathing.bLevel, TRUE, NO_DISTANCE_LIMIT) &&
-			//Weapon[pSoldier->inv[BestShot.bWeaponIn].usItem].ubWeaponType == GUN_LMG ) &&	//Weapon[usInHand].ubWeaponClass == MGCLASS
-			(fExtraClip || pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft > gGameExternalOptions.ubAISuppressionMinimumMagSize) )
+			// reduce chance to shoot if target is beyond weapon range
+			(AICheckIsMachinegunner(pSoldier) ||
+			ARMED_VEHICLE(pSoldier) ||
+			AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) ||			
+			pSoldier->aiData.bUnderFire && (pSoldier->ubPreviousAttackerID == BestShot.ubOpponent || pSoldier->ubNextToPreviousAttackerID == BestShot.ubOpponent || MercPtrs[BestShot.ubOpponent]->sLastTarget == pSoldier->sGridNo) ||	// return fire
+			Chance(100 * (GunRange(&pSoldier->inv[BestShot.bWeaponIn], pSoldier) / CELL_X_SIZE) / PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget))) &&
+			// check that we have spare ammo
+			(fExtraClip || pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft >= gGameExternalOptions.ubAISuppressionMinimumMagSize) )
 		{
 			// then do it!
 
 			// if necessary, swap the usItem from holster into the hand position
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: suppression fire possible!");
+			DebugAI(AI_MSG_INFO, pSoldier, String("suppression fire possible! target %d level %d aim %d", BestShot.sTarget, BestShot.bTargetLevel, BestShot.ubAimTime));
 
 			if (BestShot.bWeaponIn != HANDPOS)
 			{
-				RearrangePocket(pSoldier,HANDPOS,BestShot.bWeaponIn,FOREVER);
+				DebugAI(AI_MSG_INFO, pSoldier, String("rearrange pocket"));
+				RearrangePocket(pSoldier, HANDPOS, BestShot.bWeaponIn, FOREVER);
 			}
 
-			pSoldier->aiData.usActionData	= BestShot.sTarget;
-			pSoldier->bTargetLevel			= BestShot.bTargetLevel;			
-			pSoldier->aiData.bAimTime		= 0;
-			pSoldier->bDoAutofire			= 0;
-			pSoldier->bDoBurst				= 1;
+			pSoldier->bTargetLevel = BestShot.bTargetLevel;
+			pSoldier->aiData.bAimTime = BestShot.ubAimTime;
+			pSoldier->bDoAutofire = 0;
+			pSoldier->bDoBurst = 1;
+			pSoldier->bScopeMode = BestShot.bScopeMode;
 
 			INT16 ubBurstAPs = 0;
 			FLOAT dTotalRecoil = 0;
+			INT32 sActualAimAP;
+			UINT8 ubAutoPenalty;
+			INT16 sReserveAP = GetAPsProne(pSoldier, TRUE);
+			UINT8 ubMinAuto = 5;
 
-			if(UsingNewCTHSystem() == true)
+			if (BestShot.ubAimTime > 0 &&
+				!UsingNewCTHSystem() &&
+				Chance((100 - BestShot.ubChanceToReallyHit) * (100 - BestShot.ubChanceToReallyHit) / 100))
 			{
-				do
-				{
-					pSoldier->bDoAutofire++;
-					dTotalRecoil += AICalcRecoilForShot( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
-					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
-				}
-				while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs && pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire 
-					&& dTotalRecoil <= 10.0f );
+				DebugAI(AI_MSG_INFO, pSoldier, String("set ubAimTime = 0 for OCTH suppression"));
+				BestShot.ubAimTime = 0;
 			}
-			else 
+
+			// reserve APs to hide if no cover or enemy is close
+			if (!AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget) < DAY_VISION_RANGE / 2)
+			{
+				sReserveAP = APBPConstants[AP_MINIMUM] / 2;
+			}
+			if (PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget) > DAY_VISION_RANGE || AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->aiData.bUnderFire)
+			{
+				ubMinAuto *= 2;
+			}
+
+			sActualAimAP = CalcAPCostForAiming(pSoldier, BestShot.sTarget, (INT8)pSoldier->aiData.bAimTime);
+
+			if (UsingNewCTHSystem() == true)
 			{
 				do
 				{
 					pSoldier->bDoAutofire++;
-					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
-				}
-				while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs &&
-					pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
-					GetAutoPenalty(&pSoldier->inv[ pSoldier->ubAttackingHand ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80 );
+					dTotalRecoil += AICalcRecoilForShot(pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire);
+					ubBurstAPs = CalcAPsToAutofire(pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier);
+				} while (pSoldier->bActionPoints >= BestShot.ubAPCost + sActualAimAP + ubBurstAPs + sReserveAP &&
+					pSoldier->inv[pSoldier->ubAttackingHand][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
+					pSoldier->bDoAutofire <= 30 &&
+					(dTotalRecoil <= 20.0f || pSoldier->bDoAutofire < ubMinAuto));
+			}
+			else
+			{
+				ubAutoPenalty = GetAutoPenalty(&pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE);
+				do
+				{
+					pSoldier->bDoAutofire++;
+					ubBurstAPs = CalcAPsToAutofire(pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier);
+				} while (pSoldier->bActionPoints >= BestShot.ubAPCost + sActualAimAP + ubBurstAPs + sReserveAP &&
+					pSoldier->inv[pSoldier->ubAttackingHand][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
+					pSoldier->bDoAutofire <= 30 &&
+					(ubAutoPenalty * pSoldier->bDoAutofire <= 80 || pSoldier->bDoAutofire < ubMinAuto));
 			}
 
 			pSoldier->bDoAutofire--;
 
 			// Make sure we decided to fire at least one shot!
-			ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
+			ubBurstAPs = CalcAPsToAutofire(pSoldier->CalcActionPoints(), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier);
+			DebugAI(AI_MSG_INFO, pSoldier, String("autofire shots %d APcost %d burst AP %d aimtime %d reserve AP %d", pSoldier->bDoAutofire, BestShot.ubAPCost, ubBurstAPs, sActualAimAP, sReserveAP));
 
-			// minimum 5 bullets
-			if (pSoldier->bDoAutofire >= 5 && pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs )
+			// minimum 3 bullets
+			if (pSoldier->bDoAutofire >= 3 && pSoldier->bActionPoints >= BestShot.ubAPCost + sActualAimAP + ubBurstAPs + sReserveAP)
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SUPPRESSIONFIRE ] );
-				return( AI_ACTION_FIRE_GUN );
+				if (gAnimControl[pSoldier->usAnimState].ubEndHeight != BestShot.ubStance &&
+					IsValidStance(pSoldier, BestShot.ubStance))
+				{
+					pSoldier->aiData.bNextAction = AI_ACTION_FIRE_GUN;
+					pSoldier->aiData.usNextActionData = BestShot.sTarget;
+					pSoldier->aiData.bNextTargetLevel = BestShot.bTargetLevel;
+					pSoldier->aiData.usActionData = BestShot.ubStance;
+
+					DebugAI(AI_MSG_INFO, pSoldier, String("Change stance before shooting"));
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SUPPRESSIONFIRE]);
+					return(AI_ACTION_CHANGE_STANCE);
+				}
+				else
+				{
+					pSoldier->aiData.usActionData = BestShot.sTarget;
+
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SUPPRESSIONFIRE]);
+					return(AI_ACTION_FIRE_GUN);
+				}
 			}
 			else
 			{
-				pSoldier->bDoBurst			= 0;
-				pSoldier->bDoAutofire		= 0;
+				pSoldier->bDoBurst = 0;
+				pSoldier->bDoAutofire = 0;
 			}
 		}
 		// suppression not possible, do something else
