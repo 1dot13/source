@@ -821,6 +821,14 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
 		  <Description_CHI>排除卡壳武器需要的 AP 。</Description_CHI>
 		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour désenrayer une arme.</Description_FRE>
         </Property>
+        <Property name="AP_GRENADE_MODE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
+          <Description_ENG>AP value to set grenade mode</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
         <Property name="AP_JUMPWINDOW" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
           <Description_ENG>The APs needed when you jump through a window.</Description_ENG>
           <Description_GER></Description_GER>
@@ -845,13 +853,221 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
 		  <Description_CHI>爬下墙需要的 AP 。（？）</Description_CHI>
 		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour descendre d'un toit.</Description_FRE>
         </Property>
-        <Property name="AP_MAX_SUPPRESSED" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="64" interval="1">
-          <Description_ENG>Maximum AP penalty from supression fire. Modifire for how effective a suppression point is.</Description_ENG>
+        <Property name="AP_JUMPOFFWALL" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="40" interval="1">
+          <Description_ENG>The APs needed when you climb down a wall.</Description_ENG>
           <Description_GER></Description_GER>
-          <Description_RUS>Определяет максимальный штраф к количеству АР от огня на подавление.</Description_RUS>
+          <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
-		  <Description_CHI>被消声武器打到时，AP 损失会更少。这个值控制消声武器造成 AP 损失的最大值。</Description_CHI>
-		  <Description_FRE>Cette valeur représente la pénalité maximale de PA attribuable à la suppression (tir de couverture). Influe sur l'efficacité de chaque point de suppression.</Description_FRE>
+		  <Description_CHI>爬下墙需要的 AP 。（？）</Description_CHI>
+		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour descendre d'un toit.</Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_NONE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="0" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_HANDS" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="0" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_EQUIPMENT" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="15" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_VEST" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="5" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_RIG" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_CPACK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="6" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_BPACK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="8" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_SLING" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="6" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_KNIFE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="5" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_FACE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="2" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_BIG_POCKET" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="5" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_FROM_SMALL_POCKET" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to take an item from position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_NONE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="0" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_HANDS" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="0" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_EQUIPMENT" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_VEST" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="6" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_RIG" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="5" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_CPACK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="7" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_BPACK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="8" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_SLING" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="7" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_KNIFE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="6" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_FACE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="2" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_BIG_POCKET" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="4" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_TO_SMALL_POCKET" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="5" interval="1">
+          <Description_ENG>Inventory costs: The APs needed to move an item to position</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INV_MAX_COST" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="25" interval="1">
+          <Description_ENG>Inventory costs: The maximum APs for inventory costs</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_MAX_SUPPRESSED" datatype="numeric" minvalue="0" maxvalue="1000" defaultvalue="64" interval="1">
+          <Description_ENG>Maximum AP penalty from suppression fire from a single attack</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
         </Property>
         <Property name="AP_MAX_TURN_SUPPRESSED" datatype="numeric" minvalue="0" maxvalue="1000" defaultvalue="200" interval="10">
           <Description_ENG>Maximum AP penalty from suppression fire for an entire turn.</Description_ENG>
@@ -926,13 +1142,125 @@ Represents the AP cost to reload a single round of ammunition.</Description_ENG>
 		  <Description_CHI>枪械信息栏内计算 AP 消耗的默认值，以一个技能值为基准。（大概是技能高低影响 AP 消耗？）</Description_CHI>
 		  <Description_FRE>Cette valeur par défaut est pour calculer le nombre de PA requis à chaque arme avec un viseur/lunette qui sera affiché dans l'infobulle et la fenêtre de description de l'arme.</Description_FRE>
         </Property>
-        <Property name="AP_FORTIFICATION" datatype="numeric" minvalue="0" maxvalue="1000" defaultvalue="80" interval="1">
+        <Property name="AP_FORTIFICATION" datatype="numeric" minvalue="0" maxvalue="1000" defaultvalue="250" interval="1">
           <Description_ENG>The APs needed build a fortification structure.</Description_ENG>
           <Description_GER></Description_GER>
           <Description_RUS></Description_RUS>
           <Description_POL></Description_POL>
 		  <Description_CHI></Description_CHI>
 		  <Description_FRE>Cette valeur est le nombre de PA qui sont nécessaires pour construire une fortification.</Description_FRE>
+        </Property>
+        <Property name="AP_REMOVE_FORTIFICATION" datatype="numeric" minvalue="0" maxvalue="1000" defaultvalue="150" interval="1">
+          <Description_ENG>The APs needed to remove a fortification structure.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_EAT" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="80" interval="1">
+          <Description_ENG>The APs needed to eat.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_CLEANINGKIT" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="80" interval="1">
+          <Description_ENG>The APs needed to clean a weapon.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_DISGUISE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="80" interval="1">
+          <Description_ENG>The APs needed to disguise.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_HANDCUFF" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="50" interval="1">
+          <Description_ENG>The APs needed to handcuff someone.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_APPLYITEM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="50" interval="1">
+          <Description_ENG>The APs needed to apply an item to someone else.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_INVENTORY_ARM" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
+          <Description_ENG>The APs needed for arming a bomb/grenade in inventory.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_SPOTTER" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="20" interval="1">
+          <Description_ENG>The APs needed for activating the spotter skill.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_HACK" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="75" interval="1">
+          <Description_ENG>The APs needed for hacking a computer.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_READFILE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="12" interval="1">
+          <Description_ENG>The APs needed for reading a file.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_WATERTAP" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="5" interval="1">
+          <Description_ENG>The APs needed for drinking from a watertap.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_SODAMACHINE" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="7" interval="1">
+          <Description_ENG>The APs needed for buying soda from a vending machine.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_CAMERA" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="7" interval="1">
+          <Description_ENG>The APs needed to take a photo.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="AP_FILLBLOODBAG" datatype="numeric" minvalue="0" maxvalue="100" defaultvalue="25" interval="1">
+          <Description_ENG>The APs needed to take another merc's blood to fill a blood bag.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
         </Property>
       </Properties>
     </Section>
@@ -1414,6 +1742,54 @@ valeurs valides = 100 à 1000 (par défaut 125).
 	      <Description_CHI></Description_CHI>
 		  <Description_FRE>Cette valeur est le nombre de points d'énergie qui sont nécessaires pour monter sur un mur.
 (NdT : Attention, au moment de la traduction, la définition était très vague).</Description_FRE>
+        </Property>
+        <Property name="BP_FORTIFICATION" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="700" interval="5">
+          <Description_ENG></Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+	      <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="BP_REMOVE_FORTIFICATION" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="400" interval="5">
+          <Description_ENG></Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+	      <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="BP_HANDCUFF" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="100" interval="5">
+          <Description_ENG></Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+	      <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="BP_APPLYITEM" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="5" interval="5">
+          <Description_ENG></Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+	      <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="BP_INVENTORY_ARM" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="0" interval="5">
+          <Description_ENG></Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+	      <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
+        <Property name="BP_FILLBLOODBAG" datatype="numeric" minvalue="-1000" maxvalue="1000" defaultvalue="20" interval="5">
+          <Description_ENG></Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+	      <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
         </Property>
       </Properties>
     </Section>

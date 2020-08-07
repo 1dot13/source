@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-16"?>
-<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+﻿<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Description_ENG>This is the file "ja2.ini" which is the general settings file Jagged Alliance 2 v1.13.</Description_ENG>
   <Description_GER>Dies hier ist die Datei "ja2.ini", welche die standard Einstellungsdatei für Jagged Alliance 2 v1.13 ist.</Description_GER>
   <Description_RUS>Это настройки файла "ja2.ini", в котором содержатся общие установки игры Jagged Alliance 2 v1.13.</Description_RUS>
@@ -32,6 +31,14 @@
 		  <Description_CHI>如果你在用 Windows 98 系统请把这个选项设置为 true。</Description_CHI>
 		  <Description_FRE>Mettre "TRUE", si vous jouez JA2 1.13 sous windows 98.</Description_FRE>
         </Property>
+        <Property name="USE_WINFONTS" datatype="numeric" minvalue="0" maxvalue="1" defaultvalue="0" interval="1">
+          <Description_ENG>Only set this to 1, if you are running the Chinese version of the game.</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
+        </Property>
         <Property name="VFS_CONFIG_INI" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>Select the 'vfs_config.*.ini' of the MOD you would like to play.</Description_ENG>
           <Description_GER>Wählen Sie die 'vfs_config.*.ini' Datei für den MOD aus, welchen Sie spielen möchten.</Description_GER>
@@ -39,6 +46,15 @@
           <Description_POL></Description_POL>
 		  <Description_CHI>请选择游戏mod对应的“vfs_config.*.ini”来加载这个 mod 。</Description_CHI>
 		  <Description_FRE>Sélectionnez le mode que vous voulez jouer (en rapport avec l'exécutable que vous avez sélectionné).</Description_FRE>
+        </Property>
+        <Property name="MERGE_INI_FILES" datatype="select" minvalue="0" maxvalue="0" interval="0">
+          <Description_ENG>Merging of INI files across the various profiles as defined at [vfs_config] in vfs_config.XXX.ini
+Settings is read from right to left, with 'UserProf' as the topmost/first order. Use ',' to include/separate other INIs</Description_ENG>
+          <Description_GER></Description_GER>
+          <Description_RUS></Description_RUS>
+          <Description_POL></Description_POL>
+		  <Description_CHI></Description_CHI>
+		  <Description_FRE></Description_FRE>
         </Property>
         <Property name="JA2_START_FILE" datatype="select" minvalue="0" maxvalue="0" interval="0">
           <Description_ENG>The default Jagged Alliance 2 v1.13 Executable. This file will be used, if you click on the button "START" in the INI Editor.</Description_ENG>
@@ -84,7 +100,7 @@ Assurez-vous que votre moniteur prend en charge la résolution personnalisée en
 		  <Description_FRE>Applicable uniquement lorsque "Custom Resolution" (résolution personnalisée) a été sélectionnée (Dans Game Screen Resolution ou Editor Screen Resolution), valeurs de 800x600 minimum et multiples de 2 uniquement.
 Assurez-vous que votre moniteur prend en charge la résolution personnalisée en question si vous jouez en mode plein écran.</Description_FRE>
         </Property>
-        <Property name="SCREEN_MODE_WINDOWED" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
+        <Property name="SCREEN_MODE_WINDOWED" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="0">
           <Description_ENG>Would you like to play the Jagged Alliance 2 v1.13 and the Map Editor in windowed mode?</Description_ENG>
           <Description_GER>Wollen Sie das Spiel Jagged Alliance 2 v1.13 bzw. den Karten Editor im Fenstermodus spielen?</Description_GER>
           <Description_RUS>Здесь вы можете выбрать полноэкранный либо оконный режим для игры Jagged Alliance 2 v1.13
@@ -93,7 +109,7 @@ Assurez-vous que votre moniteur prend en charge la résolution personnalisée en
 		  <Description_CHI>是否窗口化运行游戏和地图编辑器。</Description_CHI>
 		  <Description_FRE>Vous pouvez sélectionner le mode plein écran ou fenêtré pour Jagged Alliance 2 v1.13 et éditeur de carte.</Description_FRE>
         </Property>
-        <Property name="PLAY_INTRO" datatype="boolean" minvalue="0" maxvalue="0" interval="0">
+        <Property name="PLAY_INTRO" datatype="boolean" minvalue="0" maxvalue="0" defaultvalue="0" interval="0">
           <Description_ENG>Should the intro be played after starting a new game?</Description_ENG>
           <Description_GER>Soll das Intro nach dem Start eines neuen Spiels angezeigt werden?</Description_GER>
           <Description_RUS>Здесь вы можете включить либо выключить показ игрового ролика после старта игры.</Description_RUS>
