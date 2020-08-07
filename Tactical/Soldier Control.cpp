@@ -25864,3 +25864,42 @@ BOOLEAN SOLDIERTYPE::IsFlanking(void)
 
 	return TRUE;
 }
+
+UINT8 SOLDIERTYPE::ShockLevelPercent(void)
+{
+	if (gGameExternalOptions.ubMaxSuppressionShock == 0)
+		return 0;
+
+	return min(100, 100 * this->aiData.bShock / gGameExternalOptions.ubMaxSuppressionShock);
+}
+
+BOOLEAN SOLDIERTYPE::TakenLargeHit(void)
+{
+	if (this->usSoldierFlagMask2 & SOLDIER_TAKEN_LARGE_HIT)
+		return TRUE;
+
+	return FALSE;
+}
+
+BOOLEAN SOLDIERTYPE::IsCowering(void)
+{
+	if (this->usAnimState == COWERING || this->usAnimState == COWERING_PRONE)
+		return TRUE;
+
+	return FALSE;
+}
+
+void	SOLDIERTYPE::RetreatCounterStart(UINT16 usValue)
+{
+	usSkillCounter[SOLDIER_COUNTER_RETREAT] = max(usValue, usSkillCounter[SOLDIER_COUNTER_RETREAT]);
+}
+
+void	SOLDIERTYPE::RetreatCounterStop(void)
+{
+	usSkillCounter[SOLDIER_COUNTER_RETREAT] = 0;
+}
+
+UINT16	SOLDIERTYPE::RetreatCounterValue(void)
+{
+	return usSkillCounter[SOLDIER_COUNTER_RETREAT];
+}

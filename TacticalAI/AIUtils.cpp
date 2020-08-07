@@ -3116,6 +3116,12 @@ INT32 RangeChangeDesire( SOLDIERTYPE * pSoldier )
 
 	iRangeFactorMultiplier = pSoldier->aiData.bAIMorale - 1;
 
+	// sevenfm: retreat
+	if (pSoldier->RetreatCounterValue() > 0)
+	{
+		return 0;
+	}
+
 	// civilians only run away
 	if (pSoldier->aiData.bNeutral)
 	{
@@ -3673,8 +3679,8 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
 		return MORALE_FEARLESS;
 	}
 
-	// sevenfm: retreat when blinded
-	if (pSoldier->bBlindedCounter > 0)
+	// sevenfm: retreat, also when blinded
+	if (pSoldier->RetreatCounterValue() > 0 || pSoldier->bBlindedCounter > 0)
 	{
 		return MORALE_WORRIED;
 	}
@@ -3950,7 +3956,7 @@ UINT8 CountNearbyFriendsLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UIN
 	return ubFriendCount;
 }
 
-UINT8 CountFriendsFlankSameSpot( SOLDIERTYPE *pSoldier )
+UINT8 CountFriendsFlankSameSpot(SOLDIERTYPE *pSoldier, INT32 sSpot)
 {
 	CHECKF(pSoldier);
 
@@ -3960,31 +3966,34 @@ UINT8 CountFriendsFlankSameSpot( SOLDIERTYPE *pSoldier )
 	UINT8 ubFlankLeft = 0;
 	UINT8 ubFlankRight = 0;
 
-	UINT8 ubMaxDist = VISION_RANGE / 2;
-	INT32 sClosestOpponent = ClosestKnownOpponent( pSoldier, NULL, NULL );
+	if (TileIsOutOfBounds(sSpot))
+	{
+		sSpot = ClosestKnownOpponent(pSoldier, NULL, NULL);
+	}
 
-	if(TileIsOutOfBounds(sClosestOpponent))
+	if (TileIsOutOfBounds(sSpot))
 	{
 		return 0;
 	}
 
 	// Run through each friendly.
-	for ( UINT8 iCounter = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID ; iCounter <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID ; iCounter ++ )
+	for (UINT8 iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; iCounter++)
 	{
-		pFriend = MercPtrs[ iCounter ];
+		pFriend = MercPtrs[iCounter];
 
-		if (pFriend != pSoldier && 
-			pFriend->bActive && 
+		if (pFriend &&
+			pFriend != pSoldier &&
+			pFriend->bActive &&
 			pFriend->stats.bLife >= OKLIFE &&
 			pFriend->aiData.bAlertStatus == STATUS_RED &&
 			pFriend->aiData.bOrders > ONGUARD &&
-			pFriend->aiData.bOrders != SNIPER )
+			pFriend->aiData.bOrders != SNIPER)
 		{
 			// check if this friend flanks around the same spot
-			if( pFriend->numFlanks > 0 && pFriend->numFlanks < MAX_FLANKS_RED &&
-				PythSpacesAway(pFriend->lastFlankSpot, sClosestOpponent) < ubMaxDist )
+			if (pFriend->numFlanks > 0 && pFriend->numFlanks < MAX_FLANKS_RED &&
+				PythSpacesAway(pFriend->lastFlankSpot, sSpot) < VISION_RANGE / 2)
 			{
-				if( pFriend->flags.lastFlankLeft )
+				if (pFriend->flags.lastFlankLeft)
 				{
 					ubFlankLeft++;
 				}
@@ -5867,4 +5876,265 @@ INT32	RandomizeOpponentLocation(INT32 sSpot, SOLDIERTYPE *pOpponent, INT16 sMaxD
 	}
 
 	return sSpot;
+}
+
+// first call PrepareThreatlist to make threat list
+UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier)
+{
+	CHECKF(pSoldier);
+
+	UINT32	uiLoop;
+	INT32	sClosestOpponent = NOWHERE;
+	INT32	iRange, iClosestRange;
+	UINT8	ubClosestOpponentID = NOBODY;
+
+	// use global defined threat list
+	for (uiLoop = 0; uiLoop < guiThreatCnt; uiLoop++)
+	{
+		// if for some reason we have incorrect location
+		if (TileIsOutOfBounds(Threat[uiLoop].sGridNo))
+			continue;
+
+		iRange = GetRangeInCellCoordsFromGridNoDiff(pSoldier->sGridNo, Threat[uiLoop].sGridNo);
+
+		if (ubClosestOpponentID == NOBODY || iRange < iClosestRange)
+		{
+			ubClosestOpponentID = Threat[uiLoop].pOpponent->ubID;
+			iClosestRange = iRange;
+			sClosestOpponent = Threat[uiLoop].sGridNo;
+		}
+	}
+
+	return(ubClosestOpponentID);
+}
+
+// first call PrepareThreatlist to make threat list
+UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax)
+{
+	CHECKF(pSoldier);
+
+	UINT32	uiLoop;
+	INT32	sClosestOpponent = NOWHERE;
+	INT32	iRange, iClosestRange;
+	UINT8	ubClosestOpponentID = NOBODY;
+
+	// use global defined threat list
+	for (uiLoop = 0; uiLoop < guiThreatCnt; uiLoop++)
+	{
+		// if for some reason we have incorrect location
+		if (TileIsOutOfBounds(Threat[uiLoop].sGridNo))
+			continue;
+
+		// check knowledge
+		if (Threat[uiLoop].bPersonalKnowledge < SEEN_CURRENTLY || Threat[uiLoop].bPersonalKnowledge > ubMax)
+			continue;
+
+		iRange = GetRangeInCellCoordsFromGridNoDiff(pSoldier->sGridNo, Threat[uiLoop].sGridNo);
+
+		if (ubClosestOpponentID == NOBODY || iRange < iClosestRange)
+		{
+			ubClosestOpponentID = Threat[uiLoop].pOpponent->ubID;
+			iClosestRange = iRange;
+			sClosestOpponent = Threat[uiLoop].sGridNo;
+		}
+	}
+
+	return(ubClosestOpponentID);
+}
+
+void PrepareThreatlist(SOLDIERTYPE *pSoldier)
+{
+	SOLDIERTYPE *pOpponent;
+	INT32	iThreatRange, iClosestThreatRange = 1500;
+	UINT32	uiLoop;
+	INT8	bPersonalKnowledge;
+	INT8	bPublicKnowledge;
+	INT8	bKnowledge;
+	INT32	sThreatLoc;
+	INT8	bThreatLevel;
+	INT32	iThreatCertainty;
+	INT32	iMaxThreatRange = MAX_THREAT_RANGE + AI_PATHCOST_RADIUS;
+
+	guiThreatCnt = 0;
+
+	if (!pSoldier)
+		return;
+
+	// look through all opponents for those we know of
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pOpponent || pOpponent->stats.bLife < OKLIFE)
+		{
+			continue;			// next merc
+		}
+
+		if (!ValidOpponent(pSoldier, pOpponent))
+		{
+			continue;
+		}
+
+		bKnowledge = Knowledge(pSoldier, pOpponent->ubID);
+		bPersonalKnowledge = PersonalKnowledge(pSoldier, pOpponent->ubID);
+		bPublicKnowledge = PublicKnowledge(pSoldier->bTeam, pOpponent->ubID);
+
+		// if this opponent is unknown personally and publicly
+		if (bKnowledge == NOT_HEARD_OR_SEEN)
+		{
+			continue;			// next merc
+		}
+
+		sThreatLoc = KnownLocation(pSoldier, pOpponent->ubID);
+		bThreatLevel = KnownLevel(pSoldier, pOpponent->ubID);
+		iThreatCertainty = ThreatPercent[bKnowledge - OLDEST_HEARD_VALUE];
+
+		// safety check
+		if (TileIsOutOfBounds(sThreatLoc))
+		{
+			continue;
+		}
+
+		// calculate how far away this threat is (in adjusted pixels)
+		iThreatRange = GetRangeInCellCoordsFromGridNoDiff(pSoldier->sGridNo, sThreatLoc);
+
+		// if this opponent is believed to be too far away to really be a threat
+		if (iThreatRange > iMaxThreatRange)
+		{
+			continue;			// check next opponent
+		}
+
+		// remember this opponent as a current threat, but DON'T REDUCE FOR COVER!
+		Threat[guiThreatCnt].iValue = CalcManThreatValue(pOpponent, pSoldier->sGridNo, FALSE, pSoldier);
+
+		// if the opponent is no threat at all for some reason
+		if (Threat[guiThreatCnt].iValue == -999)
+		{
+			continue;			// check next opponent
+		}
+
+		Threat[guiThreatCnt].pOpponent = pOpponent;
+		Threat[guiThreatCnt].sGridNo = sThreatLoc;
+		Threat[guiThreatCnt].iCertainty = iThreatCertainty;
+		Threat[guiThreatCnt].iOrigRange = iThreatRange;
+
+		// calculate how many APs he will have at the start of the next turn
+		Threat[guiThreatCnt].iAPs = pOpponent->CalcActionPoints();
+
+		// sevenfm: more information
+		Threat[guiThreatCnt].bLevel = bThreatLevel;
+		Threat[guiThreatCnt].bKnowledge = bKnowledge;
+		Threat[guiThreatCnt].bPersonalKnowledge = bPersonalKnowledge;
+		Threat[guiThreatCnt].bPublicKnowledge = bPublicKnowledge;
+
+		if (iThreatRange < iClosestThreatRange)
+		{
+			iClosestThreatRange = iThreatRange;
+		}
+
+		guiThreatCnt++;
+	}
+}
+
+UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance)
+{
+	CHECKF(pSoldier);
+
+	UINT32		uiLoop;
+	SOLDIERTYPE *pOpponent;
+
+	INT32		sThreatLoc;
+	INT8		iThreatLevel;
+
+	UINT8		ubNum = 0;
+
+	// loop through all the enemies
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
+	{
+		pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pOpponent || pOpponent->stats.bLife < OKLIFE)
+		{
+			continue;
+		}
+
+		if (!ValidOpponent(pSoldier, pOpponent))
+		{
+			continue;
+		}
+
+		// check public knowledge
+		if (PublicKnowledge(pSoldier->bTeam, pOpponent->ubID) == NOT_HEARD_OR_SEEN)
+		{
+			continue;
+		}
+
+		sThreatLoc = KnownPublicLocation(pSoldier->bTeam, pOpponent->ubID);
+		iThreatLevel = KnownPublicLevel(pSoldier->bTeam, pOpponent->ubID);
+
+		if (TileIsOutOfBounds(sThreatLoc))
+		{
+			continue;
+		}
+
+		// check distance
+		if (PythSpacesAway(sThreatLoc, sGridNo) > sDistance)
+		{
+			continue;
+		}
+
+		ubNum++;
+	}
+
+	return ubNum;
+}
+
+UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier)
+{
+	CHECKF(pSoldier);
+
+	UINT32		uiLoop;
+	SOLDIERTYPE *pOpponent;
+
+	INT32		sThreatLoc;
+	INT8		iThreatLevel;
+
+	UINT8		ubNum = 0;
+
+	// loop through all the enemies
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
+	{
+		pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pOpponent || pOpponent->stats.bLife < OKLIFE)
+		{
+			continue;
+		}
+
+		if (!ValidOpponent(pSoldier, pOpponent))
+		{
+			continue;
+		}
+
+		// check public knowledge
+		if (PublicKnowledge(pSoldier->bTeam, pOpponent->ubID) == NOT_HEARD_OR_SEEN)
+		{
+			continue;
+		}
+
+		sThreatLoc = KnownPublicLocation(pSoldier->bTeam, pOpponent->ubID);
+		iThreatLevel = KnownPublicLevel(pSoldier->bTeam, pOpponent->ubID);
+
+		if (TileIsOutOfBounds(sThreatLoc))
+		{
+			continue;
+		}
+
+		ubNum++;
+	}
+
+	return ubNum;
 }

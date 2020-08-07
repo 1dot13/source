@@ -2437,19 +2437,25 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 
 INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 {
-	INT8 bActionReturned;
-	INT32 iDummy;
-	INT32 iChance,sClosestOpponent,sClosestFriend;
-	INT32 sClosestDisturbance, sDistVisible, sCheckGridNo;
-	UINT8 ubCanMove,ubOpponentDir;
-	INT8 bInWater, bInDeepWater, bInGas;
-	INT8 bSeekPts = 0, bHelpPts = 0, bHidePts = 0, bWatchPts = 0;
+	INT8	bActionReturned;
+	INT32	iDummy;
+	INT32	iChance;
+	INT32	sClosestOpponent = NOWHERE, sClosestFriend = NOWHERE;
+	INT32	sClosestDisturbance = NOWHERE, sCheckGridNo;
+	INT32	sDistVisible;
+	UINT8	ubCanMove,ubOpponentDir;
+	INT8	bInWater, bInDeepWater, bInGas;
+	INT8	bSeekPts = 0, bHelpPts = 0, bHidePts = 0, bWatchPts = 0;
 	INT8	bHighestWatchLoc;
 	ATTACKTYPE BestThrow, BestShot;
 
 	// sevenfm:
 	BOOLEAN fProneSightCover = FALSE;
 	BOOLEAN fDangerousSpot = FALSE;	
+	BOOLEAN fAnyCover = FALSE;
+	BOOLEAN fCanBeSeen = FALSE;
+	INT32	sOpponentGridNo;
+	INT8	bOpponentLevel;
 
 #ifdef AI_TIMING_TEST
 	UINT32	uiStartTime, uiEndTime;
@@ -2480,8 +2486,22 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		return(AI_ACTION_NONE);
 	}
 
+	// sevenfm: find closest opponent
+	sClosestOpponent = ClosestKnownOpponent(pSoldier, &sOpponentGridNo, &bOpponentLevel);
+	DebugAI(AI_MSG_INFO, pSoldier, String("sClosestOpponent %d", sClosestOpponent));
+
+	if (!SightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE))
+	{
+		fCanBeSeen = TRUE;
+		DebugAI(AI_MSG_INFO, pSoldier, String("can be seen"));
+	}
+
 	fProneSightCover = ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE);
-	if( !fProneSightCover || pSoldier->aiData.bUnderFire )
+	DebugAI(AI_MSG_INFO, pSoldier, String("prone sight cover %d", fProneSightCover));
+	fAnyCover = AnyCoverAtSpot(pSoldier, pSoldier->sGridNo);
+	DebugAI(AI_MSG_INFO, pSoldier, String("any cover %d", fAnyCover));
+
+	if (!fProneSightCover || pSoldier->aiData.bUnderFire)
 	{
 		fDangerousSpot = TRUE;
 	}
@@ -2797,6 +2817,68 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			}
 		}
 
+		// use smoke to cover friend
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[use smoke to cover friend]"));
+		if (gfTurnBasedAI &&
+			SoldierAI(pSoldier) &&
+			!bInWater &&
+			!bInGas &&
+			!pSoldier->IsFlanking() &&
+			pSoldier->CheckInitialAP() &&
+			!pSoldier->aiData.bUnderFire &&
+			SightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE) &&
+			!AICheckIsSniper(pSoldier) &&
+			!AICheckIsMachinegunner(pSoldier) &&
+			!AICheckIsMortarOperator(pSoldier) &&
+			Chance(100 - min(100, 10 * CountPublicKnownEnemies(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE))) &&
+			!GuySawEnemy(pSoldier, SEEN_LAST_TURN))
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("check if we can cover friend with smoke"));
+
+			CheckTossFriendSmoke(pSoldier, &BestThrow);
+
+			if (BestThrow.ubPossible)
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("prepare throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
+
+				// start retreating for several turns
+				if (BestThrow.ubOpponent != NOBODY && !MercPtrs[BestThrow.ubOpponent]->IsFlanking())
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("start retreat counter for %d", BestThrow.ubOpponent));
+					MercPtrs[BestThrow.ubOpponent]->RetreatCounterStart(2);
+				}
+
+				// if necessary, swap the usItem from holster into the hand position
+				if (BestThrow.bWeaponIn != HANDPOS)
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("rearrange pocket"));
+					RearrangePocket(pSoldier, HANDPOS, BestThrow.bWeaponIn, FOREVER);
+				}
+
+				// stand up before throwing if needed
+				if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestThrow.ubStance &&
+					pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestThrow.sTarget), BestThrow.ubStance))
+				{
+					pSoldier->aiData.usActionData = BestThrow.ubStance;
+					pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
+					pSoldier->aiData.usNextActionData = BestThrow.sTarget;
+					pSoldier->aiData.bNextTargetLevel = BestThrow.bTargetLevel;
+					pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+					return AI_ACTION_CHANGE_STANCE;
+				}
+				else
+				{
+					pSoldier->aiData.usActionData = BestThrow.sTarget;
+					pSoldier->bTargetLevel = BestThrow.bTargetLevel;
+					pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+				}
+
+				DebugAI(AI_MSG_INFO, pSoldier, String("throw smoke grenade to cover friend %d at spot %d level %d", BestThrow.ubOpponent, BestThrow.sTarget, BestThrow.bTargetLevel));
+
+				return(AI_ACTION_TOSS_PROJECTILE);
+			}
+		}
+
 		// SNIPER!
 		CheckIfShotPossible(pSoldier, &BestShot);
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: is sniper shot possible? = %d, CTH = %d",BestShot.ubPossible,BestShot.ubChanceToReallyHit));
@@ -2935,6 +3017,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			!TileIsOutOfBounds(BestShot.sTarget) &&
 			BestShot.ubOpponent != NOBODY &&
 			MercPtrs[BestShot.ubOpponent] &&
+			Chance(100 - MercPtrs[BestShot.ubOpponent]->ShockLevelPercent() / 2) &&
 			// check weapon/ammo requirements
 			IsGunAutofireCapable(&pSoldier->inv[BestShot.bWeaponIn]) &&
 			GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize &&
@@ -2943,6 +3026,14 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			pSoldier->aiData.bOrders != SNIPER &&
 			BestShot.ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE &&			
 			!AICheckIsFlanking(pSoldier) &&
+			!pSoldier->RetreatCounterValue() &&
+			// check cover
+			(fAnyCover ||																				// safe position
+			!fCanBeSeen && NightLight() && CountFriendsFlankSameSpot(pSoldier, sClosestOpponent) && Chance(50) ||
+			ARMED_VEHICLE(pSoldier) ||																		// tanks don't need cover
+			pSoldier->aiData.bUnderFire && (pSoldier->ubPreviousAttackerID == BestShot.ubOpponent || pSoldier->ubNextToPreviousAttackerID == BestShot.ubOpponent || MercPtrs[BestShot.ubOpponent]->sLastTarget == pSoldier->sGridNo) ||	// return fire
+			Chance((BestShot.ubChanceToReallyHit + 100) / 2) ||											// 50% chance to fire without cover
+			SoldierToSoldierLineOfSightTest(pSoldier, MercPtrs[BestShot.ubOpponent], TRUE, CALC_FROM_ALL_DIRS)) &&		// can see target after turning
 			// reduce chance to shoot if target is beyond weapon range
 			(AICheckIsMachinegunner(pSoldier) ||
 			ARMED_VEHICLE(pSoldier) ||
@@ -3277,6 +3368,34 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		}
 	}
 
+	////////////////////////////////////////////////////////////////////////
+	// RED RETREAT
+	////////////////////////////////////////////////////////////////////////
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[retreat]"));
+	if (gfTurnBasedAI &&
+		!fCivilian &&
+		!bInWater &&
+		ubCanMove &&
+		SoldierAI(pSoldier) &&
+		pSoldier->aiData.bOrders != STATIONARY &&
+		pSoldier->aiData.bOrders != SNIPER &&
+		pSoldier->RetreatCounterValue() > 0 &&
+		(pSoldier->CheckInitialAP() || !fAnyCover || pSoldier->aiData.bUnderFire))
+	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("search for retreat spot"));
+		INT32 sRetreatSpot = FindRetreatSpot(pSoldier);
+
+		if (!TileIsOutOfBounds(sRetreatSpot))
+		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("found retreat spot %d", sRetreatSpot));
+
+			//BeginMultiPurposeLocator(sRetreatSpot, pSoldier->pathing.bLevel, FALSE);
+
+			pSoldier->aiData.usActionData = sRetreatSpot;
+			return(AI_ACTION_TAKE_COVER);
+		}
+	}
+
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out of breath");
 	////////////////////////////////////////////////////////////////////////
 	// CROUCH & REST IF RUNNING OUT OF BREATH
@@ -3426,6 +3545,59 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: decided to radio red alert");
 				return(AI_ACTION_RED_ALERT);
 			}
+		}
+	}
+
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[self smoke when under fire]"));
+	if (gfTurnBasedAI &&
+		pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
+		pSoldier->aiData.bUnderFire &&
+		!InARoom(pSoldier->sGridNo, NULL) &&
+		!InSmoke(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+		RangeChangeDesire(pSoldier) <= 2 &&
+		(!NightLight() || InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel)) &&
+		!TileIsOutOfBounds(sClosestOpponent) &&
+		PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) > DAY_VISION_RANGE / 4 &&
+		(!fProneSightCover && !AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->TakenLargeHit()) &&
+		(pSoldier->TakenLargeHit() || pSoldier->ShockLevelPercent() > 20 + Random(80)))
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("check if soldier can cover himself with smoke"));
+
+		CheckTossSelfSmoke(pSoldier, &BestThrow);
+
+		if (BestThrow.ubPossible)
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("prepare throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
+
+			// start retreating for several turns
+			pSoldier->RetreatCounterStart(2);
+
+			// if necessary, swap the usItem from holster into the hand position
+			if (BestThrow.bWeaponIn != HANDPOS)
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("rearrange pocket"));
+				RearrangePocket(pSoldier, HANDPOS, BestThrow.bWeaponIn, FOREVER);
+			}
+
+			// stand up before throwing if needed
+			if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestThrow.ubStance &&
+				pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestThrow.sTarget), BestThrow.ubStance))
+			{
+				pSoldier->aiData.usActionData = BestThrow.ubStance;
+				pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
+				pSoldier->aiData.usNextActionData = BestThrow.sTarget;
+				pSoldier->aiData.bNextTargetLevel = BestThrow.bTargetLevel;
+				pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+				return AI_ACTION_CHANGE_STANCE;
+			}
+			else
+			{
+				pSoldier->aiData.usActionData = BestThrow.sTarget;
+				pSoldier->bTargetLevel = BestThrow.bTargetLevel;
+				pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+			}
+
+			return(AI_ACTION_TOSS_PROJECTILE);
 		}
 	}
 
@@ -3641,91 +3813,93 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 		if (ubCanMove && pSoldier->bActionPoints > APBPConstants[MAX_AP_CARRIED])
 		{
-			if (fCivilian)
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("decideactionred: checking hide/seek/help/watch points... orders = %d, attitude = %d", pSoldier->aiData.bOrders, pSoldier->aiData.bAttitude));
+			// calculate initial points for watch based on highest watch loc
+
+			bWatchPts = GetHighestWatchedLocPoints(pSoldier->ubID);
+			if (bWatchPts <= 0)
 			{
-				// only interested in hiding out...
-				bSeekPts = -99;
-				bHelpPts = -99;
-				bHidePts =  +1;
+				// no watching
+				bWatchPts = -99;
 			}
-			else
+
+			// modify RED movement tendencies according to morale
+			switch (pSoldier->aiData.bAIMorale)
 			{
+			case MORALE_HOPELESS:  bSeekPts = -99; bHelpPts = -99; bHidePts = +2; bWatchPts = -99; break;
+			case MORALE_WORRIED:   bSeekPts += -2; bHelpPts += 0; bHidePts += +2; bWatchPts += 1; break;
+			case MORALE_NORMAL:    bSeekPts += 0; bHelpPts += 0; bHidePts += 0; bWatchPts += 0; break;
+			case MORALE_CONFIDENT: bSeekPts += +1; bHelpPts += 0; bHidePts += -1; bWatchPts += 0; break;
+			case MORALE_FEARLESS:  bSeekPts += +1; bHelpPts += 0; bHidePts = -1; bWatchPts += 0; break;
+			}
 
-				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: checking hide/seek/help/watch points... orders = %d, attitude = %d",pSoldier->aiData.bOrders,pSoldier->aiData.bAttitude));
-				// calculate initial points for watch based on highest watch loc
+			// modify tendencies according to orders
+			switch (pSoldier->aiData.bOrders)
+			{
+			case STATIONARY:   bSeekPts += -1; bHelpPts += -1; bHidePts += +1; bWatchPts += +1; break;
+			case ONGUARD:      bSeekPts += -1; bHelpPts += 0; bHidePts += +1; bWatchPts += +1; break;
+			case CLOSEPATROL:  bSeekPts += 0; bHelpPts += 0; bHidePts += 0; bWatchPts += 0; break;
+			case RNDPTPATROL:  bSeekPts += 0; bHelpPts += 0; bHidePts += 0; bWatchPts += 0; break;
+			case POINTPATROL:  bSeekPts += 0; bHelpPts += 0; bHidePts += 0; bWatchPts += 0; break;
+			case FARPATROL:    bSeekPts += 0; bHelpPts += 0; bHidePts += 0; bWatchPts += 0; break;
+			case ONCALL:       bSeekPts += 0; bHelpPts += +1; bHidePts += -1; bWatchPts += 0; break;
+			case SEEKENEMY:    bSeekPts += +1; bHelpPts += 0; bHidePts += -1; bWatchPts += -1; break;
+			case SNIPER:		bSeekPts += -1; bHelpPts += 0; bHidePts += +1; bWatchPts += +1; break;
+			}
 
-				bWatchPts = GetHighestWatchedLocPoints( pSoldier->ubID );
-				if ( bWatchPts <= 0 )
+			// modify tendencies according to attitude
+			switch (pSoldier->aiData.bAttitude)
+			{
+			case DEFENSIVE:     bSeekPts += -1; bHelpPts += 0; bHidePts += +2; bWatchPts += +1; break;
+			case BRAVESOLO:     bSeekPts += +1; bHelpPts += -1; bHidePts += -1; bWatchPts += -1; break;
+			case BRAVEAID:      bSeekPts += +1; bHelpPts += +1; bHidePts += -1; bWatchPts += -1; break;
+			case CUNNINGSOLO:   bSeekPts += 1; bHelpPts += -1; bHidePts += +1; bWatchPts += 0; break;
+			case CUNNINGAID:    bSeekPts += 1; bHelpPts += +1; bHidePts += +1; bWatchPts += 0; break;
+			case AGGRESSIVE:    bSeekPts += +1; bHelpPts += 0; bHidePts += -1; bWatchPts += 0; break;
+			case ATTACKSLAYONLY:bSeekPts += +1; bHelpPts += 0; bHidePts += -1; bWatchPts += 0; break;
+			}
+
+			// sevenfm: snipers and soldiers with scoped guns should decide watch more often
+			if (AIGunScoped(pSoldier) || AICheckIsSniper(pSoldier))
+			{
+				bWatchPts++;
+			}
+
+			// sevenfm: disable watching if soldier is under fire or in dangerous place
+			// don't watch if some friends can see my closest opponent
+			if (fDangerousSpot ||
+				InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) ||
+				CountFriendsBlack(pSoldier) > 0)
+			{
+				// prefer hiding when in dangerous place
+				if (bHidePts > -90)
+					bWatchPts = min(bWatchPts, bHidePts - 1);
+				else
+					bWatchPts--;
+			}
+
+			// sevenfm: don't watch when overcrowded and not in a building
+			if (!InARoom(pSoldier->sGridNo, NULL))
+			{
+				bWatchPts -= CountNearbyFriends(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE / 8);
+			}
+
+			// sevenfm: don't help if seen enemy recently or under fire
+			if (GuySawEnemy(pSoldier) || pSoldier->aiData.bUnderFire)
+			{
+				bHelpPts -= 10;
+			}
+
+			if (pSoldier->RetreatCounterValue() > 0)
+			{
+				// no seeking when retreating
+				bSeekPts = -99;
+				// no helping when retreating
+				bHelpPts = -99;
+
+				if (bHidePts > -90)
 				{
-					// no watching
-					bWatchPts = -99;
-				}
-
-				// modify RED movement tendencies according to morale
-				switch (pSoldier->aiData.bAIMorale)
-				{
-				case MORALE_HOPELESS:  bSeekPts = -99; bHelpPts = -99; bHidePts  = +2; bWatchPts =	-99; break;
-				case MORALE_WORRIED:   bSeekPts += -2; bHelpPts +=  0; bHidePts += +2; bWatchPts +=	1; break;
-				case MORALE_NORMAL:    bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=	0; break;
-				case MORALE_CONFIDENT: bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts +=	0; break;
-				case MORALE_FEARLESS:  bSeekPts += +1; bHelpPts +=  0; bHidePts =  -1; bWatchPts +=  0; break;
-				}
-
-				// modify tendencies according to orders
-				switch (pSoldier->aiData.bOrders)
-				{
-				case STATIONARY:   bSeekPts += -1; bHelpPts += -1; bHidePts += +1; bWatchPts += +1; break;
-				case ONGUARD:      bSeekPts += -1; bHelpPts +=  0; bHidePts += +1; bWatchPts += +1; break;
-				case CLOSEPATROL:  bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=  0; break;
-				case RNDPTPATROL:  bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=  0; break;
-				case POINTPATROL:  bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=  0; break;
-				case FARPATROL:    bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=  0; break;
-				case ONCALL:       bSeekPts +=  0; bHelpPts += +1; bHidePts += -1; bWatchPts +=  0; break;
-				case SEEKENEMY:    bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts += -1; break;
-				case SNIPER:		bSeekPts += -1; bHelpPts +=  0; bHidePts += +1; bWatchPts += +1; break;
-				}
-
-				// modify tendencies according to attitude
-				switch (pSoldier->aiData.bAttitude)
-				{
-				case DEFENSIVE:     bSeekPts += -1; bHelpPts +=  0; bHidePts += +2; bWatchPts += +1; break;
-				case BRAVESOLO:     bSeekPts += +1; bHelpPts += -1; bHidePts += -1; bWatchPts += -1; break;
-				case BRAVEAID:      bSeekPts += +1; bHelpPts += +1; bHidePts += -1; bWatchPts += -1; break;
-				case CUNNINGSOLO:   bSeekPts +=  1; bHelpPts += -1; bHidePts += +1; bWatchPts +=  0; break;
-				case CUNNINGAID:    bSeekPts +=  1; bHelpPts += +1; bHidePts += +1; bWatchPts +=  0; break;
-				case AGGRESSIVE:    bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts +=  0; break;
-				case ATTACKSLAYONLY:bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts +=  0; break;
-				}
-
-				// sevenfm: snipers and soldiers with scoped guns should decide watch more often
-				if (AIGunScoped(pSoldier) || AICheckIsSniper(pSoldier))
-				{
-					bWatchPts++;
-				}
-
-				// sevenfm: disable watching if soldier is under fire or in dangerous place
-				// don't watch if some friends can see my closest opponent
-				if (fDangerousSpot ||
-					InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) ||
-					CountFriendsBlack(pSoldier) > 0 )
-				{
-					// prefer hiding when in dangerous place
-					if (bHidePts > -90)
-						bWatchPts = min(bWatchPts, bHidePts - 1);
-					else
-						bWatchPts--;
-				}
-
-				// sevenfm: don't watch when overcrowded and not in a building
-				if( !InARoom(pSoldier->sGridNo, NULL) )
-				{
-					bWatchPts -= CountNearbyFriends(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE / 8);
-				}				
-
-				// sevenfm: don't help if seen enemy recently or under fire
-				if( GuySawEnemy(pSoldier) || pSoldier->aiData.bUnderFire )
-				{
-					bHelpPts -= 10;
+					bWatchPts = min(bWatchPts, bHidePts - 1);
 				}
 			}
 
@@ -4113,7 +4287,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// if HIDING is possible and at least as desirable as seeking or helping
 				if ((bHidePts > -90) && (bHidePts >= bSeekPts) && (bHidePts >= bHelpPts) && (bHidePts >= bWatchPts ))
 				{
-					sClosestOpponent = ClosestKnownOpponent( pSoldier, NULL, NULL );
+					//sClosestOpponent = ClosestKnownOpponent( pSoldier, NULL, NULL );
 					// if an opponent is known (not necessarily reachable or conscious)					
 					if (!SkipCoverCheck && !TileIsOutOfBounds(sClosestOpponent))
 					{
@@ -4169,7 +4343,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		////////////////////////////////////////////////////////////////////////////
 
 		// if we're currently under fire (presumably, attacker is hidden)
-		if (pSoldier->aiData.bUnderFire || fCivilian)
+		if (pSoldier->aiData.bUnderFire)
 		{
 			// only try to run if we've actually been hit recently & noticably so
 			// otherwise, presumably our current cover is pretty good & sufficient
@@ -4189,7 +4363,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				bShock = pSoldier->aiData.bShock;
 			}
 			
-			if (bShock > 0 || fCivilian)
+			if (bShock > 0)
 			{
 				// look for best place to RUN AWAY to (farthest from the closest threat)
 				pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
@@ -4212,32 +4386,59 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch or go prone");
 			// if not in water and not already crouched
-			if (!fCivilian )
+			if (gAnimControl[pSoldier->usAnimState].ubHeight == ANIM_STAND && IsValidStance(pSoldier, ANIM_CROUCH))
 			{
-				if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND && IsValidStance( pSoldier, ANIM_CROUCH ) )
+				if (!gfTurnBasedAI || GetAPsToChangeStance(pSoldier, ANIM_CROUCH) <= pSoldier->bActionPoints)
 				{
-					if (!gfTurnBasedAI || GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints)
-					{
 
 #ifdef DEBUGDECISIONS
-						sprintf(tempstr,"%s CROUCHES (STATUS RED)",pSoldier->name);
-						AIPopMessage(tempstr);
+					sprintf(tempstr, "%s CROUCHES (STATUS RED)", pSoldier->name);
+					AIPopMessage(tempstr);
 #endif
 
-						pSoldier->aiData.usActionData = ANIM_CROUCH;
-						return(AI_ACTION_CHANGE_STANCE);
-					}
+					pSoldier->aiData.usActionData = ANIM_CROUCH;
+					return(AI_ACTION_CHANGE_STANCE);
 				}
-				else if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
+			}
+			else if (gAnimControl[pSoldier->usAnimState].ubHeight != ANIM_PRONE)
+			{
+				// maybe go prone
+				if (PreRandom(2) == 0 && IsValidStance(pSoldier, ANIM_PRONE))
 				{
-					// maybe go prone
-					if ( PreRandom( 2 ) == 0 && IsValidStance( pSoldier, ANIM_PRONE ) )
-					{
-						pSoldier->aiData.usActionData = ANIM_PRONE;
-						return( AI_ACTION_CHANGE_STANCE );
-					}
-
+					pSoldier->aiData.usActionData = ANIM_PRONE;
+					return(AI_ACTION_CHANGE_STANCE);
 				}
+			}
+		}
+	}
+
+	// civilians are only interested in running away
+	if (fCivilian &&
+		//pSoldier->CheckInitialAP() &&
+		(pSoldier->aiData.bUnderFire ||
+		!TileIsOutOfBounds(sClosestOpponent) && PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) < DAY_VISION_RANGE / 2))
+		//!TileIsOutOfBounds( sClosestNoise ) && PythSpacesAway(pSoldier->sGridNo, sClosestNoise) < DAY_VISION_RANGE / 2) )
+		//CorpseWarning(pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel)
+	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("[civilians run away]"));
+
+		// look for best place to RUN AWAY to (farthest from the closest threat)
+		pSoldier->aiData.usActionData = FindSpotMaxDistFromOpponents(pSoldier);
+		DebugAI(AI_MSG_INFO, pSoldier, String("found run away spot %d", pSoldier->aiData.usActionData));
+		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+		{
+			return(AI_ACTION_RUN_AWAY);
+		}
+		//else if (!pSoldier->SkipCoverCheck() && gfTurnBasedAI) // only do in turnbased
+		else if (!SkipCoverCheck && gfTurnBasedAI) // only do in turnbased
+		{
+			// try to take cover
+			pSoldier->aiData.bAIMorale = MORALE_WORRIED;
+			pSoldier->aiData.usActionData = FindBestNearbyCover(pSoldier, MORALE_WORRIED, &iDummy);
+
+			if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
+			{
+				return(AI_ACTION_TAKE_COVER);
 			}
 		}
 	}
@@ -4251,7 +4452,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	{
 		// determine the location of the known closest opponent
 		// (don't care if he's conscious, don't care if he's reachable at all)
-		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
+		//sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
 		
 		if (!TileIsOutOfBounds(sClosestOpponent))
 		{
@@ -4485,7 +4686,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	// if not in water and not already crouched, try to crouch down first
 	if (!fCivilian && !bInWater && (gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND) && IsValidStance( pSoldier, ANIM_CROUCH ) )
 	{
-		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
+		//sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
 
 		//if ( ( !TileIsOutOfBounds(sClosestOpponent) && PythSpacesAway( pSoldier->sGridNo, sClosestOpponent ) < (MaxNormalDistanceVisible() * 3) / 2 ) || PreRandom( 4 ) == 0 )		
 		if ( (!TileIsOutOfBounds(sClosestOpponent) && PythSpacesAway( pSoldier->sGridNo, sClosestOpponent ) < (pSoldier->GetMaxDistanceVisible(sClosestOpponent) * 3) / 2 ) || PreRandom( 4 ) == 0 )
@@ -5021,6 +5222,60 @@ INT16 ubMinAPCost;
 				bCanAttack = TRUE;
 				fTryPunching = TRUE;
 			}
+		}
+	}
+
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[self smoke when under fire]"));
+	if (SoldierAI(pSoldier) &&
+		gfTurnBasedAI &&
+		pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
+		pSoldier->aiData.bUnderFire &&
+		!InARoom(pSoldier->sGridNo, NULL) &&
+		!InSmoke(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+		RangeChangeDesire(pSoldier) <= 2 &&
+		(!NightLight() || InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel)) &&
+		!TileIsOutOfBounds(sClosestOpponent) &&
+		PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) > DAY_VISION_RANGE / 4 &&
+		(!ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE) && !AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->TakenLargeHit()) &&
+		(pSoldier->TakenLargeHit() || pSoldier->ShockLevelPercent() > 20 + Random(80)))
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("check if soldier can cover himself with smoke"));
+
+		CheckTossSelfSmoke(pSoldier, &BestThrow);
+
+		if (BestThrow.ubPossible)
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("prepare throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
+
+			// start retreating for several turns
+			pSoldier->RetreatCounterStart(3);
+
+			// if necessary, swap the usItem from holster into the hand position
+			if (BestThrow.bWeaponIn != HANDPOS)
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("rearrange pocket"));
+				RearrangePocket(pSoldier, HANDPOS, BestThrow.bWeaponIn, FOREVER);
+			}
+
+			// stand up before throwing if needed
+			if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestThrow.ubStance &&
+				pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestThrow.sTarget), BestThrow.ubStance))
+			{
+				pSoldier->aiData.usActionData = BestThrow.ubStance;
+				pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
+				pSoldier->aiData.usNextActionData = BestThrow.sTarget;
+				pSoldier->aiData.bNextTargetLevel = BestThrow.bTargetLevel;
+				pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+				return AI_ACTION_CHANGE_STANCE;
+			}
+			else
+			{
+				pSoldier->aiData.usActionData = BestThrow.sTarget;
+				pSoldier->bTargetLevel = BestThrow.bTargetLevel;
+				pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+			}
+
+			return(AI_ACTION_TOSS_PROJECTILE);
 		}
 	}
 
@@ -5580,10 +5835,37 @@ INT16 ubMinAPCost;
 			memset( &BestAttack, 0, sizeof( BestAttack ) );
 			break;
 		}
-	}
+	}	
 
-	// NB a desire of 4 or more is only achievable by brave/aggressive guys with high morale
 	UINT16 usRange = BestAttack.bWeaponIn==NO_SLOT ? 0 : GetModifiedGunRange(pSoldier->inv[BestAttack.bWeaponIn].usItem);//dnl ch69 150913
+	INT32 sClosestThreat = ClosestKnownOpponent(pSoldier, NULL, NULL);
+
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Black Retreat]"));
+	if (gfTurnBasedAI &&
+		!bInWater &&
+		ubCanMove &&
+		!gfHiddenInterrupt &&
+		!gTacticalStatus.fInterruptOccurred &&
+		SoldierAI(pSoldier) &&
+		pSoldier->aiData.bOrders != STATIONARY &&
+		pSoldier->aiData.bOrders != SNIPER &&
+		pSoldier->RetreatCounterValue() > 0 &&
+		(ubBestAttackAction == AI_ACTION_NONE || ubBestAttackAction == AI_ACTION_FIRE_GUN && (UINT8)BestAttack.ubChanceToReallyHit < Random(10 + pSoldier->ShockLevelPercent() / 4)) &&
+		(pSoldier->CheckInitialAP() || !AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->aiData.bUnderFire))
+	{
+		DebugAI(AI_MSG_TOPIC, pSoldier, String("search for retreat spot"));
+		INT32 sRetreatSpot = FindRetreatSpot(pSoldier);
+
+		if (!TileIsOutOfBounds(sRetreatSpot))
+		{
+			DebugAI(AI_MSG_TOPIC, pSoldier, String("found retreat spot %d", sRetreatSpot));
+
+			//BeginMultiPurposeLocator(sRetreatSpot, pSoldier->pathing.bLevel, FALSE);
+
+			pSoldier->aiData.usActionData = sRetreatSpot;
+			return(AI_ACTION_TAKE_COVER);
+		}
+	}
 
 	if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints) &&
 		 (ubBestAttackAction == AI_ACTION_FIRE_GUN) && 
@@ -6309,7 +6591,7 @@ L_NEWAIM:
 				}
 				else if (pSoldier->bBreath < OKBREATH ||
 					pSoldier->bBreath < pSoldier->bBreathMax &&
-					(pSoldier->bBreath < MercPtrs[ubOpponentID]->bBreath || !pSoldier->aiData.bLastAttackHit && (pSoldier->usSoldierFlagMask2 & SOLDIER_TAKEN_LARGE_HIT)))
+					(pSoldier->bBreath < MercPtrs[ubOpponentID]->bBreath || !pSoldier->aiData.bLastAttackHit && pSoldier->TakenLargeHit()))
 				{
 					// maybe move away from opponent
 					UINT8 ubOpponentDir = AIDirection(pSoldier->sGridNo, sClosestOpponent);
@@ -8679,7 +8961,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 		if ( pSoldier->aiData.bUnderFire )
 		{
 			// Flugente: see if we are equipped with a smoke screen. If so, use it do hide us
-			if ( (pSoldier->usSoldierFlagMask2 & SOLDIER_TAKEN_LARGE_HIT) && pSoldier->HasItem( SMOKE_GRENADE ) && IsActionAffordable( pSoldier, AI_ACTION_SELFDETONATE ) )
+			if (pSoldier->TakenLargeHit() && pSoldier->HasItem(SMOKE_GRENADE) && IsActionAffordable(pSoldier, AI_ACTION_SELFDETONATE))
 			{
 				pSoldier->aiData.usActionData = SMOKE_GRENADE;
 
@@ -9774,6 +10056,7 @@ void LogDecideInfo(SOLDIERTYPE *pSoldier)
 
 	DebugAI(AI_MSG_INFO, pSoldier, String("What I know %d", WhatIKnowThatPublicDont(pSoldier, FALSE)));
 	DebugAI(AI_MSG_INFO, pSoldier, String("Has Gun %d, Short range weapon %d, Gun Range %d, Gun Ammo %d, Gun Scoped %d ", AICheckHasGun(pSoldier), AICheckShortWeaponRange(pSoldier), AIGunRange(pSoldier), AIGunAmmo(pSoldier), AIGunScoped(pSoldier)));
+	DebugAI(AI_MSG_INFO, pSoldier, String("RetreatCounter %d", pSoldier->RetreatCounterValue()));
 }
 
 void LogKnowledgeInfo(SOLDIERTYPE *pSoldier)

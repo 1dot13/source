@@ -4734,7 +4734,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				UINT8 ubCounterattackChance = EffectiveDexterity(pTargetSoldier, FALSE) * (100 + pTargetSoldier->bBreath) / 200;
 
 				// halve chance for counterattack if boxer was hit recently
-				if (pTargetSoldier->usSoldierFlagMask2 & SOLDIER_TAKEN_LARGE_HIT)
+				if (pTargetSoldier->TakenLargeHit())
 					ubCounterattackChance /= 2;
 
 				// sevenfm: possibly counterattack when boxing

@@ -1378,6 +1378,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							pTMilitiaSoldier->aiData.bAttitude = DEFENSIVE;
 							pTMilitiaSoldier->usUIMovementMode = RUNNING;
 
+							pTMilitiaSoldier->RetreatCounterStart(2);
+
 							// set up next action to run away
 							sActionGridNo =  FindSpotMaxDistFromOpponents( pTMilitiaSoldier );
 
@@ -1385,7 +1387,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							
 							if (!TileIsOutOfBounds(pTMilitiaSoldier->aiData.usNextActionData))
 							{
-								pTMilitiaSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
+								// sevenfm: use TAKE_COVER order to stop soldier from retreating
+								pTMilitiaSoldier->aiData.bNextAction = AI_ACTION_TAKE_COVER;
+								//pTMilitiaSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
+
 								pTMilitiaSoldier->aiData.usActionData = ANIM_STAND;
 
 								// SEND PENDING ACTION
@@ -1635,14 +1640,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 								pTeamSoldier->aiData.bAttitude = DEFENSIVE;
 								pTeamSoldier->usUIMovementMode = RUNNING;
 
-								//// set up next action to run away
-								//pTeamSoldier->usNextActionData = FindSpotMaxDistFromOpponents( pTeamSoldier );
-
-								//if ( !TileIsOutOfBounds(pTeamSoldier->usNextActionData) )
-								//{
-								//	pTeamSoldier->bNextAction = AI_ACTION_RUN_AWAY;
-								//	pTeamSoldier->usActionData = ANIM_STAND;									
-								//}
+								pTeamSoldier->RetreatCounterStart(2);
 
 								// set up next action to run away
 								sActionGridNo =  FindSpotMaxDistFromOpponents( pTeamSoldier );
@@ -1651,7 +1649,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 								if ( !TileIsOutOfBounds(pTeamSoldier->aiData.usNextActionData) )
 								{
-									pTeamSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
+									// sevenfm: use TAKE_COVER order to stop soldier from retreating
+									//pTeamSoldier->aiData.bNextAction = AI_ACTION_RUN_AWAY;
+									pTeamSoldier->aiData.bNextAction = AI_ACTION_TAKE_COVER;
+
 									pTeamSoldier->aiData.usActionData = ANIM_STAND;									
 
 									// SEND PENDING ACTION

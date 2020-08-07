@@ -16,6 +16,23 @@ class SOLDIERTYPE;
 #define NIGHTSIGHTGOGGLES_BONUS 2 * STRAIGHT_RATIO
 #define UVGOGGLES_BONUS 4 * STRAIGHT_RATIO
 
+enum
+{
+	EXPLOSV_NORMAL,
+	EXPLOSV_STUN,
+	EXPLOSV_TEARGAS,
+	EXPLOSV_MUSTGAS,
+	EXPLOSV_FLARE,
+	EXPLOSV_NOISE,
+	EXPLOSV_SMOKE,
+	EXPLOSV_CREATUREGAS,
+	EXPLOSV_BURNABLEGAS,
+	EXPLOSV_FLASHBANG,
+	EXPLOSV_SIGNAL_SMOKE,
+	EXPLOSV_SMOKE_DEBRIS,
+	EXPLOSV_ANY_TYPE,
+};
+
 extern UINT8 SlotToPocket[7];
 extern BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier );
 
@@ -31,7 +48,8 @@ extern INT8 FindEmptySlotWithin(SOLDIERTYPE * pSoldier, INT8 bLower, INT8 bUpper
 extern INT8 FindObjInObjRange(SOLDIERTYPE * pSoldier, UINT16 usItem1, UINT16 usItem2);
 extern INT8 FindLaunchable(SOLDIERTYPE * pSoldier, UINT16 usWeapon);
 extern INT8 FindGLGrenade(SOLDIERTYPE * pSoldier);
-extern INT8 FindThrowableGrenade(SOLDIERTYPE * pSoldier);
+extern INT8 FindThrowableGrenade(SOLDIERTYPE * pSoldier, UINT8 ubGrenadeType = EXPLOSV_ANY_TYPE, UINT8 ubMinDamaga = 0);
+extern UINT8 CountThrowableGrenades(SOLDIERTYPE * pSoldier, UINT8 ubGrenadeType = EXPLOSV_ANY_TYPE, UINT8 ubMinDamaga = 0);
 extern INT8 FindUsableObj(SOLDIERTYPE * pSoldier, UINT16 usItem);
 
 void DeleteObj(OBJECTTYPE * pObj );

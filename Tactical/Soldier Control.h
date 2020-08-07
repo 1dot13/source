@@ -631,6 +631,7 @@ enum {
 	SOLDIER_COUNTER_RADIO_ARTILLERY,		// there is actually no need for an artillery timer, but we use one to forbid the same AI guy ordering multiple strikes at once
 	SOLDIER_COUNTER_SPOTTER,				// used to determine wether we are a spotter
 	SOLDIER_COUNTER_ROLE_OBSERVED,			// every turn that the player observes an enemy, the enemies counter is increased. If it is high enough, we know his role
+	SOLDIER_COUNTER_RETREAT,				// use to retreat from position
 	
 	SOLDIER_COUNTER_MAX = 20,				// enough space for fillers
 };
@@ -1862,6 +1863,14 @@ public:
 
 	// sevenfm: service functions
 	BOOLEAN		IsFlanking(void);
+	BOOLEAN		CheckInitialAP(void);
+	UINT8		ShockLevelPercent(void);
+	BOOLEAN		TakenLargeHit(void);
+	BOOLEAN		IsCowering(void);
+
+	void	RetreatCounterStart(UINT16 usValue);
+	void	RetreatCounterStop(void);
+	UINT16  RetreatCounterValue(void);
 
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();
@@ -1874,9 +1883,6 @@ public:
 
 	// Flugente: are we an assassin?
 	BOOLEAN		IsAssassin();
-
-	// sevenfm: service functions
-	BOOLEAN		CheckInitialAP(void);
 
 	// Flugente: multi-turn actions
 	UINT8		GetMultiTurnAction();

@@ -294,9 +294,11 @@ UINT8 CountFriendsInDirection( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo );
 BOOLEAN GuySawEnemy( SOLDIERTYPE * pSoldier, UINT8 ubMax = SEEN_3_TURNS_AGO );
 UINT8 CountNearbyFriends( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
 UINT8 CountNearbyFriendsLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance );
-UINT8 CountFriendsFlankSameSpot( SOLDIERTYPE *pSoldier );
+UINT8 CountFriendsFlankSameSpot(SOLDIERTYPE *pSoldier, INT32 sSpot = NOWHERE);
 UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent = NOWHERE );
 UINT8 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance);
+UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance);
+UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier);
 
 UINT8 SectorCurfew(BOOLEAN fNight);
 UINT8 TeamPercentKilled(INT8 bTeam);
@@ -311,6 +313,9 @@ BOOLEAN AICheckFriendsNoContact( SOLDIERTYPE *pSoldier );
 BOOLEAN AICheckIsFlanking( SOLDIERTYPE *pSoldier );
 
 INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier);
+void PrepareThreatlist(SOLDIERTYPE *pSoldier);
+UINT8 ClosestSeenThreatID(SOLDIERTYPE *pSoldier, UINT8 ubMax = SEEN_CURRENTLY);	// first call PrepareThreatlist to make threat list
+UINT8 ClosestKnownThreatID(SOLDIERTYPE *pSoldier);								// first call PrepareThreatlist to make threat list
 
 BOOLEAN ProneSightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);
 BOOLEAN SightCoverAtSpot(SOLDIERTYPE *pSoldier, INT32 sSpot, BOOLEAN fUnlimited);
@@ -396,6 +401,7 @@ INT8 KnownPublicLevel(UINT8 bTeam, UINT8 ubOpponentID);
 #define MAX_TILES_MOVE_TURN (APBPConstants[AP_MAXIMUM] / (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_RUN]))
 
 // vision range defines
+#define MAX_VISION_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 4)
 #define DAY_VISION_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 2)
 #define NIGHT_VISION_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO )
 #define VISION_RANGE MaxNormalVisionDistance()

@@ -1870,48 +1870,106 @@ INT8 FindGLGrenade( SOLDIERTYPE * pSoldier )
 	return( NO_SLOT );
 }
 
-INT8 FindThrowableGrenade( SOLDIERTYPE * pSoldier )
+INT8 FindThrowableGrenade(SOLDIERTYPE * pSoldier, UINT8 ubGrenadeType, UINT8 ubMinDamage)
 {
 	INT8 bLoop;
 	BOOLEAN fCheckForFlares = FALSE;
+	UINT16 usItem;
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	UINT8 ubDamage;
 
 	// JA2Gold: give some priority to looking for flares when at night
 	// this is AI only so we can put in some customization for night
-	if (GetTimeOfDayAmbientLightLevel() == NORMAL_LIGHTLEVEL_NIGHT)
+	// sevenfm: use flare only if cannot see opponent
+	if (NightLight() &&
+		pSoldier->aiData.bOppCnt == 0 &&
+		ubGrenadeType == EXPLOSV_ANY_TYPE &&
+		Chance(50))
 	{
-		if (pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 2))
-		{
-			fCheckForFlares = TRUE;
-		}
+		fCheckForFlares = TRUE;
 	}
 
-	INT8 invsize = (INT8)pSoldier->inv.size();
+	INT8 bFoundSlot = NO_SLOT;
+	UINT8 ubType;
+	UINT8 ubFoundType;
 
-	if (fCheckForFlares)
+	for (bLoop = 0; bLoop < invsize; ++bLoop)
 	{
-		// Do a priority check for flares first
-		for (bLoop = 0; bLoop < invsize; ++bLoop)
+		if (pSoldier->inv[bLoop].exists() == true)
 		{
-			if (pSoldier->inv[bLoop].exists() == true) {
-				if ( Item[pSoldier->inv[ bLoop ].usItem].flare )
+			usItem = pSoldier->inv[bLoop].usItem;
+			ubType = (UINT8)Explosive[Item[usItem].ubClassIndex].ubType;
+			ubDamage = Explosive[Item[usItem].ubClassIndex].ubDamage;
+
+			if ((Item[usItem].usItemClass & IC_GRENADE) &&
+				Item[usItem].ubCursor == TOSSCURS &&
+				GetLauncherFromLaunchable(usItem) == NOTHING &&
+				(!Item[usItem].flare || NightLight()) &&
+				ubDamage >= ubMinDamage &&
+				(ubGrenadeType == EXPLOSV_ANY_TYPE || ubType == ubGrenadeType))
+			{
+				// return if flare grenade has priority
+				if (fCheckForFlares && Item[usItem].flare)
 				{
-					return( bLoop );
+					return bLoop;
+				}
+
+				// return if found needed type
+				if (ubType == ubGrenadeType)
+				{
+					return bLoop;
+				}
+
+				// always prefer normal type
+				// smoke grenades have low priority
+				// mustard gas has priority over tear gas
+				if (bFoundSlot == NO_SLOT ||
+					ubType == EXPLOSV_NORMAL && ubFoundType != EXPLOSV_NORMAL ||
+					ubType != EXPLOSV_SMOKE && ubFoundType == EXPLOSV_SMOKE ||
+					ubType == EXPLOSV_MUSTGAS && ubFoundType == EXPLOSV_TEARGAS)
+				{
+					bFoundSlot = bLoop;
+					ubFoundType = ubType;
 				}
 			}
 		}
 	}
 
+	return(bFoundSlot);
+}
+
+UINT8 CountThrowableGrenades(SOLDIERTYPE * pSoldier, UINT8 ubGrenadeType, UINT8 ubMinDamage)
+{
+	INT8 bLoop;
+	UINT16 usItem;
+	INT8 invsize = (INT8)pSoldier->inv.size();
+	UINT8 ubDamage;
+
+	INT8 bFoundSlot = NO_SLOT;
+	UINT8 ubType;
+	//UINT8 ubFoundType;
+	UINT8 ubCnt = 0;
+
 	for (bLoop = 0; bLoop < invsize; ++bLoop)
 	{
-		if (pSoldier->inv[bLoop].exists() == true) {
-			if ( (Item[ pSoldier->inv[ bLoop ].usItem ].usItemClass & IC_GRENADE) && // Try this check instead, to avoid tossing RPG rounds     !GLGrenadeInSlot( pSoldier, bLoop ) &&
-				GetLauncherFromLaunchable( pSoldier->inv[ bLoop ].usItem) == NOTHING )
+		if (pSoldier->inv[bLoop].exists() == true)
+		{
+			usItem = pSoldier->inv[bLoop].usItem;
+			ubType = (UINT8)Explosive[Item[usItem].ubClassIndex].ubType;
+			ubDamage = Explosive[Item[usItem].ubClassIndex].ubDamage;
+
+			if ((Item[usItem].usItemClass & IC_GRENADE) &&
+				Item[usItem].ubCursor == TOSSCURS &&
+				GetLauncherFromLaunchable(usItem) == NOTHING &&
+				ubDamage >= ubMinDamage &&
+				(ubGrenadeType == EXPLOSV_ANY_TYPE || ubType == ubGrenadeType))
 			{
-				return( bLoop );
+				ubCnt++;
 			}
 		}
 	}
-	return( NO_SLOT );
+
+	return ubCnt;
 }
 
 INT16 FindAttachmentSlot( OBJECTTYPE* pObj, UINT16 usItem, UINT8 subObject)

@@ -325,8 +325,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 		if (fSuppression &&
 			(pOpponent->stats.bLife < OKLIFE ||
 			pOpponent->bCollapsed && pOpponent->bBreath == 0 ||
-			//pOpponent->usAnimState == COWERING || 
-			//pOpponent->usAnimState == COWERING_PRONE ||
+			pOpponent->IsCowering() ||
 			CoweringShockLevel(pOpponent) ||
 			pOpponent->IsZombie() ||
 			!IS_MERC_BODY_TYPE(pOpponent)))
@@ -3698,4 +3697,496 @@ BOOLEAN MoreFriendsThanEnemiesinNearbysectors(UINT8 ausTeam, INT16 aX, INT16 aY,
 		return (enemyteam > militiateam);
 
 	return (militiateam > enemyteam);
+}
+
+// sevenfm: new attack functions
+void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
+{
+	INT16 ubMinAPcost;
+	INT8 bGrenadeIn = NO_SLOT;
+
+	// initialize
+	pBestThrow->ubPossible = FALSE;
+	pBestThrow->ubChanceToReallyHit = 0;
+	pBestThrow->iAttackValue = 0;
+
+	if (!IS_MERC_BODY_TYPE(pSoldier))
+	{
+		return;
+	}
+
+	pSoldier->bWeaponMode = WM_NORMAL;
+
+	bGrenadeIn = FindThrowableGrenade(pSoldier, EXPLOSV_SMOKE);
+
+	// prepare threat list for ClosestSeenThreatID(), ClosestKnownThreatID()
+	PrepareThreatlist(pSoldier);
+
+	if (bGrenadeIn != NO_SLOT)
+	{
+		pBestThrow->bWeaponIn = bGrenadeIn;
+
+		// if it's in his holster, swap it into his hand temporarily
+		if (pBestThrow->bWeaponIn != HANDPOS)
+		{
+			RearrangePocket(pSoldier, HANDPOS, pBestThrow->bWeaponIn, TEMPORARILY);
+		}
+
+		// get the minimum cost to attack with this tossable item
+		ubMinAPcost = MinAPsToAttack(pSoldier, pSoldier->sGridNo, DONTADDTURNCOST, 0);
+
+		// if we can afford the minimum AP cost to throw this tossable item
+		if (pSoldier->bActionPoints >= ubMinAPcost)
+		{
+			INT32	sSpot = pSoldier->sGridNo;
+			INT8	bLevel = pSoldier->pathing.bLevel;
+
+			INT32	sTargetSpot = NOWHERE;
+			INT8	bTargetLevel = bLevel;
+
+			INT32	sClosestThreat;
+			UINT8	ubClosestThreatID;
+
+			ubClosestThreatID = pSoldier->ubPreviousAttackerID;
+
+			// try to find good spot for smoke
+			if (ubClosestThreatID != NOBODY &&
+				MercPtrs[ubClosestThreatID] &&
+				!TileIsOutOfBounds(MercPtrs[ubClosestThreatID]->sGridNo))
+			{
+				sClosestThreat = MercPtrs[ubClosestThreatID]->sGridNo;
+
+				sTargetSpot = FindTossSpotInDirection(sSpot, bLevel, sClosestThreat, TRUE, TRUE);
+			}
+
+			if (TileIsOutOfBounds(sTargetSpot))
+			{
+				ubClosestThreatID = ClosestSeenThreatID(pSoldier, SEEN_LAST_TURN);
+
+				if (ubClosestThreatID != NOBODY &&
+					MercPtrs[ubClosestThreatID] &&
+					!TileIsOutOfBounds(MercPtrs[ubClosestThreatID]->sGridNo))
+				{
+					sClosestThreat = MercPtrs[ubClosestThreatID]->sGridNo;
+
+					sTargetSpot = FindTossSpotInDirection(sSpot, bLevel, sClosestThreat, TRUE, TRUE);
+				}
+			}
+
+			if (TileIsOutOfBounds(sTargetSpot))
+			{
+				ubClosestThreatID = ClosestKnownThreatID(pSoldier);
+
+				if (ubClosestThreatID != NOBODY &&
+					MercPtrs[ubClosestThreatID] &&
+					!TileIsOutOfBounds(MercPtrs[ubClosestThreatID]->sGridNo))
+				{
+					sClosestThreat = MercPtrs[ubClosestThreatID]->sGridNo;
+
+					sTargetSpot = FindTossSpotInDirection(sSpot, bLevel, sClosestThreat, TRUE, TRUE);
+				}
+			}
+
+			if (!TileIsOutOfBounds(sTargetSpot))
+			{
+				CheckTossAt(pSoldier, pBestThrow, sTargetSpot, bTargetLevel, pSoldier->ubID);
+			}
+		}
+
+		// if it was in his holster, swap it back into his holster for now
+		if (pBestThrow->bWeaponIn != HANDPOS)
+		{
+			RearrangePocket(pSoldier, HANDPOS, pBestThrow->bWeaponIn, TEMPORARILY);
+		}
+	}
+
+	pSoldier->bWeaponMode = WM_NORMAL;
+}
+
+void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
+{
+	INT16 ubMinAPcost;
+	INT8 bGrenadeIn = NO_SLOT;
+
+	// initialize
+	pBestThrow->ubPossible = FALSE;
+	pBestThrow->ubChanceToReallyHit = 0;
+	pBestThrow->iAttackValue = 0;
+	pBestThrow->ubOpponent = NOBODY;
+
+	if (!IS_MERC_BODY_TYPE(pSoldier))
+	{
+		return;
+	}
+
+	pSoldier->bWeaponMode = WM_NORMAL;
+
+	bGrenadeIn = FindThrowableGrenade(pSoldier, EXPLOSV_SMOKE);
+
+	if (bGrenadeIn != NO_SLOT)
+	{
+		pBestThrow->bWeaponIn = bGrenadeIn;
+
+		// if it's in his holster, swap it into his hand temporarily
+		if (pBestThrow->bWeaponIn != HANDPOS)
+		{
+			RearrangePocket(pSoldier, HANDPOS, pBestThrow->bWeaponIn, TEMPORARILY);
+		}
+
+		// get the minimum cost to attack with this tossable item
+		ubMinAPcost = MinAPsToAttack(pSoldier, pSoldier->sGridNo, DONTADDTURNCOST, 0);
+
+		// if we can afford the minimum AP cost to throw this tossable item
+		if (pSoldier->bActionPoints >= ubMinAPcost)
+		{
+			INT32	sSpot = pSoldier->sGridNo;
+			INT8	bLevel = pSoldier->pathing.bLevel;
+
+			// check all friends
+			SOLDIERTYPE * pFriend;
+			INT32	sClosestFriendSpot = NOWHERE;
+			INT8	bClosestFriendLevel = 0;
+			UINT8	ubClosestFriendID = NOBODY;
+
+			INT32	sFriendSpot;
+			INT8	bFriendLevel;
+
+			INT32	sClosestOpponent;
+
+			// check adjacent spots
+			UINT8	ubMovementCost;
+			INT32	sTempGridNo;
+			UINT8	ubDirection;
+
+			// Run through each friendly.
+			for (UINT8 iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; iCounter++)
+			{
+				pFriend = MercPtrs[iCounter];
+
+				// check that friend is alive and needs cover
+				if (pFriend &&
+					pFriend != pSoldier &&
+					pFriend->bActive &&
+					pFriend->stats.bLife >= OKLIFE &&
+					RangeChangeDesire(pFriend) <= 3 &&
+					(pFriend->IsFlanking() && !TileIsOutOfBounds(pFriend->lastFlankSpot) && PythSpacesAway(pFriend->sGridNo, pFriend->lastFlankSpot) < (INT16)(MAX_VISION_RANGE) && LocationToLocationLineOfSightTest(pFriend->sGridNo, pFriend->pathing.bLevel, pFriend->lastFlankSpot, pFriend->pathing.bLevel, TRUE, NO_DISTANCE_LIMIT) ||
+					pFriend->aiData.bUnderFire && (pFriend->IsCowering() || pFriend->TakenLargeHit() || pFriend->aiData.bUnderFire && pFriend->ShockLevelPercent() > 50 && pFriend->stats.bLife < pFriend->stats.bLifeMax * 3 / 4))
+					)
+				{
+					sFriendSpot = pFriend->sGridNo;
+					bFriendLevel = pFriend->pathing.bLevel;
+					sClosestOpponent = ClosestKnownOpponent(pFriend, NULL, NULL);
+
+					if (PythSpacesAway(sSpot, sFriendSpot) <= DAY_VISION_RANGE &&
+						PythSpacesAway(sSpot, sFriendSpot) > DAY_VISION_RANGE / 4 &&
+						!InSmoke(sFriendSpot, bFriendLevel) &&
+						(!NightLight() || InLightAtNight(sFriendSpot, bFriendLevel)) &&
+						!Water(sFriendSpot, bFriendLevel) &&
+						!TileIsOutOfBounds(sClosestOpponent) &&
+						PythSpacesAway(sFriendSpot, sClosestOpponent) > DAY_VISION_RANGE / 4 &&
+						!ProneSightCoverAtSpot(pFriend, sFriendSpot, TRUE) &&
+						//!SightCoverAtSpot(pFriend, sFriendSpot, FALSE) &&
+						//!AnyCoverAtSpot(pFriend, sFriendSpot) &&
+						(TileIsOutOfBounds(sClosestFriendSpot) || PythSpacesAway(sSpot, sFriendSpot) < PythSpacesAway(sSpot, sClosestFriendSpot)) &&
+						(pFriend->TakenLargeHit() || pFriend->ShockLevelPercent() > 50 && pFriend->stats.bLife < pFriend->stats.bLifeMax * 3 / 4))
+					{
+						// check that we can toss grenade
+						CheckTossAt(pSoldier, pBestThrow, sFriendSpot, bFriendLevel, pFriend->ubID);
+
+						if (pBestThrow->ubPossible)
+						{
+							sClosestFriendSpot = sFriendSpot;
+							bClosestFriendLevel = bFriendLevel;
+							ubClosestFriendID = pFriend->ubID;
+						}
+						else
+						{
+							// find adjacent spots
+							for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
+							{
+								sTempGridNo = NewGridNo(sFriendSpot, DirectionInc(ubDirection));
+
+								if (sTempGridNo != sFriendSpot)
+								{
+									ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bFriendLevel];
+
+									if (!TileIsOutOfBounds(sTempGridNo) &&
+										ubMovementCost < TRAVELCOST_BLOCKED &&
+										!Water(sTempGridNo, bFriendLevel))
+									{
+										// check this gridno
+										CheckTossAt(pSoldier, pBestThrow, sTempGridNo, bFriendLevel, pFriend->ubID);
+
+										if (pBestThrow->ubPossible)
+										{
+											sClosestFriendSpot = sTempGridNo;
+											bClosestFriendLevel = bFriendLevel;
+											ubClosestFriendID = pFriend->ubID;
+
+											break;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// finally, prepare data for toss
+			pBestThrow->ubPossible = FALSE;
+			pBestThrow->ubChanceToReallyHit = 0;
+			pBestThrow->iAttackValue = 0;
+			pBestThrow->ubOpponent = NOBODY;
+
+			if (!TileIsOutOfBounds(sClosestFriendSpot))
+			{
+				CheckTossAt(pSoldier, pBestThrow, sClosestFriendSpot, bClosestFriendLevel, ubClosestFriendID);
+			}
+		}
+
+		// if it was in his holster, swap it back into his holster for now
+		if (pBestThrow->bWeaponIn != HANDPOS)
+		{
+			RearrangePocket(pSoldier, HANDPOS, pBestThrow->bWeaponIn, TEMPORARILY);
+		}
+	}
+
+	pSoldier->bWeaponMode = WM_NORMAL;
+}
+
+// check if we can toss grenade at spot, and prepare attack data
+// grenade should be in hand
+void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubOpponentID)
+{
+	UINT16	usInHand, usGrenade;
+	INT32	iTossRange;
+
+	INT32	sEndSpot = NOWHERE;
+	INT8	bEndLevel = 0;
+
+	UINT8	ubAPCost;
+	UINT8	ubChanceToHit;
+	UINT8	ubChanceToReallyHit;
+	UINT8	ubChanceToGetThrough;
+	INT32	iHitRate;
+	INT32	iAttackValue;
+	INT32	iTotalThreatValue = 100;
+	UINT8	ubMaxPossibleAimTime = 0;
+	UINT16	usTrueState = pSoldier->usAnimState;
+	UINT8	ubStance = gAnimControl[pSoldier->usAnimState].ubEndHeight;
+
+	usInHand = pSoldier->inv[HANDPOS].usItem;
+
+	// initialize
+	pBestThrow->ubPossible = FALSE;
+	pBestThrow->ubChanceToReallyHit = 0;
+	pBestThrow->iAttackValue = 0;
+
+	iTossRange = CalcMaxTossRange(pSoldier, usInHand, TRUE);
+	usGrenade = pSoldier->inv[HANDPOS].usItem;
+	ubChanceToGetThrough = 100 * CalculateLaunchItemChanceToGetThrough(pSoldier, &pSoldier->inv[HANDPOS], sTargetSpot, bTargetLevel, 0, &sEndSpot, TRUE, &bEndLevel, FALSE);
+	ubAPCost = (UINT8)MinAPsToThrow(pSoldier, sTargetSpot, TRUE) + CalcAPCostForAiming(pSoldier, sTargetSpot, ubMaxPossibleAimTime);
+	ubChanceToHit = (UINT8)CalcThrownChanceToHit(pSoldier, sTargetSpot, 0, AIM_SHOT_TORSO);
+	ubChanceToReallyHit = (ubChanceToHit * ubChanceToGetThrough) / 100;
+	iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / ubAPCost;
+	iAttackValue = (iHitRate * ubChanceToReallyHit * iTotalThreatValue) / 1000;
+
+	// maybe try to stand up for better range
+	if (ubChanceToReallyHit == 0 &&
+		gAnimControl[pSoldier->usAnimState].ubEndHeight < ANIM_STAND &&
+		pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, sTargetSpot), ANIM_STAND) &&
+		pSoldier->bActionPoints >= ubAPCost + GetAPsToChangeStance(pSoldier, ANIM_STAND))
+	{
+		pSoldier->usAnimState = STANDING;
+
+		iTossRange = CalcMaxTossRange(pSoldier, usInHand, TRUE);
+
+		usGrenade = pSoldier->inv[HANDPOS].usItem;
+		ubChanceToGetThrough = 100 * CalculateLaunchItemChanceToGetThrough(pSoldier, &pSoldier->inv[HANDPOS], sTargetSpot, bTargetLevel, 0, &sEndSpot, TRUE, &bEndLevel, FALSE);
+		ubAPCost = (UINT8)MinAPsToThrow(pSoldier, sTargetSpot, TRUE) + CalcAPCostForAiming(pSoldier, sTargetSpot, ubMaxPossibleAimTime);
+		ubChanceToHit = (UINT8)CalcThrownChanceToHit(pSoldier, sTargetSpot, 0, AIM_SHOT_TORSO);
+		ubChanceToReallyHit = (ubChanceToHit * ubChanceToGetThrough) / 100;
+		iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / ubAPCost;
+		iAttackValue = (iHitRate * ubChanceToReallyHit * iTotalThreatValue) / 1000;
+		pSoldier->usAnimState = usTrueState;
+
+		ubStance = ANIM_STAND;
+		ubAPCost += GetAPsToChangeStance(pSoldier, ANIM_STAND);
+	}
+
+	if (ubChanceToReallyHit > 0)
+	{
+		// OOOF!	That was a lot of work!	But we've got a new best target!
+		pBestThrow->ubPossible = TRUE;
+		pBestThrow->ubOpponent = ubOpponentID;
+		pBestThrow->ubAimTime = ubMaxPossibleAimTime;
+		pBestThrow->ubChanceToReallyHit = ubChanceToReallyHit;
+		pBestThrow->sTarget = sTargetSpot;
+		pBestThrow->iAttackValue = iAttackValue;
+		pBestThrow->ubAPCost = ubAPCost;
+		pBestThrow->bTargetLevel = bTargetLevel;
+		pBestThrow->ubStance = ubStance;
+	}
+}
+
+INT32 FindTossSpotInDirection(INT32 sSpot, INT8 bLevel, INT32 sTargetSpot, BOOLEAN fCheckAdjacentDirections, BOOLEAN fCheckFarther)
+{
+	// find adjacent spot
+	UINT8	ubMovementCost;
+	INT32	sTempGridNo, sOldSpot;
+	UINT8	ubDirection;
+
+	// safety check
+	if (TileIsOutOfBounds(sSpot) || TileIsOutOfBounds(sTargetSpot))
+	{
+		return NOWHERE;
+	}
+
+	// check direction
+	ubDirection = AIDirection(sSpot, sTargetSpot);
+
+	sTempGridNo = NewGridNo(sSpot, DirectionInc(ubDirection));
+
+	if (sTempGridNo != sSpot)
+	{
+		ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+		if (ubMovementCost < TRAVELCOST_BLOCKED &&
+			!Water(sTempGridNo, bLevel))
+		{
+			return sTempGridNo;
+		}
+
+		if (fCheckFarther)
+		{
+			sOldSpot = sTempGridNo;
+			sTempGridNo = NewGridNo(sOldSpot, DirectionInc(ubDirection));
+
+			if (sTempGridNo != sOldSpot)
+			{
+				ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+				if (ubMovementCost < TRAVELCOST_BLOCKED &&
+					!Water(sTempGridNo, bLevel))
+				{
+					return sTempGridNo;
+				}
+			}
+
+			// check C direction
+			ubDirection = gOneCDirection[AIDirection(sOldSpot, sTargetSpot)];
+			sTempGridNo = NewGridNo(sOldSpot, DirectionInc(ubDirection));
+
+			if (sTempGridNo != sOldSpot)
+			{
+				ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+				if (ubMovementCost < TRAVELCOST_BLOCKED && !Water(sTempGridNo, bLevel))
+				{
+					return sTempGridNo;
+				}
+			}
+
+			// check CC direction
+			ubDirection = gOneCCDirection[AIDirection(sOldSpot, sTargetSpot)];
+			sTempGridNo = NewGridNo(sOldSpot, DirectionInc(ubDirection));
+
+			if (sTempGridNo != sOldSpot)
+			{
+				ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+				if (ubMovementCost < TRAVELCOST_BLOCKED && !Water(sTempGridNo, bLevel))
+				{
+					return sTempGridNo;
+				}
+			}
+		}
+	}
+
+	if (fCheckAdjacentDirections)
+	{
+		// check C direction
+		ubDirection = gOneCDirection[AIDirection(sSpot, sTargetSpot)];
+		sTempGridNo = NewGridNo(sSpot, DirectionInc(ubDirection));
+
+		if (sTempGridNo != sSpot)
+		{
+			ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+			if (ubMovementCost < TRAVELCOST_BLOCKED && !Water(sTempGridNo, bLevel))
+			{
+				return sTempGridNo;
+			}
+		}
+
+		// check CC direction
+		ubDirection = gOneCCDirection[AIDirection(sSpot, sTargetSpot)];
+		sTempGridNo = NewGridNo(sSpot, DirectionInc(ubDirection));
+
+		if (sTempGridNo != sSpot)
+		{
+			ubMovementCost = gubWorldMovementCosts[sTempGridNo][ubDirection][bLevel];
+
+			if (ubMovementCost < TRAVELCOST_BLOCKED && !Water(sTempGridNo, bLevel))
+			{
+				return sTempGridNo;
+			}
+		}
+	}
+
+	return NOWHERE;
+}
+
+void CheckTossGrenadeAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubGrenadeType)
+{
+	INT16 ubMinAPcost;
+	INT8 bGrenadeIn = NO_SLOT;
+
+	// initialize
+	pBestThrow->ubPossible = FALSE;
+	pBestThrow->ubChanceToReallyHit = 0;
+	pBestThrow->iAttackValue = 0;
+
+	if (!IS_MERC_BODY_TYPE(pSoldier))
+	{
+		return;
+	}
+
+	if (TileIsOutOfBounds(sTargetSpot))
+	{
+		return;
+	}
+
+	pSoldier->bWeaponMode = WM_NORMAL;
+
+	bGrenadeIn = FindThrowableGrenade(pSoldier, ubGrenadeType);
+
+	if (bGrenadeIn != NO_SLOT)
+	{
+		pBestThrow->bWeaponIn = bGrenadeIn;
+
+		// if it's in his holster, swap it into his hand temporarily
+		if (pBestThrow->bWeaponIn != HANDPOS)
+		{
+			RearrangePocket(pSoldier, HANDPOS, pBestThrow->bWeaponIn, TEMPORARILY);
+		}
+
+		// get the minimum cost to attack with this tossable item
+		ubMinAPcost = MinAPsToAttack(pSoldier, pSoldier->sGridNo, DONTADDTURNCOST, 0);
+
+		// if we can afford the minimum AP cost to throw this tossable item
+		if (pSoldier->bActionPoints >= ubMinAPcost)
+		{
+			CheckTossAt(pSoldier, pBestThrow, sTargetSpot, bTargetLevel, NOBODY);
+		}
+
+		// if it was in his holster, swap it back into his holster for now
+		if (pBestThrow->bWeaponIn != HANDPOS)
+		{
+			RearrangePocket(pSoldier, HANDPOS, pBestThrow->bWeaponIn, TEMPORARILY);
+		}
+	}
+
+	pSoldier->bWeaponMode = WM_NORMAL;
 }

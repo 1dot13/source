@@ -109,12 +109,16 @@ enum
 
 typedef struct
 {
- SOLDIERTYPE *	pOpponent;
- INT32 sGridNo;
- INT32					iValue;
- INT32					iAPs;
- INT32					iCertainty;
- INT32					iOrigRange;
+	SOLDIERTYPE		*pOpponent;
+	INT32			sGridNo;
+	INT32			iValue;
+	INT32			iAPs;
+	INT32			iCertainty;
+	INT32			iOrigRange;
+	INT8			bLevel;
+	INT8			bKnowledge;
+	INT8			bPersonalKnowledge;
+	INT8			bPublicKnowledge;
 } THREATTYPE;
 
 // define for bAimTime for bursting
@@ -170,6 +174,7 @@ extern THREATTYPE Threat[MAXMERCS];
 extern int ThreatPercent[10];
 extern UINT8 SkipCoverCheck;
 extern INT8 GameOption[MAXGAMEOPTIONS];
+extern UINT32	guiThreatCnt;
 
 typedef enum
 {
@@ -204,6 +209,13 @@ INT32 ClosestSeenOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLeve
 void CreatureCall( SOLDIERTYPE * pCaller );
 INT8 CreatureDecideAction( SOLDIERTYPE * pCreature );
 void CreatureDecideAlertStatus( SOLDIERTYPE *pCreature );
+
+// sevenfm:
+void CheckTossSelfSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
+void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
+void CheckTossAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubOpponentID);
+INT32 FindTossSpotInDirection(INT32 sSpot, INT8 bLevel, INT32 sTargetSpot, BOOLEAN fCheckAdjacentDirections, BOOLEAN fCheckFarther);
+void CheckTossGrenadeAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTargetSpot, INT8 bTargetLevel, UINT8 ubGrenadeType);
 
 // Flugente: AI
 INT8 ZombieDecideAction( SOLDIERTYPE* pSoldier );

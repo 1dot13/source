@@ -680,7 +680,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		}
 	}
 
-
 	iBestCoverValue = -1;
 
 #if defined( _DEBUG ) && defined( COVER_DEBUG )
@@ -755,111 +754,11 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		return(NOWHERE);
 	}
 
-	// those within 20 tiles of any tile we'll CONSIDER as cover are important
-	iMaxThreatRange = MAX_THREAT_RANGE + (CELL_X_SIZE * iSearchRange);
-
 	// calculate OUR OWN general threat value (not from any specific location)
-	iMyThreatValue = CalcManThreatValue(pSoldier,NOWHERE,FALSE,pSoldier);
+	iMyThreatValue = CalcManThreatValue(pSoldier, NOWHERE, FALSE, pSoldier);
 
-	// look through all opponents for those we know of
-	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
-	{
-		pOpponent = MercSlots[ uiLoop ];
-
-		// if this merc is inactive, at base, on assignment, dead, unconscious
-		if (!pOpponent || pOpponent->stats.bLife < OKLIFE)
-		{
-			continue;			// next merc
-		}
-
-		// if this man is neutral / on the same side, he's not an opponent
- 		if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide))
-		{
-			continue;			// next merc
-		}
-
-		pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
-		pbPublOL = gbPublicOpplist[pSoldier->bTeam] + pOpponent->ubID;
-		pusLastLoc = gsLastKnownOppLoc[pSoldier->ubID] + pOpponent->ubID;
-
-		// if this opponent is unknown personally and publicly
-		if ((*pbPersOL == NOT_HEARD_OR_SEEN) && (*pbPublOL == NOT_HEARD_OR_SEEN))
-		{
-			continue;			// next merc
-		}
-
-		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)
-		{
-			continue;	// next opponent
-		}
-
-		// if personal knowledge is more up to date or at least equal
-		if ((gubKnowledgeValue[*pbPublOL - OLDEST_HEARD_VALUE][*pbPersOL - OLDEST_HEARD_VALUE] > 0) ||
-			(*pbPersOL == *pbPublOL))
-		{
-			// using personal knowledge, obtain opponent's "best guess" gridno
-			sThreatLoc = *pusLastLoc;
-			iThreatCertainty = ThreatPercent[*pbPersOL - OLDEST_HEARD_VALUE];
-		}
-		else
-		{
-			// using public knowledge, obtain opponent's "best guess" gridno
-			sThreatLoc = gsPublicLastKnownOppLoc[pSoldier->bTeam][pOpponent->ubID];
-			iThreatCertainty = ThreatPercent[*pbPublOL - OLDEST_HEARD_VALUE];
-		}
-
-		// calculate how far away this threat is (in adjusted pixels)
-		//iThreatRange = AdjPixelsAway(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sThreatLoc),CenterY(sThreatLoc));
-		iThreatRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sThreatLoc );
-
-		//NumMessage("Threat Range = ",iThreatRange);
-
-#ifdef DEBUGCOVER
-//		DebugAI( String( "FBNC: Opponent %d believed to be at gridno %d (mine %d, public %d)\n",iLoop,sThreatLoc,*pusLastLoc,PublicLastKnownOppLoc[pSoldier->bTeam][iLoop] ) );
-#endif
-
-		// if this opponent is believed to be too far away to really be a threat
-		if (iThreatRange > iMaxThreatRange)
-		{
-#ifdef DEBUGCOVER
-//			AINameMessage(pOpponent,"is too far away to be a threat",1000);
-#endif
-
-			continue;			// check next opponent
-		}
-
-		// remember this opponent as a current threat, but DON'T REDUCE FOR COVER!
-		Threat[uiThreatCnt].iValue = CalcManThreatValue(pOpponent,pSoldier->sGridNo,FALSE,pSoldier);
-
-		// if the opponent is no threat at all for some reason
-		if (Threat[uiThreatCnt].iValue == -999)
-		{
-			//NameMessage(pOpponent,"is thought to be no threat");
-			continue;			// check next opponent
-		}
-
-		//NameMessage(pOpponent,"added to the list of threats");
-		//NumMessage("His/Her threat value = ",threatValue[uiThreatCnt]);
-
-		Threat[uiThreatCnt].pOpponent		= pOpponent;
-		Threat[uiThreatCnt].sGridNo			= sThreatLoc;
-		Threat[uiThreatCnt].iCertainty	= iThreatCertainty;
-		Threat[uiThreatCnt].iOrigRange	= iThreatRange;
-
-		// calculate how many APs he will have at the start of the next turn
-		Threat[uiThreatCnt].iAPs = pOpponent->CalcActionPoints();
-
-		if (iThreatRange < iClosestThreatRange)
-		{
-			iClosestThreatRange = iThreatRange;
-			//NumMessage("New Closest Threat Range = ",iClosestThreatRange);
-//			sClosestThreatGridNo = sThreatLoc;
-			//NumMessage("Closest Threat Gridno = ",sClosestThreatGridNo);
-		}
-
-		uiThreatCnt++;
-	}
+	// prepare threat list from known enemies
+	PrepareThreatlist(pSoldier);
 
 	// if no known opponents were found to threaten us, can't worry about cover
 	if (!uiThreatCnt)
