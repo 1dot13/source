@@ -552,8 +552,8 @@ static void CalculateCoverFromEnemies()
 
 	SOLDIERTYPE* pSoldier;
 	GetSoldier(&pSoldier, gusSelectedSoldier);
-	INT8 OurSoldierStealth = GetStealth(pSoldier);
-	INT8 OurSoldierLBESightAdjustment = GetSightAdjustmentBasedOnLBE(pSoldier);
+	const INT8 OurSoldierStealth = GetStealth(pSoldier);
+	const INT8 OurSoldierLBESightAdjustment = GetSightAdjustmentBasedOnLBE(pSoldier);
 
 
 	// Loop through the grid and reset cover
@@ -571,9 +571,13 @@ static void CalculateCoverFromEnemies()
 
 
 	//loop through all the actors in the sector and save enemies' info for cover calculation
-	std::vector<SOLDIERTYPE*> pOpponents;
-	std::vector<BOOLEAN> bCowering;
-	std::vector<UINT8> tunnelVision;
+	static std::vector<SOLDIERTYPE*> pOpponents;
+	static std::vector<BOOLEAN> bCowering;
+	static std::vector<UINT8> tunnelVision;
+	pOpponents.reserve(TOTAL_SOLDIERS);
+	bCowering.reserve(TOTAL_SOLDIERS);
+	tunnelVision.reserve(TOTAL_SOLDIERS);
+
 	for (UINT32 i = 0; i < guiNumMercSlots; ++i)
 	{
 		SOLDIERTYPE *pOpponent = MercSlots[i];
@@ -609,8 +613,8 @@ static void CalculateCoverFromEnemies()
 	for (UINT32 i = 0; i < pOpponents.size(); ++i)
 	{
 		SOLDIERTYPE *pOpponent = pOpponents[i];
-		BOOLEAN isCowering = bCowering[i];
-		UINT8 tunnelVisionPercentage = tunnelVision[i];
+		const BOOLEAN isCowering = bCowering[i];
+		const UINT8 tunnelVisionPercentage = tunnelVision[i];
 
 
 		for (INT32 ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
@@ -664,6 +668,9 @@ static void CalculateCoverFromEnemies()
 		}
 	}
 
+	pOpponents.resize(0);
+	bCowering.resize(0);
+	tunnelVision.resize(0);
 
 	AddCoverObjectsToViewArea();
 }
@@ -772,7 +779,7 @@ void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetG
 static void CalculateCoverFromEnemySoldier(SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bOverlayType, SOLDIERTYPE* pToSoldier, const BOOLEAN& bFromSoldierCowering, const UINT8& tunnelVision, const INT8 ToSoldierStealth, const INT8 ToSoldierLBeSightAdjustment)
 {
 	// Had to extract this from SOLDIERTYPE::GetMaxDistanceVisible() function due to performance improvement from minimizing recalculating CoweringShockLevel(pSoldier) & GetPercentTunnelVision(pSoldier)
-	UINT16 usSightLimit = DistanceVisible(pFromSoldier, (SoldierHasLimitedVision(pFromSoldier) ? pFromSoldier->pathing.bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, (INT8)fRoof, bFromSoldierCowering, tunnelVision);
+	const UINT16 usSightLimit = DistanceVisible(pFromSoldier, (SoldierHasLimitedVision(pFromSoldier) ? pFromSoldier->pathing.bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, (INT8)fRoof, bFromSoldierCowering, tunnelVision);
 
 	for (int i = 0; i < sizeof(animArr); ++i)
 	{
