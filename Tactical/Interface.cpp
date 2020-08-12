@@ -2690,16 +2690,18 @@ BOOLEAN DrawCTHIndicator()
 	INT16 curY = 0;
 
 	/////////////////////////////////////////
-	// Load image STI
-	UINT32	guiCTHImage;
-	VOBJECT_DESC	VObjectDesc;
-
-	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	if(UsingNewCTHSystem() == true)
-		FilenameForBPP("CURSORS\\CUR_CTH_NCTH.sti", VObjectDesc.ImageFile);
-	else
-		FilenameForBPP("CURSORS\\CUR_CTH.sti", VObjectDesc.ImageFile);
-	CHECKF(AddVideoObject(&VObjectDesc, &guiCTHImage));
+	// Load image STI for CTH indicator only once during gameplay. This prevents us from constantly loading and unloading the file from disk.
+	static UINT32	guiCTHImage{ 0 };
+	if (guiCTHImage == 0)
+	{
+		VOBJECT_DESC	VObjectDesc;
+		VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+		if(UsingNewCTHSystem() == true)
+			FilenameForBPP("CURSORS\\CUR_CTH_NCTH.sti", VObjectDesc.ImageFile);
+		else
+			FilenameForBPP("CURSORS\\CUR_CTH.sti", VObjectDesc.ImageFile);
+		CHECKF(AddVideoObject(&VObjectDesc, &guiCTHImage));
+	}
 
 	/////////////// AP COST FOR CURRENT SHOT
 	// sevenfm: only if in turnbased!
@@ -3237,8 +3239,8 @@ BOOLEAN DrawCTHIndicator()
 
 	}
 
-	// Delete CTH indicator STIs from memory.
-	DeleteVideoObjectFromIndex( guiCTHImage );
+	// Delete CTH indicator STIs from memory. Commented out so we don't keep loading the graphics for it from disk.
+	//DeleteVideoObjectFromIndex( guiCTHImage );
 
 	///////////////////////////////////////////////////////////////////////////////////////
 	// HEADROCK HAM 4: Drawing the CTH indicator to the Frame Buffer
