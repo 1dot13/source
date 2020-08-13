@@ -811,7 +811,10 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 				}
 			}
 		}
-
+		else if (pSoldier->aiData.bAction == AI_ACTION_CLIMB_ROOF && !pSoldier->aiData.bActionInProgress)
+		{
+			ActionDone(pSoldier);
+		}
 	}
 	/*********
 	End of new overall AI system

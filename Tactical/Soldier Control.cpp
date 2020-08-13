@@ -9671,74 +9671,74 @@ void MoveMercFacingDirection( SOLDIERTYPE *pSoldier, BOOLEAN fReverse, FLOAT dMo
 
 }
 
-void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
+void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 {
-
 	//CHRISL: Disable climbing up to a roof while wearing a backpack
-	if ( (UsingNewInventorySystem( ) == true) && this->inv[BPACKPOCKPOS].exists( ) == true
-		 //JMich.BackpackClimb
-		 && ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack( ) + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
-		 && ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)) )
+	if ((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true
+		//JMich.BackpackClimb
+		&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)this->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[this->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+		&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[this->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
+		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB]);
 		return;
 	}
 
-	if ( is_client )
+	if (is_client)
 	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[43] );
+		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[43]);
 		return;//hayden disable climbing roof
 	}
 
 	INT8							bNewDirection;
-	UINT8							ubWhoIsThere;	
+	UINT8							ubWhoIsThere;
 
-	if ( FindHeigherLevel( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel == 0) )
+	if (FindHeigherLevel(this, this->sGridNo, this->ubDirection, &bNewDirection) && (this->pathing.bLevel == 0))
 	{
-		if ( EnoughPoints( this, GetAPsToClimbRoof( this, FALSE ), 0, TRUE ) )
+		if (EnoughPoints(this, GetAPsToClimbRoof(this, FALSE), 0, TRUE))
 		{
 			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
-			ubWhoIsThere = WhoIsThere2( NewGridNo( this->sGridNo, (UINT16)DirectionInc( bNewDirection ) ), 1 );
-			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID )
+			ubWhoIsThere = WhoIsThere2(NewGridNo(this->sGridNo, (UINT16)DirectionInc(bNewDirection)), 1);
+			if (ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID)
 			{
+				DebugAttackBusy(String("Soldier %d tried to climb up on someone.\n", this->ubID));
+				this->aiData.bAction = AI_ACTION_NONE;
 				return;
 			}
 			else
 			{
-
-				if ( this->bTeam == gbPlayerNum )
+				if (this->bTeam == gbPlayerNum)
 				{
 					// OK, SET INTERFACE FIRST
-					SetUIBusy( this->ubID );
+					SetUIBusy(this->ubID);
 				}
 
-				this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc( bNewDirection ) );
+				this->sTempNewGridNo = NewGridNo(this->sGridNo, (UINT16)DirectionInc(bNewDirection));
 
 				this->ubPendingDirection = bNewDirection;
 				//this->usPendingAnimation = CLIMBUPROOF;
 
 				// Flugente: In case an animation is missing (zombies with bodytype of civilians), we TELEPORT instead
-				if ( IsAnimationValidForBodyType( this, CLIMBUPROOF ) == FALSE )
+				if (IsAnimationValidForBodyType(this, CLIMBUPROOF) == FALSE)
 				{
-					SetSoldierHeight( 50.0 );
-					TeleportSoldier( this, this->sTempNewGridNo, TRUE );
-					EndAIGuysTurn( this );
+					SetSoldierHeight(50.0);
+					TeleportSoldier(this, this->sTempNewGridNo, TRUE);
+					EndAIGuysTurn(this);
 				}
 				else
-					this->EVENT_InitNewSoldierAnim( CLIMBUPROOF, 0, FALSE );
+					this->EVENT_InitNewSoldierAnim(CLIMBUPROOF, 0, FALSE);
 
 				// Flugente: if we are afraid of heights, we complain
-				if ( DoesMercHaveDisability( this, AFRAID_OF_HEIGHTS ) )
+				if (DoesMercHaveDisability(this, AFRAID_OF_HEIGHTS))
 				{
-					if ( !(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) )
+					if (!(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY))
 					{
-						HandleMoraleEvent( this, MORALE_FEAR_OF_HEIGHTS, this->sSectorX, this->sSectorY, this->bSectorZ );
+						HandleMoraleEvent(this, MORALE_FEAR_OF_HEIGHTS, this->sSectorX, this->sSectorY, this->bSectorZ);
 
-						TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
+						TacticalCharacterDialogue(this, QUOTE_PERSONALITY_TRAIT);
 						this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 						// Flugente: dynamic opinions
-						HandleDynamicOpinionChange( this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+						HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
 					}
 					// otherwise remove flag, so we'll complain every second time we climb roof
 					else
@@ -9747,14 +9747,19 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 					}
 				}
 
-				this->InternalReceivingSoldierCancelServices( FALSE );
-				this->InternalGivingSoldierCancelServices( FALSE );
+				this->InternalReceivingSoldierCancelServices(FALSE);
+				this->InternalGivingSoldierCancelServices(FALSE);
 			}
+		}
+		else
+		{
+			DebugAttackBusy(String("Soldier %d tried to climb without AP.\n", this->ubID));
+			this->aiData.bAction = AI_ACTION_NONE;
 		}
 	}
 	else
 	{
-		DebugAttackBusy( String( "Soldier %d tried to climb where no roof is.\n", this->ubID ) );
+		DebugAttackBusy(String("Soldier %d tried to climb where no roof is.\n", this->ubID));
 		this->aiData.bAction = AI_ACTION_NONE;
 	}
 }
@@ -11503,51 +11508,62 @@ BOOLEAN SOLDIERTYPE::CheckSoldierHitRoof( void )
 	return(fReturnVal);
 }
 
-void SOLDIERTYPE::BeginSoldierClimbDownRoof( void )
+void SOLDIERTYPE::BeginSoldierClimbDownRoof(void)
 {
 	INT8							bNewDirection;
 	UINT8	ubWhoIsThere;
 
-	if ( FindLowerLevel( this, this->sGridNo, this->ubDirection, &bNewDirection ) && (this->pathing.bLevel > 0) )
+	if (FindLowerLevel(this, this->sGridNo, this->ubDirection, &bNewDirection) && (this->pathing.bLevel > 0))
 	{
-		if ( EnoughPoints( this, GetAPsToClimbRoof( this, TRUE ), 0, TRUE ) )
+		if (EnoughPoints(this, GetAPsToClimbRoof(this, TRUE), 0, TRUE))
 		{
 			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
-			ubWhoIsThere = WhoIsThere2( NewGridNo( this->sGridNo, (UINT16)DirectionInc( bNewDirection ) ), 0 );
-			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID )
+			ubWhoIsThere = WhoIsThere2(NewGridNo(this->sGridNo, (UINT16)DirectionInc(bNewDirection)), 0);
+			if (ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID)
 			{
+				DebugAttackBusy(String("Soldier %d tried to climb down on someone.\n", this->ubID));
+				this->aiData.bAction = AI_ACTION_NONE;
 				return;
 			}
 			else
 			{
-				if ( this->bTeam == gbPlayerNum )
+				if (this->bTeam == gbPlayerNum)
 				{
 					// OK, SET INTERFACE FIRST
-					SetUIBusy( this->ubID );
+					SetUIBusy(this->ubID);
 				}
 
-				this->sTempNewGridNo = NewGridNo( this->sGridNo, (UINT16)DirectionInc( bNewDirection ) );
-
+				this->sTempNewGridNo = NewGridNo(this->sGridNo, (UINT16)DirectionInc(bNewDirection));
 				bNewDirection = gTwoCDirection[bNewDirection];
-
 				this->ubPendingDirection = bNewDirection;
 
 				// Flugente: In case an animation is missing (zombies with bodytype of civilians), we TELEPORT instead
-				if ( IsAnimationValidForBodyType( this, JUMPDOWNWALL ) == FALSE )
+				if (IsAnimationValidForBodyType(this, JUMPDOWNWALL) == FALSE)
 				{
-					SetSoldierHeight( 0.0 );
-					TeleportSoldier( this, this->sTempNewGridNo, TRUE );
-					EndAIGuysTurn( this );
+					SetSoldierHeight(0.0);
+					TeleportSoldier(this, this->sTempNewGridNo, TRUE);
+					EndAIGuysTurn(this);
 				}
 				else
-					this->EVENT_InitNewSoldierAnim( JUMPDOWNWALL, 0, FALSE );
+					this->EVENT_InitNewSoldierAnim(JUMPDOWNWALL, 0, FALSE);
 
-				this->InternalReceivingSoldierCancelServices( FALSE );
-				this->InternalGivingSoldierCancelServices( FALSE );
+				this->InternalReceivingSoldierCancelServices(FALSE);
+				this->InternalGivingSoldierCancelServices(FALSE);
 			}
 		}
+		else
+		{
+			DebugAttackBusy(String("Soldier %d tried to climb down without AP.\n", this->ubID));
+			this->aiData.bAction = AI_ACTION_NONE;
+		}
+	}
+	else
+	{
+		DebugAttackBusy(String("Soldier %d tried to climb down where no roof is.\n", this->ubID));
+		this->aiData.bAction = AI_ACTION_NONE;
 	}
 }
+
 /*
 void BeginSoldierClimbDownRoof( SOLDIERTYPE *pSoldier )
 {
@@ -25044,7 +25060,7 @@ BOOLEAN PlayerTeamIsScanning( )
 // bonus for snipers firing at this location (we get this if there are spotters)
 UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam )
 {
-	INT16 bestvalue = 0;
+	UINT16 bestvalue = 0;
 
 	SOLDIERTYPE* pSoldier = NULL;
 	INT32 cnt = gTacticalStatus.Team[bTeam].bFirstID;
