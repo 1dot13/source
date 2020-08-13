@@ -6,6 +6,47 @@ PaletteTable::PaletteTable() {
 }
 
 PaletteTable::~PaletteTable() {
+	// FREE PALETTES
+	if (this->p8BPPPalette != NULL)
+	{
+		MemFree(this->p8BPPPalette);
+		this->p8BPPPalette = NULL;
+	}
+
+	if (this->p16BPPPalette != NULL)
+	{
+		MemFree(this->p16BPPPalette);
+		this->p16BPPPalette = NULL;
+	}
+
+	for (int cnt = 0; cnt < NUM_SOLDIER_SHADES; cnt++)
+	{
+		if (this->pShades[cnt] != NULL)
+		{
+			MemFree(this->pShades[cnt]);
+			this->pShades[cnt] = NULL;
+		}
+	}
+
+	for (int cnt = 0; cnt < NUM_SOLDIER_EFFECTSHADES; cnt++)
+	{
+		if (this->pEffectShades[cnt] != NULL)
+		{
+			MemFree(this->pEffectShades[cnt]);
+			this->pEffectShades[cnt] = NULL;
+		}
+	}
+
+	// Delete glows
+	for (int cnt = 0; cnt < 20; cnt++)
+	{
+		if (this->pGlowShades[cnt] != NULL)
+		{
+			MemFree(this->pGlowShades[cnt]);
+			this->pGlowShades[cnt] = NULL;
+		}
+
+	}
 }
 
 bool PaletteTable::CreateSGPPaletteFromActFile(SGPPaletteEntry *pPalette, std::string fileName) {

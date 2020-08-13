@@ -131,6 +131,7 @@ int XMLCALL AbstractXMLLoader::ExternalEntityHandler(XML_Parser args, const XML_
 			CHAR8 errorBuf[512];
 			sprintf(errorBuf, "XML Parser Error in external entity %s[%d]: %s", systemId, XML_GetCurrentLineNumber(extParser), XML_ErrorString(XML_GetErrorCode(extParser)));
 			LiveMessage(errorBuf);
+			MemFree(lpcBuffer);
 			return XML_STATUS_ERROR;
 		}
 	} catch (XMLParseException e) {
@@ -138,10 +139,12 @@ int XMLCALL AbstractXMLLoader::ExternalEntityHandler(XML_Parser args, const XML_
 		sprintf(errorBuf, "XML Parser Exception in external entity %s[%d]: %s", systemId, e._LINE, e.what());
 		LiveMessage(errorBuf);
 		XML_ParserFree(extParser);
+		MemFree(lpcBuffer);
 		return XML_STATUS_ERROR;
 	}
 	data->pParser = eArgs->pParser;
 	XML_ParserFree(extParser);
+	MemFree(lpcBuffer);
 	return XML_STATUS_OK;
 };
 
