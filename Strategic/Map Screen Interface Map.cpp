@@ -526,6 +526,7 @@ void ShowTownText( void );
 void DrawTownLabels(STR16 pString, STR16 pStringA,UINT16 usFirstX, UINT16 usFirstY);
 void ShowTeamAndVehicles(INT32 fShowFlags);
 BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor );
+BOOLEAN ShadeMapElements(const INT32(&colorMap)[16][16]);
 void AdjustXForLeftMapEdge(STR16 wString, INT16 *psX, INT32 iFont);
 void BlitTownGridMarkers( void );
 void BlitMineGridMarkers( void );
@@ -709,382 +710,414 @@ void HandleShowingOfEnemiesWithMilitiaOn( void )
 	}
 }
 
-// colour for a sector on the map
-// aType = 0: disease
-// aType = 1: weather
-// aType = 2: intel
-INT32 GetMapColour( INT16 sX, INT16 sY, UINT8 aType )
+
+INT32 GetMapColourForWeather(const INT16 sX, const INT16 sY) noexcept
 {
-	UINT8 sector = SECTOR( sX, sY );
+	const INT32 weatherColors[]{
+		MAP_SHADE_BLACK,
+		MAP_SHADE_LT_CYAN,
+		MAP_SHADE_LT_BLUE,
+		MAP_SHADE_ORANGE,
+		MAP_SHADE_LT_GREY
+	};
 
-	if ( aType == 0 )
-	{		
-		SECTORINFO *pSectorInfo = &( SectorInfo[sector] );
+	const auto sector = SECTOR(sX, sY);
+	const SECTORINFO *const pSectorInfo = &(SectorInfo[sector]);
+	const auto weather = pSectorInfo->usWeather;
 
-		// display sector information only if we know about infection there
-		if ( pSectorInfo && ( ( pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER ) || gubFact[FACT_DISEASE_WHODATA_ACCESS] ) )
+	return weatherColors[weather];
+}
+
+
+void FillMapColoursForWeather(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]) noexcept
+{
+	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
+	{
+		for (UINT8 sX = 0; sX < MAXIMUM_VALID_X_COORDINATE; ++sX)
 		{
-			FLOAT diseaseratio = pSectorInfo->fDiseasePoints / DISEASE_MAX_SECTOR;
+			const auto xCoord = sX + MINIMUM_VALID_X_COORDINATE;
+			const auto yCoord = sY + MINIMUM_VALID_Y_COORDINATE;
 
-			if ( pSectorInfo->fDiseasePoints < 0.1f )
-				return MAP_SHADE_BLACK;
-			else if ( diseaseratio < 0.05f )
-				return MAP_SHADE_DK_GREEN;
-			else if ( diseaseratio < 0.1f )
-				return MAP_SHADE_MD_GREEN;
-			else if ( diseaseratio < 0.25f )
-				return MAP_SHADE_LT_GREEN;
-			else if ( diseaseratio < 0.4f )
-				return MAP_SHADE_MD_YELLOW;
-			else if ( diseaseratio < 0.65f )
-				return MAP_SHADE_ORANGE;
-			else if ( diseaseratio < 0.8f )
-				return MAP_SHADE_DK_RED;
-			else if ( diseaseratio < 0.9f )
-				return MAP_SHADE_MD_RED;
-			else
-				return MAP_SHADE_LT_RED;
+			colorMap[sY][sX] = GetMapColourForWeather(xCoord, yCoord);
 		}
 	}
-	else if ( aType == 1 )
-	{
-		SECTORINFO *pSectorInfo = &( SectorInfo[sector] );
+}
 
-		// display sector information only if we know about infection there
-		if ( pSectorInfo )
+
+void FillMapColoursForIntel(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]) noexcept
+{
+	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
+	{
+		for (UINT8 sX = 0; sX < MAXIMUM_VALID_X_COORDINATE; ++sX)
 		{
-			switch ( pSectorInfo->usWeather )
+			const auto xCoord = sX + MINIMUM_VALID_X_COORDINATE;
+			const auto yCoord = sY + MINIMUM_VALID_Y_COORDINATE;
+			const auto sector = SECTOR(xCoord, yCoord);
+
+			colorMap[sY][sX] = gMapIntelData[sector].mapcolour;
+		}
+	}
+}
+
+
+INT32 GetMapColourForDisease(const INT16 sX, const INT16 sY) noexcept
+{
+	const UINT8 sector = SECTOR(sX, sY);
+	const SECTORINFO *const pSectorInfo = &(SectorInfo[sector]);
+
+	// display sector information only if we know about infection there
+	if (pSectorInfo && ((pSectorInfo->usInfectionFlag & SECTORDISEASE_DIAGNOSED_PLAYER) || gubFact[FACT_DISEASE_WHODATA_ACCESS]))
+	{
+		const FLOAT diseaseratio = pSectorInfo->fDiseasePoints / DISEASE_MAX_SECTOR;
+
+		if (pSectorInfo->fDiseasePoints < 0.1f)
+			return MAP_SHADE_BLACK;
+		else if (diseaseratio < 0.05f)
+			return MAP_SHADE_DK_GREEN;
+		else if (diseaseratio < 0.1f)
+			return MAP_SHADE_MD_GREEN;
+		else if (diseaseratio < 0.25f)
+			return MAP_SHADE_LT_GREEN;
+		else if (diseaseratio < 0.4f)
+			return MAP_SHADE_MD_YELLOW;
+		else if (diseaseratio < 0.65f)
+			return MAP_SHADE_ORANGE;
+		else if (diseaseratio < 0.8f)
+			return MAP_SHADE_DK_RED;
+		else if (diseaseratio < 0.9f)
+			return MAP_SHADE_MD_RED;
+		else
+			return MAP_SHADE_LT_RED;
+	}
+
+	return MAP_SHADE_BLACK;
+}
+
+
+void FillMapColoursForDisease(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]) noexcept
+{
+	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
+	{
+		for (UINT8 sX = 0; sX < MAXIMUM_VALID_X_COORDINATE; ++sX)
+		{
+			const auto xCoord = sX + MINIMUM_VALID_X_COORDINATE;
+			const auto yCoord = sY + MINIMUM_VALID_Y_COORDINATE;
+
+			colorMap[sY][sX] = GetMapColourForDisease(xCoord, yCoord);
+		}
+	}
+}
+
+
+void fillMapColoursForVisitedSectors(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ])
+{
+	auto sectorColor = MAP_SHADE_BLACK;
+	if (gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR])
+	{
+		// HEADROCK HAM 4: An alternate display for the map in normal mode. Unexplored sectors
+		// are in grey, similar to a recon map. Others are left in normal vivid color.
+		sectorColor = MAP_SHADE_DK_GREY;
+	}
+
+	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
+	{
+		for (UINT8 sX = 0; sX < MAXIMUM_VALID_X_COORDINATE; ++sX)
+		{
+			const auto xCoord = sX + MINIMUM_VALID_X_COORDINATE;
+			const auto yCoord = sY + MINIMUM_VALID_Y_COORDINATE;
+
+			// not visited
+			if (GetSectorFlagStatus(xCoord, yCoord, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED) == FALSE)
 			{
-			case WEATHER_FORECAST_RAIN:
-				return MAP_SHADE_LT_CYAN;
-				break;
-			case WEATHER_FORECAST_THUNDERSHOWERS:
-				return MAP_SHADE_LT_BLUE;
-				break;
-			case WEATHER_FORECAST_SANDSTORM:
-				return MAP_SHADE_ORANGE;
-				break;
-			case WEATHER_FORECAST_SNOW:
-				return MAP_SHADE_LT_GREY;
-				break;
-			case WEATHER_FORECAST_NORMAL:
-			default:
-				return MAP_SHADE_BLACK;
-				break;
+				colorMap[sY][sX] = sectorColor;
+			}
+			else
+			{
+				colorMap[sY][sX] = MAP_SHADE_MAX; // Used to mark sectors that will not be shaded
 			}
 		}
 	}
-	else if ( aType == 2 )
-	{
-		return gMapIntelData[sector].mapcolour;
-	}
-
-	return MAP_SHADE_DK_GREY;
 }
 
-UINT32 DrawMap( void )
+
+void fillMapColoursForAirSpace(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ])
 {
-	HVSURFACE hSrcVSurface;
-	UINT32 uiDestPitchBYTES;
-	UINT32 uiSrcPitchBYTES;
-	UINT16  *pDestBuf;
-	UINT8  *pSrcBuf;
-	INT16 cnt, cnt2;
-	INT32 iCounter = 0;
-	INT32 iCounter2 = 0;
-	INT16 sBaseSectorValue = 0;
+	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
+	{
+		for (UINT8 sX = 0; sX < MAXIMUM_VALID_X_COORDINATE; ++sX)
+		{
+			const auto xCoord = sX + MINIMUM_VALID_X_COORDINATE;
+			const auto yCoord = sY + MINIMUM_VALID_Y_COORDINATE;
 
-	//MAP_VIEW_START_X = (SCREEN_WIDTH - 370);
-	//MAP_VIEW_START_Y = 10;
+			const BOOLEAN fAlreadyVisited = GetSectorFlagStatus(xCoord, yCoord, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED);
 
+			if (StrategicMap[xCoord + yCoord * WORLD_MAP_X].usAirType & AIRSPACE_PLAYER_ACTIVE)
+			{
+				if (StrategicMap[xCoord + yCoord * WORLD_MAP_X].usAirType & AIRSPACE_ENEMY_ACTIVE)
+				{
+					// sector not visited and not air controlled
+					colorMap[sY][sX] = fAlreadyVisited ? MAP_SHADE_LT_YELLOW : MAP_SHADE_DK_YELLOW;
+				}
+				else
+				{
+					// sector not visited but air controlled
+					colorMap[sY][sX] = fAlreadyVisited ? MAP_SHADE_LT_GREEN : MAP_SHADE_DK_GREEN;
+				}
+			}
+			else if (StrategicMap[xCoord + yCoord * WORLD_MAP_X].usAirType & AIRSPACE_ENEMY_ACTIVE)
+			{
+				// sector not visited and not air controlled
+				colorMap[sY][sX] = fAlreadyVisited ? MAP_SHADE_LT_RED : MAP_SHADE_DK_RED;
+			}
+			else
+			{
+				// sector not visited, currently nobody controls the airspace
+				//colorMap[sY][sX] = fAlreadyVisited ? MAP_SHADE_LT_BLUE : MAP_SHADE_MD_BLUE;
+				colorMap[sY][sX] = MAP_SHADE_MAX; // Used to mark sectors that will not be shaded
+			}
+		}
+	}
+}
+
+
+void fillMapColoursForSamSiteAirSpace( INT32( &colorMap )[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ] )
+{
+	for (INT16 cnt2 = MINIMUM_VALID_Y_COORDINATE; cnt2 <= MAXIMUM_VALID_Y_COORDINATE; ++cnt2)
+	{
+		for (INT16 cnt = MINIMUM_VALID_X_COORDINATE; cnt <= MAXIMUM_VALID_X_COORDINATE; ++cnt)
+		{
+			BOOLEAN a = FALSE;
+			BOOLEAN b = FALSE;
+			BOOLEAN c = FALSE;
+			BOOLEAN d = FALSE;
+
+			{
+				for (int i = 0; i < NUMBER_OF_SAMS; ++i)
+				{
+					BOOLEAN samworking = FALSE;
+					if (DoesSamCoverSector( i, SECTOR( cnt, cnt2 ), &samworking ) && samworking)
+					{
+						if (i == 0)	a = TRUE;
+						if (i == 1)	b = TRUE;
+						if (i == 2)	c = TRUE;
+						if (i == 3)	d = TRUE;
+					}
+				}
+			}
+
+			const auto x = cnt - MINIMUM_VALID_X_COORDINATE;
+			const auto y = cnt2 - MINIMUM_VALID_Y_COORDINATE;
+			if (a && !b && !c && !d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED;
+			else if (!a && b && !c && !d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_GREEN;
+			else if (!a && !b && c && !d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_BLUE;
+			else if (!a && !b && !c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_YELLOW;
+			else if (a && b && !c && !d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED_GREEN;
+			else if (a && !b && c && !d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED_BLUE;
+			else if (a && !b && !c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED_YELLOW;
+			else if (!a && b && c && !d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_GREEN_BLUE;
+			else if (!a && b && !c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_GREEN_YELLOW;
+			else if (!a && !b && c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_BLUE_YELLOW;
+			else if (a && b && c && !d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED_GREEN_BLUE;
+			else if (a && b && !c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED_GREEN_YELLOW;
+			else if (a && !b && c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED_BLUE_YELLOW;
+			else if (!a && b && c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_GREEN_BLUE_YELLOW;
+			else if (a && b && c && d)
+				colorMap[ y ][ x ] = MAP_SHADE_MIX_RED_GREEN_BLUE_YELLOW;
+		}
+	}
+}
+
+
+UINT32 DrawMap(void)
+{
 	MapScreenRect.iLeft = MAP_VIEW_START_X + MAP_GRID_X - 2;
 	MapScreenRect.iTop = MAP_VIEW_START_Y + MAP_GRID_Y - 1;
 	MapScreenRect.iRight = MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X;
 	MapScreenRect.iBottom = MAP_VIEW_START_Y + MAP_VIEW_HEIGHT - 10 + MAP_GRID_Y;
 
-	//MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),	( MAP_VIEW_START_Y+MAP_GRID_Y - 1), MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
+	if (!iCurrentMapSectorZ)
+	{	// Aboveground sectors
 
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_INTEL )
-	{
-		extern void DetermineMapIntelData(INT32 asSectorZ);
+		UINT32 uiDestPitchBYTES;
+		UINT16 *pDestBuf = (UINT16*)LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
 
-		// This is the location where we should call lua and refill our intel data
-		DetermineMapIntelData( iCurrentMapSectorZ );
-	}
+		HVSURFACE hSrcVSurface;
+		CHECKF(GetVideoSurface(&hSrcVSurface, guiBIGMAP));
+		
+		UINT32 uiSrcPitchBYTES;
+		UINT8 *pSrcBuf = LockVideoSurface(guiBIGMAP, &uiSrcPitchBYTES);
 
-	if( !iCurrentMapSectorZ )
-	{
-		pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
+		Blt8BPPDataTo16BPPBufferHalf(pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf, uiSrcPitchBYTES, MAP_VIEW_START_X + 1, MAP_VIEW_START_Y);
 
-		CHECKF( GetVideoSurface( &hSrcVSurface, guiBIGMAP) );
-		pSrcBuf = LockVideoSurface( guiBIGMAP, &uiSrcPitchBYTES);
+		UnLockVideoSurface(guiBIGMAP);
+		UnLockVideoSurface(guiSAVEBUFFER);
 
-		// clip blits to mapscreen region
-		//ClipBlitsToMapViewRegion( );
 
-		Blt8BPPDataTo16BPPBufferHalf( pDestBuf, uiDestPitchBYTES, hSrcVSurface, pSrcBuf, uiSrcPitchBYTES, MAP_VIEW_START_X + 1, MAP_VIEW_START_Y );
-
-		UnLockVideoSurface( guiBIGMAP );
-		UnLockVideoSurface( guiSAVEBUFFER );
-
-		// draw SAM sites
-		//ShowSAMSitesOnStrategicMap( );
-
-		//UpdateAirspaceControl();
-
-		if ( !iCurrentMapSectorZ )
-		{
-			// shade map sectors (must be done after Tixa/Orta/Mine icons have been blitted, but before icons!)
-			for ( cnt = 1; cnt < MAP_WORLD_X - 1; ++cnt )
+		// shade map sectors (must be done before icons!)
+		if (!is_networked) //Don't shade anything if we're in multiplayer game
+		{		
+			INT32 colorMap[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]{};
+			
+			switch (gusMapDisplayColourMode)
 			{
-				for ( cnt2 = 1; cnt2 < MAP_WORLD_Y - 1; ++cnt2 )
-				{
-					// LATE DESIGN CHANGE: darken sectors not yet visited, instead of those under known enemy control
-					if(!is_networked) //hayden - dont darken anything
-					{
-						switch ( gusMapDisplayColourMode )
-						{
-						case MAP_DISPLAY_AIRSPACE:
-							{
-								BOOLEAN fAlreadyVisited = GetSectorFlagStatus( cnt, cnt2, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED );
+			case MAP_DISPLAY_AIRSPACE:
+			{
+				fillMapColoursForAirSpace(colorMap);
+				ShadeMapElements(colorMap);
+			}
+			break;
 
-								if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType & AIRSPACE_PLAYER_ACTIVE )
-								{
-									if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType & AIRSPACE_ENEMY_ACTIVE )
-									{
-										// sector not visited and not air controlled
-										ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_YELLOW : MAP_SHADE_DK_YELLOW );
-									}
-									else
-									{
-										// sector not visited but air controlled
-										ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_GREEN : MAP_SHADE_DK_GREEN );
-									}
-								}
-								else if ( StrategicMap[cnt + cnt2 * WORLD_MAP_X].usAirType & AIRSPACE_ENEMY_ACTIVE )
-								{
-									// sector not visited and not air controlled
-									ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_RED : MAP_SHADE_DK_RED );
-								}
-								else
-								{
-									// sector not visited, currently nobody controls the airspace
-									//ShadeMapElem( cnt, cnt2, fAlreadyVisited ? MAP_SHADE_LT_BLUE : MAP_SHADE_MD_BLUE );
-								}
-							}
-							break;
+			case MAP_DISPLAY_AIRSPACE_COLOURED_SAMS:
+			{
+				fillMapColoursForSamSiteAirSpace(colorMap);
+				ShadeMapElements(colorMap);
+			}
+			break;
 
-						case MAP_DISPLAY_AIRSPACE_COLOURED_SAMS:
-							{
-								BOOLEAN a = FALSE;
-								BOOLEAN b = FALSE;
-								BOOLEAN c = FALSE;
-								BOOLEAN d = FALSE;
-								BOOLEAN samworking = FALSE;
-								for ( int i = 0; i < NUMBER_OF_SAMS; ++i )
-								{
-									if ( DoesSamCoverSector( i, SECTOR( cnt, cnt2 ), &samworking ) && samworking )
-									{
-										if ( i == 0 )	a = TRUE;
-										else if ( i == 1 )	b = TRUE;
-										else if ( i == 2 )	c = TRUE;
-										else if ( i == 3 )	d = TRUE;
-									}
-								}
+			case MAP_DISPLAY_DISEASE:
+			{
+				FillMapColoursForDisease(colorMap);
+				ShadeMapElements(colorMap);
+				ShowDiseaseOnMap();
+			}
+			break;
 
-								if ( a && !b && !c && !d)
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED );
-								else if ( !a && b && !c && !d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN );
-								else if ( !a && !b && c && !d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_BLUE );
-								else if ( !a && !b && !c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_YELLOW );
-								else if ( a && b && !c && !d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN );
-								else if ( a && !b && c && !d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_BLUE );
-								else if ( a && !b && !c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_YELLOW );
-								else if ( !a && b && c && !d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN_BLUE );
-								else if ( !a && b && !c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN_YELLOW );
-								else if ( !a && !b && c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_BLUE_YELLOW );
-								else if ( a && b && c && !d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN_BLUE );
-								else if ( a && b && !c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN_YELLOW );
-								else if ( a && !b && c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_BLUE_YELLOW );
-								else if ( !a && b && c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_GREEN_BLUE_YELLOW );
-								else if ( a && b && c && d )
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_MIX_RED_GREEN_BLUE_YELLOW );
-							}	
-							break;
-							
-						case MAP_DISPLAY_DISEASE:
-							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 0 ) );
-							break;
+			case MAP_DISPLAY_WEATHER:
+			{
+				FillMapColoursForWeather(colorMap);
+				ShadeMapElements(colorMap);
+			}
+			break;
 
-						case MAP_DISPLAY_WEATHER:
-							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 1 ) );
-							break;
+			case MAP_DISPLAY_INTEL:
+			{
+				// This is the location where we should call lua and refill our intel data
+				extern void DetermineMapIntelData(INT32 asSectorZ);
+				DetermineMapIntelData(iCurrentMapSectorZ);
 
-						case MAP_DISPLAY_INTEL:
-							ShadeMapElem( cnt, cnt2, GetMapColour( cnt, cnt2, 2 ) );
-							break;
+				FillMapColoursForIntel(colorMap);
+				ShadeMapElements(colorMap);
+			}
+			break;
 
-						case MAP_DISPLAY_NORMAL:
-						default:
-							if ( GetSectorFlagStatus( cnt, cnt2, (UINT8)iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
-							{
-								// not visited
-								if ( gGameSettings.fOptions[TOPTION_ALT_MAP_COLOR] )
-								{
-									// HEADROCK HAM 4: An alternate display for the map in normal mode. Unexplored sectors
-									// are in grey, similar to a recon map. Others are left in normal vivid color.
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREY );
-								}
-								else
-								{
-									ShadeMapElem( cnt, cnt2, MAP_SHADE_BLACK );
-								}
-							}
-							break;
-						}
-					}
-				}
+			case MAP_DISPLAY_NORMAL:
+			default:
+			{
+				fillMapColoursForVisitedSectors(colorMap);
+				ShadeMapElements(colorMap);
+			}
+			break;
 			}
 		}
 
 		// UNFORTUNATELY, WE CAN'T SHADE THESE ICONS AS PART OF SHADING THE MAP, BECAUSE FOR AIRSPACE, THE SHADE FUNCTION
 		// DOESN'T MERELY SHADE THE EXISTING MAP SURFACE, BUT INSTEAD GRABS THE ORIGINAL GRAPHICS FROM BIGMAP, AND CHANGES
 		// THEIR PALETTE.  BLITTING ICONS PRIOR TO SHADING WOULD MEAN THEY DON'T SHOW UP IN AIRSPACE VIEW AT ALL.
-		
-		for (cnt = 1; cnt < NUM_TOWNS; ++cnt)
+
+		for (INT16 cnt = 1; cnt < NUM_TOWNS; ++cnt)
 		{
-			if ( gfHiddenTown[cnt] && gfIconTown[cnt] && gfDrawHiddenTown[cnt] )
+			if (gfHiddenTown[cnt] && gfIconTown[cnt] && gfDrawHiddenTown[cnt])
 			{
-				sBaseSectorValue = sBaseSectorList[ cnt-1 ];
-					
-				INT8 bTownId = GetTownIdForSector( SECTORX( sBaseSectorValue ), SECTORY( sBaseSectorValue ) );
-				if ( /*bTownId != 0 &&*/ bTownId < NUM_TOWNS )
+				const INT16 sBaseSectorValue = sBaseSectorList[cnt - 1];
+
+				const INT8 bTownId = GetTownIdForSector(SECTORX(sBaseSectorValue), SECTORY(sBaseSectorValue));
+				if (bTownId < NUM_TOWNS)
 				{
-					DrawIconL( gHiddenIcon[cnt].IconX, gHiddenIcon[cnt].IconY, cnt );
-				}	
+					DrawIconL(gHiddenIcon[cnt].IconX, gHiddenIcon[cnt].IconY, cnt);
+				}
 			}
 		}
 
-		/*
-		// if Orta found
-		if( fFoundOrta )
-		{
-			DrawOrta();
-		}
 
-		// if Tixa found
-		if( fFoundTixa )
-		{
-			DrawTixa();
-		}
-		*/
-		
 		// draw SAM sites
-		ShowSAMSitesOnStrategicMap( );
+		ShowSAMSitesOnStrategicMap();
 
 		// draw mine icons
-		for( iCounter = 0; iCounter < MAX_NUMBER_OF_MINES; ++iCounter )
+		for (INT32 iCounter = 0; iCounter < MAX_NUMBER_OF_MINES; ++iCounter)
 		{
-			//BlitMineIcon( gMineLocation[ iCounter ].sSectorX, gMineLocation[ iCounter ].sSectorY );
-			BlitMineIcon( gMineStatus[ iCounter ].sSectorX, gMineStatus[ iCounter ].sSectorY );
+			BlitMineIcon(gMineStatus[iCounter].sSectorX, gMineStatus[iCounter].sSectorY);
 		}
 
 		// if mine details filter is set
-		if( fShowMineFlag )
+		if (fShowMineFlag)
 		{
 			// show mine name/production text
-			for( iCounter = 0; iCounter < MAX_NUMBER_OF_MINES; ++iCounter )
+			for (INT32 iCounter = 0; iCounter < MAX_NUMBER_OF_MINES; ++iCounter)
 			{
-				//BlitMineText( gMineLocation[ iCounter ].sSectorX, gMineLocation[ iCounter ].sSectorY );
-				BlitMineText( gMineStatus[ iCounter ].sSectorX, gMineStatus[ iCounter ].sSectorY );
+				BlitMineText(gMineStatus[iCounter].sSectorX, gMineStatus[iCounter].sSectorY);
 			}
 		}
 
 		// draw towns names & loyalty ratings, and grey town limit borders
-		if( fShowTownFlag )
+		if (fShowTownFlag)
 		{
-			BlitTownGridMarkers( );
-			ShowTownText( );
+			BlitTownGridMarkers();
+			ShowTownText();
 		}
 
 		// draw militia icons
-		if( fShowMilitia )
+		if (fShowMilitia)
 		{
-			DrawTownMilitiaForcesOnMap( );
+			DrawTownMilitiaForcesOnMap();
 		}
-		
-		if ( is_networked	//haydent (allow client to see map deployment bullseye)
-		|| (( gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS ) && !gfInChangeArrivalSectorMode ) )
+
+		if ((gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE || gusMapDisplayColourMode == MAP_DISPLAY_AIRSPACE_COLOURED_SAMS) && !gfInChangeArrivalSectorMode)
 		{
 			DrawBullseye();
+		}
+		else if (is_networked)
+		{
+			DrawBullseye();//haydent (allow client to see map deployment bullseye)
 		}
 	}
 	else
 	{
-		HandleLowerLevelMapBlit( );
+		HandleLowerLevelMapBlit();
 	}
 
 	// show mine outlines even when viewing underground sublevels - they indicate where the mine entrances are
-	if ( fShowMineFlag )
+	if (fShowMineFlag)
 	{
 		// draw grey mine sector borders
-		BlitMineGridMarkers( );
+		BlitMineGridMarkers();
 	}
 
-	// do not show mercs/vehicles when airspace is ON
-// commented out on a trial basis!
-//	if( gusMapDisplayColourMode != MAP_DISPLAY_AIRSPACE )
+
+	if (fShowTeamFlag)
 	{
-		if( fShowTeamFlag )
-			ShowTeamAndVehicles( SHOW_TEAMMATES | SHOW_VEHICLES );
-		else
-			HandleShowingOfEnemiesWithMilitiaOn( );
-
-/*
-		if((fShowTeamFlag)&&(fShowVehicleFlag))
 		ShowTeamAndVehicles(SHOW_TEAMMATES | SHOW_VEHICLES);
-		else if(fShowTeamFlag)
-			ShowTeamAndVehicles(SHOW_TEAMMATES);
-		else if(fShowVehicleFlag)
-			ShowTeamAndVehicles(SHOW_VEHICLES);
-		else
-		{
-			HandleShowingOfEnemiesWithMilitiaOn( );
-		}
-*/
+	}
+	else
+	{
+		HandleShowingOfEnemiesWithMilitiaOn();
 	}
 
-	if ( fShowItemsFlag )
+
+	if (fShowItemsFlag)
 	{
 		ShowItemsOnMap();
 	}
 
-	if ( gusMapDisplayColourMode == MAP_DISPLAY_DISEASE )
-	{
-		ShowDiseaseOnMap( );
-	}
 
-	DisplayLevelString( );
+	DisplayLevelString();
 
-	RestoreClipRegionToFullScreen( );
+	RestoreClipRegionToFullScreen();
 
-	// Flugente: this function does not do anything... so I'm commenting its use out
-	//CheckForSoldiersWhoRetreatedIntoMilitiaHeldSectors();
-
-	return( TRUE );
+	return(TRUE);
 }
 
 
@@ -1579,6 +1612,135 @@ BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor )
 
 	return ( TRUE );
 }
+
+
+
+BOOLEAN ShadeMapElements(const INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ])
+{
+	// get original video surface palette
+	HVSURFACE hSrcVSurface;
+	CHECKF(GetVideoSurface(&hSrcVSurface, guiBIGMAP));
+	UINT16 * const pOriginalPallette = hSrcVSurface->p16BPPPalette;
+
+	// Lock source buffer
+	UINT32 uiSrcPitchBYTES;
+	UINT8  *pSrcBuffer;
+	pSrcBuffer = LockVideoSurface(guiBIGMAP, &uiSrcPitchBYTES);
+
+	// get SAVEBUFFER
+	HVSURFACE hVSurface;
+	CHECKF(GetVideoSurface(&hVSurface, guiSAVEBUFFER));
+
+	// Lock destination buffer
+	UINT32 uiDestPitch;
+	UINT16 *pDestBuffer;
+	pDestBuffer = (UINT16*)LockVideoSurface(guiSAVEBUFFER, &uiDestPitch);
+
+	if (pDestBuffer == NULL)
+	{
+		return(FALSE);
+	}
+
+
+	for (INT16 y = 0; y < MAXIMUM_VALID_Y_COORDINATE; ++y)
+	{
+		for (INT16 x = 0; x < MAXIMUM_VALID_X_COORDINATE; ++x)
+		{
+			const INT16 mapX = x + MINIMUM_VALID_X_COORDINATE;
+			const INT16 mapY = y + MINIMUM_VALID_Y_COORDINATE;
+
+			INT16	sScreenX, sScreenY;
+			GetScreenXYFromMapXY(mapX, mapY, &sScreenX, &sScreenY);
+
+			// compensate for original BIG_MAP blit being done at MAP_VIEW_START_X + 1
+			sScreenX += 1;
+
+			// compensate for original BIG_MAP blit being done at MAP_VIEW_START_X + 1
+			SGPRect clip;
+			clip.iLeft = 2 * (sScreenX - (MAP_VIEW_START_X + 1));
+			clip.iTop = 2 * (sScreenY - MAP_VIEW_START_Y);
+			clip.iRight = clip.iLeft + (2 * MAP_GRID_X);
+			clip.iBottom = clip.iTop + (2 * MAP_GRID_Y);
+
+
+			const auto iColor = colorMap[y][x];
+			if (iColor == MAP_SHADE_BLACK)
+			{
+				// non-airspace
+				sScreenY -= 1;
+
+				auto X1 = sScreenX;
+				auto Y1 = sScreenY;
+				auto X2 = sScreenX + MAP_GRID_X - 1;
+				auto Y2 = sScreenY + MAP_GRID_Y - 1;
+#ifdef _DEBUG
+				if (X1 < 0)
+					X1 = 0;
+
+				if (X2 < 0)
+					continue;
+				//return(FALSE);
+
+				if (Y2 < 0)
+					continue;
+				//return(FALSE);
+
+				if (Y1 < 0)
+					Y1 = 0;
+
+				if (X2 >= hVSurface->usWidth)
+					X2 = hVSurface->usWidth - 1;
+
+				if (Y2 >= hVSurface->usHeight)
+					Y2 = hVSurface->usHeight - 1;
+
+				if (X1 >= hVSurface->usWidth)
+					continue;
+				//return(FALSE);
+
+				if (Y1 >= hVSurface->usHeight)
+					continue;
+				//return(FALSE);
+
+				if ((X2 - X1) <= 0)
+					continue;
+				//return(FALSE);
+
+				if ((Y2 - Y1) <= 0)
+					continue;
+				//return(FALSE);
+#endif
+
+				SGPRect   area;
+				area.iTop = Y1;
+				area.iBottom = Y2;
+				area.iLeft = X1;
+				area.iRight = X2;
+
+
+				// Now we have the video object and surface, call the shadow function
+				Blt16BPPBufferShadowRect(pDestBuffer, uiDestPitch, &area);
+			}
+			else if (iColor < MAP_SHADE_MAX)
+			{
+				// Set palette for shading
+				hSrcVSurface->p16BPPPalette = pMapPalette[iColor];
+				Blt8BPPDataTo16BPPBufferHalfRect(pDestBuffer, uiDestPitch, hSrcVSurface, pSrcBuffer, uiSrcPitchBYTES, sScreenX, sScreenY, &clip);
+			}
+		}
+	}
+
+	// unlock source and dest buffers
+	UnLockVideoSurface(guiBIGMAP);
+	UnLockVideoSurface(guiSAVEBUFFER);
+
+	// restore original palette
+	CHECKF(GetVideoSurface(&hSrcVSurface, guiBIGMAP));
+	hSrcVSurface->p16BPPPalette = pOriginalPallette;
+
+	return (TRUE);
+}
+
 
 
 void InitializeMilitiaPopup(void)
