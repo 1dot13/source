@@ -487,7 +487,7 @@ HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDe
 
 		return( DD_OK );
 	}
-	else if ( uiFlags == DDBLT_WAIT )
+	else if ( (pSrcRect != nullptr) && (uiFlags == DDBLT_WAIT) )
 	{
 		// Lock surfaces
 		DDLockSurface( (LPDIRECTDRAWSURFACE2)pSrcSurface, NULL, &SurfaceDescription, 0, NULL);
@@ -501,12 +501,12 @@ HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDe
 					( pSrcRect->right - pSrcRect->left ),
 					( pSrcRect->bottom - pSrcRect->top ) );
 	}
-	else if ( uiFlags & DDBLT_KEYSRC )
+	else if ((pSrcSurface != nullptr) && (pSrcRect != nullptr) && (uiFlags & DDBLT_KEYSRC ))
 	{
 		// Get 16 bpp color key.....
-		ReturnCode = IDirectDrawSurface2_GetColorKey( pSrcSurface, DDCKEY_SRCBLT, &ColorKey); // FIXME: pSrcSurface might be NULL
+		ReturnCode = IDirectDrawSurface2_GetColorKey( pSrcSurface, DDCKEY_SRCBLT, &ColorKey);
 
-	if (ReturnCode == DD_OK)
+		if (ReturnCode == DD_OK)
 		{
 			us16BPPColorKey = (UINT16)ColorKey.dwColorSpaceLowValue;
 
