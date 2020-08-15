@@ -6170,7 +6170,8 @@ BlitDispatch:
 BlitNTL1:
 		mov		ax, [ebx]								// check z-level of pixel
 		cmp		ax, usZLevel
-		jae		BlitPixellate1
+		//jae		BlitPixellate1 // Original comparison
+		ja		BlitPixellate1 // Due to lobot layers having the same z-level, the comparison would pixelate merc's layers against each other. Now we pixelate ONLY if the comparison is above.
 		jmp		BlitPixel1
 
 BlitPixellate1:
