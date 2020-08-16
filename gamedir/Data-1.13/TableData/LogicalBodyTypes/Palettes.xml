@@ -3,4 +3,5 @@
 	<!--<Palette name = "default" filename = "Palettes\default.act" />	-->
 	<Palette name = "hats" filename = "Palettes\Hats.stp" />
 	<Palette name = "guns_universal" filename = "Palettes\guns_universal.stp" />
+	<Palette name = "guns_AK" filename = "Palettes\guns_AK.stp" />
 </Palettes>

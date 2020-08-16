@@ -8,39 +8,71 @@
 	</Filter>
 	<Filter name="FlakJacket">
 		<AND>
-			<BODYTYPE>REGMALE</BODYTYPE>
 			<VESTPOS op="in">161</VESTPOS>
 		</AND>
 	</Filter>
 	<Filter name="IsWearingHat">
 		<AND>
-			<BODYTYPE>REGMALE</BODYTYPE>
 			<HELMETPOS op="in">285</HELMETPOS>
 		</AND>
 	</Filter>
 	<Filter name="IsWearingHelmet">
 		<AND>
-			<BODYTYPE>REGMALE</BODYTYPE>
 			<HELMETPOS op="in">176</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBeret">
+		<AND>
+			<HELMETPOS op="in">288</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBeretAndHasRifle">
+		<AND>
+			<HELMETPOS op="in">288</HELMETPOS>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
 		</AND>
 	</Filter>
 	<Filter name="Knees">
 		<AND>
-			<BODYTYPE>REGMALE</BODYTYPE>
 			<LEGPOS op="in">838</LEGPOS>
 		</AND>
 	</Filter>
 	<Filter name="IsWearingBackpack">
 		<AND>
-			<BODYTYPE>REGMALE</BODYTYPE>
 			<BPACKPOCKPOS op="in">1094</BPACKPOCKPOS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingBackpackAndHasRifle">
+		<AND>
+			<BPACKPOCKPOS op="in">1094</BPACKPOCKPOS>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
 		</AND>
 	</Filter>
 	<Filter name="IsShotgun">
 		<AND>
-			<BODYTYPE>REGMALE</BODYTYPE>
 			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
 			<WEAPON_TYPE>GUN_SHOTGUN</WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="IsAKtypeWeapon">
+		<AND>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+			<WEAPON_TYPE>GUN_AS_RIFLE</WEAPON_TYPE>
+			<HANDPOS op="in">14, 25, 26, 347, 612, 613, 614, 615, 708, 785</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasARInHand">
+		<AND>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+		</AND>
+	</Filter>
+	<Filter name="IsPistol">
+		<AND>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
 		</AND>
 	</Filter>
 		<!-- Matches all soldier objects, that are supposed to be rendered as average height regular male -->

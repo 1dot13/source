@@ -1,12 +1,172 @@
 <!-- note that this is an external entity, so it is not a valid xml file by itself -->
 
+<!-- Crouched walk, rifle at the ready -->
 <AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HEAD" file="Anims\LOBOT\RGM\crouched_walk_rifle_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HANDS" file="Anims\LOBOT\RGM\crouched_walk_rifle_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_TORSO" file="Anims\LOBOT\RGM\crouched_walk_rifle_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_LEGS" file="Anims\LOBOT\RGM\crouched_walk_rifle_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_SHADOW" file="Anims\LOBOT\RGM\crouched_walk_rifle_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_AR" file="Anims\LOBOT\RGM\crouched_walk_rifle_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
-<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_SHOTGUN" file="Anims\LOBOT\RGM\crouched_walk_shotgun.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
 <AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_BP" file="Anims\LOBOT\RGM\crouched_walk_rifle_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
-<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HAT" file="Anims\LOBOT\RGM\crouched_walk_rifle_hat.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
-<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_HELMET" file="Anims\LOBOT\RGM\crouched_walk_rifle_helmet.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_CROUCH_BERET" file="Anims\LOBOT\RGM\crouched_walk_rifle_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<!-- Crouched walk, pistol at the ready -->
+<AnimSurface name="LBT_RGM_CROUCHWALK_PISTOL_HEAD" file="Anims\LOBOT\RGM\crouched_walk_pistol_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_PISTOL_HANDS" file="Anims\LOBOT\RGM\crouched_walk_pistol_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_PISTOL_TORSO" file="Anims\LOBOT\RGM\crouched_walk_pistol_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_PISTOL_LEGS" file="Anims\LOBOT\RGM\crouched_walk_pistol_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_PISTOL_SHADOW" file="Anims\LOBOT\RGM\crouched_walk_pistol_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_PISTOL" file="Anims\LOBOT\RGM\crouched_walk_pistol.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<!-- Crouched walk, dual pistols at the ready -->
+<AnimSurface name="LBT_RGM_CROUCHWALK_DUAL_HEAD" file="Anims\LOBOT\RGM\crouched_walk_dual_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_DUAL_HANDS" file="Anims\LOBOT\RGM\crouched_walk_dual_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_DUAL_TORSO" file="Anims\LOBOT\RGM\crouched_walk_dual_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_DUAL_LEGS" file="Anims\LOBOT\RGM\crouched_walk_dual_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_DUAL_SHADOW" file="Anims\LOBOT\RGM\crouched_walk_dual_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_CROUCHWALK_DUAL" file="Anims\LOBOT\RGM\crouched_walk_dual.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="24" profile="-1" />
+<!-- Walk, rifle at the ready -->
+<AnimSurface name="LBT_RGMRIFLE_WALK_HEAD" file="Anims\LOBOT\RGM\S_R_RDY_WALK_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_HANDS" file="Anims\LOBOT\RGM\S_R_RDY_WALK_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_TORSO" file="Anims\LOBOT\RGM\S_R_RDY_WALK_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_LEGS" file="Anims\LOBOT\RGM\S_R_RDY_WALK_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_SHADOW" file="Anims\LOBOT\RGM\S_R_RDY_WALK_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_AR" file="Anims\LOBOT\RGM\S_R_RDY_WALK_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_BP" file="Anims\LOBOT\RGM\S_R_RDY_WALK_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_WALK_BERET" file="Anims\LOBOT\RGM\S_R_RDY_WALK_BERET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<!-- Standing, rifle idle -->
+<AnimSurface name="LBT_RGMRIFLE_IDLE_HEAD" file="Anims\LOBOT\RGM\S_R_STD_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_HANDS" file="Anims\LOBOT\RGM\S_R_STD_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_TORSO" file="Anims\LOBOT\RGM\S_R_STD_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_LEGS" file="Anims\LOBOT\RGM\S_R_STD_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_SHADOW" file="Anims\LOBOT\RGM\S_R_STD_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_AR" file="Anims\LOBOT\RGM\S_R_STD_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_BP" file="Anims\LOBOT\RGM\S_R_STD_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_IDLE_BERET" file="Anims\LOBOT\RGM\S_R_STD_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<!-- Walk, rifle idle -->
+<AnimSurface name="LBT_RGMBASICWALK_HEAD" file="Anims\LOBOT\RGM\RGM_BASICWALK_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMBASICWALK_HANDS" file="Anims\LOBOT\RGM\RGM_BASICWALK_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMBASICWALK_TORSO" file="Anims\LOBOT\RGM\RGM_BASICWALK_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMBASICWALK_LEGS" file="Anims\LOBOT\RGM\RGM_BASICWALK_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMBASICWALK_SHADOW" file="Anims\LOBOT\RGM\RGM_BASICWALK_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMBASICWALK_AR" file="Anims\LOBOT\RGM\RGM_BASICWALK_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMBASICWALK_BP" file="Anims\LOBOT\RGM\RGM_BASICWALK_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMBASICWALK_BERET" file="Anims\LOBOT\RGM\RGM_BASICWALK_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<!-- Standing to crouch, rifle -->
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_HEAD" file="Anims\LOBOT\RGM\S_R_C_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_HANDS" file="Anims\LOBOT\RGM\S_R_C_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_TORSO" file="Anims\LOBOT\RGM\S_R_C_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_LEGS" file="Anims\LOBOT\RGM\S_R_C_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_SHADOW" file="Anims\LOBOT\RGM\S_R_C_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_AR" file="Anims\LOBOT\RGM\S_R_C_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_BP" file="Anims\LOBOT\RGM\S_R_C_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CROUCH_BERET" file="Anims\LOBOT\RGM\S_R_C_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="15" profile="-1" />
+<!-- Crouched walk, rifle -->
+<AnimSurface name="LBT_RGMRIFLE_SWAT_HEAD" file="Anims\LOBOT\RGM\S_R_SWAT_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SWAT_HANDS" file="Anims\LOBOT\RGM\S_R_SWAT_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SWAT_TORSO" file="Anims\LOBOT\RGM\S_R_SWAT_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SWAT_LEGS" file="Anims\LOBOT\RGM\S_R_SWAT_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SWAT_SHADOW" file="Anims\LOBOT\RGM\S_R_SWAT_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SWAT_AR" file="Anims\LOBOT\RGM\S_R_SWAT_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SWAT_BP" file="Anims\LOBOT\RGM\S_R_SWAT_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SWAT_BERET" file="Anims\LOBOT\RGM\S_R_SWAT_BERET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="22" profile="-1" />
+<!-- Sidestep, rifle -->
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_HEAD" file="Anims\LOBOT\RGM\S_R_SDSP_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_HANDS" file="Anims\LOBOT\RGM\S_R_SDSP_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_TORSO" file="Anims\LOBOT\RGM\S_R_SDSP_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_LEGS" file="Anims\LOBOT\RGM\S_R_SDSP_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_SHADOW" file="Anims\LOBOT\RGM\S_R_SDSP_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_AR" file="Anims\LOBOT\RGM\S_R_SDSP_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_BP" file="Anims\LOBOT\RGM\S_R_SDSP_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_SIDESTEP_BERET" file="Anims\LOBOT\RGM\S_R_SDSP_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<!-- Run, rifle idle -->
+<AnimSurface name="LBT_RGMRUNNING_HEAD" file="Anims\LOBOT\RGM\S_R_RUN_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRUNNING_HANDS" file="Anims\LOBOT\RGM\S_R_RUN_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRUNNING_TORSO" file="Anims\LOBOT\RGM\S_R_RUN_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRUNNING_LEGS" file="Anims\LOBOT\RGM\S_R_RUN_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRUNNING_SHADOW" file="Anims\LOBOT\RGM\S_R_RUN_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRUNNING_AR" file="Anims\LOBOT\RGM\S_R_RUN_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRUNNING_BP" file="Anims\LOBOT\RGM\S_R_RUN_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<AnimSurface name="LBT_RGMRUNNING_BERET" file="Anims\LOBOT\RGM\S_R_RUN_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="12" profile="-1" />
+<!-- Standing, raise rifle to idle -->
+<AnimSurface name="LBT_RGMRIFLE_RAISE_HEAD" file="Anims\LOBOT\RGM\S_RAISE_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_RAISE_HANDS" file="Anims\LOBOT\RGM\S_RAISE_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_RAISE_TORSO" file="Anims\LOBOT\RGM\S_RAISE_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_RAISE_LEGS" file="Anims\LOBOT\RGM\S_RAISE_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_RAISE_SHADOW" file="Anims\LOBOT\RGM\S_RAISE_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_RAISE_AR" file="Anims\LOBOT\RGM\S_RAISE_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_RAISE_BP" file="Anims\LOBOT\RGM\S_RAISE_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_RAISE_BERET" file="Anims\LOBOT\RGM\S_RAISE_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<!-- Standing, rifle aim & shoot -->
+<AnimSurface name="LBT_RGMRIFLE_AIM_HEAD" file="Anims\LOBOT\RGM\S_SR_AIM_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_HANDS" file="Anims\LOBOT\RGM\S_SR_AIM_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_TORSO" file="Anims\LOBOT\RGM\S_SR_AIM_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_LEGS" file="Anims\LOBOT\RGM\S_SR_AIM_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_SHADOW" file="Anims\LOBOT\RGM\S_SR_AIM_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_AR" file="Anims\LOBOT\RGM\S_SR_AIM_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_BP" file="Anims\LOBOT\RGM\S_SR_AIM_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_AIM_BERET" file="Anims\LOBOT\RGM\S_SR_AIM_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="21" profile="-1" />
+<!-- Crouched, rifle aim & shoot -->
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_HEAD" file="Anims\LOBOT\RGM\S_CR_AIM_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_HANDS" file="Anims\LOBOT\RGM\S_CR_AIM_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_TORSO" file="Anims\LOBOT\RGM\S_CR_AIM_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_LEGS" file="Anims\LOBOT\RGM\S_CR_AIM_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_SHADOW" file="Anims\LOBOT\RGM\S_CR_AIM_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_AR" file="Anims\LOBOT\RGM\S_CR_AIM_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_BP" file="Anims\LOBOT\RGM\S_CR_AIM_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_CR_AIM_BERET" file="Anims\LOBOT\RGM\S_CR_AIM_BERET.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_CROUCH.JSD" directions = "8" framesperdir="18" profile="-1" />
+<!-- Prone, rifle crawl and shoot -->
+<AnimSurface name="LBT_RGMRIFLE_PRONE_HEAD" file="Anims\LOBOT\RGM\S_R_PRN_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_PRONE_HANDS" file="Anims\LOBOT\RGM\S_R_PRN_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_PRONE_TORSO" file="Anims\LOBOT\RGM\S_R_PRN_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_PRONE_LEGS" file="Anims\LOBOT\RGM\S_R_PRN_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_PRONE_SHADOW" file="Anims\LOBOT\RGM\S_R_PRN_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_PRONE_AR" file="Anims\LOBOT\RGM\S_R_PRN_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_PRONE_BP" file="Anims\LOBOT\RGM\S_R_PRN_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<AnimSurface name="LBT_RGMRIFLE_PRONE_BERET" file="Anims\LOBOT\RGM\S_R_PRN_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_PRONE.JSD" directions = "8" framesperdir="29" profile="-1" />
+<!-- Standing, hop fence -->
+<AnimSurface name="LBT_RGM_HOP_HEAD" file="Anims\LOBOT\RGM\S_HOP_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGM_HOP_HANDS" file="Anims\LOBOT\RGM\S_HOP_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGM_HOP_TORSO" file="Anims\LOBOT\RGM\S_HOP_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGM_HOP_LEGS" file="Anims\LOBOT\RGM\S_HOP_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGM_HOP_SHADOW" file="Anims\LOBOT\RGM\S_HOP_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
+<AnimSurface name="LBT_RGM_HOP_BERET" file="Anims\LOBOT\RGM\S_HOP_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "4" framesperdir="18" profile="-1" />
+<!-- Standing, punch -->
+<AnimSurface name="LBT_RGM_PUNCH_HEAD" file="Anims\LOBOT\RGM\S_PUNCH_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_PUNCH_HANDS" file="Anims\LOBOT\RGM\S_PUNCH_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_PUNCH_TORSO" file="Anims\LOBOT\RGM\S_PUNCH_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_PUNCH_LEGS" file="Anims\LOBOT\RGM\S_PUNCH_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_PUNCH_SHADOW" file="Anims\LOBOT\RGM\S_PUNCH_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_PUNCH_BP" file="Anims\LOBOT\RGM\S_PUNCH_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<AnimSurface name="LBT_RGM_PUNCH_BERET" file="Anims\LOBOT\RGM\S_PUNCH_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="24" profile="-1" />
+<!-- Standing, idle, empty hands -->
+<AnimSurface name="LBT_RGM_IDLE_HEAD" file="Anims\LOBOT\RGM\S_N_STD_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGM_IDLE_HANDS" file="Anims\LOBOT\RGM\S_N_STD_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGM_IDLE_TORSO" file="Anims\LOBOT\RGM\S_N_STD_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGM_IDLE_LEGS" file="Anims\LOBOT\RGM\S_N_STD_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGM_IDLE_SHADOW" file="Anims\LOBOT\RGM\S_N_STD_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGM_IDLE_BP" file="Anims\LOBOT\RGM\S_N_STD_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_RGM_IDLE_BERET" file="Anims\LOBOT\RGM\S_N_STD_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<!-- Standing, open door, empty hands -->
+<AnimSurface name="LBT_RGM_OPEN_HEAD" file="Anims\LOBOT\RGM\S_OPEN_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_OPEN_HANDS" file="Anims\LOBOT\RGM\S_OPEN_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_OPEN_TORSO" file="Anims\LOBOT\RGM\S_OPEN_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_OPEN_LEGS" file="Anims\LOBOT\RGM\S_OPEN_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_OPEN_SHADOW" file="Anims\LOBOT\RGM\S_OPEN_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_OPEN_BP" file="Anims\LOBOT\RGM\S_OPEN_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_OPEN_BERET" file="Anims\LOBOT\RGM\S_OPEN_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<!-- Standing, open door, rifle in hand -->
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_HEAD" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_HANDS" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_TORSO" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_LEGS" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_SHADOW" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_AR" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_BP" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<AnimSurface name="LBT_RGM_RIFLE_OPEN_BERET" file="Anims\LOBOT\RGM\S_RIFLE_OPEN_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="10" profile="-1" />
+<!-- Standing, pickup from ground, empty hands -->
+<AnimSurface name="LBT_RGM_PICKUP_HEAD" file="Anims\LOBOT\RGM\S_PICKUP_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGM_PICKUP_HANDS" file="Anims\LOBOT\RGM\S_PICKUP_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGM_PICKUP_TORSO" file="Anims\LOBOT\RGM\S_PICKUP_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGM_PICKUP_LEGS" file="Anims\LOBOT\RGM\S_PICKUP_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGM_PICKUP_SHADOW" file="Anims\LOBOT\RGM\S_PICKUP_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGM_PICKUP_BP" file="Anims\LOBOT\RGM\S_PICKUP_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
+<AnimSurface name="LBT_RGM_PICKUP_BERET" file="Anims\LOBOT\RGM\S_PICKUP_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="5" profile="-1" />
