@@ -711,7 +711,7 @@ void HandleShowingOfEnemiesWithMilitiaOn( void )
 }
 
 
-INT32 GetMapColourForWeather(const INT16 sX, const INT16 sY) noexcept
+INT32 GetMapColourForWeather(const INT16 sX, const INT16 sY)
 {
 	const INT32 weatherColors[]{
 		MAP_SHADE_BLACK,
@@ -729,7 +729,7 @@ INT32 GetMapColourForWeather(const INT16 sX, const INT16 sY) noexcept
 }
 
 
-void FillMapColoursForWeather(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]) noexcept
+void FillMapColoursForWeather(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ])
 {
 	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
 	{
@@ -744,7 +744,7 @@ void FillMapColoursForWeather(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MA
 }
 
 
-void FillMapColoursForIntel(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]) noexcept
+void FillMapColoursForIntel(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ])
 {
 	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
 	{
@@ -760,7 +760,7 @@ void FillMapColoursForIntel(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXI
 }
 
 
-INT32 GetMapColourForDisease(const INT16 sX, const INT16 sY) noexcept
+INT32 GetMapColourForDisease(const INT16 sX, const INT16 sY)
 {
 	const UINT8 sector = SECTOR(sX, sY);
 	const SECTORINFO *const pSectorInfo = &(SectorInfo[sector]);
@@ -794,7 +794,7 @@ INT32 GetMapColourForDisease(const INT16 sX, const INT16 sY) noexcept
 }
 
 
-void FillMapColoursForDisease(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]) noexcept
+void FillMapColoursForDisease(INT32(&colorMap)[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ])
 {
 	for (UINT8 sY = 0; sY < MAXIMUM_VALID_Y_COORDINATE; ++sY)
 	{
