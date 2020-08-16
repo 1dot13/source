@@ -902,7 +902,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		if (pSoldier->bBlindedCounter > 0)
 			return;
 
-		ubSafetyMargin = (UINT8)Explosive[Item[pSoldier->inv[bPayloadPocket].usItem].ubClassIndex].ubRadius;
+		usGrenade = pSoldier->inv[bPayloadPocket].usItem;
+		ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[usGrenade].ubClassIndex].ubRadius, min(TACTICAL_RANGE / 2, Explosive[Item[usGrenade].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 		fMortar = TRUE;
 	}
 	// if he's got a GL in his hand, make sure he has some type of GRENADE avail.
@@ -924,13 +925,13 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		OBJECTTYPE *pAttachment = FindLaunchableAttachment(&pSoldier->inv[bPayloadPocket], usInHand);
 		if(pAttachment->exists())
 		{
-			ubSafetyMargin = (UINT8)Explosive[Item[pAttachment->usItem].ubClassIndex].ubRadius;
 			usGrenade = pAttachment->usItem;
+			ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[usGrenade].ubClassIndex].ubRadius, min(TACTICAL_RANGE / 2, Explosive[Item[usGrenade].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 		}
 		else if((bPayloadPocket=FindAmmoToReload(pSoldier, bPayloadPocket, NO_SLOT)) != NO_SLOT)
 		{
-			ubSafetyMargin = (UINT8)Explosive[Item[pSoldier->inv[bPayloadPocket].usItem].ubClassIndex].ubRadius;
 			usGrenade = pSoldier->inv[bPayloadPocket].usItem;
+			ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[usGrenade].ubClassIndex].ubRadius, min(TACTICAL_RANGE / 2, Explosive[Item[usGrenade].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 		}
 		else
 		{
@@ -953,13 +954,13 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			if (Item[usInHand].usBuddyItem && Item[Item[usInHand].usBuddyItem].usItemClass & IC_EXPLOSV)
 			{
 				usGrenade = Item[usInHand].usBuddyItem;
-				ubSafetyMargin = (UINT8)Explosive[Item[Item[usInHand].usBuddyItem].ubClassIndex].ubRadius;
+				ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[usGrenade].ubClassIndex].ubRadius, min(TACTICAL_RANGE / 2, Explosive[Item[usGrenade].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 			}
 			else
 			{
 				// as C1
 				usGrenade = C1;
-				ubSafetyMargin = (UINT8)Explosive[Item[C1].ubClassIndex].ubRadius;
+				ubSafetyMargin = (UINT8)(1 + Explosive[Item[usGrenade].ubClassIndex].ubRadius);
 			}
 		}
 		else
@@ -973,8 +974,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			{
 				return;	// no ammo, can't fire
 			}
-			ubSafetyMargin = (UINT8)Explosive[Item[pSoldier->inv[bPayloadPocket].usItem].ubClassIndex].ubRadius;
 			usGrenade = pSoldier->inv[bPayloadPocket].usItem;
+			ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[usGrenade].ubClassIndex].ubRadius, min(TACTICAL_RANGE / 2, Explosive[Item[usGrenade].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 		}
 		fRocketLauncher = TRUE;
 	}
@@ -990,8 +991,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		{
 			return;	// no ammo, can't fire
 		}
-		ubSafetyMargin = (UINT8)Explosive[Item[pSoldier->inv[bPayloadPocket].usItem].ubClassIndex].ubRadius;
 		usGrenade = pSoldier->inv[bPayloadPocket].usItem;
+		ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[pSoldier->inv[bPayloadPocket].usItem].ubClassIndex].ubRadius, min(TACTICAL_RANGE / 2, Explosive[Item[pSoldier->inv[bPayloadPocket].usItem].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 		fCannon = TRUE;
 
 	}
@@ -1000,8 +1001,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		// else it's a plain old grenade, now in his hand
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a grenade");
 		bPayloadPocket = HANDPOS;
-		ubSafetyMargin = (UINT8)Explosive[ Item[ pSoldier->inv[ bPayloadPocket ].usItem ].ubClassIndex ].ubRadius;
-		usGrenade = pSoldier->inv[ bPayloadPocket ].usItem;
+		usGrenade = pSoldier->inv[bPayloadPocket].usItem;
+		ubSafetyMargin = (UINT8)(1 + max(Explosive[Item[usGrenade].ubClassIndex].ubRadius, min(TACTICAL_RANGE / 4, Explosive[Item[usGrenade].ubClassIndex].ubFragRange / CELL_X_SIZE)));
 
 		if ( Item[usGrenade].flare )
 		{
