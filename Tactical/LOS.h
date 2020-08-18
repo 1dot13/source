@@ -154,6 +154,8 @@ UINT8 AISoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIER
 UINT8 AISoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel );
 UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTargetID );
 INT32 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT32 sEndGridNo );
+// sevenfm: AI LOS functions
+INT32 LOS_Raised(SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, int iTileSightLimit = CALC_FROM_ALL_DIRS, UINT8 ubAimLocation = LOS_POS);
 
 // sevenfm: added start/end LOS heights
 INT32 LocationToLocationLineOfSightTest( INT32 sStartGridNo, INT8 bStartLevel, INT32 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit, FLOAT dStartPos = STANDING_LOS_POS, FLOAT dEndPos = STANDING_LOS_POS);

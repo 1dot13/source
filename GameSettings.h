@@ -1565,6 +1565,7 @@ typedef struct
 	BOOLEAN fAIMovementMode;
 	BOOLEAN fAIPathTweaks;
 	BOOLEAN fAIDecisionInfo;
+	BOOLEAN fAIShootUnseen;
 
 } GAME_EXTERNAL_OPTIONS;
 

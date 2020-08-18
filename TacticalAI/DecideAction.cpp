@@ -3033,7 +3033,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			ARMED_VEHICLE(pSoldier) ||																		// tanks don't need cover
 			pSoldier->aiData.bUnderFire && (pSoldier->ubPreviousAttackerID == BestShot.ubOpponent || pSoldier->ubNextToPreviousAttackerID == BestShot.ubOpponent || MercPtrs[BestShot.ubOpponent]->sLastTarget == pSoldier->sGridNo) ||	// return fire
 			Chance((BestShot.ubChanceToReallyHit + 100) / 2) ||											// 50% chance to fire without cover
-			SoldierToSoldierLineOfSightTest(pSoldier, MercPtrs[BestShot.ubOpponent], TRUE, CALC_FROM_ALL_DIRS)) &&		// can see target after turning
+			//SoldierToSoldierLineOfSightTest(pSoldier, MercPtrs[BestShot.ubOpponent], TRUE, CALC_FROM_ALL_DIRS)) &&		// can see target after turning
+			LOS_Raised(pSoldier, MercPtrs[BestShot.ubOpponent], CALC_FROM_ALL_DIRS)) &&		// can see target after turning
 			// reduce chance to shoot if target is beyond weapon range
 			(AICheckIsMachinegunner(pSoldier) ||
 			ARMED_VEHICLE(pSoldier) ||

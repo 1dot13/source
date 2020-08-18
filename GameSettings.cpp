@@ -2304,7 +2304,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAITacticalRetreat = iniReader.ReadBoolean("Tactical AI Settings", "AI_TACTICAL_RETREAT", FALSE);
 	gGameExternalOptions.fAIMovementMode = iniReader.ReadBoolean("Tactical AI Settings", "AI_MOVEMENT_MODE", TRUE);
 	gGameExternalOptions.fAIPathTweaks = iniReader.ReadBoolean("Tactical AI Settings", "AI_PATH_TWEAKS", TRUE);
-	gGameExternalOptions.fAIDecisionInfo = iniReader.ReadBoolean("Tactical AI Settings", "AI_DECISION_INFO", false, false);
+	gGameExternalOptions.fAIDecisionInfo = iniReader.ReadBoolean("Tactical AI Settings", "AI_DECISION_INFO", FALSE);
+	gGameExternalOptions.fAIShootUnseen = iniReader.ReadBoolean("Tactical AI Settings", "AI_SHOOT_UNSEEN", FALSE);
 }
 
 
