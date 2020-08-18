@@ -209,7 +209,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 	pBestShot->ubOpponent = NOBODY;
 	pBestShot->ubFriendlyFireChance = 0;
 
-	ubBestChanceToHit = ubBestAimTime = ubChanceToHit = ubBestChanceToGetThrough = ubBestFriendlyFireChance = ubChanceToReallyHit = 0;
+	sBestChanceToHit = sBestAimTime = sChanceToHit = ubBestChanceToGetThrough = ubBestFriendlyFireChance = ubChanceToReallyHit = 0;
 
 	// sevenfm: set attacking hand and target
 	pSoldier->ubAttackingHand = HANDPOS;
