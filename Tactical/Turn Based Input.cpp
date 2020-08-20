@@ -3373,28 +3373,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					//Get the gridno the cursor is at
 					GetMouseMapPos( &usGridNo );
 
-					// code to test friendly fire detection
-					//if there is a selected soldier, and the cursor location is valid
-					/*if (gusSelectedSoldier != NOBODY && !TileIsOutOfBounds(usGridNo) && gfUIFullTargetFound)
-					{
-						SOLDIERTYPE *pSoldier = MercPtrs[gusSelectedSoldier];
-						SOLDIERTYPE *pOpponent = MercPtrs[gusUIFullTargetID];
-						UINT8 ubChanceToGetThrough;
-
-						if (pSoldier && pOpponent)
-						{
-							gUnderFire.Clear();
-							gUnderFire.Enable();
-							ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
-							gUnderFire.Disable();
-
-							ScreenMsg(FONT_ORANGE, MSG_INTERFACE, L"friendly fire chance %d count %d", gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE), gUnderFire.Count(pSoldier->bTeam));
-						}						
-					}*/
-
 					// if the cursor location is valid					
 					if ( !TileIsOutOfBounds(usGridNo) )
 					{
+						// sevenfm: code to check ubAdjacentSoldierCnt
+						/*MAP_ELEMENT *pMapElement;
+						pMapElement = &(gpWorldLevelData[usGridNo]);
+						ScreenMsg(FONT_ORANGE, MSG_INTERFACE, L"adjacent soldiers %d", pMapElement->ubAdjacentSoldierCnt);*/
+
 						// if there is a selected soldier
 						if ( gusSelectedSoldier != NOBODY )
 						{
