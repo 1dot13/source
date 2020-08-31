@@ -707,6 +707,8 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	pSoldier->bStealthMode = FALSE;
 	// disable reverse movement mode
 	pSoldier->bReverse = FALSE;
+	// sevenfm: initialize data
+	pSoldier->bWeaponMode = WM_NORMAL;
 
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->aiData.bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
 	BOOLEAN fCivilianOrMilitia = PTR_CIV_OR_MILITIA;
@@ -1555,6 +1557,8 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	pSoldier->bStealthMode = FALSE;
 	// disable reverse movement mode
 	pSoldier->bReverse = FALSE;
+	// sevenfm: initialize data
+	pSoldier->bWeaponMode = WM_NORMAL;
 
 	if (fCivilian || (gGameExternalOptions.fAllNamedNpcsDecideAction && pSoldier->ubProfile != NO_PROFILE))
 	{
@@ -2478,6 +2482,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	pSoldier->bStealthMode = FALSE;
 	// disable reverse movement mode
 	pSoldier->bReverse = FALSE;
+	// sevenfm: initialize data
+	pSoldier->bWeaponMode = WM_NORMAL;
 
 	// if we have absolutely no action points, we can't do a thing under RED!
 	if ( pSoldier->bActionPoints <= 0 ) //Action points can be negative
@@ -4855,6 +4861,8 @@ INT16 ubMinAPCost;
 	pSoldier->bStealthMode = FALSE;
 	// disable reverse movement mode
 	pSoldier->bReverse = FALSE;
+	// sevenfm: initialize data
+	pSoldier->bWeaponMode = WM_NORMAL;
 
 	// sevenfm: stop flanking when we see enemy
 	if( AICheckIsFlanking(pSoldier) )
@@ -7112,6 +7120,13 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 INT8 ArmedVehicleDecideAction( SOLDIERTYPE *pSoldier )
 {
 	INT8 bAction = AI_ACTION_NONE;
+
+	// sevenfm: disable stealth mode
+	pSoldier->bStealthMode = FALSE;
+	// disable reverse movement mode
+	pSoldier->bReverse = FALSE;
+	// sevenfm: initialize data
+	pSoldier->bWeaponMode = WM_NORMAL;
 
 	switch ( pSoldier->aiData.bAlertStatus )
 	{

@@ -3804,19 +3804,22 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 	{
 		return( NO_SLOT );
 	}
-	if(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)//dnl ch63 230813
+
+	if (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)//dnl ch63 230813
 	{
 		pObj = FindAttachment_GrenadeLauncher(&pSoldier->inv[bWeaponIn]);
+		AssertMsg(pObj, "FindAmmoToReload: could not find attached grenade launcher.");
 	}
 	else
 	{
-	// Flugente: check for underbarrel weapons and use that object if necessary
-	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[bWeaponIn]) );
+		// Flugente: check for underbarrel weapons and use that object if necessary
+		pObj = pSoldier->GetUsedWeapon(&(pSoldier->inv[bWeaponIn]));
+		AssertMsg(pObj, "FindAmmoToReload: could not find underbarrel weapon.");
 
-//<SB> manual recharge
-	if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
-		return bWeaponIn;
-//</SB>
+		//<SB> manual recharge
+		if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER))
+			return bWeaponIn;
+		//</SB>
 	}
 	if ( Item[pObj->usItem].usItemClass == IC_GUN && !Item[pObj->usItem].cannon )
 	{
