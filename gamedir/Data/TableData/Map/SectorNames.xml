@@ -173,7 +173,7 @@
     <szDetailedUnexploredName>Omerta</szDetailedUnexploredName>
     <szExploredName>Omerta</szExploredName>
     <szDetailedExploredName>Omerta</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
     <usCivilianPopulation>4</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -186,7 +186,7 @@
     <szDetailedUnexploredName>Omerta</szDetailedUnexploredName>
     <szExploredName>Omerta</szExploredName>
     <szDetailedExploredName>Omerta</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>150</usNaturalDirt>
     <usCivilianPopulation>30</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -199,7 +199,7 @@
     <szDetailedUnexploredName>Farmland</szDetailedUnexploredName>
     <szExploredName>Farmland</szExploredName>
     <szDetailedExploredName>Farmland</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>4</usCivilianPopulation>
 	<wealth>0</wealth>
@@ -319,7 +319,7 @@
     <szDetailedUnexploredName>Farmland</szDetailedUnexploredName>
     <szExploredName>Farmland</szExploredName>
     <szDetailedExploredName>Farmland</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -332,7 +332,7 @@
     <szDetailedUnexploredName>Farmland</szDetailedUnexploredName>
     <szExploredName>Farmland</szExploredName>
     <szDetailedExploredName>Farmland</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -356,7 +356,7 @@
     <szDetailedUnexploredName>Farmland</szDetailedUnexploredName>
     <szExploredName>Farmland</szExploredName>
     <szDetailedExploredName>Farmland</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>200</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -402,7 +402,7 @@
     <szDetailedUnexploredName>Farm, road</szDetailedUnexploredName>
     <szExploredName>Farm, road</szExploredName>
     <szDetailedExploredName>Farm, road</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>210</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -722,7 +722,7 @@
     <szDetailedUnexploredName>Farmland</szDetailedUnexploredName>
     <szExploredName>Farmland</szExploredName>
     <szDetailedExploredName>Farmland</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>180</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -790,7 +790,7 @@
     <szDetailedUnexploredName>Swamp</szDetailedUnexploredName>
     <szExploredName>Swamp</szExploredName>
     <szDetailedExploredName>Swamp</szDetailedExploredName>
-    <sWaterType>1</sWaterType>
+    <sWaterType>3</sWaterType>
     <usNaturalDirt>500</usNaturalDirt>
  	<rainchance>60</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -925,7 +925,7 @@
     <szDetailedUnexploredName>Farm, road</szDetailedUnexploredName>
     <szExploredName>Farm, road</szExploredName>
     <szDetailedExploredName>Farm, road</szDetailedExploredName>
-	<sWaterType>0</sWaterType>
+	<sWaterType>1</sWaterType>
     <usNaturalDirt>180</usNaturalDirt>
 	<usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -938,7 +938,7 @@
     <szDetailedUnexploredName>Farmland</szDetailedUnexploredName>
     <szExploredName>Farmland</szExploredName>
     <szDetailedExploredName>Farmland</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>160</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -1249,7 +1249,7 @@
     <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
     <szExploredName>Grumm</szExploredName>
     <szDetailedExploredName>Grumm</szDetailedExploredName>
-    <sWaterType>3</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>150</usCivilianPopulation>
@@ -1450,7 +1450,7 @@
     <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
     <szExploredName>Grumm</szExploredName>
     <szDetailedExploredName>Grumm</szDetailedExploredName>
-    <sWaterType>3</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>100</usNaturalDirt>
     <usCivilianPopulation>200</usCivilianPopulation>
 	<wealth>10</wealth>
@@ -1680,7 +1680,7 @@
     <szDetailedUnexploredName>Forest</szDetailedUnexploredName>
     <szExploredName>Forest</szExploredName>
     <szDetailedExploredName>Forest</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>200</usNaturalDirt>
  	<rainchance>50</rainchance>
 	<sandstormchance>0</sandstormchance>
@@ -1948,7 +1948,7 @@
     <szDetailedUnexploredName>Desert</szDetailedUnexploredName>
     <szExploredName>Tixa</szExploredName>
     <szDetailedExploredName>Tixa</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>1000</usNaturalDirt>
     <usCurfewValue>2</usCurfewValue>
     <sRadioScanModifier>1</sRadioScanModifier>
@@ -2022,7 +2022,7 @@
     <szDetailedUnexploredName>Farm, road</szDetailedUnexploredName>
     <szExploredName>Farm, road</szExploredName>
     <szDetailedExploredName>Farm, road</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>175</usNaturalDirt>
     <usCivilianPopulation>10</usCivilianPopulation>
 	<wealth>1</wealth>
@@ -2470,7 +2470,7 @@
     <szDetailedUnexploredName>Farmland</szDetailedUnexploredName>
     <szExploredName>Farmland</szExploredName>
     <szDetailedExploredName>Farmland</szDetailedExploredName>
-    <sWaterType>0</sWaterType>
+    <sWaterType>1</sWaterType>
     <usNaturalDirt>175</usNaturalDirt>
     <usCurfewValue>1</usCurfewValue>
     <usCivilianPopulation>10</usCivilianPopulation>
