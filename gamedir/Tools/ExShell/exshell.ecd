@@ -4,19 +4,43 @@ $unknown: OFF	~ !! Don't remove this...										  =====
 ~ =====================================================================================
 ~ see "ecd-format_eng.pdf"|"ecd-format_rus.pdf" for format and syntax description.
 ~ WARNING: This version supported only DirectDraw2 with screen mode 16 bpp (555 or 565).
+~ ADDED experimental support of GDI (such application have to work in windowed mode)
 
 
 ~$LoadProfile: "DefaultConf"
 ~ Using sections (exshell will look for walues in this sections in left-to right order)
-$LoadProfile: { "ShellOptions", "JaggedAlliance2", "DefaultConf" }
+$LoadProfile: { "UserSettings", "ShellOptions", "JaggedAlliance2", "DefaultConf" }
+
+
+~ =====================================================================================
+[UserSettings]	~ Most commonly edited values (see description below)			  =====
+~ =====================================================================================
+$WindowFrame: { YES, 1280, 960, 0, 0, #008080 }
+$UsingBliter: { 1, 0, 	5, 0 }
+$ImageFilter: #0001
+$ImageFilter: #2004
+
 
 ~ =====================================================================================
 [JaggedAlliance2]	~ Jagged Alliance 2	and it's mods							  =====
 ~ =====================================================================================
+$StartPEPath: ".\..\JA21m.exe"
+$FScreenMode: { 640, 480, 555 }	~ resolution maybe higher in 1.13 and other mods
 
-$StartPEPath: "C:\Jagged Alliance 2 1.13\ja2.exe"
+~ =====================================================================================
+[RPGMakerXP]	~ 																  =====
+~ =====================================================================================
+$StartPEPath: ".\..\Game.exe"
+$StartPEArgs: "Window"
 
-
+~ =====================================================================================
+[RPGMakerRT]	~ aka RPGMaker 2003 											  =====
+~ =====================================================================================
+$StartPEPath: ".\..\RPG_RT.exe"
+$StartPEArgs: "RPG_RT.exe NormalPlay ShowTitle Window"
+$ApplCaption: { "TFormLcfGameMain", NO, 0, NO }
+$Compatibles: #C0DE0001
+$FScreenMode: { 320, 240, 555 }
 
 
 ~ =====================================================================================
@@ -45,11 +69,18 @@ $WinMainOffs: NO
 ~ value, so in this case better use window class name. 1st argument - window class name, 
 ~ 2nd - window caption. If both of them are defined then exshell will search window that 
 ~ satisfy both conditions. You can set 1st or\and 2rd parameter to NO to disable filter.
-~ 3rd parameter - new window caption, if you want to replace original one. To keep original
+~ 3rd parameter - count of skipping windows that satisfy both conditions (for example, if
+~ value is 2 and 2nd value "foo" then will be used third created window with caption "foo")
+~ 4th parameter - new window caption, if you want to replace original one. To keep original
 ~ one use value NO.
 ~ NOTE: To get list of creating window classes and captions run your application and look 
 ~ in console output (See keys $UseDebugMod, $ShowConsole, $ConsoleWPal, $ConsoleWait).
-$ApplCaption: { NO, NO, NO }
+$ApplCaption: { NO, NO, 0, NO }
+
+~ Special compatible mode, list of possible modes:
+~ #C0DE0000 or NO or 0 - don't use special compatibility mode. 
+~ #C0DE0001 - RPG Maker 2003 (fix screen updating and filters)
+$Compatibles: NO
 
 ~ 0 - OFF, value in ms for pause (normally values more 1 ms not recommended to use, though 
 ~ in some cases can be used for slowing game). Use it if application always load 100% cpu.
@@ -76,7 +107,7 @@ $FScreenMode: { 640, 480, 555 }				~ NOTE: 8\24\32 BIT MODES NOT IMPLEMENTED !!
 ~ real window sizes will be larger. Exactly border sizes depending on OS version and used theme. 
 ~ 4th and 5th parameters - initial position for top-left corner of a window (X, Y) 
 ~ 6th parameter - window background color (in R8G8B8 format)
-$WindowFrame: { YES, 1920, 1080, 0, 0, #008080 }	~ NOTE: WINDOW BORDER NOT IMPLEMENTED !!
+$WindowFrame: { YES, 1280, 960, 0, 0, #008080 }	~ NOTE: WINDOW BORDER NOT IMPLEMENTED !!
 
 ~ 1st parameter - Bliter type (render method):
 ~ 1 - GDI
@@ -131,6 +162,7 @@ $UsingBliter: { 1, 0, 	5, 0 }
 ~ #35 - xbrz			[--------]	- improved XBR
 ~
 ~ #01 - GrayScale		[-  -  - ]	- Convert colors to gray tons.
+~ #7001 - Downscale2x	- fastest, no smoothing, no filtering
 ~ ??? - Scale2xSaI, Bilinear, BilinearPlus
 ~ NOTE: keys can contain addition parameters, depending on using filter (see description above).
 $ImageFilter: #0001
@@ -150,6 +182,18 @@ $RemFocusKey: OFF				~ NOTE: bad coded, though in most cases its working.
 ~ Allowed formats: "jpeg", "png", "bmp", "tiff", "gif" (note gif allows save only up to 256 colors)
 $ScrnGrabImg: "png"
 
+~ Packages declaration - this packages will be loaded at startup and files in them will override original
+~ files. This works like VFS (Virtual File System) and can be used ither to reduce application data trash 
+~ or to protect some data from extracting\modiffing (for example to protect yours own mode or addon).
+~ For creating and extracting package see instructions in exshell (run it with "-help" argument).
+~ Files in packages are searching from bottom to top, so it can be also used for creating patches, just
+~ make new package with changes and add to the end of list. If file not found in packages application
+~ will try to get it from HDD. 
+~ NOTE: not recommended to use 7-bit ASCII names
+~ NOTE: supported only reading from packages, writing will cause error.
+~$LoadPackage: "./../package/rtiles.edp"
+~$LoadPackage: "./../package/rsound.edp"
+~$LoadPackage: "./../package/patch1.edp"	~ override some original tiles and sounds from previous packs.	
 
 ~ =====================================================================================
 [ShellOptions]		~ EXShell global options									  =====

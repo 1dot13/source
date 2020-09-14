@@ -10,7 +10,7 @@
    \/_/\/_/ \/_/   \/_/ \/_/ \/_/ \/____/    \/_____/ \/_/\/_/ \/_____/ \/_____/ \/_____/ 
                                                                                                            
 
-													2014 (c) StaticZ <staticz@uoquint.ru>
+											  2014-2015 (c) StaticZ <staticz@uoquint.ru>
 ________________________________________________________________________________________
 
 
@@ -44,26 +44,11 @@ For installing copy ExShell to any directory you whant and open exshell.ecd conf
 file in any text editor (recomended Notepad++, you can import to it syntax higlight
 from *.xml file that are distributed with ExShell). To lunch your application you
 have to set path to it and it's screen resolution. The application you whant to run 
-must be set in fullscreen mode (ja2.ini: SCREEN_MODE_WINDOWED = 0), otherwise you 
-get many problems and errors.
-Check other options and see comments there for more details. 
-
-Important exshell.ecd entries:
-- Set $StartPEPath for profile [EXSProfile01] to the ja2.exe file (full path).
-- Set $FScreenMode to the same resoultion like JA2 1.13 (see: ja2.ini -> SCREEN_RESOLUTION)
-  -> Also set SCREEN_MODE_WINDOWED = 0 in ja2.ini
-- Set $WindowFrame to the double size (if you use 2x upscaling filters) of your JA2 1.13 screen resolution
-- Set $ImageFilter to your liking. For best image quality set the filter to #2022
-  -> This means 2x upscaling the screen resolution and using xbra filter
-
-Be carefully, while saving 
+must be set in fullscreen mode, otherwise you get many problems and errors.Check 
+other options and see comments there for more details. Be carefully, while saving 
 config file, check that you use UTF8 (without BOM) encoding. Otherwise ExShell will 
 have problems with reading it.
 
-To start the JA2 1.13 with the exShell tool, just run the exshell.exe
-
-Additional informations can be found on the Bears Pit Forum:
-http://www.ja-galaxy-forum.com/ubbthreads.php/topics/336350/1
 
 
 ------------------
@@ -123,8 +108,8 @@ ExShell was tested for compatibility with this games:
 	1. Jagged Alliance 2: Feeding Ground	[OK]
 	2. Jagged Alliance 2: 1.13				[OK]
 	3. Jagged Alliance 2: Metavira			[OK]
-
-
+	4. RPG Maker RT (aka 2003)				[OK]	* some features not supported
+	5. RPG Maker XP							[OK]
 
 ----------------
 (6.0) Change Log
@@ -153,4 +138,12 @@ ExShell was tested for compatibility with this games:
 	* Added: minor checks and validations
 	
 	
+(2015.11.05) ver 0.03 rev 030  build 15309 
+------------------------------------------	
+	
+	* Added: Upscaler support GDI based games
+	* Added: Downscale 2x filter
+	* Added: VFS (Virtual File System) 
+	* Added: minor checks and validations
+	* Change removed dependencies for AVX instructions
 	
