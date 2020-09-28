@@ -2749,11 +2749,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						BestThrow.ubPossible = FALSE;
 
 						// try behind us, see if there's room to move back
-						sCheckGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(gOppositeDirection[ubOpponentDir]));
-						// sevenfm: check if we can reach this gridno
+						sCheckGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(gOppositeDirection[ubOpponentDir]));						
 						if (OKFallDirection(pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ubOpponentDir], pSoldier->usAnimState))
 							//FindBestPath(pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), COPYROUTE, 0))
 						{
+							// sevenfm: check if we can reach this gridno
 							INT32 iPathCost = EstimatePlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), pSoldier->bStealthMode, FALSE, 0);
 							if(iPathCost !=0 && iPathCost <= pSoldier->bActionPoints)
 							{
@@ -2894,6 +2894,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		if(CanNPCAttack(pSoldier) == TRUE)
 		{
 			// SNIPER!
+			// sevenfm: set bAimShotLocation
+			pSoldier->bAimShotLocation = AIM_SHOT_RANDOM;
 			CheckIfShotPossible(pSoldier, &BestShot);
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("decideactionred: is sniper shot possible? = %d, CTH = %d", BestShot.ubPossible, BestShot.ubChanceToReallyHit));
 
@@ -2947,13 +2949,20 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				}
 			}
 
+			//SUPPRESSION FIRE			
+			//CheckIfShotPossible(pSoldier, &BestShot);		//WarmSteel - No longer returns 0 when there IS actually a chance to hit.
+
 			//RELOADING
 			// WarmSteel - Because of suppression fire, we need enough ammo to even consider suppressing
 			// This means we need to reload. Also reload if we're just plainly low on bullets.
 			if (BestShot.bWeaponIn != NO_SLOT &&
 				pSoldier->bActionPoints > APBPConstants[AP_MINIMUM] &&
+				IsGunAutofireCapable(&pSoldier->inv[BestShot.bWeaponIn]) &&
+				Weapon[pSoldier->inv[BestShot.bWeaponIn].usItem].swapClips &&
 				(!pSoldier->aiData.bUnderFire && !GuySawEnemy(pSoldier, SEEN_LAST_TURN) && (TileIsOutOfBounds(sClosestOpponent) || PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) > TACTICAL_RANGE / 2) || AICheckIsMachinegunner(pSoldier) && Chance(25) || Chance(10)) &&
-				((pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft < gGameExternalOptions.ubAISuppressionMinimumAmmo && GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize) || pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft < (UINT8)(GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) / 4)))
+				pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft < gGameExternalOptions.ubAISuppressionMinimumAmmo && 
+				GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) >= gGameExternalOptions.ubAISuppressionMinimumMagSize)
+				// || pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft < (UINT8)(GetMagSize(&pSoldier->inv[BestShot.bWeaponIn]) / 4)))
 			{
 				// HEADROCK HAM 5: Fixed an issue where no ammo was found, leading to a crash when overloading the
 				// inventory vector (bAmmoSlot = -1...)
@@ -2967,10 +2976,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						return AI_ACTION_RELOAD_GUN;
 					}
 				}
-			}
-
-			//SUPPRESSION FIRE
-			CheckIfShotPossible(pSoldier, &BestShot); //WarmSteel - No longer returns 0 when there IS actually a chance to hit.
+			}			
 
 			// sevenfm: check that we have a clip to reload
 			BOOLEAN fExtraClip = FALSE;
@@ -2982,10 +2988,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					fExtraClip = TRUE;
 				}
 			}
-
-			//must have a small chance to hit and the opponent must be on the ground (can't suppress guys on the roof)
-			// HEADROCK HAM BETA2.4: Adjusted this for a random chance to suppress regardless of chance. This augments
-			// current revamp of suppression fire.
 
 			// CHRISL: Changed from a simple flag to two externalized values for more modder control over AI suppression
 			// WarmSteel - Don't *always* try to suppress when under 50 CTH
@@ -5476,6 +5478,7 @@ INT16 ubMinAPCost;
 					sCheckGridNo = NewGridNo( pSoldier->sGridNo, (UINT16)DirectionInc( gOppositeDirection[ ubOpponentDir ] ) );
 					if ( OKFallDirection( pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ ubOpponentDir ], pSoldier->usAnimState ) )
 					{
+						// sevenfm: check if we can reach this gridno
 						INT32 iPathCost = EstimatePlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), pSoldier->bStealthMode, FALSE, 0);
 						if (iPathCost != 0 && iPathCost <= pSoldier->bActionPoints)
 						{
