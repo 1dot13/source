@@ -2657,12 +2657,12 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		DeductAmmo( pSoldier, pSoldier->ubAttackingHand );
 
 		// ATE: Check if we should say quote...
-		if ( (*pObjHand)[0]->data.gun.ubGunShotsLeft == 0 && !Item[usUBItem].rocketlauncher )
+		if ( (*pObjHand)[0]->data.gun.ubGunShotsLeft == 0 && 
+			!Item[usUBItem].rocketlauncher &&
+			pSoldier->bTeam == gbPlayerNum &&
+			(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) || GetMagSize(pObjHand) > 4))
 		{
-			if ( pSoldier->bTeam == gbPlayerNum )
-			{
-				pSoldier->flags.fSayAmmoQuotePending = TRUE;
-			}
+			pSoldier->flags.fSayAmmoQuotePending = TRUE;
 		}
 	}
 	else	//  throwing knife
@@ -3419,12 +3419,12 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		DeductAmmo( pSoldier, pSoldier->ubAttackingHand );
 
 		// ATE: Check if we should say quote...		
-		if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft == 0 && !Item[usUBItem].rocketlauncher )
+		if ( (*pObjUsed)[0]->data.gun.ubGunShotsLeft == 0 && 
+			!Item[usUBItem].rocketlauncher &&
+			pSoldier->bTeam == gbPlayerNum &&
+			(Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) || GetMagSize(pObjUsed) > 4))
 		{
-			if ( pSoldier->bTeam == gbPlayerNum )
-			{
-				pSoldier->flags.fSayAmmoQuotePending = TRUE;
-			}
+			pSoldier->flags.fSayAmmoQuotePending = TRUE;
 		}
 		// NB bDoBurst will be 2 at this point for the first shot since it was incremented
 		// above

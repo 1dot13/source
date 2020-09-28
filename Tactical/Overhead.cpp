@@ -9625,7 +9625,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
             fEnterCombat = FALSE;
         }
 
-        if ( pSoldier->flags.fSayAmmoQuotePending && ( Chance( gGameExternalOptions.iChanceSayAnnoyingPhrase ) || GetMagSize( &pSoldier->inv[pSoldier->ubAttackingHand] ) > 4 ) )
+		if (pSoldier->flags.fSayAmmoQuotePending)
         {
             pSoldier->flags.fSayAmmoQuotePending = FALSE;
             TacticalCharacterDialogue( pSoldier, QUOTE_OUT_OF_AMMO );
