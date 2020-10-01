@@ -2365,7 +2365,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"此时无法分配任务",	//L"Assignment not possible at the moment",
 	L"没有能够训练的民兵。",	//L"No militia that can be drilled present.",
 
-	L"%s has fully explored %s.",	// TODO.Translate
+	L"%s 已经完全的探索了 %s。",	//L"%s has fully explored %s." TODO.Translate
 };
 
 // the country and its noun in the game
@@ -2479,7 +2479,7 @@ STR16 pAssignmentStrings[] =
 	L"训练民兵",	//L"DMilitia",
 	L"掩埋尸体", //L"Burial",
 	L"管理", //L"Admin",
-	L"Explore",	// TODO.Translate
+	L"探索",	//L"Explore" TODO.Translate
 };
 
 
@@ -2589,7 +2589,7 @@ STR16 pPersonnelAssignmentStrings[] =
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
 	L"管理人员",	//L"Administration",
-	L"Exploration",	// TODO.Translate
+	L"探索事项",	//L"Exploration", TODO.Translate
 };
 
 
@@ -2658,7 +2658,7 @@ STR16 pLongAssignmentStrings[] =
 	L"训练现有的民兵",	//L"Drill existing militia",
 	L"掩埋尸体", //L"Bury corpses",
 	L"管理人员",	//L"Administration",
-	L"Exploration",	// TODO.Translate
+	L"探索事项",	//L"Exploration", TODO.Translate
 };
 
 
@@ -2783,7 +2783,7 @@ STR16 pAssignMenuStrings[] =
 	L"筑防",		//L"Fortify", fortify sector
 	L"情报", //L"Intel", covert assignments
 	L"管理",	//L"Administer",
-	L"Explore",	// TODO.Translate
+	L"探索",	//L"Explore", TODO.Translate
 	L"设施", // the merc is using/staffing a facility //ham3.6
 	L"取消",
 };
@@ -2849,7 +2849,7 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	// various
 	L"侦查一个区域，友军狙击手在瞄准你所观察到的目标时会增加命中率。",
 	L"增加中断几率(标记区域以外)。", //L"Increase interrupt modifier (malus outside of area)",
-	L"Drag a person, corpse or structure while you move.",	// TODO.Translate
+	L"移动时拖人或尸体。",	//L"Drag a person, corpse or structure while you move.", TODO.Translate
 };
 
 STR16 pTraitSkillsDenialStrings[] =
@@ -2865,7 +2865,7 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - 恶魔的财产\n", //L" - posession by a demon"
 	L" - 与枪有关的技能（如自动武器）\n", //L" - a gun-related trait\n",
 	L" - 举起枪（瞄准状态）\n", //L" - aimed gun\n",
-	L" - prone person, corpse or structure next to merc\n",	// TODO.Translate
+	L" - 在佣兵旁边放下人或尸体\n",	//L" - prone person, corpse or structure next to merc\n", TODO.Translate
 	L" - 下蹲姿势\n", //L" - crouched position\n",
 	L" - 清空主手装备\n",	//L" - free main hand\n",
 	L" - 潜伏技能\n",	//L" - covert trait\n",
@@ -4243,7 +4243,7 @@ STR16 pMapPopUpInventoryText[] =
 	L"存货",
 	L"离开",
 	L"修理",	//L"Repair",
-	L"Factories",	// TODO.Translate
+	L"工厂",	//L"Factories", TODO.Translate
 };
 
 // town strings
@@ -5072,7 +5072,7 @@ STR16 pBookMarkStrings[] =
 	L"安保公司", //L"Kerberus",
 	L"民兵总览",//L"Militia Overview",
 	L"R.I.S",
-	L"Factories",	// TODO.Translate
+	L"工厂",	//L"Factories", TODO.Translate
 };
 
 STR16 pBookmarkTitle[] =
@@ -5199,7 +5199,7 @@ STR16 pWebPagesTitles[] =
 	L"Recon情报服务 - 情报需求",		//L"Recon Intelligence Services - Information Requests",
 	L"Recon情报服务 - 情报验证",	//L"Recon Intelligence Services - Information Verification",
 	L"Recon情报服务 - 关于我们",	//L"Recon Intelligence Services - About us",
-	L"Factory Overview",	// TODO.Translate
+	L"工厂概况",	//L"Factory Overview", TODO.Translate
 	L"Bobby Ray - 最近的运货",
 	L"百科全书",
 	L"百科全书 - 数据",
@@ -7004,7 +7004,7 @@ STR16 gzLaptopHelpText[] =
 	L"Kerberus - 安保公司",//L"Kerberus - Experience In Security",
 	L"民兵总览",//L"Militia Overview",
 	L"Recon情报服务",	//L"Recon Intelligence Services",
-	L"Controlled factories",	// TODO.Translate
+	L"已占领的工厂",	//L"Controlled factories", TODO.Translate
 };
 
 
@@ -7477,7 +7477,7 @@ STR16 New113Message[] =
 	L"是的*",	//L"Yes*",
 	L"是的",	//L"Yes",
 	L"不",	//L"No",
-	L"%s applied %s to %s.", // TODO.Translate
+	L"%s将%s应用于%s。", //L"%s applied %s to %s.", TODO.Translate
 };
 
 STR16 New113HAMMessage[] = 
@@ -8478,7 +8478,7 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|防|火|护|甲",	//L"|R|e|s|i|s|t|a|n|t |t|o |F|i|r|e",
 	L"|管|理|能|力|增|益|器",	//L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |M|o|d|i|f|i|e|r",
 	L"|间|谍|能|力|增|益|器",	//L"|H|a|c|k|i|n|g |M|o|d|i|f|i|e|r",
-	L"|M|e|d|i|c|a|l |S|p|l|i|n|t", // TODO.Translate
+	L"|医|用|夹|板", //L"|M|e|d|i|c|a|l |S|p|l|i|n|t", TODO.Translate
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8531,7 +8531,7 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n可以降低%i%%的火焰伤害。",	//L"\n \nThis armor lowers fire damage by %i%%.",
 	L"\n \n这个工具可以\n提高%i%%的管理工作的效率。",	//L"\n \nThis item makes you more effective at\nadministrative work by %i%%.",
 	L"\n \n这个工具可以\n提高%i%%的间谍能力。",	//L"\n \nThis item improves your hacking skills by %i%%.",
-	L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.", // TODO.Translate
+	L"\n \n一旦应用, 这个物品可以提高对你的手臂\n或者腿部重伤的治疗速率。", //L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.", TODO.Translate
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
@@ -9059,7 +9059,7 @@ STR16	szBackgroundText_Value[]=
 	L" 空降时观望其它方向\n %s%d%％ 行动点在空降后 \n", //L" looks in other direction on airdrops\n %s%d%% APs after airdrop\n",
 	L" %s%d%％ 行动点在进入战区的第一回合 \n", //L" %s%d%% APs on first turn when assaulting a sector\n",
 		
-	L" %s%d%％ 步走速度 \n", //L" %s%d%% travel speed on foot\n",
+	L" %s%d%％ 步行速度 \n", //L" %s%d%% travel speed on foot\n",
 	L" %s%d%％ 开车速度 \n", //L" %s%d%% travel speed on land vehicles\n",
 	L" %s%d%％ 坐飞机速度 \n", //L" %s%d%% travel speed on air vehicles\n",
 	L" %s%d%％ 坐船速度 \n", //L" %s%d%% travel speed on water vehicles\n",
@@ -9110,12 +9110,12 @@ STR16	szBackgroundText_Value[]=
 	L" 对某些其他背景的厌恶 \n", //L" dislikes some other backgrounds\n",
 	L" 吸烟者", //L"Smoker",
 	L" 非吸烟者", //L"Nonsmoker",
-	L" %s%d%％ 如果在蹲下状态，视野方向发现敌人，即可瞄准 \n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
+	L" %s%d%％ 蹲伏在可靠掩体后面对敌人的命中率 \n", //L" %s%d%% enemy CTH if crouched against thick cover in their direction\n",
 	L" %s%d%％ 建设速度 \n",//L" %s%d%% building speed\n",
 	L" 间谍技能: %s%d ",//L" hacking skill: %s%d ",
 	L" %s%d%% 掩埋尸体速度 \n",	//L" %s%d%% burial speed\n",
 	L" %s%d%% 管理效率 \n",	//L" %s%d%% administration effectiveness\n",
-	L" %s%d%% exploration effectiveness\n",	// TODO.Translate
+	L" %s%d%% 探索效率\n",	//L" %s%d%% exploration effectiveness\n", TODO.Translate
 };
 
 STR16		szBackgroundTitleText[] =
@@ -11115,12 +11115,12 @@ STR16	szDiseaseText[] =
 
 	L"高度的痛苦会导致人格分裂\n",	//L"High amount of distress can cause a personality split\n",
 	L"在%s'库存中发现污染物品。\n", //L"Contaminated items found in %s' inventory.\n",
-	L"Whenever we get this, a new disability is added.\n",	// TODO.Translate
+	L"每当我们遇到这种情况的时候, 会增加一个新的伤残属性。\n",	//L"Whenever we get this, a new disability is added.\n", TODO.Translate
 
-	L"Only one hand can be used.\n",
-	L"Only one hand can be used.\nA medical splint was applied to speed up the healing process.\n",
-	L"Leg functionality severely limited.\n",
-	L"Leg functionality severely limited.\nA medical splint was applied to speed up the healing process.\n",
+	L"只有一只手还能用。\n",	//L"Only one hand can be used.\n",
+	L"只有一只手还能用。\n已使用医用夹板来加快治疗进程。\n",	//L"Only one hand can be used.\nA medical splint was applied to speed up the healing process.\n",
+	L"腿部机能严重受限。\n",	//L"Leg functionality severely limited.\n",
+	L"腿部机能严重受限。\n已使用医用夹板来加快治疗进程。\n",	//L"Leg functionality severely limited.\nA medical splint was applied to speed up the healing process.\n",
 };
 
 STR16	szSpyText[] =
@@ -11152,7 +11152,7 @@ STR16 szIMPGearWebSiteText[] =
 
 	// IMP Gear Entrance
 	L"I.M.P 装备",  //	L"I.M.P. Equipment", 
-	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
+	L"额外花费: %d$ (%d$ 预付款)",	//L"Additional Cost: %d$ (%d$ prepaid)", TODO.Translate
 };
 
 STR16 szIMPGearDropDownText[] =
@@ -11603,29 +11603,29 @@ STR16	szMilitiaText[] =
 
 STR16	szFactoryText[] =	// TODO.Translate
 {
-	L"%s: Production of %s switched off as loyalty is too low.",
-	L"%s: Production of %s switched off due to insufficient funds.",
-	L"%s: Production of %s switched off as it requires a merc to staff the facility.",
-	L"%s: Production of %s switched off due to required items missing.",
-	L"Item to build",
+	L"%s: 的生产进程 %s 已因为忠诚度太低而被关闭。",	//L"%s: Production of %s switched off as loyalty is too low.",
+	L"%s: 的生产进程 %s 已因为资金短缺而被关闭。",	//L"%s: Production of %s switched off due to insufficient funds.",
+	L"%s: 的生产进程 %s 已因为缺少一个佣兵作为工作人员而被关闭。",	//L"%s: Production of %s switched off as it requires a merc to staff the facility.",
+	L"%s: 的生产进程 %s 已因为缺少必要的物品而被关闭。",	//L"%s: Production of %s switched off due to required items missing.",
+	L"制造列表",	//L"Item to build",
 
-	L"Preproducts",	// 5
-	L"h/item",
+	L"生产筹备",	//L"Preproducts", 5
+	L"h/物品",	//L"h/item",
 };
 
 STR16	szTurncoatText[] =
 {
-	L"%s now secretly works for us!",
-	L"%s is not swayed by our offer. Suspicion against us rises...",
-	L"Suspicion against us is high. We should stop trying to turn more soldiers to our side and lay low for a while.",
-	L"Recruit approach (%d)",
-	L"Use seduction (%d)",
+	L"%s 现在秘密的为我们工作！",	//L"%s now secretly works for us!",
+	L"%s 不为我们的提议所动摇。对我们的怀疑度上升了...",	//L"%s is not swayed by our offer. Suspicion against us rises...",
+	L"对我们的怀疑度很高。我们应该停止尝试转化更多的敌兵到我们的阵营，并在一段时间内保持低调。",	//L"Suspicion against us is high. We should stop trying to turn more soldiers to our side and lay low for a while.",
+	L"直接招募 (%d)",	//L"Recruit approach (%d)",
+	L"魅力引诱 (%d)",	//L"Use seduction (%d)",
 
-	L"Bribe ($%d) (%d)",	// 5
-	L"Offer %d intel (%d)",
-	L"How to convince the soldier to join your forces?",
-	L"Do it",
-	L"%d turncoats present",
+	L"行贿 ($%d) (%d)",	//L"Bribe ($%d) (%d)", 5
+	L"提供 %d 情报 (%d)",	//L"Offer %d intel (%d)",
+	L"用什么方式来说服敌兵加入你的部队？",	//L"How to convince the soldier to join your forces?",
+	L"执行",	//L"Do it",
+	L"%d 变节者出现了",	//L"%d turncoats present",
 };
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!

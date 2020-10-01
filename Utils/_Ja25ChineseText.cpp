@@ -259,7 +259,7 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"伪装状态下使用近战武器攻击时，命中率增加 +%d%s \n",//L"+%d%s CTH with covert melee weapons\n",
 	L"伪装状态下使用近战武器攻击时，秒杀几率增加 +%d%s \n",//L"+%d%s chance of instakill with covert melee weapons\n",
 	L"伪装动作消耗的行动点 -%d%s \n",//L"Disguise AP cost lowered by %d%s.\n",
-	L"Can convince enemy soldiers to secretly change sides.\n",	// TODO.Translate
+	L"能够说服敌军士兵成为我方卧底。\n",	//L"Can convince enemy soldiers to secretly change sides.\n", TODO.Translate
 };
 
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
