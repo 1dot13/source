@@ -10578,35 +10578,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1322</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>2倍瞄准镜(内置)</szItemName>
+		<szLongItemName>2倍瞄准镜(内置)</szLongItemName>
+		<szItemDesc>许多现代突击步枪直接集成了这种瞄准镜，装在左轮手枪、猎枪、冲锋枪等等武器上也不错。</szItemDesc>
+		<szBRName>2倍瞄准镜(内置)</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1323</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>握把(内置)</szItemName>
+		<szLongItemName>握把(内置)</szLongItemName>
+		<szItemDesc>特制的手持握把，可以安装到大部分冲锋枪和突击步枪上，可有效提高射击精度。</szItemDesc>
+		<szBRName>握把(内置)</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1324</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>集成脚架握把(内置)</szItemName>
+		<szLongItemName>集成脚架握把(内置)</szLongItemName>
+		<szItemDesc>集成脚架握把可安装在绝大多数有皮卡汀尼下导轨的现代步枪上。不过它集成的小脚架不如单独的脚架结实。</szItemDesc>
+		<szBRName>集成脚架握把(内置)</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1325</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>两脚架(内置)</szItemName>
+		<szLongItemName>两脚架(内置)</szLongItemName>
+		<szItemDesc>通用折叠两脚架，可以提高多数突击步枪，狙击步枪和轻机枪有依托射击的精确度。铝合金制造，亚光漆面。</szItemDesc>
+		<szBRName>两脚架(内置)</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1326</uiIndex>
@@ -14064,5 +14064,13 @@
 		<szItemDesc>这包新鲜血液袋可以用来进行手术。</szItemDesc>
 		<szBRName>血袋</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1758</uiIndex>
+		<szItemName>医用夹板</szItemName>
+		<szLongItemName>医用夹板</szLongItemName>
+		<szItemDesc>这个医用夹板可以用来固定四肢，加速愈合。</szItemDesc>
+		<szBRName>医用夹板</szBRName>
+		<szBRDesc>这种通用的医用夹板适合任何手臂和腿，会帮助你更快的痊愈。</szBRDesc>
 	</ITEM>
 </ITEMLIST>

@@ -420,7 +420,7 @@
 		<szShortName>反抗军</szShortName>
 		<szDescription>小护士变身反抗军，Ira的出现给反抗军总部增加了许多乐趣。</szDescription>
 	</BACKGROUND>
-	<!-- Dimitri -->   
+	<!-- Dimitri -->		
 	<BACKGROUND>
 		<uiIndex>60</uiIndex>
 		<szName>反抗军</szName>
@@ -497,7 +497,7 @@
    		<szShortName>军事顾问</szShortName>
    		<szDescription>瞄准射击很容易，难得是教会别人瞄准谁射击。</szDescription>
 	</BACKGROUND>
-	<!-- RPC 71 -->
+	<!-- Combat jeep -->
 	<BACKGROUND>
 		<uiIndex>71</uiIndex>
 		<szName>Placeholder</szName>
@@ -1506,11 +1506,12 @@
 		<szDescription>Not needed!</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
+	<!-- chaotic Buns -->
 	<BACKGROUND>
 		<uiIndex>215</uiIndex>
-		<szName>Placeholder</szName>
-		<szShortName>Placeholder</szShortName>
-		<szDescription>Not needed!</szDescription>
+		<szName>人格分裂</szName>
+		<szShortName>人格分裂</szShortName>
+		<szDescription>由于患上了创伤后应激障碍，Buns在高压下会转换成她的第二种人格，这个人格非常好斗。</szDescription>
 	</BACKGROUND>
 	<!-- Empty -->
 	<BACKGROUND>
@@ -2053,8 +2054,8 @@
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>299</uiIndex>
-   		<szName>喜剧演员</szName>
-   		<szShortName>喜剧演员</szShortName>
+   		<szName>哑剧演员</szName>
+   		<szShortName>哑剧演员</szShortName>
    		<szDescription>看到你的贱笑，敌人就忍不住放下手里的枪捂肚子了。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
@@ -2078,9 +2079,9 @@
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>303</uiIndex>
-   		<szName>疑病症患者</szName>
-   		<szShortName>疑病症患者</szShortName>
-   		<szDescription>哪怕走进医院或学校，也会觉得他们会偷偷暗害你！</szDescription>
+   		<szName>超胆侠</szName>
+   		<szShortName>超胆侠</szShortName>
+   		<szDescription>战场上的壮丽景观，你从不害怕正面迎敌！</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>304</uiIndex>
@@ -2150,8 +2151,8 @@
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>315</uiIndex>
-		<szName>拆弹专家</szName>
-		<szShortName>拆弹专家</szShortName>
+		<szName>工程兵</szName>
+		<szShortName>工程兵</szShortName>
 		<szDescription>你精通于这门不容失败的技术，展现出钢铁般稳固的心态。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
