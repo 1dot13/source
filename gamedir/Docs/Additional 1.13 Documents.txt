@@ -1,2 +1,5 @@
 You can find additional 1.13 Documents (Modding-Examples, Tools, ...) which are useful for 1.13 Modders in the following SVN Location: 
-https://ja2svn.dyndns.org/source/ja2/trunk/Documents
+https://ja2svn.mooo.com/source/ja2/trunk/Documents/
+
+1.13 Starter Documentation
+https://github.com/aimnas/1.13_starter_documentation
