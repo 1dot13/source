@@ -3,3 +3,25 @@ https://ja2svn.mooo.com/source/ja2/trunk/Documents/
 
 1.13 Starter Documentation
 https://github.com/aimnas/1.13_starter_documentation
+
+Where to read about new game features:
+--------------------------------------
+Bears-Pit forum
+http://thepit.ja-galaxy-forum.com/
+
+Flugente's Magika Workshop
+http://thepit.ja-galaxy-forum.com/index.php?t=thread&frm_id=283&
+
+Trunk AI and improvements
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&th=24289
+
+Where to post found bugs:
+-------------------------
+Bugs: Unofficial releases (SCI's), unstable and DEV builds
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&th=22776&start=0&
+
+Official 1.13 svn links:
+------------------------
+Source: https://ja2svn.mooo.com/source/ja2/trunk/GameSource/ja2_v1.13
+Gamedir: https://ja2svn.mooo.com/source/ja2_v1.13_data/GameDir
+Language specific: https://ja2svn.mooo.com/source/ja2/trunk/GameData/
