@@ -351,6 +351,8 @@ BOOLEAN CorpseMilitiaTeam(ROTTING_CORPSE *pCorpse);
 BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel);
 BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier);
 
+BOOLEAN CheckSuppressionDirection(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bTargetLevel);
+
 UINT8 AIDirection(INT32 sSpot1, INT32 sSpot2);
 
 BOOLEAN AIGunScoped(SOLDIERTYPE *pSoldier);

@@ -1566,6 +1566,7 @@ typedef struct
 	BOOLEAN fAIPathTweaks;
 	BOOLEAN fAIDecisionInfo;
 	BOOLEAN fAIShootUnseen;
+	BOOLEAN fAISafeSuppression;
 
 } GAME_EXTERNAL_OPTIONS;
 

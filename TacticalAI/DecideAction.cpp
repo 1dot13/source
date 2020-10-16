@@ -3006,6 +3006,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				pSoldier->aiData.bOrders != SNIPER &&
 				BestShot.ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE &&
 				!AICheckIsFlanking(pSoldier) &&
+				(Chance(BestShot.ubChanceToReallyHit) || Chance(gGameExternalOptions.sSuppressionEffectiveness)) &&
+				(!gGameExternalOptions.fAISafeSuppression || CheckSuppressionDirection(pSoldier, BestShot.sTarget, BestShot.bTargetLevel)) &&
 				!pSoldier->RetreatCounterValue() &&
 				// check cover
 				(fAnyCover ||																				// safe position
@@ -6152,12 +6154,20 @@ L_NEWAIM:
 				}
 
 				pSoldier->bDoAutofire--;
-				if(!UsingNewCTHSystem() && pSoldier->bDoAutofire < 3 && pSoldier->aiData.bAimTime > 0 && pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft >= 3)//dnl ch69 130913 let try increase autofire rate for aim cost
+
+				//dnl ch69 130913 let try increase autofire rate for aim cost
+				if(!UsingNewCTHSystem() && 
+					pSoldier->bDoAutofire < 3 && 
+					pSoldier->aiData.bAimTime > 0 && 
+					pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft >= 3 &&
+					Chance(gGameExternalOptions.sSuppressionEffectiveness) &&
+					(!gGameExternalOptions.fAISafeSuppression || CheckSuppressionDirection(pSoldier, BestShot.sTarget, BestShot.bTargetLevel)))
 				{
 					pSoldier->aiData.bAimTime--;
 					sActualAimAP = CalcAPCostForAiming(pSoldier, BestAttack.sTarget, (INT8)pSoldier->aiData.bAimTime);
 					goto L_NEWAIM;
 				}
+
 				if (pSoldier->bDoAutofire > 0)
 				{
 					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints(), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
@@ -6218,18 +6228,27 @@ L_NEWAIM:
 							//dnl ch69 140913 return aiming for autofire with halfautofire fix
 							pSoldier->bDoBurst = 1;
 							INT16 ubHalfBurstAPs = 256;
-							if(pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft < 4)
+							if (pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft < 4)
+							{
 								iChance = 0;
+							}
 							else
 							{
-								ubHalfBurstAPs = CalcAPsToAutofire(pSoldier->CalcActionPoints(), &pSoldier->inv[BestAttack.bWeaponIn], 4, pSoldier);
-								if(Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto)
-									iChance = 35;
+								ubHalfBurstAPs = CalcAPsToAutofire(pSoldier->CalcActionPoints(), &pSoldier->inv[BestAttack.bWeaponIn], 2, pSoldier);
+								
+								if (!CheckSuppressionDirection(pSoldier, BestAttack.sTarget, BestAttack.bTargetLevel))
+									iChance = 100;
+								else
+									iChance = BestAttack.ubChanceToReallyHit / 2;
+
+								if (Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto || pSoldier->aiData.bOppCnt > 1)
+									iChance += (100 - iChance) / 2;
 							}
-							if((INT32)PreRandom(100) < iChance && pSoldier->bActionPoints > (2 * BestAttack.ubAPCost + ubHalfBurstAPs + sActualAimAP))
+
+							if(Chance(iChance) && pSoldier->bActionPoints >= (2 * BestAttack.ubAPCost + ubHalfBurstAPs + sActualAimAP))
 							{
 								// Try short autofire to enhance chance of hitting
-								pSoldier->bDoAutofire = 4;
+								pSoldier->bDoAutofire = 2;
 								BestAttack.ubAPCost += ubHalfBurstAPs + sActualAimAP;
 							}
 							else

@@ -6138,3 +6138,41 @@ UINT8 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier)
 
 	return ubNum;
 }
+
+// sevenfm: check if suppression is possible (count friends in the fire direction)
+BOOLEAN CheckSuppressionDirection(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bTargetLevel)
+{
+	SOLDIERTYPE * pFriend;
+	UINT8 ubShootingDir;
+	UINT32 uiLoop;
+
+	CHECKF(pSoldier);
+	CHECKF(!TileIsOutOfBounds(sTargetGridNo));
+
+	ubShootingDir = AIDirection(pSoldier->sGridNo, sTargetGridNo);	
+
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop)
+	{
+		pFriend = MercSlots[uiLoop];
+
+		if (pFriend &&
+			pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->bVisible == TRUE &&
+			pFriend->stats.bLife >= OKLIFE &&
+			(pFriend->bSide == pSoldier->bSide || CONSIDERED_NEUTRAL(pSoldier, pFriend)) &&
+			(pFriend->pathing.bLevel == pSoldier->pathing.bLevel || pFriend->pathing.bLevel == bTargetLevel) &&
+			ubShootingDir == AIDirection(pSoldier->sGridNo, pFriend->sGridNo) &&
+			PythSpacesAway(pSoldier->sGridNo, pFriend->sGridNo) > 1 &&
+			PythSpacesAway(pSoldier->sGridNo, pFriend->sGridNo) < 2 * TACTICAL_RANGE &&
+			(gAnimControl[pFriend->usAnimState].ubHeight == ANIM_STAND || gGameExternalOptions.fAllowTargetHeadAndLegIfProne) &&
+			//!pFriend->IsCowering() &&
+			AISoldierToSoldierChanceToGetThrough(pSoldier, pFriend) > 25)
+			//LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, pFriend->sGridNo, pFriend->pathing.bLevel, TRUE, NO_DISTANCE_LIMIT))
+		{
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
