@@ -5559,6 +5559,26 @@ INT16 ubMinAPCost;
 
 					if (BestStab.ubPossible)
 					{
+						INT32 sAttackDist = PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget);
+						INT32 sMaxStabAttackDist = TACTICAL_RANGE / 8;
+						// sevenfm: limit stab attacks when target is not very close
+						if (sAttackDist > sMaxStabAttackDist)
+						{
+							BestStab.iAttackValue = BestStab.iAttackValue * sMaxStabAttackDist / sAttackDist;
+						}
+
+						if (!(gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT(pSoldier, MELEE_NT)) &&
+							!(!gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT(pSoldier, KNIFING_OT)))
+						{
+							BestStab.iAttackValue /= 4;
+						}
+
+						// sevenfm: reduce stab attack attractiveness depending on number of seen opponents
+						if (pSoldier->aiData.bOppCnt > 1)
+						{
+							BestStab.iAttackValue /= pSoldier->aiData.bOppCnt;
+						}
+
 						// now we KNOW FOR SURE that we will do something (stab, at least)
 						NPCDoesAct(pSoldier);
 						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPC decided to stab");
@@ -5604,62 +5624,72 @@ INT16 ubMinAPCost;
 
 					if (BestStab.ubPossible)
 					{
-						// if we have not enough APs to deal at least two or three punches, 
-						// reduce the attack value as one punch ain't much
-						if( gGameOptions.fNewTraitSystem )
+						if (!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER))
 						{
-							// if we are not specialized, reduce the attack attractiveness generaly
-							if ( !HAS_SKILL_TRAIT( pSoldier, MARTIAL_ARTS_NT ) )
+							// if we have not enough APs to deal at least two or three punches, 
+							// reduce the attack value as one punch ain't much
+							if (gGameOptions.fNewTraitSystem)
 							{
-								BestStab.iAttackValue /= 4; 
-								// if too far and not having APs for at least 3 hits no way to attack
-								if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + (2 * (ApsToPunch( pSoldier )))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1) ) 
+								// if we are not specialized, reduce the attack attractiveness generally
+								if (!HAS_SKILL_TRAIT(pSoldier, MARTIAL_ARTS_NT))
 								{
-									BestStab.ubPossible = 0; 
-									BestStab.iAttackValue = 0; 
+									BestStab.iAttackValue /= 4;
+									// if too far and not having APs for at least 3 hits no way to attack
+									if (((CalcTotalAPsToAttack(pSoldier, BestStab.sTarget, ADDTURNCOST, 0) + (2 * (ApsToPunch(pSoldier)))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1))
+									{
+										BestStab.ubPossible = 0;
+										BestStab.iAttackValue = 0;
+									}
+								}
+								else
+								{
+									if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
+									{
+										BestStab.iAttackValue = (BestStab.iAttackValue * 2);
+									}
+									// if too far and not having APs for at least 2 hits
+									else if (((CalcTotalAPsToAttack(pSoldier, BestStab.sTarget, ADDTURNCOST, 0) + ApsToPunch(pSoldier)) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1))
+									{
+										BestStab.iAttackValue /= 3;
+									}
 								}
 							}
 							else
 							{
-								if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
+								if (!HAS_SKILL_TRAIT(pSoldier, MARTIALARTS_OT) && !HAS_SKILL_TRAIT(pSoldier, HANDTOHAND_OT))
 								{
-									BestStab.iAttackValue = (BestStab.iAttackValue * 2); 
+									// if we are not specialized, reduce the attack attractiveness generally
+									BestStab.iAttackValue /= 4;
+									// if too far and not having APs for at least 3 hits
+									if (((CalcTotalAPsToAttack(pSoldier, BestStab.sTarget, ADDTURNCOST, 0) + (2 * (ApsToPunch(pSoldier)))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)))
+									{
+										BestStab.ubPossible = 0;
+										BestStab.iAttackValue = 0;
+									}
 								}
-								// if too far and not having APs for at least 2 hits
-								else if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + ApsToPunch( pSoldier )) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1))
+								else
 								{
-									BestStab.iAttackValue /= 3; 
-								}
-							}
-						}
-						else 
-						{
-							if ( !HAS_SKILL_TRAIT( pSoldier, MARTIALARTS_OT ) && !HAS_SKILL_TRAIT( pSoldier, HANDTOHAND_OT ) )
-							{
-								// if we are not specialized, reduce the attack attractiveness generaly
-								BestStab.iAttackValue /= 4; 
-								// if too far and not having APs for at least 3 hits
-								if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + (2 * (ApsToPunch( pSoldier )))) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)) )
-								{
-									BestStab.ubPossible = 0; 
-									BestStab.iAttackValue = 0; 
-								}
-							}
-							else
-							{
-								BestStab.iAttackValue = ((BestStab.iAttackValue * 3)/2); 
+									BestStab.iAttackValue = ((BestStab.iAttackValue * 3) / 2);
 
-								if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
-								{
-									BestStab.iAttackValue = ((BestStab.iAttackValue * 3)/2); 
-								}
-								// if too far and not having APs for at least 2 hits
-								else if (((CalcTotalAPsToAttack( pSoldier,BestStab.sTarget,ADDTURNCOST, 0 ) + ApsToPunch( pSoldier )) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)) )
-								{
-									BestStab.iAttackValue /= 3;
+									if (PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget) <= 1)
+									{
+										BestStab.iAttackValue = ((BestStab.iAttackValue * 3) / 2);
+									}
+									// if too far and not having APs for at least 2 hits
+									else if (((CalcTotalAPsToAttack(pSoldier, BestStab.sTarget, ADDTURNCOST, 0) + ApsToPunch(pSoldier)) > pSoldier->bActionPoints) && !(PythSpacesAway(pSoldier->sGridNo, BestStab.sTarget <= 1)))
+									{
+										BestStab.iAttackValue /= 3;
+									}
 								}
 							}
-						}
+
+							// sevenfm: reduce HTH attack attractiveness depending on number of seen opponents
+							if (pSoldier->aiData.bOppCnt > 1)
+							{
+								BestStab.iAttackValue /= pSoldier->aiData.bOppCnt;
+							}
+						}						
+
 						// now we KNOW FOR SURE that we will do something (stab, at least)
 						NPCDoesAct(pSoldier);
 						DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPC decided to punch");
@@ -6156,7 +6186,8 @@ L_NEWAIM:
 				pSoldier->bDoAutofire--;
 
 				//dnl ch69 130913 let try increase autofire rate for aim cost
-				if(!UsingNewCTHSystem() && 
+				// sevenfm: LIMIT_MAX_DEVIATION option increases effectiveness of suppression
+				if ((!UsingNewCTHSystem() || gGameCTHConstants.LIMIT_MAX_DEVIATION) &&
 					pSoldier->bDoAutofire < 3 && 
 					pSoldier->aiData.bAimTime > 0 && 
 					pSoldier->inv[BestAttack.bWeaponIn][0]->data.gun.ubGunShotsLeft >= 3 &&
