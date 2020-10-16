@@ -5646,16 +5646,17 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 		bRepairing = TRUE;
 	}
 
-	// if nothing got repaired or cleaned, there's a problem
-	if ( ubRepairPtsUsed == 0 && ubCleaningPtsUsed == 0 )
-	{
-		// he can't repair anything because he doesn't have enough skill!
-		AssignmentAborted( pSoldier, INSUF_REPAIR_SKILL );
-	}
 	// nothing more to do?
-	else if ( !bCleaning && !bRepairing )
+	if ( !bCleaning && !bRepairing )
 	{
 		AssignmentDone( pSoldier, TRUE, TRUE );
+		StopTimeCompression();
+	}
+	// if nothing got repaired or cleaned, there's a problem
+	else if (ubRepairPtsUsed == 0 && ubCleaningPtsUsed == 0)
+	{
+		// he can't repair anything because he doesn't have enough skill!
+		AssignmentAborted(pSoldier, INSUF_REPAIR_SKILL);
 		StopTimeCompression();
 	}
 }
