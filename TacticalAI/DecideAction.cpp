@@ -3113,14 +3113,21 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						pSoldier->aiData.usActionData = BestShot.ubStance;
 
 						DebugAI(AI_MSG_INFO, pSoldier, String("Change stance before shooting"));
-						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SUPPRESSIONFIRE]);
+
+						// show "suppression fire" message only if opponent cannot be seen after turning
+						if (!LOS_Raised(pSoldier, MercPtrs[BestShot.ubOpponent], CALC_FROM_ALL_DIRS))
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SUPPRESSIONFIRE]);
+						
 						return(AI_ACTION_CHANGE_STANCE);
 					}
 					else
 					{
 						pSoldier->aiData.usActionData = BestShot.sTarget;
 
-						ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SUPPRESSIONFIRE]);
+						// show "suppression fire" message only if opponent cannot be seen after turning
+						if (!LOS_Raised(pSoldier, MercPtrs[BestShot.ubOpponent], CALC_FROM_ALL_DIRS))
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SUPPRESSIONFIRE]);
+
 						return(AI_ACTION_FIRE_GUN);
 					}
 				}
