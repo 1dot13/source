@@ -10332,7 +10332,7 @@ INT16 GetBaseScopeAimBonus( OBJECTTYPE * pObj, INT32 iRange )
 }
 
 // Madd: check equipment for aim bonus (penalties)
-INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 ubAimTime  )
+INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 sAimTime  )
 {
 	INT16 bonus=0;
 
@@ -10340,10 +10340,10 @@ INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 ubAimTime  )
 	{
 		OBJECTTYPE* pObj = &pSoldier->inv[j];
 		if (pObj->exists() == true) {
-			bonus += GetItemAimBonus( &Item[pSoldier->inv[j].usItem], iRange, ubAimTime );
+			bonus += GetItemAimBonus( &Item[pSoldier->inv[j].usItem], iRange, sAimTime );
 			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
 				if(iter->exists()){
-					bonus += GetItemAimBonus(&Item[iter->usItem],iRange,ubAimTime);
+					bonus += GetItemAimBonus(&Item[iter->usItem],iRange, sAimTime);
 				}
 			}
 		}

@@ -1793,6 +1793,14 @@ void AIDecideRadioAnimation( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
+	// sevenfm: only allow radio animation on initial red alert
+	if (gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition || SectorJammed())
+	{
+		// don't play animation
+		ActionDone(pSoldier);
+		return;
+	}
+
 	switch( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 	{
 	case ANIM_STAND:
@@ -2555,7 +2563,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             if(bSlot != NO_SLOT)
             {
                 ReloadGun( pSoldier, &(pSoldier->inv[pSoldier->aiData.usActionData]), &(pSoldier->inv[bSlot]) );
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_RELOAD );
+				if (Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) || GetMagSize(&(pSoldier->inv[pSoldier->aiData.usActionData])) > 4)
+					PossiblyStartEnemyTaunt( pSoldier, TAUNT_RELOAD );
                 ActionDone( pSoldier );
             }
             break;

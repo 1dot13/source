@@ -272,7 +272,7 @@ INT16 GetBestLaserRange( OBJECTTYPE * pObj );
 INT16 GetBipodBonus( OBJECTTYPE * pObj );
 INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance = FALSE );
 INT16 GetAutoToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance = FALSE	);
-INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 ubAimTime);
+INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 sAimTime);
 INT16 GetGearToHitBonus( SOLDIERTYPE * pSoldier );
 INT16 GetMinRangeForAimBonus( SOLDIERTYPE* pSoldier, OBJECTTYPE * pObj );
 

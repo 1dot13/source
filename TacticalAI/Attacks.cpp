@@ -2732,11 +2732,13 @@ INT8 CanNPCAttack(SOLDIERTYPE *pSoldier)
 		bCanAttack = TryToReload( pSoldier );
 		if( bCanAttack == TRUE )
 		{
-			PossiblyStartEnemyTaunt( pSoldier, TAUNT_RELOAD );
+			if (Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) || GetMagSize(&(pSoldier->inv[HANDPOS])) > 4)
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_RELOAD );
 		}
 		else
 		{
-			PossiblyStartEnemyTaunt( pSoldier, TAUNT_OUT_OF_AMMO );
+			if (Chance(gGameExternalOptions.iChanceSayAnnoyingPhrase) || GetMagSize(&(pSoldier->inv[HANDPOS])) > 4)
+				PossiblyStartEnemyTaunt( pSoldier, TAUNT_OUT_OF_AMMO );
 		}
 	}
 	else if (bCanAttack == NOSHOOT_NOWEAPON)

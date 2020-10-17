@@ -1526,13 +1526,19 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 {
 	INT32 sGridNo, sClosestLand = NOWHERE, sPathCost, sShortestPath = 1000;
 	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	INT32 iSearchRange;
+	INT32 iSearchRange, iIgnoreRange = 0;
+	INT32 iMaxSearchRange = 35;
 	UINT16 usMovementMode = DetermineMovementMode(pSoldier, AI_ACTION_LEAVE_WATER_GAS);
 	BOOLEAN fFoundReachable = FALSE;
 
+	if (!gfTurnBasedAI)
+	{
+		iMaxSearchRange = 15;
+	}
+
 	// start with a small search area, and expand it if we're unsuccessful
 	// this should almost never need to search farther than 5 or 10 squares...
-	for (iSearchRange = 5; iSearchRange <= 35 && (fFoundReachable || iSearchRange <= 5); iSearchRange += 10)
+	for (iSearchRange = 5; iSearchRange <= iMaxSearchRange && (fFoundReachable || iSearchRange <= 5); iIgnoreRange = iSearchRange, iSearchRange += 10)
 	{
 		//NumMessage("Trying iSearchRange = ", iSearchRange);
 
@@ -1582,6 +1588,12 @@ INT32 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 		{
 			for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 			{
+				// sevenfm: optimization - skip spots checked in previous loop
+				if (sXOffset <= iIgnoreRange && sXOffset >= -iIgnoreRange && sYOffset <= iIgnoreRange && sYOffset >= -iIgnoreRange)
+				{
+					continue;
+				}
+
 				// calculate the next potential gridno
 				sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
 				//NumMessage("Testing gridno #",gridno);
@@ -1653,7 +1665,8 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 	INT32 sGridNo, sClosestSpot = NOWHERE, sPathCost;
 	INT32	iSpotValue, iBestSpotValue = 1000;
 	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	INT32 iSearchRange;
+	INT32 iSearchRange, iIgnoreRange = 0;
+	INT32 iMaxSearchRange = 35;
 	INT8 bLightLevel, bCurrLightLevel, bLightDiff;
 	INT32 iRoamRange;
 	INT32 sOrigin;
@@ -1664,9 +1677,14 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 
 	iRoamRange = RoamingRange(pSoldier, &sOrigin);
 
+	if (!gfTurnBasedAI)
+	{
+		iMaxSearchRange = 15;
+	}
+
 	// start with a small search area, and expand it if we're unsuccessful
 	// this should almost never need to search farther than 5 or 10 squares...
-	for (iSearchRange = 5; iSearchRange <= 25 && (fFoundReachable || iSearchRange <= 5); iSearchRange += 5)
+	for (iSearchRange = 5; iSearchRange <= iMaxSearchRange && (fFoundReachable || iSearchRange <= 5); iIgnoreRange = iSearchRange, iSearchRange += 10)
 	{
 		// determine maximum horizontal limits
 		sMaxLeft = min(iSearchRange, (pSoldier->sGridNo % MAXCOL));
@@ -1714,6 +1732,12 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 		{
 			for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 			{
+				// sevenfm: optimization - skip spots checked in previous loop
+				if (sXOffset <= iIgnoreRange && sXOffset >= -iIgnoreRange && sYOffset <= iIgnoreRange && sYOffset >= -iIgnoreRange)
+				{
+					continue;
+				}
+
 				// calculate the next potential gridno
 				sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
 				//NumMessage("Testing gridno #",gridno);
@@ -2603,7 +2627,7 @@ INT32 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT32 sPos, INT8 bAction )
 	INT32 sGridNo;
 	INT32 sBestSpot = NOWHERE;
 	INT32 iSearchRange = 8;	// sevenfm: increase search range
-	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
+	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 	INT16 sDistanceVisible = VISION_RANGE;
 
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: orig loc = %d, loc to flank = %d", pSoldier->sGridNo , sPos));

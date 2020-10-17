@@ -4882,13 +4882,16 @@ UINT8 SpotDangerLevel(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 		fAlerted = TRUE;
 
 	if (!fProfile && !fNeutral && !gGameExternalOptions.fAITacticalRetreat && NorthSpot(sGridNo, pSoldier->pathing.bLevel) ||
-		!fProfile && fGreen && CheckDoorNearGridno(sGridNo))
+		!fProfile && fGreen && CheckDoorNearGridno(sGridNo) ||
+		Water(sGridNo, pSoldier->pathing.bLevel) && !pSoldier->IsFlanking() ||
+		CorpseWarning(pSoldier, sGridNo, pSoldier->pathing.bLevel))
 		ubLevel = 1;
 
-	if (fAlerted && !fNeutral && (InLightAtNight(sGridNo, pSoldier->pathing.bLevel) || FindNearbyExplosiveStructure(sGridNo, pSoldier->pathing.bLevel)))
+	if (fAlerted && !fNeutral && 
+		(InLightAtNight(sGridNo, pSoldier->pathing.bLevel) || FindNearbyExplosiveStructure(sGridNo, pSoldier->pathing.bLevel)))
 		ubLevel = 2;
 
-	if (DeepWater(sGridNo, pSoldier->pathing.bLevel) ||
+	if (DeepWater(sGridNo, pSoldier->pathing.bLevel) && !pSoldier->IsFlanking() ||
 		RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel))
 		ubLevel = 3;
 

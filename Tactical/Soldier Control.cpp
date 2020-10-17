@@ -11837,7 +11837,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 				if ( BuildStructDrag( sOldGridNo, gsInterfaceLevel, arusTileType, arusStructureNumber, this->ubID ) )
 				{
 					// remove
-					RemoveStructDrag( this->sDragGridNo, gsInterfaceLevel, arusTileType );
+					RemoveStructDrag( this->sDragGridNo, (INT8)gsInterfaceLevel, arusTileType );
 
 					// also move doors, this includes moving locks and traps
 					DOOR* pDoor = FindDoorInfoAtGridNo( this->sDragGridNo );
@@ -16095,14 +16095,14 @@ BOOLEAN		SOLDIERTYPE::SeemsLegit( UINT8 ubObserverID )
 		}
 	}
 
-	// if we are trying to dress like a civilian, but aren't sucessful: not covert
+	// if we are trying to dress like a civilian, but aren't successful: not covert
 	if ( this->usSoldierFlagMask & SOLDIER_COVERT_CIV && !(this->LooksLikeACivilian( )) )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CIV], this->GetName( ) );
 		return FALSE;
 	}
 
-	// if we are trying to dress like a soldier, but aren't sucessful: not covert
+	// if we are trying to dress like a soldier, but aren't successful: not covert
 	if ( this->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER && !(this->LooksLikeASoldier( )) )
 	{
 		return FALSE;
@@ -20556,7 +20556,8 @@ BOOLEAN		SOLDIERTYPE::CanDragPerson( UINT16 usID )
 			return FALSE;
 
 		// we must be able to see the other guy even if if both would be prone. This is to stop the player from dragging someone through solid structures
-		if ( !LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, this->sGridNo, this->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS, PRONE_LOS_POS, PRONE_LOS_POS))
+		//if ( !LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, this->sGridNo, this->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS, PRONE_LOS_POS, PRONE_LOS_POS))
+		if (gubWorldMovementCosts[pSoldier->sGridNo][AIDirection(this->sGridNo, pSoldier->sGridNo)][this->pathing.bLevel] >= TRAVELCOST_BLOCKED)
 			return FALSE;
 
 		return TRUE;
@@ -20587,7 +20588,8 @@ BOOLEAN		SOLDIERTYPE::CanDragCorpse( UINT16 usCorpseNum )
 			return FALSE;
 
 		// we must be able to see the other guy even if if both would be prone. This is to stop the player from dragging someone through solid structures
-		if (!LocationToLocationLineOfSightTest(pCorpse->def.sGridNo, this->pathing.bLevel, this->sGridNo, this->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS, PRONE_LOS_POS, PRONE_LOS_POS))
+		//if (!LocationToLocationLineOfSightTest(pCorpse->def.sGridNo, this->pathing.bLevel, this->sGridNo, this->pathing.bLevel, TRUE, CALC_FROM_ALL_DIRS, PRONE_LOS_POS, PRONE_LOS_POS))
+		if (this->sGridNo != pCorpse->def.sGridNo && gubWorldMovementCosts[pCorpse->def.sGridNo][AIDirection(this->sGridNo, pCorpse->def.sGridNo)][this->pathing.bLevel] >= TRAVELCOST_BLOCKED)
 			return FALSE;
 
 		return TRUE;

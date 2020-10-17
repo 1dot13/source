@@ -2633,14 +2633,16 @@ void ManSeesMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT32 sOppGridNo,
 
 			// if the looker hasn't seen this opponent at all earlier this turn, OR
 			// if the opponent is not where the looker last thought him to be
-			if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_THIS_TURN) || (gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID] != sOppGridNo))
+			// sevenfm: only call SetNewSituation if location is different to reduce frequency of AI re-evaluation
+			//if ((pSoldier->aiData.bOppList[pOpponent->ubID] != SEEN_THIS_TURN) || (gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID] != sOppGridNo))
+			if (KnownLocation(pSoldier, pOpponent->ubID) != sOppGridNo || KnownLevel(pSoldier, pOpponent->ubID) != bOppLevel)
 			{
 				SetNewSituation( pSoldier );  // force the looker to re-evaluate
 				// anv: simulate informing buddies about detected enemy's position
 				// sevenfm: check that he is really new
-				if( gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_THIS_TURN )
+				//if( gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_THIS_TURN )
+				if (gbSeenOpponents[pSoldier->ubID][pOpponent->ubID] < 1 && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] < SEEN_CURRENTLY)
 					PossiblyStartEnemyTaunt( pSoldier, TAUNT_INFORM_ABOUT, pOpponent->ubID );
-
 			}
 			else
 			{

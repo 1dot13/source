@@ -2070,6 +2070,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					// If soldier is not stationary, stop
 					MercPtrs[ gusSelectedSoldier ]->StopSoldier(	);
 					*puiNewEvent = A_CHANGE_TO_MOVE;
+
+					// sevenfm: also stop dragging
+					if (MercPtrs[gusSelectedSoldier]->IsDraggingSomeone(false))
+					{
+						MercPtrs[gusSelectedSoldier]->CancelDrag();
+						DirtyMercPanelInterface(MercPtrs[gusSelectedSoldier], DIRTYLEVEL2);
+					}
 				}
 				// ATE: OK, stop any mercs who are moving by selection method....
 				StopRubberBandedMercFromMoving( );
