@@ -2517,6 +2517,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 
 	// sevenfm: before deciding anything, stop cowering
 	if (SoldierAI(pSoldier) &&
+		!fCivilian &&
 		ubCanMove &&
 		pSoldier->stats.bLife >= OKLIFE &&
 		!pSoldier->bCollapsed &&
@@ -4909,6 +4910,7 @@ INT16 ubMinAPCost;
 
 	// sevenfm: before deciding anything, stop cowering
 	if (SoldierAI(pSoldier) &&
+		!fCivilian &&
 		ubCanMove &&
 		pSoldier->stats.bLife >= OKLIFE &&
 		!pSoldier->bCollapsed &&

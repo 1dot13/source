@@ -1336,6 +1336,12 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		fSpare = FALSE;
 	}
 
+	// militia always try to spare grenades unless under attack or using flares
+	if (pSoldier->bTeam == MILITIA_TEAM && !pSoldier->aiData.bUnderFire && !Item[usGrenade].flare)
+	{
+		fSpare = TRUE;
+	}
+
 	// need 3 opponents for 0 difficulty, 1 opponent for max difficulty
 	if (fSpare && ubOpponentCnt < 3 - ubDiff / 2)
 	{

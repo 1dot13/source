@@ -185,6 +185,12 @@ void RTHandleAI( SOLDIERTYPE * pSoldier )
 			}
 			else
 			{
+				// sevenfm: clear next action data before making decision
+				pSoldier->aiData.bNextAction = AI_ACTION_NONE;
+				pSoldier->aiData.usNextActionData = 0;
+				pSoldier->aiData.bNextTargetLevel = 0;
+				pSoldier->iNextActionSpecialData = 0;
+
 				if (!(gTacticalStatus.uiFlags & ENGAGED_IN_CONV))
 				{
                     if(!pSoldier->ai_masterplan_) // if the Soldier has no plan, create one
