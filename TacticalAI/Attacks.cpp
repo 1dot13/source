@@ -859,7 +859,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	UINT8	ubFriendCnt = 0,ubOpponentCnt = 0, ubOpponentID[MAXMERCS];
 	UINT8	ubMaxPossibleAimTime;
 	INT16	sRawAPCost, sMinAPcost;
-	UINT8	ubChanceToHit,ubChanceToGetThrough,ubChanceToReallyHit;
+	UINT8	ubChanceToHit, ubChanceToGetThrough, ubChanceToReallyHit, ubFriendlyFireChance;
 	UINT32	uiPenalty;
 	UINT8	ubSearchRange;
 	UINT16	usOppDist;
@@ -1528,7 +1528,12 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 				if ( EXPLOSIVE_GUN( usInHand ) )
 				{
+					gUnderFire.Clear();
+					gUnderFire.Enable();
 					ubChanceToGetThrough = AISoldierToLocationChanceToGetThrough( pSoldier, sGridNo, bOpponentLevel[ubLoop], 0 );
+					ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+					gUnderFire.Disable();
+
 					// anv: tanks shouldn't care about chance to get through - can't hit? At least we'll destroy their cover.
 					// also AISoldierToLocationChanceToGetThrough used to return 0 for tanks, but that's a different story
 					if ( (gGameExternalOptions.fEnemyTanksBlowObstaclesUp && ARMED_VEHICLE( pSoldier )) || gGameExternalOptions.fEnemiesBlowObstaclesUp )
@@ -1539,11 +1544,18 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					{
 						continue; // next gridno
 					}
+					// sevenfm: use rocket launchers more carefully
+					if (!ARMED_VEHICLE(pSoldier) && ubFriendlyFireChance > MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
+					{
+						continue;
+					}
 				}
 				else
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: checking chance for launcher to beat cover");
 					ubChanceToGetThrough = 100 * CalculateLaunchItemChanceToGetThrough( pSoldier, (pObjGL ? pObjGL : &pSoldier->inv[bPayloadPocket]), sGridNo, bOpponentLevel[ubLoop], 0, &sEndGridNo, TRUE, &bEndLevel, FALSE );//dnl ch63 240813
+					ubFriendlyFireChance = 0;
+
 					//NumMessage("Chance to get through = ",ubChanceToGetThrough);
 					// if we can't possibly get through all the cover
 					if (ubChanceToGetThrough == 0 )
@@ -1596,7 +1608,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				if (Item[usInHand].rocketlauncher &&
 					ubOppsInRange < 2 &&
 					!ARMED_VEHICLE(MercPtrs[ubOpponentID[ubLoop]]) &&
-					!InARoom(sOpponentTile[ubLoop], NULL))
+					(!InARoom(sOpponentTile[ubLoop], NULL) || pSoldier->bTeam != ENEMY_TEAM))
 				{
 					continue;				// next gridno
 				}
@@ -1671,10 +1683,10 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					pBestThrow->bTargetLevel		= bOpponentLevel[ubLoop];
 					// set current stance
 					pBestThrow->ubStance			= gAnimControl[pSoldier->usAnimState].ubEndHeight;
+					pBestThrow->ubFriendlyFireChance = ubFriendlyFireChance;
 
 					// bWeaponIn
 					// bScopeMode
-					// ubFriendlyFireChance
 				}
 			}
 		}
@@ -1687,10 +1699,14 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	{
 		ubMinChanceToReallyHit = 30;
 	}
+	else if (EXPLOSIVE_GUN(usInHand) && !ARMED_VEHICLE(pSoldier) && (pBestThrow->ubOpponent == NOBODY || !ARMED_VEHICLE(MercPtrs[pBestThrow->ubOpponent])))
+	{
+		ubMinChanceToReallyHit = 80;
+	}
 	else
 	{
 		// 80-40% depending on soldier difficulty
-		ubMinChanceToReallyHit = 80 - 10 * ubDiff;
+		ubMinChanceToReallyHit = 40 + 10 * ubDiff;
 	}
 
 	if( pBestThrow->ubChanceToReallyHit < ubMinChanceToReallyHit )
