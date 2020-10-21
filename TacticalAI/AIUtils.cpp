@@ -4844,8 +4844,13 @@ BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier)
 {
 	CHECKF(pSoldier);
 
+	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP ||
+		(pSoldier->aiData.bNeutral && gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] == CIV_GROUP_NEUTRAL) ||
+		(pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV)));
+
 	if (!IS_MERC_BODY_TYPE(pSoldier) || 
 		pSoldier->aiData.bNeutral || 
+		fCivilian ||
 		pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ||
 		ARMED_VEHICLE(pSoldier) ||
 		pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ||
