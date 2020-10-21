@@ -305,6 +305,24 @@ MERCPROFILEGEAR& MERCPROFILEGEAR::operator=(const MERCPROFILEGEAR& src) {
 	return *this;
 }
 
+// Copy constructor
+MERCPROFILEGEAR::MERCPROFILEGEAR(const MERCPROFILEGEAR& src)
+{
+	if (this != &src) {
+		memcpy(this, &src, SIZEOF_MERCPROFILEGEAR_POD);
+		inv = src.inv;
+		iStatus = src.iStatus;
+		iDrop = src.iDrop;
+		iNumber = src.iNumber;
+		lbe = src.lbe;
+		lStatus = src.lStatus;
+		invCnt = src.invCnt;
+		lbeCnt = src.lbeCnt;
+		PriceModifier = src.PriceModifier;
+		AbsolutePrice = src.AbsolutePrice;
+	}
+}
+
 // Destructor
 MERCPROFILEGEAR::~MERCPROFILEGEAR( ) {
 }

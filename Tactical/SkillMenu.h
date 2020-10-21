@@ -158,7 +158,7 @@ private:
 class DragSelection : public SkillMenuItem
 {
 public:
-	DragSelection( )	{}
+	DragSelection()	{ usSkill = 0; }
 
 	void Setup( UINT32 aVal );
 	void Functions( UINT32 aVal );

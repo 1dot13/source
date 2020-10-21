@@ -188,6 +188,12 @@ public:
 		_strstr.str(bs._strstr.str());
 	}
 
+	BuildString& operator=(const BuildString& bs)
+	{
+		_strstr.str(bs._strstr.str());
+		return *this;
+	}
+
 	template<typename T>
 	BuildString(T const& t)
 	{

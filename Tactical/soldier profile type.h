@@ -493,6 +493,8 @@ public:
 	MERCPROFILEGEAR();
 	// Assignment operator
 	MERCPROFILEGEAR& operator=(const MERCPROFILEGEAR&);
+	// Copy constructor
+	MERCPROFILEGEAR(const MERCPROFILEGEAR& src);
 	// Destructor
 	~MERCPROFILEGEAR();
 

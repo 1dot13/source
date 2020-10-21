@@ -612,7 +612,7 @@ public:
 	POPUP_OPTION * o;	// option that's doing the attaching
 	POPUP * p;			// the popup that's tied to the attachment slot
 
-	PopupAttachmentInfo() {};
+	PopupAttachmentInfo() { usAttachment = 0;  pObj = 0;  subObject = 0;  slotCount = 0;  o = NULL;  p = NULL; };
 	PopupAttachmentInfo(INT16 usAttachment, OBJECTTYPE * pObj, UINT8 subObject, INT16 slotCount, POPUP_OPTION * o, POPUP * p) :
 		usAttachment(usAttachment), pObj(pObj), subObject(subObject), slotCount(slotCount), o(o), p(p) {}
 };

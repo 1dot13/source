@@ -183,6 +183,18 @@ WORLDITEM& WORLDITEM::operator=(const WORLDITEM& src)
 	return *this;
 }
 
+WORLDITEM::WORLDITEM(const WORLDITEM& src)
+{
+	this->fExists = src.fExists;
+	this->sGridNo = src.sGridNo;
+	this->ubLevel = src.ubLevel;
+	this->usFlags = src.usFlags;
+	this->bRenderZHeightAboveLevel = src.bRenderZHeightAboveLevel;
+	this->bVisible = src.bVisible;
+	this->ubNonExistChance = src.ubNonExistChance;
+	this->soldierID = src.soldierID;
+	this->object = src.object;
+}
 
 INT32 GetFreeWorldBombIndex( void )
 {

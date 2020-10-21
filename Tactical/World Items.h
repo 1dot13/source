@@ -52,6 +52,7 @@ public:
 	WORLDITEM&				operator=(OLD_WORLDITEM_101& src);
 	WORLDITEM&				operator=(_OLD_WORLDITEM& src);//dnl ch42 280909
 	WORLDITEM&				operator=(const WORLDITEM& src);
+	WORLDITEM(const WORLDITEM& src);
 	bool					operator<(WORLDITEM& compare);
 	BOOLEAN					Save( HWFILE hFile, bool fSavingMap );
 	BOOLEAN					Load( HWFILE hFile );
