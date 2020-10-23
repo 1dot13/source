@@ -14992,6 +14992,9 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	// Flugente: we have to recheck our flashlights
 	pSoldier->HandleFlashLights();
 
+	// sevenfm: handle sight change
+	HandleSight(pSoldier, SIGHT_LOOK | SIGHT_INTERRUPT);
+
 	// Signal a successful transformation.
 	return TRUE;
 }

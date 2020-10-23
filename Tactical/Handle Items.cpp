@@ -6172,38 +6172,33 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 				}
 				else
 				{
-					// if this is a tripwire, it might have an attached gun, which we also have to spawn
-					if ( Item[gTempObject.usItem].tripwire )
+					OBJECTTYPE TempObject;
+					CreateItem(gTempObject[0]->data.misc.usBombItem, gTempObject[0]->data.misc.bBombStatus, &TempObject);
+
+					// also spawn attached guns/explosives
+					if (gTempObject.usItem != ACTION_ITEM && (Item[gTempObject.usItem].tripwire || Item[gTempObject.usItem].usItemClass & IC_EXPLOSV))
 					{
-						// search for attached guns
-						OBJECTTYPE* pAttGun = NULL;
+						// search for attached items
+						OBJECTTYPE* pAttItem = NULL;
 
 						// check all attachments
-						attachmentList::iterator iterend = gTempObject[0]->attachments.end( );
-						for ( attachmentList::iterator iter = gTempObject[0]->attachments.begin( ); iter != iterend; ++iter )
+						attachmentList::iterator iterend = gTempObject[0]->attachments.end();
+						for (attachmentList::iterator iter = gTempObject[0]->attachments.begin(); iter != iterend; ++iter)
 						{
-							if ( iter->exists( ) && Item[iter->usItem].usItemClass == IC_GUN )
+							//if ( iter->exists( ) && Item[iter->usItem].usItemClass == IC_GUN )
+							if (iter->exists())
 							{
-								pAttGun = &(*iter);
+								pAttItem = &(*iter);
 
-								// add this gun to the floor
-								AddItemToPool( gsBoobyTrapGridNo, pAttGun, 1, gbBoobyTrapLevel, 0, -1 );
+								if (Item[iter->usItem].usItemClass == IC_GUN)
+									AddItemToPool(gsBoobyTrapGridNo, pAttItem, 1, gbBoobyTrapLevel, 0, -1);
+								else
+									TempObject.AttachObject(NULL, pAttItem, FALSE);
 							}
 						}
 					}
 
-					// switch action item to the real item type
-					// sevenfm: added check to only switch action items and not regular explosives
-					// this allows to keep all attachments
-					if( gTempObject.usItem == ACTION_ITEM || !gGameExternalOptions.bAllowExplosiveAttachments )
-					{
-						CreateItem( gTempObject[0]->data.misc.usBombItem, gTempObject[0]->data.misc.bBombStatus, &gTempObject );
-					}
-					else
-					{
-						gTempObject.fFlags &= ~(OBJECT_ARMED_BOMB);
-						gTempObject[0]->data.misc.bDetonatorType = 0;
-					}
+					gTempObject = TempObject;
 					
 					if (is_networked && is_client)
 					{
@@ -6211,7 +6206,7 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 						// attach whatever trigger the bomb originally had
 						if (gWorldItems[ gpBoobyTrapItemPool->iItemIndex ].object[0]->data.misc.bDetonatorType == BOMB_REMOTE)
 						{
-							// attack a remote deonator, but they will need a trigger to use it :)
+							// attack a remote detonator, but they will need a trigger to use it :)
 							CreateItem( REMDETONATOR, gTempObject[0]->data.misc.bBombStatus, &TempAttachment );
 						}
 						else 
