@@ -4,6 +4,9 @@ https://ja2svn.mooo.com/source/ja2/trunk/Documents/
 1.13 Starter Documentation
 https://github.com/aimnas/1.13_starter_documentation
 
+How to get: latest 1.13, 7609, feature-descriptions and more
+http://thepit.ja-galaxy-forum.com/index.php?t=msg&goto=361643&#msg_361643
+
 Where to read about new game features:
 --------------------------------------
 Bears-Pit forum
