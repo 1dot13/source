@@ -1205,6 +1205,8 @@ typedef struct
 	// HEADROCK HAM 3.5: Explosive Suppression Effectiveness alters the amount of Suppression Points you get from nearby blasts.
 	UINT16 usExplosionSuppressionEffect;
 
+	UINT8 ubBuckshotSuppressionEffectiveness;
+
 	// HEADROCK HAM 3.5: When enabled, goggle-switching affects every merc in the sector, not just those belonging to the current squad.
 	BOOLEAN fGoggleSwapAffectsAllMercsInSector;
 

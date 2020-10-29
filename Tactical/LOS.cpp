@@ -7106,7 +7106,9 @@ void MoveBullet( INT32 iBullet )
 						{
 							// buckshot has only a 1 in 2 chance of applying a suppression point
 							// HEADROCK HAM 5: For NCTH, make pellets as effective as any other bullet.
-							if (UsingNewCTHSystem() || !(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Random(2))
+							// sevenfm: externalized chance
+							//if (UsingNewCTHSystem() || !(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Random(2))
+							if (!(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Chance(gGameExternalOptions.ubBuckshotSuppressionEffectiveness))
 							{
 								// bullet goes whizzing by this guy!
 								switch ( gAnimControl[ MercPtrs[pStructure->usStructureID]->usAnimState ].ubEndHeight )
@@ -7192,7 +7194,9 @@ void MoveBullet( INT32 iBullet )
 							{
 								// buckshot has only a 1 in 2 chance of applying a suppression point
 								// HEADROCK HAM 5: For NCTH, make pellets as effective as any other bullet.
-								if (UsingNewCTHSystem() || !(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Random(2))
+								// sevenfm: externalized chance
+								//if (UsingNewCTHSystem() || !(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Random(2))
+								if (!(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Chance(gGameExternalOptions.ubBuckshotSuppressionEffectiveness))								
 								{
 									// bullet goes whizzing by this guy!
 									switch ( gAnimControl[ pTarget->usAnimState ].ubEndHeight )
