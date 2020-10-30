@@ -11893,8 +11893,14 @@ BOOLEAN ArtilleryStrike( UINT16 usItem, UINT8 ubOwnerID, UINT32 usStartingGridNo
 	OBJECTTYPE shellobj;
 	CreateItem( usItem, 100, &shellobj );
 
+	// sevenfm: find launcher for usItem
+	UINT16 usLauncher = GetLauncherFromLaunchable(usItem);
+	if (usLauncher == NOTHING)
+		return FALSE;
+
 	// Get basic launch params...		
-	if (!GetArtilleryLaunchParams(usStartingGridNo, sTargetGridNo, ubLevel, sStartZ, sEndZ, usItem, &shellobj, &dForce, &dDegrees))
+	// sevenfm: we need to supply GetArtilleryLaunchParams with launcher item and not just mortar shell, as it will check it's range later
+	if (!GetArtilleryLaunchParams(usStartingGridNo, sTargetGridNo, ubLevel, sStartZ, sEndZ, usLauncher, &shellobj, &dForce, &dDegrees))
 		return FALSE;
 
 	// Get XY from gridno

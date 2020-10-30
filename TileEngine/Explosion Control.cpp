@@ -404,26 +404,19 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT32
 	
 	// sevenfm: add smoke effect, only for normal explosions
 	if (gGameExternalOptions.bAddSmokeAfterExplosion &&
-		!Water(sGridNo, bLevel))
+		(bLevel == 0 || IsRoofPresentAtGridNo(sGridNo)) &&
+		!Water(sGridNo, bLevel) &&
+		GridNoOnVisibleWorldTile(sGridNo) &&
+		Explosive[Item[usItem].ubClassIndex].ubType == 0 &&
+		Item[usItem].usBuddyItem == 0 &&
+		Explosive[Item[usItem].ubClassIndex].ubDamage > 20)
 	{
-		if (Explosive[Item[usItem].ubClassIndex].ubType == 0 &&
-			Item[usItem].usBuddyItem == 0 &&
-			Explosive[Item[usItem].ubClassIndex].ubDamage > 20)
-		{
-			NewSmokeEffect(sGridNo, SMOKE_GRENADE, bLevel, ubOwner, 0, 2, 1);
-		}
+		UINT16 usSmokeItem = SMOKE_GRENADE;
+		if (HasItemFlag(usItem, JUMP_GRENADE))
+			NewSmokeEffect(sGridNo, usSmokeItem, bLevel, ubOwner, 0, 1, 0);
+		else
+			NewSmokeEffect(sGridNo, usSmokeItem, bLevel, ubOwner, 0, 2, 1);
 	}
-
-	// sevenfm: add light for fire and signal effects
-	/*if (gGameExternalOptions.bAddLightAfterExplosion &&
-		((gubEnvLightValue >= NORMAL_LIGHTLEVEL_NIGHT - 3) || gbWorldSectorZ) &&
-		(Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS || Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_SIGNAL_SMOKE) &&
-		bLevel == 0 &&
-		!Water(sGridNo, bLevel))
-	{
-		// add light
-		NewLightEffect(sGridNo, (UINT8)Explosive[Item[usItem].ubClassIndex].ubDuration + Explosive[Item[usItem].ubClassIndex].ubRadius - Explosive[Item[usItem].ubClassIndex].ubStartRadius, (UINT8)Explosive[Item[usItem].ubClassIndex].ubRadius + 1);
-	}*/
 }
 
 
