@@ -713,7 +713,7 @@ void HandleShowingOfEnemiesWithMilitiaOn( void )
 
 INT32 GetMapColourForWeather(const INT16 sX, const INT16 sY)
 {
-	const INT32 weatherColors[]{
+	const INT32 weatherColors[] = {
 		MAP_SHADE_BLACK,
 		MAP_SHADE_LT_CYAN,
 		MAP_SHADE_LT_BLUE,
@@ -970,7 +970,7 @@ UINT32 DrawMap(void)
 		// shade map sectors (must be done before icons!)
 		if (!is_networked) //Don't shade anything if we're in multiplayer game
 		{		
-			INT32 colorMap[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ]{};
+			INT32 colorMap[ MAXIMUM_VALID_Y_COORDINATE ][ MAXIMUM_VALID_X_COORDINATE ] = {};
 			
 			switch (gusMapDisplayColourMode)
 			{

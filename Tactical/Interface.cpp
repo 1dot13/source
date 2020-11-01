@@ -2691,7 +2691,7 @@ BOOLEAN DrawCTHIndicator()
 
 	/////////////////////////////////////////
 	// Load image STI for CTH indicator only once during gameplay. This prevents us from constantly loading and unloading the file from disk.
-	static UINT32	guiCTHImage{ 0 };
+	static UINT32	guiCTHImage = { 0 };
 	if (guiCTHImage == 0)
 	{
 		VOBJECT_DESC	VObjectDesc;
