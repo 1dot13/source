@@ -3908,11 +3908,11 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
 		bMoraleCategory++;
 	}
 
-	// limit AI morale depending on morale and suppression shock
-	if( pSoldier->aiData.bShock )
-	{
-		bMoraleCategory = min(bMoraleCategory, (20 + pSoldier->aiData.bMorale - 20 * min(3, pSoldier->aiData.bShock / 5)) / 20);
-	}
+	// limit AI morale when soldier is under heavy fire
+	if (pSoldier->ShockLevelPercent() > 75)
+		bMoraleCategory = min(bMoraleCategory, MORALE_NORMAL);
+	else if (pSoldier->ShockLevelPercent() > 50)
+		bMoraleCategory = min(bMoraleCategory, MORALE_CONFIDENT);
 
 	// prevent hopeless morale when not under attack
 	if (bMoraleCategory == MORALE_HOPELESS && !pSoldier->aiData.bUnderFire)
@@ -3920,13 +3920,51 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
 		bMoraleCategory = MORALE_WORRIED;
 	}
 
-	// if adjustments made it outside the allowed limits
-	if (bMoraleCategory < MORALE_HOPELESS)
-		bMoraleCategory = MORALE_HOPELESS;
-	else if (bMoraleCategory > MORALE_FEARLESS)
-		bMoraleCategory = MORALE_FEARLESS;
+	// check limits
+	bMoraleCategory = max(bMoraleCategory, MORALE_HOPELESS);
+	bMoraleCategory = min(bMoraleCategory, MORALE_FEARLESS);
 
 	return(bMoraleCategory);
+}
+
+BOOLEAN AICheckSpecialRole(SOLDIERTYPE *pSoldier)
+{
+	if (AICheckIsSniper(pSoldier) || AICheckIsMachinegunner(pSoldier) || AICheckIsMortarOperator(pSoldier) || AICheckIsRadioOperator(pSoldier) || AICheckIsCommander(pSoldier))
+		return TRUE;
+
+	return FALSE;
+}
+
+BOOLEAN WeAttack(INT8 bTeam)
+{
+	if (bTeam >= MAXTEAMS)
+	{
+		return FALSE;
+	}
+
+	if (bTeam != ENEMY_TEAM)
+	{
+		return FALSE;
+	}
+
+	// check that every soldier has SEEKENEMY order
+	SOLDIERTYPE * pFriend;
+
+	// Run through each friendly.
+	for (UINT8 iCounter = gTacticalStatus.Team[bTeam].bFirstID; iCounter <= gTacticalStatus.Team[bTeam].bLastID; iCounter++)
+	{
+		pFriend = MercPtrs[iCounter];
+
+		if (pFriend &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			pFriend->aiData.bOrders != SEEKENEMY)
+		{
+			return FALSE;
+		}
+	}
+
+	return TRUE;
 }
 
 UINT8 CountNearbyFriendsLastAttackHit( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDistance )

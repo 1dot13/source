@@ -351,6 +351,7 @@ BOOLEAN CorpseMilitiaTeam(ROTTING_CORPSE *pCorpse);
 BOOLEAN NorthSpot(INT32 sSpot, INT8 bLevel);
 BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier);
 
+BOOLEAN WeAttack(INT8 bTeam);
 BOOLEAN CheckSuppressionDirection(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, INT8 bTargetLevel);
 
 UINT8 AIDirection(INT32 sSpot1, INT32 sSpot2);
@@ -378,6 +379,8 @@ BOOLEAN AICheckIsMortarOperator(SOLDIERTYPE *pSoldier);
 BOOLEAN AICheckIsGLOperator(SOLDIERTYPE *pSoldier);
 BOOLEAN AICheckIsOfficer(SOLDIERTYPE *pSoldier);
 BOOLEAN AICheckIsCommander(SOLDIERTYPE *pSoldier);
+
+BOOLEAN AICheckSpecialRole(SOLDIERTYPE *pSoldier);
 
 // *************************************************************
 // Knowledge functions
