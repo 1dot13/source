@@ -3424,7 +3424,8 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 			CreateAmmo((*pGun)[subObject]->data.gun.usGunAmmoItem, &gTempObject, (*pGun)[subObject]->data.gun.ubGunShotsLeft);
 
 			// Flugente: safety check: if object is broken, wipe it
-			if ( gTempObject.usItem == NOTHING )
+			// sevenfm: also check for incorrect ammo item
+			if (gTempObject.usItem == NOTHING || !(Item[gTempObject.usItem].usItemClass & IC_AMMO))
 				gTempObject.initialize( );
 
 			if (fSameMagazineSize)
@@ -3533,7 +3534,7 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 			}
 		}
 
-		//CHRIS: This should reset the number of bullest moved to what we can actually afford when loading loose rounds
+		//CHRIS: This should reset the number of bullets moved to what we can actually afford when loading loose rounds
 		if(Weapon[pGun->usItem].swapClips == 0 && (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))
 		{
 			if(fEnoughAPs)
