@@ -13429,6 +13429,9 @@ void SnitchSectorMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			if ( CanCharacterSpreadPropaganda( pSoldier ) )
 			{
+				// VR r2698 fix:  snitch assignments were not properly taking mercs out of vehicles
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
 				fShowSnitchSectorMenu = FALSE;
 
 				// stop showing menu
@@ -13459,6 +13462,9 @@ void SnitchSectorMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			if ( CanCharacterGatherInformation( pSoldier ) )
 			{
+				// VR r2698 fix:  snitch assignments were not properly taking mercs out of vehicles
+				pSoldier->bOldAssignment = pSoldier->bAssignment;
+
 				fShowSnitchSectorMenu = FALSE;
 
 				// stop showing menu
