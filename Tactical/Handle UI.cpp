@@ -6217,8 +6217,12 @@ UINT32 UIHandleJumpOver( UI_EVENT *pUIEvent )
 	// Get direction to goto....
 	ubDirection = GetDirectionFromGridNo( usMapPos, pSoldier );
 
-
 	pSoldier->flags.fDontChargeTurningAPs = TRUE;
+	// sevenfm: if soldier is prone, change to standing
+	if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+		UIHandleSoldierStanceChange(pSoldier->ubID, ANIM_CROUCH);
+	// sevenfm: first change to stationary
+	pSoldier->SoldierGotoStationaryStance();
 	pSoldier->EVENT_SetSoldierDesiredDirection(ubDirection);
 	pSoldier->flags.fTurningUntilDone = TRUE;
 	// ATE: Reset flag to go back to prone...
@@ -6227,7 +6231,6 @@ UINT32 UIHandleJumpOver( UI_EVENT *pUIEvent )
 		pSoldier->usPendingAnimation = LONG_JUMP;
 	else
 		pSoldier->usPendingAnimation = JUMP_OVER_BLOCKING_PERSON;
-
 
 	return( GAME_SCREEN );
 }
