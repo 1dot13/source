@@ -2027,7 +2027,11 @@ void PlayWeaponSound(SOLDIERTYPE *pSoldier, OBJECTTYPE *pObjHand, OBJECTTYPE *pO
 			bTerrainType = FLAT_FLOOR;
 		if (pSector)
 			ubSectorType = pSector->ubTraversability[THROUGH_STRATEGIC_MOVE];
-		if (InARoom(pSoldier->sGridNo, NULL) && pSoldier->pathing.bLevel == 0 && bTerrainType == FLAT_FLOOR && CheckRoof(pSoldier->sGridNo))
+		if (InARoom(pSoldier->sGridNo, NULL) && 
+			pSoldier->pathing.bLevel == 0 && 
+			bTerrainType == FLAT_FLOOR && 
+			CheckRoof(pSoldier->sGridNo) &&
+			pSoldier->bDoBurst <= 1)
 			fRoom = TRUE;
 		if (pSoldier->ubAttackingHand == HANDPOS)
 			fMainHand = TRUE;

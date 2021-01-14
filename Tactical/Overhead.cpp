@@ -5343,12 +5343,17 @@ BOOLEAN IsLocationSittable( INT32 iMapIndex, BOOLEAN fOnRoof )
 {
     STRUCTURE *pStructure;
     INT16 sDesiredLevel;
+
     if( WhoIsThere2( iMapIndex, 0 ) != NOBODY )
         return FALSE;
+
     //Locations on roofs without a roof is not possible, so
     //we convert the onroof intention to ground.
-    if( fOnRoof && !FlatRoofAboveGridNo( iMapIndex ) )
-        fOnRoof = FALSE;
+	// sevenfm: return FALSE if location on roof does not exist
+	if (fOnRoof && !FlatRoofAboveGridNo(iMapIndex))
+		return FALSE;
+        //fOnRoof = FALSE;
+
     // Check structure database
     if( gpWorldLevelData[ iMapIndex ].pStructureHead )
     {
@@ -5373,8 +5378,11 @@ BOOLEAN IsLocationSittableExcludingPeople( INT32 iMapIndex, BOOLEAN fOnRoof )
 
     //Locations on roofs without a roof is not possible, so
     //we convert the onroof intention to ground.
-    if( fOnRoof && !FlatRoofAboveGridNo( iMapIndex ) )
-        fOnRoof = FALSE;
+	// sevenfm: return FALSE if location on roof does not exist
+	if (fOnRoof && !FlatRoofAboveGridNo(iMapIndex))
+		return FALSE;
+        //fOnRoof = FALSE;
+
     // Check structure database
     if( gpWorldLevelData[ iMapIndex ].pStructureHead )
     {

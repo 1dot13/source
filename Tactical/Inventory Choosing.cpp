@@ -1164,12 +1164,16 @@ void ChooseGrenadesForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bGrena
 		// return here in any case
 		if (itemMortar > 0 )
 		{
-			usItem = PickARandomLaunchable ( itemMortar );
-			if ( usItem > 0 )
+			// sevenfm: more variety for mortar shells
+			for (int i = 0; i < bGrenades; i++)
 			{
-				CreateItems( usItem, (INT8) (80 + Random(21)), bGrenades, &gTempObject );
-				gTempObject.fFlags |= OBJECT_UNDROPPABLE;
-				PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
+				usItem = PickARandomLaunchable(itemMortar);
+				if (usItem > 0)
+				{
+					CreateItems(usItem, (INT8)(80 + Random(21)), 1, &gTempObject);
+					gTempObject.fFlags |= OBJECT_UNDROPPABLE;
+					PlaceObjectInSoldierCreateStruct(pp, &gTempObject);
+				}
 			}
 		}
 
@@ -1214,9 +1218,7 @@ void ChooseGrenadesForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bGrena
 		//do this for every 1-2 grenades so that we can get more variety
 		while ( bGrenades > 0 )
 		{
-			count = Random(3);
-			if ( count > bGrenades )
-				count = bGrenades;
+			count = min(1 + Random(2), bGrenades);
 
 			usItem = PickARandomLaunchable ( itemGrenadeLauncher );
 			if ( usItem > 0 && count > 0 )
@@ -1236,9 +1238,7 @@ void ChooseGrenadesForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bGrena
 	//do this for every 1-2 grenades so that we can get more variety
 	while ( bGrenades > 0 )
 	{
-		count = Random(3);
-		if ( count > bGrenades )
-			count = bGrenades;
+		count = min(1 + Random(2), bGrenades);
 
 		usItem = PickARandomItem ( GRENADE, pp->ubSoldierClass, bGrenadeClass, FALSE );
 		if ( usItem > 0 && count > 0 )

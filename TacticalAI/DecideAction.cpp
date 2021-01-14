@@ -2752,16 +2752,35 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 						// try behind us, see if there's room to move back
 						sCheckGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(gOppositeDirection[ubOpponentDir]));						
 						if (OKFallDirection(pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ubOpponentDir], pSoldier->usAnimState))
-							//FindBestPath(pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), COPYROUTE, 0))
 						{
 							// sevenfm: check if we can reach this gridno
 							INT32 iPathCost = EstimatePlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), pSoldier->bStealthMode, FALSE, 0);
-							if(iPathCost !=0 && iPathCost <= pSoldier->bActionPoints)
+							if (iPathCost != 0 && iPathCost + BestThrow.ubAPCost + GetAPsToLook(pSoldier) + GetAPsCrouch(pSoldier, FALSE) <= pSoldier->bActionPoints)
 							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("moving backwards to have more room to deploy mortar"));
 								pSoldier->aiData.usActionData = sCheckGridNo;
+
+								DebugAI(AI_MSG_INFO, pSoldier, String("prepare next action throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
+
+								// if necessary, swap the usItem
+								if (BestThrow.bWeaponIn != HANDPOS)
+								{
+									DebugAI(AI_MSG_INFO, pSoldier, String("rearrange pocket"));
+									RearrangePocket(pSoldier, HANDPOS, BestThrow.bWeaponIn, FOREVER);
+								}
+
+								pSoldier->aiData.usNextActionData = BestThrow.sTarget;
+								pSoldier->aiData.bNextTargetLevel = BestThrow.bTargetLevel;
+								pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+
+								pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
+
 								return AI_ACTION_GET_CLOSER;
 							}
 						}
+
+						// can't fire!
+						BestThrow.ubPossible = FALSE;
 					}
 				}
 
@@ -2770,7 +2789,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				{
 					DebugAI(AI_MSG_INFO, pSoldier, String("prepare throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
 
-					// if necessary, swap the usItem from holster into the hand position
+					// if necessary, swap the usItem
 					if (BestThrow.bWeaponIn != HANDPOS)
 					{
 						DebugAI(AI_MSG_INFO, pSoldier, String("rearrange pocket"));
@@ -3856,11 +3875,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			// modify RED movement tendencies according to morale
 			switch (pSoldier->aiData.bAIMorale)
 			{
-			case MORALE_HOPELESS:  bSeekPts = -99; bHelpPts = -99; bHidePts = +2; bWatchPts = -99; break;
+			case MORALE_HOPELESS:  bSeekPts = -99; bHelpPts = -99; bHidePts += +2; bWatchPts = -99; break;
 			case MORALE_WORRIED:   bSeekPts += -2; bHelpPts += 0; bHidePts += +2; bWatchPts += 1; break;
 			case MORALE_NORMAL:    bSeekPts += 0; bHelpPts += 0; bHidePts += 0; bWatchPts += 0; break;
 			case MORALE_CONFIDENT: bSeekPts += +1; bHelpPts += 0; bHidePts += -1; bWatchPts += 0; break;
-			case MORALE_FEARLESS:  bSeekPts += +1; bHelpPts += 0; bHidePts = -1; bWatchPts += 0; break;
+			case MORALE_FEARLESS:  bSeekPts += +1; bHelpPts += 0; bHidePts += -1; bWatchPts += 0; break;
 			}
 
 			// modify tendencies according to orders
@@ -5490,14 +5509,14 @@ INT16 ubMinAPCost;
 					if ( OKFallDirection( pSoldier, sCheckGridNo, pSoldier->pathing.bLevel, gOppositeDirection[ ubOpponentDir ], pSoldier->usAnimState ) )
 					{
 						// sevenfm: check if we can reach this gridno
-						INT32 iPathCost = EstimatePlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), pSoldier->bStealthMode, FALSE, 0);
-						if (iPathCost != 0 && iPathCost <= pSoldier->bActionPoints)
-						{
+					INT32 iPathCost = EstimatePlotPath(pSoldier, sCheckGridNo, FALSE, FALSE, FALSE, DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER), pSoldier->bStealthMode, FALSE, 0);
+					if (iPathCost != 0 && iPathCost <= pSoldier->bActionPoints)
+					{
 							pSoldier->aiData.usActionData = sCheckGridNo;
 							return AI_ACTION_GET_CLOSER;
-						}
 					}
 				}
+			}
 			}
 
 			if ( BestThrow.ubPossible )
@@ -6481,23 +6500,23 @@ L_NEWAIM:
 			if (IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]))	//dnl ch63 240813
 			{
 				DebugAI(AI_MSG_INFO, pSoldier, String("using attached GL"));
-				pSoldier->bWeaponMode = WM_ATTACHED_GL;
-			}
+					pSoldier->bWeaponMode = WM_ATTACHED_GL;
+				}
 
-			// stand up before throwing if needed
-			if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestAttack.ubStance &&
-				pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestAttack.sTarget), BestAttack.ubStance))
-			{
-				pSoldier->aiData.usActionData = BestAttack.ubStance;
-				pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
-				pSoldier->aiData.usNextActionData = BestAttack.sTarget;
-				pSoldier->aiData.bNextTargetLevel = BestAttack.bTargetLevel;
-				return AI_ACTION_CHANGE_STANCE;
-			}
-			else
-			{
-				pSoldier->aiData.usActionData = BestAttack.sTarget;
-				pSoldier->bTargetLevel = BestAttack.bTargetLevel;
+				// stand up before throwing if needed
+				if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestAttack.ubStance &&
+					pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestAttack.sTarget), BestAttack.ubStance))
+				{
+					pSoldier->aiData.usActionData = BestAttack.ubStance;
+					pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
+					pSoldier->aiData.usNextActionData = BestAttack.sTarget;
+					pSoldier->aiData.bNextTargetLevel = BestAttack.bTargetLevel;
+					return AI_ACTION_CHANGE_STANCE;
+				}
+				else
+				{
+					pSoldier->aiData.usActionData = BestAttack.sTarget;
+					pSoldier->bTargetLevel = BestAttack.bTargetLevel;
 				return(AI_ACTION_TOSS_PROJECTILE);
 			}
 		}

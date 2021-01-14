@@ -3159,7 +3159,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 			}
 
 			// sevenfm: skip gas if not in gas already
-			if (!(s->flags.uiStatusFlags & SOLDIER_PC) &&
+			if ((!(s->flags.uiStatusFlags & SOLDIER_PC) || gTacticalStatus.fAutoBandageMode || s->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL) &&
 				InGasSpot(s, newLoc, bLevel) &&
 				!InGasSpot(s, s->sGridNo, bLevel))
 			{

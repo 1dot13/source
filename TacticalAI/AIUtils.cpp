@@ -1913,8 +1913,10 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT
 		{
 			// on ground or same building... normal!
 			sPathCost = EstimatePlotPath( pSoldier, sDestGridNo, FALSE, FALSE, FALSE, WALKING, FALSE, FALSE, 0);
-			*pfClimbingNecessary = FALSE;
-			*psClimbGridNo = NOWHERE;
+			if (pfClimbingNecessary)
+				*pfClimbingNecessary = FALSE;
+			if (psClimbGridNo)
+				*psClimbGridNo = NOWHERE;
 		}
 		else
 		{
@@ -1945,8 +1947,10 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT
 						// add in an estimate of getting there after climbing down, *but not on top of roof*
 						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]) * PythSpacesAway( sClimbGridNo, sDestGridNo ) / 2;
 					}
-					*pfClimbingNecessary = TRUE;
-					*psClimbGridNo = sClimbGridNo;
+					if (pfClimbingNecessary)
+						*pfClimbingNecessary = TRUE;
+					if (psClimbGridNo)
+						*psClimbGridNo = sClimbGridNo;
 				}
 			}
 		}
@@ -2001,8 +2005,10 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT
 					// estimate walk cost
 					sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_MODIFIER_WALK]) * PythSpacesAway( sClimbGridNo, sDestGridNo );
 				}
-				*pfClimbingNecessary = TRUE;
-				*psClimbGridNo = sClimbGridNo;
+				if (pfClimbingNecessary)
+					*pfClimbingNecessary = TRUE;
+				if (psClimbGridNo)
+					*psClimbGridNo = sClimbGridNo;
 			}
 		}
 	}
