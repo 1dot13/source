@@ -483,7 +483,7 @@ void HandlePrisonerProcessingInSector( INT16 sMapX, INT16 sMapY, INT8 bZ );
 // Flugente: prisons can riot if there aren't enough guards around
 void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
-// Flugente: assigned mercs can move equipemnt in city sectors
+// Flugente: assigned mercs can move equipment in city sectors
 void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ );
 
 void HandleTrainWorkers( );
@@ -515,7 +515,7 @@ void HandleAdministrationAssignments();
 // Flugente: handle exploration assignements
 void HandleExplorationAssignments();
 
-// is the character between secotrs in mvt
+// is the character between sectors in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
 // update soldier life
@@ -2746,6 +2746,56 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 BOOLEAN CanCharacterSnitch( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
+
+	// sevenfm: added basic requirements
+	if (!BasicCanCharacterAssignment(pSoldier, TRUE))
+	{
+		return(FALSE);
+	}
+
+	// only need to be alive and well to do so right now
+	// alive and conscious
+	if (pSoldier->stats.bLife < OKLIFE)
+	{
+		// dead or unconscious...
+		return (FALSE);
+	}
+
+	if (pSoldier->bSectorZ != 0)
+	{
+		return(FALSE);
+	}
+
+	// in transit?
+	if (IsCharacterInTransit(pSoldier) == TRUE)
+	{
+		return (FALSE);
+	}
+
+	// character on the move?
+	if (CharacterIsBetweenSectors(pSoldier))
+	{
+		return(FALSE);
+	}
+
+	// check in helicopter in hostile sector
+	if (pSoldier->bAssignment == VEHICLE)
+	{
+		if ((iHelicopterVehicleId != -1) && (pSoldier->iVehicleId == iHelicopterVehicleId))
+		{
+			// enemies in sector
+			if (NumNonPlayerTeamMembersInSector(pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM) > 0)
+			{
+				return(FALSE);
+			}
+		}
+	}
+
+	if (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC)
+	{
+		// epcs can't do this
+		return(FALSE);
+	}
 
 	// Flugente: we can't perform most assignments while concealed
 	if ( SPY_LOCATION( pSoldier->bAssignment ) )
@@ -8671,7 +8721,7 @@ void HandlePrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	}
 }
 
-// Flugente: assigned mercs can move equipemnt in city sectors
+// Flugente: assigned mercs can move equipment in city sectors
 void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
 	// no underground
@@ -14103,7 +14153,8 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				break;
 
 				case( ASSIGN_MENU_MOVE_ITEMS ):
-					if( 1 )
+					if (CanCharacterPractise(pSoldier))
+					//if( 1 )
 					{
 						gAssignMenuState = ASMENU_NONE;
 
@@ -14121,14 +14172,14 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 							DetermineBoxPositions();
 						}
 					}
-					else if( 0 )
+					/*else if( 0 )
 					{
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
 						swprintf( sString, zMarksMapScreenText[ 18 ], pSoldier->GetName() );
 
 						DoScreenIndependantMessageBox( sString , MSG_BOX_FLAG_OK, NULL );
-					}
+					}*/
 					break;
 
 				case ASSIGN_MENU_FORTIFY:

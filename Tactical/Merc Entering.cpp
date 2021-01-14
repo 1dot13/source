@@ -566,9 +566,11 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
 				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameUBOptions.LOCATEGRIDNO;
 #else
-				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
+				//MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;				
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-				MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+				// sevenfm: if soldiers land into enemy sector, use gsGridNoSweetSpot
+				//MercPtrs[ gusHeliSeats[ cnt ] ]->usStrategicInsertionData = gGameExternalOptions.iInitialMercArrivalLocation;
+				MercPtrs[gusHeliSeats[cnt]]->usStrategicInsertionData = gsGridNoSweetSpot;
 				#endif
 				// HEADROCK HAM 3.5: Externalized!
 				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ );
@@ -699,7 +701,7 @@ void HandleHeliDrop( BOOLEAN fPlayer )
 						if ( gbCurDrop < bEndVal )
 						{
 							// Flugente: it is now possible to use airdrops with soldiers after they have arrived in Arulco. In that case, they might have an animation that breaks EVENT_InitNewSoldierAnim prematurely.
-							// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldiers to the STANDING aniamtion. 
+							// In the worst case, this can cause the game to be unable to finish the airdrop. For that reason, we set all those soldiers to the STANDING animation. 
 							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->usAnimState = STANDING;
 							MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
 
