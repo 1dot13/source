@@ -955,7 +955,7 @@ inline UINT16 * GetShadeTable(LEVELNODE * pNode, SOLDIERTYPE * pSoldier, SOLDIER
 	{
 		if (pSoldier->flags.fForceShade)
 		{
-			pShadeTable = pPaletteTable->pForcedShade;
+			pShadeTable = pSoldier->pForcedShade;
 		}
 	}
 	// check if we are a merc duplicate, if so, only do minimal stuff!
