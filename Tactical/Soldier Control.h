@@ -1867,6 +1867,7 @@ public:
 	UINT8		ShockLevelPercent(void);
 	BOOLEAN		TakenLargeHit(void);
 	BOOLEAN		IsCowering(void);
+	BOOLEAN		IsGivingAid(void);
 
 	void	RetreatCounterStart(UINT16 usValue);
 	void	RetreatCounterStop(void);

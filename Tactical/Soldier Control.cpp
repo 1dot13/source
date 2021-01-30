@@ -25925,6 +25925,14 @@ BOOLEAN SOLDIERTYPE::IsCowering(void)
 	return FALSE;
 }
 
+BOOLEAN	SOLDIERTYPE::IsGivingAid(void)
+{
+	if (this->usAnimState == GIVING_AID || this->usAnimState == GIVING_AID_PRN || this->usAnimState == START_AID || this->usAnimState == START_AID_PRN)
+		return TRUE;
+
+	return FALSE;
+}
+
 void	SOLDIERTYPE::RetreatCounterStart(UINT16 usValue)
 {
 	usSkillCounter[SOLDIER_COUNTER_RETREAT] = max(usValue, usSkillCounter[SOLDIER_COUNTER_RETREAT]);

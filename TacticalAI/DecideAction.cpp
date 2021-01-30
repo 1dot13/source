@@ -2522,7 +2522,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		pSoldier->stats.bLife >= OKLIFE &&
 		!pSoldier->bCollapsed &&
 		!pSoldier->bBreathCollapsed &&
-		(pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE))
+		pSoldier->IsCowering())
 	{
 		return AI_ACTION_STOP_COWERING;
 	}
@@ -2533,7 +2533,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		pSoldier->stats.bLife >= OKLIFE &&
 		!pSoldier->bCollapsed &&
 		!pSoldier->bBreathCollapsed &&
-		(pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN))
+		pSoldier->IsGivingAid())
 	{
 		return AI_ACTION_STOP_MEDIC;
 	}
@@ -4934,7 +4934,7 @@ INT16 ubMinAPCost;
 		pSoldier->stats.bLife >= OKLIFE &&
 		!pSoldier->bCollapsed &&
 		!pSoldier->bBreathCollapsed &&
-		(pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE))
+		pSoldier->IsCowering())
 	{
 		return AI_ACTION_STOP_COWERING;
 	}
@@ -4945,7 +4945,7 @@ INT16 ubMinAPCost;
 		pSoldier->stats.bLife >= OKLIFE &&
 		!pSoldier->bCollapsed &&
 		!pSoldier->bBreathCollapsed &&
-		(pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN))
+		pSoldier->IsGivingAid())
 	{
 		return AI_ACTION_STOP_MEDIC;
 	}
@@ -10143,11 +10143,11 @@ void LogDecideInfo(SOLDIERTYPE *pSoldier)
 	DebugAI(AI_MSG_INFO, pSoldier, String("Health %d/%d Breath %d/%d Shock %d Tolerance %d AI Morale %d Morale %d", pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pSoldier->aiData.bShock, CalcSuppressionTolerance(pSoldier), pSoldier->aiData.bAIMorale, pSoldier->aiData.bMorale));
 	DebugAI(AI_MSG_INFO, pSoldier, String("Spot %d level %d opponents %d", pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->aiData.bOppCnt));
 	DebugAI(AI_MSG_INFO, pSoldier, String("ubServiceCount %d ubServicePartner %d fDoingSurgery %d", pSoldier->ubServiceCount, pSoldier->ubServicePartner, pSoldier->fDoingSurgery));
-	if (pSoldier->usAnimState == COWERING || pSoldier->usAnimState == COWERING_PRONE)
+	if (pSoldier->IsCowering())
 	{
 		DebugAI(AI_MSG_INFO, pSoldier, String("Cowering"));
 	}
-	if (pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN)
+	if (pSoldier->IsGivingAid())
 	{
 		DebugAI(AI_MSG_INFO, pSoldier, String("Giving aid"));
 	}

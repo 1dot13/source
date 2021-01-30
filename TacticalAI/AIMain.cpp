@@ -2632,7 +2632,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			if (pSoldier->stats.bLife >= OKLIFE &&
 				pSoldier->bBreath > 0 &&
 				!pSoldier->bCollapsed &&
-				(pSoldier->usAnimState == GIVING_AID || pSoldier->usAnimState == GIVING_AID_PRN))
+				pSoldier->IsGivingAid())
 			{
 				if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
 					pSoldier->ChangeSoldierState(END_AID_PRN, 0, 0);
