@@ -8498,7 +8498,7 @@ void HandleTacticalTransformItem(void)
 BOOLEAN FindTransformation( UINT16 usItem, TransformInfoStruct **pTransformation )
 {
 	// find transformation
-	for ( UINT32 x = 0; x < gMAXITEMS_READ; ++x )
+	for ( UINT32 x = 0; x < MAXITEMS + 1; ++x )
 	{
 		if ( Transform[x].usItem == (UINT16)-1 )
 		{
@@ -9034,7 +9034,7 @@ void HandleTacticalTransformFlashlight(void)
 BOOLEAN FindLaserTransformation(UINT16 usItem, TransformInfoStruct **pTransformation)
 {
 	// find transformation
-	for (INT32 x = 0; x < MAXITEMS; x++)
+	for (INT32 x = 0; x < MAXITEMS + 1; x++)
 	{
 		if (Transform[x].usItem == (UINT16)-1)
 		{
@@ -9060,7 +9060,7 @@ BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransforma
 	// search for higher magnification first
 	iFoundIndex = MAXITEMS;
 	scope = Item[usItem].scopemagfactor;
-	for (INT32 x = 0; x < MAXITEMS; x++)
+	for (INT32 x = 0; x < MAXITEMS + 1; x++)
 	{
 		if (Transform[x].usItem == (UINT16)-1)
 		{
@@ -9087,7 +9087,7 @@ BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransforma
 	// search for lowest magnification
 	iFoundIndex = MAXITEMS;
 	scope = Item[usItem].scopemagfactor;
-	for (INT32 x = 0; x < MAXITEMS; x++)
+	for (INT32 x = 0; x < MAXITEMS + 1; x++)
 	{
 		if (Transform[x].usItem == (UINT16)-1)
 		{
@@ -9111,7 +9111,7 @@ BOOLEAN FindScopeTransformation(UINT16 usItem, TransformInfoStruct **pTransforma
 	}
 
 	// search for any transformation
-	for (INT32 x = 0; x < MAXITEMS; x++)
+	for (INT32 x = 0; x < MAXITEMS + 1; x++)
 	{
 		if (Transform[x].usItem == (UINT16)-1)
 		{

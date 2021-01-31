@@ -5715,14 +5715,16 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 		if( gItemDescAttachmentRegions[cnt].IDNumber != 0 )
 			MSYS_RemoveRegion( &gItemDescAttachmentRegions[cnt]);
 
-		if( gItemDescAttachmentPopupsInitialized && gItemDescAttachmentPopups[cnt] != NULL ){
+		if( gItemDescAttachmentPopupsInitialized && gItemDescAttachmentPopups[cnt] != NULL )
+		{
 			delete(gItemDescAttachmentPopups[cnt]);			
 		}
 		gItemDescAttachmentPopups[cnt] = NULL;		
 	}
 	gItemDescAttachmentPopupsInitialized = TRUE;
 
-	for (auto iter = gPopupAttachmentInfos.begin(); iter != gPopupAttachmentInfos.end(); iter++) {
+	for (auto iter = gPopupAttachmentInfos.begin(); iter != gPopupAttachmentInfos.end(); iter++) 
+	{
 		delete (*iter);
 	}
 	gPopupAttachmentInfos.clear();
@@ -5731,7 +5733,8 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 	for (slotCount = 0; ; ++slotCount )
 	{
 		//stopping conditions, not inside the for loop because it is different depending on the attachment system.
-		if (UsingNewAttachmentSystem()==true)	{
+		if (UsingNewAttachmentSystem()==true)	
+		{
 			if(slotCount >= usAttachmentSlotIndexVector.size())
 				break;
 		} else {
@@ -5766,88 +5769,110 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 
 			// CHRISL: Instead of looking at object 0, let's look at the object we actually right clicked on using ubStatusIndex
 			OBJECTTYPE* pAttachment = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(slotCount);
-			if (pAttachment->exists()) {
+			if (pAttachment->exists()) 
+			{
 				SetRegionFastHelpText( &(gItemDescAttachmentRegions[ slotCount ]), ItemNames[ pAttachment->usItem ] );
-			} else if (UsingNewAttachmentSystem()==true && !usAttachmentSlotIndexVector.empty()) {	
-
+			} 
+			else if (UsingNewAttachmentSystem()==true && !usAttachmentSlotIndexVector.empty()) 
+			{
 				UINT16 usLoopSlotID = usAttachmentSlotIndexVector[slotCount];
 				attachList.clear();
 				//Print all attachments that fit on this item.
-				for(UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; ++usLoop)
-				{	//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
+
+				// sevenfm: first check items
+				for (UINT16 usLoop = 0; usLoop < gMAXITEMS_READ; usLoop++)
+				{
+					// check that reached end of valid items
+					if (Item[usLoop].usItemClass == 0)
+						break;
+
+					//We no longer find valid attachments from AttachmentSlots.xml so we need to work a bit harder to get our list
 					usAttachment = 0;
 					//Madd: Common Attachment Framework
 					if (Item[usLoop].nasAttachmentClass & AttachmentSlots[usLoopSlotID].nasAttachmentClass && IsAttachmentPointAvailable(point, usLoop, TRUE))
 					{
 						usAttachment = usLoop;
-						if( !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+						if (!Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
 						{
-							bool exists = false;
-							for (UINT32 i = 0; i < attachList.size(); i++)
+							if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
 							{
-								if ( attachList[i] == usAttachment )
-								{
-									exists = true;
-									break;
-								}
-							}
-							if (!exists)
 								attachList.push_back(usAttachment);
-						}
-					}
-					usAttachment = 0;
-					if(Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
-					{	//search primary item attachments.xml
-						usAttachment = Attachment[usLoop][0];
-					}
-					else if(Launchable[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
-					{	//search primary item launchables.xml
-						usAttachment = Launchable[usLoop][0];
-					}
-					else
-					{	//search for attachments/launchables made valid by other attachments
-#if 0//dnl ch76 081113
-						for(UINT8 x=0; x<(*pObject)[ubStatusIndex]->attachments.size(); x++)
-						{
-							OBJECTTYPE* pAttachment2 = (*pObject)[ubStatusIndex]->GetAttachmentAtIndex(x);
-							if(pAttachment2->exists())
-							{
-								if(Attachment[usLoop][1] == pAttachment2->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
-									usAttachment = Attachment[usLoop][0];
-								else if(Launchable[usLoop][1] == pAttachment2->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
-									usAttachment = Launchable[usLoop][0];
 							}
 						}
-#else
-						UINT32 cnt = attachedList.size();
-						UINT16 *p = cnt ? &attachedList.front() : NULL;
-						while(cnt)
-						{
-							if(Attachment[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
-								usAttachment = Attachment[usLoop][0];
-							else if(Launchable[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
-								usAttachment = Launchable[usLoop][0];
-							cnt--, p++;
-						}
-#endif
 					}
-					if(Attachment[usLoop][0] == 0 && Launchable[usLoop][0] == 0 && Item[usLoop].usItemClass == 0)
+				}
+
+				// sevenfm: check launchables
+				for (UINT16 usLoop = 0; usLoop < MAXITEMS + 1; usLoop++)
+				{
+					// check that reached end of valid launchables
+					if (Launchable[usLoop][0] == 0)
 						break;
 
-					if( usAttachment > 0  && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+					usAttachment = 0;
+					if (Launchable[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
 					{
-						bool exists = false;
-						for (UINT32 i = 0; i < attachList.size(); i++)
+						//search primary item launchables.xml
+						usAttachment = Launchable[usLoop][0];
+					}
+
+					if (usAttachment > 0 && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+					{
+						if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
 						{
-							if ( attachList[i] == usAttachment )
+							attachList.push_back(usAttachment);
+						}
+					}
+					else
+					{
+						//search for launchables made valid by other attachments
+						UINT32 cnt = attachedList.size();
+						UINT16* p = cnt ? &attachedList.front() : NULL;
+						while (cnt)
+						{
+							if (Launchable[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
+								usAttachment = Launchable[usLoop][0];
 							{
-								exists = true;
-								break;
+								cnt--, p++;
 							}
 						}
-	
-						if (!exists)
+					}
+				}
+
+				// check all attachments
+				for (UINT16 usLoop = 0; usLoop < MAXATTACHMENTS; usLoop++)
+				{
+					// check that reached end of valid attachments
+					if (Attachment[usLoop][0] == 0)
+						break;
+
+					usAttachment = 0;
+					if (Attachment[usLoop][1] == pObject->usItem && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
+					{
+						//search primary item attachments.xml
+						usAttachment = Attachment[usLoop][0];
+					}
+					else
+					{
+						//search for attachments made valid by other attachments
+						UINT32 cnt = attachedList.size();
+						UINT16* p = cnt ? &attachedList.front() : NULL;
+						while (cnt)
+						{
+							if (Attachment[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
+								usAttachment = Attachment[usLoop][0];
+							{
+								cnt--, p++;
+							}
+						}
+					}
+
+					if (usAttachment > 0 && !Item[usAttachment].hiddenaddon && !Item[usAttachment].hiddenattachment && ItemIsLegal(usAttachment))
+					{
+						if (std::find(attachList.begin(), attachList.end(), usAttachment) == attachList.end())
+						{
 							attachList.push_back(usAttachment);
+						}
 					}
 				}
 
@@ -6990,7 +7015,7 @@ void RenderItemDescriptionBox( )
 			}
 			else
 			{
-				for ( UINT16 x = 0; x < gMAXITEMS_READ; ++x )
+				for ( UINT16 x = 0; x < MAXITEMS + 1; ++x )
 				{
 					if (Transform[x].usItem == (UINT16)-1)
 						break;
@@ -13466,7 +13491,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 					fFoundTransformations = true;
 				}
 
-				for (UINT32 x = 0; x < gMAXITEMS_READ; ++x)
+				for (UINT32 x = 0; x < MAXITEMS + 1; ++x)
 				{
 					if (Transform[x].usItem == (UINT16)-1)
 					{
@@ -13532,7 +13557,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason )
 		// Now that the popup is initialized, lets set the help text for each line. Note that we have to do it here
 		// (rather than before) because only now are the MOUSE_REGIONs ready to receive help text at all!!
 		INT32 iNumOptions = 0;
-		for ( UINT32 x = 0; x < gMAXITEMS_READ; ++x )
+		for ( UINT32 x = 0; x < MAXITEMS + 1; ++x )
 		{
 			if (Transform[x].usItem == (UINT16)-1)
 			{
