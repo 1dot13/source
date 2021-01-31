@@ -5832,9 +5832,8 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						{
 							if (Launchable[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Launchable[usLoop][0]].nasAttachmentClass)
 								usAttachment = Launchable[usLoop][0];
-							{
-								cnt--, p++;
-							}
+
+							cnt--, p++;
 						}
 					}
 				}
@@ -5861,9 +5860,8 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 						{
 							if (Attachment[usLoop][1] == *p && AttachmentSlots[usLoopSlotID].nasAttachmentClass & Item[Attachment[usLoop][0]].nasAttachmentClass)
 								usAttachment = Attachment[usLoop][0];
-							{
-								cnt--, p++;
-							}
+
+							cnt--, p++;
 						}
 					}
 
