@@ -2619,6 +2619,9 @@ enum
 };
 extern STR16	gszPocketPopupText[];
 
+// rftr: better LBE tooltips
+extern STR16		gLbeStatsDesc[14];
+
 // Flugente: backgrounds
 extern STR16		szBackgroundText_Flags[];
 extern STR16		szBackgroundText_Value[];

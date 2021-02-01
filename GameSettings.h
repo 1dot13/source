@@ -1142,6 +1142,9 @@ typedef struct
 	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
 	BOOLEAN fBobbyRayTooltipsShowAttachments;
 
+	// sevenfm: show LBE details in tooltip
+	BOOLEAN fBobbyRayTooltipsShowLBEDetails;
+
 	//JMich Externalized gGameExternalOptions.ubBobbyRayMaxPurchaseAmount for BobbyRay
 	UINT8 ubBobbyRayMaxPurchaseAmount;
 

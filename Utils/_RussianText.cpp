@@ -11628,4 +11628,23 @@ STR16	szTurncoatText[] =
 	L"%d turncoats present",
 };
 
+// rftr: better lbe tooltips
+STR16 gLbeStatsDesc[14] =
+{
+	L"MOLLE Доступный объем:",
+	L"MOLLE Требуемый объем:",
+	L"MOLLE Маленьких слотов:",
+	L"MOLLE Средних слотов:",
+	L"MOLLE Маленький",
+	L"MOLLE Средний",
+	L"MOLLE Средний (питьевая система)",
+	L"Набедренная платформа",
+	L"Жилет",
+	L"Ранец",
+	L"Рюкзак", // 10
+	L"MOLLE Карман",
+	L"Совместимые рюкзаки:",
+	L"Совместимые ранцы:",
+};
+
 #endif //RUSSIAN

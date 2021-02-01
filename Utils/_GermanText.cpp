@@ -11548,4 +11548,24 @@ STR16	szTurncoatText[] =
 	L"%d turncoats present",
 };
 
+// rftr: better lbe tooltips
+// TODO.Translate
+STR16 gLbeStatsDesc[14] =
+{
+	L"MOLLE Space Available:",
+	L"MOLLE Space Required:",
+	L"MOLLE Small Slot Count:",
+	L"MOLLE Medium Slot Count:",
+	L"MOLLE Pouch Size: Small",
+	L"MOLLE Pouch Size: Medium",
+	L"MOLLE Pouch Size: Medium (Hydration)",
+	L"Thigh Rig",
+	L"Vest",
+	L"Combat Pack",
+	L"Backpack", // 10
+	L"MOLLE Pouch",
+	L"Compatible backpacks:",
+	L"Compatible combat packs:",
+};
+
 #endif //GERMAN

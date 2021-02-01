@@ -1975,16 +1975,14 @@ void LoadGameExternalOptions()
 
 	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
 	gGameExternalOptions.fBobbyRayTooltipsShowAttachments	= iniReader.ReadBoolean("Bobby Ray Settings","BOBBY_RAY_TOOLTIPS_SHOW_POSSIBLE_ATTACHMENTS", FALSE);
-
 	//JMich - Maximum Purchase Amount for Bobby Ray
 	gGameExternalOptions.ubBobbyRayMaxPurchaseAmount		= iniReader.ReadInteger("Bobby Ray Settings", "BOBBY_RAY_MAX_PURCHASE_AMOUNT", 10, 10, 100);
-
 	// WDS - Option to turn off stealing
 	gGameExternalOptions.fStealingDisabled					= iniReader.ReadBoolean("Bobby Ray Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
-
 	// WANNE - Chance of shipment lost
 	gGameExternalOptions.gubChanceOfShipmentLost			= iniReader.ReadInteger("Bobby Ray Settings","CHANCE_OF_SHIPMENT_LOSS", 10, 0, 100);
-
+	// HEADROCK HAM 3: If enabled, tooltipping over Bobby Ray's weapons will show a list of possible attachments to those weapons.
+	gGameExternalOptions.fBobbyRayTooltipsShowLBEDetails	= iniReader.ReadBoolean("Bobby Ray Settings", "BOBBY_RAY_TOOLTIPS_SHOW_LBE_DETAILS", FALSE);
 
 	//################# Item Property Settings ##################
 

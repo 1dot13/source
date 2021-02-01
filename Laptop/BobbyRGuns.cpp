@@ -4329,6 +4329,138 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 		}
 		break;
 
+	// rftr: better LBE tooltips
+	case IC_LBEGEAR:
+		if(gGameExternalOptions.fBobbyRayTooltipsShowLBEDetails)
+		{
+			CHAR16 lbeStr[1000];
+			CHAR16 temp[1000];
+
+			swprintf(lbeStr, L"");
+			swprintf(temp, L"");
+
+			if (UsingNewInventorySystem())
+			{
+				INVTYPE item = Item[usItemNumber];
+				LBETYPE lbe = LoadBearingEquipment[item.ubClassIndex];
+
+				if (lbe.lbeAvailableVolume > 0) // if this item is a MOLLE carrier (thigh rig, vest, combat pack, backpack)
+				{
+					swprintf(temp, L"\n \n%s\n%s %d", gLbeStatsDesc[6 + lbe.lbeClass], gLbeStatsDesc[0], lbe.lbeAvailableVolume);
+					wcscat(lbeStr, temp);
+
+					UINT8 molleSmallCount = 0;
+					UINT8 molleMediumCount = 0;
+
+					for (UINT32 sCount = 1; sCount < gMAXITEMS_READ; ++sCount)
+					{
+						AttachmentSlotStruct attachmentSlot = AttachmentSlots[sCount];
+						if (attachmentSlot.uiSlotIndex == 0)
+							break;
+
+						// count MOLLE slots for this carrier
+						if (attachmentSlot.nasLayoutClass == ((UINT64)1 << (lbe.lbeClass + 1)))
+						{
+							if (lbe.lbePocketsAvailable & (1 << (attachmentSlot.ubPocketMapping - 1)))
+							{
+								// seems to be equivalent to checking attachmentSlot.fBigSlot
+								if (attachmentSlot.nasAttachmentClass == MOLLE_SMALL)
+								{
+									molleSmallCount++;
+								}
+								else if (attachmentSlot.nasAttachmentClass == MOLLE_MEDIUM)
+								{
+									molleMediumCount++;
+								}
+							}
+						}
+					}
+
+					if (molleSmallCount > 0)
+					{
+						swprintf(temp, L"\n%s %d", gLbeStatsDesc[2], molleSmallCount);
+						wcscat(lbeStr, temp);
+					}
+
+					if (molleMediumCount > 0)
+					{
+						swprintf(temp, L"\n%s %d", gLbeStatsDesc[3], molleMediumCount);
+						wcscat(lbeStr, temp);
+					}
+				}
+				else if (item.nasAttachmentClass == MOLLE_SMALL)
+				{
+					swprintf(temp, L"\n \n%s\n%s\n%s %d", gLbeStatsDesc[11], gLbeStatsDesc[4], gLbeStatsDesc[1], LBEPocketType[GetFirstPocketOnItem(usItemNumber)].pVolume);
+					wcscat(lbeStr, temp);
+				}
+				else if (item.nasAttachmentClass == MOLLE_MEDIUM)
+				{
+					// special case for hydration pack (see AttachmentPoint.xml)
+					swprintf(temp, L"\n \n%s\n%s\n%s %d", gLbeStatsDesc[11], item.ulAttachmentPoint == 4 ? gLbeStatsDesc[6] : gLbeStatsDesc[5], gLbeStatsDesc[1], LBEPocketType[GetFirstPocketOnItem(usItemNumber)].pVolume);
+					wcscat(lbeStr, temp);
+				}
+				else // non-MOLLE LBE
+				{
+					swprintf(temp, L"\n \n%s", gLbeStatsDesc[6 + lbe.lbeClass]);
+					wcscat(lbeStr, temp);
+				}
+
+				// check for combat pack/backpack combos
+				if (lbe.lbeCombo > 0)
+				{
+					bool foundCombo = false;
+					CHAR16 lbeComboStr[1000];
+					swprintf(lbeComboStr, L"");
+					for (UINT32 itemIndex = 0; itemIndex < gMAXITEMS_READ; ++itemIndex)
+					{
+						INVTYPE otherItem = Item[itemIndex];
+
+						if (otherItem.usItemClass != IC_LBEGEAR)
+							continue;
+
+						if (itemIndex == usItemNumber)
+							continue;
+
+						LBETYPE otherLbe = LoadBearingEquipment[otherItem.ubClassIndex];
+
+						if (lbe.lbeClass == otherLbe.lbeClass)
+							continue;
+
+						if (lbe.lbeCombo == otherLbe.lbeCombo)
+						{
+							foundCombo = true;
+							if (wcslen(lbeComboStr) + wcslen(otherItem.szBRName) < 800)
+							{
+								swprintf(temp, L"\n%s", otherItem.szBRName);
+								wcscat(lbeComboStr, temp);
+							}
+							else
+							{
+								wcscat(lbeComboStr, L"\n...");
+								break;
+							}
+						}
+					}
+
+					if (foundCombo)
+					{
+						// only combat packs and backpacks will have lbeCombo
+						swprintf(temp, L"\n \n%s\n%s", gLbeStatsDesc[lbe.lbeClass == COMBAT_PACK ? 12 : 13], lbeComboStr);
+						wcscat(lbeStr, temp);
+					}
+				}
+			}
+
+			swprintf(pzStr, L"%s\n%s %1.1f %s%s",
+				ItemNames[usItemNumber],	//Item long name
+				gWeaponStatsDesc[12],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString(),		//Weight units
+				lbeStr
+			);
+		}
+	break;
+
 	case IC_MISC:
 	case IC_MEDKIT:
 	case IC_KIT:

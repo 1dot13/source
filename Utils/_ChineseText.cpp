@@ -11628,6 +11628,26 @@ STR16	szTurncoatText[] =
 	L"%d 变节者出现了",	//L"%d turncoats present",
 };
 
+// rftr: better lbe tooltips
+// TODO.Translate
+STR16 gLbeStatsDesc[14] =
+{
+	L"MOLLE Space Available:",
+	L"MOLLE Space Required:",
+	L"MOLLE Small Slot Count:",
+	L"MOLLE Medium Slot Count:",
+	L"MOLLE Pouch Size: Small",
+	L"MOLLE Pouch Size: Medium",
+	L"MOLLE Pouch Size: Medium (Hydration)",
+	L"Thigh Rig",
+	L"Vest",
+	L"Combat Pack",
+	L"Backpack", // 10
+	L"MOLLE Pouch",
+	L"Compatible backpacks:",
+	L"Compatible combat packs:",
+};
+
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
 STR16 ChineseSpecString2 = L"*%3d%％%%";	//defined in _ChineseText.cpp as this file is already unicode

@@ -1937,4 +1937,8 @@ enum
 
 extern IMP_ITEM_CHOICE_TYPE gIMPItemChoices[MAX_IMP_ITEM_TYPES];
 
+// rftr: better LBE tooltips. see NasAttachmentClass.xml
+#define MOLLE_SMALL 4096
+#define MOLLE_MEDIUM 8192
+
 #endif

@@ -3172,25 +3172,28 @@ BOOLEAN CanMercBeAvailableYet( UINT8 ubMercToCheck )
 	return( FALSE );
 }
 
-void NewMercsAvailableAtMercSiteCallBack( )
+void NewMercsAvailableAtMercSiteCallBack()
 {
-	for(UINT8 i=0; i<NUM_PROFILES; i++)
-	{			
-		if ( gConditionsForMercAvailability[i].ProfilId != 0 && gConditionsForMercAvailability[i].NewMercsAvailable == FALSE && gConditionsForMercAvailability[i].StartMercsAvailable == FALSE )
+	// rftr: don't spam the user's email when MERC has multiple new personnel available on the same day
+	bool sentNewMercsEmail = false;
+
+	for (UINT8 i = 0; i < NUM_PROFILES; i++)
+	{
+		if (gConditionsForMercAvailability[i].ProfilId != 0 && gConditionsForMercAvailability[i].NewMercsAvailable == FALSE && gConditionsForMercAvailability[i].StartMercsAvailable == FALSE)
 		{
-			if( CanMercBeAvailableYet( gConditionsForMercAvailability[i].uiIndex ) )
+			if (CanMercBeAvailableYet(gConditionsForMercAvailability[i].uiIndex))
 			{
 				gConditionsForMercAvailability[i].NewMercsAvailable = TRUE;
-			
+
 				//if ( gConditionsForMercAvailability[ gConditionsForMercAvailability[i].uiIndex ].Drunk == TRUE )
-				if ( gConditionsForMercAvailability[i].Drunk == TRUE )
+				if (gConditionsForMercAvailability[i].Drunk == TRUE)
 				{
 					LaptopSaveInfo.gubLastMercIndex = gConditionsForMercAvailability[gConditionsForMercAvailability[i].uiAlternateIndex].uiIndex;
 				}
 				else
 				{
 					// If Previous merc has alternate index
-					if (i > 0 && gConditionsForMercAvailability[ gConditionsForMercAvailability[i - 1].uiIndex ].uiAlternateIndex != 255)					
+					if (i > 0 && gConditionsForMercAvailability[gConditionsForMercAvailability[i - 1].uiIndex].uiAlternateIndex != 255)
 					{
 						// Previous merc has alternate (drunk) merc, skip his one!						
 						//LaptopSaveInfo.gubLastMercIndex = LaptopSaveInfo.gubLastMercIndex + 2;
@@ -3205,14 +3208,22 @@ void NewMercsAvailableAtMercSiteCallBack( )
 				gConditionsForMercAvailability[i].StartMercsAvailable = TRUE;
 
 #ifdef JA2UB
-				AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+				if (!sentNewMercsEmail)
+				{
+					sentNewMercsEmail = true;
+					AddEmail(NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+				}
 
 				//new mercs are available
 				LaptopSaveInfo.fNewMercsAvailableAtMercSite = TRUE;
 #else
-				if( IsSpeckComAvailable() )
+				if (IsSpeckComAvailable())
 				{
-					AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+					if (!sentNewMercsEmail)
+					{
+						sentNewMercsEmail = true;
+						AddEmail(NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+					}
 
 					//new mercs are available
 					LaptopSaveInfo.fNewMercsAvailableAtMercSite = TRUE;
@@ -3220,7 +3231,7 @@ void NewMercsAvailableAtMercSiteCallBack( )
 				else
 				{
 					// anv: Have speck inform player personally
-					TacticalCharacterDialogue( FindSoldierByProfileID( SPECK_PLAYABLE, TRUE ), SPECK_PLAYABLE_QUOTE_NEW_MERCS_AVAILABLE );
+					TacticalCharacterDialogue(FindSoldierByProfileID(SPECK_PLAYABLE, TRUE), SPECK_PLAYABLE_QUOTE_NEW_MERCS_AVAILABLE);
 				}
 #endif
 			}
