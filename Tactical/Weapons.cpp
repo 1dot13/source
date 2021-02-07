@@ -9515,9 +9515,11 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	else
 	{
 		// Changed from DG by CJC to give higher chances of hitting with a stab or punch
-		// sevenfm: lowered base chance
-		iChance = 50 + (iAttRating - iDefRating) / 3;
-		//iChance = 67 + (iAttRating - iDefRating) / 3;
+		// sevenfm: lowered chance for HTH
+		if (ubMode == HTH_MODE_PUNCH)
+			iChance = 50 + (iAttRating - iDefRating) / 3;
+		else
+			iChance = 67 + (iAttRating - iDefRating) / 3;
 
 		// SANDRO - Enhanced Close Combat System - chances to hit for punches aimed at body parts
 		if (gGameExternalOptions.fEnhancedCloseCombatSystem)
