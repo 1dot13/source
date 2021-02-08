@@ -9515,8 +9515,8 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	else
 	{
 		// Changed from DG by CJC to give higher chances of hitting with a stab or punch
-		// sevenfm: lowered chance for HTH
-		if (ubMode == HTH_MODE_PUNCH)
+		// sevenfm: lowered chance for boxers
+		if (pAttacker->flags.uiStatusFlags & SOLDIER_BOXER)
 			iChance = 50 + (iAttRating - iDefRating) / 3;
 		else
 			iChance = 67 + (iAttRating - iDefRating) / 3;

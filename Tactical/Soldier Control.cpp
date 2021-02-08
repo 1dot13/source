@@ -7411,7 +7411,7 @@ void SOLDIERTYPE::StopSoldier( void )
 		this->EVENT_StopMerc( this->sGridNo, this->ubDirection );
 	}
 
-	// Set desination
+	// Set destination
 	this->pathing.sFinalDestination = this->sGridNo;
 
 }
@@ -19403,8 +19403,15 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend( )
 
 			if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_CROUCH )
 			{
+				// sevenfm: first change to stationary
+				this->SoldierGotoStationaryStance();
+
 				this->EVENT_InitNewSoldierAnim( START_AID, 0, FALSE );
 			}
+
+			// sevenfm: change target to stationary
+			if (pSoldier->stats.bLife >= OKLIFE && pSoldier->bBreath >= OKBREATH && !pSoldier->bCollapsed)
+				pSoldier->SoldierGotoStationaryStance();
 
 			// AI medics always perform surgery
 			this->fDoingSurgery = TRUE;
@@ -19448,6 +19455,9 @@ BOOLEAN		SOLDIERTYPE::AIDoctorSelf( )
 
 		if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_CROUCH )
 		{
+			// sevenfm: first change to stationary
+			this->SoldierGotoStationaryStance();
+
 			this->EVENT_InitNewSoldierAnim( START_AID, 0, FALSE );
 		}
 

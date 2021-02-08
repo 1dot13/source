@@ -1628,8 +1628,11 @@ BOOLEAN ExecuteOverhead( )
                                             {
                                                 // Flugente: if in turnbased combat and option is selected, do not go to standing animation
                                                 // By this, we wont have to spend additional APs when we continue to run
-                                                if ( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT && gGameExternalOptions.fNoStandingAnimAdjustInCombat &&
-                                                        !pSoldier->bCollapsed && !pSoldier->bBreathCollapsed )
+												if ((gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) &&
+													(pSoldier->flags.uiStatusFlags & SOLDIER_PC) &&	// sevenfm: this option works only for player
+													gGameExternalOptions.fNoStandingAnimAdjustInCombat &&
+													!pSoldier->bCollapsed && 
+													!pSoldier->bBreathCollapsed)
                                                 {
                                                     // Flugente: We have to decide depending on the animation we have, otherwise we can cause bugs if we do this after being hit by an explosion etc.
                                                     BOOLEAN dontadjustanim = FALSE;
@@ -1670,11 +1673,15 @@ BOOLEAN ExecuteOverhead( )
                                                         pSoldier->ubPendingDirection        = NO_PENDING_DIRECTION;
                                                         pSoldier->aiData.ubPendingAction    = NO_PENDING_ACTION;
                                                     }
-                                                    else
-                                                        pSoldier->SoldierGotoStationaryStance( );
+													else
+													{
+														pSoldier->SoldierGotoStationaryStance();
+													}
                                                 }
-                                                else
-                                                    pSoldier->SoldierGotoStationaryStance( );
+												else
+												{
+													pSoldier->SoldierGotoStationaryStance();
+												}
                                             }
                                         }
                                     }
