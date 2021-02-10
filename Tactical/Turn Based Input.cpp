@@ -6132,7 +6132,6 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 		if( gusSelectedSoldier != NOBODY )
 		{
 			pSoldier = MercPtrs[ (UINT8)gusSelectedSoldier ];
-
 			// silversurfer: If we decide to stand up or press "s" again while we are standing we should reset movement to walk mode.
 			// If we want to run we have to press "r" which is handled elsewhere.
 			if ( ubAnimHeight == ANIM_STAND )
@@ -6144,13 +6143,32 @@ void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight )
 				}
 				else
 				{
+					if (pSoldier->IsCowering())
+					{
+						pSoldier->StopCoweringAnimation();
+						UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ubAnimHeight);
+						pSoldier->usPendingAnimation = usNewState;
+					}
+
 					pSoldier->flags.fUIMovementFast = 0;
 					pSoldier->usUIMovementMode = WALKING;
 					gfPlotNewMovement = TRUE;
 				}
 			}
 			else
-				UIHandleSoldierStanceChange( pSoldier->ubID, ubAnimHeight );
+			{
+				if (pSoldier->IsCowering())
+				{
+					pSoldier->StopCoweringAnimation();
+					UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ubAnimHeight);
+					if (gAnimControl[pSoldier->usAnimState].ubEndHeight != ubAnimHeight)
+						pSoldier->usPendingAnimation = usNewState;
+				}
+				else
+				{
+					UIHandleSoldierStanceChange(pSoldier->ubID, ubAnimHeight);
+				}				
+			}
 		}
 	}
 }
@@ -8124,6 +8142,13 @@ void HandleTBSoldierRun( void )
 		}
 		else
 		{
+			if (pSoldier->IsCowering())
+			{
+				pSoldier->StopCoweringAnimation();
+				UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ANIM_STAND);
+				pSoldier->usPendingAnimation = usNewState;
+			}
+
 			pSoldier->flags.fUIMovementFast = 1;
 			pSoldier->usUIMovementMode = RUNNING;
 			gfPlotNewMovement = TRUE;

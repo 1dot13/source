@@ -1819,6 +1819,13 @@ UINT32 UIHandleMovementMenu( UI_EVENT *pUIEvent )
 					}
 					else
 					{
+						if (pSoldier->IsCowering())
+						{
+							pSoldier->StopCoweringAnimation();
+							UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ANIM_STAND);
+							pSoldier->usPendingAnimation = usNewState;
+						}
+
 						pSoldier->flags.fUIMovementFast = 1;
 						pSoldier->usUIMovementMode = RUNNING;
 						gfPlotNewMovement = TRUE;
@@ -1834,6 +1841,13 @@ UINT32 UIHandleMovementMenu( UI_EVENT *pUIEvent )
 					}
 					else
 					{
+						if (pSoldier->IsCowering())
+						{
+							pSoldier->StopCoweringAnimation();
+							UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ANIM_STAND);
+							pSoldier->usPendingAnimation = usNewState;
+						}
+
 						pSoldier->flags.fUIMovementFast = 0;
 						pSoldier->usUIMovementMode = WALKING;
 						gfPlotNewMovement = TRUE;
@@ -1841,13 +1855,31 @@ UINT32 UIHandleMovementMenu( UI_EVENT *pUIEvent )
 					break;
 
 				case MOVEMENT_MENU_SWAT:
-
-					UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_CROUCH );
+					if (pSoldier->IsCowering())
+					{
+						pSoldier->StopCoweringAnimation();
+						UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ANIM_CROUCH);
+						if (gAnimControl[pSoldier->usAnimState].ubEndHeight != ANIM_CROUCH)
+							pSoldier->usPendingAnimation = usNewState;
+					}
+					else
+					{
+						UIHandleSoldierStanceChange(pSoldier->ubID, ANIM_CROUCH);
+					}					
 					break;
 
 				case MOVEMENT_MENU_PRONE:
-
-					UIHandleSoldierStanceChange( pSoldier->ubID, ANIM_PRONE );
+					if (pSoldier->IsCowering())
+					{
+						pSoldier->StopCoweringAnimation();
+						UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ANIM_PRONE);
+						if (gAnimControl[pSoldier->usAnimState].ubEndHeight != ANIM_PRONE)
+							pSoldier->usPendingAnimation = usNewState;
+					}
+					else
+					{
+						UIHandleSoldierStanceChange(pSoldier->ubID, ANIM_PRONE);
+					}					
 					break;
 				}
 
@@ -3128,8 +3160,18 @@ UINT32 UIHandlePADJAdjustStance( UI_EVENT *pUIEvent )
 			}
 			else
 			{
-				// Set state to result
-				UIHandleSoldierStanceChange( pSoldier->ubID, ubNewStance );
+				if (pSoldier->IsCowering())
+				{
+					pSoldier->StopCoweringAnimation();
+					UINT16 usNewState = pSoldier->GetNewSoldierStateFromNewStance(ubNewStance);
+					if (gAnimControl[pSoldier->usAnimState].ubEndHeight != ubNewStance)
+						pSoldier->usPendingAnimation = usNewState;
+				}
+				else
+				{
+					// Set state to result
+					UIHandleSoldierStanceChange(pSoldier->ubID, ubNewStance);
+				}				
 			}
 
 			// Once we have APs, we can safely reset nomove flag!
