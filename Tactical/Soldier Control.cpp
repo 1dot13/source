@@ -1745,7 +1745,6 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOL
 BOOLEAN CheckForFullStruct( INT32 sGridNo, UINT16 *pusIndex );
 void SetSoldierLocatorOffsets( SOLDIERTYPE *pSoldier );
 void CheckForFullStructures( SOLDIERTYPE *pSoldier );
-BOOLEAN InitNewSoldierState( SOLDIERTYPE *pSoldier, UINT8 ubNewState, UINT16 usStartingAniCode );
 UINT16 GetNewSoldierStateFromNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance );
 void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 void AdjustForFastTurnAnimation( SOLDIERTYPE *pSoldier );
@@ -2999,9 +2998,9 @@ void CheckForFreeupFromHit( SOLDIERTYPE *pSoldier, UINT32 uiOldAnimFlags, UINT32
 BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStartingAniCode, BOOLEAN fForce )
 {
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "EVENT_InitNewSoldierAnim" );
-	INT32  usNewGridNo = 0;
-	INT16		sAPCost = 0;
-	INT32		sBPCost = 0;
+	INT32	usNewGridNo = 0;
+	INT16	sAPCost = 0;
+	INT32	sBPCost = 0;
 	UINT32	uiOldAnimFlags;
 	UINT32  uiNewAnimFlags;
 	UINT16	usSubState;
@@ -3340,7 +3339,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			}
 		}
 
-		// Are we cowering and are tyring to move, getup first...
+		// Are we cowering and are trying to move, getup first...
 		//if ( gAnimControl[ usNewState ].uiFlags & ANIM_MOVING && this->usAnimState == COWERING && gAnimControl[ usNewState ].ubEndHeight == ANIM_STAND )
 		if ( this->usAnimState == COWERING )
 		{
@@ -7221,6 +7220,14 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT32 sDestGridNo, UINT16 
 		}
 	}
 
+	// sevenfm: stop cowering for mercs
+	if (fFromUI &&
+		IS_MERC_BODY_TYPE(this) &&
+		//!(this->flags.uiStatusFlags & SOLDIER_COWERING) &&
+		this->IsCowering())
+	{
+		this->StopCoweringAnimation();
+	}
 
 	this->bGoodContPath = FALSE;
 
@@ -7564,8 +7571,7 @@ void SOLDIERTYPE::ChangeSoldierStance( UINT8 ubDesiredStance )
 		// Set desired stance
 		this->ubDesiredHeight = ubDesiredStance;
 
-		// Now change to appropriate animation
-		this->EVENT_InitNewSoldierAnim( usNewState, 0, FALSE );
+			this->EVENT_InitNewSoldierAnim(usNewState, 0, FALSE);
 	}
 
 	this->usSoldierFlagMask |= SOLDIER_REDOFLASHLIGHT;
@@ -25933,6 +25939,34 @@ BOOLEAN SOLDIERTYPE::IsCowering(void)
 		return TRUE;
 
 	return FALSE;
+}
+
+void SOLDIERTYPE::StopCoweringAnimation(void)
+{
+	if (this->usAnimState == COWERING)
+	{
+		if (gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND)
+		{
+			this->ubDesiredHeight = ANIM_STAND;
+			this->EVENT_InitNewSoldierAnim(END_COWER, 0, FALSE);
+		}
+		else if (gAnimControl[this->usAnimState].ubEndHeight == ANIM_CROUCH)
+		{
+			this->ubDesiredHeight = ANIM_CROUCH;
+			this->EVENT_InitNewSoldierAnim(END_COWER_CROUCHED, 0, FALSE);
+		}
+	}
+	else if (this->usAnimState == COWERING_PRONE)
+	{
+		if (gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE)
+		{
+			this->ubDesiredHeight = ANIM_PRONE;
+			this->EVENT_InitNewSoldierAnim(END_COWER_PRONE, 0, FALSE);
+		}
+	}
+
+	// remove AI cowering flag
+	this->flags.uiStatusFlags &= ~SOLDIER_COWERING;
 }
 
 BOOLEAN	SOLDIERTYPE::IsGivingAid(void)

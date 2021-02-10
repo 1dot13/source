@@ -1869,6 +1869,9 @@ public:
 	BOOLEAN		IsCowering(void);
 	BOOLEAN		IsGivingAid(void);
 
+	// sevenfm: for player mercs
+	void StopCoweringAnimation(void);
+
 	void	RetreatCounterStart(UINT16 usValue);
 	void	RetreatCounterStop(void);
 	UINT16  RetreatCounterValue(void);
