@@ -3929,13 +3929,13 @@ void CheckTossFriendSmoke(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					bFriendLevel = pFriend->pathing.bLevel;
 					sClosestOpponent = ClosestKnownOpponent(pFriend, NULL, NULL);
 
-					if (PythSpacesAway(sSpot, sFriendSpot) <= (INT16)DAY_VISION_RANGE &&
-						PythSpacesAway(sSpot, sFriendSpot) > (INT16)DAY_VISION_RANGE / 4 &&
+					if (PythSpacesAway(sSpot, sFriendSpot) <= (INT16)TACTICAL_RANGE &&
+						PythSpacesAway(sSpot, sFriendSpot) > (INT16)TACTICAL_RANGE / 4 &&
 						!InSmoke(sFriendSpot, bFriendLevel) &&
 						(!NightLight() || InLightAtNight(sFriendSpot, bFriendLevel)) &&
 						!Water(sFriendSpot, bFriendLevel) &&
 						!TileIsOutOfBounds(sClosestOpponent) &&
-						PythSpacesAway(sFriendSpot, sClosestOpponent) > (INT16)DAY_VISION_RANGE / 4 &&
+						PythSpacesAway(sFriendSpot, sClosestOpponent) > (INT16)TACTICAL_RANGE / 4 &&
 						!ProneSightCoverAtSpot(pFriend, sFriendSpot, TRUE) &&
 						//!SightCoverAtSpot(pFriend, sFriendSpot, FALSE) &&
 						//!AnyCoverAtSpot(pFriend, sFriendSpot) &&

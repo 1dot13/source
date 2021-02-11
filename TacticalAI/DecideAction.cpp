@@ -2861,7 +2861,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			!AICheckIsSniper(pSoldier) &&
 			!AICheckIsMachinegunner(pSoldier) &&
 			!AICheckIsMortarOperator(pSoldier) &&
-			Chance(100 - min(100, 10 * CountPublicKnownEnemies(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE))) &&
+			Chance(100 - min(100, 10 * CountPublicKnownEnemies(pSoldier, pSoldier->sGridNo, TACTICAL_RANGE))) &&
 			!GuySawEnemy(pSoldier, SEEN_LAST_TURN))
 		{
 			DebugAI(AI_MSG_INFO, pSoldier, String("check if we can cover friend with smoke"));
@@ -3079,11 +3079,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				}
 
 				// reserve APs to hide if no cover or enemy is close
-				if (!AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget) < DAY_VISION_RANGE / 2)
+				if (!AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget) < TACTICAL_RANGE / 2)
 				{
 					sReserveAP = APBPConstants[AP_MINIMUM] / 2;
 				}
-				if (PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget) > DAY_VISION_RANGE || AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->aiData.bUnderFire)
+				if (PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget) > TACTICAL_RANGE || AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->aiData.bUnderFire)
 				{
 					ubMinAuto *= 2;
 				}
@@ -3606,7 +3606,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 		RangeChangeDesire(pSoldier) <= 2 &&
 		(!NightLight() || InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel)) &&
 		!TileIsOutOfBounds(sClosestOpponent) &&
-		PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) > DAY_VISION_RANGE / 4 &&
+		PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) > TACTICAL_RANGE / 4 &&
 		(!fProneSightCover && !AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->TakenLargeHit()) &&
 		(pSoldier->TakenLargeHit() || pSoldier->ShockLevelPercent() > 20 + Random(80)))
 	{
@@ -3817,7 +3817,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			!GuySawEnemy(pSoldier) &&
 			!TileIsOutOfBounds(sClosestDisturbance) &&
 			//!fSeekClimb &&
-			PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) < DAY_VISION_RANGE &&
+			PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) < TACTICAL_RANGE &&
 			(pSoldier->aiData.bOrders == STATIONARY || pSoldier->aiData.bOrders == SNIPER || RangeChangeDesire(pSoldier) < 4) &&
 			!SoldierToVirtualSoldierLineOfSightTest(pSoldier, sClosestDisturbance, pSoldier->pathing.bLevel, ANIM_STAND, TRUE, CALC_FROM_ALL_DIRS) &&
 			CountFriendsBlack(pSoldier, sClosestDisturbance) == 0)
@@ -3930,7 +3930,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 			// sevenfm: don't watch when overcrowded and not in a building
 			if (!InARoom(pSoldier->sGridNo, NULL))
 			{
-				bWatchPts -= CountNearbyFriends(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE / 8);
+				bWatchPts -= CountNearbyFriends(pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 8);
 			}
 
 			// sevenfm: don't help if seen enemy recently or under fire
@@ -4055,7 +4055,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							//}
 
 							BOOLEAN fOvercrowded = FALSE;
-							if( CountNearbyFriends(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE/4) > 2 )
+							if( CountNearbyFriends(pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 4) > 2 )
 							{
 								fOvercrowded = TRUE;
 							}
@@ -4465,8 +4465,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	if (fCivilian &&
 		//pSoldier->CheckInitialAP() &&
 		(pSoldier->aiData.bUnderFire ||
-		!TileIsOutOfBounds(sClosestOpponent) && PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) < DAY_VISION_RANGE / 2))
-		//!TileIsOutOfBounds( sClosestNoise ) && PythSpacesAway(pSoldier->sGridNo, sClosestNoise) < DAY_VISION_RANGE / 2) )
+		!TileIsOutOfBounds(sClosestOpponent) && PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) < TACTICAL_RANGE / 2))
+		//!TileIsOutOfBounds( sClosestNoise ) && PythSpacesAway(pSoldier->sGridNo, sClosestNoise) < TACTICAL_RANGE / 2) )
 		//CorpseWarning(pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel)
 	{
 		DebugAI(AI_MSG_TOPIC, pSoldier, String("[civilians run away]"));
@@ -5287,7 +5287,7 @@ INT16 ubMinAPCost;
 		RangeChangeDesire(pSoldier) <= 2 &&
 		(!NightLight() || InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel)) &&
 		!TileIsOutOfBounds(sClosestOpponent) &&
-		PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) > DAY_VISION_RANGE / 4 &&
+		PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) > TACTICAL_RANGE / 4 &&
 		(!ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE) && !AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || pSoldier->TakenLargeHit()) &&
 		(pSoldier->TakenLargeHit() || pSoldier->ShockLevelPercent() > 20 + Random(80)))
 	{
@@ -5953,6 +5953,163 @@ INT16 ubMinAPCost;
 		}
 	}
 
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[Black cover advance]"));
+	// Black cover advance
+	if (SoldierAI(pSoldier) &&
+		gfTurnBasedAI &&
+		!pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
+		pSoldier->bInitialActionPoints > APBPConstants[AP_MINIMUM] &&
+		!gfHiddenInterrupt &&
+		!gTacticalStatus.fInterruptOccurred &&
+		!InARoom(pSoldier->sGridNo, NULL) &&
+		!TileIsOutOfBounds(sClosestOpponent) &&
+		//!InARoom(pSoldier->sGridNo, NULL) &&
+		pSoldier->aiData.bOrders != STATIONARY &&
+		pSoldier->aiData.bOrders != ONGUARD &&
+		!AICheckSpecialRole(pSoldier) &&
+		(ubBestAttackAction == AI_ACTION_NONE || ubBestAttackAction == AI_ACTION_FIRE_GUN && BestAttack.ubChanceToReallyHit < 5 * RangeChangeDesire(pSoldier)) &&
+		AIGunRange(pSoldier) < DAY_VISION_RANGE &&
+		pSoldier->aiData.bAIMorale >= MORALE_CONFIDENT &&
+		(!AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) || !ProneSightCoverAtSpot(pSoldier, pSoldier->sGridNo, FALSE) || AIGunRange(pSoldier) < PythSpacesAway(pSoldier->sGridNo, sClosestOpponent)) &&
+		PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) < MAX_VISION_RANGE &&
+		DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER) != CRAWLING &&
+		pSoldier->aiData.bShock < RangeChangeDesire(pSoldier) * 2 &&
+		(AIGunRange(pSoldier) < PythSpacesAway(pSoldier->sGridNo, sClosestOpponent) || 
+		pSoldier->aiData.bLastAttackHit && pSoldier->sLastTarget != NOWHERE || 
+		pSoldier->aiData.bAIMorale == MORALE_FEARLESS ||
+		ubBestAttackAction == AI_ACTION_NONE ||
+		ubBestAttackAction == AI_ACTION_FIRE_GUN && BestAttack.ubChanceToReallyHit == 1 ||
+		!AnyCoverAtSpot(pSoldier, pSoldier->sGridNo)))
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("find cover advance spot"));
+
+		INT32 sClosestDisturbance = ClosestReachableDisturbance(pSoldier, &fClimb);
+
+		if (!TileIsOutOfBounds(sClosestDisturbance))
+		{
+			DebugAI(AI_MSG_INFO, pSoldier, String("closest reachable disturbance %d", sClosestDisturbance));
+
+			INT32 sAdvanceSpot = NOWHERE;
+
+			DebugAI(AI_MSG_INFO, pSoldier, String("search for any cover advance spot"));
+			sAdvanceSpot = FindAdvanceSpot(pSoldier, sClosestDisturbance, AI_ACTION_GET_CLOSER, ADVANCE_SPOT_ANY_COVER, FALSE);
+
+			if (!TileIsOutOfBounds(sAdvanceSpot))
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("found cover advance spot %d", sAdvanceSpot));
+
+				// check that we can reach desired location
+				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sAdvanceSpot, 0, AI_ACTION_GET_CLOSER, 0);
+				if (pSoldier->aiData.usActionData == sAdvanceSpot)
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("cover advance spot ok"));
+					pSoldier->aiData.usActionData = sAdvanceSpot;
+
+					//ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"[%d] found cover advance spot %d", pSoldier->ubID, sAdvanceSpot);
+					//BeginMultiPurposeLocator(sAdvanceSpot, pSoldier->pathing.bLevel, FALSE);
+
+					return AI_ACTION_GET_CLOSER;
+				}
+				else
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("cannot reach cover advance spot!"));
+				}
+			}
+			else
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("cannot find cover advance spot"));
+
+				// try to use smoke to cover advance movement
+				//gubNPCAPBudget = pSoldier->bActionPoints;
+				gubNPCAPBudget = 0;
+				gubNPCDistLimit = 0;
+
+				// check path to closest disturbance
+				if (gfTurnBasedAI &&
+					pSoldier->bActionPoints >= APBPConstants[AP_MINIMUM] &&
+					pSoldier->bActionPoints == pSoldier->bInitialActionPoints &&
+					!TileIsOutOfBounds(sClosestDisturbance) &&
+					RangeChangeDesire(pSoldier) > 3 &&
+					!AICheckIsSniper(pSoldier) &&
+					!AICheckIsMachinegunner(pSoldier) &&
+					pSoldier->aiData.bOrders != STATIONARY &&
+					(pSoldier->aiData.bUnderFire ||
+					pSoldier->aiData.bShock > 0 ||
+					pSoldier->stats.bLife < pSoldier->stats.bLifeMax * 3 / 4 ||
+					CountTeamUnderAttack(pSoldier->bTeam, pSoldier->sGridNo, DAY_VISION_RANGE / 2) > CountNearbyFriends(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE / 2) / 2 ||
+					CountSeenEnemiesLastTurn(pSoldier) > CountNearbyFriends(pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE / 2)) &&
+					(Chance(SoldierDifficultyLevel(pSoldier) * 10) || Chance(TeamPercentKilled(pSoldier->bTeam)) || Chance(CountTeamUnderAttack(pSoldier->bTeam, pSoldier->sGridNo, DAY_VISION_RANGE / 2))) &&
+					FindBestPath(pSoldier, sClosestDisturbance, pSoldier->pathing.bLevel, RUNNING, COPYROUTE, 0))
+				{
+					INT16 sLoop;
+					INT32 sCoverSpot = NOWHERE;
+
+					DebugAI(AI_MSG_INFO, pSoldier, String("found path to %d, path size %d ", sClosestDisturbance, pSoldier->pathing.usPathDataSize));
+
+					sCheckGridNo = pSoldier->sGridNo;
+
+					for (sLoop = pSoldier->pathing.usPathIndex; sLoop < pSoldier->pathing.usPathDataSize; sLoop++)
+					{
+						sCheckGridNo = NewGridNo(sCheckGridNo, DirectionInc((UINT8)(pSoldier->pathing.usPathingData[sLoop])));
+
+						if (!TileIsOutOfBounds(sCheckGridNo) &&
+							PythSpacesAway(pSoldier->sGridNo, sCheckGridNo) < TACTICAL_RANGE / 2 &&
+							PythSpacesAway(pSoldier->sGridNo, sCheckGridNo) > TACTICAL_RANGE / 4 &&
+							!Water(sCheckGridNo, pSoldier->pathing.bLevel) &&
+							!InSmokeNearby(sCheckGridNo, pSoldier->pathing.bLevel) &&
+							!InSmoke(sCheckGridNo, pSoldier->pathing.bLevel) &&
+							(CorpseWarning(pSoldier, sCheckGridNo, pSoldier->pathing.bLevel) ||	InLightAtNight(sCheckGridNo, pSoldier->pathing.bLevel)) &&
+							SightCoverAtSpot(pSoldier, sCheckGridNo, FALSE))
+						{
+							CheckTossGrenadeAt(pSoldier, &BestThrow, sCheckGridNo, pSoldier->pathing.bLevel, EXPLOSV_SMOKE);
+
+							if (BestThrow.ubPossible)
+							{
+								sCoverSpot = sCheckGridNo;
+							}
+						}
+					}
+
+					if (!TileIsOutOfBounds(sCoverSpot))
+					{
+						CheckTossGrenadeAt(pSoldier, &BestThrow, sCoverSpot, pSoldier->pathing.bLevel, EXPLOSV_SMOKE);
+
+						if (BestThrow.ubPossible)
+						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("prepare throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
+
+							// if necessary, swap the usItem from holster into the hand position
+							if (BestThrow.bWeaponIn != HANDPOS)
+							{
+								DebugAI(AI_MSG_INFO, pSoldier, String("rearrange pocket"));
+								RearrangePocket(pSoldier, HANDPOS, BestThrow.bWeaponIn, FOREVER);
+							}
+
+							// stand up before throwing if needed
+							if (gAnimControl[pSoldier->usAnimState].ubEndHeight < BestThrow.ubStance &&
+								pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, BestThrow.sTarget), BestThrow.ubStance))
+							{
+								pSoldier->aiData.usActionData = BestThrow.ubStance;
+								pSoldier->aiData.bNextAction = AI_ACTION_TOSS_PROJECTILE;
+								pSoldier->aiData.usNextActionData = BestThrow.sTarget;
+								pSoldier->aiData.bNextTargetLevel = BestThrow.bTargetLevel;
+								pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+								return AI_ACTION_CHANGE_STANCE;
+							}
+
+							pSoldier->aiData.usActionData = BestThrow.sTarget;
+							pSoldier->bTargetLevel = BestThrow.bTargetLevel;
+							pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
+
+							return(AI_ACTION_TOSS_PROJECTILE);
+						}
+					}
+				}
+				gubNPCAPBudget = 0;
+			}
+		}
+	}
+
 	if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints) &&
 		 (ubBestAttackAction == AI_ACTION_FIRE_GUN) && 
 		 (pSoldier->aiData.bShock == 0) && 
@@ -5983,7 +6140,6 @@ INT16 ubMinAPCost;
 		}
 
 	}
-
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"LOOK FOR SOME KIND OF COVER BETTER THAN WHAT WE HAVE NOW");
 	////////////////////////////////////////////////////////////////////////////
@@ -8736,7 +8892,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 				// sevenfm: don't watch when overcrowded and not in a building
 				if ( !InARoom( pSoldier->sGridNo, NULL ) )
 				{
-					bWatchPts -= CountNearbyFriends( pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE / 8 );
+					bWatchPts -= CountNearbyFriends( pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 8 );
 				}
 
 				// sevenfm: don't help if seen enemy recently or under fire
@@ -8806,7 +8962,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 #endif
 
 							BOOLEAN fOvercrowded = FALSE;
-							if ( CountNearbyFriends( pSoldier, pSoldier->sGridNo, DAY_VISION_RANGE / 4 ) > 2 )
+							if ( CountNearbyFriends( pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 4 ) > 2 )
 							{
 								fOvercrowded = TRUE;
 							}

@@ -4115,7 +4115,7 @@ UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent )
 			//sFriendClosestOpponent = ClosestKnownOpponent( pFriend, NULL, NULL );
 			sFriendClosestOpponent = ClosestSeenOpponent( pFriend, NULL, NULL );
 			if(!TileIsOutOfBounds(sFriendClosestOpponent) &&
-				PythSpacesAway( sClosestOpponent, sFriendClosestOpponent ) < (INT16)DAY_VISION_RANGE / 4 &&
+				PythSpacesAway( sClosestOpponent, sFriendClosestOpponent ) < (INT16)TACTICAL_RANGE / 4 &&
 				pFriend->aiData.bAlertStatus == STATUS_BLACK &&
 				pFriend->stats.bLife > pFriend->stats.bLifeMax / 2 &&
 				( GetNearestRottingCorpseAIWarning( pFriend->sGridNo ) == 0 && !InLightAtNight(pFriend->sGridNo, pFriend->pathing.bLevel) ||
@@ -4506,7 +4506,7 @@ UINT8 RedSmokeDanger(INT32 sGridNo, INT8 bLevel)
 	UINT32	uiCnt;
 	INT32	sDist;
 	INT32	sClosestDist;
-	INT32	sMaxDist = min(gSkillTraitValues.usVOMortarRadius, DAY_VISION_RANGE);
+	INT32	sMaxDist = min(gSkillTraitValues.usVOMortarRadius, TACTICAL_RANGE);
 	INT32	sClosestSmoke = NOWHERE;
 	UINT8	ubDangerPercent = 0;
 
@@ -5011,7 +5011,7 @@ BOOLEAN AICheckIsSniper(SOLDIERTYPE *pSoldier)
 	return FALSE;
 	}*/
 
-	if ((AIGunRange(pSoldier) > DAY_VISION_RANGE || AICheckHasWeaponOfType(pSoldier, GUN_SN_RIFLE)) &&
+	if ((AIGunRange(pSoldier) > TACTICAL_RANGE || AICheckHasWeaponOfType(pSoldier, GUN_SN_RIFLE)) &&
 		AIGunScoped(pSoldier) &&
 		pSoldier->stats.bMarksmanship > 90 &&
 		gGameOptions.fNewTraitSystem &&
@@ -5044,7 +5044,7 @@ BOOLEAN AICheckIsMarksman(SOLDIERTYPE *pSoldier)
 		return FALSE;
 	}
 
-	if (AIGunRange(pSoldier) >= DAY_VISION_RANGE &&
+	if (AIGunRange(pSoldier) >= TACTICAL_RANGE &&
 		(AIGunScoped(pSoldier) || pSoldier->stats.bMarksmanship > 90 || gGameOptions.fNewTraitSystem && HAS_SKILL_TRAIT(pSoldier, SNIPER_NT)))
 	{
 		return TRUE;
@@ -5633,7 +5633,7 @@ BOOLEAN AICheckShortWeaponRange(SOLDIERTYPE *pSoldier)
 		return TRUE;
 	}
 
-	if (AIGunRange(pSoldier) < DAY_VISION_RANGE / 2)
+	if (AIGunRange(pSoldier) < TACTICAL_RANGE / 2)
 	{
 		return TRUE;
 	}

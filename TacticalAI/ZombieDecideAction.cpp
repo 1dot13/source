@@ -691,8 +691,8 @@ INT8 ZombieDecideActionRed(SOLDIERTYPE *pSoldier)
 
 				// sevenfm: try to advance using sight cover
 				if( gfTurnBasedAI &&
-					PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) < DAY_VISION_RANGE * 2 &&
-					PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) > DAY_VISION_RANGE / 4 &&
+					PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) < TACTICAL_RANGE * 2 &&
+					PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) > TACTICAL_RANGE / 4 &&
 					!SightCoverAtSpot(pSoldier, pSoldier->aiData.usActionData, TRUE))
 				{
 					INT32 sAdvanceSpot = FindAdvanceSpot(pSoldier, sClosestDisturbance, AI_ACTION_SEEK_OPPONENT, ADVANCE_SPOT_SIGHT_COVER, TRUE);
@@ -1169,8 +1169,8 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 				{
 					// sevenfm: try to advance using sight cover
 					if( gfTurnBasedAI &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) < DAY_VISION_RANGE * 2 &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) > DAY_VISION_RANGE / 4 &&
+						PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) < TACTICAL_RANGE * 2 &&
+						PythSpacesAway(pSoldier->sGridNo, sClosestDisturbance) > TACTICAL_RANGE / 4 &&
 						!SightCoverAtSpot(pSoldier, pSoldier->aiData.usActionData, TRUE))
 					{
 						DebugAI( AI_MSG_INFO, pSoldier, String("[advance spot]"));
