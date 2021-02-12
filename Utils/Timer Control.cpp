@@ -139,6 +139,8 @@ extern INT32 giFlashContractBaseTime;
 extern UINT32 guiFlashCursorBaseTime;
 extern INT32 giPotCharPathBaseTime;
 
+// sevenfm: display overflow detection
+extern void MapScreenMessage(UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...);
 
 typedef void (*TIMER_NOTIFY_CALLBACK) ( INT32 timer, PTR state );
 struct TIMER_NOTIFY_ITEM
@@ -203,7 +205,20 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 
 			if ( !gfPauseClock )
 			{
+				UINT32 uiOldClock = guiBaseJA2Clock;
+
 				guiBaseJA2Clock += BASETIMESLICE;
+
+				// detect overflow
+				if (uiOldClock > guiBaseJA2Clock)
+				{
+					MapScreenMessage(162, 0, L"guiBaseJA2Clock overflow detected!");
+					for (gCNT = 0; gCNT < TOTAL_SOLDIERS; gCNT++)
+					{
+						if (MercPtrs[gCNT])
+							MercPtrs[gCNT]->ResetSoldierChangeStatTimer();
+					}
+				}
 
 				for ( gCNT = 0; gCNT < NUMTIMERS; gCNT++ )
 				{
