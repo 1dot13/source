@@ -6546,15 +6546,11 @@ L_NEWAIM:
 
 					if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 					{
-						//pSoldier->aiData.usActionData = pSoldier->sGridNo ;
-						pSoldier->aiData.usActionData = pSoldier->aiData.usActionData;
-						pSoldier->pathing.sFinalDestination = pSoldier->aiData.usActionData;
-
 						pSoldier->aiData.bNextAction = AI_ACTION_FIRE_GUN;
 						pSoldier->aiData.usNextActionData = BestAttack.sTarget;
 						pSoldier->aiData.bNextTargetLevel = BestAttack.bTargetLevel;
 
-						DebugAI(AI_MSG_INFO, pSoldier, String("try to get closer, move to %d", pSoldier->aiData.usActionData));
+						DebugAI(AI_MSG_INFO, pSoldier, String("try to get closer before shooting, move to %d", pSoldier->aiData.usActionData));
 						return( AI_ACTION_GET_CLOSER );
 					}
 				}
