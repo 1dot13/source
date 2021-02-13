@@ -6101,7 +6101,7 @@ attachmentList ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 
 		if(Item[Item[pObj->usItem].defaultattachments[cnt]].inseparable == 1){
 			OBJECTTYPE defaultAttachment;
 			CreateItem(Item [ pObj->usItem ].defaultattachments[cnt],(*pObj)[ubStatusIndex]->data.objectStatus,&defaultAttachment);
-			AssertMsg(pObj->AttachObject(NULL,&defaultAttachment, FALSE, ubStatusIndex, -1, FALSE), "A default attachment could not be attached after merging, this should not be possible.");
+			AssertMsg(pObj->AttachObject(NULL, &defaultAttachment, FALSE, ubStatusIndex, -1, FALSE), String("A default attachment could not be attached after merging, this should not be possible. item %d attachment %d", pObj->usItem, defaultAttachment.usItem));
 		}
 	}
 
