@@ -526,6 +526,8 @@ void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier)
 	UIHandleLUIEndLock( NULL );
 }
 
+INT32 gOldMapSpot = NOWHERE;
+
 // MAIN TACTICAL UI HANDLER
 UINT32	HandleTacticalUI( void )
 {
@@ -661,6 +663,13 @@ UINT32	HandleTacticalUI( void )
 
 	if ( GetMouseMapPos( &usMapPos ) )
 	{
+		// sevenfm: update trees
+		if (usMapPos != gOldMapSpot)
+		{
+			gOldMapSpot = usMapPos;
+			UpdateTreeVisibility();
+		}
+
 		// Look for soldier full
 		if ( FindSoldier( usMapPos, &gusUIFullTargetID, &guiUIFullTargetFlags, ( FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) ) )
 		{

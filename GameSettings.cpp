@@ -219,6 +219,7 @@ BOOLEAN LoadGameSettings()
 		gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]             = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SNAP_CURSOR_TO_DOOR"              ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_GLOW_ITEMS]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_GLOW_ITEMS"                       ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_TREE_TOPS"                 ,  TRUE  );
+		gGameSettings.fOptions[TOPTION_SMART_TREE_TOPS]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_SMART_TREE_TOPS"				   ,  FALSE );
 		gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME]                = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_TOGGLE_WIREFRAME"                 ,  TRUE  );
 		gGameSettings.fOptions[TOPTION_3D_CURSOR]                       = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_3D_CURSOR"                        ,  FALSE );
 		gGameSettings.fOptions[TOPTION_CTH_CURSOR]                      = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_CTH_CURSOR"                       ,  TRUE  );
@@ -436,6 +437,7 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_SNAP_CURSOR_TO_DOOR              = " << (gGameSettings.fOptions[TOPTION_SNAP_CURSOR_TO_DOOR]				?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_GLOW_ITEMS                       = " << (gGameSettings.fOptions[TOPTION_GLOW_ITEMS]						?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_TOGGLE_TREE_TOPS                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS]					?    "TRUE" : "FALSE" ) << endl;
+		settings << "TOPTION_SMART_TREE_TOPS                  = " << (gGameSettings.fOptions[TOPTION_SMART_TREE_TOPS]					?	 "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_TOGGLE_WIREFRAME                 = " << (gGameSettings.fOptions[TOPTION_TOGGLE_WIREFRAME]					?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_3D_CURSOR                        = " << (gGameSettings.fOptions[TOPTION_3D_CURSOR]							?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_CTH_CURSOR                       = " << (gGameSettings.fOptions[TOPTION_CTH_CURSOR]						?    "TRUE" : "FALSE" ) << endl;
@@ -551,6 +553,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_SNAP_CURSOR_TO_DOOR ]				= TRUE;
 	gGameSettings.fOptions[ TOPTION_GLOW_ITEMS ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ]					= TRUE;
+	gGameSettings.fOptions[ TOPTION_SMART_TREE_TOPS ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_TOGGLE_WIREFRAME ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_3D_CURSOR ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_CTH_CURSOR ]						= TRUE;

@@ -5091,6 +5091,7 @@ void ToggleTreeTops()
 	if ( gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ] )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ REMOVING_TREETOPS_STR ] );
+		gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS] = FALSE;
 		WorldHideTrees( );
 		gTacticalStatus.uiFlags |= NOHIDE_REDUNDENCY;
 	}
@@ -5098,9 +5099,9 @@ void ToggleTreeTops()
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ SHOWING_TREETOPS_STR ]);
 		WorldShowTrees( );
+		gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS] = TRUE;
 		gTacticalStatus.uiFlags &= (~NOHIDE_REDUNDENCY);
 	}
-	gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ] = !gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ];
 
 	// FOR THE NEXT RENDER LOOP, RE-EVALUATE REDUNDENT TILES
 	InvalidateWorldRedundency( );

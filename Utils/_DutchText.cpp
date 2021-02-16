@@ -6347,6 +6347,7 @@ STR16		zOptionsToggleText[] =
 	L"Auto-Cursor naar Deuren",
 	L"Items Oplichten",
 	L"Toon Boomtoppen",
+	L"Smart Tree Tops", // TODO. Translate
 	L"Toon Draadmodellen",
 	L"Toon 3D Cursor",
 	L"Show Chance to Hit on cursor",
@@ -6457,6 +6458,9 @@ STR16	zOptionsScreenHelpText[] =
 
 	//toggle tree tops
 	L"Wanneer INGESCHAKELD worden Boom|toppen getoond.", 
+
+	//smart tree tops
+	L"When ON, hides tree tops near visible mercs and cursor position.",	// TODO.Translate
 
 	//toggle wireframe
 	L"Wanneer INGESCHAKELD worden Draadmodellen van niet-zichtbare muren getoond. (|C|t|r|l+|A|l|t+|W)",

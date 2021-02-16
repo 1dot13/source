@@ -6330,6 +6330,7 @@ STR16		zOptionsToggleText[] =
 	L"Sposta il cursore sulle porte",
 	L"Evidenzia gli oggetti",
 	L"Mostra le fronde degli alberi",
+	L"Smart Tree Tops", // TODO. Translate
 	L"Mostra strutture",
 	L"Mostra il cursore 3D",
 	L"Show Chance to Hit on cursor",
@@ -6440,6 +6441,9 @@ STR16	zOptionsScreenHelpText[] =
 
 	//toggle tree tops
 	L"Se attivata, mostra le fronde degli alberi. (|T)",
+
+	//smart tree tops
+	L"When ON, hides tree tops near visible mercs and cursor position.",	// TODO.Translate
 
 	//toggle wireframe
 	L"Se attivata, visualizza le |Strutture dei muri nascosti. (|C|t|r|l+|A|l|t+|W)",

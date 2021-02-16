@@ -7571,7 +7571,7 @@ void SOLDIERTYPE::ChangeSoldierStance( UINT8 ubDesiredStance )
 		// Set desired stance
 		this->ubDesiredHeight = ubDesiredStance;
 
-			this->EVENT_InitNewSoldierAnim(usNewState, 0, FALSE);
+		this->EVENT_InitNewSoldierAnim(usNewState, 0, FALSE);
 	}
 
 	this->usSoldierFlagMask |= SOLDIER_REDOFLASHLIGHT;

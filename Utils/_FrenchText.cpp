@@ -6352,6 +6352,7 @@ STR16		zOptionsToggleText[] =
 	L"Figer curseur sur les portes",
 	L"Objets en surbrillance",
 	L"Afficher cimes",
+	L"Smart Tree Tops", // TODO. Translate
 	L"Affichage fil de fer",
 	L"Curseur toit",
 	L"Afficher chance de toucher",
@@ -6462,6 +6463,9 @@ STR16	zOptionsScreenHelpText[] =
 
 	//toggle tree tops
 	L"Activez cette option pour afficher la cime des arbres. (|T)",
+	
+	//smart tree tops
+	L"When ON, hides tree tops near visible mercs and cursor position.",	// TODO.Translate
 
 	//toggle wireframe
 	L"Activez cette option pour afficher les murs en fil de fer. (|C|T|R|L+|A|L|T+||W)",

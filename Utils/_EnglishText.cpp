@@ -6354,6 +6354,7 @@ STR16		zOptionsToggleText[] =
 	L"Snap Cursor to Doors",
 	L"Make Items Glow",
 	L"Show Tree Tops",
+	L"Smart Tree Tops",
 	L"Show Wireframes",
 	L"Show 3D Cursor",
 	L"Show Chance to Hit on Cursor",
@@ -6464,6 +6465,9 @@ STR16	zOptionsScreenHelpText[] =
 
 	//toggle tree tops
 	L"When ON, shows the |Tree tops.",
+
+	//smart tree tops
+	L"When ON, hides tree tops near visible mercs and cursor position.",
 
 	//toggle wireframe
 	L"When ON, displays Wireframes for obscured walls. (|C|t|r|l+|A|l|t+|W)",

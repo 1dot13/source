@@ -904,7 +904,9 @@ void ExitOptionsScreen()
 	}
 
 	//if the user changed the TREE TOP option, AND a world is loaded
-	if( gfSettingOfTreeTopStatusOnEnterOfOptionScreen != gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ] && gfWorldLoaded )
+	// sevenfm: always update tree top state
+	//if( gfSettingOfTreeTopStatusOnEnterOfOptionScreen != gGameSettings.fOptions[ TOPTION_TOGGLE_TREE_TOPS ] && gfWorldLoaded )
+	if (gfWorldLoaded)
 	{
 		SetTreeTopStateForMap();
 	}

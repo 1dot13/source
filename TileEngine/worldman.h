@@ -158,7 +158,7 @@ LEVELNODE * FindShadow( INT32 sGridNo, UINT16 usStructIndex );
 
 void WorldHideTrees( );
 void WorldShowTrees( );
-
+void UpdateTreeVisibility();
 
 BOOLEAN IsTileRedundent( UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex );
 

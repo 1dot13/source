@@ -6340,6 +6340,7 @@ STR16		zOptionsToggleText[] =
 	L"锁定门",		//"Snap Cursor to Doors",
 	L"物品闪亮",	//"Make Items Glow",
 	L"显示树冠",	//"Show Tree Tops",
+	L"Smart Tree Tops", // TODO. Translate
 	L"显示轮廓",		//"Show Wireframes",
 	L"显示3D光标",	//"Show 3D Cursor",
 	L"显示命中机率",	//"Show Chance to Hit on cursor",
@@ -6450,6 +6451,9 @@ STR16	zOptionsScreenHelpText[] =
 
 	//toggle tree tops
 	L"打开时，显示树冠。(|T)",
+
+	//smart tree tops
+	L"When ON, hides tree tops near visible mercs and cursor position.",	// TODO.Translate
 
 	//toggle wireframe
 	L"打开时，显示未探明的墙的轮廓。(|C|t|r|l+|A|l|t+|W)",

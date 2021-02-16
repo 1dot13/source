@@ -6217,6 +6217,7 @@ STR16 zOptionsToggleText[] =
 	L"Cursor autom. auf Türen",
 	L"Gegenstände leuchten",
 	L"Baumkronen zeigen",
+	L"Smart Tree Tops", // TODO. Translate
 	L"Drahtgitter zeigen",
 	L"3D Cursor zeigen",
 	L"Trefferchance anzeigen",
@@ -6327,6 +6328,9 @@ STR16	zOptionsScreenHelpText[] =
 
 	//toggle tree tops
 	L"Mit der Deaktivierung dieser Funktion lassen sich Baumkronen ausblenden um bessere Sicht auf das Geschehen zu ermöglichen (|T).",
+
+	//smart tree tops
+	L"When ON, hides tree tops near visible mercs and cursor position.",	// TODO.Translate
 
 	//toggle wireframe
 	L"Wenn diese Funktion aktiviert ist, werden Drahtgitter verborgener Wände gezeigt um z.B. perspektivisch verdeckte Fenster zu erkennen (|C|t|r|l+|A|l|t+|W).",

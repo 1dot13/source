@@ -4000,30 +4000,30 @@ LEVELNODE* FindShadow(INT32 sGridNo, UINT16 usStructIndex)
 }
 
 
-void WorldHideTrees( )
+void WorldHideTrees()
 {
-LEVELNODE *pNode;
-BOOLEAN fRerender=FALSE;
-UINT32	fTileFlags;
-INT32 cnt;
+	LEVELNODE *pNode;
+	BOOLEAN fRerender = FALSE;
+	UINT32	fTileFlags;
+	INT32 cnt;
 
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	for (cnt = 0; cnt < WORLD_MAX; cnt++)
 	{
-		pNode=gpWorldLevelData[ cnt ].pStructHead;
-		while(pNode!=NULL)
+		pNode = gpWorldLevelData[cnt].pStructHead;
+		while (pNode != NULL)
 		{
-			GetTileFlags( pNode->usIndex, &fTileFlags );
+			GetTileFlags(pNode->usIndex, &fTileFlags);
 
-			if ( fTileFlags & FULL3D_TILE )
+			if (fTileFlags & FULL3D_TILE)
 			{
-				if ( !( pNode->uiFlags & LEVELNODE_REVEALTREES ) )
+				if (!(pNode->uiFlags & LEVELNODE_REVEALTREES))
 				{
-					pNode->uiFlags |= ( LEVELNODE_REVEALTREES  );
+					pNode->uiFlags |= (LEVELNODE_REVEALTREES);
 				}
 
-				fRerender=TRUE;
+				fRerender = TRUE;
 			}
-			pNode=pNode->pNext;
+			pNode = pNode->pNext;
 		}
 	}
 
@@ -4031,39 +4031,155 @@ INT32 cnt;
 }
 
 
-void WorldShowTrees( )
+void WorldShowTrees()
 {
-LEVELNODE *pNode;
-BOOLEAN fRerender=FALSE;
-UINT32	fTileFlags;
-INT32 cnt;
+	LEVELNODE *pNode;
+	BOOLEAN fRerender = FALSE;
+	UINT32	fTileFlags;
+	INT32 cnt;
 
-	for ( cnt = 0; cnt < WORLD_MAX; cnt++ )
+	for (cnt = 0; cnt < WORLD_MAX; cnt++)
 	{
-		pNode=gpWorldLevelData[cnt].pStructHead;
-		while(pNode!=NULL)
+		pNode = gpWorldLevelData[cnt].pStructHead;
+		while (pNode != NULL)
 		{
-			GetTileFlags( pNode->usIndex, &fTileFlags );
+			GetTileFlags(pNode->usIndex, &fTileFlags);
 
-			if ( fTileFlags & FULL3D_TILE )
+			if (fTileFlags & FULL3D_TILE)
 			{
 
-				if ( ( pNode->uiFlags & LEVELNODE_REVEALTREES ) )
+				if ((pNode->uiFlags & LEVELNODE_REVEALTREES))
 				{
-					pNode->uiFlags	&=(~( LEVELNODE_REVEALTREES ) );
+					pNode->uiFlags &= (~(LEVELNODE_REVEALTREES));
 				}
 
-				fRerender=TRUE;
+				fRerender = TRUE;
 			}
-			pNode=pNode->pNext;
+			pNode = pNode->pNext;
 		}
 	}
 
-	SetRenderFlags(RENDER_FLAG_FULL );
+	// sevenfm: also update smart tree tops
+	if (gGameSettings.fOptions[TOPTION_SMART_TREE_TOPS])
+		UpdateTreeVisibility();
 
+	SetRenderFlags(RENDER_FLAG_FULL);
 }
 
+void UpdateTreeVisibility()
+{
+	if (!gGameSettings.fOptions[TOPTION_SMART_TREE_TOPS] || !gGameSettings.fOptions[TOPTION_TOGGLE_TREE_TOPS])
+		return;
 
+	LEVELNODE *pNode;
+	BOOLEAN fRerender = FALSE;
+	BOOLEAN fHidden = FALSE;
+	UINT32	fTileFlags;
+	INT32 cnt;
+
+	SOLDIERTYPE *pOpponent;
+	STRUCTURE *pStructureData;
+	INT32 sSpot;
+	BOOLEAN fHideTree;
+	INT32 usMouseSpot;
+
+	//Get the gridno the cursor is at
+	GetMouseMapPos(&usMouseSpot);
+
+	// first show all trees
+	for (cnt = 0; cnt < WORLD_MAX; cnt++)
+	{
+		pNode = gpWorldLevelData[cnt].pStructHead;
+		while (pNode != NULL)
+		{
+			GetTileFlags(pNode->usIndex, &fTileFlags);
+
+			if (fTileFlags & FULL3D_TILE)
+			{
+				if ((pNode->uiFlags & LEVELNODE_REVEALTREES))
+				{
+					pNode->uiFlags &= ~(LEVELNODE_REVEALTREES);
+					fRerender = TRUE;
+				}
+			}
+			pNode = pNode->pNext;
+		}
+	}
+
+	// now show all trees except trees near visible soldiers
+	for (cnt = 0; cnt < WORLD_MAX; cnt++)
+	{
+		pNode = gpWorldLevelData[cnt].pStructHead;
+
+		while (pNode != NULL)
+		{
+			pStructureData = pNode->pStructureData;
+			if (pStructureData)
+				sSpot = pNode->pStructureData->sGridNo;
+			//sSpot = pNode->pStructureData->sBaseGridNo;
+			else
+				sSpot = NOWHERE;
+
+			fHideTree = FALSE;
+
+			// check trees near cursor position
+			if (!TileIsOutOfBounds(usMouseSpot) &&
+				(PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 0 ||
+				PythSpacesAway(sSpot, usMouseSpot) <= 5 && AIDirection(sSpot, usMouseSpot) == 7 ||
+				PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 6))
+			{
+				fHideTree = TRUE;
+			}
+
+			// find visible soldier near spot
+			if (!TileIsOutOfBounds(sSpot) && !fHideTree)
+			{
+				for (UINT8 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+				{
+					pOpponent = MercSlots[uiLoop];
+
+					if (pOpponent &&
+						pOpponent->bVisible != -1 &&
+						!TileIsOutOfBounds(pOpponent->sGridNo) &&
+						(PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 0 ||
+						PythSpacesAway(sSpot, pOpponent->sGridNo) <= 5 && AIDirection(sSpot, pOpponent->sGridNo) == 7 ||
+						PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 6))
+					{
+						fHideTree = TRUE;
+						break;
+					}
+				}
+			}
+
+			if (fHideTree)
+			{
+				GetTileFlags(pNode->usIndex, &fTileFlags);
+
+				if (fTileFlags & FULL3D_TILE)
+				{
+					if (!(pNode->uiFlags & LEVELNODE_REVEALTREES))
+					{
+						pNode->uiFlags |= (LEVELNODE_REVEALTREES);
+						fRerender = TRUE;
+						fHidden = TRUE;
+					}
+				}
+			}
+			pNode = pNode->pNext;
+		}
+	}
+
+	if (fRerender)
+	{
+		SetRenderFlags(RENDER_FLAG_FULL);
+		if (fHidden)
+		{
+			gTacticalStatus.uiFlags |= NOHIDE_REDUNDENCY;
+			//gTacticalStatus.uiFlags &= (~NOHIDE_REDUNDENCY);
+			InvalidateWorldRedundency();
+		}
+	}
+}
 
 
 void SetWorldFlagsFromNewNode( INT32 sGridNo, UINT16 usIndex )

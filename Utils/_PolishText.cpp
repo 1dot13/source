@@ -6348,6 +6348,7 @@ STR16		zOptionsToggleText[] =
 	L"Przyciągaj kursor do drzwi",
 	L"Pulsujące przedmioty",
 	L"Pokazuj korony drzew",
+	L"Smart Tree Tops", // TODO. Translate
 	L"Pokazuj siatkę",
 	L"Pokazuj kursor 3D",
 	L"Pokazuj szansę na trafienie",
@@ -6459,6 +6460,9 @@ STR16	zOptionsScreenHelpText[] =
 
 	//toggle tree tops
 	L"Jeśli WŁĄCZONE, wyświetlane będą korony drzew. ( |T )",
+
+	//smart tree tops
+	L"When ON, hides tree tops near visible mercs and cursor position.",	// TODO.Translate
 
 	//toggle wireframe
 	L"Jeśli WŁĄCZONE, wyświetlane będą zarysy niewidocznych ścian. ( |C|t|r|l+|A|l|t+|W )",
