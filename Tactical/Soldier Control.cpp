@@ -16570,7 +16570,7 @@ void	SOLDIERTYPE::Strip()
 			{
 				CreateItem( vestitem, 100, &gTempObject );
 				if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
-					AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					AddItemToPool( this->sGridNo, &gTempObject, 1, this->pathing.bLevel, 0, -1 );
 			}
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
@@ -16583,7 +16583,7 @@ void	SOLDIERTYPE::Strip()
 			{
 				CreateItem( pantsitem, 100, &gTempObject );
 				if ( !AutoPlaceObject( this, &gTempObject, FALSE ) )
-					AddItemToPool( this->sGridNo, &gTempObject, 1, 0, 0, -1 );
+					AddItemToPool(this->sGridNo, &gTempObject, 1, this->pathing.bLevel, 0, -1);
 			}
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szCovertTextStr[STR_COVERT_NO_CLOTHES_ITEM] );
@@ -18509,7 +18509,7 @@ BOOLEAN SOLDIERTYPE::CanUseRadio( BOOLEAN fCheckForAP )
 	if ( !NUM_SKILL_TRAITS( this, RADIO_OPERATOR_NT ) )
 		return FALSE;
 
-	// if we check wether we have enough AP, exit if we don't
+	// if we check whether we have enough AP, exit if we don't
 	if ( fCheckForAP && !EnoughPoints( this, APBPConstants[AP_RADIO], 0, FALSE ) )
 		return FALSE;
 
@@ -22706,7 +22706,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 							}
 							else
 							{
-								// no gasmask is worn, and both faceslots are occupied - remove the item in slot 2 and put the gasmask there
+								// no gasmask is worn, and both face slots are occupied - remove the item in slot 2 and put the gasmask there
 								AddItemToPool( pSoldier->sGridNo, &(pSoldier->inv[HEAD2POS]), 1, pSoldier->pathing.bLevel, 0, -1 );
 
 								success = PlaceObject( pSoldier, HEAD2POS, pObj );

@@ -6506,7 +6506,8 @@ BOOLEAN HandleTalkInit(	)
 				if ( !(( pTSoldier->bTeam == MILITIA_TEAM ) && ( CheckIfRadioIsEquipped() )) ) //lal
 				{
 					// Check LOS!
-					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTSoldier->sGridNo,  pTSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
+					//if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTSoldier->sGridNo,  pTSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
+					if (!SoldierToSoldierLineOfSightTest(pSoldier, pTSoldier, TRUE, CALC_FROM_ALL_DIRS))
 					{
 						if ( pTSoldier->ubProfile != NO_PROFILE )
 						{
@@ -6620,14 +6621,9 @@ BOOLEAN HandleTalkInit(	)
 
 			//lal
 			if ( pTSoldier->bTeam == MILITIA_TEAM )
-			{
-				commandRange = NPC_TALK_RADIUS*3;
-			}
+				commandRange = TACTICAL_RANGE;
 			else
-			{
 				commandRange = NPC_TALK_RADIUS;
-			}
-
 
 			if ( ( uiRange > commandRange ) && ( !CheckIfRadioIsEquipped() ) ) //lal
 			{

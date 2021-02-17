@@ -1110,21 +1110,16 @@ BOOLEAN CheckIfRadioIsEquipped( void )
 	SOLDIERTYPE *pSoldier = NULL;
 	INT8 bSlot = NO_SLOT;
 
-	// do we have a radio ?
-	//pSoldier = GetSelectedAssignSoldier( FALSE ); //do not use
-	
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 	{
 		// Flugente: active radio sets also count as radio
-		if ( pSoldier->CanUseRadio() )
+		if ( pSoldier->CanUseRadio(FALSE) )
 			return TRUE;
 
-		//bSlot = FindObj( pSoldier, EXTENDEDEAR );
 		bSlot = FindHearingAid(pSoldier);
-		//ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Position: %d", bSlot );
 	}
 
-	if (( bSlot == HEAD1POS ) || ( bSlot == HEAD2POS))
+	if (bSlot == HEAD1POS || bSlot == HEAD2POS)
 	{
 		return TRUE;
 	}
