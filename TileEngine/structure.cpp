@@ -2438,7 +2438,10 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 						// MemAlloc returns a NULL pointer which the code would interpret as
 						// allocation failing because of no memory.
 						// I hope this is OK, I don't entirely understand what is done here...
-						if (pCurr->ubNumberOfZChanges > 0)
+						// (ASDOW): Commented out the added conditional, because with an unlucky combination of sti image width and offset, eg 9x16 with x offset of -15
+						// pCurr->pbZChange would be null, which then crashes the game inside the blitting functions when dereferencing a nullptr
+						// With Bio experiencing crashes causing him to add the check, I don't know if this is just kicking the can down the road.
+//						if (pCurr->ubNumberOfZChanges > 0)
 						{
 							pCurr->pbZChange = (INT8 *)MemAlloc(pCurr->ubNumberOfZChanges);
 							if (pCurr->pbZChange == NULL)
@@ -2480,10 +2483,10 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 								pCurr->bInitialZChange = -(ubNumDecreasing);
 							}
 						}
-						else
-						{
-							pCurr->pbZChange = NULL;
-						}
+//						else
+//						{
+//							pCurr->pbZChange = NULL;
+//						}
 					}
 				}
 			}
