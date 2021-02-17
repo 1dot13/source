@@ -670,8 +670,9 @@ UINT32	HandleTacticalUI( void )
 			gOldMapSpot = usMapPos;
 			gOldMapTime = GetJA2Clock();
 		}
-		else if (GetJA2Clock() - gOldMapTime > 100)
+		else if (GetJA2Clock() - gOldMapTime > 100 && gOldMapTime > 0)
 		{
+			gOldMapTime = 0;
 			UpdateTreeVisibility();
 		}
 
