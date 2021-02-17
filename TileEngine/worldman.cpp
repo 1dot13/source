@@ -4086,85 +4086,78 @@ void UpdateTreeVisibility()
 	//Get the gridno the cursor is at
 	GetMouseMapPos(&usMouseSpot);
 
-	// first show all trees
+	// show all trees except trees near visible soldiers
 	for (cnt = 0; cnt < WORLD_MAX; cnt++)
 	{
 		pNode = gpWorldLevelData[cnt].pStructHead;
+
 		while (pNode != NULL)
 		{
 			GetTileFlags(pNode->usIndex, &fTileFlags);
 
 			if (fTileFlags & FULL3D_TILE)
 			{
-				if ((pNode->uiFlags & LEVELNODE_REVEALTREES))
+				pStructureData = pNode->pStructureData;
+
+				if (pStructureData)
+					sSpot = pNode->pStructureData->sGridNo;
+					//sSpot = pNode->pStructureData->sBaseGridNo;
+				else
+					sSpot = NOWHERE;
+
+				if (!TileIsOutOfBounds(sSpot))
 				{
-					pNode->uiFlags &= ~(LEVELNODE_REVEALTREES);
-					fRerender = TRUE;
-				}
-			}
-			pNode = pNode->pNext;
-		}
-	}
+					fHideTree = FALSE;
 
-	// now show all trees except trees near visible soldiers
-	for (cnt = 0; cnt < WORLD_MAX; cnt++)
-	{
-		pNode = gpWorldLevelData[cnt].pStructHead;
-
-		while (pNode != NULL)
-		{
-			pStructureData = pNode->pStructureData;
-			if (pStructureData)
-				sSpot = pNode->pStructureData->sGridNo;
-			//sSpot = pNode->pStructureData->sBaseGridNo;
-			else
-				sSpot = NOWHERE;
-
-			fHideTree = FALSE;
-
-			// check trees near cursor position
-			if (!TileIsOutOfBounds(usMouseSpot) &&
-				(PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 0 ||
-				PythSpacesAway(sSpot, usMouseSpot) <= 5 && AIDirection(sSpot, usMouseSpot) == 7 ||
-				PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 6))
-			{
-				fHideTree = TRUE;
-			}
-
-			// find visible soldier near spot
-			if (!TileIsOutOfBounds(sSpot) && !fHideTree)
-			{
-				for (UINT8 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
-				{
-					pOpponent = MercSlots[uiLoop];
-
-					if (pOpponent &&
-						pOpponent->bVisible != -1 &&
-						!TileIsOutOfBounds(pOpponent->sGridNo) &&
-						(PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 0 ||
-						PythSpacesAway(sSpot, pOpponent->sGridNo) <= 5 && AIDirection(sSpot, pOpponent->sGridNo) == 7 ||
-						PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 6))
+					// check trees near cursor position
+					if (!TileIsOutOfBounds(usMouseSpot) &&
+						(PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 0 ||
+						PythSpacesAway(sSpot, usMouseSpot) <= 5 && AIDirection(sSpot, usMouseSpot) == 7 ||
+						PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 6))
 					{
 						fHideTree = TRUE;
-						break;
 					}
-				}
-			}
 
-			if (fHideTree)
-			{
-				GetTileFlags(pNode->usIndex, &fTileFlags);
-
-				if (fTileFlags & FULL3D_TILE)
-				{
-					if (!(pNode->uiFlags & LEVELNODE_REVEALTREES))
+					// find visible soldier near spot
+					if (!TileIsOutOfBounds(sSpot) && !fHideTree)
 					{
-						pNode->uiFlags |= (LEVELNODE_REVEALTREES);
-						fRerender = TRUE;
-						fHidden = TRUE;
+						for (UINT8 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+						{
+							pOpponent = MercSlots[uiLoop];
+
+							if (pOpponent &&
+								pOpponent->bVisible != -1 &&
+								!TileIsOutOfBounds(pOpponent->sGridNo) &&
+								(PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 0 ||
+								PythSpacesAway(sSpot, pOpponent->sGridNo) <= 5 && AIDirection(sSpot, pOpponent->sGridNo) == 7 ||
+								PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 6))
+							{
+								fHideTree = TRUE;
+								break;
+							}
+						}
+					}
+
+					if (fHideTree)
+					{
+						if (!(pNode->uiFlags & LEVELNODE_REVEALTREES))
+						{
+							pNode->uiFlags |= (LEVELNODE_REVEALTREES);
+							fRerender = TRUE;
+							fHidden = TRUE;
+						}
+					}
+					else
+					{
+						if ((pNode->uiFlags & LEVELNODE_REVEALTREES))
+						{
+							pNode->uiFlags &= ~(LEVELNODE_REVEALTREES);
+							fRerender = TRUE;
+						}
 					}
 				}
 			}
+
 			pNode = pNode->pNext;
 		}
 	}
