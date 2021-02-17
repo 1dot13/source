@@ -2697,7 +2697,7 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier)
 			// crank up ONGUARD to CLOSEPATROL, and CLOSEPATROL to FARPATROL
 			pSoldier->aiData.bOrders++;       // increase roaming range by 1 category
 		}
-		else if ( pSoldier->bTeam == MILITIA_TEAM && pSoldier->aiData.bOrders != SNIPER )
+		else if ( pSoldier->bTeam == MILITIA_TEAM && pSoldier->aiData.bOrders != STATIONARY )
 		{
 			// go on alert!
 			pSoldier->aiData.bOrders = SEEKENEMY;

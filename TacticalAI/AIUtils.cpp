@@ -1818,7 +1818,16 @@ INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance )
 
 INT32 FindClosestClimbPointAvailableToAI( SOLDIERTYPE * pSoldier, INT32 sStartGridNo, INT32 sDesiredGridNo, BOOLEAN fClimbUp )
 {
-	INT32 sGridNo;
+	// sevenfm: safety check
+	if (!pSoldier)
+	{
+		return NOWHERE;
+	}
+
+	// sevenfm: don't check roaming range
+	return FindClosestClimbPoint(pSoldier, sStartGridNo, sDesiredGridNo, fClimbUp);
+
+	/*INT32 sGridNo;
 	INT32	sRoamingOrigin;
 	INT16	sRoamingRange;
 
@@ -1845,7 +1854,7 @@ INT32 FindClosestClimbPointAvailableToAI( SOLDIERTYPE * pSoldier, INT32 sStartGr
 	else
 	{
 		return( sGridNo );
-	}
+	}*/
 }
 
 BOOLEAN ClimbingNecessary( SOLDIERTYPE * pSoldier, INT32 sDestGridNo, INT8 bDestLevel )

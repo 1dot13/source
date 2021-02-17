@@ -1054,7 +1054,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 	{
 		// Check LOS!
 		// Flugente: active radio sets allows us to give individual orders even without a line of sight
-		if ( pSoldier->CanUseRadio() || SoldierTo3DLocationLineOfSightTest( pSoldier, pTMilitiaSoldier->sGridNo,  pTMilitiaSoldier->pathing.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
+		if (pSoldier->CanUseRadio() || SoldierToSoldierLineOfSightTest(pSoldier, pTMilitiaSoldier, TRUE, CALC_FROM_ALL_DIRS))
 		{
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ATTACK );
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_HOLD );
@@ -1133,168 +1133,27 @@ BOOLEAN CheckIfRadioIsEquipped( void )
 }
 
 
-
-//INT16	sFacingDir, sXPos, sYPos, sAPCost;
-
-//ConvertGridNoToXY( pTMilitiaSoldier->sGridNo, &sXPos, &sYPos );				
-//sFacingDir = GetDirectionFromXY( sXPos, sYPos, pTMilitiaSoldier );
-//SendSoldierSetDesiredDirectionEvent( pTMilitiaSoldier, sFacingDir );
-//SendSoldierSetDesiredDirectionEvent( pTMilitiaSoldier, gOppositeDirection[ sFacingDir ] );
-//EVENT_StopMerc( pTMilitiaSoldier, pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection );
-
-//SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_PRONE );
-//SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );
-
-//pTMilitiaSoldier->bNextAction = AI_ACTION_CHANGE_STANCE;
-//pTMilitiaSoldier->usActionData = ANIM_PRONE;
-
-
-
-//// some orders are more offensive, others more defensive
-//switch( pSoldier->bOrders )
-//{
-//	case STATIONARY:	swprintf( szOrders, L"STATIONARY" );			break;
-//	case ONGUARD:			swprintf( szOrders, L"ON GUARD" );				break;
-//	case ONCALL:			swprintf( szOrders, L"ON CALL" );					break;
-//	case SEEKENEMY:		swprintf( szOrders, L"SEEK ENEMY" );			break;
-//	case CLOSEPATROL:	swprintf( szOrders, L"CLOSE PATROL" );		break;
-//	case FARPATROL:		swprintf( szOrders, L"FAR PATROL" );			break;
-//	case POINTPATROL:	swprintf( szOrders, L"POINT PATROL" );		break;
-//	case RNDPTPATROL:	swprintf( szOrders, L"RND PT PATROL" );		break;
-//	default:					swprintf( szOrders, L"UNKNOWN" );					break;
-//}
-//switch( pSoldier->bAttitude )
-//{
-//	case DEFENSIVE:		swprintf( szAttitude, L"DEFENSIVE" );			break;
-//	case BRAVESOLO:		swprintf( szAttitude, L"BRAVE SOLO" );		break;
-//	case BRAVEAID:		swprintf( szAttitude, L"BRAVE AID" );			break;
-//	case AGGRESSIVE:	swprintf( szAttitude, L"AGGRESSIVE" );		break;
-//	case CUNNINGSOLO:	swprintf( szAttitude, L"CUNNING SOLO" );	break;
-//	case CUNNINGAID:	swprintf( szAttitude, L"CUNNING AID"	);	break;
-//	default:					swprintf( szAttitude, L"UNKNOWN" );				break;
-//}
-
-//MILCON_MENU_ATTACK,
-//MILCON_MENU_HOLD,
-//MILCON_MENU_RETREAT,
-//MILCON_MENU_COMETOME,
-//MILCON_MENU_GETDOWN,
-//MILCON_MENU_ALL_ATTACK,
-//MILCON_MENU_ALL_HOLD,
-//MILCON_MENU_ALL_RETREAT,
-//MILCON_MENU_ALL_COMETOME,
-//MILCON_MENU_ALL_GETDOWN,
-//MILCON_MENU_CANCEL,
-//MAX_MILCON_STRING_COUNT,
-
-
-//AI_ACTION_NONE = 0,						// maintain current position & facing
-
-//// actions that involve a move to another tile
-//AI_ACTION_RANDOM_PATROL,			// move towards a random destination
-//AI_ACTION_SEEK_FRIEND,				// move towards friend in trouble
-//AI_ACTION_SEEK_OPPONENT,			// move towards a reported opponent
-//AI_ACTION_TAKE_COVER,					// run for nearest cover from threat
-//AI_ACTION_GET_CLOSER,					// move closer to a strategic location
-
-//AI_ACTION_POINT_PATROL,				// move towards next patrol point
-//AI_ACTION_LEAVE_WATER_GAS,		// seek nearest spot of ungassed land
-//AI_ACTION_SEEK_NOISE,					// seek most important noise heard
-//AI_ACTION_ESCORTED_MOVE,			// go where told to by escortPlayer
-//AI_ACTION_RUN_AWAY,						// run away from nearby opponent(s)
-
-//AI_ACTION_KNIFE_MOVE,					// preparing to stab an opponent
-//AI_ACTION_APPROACH_MERC,			// move up to a merc in order to talk with them; RT
-//AI_ACTION_TRACK,							// track a scent
-//AI_ACTION_EAT,								// monster eats corpse
-//AI_ACTION_PICKUP_ITEM,				// grab things lying on the ground
-
-//AI_ACTION_SCHEDULE_MOVE,			// move according to schedule
-//AI_ACTION_WALK,								// walk somewhere (NPC stuff etc)
-//AI_ACTION_RUN,								// run somewhere (NPC stuff etc)
-//AI_ACTION_WITHDRAW,	// back off
-//AI_ACTION_FLANK_LEFT,	// move to the left
-//AI_ACTION_FLANK_RIGHT,	// move to the right
-//AI_ACTION_MOVE_TO_CLIMB,			// move to edge of roof/building
-//// miscellaneous movement actions
-//AI_ACTION_CHANGE_FACING,			// turn to face a different direction
-
-//AI_ACTION_CHANGE_STANCE,			// stand, crouch, or go prone
-//// actions related to items and attacks
-//AI_ACTION_YELLOW_ALERT,				// tell friends opponent(s) heard
-//AI_ACTION_RED_ALERT,					// tell friends opponent(s) seen
-//AI_ACTION_CREATURE_CALL,			// creature communication
-//AI_ACTION_PULL_TRIGGER,				// go off to activate a panic trigger
-
-//AI_ACTION_USE_DETONATOR,			// grab detonator and set off bomb(s)
-//AI_ACTION_FIRE_GUN,						// shoot at nearby opponent
-//AI_ACTION_TOSS_PROJECTILE,		// throw grenade at/near opponent(s)
-//AI_ACTION_KNIFE_STAB,					// during the actual knifing attack
-//AI_ACTION_THROW_KNIFE,				// throw a knife
-
-//AI_ACTION_GIVE_AID,						// help injured/dying friend
-//AI_ACTION_WAIT,								// RT: don't do anything for a certain length of time
-//AI_ACTION_PENDING_ACTION,			// RT: wait for pending action (pickup, door open, etc) to finish
-//AI_ACTION_DROP_ITEM,					// duh
-//AI_ACTION_COWER,							// for civilians:  cower in fear and stay there!
-
-//AI_ACTION_STOP_COWERING,			// stop cowering
-//AI_ACTION_OPEN_OR_CLOSE_DOOR,	// schedule-provoked; open or close door
-//AI_ACTION_UNLOCK_DOOR,				// schedule-provoked; unlock door (don't open)
-//AI_ACTION_LOCK_DOOR,					// schedule-provoked; lock door (close if necessary)
-//AI_ACTION_LOWER_GUN,					// lower gun prior to throwing knife
-
-//AI_ACTION_ABSOLUTELY_NONE,		// like "none" but can't be converted to a wait by realtime
-//AI_ACTION_CLIMB_ROOF,					// climb up or down roof
-//AI_ACTION_END_TURN,						// end turn (after final stance change)
-//AI_ACTION_END_COWER_AND_MOVE,	// sort of dummy value, special for civilians who are to go somewhere at end of battle
-//AI_ACTION_TRAVERSE_DOWN,			// move down a level
-//AI_ACTION_OFFER_SURRENDER,		// offer surrender to the player
-
-
-//// stand up!
-//pSoldier->bAction = AI_ACTION_CHANGE_STANCE;
-//pSoldier->aiData.usActionData = ANIM_STAND;
-//
-//
-
-//pSoldier->bAction = pSoldier->bNextAction;
-//pSoldier->aiData.usActionData = pSoldier->usNextActionData;
-//pSoldier->bTargetLevel = pSoldier->bNextTargetLevel;
-//pSoldier->bNextAction = AI_ACTION_NONE;
-//pSoldier->usNextActionData = 0;
-//pSoldier->bNextTargetLevel = 0;
-//
-
-
-//EV_S_CHANGESTATE			SChangeState;
-//EV_S_CHANGEDEST				SChangeDest;
-//EV_S_SETPOSITION			SSetPosition;
-//EV_S_GETNEWPATH				SGetNewPath;
-//EV_S_BEGINTURN				SBeginTurn;
-//EV_S_CHANGESTANCE			SChangeStance;
-//EV_S_SETDIRECTION			SSetDirection;
-//EV_S_SETDESIREDDIRECTION			SSetDesiredDirection;
-//EV_S_BEGINFIREWEAPON	SBeginFireWeapon;
-//EV_S_FIREWEAPON				SFireWeapon;
-//EV_S_WEAPONHIT				SWeaponHit;
-//EV_S_STRUCTUREHIT			SStructureHit;
-//EV_S_WINDOWHIT				SWindowHit;
-//EV_S_MISS							SMiss;
-//EV_S_NOISE						SNoise;
-//EV_S_STOP_MERC				SStopMerc;
-//EV_S_SENDPATHTONETWORK SUpdateNetworkSoldier;
-
 void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for MilitiaControl region
 	INT32 iValue = -1;
 	SOLDIERTYPE * pSoldier = NULL;
 	UINT8 ubVolume = 10;
-
-	//pSoldier = GetSelectedAssignSoldier( FALSE );
+	BOOLEAN fAllowSectorOrder = FALSE;
+	BOOLEAN fCanCommunicate = FALSE;
 
 	iValue = MSYS_GetRegionUserData( pRegion, 0 );
+
+	GetSoldier(&pSoldier, gusSelectedSoldier);
+
+	if (pSoldier && pTMilitiaSoldier)
+	{
+		if (pSoldier->CanUseRadio() || SoldierToSoldierLineOfSightTest(pSoldier, pTMilitiaSoldier, TRUE, CALC_FROM_ALL_DIRS))
+			fCanCommunicate = TRUE;
+
+		if (CheckIfRadioIsEquipped())
+			fAllowSectorOrder = TRUE;			
+	}
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
@@ -1306,31 +1165,25 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 		UnHighLightBox( ghMilitiaControlBox );
 
 		//if( pSoldier -> ubWhatKindOfMercAmI != MERC_TYPE__EPC ) //laltodo
+		if (pSoldier)
 		{
 			switch( iValue )
 			{
-				case( MILCON_MENU_ATTACK ):					
-					{					
+				case( MILCON_MENU_ATTACK ):
+					if (fCanCommunicate)
+					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
 							// Attack !!!
-
 							pTMilitiaSoldier->aiData.bOrders = SEEKENEMY;
 							pTMilitiaSoldier->aiData.bAttitude = AGGRESSIVE;
 							pTMilitiaSoldier->usUIMovementMode = RUNNING;
 
-							if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-							{
-								//ubVolume = CalcScreamVolume( pSoldier, 10 );
-								MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_SCREAM);
-							}
+							MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->bOverTerrainType, ubVolume, NOISE_SCREAM);
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1339,10 +1192,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 				
-				case( MILCON_MENU_HOLD ):						
+				case( MILCON_MENU_HOLD ):
+					if (fCanCommunicate)
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
@@ -1352,11 +1208,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							//pTMilitiaSoldier->bAttitude = DEFENSIVE;
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;						
@@ -1365,10 +1218,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 				
 				case( MILCON_MENU_RETREAT ):
+					if (fCanCommunicate)
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
@@ -1404,11 +1260,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 						
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1417,47 +1270,44 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 				case( MILCON_MENU_COMETOME ):
+					if (fCanCommunicate)
 					{	
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
 							INT32 sActionGridNo, sGridNo, sAdjustedGridNo;
 							UINT8	ubDirection;
 
-							if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+							// OK, find an adjacent gridno....
+							sGridNo = pSoldier->sGridNo;
+
+							// See if we can get there
+							sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+							if (sActionGridNo != -1)
 							{
-								// OK, find an adjacent gridno....
-								sGridNo = pSoldier->sGridNo;
+								// SEND PENDING ACTION
+								//pTMilitiaSoldier->ubPendingAction = MERC_STEAL;
+								pTMilitiaSoldier->aiData.sPendingActionData2 = pSoldier->sGridNo;
+								//pTMilitiaSoldier->bPendingActionData3  = ubDirection;
+								pTMilitiaSoldier->aiData.ubPendingActionAnimCount = 0;
+								pTMilitiaSoldier->usUIMovementMode = RUNNING;
 
-								// See if we can get there
-								sActionGridNo =  FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-								if ( sActionGridNo != -1 )
+								// CHECK IF WE ARE AT THIS GRIDNO NOW
+								if (pTMilitiaSoldier->sGridNo != sActionGridNo)
 								{
-									// SEND PENDING ACTION
-									//pTMilitiaSoldier->ubPendingAction = MERC_STEAL;
-									pTMilitiaSoldier->aiData.sPendingActionData2  = pSoldier->sGridNo;
-									//pTMilitiaSoldier->bPendingActionData3  = ubDirection;
-									pTMilitiaSoldier->aiData.ubPendingActionAnimCount = 0;
-									pTMilitiaSoldier->usUIMovementMode = RUNNING;
-
-									// CHECK IF WE ARE AT THIS GRIDNO NOW
-									if ( pTMilitiaSoldier->sGridNo != sActionGridNo )
-									{
-										// WALK UP TO DEST FIRST
-										SendGetNewSoldierPathEvent( pTMilitiaSoldier, sActionGridNo, pTMilitiaSoldier->usUIMovementMode );
-									}
+									// WALK UP TO DEST FIRST
+									SendGetNewSoldierPathEvent(pTMilitiaSoldier, sActionGridNo, pTMilitiaSoldier->usUIMovementMode);
 								}
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;						
@@ -1466,10 +1316,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 				case( MILCON_MENU_GETDOWN ):
+					if (fCanCommunicate)
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
@@ -1480,11 +1333,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1493,19 +1343,19 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 				case( MILCON_MENU_CROUCH ):
+					if (fCanCommunicate)
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 							SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1514,11 +1364,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
-
 				case( MILCON_MENU_TAKE_COVER ):
+					if (fCanCommunicate)
 					{	
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
@@ -1542,11 +1394,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1555,11 +1404,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 
 				case( MILCON_MENU_ALL_ATTACK ):
+					if (fAllowSectorOrder)
 					{
 						UINT8 cnt;
 						SOLDIERTYPE *pTeamSoldier;
@@ -1576,11 +1428,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1589,10 +1438,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 				case( MILCON_MENU_ALL_HOLD ):
+					if (fAllowSectorOrder)
 					{
 						UINT8 cnt;						
 						SOLDIERTYPE *pTeamSoldier;
@@ -1608,11 +1460,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1621,10 +1470,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 				case( MILCON_MENU_ALL_RETREAT ):
+					if (fAllowSectorOrder)
 					{
 						UINT8 cnt;
 						INT16 sActionGridNo;
@@ -1667,11 +1519,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1680,10 +1529,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 				
 				case( MILCON_MENU_ALL_COMETOME ):
+					if (fAllowSectorOrder)
 					{
 						UINT8 cnt, ubDirection;
 						INT32 sActionGridNo, sGridNo, sAdjustedGridNo;
@@ -1695,37 +1547,31 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
-								if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+								// OK, find an adjacent gridno....
+								sGridNo = pSoldier->sGridNo;
+
+								// See if we can get there
+								sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+								if (sActionGridNo != -1)
 								{
-									// OK, find an adjacent gridno....
-									sGridNo = pSoldier->sGridNo;
+									// SEND PENDING ACTION
+									pTeamSoldier->aiData.sPendingActionData2 = pSoldier->sGridNo;
+									//pTeamSoldier->bPendingActionData3  = ubDirection;
+									pTeamSoldier->aiData.ubPendingActionAnimCount = 0;
+									pTeamSoldier->usUIMovementMode = RUNNING;
 
-									// See if we can get there
-									sActionGridNo =  FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-									if ( sActionGridNo != -1 )
+									// CHECK IF WE ARE AT THIS GRIDNO NOW
+									if (pTeamSoldier->sGridNo != sActionGridNo)
 									{
-										// SEND PENDING ACTION
-										pTeamSoldier->aiData.sPendingActionData2  = pSoldier->sGridNo;
-										//pTeamSoldier->bPendingActionData3  = ubDirection;
-										pTeamSoldier->aiData.ubPendingActionAnimCount = 0;
-										pTeamSoldier->usUIMovementMode = RUNNING;
-
-										// CHECK IF WE ARE AT THIS GRIDNO NOW
-										if ( pTeamSoldier->sGridNo != sActionGridNo )
-										{
-											// WALK UP TO DEST FIRST
-											SendGetNewSoldierPathEvent( pTeamSoldier, sActionGridNo, pTeamSoldier->usUIMovementMode );
-										}
+										// WALK UP TO DEST FIRST
+										SendGetNewSoldierPathEvent(pTeamSoldier, sActionGridNo, pTeamSoldier->usUIMovementMode);
 									}
 								}
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1734,11 +1580,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 				
 
 				case( MILCON_MENU_ALL_SPREAD ):
+					if (fAllowSectorOrder)
 					{
 						UINT8 cnt;
 						INT32 sActionGridNo;
@@ -1772,11 +1621,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1785,12 +1631,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
-
-
 				case( MILCON_MENU_ALL_GETDOWN ):
+					if (fAllowSectorOrder)
 					{
 						UINT8 cnt;
 						SOLDIERTYPE *pTeamSoldier;
@@ -1809,11 +1656,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1822,10 +1666,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 				case( MILCON_MENU_ALL_CROUCH ):
+					if (fAllowSectorOrder)
 					{
 						UINT8 cnt;
 						SOLDIERTYPE *pTeamSoldier;
@@ -1840,11 +1687,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1853,34 +1697,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
 				case( MILCON_MENU_ALL_TAKE_COVER ):
+					if (fAllowSectorOrder)
 					{
-						//UINT8 cnt;
-						//SOLDIERTYPE *pTeamSoldier;
-						//INT32 iDummy;
-						
-						//cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
-
-						//for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
-						//{
-						//	if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
-						//	{
-						//		pTeamSoldier->usActionData = FindBestNearbyCover(pTeamSoldier,pTeamSoldier->bAIMorale,&iDummy);
-						//								
-						//		pTeamSoldier->usNextActionData = FindBestNearbyCover(pTeamSoldier,pTeamSoldier->bAIMorale,&iDummy);
-						//		
-						//		//if ( !TileIsOutOfBounds(pTeamSoldier->usNextActionData) )
-						//		{
-						//			pTeamSoldier->bNextAction = AI_ACTION_TAKE_COVER;
-						//			pTeamSoldier->usActionData = ANIM_STAND;									
-						//		}
-						//	}
-						//}
-
-
 						UINT8 cnt;
 						INT16 sActionGridNo;
 						INT32 iDummy;
@@ -1913,11 +1737,8 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
-						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-						{
-							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-							StatChange( pSoldier, LDRAMT, 1, FALSE );
-						}
+						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
+						StatChange( pSoldier, LDRAMT, 1, FALSE );
 
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
@@ -1926,72 +1747,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						// set dirty flag
 						fTeamPanelDirty = TRUE;
 						fMapScreenBottomDirty = TRUE;
+
+						pSoldier->StartRadioAnimation();
 					}
 					break;
 
-
-
-					//case( MILCON_MENU_ALL_TAKE_ITEMS ):
-					//{
-					//	UINT8 cnt;
-					//	SOLDIERTYPE *pTeamSoldier;
-					//	
-					//	cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
-
-					//	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
-					//	{
-					//		if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
-					//		{
-
-					//			//CREATURE_IMMOBILE = 2
-					//			if ( (pTeamSoldier->bMobility != 2) && (pTeamSoldier->bActionPoints >= MinPtsToMove(pTeamSoldier)) )
-					//			{
-					//				//SEARCH_GENERAL_ITEMS=0
-					//				pTeamSoldier->bAction = SearchForItems( pTeamSoldier, 0, pTeamSoldier->inv[HANDPOS].usItem );
-
-					//				pTeamSoldier->usNextActionData = SearchForItems( pTeamSoldier, 0, pTeamSoldier->inv[HANDPOS].usItem );
-
-
-					//				//if ( !TileIsOutOfBounds(pTeamSoldier->usNextActionData) )
-					//				{
-					//					pTeamSoldier->bNextAction = AI_ACTION_PICKUP_ITEM;
-					//					//pTeamSoldier->usActionData = ANIM_STAND;									
-					//				}
-
-					//				if (pTeamSoldier->bAction == AI_ACTION_PICKUP_ITEM)
-					//				{
-					//					// the item pool index was stored in the special data field
-					//					pTeamSoldier->uiPendingActionData1 = pTeamSoldier->iNextActionSpecialData;
-					//				}
-
-					//				//if (pTeamSoldier->bAction != AI_ACTION_NONE)
-					//				//{
-					//				//	return( pTeamSoldier->bAction );
-					//				//}
-					//			}
-					//		}
-					//	}
-					
-					//if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-					//{
-					//	DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
-					//}
-
-					//	// stop showing menu
-					//	fShowMilitiaControlMenu = FALSE;
-					//	giAssignHighLine = -1;
-
-					//	// set dirty flag
-					//	fTeamPanelDirty = TRUE;
-					//	fMapScreenBottomDirty = TRUE;
-					//}
-					//break;
-
 					case( MILCON_MENU_CANCEL ):
 					{
-						//Cancel
-						//ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Cancel" );
-
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -2026,438 +1788,3 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 		//}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//void CreateTalkToAllBox( void )
-//{
-// UINT32 hStringHandle;
-// UINT32 uiCounter;
-//
-// // will create attribute pop up menu for mapscreen assignments
-//
-// TalkToAllPosition.iX = OrigTalkToAllPosition.iX;
-//
-// if( giBoxY != 0 )
-// {
-//	 TalkToAllPosition.iY = giBoxY + ( MILCON_MENU_ALL * GetFontHeight( MAP_SCREEN_FONT ) );
-// }
-//
-// // create basic box
-// CreatePopUpBox(&ghTalkToAllBox, TalkToAllDimensions, TalkToAllPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
-//
-// // which buffer will box render to
-// SetBoxBuffer(ghTalkToAllBox, FRAME_BUFFER);
-//
-// // border type?
-// SetBorderType(ghTalkToAllBox,guiPOPUPBORDERS);
-//
-// // background texture
-// SetBackGroundSurface(ghTalkToAllBox, guiPOPUPTEX);
-//
-// // margin sizes
-// SetMargins(ghTalkToAllBox, 6, 6, 4, 4 );
-//
-// // space between lines
-// SetLineSpace(ghTalkToAllBox, 2);
-//
-// // set current box to this one
-// SetCurrentBox( ghTalkToAllBox );
-//
-//
-// // add strings for box
-// for(uiCounter=0; uiCounter < MAX_TTALL_STRING_COUNT; uiCounter++)
-// {
-//  AddMonoString(&hStringHandle, pTalkToAllMenuStrings[uiCounter]);
-//  
-//	// make sure it is unhighlighted
-//	UnHighLightLine(hStringHandle);
-// }
-//
-// // set font type
-// SetBoxFont(ghTalkToAllBox, MAP_SCREEN_FONT);
-//
-// // set highlight color
-// SetBoxHighLight(ghTalkToAllBox, FONT_WHITE);
-//
-// // unhighlighted color
-// SetBoxForeground(ghTalkToAllBox, FONT_LTGREEN);
-//
-// // background color
-// SetBoxBackground(ghTalkToAllBox, FONT_BLACK);
-//
-// // shaded color..for darkened text
-// SetBoxShade( ghTalkToAllBox, FONT_GRAY7 );
-//
-// // resize box to text
-// ResizeBoxToText( ghTalkToAllBox );
-//
-// DetermineMilitiaControlBoxPositions( );
-//
-//}
-//
-//
-//
-//
-//void CreateDestroyMouseRegionsForTalkToAllMenu( void )
-//{
-//	static BOOLEAN fCreated = FALSE;
-//	UINT32 iCounter = 0;
-//	INT32 iFontHeight = 0;
-//	INT32 iBoxXPosition = 0;
-//	INT32 iBoxYPosition = 0;
-//	SGPPoint pPosition;
-//	INT32 iBoxWidth = 0;
-//	SGPRect pDimensions;
-//
-//	// will create/destroy mouse regions for the map screen assignment main menu
-//
-//	if( ( fShowTalkToAllMenu == TRUE ) && ( fCreated == FALSE ) )
-//	{
-//
-//		if( ( fShowTalkToAllMenu ) && ( guiCurrentScreen == MAP_SCREEN ) ) //laltodo
-//		{
-//		  SetBoxPosition( ghTalkToAllBox, TalkToAllPosition );
-//		}
-//	
-//		HandleShadingOfLinesForTalkToAllMenu( );
-//
-//		CheckAndUpdateTacticalMilitiaControlPopUpPositions( );
-//
-//		// grab height of font
-//		iFontHeight = GetLineSpace( ghTalkToAllBox ) + GetFontHeight( GetBoxFont( ghTalkToAllBox ) ); 
-//
-//		// get x.y position of box
-//		GetBoxPosition( ghTalkToAllBox, &pPosition);
-//
-//		// grab box x and y position
-//		iBoxXPosition = pPosition.iX;
-//		iBoxYPosition = pPosition.iY;
-//
-//		// get dimensions..mostly for width
-//		GetBoxSize( ghTalkToAllBox, &pDimensions );
-//		SetBoxSecondaryShade( ghTalkToAllBox, FONT_YELLOW );
-//
-//		// get width
-//		iBoxWidth = pDimensions.iRight;
-//
-//		SetCurrentBox( ghTalkToAllBox );
-//
-//		// define regions
-//		for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghTalkToAllBox ); iCounter++ )
-//		{
-//			// add mouse region for each line of text..and set user data
-//		
-//
-//			MSYS_DefineRegion( &gTalkToAllMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghTalkToAllBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghTalkToAllBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 3 ,
-//							 MSYS_NO_CURSOR, TalkToAllMenuMvtCallBack, TalkToAllMenuBtnCallback );
-//
-//			// set user defines
-//			MSYS_SetRegionUserData( &gTalkToAllMenuRegion[ iCounter ], 0, iCounter );
-//		}
-//
-//		// created
-//		fCreated = TRUE;
-//
-//		// unhighlight all strings in box
-//		UnHighLightBox( ghTalkToAllBox );
-//
-//	}
-//	else if( ( ( fShowMilitiaControlMenu == FALSE ) || ( fShowTalkToAllMenu == FALSE ) ) && ( fCreated == TRUE ) )
-//	{
-//		// destroy 
-//		for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghTalkToAllBox ); iCounter++ )
-//		{
-//			MSYS_RemoveRegion( &gTalkToAllMenuRegion[ iCounter ] );
-//		}
-//
-//		// stop showing TalkToAll menu
-//		if( fShowMilitiaControlMenu == FALSE )
-//		{
-//			fShowTalkToAllMenu = FALSE;
-//		}
-//
-//		RestorePopUpBoxes( );
-//
-//		fMapPanelDirty = TRUE;
-//		fCharacterInfoPanelDirty= TRUE;
-//		fTeamPanelDirty = TRUE;
-//		fMapScreenBottomDirty = TRUE;
-//		HideBox( ghTalkToAllBox );
-//		SetRenderFlags( RENDER_FLAG_FULL );
-//		
-//		// not created
-//		fCreated = FALSE;
-//
-//		if ( fShowMilitiaControlMenu )
-//		{
-//			// remove highlight on the parent menu
-//			UnHighLightBox( ghMilitiaControlBox );
-//		}
-//	}
-//}
-//
-//void TalkToAllMenuMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-//{
-//	// mvt callback handler for assignment region
-//	INT32 iValue = -1;
-//	
-//	iValue = MSYS_GetRegionUserData( pRegion, 0 );
-//
-//	//if( HandleAssignmentExpansionAndHighLightForTalkToAllMenu( ) == TRUE )
-//	//{
-//	//	return;
-//	//}
-//
-//	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
-//	{
-//		// highlight string
-//
-//		// do not highlight current balance
-//		if( GetBoxShadeFlag( ghTalkToAllBox, iValue ) == FALSE )
-//		{
-//		  // get the string line handle
-//		  HighLightBoxLine( ghTalkToAllBox, iValue );
-//		}
-//	}
-//	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
-//	{
-//		// unhighlight all strings in box
-//		UnHighLightBox( ghTalkToAllBox );
-//	}
-//}
-//
-//
-//
-//void TalkToAllMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
-//{
-//	// btn callback handler for assignment region
-//	INT32 iValue = -1;
-//	SOLDIERTYPE * pSoldier = NULL;
-//
-//	iValue = MSYS_GetRegionUserData( pRegion, 0 );
-//
-//	//if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN ) || ( iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN ) )
-//	//{
-//	//	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) && !fShowMapInventoryPool )
-//	//	{
-//	//		UnMarkButtonDirty( giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] );
-//	//	}
-//	//}
-//
-//	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
-//	{
-//		switch( iValue )
-//		{
-//			case( TTALL_MENU_ATTACK ):
-//			{					
-//				// Attack !!!
-//				ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Attack" );
-//
-//				pTMilitiaSoldier->bOrders = SEEKENEMY;
-//				pTMilitiaSoldier->bAttitude = AGGRESSIVE;
-//
-//				// stop showing menu
-//				fShowMilitiaControlMenu = FALSE;
-//				//fShowTalkToAllMenu = FALSE;
-//				giAssignHighLine = -1;
-//			}
-//			break;
-//
-//			case( TTALL_MENU_HOLD ):						
-//			{
-//				//Hold Position !!!
-//				ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Hold Position" );
-//				
-//				pTMilitiaSoldier->bOrders = STATIONARY;
-//				//pTMilitiaSoldier->bAttitude = DEFENSIVE;
-//
-//				// stop showing menu
-//				fShowMilitiaControlMenu = FALSE;
-//				//fShowTalkToAllMenu = FALSE;
-//				giAssignHighLine = -1;
-//			}
-//			break;
-//
-//			case( TTALL_MENU_RETREAT ):
-//			{
-//				// Retreat !!!
-//				ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Retreat" );
-//				
-//				pTMilitiaSoldier->bOrders = FARPATROL;
-//				//pTMilitiaSoldier->bAttitude = DEFENSIVE;
-//
-//				// set up next action to run away
-//				pTMilitiaSoldier->usNextActionData = FindSpotMaxDistFromOpponents( pTMilitiaSoldier );
-//				if ( !TileIsOutOfBounds(pTMilitiaSoldier->usNextActionData) )
-//				{
-//					pTMilitiaSoldier->bNextAction = AI_ACTION_RUN_AWAY;
-//					pTMilitiaSoldier->usActionData = ANIM_STAND;
-//					//return( AI_ACTION_STOP_COWERING );
-//				}
-//
-//				// stop showing menu
-//				fShowMilitiaControlMenu = FALSE;
-//				//fShowTalkToAllMenu = FALSE;
-//				giAssignHighLine = -1;
-//			}
-//			break;
-//
-//
-//			case( TTALL_MENU_COMETOME ):
-//			{
-//				ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Come to me" );
-//
-//				UINT8						cnt;
-//				SOLDIERTYPE *		pTeamSoldier;
-//				INT16 sActionGridNo, sGridNo, sAdjustedGridNo;
-//				UINT8	ubDirection;
-//
-//				cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
-//
-//				for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
-//				{
-//					if ( pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->stats.bLife > 0 )
-//					{
-//
-//						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
-//						{
-//							// OK, find an adjacent gridno....
-//							sGridNo = pSoldier->sGridNo;
-//
-//							// See if we can get there to punch	
-//							sActionGridNo =  FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-//							if ( sActionGridNo != -1 )
-//							{
-//								// SEND PENDING ACTION
-//								//pTMilitiaSoldier->ubPendingAction = MERC_STEAL;
-//								pTeamSoldier->sPendingActionData2  = pSoldier->sGridNo;
-//								pTeamSoldier->bPendingActionData3  = ubDirection;
-//								pTeamSoldier->aiData.ubPendingActionAnimCount = 0;
-//
-//								// CHECK IF WE ARE AT THIS GRIDNO NOW
-//								if ( pTeamSoldier->sGridNo != sActionGridNo )
-//								{
-//									// WALK UP TO DEST FIRST
-//									SendGetNewSoldierPathEvent( pTeamSoldier, sActionGridNo, pTeamSoldier->usUIMovementMode );
-//								}
-//							}
-//						}
-//					}
-//				}
-//
-//				// stop showing menu
-//				fShowMilitiaControlMenu = FALSE;
-//				//fShowTalkToAllMenu = FALSE;
-//				giAssignHighLine = -1;
-//			}
-//			break;
-//
-//			case( TTALL_MENU_GETDOWN ):
-//			{
-//				// Get Down !!!
-//				ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Get Down" );
-//
-//				SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_PRONE );
-//				//SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );
-//
-//				// stop showing menu
-//				fShowMilitiaControlMenu = FALSE;
-//				//fShowTalkToAllMenu = FALSE;
-//				giAssignHighLine = -1;
-//			}
-//			break;
-//
-//			case( TTALL_MENU_CANCEL ):
-//			{
-//				//Cancel
-//				ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Cancel" );
-//
-//				// stop showing menu
-//				fShowTalkToAllMenu = FALSE;
-//
-//				// unhighlight the assignment box
-//				UnHighLightBox( ghMilitiaControlBox );
-//
-//				// reset list of characters
-//				ResetSelectedListForMapScreen( );
-//				gfRenderPBInterface = TRUE;
-//			}
-//			break;
-//		}
-//		// set dirty flag
-//		fTeamPanelDirty = TRUE;
-//		fMapScreenBottomDirty = TRUE;
-//	}
-//}
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-//void HandleShadingOfLinesForTalkToAllMenu( void )
-//{
-//	SOLDIERTYPE *pSoldier = NULL;
-//	INT32 iCounter = 0;
-//
-//
-//	// check if valid
-//	if( ( fShowTalkToAllMenu == FALSE ) || ( ghTalkToAllBox == - 1 ) )
-//	{
-//		return;
-//	}
-//
-//	//pSoldier = GetSelectedAssignSoldier( FALSE );
-//
-//	//// can character practise?
-//	//if( CanCharacterPractise( pSoldier ) == FALSE )
-//	//{
-//	//	ShadeStringInBox( ghTalkToAllBox, TalkToAll_MENU_SELF );
-//	//}
-//	//else
-//	//{
-//	//	UnShadeStringInBox( ghTalkToAllBox, TalkToAll_MENU_SELF );
-//	//}
-//
-//
-//	return;
-//}
-

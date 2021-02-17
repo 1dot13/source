@@ -25991,3 +25991,25 @@ UINT16	SOLDIERTYPE::RetreatCounterValue(void)
 {
 	return usSkillCounter[SOLDIER_COUNTER_RETREAT];
 }
+
+void SOLDIERTYPE::StartRadioAnimation(void)
+{
+	if (this->ubBodyType != REGMALE && this->ubBodyType != BIGMALE ||
+		Water(this->sGridNo, this->pathing.bLevel) ||
+		this->bVisible != TRUE)
+	{
+		return;
+	}
+
+	switch (gAnimControl[this->usAnimState].ubEndHeight)
+	{
+	case ANIM_STAND:
+		this->EVENT_InitNewSoldierAnim(AI_RADIO, 0, FALSE);
+		break;
+	case ANIM_CROUCH:
+		this->EVENT_InitNewSoldierAnim(AI_CR_RADIO, 0, FALSE);
+		break;
+	case ANIM_PRONE:
+		break;
+	}
+}

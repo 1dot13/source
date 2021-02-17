@@ -1876,6 +1876,8 @@ public:
 	void	RetreatCounterStop(void);
 	UINT16  RetreatCounterValue(void);
 
+	void StartRadioAnimation(void);
+
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();
 	UINT32		GetSurrenderStrength();
