@@ -527,6 +527,7 @@ void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier)
 }
 
 INT32 gOldMapSpot = NOWHERE;
+INT32 gOldMapTime = 0;
 
 // MAIN TACTICAL UI HANDLER
 UINT32	HandleTacticalUI( void )
@@ -667,6 +668,10 @@ UINT32	HandleTacticalUI( void )
 		if (usMapPos != gOldMapSpot)
 		{
 			gOldMapSpot = usMapPos;
+			gOldMapTime = GetJA2Clock();
+		}
+		else if (GetJA2Clock() - gOldMapTime > 100)
+		{
 			UpdateTreeVisibility();
 		}
 
