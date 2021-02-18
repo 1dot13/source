@@ -271,7 +271,7 @@ namespace LogicalBodyTypes {
 		/*****************************************
 		  Filter enum criterion types
 		******************************************/
-		LOGBT_ENUMDB_ADD("IntegerFilterCriterionTypes", 32,
+		LOGBT_ENUMDB_ADD("IntegerFilterCriterionTypes", 33,
 			Filter::REQ_HELMETPOS,
 			Filter::REQ_VESTPOS,
 			Filter::REQ_LEGPOS,
@@ -303,20 +303,22 @@ namespace LogicalBodyTypes {
 			Filter::REQ_VEST_AMOR_PROTECTION,
 			Filter::REQ_VEST_AMOR_COVERAGE,
 			Filter::REQ_HELMET_AMOR_PROTECTION,
-			Filter::REQ_HELMET_AMOR_COVERAGE
+			Filter::REQ_HELMET_AMOR_COVERAGE,
+			Filter::REQ_WEARING_BACKPACK
 		);
 
 		/*****************************************
 		  Filter enum criterion types
 		******************************************/
-		LOGBT_ENUMDB_ADD("EnumFilterCriterionTypes", 7,
+		LOGBT_ENUMDB_ADD("EnumFilterCriterionTypes", 8,
 			Filter::REQ_SEX,
 			Filter::REQ_MERC_TYPE,
 			Filter::REQ_SOLDIER_CLASS,
 			Filter::REQ_CIVILIANGROUP,
 			Filter::REQ_BODYTYPE,
 			Filter::REQ_WEAPON_CLASS,
-			Filter::REQ_WEAPON_TYPE
+			Filter::REQ_WEAPON_TYPE,
+			Filter::REQ_LEFT_WEAPON_TYPE
 		);
 
 		/*****************************************
@@ -672,7 +674,7 @@ namespace LogicalBodyTypes {
 		/*****************************************
 		  Weapon Type
 		******************************************/
-	LOGBT_ENUMDB_ADD("WEAPON_TYPE", GUN_TYPES_MAX,
+		LOGBT_ENUMDB_ADD("WEAPON_TYPE", GUN_TYPES_MAX,
 			NOT_GUN,
 			GUN_PISTOL,
 			GUN_M_PISTOL,
@@ -684,6 +686,17 @@ namespace LogicalBodyTypes {
 			GUN_SHOTGUN
 		);
 
+		LOGBT_ENUMDB_ADD("LEFT_WEAPON_TYPE", GUN_TYPES_MAX,
+			NOT_GUN,
+			GUN_PISTOL,
+			GUN_M_PISTOL,
+			GUN_SMG,
+			GUN_RIFLE,
+			GUN_SN_RIFLE,
+			GUN_AS_RIFLE,
+			GUN_LMG,
+			GUN_SHOTGUN
+		);
 	};
 
 }

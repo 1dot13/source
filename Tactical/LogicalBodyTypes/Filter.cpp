@@ -189,6 +189,9 @@ bool Filter::Match(SOLDIERTYPE* pSoldier) {
 				case REQ_WEAPON_TYPE:
 					cmp_val = Weapon[pSoldier->inv[HANDPOS].usItem].ubWeaponType;
 					break;
+				case REQ_LEFT_WEAPON_TYPE:
+					cmp_val = Weapon[pSoldier->inv[SECONDHANDPOS].usItem].ubWeaponType;
+					break;
 				case REQ_CALIBRE:
 					cmp_val = Weapon[pSoldier->inv[HANDPOS].usItem].ubCalibre;
 					break;
@@ -203,6 +206,9 @@ bool Filter::Match(SOLDIERTYPE* pSoldier) {
 					break;
 				case REQ_HELMET_AMOR_COVERAGE:
 					cmp_val = Armour[Item[pSoldier->inv[HELMETPOS].usItem].ubClassIndex].ubCoverage;
+					break;
+				case REQ_WEARING_BACKPACK:
+					cmp_val = pSoldier->inv[BPACKPOCKPOS].exists();
 					break;
 				default:
 					if (q < NUM_REQTYPESINV) {
