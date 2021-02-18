@@ -8,7 +8,7 @@
 	</Filter>
 	<Filter name="FlakJacket">
 		<AND>
-			<VESTPOS op="in">161</VESTPOS>
+			<VESTPOS op="in">161, 162, 163, 164, 165, 166, 167, 168, 169, 196, 197, 198, 283, 295, 803, 806, 812, 815, 818, 821, 824, 827, 830, 833, 836, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
 		</AND>
 	</Filter>
 	<Filter name="IsWearingHat">
@@ -18,20 +18,25 @@
 	</Filter>
 	<Filter name="IsWearingHelmet">
 		<AND>
-			<HELMETPOS op="in">176</HELMETPOS>
+			<HELMETPOS op="in">176, 177, 178, 179, 180, 181, 182, 293, 302, 801, 804, 810, 813, 816, 819, 822, 825, 828, 831, 834, 839, 1100, 1135</HELMETPOS>
 		</AND>
 	</Filter>
 	<Filter name="IsWearingBeret">
 		<AND>
-			<HELMETPOS op="in">288</HELMETPOS>
+			<HELMETPOS op="in">288</HELMETPOS><!-- 288 -->
 		</AND>
 	</Filter>
-	<Filter name="IsWearingBeretAndHasRifle">
-		<AND>
-			<HELMETPOS op="in">288</HELMETPOS>
-			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
-			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
-		</AND>
+	<Filter name="IsWearingGasmask">
+		<OR>
+			<HEAD1POS op="in">213</HEAD1POS>
+			<HEAD2POS op="in">213</HEAD2POS>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingNVG">
+		<OR>
+			<HEAD1POS op="in">211, 246, 1024, 1025</HEAD1POS>
+			<HEAD2POS op="in">211, 246, 1024, 1025</HEAD2POS>
+		</OR>
 	</Filter>
 	<Filter name="Knees">
 		<AND>
@@ -39,24 +44,48 @@
 		</AND>
 	</Filter>
 	<Filter name="IsWearingBackpack">
-		<AND>
-			<BPACKPOCKPOS op="in">1094</BPACKPOCKPOS>
-		</AND>
+		<OR>
+			<!--<BPACKPOCKPOS op="in">1094, 1095, 1096, 1705</BPACKPOCKPOS>--> <!-- Finds specific item via its uiIndex -->
+			<WEARING_BACKPACK>1</WEARING_BACKPACK> <!-- Checks simply whether there is anything in the merc's backpack slot -->
+		</OR>
 	</Filter>
-	<Filter name="IsWearingBackpackAndHasRifle">
-		<AND>
-			<BPACKPOCKPOS op="in">1094</BPACKPOCKPOS>
-			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
-			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
-		</AND>
+	<Filter name="IsWearingRadioSet">
+		<OR>
+			<BPACKPOCKPOS op="in">1697</BPACKPOCKPOS>
+		</OR>
 	</Filter>
-	<Filter name="IsShotgun">
+	<Filter name="HasShotgunInHand">
 		<AND>
 			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
 			<WEAPON_TYPE>GUN_SHOTGUN</WEAPON_TYPE>
 		</AND>
 	</Filter>
-	<Filter name="IsAKtypeWeapon">
+	<Filter name="HasSaiga12kInHand">
+		<AND>
+			<HANDPOS op="in">32, 33, 340</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSPAS12InHand">
+		<AND>
+			<HANDPOS op="in">775</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFALInHand">
+		<AND>
+			<HANDPOS op="in">28, 29, 647, 648</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasFAMASInHand">
+		<AND>
+			<HANDPOS op="in">24, 30</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSCARInHand">
+		<AND>
+			<HANDPOS op="in">651, 652, 787, 788, 790, 791, 792, 793</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasAKInHand">
 		<AND>
 			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
 			<WEAPON_TYPE>GUN_AS_RIFLE</WEAPON_TYPE>
@@ -69,13 +98,339 @@
 			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
 		</AND>
 	</Filter>
-	<Filter name="IsPistol">
+	<Filter name="HasSMGInHand">
 		<AND>
 			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
-			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_SMG</WEAPON_TYPE>
 		</AND>
 	</Filter>
-		<!-- Matches all soldier objects, that are supposed to be rendered as average height regular male -->
+	<Filter name="HasP90InHand">
+		<AND>
+			<HANDPOS op="in">15</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasTommyGunInHand">
+		<AND>
+			<HANDPOS op="in">11, 737</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPPSH41InHand">
+		<AND>
+			<HANDPOS op="in">702, 773</HANDPOS>
+		</AND>
+	</Filter>	
+	<Filter name="HasRifleInHand">
+		<AND>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+			<WEAPON_TYPE>GUN_RIFLE</WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="HasSemiAutoRifleInHand">
+		<OR>
+			<WEAPON_TYPE>GUN_RIFLE</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_AS_RIFLE</WEAPON_TYPE>
+		</OR>
+		<AND>
+			<HANDPOS op="in">17, 22, 27, 684, 753</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasMGInHand">
+		<AND>
+			<WEAPON_TYPE>GUN_LMG</WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="HasRPKInHand">
+		<AND>
+			<HANDPOS op="in">35, 74, 705, 706</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPKMInHand">
+		<AND>
+			<HANDPOS op="in">699, 700</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasBigSniperInHand">
+		<AND>
+			<HANDPOS op="in">116, 335, 620, 697</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSniperInHand">
+		<AND>
+			<WEAPON_TYPE>GUN_SN_RIFLE</WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="HasDragunovInHand">
+		<AND>
+			<HANDPOS op="in">18, 734, 735</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPSG1InHand">
+		<AND>
+			<HANDPOS op="in">334, 674</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasPatriotInHand">
+		<AND>
+			<HANDPOS op="in">19, 684, 685, 698, 728, 729</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasRifleTypeWeaponInHand">
+		<AND>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>
+	</Filter>
+	<Filter name="HasPistolInHand">
+		<AND>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<!--<LEFT_WEAPON_TYPE>NOT_GUN</LEFT_WEAPON_TYPE>-->
+		</AND>
+	</Filter>
+	<Filter name="HasMPistolInHand">
+		<AND>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+			<!--<LEFT_WEAPON_TYPE>NOT_GUN</LEFT_WEAPON_TYPE>-->
+		</AND>
+	</Filter>
+	<Filter name="HasPistolOrMPistolInRightHand">
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+		<AND>
+			<LEFT_WEAPON_TYPE>NOT_GUN</LEFT_WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="HasPistolOrMPistolInLeftHand">
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="HasPistolInLeftHand">
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="HasMPistolInLeftHand">
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="HasDualRightPistol">
+<!--		<AND>
+			<FILTER name="HasPistolInHand"></FILTER>
+			<FILTER name="HasPistolInLeftHand"></FILTER>	
+		</AND>
+--> <!-- Combining filters implementation in LOBOT code is not working correctly, even though the idea for it is there. -->
+		<AND>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+		</AND>
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="HasDualRightMPistol">
+		<AND>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</AND>
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="HasDesertEagleInHand">
+		<AND>
+			<HANDPOS op="in">7, 637, 638, 758</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDesertEagleInLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">7, 637, 638, 758</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightDesertEagle">
+		<AND>
+			<HANDPOS op="in">7, 637, 638, 758</HANDPOS>
+		</AND>
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="HasSW500InHand">
+		<AND>
+			<HANDPOS op="in">892, 893, 894</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasSW500InLeftHand">
+		<AND>
+			<SECONDHANDPOS op="in">892, 893, 894</SECONDHANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasDualRightSW500">
+		<AND>
+			<HANDPOS op="in">892, 893, 894</HANDPOS>
+		</AND>
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingBackpackAndHasPistol">
+		<AND>
+			<WEARING_BACKPACK>1</WEARING_BACKPACK>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingBackpackAndHasRifle">
+		<AND>
+			<WEARING_BACKPACK>1</WEARING_BACKPACK>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>		
+	</Filter>
+	<Filter name="IsWearingBeretAndHasRifle">
+		<AND>
+			<HELMETPOS op="in">288</HELMETPOS>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>		
+	</Filter>
+	<Filter name="IsWearingBeretAndHasPistol">
+		<AND>
+			<HELMETPOS op="in">288</HELMETPOS>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingHatAndHasPistol">
+		<AND>
+			<HELMETPOS op="in">285</HELMETPOS>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingHatAndHasRifle">
+		<AND>
+			<HELMETPOS op="in">285</HELMETPOS>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>		
+	</Filter>
+	<Filter name="IsWearingHelmetAndHasPistol">
+		<AND>
+			<HELMETPOS op="in">176, 177, 178, 179, 180, 181, 182, 293, 302, 801, 804, 810, 813, 816, 819, 822, 825, 828, 831, 834, 839, 1100, 1135</HELMETPOS>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingHelmetAndHasRifle">
+		<AND>
+			<HELMETPOS op="in">176, 177, 178, 179, 180, 181, 182, 293, 302, 801, 804, 810, 813, 816, 819, 822, 825, 828, 831, 834, 839, 1100, 1135</HELMETPOS>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>		
+	</Filter>
+	<Filter name="IsWearingFlakJacketAndHasPistol">
+		<AND>
+			<VESTPOS op="in">161, 162, 163, 164, 165, 166, 167, 168, 169, 196, 197, 198, 283, 295, 803, 806, 812, 815, 818, 821, 824, 827, 830, 833, 836, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingFlakJacketAndHasRifle">
+		<AND>
+			<VESTPOS op="in">161, 162, 163, 164, 165, 166, 167, 168, 169, 196, 197, 198, 283, 295, 803, 806, 812, 815, 818, 821, 824, 827, 830, 833, 836, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>		
+	</Filter>
+	<Filter name="IsWearingGasmaskAndHasPistol">
+		<OR>
+			<HEAD1POS op="in">213</HEAD1POS>
+			<HEAD2POS op="in">213</HEAD2POS>
+		</OR>
+		<AND>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingGasmaskAndHasRifle">
+		<OR>
+			<HEAD1POS op="in">213</HEAD1POS>
+			<HEAD2POS op="in">213</HEAD2POS>
+		</OR>
+		<AND>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingNVGandHasPistol">
+		<OR>
+			<HEAD1POS op="in">211, 246, 1024, 1025</HEAD1POS>
+			<HEAD2POS op="in">211, 246, 1024, 1025</HEAD2POS>
+		</OR>
+		<AND>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingNVGandHasRifle">
+		<OR>
+			<HEAD1POS op="in">211, 246, 1024, 1025</HEAD1POS>
+			<HEAD2POS op="in">211, 246, 1024, 1025</HEAD2POS>
+		</OR>
+		<AND>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</AND>
+	</Filter>
+	<!-- Matches all soldier objects, that are supposed to be rendered as average height regular male -->
 	<Filter name="IsRegularMaleAverage">
 		<OR>
 			<BODYTYPE>REGMALE</BODYTYPE>

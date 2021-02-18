@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LogicalAnimationSurfaces>
 	<Layer name="shadow">
-		<LayerProp filter="HasARInHand" >
+		<LayerProp filter="HasPistolOrMPistolInLeftHand" >
+			<Surface name="LBT_RGMEMPTY_RUN_SHADOW" animsurface="RGMPISTOL_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasPistolOrMPistolInRightHand" >
+			<Surface name="LBT_RGMPISTOL_WALK_SHADOW" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_SHADOW" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_SHADOW" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="HasRifleTypeWeaponInHand" >
 			<Surface name="LBT_RGM_RIFLE_OPEN_SHADOW" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_SHADOW" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_SHADOW" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_SHADOW" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_SHADOW" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_SHADOW" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_SHADOW" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_SHADOW" animsurface="RGMDRUNK" />
 		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="LBT_RGMRIFLE_SWAT_SHADOW" animsurface="RGMSNEAKING" />
@@ -22,13 +37,85 @@
 			<Surface name="LBT_RGM_HOP_SHADOW" animsurface="RGMHOPFENCE" />
 			<Surface name="LBT_RGM_PUNCH_SHADOW" animsurface="RGMPUNCH" />
 			<Surface name="LBT_RGM_IDLE_SHADOW" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_SHADOW" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGM_OPEN_SHADOW" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGM_PICKUP_SHADOW" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_SHADOW" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_SHADOW" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_SHADOW" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_SHADOW" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_SHADOW" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_SHADOW" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_SHADOW" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_SHADOW" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_SHADOW" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_SHADOW" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_SHADOW" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_SHADOW" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_SHADOW" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_SHADOW" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_SHADOW" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_SHADOW" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_SHADOW" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_SHADOW" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_SHADOW" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_SHADOW" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_SHADOW" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_SHADOW" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_SHADOW" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_SHADOW" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_SHADOW" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_JFK_SHADOW" animsurface="RGMDIE_JFK" />
+			<Surface name="LBT_RGMEMPTY_CDIE_SHADOW" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_SHADOW" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_SHADOW" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_SHADOW" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_SHADOW" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_SHADOW" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_SHADOW" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_SHADOW" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_SHADOW" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_SHADOW" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_SHADOW" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_SHADOW" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_SHADOW" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_SHADOW" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_SHADOW" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_SHADOW" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_SHADOW" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_SHADOW" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_SHADOW" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_SHADOW" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_SHADOW" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_SHADOW" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_SHADOW" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_SHADOW" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_SHADOW" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_SHADOW" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_SHADOW" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_SHADOW" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_SHADOW" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_SHADOW" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 	<Layer name="legs">
-		<LayerProp filter="HasARInHand" >
+		<LayerProp filter="HasPistolOrMPistolInLeftHand" >
+			<Surface name="LBT_RGMEMPTY_RUN_LEGS" animsurface="RGMPISTOL_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasPistolOrMPistolInRightHand" >
+			<Surface name="LBT_RGMPISTOL_WALK_LEGS" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_LEGS" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_LEGS" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="HasRifleTypeWeaponInHand" >
 			<Surface name="LBT_RGM_RIFLE_OPEN_LEGS" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_LEGS" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_LEGS" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_LEGS" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_LEGS" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_LEGS" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_LEGS" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_LEGS" animsurface="RGMDRUNK" />
 		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="LBT_RGMRIFLE_SWAT_LEGS" animsurface="RGMSNEAKING" />
@@ -48,15 +135,89 @@
 			<Surface name="LBT_RGM_HOP_LEGS" animsurface="RGMHOPFENCE" />
 			<Surface name="LBT_RGM_PUNCH_LEGS" animsurface="RGMPUNCH" />
 			<Surface name="LBT_RGM_IDLE_LEGS" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_LEGS" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGM_OPEN_LEGS" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGM_PICKUP_LEGS" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_LEGS" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_LEGS" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_LEGS" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_LEGS" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_LEGS" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_LEGS" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_LEGS" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_LEGS" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_LEGS" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_LEGS" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_LEGS" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_LEGS" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_LEGS" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_LEGS" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_LEGS" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_LEGS" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_LEGS" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_LEGS" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_LEGS" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_LEGS" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_LEGS" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_LEGS" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_LEGS" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_LEGS" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_LEGS" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_JFK_LEGS" animsurface="RGMDIE_JFK" />
+			<Surface name="LBT_RGMEMPTY_CDIE_LEGS" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_LEGS" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_LEGS" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_LEGS" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_LEGS" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_LEGS" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_LEGS" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_LEGS" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_LEGS" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_LEGS" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_LEGS" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_LEGS" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_LEGS" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_LEGS" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_LEGS" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_LEGS" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_LEGS" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_LEGS" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_LEGS" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_LEGS" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_LEGS" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_LEGS" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_LEGS" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_LEGS" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_LEGS" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_LEGS" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_LEGS" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_LEGS" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_LEGS" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_LEGS" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 	<Layer name="body">
-		<LayerProp filter="HasARInHand" >
+		<LayerProp filter="HasPistolOrMPistolInLeftHand" >
+			<Surface name="LBT_RGMEMPTY_RUN_TORSO" animsurface="RGMPISTOL_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasPistolOrMPistolInRightHand" >
+			<Surface name="LBT_RGMPISTOL_WALK_TORSO" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_TORSO" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_TORSO" animsurface="RGMNOTHING_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasRifleTypeWeaponInHand" >
 			<Surface name="LBT_RGM_RIFLE_OPEN_TORSO" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_TORSO" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_TORSO" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_TORSO" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_TORSO" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_TORSO" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_TORSO" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_TORSO" animsurface="RGMDRUNK" />
 		</LayerProp>
 		<LayerProp filter="" >
+			<Surface name="LBT_RGMBURN" animsurface="RGMBURN" />
+			<Surface name="LBT_RGMBLOWUP" animsurface="BODYEXPLODE" />
 			<Surface name="LBT_RGMRIFLE_SWAT_TORSO" animsurface="RGMSNEAKING" />
 			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_TORSO" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="LBT_RGM_CROUCHWALK_PISTOL_TORSO" animsurface="RGMCROUCH_P_RDY" />
@@ -74,13 +235,85 @@
 			<Surface name="LBT_RGM_HOP_TORSO" animsurface="RGMHOPFENCE" />
 			<Surface name="LBT_RGM_PUNCH_TORSO" animsurface="RGMPUNCH" />
 			<Surface name="LBT_RGM_IDLE_TORSO" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_TORSO" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGM_OPEN_TORSO" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGM_PICKUP_TORSO" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_TORSO" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_TORSO" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_TORSO" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_TORSO" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_TORSO" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_TORSO" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_TORSO" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_TORSO" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_TORSO" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_TORSO" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_TORSO" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_TORSO" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_TORSO" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_TORSO" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_TORSO" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_TORSO" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_TORSO" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_TORSO" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_TORSO" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_TORSO" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_TORSO" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_TORSO" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_TORSO" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_TORSO" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_TORSO" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_JFK_TORSO" animsurface="RGMDIE_JFK" />
+			<Surface name="LBT_RGMEMPTY_CDIE_TORSO" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_TORSO" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_TORSO" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_TORSO" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_TORSO" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_TORSO" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_TORSO" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_TORSO" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_TORSO" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_TORSO" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_TORSO" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_TORSO" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_TORSO" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_TORSO" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_TORSO" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_TORSO" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_TORSO" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_TORSO" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_TORSO" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_TORSO" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_TORSO" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_TORSO" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_TORSO" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_TORSO" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_TORSO" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_TORSO" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_TORSO" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_TORSO" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_TORSO" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_TORSO" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 	<Layer name="hands">
-		<LayerProp filter="HasARInHand" >
+		<LayerProp filter="HasPistolOrMPistolInLeftHand" >
+			<Surface name="LBT_RGMEMPTY_RUN_HANDS" animsurface="RGMPISTOL_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasPistolOrMPistolInRightHand" >
+			<Surface name="LBT_RGMPISTOL_WALK_HANDS" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_HANDS" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_HANDS" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="HasRifleTypeWeaponInHand" >
 			<Surface name="LBT_RGM_RIFLE_OPEN_HANDS" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_HANDS" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_HANDS" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_HANDS" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_HANDS" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_HANDS" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_HANDS" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_HANDS" animsurface="RGMDRUNK" />
 		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="LBT_RGMRIFLE_SWAT_HANDS" animsurface="RGMSNEAKING" />
@@ -100,13 +333,85 @@
 			<Surface name="LBT_RGM_HOP_HANDS" animsurface="RGMHOPFENCE" />
 			<Surface name="LBT_RGM_PUNCH_HANDS" animsurface="RGMPUNCH" />
 			<Surface name="LBT_RGM_IDLE_HANDS" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_HANDS" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGM_OPEN_HANDS" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGM_PICKUP_HANDS" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_HANDS" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_HANDS" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_HANDS" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_HANDS" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_HANDS" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_HANDS" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_HANDS" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_HANDS" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_HANDS" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_HANDS" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_HANDS" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_HANDS" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_HANDS" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_HANDS" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_HANDS" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_HANDS" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_HANDS" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_HANDS" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_HANDS" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_HANDS" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_HANDS" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_HANDS" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_HANDS" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_HANDS" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_HANDS" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_JFK_HANDS" animsurface="RGMDIE_JFK" />
+			<Surface name="LBT_RGMEMPTY_CDIE_HANDS" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_HANDS" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_HANDS" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_HANDS" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_HANDS" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_HANDS" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_HANDS" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_HANDS" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_HANDS" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_HANDS" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_HANDS" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_HANDS" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_HANDS" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_HANDS" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_HANDS" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_HANDS" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_HANDS" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_HANDS" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_HANDS" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_HANDS" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_HANDS" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_HANDS" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_HANDS" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_HANDS" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_HANDS" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_HANDS" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_HANDS" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_HANDS" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_HANDS" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_HANDS" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 	<Layer name="head">
-		<LayerProp filter="HasARInHand" >
+		<LayerProp filter="HasPistolOrMPistolInLeftHand" >
+			<Surface name="LBT_RGMEMPTY_RUN_HEAD" animsurface="RGMPISTOL_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasPistolOrMPistolInRightHand" >
+			<Surface name="LBT_RGMPISTOL_WALK_HEAD" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_HEAD" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_HEAD" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="HasRifleTypeWeaponInHand" >
 			<Surface name="LBT_RGM_RIFLE_OPEN_HEAD" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_HEAD" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_HEAD" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_HEAD" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_HEAD" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_HEAD" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_HEAD" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_HEAD" animsurface="RGMDRUNK" />
 		</LayerProp>
 		<LayerProp filter="" >
 			<Surface name="LBT_RGMRIFLE_SWAT_HEAD" animsurface="RGMSNEAKING" />
@@ -126,20 +431,174 @@
 			<Surface name="LBT_RGM_HOP_HEAD" animsurface="RGMHOPFENCE" />
 			<Surface name="LBT_RGM_PUNCH_HEAD" animsurface="RGMPUNCH" />
 			<Surface name="LBT_RGM_IDLE_HEAD" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_HEAD" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGM_OPEN_HEAD" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGM_PICKUP_HEAD" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_HEAD" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_HEAD" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_HEAD" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_HEAD" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_HEAD" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_HEAD" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_HEAD" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_HEAD" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_HEAD" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_HEAD" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_HEAD" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_HEAD" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_HEAD" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_HEAD" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_HEAD" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_HEAD" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_HEAD" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_HEAD" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_HEAD" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_HEAD" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_HEAD" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_HEAD" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_HEAD" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_HEAD" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_HEAD" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_JFK_HEAD" animsurface="RGMDIE_JFK" />
+			<Surface name="LBT_RGMEMPTY_CDIE_HEAD" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_HEAD" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_HEAD" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_HEAD" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_HEAD" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_HEAD" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_HEAD" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_HEAD" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_HEAD" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_HEAD" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_HEAD" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_HEAD" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_HEAD" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_HEAD" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_HEAD" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_HEAD" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_HEAD" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_HEAD" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_HEAD" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_HEAD" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_HEAD" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_HEAD" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_HEAD" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_HEAD" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_HEAD" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_HEAD" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_HEAD" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_HEAD" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_HEAD" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_HEAD" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 	<Layer name="helmet">
-<!--
-		<LayerProp filter="IsWearingHelmet">
- 		<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HELMET" animsurface="RGMCROUCH_R_RDY" />
-			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HELMET" animsurface="RGMCROUCH_P_RDY" />
-			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HELMET" animsurface="RGMCROUCH_D_RDY" />
+		<LayerProp filter="IsWearingHelmetAndHasPistol" palette="hats">
+			<Surface name="LBT_RGMPISTOL_WALK_HELMET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_HELMET" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_HELMET" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="IsWearingHelmetAndHasRifle" palette="hats">
+			<Surface name="LBT_RGM_RIFLE_OPEN_HELMET" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_HELMET" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_HELMET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_HELMET" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_HELMET" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_HELMET" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_HELMET" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_HELMET" animsurface="RGMDRUNK" />
+		</LayerProp>
+		<LayerProp filter="IsWearingHelmet" palette="hats">
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_HELMET" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_HELMET" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_HELMET" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_HELMET" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_HELMET" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_HELMET" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_HELMET" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_HELMET" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_HELMET" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_HELMET" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_HELMET" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_HELMET" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_HELMET" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGM_CROUCHWALK_HELMET" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_HELMET" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGM_HOP_HELMET" animsurface="RGMHOPFENCE" />
+			<Surface name="LBT_RGM_PUNCH_HELMET" animsurface="RGMPUNCH" />
+			<Surface name="LBT_RGM_IDLE_HELMET" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_HELMET" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGM_OPEN_HELMET" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGM_PICKUP_HELMET" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_HELMET" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMMEDIC_PRONE_HELMET" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_HELMET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_HELMET" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_HELMET" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_HELMET" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_HELMET" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_HELMET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_HELMET" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_HELMET" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_HELMET" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_HELMET" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_HELMET" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_AIM_HELMET" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_LOW_HELMET" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_HELMET" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_HELMET" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMDUAL_CR_AIM_HELMET" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_HELMET" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_HELMET" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_AIM_HELMET" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_PAIN_HELMET" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_HELMET" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_HELMET" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_CDIE_HELMET" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_HELMET" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_HELMET" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_HELMET" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_HELMET" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_HELMET" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_HELMET" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_HELMET" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_HELMET" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_HELMET" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_HELMET" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_HELMET" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_HELMET" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_HELMET" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_HELMET" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_HELMET" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_HELMET" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_HELMET" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_HELMET" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_HELMET" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_HELMET" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_HELMET" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_HELMET" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_HELMET" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_HELMET" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_HELMET" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_HELMET" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_HELMET" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_HELMET" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_HELMET" animsurface="RGMSLEEP" />
 		</LayerProp> 
--->
+		<LayerProp filter="IsWearingBeretAndHasPistol" palette="hats">
+			<Surface name="LBT_RGMPISTOL_WALK_BERET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_BERET" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_BERET" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
 		<LayerProp filter="IsWearingBeretAndHasRifle" palette="hats">
 			<Surface name="LBT_RGM_RIFLE_OPEN_BERET" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_BERET" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_BERET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_BERET" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_BERET" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_BERET" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_BERET" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_BERET" animsurface="RGMDRUNK" />
 		</LayerProp>
 		<LayerProp filter="IsWearingBeret" palette="hats">
 			<Surface name="LBT_RGMRIFLE_IDLE_BERET" animsurface="RGMSTANDING" />
@@ -149,6 +608,8 @@
 			<Surface name="LBT_RGMRIFLE_SWAT_BERET" animsurface="RGMSNEAKING" />
 			<Surface name="LBT_RGMRIFLE_WALK_BERET" animsurface="RGMWALK_R_RDY" />
 			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_BERET" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_BERET" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_BERET" animsurface="RGMCROUCH_D_RDY" />
 			<Surface name="LBT_RGMRIFLE_RAISE_BERET" animsurface="RGMRAISE" />
 			<Surface name="LBT_RGMRIFLE_AIM_BERET" animsurface="RGMSTANDAIM" />
 			<Surface name="LBT_RGMRIFLE_CR_AIM_BERET" animsurface="RGMCROUCHAIM" />
@@ -157,30 +618,848 @@
 			<Surface name="LBT_RGM_HOP_BERET" animsurface="RGMHOPFENCE" />
 			<Surface name="LBT_RGM_PUNCH_BERET" animsurface="RGMPUNCH" />
 			<Surface name="LBT_RGM_IDLE_BERET" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_BERET" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGM_OPEN_BERET" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGM_PICKUP_BERET" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_BERET" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_BERET" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_BERET" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_BERET" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_BERET" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_BERET" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_BERET" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_BERET" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_BERET" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_BERET" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_BERET" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_BERET" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_BERET" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_BERET" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_BERET" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_BERET" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_BERET" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_BERET" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_BERET" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_BERET" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_BERET" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_BERET" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_BERET" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_BERET" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_BERET" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_CDIE_BERET" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_BERET" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_BERET" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_BERET" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_BERET" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_BERET" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_BERET" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_BERET" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_BERET" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_BERET" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_BERET" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_BERET" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_BERET" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_BERET" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_BERET" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_BERET" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_BERET" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_BERET" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_BERET" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_BERET" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_BERET" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_BERET" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_BERET" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_BERET" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_BERET" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_BERET" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_BERET" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_BERET" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_BERET" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_BERET" animsurface="RGMSLEEP" />
+		</LayerProp>
+		<LayerProp filter="IsWearingHatAndHasPistol" palette="hats">
+			<Surface name="LBT_RGMPISTOL_WALK_BOONEY" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_BOONEY" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_BOONEY" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="IsWearingHatAndHasRifle" palette="hats">
+			<Surface name="LBT_RGM_RIFLE_OPEN_BOONEY" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_BOONEY" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_BOONEY" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_BOONEY" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_BOONEY" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_BOONEY" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_BOONEY" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_BOONEY" animsurface="RGMDRUNK" />
+		</LayerProp>
+		<LayerProp filter="IsWearingHat" palette="hats">
+			<Surface name="LBT_RGMRIFLE_IDLE_BOONEY" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_BOONEY" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_BOONEY" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_BOONEY" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SWAT_BOONEY" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_WALK_BOONEY" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_BOONEY" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_BOONEY" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_BOONEY" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMRIFLE_RAISE_BOONEY" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_BOONEY" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_BOONEY" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_BOONEY" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_BOONEY" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGM_HOP_BOONEY" animsurface="RGMHOPFENCE" />
+			<Surface name="LBT_RGM_PUNCH_BOONEY" animsurface="RGMPUNCH" />
+			<Surface name="LBT_RGM_IDLE_BOONEY" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_BOONEY" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGM_OPEN_BOONEY" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGM_PICKUP_BOONEY" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_BOONEY" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_BOONEY" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_BOONEY" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_BOONEY" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_BOONEY" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_BOONEY" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_BOONEY" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_BOONEY" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_BOONEY" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_BOONEY" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_BOONEY" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_BOONEY" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_BOONEY" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_BOONEY" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_BOONEY" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_BOONEY" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_BOONEY" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_BOONEY" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_BOONEY" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_BOONEY" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_BOONEY" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_BOONEY" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_BOONEY" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_BOONEY" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_BOONEY" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_CDIE_BOONEY" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_BOONEY" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_BOONEY" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_BOONEY" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_BOONEY" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_BOONEY" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_BOONEY" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_BOONEY" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_BOONEY" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_BOONEY" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_BOONEY" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_BOONEY" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_BOONEY" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_BOONEY" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_BOONEY" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_BOONEY" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_BOONEY" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_BOONEY" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_BOONEY" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_BOONEY" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_BOONEY" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_BOONEY" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_BOONEY" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_BOONEY" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_BOONEY" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_BOONEY" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_BOONEY" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_BOONEY" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_BOONEY" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_BOONEY" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 	<Layer name="gun">
-<!--		<LayerProp filter="IsShotgun" palette="guns_AK">
-			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SHOTGUN" animsurface="RGMCROUCH_R_RDY" />
-			<Surface name="LBT_RGMRIFLE_IDLE_SHOTGUN" animsurface="RGMSTANDING" />
+		<LayerProp filter="HasDualRightDesertEagle" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_DEAGLE" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_DEAGLE" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_DEAGLE" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_DEAGLE" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_DEAGLE" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_DEAGLE" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_DEAGLE" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_DEAGLE" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_DEAGLE" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_DEAGLE" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_DEAGLE" animsurface="RGMWALK_D_RDY" />
 		</LayerProp>
--->
-		<LayerProp filter="IsPistol" palette="guns_universal">
+		<LayerProp filter="HasDualRightSW500" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_SW500" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_SW500" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_SW500" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_SW500" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_SW500" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_SW500" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_SW500" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_SW500" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_SW500" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_SW500" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_SW500" animsurface="RGMWALK_D_RDY" />
+		</LayerProp>
+		<LayerProp filter="HasDualRightPistol" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_PISTOL" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_PISTOL" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_PISTOL" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_PISTOL" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_PISTOL" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_PISTOL" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_PISTOL" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_PISTOL" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_PISTOL" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_P" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_PISTOL" animsurface="RGMWALK_D_RDY" />
+		</LayerProp>
+		<LayerProp filter="HasDualRightMPistol" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_MPISTOL" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_MPISTOL" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_MPISTOL" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_MPISTOL" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_MPISTOL" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_MPISTOL" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_MPISTOL" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_MPISTOL" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_MPISTOL" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_MP" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_MPISTOL" animsurface="RGMWALK_D_RDY" />
+		</LayerProp>
+		<LayerProp filter="HasDesertEagleInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_CROUCHWALK_DEAGLE" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_PRONE_DEAGLE" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_DEAGLE" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_WALK_DEAGLE" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMPISTOL_AIM_DEAGLE" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_DEAGLE" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_SWAT_DEAGLE" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_DEAGLE" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_DEAGLE" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_DEAGLE" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_DEAGLE" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_DEAGLE" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMEMPTY_RUN_DEAGLE" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_PAIN_DEAGLE" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_DEAGLE" animsurface="RGMPISTOL_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasSW500InHand" palette="guns_v2">
+			<Surface name="LBT_RGM_CROUCHWALK_SW500" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_PRONE_SW500" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_SW500" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_WALK_SW500" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMPISTOL_AIM_SW500" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_SW500" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_SWAT_SW500" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_SW500" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_SW500" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_SW500" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_SW500" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_SW500" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMEMPTY_RUN_SW500" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_PAIN_SW500" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_SW500" animsurface="RGMPISTOL_RUN" />			
+		</LayerProp>
+		<LayerProp filter="HasPistolInHand" palette="guns_v2">
 			<Surface name="LBT_RGM_CROUCHWALK_PISTOL" animsurface="RGMCROUCH_P_RDY" />
-			<Surface name="LBT_RGM_CROUCHWALK_DUAL" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMEMPTY_PRONE_PISTOL" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_PISTOL" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_WALK_PISTOL" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMPISTOL_AIM_PISTOL" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_PISTOL" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_SWAT_PISTOL" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_PISTOL" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_PISTOL" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_P" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_PISTOL" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_PISTOL" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMEMPTY_RUN_PISTOL" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_PAIN_PISTOL" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_PISTOL" animsurface="RGMPISTOL_RUN" />			
 		</LayerProp>
-<!--		<LayerProp filter="IsAKtypeWeapon" palette="guns_AK">
-			<Surface name="LBT_RGMBASICWALK_AK" animsurface="RGMBASICWALKING" />
-			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_AK" animsurface="RGMCROUCH_R_RDY" />
-			<Surface name="LBT_RGMRIFLE_IDLE_AK" animsurface="RGMSTANDING" />
+		<LayerProp filter="HasMPistolInHand" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_PRONE_MPISTOL" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_MPISTOL" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_WALK_MPISTOL" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMPISTOL_AIM_MPISTOL" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGM_CROUCHWALK_MPISTOL" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_MPISTOL" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_MPISTOL" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_MPISTOL" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMEMPTY_RUN_MPISTOL" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_MPISTOL" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_MPISTOL" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_MPISTOL" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_MP" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMEMPTY_PAIN_MPISTOL" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_MPISTOL" animsurface="RGMPISTOL_RUN" />			
 		</LayerProp>
--->
-		<LayerProp filter="HasARInHand" >
+		<LayerProp filter="HasP90InHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_P90" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_P90" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_P90" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_P90" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_P90" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_P90" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_P90" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_P90" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_P90" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_P90" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_P90" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_P90" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_P90" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_P90" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_P90" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_P90" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_P90" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_P90" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_P90" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_P90" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_P90" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_P90" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_P90" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_P90" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_P90" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasTommyGunInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_M1A1" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_M1A1" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_M1A1" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_M1A1" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_M1A1" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_M1A1" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_M1A1" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_M1A1" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_M1A1" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_M1A1" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_M1A1" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_M1A1" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_M1A1" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_M1A1" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_M1A1" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_M1A1" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_M1A1" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_M1A1" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_M1A1" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_M1A1" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_M1A1" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_M1A1" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_M1A1" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_M1A1" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_M1A1" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasPPSH41InHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_PPSH41" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_PPSH41" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_PPSH41" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_PPSH41" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_PPSH41" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_PPSH41" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_PPSH41" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_PPSH41" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_PPSH41" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_PPSH41" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_PPSH41" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_PPSH41" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_PPSH41" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_PPSH41" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_PPSH41" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_PPSH41" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_PPSH41" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_PPSH41" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_PPSH41" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_PPSH41" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_PPSH41" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_PPSH41" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_PPSH41" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_PPSH41" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_PPSH41" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasSMGInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_MP5" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_MP5" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_MP5" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_MP5" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_MP5" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_MP5" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_MP5" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_MP5" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_MP5" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_MP5" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_MP5" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_MP5" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_MP5" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_MP5" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_MP5" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_MP5" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_MP5" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_MP5" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_MP5" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_MP5" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_MP5" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_MP5" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_MP5" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_MP5" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_MP5" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasSaiga12kInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_SAIGA" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SAIGA" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_SAIGA" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_SAIGA" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_SAIGA" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_SAIGA" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_SAIGA" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_SAIGA" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_SAIGA" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_SAIGA" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_SAIGA" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_SAIGA" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_SAIGA" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_SAIGA" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_SAIGA" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_SAIGA" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_SAIGA" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_SAIGA" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_SAIGA" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_SAIGA" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_SAIGA" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_SAIGA" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_SAIGA" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_SAIGA" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_SAIGA" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasSPAS12InHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_SPAS12" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SPAS12" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_SPAS12" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_SPAS12" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_SPAS12" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_SPAS12" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_SPAS12" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_SPAS12" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_SPAS12" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_SPAS12" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_SPAS12" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_SPAS12" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_SPAS12" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_SPAS12" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_SPAS12" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_SPAS12" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_SPAS12" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_SPAS12" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_SPAS12" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_SPAS12" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_SPAS12" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_SPAS12" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_SPAS12" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_SPAS12" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_SPAS12" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasShotgunInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_SHTGN" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SHTGN" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_SHTGN" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_SHTGN" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_SHTGN" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_SHTGN" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_SHTGN" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_SHTGN" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_SHTGN" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_SHTGN" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_SHTGN" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_SHTGN" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_SHTGN" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_SHTGN" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_SHTGN" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_SHTGN" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_SHTGN" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_SHTGN" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_SHTGN" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_SHTGN" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_SHTGN" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_SHTGN" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_SHTGN" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_SHTGN" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_SHTGN" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasAKInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_AK47" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_AK47" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_AK47" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_AK47" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_AK47" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_AK47" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_AK47" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_AK47" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_AK47" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_AK47" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_AK47" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_AK47" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_AK47" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_AK47" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_AK47" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_AK47" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_AK47" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_AK47" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_AK47" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_AK47" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_AK47" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_AK47" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_AK47" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_AK47" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_AK47" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasDragunovInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_DRAGUNOV" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_DRAGUNOV" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_DRAGUNOV" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_DRAGUNOV" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_DRAGUNOV" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_DRAGUNOV" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_DRAGUNOV" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_DRAGUNOV" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_DRAGUNOV" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_DRAGUNOV" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_DRAGUNOV" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_DRAGUNOV" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_DRAGUNOV" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_DRAGUNOV" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_DRAGUNOV" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_DRAGUNOV" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_DRAGUNOV" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_DRAGUNOV" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_DRAGUNOV" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_DRAGUNOV" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_DRAGUNOV" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_DRAGUNOV" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_DRAGUNOV" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_DRAGUNOV" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_DRAGUNOV" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasPSG1InHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_PSG1" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_PSG1" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_PSG1" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_PSG1" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_PSG1" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_PSG1" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_PSG1" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_PSG1" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_PSG1" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_PSG1" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_PSG1" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_PSG1" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_PSG1" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_PSG1" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_PSG1" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_PSG1" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_PSG1" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_PSG1" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_PSG1" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_PSG1" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_PSG1" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_PSG1" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_PSG1" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_PSG1" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_PSG1" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasPatriotInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_PATRIOT" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_PATRIOT" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_PATRIOT" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_PATRIOT" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_PATRIOT" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_PATRIOT" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_PATRIOT" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_PATRIOT" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_PATRIOT" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_PATRIOT" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_PATRIOT" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_PATRIOT" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_PATRIOT" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_PATRIOT" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_PATRIOT" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_PATRIOT" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_PATRIOT" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_PATRIOT" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_PATRIOT" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_PATRIOT" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_PATRIOT" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_PATRIOT" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_PATRIOT" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_PATRIOT" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_PATRIOT" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasBigSniperInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_M82" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_M82" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_M82" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_M82" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_M82" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_M82" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_M82" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_M82" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_M82" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_M82" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_M82" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_M82" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_M82" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_M82" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_M82" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_M82" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_M82" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_M82" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_M82" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_M82" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_M82" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_M82" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_M82" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_M82" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_M82" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasSniperInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_TRG42" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_TRG42" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_TRG42" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_TRG42" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_TRG42" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_TRG42" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_TRG42" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_TRG42" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_TRG42" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_TRG42" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_TRG42" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_TRG42" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_TRG42" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_TRG42" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_TRG42" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_TRG42" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_TRG42" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_TRG42" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_TRG42" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_TRG42" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_TRG42" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_TRG42" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_TRG42" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_TRG42" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_TRG42" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasRPKInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_RPK" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_RPK" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_RPK" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_RPK" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_RPK" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_RPK" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_RPK" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_RPK" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_RPK" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_RPK" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_RPK" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_RPK" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_RPK" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_RPK" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_RPK" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_RPK" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_RPK" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_RPK" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_RPK" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_RPK" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_RPK" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_RPK" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_RPK" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_RPK" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_RPK" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasPKMInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_PKM" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_PKM" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_PKM" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_PKM" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_PKM" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_PKM" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_PKM" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_PKM" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_PKM" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_PKM" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_PKM" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_PKM" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_PKM" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_PKM" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_PKM" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_PKM" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_PKM" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_PKM" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_PKM" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_PKM" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_PKM" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_PKM" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_PKM" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_PKM" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_PKM" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasMGInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_SAW" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SAW" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_SAW" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_SAW" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_SAW" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_SAW" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_SAW" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_SAW" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_SAW" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_SAW" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_SAW" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_SAW" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_SAW" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_SAW" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_SAW" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_SAW" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_SAW" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_SAW" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_SAW" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_SAW" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_SAW" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_SAW" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_SAW" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_SAW" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_SAW" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasSemiAutoRifleInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_M14" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_M14" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_M14" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_M14" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_M14" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_M14" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_M14" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_M14" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_M14" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_M14" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_M14" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_M14" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_M14" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_M14" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_M14" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_M14" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_M14" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_M14" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_M14" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_M14" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_M14" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_M14" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_M14" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_M14" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_M14" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasRifleInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_MOSIN" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_MOSIN" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_MOSIN" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_MOSIN" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_MOSIN" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_MOSIN" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_MOSIN" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_MOSIN" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_MOSIN" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_MOSIN" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_MOSIN" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_MOSIN" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_MOSIN" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_MOSIN" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_MOSIN" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_MOSIN" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_MOSIN" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_MOSIN" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_MOSIN" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_MOSIN" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_MOSIN" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_MOSIN" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_MOSIN" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_MOSIN" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_MOSIN" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasFALInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_FAL" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_FAL" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_FAL" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_FAL" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_FAL" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_FAL" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_FAL" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_FAL" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_FAL" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_FAL" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_FAL" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_FAL" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_FAL" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_FAL" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_FAL" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_FAL" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_FAL" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_FAL" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_FAL" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_FAL" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_FAL" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_FAL" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_FAL" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_FAL" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_FAL" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasFAMASInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_FAMAS" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_FAMAS" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_FAMAS" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_FAMAS" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_FAMAS" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_FAMAS" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_FAMAS" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_FAMAS" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_FAMAS" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_FAMAS" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_FAMAS" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_FAMAS" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_FAMAS" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_FAMAS" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_FAMAS" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_FAMAS" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_FAMAS" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_FAMAS" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_FAMAS" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_FAMAS" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_FAMAS" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_FAMAS" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_FAMAS" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_FAMAS" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_FAMAS" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasSCARInHand" palette="guns_v2">
+			<Surface name="LBT_RGM_RIFLE_OPEN_SCARH" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_SCARH" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_SCARH" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_SCARH" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_SCARH" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_SCARH" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_SCARH" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_SCARH" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_SCARH" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_SCARH" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_SCARH" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_SCARH" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_SCARH" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_SCARH" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_SCARH" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_SCARH" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_SCARH" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_SCARH" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_SCARH" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_SCARH" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_SCARH" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_SCARH" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_SCARH" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_SCARH" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_SCARH" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="HasARInHand" palette="guns_v2">
 			<Surface name="LBT_RGM_RIFLE_OPEN_AR" animsurface="RGMOPEN" />
-		</LayerProp>
-		<LayerProp filter="" >
 			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_AR" animsurface="RGMCROUCH_R_RDY" />
 			<Surface name="LBT_RGMRIFLE_WALK_AR" animsurface="RGMWALK_R_RDY" />
 			<Surface name="LBT_RGMRIFLE_IDLE_AR" animsurface="RGMSTANDING" />
@@ -193,16 +1472,397 @@
 			<Surface name="LBT_RGMRIFLE_AIM_AR" animsurface="RGMSTANDAIM" />
 			<Surface name="LBT_RGMRIFLE_CR_AIM_AR" animsurface="RGMCROUCHAIM" />
 			<Surface name="LBT_RGMRIFLE_PRONE_AR" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_AR" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMRIFLE_PAIN_AR" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMRIFLE_COWER_AR" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_AR" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_AR" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_AR" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_AR" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_AR" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_AR" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_AR" animsurface="RGMDRUNK" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_AR" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_AR" animsurface="BGMBAYONET_S_P" />
+		</LayerProp>
+		<LayerProp filter="" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_RADIO_RADIO" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_RADIO" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_KNIFE" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_KNIFE" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_KNIFE" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_KNIFE" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_CROWBAR" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_KNIFE" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_RADIO" animsurface="RGMCRRADIO" />
+		</LayerProp>
+	</Layer>
+	<Layer name="gunleft">
+		<LayerProp filter="HasDesertEagleInLeftHand" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_DEAGLE_LEFT" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGMEMPTY_IDLE_DEAGLE_LEFT" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_DEAGLE_LEFT" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_DEAGLE_LEFT" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_DEAGLE_LEFT" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_DEAGLE_LEFT" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_DEAGLE_LEFT" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_DEAGLE_LEFT" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_DEAGLE_LEFT" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_DEAGLE_LEFT" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_DEAGLE_LEFT" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_DEAGLE_LEFT" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_DEAGLE_LEFT" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_DEAGLE_LEFT" animsurface="RGMWALK_D_RDY" />
+		</LayerProp>
+		<LayerProp filter="HasSW500InLeftHand" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_SW500_LEFT" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGMEMPTY_IDLE_SW500_LEFT" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_SW500_LEFT" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_SW500_LEFT" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_SW500_LEFT" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_SW500_LEFT" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_SW500_LEFT" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_SW500_LEFT" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_SW500_LEFT" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_SW500_LEFT" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_SW500_LEFT" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_SW500_LEFT" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_SW500_LEFT" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_SW500_LEFT" animsurface="RGMWALK_D_RDY" />
+		</LayerProp>
+		<LayerProp filter="HasPistolInLeftHand" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_PISTOL_LEFT" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGMEMPTY_IDLE_PISTOL_LEFT" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_PISTOL_LEFT" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_PISTOL_LEFT" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_PISTOL_LEFT" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_PISTOL_LEFT" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_PISTOL_LEFT" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_PISTOL_LEFT" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_PISTOL_LEFT" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_PISTOL_LEFT" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_PISTOL_LEFT" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_PISTOL_LEFT" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_P_LEFT" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_PISTOL_LEFT" animsurface="RGMWALK_D_RDY" />
+		</LayerProp>
+		<LayerProp filter="HasMPistolInLeftHand" palette="guns_v2">
+			<Surface name="LBT_RGMEMPTY_IDLE_MPISTOL_LEFT" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGMEMPTY_IDLE_MPISTOL_LEFT" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGMEMPTY_WALK_MPISTOL_LEFT" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMDUAL_AIM_MPISTOL_LEFT" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_MPISTOL_LEFT" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_MPISTOL_LEFT" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_MPISTOL_LEFT" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_MPISTOL_LEFT" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMEMPTY_RUN_MPISTOL_LEFT" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMDUAL_PRONE_MPISTOL_LEFT" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_MPISTOL_LEFT" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMEMPTY_RUN_MPISTOL_LEFT" animsurface="RGMPISTOL_RUN" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_MP_LEFT" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_MPISTOL_LEFT" animsurface="RGMWALK_D_RDY" />
+		</LayerProp>
+	</Layer>
+	<Layer name="facegear">
+		<LayerProp filter="IsWearingGasmaskAndHasPistol" palette="hats">
+			<Surface name="LBT_RGMPISTOL_WALK_GMASK" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_GMASK" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_GMASK" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="IsWearingGasmaskAndHasRifle" palette="hats">
+			<Surface name="LBT_RGM_RIFLE_OPEN_GMASK" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_GMASK" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_GMASK" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_GMASK" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_GMASK" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_GMASK" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_GMASK" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_GMASK" animsurface="RGMDRUNK" />
+		</LayerProp>
+		<LayerProp filter="IsWearingGasmask" palette="hats">
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_GMASK" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_GMASK" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_GMASK" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_GMASK" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_GMASK" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_GMASK" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_GMASK" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_GMASK" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_GMASK" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_GMASK" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_GMASK" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_GMASK" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_GMASK" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGM_CROUCHWALK_GMASK" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_GMASK" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGM_HOP_GMASK" animsurface="RGMHOPFENCE" />
+			<Surface name="LBT_RGM_PUNCH_GMASK" animsurface="RGMPUNCH" />
+			<Surface name="LBT_RGM_IDLE_GMASK" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_GMASK" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGM_OPEN_GMASK" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGM_PICKUP_GMASK" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_GMASK" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMMEDIC_PRONE_GMASK" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_GMASK" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_GMASK" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_GMASK" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_GMASK" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_GMASK" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_GMASK" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_GMASK" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_GMASK" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_GMASK" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_GMASK" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_GMASK" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_AIM_GMASK" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_LOW_GMASK" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_GMASK" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_GMASK" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMDUAL_CR_AIM_GMASK" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_GMASK" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_GMASK" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_AIM_GMASK" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_PAIN_GMASK" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_GMASK" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_GMASK" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_CDIE_GMASK" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_GMASK" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_GMASK" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_GMASK" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_GMASK" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_GMASK" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_GMASK" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_GMASK" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_GMASK" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_GMASK" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_GMASK" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_GMASK" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_GMASK" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_GMASK" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_GMASK" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_GMASK" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_GMASK" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_GMASK" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_GMASK" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_GMASK" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_GMASK" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_GMASK" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_GMASK" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_GMASK" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_GMASK" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_GMASK" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_GMASK" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_GMASK" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_GMASK" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_GMASK" animsurface="RGMSLEEP" />
+		</LayerProp>
+		<LayerProp filter="IsWearingNVGandHasPistol" palette="hats">
+			<Surface name="LBT_RGMPISTOL_WALK_NVG" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_NVG" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_NVG" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="IsWearingNVGandHasRifle" palette="hats">
+			<Surface name="LBT_RGM_RIFLE_OPEN_NVG" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_NVG" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_NVG" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_NVG" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_NVG" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_NVG" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_NVG" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_NVG" animsurface="RGMDRUNK" />
+		</LayerProp>
+		<LayerProp filter="IsWearingNVG" palette="hats">
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_NVG" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_NVG" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_NVG" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_NVG" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_NVG" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_NVG" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_NVG" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_NVG" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_NVG" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_NVG" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_NVG" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_NVG" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_NVG" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGM_CROUCHWALK_NVG" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_NVG" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGM_HOP_NVG" animsurface="RGMHOPFENCE" />
+			<Surface name="LBT_RGM_PUNCH_NVG" animsurface="RGMPUNCH" />
+			<Surface name="LBT_RGM_IDLE_NVG" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_NVG" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGM_OPEN_NVG" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGM_PICKUP_NVG" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_NVG" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMMEDIC_PRONE_NVG" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_NVG" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_NVG" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_NVG" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_NVG" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_NVG" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_NVG" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_NVG" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_NVG" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_NVG" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_NVG" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_NVG" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_AIM_NVG" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_LOW_NVG" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_NVG" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_NVG" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMDUAL_CR_AIM_NVG" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_NVG" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_NVG" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_AIM_NVG" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_PAIN_NVG" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_NVG" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_NVG" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_CDIE_NVG" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_NVG" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMEMPTY_ROLL_NVG" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_NVG" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_NVG" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_NVG" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_NVG" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_NVG" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_NVG" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_NVG" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_NVG" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_NVG" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_NVG" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_NVG" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_NVG" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_NVG" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_NVG" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_NVG" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_NVG" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_NVG" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_NVG" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_NVG" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_NVG" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_NVG" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_NVG" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_NVG" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_NVG" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_NVG" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_NVG" animsurface="RGMSLEEP" />
+		</LayerProp>
+	</Layer>
+	<Layer name="vest">
+		<LayerProp filter="IsWearingFlakJacketAndHasPistol" palette="hats">
+			<Surface name="LBT_RGMPISTOL_WALK_VEST" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_VEST" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_VEST" animsurface="RGMNOTHING_RUN" />
+		</LayerProp>
+		<LayerProp filter="IsWearingFlakJacketAndHasRifle" palette="hats">
+			<Surface name="LBT_RGM_RIFLE_OPEN_VEST" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_VEST" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_VEST" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_VEST" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_VEST" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_VEST" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_VEST" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_VEST" animsurface="RGMDRUNK" />
+		</LayerProp>
+		<LayerProp filter="FlakJacket" palette="hats">
+			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_VEST" animsurface="RGMCROUCH_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_WALK_VEST" animsurface="RGMWALK_R_RDY" />
+			<Surface name="LBT_RGMRIFLE_IDLE_VEST" animsurface="RGMSTANDING" />
+			<Surface name="LBT_RGMBASICWALK_VEST" animsurface="RGMBASICWALKING" />
+			<Surface name="LBT_RGMRUNNING_VEST" animsurface="RGMRUNNING" />
+			<Surface name="LBT_RGMRIFLE_CROUCH_VEST" animsurface="RGMCROUCHING" />
+			<Surface name="LBT_RGMRIFLE_SIDESTEP_VEST" animsurface="RGMSIDESTEP" />
+			<Surface name="LBT_RGMRIFLE_SWAT_VEST" animsurface="RGMSNEAKING" />
+			<Surface name="LBT_RGMRIFLE_RAISE_VEST" animsurface="RGMRAISE" />
+			<Surface name="LBT_RGMRIFLE_AIM_VEST" animsurface="RGMSTANDAIM" />
+			<Surface name="LBT_RGMRIFLE_CR_AIM_VEST" animsurface="RGMCROUCHAIM" />
+			<Surface name="LBT_RGMRIFLE_PRONE_VEST" animsurface="RGMPRONE" />
+			<Surface name="LBT_RGMRIFLE_HIT_VEST" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGM_CROUCHWALK_VEST" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_VEST" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGM_HOP_VEST" animsurface="RGMHOPFENCE" />
+			<Surface name="LBT_RGM_PUNCH_VEST" animsurface="RGMPUNCH" />
+			<Surface name="LBT_RGM_IDLE_VEST" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_VEST" animsurface="RGMDBLBREATH" />
+			<Surface name="LBT_RGM_OPEN_VEST" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGM_PICKUP_VEST" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_VEST" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMMEDIC_PRONE_VEST" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_VEST" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_VEST" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_VEST" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_VEST" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_VEST" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_VEST" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_VEST" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_VEST" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_VEST" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_VEST" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_VEST" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_AIM_VEST" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_LOW_VEST" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_VEST" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_VEST" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMDUAL_CR_AIM_VEST" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_VEST" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_VEST" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMDUAL_AIM_VEST" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMEMPTY_PAIN_VEST" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_VEST" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_VEST" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_JFK_VEST" animsurface="RGMDIE_JFK" />
+			<Surface name="LBT_RGMEMPTY_CDIE_VEST" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_VEST" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGM_CLIMB_VEST" animsurface="RGMCLIMBROOF" />
+			<Surface name="LBT_RGMEMPTY_ROLL_VEST" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_VEST" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_VEST" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_VEST" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_VEST" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_VEST" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_VEST" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_VEST" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_VEST" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_VEST" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_VEST" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_VEST" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_VEST" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_VEST" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_VEST" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_VEST" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_VEST" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_VEST" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_VEST" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_VEST" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_VEST" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_VEST" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_VEST" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_VEST" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_VEST" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_VEST" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_VEST" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 	<Layer name="backpack">
-		<LayerProp filter="IsWearingBackpackAndHasRifle" >
-			<Surface name="LBT_RGM_RIFLE_OPEN_BP" animsurface="RGMOPEN" />
+		<LayerProp filter="IsWearingBackpackAndHasPistol" palette="hats">
+			<Surface name="LBT_RGMPISTOL_WALK_BP" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_RUN_BP" animsurface="RGMPISTOL_RUN" />			
+			<Surface name="LBT_RGMEMPTY_RUN_BP" animsurface="RGMNOTHING_RUN" />
 		</LayerProp>
-		<LayerProp filter="IsWearingBackpack" >
+		<LayerProp filter="IsWearingBackpackAndHasRifle" palette="hats">
+			<Surface name="LBT_RGM_RIFLE_OPEN_BP" animsurface="RGMOPEN" />
+			<Surface name="LBT_RGMRIFLE_COWER_BP" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMRIFLE_PRN_COWER_BP" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMRIFLE_KICKDOOR_BP" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMRIFLE_SQUISH_BP" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMRIFLE_LOOK_BP" animsurface="RGM_LOOK" />
+			<Surface name="LBT_RGMRIFLE_SPIT_BP" animsurface="RGM_SPIT" />
+			<Surface name="LBT_RGMRIFLE_DRUNK_BP" animsurface="RGMDRUNK" />
+		</LayerProp>
+		<LayerProp filter="IsWearingBackpack" palette="hats">
 			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_BP" animsurface="RGMCROUCH_R_RDY" />
-			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_BP" animsurface="RGMCROUCH_P_RDY" />
-			<Surface name="LBT_RGMRIFLE_WALK_CROUCH_BP" animsurface="RGMCROUCH_D_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_BP" animsurface="RGMCROUCH_P_RDY" />
+			<Surface name="LBT_RGM_CROUCHWALK_DUAL_BP" animsurface="RGMCROUCH_D_RDY" />
 			<Surface name="LBT_RGMRIFLE_IDLE_BP" animsurface="RGMSTANDING" />
 			<Surface name="LBT_RGMBASICWALK_BP" animsurface="RGMBASICWALKING" />
 			<Surface name="LBT_RGMRUNNING_BP" animsurface="RGMRUNNING" />
@@ -216,8 +1876,64 @@
 			<Surface name="LBT_RGMRIFLE_PRONE_BP" animsurface="RGMPRONE" />
 			<Surface name="LBT_RGM_PUNCH_BP" animsurface="RGMPUNCH" />
 			<Surface name="LBT_RGM_IDLE_BP" animsurface="RGMNOTHING_STD" />
+			<Surface name="LBT_RGM_IDLE_BP" animsurface="RGMDBLBREATH" />
 			<Surface name="LBT_RGM_OPEN_BP" animsurface="RGMOPEN" />
 			<Surface name="LBT_RGM_PICKUP_BP" animsurface="RGMPICKUP" />
+			<Surface name="LBT_RGMMEDIC_CROUCH_BP" animsurface="RGMMEDIC" />
+			<Surface name="LBT_RGMRIFLE_HIT_BP" animsurface="RGMRHIT" />
+			<Surface name="LBT_RGMEMPTY_CROUCH_BP" animsurface="RGMNOTHING_CROUCH" />
+			<Surface name="LBT_RGMEMPTY_SWAT_BP" animsurface="RGMNOTHING_SWAT" />
+			<Surface name="LBT_RGMEMPTY_RUN_BP" animsurface="RGMNOTHING_RUN" />
+			<Surface name="LBT_RGMEMPTY_WALK_BP" animsurface="RGMNOTHING_WALK" />
+			<Surface name="LBT_RGMEMPTY_PRONE_BP" animsurface="RGMHANDGUN_PRONE" />
+			<Surface name="LBT_RGMPISTOL_IDLE_BP" animsurface="RGMPISTOLBREATH" />
+			<Surface name="LBT_RGMPISTOL_AIM_BP" animsurface="RGMHANDGUN_S_SHOT" />
+			<Surface name="LBT_RGMPISTOL_RDY_WALK_BP" animsurface="RGMWALK_P_RDY" />
+			<Surface name="LBT_RGMDUAL_RDY_WALK_BP" animsurface="RGMWALK_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_CR_AIM_BP" animsurface="RGMHANDGUN_C_SHOT" />		
+			<Surface name="LBT_RGMPISTOL_SDSTP_AIM_BP" animsurface="RGMSIDESTEP_P_RDY" />
+			<Surface name="LBT_RGMDUAL_SDSTP_AIM_BP" animsurface="RGMSIDESTEP_D_RDY" />
+			<Surface name="LBT_RGMPISTOL_LOW_BP" animsurface="RGMPISTOLSHOOTLOW" />
+			<Surface name="LBT_RGMPISTOL_LOW_BP" animsurface="RGMSHOOT_LOW" />
+			<Surface name="LBT_RGMDUAL_AIM_BP" animsurface="RGMSTANDDWALAIM" />
+			<Surface name="LBT_RGMDUAL_CR_AIM_BP" animsurface="RGMCDBLSHOT" />
+			<Surface name="LBT_RGMMEDIC_PRONE_BP" animsurface="RGMMEDICPRN" />
+			<Surface name="LBT_RGMCOWER_PRONE_BP" animsurface="RGM_COWER_PRONE" />
+			<Surface name="LBT_RGMDIE_PRONE_BP" animsurface="RGMHITPRONE" />
+			<Surface name="LBT_RGMDUAL_PRONE_BP" animsurface="RGMDWPRONE" />
+			<Surface name="LBT_RGMEMPTY_PAIN_BP" animsurface="RGMHURTSTANDINGN" />
+			<Surface name="LBT_RGMRIFLE_PAIN_BP" animsurface="RGMHURTSTANDINGR" />
+			<Surface name="LBT_RGMEMPTY_DIE_BP" animsurface="RGMHITSTAND" />
+			<Surface name="LBT_RGMEMPTY_JFK_BP" animsurface="RGMDIE_JFK" />
+			<Surface name="LBT_RGMEMPTY_CDIE_BP" animsurface="RGMHITCROUCH" />
+			<Surface name="LBT_RGMEMPTY_COWER_BP" animsurface="RGMCOWER" />
+			<Surface name="LBT_RGMEMPTY_ROLL_BP" animsurface="RGMROLLOVER" />
+			<Surface name="LBT_RGMEMPTY_DIEFB_BP" animsurface="RGMHITFALLBACK" />
+			<Surface name="LBT_RGMEMPTY_DIEFBH_BP" animsurface="RGMHITHARD" />
+			<Surface name="LBT_RGMEMPTY_DIEFBHB_BP" animsurface="RGMHITHARDBLOOD" />
+			<Surface name="LBT_RGMRIFLE_WALK_HURT_BP" animsurface="RGMHURTWALKINGR" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_BP" animsurface="BGMBAYONET_S_S" />
+			<Surface name="LBT_RGMRIFLE_BAYONET_L_BP" animsurface="BGMBAYONET_S_P" />
+			<Surface name="LBT_RGMEMPTY_DODGE_BP" animsurface="RGMDODGE" />
+			<Surface name="LBT_RGMEMPTY_THROW_BP" animsurface="RGMTHROW" />
+			<Surface name="LBT_RGMEMPTY_THROW_G_BP" animsurface="RGMSTHRG" />
+			<Surface name="LBT_RGMEMPTY_LOB_BP" animsurface="RGMLOB" />
+			<Surface name="LBT_RGMEMPTY_LOB_G_BP" animsurface="RGMSLOBG" />
+			<Surface name="LBT_RGMEMPTY_KICKDOOR_BP" animsurface="RGMKICKDOOR" />
+			<Surface name="LBT_RGMEMPTY_SQUISH_BP" animsurface="RGM_SQUISH" />
+			<Surface name="LBT_RGMEMPTY_RADIO_BP" animsurface="RGMRADIO" />
+			<Surface name="LBT_RGMEMPTY_PULL_BP" animsurface="RGM_PULL" />
+			<Surface name="LBT_RGMEMPTY_REMOTE_BP" animsurface="RGMUSEREMOTE" />
+			<Surface name="LBT_RGMKNIFE_STAB_BP" animsurface="RGMSTAB" />
+			<Surface name="LBT_RGMKNIFE_SLICE_BP" animsurface="RGMSLICE" />
+			<Surface name="LBT_RGMKNIFE_THROW_BP" animsurface="RGMTHROWKNIFE" />
+			<Surface name="LBT_RGMKNIFE_BREATH_BP" animsurface="RGMBREATHKNIFE" />
+			<Surface name="LBT_RGMCROWBAR_HIT_BP" animsurface="RGMCROWBAR" />
+			<Surface name="LBT_RGMEMPTY_CPUNCH_BP" animsurface="RGMPUNCHLOW" />
+			<Surface name="LBT_RGMEMPTY_CTHROW_BP" animsurface="RGMCRTHROW" />
+			<Surface name="LBT_RGMKNIFE_CSTAB_BP" animsurface="RGMCSTAB" />
+			<Surface name="LBT_RGMEMPTY_CRADIO_BP" animsurface="RGMCRRADIO" />
+			<Surface name="LBT_RGMEMPTY_SLEEP_BP" animsurface="RGMSLEEP" />
 		</LayerProp>
 	</Layer>
 </LogicalAnimationSurfaces>

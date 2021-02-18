@@ -4,4 +4,6 @@
 	<Palette name = "hats" filename = "Palettes\Hats.stp" />
 	<Palette name = "guns_universal" filename = "Palettes\guns_universal.stp" />
 	<Palette name = "guns_AK" filename = "Palettes\guns_AK.stp" />
+	<Palette name = "guns_v2" filename = "Palettes\guns_universal_v2.stp" />
+	<Palette name = "grayscale" filename = "Palettes\grayscale.act" />
 </Palettes>

@@ -6,5 +6,5 @@
 	<!-- Bodytypes should be ordered from most specific -> most general -->
 	<!-- ExcludedObjects filter in the beginning is used to exclude LOBOT system for certain types. In this case filter ExcludedObjects is set up to limit LOBOT only for soldiers with a profile. -->
 	<LogicalBodyType filter="ExcludedObjects" />
-	<LogicalBodyType filter="IsRegularMaleAverage" cachesize="128">&LobotRGM;</LogicalBodyType>
+	<LogicalBodyType filter="IsRegularMaleAverage" cachesize="256">&LobotRGM;</LogicalBodyType>
 </LogicalBodyTypes>
