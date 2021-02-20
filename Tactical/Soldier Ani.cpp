@@ -2472,6 +2472,12 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 						// ATE: Now, check AI guy to cancel what he was going....
 						HandleSystemNewAISituation( pSoldier, TRUE );
+
+						// sevenfm: update tree visibility after changing stance
+						if (//pSoldier->bVisible != -1 && 
+							pSoldier->bTeam != OUR_TEAM &&
+							(pSoldier->bTeam != MILITIA_TEAM || !gGameExternalOptions.bWeSeeWhatMilitiaSeesAndViceVersa))
+							UpdateTreeVisibility();
 					}
 
 					// Have we finished opening doors?
