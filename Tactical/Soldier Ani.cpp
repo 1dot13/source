@@ -1069,7 +1069,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 460:
 			case 461:
 
-				//CODE: THORW ITEM
+				//CODE: THROW ITEM
 				// Launch ITem!
 				if ( pSoldier->pTempObject != NULL && pSoldier->pThrowParams != NULL )
 				{
@@ -1084,6 +1084,31 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					{
 						// ATE: Deduct points!
 						DeductPoints( pSoldier, APBPConstants[AP_TOSS_ITEM], 0, AFTERACTION_INTERRUPT );
+					}
+
+					// sevenfm: show flash light
+					UINT16 usItem = pSoldier->pTempObject->usItem;
+					UINT16 usBuddyItem = Item[usItem].usBuddyItem;
+					if (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM &&
+						(Item[usItem].flare ||
+						Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_FLARE ||
+						Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS ||
+						usBuddyItem && (Item[usBuddyItem].usItemClass & IC_EXPLOSV) && (Item[usBuddyItem].flare || Explosive[Item[usBuddyItem].ubClassIndex].ubType == EXPLOSV_FLARE)))
+					{
+						if ((pSoldier->iMuzFlash = LightSpriteCreate("L-R03.LHT", 0)) != -1)
+						{
+							LightSpritePower(pSoldier->iMuzFlash, TRUE);
+
+							INT32	usNewGridNo;
+							INT16 sXPos, sYPos;
+
+							usNewGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(pSoldier->ubDirection));
+							ConvertGridNoToCenterCellXY(usNewGridNo, &sXPos, &sYPos);
+							LightSpritePosition(pSoldier->iMuzFlash, (INT16)(sXPos / CELL_X_SIZE), (INT16)(sYPos / CELL_Y_SIZE));
+
+							// Start count
+							pSoldier->bMuzFlashCount = 1;
+						}
 					}
 
 					INT32 iRealObjectID = CreatePhysicalObject( pSoldier->pTempObject, pSoldier->pThrowParams->dLifeSpan,	pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, FALSE );
