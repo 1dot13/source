@@ -1493,7 +1493,6 @@ void LoadGameExternalOptions()
 	// Flugente/sevenfm: player-controlled mercs won't die instantly from most damage, instead they fall into a coma
 	gGameExternalOptions.fReducedInstantDeath				= iniReader.ReadBoolean("Tactical Gameplay Settings", "REDUCED_INSTANT_DEATH", FALSE);
 
-
 	// enable schedules and decision making for any named npc regardless of their team
 	gGameExternalOptions.fAllNamedNpcsDecideAction			= iniReader.ReadBoolean("Tactical Gameplay Settings", "ALL_NAMED_NPCS_DECIDE_ACTION", FALSE);
 
@@ -1502,6 +1501,7 @@ void LoadGameExternalOptions()
 
 	gGameExternalOptions.fEnemyJams							= iniReader.ReadBoolean("Tactical Gameplay Settings", "ENEMY_JAMS", true, false);
 	gGameExternalOptions.fNewRandom							= iniReader.ReadBoolean("Tactical Gameplay Settings", "NEW_RANDOM", true, false);
+	gGameExternalOptions.ubDefeatMode						= iniReader.ReadInteger("Tactical Gameplay Settings", "DEFEAT_MODE", 0, 0, 4);
 
 	//################# Tactical Enemy Role Settings ##################
 	// Flugente: enemy roles

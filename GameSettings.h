@@ -556,6 +556,8 @@ typedef struct
 	BOOLEAN fEnemyJams;
 	// use new code for random
 	BOOLEAN fNewRandom;
+	// determine if battle was defeat
+	UINT8 ubDefeatMode;
 
 	// WDS - Improve Tony's and Devin's inventory like BR's
 	// silversurfer: not used anymore, see "Tactical\XML_Merchants.cpp" for "useBRSetting"

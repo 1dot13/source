@@ -2148,7 +2148,8 @@ UINT32 EnemyStrength( void )
 void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 {
 	if ( NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM ) )
-	{ //Big morale penalty!
+	{ 
+		//Big morale penalty!
 		HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ABANDON_MILITIA, sSectorX, sSectorY, (INT8)sSectorZ );
 	}
 
@@ -2161,10 +2162,13 @@ void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, 
 		UINT8 DiffLevel = gGameOptions.ubDifficultyLevel;
 		if ( DiffLevel > DIF_LEVEL_INSANE )
 			DiffLevel = 1;
-				
-		if ( gTacticalStatus.fEnemyInSector && ( (PlayerStrength() * (2 + DiffLevel)) >= EnemyStrength() ) )
+		
+		// sevenfm: if enemy was alerted
+		if (gTacticalStatus.fEnemyInSector &&
+			gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition &&
+			((PlayerStrength() * (2 + DiffLevel)) >= EnemyStrength()))
 		{
-			HandleMoraleEvent( NULL, MORALE_RAN_AWAY, sSectorX, sSectorY, (INT8)sSectorZ );
+			HandleMoraleEvent(NULL, MORALE_RAN_AWAY, sSectorX, sSectorY, (INT8)sSectorZ);
 		}
 	}
 	else

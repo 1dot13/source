@@ -7278,17 +7278,17 @@ void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	}
 }
 
-
 //!!!!
 //IMPORTANT NEW NOTE:
 //Whenever returning TRUE, make sure you clear gfBlitBattleSectorLocator;
 BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 {
     SOLDIERTYPE *pTeamSoldier;
-    BOOLEAN         fBattleWon = TRUE;
-    BOOLEAN         fBattleLost = FALSE;
-    INT32               cnt = 0;
-    UINT16          usAnimState;
+    BOOLEAN		fBattleWon = TRUE;
+    BOOLEAN		fBattleLost = FALSE;
+    INT32		cnt = 0;
+    UINT16		usAnimState;
+	UINT16		usMapSector = gWorldSectorX + (gWorldSectorY * MAP_WORLD_X);
 
     if ( gTacticalStatus.bBoxingState == BOXING )
     {
@@ -7299,7 +7299,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
     // OJW - 090212 - Fix end conditions for multiplayer - TeamDM
     if(is_server)
     {
-        // check the server's conditions for continueing the game, if the server wants to continue the game it returns true
+        // check the server's conditions for continuing the game, if the server wants to continue the game it returns true
         // hence we return false that the battle has ended. If not, when this function returns below we will force the game to end.
         if ( check_status() )
             return(FALSE);
@@ -7372,29 +7372,72 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
     // We should NEVER have a battle lost and won at the same time...
 
-    if ( fBattleLost )
-    {
-        // CJC: End AI's turn here.... first... so that UnSetUIBusy will succeed if militia win
-        // battle for us
-        EndAllAITurns( );
+	if (fBattleLost)
+	{
+		// sevenfm: count alive/dead/not covert mercs in sector/retreating from sector
+		UINT8 ubLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		BOOLEAN fFoundNotCovertMerc = FALSE;
+		BOOLEAN fFoundAliveMerc = FALSE;
+		BOOLEAN fFoundDeadMerc = FALSE;
+		for (pTeamSoldier = MercPtrs[ubLoop]; ubLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ubLoop++, pTeamSoldier++)
+		{
+			if (pTeamSoldier->bActive)
+			{
+				if (pTeamSoldier->bInSector ||
+					//pTeamSoldier->flags.fBetweenSectors && SECTORX(pTeamSoldier->ubPrevSectorID) == gWorldSectorX && SECTORY(pTeamSoldier->ubPrevSectorID) == gWorldSectorY && (pTeamSoldier->bSectorZ == gbWorldSectorZ) ||
+					pTeamSoldier->flags.fBetweenSectors && pTeamSoldier->sSectorX == gWorldSectorX && pTeamSoldier->sSectorY == gWorldSectorY && pTeamSoldier->bSectorZ == gbWorldSectorZ)
+				{
+					if (pTeamSoldier->stats.bLife >= OKLIFE)
+					{
+						fFoundAliveMerc = TRUE;
+						if (!gGameOptions.fNewTraitSystem || !(pTeamSoldier->usSoldierFlagMask & (SOLDIER_COVERT_SOLDIER | SOLDIER_COVERT_CIV)))
+						{
+							fFoundNotCovertMerc = TRUE;
+						}
+					}
+					else
+					{
+						fFoundDeadMerc = TRUE;
+					}
+				}
+			}
+		}
 
-        // Set enemy presence to false
-        // This is safe 'cause we're about to unload the friggen sector anyway....
-        gTacticalStatus.fEnemyInSector = FALSE;
-        // SANDRO - reset number of enemies here
-        memset( &(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS );
+		BOOLEAN fDefeat = FALSE;
 
-        // If here, the battle has been lost!
-        UnSetUIBusy( (UINT8)gusSelectedSoldier );
+		// sevenfm: determine if we should consider this as defeat
+		if (gGameExternalOptions.ubDefeatMode == 0 ||
+			gGameExternalOptions.ubDefeatMode == 1 && gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition ||
+			gGameExternalOptions.ubDefeatMode == 2 && fFoundNotCovertMerc ||
+			gGameExternalOptions.ubDefeatMode == 3 && fFoundDeadMerc ||
+			gGameExternalOptions.ubDefeatMode == 4 && !fFoundAliveMerc)
+			fDefeat = TRUE;
 
-        if ( gTacticalStatus.uiFlags & INCOMBAT )
-        {
-            // Exit mode!
-            ExitCombatMode();
-        }
+		// CJC: End AI's turn here.... first... so that UnSetUIBusy will succeed if militia win
+		// battle for us
+		EndAllAITurns();
 
-        HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-        HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		// Set enemy presence to false
+		// This is safe 'cause we're about to unload the friggen sector anyway....
+		gTacticalStatus.fEnemyInSector = FALSE;
+		// SANDRO - reset number of enemies here
+		memset(&(gTacticalStatus.bNumFoughtInBattle), 0, MAXTEAMS);
+
+		// If here, the battle has been lost!
+		UnSetUIBusy((UINT8)gusSelectedSoldier);
+
+		if (gTacticalStatus.uiFlags & INCOMBAT)
+		{
+			// Exit mode!
+			ExitCombatMode();
+		}
+
+		// sevenfm: only apply morale and loyalty penalty if player was defeated
+		if (fDefeat)
+		{
+			HandleMoraleEvent(NULL, MORALE_HEARD_BATTLE_LOST, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+			HandleGlobalLoyaltyEvent(GLOBAL_LOYALTY_BATTLE_LOST, gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+		}
 
         // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
         if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
@@ -7411,7 +7454,12 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			SetMusicModeID( MUSIC_TACTICAL_DEATH, MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalDeath[gbWorldSectorZ] );
 		else
 		#endif
-        SetMusicMode( MUSIC_TACTICAL_DEATH );
+
+		// sevenfm: only play death music if player is defeated
+		if (fDefeat)
+			SetMusicMode(MUSIC_TACTICAL_DEATH);
+		else
+			SetMusicMode(MUSIC_TACTICAL_NOTHING);
 
         SetCustomizableTimerCallbackAndDelay( 10000, DeathNoMessageTimerCallback, FALSE );
 
@@ -7436,11 +7484,14 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
             SetThisSectorAsEnemyControlled( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, TRUE );
         }
 
-        // ATE: Important! THis is delayed until music ends so we can have proper effect!
+        // ATE: Important! This is delayed until music ends so we can have proper effect!
         // CheckAndHandleUnloadingOfCurrentWorld();
 
+		// sevenfm: log defeat only when player was defeated
+		if (fDefeat)
+			LogBattleResults(LOG_DEFEAT);
+
         //Whenever returning TRUE, make sure you clear gfBlitBattleSectorLocator;
-        LogBattleResults( LOG_DEFEAT );
         gfBlitBattleSectorLocator = FALSE;
 
 		// Flugente: in any case, reset creature attack variables
@@ -7500,8 +7551,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
         if ( gTacticalStatus.bBoxingState == NOT_BOXING ) // if boxing don't do any of this stuff
         {
-
-            // Only do some stuff if we actually faught a battle
+            // Only do some stuff if we actually fought a battle
             if ( gTacticalStatus.bNumFoughtInBattle[ ENEMY_TEAM ] + gTacticalStatus.bNumFoughtInBattle[ CREATURE_TEAM ] + gTacticalStatus.bNumFoughtInBattle[ CIV_TEAM ] > 0 )
                 //if ( gTacticalStatus.bNumEnemiesFoughtInBattle > 0 )
             {
@@ -7540,7 +7590,8 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                                         pTeamSoldier->bStealthMode = FALSE;
                                         fInterfacePanelDirty = DIRTYLEVEL2;
                                         //DBrot: Stance change
-                                        if (gGameExternalOptions.fStandUpAfterBattle){
+                                        if (gGameExternalOptions.fStandUpAfterBattle)
+										{
                                             if ( gAnimControl[ pTeamSoldier->usAnimState ].ubHeight != ANIM_STAND )
                                             {
                                                 pTeamSoldier->ChangeSoldierStance( ANIM_STAND );
@@ -7667,6 +7718,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                 }
             }
             gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition = FALSE;
+			// sevenfm: clear aware status for enemy team
+			gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition = FALSE;
+			// sevenfm: also clear enemy kill counter
+			gTacticalStatus.ubArmyGuysKilled = 0;
 
             // Loop through all civs and restore them to peaceful status
             cnt = gTacticalStatus.Team[ CIV_TEAM ].bFirstID;
@@ -7723,13 +7778,18 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
 		// Flugente: in any case, reset creature attack variables
 		ResetCreatureAttackVariables();
+
+		// sevenfm: switch off radio
+		//SwitchOffAllRadio();
 		
         // If we are the server, we escape this function at the top if we think the game should still be running
         // hence if we get here the game is over for all clients and we should report it
         if (is_networked && is_server)
             game_over();
+
         return( TRUE );
     }
+
     // If we are the server, we escape this function at the top if we think the game should still be running
     // hence if we get here the game is over for all clients and we should report it
     if (is_networked && is_server)
@@ -11785,3 +11845,4 @@ BOOLEAN		IsFreeSlotAvailable( int aTeam )
 
 	return FALSE;
 }
+

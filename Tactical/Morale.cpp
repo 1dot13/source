@@ -791,8 +791,10 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 				{
 					// CJC: adding to SOLDIER_IN_SECTOR check special stuff because the old sector values might
 					// be appropriate (because in transit going out of that sector!)
-
-					if ( SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) || (pTeamSoldier->flags.fBetweenSectors && SECTORX( pTeamSoldier->ubPrevSectorID ) == sMapX && SECTORY( pTeamSoldier->ubPrevSectorID ) == sMapY && (pTeamSoldier->bSectorZ == bMapZ)) )
+					// sevenfm: improved check
+					//if ( SOLDIER_IN_SECTOR( pTeamSoldier, sMapX, sMapY, bMapZ ) || (pTeamSoldier->flags.fBetweenSectors && SECTORX( pTeamSoldier->ubPrevSectorID ) == sMapX && SECTORY( pTeamSoldier->ubPrevSectorID ) == sMapY && (pTeamSoldier->bSectorZ == bMapZ)) )
+					if (pTeamSoldier->bInSector ||
+						pTeamSoldier->flags.fBetweenSectors && pTeamSoldier->sSectorX == gWorldSectorX && pTeamSoldier->sSectorY == gWorldSectorY && pTeamSoldier->bSectorZ == gbWorldSectorZ)
 					{
 						if ( gGameOptions.fNewTraitSystem )
 						{
@@ -834,7 +836,8 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 					// SANDRO - Assertive people don't care about actions of others
 					else if ( !gGameOptions.fNewTraitSystem || !DoesMercHavePersonality( pTeamSoldier, CHAR_TRAIT_ASSERTIVE ) )
 					{
-						HandleMoraleEventForSoldier( pTeamSoldier, MORALE_HEARD_BATTLE_LOST );
+						// sevenfm: no MORALE_HEARD_BATTLE_LOST penalty fpr running from battle
+						//HandleMoraleEventForSoldier( pTeamSoldier, MORALE_HEARD_BATTLE_LOST );
 					}
 				}
 			}
@@ -1079,6 +1082,8 @@ void HandleMoraleEvent( SOLDIERTYPE *pSoldier, INT8 bMoraleEvent, INT16 sMapX, I
 			ModifyPlayerReputation(REPUTATION_BATTLE_WON);
 			break;
 		case MORALE_RAN_AWAY:
+			// sevenfm: no reputation loss when retreating from battle
+			break;
 		case MORALE_HEARD_BATTLE_LOST:
 			ModifyPlayerReputation(REPUTATION_BATTLE_LOST);
 			break;
