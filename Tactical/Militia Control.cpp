@@ -619,32 +619,6 @@ void CreateDestroyMouseRegionsForMilitiaControlMenu( void )
 	SGPRect pDimensions;
 	static BOOLEAN fShowRemoveMenu = FALSE;
 
-
-	// will create/destroy mouse regions for the map screen assignment main menu
-	// check if we can only remove character from team..not assign
-	//if( ( bSelectedAssignChar != -1 ) || ( fShowRemoveMenu == TRUE ) )
-	//{
-	//	if( fShowRemoveMenu == TRUE )
-	//	{
-	//		// dead guy handle menu stuff
-	//		fShowRemoveMenu = fShowMilitiaControlMenu | fShowContractMenu;
-	//		
-	//		CreateDestroyMouseRegionsForRemoveMenu( );
-
-	//		return;
-	//	}
-	//	if( ( Menptr[gCharactersList[bSelectedAssignChar].usSolID].bLife == 0 ) || ( Menptr[gCharactersList[bSelectedAssignChar].usSolID].bMilitiaControl == MilitiaControl_POW ) )
-	//	{
-	//		// dead guy handle menu stuff
-	//		fShowRemoveMenu = fShowMilitiaControlMenu | fShowContractMenu;
-	//	
-	//		CreateDestroyMouseRegionsForRemoveMenu( );
-
-	//		return;
-	//	}
-	//}
-
-
 	if( ( fShowMilitiaControlMenu == TRUE ) && ( fCreated == FALSE ) )
 	{
 		gfIgnoreScrolling = FALSE;
@@ -1062,7 +1036,12 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_COMETOME );
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_GETDOWN );
 			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_CROUCH );
-			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_TAKE_COVER );		
+			UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_TAKE_COVER );
+
+			if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))
+				ShadeStringInBox(ghMilitiaControlBox, MILCON_MENU_MOVE_TO);
+			else
+				UnShadeStringInBox(ghMilitiaControlBox, MILCON_MENU_MOVE_TO);
 		}
 		else
 		{
@@ -1073,6 +1052,8 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_GETDOWN );
 			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_CROUCH );
 			ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_TAKE_COVER );
+
+			ShadeStringInBox(ghMilitiaControlBox, MILCON_MENU_MOVE_TO);
 		}
 	}
 
@@ -1169,6 +1150,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
+							// sevenfm: stop any AI
+							pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+							CancelAIAction(pTMilitiaSoldier, TRUE);
+
 							// Attack !!!
 							pTMilitiaSoldier->aiData.bOrders = SEEKENEMY;
 							pTMilitiaSoldier->aiData.bAttitude = AGGRESSIVE;
@@ -1197,6 +1182,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
+							// sevenfm: stop any AI
+							pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+							CancelAIAction(pTMilitiaSoldier, TRUE);
+
 							//Hold Position !!!
 							//ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Hold Position" );
 							pTMilitiaSoldier->aiData.bOrders = STATIONARY;
@@ -1223,6 +1212,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
+							// sevenfm: stop any AI
+							pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+							CancelAIAction(pTMilitiaSoldier, TRUE);
+
 							INT16 sActionGridNo;
 
 							pTMilitiaSoldier->aiData.bOrders = FARPATROL;
@@ -1275,6 +1268,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					{	
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
+							// sevenfm: stop any AI
+							pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+							CancelAIAction(pTMilitiaSoldier, TRUE);
+
 							INT32 sActionGridNo, sGridNo, sAdjustedGridNo;
 							UINT8	ubDirection;
 
@@ -1321,10 +1318,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
-							//if ( SoldierCanAffordNewStance( pTeamSoldier, ANIM_PRONE ) )
+							// sevenfm: stop any AI
+							pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+							CancelAIAction(pTMilitiaSoldier, TRUE);
+
+							if (pTMilitiaSoldier->InternalIsValidStance(pTMilitiaSoldier->ubDirection, ANIM_PRONE))
 							{
 								SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_PRONE );
-								//SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );
 							}
 						}
 
@@ -1346,8 +1346,17 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 				case( MILCON_MENU_CROUCH ):
 					if (fCanCommunicate)
 					{
-						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
-							SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );
+						if ((pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE))
+						{
+							// sevenfm: stop any AI
+							pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+							CancelAIAction(pTMilitiaSoldier, TRUE);
+
+							if (pTMilitiaSoldier->InternalIsValidStance(pTMilitiaSoldier->ubDirection, ANIM_CROUCH))
+							{
+								SendChangeSoldierStanceEvent(pTMilitiaSoldier, ANIM_CROUCH);
+							}
+						}
 
 						DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 						StatChange( pSoldier, LDRAMT, 1, FALSE );
@@ -1369,6 +1378,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					{	
 						if ( (pTMilitiaSoldier->bActive) && (pTMilitiaSoldier->bInSector) && (pTMilitiaSoldier->stats.bLife >= OKLIFE) )
 						{
+							// sevenfm: stop any AI
+							pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+							CancelAIAction(pTMilitiaSoldier, TRUE);
+
 							INT16 sActionGridNo;
 							INT32 iDummy;						
 
@@ -1404,6 +1417,27 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 
+				case( MILCON_MENU_MOVE_TO ):
+					if (!((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT)))
+					{
+						// sevenfm: stop any AI
+						pTMilitiaSoldier->EVENT_StopMerc(pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection);
+						CancelAIAction(pTMilitiaSoldier, TRUE);
+
+						DeductPoints(pSoldier, APBPConstants[AP_TALK], 0);
+						StatChange(pSoldier, LDRAMT, 1, FALSE);
+
+						// stop showing menu
+						fShowMilitiaControlMenu = FALSE;
+						giAssignHighLine = -1;
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+
+						guiPendingOverrideEvent = R_CHANGE_TO_RADIO;
+					}
+					break;
 
 				case( MILCON_MENU_ALL_ATTACK ):
 					if (fAllowSectorOrder)
@@ -1417,6 +1451,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
+
 								pTeamSoldier->aiData.bOrders = SEEKENEMY;
 								pTeamSoldier->aiData.bAttitude = AGGRESSIVE;
 								pTeamSoldier->usUIMovementMode = RUNNING;
@@ -1450,6 +1488,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
+
 								pTeamSoldier->aiData.bOrders = STATIONARY;
 								pTeamSoldier->aiData.bAttitude = DEFENSIVE;
 							}
@@ -1483,6 +1525,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
+
 								pTeamSoldier->aiData.bOrders = FARPATROL;
 								pTeamSoldier->aiData.bAttitude = DEFENSIVE;
 								pTeamSoldier->usUIMovementMode = RUNNING;
@@ -1542,6 +1588,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
+
 								// OK, find an adjacent gridno....
 								sGridNo = pSoldier->sGridNo;
 
@@ -1594,6 +1644,9 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
 
 								// See if we can get there
 								sActionGridNo =  RandDestWithinRange( pTeamSoldier );
@@ -1643,10 +1696,13 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
-								//if ( SoldierCanAffordNewStance( pTeamSoldier, ANIM_PRONE ) )
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
+
+								if (pTeamSoldier->InternalIsValidStance(pTeamSoldier->ubDirection, ANIM_PRONE))
 								{
 									SendChangeSoldierStanceEvent( pTeamSoldier, ANIM_PRONE );
-									//SendChangeSoldierStanceEvent( pTeamSoldier, ANIM_CROUCH );
 								}
 							}
 						}
@@ -1678,7 +1734,14 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
-								SendChangeSoldierStanceEvent( pTeamSoldier, ANIM_CROUCH );
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
+
+								if (pTeamSoldier->InternalIsValidStance(pTeamSoldier->ubDirection, ANIM_CROUCH))
+								{
+									SendChangeSoldierStanceEvent(pTeamSoldier, ANIM_CROUCH);
+								}								
 							}
 						}
 
@@ -1711,6 +1774,10 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						{
 							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->stats.bLife >= OKLIFE) )
 							{
+								// sevenfm: stop any AI
+								pTeamSoldier->EVENT_StopMerc(pTeamSoldier->sGridNo, pTeamSoldier->ubDirection);
+								CancelAIAction(pTeamSoldier, TRUE);
+
 								// See if we can get there
 								sActionGridNo =  FindBestNearbyCover(pTeamSoldier,pTeamSoldier->aiData.bAIMorale,&iDummy);
 																

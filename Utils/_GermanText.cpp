@@ -2827,6 +2827,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Auf den Boden",	// retreat militia	
 	L"Ducken",
 	L"In Deckung gehen",
+	L"Move to",	// TODO.Translate
 	L"Alle: Angreifen", 
 	L"Alle: Position halten",
 	L"Alle: Rückzug",

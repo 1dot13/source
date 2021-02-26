@@ -123,6 +123,7 @@
 #include "DynamicDialogueWidget.h"		// added by Flugente for DelayBoxDestructionBy(...)
 #include "Utilities.h"					// added by Flugente
 #include "AIInternals.h"				// sevenfm
+#include "Interface Cursors.h"			// sevenfm
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -164,6 +165,9 @@ UINT32 guiUITargetSoldierId = NOBODY;
 extern COVER_DRAW_MODE gubDrawMode;
 
 extern  MOUSE_REGION    gMPanelRegion;
+
+extern UINT32 guiNewUICursor;
+extern SOLDIERTYPE *pTMilitiaSoldier;
 
 void HandleTalkingMenuKeys( InputAtom *pInputEvent, UINT32 *puiNewEvent );
 void HandleMenuKeys( InputAtom *pInputEvent, UINT32 *puiNewEvent );
@@ -722,6 +726,11 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 												HandleHandCursorClick( usMapPos, puiNewEvent );
 												break;
 
+											case RADIOCURSOR_MODE:
+
+												HandleRadioCursorClick(usMapPos, puiNewEvent);
+												break;
+
 											case JUMPOVER_MODE:
 
 												if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
@@ -889,6 +898,7 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 						case IDLE_MODE:
 						case ACTION_MODE:
 						case HANDCURSOR_MODE:
+						case RADIOCURSOR_MODE:
 						case LOOKCURSOR_MODE:
 						case TALKCURSOR_MODE:
 						case MOVE_MODE:
@@ -1076,6 +1086,11 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 									break;
 
 								case HANDCURSOR_MODE:
+									// If we cannot actually do anything, return to movement mode
+									*puiNewEvent = A_CHANGE_TO_MOVE;
+									break;
+
+								case RADIOCURSOR_MODE:
 									// If we cannot actually do anything, return to movement mode
 									*puiNewEvent = A_CHANGE_TO_MOVE;
 									break;
@@ -1408,6 +1423,9 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent )
 			*puiNewEvent = HC_ON_TERRAIN;
 			break;
 
+		case RADIOCURSOR_MODE:
+			break;
+
 		}
 
 		usOldMapPos = usMapPos;
@@ -1438,6 +1456,7 @@ void GetPolledKeyboardInput( UINT32 *puiNewEvent )
 	case MOVE_MODE:
 	case ACTION_MODE:
 	case HANDCURSOR_MODE:
+	case RADIOCURSOR_MODE:
 
 		if ( _KeyDown( CTRL )	)
 		{
@@ -2059,6 +2078,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			}
 
 			if ( gCurrentUIMode == HANDCURSOR_MODE )
+			{
+				*puiNewEvent = A_CHANGE_TO_MOVE;
+			}
+
+			if (gCurrentUIMode == RADIOCURSOR_MODE)
 			{
 				*puiNewEvent = A_CHANGE_TO_MOVE;
 			}
@@ -5518,6 +5542,63 @@ INT8 CheckForAndHandleHandleVehicleInteractiveClick( SOLDIERTYPE *pSoldier, UINT
 	return( 0 );
 }
 
+void HandleRadioCursorClick(INT32 usMapPos, UINT32 *puiNewEvent)
+{
+	SOLDIERTYPE * pSoldier = NULL;
+	GetSoldier(&pSoldier, gusSelectedSoldier);
+
+	if (pSoldier &&
+		pTMilitiaSoldier &&
+		pTMilitiaSoldier->bActive &&
+		pTMilitiaSoldier->bInSector &&
+		pTMilitiaSoldier->stats.bLife >= OKLIFE)
+	{
+		INT32 sMoveSpot = usMapPos;
+		BOOLEAN fClimbingNecessary;
+		INT32 sClimbSpot;
+		INT32 iPathCost = EstimatePathCostToLocation(pTMilitiaSoldier, sMoveSpot, gsInterfaceLevel, FALSE, &fClimbingNecessary, &sClimbSpot);
+
+		// See if we can get there
+		if (iPathCost > 0)
+		{
+			// sevenfm: change from stationary/patrol etc
+			pTMilitiaSoldier->aiData.bOrders = STATIONARY;
+			pTMilitiaSoldier->aiData.bAttitude = DEFENSIVE;
+
+			// sevenfm: set this spot as original point
+			pTMilitiaSoldier->aiData.sPatrolGrid[0] = sMoveSpot;
+
+			CancelAIAction(pTMilitiaSoldier, TRUE);
+			if (fClimbingNecessary)
+			{
+				pTMilitiaSoldier->aiData.bNextAction = AI_ACTION_MOVE_TO_CLIMB;
+				pTMilitiaSoldier->aiData.usNextActionData = sClimbSpot;
+				pTMilitiaSoldier->sAbsoluteFinalDestination = sMoveSpot;
+
+				BeginMultiPurposeLocator(sClimbSpot, pTMilitiaSoldier->pathing.bLevel, FALSE);
+			}
+			else
+			{
+				pTMilitiaSoldier->aiData.bNextAction = AI_ACTION_SEEK_OPPONENT;
+				pTMilitiaSoldier->aiData.usNextActionData = sMoveSpot;
+
+				BeginMultiPurposeLocator(sMoveSpot, pTMilitiaSoldier->pathing.bLevel, FALSE);
+			}
+			RESETTIMECOUNTER(pTMilitiaSoldier->timeCounters.AICounter, 100);
+
+			//pTMilitiaSoldier->usSoldierFlagMask |= SOLDIER_MILITIA_ORDER;
+		}
+		else
+		{
+			pTMilitiaSoldier->DoMercBattleSound(BATTLE_SOUND_CURSE1);
+		}
+	}
+
+	*puiNewEvent = A_CHANGE_TO_MOVE;
+
+	return;
+}
+
 void HandleHandCursorClick( INT32 usMapPos, UINT32 *puiNewEvent )
 {
 	SOLDIERTYPE *pSoldier;
@@ -6892,6 +6973,7 @@ void	QueryTBWheel( UINT32 *puiNewEvent )
 						case MOVE_MODE:
 						case CONFIRM_MOVE_MODE:
 						case HANDCURSOR_MODE:
+						case RADIOCURSOR_MODE:
 							if(gGameExternalOptions.bAlternateMouseCommands)
 								HandleAltMouseTBWheel();
 										else

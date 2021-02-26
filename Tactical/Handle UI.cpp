@@ -229,6 +229,9 @@ UINT32 UIHandleOpenDoorMenu( UI_EVENT *pUIEvent );
 
 UINT32 UIHandleEXExitSectorMenu( UI_EVENT *pUIEvent );
 
+// sevenfm:
+UINT32 UIHandleChangeToRadio(UI_EVENT *pUIEvent);
+
 BOOLEAN ValidQuickExchangePosition( );
 
 
@@ -365,7 +368,7 @@ UI_EVENT gEvents[ NUM_UI_EVENTS ] =
 	0,						RUBBERBAND_MODE,		UIHandleRubberBandOnTerrain, FALSE, FALSE, 0, 0, 0, 0,
 	0,						JUMPOVER_MODE,			UIHandleJumpOverOnTerrain, FALSE, FALSE, 0, 0, 0, 0,
 	0,						MOVE_MODE,				UIHandleJumpOver, FALSE, FALSE, 0, 0, 0, 0,
-
+	0,						RADIOCURSOR_MODE,		UIHandleChangeToRadio, FALSE, FALSE, 0, 0, 0, 0,
 };
 
 UI_MODE									gCurrentUIMode					= IDLE_MODE;
@@ -745,7 +748,7 @@ UINT32	HandleTacticalUI( void )
 		}
 	}
 
-	// Check if menu event is done and if so set to privious mode
+	// Check if menu event is done and if so set to previous mode
 	// This is needed to hook into the interface stuff which sets the fDoneMenu flag
 	if ( gEvents[ uiNewEvent ].fDoneMenu == TRUE	)
 	{
@@ -754,7 +757,7 @@ UINT32	HandleTacticalUI( void )
 			gCurrentUIMode = (UI_MODE) gEvents[ uiNewEvent ].uiMenuPreviousMode;
 		}
 	}
-	// Check to return to privious mode
+	// Check to return to previous mode
 	// If the event is a single event, return to previous
 	if ( gEvents[ uiNewEvent ].uiFlags & UIEVENT_SINGLEEVENT )
 	{
@@ -767,7 +770,7 @@ UINT32	HandleTacticalUI( void )
 		else
 		{
 			// ATE: Check first that some modes are met....
-			if ( gCurrentUIMode != HANDCURSOR_MODE && gCurrentUIMode != LOOKCURSOR_MODE && gCurrentUIMode != TALKCURSOR_MODE )
+			if (gCurrentUIMode != HANDCURSOR_MODE && gCurrentUIMode != LOOKCURSOR_MODE && gCurrentUIMode != TALKCURSOR_MODE && gCurrentUIMode != RADIOCURSOR_MODE)
 			{
 				guiCurrentEvent = M_ON_TERRAIN;
 			}
@@ -1935,7 +1938,7 @@ UINT32 UIHandleAOnTerrain( UI_EVENT *pUIEvent )
 	// Get soldier to determine range
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
-		// ATE: Add stuff here to display a system message if we are targeting smeothing and
+		// ATE: Add stuff here to display a system message if we are targeting something and
 		//	are out of range.
 		// Are we using a gun?
 		if ( GetActionModeCursor( pSoldier ) == TARGETCURS )
@@ -5813,6 +5816,14 @@ UINT32 UIHandleLAOnTerrain( UI_EVENT *pUIEvent )
 	return( GAME_SCREEN );
 }
 
+UINT32 UIHandleChangeToRadio(UI_EVENT *pUIEvent)
+{
+	ErasePath(TRUE);
+
+	guiNewUICursor = PLACE_REMOTE_GREY_UICURSOR;
+
+	return(GAME_SCREEN);
+}
 
 void GetGridNoScreenXY( INT32 sGridNo, INT16 *pScreenX, INT16 *pScreenY )
 {

@@ -2798,6 +2798,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"卧倒", 
 	L"蹲下",	// L"Crouch",
 	L"隐蔽",
+	L"Move to",	// TODO. Translate
 	L"全体: 自动进攻",
 	L"全体: 原地坚守",
 	L"全体: 撤退",

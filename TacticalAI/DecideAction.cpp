@@ -1130,7 +1130,12 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	// CLIMB A BUILDING
 	////////////////////////////////////////////////////////////////////////////
 
-	if (!fCivilian && pSoldier->aiData.bLastAction != AI_ACTION_CLIMB_ROOF && !is_networked)
+	if (!fCivilian && 
+		pSoldier->CheckInitialAP() &&
+		pSoldier->aiData.bLastAction != AI_ACTION_CLIMB_ROOF && 
+		pSoldier->aiData.bOrders != STATIONARY &&
+		pSoldier->pathing.bLevel == 0 &&
+		!is_networked)
 	{
 		iChance = 10 + pSoldier->aiData.bBypassToGreen;
 

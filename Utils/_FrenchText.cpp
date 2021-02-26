@@ -2806,6 +2806,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Couchez-vous", // retreat militia	
 	L"Accroupi",
 	L"À couvert !",
+	L"Move to",	// TODO.Translate
 	L"Tous : Attaquez", 
 	L"Tous : Tenez la position",
 	L"Tous : Retraite",

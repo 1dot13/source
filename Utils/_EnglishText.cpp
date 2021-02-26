@@ -2798,6 +2798,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Get down",
 	L"Crouch",
 	L"Take cover",
+	L"Move to",
 	L"All: Attack",
 	L"All: Hold Position",
 	L"All: Retreat",

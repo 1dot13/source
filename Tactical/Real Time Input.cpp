@@ -578,6 +578,11 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 													HandleHandCursorClick( usMapPos, puiNewEvent );
 													break;
 
+												case RADIOCURSOR_MODE:
+
+													HandleRadioCursorClick(usMapPos, puiNewEvent);
+													break;
+
 												case ACTION_MODE:
 
 													//*puiNewEvent = A_CHANGE_TO_CONFIM_ACTION;
@@ -1108,6 +1113,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 						case IDLE_MODE:
 						case ACTION_MODE:
 						case HANDCURSOR_MODE:
+						case RADIOCURSOR_MODE:
 						case LOOKCURSOR_MODE:
 						case TALKCURSOR_MODE:
 						case MOVE_MODE:
@@ -1322,6 +1328,11 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 											*puiNewEvent = A_CHANGE_TO_MOVE;
 											break;
 
+										case RADIOCURSOR_MODE:
+											// If we cannot actually do anything, return to movement mode
+											*puiNewEvent = A_CHANGE_TO_MOVE;
+											break;
+
 										case LOOKCURSOR_MODE:
 
 											// If we cannot actually do anything, return to movement mode
@@ -1489,6 +1500,10 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 		case HANDCURSOR_MODE:
 
 			*puiNewEvent = HC_ON_TERRAIN;
+			break;
+
+		case RADIOCURSOR_MODE:
+			//*puiNewEvent = A_CHANGE_TO_MOVE;
 			break;
 
 		case MOVE_MODE:
@@ -1826,6 +1841,7 @@ void	QueryRTWheels( UINT32 *puiNewEvent )
 						case IDLE_MODE:
 						case MOVE_MODE:
 						case HANDCURSOR_MODE:
+						case RADIOCURSOR_MODE:
 							if(gGameExternalOptions.bAlternateMouseCommands)
 								HandleAltMouseRTWheel();
 							else
