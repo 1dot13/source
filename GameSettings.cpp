@@ -3251,8 +3251,7 @@ void LoadGameAPBPConstants()
 	APBPConstants[AP_MIN_LIMIT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MIN_LIMIT",-100),-100);
 	APBPConstants[AP_LOST_PER_MORALE_DROP] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOST_PER_MORALE_DROP",12),12);
 	APBPConstants[AP_SUPPRESSION_MOD] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SUPPRESSION_MOD",24),24);
-	// HEADROCK HAM 3.5: Determines divisor for AP/Shock ratio. 100AP will have this set at 4, 25AP will have this set at 1.
-	APBPConstants[AP_SUPPRESSION_SHOCK_DIVISOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SUPPRESSION_SHOCK_DIVISOR",4),4);
+
 	// HEADROCK HAM 3.2: Modifier for legshot AP loss based on damage
 	APBPConstants[AP_LOSS_PER_LEGSHOT_DAMAGE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOSS_PER_LEGSHOT_DAMAGE",4),4);
 

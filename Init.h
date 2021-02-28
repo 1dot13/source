@@ -123,8 +123,6 @@ AP_MAX_TURN_SUPPRESSED,
 AP_MIN_LIMIT,
 AP_LOST_PER_MORALE_DROP,
 AP_SUPPRESSION_MOD,
-// HEADROCK HAM 3.5: Ratio of AP loss to Suppression Shock gain.
-AP_SUPPRESSION_SHOCK_DIVISOR,
 // HEADROCK HAM 3.3: AP loss per point of damage, inflicted when a character is knocked down by a hit to the legs.
 AP_LOSS_PER_LEGSHOT_DAMAGE,
 

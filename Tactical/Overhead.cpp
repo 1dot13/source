@@ -8624,21 +8624,17 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
     //INT8 SUPPRESSION_AP_LIMIT = gGameExternalOptions.iMinAPLimitFromSuppression;
     INT8		bTolerance;
     INT32		sClosestOpponent, sClosestOppLoc;
-    UINT8		ubPointsLost, ubNewStance;
+	INT16 		sPointsLost;
+	UINT8		ubNewStance;
     UINT32		uiLoop;
     UINT8		ubLoop2;
     BOOLEAN		fCower=FALSE;
     SOLDIERTYPE *pSoldier;
 	SOLDIERTYPE *pAttacker = NULL;
 
-    // JA2_OPTIONS.INI
-    INT8 MAXIMUM_SUPPRESSION_SHOCK = gGameExternalOptions.ubMaxSuppressionShock;
-
     // APBPConstants.INI
     UINT16 usLimitSuppressionAPsLostPerAttack = APBPConstants[AP_MAX_SUPPRESSED];
     UINT16 usLimitSuppressionAPsLostPerTurn = APBPConstants[AP_MAX_TURN_SUPPRESSED];
-    //HEADROCK HAM 3.5: Ratio between AP Loss and Suppression Shock
-    UINT16 uiShockPerAPLossDivisor = APBPConstants[AP_SUPPRESSION_SHOCK_DIVISOR];
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     // SANDRO - modify suppression effectiveness based on weapon caliber (i.e. damage)
@@ -8741,7 +8737,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             // Points we have, the most APs we're going to lose. Tolerance mitigates this by making the graph angle
             // more shallow. 
             // The relation between AP Loss and Suppression Points is LINEAR.
-            ubPointsLost = ( ( (pSoldier->ubSuppressionPoints * APBPConstants[AP_SUPPRESSION_MOD]) / (bTolerance + 6) ) * 2 + 1 ) / 2;
+            sPointsLost = ( ( (pSoldier->ubSuppressionPoints * APBPConstants[AP_SUPPRESSION_MOD]) / (bTolerance + 6) ) * 2 + 1 ) / 2;
 
             // Flugente: added ini options for suppression effectiveness for player team and everybody else
             if ( pSoldier->bTeam == gbPlayerNum )
@@ -8774,16 +8770,16 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             // To turn off the entire Suppression system, simply set the INI value to 0. (0% AP Loss)
             // The default is obviously 100%. You can increase or decrease it, at will.
             // PLEASE NOTE that AP loss governs ALL OTHER SUPPRESSION EFFECTS.
-            ubPointsLost = ( ubPointsLost * sFinalSuppressionEffectiveness ) / 100;
+            sPointsLost = ( sPointsLost * sFinalSuppressionEffectiveness ) / 100;
 
             // This is an upper cap for the number of APs we can lose per attack.
             if (usLimitSuppressionAPsLostPerAttack > 0)
             {
-                if (ubPointsLost > usLimitSuppressionAPsLostPerAttack)
+                if (sPointsLost > usLimitSuppressionAPsLostPerAttack)
                 {
-                    // Flugente: eh.. woudln't this _always_ be 255? I suspect this should be __min
+                    // Flugente: eh.. wouldn't this _always_ be 255? I suspect this should be __min
                     //ubPointsLost = __max(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
-                    ubPointsLost = __min(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
+                    sPointsLost = __min(255,(UINT8)usLimitSuppressionAPsLostPerAttack);
                 }
             }
 
@@ -8791,9 +8787,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             if (usLimitSuppressionAPsLostPerTurn > 0)
             {
                 // Flugente: apply a bit of safety here (beware of underflow)
-                if (pSoldier->ubAPsLostToSuppression + ubPointsLost > usLimitSuppressionAPsLostPerTurn)
+                if (pSoldier->ubAPsLostToSuppression + sPointsLost > usLimitSuppressionAPsLostPerTurn)
                 {
-                    ubPointsLost = __max(0, usLimitSuppressionAPsLostPerTurn - pSoldier->ubAPsLostToSuppression);
+                    sPointsLost = __max(0, usLimitSuppressionAPsLostPerTurn - pSoldier->ubAPsLostToSuppression);
                 }
             }
 
@@ -8804,44 +8800,27 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             // Shock is sliced in half at the start of every turn. Also note that shock may cause "cowering" (see below).
 
 			pSoldier->ubLastShock = 0;
-            if (gGameExternalOptions.usSuppressionShockEffect > 0)
+			if (gGameExternalOptions.ubMaxSuppressionShock > 0 && gGameExternalOptions.usSuppressionShockEffect > 0)
             {
                 // Can't get shock if we haven't lost APs.
-                if (ubPointsLost > 0)
+                if (sPointsLost > 0)
                 {
-                    INT8 bShockValue, bShockLimit;
-                    // Limit defined by INI.
-                    bShockLimit = MAXIMUM_SUPPRESSION_SHOCK;
+                    INT8 bShockValue;
+
                     // The amount of shock received depends on how many APs we've lost - Every AP lost will cause one 
                     // point of shock. This is then divided by 4 if using the 100AP system.
-                    if (uiShockPerAPLossDivisor == 0) // SANDRO - check if we are not going to divide by zero
-                        uiShockPerAPLossDivisor = 4; // set to default value in this case
-                    bShockValue = ubPointsLost / uiShockPerAPLossDivisor;
-
-                    bShockValue = __max(0,bShockValue);
-                    bShockLimit = __max(0,bShockLimit);
-
-                    // use external value to determine how effective SHOCK really is.
-                    bShockValue = (bShockValue * gGameExternalOptions.usSuppressionShockEffect) / 100;
+					bShockValue = min(gGameExternalOptions.ubMaxSuppressionShock, sPointsLost * gGameExternalOptions.usSuppressionShockEffect * 25 / (100 * APBPConstants[AP_MAXIMUM]));
 
                     // Make sure total shock doesn't go TOO high. Maximum is around 30, including previous shock 
-                    // from suppression and/or wounds. It is possible to breach the maximum after a good suppressive
-                    // attack.
+                    // from suppression and/or wounds. It is possible to breach the maximum after a good suppressive attack.
+					if (pSoldier->aiData.bShock < gGameExternalOptions.ubMaxSuppressionShock)
+					{
+						pSoldier->aiData.bShock = min(127, pSoldier->aiData.bShock + bShockValue);
+					}
+					// Else, original shock was already over the limit. No more shock is added.
 
-					UINT8 oldShock = pSoldier->aiData.bShock;
-                    if ( pSoldier->aiData.bShock + bShockValue <= bShockLimit )
-                    {
-                        // Shock limit not yet breached. Add shock to character.
-                        pSoldier->aiData.bShock = __min(127, pSoldier->aiData.bShock + bShockValue);
-                    }
-                    else if ( pSoldier->aiData.bShock < bShockLimit ) // Shock limit will be breached.
-                    {
-                        // Original shock was lower than the limit, so add extra shock and breach the limit.
-                        pSoldier->aiData.bShock = __min(127, pSoldier->aiData.bShock + bShockValue);
-                    }
 					// sevenfm: update ubLastShock
-					pSoldier->ubLastShock = __min(255, pSoldier->aiData.bShock - oldShock );
-                    // Else, original shock was already over the limit. No more shock is added.
+					pSoldier->ubLastShock = bShockValue;
                 }
                 // HEADROCK: Cowering is the panic that grips a character due to suffering too much suppression shock. If
                 // enough shock has been accumulated, the soldier goes into this panic. Generally, cowering will cause
@@ -8851,31 +8830,6 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
                 fCower = false;
                 // SANDRO - STOMP traits
-				// sevenfm: moved bShockForCower calculation to CalcEffectiveShockLevel()
-				//INT8 bShockForCower = CalcEffectiveShockLevel( pSoldier );
-				/*
-                INT8 bShockForCower = pSoldier->aiData.bShock;
-                if ( gGameOptions.fNewTraitSystem )
-                {
-                    // Squadleader's resistance to cowering
-                    if ( HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT ))
-                    {
-                        bShockForCower = (INT8)((bShockForCower * (100 - gSkillTraitValues.ubSLFearResistance * NUM_SKILL_TRAITS( pSoldier, SQUADLEADER_NT )) /100) + 0.5);
-                    }
-                    // Check for character traits
-                    if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_INTELLECTUAL )
-                    {
-                        bShockForCower = (INT8)((bShockForCower * 23 / 20 ) + 0.5); // +15% as shock
-                    }
-                    else if ( gMercProfiles[pSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_DAUNTLESS )
-                    {
-                        bShockForCower = (INT8)((bShockForCower * 17 / 20 ) + 0.5); // -15% as shock                
-                    }
-
-					// Flugente: personal fear resistance
-					bShockForCower = (INT8)((bShockForCower * (100 - pSoldier->GetFearResistanceBonus()) / 100 ) + 0.5);
-                }
-				*/
                 if ( CoweringShockLevel(pSoldier) )
                 { 
                     fCower = true; 
@@ -8901,16 +8855,15 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			pSoldier->ubLastMorale = 0;
             // Suppression reduces morale. For every X APs lost, morale goes down by a point. X is defined by INI.
             DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: check for morale effects"));
-            if (APBPConstants[AP_LOST_PER_MORALE_DROP] > 0 && ubPointsLost > 0)
+            if (APBPConstants[AP_LOST_PER_MORALE_DROP] > 0 && sPointsLost > 0)
             {
-                for ( ubLoop2 = 0; ubLoop2 < (ubPointsLost / APBPConstants[AP_LOST_PER_MORALE_DROP]); ubLoop2++ )
+                for ( ubLoop2 = 0; ubLoop2 < (sPointsLost / APBPConstants[AP_LOST_PER_MORALE_DROP]); ubLoop2++ )
                 {
                     HandleMoraleEvent( pSoldier, MORALE_SUPPRESSED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 					// sevenfm: update ubLastMorale
 					pSoldier->ubLastMorale++;
                 }
             }
-
 
             ubNewStance = 0;
 
@@ -8939,7 +8892,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                     }
                     break;
                 case ANIM_CROUCH:
-                    if (ubPointsLost >= GetAPsProne(pSoldier, TRUE) && IsValidStance( pSoldier, ANIM_PRONE ) )
+                    if (sPointsLost >= GetAPsProne(pSoldier, TRUE) && IsValidStance( pSoldier, ANIM_PRONE ) )
                     {
                         sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
                         // HEADROCK: Added cowering.                        
@@ -8968,7 +8921,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                             }
                             else
                             {
-                                ubPointsLost -= GetAPsProne(pSoldier, TRUE);
+                                sPointsLost -= GetAPsProne(pSoldier, TRUE);
                                 ubNewStance = ANIM_PRONE;
                             }
                         }
@@ -8980,7 +8933,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                         // can't change stance here!
                         break;
                     }
-                    else if (ubPointsLost >= (GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE)) && IsValidStance( pSoldier, ANIM_PRONE ) )
+                    else if (sPointsLost >= (GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE)) && IsValidStance( pSoldier, ANIM_PRONE ) )
                     {
                         sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
                         // HEADROCK: Added cowering.
@@ -8996,18 +8949,18 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                             else
                             {
                                 // can only crouch for now
-                                ubPointsLost -= GetAPsCrouch(pSoldier, TRUE);
+                                sPointsLost -= GetAPsCrouch(pSoldier, TRUE);
                                 ubNewStance = ANIM_CROUCH;
                             }
                         }
                         else if ( IsValidStance( pSoldier, ANIM_CROUCH ) )
                         {
                             // crouch!
-                            ubPointsLost -= GetAPsCrouch(pSoldier, TRUE);
+                            sPointsLost -= GetAPsCrouch(pSoldier, TRUE);
                             ubNewStance = ANIM_CROUCH;
                         }
                     }
-                    else if ( ubPointsLost >= GetAPsCrouch(pSoldier, TRUE) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH ) && IsValidStance( pSoldier, ANIM_CROUCH ) )
+                    else if ( sPointsLost >= GetAPsCrouch(pSoldier, TRUE) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH ) && IsValidStance( pSoldier, ANIM_CROUCH ) )
                     {
                         if ( fCower )
                         {
@@ -9018,7 +8971,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
                         else
                         {
                             // crouch!
-                            ubPointsLost -= GetAPsCrouch(pSoldier, TRUE);
+                            sPointsLost -= GetAPsCrouch(pSoldier, TRUE);
                             ubNewStance = ANIM_CROUCH;
                         }
                     }
@@ -9035,7 +8988,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
             if (gGameExternalOptions.fShowSuppressionShutdown)
             {
                 // If we're about the hit the lower limit
-                if (pSoldier->bActionPoints > APBPConstants[AP_MIN_LIMIT] && pSoldier->bActionPoints - ubPointsLost <= APBPConstants[AP_MIN_LIMIT])
+                if (pSoldier->bActionPoints > APBPConstants[AP_MIN_LIMIT] && pSoldier->bActionPoints - sPointsLost <= APBPConstants[AP_MIN_LIMIT])
                 {
                     // And soldier is visible
                     if ( pSoldier->bVisible != -1 )
@@ -9050,18 +9003,18 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
             // Reduce action points!
             // HEADROCK HAM Beta 2.2: Enforce a minimum limit via INI.
-            if (pSoldier->bActionPoints - ubPointsLost <= APBPConstants[AP_MIN_LIMIT] )
+            if (pSoldier->bActionPoints - sPointsLost <= APBPConstants[AP_MIN_LIMIT] )
             {
                 pSoldier->bActionPoints = APBPConstants[AP_MIN_LIMIT];
             }
             else
             {
-                pSoldier->bActionPoints -= ubPointsLost;
+                pSoldier->bActionPoints -= sPointsLost;
             }
             // Remember how many APs were lost. This prevents us from losing more and more APs without receiving
             // extra suppression. Note that a specific HAM setting will reset this value after every attack,
             // but also resets ubSuppressionPoints.
-            pSoldier->ubAPsLostToSuppression = __min(255, pSoldier->ubAPsLostToSuppression + ubPointsLost);
+            pSoldier->ubAPsLostToSuppression = __min(255, pSoldier->ubAPsLostToSuppression + sPointsLost);
 
             DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: check for quote"));
             if ( (pSoldier->flags.uiStatusFlags & SOLDIER_PC) && (pSoldier->ubSuppressionPoints > 8) && (pSoldier->ubID == ubTargetedMerc) )
@@ -9135,7 +9088,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
 			// sevenfm: update suppression, AP values for displaying above soldier
 			pSoldier->ubLastSuppression = pSoldier->ubSuppressionPoints;
-			pSoldier->ubLastAP = ubPointsLost;
+			pSoldier->ubLastAP = sPointsLost;
 
 			// add suppression values from hit to shock values calculated in this function
 			pSoldier->ubLastShock += pSoldier->ubLastShockFromHit;
@@ -9154,7 +9107,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 				showSuppression = TRUE;
 
 			// show suppression counters - use original damage counter timer for this
-			if( showSuppression && ubPointsLost > 0 )
+			if( showSuppression && sPointsLost > 0 )
 					SetDamageDisplayCounter( pSoldier );
 
             // HEADROCK HAM 3.5: After sufficient testing, suppression clearing now works immediately at the end of
