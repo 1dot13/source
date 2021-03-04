@@ -25094,7 +25094,7 @@ BOOLEAN PlayerTeamIsScanning( )
 }
 
 // bonus for snipers firing at this location (we get this if there are spotters)
-UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, UINT bTeam )
+UINT16	GridNoSpotterCTHBonus( SOLDIERTYPE* pSniper, INT32 sGridNo, INT8 bTeam )
 {
 	UINT16 bestvalue = 0;
 
