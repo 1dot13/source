@@ -1878,6 +1878,8 @@ public:
 
 	void StartRadioAnimation(void);
 
+	void InitializeExtraData(void);
+
 	// Flugente: prisoner system
 	BOOLEAN		CanProcessPrisoners();
 	UINT32		GetSurrenderStrength();

@@ -1804,6 +1804,9 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	UINT8	ubDistance;
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"CalcInterruptDuelPts");
 
+	// sevenfm: safety check
+	Assert(pSoldier);
+
 	// extra check to make sure neutral folks never get interrupts
 	if (pSoldier->aiData.bNeutral)
 	{
@@ -1846,7 +1849,8 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 		}
 	}
 
-	if (fUseWatchSpots)
+	// sevenfm: no watch spot bonus when focusing
+	if (fUseWatchSpots && !(pSoldier->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS))
 	{
 		// if this is a previously noted spot of enemies, give bonus points!
 		iPoints += GetWatchedLocPoints( pSoldier->ubID, MercPtrs[ ubOpponentID ]->sGridNo, MercPtrs[ ubOpponentID ]->pathing.bLevel );

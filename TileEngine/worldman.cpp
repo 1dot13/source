@@ -4112,7 +4112,7 @@ void UpdateTreeVisibility()
 					// check trees near cursor position
 					if (!TileIsOutOfBounds(usMouseSpot) &&
 						(PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 0 ||
-						PythSpacesAway(sSpot, usMouseSpot) <= 5 && AIDirection(sSpot, usMouseSpot) == 7 ||
+						PythSpacesAway(sSpot, usMouseSpot) <= 6 && AIDirection(sSpot, usMouseSpot) == 7 ||
 						PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 6))
 					{
 						fHideTree = TRUE;
@@ -4129,7 +4129,7 @@ void UpdateTreeVisibility()
 								pOpponent->bVisible != -1 &&
 								!TileIsOutOfBounds(pOpponent->sGridNo) &&
 								(PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 0 ||
-								PythSpacesAway(sSpot, pOpponent->sGridNo) <= 5 && AIDirection(sSpot, pOpponent->sGridNo) == 7 ||
+								PythSpacesAway(sSpot, pOpponent->sGridNo) <= 6 && AIDirection(sSpot, pOpponent->sGridNo) == 7 ||
 								PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 6))
 							{
 								fHideTree = TRUE;

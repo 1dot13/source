@@ -1073,20 +1073,7 @@ SOLDIERTYPE& SOLDIERTYPE::operator=(const OLDSOLDIERTYPE_101& src)
 		for ( UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i )		this->usSkillCounter[i] = 0;
 		for ( UINT8 i = 0; i < SOLDIER_COOLDOWN_MAX; ++i )	this->usSkillCooldown[i] = 0;
 
-		this->ubLastShock = 0;
-		this->ubLastSuppression = 0;
-		this->ubLastAP = 0;
-		this->ubLastMorale = 0;
-		this->ubLastShockFromHit = 0;
-		this->ubLastMoraleFromHit = 0;
-		this->ubLastAPFromHit = 0;
-		this->iLastBulletImpact = 0;
-		this->iLastArmourProtection = 0;
-
-		this->usQuickItemId = 0;
-		this->ubQuickItemSlot = 0;
-
-		this->usGrenadeItem = 0;
+		this->InitializeExtraData();
 	}
 	return *this;
 }
@@ -1150,19 +1137,7 @@ void SOLDIERTYPE::initialize( )
 	memset( &pathing, 0, sizeof(STRUCT_Pathing) );
 
 	// sevenfm:initialize additional data
-	this->ubLastShock = 0;
-	this->ubLastSuppression = 0;
-	this->ubLastAP = 0;
-	this->ubLastMorale = 0;
-	this->ubLastShockFromHit = 0;
-	this->ubLastMoraleFromHit = 0;
-	this->ubLastAPFromHit = 0;
-	this->iLastBulletImpact = 0;
-	this->iLastArmourProtection = 0;
-	this->usQuickItemId = 0;
-	this->ubQuickItemSlot = 0;
-	this->usDisabilityFlagMask = 0;
-	this->sDragGridNo = NOWHERE;
+	this->InitializeExtraData();
 }
 
 bool SOLDIERTYPE::exists( )
@@ -26012,4 +25987,22 @@ void SOLDIERTYPE::StartRadioAnimation(void)
 	case ANIM_PRONE:
 		break;
 	}
+}
+
+void SOLDIERTYPE::InitializeExtraData(void)
+{
+	this->ubLastShock = 0;
+	this->ubLastSuppression = 0;
+	this->ubLastAP = 0;
+	this->ubLastMorale = 0;
+	this->ubLastShockFromHit = 0;
+	this->ubLastMoraleFromHit = 0;
+	this->ubLastAPFromHit = 0;
+	this->iLastBulletImpact = 0;
+	this->iLastArmourProtection = 0;
+
+	this->usQuickItemId = 0;
+	this->ubQuickItemSlot = 0;
+
+	this->usGrenadeItem = 0;
 }

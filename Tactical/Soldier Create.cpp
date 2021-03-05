@@ -2118,20 +2118,10 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->usChatPartnerID			= NOBODY;
 
 	// sevenfm: initialize additional data
-	pSoldier->ubLastShock = 0;
-	pSoldier->ubLastSuppression = 0;
-	pSoldier->ubLastAP = 0;
-	pSoldier->ubLastMorale = 0;
-	pSoldier->ubLastShockFromHit = 0;
-	pSoldier->ubLastMoraleFromHit = 0;
-	pSoldier->ubLastAPFromHit = 0;
-	pSoldier->iLastBulletImpact = 0;
-	pSoldier->iLastArmourProtection = 0;
+	pSoldier->InitializeExtraData();
 
-	pSoldier->usQuickItemId = 0;
-	pSoldier->ubQuickItemSlot = 0;
-
-	pSoldier->usGrenadeItem = 0;
+	pSoldier->sDragGridNo = NOWHERE;
+	pSoldier->sFocusGridNo = NOWHERE;
 }
 
 
