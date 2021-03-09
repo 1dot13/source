@@ -14994,7 +14994,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 	pSoldier->HandleFlashLights();
 
 	// sevenfm: handle sight change
-	HandleSight(pSoldier, SIGHT_LOOK | SIGHT_INTERRUPT);
+	HandleSight(pSoldier, SIGHT_LOOK);
 
 	// Signal a successful transformation.
 	return TRUE;
