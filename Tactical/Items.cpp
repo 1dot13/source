@@ -5638,51 +5638,43 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 }
 
 //CHRISL: Use this function to sort through Attachments.xml and Launchables.xml
-UINT64 SetAttachmentSlotsFlag(OBJECTTYPE* pObj){
+UINT64 SetAttachmentSlotsFlag(OBJECTTYPE* pObj)
+{
 	UINT64		uiSlotFlag = 0;
 	UINT32		uiLoop = 0;
 	UINT32		fItem;
 
-	if(pObj->exists()==false)
+	if (pObj->exists() == false)
 		return 0;
 
-	//Madd: Common Attachment Framework
 	UINT64 point = GetAvailableAttachmentPoint(pObj, 0);
 
-	while(1)
+	while (uiLoop < gMAXITEMS_READ && Item[uiLoop].usItemClass != 0 ||
+			uiLoop < MAXATTACHMENTS && Attachment[uiLoop][0] != 0 ||
+			uiLoop < MAXITEMS + 1 && Launchable[uiLoop][0] != 0)
 	{
-		fItem = 0;
-		//Madd: Common Attachment Framework
-		if (IsAttachmentPointAvailable(point, uiLoop, TRUE))
+		if (uiLoop > 0 && uiLoop < gMAXITEMS_READ && IsAttachmentPointAvailable(point, uiLoop, TRUE))
 		{
 			fItem = uiLoop;
-			if(fItem && ItemIsLegal(fItem, TRUE))	// We've found a valid attachment.  Set the nasAttachmentSlots flag appropriately
+			if (fItem && ItemIsLegal(fItem, TRUE))
 				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
 
-		if (Attachment[uiLoop][1] == pObj->usItem)
+		if (uiLoop < MAXATTACHMENTS && Attachment[uiLoop][1] == pObj->usItem)
 		{
 			fItem = Attachment[uiLoop][0];
-
-			if(fItem && ItemIsLegal(fItem, TRUE))	
+			if (fItem && ItemIsLegal(fItem, TRUE))
 				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
 
-		if (Launchable[uiLoop][1] == pObj->usItem )
+		if (uiLoop < MAXITEMS + 1 && Launchable[uiLoop][1] == pObj->usItem)
 		{
 			fItem = Launchable[uiLoop][0];
-
-			if(fItem && ItemIsLegal(fItem, TRUE))	
+			if (fItem && ItemIsLegal(fItem, TRUE))
 				uiSlotFlag |= Item[fItem].nasAttachmentClass;
 		}
 
-		++uiLoop;
-
-		if (Attachment[uiLoop][0] == 0 && Launchable[uiLoop][0] == 0 && Item[uiLoop].usItemClass == 0 )
-		{
-			// No more attachments to search
-			break;
-		}
+		uiLoop++;
 	}
 
 	return uiSlotFlag;
