@@ -1,8 +1,10 @@
 #ifndef __TACTICAL_PLACEMENT_GUI_H
 #define __TACTICAL_PLACEMENT_GUI_H
 
-#include "Soldier Control.h"
-#include "mousesystem.h"
+//#include "Soldier Control.h"
+//#include "mousesystem.h"
+typedef struct _MOUSE_REGION MOUSE_REGION;
+extern class SOLDIERTYPE;
 
 void InitTacticalPlacementGUI();
 void KillTacticalPlacementGUI();

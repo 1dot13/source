@@ -1,51 +1,34 @@
 #include "builddefines.h"
 
 #ifdef PRECOMPILEDHEADERS
-#include "TileEngine All.h"
+	#include "TileEngine All.h"
 #else
-#include "physics.h"
-#include "wcheck.h"
-#include "timer control.h"
-#include "isometric utils.h"
-#include "los.h"
-#include "worldman.h"
-#include "event pump.h"
-#include "Sound Control.h"
-//#include "soldier control.h"
-#include "interface.h"
-#include "interface items.h"
-#include "weapons.h"
-#include "explosion control.h"
-#include "Debug Control.h"
-#include "tile animation.h"
-#include "message.h"
-#include "weapons.h"
-#include "structure wrap.h"
-#include "physics.h"
-#include "overhead.h"
-#include "animation control.h"
-#include "text.h"
-#include "Random.h"
-#include "lighteffects.h"
-#include "opplist.h"
-#include "World Items.h"
-#include "environment.h"
-#include "GameSettings.h"
-#include "Buildings.h"
-#include "Dialogue Control.h"	// added by Flugente
+	#include "physics.h"
+	#include "wcheck.h"
+	#include "isometric utils.h"
+	#include "worldman.h"
+	#include "Sound Control.h"
+	#include "interface.h"
+	#include "interface items.h"
+	#include "explosion control.h"
+	#include "Debug Control.h"
+	#include "message.h"
+	#include "structure wrap.h"
+	#include "animation control.h"
+	#include "text.h"
+	#include "Random.h"
+	#include "lighteffects.h"
+	#include "opplist.h"
+	#include "Buildings.h"
+	#include "Dialogue Control.h"	// added by Flugente
 #endif
-
-#include "Campaign.h"
-#include "SkillCheck.h"
-
 #include "connect.h"
 
-#include "GameInitOptionsScreen.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
+extern INT16 EffectiveDexterity(SOLDIERTYPE* pSoldier, BOOLEAN fTrainer);
 
 #define NO_TEST_OBJECT												0
 #define TEST_OBJECT_NO_COLLISIONS							1

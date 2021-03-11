@@ -1,57 +1,30 @@
 #include "builddefines.h"
-
-#ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
-#else
-	#include "math.h"
-	#include <stdio.h>
-	#include <errno.h>
-
-	#include "worlddef.h"
-	#include "renderworld.h"
-	#include "vsurface.h"
-	#include "input.h"
-	#include "sysutil.h"
-	#include "wchar.h"
-	#include "video.h"
-	#include "vobject_blitters.h"
-	#include "debug.h"
-	#include "wcheck.h"
-	#include "worldman.h"
-	#include "jascreens.h"
-	#include "Isometric Utils.h"
-	#include "line.h"
-	#include "Animation Control.h"
-	#include "Animation Data.h"
-	#include "Timer Control.h"
-	#include "Radar Screen.h"
-	#include "Render Dirty.h"
-	#include "Font Control.h"
-	#include "Sys Globals.h"
-	#include "Render Dirty.h"
-	#include "lighting.h"
-	#include "Overhead types.h"
-	#include "Overhead.h"
-	#include "weapons.h"
-	#include "ai.h"
-	#include "vobject.h"
-	#include "render fun.h"
-	#include "los.h"
-	#include "interactive tiles.h"
-	#include "rotting corpses.h"
-	#include "tile cache.h"
-	#include "tile animation.h"
-	#include "English.h"
-	#include "world items.h"
-	#include "GameSettings.h"
-	#include "interface control.h"
-	#include "Sound Control.h"
-#endif
-
 ///////////////////////////
 // C file include here
 #include "Render Z.h"
 ///////////////////////////
+
+#ifdef PRECOMPILEDHEADERS
+	#include "TileEngine All.h"
+#else
+	#include "renderworld.h"
+	#include "sysutil.h"
+	#include "vobject_blitters.h"
+	#include "debug.h"
+	#include "wcheck.h"
+	#include "worldman.h"
+	#include "Radar Screen.h"
+	#include "Render Dirty.h"
+	#include "ai.h"
+	#include "render fun.h"
+	#include "interactive tiles.h"
+	#include "tile cache.h"
+	#include "English.h"
+	#include "interface control.h"
+	#include "Sound Control.h"
+	#include "LogicalBodyTypes/Layers.h"
+	#include "LogicalBodyTypes/BodyTypeDB.h"
+#endif
 
 #include "Utilities.h"
 

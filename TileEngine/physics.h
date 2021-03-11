@@ -2,10 +2,7 @@
 #define	__PHYSICS_H
 
 #include "phys math.h"
-#include "sgp.h"
 #include "worlddef.h"
-#include "items.h"
-#include "Soldier Control.h"
 
 
 extern UINT32 guiNumObjectSlots;

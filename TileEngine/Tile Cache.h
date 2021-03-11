@@ -1,8 +1,6 @@
 #ifndef __TILE_CACHE_H
 #define __TILE_CACHE_H
 
-#include "tiledef.h"
-#include "structure.h"
 
 #define	TILE_CACHE_START_INDEX		36000
 
@@ -46,12 +44,5 @@ void CheckForAndAddTileCacheStructInfo( LEVELNODE *pNode, INT32 sGridNo, UINT16 
 void CheckForAndDeleteTileCacheStructInfo( LEVELNODE *pNode, UINT16 usIndex );
 
 void GetRootName( STR8 pDestStr, const STR8 pSrcStr );
-
-
-// OF COURSE, FOR SPEED, WE EXPORT OUR ARRAY 
-// ACCESS FUNCTIONS IN RENDERER IS NOT TOO NICE
-// ATE
-
-
 
 #endif

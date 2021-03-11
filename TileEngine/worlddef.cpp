@@ -6,50 +6,27 @@
 #else
 	#include "worlddef.h"
 	#include "worlddat.h"
-	#include <stdio.h>
-	#include <string.h>
 	#include "wcheck.h"
-	#include "stdlib.h"
-	#include "time.h"
-	#include "video.h"
 	#include "debug.h"
 	#include "worldman.h"
-	#include "mousesystem.h"
 	#include "sys globals.h"
-	#include "screenids.h"
 	#include "Render Fun.h"
-	#include "font control.h"
 	#include "lighting.h"
-	#include "structure.h"
-	#include "vobject.h"
-	#include "Soldier Control.h"
-	#include "isometric utils.h"
 	#include "Interactive Tiles.h"
 	#include "utilities.h"
 	#include "overhead.h"
-	#include "Event Pump.h"
-	#include "Handle UI.h"
 	#include "opplist.h"
-	#include "shading.h"
-	#include "Animation Control.h"
-	#include "World Items.h"
 	#include "renderworld.h"
 	#include "Radar Screen.h"
-	#include "soldier create.h"
-	#include "Soldier Init List.h"
 	#include "Exit Grids.h"
 	#include "tile surface.h"
 	#include "rotting corpses.h"
 	#include "Keys.h"
 	#include "Map Information.h"
-	#include "Exit Grids.h"
-	#include "Summary Info.h"
 	#include "Animated ProgressBar.h"
 	#include "pathai.h"
 	#include "EditorBuildings.h"
-	#include "FileMan.h"
 	#include "Map Edgepoints.h"
-	#include "environment.h"
 	#include "Shade Table Util.h"
 	#include "Structure Wrap.h"
 	#include "Scheduling.h"
@@ -65,12 +42,19 @@
 	#include "LoadScreen.h"//dnl ch30 150909
 	#include "Interface Cursors.h"
 	#include "Simple Render Utils.h"//dnl ch54 111009
+	#include "Interface.h"
 ///ddd
 	#include "gamesettings.h"
 	#include "editscreen.h"
-	#include "Button Defines.h"
 	#include "Editor Taskbar Utils.h"
 #endif
+
+#ifdef JA2EDITOR
+	#include "Summary Info.h"
+	#include "Button Defines.h"
+	#include "Animation Data.h"
+#endif
+
 
 #define	SET_MOVEMENTCOST( a, b, c, d )				( ( gubWorldMovementCosts[ a ][ b ][ c ] < d ) ? ( gubWorldMovementCosts[ a ][ b ][ c ] = d ) : 0 );
 #define	FORCE_SET_MOVEMENTCOST( a, b, c, d )	( gubWorldMovementCosts[ a ][ b ][ c ] = d )

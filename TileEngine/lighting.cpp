@@ -19,34 +19,17 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include "math.h"
-	#include <stdio.h>
-	#include <errno.h>
-
 	#include "worlddef.h"
 	#include "renderworld.h"
-	#include "vsurface.h"
-	#include "input.h"
 	#include "sysutil.h"
-	#include "wchar.h"
-	#include "video.h"
-	#include "vobject_blitters.h"
 	#include "debug.h"
 	#include "wcheck.h"
-	#include "jascreens.h"
-	#include "Isometric Utils.h"
-	#include "line.h"
 	#include "Animation Control.h"
-	#include "Animation Data.h"
 	#include "Sys Globals.h"
-	#include "tiledef.h"
 	#include "lighting.h"
-	#include "Structure Internals.h"
 	#include "structure wrap.h"
 	#include "Shade Table Util.h"
 	#include "rotting corpses.h"
-	#include "Fileman.h"
-	#include "environment.h"
 	#include "PATHAI.H"
 #endif
 

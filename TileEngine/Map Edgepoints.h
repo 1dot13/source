@@ -1,9 +1,6 @@
 #ifndef __MAP_EDGEPOINTS_H
 #define __MAP_EDGEPOINTS_H
 
-#include "types.h"
-#include "Fileman.h"
-#include "Overhead Types.h"
 #include "strategic.h"
 
 typedef struct MAPEDGEPOINTINFO

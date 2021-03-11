@@ -3,17 +3,8 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include "worlddef.h"
-	#include "worlddat.h"
-	#include <stdio.h>
-	#include <string.h>
-	#include "stdlib.h"
-	#include "time.h"
-	#include "video.h"
 	#include "debug.h"
 	#include "sys globals.h"
-	#include "tiledat.h"
-	#include "Fileman.h"
 #endif
 
 #include "XML.h"

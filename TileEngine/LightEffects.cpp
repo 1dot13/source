@@ -3,25 +3,13 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include <stdio.h>
-	#include <string.h>
-	#include "stdlib.h"
 	#include "debug.h"
-	//#include "soldier control.h"
-	#include "weapons.h"
-	#include "handle items.h"
-	#include "worlddef.h"
 	#include "animation control.h"
-	#include "handle items.h"
 	#include "lighteffects.h"
-	#include "message.h"
 	#include "isometric utils.h"
-	#include "renderworld.h"
-	#include "Random.h"
 	#include "lighting.h"
 	#include "Game Clock.h"
 	#include "opplist.h"
-	#include "Campaign Types.h"
 	#include "Tactical Save.h"
 #endif
 

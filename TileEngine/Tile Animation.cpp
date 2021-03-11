@@ -2,10 +2,7 @@
 #include "TileEngine All.h"
 #else
 #include "worlddef.h"
-#include <stdio.h>
-#include <string.h>
-#include "stdlib.h"
-#include "video.h"
+#include "tile animation.h"
 #include "debug.h"
 #include "worldman.h"
 #include "lighting.h"
@@ -13,18 +10,11 @@
 #include "overhead.h"
 #include "ai.h"
 #include "Sound Control.h"
-#include "animation control.h"
-#include "isometric utils.h"
-#include "Font Control.h"
-#include "message.h"
-#include "tile animation.h"
 #include "tile cache.h"
 #include "explosion control.h"
-#include "weapons.h"
 #include "Keys.h"
 #include "bullets.h"
 #include "LightEffects.h"
-#include "rotting corpses.h"
 #include "SmokeEffects.h"
 #endif
 

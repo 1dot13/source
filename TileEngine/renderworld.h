@@ -1,9 +1,6 @@
 #ifndef __RENDERWORLD_H
 #define __RENDERWORLD_H
 
-#include "worlddef.h"
-#include "LogicalBodyTypes/Layers.h"
-#include "LogicalBodyTypes/BodyTypeDB.h"
 
 // TEMP SELECT STUFF
 #define	NO_SELECT		0
@@ -75,7 +72,8 @@ extern UINT8		gubCurScrollSpeedID;
 #define TILES_DYNAMIC_TOPMOST				0x00000001
 
 
-
+// Forward declaration
+typedef struct TAG_HVOBJECT *HVOBJECT;
 
 extern BOOLEAN	gfRenderScroll;
 extern INT16	gsScrollXIncrement;

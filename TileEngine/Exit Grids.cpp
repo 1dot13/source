@@ -1,24 +1,17 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include <stdio.h>
-	#include "FileMan.h"
 	#include "debug.h"
-	#include "types.h"
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "smooth.h"
 	#include "Exit Grids.h"
 	#include "Editor Undo.h"
 	#include "StrategicMap.h"
 	#include "Strategic Movement.h"
 	#include "message.h"
-	#include "Font Control.h"
 	#include "pathai.h"
-	#include "overhead.h"
 	#include "Animation Control.h"
 	#include "Sys Globals.h"
-	#include "quests.h"
 	#include "SaveLoadMap.h"
 	#include "Text.h"
 #endif

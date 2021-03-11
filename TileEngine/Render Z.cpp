@@ -1,7 +1,5 @@
 #include "Render Z.h"
-#include "worlddef.h"
 #include "renderworld.h"
-#include "Isometric Utils.h"
 
 INT16 gsRScreenCenterX, gsRScreenCenterY;
 INT16 gsRDistToCenterY, gsRDistToCenterX;

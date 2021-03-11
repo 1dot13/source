@@ -1,7 +1,6 @@
 #ifndef __RENDER_FUN_H
 #define __RENDER_FUN_H
 
-#include <stdio.h>
 #include "worlddef.h"
 
 #define		NO_ROOM			0
@@ -10,7 +9,6 @@
 #define		MAX_ROOMS		65530
 
 extern UINT8	gubWorldRoomHidden[ MAX_ROOMS ];
-//extern UINT8*						gubWorldRoomInfo;
 extern UINT16*	gusWorldRoomInfo;
 
 BOOLEAN InitRoomDatabase( );

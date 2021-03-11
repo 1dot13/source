@@ -1,4 +1,4 @@
-	#include <cmath>		// added by Flugente
+	//#include <cmath>		// added by Flugente
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
@@ -7,15 +7,11 @@
 	#include "pathai.h"
 	#include "ai.h"
 	#include "Map Information.h"
-	#include "renderworld.h"
-	#include "Isometric Utils.h"
 	#include "debug.h"
 	#include "Random.h"
-	#include "strategic.h"
 	#include "Animation Control.h"
 	#include "Render Fun.h"
 	#include "strategicmap.h"
-	#include "environment.h"
 	#include "worldman.h"
 	#include "PreBattle Interface.h"	// added by Flugente
 #endif

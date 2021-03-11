@@ -2,31 +2,19 @@
 	#include "TileEngine All.h"
 #else
 	#include "sgp.h"
-	#include "lighting.h"
 	#include "environment.h"
 	#include "renderworld.h"
 	#include "Sound Control.h"
 	#include "overhead.h"
 	#include "Game Clock.h"
-	#include "quests.h"
 	#include "Ambient Control.h"
-	#include "Strategic Event Handler.h"
-	#include "BobbyR.h"
-	#include "mercs.h"
-	#include "email.h"
-	#include "Merc Hiring.h"
-	#include "insurance Contract.h"
 	#include "Game Events.h"
 	#include "message.h"
 	#include "opplist.h"
 	#include "Random.h"
-	#include "strategicmap.h"
-	#include "GameSettings.h"
 	#include "Points.h"					// added by Flugente
 	#include "Campaign.h"				// added by Flugente
 	#include "Isometric Utils.h"		// added by Flugente
-	#include "Strategic Movement.h"		// added by Flugente
-	#include "tiledef.h"				// added by Flugente
 	#include "worldman.h"				// added by Flugente
 	#include "Dialogue Control.h"		// added by Flugente
 #endif

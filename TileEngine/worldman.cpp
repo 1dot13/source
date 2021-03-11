@@ -2,26 +2,17 @@
 	#include "TileEngine All.h"
 #else
 	#include "worlddef.h"
-	#include <stdio.h>
-	#include <string.h>
-	#include "wcheck.h"
-	#include "stdlib.h"
-	#include "video.h"
-	#include "debug.h"
 	#include "worldman.h"
+	#include "wcheck.h"
+	#include "debug.h"
 	#include "lighting.h"
 	#include "renderworld.h"
-	#include "overhead.h"
 	#include "ai.h"
 	#include "animation control.h"
-	#include "isometric utils.h"
-	#include "Font Control.h"
 	#include "message.h"
 	#include "tile cache.h"
 	#include "SaveLoadMap.h"
 	#include "random.h"
-	#include "render fun.h"
-	#include "GameSettings.h"
 	// sevenfm
 	#include "PATHAI.H"
 #endif

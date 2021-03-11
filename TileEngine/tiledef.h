@@ -2,7 +2,6 @@
 #define __TILEDEF_H
 
 #include "vobject.h"
-#include "timer.h"
 #include "TileDat.h"
 #include "structure.h"
 

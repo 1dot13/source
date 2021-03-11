@@ -3,15 +3,9 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include <stdio.h>
-	#include <string.h>
-	#include <wchar.h>
 	#include "worlddat.h"
-	#include "worlddef.h"
-	#include "tiledef.h"
 	#include "sys globals.h"
 	#include "tile surface.h"
-	#include "fileMan.h"
 	#include "Debug.h"
 #endif
 
@@ -19,7 +13,6 @@
 #include <vfs/Core/vfs_file_raii.h>
 #include "XML_TileSet.hpp"
 #include "XMLWriter.h"
-#include "GameSettings.h"
 
 void ExportTilesets(vfs::Path const& filename);
 

@@ -1,11 +1,9 @@
 #ifndef __WORLDDEF_H
 #define __WORLDDEF_H
 
-#include "vobject.h"
-#include "tiledef.h"
-//#include "Soldier Control.h"
 #include "structure.h"
 #include "Handle Items.h"
+
 
 #define WORLD_TILE_X		40
 #define WORLD_TILE_Y		20
@@ -32,7 +30,6 @@ extern INT32 guiWorldRows;
 #define MAX_ALLOWED_WORLD_MAX		WORLD_COLS_MAX*WORLD_ROWS_MAX // (2000 cols x 2000 rows)
 
 //</SB>
-
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

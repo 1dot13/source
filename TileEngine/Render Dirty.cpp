@@ -5,24 +5,26 @@
 	#include "winfont.h"
 
 #else
-	#include "math.h"
-	#include <stdio.h>
-	#include <errno.h>
-
 	#include "worlddef.h"
-	#include "renderworld.h"
-	#include "vsurface.h"
 	#include "Render Dirty.h"
 	#include "sysutil.h"
-	#include "container.h"
-	#include "video.h"
 	#include "vobject_blitters.h"
-	#include "Font Control.h"
 #endif
 
 #ifdef JA2BETAVERSION
 #include "Message.h"
 #endif
+
+// Forward Declarations
+extern INT16 gsVIEWPORT_START_X;
+extern INT16 gsVIEWPORT_START_Y;
+extern INT16 gsVIEWPORT_WINDOW_START_Y;
+extern INT16 gsVIEWPORT_WINDOW_END_Y;
+extern INT16 gsVIEWPORT_END_X;
+extern INT16 gsVIEWPORT_END_Y;
+extern UINT16* gpZBuffer;
+extern BOOLEAN	gfScrollInertia;
+
 
 #define		DIRTY_QUEUES			200
 #define		BACKGROUND_BUFFERS		1500 //was 500

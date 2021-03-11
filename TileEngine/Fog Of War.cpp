@@ -5,7 +5,6 @@
 	#include "Fog Of War.h"
 	#include "Isometric Utils.h"
 	#include "Simple Render Utils.h"
-	#include "Renderworld.h"
 	#include "lighting.h"
 #endif
 

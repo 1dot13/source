@@ -1,6 +1,4 @@
 #include "worlddef.h"
-#include "renderworld.h"
-#include "Isometric Utils.h"
 
 
 INT16 ObjectZLevel( TILE_ELEMENT* TileElem, LEVELNODE* pNode, UINT32 uiTileElemFlags, INT32 sMapX, INT32 sMapY, INT16& sWorldY );

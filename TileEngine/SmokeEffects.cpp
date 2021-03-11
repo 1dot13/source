@@ -7,7 +7,6 @@
 	#include <string.h>
 	#include "stdlib.h"
 	#include "debug.h"
-	//#include "soldier control.h"
 	#include "weapons.h"
 	#include "handle items.h"
 	#include "worlddef.h"

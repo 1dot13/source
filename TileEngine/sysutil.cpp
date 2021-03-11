@@ -1,11 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include <stdio.h>
-	#include <time.h>
 	#include "sgp.h"
-	#include "himage.h"
-	#include "vsurface.h"
 	#include "wcheck.h"
 	#include "sysutil.h"
 #endif

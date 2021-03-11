@@ -3,15 +3,9 @@
 #else
 	#include "tiledef.h"
 	#include "worlddef.h"
-	#include <stdio.h>
-	#include <string.h>
 	#include "wcheck.h"
-	#include "stdlib.h"
-	#include "time.h"
-	#include "video.h"
 	#include "debug.h"
 	#include "worldman.h"
-	#include "gameloop.h"
 	#include "edit_sys.h"
 	#include "pathai.h"
 	#include "tile surface.h"

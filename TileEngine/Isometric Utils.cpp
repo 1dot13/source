@@ -1,22 +1,15 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
-	#include <stdio.h>
 	#include "debug.h"
-	#include "mousesystem.h"
-	#include "jascreens.h"
-	#include "worlddef.h"
 	#include "renderworld.h"
-	#include "Isometric Utils.h"
 	#include "interface.h"
-	#include "math.h"
 	#include "worldman.h"
 	#include "Structure Wrap.h"
 	#include "sys globals.h"
 	#include "overhead.h"
 	#include "Random.h"
 	#include "Pathai.h"
-	#include "GameSettings.h"	// added by Flugente
 #endif
 
 
