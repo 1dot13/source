@@ -992,6 +992,12 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 		pSoldier->usSoldierFlagMask2 |= SOLDIER_SPENT_AP;
 
 		pSoldier->StopChatting();
+
+		// sevenfm: stop muzzle flash
+		if (pSoldier->flags.fMuzzleFlash)
+		{
+			EndMuzzleFlash(pSoldier);
+		}
 	}
 
 	// in real time, there IS no AP cost, (only breath cost)

@@ -9762,7 +9762,8 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
     DequeueAllDemandGameEvents( TRUE );
 
     // if we're in realtime, turn off the attacker's muzzle flash at this point
-    if ( !(gTacticalStatus.uiFlags & INCOMBAT) && pSoldier )
+	// sevenfm: always stop muzzle flash at the end of attack
+	if (pSoldier) // &&!(gTacticalStatus.uiFlags & INCOMBAT) 
     {
         EndMuzzleFlash( pSoldier );
     }

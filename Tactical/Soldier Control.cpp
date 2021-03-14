@@ -17946,6 +17946,12 @@ void SOLDIERTYPE::SoldierPropertyUpkeep( )
 		HandleInitialRedAlert( ENEMY_TEAM, FALSE );
 	}
 
+	// sevenfm: stop muzzle flash
+	if (this->flags.fMuzzleFlash)
+	{
+		EndMuzzleFlash(this);
+	}
+
 	if ( HasBackgroundFlag( BACKGROUND_EXP_UNDERGROUND ) && this->bSectorZ )
 		++bExtraExpLevel;
 	
