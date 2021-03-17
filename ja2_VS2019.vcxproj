@@ -193,7 +193,7 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)_master</TargetName>
     <TargetExt>.exe</TargetExt>
-    <OutDir>H:\JA2 Dev\</OutDir>
+    <OutDir>$(SolutionDir)\bin\VS2013\</OutDir>
     <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -217,7 +217,7 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)_master_VS2019</TargetName>
     <TargetExt>.exe</TargetExt>
-    <OutDir>H:\JA2 Dev\</OutDir>
+    <OutDir>$(SolutionDir)\bin\VS2013\</OutDir>
     <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -229,7 +229,7 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetName>MapEditor_$(JA2LangPrefix)_Release_master</TargetName>
     <TargetExt>.exe</TargetExt>
-    <OutDir>H:\JA2 Dev\</OutDir>
+    <OutDir>$(SolutionDir)\bin\VS2013\</OutDir>
     <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MapEditor|x64'">
@@ -241,7 +241,7 @@
     <LinkIncremental>false</LinkIncremental>
     <TargetName>$(JA2Config)_$(JA2LangPrefix)_$(Configuration)_master</TargetName>
     <TargetExt>.exe</TargetExt>
-    <OutDir>H:\JA2 Dev\</OutDir>
+    <OutDir>$(SolutionDir)\bin\VS2013\</OutDir>
     <IntDir>$(SolutionDir)\build\VS2013\$(JA2Config)_$(JA2LangPrefix)\$(ProjectName)_$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_WithDebugInfo|x64'">
