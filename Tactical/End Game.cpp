@@ -318,6 +318,7 @@ void DoneFadeOutKilledQueen( void )
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubAdminsInBattle = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubTroopsInBattle = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubElitesInBattle = 0;
+	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubRobotsInBattle = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubTanksInBattle = 0;
 	SectorInfo[ SECTOR( VICTORY_X, VICTORY_Y ) ].ubJeepsInBattle = 0;
 

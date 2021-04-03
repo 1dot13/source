@@ -1237,8 +1237,8 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, BOOLEAN * pfChangeLevel
 			continue;
 		}
 
-		// sevenfm: zombies do not attack vehicles
-		if (pSoldier->IsZombie() && (ARMED_VEHICLE(pOpponent) || (pOpponent->flags.uiStatusFlags & SOLDIER_VEHICLE)))
+		// sevenfm: zombies do not attack vehicles (rftr: or robots)
+		if (pSoldier->IsZombie() && (AM_A_ROBOT(pOpponent) || ENEMYROBOT(pOpponent) || ARMED_VEHICLE(pOpponent) || (pOpponent->flags.uiStatusFlags & SOLDIER_VEHICLE)))
 		{
 			continue;
 		}
@@ -3031,6 +3031,7 @@ UINT8 SoldierDifficultyLevel( SOLDIERTYPE * pSoldier )
 			bDifficulty = bDifficultyBase;
 			break;
 
+		case SOLDIER_CLASS_ROBOT:
 		case SOLDIER_CLASS_ELITE:
 			bDifficulty = bDifficultyBase + 1;
 			break;
@@ -3476,7 +3477,7 @@ UINT8 GetClosestFlaggedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 			continue;
 
 		// this is not for tanks
-		if ( ARMED_VEHICLE( pFriend ) )
+		if ( ARMED_VEHICLE( pFriend ) || ENEMYROBOT( pFriend ))
 			continue;
 		
 		// skip if this guy is dead
@@ -3529,7 +3530,7 @@ UINT8 GetClosestWoundedSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 au
 			continue;
 
 		// this is not for tanks
-		if ( ARMED_VEHICLE( pFriend ) )
+		if ( ARMED_VEHICLE( pFriend ) || ENEMYROBOT( pFriend ) )
 			continue;
 		
 		// skip if this guy is dead, or not wounded (enough)
@@ -3578,7 +3579,7 @@ UINT8 GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 auTe
 			continue;
 
 		// this is not for tanks
-		if ( ARMED_VEHICLE( pFriend ) )
+		if ( ARMED_VEHICLE( pFriend ) || ENEMYROBOT( pFriend ) )
 			continue;
 
 		// skip this guy if he is dead or unconscious
@@ -4907,7 +4908,8 @@ BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier)
 		pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ||
 		ARMED_VEHICLE(pSoldier) ||
 		pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ||
-		AM_A_ROBOT(pSoldier))
+		AM_A_ROBOT(pSoldier) ||
+		ENEMYROBOT(pSoldier))
 		return FALSE;
 
 	return TRUE;

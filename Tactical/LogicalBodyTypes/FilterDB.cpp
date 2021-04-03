@@ -350,7 +350,8 @@ namespace LogicalBodyTypes {
 			SOLDIER_CLASS_ZOMBIE,
 			SOLDIER_CLASS_TANK,
 			SOLDIER_CLASS_JEEP,
-			SOLDIER_CLASS_BANDIT
+			SOLDIER_CLASS_BANDIT,
+			SOLDIER_CLASS_ROBOT
 		);
 
 		/*****************************************

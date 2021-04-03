@@ -117,7 +117,7 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadWeaponIfNeeded: remove payload from its pocket, and add it as the hand weapon's first attachment"));
 	// remove payload from its pocket, and add it as the hand weapon's first attachment
 
-	if ( ARMED_VEHICLE( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 	{
 		// don't remove ammo
 		gTempObject = pSoldier->inv[bPayloadPocket];
@@ -514,7 +514,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot)
 				}
 
 				// no crouched/prone if we are tank/using throwing knife/hip firing
-				if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || ARMED_VEHICLE( pSoldier ) || (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) )
+				if ( pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) || (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) )
 					continue;
 
 				// --------- Crouched ---------
@@ -1159,7 +1159,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_CREATUREGAS &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_BURNABLEGAS &&
 			Explosive[Item[usGrenade].ubClassIndex].ubType != EXPLOSV_SMOKE &&
-			(ARMED_VEHICLE(pOpponent) || pOpponent->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT(pOpponent)))
+			(ARMED_VEHICLE(pOpponent) || ENEMYROBOT(pOpponent) || pOpponent->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT(pOpponent)))
 		{
 			continue;
 		}

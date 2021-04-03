@@ -88,7 +88,7 @@ ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[SOLDIER_GUN_CHOICE_SELECTIONS][ARMY
 ARMY_GUN_CHOICE_TYPE gArmyItemChoices[SOLDIER_GUN_CHOICE_SELECTIONS][MAX_ITEM_TYPES];
 
 void RandomlyChooseWhichItemsAreDroppable( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass );
-void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp, BOOLEAN fTank = TRUE );
+void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp );
 
 void ChooseKitsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bKitClass );
 void ChooseMiscGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bMiscClass );
@@ -248,13 +248,14 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		return;
 	}
 		
-	if ( ARMED_VEHICLE( pp ) )
+	if ( ARMED_VEHICLE( pp ) || ENEMYROBOT( pp ) )
 	{
-		EquipArmouredVehicle( pp, TANK( pp ) );
+		EquipArmouredVehicle( pp );
 		return;
 	}
 
-	Assert( (bSoldierClass >= SOLDIER_CLASS_NONE) && (bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA) || bSoldierClass == SOLDIER_CLASS_TANK || bSoldierClass == SOLDIER_CLASS_JEEP );
+	// rftr: enemy tanks, jeeps, and robots would have early exited above
+	Assert( (bSoldierClass >= SOLDIER_CLASS_NONE) && (bSoldierClass <= SOLDIER_CLASS_ELITE_MILITIA) );
 	Assert( ( bEquipmentRating >= 0 ) && ( bEquipmentRating <= 4 ) );
 
 	// equipment level is modified by 1/10 of the difficulty percentage, -5, so it's between -5 to +5
@@ -3253,12 +3254,12 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel, INT8 bSoldierClass )
 
 
 
-void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp, BOOLEAN fTank )
+void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp )
 {
 	// tanks get special equipment, and they drop nothing (MGs are hard-mounted & non-removable)
 
 	// tanks get a main cannon and a MG, other vehicles just get the MG
-	if ( fTank )
+	if ( TANK(pp) )
 	{
 		CreateItem( TANK_CANNON, ( INT8 )( 80 + Random( 21 ) ), &( pp->Inv[ HANDPOS ]) );
 		pp->Inv[ HANDPOS ].fFlags |= OBJECT_UNDROPPABLE;
@@ -3278,7 +3279,13 @@ void EquipArmouredVehicle( SOLDIERCREATE_STRUCT *pp, BOOLEAN fTank )
 		gTempObject.fFlags |= OBJECT_UNDROPPABLE;
 		PlaceObjectInSoldierCreateStruct( pp, &gTempObject );
 	}
-	else
+	else if ( COMBAT_JEEP(pp) )
+	{
+		// machine gun
+		CreateItems( MINIMI, (INT8)(80 + Random( 21 )), 1, &(pp->Inv[HANDPOS]) );
+		pp->Inv[HANDPOS].fFlags |= OBJECT_UNDROPPABLE;
+	}
+	else if ( ENEMYROBOT(pp) )
 	{
 		// machine gun
 		CreateItems( MINIMI, (INT8)(80 + Random( 21 )), 1, &(pp->Inv[HANDPOS]) );

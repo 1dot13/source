@@ -75,7 +75,13 @@ void TagSAIGroupWithGracePeriod( GROUP *pGroup );
 
 BOOLEAN PermittedToFillPatrolGroup( INT32 iPatrolID );
 
+enum GROUP_TYPE
+{
+	GROUP_TYPE_ATTACK,
+	GROUP_TYPE_PATROL
+};
 
+void InitializeGroup(const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &troopCount, UINT8 &eliteCount, UINT8 &robotCount, UINT8 &jeepCount, UINT8 &tankCount, const BOOLEAN asdUpgrade);
 
 extern BOOLEAN gfDisplayStrategicAILogs;
 extern BOOLEAN gfFirstBattleMeanwhileScenePending;

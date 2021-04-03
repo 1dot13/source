@@ -71,7 +71,7 @@ STR8 gStr8AlertStatus[] = { "Green", "Yellow", "Red", "Black" };
 STR8 gStr8Attitude[] = { "DEFENSIVE", "BRAVESOLO", "BRAVEAID", "CUNNINGSOLO", "CUNNINGAID", "AGGRESSIVE", "MAXATTITUDES", "ATTACKSLAYONLY" };
 STR8 gStr8Orders[] = { "STATIONARY", "ONGUARD", "CLOSEPATROL", "FARPATROL", "POINTPATROL", "ONCALL", "SEEKENEMY", "RNDPTPATROL", "SNIPER" };
 STR8 gStr8Team[] = { "OUR_TEAM", "ENEMY_TEAM", "CREATURE_TEAM", "MILITIA_TEAM", "CIV_TEAM", "LAST_TEAM", "PLAYER_PLAN", "LAN_TEAM_ONE", "LAN_TEAM_TWO", "LAN_TEAM_THREE", "LAN_TEAM_FOUR" };
-STR8 gStr8Class[] = { "SOLDIER_CLASS_NONE", "SOLDIER_CLASS_ADMINISTRATOR", "SOLDIER_CLASS_ELITE", "SOLDIER_CLASS_ARMY", "SOLDIER_CLASS_GREEN_MILITIA", "SOLDIER_CLASS_REG_MILITIA", "SOLDIER_CLASS_ELITE_MILITIA", "SOLDIER_CLASS_CREATURE", "SOLDIER_CLASS_MINER", "SOLDIER_CLASS_ZOMBIE", "SOLDIER_CLASS_TANK", "SOLDIER_CLASS_JEEP", "SOLDIER_CLASS_BANDIT" };
+STR8 gStr8Class[] = { "SOLDIER_CLASS_NONE", "SOLDIER_CLASS_ADMINISTRATOR", "SOLDIER_CLASS_ELITE", "SOLDIER_CLASS_ARMY", "SOLDIER_CLASS_GREEN_MILITIA", "SOLDIER_CLASS_REG_MILITIA", "SOLDIER_CLASS_ELITE_MILITIA", "SOLDIER_CLASS_CREATURE", "SOLDIER_CLASS_MINER", "SOLDIER_CLASS_ZOMBIE", "SOLDIER_CLASS_TANK", "SOLDIER_CLASS_JEEP", "SOLDIER_CLASS_BANDIT", "SOLDIER_CLASS_ROBOT" };
 STR8 gStr8Knowledge[] = { "HEARD_3_TURNS_AGO", "HEARD_2_TURNS_AGO", "HEARD_LAST_TURN", "HEARD_THIS_TURN", "NOT_HEARD_OR_SEEN", "SEEN_CURRENTLY", "SEEN_THIS_TURN", "SEEN_LAST_TURN", "SEEN_2_TURNS_AGO", "SEEN_3_TURNS_AGO" };
 
 void DoneScheduleAction( SOLDIERTYPE * pSoldier )
@@ -812,7 +812,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
 
 	// Flugente: tanks do not care about gas
-	if ( ARMED_VEHICLE( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 	{
 		bInGas = FALSE;
 	}
@@ -1135,6 +1135,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		pSoldier->aiData.bLastAction != AI_ACTION_CLIMB_ROOF && 
 		pSoldier->aiData.bOrders != STATIONARY &&
 		pSoldier->pathing.bLevel == 0 &&
+		!ENEMYROBOT(pSoldier) &&
 		!is_networked)
 	{
 		iChance = 10 + pSoldier->aiData.bBypassToGreen;
@@ -2099,7 +2100,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					AIPopMessage(tempstr);
 #endif
 
-					if ( fClimb )//&& pSoldier->aiData.usActionData == sNoiseGridNo)
+					if ( !ENEMYROBOT(pSoldier) && fClimb )//&& pSoldier->aiData.usActionData == sNoiseGridNo)
 					{
 						// need to climb AND have enough APs to get there this turn
 						BOOLEAN fUp = TRUE;
@@ -2258,7 +2259,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 					AIPopMessage(tempstr);
 #endif
 
-					if ( fClimb )//&& pSoldier->aiData.usActionData == sClosestFriend)
+					if ( !ENEMYROBOT(pSoldier) && fClimb )//&& pSoldier->aiData.usActionData == sClosestFriend)
 					{
 						// need to climb AND have enough APs to get there this turn
 						BOOLEAN fUp = TRUE;
@@ -2593,7 +2594,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 	bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
 
 	// Flugente: tanks do not care about gas
-	if ( ARMED_VEHICLE( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 	{
 		bInGas = FALSE;
 	}
@@ -3047,6 +3048,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				(fAnyCover ||																				// safe position
 				!fCanBeSeen && NightLight() && CountFriendsFlankSameSpot(pSoldier, sClosestOpponent) && Chance(50) ||
 				ARMED_VEHICLE(pSoldier) ||																		// tanks don't need cover
+				ENEMYROBOT(pSoldier) || // robots don't try to be in cover
 				pSoldier->aiData.bUnderFire && (pSoldier->ubPreviousAttackerID == BestShot.ubOpponent || pSoldier->ubNextToPreviousAttackerID == BestShot.ubOpponent || MercPtrs[BestShot.ubOpponent]->sLastTarget == pSoldier->sGridNo) ||	// return fire
 				Chance((BestShot.ubChanceToReallyHit + 100) / 2) ||											// 50% chance to fire without cover
 				//SoldierToSoldierLineOfSightTest(pSoldier, MercPtrs[BestShot.ubOpponent], TRUE, CALC_FROM_ALL_DIRS)) &&		// can see target after turning
@@ -3054,6 +3056,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// reduce chance to shoot if target is beyond weapon range
 				(AICheckIsMachinegunner(pSoldier) ||
 				ARMED_VEHICLE(pSoldier) ||
+				ENEMYROBOT(pSoldier) ||
 				AnyCoverAtSpot(pSoldier, pSoldier->sGridNo) ||
 				pSoldier->aiData.bUnderFire && (pSoldier->ubPreviousAttackerID == BestShot.ubOpponent || pSoldier->ubNextToPreviousAttackerID == BestShot.ubOpponent || MercPtrs[BestShot.ubOpponent]->sLastTarget == pSoldier->sGridNo) ||	// return fire
 				Chance(100 * (GunRange(&pSoldier->inv[BestShot.bWeaponIn], pSoldier) / CELL_X_SIZE) / PythSpacesAway(pSoldier->sGridNo, BestShot.sTarget))) &&
@@ -4025,7 +4028,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							AIPopMessage(tempstr);
 #endif
 
-							if (fClimb)//&& pSoldier->aiData.usActionData == sClosestDisturbance)
+							if (!ENEMYROBOT(pSoldier) && fClimb)//&& pSoldier->aiData.usActionData == sClosestDisturbance)
 							{
 								// need to climb AND have enough APs to get there this turn
 								BOOLEAN fUp = TRUE;
@@ -4297,7 +4300,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 							AIPopMessage(tempstr);
 #endif
 
-							if ( fClimb )//&& pSoldier->aiData.usActionData == sClosestFriend)
+							if ( !ENEMYROBOT(pSoldier) && fClimb )//&& pSoldier->aiData.usActionData == sClosestFriend)
 							{
 								// need to climb AND have enough APs to get there this turn
 								BOOLEAN fUp = TRUE;
@@ -5039,7 +5042,7 @@ INT16 ubMinAPCost;
 		bInGas = InGasOrSmoke( pSoldier, pSoldier->sGridNo );
 
 		// Flugente: tanks do not care about gas
-		if ( ARMED_VEHICLE( pSoldier ) )
+		if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 		{
 			bInGas = FALSE;
 		}
@@ -5162,7 +5165,7 @@ INT16 ubMinAPCost;
 	// offer surrender?
 #ifdef JA2UB
 #else
-	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) )
+	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
 	{
 		if ( gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 && gTacticalStatus.Team[ CREATURE_TEAM ].bMenInSector == 0 && NumPCsInSector() < 4 && gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector >= NumPCsInSector() * 3 )
 		{
@@ -5553,7 +5556,7 @@ INT16 ubMinAPCost;
 
 		// if the soldier does have a usable knife somewhere
 		// 0verhaul:  And is not a tank!
-		if ( bWeaponIn != NO_SLOT && !ARMED_VEHICLE( pSoldier ) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
+		if ( bWeaponIn != NO_SLOT && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"try to stab");
 			BestStab.bWeaponIn = bWeaponIn;
@@ -5641,7 +5644,7 @@ INT16 ubMinAPCost;
 		}
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		// SANDRO - even if we don't have any blade, calculate how much damage we could do unarmed
-		else if ( !ARMED_VEHICLE( pSoldier ) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
+		else if ( !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) && !(pSoldier->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 		{
 			bWeaponIn = FindAIUsableObjClass( pSoldier, IC_PUNCH );
 			if (bWeaponIn == NO_SLOT) // if no punch-type weapon found, just calculate it with empty hands
@@ -5860,7 +5863,7 @@ INT16 ubMinAPCost;
 			}
 			////////////////////////////////////////////////////////////////////////////////////
 		}
-		if ( BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)) && !(ARMED_VEHICLE( pSoldier ) && ubBestAttackAction == AI_ACTION_FIRE_GUN && BestShot.ubChanceToReallyHit > 20 && Random( 2 )) )//dnl ch64 290813 tank always had better chance to fire from cannon so this will increase probabilty to use machinegun too
+		if ( BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)) && !((ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) && ubBestAttackAction == AI_ACTION_FIRE_GUN && BestShot.ubChanceToReallyHit > 20 && Random( 2 )) )//dnl ch64 290813 tank always had better chance to fire from cannon so this will increase probabilty to use machinegun too
 		{
 			ubBestAttackAction = AI_ACTION_TOSS_PROJECTILE;
 			DebugAI(AI_MSG_INFO, pSoldier, String("best action = throw something, iAttackValue = %d", BestThrow.iAttackValue));
@@ -6310,7 +6313,7 @@ INT16 ubMinAPCost;
 				if (pSoldier->bActionPoints >= BestAttack.ubAPCost + sActualAimAP + ubBurstAPs )
 				{
 					// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
-					if ( ARMED_VEHICLE( pSoldier ) )
+					if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 					{
 						iChance = 100;
 					}
@@ -6427,7 +6430,7 @@ L_NEWAIM:
 					if (pSoldier->bActionPoints >= BestAttack.ubAPCost + sActualAimAP + ubBurstAPs )
 					{
 						// Base chance of bursting is 25% if best shot was +0 aim, down to 8% at +4
-						if ( ARMED_VEHICLE( pSoldier ) )
+						if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 						{
 							iChance = 100;
 						}
@@ -6765,7 +6768,7 @@ L_NEWAIM:
 			pSoldier->aiData.usActionData = GoAsFarAsPossibleTowards(pSoldier,sClosestOpponent,AI_ACTION_GET_CLOSER);
 				
 			// Flugente: if on the same level and there is a jumpable window here, jump through it
-			if ( gGameExternalOptions.fCanJumpThroughWindows )
+			if ( gGameExternalOptions.fCanJumpThroughWindows && !ENEMYROBOT(pSoldier) )
 			{
 				// determine if there is a jumpable window in the direction to our target
 				// if yes, and we are not facing it, face it now
@@ -6813,14 +6816,14 @@ L_NEWAIM:
 			if (pSoldier->pathing.bLevel > 0 )
 				fUp = FALSE;
 
-			if ( pSoldier->bActionPoints > GetAPsToClimbRoof ( pSoldier, fUp ) )
+			if ( !ENEMYROBOT(pSoldier) && (pSoldier->bActionPoints > GetAPsToClimbRoof ( pSoldier, fUp )) )
 			{
 				pSoldier->aiData.usActionData = targetGridNo;//FindClosestClimbPoint(pSoldier, fUp );
 
 				// Necessary test: can we climb up at this position? It might happen that our target is directly above us, then we'll have to move
 				INT8 newdirection;
 				if ( ( fUp && FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) || ( !fUp && FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &newdirection ) ) )
-				{							
+				{
 					return( AI_ACTION_CLIMB_ROOF );
 				}
 				else
@@ -9586,7 +9589,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 	// offer surrender?
 #ifdef JA2UB
 #else
-	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) )
+	if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bVisible == TRUE && !(gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER) && pSoldier->stats.bLife >= pSoldier->stats.bLifeMax / 2 && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) )
 	{
 		if ( gTacticalStatus.Team[MILITIA_TEAM].bMenInSector == 0 && gTacticalStatus.Team[CREATURE_TEAM].bMenInSector == 0 && NumPCsInSector( ) < 4 && gTacticalStatus.Team[ENEMY_TEAM].bMenInSector >= NumPCsInSector( ) * 3 )
 		{
@@ -9859,7 +9862,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 			BestAttack.iAttackValue = 0;
 		}
 		
-		if ( BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)) && !(ARMED_VEHICLE( pSoldier ) && ubBestAttackAction == AI_ACTION_FIRE_GUN && BestShot.ubChanceToReallyHit > 20 && Random( 2 )) )//dnl ch64 290813 tank always had better chance to fire from cannon so this will increase probabilty to use machinegun too
+		if ( BestThrow.ubPossible && ((BestThrow.iAttackValue > BestAttack.iAttackValue) || (ubBestAttackAction == AI_ACTION_NONE)) && !((ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) && ubBestAttackAction == AI_ACTION_FIRE_GUN && BestShot.ubChanceToReallyHit > 20 && Random( 2 )) )//dnl ch64 290813 tank always had better chance to fire from cannon so this will increase probabilty to use machinegun too
 		{
 			ubBestAttackAction = AI_ACTION_TOSS_PROJECTILE;
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "best action = throw something" );

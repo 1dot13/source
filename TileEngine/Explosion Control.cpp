@@ -1621,7 +1621,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubDEDamageOfBombsAndMines) / 100.0f + 0.5f);
 			}
 			// Heavy Weapons trait bonus damage to tanks
-			if ( HAS_SKILL_TRAIT( MercPtrs[ubOwner], HEAVY_WEAPONS_NT ) && ARMED_VEHICLE( pSoldier ) &&
+			if ( HAS_SKILL_TRAIT( MercPtrs[ubOwner], HEAVY_WEAPONS_NT ) && (ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) &&
 				Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL )
 			{
 				sNewWoundAmt = (INT16)(sNewWoundAmt * (100 + gSkillTraitValues.ubHWDamageTanksBonusPercent * NUM_SKILL_TRAITS( MercPtrs[ ubOwner ], HEAVY_WEAPONS_NT )) / 100.0f + 0.5f); // +30%
@@ -1656,7 +1656,7 @@ BOOLEAN DamageSoldierFromBlast( UINT8 ubPerson, UINT8 ubOwner, INT32 sBombGridNo
 			;
 		// we can loose stats due to being hit by the blast
 		else if ( gGameOptions.fNewTraitSystem && Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL && 
-				  !AM_A_ROBOT( pSoldier ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && !ARMED_VEHICLE( pSoldier ) &&
+				  !AM_A_ROBOT( pSoldier ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && !ARMED_VEHICLE( pSoldier ) && !ENEMYROBOT( pSoldier ) &&
 			sNewWoundAmt > 2 && sNewWoundAmt < pSoldier->stats.bLife )
 		{
 			if ( PreRandom( sNewWoundAmt ) > gSkillTraitValues.ubDamageNeededToLoseStats )
@@ -1923,7 +1923,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 	FLOAT fGasBreathDamageModifier = 1.0;
 	INT8	bPosOfMask = NO_SLOT;
 
-	if (!pSoldier->bActive || !pSoldier->bInSector || !pSoldier->stats.bLife || AM_A_ROBOT( pSoldier ) )
+	if (!pSoldier->bActive || !pSoldier->bInSector || !pSoldier->stats.bLife || AM_A_ROBOT( pSoldier ) || ENEMYROBOT( pSoldier ) )
 	{
 		return( fRecompileMovementCosts );
 	}
@@ -4732,7 +4732,7 @@ BOOLEAN SetOffBombsInGridNo( UINT8 ubID, INT32 sGridNo, BOOLEAN fAllBombs, INT8 
 					if ( !fAllBombs && ubID != NOBODY && Item[pObj->usItem].antitankmine )
 					{
 						// if this is not a vehicle, not a robot and not a tank, don't activate
-						if ( !(MercPtrs[ubID]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ubID] ) && !ARMED_VEHICLE( MercPtrs[ubID] ) )
+						if ( !(MercPtrs[ubID]->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( MercPtrs[ubID] ) && !ARMED_VEHICLE( MercPtrs[ubID] ) && !ENEMYROBOT( MercPtrs[ubID] ) )
 							continue;
 					}
 					

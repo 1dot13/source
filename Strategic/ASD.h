@@ -49,6 +49,7 @@ void ASDDecideHeliOperations();
 #define	ASDFACT_HELI_UNLOCKED				0x00000001			// AI is allowed to purchase helicopters
 #define	ASDFACT_JEEP_UNLOCKED				0x00000002			// AI is allowed to purchase jeeps
 #define	ASDFACT_TANK_UNLOCKED				0x00000004			// AI is allowed to purchase tanks
+#define	ASDFACT_ROBOT_UNLOCKED				0x00000008			// AI is allowed to purchase robots
 
 void SetASDFlag( UINT32 aFlag );
 
@@ -121,5 +122,6 @@ UINT32 ASDResourceCostFuel( UINT8 aType );
 // if ASD is used, any tanks the queen uses in mobile attacks come from its pool, and we have to account for that
 BOOLEAN ASDSoldierUpgradeToTank( );
 BOOLEAN ASDSoldierUpgradeToJeep( );
+BOOLEAN ASDSoldierUpgradeToRobot( );
 
 #endif //__ASD_H

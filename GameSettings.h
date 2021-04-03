@@ -223,6 +223,7 @@ enum
 	ASD_HELI,
 	ASD_JEEP,
 	ASD_TANK,
+	ASD_ROBOT,
 
 	ASD_RESOURCE_MAX
 };
@@ -686,9 +687,11 @@ typedef struct
 
 	BOOLEAN fASDAssignsTanks;
 	BOOLEAN fASDAssignsJeeps;
+	BOOLEAN fASDAssignsRobots;
 
 	INT32 gASDResource_Fuel_Tank;
 	INT32 gASDResource_Fuel_Jeep;
+	INT32 gASDResource_Fuel_Robot;
 
 	// Flugente: enemy heli
 	BOOLEAN fEnemyHeliActive;
@@ -946,6 +949,10 @@ typedef struct
 	BOOLEAN fArmyUsesJeepsInAttacks;
 	BOOLEAN fArmyUsesJeepsInPatrols;
 	UINT8 usJeepMinimumProgress;
+
+	BOOLEAN fArmyUsesRobotsInAttacks;
+	BOOLEAN fArmyUsesRobotsInPatrols;
+	UINT8 usRobotMinimumProgress;
 
 	// WANNE: Always use "prof.dat".
 	BOOLEAN fUseDifficultyBasedProfDat;

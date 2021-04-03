@@ -1561,7 +1561,7 @@ INT8 DecideHearing( SOLDIERTYPE * pSoldier )
 	// calculate the hearing value for the merc...
 	INT8		bHearing;
 
-	if ( ARMED_VEHICLE( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 	{
 		return( -5 );
 	}
@@ -4885,6 +4885,7 @@ void DebugSoldierPage4( )
 			case SOLDIER_CLASS_MINER:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Miner)" );			break;
 			case SOLDIER_CLASS_ZOMBIE:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Zombie)" );			break;
 			case SOLDIER_CLASS_BANDIT:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Bandit)" );			break;
+			case SOLDIER_CLASS_ROBOT:				gprintf( 320, LINE_HEIGHT * ubLine, L"(Army Robot)" );		break;
 
 			default:	break; //don't care (don't write anything)
 		}

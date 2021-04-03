@@ -3524,6 +3524,7 @@ STR16 gpStrategicString[] =
 	L"Ополчение не может быть сюда перемещено (RESTRICT_ROAMING = TRUE).",
 	L"War room isn't staffed - militia move aborted!", 	// TODO.Translate
 
+	L"Робот",								//STR_AR_ROBOT_NAME, TODO: translate
 	L"Танк",								//STR_AR_TANK_NAME,
 	L"Джип",								//STR_AR_JEEP_NAME
 

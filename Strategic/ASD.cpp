@@ -99,12 +99,14 @@ void InitASD( )
 	gASDResource[ASD_HELI] = 0;
 	gASDResource[ASD_JEEP] = 2;
 	gASDResource[ASD_TANK] = 2;
+	gASDResource[ASD_ROBOT] = 8;
 
 	gASDResource_Ordered[ASD_MONEY] = 0;
 	gASDResource_Ordered[ASD_FUEL] = 0;
 	gASDResource_Ordered[ASD_HELI] = 0;
 	gASDResource_Ordered[ASD_JEEP] = 0;
 	gASDResource_Ordered[ASD_TANK] = 0;
+	gASDResource_Ordered[ASD_ROBOT] = 0;
 
 	gASD_Flags = 0;
 
@@ -196,6 +198,8 @@ void UpdateASD( )
 	if ( !(gASD_Flags & ASDFACT_TANK_UNLOCKED) && HighestPlayerProgressPercentage( ) >= gGameExternalOptions.usTankMinimumProgress )
 		SetASDFlag( ASDFACT_TANK_UNLOCKED );
 
+	if ( !(gASD_Flags & ASDFACT_ROBOT_UNLOCKED) && HighestPlayerProgressPercentage( ) >= gGameExternalOptions.usRobotMinimumProgress )
+		SetASDFlag( ASDFACT_ROBOT_UNLOCKED );
 	
 	// determine whether we need to buy new toys
 	ASDDecideOnPurchases();
@@ -210,6 +214,7 @@ void ASDDecideOnPurchases()
 	INT32 needed_heli = 0;
 	INT32 needed_tank = 0;
 	INT32 needed_jeep = 0;
+	INT32 needed_robot = 0;
 
 	UINT16 highestplayerprogress = HighestPlayerProgressPercentage( );
 
@@ -275,24 +280,39 @@ void ASDDecideOnPurchases()
 		needed_fuel += needed_tank * ASDResourceCostFuel( ASD_TANK );
 	}
 
+	// do we need new robots?
+	if ( gASD_Flags & ASDFACT_ROBOT_UNLOCKED )
+	{
+		// how many would we like to have? Note that this refers to the ones in our pool, the vehicles awarded to enemy groups are no longer accounted for
+		needed_robot = min( 10, 2 + highestplayerprogress / 10 );
+
+		// how many are needed?
+		needed_robot = max( 0, needed_robot - gASDResource[ASD_ROBOT] );
+
+		needed_fuel += needed_robot * ASDResourceCostFuel( ASD_ROBOT );
+	}
+
 	// how much new fuel do we need?
 	needed_fuel = max( 0, needed_fuel - gASDResource[ASD_FUEL] );
 
-	// reduce order by what we'e alreay ordered
+	// reduce order by what we'e already ordered
 	needed_fuel = max( 0, needed_fuel - gASDResource_Ordered[ASD_FUEL] );
 	needed_jeep = max( 0, needed_jeep - gASDResource_Ordered[ASD_JEEP] );
 	needed_tank = max( 0, needed_tank - gASDResource_Ordered[ASD_TANK] );
 	needed_heli = max( 0, needed_heli - gASDResource_Ordered[ASD_HELI] );
+	needed_robot = max( 0, needed_robot - gASDResource_Ordered[ASD_ROBOT] );
 
 	// check whether we can afford all new purchases. If we can't, lower your expectations
 	while ( needed_fuel * ASDResourceCostMoney( ASD_FUEL ) +
 			needed_jeep * ASDResourceCostMoney( ASD_JEEP ) +
 			needed_tank * ASDResourceCostMoney( ASD_TANK ) +
-			needed_heli * ASDResourceCostMoney( ASD_HELI ) > gASDResource[ASD_MONEY] )
+			needed_heli * ASDResourceCostMoney( ASD_HELI ) +
+			needed_robot * ASDResourceCostMoney( ASD_ROBOT ) > gASDResource[ASD_MONEY] )
 	{
 		if ( needed_tank ) --needed_tank;
 		else if ( needed_heli ) --needed_heli;
 		else if ( needed_jeep ) --needed_jeep;
+		else if ( needed_robot ) --needed_robot;
 		else needed_fuel = max( 0, needed_fuel - 10 );
 	}
 
@@ -333,6 +353,15 @@ void ASDDecideOnPurchases()
 		gASDResource_Ordered[ASD_HELI] += needed_heli;
 
 		AddStrategicEvent( EVENT_ASD_PURCHASE_HELI, GetWorldTotalMin( ) + ASDResourceDeliveryTime( ASD_HELI ), needed_heli );
+	}
+
+	if ( needed_robot )
+	{
+		AddStrategicAIResources( ASD_MONEY, -needed_robot * ASDResourceCostMoney( ASD_ROBOT ) );
+
+		gASDResource_Ordered[ASD_ROBOT] += needed_robot;
+
+		AddStrategicEvent( EVENT_ASD_PURCHASE_ROBOT, GetWorldTotalMin( ) + ASDResourceDeliveryTime( ASD_ROBOT ), needed_robot );
 	}
 }
 
@@ -1470,6 +1499,10 @@ UINT32 ASDResourceCostFuel( UINT8 aType )
 	case ASD_JEEP:
 		return gGameExternalOptions.gASDResource_Fuel_Jeep;
 		break;
+
+	case ASD_ROBOT:
+		return gGameExternalOptions.gASDResource_Fuel_Robot;
+		break;
 	}
 
 	return 0;
@@ -1502,6 +1535,23 @@ BOOLEAN ASDSoldierUpgradeToJeep( )
 			if ( gASDResource[ASD_JEEP] )
 			{
 				gASDResource[ASD_JEEP] = max( 0, gASDResource[ASD_JEEP] - 1 );
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN ASDSoldierUpgradeToRobot( )
+{
+	if ( gGameExternalOptions.fASDActive && gGameExternalOptions.fASDAssignsRobots )
+	{
+		if ( gASD_Flags & ASDFACT_ROBOT_UNLOCKED )
+		{
+			if ( gASDResource[ASD_ROBOT] )
+			{
+				gASDResource[ASD_ROBOT] = max( 0, gASDResource[ASD_ROBOT] - 1 );
 				return TRUE;
 			}
 		}

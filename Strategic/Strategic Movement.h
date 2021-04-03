@@ -64,12 +64,14 @@ typedef struct ENEMYGROUP
 	UINT8 ubNumTroops;						//number of regular troops in the group
 	UINT8 ubNumElites;						//number of elite troops in the group
 	UINT8 ubNumAdmins;						//number of administrators in the group
+	UINT8 ubNumRobots;						//number of enemy robots in the group
 	UINT8 ubLeaderProfileID;			//could be Mike, maybe the warden... someone new, but likely nobody.
 	UINT8 ubPendingReinforcements;//This group is waiting for reinforcements before attacking or attempting to fortify newly aquired sector.
 	UINT8 ubAdminsInBattle;				//number of administrators in currently in battle.
 	UINT8 ubIntention;						//the type of group this is:	patrol, assault, spies, etc.
 	UINT8 ubTroopsInBattle;				//number of soldiers currently in battle.
 	UINT8 ubElitesInBattle;				//number of elite soldiers currently in battle.
+	UINT8 ubRobotsInBattle;				//number of enemy robots currently in battle.
 	// WDS - New AI
 	UINT8 ubNumTanks;
 	UINT8 ubTanksInBattle;
@@ -196,7 +198,7 @@ BOOLEAN SetGroupPatrolParameters( UINT8 ubGroupID, UINT8 ubRestAtFL, UINT8 ubRes
 
 //Enemy grouping functions -- private use by the strategic AI.
 //............................................................
-GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanksm, UINT8 ubNumJeeps );
+GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumRobots, UINT8 ubNumTanks, UINT8 ubNumJeeps );
 
 GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8& arusNumAdmins, UINT8& arusNumTroops, UINT8& arusNumElites );
 

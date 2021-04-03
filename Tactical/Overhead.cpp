@@ -7265,16 +7265,16 @@ void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	{
 		SECTORINFO *pSectorInfo = &(SectorInfo[SECTOR( sMapX, sMapY )]);
 
-		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = pSectorInfo->ubNumJeeps = 0;
-		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = pSectorInfo->ubJeepsInBattle = 0;
+		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = pSectorInfo->ubNumJeeps = pSectorInfo->ubNumRobots = 0;
+		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = pSectorInfo->ubJeepsInBattle = pSectorInfo->ubRobotsInBattle = 0;
 	}
 	else
 	{
 		UNDERGROUND_SECTORINFO *pSectorInfo;
 
 		pSectorInfo = FindUnderGroundSector( sMapX, sMapY, bMapZ );
-		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = pSectorInfo->ubNumJeeps = 0;
-		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = pSectorInfo->ubJeepsInBattle = 0;
+		pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = pSectorInfo->ubNumTanks = pSectorInfo->ubNumJeeps = pSectorInfo->ubNumRobots = 0;
+		pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = pSectorInfo->ubTanksInBattle = pSectorInfo->ubJeepsInBattle = pSectorInfo->ubRobotsInBattle = 0;
 	}
 }
 
@@ -10941,7 +10941,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             {
                 enemysidestrength += pSoldier->GetSurrenderStrength();
 
-				if ( pSoldier->ubProfile != NO_PROFILE || ARMED_VEHICLE(pSoldier) )
+				if ( pSoldier->ubProfile != NO_PROFILE || ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier) )
 					fNoSurrender = TRUE;
             }
         }

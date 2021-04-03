@@ -2049,7 +2049,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 				ubPosType = TORSO_TARGET_POS;
 			}
 		}
-		else if ( ARMED_VEHICLE( pSoldier ) )
+		else if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 		{
 			// high up!
 			//ubPosType = HEAD_TARGET_POS;

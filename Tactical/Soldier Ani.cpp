@@ -4004,6 +4004,9 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						// SANDRO - experimental - more specific statistics of mercs
 						switch(pSoldier->ubSoldierClass)
 						{
+							case SOLDIER_CLASS_ROBOT:
+								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
+								break;
 							case SOLDIER_CLASS_ELITE :
 								gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsElites++;
 								break;

@@ -28,10 +28,10 @@ UINT16 NumPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, INT8 sSecto
 UINT16 NumEnemyArmedVehiclesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam );
 UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
 UINT8 NumMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
-void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
-void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
-void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
-void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
+void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
+void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 usTeam, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
+void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
+void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 *pubNumRobots, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
 
 //Called when entering a sector so the campaign AI can automatically insert the
 //correct number of troops of each type based on the current number in the sector
@@ -39,7 +39,7 @@ void GetNumberOfEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAd
 BOOLEAN PrepareEnemyForSectorBattle();
 BOOLEAN PrepareEnemyForUndergroundBattle();
 
-void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 abNumJeeps, BOOLEAN fMagicallyAppeared );
+void AddEnemiesToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumRobots, UINT8 ubNumTanks, UINT8 abNumJeeps, BOOLEAN fMagicallyAppeared );
 void AddMilitiaToBattle( GROUP *pGroup, UINT8 ubStrategicInsertionCode, UINT8 ubNumGreens, UINT8 ubNumRegulars, UINT8 ubNumElites, BOOLEAN fMagicallyAppeared );
 void AddPossiblePendingEnemiesToBattle();
 void EndTacticalBattleForEnemy();

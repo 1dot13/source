@@ -1195,17 +1195,16 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 			return( GAME_SCREEN );
 		}
 		
-		usRandom = 12;// (UINT16)Random( 20 );
-		if( usRandom < 5 )
-			pSoldier = TacticalCreateAdministrator();
-		else if( usRandom < 15 )
-			pSoldier = TacticalCreateArmyTroop();
-		else  if ( usRandom < 12 )
-			pSoldier = TacticalCreateEnemyTank( );
-		else  if ( usRandom < 15 )
-			pSoldier = TacticalCreateEnemyJeep( );
-		else
-			pSoldier = TacticalCreateEliteEnemy( );
+		usRandom = 1;// (UINT16)Random( 6 );
+		switch (usRandom)
+		{
+		case 0: pSoldier = TacticalCreateAdministrator(); break;
+		case 1: pSoldier = TacticalCreateArmyTroop(); break;
+		case 2: pSoldier = TacticalCreateEliteEnemy(); break;
+		case 3: pSoldier = TacticalCreateEnemyTank(); break;
+		case 4: pSoldier = TacticalCreateEnemyJeep(); break;
+		case 5: pSoldier = TacticalCreateEnemyRobot(); break;
+		}
 
 		//Add soldier strategic info, so it doesn't break the counters!
 		if( pSoldier )
@@ -1218,6 +1217,7 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 					case SOLDIER_CLASS_ADMINISTRATOR:			pSector->ubNumAdmins++; pSector->ubAdminsInBattle++; break;
 					case SOLDIER_CLASS_ARMY:					pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
 					case SOLDIER_CLASS_ELITE:					pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
+					case SOLDIER_CLASS_ROBOT:					pSector->ubNumRobots++; pSector->ubRobotsInBattle++; break;
 					case SOLDIER_CLASS_TANK:					pSector->ubNumTanks++;	pSector->ubTanksInBattle++;  break;
 					case SOLDIER_CLASS_JEEP:					pSector->ubNumJeeps++;	pSector->ubJeepsInBattle++; break;
 				}
@@ -1232,6 +1232,7 @@ UINT32 UIHandleNewBadMerc( UI_EVENT *pUIEvent )
 						case SOLDIER_CLASS_ADMINISTRATOR:			pSector->ubNumAdmins++; pSector->ubAdminsInBattle++; break;
 						case SOLDIER_CLASS_ARMY:					pSector->ubNumTroops++; pSector->ubTroopsInBattle++; break;
 						case SOLDIER_CLASS_ELITE:					pSector->ubNumElites++; pSector->ubElitesInBattle++; break;
+						case SOLDIER_CLASS_ROBOT:					pSector->ubNumRobots++; pSector->ubRobotsInBattle++; break;
 						case SOLDIER_CLASS_TANK:					pSector->ubNumTanks++;	pSector->ubTanksInBattle++; break;
 						case SOLDIER_CLASS_JEEP:					pSector->ubNumJeeps++;	pSector->ubJeepsInBattle++; break;
 					}

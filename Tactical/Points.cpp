@@ -2594,7 +2594,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		}
 	}
 
-	if ( AM_A_ROBOT( pSoldier ) || ARMED_VEHICLE( pSoldier ) || ubForceRaiseGunCost == 2 )//dnl ch64 300813 robots and tanks cannot do this //dnl ch69 150913 need option to override raise gun cost
+	if ( AM_A_ROBOT( pSoldier ) || ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) || ubForceRaiseGunCost == 2 )//dnl ch64 300813 robots and tanks cannot do this //dnl ch69 150913 need option to override raise gun cost
 	{
 		fAddingRaiseGunCost = FALSE;
 	}
@@ -2968,7 +2968,7 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE* pObj )
 	{
 		// tanks never run out of MG ammo!
 		// unlimited cannon ammo is handled in AI
-		if ( ARMED_VEHICLE( pSoldier ) && !Item[pObj->usItem].cannon )
+		if ( (ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier )) && !Item[pObj->usItem].cannon )
 			return;
 
 		if ( Item[pObj->usItem].cannon )
@@ -4432,7 +4432,7 @@ INT32 GetBPCostPer10APsForGunHolding( SOLDIERTYPE * pSoldier, BOOLEAN fEstimate 
 		return 0;
 	if ( !(gAnimControl[ pSoldier->usAnimState ].uiFlags & (ANIM_FIRE | ANIM_FIREREADY) ) && !fEstimate ) // don't if weapon not raised, but do if we are gonna estimate the cost
 		return 0;
-	if ( ARMED_VEHICLE( pSoldier ) || AM_A_ROBOT( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || AM_A_ROBOT( pSoldier ) || ENEMYROBOT( pSoldier ) )
 		return 0;
 	//////////////////////////////////////////////////////////////////////////////
 	// THE BASIC COST FOR HOLDING THE GUN RAISED (per AP)
@@ -4573,7 +4573,7 @@ INT32 GetBPCostForRecoilkick( SOLDIERTYPE * pSoldier )
 		return 0;
 	if ( Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usItemClass != IC_GUN && Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usItemClass != IC_LAUNCHER )
 		return 0;
-	if ( ARMED_VEHICLE( pSoldier ) || AM_A_ROBOT( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || AM_A_ROBOT( pSoldier ) || ENEMYROBOT( pSoldier ) )
 		return 0;
 	//////////////////////////////////////////////////////////////////////////////
 	// THE GUN RECOIL KICK ENERGY COST

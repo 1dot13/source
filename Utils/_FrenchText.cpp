@@ -3532,6 +3532,7 @@ STR16 gpStrategicString[] =
 	L"La milice ne peut pas se déplacer (RESTRICT_ROAMING = TRUE).",
 	L"La salle d'opérations n'est pas ouverte... Le mouvement de la milice a avorté !",
 
+	L"Robot",								//STR_AR_ROBOT_NAME, // TODO: translate
 	L"Tank",								//STR_AR_TANK_NAME,	// TODO.Translate
 	L"Jeep",								//STR_AR_JEEP_NAME	// TODO.Translate
 

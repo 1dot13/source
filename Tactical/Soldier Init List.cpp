@@ -1050,12 +1050,13 @@ UINT8 AddSoldierInitListTeamToWorld( INT8 bTeam, UINT8 ubMaxNum )
 	return ubNumAdded;
 }
 
-void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalTanks, UINT8 ubTotalJeeps )
+void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTroops, UINT8 ubTotalElite, UINT8 ubTotalRobots, UINT8 ubTotalTanks, UINT8 ubTotalJeeps )
 {
 	SOLDIERINITNODE *mark;
 	SOLDIERINITNODE *curr;
 	INT32 iRandom;
 	UINT8 ubMaxNum;
+	UINT8 ubRobotPDSlots = 0, ubRobotDSlots = 0, ubRobotPSlots = 0, ubRobotBSlots = 0;
 	UINT8 ubElitePDSlots = 0, ubEliteDSlots = 0, ubElitePSlots = 0, ubEliteBSlots = 0;
 	UINT8 ubTroopPDSlots = 0, ubTroopDSlots = 0, ubTroopPSlots = 0, ubTroopBSlots = 0;
 	UINT8 ubAdminPDSlots = 0, ubAdminDSlots = 0, ubAdminPSlots = 0, ubAdminBSlots = 0;
@@ -1078,7 +1079,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//of each type of enemy may not be the same.	Elites will choose the best placements, then army, then
 	//administrators.
 
-	ubMaxNum = ubTotalAdmin + ubTotalTroops + ubTotalElite + ubTotalTanks + ubTotalJeeps;
+	ubMaxNum = ubTotalAdmin + ubTotalTroops + ubTotalElite + ubTotalRobots + ubTotalTanks + ubTotalJeeps;
 
 	AssertLE (ubMaxNum, gGameExternalOptions.ubGameMaximumNumberOfEnemies);
 
@@ -1141,6 +1142,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 					else
 						ubJeepBSlots++;
 				}
+				break;
 			case SOLDIER_CLASS_TANK:
 				if ( TANK( curr->pDetailedPlacement ) )
 				{
@@ -1154,6 +1156,16 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 						ubTankBSlots++;
 				}
 				break;
+			case SOLDIER_CLASS_ROBOT:
+				if ( curr->pBasicPlacement->fPriorityExistance && curr->pDetailedPlacement )
+					ubRobotPDSlots++;
+				else if ( curr->pBasicPlacement->fPriorityExistance )
+					ubRobotPSlots++;
+				else if ( curr->pDetailedPlacement )
+					ubRobotDSlots++;
+				else
+					ubRobotBSlots++;
+				break;
 			}
 		}
 		curr = curr->next;
@@ -1162,7 +1174,7 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 	//ADD PLACEMENTS WITH PRIORITY EXISTANCE WITH DETAILED PLACEMENT INFORMATION FIRST
 	//we now have the numbers of available slots for each soldier class, so loop through three times
 	//and randomly choose some (or all) of the matching slots to fill.	This is done randomly.
-	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY + 2; ++ubCurrClass )
+	for( ubCurrClass = SOLDIER_CLASS_ADMINISTRATOR; ubCurrClass <= SOLDIER_CLASS_ARMY + 3; ++ubCurrClass )
 	{
 		//First, prepare the counters.
 		switch( ubCurrClass )
@@ -1189,6 +1201,11 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 			ubCurrClass = SOLDIER_CLASS_JEEP;
 			pCurrSlots = &ubJeepPDSlots;
 			pCurrTotal = &ubTotalJeeps;
+			break;
+		 case SOLDIER_CLASS_ROBOT + 3: // SOLDIER_CLASS_ROBOT
+			ubCurrClass = SOLDIER_CLASS_ROBOT;
+			pCurrSlots = &ubRobotPDSlots;
+			pCurrTotal = &ubTotalRobots;
 			break;
 		}
 		//Now, loop through the priority existance and detailed placement section of the list.
@@ -1370,15 +1387,21 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 			}
 			else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks )
 			{
-				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;				
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_TANK;
 				curr->pBasicPlacement->ubBodyType = TANK_NW;
 				ubTotalTanks--;
 			}
-			else if ( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps )
+			else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps )
 			{
 				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_JEEP;
 				curr->pBasicPlacement->ubBodyType = COMBAT_JEEP;
 				ubTotalJeeps--;
+			}
+			else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps + ubTotalRobots )
+			{
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_ROBOT;
+				curr->pBasicPlacement->ubBodyType = ROBOTNOWEAPON;
+				ubTotalRobots--;
 			}
 			else
 				Assert(0);
@@ -1494,6 +1517,19 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 					return;
 				ubFreeSlots--;
 			}
+			else if ( ubTotalRobots )
+			{
+				curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_ROBOT;
+				curr->pBasicPlacement->ubBodyType = ROBOTNOWEAPON;
+				ubTotalRobots--;
+				if ( AddPlacementToWorld( curr ) )
+				{
+					ubMaxNum--;
+				}
+				else
+					return;
+				ubFreeSlots--;
+			}
 		}
 		curr = curr->next;
 	}
@@ -1532,11 +1568,17 @@ void AddSoldierInitListEnemyDefenceSoldiers( UINT8 ubTotalAdmin, UINT8 ubTotalTr
 					curr->pBasicPlacement->ubBodyType = TANK_NW;
 					ubTotalTanks--;
 				}
-				else if ( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps )
+				else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps )
 				{
 					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_JEEP;
 					curr->pBasicPlacement->ubBodyType = COMBAT_JEEP;
 					ubTotalJeeps--;
+				}
+				else if( iRandom < ubTotalElite + ubTotalTroops + ubTotalAdmin + ubTotalTanks + ubTotalJeeps + ubTotalRobots )
+				{
+					curr->pBasicPlacement->ubSoldierClass = SOLDIER_CLASS_ROBOT;
+					curr->pBasicPlacement->ubBodyType = ROBOTNOWEAPON;
+					ubTotalRobots--;
 				}
 				else
 					Assert(0);

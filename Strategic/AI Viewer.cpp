@@ -1278,7 +1278,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		gfRenderViewer = TRUE;
 		if( gsSelSectorY > 1 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-16, 0, 11, 5, 0, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-16, 0, 11, 5, 0, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 10;
@@ -1290,7 +1290,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		if( gsSelSectorY < 16 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+16, 0, 8, 8, 0, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+16, 0, 8, 8, 0, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 12;
@@ -1302,7 +1302,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		if( gsSelSectorX > 1 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-1, 0, 11, 5, 0, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-1, 0, 11, 5, 0, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 11;
@@ -1314,7 +1314,7 @@ void TestIncoming4SidesCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 		if( gsSelSectorX < 16 )
 		{
-			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+1, 0, 14, 0, 0, 0 );
+			pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector+1, 0, 14, 0, 0, 0, 0 );
 			pGroup->ubNextX = (UINT8)gsSelSectorX;
 			pGroup->ubNextY = (UINT8)gsSelSectorY;
 			pGroup->uiTraverseTime = 13;

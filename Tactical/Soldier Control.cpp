@@ -16670,7 +16670,7 @@ UINT32		SOLDIERTYPE::GetSurrenderStrength( )
 	value = value * (5 + sqrt( (double)max( 1, this->aiData.bMorale ) )) / 15;
 
 	// adjust for type of soldier
-	if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE || this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
+	if ( this->ubSoldierClass == SOLDIER_CLASS_ELITE || this->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA || this->ubSoldierClass == SOLDIER_CLASS_ROBOT )
 		value *= 1.5f;
 	else if ( this->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR || this->ubSoldierClass == SOLDIER_CLASS_GREEN_MILITIA || this->ubSoldierClass == SOLDIER_CLASS_BANDIT )
 		value *= 0.75f;
@@ -16720,8 +16720,8 @@ BOOLEAN		SOLDIERTYPE::CanBeCaptured( )
 	// if this guy is not already handcuffed, and is not an NPC
 	if ( !(this->usSoldierFlagMask & SOLDIER_POW) && this->ubProfile == NO_PROFILE )
 	{
-		// armed vehicles cannot be captured
-		if ( ARMED_VEHICLE(this) )
+		// armed vehicles and robots cannot be captured
+		if ( ARMED_VEHICLE(this) || ENEMYROBOT(this) )
 			return FALSE;
 
 		// enemies can be captured
@@ -19346,7 +19346,7 @@ BOOLEAN		SOLDIERTYPE::CanMedicAI( )
 		return FALSE;
 
 	// this is not for tanks
-	if ( ARMED_VEHICLE( this ) )
+	if ( ARMED_VEHICLE( this ) || ENEMYROBOT( this ) )
 		return FALSE;
 
 	if ( HAS_SKILL_TRAIT( this, DOCTOR_NT ) )
@@ -19378,7 +19378,7 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend( )
 			return FALSE;
 
 		// this is not for tanks
-		if ( ARMED_VEHICLE( pSoldier ) )
+		if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 			return FALSE;
 
 		// if this guy is wounded, heal him (should always be the case, otherwise this function was called needlessly)
@@ -21389,6 +21389,10 @@ UINT8		SOLDIERTYPE::GetTurncoatConvinctionChance( UINT16 usID, INT16 sApproach )
 		|| pSoldier->bTeam != ENEMY_TEAM )
 		return 0;
 
+	// enemy robots can't be turncoats
+	if (pSoldier->ubSoldierClass == SOLDIER_CLASS_ROBOT)
+		return 0;
+
 	if ( this->stats.bLife < OKLIFE )
 		return 0;
 
@@ -23363,7 +23367,7 @@ BOOLEAN SOLDIERTYPE::IsValidShotFromHip( INT16 bAimTime, INT32 iTrgGridNo )
 		return(FALSE);
 	}
 	// robots and tanks cannot do this
-	if ( AM_A_ROBOT( this ) || ARMED_VEHICLE( this ) )//dnl ch64 300813
+	if ( AM_A_ROBOT( this ) || ARMED_VEHICLE( this ) || ENEMYROBOT( this ) )//dnl ch64 300813
 	{
 		return(FALSE);
 	}
@@ -23415,7 +23419,7 @@ BOOLEAN SOLDIERTYPE::IsValidPistolFastShot( INT16 bAimTime, INT32 iTrgGridNo )
 		return(FALSE);
 	}
 	// robots and tanks cannot do this
-	if ( AM_A_ROBOT( this ) || ARMED_VEHICLE( this ) )//dnl ch64 300813
+	if ( AM_A_ROBOT( this ) || ARMED_VEHICLE( this ) || ENEMYROBOT( this ) )//dnl ch64 300813
 	{
 		return(FALSE);
 	}

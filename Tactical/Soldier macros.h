@@ -12,6 +12,7 @@
 
 #define AM_AN_EPC( p )	( ( p->ubProfile == NO_PROFILE ) ? FALSE : ( gMercProfiles[ p->ubProfile ].ubMiscFlags & PROFILE_MISC_FLAG_EPCACTIVE ) )
 
+// rftr - this is for madlab's robot, since it has a profile
 #define AM_A_ROBOT( p )	( ( p->ubProfile == NO_PROFILE ) ? FALSE : ( gMercProfiles[ p->ubProfile ].ubBodyType == ROBOTNOWEAPON ) )
 
 
@@ -34,6 +35,7 @@
 
 #define COMBAT_JEEP( p ) ( p->ubBodyType == COMBAT_JEEP )
 #define TANK( p ) (p->ubBodyType == TANK_NE || p->ubBodyType == TANK_NW )
+#define ENEMYROBOT( p ) (p->ubBodyType == ROBOTNOWEAPON && p->bTeam == ENEMY_TEAM)
 #define ARMED_VEHICLE( p )	( TANK( p ) || COMBAT_JEEP(p) )
 
 //#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !TANK( p ) && p->stats.bLife >= OKLIFE	)

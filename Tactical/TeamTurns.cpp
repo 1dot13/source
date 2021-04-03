@@ -2015,7 +2015,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 		}
 	}
 
-	if ( ARMED_VEHICLE( pSoldier ) )
+	if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 	{
 		// reduce interrupt possibilities for tanks!
 		iPoints /= 2;

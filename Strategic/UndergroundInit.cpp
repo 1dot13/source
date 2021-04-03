@@ -90,6 +90,7 @@ BOOLEAN LuaUnderground::InitializeSectorList()
 						sectorData.getValue("numElites", s->ubNumElites);
 						sectorData.getValue("numTanks", s->ubNumTanks);
 						sectorData.getValue("numJeeps", s->ubNumJeeps );
+						sectorData.getValue("numRobots", s->ubNumRobots);
 
 						sectorData.getValue("numBloodcats", s->ubNumBloodcats);
 						sectorData.getValue("numCreatures", s->ubNumCreatures);
@@ -108,6 +109,7 @@ BOOLEAN LuaUnderground::InitializeSectorList()
 							m_log << "\t\tElites: " << static_cast<int>(s->ubNumElites) << LF;
 							m_log << "\t\tTanks: " << static_cast<int>(s->ubNumTanks) << LF;
 							m_log << "\t\tJeeps: " << static_cast<int>(s->ubNumJeeps) << LF;
+							m_log << "\t\tRobots: " << static_cast<int>(s->ubNumRobots) << LF;
 							m_log << "\t- Creature population" << LF;
 							m_log << "\t\tBloodcats: " << static_cast<int>(s->ubNumBloodcats) << LF;
 							m_log << "\t\tCrepitus: " << static_cast<int>(s->ubNumCreatures) << LF;

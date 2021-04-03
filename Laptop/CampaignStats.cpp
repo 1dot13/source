@@ -156,7 +156,7 @@ Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 
 		case ENEMY_TEAM:
 		{
-			if ( ARMED_VEHICLE( pSoldier ) )
+			if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 				group = CAMPAIGNHISTORY_SD_ENEMY_TANK;
 			else if ( pSoldier->ubSoldierClass == SOLDIER_CLASS_ADMINISTRATOR )
 				group = CAMPAIGNHISTORY_SD_ENEMY_ADMIN;

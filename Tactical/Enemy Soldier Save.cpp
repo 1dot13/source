@@ -44,7 +44,7 @@ int gCivPreservedTempFileVersion[256];
 
 BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *pNode, GROUP *pGroup = NULL );
 
-BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
+BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumRobots, UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks, UINT8 *pubNumJeeps );
 
 BOOLEAN gfRestoringEnemySoldiersFromTempFile = FALSE;
 BOOLEAN gfRestoringCiviliansFromTempFile = FALSE;
@@ -105,8 +105,8 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 	#endif
 	INT8 bSectorZ;
 	UINT8 ubSectorID;
-	UINT8 ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
-	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
+	UINT8 ubNumRobots = 0, ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
+	UINT8 ubStrategicRobots, ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
 
 	gfRestoringEnemySoldiersFromTempFile = TRUE;
 
@@ -256,6 +256,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 		ubStrategicAdmins		= pSector->ubNumAdmins;
 		ubStrategicTanks		= pSector->ubNumTanks;
 		ubStrategicJeeps		= pSector->ubNumJeeps;
+		ubStrategicRobots		= pSector->ubNumRobots;
 		ubStrategicCreatures = pSector->ubNumCreatures;
 	}
 	else
@@ -263,7 +264,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 		SECTORINFO *pSector;
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 		ubStrategicCreatures = pSector->ubNumCreatures;
-		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites, &ubStrategicTanks, &ubStrategicJeeps );
+		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites, &ubStrategicRobots, &ubStrategicTanks, &ubStrategicJeeps );
 	}
 
 	for( i = 0; i < slots; i++ )
@@ -370,6 +371,16 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 										}
 									}
 									break;
+								case SOLDIER_CLASS_ROBOT:
+									if (ENEMYROBOT(curr->pBasicPlacement))
+									{
+										ubNumRobots++;
+										if (ubNumRobots < ubStrategicRobots)
+										{
+											AddPlacementToWorld(curr);
+										}
+									}
+									break;
 							}
 							break;
 						}
@@ -397,14 +408,15 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 	}
 
 	//now add any extra enemies that have arrived since the temp file was made.
-	if ( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins || ubStrategicTanks > ubNumTanks || ubStrategicJeeps > ubNumJeeps )
+	if ( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins || ubStrategicRobots > ubNumRobots || ubStrategicTanks > ubNumTanks || ubStrategicJeeps > ubNumJeeps )
 	{
 		ubStrategicTroops = ( ubStrategicTroops > ubNumTroops ) ? ubStrategicTroops - ubNumTroops : 0;
 		ubStrategicElites = ( ubStrategicElites > ubNumElites ) ? ubStrategicElites - ubNumElites : 0;
+		ubStrategicRobots = ( ubStrategicRobots > ubNumRobots ) ? ubStrategicRobots - ubNumRobots : 0;
 		ubStrategicAdmins = ( ubStrategicAdmins > ubNumAdmins ) ? ubStrategicAdmins - ubNumAdmins : 0;
 		ubStrategicTanks = ( ubStrategicTanks > ubNumTanks ) ? ubStrategicTanks - ubNumTanks : 0;
 		ubStrategicJeeps = (ubStrategicJeeps > ubNumJeeps) ? ubStrategicJeeps - ubNumJeeps : 0;
-		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites, ubStrategicTanks, ubStrategicJeeps );
+		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites, ubStrategicRobots, ubStrategicTanks, ubStrategicJeeps );
 	}
 
 	if( ubStrategicCreatures > ubNumCreatures )
@@ -688,8 +700,8 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	#endif
 	INT8 bSectorZ;
 	UINT8 ubSectorID;
-	UINT8 ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
-	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
+	UINT8 ubNumRobots = 0, ubNumElites = 0, ubNumTroops = 0, ubNumAdmins = 0, ubNumCreatures = 0, ubNumTanks = 0, ubNumJeeps = 0;
+	UINT8 ubStrategicRobots = 0, ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures, ubStrategicTanks, ubStrategicJeeps;
 
 	gfRestoringEnemySoldiersFromTempFile = TRUE;
 
@@ -730,16 +742,17 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 		ubNumAdmins = pSector->ubNumAdmins;
 		ubNumTanks = pSector->ubNumTanks;
 		ubNumJeeps = pSector->ubNumJeeps;
+		ubNumRobots = pSector->ubNumRobots;
 		ubNumCreatures = pSector->ubNumCreatures;
 	}
 
 	if( !( gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
 		// Get the number of enemies form the temp file
-		CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( &ubStrategicElites, &ubStrategicTroops, &ubStrategicAdmins, &ubStrategicCreatures, &ubStrategicTanks, &ubStrategicJeeps );
+		CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( &ubStrategicRobots, &ubStrategicElites, &ubStrategicTroops, &ubStrategicAdmins, &ubStrategicCreatures, &ubStrategicTanks, &ubStrategicJeeps );
 
 		//If any of the counts differ from what is in memory
-		if ( ubStrategicElites != ubNumElites || ubStrategicTroops != ubNumTroops || ubStrategicAdmins != ubNumAdmins || ubStrategicCreatures != ubNumCreatures || ubStrategicTanks != ubNumTanks || ubStrategicJeeps != ubNumJeeps )
+		if ( ubStrategicRobots != ubNumRobots || ubStrategicElites != ubNumElites || ubStrategicTroops != ubNumTroops || ubStrategicAdmins != ubNumAdmins || ubStrategicCreatures != ubNumCreatures || ubStrategicTanks != ubNumTanks || ubStrategicJeeps != ubNumJeeps )
 		{
 			//remove the file
 			RemoveEnemySoldierTempFile( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
@@ -748,7 +761,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	}
 
 	//reset
-	ubNumElites = ubNumTroops = ubNumAdmins = ubNumCreatures = ubNumTanks = ubNumJeeps = 0;
+	ubNumElites = ubNumTroops = ubNumAdmins = ubNumCreatures = ubNumTanks = ubNumJeeps = ubNumRobots = 0;
 
 
 	//Open the file for reading
@@ -888,6 +901,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 		ubStrategicElites		= pSector->ubNumElites;
 		ubStrategicTroops		= pSector->ubNumTroops;
 		ubStrategicAdmins		= pSector->ubNumAdmins;
+		ubStrategicRobots		= pSector->ubNumRobots;
 		ubStrategicTanks		= pSector->ubNumTanks;
 		ubStrategicJeeps		= pSector->ubNumJeeps;
 		ubStrategicCreatures = pSector->ubNumCreatures;
@@ -897,7 +911,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 		SECTORINFO *pSector;
 		pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 		ubStrategicCreatures = pSector->ubNumCreatures;
-		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites, &ubStrategicTanks, &ubStrategicJeeps );
+		GetNumberOfEnemiesInSector( sSectorX, sSectorY, &ubStrategicAdmins, &ubStrategicTroops, &ubStrategicElites, &ubStrategicRobots, &ubStrategicTanks, &ubStrategicJeeps );
 	}
 
 	for( i = 0; i < slots; i++ )
@@ -990,7 +1004,17 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 								++ubNumJeeps;
 								if ( ubNumJeeps <= ubStrategicJeeps )
 								{
-									//def:								AddPlacementToWorld( curr );
+//def:								AddPlacementToWorld( curr );
+								}
+							}
+							break;
+						case SOLDIER_CLASS_ROBOT:
+							if ( ENEMYROBOT( curr->pBasicPlacement ) )
+							{
+								ubNumRobots++;
+								if (ubNumRobots <= ubStrategicRobots)
+								{
+//def:								AddPlacementToWorld( curr );
 								}
 							}
 							break;
@@ -1019,14 +1043,15 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 	}
 
 	//now add any extra enemies that have arrived since the temp file was made.
-	if ( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins || ubStrategicTanks > ubNumTanks || ubStrategicJeeps > ubNumJeeps )
+	if ( ubStrategicTroops > ubNumTroops || ubStrategicElites > ubNumElites || ubStrategicAdmins > ubNumAdmins || ubStrategicRobots > ubNumRobots || ubStrategicTanks > ubNumTanks || ubStrategicJeeps > ubNumJeeps )
 	{
 		ubStrategicTroops = ( ubStrategicTroops > ubNumTroops ) ? ubStrategicTroops - ubNumTroops : 0;
 		ubStrategicElites = ( ubStrategicElites > ubNumElites ) ? ubStrategicElites - ubNumElites : 0;
+		ubStrategicRobots = ( ubStrategicRobots > ubNumRobots ) ? ubStrategicRobots - ubNumRobots : 0;
 		ubStrategicAdmins = ( ubStrategicAdmins > ubNumAdmins ) ? ubStrategicAdmins - ubNumAdmins : 0;
 		ubStrategicTanks = ( ubStrategicTanks > ubNumTanks ) ? ubStrategicTanks - ubNumTanks : 0;
 		ubStrategicJeeps = (ubStrategicJeeps > ubNumJeeps) ? ubStrategicJeeps - ubNumJeeps : 0;
-		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites, ubStrategicTanks, ubStrategicJeeps );
+		AddSoldierInitListEnemyDefenceSoldiers( ubStrategicAdmins, ubStrategicTroops, ubStrategicElites, ubStrategicRobots, ubStrategicTanks, ubStrategicJeeps );
 	}
 
 	if( ubStrategicCreatures > ubNumCreatures )
@@ -1618,7 +1643,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 
 
 
-BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
+BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumRobots, UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures, UINT8 *pubNumTanks, UINT8 *pubNumJeeps )
 {
 //	SOLDIERINITNODE *curr;
 	SOLDIERCREATE_STRUCT tempDetailedPlacement;
@@ -1638,6 +1663,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 //	UINT8 ubStrategicElites, ubStrategicTroops, ubStrategicAdmins, ubStrategicCreatures;
 		
 	//make sure the variables are initialized
+	*pubNumRobots = 0;
 	*pubNumElites = 0;
 	*pubNumRegulars = 0;
 	*pubNumAdmins = 0;
@@ -1815,6 +1841,12 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 				if ( COMBAT_JEEP( (&tempDetailedPlacement) ) )
 				{
 					(*pubNumJeeps)++;
+				}
+				break;
+			case SOLDIER_CLASS_ROBOT:
+				if ( ENEMYROBOT( (&tempDetailedPlacement) ) )
+				{
+					(*pubNumRobots)++;
 				}
 				break;
 		}

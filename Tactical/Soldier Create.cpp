@@ -613,9 +613,9 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			pCreateStruct->fPlayerPlan = 0;
 		}
 
-		if ( is_networked && ARMED_VEHICLE( pCreateStruct ) )
+		if ( is_networked && (ARMED_VEHICLE( pCreateStruct ) || ENEMYROBOT( pCreateStruct )) )
 		{
-			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank");
+			ScreenMsg( FONT_YELLOW, MSG_MPSYSTEM, L"skipping tank/jeep/robot");
 			return NULL;
 		}
 	}
@@ -730,6 +730,13 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 						break;
 
 				}
+				
+				// enemy robot special case
+				if (pCreateStruct->ubBodyType == ROBOTNOWEAPON && pCreateStruct->ubSoldierClass == SOLDIER_CLASS_ROBOT)
+				{
+					Soldier.bTeam = ENEMY_TEAM;
+				}
+
 			}
 		}
 		else
@@ -826,7 +833,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 
 		// Flugente: disease can affect a soldier's health
 		// not for us, and not for individual militia (their health is affected by their hourly healing instead)
-		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && !ARMED_VEHICLE((&Soldier)) &&
+		if ( gGameExternalOptions.fDisease && gGameExternalOptions.fDiseaseStrategic && Soldier.bTeam != OUR_TEAM && Soldier.bTeam != CREATURE_TEAM && !ARMED_VEHICLE((&Soldier)) && !ENEMYROBOT((&Soldier)) &&
 			!( Soldier.bTeam == MILITIA_TEAM && gGameExternalOptions.fIndividualMilitia && gGameExternalOptions.fIndividualMilitia_ManageHealth )  )
 		{
 			UINT8 sector = SECTOR( Soldier.sSectorX, Soldier.sSectorY );
@@ -1756,7 +1763,7 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 
 	// Flugente: soldier profiles
 	// silversurfer: Don't replace tanks!
-	if ( !ARMED_VEHICLE( pCreateStruct ) )
+	if ( !ARMED_VEHICLE( pCreateStruct ) && !ENEMYROBOT( pCreateStruct ) )
 	{
 		MILITIA militia;
 		if ( GetMilitia( pSoldier->usIndividualMilitiaID, &militia ) )
@@ -2556,6 +2563,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 			}
 			break;
 
+		case SOLDIER_CLASS_ROBOT:
 		case SOLDIER_CLASS_TANK:
 		case SOLDIER_CLASS_JEEP:
 			pp->bExpLevel = bp->bRelativeAttributeLevel;
@@ -3240,6 +3248,47 @@ SOLDIERTYPE* TacticalCreateEnemyJeep( )
 
 	return(pSoldier);
 }
+
+// rftr: enemy robots
+SOLDIERTYPE* TacticalCreateEnemyRobot()
+{
+	BASIC_SOLDIERCREATE_STRUCT bp;
+	SOLDIERCREATE_STRUCT pp;
+	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+
+	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	{
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ROBOT );
+
+		if ( pSoldier )
+			return pSoldier;
+	}
+
+	memset( &bp, 0, sizeof(BASIC_SOLDIERCREATE_STRUCT) );
+	RandomizeRelativeLevel( &(bp.bRelativeAttributeLevel), SOLDIER_CLASS_ELITE );
+	RandomizeRelativeLevel( &(bp.bRelativeEquipmentLevel), SOLDIER_CLASS_ELITE );
+	bp.bTeam = ENEMY_TEAM;
+	bp.bOrders = SEEKENEMY;
+	bp.bAttitude = AGGRESSIVE;
+	bp.ubBodyType = ROBOTNOWEAPON;
+	bp.ubSoldierClass = SOLDIER_CLASS_ROBOT;
+	CreateDetailedPlacementGivenBasicPlacementInfo( &pp, &bp );
+
+	pSoldier = TacticalCreateSoldier( &pp, &ubID );
+	if ( pSoldier )
+	{
+		// send soldier to centre of map, roughly
+		pSoldier->aiData.sNoiseGridno = (CENTRAL_GRIDNO + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) + (Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS) * WORLD_COLS);
+		pSoldier->aiData.ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+
+		pSoldier->stats.bLifeMax = 80;
+		pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
+	}
+
+	return(pSoldier);
+}
+
 
 //USED BY STRATEGIC AI and AUTORESOLVE
 SOLDIERTYPE* TacticalCreateZombie()

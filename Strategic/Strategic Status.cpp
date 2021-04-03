@@ -428,6 +428,7 @@ INT8 SoldierClassToRankIndex( UINT8 ubSoldierClass )
 		case SOLDIER_CLASS_BANDIT:					bRankIndex = 0;	break;
 		case SOLDIER_CLASS_ELITE:					bRankIndex = 2;	break;
 		case SOLDIER_CLASS_ARMY:					bRankIndex = 1;	break;
+		case SOLDIER_CLASS_ROBOT:					bRankIndex = 2; break;
 
 		default:
 			// this happens when an NPC joins the enemy team (e.g. Conrad, Iggy, Mike)

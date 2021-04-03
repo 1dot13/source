@@ -3524,6 +3524,7 @@ STR16 gpStrategicString[] =
 	L"民兵无法移动到这。（RESTRICT_ROAMING = TRUE）", //L"Militia cannot move here (RESTRICT_ROAMING = TRUE).",
 	L"战术中心无人兼职，民兵移动失败！", //L"War room isn't staffed - militia move aborted!",
 
+	L"Robot",								//STR_AR_ROBOT_NAME, TODO: translate
 	L"坦克",							//STR_AR_TANK_NAME,
 	L"吉普",						//	L"Jeep",  STR_AR_JEEP_NAME
 

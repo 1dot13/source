@@ -107,6 +107,7 @@ void RandomAddEnemy( UINT8 SectorX, UINT8 SectorY, UINT8 Level )
 	UINT8 ubNumElites = 0;
 	UINT8 ubNumTanks = 0;
 	UINT8 ubNumJeeps = 0;
+	UINT8 ubNumRobots = 0;
 
 	if ( Level != 0 )
 	{
@@ -121,31 +122,31 @@ void RandomAddEnemy( UINT8 SectorX, UINT8 SectorY, UINT8 Level )
 					ubNumAdmins = Random( 0 );
 					ubNumTroops = 10 + Random( 5 );
 					ubNumElites = Random( 4 );			
-					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 					break;
 				case DIF_LEVEL_MEDIUM:
 					ubNumAdmins = Random( 0 );
 					ubNumTroops = 15 + Random( 8 );
 					ubNumElites = 1 + Random( 2 );		
-					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 					break;
 				case DIF_LEVEL_HARD:
 					ubNumAdmins = Random( 0 );
 					ubNumTroops = 20 + Random( 7 );
 					ubNumElites = 2 + Random( 2 );	
-					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 					break;
 				case DIF_LEVEL_INSANE:
 					ubNumAdmins = Random( 0 );
 					ubNumTroops = 20 + Random( 3 );
 					ubNumElites = 6 + Random( 3 );		
-					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 					break;
 				default:
 					ubNumAdmins = Random( 0 );
 					ubNumTroops = 10 + Random( 5 );
 					ubNumElites = Random( 4 );			
-					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+					SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 					break;
 				}
 			}
@@ -161,31 +162,31 @@ void RandomAddEnemy( UINT8 SectorX, UINT8 SectorY, UINT8 Level )
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 10 + Random( 5 );
 				ubNumElites = Random( 4 );			
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 				break;
 			case DIF_LEVEL_MEDIUM:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 15 + Random( 8 );
 				ubNumElites = 1 + Random( 2 );		
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 				break;
 			case DIF_LEVEL_HARD:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 23 + Random( 7);
 				ubNumElites = 2 + Random( 2 );	
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 				break;
 			case DIF_LEVEL_INSANE:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 20 + Random( 3 );
 				ubNumElites = 6 + Random( 3 );		
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 				break;
 			default:
 				ubNumAdmins = Random( 0 );
 				ubNumTroops = 10 + Random( 5 );
 				ubNumElites = Random( 4 );			
-				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+				SetNumberJa25EnemiesInSector( SectorX, SectorY, Level, ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 				break;
 			}
 		}

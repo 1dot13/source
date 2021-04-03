@@ -1853,6 +1853,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fArmyUsesJeepsInPatrols			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_PATROLS", FALSE );
 	gGameExternalOptions.usJeepMinimumProgress				= iniReader.ReadInteger( "Strategic Gameplay Settings", "JEEP_MINIMUM_PROGRESS", 30, 0, 100 );
 
+	gGameExternalOptions.fArmyUsesRobotsInAttacks			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_ROBOTS_IN_ATTACKS", FALSE );
+	gGameExternalOptions.fArmyUsesRobotsInPatrols			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_ROBOTS_IN_PATROLS", FALSE );
+	gGameExternalOptions.usRobotMinimumProgress				= iniReader.ReadInteger( "Strategic Gameplay Settings", "ROBOT_MINIMUM_PROGRESS", 45, 0, 100 );
+
 	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
 	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("Strategic Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
 
@@ -2035,18 +2039,22 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gASDResource_Cost[ASD_HELI]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_HELI", 30000, 1, 1000000 );
 	gGameExternalOptions.gASDResource_Cost[ASD_JEEP]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_JEEP", 20000, 1, 1000000 );
 	gGameExternalOptions.gASDResource_Cost[ASD_TANK]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_TANK", 50000, 1, 1000000 );
+	gGameExternalOptions.gASDResource_Cost[ASD_ROBOT]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_COST_ROBOT", 25000, 1, 1000000 );
 
 	gGameExternalOptions.gASDResource_BuyTime[ASD_MONEY]	= 0;
 	gGameExternalOptions.gASDResource_BuyTime[ASD_FUEL]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_FUEL", 60 * 8, 1, 60 * 48 );
 	gGameExternalOptions.gASDResource_BuyTime[ASD_HELI]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_HELI", 60 * 20, 1, 60 * 48 );
 	gGameExternalOptions.gASDResource_BuyTime[ASD_JEEP]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_JEEP", 60 * 12, 1, 60 * 48 );
 	gGameExternalOptions.gASDResource_BuyTime[ASD_TANK]		= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_TANK", 60 * 24, 1, 60 * 48 );
+	gGameExternalOptions.gASDResource_BuyTime[ASD_ROBOT]	= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_TIME_ROBOT", 60 * 12, 1, 60 * 48 );
 
 	gGameExternalOptions.fASDAssignsTanks					= iniReader.ReadBoolean( "Strategic Additional Enemy AI Settings", "ASD_ASSIGNS_TANKS", TRUE );
 	gGameExternalOptions.fASDAssignsJeeps					= iniReader.ReadBoolean( "Strategic Additional Enemy AI Settings", "ASD_ASSIGNS_JEEPS", TRUE );
+	gGameExternalOptions.fASDAssignsRobots					= iniReader.ReadBoolean( "Strategic Additional Enemy AI Settings", "ASD_ASSIGNS_ROBOTS", TRUE );
 
 	gGameExternalOptions.gASDResource_Fuel_Tank				= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_FUEL_REQUIRED_TANK", 100, 0, 10000 );
 	gGameExternalOptions.gASDResource_Fuel_Jeep				= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_FUEL_REQUIRED_JEEP", 20, 0, 10000 );
+	gGameExternalOptions.gASDResource_Fuel_Robot			= iniReader.ReadInteger( "Strategic Additional Enemy AI Settings", "ASD_FUEL_REQUIRED_ROBOT", 0, 0, 10000 );
 
 	// Flugente: enemy heli
 	//################# Enemy Helicopter Settings ##################

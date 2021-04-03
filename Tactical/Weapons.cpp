@@ -4091,7 +4091,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			{
 				iHitChance = 100;
 			}
-			else if ( AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA( pTargetSoldier->ubSoldierClass ) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
+			else if ( AM_A_ROBOT( pTargetSoldier ) || ENEMYROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || (SOLDIER_CLASS_MILITIA( pTargetSoldier->ubSoldierClass ) && (gGameExternalOptions.ubMilitiaDropEquipment != 2)) ) // added militia here - SANDRO
 			{
 				iHitChance = 0;
 			}
@@ -4450,7 +4450,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 			}
 
 			// Give some experience
-			if ( iHitChance > 0 && pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum && !(pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pTargetSoldier ) && !ARMED_VEHICLE( pTargetSoldier ) )
+			if ( iHitChance > 0 && pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum && !(pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pTargetSoldier ) && !ARMED_VEHICLE( pTargetSoldier ) && !ENEMYROBOT( pTargetSoldier ) )
 			{
 				if (fFailure == FALSE)
 				{
@@ -4582,7 +4582,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						}
 					}
 
-					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) )
+					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) || ENEMYROBOT( pTargetSoldier ) )
 					{
 						ubExpGain = 0;
 					}
@@ -4632,7 +4632,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						}
 					}
 
-					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) )
+					if ( pTargetSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT( pTargetSoldier ) || ARMED_VEHICLE( pTargetSoldier ) || ENEMYROBOT( pTargetSoldier ) )
 					{
 						ubExpGain = 0;
 					}
@@ -6870,7 +6870,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 		// if target sees us, he may have a chance to dodge before the gun goes off
 		// but ability to dodge is reduced if crouched or prone!
-		if ( pTarget->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY && !ARMED_VEHICLE( pTarget ) && !(pSoldier->ubBodyType != QUEENMONSTER) )
+		if ( pTarget->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY && !ARMED_VEHICLE( pTarget ) && !ENEMYROBOT( pTarget ) && !(pSoldier->ubBodyType != QUEENMONSTER) )
 		{
 			iPenalty = ( EffectiveAgility( pTarget, FALSE ) / 5 + EffectiveExpLevel( pTarget ) * 2);
 			switch( gAnimControl[ pTarget->usAnimState ].ubHeight )
@@ -6885,7 +6885,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 
 			// reduce dodge ability by the attacker's stats
 			iBonus = ( EffectiveDexterity( pSoldier, FALSE ) / 5 + EffectiveExpLevel( pSoldier ) * 2);
-			if ( ARMED_VEHICLE( pTarget ) || (pSoldier->ubBodyType != QUEENMONSTER) )
+			if ( ARMED_VEHICLE( pTarget ) || ENEMYROBOT( pTarget ) || (pSoldier->ubBodyType != QUEENMONSTER) )
 			{
 				// reduce ability to track shots
 				iBonus = iBonus / 2;
@@ -7455,7 +7455,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 	// be an effective CTH of only 1/5000 (50 chances to get a 1 out of 100 CTH, hehehe)
 	if (iChance <= gGameExternalOptions.ubMinimumCTH)
 	{
-		if ( ARMED_VEHICLE( pSoldier ) )
+		if ( ARMED_VEHICLE( pSoldier ) || ENEMYROBOT( pSoldier ) )
 		{
 			// allow absolute minimums
 			iChance = 0;
@@ -7683,7 +7683,7 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbSt
 	iCoverage = Armour [ ubArmourType ].ubCoverage;
 	if ( *plateHit ) iCoverage = 100;
 
-	if ( !AM_A_ROBOT( pTarget ) )
+	if ( !(AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget )) )
 	{
 		// check for the bullet missing armor due to coverage
 		iFailure = PreRandom( 100 ) + 1 - iCoverage;
@@ -7758,7 +7758,7 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbSt
 		}
 	}
 
-	if ( !AM_A_ROBOT( pTarget ) )
+	if ( !(AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget )) )
 	{
 		*pbStatus -= (iAppliedProtection * Armour[ubArmourType].ubDegradePercent) / 100;
 	}
@@ -7978,9 +7978,9 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 	{
 		damagefactor *= AmmoTypes[ubAmmoType].dDamageModifierZombie;
 	}
-	else if ( pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	else if ( pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE || pTarget->flags.uiStatusFlags & SOLDIER_ROBOT )
 	{
-		if ( COMBAT_JEEP( pTarget ) || AM_A_ROBOT( pTarget ) )
+		if ( COMBAT_JEEP( pTarget ) || AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget ))
 		{
 			damagefactor *= AmmoTypes[ubAmmoType].dDamageModifierArmouredVehicle;
 		}
@@ -8078,7 +8078,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		ShutupaYoFace( pTarget->iFaceIndex );
 	}
 			
-	if ( iImpact > 0 && !ARMED_VEHICLE( pTarget ) )
+	if ( iImpact > 0 && !ARMED_VEHICLE( pTarget ) && !ENEMYROBOT( pTarget ) )
 	{
 		// Flugente: any bullet can have drug effects it set so in the magazine item
 		if ( ammoitem != NOTHING )
@@ -8236,7 +8236,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 		}
 	}
 
-	if ( AM_A_ROBOT( pTarget ) )
+	if ( AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget ) )
 	{
 		iImpactForCrits = 0;
 	}
@@ -8591,7 +8591,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 		
 		iImpact += EffectiveStrength( pSoldier, FALSE ) / 20; // 0 to 5 for strength, adjusted by damage taken
 
-		if ( AM_A_ROBOT( pTarget ) )
+		if ( AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget) )
 		{
 			iImpact /= 4;
 		}
@@ -8608,7 +8608,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 			{
 				iImpact += GetDamage(&pSoldier->inv[HANDPOS]);
 
-				if ( AM_A_ROBOT( pTarget ) )
+				if ( AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget ) )
 				{
 					iImpact /= 2;
 				}
@@ -8619,7 +8619,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 				{
 					iImpact += GetDamage(&pSoldier->inv[HANDPOS]);
 				}
-				if ( AM_A_ROBOT( pTarget ) )
+				if ( AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget ) )
 				{
 					iImpact /= 2;
 				}
@@ -8643,7 +8643,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 			// only the item impact is multiplied, not the level and strength bonus, but here it does
 			iImpact = (INT32)(iImpact * gGameExternalOptions.iMeleeDamageModifier / 100 ); 
 
-			if ( AM_A_ROBOT( pTarget ) )
+			if ( AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget ) )
 			{
 				iImpact = 0;
 			}

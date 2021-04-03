@@ -2266,6 +2266,7 @@ int i;
 	UINT8	ubNumElites=0;
 	UINT8	ubNumTanks=0;
 	UINT8	ubNumJeeps=0;
+	UINT8	ubNumRobots=0;
 	
 INT16 sSectorX;
 INT16 sSectorY;
@@ -2279,7 +2280,7 @@ INT16 sSectorY;
 		if (i == 5 ) ubNumElites = lua_tointeger(L,i);
 		if (i == 6 ) ubNumTanks = lua_tointeger(L,i);
 	}	
-	SetNumberJa25EnemiesInSurfaceSector( SECTOR( sSectorX, sSectorY ), ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps );
+	SetNumberJa25EnemiesInSurfaceSector( SECTOR( sSectorX, sSectorY ), ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots );
 	return 0;
 }
 

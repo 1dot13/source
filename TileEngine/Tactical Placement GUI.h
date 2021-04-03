@@ -4,7 +4,7 @@
 //#include "Soldier Control.h"
 //#include "mousesystem.h"
 typedef struct _MOUSE_REGION MOUSE_REGION;
-extern class SOLDIERTYPE;
+class SOLDIERTYPE;
 
 void InitTacticalPlacementGUI();
 void KillTacticalPlacementGUI();

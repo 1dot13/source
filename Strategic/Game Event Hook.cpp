@@ -592,6 +592,13 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 				AddStrategicAIResources( ASD_HELI, pEvent->uiParam );
 			break;
 
+		case EVENT_ASD_PURCHASE_ROBOT:
+			ASDReduceOrderedStrategicResources( ASD_ROBOT, pEvent->uiParam );
+
+			if ( IsSectorEnemyControlled( gModSettings.usASDSupplyArrivalSectorX, gModSettings.usASDSupplyArrivalSectorY, 0 ) )
+				AddStrategicAIResources( ASD_ROBOT, pEvent->uiParam );
+			break;
+
 		case EVENT_ENEMY_HELI_UPDATE:
 			UpdateEnemyHeli( pEvent->uiParam );
 			break;

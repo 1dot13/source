@@ -74,6 +74,8 @@
 	#include "MilitiaIndividual.h"			// added by Flugente
 #endif
 
+#pragma optimize("",off)
+
 #include "Reinforcement.h"
 
 //#define INVULNERABILITY
@@ -141,7 +143,7 @@ typedef struct AUTORESOLVE_STRUCT
 	INT32 iButtonImage[ NUM_AR_BUTTONS ];
 	INT32 iFaces; //for generic civs and enemies
     // WDS - make number of mercenaries, etc. be configurable
-	INT32 iMercFaces[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS]; //for each merc face
+	//INT32 iMercFaces[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS]; //for each merc face
 	INT32 iIndent;
 	INT32 iInterfaceBuffer;
 	INT32 iNumMercFaces;
@@ -168,7 +170,7 @@ typedef struct AUTORESOLVE_STRUCT
 	UINT8 ubEnemyLeadership;
 	UINT8 ubPlayerLeadership;
 	UINT8 ubMercs, ubCivs, ubEnemies;
-	UINT8 ubAdmins, ubTroops, ubElites, ubTanks, ubJeeps;
+	UINT8 ubAdmins, ubTroops, ubElites, ubTanks, ubJeeps, ubRobots;
 	UINT8 ubYMCreatures, ubYFCreatures, ubAMCreatures, ubAFCreatures;
 	UINT8 ubBloodcats;
 	UINT8 ubZombies;
@@ -236,10 +238,11 @@ typedef struct AUTORESOLVE_STRUCT
 #define CELL_BLOODCAT					0x01000000
 #define CELL_ZOMBIE						0x02000000
 #define CELL_BANDIT						0x04000000
+#define CELL_ENEMYROBOT					0x08000000
 
 //Combined flags
 #define CELL_PLAYER						( CELL_MERC | CELL_MILITIA )
-#define CELL_ENEMY						( CELL_ELITE | CELL_TROOP | CELL_ADMIN | CELL_TANK | CELL_JEEP | CELL_BANDIT )
+#define CELL_ENEMY						( CELL_ELITE | CELL_TROOP | CELL_ADMIN | CELL_TANK | CELL_JEEP | CELL_BANDIT | CELL_ENEMYROBOT )
 #define CELL_FEMALECREATURE				( CELL_AF_CREATURE | CELL_YF_CREATURE )
 #define CELL_MALECREATURE				( CELL_AM_CREATURE | CELL_YM_CREATURE )
 #define CELL_BUG						( CELL_FEMALECREATURE | CELL_MALECREATURE )
@@ -415,6 +418,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 	UINT8 ubNumEnemies[ NUM_ENEMY_RANKS ];
 	UINT8 ubNumTanks = 0;
 	UINT8 ubNumJeeps = 0;
+	UINT8 ubNumRobots = 0;
 	UINT8 ubRankIndex;
 
 	//Clear any possible battle locator
@@ -427,7 +431,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 	// we must process the enemies killed right here & give out loyalty bonuses as if the battle had been fought & won
 	if( !gpAR )
 	{
-		GetNumberOfEnemiesInSector( ubSectorX, ubSectorY, &ubNumEnemies[0], &ubNumEnemies[1], &ubNumEnemies[2], &ubNumTanks, &ubNumJeeps );
+		GetNumberOfEnemiesInSector( ubSectorX, ubSectorY, &ubNumEnemies[0], &ubNumEnemies[1], &ubNumEnemies[2], &ubNumRobots, &ubNumTanks, &ubNumJeeps );
 
 		for ( ubRankIndex = 0; ubRankIndex < NUM_ENEMY_RANKS; ++ubRankIndex )
 		{
@@ -459,6 +463,7 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 		pSector->ubNumAdmins = 0;
 		pSector->ubNumTanks = 0;
 		pSector->ubNumJeeps = 0;
+		pSector->ubNumRobots = 0;
 		pSector->ubNumCreatures = 0;
 		pSector->bLastKnownEnemies = 0;
 		//Remove the mobile forces here, but only if battle is over.
@@ -747,9 +752,9 @@ void AssociateEnemiesWithStrategicGroups()
 {
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps;	//how many soldiers of the type do we still have to assign to a group? 
-	UINT8 ubISNumAdmins, ubISNumTroops, ubISNumElites, ubISNumTanks, ubISNumJeeps;
-	UINT8 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup, ubNumTanksInGroup, ubNumJeepsInGroup;
+	UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumTanks, ubNumJeeps, ubNumRobots;	//how many soldiers of the type do we still have to assign to a group? 
+	UINT8 ubISNumAdmins, ubISNumTroops, ubISNumElites, ubISNumTanks, ubISNumJeeps, ubISNumRobots;
+	UINT8 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup, ubNumTanksInGroup, ubNumJeepsInGroup, ubNumRobotsInGroup;
 	INT32 i;
 	UINT8 pSectors[4];
 	UINT8 ubDirAmount;
@@ -769,6 +774,7 @@ void AssociateEnemiesWithStrategicGroups()
 	ubNumElites = pSector->ubNumElites;
 	ubNumTanks = pSector->ubNumTanks;
 	ubNumJeeps = pSector->ubNumJeeps;
+	ubNumRobots = pSector->ubNumRobots;
 
 	//Now go through our enemies in the autoresolve array, and assign the ubGroupID to the soldier
 	//Stationary groups have a group ID of 0 - first assign enemies from those stationary groups
@@ -785,6 +791,12 @@ void AssociateEnemiesWithStrategicGroups()
 			gpEnemies[i].pSoldier->ubGroupID = 0;
 			gpEnemies[i].uiFlags |= CELL_ASSIGNED;
 			ubNumJeeps--;
+		}
+		else if ( gpEnemies[i].uiFlags & CELL_ENEMYROBOT && ubNumRobots )
+		{
+			gpEnemies[i].pSoldier->ubGroupID = 0;
+			gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+			ubNumRobots--;
 		}
 		else if ( gpEnemies[i].uiFlags & CELL_ELITE && ubNumElites )
 		{
@@ -804,15 +816,16 @@ void AssociateEnemiesWithStrategicGroups()
 			gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
 			ubNumAdmins--;
 		}
-		}
+	}
 
 	ubNumAdmins = gpAR->ubAdmins - pSector->ubNumAdmins;
 	ubNumTroops = gpAR->ubTroops - pSector->ubNumTroops;
 	ubNumElites = gpAR->ubElites - pSector->ubNumElites;
 	ubNumTanks = gpAR->ubTanks - pSector->ubNumTanks;
 	ubNumJeeps = gpAR->ubJeeps - pSector->ubNumJeeps;
+	ubNumRobots = gpAR->ubRobots - pSector->ubNumRobots;
 
-	if ( !ubNumElites && !ubNumTroops && !ubNumAdmins && !ubNumTanks && !ubNumJeeps )
+	if ( !ubNumElites && !ubNumTroops && !ubNumAdmins && !ubNumTanks && !ubNumJeeps && !ubNumRobots )
 	{ //All troops accounted for.
 		return;
 	}
@@ -828,6 +841,7 @@ void AssociateEnemiesWithStrategicGroups()
 			ubNumAdminsInGroup = pGroup->pEnemyGroup->ubNumAdmins;
 			ubNumTanksInGroup = pGroup->pEnemyGroup->ubNumTanks;
 			ubNumJeepsInGroup = pGroup->pEnemyGroup->ubNumJeeps;
+			ubNumRobotsInGroup = pGroup->pEnemyGroup->ubNumRobots;
 			for( i = 0; i < gpAR->ubEnemies; i++ )
 			{
 				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )	//has this soldier already been assigned to a cell and therefore a group (while processing the static enemies above) ?
@@ -845,6 +859,13 @@ void AssociateEnemiesWithStrategicGroups()
 						gpEnemies[i].uiFlags |= CELL_ASSIGNED;
 						ubNumJeeps--;
 						ubNumJeepsInGroup--;
+					}
+					else if ( ubNumRobots && ubNumRobotsInGroup && gpEnemies[i].uiFlags & CELL_ENEMYROBOT )
+					{
+						gpEnemies[i].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+						ubNumRobots--;
+						ubNumRobotsInGroup--;
 					}
 					else if (ubNumElites && ubNumElitesInGroup && gpEnemies[i].uiFlags & CELL_ELITE)
 					{
@@ -886,6 +907,7 @@ void AssociateEnemiesWithStrategicGroups()
 			ubNumAdminsInGroup = pGroup->pEnemyGroup->ubNumAdmins;
 			ubNumTanksInGroup = pGroup->pEnemyGroup->ubNumTanks;
 			ubNumJeepsInGroup = pGroup->pEnemyGroup->ubNumJeeps;
+			ubNumRobotsInGroup = pGroup->pEnemyGroup->ubNumRobots;
 			for( i = 0; i < gpAR->ubEnemies; i++ )
 			{
 				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
@@ -903,6 +925,13 @@ void AssociateEnemiesWithStrategicGroups()
 						gpEnemies[i].uiFlags |= CELL_ASSIGNED;
 						ubNumJeeps--;
 						ubNumJeepsInGroup--;
+					}
+					else if ( ubNumRobots && ubNumRobotsInGroup &&  gpEnemies[i].uiFlags & CELL_ENEMYROBOT )
+					{
+						gpEnemies[i].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+						ubNumRobots--;
+						ubNumRobotsInGroup--;
 					}
 					else if (ubNumElites && ubNumElitesInGroup &&  gpEnemies[i].uiFlags & CELL_ELITE)
 					{
@@ -943,10 +972,11 @@ void AssociateEnemiesWithStrategicGroups()
 		ubISNumElites = pSector->ubNumElites;
 		ubISNumTanks = pSector->ubNumTanks;
 		ubISNumJeeps = pSector->ubNumJeeps;
+		ubISNumRobots = pSector->ubNumRobots;
 
 		for( i = 0; i < gpAR->ubEnemies; ++i )
 		{
-			if ( ubISNumAdmins + ubISNumTroops + ubISNumElites + ubISNumTanks + ubISNumJeeps <= gubReinforcementMinEnemyStaticGroupSize ) break;	//if group would be left understaffed, it wont reinforce - go chceck another sector (what if are there more groups here?)
+			if ( ubISNumAdmins + ubISNumTroops + ubISNumElites + ubISNumTanks + ubISNumJeeps + ubISNumRobots <= gubReinforcementMinEnemyStaticGroupSize ) break;	//if group would be left understaffed, it wont reinforce - go chceck another sector (what if are there more groups here?)
 
 			if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
 			{
@@ -967,6 +997,15 @@ void AssociateEnemiesWithStrategicGroups()
 					gpEnemies[i].pSoldier->sSectorY = SECTORY( pSectors[ubCurrSI] );
 					ubISNumJeeps--;
 					ubNumJeeps--;
+				}
+				else if ( gpEnemies[i].uiFlags & CELL_ENEMYROBOT && ubISNumRobots && ubNumRobots )
+				{
+					gpEnemies[i].pSoldier->ubGroupID = 0;
+					gpEnemies[i].uiFlags |= CELL_ASSIGNED;
+					gpEnemies[i].pSoldier->sSectorX = SECTORX( pSectors[ubCurrSI] );
+					gpEnemies[i].pSoldier->sSectorY = SECTORY( pSectors[ubCurrSI] );
+					ubISNumRobots--;
+					ubNumRobots--;
 				}
 				else if ( gpEnemies[i].uiFlags & CELL_ELITE && ubISNumElites && ubNumElites )
 				{
@@ -1000,7 +1039,7 @@ void AssociateEnemiesWithStrategicGroups()
 		}
 	/*at this point, all enemies should have been assigned to their cell and group. If not, there is a bug around
 	Because number and type of cells should be computed for the same composition of enemies as the one we see in this function, it should not happen though*/
-	AssertMsg( !(ubISNumAdmins & ubISNumTroops & ubISNumElites & ubISNumTanks & ubISNumJeeps), "Mapping between actual enemies and autoresolve cells is wrong." );
+	AssertMsg( !(ubISNumAdmins & ubISNumTroops & ubISNumElites & ubISNumTanks & ubISNumJeeps & ubISNumRobots), "Mapping between actual enemies and autoresolve cells is wrong." );
 
 	}
 
@@ -1142,8 +1181,10 @@ void CalculateSoldierCells( BOOLEAN fReset )
 					gpEnemies[index].uiFlags = CELL_ADMIN;
 				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins + gpAR->ubTanks )
 					gpEnemies[index].uiFlags = CELL_TANK;
-				else
+				else if ( index < gpAR->ubElites + gpAR->ubTroops + gpAR->ubAdmins + gpAR->ubTanks + gpAR->ubJeeps )
 					gpEnemies[index].uiFlags = CELL_JEEP;
+				else
+					gpEnemies[index].uiFlags = CELL_ENEMYROBOT;
 			}
 		}
 	}
@@ -2270,6 +2311,19 @@ void CreateAutoResolveInterface()
 	}
 	else
 	{
+		for (i = 0; i < gpAR->ubRobots; ++i, ++index)
+		{
+			gpEnemies[index].pSoldier = TacticalCreateEnemyRobot();
+			gpEnemies[index].pSoldier->sSectorX = gpAR->ubSectorX;
+			gpEnemies[index].pSoldier->sSectorY = gpAR->ubSectorY;
+			swprintf( gpEnemies[index].pSoldier->name, gpStrategicString[STR_AR_ROBOT_NAME] );
+
+			// reuse madlab's robot's face
+			VOBJECT_DESC VObjectDesc;
+			VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+			sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ ROBOT ].ubFaceIndex );
+			AddVideoObject(&VObjectDesc, &gpEnemies[index].uiVObjectID);
+		}
 		for ( i = 0; i < gpAR->ubElites; ++i, ++index )
 		{
 			gpEnemies[index].pSoldier = TacticalCreateEliteEnemy();
@@ -3052,9 +3106,9 @@ void CalculateAutoResolveInfo()
 	else
 	{
 		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY,
-			&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubTanks, &gpAR->ubJeeps );
+			&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites, &gpAR->ubRobots, &gpAR->ubTanks, &gpAR->ubJeeps );
 
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps, MAX_AR_TEAM_SIZE );
+		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites + gpAR->ubTanks + gpAR->ubJeeps + gpAR->ubRobots, MAX_AR_TEAM_SIZE );
 	}
 
 	gfTransferTacticalOppositionToAutoResolve = FALSE;
@@ -3114,22 +3168,23 @@ void ResetAutoResolveInterface()
 
 	//Make sure the number of enemy portraits is the same as needed.
 	//The debug keypresses may add or remove more than one at a time.
-	while ( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubTanks + gpAR->ubJeeps > gpAR->ubEnemies )
+	while ( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubTanks + gpAR->ubJeeps + gpAR->ubRobots > gpAR->ubEnemies )
 	{
-		switch( PreRandom( 5 ) )
+		switch( PreRandom( 6 ) )
 		{
-			case 0:					if( gpAR->ubElites ) { gpAR->ubElites--; break; }
+			case 0: if ( gpAR->ubElites ) { gpAR->ubElites--; break; }
 			case 1: if ( gpAR->ubAdmins ) { gpAR->ubAdmins--; break; }
 			case 2: if ( gpAR->ubTroops ) { gpAR->ubTroops--; break; }
 			case 3: if ( gpAR->ubTanks ) { gpAR->ubTanks--; break; }
 			case 4: if ( gpAR->ubJeeps ) { gpAR->ubJeeps--; break; }
+			case 5: if ( gpAR->ubRobots ) { gpAR->ubRobots--; break; }
 		}
 	}
-	while ( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubTanks + gpAR->ubJeeps< gpAR->ubEnemies )
+	while ( gpAR->ubElites + gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubTanks + gpAR->ubJeeps + gpAR->ubRobots < gpAR->ubEnemies )
 	{
 		switch( PreRandom( 5 ) )
 		{
-			case 0:				gpAR->ubElites++; break;
+			case 0: gpAR->ubElites++; break;
 			case 1: case 2: gpAR->ubAdmins++; break;
 			case 3: case 4: gpAR->ubTroops++; break;
 		}
@@ -4433,7 +4488,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		usAttack *= 1.5;
 	}
 	// if our target is a tank, we use heavy weapons if we have any
-	else if ( ARMED_VEHICLE( pTarget->pSoldier ) && FireAntiTankWeapon( pAttacker ) )
+	else if ( (ARMED_VEHICLE( pTarget->pSoldier ) || ENEMYROBOT( pTarget->pSoldier )) && FireAntiTankWeapon( pAttacker ) )
 	{
 		fAntiTank = TRUE;
 
@@ -4801,6 +4856,9 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 				// SANDRO - experimental - more specific statistics of mercs
 				switch(pTarget->pSoldier->ubSoldierClass)
 				{
+					case SOLDIER_CLASS_ROBOT :
+						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsOthers++;
+						break;
 					case SOLDIER_CLASS_ELITE :
 						gMercProfiles[ pAttacker->pSoldier->ubProfile ].records.usKillsElites++;
 						break;
@@ -4970,10 +5028,10 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 	}
 
 	//bullet hit -- play an impact sound and a merc hit sound
-	if ( ARMED_VEHICLE( pTarget->pSoldier ) )
+	if ( ARMED_VEHICLE( pTarget->pSoldier ) || ENEMYROBOT( pTarget->pSoldier ) )
 		PlayAutoResolveSample( (UINT8)(S_METAL_IMPACT1 + PreRandom( 3 )), RATE_11025, 50, 1, MIDDLEPAN );
 	else	
-	PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
+		PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
 
 	if( pTarget->pSoldier->stats.bLife >= CONSCIOUSNESS )
 	{
@@ -5043,6 +5101,9 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 					// SANDRO - new mercs' records
 					switch(pTarget->pSoldier->ubSoldierClass)
 					{
+						case SOLDIER_CLASS_ROBOT :
+							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsOthers++;
+							break;
 						case SOLDIER_CLASS_ELITE :
 							gMercProfiles[ pKiller->pSoldier->ubProfile ].records.usKillsElites++;
 							break;
@@ -5154,10 +5215,10 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 		{ //Normal death
 			if( gpAR->fSound )
 			{
-				if ( ARMED_VEHICLE( pTarget->pSoldier ) )
+				if ( ARMED_VEHICLE( pTarget->pSoldier ) || ENEMYROBOT( pTarget->pSoldier ) )
 					PlayAutoResolveSample( (UINT8)(S_RAID_TB_BOMB), RATE_11025, 50, 1, MIDDLEPAN );
 				else
-				pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
+					pTarget->pSoldier->DoMercBattleSound( BATTLE_SOUND_DIE1 );
 			}
 		}
 		#ifdef INVULNERABILITY

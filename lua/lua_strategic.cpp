@@ -159,8 +159,9 @@ static int LuaGroupCreate( lua_State *L )
 	UINT8 NumElites = (UINT8) luaL_checkinteger( L, 4);
 	UINT8 NumTanks = (UINT8) luaL_checkinteger( L, 5);
 	UINT8 NumJeeps = (UINT8)luaL_checkinteger( L, 6 );
+	UINT8 NumRobots = (UINT8)luaL_checkinteger( L, 7);
 
-	GROUP *pGroup = CreateNewEnemyGroupDepartingFromSector( Sector, NumAdmins, NumTroops, NumElites, NumTanks, NumJeeps );
+	GROUP *pGroup = CreateNewEnemyGroupDepartingFromSector( Sector, NumAdmins, NumTroops, NumElites, NumRobots, NumTanks, NumJeeps );
 
 	if (pGroup)
 	{
