@@ -74,8 +74,6 @@
 	#include "MilitiaIndividual.h"			// added by Flugente
 #endif
 
-#pragma optimize("",off)
-
 #include "Reinforcement.h"
 
 //#define INVULNERABILITY

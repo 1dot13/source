@@ -490,9 +490,8 @@ typedef struct SECTORINFO
 	UINT8	ubNumTroops;				//the actual number of troops here.
 	UINT8	ubNumElites;				//the actual number of elites here.
 	UINT8	ubNumAdmins;				//the actual number of admins here.
-	UINT8	ubNumRobots;				//the actual number of robots here.
 	UINT8	ubNumCreatures;				//only set when immediately before ground attack made!
-	UINT8	ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubRobotsInBattle, ubCreaturesInBattle;
+	UINT8	ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
 	INT8	bLastKnownEnemies;			// -1 means never been there, no idea, otherwise it's what we'd observed most recently
 										// while this is being maintained (partially, surely buggy), nothing uses it anymore. ARM
@@ -577,7 +576,9 @@ typedef struct SECTORINFO
 	UINT8	ubNumElites_Turncoat;	
 	UINT8	usExplorationProgress;
 
-	INT8	bPadding[ 8 ];
+	UINT8	ubNumRobots;
+	UINT8	ubRobotsInBattle;
+	INT8	bPadding[ 6 ];
 
 }SECTORINFO;
 
@@ -592,7 +593,7 @@ typedef struct UNDERGROUND_SECTORINFO
 {
 	UINT32	uiFlags;
 	UINT8	ubSectorX, ubSectorY, ubSectorZ;
-	UINT8	ubNumRobots, ubNumElites, ubNumTroops, ubNumAdmins, ubNumCreatures;
+	UINT8	ubNumElites, ubNumTroops, ubNumAdmins, ubNumCreatures;
 	UINT8	fVisited;
 	INT8	ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,
 										//the more people go near it.	A travel rating of 0 means there are never people
@@ -603,7 +604,7 @@ typedef struct UNDERGROUND_SECTORINFO
 
 	UINT8	ubNumBloodcats;				// Bloodcat population
 	UINT8	ubCreatureHabitat;			//determines how creatures live in this sector (see creature spreading.c)
-	UINT8	ubRobotsInBattle, ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
+	UINT8	ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
 	// adding these (should not change struct layout due to padding)
 	UINT8	ubMusicMode, ubUnsed;
@@ -626,8 +627,10 @@ typedef struct UNDERGROUND_SECTORINFO
 	UINT8	ubNumJeeps;
 	UINT8	ubJeepsInBattle;
 	UINT8	usExplorationProgress;
+	UINT8	ubNumRobots;
+	UINT8	ubRobotsInBattle;
 
-	INT8	bPadding[12];
+	INT8	bPadding[10];
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 

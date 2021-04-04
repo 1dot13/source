@@ -1907,7 +1907,7 @@ void HandlePlayerGroupNoticedByGarrison( GROUP *pPlayerGroup, UINT8 ubSectorID )
 	usOffensePoints = pSector->ubNumAdmins * 2 +
 										pSector->ubNumTroops * 4 +
 										pSector->ubNumElites * 6 +
-										pSector->ubNumElites * 15 +
+										pSector->ubNumRobots * 15 +
 										pSector->ubNumTanks * 20 + 
 										pSector->ubNumJeeps * 12;
 	if( PlayerForceTooStrong( ubSectorID, usOffensePoints, &usDefencePoints ) )
