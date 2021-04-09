@@ -2821,10 +2821,14 @@ STR16 pTraitSkillsMenuStrings[] =
 	L"Прослушивать",
 	L"Вызвать подкрепления",
 	L"Выключить радиостанцию",
+	L"Radio: Activate all turncoats",
 
 	// spy
-	L"Hide assignment",		// TODO.Translate
+	L"Hide assignment",
 	L"Get Intel assignment",
+	L"Recruit turncoat",
+	L"Activate turncoat",
+	L"Activate all turncoats",
 
 	// various
 	L"Наблюдатель",
@@ -2842,10 +2846,14 @@ STR16 pTraitSkillsMenuDescStrings[] =
 	L"Использовать радиопрослушку для обнаружения противника.",
 	L"Вызвать подкрепления из соседних секторов.",
 	L"Turn off radio set.",	// TODO.Translate
+	L"Order all previously turned soldiers in the sector to betray their comrades and join you.",
 
 	// spy
 	L"Assignment: hide among the population.",		// TODO.Translate
 	L"Assignment: hide among the population and gather intel.",
+	L"Try to turn an enemy into a turncoat.",
+	L"Order previously turned soldier to betray their comrades and join you.",
+	L"Order all previously turned soldiers in the sector to betray their comrades and join you.",
 
 	// various
 	L"Наблюдать за местностью, чтобы обеспечить более меткую стрельбу своим снайперам.",
@@ -2874,6 +2882,11 @@ STR16 pTraitSkillsDenialStrings[] =
 	L" - single merc\n",
 	L" - no alarm raised\n",
 	L" - civilian or soldier disguise\n",
+	L" - being our turn\n",
+	L" - turned enemy soldier\n",
+	L" - enemy soldier\n",
+	L" - surface sector\n",
+	L" - not being under suspicion\n",
 };
 
 STR16 pSkillMenuStrings[] =
@@ -4079,10 +4092,11 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Перевязка идуших бойцов...",
 
 	L"Комплектовать",
-	L"%s скомплевтовал %s",
+	L"%s заменил %s на лучшую версию",
 	L"%s поднял %s",
 
 	L"%s has stopped chatting with %s", // TODO.Translate
+	L"Attempt to turn",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -10179,9 +10193,9 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Показывает что видит боец",
         L"",
 
-	L"Показать символ роли противников",
-	L"Показать планируемые укрепления",
-	L"Показать следы противника",
+		L"Показать символ роли противников",
+		L"Показать планируемые укрепления",
+		L"Показать следы противника",
         L"",
 
         L"Показать сеть ловушек",
@@ -10977,7 +10991,7 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 	L"Никто и не спрашивал мнения тебя, $INTERJECTOR$.",
 	L"Держись от меня подальше.",
 
-	L"Почему вы все пртив меня?",
+	L"Почему вы все против меня?",
 	L"Почему ты против меня, $INTERJECTOR$?",
 	L"Я знал(а) это! $VICTIM$ и $INTERJECTOR$ - соучастники!",
 	L"Не слушаю..!",
@@ -11282,6 +11296,7 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"Нанят из Цербера в день %d, %d:%02d in %s",
 	L"Defected to us on  Day %d, %d:%02d in %s",
 	L"Contract terminated on Day %d, %d:%02d",
+	L"Defected to us on Day %d, %d:%02d in %s",
 };
 
 STR16 szIndividualMilitiaTraitRequirements[] =
