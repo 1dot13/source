@@ -21141,6 +21141,10 @@ BOOLEAN		SOLDIERTYPE::IsValidBloodDonor()
 	if ( this->bTeam != gbPlayerNum )
 		return FALSE;
 
+	// mustn't be mechanical unit
+	if (AM_A_ROBOT(this) || this->flags.uiStatusFlags & SOLDIER_VEHICLE)
+		return FALSE;
+
 	// not if wounded
 	if ( this->stats.bLife < this->stats.bLifeMax )
 		return FALSE;
