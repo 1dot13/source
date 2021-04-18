@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <POCKETLIST>
 	<POCKET>
 		<pIndex>0</pIndex>
@@ -59,6 +59,8 @@
 		<pIndex>2</pIndex>
 		<pName>Knife</pName>
 		<pSilhouette>11</pSilhouette>
+		<pType>1</pType>
+		<pRestriction>12</pRestriction>    
 		<pVolume>15</pVolume>
 		<ItemCapacityPerSize12>2</ItemCapacityPerSize12>
 		<ItemCapacityPerSize16>1</ItemCapacityPerSize16>

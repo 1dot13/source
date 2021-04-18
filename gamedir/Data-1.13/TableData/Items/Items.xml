@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -12596,7 +12596,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>154</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ItemSize>24</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>334</usPrice>
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
@@ -12620,7 +12620,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>153</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ItemSize>24</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>500</usPrice>
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
@@ -12644,7 +12644,7 @@
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>55</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ItemSize>24</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>1167</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -12667,7 +12667,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>241</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ItemSize>24</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>667</usPrice>
 		<ubCoolness>7</ubCoolness>
 		<Metal>1</Metal>
@@ -12694,7 +12694,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>242</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ItemSize>24</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>1000</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -12719,7 +12719,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>342</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ItemSize>24</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>300</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -12744,7 +12744,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>20</ubWeight>
-		<ItemSize>24</ItemSize>
+		<ItemSize>25</ItemSize>
 		<usPrice>450</usPrice>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -16800,6 +16800,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
+		<BloodiedItem>597</BloodiedItem>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
