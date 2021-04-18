@@ -1003,7 +1003,6 @@
 		<szName>Mad Slasher</szName>
 		<szShortName>Mad Slasher</szShortName>
 		<szDescription>There is something extremely not right here, but he has obviously &#10;useful talents for this business.</szDescription>
-		<leadership>-5</leadership>
 		<strength>3</strength>
 		<dexterity>6</dexterity>
 		<agility>6</agility>
@@ -1738,7 +1737,6 @@
 		<dexterity>3</dexterity>
 		<agility>3</agility>
 		<leadership>-2</leadership>
-		<cth_blades>6</cth_blades>
 		<meleedamage>3</meleedamage>
 		<ap_assault>6</ap_assault>
 		<stealth>10</stealth>
@@ -2508,10 +2506,9 @@
 		<ap_airdrop>-5</ap_airdrop>
 		<ap_assault>-5</ap_assault>
 		<betterprices_guns>3</betterprices_guns>
-		<betterprices>10</betterprices>
+		<betterprices>8</betterprices>
 		<dexterity>8</dexterity>
 		<mechanical>8</mechanical>
-		<betterprices>8</betterprices>
 		<ap_inventory>-10</ap_inventory> 
 		<no_male>1</no_male>
 		<no_female>1</no_female>
@@ -3293,7 +3290,6 @@
 		<resistance_suppression>3</resistance_suppression>
 		<speed_bandaging>25</speed_bandaging>
 		<speed_run>3</speed_run>
-		<ap_inventory>-5</ap_inventory>
 		<no_male>1</no_male>
 		<no_female>1</no_female>
 	</BACKGROUND>
@@ -3661,7 +3657,6 @@
 		<ap_coastal>3</ap_coastal>
 		<ap_tropical>3</ap_tropical>
 		<ap_swamp>3</ap_swamp>
-		<ap_tropical>3</ap_tropical>
 		<ap_swimming>-10</ap_swimming>
 		<travel_boat>5</travel_boat>
 		<speed_run>10</speed_run>
@@ -4137,7 +4132,6 @@
 		<szName>Veteran Mercenary/Car Mechanic</szName>
 		<szShortName>Vet Merc/Mechanic</szShortName>
 		<szDescription>A car mechanic is very useful, as long as you actually have a car.</szDescription>
-		<ap_fortify>-5</ap_fortify>
 		<ap_assault>8</ap_assault>
 		<ap_urban>3</ap_urban>
 		<ap_fortify>-2</ap_fortify>
@@ -4349,7 +4343,6 @@
 		<resistance_fear>3</resistance_fear>
 		<resistance_suppression>5</resistance_suppression>
 		<resistance_alcohol>10</resistance_alcohol>
-		<traplevel>1</traplevel>
 		<druguse>1</druguse>
 		<insurance>100</insurance>
 		<no_male>1</no_male>
@@ -4824,7 +4817,6 @@
 		<ap_artillery>10</ap_artillery>
 		<ap_inventory>-10</ap_inventory>
 		<ap_airdrop>-3</ap_airdrop>
-		<ap_assault>-5</ap_assault>
 		<resistance_fear>5</resistance_fear>
 		<speed_bandaging>30</speed_bandaging>
 		<approach_friendly>10</approach_friendly>
@@ -5399,8 +5391,6 @@
 		<szDescription>A sapper can only make two mistakes in his life. The first one is his &#10;career choice.</szDescription>
 		<dexterity>3</dexterity>
 		<mechanical>3</mechanical>
-		<explosives>5</explosives>
-		<ap_fortify>-20</ap_fortify>
 		<ap_fortify>10</ap_fortify>
 		<ap_artillery>-3</ap_artillery>
 		<ap_inventory>-5</ap_inventory>

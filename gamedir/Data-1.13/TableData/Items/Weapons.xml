@@ -210,7 +210,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>105</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>459</sSound>
@@ -231,7 +231,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -253,7 +252,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>423</sSound>
@@ -274,7 +273,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -2072,7 +2070,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>423</sSound>
@@ -2093,7 +2091,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -7322,7 +7319,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>409</sSound>
@@ -7343,7 +7340,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -8418,7 +8414,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>409</sSound>
@@ -8439,7 +8435,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -9748,7 +9743,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>65</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>426</sSound>
@@ -9769,7 +9764,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>5</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>8</bBurstAP>
@@ -9790,7 +9784,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>426</sSound>
@@ -9811,7 +9805,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>5</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>8</bBurstAP>
@@ -10887,7 +10880,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>316</sSound>
@@ -10908,7 +10901,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -10930,7 +10922,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>423</sSound>
@@ -10951,7 +10943,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -11078,7 +11069,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>316</sSound>
@@ -11099,7 +11090,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -11121,7 +11111,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>316</sSound>
@@ -11141,7 +11131,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -11163,7 +11152,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>423</sSound>
@@ -11184,7 +11173,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
@@ -12887,7 +12875,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>423</sSound>
@@ -12908,7 +12896,6 @@
 		<fBurstOnlyByFanTheHammer>1</fBurstOnlyByFanTheHammer>
 		<ubShotsPerBurst>6</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
-		<BurstAniDelay>60</BurstAniDelay>
 		<sBurstSound>54</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<bBurstAP>10</bBurstAP>
