@@ -958,41 +958,30 @@ void UpdateSMPanel( )
 	
 	GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
 
-	if ( fNearLowerLevel || fNearHeigherLevel )
+	if (fNearLowerLevel || fNearHeigherLevel)
 	{
-		if ( fNearLowerLevel )
+		if (IsValidStance(gpSMCurrentMerc, ANIM_CROUCH) && EnoughPoints(gpSMCurrentMerc, GetAPsToClimbRoof(gpSMCurrentMerc, fNearLowerLevel), GetBPsToClimbRoof(gpSMCurrentMerc, fNearLowerLevel), FALSE))
 		{
-			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToClimbRoof( gpSMCurrentMerc, TRUE ), 0, FALSE ) )
-			{
-				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
-			}
-		}
-
-		if ( fNearHeigherLevel )
-		{
-			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToClimbRoof( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
-			{
-				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
-			}
+			EnableButton(iSMPanelButtons[CLIMB_BUTTON]);
 		}
 	}
-	
+
 	if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
 	{
-        if ( FindWallJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
-        {
-			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpWall( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
+		if (FindWallJumpDirection(gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection))
+		{
+			if (IsValidStance(gpSMCurrentMerc, ANIM_CROUCH) && EnoughPoints(gpSMCurrentMerc, GetAPsToJumpWall(gpSMCurrentMerc, FALSE), GetBPsToJumpWall(gpSMCurrentMerc, FALSE), FALSE))
 			{
-				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+				EnableButton(iSMPanelButtons[CLIMB_BUTTON]);
 			}
-        }
+		}
 	}
 
-	if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
+	if (FindFenceJumpDirection(gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection))
 	{
-		if ( EnoughPoints( gpSMCurrentMerc, GetAPsToJumpFence( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
+		if (IsValidStance(gpSMCurrentMerc, ANIM_CROUCH) && EnoughPoints(gpSMCurrentMerc, GetAPsToJumpFence(gpSMCurrentMerc, FALSE), GetBPsToJumpFence(gpSMCurrentMerc, FALSE), FALSE))
 		{
-			EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+			EnableButton(iSMPanelButtons[CLIMB_BUTTON]);
 		}
 	}
 
@@ -2960,7 +2949,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		SetRegionHelpEndCallback( &gSM_SELMERCCamoRegion, SkiHelpTextDoneCallBack );
 
 		// Flugente: weight help text
-		FLOAT totalweight = GetTotalWeight( gpSMCurrentMerc );
+		FLOAT totalweight = (FLOAT)GetTotalWeight( gpSMCurrentMerc );
 		swprintf( pStr, gzMiscItemStatsFasthelp[35], totalweight / 10.0 );
 
 		SetRegionFastHelpText( &(gSM_SELMERCWeightRegion), pStr );
@@ -4626,15 +4615,6 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-		if (!IsValidStance(gpSMCurrentMerc, ANIM_CROUCH))
-		{
-			if (gpSMCurrentMerc->bCollapsed && gpSMCurrentMerc->bBreath < OKBREATH)
-			{
-				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[4], gpSMCurrentMerc->GetName());
-			}
-			return;
-		}
-
 		GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
 
 		if ( fNearLowerLevel )
@@ -4648,10 +4628,7 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 				return;
 			}
 
-			if (EnoughPoints(gpSMCurrentMerc, GetAPsToClimbRoof(gpSMCurrentMerc, TRUE), GetBPsToClimbRoof(gpSMCurrentMerc, TRUE), FALSE))
-			{
-				gpSMCurrentMerc->BeginSoldierClimbDownRoof();
-			}			
+			gpSMCurrentMerc->BeginSoldierClimbDownRoof();
 		}
 
 		if ( fNearHeigherLevel )
@@ -4665,10 +4642,7 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 				return;
 			}
 
-			if (EnoughPoints(gpSMCurrentMerc, GetAPsToClimbRoof(gpSMCurrentMerc, FALSE), GetBPsToClimbRoof(gpSMCurrentMerc, FALSE), FALSE))
-			{
-				gpSMCurrentMerc->BeginSoldierClimbUpRoof();
-			}
+			gpSMCurrentMerc->BeginSoldierClimbUpRoof();
 		}
 		
 		//---------------Legion by JAzz-----------
@@ -4686,10 +4660,7 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 
 			if ( FindWallJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 			{
-				if (EnoughPoints(gpSMCurrentMerc, GetAPsToJumpWall(gpSMCurrentMerc, FALSE), GetBPsToJumpWall(gpSMCurrentMerc, FALSE), FALSE))
-				{
-					gpSMCurrentMerc->BeginSoldierClimbWall();
-				}
+				gpSMCurrentMerc->BeginSoldierClimbWall();
 			}
 		}
 		
@@ -4706,10 +4677,7 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 				return;
 			}
 
-			if (EnoughPoints(gpSMCurrentMerc, GetAPsToJumpFence(gpSMCurrentMerc, FALSE), GetBPsToJumpFence(gpSMCurrentMerc, FALSE), FALSE))
-			{
-				gpSMCurrentMerc->BeginSoldierClimbFence();
-			}
+			gpSMCurrentMerc->BeginSoldierClimbFence();
 		}
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
@@ -7215,7 +7183,7 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 
 			if ( pNewSoldier->bAssignment != iCurrentSquad )
 			{
-				if ( gGameExternalOptions.fUseXMLSquadNames && pNewSoldier->bAssignment < min(ON_DUTY, gSquadNameVector.size()) )
+				if ( gGameExternalOptions.fUseXMLSquadNames && pNewSoldier->bAssignment < min(ON_DUTY, (INT8)gSquadNameVector.size()) )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], gSquadNameVector[pNewSoldier->bAssignment].c_str() );
 				else
 					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
