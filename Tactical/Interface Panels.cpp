@@ -4626,24 +4626,70 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
+		if (!IsValidStance(gpSMCurrentMerc, ANIM_CROUCH))
+		{
+			if (gpSMCurrentMerc->bCollapsed && gpSMCurrentMerc->bBreath < OKBREATH)
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, gzLateLocalizedString[4], gpSMCurrentMerc->GetName());
+			}
+			return;
+		}
+
 		GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
 
 		if ( fNearLowerLevel )
 		{
-			gpSMCurrentMerc->BeginSoldierClimbDownRoof(	);
+			if ((UsingNewInventorySystem() == true) && gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == true
+				//JMich.BackpackClimb
+				&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)gpSMCurrentMerc->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+				&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB]);
+				return;
+			}
+
+			if (EnoughPoints(gpSMCurrentMerc, GetAPsToClimbRoof(gpSMCurrentMerc, TRUE), GetBPsToClimbRoof(gpSMCurrentMerc, TRUE), FALSE))
+			{
+				gpSMCurrentMerc->BeginSoldierClimbDownRoof();
+			}			
 		}
+
 		if ( fNearHeigherLevel )
 		{
-			gpSMCurrentMerc->BeginSoldierClimbUpRoof(	);
+			if ((UsingNewInventorySystem() == true) && gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == true
+				//JMich.BackpackClimb
+				&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)gpSMCurrentMerc->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+				&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB]);
+				return;
+			}
+
+			if (EnoughPoints(gpSMCurrentMerc, GetAPsToClimbRoof(gpSMCurrentMerc, FALSE), GetBPsToClimbRoof(gpSMCurrentMerc, FALSE), FALSE))
+			{
+				gpSMCurrentMerc->BeginSoldierClimbUpRoof();
+			}
 		}
 		
 		//---------------Legion by JAzz-----------
 		
 		if (gGameExternalOptions.fCanClimbOnWalls == TRUE)
-		{ 
+		{
+			if ((UsingNewInventorySystem() == true) && gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == true
+				//JMich.BackpackClimb
+				&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)gpSMCurrentMerc->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+				&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB]);
+				return;
+			}
+
 			if ( FindWallJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 			{
-				gpSMCurrentMerc->BeginSoldierClimbWall(  );
+				if (EnoughPoints(gpSMCurrentMerc, GetAPsToJumpWall(gpSMCurrentMerc, FALSE), GetBPsToJumpWall(gpSMCurrentMerc, FALSE), FALSE))
+				{
+					gpSMCurrentMerc->BeginSoldierClimbWall();
+				}
 			}
 		}
 		
@@ -4651,7 +4697,19 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 		{
-			gpSMCurrentMerc->BeginSoldierClimbFence(	);
+			if ((UsingNewInventorySystem() == true) && gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == true
+				//JMich.BackpackClimb
+				&& ((gGameExternalOptions.sBackpackWeightToClimb == -1) || (INT16)gpSMCurrentMerc->inv[BPACKPOCKPOS].GetWeightOfObjectInStack() + Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].sBackpackWeightModifier > gGameExternalOptions.sBackpackWeightToClimb)
+				&& ((gGameExternalOptions.fUseGlobalBackpackSettings == TRUE) || (Item[gpSMCurrentMerc->inv[BPACKPOCKPOS].usItem].fAllowClimbing == FALSE)))
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB]);
+				return;
+			}
+
+			if (EnoughPoints(gpSMCurrentMerc, GetAPsToJumpFence(gpSMCurrentMerc, FALSE), GetBPsToJumpFence(gpSMCurrentMerc, FALSE), FALSE))
+			{
+				gpSMCurrentMerc->BeginSoldierClimbFence();
+			}
 		}
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )

@@ -737,6 +737,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 					if( gfUseAlternateQueenPosition && tempDetailedPlacement.ubProfile == QUEEN )
 					{
 						tempDetailedPlacement.sInsertionGridNo = gModSettings.iQueenAlternateGridNo;//dnl!!!
+						tempDetailedPlacement.bSectorZ = 0;
 					}
 					if( tempDetailedPlacement.ubCivilianGroup != QUEENS_CIV_GROUP )
 					{ //The free civilians aren't added if queen is alive

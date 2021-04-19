@@ -394,7 +394,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 #else
 
 		if( sMapX == gModSettings.ubQueenBasementSectorX && sMapY == gModSettings.ubQueenBasementSectorY 
-			&& bMapZ == gModSettings.ubQueenBasementSectorZ )
+			&& bMapZ == gModSettings.ubQueenBasementSectorZ && !SectorInfo[SECTOR(sMapX, sMapY)].fSurfaceWasEverPlayerControlled)
 		{ //Basement sector
 			gfUseAlternateQueenPosition = TRUE;
 		}
