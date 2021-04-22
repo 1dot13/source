@@ -2295,6 +2295,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 								HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
 
+								ErasePath(TRUE);
+								gfPlotNewMovement = TRUE;
+
 								// Center to guy....
 								LocateSoldier( gusSelectedSoldier, SETLOCATOR );
 							}
