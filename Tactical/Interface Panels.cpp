@@ -3109,8 +3109,8 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 						SetFontForeground( FONT_MCOLOR_LTGRAY );
 					}
 				}
-
-				gprintfRestore( SM_SELMERC_AP_X, SM_SELMERC_AP_Y, L"%2d", GetUIApsToDisplay( gpSMCurrentMerc ) );
+				
+				gprintfRestore( SM_SELMERC_AP_X, SM_SELMERC_AP_Y, L"%3d", GetUIApsToDisplay( gpSMCurrentMerc ) );
 				VarFindFontCenterCoordinates( SM_SELMERC_AP_X, SM_SELMERC_AP_Y, SM_SELMERC_AP_WIDTH, SM_SELMERC_AP_HEIGHT, TINYFONT1, &sFontX, &sFontY, L"%d", GetUIApsToDisplay( gpSMCurrentMerc ) );
 				mprintf( sFontX, SM_SELMERC_AP_Y, L"%d", GetUIApsToDisplay( gpSMCurrentMerc ) );
 			}
@@ -5695,11 +5695,11 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 								SetFontForeground( FONT_MCOLOR_LTGRAY );
 							}
 						}
-						RestoreExternBackgroundRect( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1 ], TM_AP_WIDTH, TM_AP_HEIGHT );
+						RestoreExternBackgroundRect( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1 ], TM_AP_WIDTH+1, TM_AP_HEIGHT );
 
 						if (gTacticalStatus.uiFlags & INCOMBAT )
 						{
-							VarFindFontCenterCoordinates( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1], TM_AP_WIDTH, TM_AP_HEIGHT, TINYFONT1, &sFontX, &sFontY, L"%d", GetUIApsToDisplay( pSoldier ) );
+							VarFindFontCenterCoordinates( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1], TM_AP_WIDTH, TM_AP_HEIGHT, TINYFONT1, &sFontX, &sFontY, L"%d", GetUIApsToDisplay( pSoldier ) );							
 							mprintf( sFontX, sTEAMApXY[ posIndex + 1], L"%d", GetUIApsToDisplay( pSoldier ) );
 						}
 					}
@@ -5711,7 +5711,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 					//DrawUIBar( pSoldier->stats.bLife, sTEAMLifeXY[ posIndex ], sTEAMLifeXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, DRAW_ERASE_BAR );
 
 					// Erase APs
-					RestoreExternBackgroundRect( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1 ], TM_AP_WIDTH, TM_AP_HEIGHT );
+					RestoreExternBackgroundRect( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1 ], TM_AP_WIDTH+1, TM_AP_HEIGHT );
 				}
 			}
 
