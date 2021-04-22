@@ -7325,6 +7325,8 @@ void HandleMouseTBWheel( void )
 			{ 
 				bID = FindPrevActiveAndAliveMerc( MercPtrs[ gusSelectedSoldier ], TRUE, TRUE );
 				HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
+				ErasePath(TRUE);
+				gfPlotNewMovement = TRUE;
 				// Center to guy....
 				LocateSoldier( gusSelectedSoldier, SETLOCATOR );
 			}
@@ -7344,6 +7346,8 @@ void HandleMouseTBWheel( void )
 			{ //Select next merc
 				bID = FindNextMercInTeamPanel( MercPtrs[ gusSelectedSoldier ], FALSE, FALSE );
 				HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
+				ErasePath(TRUE);
+				gfPlotNewMovement = TRUE;
 				// Center to guy....
 				LocateSoldier( gusSelectedSoldier, SETLOCATOR );
 			}
