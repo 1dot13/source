@@ -12751,6 +12751,11 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 	usForceAnimState = INVALID_ANIMATION;
 	// CHANGE TO ANIMATION
 
+	// sevenfm: initialize attack data
+	this->sTargetGridNo = sGridNo;
+	this->bTargetLevel = this->pathing.bLevel;	// melee attacks don't work between levels
+	this->ubTargetID = WhoIsThere2(sGridNo, this->bTargetLevel);
+
 	// DETERMINE ANIMATION TO PLAY
 	// LATER BASED ON IF TAREGT KNOWS OF US, STANCE, ETC
 	// GET POINTER TO TAREGT
@@ -12934,11 +12939,6 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 			}
 		}
 	}
-
-	// SET TARGET GRIDNO
-	this->sTargetGridNo = sGridNo;
-	this->bTargetLevel = this->pathing.bLevel;
-	this->ubTargetID = WhoIsThere2( sGridNo, this->bTargetLevel );
 }
 
 
