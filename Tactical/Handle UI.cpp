@@ -5188,7 +5188,7 @@ void SetMovementModeCursor( SOLDIERTYPE *pSoldier )
 				break;
 
 			case RUNNING:
-				guiNewUICursor = MOVE_RUN_UICURSOR;
+				guiNewUICursor = gUIUseReverse ? MOVE_WALK_UICURSOR : MOVE_RUN_UICURSOR;
 				break;
 
 			case SWATTING:
@@ -5292,7 +5292,7 @@ void SetConfirmMovementModeCursor( SOLDIERTYPE *pSoldier, BOOLEAN fFromMove )
 					break;
 
 				case RUNNING:
-					guiNewUICursor = CONFIRM_MOVE_RUN_UICURSOR;
+					guiNewUICursor = gUIUseReverse ? CONFIRM_MOVE_WALK_UICURSOR : CONFIRM_MOVE_RUN_UICURSOR;
 					break;
 
 				case SWATTING:

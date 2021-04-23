@@ -4518,7 +4518,6 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 	// For now, use known hight adjustment
 	// sevenfm: ignore person at destination if we are estimating path cost
 	if ( gfRecalculatingExistingPathCost || FindBestPath( pSold, sDestGridNo, pSold->pathing.bLevel, usMovementMode, bCopyRoute, gfEstimatePath ? PATH_IGNORE_PERSON_AT_DEST : 0 ) )
-	//if ( gfRecalculatingExistingPathCost || FindBestPath( pSold, sDestGridNo, pSold->pathing.bLevel, usMovementMode, bCopyRoute, 0 ) )
 	{
 		// if soldier would be STARTING to run then he pays a penalty since it takes time to
 		// run full speed
@@ -4528,11 +4527,16 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 			sPointsRun = GetAPsStartRun( pSold ); // changed by SANDRO
 		}
 
-	 // Add to points, those needed to start from different stance!
+		//shadooow: a little hack to calculate correct AP cost because game doesn't allow to run in reverse and forces walk mode
+		if (usMovementMode && (pSold->bReverse || bReverse))
+		{
+			usMovementMode = WALKING;
+		}
+
+		// Add to points, those needed to start from different stance!
 		sPoints = sPoints + MinAPsToStartMovement( pSold, usMovementMode );
 
-
-	 // We should reduce points for starting to run if first tile is a fence...
+		// We should reduce points for starting to run if first tile is a fence...
 		sTestGridNo  = NewGridNo(pSold->sGridNo, DirectionInc( (UINT8)guiPathingData[0]));
 
 		// WANNE: Quickfix for wrong pathing data (direction). This fixes crash that could rarly occur
@@ -4549,30 +4553,7 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 			}
 		}
 
-		// FIRST, add up "startup" additional costs - such as intermediate animations, etc.
-/* removing warning C4060 (jonathanl)
-		switch(pSold->usAnimState)
-		{
-			//case START_AID	:
-			//case GIVING_AID	:	sAnimCost = APBPConstants[AP_STOP_FIRST_AID];
-			//										break;
-			//case TWISTOMACH	:
-			//case COLLAPSED	:	sAnimCost = APBPConstants[AP_GET_UP];
-			//										break;
-			//case TWISTBACK	:
-			//case UNCONSCIOUS :	sAnimCost = (APBPConstants[AP_ROLL_OVER]+APBPConstants[AP_GET_UP]);
-			//										break;
-
-			//	case CROUCHING	:	if (usMovementMode == WALKING || usMovementMode == RUNNING)
-			//													sAnimCost = APBPConstants[AP_CROUCH];
-			//											break;
-			}
-
-
-		sPoints				= sPoints + sAnimCost;
-		gusAPtsToMove = gusAPtsToMove + sAnimCost;*/
-
-	if (bStayOn)
+		if (bStayOn)
 		{
 			iLastGrid = giPathDataSize+1;
 		}
@@ -4580,7 +4561,6 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 		{
 			iLastGrid = giPathDataSize;
 		}
-
 
 		for ( iCnt=0; iCnt < iLastGrid; iCnt++ )
 		{
@@ -4596,7 +4576,6 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 			sSwitchValue = gubWorldMovementCosts[ sTempGrid ][ (INT8)guiPathingData[iCnt] ][ pSold->pathing.bLevel];
 
 			usMovementModeToUseForAPs = usMovementMode;
-
 
 			// WANNE.WATER: If our soldier is not on the ground level and the tile is a "water" tile, then simply set the tile to "FLAT_GROUND"
 			// This should fix "problems" for special modified maps
