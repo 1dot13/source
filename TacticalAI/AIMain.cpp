@@ -1435,7 +1435,7 @@ void NPCDoesNothing(SOLDIERTYPE *pSoldier)
 }
 
 
-
+extern BOOLEAN AreInMeanwhile();
 
 void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 {
@@ -1470,10 +1470,13 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 	ActionDone(pSoldier);
 
 	// sevenfm: reset next action
-	pSoldier->aiData.bNextAction = AI_ACTION_NONE;
-	pSoldier->aiData.usNextActionData = 0;
-	pSoldier->aiData.bNextTargetLevel = 0;
-	pSoldier->iNextActionSpecialData = 0;
+	if(!AreInMeanwhile())
+	{
+		pSoldier->aiData.bNextAction = AI_ACTION_NONE;
+		pSoldier->aiData.usNextActionData = 0;
+		pSoldier->aiData.bNextTargetLevel = 0;
+		pSoldier->iNextActionSpecialData = 0;
+	}	
 }
 
 
