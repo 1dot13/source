@@ -242,8 +242,14 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 404:
 
 				// MOVE GUY BACKWARD SOME VALUE
+				sNewGridNo = pSoldier->sGridNo;
 				// Use same function as forward, but is -ve values!
 				MoveMercFacingDirection( pSoldier , TRUE, (FLOAT)1 );
+				//shadooow: since we just moved from original grid to the jump destination, now it is proper time to change bLevel
+				if (sNewGridNo != pSoldier->sGridNo)
+				{
+					pSoldier->pathing.bLevel = 0;
+				}
 				break;
 
 			case 405:
@@ -349,8 +355,8 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				HandlePlacingRoofMarker( pSoldier, pSoldier->sGridNo, FALSE, TRUE );
 
 				pSoldier->EVENT_SetSoldierDesiredDirection( pSoldier->ubDirection );
-				// Adjust height
-				pSoldier->SetSoldierHeight( (FLOAT)gClimbDownRoofStartDist[ pSoldier->ubBodyType ] );
+				// Adjust height //shadooow: do not change bLevel yet, we are still at roof!
+				pSoldier->InternalSetSoldierHeight((FLOAT)gClimbDownRoofStartDist[pSoldier->ubBodyType], FALSE);
 				// Adjust position
 				MoveMercFacingDirection( pSoldier , TRUE, (FLOAT)3.5 );
 				break;
