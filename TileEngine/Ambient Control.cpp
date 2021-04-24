@@ -427,6 +427,7 @@ void StartFireAmbient(void)
 }
 
 #define MAX_SSA_SOUNDS 10
+extern BOOLEAN AreInMeanwhile();
 
 void SetSSA(void)
 {
@@ -470,6 +471,12 @@ void SetSSA(void)
 
 	// no ambients in the rain
 	if (GetWeatherInCurrentSector() != WEATHER_FORECAST_NORMAL)
+	{
+		return;
+	}
+
+	// no ambients in cutscenes
+	if(AreInMeanwhile())
 	{
 		return;
 	}
