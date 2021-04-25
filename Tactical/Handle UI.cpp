@@ -4794,6 +4794,13 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		{
 			return( TRUE );
 		}
+		else if (IsStructureDeconstructItem(pSoldier->inv[HANDPOS].usItem, usMapPos, pSoldier))
+		{
+			if (FindStructure(usMapPos, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE)))
+			{
+				return(TRUE);
+			}
+		}
 		// Flugente: if there is tripwire here that we know of, allow handling
 		else if ( FindWorldItemForTripwireInGridNo( usMapPos, pSoldier->pathing.bLevel, TRUE ) != -1 )
 		{

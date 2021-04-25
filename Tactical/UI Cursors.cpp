@@ -2077,7 +2077,13 @@ UINT8 HandleWirecutterCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCur
 	{
 		return( GOOD_WIRECUTTER_UICURSOR );
 	}
-
+	else if (IsStructureDeconstructItem(pSoldier->inv[HANDPOS].usItem, sGridNo, pSoldier))
+	{
+		if (FindStructure(sGridNo, (STRUCTURE_GENERIC | STRUCTURE_WIREFENCE)))
+		{
+			return(GOOD_WIRECUTTER_UICURSOR);
+		}
+	}
 	return( BAD_WIRECUTTER_UICURSOR );
 }
 
@@ -2898,8 +2904,10 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 
 	// Flugente: cursor for constructing/deconstructing
 	// at the moment the gridno is not required in these functions, thus 1 suffices
-	if ( IsStructureConstructItem( usInHand, 1, pSoldier ) || IsStructureDeconstructItem( usInHand, 1, pSoldier ) )
+	if (!Item[usInHand].wirecutters && (IsStructureConstructItem(usInHand, 1, pSoldier) || IsStructureDeconstructItem(usInHand, 1, pSoldier)))
+	{		
 		ubCursor = FORTICURS;
+	}
 
 	// Flugente: cursor for handcuffs
 	if ( gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usInHand, HANDCUFFS) )
