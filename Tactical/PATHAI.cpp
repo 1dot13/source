@@ -3439,17 +3439,12 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				// ATE: ONLY cancel if they are moving.....
 				ubMerc = WhoIsThere2( newLoc, s->pathing.bLevel);
 
-				if ( ubMerc < TOTAL_SOLDIERS && ubMerc != s->ubID )
+				// sevenfm: for player mercs, ignore invisible opponents
+				if (ubMerc < TOTAL_SOLDIERS && ubMerc != s->ubID && 
+					(!(s->flags.uiStatusFlags & SOLDIER_PC) || MercPtrs[ubMerc]->bSide == s->bSide || MercPtrs[ubMerc]->aiData.bNeutral || MercPtrs[ubMerc]->bVisible >= 0 || SoldierToSoldierLineOfSightTest(s, MercPtrs[ubMerc], TRUE, CALC_FROM_ALL_DIRS)))
+				//if ( ubMerc < TOTAL_SOLDIERS && ubMerc != s->ubID )
 				{
-					// Check for movement....
-					//if ( fTurnBased || ( (Menptr[ ubMerc ].sFinalDestination == Menptr[ ubMerc ].sGridNo) || (Menptr[ ubMerc ].fDelayedMovement) ) )
-					//{
-						goto NEXTDIR;
-					//}
-				//	else
-					//{
-					//	nextCost += 50;
-					//}
+					goto NEXTDIR;
 				}
 			}
 
