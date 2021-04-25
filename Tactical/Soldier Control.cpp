@@ -8357,7 +8357,7 @@ void SOLDIERTYPE::TurnSoldier( void )
 	// We handle sight now....
 	if ( this->flags.uiStatusFlags & SOLDIER_LOOK_NEXT_TURNSOLDIER )
 	{
-		if ( (gAnimControl[this->usAnimState].uiFlags & ANIM_STATIONARY && this->usAnimState != CLIMBUPROOF && this->usAnimState != CLIMBDOWNROOF) )
+		if ( (gAnimControl[this->usAnimState].uiFlags & ANIM_STATIONARY && this->usAnimState != CLIMBUPROOF && this->usAnimState != CLIMBDOWNROOF && this->usAnimState != JUMPUPWALL && this->usAnimState != JUMPDOWNWALL) )
 		{
 			// HANDLE SIGHT!
 			HandleSight( this, SIGHT_LOOK | SIGHT_RADIO );
@@ -8367,20 +8367,6 @@ void SOLDIERTYPE::TurnSoldier( void )
 
 		HandleSystemNewAISituation( this, FALSE );
 	}
-
-	if ( this->flags.uiStatusFlags & SOLDIER_LOOK_NEXT_TURNSOLDIER )
-	{
-		if ( (gAnimControl[this->usAnimState].uiFlags & ANIM_STATIONARY && this->usAnimState != JUMPUPWALL && this->usAnimState != JUMPDOWNWALL) )
-		{
-			// HANDLE SIGHT!
-			HandleSight( this, SIGHT_LOOK | SIGHT_RADIO );
-		}
-		// Turn off!
-		this->flags.uiStatusFlags &= (~SOLDIER_LOOK_NEXT_TURNSOLDIER);
-
-		HandleSystemNewAISituation( this, FALSE );
-	}
-
 
 	if ( this->flags.fTurningToShoot )
 	{
@@ -12742,13 +12728,17 @@ void SOLDIERTYPE::EVENT_SoldierBeginBladeAttack( INT32 sGridNo, UINT8 ubDirectio
 
 	// CHANGE DIRECTION AND GOTO ANIMATION NOW
 	//dnl ch73 290913
-	if ( this->usAnimState != CRAWLING && gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE )
-		usForceAnimState = CROUCHING;
-	this->EVENT_SetSoldierDesiredDirection( ubDirection );
-	this->EVENT_SetSoldierDirection( ubDirection );
-	if ( this->flags.bTurningFromPronePosition )
-		this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STAB;
-	usForceAnimState = INVALID_ANIMATION;
+	if (this->ubDirection != ubDirection)
+	{
+		if (this->usAnimState != CRAWLING && gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE)
+			usForceAnimState = CROUCHING;
+		this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+		this->EVENT_SetSoldierDesiredDirection(ubDirection);
+		this->EVENT_SetSoldierDirection(ubDirection);
+		if (this->flags.bTurningFromPronePosition)
+			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STAB;
+		usForceAnimState = INVALID_ANIMATION;
+	}
 	// CHANGE TO ANIMATION
 
 	// sevenfm: initialize attack data
@@ -12949,7 +12939,6 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	//UINT32 uiMercFlags;
 	UINT16 usSoldierIndex;
 	UINT8 ubTDirection;
-	BOOLEAN fChangeDirection = FALSE;
 	UINT16	usItem;
 
 	// Get item in hand...
@@ -12969,16 +12958,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 	//usSoldierIndex = WhoIsThere2( this->sTargetGridNo, this->pathing.bLevel );
 	usSoldierIndex = WhoIsThere2(sGridNo, this->pathing.bLevel);
 
-	if ( usSoldierIndex != NOBODY )
-	{
-		GetSoldier( &pTSoldier, usSoldierIndex );
-
-		fChangeDirection = TRUE;
-	}
-	else
+	if (usSoldierIndex == NOBODY)
 	{
 		return;
 	}
+	
+	GetSoldier( &pTSoldier, usSoldierIndex );
 
 	// sevenfm: set flag indicating back attack and sneak attack
 	if (pTSoldier)
@@ -13002,14 +12987,15 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 		}
 	}
 
-	if ( fChangeDirection )
+	if (this->ubDirection != ubDirection)
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
 		//dnl ch73 290913
 		if ( this->usAnimState != CRAWLING && gAnimControl[this->usAnimState].ubEndHeight == ANIM_PRONE )
 			usForceAnimState = CROUCHING;
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+		this->EVENT_SetSoldierDesiredDirection(ubDirection);
+		this->EVENT_SetSoldierDirection(ubDirection);
 		if ( this->flags.bTurningFromPronePosition )
 			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_FOR_PUNCH_OR_STAB;
 		usForceAnimState = INVALID_ANIMATION;
@@ -13311,8 +13297,13 @@ void SOLDIERTYPE::EVENT_SoldierBeginKnifeThrowAttack( INT32 sGridNo, UINT8 ubDir
 		usForceAnimState = INVALID_ANIMATION;
 	this->flags.fDontUnsetLastTargetFromTurn = TRUE;
 	// CHANGE DIRECTION AND GOTO ANIMATION NOW
-	this->EVENT_SetSoldierDesiredDirection( ubDirection );
-	this->EVENT_SetSoldierDirection( ubDirection );
+	if (this->ubDirection != ubDirection)
+	{
+		this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+		this->EVENT_SetSoldierDesiredDirection(ubDirection);
+		this->EVENT_SetSoldierDirection(ubDirection);
+	}
+
 	usForceAnimState = INVALID_ANIMATION;
 
 	// SET TARGET GRIDNO
@@ -13463,8 +13454,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT32 sGridNo, UINT8 ubDirection )
 			fInProne = TRUE;
 		}
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		if (this->ubDirection != ubDirection)
+		{
+			this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+			this->EVENT_SetSoldierDesiredDirection(ubDirection);
+			this->EVENT_SetSoldierDirection(ubDirection);
+		}
 
 		// CHANGE TO ANIMATION
 		if ( fInProne )
@@ -22262,8 +22257,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginCutFence( INT32 sGridNo, UINT8 ubDirection )
 	if ( IsCuttableWireFenceAtGridNo( sGridNo ) )
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		if (this->ubDirection != ubDirection)
+		{
+			this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+			this->EVENT_SetSoldierDesiredDirection(ubDirection);
+			this->EVENT_SetSoldierDirection(ubDirection);
+		}
 
 		//BOOLEAN CutWireFence( INT16 sGridNo )
 
@@ -22290,8 +22289,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT32 sGridNo, UINT8 ubDirection )
 	if ( bRepairItem )
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		if (this->ubDirection != ubDirection)
+		{
+			this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+			this->EVENT_SetSoldierDesiredDirection(ubDirection);
+			this->EVENT_SetSoldierDirection(ubDirection);
+		}
 
 		//BOOLEAN CutWireFence( INT16 sGridNo )
 
@@ -22326,8 +22329,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginRefuel( INT32 sGridNo, UINT8 ubDirection )
 	if ( bRefuelItem )
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		if (this->ubDirection != ubDirection)
+		{
+			this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+			this->EVENT_SetSoldierDesiredDirection(ubDirection);
+			this->EVENT_SetSoldierDirection(ubDirection);
+		}
 
 		//BOOLEAN CutWireFence( INT16 sGridNo )
 
@@ -22354,8 +22361,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginTakeBlood( INT32 sGridNo, UINT8 ubDirection 
 		this->aiData.uiPendingActionData4 = pCorpse->iID;
 
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		if (this->ubDirection != ubDirection)
+		{
+			this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+			this->EVENT_SetSoldierDesiredDirection(ubDirection);
+			this->EVENT_SetSoldierDirection(ubDirection);
+		}
 
 		this->EVENT_InitNewSoldierAnim( TAKE_BLOOD_FROM_CORPSE, 0, FALSE );
 	}
@@ -22439,8 +22450,12 @@ void SOLDIERTYPE::EVENT_SoldierBuildStructure( INT32 sGridNo, UINT8 ubDirection 
 	}
 
 	// CHANGE DIRECTION AND GOTO ANIMATION NOW
-	this->EVENT_SetSoldierDesiredDirection( ubDirection );
-	this->EVENT_SetSoldierDirection( ubDirection );
+	if (this->ubDirection != ubDirection)
+	{
+		this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+		this->EVENT_SetSoldierDesiredDirection(ubDirection);
+		this->EVENT_SetSoldierDirection(ubDirection);
+	}
 
 	// do checks here...
 	OBJECTTYPE* pObj = &(this->inv[HANDPOS]);
@@ -22571,8 +22586,12 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 			}
 
 			// CHANGE DIRECTION AND GOTO ANIMATION NOW
-			this->EVENT_SetSoldierDesiredDirection( ubDirection );
-			this->EVENT_SetSoldierDirection( ubDirection );
+			if (this->ubDirection != ubDirection)
+			{
+				this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+				this->EVENT_SetSoldierDesiredDirection(ubDirection);
+				this->EVENT_SetSoldierDirection(ubDirection);
+			}
 
 			// CHANGE TO ANIMATION
 			this->EVENT_InitNewSoldierAnim( RELOAD_ROBOT, 0, FALSE );
@@ -22908,8 +22927,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginReloadRobot( INT32 sGridNo, UINT8 ubDirectio
 	if ( ubPerson != NOBODY && MercPtrs[ubPerson]->flags.uiStatusFlags & SOLDIER_ROBOT )
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
-		this->EVENT_SetSoldierDesiredDirection( ubDirection );
-		this->EVENT_SetSoldierDirection( ubDirection );
+		if (this->ubDirection != ubDirection)
+		{
+			this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+			this->EVENT_SetSoldierDesiredDirection(ubDirection);
+			this->EVENT_SetSoldierDirection(ubDirection);
+		}
 
 		// CHANGE TO ANIMATION
 		this->EVENT_InitNewSoldierAnim( RELOAD_ROBOT, 0, FALSE );
