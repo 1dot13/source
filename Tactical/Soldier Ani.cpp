@@ -2131,7 +2131,6 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				}
 				else
 				{
-
 					pSoldier->aiData.fAIFlags &= ~(AI_LOCK_DOOR_INCLUDES_CLOSE);
 
 					pSoldier->ubDoorOpeningNoise = DoorOpeningNoise( pSoldier );
@@ -2139,7 +2138,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					if ( SoldierHandleInteractiveObject( pSoldier ) )
 					{
 						// HANDLE SIGHT!
-						//HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO | SIGHT_INTERRUPT );
+						HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO | SIGHT_INTERRUPT );
 
 						InitOpplistForDoorOpening();
 
@@ -2155,7 +2154,6 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 					// EVENT HAS BEEN HANDLED
 					pSoldier->aiData.ubPendingAction		= NO_PENDING_ACTION;
-
 				}
 
 
