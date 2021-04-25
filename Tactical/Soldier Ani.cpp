@@ -94,7 +94,7 @@ DOUBLE		gFalloffBackwardsDist[ NUMSOLDIERBODYTYPES ] = { 1, 0.8, 1, 1 };
 DOUBLE		gClimbUpRoofDist[ NUMSOLDIERBODYTYPES ] = { 2, 0.1, 2, 2 };
 DOUBLE		gClimbUpRoofLATDist[ NUMSOLDIERBODYTYPES ] = { 0.7, 0.5, 0.7, 0.5 };
 DOUBLE		gClimbDownRoofStartDist[ NUMSOLDIERBODYTYPES ] = { 5.0, 1.0, 1, 1 };
-DOUBLE		gClimbUpRoofDistGoingLower[ NUMSOLDIERBODYTYPES ] = { 0.9, 0.1, 1, 1 };
+DOUBLE		gClimbUpRoofDistGoingLower[ NUMSOLDIERBODYTYPES ] = { 0.9, 0.0, 1, 0.9 };
 
 
 
