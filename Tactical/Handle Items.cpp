@@ -1363,7 +1363,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	}
 
 	// Flugente: handcuffing people
-	if (gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usHandItem, HANDCUFFS) && pTargetSoldier)
+	if (gGameExternalOptions.fAllowPrisonerSystem && HasItemFlag(usHandItem, HANDCUFFS) && pTargetSoldier && pTargetSoldier->bVisible >= 0)
 	{
 		if (!pTargetSoldier->CanBeCaptured())
 			return ITEM_HANDLE_REFUSAL;
