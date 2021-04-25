@@ -257,7 +257,6 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	UINT16						usRaiseGunCost = 0;
 	UINT16						usTurningCost = 0;
 
-
 	// Remove any previous actions
 	pSoldier->aiData.ubPendingAction		= NO_PENDING_ACTION;
 
@@ -299,12 +298,6 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Setting attack busy count to 0 due to no combat" ) );
 		gTacticalStatus.ubAttackBusyCount = 0;
 	}
-
-//	if ( pTargetSoldier )
-//	{
-//	pTargetSoldier->bBeingAttackedCount = 0;
-//	}
-
 
 	// Check our soldier's life for unconscious!
 	if ( pSoldier->stats.bLife < OKLIFE )
@@ -1476,8 +1469,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 	}
 
+	UINT8 ubPerson = WhoIsThere2(usMapPos, pSoldier->pathing.bLevel);
+
 	// Flugente: apply misc items to other soldiers
-	if ( ItemCanBeAppliedToOthers( usHandItem ) )
+	// sevenfm: check that target soldier is visible
+	if (ItemCanBeAppliedToOthers(usHandItem) && ubPerson != NOBODY && MercPtrs[ubPerson] && MercPtrs[ubPerson]->bVisible != 0)
 	{
 		// ATE: AI CANNOT GO THROUGH HERE!
 		BOOLEAN	fHadToUseCursorPos = FALSE;
@@ -1499,12 +1495,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		sAPCost = GetAPsToApplyItem( pSoldier, sActionGridNo );
 		sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
-		// if we are at the action gridno, the item is a bomb, but nobody is at the gridno, do not apply and do not return - we will plant the bomb instead (handlded later in this function)
-		if ( Item[ usHandItem ].usItemClass == IC_BOMB && WhoIsThere2( usMapPos, pSoldier->pathing.bLevel ) == NOBODY )
-		{
-			;
-		}
-		else if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
+		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 		{
 			// OK, set UI
 			SetUIBusy( pSoldier->ubID );

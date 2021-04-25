@@ -254,26 +254,6 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos
 			{
 				ubCursorID =	HandleNonActivatedTossCursor( pSoldier, sTargetGridNo, fRecalc, uiCursorFlags, ubItemCursor );
 			}
-
-#if 0
-			if ( gCurrentUIMode == ACTION_MODE && ubItemCursor == TRAJECTORYCURS && ( gTacticalStatus.uiFlags & INCOMBAT ) )
-			{
-				// Alrighty, let's change the cursor!
-				if ( fRecalc && gfUIFullTargetFound )
-				{
-						// ATE: Check for ammo
-						if ( IsValidTargetMerc( (UINT8)gusUIFullTargetID ) && EnoughAmmo( pSoldier, FALSE, HANDPOS ) )
-						{
-							// IF it's an ememy, goto confirm action mode
-							if ( ( guiUIFullTargetFlags & ENEMY_MERC ) && ( guiUIFullTargetFlags & VISIBLE_MERC ) && !( guiUIFullTargetFlags & DEAD_MERC ) && !gfCannotGetThrough )
-							{
-									guiPendingOverrideEvent = A_CHANGE_TO_CONFIM_ACTION;
-							}
-
-						}
-				}
-			}
-#endif
 			break;
 
 		case BOMBCURS:
@@ -2337,22 +2317,22 @@ UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 	return( HANDCUFF_RED_UICURSOR );
 }
 
-UINT8 HandleApplyItemCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
+UINT8 HandleApplyItemCursor(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags)
 {
 	// DRAW PATH TO GUY
-	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_APPLYITEM );
-		
-	if ( ItemCanBeAppliedToOthers( (&(pSoldier->inv[HANDPOS]))->usItem ) )
+	HandleUIMovementCursor(pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_APPLYITEM);
+
+	if (ItemCanBeAppliedToOthers((&(pSoldier->inv[HANDPOS]))->usItem))
 	{
 		// is there a person here?
-		UINT8 usSoldierIndex = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
-		if ( usSoldierIndex != NOBODY )
+		UINT8 ubPerson = WhoIsThere2(sGridNo, pSoldier->pathing.bLevel);
+		if (ubPerson != NOBODY && MercPtrs[ubPerson] && MercPtrs[ubPerson]->bVisible >= 0)
 		{
-			return( APPLYITEM_GREY_UICURSOR );
+			return(APPLYITEM_GREY_UICURSOR);
 		}
 	}
 
-	return( APPLYITEM_RED_UICURSOR );
+	return(APPLYITEM_RED_UICURSOR);
 }
 
 UINT8 HandleHackCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
@@ -2952,7 +2932,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	}
 
 	// Flugente: apply misc items to other soldiers
-	// exception: not for medical items (medkists can have drug effects that are applied during bandaging)
+	// exception: not for medical items (medkits can have drug effects that are applied during bandaging)
 	if ( ubCursor != AIDCURS && ItemCanBeAppliedToOthers( usInHand ) )
 	{
 		// if item is a bomb, only allow apply if hovering over a soldier (otherwise we cannot mine anymore)
@@ -2962,12 +2942,17 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 			if ( GetMouseMapPos( &usMapPos ) )
 			{
 				// is there a person here?
-				 if ( WhoIsThere2( usMapPos, pSoldier->pathing.bLevel ) != NOBODY )
-					 ubCursor = APPLYITEMCURS;
+				UINT8 ubPerson = WhoIsThere2(usMapPos, pSoldier->pathing.bLevel);
+				if (ubPerson != NOBODY && MercPtrs[ubPerson] && MercPtrs[ubPerson]->bVisible >= 0)
+				{
+					ubCursor = APPLYITEMCURS;
+				}
 			}
 		}
 		else
+		{
 			ubCursor = APPLYITEMCURS;
+		}
 	}
 		
 	// WANNE.WATER: Allow shooting if we are on a "water" tile, but on level > 0

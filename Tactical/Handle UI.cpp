@@ -680,13 +680,13 @@ UINT32	HandleTacticalUI( void )
 		}
 
 		// Look for soldier full
-		if ( FindSoldier( usMapPos, &gusUIFullTargetID, &guiUIFullTargetFlags, ( FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) ) )
+		if (FindSoldier(usMapPos, &gusUIFullTargetID, &guiUIFullTargetFlags, (FINDSOLDIERSAMELEVEL(gsInterfaceLevel))))
 		{
 			gfUIFullTargetFound = TRUE;
 		}
 
 		// Look for soldier selective
-		if ( FindSoldier( usMapPos, &gusUISelectiveTargetID, &guiUISelectiveTargetFlags, FINDSOLDIERSELECTIVESAMELEVEL( gsInterfaceLevel ) ) )
+		if (FindSoldier(usMapPos, &gusUISelectiveTargetID, &guiUISelectiveTargetFlags, FINDSOLDIERSELECTIVESAMELEVEL(gsInterfaceLevel)))
 		{
 			gfUISelectiveTargetFound = TRUE;
 		}
@@ -4766,11 +4766,11 @@ INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT16 sAdjustedGridNo)
 
 BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 {
-	UINT16 usInHand;
-	BOOLEAN						fGuyHere = FALSE;
-	SOLDIERTYPE				*pTSoldier;
-	UINT8							ubItemCursor;
-	INT32 usMapPos;
+	UINT16	usInHand;
+	BOOLEAN	fGuyHere = FALSE;
+	SOLDIERTYPE *pTSoldier;
+	UINT8	ubItemCursor;
+	INT32	usMapPos;
 
 	if ( !GetMouseMapPos( &usMapPos ) )
 	{
@@ -4787,7 +4787,6 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 	{
 		return( FALSE );
 	}
-
 
 	if ( ubItemCursor == WIRECUTCURS )
 	{
@@ -4964,7 +4963,7 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 	}
 
 	// SEE IF THERE IS SOMEBODY HERE
-	if ( gfUIFullTargetFound	&& ubItemCursor != KNIFECURS )
+	if ( gfUIFullTargetFound && ubItemCursor != KNIFECURS )
 	{
 		fGuyHere = TRUE;
 
@@ -4979,14 +4978,6 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	//if ( Item[ usInHand ].usItemClass == IC_BLADE && usInHand != THROWING_KNIFE )
-	//{
-	//	if ( !fGuyHere )
-	//	{
-	//	return( FALSE );
-	//	}
-	//}
-
 	if ( Item[ usInHand ].usItemClass == IC_PUNCH )
 	{
 		if ( !fGuyHere )
@@ -4994,14 +4985,6 @@ BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier )
 			return( FALSE );
 		}
 	}
-
-	//if ( Item[ usInHand ].usItemClass == IC_BLADE )
-	//{
-	//	if ( !fGuyHere )
-	//	{
-	//		return( FALSE );
-	//	}
-	//}
 
 	if ( Item[ usInHand ].usItemClass == IC_MEDKIT )
 	{
