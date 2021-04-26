@@ -2602,7 +2602,7 @@ INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLe
 	// If no struct, return
 	if ( pCurrent == NULL )
 	{
-	(*pStructHeight) = StructureHeight( pCurrent );
+		(*pStructHeight) = StructureHeight( pCurrent );
 		(*ppTallestStructure) = NULL;
 		return( NOTHING_BLOCKING );
 	}
@@ -2642,40 +2642,45 @@ INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLe
 			}
 
 			// CHECK FOR WINDOW
-			if ( pCurrent->fFlags & STRUCTURE_WALLNWINDOW )
+			if (pCurrent->fFlags & STRUCTURE_WALLNWINDOW)
 			{
+				//shadooow: full blocking for black windows
+				if (pCurrent->fFlags & STRUCTURE_SPECIAL)
+				{
+					return(FULL_BLOCKING);
+				}
 				switch( pCurrent->ubWallOrientation )
 				{
 					case OUTSIDE_TOP_LEFT:
 					case INSIDE_TOP_LEFT:
 
-			(*pStructHeight) = StructureHeight( pCurrent );
+						(*pStructHeight) = StructureHeight( pCurrent );
 						(*ppTallestStructure) = pCurrent;
 
-			if ( pCurrent->fFlags & STRUCTURE_OPEN )
-			{
-						return( BLOCKING_TOPLEFT_OPEN_WINDOW );
-			}
-			else
-			{
-						return( BLOCKING_TOPLEFT_WINDOW );
-			}
+						if ( pCurrent->fFlags & STRUCTURE_OPEN )
+						{
+									return( BLOCKING_TOPLEFT_OPEN_WINDOW );
+						}
+						else
+						{
+									return( BLOCKING_TOPLEFT_WINDOW );
+						}
 						break;
 
 					case OUTSIDE_TOP_RIGHT:
 					case INSIDE_TOP_RIGHT:
 
-			(*pStructHeight) = StructureHeight( pCurrent );
+						(*pStructHeight) = StructureHeight( pCurrent );
 						(*ppTallestStructure) = pCurrent;
 
-			if ( pCurrent->fFlags & STRUCTURE_OPEN )
-			{
-						return( BLOCKING_TOPRIGHT_OPEN_WINDOW );
-			}
-			else
-			{
-						return( BLOCKING_TOPRIGHT_WINDOW );
-			}
+						if ( pCurrent->fFlags & STRUCTURE_OPEN )
+						{
+							return( BLOCKING_TOPRIGHT_OPEN_WINDOW );
+						}
+						else
+						{
+							return( BLOCKING_TOPRIGHT_WINDOW );
+						}
 						break;
 				}
 			}
@@ -2686,7 +2691,7 @@ INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLe
 				// If we are not opem, we are full blocking!
 				if ( !(pCurrent->fFlags & STRUCTURE_OPEN ) )
 				{
-			(*pStructHeight) = StructureHeight( pCurrent );
+					(*pStructHeight) = StructureHeight( pCurrent );
 					(*ppTallestStructure) = pCurrent;
 					return( FULL_BLOCKING );
 					break;
@@ -2698,7 +2703,7 @@ INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLe
 						case OUTSIDE_TOP_LEFT:
 						case INSIDE_TOP_LEFT:
 
-				(*pStructHeight) = StructureHeight( pCurrent );
+							(*pStructHeight) = StructureHeight( pCurrent );
 							(*ppTallestStructure) = pCurrent;
 							return( BLOCKING_TOPLEFT_DOOR );
 							break;
@@ -2706,7 +2711,7 @@ INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLe
 						case OUTSIDE_TOP_RIGHT:
 						case INSIDE_TOP_RIGHT:
 
-				(*pStructHeight) = StructureHeight( pCurrent );
+							(*pStructHeight) = StructureHeight( pCurrent );
 							(*ppTallestStructure) = pCurrent;
 							return( BLOCKING_TOPRIGHT_DOOR );
 							break;
