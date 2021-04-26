@@ -1800,11 +1800,11 @@ void PutDownMercPiece( INT32 iPlacement )
 
 		if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 		{
-			ubDirection = (UINT8)GetDirectionToGridNoFromGridNo( gMapInformation.sCenterGridNo, sGridNo ) + 100;
+			ubDirection = (UINT8)GetDirectionToGridNoFromGridNo( gMapInformation.sCenterGridNo, sGridNo );
 		}
-		
 		pSoldier->EVENT_SetSoldierDirection( ubDirection );
-		pSoldier->ubInsertionDirection = pSoldier->ubDirection;
+		ubDirection += 100;
+		pSoldier->ubInsertionDirection = ubDirection;
 
 		gMercPlacement[ iPlacement ].fPlaced = TRUE;
 		gMercPlacement[ iPlacement ].pSoldier->bInSector = TRUE;
