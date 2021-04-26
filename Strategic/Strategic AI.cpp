@@ -7056,24 +7056,18 @@ void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &
 	
 	if ( asdUpgrade && groupSize > 0 )
 	{
-		const BOOLEAN canUpgradeToJeep = (groupType == GROUP_TYPE_ATTACK && gGameExternalOptions.fArmyUsesJeepsInAttacks)
-									|| (groupType == GROUP_TYPE_PATROL && gGameExternalOptions.fArmyUsesJeepsInPatrols);
-		const BOOLEAN canUpgradeToTank = (groupType == GROUP_TYPE_ATTACK && gGameExternalOptions.fArmyUsesTanksInAttacks)
-									|| (groupType == GROUP_TYPE_PATROL && gGameExternalOptions.fArmyUsesTanksInPatrols);
-		const BOOLEAN canUpgradeToRobot = (groupType == GROUP_TYPE_ATTACK && gGameExternalOptions.fArmyUsesRobotsInAttacks)
-									|| (groupType == GROUP_TYPE_PATROL && gGameExternalOptions.fArmyUsesRobotsInPatrols);
-		if ( canUpgradeToJeep && ASDSoldierUpgradeToJeep( ) )
+		if ( gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
 		{
 			troopCount--;
 			jeepCount++;
 		}
-		else if ( canUpgradeToTank && ASDSoldierUpgradeToTank( ) )
+		else if ( gGameExternalOptions.fASDAssignsTanks && ASDSoldierUpgradeToTank( ) )
 		{
 			troopCount--;
 			tankCount++;
 		}
 
-		if ( canUpgradeToRobot && ASDSoldierUpgradeToRobot() )
+		if ( gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
 		{
 			const int numRobots = Random(difficultyMod);
 			troopCount -= numRobots;

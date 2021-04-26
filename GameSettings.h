@@ -942,16 +942,8 @@ typedef struct
 	BOOLEAN fEnemiesDontSpareLaunchables;
 	BOOLEAN fEnemiesBlowObstaclesUp;
 
-	BOOLEAN fArmyUsesTanksInAttacks;
-	BOOLEAN fArmyUsesTanksInPatrols;
 	UINT8 usTankMinimumProgress;
-
-	BOOLEAN fArmyUsesJeepsInAttacks;
-	BOOLEAN fArmyUsesJeepsInPatrols;
 	UINT8 usJeepMinimumProgress;
-
-	BOOLEAN fArmyUsesRobotsInAttacks;
-	BOOLEAN fArmyUsesRobotsInPatrols;
 	UINT8 usRobotMinimumProgress;
 
 	// WANNE: Always use "prof.dat".

@@ -1845,16 +1845,8 @@ void LoadGameExternalOptions()
 	//dnl ch68 090913 Don't allow permanent items removal from sector
 	gGameExternalOptions.fNoRemoveRandomSectorItems			= iniReader.ReadBoolean("Strategic GamePlay Settings", "NO_REMOVE_RANDOM_SECTOR_ITEMS", TRUE );
 
-	gGameExternalOptions.fArmyUsesTanksInAttacks			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_ATTACKS", FALSE);
-	gGameExternalOptions.fArmyUsesTanksInPatrols			= iniReader.ReadBoolean("Strategic Gameplay Settings","ARMY_USES_TANKS_IN_PATROLS", FALSE);
-	gGameExternalOptions.usTankMinimumProgress				= iniReader.ReadInteger("Strategic Gameplay Settings","TANK_MINIMUM_PROGRESS", 60, 0, 100);
-
-	gGameExternalOptions.fArmyUsesJeepsInAttacks			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_ATTACKS", FALSE );
-	gGameExternalOptions.fArmyUsesJeepsInPatrols			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_JEEPS_IN_PATROLS", FALSE );
+	gGameExternalOptions.usTankMinimumProgress				= iniReader.ReadInteger("Strategic Gameplay Settings", "TANK_MINIMUM_PROGRESS", 60, 0, 100);
 	gGameExternalOptions.usJeepMinimumProgress				= iniReader.ReadInteger( "Strategic Gameplay Settings", "JEEP_MINIMUM_PROGRESS", 30, 0, 100 );
-
-	gGameExternalOptions.fArmyUsesRobotsInAttacks			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_ROBOTS_IN_ATTACKS", FALSE );
-	gGameExternalOptions.fArmyUsesRobotsInPatrols			= iniReader.ReadBoolean( "Strategic Gameplay Settings", "ARMY_USES_ROBOTS_IN_PATROLS", FALSE );
 	gGameExternalOptions.usRobotMinimumProgress				= iniReader.ReadInteger( "Strategic Gameplay Settings", "ROBOT_MINIMUM_PROGRESS", 45, 0, 100 );
 
 	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
