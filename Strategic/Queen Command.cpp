@@ -610,7 +610,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	GROUP *pGroup;
 	SOLDIERTYPE *pSoldier;
 	unsigned ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
-	unsigned ubTotalAdmins, ubTotalElites, ubTotalRobots, ubTotalTroops, ubTotalTanks, ubTotalJeeps = 0;
+	unsigned ubTotalAdmins, ubTotalElites, ubTotalRobots, ubTotalTroops, ubTotalTanks, ubTotalJeeps;
 	unsigned totalCountOfStationaryEnemies = 0;
 	unsigned totalCountOfMobileEnemies = 0;
 	int sNumSlots;
@@ -743,7 +743,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		{
 			//count the number of enemy placements in a map and use those
 			SOLDIERINITNODE *curr = gSoldierInitHead;
-			ubTotalAdmins = ubTotalTroops = ubTotalElites = ubTotalTanks = 0;
+			ubTotalAdmins = ubTotalTroops = ubTotalElites = ubTotalRobots = ubTotalJeeps = ubTotalTanks = 0;
 			while( curr )
 			{
 				if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
@@ -1933,7 +1933,7 @@ void AddPossiblePendingEnemiesToBattle()
 					ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 			}
 
-			if( ubStrategicInsertionCode < INSERTION_CODE_NORTH ||ubStrategicInsertionCode > INSERTION_CODE_WEST )
+			if( ubStrategicInsertionCode < INSERTION_CODE_NORTH || ubStrategicInsertionCode > INSERTION_CODE_WEST )
 				ubStrategicInsertionCode = INSERTION_CODE_NORTH + Random( 4 );
 
 			AddEnemiesToBattle( 0, ubStrategicInsertionCode, ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps, FALSE );
