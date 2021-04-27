@@ -2681,13 +2681,14 @@ BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr, INT32 sGridNo, IN
 
 	while(1)
 	{
-		//if we run out of indecies before running out of items to place, make new indecies
+		//if we run out of indices before running out of items to place, make new indices
 		if(cnt == pInventoryPoolList.size())
 		{
 			ResizeInventoryList();
 		}
 		pInventorySlot = &pInventoryPoolList[cnt].object;
-		if(pInventorySlot->usItem == pItemPtr->usItem)
+
+		if(pInventorySlot->usItem == pItemPtr->usItem && pInventoryPoolList[cnt].usFlags & WORLD_ITEM_REACHABLE)
 		{
 			pInventorySlot->AddObjectsToStack(*pItemPtr);
 		}
@@ -4993,7 +4994,7 @@ void SortSectorInventoryAmmo(bool useBoxes)
 				// as possible into crates. 
 
 				// Look through all items in the game to try and find an ammocrate that can contain this kind of ammo.
-				for ( int iCrateLoop = 0; iCrateLoop < gMAXITEMS_READ; ++iCrateLoop )
+				for (INT32 iCrateLoop = 0; iCrateLoop < (INT32)gMAXITEMS_READ; ++iCrateLoop)
 				{
 					// Is it the right ammo crate?
 					if( Item[iCrateLoop].usItemClass == IC_AMMO &&
@@ -5043,7 +5044,7 @@ void SortSectorInventoryAmmo(bool useBoxes)
 						// Dump all the ammo into it.
 						DistributeStatus(pCurObject, &newCrate, Magazine[Item[crateItem].ubClassIndex].ubMagSize);
 						// Place it in the sector inventory.
-						AutoPlaceObjectToWorld( pSoldier, &newCrate, true );
+						AutoPlaceObjectToWorld(pSoldier, &newCrate, TRUE);
 						// Ran out of magazines?
 						if(pCurObject->ubNumberOfObjects < 1)
 						{
@@ -5117,7 +5118,7 @@ void SortSectorInventoryEjectAmmo()
 						pInventoryPoolList[uiLoop].object[x]->data.gun.ubGunAmmoType = NONE;
 
 						// put it on the ground
-						AutoPlaceObjectToWorld( pSoldier, &gTempObject, true );
+						AutoPlaceObjectToWorld(pSoldier, &gTempObject, TRUE);
 
 						// Check...
 						if (&gTempObject != NULL)
@@ -5169,7 +5170,7 @@ void SortSectorInventoryEmptyLBE() {
 							OBJECTTYPE * LBEStack = lbeInvIter._Ptr;
 							dropCnt += LBEStack->ubNumberOfObjects;
 
-							AutoPlaceObjectToWorld(pSoldier, LBEStack, true);
+							AutoPlaceObjectToWorld(pSoldier, LBEStack, TRUE);
 							if (LBEStack != NULL)
 							{
 								DeleteObj(lbeInvIter._Ptr);
@@ -5251,7 +5252,7 @@ void SortSectorInventorySeparateAttachments()
 					{
 						gpTempObject = pNewObj;
 
-						AutoPlaceObjectToWorld(pSoldier, gpTempObject, true);
+						AutoPlaceObjectToWorld(pSoldier, gpTempObject, TRUE);
 						if (gpTempObject != NULL)
 						{
 							DeleteObj(gpTempObject);
