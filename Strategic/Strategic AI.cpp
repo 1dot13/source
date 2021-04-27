@@ -423,6 +423,8 @@ BOOLEAN AdjacentSectorIsImportantAndUndefended( UINT8 ubSectorID );
 BOOLEAN HandleEmptySectorNoticedByPatrolGroup( GROUP *pGroup, UINT8 ubEmptySectorID );
 void HandleEmptySectorNoticedByGarrison( UINT8 ubGarrisonSectorID, UINT8 ubEmptySectorID );
 
+UINT16 GetOffensePoints(const ENEMYGROUP* pEnemyGroup);
+UINT16 GetOffensePoints(const SECTORINFO* pSectorInfo);
 BOOLEAN PlayerForceTooStrong( UINT8 ubSectorID, UINT16 usOffensePoints, UINT16 *pusDefencePoints );
 void RequestAttackOnSector( UINT8 ubSectorID, UINT16 usDefencePoints );
 void RequestHighPriorityStagingGroupReinforcements( GROUP *pGroup );
@@ -627,7 +629,26 @@ INT32 ReinforcementsAvailable( INT32 iGarrisonID )
 	return iReinforcementsAvailable;
 }
 
-//
+UINT16 GetOffensePoints(const ENEMYGROUP* pEnemyGroup)
+{
+	return pEnemyGroup->ubNumAdmins * ADMIN_POINTS_MODIFIER +
+			pEnemyGroup->ubNumTroops * REGULAR_POINTS_MODIFIER +
+			pEnemyGroup->ubNumElites * ELITE_POINTS_MODIFIER +
+			pEnemyGroup->ubNumRobots * ROBOT_POINTS_MODIFIER +
+			pEnemyGroup->ubNumTanks * TANK_POINTS_MODIFIER + 
+			pEnemyGroup->ubNumJeeps * JEEP_POINTS_MODIFIER;
+}
+
+UINT16 GetOffensePoints(const SECTORINFO* pSectorInfo)
+{
+	return pSectorInfo->ubNumAdmins * ADMIN_POINTS_MODIFIER +
+			pSectorInfo->ubNumTroops * REGULAR_POINTS_MODIFIER +
+			pSectorInfo->ubNumElites * ELITE_POINTS_MODIFIER +
+			pSectorInfo->ubNumRobots * ROBOT_POINTS_MODIFIER +
+			pSectorInfo->ubNumTanks * TANK_POINTS_MODIFIER + 
+			pSectorInfo->ubNumJeeps * JEEP_POINTS_MODIFIER;
+}
+
 BOOLEAN PlayerForceTooStrong( UINT8 ubSectorID, UINT16 usOffensePoints, UINT16 *pusDefencePoints )
 {
 	SECTORINFO *pSector;
@@ -639,9 +660,9 @@ BOOLEAN PlayerForceTooStrong( UINT8 ubSectorID, UINT16 usOffensePoints, UINT16 *
 
 	// SANDRO - EVALUATE THE STRENGTH OF MILITIA BASED ON INI SETTING
 	*pusDefencePoints = PlayerMercsInSector( ubSectorX, ubSectorY, 0 ) * 5;
-	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, GREEN_MILITIA ) * 1 * (100 + gGameExternalOptions.sGreenMilitiaAutoresolveStrength) / 100);
-	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, REGULAR_MILITIA ) * 2 * (100 + gGameExternalOptions.sRegularMilitiaAutoresolveStrength) / 100);
-	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, ELITE_MILITIA ) * 3 * (100 + gGameExternalOptions.sVeteranMilitiaAutoresolveStrength) / 100);
+	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, GREEN_MILITIA ) * GREEN_MILITIA_POINTS_MODIFIER * (100 + gGameExternalOptions.sGreenMilitiaAutoresolveStrength) / 100);
+	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, REGULAR_MILITIA ) * REGULAR_MILITIA_POINTS_MODIFIER * (100 + gGameExternalOptions.sRegularMilitiaAutoresolveStrength) / 100);
+	*pusDefencePoints += (MilitiaInSectorOfRank( ubSectorX, ubSectorY, ELITE_MILITIA ) * ELITE_MILITIA_POINTS_MODIFIER * (100 + gGameExternalOptions.sVeteranMilitiaAutoresolveStrength) / 100);
 
 	if( *pusDefencePoints > usOffensePoints )
 	{
@@ -1849,12 +1870,7 @@ BOOLEAN HandlePlayerGroupNoticedByPatrolGroup( GROUP *pPlayerGroup, GROUP *pEnem
 	UINT8 ubSectorID;
 
 	ubSectorID = (BOOLEAN)SECTOR( pPlayerGroup->ubSectorX, pPlayerGroup->ubSectorY );
-	usOffensePoints = pEnemyGroup->pEnemyGroup->ubNumAdmins * 2 +
-										pEnemyGroup->pEnemyGroup->ubNumTroops * 4 +
-										pEnemyGroup->pEnemyGroup->ubNumElites * 6 +
-										pEnemyGroup->pEnemyGroup->ubNumRobots * 15 +
-										pEnemyGroup->pEnemyGroup->ubNumTanks * 20 + 
-										pEnemyGroup->pEnemyGroup->ubNumJeeps * 12;
+	usOffensePoints = GetOffensePoints(pEnemyGroup->pEnemyGroup);
 	if( PlayerForceTooStrong( ubSectorID, usOffensePoints, &usDefencePoints ) )
 	{
 		RequestAttackOnSector( ubSectorID, usDefencePoints );
@@ -1904,12 +1920,7 @@ void HandlePlayerGroupNoticedByGarrison( GROUP *pPlayerGroup, UINT8 ubSectorID )
 	{
 		return;
 	}
-	usOffensePoints = pSector->ubNumAdmins * 2 +
-										pSector->ubNumTroops * 4 +
-										pSector->ubNumElites * 6 +
-										pSector->ubNumRobots * 15 +
-										pSector->ubNumTanks * 20 + 
-										pSector->ubNumJeeps * 12;
+	usOffensePoints = GetOffensePoints(pSector);
 	if( PlayerForceTooStrong( ubSectorID, usOffensePoints, &usDefencePoints ) )
 	{
 		RequestAttackOnSector( ubSectorID, usDefencePoints );
@@ -1963,12 +1974,7 @@ BOOLEAN HandleMilitiaNoticedByPatrolGroup( UINT8 ubSectorID, GROUP *pEnemyGroup 
 	UINT16 usOffensePoints, usDefencePoints;
 	UINT8 ubSectorX = SECTORX( ubSectorID );
 	UINT8 ubSectorY = SECTORY( ubSectorID );
-	usOffensePoints = pEnemyGroup->pEnemyGroup->ubNumAdmins * 2 +
-										pEnemyGroup->pEnemyGroup->ubNumTroops * 4 +
-										pEnemyGroup->pEnemyGroup->ubNumElites * 6 +
-										pEnemyGroup->pEnemyGroup->ubNumRobots * 15 +
-										pEnemyGroup->pEnemyGroup->ubNumTanks * 20 + 
-										pEnemyGroup->pEnemyGroup->ubNumJeeps * 12;
+	usOffensePoints = GetOffensePoints(pEnemyGroup->pEnemyGroup);
 	if( PlayerForceTooStrong( ubSectorID, usOffensePoints, &usDefencePoints ) )
 	{
 		RequestAttackOnSector( ubSectorID, usDefencePoints );
@@ -3140,6 +3146,7 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 		pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, (UINT8)iReinforcementsApproved, 0, 0, 0, 0 );
 		ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
+		InitializeGroup(GROUP_TYPE_PATROL, (UINT8)iReinforcementsApproved, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel );
 		//Madd: unlimited reinforcements?
 		if ( !gfUnlimitedTroops )
 			giReinforcementPool -= iReinforcementsApproved;
@@ -3229,6 +3236,7 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 
 			pGroup = CreateNewEnemyGroupDepartingFromSector( gGarrisonGroup[ iSrcGarrisonID ].ubSectorID, 0, (UINT8)iReinforcementsApproved, 0, 0, 0, 0 );
 			ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
+			InitializeGroup(GROUP_TYPE_PATROL, (UINT8)iReinforcementsApproved, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel );
 			RemoveSoldiersFromGarrisonBasedOnComposition( iSrcGarrisonID, pGroup->ubGroupSize );
 			pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 			pGroup->ubMoveType = ONE_WAY;
@@ -3319,6 +3327,7 @@ BOOLEAN SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 		iReinforcementsApproved = min( iReinforcementsRequested, giReinforcementPool );
 		pGroup = CreateNewEnemyGroupDepartingFromSector( SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ), 0, (UINT8)iReinforcementsApproved, 0, 0, 0, 0 );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
+		InitializeGroup(GROUP_TYPE_PATROL, iReinforcementsApproved, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel);
 
 		//Madd: unlimited reinforcements?
 		if ( !gfUnlimitedTroops )
@@ -3371,6 +3380,7 @@ BOOLEAN SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 						pGroup = CreateNewEnemyGroupDepartingFromSector( gGarrisonGroup[ iSrcGarrisonID ].ubSectorID, 0, (UINT8)iReinforcementsApproved, 0, 0, 0, 0 );
 						pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 						gPatrolGroup[ iPatrolID ].ubPendingGroupID = pGroup->ubGroupID;
+						InitializeGroup(GROUP_TYPE_PATROL, iReinforcementsApproved, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel);
 
 						RemoveSoldiersFromGarrisonBasedOnComposition( iSrcGarrisonID, pGroup->ubGroupSize );
 
@@ -5910,6 +5920,7 @@ void RequestHighPriorityGarrisonReinforcements( INT32 iGarrisonID, UINT8 ubSoldi
 			pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
 			gGarrisonGroup[ iGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
 			pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
+			InitializeGroup(GROUP_TYPE_PATROL, pGroup->pEnemyGroup->ubNumTroops, *pGroup->pEnemyGroup, Random(10) < gGameOptions.ubDifficultyLevel );
 
 			//Madd: unlimited reinforcements?
 			if ( !gfUnlimitedTroops )
@@ -7036,6 +7047,11 @@ GROUP* FindPendingGroupForGarrisonSector( UINT8 ubSectorID )
 	return NULL;
 }
 
+void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, ENEMYGROUP& enemyGroup, const BOOLEAN asdUpgrade )
+{
+	InitializeGroup( groupType, groupSize, enemyGroup.ubNumTroops, enemyGroup.ubNumElites, enemyGroup.ubNumRobots, enemyGroup.ubNumJeeps, enemyGroup.ubNumTanks, asdUpgrade );
+}
+
 void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &troopCount, UINT8 &eliteCount, UINT8 &robotCount, UINT8 &jeepCount, UINT8 &tankCount, const BOOLEAN asdUpgrade )
 {
 	troopCount = groupSize;
@@ -7069,7 +7085,7 @@ void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &
 
 		if ( gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
 		{
-			const int numRobots = Random(difficultyMod);
+			const int numRobots = 1 + Random(difficultyMod);
 			troopCount -= numRobots;
 			robotCount += numRobots;
 		}

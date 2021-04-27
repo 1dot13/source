@@ -81,6 +81,7 @@ enum GROUP_TYPE
 	GROUP_TYPE_PATROL
 };
 
+void InitializeGroup(const GROUP_TYPE groupType, const UINT8 groupSize, ENEMYGROUP& enemyGroup, const BOOLEAN asdUpgrade);
 void InitializeGroup(const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &troopCount, UINT8 &eliteCount, UINT8 &robotCount, UINT8 &jeepCount, UINT8 &tankCount, const BOOLEAN asdUpgrade);
 
 extern BOOLEAN gfDisplayStrategicAILogs;
@@ -165,5 +166,16 @@ typedef struct GARRISON_GROUP
 #define MAX_GARRISON_GROUPS	256	// WANNE - MP: Changed from 100 to 256
 #define MAX_PATROL_GROUPS	 50
 #define MAX_ARMY_COMPOSITIONS 60
+
+// attack/defense point modifiers, used to determine if the AI should attack a sector
+#define ADMIN_POINTS_MODIFIER 2
+#define REGULAR_POINTS_MODIFIER 4
+#define ELITE_POINTS_MODIFIER 6
+#define ROBOT_POINTS_MODIFIER 15
+#define JEEP_POINTS_MODIFIER 12
+#define TANK_POINTS_MODIFIER 20
+#define GREEN_MILITIA_POINTS_MODIFIER 1
+#define REGULAR_MILITIA_POINTS_MODIFIER 2
+#define ELITE_MILITIA_POINTS_MODIFIER 3
 
 #endif

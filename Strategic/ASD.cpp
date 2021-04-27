@@ -257,7 +257,7 @@ void ASDDecideOnPurchases()
 		needed_jeep = min( 10, 2 + highestplayerprogress / 10 );
 
 		// if we already unlocked tanks, we no longer want jeeps - they are replaced by tanks
-		if ( gASD_Flags & ASDFACT_TANK_UNLOCKED )
+		if ( (gASD_Flags & ASDFACT_TANK_UNLOCKED) && gGameExternalOptions.fASDAssignsTanks )
 		{
 			needed_jeep = 0;
 		}
