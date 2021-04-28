@@ -3341,6 +3341,7 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 						if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat )
 						{
 							pGroup->pEnemyGroup->ubNumAdmins_Turncoat--;
+							pGroup->ubGroupSize--;
 							return true;
 						}
 						break;
@@ -3348,6 +3349,7 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 						if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat )
 						{
 							pGroup->pEnemyGroup->ubNumTroops_Turncoat--;
+							pGroup->ubGroupSize--;
 							return true;
 						}
 						break;
@@ -3355,6 +3357,7 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 						if ( pGroup->pEnemyGroup->ubNumElites_Turncoat )
 						{
 							pGroup->pEnemyGroup->ubNumElites_Turncoat--;
+							pGroup->ubGroupSize--;
 							return true;
 						}
 						break;
