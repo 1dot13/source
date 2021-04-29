@@ -791,7 +791,7 @@ void SectorFillCanteens( void )
 {
 	// no functionality if not in tactical or in combat, or nobody is here
 	// can be called from a messagebox, thus the check for MSG_BOX_SCREEN
-	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) || (gTacticalStatus.uiFlags & INCOMBAT) || gusSelectedSoldier == NOBODY )
+	if ( (guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != MSG_BOX_SCREEN) || (gTacticalStatus.uiFlags & INCOMBAT) || gTacticalStatus.fEnemyInSector || gusSelectedSoldier == NOBODY )
 		return;
 
 	// determine if there are any patches of water in this sector.
