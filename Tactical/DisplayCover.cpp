@@ -967,6 +967,7 @@ void DisplayRangeToTarget(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo)
 		{
 			uiHitChance = CalcThrownChanceToHit(pSoldier, sTargetGridNo, pSoldier->aiData.bShownAimTime, pSoldier->bAimShotLocation);
 			usGunRange = CalcMaxTossRange(pSoldier, pObjhand->usItem, TRUE) * CELL_X_SIZE;
+			swprintf(zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, usGunRange / 10, uiHitChance);
 		}
 		else if (usItemClass == IC_BLADE)
 		{
@@ -975,13 +976,13 @@ void DisplayRangeToTarget(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo)
 			else
 				uiHitChance = 0;
 			usGunRange = 15;
-			swprintf(zOutputString, gzDisplayCoverText[title], usRange / 10, usGunRange / 10, uiHitChance);
+			swprintf(zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, usGunRange / 10, uiHitChance);
 		}
 		else if (ubItemCursor == TOSSCURS)
 		{
 			uiHitChance = CalcThrownChanceToHit(pSoldier, sTargetGridNo, pSoldier->aiData.bShownAimTime, pSoldier->bAimShotLocation);
 			usGunRange = CalcMaxTossRange(pSoldier, pSoldier->inv[HANDPOS].usItem, TRUE) * CELL_X_SIZE;
-			swprintf(zOutputString, gzDisplayCoverText[title], usRange / 10, usGunRange / 10, uiHitChance);
+			swprintf(zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, usGunRange / 10, uiHitChance);
 		}
 		else
 		{
@@ -993,15 +994,15 @@ void DisplayRangeToTarget(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo)
 			}
 			// HEADROCK HAM 3.6: Calculate Gun Range using formula.		
 			usGunRange = GunRange(pObjhand, pSoldier); // SANDRO - added argument		
-		}
-		swprintf(zOutputString, gzDisplayCoverText[title], usRange / 10, usGunRange / 10, uiHitChance);
+			swprintf(zOutputString, gzDisplayCoverText[title], usRange / 10, usGunRange / 10, uiHitChance);
+		}		
 	}
 	else if (pSoldier->inv[HANDPOS].exists() && ubItemCursor == TOSSCURS)
 	{
 		pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
 		uiHitChance = CalcThrownChanceToHit(pSoldier, sTargetGridNo, pSoldier->aiData.bShownAimTime, pSoldier->bAimShotLocation);
 		usGunRange = CalcMaxTossRange(pSoldier, pSoldier->inv[HANDPOS].usItem, TRUE) * CELL_X_SIZE;
-		swprintf(zOutputString, gzDisplayCoverText[title], usRange / 10, usGunRange / 10, uiHitChance);
+		swprintf(zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, usGunRange / 10, uiHitChance);
 	}
 	else if ((!pSoldier->inv[HANDPOS].exists() || Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH) && gfUIFullTargetFound && MercPtrs[gusUIFullTargetID])
 	{
@@ -1011,7 +1012,7 @@ void DisplayRangeToTarget(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo)
 			pSoldier->usAttackingWeapon = 0;
 		uiHitChance = CalcChanceToPunch(pSoldier, MercPtrs[gusUIFullTargetID], pSoldier->aiData.bShownAimTime);
 		usGunRange = 15;
-		swprintf(zOutputString, gzDisplayCoverText[title], usRange / 10, usGunRange / 10, uiHitChance);
+		swprintf(zOutputString, gzDisplayCoverText[DC_MSG__GUN_RANGE_INFORMATION], usRange / 10, usGunRange / 10, uiHitChance);
 	}
 	else
 	{
