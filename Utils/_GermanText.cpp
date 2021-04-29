@@ -4081,6 +4081,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Kapitulation anbieten",
 	L"Ablenken",
 	L"Sprechen",
+	L"Recruit Turncoat", // TODO: translate
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
     L"Falle entschärfen",

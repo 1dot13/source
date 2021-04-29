@@ -1113,6 +1113,7 @@ enum
 	PRISONER_OFFER_SURRENDER_STR,
 	PRISONER_DISTRACT_STR, 
 	PRISONER_TALK_STR,
+	PRISONER_RECRUIT_TURNCOAT_STR,
 	
     // sevenfm: new disarm trap dialog, new messages for wrong mines when arming
     DISARM_DIALOG_DISARM,

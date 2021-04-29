@@ -4060,6 +4060,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Предложить сдаться",
 	L"Distract",	// TODO.Translate
 	L"Переговоры",
+	L"Recruit Turncoat", // TODO: translate
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
     L"Обезвредить",

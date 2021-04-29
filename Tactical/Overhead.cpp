@@ -10806,6 +10806,9 @@ void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 
 		AddIntel( -intelbribeneeded, TRUE );
 	}
+	
+	// spend AP
+	DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
 	//ReduceAttackBusyCount();
 }
@@ -10864,7 +10867,7 @@ void HandleTurncoatAttempt( SOLDIERTYPE* pSoldier )
 		wcscpy( gzUserDefinedButton1, szTurncoatText[8] );
 		wcscpy( gzUserDefinedButton2, pEpcMenuStrings[4] );
 
-		DoMessageBox( MSG_BOX_BASIC_STYLE, szTurncoatText[7], guiCurrentScreen, ( MSG_BOX_FLAG_GENERIC_TWO_BUTTONS | MSG_BOX_FLAG_DROPDOWN_1 ),
+		DoMessageBox( MSG_BOX_BASIC_STYLE, szTurncoatText[7], GAME_SCREEN, ( MSG_BOX_FLAG_GENERIC_TWO_BUTTONS | MSG_BOX_FLAG_DROPDOWN_1 ),
 			TurnCoatAttemptMessageBoxCallBack, NULL );
 	}
 }
@@ -10877,9 +10880,11 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 
     if ( ubExitValue == 1 )
     {
+        DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+
         if ( !gGameExternalOptions.fEnemyCanSurrender )
         {
-            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ SRT_PRISONER_INI_SETTING_OFF ]  );
+            StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
             return;
         }
 
@@ -11026,20 +11031,14 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             }
         }
     }
-    // we offered to surrender OURSELVES TO the enemy, or are attempting to turn a soldier into a turncoat
+    // we offered to surrender OURSELVES TO the enemy
     else if ( ubExitValue == 2 )
     {
-		// we cannot surrender to bandits, talk instead
-		if ( MercPtrs[prisonerdialoguetargetID]->bTeam == CREATURE_TEAM )
-		{
-			// normal dialog
-			StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
-			return;
-		}
+        DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
 
-        if ( !gGameExternalOptions.fPlayerCanAsktoSurrender )
+        if ( !gGameExternalOptions.fPlayerCanAsktoSurrender || MercPtrs[prisonerdialoguetargetID]->bTeam == CREATURE_TEAM )
         {
-            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, szPrisonerTextStr[ SRT_PRISONER_INI_SETTING_OFF ]  );
+            StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
             return;
         }
 
@@ -11086,6 +11085,8 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 	// we distract the enemy by essentially talking them to death
 	else if ( ubExitValue == 3 )
 	{
+		DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+
 		// Flugente: if we are disguised and talk to a non-profile NPC, we will continue to 'chat' with the enemy as long as we aren't ordered to do something else.
 		// This way we can easily order our spies to 'distract' enemies
 		if ( GetSoldier( &pSoldier, gusSelectedSoldier ) &&
@@ -11109,10 +11110,28 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			StartCivQuote( MercPtrs[prisonerdialoguetargetID] );
 		}
 	}
-    else
-    {
-        // normal dialog
-        StartCivQuote( MercPtrs[ prisonerdialoguetargetID ] );
+	else
+	{
+		// rftr: try to recruit a turncoat
+		if (gSkillTraitValues.fCOTurncoats == TRUE &&
+			GetSoldier( &pSoldier, gusSelectedSoldier ) &&
+			pSoldier->bTeam == gbPlayerNum &&
+			MercPtrs[prisonerdialoguetargetID] &&
+			MercPtrs[prisonerdialoguetargetID]->bTeam == ENEMY_TEAM &&
+			MercPtrs[prisonerdialoguetargetID]->ubProfile == NO_PROFILE &&
+			MercPtrs[prisonerdialoguetargetID]->aiData.bAlertStatus < STATUS_RED &&
+			!MercPtrs[prisonerdialoguetargetID]->RecognizeAsCombatant( gusSelectedSoldier ) )
+		{
+			MSYS_RemoveRegion(&(gMsgBox.BackRegion));
+			pSoldier->UseSkill(SKILLS_CREATE_TURNCOAT, MercPtrs[prisonerdialoguetargetID]->sGridNo, MercPtrs[prisonerdialoguetargetID]->ubID);
+			// AP reduction is handled inside the turncoat attempt flow (TurnCoatAttemptMessageBoxCallBack)
+		}
+		else
+		{
+			// normal dialog
+			DeductPoints( MercPtrs[gusSelectedSoldier], APBPConstants[AP_TALK], 0, UNTRIGGERED_INTERRUPT );
+			StartCivQuote(MercPtrs[prisonerdialoguetargetID]);
+		}
     }
 
     ReduceAttackBusyCount( );
@@ -11172,10 +11191,17 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
     // remember the target's ID
     prisonerdialoguetargetID = pSoldier->ubID;
 
-    // open a dialogue box and see wether we really want to offer this, or just talk
-    wcscpy( gzUserDefinedButton[0], TacticalStr[ PRISONER_DEMAND_SURRENDER_STR ] );
+	if (gGameExternalOptions.fEnemyCanSurrender && pSoldier->CanBeCaptured())
+	{
+		// open a dialogue box and see whether we really want to offer this, or just talk
+		wcscpy(gzUserDefinedButton[0], TacticalStr[PRISONER_DEMAND_SURRENDER_STR]);
+	}
+	else
+	{
+		wcscpy(gzUserDefinedButton[0], TacticalStr[PRISONER_TALK_STR]);
+	}
 
-	if ( pSoldier->bTeam != CREATURE_TEAM )
+	if (gGameExternalOptions.fPlayerCanAsktoSurrender && pSoldier->bTeam != CREATURE_TEAM)
 		wcscpy( gzUserDefinedButton[1], TacticalStr[ PRISONER_OFFER_SURRENDER_STR ] );
 	else
 		wcscpy( gzUserDefinedButton[1], TacticalStr[PRISONER_TALK_STR] );
@@ -11186,13 +11212,14 @@ void HandleSurrenderOffer( SOLDIERTYPE* pSoldier )
 		!pSoldier->RecognizeAsCombatant( gusSelectedSoldier ) )
 	{
 		wcscpy( gzUserDefinedButton[2], TacticalStr[PRISONER_DISTRACT_STR] );
+		wcscpy( gzUserDefinedButton[3], TacticalStr[gSkillTraitValues.fCOTurncoats == TRUE ? PRISONER_RECRUIT_TURNCOAT_STR : PRISONER_TALK_STR] );
 	}
 	else
 	{
 		wcscpy( gzUserDefinedButton[2], TacticalStr[PRISONER_TALK_STR] );
+		wcscpy( gzUserDefinedButton[3], TacticalStr[PRISONER_TALK_STR] );
 	}
 
-    wcscpy( gzUserDefinedButton[3], TacticalStr[ PRISONER_TALK_STR ] );
     DoMessageBox( MSG_BOX_BASIC_MEDIUM_BUTTONS, TacticalStr[ PRISONER_OFFER_SURRENDER ], guiCurrentScreen, MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS, PrisonerSurrenderMessageBoxCallBack, NULL );
 }
 

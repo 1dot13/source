@@ -3338,25 +3338,28 @@ bool RemoveOneTurncoat( INT16 sSectorX, INT16 sSectorY, UINT8 aSoldierClass )
 					switch ( aSoldierClass )
 					{
 					case SOLDIER_CLASS_ADMINISTRATOR:
-						if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat )
+						if ( pGroup->pEnemyGroup->ubNumAdmins_Turncoat && pGroup->ubGroupSize && pGroup->pEnemyGroup->ubNumAdmins )
 						{
 							pGroup->pEnemyGroup->ubNumAdmins_Turncoat--;
+							pGroup->pEnemyGroup->ubNumAdmins--;
 							pGroup->ubGroupSize--;
 							return true;
 						}
 						break;
 					case SOLDIER_CLASS_ARMY:
-						if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat )
+						if ( pGroup->pEnemyGroup->ubNumTroops_Turncoat && pGroup->ubGroupSize && pGroup->pEnemyGroup->ubNumTroops )
 						{
 							pGroup->pEnemyGroup->ubNumTroops_Turncoat--;
+							pGroup->pEnemyGroup->ubNumTroops--;
 							pGroup->ubGroupSize--;
 							return true;
 						}
 						break;
 					case SOLDIER_CLASS_ELITE:
-						if ( pGroup->pEnemyGroup->ubNumElites_Turncoat )
+						if ( pGroup->pEnemyGroup->ubNumElites_Turncoat && pGroup->ubGroupSize && pGroup->pEnemyGroup->ubNumElites )
 						{
 							pGroup->pEnemyGroup->ubNumElites_Turncoat--;
+							pGroup->pEnemyGroup->ubNumElites--;
 							pGroup->ubGroupSize--;
 							return true;
 						}

@@ -4060,6 +4060,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Offer surrender",
 	L"Distract",
 	L"Talk",
+	L"Recruit Turncoat",
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
     L"Disarm trap",

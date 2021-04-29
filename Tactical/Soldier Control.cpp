@@ -18117,10 +18117,12 @@ BOOLEAN	SOLDIERTYPE::CanUseSkill( INT8 iSkill, BOOLEAN fAPCheck, INT32 sGridNo )
 		// - a non-profile, not-already-turncoat enemy soldier
 		// - enemy team not aware of us
 		// - valid disguise
+		// - enough AP to talk
 		{
 			SOLDIERTYPE* pSoldier = SimpleFindSoldier( sGridNo, gsInterfaceLevel );
 			if ( pSoldier
-				&& InPositionForTurncoatAttempt( pSoldier->ubID ) )
+				&& InPositionForTurncoatAttempt( pSoldier->ubID )
+				&& (!fAPCheck || EnoughPoints( this, APBPConstants[AP_TALK], 0, FALSE ) ) )
 			{
 				canuse = TRUE;
 			}
@@ -18419,6 +18421,9 @@ STR16	SOLDIERTYPE::PrintSkillDesc( INT8 iSkill, INT32 sGridNo )
 			wcscat( skilldescarray, atStr );
 
 			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_STRATEGIC_SUSPICION] );
+			wcscat( skilldescarray, atStr );
+
+			swprintf( atStr, pTraitSkillsDenialStrings[TEXT_SKILL_DENIAL_X_AP], APBPConstants[AP_TALK] );
 			wcscat( skilldescarray, atStr );
 
 			break;
@@ -21552,6 +21557,10 @@ void		SOLDIERTYPE::OrderAllTurnCoatToSwitchSides()
 	SOLDIERTYPE *pSoldier;
 	INT32 cnt = gTacticalStatus.Team[ENEMY_TEAM].bFirstID;
 
+	// rftr: force the player to enter turn-based combat. this function already includes a check to see if we're already in combat, so no harm calling this.
+	// this also prevents a hang when activating a sector with 100% turncoats
+	EnterCombatMode(OUR_TEAM);
+
 	// run through list
 	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[ENEMY_TEAM].bLastID; ++cnt, ++pSoldier )
 	{
@@ -23200,8 +23209,6 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 	//lal
 	// ATE; Check for normal civs...
 
-	BOOLEAN apsDeducted = FALSE;
-
 	if ( GetCivType( pTSoldier ) != CIV_TYPE_NA )
 	{
 		//lal
@@ -23212,18 +23219,17 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 		}
 		else
 		{
-			// Deduct points from our guy....
-			DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
-			apsDeducted = TRUE;
-
-			// Flugente: if we are talking to an enemy, we have the option to offer them surrender...
-			if ( (gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) && pTSoldier->CanBeCaptured( ) )
+			// Flugente: if we are talking to an enemy, we have the option to offer them surrender... we can also ask them to become a turncoat
+			if ( (gSkillTraitValues.fCOTurncoats || gGameExternalOptions.fEnemyCanSurrender || gGameExternalOptions.fPlayerCanAsktoSurrender) && pTSoldier->CanBeCaptured( ) )
 			{
+				// AP costs are handled inside the callback (PrisonerSurrenderMessageBoxCallBack)
 				HandleSurrenderOffer( pTSoldier );
 				return(FALSE);
 			}
 			else if ( pTSoldier->sNonNPCTraderID > 0 )
 			{
+				DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
+
 				UINT8 ubTownID = StrategicMap[CALCULATE_STRATEGIC_INDEX( pTSoldier->sSectorX, pTSoldier->sSectorY )].bNameId;
 
 				// not possible if this guy is hostile towards us
@@ -23251,6 +23257,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 				// if we passed the above check, we can trade
 				else
 				{
+					DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
 					EnterShopKeeperInterfaceScreen_NonNPC( pTSoldier->sNonNPCTraderID, pTSoldier->ubID );
 				}
 
@@ -23258,6 +23265,8 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 			}
 			else
 			{
+				DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
+
 				// Flugente: if this guy is a potential volunteer, we might be able to sway him
 				HandleVolunteerRecruitment( this, pTSoldier );
 
@@ -23267,12 +23276,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 		}
 	}
 
-	// WANNE: This fixes the bug, that APs for talking are not always deducted.
-	if ( !apsDeducted )
-	{
-		DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
-		apsDeducted = TRUE;
-	}
+	DeductPoints( this, sAPCost, 0, UNTRIGGERED_INTERRUPT );
 
 	// Are we an EPC that is being escorted?
 	if ( pTSoldier->ubProfile != NO_PROFILE && pTSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )

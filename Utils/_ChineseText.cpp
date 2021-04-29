@@ -4060,6 +4060,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"我方缴械投降", //L"Offer surrender",
 	L"转移",	//L"Distract",
 	L"交谈",
+	L"招募被策反的敌军", //L"Recruit turncoat", // TODO: confirm translation. copied from pTraitSkillsMenuStrings
 
     // added by sevenfm: disarm messagebox options, messages when arming wrong bomb
     L"拆除陷阱",
