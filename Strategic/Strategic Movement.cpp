@@ -1890,21 +1890,16 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 			fExceptionQueue = TRUE;
 		}
 	}
-
-	//First check if the group arriving is going to queue another battle.
-	//NOTE:	We can't have more than one battle ongoing at a time.
-	if( fExceptionQueue || fCheckForBattle && gTacticalStatus.fEnemyInSector &&
+	//First check if the group arriving is going to queue another battle. //KM : Aug 11, 1999 -- Patch fix:	Added additional checks to prevent a 2nd battle in the case			
+	//NOTE:	We can't have more than one battle ongoing at a time.         //where the player is involved in a potential battle with bloodcats/civilians
+	if( fExceptionQueue || (fCheckForBattle && (gTacticalStatus.fEnemyInSector || HostileCiviliansPresent() || HostileBloodcatsPresent()) &&
 			FindMovementGroupInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, OUR_TEAM ) &&
-		(pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0 ) ||
+		(pGroup->ubNextX != gWorldSectorX || pGroup->ubNextY != gWorldSectorY || gbWorldSectorZ > 0 ) && NumHostilesInSector(pGroup->ubNextX, pGroup->ubNextY, pGroup->ubSectorZ) > 0)
 		#ifdef JA2UB
 			//Ja25: NO meanwhiles		
 		#else
-			AreInMeanwhile() ||
+		|| AreInMeanwhile()
 		#endif
-			//KM : Aug 11, 1999 -- Patch fix:	Added additional checks to prevent a 2nd battle in the case
-			//	 where the player is involved in a potential battle with bloodcats/civilians
-			fCheckForBattle && HostileCiviliansPresent() ||
-			fCheckForBattle && HostileBloodcatsPresent()
 		)
 	{
 		//QUEUE BATTLE!
