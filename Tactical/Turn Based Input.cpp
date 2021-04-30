@@ -774,7 +774,11 @@ void	QueryTBLeftButton( UINT32 *puiNewEvent )
 												break;
 
 											case CONFIRM_ACTION_MODE:
-
+												if (GetSoldier(&pSoldier, gusSelectedSoldier))
+												{
+													//shadooow: this fixes merc randomly shooting in different direction than assigned
+													pSoldier->flags.fDoSpread = 0;
+												}
 												*puiNewEvent = CA_MERC_SHOOT;
 												break;
 
