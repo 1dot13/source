@@ -22738,7 +22738,7 @@ void SOLDIERTYPE::EVENT_SoldierApplyItemToPerson( INT32 sGridNo, UINT8 ubDirecti
 					{
 						success = AutoPlaceObject( pSoldier, pObj, FALSE );
 					}
-					else if ( ApplyConsumable( pSoldier, pObj, TRUE, TRUE ) )
+					else if ( ApplyConsumable( pSoldier, pObj, TRUE, TRUE ) == TRUE)
 					{
 						success = TRUE;
 					}
@@ -25729,13 +25729,14 @@ void HandleVolunteerRecruitment( SOLDIERTYPE* pRecruiter, SOLDIERTYPE* pTarget )
 }
 
 // Flugente: apply a consumable item on a soldier. Returns true if item was successfully interacted with
-BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce, BOOLEAN fUseAPs )
+// Shadooow: Now returns 2 in case that the action failed due to the not enough action points!
+BOOLEAN ApplyConsumable(SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce, BOOLEAN fUseAPs)
 {
-	if ( !pSoldier || !pObj )
+	if (!pSoldier || !pObj)
 		return FALSE;
 
 	// if it's not a kit or a misc item, we cannot consume it
-	if ( !(Item[pObj->usItem].usItemClass & (IC_KIT | IC_MISC)) )
+	if (!(Item[pObj->usItem].usItemClass & (IC_KIT | IC_MISC)))
 		return FALSE;
 
 	BOOLEAN fSuccess = FALSE;
@@ -25743,12 +25744,12 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 
 	// use portionsize, if none was entered, use full item
 	UINT8 portionsize = Item[pObj->usItem].usPortionSize;
-	if ( !portionsize )
+	if (!portionsize)
 		portionsize = 100;
 
 	// how much of this item do we use up
-	UINT16 statusused = min( portionsize, (*pObj)[0]->data.objectStatus );
-	if ( !statusused )
+	UINT16 statusused = min(portionsize, (*pObj)[0]->data.objectStatus);
+	if (!statusused || (statusused == 1 && Item[pObj->usItem].canteen))
 		return FALSE;
 
 	INT16 apcost = 0;
@@ -25804,7 +25805,7 @@ BOOLEAN ApplyConsumable( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, BOOLEAN fForce
 	
 		if ( !fForce && !EnoughPoints( pSoldier, apcost, 0, TRUE ) )
 		{
-			return FALSE;
+			return 2;
 		}
 	}
 

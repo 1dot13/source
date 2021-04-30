@@ -9508,11 +9508,12 @@ void MAPInvClickCamoCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			// We are doing this ourselve, continue
 			if ( pSoldier->stats.bLife >= CONSCIOUSNESS )
 			{
-				if ( ApplyConsumable( pSoldier, gpItemPointer, FALSE, TRUE ) )
+				BOOLEAN bApplyConsumable = ApplyConsumable(pSoldier, gpItemPointer, FALSE, TRUE);
+				if (bApplyConsumable == TRUE)
 				{
 					UpdateMercBodyRegionHelpText( );
 				}
-				else
+				else if(!bApplyConsumable)
 				{
 					// Send message
 					//Heinz: 23.02.09 BUGFIX: Don't send message when SKI is on
