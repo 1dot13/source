@@ -420,7 +420,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 	if ( gGameExternalOptions.fPMC && !IsBookMarkSet( PMC_BOOKMARK ) )
 		AddStrategicEvent( EVENT_PMC_EMAIL, GetWorldTotalMin() + 60 * (1 + Random(6)), 0 );
 
-	if ( !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
+	if ( gGameExternalOptions.fIndividualMilitia && !IsBookMarkSet( MILITIAROSTER_BOOKMARK ) )
 		AddStrategicEvent( EVENT_MILITIAROSTER_EMAIL, GetWorldTotalMin( ) + 60 * (1 + Random( 4 )), 0 );
 }
 
