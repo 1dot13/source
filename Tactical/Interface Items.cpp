@@ -2827,20 +2827,18 @@ BOOLEAN CompatibleGunForAmmo( OBJECTTYPE *pTryObject, OBJECTTYPE *pTestObject )
 	return( FALSE );
 }
 
-BOOLEAN	CompatibleItemForApplyingOnMerc( OBJECTTYPE *pTestObject )
+BOOLEAN	CompatibleItemForApplyingOnMerc(OBJECTTYPE *pTestObject)
 {
 	UINT16 usItem = pTestObject->usItem;
 
 	// ATE: If in mapscreen, return false always....
-	if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
+	if (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN)
 	{
-		return( FALSE );
+		return(FALSE);
 	}
-
-	// ATE: Would be nice to have flag here to check for these types....
-	if ( Item[usItem].camouflagekit || usItem == ADRENALINE_BOOSTER || usItem == REGEN_BOOSTER ||
-			 usItem == SYRINGE_3		 || usItem == SYRINGE_4 || usItem == SYRINGE_5 ||
-			 Item[usItem].alcohol > 0.0f || Item[usItem].canteen || usItem == JAR_ELIXIR || (usItem == 1022 && gGameExternalOptions.fCamoRemoving) ) // Added rag usable on self - SANDRO
+	//Shadooow: rewritten to use new item flags and check canteen not empty
+	if (((HasItemFlag(usItem, CAMO_REMOVAL) && gGameExternalOptions.fCamoRemoving) || Item[usItem].camouflagekit || usItem == JAR_ELIXIR ||
+	Item[usItem].clothestype || Item[usItem].drugtype || Item[usItem].foodtype)	&& (!Item[usItem].canteen || (*pTestObject)[0]->data.objectStatus > 1))
 	{
 		return( TRUE );
 	}
@@ -2987,6 +2985,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 		{
 			if ( CompatibleItemForApplyingOnMerc( gpItemPointer ) )
 			{
+				/*// Shadooow: disabled, probably a remnant of past when this didn't happen automatically when hovering/picking item
 				// OK, Light up portrait as well.....
 				if ( fOn )
 				{
@@ -2996,6 +2995,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 				{
 					gbCompatibleApplyItem = FALSE;
 				}
+				*/
 
 				fFound = TRUE;
 			}
@@ -3253,6 +3253,7 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 		{
 			if ( CompatibleItemForApplyingOnMerc( gpItemPointer ) )
 			{
+				/*// Shadooow: disabled, probably a remnant of past when this didn't happen automatically when hovering/picking item
 				// OK, Light up portrait as well.....
 				if ( fOn )
 				{
@@ -3262,6 +3263,7 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 				{
 					gbCompatibleApplyItem = FALSE;
 				}
+				*/
 
 				fFound = TRUE;
 			}
