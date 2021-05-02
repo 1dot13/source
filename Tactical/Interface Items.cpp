@@ -2939,10 +2939,10 @@ BOOLEAN IsMutuallyValidAttachmentOrLaunchable(UINT16 usAttItem, UINT16 usItem)//
 
 BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos, BOOLEAN fOn, BOOLEAN fFromMerc   )
 {
-	BOOLEAN			fFound = FALSE;
-	UINT32				cnt;
+	BOOLEAN		fFound = FALSE;
+	UINT32		cnt;
 	OBJECTTYPE  *pObject, *pTestObject ;
-	BOOLEAN			fFoundAttachment = FALSE;
+	BOOLEAN		fFoundAttachment = FALSE;
 
 	if( fFromMerc == FALSE )
 	{
@@ -2975,7 +2975,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 					fFound = TRUE;
 				}
 
-				// IT's an OK calibere ammo, do something!
+				// IT's an OK caliber ammo, do something!
 				// Render Item with specific color
 				gbCompatibleAmmo[ cnt ] = fOn;
 			}
@@ -3010,35 +3010,23 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 		return( fFound );
 	}
 
-//	if ( !(Item[ pTestObject->usItem ].fFlags & ITEM_HIDDEN_ADDON) )
+	UINT32 invsize = pSoldier->inv.size();
+	// First test attachments, which almost any type of item can have....
 	if ( !(Item[ pTestObject->usItem ].hiddenaddon ) )
 	{
-		// First test attachments, which almost any type of item can have....
-		UINT32 invsize = pSoldier->inv.size();
 		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
-//			if ( Item[ pObject->usItem ].fFlags & ITEM_HIDDEN_ADDON )
-			if ( Item[ pObject->usItem ].hiddenaddon  )
+			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment))
 			{
 				// don't consider for UI purposes
 				continue;
 			}
-#if 0//dnl ch76 091113
-			if ( ValidAttachment( pObject->usItem, pTestObject ) ||
-					 ValidAttachment( pTestObject->usItem, pObject ) ||
-					 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
-					 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
-			//if ( (UsingNewAttachmentSystem()==false && ValidAttachment( pObject->usItem, pTestObject )) ||
-			//		 (UsingNewAttachmentSystem()==false && ValidAttachment( pTestObject->usItem, pObject )) ||
-			//		 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE, 0, cnt)) ||
-			//		 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE, 0, cnt)) ||
-			//		 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
-			//		 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
-#else
-			if(IsMutuallyValidAttachmentOrLaunchable(pObject->usItem, pTestObject->usItem))
-#endif
+
+			if ((!UsingNewAttachmentSystem() && (ValidAttachment(pObject->usItem, pTestObject) || ValidAttachment(pTestObject->usItem, pObject))) ||
+				(UsingNewAttachmentSystem() && (ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE) || ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE))) ||
+				ValidLaunchable(pTestObject->usItem, pObject->usItem) || ValidLaunchable(pObject->usItem, pTestObject->usItem))
 			{
 				fFoundAttachment = TRUE;
 
@@ -3047,7 +3035,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 					fFound = TRUE;
 				}
 
-				// IT's an OK calibere ammo, do something!
+				// IT's an OK caliber ammo, do something!
 				// Render Item with specific color
 				gbCompatibleAmmo[ cnt ] = fOn;
 			}
@@ -3056,7 +3044,6 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 
 	if ( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 	{
-		UINT32 invsize = pSoldier->inv.size();
 		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
@@ -3068,7 +3055,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 					fFound = TRUE;
 				}
 
-				// IT's an OK calibere ammo, do something!
+				// IT's an OK caliber ammo, do something!
 				// Render Item with specific color
 				gbCompatibleAmmo[ cnt ] = fOn;
 			}
@@ -3076,7 +3063,6 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 	}
 	else if( ( Item [ pTestObject->usItem ].usItemClass & IC_AMMO ) )
 	{
-		UINT32 invsize = pSoldier->inv.size();
 		for ( cnt = 0; cnt < invsize; ++cnt )
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
@@ -3088,7 +3074,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 					fFound = TRUE;
 				}
 
-				// IT's an OK calibere ammo, do something!
+				// IT's an OK caliber ammo, do something!
 				// Render Item with specific color
 				gbCompatibleAmmo[ cnt ] = fOn;
 
@@ -3099,14 +3085,12 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 	return( fFound );
 }
 
-BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInvPos, INT32 iStartSlotNumber, BOOLEAN fOn, BOOLEAN fFromMerc   )
+BOOLEAN HandleCompatibleAmmoUIForMapInventory(SOLDIERTYPE *pSoldier, INT32 bInvPos, INT32 iStartSlotNumber, BOOLEAN fOn, BOOLEAN fFromMerc)
 {
-	// CJC: ATE, needs fixing here!
-
-	BOOLEAN			fFound = FALSE;
-	INT32				cnt;
+	BOOLEAN		fFound = FALSE;
+	INT32		cnt;
 	OBJECTTYPE  *pObject, *pTestObject ;
-	BOOLEAN			fFoundAttachment = FALSE;
+	BOOLEAN		fFoundAttachment = FALSE;
 
 	if( fFromMerc == FALSE )
 	{
@@ -3125,38 +3109,35 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 	}
 
 	// First test attachments, which almost any type of item can have....
-	for ( cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; ++cnt )
+	if (!(Item[pTestObject->usItem].hiddenaddon))
 	{
-		pObject = &( pInventoryPoolList[ iStartSlotNumber + cnt ].object );
-
-//		if ( Item[ pObject->usItem ].fFlags & ITEM_HIDDEN_ADDON )
-		if ( Item[ pObject->usItem ].hiddenaddon  )
+		for (cnt = 0; cnt < MAP_INVENTORY_POOL_SLOT_COUNT; ++cnt)
 		{
-			// don't consider for UI purposes
-			continue;
-		}
-#if 0//dnl ch76 091113
-		if ( ValidAttachment( pObject->usItem, pTestObject ) ||
-				 ValidAttachment( pTestObject->usItem, pObject ) ||
-				 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
-				 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
-#else
-		if(IsMutuallyValidAttachmentOrLaunchable(pObject->usItem, pTestObject->usItem))
-#endif
-		{
-			fFoundAttachment = TRUE;
+			pObject = &(pInventoryPoolList[iStartSlotNumber + cnt].object);
 
-			if ( fOn != fMapInventoryItemCompatable[ cnt ] )
+			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment))
 			{
-				fFound = TRUE;
+				// don't consider for UI purposes
+				continue;
 			}
 
-			// IT's an OK calibere ammo, do something!
-			// Render Item with specific color
-			fMapInventoryItemCompatable[ cnt ] = fOn;
+			if ((!UsingNewAttachmentSystem() && (ValidAttachment(pObject->usItem, pTestObject) || ValidAttachment(pTestObject->usItem, pObject))) ||
+				(UsingNewAttachmentSystem() && (ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE) ||
+					ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE))) || ValidLaunchable(pTestObject->usItem, pObject->usItem) || ValidLaunchable(pObject->usItem, pTestObject->usItem))
+			{
+				fFoundAttachment = TRUE;
+
+				if (fOn != fMapInventoryItemCompatable[cnt])
+				{
+					fFound = TRUE;
+				}
+
+				// IT's an OK caliber ammo, do something!
+				// Render Item with specific color
+				fMapInventoryItemCompatable[cnt] = fOn;
+			}
 		}
 	}
-
 
 	if( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 	{
@@ -3171,7 +3152,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 					fFound = TRUE;
 				}
 
-				// IT's an OK calibere ammo, do something!
+				// IT's an OK caliber ammo, do something!
 				// Render Item with specific color
 				fMapInventoryItemCompatable[ cnt ] = fOn;
 			}
@@ -3190,7 +3171,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 					fFound = TRUE;
 				}
 
-				// IT's an OK calibere ammo, do something!
+				// IT's an OK caliber ammo, do something!
 				// Render Item with specific color
 				fMapInventoryItemCompatable[ cnt ] = fOn;
 			}
@@ -3278,41 +3259,35 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 		return( fFound );
 	}
 
-	// First test attachments, which almost any type of item can have....
 	UINT32 invsize = pSoldier->inv.size();
-	for ( cnt = 0; cnt < invsize; ++cnt )
+	// First test attachments, which almost any type of item can have....
+	if (!(Item[pTestObject->usItem].hiddenaddon))
 	{
-		pObject = &(pSoldier->inv[ cnt ]);
-
-//		if ( Item[ pObject->usItem ].fFlags & ITEM_HIDDEN_ADDON )
-//		if ( Item[ pObject->usItem ].hiddenaddon  )
-		if ( Item[ pObject->usItem ].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment) )
+		for (cnt = 0; cnt < invsize; ++cnt)
 		{
-			// don't consider for UI purposes
-			continue;
-		}
+			pObject = &(pSoldier->inv[cnt]);
 
-		/*if ( (UsingNewAttachmentSystem()==false && ValidAttachment( pObject->usItem, pTestObject )) ||
-				 (UsingNewAttachmentSystem()==false && ValidAttachment( pTestObject->usItem, pObject )) ||
-				 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE, 0, cnt)) ||
-				 (UsingNewAttachmentSystem()==true && ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE, 0, cnt)) ||
-				 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
-				 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )*/		
-		if ( (ValidAttachment( pObject->usItem, pTestObject )) ||
-				 (ValidAttachment( pTestObject->usItem, pObject )) ||
-				 ValidLaunchable( pTestObject->usItem, pObject->usItem ) ||
-				 ValidLaunchable( pObject->usItem, pTestObject->usItem ) )
-		{
-			fFoundAttachment = TRUE;
-
-			if ( fOn != gbCompatibleAmmo[ cnt ] )
+			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment))
 			{
-				fFound = TRUE;
+				// don't consider for UI purposes
+				continue;
 			}
 
-			// IT's an OK calibere ammo, do something!
-			// Render Item with specific color
-			gbCompatibleAmmo[ cnt ] = fOn;
+			if ((!UsingNewAttachmentSystem() && (ValidAttachment(pObject->usItem, pTestObject) || ValidAttachment(pTestObject->usItem, pObject))) ||
+				(UsingNewAttachmentSystem() && (ValidItemAttachmentSlot(pTestObject, pObject->usItem, FALSE, FALSE) || ValidItemAttachmentSlot(pObject, pTestObject->usItem, FALSE, FALSE))) ||
+				ValidLaunchable(pTestObject->usItem, pObject->usItem) || ValidLaunchable(pObject->usItem, pTestObject->usItem))
+			{
+				fFoundAttachment = TRUE;
+
+				if (fOn != gbCompatibleAmmo[cnt])
+				{
+					fFound = TRUE;
+				}
+
+				// IT's an OK caliber ammo, do something!
+				// Render Item with specific color
+				gbCompatibleAmmo[cnt] = fOn;
+			}
 		}
 	}
 
@@ -3350,7 +3325,7 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 						fFound = TRUE;
 					}
 
-					// IT's an OK calibere ammo, do something!
+					// IT's an OK caliber ammo, do something!
 					// Render Item with specific color
 					gbCompatibleAmmo[ cnt ] = fOn;
 
