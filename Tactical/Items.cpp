@@ -2294,6 +2294,10 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 	if ( !pObj->exists() )
 		return FALSE;
 
+	// shadooow: efficiency check, we are passing all kinds of items into this function that are not neccessary attachments at all
+	if (!Item[usAttachment].attachment && !Item[usAttachment].hiddenaddon)
+		return FALSE;
+
 	if( UsingNewAttachmentSystem() )
 	{
 		//It's possible we've entered this function without being passed the usAttachmentSlotIndexVector parameter
@@ -2385,6 +2389,10 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	BOOLEAN		foundValidAttachment = FALSE;
 
 	if (pObj->exists() == false)
+		return FALSE;
+
+	// shadooow: efficiency check, we are passing all kinds of items into this function that are not neccessary attachments at all
+	if (!Item[usAttachment].attachment && !Item[usAttachment].hiddenaddon)
 		return FALSE;
 
 	//It's possible we could get here without being sent the usAttachmentSlotIndexVector parameter
@@ -2679,6 +2687,10 @@ BOOLEAN TwoHandedItem( UINT16 usItem )
 
 BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem )
 {
+	// shadooow: efficiency check, we are passing all kinds of items into this function that are not neccessary attachments at all
+	if (!Item[usLaunchable].attachment && !Item[usLaunchable].hiddenaddon)
+		return FALSE;
+
 	INT32 iLoop = 0;
 	// Flugente: as this would cause launchers to happily launch attachments around the landscape, we really have to check the list of launchables
 	// if a modder decides to define launchables via attachment points, slap him and tell him not to do that
