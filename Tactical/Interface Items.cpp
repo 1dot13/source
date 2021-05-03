@@ -3290,9 +3290,9 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 			}
 		}
 	}
-
-	//if ( !fFoundAttachment )
-	//{
+	//if the test object is hidden addon or attachment, it won't be ammunition or gun so skip this
+	if (!Item[pTestObject->usItem].hiddenaddon && !Item[pTestObject->usItem].attachment)
+	{
 		if( ( Item [ pTestObject->usItem ].usItemClass & IC_GUN ) )
 		{
 			for ( cnt = 0; cnt < invsize; ++cnt )
@@ -3332,17 +3332,16 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 				}
 			}
 		}
-		//If we are currently NOT in the Shopkeeper interface
-		else if ( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) )
+	}
+	//If we are currently NOT in the Shopkeeper interface and item is not gun or ammo
+	if (!(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) && ((Item[pTestObject->usItem].usItemClass & IC_GUN) || (Item[pTestObject->usItem].usItemClass & IC_AMMO)))
+	{
+		if (CompatibleItemForApplyingOnMerc(pTestObject))
 		{
-			if ( CompatibleItemForApplyingOnMerc( pTestObject ) )
-			{
-				fFound = TRUE;
-				gbCompatibleApplyItem = fOn;
-			}
+			fFound = TRUE;
+			gbCompatibleApplyItem = fOn;
 		}
-	//}
-
+	}
 
 	if ( !fFound )
 	{

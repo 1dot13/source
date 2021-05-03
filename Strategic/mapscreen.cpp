@@ -750,7 +750,7 @@ void RenderIconsForUpperLeftCornerPiece( INT8 bCharNumber );
 void RenderAttributeStringsForUpperLeftHandCorner( UINT32 uiBufferToRenderTo );
 
 void DisplayThePotentialPathForCurrentDestinationCharacterForMapScreenInterface( INT16 sMapX, INT16 sMapY );
-void HandleCursorOverRifleAmmo( );
+void HandleCursorOverRifleAmmo( );//shadooow: function is now unused and can be deleted
 
 void SetUpCursorForStrategicMap( void );
 void HandleAnimatedCursorsForMapScreen( );
@@ -5453,8 +5453,6 @@ UINT32 MapScreenHandle(void)
 	// update the prev next merc buttons
 	UpdateTheStateOfTheNextPrevMapScreenCharacterButtons( );
 
-	// handle for inventory
-	HandleCursorOverRifleAmmo( );
 
 	// check contract times, update screen if they do change
 	CheckAndUpdateBasedOnContractTimes( );
@@ -9289,12 +9287,18 @@ void BltCharInvPanel()
 	Assert( pSoldier );
 	CreateDestroyMapInvButton();
 
-	if( gbCheckForMouseOverItemPos != -1 )
+	if (gfCheckForMouseOverItem)
 	{
-		if( HandleCompatibleAmmoUIForMapScreen( pSoldier, (INT32)gbCheckForMouseOverItemPos, TRUE, TRUE ) == TRUE )
+		if (HandleCompatibleAmmoUI(pSoldier, (INT8)gbCheckForMouseOverItemPos, TRUE))
 		{
-			fMapPanelDirty = TRUE;
+			// if showing sector inventory
+			if (fShowMapInventoryPool)
+			{
+				fMapPanelDirty = TRUE;
+			}
+			fTeamPanelDirty = TRUE;
 		}
+		gfCheckForMouseOverItem = FALSE;
 	}
 
 	if( ( fShowMapInventoryPool ) )
@@ -9572,21 +9576,20 @@ void MAPInvMoveCallback( MOUSE_REGION *pRegion, INT32 iReason )
 	{
 	}
 	else if (iReason == MSYS_CALLBACK_REASON_GAIN_MOUSE )
-//	if( ( iReason == MSYS_CALLBACK_REASON_MOVE ) || ( iReason == MSYS_CALLBACK_REASON_GAIN_MOUSE ) )
 	{
-		gubMAP_HandInvDispText[ uiHandPos ] = 2;
-		guiMouseOverItemTime = GetJA2Clock( );
+		gubMAP_HandInvDispText[uiHandPos] = 2;
+		guiMouseOverItemTime = GetJA2Clock();
 		gfCheckForMouseOverItem = TRUE;
-		HandleCompatibleAmmoUI( pSoldier, (INT8)uiHandPos, FALSE );
 		gbCheckForMouseOverItemPos = (INT8)uiHandPos;
+		fTeamPanelDirty = TRUE;
 	}
 	if (iReason == MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
-		gubMAP_HandInvDispText[ uiHandPos ] = 1;
-		HandleCompatibleAmmoUI( pSoldier, (INT8)uiHandPos, FALSE );
+		gubMAP_HandInvDispText[uiHandPos] = 1;
+		HandleCompatibleAmmoUI(pSoldier, (INT8)uiHandPos, FALSE);
 		gfCheckForMouseOverItem = FALSE;
+		gbCheckForMouseOverItemPos = NO_SLOT;
 		fTeamPanelDirty = TRUE;
-	gbCheckForMouseOverItemPos = -1;
 	}
 }
 
@@ -15025,6 +15028,8 @@ void ChangeSelectedInfoChar( INT8 bCharNumber, BOOLEAN fResetSelectedList )
 				// then get out of inventory mode
 				fShowInventoryFlag = FALSE;
 			}
+			//shadooow: this resets the current highlight item selection to be redrawn again
+			HandleCompatibleAmmoUI(MercPtrs[gCharactersList[bCharNumber].usSolID], NULL, FALSE);
 		}
 
 		fCharacterInfoPanelDirty = TRUE;
