@@ -1279,16 +1279,21 @@ void MapInvenPoolSlotsMove( MOUSE_REGION * pRegion, INT32 iReason  )
 	{
 		if( iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 		{
-			iCurrentlyHighLightedItem = iCounter;
-			fChangedInventorySlots = TRUE;
-			gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+			if (gpItemPointer == NULL)
+			{
+				iCurrentlyHighLightedItem = iCounter;
+				fChangedInventorySlots = TRUE;
+				gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+			}
 		}
 		else if( iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 		{
-			iCurrentlyHighLightedItem = -1;
-			fChangedInventorySlots = TRUE;
-			gfCheckForCursorOverMapSectorInventoryItem = FALSE;
-
+			if (gpItemPointer == NULL)
+			{
+				iCurrentlyHighLightedItem = NO_SLOT;
+				fChangedInventorySlots = TRUE;
+				gfCheckForCursorOverMapSectorInventoryItem = FALSE;
+			}
 			// re render radar map
 			RenderRadarScreen( );
 		}
@@ -2749,6 +2754,12 @@ void MapInventoryPoolNextBtn( GUI_BUTTON *btn, INT32 reason )
 			if( iCurrentInventoryPoolPage < ( iLastInventoryPoolPage ) )
 			{
 				iCurrentInventoryPoolPage++;
+				//shadooow: this will re-render item compatibility highlighting when changing pages for currently held item
+				if (gpItemPointer != NULL)
+				{
+					fChangedInventorySlots = TRUE;
+					gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+				}
 				fMapPanelDirty = TRUE;
 			}
 		}
@@ -2771,6 +2782,12 @@ void MapInventoryPoolPrevBtn( GUI_BUTTON *btn, INT32 reason )
 			if( iCurrentInventoryPoolPage > 0 )
 			{
 				iCurrentInventoryPoolPage--;
+				//shadooow: this will re-render item compatibility highlighting when changing pages for currently held item
+				if (gpItemPointer != NULL)
+				{
+					fChangedInventorySlots = TRUE;
+					gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+				}
 				fMapPanelDirty = TRUE;
 			}
 		}
@@ -2924,7 +2941,12 @@ void MapInventoryPoolFilterBtn( GUI_BUTTON *btn, INT32 reason )
 			{
 				MapInventoryFilterToggle( btn->UserData[1] );
 			}
-
+			//shadooow: this will re-render item compatibility highlighting when changing filters for currently held item
+			if (gpItemPointer != NULL)
+			{
+				fChangedInventorySlots = TRUE;
+				gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+			}
 			// HEADROCK HAM 5: Disabled for now, as we've got buttons for this.
 			//CreateMapInventoryFilterMenu( );
 		}
@@ -2941,7 +2963,12 @@ void MapInventoryPoolFilterBtn( GUI_BUTTON *btn, INT32 reason )
 			{
 				MapInventoryFilterToggle( btn->UserData[3] );
 			}
-
+			//shadooow: this will re-render item compatibility highlighting when changing filters for currently held item
+			if (gpItemPointer != NULL)
+			{
+				fChangedInventorySlots = TRUE;
+				gfCheckForCursorOverMapSectorInventoryItem = TRUE;
+			}
 			// HEADROCK HAM 5: Disabled for now, as we've got buttons for this.
 			//CreateMapInventoryFilterMenu( );
 		}
@@ -3630,9 +3657,9 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 	}
 
 	//Nothing selected or out of bounds or empty slot selected; highlightings reseted already, return
-	if ( iCurrentSlot == NO_SLOT || 
+	if ( gpItemPointer == NULL && (iCurrentSlot == NO_SLOT || 
 		(pInventoryPoolList.size() < (UINT32)(iCurrentSlot + ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) )) ||
-		pInventoryPoolList[ iCurrentSlot + iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ].fExists == FALSE )
+		pInventoryPoolList[ iCurrentSlot + iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ].fExists == FALSE ))
 	{
 		fChangedInventorySlots = FALSE;
 		if (fItemWasHighLighted)

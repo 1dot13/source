@@ -9567,9 +9567,7 @@ void MAPInvMoveCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 	uiHandPos = MSYS_GetRegionUserData( pRegion, 0 );
 
-	//gbCheckForMouseOverItemPos = -1;
-
-	if ( pSoldier->inv[ uiHandPos ].exists() == false )
+	if (pSoldier->inv[uiHandPos].exists() == false)
 		return;
 
 	if (iReason == MSYS_CALLBACK_REASON_MOVE)
@@ -9577,19 +9575,25 @@ void MAPInvMoveCallback( MOUSE_REGION *pRegion, INT32 iReason )
 	}
 	else if (iReason == MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
-		gubMAP_HandInvDispText[uiHandPos] = 2;
-		guiMouseOverItemTime = GetJA2Clock();
-		gfCheckForMouseOverItem = TRUE;
-		gbCheckForMouseOverItemPos = (INT8)uiHandPos;
-		fTeamPanelDirty = TRUE;
+		if (gpItemPointer == NULL)
+		{
+			gubMAP_HandInvDispText[uiHandPos] = 2;
+			guiMouseOverItemTime = GetJA2Clock();
+			gfCheckForMouseOverItem = TRUE;
+			gbCheckForMouseOverItemPos = (INT8)uiHandPos;
+			fTeamPanelDirty = TRUE;
+		}
 	}
 	if (iReason == MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
-		gubMAP_HandInvDispText[uiHandPos] = 1;
-		HandleCompatibleAmmoUI(pSoldier, (INT8)uiHandPos, FALSE);
-		gfCheckForMouseOverItem = FALSE;
-		gbCheckForMouseOverItemPos = NO_SLOT;
-		fTeamPanelDirty = TRUE;
+		if (gpItemPointer == NULL)
+		{
+			gubMAP_HandInvDispText[uiHandPos] = 1;
+			HandleCompatibleAmmoUI(pSoldier, (INT8)uiHandPos, FALSE);
+			gfCheckForMouseOverItem = FALSE;
+			gbCheckForMouseOverItemPos = NO_SLOT;
+			fTeamPanelDirty = TRUE;
+		}
 	}
 }
 
@@ -9864,7 +9868,9 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					MSYS_SetCurrentCursor( EXTERN_CURSOR );
 					fMapInventoryItem=TRUE;
 					fTeamPanelDirty=TRUE;
-
+					//shadooow: this resets the current highlight item selection for swapped item
+					HandleCompatibleAmmoUI(pSoldier, NO_SLOT, FALSE);
+					gfCheckForMouseOverItem = TRUE;
 					// remember which gridno the object came from
 					sObjectSourceGridNo = pSoldier->sGridNo;
 					// and who owned it last
@@ -15029,7 +15035,11 @@ void ChangeSelectedInfoChar( INT8 bCharNumber, BOOLEAN fResetSelectedList )
 				fShowInventoryFlag = FALSE;
 			}
 			//shadooow: this resets the current highlight item selection to be redrawn again
-			HandleCompatibleAmmoUI(MercPtrs[gCharactersList[bCharNumber].usSolID], NULL, FALSE);
+			HandleCompatibleAmmoUI(MercPtrs[gCharactersList[bCharNumber].usSolID], NO_SLOT, FALSE);
+			if (gpItemPointer != NULL)
+			{
+				gfCheckForMouseOverItem = TRUE;
+			}
 		}
 
 		fCharacterInfoPanelDirty = TRUE;

@@ -706,16 +706,10 @@ void SetSMPanelCurrentMerc( UINT8 ubNewID )
 	SetAllAutoFacesInactive( );
 
 	// Turn off compat ammo....
-	if ( gpItemPointer == NULL )
+	HandleCompatibleAmmoUI(gpSMCurrentMerc, NO_SLOT, FALSE);
+	if (gpItemPointer != NULL)
 	{
-		HandleCompatibleAmmoUI( gpSMCurrentMerc, (INT8)HANDPOS, FALSE );
-		gfCheckForMouseOverItem = FALSE;
-	}
-	else
-	{
-		// Turn it all false first....
-		InternalHandleCompatibleAmmoUI( gpSMCurrentMerc, gpItemPointer, FALSE );
-		InternalHandleCompatibleAmmoUI( gpSMCurrentMerc, gpItemPointer, TRUE );
+		gfCheckForMouseOverItem = TRUE;
 	}
 
 	// Remove item desc panel if one up....
@@ -3224,14 +3218,12 @@ void UpdateStatColor( UINT32 uiTimer, BOOLEAN fIncrease, BOOLEAN fDamaged, BOOLE
 
 void SMInvMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-	UINT32 uiHandPos;
-
-	uiHandPos = MSYS_GetRegionUserData( pRegion, 0 );
-
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 		return;
 	}
+	
+	UINT32 uiHandPos = MSYS_GetRegionUserData( pRegion, 0 );
 
 	if ( gpSMCurrentMerc->inv[ uiHandPos ].exists() == false )
 		return;
@@ -3256,7 +3248,8 @@ void SMInvMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			HandleCompatibleAmmoUI( gpSMCurrentMerc, (INT8)uiHandPos, FALSE );
 			gfCheckForMouseOverItem = FALSE;
-			fInterfacePanelDirty		= DIRTYLEVEL2;
+			fInterfacePanelDirty = DIRTYLEVEL2;
+			gbCheckForMouseOverItemPos = NO_SLOT;
 		}
 	}
 }
@@ -3279,23 +3272,28 @@ void InvPanelButtonClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 void SMInvMoveCammoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
-
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 		return;
 	}
 	else if (iReason == MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
-		// Setup a timer....
-		guiMouseOverItemTime = GetJA2Clock( );
-		gfCheckForMouseOverItem = TRUE;
-		gbCheckForMouseOverItemPos = NO_SLOT;
+		if (gpItemPointer == NULL)
+		{
+			// Setup a timer....
+			guiMouseOverItemTime = GetJA2Clock();
+			gfCheckForMouseOverItem = TRUE;
+			gbCheckForMouseOverItemPos = NO_SLOT;
+		}
 	}
 	if (iReason == MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
-		//gfSM_HandInvDispText[ uiHandPos ] = 1;
-		HandleCompatibleAmmoUI( gpSMCurrentMerc, (INT8)NO_SLOT, FALSE );
-		gfCheckForMouseOverItem = FALSE;
+		if (gpItemPointer == NULL)
+		{
+			//gfSM_HandInvDispText[ uiHandPos ] = 1;
+			HandleCompatibleAmmoUI(gpSMCurrentMerc, (INT8)NO_SLOT, FALSE);
+			gfCheckForMouseOverItem = FALSE;
+		}
 	}
 }
 

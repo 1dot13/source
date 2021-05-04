@@ -2831,11 +2831,7 @@ BOOLEAN	CompatibleItemForApplyingOnMerc(OBJECTTYPE *pTestObject)
 {
 	UINT16 usItem = pTestObject->usItem;
 
-	// ATE: If in mapscreen, return false always....
-	if (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN)
-	{
-		return(FALSE);
-	}
+
 	//Shadooow: rewritten to use new item flags and check canteen not empty
 	if (((HasItemFlag(usItem, CAMO_REMOVAL) && gGameExternalOptions.fCamoRemoving) || Item[usItem].camouflagekit || usItem == JAR_ELIXIR ||
 	Item[usItem].clothestype || Item[usItem].drugtype || Item[usItem].foodtype)	&& (!Item[usItem].canteen || (*pTestObject)[0]->data.objectStatus > 1))
@@ -2946,7 +2942,14 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 
 	if( fFromMerc == FALSE )
 	{
-		pTestObject = &( pInventoryPoolList[ bInvPos ].object );
+		if (gpItemPointer != NULL)
+		{
+			pTestObject = gpItemPointer;
+		}
+		else
+		{
+			pTestObject = &(pInventoryPoolList[bInvPos].object);
+		}
 	}
 	else
 	{
@@ -3094,7 +3097,14 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory(SOLDIERTYPE *pSoldier, INT32 bInvP
 
 	if( fFromMerc == FALSE )
 	{
-		pTestObject = &( pInventoryPoolList[ iStartSlotNumber + bInvPos ].object);
+		if (gpItemPointer != NULL)
+		{
+			pTestObject = gpItemPointer;
+		}
+		else
+		{
+			pTestObject = &(pInventoryPoolList[iStartSlotNumber + bInvPos].object);
+		}
 	}
 	else
 	{
@@ -3334,7 +3344,7 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 		}
 	}
 	//If we are currently NOT in the Shopkeeper interface and item is not gun or ammo
-	if (!(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) && ((Item[pTestObject->usItem].usItemClass & IC_GUN) || (Item[pTestObject->usItem].usItemClass & IC_AMMO)))
+	if (!(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) && !((Item[pTestObject->usItem].usItemClass & IC_GUN) || (Item[pTestObject->usItem].usItemClass & IC_AMMO)))
 	{
 		if (CompatibleItemForApplyingOnMerc(pTestObject))
 		{
@@ -3439,9 +3449,11 @@ BOOLEAN HandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, INT8 bInvPos, BOOLEAN fOn
 	}
 	else
 	{
-//		if( fOn )
-
-		if ( bInvPos == NO_SLOT )
+		if (gpItemPointer != NULL)
+		{
+			pTestObject = gpItemPointer;
+		}
+		else if ( bInvPos == NO_SLOT )
 		{
 			pTestObject = NULL;
 		}
