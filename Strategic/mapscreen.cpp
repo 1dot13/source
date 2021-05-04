@@ -11012,6 +11012,8 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			bSelectedContractChar = -1;
 			fPlotForHelicopter = FALSE;
 			fPlotForMilitia = FALSE;
+			fShowAssignmentMenu = FALSE;
+      		fShownAssignmentMenu = FALSE;
 
 			// if not dead or POW, select his sector
 			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
