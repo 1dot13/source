@@ -58,7 +58,9 @@
 // GLOBAL FOR FACES LISTING
 FACETYPE	gFacesData[ NUM_FACE_SLOTS ];
 UINT32 guiNumFaces = 0;
-
+extern UINT32		guiTacticalInterfaceFlags;
+extern BOOLEAN EnoughPoints(SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLEAN fDisplayMsg);
+extern INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost, INT16 bAimTime, UINT8 ubForceRaiseGunCost = 0);
 // LOCAL FUNCTIONS
 void NewEye( FACETYPE *pFace );
 void NewMouth( FACETYPE *pFace );
@@ -2491,14 +2493,57 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
 				}
 			}
-			else if (fDoIcon)
+			else
 			{
-				// Find X, y for placement
-				GetXYForIconPlacement(pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS);
-				BltVideoObjectFromIndex(uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
+				//shadooow: display action points when in map screen during battle in turn based mode
+				if ((guiTacticalInterfaceFlags & 1) && !(gTacticalStatus.uiFlags & REALTIME) && (gTacticalStatus.uiFlags & INCOMBAT) && pSoldier->bInSector)
+				{
+					SetFont(TINYFONT1);
+					if (!EnoughPoints(pSoldier, MinAPsToAttack(pSoldier, pSoldier->sLastTarget, FALSE, 0), 0, FALSE) || pSoldier->bActionPoints < 0)
+					{
+						SetFontBackground(FONT_MCOLOR_BLACK);
+						SetFontForeground(FONT_MCOLOR_DKRED);
+					}
+					else
+					{
+						if (MercDruggedOrDrunk(pSoldier))
+						{
+							SetFontBackground(FONT_MCOLOR_BLACK);
+							//SetFontForeground( FONT_MCOLOR_LTBLUE );
 
-				fDoIcon = FALSE;
-				++bNumRightIcons;
+							// Flugente: new colour for being drugged, as blue on black was hard to see
+							SetRGBFontForeground(250, 5, 250);
+						}
+						else if (pSoldier->bStealthMode)
+						{
+							SetFontBackground(FONT_MCOLOR_BLACK);
+							SetFontForeground(FONT_MCOLOR_LTYELLOW);
+						}
+						else
+						{
+							SetFontBackground(FONT_MCOLOR_BLACK);
+							SetFontForeground(FONT_MCOLOR_LTGRAY);
+						}
+					}
+
+					swprintf(sString, L"%d", pSoldier->bActionPoints);
+					SetFontDestBuffer(uiRenderBuffer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+
+					if (!usTextWidth)
+						usTextWidth = StringPixLength(sString, TINYFONT1);
+
+					mprintf(sFaceX + pFace->usFaceWidth - usTextWidth + 1, (INT16)(sFaceY - 3), sString);
+					SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE);
+				}
+				if (fDoIcon)
+				{
+					// Find X, y for placement
+					GetXYForIconPlacement(pFace, sIconIndex, sFaceX, sFaceY, &sIconX, &sIconY, guiPORTRAITICONS);
+					BltVideoObjectFromIndex(uiRenderBuffer, guiPORTRAITICONS, sIconIndex, sIconX, sIconY, VO_BLT_SRCTRANSPARENCY, NULL);
+
+					fDoIcon = FALSE;
+					++bNumRightIcons;
+				}
 			}
 		}
 	}
