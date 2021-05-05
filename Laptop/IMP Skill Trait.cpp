@@ -79,6 +79,25 @@ UINT8 gusNewMajorTraitRemap[IMP_SKILL_TRAITS_NEW_NUMBER_MAJOR_SKILLS] =
 	NO_SKILLTRAIT_NT,	// IMP_SKILL_TRAITS_NEW_MAJOR_NONE
 };
 
+//shadooow: same as above but for old skill traits
+UINT8 gusOldMajorTraitRemap[IMP_SKILL_TRAITS__NUMBER_SKILLS] =
+{
+	LOCKPICKING_OT,
+	HANDTOHAND_OT,
+	ELECTRONICS_OT,
+	NIGHTOPS_OT,
+	THROWING_OT,
+	TEACHING_OT,
+	HEAVY_WEAPS_OT,
+	AUTO_WEAPS_OT,
+	STEALTHY_OT,
+	AMBIDEXT_OT,
+	KNIFING_OT,
+	PROF_SNIPER_OT,
+	CAMOUFLAGED_OT,
+	MARTIALARTS_OT,
+	NO_SKILLTRAIT_OT,
+};
 
 //*******************************************************************
 //
@@ -884,7 +903,7 @@ void IMPSkillTraitDisplaySkills()
 		// assign help texts
 		CHAR16	apStr[5000];
 		swprintf( apStr, L"" );
-		AssignPersonnelSkillTraitHelpText( gusNewMajorTraitRemap[uiCnt], ((gfSkillTraitQuestions[uiCnt] && gfSkillTraitQuestions2[uiCnt]) ? TRUE : FALSE), fCharacterIsMale && !bBigBodySelected( ), apStr );
+		AssignPersonnelSkillTraitHelpText(gGameOptions.fNewTraitSystem ? gusNewMajorTraitRemap[uiCnt] : gusOldMajorTraitRemap[uiCnt], ((gfSkillTraitQuestions[uiCnt] && gfSkillTraitQuestions2[uiCnt]) ? TRUE : FALSE), fCharacterIsMale && !bBigBodySelected( ), apStr );
 
 		// Set region help text
 		SetRegionFastHelpText( &(gMR_SkillTraitHelpTextRegions[uiCnt]), apStr );
