@@ -417,7 +417,10 @@ void GameLoop(void)
 	}
 
 	// Flugente: dynamic opinions: Dialogue Boxes need to be refreshed
-	RefreshBoxes( );
+	if (gGameExternalOptions.fDynamicOpinions)
+	{
+		RefreshBoxes();//todo shadooow: tohle mozna zpusobuje bug s opakovanim kecu po vitezstvi
+	}
 	
 	// Flugente:disguised mercs can distract enemies by talking to them. In order to display that, we sometimes display excerpts of their 'chats'
 	CheckChatPartners();

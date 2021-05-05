@@ -2178,7 +2178,7 @@ void HandleLoyaltyImplicationsOfMercRetreat( INT8 bRetreatCode, INT16 sSectorX, 
 
 	// Flugente: dynamic opinion: mercs retreated. Someone has to be blamed for this shameful defeat!
 	// only do this if the enemy actually noticed us - no need to punish the player for a successful stealth operation
-	if ( gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition )
+	if (gGameExternalOptions.fDynamicOpinions && gTacticalStatus.Team[ENEMY_TEAM].bAwareOfOpposition )
 	{
 		HandleDynamicOpinionRetreat();
 	}

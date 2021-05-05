@@ -410,7 +410,10 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	RemoveNewlyHiredMercFromPersonnelDepartedList( pSoldier->ubProfile );
 
 	// Flugente: dynamic opinions
-	CheckForFriendsofHated( pSoldier );
+	if (gGameExternalOptions.fDynamicOpinions)
+	{
+		CheckForFriendsofHated(pSoldier);
+	}
 
 	gfAtLeastOneMercWasHired = TRUE;
 

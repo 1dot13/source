@@ -5863,7 +5863,10 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 			bMaxBreathLoss = (float)min( 127, iBreathLoss );
 
 			// Flugente: dynamic opinions: other mercs might get annoyed, because we are slowing down the team
-			HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_SLOWSUSDOWN, TRUE, TRUE );
+			if (gGameExternalOptions.fDynamicOpinions)
+			{
+				HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_SLOWSUSDOWN, TRUE, TRUE);
+			}
 		}
 	}
 

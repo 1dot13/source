@@ -850,7 +850,7 @@ void ChangeStat( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubSta
 		}
 
 		// Flugente: dynamic opinions
-		if ( FROM_TRAINING == ubReason )
+		if (gGameExternalOptions.fDynamicOpinions && FROM_TRAINING == ubReason )
 			HandleDynamicOpinionTeaching( pSoldier, ubStat );
 	}
 }

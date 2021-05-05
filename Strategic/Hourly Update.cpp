@@ -461,7 +461,10 @@ void HourlyLarryUpdate()
 						fTookDrugs = TRUE;
 
 						// Flugente: dynamic opinion
-						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, FALSE );
+						if (gGameExternalOptions.fDynamicOpinions)
+						{
+							HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_ADDICT, TRUE, FALSE);
+						}
 
 						if ( fBar )
 						{
@@ -645,7 +648,10 @@ void HourlyDisabilityUpdate( )
 						pSoldier->bBleeding = oldbleeding;
 
 						// Flugente: dynamic opinions
-						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+						if (gGameExternalOptions.fDynamicOpinions)
+						{
+							HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+						}
 
 						// say something (which might also alert the player to what we just did)
 						TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
@@ -820,7 +826,10 @@ void HourlyStealUpdate()
 			}
 			
 			// Flugente: dynamic opinion
-			HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE );
+			if (gGameExternalOptions.fDynamicOpinions)
+			{
+				HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_THIEF, TRUE, FALSE);
+			}
 		}
 	}
 }

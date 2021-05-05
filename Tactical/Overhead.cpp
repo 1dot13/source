@@ -2558,7 +2558,10 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                             UnSetUIBusy( pSoldier->ubID );
 
 							// Flugente: dynamic opinions
-							HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+							if (gGameExternalOptions.fDynamicOpinions)
+							{
+								HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+							}
                         }
                     }
 
@@ -3418,7 +3421,10 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
 				pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 				// Flugente: dynamic opinions
-				HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+				if (gGameExternalOptions.fDynamicOpinions)
+				{
+					HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+				}
 			}
 		}
     }
@@ -11008,7 +11014,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
             }
 			
 			// dynamic opinion: a merc caused the remaining enemies to give up
-			if ( gusSelectedSoldier != NOBODY )
+			if (gGameExternalOptions.fDynamicOpinions && gusSelectedSoldier != NOBODY )
 				HandleDynamicOpinionChange( MercPtrs[gusSelectedSoldier], OPINIONEVENT_BATTLE_TOOK_PRISONER, TRUE, TRUE );
         }
         else

@@ -880,7 +880,10 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 						TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
 
 						// Flugente: dynamic opinions
-						HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+						if (gGameExternalOptions.fDynamicOpinions)
+						{
+							HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+						}
 					}
 					// do we realize that we just can't do this?
 					if ( (100 - (pSoldier->ubSkillCheckAttempts - 2) * 20) < EffectiveWisdom( pSoldier ) )

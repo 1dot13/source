@@ -736,7 +736,10 @@ void FinishIncident(INT16 sX, INT16 sY, INT8 sZ)
 		gCurrentIncident.usOneTimeEventFlags |= INCIDENT_ONETIMEEVENT_OMERTA;
 
 	// dynamic opinions
-	HandleDynamicOpinionBattleFinished( (gCurrentIncident.usIncidentFlags & INCIDENT_WIN) != 0 );
+	if (gGameExternalOptions.fDynamicOpinions)
+	{
+		HandleDynamicOpinionBattleFinished((gCurrentIncident.usIncidentFlags & INCIDENT_WIN) != 0);
+	}
 
 	gCampaignStats.AddNewIncident(gCurrentIncident);
 	

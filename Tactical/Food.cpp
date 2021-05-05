@@ -647,8 +647,11 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 			EatFromInventory( pSoldier, FALSE );
 		}
 
-		// dynamic opinions: if we're still really hungry  an someone in this sector has food, we get a lwoer opinion of him, as he obviously doesn't share
-		HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_NOSHARINGFOOD, FALSE, FALSE );
+		if (gGameExternalOptions.fDynamicOpinions)
+		{
+			// dynamic opinions: if we're still really hungry  an someone in this sector has food, we get a lwoer opinion of him, as he obviously doesn't share
+			HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_NOSHARINGFOOD, FALSE, FALSE);
+		}
 	}	
 }
 

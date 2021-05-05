@@ -601,7 +601,10 @@ void MercDailyUpdate()
 	HandleSnitchCheck();
 
 	// Flugente: dynmaic opinion rollover
-	HandleDynamicOpinionsDailyRefresh( );
+	if (gGameExternalOptions.fDynamicOpinions)
+	{
+		HandleDynamicOpinionsDailyRefresh();
+	}
 
 	// Flugente: disease
 	HandleDiseaseDailyRefresh();

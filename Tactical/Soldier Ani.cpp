@@ -4041,7 +4041,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 									gMercProfiles[ MercPtrs[ ubAttacker ]->ubProfile ].records.usKillsOthers++;
 
 									// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-									if ( pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
+									if (gGameExternalOptions.fDynamicOpinions && pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
 									{
 										// not for killing animals though...
 										if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )
@@ -4055,23 +4055,26 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 						gStrategicStatus.usPlayerKills++;
 
 						// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-						if ( pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide) )
+						if (gGameExternalOptions.fDynamicOpinions)
 						{
-							// not for killing animals though...
-							if ( pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW )
-								HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE );
-						}
-						else
-						{
-							// if this enemy was attacking a freshly wounded merc, it is likely they posed a real threat - the merc will be thankful for saving their life
-							if ( pSoldier->ubTargetID != NOBODY && MercPtrs[pSoldier->ubTargetID]->bBleeding > 10 )
+							if (pSoldier->bTeam != OUR_TEAM && (pSoldier->aiData.bNeutral || pSoldier->bSide == MercPtrs[ubAttacker]->bSide))
 							{
-								AddOpinionEvent( MercPtrs[pSoldier->ubTargetID]->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_BATTLE_SAVIOUR );
+								// not for killing animals though...
+								if (pSoldier->ubBodyType != CROW && pSoldier->ubBodyType != COW)
+									HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_CIVKILLER, TRUE, TRUE);
 							}
 							else
 							{
-								// complain about a fragthief, or thank for assistance - correct event is chosen internally
-								HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_FRAGTHIEF, TRUE, TRUE );
+								// if this enemy was attacking a freshly wounded merc, it is likely they posed a real threat - the merc will be thankful for saving their life
+								if (pSoldier->ubTargetID != NOBODY && MercPtrs[pSoldier->ubTargetID]->bBleeding > 10)
+								{
+									AddOpinionEvent(MercPtrs[pSoldier->ubTargetID]->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_BATTLE_SAVIOUR);
+								}
+								else
+								{
+									// complain about a fragthief, or thank for assistance - correct event is chosen internally
+									HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_FRAGTHIEF, TRUE, TRUE);
+								}
 							}
 						}
 					}

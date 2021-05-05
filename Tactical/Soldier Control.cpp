@@ -6815,7 +6815,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 			pSoldier->ChangeToFlybackAnimation( (UINT8)bDirection );
 
 			// Flugente: dynamic opinions
-			if ( ubAttackerID != NOBODY )
+			if (gGameExternalOptions.fDynamicOpinions && ubAttackerID != NOBODY )
 				HandleDynamicOpinionChange( MercPtrs[ubAttackerID], OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
 
 			return;
@@ -6830,7 +6830,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 			pSoldier->EVENT_InitNewSoldierAnim( JFK_HITDEATH, 0, FALSE );
 
 			// Flugente: dynamic opinions
-			if ( ubAttackerID != NOBODY )
+			if (gGameExternalOptions.fDynamicOpinions && ubAttackerID != NOBODY )
 				HandleDynamicOpinionChange( MercPtrs[ubAttackerID], OPINIONEVENT_BRUTAL_GOOD, TRUE, TRUE );
 
 			return;
@@ -8077,7 +8077,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 							// Flugente: dynamic opinions
-							HandleDynamicOpinionChange( this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+							if (gGameExternalOptions.fDynamicOpinions)
+							{
+								HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+							}
 						}
 					}
 				}
@@ -8093,7 +8096,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 							// Flugente: dynamic opinions
-							HandleDynamicOpinionChange( this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+							if (gGameExternalOptions.fDynamicOpinions)
+							{
+								HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+							}
 						}
 					}
 				}
@@ -8110,7 +8116,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 							// Flugente: dynamic opinions
-							HandleDynamicOpinionChange( this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+							if (gGameExternalOptions.fDynamicOpinions)
+							{
+								HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+							}
 						}
 					}
 				}
@@ -8129,7 +8138,10 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 								this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 								// Flugente: dynamic opinions
-								HandleDynamicOpinionChange( this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+								if (gGameExternalOptions.fDynamicOpinions)
+								{
+									HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+								}
 							}
 						}
 					}
@@ -9723,7 +9735,10 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 						this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 
 						// Flugente: dynamic opinions
-						HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+						if (gGameExternalOptions.fDynamicOpinions)
+						{
+							HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+						}
 					}
 					// otherwise remove flag, so we'll complain every second time we climb roof
 					else
@@ -10201,17 +10216,20 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	this->ubLastDamageReason = ubReason;
 		
 	// Flugente: dynamic opinions
-	if ( ubAttacker != NOBODY && MercPtrs[ubAttacker] )
+	if (ubAttacker != NOBODY && MercPtrs[ubAttacker] )
 	{
-		AddOpinionEvent( this->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_FRIENDLYFIRE );
-
-		// if this is a civilian, other mercs can complain about mercs shooting innocents
-		// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
-		if ( (this->bTeam != OUR_TEAM) && (this->aiData.bNeutral || this->bSide == MercPtrs[ubAttacker]->bSide) )
+		if (gGameExternalOptions.fDynamicOpinions)
 		{
-			// not for killing animals though...
-			if ( this->ubBodyType != CROW && this->ubBodyType != COW )
-				HandleDynamicOpinionChange( MercPtrs[ubAttacker], OPINIONEVENT_CIV_ATTACKER, TRUE, TRUE );
+			AddOpinionEvent(this->ubProfile, MercPtrs[ubAttacker]->ubProfile, OPINIONEVENT_FRIENDLYFIRE);
+
+			// if this is a civilian, other mercs can complain about mercs shooting innocents
+			// Flugente: dynamic opinions: if this guy is not hostile towards us, then some mercs will complain about killing civilians
+			if ((this->bTeam != OUR_TEAM) && (this->aiData.bNeutral || this->bSide == MercPtrs[ubAttacker]->bSide))
+			{
+				// not for killing animals though...
+				if (this->ubBodyType != CROW && this->ubBodyType != COW)
+					HandleDynamicOpinionChange(MercPtrs[ubAttacker], OPINIONEVENT_CIV_ATTACKER, TRUE, TRUE);
+			}
 		}
 
 		// if we are a turncoat, lose the flag if we were attacked by player forces
@@ -13550,7 +13568,10 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 	}
 
 	// Flugente: dynamic opinions
-	AddOpinionEvent( pVictim->ubProfile, this->ubProfile, OPINIONEVENT_BANDAGED );
+	if (gGameExternalOptions.fDynamicOpinions)
+	{
+		AddOpinionEvent(pVictim->ubProfile, this->ubProfile, OPINIONEVENT_BANDAGED);
+	}
 
 	bInitialBleeding = pVictim->bBleeding;
 
@@ -14575,7 +14596,10 @@ BOOLEAN SOLDIERTYPE::CheckForBreathCollapse( void )
 				TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
 
 				// Flugente: dynamic opinions
-				HandleDynamicOpinionChange( this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+				if (gGameExternalOptions.fDynamicOpinions)
+				{
+					HandleDynamicOpinionChange(this, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+				}
 			}
 			else
 			{
@@ -15026,7 +15050,10 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 							applybipod = TRUE;
 
 							// Flugente: dynamic opinions
-							AddOpinionEvent( MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS );
+							if (gGameExternalOptions.fDynamicOpinions)
+							{
+								AddOpinionEvent(MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS);
+							}
 						}
 					}
 				}
@@ -15093,7 +15120,10 @@ BOOLEAN	SOLDIERTYPE::IsWeaponMounted( void )
 						applybipod = TRUE;
 
 						// Flugente: dynamic opinions
-						AddOpinionEvent( MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS );
+						if (gGameExternalOptions.fDynamicOpinions)
+						{
+							AddOpinionEvent(MercPtrs[usPersonID]->ubProfile, this->ubProfile, OPINIONEVENT_YOUMOUNTEDAGUNONMYBREASTS);
+						}
 					}
 				}
 			}

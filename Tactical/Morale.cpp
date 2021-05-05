@@ -326,15 +326,18 @@ void DecayTacticalMoraleModifiers( void )
 						else
 						{
 							// alone, no recovery... in fact, if tact morale is high, decay
-							if ( !(pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) )
+							if (!(pSoldier->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY))
 							{
-								TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
+								TacticalCharacterDialogue(pSoldier, QUOTE_PERSONALITY_TRAIT);
 								pSoldier->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
 							}
-							HandleMoraleEvent( pSoldier, MORALE_NERVOUS_ALONE, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
+							HandleMoraleEvent(pSoldier, MORALE_NERVOUS_ALONE, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
 
 							// Flugente: dynamic opinions
-							HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE );
+							if (gGameExternalOptions.fDynamicOpinions)
+							{
+								HandleDynamicOpinionChange(pSoldier, OPINIONEVENT_ANNOYINGDISABILITY, TRUE, TRUE);
+							}
 						}
 					}
 				}
@@ -1528,7 +1531,10 @@ void HandleSnitchesReports( std::vector<SnitchEvent>& aVec )
 					event2.ubEventType = NUM_SNITCH_EVENTS;
 
 					// Flugente: dynamic opinions
-					AddOpinionEvent( event2.ubTargetProfile, pSnitch->ubProfile, OPINIONEVENT_SNITCHSOLDMEOUT );
+					if (gGameExternalOptions.fDynamicOpinions)
+					{
+						AddOpinionEvent(event2.ubTargetProfile, pSnitch->ubProfile, OPINIONEVENT_SNITCHSOLDMEOUT);
+					}
 				}
 			}
 

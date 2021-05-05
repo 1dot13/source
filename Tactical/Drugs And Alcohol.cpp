@@ -173,7 +173,7 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 			gMercProfiles[LARRY_NORMAL].bNPCData = __max( gMercProfiles[LARRY_NORMAL].bNPCData, LARRY_FALLS_OFF_WAGON );
 		}
 
-		if ( NewDrug[drugused].opinionevent )
+		if (gGameExternalOptions.fDynamicOpinions && NewDrug[drugused].opinionevent )
 		{
 			HandleDynamicOpinionChange( pSoldier, OPINIONEVENT_ADDICT, TRUE, TRUE );
 		}
@@ -194,7 +194,10 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_DRANK_SOME], pSoldier->GetName( ), ShortItemNames[usItem] );
 
-		HandleDynamicOpinionTeamDrinking( pSoldier );
+		if (gGameExternalOptions.fDynamicOpinions)
+		{
+			HandleDynamicOpinionTeamDrinking(pSoldier);
+		}
 	}
 	else
 	{
