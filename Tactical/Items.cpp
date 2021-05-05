@@ -2392,8 +2392,8 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 		return FALSE;
 
 	// shadooow: efficiency check, we are passing all kinds of items into this function that are not neccessary attachments at all
-	if (!Item[usAttachment].attachment && !Item[usAttachment].hiddenaddon)
-		return FALSE;
+	//if (!Item[usAttachment].attachment && !Item[usAttachment].hiddenaddon)
+		//return FALSE;
 
 	//It's possible we could get here without being sent the usAttachmentSlotIndexVector parameter
 	if(usAttachmentSlotIndexVector.empty())
@@ -2688,8 +2688,8 @@ BOOLEAN TwoHandedItem( UINT16 usItem )
 BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem )
 {
 	// shadooow: efficiency check, we are passing all kinds of items into this function that are not neccessary attachments at all
-	if (!Item[usLaunchable].attachment && !Item[usLaunchable].hiddenaddon)
-		return FALSE;
+	//if (!Item[usLaunchable].attachment && !Item[usLaunchable].hiddenaddon)
+		//return FALSE;
 
 	INT32 iLoop = 0;
 	// Flugente: as this would cause launchers to happily launch attachments around the landscape, we really have to check the list of launchables
