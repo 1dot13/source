@@ -933,9 +933,8 @@ BOOLEAN EnoughPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLE
 		// AI guy on special move off map
 		return( TRUE );
 	}
-
 	// IN realtime.. only care about BPs
-	if ( ( gTacticalStatus.uiFlags & REALTIME ) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
+	if ( ( gTacticalStatus.uiFlags & REALTIME ) || !(gTacticalStatus.uiFlags & INCOMBAT ) || !pSoldier->bInSector)
 	{
 		sAPCost = 0;
 	}
@@ -1001,7 +1000,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, UINT8 ub
 	}
 
 	// in real time, there IS no AP cost, (only breath cost)
-	if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
+	if (!(gTacticalStatus.uiFlags & TURNBASED) || !(gTacticalStatus.uiFlags & INCOMBAT ) || !pSoldier->bInSector)
 	{
 		sAPCost = 0;
 	}

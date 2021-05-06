@@ -1119,7 +1119,7 @@ void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN
 
 	// we don't want any events for people not on our team or vehicles
 	SOLDIERTYPE* pSoldier = FindSoldierByProfileID( usProfileA, TRUE );
-	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	if ( !pSoldier || pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE || AM_A_ROBOT(pSoldier))
 		return;
 
 	pSoldier = FindSoldierByProfileID( usProfileB, TRUE );
@@ -1632,7 +1632,7 @@ void HandleDynamicOpinionsDailyRefresh( )
 	for ( pSoldier = MercPtrs[bMercID]; bMercID <= bLastTeamID; ++bMercID, pSoldier++ )
 	{
 		if ( pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
-			 !(pSoldier->bAssignment == IN_TRANSIT ||
+			 !(pSoldier->bAssignment == IN_TRANSIT || AM_A_ROBOT(pSoldier) ||
 			 pSoldier->bAssignment == ASSIGNMENT_DEAD) )
 		{
 			// or each profile, check wether everyone else is a friend of someone else we hate
@@ -1674,7 +1674,7 @@ void CheckForFriendsofHated( SOLDIERTYPE* pSoldier )
 	SOLDIERTYPE*							pThirdSoldier;
 
 	// make sure we ourselves aren't in transit
-	if ( !pSoldier->bActive || pSoldier->ubProfile == NO_PROFILE || pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD )
+	if ( !pSoldier->bActive || pSoldier->ubProfile == NO_PROFILE || AM_A_ROBOT(pSoldier) || pSoldier->bAssignment == IN_TRANSIT || pSoldier->bAssignment == ASSIGNMENT_DEAD )
 		return;
 
 	bMercID = pSoldier->ubID;
@@ -1835,7 +1835,7 @@ void HandleDynamicOpinionRetreat( )
 void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 {
 	// need to be drunk for this
-	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || pSoldier->newdrugs.drinkstaken <= 0.0 )
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || AM_A_ROBOT(pSoldier) || pSoldier->newdrugs.drinkstaken <= 0.0 )
 		return;
 
 	SOLDIERTYPE*		pTeamSoldier = NULL;
@@ -1873,7 +1873,7 @@ void HandleDynamicOpinionTeamDrinking( SOLDIERTYPE* pSoldier )
 
 void HandleDynamicOpinionTeaching( SOLDIERTYPE* pSoldier, UINT8 ubStat )
 {
-	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE  )
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || AM_A_ROBOT(pSoldier))
 		return;
 
 	// because this code is as annoying as it is, ubStat has a different numbering than bTrainStat. The only reasonable explanation for that is that the designers decided to be jerks on purpose
@@ -2079,7 +2079,7 @@ UINT8 HighestInventoryCoolness( SOLDIERTYPE* pSoldier )
 
 void HandleDynamicOpinionChange( SOLDIERTYPE* pSoldier, UINT8 usEvent, BOOLEAN fOffender, BOOLEAN fStartDialogue )
 {
-	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE )
+	if ( !pSoldier || pSoldier->ubProfile == NO_PROFILE || AM_A_ROBOT(pSoldier))
 		return;
 
 	// we might have to compare the soldier to other teammates, determine relevant values

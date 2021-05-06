@@ -102,7 +102,7 @@ void HandleRPCDescription(	)
 		// OK, count how many rpc guys we have....
 		// set up soldier ptr as first element in mercptrs list
 		cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		
+		if (gTacticalStatus.ubGuideDescriptionToUse != 100)
 		{
 			// run through list
 			for ( pTeamSoldier = MercPtrs[cnt2]; cnt2 <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt2, pTeamSoldier++ )
