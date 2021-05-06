@@ -4895,22 +4895,30 @@ BOOLEAN OKFallDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT
 
 BOOLEAN HandleCheckForDeathCommonCode( SOLDIERTYPE *pSoldier )
 {
-	// Do we have a primary pending animation?
-	if ( pSoldier->usPendingAnimation2 != NO_PENDING_ANIMATION )
+	//shadooow: fix for going back to cower animation after collapsing
+	if (pSoldier->CheckForBreathCollapse() || pSoldier->bCollapsed)
 	{
-		pSoldier->ChangeSoldierState( pSoldier->usPendingAnimation2, 0, FALSE );
-		pSoldier->usPendingAnimation2 = NO_PENDING_ANIMATION;
-		return( TRUE );
-	}
-
-	// CHECK IF WE HAVE A PENDING ANIMATION HERE
-	if ( pSoldier->usPendingAnimation != NO_PENDING_ANIMATION )
-	{
-		pSoldier->ChangeSoldierState( pSoldier->usPendingAnimation, 0, FALSE );
 		pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
-		return( TRUE );
+		pSoldier->usPendingAnimation2 = NO_PENDING_ANIMATION;
 	}
+	else
+	{
+		// Do we have a primary pending animation?
+		if (pSoldier->usPendingAnimation2 != NO_PENDING_ANIMATION)
+		{
+			pSoldier->ChangeSoldierState(pSoldier->usPendingAnimation2, 0, FALSE);
+			pSoldier->usPendingAnimation2 = NO_PENDING_ANIMATION;
+			return(TRUE);
+		}
 
+		// CHECK IF WE HAVE A PENDING ANIMATION HERE
+		if (pSoldier->usPendingAnimation != NO_PENDING_ANIMATION)
+		{
+			pSoldier->ChangeSoldierState(pSoldier->usPendingAnimation, 0, FALSE);
+			pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+			return(TRUE);
+		}
+	}
 	// OTHERWISE, GOTO APPROPRIATE STOPANIMATION!
 	pSoldier->bCollapsed = TRUE;
 
