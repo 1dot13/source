@@ -7842,15 +7842,17 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					//CHRISL: Swap gunsling
 					if ( bSelectedInfoChar != -1 && fShowInventoryFlag && UsingNewInventorySystem() == true )
 					{
-						SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
-						BOOLEAN handFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE) || (pSoldier->inv[HANDPOS].exists() == false && pSoldier->inv[SECONDHANDPOS].exists() == false));
-						BOOLEAN slingFit = (CanItemFitInPosition(pSoldier, &pSoldier->inv[GUNSLINGPOCKPOS], HANDPOS, FALSE) || pSoldier->inv[GUNSLINGPOCKPOS].exists() == false);
-						if(Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].twohanded && pSoldier->inv[SECONDHANDPOS].exists() == true)
-							handFit = FALSE;
-						if( handFit == TRUE && slingFit == TRUE)
-						{
-							SwapObjs(&pSoldier->inv[HANDPOS], &pSoldier->inv[GUNSLINGPOCKPOS]);
-						}
+						SOLDIERTYPE *pSoldier = MercPtrs[gCharactersList[bSelectedInfoChar].usSolID];
+						if (fAlt)
+							// switch to knife, or from knife to gun
+							pSoldier->SwitchWeapons(TRUE);
+						else if (fCtrl)
+							// switch to sidearm, or from sidearm to non-sidearm gun
+							pSoldier->SwitchWeapons(FALSE, TRUE);
+						else
+							// switch to and from gunsling
+							pSoldier->SwitchWeapons();
+
 						fTeamPanelDirty = TRUE;
 						fMapPanelDirty = TRUE;
 						fInterfacePanelDirty = DIRTYLEVEL2;
