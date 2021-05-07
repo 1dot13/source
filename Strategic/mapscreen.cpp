@@ -61,6 +61,7 @@
 	#include "Map Screen Interface.h"
 	#include "Strategic Pathing.h"
 	#include "Assignments.h"
+	#include "points.h"
 	#include "Squads.h"
 	#include "Merc Contract.h"
 	#include "Sound Control.h"
@@ -584,6 +585,7 @@ extern UINT8 gubHandPos;
 extern UINT16 gusOldItemIndex;
 extern UINT16 gusNewItemIndex;
 extern BOOLEAN gfDeductPoints;
+INT32 iLastHandPosMapScreen = -1;
 
 extern void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
 extern void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
@@ -9621,7 +9623,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 {
 	SOLDIERTYPE	*pSoldier;
 	UINT32 uiHandPos;
-	UINT16	usOldItemIndex, usNewItemIndex;
+	UINT16 usOldItemIndex, usNewItemIndex, usCostToMoveItem = 0;
 	static BOOLEAN	fRightDown = FALSE;
 
 	// OJW - 20090319 - fix merging bug on mapscreen
@@ -9638,8 +9640,6 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 		return;
 	}
 
-	if ( UsingInventoryCostsAPSystem() && (gTacticalStatus.uiFlags & INCOMBAT))//dnl ch66 070913 if fInventoryCostsAP is set and we are in combat then moving equipment in strategic screen is not allowed
-		return;
 
 	// make sure we're here legally
 	Assert( MapCharacterHasAccessibleInventory( bSelectedInfoChar ) );
@@ -9708,6 +9708,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 			// remember what it was
 			usOldItemIndex = pSoldier->inv[ uiHandPos ].usItem;
+			iLastHandPosMapScreen = uiHandPos;
 
 			// pick it up
 			MAPBeginItemPointer( pSoldier, (UINT8)uiHandPos );
@@ -9728,7 +9729,25 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				return;
 			}
 
-			usOldItemIndex = pSoldier->inv[ uiHandPos ].usItem;
+			if (UsingInventoryCostsAPSystem() && (gTacticalStatus.uiFlags & INCOMBAT) && pSoldier->bInSector)
+			{
+				if (!CanItemFitInPosition(pSoldier, gpItemPointer, (INT8)uiHandPos, FALSE))//dnl ch66 070913
+					return;
+
+				//Jenilee: determine the cost of moving this item around in our inventory
+				usCostToMoveItem = GetInvMovementCost(gpItemPointer, iLastHandPosMapScreen, uiHandPos);
+				// Flugente: backgrounds
+				usCostToMoveItem = (usCostToMoveItem * (100 + pSoldier->GetBackgroundValue(BG_INVENTORY))) / 100;
+
+				//we dont have enough APs to move it to this slot, show a warning message
+				if (usCostToMoveItem > 0 && pSoldier->bActionPoints < usCostToMoveItem && pSoldier->inv[iLastHandPosMapScreen].usItem == NULL)
+				{
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[NOT_ENOUGH_APS_STR]);
+					return;
+				}
+			}
+
+			usOldItemIndex = pSoldier->inv[uiHandPos].usItem;
 			usNewItemIndex = gpItemPointer->usItem;
 
 			//ATE: Put this here to handle Nails refusal....
@@ -9751,7 +9770,16 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 						
 						for (UINT8 i = 0; i<cnt;i++)
 						{
-							pSoldier->inv[ uiHandPos ].AttachObject(pSoldier,gpItemPointer,TRUE,i);
+							// silversurfer: This didn't cost any AP. Why? CTRL + LeftClick should deduct the same AP as manual attachment in the EDB.
+							usCostToMoveItem = AttachmentAPCost(gpItemPointer->usItem, pSoldier->inv[uiHandPos].usItem, pSoldier);
+							// Flugente: backgrounds
+							usCostToMoveItem = (usCostToMoveItem * (100 + pSoldier->GetBackgroundValue(BG_INVENTORY))) / 100;
+							// do we have enough AP?
+							if (!EnoughPoints(pSoldier, usCostToMoveItem, 0, FALSE))
+								return;
+							// only deduct AP if attachment was placed successfully.
+							if (pSoldier->inv[uiHandPos].AttachObject(pSoldier, gpItemPointer, TRUE, i))
+								pSoldier->bActionPoints -= usCostToMoveItem;
 						}
 
 					}
@@ -9842,13 +9870,16 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				}
 			}
 
-			// Else, try to place here
-			if ( !bJustOpenedItemDescPanel ) // OJW - 20090319 - fix merging on mapscreen - see top of function
-			{
-			if ( PlaceObject( pSoldier, (UINT8)uiHandPos, gpItemPointer ) )
-			{
 
-				HandleTacticalEffectsOfEquipmentChange( pSoldier, uiHandPos, usOldItemIndex, usNewItemIndex );
+			if (bJustOpenedItemDescPanel) // OJW - 20090319 - fix merging on mapscreen - see top of function
+				return;	
+
+			// Else, try to place here
+			if (PlaceObject(pSoldier, (UINT8)uiHandPos, gpItemPointer))
+			{
+				iLastHandPosMapScreen = uiHandPos;
+				pSoldier->bActionPoints -= usCostToMoveItem;
+				HandleTacticalEffectsOfEquipmentChange(pSoldier, uiHandPos, usOldItemIndex, usNewItemIndex);
 
 				// Dirty
 				fInterfacePanelDirty = DIRTYLEVEL2;
@@ -9890,9 +9921,11 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_ITEM_PASSED_TO_MERC ], ShortItemNames[ usNewItemIndex ], pSoldier->name );
 				}
 
-				}
 			}
-		}
+			}
+
+		// Flugente: we have to recheck our flashlights, as we changed items
+		pSoldier->HandleFlashLights();
 
 		// sevenfm: update morale, as we could add/remove walkman
 		RefreshSoldierMorale(pSoldier);
