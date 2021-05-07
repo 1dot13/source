@@ -221,6 +221,7 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 
 	// Dirty panel
 	fInterfacePanelDirty = DIRTYLEVEL2;
+	fCharacterInfoPanelDirty = TRUE;
 
 	return TRUE;
 }

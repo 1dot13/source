@@ -1991,6 +1991,11 @@ void PlayWeaponSound(SOLDIERTYPE *pSoldier, OBJECTTYPE *pObjHand, OBJECTTYPE *pO
 	UINT32	uiResult = SOUND_ERROR;
 	BOOLEAN fSkipSound = FALSE;
 
+	//shadooow: fixes playing full burst sound with just one or two bullets in chamber
+	if ((*pObjHand)[0]->data.gun.ubGunShotsLeft < bShotsToFire)
+	{
+		bShotsToFire = (*pObjHand)[0]->data.gun.ubGunShotsLeft;
+	}
 	if (usNoisefactor < gGameExternalOptions.gubMaxPercentNoiseSilencedSound || Weapon[usUBItem].ubAttackVolume <= 10)
 	{
 		fSilenced = TRUE;
