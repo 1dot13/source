@@ -2457,13 +2457,6 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 	// assumes we're holding an item
 	Assert( ( gMPanelRegion.Cursor == EXTERN_CURSOR ) || gpItemPointer || fMapInventoryItem );
 
-
-	// if in a hostile sector, disallow
-	if ( gTacticalStatus.fEnemyInSector )
-	{
-		return( FALSE );
-	}
-
 	// can't pass items to nobody!
 	if ( iNewCharSlot == -1 )
 	{
@@ -2473,6 +2466,11 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 
 	pNewSoldier = MercPtrs[ gCharactersList[ iNewCharSlot ].usSolID ];
 
+	// if in a hostile sector, disallow
+	if (gTacticalStatus.fEnemyInSector && pNewSoldier->bInSector)
+	{
+		return(FALSE);
+	}
 
 	// if showing sector inventory, and the item came from there
 	if ( fShowMapInventoryPool && !gpItemPointerSoldier && fMapInventoryItem )
