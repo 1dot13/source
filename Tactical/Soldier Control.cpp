@@ -17340,6 +17340,9 @@ void	SOLDIERTYPE::SwitchWeapons( BOOLEAN fKnife, BOOLEAN fSideArm )
 			if ( this->inv[HANDPOS].exists( ) )
 				APTotalCost += GetInvMovementCost( &this->inv[HANDPOS], HANDPOS, handobjstorageslot );
 
+			// Flugente: backgrounds
+			APTotalCost = (APTotalCost * (100 + this->GetBackgroundValue(BG_INVENTORY))) / 100;
+
 			if ( this->bActionPoints >= APTotalCost )
 			{
 				// SANDRO - I dared to change this to use the appropriate function, as that function is actually important for IIS
