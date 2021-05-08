@@ -39,7 +39,9 @@ drugsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **a
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset(pData->curArray,0,sizeof(DRUG)*pData->maxArraySize);
+			for (UINT32 i = 0; i < pData->maxArraySize; ++i) {
+				pData->curArray[i] = DRUG{};
+			}
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}

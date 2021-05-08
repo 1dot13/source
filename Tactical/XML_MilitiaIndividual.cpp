@@ -42,8 +42,9 @@ militiaindividualStartElementHandle( void *userData, const XML_Char *name, const
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			if ( !localizedTextOnly_MI )
-				memset( pData->curArray, 0, sizeof(MilitiaOriginData)*pData->maxArraySize );
+			for (UINT32 i = 0; i < pData->maxArraySize; ++i) {
+				pData->curArray[i] = MilitiaOriginData{};
+			}
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -52,7 +53,7 @@ militiaindividualStartElementHandle( void *userData, const XML_Char *name, const
 			pData->curElement = ELEMENT;
 
 			if ( !localizedTextOnly_MI )
-				memset( &pData->curBackground, 0, sizeof(MilitiaOriginData) );
+				pData->curBackground = MilitiaOriginData{};
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
