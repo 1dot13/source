@@ -2948,7 +2948,9 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				//POSSIBLE STRUCTURE CHANGE PROBLEM. GOTTHARD 7/14/08
 				pSoldier->aiData.bAimTime = BestShot.ubAimTime;
 				pSoldier->bScopeMode = BestShot.bScopeMode;
-				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SNIPER]);
+				// check if using sniper rifle
+				if (Weapon[Item[pSoldier->inv[HANDPOS].usItem].ubClassIndex].ubWeaponType == GUN_SN_RIFLE)
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SNIPER]);
 				return(AI_ACTION_FIRE_GUN);
 			}
 			else		// snipe not possible
@@ -8502,7 +8504,8 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 			//POSSIBLE STRUCTURE CHANGE PROBLEM. GOTTHARD 7/14/08
 			pSoldier->aiData.bAimTime = BestShot.ubAimTime;
 			pSoldier->bScopeMode = BestShot.bScopeMode;
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SNIPER] );
+			// sevenfm: disabled for vehicles
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SNIPER] );
 			return(AI_ACTION_FIRE_GUN);
 		}
 		else		// snipe not possible
