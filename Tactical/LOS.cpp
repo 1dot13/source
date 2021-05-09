@@ -5481,8 +5481,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 							ddHorizAngle, ddVerticAngle,
 							pFirer->ubID, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
-							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
-							NULL
+							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
 						fclose(OutFile);
 					}
@@ -6136,8 +6135,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 							ddHorizAngle, ddVerticAngle,
 							NOBODY, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
-							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
-							NULL
+							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
 						fclose(OutFile);
 					}
@@ -6898,7 +6896,7 @@ void MoveBullet( INT32 iBullet )
 		// check a particular tile
 		// retrieve values from world for this particular tile
 		iGridNo = pBullet->iCurrTileX + pBullet->iCurrTileY * WORLD_COLS;
-		if (!GridNoOnVisibleWorldTile( iGridNo ) || (pBullet->iCurrCubesZ > PROFILE_Z_SIZE * 2 && FIXEDPT_TO_INT32( pBullet->qIncrZ ) > 0 ) )
+		if (!GridNoOnVisibleWorldTile( iGridNo ))
 		{
 			// bullet outside of world!
 			// NB remove bullet only flags a bullet for deletion; we still have access to the
@@ -6921,6 +6919,18 @@ void MoveBullet( INT32 iBullet )
 		// calculate which level bullet is on for suppression and close call purposes
 		// figure out the LOS cube level of the current point
 		iCurrCubesAboveLevelZ = CONVERT_HEIGHTUNITS_TO_INDEX( FIXEDPT_TO_INT32( pBullet->qCurrZ - qLandHeight) );
+		if ((iCurrCubesAboveLevelZ > STRUCTURE_ON_ROOF_MAX && FIXEDPT_TO_INT32( pBullet->qIncrZ ) > 0 ))
+		{
+			// bullet too high
+			// NB remove bullet only flags a bullet for deletion; we still have access to the
+			// information in the structure
+			RemoveBullet(pBullet->iBullet);
+
+			if (ENABLE_COLLISION)
+				BulletMissed(pBullet, pBullet->pFirer);//only if local origin
+
+			return;
+		}
 		// figure out the level
 		if (iCurrCubesAboveLevelZ < STRUCTURE_ON_GROUND_MAX)
 		{
@@ -7714,7 +7724,8 @@ void MoveBullet( INT32 iBullet )
 			}
 		} while( (pBullet->iCurrTileX == iOldTileX) && (pBullet->iCurrTileY == iOldTileY));
 
-		if ( !GridNoOnVisibleWorldTile( (pBullet->iCurrTileX + pBullet->iCurrTileY * WORLD_COLS) ) || (pBullet->iCurrCubesZ > PROFILE_Z_SIZE * 2 && FIXEDPT_TO_INT32( pBullet->qIncrZ ) > 0 ) )
+		iCurrCubesAboveLevelZ = CONVERT_HEIGHTUNITS_TO_INDEX(FIXEDPT_TO_INT32(pBullet->qCurrZ - qLandHeight));
+		if ( !GridNoOnVisibleWorldTile( (pBullet->iCurrTileX + pBullet->iCurrTileY * WORLD_COLS) ) || (iCurrCubesAboveLevelZ > STRUCTURE_ON_ROOF_MAX && FIXEDPT_TO_INT32( pBullet->qIncrZ ) > 0 ) )
 		{
 			// bullet outside of world!
 			RemoveBullet( pBullet->iBullet );
