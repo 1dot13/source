@@ -6546,6 +6546,10 @@ INT32 PickPocket(SOLDIERTYPE *pSoldier, UINT8 ppStart, UINT8 ppStop, UINT16 usIt
 		}
 		else {
 			pIndex=LoadBearingEquipment[Item[pSoldier->inv[icLBE[uiPos]].usItem].ubClassIndex].lbePocketIndex[icPocket[uiPos]];
+			if (pIndex == 0 && LoadBearingEquipment[Item[pSoldier->inv[icLBE[uiPos]].usItem].ubClassIndex].lbePocketsAvailable & (UINT16)pow((double)2, icPocket[uiPos]))
+			{
+				pIndex = GetPocketFromAttachment(&pSoldier->inv[icLBE[uiPos]], icPocket[uiPos]);
+			}
 		}
 		// Here's were we get complicated.  We should look for the smallest pocket all items can fit in
 		if(LBEPocketType[pIndex].ItemCapacityPerSize[Item[usItem].ItemSize] >= iNumber &&

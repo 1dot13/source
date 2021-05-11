@@ -1458,7 +1458,7 @@ BOOLEAN CanCharacterRepair( SOLDIERTYPE *pSoldier )
 	}
 
 	// anything around to clean?
-	if ( pSoldier->GetObjectWithFlag( CLEANING_KIT ) != NULL && IsAnythingAroundForSoldierToClean( pSoldier ) )
+	if ( pSoldier->GetObjectWithFlag( CLEANING_KIT ) != NULL && IsAnythingAroundForSoldierToClean( pSoldier ) )//todo shadooow: not if dirty system is disabled
 	{
 		return( TRUE );
 	}
@@ -10432,10 +10432,10 @@ BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 	return TRUE;
 }
 
-BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
+BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 {
 	INT8 bPocket = 0;
-
+	bool can_swap = true, medkit_found = false;
 	fTeamPanelDirty = TRUE;
 
 	// if there is a MEDICAL BAG in his hand, we're set
@@ -10445,29 +10445,68 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 	}
 
 	// run through rest of inventory looking 1st for MEDICAL BAGS, swap the first one into hand if found
-	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
 		if ( Item[pSoldier->inv[ bPocket ].usItem].medicalkit )
 		{
+			medkit_found = true;
+			can_swap = true;
 			fCharacterInfoPanelDirty = TRUE;
-			// HEADROCK HAM B2.8: These new conditions will create a bias for swapping an item out of
-			// our hand. 
-			
-			//If the second hand is free, the item will go to the SECONDHANDPOS while the medikit
-			// goes into the HANDPOS
-			if( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_WEAPON | IC_PUNCH) && !pSoldier->inv[SECONDHANDPOS].exists())
-				SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
-			// Else, if the gun sling slot is free, and the item can go there, it will.
-			else if(UsingNewInventorySystem() && !pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE))
-				SwapObjs(pSoldier, HANDPOS, GUNSLINGPOCKPOS, TRUE);
-			else if(!CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
-				SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
 
-			SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
-			return(TRUE);
+			//shadooow: rules for item swapping rewritten to honor pocket restrictions
+			//nothing in main hand
+			if (!pSoldier->inv[HANDPOS].exists())
+			{				
+				SwapObjs(pSoldier, HANDPOS, bPocket, TRUE);//todo: this should probably be more robust and handle potentional custom medical kit that uses both hands
+				return(TRUE);
+			}
+			//nothing in offhand
+			else if (!pSoldier->inv[SECONDHANDPOS].exists())
+			{
+				SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
+				SwapObjs(pSoldier, HANDPOS, bPocket, TRUE);
+				return(TRUE);
+			}
+			else if (UsingNewInventorySystem())
+			{
+				// Else, if the gun sling slot is free, and the item can go there, it will.
+				if (!pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], GUNSLINGPOCKPOS, FALSE))
+					SwapObjs(pSoldier, HANDPOS, GUNSLINGPOCKPOS, TRUE);
+				else if (!pSoldier->inv[GUNSLINGPOCKPOS].exists() && CanItemFitInPosition(pSoldier, &pSoldier->inv[SECONDHANDPOS], GUNSLINGPOCKPOS, FALSE))
+					SwapObjs(pSoldier, SECONDHANDPOS, GUNSLINGPOCKPOS, TRUE);
+				else if (CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
+					SwapObjs(pSoldier, HANDPOS, bPocket, TRUE);
+				else if (CanItemFitInPosition(pSoldier, &pSoldier->inv[SECONDHANDPOS], bPocket, FALSE))
+					SwapObjs(pSoldier, SECONDHANDPOS, bPocket, TRUE);
+				else if (!AutoPlaceObject(pSoldier, &pSoldier->inv[HANDPOS], FALSE, GUNSLINGPOCKPOS, FALSE) && !AutoPlaceObject(pSoldier, &pSoldier->inv[SECONDHANDPOS], FALSE, GUNSLINGPOCKPOS, FALSE))
+					can_swap = false;
+			}
+			else
+			{
+				if (CanItemFitInPosition(pSoldier, &pSoldier->inv[HANDPOS], bPocket, FALSE))
+					SwapObjs(pSoldier, HANDPOS, bPocket, TRUE);
+				else if (CanItemFitInPosition(pSoldier, &pSoldier->inv[SECONDHANDPOS], bPocket, FALSE))
+					SwapObjs(pSoldier, SECONDHANDPOS, bPocket, TRUE);
+				else if (!AutoPlaceObject(pSoldier, &pSoldier->inv[HANDPOS], FALSE, GUNSLINGPOCKPOS, FALSE) && !AutoPlaceObject(pSoldier, &pSoldier->inv[SECONDHANDPOS], FALSE, GUNSLINGPOCKPOS, FALSE))
+					can_swap = false;
+			}
+
+			if (can_swap && (!pSoldier->inv[HANDPOS].exists() || !pSoldier->inv[SECONDHANDPOS].exists()))
+			{
+				if (pSoldier->inv[HANDPOS].exists())
+				{
+					SwapObjs(pSoldier, HANDPOS, SECONDHANDPOS, TRUE);
+				}
+				SwapObjs(pSoldier, HANDPOS, bPocket, TRUE);
+				return(TRUE);
+			}
 		}
 	}
+	//if we came here it means we don't have medical kit or we cannot place it into hand due to no suitable pockets for whatever merc carries in them
+	if(medkit_found)
+		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[QUICK_ITEMS_NOWHERE_TO_PLACE]);
+	if(!bAllow1stAidKit)
+		return FALSE;
 
 	// we didn't find a medical bag, so settle for a FIRST AID KIT
 	if ( Item[pSoldier->inv[ HANDPOS ].usItem].firstaidkit )
@@ -10475,7 +10514,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 		return(TRUE);
 	}
 
-	// run through rest of inventory looking 1st for MEDICAL BAGS, swap the first one into hand if found
+	// run through rest of inventory looking for 1st aid kits, swap the first one into hand if found
 	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{

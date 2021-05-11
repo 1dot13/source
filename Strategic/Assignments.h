@@ -583,7 +583,7 @@ void HandleGatheringInformationBySoldier( SOLDIERTYPE* pSoldier );
 
 BOOLEAN MercStaffsMilitaryHQ();
 
-BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier );
+BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier, bool bAllow1stAidKit = false);
 
 UINT8 CalcSoldierNeedForSleep( SOLDIERTYPE *pSoldier );
 

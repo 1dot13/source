@@ -19418,7 +19418,7 @@ BOOLEAN		SOLDIERTYPE::AIDoctorFriend( )
 		if ( pSoldier->iHealableInjury > 0 )
 		{
 			// move medkit into hand - if we don't have a medkit in our hands, abort
-			if ( !MakeSureMedKitIsInHand( this ) )
+			if (!MakeSureMedKitIsInHand(this, true))
 				return FALSE;
 
 			if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_CROUCH )
@@ -19470,7 +19470,7 @@ BOOLEAN		SOLDIERTYPE::AIDoctorSelf( )
 	if ( this->iHealableInjury > 0 )
 	{
 		// move medkit into hand - if we don't have a medkit in our hands, abort
-		if ( !MakeSureMedKitIsInHand( this ) )
+		if (!MakeSureMedKitIsInHand(this, true))
 			return FALSE;
 
 		if ( gAnimControl[this->usAnimState].ubEndHeight == ANIM_CROUCH )
