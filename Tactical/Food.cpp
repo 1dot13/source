@@ -1142,12 +1142,43 @@ void DrinkFromWaterTap( SOLDIERTYPE* pSoldier )
 		}
 	}
 	
-	if ( GetWaterQuality( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) == WATER_POISONOUS )
+	UINT8 waterquality = GetWaterQuality(gWorldSectorX, gWorldSectorY, gbWorldSectorZ);
+	if ( waterquality == WATER_POISONOUS )
 		HandlePossibleInfection( pSoldier, NULL, INFECTION_TYPE_BADWATER );
 	
 	INT32 bpadded = 100 * min( 20, 100 - pSoldier->bBreath );
 
 	DeductPoints( pSoldier, 20, -bpadded );
+
+	if (waterquality == WATER_DRINKABLE)//todo possibly allow refill with poisonous water
+	{
+		// the temperature of the water in this sector (temperature reflects the quality)
+		FLOAT addtemperature = OVERHEATING_MAX_TEMPERATURE;
+
+		// first step: fill all canteens in inventories	
+		INT8 invsize = (INT8)pSoldier->inv.size();									// remember inventorysize, so we don't call size() repeatedly
+		for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)								// ... for all items in our inventory ...
+		{
+			// ... if Item exists and is canteen (that can have drink points) ...
+			if (pSoldier->inv[bLoop].exists() == true && Item[pSoldier->inv[bLoop].usItem].canteen && Food[Item[pSoldier->inv[bLoop].usItem].foodtype].bDrinkPoints > 0)
+			{
+				OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);							// ... get pointer for this item ...
+
+				if (pObj != NULL)													// ... if pointer is not obviously useless ...
+				{
+					for (INT16 i = 0; i < pObj->ubNumberOfObjects; ++i)				// ... there might be multiple items here (item stack), so for each one ...
+					{
+						UINT16 status = (*pObj)[i]->data.objectStatus;
+						UINT16 statusmmissing = max(0, 100 - status);
+						FLOAT temperature = (*pObj)[i]->data.bTemperature;
+
+						(*pObj)[i]->data.objectStatus = 100;						// refill canteen
+						(*pObj)[i]->data.bTemperature = (status * temperature + statusmmissing * addtemperature) / 100;
+					}
+				}
+			}
+		}
+	}
 
 	// play water sound
 	if ( pSoldier->bTeam == gbPlayerNum && gGameExternalOptions.fFoodEatingSounds )
