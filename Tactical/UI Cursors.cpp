@@ -1647,6 +1647,11 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 	INT8							bFutureAim;
 	BOOLEAN						fEnoughPoints = TRUE;
 
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return KNIFE_REG_UICURSOR;
+	}
+
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_MERCS );
 
@@ -1779,6 +1784,11 @@ UINT8 HandlePunchCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 	INT8							bFutureAim;
 	BOOLEAN						fEnoughPoints = TRUE;
 
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return ACTION_PUNCH_GRAY;
+	}
+
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_MERCS );
 
@@ -1901,6 +1911,11 @@ UINT8 HandlePunchCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 
 UINT8 HandleAidCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return ACTION_FIRSTAID_GRAY;
+	}
+
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_MERCSFORAID );
 
@@ -2119,6 +2134,10 @@ UINT8 HandleRefuelCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorF
 
 UINT8 HandleJarCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return BAD_JAR_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_JAR );
 
@@ -2138,6 +2157,10 @@ UINT8 HandleTinCanCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorF
 	INT32 sIntTileGridNo;
 	LEVELNODE					*pIntTile;
 
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return PLACE_TINCAN_RED_UICURSOR;
+	}
 
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_CAN );
@@ -2201,6 +2224,10 @@ UINT8 HandleCameraCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivat
 
 UINT8 HandleBloodbagCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return BLOODBAG_RED_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_APPLYITEM );
 
@@ -2220,6 +2247,10 @@ UINT8 HandleBloodbagCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActiv
 
 UINT8 HandleSplintCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return SPLINT_RED_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_APPLYITEM );
 
@@ -2251,7 +2282,10 @@ UINT8 HandleSplintCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivat
 
 UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
 {
-
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return PLACE_BOMB_GREY_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_BOMB );
 
@@ -2281,6 +2315,10 @@ UINT8 HandleBombCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated
 
 UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return FORTIFICATION_RED_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_FORTIFICATION );
 
@@ -2306,6 +2344,10 @@ UINT8 HandleFortificationCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 ui
 
 UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return HANDCUFF_RED_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_HANDCUFF );
 	
@@ -2325,6 +2367,10 @@ UINT8 HandleHandcuffCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 
 UINT8 HandleApplyItemCursor(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags)
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return APPLYITEM_RED_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor(pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_APPLYITEM);
 
@@ -2343,6 +2389,10 @@ UINT8 HandleApplyItemCursor(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCurso
 
 UINT8 HandleHackCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT32 uiCursorFlags )
 {
+	if (pSoldier->pathing.bLevel != gsInterfaceLevel)
+	{
+		return NO_UICURSOR;
+	}
 	// DRAW PATH TO GUY
 	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_INTERACTIVEACTION );
 
