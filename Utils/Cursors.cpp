@@ -1892,7 +1892,7 @@ void UpdateAnimatedCursorFrames( UINT32 uiCursorIndex )
 			pCurImage = &( pCurData->Composites[ cnt ] );
 			// Flugente: now using enums instead of hardcoded values
 			//CHRISL: NCTH uses a completely different cursor so if we're in NCTH mode, we want to use different graphics
-			if(UsingNewCTHSystem() == true)
+			if (UsingNewCTHSystem() == true && uiCursorIndex != 25 && uiCursorIndex != 26 && uiCursorIndex != 28 && uiCursorIndex != 39 && uiCursorIndex != 40 && uiCursorIndex != 42)
 			{
 				switch(pCurImage->uiFileIndex)
 				{
