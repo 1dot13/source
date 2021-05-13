@@ -3754,7 +3754,7 @@ void HandleWheelAdjustCursor( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sDelta
 					// Determine if we can afford!
 					if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
 					{
-						pSoldier->aiData.bShownAimTime+= REFINE_KNIFE_2;
+						pSoldier->aiData.bShownAimTime+= (sDelta*REFINE_KNIFE_2);
 						if ( pSoldier->aiData.bShownAimTime > REFINE_KNIFE_2 )
 							pSoldier->aiData.bShownAimTime = REFINE_KNIFE_2;
 						gfDisplayFullCountRing = FALSE;
@@ -3945,7 +3945,7 @@ void HandleWheelAdjustCursorWOAB( SOLDIERTYPE *pSoldier, INT32 sMapPos, INT32 sD
 				// Determine if we can afford!
 				if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
 				{
-					pSoldier->aiData.bShownAimTime+= REFINE_KNIFE_2;
+					pSoldier->aiData.bShownAimTime+= (sDelta*REFINE_KNIFE_2);
 					if ( pSoldier->aiData.bShownAimTime > REFINE_KNIFE_2 )
 						pSoldier->aiData.bShownAimTime = REFINE_KNIFE_2;
 					gfDisplayFullCountRing = FALSE;
