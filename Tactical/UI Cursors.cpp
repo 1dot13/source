@@ -1671,7 +1671,7 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 		// Calculate action points
 		if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
-			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->aiData.bShownAimTime ) );
+			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->aiData.bShownAimTime / 2) );
 			gfUIDisplayActionPoints = TRUE;
 			gfUIDisplayActionPointsCenter = TRUE;
 
@@ -1686,8 +1686,7 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 				}
 			}
 
-			// SANDRO - changed this
-			bFutureAim = (INT8)( gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : REFINE_KNIFE_2 );
+			bFutureAim = (INT8)( REFINE_KNIFE_2 );
 
 			sAPCosts = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(bFutureAim / 2) );
 
@@ -1721,7 +1720,6 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 
 
 		//////////////////////////////////////////////////////////////
-		// SANDRO - slightly changed the formula here
 		if( pSoldier->aiData.bShownAimTime == REFINE_KNIFE_1 )
 		{
 			if ( gfDisplayFullCountRing )
@@ -1737,7 +1735,7 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 				return( KNIFE_NOGO_AIM1_UICURSOR );
 			}
 		}
-		else if( pSoldier->aiData.bShownAimTime == ( gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : REFINE_KNIFE_2 ) )
+		else if( pSoldier->aiData.bShownAimTime == REFINE_KNIFE_2 )
 		{
 			if ( gfDisplayFullCountRing )
 			{
@@ -1804,7 +1802,7 @@ UINT8 HandlePunchCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 		// Calculate action points
 		if ( gTacticalStatus.uiFlags & TURNBASED )
 		{
-			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->aiData.bShownAimTime ) );
+			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->aiData.bShownAimTime / 2) );
 			gfUIDisplayActionPoints = TRUE;
 			gfUIDisplayActionPointsCenter = TRUE;
 
@@ -1845,15 +1843,13 @@ UINT8 HandlePunchCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 						PlayJA2Sample( TARG_REFINE_BEEP, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
 					}
 
-					// SANDRO - make aimed punch less expensive for APS
-					pSoldier->aiData.bShownAimTime = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : REFINE_PUNCH_2);
+					pSoldier->aiData.bShownAimTime = REFINE_PUNCH_2;
 
 				}
 			}
 		}
 
 		//////////////////////////////////////////////////////////////
-		// SANDRO - slightly changed the formula here
 		if( pSoldier->aiData.bShownAimTime == REFINE_PUNCH_1)
 		{
 			if ( gfDisplayFullCountRing )
@@ -1869,7 +1865,7 @@ UINT8 HandlePunchCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 				return( ACTION_PUNCH_NOGO_AIM1_UICURSOR );
 			}
 		}
-		else if ( pSoldier->aiData.bShownAimTime == (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : REFINE_PUNCH_2) )
+		else if ( pSoldier->aiData.bShownAimTime == REFINE_PUNCH_2 )
 		{
 			if ( gfDisplayFullCountRing )
 			{
@@ -2540,9 +2536,6 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 	SOLDIERTYPE				*pTSoldier;
 	INT32					sGridNo;
 	INT8					bTargetLevel;
-	// SANDRO - added these two
-	INT8 bAimTimeAddedForPunch = 2;
-	INT8 bAimTimeAddedForKnife = 2;
 
 
 	usInHand = pSoldier->inv[HANDPOS].usItem;
@@ -2756,23 +2749,20 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 
 		case PUNCHCURS:
 
-			// SANDRO - changed the formula here to make aimed punch less expensive for APS
-			bAimTimeAddedForPunch = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : REFINE_PUNCH_2);
+			bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + REFINE_PUNCH_2);
 
-			bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + bAimTimeAddedForPunch );
-
-			if ( bFutureAim <= bAimTimeAddedForPunch )
+			if ( bFutureAim <= REFINE_PUNCH_2)
 			{
 				sAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(bFutureAim / 2) );
 
 				// Determine if we can afford!
 				if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
 				{
-					pSoldier->aiData.bShownAimTime+= bAimTimeAddedForPunch;
+					pSoldier->aiData.bShownAimTime+= REFINE_PUNCH_2;
 
-					if ( pSoldier->aiData.bShownAimTime > bAimTimeAddedForPunch )
+					if ( pSoldier->aiData.bShownAimTime > REFINE_PUNCH_2)
 					{
-						pSoldier->aiData.bShownAimTime = bAimTimeAddedForPunch;
+						pSoldier->aiData.bShownAimTime = REFINE_PUNCH_2;
 					}
 				}
 				// Else - goto first level!
@@ -2806,23 +2796,20 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 
 		case KNIFECURS:
 
-			// SANDRO - changed the formula here to make aimed blade attack less expensive for APS
-			bAimTimeAddedForKnife = (gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : REFINE_KNIFE_2);
+			bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + REFINE_KNIFE_2);
 
-			bFutureAim = (INT8)( pSoldier->aiData.bShownAimTime + bAimTimeAddedForKnife );
-
-			if ( bFutureAim <= bAimTimeAddedForKnife )
+			if ( bFutureAim <= REFINE_KNIFE_2)
 			{
 				sAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(bFutureAim / 2) );
 
 				// Determine if we can afford!
 				if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
 				{
-					pSoldier->aiData.bShownAimTime+= bAimTimeAddedForKnife;
+					pSoldier->aiData.bShownAimTime+= REFINE_KNIFE_2;
 
-					if ( pSoldier->aiData.bShownAimTime > bAimTimeAddedForKnife )
+					if ( pSoldier->aiData.bShownAimTime > REFINE_KNIFE_2)
 					{
-						pSoldier->aiData.bShownAimTime = bAimTimeAddedForKnife;
+						pSoldier->aiData.bShownAimTime = REFINE_KNIFE_2;
 					}
 				}
 				// Else - goto first level!
