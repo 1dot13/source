@@ -3,10 +3,10 @@
 
 
 #define REFINE_PUNCH_1				0
-#define REFINE_PUNCH_2				gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches : 6
+#define REFINE_PUNCH_2				(gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedPunches*2 : 6)
 
 #define REFINE_KNIFE_1				0
-#define REFINE_KNIFE_2				gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes : 6
+#define REFINE_KNIFE_2				(gGameExternalOptions.fEnhancedCloseCombatSystem ? gSkillTraitValues.ubModifierForAPsAddedOnAimedBladedAttackes*2 : 6)
 
 
 UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, INT32 usMapPos, BOOLEAN fActivated );
