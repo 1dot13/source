@@ -3840,7 +3840,7 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	BOOLEAN							fSurpriseAttack;
 
 	// Deduct points!
- 	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->aiData.bAimTime );
+ 	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, (pSoldier->aiData.bAimTime / 2) );
 
 	DeductPoints( pSoldier, sAPCost, 0, AFTERACTION_INTERRUPT );
 
@@ -4067,7 +4067,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 	// Punch the enemy
 	if (!fStealing)
 	{
- 		sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->aiData.bAimTime );
+ 		sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, (pSoldier->aiData.bAimTime / 2));
 		DeductPoints( pSoldier, sAPCost, 0, AFTERACTION_INTERRUPT );
 	}
 	// Steal from the enemy
