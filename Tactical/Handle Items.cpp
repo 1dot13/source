@@ -858,57 +858,20 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	//TRY PUNCHING
 	if ( Item[ usHandItem ].usItemClass == IC_PUNCH )
 	{
-		//INT16	sCnt;
-		INT32	sSpot;
-		UINT8	ubGuyThere;
-		INT32	sGotLocation = NOWHERE;
-		BOOLEAN	fGotAdjacent = FALSE;
-
-		for ( INT8 sCnt = 0; sCnt < NUM_WORLD_DIRECTIONS; sCnt++ )
+		// See if we can get there to stab
+		sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+		if (sActionGridNo == -1)
 		{
-			sSpot = NewGridNo( pSoldier->sGridNo, DirectionInc( sCnt ) );
-
-			// Make sure movement costs are OK....
-			if ( gubWorldMovementCosts[ sSpot ][ sCnt ][ bLevel ] >= TRAVELCOST_BLOCKED )
-			{
-				continue;
-			}
-
-			// Check for who is there...
-			ubGuyThere = WhoIsThere2( sSpot, pSoldier->pathing.bLevel );
-
-			if ( pTargetSoldier != NULL && ubGuyThere == pTargetSoldier->ubID )
-			{
-				// We've got a guy here....
-				// Who is the one we want......
-				sGotLocation = sSpot;
-				sAdjustedGridNo = pTargetSoldier->sGridNo;
-				ubDirection = ( UINT8 )sCnt;
-				break;
-			}
+			sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
 		}
 
-		if (TileIsOutOfBounds(sGotLocation))
-		{
-			// See if we can get there to punch
-			sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-			if ( sActionGridNo != -1 )
-			{
-				// OK, we've got somebody...
-				sGotLocation = sActionGridNo;
-
-				fGotAdjacent = TRUE;
-			}
-		}
-
-		// Did we get a loaction?		
-		if (!TileIsOutOfBounds(sGotLocation))
+		if (sActionGridNo != NOWHERE)
 		{
 			pSoldier->sTargetGridNo = sGridNo;
 
 			pSoldier->aiData.usActionData	= sGridNo;
 			// CHECK IF WE ARE AT THIS GRIDNO NOW
-			if ( pSoldier->sGridNo != sGotLocation && fGotAdjacent )
+			if ( pSoldier->sGridNo != sActionGridNo )
 			{
 				// SEND PENDING ACTION
 				pSoldier->aiData.ubPendingAction = MERC_PUNCH;
@@ -917,7 +880,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				pSoldier->aiData.ubPendingActionAnimCount = 0;
 
 				// WALK UP TO DEST FIRST
-				pSoldier->EVENT_InternalGetNewSoldierPath( sGotLocation, pSoldier->usUIMovementMode, FALSE, TRUE );
+				pSoldier->EVENT_InternalGetNewSoldierPath(sActionGridNo, pSoldier->usUIMovementMode, FALSE, TRUE );
 			}
 			else
 			{
@@ -1858,7 +1821,6 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	//USING THE BLADE
 	if ( Item[ usHandItem ].usItemClass == IC_BLADE )
 	{
-		BOOLEAN fGotAdjacent = TRUE;//dnl ch73 290913
 		// See if we can get there to stab
 		if ( pSoldier->ubBodyType == BLOODCAT )
 		{
@@ -1874,28 +1836,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		}
 		else
 		{
-			//dnl ch73 290913
-			fGotAdjacent = FALSE;
-			sActionGridNo = NOWHERE;
-			if(pTargetSoldier)
-				for(INT8 sCnt=0; sCnt<NUM_WORLD_DIRECTIONS; sCnt++)
-				{
-					INT32 sSpot = NewGridNo(pSoldier->sGridNo, DirectionInc(sCnt));
-					if(gubWorldMovementCosts[sSpot][sCnt][bLevel] >= TRAVELCOST_BLOCKED)
-						continue;
-					if(WhoIsThere2(sSpot, pSoldier->pathing.bLevel) == pTargetSoldier->ubID)
-					{
-						sActionGridNo = sSpot;
-						sAdjustedGridNo = pTargetSoldier->sGridNo;
-						ubDirection = (UINT8)sCnt;
-						break;
-					}
-				}
-			if(TileIsOutOfBounds(sActionGridNo))
+			// See if we can get there to stab
+			sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+			if (sActionGridNo == -1)
 			{
-				sActionGridNo =	FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
-				if(sActionGridNo != NOWHERE)
-					fGotAdjacent = TRUE;
+				sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
 			}
 		}
 
@@ -1904,7 +1849,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 			pSoldier->aiData.usActionData = sActionGridNo;
 
 			// CHECK IF WE ARE AT THIS GRIDNO NOW
-			if ( pSoldier->sGridNo != sActionGridNo && fGotAdjacent )//dnl ch73 290913
+			if ( pSoldier->sGridNo != sActionGridNo )
 			{
 				// SEND PENDING ACTION
 				pSoldier->aiData.ubPendingAction = MERC_KNIFEATTACK;

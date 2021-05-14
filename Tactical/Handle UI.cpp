@@ -4509,81 +4509,42 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 	}
 	else if ( uiFlags == MOVEUI_TARGET_MERCS )
 	{
-		   INT32		sGotLocation = NOWHERE;
-		BOOLEAN	fGotAdjacent = FALSE;
-
 		// Check if we are on a target
 		if ( gfUIFullTargetFound )
 		{
-			INT32		cnt;
-		    INT32		sSpot;	
-			UINT8		ubGuyThere;
-
-			for ( cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt++ )
+			// See if we can get there to stab
+			if (pSoldier->ubBodyType == BLOODCAT)
 			{
-						sSpot = NewGridNo( pSoldier->sGridNo, DirectionInc( (INT8)cnt ) );
-
-				// Make sure movement costs are OK....
-				if ( gubWorldMovementCosts[ sSpot ][ cnt ][ gsInterfaceLevel ] >= TRAVELCOST_BLOCKED )
+				sActionGridNo = FindNextToAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+			}
+			else if (CREATURE_OR_BLOODCAT(pSoldier) && PythSpacesAway(pSoldier->sGridNo, usMapPos) > 1)
+			{
+				sActionGridNo = FindNextToAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+				if (sActionGridNo == -1)
 				{
-					continue;
-				}
-
-
-				// Check for who is there...
-				ubGuyThere = WhoIsThere2( sSpot, pSoldier->pathing.bLevel );
-
-				if ( ubGuyThere == MercPtrs[ gusUIFullTargetID ]->ubID )
-				{
-					// We've got a guy here....
-					// Who is the one we want......
-					sGotLocation = sSpot;
-					sAdjustedGridNo	= MercPtrs[ gusUIFullTargetID ]->sGridNo;
-					ubDirection		= ( UINT8 )cnt;
-					break;
+					sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
 				}
 			}
-			
-			if (TileIsOutOfBounds(sGotLocation))
+			else
 			{
-				sActionGridNo =	FindAdjacentGridEx( pSoldier, MercPtrs[ gusUIFullTargetID ]->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-
-				if ( sActionGridNo == -1 )
-				{
-					sGotLocation = NOWHERE;
-				}
-				else
-				{
-					sGotLocation = sActionGridNo;
-				}
-				fGotAdjacent = TRUE;
+				// See if we can get there to stab
+				sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
 			}
 		}
 		else
 		{
 			sAdjustedGridNo = usMapPos;
-			sGotLocation = sActionGridNo;
-			fGotAdjacent = TRUE;
 		}
 
-		if (!TileIsOutOfBounds(sGotLocation))
+		if (!TileIsOutOfBounds(sActionGridNo))
 		{
-#if 0//dnl ch73 021013 don't add turnover cost if we are moving, in the future this should be calculated by UIPlotPath
-			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, TRUE, pSoldier->aiData.bShownAimTime, 0 );
-
-			// WANNE: Turn around APs were missing, I think ....
-			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
-
-			sAPCost += UIPlotPath( pSoldier, sGotLocation, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
-#else
-			sAPCost = UIPlotPath(pSoldier, sGotLocation, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
-			sAPCost += MinAPsToAttack(pSoldier, sAdjustedGridNo, sAPCost>0?FALSE:TRUE, pSoldier->aiData.bShownAimTime, 0);
-#endif
-			if ( sGotLocation != pSoldier->sGridNo && fGotAdjacent )
+			if (sActionGridNo != pSoldier->sGridNo )
 			{
+				sAPCost = UIPlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 				gfUIHandleShowMoveGrid = TRUE;
-				gsUIHandleShowMoveGridLocation = sGotLocation;
+				gsUIHandleShowMoveGridLocation = sActionGridNo;
 			}
+			sAPCost += MinAPsToAttack(pSoldier, sAdjustedGridNo, TRUE, pSoldier->aiData.bShownAimTime, 0);
 		}
 	}
 	else if ( uiFlags == MOVEUI_TARGET_STEAL )

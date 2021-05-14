@@ -1916,100 +1916,68 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 
 	if ( uiItemClass == IC_PUNCH || uiItemClass == IC_BLADE || uiItemClass == IC_TENTACLES )//dnl ch73 031013, silversurfer: tentacles are melee too
 	{
-		// IF we are at this gridno, calc min APs but if not, calc cost to goto this lication
+		// IF we are at this gridno, calc min APs but if not, calc cost to goto this location
 		if ( pSoldier->sGridNo != sGridNo )
 		{
 			sAdjustedGridNo = NOWHERE;
 
-			// OK, in order to avoid path calculations here all the time... save and check if it's changed!
-			if ( pSoldier->sWalkToAttackGridNo == sGridNo )
+			// See if we can get there to stab
+			if (pSoldier->ubBodyType == BLOODCAT)
 			{
-				sAdjustedGridNo = sGridNo;
-				sAPCost += (UINT8)( pSoldier->sWalkToAttackWalkToCost );
+				sActionGridNo = FindNextToAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+			}
+			else if (CREATURE_OR_BLOODCAT(pSoldier) && PythSpacesAway(pSoldier->sGridNo, sGridNo) > 1)
+			{
+				sActionGridNo = FindNextToAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+				if (sActionGridNo == -1)
+				{
+					sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+				}
 			}
 			else
 			{
-				//INT32		cnt;
-				//INT16		sSpot;
-				UINT8		ubGuyThere;
-				INT32		sGotLocation = NOWHERE;
-				BOOLEAN	fGotAdjacent = FALSE;
-				SOLDIERTYPE	*pTarget;
-
-				ubGuyThere = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
-
-				if ( ubGuyThere != NOBODY )
-				{
-
-					pTarget = MercPtrs[ ubGuyThere ];
-
-					if ( pSoldier->ubBodyType == BLOODCAT )
-					{
-						sGotLocation = FindNextToAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-						if ( sGotLocation == -1 )
-						{
-							sGotLocation = NOWHERE;
-						}
-					}
-					else
-					{
-						sGotLocation = FindAdjacentPunchTarget( pSoldier, pTarget, &sAdjustedGridNo, &ubDirection );
-					}
-				}
+				// See if we can get there to stab
+				sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+			}
 				
-				if (TileIsOutOfBounds(sGotLocation) && pSoldier->ubBodyType != BLOODCAT )
+			if (!TileIsOutOfBounds(sActionGridNo))
+			{
+				if (pSoldier->sGridNo == sActionGridNo)
 				{
-					sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-
-					if ( sActionGridNo == -1 )
-					{
-						sGotLocation = NOWHERE;
-					}
-					else
-					{
-						sGotLocation = sActionGridNo;
-					}
-					fGotAdjacent = TRUE;
+					pSoldier->sWalkToAttackWalkToCost = 0;
 				}
-				
-				if (!TileIsOutOfBounds(sGotLocation))
+				else
 				{
-					if (pSoldier->sGridNo == sGotLocation || !fGotAdjacent )
+					// OK, in order to avoid path calculations here all the time... save and check if it's changed!
+					if (pSoldier->sWalkToAttackGridNo == sActionGridNo)
 					{
-						pSoldier->sWalkToAttackWalkToCost = 0;
+						sAPCost += (UINT8)(pSoldier->sWalkToAttackWalkToCost);
 					}
 					else
 					{
 						// Save for next time...
-						pSoldier->sWalkToAttackWalkToCost = PlotPath( pSoldier, sGotLocation, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+						pSoldier->sWalkToAttackWalkToCost = PlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
 						if (pSoldier->sWalkToAttackWalkToCost == 0)
 						{
-							return( 99 );
+							return(99);
 						}
+						sAPCost += pSoldier->sWalkToAttackWalkToCost;
 					}
 				}
-				else
-				{
-					return( 0 );
-				}
-				sAPCost += pSoldier->sWalkToAttackWalkToCost;
+			}
+			else
+			{
+				return( 0 );
 			}
 
 			// Save old location!
-			pSoldier->sWalkToAttackGridNo = sGridNo;
+			pSoldier->sWalkToAttackGridNo = sActionGridNo;
 
-			// Add points to attack
-			sAPCost += MinAPsToAttack(pSoldier, sAdjustedGridNo, sAPCost>0?FALSE:ubAddTurningCost, bAimTime, 0);//dnl ch73 031013
-			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
-		}
-		else
-		{
-			// Add points to attack
-			// Use our gridno
-			sAPCost += MinAPsToAttack( pSoldier, sGridNo, ubAddTurningCost, bAimTime, 0 );
 		}
 
+		// Add points to attack
+		sAPCost += MinAPsToPunch(pSoldier, sAdjustedGridNo, ubAddTurningCost);
 		// Add aim time...
 		sAPCost += (bAimTime*APBPConstants[AP_CLICK_AIM]);
 
@@ -2706,29 +2674,15 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 		{
 			// ATE: Use standing turn cost....
 			UINT8 ubDirection = GetDirectionFromGridNo(sGridNo, pSoldier);
-			INT32 sSpot = sGridNo;
-			if(usTargID != NOBODY && gAnimControl[MercPtrs[usTargID]->usAnimState].ubEndHeight == ANIM_PRONE)
-				for(INT8 sCnt=0; sCnt<NUM_WORLD_DIRECTIONS; sCnt++)
-				{
-					sSpot = NewGridNo(pSoldier->sGridNo, DirectionInc(sCnt));
-					if(gubWorldMovementCosts[sSpot][sCnt][pSoldier->bTargetLevel] >= TRAVELCOST_BLOCKED)
-						continue;
-					if(WhoIsThere2(sSpot, pSoldier->bTargetLevel) == usTargID)
-					{
-						ubDirection = (UINT8)sCnt;
-						break;
-					}
-				}
-				// Is it the same as he's facing?
-				// Buggler: actual melee ap deduction for turning applies only when target is 1 tile away
-				//UINT16 usRange = GetRangeFromGridNoDiff(pSoldier->sGridNo, sSpot);
-				if(/*usRange == 1 && */ubDirection != pSoldier->ubDirection)
-				{
-					if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
-						bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE, ANIM_CROUCH);
-					else
-						bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE);
-				}
+
+			// Is it the same as he's facing?
+			if(ubDirection != pSoldier->ubDirection)
+			{
+				if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+					bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE, ANIM_CROUCH);
+				else
+					bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE);
+			}
 		}
 	}
 
