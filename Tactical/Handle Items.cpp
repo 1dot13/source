@@ -860,10 +860,6 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	{
 		// See if we can get there to stab
 		sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
-		if (sActionGridNo == -1)
-		{
-			sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
-		}
 
 		if (sActionGridNo != NOWHERE)
 		{
@@ -904,35 +900,11 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 	//USING THE MEDKIT
 	if ( Item[ usHandItem ].usItemClass == IC_MEDKIT )
 	{
-		// ATE: AI CANNOT GO THROUGH HERE!
-		INT32 usMapPos;
-		BOOLEAN	fHadToUseCursorPos = FALSE;
-
-		if (gTacticalStatus.fAutoBandageMode)
-		{
-			usMapPos = sGridNo;
-		}
-		else
-		{
-			GetMouseMapPos( &usMapPos );
-		}
-
 		// See if we can get there to stab
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
-			// Try another location...
-			sActionGridNo =	FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-
-			if ( sActionGridNo == -1 )
-			{
-				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
-			}
-
-			if ( !gTacticalStatus.fAutoBandageMode )
-			{
-				fHadToUseCursorPos = TRUE;
-			}
+			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
 		}
 
 		// Calculate AP costs...
@@ -950,20 +922,13 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				// SEND PENDING ACTION
 				pSoldier->aiData.ubPendingAction = MERC_GIVEAID;
 
-				if ( fHadToUseCursorPos )
+				if ( pTargetSoldier != NULL )
 				{
-					pSoldier->aiData.sPendingActionData2	= usMapPos;
+					pSoldier->aiData.sPendingActionData2	= pTargetSoldier->sGridNo;
 				}
 				else
 				{
-					if ( pTargetSoldier != NULL )
-					{
-						pSoldier->aiData.sPendingActionData2	= pTargetSoldier->sGridNo;
-					}
-					else
-					{
-						pSoldier->aiData.sPendingActionData2	= sGridNo;
-					}
+					pSoldier->aiData.sPendingActionData2	= sGridNo;
 				}
 				pSoldier->aiData.bPendingActionData3	= ubDirection;
 				pSoldier->aiData.ubPendingActionAnimCount = 0;
@@ -1338,13 +1303,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
-			// Try another location...
-			sActionGridNo =	FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-
-			if ( sActionGridNo == -1 )
-			{
-				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
-			}
+			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
 
 			/*if ( !gTacticalStatus.fAutoBandageMode )
 			{
@@ -1445,13 +1404,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		sActionGridNo =	FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
-			// Try another location...
-			sActionGridNo =	FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-
-			if ( sActionGridNo == -1 )
-			{
-				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
-			}
+			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
 		}
 
 		// Calculate AP costs...
@@ -1520,13 +1473,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		sActionGridNo = FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
-			// Try another location...
-			sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-
-			if ( sActionGridNo == -1 )
-			{
-				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
-			}
+			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
 		}
 
 		// Calculate AP costs...
@@ -1600,13 +1547,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		sActionGridNo = FindAdjacentGridEx( pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
-			// Try another location...
-			sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
-
-			if ( sActionGridNo == -1 )
-			{
-				return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
-			}
+			return( ITEM_HANDLE_CANNOT_GETTO_LOCATION );
 		}
 
 		// Calculate AP costs...
@@ -1838,10 +1779,6 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 		{
 			// See if we can get there to stab
 			sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
-			if (sActionGridNo == -1)
-			{
-				sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
-			}
 		}
 
 		if ( sActionGridNo != NOWHERE )

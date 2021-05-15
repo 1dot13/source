@@ -5535,7 +5535,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         {
 			SOLDIERTYPE *pTargetSoldier = MercPtrs[usSoldierIndex];
             sGridNo = pTargetSoldier->sGridNo;
-			if (gAnimControl[pTargetSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+			if (CREATURE_OR_BLOODCAT(pTargetSoldier) || gAnimControl[pTargetSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
 			{
 				// prone; could be the base tile is inaccessible but the rest isn't...
 				for (INT8 cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt++)
