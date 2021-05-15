@@ -5449,26 +5449,22 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
     // psAdjustedGridNo gets the original gridno or the new one if updated
     // It will ONLY be updated IF we were over a merc, ( it's updated to their gridno )
     // pubDirection gets the direction to the final gridno
-    // fForceToPerson: forces the grid under consideration to be the one occupiedby any target
+    // fForceToPerson: forces the grid under consideration to be the one occupied by any target
     // in that location, because we could be passed a gridno based on the overlap of soldier's graphic
     // fDoor determines whether special door-handling code should be used (for interacting with doors)
-	INT32 sGridNoProne = -1;
-    INT32 sFourGrids[4], sDistance=0;
+	INT32		sGridNoProne = -1;
+    INT32		sFourGrids[4], sDistance=0;
     static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
-    //INT32 cnt;
-    //INT32 sClosest=NOWHERE, sSpot, sOkTest;
-    INT32 sClosest = MAX_MAP_POS, sSpot; //Lalien: changed to ensure compability with new definition of NOWHERE
-    //INT32 sCloseGridNo=NOWHERE;
-    INT32 sCloseGridNo = MAX_MAP_POS; //Lalien: changed to ensure compability with new definition of NOWHERE
-    UINT32                                       uiMercFlags;
-    UINT16                                       usSoldierIndex;
-    UINT8                                           ubDir;
-    STRUCTURE                               *pDoor;
-    //STRUCTURE                         *pWall;
-    UINT8                                           ubWallOrientation;
-    BOOLEAN                                                                 fCheckGivenGridNo = TRUE;
-    UINT8                                                                       ubTestDirection;
-    EXITGRID                                                                ExitGrid;
+    INT32		sClosest = -1, sSpot;
+    INT32		sCloseGridNo = NOWHERE;
+    UINT32		uiMercFlags;
+    UINT16		usSoldierIndex;
+    UINT8		ubDir;
+    STRUCTURE	*pDoor;
+    UINT8		ubWallOrientation;
+    BOOLEAN		fCheckGivenGridNo = TRUE;
+    UINT8		ubTestDirection;
+    EXITGRID	ExitGrid;
 
     // Set default direction
     if (pubDirection)
@@ -5589,10 +5585,10 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 
             if ( sDistance > 0 )
             {
-                if ( sDistance < sClosest )
+                if (sDistance < sClosest || sClosest == -1)
                 {
-                    sClosest                        = sDistance;
-                    sCloseGridNo    = sGridNo;
+                    sClosest = sDistance;
+                    sCloseGridNo = sGridNo;
                 }
             }
         }
@@ -5670,10 +5666,10 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         if ( ( NewOKDestinationAndDirection( pSoldier, sSpot, ubDir, TRUE, pSoldier->pathing.bLevel ) > 0 ) &&
                 ( ( sDistance = PlotPath( pSoldier, sSpot,  NO_COPYROUTE, NO_PLOT, TEMPORARY, (INT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) ) > 0 ) )
         {
-            if ( sDistance < sClosest )
+            if (sDistance < sClosest || sClosest == -1)
             {
-                sClosest                        = sDistance;
-                sCloseGridNo  = sSpot;
+                sClosest = sDistance;
+                sCloseGridNo = sSpot;
             }
         }
     }
@@ -5751,7 +5747,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 			if ((NewOKDestinationAndDirection(pSoldier, sSpot, ubDir, TRUE, pSoldier->pathing.bLevel) > 0) &&
 				((sDistance = PlotPath(pSoldier, sSpot, NO_COPYROUTE, NO_PLOT, TEMPORARY, (INT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints)) > 0))
 			{
-				if (sDistance < sClosest)
+				if (sDistance < sClosest || sClosest == -1)
 				{
 					sClosest = sDistance;
 					sCloseGridNo = sSpot;
@@ -5762,10 +5758,10 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 		}
 	}
 
-    if (sClosest != NOWHERE)
+	if (sClosest != -1 && !TileIsOutOfBounds(sCloseGridNo))
     {
         // Take last direction and use opposite!
-        // This will be usefull for ours and AI mercs
+        // This will be useful for ours and AI mercs
 
         // If our gridno is the same ( which can be if we are look at doors )
         if ( sGridNo == sCloseGridNo )
@@ -5801,14 +5797,6 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
                 *pubDirection = ubDir;
             }
         }
-        //if ( psAdjustedGridNo != NULL )
-        //{
-        //      (*psAdjustedGridNo) = sCloseGridNo;
-        //}     
-        if ( TileIsOutOfBounds( sCloseGridNo ) )
-        {
-            return( NOWHERE );
-        }
 
         return( sCloseGridNo );
     }
@@ -5830,8 +5818,8 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     INT32 sFourGrids[4], sDistance=0;
     static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
     //INT32 cnt;
-    INT32 sClosest=WORLD_MAX, sSpot, sSpot2;
-    INT32 sCloseGridNo=NOWHERE;
+    INT32 sClosest = -1, sSpot, sSpot2;
+    INT32 sCloseGridNo = NOWHERE;
     UINT32                                       uiMercFlags;
     UINT16                                       usSoldierIndex;
     UINT8                                           ubDir;
@@ -5894,7 +5882,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 
             if ( sDistance > 0 )
             {
-                if ( sDistance < sClosest )
+				if (sDistance < sClosest || sClosest == -1)
                 {
                     sClosest            = sDistance;
                     sCloseGridNo  = sGridNo;
@@ -5983,7 +5971,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         if ( ( NewOKDestinationAndDirection( pSoldier, sSpot, ubDir, TRUE , pSoldier->pathing.bLevel ) > 0 ) &&
                 ( ( sDistance = PlotPath( pSoldier, sSpot,  NO_COPYROUTE, NO_PLOT, TEMPORARY, (INT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) ) > 0 ) )
         {
-            if ( sDistance < sClosest )
+            if ( sDistance < sClosest || sClosest == -1)
             {
                 sClosest            = sDistance;
                 sCloseGridNo = sSpot;
@@ -5991,10 +5979,10 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
         }
     }
 
-    if (!TileIsOutOfBounds(sClosest))
+	if (sClosest != -1 && !TileIsOutOfBounds(sCloseGridNo))
     {
         // Take last direction and use opposite!
-        // This will be usefull for ours and AI mercs
+        // This will be useful for ours and AI mercs
 
         // If our gridno is the same ( which can be if we are look at doors )
         if ( sGridNo == sCloseGridNo )
@@ -6031,51 +6019,10 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
             }
         }
 
-        if (TileIsOutOfBounds(sCloseGridNo))
-        {
-            return( NOWHERE );
-        }
         return( sCloseGridNo );
     }
 
 	return( NOWHERE );
-
-
-    /*
-       if ( !TileIsOutOfBounds(sCloseGridNo))
-       {
-    // Take last direction and use opposite!
-    // This will be usefull for ours and AI mercs
-
-    // If our gridno is the same ( which can be if we are look at doors )
-    if ( sGridNo == sCloseGridNo )
-    {
-    switch( pDoor->pDBStructureRef->pDBStructure->ubWallOrientation )
-    {
-    case OUTSIDE_TOP_LEFT:
-    case INSIDE_TOP_LEFT:
-
-     *pubDirection = SOUTH;
-     break;
-
-     case OUTSIDE_TOP_RIGHT:
-     case INSIDE_TOP_RIGHT:
-
-     *pubDirection = EAST;
-     break;
-     }
-     }
-     else
-     {
-    // Calculate direction if our gridno is different....
-    ubDir = (UINT8)GetDirectionToGridNoFromGridNo( sCloseGridNo, sGridNo );
-     *pubDirection = ubDir;
-     }
-     return( sCloseGridNo );
-     }
-     else
-     return( -1 );
-     */
 }
 
 INT32 FindAdjacentPunchTarget( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTargetSoldier, INT32 * psAdjustedTargetGridNo, UINT8 * pubDirection )
