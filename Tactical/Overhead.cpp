@@ -5814,7 +5814,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     // fForceToPerson: forces the grid under consideration to be the one occupiedby any target
     // in that location, because we could be passed a gridno based on the overlap of soldier's graphic
     // fDoor determines whether special door-handling code should be used (for interacting with doors)
-
+	INT32 sGridNoProne = -1;
     INT32 sFourGrids[4], sDistance=0;
     static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
     //INT32 cnt;
@@ -5856,11 +5856,24 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     {
         if ( FindSoldier( sGridNo, &usSoldierIndex, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
         {
-            sGridNo = MercPtrs[ usSoldierIndex ]->sGridNo;
-            if ( psAdjustedGridNo != NULL )
-            {
-                *psAdjustedGridNo = sGridNo;
-            }
+			SOLDIERTYPE *pTargetSoldier = MercPtrs[usSoldierIndex];
+			sGridNo = pTargetSoldier->sGridNo;
+			if (CREATURE_OR_BLOODCAT(pTargetSoldier) || gAnimControl[pTargetSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+			{
+				// prone; could be the base tile is inaccessible but the rest isn't...
+				for (INT8 cnt = 0; cnt < NUM_WORLD_DIRECTIONS; cnt++)
+				{
+					if (WhoIsThere2(sGridNo + DirectionInc(cnt), pTargetSoldier->pathing.bLevel) == usSoldierIndex)
+					{
+						sGridNoProne = sGridNo + DirectionInc(cnt);
+						break;
+					}
+				}
+			}
+			if (psAdjustedGridNo != NULL)
+			{
+				*psAdjustedGridNo = sGridNo;
+			}
         }
     }
 
@@ -5978,6 +5991,98 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
             }
         }
     }
+
+	if (sGridNoProne != -1)
+	{
+		for (INT8 cnt = 0; cnt < 4; ++cnt)
+		{
+			// MOVE OUT TWO DIRECTIONS
+			sFourGrids[cnt] = sSpot = NewGridNo(sGridNoProne, DirectionInc(sDirs[cnt]));
+
+			ubTestDirection = sDirs[cnt];
+
+			if (pDoor && pDoor->fFlags & STRUCTURE_SWITCH)
+			{
+				ubTestDirection = gOppositeDirection[ubTestDirection];
+			}
+
+			if (gubWorldMovementCosts[sSpot][ubTestDirection][pSoldier->pathing.bLevel] >= TRAVELCOST_BLOCKED)
+			{
+				// obstacle or wall there!
+				continue;
+			}
+
+			ubWhoIsThere = WhoIsThere2(sSpot, pSoldier->pathing.bLevel);
+			if (ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID)
+			{
+				// skip this direction b/c it's blocked by another merc!
+				continue;
+			}
+
+			// Eliminate some directions if we are looking at doors!
+			if (pDoor != NULL)
+			{
+				// Get orinetation
+				ubWallOrientation = pDoor->ubWallOrientation;
+
+				// Refuse the south and north and west  directions if our orientation is top-right
+				if (ubWallOrientation == OUTSIDE_TOP_RIGHT || ubWallOrientation == INSIDE_TOP_RIGHT)
+				{
+					if (sDirs[cnt] == NORTH || sDirs[cnt] == WEST || sDirs[cnt] == SOUTH)
+						continue;
+				}
+
+				// Refuse the north and west and east directions if our orientation is top-right
+				if (ubWallOrientation == OUTSIDE_TOP_LEFT || ubWallOrientation == INSIDE_TOP_LEFT)
+				{
+					if (sDirs[cnt] == NORTH || sDirs[cnt] == WEST || sDirs[cnt] == EAST)
+						continue;
+				}
+			}
+
+			// first tile is okay, how about the second?
+			sSpot2 = NewGridNo(sSpot, DirectionInc(sDirs[cnt]));
+			if (gubWorldMovementCosts[sSpot2][sDirs[cnt]][pSoldier->pathing.bLevel] >= TRAVELCOST_BLOCKED ||
+				DoorTravelCost(pSoldier, sSpot2, gubWorldMovementCosts[sSpot2][sDirs[cnt]][pSoldier->pathing.bLevel], (BOOLEAN)(pSoldier->bTeam == gbPlayerNum), NULL) == TRAVELCOST_DOOR) // closed door blocks!
+			{
+				// obstacle or wall there!
+				continue;
+			}
+
+			ubWhoIsThere = WhoIsThere2(sSpot2, pSoldier->pathing.bLevel);
+			if (ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID)
+			{
+				// skip this direction b/c it's blocked by another merc!
+				continue;
+			}
+
+			sSpot = sSpot2;
+
+			// If this spot is our soldier's gridno use that!
+			if (sSpot == pSoldier->sGridNo)
+			{
+				if (pubDirection)
+					(*pubDirection) = (UINT8)GetDirectionFromGridNo(sGridNoProne, pSoldier);
+				if (psAdjustedGridNo) *psAdjustedGridNo = sGridNoProne;
+				return(sSpot);
+			}
+
+			ubDir = (UINT8)GetDirectionToGridNoFromGridNo(sSpot, sGridNoProne);
+
+			// don't store path, just measure it
+			if ((NewOKDestinationAndDirection(pSoldier, sSpot, ubDir, TRUE, pSoldier->pathing.bLevel) > 0) &&
+				((sDistance = PlotPath(pSoldier, sSpot, NO_COPYROUTE, NO_PLOT, TEMPORARY, (INT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints)) > 0))
+			{
+				if (sDistance < sClosest || sClosest == -1)
+				{
+					sClosest = sDistance;
+					sCloseGridNo = sSpot;
+					sGridNo = sGridNoProne;//this will ensure correct direction calculation
+					if (psAdjustedGridNo) *psAdjustedGridNo = sGridNoProne;
+				}
+			}
+		}
+	}
 
 	if (sClosest != -1 && !TileIsOutOfBounds(sCloseGridNo))
     {
