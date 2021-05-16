@@ -2942,7 +2942,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case '6':
 				if( fAlt )
 				{
-					HandleTacticalTakeInvItem( gGameExternalOptions.iQuickItem6 );
+					if (CHEATER_CHEAT_LEVEL())
+					{
+						ChangeSoldiersBodyType(BLOODCAT, TRUE);
+					}
+					else
+					{
+						HandleTacticalTakeInvItem(gGameExternalOptions.iQuickItem6);
+					}
 				}
 				else
 				{
