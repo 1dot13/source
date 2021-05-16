@@ -1937,7 +1937,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 			else
 			{
 				// See if we can get there to stab
-				sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+				sActionGridNo = FindAdjacentGridEx(pSoldier, sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE, true);
 			}
 				
 			if (!TileIsOutOfBounds(sActionGridNo))

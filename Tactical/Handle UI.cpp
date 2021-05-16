@@ -4528,7 +4528,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			else
 			{
 				// See if we can get there to stab
-				sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+				sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE, true);
 			}
 		}
 		else

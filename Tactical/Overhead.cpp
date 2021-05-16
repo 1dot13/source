@@ -5444,7 +5444,7 @@ BOOLEAN TeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange)
     return(FALSE);
 }
 
-INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirection, INT32 *psAdjustedGridNo, BOOLEAN fForceToPerson, BOOLEAN fDoor )
+INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirection, INT32 *psAdjustedGridNo, BOOLEAN fForceToPerson, BOOLEAN fDoor, bool allow_diagonal )
 {
     // psAdjustedGridNo gets the original gridno or the new one if updated
     // It will ONLY be updated IF we were over a merc, ( it's updated to their gridno )
@@ -5453,7 +5453,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
     // in that location, because we could be passed a gridno based on the overlap of soldier's graphic
     // fDoor determines whether special door-handling code should be used (for interacting with doors)
 	INT32		sGridNoProne = -1;
-    INT32		sFourGrids[4], sDistance=0;
+    INT32		sDistance=0;
     static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
     INT32		sClosest = -1, sSpot;
     INT32		sCloseGridNo = NOWHERE;
@@ -5594,12 +5594,11 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         }
     }
 	
-    for (INT8 cnt = 0; cnt < 4; ++cnt)
+    for (INT8 cnt = 0; cnt < (allow_diagonal ? NUM_WORLD_DIRECTIONS : 4); ++cnt)
     {
-        // MOVE OUT TWO DIRECTIONS
-        sFourGrids[cnt] = sSpot = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
-
-        ubTestDirection = sDirs[ cnt ];
+		ubTestDirection = (allow_diagonal ? cnt : sDirs[cnt]);
+		// MOVE OUT TWO DIRECTIONS
+        sSpot = NewGridNo( sGridNo, DirectionInc(ubTestDirection) );     
 
         // For switches, ALLOW them to walk through walls to reach it....
         if ( pDoor && pDoor->fFlags & STRUCTURE_SWITCH )
@@ -5675,12 +5674,11 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
     }
 	if (sGridNoProne != -1)
 	{
-		for (INT8 cnt = 0; cnt < 4; ++cnt)
+		for (INT8 cnt = 0; cnt < (allow_diagonal ? NUM_WORLD_DIRECTIONS : 4); ++cnt)
 		{
+			ubTestDirection = (allow_diagonal ? cnt : sDirs[cnt]);
 			// MOVE OUT TWO DIRECTIONS
-			sFourGrids[cnt] = sSpot = NewGridNo(sGridNoProne, DirectionInc(sDirs[cnt]));
-
-			ubTestDirection = sDirs[cnt];
+			sSpot = NewGridNo(sGridNoProne, DirectionInc(ubTestDirection));
 
 			// For switches, ALLOW them to walk through walls to reach it....
 			if (pDoor && pDoor->fFlags & STRUCTURE_SWITCH)
