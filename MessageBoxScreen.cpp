@@ -1557,6 +1557,11 @@ UINT32	MessageBoxScreenHandle( )
 					gMsgBox.bHandled = MSG_BOX_RETURN_NO;
 					memset(gszMsgBoxInputString,0,sizeof(CHAR16)*255);
 				}
+				//shadooow - 20210515 - allowing to escape from our custom multibutton message boxes
+				else if (gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS || gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_EIGHT_BUTTONS || gMsgBox.usFlags & MSG_BOX_FLAG_GENERIC_SIXTEEN_BUTTONS)
+				{
+					gMsgBox.bHandled = 99;
+				}
 			}
 
 			if( InputEvent.usParam == ENTER )
