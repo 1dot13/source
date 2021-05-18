@@ -1051,6 +1051,7 @@ void	QueryTBRightButton( UINT32 *puiNewEvent )
 							}
 							else
 							{
+								gfPlotNewMovement = TRUE;//shadooow: this fixes AP cost sometimes not recalculating when changing modes via right click
 								// Switch on UI mode
 								switch( gCurrentUIMode )
 								{
