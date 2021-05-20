@@ -536,7 +536,11 @@ BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
 
 	if ( ubMerc != NOBODY )
 	{
-		if ( MercPtrs[ ubMerc ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		if (MercPtrs[ubMerc]->flags.uiStatusFlags & SOLDIER_ROBOT)
+		{
+			return( 1 );
+		}
+		else if ( MercPtrs[ ubMerc ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			return( 2 );
 		}

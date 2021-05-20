@@ -233,6 +233,7 @@ extern BOOLEAN gfNPCCircularDistLimit;
 extern BOOLEAN gfEstimatePath;
 extern BOOLEAN	gfPathAroundObstacles;
 extern UINT8 gubGlobalPathFlags;
+extern UINT8 gfPlotPathEndDirection;
 
 // Ian's terrain values for travelling speed/pathing purposes
 // Fixed by CJC March 4, 1998.	Please do not change these unless familiar

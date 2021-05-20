@@ -91,6 +91,7 @@ UINT8 gubBuildingInfoToSet;
 INT32 iMaxSkipListLevel = MAX_SKIPLIST_LEVEL;
 INT32 iMaxTrailTree = MAX_TRAIL_TREE;
 INT32 iMaxPathQ = MAX_PATHQ;
+UINT8 gfPlotPathEndDirection;
 
 extern BOOLEAN gfGeneratingMapEdgepoints;
 
@@ -4566,7 +4567,7 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 			sOldGrid	= sTempGrid;
 
 			sTempGrid  = NewGridNo(sTempGrid, DirectionInc( (UINT8)guiPathingData[iCnt]));
-
+			gfPlotPathEndDirection = GetDirectionToGridNoFromGridNo(sOldGrid, sTempGrid);
 			// Get switch value...
 			sSwitchValue = gubWorldMovementCosts[ sTempGrid ][ (INT8)guiPathingData[iCnt] ][ pSold->pathing.bLevel];
 

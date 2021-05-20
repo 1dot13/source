@@ -2038,12 +2038,14 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		numBytesRead = ReadFieldByField(hFile, &this->usLastRandomAnim, sizeof(usLastRandomAnim), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->usAnimSurface, sizeof(usAnimSurface), sizeof(UINT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sZLevel, sizeof(sZLevel), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->sWalkToAttackMovementMode, sizeof(sWalkToAttackMovementMode), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sWalkToAttackGridNo, sizeof(sWalkToAttackGridNo), sizeof(INT32), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sWalkToAttackWalkToCost, sizeof(sWalkToAttackWalkToCost), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sLocatorOffX, sizeof(sLocatorOffX), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sLocatorOffY, sizeof(sLocatorOffY), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->pForcedShade, sizeof(pForcedShade), 4, numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->bDisplayDamageCount, sizeof(bDisplayDamageCount), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->sWalkToAttackEndDirection, sizeof(sWalkToAttackEndDirection), sizeof(UINT8), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sDamage, sizeof(sDamage), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sDamageX, sizeof(sDamageX), sizeof(INT16), numBytesRead);
 		numBytesRead = ReadFieldByField(hFile, &this->sDamageY, sizeof(sDamageY), sizeof(INT16), numBytesRead);

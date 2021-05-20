@@ -1049,19 +1049,16 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 
 			if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 			{
+				// OK, set UI
+				SetUIBusy(pSoldier->ubID);
+
 				// CHECK IF WE ARE AT THIS GRIDNO NOW
 				if ( pSoldier->sGridNo != sActionGridNo )
 				{
 					// SEND PENDING ACTION
 					pSoldier->aiData.ubPendingAction = MERC_REPAIR;
-					pSoldier->aiData.sPendingActionData2	= sAdjustedGridNo;
-
-					if ( fVehicle )
-					{
-						pSoldier->aiData.sPendingActionData2	= sVehicleGridNo;
-					}
-
-					pSoldier->aiData.bPendingActionData3	= ubDirection;
+					pSoldier->aiData.sPendingActionData2 = fVehicle ? sVehicleGridNo : sAdjustedGridNo;
+					pSoldier->aiData.bPendingActionData3 = ubDirection;
 					pSoldier->aiData.ubPendingActionAnimCount = 0;
 
 					// WALK UP TO DEST FIRST
@@ -1069,11 +1066,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				}
 				else
 				{
-					pSoldier->EVENT_SoldierBeginRepair( sAdjustedGridNo, ubDirection );
+					pSoldier->EVENT_SoldierBeginRepair(fVehicle ? sVehicleGridNo : sAdjustedGridNo, ubDirection );					
 				}
-
-				// OK, set UI
-				SetUIBusy( pSoldier->ubID );
 
 				if ( fFromUI )
 				{
@@ -1131,8 +1125,6 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				{
 					// SEND PENDING ACTION
 					pSoldier->aiData.ubPendingAction = MERC_FUEL_VEHICLE;
-					pSoldier->aiData.sPendingActionData2	= sAdjustedGridNo;
-
 					pSoldier->aiData.sPendingActionData2	= sVehicleGridNo;
 					pSoldier->aiData.bPendingActionData3	= ubDirection;
 					pSoldier->aiData.ubPendingActionAnimCount = 0;
@@ -1142,7 +1134,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 				}
 				else
 				{
-					pSoldier->EVENT_SoldierBeginRefuel( sAdjustedGridNo, ubDirection );
+					pSoldier->EVENT_SoldierBeginRefuel(sVehicleGridNo, ubDirection );
 				}
 
 				// OK, set UI
@@ -10266,6 +10258,16 @@ void TakePhoto(SOLDIERTYPE* pSoldier, INT32 sGridNo, INT8 bLevel )
 	// to make this simple, check only tiles in a radius around the gridno we targetted
 	INT16 sBaseX, sBaseY;
 	ConvertGridNoToXY( sGridNo, &sBaseX, &sBaseY );
+
+	UINT8 ubDirection = GetDirectionFromGridNo(sGridNo, pSoldier);
+
+	// CHANGE DIRECTION AND GOTO ANIMATION NOW
+	if (pSoldier->ubDirection != ubDirection)
+	{
+		pSoldier->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+		pSoldier->EVENT_SetSoldierDesiredDirection(ubDirection);
+		pSoldier->EVENT_SetSoldierDirection(ubDirection);
+	}
 
 	int radius = 3;
 

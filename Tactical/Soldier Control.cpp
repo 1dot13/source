@@ -4116,6 +4116,21 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			DeductPoints( this, APBPConstants[AP_USE_REMOTE], 0, AFTERACTION_INTERRUPT );
 			break;
 
+		case REFUEL_VEHICLE:
+
+			DeductPoints(this, APBPConstants[AP_REFUEL_VEHICLE], 0, AFTERACTION_INTERRUPT);
+			break;
+
+		case GOTO_REPAIRMAN:
+
+			DeductPoints(this, APBPConstants[AP_START_REPAIR], 0, AFTERACTION_INTERRUPT);
+			break;
+
+		case TAKE_BLOOD_FROM_CORPSE:
+
+			DeductPoints(this, APBPConstants[AP_TAKE_BLOOD], 0, AFTERACTION_INTERRUPT);
+			break;
+
 			//case PUNCH:
 
 			//Deduct points for punching
@@ -7723,7 +7738,7 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 
 	if ( pSoldier->pathing.bDesiredDirection != pSoldier->ubDirection )
 	{
-		if ( (gAnimControl[usAnimState].uiFlags & (ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY/* | ANIM_TURNING*/) || usForceAnimState != INVALID_ANIMATION) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )//dnl ch70 160913 //dnl ch73 290913 in some bright future when UIPlotPath will calculate turning cost then ANIM_TURNING should be turn on as this solve many problems when APs was not deducted during turnoff
+		if ( (gAnimControl[usAnimState].uiFlags & (ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY | ANIM_TURNING) || usForceAnimState != INVALID_ANIMATION) && !fInitalMove && !pSoldier->flags.fDontChargeTurningAPs )
 		{
 			// SANDRO: hey, we have a function for this around, why not to use it, hm?
 			// silversurfer: we better don't do that. GetAPsToLook( ... ) will charge APs for getting to crouched/prone position
@@ -22338,15 +22353,16 @@ void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT32 sGridNo, UINT8 ubDirection )
 			this->EVENT_SetSoldierDirection(ubDirection);
 		}
 
-		//BOOLEAN CutWireFence( INT16 sGridNo )
-
-		// SET TARGET GRIDNO
-		//this->sTargetGridNo = sGridNo;
-
 		// CHANGE TO ANIMATION
 		this->EVENT_InitNewSoldierAnim( GOTO_REPAIRMAN, 0, FALSE );
 		// SET BUDDY'S ASSIGNMENT TO REPAIR...
-
+		if (gTacticalStatus.uiFlags & INCOMBAT)
+		{
+			//this doesn't work during combat, so return
+			UnSetUIBusy(this->ubID);
+			return;
+		}
+		
 		// Are we a SAM site? ( 3 == SAM )
 		if ( bRepairItem == 3 )
 		{
@@ -22355,6 +22371,10 @@ void SOLDIERTYPE::EVENT_SoldierBeginRepair( INT32 sGridNo, UINT8 ubDirection )
 		else if ( bRepairItem == 2 ) // ( 2 == VEHICLE )
 		{
 			SetSoldierAssignment( this, REPAIR, FALSE, FALSE, ubID );
+		}
+		else if (bRepairItem == 1) // ( 1 == ROBOT )
+		{
+			SetSoldierAssignment(this, REPAIR, FALSE, TRUE, -1);
 		}
 
 	}
@@ -22377,11 +22397,6 @@ void SOLDIERTYPE::EVENT_SoldierBeginRefuel( INT32 sGridNo, UINT8 ubDirection )
 			this->EVENT_SetSoldierDesiredDirection(ubDirection);
 			this->EVENT_SetSoldierDirection(ubDirection);
 		}
-
-		//BOOLEAN CutWireFence( INT16 sGridNo )
-
-		// SET TARGET GRIDNO
-		//this->sTargetGridNo = sGridNo;
 
 		// CHANGE TO ANIMATION
 		this->EVENT_InitNewSoldierAnim( REFUEL_VEHICLE, 0, FALSE );
@@ -22577,6 +22592,17 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 				success = TRUE;
 		}
 
+		// CHANGE DIRECTION AND GOTO ANIMATION NOW
+		if (this->ubDirection != ubDirection)
+		{
+			this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
+			this->EVENT_SetSoldierDesiredDirection(ubDirection);
+			this->EVENT_SetSoldierDirection(ubDirection);
+		}
+
+		// CHANGE TO ANIMATION
+		this->EVENT_InitNewSoldierAnim(RELOAD_ROBOT, 0, FALSE);
+
 		if ( success )
 		{
 			// arrest this guy
@@ -22626,17 +22652,6 @@ void SOLDIERTYPE::EVENT_SoldierHandcuffPerson( INT32 sGridNo, UINT8 ubDirection 
 					DeleteObj( &(this->inv[HANDPOS]) );
 				}
 			}
-
-			// CHANGE DIRECTION AND GOTO ANIMATION NOW
-			if (this->ubDirection != ubDirection)
-			{
-				this->flags.uiStatusFlags |= SOLDIER_LOOK_NEXT_TURNSOLDIER;//shadooow: fix for vision not updating
-				this->EVENT_SetSoldierDesiredDirection(ubDirection);
-				this->EVENT_SetSoldierDirection(ubDirection);
-			}
-
-			// CHANGE TO ANIMATION
-			this->EVENT_InitNewSoldierAnim( RELOAD_ROBOT, 0, FALSE );
 
 			// we gain a bit of experience...
 			StatChange( this, STRAMT, 2, TRUE );

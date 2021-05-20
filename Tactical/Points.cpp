@@ -1949,15 +1949,16 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 				else
 				{
 					// OK, in order to avoid path calculations here all the time... save and check if it's changed!
-					if (pSoldier->sWalkToAttackGridNo == sActionGridNo)
+					if (pSoldier->sWalkToAttackGridNo == sActionGridNo && pSoldier->sWalkToAttackMovementMode == (UINT8)pSoldier->usUIMovementMode)
 					{
 						sAPCost += (UINT8)(pSoldier->sWalkToAttackWalkToCost);
 					}
 					else
 					{
 						// Save for next time...
-						pSoldier->sWalkToAttackWalkToCost = PlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
-
+						pSoldier->sWalkToAttackMovementMode = (UINT8)pSoldier->usUIMovementMode;
+						pSoldier->sWalkToAttackWalkToCost = PlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);						
+						pSoldier->sWalkToAttackEndDirection = gfPlotPathEndDirection;
 						if (pSoldier->sWalkToAttackWalkToCost == 0)
 						{
 							return(99);
@@ -1977,7 +1978,11 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTur
 		}
 
 		// Add points to attack
-		sAPCost += MinAPsToPunch(pSoldier, sAdjustedGridNo, ubAddTurningCost);
+		sAPCost += MinAPsToPunch(pSoldier, sAdjustedGridNo);
+
+		// Add points to turn around if needed
+		sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, pSoldier->sWalkToAttackEndDirection);
+		
 		// Add aim time...
 		sAPCost += (bAimTime*APBPConstants[AP_CLICK_AIM]);
 
@@ -2015,32 +2020,10 @@ INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT32 sGridno, UINT8 ubAddTurningCos
 		// LOOK IN BUDDY'S HAND TO DETERMINE WHAT TO DO HERE
 		uiItemClass = Item[ undbarItem ].usItemClass;
 	}
-#if 0//dnl ch73 290913
-	// bare fist or with brass knuckles
-	if ( !(pSoldier->inv[HANDPOS].exists()) || Item[pSoldier->inv[HANDPOS].usItem].brassknuckles ) 
-	{
-		sAPCost = MinAPsToPunch( pSoldier, sGridno, ubAddTurningCost );
-	}
-	else if ( uiItemClass & ( IC_PUNCH | IC_BLADE | IC_GUN | IC_LAUNCHER | IC_TENTACLES | IC_THROWING_KNIFE ) )
-	{
-		sAPCost = MinAPsToShootOrStab( pSoldier, sGridno, bAimTime, ubAddTurningCost, ubForceRaiseGunCost );
-	}	
-	// thrown items
-	else if ( uiItemClass & ( IC_GRENADE | IC_THROWN ) )
-	{
-		sAPCost = MinAPsToThrow( pSoldier, sGridno, ubAddTurningCost );
-	}
-	// for exceptions
-	else 
-		sAPCost = MinAPsToPunch( pSoldier, sGridno, ubAddTurningCost );
-#else
 	if(uiItemClass & (IC_GUN | IC_LAUNCHER | IC_THROWING_KNIFE))
 		sAPCost = MinAPsToShootOrStab(pSoldier, sGridno, bAimTime, ubAddTurningCost, ubForceRaiseGunCost);
 	else if(uiItemClass & (IC_GRENADE | IC_THROWN))
 		sAPCost = MinAPsToThrow(pSoldier, sGridno, ubAddTurningCost);
-	else 
-		sAPCost = MinAPsToPunch(pSoldier, sGridno, ubAddTurningCost);
-#endif
 	return sAPCost;
 }
 
@@ -2285,6 +2268,25 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT32 sGridNo
 	(*pfChargeRaise )	= fAddingRaiseGunCost;
 }
 
+UINT16 CalculateActionTurningCost(SOLDIERTYPE *pSoldier, INT32 sActionGridNo, INT32 sAdjustedGridNo, UINT8 ubDirection)
+{
+	UINT16 sAPCost = 0;
+	// if soldier is already at sActionGridNo, use current direction instead of calculated one
+	if (pSoldier->sGridNo == sActionGridNo) ubDirection = pSoldier->ubDirection;
+
+	// Is it the same as direction we need?
+	if (ubDirection != GetDirectionToGridNoFromGridNo(sActionGridNo, sAdjustedGridNo))
+	{
+		OBJECTTYPE *pObjUsed = pSoldier->GetUsedWeapon(&pSoldier->inv[HANDPOS]);
+		UINT16 usItem = pObjUsed->usItem;
+		if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
+			sAPCost += CalculateTurningCost(pSoldier, usItem, TRUE, ANIM_CROUCH);
+		else
+			sAPCost += CalculateTurningCost(pSoldier, usItem, TRUE);
+	}
+	return sAPCost;
+}
+
 UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddingTurningCost, INT8 bDesiredHeight)//dnl ch72 190913
 {
 	UINT16 usTrueAnimState, usTurningCost = 0;
@@ -2374,8 +2376,6 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 		// Flugente: we need a second item in case we are using an underbarrel weapon. Not all checks should apply for that one, as aiming is still done with the main weapon
 		usUBItem = pSoldier->GetUsedWeaponNumber(&pSoldier->inv[HANDPOS]);
 	}
-	if(Item[usUBItem].usItemClass == IC_PUNCH || Item[usUBItem].usItemClass == IC_BLADE || Item[usUBItem].usItemClass == IC_TENTACLES)//dnl ch73 021013 punch and stub generally use identical logic so put all necessary stuff to MinAPsToPunch
-		return(MinAPsToPunch(pSoldier, sGridNo, ubAddTurningCost));
 
 	OBJECTTYPE* pObjUsed = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
 
@@ -2639,7 +2639,7 @@ INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 bAimTime, 
 	return bAPCost;
 }
 
-INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost)//dnl ch73 290913
+INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
 	INT16 bAPCost = APBPConstants[AP_MIN_AIM_ATTACK];
 
@@ -2670,20 +2670,7 @@ INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubAddTurningCost
 				bAPCost += GetAPsToChangeStance(pSoldier, ANIM_STAND);
 		}
 
-		if( ubAddTurningCost )
-		{
-			// ATE: Use standing turn cost....
-			UINT8 ubDirection = GetDirectionFromGridNo(sGridNo, pSoldier);
 
-			// Is it the same as he's facing?
-			if(ubDirection != pSoldier->ubDirection)
-			{
-				if(gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
-					bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE, ANIM_CROUCH);
-				else
-					bAPCost += CalculateTurningCost(pSoldier, usItem, TRUE);
-			}
-		}
 	}
 
 	return(bAPCost);
@@ -4029,47 +4016,17 @@ INT16 GetBPsToStealItem( SOLDIERTYPE *pSoldier )
 
 INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
-	INT16						sAPCost = 0;
-
-	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
-
-	// If point cost is zero, return 0
-	if ( sAPCost != 0 )
-	{
-		// ADD APS TO PICKUP
-		sAPCost += APBPConstants[AP_TAKE_BLOOD];
-	}
-
-	return sAPCost;
-
+	return GetAPsToChangeStance(pSoldier, ANIM_CROUCH) + APBPConstants[AP_TAKE_BLOOD];
 }
 
 INT16 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
-	INT16	sAPCost = 0;
-
-	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
-
-	// If point cost is zero, return 0
-	if ( sAPCost != 0 )
-	{
-		// ADD APS TO PICKUP
-		sAPCost += APBPConstants[AP_ATTACH_CAN];
-	}
-
-	return sAPCost;
-
+	return GetAPsToChangeStance(pSoldier, ANIM_CROUCH) + APBPConstants[AP_ATTACH_CAN];
 }
 
 INT16 GetAPsToHandcuff( SOLDIERTYPE *pSoldier, INT32 usMapPos )
 {
-	INT16						sAPCost = 0;
-
-	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
-		
-	sAPCost += APBPConstants[AP_HANDCUFF];
-
-	return sAPCost;
+	return GetAPsToChangeStance(pSoldier, ANIM_CROUCH) + APBPConstants[AP_HANDCUFF];
 }
 
 INT16 GetAPsToApplyItem( SOLDIERTYPE *pSoldier, INT32 usMapPos )

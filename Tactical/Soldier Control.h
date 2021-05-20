@@ -1288,6 +1288,7 @@ public:
 	UINT16											usAnimSurface;
 	UINT16											sZLevel;
 
+	INT16												sWalkToAttackMovementMode;//shadooow: stores movement mode used in last pathing
 	INT32												sWalkToAttackGridNo;
 	INT16												sWalkToAttackWalkToCost;
 
@@ -1297,6 +1298,7 @@ public:
 	UINT16											*pForcedShade;
 
 	INT8												bDisplayDamageCount;
+	UINT8												sWalkToAttackEndDirection;//shadooow: stores direction of merc at the destination grid
 	INT16												sDamage;
 	INT16												sDamageX;
 	INT16												sDamageY;

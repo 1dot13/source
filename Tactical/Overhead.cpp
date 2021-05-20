@@ -5665,6 +5665,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
         if ( ( NewOKDestinationAndDirection( pSoldier, sSpot, ubDir, TRUE, pSoldier->pathing.bLevel ) > 0 ) &&
                 ( ( sDistance = PlotPath( pSoldier, sSpot,  NO_COPYROUTE, NO_PLOT, TEMPORARY, (INT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) ) > 0 ) )
         {
+			if (ubDir != gfPlotPathEndDirection) sDistance += 4;//shadooow: small hack to return adjacent GridNo with lowest AP cost
             if (sDistance < sClosest || sClosest == -1)
             {
                 sClosest = sDistance;
@@ -5745,6 +5746,7 @@ INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirect
 			if ((NewOKDestinationAndDirection(pSoldier, sSpot, ubDir, TRUE, pSoldier->pathing.bLevel) > 0) &&
 				((sDistance = PlotPath(pSoldier, sSpot, NO_COPYROUTE, NO_PLOT, TEMPORARY, (INT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints)) > 0))
 			{
+				if (ubDir != gfPlotPathEndDirection) sDistance += 4;//shadooow: small hack to return adjacent GridNo with lowest AP cost
 				if (sDistance < sClosest || sClosest == -1)
 				{
 					sClosest = sDistance;

@@ -2207,7 +2207,7 @@ UINT8 HandleRemoteCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivat
 UINT8 HandleCameraCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivated, UINT32 uiCursorFlags )
 {
 	// DRAW PATH TO GUY
-	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_HANDCUFF );
+	HandleUIMovementCursor( pSoldier, uiCursorFlags, sGridNo, MOVEUI_TARGET_CAMERA );
 
 	// do we have handcuffs in our hand?
 	if ( HasItemFlag( ( &( pSoldier->inv[HANDPOS] ) )->usItem, CAMERA ) && SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, gsInterfaceLevel, 0, TRUE, CALC_FROM_WANTED_DIR, TRUE ) )

@@ -2991,6 +2991,7 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 				if ( ( pTSoldier->bTeam == gbPlayerNum || pTSoldier->bTeam == MILITIA_TEAM ) 
 					&& Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass != IC_MEDKIT 
 					&& !Item[pSoldier->inv[ HANDPOS ].usItem].gascan
+					&& !Item[pSoldier->inv[HANDPOS].usItem].toolkit
 					&& !ItemCanBeAppliedToOthers( pSoldier->inv[ HANDPOS ].usItem )
 					&& gTacticalStatus.ubLastRequesterTargetID != pTSoldier->ubProfile 
 					&& ( pTSoldier->ubID != pSoldier->ubID ) )
@@ -4304,10 +4305,12 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 		{
 			sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 		}
+
+		//sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 	}
 	else if ( uiFlags == MOVEUI_TARGET_WIREFENCE )
 	{
-		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
 			sAPCost = 0;
@@ -4323,11 +4326,13 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 				gfUIHandleShowMoveGrid = TRUE;
 				gsUIHandleShowMoveGridLocation = sActionGridNo;
 			}
+
+			sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 		}
 	}
 	else if ( uiFlags == MOVEUI_TARGET_JAR )
 	{
-		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
 			sActionGridNo = usMapPos;
@@ -4342,6 +4347,8 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gfUIHandleShowMoveGrid = TRUE;
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
+
+		sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 	}
 	else if ( uiFlags == MOVEUI_TARGET_CAN )
 	{
@@ -4354,7 +4361,8 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			sActionGridNo =	FindAdjacentGridEx( pSoldier, sIntTileGridNo, &ubDirection, NULL, FALSE, TRUE );
 			if ( sActionGridNo != -1 )
 			{
-				sAPCost = APBPConstants[AP_ATTACH_CAN];
+				sAPCost = GetAPsToUseCan(pSoldier, sActionGridNo);
+
 				sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
 				if ( sActionGridNo != pSoldier->sGridNo )
@@ -4362,6 +4370,8 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 					gfUIHandleShowMoveGrid = TRUE;
 					gsUIHandleShowMoveGridLocation = sActionGridNo;
 				}
+
+				sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 			}
 		}
 		else
@@ -4373,7 +4383,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 	else if ( uiFlags == MOVEUI_TARGET_REPAIR )
 	{
 		// For repair, check if we are over a vehicle, then get gridnot to edge of that vehicle!
-		if ( IsRepairableStructAtGridNo( usMapPos, &ubMercID ) == 2 )
+		if ( IsRepairableStructAtGridNo( usMapPos, &ubMercID ) == 2)
 		{
 			INT32 sNewGridNo;
 			UINT8	ubDirection;
@@ -4386,7 +4396,8 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			}
 		}
 
-		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		//shadooow: we need better function for this, it has odd results with vehicles as they occupy 6 tiles now
+		sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
 		if ( sActionGridNo == -1 )
 		{
 			sActionGridNo = usMapPos;
@@ -4401,11 +4412,14 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gfUIHandleShowMoveGrid = TRUE;
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
+
+		//shadooow: this action is a total mess and needs to look at closely before adding turning cost into action cost prediction
+		//sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 	}
 	else if ( uiFlags == MOVEUI_TARGET_REFUEL )
 	{
 		// For repair, check if we are over a vehicle, then get gridnot to edge of that vehicle!
-		if ( IsRefuelableStructAtGridNo( usMapPos, &ubMercID ) == 2 )
+		if ( IsRefuelableStructAtGridNo( usMapPos, &ubMercID ) )
 		{
 			INT32 sNewGridNo;
 			UINT8	ubDirection;
@@ -4418,7 +4432,8 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			}
 		}
 
-		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		//shadooow: we need better function for this, it has odd results with vehicles as they occupy 6 tiles now
+		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
 			sActionGridNo = usMapPos;
@@ -4433,10 +4448,13 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gfUIHandleShowMoveGrid = TRUE;
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
+		
+		//shadooow: this action is a total mess and needs to look at closely before adding turning cost into action cost prediction
+		//sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 	}
 	else if ( uiFlags == MOVEUI_TARGET_FORTIFICATION )
 	{
-		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, FALSE, FALSE );
 		if ( sActionGridNo == -1 )
 		{
 			sActionGridNo = usMapPos;
@@ -4450,46 +4468,67 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gfUIHandleShowMoveGrid = TRUE;
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
+
+		sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 	}
 	else if ( uiFlags == MOVEUI_TARGET_HANDCUFF )
 	{
-		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
-		if ( sActionGridNo == -1 )
+		sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+
+		if (!TileIsOutOfBounds(sActionGridNo))
 		{
-			sActionGridNo = usMapPos;
+			sAPCost = GetAPsToHandcuff(pSoldier, sAdjustedGridNo);
+
+			if (sActionGridNo != pSoldier->sGridNo)
+			{
+				sAPCost += UIPlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+				gfUIHandleShowMoveGrid = TRUE;
+				gsUIHandleShowMoveGridLocation = sActionGridNo;
+			}
+			
+			sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, usMapPos, gfPlotPathEndDirection);
 		}
+	}
+	else if (uiFlags == MOVEUI_TARGET_CAMERA)
+	{
+		sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
 
-		sAPCost = GetAPsToHandcuff( pSoldier, sActionGridNo );
-
-		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
-
-		if ( sActionGridNo != pSoldier->sGridNo )
+		if (!TileIsOutOfBounds(sActionGridNo))
 		{
-			gfUIHandleShowMoveGrid = TRUE;
-			gsUIHandleShowMoveGridLocation = sActionGridNo;
+			sAPCost = APBPConstants[AP_CAMERA];
+
+			if (sActionGridNo != pSoldier->sGridNo)
+			{
+				sAPCost += UIPlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+				gfUIHandleShowMoveGrid = TRUE;
+				gsUIHandleShowMoveGridLocation = sActionGridNo;
+			}
+
+			sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 		}
 	}
 	else if ( uiFlags == MOVEUI_TARGET_APPLYITEM )
 	{
-		sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
-		if ( sActionGridNo == -1 )
+		sActionGridNo = FindAdjacentGridEx(pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE);
+
+		if (!TileIsOutOfBounds(sActionGridNo))
 		{
-			sActionGridNo = usMapPos;
-		}
+			sAPCost = GetAPsToApplyItem(pSoldier, sActionGridNo);
 
-		sAPCost = GetAPsToApplyItem( pSoldier, sActionGridNo );
+			sAPCost += UIPlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
-		sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+			if (sActionGridNo != pSoldier->sGridNo)
+			{
+				gfUIHandleShowMoveGrid = TRUE;
+				gsUIHandleShowMoveGridLocation = sActionGridNo;
+			}
 
-		if ( sActionGridNo != pSoldier->sGridNo )
-		{
-			gfUIHandleShowMoveGrid = TRUE;
-			gsUIHandleShowMoveGridLocation = sActionGridNo;
+			sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, usMapPos, gfPlotPathEndDirection);
 		}
 	}
 	else if ( uiFlags == MOVEUI_TARGET_INTERACTIVEACTION )
 	{
-		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, FALSE, TRUE );
 		if ( sActionGridNo == -1 )
 		{
 			sActionGridNo = usMapPos;
@@ -4506,6 +4545,9 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gfUIHandleShowMoveGrid = TRUE;
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
+
+		//shadooow: merc doesn't turn during this action right now, but once that change uncomment line below
+		//sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 	}
 	else if ( uiFlags == MOVEUI_TARGET_MERCS )
 	{
@@ -4544,7 +4586,9 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 				gfUIHandleShowMoveGrid = TRUE;
 				gsUIHandleShowMoveGridLocation = sActionGridNo;
 			}
-			sAPCost += MinAPsToAttack(pSoldier, sAdjustedGridNo, TRUE, pSoldier->aiData.bShownAimTime, 0);
+			sAPCost += MinAPsToPunch(pSoldier, sAdjustedGridNo);
+
+			sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 		}
 	}
 	else if ( uiFlags == MOVEUI_TARGET_STEAL )
@@ -4586,6 +4630,8 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 				gfUIHandleShowMoveGrid = TRUE;
 				gsUIHandleShowMoveGridLocation = sActionGridNo;
 			}
+
+			sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 		}
 	}
 	else if ( uiFlags == MOVEUI_TARGET_BOMB )
@@ -4605,22 +4651,18 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 		{
 			sActionGridNo =	FindAdjacentGridEx( pSoldier, MercPtrs[ gusUIFullTargetID ]->sGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
-			// Try again at another gridno...
-			if ( sActionGridNo == -1 )
+			if (!TileIsOutOfBounds(sActionGridNo))
 			{
-				sActionGridNo =  FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );
 
-				if ( sActionGridNo == -1 )
+				sAPCost += GetAPsToBeginFirstAid(pSoldier);
+				sAPCost += UIPlotPath(pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
+				if (sActionGridNo != pSoldier->sGridNo)
 				{
-					sActionGridNo = sAdjustedGridNo;
+					gfUIHandleShowMoveGrid = TRUE;
+					gsUIHandleShowMoveGridLocation = sActionGridNo;
 				}
-			}
-			sAPCost += GetAPsToBeginFirstAid( pSoldier );
-			sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
-			if ( sActionGridNo != pSoldier->sGridNo )
-			{
-				gfUIHandleShowMoveGrid = TRUE;
-				gsUIHandleShowMoveGridLocation = sActionGridNo;
+
+				sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 			}
 		}
 	}
@@ -4656,7 +4698,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 	}
 	else if ( uiFlags == MOVEUI_TARGET_BLOODBAG )
 	{
-		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, NULL, FALSE, TRUE );
+		sActionGridNo = FindAdjacentGridEx( pSoldier, usMapPos, &ubDirection, &sAdjustedGridNo, FALSE, TRUE );
 		if ( sActionGridNo == -1 )
 		{
 			sActionGridNo = usMapPos;
@@ -4671,6 +4713,8 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT32 usMapPos, UINT32 uiFlags )
 			gfUIHandleShowMoveGrid = TRUE;
 			gsUIHandleShowMoveGridLocation = sActionGridNo;
 		}
+
+		sAPCost += CalculateActionTurningCost(pSoldier, sActionGridNo, sAdjustedGridNo, gfPlotPathEndDirection);
 	}
 	else
 	{
