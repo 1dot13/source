@@ -2884,6 +2884,26 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
         return( FALSE );
     }
 
+	if (pSoldier->pathing.bLevel == 0 && pSoldier->aiData.ubPendingAction != MERC_PICKUPITEM && (pSoldier->bOverTerrainType == FLAT_FLOOR || pSoldier->bOverTerrainType == PAVED_ROAD))
+	{
+		INT32 iMarblesIndex;
+		if (MarblesExistAtLocation(pSoldier->sGridNo, 0, &iMarblesIndex))
+		{
+			// Slip on marbles!
+			pSoldier->DoMercBattleSound(BATTLE_SOUND_CURSE1);
+			if (pSoldier->bTeam == gbPlayerNum)
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[STR_SLIPPED_MARBLES], pSoldier->name);
+			}
+			RemoveItemFromPool(pSoldier->sGridNo, iMarblesIndex, 0);
+			SoldierCollapse(pSoldier);
+			if (pSoldier->bActionPoints > 0)
+			{
+				pSoldier->bActionPoints -= (INT8)(Random(pSoldier->bActionPoints) + 1);
+			}
+			return(FALSE);
+		}
+	}
 
     // Set "interrupt occurred" flag to false so that we will know whether *this
     // particular call* to HandleSight caused an interrupt
