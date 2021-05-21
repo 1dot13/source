@@ -479,15 +479,13 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 						}
 
 						// CHECK IF WE CLICKED-HELD
-						if ( COUNTERDONE( LMOUSECLICK_DELAY_COUNTER ) && gpItemPointer != NULL )
+						if ( COUNTERDONE( LMOUSECLICK_DELAY_COUNTER ) )
 						{
 							// LEFT CLICK-HOLD EVENT
 							// Switch on UI mode
 							switch( gCurrentUIMode )
 							{
 							case CONFIRM_ACTION_MODE:
-							case ACTION_MODE:
-
 								if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
 								{
 									if ( pSoldier->bDoBurst )
@@ -634,6 +632,11 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 													//		{
 													//	*puiNewEvent = CA_MERC_SHOOT;
 													//		}
+													if (GetSoldier(&pSoldier, gusSelectedSoldier))
+													{
+														//shadooow: this fixes merc randomly shooting in different direction than assigned
+														pSoldier->flags.fDoSpread = 0;
+													}
 													*puiNewEvent = CA_MERC_SHOOT;
 													//	}
 													//}
