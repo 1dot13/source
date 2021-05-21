@@ -23735,11 +23735,14 @@ void SOLDIERTYPE::HandleSoldierTakeDamageFeedback( void )
 			this->DoMercBattleSound( BATTLE_SOUND_HIT1 );
 		}
 	}
-
-	// Flash portrait....
-	this->flags.fFlashPortrait = TRUE;
-	this->bFlashPortraitFrame = FLASH_PORTRAIT_STARTSHADE;
-	RESETTIMECOUNTER( this->timeCounters.PortraitFlashCounter, FLASH_PORTRAIT_DELAY );
+	// shadooow: Do this ONLY if buddy is in sector.....
+	if ((this->bInSector && guiCurrentScreen == GAME_SCREEN) || guiCurrentScreen != GAME_SCREEN)
+	{
+		// Flash portrait....
+		this->flags.fFlashPortrait = TRUE;
+		this->bFlashPortraitFrame = FLASH_PORTRAIT_STARTSHADE;
+		RESETTIMECOUNTER(this->timeCounters.PortraitFlashCounter, FLASH_PORTRAIT_DELAY);
+	}
 }
 
 
