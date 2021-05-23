@@ -80,6 +80,12 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 	//if the soldier HAS a profile
 	if( pSoldier->ubProfile != NO_PROFILE )
 	{
+		//shadooow: moved here so the "merc is dead" message appears before "history log changed" which is what happens in tactical
+		if (guiCurrentScreen != GAME_SCREEN || !pSoldier->bInSector)
+		{
+			ScreenMsg(FONT_RED, MSG_INTERFACE, pMercDeadString[0], pSoldier->name);
+		}
+
 		//add to the history log the fact that the merc died and the circumstances
 		if( pSoldier->ubAttackerID != NOBODY )
 		{
@@ -107,11 +113,6 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 		{
 			AddHistoryToPlayersLog( HISTORY_MERC_KILLED, pSoldier->ubProfile, GetWorldTotalMin(), sSectorX, sSectorY );
 		}
-	}
-
-	if ( guiCurrentScreen != GAME_SCREEN )
-	{
-		ScreenMsg( FONT_RED, MSG_INTERFACE, pMercDeadString[ 0 ], pSoldier->name );
 	}
 
 	// robot and EPCs don't count against death rate - the mercs back home don't particularly give a damn about locals & machines!

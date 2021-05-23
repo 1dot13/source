@@ -46,7 +46,7 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 	}
 
 	// if not in mapscreen
-	if ( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
+	if ( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) && pSoldier->bInSector)
 	{
 		// ATE; At least make them dead!
 		if( ( pSoldier->bAssignment != ASSIGNMENT_DEAD ) )
