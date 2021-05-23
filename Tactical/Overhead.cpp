@@ -3976,7 +3976,10 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
                 EndQuest( QUEST_KILL_DEIDRANNA, pSoldierOld->sSectorX, pSoldierOld->sSectorY );
                 break;
 
-
+			case SKYRIDER:
+				//shadooow: disables helicopter use if skyrider dies
+				fSkyRiderAvailable = FALSE;
+				break;
         }
 #endif
 

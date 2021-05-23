@@ -445,7 +445,7 @@ BOOLEAN IsThisVehicleAccessibleToSoldier( SOLDIERTYPE *pSoldier, INT32 iId )
 	}
 
 	// now check if vehicle is valid
-	if( pVehicleList[ iId ].fValid == FALSE )
+	if( pVehicleList[ iId ].fValid == FALSE || pVehicleList[iId].fDestroyed == TRUE)
 	{
 		return( FALSE );
 	}
