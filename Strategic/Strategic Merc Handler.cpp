@@ -115,8 +115,8 @@ void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	// robot and EPCs don't count against death rate - the mercs back home don't particularly give a damn about locals & machines!
-	if ( !AM_AN_EPC( pSoldier ) && !AM_A_ROBOT( pSoldier ) )
+	// robot, vehicles and EPCs don't count against death rate - the mercs back home don't particularly give a damn about locals & machines!
+	if ( !AM_AN_EPC( pSoldier ) && !AM_A_ROBOT( pSoldier ) && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 	{
 		// keep track of how many mercs have died under player's command (for death rate, can't wait until removed from team)
 		gStrategicStatus.ubMercDeaths++;
