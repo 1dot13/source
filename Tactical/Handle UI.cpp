@@ -1569,7 +1569,7 @@ UINT32 UIHandleSelectMerc( UI_EVENT *pUIEvent )
 		if ( CurrentSquad( ) != iCurrentSquad )
 		{
 			if ( gGameExternalOptions.fUseXMLSquadNames && CurrentSquad( ) + 1 < min( ON_DUTY, gSquadNameVector.size() ) )
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], gSquadNameVector[CurrentSquad() + 1].c_str() );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ACTIVE_STRING], gSquadNameVector[CurrentSquad()].c_str() );
 			else
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
 		}
