@@ -86,7 +86,12 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 		HandleSoldierDeadComments( pSoldier );
 
 		// put the dead guys down
-		AddDeadSoldierToUnLoadedSector( ( UINT8 ) ( pSoldier->sSectorX ), ( UINT8 )( pSoldier->sSectorY ), pSoldier->bSectorZ, pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
+		INT32 sGridNo = pSoldier->sInsertionGridNo;
+		if (pSoldier->flags.fBetweenSectors || TileIsOutOfBounds(sGridNo))
+		{
+			sGridNo = RandomGridNo();
+		}
+		AddDeadSoldierToUnLoadedSector( ( UINT8 ) ( pSoldier->sSectorX ), ( UINT8 )( pSoldier->sSectorY ), pSoldier->bSectorZ, pSoldier, sGridNo, ADD_DEAD_SOLDIER_TO_SWEETSPOT );
 
 		fTeamPanelDirty = TRUE;
 		fMapPanelDirty = TRUE;
