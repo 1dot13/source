@@ -451,7 +451,7 @@ void ItemDescTransformRegionCallback( MOUSE_REGION *pRegion, INT32 reason );
 // the done descrition button callback
 void ItemDescDoneButtonCallback( GUI_BUTTON *btn, INT32 reason );
 
-
+extern INT32 iLastHandPos;
 extern BOOLEAN fMapInventoryItem;
 BOOLEAN	gfItemPopupRegionCallbackEndFix = FALSE;
 extern void InternalMAPBeginItemPointer( SOLDIERTYPE *pSoldier );
@@ -2746,6 +2746,19 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 			if ( CanItemFitInPosition( pSoldier, gpItemPointer, (INT8)sPocket, FALSE ) )
 			{
 				fHatchItOut = FALSE;
+				if (UsingInventoryCostsAPSystem() && (gTacticalStatus.uiFlags & INCOMBAT) && pSoldier->bInSector)
+				{
+					//Jenilee: determine the cost of moving this item around in our inventory
+					UINT16 usCostToMoveItem = GetInvMovementCost(gpItemPointer, iLastHandPos, sPocket);
+					// Flugente: backgrounds
+					usCostToMoveItem = (usCostToMoveItem * (100 + pSoldier->GetBackgroundValue(BG_INVENTORY))) / 100;
+
+					//we dont have enough APs to move it to this slot
+					if (usCostToMoveItem > 0 && pSoldier->bActionPoints < usCostToMoveItem && pSoldier->inv[iLastHandPos].usItem == NULL)
+					{
+						fHatchItOut = 2;
+					}
+				}
 			}
 			// Flugente: we call this function a lot, so only call if necessary 
 			else if ( !fHatchItOut && (
@@ -2778,8 +2791,18 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 
 	if ( fHatchItOut )
 	{
-		UINT32 uiWhichBuffer = ( guiCurrentItemDescriptionScreen == MAP_SCREEN ) ? guiSAVEBUFFER : guiRENDERBUFFER;
-		DrawHatchOnInventory( uiWhichBuffer, sX, sY, (UINT16)(gSMInvData[ sPocket ].sWidth-1), (UINT16)(gSMInvData[ sPocket ].sHeight-1) );
+		//shadooow: hatch all pockets that we cannot put item into due to insufficient action points with red
+		if (fHatchItOut == 2)
+		{
+			UINT16 usColor = Get16BPPColor(FROMRGB(150, 0, 50));
+			UINT32 uiWhichBuffer = (guiCurrentItemDescriptionScreen == MAP_SCREEN) ? guiSAVEBUFFER : guiRENDERBUFFER;
+			DrawHatchOnInventory_MilitiaAccess(uiWhichBuffer, sX, sY, (UINT16)(gSMInvData[sPocket].sWidth - 1), (UINT16)(gSMInvData[sPocket].sHeight - 1), usColor);
+		}
+		else
+		{
+			UINT32 uiWhichBuffer = (guiCurrentItemDescriptionScreen == MAP_SCREEN) ? guiSAVEBUFFER : guiRENDERBUFFER;
+			DrawHatchOnInventory(uiWhichBuffer, sX, sY, (UINT16)(gSMInvData[sPocket].sWidth - 1), (UINT16)(gSMInvData[sPocket].sHeight - 1));
+		}
 	}
 	// Flugente: if we are currently trading, hatch all items that the trade won't accept anyway in red. That way the player doesn't have to manually find out
 	else if ( (guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE) && pObject->exists( ) && DoesCurrentDealerRefuseToTradeItem( pObject->usItem ) )
