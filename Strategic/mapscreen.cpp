@@ -585,7 +585,7 @@ extern UINT8 gubHandPos;
 extern UINT16 gusOldItemIndex;
 extern UINT16 gusNewItemIndex;
 extern BOOLEAN gfDeductPoints;
-INT32 iLastHandPosMapScreen = -1;
+extern INT32 iLastHandPos;
 
 extern void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
 extern void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
@@ -9708,7 +9708,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 			// remember what it was
 			usOldItemIndex = pSoldier->inv[ uiHandPos ].usItem;
-			iLastHandPosMapScreen = uiHandPos;
+			iLastHandPos = uiHandPos;
 
 			// pick it up
 			MAPBeginItemPointer( pSoldier, (UINT8)uiHandPos );
@@ -9735,12 +9735,12 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 					return;
 
 				//Jenilee: determine the cost of moving this item around in our inventory
-				usCostToMoveItem = GetInvMovementCost(gpItemPointer, iLastHandPosMapScreen, uiHandPos);
+				usCostToMoveItem = GetInvMovementCost(gpItemPointer, iLastHandPos, uiHandPos);
 				// Flugente: backgrounds
 				usCostToMoveItem = (usCostToMoveItem * (100 + pSoldier->GetBackgroundValue(BG_INVENTORY))) / 100;
 
 				//we dont have enough APs to move it to this slot, show a warning message
-				if (usCostToMoveItem > 0 && pSoldier->bActionPoints < usCostToMoveItem && pSoldier->inv[iLastHandPosMapScreen].usItem == NULL)
+				if (usCostToMoveItem > 0 && pSoldier->bActionPoints < usCostToMoveItem && pSoldier->inv[iLastHandPos].usItem == NULL)
 				{
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[NOT_ENOUGH_APS_STR]);
 					return;
@@ -9877,7 +9877,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			// Else, try to place here
 			if (PlaceObject(pSoldier, (UINT8)uiHandPos, gpItemPointer))
 			{
-				iLastHandPosMapScreen = uiHandPos;
+				iLastHandPos = uiHandPos;
 				pSoldier->bActionPoints -= usCostToMoveItem;
 				HandleTacticalEffectsOfEquipmentChange(pSoldier, uiHandPos, usOldItemIndex, usNewItemIndex);
 
