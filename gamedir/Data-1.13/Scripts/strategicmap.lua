@@ -1135,8 +1135,12 @@ function GetIntelAndQuestMapData( aLevel )
 			SetIntelAndQuestMapDataForSector(15, 10, -1, MapSymbols.QUESTIONMARK_BLUE, "Destroy bloodcat nest", "")
 			
 		end
-		
-		if ( gubQuest( Quests.QUEST_CHOPPER_PILOT ) == qStatus.QUESTINPROGRESS ) then
+    
+    if ( gubQuest( Quests.QUEST_ESCORT_SKYRIDER ) == qStatus.QUESTINPROGRESS ) then
+			
+			SetIntelAndQuestMapDataForSector(13, 2, -1, MapSymbols.HELI, "Escort Skyrider here", "")
+					
+		elseif ( gubQuest( Quests.QUEST_ESCORT_SKYRIDER ) == qStatus.QUESTNOTSTARTED and gubQuest( Quests.QUEST_CHOPPER_PILOT ) == qStatus.QUESTINPROGRESS ) then
 			
 			-- list all possible sectors where Skyrider might hide
 			SetIntelAndQuestMapDataForSector(15, 2, -1, MapSymbols.QUESTIONMARK_BLUE, "Find chopper pilot", "")
@@ -1146,11 +1150,7 @@ function GetIntelAndQuestMapData( aLevel )
 			
 		end
 		
-		if ( gubQuest( Quests.QUEST_ESCORT_SKYRIDER ) == qStatus.QUESTINPROGRESS ) then
-			
-			SetIntelAndQuestMapDataForSector(13, 2, -1, MapSymbols.HELI, "Escort Skyrider here", "")
-			
-		end
+
 		
 		if ( gubQuest( Quests.QUEST_FREE_DYNAMO ) == qStatus.QUESTINPROGRESS ) then
 			
