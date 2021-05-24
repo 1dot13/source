@@ -6689,6 +6689,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		UpdateRefuelSiteAvailability();
 	}
 
+	HandleHelicopterOnGroundGraphic();
+
 	if( guiCurrentSaveGameVersion < 91 )
 	{
 		//update the amount of money that has been paid to speck
