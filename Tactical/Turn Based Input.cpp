@@ -2824,7 +2824,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				{
 					HandleTacticalStoreInvItem( );
 				}
-				else
+				else if(!AreInMeanwhile())
 				// Switch panels...
 				{
 					ToggleTacticalPanels();
