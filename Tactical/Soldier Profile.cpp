@@ -648,20 +648,8 @@ BOOLEAN LoadMercProfiles(void)
 		// WANNE: For the new WF merc, there is no entry in prof.dat, so we have to reset some flags manually!		
 		if (uiLoop >= 170)
 		{
-			gMercProfiles[uiLoop].ubMiscFlags = 0;
-			gMercProfiles[uiLoop].ubMiscFlags2 = 0;
-			gMercProfiles[uiLoop].ubMiscFlags3 = 0;
-
-			gMercProfiles[uiLoop].uiTotalCostToDate = 0;
-			gMercProfiles[uiLoop].iMercMercContractLength = 0;
-
-			gMercProfiles[uiLoop].usBackground = 0;
-			gMercProfiles[uiLoop].Type = PROFILETYPE_NONE;
-
-			memset( &gMercProfiles[uiLoop].usDynamicOpinionFlagmask, 0, sizeof(gMercProfiles[uiLoop].usDynamicOpinionFlagmask) );
-
-			memset( &gMercProfiles[uiLoop].sDynamicOpinionLongTerm, 0, sizeof(gMercProfiles[uiLoop].sDynamicOpinionLongTerm) );
-
+			gMercProfiles[uiLoop].initialize();
+			
 			// Flugente: as this data is not in the xml, we set dummy values
 			if ( gMercProfiles[uiLoop].ubApproachVal[0] == 0 &&
 				gMercProfiles[uiLoop].ubApproachVal[1] == 0 &&
