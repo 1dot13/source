@@ -1545,7 +1545,7 @@ UINT32	MessageBoxScreenHandle( )
 		{
 			if( ( InputEvent.usParam == ESC ) || ( InputEvent.usParam == 'n') )
 			{
-				if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO )
+				if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO || gMsgBox.usFlags & MSG_BOX_FLAG_OKSKIP)
 				{
 						// Exit messagebox
 						gMsgBox.bHandled = MSG_BOX_RETURN_NO;
@@ -1571,7 +1571,7 @@ UINT32	MessageBoxScreenHandle( )
 					// Exit messagebox
 					gMsgBox.bHandled = MSG_BOX_RETURN_YES;
 				}
-				else if( gMsgBox.usFlags & MSG_BOX_FLAG_OK )
+				else if( gMsgBox.usFlags & MSG_BOX_FLAG_OK || gMsgBox.usFlags & MSG_BOX_FLAG_OKSKIP)
 				{
 					// Exit messagebox
 					gMsgBox.bHandled = MSG_BOX_RETURN_OK;
@@ -1593,7 +1593,7 @@ UINT32	MessageBoxScreenHandle( )
 
 			if( InputEvent.usParam == 'o' )
 			{
-				if( gMsgBox.usFlags & MSG_BOX_FLAG_OK )
+				if( gMsgBox.usFlags & MSG_BOX_FLAG_OK || gMsgBox.usFlags & MSG_BOX_FLAG_OKSKIP)
 				{
 					// Exit messagebox
 					gMsgBox.bHandled = MSG_BOX_RETURN_OK;
