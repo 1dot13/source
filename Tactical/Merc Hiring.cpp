@@ -11,7 +11,7 @@
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "Assignments.h"
-
+	#include "merc entering.h"
 	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "Isometric Utils.h"
@@ -513,6 +513,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 		#endif
 		{
 			gfTacticalDoHeliRun = TRUE;
+			SetHelicopterDroppoint(gGameExternalOptions.iInitialMercArrivalLocation);
 
 			// OK, If we are in mapscreen, get out...
 			if ( guiCurrentScreen == MAP_SCREEN )
