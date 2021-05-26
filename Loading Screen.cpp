@@ -432,11 +432,18 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 		
 		if ( !FileExists(vs_desc.ImageFile) )
 		{
-			std::string strImage("LOADSCREENS\\");
-			
-			BuildLoadscreenFilename(strImage, LoadScreenNames[1], 0, imageFormat.c_str());
+			std::string strImage;
+			BuildLoadscreenFilename(strImage, imagePath.c_str(), 0, "png");
+			strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile) - 1);
 
-			strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile)-1);		
+			if (!FileExists(vs_desc.ImageFile))
+			{
+				std::string strImage("LOADSCREENS\\");
+
+				BuildLoadscreenFilename(strImage, LoadScreenNames[1], 0, imageFormat.c_str());
+
+				strImage.copy(vs_desc.ImageFile, sizeof(vs_desc.ImageFile) - 1);
+			}
 		}
 	}
 	else
