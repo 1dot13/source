@@ -1018,6 +1018,11 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 	// if the merc is not dead
 	if( gMercProfiles[ pSoldier->ubProfile ].bMercStatus != MERC_IS_DEAD )
 	{
+		//shadooow: this allows RPCs to re-appear in the areas we recruited them initially after being fired
+		if (pSoldier->ubProfile != SLAY || gGameExternalOptions.fEnableSlayForever)
+		{			
+			gMercProfiles[pSoldier->ubProfile].ubMiscFlags &= (~PROFILE_MISC_FLAG_RECRUITED);
+		}
 		//Set the status to returning home ( delay the merc for rehire )
 		gMercProfiles[ pSoldier->ubProfile ].bMercStatus = MERC_RETURNING_HOME;
 

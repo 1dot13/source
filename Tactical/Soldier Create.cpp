@@ -60,6 +60,8 @@
 
 #include "GameInitOptionsScreen.h"
 
+extern INT32 GetTheStateOfDepartedMerc(INT32 iId);
+
 // THESE 3 DIFFICULTY FACTORS MUST ALWAYS ADD UP TO 100% EXACTLY!!!
 #define DIFF_FACTOR_PLAYER_PROGRESS			50
 #define DIFF_FACTOR_PALACE_DISTANCE			30
@@ -750,7 +752,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		}
 
 		// Copy the items over for the soldier, only if we have a valid profile id!
-		if ( pCreateStruct->ubProfile != NO_PROFILE )
+		if ( pCreateStruct->ubProfile != NO_PROFILE && (gMercProfiles[pCreateStruct->ubProfile].Type != PROFILETYPE_RPC || GetTheStateOfDepartedMerc(pCreateStruct->ubProfile) == -1))
 		{
 			CopyProfileItems( &Soldier, pCreateStruct );
 			//CHRISL: make sure nails gets his jacket no matter what

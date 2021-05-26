@@ -2649,6 +2649,8 @@ void AddProfilesUsingProfileInsertionData()
 		if( gMercProfiles[ i ].sSectorX != gWorldSectorX ||
 			gMercProfiles[ i ].sSectorY != gWorldSectorY ||
 			gMercProfiles[ i ].bSectorZ != gbWorldSectorZ ||
+			gMercProfiles[ i ].bMercStatus == MERC_RETURNING_HOME ||
+			gMercProfiles[ i ].bMercStatus == MERC_FIRED_AS_A_POW ||
 			gMercProfiles[ i ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED ||
 			gMercProfiles[ i ].ubMiscFlags & PROFILE_MISC_FLAG_EPCACTIVE ||
 //			gMercProfiles[ i ].ubMiscFlags2 & PROFILE_MISC_FLAG2_DONT_ADD_TO_SECTOR ||
