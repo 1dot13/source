@@ -2484,28 +2484,6 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
             if ( !fDontContinue )
             {
 
-                if ( (pSoldier->bOverTerrainType == FLAT_FLOOR || pSoldier->bOverTerrainType == PAVED_ROAD) && pSoldier->pathing.bLevel == 0 )
-                {
-                    INT32   iMarblesIndex;
-
-                    if ( MarblesExistAtLocation( pSoldier->sGridNo, 0, &iMarblesIndex ) )
-                    {
-                        // Slip on marbles!
-                        pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
-                        if ( pSoldier->bTeam == gbPlayerNum )
-                        {
-                            ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, Message[ STR_SLIPPED_MARBLES ], pSoldier->name );
-                        }
-                        RemoveItemFromPool( pSoldier->sGridNo, iMarblesIndex, 0 );
-                        SoldierCollapse( pSoldier );
-                        if (pSoldier->bActionPoints > 0)
-                        {
-                            pSoldier->bActionPoints -= (INT8) (Random( pSoldier->bActionPoints ) + 1);
-                        }
-                        return( FALSE );
-                    }
-                }
-
                 if ( (pSoldier->bBlindedCounter > 0) && (pSoldier->usAnimState == RUNNING) && (Random( 5 ) == 0) &&
                         OKFallDirection( pSoldier, (pSoldier->sGridNo + DirectionInc( pSoldier->ubDirection ) ), pSoldier->pathing.bLevel, pSoldier->ubDirection, pSoldier->usAnimState ) )
                 {
