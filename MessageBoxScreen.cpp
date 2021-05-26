@@ -1547,8 +1547,13 @@ UINT32	MessageBoxScreenHandle( )
 			{
 				if ( gMsgBox.usFlags & MSG_BOX_FLAG_YESNO || gMsgBox.usFlags & MSG_BOX_FLAG_OKSKIP)
 				{
-						// Exit messagebox
-						gMsgBox.bHandled = MSG_BOX_RETURN_NO;
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_NO;
+				}
+				else if (gMsgBox.usFlags & MSG_BOX_FLAG_OK)
+				{
+					// Exit messagebox
+					gMsgBox.bHandled = MSG_BOX_RETURN_OK;
 				}
 				//OJW - 20090208 - Input Box
 				else if( gMsgBox.usFlags & MSG_BOX_FLAG_INPUTBOX )
