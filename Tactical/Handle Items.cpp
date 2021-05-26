@@ -1638,7 +1638,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bLevel, UINT16 usHa
 					}
 					else
 					{
-						pSoldier->EVENT_SoldierBeginTakeBlood( sGridNo, ubDirection );
+						pSoldier->EVENT_SoldierBeginAttachCan( sGridNo, ubDirection );
 					}
 
 					// OK, set UI
