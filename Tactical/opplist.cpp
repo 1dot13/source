@@ -5517,32 +5517,83 @@ UINT8 MovementNoise(SOLDIERTYPE *pSoldier)
 
 UINT8 DoorOpeningNoise( SOLDIERTYPE *pSoldier )
 {
-	INT32 sGridNo;
-	DOOR_STATUS	*		pDoorStatus;
-	UINT8						ubDoorNoise;
-
 	// door being opened gridno is always the pending-action-data2 value
-	sGridNo					= pSoldier->aiData.sPendingActionData2;
-	pDoorStatus = GetDoorStatus( sGridNo );
+	INT32 sGridNo = pSoldier->aiData.sPendingActionData2;
+	DOOR_STATUS	*pDoorStatus = GetDoorStatus( sGridNo );
+	UINT8 ubDoorNoise = 0;
 
-	if ( pDoorStatus && pDoorStatus->ubFlags & DOOR_HAS_TIN_CAN )
+	// Find the base tile for the door structure and use that gridno
+	STRUCTURE *pStructure = FindStructure(sGridNo, STRUCTURE_ANYDOOR);
+	if (pStructure)
 	{
-		// double noise possible!
-		ubDoorNoise = DOOR_NOISE_VOLUME * 3;
-	}
-	else
-	{
-		ubDoorNoise = DOOR_NOISE_VOLUME;
+		ubDoorNoise = 8;//shadooow: this indicates at how many tiles can be the noise heard (was 2 originally)
+		// OK, check if this door is sliding and is multi-tiled...
+		if (pStructure->fFlags & STRUCTURE_SLIDINGDOOR)
+		{
+			// Get database value...
+			if (pStructure->pDBStructureRef->pDBStructure->ubNumberOfTiles > 1)
+			{
+				// garage doors
+				ubDoorNoise += 4;
+			}
+			else if (pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_CLOTH)
+			{
+				// curtains
+				ubDoorNoise -= 4;
+			}
+		}
+		else if (pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_LIGHT_METAL ||
+			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_THICKER_METAL ||
+			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_HEAVY_METAL)
+		{
+			// metal doors
+			ubDoorNoise += 2;
+		}
+
+		if (pDoorStatus && pDoorStatus->ubFlags & DOOR_HAS_TIN_CAN)
+		{
+			//shadooow: do not allow stealth to work if there is can attached to doors
+			ubDoorNoise += 4;
+		}
+		else if (pSoldier->bStealthMode)
+		{
+			// CHANGED BY SANDRO - LET'S MAKE THE STEALTH BASED ON AGILITY LIKE IT SHOULD BE
+			INT32 iStealthSkill = 20 + 4 * EffectiveExpLevel(pSoldier) + ((EffectiveAgility(pSoldier, FALSE) * 4) / 10); // 24-100
+
+			INT8 bEffLife = pSoldier->stats.bLife + ((pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding) / 2);
+
+			// IF "SNEAKER'S" "EFFECTIVE LIFE" IS AT LESS THAN 50
+			if (bEffLife < 50)
+			{
+				// reduce effective stealth skill by up to 50% for low life
+				iStealthSkill -= (iStealthSkill * (50 - bEffLife)) / 100;
+			}
+
+			// if breath is below 50%
+			if (pSoldier->bBreath < 50)
+			{
+				// reduce effective stealth skill by up to 50%
+				iStealthSkill -= (iStealthSkill * (50 - pSoldier->bBreath)) / 100;
+			}
+
+			iStealthSkill = __max(iStealthSkill, 0);
+
+			INT32 iRoll = (INT32)PreRandom(100);	// roll them bones!
+
+			if (iRoll >= iStealthSkill)	// v1.13 modification: give a second chance!
+			{
+				iRoll = (INT32)PreRandom(100);
+			}
+
+			// succeeded in being stealthy!
+			if (iRoll < iStealthSkill)
+			{
+				ubDoorNoise = 0;
+			}
+		}
 	}
 
-	if ( MovementNoise( pSoldier ) )
-	{
-		// failed any stealth checks
-		return( ubDoorNoise );
-	}
-
-	// succeeded in being stealthy!
-	return( 0 );
+	return( ubDoorNoise );
 }
 
 void MakeNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrType, UINT8 ubVolume, UINT8 ubNoiseType,  STR16 zNoiseMessage )
@@ -5801,8 +5852,8 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 	}
 	*/
 
-	// if we have now somehow obtained a valid terrain type
-	if ((ubSourceTerrType >= FLAT_GROUND) || (ubSourceTerrType <= DEEP_WATER))
+	// if we have now somehow obtained a valid terrain type //shadooow: and it is not a noise from doors
+	if (ubNoiseType != NOISE_CREAKING && ((ubSourceTerrType >= FLAT_GROUND) || (ubSourceTerrType <= DEEP_WATER)))
 	{
 		//NumMessage("Source Terrain Type = ",ubSourceTerrType);
 		bCheckTerrain = TRUE;
@@ -5903,6 +5954,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 					break;
 
 				case NOISE_SILENT_ALARM:
+				case NOISE_CREAKING://shadooow: doors will make sound of being opened/closed so I see no reason to write it to player
 					bTellPlayer = FALSE;
 					break;
 			}
@@ -6127,8 +6179,8 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 			}
 			else
 			{
-		//NameMessage(pSoldier," can't hear this noise",2500);
-			ubEffVolume = 0;
+				//NameMessage(pSoldier," can't hear this noise",2500);
+				ubEffVolume = 0;
 			}
 		}
 
@@ -6155,6 +6207,13 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 					}
 
 				}
+				else if (ubNoiseType == NOISE_CREAKING)
+				{
+					DOOR_STATUS	*pDoorStatus = GetDoorStatus(sGridNo);
+					//shadooow: show locator when there is can with string attached to doors
+					if (pDoorStatus && pDoorStatus->ubFlags & DOOR_HAS_TIN_CAN)
+						BeginMultiPurposeLocator(sGridNo, bLevel, (INT8)((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT)));
+				}
 				//if ( !(pSoldier->ubMovementNoiseHeard & (1 << ubNoiseDir) ) )
 			}
 #ifdef REPORTTHEIRNOISE
@@ -6167,7 +6226,11 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 			}
 #endif
 		}
-
+		else if(bTeam == OUR_TEAM && ubNoiseType == NOISE_CREAKING)
+		{
+			//shadooow: this will indicate doors not to make animation/sound of doors opening or closing
+			Menptr[ubNoiseMaker].ubDoorOpeningNoise = 0;
+		}
 		// if the listening team is human-controlled AND
 		// the noise's source is another soldier
 		// (computer-controlled teams don't radio or automatically report NOISE)

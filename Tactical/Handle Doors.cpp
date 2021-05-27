@@ -12,6 +12,7 @@
 	#include "structure.h"
 	#include "Animation Control.h"
 	#include "points.h"
+	#include "opplist.h"
 	#include "overhead.h"
 	#include "tile animation.h"
 	#include "Interactive Tiles.h"
@@ -1085,14 +1086,14 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE *p
 
 BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fNoAnimations  )
 {
-	LEVELNODE	* pShadowNode;
-	LEVELNODE * pNode;
-	INT32				cnt;
-	BOOLEAN					fOpenedGraphic = FALSE;
-	ANITILE_PARAMS	AniParams;
-	BOOLEAN					fDoAnimation = TRUE;
-	STRUCTURE *	pBaseStructure;
-	UINT32			uiSoundID;
+	LEVELNODE *pShadowNode;
+	LEVELNODE *pNode;
+	INT32 cnt;
+	BOOLEAN fOpenedGraphic = FALSE;
+	ANITILE_PARAMS AniParams;
+	BOOLEAN fDoAnimation = TRUE;
+	STRUCTURE *pBaseStructure;
+	UINT32 uiSoundID;
 
 	pBaseStructure = FindBaseStructure( pStructure );
 	if (!pBaseStructure)
@@ -1160,6 +1161,11 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 		cnt++;
 	};
 
+	if (pSoldier && pSoldier->ubDoorOpeningNoise > 0)
+	{		
+		//shadooow: noise handling moved here so we can work with modified value of pSoldier->ubDoorOpeningNoise
+		OurNoise(pSoldier->ubID, pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel, gpWorldLevelData[pSoldier->sGridNo].ubTerrainID, pSoldier->ubDoorOpeningNoise, NOISE_CREAKING);
+	}
 
 	if ( !(pStructure->fFlags & STRUCTURE_OPEN) )
 	{
@@ -1186,7 +1192,7 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 			{
 				// If an AI guy... do LOS check first....
 				// If guy is visible... OR fading...
-				if ( pSoldier->bVisible == -1 && !AllMercsLookForDoor( sGridNo, FALSE ) && !( gTacticalStatus.uiFlags&SHOW_ALL_MERCS ) )
+				if ( !pSoldier->ubDoorOpeningNoise && pSoldier->bVisible == -1 && !AllMercsLookForDoor( sGridNo, FALSE ) && !( gTacticalStatus.uiFlags&SHOW_ALL_MERCS ) )
 				{
 					fDoAnimation = FALSE;
 				}
@@ -1206,7 +1212,7 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 			fDoAnimation = FALSE;
 		}
 
-		if ( fDoAnimation	)
+		if ( fDoAnimation )
 		{
 			// Update perceived value
 			ModifyDoorStatus( sGridNo, DONTSETDOORSTATUS, TRUE );
@@ -1214,28 +1220,28 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 			if ( fOpenedGraphic )
 			{
 				memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
-				AniParams.sGridNo							= sGridNo;
-				AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
-				AniParams.usTileType				= (UINT16)gTileDatabase[ pNode->usIndex ].fType;
-				AniParams.usTileIndex					= pNode->usIndex;
-				AniParams.sDelay							= INTTILE_DOOR_OPENSPEED;
-				AniParams.sStartFrame					= pNode->sCurrentFrame;
-				AniParams.uiFlags							= ANITILE_DOOR | ANITILE_FORWARD | ANITILE_EXISTINGTILE;
-				AniParams.pGivenLevelNode			= pNode;
+				AniParams.sGridNo = sGridNo;
+				AniParams.ubLevelID = ANI_STRUCT_LEVEL;
+				AniParams.usTileType = (UINT16)gTileDatabase[pNode->usIndex].fType;
+				AniParams.usTileIndex = pNode->usIndex;
+				AniParams.sDelay = INTTILE_DOOR_OPENSPEED;
+				AniParams.sStartFrame = pNode->sCurrentFrame;
+				AniParams.uiFlags = ANITILE_DOOR | ANITILE_FORWARD | ANITILE_EXISTINGTILE;
+				AniParams.pGivenLevelNode = pNode;
 
 				CreateAnimationTile( &AniParams );
 			}
 			else
 			{
 				memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
-				AniParams.sGridNo							= sGridNo;
-				AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
-				AniParams.usTileType				= (UINT16)gTileDatabase[ pNode->usIndex ].fType;
-				AniParams.usTileIndex					= pNode->usIndex;
-				AniParams.sDelay							= INTTILE_DOOR_OPENSPEED;
-				AniParams.sStartFrame					= pNode->sCurrentFrame;
-				AniParams.uiFlags							= ANITILE_DOOR | ANITILE_BACKWARD | ANITILE_EXISTINGTILE;
-				AniParams.pGivenLevelNode			= pNode;
+				AniParams.sGridNo = sGridNo;
+				AniParams.ubLevelID = ANI_STRUCT_LEVEL;
+				AniParams.usTileType = (UINT16)gTileDatabase[pNode->usIndex].fType;
+				AniParams.usTileIndex = pNode->usIndex;
+				AniParams.sDelay = INTTILE_DOOR_OPENSPEED;
+				AniParams.sStartFrame = pNode->sCurrentFrame;
+				AniParams.uiFlags = ANITILE_DOOR | ANITILE_BACKWARD | ANITILE_EXISTINGTILE;
+				AniParams.pGivenLevelNode = pNode;
 
 				CreateAnimationTile( &AniParams );
 			}
@@ -1266,13 +1272,13 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 					// change sound ID
 					uiSoundID = GARAGE_DOOR_OPEN;
 				}
-			else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_CLOTH )
-			{
-				// change sound ID
-				uiSoundID = CURTAINS_OPEN;
+				else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_CLOTH )
+				{
+					// change sound ID
+					uiSoundID = CURTAINS_OPEN;
+				}
 			}
-		}
-		else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_LIGHT_METAL ||
+			else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_LIGHT_METAL ||
 			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_THICKER_METAL ||
 			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_HEAVY_METAL )
 			{
@@ -1306,7 +1312,7 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 			{
 				// If an AI guy... do LOS check first....
 				// If guy is visible... OR fading...
-				if ( pSoldier->bVisible == -1 && !AllMercsLookForDoor( sGridNo, FALSE ) && !( gTacticalStatus.uiFlags&SHOW_ALL_MERCS ) )
+				if ( !pSoldier->ubDoorOpeningNoise && pSoldier->bVisible == -1 && !AllMercsLookForDoor( sGridNo, FALSE ) && !( gTacticalStatus.uiFlags&SHOW_ALL_MERCS ) )
 				{
 					fDoAnimation = FALSE;
 				}
@@ -1331,66 +1337,33 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 			// Update perceived value
 			ModifyDoorStatus( sGridNo, DONTSETDOORSTATUS, FALSE );
 
-			memset( &AniParams, 0, sizeof( ANITILE_PARAMS ) );
-
-			// ATE; Default to normal door...
-			uiSoundID = ( DRCLOSE_1 + Random( 2 ) );
-
-			// OK, check if this door is sliding and is multi-tiled...
-			if ( pStructure->fFlags & STRUCTURE_SLIDINGDOOR )
-			{
-				// Get database value...
-				if ( pStructure->pDBStructureRef->pDBStructure->ubNumberOfTiles > 1 )
-				{
-					// change sound ID
-					uiSoundID = GARAGE_DOOR_CLOSE;
-				}
-		else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_CLOTH )
-			{
-				// change sound ID
-				uiSoundID = CURTAINS_CLOSE;
-			}
-		}
-		else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_LIGHT_METAL ||
-			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_THICKER_METAL ||
-			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_HEAVY_METAL )
-			{
-				// change sound ID
-				uiSoundID = METAL_DOOR_CLOSE;
-			}
-
-	 AniParams.uiKeyFrame1Code			= ANI_KEYFRAME_DO_SOUND;
-	 AniParams.uiUserData					= uiSoundID;
-	 AniParams.uiUserData3					= sGridNo;
-
-
 			if ( fOpenedGraphic )
 			{
-				AniParams.sGridNo							= sGridNo;
-				AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
-				AniParams.usTileType				= (UINT16)gTileDatabase[ pNode->usIndex ].fType;
-				AniParams.usTileIndex					= pNode->usIndex;
-				AniParams.sDelay							= INTTILE_DOOR_OPENSPEED;
-				AniParams.sStartFrame					= pNode->sCurrentFrame;
-				AniParams.uiFlags							= ANITILE_DOOR | ANITILE_BACKWARD | ANITILE_EXISTINGTILE;
-				AniParams.pGivenLevelNode			= pNode;
-
-		 AniParams.ubKeyFrame1					= pNode->sCurrentFrame - 2;
+				memset(&AniParams, 0, sizeof(ANITILE_PARAMS));
+				AniParams.sGridNo = sGridNo;
+				AniParams.ubLevelID	= ANI_STRUCT_LEVEL;
+				AniParams.usTileType = (UINT16)gTileDatabase[pNode->usIndex].fType;
+				AniParams.usTileIndex = pNode->usIndex;
+				AniParams.sDelay = INTTILE_DOOR_OPENSPEED;
+				AniParams.sStartFrame = pNode->sCurrentFrame;
+				AniParams.uiFlags = ANITILE_DOOR | ANITILE_BACKWARD | ANITILE_EXISTINGTILE;
+				AniParams.pGivenLevelNode = pNode;
+				AniParams.ubKeyFrame1 = pNode->sCurrentFrame - 2;
 
 				CreateAnimationTile( &AniParams );
 			}
 			else
 			{
-				AniParams.sGridNo							= sGridNo;
-				AniParams.ubLevelID						= ANI_STRUCT_LEVEL;
-				AniParams.usTileType				= (UINT16)gTileDatabase[ pNode->usIndex ].fType;
-				AniParams.usTileIndex					= pNode->usIndex;
-				AniParams.sDelay							= INTTILE_DOOR_OPENSPEED;
-				AniParams.sStartFrame					= pNode->sCurrentFrame;
-				AniParams.uiFlags							= ANITILE_DOOR | ANITILE_FORWARD | ANITILE_EXISTINGTILE;
-				AniParams.pGivenLevelNode			= pNode;
-
-		AniParams.ubKeyFrame1					= pNode->sCurrentFrame + 2;
+				memset(&AniParams, 0, sizeof(ANITILE_PARAMS));
+				AniParams.sGridNo = sGridNo;
+				AniParams.ubLevelID = ANI_STRUCT_LEVEL;
+				AniParams.usTileType = (UINT16)gTileDatabase[pNode->usIndex].fType;
+				AniParams.usTileIndex = pNode->usIndex;
+				AniParams.sDelay = INTTILE_DOOR_OPENSPEED;
+				AniParams.sStartFrame = pNode->sCurrentFrame;
+				AniParams.uiFlags = ANITILE_DOOR | ANITILE_FORWARD | ANITILE_EXISTINGTILE;
+				AniParams.pGivenLevelNode = pNode;
+				AniParams.ubKeyFrame1 = pNode->sCurrentFrame + 2;
 
 				CreateAnimationTile( &AniParams );
 			}
@@ -1406,6 +1379,37 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 		//	pShadowNode->sDelay		= INTTILE_DOOR_OPENSPEED;
 		//}
 
+		if ( fDoAnimation && pSoldier && pSoldier->ubDoorOpeningNoise )
+		{
+			// ATE; Default to normal door...
+			uiSoundID = ( DRCLOSE_1 + Random( 2 ) );
+
+			// OK, check if this door is sliding and is multi-tiled...
+			if ( pStructure->fFlags & STRUCTURE_SLIDINGDOOR )
+			{
+				// Get database value...
+				if ( pStructure->pDBStructureRef->pDBStructure->ubNumberOfTiles > 1 )
+				{
+					// change sound ID
+					uiSoundID = GARAGE_DOOR_CLOSE;
+				}
+				else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_CLOTH )
+				{
+					// change sound ID
+					uiSoundID = CURTAINS_CLOSE;
+				}
+			}
+			else if ( pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_LIGHT_METAL ||
+			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_THICKER_METAL ||
+			pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_HEAVY_METAL )
+			{
+				// change sound ID
+				uiSoundID = METAL_DOOR_CLOSE;
+			}
+
+			// OK, We must know what sound to play, for now use same sound for all doors...
+			PlayJA2Sample(uiSoundID, RATE_11025, SoundVolume(MIDVOLUME, sGridNo), 1, SoundDir(sGridNo));
+		}
 	}
 
 	if ( fDoAnimation )

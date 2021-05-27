@@ -2141,8 +2141,8 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO | SIGHT_INTERRUPT );
 
 						InitOpplistForDoorOpening();
-
-						MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, gpWorldLevelData[pSoldier->sGridNo].ubTerrainID, pSoldier->ubDoorOpeningNoise, NOISE_CREAKING );
+						//shadooow: this has been moved inside HandleDoorsOpenClose
+						//MakeNoise( pSoldier->ubID, pSoldier->aiData.sPendingActionData2, pSoldier->pathing.bLevel, gpWorldLevelData[pSoldier->sGridNo].ubTerrainID, pSoldier->ubDoorOpeningNoise, NOISE_CREAKING );
 						//	gfDelayResolvingBestSighting = FALSE;
 
 						gubInterruptProvoker = pSoldier->ubID;
