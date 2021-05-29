@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?> 
 <!--
 uiIndex				- the loadscreen index, number the loadscreens sequentially starting at 0 and ending at 256 (do not change!)
 szLocation			- the location (sector) to which the loadscreen applies
@@ -202,9 +202,10 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayChitzena</szDay>
-		<szNight>Loadscreens\LS_NightChitzena</szNight>
+		<szNight>Loadscreens\LS_NightChitzena</szNight>     
 		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>		
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>19</uiIndex>
@@ -547,6 +548,7 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<szNight>Loadscreens\LS_NightMine</szNight>
 		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>53</uiIndex>
@@ -1181,6 +1183,7 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<szNight>Loadscreens\LS_NightMine</szNight>
 		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>116</uiIndex>
@@ -1231,6 +1234,7 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<szNight>Loadscreens\LS_NightMine</szNight>
 		<szDayAlt>Loadscreens\LS_MineDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MineNight</szNightAlt>
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>121</uiIndex>
@@ -1281,6 +1285,7 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
 		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>126</uiIndex>
@@ -1291,6 +1296,7 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
 		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>127</uiIndex>
@@ -1442,6 +1448,7 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
 		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>142</uiIndex>
@@ -2187,6 +2194,7 @@ szNighAlt			- Path to the alternate loadscreen image, which should be displayed 
 		<szNight>Loadscreens\LS_NightMilitary</szNight>
 		<szDayAlt>Loadscreens\LS_MissleDay</szDayAlt>
 		<szNightAlt>Loadscreens\LS_MissleNight</szNightAlt>
+    <szImageFormatAlt>PNG</szImageFormatAlt>
 	</SECTOR>
 	<SECTOR>
 		<uiIndex>216</uiIndex>
