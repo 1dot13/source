@@ -152,7 +152,7 @@ std::vector<WORLDITEM> pInventoryPoolList;
 INT32 iCurrentInventoryPoolPage = 0;
 INT32 iLastInventoryPoolPage = 0;
 
-INT32 sObjectSourceGridNo = 0;
+INT32 sObjectSourceGridNo = -1;//shadooow: I don't see much of a sense in this, we have gpItemPointerSoldier and we can use gpItemPointerSoldier->sGridNo to do this, this is actually unused
 INT8  sObjectSourseSoldierID = -1;
 
 // number of unseen items in sector
@@ -1701,66 +1701,32 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			if ( PlaceObjectInInventoryStash( &( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object ), gpItemPointer,
 				( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter, iCurrentlyPickedUpItem ) )
 			{
-				INT8 bRenderZHeightAboveLevel = 0;
-
-				//CHRISL: Make sure we put the item at the same level as the merc
-				if ( gpItemPointerSoldier->exists( ) )
-					pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].ubLevel = gpItemPointerSoldier->pathing.bLevel;
-
-				// HEADROCK HAM 5: A LOT of functions rely on these flags being set. So set them!!
-				pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].bVisible = TRUE;
-				pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT)+iCounter].fExists = TRUE;
-				
-				/*if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 091009
-				{
-					if(!GridNoOnVisibleWorldTile(sObjectSourceGridNo))
-						sObjectSourceGridNo = gMapInformation.sCenterGridNo;
-				}*/
-
-				// set a grid no for item from mercs with invalid grid no in sector inventory, e.g. merc arriving in sector with a different tactical map loaded
-				if(!GridNoOnVisibleWorldTile(sObjectSourceGridNo))
-				{
-					pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].ubLevel = 0;
-
-					// if this is the current sector, use the center gridno, otherwise look for other items to get a good position
-					if ( (sSelMapX == gWorldSectorX) && (gWorldSectorY == sSelMapY) && (gbWorldSectorZ == iCurrentMapSectorZ) )
-						sObjectSourceGridNo = gMapInformation.sCenterGridNo;
-
-					// Flugente 2016-04-09: (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE) does not guarantee that an item is reachable. 
-					// For example, a previously reachable item might now be inside a locked house. This would result in all items to be dropped inside that house!
-					// It is better so simply leave sObjectSourceGridNo at NOWHERE. This will cause WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT to be set, which in turn causes
-					// a reassignment to the (by then correct) gMapInformation.sCenterGridNo in LoadAndAddWorldItemsFromTempFile(...)
-					/*if ( !GridNoOnVisibleWorldTile( sObjectSourceGridNo ) )
-					{
-						// use the grid no of the first visible, reachable item
-						for(UINT32 i = 0; i < pInventoryPoolList.size(); ++i )
-						{
-							if( pInventoryPoolList[i].bVisible == 1 && pInventoryPoolList[i].fExists == TRUE && pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE )
-							{
-								sObjectSourceGridNo = pInventoryPoolList[i].sGridNo;
-								bRenderZHeightAboveLevel = pInventoryPoolList[i].bRenderZHeightAboveLevel;
-								break;
-							}
-						}
-					}*/
-				}
-				
-				// set as reachable and set gridno
-				pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_REACHABLE;
-						
 				// nothing here before, then place here
-				if( iOldNumberOfObjects == 0 )
-				{
-					pInventoryPoolList[(iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].sGridNo = sObjectSourceGridNo;
-					pInventoryPoolList[(iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].bRenderZHeightAboveLevel = bRenderZHeightAboveLevel;
+				if (iOldNumberOfObjects == 0)
+				{			
+					INT32 sGridNo = -1;
+					INT8 bLevel = 0;
 
-					if(TileIsOutOfBounds(sObjectSourceGridNo))
+					// is this sector loaded?
+					if (gpItemPointerSoldier && (gpItemPointerSoldier->sSectorX == gWorldSectorX) && (gpItemPointerSoldier->sSectorY == gWorldSectorY) && (gpItemPointerSoldier->bSectorZ == gbWorldSectorZ))
 					{
-						pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+						sGridNo = gpItemPointerSoldier->sGridNo;
+						bLevel = gpItemPointerSoldier->pathing.bLevel;
 					}
-
-					//if( sObjectSourseSoldierID != -1 )
-					//	pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].soldierID = sObjectSourseSoldierID;
+					// set a grid no for item from mercs with invalid grid no in sector inventory, e.g. merc arriving in sector with a different tactical map loaded
+					if (sGridNo != 0)
+					{
+						// set as reachable and set gridno
+						pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].sGridNo = sGridNo;
+						pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].usFlags |= WORLD_ITEM_REACHABLE;
+						pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].ubLevel = bLevel;
+						pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].bVisible = 1;
+						pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].fExists = TRUE;
+					}
+					if (sGridNo == -1)
+					{
+						pInventoryPoolList[(iCurrentInventoryPoolPage*MAP_INVENTORY_POOL_SLOT_COUNT) + iCounter].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+					}
 				}
 
 				// Check if it's the same now!
