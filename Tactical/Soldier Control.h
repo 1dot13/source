@@ -1334,6 +1334,7 @@ public:
 
 	UINT8												bAimShotLocation;
 	UINT8												ubHitLocation;
+	UINT8												bAimMeleeLocation;
 
 	UINT16											*pEffectShades[ NUM_SOLDIER_EFFECTSHADES ]; // Shading tables for effects
 

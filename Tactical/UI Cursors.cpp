@@ -1662,6 +1662,8 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 	if ( fActivated )
 	{
 		DetermineCursorBodyLocation( pSoldier->ubID, TRUE, TRUE );
+		//shadooow: this fixes bug where the original aim location is lost if the attack is stopped due to interrupt
+		pSoldier->bAimMeleeLocation = pSoldier->bAimShotLocation;
 
 		if ( gfUIHandleShowMoveGrid )
 		{
@@ -1793,6 +1795,8 @@ UINT8 HandlePunchCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEAN fActivate
 	if ( fActivated )
 	{
 		DetermineCursorBodyLocation( pSoldier->ubID, TRUE, TRUE );
+		//shadooow: this fixes bug where the original aim location is lost if the attack is stopped due to interrupt
+		pSoldier->bAimMeleeLocation = pSoldier->bAimShotLocation;
 
 		if ( gfUIHandleShowMoveGrid )
 		{

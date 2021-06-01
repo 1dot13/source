@@ -3917,7 +3917,7 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 			iImpact = ( iImpact * WEAPON_STATUS_MOD( (*pObj)[0]->data.objectStatus) ) / 100;
 			
 			// modify by hit location
-			AdjustImpactByHitLocation( iImpact, pSoldier->bAimShotLocation, &iImpact, &iImpactForCrits );
+			AdjustImpactByHitLocation( iImpact, pSoldier->bAimMeleeLocation, &iImpact, &iImpactForCrits );
 
 			// bonus for surprise
 			if ( fSurpriseAttack )
@@ -4579,12 +4579,12 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
 					{ 
 						// Increased EXP for head strike
-						if (pSoldier->bAimShotLocation == AIM_SHOT_HEAD)
+						if (pSoldier->bAimMeleeLocation == AIM_SHOT_HEAD)
 						{
 							ubExpGain += 2;
 						}
 						// Decreased EXP for leg strike
-						else if (pSoldier->bAimShotLocation == AIM_SHOT_LEGS)
+						else if (pSoldier->bAimMeleeLocation == AIM_SHOT_LEGS)
 						{
 							ubExpGain -= 4;
 						}
@@ -4629,12 +4629,12 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 					if (gGameExternalOptions.fEnhancedCloseCombatSystem)
 					{ 
 						// Increased EXP for head strike
-						if (pSoldier->bAimShotLocation == AIM_SHOT_HEAD)
+						if (pSoldier->bAimMeleeLocation == AIM_SHOT_HEAD)
 						{
 							ubExpGain += 1;
 						}
 						// Decreased EXP for leg strike
-						else if (pSoldier->bAimShotLocation == AIM_SHOT_LEGS)
+						else if (pSoldier->bAimMeleeLocation == AIM_SHOT_LEGS)
 						{
 							ubExpGain -= 2;
 						}
@@ -4787,15 +4787,15 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 					if (pTargetSoldier->bActionPoints >= MinAPsToAttack(pTargetSoldier, pSoldier->sGridNo, TRUE, 1, 0) && Chance(EffectiveStrength(pTargetSoldier, FALSE) / 4))
 						pTargetSoldier->aiData.bAimTime = 1;
 
-					pTargetSoldier->bAimShotLocation = AIM_SHOT_RANDOM;
+					pTargetSoldier->bAimMeleeLocation = AIM_SHOT_RANDOM;
 					if (gAnimControl[pSoldier->usAnimState].ubEndHeight > ANIM_PRONE)
 					{
 						if (Chance((6 + EffectiveDexterity(pTargetSoldier, FALSE) / 10 + 5 * NUM_SKILL_TRAITS(pTargetSoldier, MARTIAL_ARTS_NT)) * 100 / (100 + pSoldier->bBreath)))
-							pTargetSoldier->bAimShotLocation = AIM_SHOT_HEAD;
+							pTargetSoldier->bAimMeleeLocation = AIM_SHOT_HEAD;
 						else if (Chance(pSoldier->bBreath * EffectiveWisdom(pTargetSoldier) / (100 + EffectiveDexterity(pTargetSoldier, FALSE))))
-							pTargetSoldier->bAimShotLocation = AIM_SHOT_LEGS;
+							pTargetSoldier->bAimMeleeLocation = AIM_SHOT_LEGS;
 						else
-							pTargetSoldier->bAimShotLocation = AIM_SHOT_TORSO;
+							pTargetSoldier->bAimMeleeLocation = AIM_SHOT_TORSO;
 					}
 
 					HandleItem(pTargetSoldier, pSoldier->sGridNo, pTargetSoldier->pathing.bLevel, pTargetSoldier->inv[HANDPOS].usItem, FALSE);
@@ -8760,11 +8760,11 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 		// Enhanced Close Combat System - aiming at body parts makes difference
 		if ( !autoresolve && gGameExternalOptions.fEnhancedCloseCombatSystem)
 		{
-			if ( pSoldier->bAimShotLocation == AIM_SHOT_HEAD )
+			if ( pSoldier->bAimMeleeLocation == AIM_SHOT_HEAD )
 			{
 				iBonus += 25; // Punch or kick to head deal more damage (vs -20% accuracy)
 			}
-			else if	( pSoldier->bAimShotLocation == AIM_SHOT_LEGS )
+			else if	( pSoldier->bAimMeleeLocation == AIM_SHOT_LEGS )
 			{
 				// Punch or kick to legs deal less damage but takes some AP per damage out of target adjusted by AP_MAXIMUM
 				// NO, better to make hit to legs have a much better chance to hit, while only 50% damage is dealt
@@ -9546,12 +9546,12 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 				iChance += gSkillTraitValues.bMAAimedPunchCtHModifier * NUM_SKILL_TRAITS( pAttacker, MARTIAL_ARTS_NT );
 			}
 
-			if ( pAttacker->bAimShotLocation == AIM_SHOT_HEAD )
+			if ( pAttacker->bAimMeleeLocation == AIM_SHOT_HEAD )
 			{
 				// Harder to hit head (but higher damage there)
 				iChance -= 20;
 			}
-			else if( pAttacker->bAimShotLocation == AIM_SHOT_LEGS )
+			else if( pAttacker->bAimMeleeLocation == AIM_SHOT_LEGS )
 			{
 				// easy to hit legs (but low damage there)
 				iChance += 25;
@@ -9559,7 +9559,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 		}
 		else
 		{
-			if ( pAttacker->bAimShotLocation == AIM_SHOT_HEAD )
+			if ( pAttacker->bAimMeleeLocation == AIM_SHOT_HEAD )
 			{
 				// make this harder!
 				iChance -= 20;
