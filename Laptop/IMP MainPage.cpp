@@ -85,7 +85,8 @@ BOOLEAN IsIMPSlotFree(INT32 iIMPId)
 {
 	if ((iIMPId >= 0) && (iIMPId < NUM_PROFILES) && (iIMPId != NO_PROFILE) &&
 		( gMercProfiles[iIMPId].Type == PROFILETYPE_IMP ) &&
-		(wcscmp(gMercProfiles[iIMPId].zName, L"") == 0))		
+		((wcscmp(gMercProfiles[iIMPId].zName, L"") == 0) ||
+		(gMercProfiles[iIMPId].bMercStatus == MERC_FIRED_AS_A_POW)))		
 	{
 		return TRUE;
 	}

@@ -1074,7 +1074,7 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 
 	// WDS: This allows for replacing dead IMP mercs.	See "BtnIMPBeginScreenDoneCallback" in "IMP Begin Screen.cpp"
 	if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER ) &&
-		(( gMercProfiles[ pSoldier->ubProfile ].bMercStatus == MERC_IS_DEAD ) || (gMercProfiles[pSoldier->ubProfile].bMercStatus == MERC_FIRED_AS_A_POW))) {
+		( gMercProfiles[ pSoldier->ubProfile ].bMercStatus == MERC_IS_DEAD ) ) {
 		// Replace the name with an empty string
 		wcsncpy( gMercProfiles[ pSoldier->ubProfile ].zName, L"", 1 );
 	}
