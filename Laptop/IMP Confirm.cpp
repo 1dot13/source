@@ -604,9 +604,6 @@ void GiveItemsToPC( UINT8 ubProfileId )
 
 	pProfile = &(gMercProfiles[ubProfileId]);
 
-	//shadooow: fixes mess in inventory when replacing dead/pow IMP
-	pProfile->clearInventory();
-
 	// Flugente: if necessary, give us the gear we selected
 	if ( IsIMPGearUsed() )
 	{

@@ -119,12 +119,15 @@ BOOLEAN ShouldThisMercHaveABigBody( void );
 
 void CreateACharacterFromPlayerEnteredStats( void )
 {
-		// Kaiden: Seems like as good a place as any to stash this function call to
-		// ensure that these lists don't get overwritten or Nulled due to the amount
-		// of changes and revisions that have been made to personalities and attitudes.
+	// Kaiden: Seems like as good a place as any to stash this function call to
+	// ensure that these lists don't get overwritten or Nulled due to the amount
+	// of changes and revisions that have been made to personalities and attitudes.
 	CreatePlayersPersonalitySkillsAndAttitude();
 	
 	LaptopSaveInfo.iIMPIndex = GetFreeIMPSlot( -1 );
+
+	//shadooow: fixes many old values and items remaining when replacing dead/pow IMP
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].initialize();
 
 	// copy over full name
 	wcscpy( gMercProfiles[ LaptopSaveInfo.iIMPIndex ].zName, pFullName );
