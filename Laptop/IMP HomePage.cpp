@@ -268,20 +268,22 @@ void GetPlayerKeyBoardInputForIMPHomePage( void )
 	{
 		if(	!HandleTextInput( &InputEvent ) && (InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT || InputEvent.usEvent == KEY_UP ) )
 		{
-		switch( InputEvent.usParam )
+			switch( InputEvent.usParam )
 			{
-			case (( ENTER ) ):
-					if(( InputEvent.usEvent == KEY_UP ) )
+				case ENTER:
+					if(InputEvent.usEvent == KEY_DOWN)
 					{
 						// return hit, check to see if current player activation string is a valid one
-						ProcessPlayerInputActivationString( );
-
-					fNewCharInActivationString = TRUE;
+						ProcessPlayerInputActivationString();
+						fNewCharInActivationString = TRUE;
 					}
 				break;
-				case (( ESC )):
-			HandleLapTopESCKey();		// WANNE: Fix for proper closing of the IMP laptop page
-			LeaveLapTopScreen( );
+				case ESC:
+					if(InputEvent.usEvent == KEY_DOWN)
+					{
+						HandleLapTopESCKey();		// WANNE: Fix for proper closing of the IMP laptop page
+						LeaveLapTopScreen();
+					}
 				break;
 				default:
 					if(InputEvent.usEvent == KEY_DOWN || InputEvent.usEvent == KEY_REPEAT )
