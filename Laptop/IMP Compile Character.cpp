@@ -205,6 +205,11 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	//  Option for badass added - SANDRO
 	if (bBadAssSelected())
 		gMercProfiles[ LaptopSaveInfo.iIMPIndex ].uiBodyTypeSubFlags = 1;
+
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[0] = 100;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[1] = 100;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[2] = 100;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[3] = 100;
 }
 
 void CreatePlayerAttitude( void )
