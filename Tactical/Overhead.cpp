@@ -2635,6 +2635,8 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
                 }
             }
 
+			//shadooow: fix for charging AP for turning at the end of the movement
+			pSoldier->flags.fDontChargeTurningAPs = TRUE;
             // Change desired direction
             pSoldier->EVENT_InternalSetSoldierDestination( (UINT8) pSoldier->pathing.usPathingData[ pSoldier->pathing.usPathIndex ], fInitialMove, usAnimState );       
 
@@ -5816,7 +5818,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     // in that location, because we could be passed a gridno based on the overlap of soldier's graphic
     // fDoor determines whether special door-handling code should be used (for interacting with doors)
 	INT32 sGridNoProne = -1;
-    INT32 sFourGrids[4], sDistance=0;
+    INT32 sDistance=0;
     static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
     //INT32 cnt;
     INT32 sClosest = -1, sSpot, sSpot2;
@@ -5908,7 +5910,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
     for (INT8 cnt = 0; cnt < 4; ++cnt)
     {
         // MOVE OUT TWO DIRECTIONS
-        sFourGrids[cnt] = sSpot = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
+        sSpot = NewGridNo( sGridNo, DirectionInc( sDirs[ cnt ] ) );
 
         ubTestDirection = sDirs[ cnt ];
 
@@ -5998,7 +6000,7 @@ INT32 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pub
 		for (INT8 cnt = 0; cnt < 4; ++cnt)
 		{
 			// MOVE OUT TWO DIRECTIONS
-			sFourGrids[cnt] = sSpot = NewGridNo(sGridNoProne, DirectionInc(sDirs[cnt]));
+			sSpot = NewGridNo(sGridNoProne, DirectionInc(sDirs[cnt]));
 
 			ubTestDirection = sDirs[cnt];
 
