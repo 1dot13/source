@@ -3919,6 +3919,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 		case RUNNING:
 
 			// Only if our previous is not running
+			/* //shadooow: moved to ActionPointCost
 			if ( this->usAnimState != RUNNING )
 			{
 				// CHRISL
@@ -3931,6 +3932,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					sAPCost = GetAPsStartRun( this ); // changed by SANDRO
 				DeductPoints( this, sAPCost, sBPCost, MOVEMENT_INTERRUPT );
 			}
+			*/
 			// Set pending action count to 0
 			this->aiData.ubPendingActionAnimCount = 0;
 			this->usPendingAnimation = NO_PENDING_ANIMATION;
@@ -4873,7 +4875,7 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 
 		// OK, check that our animation is up to date!
 		// Check our water value
-
+		INT16 usUIMovementModeToSet = this->usUIMovementMode;
 		if ( !(this->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )
 		{
 			fInWaterValue = this->MercInWater( );
@@ -4881,7 +4883,7 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 			// ATE: If ever in water MAKE SURE WE WALK AFTERWOODS!
 			if ( fInWaterValue )
 			{
-				this->usUIMovementMode = WALKING;
+				usUIMovementModeToSet = WALKING;
 			}
 
 			if ( fInWaterValue != this->flags.fPrevInWater )
@@ -4901,7 +4903,7 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 				{
 					// ATE: Check if we are going from water to land - if so, resume
 					// with regular movement mode...
-					this->EVENT_InitNewSoldierAnim( this->usUIMovementMode, 0, FALSE );
+					this->EVENT_InitNewSoldierAnim( usUIMovementModeToSet, 0, FALSE );
 				}
 
 			}
@@ -4946,7 +4948,7 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 				// Make transition from low to deep
 				this->EVENT_InitNewSoldierAnim( DEEP_TO_LOW_WATER, 0, FALSE );
 				this->usDontUpdateNewGridNoOnMoveAnimChange = 1;
-				this->usPendingAnimation = this->usUIMovementMode;
+				this->usPendingAnimation = usUIMovementModeToSet;
 			}
 		}
 

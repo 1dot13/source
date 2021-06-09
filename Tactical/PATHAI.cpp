@@ -4558,6 +4558,8 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 			iLastGrid = giPathDataSize;
 		}
 
+		INT16 usMovementModeBefore = pSold->usAnimState;
+
 		for ( iCnt=0; iCnt < iLastGrid; iCnt++ )
 		{
 			sExtraCostStand = 0;
@@ -4586,6 +4588,13 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 				usMovementModeToUseForAPs = WALKING;
 			}
 
+			//shadooow: moved inside loop because it can happen we (re)start running after we walked in water
+			if (sSwitchValue != TRAVELCOST_FENCE && usMovementModeToUseForAPs == RUNNING && usMovementModeBefore != RUNNING)
+			{
+				sPoints += GetAPsStartRun(pSold);
+			}
+			usMovementModeBefore = usMovementModeToUseForAPs;
+			
 			// get the tile cost for that tile based on WALKING
 			sTileCost = TerrainActionPoints( pSold, sTempGrid, (INT8)guiPathingData[iCnt], pSold->pathing.bLevel );
 

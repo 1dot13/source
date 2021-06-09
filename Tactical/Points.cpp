@@ -542,6 +542,19 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			sPoints = max(1.0f, ( sPoints * (100 - (FLOAT)gSkillTraitValues.ubATAPsMovementReduction) / 100.0f ) );
 		}
 
+		if (usMovementMode == RUNNING && pSoldier->usAnimState != RUNNING)
+		{
+			// CHRISL
+			if ((UsingNewInventorySystem() == true) && FindBackpackOnSoldier(pSoldier) != ITEM_NOT_FOUND)
+			{
+				sPoints += GetAPsStartRun(pSoldier) + 2; // changed by SANDRO
+			}
+			else
+			{
+				sPoints += GetAPsStartRun(pSoldier); // changed by SANDRO
+			}
+		}
+
 		// Flugente: riot shields lower movement speed
 		if ( pSoldier->IsRiotShieldEquipped( ) )
 			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
@@ -2802,11 +2815,12 @@ INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode )
 		default:
 			break;
 	}
-
+	/*
 	if (usMovementMode == RUNNING && pSoldier->usAnimState != RUNNING )
 	{
 		bAPs += GetAPsStartRun( pSoldier ); // changed by SANDRO
 	}
+	*/
 	return( bAPs );
 }
 
