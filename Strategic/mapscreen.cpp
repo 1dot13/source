@@ -9770,18 +9770,22 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 						
 						for (UINT8 i = 0; i<cnt;i++)
 						{
-							// silversurfer: This didn't cost any AP. Why? CTRL + LeftClick should deduct the same AP as manual attachment in the EDB.
-							usCostToMoveItem = AttachmentAPCost(gpItemPointer->usItem, pSoldier->inv[uiHandPos].usItem, pSoldier);
-							// Flugente: backgrounds
-							usCostToMoveItem = (usCostToMoveItem * (100 + pSoldier->GetBackgroundValue(BG_INVENTORY))) / 100;
-							// do we have enough AP?
-							if (!EnoughPoints(pSoldier, usCostToMoveItem, 0, FALSE))
-								return;
-							// only deduct AP if attachment was placed successfully.
-							if (pSoldier->inv[uiHandPos].AttachObject(pSoldier, gpItemPointer, TRUE, i))
+							if ((gTacticalStatus.uiFlags & INCOMBAT) && pSoldier->bInSector)
+							{
+								// silversurfer: This didn't cost any AP. Why? CTRL + LeftClick should deduct the same AP as manual attachment in the EDB.
+								usCostToMoveItem = AttachmentAPCost(gpItemPointer->usItem, pSoldier->inv[uiHandPos].usItem, pSoldier);
+								// Flugente: backgrounds
+								usCostToMoveItem = (usCostToMoveItem * (100 + pSoldier->GetBackgroundValue(BG_INVENTORY))) / 100;
+								// do we have enough AP?
+								if (!EnoughPoints(pSoldier, usCostToMoveItem, 0, TRUE))
+									return;
 								pSoldier->bActionPoints -= usCostToMoveItem;
+								//this will force redraw APs shown at merc portrait
+								fCharacterInfoPanelDirty = TRUE;								
+							}
+							if(pSoldier->inv[uiHandPos].AttachObject(pSoldier, gpItemPointer, TRUE, i))
+								fTeamPanelDirty = TRUE;//this will fix merged items not updating when we hold stack of items in hand
 						}
-
 					}
 				}
 
@@ -9922,7 +9926,7 @@ void MAPInvClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 				}
 
 			}
-			}
+		}
 
 		// Flugente: we have to recheck our flashlights, as we changed items
 		pSoldier->HandleFlashLights();
