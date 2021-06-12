@@ -1470,7 +1470,7 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 	ActionDone(pSoldier);
 
 	// sevenfm: reset next action
-	if(!AreInMeanwhile() && pSoldier->ubProfile == NO_PROFILE)
+	if(!AreInMeanwhile()))
 	{
 		pSoldier->aiData.bNextAction = AI_ACTION_NONE;
 		pSoldier->aiData.usNextActionData = 0;

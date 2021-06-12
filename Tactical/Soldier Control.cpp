@@ -13131,7 +13131,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 		{
 			// Flugente: zombies do not kick
 			BOOLEAN nokick = FALSE;
-			if ( this->IsZombie( ) )
+			if ( this->IsZombie( ) || !IS_MERC_BODY_TYPE(this))//shadooow: fix for endless clock issue with Elliot in interrogation cutscene 
 				nokick = TRUE;
 
 			// sevenfm: don't use kick when attacking with any weapon in hand
