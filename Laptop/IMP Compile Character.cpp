@@ -210,6 +210,8 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[1] = 100;
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[2] = 100;
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[3] = 100;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].uiBlinkFrequency = 3000;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].uiExpressionFrequency = 2000;
 }
 
 void CreatePlayerAttitude( void )
