@@ -13162,12 +13162,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 						if ( gAnimControl[pTSoldier->usAnimState].ubEndHeight == ANIM_STAND )
 						{
 							// if we aim for legs, always use kick
-							if ( this->bAimShotLocation == AIM_SHOT_LEGS && !(ubDirection & 1) && !nokick )
+							if ( this->bAimMeleeLocation == AIM_SHOT_LEGS && !(ubDirection & 1) && !nokick )
 							{
 								this->EVENT_InitNewSoldierAnim( FOCUSED_HTH_KICK, 0, FALSE );
 							}
 							// if we aim for head, always use punch animation
-							else if ( this->bAimShotLocation == AIM_SHOT_HEAD || (ubDirection & 1) )
+							else if ( this->bAimMeleeLocation == AIM_SHOT_HEAD || (ubDirection & 1) )
 							{
 								this->EVENT_InitNewSoldierAnim( FOCUSED_PUNCH, 0, FALSE );
 							}
@@ -13202,12 +13202,12 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 						if ( gAnimControl[pTSoldier->usAnimState].ubEndHeight == ANIM_STAND )
 						{
 							// if we aim for legs, always use kick
-							if ( this->bAimShotLocation == AIM_SHOT_LEGS && !(ubDirection & 1) && !nokick )
+							if ( this->bAimMeleeLocation == AIM_SHOT_LEGS && !(ubDirection & 1) && !nokick )
 							{
 								this->EVENT_InitNewSoldierAnim( HTH_KICK, 0, FALSE );
 							}
 							// if we aim for head, always use punch animation
-							else if ( this->bAimShotLocation == AIM_SHOT_HEAD || (ubDirection & 1) )
+							else if ( this->bAimMeleeLocation == AIM_SHOT_HEAD || (ubDirection & 1) )
 							{
 								this->EVENT_InitNewSoldierAnim( PUNCH, 0, FALSE );
 							}
@@ -13223,7 +13223,7 @@ void SOLDIERTYPE::EVENT_SoldierBeginPunchAttack( INT32 sGridNo, UINT8 ubDirectio
 						else // if crouching enemy
 						{
 							// random if aiming on head, favor kick though
-							if ( this->bAimShotLocation == AIM_SHOT_HEAD || (ubDirection & 1) || nokick )
+							if ( this->bAimMeleeLocation == AIM_SHOT_HEAD || (ubDirection & 1) || nokick )
 							{
 								if ( nokick || Random( 20 ) > 12 || (ubDirection & 1) )
 									this->EVENT_InitNewSoldierAnim( PUNCH, 0, FALSE );
