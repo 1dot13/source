@@ -2781,7 +2781,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	}
 
 	// ATE: If maximum prisoners captured, return!
-	if ( gStrategicStatus.ubNumCapturedForRescue > 3 )
+	if ( gStrategicStatus.ubNumCapturedForRescue > 2 )
 	{
 	return;
 	}
