@@ -212,6 +212,18 @@ void CreateACharacterFromPlayerEnteredStats( void )
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].usApproachFactor[3] = 100;
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].uiBlinkFrequency = 3000;
 	gMercProfiles[LaptopSaveInfo.iIMPIndex].uiExpressionFrequency = 2000;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bBuddy[0] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bBuddy[1] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bBuddy[2] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bBuddy[3] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bBuddy[4] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bLearnToLike = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bHated[0] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bHated[1] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bHated[2] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bHated[3] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bHated[4] = 255;
+	gMercProfiles[LaptopSaveInfo.iIMPIndex].bLearnToHate = 255;
 }
 
 void CreatePlayerAttitude( void )
