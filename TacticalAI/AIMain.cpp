@@ -1451,11 +1451,11 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 	DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction"));
 
 	// re-enable cover checking, something is new or something strange happened
-	if ( gGameExternalOptions.fEnemyTanksCanMoveInTactical || !ARMED_VEHICLE( pSoldier ) || !ENEMYROBOT( pSoldier ) )//dnl ch64 290813
+	if (!TANK(pSoldier) || gGameExternalOptions.fEnemyTanksCanMoveInTactical)
 		SkipCoverCheck = FALSE;
 
 	// turn off new situation flag to stop this from repeating all the time!
-	if ( pSoldier->aiData.bNewSituation == IS_NEW_SITUATION )
+	if (pSoldier->aiData.bNewSituation == IS_NEW_SITUATION)
 	{
 		pSoldier->aiData.bNewSituation = WAS_NEW_SITUATION;
 	}
