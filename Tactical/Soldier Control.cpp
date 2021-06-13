@@ -6128,7 +6128,8 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 		if ( AreInMeanwhile( ) && gCurrentMeanwhileDef.ubMeanwhileID == INTERROGATION )
 		{
 			sBreathLoss = 0;
-			sDamage /= 2;
+			sDamage /= 4;
+			sDamage = max(1, sDamage);
 		}
 #endif
 		ubReason = TAKE_DAMAGE_HANDTOHAND;
