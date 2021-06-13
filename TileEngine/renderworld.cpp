@@ -582,7 +582,7 @@ void RenderHighlight( INT16 sMouseX_M, INT16 sMouseY_M, INT16 sStartPointX_M, IN
 BOOLEAN CheckRenderCenter( INT16 sNewCenterX, INT16 sNewCenterY );
 
 // Flugente: display a riot shield
-void ShowRiotShield( SOLDIERTYPE* pSoldier )
+void ShowRiotShield( SOLDIERTYPE* pSoldier, UINT16 *pBuffer, UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue )
 {
 	if (pSoldier)
 	{
@@ -598,6 +598,17 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier )
 
 			fShieldGraphicInit = TRUE;
 		}
+		
+		HVOBJECT hSrcVObject;
+		if ( !GetVideoObject( &hSrcVObject, guiShieldGraphic ) )
+			return;
+
+		OBJECTTYPE* pObj = pSoldier->GetEquippedRiotShield();
+
+		if ( !pObj )
+			return;
+
+		UINT16 offset = Item[pObj->usItem].usRiotShieldGraphic;
 
 		// Get screen pos of gridno......
 		INT16					sScreenX, sScreenY;
@@ -606,24 +617,6 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier )
 		// take height level into account
 		if ( pSoldier->pathing.bLevel == 1 )
 			sScreenY -= 50;
-
-		// redraw background to stop weird graphic remnants remaining
-		// but don*t do so while scrolling, because that looks weird
-		if ( !gfScrollPending && !gfScrollInertia)
-		{
-			INT32 iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sScreenX - 50, sScreenY - 60, sScreenX + 50, sScreenY + 35 );
-
-			if (iBack != -1)
-			{
-				SetBackgroundRectFilled(iBack);
-			}
-		}
-
-		UINT16 offset = 0;
-		OBJECTTYPE* pObj = pSoldier->GetEquippedRiotShield();
-
-		if (pObj)
-			offset = Item[pObj->usItem].usRiotShieldGraphic;
 
 		// try to keep the shield 'moving' alongside the soldier. This won't work perfectly, but it's better than nothing		
 		INT16 base_x = 0;
@@ -636,7 +629,29 @@ void ShowRiotShield( SOLDIERTYPE* pSoldier )
 		INT16 offset_x = (dx - dy);
 		INT16 offset_y = (dx + dy);
 
-		BltVideoObjectFromIndex( FRAME_BUFFER, guiShieldGraphic, offset * 8 + pSoldier->ubDirection, sScreenX - 20 + offset_x, sScreenY - 60 + offset_y, VO_BLT_TRANSSHADOW, NULL );
+		// redraw background to stop weird graphic remnants remaining
+		// but don't do so while scrolling, because that looks weird
+		if ( !gfScrollPending && !gfScrollInertia )
+		{
+			// We can get graphical glitches here if we reserve too many background rectangles, as the entire array will be filled rapidly.
+			// To prevent this, each soldier can have their own reserved rectangle, which we free first
+			static INT32 soldierbackgroundrectangle[TOTAL_SOLDIERS] = { 0 };
+
+			if ( soldierbackgroundrectangle[pSoldier->ubID] != 0 && soldierbackgroundrectangle[pSoldier->ubID] != -1 )
+			{
+				FreeBackgroundRect( soldierbackgroundrectangle[pSoldier->ubID] );
+				soldierbackgroundrectangle[pSoldier->ubID] = 0;
+			}
+
+			soldierbackgroundrectangle[pSoldier->ubID] = RegisterBackgroundRect( BGND_FLAG_ANIMATED, NULL, sScreenX - 50, sScreenY - 60, sScreenX + 50, sScreenY + 35 );
+
+			if ( soldierbackgroundrectangle[pSoldier->ubID] != -1 )
+			{
+				SetBackgroundRectFilled( soldierbackgroundrectangle[pSoldier->ubID] );
+			}
+		}
+		
+		Blt8BPPDataTo16BPPBufferTransZNB( pBuffer, uiDestPitchBYTES, pZBuffer, usZValue, hSrcVObject, sScreenX - 20 + offset_x, sScreenY - 60 + offset_y, offset * 8 + pSoldier->ubDirection );
 	}
 }
 
@@ -957,7 +972,7 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 	//#if 0
 
 	LEVELNODE		*pNode; //, *pLand, *pStruct; //*pObject, *pTopmost, *pMerc;
-	SOLDIERTYPE	*pSoldier, *pSelSoldier;
+	SOLDIERTYPE	*pSoldier;
 	HVOBJECT		hVObject = NULL;
 	ETRLEObject *pTrav;
 	TILE_ELEMENT *TileElem = NULL;
@@ -1870,17 +1885,6 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 									usImageIndex = pSoldier->CryoAniFrame();
 								}
 
-								// Flugente: riot shields
-								if (pSoldier &&
-									pSoldier->bVisible != -1 &&
-									(pSoldier->ubDirection == NORTH ||
-										pSoldier->ubDirection == NORTHWEST ||
-										pSoldier->ubDirection == WEST)
-									&& pSoldier->IsRiotShieldEquipped())
-								{
-									ShowRiotShield(pSoldier);
-								}
-
 								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED | BGND_FLAG_MERC;
 								break;
 							}
@@ -2516,6 +2520,17 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 												}
 												else if (fMerc)
 												{
+													// Flugente: draw riot shield UNDER the soldier
+													if ( pSoldier &&
+														pSoldier->bVisible != -1 &&
+														( pSoldier->ubDirection == NORTH ||
+															pSoldier->ubDirection == NORTHWEST ||
+															pSoldier->ubDirection == WEST )
+														&& pSoldier->IsRiotShieldEquipped() )
+													{
+														ShowRiotShield( pSoldier, (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel );
+													}
+
 													if (fZBlitter)
 													{
 														if (fZWrite)
@@ -2638,6 +2653,19 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 																fIgnoreShadows);
 														}
 
+													}
+
+													// Flugente: draw riot shield OVER the soldier
+													if ( pSoldier &&
+														pSoldier->bVisible != -1 &&
+														( pSoldier->ubDirection == EAST ||
+															pSoldier->ubDirection == SOUTHEAST ||
+															pSoldier->ubDirection == SOUTH ||
+															pSoldier->ubDirection == SOUTHWEST ||
+															pSoldier->ubDirection == NORTHEAST )
+														&& pSoldier->IsRiotShieldEquipped() )
+													{
+														ShowRiotShield( pSoldier, (UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel );
 													}
 												}
 												else if (fShadowBlitter)

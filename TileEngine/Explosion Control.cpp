@@ -4279,9 +4279,6 @@ void HandleExplosionQueue( void )
 	}
 }
 
-// Flugente: riot shields
-extern void ShowRiotShield( SOLDIERTYPE* pSoldier );
-
 // Flugente: show warnings around armed timebombs both in map and inventories
 void HandleExplosionWarningAnimations( )
 {
@@ -4356,26 +4353,6 @@ void HandleExplosionWarningAnimations( )
 				// if conditions don't apply, deactivate skill. This will cause it to update to status changes very fast
 				pSoldier->usSoldierFlagMask2 &= ~SOLDIER_TRAIT_FOCUS;
 				pSoldier->sFocusGridNo = NOWHERE;
-			}
-		}
-	}
-
-	// show riot shields
-	for ( UINT32 cnt = 0; cnt < TOTAL_SOLDIERS; ++cnt )
-	{
-		SOLDIERTYPE* pSoldier = MercPtrs[cnt];
-
-		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
-		{
-			if ( (pSoldier->ubDirection == EAST ||
-				pSoldier->ubDirection == SOUTHEAST || 
-				pSoldier->ubDirection == SOUTH || 
-				pSoldier->ubDirection == SOUTHWEST ||
-				pSoldier->ubDirection == NORTHEAST)
-				&& pSoldier->bVisible != -1
-				&& pSoldier->IsRiotShieldEquipped( ) )
-			{
-				ShowRiotShield( pSoldier );
 			}
 		}
 	}
