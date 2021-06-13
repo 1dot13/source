@@ -1834,12 +1834,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 	{
 		ubDamage = 0;
 	}
-
-	// Flugente: is there a wall at the loation we are damaging?
-	BOOLEAN fWallHere = FALSE;	
-	if ( FindStructure( sGridNo, STRUCTURE_WALL ) )
-		fWallHere = TRUE;
-
+	
 	// OK, Let's check our reason
 	if ( ubReason == STRUCTURE_DAMAGE_GUNFIRE || ubReason == STRUCTURE_DAMAGE_VEHICLE_TRAUMA )
 	{
@@ -1883,6 +1878,13 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			}
 		}
 
+		// Flugente: is there a wall at the loation we are damaging?
+		BOOLEAN fWallHere = FALSE;
+		if ( pStructure->fFlags & STRUCTURE_WALL )
+			fWallHere = TRUE;
+		else if ( FindStructure( sGridNo, STRUCTURE_WALL ) )
+			fWallHere = TRUE;
+
 		// Flugente: anti-material rifles can damage and even destroy structures, but some structures remain indestructible (otherwise the player might gain access to inaccessible spots)
 		// the impact must be damaging enough, otherwise this won't have an effect
 		if ( ubBaseArmour < 75 && ubBaseArmour > 0 && sAntiMaterialImpact > ubBaseArmour * 5 / 12 )
@@ -1894,20 +1896,20 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			damage += max(1, 2 * sAntiMaterialImpact / ubBaseArmour);
 
 			BOOLEAN recompile = FALSE;
-			ExplosiveDamageGridNo( sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
+			ExplosiveDamageGridNo( pStructure->sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
-			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+			gpWorldLevelData[ pStructure->sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
 			// if we destroyed something, the roof might get damaged too
-			// recompile = TRUE means that we destroyed soemthing
+			// recompile = TRUE means that we destroyed something
 			if ( fWallHere && recompile )
 			{
-				HandleRoofDestruction( sGridNo, damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( NORTH ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( EAST ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( WEST ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( SOUTH ) ), damage * 0.75f );
+				HandleRoofDestruction( pStructure->sGridNo, damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( NORTH ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( EAST ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( WEST ) ), damage * 0.75f );
+				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( SOUTH ) ), damage * 0.75f );
 			}
 		}
 

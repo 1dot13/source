@@ -5633,7 +5633,8 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UIN
 	// Get Structure pointer and damage it!
 	if ( usStructureID != INVALID_STRUCTURE_ID )
 	{
-		pStructure = FindStructureByID( sGridNo, usStructureID );
+		// Flugente: if possible, take the gridno of the bullet. Otherwise we often get the issue that the calculated gridno is not the one where the structure is, leading to the structure being undamaged
+		pStructure = FindStructureByID( pBullet ? pBullet->sGridNo : sGridNo, usStructureID );
 
 		DamageStructure( pStructure, (UINT8)iImpact, STRUCTURE_DAMAGE_GUNFIRE, sGridNo, sXPos, sYPos, ubAttackerID, pBullet->usFlags & BULLET_FLAG_ANTIMATERIEL ? pBullet->iImpact - pBullet->iImpactReduction : 0 );
 	}
