@@ -2,6 +2,7 @@
 	#include "Strategic All.h"
 	#include "XML.h"
 #else
+	#include "ASD.h"		// added by Flugente
 	#include "types.h"
 	#include "Campaign Init.h"
 	#include "Random.h"
@@ -599,6 +600,9 @@ void InitNewCampaign()
 		// HEADROCK HAM 3.5: Externalized.
 		SetSectorFlag( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY, startingZ, SF_ALREADY_VISITED ); //hayden
 #endif
+
+	// Flugente: init special AI
+	InitASD();
 
 	//Generates the initial forces in a new campaign.	The idea is to randomize numbers and sectors
 	//so that no two games are the same.

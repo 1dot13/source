@@ -498,9 +498,6 @@ void InitStrategicLayer( void )
 	// Flugente: set up VIP locations
 	InitVIPSectors();
 
-	// Flugente: init special AI
-	InitASD();
-
 #ifdef JA2UB
 	LuaInitStrategicLayer(0); //JA25 UB InitStrategicLayer.lua 
 #endif
