@@ -2790,6 +2790,7 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 	{
 		sTargetGridNo		= pTargetSoldier->sGridNo;
 		bTargetLevel	= pTargetSoldier->pathing.bLevel;
+		sGridNo = sTargetGridNo;
 	}
 	else
 	{
@@ -2817,7 +2818,7 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, IN
 	if ( pIntNode != NULL	)
 	{
 		// Are we in the same gridno?
-		if ( sGridNo == pSoldier->sGridNo && ubItemCursor != AIDCURS )
+		if ( sGridNo == pSoldier->sGridNo && ubItemCursor != AIDCURS && pStructure )
 		{
 			// Get orientation....
 			switch( pStructure->ubWallOrientation )
