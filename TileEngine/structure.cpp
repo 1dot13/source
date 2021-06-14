@@ -1787,7 +1787,7 @@ BOOLEAN StructureDensity( STRUCTURE * pStructure, UINT8 * pubLevel0, UINT8 * pub
 	return( TRUE );
 }
 
-BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner, INT32 sAntiMaterialImpact )
+INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner, INT32 sAntiMaterialImpact )
 {
 	// do damage to a structure; returns TRUE if the structure should be removed
 	STRUCTURE			*pBase;
@@ -1797,12 +1797,12 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 	if (pStructure->fFlags & STRUCTURE_PERSON || pStructure->fFlags & STRUCTURE_CORPSE)
 	{
 		// don't hurt this structure, it's used for hit detection only!
-		return( FALSE );
+		return( 0 );
 	}
 	
 	if ( (pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_INDESTRUCTABLE_METAL) || (pStructure->pDBStructureRef->pDBStructure->ubArmour == MATERIAL_INDESTRUCTABLE_STONE) )
 	{
-		return( FALSE );
+		return( 0 );
 	}
 
 	UINT8				ubBaseArmour = gubMaterialArmour[ pStructure->pDBStructureRef->pDBStructure->ubArmour ];
@@ -1822,7 +1822,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 		if (ubArmour > ubDamage)
 		{
 			// didn't even scratch the paint
-			return( FALSE );
+			return( 0 );
 		}
 		else
 		{
@@ -1862,7 +1862,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			IgniteExplosion( ubOwner, sX, sY, 0, sGridNo, STRUCTURE_IGNITE, 0 );
 
 			// ATE: Return false here, as we are dealing with deleting the graphic here...
-			return( FALSE );
+			return( 0 );
 		}
 
 		// Make hit sound....
@@ -1896,7 +1896,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			damage += max(1, 2 * sAntiMaterialImpact / ubBaseArmour);
 
 			BOOLEAN recompile = FALSE;
-			ExplosiveDamageGridNo( pStructure->sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
+			ExplosiveDamageGridNo( pStructure->sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0, ubReason );
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
 			gpWorldLevelData[ pStructure->sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
@@ -1920,7 +1920,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 			INT16 damage = 255;
 
 			BOOLEAN recompile = FALSE;
-			ExplosiveDamageGridNo( sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0 );
+			ExplosiveDamageGridNo( sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0, ubReason );
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
 			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
@@ -1947,7 +1947,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 		}
 
 		// Don't update damage HPs....
-		return TRUE;
+		return 1;
 	}
 
 	// OK, LOOK FOR A SAM SITE, UPDATE....
@@ -1961,7 +1961,7 @@ BOOLEAN DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason,
 		UpdateAndDamageEnemyHeliIfFound( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, sGridNo, ubDamage, TRUE );
 
 		// boom! structure destroyed!
-		return( TRUE );
+		return( 1 );
 	}
 	else
 	{

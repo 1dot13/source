@@ -650,7 +650,9 @@ void HandleFencePartnerCheck( INT32 sStructGridNo )
 
 
 
-BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextCurrent,  INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLEAN *pfRecompileMovementCosts, BOOLEAN fOnlyWalls, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT8 ubOwner, INT8 bLevel )
+BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextCurrent,  INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist,
+	BOOLEAN *pfRecompileMovementCosts, BOOLEAN fOnlyWalls, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT8 ubOwner, INT8 bLevel,
+	UINT8 ubReason )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
@@ -670,7 +672,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 	DB_STRUCTURE_TILE ** ppTile;
 	INT8 bDestructionPartner=-1;
 	INT8	bDamageReturnVal;
-	BOOLEAN fContinue;
+	INT8 docontinue(0);
 	UINT32 uiTileType;
 	INT32 sBaseGridNo;
 	BOOLEAN fExplosive;
@@ -727,7 +729,6 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 		// Damage structure!
 		if ( ( bDamageReturnVal = DamageStructure( pCurrent, (UINT8)sWoundAmt, STRUCTURE_DAMAGE_EXPLOSION, sGridNo, sX, sY, NOBODY ) ) != 0 )
 		{
-			fContinue = FALSE;
 #ifdef JA2UB			
 			//Ja25 ub
 			//are we exploding the Fan in the power gen facility
@@ -741,7 +742,10 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 			sBaseGridNo = pBase->sGridNo;
 
 			// if the structure is openable, destroy all items there
-			if ( pBase->fFlags & STRUCTURE_OPENABLE && !(pBase->fFlags & STRUCTURE_DOOR ) )
+			// Flugente: only if the structure has been entirely destroyed (why would we destroy what's inside if the structure still exists?)
+			if ( bDamageReturnVal == 1 &&
+				pBase->fFlags & STRUCTURE_OPENABLE &&
+				!(pBase->fFlags & STRUCTURE_DOOR ) )
 			{
 				RemoveAllUnburiedItems( pBase->sGridNo, bLevel );
 			}
@@ -762,7 +766,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 
 			if ( bDamageReturnVal == 1 )
 			{
-				fContinue = TRUE;
+				docontinue = 1;
 			}
 			// Check for a damaged looking graphic...
 			else if ( bDamageReturnVal == 2 )
@@ -775,11 +779,11 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 
 					GetTileType( pNode->usIndex, &uiTileType );
 
-					fContinue = 2;
+					docontinue = 2;
 				}
 			}
 
-			if ( fContinue )
+			if ( docontinue )
 			{
 				// Remove the beast!
 				while ( (*ppNextCurrent) != NULL && (*ppNextCurrent)->usStructureID == pCurrent->usStructureID )
@@ -1269,7 +1273,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 				ApplyMapChangesToMapTempFile( FALSE );
 
 				// OK, if we are to swap structures, do it now...
-				if ( fContinue == 2 )
+				if ( docontinue == 2 )
 				{
 					// We have a levelnode...
 					// Get new index for new grpahic....
@@ -1280,8 +1284,6 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 					AddStructToHead( sBaseGridNo, usTileIndex );
 
 					ApplyMapChangesToMapTempFile( FALSE );
-
-
 				}
 
 				// Rerender world!
@@ -1311,7 +1313,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 					}
 				}
 
-				if ( fContinue == 2 )
+				if ( docontinue == 2 )
 				{
 					return( FALSE );
 				}
@@ -1323,12 +1325,13 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 	}
 
 	return( 1 );
-
 }
 
 STRUCTURE *gStruct;
 
-void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLEAN *pfRecompileMovementCosts, BOOLEAN fOnlyWalls, INT8 bMultiStructSpecialFlag, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT8 ubOwner, INT8 bLevel )
+void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLEAN *pfRecompileMovementCosts, 
+	BOOLEAN fOnlyWalls, INT8 bMultiStructSpecialFlag, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT8 ubOwner, INT8 bLevel,
+	UINT8 ubReason )
 {
 #ifdef JA2BETAVERSION
 	if (is_networked) {
@@ -1406,7 +1409,7 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 		// Check level!
 		if (pCurrent->sCubeOffset == sDesiredLevel )
 		{
-			fExplodeDamageReturn = ExplosiveDamageStructureAtGridNo( pCurrent, &pNextCurrent,	sGridNo, sWoundAmt, uiDist, pfRecompileMovementCosts, fOnlyWalls, 0, ubOwner, bLevel );
+			fExplodeDamageReturn = ExplosiveDamageStructureAtGridNo( pCurrent, &pNextCurrent,	sGridNo, sWoundAmt, uiDist, pfRecompileMovementCosts, fOnlyWalls, 0, ubOwner, bLevel, ubReason );
 
 			// Are we overwriting damage due to multi-tile...?
 			if ( fExplodeDamageReturn )
@@ -1474,11 +1477,11 @@ void ExplosiveDamageGridNo( INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 										// If we just damaged it, use same damage value....
 										if ( fMultiStructSpecialFlag )
 										{
-											ExplosiveDamageGridNo( sNewGridNo2, sWoundAmt, uiDist, pfRecompileMovementCosts, fOnlyWalls, bMultiStructSpecialFlag, 1, ubOwner, bLevel );
+											ExplosiveDamageGridNo( sNewGridNo2, sWoundAmt, uiDist, pfRecompileMovementCosts, fOnlyWalls, bMultiStructSpecialFlag, 1, ubOwner, bLevel, ubReason );
 										}
 										else
 										{
-											ExplosiveDamageGridNo( sNewGridNo2, sWoundAmt, uiDist, pfRecompileMovementCosts, fOnlyWalls, bMultiStructSpecialFlag, 2, ubOwner, bLevel );
+											ExplosiveDamageGridNo( sNewGridNo2, sWoundAmt, uiDist, pfRecompileMovementCosts, fOnlyWalls, bMultiStructSpecialFlag, 2, ubOwner, bLevel, ubReason );
 										}
 
 										{
@@ -2357,14 +2360,14 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 				}
 			}
 			
-			ExplosiveDamageGridNo( sGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, FALSE, -1, 0 , ubOwner, bLevel );
+			ExplosiveDamageGridNo( sGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, FALSE, -1, 0 , ubOwner, bLevel, STRUCTURE_DAMAGE_EXPLOSION );
 
 			// ATE: Look for damage to walls ONLY for next two gridnos
 			sNewGridNo = NewGridNo( sGridNo, DirectionInc( NORTH ) );
 
 			if ( GridNoOnVisibleWorldTile( sNewGridNo ) )
 			{
-				ExplosiveDamageGridNo( sNewGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, TRUE, -1, 0, ubOwner, bLevel );
+				ExplosiveDamageGridNo( sNewGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, TRUE, -1, 0, ubOwner, bLevel, STRUCTURE_DAMAGE_EXPLOSION );
 			}
 
 			// ATE: Look for damage to walls ONLY for next two gridnos
@@ -2372,7 +2375,7 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 
 			if ( GridNoOnVisibleWorldTile( sNewGridNo ) )
 			{
-				ExplosiveDamageGridNo( sNewGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, TRUE, -1, 0, ubOwner, bLevel );
+				ExplosiveDamageGridNo( sNewGridNo, sStructDmgAmt, uiDist, &fRecompileMovementCosts, TRUE, -1, 0, ubOwner, bLevel, STRUCTURE_DAMAGE_EXPLOSION );
 			}
 		}
 
