@@ -1895,21 +1895,28 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 			// this is the damage we will cause. The higher our damage, the faster can we destroy a structure
 			damage += max(1, 2 * sAntiMaterialImpact / ubBaseArmour);
 
+			// the structure might not exists afterwards, thus we store the gridno
+			INT32 tmpgridno = pStructure->sGridNo;
 			BOOLEAN recompile = FALSE;
-			ExplosiveDamageGridNo( pStructure->sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0, ubReason );
+			ExplosiveDamageGridNo( tmpgridno, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0, ubReason );
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
-			gpWorldLevelData[ pStructure->sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+			gpWorldLevelData[ tmpgridno ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
-			// if we destroyed something, the roof might get damaged too
 			// recompile = TRUE means that we destroyed something
-			if ( fWallHere && recompile )
+			if ( recompile )
 			{
-				HandleRoofDestruction( pStructure->sGridNo, damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( NORTH ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( EAST ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( WEST ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( pStructure->sGridNo, DirectionInc( SOUTH ) ), damage * 0.75f );
+				// if we destroyed something, the roof might get damaged too
+				if ( fWallHere )
+				{
+					HandleRoofDestruction( tmpgridno, damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( NORTH ) ), damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( EAST ) ), damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( WEST ) ), damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( SOUTH ) ), damage * 0.75f );
+				}
+
+				RecompileLocalMovementCostsFromRadius( tmpgridno, 2 );
 			}
 		}
 
@@ -1919,30 +1926,37 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 		{
 			INT16 damage = 255;
 
+			// the structure might not exists afterwards, thus we store the gridno
+			INT32 tmpgridno = pStructure->sGridNo;
 			BOOLEAN recompile = FALSE;
-			ExplosiveDamageGridNo( sGridNo, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0, ubReason );
+			ExplosiveDamageGridNo( tmpgridno, damage, 10, &recompile, FALSE, -1, FALSE, ubOwner, 0, ubReason );
 
 			//Since the structure is being damaged, set the map element that a structure is damaged
-			gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+			gpWorldLevelData[ tmpgridno ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
 			// handle structure revenge - damage to vehicle
 			if ( ubOwner != NOBODY && MercPtrs[ubOwner] && !ARMED_VEHICLE( MercPtrs[ubOwner] ) )
 			{
 				MercPtrs[ ubOwner ]->SoldierTakeDamage( 0, Random(max(0,(ubBaseArmour-10)/5))+max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE );
 			}
-
-			// Flugente: if we destroyed a wall, the roof might get damaged too
+			
 			// recompile = TRUE means that we destroyed something
-			if ( fWallHere && recompile )
+			if ( recompile )
 			{
-				// lets not make it that extreme
-				damage = 100;
+				// if we destroyed something, the roof might get damaged too
+				if ( fWallHere )
+				{
+					// lets not make it that extreme
+					damage = 100;
 
-				HandleRoofDestruction( sGridNo, damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( NORTH ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( EAST ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( WEST ) ), damage * 0.75f );
-				HandleRoofDestruction( NewGridNo( sGridNo, DirectionInc( SOUTH ) ), damage * 0.75f );
+					HandleRoofDestruction( tmpgridno, damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( NORTH ) ), damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( EAST ) ), damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( WEST ) ), damage * 0.75f );
+					HandleRoofDestruction( NewGridNo( tmpgridno, DirectionInc( SOUTH ) ), damage * 0.75f );
+				}
+
+				RecompileLocalMovementCostsFromRadius( tmpgridno, 2 );
 			}
 		}
 
