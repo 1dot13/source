@@ -1295,6 +1295,14 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 #endif
 	//if we are in an above ground sector
 
+	//If there is a map modifications file, load the data from the temp file
+	if ( DoesTempFileExistsForMap( SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
+	{
+		fUsedTempFile = TRUE;
+		if ( !LoadAllMapChangesFromMapTempFileAndApplyThem() )
+			return( FALSE );
+	}
+
 	//If there is a file, load in the Items array
 	if( DoesTempFileExistsForMap( SF_ITEM_TEMP_FILE_EXISTS, gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
 	{
@@ -1308,14 +1316,6 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 	{
 		fUsedTempFile = TRUE;
 		if( !LoadRottingCorpsesFromTempCorpseFile( gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
-			return( FALSE );
-	}
-
-	//If there is a map modifications file, load the data from the temp file
-	if( DoesTempFileExistsForMap( SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )
-	{
-		fUsedTempFile = TRUE;
-		if( !LoadAllMapChangesFromMapTempFileAndApplyThem( ) )
 			return( FALSE );
 	}
 
