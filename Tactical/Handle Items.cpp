@@ -3500,6 +3500,28 @@ void RemoveAllUnburiedItems( INT32 sGridNo, UINT8 ubLevel )
 	}
 }
 
+void RevealAllUnburiedItems( INT32 sGridNo, UINT8 ubLevel )
+{
+	ITEM_POOL		*pItemPool;
+
+	// Check for and existing pool on the object layer
+	GetItemPool( sGridNo, &pItemPool, ubLevel );
+
+	while ( pItemPool )
+	{
+		if ( gWorldItems[pItemPool->iItemIndex].bVisible != BURIED )
+		{
+			gWorldItems[pItemPool->iItemIndex].bVisible = VISIBLE;
+			gWorldItems[pItemPool->iItemIndex].bRenderZHeightAboveLevel = 0;
+			gWorldItems[pItemPool->iItemIndex].ubNonExistChance = 0;
+			gWorldItems[pItemPool->iItemIndex].usFlags &= ( ~WORLD_ITEM_DONTRENDER );
+		}
+
+		pItemPool = pItemPool->pNext;
+	}
+		
+	NotifySoldiersToLookforItems();
+}
 
 void LoopLevelNodeForShowThroughFlag( LEVELNODE *pNode, INT32 sGridNo, UINT8 ubLevel )
 {

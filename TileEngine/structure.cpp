@@ -1917,6 +1917,9 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 				}
 
 				RecompileLocalMovementCostsFromRadius( tmpgridno, 2 );
+
+				// if we've destroyed a structure, reveal the things inside, as destroying a structure doesn't necessarily destroy the contents inside
+				RevealAllUnburiedItems( tmpgridno, 0 );
 			}
 		}
 
@@ -1957,6 +1960,9 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 				}
 
 				RecompileLocalMovementCostsFromRadius( tmpgridno, 2 );
+
+				// if we've destroyed a structure, reveal the things inside, as destroying a structure doesn't necessarily destroy the contents inside
+				RevealAllUnburiedItems( tmpgridno, 0 );
 			}
 		}
 

@@ -650,7 +650,7 @@ void HandleFencePartnerCheck( INT32 sStructGridNo )
 
 
 
-BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextCurrent,  INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist,
+INT8 ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNextCurrent,  INT32 sGridNo, INT16 sWoundAmt, UINT32 uiDist,
 	BOOLEAN *pfRecompileMovementCosts, BOOLEAN fOnlyWalls, BOOLEAN fSubSequentMultiTilesTransitionDamage, UINT8 ubOwner, INT8 bLevel,
 	UINT8 ubReason )
 {
@@ -683,7 +683,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 	if ( DoesO3SectorStatueExistHere( sGridNo ) && uiDist <= 1 )
 	{
 		ChangeO3SectorStatue( TRUE );
-		return( TRUE );
+		return( 1 );
 	}
 #ifdef JA2UB	
 	//JA25 UB
@@ -706,12 +706,12 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 	// ATE: Continue if we are only looking for walls
 	if ( fOnlyWalls && !( pCurrent->fFlags & STRUCTURE_WALLSTUFF ) )
 	{
-		return( TRUE );
+		return( 1 );
 	}
 
 	if ( bLevel > 0 )
 	{
-		return( TRUE );
+		return( 1 );
 	}
 
 	// Is this a corpse?
@@ -747,7 +747,9 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 				pBase->fFlags & STRUCTURE_OPENABLE &&
 				!(pBase->fFlags & STRUCTURE_DOOR ) )
 			{
-				RemoveAllUnburiedItems( pBase->sGridNo, bLevel );
+				// explosions destroy items inside
+				if ( ubReason == STRUCTURE_DAMAGE_EXPLOSION )
+					RemoveAllUnburiedItems( pBase->sGridNo, bLevel );
 			}
 
 			fExplosive = ( ( pCurrent->fFlags & STRUCTURE_EXPLOSIVE ) != 0 );
@@ -1315,7 +1317,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 
 				if ( docontinue == 2 )
 				{
-					return( FALSE );
+					return( 1 );
 				}
 			}
 

@@ -220,7 +220,7 @@ void RemoveItemPool( INT32 sGridNo, UINT8 ubLevel );
 void RenderTopmostFlashingItems( );
 
 void RemoveAllUnburiedItems( INT32 sGridNo, UINT8 ubLevel );
-
+void RevealAllUnburiedItems( INT32 sGridNo, UINT8 ubLevel );
 
 BOOLEAN DoesItemPoolContainAnyHiddenItems( ITEM_POOL *pItemPool );
 BOOLEAN DoesItemPoolContainAllHiddenItems( ITEM_POOL *pItemPool );
