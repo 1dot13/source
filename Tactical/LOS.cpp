@@ -6296,17 +6296,20 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	// Flugente : Added a malus to reliability for overheated guns
 	// HEADROCK HAM 5: Variable NCTH base change
 	UINT32 uiDepreciateTest = 0;
+	INT32 depreciatetest = 0;
 	if ( UsingNewCTHSystem() == true)
 	{
 		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
-		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( pObj ) - iOverheatReliabilityMalus);
-		uiDepreciateTest = max(0, uiDepreciateTest);
+		depreciatetest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( pObj ) - iOverheatReliabilityMalus);
 	}
 	else
 	{
-		uiDepreciateTest = max( gItemSettings.usBasicDeprecateChance + 3 * GetReliability( pObj ) - iOverheatReliabilityMalus, 0 );
+		depreciatetest = gItemSettings.usBasicDeprecateChance + 3 * GetReliability( pObj ) - iOverheatReliabilityMalus;
 	}
+
+	uiDepreciateTest = min( 100, max( 0, depreciatetest ) );
+
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObj)[0]->data.objectStatus > 1) )
 	{
 		(*pObj)[0]->data.objectStatus--;

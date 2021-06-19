@@ -2536,17 +2536,20 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 					{
 						INT16 ammoReliability = Item[(*pObjAttHand)[0]->data.gun.usGunAmmoItem].bReliability;
 						// HEADROCK HAM 5: Variable base chance
+						INT32 depreciatetest = 0;
 						if ( UsingNewCTHSystem() == true)
 						{	
 							UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 							FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
-							uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * (Item[ iter->usItem ].bReliability + ammoReliability) );
-							uiDepreciateTest = max(0, uiDepreciateTest);
+							depreciatetest = usBaseChance + (INT16)( dReliabilityRatio * (Item[ iter->usItem ].bReliability + ammoReliability) );
 						}
 						else
 						{
-							uiDepreciateTest = max( 0, gItemSettings.usBasicDeprecateChance + 3 * (Item[iter->usItem].bReliability + ammoReliability) );
+							depreciatetest = gItemSettings.usBasicDeprecateChance + 3 * (Item[iter->usItem].bReliability + ammoReliability);
 						}
+
+						uiDepreciateTest = min( 100, max( 0, depreciatetest ) );
+
 						if ( !PreRandom( uiDepreciateTest ) && ( (*pObjAttHand)[0]->data.objectStatus > 1) )
 						{
 							(*pA)[0]->data.objectStatus--;
@@ -3039,17 +3042,19 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 
 	// Flugente: Added a malus to reliability for overheated guns
 	// HEADROCK HAM 5: Variable NCTH base change
+	INT32 depreciatetest = 0;
 	if ( UsingNewCTHSystem() == true)
 	{
 		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
-		uiDepreciateTest = (UINT32)((usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ) - iOverheatReliabilityMalus)) / dirtincreasefactor);
-		uiDepreciateTest = max(0, uiDepreciateTest);
+		uiDepreciateTest = (usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[pSoldier->ubAttackingHand]) ) - iOverheatReliabilityMalus)) / dirtincreasefactor;
 	}
 	else
 	{
-		uiDepreciateTest = max( (UINT32)((gItemSettings.usBasicDeprecateChance + 3 * GetReliability( pObjAttHand ) - iOverheatReliabilityMalus) / dirtincreasefactor), 0 );
+		depreciatetest = ( gItemSettings.usBasicDeprecateChance + 3 * GetReliability( pObjAttHand ) - iOverheatReliabilityMalus ) / dirtincreasefactor;
 	}
+
+	uiDepreciateTest = min( 100, max( 0, depreciatetest ) );
 
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjAttHand)[0]->data.objectStatus > 1) )
 	{
@@ -3266,17 +3271,21 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 					{
 						INT16 ammoReliability = Item[(*pObjUsed)[0]->data.gun.usGunAmmoItem].bReliability;
 						// HEADROCK HAM 5: Variable base chance
+
+						INT32 depreciatetest = 0;
 						if ( UsingNewCTHSystem() == true )
 						{
 							UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 							FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
-							uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * (Item[ iter->usItem ].bReliability + ammoReliability) );
-							uiDepreciateTest = __max(0, uiDepreciateTest);
+							depreciatetest = usBaseChance + (INT16)( dReliabilityRatio * (Item[ iter->usItem ].bReliability + ammoReliability) );
 						}
 						else
 						{
-							uiDepreciateTest = __max( 0, gItemSettings.usBasicDeprecateChance + 3 * (Item[iter->usItem].bReliability + ammoReliability) );
+							depreciatetest = gItemSettings.usBasicDeprecateChance + 3 * (Item[iter->usItem].bReliability + ammoReliability);
 						}
+
+						uiDepreciateTest = min( 100, max( 0, depreciatetest ) );
+
 						if ( !PreRandom( uiDepreciateTest ) && ( (*pObjUsed)[0]->data.objectStatus > 1) )
 						{
 							(*pA)[0]->data.objectStatus--;
@@ -3803,17 +3812,19 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 	}
 
 	// Flugente: Added a malus to reliability for overheated guns
+	INT32 depreciatetest = 0;
 	if ( UsingNewCTHSystem() == true )
 	{
 		UINT16 usBaseChance = gGameCTHConstants.BASIC_RELIABILITY_ODDS;
 		FLOAT dReliabilityRatio = 3.0f * ((FLOAT)usBaseChance / (FLOAT)gItemSettings.usBasicDeprecateChance); // Compare original odds to new odds.
-		uiDepreciateTest = (UINT32)(usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ])) - iOverheatReliabilityMalus) / dirtincreasefactor);
-		uiDepreciateTest = max(0, uiDepreciateTest);
+		uiDepreciateTest = usBaseChance + (INT16)( dReliabilityRatio * GetReliability( &(pSoldier->inv[ pSoldier->ubAttackingHand ])) - iOverheatReliabilityMalus) / dirtincreasefactor;
 	}
 	else
 	{
-		uiDepreciateTest = max( (UINT32)((gItemSettings.usBasicDeprecateChance + 3 * (GetReliability( pObjUsed )) - iOverheatReliabilityMalus) / dirtincreasefactor), 0 );
+		depreciatetest = (gItemSettings.usBasicDeprecateChance + 3 * (GetReliability( pObjUsed )) - iOverheatReliabilityMalus) / dirtincreasefactor;
 	}
+
+	uiDepreciateTest = min( 100, max( 0, depreciatetest ) );
 
 	if ( !PreRandom( uiDepreciateTest ) && ( (*pObjUsed)[0]->data.objectStatus > 1) )
 	{
