@@ -1180,11 +1180,6 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 			ModifyDoorStatus( sGridNo, TRUE, DONTSETDOORSTATUS );
 		}
 
-		if ( gWorldSectorX == 13 && gWorldSectorY == MAP_ROW_I )
-		{
-			DoPOWPathChecks();
-		}
-
 		if (pSoldier )
 		{
 			// OK, Are we a player merc or AI?
@@ -1288,6 +1283,11 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 
 			// OK, We must know what sound to play, for now use same sound for all doors...
 			PlayJA2Sample( uiSoundID, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
+		}
+
+		if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY && gbWorldSectorZ == 0)
+		{
+			DoPOWPathChecks();
 		}
 
 	}
