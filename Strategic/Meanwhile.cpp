@@ -411,25 +411,49 @@ void CheckForMeanwhileOKStart( )
 			return;
 		}
 
-	if ( !DialogueQueueIsEmptyOrSomebodyTalkingNow( ) )
-	{
-		return;
-	}
+		if ( !DialogueQueueIsEmptyOrSomebodyTalkingNow( ) )
+		{
+			return;
+		}
+
+		//shadooow: prevent the interrogation meanwhile to start if the mercs were fired from team
+		if (gCurrentMeanwhileDef.ubMeanwhileID == INTERROGATION)
+		{
+			SOLDIERTYPE *pSoldier;
+			BOOLEAN fFoundSoldierToInterrogate = FALSE;
+			UINT32 uiCount = 0;
+			for (pSoldier = MercPtrs[gCharactersList[uiCount].usSolID]; gCharactersList[uiCount].fValid; uiCount++, pSoldier++)
+			{
+				if (pSoldier->sSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && pSoldier->sSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
+					pSoldier->bSectorZ == 0 && pSoldier->bAssignment == ASSIGNMENT_POW && pSoldier->stats.bLife > 0 && gMercProfiles[pSoldier->ubProfile].bMercStatus != MERC_FIRED_AS_A_POW)
+				{
+					fFoundSoldierToInterrogate = TRUE;
+					break;
+				}
+			}
+
+			if (!fFoundSoldierToInterrogate)
+			{
+				gfMeanwhileTryingToStart = FALSE;
+				ProcessImplicationsOfMeanwhile();
+				UnLockPauseState();
+				UnPauseGame();
+				return;
+			}
+		}
 
 		gfMeanwhileTryingToStart = FALSE;
 
 		guiOldScreen = guiCurrentScreen;
 
-	if ( guiCurrentScreen == GAME_SCREEN )
-	{
+		if ( guiCurrentScreen == GAME_SCREEN )
+		{
 			LeaveTacticalScreen( GAME_SCREEN );
-	}
+		}
 
-
-
-	// We need to make sure we have no item - at least in tactical
-	// In mapscreen, time is paused when manipulating items...
-	CancelItemPointer( );
+		// We need to make sure we have no item - at least in tactical
+		// In mapscreen, time is paused when manipulating items...
+		CancelItemPointer( );
 
 		BringupMeanwhileBox( );
 	}
