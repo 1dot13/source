@@ -796,6 +796,10 @@ BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInComba
 		return( FALSE );
 	}
 
+	//shadooow: disable changing assignment on POW mercs to prevent to break them free improperly
+	if (pSoldier->bAssignment == ASSIGNMENT_POW)
+		return(FALSE);
+
 	return( TRUE );
 }
 
@@ -1029,6 +1033,9 @@ BOOLEAN  CanCharacterTreatSectorDisease( SOLDIERTYPE *pSoldier )
 
 BOOLEAN CanCharacterFortify( SOLDIERTYPE *pSoldier )
 {
+	if (pSoldier->bAssignment == ASSIGNMENT_POW)
+		return(FALSE);
+
 	// Flugente: we can't perform most assignments while concealed
 	if ( SPY_LOCATION( pSoldier->bAssignment ) )
 		return( FALSE );
@@ -19913,6 +19920,9 @@ BOOLEAN CanCharacterTrainWorkers( SOLDIERTYPE *pSoldier )
 
 	if ( !gGameExternalOptions.fMineRequiresWorkers )
 		return FALSE;
+
+	if (pSoldier->bAssignment == ASSIGNMENT_POW)
+		return(FALSE);
 
 	// Flugente: we can't perform most assignments while concealed
 	if ( SPY_LOCATION( pSoldier->bAssignment ) )
