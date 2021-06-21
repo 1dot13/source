@@ -90,6 +90,7 @@ INT32 giMaxMilitiaToRender = 20;//Changes depending on merc amount
 
 extern UINT8 gubReinforcementMinEnemyStaticGroupSize;
 extern BOOLEAN gfStrategicMilitiaChangesMade;
+extern BOOLEAN gfGodModeCheat;
 
 extern void ResetMilitia();
 extern BOOLEAN AutoReload( SOLDIERTYPE *pSoldier );
@@ -5001,7 +5002,14 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			break;
 	}
 
-	iNewLife = pTarget->pSoldier->stats.bLife - pTarget->usHitDamage[index];
+	if (gfGodModeCheat && pTarget->pSoldier->bTeam == OUR_TEAM)
+	{
+		iNewLife = pTarget->pSoldier->stats.bLife;
+	}
+	else
+	{
+		iNewLife = pTarget->pSoldier->stats.bLife - pTarget->usHitDamage[index];
+	}	
 	if( !pTarget->usHitDamage[index] )
 	{ //bullet missed -- play a ricochet sound.
 		if( pTarget->uiFlags & CELL_MERC )

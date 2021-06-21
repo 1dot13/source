@@ -1713,6 +1713,7 @@ PaletteReplacementType	*guipPaletteReplacements = NULL;
 extern BOOLEAN fReDrawFace;
 extern UINT8 gubWaitingForAllMercsToExitCode;
 BOOLEAN	gfGetNewPathThroughPeople = FALSE;
+BOOLEAN gfGodModeCheat = FALSE;
 
 // LOCAL FUNCTIONS
 // DO NOT CALL UNLESS THROUGH EVENT_SetSoldierPosition
@@ -10314,6 +10315,12 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 				}
 			}
 		}
+	}
+
+	if (gfGodModeCheat && this->bTeam == OUR_TEAM)
+	{
+		sLifeDeduct = 0;
+		sBreathLoss = 0;
 	}
 	
 	// Deduct life!, Show damage if we want!

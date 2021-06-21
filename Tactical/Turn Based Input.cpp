@@ -218,6 +218,7 @@ extern int iWindowedMode;
 extern OBJECTTYPE *gpItemDescObject;
 extern BOOLEAN gfInItemStackPopup;
 extern BOOLEAN gfInKeyRingPopup;
+extern BOOLEAN gfGodModeCheat;
 
 
 //Little functions called by keyboard input
@@ -3512,7 +3513,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case 'G':
 				if( fCtrl )
-				{				
+				{	
+					if (CHEATER_CHEAT_LEVEL())
+					{
+						ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, gfGodModeCheat ? L"God mode deactivated." : L"God mode activated.");
+						gfGodModeCheat = !gfGodModeCheat;
+					}
 				}
 				else if ( gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] )
 				{

@@ -708,6 +708,7 @@ extern CHAR16		gzUserDefinedButton1[ 128 ];
 extern CHAR16		gzUserDefinedButton2[ 128 ];
 
 extern BOOLEAN gfMilitiaPopupCreated;
+extern BOOLEAN gfGodModeCheat;
 
 #ifdef JA2TESTVERSION
 	extern INT16 MSYS_CurrentMX;
@@ -7772,6 +7773,16 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						//Toggle Frame Rate Display
 						gbFPSDisplay = !gbFPSDisplay;
 						DisableFPSOverlay( (BOOLEAN)!gbFPSDisplay );
+						}
+					}
+					break;
+				case 'G':
+					if (fCtrl)
+					{
+						if (CHEATER_CHEAT_LEVEL())
+						{
+							ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, gfGodModeCheat ? L"God mode deactivated." : L"God mode activated.");
+							gfGodModeCheat = !gfGodModeCheat;
 						}
 					}
 					break;
