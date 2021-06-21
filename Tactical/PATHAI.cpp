@@ -4096,7 +4096,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						iLoop = 0;
 						while( pCurr )
 						{
-							sprintf( zTS, "\t%d", pCurr->pathing.bLevel );
+							sprintf( zTS, "\t%d", pCurr->bLevel );
 							strcat( zTempString, zTS );
 							pCurr = pCurr->pNext[0];
 							iLoop++;
@@ -4108,12 +4108,12 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, zTempString );
 
 						zTempString[0] = '\0';
-						bTemp = pQueueHead->pathing.bLevel;
+						bTemp = pQueueHead->bLevel;
 						pCurr = pQueueHead;
 						iLoop = 0;
 						while( pCurr )
 						{
-							bTemp = pQueueHead->pathing.bLevel;
+							bTemp = pQueueHead->bLevel;
 							while ( pCurr->pNext[ bTemp - 1 ] == NULL )
 							{
 								bTemp--;
