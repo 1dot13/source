@@ -403,6 +403,7 @@ typedef struct
 	///////////////////////////////////////
 
 	// System settings
+	BOOLEAN gfCheatMode;
 	UINT8 gubDeadLockDelay;
 	BOOLEAN gfEnableEmergencyButton_SkipStrategicEvents;
 

@@ -885,6 +885,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.usWorkerTrainingPoints							= iniReader.ReadInteger( "Financial Settings", "WORKER_TRAINING_POINTS", 100, 1, 250 );
 	
 	//################# Troubleshooting Settings #################
+	gGameExternalOptions.gfCheatMode = iniReader.ReadBoolean("Troubleshooting Settings", "CHEAT_MODE", FALSE, false);
 
 	gGameExternalOptions.gubDeadLockDelay = (UINT8) iniReader.ReadInteger("Troubleshooting Settings","DEAD_LOCK_DELAY",15, 5, 50);
 	gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents = iniReader.ReadBoolean("Troubleshooting Settings","ENABLE_EMERGENCY_BUTTON_NUMLOCK_TO_SKIP_STRATEGIC_EVENTS",0);

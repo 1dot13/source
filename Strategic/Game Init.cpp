@@ -1224,7 +1224,9 @@ void ReStartingGame()
 	gpCustomizableTimerCallback = NULL;
 
 	// WANNE - MP: Set cheat level to 0 for mp
-	if (!is_networked)
+	if (gGameExternalOptions.gfCheatMode)
+		gubCheatLevel = 6;
+	else if (!is_networked)
 		gubCheatLevel = STARTING_CHEAT_LEVEL;
 	else
 		gubCheatLevel = 0;

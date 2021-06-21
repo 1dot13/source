@@ -6733,7 +6733,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//}
 
 #ifndef JA2TESTVERSION
-	RESET_CHEAT_LEVEL( );
+	if (gGameExternalOptions.gfCheatMode)
+		ACTIVATE_CHEAT_LEVEL();
+	else
+		RESET_CHEAT_LEVEL();
 #endif
 
 #ifdef JA2BETAVERSION
