@@ -7599,11 +7599,31 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
         // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
         if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
-			gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
+			gbWorldSectorZ == 0)
         {
-            // Quest failed
-            InternalEndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE );
+			if (gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS)
+			{
+				// Quest failed
+				InternalEndQuest(QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY, FALSE);
+			}
+			else if (gubQuest[QUEST_INTERROGATION] == QUESTCANNOTSTART)
+			{
+				//shadooow: re-enable quest if player loses control of the N7 prison and quest was disabled previously
+				gubQuest[QUEST_INTERROGATION] = QUESTNOTSTARTED;
+			}
         }
+		//shadooow: re-enable quest if player loses control of the Alma prison and quest was disabled previously
+		if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY &&
+			gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_ALMA] == QUESTCANNOTSTART)
+		{
+			gubQuest[QUEST_HELD_IN_ALMA] = QUESTNOTSTARTED;
+		}
+		//shadooow: re-enable quest if player loses control of the Tixa prison and quest was disabled previously
+		if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
+			gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTCANNOTSTART)
+		{
+			gubQuest[QUEST_HELD_IN_TIXA] = QUESTNOTSTARTED;
+		}
 
         // Play death music
 		#ifdef NEWMUSIC
@@ -7801,11 +7821,47 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                 }
                 // SANDRO - end quest if cleared the sector after interrogation (sector N7 by Meduna)
                 if ( gWorldSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && gWorldSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
-					gbWorldSectorZ == 0 && gubQuest[ QUEST_INTERROGATION ] == QUESTINPROGRESS )
+					gbWorldSectorZ == 0)
                 {
-                    // Complete quest
-                    EndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
+					if (gubQuest[QUEST_INTERROGATION] == QUESTINPROGRESS)
+					{
+						// Complete quest
+						EndQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
+					}
+					else if(gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
+					{
+						//shadooow: disable quest if player takes control of the N7 prison
+						gubQuest[QUEST_INTERROGATION] = QUESTCANNOTSTART;
+					}                    
                 }
+				//shadooow: disable quest if player takes control of the Alma prison
+				if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY &&
+					gbWorldSectorZ == 0)
+				{
+					if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTINPROGRESS)
+					{
+						// Complete quest
+						EndQuest(QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY);
+					}
+					else if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED)
+					{
+						gubQuest[QUEST_HELD_IN_ALMA] = QUESTCANNOTSTART;
+					}
+				}
+				//shadooow: disable quest if player takes control of the Alma prison
+				if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
+					gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
+				{
+					if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS)
+					{
+						// Complete quest
+						EndQuest(QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY);
+					}
+					else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
+					{
+						gubQuest[QUEST_HELD_IN_TIXA] = QUESTCANNOTSTART;
+					}
+				}				
 
                 // Say battle end quote....
 
@@ -8529,7 +8585,7 @@ BOOLEAN CheckForLosingEndOfBattle( )
                 {
                     //if( GetWorldDay() > STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE && !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ))
                     {
-                        if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
+                        if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
                         {
                             fDoCapture = TRUE;
                             // CJC Dec 1 2002: fix capture sequences
@@ -10401,8 +10457,10 @@ void CaptureTimerCallback( )
 
 void DoPOWPathChecks( )
 {
-    INT32                       iLoop;
-    SOLDIERTYPE *       pSoldier;
+    INT32 iLoop;
+    SOLDIERTYPE *pSoldier;
+
+	BOOLEAN is_this_tixa = (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY);
 
     // loop through all mercs on our team and if they are POWs in sector, do POW path check and
     // put on a squad if available
@@ -10415,15 +10473,15 @@ void DoPOWPathChecks( )
             // check to see if POW has been freed!
             // this will be true if a path can be made from the POW to either of 3 gridnos
             // 10492 (hallway) or 10482 (outside), or 9381 (outside)
-            if ( FindBestPath( pSoldier, 10492, 0, WALKING, NO_COPYROUTE, PATH_THROUGH_PEOPLE ) )//dnl!!!
+            if (FindBestPath( pSoldier, is_this_tixa ? gModSettings.iTixaPrisonPOWGetFreeGridNo[0] : gModSettings.iInitialPOWGetFreeGridNo[0], 0, WALKING, NO_COPYROUTE, PATH_THROUGH_PEOPLE))
             {
                 // drop out of if
             }
-            else if ( FindBestPath( pSoldier, 10482, 0, WALKING, NO_COPYROUTE, PATH_THROUGH_PEOPLE ) )//dnl!!!
+            else if (FindBestPath( pSoldier, is_this_tixa ? gModSettings.iTixaPrisonPOWGetFreeGridNo[1] : gModSettings.iInitialPOWGetFreeGridNo[1], 0, WALKING, NO_COPYROUTE, PATH_THROUGH_PEOPLE))
             {
                 // drop out of if
             }
-            else if ( FindBestPath( pSoldier, 9381, 0, WALKING, NO_COPYROUTE, PATH_THROUGH_PEOPLE ) )//dnl!!!
+            else if (FindBestPath( pSoldier, is_this_tixa ? gModSettings.iTixaPrisonPOWGetFreeGridNo[2] : gModSettings.iInitialPOWGetFreeGridNo[2], 0, WALKING, NO_COPYROUTE, PATH_THROUGH_PEOPLE))
             {
                 // drop out of if
             }
@@ -11206,7 +11264,7 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
         // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
         if ( !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 )
         {
-            if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
+			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
             {
                 gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
 

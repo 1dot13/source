@@ -3125,7 +3125,8 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 
 		// if anything has been done to change movement costs and this is a potential POW situation, check
 		// paths for POWs
-		if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY && gbWorldSectorZ == 0)
+		if (((gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY) ||
+			(gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY)) && gbWorldSectorZ == 0)
 		{
 			DoPOWPathChecks();
 		}

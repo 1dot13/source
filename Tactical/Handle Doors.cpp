@@ -1285,7 +1285,8 @@ BOOLEAN HandleDoorsOpenClose( SOLDIERTYPE *pSoldier, INT32 sGridNo, STRUCTURE * 
 			PlayJA2Sample( uiSoundID, RATE_11025, SoundVolume( MIDVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 		}
 
-		if (gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY && gbWorldSectorZ == 0)
+		if (((gWorldSectorX == gModSettings.ubInitialPOWSectorX && gWorldSectorY == gModSettings.ubInitialPOWSectorY) ||
+			(gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY)) && gbWorldSectorZ == 0)
 		{
 			DoPOWPathChecks();
 		}

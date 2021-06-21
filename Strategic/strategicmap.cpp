@@ -3273,7 +3273,8 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 								fPOWSquadSet = TRUE;
 
 								// ATE: If we are in i13 - pop up message!
-								if ( sSectorX == gModSettings.ubInitialPOWSectorX && sSectorY == gModSettings.ubInitialPOWSectorY ) //(13, 9)
+								if ((sSectorX == gModSettings.ubInitialPOWSectorX && sSectorY == gModSettings.ubInitialPOWSectorY) || //(13, 9)
+								(sSectorX == gModSettings.ubTixaPrisonSectorX && sSectorY == gModSettings.ubTixaPrisonSectorY))
 								{
 									swprintf( zTemp, TacticalStr[POW_MERCS_ARE_HERE], gMercProfiles[QUEEN].zNickname );
 									DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, (UINT8)MSG_BOX_FLAG_OK, NULL, NULL );
@@ -3287,7 +3288,8 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 							}
 							else
 							{
-								if ( sSectorX != gModSettings.ubInitialPOWSectorX && sSectorY != gModSettings.ubInitialPOWSectorY ) //(13, 9)
+								if ((sSectorX != gModSettings.ubInitialPOWSectorX && sSectorY != gModSettings.ubInitialPOWSectorY) && //(13, 9)
+									(sSectorX != gModSettings.ubTixaPrisonSectorX && sSectorY != gModSettings.ubTixaPrisonSectorY))
 								{
 									AddCharacterToSquad( pSoldier, ubPOWSquad );
 								}
@@ -3301,6 +3303,14 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 
 								// Do action
 								HandleNPCDoAction( 0, NPC_ACTION_GRANT_EXPERIENCE_3, 0 );
+							}
+							else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS)
+							{
+								// Complete quest
+								EndQuest(QUEST_HELD_IN_TIXA, sSectorX, sSectorY);
+
+								// Do action
+								HandleNPCDoAction(0, NPC_ACTION_GRANT_EXPERIENCE_3, 0);
 							}
 						}
 					}

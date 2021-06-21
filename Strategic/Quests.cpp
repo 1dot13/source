@@ -1448,6 +1448,7 @@ void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fU
 			case QUEST_KINGPIN_IDOL :
 			case QUEST_CHITZENA_IDOL :
 			case QUEST_HELD_IN_ALMA :
+			case QUEST_HELD_IN_TIXA :
 			case QUEST_RUNAWAY_JOEY :
 			case QUEST_ESCORT_TOURISTS :
 				GiveQuestRewardPoint( sSectorX, sSectorY, 5, NO_PROFILE );

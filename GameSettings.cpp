@@ -2725,12 +2725,24 @@ void LoadModSettings(){
 	gModSettings.iInitialPOWItemGridNo[0] = iniReader.ReadInteger("Alma", "INITIAL_POW_ITEM_POSITION_1", 12246);
 	gModSettings.iInitialPOWItemGridNo[1] = iniReader.ReadInteger("Alma", "INITIAL_POW_ITEM_POSITION_2", 12406);
 	gModSettings.iInitialPOWItemGridNo[2] = iniReader.ReadInteger("Alma", "INITIAL_POW_ITEM_POSITION_3", 12086);
+	gModSettings.iInitialPOWGetFreeGridNo[0] = iniReader.ReadInteger("Alma", "INITIAL_POW_GETFREE_GRIDNO_1", 10492);
+	gModSettings.iInitialPOWGetFreeGridNo[1] = iniReader.ReadInteger("Alma", "INITIAL_POW_GETFREE_GRIDNO_2", 10482);
+	gModSettings.iInitialPOWGetFreeGridNo[2] = iniReader.ReadInteger("Alma", "INITIAL_POW_GETFREE_GRIDNO_3", 9381);
 
 	//[Grumm]
 
 	//[Tixa]
 	gModSettings.ubTixaPrisonSectorX = iniReader.ReadInteger("Tixa", "PRISON_SECTOR_X", 9);
 	gModSettings.ubTixaPrisonSectorY = iniReader.ReadInteger("Tixa", "PRISON_SECTOR_Y", 10);
+	gModSettings.iTixaPrisonPOWGridNo[0] = iniReader.ReadInteger("Tixa", "PRISON_POW_POSITION_1", 12691);
+	gModSettings.iTixaPrisonPOWGridNo[1] = iniReader.ReadInteger("Tixa", "PRISON_POW_POSITION_2", 15891);
+	gModSettings.iTixaPrisonPOWGridNo[2] = iniReader.ReadInteger("Tixa", "PRISON_POW_POSITION_3", 13980);
+	gModSettings.iTixaPrisonPOWItemGridNo[0] = iniReader.ReadInteger("Tixa", "PRISON_POW_ITEM_POSITION_1", 10619);
+	gModSettings.iTixaPrisonPOWItemGridNo[1] = iniReader.ReadInteger("Tixa", "PRISON_POW_ITEM_POSITION_2", 10619);
+	gModSettings.iTixaPrisonPOWItemGridNo[2] = iniReader.ReadInteger("Tixa", "PRISON_POW_ITEM_POSITION_3", 10619);
+	gModSettings.iTixaPrisonPOWGetFreeGridNo[0] = iniReader.ReadInteger("Tixa", "PRISON_POW_GETFREE_GRIDNO_1", 14145);
+	gModSettings.iTixaPrisonPOWGetFreeGridNo[1] = iniReader.ReadInteger("Tixa", "PRISON_POW_GETFREE_GRIDNO_2", 14135);
+	gModSettings.iTixaPrisonPOWGetFreeGridNo[2] = iniReader.ReadInteger("Tixa", "PRISON_POW_GETFREE_GRIDNO_3", 13646);
 
 	gModSettings.ubDyanmoCaptiveSectorX = iniReader.ReadInteger("Tixa", "DYNAMO_CAPTIVE_SECTOR_X", 9);
 	gModSettings.ubDyanmoCaptiveSectorY = iniReader.ReadInteger("Tixa", "DYNAMO_CAPTIVE_SECTOR_Y", 10);

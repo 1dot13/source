@@ -2739,7 +2739,13 @@ void EndCaptureSequence( )
 		}
 		// CJC Dec 1 2002: fixing multiple captures:
 		//else if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE )
-		else if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTDONE && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED )
+		else if (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
+		{
+			// CJC Dec 1 2002: fixing multiple captures:
+			gStrategicStatus.uiFlags |= STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE;
+			StartQuest(QUEST_HELD_IN_TIXA, gWorldSectorX, gWorldSectorY);
+		}
+		else if (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED)
 		{
 			StartQuest( QUEST_INTERROGATION, gWorldSectorX, gWorldSectorY );
 			// CJC Dec 1 2002: fixing multiple captures:
@@ -2765,12 +2771,6 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	BOOLEAN       fMadeCorpse;
 	INT32         iNumEnemiesInSector;
 
-	// Buggler: Externalized Hardcoded grid number
-	//static INT32 sAlmaCaptureGridNos[] = { 9208, 9688, 9215 }; //dnl!!!
-	//static INT32 sAlmaCaptureItemsGridNo[] = { 12246, 12406, 12086 }; //dnl!!!
-
-	//static INT32 sInterrogationItemGridNo[] = { 12089, 12089, 12089 }; //dnl!!!
-
 	AssertNotNIL(pSoldier);
 
 	// ATE: Check first if ! in player captured sequence already
@@ -2780,38 +2780,22 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	// ATE: If maximum prisoners captured, return!
-	if ( gStrategicStatus.ubNumCapturedForRescue > 2 )
+	// If this is an EPC , just kill them...
+	if ( AM_AN_EPC( pSoldier ) || AM_A_ROBOT(pSoldier))
 	{
-	return;
+		pSoldier->stats.bLife = 0;
+		pSoldier->iHealableInjury = 0; // added by SANDRO
+		HandleSoldierDeath( pSoldier, &fMadeCorpse );
+		return;
 	}
-	
-  // If this is an EPC , just kill them...
-  if ( AM_AN_EPC( pSoldier ) )
-  {
-	  pSoldier->stats.bLife = 0;
-	  pSoldier->iHealableInjury = 0; // added by SANDRO
-    HandleSoldierDeath( pSoldier, &fMadeCorpse );
-    return;
-  }
 
-  if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
-  {
-    return;
-  }
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+	{
+		return;
+	}
 
-  // ATE: Patch fix If in a vehicle, remove from vehicle...
-  TakeSoldierOutOfVehicle( pSoldier );
-  
-  // Are there enemies in ALMA? ( I13 )
-  iNumEnemiesInSector = NumNonPlayerTeamMembersInSector( gModSettings.ubInitialPOWSectorX, gModSettings.ubInitialPOWSectorY, ENEMY_TEAM ); //(13, 9)
-
-  // IF there are no enemies, and we need to do alma, skip!
-  if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED && iNumEnemiesInSector == 0 )
-  {
-	  InternalStartQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY, FALSE );
-	  InternalEndQuest( QUEST_HELD_IN_ALMA, gWorldSectorX, gWorldSectorY, FALSE );
-  }
+	// ATE: Patch fix If in a vehicle, remove from vehicle...
+	TakeSoldierOutOfVehicle( pSoldier );
 
 	HandleMoraleEvent( pSoldier, MORALE_MERC_CAPTURED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 
@@ -2824,7 +2808,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 
 	ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_POW );
 	// ATE: Make them neutral!
-	if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED )
+	if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 	{
 		pSoldier->aiData.bNeutral = TRUE;
 	}
@@ -2834,7 +2818,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	WORLDITEM			WorldItem;
 	std::vector<WORLDITEM> pWorldItem;
 
-	if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
+	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
 	{
 		INT32 itemdropoffgridno = -1;
 
@@ -2848,6 +2832,15 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iInitialPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
+		else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
+		{
+			//-teleport him to Tixa as originally planned
+			pSoldier->sSectorX = gModSettings.ubTixaPrisonSectorX;
+			pSoldier->sSectorY = gModSettings.ubTixaPrisonSectorY;
+			pSoldier->bSectorZ = 0;
+			pSoldier->usStrategicInsertionData = gModSettings.iTixaPrisonPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
+			itemdropoffgridno = gModSettings.iTixaPrisonPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
+		}
 		else //if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
 		{
 			//-teleport him to N7
@@ -2855,7 +2848,7 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 			pSoldier->sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
 			pSoldier->bSectorZ = 0;
 			pSoldier->usStrategicInsertionData = gModSettings.iMeanwhileInterrogatePOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
-			itemdropoffgridno = gModSettings.iMeanwhileInterrogatePOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];;
+			itemdropoffgridno = gModSettings.iMeanwhileInterrogatePOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
 		
 		// OK, drop all items!

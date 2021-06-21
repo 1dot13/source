@@ -2177,12 +2177,16 @@ typedef struct
 	UINT8 ubInitialPOWSectorY;
 	INT32 iInitialPOWGridNo[3];
 	INT32 iInitialPOWItemGridNo[3];
+	INT32 iInitialPOWGetFreeGridNo[3];
 
 	//[Grumm]
 
 	//[Tixa]
 	UINT8 ubTixaPrisonSectorX;
 	UINT8 ubTixaPrisonSectorY;
+	INT32 iTixaPrisonPOWGridNo[3];
+	INT32 iTixaPrisonPOWItemGridNo[3];
+	INT32 iTixaPrisonPOWGetFreeGridNo[3];
 
 	//Dynamo Captive Sector
 	UINT8 ubDyanmoCaptiveSectorX;

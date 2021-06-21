@@ -7,7 +7,8 @@
 //	Quest.ubStatus values
 #define QUESTNOTSTARTED					0
 #define	QUESTINPROGRESS					1
-#define QUESTDONE								2
+#define QUESTDONE						2
+#define QUESTCANNOTSTART				255
 
 #define MAX_QUESTS								255
 #define MAX_OLD_QUESTS							30
@@ -80,6 +81,7 @@ enum Quests
 	QUEST_KILL_DEIDRANNA = 25,
 
 	QUEST_KINGPIN_ANGEL_MARIA,		// Flugente: new quest: if the player rescued Maria without implicating himself, Kingpin hires bounty hunters to kill them
+	QUEST_HELD_IN_TIXA,//shadooow: new quest: captured mercs can appear in Tixa prison if conditions are met for players to free them
 #endif
 } ;
 /*
