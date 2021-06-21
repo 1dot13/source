@@ -7722,13 +7722,16 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
                         {
                             if( pTeamSoldier->bTeam == gbPlayerNum )
                             {
-                                // SANDRO - records - num tactical battles
-                                gMercProfiles[pTeamSoldier->ubProfile].records.usBattlesTactical++;
-                                // largest battle experienced
-                                if (gMercProfiles[pTeamSoldier->ubProfile].records.usLargestBattleFought < ( gTacticalStatus.bNumFoughtInBattle[ ENEMY_TEAM ] + gTacticalStatus.bNumFoughtInBattle[ CREATURE_TEAM ] + gTacticalStatus.bNumFoughtInBattle[ CIV_TEAM ] ))
-                                {
-                                    gMercProfiles[pTeamSoldier->ubProfile].records.usLargestBattleFought = ( gTacticalStatus.bNumFoughtInBattle[ ENEMY_TEAM ] + gTacticalStatus.bNumFoughtInBattle[ CREATURE_TEAM ] + gTacticalStatus.bNumFoughtInBattle[ CIV_TEAM ] );
-                                }
+								if (pTeamSoldier->bAssignment != ASSIGNMENT_POW)
+								{
+									// SANDRO - records - num tactical battles
+									gMercProfiles[pTeamSoldier->ubProfile].records.usBattlesTactical++;
+									// largest battle experienced
+									if (gMercProfiles[pTeamSoldier->ubProfile].records.usLargestBattleFought < (gTacticalStatus.bNumFoughtInBattle[ENEMY_TEAM] + gTacticalStatus.bNumFoughtInBattle[CREATURE_TEAM] + gTacticalStatus.bNumFoughtInBattle[CIV_TEAM]))
+									{
+										gMercProfiles[pTeamSoldier->ubProfile].records.usLargestBattleFought = (gTacticalStatus.bNumFoughtInBattle[ENEMY_TEAM] + gTacticalStatus.bNumFoughtInBattle[CREATURE_TEAM] + gTacticalStatus.bNumFoughtInBattle[CIV_TEAM]);
+									}
+								}
 
                                 // If this guy is OKLIFE & not standing, make stand....
                                 if ( pTeamSoldier->stats.bLife >= OKLIFE && !pTeamSoldier->bCollapsed )
