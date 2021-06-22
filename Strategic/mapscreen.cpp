@@ -708,7 +708,6 @@ extern CHAR16		gzUserDefinedButton1[ 128 ];
 extern CHAR16		gzUserDefinedButton2[ 128 ];
 
 extern BOOLEAN gfMilitiaPopupCreated;
-extern BOOLEAN gfGodModeCheat;
 
 #ifdef JA2TESTVERSION
 	extern INT16 MSYS_CurrentMX;

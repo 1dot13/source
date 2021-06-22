@@ -6737,6 +6737,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		ACTIVATE_CHEAT_LEVEL();
 	else
 		RESET_CHEAT_LEVEL();
+	gfGodModeCheat = FALSE;
 #endif
 
 #ifdef JA2BETAVERSION

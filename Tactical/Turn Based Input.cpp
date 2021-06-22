@@ -218,7 +218,6 @@ extern int iWindowedMode;
 extern OBJECTTYPE *gpItemDescObject;
 extern BOOLEAN gfInItemStackPopup;
 extern BOOLEAN gfInKeyRingPopup;
-extern BOOLEAN gfGodModeCheat;
 
 
 //Little functions called by keyboard input

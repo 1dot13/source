@@ -3,7 +3,8 @@
 
 #include "Language Defines.h"
 
-extern	UINT8			gubCheatLevel;
+extern UINT8 gubCheatLevel;
+extern BOOLEAN gfGodModeCheat;
 
 // GLOBALS FOR CHEAT MODE......
 #ifdef JA2TESTVERSION

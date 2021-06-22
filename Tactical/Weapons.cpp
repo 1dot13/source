@@ -4,7 +4,7 @@
 	#include "sgp.h"
 	#include "overhead types.h"
 	#include "Sound Control.h"
-
+	#include "Cheats.h"
 	#include "overhead.h"
 	#include "Event Pump.h"
 	#include "weapons.h"
@@ -8341,6 +8341,11 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 					uiCritChance += 8;
 					fMaliciousHit = TRUE;
 				}
+			}
+
+			if (gfGodModeCheat && pTarget->bTeam == OUR_TEAM)
+			{
+				uiCritChance = 0;//no crit against player in god mode either
 			}
 
 			// SANDRO - with new traits, the chance for stat loss is higher as we are now able to repair it

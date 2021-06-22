@@ -90,7 +90,6 @@ INT32 giMaxMilitiaToRender = 20;//Changes depending on merc amount
 
 extern UINT8 gubReinforcementMinEnemyStaticGroupSize;
 extern BOOLEAN gfStrategicMilitiaChangesMade;
-extern BOOLEAN gfGodModeCheat;
 
 extern void ResetMilitia();
 extern BOOLEAN AutoReload( SOLDIERTYPE *pSoldier );

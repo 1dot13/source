@@ -1713,7 +1713,6 @@ PaletteReplacementType	*guipPaletteReplacements = NULL;
 extern BOOLEAN fReDrawFace;
 extern UINT8 gubWaitingForAllMercsToExitCode;
 BOOLEAN	gfGetNewPathThroughPeople = FALSE;
-BOOLEAN gfGodModeCheat = FALSE;
 
 // LOCAL FUNCTIONS
 // DO NOT CALL UNLESS THROUGH EVENT_SetSoldierPosition

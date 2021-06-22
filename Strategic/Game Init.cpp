@@ -103,7 +103,8 @@ extern BOOLEAN gfGamePaused;
 
 extern UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );
 
-UINT8			gubCheatLevel = STARTING_CHEAT_LEVEL;
+UINT8 gubCheatLevel = STARTING_CHEAT_LEVEL;
+BOOLEAN gfGodModeCheat = FALSE;
 
 UINT8			gubScreenCount=0;
 
@@ -1230,6 +1231,7 @@ void ReStartingGame()
 		gubCheatLevel = STARTING_CHEAT_LEVEL;
 	else
 		gubCheatLevel = 0;
+	gfGodModeCheat = FALSE;
 
 }
 
