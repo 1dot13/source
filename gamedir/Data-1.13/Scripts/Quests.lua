@@ -34,7 +34,7 @@ nQuests =
 	QUEST_24 = 24,							-- Start quest 48, End quest 49
 	QUEST_KILL_DEIDRANNA = 25,				-- Start quest 50, End quest 51
 	QUEST_KINGPIN_ANGEL_MARIA = 26,
-	
+	QUEST_HELD_IN_TIXA = 27,
 	-- max Quests 254
 }
 
@@ -42,6 +42,7 @@ qStatus = {
             QUESTNOTSTARTED = 0,
             QUESTINPROGRESS = 1,
             QUESTDONE = 2,
+            QUESTCANNOTSTART = 255,
           }
 		  
 Profiles = 
@@ -132,6 +133,8 @@ function InternalEndQuest( ubQuest, sSectorX, sSectorY, fUpdateHistory )
 		elseif ( ubQuest == nQuests.QUEST_CHITZENA_IDOL ) then
 				GiveQuestRewardPoint( sSectorX, sSectorY, 5, NO_PROFILE )	
 		elseif ( ubQuest == nQuests.QUEST_HELD_IN_ALMA ) then
+				GiveQuestRewardPoint( sSectorX, sSectorY, 5, NO_PROFILE )	
+		elseif ( ubQuest == nQuests.QUEST_HELD_IN_TIXA ) then
 				GiveQuestRewardPoint( sSectorX, sSectorY, 5, NO_PROFILE )	
 		elseif ( ubQuest == nQuests.QUEST_RUNAWAY_JOEY ) then
 				GiveQuestRewardPoint( sSectorX, sSectorY, 5, NO_PROFILE )	

@@ -34,9 +34,10 @@ EventTypes = {
 }
 
 qStatus = {
-	QUESTNOTSTARTED =0,
+	QUESTNOTSTARTED = 0,
 	QUESTINPROGRESS = 1,
 	QUESTDONE = 2,
+	QUESTCANNOTSTART = 255,
 }
 
 Quests = 
@@ -69,6 +70,7 @@ Quests =
 	QUEST_24 = 24,							-- Start quest 48, End quest 49 - No 24 Yet
 	QUEST_KILL_DEIDRANNA = 25,				-- Start quest 50, End quest 51 - Kill Deidranna
 	QUEST_KINGPIN_ANGEL_MARIA = 26,
+	QUEST_HELD_IN_TIXA = 27,
 	
 	-- max Quests 254
 }
