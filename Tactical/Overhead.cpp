@@ -7618,12 +7618,14 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		{
 			gubQuest[QUEST_HELD_IN_ALMA] = QUESTNOTSTARTED;
 		}
+		#ifndef JA2UB
 		//shadooow: re-enable quest if player loses control of the Tixa prison and quest was disabled previously
 		if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
 			gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTCANNOTSTART)
 		{
 			gubQuest[QUEST_HELD_IN_TIXA] = QUESTNOTSTARTED;
 		}
+		#endif
 
         // Play death music
 		#ifdef NEWMUSIC
@@ -7848,7 +7850,8 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 						gubQuest[QUEST_HELD_IN_ALMA] = QUESTCANNOTSTART;
 					}
 				}
-				//shadooow: disable quest if player takes control of the Alma prison
+				#ifndef JA2UB
+				//shadooow: disable quest if player takes control of the Tixa prison
 				if (gWorldSectorX == gModSettings.ubTixaPrisonSectorX && gWorldSectorY == gModSettings.ubTixaPrisonSectorY &&
 					gbWorldSectorZ == 0 && gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 				{
@@ -7862,7 +7865,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 						gubQuest[QUEST_HELD_IN_TIXA] = QUESTCANNOTSTART;
 					}
 				}				
-
+				#endif
                 // Say battle end quote....
 
                 if (fAnEnemyRetreated)
@@ -8585,7 +8588,11 @@ BOOLEAN CheckForLosingEndOfBattle( )
                 {
                     //if( GetWorldDay() > STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE && !( gStrategicStatus.uiFlags & STRATEGIC_PLAYER_CAPTURED_FOR_RESCUE ))
                     {
-                        if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
+						#ifdef JA2UB
+						if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+						#else
+						if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[ QUEST_INTERROGATION ] == QUESTNOTSTARTED ) )
+						#endif
                         {
                             fDoCapture = TRUE;
                             // CJC Dec 1 2002: fix capture sequences
@@ -11264,7 +11271,11 @@ void PrisonerSurrenderMessageBoxCallBack( UINT8 ubExitValue )
         // in order for this to work, there must be no militia present, the enemy must not already have offered asked you to surrender, and certain quests may not be active
         if ( !( gTacticalStatus.fEnemyFlags & ENEMY_OFFERED_SURRENDER ) && gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector == 0 )
         {
+			#ifdef JA2UB
+			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+			#else
 			if (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || (gubQuest[QUEST_HELD_IN_ALMA] != QUESTINPROGRESS && gubQuest[QUEST_HELD_IN_TIXA] != QUESTINPROGRESS && gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+			#endif 
             {
                 gTacticalStatus.fEnemyFlags |= ENEMY_OFFERED_SURRENDER;
 

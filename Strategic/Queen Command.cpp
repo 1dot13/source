@@ -2807,18 +2807,16 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 	}
 
 	ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_POW );
-	// ATE: Make them neutral!
-	if ( gubQuest[ QUEST_HELD_IN_ALMA ] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
-	{
-		pSoldier->aiData.bNeutral = TRUE;
-	}
-
 	RemoveCharacterFromSquads( pSoldier );
 
 	WORLDITEM			WorldItem;
 	std::vector<WORLDITEM> pWorldItem;
 
+#ifdef JA2UB
+	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+#else
 	if (gStrategicStatus.ubNumCapturedForRescue < 3 && (gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED || gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED || gubQuest[QUEST_INTERROGATION] == QUESTNOTSTARTED))
+#endif 	
 	{
 		INT32 itemdropoffgridno = -1;
 
@@ -2826,21 +2824,25 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTNOTSTARTED )
 		{
 			//-teleport him to NE Alma sector (not Tixa as originally planned)
+			pSoldier->aiData.bNeutral = TRUE;
 			pSoldier->sSectorX = gModSettings.ubInitialPOWSectorX; //13
 			pSoldier->sSectorY = gModSettings.ubInitialPOWSectorY; //9
 			pSoldier->bSectorZ = 0;
 			pSoldier->usStrategicInsertionData = gModSettings.iInitialPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iInitialPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
+		#ifndef JA2UB
 		else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTNOTSTARTED)
 		{
 			//-teleport him to Tixa as originally planned
+			pSoldier->aiData.bNeutral = TRUE;
 			pSoldier->sSectorX = gModSettings.ubTixaPrisonSectorX;
 			pSoldier->sSectorY = gModSettings.ubTixaPrisonSectorY;
 			pSoldier->bSectorZ = 0;
 			pSoldier->usStrategicInsertionData = gModSettings.iTixaPrisonPOWGridNo[gStrategicStatus.ubNumCapturedForRescue];
 			itemdropoffgridno = gModSettings.iTixaPrisonPOWItemGridNo[gStrategicStatus.ubNumCapturedForRescue];
 		}
+		#endif
 		else //if ( gubQuest[QUEST_HELD_IN_ALMA] == QUESTDONE )
 		{
 			//-teleport him to N7

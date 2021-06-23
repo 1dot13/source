@@ -3304,6 +3304,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 								// Do action
 								HandleNPCDoAction( 0, NPC_ACTION_GRANT_EXPERIENCE_3, 0 );
 							}
+							#ifndef JA2UB
 							else if (gubQuest[QUEST_HELD_IN_TIXA] == QUESTINPROGRESS)
 							{
 								// Complete quest
@@ -3312,6 +3313,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 								// Do action
 								HandleNPCDoAction(0, NPC_ACTION_GRANT_EXPERIENCE_3, 0);
 							}
+							#endif
 						}
 					}
 				}

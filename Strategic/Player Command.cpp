@@ -533,12 +533,13 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 			{
 				gubQuest[QUEST_HELD_IN_ALMA] = QUESTNOTSTARTED;
 			}
+			#ifndef JA2UB
 			//shadooow: re-enable quest if player loses control of the Tixa prison and quest was disabled previously
 			if (sMapX == gModSettings.ubTixaPrisonSectorX && sMapY == gModSettings.ubTixaPrisonSectorY && gubQuest[QUEST_HELD_IN_TIXA] == QUESTCANNOTSTART)
 			{
 				gubQuest[QUEST_HELD_IN_TIXA] = QUESTNOTSTARTED;
 			}
-
+			#endif
 			// Flugente: reduce workforce
 			SectorInfo[SECTOR( sMapX, sMapY )].usWorkers = SectorInfo[SECTOR( sMapX, sMapY )].usWorkers * gGameExternalOptions.dInitialWorkerRate;
 
