@@ -391,7 +391,7 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 
 					if (fAlternate && (Random(2) > 0))
 					{
-						if(gSectorLoadscreens[i].szImageFormatAlt != NULL)
+						if (strlen(gSectorLoadscreens[i].szImageFormatAlt) > 0)
 							imageFormat = gSectorLoadscreens[i].szImageFormatAlt;
 						switch (ubLoadScreenID)
 						{

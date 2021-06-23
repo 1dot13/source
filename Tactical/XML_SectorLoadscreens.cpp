@@ -56,7 +56,8 @@ sectorLoadscreensStartElementHandle(void *userData, const XML_Char *name, const 
 				strcmp(name, "szDay") == 0 ||
 				strcmp(name, "szNight") == 0 ||
 				strcmp(name, "szDayAlt") == 0 ||
-				strcmp(name, "szNightAlt") == 0))
+				strcmp(name, "szNightAlt") == 0 ||
+				strcmp(name, "szImageFormatAlt") == 0))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
