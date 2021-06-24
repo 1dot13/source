@@ -1845,12 +1845,12 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 	if (uiNumberOfCorpses > 10000)
 		uiNumberOfCorpses = 0;
 
-  // Get town ID for use later....
+	// Get town ID for use later....
 	bTownId = GetTownIdForSector( gWorldSectorX, gWorldSectorY );
 
 	for( cnt=0; cnt<uiNumberOfCorpses; ++cnt )
 	{
-    fDontAddCorpse = FALSE;
+		fDontAddCorpse = FALSE;
 
 		// Load the Rotting corpses info
 		FileRead( hFile, &def, sizeof( ROTTING_CORPSE_DEFINITION ), &uiNumBytesRead );
@@ -1866,12 +1866,15 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 		{
 			def.sGridNo = FindNearestAvailableGridNoForCorpse( &def, 5 );
 			
-			if(TileIsOutOfBounds(def.sGridNo))
-				def.sGridNo = FindNearestAvailableGridNoForCorpse( &def, 15 );
-
-      // ATE: Here we still could have a bad location, but send in NOWHERE
-      // to corpse function anyway, 'cause it will iwth not drop it or use
-      // a map edgepoint....
+			if (TileIsOutOfBounds(def.sGridNo))
+			{
+				def.sGridNo = FindNearestAvailableGridNoForCorpse(&def, 15);
+				if (TileIsOutOfBounds(def.sGridNo))
+				{
+					//shadooow: if we still have invalid gridno skip adding this corpse, it will crash otherwise
+					continue;
+				}
+			}
 		}
 		else if( def.usFlags & ROTTING_CORPSE_USE_NORTH_ENTRY_POINT )
 		{
@@ -1879,7 +1882,7 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 		}
 		else if( def.usFlags & ROTTING_CORPSE_USE_SOUTH_ENTRY_POINT )
 		{
-			def.sGridNo = gMapInformation.sSouthGridNo;;
+			def.sGridNo = gMapInformation.sSouthGridNo;
 		}
 		else if( def.usFlags & ROTTING_CORPSE_USE_EAST_ENTRY_POINT )
 		{
@@ -1892,43 +1895,41 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 		//Recalculate the dx,dy info
 		def.dXPos = CenterX( def.sGridNo );
 		def.dYPos = CenterY( def.sGridNo );
+		// If not from loading a save....
+		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+		{
+			// ATE: Don't place corpses if
+			// a ) in a town and b) indoors
+			if ( gbWorldSectorZ == 0 )
+			{
+				if ( bTownId != BLANK_SECTOR )
+				{
+					// Are we indoors?
+					if( FloorAtGridNo( def.sGridNo ) )
+					{
+						// OK, finally, check TOC vs game time to see if at least some time has passed
+						if ( ( GetWorldTotalMin( ) - def.uiTimeOfDeath ) >= 30 )
+						{
+							fDontAddCorpse = TRUE;
+						}
+					}
+				}
+			}
+		}
 
-    // If not from loading a save....
-	  if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
-    {
-      // ATE: Don't place corpses if
-      // a ) in a town and b) indoors
-      if ( gbWorldSectorZ == 0 )
-      {
-        if ( bTownId != BLANK_SECTOR )
-        {
-          // Are we indoors?
-          if( FloorAtGridNo( def.sGridNo ) )
-          {
-             // OK, finally, check TOC vs game time to see if at least some time has passed
-	           if ( ( GetWorldTotalMin( ) - def.uiTimeOfDeath ) >= 30 )
-             {
-                fDontAddCorpse = TRUE;
-             }
-          }
-        }
-      }
-    }
-
-    if ( !fDontAddCorpse )
-    {
-		  //add the rotting corpse info
-		  if( AddRottingCorpse( &def ) == -1 )
-		  {
-			  DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Failed to add a corpse to GridNo # %d", def.sGridNo ) );
-
-  /*
-			  Assert( 0 );
-			  FileClose( hFile );
-			  return( FALSE );
-  */
-		  }
-    }
+		if ( !fDontAddCorpse )
+		{
+			//add the rotting corpse info
+			if( AddRottingCorpse( &def ) == -1 )
+			{
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Failed to add a corpse to GridNo # %d", def.sGridNo ) );
+				/*
+				Assert( 0 );
+				FileClose( hFile );
+				return( FALSE );
+				*/
+			}
+		}
 	}
 
 	FileClose( hFile );
