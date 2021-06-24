@@ -1809,7 +1809,6 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 	UINT32	uiNumberOfCorpses=0;
 	UINT32		cnt;
 	ROTTING_CORPSE_DEFINITION		def;
-	BOOLEAN                     fDontAddCorpse = FALSE;
 	INT8                        bTownId;
 	
 	//Delete the existing rotting corpse array
@@ -1850,8 +1849,6 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 
 	for( cnt=0; cnt<uiNumberOfCorpses; ++cnt )
 	{
-		fDontAddCorpse = FALSE;
-
 		// Load the Rotting corpses info
 		FileRead( hFile, &def, sizeof( ROTTING_CORPSE_DEFINITION ), &uiNumBytesRead );
 		if( uiNumBytesRead != sizeof( ROTTING_CORPSE_DEFINITION ) )
@@ -1910,25 +1907,22 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 						// OK, finally, check TOC vs game time to see if at least some time has passed
 						if ( ( GetWorldTotalMin( ) - def.uiTimeOfDeath ) >= 30 )
 						{
-							fDontAddCorpse = TRUE;
+							continue;
 						}
 					}
 				}
 			}
 		}
 
-		if ( !fDontAddCorpse )
+		//add the rotting corpse info
+		if( AddRottingCorpse( &def ) == -1 )
 		{
-			//add the rotting corpse info
-			if( AddRottingCorpse( &def ) == -1 )
-			{
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Failed to add a corpse to GridNo # %d", def.sGridNo ) );
-				/*
-				Assert( 0 );
-				FileClose( hFile );
-				return( FALSE );
-				*/
-			}
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Failed to add a corpse to GridNo # %d", def.sGridNo ) );
+			/*
+			Assert( 0 );
+			FileClose( hFile );
+			return( FALSE );
+			*/
 		}
 	}
 
