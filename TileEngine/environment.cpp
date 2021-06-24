@@ -1154,7 +1154,7 @@ void HandleEnvironmentHazard( )
 						{
 							INT16 damage = 10 + Random( 11 );
 
-							pSoldier->SoldierTakeDamage( 0, damage, damage * 100, TAKE_DAMAGE_TENTACLES, NOBODY, pSoldier->sGridNo, 0, TRUE );
+							pSoldier->EVENT_SoldierGotHit(47, damage, damage * 100, pSoldier->ubDirection, 0, NOBODY, FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_LEGS, 0, pSoldier->sGridNo);
 
 							// if this is a swamp, handle possible extra infection
 							if ( ubTraverseType == SWAMP || ubTraverseType == SWAMP_ROAD )
