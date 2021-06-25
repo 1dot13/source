@@ -4782,6 +4782,10 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 		// WANNE: Why is impact here always set to 0? The impact was calculated a few lines before!
 		//iImpact = 0;
+		if (gfGodModeCheat && pTarget->pSoldier->bTeam == OUR_TEAM)
+		{
+			iImpact = 0;
+		}
 
 		// WANNE: Just for safty.
 		if (iImpact < 0)

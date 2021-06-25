@@ -5873,6 +5873,12 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	UINT8		ubCombinedLoss, ubVolume, ubReason;
 	//	SOLDIERTYPE * pNewSoldier;
 
+	if (gfGodModeCheat && this->bTeam == OUR_TEAM)
+	{
+		sDamage = 0;
+		ubSpecial = FIRE_WEAPON_NO_SPECIAL;
+	}
+
 	ubReason = 0;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "EVENT_SoldierGotHit" );
