@@ -306,7 +306,7 @@ STRUCTURE_FILE_REF *GetCachedTileStructureRefFromFilename( const STR8 cFilename 
 }
 
 
-void CheckForAndAddTileCacheStructInfo( LEVELNODE *pNode, INT32 sGridNo, UINT16 usIndex, UINT16 usSubIndex )
+void CheckForAndAddTileCacheStructInfo( LEVELNODE *pNode, INT32 sGridNo, INT8 bLevel, UINT16 usIndex, UINT16 usSubIndex )
 {
 	STRUCTURE_FILE_REF *pStructureFileRef;
 
@@ -314,7 +314,7 @@ void CheckForAndAddTileCacheStructInfo( LEVELNODE *pNode, INT32 sGridNo, UINT16 
 
 	if ( pStructureFileRef != NULL)
 	{
-		if ( !AddStructureToWorld( sGridNo, 0, &( pStructureFileRef->pDBStructureRef[ usSubIndex ] ), pNode ) )
+		if ( !AddStructureToWorld( sGridNo, bLevel, &( pStructureFileRef->pDBStructureRef[ usSubIndex ] ), pNode ) )
 	{
 		if ( giDefaultStructIndex != -1 )
 		{
@@ -322,7 +322,7 @@ void CheckForAndAddTileCacheStructInfo( LEVELNODE *pNode, INT32 sGridNo, UINT16 
 
 		if ( pStructureFileRef != NULL)
 		{
-			AddStructureToWorld( sGridNo, 0, &( pStructureFileRef->pDBStructureRef[ usSubIndex ] ), pNode );
+			AddStructureToWorld( sGridNo, bLevel, &( pStructureFileRef->pDBStructureRef[ usSubIndex ] ), pNode );
 		}
 		}
 	}
