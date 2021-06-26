@@ -3997,7 +3997,7 @@ void HandleExplosionQueue( void )
 					CallAvailableEnemiesTo( sGridNo );
 					//RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, 0 );
 				}
-				else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_FLARE )
+				else if ( (*pObj)[0]->data.misc.usBombItem == TRIP_FLARE || Item[pObj->usItem].flare)
 				{				
 					// sevenfm: changed pObj->usItem to Item[pObj->usItem].ubClassIndex as it should be correct explosives index
 					// NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
