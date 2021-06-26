@@ -2077,9 +2077,9 @@ void LoadGameExternalOptions()
 	
 	gGameExternalOptions.gRaidReplenish_BaseValue			= iniReader.ReadInteger( "Raid Settings", "RAID_REPLENISH_BASEVALUE", 3, 1, 100 );
 
-	gGameExternalOptions.gRaidMaxSize_Bloodcats				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_BLOODCATS", 8, 1, 254 );
-	gGameExternalOptions.gRaidMaxSize_Zombies				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_ZOMBIES", 15, 1, 254 );
-	gGameExternalOptions.gRaidMaxSize_Bandits				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_BANDITS", 6, 1, 254 );
+	gGameExternalOptions.gRaidMaxSize_Bloodcats				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_BLOODCATS", 8, 1, gGameExternalOptions.ubGameMaximumNumberOfCreatures);
+	gGameExternalOptions.gRaidMaxSize_Zombies				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_ZOMBIES", 15, 1, gGameExternalOptions.ubGameMaximumNumberOfEnemies);
+	gGameExternalOptions.gRaidMaxSize_Bandits				= iniReader.ReadInteger( "Raid Settings", "RAID_MAXSIZE_BANDITS", 6, 1, gGameExternalOptions.ubGameMaximumNumberOfEnemies);
 	
 	gGameExternalOptions.gRaid_MaxAttackPerNight_Bloodcats	= iniReader.ReadInteger( "Raid Settings", "RAID_MAXATTACKSPERNIGHT_BLOODCATS", 3, 0, 100 );
 	gGameExternalOptions.gRaid_MaxAttackPerNight_Zombies	= iniReader.ReadInteger( "Raid Settings", "RAID_MAXATTACKSPERNIGHT_ZOMBIES", 3, 0, 100 );
