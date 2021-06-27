@@ -7553,6 +7553,15 @@ void MoveBullet( INT32 iBullet )
 								}
 							}
 
+							// Flugente: required check as it's possible anti-materiel bullets will destroy a structure mid-flight
+							if ( !pStructure->pShape )
+							{
+								// Moved here to keep ABC >0 as long as possible
+								RemoveBullet( iBullet );
+								// ReduceAttackBusyCount( );
+								return;
+							}
+
 							if (((*(pStructure->pShape))[pBullet->bLOSIndexX][pBullet->bLOSIndexY] & AtHeight[iCurrCubesAboveLevelZ]) > 0)
 							{
 								if (pStructure->fFlags & STRUCTURE_PERSON)
@@ -7728,16 +7737,6 @@ void MoveBullet( INT32 iBullet )
 												// play animation to indicate structure being hit
 												BulletHitStructure( pBullet, pStructure->usStructureID, 1, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, FALSE );
 												gubLocalStructureNumTimesHit[iStructureLoop] = 1;
-
-												// Flugente: anti-materiel rifles have to be handled slightly different - we have to remove the bullet after impact.
-												// Otherwise we might destroy a structure, but this function won't 'realize' it, leading to invalid memory access
-												if ( pBullet->usFlags & BULLET_FLAG_ANTIMATERIEL )
-												{
-													// Moved here to keep ABC >0 as long as possible
-													RemoveBullet( iBullet );
-													// ReduceAttackBusyCount( );
-													return;
-												}
 											}
 										}
 									}
@@ -7746,7 +7745,8 @@ void MoveBullet( INT32 iBullet )
 
 							// Flugente: a riot shield would cover the entire front of a tile. We thus cannot check whether the person would be hit, as the bullet might miss a soldier
 							// Instead, we check whether the structure is indeed a person, whether that person has a riot shield equipped, and whether that shield faces the bullet before it would hit the soldier
-							if ( lastriotshieldholder != pStructure->usStructureID
+							if ( pStructure
+								&& lastriotshieldholder != pStructure->usStructureID
 								&& pStructure->fFlags & STRUCTURE_PERSON
 								&& pStructure->usStructureID < TOTAL_SOLDIERS )
 							{
