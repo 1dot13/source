@@ -898,6 +898,9 @@ typedef struct
 	BOOLEAN fAutoHideProgressBar;
 	// anv: hide stuff on roof in explored rooms at ground level view (sandbags and other crap)
 	BOOLEAN fHideExploredRoomRoofStructures;
+
+	BOOLEAN fAdditionalDecals;						// Flugente: show additional decals on objects (cracked walls, blood spatters etc.)
+
 	//enable ext mouse key
 	BOOLEAN bAltAimEnabled;	
 	BOOLEAN bAimedBurstEnabled;

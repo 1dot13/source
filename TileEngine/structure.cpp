@@ -49,6 +49,7 @@
 	#include "Animation Control.h"
 	#include "Soldier Ani.h"
 	#include "ASD.h"		// added by Flugente
+	#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
 #endif
 
 #ifdef COUNT_PATHS
@@ -1991,6 +1992,9 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 
 		//Since the structure is being damaged, set the map element that a structure is damaged
 		gpWorldLevelData[ sGridNo ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+
+		// Flugente: enforce a full render, so that we can draw decals on time
+		SetRenderFlags( RENDER_FLAG_FULL );
 
 		// We are a little damaged....
 		return( 2 );

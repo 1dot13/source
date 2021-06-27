@@ -49,6 +49,7 @@ enum
 	// sevenfm
 	SLM_MINE_PRESENT,
 	SLM_REMOVE_MINE_PRESENT,	// silversurfer: we need this to get rid of the mine flag otherwise any tile that ever had a mine on it will forever be flagged with MAPELEMENT_PLAYER_MINE_PRESENT
+	SLM_DECAL,					// Flugente: add decals
 };
 
 typedef struct//dnl ch86 250214

@@ -123,6 +123,12 @@ extern UINT8 AtHeight[PROFILE_Z_SIZE];
 #define TILE_ON_ROOF						0x01
 #define TILE_PASSABLE						0x02
 
+// Flugente: flags that determine what decals we add on a structure
+#define STRUCTURE_DECALFLAG_BLOOD		0x08
+
+#define STRUCTURE_SAVEGAMELEVELFLAG_BLK	0x07		// these flags are already in use for wall orientation
+#define STRUCTURE_SAVEGAMELEVELFLAG		0x80		// flag already in use for level
+
 #define AddPosRelToBase(sBaseGridNo, pTile) (pTile->sPosRelToBase ? (sBaseGridNo + pTile->bXPosRelToBase + pTile->bYPosRelToBase * WORLD_COLS) : sBaseGridNo)//dnl ch83 080114
 
 typedef struct TAG_STRUCTURE_TILE
@@ -185,7 +191,7 @@ typedef struct TAG_STRUCTURE
 	UINT8 ubWallOrientation;
 	UINT8 ubVehicleHitLocation;
 	UINT8 ubStructureHeight;// if 0, then unset; otherwise stores height of structure when last calculated
-	UINT8 ubUnused;
+	UINT8 ubDecalFlag;
 }STRUCTURE;// 36 bytes
 
 typedef struct TAG_STRUCTURE_FILE_REF

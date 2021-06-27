@@ -57,6 +57,7 @@
 #include "SkillCheck.h"			// added by Flugente
 #include "ai.h"					// sevenfm
 #include "GameInitOptionsScreen.h"
+#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -3289,6 +3290,126 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			SWeaponHit.iBullet=pBullet->iBullet;
 
 			send_hit( &SWeaponHit );
+		}
+	}
+	
+	// Flugente: add blood spatter to wall next to target
+	if ( gGameExternalOptions.fAdditionalDecals
+		&&( pTarget->ubBodyType < ADULTFEMALEMONSTER || (pTarget->ubBodyType >= FATCIV && pTarget->ubBodyType <= BLOODCAT) )
+		&& iDamage > 15 )
+	{
+		// the direction in SWeaponHit.usDirection is erversed for whatever reason
+		UINT8 properdirection = gOppositeDirection[SWeaponHit.usDirection];
+
+		if ( properdirection == SOUTHWEST
+			||properdirection == WEST
+			|| properdirection == NORTHWEST
+			|| properdirection == NORTH
+			|| properdirection == NORTHEAST)
+		{
+			bool northwestalreadydone( false );
+
+			INT32 nextGridNoinSight = pBullet->sGridNo;
+
+			// If we're firing straight up (NORTHWEST), issues arise if we hit a corner.
+			// If it's an outside corner, it would be enough to simply mark both outside walls.
+			// This does not work in an inside corner, as the walls would be tied to the northern and western gridno from our position, not the northwest one.
+			// It could also be the case that it's an inside corner in a full wall.
+			// Solution: First check the northern and western gridnos for walls. Only if those don't exist, continue to the northwest gridno and check it's outside walls.
+			if ( properdirection == NORTHWEST )
+			{
+				nextGridNoinSight = NewGridNo( pBullet->sGridNo, DirectionInc( WEST ) );
+
+				if ( gubWorldMovementCosts[nextGridNoinSight][WEST][0] >= TRAVELCOST_BLOCKED )
+				{
+					STRUCTURE* pStructureForBlood = FindStructure( nextGridNoinSight, STRUCTURE_WALL );
+					while ( pStructureForBlood )
+					{
+						// add if not already set
+						// add if of proper height
+						if ( ( pStructureForBlood->ubWallOrientation == INSIDE_TOP_RIGHT ) )
+						{
+							northwestalreadydone = true;
+
+							if ( !( pStructureForBlood->ubDecalFlag & STRUCTURE_DECALFLAG_BLOOD )
+								&& StructureHeight( pStructureForBlood ) == 4 )
+							{
+								// add blood to wall
+								pStructureForBlood->ubDecalFlag |= STRUCTURE_DECALFLAG_BLOOD;
+
+								gpWorldLevelData[pStructureForBlood->sGridNo].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+
+								// enforce a full render, so that we can draw decals on time
+								SetRenderFlags( RENDER_FLAG_FULL );
+							}
+						}
+
+						pStructureForBlood = FindNextStructure( pStructureForBlood, STRUCTURE_WALL );
+					}
+				}
+
+				nextGridNoinSight = NewGridNo( pBullet->sGridNo, DirectionInc( NORTH ) );
+
+				if ( gubWorldMovementCosts[nextGridNoinSight][NORTH][0] >= TRAVELCOST_BLOCKED )
+				{
+					STRUCTURE* pStructureForBlood = FindStructure( nextGridNoinSight, STRUCTURE_WALL );
+					while ( pStructureForBlood )
+					{
+						// add if not already set
+						// add if of proper height
+						if ( pStructureForBlood->ubWallOrientation == INSIDE_TOP_LEFT )
+						{
+							northwestalreadydone = true;
+
+							if ( !( pStructureForBlood->ubDecalFlag & STRUCTURE_DECALFLAG_BLOOD )
+								&& StructureHeight( pStructureForBlood ) == 4 )
+							{
+								// add blood to wall
+								pStructureForBlood->ubDecalFlag |= STRUCTURE_DECALFLAG_BLOOD;
+
+								gpWorldLevelData[pStructureForBlood->sGridNo].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+
+								// enforce a full render, so that we can draw decals on time
+								SetRenderFlags( RENDER_FLAG_FULL );
+							}
+						}
+
+						pStructureForBlood = FindNextStructure( pStructureForBlood, STRUCTURE_WALL );
+					}
+				}
+			}
+
+			nextGridNoinSight = NewGridNo( pBullet->sGridNo, DirectionInc( properdirection ) );
+
+			if ( !northwestalreadydone
+				&& gubWorldMovementCosts[nextGridNoinSight][properdirection][0] >= TRAVELCOST_BLOCKED )
+			{
+				STRUCTURE* pStructureForBlood = FindStructure( nextGridNoinSight, STRUCTURE_WALL );
+				while ( pStructureForBlood )
+				{
+					// add if not already set
+					// add if of proper height
+					if ( ( ( properdirection == NORTHWEST && ( pStructureForBlood->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructureForBlood->ubWallOrientation == OUTSIDE_TOP_RIGHT ) )
+						|| ( properdirection == WEST && ( pStructureForBlood->ubWallOrientation == OUTSIDE_TOP_RIGHT || pStructureForBlood->ubWallOrientation == INSIDE_TOP_RIGHT ) )
+						|| ( properdirection == SOUTHWEST && ( pStructureForBlood->ubWallOrientation == OUTSIDE_TOP_RIGHT || pStructureForBlood->ubWallOrientation == INSIDE_TOP_RIGHT ) )
+						|| ( properdirection == NORTH && ( pStructureForBlood->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructureForBlood->ubWallOrientation == INSIDE_TOP_LEFT ) )
+						|| ( properdirection == NORTHEAST && ( pStructureForBlood->ubWallOrientation == OUTSIDE_TOP_LEFT || pStructureForBlood->ubWallOrientation == INSIDE_TOP_LEFT ) )
+						)
+						&& !( pStructureForBlood->ubDecalFlag & STRUCTURE_DECALFLAG_BLOOD )
+						&& StructureHeight( pStructureForBlood ) == 4 )
+					{
+						// add blood to wall
+						pStructureForBlood->ubDecalFlag |= STRUCTURE_DECALFLAG_BLOOD;
+
+						gpWorldLevelData[pStructureForBlood->sGridNo].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
+
+						// enforce a full render, so that we can draw decals on time
+						SetRenderFlags( RENDER_FLAG_FULL );
+					}
+
+					pStructureForBlood = FindNextStructure( pStructureForBlood, STRUCTURE_WALL );
+				}
+			}
 		}
 	}
 

@@ -937,6 +937,9 @@ void LoadGameExternalOptions()
 	// anv: hide stuff on roof in explored rooms at ground level view (sandbags and other crap)
 	gGameExternalOptions.fHideExploredRoomRoofStructures	= iniReader.ReadBoolean("Graphics Settings", "HIDE_EXPLORED_ROOM_ROOF_STRUCTURES", TRUE);
 
+	// Flugente: additional decals on objects (cracked walls, blood spatters etc.)
+	gGameExternalOptions.fAdditionalDecals					= iniReader.ReadBoolean( "Graphics Settings", "ADDITIONAL_DECALS", FALSE );
+
 	//################# Sound Settings #################
 	
 	gGameExternalOptions.guiWeaponSoundEffectsVolume		= iniReader.ReadInteger("Sound Settings","WEAPON_SOUND_EFFECTS_VOLUME", 0, 0, 1000 /*1000 = 10x?*/);
