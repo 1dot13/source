@@ -5992,9 +5992,9 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 			return( FALSE );
 		}
 	}
-	else if (pSoldier->bAssignment == VEHICLE && VehicleIdIsValid(pSoldier->bVehicleID))
+	else if (pSoldier->bAssignment == VEHICLE && VehicleIdIsValid(pSoldier->iVehicleId))
 	{
-		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle(pSoldier->bVehicleID);
+		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle(pSoldier->iVehicleId);
 
 		// too damaged?
 		if (pVehicle->stats.bLife < OKLIFE)
