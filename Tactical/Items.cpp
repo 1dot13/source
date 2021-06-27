@@ -2295,9 +2295,8 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 		return FALSE;
 
 	// shadooow: efficiency check, we are passing all kinds of items into this function that are not necessary attachments at all
-	if (!Item[usAttachment].attachment && 
-		!Item[usAttachment].hiddenaddon &&
-		!((Item[usAttachment].usItemClass & IC_GUN) && Item[pObj->usItem].tripwire))
+	if (!Item[usAttachment].attachment && !Item[usAttachment].attachmentclass && !Item[usAttachment].nasAttachmentClass &&
+		!Item[usAttachment].hiddenaddon && !((Item[usAttachment].usItemClass & IC_GUN) && Item[pObj->usItem].tripwire))
 		return FALSE;
 
 	if( UsingNewAttachmentSystem() )
