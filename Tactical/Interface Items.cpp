@@ -3044,7 +3044,9 @@ BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos
 		{
 			pObject = &(pSoldier->inv[ cnt ]);
 
-			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment))
+			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && 
+				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !Item[pTestObject->usItem].attachment &&
+				!Item[pTestObject->usItem].attachmentclass && !Item[pTestObject->usItem].nasAttachmentClass))
 			{
 				// don't consider for UI purposes
 				continue;
@@ -3148,7 +3150,9 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory(SOLDIERTYPE *pSoldier, INT32 bInvP
 		{
 			pObject = &(pInventoryPoolList[iStartSlotNumber + cnt].object);
 
-			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment))
+			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment &&
+				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !Item[pTestObject->usItem].attachment &&
+				!Item[pTestObject->usItem].attachmentclass && !Item[pTestObject->usItem].nasAttachmentClass))
 			{
 				// don't consider for UI purposes
 				continue;
@@ -3300,7 +3304,9 @@ BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTest
 		{
 			pObject = &(pSoldier->inv[cnt]);
 
-			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment && !Item[pTestObject->usItem].attachment))
+			if (pObject == pTestObject || Item[pObject->usItem].hiddenaddon || (!Item[pObject->usItem].attachment &&
+				!Item[pObject->usItem].attachmentclass && !Item[pObject->usItem].nasAttachmentClass && !Item[pTestObject->usItem].attachment &&
+				!Item[pTestObject->usItem].attachmentclass && !Item[pTestObject->usItem].nasAttachmentClass))
 			{
 				// don't consider for UI purposes
 				continue;
