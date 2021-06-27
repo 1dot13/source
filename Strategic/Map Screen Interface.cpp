@@ -5992,6 +5992,24 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 			return( FALSE );
 		}
 	}
+	else if (pSoldier->bAssignment == VEHICLE && VehicleIdIsValid(pSoldier->bVehicleID))
+	{
+		SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle(pSoldier->bVehicleID);
+
+		// too damaged?
+		if (pVehicle->stats.bLife < OKLIFE)
+		{
+			*pbErrorNumber = 47;
+			return(FALSE);
+		}
+
+		// out of fuel?
+		if (!VehicleHasFuel(pVehicle))
+		{
+			*pbErrorNumber = 42;
+			return(FALSE);
+		}
+	}
 	else	// non-vehicle
 	{
 		// dead?
