@@ -207,7 +207,7 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 	<NAME>
 		<!-- Mails from M.I.S Insurance -->
 		<uiIndex>46</uiIndex>
-		<Name>M.I.S</Name>
+		<Name>M.I.S 保险</Name>
 	</NAME>
 	<NAME>
 		<!-- Mails from Bobby Rays -->
@@ -231,11 +231,11 @@ Each A.I.M merc has an entry here in the file, mapped to a specific uiIndex.
 	</NAME>
 	<NAME>
 		<uiIndex>51</uiIndex>
-		<Name>None</Name>
+		<Name>Kerberus 公司</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>52</uiIndex>
-		<Name>None</Name>
+		<Name>Angel DaSilva</Name>
 	</NAME>
 	<NAME>
 		<uiIndex>53</uiIndex>

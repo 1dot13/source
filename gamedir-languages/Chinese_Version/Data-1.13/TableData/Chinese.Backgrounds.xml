@@ -2054,8 +2054,8 @@
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>299</uiIndex>
-   		<szName>哑剧演员</szName>
-   		<szShortName>哑剧演员</szShortName>
+   		<szName>喜剧演员</szName>
+   		<szShortName>喜剧演员</szShortName>
    		<szDescription>看到你的贱笑，敌人就忍不住放下手里的枪捂肚子了。</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
@@ -2079,9 +2079,9 @@
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>303</uiIndex>
-   		<szName>超胆侠</szName>
-   		<szShortName>超胆侠</szShortName>
-   		<szDescription>战场上的壮丽景观，你从不害怕正面迎敌！</szDescription>
+   		<szName>疑病症患者</szName>
+   		<szShortName>疑病症患者</szShortName>
+   		<szDescription>哪怕走进医院或学校，也会觉得他们会偷偷暗害你！</szDescription>
 	</BACKGROUND>
 	<BACKGROUND>
 		<uiIndex>304</uiIndex>

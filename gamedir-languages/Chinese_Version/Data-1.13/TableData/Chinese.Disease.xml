@@ -109,4 +109,18 @@
 		<szFatName>|肺|癌</szFatName>
 		<szDescription>肺癌就是恶性肺肿瘤，表现为肺组织细胞恶性增殖。如不及时治疗，会扩散到全身。</szDescription>
 	</DISEASE>
+	<DISEASE>
+		<!-- Skin burns from taking fire damage -->
+		<uiIndex>18</uiIndex>
+		<szName>烧伤</szName>
+		<szFatName>|烧|伤</szFatName>
+		<szDescription>被火焰灼伤一大片皮肤，非常疼痛并严重降低灵活度。</szDescription>
+	</DISEASE>
+	<DISEASE>
+		<!-- Our lung is damaged after taking damage from mustard/creature gas -->
+		<uiIndex>19</uiIndex>
+		<szName>尘肺病</szName>
+		<szFatName>|尘|肺|病</szFatName>
+		<szDescription>由于暴露在化学气体中，严重伤害了肺部，显然这会影响体力(精力)恢复。</szDescription>
+	</DISEASE>
 </DISEASESLIST>

@@ -447,9 +447,9 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>71</uiIndex>
-		<Name>None</Name>
-		<LongName></LongName>
-		<ShortName></ShortName>
+		<Name>战斗吉普车</Name>	
+		<LongName>战斗吉普车</LongName>
+		<ShortName>战斗吉普车</ShortName>	
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>72</uiIndex>
@@ -981,31 +981,31 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>160</uiIndex>
-		<Name>Hummer</Name>
+		<Name>悍马</Name>
 		<LongName>悍马</LongName>
 		<ShortName>悍马</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>161</uiIndex>
-		<Name>Eldorado</Name>
+		<Name>凯迪拉克</Name>
 		<LongName>凯迪拉克</LongName>
 		<ShortName>凯迪拉克</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>162</uiIndex>
-		<Name>Truck</Name>
+		<Name>卡车</Name>
 		<LongName>冰激凌卡车</LongName>
 		<ShortName>卡车</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>163</uiIndex>
-		<Name>Heli</Name>
+		<Name>直升机</Name>
 		<LongName>直升机</LongName>
 		<ShortName>直升机</ShortName>
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>164</uiIndex>
-		<Name>Tank</Name>
+		<Name>坦克</Name>
 		<LongName>坦克</LongName>
 		<ShortName>坦克</ShortName>
 	</VEHICLE>
@@ -1215,7 +1215,7 @@ VehicleArmourType:  uiIndex from TableData\Items.xml
 	</VEHICLE>
 	<VEHICLE>
 		<uiIndex>199</uiIndex>
-		<Name>Jeep</Name>
+		<Name>吉普车</Name>
 		<LongName>吉普车</LongName>
 		<ShortName>吉普车</ShortName>
 	</VEHICLE>

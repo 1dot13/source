@@ -22,146 +22,146 @@
   </SQUADNAME>
   <SQUADNAME>
     <uiIndex>5</uiIndex>
-    <Squad>阿尔法小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>6</uiIndex>
-    <Squad>土鳖山小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>7</uiIndex>
-    <Squad>收尸队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>8</uiIndex>
-    <Squad>突击小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>9</uiIndex>
-    <Squad>MS08小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>10</uiIndex>
-    <Squad>乌鸦小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>11</uiIndex>
-    <Squad>酱油小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>12</uiIndex>
-    <Squad>生化小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>13</uiIndex>
-    <Squad>支援小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>14</uiIndex>
-    <Squad>机械小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>15</uiIndex>
-    <Squad>运输小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>16</uiIndex>
-    <Squad>流氓小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>17</uiIndex>
-    <Squad>春哥小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>18</uiIndex>
-    <Squad>复仇者小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>19</uiIndex>
-    <Squad>女汉子小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>20</uiIndex>
-    <Squad>间谍小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>21</uiIndex>
-    <Squad>轰炸小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>22</uiIndex>
-    <Squad>狙击小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>23</uiIndex>
-    <Squad>火力点小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>24</uiIndex>
-    <Squad>侦察小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>25</uiIndex>
-    <Squad>功夫小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>26</uiIndex>
-    <Squad>暗杀小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>27</uiIndex>
-    <Squad>美女小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>28</uiIndex>
-    <Squad>救护小队</Squad>
-  </SQUADNAME>
-  <SQUADNAME>
-    <uiIndex>29</uiIndex>
     <Squad>第6小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>30</uiIndex>
+    <uiIndex>6</uiIndex>
     <Squad>第7小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>31</uiIndex>
+    <uiIndex>7</uiIndex>
     <Squad>第8小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>32</uiIndex>
+    <uiIndex>8</uiIndex>
     <Squad>第9小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>33</uiIndex>
+    <uiIndex>9</uiIndex>
     <Squad>第10小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>34</uiIndex>
+    <uiIndex>10</uiIndex>
+    <Squad>突击小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>11</uiIndex>
+    <Squad>侦察小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>12</uiIndex>
+    <Squad>狙击小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>13</uiIndex>
+    <Squad>医疗小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>14</uiIndex>
+    <Squad>支援小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>15</uiIndex>
+    <Squad>爆破小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>16</uiIndex>
+    <Squad>间谍小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>17</uiIndex>
+    <Squad>暗杀小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>18</uiIndex>
+    <Squad>轰炸小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>19</uiIndex>
+    <Squad>运输小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>20</uiIndex>
+    <Squad>后勤小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>21</uiIndex>
     <Squad>第11小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>35</uiIndex>
+    <uiIndex>22</uiIndex>
     <Squad>第12小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>36</uiIndex>
+    <uiIndex>23</uiIndex>
     <Squad>第13小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>37</uiIndex>
+    <uiIndex>24</uiIndex>
     <Squad>第14小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>38</uiIndex>
+    <uiIndex>25</uiIndex>
     <Squad>第15小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>39</uiIndex>
+    <uiIndex>26</uiIndex>
     <Squad>第16小队</Squad>
   </SQUADNAME>
   <SQUADNAME>
-    <uiIndex>40</uiIndex>
+    <uiIndex>27</uiIndex>
     <Squad>第17小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>28</uiIndex>
+    <Squad>第18小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>29</uiIndex>
+    <Squad>第19小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>30</uiIndex>
+    <Squad>第20小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>31</uiIndex>
+    <Squad>第21小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>32</uiIndex>
+    <Squad>第22小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>33</uiIndex>
+    <Squad>第23小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>34</uiIndex>
+    <Squad>第24小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>35</uiIndex>
+    <Squad>第25小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>36</uiIndex>
+    <Squad>第26小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>37</uiIndex>
+    <Squad>第27小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>38</uiIndex>
+    <Squad>第28小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>39</uiIndex>
+    <Squad>第29小队</Squad>
+  </SQUADNAME>
+  <SQUADNAME>
+    <uiIndex>40</uiIndex>
+    <Squad>第30小队</Squad>
   </SQUADNAME>
 </SQUAD_NAMES>

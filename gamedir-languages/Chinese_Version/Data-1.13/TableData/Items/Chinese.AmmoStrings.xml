@@ -9,245 +9,286 @@
 		<uiIndex>1</uiIndex>
 		<AmmoCaliber>.38 Spc</AmmoCaliber>
 		<BRCaliber>.38 Spc</BRCaliber>
+		<NWSSCaliber>.38 Spc</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>2</uiIndex>
 		<AmmoCaliber>9x19mm</AmmoCaliber>
 		<BRCaliber>9x19mm</BRCaliber>
+		<NWSSCaliber>9x19mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>3</uiIndex>
 		<AmmoCaliber>.45 ACP</AmmoCaliber>
 		<BRCaliber>.45 ACP</BRCaliber>
+		<NWSSCaliber>.45 ACP</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>4</uiIndex>
 		<AmmoCaliber>.357 Mag</AmmoCaliber>
 		<BRCaliber>.357 Mag</BRCaliber>
+		<NWSSCaliber>.357 Mag</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>5</uiIndex>
 		<AmmoCaliber>12 gauge</AmmoCaliber>
 		<BRCaliber>12 gauge</BRCaliber>
+		<NWSSCaliber>12 gauge</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>6</uiIndex>
 		<AmmoCaliber>CAWS</AmmoCaliber>
 		<BRCaliber>CAWS</BRCaliber>
+		<NWSSCaliber>CAWS</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>7</uiIndex>
 		<AmmoCaliber>5.45x39mm</AmmoCaliber>
 		<BRCaliber>5.45x39mm</BRCaliber>
+		<NWSSCaliber>5.45x39mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>8</uiIndex>
 		<AmmoCaliber>5.56x45mm</AmmoCaliber>
 		<BRCaliber>5.56x45mm</BRCaliber>
+		<NWSSCaliber>5.56x45mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>9</uiIndex>
 		<AmmoCaliber>7.62x51mm</AmmoCaliber>
 		<BRCaliber>7.62x51mm</BRCaliber>
+		<NWSSCaliber>7.62x51mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>10</uiIndex>
 		<AmmoCaliber>7.62x39mm</AmmoCaliber>
 		<BRCaliber>7.62x39mm</BRCaliber>
+		<NWSSCaliber>7.62x39mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>11</uiIndex>
 		<AmmoCaliber>4.7x33mm</AmmoCaliber>
 		<BRCaliber>4.7x33mm</BRCaliber>
+		<NWSSCaliber>4.7x33mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>12</uiIndex>
 		<AmmoCaliber>5.7x28mm</AmmoCaliber>
 		<BRCaliber>5.7x28mm</BRCaliber>
+		<NWSSCaliber>5.7x28mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>13</uiIndex>
-		<AmmoCaliber>Monster</AmmoCaliber>
-		<BRCaliber>Monster</BRCaliber>
+		<AmmoCaliber>迫击炮弹</AmmoCaliber>
+		<BRCaliber>迫击炮弹</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>14</uiIndex>
-		<AmmoCaliber>Rocket</AmmoCaliber>
-		<BRCaliber>Rocket</BRCaliber>
+		<AmmoCaliber>迷你火箭弹</AmmoCaliber>
+		<BRCaliber>迷你火箭弹</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>15</uiIndex>
-		<AmmoCaliber>Dart</AmmoCaliber>
-		<BRCaliber>Dart</BRCaliber>
+		<AmmoCaliber>麻醉镖</AmmoCaliber>
+		<BRCaliber>麻醉镖</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>16</uiIndex>
-		<AmmoCaliber>flame</AmmoCaliber>
-		<BRCaliber>flame</BRCaliber>
+		<AmmoCaliber>火焰喷射器燃料</AmmoCaliber>
+		<BRCaliber>火焰喷射器燃料</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>17</uiIndex>
 		<AmmoCaliber>.50 BMG</AmmoCaliber>
 		<BRCaliber>.50 BMG</BRCaliber>
+		<NWSSCaliber>.50 BMG</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>18</uiIndex>
 		<AmmoCaliber>9x39mm</AmmoCaliber>
 		<BRCaliber>9x39mm</BRCaliber>
+		<NWSSCaliber>9x39mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>19</uiIndex>
 		<AmmoCaliber>4.6x30mm</AmmoCaliber>
 		<BRCaliber>4.6x30mm</BRCaliber>
+		<NWSSCaliber>4.6x30mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>20</uiIndex>
 		<AmmoCaliber>7.62x25mm</AmmoCaliber>
 		<BRCaliber>7.62x25mm</BRCaliber>
+		<NWSSCaliber>7.62x25mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>21</uiIndex>
-		<AmmoCaliber>12.7mm</AmmoCaliber>
-		<BRCaliber>12.7mm</BRCaliber>
+		<AmmoCaliber>12.7x108mm</AmmoCaliber>
+		<BRCaliber>12.7x108mm</BRCaliber>
+		<NWSSCaliber>12.7x108mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>22</uiIndex>
 		<AmmoCaliber>9x18mm</AmmoCaliber>
 		<BRCaliber>9x18mm</BRCaliber>
+		<NWSSCaliber>9x18mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>23</uiIndex>
 		<AmmoCaliber>.40 S&amp;W</AmmoCaliber>
 		<BRCaliber>.40 S&amp;W</BRCaliber>
+		<NWSSCaliber>.40 S&amp;W</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>24</uiIndex>
-		<AmmoCaliber>7.62x54R</AmmoCaliber>
-		<BRCaliber>7.62x54R</BRCaliber>
+		<AmmoCaliber>7.62x54mmR</AmmoCaliber>
+		<BRCaliber>7.62x54mmR</BRCaliber>
+		<NWSSCaliber>7.62x54mmR</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>25</uiIndex>
 		<AmmoCaliber>.338 Lapua</AmmoCaliber>
-		<BRCaliber>.338 LM</BRCaliber>
+		<BRCaliber>.338 Lapua</BRCaliber>
+		<NWSSCaliber>.338 Lapua</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>26</uiIndex>
 		<AmmoCaliber>.44 Mag</AmmoCaliber>
 		<BRCaliber>.44 Mag</BRCaliber>
+		<NWSSCaliber>.44 Mag</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>27</uiIndex>
-		<AmmoCaliber>10mm</AmmoCaliber>
-		<BRCaliber>10mm</BRCaliber>
+		<AmmoCaliber>10x25mm</AmmoCaliber>
+		<BRCaliber>10x25mm</BRCaliber>
+		<NWSSCaliber>10x25mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>28</uiIndex>
-		<AmmoCaliber>12.5x35mm</AmmoCaliber>
-		<BRCaliber>12.5x35mm</BRCaliber>
+		<AmmoCaliber>12.3x50mm</AmmoCaliber>
+		<BRCaliber>12.3x50mm</BRCaliber>
+		<NWSSCaliber>12.3x50mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>29</uiIndex>
 		<AmmoCaliber>9x21mm</AmmoCaliber>
 		<BRCaliber>9x21mm</BRCaliber>
+		<NWSSCaliber>9x21mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>30</uiIndex>
 		<AmmoCaliber>7.62x37mm</AmmoCaliber>
 		<BRCaliber>7.62x37mm</BRCaliber>
+		<NWSSCaliber>7.62x37mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>31</uiIndex>
-		<AmmoCaliber>9mm SP-5</AmmoCaliber>
-		<BRCaliber>9mm SP-5</BRCaliber>
+		<AmmoCaliber>*unused*</AmmoCaliber>
+		<BRCaliber>*unused*</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>32</uiIndex>
-		<AmmoCaliber>9mm SP-6</AmmoCaliber>
-		<BRCaliber>9mm SP-6</BRCaliber>
+		<AmmoCaliber>*unused*</AmmoCaliber>
+		<BRCaliber>*unused*</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>33</uiIndex>
 		<AmmoCaliber>5.45x18mm</AmmoCaliber>
 		<BRCaliber>5.45x18mm</BRCaliber>
+		<NWSSCaliber>5.45x18mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>34</uiIndex>
 		<AmmoCaliber>9mm MS</AmmoCaliber>
 		<BRCaliber>9mm MS</BRCaliber>
+		<NWSSCaliber>9mm MS</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>35</uiIndex>
 		<AmmoCaliber>.50 AE</AmmoCaliber>
 		<BRCaliber>.50 AE</BRCaliber>
+		<NWSSCaliber>.50 AE</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>36</uiIndex>
 		<AmmoCaliber>.454 Casull</AmmoCaliber>
 		<BRCaliber>.454 Casull</BRCaliber>
+		<NWSSCaliber>.454 Casull</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>37</uiIndex>
 		<AmmoCaliber>.45 WinMag</AmmoCaliber>
 		<BRCaliber>.45 WinMag</BRCaliber>
+		<NWSSCaliber>.45 WinMag</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>38</uiIndex>
 		<AmmoCaliber>.50 Beowulf</AmmoCaliber>
 		<BRCaliber>.50 Beowulf</BRCaliber>
+		<NWSSCaliber>.50 Beowulf</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>39</uiIndex>
 		<AmmoCaliber>.300 WinMag</AmmoCaliber>
 		<BRCaliber>.300 WinMag</BRCaliber>
+		<NWSSCaliber>.300 WinMag</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>40</uiIndex>
 		<AmmoCaliber>7.92x57mm</AmmoCaliber>
 		<BRCaliber>7.92x57mm</BRCaliber>
+		<NWSSCaliber>7.92x57mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>41</uiIndex>
 		<AmmoCaliber>12.7x97mm Subsonic</AmmoCaliber>
 		<BRCaliber>12.7x97mm</BRCaliber>
+		<NWSSCaliber>12.7x97mm Subsonic</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>42</uiIndex>
 		<AmmoCaliber>6.8x43mm SPC</AmmoCaliber>
 		<BRCaliber>6.8x43mm</BRCaliber>
+		<NWSSCaliber>6.8x43mm SPC</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>43</uiIndex>
 		<AmmoCaliber>5.56x45mm SCF</AmmoCaliber>
-		<BRCaliber>5.56mm SCF</BRCaliber>
+		<BRCaliber>5.56x45mm SCF</BRCaliber>
+		<NWSSCaliber>5.56x45mm SCF</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>44</uiIndex>
 		<AmmoCaliber>.41 AE</AmmoCaliber>
 		<BRCaliber>.41 AE</BRCaliber>
+		<NWSSCaliber>.41 AE</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>45</uiIndex>
 		<AmmoCaliber>.30 car</AmmoCaliber>
 		<BRCaliber>.30 car</BRCaliber>
+		<NWSSCaliber>.30 car</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>46</uiIndex>
 		<AmmoCaliber>.30-06</AmmoCaliber>
 		<BRCaliber>.30-06</BRCaliber>
+		<NWSSCaliber>.30-06</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>47</uiIndex>
 		<AmmoCaliber>6x35mm</AmmoCaliber>
 		<BRCaliber>6x35mm</BRCaliber>
+		<NWSSCaliber>6x35mm</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>48</uiIndex>
-		<AmmoCaliber>Cannon Ball</AmmoCaliber>
-		<BRCaliber>Cannon Ball</BRCaliber>
+		<AmmoCaliber>手炮子弹</AmmoCaliber>
+		<BRCaliber>手炮子弹</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>49</uiIndex>
-		<AmmoCaliber>Pepper Spray</AmmoCaliber>
-		<BRCaliber>Pepper Spray</BRCaliber>
+		<AmmoCaliber>胡椒粉喷雾罐</AmmoCaliber>
+		<BRCaliber>胡椒粉喷雾罐</BRCaliber>
 	</AMMO>
 </AMMOLIST>

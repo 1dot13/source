@@ -107,8 +107,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>21</uiIndex>
-		<AmmoCaliber>12.7mm</AmmoCaliber>
-		<BRCaliber>12.7mm</BRCaliber>
+		<AmmoCaliber>12.7x108mm</AmmoCaliber>
+		<BRCaliber>12.7x108mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>22</uiIndex>
@@ -122,8 +122,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>24</uiIndex>
-		<AmmoCaliber>7.62x54R</AmmoCaliber>
-		<BRCaliber>7.62x54R</BRCaliber>
+		<AmmoCaliber>7.62x54mmR</AmmoCaliber>
+		<BRCaliber>7.62x54mmR</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>25</uiIndex>
@@ -137,13 +137,13 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>27</uiIndex>
-		<AmmoCaliber>10mm</AmmoCaliber>
-		<BRCaliber>10mm</BRCaliber>
+		<AmmoCaliber>10x25mm</AmmoCaliber>
+		<BRCaliber>10x25mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>28</uiIndex>
-		<AmmoCaliber>12.5x35mm</AmmoCaliber>
-		<BRCaliber>12.5x35mm</BRCaliber>
+		<AmmoCaliber>12.3x50mm</AmmoCaliber>
+		<BRCaliber>12.3x50mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>29</uiIndex>
@@ -237,7 +237,7 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>47</uiIndex>
-		<AmmoCaliber>6x35mm</AmmoCaliber>
-		<BRCaliber>6x35mm</BRCaliber>
+		<AmmoCaliber>手炮子弹</AmmoCaliber>
+		<BRCaliber>手炮子弹</BRCaliber>
 	</AMMO>
 </AMMOLIST>

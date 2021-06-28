@@ -980,14 +980,16 @@
 		<Message>信息：无</Message>
 	</EMAIL>
 	<EMAIL>
+    <!-- Mitch -->
 		<uiIndex>186</uiIndex>
-		<Subject>主题：无</Subject>
-		<Message>信息：无</Message>
+		<Subject>转发自AIM服务器：Dr. Mitch Shudlem的信件</Subject>
+		<Message>我刚从以前的工作中回来，现在可以和你谈工作了。 ± ± 忠告-如果你想讨价还价，那是在浪费时间。 ± Dr. Mitch Shudlem ±</Message>
 	</EMAIL>
 	<EMAIL>
+    <!-- Carp -->
 		<uiIndex>187</uiIndex>
-		<Subject>主题：无</Subject>
-		<Message>信息：无</Message>
+		<Subject>转发自AIM服务器：Howard Melfield的信件</Subject>
+		<Message>你好，小伙子！我刚收到你的留言。如果您仍然感兴趣，请通过我们的网站与我联系。  ± ± Howard Melfield ± A.I.M健康与安全部主任 ± A.I.M圣诞派对委员会主任 ± </Message>
 	</EMAIL>
 	<EMAIL>
 		<uiIndex>188</uiIndex>
