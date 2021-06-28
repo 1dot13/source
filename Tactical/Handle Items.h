@@ -290,9 +290,10 @@ BOOLEAN	BuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 us
 BOOLEAN	CanRemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex );
 BOOLEAN	RemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex );
 
-BOOLEAN	IsDragStructurePresent( INT32 sGridNo, INT8 sLevel, UINT32& arusTileType, UINT16& arusStructureNumber );
+BOOLEAN	IsDragStructurePresent( INT32 sGridNo, INT8 sLevel, UINT32& arusTileType, UINT16& arusStructureNumber, UINT8& arusHitpoints, UINT8& arusDecalFlags );
 void	GetDragStructureXmlEntry( UINT32 ausTileType, UINT16 ausStructureNumber, int& arXmlVectorEntry );
 BOOLEAN	RemoveStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType );
+void	CorrectDragStructData( INT32 sGridNo, INT8 sLevel, UINT8 ausHitpoints, UINT8 ausDecalFlags );
 BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, UINT16 usSoldierID );
 
 void UpdateFortificationPossibleAmount();

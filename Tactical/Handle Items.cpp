@@ -7884,7 +7884,7 @@ BOOLEAN	CanRemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureco
 	return FALSE;
 }
 
-BOOLEAN	IsDragStructurePresent( INT32 sGridNo, INT8 sLevel, UINT32& arusTileType, UINT16& arusStructureNumber )
+BOOLEAN	IsDragStructurePresent( INT32 sGridNo, INT8 sLevel, UINT32& arusTileType, UINT16& arusStructureNumber, UINT8& arusHitpoints, UINT8& arusDecalFlags )
 {
 	// needs to be a valid location
 	if ( TileIsOutOfBounds( sGridNo ) )
@@ -7902,6 +7902,8 @@ BOOLEAN	IsDragStructurePresent( INT32 sGridNo, INT8 sLevel, UINT32& arusTileType
 			if ( GetTileType( pNode->usIndex, &arusTileType ) )
 			{
 				arusStructureNumber = pStruct->pDBStructureRef->pDBStructure->usStructureNumber;
+				arusHitpoints = pStruct->ubHitPoints;
+				arusDecalFlags = pStruct->ubDecalFlag;
 
 				// if tileset is from the current tileset, check that
 				for ( int i = 0; i < STRUCTURE_MOVEPOSSIBLE_MAX; ++i )
@@ -8025,6 +8027,29 @@ BOOLEAN	RemoveStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType )
 	}
 
 	return FALSE;
+}
+
+void CorrectDragStructData( INT32 sGridNo, INT8 sLevel, UINT8 ausHitpoints, UINT8 ausDecalFlags )
+{
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return;
+
+	STRUCTURE* pStruct = GetTallestStructureOnGridnoDrag( sGridNo, sLevel );
+
+	if ( pStruct != NULL )
+	{
+		pStruct->ubHitPoints = ausHitpoints;
+		pStruct->ubDecalFlag = ausDecalFlags;
+
+		if ( pStruct->ubHitPoints < pStruct->pDBStructureRef->pDBStructure->ubHitPoints
+			|| pStruct->ubDecalFlag & STRUCTURE_DECALFLAG_BLOOD )
+		{
+			gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_STRUCTURE_DAMAGED;
+
+			//SetRenderFlags( RENDER_FLAG_FULL );
+		}
+	}
 }
 
 BOOLEAN	RemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex )

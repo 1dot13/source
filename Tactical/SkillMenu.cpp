@@ -853,8 +853,10 @@ DragSelection::Setup( UINT32 aVal )
 
 			UINT32 tiletype;
 			UINT16 structurenumber;
+			UINT8 hitpoints;
+			UINT8 decalflag;
 			if ( pSoldier->CanDragStructure( sTempGridNo )
-				&& IsDragStructurePresent( sTempGridNo, pSoldier->pathing.bLevel, tiletype, structurenumber ) )
+				&& IsDragStructurePresent( sTempGridNo, pSoldier->pathing.bLevel, tiletype, structurenumber, hitpoints, decalflag ) )
 			{
 				int xmlentry;
 				GetDragStructureXmlEntry( tiletype, structurenumber, xmlentry );

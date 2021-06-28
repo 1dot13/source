@@ -11864,11 +11864,17 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 			bool success = false;
 			UINT32 arusTileType;
 			UINT16 arusStructureNumber;
-			if ( IsDragStructurePresent( this->sDragGridNo, this->pathing.bLevel, arusTileType, arusStructureNumber ) )
+			UINT8 hitpoints;
+			UINT8 decalflag;
+			
+			if ( IsDragStructurePresent( this->sDragGridNo, this->pathing.bLevel, arusTileType, arusStructureNumber, hitpoints, decalflag ) )
 			{
 				// add
 				if ( BuildStructDrag( sOldGridNo, gsInterfaceLevel, arusTileType, arusStructureNumber, this->ubID ) )
 				{
+					// as structures might be damaged/have decals, make sure to keep the old values
+					CorrectDragStructData( sOldGridNo, (INT8)gsInterfaceLevel, hitpoints, decalflag );
+
 					// remove
 					RemoveStructDrag( this->sDragGridNo, (INT8)gsInterfaceLevel, arusTileType );
 
@@ -20698,7 +20704,9 @@ BOOLEAN		SOLDIERTYPE::CanDragStructure( INT32 sGridNo )
 
 	UINT32 tiletype;
 	UINT16 structurenumber;
-	if ( !IsDragStructurePresent( sGridNo, this->pathing.bLevel, tiletype, structurenumber ) )
+	UINT8 hitpoints;
+	UINT8 decalflag;
+	if ( !IsDragStructurePresent( sGridNo, this->pathing.bLevel, tiletype, structurenumber, hitpoints, decalflag ) )
 		return FALSE;
 
 	// Now we need to check if there is not a wall between the two middle tiles
