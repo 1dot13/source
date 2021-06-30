@@ -4344,10 +4344,18 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						{
 							if ( pSoldier->bActive && pSoldier->stats.bLife > 0 )
 							{
-								// Get breath back
-								pSoldier->bBreath = pSoldier->bBreathMax;
-								pSoldier->sBreathRed = 0;
-
+								if (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
+								{
+									// Get breath back
+									pSoldier->bBreath = 100;
+									pSoldier->sBreathRed = 10000;
+								}
+								else
+								{
+									// Get breath back
+									pSoldier->bBreath = pSoldier->bBreathMax;
+									pSoldier->sBreathRed = 0;
+								}
 								// Get life back
 								pSoldier->stats.bLife = pSoldier->stats.bLifeMax;
 								pSoldier->bBleeding	= 0;
