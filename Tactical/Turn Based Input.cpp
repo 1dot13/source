@@ -1834,6 +1834,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 						guiPreviousOptionScreen = GAME_SCREEN;
 						
+						EscapeUILock();
 						// cancel, the player can move when it is not its turn!
 						//Heinz: 28.02.09 BUGFIX: player doesn't need to see save/load screen
 						//LeaveTacticalScreen( SAVE_LOAD_SCREEN );
