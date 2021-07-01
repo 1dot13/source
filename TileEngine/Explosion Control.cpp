@@ -5877,7 +5877,7 @@ void SoldierDropThroughRoof( SOLDIERTYPE* pSoldier, INT32 sGridNo )
 	pSoldier->SoldierTakeDamage( ANIM_CROUCH, damage, damage * 100, TAKE_DAMAGE_FALLROOF, NOBODY, NOWHERE, 0, TRUE );
 }
 
-gridnoarmourvector GetConnectedRoofGridnoArmours( INT32 sGridNo )
+gridnoarmourvector GetConnectedRoofGridnoArmours( INT32 sGridNo, UINT8& arBestArmour )
 {
 	gridnoarmourvector vec;
 
@@ -5891,12 +5891,14 @@ gridnoarmourvector GetConnectedRoofGridnoArmours( INT32 sGridNo )
 	if ( pStruct )
 		armour = gubMaterialArmour[pStruct->pDBStructureRef->pDBStructure->ubArmour];
 
+	arBestArmour = armour;
+
 	vec.push_back( std::make_pair( sGridNo, armour ) );
 
 	// starting from sGridNo, we inspect neighbouring gridnos to detect tiles of the same roof, and detect wether there is a wall below them
 	// if there is indeed a wall, note its armour level
 	// if we already intersected a roof by deleting roof tiles, this function will only detect the connected roof part
-
+	
 	UINT32 cnt = 0;
 	while ( cnt < vec.size( ) )
 	{
@@ -5915,16 +5917,21 @@ gridnoarmourvector GetConnectedRoofGridnoArmours( INT32 sGridNo )
 
 			if ( !TileIsOutOfBounds( nextgridno ) && IsRoofPresentAtGridNo( nextgridno ) )
 			{
-				UINT8 armour = 0;
-				STRUCTURE* pStruct = FindStructure( nextgridno, (STRUCTURE_WALL) );
+				armour = 0;
+				pStruct = FindStructure( nextgridno, (STRUCTURE_WALL) );
 
 				if ( pStruct )
 					armour = gubMaterialArmour[pStruct->pDBStructureRef->pDBStructure->ubArmour];
 
 				gridnoarmourpair pair( nextgridno, armour );
 
-				if ( std::find( vec.begin( ), vec.end( ), pair ) == vec.end( ) )
+				if ( std::find( vec.begin(), vec.end(), pair ) == vec.end() )
+				{
 					vec.push_back( pair );
+
+					if ( arBestArmour < armour )
+						arBestArmour = armour;
+				}
 			}
 		}
 	}
@@ -5943,6 +5950,8 @@ gridnoarmournetworkmap GetConnectedRoofNetworks( gridnoarmourvector& arNetwork )
 
 	UINT16 networkcounter = 0;
 
+	UINT8 bestarmour = 0;
+
 	// at first, each nod is its own network. Ignore nodes that have already been destroyed (those that don't have a roof anymore)
 	for ( gridnoarmourvector::iterator it = networkcpy.begin( ); it != networkcpy.end( ); ++it )
 	{
@@ -5950,7 +5959,7 @@ gridnoarmournetworkmap GetConnectedRoofNetworks( gridnoarmourvector& arNetwork )
 
 		if ( IsRoofPresentAtGridNo( pair.first ) )
 		{
-			gridnoarmourvector vect = GetConnectedRoofGridnoArmours( pair.first );
+			gridnoarmourvector vect = GetConnectedRoofGridnoArmours( pair.first, bestarmour );
 
 			// delete all nodes further down in networkcpy that are also present in vect
 			for ( gridnoarmourvector::iterator tmpit = vect.begin( ); tmpit != vect.end( ); ++tmpit )
@@ -6193,34 +6202,30 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 	// only if there is significant damage done
 	if ( sDamage < 1 || !gGameExternalOptions.fRoofCollapse  || TileIsOutOfBounds( sGridNo ) || !IsRoofPresentAtGridNo( sGridNo ) )
 		return;
-		
-	gridnoarmourvector floorarmourvector = GetConnectedRoofGridnoArmours( sGridNo );
 
-	INT16 bestarmour = 0;
-	gridnoarmourvector::iterator itend = floorarmourvector.end( );
-	for ( gridnoarmourvector::iterator it = floorarmourvector.begin( ); it != itend; ++it )
-		bestarmour = max( bestarmour, (INT16)(*it).second );
-
+	UINT8 bestarmour = 0;		
+	gridnoarmourvector floorarmourvector = GetConnectedRoofGridnoArmours( sGridNo, bestarmour );
+	
 	// armour above 127 is deemed indestructable
 	if ( bestarmour >= 127 )
 		return;
 
+	// we can't do anything if damage is lower than armour in the first place
+	if ( sDamage <= bestarmour )
+		return;
+
 	ApplyMapChangesToMapTempFile( TRUE );
 
-	for ( gridnoarmourvector::iterator it = floorarmourvector.begin( ); it != itend; ++it )
+	for ( gridnoarmourvector::iterator it = floorarmourvector.begin( ), itend = floorarmourvector.end(); it != itend; ++it )
 	{
-		INT32 sNewGridno = (*it).first;
-
-		INT16 distance = PythSpacesAway( sGridNo, sNewGridno );
-
 		// for formula reasons, distance is at least 1
-		distance = max( distance, 1);
+		INT16 distance = max( 1, PythSpacesAway( sGridNo, ( *it ).first ) );
 
 		// only remove tile if enough damage has been done
 		// it might be necessary to tweak the damage formula here
 		if ( sDamage > distance * bestarmour )
 		{
-			if ( DamageRoof( sNewGridno, sDamage - distance * bestarmour ) )
+			if ( DamageRoof( ( *it ).first, sDamage - distance * bestarmour ) )
 				(*it).second = 0;
 		}
 	}
@@ -6229,8 +6234,7 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 	gridnoarmournetworkmap roofnetworkmap = GetConnectedRoofNetworks( floorarmourvector );
 
 	// for each remaining node, determine the distance to the closest node with a wall-connection inside the remaining network. If the distance is high enough, the roof will come down
-	gridnoarmournetworkmap::iterator roofnetworkitend = roofnetworkmap.end( );
-	for ( gridnoarmournetworkmap::iterator roofnetworkit = roofnetworkmap.begin( ); roofnetworkit != roofnetworkitend; ++roofnetworkit )
+	for ( gridnoarmournetworkmap::iterator roofnetworkit = roofnetworkmap.begin( ), roofnetworkitend = roofnetworkmap.end(); roofnetworkit != roofnetworkitend; ++roofnetworkit )
 	{
 		gridnoarmourvector roofnetwork = (*roofnetworkit).second;
 
@@ -6242,7 +6246,7 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 		{
 			gridnoarmourvector roofarmoursharednetwork = GetArmourSharedRoofNetwork( roofnetwork );
 
-			for ( gridnoarmourvector::iterator it = roofarmoursharednetwork.begin( ); it != roofarmoursharednetwork.end( ); ++it )
+			for ( gridnoarmourvector::iterator it = roofarmoursharednetwork.begin( ), itend = roofarmoursharednetwork.end(); it != itend; ++it )
 			{
 				gridnoarmourpair pair = (*it);
 
@@ -6264,14 +6268,21 @@ void HandleRoofDestruction( INT32 sGridNo, INT16 sDamage )
 		else
 		{
 			// for now, determine the best armour for each remaining network, and collapse it if there is no armour - and thus no wall connection - left
+			// this means that if ANY armour is found, we won't collapse this network, so we can stop the search for better armour
 			bestarmour = 0;
-			for ( gridnoarmourvector::iterator it = roofnetwork.begin( ); it != roofnetwork.end( ); ++it )
-				bestarmour = max( bestarmour, (*it).second );
+			for ( gridnoarmourvector::iterator it = roofnetwork.begin(), itend = roofnetwork.end(); it != itend; ++it )
+			{
+				if ( ( *it ).second > 0 )
+				{
+					bestarmour = ( *it ).second;
+					break;
+				}
+			}
 
 			// if a network has no wall connection at all, collapse the entire thing
 			if ( bestarmour < 1 )
 			{
-				for ( gridnoarmourvector::iterator it = roofnetwork.begin( ); it != roofnetwork.end( ); ++it )
+				for ( gridnoarmourvector::iterator it = roofnetwork.begin( ), itend = roofnetwork.end(); it != itend; ++it )
 				{
 					if ( DamageRoof( (*it).first, 255 ) )
 						(*it).second = 0;
