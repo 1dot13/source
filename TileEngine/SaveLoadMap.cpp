@@ -587,30 +587,31 @@ BOOLEAN LoadAllMapChangesFromMapTempFileAndApplyThem( )
 
 void AddStructToMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 {
-	MODIFY_MAP Map;
+	if ( !gfApplyChangesToTempFile )
+		return;
+
+	if ( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
+		return;
+
 	UINT32	uiType;
-	UINT16	usSubIndex;
+	UINT16	usSubIndex;	
 
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		MODIFY_MAP Map;
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	if( !gfApplyChangesToTempFile )
-		return;
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex		= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
-		return;
+		Map.ubType = SLM_STRUCT;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
-
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
-
-	Map.usGridNo = uiMapIndex;
-//	Map.usIndex		= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
-
-	Map.ubType		= SLM_STRUCT;
-
-	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 }
 
 
@@ -622,29 +623,31 @@ void AddStructFromMapTempFileToMap( INT32 uiMapIndex, UINT16 usIndex )
 
 void AddObjectToMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 {
-	MODIFY_MAP Map;
+	if ( !gfApplyChangesToTempFile )
+		return;
+
+	if ( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
+		return;
+
 	UINT32	uiType;
-	UINT16	usSubIndex;
+	UINT16	usSubIndex;	
 
-	if( !gfApplyChangesToTempFile )
-		return;
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		MODIFY_MAP Map;
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
-		return;
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex		= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+		Map.ubType = SLM_OBJECT;
 
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
-
-	Map.usGridNo = uiMapIndex;
-//	Map.usIndex		= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
-
-	Map.ubType		= SLM_OBJECT;
-
-	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 }
 
 
@@ -665,19 +668,21 @@ void AddRemoveObjectToMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex		= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	Map.usGridNo = uiMapIndex;
-//	Map.usIndex		= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.ubType = SLM_REMOVE_OBJECT;
 
-	Map.ubType		= SLM_REMOVE_OBJECT;
-
-	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 }
 
 
@@ -693,19 +698,21 @@ void RemoveStructFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex			= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	Map.usGridNo	= uiMapIndex;
-//	Map.usIndex			= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.ubType = SLM_REMOVE_STRUCT;
 
-	Map.ubType			= SLM_REMOVE_STRUCT;
-
-	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 }
 
 void RemoveRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
@@ -720,19 +727,21 @@ void RemoveRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 	if ( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof(MODIFY_MAP) );
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex			= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	Map.usGridNo = uiMapIndex;
-	//	Map.usIndex			= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.ubType = SLM_REMOVE_ROOF;
 
-	Map.ubType = SLM_REMOVE_ROOF;
-
-	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 }
 
 void RemoveOnRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
@@ -747,19 +756,21 @@ void RemoveOnRoofFromMapTempFile( INT32 uiMapIndex, UINT16 usIndex )
 	if ( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof(MODIFY_MAP) );
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex			= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	Map.usGridNo = uiMapIndex;
-	//	Map.usIndex			= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.ubType = SLM_REMOVE_ONROOF;
 
-	Map.ubType = SLM_REMOVE_ONROOF;
-
-	SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+	}
 }
 
 
@@ -1161,20 +1172,22 @@ void AddStructToUnLoadedMapTempFile( INT32 uiMapIndex, UINT16 usIndex, INT16 sSe
 	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
-
-	Map.usGridNo = uiMapIndex;
-//	Map.usIndex		= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex		= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
 
-	Map.ubType		= SLM_STRUCT;
+		Map.ubType = SLM_STRUCT;
 
-	SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+	}
 }
 
 void AddObjectToUnLoadedMapTempFile( INT32 uiMapIndex, UINT16 usIndex, INT16 sSectorX, INT16 sSectorY, UINT8 ubSectorZ  )
@@ -1186,19 +1199,21 @@ void AddObjectToUnLoadedMapTempFile( INT32 uiMapIndex, UINT16 usIndex, INT16 sSe
 	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex		= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	Map.usGridNo = uiMapIndex;
-//	Map.usIndex		= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.ubType = SLM_OBJECT;
 
-	Map.ubType		= SLM_OBJECT;
-
-	SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+	}
 }
 
 
@@ -1211,19 +1226,21 @@ void RemoveStructFromUnLoadedMapTempFile( INT32 uiMapIndex, UINT16 usIndex, INT1
 	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex			= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	Map.usGridNo	= uiMapIndex;
-//	Map.usIndex			= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.ubType = SLM_REMOVE_STRUCT;
 
-	Map.ubType			= SLM_REMOVE_STRUCT;
-
-	SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+	}
 }
 
 
@@ -1236,19 +1253,21 @@ void AddRemoveObjectToUnLoadedMapTempFile( INT32 uiMapIndex, UINT16 usIndex, INT
 	if( gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
 		return;
 
-	GetTileType( usIndex, &uiType );
-	GetSubIndexFromTileIndex( usIndex, &usSubIndex );
+	// Flugente: check whether this works, otherwise we'll save nonsense to the map and will likely crash upon reading it
+	if ( GetTileType( usIndex, &uiType )
+		&& GetSubIndexFromTileIndex( usIndex, &usSubIndex ) )
+	{
+		memset( &Map, 0, sizeof( MODIFY_MAP ) );
 
-	memset( &Map, 0, sizeof( MODIFY_MAP ) );
+		Map.usGridNo = uiMapIndex;
+		//	Map.usIndex		= usIndex;
+		Map.usImageType = (UINT16)uiType;
+		Map.usSubImageIndex = usSubIndex;
 
-	Map.usGridNo = uiMapIndex;
-//	Map.usIndex		= usIndex;
-	Map.usImageType = (UINT16)uiType;
-	Map.usSubImageIndex = usSubIndex;
+		Map.ubType = SLM_REMOVE_OBJECT;
 
-	Map.ubType		= SLM_REMOVE_OBJECT;
-
-	SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+		SaveModifiedMapStructToMapTempFile( &Map, sSectorX, sSectorY, ubSectorZ );
+	}
 }
 
 
