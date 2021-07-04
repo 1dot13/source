@@ -9399,6 +9399,9 @@ void DoInteractiveActionDefaultResult( INT32 sGridNo, UINT8 ubID, BOOLEAN aSucce
 		}
 		break;
 
+		case INTERACTIVE_STRUCTURE_VARIOUS:
+			break;
+
 	default:
 		break;
 	}

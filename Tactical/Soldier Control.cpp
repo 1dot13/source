@@ -20509,6 +20509,16 @@ UINT16	SOLDIERTYPE::GetInteractiveActionSkill( INT32 sGridNo, UINT8 usLevel, UIN
 		}
 		break;
 
+		case INTERACTIVE_STRUCTURE_VARIOUS:
+		{
+			if ( this->ubProfile == ROBOT || IsVehicle( this ) )
+				return 0;
+
+			// no idea what we're doing, but we're probably good at it
+			return 100;
+		}
+		break;
+
 		default:
 			break;
 	}

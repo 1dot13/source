@@ -4112,6 +4112,9 @@ INT16 GetAPsForInteractiveAction( SOLDIERTYPE *pSoldier, UINT16 usActionType )
 	case INTERACTIVE_STRUCTURE_MINIGAME:
 		sAPCost += APBPConstants[AP_READFILE];
 		break;
+	case INTERACTIVE_STRUCTURE_VARIOUS:
+		sAPCost += APBPConstants[AP_READFILE];
+		break;
 
 	default:
 		break;

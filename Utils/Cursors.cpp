@@ -151,6 +151,9 @@ CursorFileData CursorFileDatabase[] =
 
 	{ "CURSORS\\medicalsplint.sti"									, FALSE, 0, ANIMATED_CURSOR, 11, NULL },	// Flugente: medical splint
 	{ "CURSORS\\medicalsplint_r.sti"								, FALSE, 0, ANIMATED_CURSOR, 1, NULL },
+
+	{ "CURSORS\\gearwheel.sti"										, FALSE, 0, ANIMATED_CURSOR, 4, NULL },	// Flugente: gearwheel
+	{ "CURSORS\\gearwheel_r.sti"									, FALSE, 0, ANIMATED_CURSOR, 4, NULL },
 	
 	{ "CURSORS\\can_01.sti"												, FALSE, 0, 0, 0, NULL },
 	{ "CURSORS\\can_02.sti"												, FALSE, 0, 0, 0, NULL },
@@ -1372,6 +1375,21 @@ CursorData CursorDatabase[] =
 
 	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
 		C_SPLINT_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0 },
+
+	// Flugente: gearwheel
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_GEARWHEEL, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		2, CENTER_CURSOR, CENTER_CURSOR, 0, 0, 0, 0 },
+
+	{ C_TRINGS, 6, 0, HIDE_SUBCURSOR, HIDE_SUBCURSOR,
+		C_GEARWHEEL_RED, 0, 0, CENTER_SUBCURSOR, CENTER_SUBCURSOR,
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0,
