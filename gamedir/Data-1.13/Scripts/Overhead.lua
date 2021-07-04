@@ -556,6 +556,7 @@ ActionTypes =
 	ACTIONTYPE_WATERTAP = 3,
 	ACTIONTYPE_SODAMACHINE = 4,
 	ACTIONTYPE_MINIGAME = 5,
+	ACTIONTYPE_VARIOUS = 6,
 }
 
 InfoTypes = 
@@ -573,6 +574,17 @@ MiniGames =
 {
 	TETRIS = 0,
 	PONG = 1,
+}
+
+-- luaactionids that aren't used in ModSpecificActions
+InteractiveAction =
+{
+	MINIGAME_TETRIS = 50,
+	MINIGAME_PONG = 51,	
+	BILLIARD = 52,
+	TABLETENNIS = 53,
+	TOILET = 54,
+	TV = 55,
 }
 
 -- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
@@ -657,11 +669,6 @@ ModSpecificActions =
 	-- San Mona
 	READING_SANMONA_KINGPIN_BOOKSHELF_1 = 49,	
 	-- |||||||||||||||||||||||||||||||||| books |||||||||||||||||||||||||||||||||||||
-	
-	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
-	MINIGAME_TETRIS = 50,
-	MINIGAME_PONG = 51,
-	-- |||||||||||||||||||||||||||||||||| minigames |||||||||||||||||||||||||||||||||||||
 	
 	-- |||||||||||||||||||||||||||||||||| photo data |||||||||||||||||||||||||||||||||||||
 	PHOTO_FLAGS_BEGIN = 60,
@@ -1646,7 +1653,7 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 	elseif ( usActionType == ActionTypes.ACTIONTYPE_MINIGAME ) then
 	
 		-- for now, the only game we have is tetris
-		if ( sLuaactionid == ModSpecificActions.MINIGAME_TETRIS ) then
+		if ( sLuaactionid == InteractiveAction.MINIGAME_TETRIS ) then
 		
 			-- playing a game costs $1
 			if ( SoldierSpendMoney(ubID, 1) == 1 ) then
@@ -1655,7 +1662,7 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetPendingNewScreen(ScreenTypes.MINIGAME)
 			
 			end
-		elseif ( sLuaactionid == ModSpecificActions.MINIGAME_PONG ) then
+		elseif ( sLuaactionid == InteractiveAction.MINIGAME_PONG ) then
 		
 			-- playing a game costs $1
 			if ( SoldierSpendMoney(ubID, 1) == 1 ) then
@@ -1665,7 +1672,28 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 			
 			end
 		end
-				
+		
+	elseif ( usActionType == ActionTypes.ACTIONTYPE_VARIOUS ) then
+	
+		-- for now, the only game we have is tetris
+		if ( sLuaactionid == InteractiveAction.BILLIARD ) then
+		
+			PlaySound("Sounds\\billiard.wav")
+			
+		elseif ( sLuaactionid == InteractiveAction.TABLETENNIS ) then
+		
+			PlaySound("Sounds\\tabletennis.wav")
+			
+		elseif ( sLuaactionid == InteractiveAction.TOILET ) then
+		
+			PlaySound("Sounds\\toilet.wav")
+		
+		elseif ( sLuaactionid == InteractiveAction.TV ) then
+		
+			PlaySound("Sounds\\tvstatic.wav")
+		
+		end
+		
 	end
 	
 	

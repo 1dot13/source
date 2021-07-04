@@ -27,6 +27,7 @@
 								3: take water from a water tap
 								4: buy soda from a soda machine
 								5: play a minigame
+								6: various
 	difficulty					how hard it is to perform action
 	luaactionid					if this is set, lua script HandleInteractiveActionResult() in Overhead.lua is called 
 								with this Id to perform special actions. If no ID is set, the standard action is called.
@@ -1013,6 +1014,64 @@
 		<sActionType>5</sActionType>
 		<luaactionid>51</luaactionid>
 	</ACTION>
-	<!-- |||||||||||||||||||| MINIGAME |||||||||||||||||||| -->	
+	<!-- |||||||||||||||||||| MINIGAME |||||||||||||||||||| --> 
+	
+	<!-- |||||||||||||||||||| VARIOUS |||||||||||||||||||| -->
+	<!-- billiard table -->
+	<ACTION>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>52</luaactionid>
+	</ACTION>
+	
+	<ACTION>
+		<szTileSetName>lawless.sti</szTileSetName>		
+		<usTileIndex>3</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>52</luaactionid>
+	</ACTION>
+	
+	<!-- table tennis -->
+	<ACTION>
+		<szTileSetName>m-furn4.sti</szTileSetName>		
+		<usTileIndex>14</usTileIndex>
+		<usTileIndex>15</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>53</luaactionid>
+	</ACTION>
+	
+	<!-- toilet -->
+	<ACTION>
+		<szTileSetName>furn_9.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>54</luaactionid>
+	</ACTION>
+	
+	<!-- urinal -->
+	<ACTION>
+		<szTileSetName>furn_9.sti</szTileSetName>		
+		<usTileIndex>12</usTileIndex>
+		<usTileIndex>13</usTileIndex>
+		<usTileIndex>14</usTileIndex>
+		<usTileIndex>15</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>54</luaactionid>
+	</ACTION>
+	
+	<!-- television -->
+	<ACTION>
+		<szTileSetName>furn_7.sti</szTileSetName>		
+		<usTileIndex>10</usTileIndex>
+		<usTileIndex>20</usTileIndex>
+		<usTileIndex>21</usTileIndex>
+		<usTileIndex>22</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>55</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| VARIOUS |||||||||||||||||||| -->	
 	
 </INTERACTIVEACTIONS>
