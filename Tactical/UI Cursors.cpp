@@ -1303,10 +1303,6 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos , BO
 			// sevenfm: init autofire bullet num next time when the cursor will be on target
 			gfAutofireInitBulletNum = FALSE;
 		}
-		else
-		{
-			pSoldier->bDoAutofire = 6;
-		}
 
 		pSoldier->flags.autofireLastStep = FALSE;
 	}

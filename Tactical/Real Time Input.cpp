@@ -248,6 +248,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 										{
 											pSoldier->sStartGridNo = usMapPos;
 											ResetBurstLocations( );
+											pSoldier->bDoAutofire = 6;
 											*puiNewEvent = A_CHANGE_TO_CONFIM_ACTION;
 										}
 										else
@@ -1824,6 +1825,7 @@ void	QueryRTMButton( UINT32 *puiNewEvent )
 
 void	QueryRTWheels( UINT32 *puiNewEvent )
 {
+	SOLDIERTYPE *pSoldier;
 	INT32		sMapPos=0;
 
 	gViewportRegion.WheelState = gViewportRegion.WheelState * ( gGameSettings.fOptions[TOPTION_INVERT_WHEEL] ? -1 : 1 );
@@ -1857,6 +1859,11 @@ void	QueryRTWheels( UINT32 *puiNewEvent )
 						case MENU_MODE:
 						break;
 						case CONFIRM_ACTION_MODE: //shoot here. but is never gets here :)
+							if (GetSoldier(&pSoldier, gusSelectedSoldier))
+							{
+									HandleWheelAdjustCursorWOAB(pSoldier, sMapPos, -gViewportRegion.WheelState);
+							}
+							break;
 								break;
 					}//switch
 				}//if ( gusSelectedSoldier != NOBODY )
