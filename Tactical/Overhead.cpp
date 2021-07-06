@@ -9565,7 +9565,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 				
 			}
             // firing at one of our own guys who is not a rebel etc
-            else if ( pTarget->stats.bLife >= OKLIFE && !(pTarget->bCollapsed) && !AM_A_ROBOT( pTarget ) && (bReason == REASON_NORMAL_ATTACK ) )
+			else if (pTarget->stats.bLife >= OKLIFE && !(pTarget->bCollapsed) && !AM_A_ROBOT(pTarget) && !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE) && (bReason == REASON_NORMAL_ATTACK))
             {
                 // OK, sturn towards the prick
                 // Change to fire ready animation
