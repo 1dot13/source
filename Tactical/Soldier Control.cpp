@@ -5873,7 +5873,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	UINT8		ubCombinedLoss, ubVolume, ubReason;
 	//	SOLDIERTYPE * pNewSoldier;
 
-	if (gfGodModeCheat && this->bTeam == OUR_TEAM)
+	if (gTacticalStatus.uiFlags & GODMODE && this->bTeam == OUR_TEAM)
 	{
 		sDamage = 0;
 		ubSpecial = FIRE_WEAPON_NO_SPECIAL;
@@ -6722,7 +6722,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 
 	// MAYBE CHANGE TO SPECIAL ANIMATION BASED ON VALUE SET BY DAMAGE CALCULATION CODE
 	// ALL THESE ONLY WORK ON STANDING PEOPLE
-	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND && (!gfGodModeCheat || pSoldier->bTeam != OUR_TEAM))
+	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND && (!(gTacticalStatus.uiFlags & GODMODE) || pSoldier->bTeam != OUR_TEAM))
 	{
 		if ( gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND )
 		{
@@ -10322,7 +10322,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 		}
 	}
 
-	if (gfGodModeCheat && this->bTeam == OUR_TEAM)
+	if (gTacticalStatus.uiFlags & GODMODE && this->bTeam == OUR_TEAM)
 	{
 		sLifeDeduct = 0;
 		sBreathLoss = 0;

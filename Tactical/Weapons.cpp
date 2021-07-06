@@ -8320,7 +8320,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 			}
 		}
 
-		if (iImpactForCrits > 0 && iImpactForCrits < pTarget->stats.bLife && !(pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) && !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE)) // not to monsters - SANDRO
+		if (iImpactForCrits > 0 && iImpactForCrits < pTarget->stats.bLife && !(pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) && !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE) && (!(gTacticalStatus.uiFlags & GODMODE) || pTarget->bTeam != OUR_TEAM))
 		{
 			UINT32 uiCritChance = 0;
 			if (fFragment)
@@ -8340,11 +8340,6 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 					uiCritChance += 8;
 					fMaliciousHit = TRUE;
 				}
-			}
-
-			if (gfGodModeCheat && pTarget->bTeam == OUR_TEAM)
-			{
-				uiCritChance = 0;//no crit against player in god mode either
 			}
 
 			// SANDRO - with new traits, the chance for stat loss is higher as we are now able to repair it

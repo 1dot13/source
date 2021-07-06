@@ -7780,8 +7780,16 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					{
 						if (CHEATER_CHEAT_LEVEL())
 						{
-							ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, gfGodModeCheat ? L"God mode deactivated." : L"God mode activated.");
-							gfGodModeCheat = !gfGodModeCheat;
+							if (gTacticalStatus.uiFlags & GODMODE)
+							{
+								//ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, L"God mode deactivated.");
+								gTacticalStatus.uiFlags &= (~GODMODE);
+							}
+							else
+							{
+								//ScreenMsg(FONT_MCOLOR_RED, MSG_INTERFACE, L"God mode activated.");
+								gTacticalStatus.uiFlags |= GODMODE;
+							}
 						}
 					}
 					break;

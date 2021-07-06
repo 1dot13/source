@@ -4782,7 +4782,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 		// WANNE: Why is impact here always set to 0? The impact was calculated a few lines before!
 		//iImpact = 0;
-		if (gfGodModeCheat && pTarget->pSoldier->bTeam == OUR_TEAM)
+		if (gTacticalStatus.uiFlags & GODMODE && pTarget->pSoldier->bTeam == OUR_TEAM)
 		{
 			iImpact = 0;
 		}
@@ -5005,7 +5005,7 @@ void TargetHitCallback( SOLDIERCELL *pTarget, INT32 index )
 			break;
 	}
 
-	if (gfGodModeCheat && pTarget->pSoldier->bTeam == OUR_TEAM)
+	if (gTacticalStatus.uiFlags & GODMODE && pTarget->pSoldier->bTeam == OUR_TEAM)
 	{
 		iNewLife = pTarget->pSoldier->stats.bLife;
 	}
