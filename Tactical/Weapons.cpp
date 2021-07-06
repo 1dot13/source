@@ -8320,7 +8320,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 			}
 		}
 
-		if (iImpactForCrits > 0 && iImpactForCrits < pTarget->stats.bLife && !(pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) ) // not to monsters - SANDRO
+		if (iImpactForCrits > 0 && iImpactForCrits < pTarget->stats.bLife && !(pTarget->flags.uiStatusFlags & SOLDIER_MONSTER) && !(pTarget->flags.uiStatusFlags & SOLDIER_VEHICLE)) // not to monsters - SANDRO
 		{
 			UINT32 uiCritChance = 0;
 			if (fFragment)
