@@ -6132,6 +6132,7 @@ void TestMeanWhile( INT32 iID )
 
 	if ( iID == INTERROGATION )
 	{
+		UINT8 numPrisoners = 0;
 		MeanwhileDef.sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
 		MeanwhileDef.sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
 
@@ -6149,6 +6150,7 @@ void TestMeanWhile( INT32 iID )
 
 				pSoldier->sSectorX = gModSettings.ubMeanwhileInterrogatePOWSectorX; //7
 				pSoldier->sSectorY = gModSettings.ubMeanwhileInterrogatePOWSectorY; //14
+				if (++numPrisoners > 2) break;
 			}
 		}
 	}
