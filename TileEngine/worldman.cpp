@@ -1790,6 +1790,61 @@ BOOLEAN RemoveAllStructsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 
 	return fRetVal;
 }
 
+STRUCTURE* GetStructForLevelNodeOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType )
+{
+	if ( TileIsOutOfBounds( iMapIndex ) )
+		return NULL;
+
+	UINT32 fTileType;
+
+	LEVELNODE* pLevelNode = gpWorldLevelData[iMapIndex].pStructHead;
+
+	// Look through all structs and Search for type
+	while ( pLevelNode != NULL )
+	{
+		if ( pLevelNode->usIndex != NO_TILE )
+		{
+			GetTileType( pLevelNode->usIndex, &fTileType );
+			
+			if ( fTileType >= fStartType && fTileType <= fEndType )
+			{
+				return pLevelNode->pStructureData;
+			}
+		}
+
+		pLevelNode = pLevelNode->pNext;
+	}
+
+	return NULL;
+}
+
+bool GetTypeRegionIndexForLevelNodeOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32& arTileType, UINT16& arRegionIndex )
+{
+	if ( TileIsOutOfBounds( iMapIndex ) )
+		return NULL;
+	
+	LEVELNODE* pLevelNode = gpWorldLevelData[iMapIndex].pStructHead;
+
+	// Look through all structs and Search for type
+	while ( pLevelNode != NULL )
+	{
+		if ( pLevelNode->usIndex != NO_TILE )
+		{
+			GetTileType( pLevelNode->usIndex, &arTileType );
+
+			if ( arTileType >= fStartType && arTileType <= fEndType
+				&& GetTileRegionIndex( pLevelNode->usIndex, arRegionIndex ) )
+			{
+				return true;
+			}
+		}
+
+		pLevelNode = pLevelNode->pNext;
+	}
+
+	return false;
+}
+
 // Flugente: permanently remove structures
 BOOLEAN RemoveAllRoofsOfTypeRangeAdjustSaveFile( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType )
 {

@@ -599,11 +599,49 @@ UINT16 InteractiveActionPossibleAtGridNo( INT32 sGridNo, UINT8 usLevel, UINT16& 
 {
 	arusStructIndex = 0;
 
-	STRUCTURE * pStruct = FindStructure( sGridNo, (STRUCTURE_GENERIC) );
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return INTERACTIVE_STRUCTURE_NO_ACTION; 
+	
+	INT32 tmpgridno = 0;
+	UINT16 structurenumber = 0;
+	INT32 structuregridno = NOWHERE;
+	UINT32 uiTileType = 0;
+	bool properdatafound( false );
+
+	STRUCTURE* pStruct = FindStructure( sGridNo, ( STRUCTURE_GENERIC ) );
+
+	// Wall decorations are on the gridno of the wall. This can be problematic if this gridno is 'behind' the wall, because then we might not find a path.
+	// Thus we need to check for decorations on these walls
+	if ( !pStruct )
+	{
+		tmpgridno = NewGridNo( sGridNo, DirectionInc( NORTH ) );
+
+		pStruct = GetStructForLevelNodeOfTypeRange( tmpgridno, FIRSTDECORATIONS, FOURTHDECORATIONS );
+
+		// if struct is found but has wrong orientation, ignore it
+		if ( pStruct
+			&& pStruct->ubWallOrientation != OUTSIDE_TOP_LEFT
+			&& pStruct->ubWallOrientation != INSIDE_TOP_LEFT )
+			pStruct = NULL;
+	}
+
+	if ( !pStruct )
+	{
+		tmpgridno = NewGridNo( sGridNo, DirectionInc( WEST ) );
+
+		pStruct = GetStructForLevelNodeOfTypeRange( tmpgridno, FIRSTDECORATIONS, FOURTHDECORATIONS );
+
+		// if struct is found but has wrong orientation, ignore it
+		if ( pStruct
+			&& pStruct->ubWallOrientation != OUTSIDE_TOP_RIGHT
+			&& pStruct->ubWallOrientation != INSIDE_TOP_RIGHT )
+			pStruct = NULL;
+	}
+
 	if ( pStruct )
 	{
 		// if this is a multi-tile structure, be sure to use the base gridno
-		if ( !(pStruct->fFlags & STRUCTURE_BASE_TILE) )
+		if ( !( pStruct->fFlags & STRUCTURE_BASE_TILE ) )
 		{
 			pStruct = FindBaseStructure( pStruct );
 
@@ -611,113 +649,140 @@ UINT16 InteractiveActionPossibleAtGridNo( INT32 sGridNo, UINT8 usLevel, UINT16& 
 				return INTERACTIVE_STRUCTURE_NO_ACTION;
 		}
 
+		structuregridno = pStruct->sGridNo;
+		structurenumber = pStruct->pDBStructureRef->pDBStructure->usStructureNumber;
+
 		LEVELNODE* pNode = FindLevelNodeBasedOnStructure( pStruct->sGridNo, pStruct );
-		
-		if ( pNode )
+
+		if ( pNode
+			&& GetTileType( pNode->usIndex, &uiTileType ) )
 		{
-			UINT16 usIndex = pNode->usIndex;
-			UINT32 uiTileType = 0;
-			if ( GetTileType( usIndex, &uiTileType ) )
+			properdatafound = true;
+		}
+	}
+	
+	// With Decals we don't have structuredata for the node. Thus we have to work around that by getting the data from the TileElem
+	if ( !properdatafound )
+	{
+		tmpgridno = NewGridNo( sGridNo, DirectionInc( NORTH ) );
+
+		if ( GetTypeRegionIndexForLevelNodeOfTypeRange( tmpgridno, FIRSTWALLDECAL, FOURTHWALLDECAL, uiTileType, structurenumber )
+			|| GetTypeRegionIndexForLevelNodeOfTypeRange( tmpgridno, FIFTHWALLDECAL, EIGTHWALLDECAL, uiTileType, structurenumber ) )
+		{
+			properdatafound = true;
+		}
+	}
+
+	if ( !properdatafound )
+	{
+		tmpgridno = NewGridNo( sGridNo, DirectionInc( WEST ) );
+
+		if ( GetTypeRegionIndexForLevelNodeOfTypeRange( tmpgridno, FIRSTWALLDECAL, FOURTHWALLDECAL, uiTileType, structurenumber )
+			|| GetTypeRegionIndexForLevelNodeOfTypeRange( tmpgridno, FIFTHWALLDECAL, EIGTHWALLDECAL, uiTileType, structurenumber ) )
+		{
+			properdatafound = true;
+		}
+	}
+
+	if ( properdatafound )
+	{
+		// we loop over each action and determine whether it fits
+		// multiple actions can fit, we chose whatever fits best
+		// So, for example, we can set computers everywhere to be hackable with a generic result, and then define more precise results on specific computers
+		// Other example: With just oen entry, with neither sector nor location set, we can make all water taps drinkable
+		BOOLEAN foundmatch_precise	= FALSE;
+		BOOLEAN foundmatch_sector	= FALSE;
+		BOOLEAN foundmatch_any		= FALSE;
+
+		UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
+
+		int foundindex = 0;
+		if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType][0] )
+		{
+			for ( int i = 0; i < gMaxInteractiveStructureRead; ++i )
 			{
-				// we loop over each action and determine whether it fits
-				// multiple actions can fit, we chose whatever fits best
-				// So, for example, we can set computers everywhere to be hackable with a generci result, and then define more precise results on specific computers
-				// Other example: With just oen entry, with neither sector nor location set, we can make all water taps drinkable
-				BOOLEAN foundmatch_precise	= FALSE;
-				BOOLEAN foundmatch_sector	= FALSE;
-				BOOLEAN foundmatch_any		= FALSE;
-
-				UINT8 sector = SECTOR( gWorldSectorX, gWorldSectorY );
-
-				int foundindex = 0;
-				if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType][0] )
+				if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType], gInteractiveStructure[i].szTileSetName, 11 ) )
 				{
-					for ( int i = 0; i < gMaxInteractiveStructureRead; ++i )
+					std::vector<UINT16> tmpvec = gInteractiveStructure[i].tileindexvector;
+
+					std::vector<UINT16>::iterator it = std::find( tmpvec.begin( ), tmpvec.end( ), structurenumber );
+
+					if ( it != tmpvec.end( ) )
 					{
-						if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[uiTileType], gInteractiveStructure[i].szTileSetName, 11 ) )
+						if ( gInteractiveStructure[i].sector == sector && gInteractiveStructure[i].sectorlevel == gbWorldSectorZ )
 						{
-							std::vector<UINT16> tmpvec = gInteractiveStructure[i].tileindexvector;
+							foundmatch_sector = TRUE;
+							foundindex = i;
 
-							std::vector<UINT16>::iterator it = std::find( tmpvec.begin( ), tmpvec.end( ), pStruct->pDBStructureRef->pDBStructure->usStructureNumber );
-
-							if ( it != tmpvec.end( ) )
+							if ( gInteractiveStructure[i].sLevel == usLevel || gInteractiveStructure[i].sLevel == -1 )
 							{
-								if ( gInteractiveStructure[i].sector == sector && gInteractiveStructure[i].sectorlevel == gbWorldSectorZ )
+								std::vector<INT32> tmpgridnovec = gInteractiveStructure[i].gridnovector;
+
+								std::vector<INT32>::iterator it_gridno = std::find( tmpgridnovec.begin( ), tmpgridnovec.end( ), structuregridno );
+
+								if ( it_gridno != tmpgridnovec.end( ) )
 								{
-									foundmatch_sector = TRUE;
-									foundindex = i;
-
-									if ( gInteractiveStructure[i].sLevel == usLevel || gInteractiveStructure[i].sLevel == -1 )
-									{
-										std::vector<INT32> tmpgridnovec = gInteractiveStructure[i].gridnovector;
-
-										std::vector<INT32>::iterator it_gridno = std::find( tmpgridnovec.begin( ), tmpgridnovec.end( ), pStruct->sGridNo );
-
-										if ( it_gridno != tmpgridnovec.end( ) )
-										{
-											foundmatch_precise = TRUE;
-											break;
-										}
-									}
-								}
-								// some actions cen be defined everywhere
-								else if ( !foundmatch_sector && gInteractiveStructure[i].sector == -1 && gInteractiveStructure[i].sectorlevel == -1 )
-								{
-									foundmatch_any = TRUE;
-									foundindex = i;
+									foundmatch_precise = TRUE;
+									break;
 								}
 							}
 						}
-					}
-				}
-				// otherwise, check first tileset (GENERIC 1)
-				else if ( gTilesets[0].TileSurfaceFilenames[uiTileType][0] )
-				{
-					for ( int i = 0; i < gMaxInteractiveStructureRead; ++i )
-					{
-						if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiTileType], gInteractiveStructure[i].szTileSetName, 11 ) )
+						// some actions cen be defined everywhere
+						else if ( !foundmatch_sector && gInteractiveStructure[i].sector == -1 && gInteractiveStructure[i].sectorlevel == -1 )
 						{
-							std::vector<UINT16> tmpvec = gInteractiveStructure[i].tileindexvector;
-
-							std::vector<UINT16>::iterator it = std::find( tmpvec.begin( ), tmpvec.end( ), pStruct->pDBStructureRef->pDBStructure->usStructureNumber );
-
-							if ( it != tmpvec.end() )
-							{
-								if ( gInteractiveStructure[i].sector == sector && gInteractiveStructure[i].sectorlevel == gbWorldSectorZ )
-								{
-									foundmatch_sector = TRUE;
-									foundindex = i;
-
-									if ( gInteractiveStructure[i].sLevel == usLevel || gInteractiveStructure[i].sLevel == -1 )
-									{
-										std::vector<INT32> tmpgridnovec = gInteractiveStructure[i].gridnovector;
-
-										std::vector<INT32>::iterator it_gridno = std::find( tmpgridnovec.begin( ), tmpgridnovec.end( ), pStruct->sGridNo );
-
-										if ( it_gridno != tmpgridnovec.end() )
-										{
-											foundmatch_precise = TRUE;
-											break;
-										}
-									}
-								}
-								else if ( !foundmatch_sector && gInteractiveStructure[i].sector == -1 && gInteractiveStructure[i].sectorlevel == -1 )
-								{
-									foundmatch_any = TRUE;
-									foundindex = i;
-								}
-							}
+							foundmatch_any = TRUE;
+							foundindex = i;
 						}
 					}
-				}
-
-				if ( foundmatch_any || foundmatch_sector || foundmatch_precise )
-				{
-					arusStructIndex = foundindex;
-
-					return gInteractiveStructure[foundindex].sActionType;
 				}
 			}
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[uiTileType][0] )
+		{
+			for ( int i = 0; i < gMaxInteractiveStructureRead; ++i )
+			{
+				if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[uiTileType], gInteractiveStructure[i].szTileSetName, 11 ) )
+				{
+					std::vector<UINT16> tmpvec = gInteractiveStructure[i].tileindexvector;
+
+					std::vector<UINT16>::iterator it = std::find( tmpvec.begin( ), tmpvec.end( ), structurenumber );
+
+					if ( it != tmpvec.end() )
+					{
+						if ( gInteractiveStructure[i].sector == sector && gInteractiveStructure[i].sectorlevel == gbWorldSectorZ )
+						{
+							foundmatch_sector = TRUE;
+							foundindex = i;
+
+							if ( gInteractiveStructure[i].sLevel == usLevel || gInteractiveStructure[i].sLevel == -1 )
+							{
+								std::vector<INT32> tmpgridnovec = gInteractiveStructure[i].gridnovector;
+
+								std::vector<INT32>::iterator it_gridno = std::find( tmpgridnovec.begin( ), tmpgridnovec.end( ), structuregridno );
+
+								if ( it_gridno != tmpgridnovec.end() )
+								{
+									foundmatch_precise = TRUE;
+									break;
+								}
+							}
+						}
+						else if ( !foundmatch_sector && gInteractiveStructure[i].sector == -1 && gInteractiveStructure[i].sectorlevel == -1 )
+						{
+							foundmatch_any = TRUE;
+							foundindex = i;
+						}
+					}
+				}
+			}
+		}
+
+		if ( foundmatch_any || foundmatch_sector || foundmatch_precise )
+		{
+			arusStructIndex = foundindex;
+
+			return gInteractiveStructure[foundindex].sActionType;
 		}
 	}
 

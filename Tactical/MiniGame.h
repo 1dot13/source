@@ -13,6 +13,7 @@ enum
 
 	TETRIS = MINIGAME_FIRST,
 	PONG,
+	PICTURE,
 
 	MINIGAME_MAX,
 };
@@ -37,5 +38,9 @@ UINT32 MiniGame_Handle_Tetris();
 
 void MiniGame_Init_Pong( );
 UINT32 MiniGame_Handle_Pong( );
+
+void SetInteractivePicture( std::string aStr, bool aVal );
+void MiniGame_Init_Picture();
+UINT32 MiniGame_Handle_Picture();
 
 #endif //__MINIGAME_H

@@ -81,6 +81,10 @@ void MiniGameDataInit()
 			MiniGame_Init_Pong( );
 			break;
 
+		case PICTURE:
+			MiniGame_Init_Picture();
+			break;
+
 		default:
 			break;
 		}
@@ -130,6 +134,10 @@ UINT32	MiniGameScreenHandle( void )
 		return MiniGame_Handle_Pong( );
 		break;
 
+	case PICTURE:
+		return MiniGame_Handle_Picture();
+		break;
+
 	default:
 		break;
 	}
@@ -142,7 +150,7 @@ UINT32	MiniGameScreenShutdown( void )
 	return TRUE;
 }
 
-void DisplayPNGImage( SGPRect aDstRect, std::string& arStrImage )
+void DisplayPNGImage( SGPRect aDstRect, std::string& arStrImage, bool aStretch )
 {
 	VSURFACE_DESC		vs_desc = {};
 	HVSURFACE			hVSurface;
@@ -163,6 +171,24 @@ void DisplayPNGImage( SGPRect aDstRect, std::string& arStrImage )
 		SrcRect.iTop = 0;
 		SrcRect.iRight = hVSurface->usWidth;
 		SrcRect.iBottom = hVSurface->usHeight;
+
+		// if we're not supposed to stretch it, alter aDstRect
+		INT32 width = SrcRect.iRight - SrcRect.iLeft;
+		INT32 height = SrcRect.iBottom - SrcRect.iTop;
+
+		INT32 width_dest = aDstRect.iRight - aDstRect.iLeft;
+		INT32 height_dest = aDstRect.iBottom - aDstRect.iTop; 
+		
+		if ( !aStretch || width > width_dest || height > height_dest )
+		{
+			if ( width > 0 && height > 0 )
+			{
+				aDstRect.iLeft   = max(0, ( aDstRect.iRight + aDstRect.iLeft ) / 2 - width / 2 );
+				aDstRect.iRight  = min( aDstRect.iRight, aDstRect.iLeft + width);
+				aDstRect.iTop	 = max(0, ( aDstRect.iBottom + aDstRect.iTop ) / 2 - height / 2 );
+				aDstRect.iBottom = min( aDstRect.iBottom, aDstRect.iTop + height );
+			}
+		}
 
 		BltStretchVideoSurface( FRAME_BUFFER, uiLoadScreen, 0, 0, 0, &SrcRect, &aDstRect );
 
@@ -412,7 +438,7 @@ UINT32 MiniGame_Handle_Tetris()
 			else if ( gMiniGameState == MINIGAME_GAMEOVER )
 				strImage = "Interface\\background_tetris_gameover.png";
 
-			DisplayPNGImage( backgroundrect, strImage );
+			DisplayPNGImage( backgroundrect, strImage, false );
 
 			gMiniGameRenewBackground = FALSE;
 		}
@@ -1417,7 +1443,7 @@ UINT32 MiniGame_Handle_Pong()
 			else if ( gMiniGameState == MINIGAME_GAMEOVER )
 				strImage = "Interface\\background_tetris_gameover.png";
 
-			DisplayPNGImage( backgroundrect, strImage );
+			DisplayPNGImage( backgroundrect, strImage, false );
 
 			gMiniGameRenewBackground = FALSE;
 		}
@@ -2464,3 +2490,41 @@ UINT32 MiniGame_Handle_Pong()
 	return MINIGAME_SCREEN;
 }
 ////////////////////////////////////////////// PONG //////////////////////////////////////////////
+
+////////////////////////////////////////////// PICTURE //////////////////////////////////////////////
+// We display a picture. That's it.
+
+std::string gstrInteractivePictureDisplay = "Interface\\background_tetris_startscreen.png";
+bool gstrInteractivePictureStretch = false;
+
+void SetInteractivePicture( std::string aStr, bool aVal ) { gstrInteractivePictureDisplay = aStr; gstrInteractivePictureStretch = aVal; }
+
+void MiniGame_Init_Picture()
+{
+	gMiniGameRenewBackground = TRUE;
+}
+
+UINT32 MiniGame_Handle_Picture()
+{
+	// coordinates for the background rectangle
+	if ( gMiniGameRenewBackground )
+	{
+		SGPRect backgroundrect;
+		backgroundrect.iLeft = 0;
+		backgroundrect.iTop = 0;
+		backgroundrect.iRight = ( SCREEN_WIDTH - 0 );
+		backgroundrect.iBottom = ( SCREEN_HEIGHT - 0 );
+
+		// background: display a png picture
+		DisplayPNGImage( backgroundrect, gstrInteractivePictureDisplay, gstrInteractivePictureStretch );
+
+		gMiniGameRenewBackground = FALSE;
+	}
+				
+	InvalidateScreen();
+
+	SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
+
+	return MINIGAME_SCREEN;
+}
+////////////////////////////////////////////// PICTURE //////////////////////////////////////////////

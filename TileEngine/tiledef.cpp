@@ -1098,6 +1098,16 @@ BOOLEAN	GetTileFlags( UINT16 usIndex, UINT32 *puiFlags )
 	return( TRUE );
 }
 
+BOOLEAN	GetTileRegionIndex( UINT16 usIndex, UINT16& arRegionIndex )
+{
+	CHECKF( usIndex != NO_TILE );
+	CHECKF( usIndex < giNumberOfTiles ); //lal bugfix
+	
+	arRegionIndex = gTileDatabase[usIndex].usRegionIndex;
+
+	return( TRUE );
+}
+
 BOOLEAN	GetTileTypeLogicalHeight( UINT32 fType, UINT8 *pubLogHeight )
 {
 	*pubLogHeight = gTileTypeLogicalHeight[ fType ];

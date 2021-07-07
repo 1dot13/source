@@ -878,6 +878,7 @@ static int l_SetSamSiteHackStatus( lua_State *L );
 static int l_GetSamSiteHackStatus( lua_State *L );
 
 static int l_SetMiniGameType( lua_State *L );
+static int l_DisplayPictureTactical( lua_State *L );
 static int l_SoldierSpendMoney( lua_State *L );
 
 static int l_SetAdditionalDialogue( lua_State *L );
@@ -1772,6 +1773,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register( L, "GetSamSiteHackStatus", l_GetSamSiteHackStatus );
 
 	lua_register( L, "SetMiniGameType", l_SetMiniGameType );
+	lua_register( L, "DisplayPictureTactical", l_DisplayPictureTactical );
 	lua_register( L, "SoldierSpendMoney", l_SoldierSpendMoney );
 
 	lua_register( L, "SetAdditionalDialogue", l_SetAdditionalDialogue );
@@ -13242,6 +13244,27 @@ static int l_SetMiniGameType( lua_State *L )
 		UINT32 usMiniGame = lua_tointeger( L, 1 );
 
 		SetNextGame( usMiniGame );
+	}
+
+	return 0;
+}
+
+static int l_DisplayPictureTactical( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		size_t len = 0;
+		const char* str = lua_tolstring( L, 1, &len );
+		bool stretch = lua_tointeger( L, 2 );
+		
+		if ( guiCurrentScreen == GAME_SCREEN
+			&& (std::strstr(str, ".png") != NULL || std::strstr( str, ".PNG" ) != NULL ) )
+		{
+			SetInteractivePicture( str, stretch );
+
+			SetNextGame( PICTURE );
+			SetPendingNewScreen( MINIGAME_SCREEN );
+		}
 	}
 
 	return 0;

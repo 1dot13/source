@@ -85,6 +85,8 @@ LEVELNODE *ForceStructToTail( INT32 iMapIndex, UINT16 usIndex );
 BOOLEAN AddStructToHead( INT32 iMapIndex, UINT16 usIndex );
 BOOLEAN TypeExistsInStructLayer( INT32 iMapIndex, UINT32 fType, UINT16 *pusStructIndex );
 BOOLEAN RemoveAllStructsOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
+STRUCTURE* GetStructForLevelNodeOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
+bool GetTypeRegionIndexForLevelNodeOfTypeRange( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32& arTileType, UINT16& arRegionIndex );
 
 // Flugente: permanently remove structures
 BOOLEAN RemoveAllRoofsOfTypeRangeAdjustSaveFile( INT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
