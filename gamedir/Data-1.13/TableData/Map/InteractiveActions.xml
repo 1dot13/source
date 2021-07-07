@@ -1072,6 +1072,112 @@
 		<sActionType>6</sActionType>
 		<luaactionid>55</luaactionid>
 	</ACTION>
-	<!-- |||||||||||||||||||| VARIOUS |||||||||||||||||||| -->	
+		
+	<!-- cash register -->
+	<ACTION>
+		<szTileSetName>lawless2.sti</szTileSetName>		
+		<usTileIndex>18</usTileIndex>
+		<usTileIndex>19</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>56</luaactionid>
+	</ACTION>
+	<ACTION>
+		<szTileSetName>lawless.sti</szTileSetName>	
+		<usTileIndex>20</usTileIndex>
+		<usTileIndex>21</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>56</luaactionid>
+	</ACTION>
+	
+	<!-- Neon sign: 'The club' -->
+	<ACTION>
+		<szTileSetName>waldc21b.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<usTileIndex>1</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>57</luaactionid>
+	</ACTION>
+	
+	<!-- Neon sign: 'Beer' -->
+	<ACTION>
+		<szTileSetName>waldc21b.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>58</luaactionid>
+	</ACTION>
+	
+	<!-- Poster: 'Beer' -->
+	<ACTION>
+		<szTileSetName>waldc21b.sti</szTileSetName>		
+		<usTileIndex>8</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>59</luaactionid>
+	</ACTION>
+	
+	<!-- Poster: 'Beer' -->
+	<ACTION>
+		<szTileSetName>w_dec06.sti</szTileSetName>		
+		<usTileIndex>0</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>59</luaactionid>
+	</ACTION>
+	
+	<!-- 2-tile Poster: 'Beer' -->
+	<ACTION>
+		<szTileSetName>w_dec06.sti</szTileSetName>		
+		<usTileIndex>8</usTileIndex>
+		<usTileIndex>9</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>60</luaactionid>
+	</ACTION>
+	
+	<!-- Sign: 'Private' -->
+	<ACTION>
+		<szTileSetName>w_dec08.sti</szTileSetName>		
+		<usTileIndex>5</usTileIndex>
+		<usTileIndex>6</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>61</luaactionid>
+	</ACTION>
+	
+	<!-- Neon Sign: 'XXX Pit Stop' -->
+	<ACTION>
+		<szTileSetName>waldec21.sti</szTileSetName>		
+		<usTileIndex>1</usTileIndex>
+		<usTileIndex>2</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>62</luaactionid>
+	</ACTION>
+	
+	<!-- 2-tile Poster: 'Delivery' -->
+	<ACTION>
+		<szTileSetName>w_dec09.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>63</luaactionid>
+	</ACTION>
+	
+	<!-- 2-tile Poster: 'General Store' -->
+	<ACTION>
+		<szTileSetName>w_dec09.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<usTileIndex>5</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>64</luaactionid>
+	</ACTION>
+	
+	<!-- 2-tile Poster: 'Shady Lady' -->
+	<ACTION>
+		<szTileSetName>w_dec10.sti</szTileSetName>		
+		<usTileIndex>2</usTileIndex>
+		<usTileIndex>3</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>65</luaactionid>
+	</ACTION>
+	<!-- |||||||||||||||||||| VARIOUS |||||||||||||||||||| -->
 	
 </INTERACTIVEACTIONS>

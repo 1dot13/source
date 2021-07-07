@@ -574,6 +574,7 @@ MiniGames =
 {
 	TETRIS = 0,
 	PONG = 1,
+	PICTURE = 2,
 }
 
 -- luaactionids that aren't used in ModSpecificActions
@@ -585,6 +586,16 @@ InteractiveAction =
 	TABLETENNIS = 53,
 	TOILET = 54,
 	TV = 55,
+	STEAL_CASHREGISTER = 56,
+	PICTURE_NEONTHECLUB = 57,			-- Neon sign: 'The club'
+	PICTURE_NEONBEER = 58,				-- Neon sign: 'Beer'
+	PICTURE_BEER = 59,					-- Poster: 'Beer'
+	PICTURE_2xBEER = 60,				-- 2-tile Poster: 'Beer'
+	PICTURE_PRIVATE = 61,				-- Sign: 'Private'
+	PICTURE_XXXPITSTOP = 62,			-- Neon Sign: 'XXX Pit Stop'
+	PICTURE_DELIVERY = 63,				-- 2-tile Poster: 'Delivery'
+	PICTURE_GENERALSTORE = 64,			-- 2-tile Poster: 'General Store'
+	PICTURE_SHADYLADY = 65,				-- 2-tile Poster: 'Shady Lady'
 }
 
 -- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
@@ -1675,7 +1686,6 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 		
 	elseif ( usActionType == ActionTypes.ACTIONTYPE_VARIOUS ) then
 	
-		-- for now, the only game we have is tetris
 		if ( sLuaactionid == InteractiveAction.BILLIARD ) then
 		
 			PlaySound("Sounds\\billiard.wav")
@@ -1691,6 +1701,49 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 		elseif ( sLuaactionid == InteractiveAction.TV ) then
 		
 			PlaySound("Sounds\\tvstatic.wav")
+			
+		elseif ( sLuaactionid == InteractiveAction.STEAL_CASHREGISTER ) then
+		
+			PlaySound("Sounds\\cashregister.wav")
+		
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_NEONTHECLUB ) then
+			
+			-- The first argument is the path of a .png picture (any other format will be ignored).
+			-- The second argument determines whether we stretch the picture to fullscreen (1) or not (0). If the picture is larger than our screen, we stretch it anyway.
+			-- Only call this function from tactical (the call will be ignored otherwise).
+			DisplayPictureTactical("Interface\\neonsign_theclub.png", 1)
+			
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_NEONBEER ) then
+			
+			DisplayPictureTactical("Interface\\neonsign_beer.png", 0)
+			
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_BEER ) then
+			
+			DisplayPictureTactical("Interface\\poster_beer1.png", 0)
+
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_2xBEER ) then
+			
+			DisplayPictureTactical("Interface\\poster_yellow_green_bottle.png", 0)
+		
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_PRIVATE ) then
+			
+			DisplayPictureTactical("Interface\\kingpinclub_entrance.png", 0)
+			
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_XXXPITSTOP ) then
+			
+			DisplayPictureTactical("Interface\\neonsign_xxx.png", 0)
+			
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_DELIVERY ) then
+			
+			DisplayPictureTactical("Interface\\delivery.png", 0)
+			
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_GENERALSTORE ) then
+			
+			DisplayPictureTactical("Interface\\sign_generalstore.png", 0)
+			
+		elseif ( sLuaactionid == InteractiveAction.PICTURE_SHADYLADY ) then
+			
+			DisplayPictureTactical("Interface\\shady_lady.png", 0)
 		
 		end
 		
