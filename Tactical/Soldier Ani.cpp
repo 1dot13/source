@@ -4536,6 +4536,12 @@ BOOLEAN CheckForAndHandleSoldierDyingNotFromHit( SOLDIERTYPE *pSoldier )
 			else if(pSoldier->bTeam <6 && ((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE) || (gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE)))send_death(pSoldier);
 			else if (pSoldier->bTeam < 6 && (is_server)) send_death(pSoldier);
 		}
+
+		// Flugente: cows only have one death animation. If we're not in the proper aniamtion, enforce it, otherwise the corpse isn't created
+		if ( pSoldier->ubBodyType == COW
+			&& pSoldier->usAnimState != COW_HIT )
+			pSoldier->ChangeSoldierState( COW_DYING, 0, FALSE );
+
 		if ( gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
 		{
 			switch( pSoldier->usAnimState )
