@@ -1178,6 +1178,15 @@
 		<sActionType>6</sActionType>
 		<luaactionid>65</luaactionid>
 	</ACTION>
+	
+	<!-- oven -->
+	<ACTION>
+		<szTileSetName>furn_6.sti</szTileSetName>		
+		<usTileIndex>22</usTileIndex>
+		<usTileIndex>23</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>66</luaactionid>
+	</ACTION>
 	<!-- |||||||||||||||||||| VARIOUS |||||||||||||||||||| -->
 	
 </INTERACTIVEACTIONS>

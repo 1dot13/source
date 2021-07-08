@@ -596,6 +596,7 @@ InteractiveAction =
 	PICTURE_DELIVERY = 63,				-- 2-tile Poster: 'Delivery'
 	PICTURE_GENERALSTORE = 64,			-- 2-tile Poster: 'General Store'
 	PICTURE_SHADYLADY = 65,				-- 2-tile Poster: 'Shady Lady'
+	COOK_COWMEAT_TO_STEAK = 66,			-- take cow meat from merc, add steak to merc
 }
 
 -- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
@@ -1744,6 +1745,23 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 		elseif ( sLuaactionid == InteractiveAction.PICTURE_SHADYLADY ) then
 			
 			DisplayPictureTactical("Interface\\shady_lady.png", 0)
+			
+		elseif ( sLuaactionid == InteractiveAction.COOK_COWMEAT_TO_STEAK ) then
+						
+			-- 1565 cow meat
+			-- 1559 Steak
+			
+			if ( HasItemInInventory(ubID, 1565) ) then
+			
+				CreateItemInvOrFloor(ubID, 1559)
+				
+				DestroyOneItemInInventory(ubID, 1565)
+				
+				PlaySound("Sounds\\cooking.wav")
+			
+				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Cooked a steak.")
+				
+			end
 		
 		end
 		
