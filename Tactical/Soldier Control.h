@@ -2053,7 +2053,9 @@ public:
 	void		DrugAutoUse();
 
 	OBJECTTYPE*	GetObjectWithItemFlag( UINT64 aFlag );
-	void		DestroyOneObjectWithItemFlag( UINT64 aFlag );
+	bool		DestroyOneObjectWithItemFlag( UINT64 aFlag );
+	bool		DestroyOneItemInInventory( UINT16 ausItem );
+	bool		HasItemInInventory( UINT16 ausItem );
 
 	// Flugente: can we fill a blood bag from this guy ?
 	BOOLEAN		IsValidBloodDonor();

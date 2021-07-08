@@ -21188,7 +21188,7 @@ OBJECTTYPE*		SOLDIERTYPE::GetObjectWithItemFlag( UINT64 aFlag )
 	return NULL;
 }
 
-void		SOLDIERTYPE::DestroyOneObjectWithItemFlag( UINT64 aFlag )
+bool		SOLDIERTYPE::DestroyOneObjectWithItemFlag( UINT64 aFlag )
 {
 	for ( INT8 bLoop = 0, invsize = (INT8)inv.size(); bLoop < invsize; ++bLoop )
 	{
@@ -21204,9 +21204,56 @@ void		SOLDIERTYPE::DestroyOneObjectWithItemFlag( UINT64 aFlag )
 				{
 					DeleteObj( pObj );
 				}
+
+				return true;
 			}
 		}
 	}
+
+	return false;
+}
+
+bool		SOLDIERTYPE::DestroyOneItemInInventory( UINT16 ausItem )
+{
+	for ( INT8 bLoop = 0, invsize = (INT8)inv.size(); bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists() )
+		{
+			OBJECTTYPE* pObj = &( inv[bLoop] );
+
+			if ( pObj && pObj->usItem == ausItem )
+			{
+				pObj->RemoveObjectsFromStack( 1 );
+
+				if ( pObj->ubNumberOfObjects <= 0 )
+				{
+					DeleteObj( pObj );
+				}
+
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+bool		SOLDIERTYPE::HasItemInInventory( UINT16 ausItem )
+{
+	for ( INT8 bLoop = 0, invsize = (INT8)inv.size(); bLoop < invsize; ++bLoop )
+	{
+		if ( inv[bLoop].exists() )
+		{
+			OBJECTTYPE* pObj = &( inv[bLoop] );
+
+			if ( pObj && pObj->usItem == ausItem )
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 #define BLOODDONATION_AMOUNT	10

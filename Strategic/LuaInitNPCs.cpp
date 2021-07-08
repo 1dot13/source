@@ -837,6 +837,10 @@ static int l_TalkingMenuDialogue (lua_State *L);
 static int l_StartDialogueMessageBox (lua_State *L);
 
 static int l_CreateItemInv (lua_State *L);
+static int l_CreateItemInvOrFloor ( lua_State *L );
+static int l_DestroyOneItemInInventory( lua_State *L );
+static int l_HasItemInInventory( lua_State *L );
+
 static int l_MercSalary(lua_State *L);
 static int l_PlayerTeamFull (lua_State *L);
 
@@ -1165,6 +1169,9 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 	lua_register(L, "SoldierGiveItem", l_SoldierGiveItem);
 	lua_register(L, "ProfilGiveItem", l_SoldierGiveItem);
 	lua_register(L, "AddItemToInventory", l_CreateItemInv);
+	lua_register(L, "CreateItemInvOrFloor", l_CreateItemInvOrFloor );
+	lua_register(L, "DestroyOneItemInInventory", l_DestroyOneItemInInventory );
+	lua_register(L, "HasItemInInventory", l_HasItemInInventory );
 	lua_register(L, "TacticalCharacterDialogueWithSpecialEvent", l_TacticalCharacterDialogueWithSpecialEvent);
 	lua_register(L, "SetSalary", l_MercSalary);
 	lua_register(L, "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData);
@@ -8450,6 +8457,67 @@ static int l_CreateItemInv(lua_State *L)
 	}
 
 	return 0;
+}
+
+static int l_CreateItemInvOrFloor( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		UINT16 ubID = lua_tointeger( L, 1 );
+		UINT16 usItem = lua_tointeger( L, 2 );
+
+		if ( ubID < TOTAL_SOLDIERS )
+		{
+			SOLDIERTYPE* pSoldier = MercPtrs[ubID];
+			if ( pSoldier )
+			{
+				CreateItem( usItem, 100, &gTempObject );
+
+				if ( !AutoPlaceObject( pSoldier, &gTempObject, TRUE ) )
+				{
+					AddItemToPool( pSoldier->sGridNo, &gTempObject, 1, pSoldier->pathing.bLevel, 0, -1 );
+				}
+			}
+		}
+	}
+
+	return 0;
+}
+
+static int l_DestroyOneItemInInventory( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 2 )
+	{
+		UINT16 ubID = lua_tointeger( L, 1 );
+		UINT16 usItem = lua_tointeger( L, 2 );
+
+		if ( ubID < TOTAL_SOLDIERS )
+		{
+			MercPtrs[ubID]->DestroyOneItemInInventory( usItem );
+		}
+	}
+
+	return 0;
+}
+
+static int l_HasItemInInventory( lua_State *L )
+{
+	bool Bool = FALSE;
+
+	if ( lua_gettop( L ) >= 2 )
+	{
+		UINT16 ubID = lua_tointeger( L, 1 );
+		UINT16 usItem = lua_tointeger( L, 2 );
+
+		if ( ubID < TOTAL_SOLDIERS )
+		{
+			Bool = MercPtrs[ubID]->HasItemInInventory( usItem );
+		}
+	}
+
+	lua_pushboolean( L, Bool );
+
+	return 1;
 }
 
 static int l_CreateKeyProfInvAndAddItemToPool(lua_State *L)
