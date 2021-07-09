@@ -2360,6 +2360,7 @@ BOOLEAN PlayerMercInvolvedInThisCombat( SOLDIERTYPE *pSoldier )
 			pSoldier->bAssignment != IN_TRANSIT &&
 			pSoldier->bAssignment != ASSIGNMENT_POW &&
 			pSoldier->bAssignment != ASSIGNMENT_DEAD &&
+			pSoldier->bAssignment != ASSIGNMENT_MINIEVENT &&
 			!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) &&
 			// Robot is involved if it has a valid controller with it, uninvolved otherwise
 			( !AM_A_ROBOT( pSoldier ) || ( pSoldier->ubRobotRemoteHolderID != NOBODY ) ) &&

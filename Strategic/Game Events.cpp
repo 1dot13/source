@@ -10,6 +10,7 @@
 	#include "Debug.h"
 	#include "Font Control.h"
 	#include "message.h"
+	#include "MiniEvents.h"
 	#include "Text.h"
 #endif
 
@@ -120,6 +121,7 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"ASDPurchaseJeep",
 	L"ASDPurchaseTank",
 	L"ASDPurchaseHeli",
+	L"ASDPurchaseRobot",
 	L"EnemyHeliUpdate",
 	L"EnemyHeliRepair",
 	L"EnemyHeliRefuel",
@@ -137,6 +139,7 @@ CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	L"zombie attack",
 	L"bandit attack",
 	L"ArmyFinishTraining",
+	L"MiniEvent",
 };
 
 #endif
@@ -804,6 +807,8 @@ BOOLEAN LoadStrategicEventsFromSavedGame( HWFILE hFile )
 		// NULL out the next field ( cause there is no next field yet )
 		pTempEvent->next = NULL;
 	}
+
+	InitMiniEvents();
 
 	return( TRUE );
 }

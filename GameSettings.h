@@ -1579,6 +1579,11 @@ typedef struct
 	BOOLEAN fAIShootUnseen;
 	BOOLEAN fAISafeSuppression;
 
+	// Mini Events
+	BOOLEAN fMiniEventsEnabled;
+	UINT16 fMiniEventsMinHoursBetweenEvents;
+	UINT16 fMiniEventsMaxHoursBetweenEvents;
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct

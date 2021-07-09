@@ -66,6 +66,7 @@ void StatChange(SOLDIERTYPE *pSoldier, UINT8 ubStat, UINT16 usNumChances, UINT8 
 void ProfileStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumChances, UINT8 ubReason);
 void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumChances, UINT8 ubReason);
 
+void ChangeStat(MERCPROFILESTRUCT* pProfile, SOLDIERTYPE* pSoldier, UINT8 ubStat, INT16 sPtsChanged, UINT8 ubReason = 0);
 void UpdateStats( SOLDIERTYPE *pSoldier, UINT8 ubReason = 0 );
 void ProfileUpdateStats( MERCPROFILESTRUCT *pProfile, UINT8 ubReason = 0 );
 void ProcessUpdateStats( MERCPROFILESTRUCT *pProfile, SOLDIERTYPE *pSoldier, UINT8 ubReason = 0 );

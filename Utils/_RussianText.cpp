@@ -2480,6 +2480,7 @@ STR16 pAssignmentStrings[] =
 	L"Burial",
 	L"Admin", // TODO.Translate
 	L"Explore",	// TODO.Translate
+	L"Event"// rftr: merc is on a mini event // TODO: translate
 };
 
 
@@ -4638,6 +4639,7 @@ STR16 pTransactionText[] =
 	L"Стоимость ремонта базы ПВО", // Flugente: SAM repair
 	L"Trained workers", // Flugente: train workers	// TODO.Translate
 	L"Drill militia in %s",	// Flugente: drill militia	// TODO.Translate
+	L"Mini event", // rftr: mini events // TODO: translate
 };
 
 STR16 pTransactionAlternateText[] =

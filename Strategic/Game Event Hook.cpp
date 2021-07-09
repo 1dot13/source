@@ -50,6 +50,7 @@
 	#include "ASD.h"			// added by Flugente
 	#include "Player Command.h"	// added by Flugente
 	#include "LuaInitNPCs.h"	// added by Flugente
+	#include "MiniEvents.h"
 #endif
 
 #include "connect.h"
@@ -671,6 +672,13 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_ARMY_FINISH_TRAINING:
 			giReinforcementPool += (INT32)pEvent->uiParam;
 			giTotalRecruitsInTraining -= (INT32)pEvent->uiParam;
+			break;
+
+		case EVENT_MINIEVENT:
+			if (!DelayEventIfBattleInProgress(pEvent))
+			{
+				CheckMiniEvents(pEvent->uiParam);
+			}
 			break;
 	}
 	gfPreventDeletionOfAnyEvent = fOrigPreventFlag;

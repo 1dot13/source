@@ -1575,8 +1575,8 @@ public:
 		
 	// Flugente: Decrease this filler by 1 for each new UINT8 / BOOLEAN variable, so we can maintain savegame compatibility!!
 	// Note that we also have to account for padding, so you might need to substract more than just the size of the new variables
-	UINT8	ubFiller[12];
-	UINT8	ubFiller1;
+	UINT8	ubFiller[10];
+	UINT16	ubHoursRemainingOnMiniEvent;
 	
 	// Flugente: modifiers to fire modes
 	UINT8	usGLDelayMode;			// if > 0, delay GL grenade explosions

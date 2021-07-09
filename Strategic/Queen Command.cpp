@@ -299,7 +299,7 @@ UINT16 NumPlayerTeamMembersInSector( INT16 sSectorX, INT16 sSectorY, INT8 sSecto
 		// we test several conditions before we allow adding an opinion
 		// other merc must be active, have a profile, be someone else and not be in transit or dead
 		if ( pTeamSoldier->bActive && !pTeamSoldier->flags.fBetweenSectors  && pTeamSoldier->stats.bLife > 0 && !(pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) &&
-			 !(pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW) &&
+			 !(pTeamSoldier->bAssignment == IN_TRANSIT || pTeamSoldier->bAssignment == ASSIGNMENT_DEAD || pTeamSoldier->bAssignment == ASSIGNMENT_POW || pTeamSoldier->bAssignment == ASSIGNMENT_MINIEVENT) &&
 			 (pTeamSoldier->sSectorX == sSectorX && pTeamSoldier->sSectorY == sSectorY && pTeamSoldier->bSectorZ == sSectorZ) )
 		{
 			++teammemberspresent;
@@ -2789,6 +2789,12 @@ void EnemyCapturesPlayerSoldier( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
+	// can't capture mercs on mini event adventures
+	if (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT)
+	{
+		return;
+	}
+	
 	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return;

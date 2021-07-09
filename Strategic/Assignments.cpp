@@ -75,6 +75,7 @@
 	#include "Militia Control.h"	// added by Flugente
 	#include "ASD.h"				// added by Flugente
 	#include "Strategic AI.h"
+	#include "MiniEvents.h"
 #endif
 #include <vector>
 #include <queue>
@@ -515,6 +516,8 @@ void HandleAdministrationAssignments();
 // Flugente: handle exploration assignements
 void HandleExplorationAssignments();
 
+void HandleMiniEventAssignments();
+
 // is the character between sectors in mvt
 BOOLEAN CharacterIsBetweenSectors( SOLDIERTYPE *pSoldier );
 
@@ -799,6 +802,11 @@ BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInComba
 	//shadooow: disable changing assignment on POW mercs to prevent to break them free improperly
 	if (pSoldier->bAssignment == ASSIGNMENT_POW)
 		return(FALSE);
+
+	if ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0 )
+	{
+		return( FALSE );
+	}
 
 	return( TRUE );
 }
@@ -2478,7 +2486,7 @@ BOOLEAN CanCharacterSleep( SOLDIERTYPE *pSoldier, BOOLEAN fExplainWhyNot )
 	}
 
 	// POW?
-	if( pSoldier->bAssignment == ASSIGNMENT_POW )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
 	{
 		return( FALSE );
 	}
@@ -2696,7 +2704,7 @@ INT8 CanCharacterSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue )
 		return ( CHARACTER_CANT_JOIN_SQUAD );
 	}
 
-	if ( pSoldier->bAssignment == ASSIGNMENT_POW )
+	if ( pSoldier->bAssignment == ASSIGNMENT_POW || (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && pSoldier->ubHoursRemainingOnMiniEvent > 0))
 	{
 		// not allowed to be put on a squad
 		return( CHARACTER_CANT_JOIN_SQUAD );
@@ -3049,6 +3057,8 @@ void UpdateAssignments()
 
 	// handle exploration
 	HandleExplorationAssignments();
+
+	HandleMiniEventAssignments();
 
 	// check to see if anyone is done healing?
 	UpdatePatientsWhoAreDoneHealing( );
@@ -5815,7 +5825,7 @@ void FatigueCharacter( SOLDIERTYPE *pSoldier )
 	}
 
 	// POW?
-	if( pSoldier->bAssignment == ASSIGNMENT_POW )
+	if( pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
 	{
 		return;
 	}
@@ -7070,6 +7080,29 @@ void HandleExplorationAssignments()
 				StatChange( pSoldier, AGILAMT, 1, FROM_TRAINING );
 				StatChange( pSoldier, WISDOMAMT, 1, FROM_TRAINING );
 				StatChange( pSoldier, EXPERAMT, 1, FROM_TRAINING );
+			}
+		}
+	}
+}
+
+void HandleMiniEventAssignments()
+{
+	SOLDIERTYPE *pSoldier = NULL;
+	UINT32 uiCnt = 0;
+	const UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	const UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+
+	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	{
+		if ( pSoldier && pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && EnoughTimeOnAssignment( pSoldier ) )
+		{
+			if (--pSoldier->ubHoursRemainingOnMiniEvent == 0)
+			{
+				pSoldier->bSectorZ -= MINI_EVENT_Z_OFFSET;
+				pSoldier->ubInsertionDirection = DIRECTION_IRRELEVANT;
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_CENTER;
+				AssignmentDone(pSoldier, TRUE, FALSE);
+				AddCharacterToAnySquad(pSoldier);
 			}
 		}
 	}
@@ -16251,7 +16284,7 @@ void HandleRestFatigueAndSleepStatus( void )
 				continue;
 			}
 
-			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) )
+			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
 			{
 				continue;
 			}
@@ -16400,7 +16433,7 @@ void HandleRestFatigueAndSleepStatus( void )
 				continue;
 			}
 
-			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) )
+			if( ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
 			{
 				continue;
 			}
@@ -19380,7 +19413,8 @@ BOOLEAN CanCharacterRepairAnotherSoldiersStuff( SOLDIERTYPE *pSoldier, SOLDIERTY
 		( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ||
 		( AM_A_ROBOT( pSoldier ) ) ||
 		( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ||
-		( pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ) )
+		( pOtherSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
+		( pOtherSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
 	{
 		return( FALSE );
 	}

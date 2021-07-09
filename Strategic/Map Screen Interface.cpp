@@ -1913,7 +1913,7 @@ void UpdateCharRegionHelpText( void )
 		pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
 
 		// health/energy/morale
-		if( pSoldier->bAssignment != ASSIGNMENT_POW )
+		if( pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT )
 		{
 			if ( pSoldier->stats.bLife != 0 )
 			{
@@ -1955,7 +1955,7 @@ void UpdateCharRegionHelpText( void )
 		}
 		else
 		{
-			// POW - stats unknown
+			// POW/mini event - stats unknown
 			swprintf( sString, L"%s: ??, %s: ??, %s: ??", pMapScreenStatusStrings[ 0 ], pMapScreenStatusStrings[ 1 ], pMapScreenStatusStrings[ 2 ] );
 		}
 
@@ -3688,7 +3688,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
 
 			if( ( pSoldier->bActive ) &&
-					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) &&
+					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) &&
 					( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == sSectorZ ) )
 			{
 				if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
@@ -5958,6 +5958,13 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 	if( pSoldier->bAssignment == ASSIGNMENT_POW )
 	{
 		*pbErrorNumber = 5;
+		return( FALSE );
+	}
+
+	// mini event?
+	if ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	{
+		*pbErrorNumber = 29;
 		return( FALSE );
 	}
 

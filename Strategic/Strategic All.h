@@ -227,4 +227,5 @@
 #include "_JA25EnglishText.h"
 #include "Debug Control.h"
 #include "expat.h"
+#include "MiniEvents.h"
 #endif

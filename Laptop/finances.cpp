@@ -1600,6 +1600,10 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 				swprintf( pString, pTransactionText[PROMOTE_MILITIA], str );
 			}
 			break;
+
+		case MINI_EVENT:
+			swprintf(pString, L"%s", pTransactionText[MINI_EVENT]);
+			break;
 	}
 }
 

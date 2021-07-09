@@ -595,8 +595,8 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 	// if we're a prisoner, we can't feed ourself, and the player can't do that either. Instead the army provides food (not much and of bad quality)
 	if (pSoldier->bAssignment == ASSIGNMENT_POW)
 	{
-		INT16 powwater   = gGameExternalOptions.usFoodDigestionHourlyBaseDrink * gGameExternalOptions.sFoodDigestionAssignment * FOOD_POW_MULTIPLICATOR;
-		INT16 powfoodadd = powwater * gGameExternalOptions.usFoodDigestionHourlyBaseFood / max(1, gGameExternalOptions.usFoodDigestionHourlyBaseDrink);
+		const INT16 powwater   = gGameExternalOptions.usFoodDigestionHourlyBaseDrink * gGameExternalOptions.sFoodDigestionAssignment * FOOD_POW_MULTIPLICATOR;
+		const INT16 powfoodadd = powwater * gGameExternalOptions.usFoodDigestionHourlyBaseFood / max(1, gGameExternalOptions.usFoodDigestionHourlyBaseDrink);
 
 		// if we're thirsty or hungry, and this is nutritious, consume it
 		if ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_VERY_LOW].bThreshold  )
@@ -604,6 +604,18 @@ void HourlyFoodAutoDigestion( SOLDIERTYPE *pSoldier )
 
 		if ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_VERY_LOW].bThreshold )
 			AddFoodpoints(pSoldier->bDrinkLevel, powfoodadd);
+	}
+	// while on a minievent, assume that we can feed ourselves.. somehow
+	else if (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT)
+	{
+		const INT16 water   = gGameExternalOptions.usFoodDigestionHourlyBaseDrink * gGameExternalOptions.sFoodDigestionAssignment;
+		const INT16 foodadd = water * gGameExternalOptions.usFoodDigestionHourlyBaseFood / max(1, gGameExternalOptions.usFoodDigestionHourlyBaseDrink);
+
+		if ( pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_NORMAL].bThreshold  )
+			AddFoodpoints(pSoldier->bDrinkLevel, water);
+
+		if ( pSoldier->bFoodLevel < FoodMoraleMods[FOOD_NORMAL].bThreshold )
+			AddFoodpoints(pSoldier->bDrinkLevel, foodadd);
 	}
 	else
 	{

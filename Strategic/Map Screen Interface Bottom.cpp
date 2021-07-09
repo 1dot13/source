@@ -1714,6 +1714,7 @@ BOOLEAN AnyUsableRealMercenariesOnTeam( void )
 				!( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_DEAD ) &&
+				( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) &&
 				( pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__EPC ) )
 		{
 			return( TRUE );

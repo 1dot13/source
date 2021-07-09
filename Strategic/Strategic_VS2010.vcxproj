@@ -48,6 +48,7 @@
     <ClInclude Include="mapscreen.h" />
     <ClInclude Include="Meanwhile.h" />
     <ClInclude Include="Merc Contract.h" />
+	<ClInclude Include="MiniEvents.h" />
     <ClInclude Include="MilitiaSquads.h" />
 	<ClInclude Include="MilitiaIndividual.h" />
     <ClInclude Include="Player Command.h" />
@@ -102,6 +103,7 @@
     <ClCompile Include="mapscreen.cpp" />
     <ClCompile Include="Meanwhile.cpp" />
     <ClCompile Include="Merc Contract.cpp" />
+	<ClCompile Include="MiniEvents.cpp" />
     <ClCompile Include="MilitiaSquads.cpp" />
 	<ClCompile Include="MilitiaIndividual.cpp" />
     <ClCompile Include="Player Command.cpp" />

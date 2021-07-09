@@ -2480,6 +2480,7 @@ STR16 pAssignmentStrings[] =
 	L"Burial",
 	L"Admin",
 	L"Explore",
+	L"Event"// rftr: merc is on a mini event
 };
 
 
@@ -4638,6 +4639,7 @@ STR16 pTransactionText[] =
 	L"SAM site repair", // Flugente: SAM repair
 	L"Trained workers", // Flugente: train workers
 	L"Drill militia in %s",	// Flugente: drill militia
+	L"Mini event", // rftr: mini events
 };
 
 STR16 pTransactionAlternateText[] =

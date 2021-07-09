@@ -1384,6 +1384,11 @@ BOOLEAN IsSquadInSector( SOLDIERTYPE *pSoldier, UINT8 ubSquad )
 		return( FALSE );
 	}
 
+	if( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+	{
+		return( FALSE );
+	}
+
 	if( SquadIsEmpty( ubSquad ) == TRUE )
 	{
 		return( TRUE );

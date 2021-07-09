@@ -443,6 +443,10 @@
 				>
 			</File>
 			<File
+				RelativePath="MiniEvents.h"
+				>
+			</File>
+			<File
 				RelativePath="MilitiaIndividual.h"
 				>
 			</File>
@@ -652,6 +656,10 @@
 			</File>
 			<File
 				RelativePath="MilitiaSquads.cpp"
+				>
+			</File>
+			<File
+				RelativePath="MiniEvents.cpp"
 				>
 			</File>
 			<File

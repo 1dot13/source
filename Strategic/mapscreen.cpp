@@ -2312,10 +2312,11 @@ void DrawCharBars( void )
 			return;
 		}
 
-		// skip POWs, dead guys
+		// skip POWs, dead guys, mini events
 		if( ( pSoldier->stats.bLife == 0 ) ||
 				( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
-				( pSoldier->bAssignment == ASSIGNMENT_POW ) )
+				( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
+				( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
 		{
 			return;
 		}
@@ -2670,7 +2671,7 @@ void DrawCharHealth( INT16 sCharNum )
 
 	pSoldier = &Menptr[gCharactersList[sCharNum].usSolID];
 
-	if( pSoldier->bAssignment != ASSIGNMENT_POW )
+	if( pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT )
 	{
 		// find starting X coordinate by centering all 3 substrings together, then print them separately (different colors)!
 		swprintf( sString, L"%d/%d", pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
@@ -10837,7 +10838,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			fPlotForMilitia = FALSE;
 
 			// if not dead or POW, select his sector
-			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )//&& !SPY_LOCATION( pSoldier->bAssignment ) )
+			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ))//&& !SPY_LOCATION( pSoldier->bAssignment ) )
 			{
 				ChangeSelectedMapSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 			}
@@ -10890,7 +10891,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 			fPlotForMilitia = FALSE;
 
 			// if not dead or POW, select his sector
-			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) )
+			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && !SPY_LOCATION( pSoldier->bAssignment ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) )
 			{
 				ChangeSelectedMapSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 			}
@@ -11073,7 +11074,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
       		fShownAssignmentMenu = FALSE;
 
 			// if not dead or POW, select his sector
-			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
+			if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) )
 			{
 				ChangeSelectedMapSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 			}
@@ -14546,6 +14547,7 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber )
 
 	if( ( pSoldier->bAssignment == IN_TRANSIT ) ||
 			( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
+			( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
 				// Kaiden: Vehicle Inventory change - Commented the following line
 				// ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ||
 				// And added this instead:
@@ -14734,7 +14736,7 @@ BOOLEAN CanChangeSleepStatusForSoldier( SOLDIERTYPE *pSoldier )
 
 	// if a vehicle, robot, in transit, or a POW
 	if( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || AM_A_ROBOT( pSoldier ) ||
-			( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_POW ) )
+			( pSoldier->bAssignment == IN_TRANSIT ) || ( pSoldier->bAssignment == ASSIGNMENT_POW ) || ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) )
 	{
 		// can't change the sleep status of such mercs
 		return ( FALSE );
@@ -15287,7 +15289,7 @@ INT16 CalcLocationValueForChar( INT32 iCounter )
 	pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
 
 	// don't reveal location of POWs!
-	if( pSoldier->bAssignment != ASSIGNMENT_POW )
+	if( pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT )
 	{
 		sLocValue = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
 		// underground: add 1000 per sublevel
@@ -15380,6 +15382,7 @@ BOOLEAN AnyMovableCharsInOrBetweenThisSector( INT16 sSectorX, INT16 sSectorY, IN
 			( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
 			SPY_LOCATION( pSoldier->bAssignment ) ||
 			( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
+			( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
 			( pSoldier->stats.bLife == 0 ) )
 		{
 			continue;
@@ -15977,6 +15980,11 @@ void GetMapscreenMercLocationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 			// POW - location unknown
 			swprintf( sString, L"%s", pPOWStrings[ 1 ] );
 		}
+		else if ( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT )
+		{
+			// mini event - unknown location, use the same string as POWs
+			swprintf( sString, L"%s", pPOWStrings[ 1 ] );
+		}
 		else if ( SPY_LOCATION( pSoldier->bAssignment ) )
 		{
 			swprintf( pTempString, L"%s%s%s",
@@ -16016,6 +16024,7 @@ void GetMapscreenMercDestinationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] 
 	// if dead or POW - has no destination (no longer part of a group, for that matter)
 	if( ( pSoldier->bAssignment == ASSIGNMENT_DEAD ) ||
 		( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
+		( pSoldier->bAssignment == ASSIGNMENT_MINIEVENT ) ||
 		SPY_LOCATION( pSoldier->bAssignment ) ||
 		( pSoldier->stats.bLife == 0 ) )
 	{

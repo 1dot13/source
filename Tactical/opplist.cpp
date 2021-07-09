@@ -6013,7 +6013,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT32 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 				continue; // skip
 			}
 
-			if ( bTeam == gbPlayerNum && pSoldier->bAssignment == ASSIGNMENT_POW )
+			if ( bTeam == gbPlayerNum && (pSoldier->bAssignment == ASSIGNMENT_POW || pSoldier->bAssignment == ASSIGNMENT_MINIEVENT) )
 			{
 				// POWs should not be processed for noise
 				continue;

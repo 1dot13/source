@@ -28,6 +28,10 @@
 #define		MSG_BOX_FLAG_IMAGE						0x00040000		// Displays an image
 #define		MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION	0x00080000		// MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS sets the buttons horizontally
 
+// rftr - bigger msg box
+#define		MSG_BOX_FLAG_BIGGER						0x00100000		// Bigger msg box
+#define		MSG_BOX_FLAG_WIDE_BUTTONS				0x00200000		// Wide buttons
+
 // message box return codes
 #define		MSG_BOX_RETURN_OK						1				// ENTER or on OK button
 #define		MSG_BOX_RETURN_YES						2				// ENTER or YES button
@@ -46,6 +50,7 @@ enum
 	MSG_BOX_IMP_STYLE,
 	MSG_BOX_LAPTOP_DEFAULT,
 	MSG_BOX_BASIC_MEDIUM_BUTTONS,
+	MSG_BOX_MINIEVENT_STYLE,
 };
 
 enum
@@ -133,6 +138,7 @@ extern		CHAR16							gszMsgBoxInputString[255];
 ////////////////////////////////
 
 INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect, UINT8 ubDefaultButton = MSG_BOX_DEFAULT_BUTTON_NONE );
+void DoScreenIndependantMessageBoxFullScreen( const STR16 zString, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback );
 void DoScreenIndependantMessageBox( const STR16 zString, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback );
 void DoUpperScreenIndependantMessageBox( const STR16 zString, UINT32 usFlags, MSGBOX_CALLBACK ReturnCallback );
 

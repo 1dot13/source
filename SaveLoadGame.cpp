@@ -2352,7 +2352,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				numBytesRead = ReadFieldByField( hFile, &this->sDiseasePoints, sizeof(sDiseasePoints), sizeof(INT32), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->sDiseaseFlag, sizeof(sDiseaseFlag), sizeof(UINT8), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->ubFiller, sizeof( ubFiller ), sizeof( UINT8 ), numBytesRead );
-				numBytesRead = ReadFieldByField( hFile, &this->ubFiller1, sizeof( ubFiller1 ), sizeof( UINT8 ), numBytesRead );
+				numBytesRead = ReadFieldByField( hFile, &this->ubHoursRemainingOnMiniEvent, sizeof( ubHoursRemainingOnMiniEvent), sizeof( UINT8 ), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->usGLDelayMode, sizeof( usGLDelayMode ), sizeof( UINT8 ), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->usBarrelMode, sizeof( usBarrelMode ), sizeof( UINT8 ), numBytesRead );
 				numBytesRead = ReadFieldByField( hFile, &this->usBarrelCounter, sizeof( usBarrelCounter ), sizeof( UINT8 ), numBytesRead );
@@ -2373,7 +2373,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 				
 				numBytesRead = ReadFieldByField( hFile, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead );
 
-				buffer += sizeof( ubFiller1 );
+				buffer += sizeof( ubHoursRemainingOnMiniEvent );
 				buffer += sizeof( usGLDelayMode );
 				buffer += sizeof( usBarrelMode );
 				buffer += sizeof( usBarrelCounter );
@@ -2421,7 +2421,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			while((buffer%4) > 0)
 				buffer++;
 
-			buffer += sizeof( ubFiller1 );
+			buffer += sizeof( ubHoursRemainingOnMiniEvent );
 			buffer += sizeof( usGLDelayMode );
 			buffer += sizeof( usBarrelMode );
 			buffer += sizeof( usBarrelCounter );

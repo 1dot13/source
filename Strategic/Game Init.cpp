@@ -62,6 +62,7 @@
 	#include "CampaignStats.h"						// added by Flugente
 	#include "PMC.h"								// added by Flugente
 	#include "ASD.h"								// added by Flugente
+	#include "MiniEvents.h"
 #endif
 
 #include "Vehicles.h"
@@ -817,6 +818,8 @@ fFirstTimeInMapScreen = TRUE;
 	#ifdef JA113DEMO
 	RequestTriggerExitFromMapscreen( MAP_EXIT_TO_TACTICAL );
 	#endif	
+
+		InitMiniEvents();
 
 		return( TRUE );
 	}

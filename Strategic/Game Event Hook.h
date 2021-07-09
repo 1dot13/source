@@ -150,6 +150,8 @@ enum
 	EVENT_BANDIT_ATTACK,						// Flugente: like a creature attack, but with bandits
 	EVENT_ARMY_FINISH_TRAINING,					// Another bunch of Queen Army recruits is about to finish training
 
+	EVENT_MINIEVENT,
+
 	NUMBER_OF_EVENT_TYPES_PLUS_ONE,
 	NUMBER_OF_EVENT_TYPES						= NUMBER_OF_EVENT_TYPES_PLUS_ONE - 1
 };

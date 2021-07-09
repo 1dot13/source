@@ -99,6 +99,7 @@ enum
 	BURIAL,							// merc removes corpses in this sector
 	ADMINISTRATION,					// merc boosts the effectiveness of other mercs
 	EXPLORATION,					// merc searches the sector for undiscovered items
+	ASSIGNMENT_MINIEVENT,
 	NUM_ASSIGNMENTS,
 };
 

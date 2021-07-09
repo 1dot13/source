@@ -5229,7 +5229,7 @@ BOOLEAN CanGoToTacticalInSector( INT16 sX, INT16 sY, UINT8 ubZ )
 	{
 		// ARM: now allows loading of sector with all mercs below OKLIFE as long as they're alive
 		if( ( pSoldier->bActive && pSoldier->stats.bLife ) && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
-			( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
+			( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != ASSIGNMENT_MINIEVENT ) &&
 			( pSoldier->bAssignment != ASSIGNMENT_DEAD ) && !SoldierAboardAirborneHeli( pSoldier )
 			)
 
@@ -6369,7 +6369,7 @@ void HandleSlayDailyEvent( void )
 	}
 
 	// valid soldier?
-	if ( (pSoldier->bActive == FALSE) || (pSoldier->stats.bLife == 0) || (pSoldier->bAssignment == IN_TRANSIT) || (pSoldier->bAssignment == ASSIGNMENT_POW) )
+	if ( (pSoldier->bActive == FALSE) || (pSoldier->stats.bLife == 0) || (pSoldier->bAssignment == IN_TRANSIT) || (pSoldier->bAssignment == ASSIGNMENT_POW) || (pSoldier->bAssignment == ASSIGNMENT_MINIEVENT) )
 	{
 		// no
 		return;

@@ -2314,6 +2314,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAIDecisionInfo = iniReader.ReadBoolean("Tactical AI Settings", "AI_DECISION_INFO", FALSE);
 	gGameExternalOptions.fAIShootUnseen = iniReader.ReadBoolean("Tactical AI Settings", "AI_SHOOT_UNSEEN", FALSE);
 	gGameExternalOptions.fAISafeSuppression = iniReader.ReadBoolean("Tactical AI Settings", "AI_SAFE_SUPPRESSION", TRUE);
+
+	// Mini Events
+	gGameExternalOptions.fMiniEventsEnabled = iniReader.ReadBoolean("Mini Events Settings", "MINI_EVENTS_ENABLED", FALSE);
+	gGameExternalOptions.fMiniEventsMinHoursBetweenEvents = iniReader.ReadInteger("Mini Events Settings", "MINI_EVENTS_MIN_HOURS_BETWEEN_EVENTS", 120, 24, 24000);
+	gGameExternalOptions.fMiniEventsMaxHoursBetweenEvents = iniReader.ReadInteger("Mini Events Settings", "MINI_EVENTS_MAX_HOURS_BETWEEN_EVENTS", 240, 24, 24000);
 }
 
 

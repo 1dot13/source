@@ -59,6 +59,7 @@ enum
 	SAM_REPAIR,				// Flugente: repair SAM site
 	WORKERS_TRAINED,		// Flugente: train workers
 	PROMOTE_MILITIA,		// Flugente: drill militia
+	MINI_EVENT,				// rftr: mini events
 	TEXT_NUM_FINCANCES
 };
 

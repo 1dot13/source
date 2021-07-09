@@ -2480,6 +2480,7 @@ STR16 pAssignmentStrings[] =
 	L"掩埋尸体", //L"Burial",
 	L"管理", //L"Admin",
 	L"探索",	//L"Explore" TODO.Translate
+	L"Event"// rftr: merc is on a mini event // TODO: translate
 };
 
 
@@ -4638,6 +4639,7 @@ STR16 pTransactionText[] =
 	L"修理SAM基地",//L"SAM site repair", // Flugente: SAM repair
 	L"培训工人",//L"Trained workers", // Flugente: train workers
 	L"在%s区域训练民兵",	//L"Drill militia in %s", Flugente: drill militia
+	L"Mini event", // rftr: mini events // TODO: translate
 };
 
 STR16 pTransactionAlternateText[] =
