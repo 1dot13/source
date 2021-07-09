@@ -6781,6 +6781,10 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			ExitVehicle( MercPtrs[ ubSoldierID ] );
 		}
+		else if (UsingNewInventorySystem() && !AM_A_ROBOT(MercPtrs[ubSoldierID]))
+		{
+			MercPtrs[ubSoldierID]->SwitchWeapons();
+		}
 	}
 
 	if (iReason == MSYS_CALLBACK_REASON_RBUTTON_UP )
