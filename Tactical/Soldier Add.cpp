@@ -1315,8 +1315,8 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 		}
 
 		//Add
-		if(gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
-			AddSoldierToSectorGridNo( pSoldier, sGridNo, pSoldier->ubDirection, fUseAnimation, usAnimState, usAnimCode );
+		if(gTacticalStatus.uiFlags & LOADING_SAVED_GAME || pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO)
+			AddSoldierToSectorGridNo( pSoldier, sGridNo, pSoldier->ubDirection, false, usAnimState, usAnimCode );
 		else
 			AddSoldierToSectorGridNo( pSoldier, sGridNo, ubDirection, fUseAnimation, usAnimState, usAnimCode );
 
@@ -1719,7 +1719,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 					{
 						pSoldier->EVENT_InitNewSoldierAnim( usAnimState, usAnimCode, TRUE );
 					}
-					else if ( pSoldier->ubBodyType != CROW )
+					else if ( pSoldier->ubBodyType != CROW && ubInsertionCode != INSERTION_CODE_GRIDNO)
 					{
 						pSoldier->EVENT_InitNewSoldierAnim( STANDING, 1, TRUE );
 					}
