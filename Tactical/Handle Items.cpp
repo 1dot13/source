@@ -2127,10 +2127,15 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 	// Set attacker to NOBODY, since it's not a combat attack
 	pSoldier->ubTargetID = NOBODY;
 
+	INT16 sXTest, sYTest;
+	ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sXTest, &sYTest);
+	//shadooow: if the grenade isn't thrown from soldier gridno, it should mean it is thrown using my grenade rolling feature
+	BOOLEAN gbGrenadeRolling = pSoldier->pThrowParams->dX != sXTest || pSoldier->pThrowParams->dY != sYTest;
+
 	// Alrighty, switch based on stance!
 	switch( gAnimControl[ pSoldier->usAnimState ].ubHeight )
 	{
-	case ANIM_STAND:
+		case ANIM_STAND:
 
 		// CHECK IF WE ARE NOT ON THE SAME GRIDNO
 		if ( sGridNo == pSoldier->sGridNo )
@@ -2147,33 +2152,37 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 			pSoldier->EVENT_SetSoldierDesiredDirection( ubDirection );
 			pSoldier->flags.fTurningUntilDone = TRUE;
 
-			// Draw item depending on distance from buddy
-			if ( GetRangeFromGridNoDiff( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
+			if (gbGrenadeRolling)
 			{
-				
+				if ((pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) &&
+					((pSoldier->ubBodyType == BIGMALE) || (pSoldier->ubBodyType == REGMALE)))
+					pSoldier->usPendingAnimation = LOB_GRENADE_STANCE;
+				else
+					pSoldier->usPendingAnimation = LOB_ITEM;
+			}
+			// Draw item depending on distance from buddy
+			else if ( GetRangeFromGridNoDiff( sGridNo, pSoldier->sGridNo ) < MIN_LOB_RANGE )
+			{
 				//ddd maybe need to add check for throwing item class - grenade
 				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 
 					( (pSoldier->ubBodyType == BIGMALE) || (pSoldier->ubBodyType == REGMALE) ) )
 					pSoldier->usPendingAnimation = LOB_GRENADE_STANCE;
 				else
 					pSoldier->usPendingAnimation = LOB_ITEM;
-				
 			}
 			else			
 			{
-
 				if( (pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM) && 
 					( (pSoldier->ubBodyType == BIGMALE) || (pSoldier->ubBodyType == REGMALE) ) )
 					pSoldier->usPendingAnimation = THROW_GRENADE_STANCE;
 				else
 					pSoldier->usPendingAnimation = THROW_ITEM;
 			}
-
 		}
 		break;
 
 		//<SB> crouch throwing
-	case ANIM_PRONE:
+		case ANIM_PRONE:
 			if ( sGridNo == pSoldier->sGridNo )
 			{
 				// OK, JUST DROP ITEM!
@@ -2203,20 +2212,26 @@ void HandleSoldierThrowItem( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 		}
 		else
 		{
-				// CHANGE DIRECTION AT LEAST
+			// CHANGE DIRECTION AT LEAST
 			ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
 
-				pSoldier->SoldierGotoStationaryStance( );
+			pSoldier->SoldierGotoStationaryStance( );
 
 			pSoldier->EVENT_SetSoldierDesiredDirection( ubDirection );
-				pSoldier->flags.fTurningUntilDone = TRUE;
+			pSoldier->flags.fTurningUntilDone = TRUE;
 
+			if (gbGrenadeRolling)
+			{
 				pSoldier->usPendingAnimation = THROW_ITEM_CROUCHED;
+			}
+			else
+			{
+				pSoldier->usPendingAnimation = THROW_ITEM_CROUCHED;
+			}
 		}
-			break;
-//</SB>
+		break;
+		//</SB>
 	}
-
 }
 
 

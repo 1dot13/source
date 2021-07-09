@@ -23,6 +23,7 @@
 	#include "Dialogue Control.h"	// added by Flugente
 #endif
 #include "connect.h"
+#include "PATHAI.H"
 
 
 //forward declarations of common classes to eliminate includes
@@ -2096,6 +2097,95 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 	(*pdDegrees )	= dDegrees;
 }
 
+BOOLEAN GrenadeRollingPossible(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 *sXPos, INT16 *sYPos)
+{
+	if (!(pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO))
+	{		
+		UINT8 ubDirection = GetDirectionFromGridNo(sGridNo, pSoldier);
+		if (ubDirection % 2 == 1)//diagonal direction is disabled
+		{
+			return FALSE;
+		}
+		INT32 sTestGridNo = NewGridNo(pSoldier->sGridNo, DirectionInc(ubDirection));
+
+		if (gubWorldMovementCosts[sTestGridNo][ubDirection][pSoldier->pathing.bLevel] == TRAVELCOST_WALL)
+		{
+			BOOLEAN obstacle = FALSE;
+			INT16 newDir = (ubDirection != 2 && ubDirection != 6) ? EAST : SOUTH;
+			INT32 newLoc = NewGridNo(pSoldier->sGridNo, DirectionInc(newDir));
+			STRUCTURE *pStruct;
+			pStruct = gpWorldLevelData[newLoc].pStructureHead;
+			while (pStruct)
+			{
+				if ((pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN))
+				{
+					if (gubWorldMovementCosts[newLoc][newDir][pSoldier->pathing.bLevel] >= 220)//doors are opened in a way they make an obstacle
+						return FALSE;
+					ConvertGridNoToCenterCellXY(newLoc, sXPos, sYPos);
+					return TRUE;
+				}
+				pStruct = pStruct->pNext;
+			}
+			newLoc = NewGridNo(sTestGridNo, DirectionInc(newDir));
+			pStruct = gpWorldLevelData[newLoc].pStructureHead;
+			while (pStruct)
+			{
+				if ((pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN))
+				{
+					ConvertGridNoToCenterCellXY(newLoc, sXPos, sYPos);
+					return TRUE;
+				}
+				else if ((pStruct->fFlags & STRUCTURE_OBSTACLE))
+				{
+					obstacle = TRUE;
+				}
+				pStruct = pStruct->pNext;
+			}
+			if (!obstacle)
+			{
+				ConvertGridNoToCenterCellXY(newLoc, sXPos, sYPos);
+				return TRUE;
+			}
+			obstacle = FALSE;
+			newDir = (ubDirection != 2 && ubDirection != 6) ? WEST : NORTH;
+			newLoc = NewGridNo(pSoldier->sGridNo, DirectionInc(newDir));
+			pStruct = gpWorldLevelData[newLoc].pStructureHead;
+			while (pStruct)
+			{
+				if ((pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN))
+				{
+					if (gubWorldMovementCosts[newLoc][newDir][pSoldier->pathing.bLevel] >= 220)//doors are opened in a way they make an obstacle
+						return FALSE;
+					ConvertGridNoToCenterCellXY(newLoc, sXPos, sYPos);
+					return TRUE;
+				}
+				pStruct = pStruct->pNext;
+			}
+			newLoc = NewGridNo(sTestGridNo, DirectionInc(newDir));
+			pStruct = gpWorldLevelData[newLoc].pStructureHead;
+			while (pStruct)
+			{
+				if ((pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN))
+				{
+					ConvertGridNoToCenterCellXY(newLoc, sXPos, sYPos);
+					return TRUE;
+				}
+				else if ((pStruct->fFlags & STRUCTURE_OBSTACLE))
+				{
+					obstacle = TRUE;
+				}
+				pStruct = pStruct->pNext;
+			}
+			if (!obstacle)
+			{
+				ConvertGridNoToCenterCellXY(newLoc, sXPos, sYPos);
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+
 
 BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, INT32 sGridNo, UINT8 ubLevel, INT16 sEndZ,	INT32 *psFinalGridNo, BOOLEAN fArmed, INT8 *pbLevel, BOOLEAN fFromUI )
 {
@@ -2116,6 +2206,11 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 	// Get XY from gridno
 	ConvertGridNoToCenterCellXY( sGridNo, &sDestX, &sDestY );
 	ConvertGridNoToCenterCellXY( pSoldier->sGridNo, &sSrcX, &sSrcY );
+
+	if (GrenadeRollingPossible(pSoldier, sGridNo, &sSrcX, &sSrcY))
+	{
+		dForce /= 2;
+	}
 
 	// Set position
 	vPosition.x = sSrcX;
@@ -2266,6 +2361,11 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 	// Get XY from gridno
 	ConvertGridNoToCenterCellXY( sGridNo, &sDestX, &sDestY );
 	ConvertGridNoToCenterCellXY( pSoldier->sGridNo, &sSrcX, &sSrcY );
+
+	if (GrenadeRollingPossible(pSoldier, sGridNo, &sSrcX, &sSrcY))
+	{
+		dForce /= 2;
+	}
 
 	// OK, get direction normal
 	vDirNormal.x = (float)(sDestX - sSrcX);
