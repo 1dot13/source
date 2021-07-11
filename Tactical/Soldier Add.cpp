@@ -1710,7 +1710,7 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 					{
 						pSoldier->EVENT_InitNewSoldierAnim( usAnimState, usAnimCode, TRUE );
 					}
-					else if ( pSoldier->ubBodyType != CROW )
+					else if ( pSoldier->ubBodyType != CROW && ubInsertionCode != INSERTION_CODE_GRIDNO)
 					{
 						pSoldier->EVENT_InitNewSoldierAnim( STANDING, 1, TRUE );
 					}
