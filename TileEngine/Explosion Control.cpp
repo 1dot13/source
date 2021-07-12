@@ -2382,17 +2382,31 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 		}
 
 		// Add burn marks to ground randomly....
-		//if ( Random( 50 ) < 15 && uiDist == 1 )
-		//{
+		INT8 bOverTerrainType = GetTerrainType( sGridNo );
+
+		if ( pExplosive->ubType == EXPLOSV_NORMAL &&
+			( bOverTerrainType == FLAT_GROUND || bOverTerrainType == DIRT_ROAD || bOverTerrainType == LOW_GRASS || bOverTerrainType == HIGH_GRASS || bOverTerrainType == PAVED_ROAD ) &&
+			uiDist == 0 &&
+			bLevel == 0 &&
+			!HasItemFlag( usItem, JUMP_GRENADE ) &&
+			sWoundAmt > (INT16)Random( 100 ) )
+			//Random( 50 ) < 15 && 
+			//sWoundAmt / (4 * uiDist + 1) > Random( 100 ) )            
+			//pExplosive->ubDamage > Random( 100 ) )
+		{
+			UINT16 usObjectIndex;
+			UINT16 usTileIndex;
 			//if ( !TypeRangeExistsInObjectLayer( sGridNo, FIRSTEXPLDEBRIS, SECONDEXPLDEBRIS, &usObjectIndex ) )
-			//{
-			// GetTileIndexFromTypeSubIndex( SECONDEXPLDEBRIS, (UINT16)( Random( 10 ) + 1 ), &usTileIndex );
-			// AddObjectToHead( sGridNo, usTileIndex );
-
-			// SetRenderFlags(RENDER_FLAG_FULL);
-
-			//}
-		//}
+			if ( !TypeRangeExistsInObjectLayer( sGridNo, FIRSTEXPLDEBRIS, SECONDLARGEEXPDEBRIS10, &usObjectIndex ) )
+			{
+				//GetTileIndexFromTypeSubIndex( SECONDEXPLDEBRIS, (UINT16)( Random( 10 ) + 1 ), &usTileIndex );
+				GetTileIndexFromTypeSubIndex( SECONDEXPLDEBRIS, (UINT16)( 1 + 3 * Random( 2 ) ), &usTileIndex );
+				ApplyMapChangesToMapTempFile( TRUE );
+				AddObjectToHead( sGridNo, usTileIndex );
+				ApplyMapChangesToMapTempFile( FALSE );
+				SetRenderFlags( RENDER_FLAG_FULL );
+			}
+		}
 
 		// NB radius can be 0 so cannot divide it by 2 here
 		if (!fStunEffect && (uiDist * 2 <= pExplosive->ubRadius)	)
