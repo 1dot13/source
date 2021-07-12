@@ -107,7 +107,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>17</uiIndex>
-    <szName>Jagged windowing. Shoot the glass (where necessary), face the open window, and climb through it with [SHIFT]+[J].</szName>
+    <szName>Jagged windowing. Shoot the glass (if you want to avoid taking damage), face the open window, and climb through it with [SHIFT]+[J].</szName>
     <keybind>1</keybind>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -376,7 +376,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>70</uiIndex>
-    <szName>Use HP ammo to kill bloodcats.</szName>
+    <szName>Unarmored targets, like bloodcats, take a lot of damage from HP ammo.</szName>
     <items>1</items>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -481,7 +481,7 @@ The other tags determine in what category this hint falls, and will be displayed
   </LOADSCREENHINT>
   <LOADSCREENHINT>
     <uiIndex>91</uiIndex>
-    <szName>L.B.E. stands for Load Bearing Equipment.</szName>
+    <szName>L.B.E. stands for Load Bearing Equipment and allows you to customize your inventory slots.</szName>
     <lore>1</lore>
   </LOADSCREENHINT>
   <LOADSCREENHINT>
@@ -713,5 +713,25 @@ The other tags determine in what category this hint falls, and will be displayed
     <uiIndex>137</uiIndex>
     <szName>Press [SHIFT]+[L] to quickly transform flashlight in the hand.</szName>
     <keybind>1</keybind>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>138</uiIndex>
+    <szName>Out of first aid kits after a tough fight? You can use a knife on a corpse to retrieve their uniform, cut the uniform to rags and then combine those to create makeshift bandages.</szName>
+    <item>1</item>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>139</uiIndex>
+    <szName>You can block enemy fire by carrying a riot shield in your hand. Better shields block more damage.</szName>
+    <item>1</item>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>140</uiIndex>
+    <szName>If you hover with an empty hand over a map structure, you can sometimes interact with it. Sometimes it's just a sound... sometimes it's something more.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>141</uiIndex>
+    <szName>If a spy talks to unalerted enemies, they can try to secretly recruit them to their cause.</szName>
+    <covertops>1</covertops>
   </LOADSCREENHINT>
 </LOADSCREENHINTS>
