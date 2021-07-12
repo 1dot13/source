@@ -2673,7 +2673,7 @@ void GetRayStopInfo( UINT32 uiNewSpot, UINT8 ubDir, INT8 bLevel, BOOLEAN fSmokeE
 	BOOLEAN		fTravelCostObs = FALSE;
 	UINT32		uiRangeReduce;
    INT32 sNewGridNo;
-	STRUCTURE * pBlockingStructure;
+	STRUCTURE * pBlockingStructure = NULL;
 	BOOLEAN		fBlowWindowSouth = FALSE;
 	BOOLEAN	fReduceRay = TRUE;
 
