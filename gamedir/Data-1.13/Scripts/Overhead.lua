@@ -597,6 +597,8 @@ InteractiveAction =
 	PICTURE_GENERALSTORE = 64,			-- 2-tile Poster: 'General Store'
 	PICTURE_SHADYLADY = 65,				-- 2-tile Poster: 'Shady Lady'
 	COOK_COWMEAT_TO_STEAK = 66,			-- take cow meat from merc, add steak to merc
+	TAKE_FIRE_EXTINGUISHER_1 = 67,		-- delete wall decal (requires replacing wall tile) and add item to inventory
+	TAKE_FIRE_EXTINGUISHER_2 = 68,		-- delete wall decal (requires replacing wall tile) and add item to inventory
 }
 
 -- We have an array of 1000 signed integers that a modder can use to set whatever data he wants.
@@ -1762,6 +1764,24 @@ function HandleInteractiveActionResult(sSectorX, sSectorY, bSectorZ, sGridNo, bL
 				SetScreenMsg(FontColour.FONT_MCOLOR_DKWHITE, "Cooked a steak.")
 				
 			end
+			
+		elseif ( sLuaactionid == InteractiveAction.TAKE_FIRE_EXTINGUISHER_1 ) then
+		
+			-- 1761 fire extinguisher
+			
+			CreateItemInvOrFloor(ubID, 1761)
+			
+			-- due to the way structures are handled, we the decal is on a tile next to the one we are handling, so account for that
+			-- the empty wall is in another tileset
+			DestroyAndReplaceDecal(sGridNo - 1, "build_29.sti", 6)
+			
+		elseif ( sLuaactionid == InteractiveAction.TAKE_FIRE_EXTINGUISHER_2 ) then
+		
+			CreateItemInvOrFloor(ubID, 1761)
+			
+			-- due to the way structures are handled, we the decal is on a tile next to the one we are handling, so account for that
+			-- the empty wall is in another tileset
+			DestroyAndReplaceDecal(sGridNo - 160, "build_29.sti", 9)
 		
 		end
 		

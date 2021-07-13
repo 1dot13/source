@@ -1998,6 +1998,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>20</bBurstAP>
 		<APsToReload>24</APsToReload>
+		<ubMagSize>10</ubMagSize>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<nAccuracy>33</nAccuracy>
@@ -13334,5 +13335,38 @@
 		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
 		<usOverheatingDamageThreshold>10000</usOverheatingDamageThreshold>
 		<usOverheatingSingleShotTemperature>1600</usOverheatingSingleShotTemperature>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1761</uiIndex>
+		<szWeaponName>Fire Extinguisher</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubReadyTime>5</ubReadyTime>
+		<ubShotsPer4Turns>6.46</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubDeadliness>1</ubDeadliness>
+		<ubCalibre>50</ubCalibre>
+		<ubMagSize>9</ubMagSize>
+		<usRange>80</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>505</sSound>
+		<SilencedSound>505</SilencedSound>
+		<sBurstSound>505</sBurstSound>
+		<sSilencedBurstSound>505</sSilencedBurstSound>
+		<sReloadSound>497</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound><bBurstAP>8</bBurstAP>
+		<APsToReload>24</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>20</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+		<Handling>5</Handling>
+		<usOverheatingJamThreshold>30000</usOverheatingJamThreshold>
+		<usOverheatingDamageThreshold>20000</usOverheatingDamageThreshold>
+		<usOverheatingSingleShotTemperature>100</usOverheatingSingleShotTemperature>
 	</WEAPON>
 </WEAPONLIST>

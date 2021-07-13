@@ -150,4 +150,14 @@
 		<BlastFilename>TILECACHE\shckwave.STI</BlastFilename>
 		<BlastSpeed>15</BlastSpeed>
 	</EXPDATA>
+	<EXPDATA>
+		<uiIndex>15</uiIndex>
+		<name>White smoke</name>
+		<TransKeyFrame>1</TransKeyFrame>
+		<DamageKeyFrame>18</DamageKeyFrame>
+		<ExplosionSoundID>248</ExplosionSoundID>
+		<AltExplosionSoundID>-1</AltExplosionSoundID>
+		<BlastFilename>TILECACHE\TEAR_EXP.STI</BlastFilename>
+		<BlastSpeed>80</BlastSpeed>
+	</EXPDATA>
 </EXPDATALIST>

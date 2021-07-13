@@ -1413,4 +1413,44 @@
 		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
 		<dDamageModifierZombie>0.0</dDamageModifierZombie>
 	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>34</uiIndex>
+		<name>Fire retardant</name>
+		<red>255</red>
+		<green>255</green>
+		<blue>255</blue>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>1</zeroMinimumDamage>
+		<usPiercePersonChanceModifier>0</usPiercePersonChanceModifier>
+		<standardIssue>1</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>1759</highExplosive>
+		<explosionSize>4</explosionSize>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>1</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
+		<spreadPattern />
+		<temperatureModificator>1.0</temperatureModificator>
+		<dirtModificator>0.8</dirtModificator>
+		<ammoflag>0</ammoflag>
+		<dDamageModifierLife>1.0</dDamageModifierLife>
+		<dDamageModifierBreath>1.0</dDamageModifierBreath>
+		<dDamageModifierTank>0.0</dDamageModifierTank>
+		<dDamageModifierArmouredVehicle>0.0</dDamageModifierArmouredVehicle>
+		<dDamageModifierCivilianVehicle>0.0</dDamageModifierCivilianVehicle>
+		<dDamageModifierZombie>1.0</dDamageModifierZombie>
+	</AMMOTYPE>
 </AMMOTYPELIST>

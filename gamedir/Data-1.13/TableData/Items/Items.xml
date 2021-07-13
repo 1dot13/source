@@ -198,6 +198,7 @@
 		<bloodbag>0</bloodbag>
 		<emptybloodbag>0</emptybloodbag>
 		<medicalsplint>0</medicalsplint>
+		<fireextinguisher>0</fireextinguisher>
 		<sFireResistance>0</sFireResistance>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
@@ -52230,6 +52231,85 @@
 		<BR_NewInventory>6</BR_NewInventory>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<medicalsplint>1</medicalsplint>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1759</uiIndex>
+		<szItemName>White smoke explosion</szItemName>
+		<szLongItemName>White smoke explosion</szLongItemName>
+		<szItemDesc>INTERNAL ITEM, DO NOT USE!!!</szItemDesc>
+		<szBRName>White smoke explosion</szBRName>
+		<usItemClass>512</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>105</ubClassIndex>
+		<ubCursor>18</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>49</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<ItemSize>14</ItemSize>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1760</uiIndex>
+		<szItemName>Extinguisher Bottle</szItemName>
+		<szLongItemName>Fire Extinguisher Bottle</szLongItemName>
+		<szItemDesc>A pressurized bottle for a fire extinguisher.</szItemDesc>
+		<szBRName>Fire Extinguisher Bottle</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>612</ubClassIndex>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>243</ubGraphicNum>
+		<ubWeight>30</ubWeight>
+		<ItemSize>25</ItemSize>
+		<usPrice>30</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<GLGrenade>1</GLGrenade>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<STAND_MODIFIERS />
+		<CROUCH_MODIFIERS />
+		<PRONE_MODIFIERS />
+	</ITEM>	
+	<ITEM>
+		<uiIndex>1761</uiIndex>
+		<szItemName>Extinguisher</szItemName>
+		<szLongItemName>Fire Extinguisher</szLongItemName>
+		<szItemDesc>Not as useful as one would think in an actual fire fight. Though we see why you made that error.</szItemDesc>
+		<szBRName>Fire Extinguisher</szBRName>
+		<szBRDesc>A standard fire extinguisher. Remember to P.A.S.S..</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<ubClassIndex>1761</ubClassIndex>
+		<ubCursor>20</ubCursor>
+		<ubGraphicNum>373</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ItemSize>7</ItemSize>
+		<usPrice>50</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_ROF>12</BR_ROF>
+		<GrenadeLauncher>1</GrenadeLauncher>
+		<fireextinguisher>1</fireextinguisher>
+		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
+		<DamageChance>10</DamageChance>
+		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>
 		<STAND_MODIFIERS />
 		<CROUCH_MODIFIERS />
 		<PRONE_MODIFIERS />

@@ -2101,4 +2101,24 @@
 		<ubHorizontalDegree>0</ubHorizontalDegree>
 		<ubVerticalDegree>0</ubVerticalDegree>
 	</EXPLOSIVE>
+	<EXPLOSIVE><!-- fire retardant smoke -->
+		<uiIndex>105</uiIndex>
+		<ubType>12</ubType>
+		<ubDamage>0</ubDamage>
+		<ubStunDamage>0</ubStunDamage>
+		<ubRadius>6</ubRadius>
+		<ubVolume>0</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>15</ubAnimationID>
+		<ubDuration>5</ubDuration>
+		<ubStartRadius>1</ubStartRadius>
+		<ubMagSize>9</ubMagSize>
+		<fExplodeOnImpact>0</fExplodeOnImpact>
+		<usNumFragments>0</usNumFragments>
+		<ubFragType>0</ubFragType>
+		<ubFragDamage>0</ubFragDamage>
+		<ubFragRange>0</ubFragRange>
+		<ubHorizontalDegree>0</ubHorizontalDegree>
+		<ubVerticalDegree>0</ubVerticalDegree>
+	</EXPLOSIVE>
 </EXPLOSIVELIST>

@@ -504,4 +504,5 @@
 	<SOUND>SOUNDS\nothing.wav</SOUND>
 	<SOUND>SOUNDS\beartrap_activated.wav</SOUND>
 	<SOUND>SOUNDS\beartrap_fleshhit.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\Misc\fireextinguisher.wav</SOUND>
 </SOUNDLIST>

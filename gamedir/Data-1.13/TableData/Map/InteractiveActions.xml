@@ -1050,6 +1050,13 @@
 		<sActionType>6</sActionType>
 		<luaactionid>54</luaactionid>
 	</ACTION>
+	<ACTION>
+		<szTileSetName>jailstf3.sti</szTileSetName>		
+		<usTileIndex>14</usTileIndex>
+		<usTileIndex>15</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>54</luaactionid>
+	</ACTION>
 	
 	<!-- urinal -->
 	<ACTION>
@@ -1186,6 +1193,22 @@
 		<usTileIndex>23</usTileIndex>
 		<sActionType>6</sActionType>
 		<luaactionid>66</luaactionid>
+	</ACTION>
+	
+	<!-- fire extinguisher, lower left to upper right wall -->
+	<ACTION>
+		<szTileSetName>waldec29.sti</szTileSetName>		
+		<usTileIndex>3</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>67</luaactionid>
+	</ACTION>
+	
+	<!-- fire extinguisher, upper left to lower right wall -->
+	<ACTION>
+		<szTileSetName>waldec29.sti</szTileSetName>		
+		<usTileIndex>4</usTileIndex>
+		<sActionType>6</sActionType>
+		<luaactionid>68</luaactionid>
 	</ACTION>
 	<!-- |||||||||||||||||||| VARIOUS |||||||||||||||||||| -->
 	

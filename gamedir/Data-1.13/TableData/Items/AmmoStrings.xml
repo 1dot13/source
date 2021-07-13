@@ -291,4 +291,9 @@
 		<AmmoCaliber>Pepper Spray</AmmoCaliber>
 		<BRCaliber>Pepper Spray</BRCaliber>
 	</AMMO>
+	<AMMO>
+		<uiIndex>50</uiIndex>
+		<AmmoCaliber>Fire retardant</AmmoCaliber>
+		<BRCaliber>Fire retardant</BRCaliber>
+	</AMMO>
 </AMMOLIST>
