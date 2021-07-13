@@ -2001,7 +2001,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			}
 
 		}
-		else if ( pExplosive->ubType == EXPLOSV_SMOKE || pExplosive->ubType == EXPLOSV_SMOKE_DEBRIS )//dnl ch40 200909
+		else if ( pExplosive->ubType == EXPLOSV_SMOKE || pExplosive->ubType == EXPLOSV_SMOKE_DEBRIS | pExplosive->ubType == EXPLOSV_SMOKE_FIRERETARDANT )//dnl ch40 200909
 		{
 			// robots are unaffected by smoke
 			if( AM_A_ROBOT(pSoldier) )
@@ -2108,6 +2108,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			break;
 		case EXPLOSV_SMOKE://dnl ch40 200909
 		case EXPLOSV_SMOKE_DEBRIS:
+		case EXPLOSV_SMOKE_FIRERETARDANT:
 			pSoldier->flags.fHitByGasFlags |= HIT_BY_SMOKEGAS;
 			break;
 		default:
@@ -2260,6 +2261,12 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 		case EXPLOSV_SMOKE_DEBRIS:
 			fSmokeEffect = TRUE;
 			bSmokeEffectType = DEBRIS_SMOKE_EFFECT;
+			fBlastEffect = FALSE;
+			break;
+
+		case EXPLOSV_SMOKE_FIRERETARDANT:
+			fSmokeEffect = TRUE;
+			bSmokeEffectType = FIRERETARDANT_SMOKE_EFFECT;
 			fBlastEffect = FALSE;
 			break;
 		}
@@ -2464,6 +2471,15 @@ BOOLEAN ExpAffect( INT32 sBombGridNo, INT32 sGridNo, UINT32 uiDist, UINT16 usIte
 	}
 	else if ( fSmokeEffect )
 	{
+		// Flugente: if adding fire retardant, remove fire
+		if ( pExplosive->ubType == EXPLOSV_SMOKE_FIRERETARDANT )
+		{
+			if ( gpWorldLevelData[sGridNo].ubExtFlags[bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
+			{
+				RemoveSmokeEffectFromTile( sGridNo, bLevel );
+			}
+		}
+
 		// If tear gar, determine turns to spread.....
 		if ( sSubsequent == ERASE_SPREAD_EFFECT )
 		{
@@ -2945,7 +2961,15 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 		gfMPDebugOutputRandoms = true;
 #endif
 	}
-		
+	
+	// Flugente: if tile has a fire retardant effect, don't create new fire
+	if ( Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS )
+	{
+		if ( gpWorldLevelData[sGridNo].ubExtFlags[bLevel] & MAPELEMENT_EXT_FIRERETARDANT_SMOKE )
+		{
+			return;
+		}
+	}
 
 	INT32 uiNewSpot, uiTempSpot, uiBranchSpot, cnt, branchCnt;
 	INT32	uiTempRange, ubBranchRange;
@@ -2965,7 +2989,7 @@ void SpreadEffect( INT32 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 	case EXPLOSV_CREATUREGAS:
 	case EXPLOSV_SIGNAL_SMOKE:
 	case EXPLOSV_SMOKE_DEBRIS:
-
+	case EXPLOSV_SMOKE_FIRERETARDANT:
 		fSmokeEffect = TRUE;
 		break;
 	}

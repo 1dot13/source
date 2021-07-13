@@ -560,8 +560,19 @@ void UpdateAniTiles( )
 
 							ubExpType = Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubType;
 
+							// Flugente: if tile has a fire retardant effect, don't create new fire
+							if ( ubExpType == EXPLOSV_BURNABLEGAS )
+							{
+								if ( gpWorldLevelData[pNode->sGridNo].ubExtFlags[gExplosionData[pNode->uiUserData3].Params.bLevel] & MAPELEMENT_EXT_FIRERETARDANT_SMOKE )
+								{
+									// don't add fire
+									return;
+								}
+							}
+
 							if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS ||
-								ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS || ubExpType == EXPLOSV_SIGNAL_SMOKE || ubExpType == EXPLOSV_SMOKE_DEBRIS || ubExpType == EXPLOSV_CREATUREGAS)
+								ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS || ubExpType == EXPLOSV_SIGNAL_SMOKE || ubExpType == EXPLOSV_SMOKE_DEBRIS || ubExpType == EXPLOSV_CREATUREGAS ||
+								ubExpType == EXPLOSV_SMOKE_FIRERETARDANT )
 							{
 								// Do sound....
 								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );

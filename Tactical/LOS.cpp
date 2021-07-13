@@ -1938,7 +1938,7 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 
 		// leaving a tile, check to see if it had gas in it
 		//		if ( pMapElement->ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) )
-		if ( pMapElement->ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS | MAPELEMENT_EXT_BURNABLEGAS | MAPELEMENT_EXT_DEBRIS_SMOKE) )
+		if ( pMapElement->ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS | MAPELEMENT_EXT_BURNABLEGAS | MAPELEMENT_EXT_DEBRIS_SMOKE | MAPELEMENT_EXT_FIRERETARDANT_SMOKE ) )
 		{
 			if ( (pMapElement->ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE) ) && !fSmell )
 			{
@@ -3593,7 +3593,7 @@ INT32 HandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStructure
 
 	*pfHit = FALSE;
 
-	if (pBullet->usFlags & BULLET_FLAG_KNIFE || pBullet->usFlags & BULLET_FLAG_MISSILE || pBullet->usFlags & BULLET_FLAG_TANK_CANNON || pBullet->usFlags & BULLET_FLAG_FLAME )
+	if (pBullet->usFlags & BULLET_FLAG_KNIFE || pBullet->usFlags & BULLET_FLAG_MISSILE || pBullet->usFlags & BULLET_FLAG_TANK_CANNON || pBullet->usFlags & (BULLET_FLAG_FLAME | BULLET_FLAG_WHITESMOKE) )
 	{
 		// stops!
 		*pfHit = TRUE;
@@ -3746,7 +3746,7 @@ INT32 CTGTHandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStruc
 	INT32 iCurrImpact;
 	INT32 iImpactReduction;
 
-	if (pBullet->usFlags & BULLET_FLAG_KNIFE || pBullet->usFlags & BULLET_FLAG_MISSILE || pBullet->usFlags & BULLET_FLAG_FLAME || pBullet->usFlags & BULLET_FLAG_TANK_CANNON )
+	if (pBullet->usFlags & BULLET_FLAG_KNIFE || pBullet->usFlags & BULLET_FLAG_MISSILE || pBullet->usFlags & (BULLET_FLAG_FLAME | BULLET_FLAG_WHITESMOKE) || pBullet->usFlags & BULLET_FLAG_TANK_CANNON )
 	{
 		// knife/rocket stops when it hits anything, and people block completely
 		return( pBullet->iImpact );
@@ -4677,7 +4677,7 @@ INT8 FireBullet( UINT8 ubFirer, BULLET * pBullet, BOOLEAN fFake )
 		else
 		{
 			//afp-start  //always a fast bullet 
-			if ( pBullet->usFlags & ( BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME /*| BULLET_FLAG_TRACER*/ ) )
+			if ( pBullet->usFlags & ( BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_WHITESMOKE /*| BULLET_FLAG_TRACER*/ ) )
 				pBullet->usClockTicksPerUpdate = (Weapon[ pBullet->pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pBullet->pFirer->inv[pBullet->pFirer->ubAttackingHand]) ) / 10;
 			else
 				if (gGameSettings.fOptions[TOPTION_ALTERNATE_BULLET_GRAPHICS])				
@@ -4822,6 +4822,11 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	else if ( usHandItem == FLAMETHROWER )
 	{
 		usBulletFlags |= BULLET_FLAG_FLAME;
+		ubSpreadIndex = 2;
+	}
+	else if ( Item[usHandItem].usItemFlag & FIREEXTINGUISHER )
+	{
+		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
 		ubSpreadIndex = 2;
 	}
 	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
@@ -5316,6 +5321,11 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	else if ( usHandItem == FLAMETHROWER )
 	{
 		usBulletFlags |= BULLET_FLAG_FLAME;
+		ubSpreadIndex = 2;
+	}
+	else if ( Item[usHandItem].usItemFlag & FIREEXTINGUISHER )
+	{
+		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
 		ubSpreadIndex = 2;
 	}
 	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
@@ -5999,6 +6009,11 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
+	else if ( Item[usItem].usItemFlag & FIREEXTINGUISHER )
+	{
+		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
+		ubSpreadIndex = 2;
+	}
 
 	// Flugente: anti-materiel ammo
 	if ( AmmoTypes[ammotype].ammoflag & AMMO_ANTIMATERIEL )
@@ -6577,6 +6592,11 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 	else if ( usItem == FLAMETHROWER )
 	{
 		usBulletFlags |= BULLET_FLAG_FLAME;
+		ubSpreadIndex = 2;
+	}
+	else if ( Item[usItem].usItemFlag & FIREEXTINGUISHER )
+	{
+		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
 		ubSpreadIndex = 2;
 	}
 
@@ -7451,7 +7471,7 @@ void MoveBullet( INT32 iBullet )
 
 				// HEADROCK HAM B2.5: Changed condition to read fTracer flag directly from bullet's struct.
 				// This is for the New Tracer System.
-				if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER*/	) ) 
+				if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_WHITESMOKE /*| BULLET_FLAG_TRACER*/	) )
 					|| ((gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.ubRealisticTracers == 0 && fTracer == TRUE)))
 				{
 					INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
@@ -7460,7 +7480,7 @@ void MoveBullet( INT32 iBullet )
 					{
 						bStepsPerMove = STEPS_FOR_BULLET_MOVE_SMALL_TRAILS;
 					}
-					else if ( pBullet->usFlags & ( BULLET_FLAG_FLAME ) )
+					else if ( pBullet->usFlags & ( BULLET_FLAG_FLAME | BULLET_FLAG_WHITESMOKE ) )
 					{
 						bStepsPerMove = STEPS_FOR_BULLET_MOVE_FIRE_TRAILS;
 					}
@@ -7711,7 +7731,7 @@ void MoveBullet( INT32 iBullet )
 										if (fHitStructure)
 										{
 											// ATE: NOT if we are a special bullet like a LAW trail...
-											if (pStructure->fFlags & STRUCTURE_CORPSE && !( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT ) ) )
+											if (pStructure->fFlags & STRUCTURE_CORPSE && !( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_WHITESMOKE ) ) )
 											{
 												// ATE: In enemy territory here... ;)
 												// Now that we have hit a corpse, make the bugger twich!
@@ -7820,7 +7840,7 @@ void MoveBullet( INT32 iBullet )
 
 					// HEADROCK HAM B2.5: Changed condition to read fTracer flag directly from bullet's struct.
 					// This is for the New Tracer System.
-					if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER */) ) 
+					if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_WHITESMOKE /*| BULLET_FLAG_TRACER */) )
 						|| ((gGameExternalOptions.ubRealisticTracers > 0 && gGameExternalOptions.ubNumBulletsPerTracer > 0 && pBullet->fTracer == TRUE) || (gGameExternalOptions.ubRealisticTracers == 0 && fTracer == TRUE)))
 					{
 						INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
@@ -7829,7 +7849,7 @@ void MoveBullet( INT32 iBullet )
 						{
 							bStepsPerMove = STEPS_FOR_BULLET_MOVE_SMALL_TRAILS;
 						}
-						else if ( pBullet->usFlags & ( BULLET_FLAG_FLAME ) )
+						else if ( pBullet->usFlags & ( BULLET_FLAG_FLAME | BULLET_FLAG_WHITESMOKE ) )
 						{
 							bStepsPerMove = STEPS_FOR_BULLET_MOVE_FIRE_TRAILS;
 						}
@@ -7876,7 +7896,7 @@ void MoveBullet( INT32 iBullet )
 				//pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * 2);
 				pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * gGameCTHConstants.GRAVITY_COEFFICIENT); 
 			}
-			else if ( (pBullet->usFlags & BULLET_FLAG_FLAME) && (dDistanceMoved > pBullet->iRange) )
+			else if ( (pBullet->usFlags & (BULLET_FLAG_FLAME | BULLET_FLAG_WHITESMOKE)) && (dDistanceMoved > pBullet->iRange) )
 			{
 				//pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * 2);
 				pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * (gGameCTHConstants.GRAVITY_COEFFICIENT / 2) );
@@ -7891,7 +7911,7 @@ void MoveBullet( INT32 iBullet )
 				// decrement is scaled down depending on how fast the bullet is (effective range)
 				pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * 2);
 			}
-			else if ( (pBullet->usFlags & BULLET_FLAG_FLAME) && ( pBullet->iLoop > pBullet->iRange ) )
+			else if ( (pBullet->usFlags & (BULLET_FLAG_FLAME|BULLET_FLAG_WHITESMOKE) ) && ( pBullet->iLoop > pBullet->iRange ) )
 			{
 				pBullet->qIncrZ -= INT32_TO_FIXEDPT( 100 ) / (pBullet->iRange * 2);
 			}

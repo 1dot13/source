@@ -18,6 +18,7 @@
 #define		BULLET_FLAG_TRACER					0x0100
 #define		BULLET_FLAG_ANTIMATERIEL			0x0200		// Flugente: bullet can destroy structures
 #define		BULLET_FLAG_INFECTED				0x0400		// Flugente: bullet is infected
+#define		BULLET_FLAG_WHITESMOKE				0x0800		// Flugente: bullet leaves a white smoke trail (for fire extinguisher)
 
 //afp-start calculate line points between two point
 #define BULLET_TRACER_MAX_LENGTH 60

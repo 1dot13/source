@@ -864,6 +864,7 @@ static int l_CreateCivilian( lua_State *L );
 
 static int l_BuildFortification( lua_State *L );
 static int l_RemoveFortification( lua_State *L );
+static int l_DestroyAndReplaceDecal( lua_State *L );
 
 static int l_GetFact( lua_State *L );
 static int l_SetFact( lua_State *L );
@@ -1762,6 +1763,7 @@ void IniFunction(lua_State *L, BOOLEAN bQuests )
 
 	lua_register( L, "BuildFortification", l_BuildFortification );
 	lua_register( L, "RemoveFortification", l_RemoveFortification );
+	lua_register( L, "DestroyAndReplaceDecal", l_DestroyAndReplaceDecal );
 	
 	lua_register(L, "GetFact", l_GetFact );
 	lua_register(L, "SetFact", l_SetFact );
@@ -13121,6 +13123,32 @@ static int l_RemoveFortification( lua_State *L )
 		UINT8 usStructureIndex = lua_tointeger( L, 3 );
 
 		RemoveFortification( sGridNo, sLevel, usStructureIndex );
+	}
+
+	return 0;
+}
+
+static int l_DestroyAndReplaceDecal( lua_State *L )
+{
+	if ( lua_gettop( L ) >= 3 )
+	{
+		INT32 sGridNo = lua_tointeger( L, 1 );
+
+		size_t len = 0;
+		const char* str = lua_tolstring( L, 2, &len );
+
+		UINT8 index = lua_tointeger( L, 3 );
+
+		ApplyMapChangesToMapTempFile( TRUE );
+
+		RemoveAllStructsOfTypeRange( sGridNo, FIRSTWALLDECAL, FOURTHWALLDECAL );
+		RemoveAllStructsOfTypeRange( sGridNo, FIFTHWALLDECAL, EIGTHWALLDECAL );
+		RemoveAllStructsOfTypeRange( sGridNo, FIRSTDECORATIONS, FOURTHDECORATIONS );
+
+
+		BuildStructFromName( sGridNo, 0, str, index );
+
+		ApplyMapChangesToMapTempFile( FALSE );
 	}
 
 	return 0;

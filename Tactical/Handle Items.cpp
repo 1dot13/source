@@ -7694,6 +7694,86 @@ UINT8	CheckBuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32
 	return 1;
 }
 
+BOOLEAN	BuildStructFromName( INT32 sGridNo, INT8 sLevel, const char* aStr, UINT8 usIndex )
+{
+	INT16				sUseObjIndex = -1;
+
+	// needs to be a valid location
+	if ( TileIsOutOfBounds( sGridNo ) )
+		return FALSE;
+
+	// if we want to build on a roof, a roof is required
+	if ( sLevel && !FlatRoofAboveGridNo( sGridNo ) )
+		return FALSE;
+
+	// don't build in water
+	if ( TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
+		return FALSE;
+
+	// do not build into people
+	if ( NOBODY != WhoIsThere2( sGridNo, sLevel ) )
+		return FALSE;
+
+	// search wether structure exists in the current tilesets. If not, well, too bad
+	for ( INT32 iType = 0; iType < giNumberOfTileTypes; ++iType )
+	{
+		// if tileset is from the current tileset, check that
+		if ( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !_strnicmp( gTilesets[giCurrentTilesetID].TileSurfaceFilenames[iType], aStr, 10 ) )
+			{
+				sUseObjIndex = iType;
+				break;
+			}
+		}
+		// otherwise, check first tileset (GENERIC 1)
+		else if ( gTilesets[0].TileSurfaceFilenames[iType][0] )
+		{
+			if ( !_strnicmp( gTilesets[0].TileSurfaceFilenames[iType], aStr, 10 ) )
+			{
+				sUseObjIndex = iType;
+				break;
+			}
+		}
+	}
+
+	if ( sUseObjIndex < 0 )
+		return FALSE;
+
+	// Check with Structure Database (aka ODB) if we can put the object here!
+	BOOLEAN fOkayToAdd = OkayToAddStructureToWorld( sGridNo, sLevel, gTileDatabase[( gTileTypeStartIndex[sUseObjIndex] + usIndex )].pDBStructureRef, INVALID_STRUCTURE_ID );
+	if ( fOkayToAdd || ( gTileDatabase[( gTileTypeStartIndex[sUseObjIndex] + usIndex )].pDBStructureRef == NULL ) )
+	{
+		// Remove old graphic
+		ApplyMapChangesToMapTempFile( TRUE );
+
+		//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
+		// Actual structure info is added by the functions below
+		if ( sLevel )
+		{
+			RemoveOnRoofStruct( sGridNo, (UINT16)( gTileTypeStartIndex[sUseObjIndex] + usIndex ) );
+
+			AddOnRoofToTail( sGridNo, (UINT16)( gTileTypeStartIndex[sUseObjIndex] + usIndex ) );
+		}
+		else
+		{
+			RemoveStruct( sGridNo, (UINT16)( gTileTypeStartIndex[sUseObjIndex] + usIndex ) );
+
+			AddStructToHead( sGridNo, (UINT16)( gTileTypeStartIndex[sUseObjIndex] + usIndex ) );
+		}
+
+		RecompileLocalMovementCosts( sGridNo );
+
+		// Turn off permanent changes....
+		ApplyMapChangesToMapTempFile( FALSE );
+		SetRenderFlags( RENDER_FLAG_FULL );
+
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 UINT16 gusTempDragBuildSoldierID = NOBODY;
 
 BOOLEAN	BuildStructDrag( INT32 sGridNo, INT8 sLevel, UINT32 uiTileType, UINT8 usIndex, UINT16 usSoldierID )

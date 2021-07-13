@@ -288,6 +288,8 @@ BOOLEAN RemoveFortification( INT32 sGridNo, SOLDIERTYPE *pSoldier, OBJECTTYPE *p
 UINT8	CheckBuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 usStructureconstructindex );
 BOOLEAN	BuildFortification( INT32 sGridNo, INT8 sLevel, UINT8 usIndex, UINT32 usStructureconstructindex );
 
+BOOLEAN	BuildStructFromName( INT32 sGridNo, INT8 sLevel, const char* aStr, UINT8 usIndex );
+
 BOOLEAN	CanRemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex );
 BOOLEAN	RemoveFortification( INT32 sGridNo, INT8 sLevel, UINT32 usStructureconstructindex );
 

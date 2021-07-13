@@ -2261,7 +2261,7 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	// smoke
-	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_SIGNAL_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE) )
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_SIGNAL_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE | MAPELEMENT_EXT_FIRERETARDANT_SMOKE ) )
 		return TRUE;
 
 	return InGas(pSoldier,sGridNo);

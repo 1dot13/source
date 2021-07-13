@@ -137,6 +137,10 @@ INT8 FromWorldFlagsToSmokeType( UINT16 ubWorldFlags )
 	{
 		return(DEBRIS_SMOKE_EFFECT);
 	}
+	else if ( ubWorldFlags & MAPELEMENT_EXT_FIRERETARDANT_SMOKE )
+	{
+		return FIRERETARDANT_SMOKE_EFFECT;
+	}
 	
 	return(NO_SMOKE_EFFECT);
 }
@@ -178,6 +182,10 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 
 		case DEBRIS_SMOKE_EFFECT:
 			return(MAPELEMENT_EXT_DEBRIS_SMOKE);
+			break;
+
+		case FIRERETARDANT_SMOKE_EFFECT:
+			return MAPELEMENT_EXT_FIRERETARDANT_SMOKE;
 			break;
 
 		default:
@@ -288,6 +296,10 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 		case EXPLOSV_SMOKE_DEBRIS:
 			bSmokeEffectType = DEBRIS_SMOKE_EFFECT;
 			break;
+
+		case EXPLOSV_SMOKE_FIRERETARDANT:
+			bSmokeEffectType = FIRERETARDANT_SMOKE_EFFECT;
+			break;
 	}
 
 	pSmoke->ubDuration	= (UINT8)Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
@@ -394,6 +406,9 @@ INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, B
 		break;
 	case EXPLOSV_SMOKE_DEBRIS:
 		bSmokeEffectType = DEBRIS_SMOKE_EFFECT;
+		break;
+	case EXPLOSV_SMOKE_FIRERETARDANT:
+		bSmokeEffectType = FIRERETARDANT_SMOKE_EFFECT;
 		break;
 	}
 
@@ -607,59 +622,19 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT32 sGridNo, INT8
 			break;
 
 		case CREATURE_SMOKE_EFFECT:
-
-			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
-			{
-				strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
-			}
-			else
-			{
-				if ( fDissipating )
-				{
-					 strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
-				}
-				else
-				{
-					 strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
-				}
-			}
+			strcpy( AniParams.zCachedFile, "TILECACHE\\spit_gas.STI" );
 			break;
 
 		case SIGNAL_SMOKE_EFFECT:
-
-			if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
-			{
-				strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
-			}
-			else
-			{
-				if ( fDissipating )
-				{
-					 strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
-				}
-				else
-				{
-					 strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
-				}
-			}
+			strcpy( AniParams.zCachedFile, "TILECACHE\\signal_gas.STI" );
 			break;
 
 		case DEBRIS_SMOKE_EFFECT:
-			if ( !(gGameSettings.fOptions[TOPTION_ANIMATE_SMOKE]) )
-			{
-				strcpy( AniParams.zCachedFile, "TILECACHE\\debris_smoke.STI" );
-			}
-			else
-			{
-				if ( fDissipating )
-				{
-					strcpy( AniParams.zCachedFile, "TILECACHE\\debris_smoke.STI" );
-				}
-				else
-				{
-					strcpy( AniParams.zCachedFile, "TILECACHE\\debris_smoke.STI" );
-				}
-			}
+			strcpy( AniParams.zCachedFile, "TILECACHE\\debris_smoke.STI" );
+			break;
+
+		case FIRERETARDANT_SMOKE_EFFECT:
+			strcpy( AniParams.zCachedFile, "TILECACHE\\white_smoke.STI" );
 			break;
 	}
 
@@ -766,6 +741,15 @@ void DecaySmokeEffects( UINT32 uiTime )
 				{
 					fUpdate = TRUE;
 					usNumUpdates = ( UINT16 ) ( ( uiTime - pSmoke->uiTimeOfLastUpdate ) / 10 );
+				}
+			}
+
+			// Flugente: if tile has a fire retardant effect, don't create new fire
+			if ( Explosive[Item[pSmoke->usItem].ubClassIndex].ubType == EXPLOSV_BURNABLEGAS )
+			{
+				if ( gpWorldLevelData[pSmoke->sGridNo].ubExtFlags[bLevel] & MAPELEMENT_EXT_FIRERETARDANT_SMOKE )
+				{
+					pSmoke->bAge = pSmoke->ubDuration + 1;
 				}
 			}
 
