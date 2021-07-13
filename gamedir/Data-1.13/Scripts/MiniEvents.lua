@@ -134,9 +134,9 @@ CGetStat(stat, profileId) returns {statValue, nickname, id}
 	- returns the value of the specified stat, the nickname of that merc, and the merc's profileId. The nickname and id are returned regardless of whether you input a profileId or not.
 CGetProgress() returns {progress}
 	- returns a value between 0 (just started the game) and 100 (at/near endgame)
-CGetTownId(x, y) returns {townId}
+CGetTownId(x, y) returns {townId, townName}
 	- x, y indicate the sector coordinates to check
-	- returns a town id, which will match up with the TOWNS enum below.
+	- returns a town id, which will match up with the TOWNS enum below. Also returns the name of the town as defined in Cities.xml
 CSendMercOnMiniEvent(profileId, hours)
 	- if called with CSetMercCoordinates(), this should be called SECOND.
 	- profileId is a merc's ID, which was passed in through BeginRandomEvent or BeginSpecificEvent
@@ -303,6 +303,7 @@ local STATS =
 	EXPLEVEL = 10,
 }
 
+-- This enum needs to match the uiIndex of each town as defined in Cities.xml
 local TOWNS = 
 {
 	NO_TOWN  = 0,
@@ -417,7 +418,7 @@ function GetMercsInTown(mercList)
 
 	for name, id in pairs(mercList) do
 		x, y, z = CGetCoordinates(id)
-		townId = CGetTownId(x, y)
+		townId, _ = CGetTownId(x, y)
 
 		if townId == TOWNS.OMERTA
 		or townId == TOWNS.DRASSEN
@@ -434,34 +435,6 @@ function GetMercsInTown(mercList)
 	end
 
 	return mercsInTown
-end
-
-function GetTownName(townId)
-	townName = ""
-
-	if townId == TOWNS.OMERTA then
-		townName = "Omerta"
-	elseif townId == TOWNS.DRASSEN then
-		townName = "Drassen"
-	elseif townId == TOWNS.ALMA then
-		townName = "Alma"
-	elseif townId == TOWNS.GRUMM then
-		townName = "Grumm"
-	elseif townId == TOWNS.CAMBRIA then
-		townName = "Cambria"
-	elseif townId == TOWNS.SANMONA then
-		townName = "San Mona"
-	elseif townId == TOWNS.ESTONI then
-		townName = "Estoni"
-	elseif townId == TOWNS.BALIME then
-		townName = "Balime"
-	elseif townId == TOWNS.MEDUNA then
-		townName = "Meduna"
-	elseif townId == TOWNS.CHITZENA then
-		townName = "Chitzena"
-	end
-
-	return townName
 end
 
 function GetLargestMercGroup(mercList)
@@ -1498,8 +1471,7 @@ Events =
 
 			mercs, sector = GetAllMercsInRandomSector(mercs)
 			sectorIdString = CGetSectorIDString(sector.X, sector.Y, sector.Z)
-			townId = CGetTownId(sector.X, sector.Y)
-			townName = GetTownName(townId)
+			townId, townName = CGetTownId(sector.X, sector.Y)
 
 			return {
 				BodyText = string.format("[%s] A kid approaches your group excitedly. \"Hey, you guys are famous!\" he says with a big smile. \"One of my friends keeps going on about how awesome you are! Wanna come hang out with us? Tell us stories? Please?\"", sectorIdString),
@@ -1748,8 +1720,7 @@ HiddenEvents =
 							CResolveEvent("[-$15000][All: +Morale] There's nothing quite like a drunk pub brawl to lift spirits. It turns out to be a fantastic way for your team to unwind. Unfortunately, the owner doesn't see it that way, and asks for compensation for damages.")
 						end
 					else
-						townId = CGetTownId(x, y)
-						townName = GetTownName(townId)
+						townId, townName = CGetTownId(x, y)
 
 						if h2h == true then
 							CAddMoneyToPlayerAccount(-15000, true)
@@ -2474,7 +2445,7 @@ HiddenEvents =
 						CSendMercOnMiniEvent(selectedProfileId, math.random(24,48))
 						for i=1,16 do
 							for j=1,16 do
-								townId = CGetTownId(i,j)
+								townId, _ = CGetTownId(i,j)
 								if townId == TOWNS.MEDUNA then
 									CAdjustEnemyStrengthInSector(i, j, -math.random(5,8), -math.random(5,8), -math.random(5,8), 0, 0, 0)
 								end
@@ -2486,7 +2457,7 @@ HiddenEvents =
 						CSendMercOnMiniEvent(selectedProfileId, math.random(24,48))
 						for i=1,16 do
 							for j=1,16 do
-								townId = CGetTownId(i,j)
+								townId, _ = CGetTownId(i,j)
 								if townId == TOWNS.OMERTA
 								or townId == TOWNS.DRASSEN
 								or townId == TOWNS.ALMA
@@ -2543,7 +2514,7 @@ HiddenEvents =
 					if topButton then
 						for i=1,16 do
 							for j=1,16 do
-								townId = CGetTownId(i,j)
+								townId, _ = CGetTownId(i,j)
 								if townId == TOWNS.MEDUNA then
 									CAdjustEnemyStrengthInSector(i, j, 0, 0, 0, 0, 0, -1)
 								end
@@ -2584,7 +2555,7 @@ HiddenEvents =
 
 						for i=1,16 do
 							for j=1,16 do
-								townId = CGetTownId(i,j)
+								townId, _ = CGetTownId(i,j)
 								if townId == TOWNS.MEDUNA then
 									CAdjustEnemyStrengthInSector(i, j, admin, troop, elite, robot, jeep, tank)
 								end
