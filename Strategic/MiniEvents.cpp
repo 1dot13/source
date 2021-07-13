@@ -41,6 +41,7 @@ to call into.
 #include "strategicmap.h"
 #include "Strategic Movement.h"
 #include "Strategic Town Loyalty.h"
+#include "Text.h"
 #include "Town Militia.h"
 #include "Vehicles.h"
 #endif
@@ -58,7 +59,7 @@ extern "C" {
 
 extern CHAR16 gzUserDefinedButton1[ 128 ];
 extern CHAR16 gzUserDefinedButton2[ 128 ];
-extern GROUP *gpGroupList;
+extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];
 
 static size_t MAX_BUTTON_LENGTH = 60;
 static size_t MAX_BODY_LENGTH = 450;
@@ -1183,9 +1184,12 @@ namespace MiniEventHelpers
 		const INT16 y = lua_tointeger(LS, 2);
 
 		const UINT8 townId = GetTownIdForSector(x, y);
+		CHAR8 townName[MAX_TOWN_NAME_LENGHT];
+		sprintf( townName, "%ls", pTownNames[townId] );
 
 		lua_pushinteger(LS, townId);
-		return 1;
+		lua_pushstring( LS, townName );
+		return 2;
 	}
 
 	static int l_SendMercOnMiniEvent(lua_State* LS)
