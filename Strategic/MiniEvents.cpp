@@ -319,7 +319,7 @@ namespace MiniEventHelpers
 		const UINT16 stat = lua_tointeger(LS, 2);
 		const INT16 val = lua_tointeger(LS, 3);
 
-		if (stat <= STAT_START || stat >= STAT_EXPLEVEL)
+		if (stat <= STAT_START || stat >= STAT_EXPLEVEL || val == 0)
 			return 0;
 
 		std::for_each(gAllMercs.begin(), gAllMercs.end(), [stat, val, profileId](SOLDIERTYPE* merc) {
@@ -327,50 +327,192 @@ namespace MiniEventHelpers
 				return;
 
 			INT16 amount = val;
+			CHAR16 wTempString[ 128 ];
+			int statId = -1;
 
 			switch (stat)
 			{
 			case STAT_LIFE:
 				amount = max(min(100 - merc->stats.bLifeMax, amount), -merc->stats.bLifeMax);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, HEALTHAMT, amount);
+				merc->stats.bLifeMax += amount;
+				merc->stats.bLife += amount;
+				statId = HEALTHAMT;
+				merc->timeChanges.uiChangeHealthTime = GetJA2Clock();
+				
+				if (amount < 0)
+				{
+					merc->ubCriticalStatDamage[DAMAGED_STAT_HEALTH] -= amount;
+					gMercProfiles[merc->ubProfile].bLifeMax = merc->stats.bLifeMax;
+					gMercProfiles[merc->ubProfile].bLife = min(gMercProfiles[merc->ubProfile].bLife, gMercProfiles[merc->ubProfile].bLifeMax);
+					merc->usValueGoneUp &= ~( HEALTH_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bLifeDelta += amount;
+					merc->usValueGoneUp |= HEALTH_INCREASE;
+				}
 				break;
 			case STAT_STRENGTH:
 				amount = max(min(100 - merc->stats.bStrength, amount), -merc->stats.bStrength);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, STRAMT, amount);
+				merc->stats.bStrength += amount;
+				statId = STRAMT;
+				merc->timeChanges.uiChangeStrengthTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					merc->ubCriticalStatDamage[DAMAGED_STAT_STRENGTH] -= amount;
+					gMercProfiles[merc->ubProfile].bStrength = merc->stats.bStrength;
+					merc->usValueGoneUp &= ~( STRENGTH_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bStrengthDelta += amount;
+					merc->usValueGoneUp |= STRENGTH_INCREASE;
+				}
 				break;
 			case STAT_AGILITY:
 				amount = max(min(100 - merc->stats.bAgility, amount), -merc->stats.bAgility);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, AGILAMT, amount);
+				merc->stats.bAgility += amount;
+				statId = AGILAMT;
+				merc->timeChanges.uiChangeAgilityTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					merc->ubCriticalStatDamage[DAMAGED_STAT_AGILITY] -= amount;
+					gMercProfiles[merc->ubProfile].bAgility = merc->stats.bAgility;
+					merc->usValueGoneUp &= ~( AGIL_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bAgilityDelta += amount;
+					merc->usValueGoneUp |= AGIL_INCREASE;
+				}
 				break;
 			case STAT_DEXTERITY:
 				amount = max(min(100 - merc->stats.bDexterity, amount), -merc->stats.bDexterity);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, DEXTAMT, amount);
+				merc->stats.bDexterity += amount;
+				statId = DEXTAMT;
+				merc->timeChanges.uiChangeDexterityTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					merc->ubCriticalStatDamage[DAMAGED_STAT_DEXTERITY] -= amount;
+					gMercProfiles[merc->ubProfile].bDexterity = merc->stats.bDexterity;
+					merc->usValueGoneUp &= ~( DEX_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bDexterityDelta += amount;
+					merc->usValueGoneUp |= DEX_INCREASE;
+				}
 				break;
 			case STAT_WISDOM:
 				amount = max(min(100 - merc->stats.bWisdom, amount), -merc->stats.bWisdom);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, WISDOMAMT, amount);
+				merc->stats.bWisdom += amount;
+				statId = WISDOMAMT;
+				merc->timeChanges.uiChangeWisdomTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					merc->ubCriticalStatDamage[DAMAGED_STAT_WISDOM] -= amount;
+					gMercProfiles[merc->ubProfile].bWisdom = merc->stats.bWisdom;
+					merc->usValueGoneUp &= ~( WIS_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bWisdomDelta += amount;
+					merc->usValueGoneUp |= WIS_INCREASE;
+				}
 				break;
 			case STAT_LEADERSHIP:
 				amount = max(min(100 - merc->stats.bLeadership, amount), -merc->stats.bLeadership);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, LDRAMT, amount);
+				merc->stats.bLeadership += amount;
+				statId = LDRAMT;
+				merc->timeChanges.uiChangeLeadershipTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					gMercProfiles[merc->ubProfile].bLeadership = merc->stats.bLeadership;
+					merc->usValueGoneUp &= ~( LDR_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bLeadershipDelta += amount;
+					merc->usValueGoneUp |= LDR_INCREASE;
+				}
 				break;
 			case STAT_MARKSMANSHIP:
 				amount = max(min(100 - merc->stats.bMarksmanship, amount), -merc->stats.bMarksmanship);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, MARKAMT, amount);
+				merc->stats.bMarksmanship += amount;
+				statId = MARKAMT;
+				merc->timeChanges.uiChangeMarksmanshipTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					gMercProfiles[merc->ubProfile].bMarksmanship = merc->stats.bMarksmanship;
+					merc->usValueGoneUp &= ~( MRK_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bMarksmanshipDelta += amount;
+					merc->usValueGoneUp |= MRK_INCREASE;
+				}
 				break;
 			case STAT_MECHANICAL:
 				amount = max(min(100 - merc->stats.bMechanical, amount), -merc->stats.bMechanical);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, MECHANAMT, amount);
+				merc->stats.bMechanical += amount;
+				statId = MECHANAMT;
+				merc->timeChanges.uiChangeMechanicalTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					gMercProfiles[merc->ubProfile].bMechanical = merc->stats.bMechanical;
+					merc->usValueGoneUp &= ~( MECH_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bMechanicDelta += amount;
+					merc->usValueGoneUp |= MECH_INCREASE;
+				}
 				break;
 			case STAT_EXPLOSIVE:
 				amount = max(min(100 - merc->stats.bExplosive, amount), -merc->stats.bExplosive);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, EXPLODEAMT, amount);
+				merc->stats.bExplosive += amount;
+				statId = EXPLODEAMT;
+				merc->timeChanges.uiChangeExplosivesTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					gMercProfiles[merc->ubProfile].bExplosive = merc->stats.bExplosive;
+					merc->usValueGoneUp &= ~( EXP_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bExplosivesDelta += amount;
+					merc->usValueGoneUp |= EXP_INCREASE;
+				}
 				break;
 			case STAT_MEDICAL:
 				amount = max(min(100 - merc->stats.bMedical, amount), -merc->stats.bMedical);
-				ChangeStat(&(gMercProfiles[merc->ubProfile]), merc, MEDICALAMT, amount);
+				merc->stats.bMedical += amount;
+				statId = MEDICALAMT;
+				merc->timeChanges.uiChangeMedicalTime = GetJA2Clock();
+
+				if (amount < 0)
+				{
+					gMercProfiles[merc->ubProfile].bMedical = merc->stats.bMedical;
+					merc->usValueGoneUp &= ~( MED_INCREASE );
+				}
+				else
+				{
+					gMercProfiles[merc->ubProfile].bMedicalDelta += amount;
+					merc->usValueGoneUp |= MED_INCREASE;
+				}
 				break;
 			}
+
+			BuildStatChangeString(wTempString, merc->GetName(), amount > 0, amount > 0 ? amount : -amount, statId);
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, wTempString );
 		});
 
 		return 0;
