@@ -198,7 +198,6 @@
 		<bloodbag>0</bloodbag>
 		<emptybloodbag>0</emptybloodbag>
 		<medicalsplint>0</medicalsplint>
-		<fireextinguisher>0</fireextinguisher>
 		<sFireResistance>0</sFireResistance>
 		<STAND_MODIFIERS>
 			<FlatBase>0</FlatBase>
@@ -52284,7 +52283,7 @@
 		<uiIndex>1761</uiIndex>
 		<szItemName>Extinguisher</szItemName>
 		<szLongItemName>Fire Extinguisher</szLongItemName>
-		<szItemDesc>Not as useful as one would think in an actual fire fight. Though we see why you made that error.</szItemDesc>
+		<szItemDesc>Not as useful as one would think in an actual fire fight. Though we can see why you made that error.</szItemDesc>
 		<szBRName>Fire Extinguisher</szBRName>
 		<szBRDesc>A standard fire extinguisher. Remember to P.A.S.S..</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -52306,7 +52305,6 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_ROF>12</BR_ROF>
 		<GrenadeLauncher>1</GrenadeLauncher>
-		<fireextinguisher>1</fireextinguisher>
 		<usOverheatingCooldownFactor>100.0</usOverheatingCooldownFactor>
 		<DamageChance>10</DamageChance>
 		<DirtIncreaseFactor>20.0</DirtIncreaseFactor>

@@ -42,9 +42,12 @@
 	<temperatureModificator>	additive modifier for temperature generation. 1.0 means +100%
 	<dirtModificator>			additive modifier for dirt generation. 1.0 means +100%
 	<ammoflag>			flagmask for various ammo properties:
-							AMMO_CRYO			1			this ammo shock-freezes target (scifi)
-							AMMO_BLIND			2			this ammo will blind if it hits the head
-							AMMO_ANTIMATERIEL	4			this ammo is anti-materiel, bullets can destroy structures
+							AMMO_CRYO				1			this ammo shock-freezes target (scifi)
+							AMMO_BLIND				2			this ammo will blind if it hits the head
+							AMMO_ANTIMATERIEL		4			this ammo is anti-materiel, bullets can destroy structures
+							AMMO_TRAIL_WHITESMOKE	8			this ammo leaves a trail of white smoke
+							AMMO_TRAIL_FIRE			16			this ammo leaves a trail of fire
+
 	<dDamageModifierLife>					multiplier for damage to health
 	<dDamageModifierBreath>					multiplier for damage to breath
 	<dDamageModifierTank>					additional multiplier for damage to health if target is a tank
@@ -537,9 +540,9 @@
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
 		<name>Flame</name>
-		<red>137</red>
-		<green>137</green>
-		<blue>137</blue>
+		<red>255</red>
+		<green>128</green>
+		<blue>40</blue>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -554,8 +557,8 @@
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
-		<highExplosive>0</highExplosive>
-		<explosionSize>0</explosionSize>
+		<highExplosive>979</highExplosive>
+		<explosionSize>4</explosionSize>
 		<dart>0</dart>
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
@@ -566,7 +569,7 @@
 		<spreadPattern />
 		<temperatureModificator>0.5</temperatureModificator>
 		<dirtModificator>0.8</dirtModificator>
-		<ammoflag>0</ammoflag>
+		<ammoflag>16</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 		<dDamageModifierTank>0.0</dDamageModifierTank>
@@ -1445,7 +1448,7 @@
 		<spreadPattern />
 		<temperatureModificator>1.0</temperatureModificator>
 		<dirtModificator>0.8</dirtModificator>
-		<ammoflag>0</ammoflag>
+		<ammoflag>8</ammoflag>
 		<dDamageModifierLife>1.0</dDamageModifierLife>
 		<dDamageModifierBreath>1.0</dDamageModifierBreath>
 		<dDamageModifierTank>0.0</dDamageModifierTank>
