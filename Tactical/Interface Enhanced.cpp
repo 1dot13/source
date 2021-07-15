@@ -2414,6 +2414,24 @@ void InternalInitEDBTooltipRegion( OBJECTTYPE * gpItemDescObject, UINT32 guiCurr
 				MSYS_EnableRegion( &gUDBFasthelpRegions[ iFirstDataRegion + cnt ] );
 				cnt++;
 			}
+
+			////////////////// Ammo with white smoke trail 
+			if ( AmmoTypes[Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType].ammoflag & AMMO_TRAIL_WHITESMOKE )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[49], szUDBGenSecondaryStatsExplanationsTooltipText[49] );
+				SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+				cnt++;
+			}
+
+			//////////////////  Ammo with fire trail 
+			if ( AmmoTypes[Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType].ammoflag & AMMO_TRAIL_FIRE )
+			{
+				swprintf( pStr, L"%s%s", szUDBGenSecondaryStatsTooltipText[50], szUDBGenSecondaryStatsExplanationsTooltipText[50] );
+				SetRegionFastHelpText( &( gUDBFasthelpRegions[iFirstDataRegion + cnt] ), pStr );
+				MSYS_EnableRegion( &gUDBFasthelpRegions[iFirstDataRegion + cnt] );
+				cnt++;
+			}
 		}
 
 		if (Item[ gpItemDescObject->usItem ].usItemClass & IC_EXPLOSV)
@@ -6106,6 +6124,22 @@ void DrawSecondaryStats( OBJECTTYPE * gpItemDescObject )
 			( fComparisonMode && AmmoTypes[Magazine[Item[ gpComparedItemDescObject->usItem ].ubClassIndex].ubAmmoType].ammoflag & AMMO_ANTIMATERIEL ) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 36, gItemDescGenSecondaryRegions[cnt].sLeft+sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop+sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			cnt++;
+		}
+
+		////////////////// Ammo with white smoke trail 
+		if ( ( AmmoTypes[Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType].ammoflag & AMMO_TRAIL_WHITESMOKE && !fComparisonMode ) ||
+			( fComparisonMode && AmmoTypes[Magazine[Item[gpComparedItemDescObject->usItem].ubClassIndex].ubAmmoType].ammoflag & AMMO_TRAIL_WHITESMOKE ) )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 46, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
+			cnt++;
+		}
+
+		////////////////// Ammo with fire trail 
+		if ( ( AmmoTypes[Magazine[Item[gpItemDescObject->usItem].ubClassIndex].ubAmmoType].ammoflag & AMMO_TRAIL_FIRE && !fComparisonMode ) ||
+			( fComparisonMode && AmmoTypes[Magazine[Item[gpComparedItemDescObject->usItem].ubClassIndex].ubAmmoType].ammoflag & AMMO_TRAIL_FIRE ) )
+		{
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemInfoSecondaryIcon, 47, gItemDescGenSecondaryRegions[cnt].sLeft + sOffsetX, gItemDescGenSecondaryRegions[cnt].sTop + sOffsetY, VO_BLT_SRCTRANSPARENCY, NULL );
 			cnt++;
 		}
 	}

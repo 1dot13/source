@@ -779,7 +779,6 @@ extern OBJECTTYPE gTempObject;
 // extended flagmask to UINT64
 #define EMPTY_BLOOD_BAG			0x0000000100000000		// this item is a empty blood bag
 #define MEDICAL_SPLINT			0x0000000200000000		// this item is a medical splint that can be applied to some diseases
-#define FIREEXTINGUISHER		0x0000000400000000		// this item is a fire extinguisher, which results in a white trail of smoke when firing
 
 // ----------------------------------------------------------------
 

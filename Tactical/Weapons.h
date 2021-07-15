@@ -165,10 +165,10 @@ enum
 #define AMMO_CRYO				0x00000001	//1			// this ammo shock-freezes target
 #define AMMO_BLIND				0x00000002	//2			// this ammo will blind if it hits the head
 #define AMMO_ANTIMATERIEL		0x00000004	//4			// this ammo is anti-materiel, bullets can destroy structures
-/*#define CONCERTINA				0x00000008	//8
+#define AMMO_TRAIL_WHITESMOKE	0x00000008	//8			// this ammo leaves a trail of white smoke
 
-#define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
-#define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
+#define AMMO_TRAIL_FIRE			0x00000010	//16		// this ammo leaves a trail of fire
+/*#define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
 #define COW_MEAT   				0x00000040	//64		// retrieve this by gutting a cow
 #define BELT_FED				0x00000080	//128		// item can be fed externally
 

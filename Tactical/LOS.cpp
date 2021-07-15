@@ -4819,14 +4819,14 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
-	else if ( usHandItem == FLAMETHROWER )
-	{
-		usBulletFlags |= BULLET_FLAG_FLAME;
-		ubSpreadIndex = 2;
-	}
-	else if ( Item[usHandItem].usItemFlag & FIREEXTINGUISHER )
+	else if ( AmmoTypes[( *pObjAttHand )[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_TRAIL_WHITESMOKE )
 	{
 		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
+		ubSpreadIndex = 2;
+	}
+	else if ( AmmoTypes[( *pObjAttHand )[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_TRAIL_FIRE )
+	{
+		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
 	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
@@ -5318,14 +5318,14 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
-	else if ( usHandItem == FLAMETHROWER )
-	{
-		usBulletFlags |= BULLET_FLAG_FLAME;
-		ubSpreadIndex = 2;
-	}
-	else if ( Item[usHandItem].usItemFlag & FIREEXTINGUISHER )
+	else if ( AmmoTypes[( *pObjAttHand )[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_TRAIL_WHITESMOKE )
 	{
 		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
+		ubSpreadIndex = 2;
+	}
+	else if ( AmmoTypes[( *pObjAttHand )[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_TRAIL_FIRE )
+	{
+		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
 	// HEADROCK HAM B2.5: Set tracer effect on/off for individual bullets in a Tracer Magazine, as part of the
@@ -6004,14 +6004,14 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
-	else if ( usItem == FLAMETHROWER )
-	{
-		usBulletFlags |= BULLET_FLAG_FLAME;
-		ubSpreadIndex = 2;
-	}
-	else if ( Item[usItem].usItemFlag & FIREEXTINGUISHER )
+	else if ( AmmoTypes[ammotype].ammoflag & AMMO_TRAIL_WHITESMOKE )
 	{
 		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
+		ubSpreadIndex = 2;
+	}
+	else if ( AmmoTypes[ammotype].ammoflag & AMMO_TRAIL_FIRE )
+	{
+		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
 
@@ -6589,14 +6589,14 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
-	else if ( usItem == FLAMETHROWER )
-	{
-		usBulletFlags |= BULLET_FLAG_FLAME;
-		ubSpreadIndex = 2;
-	}
-	else if ( Item[usItem].usItemFlag & FIREEXTINGUISHER )
+	else if ( AmmoTypes[ammotype].ammoflag & AMMO_TRAIL_WHITESMOKE )
 	{
 		usBulletFlags |= BULLET_FLAG_WHITESMOKE;
+		ubSpreadIndex = 2;
+	}
+	else if ( AmmoTypes[ammotype].ammoflag & AMMO_TRAIL_FIRE )
+	{
+		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
 

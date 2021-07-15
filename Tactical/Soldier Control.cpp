@@ -5959,8 +5959,10 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	{
 		ubReason = TAKE_DAMAGE_VEHICLE_TRAUMA;
 	}
-	// Flugente: it would be more reasonable to check for the ammo or gun details, but that's what is used in other locations
-	else if ( usWeaponIndex == FLAMETHROWER )
+	// Flugente: check the ammo
+	else if ( ubAttackerID != NOBODY
+		&& MercPtrs[ubAttackerID]->inv[HANDPOS].exists()
+		&& AmmoTypes[*&( MercPtrs[ubAttackerID]->inv[HANDPOS] )[0]->data.gun.ubGunAmmoType].ammoflag & AMMO_TRAIL_FIRE )
 	{
 		ubReason = TAKE_DAMAGE_GAS_FIRE;
 
