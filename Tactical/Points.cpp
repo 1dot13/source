@@ -3157,7 +3157,7 @@ INT16 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJEC
 	return GetAPsToReload(pGun); // added by SANDRO - safety check
 }
 
-INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
+INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 {
 	OBJECTTYPE *	pObj;
 	INT8					bSlot, bSlot2, bExcludeSlot;
@@ -3205,11 +3205,17 @@ INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 		bSlot = FindAmmoToReload( pSoldier, HANDPOS, NO_SLOT );
 		if (bSlot != NO_SLOT)
 		{
-			// we would reload using this ammo!
-			bAPCost += GetAPsToReloadGunWithAmmo( pSoldier, pObj, &(pSoldier->inv[bSlot] ) );
+			// Flugente: only reload if it's empty, or we really want to
+			if ( aReloadEvenIfNotEmpty || !EnoughAmmo( pSoldier, FALSE, HANDPOS ) )
+			{
+				// we would reload using this ammo!
+				bAPCost += GetAPsToReloadGunWithAmmo( pSoldier, pObj, &( pSoldier->inv[bSlot] ) );
+			}
 		}
 
-		if ( pSoldier->IsValidSecondHandShotForReloadingPurposes( ) )
+		// Flugente: only reload if it's empty, or we really want to
+		if ( pSoldier->IsValidSecondHandShotForReloadingPurposes()
+			&& ( aReloadEvenIfNotEmpty || !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS ) ) )
 		{
 			// Flugente: check for underbarrel weapons and use that object if necessary
 			pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );

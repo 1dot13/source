@@ -198,7 +198,7 @@ BOOLEAN EvaluateValidMerge( UINT16 usMerge, UINT16 usItem, UINT16 * pusResult, U
 // is the item passed a medical/ first aid kit? and what type?
 INT8 IsMedicalKitItem( OBJECTTYPE *pObject );
 
-BOOLEAN AutoReload( SOLDIERTYPE * pSoldier );
+BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty = true );
 INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot );
 
 void SwapOutHandItem( SOLDIERTYPE * pSoldier );

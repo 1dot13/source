@@ -1248,7 +1248,7 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos , BO
 
 		//CHRISL: We need to only check the second hand if the weapon in the second hand is onehanded
 		// Check for enough ammo...
-		if ( !EnoughAmmo( pSoldier, FALSE, HANDPOS ) || (pSoldier->IsValidSecondHandShotForReloadingPurposes( ) && !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS) && !Item[pSoldier->inv[SECONDHANDPOS].usItem].twohanded ) )
+		if ( !EnoughAmmo( pSoldier, FALSE, HANDPOS ) || (pSoldier->IsValidSecondHandShotForReloadingPurposes( ) && !Item[pSoldier->inv[SECONDHANDPOS].usItem].twohanded && !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS) ) )
 		{
 			// Check if ANY ammo exists.....
 			if ( FindAmmoToReload( pSoldier, HANDPOS, NO_SLOT ) == NO_SLOT )
@@ -1259,7 +1259,7 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos , BO
 			else
 			{
 				// Check APs to reload...
-				gsCurrentActionPoints = GetAPsToAutoReload( pSoldier );
+				gsCurrentActionPoints = GetAPsToAutoReload( pSoldier, false );
 
 				gfUIDisplayActionPoints = TRUE;
 				//gUIDisplayActionPointsOffX = 14;
@@ -1972,7 +1972,7 @@ UINT8 HandleNonActivatedTossCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEA
 			else
 			{
 				// Check APs to reload...
-				gsCurrentActionPoints = GetAPsToAutoReload( pSoldier );
+				gsCurrentActionPoints = GetAPsToAutoReload( pSoldier, false );
 
 				gfUIDisplayActionPoints = TRUE;
 				//gUIDisplayActionPointsOffX = 14;

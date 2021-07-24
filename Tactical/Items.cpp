@@ -3889,12 +3889,12 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 	}
 }
 
-BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
+BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 {
 	OBJECTTYPE *pObj, *pObj2;
 	INT8		bSlot;
 	INT16 bAPCost;
-	BOOLEAN		fRet;
+	BOOLEAN		fRet = FALSE;
 
 	CHECKF( pSoldier );
 
@@ -3996,38 +3996,45 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 
 	if (Item[pObj->usItem].usItemClass == IC_GUN || Item[pObj->usItem].usItemClass == IC_LAUNCHER)
 	{
-		bSlot = FindAmmoToReload( pSoldier, HANDPOS, NO_SLOT );
-		if (bSlot != NO_SLOT)
+		// Flugente: only reload if it's empty, or we really want to
+		if ( aReloadEvenIfNotEmpty || !EnoughAmmo( pSoldier, FALSE, HANDPOS ) )
 		{
-			// reload using this ammo!
-			fRet = ReloadGun( pSoldier, pObj, &(pSoldier->inv[bSlot]) );
-			// if we are valid for two-pistol shooting (reloading) and we have enough APs still
-			// then do a reload of both guns!
-			if ( (fRet == TRUE) && pSoldier->IsValidSecondHandShotForReloadingPurposes( ) )
+			bSlot = FindAmmoToReload( pSoldier, HANDPOS, NO_SLOT );
+			if ( bSlot != NO_SLOT )
 			{
-				// Flugente: check for underbarrel weapons and use that object if necessary
-				pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
+				// reload using this ammo!
+				fRet = ReloadGun( pSoldier, pObj, &( pSoldier->inv[bSlot] ) );
+			}
+		}
 
-				bSlot = FindAmmoToReload( pSoldier, SECONDHANDPOS, NO_SLOT );
-				if (bSlot != NO_SLOT)
+		// if we are valid for two-pistol shooting (reloading) and we have enough APs still
+		// then do a reload of both guns!
+		// Flugente: only reload if it's empty, or we really want to
+		if ( pSoldier->IsValidSecondHandShotForReloadingPurposes()
+			&& ( aReloadEvenIfNotEmpty || !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS ) ) )
+		{
+			// Flugente: check for underbarrel weapons and use that object if necessary
+			pObj = pSoldier->GetUsedWeapon( &( pSoldier->inv[SECONDHANDPOS] ) );
+
+			bSlot = FindAmmoToReload( pSoldier, SECONDHANDPOS, NO_SLOT );
+			if ( bSlot != NO_SLOT )
+			{
+				// ce would reload using this ammo!
+				bAPCost = GetAPsToReloadGunWithAmmo( pSoldier, pObj, &( pSoldier->inv[bSlot] ) );
+				if ( EnoughPoints( pSoldier, (INT16)bAPCost, 0, FALSE ) )
 				{
-					// ce would reload using this ammo!
-					bAPCost = GetAPsToReloadGunWithAmmo( pSoldier, pObj, &(pSoldier->inv[bSlot] ) );
-					if ( EnoughPoints( pSoldier, (INT16) bAPCost, 0, FALSE ) )
-					{
-						// reload the 2nd gun too
-						fRet = ReloadGun( pSoldier, pObj, &(pSoldier->inv[bSlot]) );
-					}
-					else
-					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_RELOAD_ONLY_ONE_GUN ], pSoldier->GetName() );
-					}
+					// reload the 2nd gun too
+					fRet = ReloadGun( pSoldier, pObj, &( pSoldier->inv[bSlot] ) );
+				}
+				else
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_RELOAD_ONLY_ONE_GUN], pSoldier->GetName() );
 				}
 			}
-
-			DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-			return( fRet );
 		}
+
+		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+		return( fRet );
 	}
 
 	// couldn't reload

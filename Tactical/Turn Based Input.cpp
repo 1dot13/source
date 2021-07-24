@@ -5999,12 +5999,12 @@ BOOLEAN HandleUIReloading( SOLDIERTYPE *pSoldier )
 	if ( guiCurrentUICursor == GOOD_RELOAD_UICURSOR )
 	{
 		// Check APs to reload...
-		bAPs = GetAPsToAutoReload( pSoldier );
+		bAPs = GetAPsToAutoReload( pSoldier, false );
 
 		if ( EnoughPoints( pSoldier, bAPs, 0,TRUE ) )
 		{
 			// OK, we have some ammo we can reload.... reload now!
-			if ( !AutoReload( pSoldier ) )
+			if ( !AutoReload( pSoldier, false ) )
 			{
 				// Do we say we could not reload gun...?
 			}
@@ -8949,12 +8949,12 @@ void HandleTacticalReload()
 
 	// Do we have the ammo to reload?
 	// Check APs to reload...
-	bAPs = GetAPsToAutoReload(pSoldier);
+	bAPs = GetAPsToAutoReload(pSoldier, false);
 
 	if (EnoughPoints(pSoldier, bAPs, 0, TRUE))
 	{
 		// OK, we have some ammo we can reload.... reload now!
-		if (!AutoReload(pSoldier))
+		if ( !AutoReload(pSoldier, false) )
 		{
 			// Do we say we could not reload gun...?
 			pSoldier->DoMercBattleSound(BATTLE_SOUND_CURSE1);

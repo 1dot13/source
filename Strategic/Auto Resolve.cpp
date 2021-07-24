@@ -92,7 +92,7 @@ extern UINT8 gubReinforcementMinEnemyStaticGroupSize;
 extern BOOLEAN gfStrategicMilitiaChangesMade;
 
 extern void ResetMilitia();
-extern BOOLEAN AutoReload( SOLDIERTYPE *pSoldier );
+extern BOOLEAN AutoReload( SOLDIERTYPE *pSoldier, bool aReloadEvenIfNotEmpty );
 extern HVSURFACE ghFrameBuffer;
 BOOLEAN gfTransferTacticalOppositionToAutoResolve = FALSE;
 
