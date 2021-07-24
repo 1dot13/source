@@ -2502,17 +2502,20 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		PlayWeaponSound(pSoldier, pObjHand, pObjAttHand, usUBItem);
 
 		// ONLY DEDUCT FOR THE FIRST HAND when doing two-pistol attacks
-		if (pSoldier->IsValidSecondHandShot() && (*pObjHand)[0]->data.gun.bGunStatus >= USABLE && (*pObjHand)[0]->data.gun.bGunAmmoStatus > 0)
+		if ( !pSoldier->usBarrelCounter )
 		{
-			// only deduct APs when the main gun fires
-			if (pSoldier->ubAttackingHand == HANDPOS)
+			if ( pSoldier->IsValidSecondHandShot() && ( *pObjHand )[0]->data.gun.bGunStatus >= USABLE && ( *pObjHand )[0]->data.gun.bGunAmmoStatus > 0 )
 			{
-				DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
+				// only deduct APs when the main gun fires
+				if ( pSoldier->ubAttackingHand == HANDPOS )
+				{
+					DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+				}
 			}
-		}
-		else
-		{
-			DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
+			else
+			{
+				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+			}
 		}
 	}
 
@@ -3220,17 +3223,20 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		PlayWeaponSound(pSoldier, pObjHand, pObjAttHand, usUBItem);
 
 		// ONLY DEDUCT FOR THE FIRST HAND when doing two-pistol attacks
-		if (pSoldier->IsValidSecondHandShot() && (*pObjUsed)[0]->data.gun.bGunStatus >= USABLE && (*pObjUsed)[0]->data.gun.bGunAmmoStatus > 0)
+		if ( !pSoldier->usBarrelCounter )
 		{
-			// only deduct APs when the main gun fires
-			if (pSoldier->ubAttackingHand == HANDPOS)
+			if ( pSoldier->IsValidSecondHandShot() && ( *pObjUsed )[0]->data.gun.bGunStatus >= USABLE && ( *pObjUsed )[0]->data.gun.bGunAmmoStatus > 0 )
 			{
-				DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
+				// only deduct APs when the main gun fires
+				if ( pSoldier->ubAttackingHand == HANDPOS )
+				{
+					DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+				}
 			}
-		}
-		else
-		{
-			DeductPoints(pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT);
+			else
+			{
+				DeductPoints( pSoldier, sAPCost, iBPCost, AFTERSHOT_INTERRUPT );
+			}
 		}
 	}
 
