@@ -3568,28 +3568,25 @@ int i;
 
 static int l_BoxerExists(lua_State *L)
 {
-BOOLEAN Bool;
-
-	Bool = BoxerExists( );
+	BOOLEAN Bool = BoxerExists( );
 	
 	lua_pushboolean(L, Bool);
 	
-return 1;
+	return 1;
 }
 
 static int l_gubBoxerID(lua_State *L)
 {
 	UINT8  n = lua_gettop(L);
-	UINT8 val, val2;
 
-	for (int i = 1; i <= n; i++)
+	if ( n >= 2 )
 	{
-		if (i == 1) val = lua_tointeger(L, i);
-		if (i == 2) val2 = lua_tointeger(L, i);
-	}
+		UINT8 val = lua_tointeger( L, 1 );
+		UINT8 val2 = lua_tointeger( L, 2 );
 
-	if (val <= 2)
-		gubBoxerID[val] = val2;
+		if ( val <= 2 )
+			gubBoxerID[val] = val2;
+	}
 
 	return 0;
 }

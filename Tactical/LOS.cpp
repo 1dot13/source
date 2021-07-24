@@ -6407,7 +6407,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	}
 	else
 	{
-		ubVolume = __max( 1, ( ubVolume * GetPercentNoiseVolume( pObj ) ) / 100 );
+		ubVolume = __max( 1, ( ubVolume * noisefactor ) / 100 );
 	}
 
 	MakeNoise( NOBODY, gridno, 0, pThrower ? pThrower->bOverTerrainType : FLAT_GROUND, ubVolume, NOISE_GUNFIRE );
