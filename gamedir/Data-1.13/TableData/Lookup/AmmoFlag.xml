@@ -8,4 +8,16 @@
 		<id>1</id>
 		<name>Neurotoxin</name>
 	</AmmoFlag>
+	<AmmoFlag>
+		<id>2</id>
+		<name>Anti-Materiel</name>
+	</AmmoFlag>
+	<AmmoFlag>
+		<id>3</id>
+		<name>Trail - white smoke</name>
+	</AmmoFlag>
+	<AmmoFlag>
+		<id>4</id>
+		<name>Trail - fire</name>
+	</AmmoFlag>
 </JA2Data>

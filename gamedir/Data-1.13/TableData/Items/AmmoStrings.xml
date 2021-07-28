@@ -285,15 +285,18 @@
 		<uiIndex>48</uiIndex>
 		<AmmoCaliber>Cannon Ball</AmmoCaliber>
 		<BRCaliber>Cannon Ball</BRCaliber>
+		<NWSSCaliber>Cannon Ball</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>49</uiIndex>
 		<AmmoCaliber>Pepper Spray</AmmoCaliber>
 		<BRCaliber>Pepper Spray</BRCaliber>
+		<NWSSCaliber>Pepper Spray</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>50</uiIndex>
 		<AmmoCaliber>Fire retardant</AmmoCaliber>
 		<BRCaliber>Fire retardant</BRCaliber>
+		<NWSSCaliber>Fire retardant</NWSSCaliber>
 	</AMMO>
 </AMMOLIST>
