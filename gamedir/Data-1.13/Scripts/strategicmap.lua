@@ -634,6 +634,8 @@ end
 -- this function is called whenever we enter a sector in tactical
 function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPlayerControlled )
 	
+	currenthour = GetWorldHour()
+	
 	if ( gubQuest( Quests.QUEST_KINGPIN_ANGEL_MARIA ) == qStatus.QUESTINPROGRESS ) then
 	
 		-- Flugente: if the bounty hunter quest is active, add bounty hunters to sectors (location determined on quest start)
@@ -832,67 +834,111 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 		end
 	end
 	
+	-- add merchants
 	if ( bSectorZ == 0 ) then
 		-- Drassen
 		if ( sSectorX == 13 and sSectorY == SectorY.MAP_ROW_D) then
-			if ( GetTownLoyaltyRating(2) > 50 ) then
-				-- wine store
-				CreateCivilian(17198, 0, 55, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+		
+			if ( currenthour > 7 and currenthour < 19 ) then
+			
+				if ( GetTownLoyaltyRating(2) > 50 ) then
+					-- wine store
+					CreateCivilian(17198, 0, 55, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+				end
+				
+				-- general store
+				CreateCivilian(10943, 0, 41, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+					
 			end
-			-- general store
-			CreateCivilian(10943, 0, 41, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+			
 		-- Alma
 		elseif ( sSectorX == 14 and sSectorY == SectorY.MAP_ROW_I) then
-			-- wine store
-			CreateCivilian(8530, 0, 56, Bodytype.MANCIV, Vest.GREYVEST, -1, -1, -1, -1, -1, -1, -1)
-			-- general store - both traders use the same inventory
-			CreateCivilian(13839, 0, 42, Bodytype.FATCIV, Vest.YELLOWVEST, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
-			CreateCivilian(12878, 0, 42, Bodytype.DRESSCIV, Vest.YELLOWVEST, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
+		
+			if ( currenthour > 7 and currenthour < 19 ) then
+			
+				-- wine store
+				CreateCivilian(8530, 0, 56, Bodytype.MANCIV, Vest.GREYVEST, -1, -1, -1, -1, -1, -1, -1)
+				-- general store - both traders use the same inventory
+				CreateCivilian(13839, 0, 42, Bodytype.FATCIV, Vest.YELLOWVEST, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(12878, 0, 42, Bodytype.DRESSCIV, Vest.YELLOWVEST, Pants.BLUEPANTS, -1, -1, -1, -1, -1, -1)
+			
+			end
+			
 		-- Cambria
 		elseif ( sSectorX == 9 and sSectorY == SectorY.MAP_ROW_F) then
 			-- drug dealer (university ruins)
 			CreateCivilian(10032, 0, 60, Bodytype.HATKIDCIV, -1, -1, -1, -1, -1, -1, -1, -1)
 		elseif ( sSectorX == 9 and sSectorY == SectorY.MAP_ROW_G) then
-			-- wine store
-			CreateCivilian(17657, 0, 57, Bodytype.MANCIV, Vest.JEANVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
-			CreateCivilian(16055, 0, 57, Bodytype.REGFEMALE, Vest.JEANVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
-			-- pharmacy
-			CreateCivilian(11627, 0, 47, Bodytype.FATCIV, Vest.WHITEVEST, -1, Hair.WHITEHEAD, -1, -1, -1, -1, -1)
-			-- restaurant
-			CreateCivilian(15630, 0, 49, Bodytype.MANCIV, Vest.GYELLOWSHIRT, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
-			CreateCivilian(15321, 0, 49, Bodytype.MINICIV, Vest.GYELLOWSHIRT, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
-			-- general store
-			CreateCivilian(15117, 0, 43, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+		
+			if ( currenthour > 7 and currenthour < 19 ) then
+			
+				-- wine store
+				CreateCivilian(17657, 0, 57, Bodytype.MANCIV, Vest.JEANVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(16055, 0, 57, Bodytype.REGFEMALE, Vest.JEANVEST, Pants.GREENPANTS, -1, -1, -1, -1, -1, -1)
+				-- pharmacy
+				CreateCivilian(11627, 0, 47, Bodytype.FATCIV, Vest.WHITEVEST, -1, Hair.WHITEHEAD, -1, -1, -1, -1, -1)
+				-- restaurant
+				CreateCivilian(15630, 0, 49, Bodytype.MANCIV, Vest.GYELLOWSHIRT, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
+				CreateCivilian(15321, 0, 49, Bodytype.MINICIV, Vest.GYELLOWSHIRT, Pants.BEIGEPANTS, -1, -1, -1, -1, -1, -1)
+				-- general store
+				CreateCivilian(15117, 0, 43, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+			
+			end
+			
 		-- Grumm
 		elseif ( sSectorX == 1 and sSectorY == SectorY.MAP_ROW_H) then
-			-- general store
-			CreateCivilian(12430, 0, 44, Bodytype.BIGMALE, -1, -1, -1, -1, -1, -1, -1, -1)
-			-- wine store
-			CreateCivilian(13533, 0, 58, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
-			-- restaurant
-			CreateCivilian(12722, 0, 50, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
-			-- tool shop
-			CreateCivilian(8362, 0, 61, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+		
+			if ( currenthour > 7 and currenthour < 19 ) then
+			
+				-- general store
+				CreateCivilian(12430, 0, 44, Bodytype.BIGMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+				-- wine store
+				CreateCivilian(13533, 0, 58, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+				-- restaurant
+				CreateCivilian(12722, 0, 50, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
+				-- tool shop
+				CreateCivilian(8362, 0, 61, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+			
+			end
+			
 		-- Balime
 		elseif ( sSectorX == 12 and sSectorY == SectorY.MAP_ROW_L) then
-			-- luxury store
-			CreateCivilian(9653, CivGroup.LOYAL_CIV_GROUP, 64, Bodytype.MANCIV, -1, -1, -1, -1, 212, 264, -1, -1)
+		
+			if ( currenthour > 7 and currenthour < 19 ) then
+			
+				-- luxury store
+				CreateCivilian(9653, CivGroup.LOYAL_CIV_GROUP, 64, Bodytype.MANCIV, -1, -1, -1, -1, 212, 264, -1, -1)
+				
+			end
+			
 		-- gas station near Balime	
 		elseif ( sSectorX == 10 and sSectorY == SectorY.MAP_ROW_L) then
-			-- restaurant
-			CreateCivilian(11932, 0, 51, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
+		
+			if ( currenthour > 7 and currenthour < 19 ) then
+			
+				-- restaurant
+				CreateCivilian(11932, 0, 51, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
+				
+			end
+			
 		-- San Mona
 		elseif ( sSectorX == 6 and sSectorY == SectorY.MAP_ROW_C) then
 			-- only add merchants if Kingpin is alive and not hostile towards us
 			if ( (CheckFact( Facts.FACT_KINGPIN_DEAD, 0 ) == false) and
 			(CheckFact( Facts.FACT_KINGPIN_IS_ENEMY, 0 ) == false) and 
 			(CheckMercIsDead ( Profil.KINGPIN ) == false) ) then
-				-- restaurant
-				CreateCivilian(16351, CivGroup.KINGPIN_CIV_GROUP, 66, Bodytype.DRESSCIV, -1, -1, -1, -1, -1, -1, -1, -1)
-				-- armour store (Skin Tight Fashions)
-				CreateCivilian(13010, CivGroup.KINGPIN_CIV_GROUP, 67, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
-				-- hunting store
-				CreateCivilian(11098, CivGroup.KINGPIN_CIV_GROUP, 62, Bodytype.REGMALE, Vest.BROWNVEST, Pants.GREENPANTS, -1, -1, 763, 135, 288, 284)
+			
+				if ( currenthour > 7 and currenthour < 19 ) then
+				
+					-- restaurant
+					CreateCivilian(16351, CivGroup.KINGPIN_CIV_GROUP, 66, Bodytype.DRESSCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+					-- armour store (Skin Tight Fashions)
+					CreateCivilian(13010, CivGroup.KINGPIN_CIV_GROUP, 67, Bodytype.MINICIV, -1, -1, -1, -1, -1, -1, -1, -1)
+					-- hunting store
+					CreateCivilian(11098, CivGroup.KINGPIN_CIV_GROUP, 62, Bodytype.REGMALE, Vest.BROWNVEST, Pants.GREENPANTS, -1, -1, 763, 135, 288, 284)
+				
+				end
+				
 			end
 			
 			-- if we haven't pissed of the black market, spawn dealer
@@ -913,29 +959,41 @@ function HandleSectorTacticalEntry( sSectorX, sSectorY, bSectorZ, fHasEverBeenPl
 			if ( (CheckFact( Facts.FACT_KINGPIN_DEAD, 0 ) == false) and
 			(CheckFact( Facts.FACT_KINGPIN_IS_ENEMY, 0 ) == false) and 
 			(CheckMercIsDead ( Profil.KINGPIN ) == false) ) then
-				-- general store
-				CreateCivilian(6641, CivGroup.KINGPIN_CIV_GROUP, 45, Bodytype.REGMALE, -1, -1, -1, -1, 694, 107, 37, -1)
-				-- construction materials store
-				CreateCivilian(20549, CivGroup.KINGPIN_CIV_GROUP, 63, Bodytype.STOCKYMALE, -1, -1, -1, -1, 13, 161, 302, 135)
-				-- restaurant
-				CreateCivilian(16755, CivGroup.KINGPIN_CIV_GROUP, 52, Bodytype.MANCIV, -1, -1, -1, -1, 759, -1, -1, -1)
-				-- wine store
-				CreateCivilian(10804, CivGroup.KINGPIN_CIV_GROUP, 59, Bodytype.REGFEMALE, -1, -1, -1, -1, 340, 107, 302, 284)
+			
+				if ( currenthour > 7 and currenthour < 19 ) then
+				
+					-- general store
+					CreateCivilian(6641, CivGroup.KINGPIN_CIV_GROUP, 45, Bodytype.REGMALE, -1, -1, -1, -1, 694, 107, 37, -1)
+					-- construction materials store
+					CreateCivilian(20549, CivGroup.KINGPIN_CIV_GROUP, 63, Bodytype.STOCKYMALE, -1, -1, -1, -1, 13, 161, 302, 135)
+					-- restaurant
+					CreateCivilian(16755, CivGroup.KINGPIN_CIV_GROUP, 52, Bodytype.MANCIV, -1, -1, -1, -1, 759, -1, -1, -1)
+					-- wine store
+					CreateCivilian(10804, CivGroup.KINGPIN_CIV_GROUP, 59, Bodytype.REGFEMALE, -1, -1, -1, -1, 340, 107, 302, 284)
+				
+				end
+				
 			end
 			
 		-- Chitzena
 		-- Meduna
 		elseif ( sSectorX == 4 and sSectorY == SectorY.MAP_ROW_O) then
-			-- posh general store
-			CreateCivilian(10503, CivGroup.LOYAL_CIV_GROUP, 46, Bodytype.MINICIV, -1, -1, -1, -1, 212, -1, -1, -1)
-			-- restaurant
-			CreateCivilian(18465, CivGroup.LOYAL_CIV_GROUP, 53, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
-			-- restaurant
-			CreateCivilian(9840, CivGroup.LOYAL_CIV_GROUP, 54, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
-			-- luxury store
-			CreateCivilian(10916, CivGroup.LOYAL_CIV_GROUP, 65, Bodytype.MANCIV, -1, -1, -1, -1, 264, -1, -1, -1)
-			-- pharmacy
-			CreateCivilian(11579, CivGroup.LOYAL_CIV_GROUP, 48, Bodytype.FATCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+		
+			if ( currenthour > 7 and currenthour < 19 ) then
+			
+				-- posh general store
+				CreateCivilian(10503, CivGroup.LOYAL_CIV_GROUP, 46, Bodytype.MINICIV, -1, -1, -1, -1, 212, -1, -1, -1)
+				-- restaurant
+				CreateCivilian(18465, CivGroup.LOYAL_CIV_GROUP, 53, Bodytype.MANCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+				-- restaurant
+				CreateCivilian(9840, CivGroup.LOYAL_CIV_GROUP, 54, Bodytype.REGFEMALE, -1, -1, -1, -1, -1, -1, -1, -1)
+				-- luxury store
+				CreateCivilian(10916, CivGroup.LOYAL_CIV_GROUP, 65, Bodytype.MANCIV, -1, -1, -1, -1, 264, -1, -1, -1)
+				-- pharmacy
+				CreateCivilian(11579, CivGroup.LOYAL_CIV_GROUP, 48, Bodytype.FATCIV, -1, -1, -1, -1, -1, -1, -1, -1)
+			
+			end
+			
 		end
 	elseif ( bSectorZ == 1 ) then
 		-- We spawn a rebel 'quartermaster' in the rebel basement. He doesn't have much to offer, and it isn't exactly quality ware, but better than nothing
