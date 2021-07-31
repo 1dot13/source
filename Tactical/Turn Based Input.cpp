@@ -4044,70 +4044,78 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'n':
-				if( fAlt )
+				if ( !AreInMeanwhile() )
 				{
-					static UINT16 gQuoteNum = 0;
+					if ( fAlt )
+					{
+						static UINT16 gQuoteNum = 0;
 
-					if ( INFORMATION_CHEAT_LEVEL( ) )
-					{
-						if( gfUIFullTargetFound )
+						if ( INFORMATION_CHEAT_LEVEL() )
 						{
-							TacticalCharacterDialogue( MercPtrs[ gusUIFullTargetID ], gQuoteNum );
-							gQuoteNum++;
+							if ( gfUIFullTargetFound )
+							{
+								TacticalCharacterDialogue( MercPtrs[gusUIFullTargetID], gQuoteNum );
+								gQuoteNum++;
+							}
 						}
 					}
-				}
-				else if( fCtrl )
-				{
+					else if ( fCtrl )
+					{
 #if 0
-					if ( INFORMATION_CHEAT_LEVEL( ) )
-					{
-						if( gfUIShowCurIntTile ^= TRUE )
+						if ( INFORMATION_CHEAT_LEVEL() )
 						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection ON." );
-							gubIntTileCheckFlags	= INTILE_CHECK_FULL;
+							if ( gfUIShowCurIntTile ^= TRUE )
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection ON." );
+								gubIntTileCheckFlags = INTILE_CHECK_FULL;
+							}
+							else
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection OFF." );
+								gubIntTileCheckFlags = INTILE_CHECK_SELECTIVE;
+							}
 						}
-						else
-						{
-							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Turning Enhanced mouse detection OFF." );
-							gubIntTileCheckFlags	= INTILE_CHECK_SELECTIVE;
-						}
-					}
 #endif
+					}
+					else
+					{
+						if ( !CycleSoldierFindStack( usMapPos ) )// Are we over a merc stack?
+							CycleIntTileFindStack( usMapPos ); // If not, now check if we are over a struct stack
+					}
 				}
-				else
-					if( !CycleSoldierFindStack( usMapPos ) )// Are we over a merc stack?
-						CycleIntTileFindStack( usMapPos ); // If not, now check if we are over a struct stack
 				break;
 
 			case 'o':
 
-				if( fAlt )
+				if ( !AreInMeanwhile() )
 				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					if ( fAlt )
 					{
-						gStrategicStatus.usPlayerKills += NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
-						ObliterateSector();
-					}
-				}
-				else if(fCtrl)
-				{
-					if ( CHEATER_CHEAT_LEVEL( ) )
-					{
-						CreatePlayerControlledMonster();
-					}
-				}
-				else
-				{
-					// nothing in hand and the Options Screen button for whichever panel we're in must be enabled
-					if ( ( gpItemPointer == NULL ) && !gfDisableTacticalPanelButtons &&
-						( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ OPTIONS_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
-					{
-						if( !fDisableMapInterfaceDueToBattle )
+						if ( CHEATER_CHEAT_LEVEL() )
 						{
-							// go to Options screen
-							guiPreviousOptionScreen = GAME_SCREEN;
-							LeaveTacticalScreen( OPTIONS_SCREEN );
+							gStrategicStatus.usPlayerKills += NumEnemiesInAnySector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+							ObliterateSector();
+						}
+					}
+					else if ( fCtrl )
+					{
+						if ( CHEATER_CHEAT_LEVEL() )
+						{
+							CreatePlayerControlledMonster();
+						}
+					}
+					else
+					{
+						// nothing in hand and the Options Screen button for whichever panel we're in must be enabled
+						if ( ( gpItemPointer == NULL ) && !gfDisableTacticalPanelButtons &&
+							( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[iSMPanelButtons[OPTIONS_BUTTON]]->uiFlags & BUTTON_ENABLED ) ) )
+						{
+							if ( !fDisableMapInterfaceDueToBattle )
+							{
+								// go to Options screen
+								guiPreviousOptionScreen = GAME_SCREEN;
+								LeaveTacticalScreen( OPTIONS_SCREEN );
+							}
 						}
 					}
 				}
@@ -4206,88 +4214,94 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case 's':
 
-				if( fCtrl )
+				if ( !AreInMeanwhile() )
 				{
-					if ( fAlt )
-						RemoveCharacterFromSquads(MercPtrs[gusSelectedSoldier]);
-
-					else if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) && !is_networked)
+					if ( fCtrl )
 					{
-						// WANNE: Do not allow saving via the save screen when it is not our turn,
-						// because there is an explit when you close the save window without saving, you can move your merc even it is not your turn
-						// IF UI HAS LOCKED, ONLY ALLOW EXIT!
-						if ( gfDisableRegionActive || gfUserTurnRegionActive )
+						if ( fAlt )
 						{
-							continue;
+							RemoveCharacterFromSquads( MercPtrs[gusSelectedSoldier] );
 						}
-
-						//if the game CAN be saved
-						if( CanGameBeSaved() )
+						else if ( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) && !is_networked )
 						{
-							gfSaveGame = TRUE;
-							gfCameDirectlyFromGame = TRUE;
-
-							guiPreviousOptionScreen = GAME_SCREEN;
-							LeaveTacticalScreen( SAVE_LOAD_SCREEN );
-						}
-						else
-						{
-							//Display a message saying the player cant save now
-							switch( gGameOptions.ubIronManMode )
+							// WANNE: Do not allow saving via the save screen when it is not our turn,
+							// because there is an explit when you close the save window without saving, you can move your merc even it is not your turn
+							// IF UI HAS LOCKED, ONLY ALLOW EXIT!
+							if ( gfDisableRegionActive || gfUserTurnRegionActive )
 							{
-								case 2:
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__SOFT_IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL );
-									break;
-								case 3:
-									CHAR16 zTemp[320];
-									swprintf( zTemp, zNewTacticalMessages[ TCTL_MSG__EXTREME_IRON_MAN_CANT_SAVE_NOW ], gGameExternalOptions.ubExtremeIronManSavingHour);
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL );
-									break;
-								default:
-									DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL);
-									break;
+								continue;
 							}
-						}
-					}
-				}
-				else
-					if( fAlt )
-					{
-						if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )&& !is_networked )
-						{
+
 							//if the game CAN be saved
-							if( CanGameBeSaved() )
+							if ( CanGameBeSaved() )
 							{
+								gfSaveGame = TRUE;
+								gfCameDirectlyFromGame = TRUE;
+
 								guiPreviousOptionScreen = GAME_SCREEN;
-								//guiPreviousOptionScreen = guiCurrentScreen;
-								DoQuickSave();
+								LeaveTacticalScreen( SAVE_LOAD_SCREEN );
 							}
 							else
 							{
 								//Display a message saying the player cant save now
-								switch( gGameOptions.ubIronManMode )
+								switch ( gGameOptions.ubIronManMode )
 								{
-									case 2:
-										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__SOFT_IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, MSG_BOX_FLAG_OK, NULL );
-										break;
-									case 3:
-										CHAR16 zTemp[320];
-										swprintf( zTemp, zNewTacticalMessages[ TCTL_MSG__EXTREME_IRON_MAN_CANT_SAVE_NOW ], gGameExternalOptions.ubExtremeIronManSavingHour);
-										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, MSG_BOX_FLAG_OK, NULL );
-										break;
-									default:
-										DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, MSG_BOX_FLAG_OK, NULL, NULL );
-										break;
+								case 2:
+									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[TCTL_MSG__SOFT_IRON_MAN_CANT_SAVE_NOW], GAME_SCREEN, (UINT8)MSG_BOX_FLAG_OK, NULL );
+									break;
+								case 3:
+									CHAR16 zTemp[320];
+									swprintf( zTemp, zNewTacticalMessages[TCTL_MSG__EXTREME_IRON_MAN_CANT_SAVE_NOW], gGameExternalOptions.ubExtremeIronManSavingHour );
+									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, (UINT8)MSG_BOX_FLAG_OK, NULL );
+									break;
+								default:
+									DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[TCTL_MSG__IRON_MAN_CANT_SAVE_NOW], GAME_SCREEN, (UINT8)MSG_BOX_FLAG_OK, NULL, NULL );
+									break;
 								}
 							}
 						}
 					}
-					else if( gusSelectedSoldier != NOBODY )
+					else
 					{
-						gfPlotNewMovement = TRUE;
-						HandleStanceChangeFromUIKeys( ANIM_STAND );
+						if ( fAlt )
+						{
+							if ( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) && !is_networked )
+							{
+								//if the game CAN be saved
+								if ( CanGameBeSaved() )
+								{
+									guiPreviousOptionScreen = GAME_SCREEN;
+									//guiPreviousOptionScreen = guiCurrentScreen;
+									DoQuickSave();
+								}
+								else
+								{
+									//Display a message saying the player cant save now
+									switch ( gGameOptions.ubIronManMode )
+									{
+									case 2:
+										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[TCTL_MSG__SOFT_IRON_MAN_CANT_SAVE_NOW], GAME_SCREEN, MSG_BOX_FLAG_OK, NULL );
+										break;
+									case 3:
+										CHAR16 zTemp[320];
+										swprintf( zTemp, zNewTacticalMessages[TCTL_MSG__EXTREME_IRON_MAN_CANT_SAVE_NOW], gGameExternalOptions.ubExtremeIronManSavingHour );
+										DoMapMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, MSG_BOX_FLAG_OK, NULL );
+										break;
+									default:
+										DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[TCTL_MSG__IRON_MAN_CANT_SAVE_NOW], GAME_SCREEN, MSG_BOX_FLAG_OK, NULL, NULL );
+										break;
+									}
+								}
+							}
+						}
+						else if ( gusSelectedSoldier != NOBODY )
+						{
+							gfPlotNewMovement = TRUE;
+							HandleStanceChangeFromUIKeys( ANIM_STAND );
+						}
 					}
-					break;
+				}
+				break;
 
 			case 't':
 
@@ -4552,33 +4566,36 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'y':
-				if( fAlt )
+				if ( !AreInMeanwhile() )
 				{
-					OBJECTTYPE		Object;
-					SOLDIERTYPE *pSoldier;
-
-					if ( CHEATER_CHEAT_LEVEL( ) )
+					if ( fAlt )
 					{
-						QuickCreateProfileMerc( CIV_TEAM, MARIA ); //Ira
+						OBJECTTYPE		Object;
+						SOLDIERTYPE *pSoldier;
 
-						// Recruit!
-						RecruitEPC( MARIA );
-					
-						//Heinz: 28.02.09 BUGFIX: giving G41 to Maria only in cheat mode
-						// Create object and set
-						CreateItem( G41, 100, &Object );
+						if ( CHEATER_CHEAT_LEVEL() )
+						{
+							QuickCreateProfileMerc( CIV_TEAM, MARIA ); //Ira
 
-						pSoldier = FindSoldierByProfileID( MARIA, FALSE );
+							// Recruit!
+							RecruitEPC( MARIA );
 
-						AutoPlaceObject( pSoldier, &Object, FALSE );
+							//Heinz: 28.02.09 BUGFIX: giving G41 to Maria only in cheat mode
+							// Create object and set
+							CreateItem( G41, 100, &Object );
+
+							pSoldier = FindSoldierByProfileID( MARIA, FALSE );
+
+							AutoPlaceObject( pSoldier, &Object, FALSE );
+						}
 					}
-				}
-				else
-				{
-					// used for opening chatbox in networked game
-					if ( INFORMATION_CHEAT_LEVEL( ) )
+					else
 					{
-						*puiNewEvent = I_LOSDEBUG;
+						// used for opening chatbox in networked game
+						if ( INFORMATION_CHEAT_LEVEL() )
+						{
+							*puiNewEvent = I_LOSDEBUG;
+						}
 					}
 				}
 				break;
