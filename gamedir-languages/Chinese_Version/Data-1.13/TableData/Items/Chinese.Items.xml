@@ -14047,7 +14047,7 @@
 		<szLongItemName>燃烧弹内部</szLongItemName>
 		<szItemDesc>内部物品，请勿使用！！！</szItemDesc>
 		<szBRName>燃烧内部</szBRName>
-		<szBRDesc>不卖这个,如果你看到了说明游戏快要笑了。</szBRDesc>
+		<szBRDesc>不卖这个,如果你看到了说明游戏快要挂了。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1756</uiIndex>
@@ -14072,5 +14072,29 @@
 		<szItemDesc>这个医用夹板可以用来固定四肢，加速愈合。</szItemDesc>
 		<szBRName>医用夹板</szBRName>
 		<szBRDesc>这种通用的医用夹板适合任何手臂和腿，会帮助你更快的痊愈。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1759</uiIndex>
+		<szItemName>白烟爆炸</szItemName>
+		<szLongItemName>白烟爆炸</szLongItemName>
+		<szItemDesc>内部物品，请勿使用！！！</szItemDesc>
+		<szBRName>白烟爆炸</szBRName>
+		<szBRDesc>不卖这个,如果你看到了说明游戏快要挂了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1760</uiIndex>
+		<szItemName>灭火器瓶</szItemName>
+		<szLongItemName>灭火器瓶</szLongItemName>
+		<szItemDesc>灭火器用的加压瓶。</szItemDesc>
+		<szBRName>灭火器瓶</szBRName>
+		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
+	</ITEM>	
+	<ITEM>
+		<uiIndex>1761</uiIndex>
+		<szItemName>灭火器</szItemName>
+		<szLongItemName>灭火器</szLongItemName>
+		<szItemDesc>在实际的战斗中没有人们想象的那么有用。虽然我们知道你为什么会犯这样的错误。</szItemDesc>
+		<szBRName>灭火器</szBRName>
+		<szBRDesc>标准灭火器。</szBRDesc>
 	</ITEM>
 </ITEMLIST>

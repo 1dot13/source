@@ -285,10 +285,18 @@
 		<uiIndex>48</uiIndex>
 		<AmmoCaliber>手炮子弹</AmmoCaliber>
 		<BRCaliber>手炮子弹</BRCaliber>
+		<NWSSCaliber>手炮子弹</NWSSCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>49</uiIndex>
 		<AmmoCaliber>胡椒粉喷雾罐</AmmoCaliber>
 		<BRCaliber>胡椒粉喷雾罐</BRCaliber>
+		<NWSSCaliber>胡椒粉喷雾罐</NWSSCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>50</uiIndex>
+		<AmmoCaliber>阻燃剂瓶(弹)</AmmoCaliber>
+		<BRCaliber>阻燃剂瓶(弹)</BRCaliber>
+		<NWSSCaliber>阻燃剂瓶(弹)</NWSSCaliber>
 	</AMMO>
 </AMMOLIST>
