@@ -1798,6 +1798,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>60</ubImpact>
 		<ubDeadliness>47</ubDeadliness>
+		<ubMagSize>10</ubMagSize>
 		<usRange>180</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
