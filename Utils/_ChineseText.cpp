@@ -2480,7 +2480,7 @@ STR16 pAssignmentStrings[] =
 	L"掩埋尸体", //L"Burial",
 	L"管理", //L"Admin",
 	L"探索",	//L"Explore" TODO.Translate
-	L"Event"// rftr: merc is on a mini event // TODO: translate
+	L"事件"  //L"Event"  rftr: merc is on a mini event  TODO: translate
 };
 
 
@@ -8502,8 +8502,8 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|管|理|能|力|增|益|器",	//L"|A|d|m|i|n|i|s|t|r|a|t|i|o|n |M|o|d|i|f|i|e|r",
 	L"|间|谍|能|力|增|益|器",	//L"|H|a|c|k|i|n|g |M|o|d|i|f|i|e|r",
 	L"|医|用|夹|板", //L"|M|e|d|i|c|a|l |S|p|l|i|n|t",
-	L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o",				// 49	TODO.Translate
-	L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
+	L"|阻|燃|弹|药",				//L"|F|i|r|e |R|e|t|a|r|d|a|n|t |A|m|m|o", 49	TODO.Translate
+	L"|燃|烧|弹|药",  //L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
 };
 
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
@@ -8557,8 +8557,8 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这个工具可以\n提高%i%%的管理工作的效率。",	//L"\n \nThis item makes you more effective at\nadministrative work by %i%%.",
 	L"\n \n这个工具可以\n提高%i%%的间谍能力。",	//L"\n \nThis item improves your hacking skills by %i%%.",
 	L"\n \n一旦应用, 这个物品可以提高对你的手臂\n或者腿部重伤的治疗速率。", //L"\n \nOnce applied, this item increases the healing\nspeed of severe wounds to either your arms or legs.",
-	L"\n \nThis ammo can extinguish fire.",	// 49	 TODO.Translate
-	L"\n \nThis ammo can cause fire.",
+	L"\n \n这种弹药可以灭火。",	//L"\n \nThis ammo can extinguish fire.", 49	 TODO.Translate
+	L"\n \n这种弹药会引起燃烧（火灾）。",   //L"\n \nThis ammo can cause fire.",
 };
 
 STR16 szUDBAdvStatsTooltipText[]=
