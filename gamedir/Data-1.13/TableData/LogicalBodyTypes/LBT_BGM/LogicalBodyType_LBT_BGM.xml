@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LogicalAnimationSurfaces>
+	<Layer name="shadow">
+		<LayerProp filter="" >
+			<Surface name="LBT_BGMRIFLE_IDLE_SHADOW" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="legs">
+		<LayerProp filter="" >
+			<Surface name="LBT_BGMRIFLE_IDLE_LEGS" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="body">
+		<LayerProp filter="" >
+			<Surface name="LBT_BGMRIFLE_IDLE_TORSO" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="hands">
+		<LayerProp filter="" >
+			<Surface name="LBT_BGMRIFLE_IDLE_HANDS" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="head">
+		<LayerProp filter="" >
+			<Surface name="LBT_BGMRIFLE_IDLE_HEAD" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="helmet">
+		<LayerProp filter="IsWearingHelmet" palette="hats">
+			<Surface name="LBT_BGMRIFLE_IDLE_HELMET" animsurface="BGMSTANDING" />
+		</LayerProp> 
+		<LayerProp filter="IsWearingBeret" palette="hats">
+			<Surface name="LBT_BGMRIFLE_IDLE_BERET" animsurface="BGMSTANDING" />
+		</LayerProp>
+		<LayerProp filter="IsWearingHat" palette="hats">
+			<Surface name="LBT_BGMRIFLE_IDLE_BOONEY" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="gun">
+		<LayerProp filter="" palette="guns_v2">
+			<Surface name="LBT_BGMRIFLE_IDLE_FAL" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="gunleft">
+	</Layer>
+	<Layer name="facegear">
+		<LayerProp filter="IsWearingGasmask" palette="hats">
+			<Surface name="LBT_BGMRIFLE_IDLE_GMASK" animsurface="BGMSTANDING" />
+		</LayerProp>
+		<LayerProp filter="IsWearingNVG" palette="hats">
+			<Surface name="LBT_BGMRIFLE_IDLE_NVG" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="vest">
+		<LayerProp filter="FlakJacket" palette="hats">
+			<Surface name="LBT_BGMRIFLE_IDLE_VEST" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+	<Layer name="backpack">
+		<LayerProp filter="IsWearingBackpack" palette="hats">
+			<Surface name="LBT_BGMRIFLE_IDLE_BP" animsurface="BGMSTANDING" />
+		</LayerProp>
+	</Layer>
+</LogicalAnimationSurfaces>

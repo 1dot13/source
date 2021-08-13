@@ -1,0 +1,37 @@
+<!-- note that this is an external entity, so it is not a valid xml file by itself -->
+<!-- NOTE! Filenames have a 27 character limit. If they're longer, JA will crash when trying to load said file-->
+<!-- Standing, rifle idle -->
+<AnimSurface name="LBT_BGMRIFLE_IDLE_HEAD" file="Anims\LOBOT\BGM\S_R_STD_HERO_head.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_HANDS" file="Anims\LOBOT\BGM\S_R_STD_HERO_hands.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_TORSO" file="Anims\LOBOT\BGM\S_R_STD_HERO_torso.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_LEGS" file="Anims\LOBOT\BGM\S_R_STD_HERO_legs.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_SHADOW" file="Anims\LOBOT\BGM\S_R_STD_HERO_shadow.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_FAL" file="Anims\LOBOT\BGM\S_R_STD_HERO_FAL.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<!--<AnimSurface name="LBT_BGMRIFLE_IDLE_AR" file="Anims\LOBOT\BGM\S_R_STD_HERO_AR.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_AK47" file="Anims\LOBOT\BGM\S_R_STD_HERO_AK47.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_FAMAS" file="Anims\LOBOT\BGM\S_R_STD_HERO_famas.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_SCARH" file="Anims\LOBOT\BGM\S_R_STD_HERO_scarh.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_SHTGN" file="Anims\LOBOT\BGM\S_R_STD_HERO_shotgun.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_SAIGA" file="Anims\LOBOT\BGM\S_R_STD_HERO_saiga.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_SPAS12" file="Anims\LOBOT\BGM\S_R_STD_HERO_SPAS12.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_MOSIN" file="Anims\LOBOT\BGM\S_R_STD_HERO_mosin.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_MP5" file="Anims\LOBOT\BGM\S_R_STD_HERO_MP5.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_P90" file="Anims\LOBOT\BGM\S_R_STD_HERO_P90.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_M1A1" file="Anims\LOBOT\BGM\S_R_STD_HERO_M1A1.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_PPSH41" file="Anims\LOBOT\BGM\S_R_STD_HERO_PPSH41.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_M82" file="Anims\LOBOT\BGM\S_R_STD_HERO_M82.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_DRAGUNOV" file="Anims\LOBOT\BGM\S_R_STD_HERO_DRAGUNOV.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_PSG1" file="Anims\LOBOT\BGM\S_R_STD_HERO_PSG1.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_TRG42" file="Anims\LOBOT\BGM\S_R_STD_HERO_TRG42.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_PATRIOT" file="Anims\LOBOT\BGM\S_R_STD_HERO_PATRIOT.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_PKM" file="Anims\LOBOT\BGM\S_R_STD_HERO_PKM.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_SAW" file="Anims\LOBOT\BGM\S_R_STD_HERO_SAW.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_RPK" file="Anims\LOBOT\BGM\S_R_STD_HERO_RPK.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_M14" file="Anims\LOBOT\BGM\S_R_STD_HERO_M14.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />-->
+<AnimSurface name="LBT_BGMRIFLE_IDLE_BP" file="Anims\LOBOT\BGM\S_R_STD_HERO_BP.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_BERET" file="Anims\LOBOT\BGM\S_R_STD_HERO_beret.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_VEST" file="Anims\LOBOT\BGM\S_R_STD_HERO_vest.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_HELMET" file="Anims\LOBOT\BGM\S_R_STD_HERO_helmet.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_GMASK" file="Anims\LOBOT\BGM\S_R_STD_HERO_gasmask.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_NVG" file="Anims\LOBOT\BGM\S_R_STD_HERO_NVG.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />
+<AnimSurface name="LBT_BGMRIFLE_IDLE_BOONEY" file="Anims\LOBOT\BGM\S_R_STD_HERO_BOONEY.STI" flags="0" structdata="ANIMS\STRUCTDATA\M_STAND.JSD" directions = "8" framesperdir="8" profile="-1" />

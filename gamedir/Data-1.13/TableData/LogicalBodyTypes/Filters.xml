@@ -89,7 +89,14 @@
 		<AND>
 			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
 			<WEAPON_TYPE>GUN_AS_RIFLE</WEAPON_TYPE>
-			<HANDPOS op="in">14, 25, 26, 347, 612, 613, 614, 615, 708, 785</HANDPOS>
+			<HANDPOS op="in">14, 25, 26, 347, 606, 607, 608, 609, 610, 611, 612, 613, 614, 615, 616, 708, 785</HANDPOS>
+		</AND>
+	</Filter>
+	<Filter name="HasBlackAKInHand">
+		<AND>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+			<WEAPON_TYPE>GUN_AS_RIFLE</WEAPON_TYPE>
+			<HANDPOS op="in">606, 607, 608, 609, 610, 611, 616, 655, 656, 742</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasARInHand">
@@ -191,6 +198,12 @@
 			<!--<LEFT_WEAPON_TYPE>NOT_GUN</LEFT_WEAPON_TYPE>-->
 		</AND>
 	</Filter>
+	<Filter name="HasOnlyPistolInHand">
+		<AND>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<SECONDHANDPOS op="in">0</SECONDHANDPOS>
+		</AND>
+	</Filter>
 	<Filter name="HasMPistolInHand">
 		<AND>
 			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
@@ -203,7 +216,8 @@
 			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
 		</OR>
 		<AND>
-			<LEFT_WEAPON_TYPE>NOT_GUN</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE not="">GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE not="">GUN_M_PISTOL</LEFT_WEAPON_TYPE>
 		</AND>
 	</Filter>
 	<Filter name="HasPistolOrMPistolInLeftHand">
@@ -430,10 +444,25 @@
 			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
 		</AND>
 	</Filter>
+	<Filter name="HasKnifeInHand">
+		<AND>
+			<WEAPON_CLASS>KNIFECLASS</WEAPON_CLASS>
+		</AND>
+	</Filter>
+	<Filter name="HasCrowbarInHand">
+		<AND>
+			<HANDPOS op="in">64</HANDPOS>
+		</AND>
+	</Filter>
 	<!-- Matches all soldier objects, that are supposed to be rendered as average height regular male -->
 	<Filter name="IsRegularMaleAverage">
 		<OR>
 			<BODYTYPE>REGMALE</BODYTYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsBigMale">
+		<OR>
+			<BODYTYPE>BIGMALE</BODYTYPE>
 		</OR>
 	</Filter>
 </Filters>
