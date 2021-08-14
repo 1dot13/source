@@ -771,8 +771,7 @@
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>20</bBurstAP>
-		<APsToReload>40</APsToReload>
-		<SwapClips>1</SwapClips>
+		<APsToReload>10</APsToReload>
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
@@ -1245,7 +1244,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1280,7 +1279,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
-		<bAccuracy>-1</bAccuracy>
+		<bAccuracy>1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1310,13 +1309,13 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>6</ubCalibre>
-		<ubReadyTime>12</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubReadyTime>16</ubReadyTime>
+		<ubShotsPer4Turns>9.3</ubShotsPer4Turns>
 		<ubBurstPenalty>12</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>48</ubImpact>
 		<ubDeadliness>59</ubDeadliness>
-		<bAccuracy>-2</bAccuracy>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2651,7 +2650,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>27</ubDeadliness>
-		<bAccuracy>2</bAccuracy>
+		<bAccuracy>1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>145</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2682,11 +2681,12 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>17</ubReadyTime>
+		<ubReadyTime>16</ubReadyTime>
 		<ubShotsPer4Turns>9.83</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>30</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4021,7 +4021,7 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>16</ubReadyTime>
+		<ubReadyTime>14</ubReadyTime>
 		<ubShotsPer4Turns>10.21</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
@@ -6249,7 +6249,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>9</ubReadyTime>
-		<ubShotsPer4Turns>10.41</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10.5</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>26</ubDeadliness>
@@ -6283,8 +6283,8 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>10</ubReadyTime>
-		<ubShotsPer4Turns>11.19</ubShotsPer4Turns>
+		<ubReadyTime>17</ubReadyTime>
+		<ubShotsPer4Turns>9.9</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
@@ -6485,8 +6485,7 @@
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>20</bBurstAP>
-		<APsToReload>40</APsToReload>
-		<SwapClips>1</SwapClips>
+		<APsToReload>10</APsToReload>
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<APsToReloadManually>28</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
@@ -6816,6 +6815,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>30</ubDeadliness>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6880,12 +6880,12 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>9</ubReadyTime>
-		<ubShotsPer4Turns>11.38</ubShotsPer4Turns>
+		<ubReadyTime>17</ubReadyTime>
+		<ubShotsPer4Turns>9.92</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>29</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>12</ubMagSize>
 		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7467,11 +7467,12 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>1</ubReadyTime>
+		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>11.99</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>36</ubImpact>
 		<ubDeadliness>25</ubDeadliness>
+		<bAccuracy>-2</bAccuracy>
 		<ubMagSize>2</ubMagSize>
 		<usRange>90</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -8229,11 +8230,11 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>16</ubReadyTime>
-		<ubShotsPer4Turns>10.53</ubShotsPer4Turns>
+		<ubShotsPer4Turns>9.9</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>29</ubDeadliness>
-		<bAccuracy>-1</bAccuracy>
+		<bAccuracy>-2</bAccuracy>
 		<ubMagSize>12</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -8247,7 +8248,7 @@
 		<sLocknLoadSound>109</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>20</bBurstAP>
-		<APsToReload>20</APsToReload>
+		<APsToReload>32</APsToReload>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>481</ManualReloadSound>
 		<nAccuracy>20</nAccuracy>
@@ -8263,7 +8264,7 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>2</ubReadyTime>
+		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>11.5</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>36</ubImpact>
@@ -8600,7 +8601,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>17</ubReadyTime>
-		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10.2</ubShotsPer4Turns>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
@@ -9112,6 +9113,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>40</ubImpact>
 		<ubDeadliness>29</ubDeadliness>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>2</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -9894,12 +9896,12 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>17</ubReadyTime>
-		<ubShotsPer4Turns>10.37</ubShotsPer4Turns>
+		<ubReadyTime>15</ubReadyTime>
+		<ubShotsPer4Turns>10.2</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
-		<bAccuracy>-1</bAccuracy>
+		<bAccuracy>1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -11264,10 +11266,11 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>9</ubReadyTime>
-		<ubShotsPer4Turns>10.38</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10.85</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>4</ubMagSize>
 		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -11297,12 +11300,12 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>15</ubReadyTime>
-		<ubShotsPer4Turns>9.97</ubShotsPer4Turns>
+		<ubReadyTime>14</ubReadyTime>
+		<ubShotsPer4Turns>10.2</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>29</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -13170,8 +13173,8 @@
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
-		<ubReadyTime>20</ubReadyTime>
-		<ubShotsPer4Turns>10.41</ubShotsPer4Turns>
+		<ubReadyTime>12</ubReadyTime>
+		<ubShotsPer4Turns>10.87</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>36</ubImpact>
 		<ubDeadliness>26</ubDeadliness>
