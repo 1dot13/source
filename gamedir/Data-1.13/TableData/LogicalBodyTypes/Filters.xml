@@ -6,6 +6,45 @@
 			<FACEINDEX>200</FACEINDEX>
 		</OR>
 	</Filter>
+	<Filter name="Longsleeves">
+		<AND>
+			<VESTPOS op="in">283, 295, 806, 818, 821, 830, 833, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+		</AND>
+	</Filter>
+	<Filter name="LongsleevesANDHasPistolOrMPistolInLeftHand">
+		<AND>
+			<VESTPOS op="in">283, 295, 806, 818, 821, 830, 833, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+		</AND>
+		<OR>
+			<LEFT_WEAPON_TYPE>GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE>GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="LongsleevesANDHasPistolOrMPistolInRightHand">
+		<AND>
+			<VESTPOS op="in">283, 295, 806, 818, 821, 830, 833, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+		<AND>
+			<LEFT_WEAPON_TYPE not="">GUN_PISTOL</LEFT_WEAPON_TYPE>
+			<LEFT_WEAPON_TYPE not="">GUN_M_PISTOL</LEFT_WEAPON_TYPE>
+		</AND>
+	</Filter>
+	<Filter name="LongsleevesANDHasRifleTypeWeaponInHand">
+		<AND>
+			<VESTPOS op="in">283, 295, 806, 818, 821, 830, 833, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>
+	</Filter>
 	<Filter name="FlakJacket">
 		<AND>
 			<VESTPOS op="in">161, 162, 163, 164, 165, 166, 167, 168, 169, 196, 197, 198, 283, 295, 803, 806, 812, 815, 818, 821, 824, 827, 830, 833, 836, 840, 842, 843, 844, 847, 848, 849, 850, 851, 856, 857, 858, 859, 860, 865, 866, 867, 868, 869</VESTPOS>
@@ -20,6 +59,31 @@
 		<AND>
 			<HELMETPOS op="in">176, 177, 178, 179, 180, 181, 182, 293, 302, 801, 804, 810, 813, 816, 819, 822, 825, 828, 831, 834, 839, 1100, 1135</HELMETPOS>
 		</AND>
+	</Filter>
+	<Filter name="IsWearingCamoHelmet">
+		<AND>
+			<HELMETPOS op="in">302, 801, 804, 810, 813, 816, 822, 825, 828, 834, 839, 1100, 1135</HELMETPOS>
+		</AND>
+	</Filter>
+	<Filter name="IsWearingCamoHelmetAndHasPistol">
+		<AND>
+			<HELMETPOS op="in">302, 801, 804, 810, 813, 816, 822, 825, 828, 834, 839, 1100, 1135</HELMETPOS>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
+	</Filter>
+	<Filter name="IsWearingCamoHelmetAndHasRifle">
+		<AND>
+			<HELMETPOS op="in">302, 801, 804, 810, 813, 816, 822, 825, 828, 834, 839, 1100, 1135</HELMETPOS>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>		
 	</Filter>
 	<Filter name="IsWearingBeret">
 		<AND>
@@ -38,10 +102,31 @@
 			<HEAD2POS op="in">211, 246, 1024, 1025</HEAD2POS>
 		</OR>
 	</Filter>
-	<Filter name="Knees">
+	<Filter name="HasKneepads">
 		<AND>
 			<LEGPOS op="in">838</LEGPOS>
 		</AND>
+	</Filter>
+	<Filter name="HasKneepadsAndHasRifle">
+		<AND>
+			<LEGPOS op="in">838</LEGPOS>
+			<WEAPON_IN_HAND>1</WEAPON_IN_HAND>
+		</AND>
+		<OR>
+			<WEAPON_CLASS>SMGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>RIFLECLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>MGCLASS</WEAPON_CLASS>
+			<WEAPON_CLASS>SHOTGUNCLASS</WEAPON_CLASS>
+		</OR>		
+	</Filter>
+	<Filter name="HasKneepadsAndHasPistol">
+		<AND>
+			<LEGPOS op="in">838</LEGPOS>
+		</AND>
+		<OR>
+			<WEAPON_TYPE>GUN_PISTOL</WEAPON_TYPE>
+			<WEAPON_TYPE>GUN_M_PISTOL</WEAPON_TYPE>
+		</OR>
 	</Filter>
 	<Filter name="IsWearingBackpack">
 		<OR>
@@ -179,6 +264,11 @@
 	<Filter name="HasPatriotInHand">
 		<AND>
 			<HANDPOS op="in">19, 684, 685, 698, 728, 729</HANDPOS>
+		</AND>
+	</Filter>
+		<Filter name="HasMilkorInHand">
+		<AND>
+			<HANDPOS op="in">40, 50, 903, 906, 907, 908, 920, 922</HANDPOS>
 		</AND>
 	</Filter>
 	<Filter name="HasRifleTypeWeaponInHand">
